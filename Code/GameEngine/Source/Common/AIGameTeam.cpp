@@ -164,6 +164,62 @@ public:
     Rva004E962A();
 };
 
+// Keep vector<void*> begin/end inline without emitting this unit's /O1 COMDAT
+// copies: retail's out-of-line ones are the /Od bodies (0x00023B90, 0x00023BA0).
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+void **vector<void*>::begin() { return this->_M_start; }
+template <> __declspec(dllimport) __forceinline
+void **vector<void*>::end() { return this->_M_finish; }
+}
+
+class Rva004E9378
+{
+public:
+	bool rva004E9378();
+};
+
+class AIMoneyLender
+{
+public:
+	void update();
+};
+
+struct Rva004E9446Elem
+{
+	virtual void *v00(int arg);
+	char m_pad[0x10 - 4];
+	int m_10;
+};
+
+struct LivingWorldArmy;
+
+namespace _STL
+{
+// Bind push_back to the rowed 0x004DFCB0 worker.
+template <> void vector<LivingWorldArmy *, allocator<LivingWorldArmy *> >::push_back(LivingWorldArmy *const &);
+}
+
+class Rva00596B05
+{
+public:
+	Rva00596B05(void *a1, void *a2, int a3, int a4);
+	virtual ~Rva00596B05();
+private:
+	char m_pad[0x3C - 4];
+};
+
+class Rva004E97C6
+{
+public:
+	Rva00596B05 *rva004E97C6(void *a1, void *a2, int a3, int a4);
+private:
+	char m_pad00[0x18];
+	_STL::vector<LivingWorldArmy *, _STL::allocator<LivingWorldArmy *> > m_members;	// +0x18
+};
+
+// ---- from Code/GameEngine/Source/Common/AIGameTeam.cpp
+
 // ---- from Code/GameEngine/Source/Common/AIGameTeam_getMasterPlayer.cpp
 
 void *AIGameTeam::getMasterPlayer()
@@ -185,12 +241,6 @@ void *AIGameTeam::getMasterPlayer()
     }
     return found;
 }
-
-// tu-skeleton: 0x004E9419 45B ?rva004E9419@Rva004E9419@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x004E9446 91B ?rva004E9446@AIGameTeam@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva004E9446Erase.cpp (not merged yet)
-
-// tu-skeleton: 0x004E94A1 41B ?rva004E94A1@Rva004E9419@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/AIGameTeam.cpp
 
@@ -257,6 +307,51 @@ void AIGameTeam::addPlayer(const ModuleData *parent)
 	m_24 = true;
 }
 
+// ---- from Code/GameEngine/Source/Common/Rva004E962ACtor.cpp
+
+// ??0Rva004E962A@@QAE@XZ @0x004E962A 45B ctor map<int void*> at +0 plus 2x vector<BfmeE16> at +0xc +0x18 plus bool true at +0x24 callees map-int-ptr vector-e16 caller 0x002A9476
+
+Rva004E962A::Rva004E962A() : m_24(true)
+{
+}
+
+// tu-skeleton: 0x004E9419 45B ?rva004E9419@Rva004E9419@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva004E9446Erase.cpp
+
+//
+// ?rva004E9446@AIGameTeam@@QAEXXZ @ 0x004E9446, 91 bytes.
+// Predicate-gated erase walk over vector<void*> at +0x18 (end cached, refreshed
+// after each erase): per element call rowed bool predicate 0x004E9378 ([+0x10]==2/3);
+// when true delete (elem ? elem->v00(0) : 0) via rowed scalar delete 0x0002FD60 and
+// erase via rowed vector<void*>::erase 0x001FF51F; when false call the rowed
+// AIMoneyLender::update 0x00596B10 if elem[+0x10]==1 then advance. Same this as caller AIGameTeam::update 0x004E9710.
+
+void AIGameTeam::rva004E9446()
+{
+	_STL::vector<void *>::iterator end = m_vec18.end();
+	_STL::vector<void *>::iterator it = m_vec18.begin();
+	while (it != end)
+	{
+		Rva004E9446Elem *e = (Rva004E9446Elem *)*it;
+		if (((Rva004E9378 *)e)->rva004E9378())
+		{
+			void *p = e ? e->v00(0) : (void *)0;
+			delete p;
+			it = m_vec18.erase(it);
+			end = m_vec18.end();
+		}
+		else
+		{
+			if (e->m_10 == 1)
+				((AIMoneyLender *)e)->update();
+			++it;
+		}
+	}
+}
+
+// tu-skeleton: 0x004E94A1 41B ?rva004E94A1@Rva004E9419@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
+
 // tu-skeleton: 0x004E94FB 33B ?rva004E94FB@AIGameTeam@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva004F8B89Fwd.cpp (not merged yet)
 
 // tu-skeleton: 0x004E951C 67B ?rva004E951C@AIGameTeam@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/Rva004F8B89Fwd.cpp (not merged yet)
@@ -269,19 +364,27 @@ void AIGameTeam::addPlayer(const ModuleData *parent)
 
 // tu-skeleton: 0x004E95CF 5B ?rva004E95CF@Rva004E95CF@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/Rva004E962ACtor.cpp
-
-// ??0Rva004E962A@@QAE@XZ @0x004E962A 45B ctor map<int void*> at +0 plus 2x vector<BfmeE16> at +0xc +0x18 plus bool true at +0x24 callees map-int-ptr vector-e16 caller 0x002A9476
-
-Rva004E962A::Rva004E962A() : m_24(true)
-{
-}
-
 // tu-skeleton: 0x004E9657 185B ??1Rva004E9657@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAITeamOwnedDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x004E9710 182B ?update@AIGameTeam@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva004F8B89Fwd.cpp (not merged yet)
 
-// tu-skeleton: 0x004E97C6 93B ?rva004E97C6@Rva004E97C6@@QAEPAVRva00596B05@@PAX0HH@Z -- matched in Code/GameEngine/Source/Common/Rva004E97C6Create.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva004E97C6Create.cpp
+
+//
+// Retail 0x004E97C6 (93B, EH, RET 0x10): news a Rva00596B05 (0x3C bytes, the
+// AIMoneyLender-labelled object whose rowed constructor 0x00596BF3 takes two
+// pointers and two ints), appends it to the owner's pointer vector at +0x18
+// through the rowed push_back 0x004DFCB0 (named for another pointer element;
+// the storage is the same) and returns it. The push_back takes its element
+// by reference, so retail spills the new pointer into the dead fourth
+// argument slot. The owner and the element's role are unknown (address names).
+
+Rva00596B05 *Rva004E97C6::rva004E97C6(void *a1, void *a2, int a3, int a4)
+{
+	Rva00596B05 *member = new Rva00596B05(a1, a2, a3, a4);
+	m_members.push_back(reinterpret_cast<LivingWorldArmy *>(member));
+	return member;
+}
 
 // tu-skeleton: 0x0079250A 8B $L3110 -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
 

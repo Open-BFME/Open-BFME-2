@@ -41912,7 +41912,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x004E93A8,64,code,,,-,,Code/GameEngine/Source/Common/Rva004E93A8Count.cpp
 0x004E93E8,49,code,Code/GameEngine/Source/Common/AIGameTeam.cpp,approved,N,N=Code/GameEngine/Source/Common/AIGameTeam.cpp W=Code/GameEngine/Source/GameLogic/SkirmishAI/GameTeams.cpp provisional,Code/GameEngine/Source/Common/AIGameTeam.cpp
 0x004E9419,45,code,Code/GameEngine/Source/Common/AIGameTeam.cpp,approved,C,C=0x004E93E8..0x004E9446 provisional,Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp
-0x004E9446,91,code,Code/GameEngine/Source/Common/AIGameTeam.cpp,approved,N,N=Code/GameEngine/Source/Common/AIGameTeam.cpp provisional,Code/GameEngine/Source/Common/Rva004E9446Erase.cpp
+0x004E9446,91,code,Code/GameEngine/Source/Common/AIGameTeam.cpp,approved,N,N=Code/GameEngine/Source/Common/AIGameTeam.cpp provisional,Code/GameEngine/Source/Common/AIGameTeam.cpp
 0x004E94A1,41,code,Code/GameEngine/Source/Common/AIGameTeam.cpp,approved,C,C=0x004E9446..0x004E94CA provisional,Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp
 0x004E94CA,49,code,Code/GameEngine/Source/Common/AIGameTeam.cpp,approved,C,C=0x004E9446..0x004E94FB provisional,Code/GameEngine/Source/Common/AIGameTeam.cpp
 0x004E94FB,33,code,Code/GameEngine/Source/Common/AIGameTeam.cpp,approved,N,N=Code/GameEngine/Source/Common/AIGameTeam.cpp provisional,Code/GameEngine/Source/Common/Rva004F8B89Fwd.cpp
@@ -41926,7 +41926,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x004E962A,45,code,Code/GameEngine/Source/Common/AIGameTeam.cpp,approved,C,C=0x004E955F..0x004E9657 provisional,Code/GameEngine/Source/Common/AIGameTeam.cpp
 0x004E9657,185,code,Code/GameEngine/Source/Common/AIGameTeam.cpp,approved,C,C=0x004E955F..0x004E9710 provisional,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAITeamOwnedDtor.cpp
 0x004E9710,182,code,Code/GameEngine/Source/Common/AIGameTeam.cpp,approved,N,N=Code/GameEngine/Source/Common/AIGameTeam.cpp provisional,Code/GameEngine/Source/Common/Rva004F8B89Fwd.cpp
-0x004E97C6,93,code,Code/GameEngine/Source/Common/AIGameTeam.cpp,approved,C,C=0x004E9710..0x004E9823 provisional,Code/GameEngine/Source/Common/Rva004E97C6Create.cpp
+0x004E97C6,93,code,Code/GameEngine/Source/Common/AIGameTeam.cpp,approved,C,C=0x004E9710..0x004E9823 provisional,Code/GameEngine/Source/Common/AIGameTeam.cpp
 0x004E9823,137,code,Code/GameEngine/Source/Common/AIGameTeam.cpp,approved,N,N=Code/GameEngine/Source/Common/AIGameTeam.cpp W=Code/GameEngine/Source/GameLogic/SkirmishAI/GameTeams.cpp provisional,Code/GameEngine/Source/Common/AIGameTeam.cpp
 0x004E98AC,8,code,,,-,,Code/GameEngine/Source/Common/Rva004E9F6EGate.cpp
 0x004E98B4,42,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AIWallBuilder/AIWallBuilder.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/SkirmishAI/AIWallBuilder/AIWallBuilder.cpp W=Code/GameEngine/Source/GameLogic/SkirmishAI/AIWallBuilder/AIWallBuilder.cpp provisional,Code/GameEngine/Source/GameLogic/SkirmishAI/AIWallBuilder/AIWallBuilder.cpp
