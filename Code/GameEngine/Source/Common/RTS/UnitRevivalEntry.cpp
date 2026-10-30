@@ -41,6 +41,27 @@ class Snapshot;
 #include "../../../Include/Common/BfmeXfer.h"
 #include "ascii_string.h"
 #include <string.h>
+#define TheRva00DFF000 TheThingFactory
+#include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
+#pragma intrinsic(_ReadWriteBarrier)
+#include "../GameLogicObjectLookupView.h"
+// UnitRevivalTracker::retrieveHeroesForArmySummary, retail 0x0037EB3C (174 bytes):
+// ?retrieveHeroesForArmySummary@UnitRevivalTracker@@QAEXPAVArmySummarySystem@@@Z
+// Identity (target): WorldBuilder's debug UnitRevivalTracker.cpp
+// UnitRevivalTracker::retrieveHeroesForArmySummary calls, in retail's
+// order, the living-world player lookup (0x002B51F8),
+// UnitRevivalEntry::getThingTemplate (0x0037E270), two kind-of tests, the
+// player's 0x002E1CA7 test, then ArmySummarySystem::AddDeadHeroEntry
+// (WB-named, 0x0040F10F) or the player's 0x002E2F39.
+// Body (target): nothing when the owner (+0x10) has no living-world id
+// (Player +0x3AC == -1) or no living-world player; otherwise each revival
+// entry (vector at +0x04, 0xD8 bytes each) whose template has kinds 90 and
+// 128 goes to the army summary when the living-world player accepts it,
+// else back to that player. Kind indices are read off the tested bits.
+
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
+#pragma intrinsic(_ReadWriteBarrier)
 
 class Xfer::Version
 {
@@ -81,50 +102,17 @@ public:
 	// Keep the existing clear worker while constructing this member in order.
 	__forceinline Rva001EAE6FHelper() throw() { clear80(); }
 };
+
 class Rva004E04FD
 {
 	char m_data[0x18];
 public:
 	Rva004E04FD() throw();
 };
+
 class Object;
+
 class Image;
-
-class UnitRevivalEntry
-{
-public:
-	UnitRevivalEntry();
-	UnitRevivalEntry(Object *object);
-	UnitRevivalEntry(const UnitRevivalEntry &that);
-	~UnitRevivalEntry();
-	UnitRevivalEntry &operator=(const UnitRevivalEntry &that);
-	void *getThingTemplate();
-	void setThingTemplateName(const AsciiString &name);
-	void rva0037E473(Xfer *xfer);
-	int revivalEntryCalcTimeToBuild(const Player *player, Object *producer);
-	int revivalEntryCalcCostToBuild(const Player *player, Object *producer);
-	const Image *calcButtonImage(const Player *player);
-
-	int m_00;
-	int m_04;
-	float m_08;
-	int m_0C;
-	int m_10;
-	Rva001EAE6FHelper m_14;
-	int m_94;
-	int m_98;
-	unsigned int m_9C; // build time, from the template's float via _ftol
-	bool m_A0;
-	bool m_A1;
-	int m_A4;
-	int m_A8;
-	int m_AC;
-	Rva004E04FD m_B0;
-	int m_C8;
-	float m_CC;
-	int m_D0;
-	AsciiString m_str; // +0xD4
-};
 
 // The native 0x37F435 call uses the existing D8-stride erase owner at
 // 0x2E2690. Both views describe that same vector ABI; preserve the owner name.
@@ -146,38 +134,10 @@ typedef _STL::vector<UnitRevivalEntry> UnitRevivalEntryVector;
 
 class ThingTemplate;
 
-// Retail table 0x00C18DF0 holds only xfer (0x0037F39E): no Snapshot base,
-// no virtual destructor.
-class UnitRevivalTracker
-{
-public:
-	UnitRevivalTracker(Player *owner);
-	void rva0037F26D();
-	void removeBuildUnit(const ThingTemplate *tmpl);
-
-protected:
-	virtual void xfer(Xfer *xfer);
-
-private:
-	UnitRevivalEntryVector m_entries; // +0x04
-	Player *m_player; // +0x10
-};
-
 enum KindOfType
 {
 	KINDOF_90 = 90,
 	KINDOF_128 = 128
-};
-
-class ThingTemplate
-{
-public:
-	__declspec(dllimport) __forceinline bool isKindOf(KindOfType t) const { return (m_kindOf[t >> 3] & (1 << (t & 7))) != 0; }
-
-	char unknown00[0x64];
-	AsciiString name; // +0x64
-	char unknown68[0x108 - 0x68];
-	unsigned char m_kindOf[0x20]; // +0x108
 };
 
 struct RevivalIndexEntry
@@ -219,45 +179,483 @@ public:
 	void rva0037EB1D(void *dest);
 };
 
+class ThingFactory { public: const ThingTemplate *findTemplate(const AsciiString &key); };
+
+extern ThingFactory *TheThingFactory;
+
+struct Rva0037E3D9Def
+{
+	char m_pad00[0x4DC];
+	float m_buildTime;
+	char m_pad4E0[0x5DA - 0x4E0];
+	unsigned short m_buildCost;
+};
+
+class Xfer;
+
+extern "C" void _ReadWriteBarrier(void);
+
+extern GameLogic *TheGameLogic;
+
+class Player;
+
+typedef UnitRevivalEntry Elem216;
+
+struct Vec216 { Elem216 *m_start; Elem216 *m_finish; Elem216 *m_end; };
+
+class Rva0037E421 {
+    int m_00;
+    Vec216 m_vec;
+public:
+    void *rva0037E421(int index);
+    void *rva0037E915(int index);
+    unsigned char rva0037E7BC(int index);
+    void *rva0037E451(int key);
+    unsigned char productionSystemCancelUnitCreate(int key);
+    void *rva0037E7A5(int index);
+};
+
+// ?rva0037E6E8@Rva0037E6E8@@QAEHPAX0@Z @0x0037E6E8 159B
+// Leaf body called by ProductionUpdate::calcTotalProductionFrames at 0x0049CD8E via Player+0x738 slot.
+// Entry lookup via Rva0037E421::rva0037E451, controlling-player gate via
+// Object::getControllingPlayer plus Rva002A9BF2 == 3, PlayerList gate via
+// TheSkirmishAIManager plus Rva002A8AB1, time via UnitRevivalEntry::
+// revivalEntryCalcTimeToBuild with this+0x10 player, scale = min(1.0f,
+// *(TheSkirmishAIManager+0x854)), return (int)(t*(1.0f-scale)). No donor; recipe follows
+// UpgradeTemplate::rva0026EE30 precedent for (int)void* plus TheSkirmishAIManager plus void* args.
+// Honest-address name: owner unknown so Rva0037E6E8 class, void* void* args (PAX0 compression).
+class Object
+{
+public:
+    Player *getControllingPlayer() const;
+};
+
+class Rva002A9BF2
+{
+public:
+    void *rva002A9BF2();
+};
+
+class Rva003A2BD4M08;
+
+struct Rva002A8AB1Record;
+
+// 0x002A8AB1 by its row name (Rva002A8AB1.cpp).
+class Rva002A8F24
+{
+public:
+    Rva002A8AB1Record *rva002A8AB1(void *owner);
+};
+
+extern Rva002A8F24 *TheSkirmishAIManager;
+
+class Rva0037E6E8 : public Rva0037E421
+{
+public:
+    Player *m_10;
+    int rva0037E6E8(void *extra, void *object);
+    int rva0037E649(int index, Object *object);
+    float rva0037E898(int index, int *cost, Object *object);
+    float rva0037E815(int index, Object *object);
+};
+
+// ?rva0037E787@Rva0037E787@@QAEHPAX0@Z @0x0037E787 30B
+// Gap body between 0x0037E6E8 and 0x0037E7A5 in the same TU.
+// Entry lookup via Rva0037E421::rva0037E421 then direct time via UnitRevivalEntry::
+// revivalEntryCalcTimeToBuild with this+0x10 player. Called at 0x005DAFA4 with
+// ecx = AIBuildableUnit+0x738 member. Same +0x10 player layout as Rva0037E6E8.
+// Honest-address name: owner unknown so Rva0037E787 class, void* void* args (PAX0 compression).
+class Rva0037E787 : public Rva0037E421
+{
+public:
+    Player *m_10;
+    int rva0037E787(void *extra, void *object);
+};
+
+// ?rva0037EDC6@Rva0037EDC6@@QAEPBVImage@@H@Z @0x0037EDC6 26B
+// Leaf body between 0x0037EBEA calcButtonImage and 0x0037EDE0 productionSystem.
+// Entry lookup via Rva0037E421::rva0037E421 then UnitRevivalEntry::
+// calcButtonImage with the this+0x10 Player pointer; native37ECB0 and37ED3B
+// establish this use. Same +0x10 layout as
+// UnitRevivalTracker::productionSystemQueueCreateUnit in UnitRevivalTracker.cpp
+// which passes its Player to calcButtonImage. Both callees are now rowed.
+// Honest-address name: owner unknown so Rva0037EDC6 class,
+// const Image* return, int index.
+class Rva0037EDC6 : public Rva0037E421
+{
+public:
+    Player *m_10;
+    const Image *rva0037EDC6(int index);
+};
+
+class Rva002E2903Player
+{
+public:
+	bool rva002E1CA7(UnitRevivalEntry *entry);
+};
+
+// Rows 0x0040F10F (ArmySummarySystem::AddDeadHeroEntry, Rva0040ECCF.cpp) and
+// 0x002E2F39 (Rva002E2F39::rva002E2F39), called by their row names.
+struct Rva002E2D10Record;
+
+class Rva002E2F39
+{
+public:
+	void rva002E2F39(const Rva002E2D10Record &record);
+};
+
+class Rva002BA8F1Logic
+{
+public:
+	Rva002E2903Player *find(int id, unsigned int *index);
+};
+
+class ArmySummarySystem
+{
+public:
+	void AddDeadHeroEntry(UnitRevivalEntry *entry);
+};
+
+class ThingTemplate
+{
+public:
+	__declspec(dllimport) __forceinline bool isKindOf(KindOfType t) const { return (m_kindOf[t >> 3] & (1 << (t & 7))) != 0; }
+
+	char unknown00[0x64];
+	AsciiString name; // +0x64
+	char unknown68[0x108 - 0x68];
+	unsigned char m_kindOf[0x20]; // +0x108
+};
+
+class Rva002E0D93
+{
+public:
+	char m_pad00[0xA4];
+	int m_keyA4;
+	char m_padA8[0xD4 - 0xA8];
+	AsciiString m_strD4;
+};
+
+class Rva002E204D
+{
+public:
+	Rva002E0D93 *rva002E204D(Rva002E0D93 *pos);
+	Rva002E0D93 *m_start00;
+	Rva002E0D93 *m_finish04;
+	Rva002E0D93 *m_end08;
+};
+
+// The real STLport vector replaces the private three-pointer view; erase stays
+// a declaration bound to the rowed 0x002E2690 provider, which clear() calls
+// over the whole member range.
+namespace _STL
+{
+template <> vector<Rva002E2690Element>::iterator vector<Rva002E2690Element>::erase(iterator, iterator);
+}
+
+class UnitRevivalEntry
+{
+public:
+	UnitRevivalEntry();
+	UnitRevivalEntry(Object *object);
+	UnitRevivalEntry(const UnitRevivalEntry &that);
+	~UnitRevivalEntry();
+	UnitRevivalEntry &operator=(const UnitRevivalEntry &that);
+	void *getThingTemplate();
+	void setThingTemplateName(const AsciiString &name);
+	void rva0037E473(Xfer *xfer);
+	int revivalEntryCalcTimeToBuild(const Player *player, Object *producer);
+	int revivalEntryCalcCostToBuild(const Player *player, Object *producer);
+	const Image *calcButtonImage(const Player *player);
+
+	int m_00;
+	int m_04;
+	float m_08;
+	int m_0C;
+	int m_10;
+	Rva001EAE6FHelper m_14;
+	int m_94;
+	int m_98;
+	unsigned int m_9C; // build time, from the template's float via _ftol
+	bool m_A0;
+	bool m_A1;
+	int m_A4;
+	int m_A8;
+	int m_AC;
+	Rva004E04FD m_B0;
+	int m_C8;
+	float m_CC;
+	int m_D0;
+	AsciiString m_str; // +0xD4
+};
+
+ 
+ 
+class UnitRevivalTracker
+{
+public:
+	UnitRevivalTracker(Player *owner);
+public:
+	void rva0037F26D();
+public:
+	void removeBuildUnit(const ThingTemplate *tmpl);
+protected:
+	virtual void xfer(Xfer *xfer);
+private:
+	UnitRevivalEntryVector m_entries;
+private:
+	Player *m_player;
+public:
+	void retrieveHeroesForArmySummary(ArmySummarySystem *summary);
+public:
+	void rva0037EF2D(unsigned int key);
+public:
+	void removeBuildUnitByIndex(int index);
+public:
+	void addRevivableUnit(const Rva002E2D10Record &item, Player *player);
+};
+
 // tu-skeleton: 0x0037E18A 115B ?revivalEntryCalcCostToBuild@UnitRevivalEntry@@QAEHPBVPlayer@@PAVObject@@@Z -- matched in Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp (not merged yet)
 
 // tu-skeleton: 0x0037E1FD 115B ?revivalEntryCalcTimeToBuild@UnitRevivalEntry@@QAEHPBVPlayer@@PAVObject@@@Z -- matched in Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp (not merged yet)
 
-// tu-skeleton: 0x0037E270 25B ?getThingTemplate@UnitRevivalEntry@@QAEPAXXZ -- matched in Code/GameEngine/Source/Common/Rva0037E270Lookup.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva0037E270Lookup.cpp
+
+//
+// ?getThingTemplate@UnitRevivalEntry@@QAEPAXXZ retail 0x0037E270 25 bytes.
+// Null-checked global lookup via 0x00DFF000 plus AsciiString at +0xd4.
+// Returns 0 when global null else rowed 0x002D06CA result. Callers
+// 0x002E1A25 0x0037E3F6 0x0037E7B4 0x0037E93E 0x0037EB8C 0x0037EFB9
+// 0x004067DD. Flags from sibling Rva002D06CAGet without EHsc.
+
+void *UnitRevivalEntry::getThingTemplate()
+{
+    ThingFactory *mgr = TheRva00DFF000;
+    if (mgr == 0)
+        return 0;
+    return (void *)mgr->findTemplate(*((const AsciiString *)((char *)this + 0xd4)));
+}
+
+void UnitRevivalEntry::setThingTemplateName(const AsciiString &asciiString)
+{
+    m_str = asciiString;
+    if (m_A0)
+        return;
+    void *def = getThingTemplate();
+    if (!def)
+        return;
+    m_94 = ((Rva0037E3D9Def *)def)->m_buildCost;
+    m_9C = (unsigned int)((Rva0037E3D9Def *)def)->m_buildTime;
+}
 
 // tu-skeleton: 0x0037E289 201B ??0UnitRevivalEntry@@QAE@PBVThingTemplate@@@Z -- matched in Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp (not merged yet)
 
-// tu-skeleton: 0x0037E352 135B ??0UnitRevivalEntry@@QAE@XZ -- matched in Code/GameEngine/Source/Common/UnitRevivalEntry.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/UnitRevivalEntry.cpp
 
-// tu-skeleton: 0x0037E3D9 72B ?setThingTemplateName@UnitRevivalEntry@@QAEXABVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/Rva0037E270Lookup.cpp (not merged yet)
+// ??0UnitRevivalEntry@@QAE@XZ @0x0037E352 135B
+// Default ctor over UnitRevivalEntry: zeros plus ones plus clear80 0x001EAE6F plus
+// Rva004E04FD ctor plus float global 1.0f plus AsciiString null.
+// Neighbours in Rva0037E270Lookup.cpp share /O1 /DNDEBUG /MD; /arch:SSE for
+// retail xorps plus movss float zero and global float moves.
 
-// tu-skeleton: 0x0037E421 48B ?rva0037E421@Rva0037E421@@QAEPAXH@Z -- matched in Code/GameEngine/Source/Common/Rva0037E421Accessor.cpp (not merged yet)
+UnitRevivalEntry::UnitRevivalEntry()
+    : m_00(0), m_04(0), m_08(0.0f), m_0C(1), m_10(1), m_14(),
+      m_94(0), m_98(-1), m_9C(0), m_A0(false), m_A1(false),
+      m_A4(0), m_A8(0), m_AC(0), m_B0(), m_C8(0), m_CC(1.0f),
+      // Retail stores m_CC before initializing the final two words.
+      m_D0((_ReadWriteBarrier(), 0)), m_str()
+{
+}
 
-// tu-skeleton: 0x0037E451 34B ?rva0037E451@Rva0037E421@@QAEPAXH@Z -- matched in Code/GameEngine/Source/Common/Rva0037E421Accessor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva0037E421Accessor.cpp
+
+// ?rva0037E421@Rva0037E421@@QAEPAXH@Z @0x0037E421 48B
+// Bounds-checked accessor for the 216-byte (0xD8) element vector at +0x04/+0x08.
+// Returns null when index < 0 or index >= (finish-start)/216 via signed idiv (cdq),
+// else start+index*216. Proven by 14 direct callers needing this exact shape.
+// Unlock lane; landing unblocks 11 functions. No donor; recipe follows
+// Rva00219B9EAccessor signed-idiv precedent with /O1 keeping idiv.
+// Honest-address name: owner unknown so Rva0037E421 class, void* return, int index.
+
+static __forceinline unsigned VecSize(Vec216 *v) { return v->m_finish - v->m_start; }
+
+static __forceinline Elem216 &VecAt(Vec216 *v, int i) { return v->m_start[i]; }
+
+void *Rva0037E421::rva0037E421(int index)
+{
+    if (index < 0)
+        return 0;
+    unsigned int count = VecSize(&m_vec);
+    if ((unsigned int)index < count)
+        return &VecAt(&m_vec, index);
+    return 0;
+}
+
+// ?rva0037E7BC@Rva0037E421@@QAEEH@Z @0x0037E7BC 30B
+// Chain of rva0037E421; returns element+0x98 == -1 as unsigned char, else 0.
+// Proven by caller at 0x00392C96 and the rowed callee; same class and flags.
+unsigned char Rva0037E421::rva0037E7BC(int index)
+{
+    void *p = rva0037E421(index);
+    if (!p)
+        return 0;
+    return ((Elem216 *)p)->m_98 == -1;
+}
+
+// ?rva0037E451@Rva0037E421@@QAEPAXH@Z @0x0037E451 34B
+// Linear search of the same 216-byte vector for element with m_A4 == key.
+// Proven by 4 callers and the +4/+8 vector with 0xD8 stride; same class and flags.
+void *Rva0037E421::rva0037E451(int key)
+{
+    Elem216 *p = m_vec.m_start;
+    Elem216 *end = m_vec.m_finish;
+    for (; p != end; ++p) {
+        if (p->m_A4 == key)
+            return p;
+    }
+    return 0;
+}
+
+// ?productionSystemCancelUnitCreate@Rva0037E421@@QAEEH@Z @0x0037E7DA 59B
+// Chain of rva0037E451; if element missing or m_98 == -1 return 0 else set
+// m_98/m_A4 to -1 via or -1, m_CC to 1.0f via movss, return 1. Proven by caller
+// at 0x0049DCE7 and the shared 1.0f literal at 0x00BBB8D8; same class, /arch:SSE for movss.
+unsigned char Rva0037E421::productionSystemCancelUnitCreate(int key)
+{
+    Elem216 *e = (Elem216 *)rva0037E451(key);
+    if (!e)
+        return 0;
+    if (e->m_98 != -1) {
+        e->m_98 = -1;
+        e->m_A4 = -1;
+        e->m_CC = 1.0f;
+        return 1;
+    }
+    return 0;
+}
+
+// ?rva0037E7A5@Rva0037E421@@QAEPAXH@Z @0x0037E7A5 23B
+// Chain of rva0037E421 then rowed UnitRevivalEntry::getThingTemplate; null if element missing.
+// Proven by 5 callers and rowed callees 0x0037E421 and 0x0037E270; same class and flags.
+void *Rva0037E421::rva0037E7A5(int index)
+{
+    void *p = rva0037E421(index);
+    if (!p)
+        return 0;
+    return ((UnitRevivalEntry *)p)->getThingTemplate();
+}
+
+int Rva0037E6E8::rva0037E6E8(void *extra, void *object)
+{
+    void *entry = rva0037E451((int)extra);
+    if (!entry)
+        return 0;
+    Object *obj = (Object *)object;
+    void *p1 = obj->getControllingPlayer();
+    if ((int)((Rva002A9BF2 *)p1)->rva002A9BF2() == 3) {
+        void *p2 = obj->getControllingPlayer();
+        if (TheSkirmishAIManager->rva002A8AB1((Rva003A2BD4M08 *)p2)) {
+            float *limitPtr = (float *)((char *)TheSkirmishAIManager + 0x854);
+            float scale = (1.0f > *limitPtr) ? *limitPtr : 1.0f;
+            int t = ((UnitRevivalEntry *)entry)->revivalEntryCalcTimeToBuild(m_10, obj);
+            return (int)((float)t * (1.0f - scale));
+        }
+    }
+    return ((UnitRevivalEntry *)entry)->revivalEntryCalcTimeToBuild(m_10, obj);
+}
+
+int Rva0037E787::rva0037E787(void *extra, void *object)
+{
+    void *entry = rva0037E421((int)extra);
+    if (!entry)
+        return 0;
+    return ((UnitRevivalEntry *)entry)->revivalEntryCalcTimeToBuild(m_10, (Object *)object);
+}
+
+const Image *Rva0037EDC6::rva0037EDC6(int index)
+{
+    void *entry = rva0037E421(index);
+    if (!entry)
+        return 0;
+    return ((UnitRevivalEntry *)entry)->calcButtonImage(m_10);
+}
+
+// Native 37E649..37E6E8 RET8; index-based cost twin of the full rowed
+// key-based time body above. Both consume the same 216-byte entry and
+// owner +10 Player slot. This body uses the rowed index accessor37E421,
+// rowed cost helper37E18A, and the native PlayerList discount field+850.
+// Original owner and public method names remain unproven.
+int Rva0037E6E8::rva0037E649(int index, Object *object)
+{
+    void *entry = rva0037E421(index);
+    if (!entry)
+        return 0;
+    void *p1 = object->getControllingPlayer();
+    if ((int)((Rva002A9BF2 *)p1)->rva002A9BF2() == 3) {
+        void *p2 = object->getControllingPlayer();
+        if (TheSkirmishAIManager->rva002A8AB1((Rva003A2BD4M08 *)p2)) {
+            float *limitPtr = (float *)((char *)TheSkirmishAIManager + 0x850);
+            float scale = (1.0f > *limitPtr) ? *limitPtr : 1.0f;
+            int cost = ((UnitRevivalEntry *)entry)->revivalEntryCalcCostToBuild(m_10, object);
+            return (int)((float)cost * (1.0f - scale));
+        }
+    }
+    return ((UnitRevivalEntry *)entry)->revivalEntryCalcCostToBuild(m_10, object);
+}
+
+// Native37E898..37E915: unrecruited entries report cost and completed
+// progress; active entries use elapsed/start divided by revival time.
+float Rva0037E6E8::rva0037E898(int index, int *cost, Object *object) {
+ Elem216 *entry = static_cast<Elem216 *>(rva0037E421(index));
+ if (entry) {
+  if (entry->m_98 == -1) {
+   if (cost) *cost = reinterpret_cast<UnitRevivalEntry *>(entry)->revivalEntryCalcCostToBuild(m_10, object);
+   return 1.0f;
+  }
+  int time = reinterpret_cast<UnitRevivalEntry *>(entry)->revivalEntryCalcTimeToBuild(m_10, object);
+  if (time > 0) return ((float)TheGameLogic->getFrame() - entry->m_98) / time;
+ }
+ return 0.0f;
+}
+
+// Native37E815..37E87A: build progress of the indexed entry, 0 for a missing
+// or unrecruited entry, elapsed/start over the revival time otherwise, 1 when
+// that time is not positive. The rest written as the null test's else keeps
+// retail's first shared zero block (the -1 test jumps back to it).
+float Rva0037E6E8::rva0037E815(int index, Object *object)
+{
+ Elem216 *entry = static_cast<Elem216 *>(rva0037E421(index));
+ if (!entry) return 0.0f;
+ else
+ {
+  if (entry->m_98 == -1) return 0.0f;
+  int time = reinterpret_cast<UnitRevivalEntry *>(entry)->revivalEntryCalcTimeToBuild(m_10, object);
+  if (time > 0) return ((float)TheGameLogic->getFrame() - entry->m_98) / time;
+  return 1.0f;
+ }
+}
+
+// Native37E915..37E94A and caller49CCF0. Same measured +4/+8 216B array
+// as this unit's getters; indexed entry uses owned getThingTemplate37E270.
+// A local array base before pointer indexing preserves native ESI divisor
+// and ECX receiver. Direct entries.at(index) emits a different 51B shape.
+void *Rva0037E421::rva0037E915(int index)
+{
+    unsigned int count = VecSize(&m_vec);
+    if ((unsigned int)index < count && index >= 0) {
+        UnitRevivalEntry *base = m_vec.m_start;
+        return (base + index)->getThingTemplate();
+    }
+    return 0;
+}
 
 // tu-skeleton: 0x0037E473 470B ?rva0037E473@UnitRevivalEntry@@QAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp (not merged yet)
 
-// tu-skeleton: 0x0037E649 159B ?rva0037E649@Rva0037E6E8@@QAEHHPAVObject@@@Z -- matched in Code/GameEngine/Source/Common/Rva0037E421Accessor.cpp (not merged yet)
-
-// tu-skeleton: 0x0037E6E8 159B ?rva0037E6E8@Rva0037E6E8@@QAEHPAX0@Z -- matched in Code/GameEngine/Source/Common/Rva0037E421Accessor.cpp (not merged yet)
-
-// tu-skeleton: 0x0037E787 30B ?rva0037E787@Rva0037E787@@QAEHPAX0@Z -- matched in Code/GameEngine/Source/Common/Rva0037E421Accessor.cpp (not merged yet)
-
-// tu-skeleton: 0x0037E7A5 23B ?rva0037E7A5@Rva0037E421@@QAEPAXH@Z -- matched in Code/GameEngine/Source/Common/Rva0037E421Accessor.cpp (not merged yet)
-
-// tu-skeleton: 0x0037E7BC 30B ?rva0037E7BC@Rva0037E421@@QAEEH@Z -- matched in Code/GameEngine/Source/Common/Rva0037E421Accessor.cpp (not merged yet)
-
-// tu-skeleton: 0x0037E7DA 59B ?productionSystemCancelUnitCreate@Rva0037E421@@QAEEH@Z -- matched in Code/GameEngine/Source/Common/Rva0037E421Accessor.cpp (not merged yet)
-
-// tu-skeleton: 0x0037E815 101B ?rva0037E815@Rva0037E6E8@@QAEMHPAVObject@@@Z -- matched in Code/GameEngine/Source/Common/Rva0037E421Accessor.cpp (not merged yet)
-
 // tu-skeleton: 0x0037E87A 30B ?rva0037E87A@Rva0037E421@@QAEXHM@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1C.cpp (not merged yet)
 
-// tu-skeleton: 0x0037E898 125B ?rva0037E898@Rva0037E6E8@@QAEMHPAHPAVObject@@@Z -- matched in Code/GameEngine/Source/Common/Rva0037E421Accessor.cpp (not merged yet)
-
-// tu-skeleton: 0x0037E915 53B ?rva0037E915@Rva0037E421@@QAEPAXH@Z -- matched in Code/GameEngine/Source/Common/Rva0037E421Accessor.cpp (not merged yet)
-
 // tu-skeleton: 0x0037E94A 386B ??0UnitRevivalEntry@@QAE@PAVObject@@@Z -- matched in Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp
 
 // ---- from Code/GameEngine/Source/Common/Rva0037EACCCopy.cpp
 
@@ -287,14 +685,6 @@ void Rva0037EB1D::rva0037EB1D(void *destPtr)
 	((Rva0037EACC *)this)->rva0037EACC(destPtr);
 	*(int *)((char *)destPtr + 0xC0) = *(int *)((char *)this + 0xAC);
 }
-
-// tu-skeleton: 0x0037EB3C 174B ?retrieveHeroesForArmySummary@UnitRevivalTracker@@QAEXPAVArmySummarySystem@@@Z -- matched in Code/GameEngine/Source/Common/RTS/UnitRevivalTrackerArmySummary.cpp (not merged yet)
-
-// tu-skeleton: 0x0037EBEA 476B ?calcButtonImage@UnitRevivalEntry@@QAEPBVImage@@PBVPlayer@@@Z -- matched in Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp (not merged yet)
-
-// tu-skeleton: 0x0037EDC6 26B ?rva0037EDC6@Rva0037EDC6@@QAEPBVImage@@H@Z -- matched in Code/GameEngine/Source/Common/Rva0037E421Accessor.cpp (not merged yet)
-
-// tu-skeleton: 0x0037EDE0 108B ?productionSystemQueueCreateUnit@UnitRevivalTracker@@QAE_NHHPAPBVImage@@@Z -- matched in Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/RTS/UnitRevivalTrackerEntryIndex.cpp
 
@@ -333,24 +723,6 @@ int Rva0037EE4C::rva0037EE4C(const ThingTemplate *key, int filter, int wanted)
     }
     return -1;
 }
-
-// tu-skeleton: 0x0037EEB9 67B ?removeBuildUnit@UnitRevivalTracker@@QAEXPBVThingTemplate@@@Z -- matched in Code/GameEngine/Source/Common/UnitRevivalTracker_removeBuildUnit.cpp (not merged yet)
-
-// tu-skeleton: 0x0037EEFC 49B ?removeBuildUnitByIndex@UnitRevivalTracker@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/Rva0037EF2DErase.cpp (not merged yet)
-
-// tu-skeleton: 0x0037EF2D 48B ?rva0037EF2D@UnitRevivalTracker@@QAEXI@Z -- matched in Code/GameEngine/Source/Common/Rva0037EF2DErase.cpp (not merged yet)
-
-// tu-skeleton: 0x0037EF5D 784B ?productionSystemNewObject@UnitRevivalTracker@@QAEPAVObject@@IPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp (not merged yet)
-
-// tu-skeleton: 0x0037F26D 14B ?rva0037F26D@UnitRevivalTracker@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva0037F26D.cpp (not merged yet)
-
-// tu-skeleton: 0x0037F27B 69B ??0UnitRevivalTracker@@QAE@PAVPlayer@@@Z -- matched in Code/GameEngine/Source/Common/RTS/UnitRevivalTrackerCtorBFME2.cpp (not merged yet)
-
-// tu-skeleton: 0x0037F2C0 111B ?rva0037F2C0@Rva0037F2C0@@QAEHPAVObject@@_N@Z -- matched in Code/GameEngine/Source/Common/RTS/UnitRevivalTrackerRva0037F2C0Finish.cpp (not merged yet)
-
-// tu-skeleton: 0x0037F32F 96B ?addInitialBuildUnit@UnitRevivalTracker@@QAEXPBVThingTemplate@@PAVPlayer@@@Z -- matched in Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp (not merged yet)
-
-// tu-skeleton: 0x0037F38F 15B ?addRevivableUnit@UnitRevivalTracker@@QAEXABURva002E2D10Record@@PAVPlayer@@@Z -- matched in Code/GameEngine/Source/Common/UnitRevivalTracker_addRevivableUnit.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/RTS/UnitRevivalTrackerXfer.cpp
 
@@ -404,6 +776,108 @@ void UnitRevivalTracker::xfer(Xfer *xfer)
 		else
 			m_player = 0;
 	}
+}
+
+// ---- from Code/GameEngine/Source/Common/RTS/UnitRevivalTrackerArmySummary.cpp
+
+void UnitRevivalTracker::retrieveHeroesForArmySummary(ArmySummarySystem *summary)
+{
+	int id = m_player->getLivingWorldPlayerID();
+	if (id == -1)
+		return;
+	Rva002E2903Player *lwPlayer = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->find(id, 0);
+	if (!lwPlayer)
+		return;
+	for (unsigned int i = 0; i < m_entries.size(); ++i)
+	{
+		UnitRevivalEntry *entry = &m_entries[i];
+		const ThingTemplate *thingTemplate = (const ThingTemplate *)entry->getThingTemplate();
+		if (thingTemplate && thingTemplate->isKindOf(KINDOF_90) && thingTemplate->isKindOf(KINDOF_128))
+		{
+			if (lwPlayer->rva002E1CA7(entry))
+				summary->AddDeadHeroEntry(entry);
+			else
+				((Rva002E2F39 *)lwPlayer)->rva002E2F39(*(const Rva002E2D10Record *)entry);
+		}
+	}
+}
+
+// tu-skeleton: 0x0037EBEA 476B ?calcButtonImage@UnitRevivalEntry@@QAEPBVImage@@PBVPlayer@@@Z -- matched in Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp (not merged yet)
+
+// tu-skeleton: 0x0037EDE0 108B ?productionSystemQueueCreateUnit@UnitRevivalTracker@@QAE_NHHPAPBVImage@@@Z -- matched in Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/UnitRevivalTracker_removeBuildUnit.cpp
+
+// ?removeBuildUnit@UnitRevivalTracker@@QAEXPBVThingTemplate@@@Z @0x0037EEB9 67B.
+// WorldBuilder UnitRevivalTracker.cpp:548 names it UnitRevivalTracker::removeBuildUnit.
+// Removal twin of addInitialBuildUnit: scan the 0xD8-stride array at this+4 for the
+// element whose string at +0xD4 matches the ThingTemplate string at +0x64,
+// then erase via rowed 0x002E204D. Same shape as UnitRevivalTracker::rva0037EF2D.
+// Evidence: ret 4 const ThingTemplate* param; callers BuildableHeroListUpgrade
+// 0x004B8484 via the UnitRevivalTracker at Player+0x738; callees StringBase::compare
+// 0x000069D6 and Rva002E204D::rva002E204D 0x002E204D; neighbours 0x0037EDE0 and
+// 0x0037EEFC (ends exactly at next start).
+
+void UnitRevivalTracker::removeBuildUnit(const ThingTemplate *thingTemplate)
+{
+	for (Rva002E0D93 *p = ((Rva002E204D *)&m_entries)->m_start00; p != ((Rva002E204D *)&m_entries)->m_finish04; ++p) {
+		if (p->m_strD4.compare(thingTemplate->name) == 0) {
+			((Rva002E204D *)&m_entries)->rva002E204D(p);
+			break;
+		}
+	}
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva0037EF2DErase.cpp
+
+void UnitRevivalTracker::rva0037EF2D(unsigned int key)
+{
+	for (Rva002E0D93 *p = ((Rva002E204D *)&m_entries)->m_start00; p != ((Rva002E204D *)&m_entries)->m_finish04; ++p) {
+		if (p->m_keyA4 == (int)key) {
+			((Rva002E204D *)&m_entries)->rva002E204D(p);
+			break;
+		}
+	}
+}
+
+void UnitRevivalTracker::removeBuildUnitByIndex(int index)
+{
+	if (index < 0)
+		return;
+	int finish = *(volatile int *)((char *)this + 8);
+	Rva002E204D &vec = *(Rva002E204D *)&m_entries;
+	int count = (finish - (int)vec.m_start00) / 0xD8;
+	if ((unsigned int)index >= (unsigned int)count)
+		return;
+	_ReadWriteBarrier();
+	vec.rva002E204D(vec.m_start00 + index);
+}
+
+// tu-skeleton: 0x0037EF5D 784B ?productionSystemNewObject@UnitRevivalTracker@@QAEPAVObject@@IPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva0037F26D.cpp
+
+//
+// ?rva0037F26D@UnitRevivalTracker@@QAEXXZ @0x0037F26D 14B
+// Evidence: adjacent UnitRevivalTracker methods and retail call of the full
+// member vector range to the rowed erase instantiation at 0x002E2690.
+
+void UnitRevivalTracker::rva0037F26D()
+{
+    m_entries.clear();
+}
+
+// tu-skeleton: 0x0037F27B 69B ??0UnitRevivalTracker@@QAE@PAVPlayer@@@Z -- matched in Code/GameEngine/Source/Common/RTS/UnitRevivalTrackerCtorBFME2.cpp (not merged yet)
+
+// tu-skeleton: 0x0037F2C0 111B ?rva0037F2C0@Rva0037F2C0@@QAEHPAVObject@@_N@Z -- matched in Code/GameEngine/Source/Common/RTS/UnitRevivalTrackerRva0037F2C0Finish.cpp (not merged yet)
+
+// tu-skeleton: 0x0037F32F 96B ?addInitialBuildUnit@UnitRevivalTracker@@QAEXPBVThingTemplate@@PAVPlayer@@@Z -- matched in Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/UnitRevivalTracker_addRevivableUnit.cpp
+
+void UnitRevivalTracker::addRevivableUnit(const Rva002E2D10Record &item, Player *)
+{
+    m_entries.push_back(reinterpret_cast<const UnitRevivalEntry &>(item));
 }
 
 // tu-skeleton: 0x0077F0C8 14B $L16612 -- matched in Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp (not merged yet)

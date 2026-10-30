@@ -28195,40 +28195,40 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0037E179,17,code,,,-,,Code/GameEngine/Source/Common/GapBodiesSeat1C.cpp
 0x0037E18A,115,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,N,N=Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp provisional,Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp
 0x0037E1FD,115,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,N,N=Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp provisional,Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp
-0x0037E270,25,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,U,N=Code/GameEngine/Source/Common/UnitRevivalEntry.cpp provisional,Code/GameEngine/Source/Common/Rva0037E270Lookup.cpp
+0x0037E270,25,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,U,N=Code/GameEngine/Source/Common/UnitRevivalEntry.cpp provisional,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp
 0x0037E289,201,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,N,N=Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp provisional,Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp
-0x0037E352,135,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,U,N=Code/GameEngine/Source/Common/UnitRevivalEntry.cpp provisional,Code/GameEngine/Source/Common/UnitRevivalEntry.cpp
-0x0037E3D9,72,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,U,N=Code/GameEngine/Source/Common/UnitRevivalEntry.cpp provisional,Code/GameEngine/Source/Common/Rva0037E270Lookup.cpp
-0x0037E421,48,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,C,C=0x0037E3D9..0x0037E451 provisional,Code/GameEngine/Source/Common/Rva0037E421Accessor.cpp
-0x0037E451,34,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,C,C=0x0037E3D9..0x0037E473 provisional,Code/GameEngine/Source/Common/Rva0037E421Accessor.cpp
+0x0037E352,135,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,U,N=Code/GameEngine/Source/Common/UnitRevivalEntry.cpp provisional,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp
+0x0037E3D9,72,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,U,N=Code/GameEngine/Source/Common/UnitRevivalEntry.cpp provisional,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp
+0x0037E421,48,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,C,C=0x0037E3D9..0x0037E451 provisional,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp
+0x0037E451,34,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,C,C=0x0037E3D9..0x0037E473 provisional,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp
 0x0037E473,470,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,N,N=Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp provisional,Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp
-0x0037E649,159,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,C,C=0x0037E473..0x0037E6E8 provisional,Code/GameEngine/Source/Common/Rva0037E421Accessor.cpp
-0x0037E6E8,159,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,C,C=0x0037E473..0x0037E787 provisional,Code/GameEngine/Source/Common/Rva0037E421Accessor.cpp
-0x0037E787,30,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,C,C=0x0037E473..0x0037E7A5 provisional,Code/GameEngine/Source/Common/Rva0037E421Accessor.cpp
-0x0037E7A5,23,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,C,C=0x0037E473..0x0037E7BC provisional,Code/GameEngine/Source/Common/Rva0037E421Accessor.cpp
-0x0037E7BC,30,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,C,C=0x0037E473..0x0037E7DA provisional,Code/GameEngine/Source/Common/Rva0037E421Accessor.cpp
-0x0037E7DA,59,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,C,W=Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp C=0x0037E473..0x0037E815 provisional,Code/GameEngine/Source/Common/Rva0037E421Accessor.cpp
-0x0037E815,101,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,C,C=0x0037E473..0x0037E87A provisional,Code/GameEngine/Source/Common/Rva0037E421Accessor.cpp
+0x0037E649,159,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,C,C=0x0037E473..0x0037E6E8 provisional,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp
+0x0037E6E8,159,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,C,C=0x0037E473..0x0037E787 provisional,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp
+0x0037E787,30,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,C,C=0x0037E473..0x0037E7A5 provisional,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp
+0x0037E7A5,23,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,C,C=0x0037E473..0x0037E7BC provisional,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp
+0x0037E7BC,30,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,C,C=0x0037E473..0x0037E7DA provisional,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp
+0x0037E7DA,59,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,C,W=Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp C=0x0037E473..0x0037E815 provisional,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp
+0x0037E815,101,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,C,C=0x0037E473..0x0037E87A provisional,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp
 0x0037E87A,30,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,C,C=0x0037E473..0x0037E898 provisional,Code/GameEngine/Source/Common/GapBodiesSeat1C.cpp
-0x0037E898,125,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,C,C=0x0037E473..0x0037E915 provisional,Code/GameEngine/Source/Common/Rva0037E421Accessor.cpp
-0x0037E915,53,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,C,C=0x0037E473..0x0037E94A provisional,Code/GameEngine/Source/Common/Rva0037E421Accessor.cpp
+0x0037E898,125,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,C,C=0x0037E473..0x0037E915 provisional,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp
+0x0037E915,53,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,C,C=0x0037E473..0x0037E94A provisional,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp
 0x0037E94A,386,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,N,N=Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp W=Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp provisional,Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp
 0x0037EACC,81,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,C,C=0x0037E94A..0x0037EB1D provisional,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp
 0x0037EB1D,31,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,C,C=0x0037E94A..0x0037EB3C provisional,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp
-0x0037EB3C,174,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,U,N=Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp provisional,Code/GameEngine/Source/Common/RTS/UnitRevivalTrackerArmySummary.cpp
+0x0037EB3C,174,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,U,N=Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp provisional,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp
 0x0037EBEA,476,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,N,N=Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp W=Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp provisional,Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp
-0x0037EDC6,26,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,C,C=0x0037EBEA..0x0037EDE0 provisional,Code/GameEngine/Source/Common/Rva0037E421Accessor.cpp
+0x0037EDC6,26,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,C,C=0x0037EBEA..0x0037EDE0 provisional,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp
 0x0037EDE0,108,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,U,N=Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp provisional,Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp
 0x0037EE4C,109,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,C,C=0x0037EDE0..0x0037EEB9 provisional,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp
-0x0037EEB9,67,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,U,N=Code/GameEngine/Source/Common/UnitRevivalTracker.cpp W=Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp provisional,Code/GameEngine/Source/Common/UnitRevivalTracker_removeBuildUnit.cpp
-0x0037EEFC,49,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,U,N=Code/GameEngine/Source/Common/UnitRevivalTracker.cpp provisional,Code/GameEngine/Source/Common/Rva0037EF2DErase.cpp
-0x0037EF2D,48,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,U,N=Code/GameEngine/Source/Common/UnitRevivalTracker.cpp provisional,Code/GameEngine/Source/Common/Rva0037EF2DErase.cpp
+0x0037EEB9,67,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,U,N=Code/GameEngine/Source/Common/UnitRevivalTracker.cpp W=Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp provisional,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp
+0x0037EEFC,49,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,U,N=Code/GameEngine/Source/Common/UnitRevivalTracker.cpp provisional,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp
+0x0037EF2D,48,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,U,N=Code/GameEngine/Source/Common/UnitRevivalTracker.cpp provisional,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp
 0x0037EF5D,784,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,U,N=Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp W=Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp provisional,Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp
-0x0037F26D,14,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,U,N=Code/GameEngine/Source/Common/UnitRevivalTracker.cpp provisional,Code/GameEngine/Source/Common/Rva0037F26D.cpp
+0x0037F26D,14,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,U,N=Code/GameEngine/Source/Common/UnitRevivalTracker.cpp provisional,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp
 0x0037F27B,69,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,U,N=Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp provisional,Code/GameEngine/Source/Common/RTS/UnitRevivalTrackerCtorBFME2.cpp
 0x0037F2C0,111,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,C,C=0x0037F27B..0x0037F32F provisional,Code/GameEngine/Source/Common/RTS/UnitRevivalTrackerRva0037F2C0Finish.cpp
 0x0037F32F,96,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,U,N=Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp W=Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp provisional,Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp
-0x0037F38F,15,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,U,N=Code/GameEngine/Source/Common/UnitRevivalTracker.cpp provisional,Code/GameEngine/Source/Common/UnitRevivalTracker_addRevivableUnit.cpp
+0x0037F38F,15,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,U,N=Code/GameEngine/Source/Common/UnitRevivalTracker.cpp provisional,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp
 0x0037F39E,290,code,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp,approved,U,N=Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp provisional,Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp
 0x0037F4C0,9,code,Code/GameEngine/Source/GameLogic/System/ArmyPlacer.cpp,proposed,K,K=Rva0037F57E,Code/GameEngine/Source/Common/InlineDtorDeletingDtorsC01.cpp
 0x0037F4C9,7,code,Code/GameEngine/Source/GameLogic/System/ArmyPlacer.cpp,proposed,K,K=Rva0037F57E,Code/GameEngine/Source/Common/InlineDtorDeletingDtorsC01.cpp
