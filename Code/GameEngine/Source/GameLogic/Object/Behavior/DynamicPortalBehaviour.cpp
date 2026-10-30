@@ -25,6 +25,7 @@ class RGBAColorReal;
 class RGBAColorInt;
 class Snapshot;
 #include "../../../../Include/Common/BfmeXfer.h"
+
 //
 // ?xfer@DynamicPortalBehaviour@@MAEXPAVXfer@@@Z, retail 0x004609BC, 201 bytes.
 // Slot 3 of ??_7DynamicPortalBehaviour 0x00C428C4 (slot-2 name getter
@@ -36,6 +37,7 @@ class Snapshot;
 // Member names not recovered.
 
 class AsciiString;
+
 class Object;
 
 //
@@ -136,9 +138,13 @@ private:
 struct BfmeRadarWorldPoint : Coord3D {
  BfmeRadarWorldPoint(); ~BfmeRadarWorldPoint();
 };
+
 typedef char PortalPointSize[(sizeof(BfmeRadarWorldPoint)==12)?1:-1];
+
 struct PortalQueryPoint {float x,y,z;__forceinline PortalQueryPoint(const Coord3D&r){x=r.x;y=r.y;z=r.z;}};
+
 class Pathfinder {public:bool IsPointOnWall(int,bool);};
+
 struct PortalAIView {char pad0[0x10];Pathfinder *pathfinder;};
 
 enum NameKeyType
@@ -407,6 +413,8 @@ protected:
 	virtual void upgradeImplementation() = 0;
 };
 
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviour.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviourClearPortals.cpp
 
 void DynamicPortalBehaviour::rva0046094C()
@@ -458,24 +466,6 @@ void DynamicPortalBehaviour::xfer(Xfer *xfer)
 	if (version.m_minimum >= 2)
 		*xfer == m_3D;
 }
-
-// tu-skeleton: 0x00460A85 19B ?bfmeGoEBC@BfmeThingEBC@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/BfmeConv802.cpp (not merged yet)
-
-// tu-skeleton: 0x00460A98 10B ?requiresAllActivationUpgrades@UpgradeModule@@MBE_NXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesU.cpp (not merged yet)
-
-// tu-skeleton: 0x00460AAC 39B ?getUpgradeActivationMasks@UpgradeModule@@MBEXAAUUpgradeMaskType@@0@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesU.cpp (not merged yet)
-
-// tu-skeleton: 0x00460AD3 15B ?performUpgradeFX@UpgradeModule@@MAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesU.cpp (not merged yet)
-
-// tu-skeleton: 0x00460AE2 10B ?get@Rva00460AE2ByteChase32Field@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00460AEC 94B ??0UpgradeModule@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/UpgradeModuleCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00460B4A 6B ?Rva00460B4AGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
-// tu-skeleton: 0x00460B6C 97B ??0DynamicPortalBehaviour@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviourCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00460BCD 6B ?Rva00460BCDGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviourPoolKey.cpp
 
@@ -559,8 +549,6 @@ void DynamicPortalBehaviourModuleData::buildFieldParse(MultiIniFieldParse &parse
 	parse.add(reinterpret_cast<const FieldParse *>(s_dynamicPortalFieldTable), 0);
 }
 
-// tu-skeleton: 0x00460C73 10B ?get@Rva00460C73FloatChase32Field@@QBEMXZ -- matched in Code/GameEngine/Source/Common/Disp8FloatChaseGetters.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviourUpgradeRemoval.cpp
 
 void DynamicPortalBehaviour::upgradeRemovalImplementation()
@@ -577,9 +565,50 @@ void DynamicPortalBehaviour::upgradeRemovalImplementation()
 	}
 }
 
+// tu-skeleton: 0x00460A85 19B ?bfmeGoEBC@BfmeThingEBC@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/BfmeConv802.cpp (not merged yet)
+
+// tu-skeleton: 0x00460A98 10B ?requiresAllActivationUpgrades@UpgradeModule@@MBE_NXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesU.cpp (not merged yet)
+
+// tu-skeleton: 0x00460AAC 39B ?getUpgradeActivationMasks@UpgradeModule@@MBEXAAUUpgradeMaskType@@0@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesU.cpp (not merged yet)
+
+// tu-skeleton: 0x00460AD3 15B ?performUpgradeFX@UpgradeModule@@MAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesU.cpp (not merged yet)
+
+// tu-skeleton: 0x00460AE2 10B ?get@Rva00460AE2ByteChase32Field@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00460AEC 94B ??0UpgradeModule@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/UpgradeModuleCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00460B4A 6B ?Rva00460B4AGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x00460B6C 97B ??0DynamicPortalBehaviour@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviourCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00460BCD 6B ?Rva00460BCDGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x00460C73 10B ?get@Rva00460C73FloatChase32Field@@QBEMXZ -- matched in Code/GameEngine/Source/Common/Disp8FloatChaseGetters.cpp (not merged yet)
+
 // tu-skeleton: 0x00460CBA 288B ?rva00460CBA@DynamicPortalBehaviour@@QAEXPAUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderFootprintAttackRangeQuery.cpp (not merged yet)
 
-// tu-skeleton: 0x00460DF6 290B ?IsEndPortalAboveWall@DynamicPortalBehaviour@@QAE_NPAUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviourGetPosition.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviourGetPosition.cpp
+
+// Native460DF6..460F18 RET4; WB10AD000 names IsEndPortalAboveWall.
+// Primary+4 data/+8 object; data118 bone count/11C name/120 waypoint vec/140 selected index.
+// Existing 12-byte BfmeRadarWorldPoint view owns the byte-and-relocation-twin
+// empty coordinate callbacks47A6A9/B3FD0. Reuse the owned callbacks without
+// creating a private Coord3D or pin. Original coordinate C++ lifetime type is
+// not claimed by this ABI view; the target array stride and callbacks are native.
+
+bool DynamicPortalBehaviour::IsEndPortalAboveWall(Coord3D *out)
+{
+ const DynamicPortalBehaviourModuleData *portalData=getDynamicPortalBehaviourModuleData();
+ if(portalData->aboveWallIndex<0)goto fallback; if(portalData->aboveWallIndex>=(int)portalData->waypoints.size()) { fallback:
+  if(out) {const Object *obj=m_object; *out=obj->position;} return true;
+ }
+ BfmeRadarWorldPoint bones[16];
+ const char *buf=portalData->nameBuffer;Object *obj=m_object;
+ obj->getMultiLogicalBonePosition(buf ? buf+8 : "", portalData->numberOfBones,bones,0,true,0);
+ PortalWaypointDescriptor way=portalData->waypoints[portalData->aboveWallIndex]; PortalQueryPoint selected(bones[way.boneIndex]);
+ if(out)*out=*(const Coord3D*)&selected;
+ PortalAIView *ai=(PortalAIView*)TheAI; Pathfinder *path=ai->pathfinder; bool result=path->IsPointOnWall((int)&selected,false); return result;
+}
 
 // tu-skeleton: 0x00460F18 45B ?Rva00460F18Construct@@YAXPAXPBX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp (not merged yet)
 
@@ -614,10 +643,6 @@ void DynamicPortalBehaviour::upgradeRemovalImplementation()
 // tu-skeleton: 0x0078A7D8 8B uw_0078a7d8 -- matched in Code/gen_small/uw_gen_012.cpp (not merged yet)
 
 // tu-skeleton: 0x0078A7E0 10B __ehhandler$??0UpgradeModule@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/UpgradeModuleCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078A813 22B ?rva0078a813@@YAXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviourGetPosition.cpp (not merged yet)
-
-// tu-skeleton: 0x0078A829 10B __ehhandler$?IsEndPortalAboveWall@DynamicPortalBehaviour@@QAE_NPAUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviourGetPosition.cpp (not merged yet)
 
 // tu-skeleton: 0x0078A833 14B $L6665 -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp (not merged yet)
 
