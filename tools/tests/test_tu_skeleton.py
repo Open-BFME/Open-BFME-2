@@ -254,15 +254,17 @@ class DonorTests(unittest.TestCase):
     TU = "Code/T.cpp"
 
     def donors(self, ledger, placed, unplaced=None):
-        """donors() over `ledger` [(name, rva, source)] with `placed` {rva: tu} approved and
-        `unplaced` {rva: (confidence, evidence)} map rows with no TU."""
+        """donors() over `ledger` [(name, rva, source)] with `placed` {rva: tu} approved (or
+        {rva: (tu, confidence, evidence)}) and `unplaced` {rva: (confidence, evidence)} map
+        rows with no TU."""
         T._CACHE.clear()
         T._CACHE["ledger"] = [{"name": n, "export_rva": "", "target_rva": f"0x{rva:08X}", "target_size": "8",
                                "source": s, "status": "matched",
                                "notes": "gen-funclet;parent=?h@@YAXXZ" if n.startswith("$L") else ""}
                               for n, rva, s in ledger]
-        T._CACHE["map"] = [{"rva": f"0x{rva:08X}", "size": "8", "kind": "code", "tu": tu, "confidence": "approved",
-                            "by": "-", "evidence": "", "source": ""} for rva, tu in placed.items()]
+        placed = {rva: v if isinstance(v, tuple) else (v, "approved", "") for rva, v in placed.items()}
+        T._CACHE["map"] = [{"rva": f"0x{rva:08X}", "size": "8", "kind": "code", "tu": tu, "confidence": conf,
+                            "by": "-", "evidence": ev, "source": ""} for rva, (tu, conf, ev) in placed.items()]
         T._CACHE["map"] += [{"rva": f"0x{rva:08X}", "size": "8", "kind": "code", "tu": "", "confidence": conf,
                              "by": "-", "evidence": ev, "source": ""} for rva, (conf, ev) in (unplaced or {}).items()]
         T._CACHE["stale"] = False
@@ -316,13 +318,13 @@ class DonorTests(unittest.TestCase):
 
 
     def test_homeless_comdats_follow_their_donor_into_the_merge(self):
-        # A displaced COMDAT, a header inline (the map's `inline` token), a template
+        # A displaced template COMDAT, a header inline (the map's `inline` token), a template
         # instantiation and a deleting destructor the map leaves without a TU on purpose
         # do not make the donor mixed; they move with it.
         ledger = [("?t@@YAXXZ", 0x1000, self.TU), ("?b@@YAXXZ", 0x1020, "Code/B.cpp"),
-                  ("?Get@Foo@@QBEHXZ", 0x1300, "Code/B.cpp"), ("?Inl@Bar@@QAEXXZ", 0x1310, "Code/B.cpp"),
+                  ("?Get@?$Box@H@@QBEHXZ", 0x1300, "Code/B.cpp"), ("?Inl@Bar@@QAEXXZ", 0x1310, "Code/B.cpp"),
                   ("??$max@H@std@@YAABHABH0@Z", 0x1320, "Code/B.cpp"), ("??_GBaz@@UAEPAXI@Z", 0x1330, "Code/B.cpp")]
-        unplaced = {0x1300: ("displaced", "N=Code/Foo.cpp"), 0x1310: ("", "inline"),
+        unplaced = {0x1300: ("displaced", "N=Code/Box.cpp"), 0x1310: ("", "inline"),
                     0x1320: ("", ""), 0x1330: ("", "")}
         don, mixed, _ = self.donors(ledger, {0x1000: self.TU, 0x1020: self.TU}, unplaced)
         self.assertEqual(mixed, {})
@@ -348,10 +350,70 @@ class DonorTests(unittest.TestCase):
         self.assertEqual(mixed, {"Code/B.cpp": 1})
         self.assertNotIn("Code/B.cpp", don)
 
+    def test_a_donor_with_a_row_only_proposed_for_the_tu_is_refused(self):
+        # Only approved rows move: a proposed row of this TU (9d84b3191f moved 0x00329F83)
+        # refuses its file, it is not "mixed" (no other TU claims it).
+        don, mixed, refused = self.donors(
+            [("?t@@YAXXZ", 0x1000, self.TU), ("?b@@YAXXZ", 0x1020, "Code/B.cpp"), ("?p@@YAXXZ", 0x1030, "Code/B.cpp")],
+            {0x1000: self.TU, 0x1020: self.TU, 0x1030: (self.TU, "proposed", "C=0x00001020..0x00001040")})
+        self.assertEqual(mixed, {})
+        self.assertNotIn("Code/B.cpp", don)
+        self.assertIn("not approved", refused["Code/B.cpp"])
+
+    def test_the_tu_file_may_keep_its_own_proposed_rows(self):
+        # the seed moves none of its rows, so a proposed row of the TU there is no refusal
+        don, mixed, refused = self.donors(
+            [("?t@@YAXXZ", 0x1000, self.TU), ("?q@@YAXXZ", 0x1100, self.TU), ("?a@@YAXXZ", 0x1010, "Code/A.cpp")],
+            {0x1000: self.TU, 0x1010: self.TU, 0x1100: (self.TU, "proposed", "")})
+        self.assertEqual((mixed, refused), ({}, {}))
+        self.assertEqual(sorted(don), ["Code/A.cpp", self.TU])
+
+    def test_a_p_group_funclet_counts_only_with_an_approved_parent(self):
+        ledger = [("?t@@YAXXZ", 0x1000, self.TU), ("?b@@YAXXZ", 0x1020, "Code/B.cpp"),
+                  ("?h@@YAXXZ", 0x1030, "Code/B.cpp"), ("$L1", 0x1400, "Code/B.cpp")]
+        funclet = (self.TU, "approved", "P=0x00001030@FuncInfo0x00002000 p-group")
+        don, mixed, refused = self.donors(ledger, {0x1000: self.TU, 0x1020: self.TU,
+                                                   0x1030: (self.TU, "proposed", "N=Code/T.cpp"), 0x1400: funclet})
+        self.assertNotIn("Code/B.cpp", don)
+        self.assertIn("2 row(s) not approved", refused["Code/B.cpp"])    # the parent and its funclet
+        don, _, refused = self.donors(ledger, {0x1000: self.TU, 0x1020: self.TU, 0x1030: self.TU, 0x1400: funclet})
+        self.assertIn("Code/B.cpp", don)
+
+    def test_approved_homes_drops_a_p_group_row_of_an_unapproved_parent(self):
+        row = lambda rva, conf="approved", ev="", tu="Code/T.cpp": {"rva": f"0x{rva:08X}", "kind": "code", "tu": tu,
+                                                                    "confidence": conf, "evidence": ev}
+        rows = [row(0x10, "proposed"), row(0x20, ev="P=0x00000010@FuncInfo0x00000099 p-group"),
+                row(0x30), row(0x40, ev="P=0x00000030@FuncInfo0x00000099 p-group"),
+                row(0x50, ev="P=0x00000030@FuncInfo0x00000099 p-group", tu="Code/U.cpp"),
+                row(0x60, ev="P=0x00000030@FuncInfo0x00000099")]
+        self.assertEqual(T.approved_homes(rows), {0x30: "code/t.cpp", 0x40: "code/t.cpp", 0x60: "code/t.cpp"})
+
+    def test_a_displaced_out_of_line_function_never_follows_another_file(self):
+        # R1 S1: build() displaces B::f (Z=Code/B.cpp) when B's larger cluster is elsewhere;
+        # displacement is no COMDAT evidence and its own Z names B, so A's merge must not take it.
+        ledger = [("?t@@YAXXZ", 0x1000, self.TU), ("?a@@YAXXZ", 0x1020, "Code/A.cpp"),
+                  ("?f@B@@QAEXXZ", 0x1100, "Code/A.cpp")]
+        don, mixed, _ = self.donors(ledger, {0x1000: self.TU, 0x1020: self.TU},
+                                    {0x1100: ("displaced", "Z=Code/B.cpp N=Code/B.cpp")})
+        self.assertEqual(mixed, {"Code/A.cpp": 1})
+        self.assertNotIn("Code/A.cpp", don)
+
+    def test_a_companion_assigned_elsewhere_blocks_even_under_a_homeless_parent(self):
+        # R1 S2: the companion's own assignment comes before its parent's (homeless) None.
+        ledger = [("?t@@YAXXZ", 0x1000, self.TU), ("?b@@YAXXZ", 0x1020, "Code/B.cpp"),
+                  ("?h@@YAXXZ", 0x1300, "Code/B.cpp"), ("$L1", 0x1400, "Code/B.cpp")]
+        don, mixed, _ = self.donors(ledger, {0x1000: self.TU, 0x1020: self.TU, 0x1400: "Code/Other.cpp"},
+                                    {0x1300: ("", "inline")})
+        self.assertEqual(mixed, {"Code/B.cpp": 1})
+        self.assertNotIn("Code/B.cpp", don)
+
     def test_tu_map_homeless(self):
         import tu_map
         row = lambda tu="", conf="", ev="", kind="code": {"tu": tu, "confidence": conf, "evidence": ev, "kind": kind}
-        self.assertTrue(tu_map.homeless(row(conf="displaced")))
+        self.assertFalse(tu_map.homeless(row(conf="displaced", ev="N=Code/F.cpp"), "?f@Foo@@QAEXXZ"))
+        self.assertTrue(tu_map.homeless(row(conf="displaced", ev="N=Code/F.cpp"), "??_GFoo@@UAEPAXI@Z"))
+        self.assertFalse(tu_map.homeless(row(conf="displaced", ev="Z=Code/F.cpp"), "??_GFoo@@UAEPAXI@Z"))
+        self.assertFalse(tu_map.homeless(row(ev="F=Code/F.cpp inline")))
         self.assertTrue(tu_map.homeless(row(ev="inline")))
         self.assertTrue(tu_map.homeless(row(), "?begin@?$vector@H@_STL@@QAEPAHXZ"))
         self.assertTrue(tu_map.homeless(row(), "??_EFoo@@UAEPAXI@Z"))

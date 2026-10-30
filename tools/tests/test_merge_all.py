@@ -384,7 +384,7 @@ def test_decisions_the_current_map_no_longer_supports_are_not_served(tmp_path, m
         return {"name": name, "target_rva": rva, "source": source, "status": "matched", "notes": ""}
 
     def at(rva, tu):
-        return {"rva": rva, "kind": "code", "tu": tu, "confidence": "approved"}
+        return {"rva": rva, "kind": "code", "tu": tu, "confidence": "approved", "evidence": ""}
 
     ledger = [led("?m1@@YAXXZ", "0x10", "Code/M.cpp"), led("?m2@@YAXXZ", "0x20", "Code/M.cpp"),
               led("?a@@YAXXZ", "0x30", "Code/A.cpp"), led("?t@@YAXXZ", "0x40", "Code/T.cpp")]
@@ -425,7 +425,7 @@ def test_the_picker_and_split_agree_on_a_tu_file_holding_a_row_the_map_places_no
         return {"name": name, "target_rva": rva, "source": source, "status": "matched", "notes": ""}
 
     def at(rva, tu):
-        return {"rva": rva, "kind": "code", "tu": tu, "confidence": "approved"}
+        return {"rva": rva, "kind": "code", "tu": tu, "confidence": "approved", "evidence": ""}
 
     ledger = [led("?m1@@YAXXZ", "0x10", "Code/M.cpp"), led("?m2@@YAXXZ", "0x20", "Code/M.cpp"),
               led("?t@@YAXXZ", "0x40", "Code/T.cpp"), led("?inline@@YAXXZ", "0x50", "Code/T.cpp")]
@@ -450,7 +450,7 @@ def test_a_split_of_the_tu_file_itself_is_served_for_the_tus_its_rows_are_approv
     import tu_skeleton
 
     def at(rva, tu):
-        return {"rva": rva, "kind": "code", "tu": tu, "confidence": "approved"}
+        return {"rva": rva, "kind": "code", "tu": tu, "confidence": "approved", "evidence": ""}
 
     ledger = [{"name": n, "target_rva": r, "source": "Code/T.cpp", "status": "matched", "notes": ""}
               for n, r in (("?t1@@YAXXZ", "0x40"), ("?t2@@YAXXZ", "0x41"))]

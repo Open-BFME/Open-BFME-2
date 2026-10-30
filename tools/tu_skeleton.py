@@ -495,13 +495,16 @@ def fold_alias(row):
 def donors(tu, sk):
     """(donor file -> its rows, mixed file -> foreign row count, refused file -> why).
 
-    A candidate is the file of an approved row, or the TU path itself. It may be
-    absorbed only when every matched row it owns is assigned to this TU (any
-    confidence) or is homeless (tu_map.homeless: a displaced or header-inline
-    COMDAT, a template instantiation, a compiler-generated COMDAT, which the map
-    leaves without a TU on purpose and which follows its file); a row the map puts
-    in another TU, or leaves without one for want of evidence, would move a row the
-    map does not put here. A donor other than the TU path is refused when deleting
+    A candidate is the file of an approved row, or the TU path itself. A donor
+    other than the TU path may be absorbed only when every matched row it owns is
+    approved for this TU (approved_homes: a p-group funclet only when its parent
+    is) or is homeless (tu_map.homeless: a displaced or header-inline COMDAT, a
+    template instantiation, a compiler-generated COMDAT, which the map leaves
+    without a TU on purpose and which follows its file). A row the map puts in
+    another TU, or leaves without one for want of evidence, makes it mixed; a row
+    only proposed for this TU refuses it: only approved rows move. The TU path
+    itself moves none of its rows (the merge seeds from it), so only a row the
+    map assigns to another TU blocks it. A donor is also refused when deleting
     it is not mechanical (see refusal()).
     """
     rows = ledger_rows()
@@ -509,7 +512,8 @@ def donors(tu, sk):
         _CACHE["assigned"] = {int(r["rva"], 16): r["tu"].lower() for r in map_rows()
                               if r["kind"].startswith("code") and r["tu"]}
         _CACHE["unplaced"] = {int(r["rva"], 16): r for r in map_rows() if r["kind"].startswith("code") and not r["tu"]}
-    assigned, unplaced = _CACHE["assigned"], _CACHE["unplaced"]
+        _CACHE["approved"] = approved_homes(map_rows())
+    assigned, unplaced, approved = _CACHE["assigned"], _CACHE["unplaced"], _CACHE["approved"]
     if "by_file" not in _CACHE:
         _CACHE["by_file"] = collections.defaultdict(list)
         for r in rows:
@@ -525,20 +529,34 @@ def donors(tu, sk):
     out, mixed, refused = {}, {}, {}
     for f in sorted(cands):
         own = [r for r in by_file[f] if r["status"] == "matched" and "gen-alias" not in (r["notes"] or "")]
-        home = {r["name"]: assigned.get(int(r["target_rva"], 16)) for r in own}
+        mine = {id(r): assigned.get(int(r["target_rva"], 16)) for r in own}    # each row's own assignment
+        home = {r["name"]: mine[id(r)] for r in own}
         dtors = {m.group(1): r["name"] for r in own if (m := re.match(r"^\?\?1((?:\?\$)?[A-Za-z_]\w*@)", r["name"]))}
-        # a companion row (funclet, deleting dtor) is emitted with its parent and lives where it lives
-        where = {id(r): home[p] if (p := parent_of(r, dtors)) and p in home
-                 else assigned.get(int(r["target_rva"], 16)) for r in own}
+        # a companion row (funclet, deleting dtor) the map does not place itself is emitted
+        # with its parent and lives where it lives; its own assignment always comes first
+        where = {id(r): mine[id(r)] if mine[id(r)] is not None
+                 else home[p] if (p := parent_of(r, dtors)) and p in home else None for r in own}
         # The TU file itself may keep rows the map has not placed anywhere: the merge
         # seeds from it, moves none of them, and verifies they still match. Any file's
-        # homeless rows (and their companions) follow it the same way. A row the map
-        # puts in another TU still makes it mixed (split it first).
+        # homeless rows (and their unplaced companions) follow it the same way. A row the
+        # map puts in another TU still makes it mixed (split it first).
         free = {r["name"] for r in own if where[id(r)] is None and homeless(r, unplaced)}
+        rider = {id(r) for r in own if where[id(r)] is None and (r["name"] in free or parent_of(r, dtors) in free)}
         foreign = [r for r in own if where[id(r)] != tu.lower() and not fold_alias(r)
-                   and not (where[id(r)] is None and (f == tu or r["name"] in free or parent_of(r, dtors) in free))]
+                   and not (where[id(r)] is None and (f == tu or id(r) in rider))]
+        # what a donor moves must be approved here: the row itself when the map places it,
+        # and a companion's parent
+        ok = {r["name"]: approved.get(int(r["target_rva"], 16)) for r in own}
+
+        def approved_here(r):
+            p = parent_of(r, dtors)
+            return ((mine[id(r)] is None or ok[r["name"]] == tu.lower())
+                    and not (p and p in ok and ok[p] != tu.lower()))
+        unapproved = [] if f == tu else [r for r in own if where[id(r)] == tu.lower() and not approved_here(r)]
         if foreign:
             mixed[f] = len(foreign)
+        elif unapproved:
+            refused[f] = f"{len(unapproved)} row(s) not approved for this TU (only approved rows move)"
         elif own:
             why = refusal(f, by_file[f]) if f != tu else None
             if why:
@@ -546,6 +564,28 @@ def donors(tu, sk):
             else:
                 out[f] = own
     return out, mixed, refused
+
+
+P_PARENT = re.compile(r"(?<![\w=])P=0x([0-9A-Fa-f]+)@")
+
+
+def approved_homes(rows):
+    """{rva: TU key} of the code rows a merge may move into their TU: approved, and a
+    p-group funclet (tu_evidence.P_GROUP_TOKEN) only when its parent is approved for the
+    same TU (the token marks a funclet approved because of a parent the map does not
+    approve, which would make its approval circular)."""
+    code = {int(r["rva"], 16): r for r in rows if r["kind"].startswith("code") and r["tu"]}
+    out = {}
+    for rva, r in code.items():
+        if r["confidence"] != "approved":
+            continue
+        if "p-group" in r["evidence"].split():
+            m = P_PARENT.search(r["evidence"])
+            parent = code.get(int(m.group(1), 16)) if m else None
+            if not parent or parent["confidence"] != "approved" or parent["tu"].lower() != r["tu"].lower():
+                continue
+        out[rva] = r["tu"].lower()
+    return out
 
 
 def homeless(r, unplaced):

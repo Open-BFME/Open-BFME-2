@@ -43,10 +43,13 @@ regenerated `tu_map.csv` from this lane.
 2. **Read the plan.** `--plan TU` lists every approved row in retail order and what
    happens to it: `pull` (a clean donor), `mixed` (its file also holds rows of
    another TU, or rows the map leaves without a TU for want of evidence; a row it
-   leaves homeless on purpose, `tu_map.homeless`, does not count: a displaced or
-   header-inline COMDAT (evidence token `inline`), a template instantiation or a
+   leaves homeless on purpose, `tu_map.homeless`, does not count: a header-inline
+   COMDAT (evidence token `inline`), a template instantiation or a
    compiler-generated COMDAT follows its file into the TU, and the byte check
-   verifies it there), `refused` (deleting the file is not mechanical: vendored,
+   verifies it there. Being displaced is not enough, and a row whose own F/Z/S/L/W
+   names a TU, or a companion the map assigns elsewhere, always blocks), `refused` (it holds a row only proposed for the TU, or a
+   p-group funclet of an unapproved parent: only approved rows move; or deleting
+   the file is not mechanical: vendored,
    `#include`d by another file, or expanding `__FILE__`, even when it is also
    register-keyed, an approved TU path or recorded canonical), or
    a placeholder comment (unmatched; it compiles to nothing and is never credited).

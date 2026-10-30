@@ -1155,15 +1155,22 @@ TEMPLATE = re.compile(r"\?\$")
 
 
 def homeless(row, name=""):
-    """Is `row` (a map code row) left without a TU on purpose? A displaced COMDAT (its naming
-    hint's TU is elsewhere), a header-inline or implicit member (INLINE_TOKEN), a template
-    instantiation (`?$` in `name`, its ledger name) or a compiler-generated COMDAT (COMDAT) is
-    emitted in whichever object needs it, so its body may follow its file into a merge. A row
-    with a TU, or one left without a TU for want of evidence, never is."""
+    """Is `row` (a map code row) left without a TU on purpose, as a body emitted in whichever
+    object needs it, so that it may follow its file into a merge? Only with COMDAT evidence of
+    its own: a header-inline or implicit member (INLINE_TOKEN), a template instantiation (`?$`
+    in `name`, its ledger name) or a compiler-generated COMDAT (COMDAT). Being displaced is no
+    such evidence (build() also displaces an out-of-line function outside its TU's largest
+    cluster), and a row whose own F/Z/S/L/W evidence names a TU never is. A row with a TU, or
+    one left without a TU for want of evidence, never is either."""
     if row.get("tu") or not row.get("kind", "code").startswith("code"):
         return False
-    return (row.get("confidence") == "displaced" or INLINE_TOKEN in (row.get("evidence") or "").split()
-            or bool(name) and bool(TEMPLATE.search(name) or COMDAT.match(name)))
+    tokens = (row.get("evidence") or "").split()
+    if any(t.partition("=")[0] in TU_EVIDENCE and t.partition("=")[1] for t in tokens):
+        return False
+    return INLINE_TOKEN in tokens or bool(name) and bool(TEMPLATE.search(name) or COMDAT.match(name))
+
+
+TU_EVIDENCE = frozenset("FZSLW")     # evidence keys that name a TU outright (N only hints)
 
 
 PROVISIONAL = True    # approve unanchored TUs under a provisional name (provisional())
