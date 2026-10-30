@@ -275,7 +275,13 @@ What it does, in order, writing nothing until the last step:
    directory first).
 3. Verifies the residual under its own path and the flags the build will give its
    remaining rows (the region vote can change when rows leave). Any lost row
-   blocks the split.
+   blocks the split, except an ICF alias: a row sharing its address with the
+   row the map identifies that address by (tu_map's first row wins, e.g. the
+   folded vector destructor at 0x0007FAB3). The map places no alias, so an
+   alias no definition spells (an STLport COMDAT, an inline member) is emitted
+   wherever a body uses it; one only the carved bodies emitted rides with them
+   (`riders` in the report) and must match beside the TU in step 4. For the
+   same reason an alias never makes a file mixed for `--merge`.
 4. Verifies every carved row alone beside the TU under the TU's flags. A row that
    matches only under the mixed file's own flags stays behind (`flag_bound`).
 5. Runs the carved bodies through the merge verifier as a donor: into the existing

@@ -292,6 +292,101 @@ class DonorTests(unittest.TestCase):
         self.assertEqual(mixed, {"Code/B.cpp": 1})
         self.assertEqual(sorted(don), [self.TU])
 
+    def test_an_icf_alias_makes_no_file_mixed(self):
+        # 0x2000's identity is W.cpp's row (first row wins, as in tu_map); A.cpp's and
+        # the TU file's rows there are aliases that live with the bodies emitting them.
+        ledger = [("??1W@@QAE@XZ", 0x2000, "Code/W.cpp"), ("?t@@YAXXZ", 0x1000, self.TU),
+                  ("??1T@@QAE@XZ", 0x2000, self.TU), ("?a@@YAXXZ", 0x1010, "Code/A.cpp"),
+                  ("??1A@@QAE@XZ", 0x2000, "Code/A.cpp")]
+        don, mixed, _ = self.donors(ledger, {0x1000: self.TU, 0x1010: self.TU, 0x2000: "Code/W.cpp"})
+        self.assertEqual(mixed, {})
+        self.assertEqual(sorted(don), ["Code/A.cpp", self.TU])
+        self.assertEqual(len(don["Code/A.cpp"]), 2)
+
+    def test_the_identity_row_of_a_shared_address_is_still_placed(self):
+        ledger = [("??1W@@QAE@XZ", 0x2000, "Code/A.cpp"), ("?t@@YAXXZ", 0x1000, self.TU),
+                  ("?a@@YAXXZ", 0x1010, "Code/A.cpp"), ("??1B@@QAE@XZ", 0x2000, "Code/B.cpp")]
+        don, mixed, _ = self.donors(ledger, {0x1000: self.TU, 0x1010: self.TU, 0x2000: "Code/W.cpp"})
+        self.assertEqual(mixed, {"Code/A.cpp": 1})
+
+
+class FoldAliasSplitTests(unittest.TestCase):
+    """--split: an ICF alias only the carved bodies emitted rides with them."""
+    SOURCE, TU = "Code/Mixed.cpp", "Code/T.cpp"
+
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.tmp.cleanup)
+        self.root = Path(self.tmp.name).resolve()
+        (self.root / "Code").mkdir()
+        (self.root / "reverse").mkdir()
+        (self.root / self.SOURCE).write_text("void move(){}\nvoid stay(){}\n")
+
+    def split(self, alias_identity_here=False, carved_emits_alias=True):
+        row = lambda n, r, s: dict(name=n, export_rva="", target_rva=r, target_size="1", source=s,
+                                   status="matched", notes="")
+        mine = [row("_move", "0x1000", self.SOURCE), row("_stay", "0x3000", self.SOURCE),
+                row("??1Alias@@QAE@XZ", "0x7000", self.SOURCE)]
+        owner = mine[2] if alias_identity_here else row("??1Owner@@QAE@XZ", "0x7000", "Code/Owner.cpp")
+        ledger = [owner] + [r for r in mine if r is not owner]
+        seen = {}
+
+        class Verifier:
+            obj, errors, all_errors = None, [], []
+
+            def __init__(self, source):
+                self.source = source
+
+            def matched(self, text, rows):
+                names = set(re.findall(r"void\s+(\w+)\s*\(", text))
+                out = {r["target_rva"] for r in rows if r["name"].lstrip("_") in names}
+                if "move" in names and carved_emits_alias:     # only the carved body uses the alias
+                    out.add("0x7000")
+                return out
+
+        def merge(tu, sk, don, report, dry_run, **kw):
+            seen["don"] = don
+            return dict(report, accepted=list(don))
+
+        cache = {"ledger": ledger, "by_file": {self.SOURCE: mine},
+                 "approved_at": {0x1000: self.TU, 0x3000: "Code/Other.cpp", 0x7000: "Code/W.cpp"},
+                 "assigned": {0x1000: self.TU.lower(), 0x3000: "code/other.cpp", 0x7000: "code/w.cpp"}}
+        with patch.object(T, "ROOT", self.root), patch.dict(T._CACHE, cache, clear=True), \
+                patch.object(T, "refusal", return_value=None), patch.object(T, "included_by", return_value=[]), \
+                patch.object(T, "data_rowed_idents", return_value=set()), patch.object(T, "debt_keys", return_value=set()), \
+                patch.object(T, "hatch_move", return_value={}), patch.object(T, "skeleton", return_value=[]), \
+                patch.object(T, "Verifier", Verifier), patch.object(T, "SplitLinkGuard"), \
+                patch.object(T, "_merge", side_effect=merge):
+            report = T.split(self.SOURCE, self.TU, dry_run=True, claim=False)
+        return report, seen.get("don")
+
+    def test_an_alias_only_the_carved_bodies_emitted_rides_with_them(self):
+        report, don = self.split()
+        self.assertNotIn("blocked", report)
+        self.assertEqual(report["riders"], ["0x7000"])
+        self.assertEqual(sorted(r["target_rva"] for r in don[self.SOURCE]), ["0x1000", "0x7000"])
+
+    def test_an_alias_neither_side_emits_still_blocks(self):
+        report, _ = self.split(carved_emits_alias=False)
+        self.assertIn("ICF aliases the carved bodies do not emit", report["blocked"])
+        self.assertEqual(report["residual_loses"], ["0x7000"])
+
+    def test_the_address_identity_never_rides(self):
+        report, _ = self.split(alias_identity_here=True)
+        self.assertEqual(report["blocked"], "the residual loses matched rows (flag region or a shared helper)")
+        self.assertEqual(report["residual_loses"], ["0x7000"])
+
+    def test_breakdown_files_an_alias_as_unplaced(self):
+        owner = dict(name="??1Owner@@QAE@XZ", target_rva="0x7000", source="Code/Owner.cpp", notes="", status="matched")
+        alias = dict(owner, name="??1Alias@@QAE@XZ", source=self.SOURCE)
+        with patch.dict(T._CACHE, {"ledger": [owner, alias], "approved_at": {0x7000: "Code/W.cpp"},
+                                   "by_file": {self.SOURCE: [alias]}}, clear=True):
+            self.assertEqual(list(T.breakdown(self.SOURCE)), [""])
+        # a row the ledger does not hold is never taken for an alias
+        with patch.dict(T._CACHE, {"ledger": [owner], "approved_at": {0x7000: "Code/W.cpp"},
+                                   "by_file": {self.SOURCE: [alias]}}, clear=True):
+            self.assertEqual(list(T.breakdown(self.SOURCE)), ["Code/W.cpp"])
+
 
 class ComposePreprocessorTests(unittest.TestCase):
     def test_conditionals_are_not_deduplicated_across_donors(self):

@@ -462,14 +462,34 @@ def skeleton(tu):
             if r["confidence"] == "approved" and r["kind"].startswith("code"):
                 by_tu[r["tu"].lower()].append(r)
         _CACHE["approved_by_tu"] = by_tu
+    want, led = _CACHE["approved_by_tu"].get(tu.lower(), []), address_identities()
+    return [(r, led.get(int(r["rva"], 16))) for r in sorted(want, key=lambda r: int(r["rva"], 16))]
+
+
+def address_identities():
+    """{rva: the ledger row tu_map identifies the address by}: its first row that is
+    not a gen-alias (tu_map.evidence_rows: one identity per address, first row wins)."""
     if "led_by_rva" not in _CACHE:
         led = {}
         for r in ledger_rows():
             if "gen-alias" not in (r["notes"] or "") and r["target_rva"].startswith("0x"):
                 led.setdefault(int(r["target_rva"], 16), r)
         _CACHE["led_by_rva"] = led
-    want, led = _CACHE["approved_by_tu"].get(tu.lower(), []), _CACHE["led_by_rva"]
-    return [(r, led.get(int(r["rva"], 16))) for r in sorted(want, key=lambda r: int(r["rva"], 16))]
+    return _CACHE["led_by_rva"]
+
+
+def fold_alias(row):
+    """True for a ledger row that shares its address with another row the map
+    identifies the address by: an ICF alias (link.exe kept one of several identical
+    bodies, e.g. the 14-byte free-first-pointer destructor at 0x0007FAB3). The map
+    places the identity, never an alias, so an alias is no TU's row: like a
+    companion it lives where the bodies that emit it live."""
+    if "ledger_keys" not in _CACHE:
+        _CACHE["ledger_keys"] = {(r["target_rva"].lower(), r["name"], r["source"]) for r in ledger_rows()}
+    key = (row["target_rva"].lower(), row["name"], row["source"])
+    first = address_identities().get(int(row["target_rva"], 16))
+    return first is not None and key in _CACHE["ledger_keys"] and \
+        (first["name"], first["source"]) != (row["name"], row["source"])
 
 
 def donors(tu, sk):
@@ -509,7 +529,7 @@ def donors(tu, sk):
         # The TU file itself may keep rows the map has not placed anywhere: the merge
         # seeds from it, moves none of them, and verifies they still match. A row the
         # map puts in another TU still makes it mixed (split it first).
-        foreign = [r for r in own if where[id(r)] != tu.lower()
+        foreign = [r for r in own if where[id(r)] != tu.lower() and not fold_alias(r)
                    and not (f == tu and where[id(r)] is None)]
         if foreign:
             mixed[f] = len(foreign)
@@ -2427,13 +2447,13 @@ def debt_keys(path):
 
 def breakdown(path):
     """{approved TU (the map's spelling): rows} of a file's matched rows, plus
-    unplaced ones under ''; an EH funclet counts with its parent."""
+    unplaced ones (and ICF aliases, fold_alias) under ''; an EH funclet counts with its parent."""
     if "approved_at" not in _CACHE:         # indexed once: the picker asks for every served split
         _CACHE["approved_at"] = {int(r["rva"], 16): r["tu"] for r in map_rows()
                                  if r["confidence"] == "approved" and r["kind"].startswith("code") and r["tu"]}
     approved = _CACHE["approved_at"]
     rows = file_rows(path)
-    home = {r["name"]: approved.get(int(r["target_rva"], 16), "") for r in rows}
+    home = {r["name"]: "" if fold_alias(r) else approved.get(int(r["target_rva"], 16), "") for r in rows}
     dtors = {m.group(1): r["name"] for r in rows if (m := re.match(r"^\?\?1((?:\?\$)?[A-Za-z_]\w*@)", r["name"]))}
     out = collections.defaultdict(list)
     for r in rows:
@@ -2472,7 +2492,8 @@ def placed_elsewhere(tu, own, assigned):
     def placed(r):
         p = parent_of(r, dtors)
         return home[p] if p and p in home else assigned.get(int(r["target_rva"], 16))
-    return collections.Counter(placed(r).split("/")[-1] for r in own if placed(r) not in (tu.lower(), None))
+    return collections.Counter(placed(r).split("/")[-1] for r in own
+                               if placed(r) not in (tu.lower(), None) and not fold_alias(r))
 
 
 def split(path, tu, dry_run=False, claim=True):
@@ -2554,6 +2575,22 @@ def split(path, tu, dry_run=False, claim=True):
     v = Verifier(path)
     got = v.matched(residual, keep) if keep else set()
     lost = sorted({r["target_rva"] for r in keep} - (got or set()))
+    # An ICF alias no definition spells (an STLport COMDAT, an inline member) is
+    # emitted by whatever body uses it; one only the carved bodies emitted rides
+    # with them, as --shatter's riders do, and must then match beside the TU.
+    riders = [r for r in keep if got is not None and r["target_rva"] in lost and fold_alias(r)
+              and not all_ids.get(r["target_rva"]) and not parent_of(r)]
+    if riders and {r["target_rva"] for r in riders} == set(lost) and \
+            not any(r["target_rva"] in lost for r in keep if r not in riders):
+        carved += riders
+        keep = [r for r in keep if r not in riders]
+        report["riders"] = [r["target_rva"] for r in riders]
+        if not keep:
+            report["blocked"] = "no row would remain in the file once its ICF aliases ride: use --merge"
+            return report
+        lost = []
+    else:
+        riders = []
     report["residual_keeps"] = len(keep) - len(lost)
     if lost:
         report["residual_loses"] = lost
@@ -2568,13 +2605,18 @@ def split(path, tu, dry_run=False, claim=True):
     if alone is None:
         report["blocked"] = "the carved bodies do not compile beside the TU: " + " | ".join(vt.errors)[:300]
         return report
+    unemitted = [r["target_rva"] for r in riders if r["target_rva"] not in alone]
+    if unemitted:
+        report["residual_loses"] = unemitted
+        report["blocked"] = "the residual loses ICF aliases the carved bodies do not emit matched either"
+        return report
     behind = [r for r in carved if r["target_rva"] not in alone]
     report["alone"] = f"{len(carved) - len(behind)}/{len(carved)} carved rows match beside the TU under its flags"
     if behind:
         report["flag_bound"] = {r["target_rva"]: "matches only under the file's own flags" for r in behind}
         parents = {r["name"] for r in behind} | {m.group(1) for r in behind if (m := FUNCLET.match(r["name"]))}
         behind = [r for r in carved if r["name"] in parents or (m := FUNCLET.match(r["name"])) and m.group(1) in parents]
-        carved = [r for r in carved if r not in behind]
+        carved = [r for r in carved if r not in behind and r not in riders]   # riders: the residual re-judges them
         take = {ids[r["target_rva"]][0] for r in carved if r["target_rva"] in ids and ids[r["target_rva"]]}
         if not take:
             report["blocked"] = "no carved row matches under the TU's flags"
@@ -2905,7 +2947,8 @@ def shatter(path, dry_run=False, claim=True):
     for t in existing:
         own = file_rows(t)
         assigned = _CACHE["assigned"]
-        wrong = [r for r in own if assigned.get(int(r["target_rva"], 16)) not in (t.lower(), None)]
+        wrong = [r for r in own if assigned.get(int(r["target_rva"], 16)) not in (t.lower(), None)
+                 and not fold_alias(r)]
         if wrong:
             report["blocked"] = f"{t} holds rows the map places elsewhere (split it first): {wrong[0]['target_rva']}"
             return report
