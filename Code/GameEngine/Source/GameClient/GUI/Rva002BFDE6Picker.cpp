@@ -18,9 +18,38 @@ class Display;extern Display *TheDisplay;
 class PickerDisplayView {public:
  virtual void slot0();virtual void slot1();virtual void slot2();virtual void slot3();virtual void slot4();virtual void slot5();virtual void slot6();virtual void slot7();virtual void slot8();virtual void slot9();virtual void slot10();virtual void slot11();virtual void slot12();virtual void slot13();virtual void slot14();virtual void slot15();virtual unsigned width();
 };
-class Rva000411084 {public:void *next();void *current;void *owner;};
-class Rva000427195 {public:void *first(Rva000411084 *);};
-class Rva003FA835 {public:BfmeEventPositionView rva003FA835();};
+class Rva000411084
+{
+public:
+	void *next();
+	void *current; // +0x00
+	void *owner; // +0x04
+};
+class AsciiString;
+class Rva000427195
+{
+public:
+	void *first(Rva000411084 *);
+	int bucketIndex(const AsciiString *name);
+	void rva00212858(unsigned int n);
+};
+class LocomotorTemplate;
+template<class T> class OVERRIDE {public:OVERRIDE():head(0) {} const T *head;const T *operator->()const;};
+struct Rva00539926Base {unsigned references;Rva00539926Base():references(0) {} virtual ~Rva00539926Base();};
+
+class Rva003FA835 : public Rva00539926Base
+{
+public:
+ Rva003FA835(int kind,void *target,unsigned word);
+ virtual ~Rva003FA835() {}
+ BfmeEventPositionView rva003FA835();
+ void rva003FA878();
+ void rva003FA781(int enabled);void rva003FA7D3(int enabled);void rva003FA705(void*,float);
+private:
+ OVERRIDE<LocomotorTemplate> m_template;
+ unsigned m_unknown0C;void *m_target;bool m_enabled;char m_pad15[3];
+ float m_elapsed,m_unknown1C,m_20;
+};
 class Rva003FAAA1 {public:bool rva003FAAA1(void *);};
 class PickerDetails {public:
  virtual void slot0();virtual void slot1();virtual void slot2();virtual void slot3();virtual void slot4();virtual void slot5();virtual void slot6();virtual void slot7();virtual void slot8();virtual void slot9();virtual void slot10();virtual void slot11();virtual void slot12();virtual bool slot13();

@@ -10,17 +10,19 @@
 // and Rva002BF735NewNode neighbours; landing unblocks caller chain.
 #include "ascii_string.h"
 
+class Rva000411084;
 class Rva000427195
 {
 public:
+	void *first(Rva000411084 *);
+	int bucketIndex(const AsciiString *name);
 	void rva00212858(unsigned int n);
-	int bucketIndex(const AsciiString *key);
 };
 
 class Rva002BF735
 {
 public:
-	void *rva002BF735(const void *src);
+	void *rva002BF735(const void *obj);
 };
 
 class Rva002BFAD6

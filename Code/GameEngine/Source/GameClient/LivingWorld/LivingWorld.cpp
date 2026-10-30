@@ -60,7 +60,10 @@ private:
 
 struct Rva002C00C1Element
 {
-	char bytes[1];
+public:
+	bool operator<(const Rva002C00C1Element&)const;
+	bool operator==(const Rva002C00C1Element&)const;
+	char bytes[1]; // +0x00
 };
 
 namespace _STL
@@ -111,6 +114,8 @@ class Rva00213A85
 {
 public:
 	void rva00213A85();
+	void rva00213BBE();
+	void rva00213C30();
 };
 
 class Rva002BFBF7
@@ -182,16 +187,20 @@ class Rva003FA835;
 
 struct Rva002BFFD4Template {void *primary;AsciiString name;};
 
-class Rva000411084 {
+class Rva000411084
+{
 public:
-    void *next();
-    void *current;
-    void *owner;
+	void *next();
+	void *current; // +0x00
+	void *owner; // +0x04
 };
 
-class Rva000427195 {
+class Rva000427195
+{
 public:
-    void *first(Rva000411084 *);
+	void *first(Rva000411084 *);
+	int bucketIndex(const AsciiString *name);
+	void rva00212858(unsigned int n);
 };
 
 struct Rva002BFF5AData { char unknown[0x10]; int key; };
@@ -224,11 +233,13 @@ template<class T> class OVERRIDE {public:OVERRIDE():head(0) {} const T *head;con
 // Complete 0x24-byte target view from the owned 166B constructor unit.
 struct Rva00539926Base {unsigned references;Rva00539926Base():references(0) {} virtual ~Rva00539926Base();};
 
+struct BfmeEventPositionView;
 class Rva003FA835 : public Rva00539926Base
 {
 public:
  Rva003FA835(int kind,void *target,unsigned word);
  virtual ~Rva003FA835() {}
+ BfmeEventPositionView rva003FA835();
  void rva003FA878();
  void rva003FA781(int enabled);void rva003FA7D3(int enabled);void rva003FA705(void*,float);
 private:
@@ -241,16 +252,28 @@ typedef char Effect24Size[sizeof(Rva003FA835)==0x24 ? 1 : -1];
 
 class Rva00056F61;
 
-struct Rva0041534BIter {void *m_node;Rva00056F61 *m_table;};
+struct Rva0041534BIter
+{
+public:
+	Rva0041534BIter(void *n, Rva00056F61 *t) : m_node(n), m_table(t) {}
+	void *m_node; // +0x00
+	Rva00056F61 *m_table; // +0x04
+};
 
-class Rva00056F61 {public:Rva0041534BIter rva0041534B(const AsciiString*);};
+class Rva00056F61
+{
+public:
+	Rva0041534BIter rva0041534B(const AsciiString*);
+};
 
 struct TargetRef00217D4C;
 
 class Rva002BED91 {public:void set(TargetRef00217D4C*);};
 
-struct TreeHintRef002BF0D6 {
- TargetRef00217D4C *value;
+struct TreeHintRef002BF0D6
+{
+public:
+	TargetRef00217D4C *value; // +0x00
 };
 
 class Rva002BFC59 {public:TreeHintRef002BF0D6 &rva002BFC59(const AsciiString&);};
@@ -318,11 +341,12 @@ void __stdcall Rva002ADCE1Worker(VideoPair *pair);
 // The 30B 2BFCF5 wrapper must preserve this receiver while copying the pair.
 struct TwoInts002BFCF5 { int x, y; };
 
-class Rva002BFCF5 {
+class Rva002BFCF5
+{
 public:
- void erase(TwoInts002BFCF5 pair);
+	void erase(TwoInts002BFCF5 pair);
 private:
- void helper(const TwoInts002BFCF5 *pair);
+	void helper(const TwoInts002BFCF5 *pair);
 };
 
 class LivingWorldLogic;
