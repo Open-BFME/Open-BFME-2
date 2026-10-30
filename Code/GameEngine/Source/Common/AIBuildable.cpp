@@ -12,10 +12,12 @@ template <> list<int>::iterator list<int>::insert(iterator position, const int &
 // ?unRegisterWithBuilder@Rva00506FE9Hit@@QAEXPAX@Z retail 0x0055ADBA 30B: wrapper loads global 0x00DFEEF8 to get record for arg then removes this via rowed 0x004EC276; evidence pin plus callees rowed plus 6 matched callers
 struct Rva002A8AB1Record;
 
+class Player;
 class Rva002A8F24
 {
 public:
 	Rva002A8AB1Record *rva002A8AB1(void *x);
+	void *rva002A8F24(Player *player);
 };
 
 class Rva004EC276
@@ -73,8 +75,8 @@ class Rva0055AFBF
 {
 public:
 	void rva0055AFBF(int value);
-	char m_pad[0x14];
-	_STL::list<int, _STL::allocator<int> > m_list;
+	char m_pad00[0x14];
+	_STL::list<int, _STL::allocator<int> > m_list; // +0x14
 };
 
 class Rva0023DAA5List : public _STL::list<int, _STL::allocator<int> >

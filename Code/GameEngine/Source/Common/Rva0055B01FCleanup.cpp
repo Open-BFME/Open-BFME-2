@@ -21,6 +21,8 @@ class Rva0055AFBF
 {
 public:
 	void rva0055AFBF(int value);
+	char m_pad00[0x14];
+	_STL::list<int, _STL::allocator<int> > m_list; // +0x14
 };
 
 class Rva0055B0CC

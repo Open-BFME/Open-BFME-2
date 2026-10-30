@@ -19,10 +19,12 @@ public:
     Rva003B0D7C m_money;
 };
 
+struct Rva002A8AB1Record;
 class Rva002A8F24
 {
 public:
-    void *rva002A8F24(Player *player);
+	Rva002A8AB1Record *rva002A8AB1(void *x);
+	void *rva002A8F24(Player *player);
 };
 extern Rva002A8F24 *TheSkirmishAIManager;
 
