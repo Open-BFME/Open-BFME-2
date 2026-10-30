@@ -1,14 +1,22 @@
 // cl: /O1 /DNDEBUG /MD
+
 // WB122EF60 AIGateUpdate::update and native173B4B0C27..4B0CD4.
 // The module update interface starts at10. The opener cache and two counters
 // are native fields; Actor slot names and counters remain unasserted.
 // WB enclosing enabled branch closes the old bank's early-fail placement.
 class Player;
 
+enum Relationship { RELATION_0,RELATION_1,RELATION_2 };
 class Object
 {
 public:
+	Relationship getRelationship(const Object *) const;
 	Player *getControllingPlayer() const;
+	char m_pad00[0x38];
+	float px; // +0x38
+	float py; // +0x3C
+	float pz; // +0x40
+	float angle; // +0x44
 };
 
 struct Rva002A8AB1Record;
@@ -20,8 +28,6 @@ public:
 };
 
 extern Rva002A8F24 *TheSkirmishAIManager;
-
-class GateOpener;
 
 class Actor
 {
@@ -39,17 +45,66 @@ public:
 	virtual bool s10();
 };
 
-enum UpdateSleepTime {UPDATE_SLEEP_FOREVER=0x3fffffff};
+class Thing;
+class ModuleData;
+class GateOpener;
+class Vector2;
 class AIGateUpdateModuleData;
+
+enum NameKeyType { NK_UNKNOWN = 0 };
+enum UpdateSleepTime { UPDATE_SLEEP_INVALID = 0, UPDATE_SLEEP_FOREVER = 0x3fffffff };
+
 #include "../../../../Include/Common/ObjectModule.h"
-class BehaviorModuleInterface {public:virtual void slot0()=0;};
-class BehaviorModule:public ObjectModule,public BehaviorModuleInterface {public:virtual ~BehaviorModule();};
-class UpdateModuleInterface {public:virtual UpdateSleepTime update()=0;};
-class UpdateModule:public BehaviorModule,public UpdateModuleInterface {public:virtual ~UpdateModule();private:unsigned nextWake;int index,reserved;};
-class AIGateUpdate:public UpdateModule {public:
- virtual UpdateSleepTime update();
- GateOpener *getOpener();void loadTrigger();
- GateOpener *opener;unsigned triggerID;int count28,count2C;unsigned char loaded,enabled;
+
+class BehaviorModuleInterface
+{
+public:
+	virtual void slot0() = 0;
+};
+
+class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
+{
+public:
+	virtual ~BehaviorModule();
+};
+
+class UpdateModuleInterface
+{
+public:
+	virtual UpdateSleepTime update() = 0;
+};
+
+class UpdateModule : public BehaviorModule, public UpdateModuleInterface
+{
+public:
+	UpdateModule(Thing *thing, const ModuleData *moduleData);
+	virtual ~UpdateModule();
+
+private:
+	unsigned nextWake;
+	int index;
+	int reserved;
+};
+
+class AIGateUpdate : public UpdateModule
+{
+public:
+	AIGateUpdate(Thing *thing, const ModuleData *moduleData);
+	virtual ~AIGateUpdate();
+	virtual NameKeyType getModuleNameKey() const;
+	virtual UpdateSleepTime update();
+	GateOpener *getOpener();
+	void loadTrigger();
+	Vector2 rva004B0A24(float, float);
+	static void triggerCallback(Object *, AIGateUpdate *, bool);
+
+private:
+	GateOpener *m_opener; // +0x20
+	unsigned m_24;
+	int count28;
+	int count2C;
+	bool loaded;
+	unsigned char enabled;
 };
 UpdateSleepTime AIGateUpdate::update()
 {
