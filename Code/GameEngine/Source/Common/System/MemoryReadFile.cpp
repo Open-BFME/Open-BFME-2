@@ -83,6 +83,27 @@ class File
 public:
 	File();
 	virtual ~File();
+	virtual bool open(const char *filename, int access);
+	virtual void close();
+	enum seekMode { START, CURRENT, END };
+	enum { TEXT = 0x20 };
+
+	virtual int read(void *buffer, int bytes) = 0;
+	virtual int write(const void *buffer, int bytes) = 0;
+	virtual int seek(int bytes, seekMode mode) = 0;
+	virtual void slot06() = 0;
+	virtual void slot07() = 0;
+	virtual void slot08() = 0;
+	virtual void slot09() = 0;
+	virtual bool print(const char *format, ...);
+	virtual int size();
+	virtual int position();
+	virtual char *readEntireAndClose() = 0;
+	virtual void slot14() = 0;
+	virtual void lock();
+	virtual void unlock();
+
+	bool eof();
 
 protected:
 	AsciiString m_sourceFile; // +0x04
@@ -97,6 +118,9 @@ class MemoryReadFile : public File
 {
 public:
 	MemoryReadFile(char *data, int size);
+	virtual int read(void *buffer, int bytes);
+	virtual int seek(int bytes, seekMode mode);
+	virtual char *readEntireAndClose();
 
 private:
 	char *m_data; // +0x14
