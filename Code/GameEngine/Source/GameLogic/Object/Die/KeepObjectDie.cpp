@@ -82,41 +82,18 @@ struct Rva00486CF6_P04
 	unsigned char m_stayOnRadar;
 };
 
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Module.h
-class ObjectModule
-{
-public:
-	virtual NameKeyType getModuleNameKey() const = 0;
-protected:
-	Rva00486CF6_P04 *m_04;
-	Object *m_08;
-};
-
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h
-class BehaviorModuleInterface
-{
-public:
-	virtual void behaviorModuleInterfaceAnchor() = 0;
-};
-
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/DieModule.h
-class DieModuleInterface
-{
-public:
-	virtual void onDie(const DamageInfo *damageInfo) = 0;
-};
-
-class DieModule : public ObjectModule,
-	public BehaviorModuleInterface,
-	public DieModuleInterface
-{
-protected:
-	bool isDieApplicable(const DamageInfo *damageInfo) const;
-};
+// The ctor donor spells the canonical module base chain
+// (Include/Common/ObjectModule.h, Include/GameLogic/Module/DieModule.h); this
+// file takes the same headers so the merge emits one spelling of DieModule
+// (m_moduleData at +0x04, m_object at +0x08, onDie at +0x10).
+#include "../../../../Include/Common/ObjectModule.h"
+#include "../../../../Include/GameLogic/Module/DieModule.h"
 
 class KeepObjectDie : public DieModule
 {
 public:
+	KeepObjectDie(Thing *thing, const ModuleData *moduleData);
+	virtual ~KeepObjectDie();
 	virtual NameKeyType getModuleNameKey() const;
 	virtual void onDie(const DamageInfo *damageInfo);
 };
@@ -137,17 +114,17 @@ NameKeyType KeepObjectDie::getModuleNameKey() const
 
 void KeepObjectDie::onDie(const DamageInfo *damageInfo)
 {
-	Object *obj = m_08;
+	Object *obj = m_object;
 	Player *player = (obj != 0) ? obj->getControllingPlayer() : 0;
 	if (player != 0 && player->get() != 0)
 	{
 		TheGameLogic->destroyObject(obj);
 		return;
 	}
-	m_08->setSpecialModelConditionState(MCF_335, m_04->m_collapsingTime);
+	m_object->setSpecialModelConditionState(MCF_335, ((const Rva00486CF6_P04 *)m_moduleData)->m_collapsingTime);
 	if (!isDieApplicable(damageInfo))
 		return;
-	if (m_04->m_stayOnRadar == 0)
+	if (((const Rva00486CF6_P04 *)m_moduleData)->m_stayOnRadar == 0)
 		return;
 	if (obj == 0)
 		return;
