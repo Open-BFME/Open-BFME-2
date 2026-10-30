@@ -16,7 +16,6 @@ enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
-
 class B0 { public: virtual void b0(); private: unsigned char m_pad[8]; };
 class B1 { public: virtual void b1(); };
 class B2 { public: virtual void b2(); private: unsigned char m_pad[12]; };
@@ -45,6 +44,12 @@ public:
 #pragma comment(linker, "/alternatename:??1Rva004816F4Entry@@QAE@XZ=??1Rva0048130E@@QAE@XZ")
 #pragma comment(linker, "/alternatename:?push_back@Rva004816F4Vector@@QAEXABURva004816F4Entry@@@Z=?push_back@?$vector@URva0048130E@@V?$allocator@URva0048130E@@@_STL@@@_STL@@QAEXABURva0048130E@@@Z")
 #include <vector>
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const char *name);
+};
+extern NameKeyGenerator *TheNameKeyGenerator;
 
 class GarrisonContain : public OpenContain
 {
@@ -156,6 +161,8 @@ public:
 	static void iniParseTemplateContainer(INI *ini, void *instance, void *store, const void *userData);
 };
 
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/ProductionQueueHordeContain.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/ProductionQueueHordeContainDtor.cpp
 
 ProductionQueueHordeContain::~ProductionQueueHordeContain()
@@ -174,15 +181,10 @@ ProductionQueueHordeContain::~ProductionQueueHordeContain()
 // holds a rowed function; the vftable's address is proven by the vptr stores in
 // the matched destructors, so bind the placeholder to that row's name.
 
-// tu-skeleton: 0x00481273 6B ?name@ProductionQueueHordeContain@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
 
-// tu-skeleton: 0x00481279 5B ?rva00481279@Rva00481279@@QAE_NHHHHHH@Z -- matched in Code/GameEngine/Source/Common/VtableConstantPredicates.cpp (not merged yet)
 
-// tu-skeleton: 0x0048127E 54B ?xfer@ProductionQueueHordeContain@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/ProductionQueueHordeContainXfer.cpp (not merged yet)
 
-// tu-skeleton: 0x004812B4 5B ?j_004812b4@@YAXXZ -- matched in Code/gen_small/gthunks_000_admitted.cpp (not merged yet)
 
-// tu-skeleton: 0x004812B9 69B ?getModuleNameKey@ProductionQueueHordeContain@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/ProductionQueueHordeContainPoolKey.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/FilterStringEntryParserRva004816F4.cpp
 
@@ -204,20 +206,6 @@ void ProductionQueueHordeContainModuleData::iniParseTemplateContainer(INI*ini,vo
  ((Rva004816F4Vector*)store)->push_back(entry);
 }
 
-// tu-skeleton: 0x0048130E 53B ??1Rva0048130E@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/Rva0048130EDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00481343 84B ??0ProductionQueueHordeContain@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/ProductionQueueHordeContainCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004813B3 134B ?CreateTemplate@ProductionQueueHordeContain@@QAEXW4ObjectID@@PAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/ProductionQueueHordeContainSlots.cpp (not merged yet)
-
-// tu-skeleton: 0x00481439 67B ?rva00479ADA@ProductionQueueHordeContain@@UAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/ProductionQueueHordeContainSlots.cpp (not merged yet)
-
-// tu-skeleton: 0x0048147C 57B ??0Rva0048130E@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/Rva0048130EDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004814B5 28B ??_GRva0048130E@@QAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/Rva0048130EDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004814D1 67B ?rva00479B7F@ProductionQueueHordeContain@@UAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/ProductionQueueHordeContainSlots.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva0048130e_construct.cpp
 
 // ??$_Construct@URva0048130E@@U1@@_STL@@YAXPAURva0048130E@@ABU1@@Z, retail 0x00481514, 45 bytes.
@@ -226,21 +214,13 @@ void ProductionQueueHordeContainModuleData::iniParseTemplateContainer(INI*ini,vo
 // rowed 0x0048147C. Same 45B EH shape as other _Constructs; called by the
 // uninitialized-copy workers at 0x00481541/0x00481567.
 
-// tu-skeleton: 0x00481541 38B ??$__uninitialized_copy@PBURva0048130E@@PAU1@@_STL@@YAPAURva0048130E@@PBU1@0PAU1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_uninitialized_copy.cpp (not merged yet)
 
-// tu-skeleton: 0x00481567 37B ??$__uninitialized_fill_n@PAURva0048130E@@IU1@@_STL@@YAPAURva0048130E@@PAU1@IABU1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_uninitialized_fill_n.cpp (not merged yet)
 
-// tu-skeleton: 0x0048158C 9B ??$_Destroy@URva0048130E@@@_STL@@YAXPAURva0048130E@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorFamily.cpp (not merged yet)
 
-// tu-skeleton: 0x00481595 25B ??$_Destroy@PAURva0048130E@@@_STL@@YAXPAURva0048130E@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva0048130e_destroy.cpp (not merged yet)
 
-// tu-skeleton: 0x004815AE 63B ??1?$vector@URva0048130E@@V?$allocator@URva0048130E@@@_STL@@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorFamily.cpp (not merged yet)
 
-// tu-skeleton: 0x004815ED 30B ?_M_clear@?$vector@URva0048130E@@V?$allocator@URva0048130E@@@_STL@@@_STL@@IAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva0048130e_destroy.cpp (not merged yet)
 
-// tu-skeleton: 0x0048160B 178B ?_M_insert_overflow@?$vector@URva0048130E@@V?$allocator@URva0048130E@@@_STL@@@_STL@@IAEXPAURva0048130E@@ABU3@ABU__false_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva0048130e_destroy.cpp (not merged yet)
 
-// tu-skeleton: 0x004816BD 55B ?push_back@?$vector@URva0048130E@@V?$allocator@URva0048130E@@@_STL@@@_STL@@QAEXABURva0048130E@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva0048130e_destroy.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/ProductionQueueHordeContainModuleDataCtor.cpp
 
@@ -280,13 +260,57 @@ void ProductionQueueHordeContainModuleData::buildFieldParse(MultiIniFieldParse &
 // each one has the same function in that slot (vftable addresses from matched vptr
 // stores). Bind them to the rows at those functions.
 
+// tu-skeleton: 0x00481273 6B ?name@ProductionQueueHordeContain@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
+
+// tu-skeleton: 0x00481279 5B ?rva00481279@Rva00481279@@QAE_NHHHHHH@Z -- matched in Code/GameEngine/Source/Common/VtableConstantPredicates.cpp (not merged yet)
+
+// tu-skeleton: 0x0048127E 54B ?xfer@ProductionQueueHordeContain@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/ProductionQueueHordeContainXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x004812B4 5B ?j_004812b4@@YAXXZ -- matched in Code/gen_small/gthunks_000_admitted.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/ProductionQueueHordeContainPoolKey.cpp
+
+// ?getModuleNameKey@ProductionQueueHordeContain@@UBE?AW4NameKeyType@@XZ
+NameKeyType ProductionQueueHordeContain::getModuleNameKey() const
+{
+	static NameKeyType TheProductionQueueHordeContainPoolKey =
+		TheNameKeyGenerator->nameToKey("ProductionQueueHordeContain");
+	return TheProductionQueueHordeContainPoolKey;
+}
+
+// tu-skeleton: 0x0048130E 53B ??1Rva0048130E@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/Rva0048130EDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00481343 84B ??0ProductionQueueHordeContain@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/ProductionQueueHordeContainCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004813B3 134B ?CreateTemplate@ProductionQueueHordeContain@@QAEXW4ObjectID@@PAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/ProductionQueueHordeContainSlots.cpp (not merged yet)
+
+// tu-skeleton: 0x00481439 67B ?rva00479ADA@ProductionQueueHordeContain@@UAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/ProductionQueueHordeContainSlots.cpp (not merged yet)
+
+// tu-skeleton: 0x0048147C 57B ??0Rva0048130E@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/Rva0048130EDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004814B5 28B ??_GRva0048130E@@QAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/Rva0048130EDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004814D1 67B ?rva00479B7F@ProductionQueueHordeContain@@UAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/ProductionQueueHordeContainSlots.cpp (not merged yet)
+
+// tu-skeleton: 0x00481541 38B ??$__uninitialized_copy@PBURva0048130E@@PAU1@@_STL@@YAPAURva0048130E@@PBU1@0PAU1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_uninitialized_copy.cpp (not merged yet)
+
+// tu-skeleton: 0x00481567 37B ??$__uninitialized_fill_n@PAURva0048130E@@IU1@@_STL@@YAPAURva0048130E@@PAU1@IABU1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_uninitialized_fill_n.cpp (not merged yet)
+
+// tu-skeleton: 0x0048158C 9B ??$_Destroy@URva0048130E@@@_STL@@YAXPAURva0048130E@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x00481595 25B ??$_Destroy@PAURva0048130E@@@_STL@@YAXPAURva0048130E@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva0048130e_destroy.cpp (not merged yet)
+
+// tu-skeleton: 0x004815AE 63B ??1?$vector@URva0048130E@@V?$allocator@URva0048130E@@@_STL@@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x004815ED 30B ?_M_clear@?$vector@URva0048130E@@V?$allocator@URva0048130E@@@_STL@@@_STL@@IAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva0048130e_destroy.cpp (not merged yet)
+
+// tu-skeleton: 0x0048160B 178B ?_M_insert_overflow@?$vector@URva0048130E@@V?$allocator@URva0048130E@@@_STL@@@_STL@@IAEXPAURva0048130E@@ABU3@ABU__false_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva0048130e_destroy.cpp (not merged yet)
+
+// tu-skeleton: 0x004816BD 55B ?push_back@?$vector@URva0048130E@@V?$allocator@URva0048130E@@@_STL@@@_STL@@QAEXABURva0048130E@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva0048130e_destroy.cpp (not merged yet)
+
 // tu-skeleton: 0x0048179A 28B ??_GProductionQueueHordeContainModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/ProductionQueueHordeContainModuleDataDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x004817B6 62B ??1ProductionQueueHordeContainModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/ProductionQueueHordeContainModuleDataDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078BA7A 13B $L310 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/ProductionQueueHordeContainPoolKey.cpp (not merged yet)
-
-// tu-skeleton: 0x0078BA87 10B __ehhandler$?getModuleNameKey@ProductionQueueHordeContain@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/ProductionQueueHordeContainPoolKey.cpp (not merged yet)
 
 // tu-skeleton: 0x0078BABB 8B $L15727 -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorFamily.cpp (not merged yet)
 
