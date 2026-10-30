@@ -1,16 +1,14 @@
 // cl: /O1 /arch:SSE /G7 /Oy- /MD
+// stlport46
 // Native Ghidra 40E534..40E589 RET16. The original receiver identity is
 // unresolved. Target accesses establish the +1C index and argument wrapper.
 class Player;
 class Object;
 Player *Rva0040C94ALookup(int);
-namespace _STL {
-template<class T> class allocator {};
-template<class T, class A> class list {
-public:
-    void push_back(const T &);
-};
-}
+#define _STLP_USE_STATIC_LIB 1
+#include <list>
+// push_back stays an out-of-line call, as in retail.
+namespace _STL { template <> void list<Object *, allocator<Object *> >::push_back(Object *const &); }
 class ArmySummaryEntry {
 public:
     Object *rva0040C495(Player *, int);
