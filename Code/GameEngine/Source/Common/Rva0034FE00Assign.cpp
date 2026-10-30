@@ -1,16 +1,9 @@
-// cl: /Ob0
+// cl: /FIzh_ascii.h /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ob0
 
 class Rva0036CA00Str
 {
 private:
 	void *m_item;
-};
-
-template <typename T>
-class StringBase
-{
-public:
-	void set(const StringBase<T> &other);
 };
 
 struct Rva0034FE00Pod
