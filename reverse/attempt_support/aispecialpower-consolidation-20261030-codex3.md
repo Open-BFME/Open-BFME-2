@@ -48,7 +48,8 @@ nine-source naming packet and its currency check passed before applying. The
 supported dry run and applying merger accept only the seed and update donor.
 The update row at 0x004B327F moves to the approved Update TU. One source cell
 each in functions.csv and tu_map.csv changes; the map is not regenerated.
-The donor is deleted: one fewer source file and one more approved-TU row.
+The donor is deleted: one fewer source file; the moved row retains its
+existing TU approval.
 
 The final normal build passes all six rows, one string reference and one float
 reference. find_declared_unmatched passes. The parent EH graph remains EXACT
@@ -82,3 +83,11 @@ the retired update provider, destination, earlier outgoing providers and their
 affected consumers into the next scheduled census. The bounded merge guard
 and unchanged object facts do not establish full consumer coverage or census
 progress. No runtime or image-ownership result is claimed.
+
+## Final measurement
+
+The post-merge progress report prints SOURCE FILES 20,448 (-1),
+BYTE-MATCHED 100.00% and unchanged census LINKED/LINKING. TU-APPROVED
+remains 48,000: this move consumes an existing approval and adds no approval.
+Both substantive commits passed the normal hooks and were handed to the fleet
+publisher through /opt/runner/publish.
