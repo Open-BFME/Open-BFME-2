@@ -12879,6 +12879,19 @@ is AptOnlineCustomMatch_PopulateLobbyComboBox.cpp.
 Census confirmation: not claimed.
 [Evidence and provenance](../reverse/attempt_support/gamespy-color-table-20261029.md).
 
+### GiantBird attack canonical Module data access (2026-10-30)
+
+Cleared for `AIGiantBirdAttackStateOnEnter.cpp`: use the registered Module and
+an access view exposing its existing protected data getter. Native module+4
+and subsequent data+0x3C accesses are preserved. The emitted getter changes
+only its public/protected access spelling; both four-byte bodies are identical,
+no indexed executable caller references the public name, and other public and
+protected providers remain. Six rows and EH stay exact; all 30 external code
+definitions/relocations are conserved under that one identity normalization.
+The owning acceptance tool retires one Module key; preview preserves
+LINKS/1,359 bytes against `ccafe54d1d`. No census gain is claimed.
+[Observed provider scope and native accesses](../reverse/attempt_support/module-giantbird-data-access-20261030/README.md).
+
 ### BuildAssistant canonical Module lookup storage (2026-10-30)
 
 Cleared for `Common/System/BuildAssistant.cpp`: the CastleMemberBehavior lookup
@@ -12890,6 +12903,14 @@ acceptance tool retires one Module key; ordinary preview preserves
 LINKS/11,630 bytes against `ccafe54d1d`. No census gain is claimed.
 [Native helper, caller and strict-object evidence](../reverse/attempt_support/module-buildassistant-lookup-20261030/README.md).
 
+The accepted batch at `16b007b4e7` retains an INCONCLUSIVE wider audit on the
+older index and missing current 0CreateAHeroManager affected-consumer receipt.
+The hook's eight code-identity shadow findings remain outside this Module
+adoption: before/trial retained definitions and relocation targets are
+identical, and the normal nine EH graphs remain exact. No identity register
+or baseline is expanded or retired. Carry the wider provider/consumer scope
+and those independent findings into their owning lanes and the next census.
+
 ### Defection completion canonical Module storage (2026-10-30)
 
 Cleared for `ObjectDefectionComplete.cpp`: use the registered Module base and a
@@ -12899,6 +12920,10 @@ all four external code definitions/relocations remain exact. The owning header
 acceptance tool retires one key; ordinary preview retains LINKS/546 bytes
 against `ccafe54d1d`. No census gain or full derived hierarchy is claimed.
 [Native proof and verification](../reverse/attempt_support/module-defection-flag-20261030/README.md).
+
+The two static-key/guard wrong-name shadow findings also predate that adoption:
+their names and data symbol offsets are identical in the saved before/trial
+objects. They remain separate data-identity work; no key was retired here.
 
 ### Radar upgrade canonical Module storage (2026-10-30)
 

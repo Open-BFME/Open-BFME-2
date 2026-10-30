@@ -22,3 +22,10 @@ Normal verification passes 69/69 rows, one data row, both string literals and
 Module key. Ordinary preview against ccafe54d1d retains LINKS and 11,630
 authored bytes. No new coverage or census gain is claimed; ModuleData and
 other independent class contracts are outside this adoption.
+
+Publication follow-up: the accepted batch at 16b007b4e7 has an INCONCLUSIVE
+wider audit on the older index and missing current 0CreateAHeroManager consumer
+receipt. Eight code-identity shadow findings remain; the before/trial comparison
+shows unchanged retained definitions and relocation targets, while all nine EH
+graphs stay exact. These are separate identity-lane prerequisites, not retired
+debt or a new coverage claim. No baseline is expanded.

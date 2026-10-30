@@ -18,3 +18,7 @@ symbolic relocations. Normal builds retain both string references. The owning
 header acceptance tool passes and retires one Module key. Ordinary preview
 against ccafe54d1d retains LINKS and 546 authored bytes; no census gain is
 claimed.
+
+The hook also reports two static-key/guard wrong-name findings in shadow mode.
+Their names and data offsets are identical in the saved before/trial objects;
+they predate this source adoption and remain separate data-identity work.

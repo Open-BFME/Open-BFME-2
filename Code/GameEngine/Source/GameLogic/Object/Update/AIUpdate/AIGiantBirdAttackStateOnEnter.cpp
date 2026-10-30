@@ -167,13 +167,13 @@ private:
 	AsciiString m_name3C; // +0x3C
 };
 
-class Module
+#include "../../../../../Include/Common/Module.h"
+
+// Access view for the native module-data load at +4; no extra state or methods.
+class Rva003699CAModuleDataAccess : public Module
 {
 public:
-	const ModuleData *getModuleData() const { return m_moduleData; }
-private:
-	void *m_vtbl;
-	const ModuleData *m_moduleData; // +4
+    using Module::getModuleData;
 };
 
 // What contain slot 31 hands back for the victim's container.
@@ -519,7 +519,7 @@ StateReturnType AIGiantBirdAttackState::onEnter()
 			static NameKeyType key = TheNameKeyGenerator->nameToKey("CreateObjectDie");
 			Module *module = victim->findModule(key);
 			if (module != 0)
-				name = module->getModuleData()->getObjectName3C();
+				name = ((Rva003699CAModuleDataAccess *)module)->getModuleData()->getObjectName3C();
 			const ThingTemplate *thingTemplate =
 				TheThingFactory->findTemplate(name);
 			if (thingTemplate != 0)
