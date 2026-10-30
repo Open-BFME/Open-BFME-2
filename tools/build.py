@@ -2395,7 +2395,8 @@ def kill_process_tree(process):
     tree (Wine's loader, cl.exe and anything they spawned) and nothing else: a
     wineserver started beforehand (`wineserver -p`) or one that daemonized
     itself has left the group and keeps serving. Native Windows has no groups
-    here and the compiler is one process, so it is killed directly.
+    here, and cl.exe starts its compiler passes as children, so `taskkill /T`
+    kills the tree from the compiler's pid down.
 
     This is census_receipts' `_kill_tree` (ported from Open-BFME-1 with the
     preprocessor timeout): a compile needs the same kill, and build cannot
@@ -2407,6 +2408,8 @@ def kill_process_tree(process):
         except ProcessLookupError:
             pass
     else:
+        subprocess.run(["taskkill", "/F", "/T", "/PID", str(process.pid)],
+                       stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         process.kill()
     process.wait()
 

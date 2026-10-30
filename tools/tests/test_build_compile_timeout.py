@@ -64,6 +64,17 @@ def test_no_limit_means_the_compile_runs_as_before(tmp_path, monkeypatch):
 
 
 def _alive(pid):
+    if os.name != "posix":
+        # os.kill(pid, 0) would terminate the process on Windows: ask for its exit code instead.
+        import ctypes
+        kernel32 = ctypes.windll.kernel32
+        handle = kernel32.OpenProcess(0x1000, False, pid)   # PROCESS_QUERY_LIMITED_INFORMATION
+        if not handle:
+            return False
+        code = ctypes.c_ulong()
+        kernel32.GetExitCodeProcess(handle, ctypes.byref(code))
+        kernel32.CloseHandle(handle)
+        return code.value == 259                             # STILL_ACTIVE
     try:
         os.kill(pid, 0)
     except ProcessLookupError:
@@ -71,10 +82,10 @@ def _alive(pid):
     return True
 
 
-@pytest.mark.skipif(os.name != "posix", reason="process groups are POSIX")
 def test_the_killed_compiles_own_children_die_with_it(tmp_path, monkeypatch):
     # A killed loader that leaves c2 or its Wine services running would keep
-    # spinning: the compile runs in its own session, so the whole group dies.
+    # spinning: on POSIX the compile's session dies as one group, and on
+    # Windows taskkill /T takes the tree cl.exe started.
     sys.path.insert(0, str(TOOLS))
     import build
     script = tmp_path / "cl.py"
