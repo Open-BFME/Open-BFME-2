@@ -44641,7 +44641,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00534FD8,35,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_side_faction_copy.cpp
 0x00534FFB,140,code,,,-,,Code/GameEngine/Source/Common/ParseAllowedFactions.cpp
 0x00535087,51,code,,,-,,Code/GameEngine/Source/Common/parsePlayerPosition.cpp
-0x005350BA,841,code,Code/GameEngine/Source/Common/INI/INIMapCache.cpp,approved,Z,Z=Code/GameEngine/Source/Common/INI/INIMapCache.cpp N=Code/GameEngine/Source/Common/INI/INI.cpp,Code/GameEngine/Source/Common/INI/INIMapCacheDefinition.cpp
+0x005350BA,841,code,Code/GameEngine/Source/Common/INI/INIMapCache.cpp,approved,Z,Z=Code/GameEngine/Source/Common/INI/INIMapCache.cpp N=Code/GameEngine/Source/Common/INI/INI.cpp,Code/GameEngine/Source/Common/INI/INIMapCache.cpp
 0x00535403,25,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/quoted_printable.cpp
 0x0053541C,48,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/quoted_printable.cpp
 0x0053544C,250,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/quoted_printable_encoders.cpp
@@ -84664,15 +84664,15 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00797532,8,code,,,-,,Code/GameEngine/Source/Common/ParseAllowedFactions.cpp
 0x0079753A,8,code,,,-,,Code/GameEngine/Source/Common/ParseAllowedFactions.cpp
 0x00797542,10,code,,,-,,Code/GameEngine/Source/Common/ParseAllowedFactions.cpp
-0x0079754C,8,code,Code/GameEngine/Source/Common/INI/INIMapCache.cpp,approved,P,P=0x005350BA@FuncInfo0x0094B3F8,Code/GameEngine/Source/Common/INI/INIMapCacheDefinition.cpp
-0x00797554,11,code,Code/GameEngine/Source/Common/INI/INIMapCache.cpp,approved,P,P=0x005350BA@FuncInfo0x0094B3F8,Code/GameEngine/Source/Common/INI/INIMapCacheDefinition.cpp
-0x0079755F,11,code,Code/GameEngine/Source/Common/INI/INIMapCache.cpp,approved,P,P=0x005350BA@FuncInfo0x0094B3F8,Code/GameEngine/Source/Common/INI/INIMapCacheDefinition.cpp
-0x0079756A,8,code,Code/GameEngine/Source/Common/INI/INIMapCache.cpp,approved,P,P=0x005350BA@FuncInfo0x0094B3F8,Code/GameEngine/Source/Common/INI/INIMapCacheDefinition.cpp
-0x00797572,8,code,Code/GameEngine/Source/Common/INI/INIMapCache.cpp,approved,P,P=0x005350BA@FuncInfo0x0094B3F8,Code/GameEngine/Source/Common/INI/INIMapCacheDefinition.cpp
-0x0079757A,8,code,Code/GameEngine/Source/Common/INI/INIMapCache.cpp,approved,P,P=0x005350BA@FuncInfo0x0094B3F8,Code/GameEngine/Source/Common/INI/INIMapCacheDefinition.cpp
-0x00797582,8,code,Code/GameEngine/Source/Common/INI/INIMapCache.cpp,approved,P,P=0x005350BA@FuncInfo0x0094B3F8,Code/GameEngine/Source/Common/INI/INIMapCacheDefinition.cpp
-0x0079758A,8,code,Code/GameEngine/Source/Common/INI/INIMapCache.cpp,approved,P,P=0x005350BA@FuncInfo0x0094B3F8,Code/GameEngine/Source/Common/INI/INIMapCacheDefinition.cpp
-0x00797592,10,code,Code/GameEngine/Source/Common/INI/INIMapCache.cpp,approved,P,P=0x005350BA@FuncInfo0x0094B3F8,Code/GameEngine/Source/Common/INI/INIMapCacheDefinition.cpp
+0x0079754C,8,code,Code/GameEngine/Source/Common/INI/INIMapCache.cpp,approved,P,P=0x005350BA@FuncInfo0x0094B3F8,Code/GameEngine/Source/Common/INI/INIMapCache.cpp
+0x00797554,11,code,Code/GameEngine/Source/Common/INI/INIMapCache.cpp,approved,P,P=0x005350BA@FuncInfo0x0094B3F8,Code/GameEngine/Source/Common/INI/INIMapCache.cpp
+0x0079755F,11,code,Code/GameEngine/Source/Common/INI/INIMapCache.cpp,approved,P,P=0x005350BA@FuncInfo0x0094B3F8,Code/GameEngine/Source/Common/INI/INIMapCache.cpp
+0x0079756A,8,code,Code/GameEngine/Source/Common/INI/INIMapCache.cpp,approved,P,P=0x005350BA@FuncInfo0x0094B3F8,Code/GameEngine/Source/Common/INI/INIMapCache.cpp
+0x00797572,8,code,Code/GameEngine/Source/Common/INI/INIMapCache.cpp,approved,P,P=0x005350BA@FuncInfo0x0094B3F8,Code/GameEngine/Source/Common/INI/INIMapCache.cpp
+0x0079757A,8,code,Code/GameEngine/Source/Common/INI/INIMapCache.cpp,approved,P,P=0x005350BA@FuncInfo0x0094B3F8,Code/GameEngine/Source/Common/INI/INIMapCache.cpp
+0x00797582,8,code,Code/GameEngine/Source/Common/INI/INIMapCache.cpp,approved,P,P=0x005350BA@FuncInfo0x0094B3F8,Code/GameEngine/Source/Common/INI/INIMapCache.cpp
+0x0079758A,8,code,Code/GameEngine/Source/Common/INI/INIMapCache.cpp,approved,P,P=0x005350BA@FuncInfo0x0094B3F8,Code/GameEngine/Source/Common/INI/INIMapCache.cpp
+0x00797592,10,code,Code/GameEngine/Source/Common/INI/INIMapCache.cpp,approved,P,P=0x005350BA@FuncInfo0x0094B3F8,Code/GameEngine/Source/Common/INI/INIMapCache.cpp
 0x0079759C,8,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/quoted_printable_encoders.cpp
 0x007975A4,25,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/quoted_printable_encoders.cpp
 0x007975BD,10,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/quoted_printable_encoders.cpp

@@ -12378,7 +12378,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x008688A8,240,.rdata,global,?LivingWorldCampaignFields@@3QBUFieldParse@@B,,unowned,,0,1
 0x00868998,56,.rdata,string,??_C@_0DG@HDCJAGHA@ParseLivingWorldCampaignBlock?3?3C@,,literal,,0,1
 0x008689D0,280,.rdata,vtable,??_7Rva0056616B@@6B@,,literal,,0,3
-0x00868AE8,448,.rdata,global,?fieldTable@Rva00534E13@@2QBUFieldParse@@B,Code/GameEngine/Source/Common/INI/INIMapCacheDefinition.cpp,owned,,1,1
+0x00868AE8,448,.rdata,global,?fieldTable@Rva00534E13@@2QBUFieldParse@@B,Code/GameEngine/Source/Common/INI/INIMapCache.cpp,owned,,1,1
 0x00868CA8,208,.rdata,string,??_C@_0M@PPJNHBMP@description?$AA@,,literal,,0,2
 0x00868D78,96,.rdata,global,?g_00C68D78@@3QBUFieldParse@@B,,unowned,,0,1
 0x00868DD8,56,.rdata,vtable,??_7ProfilePreferences@@6B@,,literal,??_7ProfilePreferences@@6B@;??_7Rva00535776@@6B@,0,2
