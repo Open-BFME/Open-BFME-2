@@ -101,6 +101,28 @@ enum NameKeyType
 	NK_UNKNOWN = 0
 };
 #include "../../../../Include/Common/ObjectModule.h"
+#define BFME_SNAPSHOT_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	protected: \
+		virtual const char *GetSnapshotName() const; \
+	}; \
+	const char *NAME::GetSnapshotName() const \
+	{ \
+		return TEXT; \
+	}
+#define BFME_LITERAL_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	public: \
+		const char *name() const; \
+	}; \
+	const char *NAME::name() const \
+	{ \
+		return TEXT; \
+	}
+#include "../../AI/WorkOrder.h"
+#include "../../AI/TeamInQueue.h"
 
 // Slot 0 of both interface vftables is retail's shared `return 0` fold
 // (33 C0 C3 at 0x000D43D0); the views define it inline with that body, so
@@ -275,6 +297,10 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
+BFME_LITERAL_NAME_GETTER(Rva004BB6FCNamed, "FireWeaponCollide")
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Collide/FireWeaponCollide.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Collide/FireWeaponCollide.cpp
 
 // Multiple-inheritance layout shared with the split xfer unit, so all units
@@ -382,8 +408,6 @@ bool FireWeaponCollide::shouldFireWeapon()
 	return true;
 }
 
-// tu-skeleton: 0x004BB6FC 6B ?name@Rva004BB6FCNamed@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Collide/CollideModuleCtor.cpp
 
 // ??0CollideModule@@QAE@PAVThing@@PBVModuleData@@@Z @0x004BB702
@@ -391,6 +415,23 @@ CollideModule::CollideModule(Thing *thing, const ModuleData *moduleData) :
 	BehaviorModule(thing, moduleData)
 {
 }
+
+// ---- from Code/GameEngine/Source/Common/ModuleNameGetters.cpp
+
+// Module literal name getters: six-byte const members with one shape:
+//
+//     mov eax,<offset string literal> / ret
+//
+// Each body returns a pointer to a NUL-terminated Behavior/Update/Contain
+// class-name string in .rdata. Each body VA carries exactly one .rdata
+// reference from its module vtable (descriptor tail closed by the shared
+// 0x004B3FD0 pair -- the same family marker as the Subsystem getters).
+// Split from Code/GameEngine/Source/Common/SubsystemNameGetters.cpp into a
+// contributor-local unit to keep concurrent landings conflict-free; the
+// BFME_LITERAL_NAME_GETTER macro is verbatim, only the class names follow
+// this tree's address-derived convention (identity unrecoverable from 6
+// bytes, string carried in source where verify_string_refs re-reads it).
+// No // cl: line (defaults match the frameless 6-byte shape).
 
 // tu-skeleton: 0x004BB739 28B ??_GRva004BB68E@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0049B47CThreeVptrDerived.cpp (not merged yet)
 
