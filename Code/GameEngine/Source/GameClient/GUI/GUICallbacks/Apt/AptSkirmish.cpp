@@ -197,7 +197,7 @@ public:
 	Rva004444D2();
 	virtual ~Rva004444D2();
 private:
-	unsigned char m_pad04[0x0C - 0x04];
+	char storage[8]; // +0x04
 };
 
 class MpGameSetupOwner;
@@ -206,10 +206,14 @@ class AptMpGameSetup
 {
 public:
 	AptMpGameSetup(MpGameSetupOwner *owner, int flags);
-	virtual ~AptMpGameSetup();
 	void rva004422B4(int arg);
+	bool OnUpdate();
+	bool OnHostStartGame(bool);
+	int rva00442CB3(unsigned int message, unsigned int data1, unsigned int data2);
+	void rva0044303D();
+	virtual ~AptMpGameSetup();
 private:
-	unsigned char m_pad[0x668 - 0x288 - 4];
+	char storage[0x3E0-4]; // +0x04
 };
 
 // The +0x668 member is the rowed Rva005C1A36 (ctor 0x005C19B6, vtable 0x008743DC,
@@ -220,7 +224,7 @@ public:
 	Rva005C1A36(void *owner, int kind);
 	virtual ~Rva005C1A36();
 private:
-	unsigned char m_pad[0x698 - 0x668 - 4];
+	char storage[0x30-4]; // +0x04
 };
 
 class SkirmishPreferences
@@ -248,6 +252,7 @@ class GameWindow;
 class __multiple_inheritance AptSkirmish : public _bfme_AptGameWindow, public Rva004444D2
 {
 public:
+	static void OpenScreen(int mode);
 	AptSkirmish(void *context, int arg);
 	virtual ~AptSkirmish();
 	void OnInitialized(const char *unused);
@@ -304,10 +309,19 @@ struct GameSlotConnectInfo
 	unsigned short m_port;
 };
 
+class CreateAHeroData;
 class GameSlot
 {
 public:
 	void setState(SlotState state, UnicodeString name, const GameSlotConnectInfo *connectInfo);
+	bool isOccupied() const;
+	void rva0037AD8D(const CreateAHeroData &data);
+	void *m_vtable; // +0x00
+	char m_pad04[0x4C];
+	int m_heroKind; // +0x50, nonzero before this screen assigns a hero
+	int m_hero0c; // +0x54
+	int m_hero10; // +0x58
+	int m_hero; // +0x5C, CreateAHeroData list index
 };
 
 // ?Rva00521CBAAdvance@@YAXPAPAURva00521CBANode@@HPAX@Z retail 0x00521CBA 41B

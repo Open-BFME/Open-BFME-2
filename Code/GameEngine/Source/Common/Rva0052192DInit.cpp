@@ -10,13 +10,17 @@ extern int g_skirmishMode;
 int g_skirmishMode = -1;
 struct GlobalA01E48;
 extern class Shell *TheShell;
-class Shell {
+class Shell
+{
 public:
-    void push(AsciiString s, bool flag);
+	void push(AsciiString s, bool flag);
 };
-class Rva00222A8BTarget {
+class Rva00222A8BTarget
+{
 public:
-    void rva002233A6(int v);
+	void rva002233A6(int v);
+	void rva00222F55(bool);
+	int invoke(void*,const char*,int,const char*,void*,void*,void*,void*);
 };
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 
