@@ -17,10 +17,10 @@ class Rva004CF406DwordClearer {public:void clear();};
 #include "../Common/GameLogicObjectLookupView.h"
 // Native40B provider supplies the status tail beyond the canonical prefix.
 // This separately typed payload view keeps canonical frame access in GameLogic.
-struct Rva0023D201Status {int status,quitFrame;char opaque08[0x1c-8];};
+struct PlayerQuitStatus {int status,quitFrame;char opaque08[0x1c-8];};
 class Rva0023D201StatusView {public:
  __declspec(noinline) void rva0023D201(int slot,int state);
- char opaque00[0x40];unsigned frame;char opaque44[0x1c4-0x44];Rva0023D201Status entries[8];
+ char opaque00[0x40];unsigned frame;char opaque44[0x1c4-0x44];PlayerQuitStatus entries[8];
 };
 void Rva0023D201StatusView::rva0023D201(int slot,int state) {
  if(slot<0 || slot>=8)return;

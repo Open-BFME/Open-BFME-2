@@ -89,7 +89,7 @@ char g_Rva011294A8HexSecond[256] = {
 // 'a'-'z' fold to 'A'-'Z' and digits/underscore stay). Values read from
 // retail; the BFME 1 copy names it Rva007E8B00ClassTable (no EA identifier
 // recovered), so this is a neutral descriptive name.
-extern const unsigned char g_bfmeFeslFieldClassTable[256] = {
+extern const unsigned char g_feslFieldClassTable[256] = {
 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -112,7 +112,7 @@ extern const unsigned char g_bfmeFeslFieldClassTable[256] = {
 // same FESL record-field replacer (retail .data byte 0x00dd7f45 = 0x0A,
 // between the "or@@" literal run and the 0x009d7f48 pointer table); BFME 1's
 // bank calls the same byte Rva007E8B00Separator and compares it with '\n'.
-char g_bfmeFeslFieldSeparator = '\n';
+char g_feslFieldSeparator = '\n';
 
 #include <string.h>
 
@@ -123,7 +123,7 @@ int Rva007E8B00( unsigned char *buffer, int size, const char *field )
 {
 	int i;
 	int iDelta;
-	unsigned char *p;
+	unsigned char *recordCursor;
 	unsigned char *pValue;
 	unsigned char *pTail;
 	unsigned char cClassBuffer;
@@ -144,61 +144,61 @@ int Rva007E8B00( unsigned char *buffer, int size, const char *field )
 
 	if ( *field == '~' )
 	{
-		for ( p = pBuffer; *p != 0; p++ )
+		for ( recordCursor = pBuffer; *recordCursor != 0; recordCursor++ )
 		{
 		}
 
-		if ( p != pBuffer && p[ -1 ] >= ' '
-			&& p[ -1 ] != g_bfmeFeslFieldSeparator
-			&& p < pBuffer + size - 1 )
+		if ( recordCursor != pBuffer && recordCursor[ -1 ] >= ' '
+			&& recordCursor[ -1 ] != g_feslFieldSeparator
+			&& recordCursor < pBuffer + size - 1 )
 		{
-			*p = g_bfmeFeslFieldSeparator;
-			p++;
-			*p = 0;
+			*recordCursor = g_feslFieldSeparator;
+			recordCursor++;
+			*recordCursor = 0;
 		}
 
-		pTail = p;
+		pTail = recordCursor;
 		pValue = pTail;
 	}
 	else
 	{
-		p = pBuffer;
+		recordCursor = pBuffer;
 
 		for ( ;; )
 		{
-			if ( *p == 0 )
+			if ( *recordCursor == 0 )
 			{
-				if ( p != pBuffer && p[ -1 ] >= ' '
-					&& p[ -1 ] != g_bfmeFeslFieldSeparator
-					&& p < pBuffer + size - 1 )
+				if ( recordCursor != pBuffer && recordCursor[ -1 ] >= ' '
+					&& recordCursor[ -1 ] != g_feslFieldSeparator
+					&& recordCursor < pBuffer + size - 1 )
 				{
-					*p = g_bfmeFeslFieldSeparator;
-					p++;
-					*p = 0;
+					*recordCursor = g_feslFieldSeparator;
+					recordCursor++;
+					*recordCursor = 0;
 				}
 
-				pTail = p;
+				pTail = recordCursor;
 				pValue = pTail;
 				break;
 			}
 
-			if ( *p <= ' ' )
+			if ( *recordCursor <= ' ' )
 			{
-				p++;
+				recordCursor++;
 				continue;
 			}
 
-			if ( g_bfmeFeslFieldClassTable[ *p ] == 1 )
+			if ( g_feslFieldClassTable[ *recordCursor ] == 1 )
 			{
-				pTail = p;
+				pTail = recordCursor;
 				pValue = pTail;
 				break;
 			}
 
 			for ( i = 0; ; i++ )
 			{
-				cClassBuffer = g_bfmeFeslFieldClassTable[ p[ i ] ];
-				cClassField = g_bfmeFeslFieldClassTable[ (unsigned char)field[ i ] ];
+				cClassBuffer = g_feslFieldClassTable[ recordCursor[ i ] ];
+				cClassField = g_feslFieldClassTable[ (unsigned char)field[ i ] ];
 
 				if ( cClassBuffer != cClassField || cClassBuffer < 2 )
 				{
@@ -208,7 +208,7 @@ int Rva007E8B00( unsigned char *buffer, int size, const char *field )
 
 			if ( cClassBuffer + cClassField == 2 )
 			{
-				pTail = p;
+				pTail = recordCursor;
 				pValue = pTail;
 
 				for ( ; *pTail >= ' '; pTail++ )
@@ -225,9 +225,9 @@ int Rva007E8B00( unsigned char *buffer, int size, const char *field )
 
 			do
 			{
-				p++;
+				recordCursor++;
 			}
-			while ( *p >= ' ' );
+			while ( *recordCursor >= ' ' );
 		}
 	}
 
@@ -238,13 +238,13 @@ int Rva007E8B00( unsigned char *buffer, int size, const char *field )
 
 	iDelta = i - ( pTail - pValue );
 
-	for ( p = pTail; *p != 0; p++ )
+	for ( recordCursor = pTail; *recordCursor != 0; recordCursor++ )
 	{
 	}
 
-	p++;
+	recordCursor++;
 
-	if ( iDelta > 0 && pBuffer + size - p < iDelta )
+	if ( iDelta > 0 && pBuffer + size - recordCursor < iDelta )
 	{
 		return -1;
 	}
@@ -256,17 +256,17 @@ int Rva007E8B00( unsigned char *buffer, int size, const char *field )
 
 	if ( iDelta > 0 )
 	{
-		memmove( pTail + iDelta, pTail, p - pTail );
+		memmove( pTail + iDelta, pTail, recordCursor - pTail );
 	}
 
 	if ( iDelta < 0 )
 	{
-		memmove( pValue, pValue - iDelta, p - ( pValue - iDelta ) );
+		memmove( pValue, pValue - iDelta, recordCursor - ( pValue - iDelta ) );
 	}
 
 	memcpy( pValue, field, i );
 
-	if ( pValue[ i ] == 0 && g_bfmeFeslFieldSeparator != '\n' )
+	if ( pValue[ i ] == 0 && g_feslFieldSeparator != '\n' )
 	{
 		// Equivalent paths retain the allocation weights needed by VC7.1.
 		// Their merged store gives retail's late EBP save and EBX value pointer.
@@ -281,7 +281,7 @@ clearDone:
 	}
 	else
 	{
-		pValue[ i - 1 ] = *(volatile char *)&g_bfmeFeslFieldSeparator;
+		pValue[ i - 1 ] = *(volatile char *)&g_feslFieldSeparator;
 	}
 
 	return i - 1;
@@ -314,7 +314,7 @@ static char *Rva007E8D30Name( char *empty, char *dest, const char *src )
 static int Rva007E8D30( const char *name, const char *value, char *record, int size )
 {
 	char *item;
-	char *p;
+	char *outputCursor;
 	const unsigned char *pScan;
 	const unsigned char *pSrc;
 	unsigned int iLeft;
@@ -329,12 +329,12 @@ static int Rva007E8D30( const char *name, const char *value, char *record, int s
 		return 0;
 	}
 
-	p = Rva007E8D30Name( record, item, name );
+	outputCursor = Rva007E8D30Name( record, item, name );
 
 	// Retail starts the unsigned budget at 4 (add esi,4): sizeof the item
 	// POINTER, so it wraps and never limits the 0x32200-byte block.
 	iLeft = sizeof( item );
-	iLeft -= p - item;
+	iLeft -= outputCursor - item;
 
 	for( pScan = pSrc; *pScan != 0 && *pScan != ' '; pScan++ )
 	{
@@ -342,8 +342,8 @@ static int Rva007E8D30( const char *name, const char *value, char *record, int s
 
 	if( *pScan == ' ' )
 	{
-		*p = '"';
-		p++;
+		*outputCursor = '"';
+		outputCursor++;
 		iLeft--;
 	}
 
@@ -354,20 +354,20 @@ static int Rva007E8D30( const char *name, const char *value, char *record, int s
 		{
 			if( iLeft >= 3 )
 			{
-				*p = '%';
-				p++;
-				*p = g_Rva011293A0HexFirst[ *pSrc ];
-				p++;
-				*p = g_Rva011294A8HexSecond[ *pSrc ];
-				p++;
+				*outputCursor = '%';
+				outputCursor++;
+				*outputCursor = g_Rva011293A0HexFirst[ *pSrc ];
+				outputCursor++;
+				*outputCursor = g_Rva011294A8HexSecond[ *pSrc ];
+				outputCursor++;
 			}
 
 			iLeft -= 3;
 		}
 		else
 		{
-			*p = *pSrc;
-			p++;
+			*outputCursor = *pSrc;
+			outputCursor++;
 			iLeft--;
 		}
 	}
@@ -379,11 +379,11 @@ static int Rva007E8D30( const char *name, const char *value, char *record, int s
 
 	if( *pScan == ' ' )
 	{
-		*p = '"';
-		p++;
+		*outputCursor = '"';
+		outputCursor++;
 	}
 
-	*p = 0;
+	*outputCursor = 0;
 
 	iResult = Rva007E8B00( (unsigned char *)record, size, item );
 	( ( Rva007EFFC0Allocator * )((void *)Gen007EFFC0()) )->release( item, 0 );
