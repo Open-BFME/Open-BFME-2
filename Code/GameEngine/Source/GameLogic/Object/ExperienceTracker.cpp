@@ -6,7 +6,6 @@
 #include "../../Common/GameLogicObjectLookupView.h"
 #include "Common/Snapshot.h"
 #pragma comment(linker, "/alternatename:??1ExperienceTracker@@UAE@XZ=??1Rva0039AD56@@UAE@XZ")
-
 // ?rva0039ACA4@Rva0039ACA4@@QAEXPBV1@@Z 0x0039ACA4 25B copy of +0x10/+0x1C via +0x264 pointer
 // Evidence: callers at 0x0047E7A0 and 0x0047E8C7 pass outer object; this is its +0x264 inner; retail copies inner+0x1C then inner+0x10.
 
@@ -22,7 +21,6 @@ private:
 	char m_pad20[0x264 - 0x20];
 	Rva0039ACA4 const *m_264;
 };
-
 // ?rva0039ACBD@Rva0039ACBD@@QAEHPBVObject@@_N@Z 0x0039ACBD 38B retail ALLIES-gated int field
 // Evidence: retail calls pinned Object::getRelationship 0x0028D156 on first arg with this+0x34 then byte-tests second arg; callers at 0x00294C5A and 0x002AA691.
 
@@ -32,7 +30,6 @@ enum Relationship
 	NEUTRAL,
 	ALLIES
 };
-
 class Rva0039ACBD
 {
 public:
@@ -47,35 +44,28 @@ public:
 	char m_pad1C[0x34 - 0x1C];
 	Object const *m_34;
 };
-
 enum NameKeyType
 {
 	NAMEKEY_INVALID = 0
 };
-
 class NameKeyGenerator
 {
 public:
 	NameKeyType nameToKey(const AsciiString &nameString);
 	const AsciiString &keyToName(NameKeyType key);
 };
-
 extern NameKeyGenerator *TheNameKeyGenerator;
-
 extern GameLogic *TheGameLogic;
-
 struct Rva0039AF9B_P04
 {
 	unsigned char m_pad[0x108];
 	unsigned char m_b108;
 };
-
 struct Rva0039AF9B_P2C
 {
 	unsigned char m_pad[8];
 	float m_f08;
 };
-
 class Rva0039AF9B
 {
 public:
@@ -86,7 +76,6 @@ private:
 	unsigned char m_pad08[0x2C - 0x08];
 	Rva0039AF9B_P2C *m_p2C; // +0x2C
 };
-
 // Native 0039B16F..0039B1E2 RET18; WB F9FBB0 confirms every guard/call.
 // Donor semantic lead: GeneralsMD GameLogic/Object/ExperienceTracker.cpp
 // addExperiencePoints. BFME2 uses float accumulation and extra flags.
@@ -94,14 +83,12 @@ private:
 // Rva0039AF9B is an ABI call view of this same receiver, not an asserted base;
 // keeping its owned definition visible preserves ECX through the call.
 struct ExperienceParent { unsigned char pad[0x5e7]; bool trainable; };
-
 // ?rva0039B20C@Rva0039B20C@@QAEXPAX@Z @0x0039B20C 27B conditional setter
 // caching a pointer at +0x24 and refreshing the BfmeThingEFC at +0x2C via the
 // rowed rva0039B1F9 at 0x0039B1F9. Evidence: chain from just-landed 0xB1F9;
 // four callers pass [input+0xFC] with no extra args.
 
 class BfmeThingEFC;
-
 struct Rva0039B24FInput
 {
 	char m_pad00[0x18];
@@ -109,7 +96,6 @@ struct Rva0039B24FInput
 	char m_pad1C[0xFC - 0x1C];
 	void *m_FC;
 };
-
 //
 // ?rva0039B28F@Rva003BD306Target@@QAEX_N@Z, retail 0x0039B28F, 56B: an
 // ExperienceTracker member (this goes to FindExperienceLevelList as the
@@ -120,26 +106,18 @@ struct Rva0039B24FInput
 // (0x002897A8) and, when both exist, applies it via 0x0039B24F(entry, v,
 // false). Names past the rowed callees are placeholders.
 class Overridable;
-
 class ExperienceLevelList;
-
 class Rva003BD306Target;
-
 class ExperienceTracker;
-
 struct Rva0039B24FInput;
-
 class ExperienceLevelSystem;
-
 extern ExperienceLevelSystem *TheExperienceLevelSystem;
-
 class Rva0028951F
 {
 public:
 	const Overridable *rva002897A8(void *list, int level); // 0x002897A8
 	const Overridable *rva0028951F(int key); // 0x0028951F, level by name key
 };
-
 class Rva0039AF76
 {
 public:
@@ -149,7 +127,6 @@ private:
 	AsciiString m_str08;
 	NameKeyType m_key0C;
 };
-
 class Rva0039B20C
 {
 public:
@@ -165,7 +142,6 @@ private:
 	char m_pad28[0x4];
 	BfmeThingEFC *m_efc2C;
 };
-
 struct Rva0039B2E6Input
 {
 	char m_pad00[0x10];
@@ -176,7 +152,6 @@ struct Rva0039B2E6Input
 	char m_pad24[0xFC - 0x24];
 	void *m_FC;
 };
-
 class Rva0039B2E6
 {
 public:
@@ -189,7 +164,6 @@ private:
 	int m_14;
 	int m_18;
 };
-
 struct ExperienceLevelHandle;
 class ExperienceLevelStore
 {
@@ -199,7 +173,6 @@ public:
 	ExperienceLevelHandle FindCurrentLevel( const ExperienceTracker *tracker ) const; // 0x00288D2F
 	int rva00288CA6( const ExperienceTracker *tracker, int rank, int *pastEnd ) const; // 0x00288CA6
 };
-
 class Overridable
 {
 public:
@@ -212,26 +185,22 @@ private:
 	void *vptr;
 	Overridable *next;
 };
-
 class ExperienceLevel : public Overridable
 {
 public:
 	char unknown08[8];
 	AsciiString name;
 };
-
 struct ExperienceLevelNode
 {
 	ExperienceLevelNode *next, *prev;
 	ExperienceLevel data;
 };
-
 class ExperienceLevelList
 {
 public:
 	ExperienceLevelNode *sentinel;
 };
-
 class Rva0039B24F
 {
 public:
@@ -247,7 +216,6 @@ private:
 	char m_pad04[0x10 - 0x04];
 	float m_10;
 };
-
 //
 // ?rva0039B315@ExperienceTracker@@QAEXM_N000@Z, retail 0x0039b315, 188 bytes. Banked partial (score 0.96) closed by tools/permute.py;
 // the body is the banked one up to statement/operand order and local types.
@@ -256,33 +224,26 @@ private:
 // Retail has no self-call and no loop-back before the transfer; the loop-back
 // jne targets the lookup, and null-sink breaks to MULT (not return).
 class Object;
-
 class BfmeGlob939D:public GameLogic{public:char bfmeCall939D();};
-
 class PlayerList
 {
 public:
 	int rva002A7C0B(bool b);			// 0x002A7C0B
 };
-
 extern PlayerList *ThePlayerList;
-
 class MultiPlayMults
 {
 public:
 	float getBuildingXPMult(int player) const;	// 0x002359A6
 	float getUnitXPMult(int player) const;		// 0x0023598B
 };
-
 class GlobalData
 {
 public:
 	unsigned char m_pad[0xEC4];
 	MultiPlayMults m_multiPlayMults;		// +0xEC4
 };
-
 extern GlobalData *TheWritableGlobalData;
-
 class ThingTemplate
 {
 public:
@@ -291,7 +252,6 @@ private:
 	unsigned char m_pad[0x100];
 	unsigned char m_kindOf[0x10];			// +0x100
 };
-
 enum ObjectStatusTypes
 {
 	OBJECT_STATUS_3E = 0x3E
@@ -311,7 +271,6 @@ private:
 	char m_pad08[0x25C];
 	ExperienceTracker *m_experienceTracker; // +0x264
 };
-
 class ExperienceTracker {
 public:
 	int rva0039AC23(bool);
@@ -348,7 +307,6 @@ public:
 public:
 	void rva0039B315(float amount, bool a, bool b, bool c, bool d);
 };
-
 struct BfmeEFCSource;
 class BfmeThingEFC
 {
@@ -360,9 +318,7 @@ public:
 	float m_f8;
 	int level;
 };
-
 struct ExperienceParentView { char pad[0x5E7]; bool trainable; };
-
 class Rva003BD306Target
 {
 public:
@@ -389,9 +345,7 @@ public:
 	bool enable; // +0x3C
 	char m_pad3D[0x3];
 };
-
 struct ObjectExperienceView { char pad[0x264]; Rva003BD306Target *tracker; };
-
 //
 // Vtable-slot forwarders with no ledger owner and no Ghidra size, generated
 // by tools/slot_forwarders.py (family vjmp). Each body was sized from its
@@ -404,13 +358,9 @@ struct ObjectExperienceView { char pad[0x264]; Rva003BD306Target *tracker; };
 // callee is pinned by address in reverse/symbols.csv.
 
 typedef int Int;
-
 typedef bool Bool;
-
 typedef float Real;
-
 typedef unsigned int UnsignedInt;
-
 class SizedForwarderSlots
 {
 public:
@@ -548,13 +498,11 @@ public:
 	virtual void slot131();
 	virtual void slot132();
 };
-
 class MilesAudioManager : public SizedForwarderSlots
 {
 public:
 	virtual void rva000512BC();
 };
-
 class Rva00078AC6Forwarder
 {
 public:
@@ -563,7 +511,6 @@ private:
 	char m_lead[0x4];
 	SizedForwarderSlots *m_inner;
 };
-
 class Rva0008605ALead
 {
 public:
@@ -571,13 +518,11 @@ public:
 private:
 	char m_lead[0xB0];
 };
-
 class Rva0008605AForwarder : public Rva0008605ALead, public SizedForwarderSlots
 {
 public:
 	void rva0008605A();
 };
-
 class Rva0008615BLead
 {
 public:
@@ -585,13 +530,11 @@ public:
 private:
 	char m_lead[0x24C4];
 };
-
 class Rva0008615BForwarder : public Rva0008615BLead, public SizedForwarderSlots
 {
 public:
 	void rva0008615B();
 };
-
 class Rva0008BD2BLead
 {
 public:
@@ -599,13 +542,11 @@ public:
 private:
 	char m_lead[0x24C4];
 };
-
 class Rva0008BD2BForwarder : public Rva0008BD2BLead, public SizedForwarderSlots
 {
 public:
 	void rva0008BD2B();
 };
-
 class Rva00091D32Forwarder
 {
 public:
@@ -614,7 +555,6 @@ private:
 	char m_lead[0x14];
 	SizedForwarderSlots *m_inner;
 };
-
 class Rva000ABD68Forwarder
 {
 public:
@@ -623,7 +563,6 @@ private:
 	char m_lead[0x4];
 	SizedForwarderSlots *m_inner;
 };
-
 class Rva001EDDBBForwarder
 {
 public:
@@ -632,7 +571,6 @@ private:
 	char m_lead[0x4FA8];
 	SizedForwarderSlots *m_inner;
 };
-
 class Rva0024002ELead
 {
 public:
@@ -640,13 +578,11 @@ public:
 private:
 	char m_lead[0xC];
 };
-
 class Rva0024002EForwarder : public Rva0024002ELead, public SizedForwarderSlots
 {
 public:
 	void rva0024002E();
 };
-
 class Rva00240035Lead
 {
 public:
@@ -654,13 +590,11 @@ public:
 private:
 	char m_lead[0xC];
 };
-
 class Rva00240035Forwarder : public Rva00240035Lead, public SizedForwarderSlots
 {
 public:
 	void rva00240035();
 };
-
 class Rva0024003DLead
 {
 public:
@@ -668,31 +602,26 @@ public:
 private:
 	char m_lead[0xC];
 };
-
 class Rva0024003DForwarder : public Rva0024003DLead, public SizedForwarderSlots
 {
 public:
 	void rva0024003D();
 };
-
 class Rva0025C25AForwarder : public SizedForwarderSlots
 {
 public:
 	void rva0025C25A();
 };
-
 class Rva0029AC98Forwarder : public SizedForwarderSlots
 {
 public:
 	void rva0029AC98();
 };
-
 class Rva0030ADE8Forwarder : public SizedForwarderSlots
 {
 public:
 	void rva0030ADE8();
 };
-
 class Rva00328CC5Forwarder
 {
 public:
@@ -701,7 +630,6 @@ private:
 	char m_lead[0x18];
 	SizedForwarderSlots *m_inner;
 };
-
 class Rva00328CCCForwarder
 {
 public:
@@ -710,7 +638,6 @@ private:
 	char m_lead[0xC];
 	SizedForwarderSlots *m_inner;
 };
-
 class Rva0039AC9CForwarder
 {
 public:
@@ -719,9 +646,7 @@ private:
 	char m_lead[0x2C];
 	SizedForwarderSlots *m_inner;
 };
-
 class AsciiString;
-
 // --- 0x0026FBBC (51B): with the image collection present, cache every
 // upgrade template's button image once (+0x14 flag; templates linked from
 // +0x0C through +0x64), then the rowed UpgradeCenter 0x0026F93C.
@@ -732,11 +657,8 @@ public:
 	char m_pad[0x64];
 	UpgradeTemplate *m_next;								// +0x64
 };
-
 class ImageCollection;
-
 extern ImageCollection *TheMappedImageCollection;
-
 class UpgradeCenter
 {
 public:
@@ -748,7 +670,6 @@ private:
 	char m_pad10[0x14 - 0x10];
 	bool m_buttonImagesCached;								// +0x14
 };
-
 // --- 0x0029A436 (25B): the +0x00 object's +0x20 angle = value - pi/2;
 // 0x0029A452 (23B): its +0x08 point = the given point.
 
@@ -759,7 +680,6 @@ struct Rva0029A436Data
 	char m_pad14[0x20 - 0x14];
 	float m_20;
 };
-
 class Rva0029A436
 {
 public:
@@ -768,7 +688,6 @@ public:
 private:
 	Rva0029A436Data *m_00;
 };
-
 // --- 0x0029F72F (51B): whether the selection can do any action but the
 // first (rowed InGameUI::canSelectedObjectsDoAction over types 2..20).
 class InGameUI
@@ -779,7 +698,6 @@ public:
 	bool canSelectedObjectsDoAction(ActionType action, const Object *obj, SelectionRules rule, bool additional) const;	// 0x0029C823
 	bool canSelectedObjectsNonAttackInteractWithObject(const Object *obj, SelectionRules rule) const;
 };
-
 // --- 0x0059F0F7 (17B): vtable 0x00C7122C over two cleared words;
 // 0x0059F108 (34B): nothing to check is fine, else TheGameSpyInfo's virtual
 // slot 54 decides.
@@ -792,7 +710,6 @@ private:
 	int m_04;
 	int m_08;
 };
-
 class GameSpyInfoInterface
 {
 public:
@@ -812,15 +729,12 @@ public:
 	virtual void s52(); virtual void s53();
 	virtual bool s54(void *what);
 };
-
 extern GameSpyInfoInterface *TheGameSpyInfo;
-
 class Rva0059F108
 {
 public:
 	bool rva0059F108(void *what);
 };
-
 // --- 0x002E7F1E (17B) / 0x002E7F2F (15B) / 0x002E7F3E (20B): a 0x800-byte
 // buffer with head and tail indices: construct, clear, not empty.
 class Rva002E7F1E
@@ -834,21 +748,18 @@ private:
 	int m_head;												// +0x800
 	int m_tail;												// +0x804
 };
-
 struct Rva0044F7EAObject
 {
 	char m_pad[0x74];
 	int m_74;
 	int m_78;
 };
-
 struct Rva0044F7EANode
 {
 	Rva0044F7EANode *m_next;
 	Rva0044F7EANode *m_prev;
 	ObjectID m_id;
 };
-
 class Rva0044F7EA
 {
 public:
@@ -857,7 +768,6 @@ private:
 	char m_pad[0x64];
 	Rva0044F7EANode *m_ids;									// +0x64 list header
 };
-
 // --- 0x00575DFE (52B): the +0x04 holder takes the +0x08 value with the
 // +0x0C or the +0x10 argument (rowed 0x00575AE1 / 0x00575B7B), else alone
 // (rowed 0x00575A3F).
@@ -868,7 +778,6 @@ public:
 	void rva00575AE1(int a, int b);							// 0x00575AE1
 	void rva00575B7B(int a, int b);							// 0x00575B7B
 };
-
 class Rva00575DFE
 {
 public:
@@ -880,7 +789,6 @@ private:
 	int m_0C;
 	int m_10;
 };
-
 // --- 0x00362FC3 (53B): for a positive duration, mark +0x31 and record the
 // GameClient frame (virtual slot 31) at +0x40, the end at +0x44 and 1.0 at
 // +0x3C.
@@ -897,9 +805,7 @@ public:
 	virtual void s28(); virtual void s29(); virtual void s30();
 	virtual unsigned int getFrame();
 };
-
 extern GameClient *TheGameClient;
-
 class Rva00362FC3
 {
 public:
@@ -912,7 +818,6 @@ private:
 	unsigned int m_40;
 	unsigned int m_44;
 };
-
 // --- 0x004CD07C (53B, cdecl): the first module of the object's +0x244 list
 // whose +0x0C interface answers virtual slot 39, answered again.
 class Rva004CD07CInterface
@@ -930,19 +835,16 @@ public:
 	virtual void s36(); virtual void s37(); virtual void s38();
 	virtual void *s39();
 };
-
 struct Rva004CD07CModule
 {
 	char m_pad[0x0C];
 	Rva004CD07CInterface m_interface;						// +0x0C
 };
-
 struct Rva004CD07CObject
 {
 	char m_pad[0x244];
 	Rva004CD07CModule **m_modules;							// +0x244
 };
-
 // --- 0x002D06F0 / 0x002D0702 / 0x002D0714 (18B each): copy constructors
 // through the records' rowed assignments.
 struct Rva002D0136
@@ -950,20 +852,19 @@ struct Rva002D0136
 	Rva002D0136(const Rva002D0136 &that);
 	Rva002D0136 &operator=(const Rva002D0136 &that);		// 0x002D0136
 };
-
 struct Rva002D01A9
 {
 	Rva002D01A9(const Rva002D01A9 &that);
 	Rva002D01A9 &operator=(const Rva002D01A9 &that);		// 0x002D01A9
 };
-
 struct Rva002D021C
 {
 	Rva002D021C(const Rva002D021C &that);
 	Rva002D021C &operator=(const Rva002D021C &that);		// 0x002D021C
 };
-
 #include <new>
+#pragma comment(linker, "/alternatename:?bfmeCalcEFC@@YGMH@Z=?bfmeAt@Rva0039AE75@@QBEMH@Z")
+#pragma comment(linker, "/alternatename:?bfmeCalcEFC@@YGMH@Z=?bfmeAt@Rva0039AE75@@QBEMH@Z")
 
 class AsciiStringMember
 {
@@ -1020,11 +921,31 @@ protected:
 	virtual void xfer( Xfer *xfer );	// slot 3, rowed 0x0039B10D
 };
 
+// ?bfmeUpdate@BfmeThingEFC@@QAEXH@Z, retail 0x0039B1E2 (23B). Ported from
+// Open-BFME-1 Code/GameEngine/Source/Common/BfmeConv813.cpp (BFME1 0x001B2690).
+// Trimmed to the placed scalar update; siblings declared-only here. Callee
+// bfmeCalcEFC resolves via the new ledger pin at 0x0039B145 (the donor's own
+// family name on unclaimed ground).
+
+float __stdcall bfmeCalcEFC(int val);
+
+struct BfmeEFCSource
+{
+	char m_pad00[0x24];
+	int m_val24;
+};
+
+extern float g_Va00BBB8D8;
+
+struct ExperienceParentView;
+
 // tu-skeleton: 0x0039ABFF 13B ?rva0039ABFF@ExperienceTracker@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/RvaSingletonFwdMisc.cpp (not merged yet)
 
 // tu-skeleton: 0x0039AC0C 23B ?rva0039AC0C@ExperienceTracker@@QBE?AUExperienceLevelHandle@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/ExperienceTrackerXfer.cpp (not merged yet)
 
 // tu-skeleton: 0x0039AC23 121B ?rva0039AC23@ExperienceTracker@@QAEH_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ExperienceTrackerXfer.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/ExperienceTracker.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/ExperienceTracker.cpp
 
@@ -1296,10 +1217,6 @@ void Rva0039B24F::rva0039B4B8(const AsciiString &name, bool flag)
 		rva0039B24F((Rva0039B24FInput *)level, 1, flag);
 }
 
-// tu-skeleton: 0x0039AD0B 58B ?xfer@Rva0039AE75@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/System/SnapshotXfersBfme.cpp (not merged yet)
-
-// tu-skeleton: 0x0039AD45 17B ?rva0039AD45@ExperienceTracker@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ExperienceTrackerXfer.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva0039AD56Dtor.cpp
 
 // ??1Rva0039AD56@@UAE@XZ @0x0039AD56 89B
@@ -1328,6 +1245,10 @@ void bfmeAnchorRva0039ADF3Dtor(Rva0039ADF3 *p)
 	p->Rva0039ADF3::~Rva0039ADF3();
 }
 
+// tu-skeleton: 0x0039AD0B 58B ?xfer@Rva0039AE75@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/System/SnapshotXfersBfme.cpp (not merged yet)
+
+// tu-skeleton: 0x0039AD45 17B ?rva0039AD45@ExperienceTracker@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ExperienceTrackerXfer.cpp (not merged yet)
+
 // tu-skeleton: 0x0039ADAF 10B ?isTrainable@ExperienceTracker@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp (not merged yet)
 
 // tu-skeleton: 0x0039ADB9 51B ?rva0039ADB9@ExperienceTracker@@QBEMMH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ExperienceTrackerXfer.cpp (not merged yet)
@@ -1354,10 +1275,63 @@ void bfmeAnchorRva0039ADF3Dtor(Rva0039ADF3 *p)
 
 // tu-skeleton: 0x0039B145 42B ?bfmeAt@Rva0039AE75@@QBEMH@Z -- matched in Code/GameEngine/Source/Common/System/SnapshotXfersBfme.cpp (not merged yet)
 
-// tu-skeleton: 0x0039B1E2 23B ?bfmeUpdate@BfmeThingEFC@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/BfmeConv813.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/BfmeConv813.cpp
 
-// tu-skeleton: 0x0039B1F9 19B ?rva0039B1F9@BfmeThingEFC@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva0039B1F9Refresh.cpp (not merged yet)
+// ?bfmeUpdate@BfmeThingEFC@@QAEXH@Z
+void BfmeThingEFC::bfmeUpdate(int val)
+{
+	level = val;
+	m_f8 = bfmeCalcEFC(val);
+}
 
-// tu-skeleton: 0x0039B2C7 31B ?rva0039B2C7@Rva003BD306Target@@QAEXH_N@Z -- matched in Code/GameEngine/Source/Common/Rva0039B548Method.cpp (not merged yet)
+// The pin at 0x0039B145 names the address this call reads, but no unit defines
+// the donor spelling. The ledger's ?bfmeAt@Rva0039AE75@@QBEMH@Z row is that
+// address's definition, so bind the spelling to it instead of a second name.
+
+// ---- from Code/GameEngine/Source/Common/Rva0039B1F9Refresh.cpp
+
+void BfmeThingEFC::rva0039B1F9(void)
+{
+	m_f8 = bfmeCalcEFC(m_src04->m_val24);
+}
+
+// The retail call in this body reads 0x0039B145, an address the ledger already
+// carries as ?bfmeAt@Rva0039AE75@@QBEMH@Z. Bind the donor spelling to that rowed owner so one
+// address keeps one definition and the unit links.
+
+// ---- from Code/GameEngine/Source/Common/Rva0039B548Method.cpp
+
+// ?rva0039B548@Rva003BD306Target@@QAEXXZ @0x0039B548 55B
+// Clear method: zero m_38/m_0C, 0.0f to m_10, global float to m_1C,
+// empty AsciiString at +8 via rowed releaseBuffer, zero m_20, then rowed
+// Rva003BD306Target::rva0039B28F(1) on same this. Evidence: pin-only callee
+// ?rva0039B28F@Rva003BD306Target@@QAEXH@Z proves owner Rva003BD306Target;
+// callers 0x0029405F 0x004BDA78; float global g_Va00BBB8D8 (?g_Va00BBB8D8@@3MA);
+// neighbours Rva0039B2E6 Rva0039B632 share flags.
+
+void Rva003BD306Target::rva0039B548()
+{
+	sink = INVALID_OBJECT_ID;
+	experience = 0.0f;
+	m_1C = g_Va00BBB8D8;
+	m_str08.clear();
+	m_level = 0;
+	m_20 = 0;
+	rva0039B28F(1);
+}
+
+void Rva003BD306Target::rva0039B2C7(int count, bool value)
+{
+	for (; count > 0; --count)
+		rva0039B28F(value);
+}
 
 // tu-skeleton: 0x0039B433 5B ?j_0039b433@@YAXXZ -- matched in Code/gen_small/gthunks_000_admitted.cpp (not merged yet)
+
+// tu-skeleton: 0x00781210 8B $L1595 -- matched in Code/GameEngine/Source/GameLogic/Object/ExperienceTrackerXfer_ExperienceTracker.cpp (not merged yet)
+
+// tu-skeleton: 0x00781218 11B $L1596 -- matched in Code/GameEngine/Source/GameLogic/Object/ExperienceTrackerXfer_ExperienceTracker.cpp (not merged yet)
+
+// tu-skeleton: 0x00781223 10B uw_00781223 -- matched in Code/GameEngine/Source/GameLogic/Object/ExperienceTrackerXfer_ExperienceTracker.cpp (not merged yet)
+
+// tu-skeleton: 0x0078122D 10B __ehhandler$??0ExperienceTracker@@QAE@PBVThingTemplate@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ExperienceTrackerXfer_ExperienceTracker.cpp (not merged yet)

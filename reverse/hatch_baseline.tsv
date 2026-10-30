@@ -242,7 +242,6 @@ address_global	Code/GameEngine/Source/Common/Rva002B749CCtor.cpp	g_Va00BBB8D8	2
 address_global	Code/GameEngine/Source/Common/Rva002E373CClear.cpp	g_Va00DBD0F4	3
 address_global	Code/GameEngine/Source/Common/Rva002F0C55Helper.cpp	g_Va00DBD4C8	1
 address_global	Code/GameEngine/Source/Common/Rva00380705Free.cpp	g_Va00E032FC	2
-address_global	Code/GameEngine/Source/Common/Rva0039B548Method.cpp	g_Va00BBB8D8	2
 address_global	Code/GameEngine/Source/Common/Rva003B242CGet.cpp	g_Va00E00944	2
 address_global	Code/GameEngine/Source/Common/Rva003B9E58.cpp	g_Va00DFE7AC	2
 address_global	Code/GameEngine/Source/Common/Rva003EE746ColorProvider.cpp	g_Rva00E02E64	2
@@ -1091,6 +1090,7 @@ address_global	Code/GameEngine/Source/GameLogic/Object/Body/ActiveBodyConstructo
 address_global	Code/GameEngine/Source/GameLogic/Object/CreateAHero.cpp	g_Va00DFE348	3
 address_global	Code/GameEngine/Source/GameLogic/Object/CreateAHeroHero.cpp	g_Va00DFE348	2
 address_global	Code/GameEngine/Source/GameLogic/Object/CreateAHero_FindBlingByUpgradeName.cpp	g_Va00DFE348	1
+address_global	Code/GameEngine/Source/GameLogic/Object/ExperienceTracker.cpp	g_Va00BBB8D8	2
 address_global	Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp	g_Va00E01E74	3
 address_global	Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp	g_Va00E01E7C	3
 address_global	Code/GameEngine/Source/GameLogic/Object/LocomotorCtor.cpp	g_Va00DFDC64	2
@@ -1707,7 +1707,6 @@ alternatename	Code/GameEngine/Source/Common/BfmeConv808.cpp	?bfmeOneEFF@@YAPAXPA
 alternatename	Code/GameEngine/Source/Common/BfmeConv808.cpp	?bfmeTwoEFF@@YAXHPAX@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv808.cpp	?bfmeTwoEFFb@@YAXHPAX@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv812.cpp	?bfmeGetEHA@BfmeObjEHA@@QAEPAUBfmeSubEHA@@XZ	1
-alternatename	Code/GameEngine/Source/Common/BfmeConv813.cpp	?bfmeCalcEFC@@YGMH@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv831.cpp	?findObj@BfmeMgrD74_Linked@@QAEPAVBfmeLinkedObj@@H@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv831.cpp	?findSomething@BfmeMgrF07@@QAEHPAXH@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv831.cpp	?link@BfmeLinkedObj@@QAEXPAV1@H@Z	1
@@ -2253,7 +2252,6 @@ alternatename	Code/GameEngine/Source/Common/Rva0036804FCtor.cpp	?update@AIIntern
 alternatename	Code/GameEngine/Source/Common/Rva0036804FCtor.cpp	?xfer@AIInternalMoveToState@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva003896E7Permuted.cpp	?TheGameSpyBuddyMessageQueue@@3PAVGameSpyBuddyMessageQueueInterface@@A	1
 alternatename	Code/GameEngine/Source/Common/Rva0039597COpAssign.cpp	?Rva00395D45CopyAux@@YAPAVRva0039597C@@PAV1@00PADH@Z	1
-alternatename	Code/GameEngine/Source/Common/Rva0039B1F9Refresh.cpp	?bfmeCalcEFC@@YGMH@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva003ADEBFUIntCtor.cpp	_Rva003ADEBF_v0	1
 alternatename	Code/GameEngine/Source/Common/Rva003ADFDBCopyCtor.cpp	_Rva003ADEBF_v0	1
 alternatename	Code/GameEngine/Source/Common/Rva003ADFDBCopyCtor.cpp	_Rva003ADEBF_v8	1
@@ -3188,6 +3186,7 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Die/DieModuleDerived.cpp	?
 alternatename	Code/GameEngine/Source/GameLogic/Object/Die/DieModuleDerived.cpp	?f2@Rva004C227A_B2@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Die/DieMuxDataInit.cpp	??0DieMuxData@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/ExperienceTracker.cpp	??1ExperienceTracker@@UAE@XZ	1
+alternatename	Code/GameEngine/Source/GameLogic/Object/ExperienceTracker.cpp	?bfmeCalcEFC@@YGMH@Z	2
 alternatename	Code/GameEngine/Source/GameLogic/Object/GhostObjectCtorDtor.cpp	?crc@GhostObject@@MAEXPAVXfer@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Object.cpp	?hasSpecialPower@Object@@QBE_NW4SpecialPowerType@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp	?findObjectCreationList@ObjectCreationListStore@@QAEPBVObjectCreationList@@PBD@Z	1
