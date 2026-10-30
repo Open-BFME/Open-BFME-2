@@ -58,14 +58,6 @@ protected:
 	int m_scanTimer;
 };
 
-class BoredUpdate : public UpdateModule
-{
-public:
-	BoredUpdate(Thing *thing, const ModuleData *moduleData);
-	virtual ~BoredUpdate();
-	virtual NameKeyType getModuleNameKey() const;
-};
-
 char g_00C4F590;
 
 //
@@ -136,6 +128,24 @@ private:
 	int m_specialPowerTemplate; // +0x18
 };
 
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const char *name);
+};
+
+extern NameKeyGenerator *TheNameKeyGenerator;
+
+class BoredUpdate : public UpdateModule
+{
+public:
+	BoredUpdate(Thing *thing, const ModuleData *moduleData);
+	virtual ~BoredUpdate();
+	virtual NameKeyType getModuleNameKey() const;
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/BoredUpdate.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/BoredUpdateCtor.cpp
 
 // ??0BoredUpdate@@QAE@PAVThing@@PBVModuleData@@@Z
@@ -157,10 +167,6 @@ BoredUpdate::~BoredUpdate()
 	m_p10 = &s_dummy10;
 }
 
-// tu-skeleton: 0x004966B3 6B ?name@BoredUpdate@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
-
-// tu-skeleton: 0x004966B9 69B ?getModuleNameKey@BoredUpdate@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoredUpdatePoolKey.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/BoredUpdateModuleDataCtor.cpp
 
 // ??0BoredUpdateModuleData@@QAE@XZ @0x4966FE
@@ -176,6 +182,18 @@ BoredUpdateModuleData::BoredUpdateModuleData()
 	m_canScanWhileAttackingOrMoving = 0;
 }
 
+// tu-skeleton: 0x004966B3 6B ?name@BoredUpdate@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/BoredUpdatePoolKey.cpp
+
+// ?getModuleNameKey@BoredUpdate@@UBE?AW4NameKeyType@@XZ
+NameKeyType BoredUpdate::getModuleNameKey() const
+{
+	static NameKeyType TheBoredUpdatePoolKey =
+		TheNameKeyGenerator->nameToKey("BoredUpdate");
+	return TheBoredUpdatePoolKey;
+}
+
 // tu-skeleton: 0x00496780 17B ?buildFieldParse@BoredUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
 
 // tu-skeleton: 0x0049680F 396B ?update@BoredUpdate@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoredUpdateUpdate.cpp (not merged yet)
@@ -183,10 +201,6 @@ BoredUpdateModuleData::BoredUpdateModuleData()
 // tu-skeleton: 0x0049699B 28B ??_GBoredUpdateModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoredUpdateModuleDataDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x004969B7 48B ??1BoredUpdateModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoredUpdateModuleDataDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078D0DD 13B $L310 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoredUpdatePoolKey.cpp (not merged yet)
-
-// tu-skeleton: 0x0078D0EA 10B __ehhandler$?getModuleNameKey@BoredUpdate@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoredUpdatePoolKey.cpp (not merged yet)
 
 // tu-skeleton: 0x0078D123 8B Unwind@00b8d123 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoredUpdateUpdate.cpp (not merged yet)
 
