@@ -90,6 +90,10 @@ FILE_TIMEOUT = float(os.environ.get("MS_HEADER_FILE_TIMEOUT", "60"))
 # killed and its unit counts as not preprocessing (a backstop: see _preprocess)
 PROBE_TIMEOUT = float(os.environ.get("MS_HEADER_PROBE_TIMEOUT", "300"))
 _C1083 = re.compile(r"\bfatal error C1083\b")
+# every probe's options before -TP/-TC and the unit (index_key records them)
+PROBE_FLAGS = ("-nologo", "-E", "-MD", "-EHsc", "-DWIN32", "-D_WINDOWS")
+# the compiler driver and its C and C++ front ends, under vc71_root()
+COMPILER_FILES = ("Vc7/bin/cl.exe", "Vc7/bin/c1.dll", "Vc7/bin/c1xx.dll")
 
 
 class AnalysisIncomplete(Exception):
@@ -1394,13 +1398,45 @@ def root_headers(roots):
     return out
 
 
+def root_files(roots):
+    """[(label/relative path, abs path)] of every regular file under the roots,
+    whatever its suffix: what `cl /E` may read through INCLUDE. Refuses a root
+    holding a symlink that leads outside it, since the index key would not cover
+    what the probes read there."""
+    out = []
+    for label, root in roots:
+        if not root.is_dir():
+            continue
+        real = root.resolve()
+        files = []
+        for dirpath, dirnames, filenames in os.walk(root):
+            for name in dirnames + filenames:
+                path = Path(dirpath) / name
+                if path.is_symlink() and not path.resolve().is_relative_to(real):
+                    raise SystemExit(f"ms_header_audit: {path} links outside its include root {root}; "
+                                     "the header index cannot key what cl /E would read there")
+            files += [Path(dirpath) / name for name in filenames if (Path(dirpath) / name).is_file()]
+        out += sorted((f"{label}/{path.relative_to(root).as_posix()}", path) for path in files)
+    return out
+
+
 def index_key(roots):
-    # Header contents, not stat data: an edit that keeps a header's size and
-    # mtime second must rebuild the index, and a disk restored from a snapshot
-    # (boat.dev reports seconds-only mtimes until a file is first read) must
-    # not. Hashing the ~950 headers (48 MB) costs ~0.1 s warm.
-    h = hashlib.sha1(f"v{TOOL_VERSION}".encode())
-    for label, path in root_headers(roots):
+    """The cache key of the header index: everything that decides what the
+    probes see. Contents, not stat data: an edit that keeps a file's size and
+    mtime second must rebuild, and a disk restored from a boat.dev snapshot
+    (seconds-only mtimes until a file is first read) must not. It covers every
+    file under the include roots (cl /E reads nested includes of any suffix),
+    the compiler driver and front ends, the probe command line and the probe
+    timeout (a longer one may accept a unit an earlier build rejected)."""
+    vc = vc71_root()
+    launcher = "wine" if os.name != "nt" else "native"
+    h = hashlib.sha1(f"v{TOOL_VERSION}\0{launcher}\0{' '.join(PROBE_FLAGS)}\0-TP|-TC\0"
+                     f"timeout={PROBE_TIMEOUT!r}\n".encode())
+    for name in COMPILER_FILES:
+        path = vc / name
+        digest = hashlib.sha256(path.read_bytes()).hexdigest() if path.is_file() else "missing"
+        h.update(f"{name}\0{digest}\n".encode())
+    for label, path in root_files(roots):
         h.update(f"{label}\0{hashlib.sha256(path.read_bytes()).hexdigest()}\n".encode())
     return h.hexdigest()[:16]
 
@@ -1411,11 +1447,15 @@ def _cl_env(roots):
         from build import compiler_environment, wine_path
         env = compiler_environment(vc)
         env["INCLUDE"] = ";".join(wine_path(p) for _, p in roots)
-        return env
-    env = os.environ.copy()
-    env["INCLUDE"] = ";".join(str(p) for _, p in roots)
-    env["PATH"] = os.pathsep.join([str(vc / "Vc7" / "bin"), str(vc / "Common7" / "IDE"),
-                                   str(vc.parents[1]), env.get("PATH", "")])
+    else:
+        env = os.environ.copy()
+        env["INCLUDE"] = ";".join(str(p) for _, p in roots)
+        env["PATH"] = os.pathsep.join([str(vc / "Vc7" / "bin"), str(vc / "Common7" / "IDE"),
+                                       str(vc.parents[1]), env.get("PATH", "")])
+    # cl.exe prepends CL and appends _CL_ to its command line (Wine passes the
+    # Unix environment through): a /D there would change every probe unseen
+    for name in [name for name in env if name.upper() in ("CL", "_CL_")]:
+        del env[name]
     return env
 
 
@@ -1491,8 +1531,7 @@ def cl_probe(lines, roots, lang="cpp", workdir=None):
         else:
             name_arg = name
         returncode, out, err, why = _preprocess(
-            command + ["-nologo", "-E", "-MD", "-EHsc", "-DWIN32", "-D_WINDOWS",
-                       "-TP" if lang == "cpp" else "-TC", name_arg], _cl_env(roots))
+            command + [*PROBE_FLAGS, "-TP" if lang == "cpp" else "-TC", name_arg], _cl_env(roots))
     finally:
         os.unlink(name)
     if why == "timeout":

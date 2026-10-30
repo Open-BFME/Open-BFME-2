@@ -314,6 +314,63 @@ def test_index_key_changes_with_a_same_size_edit_in_the_same_mtime(tmp_path):
     assert mha.index_key(roots) != key
 
 
+def test_index_key_covers_included_files_of_any_suffix(tmp_path):
+    roots, header = one_header_root(tmp_path, '#include "detail.inc"\n')
+    detail = header.parent / "sub" / "detail.inc"
+    detail.parent.mkdir()
+    detail.write_text("#define VALUE 1\n")
+    key = mha.index_key(roots)
+    detail.write_text("#define VALUE 2\n")
+    assert mha.index_key(roots) != key
+
+
+def test_index_key_refuses_a_root_linking_outside_itself(tmp_path):
+    roots, header = one_header_root(tmp_path, "#define WINAPI __stdcall\n")
+    outside = tmp_path / "elsewhere.h"
+    outside.write_text("#define VALUE 1\n")
+    try:
+        (header.parent / "linked.h").symlink_to(outside)
+    except OSError:
+        pytest.skip("symlinks unavailable")
+    with pytest.raises(SystemExit, match="links outside its include root"):
+        mha.index_key(roots)
+
+
+def test_index_key_covers_the_compiler_and_the_probe_settings(tmp_path, monkeypatch):
+    roots, header = one_header_root(tmp_path, "#define WINAPI __stdcall\n")
+    vc = tmp_path / "vs2003"
+    for name in ("Vc7/bin/cl.exe", "Vc7/bin/c1.dll", "Vc7/bin/c1xx.dll"):
+        (vc / name).parent.mkdir(parents=True, exist_ok=True)
+        (vc / name).write_bytes(b"MZ" + name.encode())
+    monkeypatch.setattr(mha, "vc71_root", lambda: vc)
+    timeout = getattr(mha, "PROBE_TIMEOUT", None)
+    key = mha.index_key(roots)
+    (vc / "Vc7/bin/c1xx.dll").write_bytes(b"MZ another build")
+    assert mha.index_key(roots) != key
+    (vc / "Vc7/bin/c1xx.dll").write_bytes(b"MZVc7/bin/c1xx.dll")
+    assert mha.index_key(roots) == key
+    monkeypatch.setattr(mha, "PROBE_TIMEOUT", 600.0, raising=False)
+    assert mha.index_key(roots) != key
+    monkeypatch.setattr(mha, "PROBE_TIMEOUT", timeout, raising=False)
+    assert mha.index_key(roots) == key
+    monkeypatch.setattr(mha, "PROBE_FLAGS", ("-nologo", "-E", "-MT"), raising=False)
+    assert mha.index_key(roots) != key
+
+
+@pytest.mark.parametrize("host", ["posix", "nt"])
+def test_probe_environment_drops_cl_and__cl_(tmp_path, monkeypatch, host):
+    import build
+    monkeypatch.setenv("CL", "/DVALUE=2")
+    monkeypatch.setenv("_CL_", "/DOTHER")
+    monkeypatch.setattr(mha, "vc71_root", lambda: tmp_path / "a" / "vs2003")
+    monkeypatch.setattr(build, "compiler_environment", lambda root: dict(os.environ))
+    monkeypatch.setattr(build, "wine_path", str)
+    monkeypatch.setattr(mha.os, "name", host)
+    env = mha._cl_env([("sdk", tmp_path / "include")])
+    assert not {name.upper() for name in env} & {"CL", "_CL_"}
+    assert env["INCLUDE"] == str(tmp_path / "include")
+
+
 def test_queue_round_trip_and_repair_queue_lane(tmp_path, monkeypatch, capsys):
     res, _ = scan("typedef unsigned long DWORD;\n#define MAX_PATH 256\n")
     queue, occurrences = tmp_path / "reverse/ms_header_queue.tsv", tmp_path / "occ.tsv"
