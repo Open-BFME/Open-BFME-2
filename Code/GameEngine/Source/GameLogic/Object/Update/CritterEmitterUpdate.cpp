@@ -4,6 +4,26 @@
 #include <vector>
 #include "Common/Snapshot.h"
 #include "../../../../../Libraries/Include/Lib/BfmeE16.h"
+#define BFME_SNAPSHOT_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	protected: \
+		virtual const char *GetSnapshotName() const; \
+	}; \
+	const char *NAME::GetSnapshotName() const \
+	{ \
+		return TEXT; \
+	}
+#define BFME_LITERAL_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	public: \
+		const char *name() const; \
+	}; \
+	const char *NAME::name() const \
+	{ \
+		return TEXT; \
+	}
 
 class __declspec(novtable) CritterEmitterUpdateModuleData : public Snapshot
 {
@@ -46,9 +66,39 @@ public:
 	virtual NameKeyType getModuleNameKey() const;
 };
 
+class DozerActionState
+{
+public:
+	virtual const char *GetSnapshotName() const;
+};
+
+class BoneFXDamage
+{
+protected:
+	virtual const char *GetSnapshotName() const;
+};
+
+BFME_LITERAL_NAME_GETTER(Rva004C8D3BNamed, "CritterEmitterUpdate")
+
 // tu-skeleton: 0x004C8D1B 32B ??1CritterEmitterUpdate@@MAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/CritterEmitterUpdateDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x004C8D3B 6B ?name@Rva004C8D3BNamed@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/ModuleNameGetters3.cpp
+
+// Module literal name getters (cold slice): six-byte const members with one
+// shape:
+//
+//     mov eax,<offset string literal> / ret
+//
+// Each body returns a pointer to a NUL-terminated class-name string in
+// .rdata. Contributor-local unit split from ModuleNameGetters2.cpp to keep
+// concurrent landings conflict-free; the BFME_LITERAL_NAME_GETTER macro is
+// verbatim, only the class names follow this tree's address-derived
+// convention (identity unrecoverable from 6 bytes, string carried in source
+// where verify_string_refs re-reads it).
+// No // cl: line (defaults match the frameless 6-byte shape, same as the
+// ModuleNameGetters.cpp precedent).
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/CritterEmitterUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/AI/CritterEmitterUpdatePoolKey.cpp
 
@@ -59,20 +109,6 @@ NameKeyType CritterEmitterUpdate::getModuleNameKey() const
 		TheNameKeyGenerator->nameToKey("CritterEmitterUpdate");
 	return TheCritterEmitterUpdatePoolKey;
 }
-
-// tu-skeleton: 0x004C8D86 64B ??0CritterEmitterUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/CritterEmitterUpdateConstructorThunk.cpp (not merged yet)
-
-// tu-skeleton: 0x004C8DC6 28B ??_GCritterEmitterUpdate@@MAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/CritterEmitterUpdateDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004C8DE2 96B ?update@CritterEmitterUpdate@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/CritterEmitterUpdateUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x004C8E42 65B ?xfer@CritterEmitterUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/CritterEmitterUpdateXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x004C8E83 124B ?onCollide@CritterEmitterUpdate@@UAEXPAVObject@@PBVCoord3D@@1@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/CritterEmitterUpdateOnCollide.cpp (not merged yet)
-
-// tu-skeleton: 0x004C8EFF 46B ??0CritterEmitterUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DynamicGeometryInfoUpdateCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004C8F2D 28B ??_GCritterEmitterUpdateModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpdateModuleDataDeletingDtors.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/CritterEmitterUpdateModuleDataDtor.cpp
 
@@ -91,5 +127,19 @@ NameKeyType CritterEmitterUpdate::getModuleNameKey() const
 CritterEmitterUpdateModuleData::~CritterEmitterUpdateModuleData()
 {
 }
+
+// tu-skeleton: 0x004C8D86 64B ??0CritterEmitterUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/CritterEmitterUpdateConstructorThunk.cpp (not merged yet)
+
+// tu-skeleton: 0x004C8DC6 28B ??_GCritterEmitterUpdate@@MAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/CritterEmitterUpdateDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004C8DE2 96B ?update@CritterEmitterUpdate@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/CritterEmitterUpdateUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x004C8E42 65B ?xfer@CritterEmitterUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/CritterEmitterUpdateXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x004C8E83 124B ?onCollide@CritterEmitterUpdate@@UAEXPAVObject@@PBVCoord3D@@1@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/CritterEmitterUpdateOnCollide.cpp (not merged yet)
+
+// tu-skeleton: 0x004C8EFF 46B ??0CritterEmitterUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DynamicGeometryInfoUpdateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004C8F2D 28B ??_GCritterEmitterUpdateModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpdateModuleDataDeletingDtors.cpp (not merged yet)
 
 // tu-skeleton: 0x004C8FD7 17B ?buildFieldParse@CritterEmitterUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
