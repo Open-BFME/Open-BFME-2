@@ -3867,6 +3867,21 @@ selected-copy prerequisites remain. No debt retirement or census gain.
 
 ### LINK-006: compiler emission and the selected copy still disagree with retail
 
+- **Buddy status CRT declaration cleanup (2026-10-30, inspected `c790c01553`):**
+  `Rva003896E7Permuted.cpp` now includes the real `stdlib.h` and binds its
+  inline string cleanup to the existing `_STL::free` GameMemory provider.
+  Native calls at 00389715/0038982E reach the rowed wrapper at 00030830.
+  All three rows and strict compiler receipts pass; all fifteen external
+  COMDAT bodies keep their bytes, with only the free-provider relocation name
+  changing in two of them. The current ordinary preview retains LINKS,
+  347 -> 347 bytes, against the 2026-10-30 04:25 index at `6fe1089c24`.
+  The consumer audit is INCONCLUSIVE: that index predates the inspected base,
+  and Common/0CreateAHeroManager21FE49.cpp lacks a current receipt. Carry the
+  source and affected consumers into the next scheduled census. Header-queue
+  details and the retained prerequisites are in
+  [the scoped evidence](../reverse/attempt_support/buddy-status-crt-headers-20261030-codexb4.md).
+  No census or runtime gain is claimed.
+
 - **WindowVideo cleanup provider selection (2026-10-28, inspected `3aba05733d`):**
   the current preview reproduces the manager's wrong-selected hashtable
   destructor ahead of the verified WindowVideoHashtableDtor.cpp owner.
