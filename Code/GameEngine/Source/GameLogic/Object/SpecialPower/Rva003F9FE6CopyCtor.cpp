@@ -8,21 +8,19 @@
 // then 13 dwords +0x1C..+0x4C and 7 bytes +0x50..+0x56.
 // Evidence: unlock lane, callees all rowed or pinned, callers 0x003FA121
 // 0x00402C18 0x00402F31, landing unblocks 0x003FA118 and 0x00402C0F.
+#include <vector>
 #include "ascii_string.h"
 
 
 namespace _STL
 {
-template <class T>
-class allocator
-{
-};
-
-template <class T, class A>
-class vector
+// Bind vector<AsciiString>'s copy ctor and dtor to their rowed workers
+// (0x000BC07E copy). Declarations only: the definitions live in the row owners.
+template <class T, class A> class vector;
+template <> class vector<AsciiString, allocator<AsciiString> >
 {
 public:
-	vector(const vector<T, A> &other);
+	vector(const vector &other);
 	~vector();
 private:
 	char m_pad[12];
