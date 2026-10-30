@@ -101,25 +101,11 @@ private:
 	AsciiString m_teamGenericScripts[MAX_GENERIC_SCRIPTS]; // +0x244
 };
 
-class Team
-{
-public:
-	void updateGenericScripts();
-	const AsciiString &getName() const { return !m_proto ? AsciiString::TheEmptyString : m_proto->getName(); }
-
-private:
-	unsigned char m_pad00[0x30];
-	TeamPrototype *m_proto; // +0x30
-	unsigned char m_pad34[0x5F - 0x34];
-	bool m_isActive; // +0x5F
-	unsigned char m_pad60[0x70 - 0x60];
-	bool m_shouldAttemptGenericScript[MAX_GENERIC_SCRIPTS]; // +0x70
-	unsigned int m_nextGenericScriptFrame[MAX_GENERIC_SCRIPTS]; // +0x90
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 void Team::updateGenericScripts()
 {
-	if (!m_proto || !m_isActive)
+	if (!m_proto || !m_5F)
 		return;
 
 	for (int i = 0; i < MAX_GENERIC_SCRIPTS; ++i)
@@ -131,7 +117,7 @@ void Team::updateGenericScripts()
 			if (script && script->isActiveRV())
 			{
 				int delay = script->getDelayEvaluationSeconds();
-				if (delay > 0 && m_nextGenericScriptFrame[i] > TheGameLogic->getFrame())
+				if (delay > 0 && m_90[i] > TheGameLogic->getFrame())
 					continue;
 
 				if (TheScriptEngine->rva0020A1D0(scope, script, this, 0))
@@ -158,14 +144,14 @@ void Team::updateGenericScripts()
 						AsciiString msg = "Generic script '";
 						msg.concat(m_proto->getGenericScriptName(i));
 						reinterpret_cast<StringBase<char> *>(&msg)->concat("' run on team ");
-						msg.concat(getName());
+						msg.concat(!m_proto ? AsciiString::TheEmptyString : m_proto->getName());
 						TheScriptEngine->AppendDebugMessage(msg, false);
 					}
 				}
 
 				delay = script->getDelayEvaluationSeconds();
 				if (delay > 0)
-					m_nextGenericScriptFrame[i] = BfmeLogicFramesPerSecond * delay + TheGameLogic->getFrame();
+					m_90[i] = BfmeLogicFramesPerSecond * delay + TheGameLogic->getFrame();
 			}
 			else
 			{
