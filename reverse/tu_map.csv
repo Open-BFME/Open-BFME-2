@@ -16650,7 +16650,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x002343C3,28,code,Code/GameEngine/Source/Common/System/AsciiStringCharPlusText.cpp,proposed,K,K=Rva002343C3TitleSegment,Code/GameEngine/Source/Main/WinMainPairUnicode.cpp
 0x002343DF,24,code,Code/GameEngine/Source/Common/System/AsciiStringCharPlusText.cpp,proposed,C,C=0x002343C3..0x002343F7,Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp
 0x002343F7,32,code,Code/GameEngine/Source/Common/System/AsciiStringCharPlusText.cpp,proposed,C,C=0x002343C3..0x00234417,Code/GameEngine/Source/Main/WinMainPairUnicode.cpp
-0x00234417,190,code,Code/GameEngine/Source/Common/System/AsciiStringCharPlusText.cpp,proposed,C,C=0x002343C3..0x002344D5,Code/GameEngine/Source/Common/System/RegistryGetUnicodeString.cpp
+0x00234417,190,code,Code/GameEngine/Source/Common/System/AsciiStringCharPlusText.cpp,proposed,C,C=0x002343C3..0x002344D5,Code/GameEngine/Source/Common/System/AsciiStringCharPlusText.cpp
 0x002344D5,155,code,Code/GameEngine/Source/Common/System/AsciiStringCharPlusText.cpp,proposed,C,C=0x002343C3..0x00234570,Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp
 0x00234570,177,code,Code/GameEngine/Source/Common/System/AsciiStringCharPlusText.cpp,proposed,C,C=0x002343C3..0x00234621,Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp
 0x00234621,201,code,Code/GameEngine/Source/Common/System/AsciiStringCharPlusText.cpp,proposed,C,C=0x002343C3..0x002346EA,Code/GameEngine/Source/Common/System/RegistrySetString.cpp
@@ -68719,9 +68719,9 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0076FE66,10,code,Code/GameEngine/Source/GameClient/GUI/IMEManager.cpp,approved,P,P=0x002336CA@FuncInfo0x00916404,Code/GameEngine/Source/GameClient/GUI/IMEManager.cpp
 0x0076FE70,8,code,Code/GameEngine/Source/GameClient/GUI/IMEManager.cpp,approved,P,P=0x00233B31@FuncInfo0x00916428,Code/GameEngine/Source/GameClient/GUI/IMEManager.cpp
 0x0076FE78,10,code,Code/GameEngine/Source/GameClient/GUI/IMEManager.cpp,approved,P,P=0x00233B31@FuncInfo0x00916428,Code/GameEngine/Source/GameClient/GUI/IMEManager.cpp
-0x0076FE82,8,code,Code/GameEngine/Source/Common/System/AsciiStringCharPlusText.cpp,approved,P,P=0x00234417@FuncInfo0x00916454 p-group provisional,Code/GameEngine/Source/Common/System/RegistryGetUnicodeString.cpp
-0x0076FE8A,8,code,Code/GameEngine/Source/Common/System/AsciiStringCharPlusText.cpp,approved,P,P=0x00234417@FuncInfo0x00916454 p-group provisional,Code/GameEngine/Source/Common/System/RegistryGetUnicodeString.cpp
-0x0076FE92,10,code,Code/GameEngine/Source/Common/System/AsciiStringCharPlusText.cpp,approved,P,P=0x00234417@FuncInfo0x00916454 p-group provisional,Code/GameEngine/Source/Common/System/RegistryGetUnicodeString.cpp
+0x0076FE82,8,code,Code/GameEngine/Source/Common/System/AsciiStringCharPlusText.cpp,approved,P,P=0x00234417@FuncInfo0x00916454 p-group provisional,Code/GameEngine/Source/Common/System/AsciiStringCharPlusText.cpp
+0x0076FE8A,8,code,Code/GameEngine/Source/Common/System/AsciiStringCharPlusText.cpp,approved,P,P=0x00234417@FuncInfo0x00916454 p-group provisional,Code/GameEngine/Source/Common/System/AsciiStringCharPlusText.cpp
+0x0076FE92,10,code,Code/GameEngine/Source/Common/System/AsciiStringCharPlusText.cpp,approved,P,P=0x00234417@FuncInfo0x00916454 p-group provisional,Code/GameEngine/Source/Common/System/AsciiStringCharPlusText.cpp
 0x0076FE9C,8,code,Code/GameEngine/Source/Common/System/AsciiStringCharPlusText.cpp,approved,P,P=0x002344D5@FuncInfo0x00916490 p-group provisional,Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp
 0x0076FEA4,8,code,Code/GameEngine/Source/Common/System/AsciiStringCharPlusText.cpp,approved,P,P=0x002344D5@FuncInfo0x00916490 p-group provisional,Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp
 0x0076FEAC,8,code,Code/GameEngine/Source/Common/System/AsciiStringCharPlusText.cpp,approved,P,P=0x002344D5@FuncInfo0x00916490 p-group provisional,Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp
