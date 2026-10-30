@@ -11064,7 +11064,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x001806D8,92,code,Code/Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.cpp,approved,C,C=0x00180649..0x00180734 provisional,Code/Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.cpp
 0x00180734,68,code,Code/Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.cpp,approved,C,C=0x00180649..0x00180778 provisional,Code/Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.cpp
 0x00180778,6,code,Code/Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.cpp,approved,C,C=0x00180649..0x0018077E provisional,Code/Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.cpp
-0x0018077E,4,code,Code/Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.cpp,approved,C,C=0x00180649..0x00180782 provisional,Code/GameEngine/Source/Common/VtableSlotBodiesR3.cpp
+0x0018077E,4,code,Code/Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.cpp,approved,C,C=0x00180649..0x00180782 provisional,Code/Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.cpp
 0x00180782,18,code,Code/Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.cpp,approved,C,C=0x00180649..0x00180794 provisional,Code/Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.cpp
 0x00180794,129,code,Code/Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.cpp,approved,C,C=0x00180649..0x00180815 provisional,Code/Libraries/Source/WWVegas/WW3D2/W3DPrototypeCreate.cpp
 0x00180815,50,code,Code/Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.cpp,approved,N,N=Code/Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.cpp provisional,Code/Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.cpp

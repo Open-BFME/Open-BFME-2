@@ -120,11 +120,6 @@ public:
 	int rva0018077E();
 };
 
-int Rva0018077E::rva0018077E()
-{
-	return 0x44;
-}
-
 // 0x003FD370: constant 0x10.
 class Rva003FD370
 {
