@@ -174,12 +174,3 @@ class ShroudCrateCollide : public CrateCollide
 protected:
     virtual bool executeCrateBehavior(Object *other);
 };
-bool ShroudCrateCollide::executeCrateBehavior(Object *other)
-{
-    Player *cratePlayer=other->getControllingPlayer();
-    reinterpret_cast<Rva00739780 *>(TheShroudManager)->rva00739780(cratePlayer->m_playerIndex);
-    BfmeAudioEventPrefix136 soundToPlay(reinterpret_cast<HealCrateAudioView *>(TheAudio)->getMiscAudio()->crateShroud,0);
-    reinterpret_cast<Rva002D9531 *>(&soundToPlay)->rva002D9531(other->m_id74);
-    reinterpret_cast<HealCrateAudioView *>(TheAudio)->addAudioEvent(&soundToPlay);
-    return true;
-}
