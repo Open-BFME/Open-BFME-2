@@ -18185,3 +18185,14 @@ Code/Libraries/Source/Apt/Rva006D6360Ctor.cpp|param|Rva006D6470Owner::Rva006D647
 Code/Libraries/Source/Apt/Rva006D6360Ctor.cpp|param|Rva006D6470Owner::Rva006D6470Owner|a1,ac2c6227121571419327c479,drz-k3,drz-k3-405,w-077d7aeb666b,2026-10-30
 Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AE7B8CopyCtor.cpp|param|Elem3AE7B8|o,aef4976127e4179d25d2b399,drz-k3,drz-k3-415,w-077d7aeb666b,2026-10-30
 Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AE7B8CopyCtor.cpp|param|Triple3AE7B8|o,42aa150e46b2ec6792ce5930,drz-k3,drz-k3-415,w-077d7aeb666b,2026-10-30
+Code/GameEngine/Source/Common/Rva0040CFC7Method.cpp|local|Rva0040CFC7::rva0040CFC7|v,94827dddf2684199f31b15a0,drz-k11,drz-k11-400,w-09889333d128,2026-10-30
+Code/Libraries/Source/WWVegas/WWLib/Rva002BC39D.cpp|member|Header002BC39D|m_08,cfbd166ac9142a84d804d7c7,drz-k11,drz-k11-402,w-09889333d128,2026-10-30
+Code/Libraries/Source/WWVegas/WWLib/Rva002BC39D.cpp|member|Header002BC39D|m_0C,662c76dc226cfeab940f6eb9,drz-k11,drz-k11-402,w-09889333d128,2026-10-30
+Code/Libraries/Source/WWVegas/WW3D2/Rva0007B93BApply.cpp|member|Rva0007B93B|m_step08,e319a9b231a71a5b4f272810,drz-k11,drz-k11-403,w-09889333d128,2026-10-30
+Code/Libraries/Source/WWVegas/WW3D2/Rva0007B93BApply.cpp|member|Rva0007B93B|m_previous0C,b4f7b551c9137fbb308c638f,drz-k11,drz-k11-403,w-09889333d128,2026-10-30
+Code/GameEngine/Source/GameLogic/Object/Update/HordeNotifyTargetsOfImminentProbableCrushingUpdateCtor.cpp|function|0x004CEB14|Rva004CEB14,cf85874965070deebe7c4a8b,drz-k11,drz-k11-405,w-09889333d128,2026-10-30
+Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerTemplateFieldGetters.cpp|function|0x004210EF|rva004210EF,764539b5913e5929d73afacf,drz-k11,drz-k11-406,w-09889333d128,2026-10-30
+Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerTemplateFieldGetters.cpp|function|0x0044EB4B|rva0044EB4B,cf3c09e7dfd489fe33c483bc,drz-k11,drz-k11-406,w-09889333d128,2026-10-30
+Code/GameEngine/Source/GameLogic/Map/AerialPathfinder.cpp|class||Rva00375AF7Entry,f0164990474b6d7ea1500e0e,drz-k11,drz-k11-409,w-09889333d128,2026-10-30
+Code/GameEngine/Source/Common/Rva002B8817Filter.cpp|member|Rva002B8817Filter|m_14,754dd4271115228bb098ef96,drz-k11,drz-k11-419,w-09889333d128,2026-10-30
+Code/GameEngine/Source/Common/Rva002B8817Filter.cpp|param|Rva002B8817::rva002B8817|a,def3410a40bbb17ea49db853,drz-k11,drz-k11-419,w-09889333d128,2026-10-30
