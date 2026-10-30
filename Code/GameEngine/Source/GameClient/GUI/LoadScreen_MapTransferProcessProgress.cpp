@@ -49,17 +49,18 @@ public:
 };
 extern NameKeyGenerator *TheNameKeyGenerator;
 
+class Image;
 class GameWindow
 {
 public:
 	int winHide(bool hide);
 	int winBringToTop(void);
-	int winSetEnabledColor(Int index, Int color);
-	void winSetEnabledTextColors(Int color, Int borderColor);
-	Int winGetEnabledTextBorderColor(void);
-
-	char m_pad000[0x1F4];
-	Int m_1f4;	// +0x1F4: cleared by init; meaning unknown
+	int winSetEnabledColor(int index, int color);
+	void winSetEnabledTextColors(int color, int borderColor);
+	int winGetEnabledTextBorderColor(void);
+	int winSetEnabledImage(int index, const Image *image);
+	char m_pad00[0x1F4];
+	int m_1f4; // +0x1F4 +0x1F4: cleared by init; meaning unknown
 };
 inline void GadgetProgressBarSetEnabledBarColor(GameWindow *gameWindow, Int color) { gameWindow->winSetEnabledColor(4, color); }
 
@@ -111,8 +112,14 @@ private:
 class GameInfo
 {
 public:
-	GameSlot *getSlot(Int index);
-	const GameSlot *getConstSlot(Int index) const;
+	GameSlot *getSlot(int index);
+	const GameSlot *getConstSlot(int index) const;
+	virtual void slot0();
+	virtual void slot1();
+	virtual void slot2();
+	virtual void slot3();
+	virtual void slot4();
+	virtual int getLocalSlotNum();
 };
 extern GameInfo *TheGameInfo;
 

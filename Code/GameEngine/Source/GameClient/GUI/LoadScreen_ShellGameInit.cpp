@@ -24,8 +24,13 @@ class GameWindow
 {
 public:
 	int winHide(bool hide);
-	int winBringToTop();
+	int winBringToTop(void);
+	int winSetEnabledColor(int index, int color);
+	void winSetEnabledTextColors(int color, int borderColor);
+	int winGetEnabledTextBorderColor(void);
 	int winSetEnabledImage(int index, const Image *image);
+	char m_pad00[0x1F4];
+	int m_1f4; // +0x1F4 +0x1F4: cleared by init; meaning unknown
 };
 
 class GameWindowManager
@@ -102,8 +107,8 @@ public:
 class ProgressIndicator
 {
 public:
-	virtual ~ProgressIndicator();
-	ProgressIndicator *m_next;
+	virtual ~ProgressIndicator() throw();
+	ProgressIndicator *m_next; // +0x04
 };
 
 class Rva00355D66 : public ProgressIndicator
@@ -121,7 +126,7 @@ class Rva00355DC5 : public Rva00355D66
 public:
 	virtual void init(GameInfo *game);
 private:
-	GameWindow *m_progressBar;
+	GameWindow *m_progressBar; // +0x10
 };
 
 void Rva00355DC5::init(GameInfo *game)

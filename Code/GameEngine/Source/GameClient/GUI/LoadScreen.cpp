@@ -18,24 +18,36 @@ void GadgetProgressBarSetProgress( GameWindow *g, int progress );
 class NetworkInterface
 {
 public:
-	virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3();
-	virtual void slot4(); virtual void slot5(); virtual void slot6(); virtual void slot7();
-	virtual void slot8();
-	virtual void liteupdate( int mode );              // +0x24
-	virtual void update( int mode );                  // +0x28
-	virtual void slot11(); virtual void slot12(); virtual void slot13();
-	virtual void slot14(); virtual void slot15(); virtual void slot16(); virtual void slot17();
-	virtual void slot18(); virtual void slot19(); virtual void slot20(); virtual void slot21();
-	virtual void slot22(); virtual void slot23(); virtual void slot24(); virtual void slot25();
-	virtual void slot26(); virtual void slot27();
-	virtual void updateLoadProgress( int percent );   // +0x70
+	virtual void s00();
+	virtual void s01();
+	virtual void s02();
+	virtual void s03();
+	virtual void s04();
+	virtual void s05();
+	virtual void s06();
+	virtual void s07();
+	virtual void s08();
+	virtual void s09();
+	virtual void s10();
+	virtual void s11();
+	virtual void s12();
+	virtual void s13();
+	virtual void s14();
+	virtual void s15();
+	virtual void s16(int x);
 };
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork/GameInfo.h
+class GameSlot;
 class GameInfo
 {
 public:
-	virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3();
+	GameSlot *getSlot(int index);
+	const GameSlot *getConstSlot(int index) const;
+	virtual void slot0();
+	virtual void slot1();
+	virtual void slot2();
+	virtual void slot3();
 	virtual void slot4();
 	virtual int getLocalSlotNum();
 };

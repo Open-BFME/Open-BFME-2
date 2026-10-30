@@ -11,7 +11,7 @@ class ProgressIndicator
 {
 public:
 	virtual ~ProgressIndicator() throw();
-	ProgressIndicator *m_next;
+	ProgressIndicator *m_next; // +0x04
 };
 
 class GameWindow;
@@ -77,12 +77,13 @@ private:
 // Derived dtor (vtable 0x00814E74) tail-jumping to base 0x00355D66.
 // Evidence: clears +0x10 then stores vtable then jmp base; deleting dtor at
 // 0x00356066 calls here; chain of 0x00355D66.
+class GameInfo;
 class Rva00355DC5 : public Rva00355D66
 {
 public:
-	virtual ~Rva00355DC5();
+	virtual void init(GameInfo *game);
 private:
-	int m_extra;
+	GameWindow *m_progressBar; // +0x10
 };
 
 // ??1Rva00355F3E@@UAE@XZ @0x00355F3E 55B
