@@ -4764,7 +4764,6 @@ name,address,notes
 ?bfmeClearBVHW@BfmeSubBVHW@@QAEXXZ,0x0066CA50
 ?bfmeClearVHX@Rva0055011A@@AAEXXZ,0x0054FC14,callee of ??1Rva006609D0@@UAE@XZ at retail 0x0054FFA5 read from its REL32 displacement; ICF alias onto the matched ?rva0054FC14@Rva0054FC14@@QAEXXZ body at this address
 ?bfmeClearYK@BfmeStringYK@@QAEXXZ,0x00036410,callee of 0Rva0034C5E0 (0x00356FDC) at the site its BFME1 donor calls it; may be an ICF alias
-?bfmeClose@Gen009D1A40@@QAEXXZ,0x0060259A,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?bfmeCloseCN@BfmeInnerCN@@QAEXPAX@Z,0x00306D7B,callee of ?bfmeGuardedCN@BfmeOwnCN@@QAEDPAVBfmeTargetCN@@PAX@Z at retail 0x0030D95E read from its REL32 displacement; donor-named alias of the rowed body at 0x00306D7B
 ?bfmeCloseFY@BfmeSlotFY@@QAEXH@Z,0x0058BB5C,callee read from the retail REL32 in placed BFME1-donor body ?bfmeShutdownFY@BfmeOwnerFY@@QAEXXZ (0x004CF8D5)
 ?bfmeCloseUDC@BfmeSrcUDC@@QAEXXZ,0x0061ED10
