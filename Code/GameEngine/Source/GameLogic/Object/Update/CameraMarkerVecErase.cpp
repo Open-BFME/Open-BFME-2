@@ -1,4 +1,5 @@
 // cl: /Oy- /DNDEBUG /MD
+// stlport
 //
 // ?erase@CameraMarkerVec@@QAEPAVCameraMarker@@PAV2@0@Z, retail 0x0048D042,
 // 51 bytes. CameraMarker vector erase(first, last): copies [last, finish)
@@ -12,35 +13,29 @@
 // spelling (pinned); the class key keeps the _Destroy call on the rowed
 // PAV spelling with no pin.
 
-class CameraMarker;
+#include <vector>
+
+// Use the vector base already verified in FlammableUpdateModuleDataCtor.cpp.
+class CameraMarker { public: ~CameraMarker(); char m_pad[8]; };
 
 CameraMarker *Rva00288A5CAssign(CameraMarker *first, CameraMarker *last, CameraMarker *dest, void *unused);
 
 namespace _STL
 {
 
-struct random_access_iterator_tag
-{
-};
-
-template <class _Tp>
-void _Destroy(_Tp first, _Tp last);
+template<> void _Destroy<CameraMarker*>(CameraMarker*, CameraMarker*);
 
 }
 
-struct CameraMarkerVec
+struct CameraMarkerVec : public _STL::vector<CameraMarker>
 {
 	CameraMarker *erase(CameraMarker *first, CameraMarker *last);
-
-	CameraMarker *m_start;
-	CameraMarker *m_finish;
-	CameraMarker *m_end;
 };
 
 CameraMarker *CameraMarkerVec::erase(CameraMarker *first, CameraMarker *last)
 {
-	CameraMarker *newFinish = Rva00288A5CAssign(last, m_finish, first, (void *)((char *)&first + 3));
-	_STL::_Destroy(newFinish, m_finish);
-	m_finish = newFinish;
+	CameraMarker *newFinish = Rva00288A5CAssign(last, _M_finish, first, (void *)((char *)&first + 3));
+	_STL::_Destroy(newFinish, _M_finish);
+	_M_finish = newFinish;
 	return first;
 }
