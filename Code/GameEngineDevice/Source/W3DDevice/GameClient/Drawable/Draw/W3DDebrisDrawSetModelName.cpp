@@ -102,14 +102,7 @@ public:
 	float get() const;
 };
 
-class Drawable
-{
-public:
-	void *getDrawableInfo() { return m_drawableInfo; }
-private:
-	unsigned char m_pad00[0x248];
-	unsigned char m_drawableInfo[4];				// +0x248
-};
+#include "../../../../../../GameEngine/Include/GameClient/DrawableBFME2.h"
 
 // Option block of the pinned render-object loader 0x00137364 (rowed copy 0x0013101E).
 class Rva0013101E
@@ -229,7 +222,7 @@ void W3DDebrisDraw::setModelName(AsciiString name, Color color, ShadowType t)
 		if (m_renderObject)
 		{
 			W3DDisplay::m_3DScene->Add_Render_Object(m_renderObject);
-			m_renderObject->Set_User_Data(getDrawable()->getDrawableInfo());
+			m_renderObject->Set_User_Data((unsigned char *)getDrawable() + 0x248);
 			W3DDebrisDrawTransform transform;
 			transform.Set(W3DDebrisDrawPoint(0, 0, 0));
 			m_renderObject->Set_Transform(transform);
