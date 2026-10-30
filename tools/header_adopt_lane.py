@@ -1403,7 +1403,8 @@ def reference_headers():
         return json.loads(path.read_text(encoding="utf-8"))
     except (OSError, ValueError):
         index = reference_header_index()
-        _write_json(path, index)
+        if all(index.values()):     # a checkout without the reference trees must not cache an empty index
+            _write_json(path, index)
         return index
 
 

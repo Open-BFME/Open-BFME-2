@@ -705,3 +705,14 @@ def test_tournament_strips_every_class_the_header_brings(tmp_path, monkeypatch):
     monkeypatch.setattr(lane, "registered", lambda: {})
     lane.tournament("Leaf", {"fields": [], "key": "class"}, ["u.cpp"], "Leaf.h", ["registered"], 1, fixed_header=True)
     assert seen == [["Leaf", "Base"]]
+
+
+def test_reference_headers_does_not_cache_an_empty_tree(tmp_path, monkeypatch):
+    monkeypatch.setattr(lane, "merge_cache_dir", lambda: tmp_path)
+    monkeypatch.setattr(lane, "_git", lambda *args, strip=True: "pin")
+    indexes = [{"bfme1": {}, "zh": {}}, {"bfme1": {"Object": "a.h"}, "zh": {"Object": "b.h"}}]
+    monkeypatch.setattr(lane, "reference_header_index", lambda: indexes.pop(0))
+    assert lane.reference_headers() == {"bfme1": {}, "zh": {}}
+    assert not (tmp_path / "reference_headers_pin.json").exists()
+    assert lane.reference_headers()["bfme1"] == {"Object": "a.h"}
+    assert lane.reference_headers()["bfme1"] == {"Object": "a.h"}       # now read from the cache
