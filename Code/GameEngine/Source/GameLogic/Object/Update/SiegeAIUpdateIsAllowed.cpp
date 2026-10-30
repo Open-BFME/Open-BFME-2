@@ -32,19 +32,73 @@ class Object
 public:
 	SpecialPowerModuleInterface *findSpecialPowerModuleInterface(SpecialPowerType type) const;
 };
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
+class Thing;
 class ModuleData;
-class AIUpdateInterface
+class Object;
+struct AICommandParms;
+struct Coord3D;
+
+enum UpdateSleepTime
+{
+	UPDATE_SLEEP_NONE = 1
+};
+
+// Module::m_moduleData is at +0x04; ObjectModule::m_object is at +0x08.
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
+
+class UpdateModuleInterface
 {
 public:
-	virtual Bool isAllowedToRespondToAiCommands(const AICommandParms *parms) const;
-protected:
-	Object *getObject() const { return m_object; }
-	const ModuleData *m_moduleData;	// +0x04
-	Object *m_object;		// +0x08
+	virtual UpdateSleepTime update();
 };
+
+class UpdateModule : public BehaviorModule, public UpdateModuleInterface
+{
+private:
+	unsigned int m_nextCallFrameAndPhase; // +0x14
+	int m_indexInLogic; // +0x18
+	int m_reserved1C; // +0x1C
+};
+
+class AICommandInterface
+{
+public:
+	virtual void aiDoCommand(const AICommandParms *parms);
+};
+
+class CollideModuleInterface
+{
+public:
+	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal);
+};
+
+class AIUpdateInterface : public UpdateModule, public AICommandInterface, public CollideModuleInterface
+{
+public:
+	AIUpdateInterface(Thing *thing, const ModuleData *moduleData);
+	virtual UpdateSleepTime update();
+	virtual void aiDoCommand(const AICommandParms *parms);
+	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal);
+	virtual Bool isAllowedToRespondToAiCommands(const AICommandParms *parms) const;
+
+protected:
+	virtual ~AIUpdateInterface();
+
+private:
+	unsigned char m_pad28[0x3E4 - 0x28];
+};
+
 class SiegeAIUpdate : public AIUpdateInterface
 {
 public:
+	SiegeAIUpdate(Thing *thing, const ModuleData *moduleData);
+	virtual ~SiegeAIUpdate();
+	virtual NameKeyType getModuleNameKey() const;
 	virtual Bool isAllowedToRespondToAiCommands(const AICommandParms *parms) const;
 };
 Bool SiegeAIUpdate::isAllowedToRespondToAiCommands(const AICommandParms *parms) const
