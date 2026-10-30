@@ -12628,6 +12628,10 @@ is added or changed, and the undefined externals are identical. Preview
 against index `6fe1089c24`: 3 of 3 link cleanly, LINKED 0 -> 7,362 bytes
 (Selection alone 0 -> 4,150). The retail provider `stlport_list_int.cpp` still
 does not link itself (0 of 1; codegen-like `distance`/`size`/`resize` copies).
+Recheck (2026-10-30, halilkkaya-lk8, index 12b9e7a7c0 with current objects):
+`stlport_list_int.cpp` now previews LINKS (67 B) too; with the four wrong
+`??9` copies gone, its census blocker was only the wrong selection. All four
+repaired units and the provider still need census confirmation.
 Census confirmation remains open, and no census gain is claimed.
 
 ### Owning-return clone STLport 4.6 ABI (2026-10-30)
