@@ -14,8 +14,6 @@ Code/GameEngine/Source/GameClient/MapUtil.cpp	wrong-name	_m_supplyPositions	0x00
 Code/GameEngine/Source/GameClient/MapUtil.cpp	wrong-name	_m_techPositions	0x009FF148
 Code/GameEngine/Source/GameClient/Rva0041811DTokenParsers.cpp	wrong-name	?g_00DC85C4@@3PAPBDA	0x009C85C4
 Code/GameEngine/Source/GameClient/System/ParticleSystemMake001FCBD7.cpp	wrong-name	?$S1@?1??Make001FCBD7@@YAPAVParticleSystem@@XZ@4IA	0x009FE014
-Code/GameEngine/Source/GameClient/System/ParticleSystemMake001FCBD7.cpp	wrong-name	?nullSystem@?1??Make001FCBD7@@YAPAVParticleSystem@@XZ@4V2@A	0x009FDD60
-Code/GameEngine/Source/GameClient/System/ParticleSystemMake001FCBD7.cpp	wrong-name	?nullTemplate@?1??Make001FCBD7@@YAPAVParticleSystem@@XZ@4VParticleSystemTemplate@FXParticleSystem@@A	0x009FDF40
 Code/GameEngine/Source/GameLogic/AI/AIPlayer.cpp	wrong-name	?$S1@?7??checkForSupplyCenter@AIPlayer@@IAEXPAVBuildListInfo@@PAVObject@@@Z@4IA	0x00A044C8
 Code/GameEngine/Source/GameLogic/AI/AIPlayer.cpp	wrong-name	?$S2@?N@??findSupplyCenter@AIPlayer@@IAEPAVObject@@H@Z@4IA	0x00A044C0
 Code/GameEngine/Source/GameLogic/Object/AttackNuggetCreate.cpp	wrong-name	?$S1@?7??create@AttackNugget@@UBEPAVObject@@PBV3@PBUCoord3D@@1M@Z@4IA	0x009FDCD8
