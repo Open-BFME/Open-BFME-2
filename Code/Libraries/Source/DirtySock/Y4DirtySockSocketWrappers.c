@@ -1,4 +1,13 @@
-// cl: /Od /GZ /GS /MD /DNDEBUG
+// cl: /Od /GZ /GS /DNDEBUG
+// platformsdk
+/* WINSOCK_API_LINKAGE empty (WinSock2.h's own guard), as
+ * Ws2_32ImportThunks.cpp includes it: retail calls the Winsock entry points
+ * through their import thunks, not through dllimport slots. */
+#define WINSOCK_API_LINKAGE
+#include <winsock2.h>
+#include <stdio.h>
+#include <string.h>
+#include <time.h>
 /* EA DirtySock socket wrappers, ported verbatim from BFME1
  * Y4DirtySockSocket.c. Retail 0x006699E0 (41B), 0x00669A10 (126B)
  * and 0x0066AB90 (180B).
@@ -28,11 +37,6 @@ struct Rva007FD4E0Socket
 	void (__cdecl *m_callbackProc)(struct Rva007FD4E0Socket *socket,
 		int reason, void *data); /* +0x4C */
 };
-
-int __stdcall bind(unsigned int socket, const void *address, int addressLength);
-int __stdcall WSAGetLastError(void);
-int __stdcall shutdown(unsigned int socket, int how);
-int __stdcall listen(unsigned int socket, int backlog);
 
 int Rva007FD540(int result)
 {
@@ -98,8 +102,6 @@ struct Rva007FDEE0Addr
 	unsigned char m_data[ 14 ];     /* +0x02 */
 };
 
-void *__cdecl memset( void *destination, int value, unsigned int count );
-
 int Rva007FE310( void *host, int hostLength, const void *inet, int inetLength );
 
 int Rva007FDEE0( void )
@@ -155,8 +157,6 @@ struct Rva0130AB68List
 // structure to zero.
 struct Rva0130AB68List g_Rva0130AB68Default = { 0 };
 
-void __declspec(dllimport) __stdcall LeaveCriticalSection(void *body);
-
 void Rva007FECB0(struct Rva0130AB68List *list)
 {
 	struct Rva0130AB68List *node = list ? list : &g_Rva0130AB68Default;
@@ -170,13 +170,9 @@ void Rva007FECB0(struct Rva0130AB68List *list)
 		node->m_ownerThread = 0;
 		node->m_depth = 0;
 		node->m_state = 0;
-		LeaveCriticalSection(node->m_body);
+		LeaveCriticalSection((CRITICAL_SECTION *)node->m_body);
 	}
 }
-
-unsigned int __declspec(dllimport) __stdcall GetCurrentThreadId(void);
-void __declspec(dllimport) __stdcall EnterCriticalSection(void *body);
-long __declspec(dllimport) __stdcall InterlockedExchange(long *target, long value);
 
 int Rva007FEB00(struct Rva0130AB68List *list)
 {
@@ -191,14 +187,12 @@ int Rva007FEB00(struct Rva0130AB68List *list)
 	if (InterlockedExchange((long *)&node->m_state, 1))
 		return 0;
 
-	EnterCriticalSection(node->m_body);
+	EnterCriticalSection((CRITICAL_SECTION *)node->m_body);
 
 	node->m_ownerThread = GetCurrentThreadId();
 	node->m_depth = node->m_depth + 1;
 	return 1;
 }
-
-void __declspec(dllimport) __stdcall Sleep(int interval);
 
 void Rva007FEBD0(struct Rva0130AB68List *list)
 {
@@ -206,7 +200,7 @@ void Rva007FEBD0(struct Rva0130AB68List *list)
 
 	while (!Rva007FEB00(list))
 	{
-		EnterCriticalSection(node->m_body);
+		EnterCriticalSection((CRITICAL_SECTION *)node->m_body);
 
 		if (!InterlockedExchange((long *)&node->m_state, 1))
 		{
@@ -215,20 +209,17 @@ void Rva007FEBD0(struct Rva0130AB68List *list)
 			return;
 		}
 
-		LeaveCriticalSection(node->m_body);
+		LeaveCriticalSection((CRITICAL_SECTION *)node->m_body);
 		Sleep(1);
 	}
 }
-
-void __declspec(dllimport) __stdcall DeleteCriticalSection(void *body);
-void __declspec(dllimport) __stdcall InitializeCriticalSection(void *body);
 
 void Rva007FEAA0(struct Rva0130AB68List *list)
 {
 	struct Rva0130AB68List *node = list ? list : &g_Rva0130AB68Default;
 
 	node->m_state = 0;
-	DeleteCriticalSection(node->m_body);
+	DeleteCriticalSection((CRITICAL_SECTION *)node->m_body);
 }
 
 void Rva007FEA20(struct Rva0130AB68List *list)
@@ -238,7 +229,7 @@ void Rva007FEA20(struct Rva0130AB68List *list)
 	node->m_ownerThread = 0;
 	node->m_depth = 0;
 	node->m_state = 0;
-	InitializeCriticalSection(node->m_body);
+	InitializeCriticalSection((CRITICAL_SECTION *)node->m_body);
 }
 
 // g_Rva0130AC90: matched references place it at VA 0xe0a6a8 (zero-filled .bss).
@@ -270,7 +261,6 @@ char g_Rva012C3C88Format[88] = {
 	115, 116, 10, 0, -1, -1, -1, -1,
 };
 int Rva007FE780(const char *format, ...);
-int __stdcall closesocket(unsigned int socket);
 
 int Rva007FD3F0(struct Rva007FD4E0Socket *socket)
 {
@@ -348,12 +338,6 @@ struct Rva007FD920IpHeader
 	unsigned char m_timeToLive; /* +0x08 */
 };
 
-int __stdcall setsockopt(unsigned int socket, int level, int option,
-	const void *value, int valueLength);
-int __stdcall send(unsigned int socket, const char *buffer, int length,
-	int flags);
-int __stdcall sendto(unsigned int socket, const char *buffer, int length,
-	int flags, const void *to, int toLength);
 void *Rva007FD660(char *temp, void *address);
 
 int Rva007FD920(struct Rva007FD4E0Socket *socket, const char *buffer,
@@ -368,7 +352,7 @@ int Rva007FD920(struct Rva007FD4E0Socket *socket, const char *buffer,
 	{
 		header = (const struct Rva007FD920IpHeader *)buffer;
 		parm = header->m_timeToLive;
-		setsockopt(socket->m_socket, 0, 4, &parm, 4);
+		setsockopt(socket->m_socket, 0, 4, (const char *)&parm, 4);
 
 		length -= (header->m_versionAndLength & 0x0F) * 4;
 		buffer = buffer + (header->m_versionAndLength & 0x0F) * 4;
@@ -385,17 +369,10 @@ int Rva007FD920(struct Rva007FD4E0Socket *socket, const char *buffer,
 	return Rva007FD540(result);
 }
 
-int __stdcall recv(unsigned int socket, char *buffer, int length, int flags);
-int __stdcall recvfrom(unsigned int socket, char *buffer, int length,
-	int flags, char *from, int *fromLength);
-unsigned int __declspec(dllimport) __stdcall GetTickCount(void);
-
 unsigned int Rva007FEA00(void)
 {
 	return GetTickCount();
 }
-
-long __cdecl time(long *timer);
 
 unsigned int Rva007FEF60(void)
 {
@@ -415,8 +392,8 @@ int Rva007FDA50(struct Rva007FD4E0Socket *socket, char *buffer, int length,
 	}
 	else
 	{
-		result = recvfrom(socket->m_socket, buffer, length, 0, from,
-			fromLength);
+		result = recvfrom(socket->m_socket, buffer, length, 0,
+			(struct sockaddr *)from, fromLength);
 		if (result > 0)
 		{
 			tick = Rva007FEA00();
@@ -443,9 +420,6 @@ int Rva007FDA50(struct Rva007FD4E0Socket *socket, char *buffer, int length,
 	return result;
 }
 
-int __stdcall connect(unsigned int socket, const void *address,
-	int addressLength);
-
 int Rva007FD5C0(struct Rva007FD4E0Socket *socket, const void *address,
 	int addressLength)
 {
@@ -456,11 +430,7 @@ int Rva007FD5C0(struct Rva007FD4E0Socket *socket, const void *address,
 		Rva007FD660(temp, (void *)address), addressLength));
 }
 
-unsigned int __stdcall socket(int family, int type, int protocol);
-int __stdcall ioctlsocket(unsigned int socket, long command,
-	unsigned long *argument);
 void *Rva007F0000(int size);
-void *__cdecl memset(void *destination, int value, unsigned int count);
 
 struct Rva007FD4E0Socket *Rva007FD2D0(int family, int type, int protocol)
 {
@@ -476,9 +446,9 @@ struct Rva007FD4E0Socket *Rva007FD2D0(int family, int type, int protocol)
 	memset(socketObject, 0, 0x50);
 	socketObject->m_socket = handle;
 
-	ioctlsocket(handle, 0x8004667E, &nonblock);
+	ioctlsocket(handle, FIONBIO, &nonblock);
 	if (type == 2)
-		setsockopt(handle, 0xFFFF, 0x20, &nonblock, 4);
+		setsockopt(handle, SOL_SOCKET, SO_BROADCAST, (const char *)&nonblock, 4);
 
 	socketObject->m_family = family;
 	socketObject->m_type = type;
@@ -491,9 +461,6 @@ struct Rva007FD4E0Socket *Rva007FD2D0(int family, int type, int protocol)
 
 	return socketObject;
 }
-
-unsigned int __stdcall accept(unsigned int socket, void *address,
-	unsigned int *addressLength);
 
 struct Rva007FD4E0Socket *Rva007FD7D0(struct Rva007FD4E0Socket *listenSocket,
 	void *address, unsigned int *addressLength)
@@ -513,10 +480,11 @@ struct Rva007FD4E0Socket *Rva007FD7D0(struct Rva007FD4E0Socket *listenSocket,
 
 	if (listenSocket->m_family == 2)
 	{
-		clientHandle = accept(listenSocket->m_socket, address, addressLength);
+		clientHandle = accept(listenSocket->m_socket, address,
+			(int *)addressLength);
 		if (clientHandle != 0xFFFFFFFF)
 		{
-			ioctlsocket(clientHandle, 0x8004667E, &nonblock);
+			ioctlsocket(clientHandle, FIONBIO, &nonblock);
 
 			acceptedSocket = (struct Rva007FD4E0Socket *)Rva007F0000(0x50);
 			memset(acceptedSocket, 0, 0x50);
@@ -538,13 +506,6 @@ struct Rva007FD4E0Socket *Rva007FD7D0(struct Rva007FD4E0Socket *listenSocket,
 
 // g_Rva0130AB54Version: matched references place it at VA 0xe0a56c (zero-filled .bss).
 int g_Rva0130AB54Version = 0;
-
-void *__cdecl memcpy(void *destination, const void *source,
-	unsigned int count);
-int __stdcall getsockname(unsigned int socket, void *name, int *nameLength);
-int __stdcall WSAIoctl(unsigned int socket, unsigned int code,
-	const void *inBuffer, int inLength, void *outBuffer, int outLength,
-	int *bytesReturned, void *overlapped, void *completion);
 
 #define SOCKET_ADDR_BYTES( p ) \
 	( ( ( ( ( (const unsigned char *)( p ) )[ 4 ] << 8 ) \
@@ -574,8 +535,9 @@ int Rva007FE310(void *dest, int destLength, const void *src, int srcLength)
 		{
 			if (g_Rva0130AB54Version >= 0x200)
 			{
-				if (WSAIoctl(probeSocket, 0xC8000014, src, srcLength, addr,
-					0x10, &destLength, 0, 0) < 0)
+				if (WSAIoctl(probeSocket, SIO_ROUTING_INTERFACE_QUERY,
+					(void *)src, srcLength, addr, 0x10, (DWORD *)&destLength,
+					0, 0) < 0)
 				{
 					lastError = WSAGetLastError();
 				}
@@ -587,7 +549,8 @@ int Rva007FE310(void *dest, int destLength, const void *src, int srcLength)
 
 			if (SOCKET_ADDR_BYTES(dest) == 0
 				&& connect(probeSocket, src, srcLength) == 0
-				&& getsockname(probeSocket, addr, &destLength) == 0)
+				&& getsockname(probeSocket, (struct sockaddr *)addr,
+					&destLength) == 0)
 			{
 				memcpy((char *)dest + 4, addr + 4, 4);
 			}
@@ -601,48 +564,13 @@ int Rva007FE310(void *dest, int destLength, const void *src, int srcLength)
 	return -3;
 }
 
-struct SocketFdSet
-{
-	unsigned int fd_count;
-	unsigned int fd_array[64];
-};
-
-struct SocketTimeVal
-{
-	long tv_sec;
-	long tv_usec;
-};
-
-#define SOCKET_FD_SET(handle, set) \
-	do { \
-		unsigned int slotIndex; \
-		for (slotIndex = 0; slotIndex < (set)->fd_count; slotIndex++) \
-		{ \
-			if ((set)->fd_array[slotIndex] == (handle)) \
-				break; \
-		} \
-		if (slotIndex == (set)->fd_count) \
-		{ \
-			if ((set)->fd_count < 64) \
-			{ \
-				(set)->fd_array[slotIndex] = (handle); \
-				(set)->fd_count++; \
-			} \
-		} \
-	} while (0)
-
-int __stdcall select(int nfds, struct SocketFdSet *readfds,
-	struct SocketFdSet *writefds, struct SocketFdSet *exceptfds,
-	const struct SocketTimeVal *timeout);
-int __stdcall getpeername(unsigned int socket, void *name, int *nameLength);
-
 int Rva007FDB60(struct Rva007FD4E0Socket *socket, int selector, void *buffer,
 	int bufferLength)
 {
 	int queryResult;
-	struct SocketFdSet fdwrite;
-	struct SocketFdSet fdexcept;
-	struct SocketTimeVal tv;
+	fd_set fdwrite;
+	fd_set fdexcept;
+	struct timeval tv;
 	char peeraddr[0x10];
 
 	if (buffer != 0)
@@ -673,10 +601,10 @@ int Rva007FDB60(struct Rva007FD4E0Socket *socket, int selector, void *buffer,
 	{
 		if (socket->m_opened == 0)
 		{
-			fdwrite.fd_count = 0;
-			fdexcept.fd_count = 0;
-			SOCKET_FD_SET(socket->m_socket, &fdwrite);
-			SOCKET_FD_SET(socket->m_socket, &fdexcept);
+			FD_ZERO(&fdwrite);
+			FD_ZERO(&fdexcept);
+			FD_SET(socket->m_socket, &fdwrite);
+			FD_SET(socket->m_socket, &fdexcept);
 
 			tv.tv_sec = tv.tv_usec = 0;
 
@@ -692,8 +620,8 @@ int Rva007FDB60(struct Rva007FD4E0Socket *socket, int selector, void *buffer,
 		if (socket->m_opened > 0)
 		{
 			bufferLength = 0x10;
-			queryResult = Rva007FD540(getpeername(socket->m_socket, peeraddr,
-				&bufferLength));
+			queryResult = Rva007FD540(getpeername(socket->m_socket,
+				(struct sockaddr *)peeraddr, &bufferLength));
 			if (queryResult == -2)
 				socket->m_opened = -1;
 		}
@@ -837,9 +765,6 @@ void Rva007FD170(struct Rva007FD4E0Socket *listHead)
 	Rva007FECB0(0);
 }
 
-/* wsock32's WSACleanup, reached through its import thunk at 0x006556AC. */
-int __stdcall WSACleanup(void);
-
 void Rva007FD270(void)
 {
 	Rva007FED90((void *)Rva007FD170, &g_Rva0130AB58Head);
@@ -853,24 +778,11 @@ void Rva007FD270(void)
 	WSACleanup();
 }
 
-struct WsaStartupData
-{
-	unsigned short requestedVersion;
-	unsigned short highVersion;
-	char description[257];
-	char systemStatus[129];
-	unsigned short maxSockets;
-	unsigned short maxUdpDatagrams;
-	char *vendorInfo;
-};
-
-int __stdcall WSAStartup(unsigned short versionRequested,
-	struct WsaStartupData *startupData);
 void Rva007FE520(int priority);
 
 void Rva007FD080(int startupPriority)
 {
-	struct WsaStartupData data;
+	WSADATA data;
 	int startupResult;
 
 	Rva007FE520(startupPriority);
@@ -882,15 +794,9 @@ void Rva007FD080(int startupPriority)
 	memset(&data, 0, sizeof data);
 	startupResult = WSAStartup(2, &data);
 
-	g_Rva0130AB54Version = ((unsigned char)(data.requestedVersion & 0xFF) << 8)
-		| (unsigned char)((unsigned int)data.requestedVersion >> 8);
+	g_Rva0130AB54Version = ((unsigned char)(data.wVersion & 0xFF) << 8)
+		| (unsigned char)((unsigned int)data.wVersion >> 8);
 }
-
-__declspec(dllimport) int __stdcall CreateThread(
-	void *security, unsigned int stackSize, void *start, void *parameter,
-	unsigned int flags, unsigned int *identifier);
-__declspec(dllimport) void __stdcall SetThreadPriority(int thread, int priority);
-__declspec(dllimport) int __stdcall CloseHandle(int object);
 
 // g_Rva012C3CE0Message: matched references place it at VA 0xdd8438; retail contents, sized to the
 // 0x24-byte gap before the next known global there.
@@ -905,7 +811,7 @@ int Rva007FE780(const char *format, ...);
 
 void Rva007FE520(int priority)
 {
-	unsigned int pid;
+	DWORD pid;
 
 	g_Rva0130ACB4 = 0;
 	g_Rva012C3CDCDraining = -1;
@@ -914,13 +820,13 @@ void Rva007FE520(int priority)
 	Rva007FEA20((struct Rva0130AB68List *)&g_Rva0130AC90);
 
 	g_Rva0130ACB8Thread = 1;
-	g_Rva0130ACB8Thread = CreateThread(0, 0, (void *)Rva007FE620,
-		0, 0, &pid);
+	g_Rva0130ACB8Thread = (int)CreateThread(0, 0,
+		(LPTHREAD_START_ROUTINE)Rva007FE620, 0, 0, &pid);
 
 	if (g_Rva0130ACB8Thread != 0)
 	{
-		SetThreadPriority(g_Rva0130ACB8Thread, priority);
-		CloseHandle(g_Rva0130ACB8Thread);
+		SetThreadPriority((HANDLE)g_Rva0130ACB8Thread, priority);
+		CloseHandle((HANDLE)g_Rva0130ACB8Thread);
 	}
 
 	if (0)
@@ -933,12 +839,6 @@ void Rva007FE210(void *requestObject)
 		Rva007F0030(requestObject);
 }
 
-struct HostLookupRecord
-{
-	char header[0x0C];
-	unsigned char **addressList;
-};
-
 struct ResolveRequest
 {
 	int status;
@@ -948,18 +848,16 @@ struct ResolveRequest
 	int state;
 };
 
-struct HostLookupRecord *__stdcall gethostbyname(const char *name);
-
 int Rva007FE250(struct ResolveRequest *request)
 {
 	unsigned char *addressBytes;
-	struct HostLookupRecord *lookupRecord;
+	struct hostent *lookupRecord;
 
 	lookupRecord = gethostbyname(request->hostname);
 
 	if (lookupRecord != 0)
 	{
-		addressBytes = *lookupRecord->addressList;
+		addressBytes = (unsigned char *)*lookupRecord->h_addr_list;
 		request->resolvedAddress = (addressBytes[0] << 24) | (addressBytes[1] << 16)
 			| (addressBytes[2] << 8) | addressBytes[3];
 		request->status = 1;
@@ -991,7 +889,6 @@ int __cdecl Rva007FF080(const char *text)
 	return hashValue;
 }
 
-int __cdecl sprintf(char *buffer, const char *format, ...);
 // g_Rva0130ACBCGroupMask: matched references place it at VA 0xe0a6d4 (zero-filled .bss).
 int g_Rva0130ACBCGroupMask = 0;
 // g_Rva012C3D04Format: matched references place it at VA 0xdd845c; retail contents, sized to the
@@ -1054,21 +951,6 @@ void Rva007FE880(int group, const unsigned char *buffer, int length)
 	}
 }
 
-struct Rva007FEF80Tm
-{
-	int tm_sec;
-	int tm_min;
-	int tm_hour;
-	int tm_mday;
-	int tm_mon;
-	int tm_year;
-	int tm_wday;
-	int tm_yday;
-	int tm_isdst;
-};
-
-struct Rva007FEF80Tm *__cdecl gmtime(const long *timer);
-struct Rva007FEF80Tm *__cdecl localtime(const long *timer);
 // g_Rva012C3D24Offset: matched references place it at VA 0xdd847c (retail .data initial value -1).
 int g_Rva012C3D24Offset = -1;
 
@@ -1077,7 +959,7 @@ int Rva007FEF80(void)
 	int iGmt;
 	int iLocal;
 	long uTime;
-	struct Rva007FEF80Tm *pTm;
+	struct tm *pTm;
 
 	if (g_Rva012C3D24Offset == -1)
 	{
