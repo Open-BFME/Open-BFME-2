@@ -2632,6 +2632,22 @@ destructor) and ArmorHashtableRtsCtor.cpp (105 B; `_M_initialize_buckets`).
   first and it keeps linking (9,120 B). 11/11 rows exact; only the unmatched
   `Player::xfer` COMDAT (sole definer) changes digest; every dropped name keeps a
   definer; AIPlayerTeamBuild.cpp has no rt5 loser left.
+  **Follow-up 2026-10-30 (science providers):** Player now declares the
+  existing const ScienceType allocator and vector push_back. Exact-name
+  providers in FXShaderParameterBinderInit/PlayerAddScience retain native
+  28-byte allocation and the 49-byte 2E01C6 push_back owner. Only Player's
+  divergent 26/58-byte definitions disappear; all eleven Player rows and
+  every retained raw body/relocation stay unchanged. All eight provider
+  rows verify in fresh private objects. The three-unit preview conserves
+  the two providers' LINKS; Player retains independent blockers, with no
+  headline gain claimed. This completes the small final batch of the Player
+  provider pass. Evidence: `reverse/attempt_support/player-science-providers-20261030/`.
+  The const PBW allocate-and-copy still lacks an exact native definition
+  (31B9EB's owner has another element type; ScienceVectorReserve uses PAW).
+  hasUpgradeComplete's QAE pin names a const QBE placeholder owner at 2AB87D;
+  reconcile name/signature/layout before removing that donor body. Pins
+  alone cannot supply either missing definition. Broader consumer verification
+  remains qualified by the older index and missing current receipts.
 - `cos`/`sin` (halilkkaya-lk6): retail's `float cos(float)`/`sin(float)` copies sit at
   0x0002FBC0/0x0002FBB0 as ICF-twin rows of AptMathCallbacksBFME2.cpp, which therefore
   no longer places that unit early. HordeContainIface11CSlots.cpp, Rva00468E98Rotate.cpp

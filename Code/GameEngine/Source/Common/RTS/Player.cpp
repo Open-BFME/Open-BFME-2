@@ -77,6 +77,12 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
     return a < b ? b : a;
 }
 }
+// Keep the already-defined native ScienceType allocation/vector providers.
+namespace _STL {
+template <> ScienceType *allocator<ScienceType>::allocate(size_t, const void *) const;
+template <> void vector<ScienceType, allocator<ScienceType> >::push_back(const ScienceType &);
+}
+#line 70
 #include <list>
 // Bind allocator<ObjectID>::deallocate to the kept retail copy.
 namespace _STL { template <> void allocator<ObjectID>::deallocate(ObjectID *, size_t) const; }

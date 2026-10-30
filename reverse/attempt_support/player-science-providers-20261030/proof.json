@@ -1,0 +1,409 @@
+{
+  "scope": "two removed competing providers; existing units stay linked; no headline gain",
+  "private_Player": {
+    "source": "Code/GameEngine/Source/Common/RTS/Player.cpp",
+    "insertion_logical_line": 70,
+    "comparison": {
+      "removed": [
+        "?allocate@?$allocator@W4ScienceType@@@_STL@@QBEPAW4ScienceType@@IPBX@Z",
+        "?push_back@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAEXABW4ScienceType@@@Z"
+      ],
+      "added": [],
+      "changed": [],
+      "changed_definitions": {},
+      "removed_definitions": {
+        "?allocate@?$allocator@W4ScienceType@@@_STL@@QBEPAW4ScienceType@@IPBX@Z": {
+          "raw": "8b44240485c0740dc1e00250ff150000000059eb0233c0c20800",
+          "relocations": [
+            [
+              14,
+              6,
+              "__imp_?allocate@__new_alloc@_STL@@SAPAXI@Z"
+            ]
+          ]
+        },
+        "?push_back@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAEXABW4ScienceType@@@Z": {
+          "raw": "558bec518b51043b5108741185d274078b45088b00890283410404eb19576a0133c08d7dff6a01aa8d45ff50ff750852e8000000005fc9c20400",
+          "relocations": [
+            [
+              49,
+              20,
+              "?_M_insert_overflow@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@IAEXPAW4ScienceType@@ABW43@ABU__false_type@2@I_N@Z"
+            ]
+          ]
+        }
+      }
+    },
+    "variants": {
+      "before": {
+        "source_sha256": "fda48be2eaeea1187b7e9eddae8ebbbcf783a909f8da70cad4f7ace90f27c5b2",
+        "rows": [
+          {
+            "name": "?getDefaultTeam@Player@@QAEPAVTeam@@XZ",
+            "rva": "0x0046F7E4",
+            "size": "7",
+            "exact": true
+          },
+          {
+            "name": "?getTeam@Object@@QAEPAVTeam@@XZ",
+            "rva": "0x0043A09D",
+            "size": "7",
+            "exact": true
+          },
+          {
+            "name": "?dlink_next_TeamMemberList@Object@@QBEPAV1@XZ",
+            "rva": "0x0046F7F8",
+            "size": "7",
+            "exact": true
+          },
+          {
+            "name": "?getAcademyStats@Player@@QAEPAVAcademyStats@@XZ",
+            "rva": "0x000B6464",
+            "size": "7",
+            "exact": true
+          },
+          {
+            "name": "?getNumSkirmishSides@SidesList@@QAEHXZ",
+            "rva": "0x0016809F",
+            "size": "7",
+            "exact": true
+          },
+          {
+            "name": "?getNumSkirmishTeams@SidesList@@QAEHXZ",
+            "rva": "0x00313840",
+            "size": "7",
+            "exact": true
+          },
+          {
+            "name": "?isPlayerDead@Player@@QBE_NXZ",
+            "rva": "0x0028A7D8",
+            "size": "7",
+            "exact": true
+          },
+          {
+            "name": "?setAIDifficulty@AIPlayer@@QAEXW4GameDifficulty@@@Z",
+            "rva": "0x00210C87",
+            "size": "10",
+            "exact": true
+          },
+          {
+            "name": "?onStructureUndone@Player@@QAEXPAVObject@@@Z",
+            "rva": "0x0047A69C",
+            "size": "3",
+            "exact": true
+          },
+          {
+            "name": "?isPlayerObserver@Player@@QBE_NXZ",
+            "rva": "0x002AA223",
+            "size": "7",
+            "exact": true
+          },
+          {
+            "name": "?loadPostProcess@PlayerRelationMap@@MAEXXZ",
+            "rva": "0x000B3FD0",
+            "size": "1",
+            "exact": true
+          }
+        ],
+        "external_definitions": 412
+      },
+      "trial": {
+        "source_sha256": "8f5f1c30399a7ec8a205f08ccfaee6d93e28e936da7cc5ff687af51a10263a18",
+        "rows": [
+          {
+            "name": "?getDefaultTeam@Player@@QAEPAVTeam@@XZ",
+            "rva": "0x0046F7E4",
+            "size": "7",
+            "exact": true
+          },
+          {
+            "name": "?getTeam@Object@@QAEPAVTeam@@XZ",
+            "rva": "0x0043A09D",
+            "size": "7",
+            "exact": true
+          },
+          {
+            "name": "?dlink_next_TeamMemberList@Object@@QBEPAV1@XZ",
+            "rva": "0x0046F7F8",
+            "size": "7",
+            "exact": true
+          },
+          {
+            "name": "?getAcademyStats@Player@@QAEPAVAcademyStats@@XZ",
+            "rva": "0x000B6464",
+            "size": "7",
+            "exact": true
+          },
+          {
+            "name": "?getNumSkirmishSides@SidesList@@QAEHXZ",
+            "rva": "0x0016809F",
+            "size": "7",
+            "exact": true
+          },
+          {
+            "name": "?getNumSkirmishTeams@SidesList@@QAEHXZ",
+            "rva": "0x00313840",
+            "size": "7",
+            "exact": true
+          },
+          {
+            "name": "?isPlayerDead@Player@@QBE_NXZ",
+            "rva": "0x0028A7D8",
+            "size": "7",
+            "exact": true
+          },
+          {
+            "name": "?setAIDifficulty@AIPlayer@@QAEXW4GameDifficulty@@@Z",
+            "rva": "0x00210C87",
+            "size": "10",
+            "exact": true
+          },
+          {
+            "name": "?onStructureUndone@Player@@QAEXPAVObject@@@Z",
+            "rva": "0x0047A69C",
+            "size": "3",
+            "exact": true
+          },
+          {
+            "name": "?isPlayerObserver@Player@@QBE_NXZ",
+            "rva": "0x002AA223",
+            "size": "7",
+            "exact": true
+          },
+          {
+            "name": "?loadPostProcess@PlayerRelationMap@@MAEXXZ",
+            "rva": "0x000B3FD0",
+            "size": "1",
+            "exact": true
+          }
+        ],
+        "external_definitions": 410
+      }
+    }
+  },
+  "cohort": {
+    "scope": "fresh private three-unit provider overlay; not a census or full consumer audit",
+    "cohort": [
+      {
+        "source": "Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterBinderInit.cpp",
+        "source_sha256": "6bf1c4767500d95901181824fac055582d65619c1c70a177f27e9211f94a8ced",
+        "object_sha256": "a8820430cd2aa8ebfa40f496592e8ca57b2dcf8e4d60803b5c8e456475074a1a",
+        "currency": "fresh private compile of unchanged source; no shared-cache mutation",
+        "rows": [
+          {
+            "name": "?ResolveBindings@FXShaderParameterBinder@@QAEXPBD0@Z",
+            "rva": "0x0015306D",
+            "size": "124",
+            "exact": true
+          },
+          {
+            "name": "?Init@FXShaderParameterBinder@@QAEXPAUID3DXEffect@@@Z",
+            "rva": "0x00153F08",
+            "size": "336",
+            "exact": true
+          },
+          {
+            "name": "__ehhandler$?Init@FXShaderParameterBinder@@QAEXPAUID3DXEffect@@@Z",
+            "rva": "0x00766E56",
+            "size": "10",
+            "exact": true
+          },
+          {
+            "name": "?_M_insert_overflow@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@IAEXPAW4ScienceType@@ABW43@ABU__false_type@2@I_N@Z",
+            "rva": "0x00148D00",
+            "size": "179",
+            "exact": true
+          },
+          {
+            "name": "?push_back@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAEXABW4ScienceType@@@Z",
+            "rva": "0x002E01C6",
+            "size": "49",
+            "exact": true
+          }
+        ],
+        "eh": [
+          {
+            "name": "?Init@FXShaderParameterBinder@@QAEXPAUID3DXEffect@@@Z",
+            "verdict": [
+              "EXACT",
+              ""
+            ]
+          }
+        ]
+      },
+      {
+        "source": "Code/GameEngine/Source/Common/RTS/PlayerAddScience.cpp",
+        "source_sha256": "82a8e4d4efc6f5a88f950b60c38c62da17a1f062a422138e3f242294c275b49f",
+        "object_sha256": "f167d6759e0342ff76089ee8befd98e38bfae98159bdda23661c97ec57893bf7",
+        "currency": "fresh private compile of unchanged source; no shared-cache mutation",
+        "rows": [
+          {
+            "name": "?addScience@Player@@AAE_NW4ScienceType@@@Z",
+            "rva": "0x002AD661",
+            "size": "392",
+            "exact": true
+          },
+          {
+            "name": "__ehhandler$?addScience@Player@@AAE_NW4ScienceType@@@Z",
+            "rva": "0x00775A71",
+            "size": "10",
+            "exact": true
+          },
+          {
+            "name": "Unwind@00b75a69",
+            "rva": "0x00775A69",
+            "size": "8",
+            "exact": true
+          }
+        ],
+        "eh": [
+          {
+            "name": "?addScience@Player@@AAE_NW4ScienceType@@@Z",
+            "verdict": [
+              "EXACT",
+              ""
+            ]
+          }
+        ]
+      }
+    ],
+    "overlays": {
+      "before": {
+        "units": {
+          "Code/GameEngine/Source/Common/RTS/Player.cpp": {
+            "linked": false,
+            "counts": {
+              "unresolved": 33,
+              "duplicates": 0,
+              "comdat": 5,
+              "addresses": 0,
+              "selected": 2
+            },
+            "repaired_name_blockers": {
+              "comdat": [
+                [
+                  "?allocate@?$allocator@W4ScienceType@@@_STL@@QBEPAW4ScienceType@@IPBX@Z",
+                  "retail",
+                  "unknown"
+                ],
+                [
+                  "?push_back@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAEXABW4ScienceType@@@Z",
+                  "retail",
+                  "unknown"
+                ]
+              ],
+              "selected": [],
+              "unresolved": []
+            }
+          },
+          "Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterBinderInit.cpp": {
+            "linked": true,
+            "counts": {
+              "unresolved": 0,
+              "duplicates": 0,
+              "comdat": 0,
+              "addresses": 0,
+              "selected": 0
+            },
+            "repaired_name_blockers": {
+              "comdat": [],
+              "selected": [],
+              "unresolved": []
+            }
+          },
+          "Code/GameEngine/Source/Common/RTS/PlayerAddScience.cpp": {
+            "linked": true,
+            "counts": {
+              "unresolved": 0,
+              "duplicates": 0,
+              "comdat": 0,
+              "addresses": 0,
+              "selected": 0
+            },
+            "repaired_name_blockers": {
+              "comdat": [],
+              "selected": [],
+              "unresolved": []
+            }
+          }
+        },
+        "selection": {
+          "?allocate@?$allocator@W4ScienceType@@@_STL@@QBEPAW4ScienceType@@IPBX@Z": [
+            "^code_^game^engine_^source_^common_^r^t^s_^player.obj",
+            "unknown"
+          ],
+          "?push_back@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAEXABW4ScienceType@@@Z": [
+            "^code_^game^engine_^source_^common_^r^t^s_^player.obj",
+            "unknown"
+          ]
+        }
+      },
+      "trial": {
+        "units": {
+          "Code/GameEngine/Source/Common/RTS/Player.cpp": {
+            "linked": false,
+            "counts": {
+              "unresolved": 33,
+              "duplicates": 0,
+              "comdat": 3,
+              "addresses": 0,
+              "selected": 2
+            },
+            "repaired_name_blockers": {
+              "comdat": [],
+              "selected": [],
+              "unresolved": []
+            }
+          },
+          "Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterBinderInit.cpp": {
+            "linked": true,
+            "counts": {
+              "unresolved": 0,
+              "duplicates": 0,
+              "comdat": 0,
+              "addresses": 0,
+              "selected": 0
+            },
+            "repaired_name_blockers": {
+              "comdat": [],
+              "selected": [],
+              "unresolved": []
+            }
+          },
+          "Code/GameEngine/Source/Common/RTS/PlayerAddScience.cpp": {
+            "linked": true,
+            "counts": {
+              "unresolved": 0,
+              "duplicates": 0,
+              "comdat": 0,
+              "addresses": 0,
+              "selected": 0
+            },
+            "repaired_name_blockers": {
+              "comdat": [],
+              "selected": [],
+              "unresolved": []
+            }
+          }
+        },
+        "selection": {
+          "?allocate@?$allocator@W4ScienceType@@@_STL@@QBEPAW4ScienceType@@IPBX@Z": [
+            "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_^f^x^shader^parameter^binder^init.obj",
+            "ok"
+          ],
+          "?push_back@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAEXABW4ScienceType@@@Z": [
+            "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_^f^x^shader^parameter^binder^init.obj",
+            "ok"
+          ]
+        }
+      }
+    }
+  },
+  "actual_Player": {
+    "strict_current": true,
+    "source_sha256": "8f5f1c30399a7ec8a205f08ccfaee6d93e28e936da7cc5ff687af51a10263a18",
+    "object_sha256": "601a947bf2386d9952e414692d6d36a3cf0bdc6362f6387cf8a92ce1ddb523df",
+    "all_actual_before_after_COMDATs_match_private_variants": true,
+    "retained_COMDAT_fingerprints_unchanged": 452
+  }
+}
