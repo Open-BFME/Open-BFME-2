@@ -1,85 +1,18 @@
-// cl: /I. /G7 /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /ICode/GameEngine/Include /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /I. /G7 /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /ICode/GameEngine/Include /O1 /DNDEBUG /MD /EHsc /arch:SSE /D_STLP_DONT_FORCE_MSVC_LIB_NAME
+// stlport
+// The canonical declaration names STLport types; keep library selection with the link.
 // ScriptActions members recovered from WorldBuilder leads
 // (reverse/wb_name_leads.csv) and Zero Hour's ScriptActions.cpp; retail
-// supplies the bytes. Only declared here: members other units row
-// (doFlashSpellStoreButton, doPlayerForceEmotion,
-// doSetUnitReferenceToHomeBaseOfPlayer, doCreateObject, 0x003C0E87), members
-// recovered in other units (createUnitOnTeamAt,
-// doSetCounterToThreatFinderThreat, doCreateUnitRevivalEntry and the two
-// sequential-script starters) and members
-// not yet matched (doTransferTeamToPlayer, 0x003C4751).
+// supplies the bytes. Use the registered BFME 2 class declaration.
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
 #include "ascii_string.h"
 #include "Common/Snapshot.h"
 #include "Common/BfmeAudioEventPrefix136.h"
+#include "../../../Include/GameLogic/ScriptActionsBFME2.h"
 
-enum EmotionType
-{
-	EMOTION_INVALID = -1
-};
-
-class Parameter;
 class CommandButton;
-class Object;
-struct Coord3D;
 class UpgradeTemplate;
-
-class ScriptActions
-{
-public:
- void doSetBorderShroud(bool setting);
- Object *rva003C24F0(const Coord3D *, class ObjectTypes *, class Player *, bool);
- void rva003C42B9(Parameter *, const AsciiString &, const AsciiString &);
- void rva003C739D(Parameter *, Parameter *, Parameter *, Parameter *, Parameter *);
-protected:
- void doTeamUseCommandButtonOnNearestObjectType(const AsciiString &, const AsciiString &, const AsciiString &);
-	void doFlashSpellStoreButton(int seconds);
-	void doPlaySoundEffect(const AsciiString &sound);
-	void doPlaySoundEffectAt(const AsciiString &sound, const AsciiString &waypoint);
-	void doSoundPlayFromNamed(const AsciiString &sound, const AsciiString &unitName);
-	void doSpeechPlay(const AsciiString &speechName, bool allowOverlap);
-	void doPlayerForceEmotion(Parameter *player, EmotionType emotion,
-		float duration);
-	void doSetCounterToThreatFinderThreat(const AsciiString &counterName,
-		const AsciiString &threatFinderName, const AsciiString &relation,
-		const AsciiString &playerName);
-	void doCreateUnitRevivalEntry(const AsciiString &templateName,
-		const AsciiString &playerName, int level);
-	void doIdleAllPlayerUnits(const AsciiString &playerName);
-	void doResumeSupplyTruckingForIdleUnits(const AsciiString &playerName);
-	void doCreateObject(const AsciiString &objectName, const AsciiString &thingName,
-		const AsciiString &teamName, struct Coord3D *pos, float angle);
-	void createUnitOnTeamAt(const AsciiString &unitName, const AsciiString &objType,
-		const AsciiString &teamName, const AsciiString &waypoint);
-	void doSetUnitReference(const AsciiString &reference, Parameter *unit, bool byName);
-	void doTeamFollowWaypoints(const AsciiString &teamName,
-		const AsciiString &waypointPathLabel, bool asTeam, bool flag);
-	void doTeamAttackMoveFollowWaypoints(const AsciiString &teamName,
-		const AsciiString &waypointPathLabel, bool asTeam, bool flag);
-	void doPlaySoundEffectAtTeam(const AsciiString &sound, const AsciiString &teamName);
-	void doForceObjectSelection(const AsciiString &teamName, const AsciiString &objectType,
-		bool centerInView, const AsciiString &audioToPlay);
-	void doBuildBuildingOnFoundation(const AsciiString &templateName, const AsciiString &unitName);
-	void doTeamMoveToSkirmishApproachPath(const AsciiString &teamName,
-		const AsciiString &waypointPathLabel);
-	void doTransferTeamToPlayer(const AsciiString &teamName, const AsciiString &playerName);
-	void doTeamStartSequentialScript(const AsciiString &teamName,
-		const AsciiString &scriptName, int loopVal);
-	void rva003C20CA(const AsciiString &reference, Parameter *team, bool byName);
-	void rva003C606C(Parameter *playerParam, bool flag);
-	void rva003C0D6A(const AsciiString &unitName, int which, bool on);
-	void rva003C0D90(const AsciiString &teamName, int which, bool on);
-	void rva003C0E87(const AsciiString &unitName, int value);
-	void doUnitStartSequentialScript(const AsciiString &unitName,
-		const AsciiString &scriptName, int loopVal);
-	void rva003C49AE(Parameter *srcTeamParam, Parameter *dstTeamParam);
-	void rva003C4751(Parameter *teamParam);
-	void doSetUnitReferenceToHomeBaseOfPlayer(const AsciiString &playerName,
-		const AsciiString &unitReference, bool flag);
-	void doEnablePlanningMode(unsigned char enable);
-};
-
 
 // WB ScriptActions::doPlaySoundEffect @0x003BD5E0 (153B): look up the named
 // event, create it only when found, assign the local player's index, and post it.

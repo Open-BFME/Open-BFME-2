@@ -187,6 +187,17 @@ selection and loss checks remain pending; carry the caller, ownership providers
 and wider consumers into the next scheduled census. No census gain or new
 linking clearance is claimed.
 [Verification and reference-refresh boundary](../reverse/attempt_support/gethtree-crt-headers-20261030-codex4.md).
+### ScriptActions canonical declaration prerequisite (2026-10-30)
+
+At base `c647a75e55`, ScriptActions.cpp replaces its private ScriptActions
+class with the registered ScriptActionsBFME2.h. All 52 rows and literal checks
+pass; 112 non-debug COFF sections, 8,200 bytes, 440 relocations and 202 external
+symbol records remain identical, including linker directives and EH data.
+The owning header-adoption acceptance passes. Ordinary preview retains LINKS
+for all 5,461 authored bytes against the 2026-10-30 10:11 index at `12b9e7a7c0`.
+No census gain or register retirement is claimed. The seed's separate Thing
+adoption, mixed files and remaining donor-view conflicts still require work.
+[Scope and verification](../reverse/attempt_support/scriptactions-consolidation-20261030-codex/README.md).
 
 ### AssaultTransportAIUpdate composition prerequisite (2026-10-30)
 
