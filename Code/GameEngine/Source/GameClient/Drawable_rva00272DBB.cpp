@@ -53,11 +53,7 @@ public:
 	virtual void rva00272DBBTarget() = 0;
 };
 
-class Drawable
-{
-public:
-	void rva00272DBB(Object *obj);
-};
+#include "../../Include/GameClient/DrawableBFME2.h"
 
 void Drawable::rva00272DBB(Object *obj)
 {
