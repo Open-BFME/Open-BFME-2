@@ -1,18 +1,14 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
+// stlport
 // ?xfer@ThreatFinderUpdate@@MAEXPAVXfer@@@Z @0x003ECED5 (143B): ThreatFinderUpdate
 // xfer (vslot 3) that versions via slot 0x28 calls UpdateModule::xfer allocates
 // the 0x56C heap via 0x003ECD60 when not storing registers it then xfers it.
 // Evidence: vtable 0x008360CC slot 3 plus ctor 0x003ECCA2 plus dtor heap +0x20
 // plus callers of 0x003ECD60 and 0x003ECBF8; Xfer decl verbatim from
 // PoisonedBehaviorXfer.cpp so Version sits at 0x28 and IsStoring at 0x08.
-template <class T> class StringBase
-{
-public:
-	StringBase(const StringBase &other);
-
-private:
-	void *m_data;
-};
+// The canonical frozen StringBase replaces the private copy; the member is
+// only passed by reference, so its copy ctor stays declared.
+#include "string_base.h"
 
 class AsciiString;
 class UnicodeString;

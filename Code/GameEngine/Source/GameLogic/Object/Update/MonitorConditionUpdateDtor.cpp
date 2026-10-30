@@ -1,4 +1,5 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
+// stlport
 //
 // ??1MonitorConditionUpdate@@UAE@XZ, retail 0x004916AC, 73 bytes.
 // MonitorConditionUpdate behavior dtor: compiler MI machinery restores the
@@ -15,14 +16,10 @@ class ModuleData;
 enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
 template<int N> class BitFlags;
 
-template <typename T> class StringBase
-{
-public:
-	~StringBase();
-
-private:
-	void *m_data;
-};
+// The canonical frozen StringBase replaces the private copy; its switch
+// declares the narrow teardown out of line, rowed at 0x00036410.
+#define BFME_STRINGBASE_PUBLIC_DTOR
+#include "string_base.h"
 
 // The primary table starts with the deleting destructor: retail table
 // RVA 0x0084DAD8 slot 0 is the owned callback 0x00491750. Inheriting an

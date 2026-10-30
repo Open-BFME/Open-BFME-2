@@ -1,18 +1,12 @@
-// cl: /O1 /DNDEBUG /DWIN32 /MD /D_STLP_USE_STATIC_LIB /EHsc
+// cl: /O1 /DNDEBUG /DWIN32 /MD /D_STLP_USE_STATIC_LIB /EHsc /Ireference/shims/bfme2_ascii
+// stlport
 // ??_ERva002E5791@@QAEPAXI@Z 0x002E5E5A 75B
 // Evidence: chain from 0x002E5791 landing; size 8 cookie at [esi-4]; calls rowed ??1Rva002E5791 0x002E5791 plus ??_M ??_V ??3.
+// The canonical frozen StringBase replaces the private copy; the array delete
+// only needs the complete member type and the rowed holder dtor.
 #include <new>
-
-template <typename T> class StringBase
-{
-public:
-	~StringBase() { releaseBuffer(); }
-
-private:
-	void releaseBuffer();
-	T *m_data;
-};
-
+#define BFME_STRINGBASE_PUBLIC_DTOR
+#include "string_base.h"
 class Rva002E5791
 {
 public:
