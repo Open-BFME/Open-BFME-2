@@ -10256,3 +10256,4 @@ nl-809ea4c69a0a,function,h000053B7,enableAll,0x000F0AE7,w-077d7aeb666b@drz-k3;w-
 nl-2e84b4898f08,param,p,config,,w-077d7aeb666b@drz-k3,Code/Libraries/Source/Apt/AptAnimationPoolDataCtor.cpp|param|Rva006E6060Root::Rva006E6060Root|p,agreed,single-worker scoped approval: w-077d7aeb666b@drz-k3
 nl-db0103ccd3ac,local,p,pickInfo,,w-077d7aeb666b@drz-k3,Code/GameEngine/Source/Common/ComputeFrameState.cpp|local|ComputeFrameState|p,agreed,single-worker scoped approval: w-077d7aeb666b@drz-k3
 nl-6ca286c252db,local,temp,saved,,w-077d7aeb666b@drz-k3,Code/GameEngine/Source/GameLogic/Map/TerrainLogicLoadAmbientLightmap.cpp|local|TerrainLogic::LoadAmbientLightmap|temp,agreed,single-worker scoped approval: w-077d7aeb666b@drz-k3
+nl-ae25932ef2c6,param,m,mutex,,w-526a51702f64@drz-k5,Code/GameEngine/Source/Common/MilesMutexGuard.cpp|param|MilesMutexGuard::MilesMutexGuard|m,agreed,single-worker scoped approval: w-526a51702f64@drz-k5

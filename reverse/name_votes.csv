@@ -16112,3 +16112,5 @@ Code/GameEngine/Source/GameLogic/Map/TerrainLogicLoadAmbientLightmap.cpp|local|T
 Code/Libraries/Source/WWVegas/WWLib/Rva003F35E3VectorFillInsert.cpp|function|0x003F3744|rva003F3744,1c93b0ea36b9d0a303c32a95,drz-k3,drz-k3-172,w-077d7aeb666b,2026-10-30
 Code/GameEngineDevice/Source/W3DDevice/GameClient/ScreenFilterRva007DCA80PostRender.cpp|global||g_Va00DEC0DC,f8dd9556e7780dcffe7611fb,drz-k3,drz-k3-173,w-077d7aeb666b,2026-10-30
 Code/GameEngineDevice/Source/W3DDevice/GameClient/ScreenFilterRva007DCA80PostRender.cpp|global||g_Va00DB5B08,2944acdd0dcab79cd091f3b0,drz-k3,drz-k3-173,w-077d7aeb666b,2026-10-30
+Code/GameEngine/Source/Common/Rva004C5C6.cpp|function|0x0004C553|rva0004C553,c8fa4b9d05318a8951e59328,drz-k5,drz-k5-138,w-526a51702f64,2026-10-30
+Code/GameEngine/Source/Common/MilesMutexGuard.cpp|param|MilesMutexGuard::MilesMutexGuard|m,ae25932ef2c6c11dc3b8695b,drz-k5,drz-k5-142,w-526a51702f64,2026-10-30
