@@ -13017,3 +13017,16 @@ GiantBirdAIUpdateCtor_GiantBirdAIUpdate.cpp (518 B) takes the same two-line fix
 (`?update@GiantBirdAIUpdate@@UAE?AW4UpdateSleepTime@@XZ` is rowed) but is held by
 a TU-merge seat. Pattern: before removing a link-wide alternatename, grep every
 object for its source name, not only the defining unit.
+Same pattern, second case: `14810fae7b` replaced FXParticleSystem.cpp's
+`?v1@DefaultAlphaModuleInfo/DefaultColorModuleInfo@FXParticleSystem@@UAEXXZ`
+aliases with real `LoadPostProcess` rows (0x000B3FD0), but the two ctor thunks
+(`DefaultAlphaModuleInfoCtorThunk.cpp` 70 B, `DefaultColorModuleInfoCtorThunk.cpp`
+92 B, both census-linked) still named `v1` in their vftables: unresolved, and
+their copies then differed from FXParticleSystem.cpp's. The thunks' views now
+declare `LoadPostProcess` in that slot; both tables equal the first copy.
+`./build.sh` 6/6; scoped DIR32 OK; `link_check` 0 -> 162 B for the thunks
+(FXParticleSystem.cpp 5,650 B unchanged). A sweep of all 49 alternatename source
+names removed on master since census 2c21184e84 against current objects finds no
+other unprovided reference except yasinschroeder's in-flight STLport 4.6 string
+chain, whose helpers (`find_if`, `find_end`, `__find_first_of`) are provided by
+units outside this preview (inconclusive, not a confirmed loss).

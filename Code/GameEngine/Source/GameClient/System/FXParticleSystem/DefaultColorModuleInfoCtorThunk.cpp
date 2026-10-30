@@ -47,7 +47,7 @@ class DefaultColorModuleInfo : public ::Rva0049B47C
 public:
 	DefaultColorModuleInfo();
 	virtual ~DefaultColorModuleInfo();
-	virtual void v1();
+	virtual void LoadPostProcess(); // slot 1: the exported empty callback FXParticleSystem.cpp rows at 0x000B3FD0
 	virtual const char *GetSnapshotName();
 
 private:
