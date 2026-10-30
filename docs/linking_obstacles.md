@@ -9760,6 +9760,10 @@ units preserve all 47 matched rows; the seed preserves eight exact EH graphs,
 116 COMDAT fingerprints, 225 external bindings and its one weak binding.
 This prepares the Common donor for the supported merge; the other four
 whole-file donors still need declaration or virtual-slot reconciliation.
+A second composition prerequisite preserves the intrinsic declaration before
+the seed's final include: hoisting its pragma ahead of the declaration had
+introduced an external `__ReadWriteBarrier` call in the composed helper. The
+bounded pair now preserves all 47 rows; full merge/link-guard admission is next.
 [Current checks](../reverse/attempt_support/apt-lan-lobby-consolidation-20261030-codexb4.md).
 
 ### InvisibilityUpdate name-key composition prerequisites (2026-10-28)

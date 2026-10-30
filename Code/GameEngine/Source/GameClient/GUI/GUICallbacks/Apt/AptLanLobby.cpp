@@ -37,6 +37,9 @@ static inline bool operator!=(const _Rb_tree_iterator<Value, Left> &a,
 { return a._M_node != b._M_node; }
 }
 #include <ctype.h>
+// Keep the intrinsic declaration before includes when composing the reset helper.
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
 #include <wchar.h>
 
 class LANGameInfo;

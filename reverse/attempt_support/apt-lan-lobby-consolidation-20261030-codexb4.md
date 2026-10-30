@@ -34,3 +34,15 @@ These are existing composition prerequisites, not lost matched rows. The
 initial trial and tu_views plans are in `build/aptlan-dryrun-codexb4.txt` and
 `build/aptlan-views-codexb4.txt` respectively. Carry moved-provider selection
 and affected consumers into the next scheduled census.
+
+## Intrinsic declaration ordering
+
+The supported merge after the layout repair compiles the pair but matches only
+46/47 rows. The sole miss, 0x004442FD, emits an external `__ReadWriteBarrier`
+call: composition hoists the intrinsic pragma before its declaration. This is
+not a retail codegen or flag mismatch. The original donor remains exact.
+
+The seed now declares the intrinsic before its last include, an ordering that
+the existing composition tool preserves. Its own 46 rows remain exact, and a
+bounded `tu_skeleton.Verifier` composition of the pair matches all 47 rows.
+The full supported merge and link guard still decide whether to apply the move.
