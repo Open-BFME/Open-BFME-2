@@ -25,6 +25,39 @@ class RGBAColorReal;
 class RGBAColorInt;
 class Snapshot;
 #include "../../../../Include/Common/BfmeXfer.h"
+#define BFME_DISP8_BYTECHASE_GETTER(NAME, DISP1, DISP2) \
+	class NAME \
+	{ \
+	public: \
+		unsigned char get() const; \
+		char m_lead[DISP1]; \
+		void *m_ptr; \
+	}; \
+	unsigned char NAME::get() const \
+	{ \
+		return *(unsigned char *)((char *)m_ptr + DISP2); \
+	}
+#define BFME_DISP8_BYTECHASE_BEFORE_GETTER(NAME, BACK, INNER) \
+	class Inner##NAME \
+	{ \
+	public: \
+		char m_lead[INNER]; \
+		unsigned char m_value; \
+	}; \
+	class Sub##NAME \
+	{ \
+	public: \
+		Inner##NAME *m_holder; \
+	}; \
+	class NAME \
+	{ \
+	public: \
+		unsigned char get() const; \
+	}; \
+	unsigned char NAME::get() const \
+	{ \
+		return ((const Sub##NAME *)((const char *)this - (BACK)))->m_holder->m_value; \
+	}
 
 //
 // ?xfer@DynamicPortalBehaviour@@MAEXPAVXfer@@@Z, retail 0x004609BC, 201 bytes.
@@ -413,6 +446,21 @@ protected:
 	virtual void upgradeImplementation() = 0;
 };
 
+// 0x0039ADAF is ExperienceTracker::isTrainable (pinned under that name from
+// VeterancyCrateCollide::isValidToExecute; ZH's isTrainable reads the
+// template's trainable flag): the byte at +0x5E7 of the +0x04 template.
+class ExperienceTracker
+{
+public:
+	bool isTrainable() const;
+	char m_lead[0x4];
+	void *m_template;
+};
+
+BFME_DISP8_BYTECHASE_BEFORE_GETTER(Rva00460AE2ByteChase32Field, 0x0C, 0x116)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviour.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviour.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviourClearPortals.cpp
@@ -565,28 +613,6 @@ void DynamicPortalBehaviour::upgradeRemovalImplementation()
 	}
 }
 
-// tu-skeleton: 0x00460A85 19B ?bfmeGoEBC@BfmeThingEBC@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/BfmeConv802.cpp (not merged yet)
-
-// tu-skeleton: 0x00460A98 10B ?requiresAllActivationUpgrades@UpgradeModule@@MBE_NXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesU.cpp (not merged yet)
-
-// tu-skeleton: 0x00460AAC 39B ?getUpgradeActivationMasks@UpgradeModule@@MBEXAAUUpgradeMaskType@@0@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesU.cpp (not merged yet)
-
-// tu-skeleton: 0x00460AD3 15B ?performUpgradeFX@UpgradeModule@@MAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesU.cpp (not merged yet)
-
-// tu-skeleton: 0x00460AE2 10B ?get@Rva00460AE2ByteChase32Field@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00460AEC 94B ??0UpgradeModule@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/UpgradeModuleCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00460B4A 6B ?Rva00460B4AGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
-// tu-skeleton: 0x00460B6C 97B ??0DynamicPortalBehaviour@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviourCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00460BCD 6B ?Rva00460BCDGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
-// tu-skeleton: 0x00460C73 10B ?get@Rva00460C73FloatChase32Field@@QBEMXZ -- matched in Code/GameEngine/Source/Common/Disp8FloatChaseGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00460CBA 288B ?rva00460CBA@DynamicPortalBehaviour@@QAEXPAUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderFootprintAttackRangeQuery.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviourGetPosition.cpp
 
 // Native460DF6..460F18 RET4; WB10AD000 names IsEndPortalAboveWall.
@@ -609,6 +635,44 @@ bool DynamicPortalBehaviour::IsEndPortalAboveWall(Coord3D *out)
  if(out)*out=*(const Coord3D*)&selected;
  PortalAIView *ai=(PortalAIView*)TheAI; Pathfinder *path=ai->pathfinder; bool result=path->IsPointOnWall((int)&selected,false); return result;
 }
+
+// tu-skeleton: 0x00460A85 19B ?bfmeGoEBC@BfmeThingEBC@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/BfmeConv802.cpp (not merged yet)
+
+// tu-skeleton: 0x00460A98 10B ?requiresAllActivationUpgrades@UpgradeModule@@MBE_NXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesU.cpp (not merged yet)
+
+// tu-skeleton: 0x00460AAC 39B ?getUpgradeActivationMasks@UpgradeModule@@MBEXAAUUpgradeMaskType@@0@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesU.cpp (not merged yet)
+
+// tu-skeleton: 0x00460AD3 15B ?performUpgradeFX@UpgradeModule@@MAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesU.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp
+
+// Disp8 byte-chase getters: seven-byte __thiscall members with one shape:
+//
+//     mov eax,[ecx+<DISP1>] / mov al,[eax+<DISP2>] / ret
+//
+// A pointer is read at a fixed displacement from `this`, then a byte is read
+// at a second displacement from that pointer and returned in `al` (only the
+// low byte is defined; the caller uses `al`). MSVC 7.1 emits the disp8 loads
+// `8B 41 XX` + `8A 40 XX`, plus `ret`, for seven bytes total.
+// Identity is not recovered: every name is derived from its address.
+// No // cl: line (defaults match the frameless seven-byte shape).
+
+// Backward variant: the holder sits at a NEGATIVE displacement from `this`
+// (a sub-object `this` pointing into a larger object). Spelled as an explicit
+// backward cast, which MSVC folds to `mov eax,[ecx-BACK]`; same shape and
+// reading as BFME1's ChainedFieldGetters.
+
+// tu-skeleton: 0x00460AEC 94B ??0UpgradeModule@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/UpgradeModuleCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00460B4A 6B ?Rva00460B4AGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x00460B6C 97B ??0DynamicPortalBehaviour@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviourCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00460BCD 6B ?Rva00460BCDGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x00460C73 10B ?get@Rva00460C73FloatChase32Field@@QBEMXZ -- matched in Code/GameEngine/Source/Common/Disp8FloatChaseGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00460CBA 288B ?rva00460CBA@DynamicPortalBehaviour@@QAEXPAUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderFootprintAttackRangeQuery.cpp (not merged yet)
 
 // tu-skeleton: 0x00460F18 45B ?Rva00460F18Construct@@YAXPAXPBX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp (not merged yet)
 

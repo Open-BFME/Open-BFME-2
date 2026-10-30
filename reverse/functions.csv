@@ -17472,7 +17472,7 @@ _VP60D_GetVersionNumber,,0x001B5830,6,Code/Libraries/Source/VP6/PbAccessors.cpp,
 ?get@Rva002C8F24ByteChase32Field@@QBEEXZ,,0x002C8F24,10,Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp,matched,disp8 byte-chase getter with disp32 inner; phase-proven no-branch-to-addr
 ?get@Rva0033F8C0ByteChase32Field@@QBEEXZ,,0x0033F8C0,10,Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp,matched,disp8 byte-chase getter with disp32 inner; phase-proven no-branch-to-addr
 ?get@Rva0045B12AByteChase32Field@@QBEEXZ,,0x0045B12A,10,Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp,matched,disp8 byte-chase getter with disp32 inner; phase-proven no-branch-to-addr
-?get@Rva00460AE2ByteChase32Field@@QBEEXZ,,0x00460AE2,10,Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp,matched,disp8 byte-chase getter with disp32 inner backward holder; phase-proven no-branch-to-addr
+?get@Rva00460AE2ByteChase32Field@@QBEEXZ,,0x00460AE2,10,Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviour.cpp,matched,disp8 byte-chase getter with disp32 inner backward holder; phase-proven no-branch-to-addr
 ?get@Rva0047840CByteChase32Field@@QBEEXZ,,0x0047840C,10,Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContain.cpp,matched,disp8 byte-chase getter with disp32 inner backward holder; phase-proven no-branch-to-addr
 ?get@Rva004827F9ByteChase32Field@@QBEEXZ,,0x004827F9,10,Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDamagedBehavior.cpp,matched,disp8 byte-chase getter with disp32 inner backward holder; phase-proven no-branch-to-addr
 ?get@Rva004B59FCByteChase32Field@@QBEEXZ,,0x004B59FC,10,Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp,matched,disp8 byte-chase getter with disp32 inner; phase-proven no-branch-to-addr

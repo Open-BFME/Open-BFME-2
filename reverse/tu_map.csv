@@ -36167,7 +36167,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00460AA2,10,code,,displaced,-,S=Code/GameEngine/Source/GameLogic/Object/Upgrade/UpgradeModule.cpp N=Code/GameEngine/Source/Common/UpgradeModule.cpp,Code/GameEngine/Source/Common/VslotSmallBodiesU.cpp
 0x00460AAC,39,code,Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviour.cpp,approved,C,C=0x00460A85..0x00460AD3 provisional,Code/GameEngine/Source/Common/VslotSmallBodiesU.cpp
 0x00460AD3,15,code,Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviour.cpp,approved,C,C=0x00460A85..0x00460AE2 provisional,Code/GameEngine/Source/Common/VslotSmallBodiesU.cpp
-0x00460AE2,10,code,Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviour.cpp,approved,C,C=0x00460A85..0x00460AEC provisional,Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp
+0x00460AE2,10,code,Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviour.cpp,approved,C,C=0x00460A85..0x00460AEC provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviour.cpp
 0x00460AEC,94,code,Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviour.cpp,approved,C,C=0x00460A85..0x00460B4A provisional,Code/GameEngine/Source/GameLogic/Object/Upgrade/UpgradeModuleCtor.cpp
 0x00460B4A,6,code,Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviour.cpp,approved,C,C=0x00460A85..0x00460B6C provisional,Code/GameEngine/Source/Common/ConstIntGetters4.cpp
 0x00460B50,28,code,,displaced,-,N=Code/GameEngine/Source/GameLogic/Object/Upgrade/UpgradeModule.cpp,Code/GameEngine/Source/GameLogic/Object/Upgrade/UpgradeModuleDeletingDestructor.cpp
