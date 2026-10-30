@@ -1,4 +1,5 @@
 // cl: /DNDEBUG /MD
+// stlport46
 //
 // ?Rva00318D75Copy@@YAPAVRva00318B5C@@PAV1@00ABU__false_type@_STL@@@Z @0x00318D75 (38B).
 // Copies range of Rva00318B5C (0x10 stride) via the rowed Rva00318D63Copy at
@@ -16,10 +17,8 @@ public:
 
 void Rva00318D63Copy(Rva00318B5C *dest, const Rva00318B5C &src);
 
-namespace _STL
-{
-struct __false_type {};
-}
+#define _STLP_USE_STATIC_LIB 1
+#include <memory>  // _STL::__false_type
 
 Rva00318B5C *Rva00318D75Copy(Rva00318B5C *first, Rva00318B5C *last, Rva00318B5C *result, const _STL::__false_type &)
 {
