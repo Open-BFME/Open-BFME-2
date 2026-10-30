@@ -34,10 +34,6 @@ Code/GameEngine/Source/GameNetwork/GameSpy/pinger/pingerMain.c	wrong-name	_piNex
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouse.cpp	wrong-name	_mutex	0x009E4B34
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouse.cpp	wrong-name	_threadMutex	0x009E5DA0
 Code/Libraries/Source/DirtySock/Y2Rva007EBAE0Module.cpp	wrong-name	?g_Rva0112A210Lower@@3QBEB	0x008E1A60
-Code/Libraries/Source/DirtySock/Y4CommTransportLife.c	wrong-name	_g_Rva0130AD08Count	0x00A0A720
-Code/Libraries/Source/DirtySock/Y4DirtySockSocketWrappers.c	wrong-name	_g_Rva0130AB60	0x00A0A578
-Code/Libraries/Source/DirtySock/Y4TextToValue.c	wrong-name	_g_Rva0112A310Class	0x008E1B60
-Code/Libraries/Source/DirtySock/Y4TextToValue.c	wrong-name	_g_Rva012C391CSeparator	0x009D8074
 Code/Libraries/Source/WWVegas/WW3D2/DX8WebBrowserInitialize.cpp	wrong-name	__GUID_00000000_0000_0000_c000_000000000046	0x007D4E4C
 Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsRecordTexture.cpp	duplicate-def	_record_count	0x009EE8B4
 Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsRecordTexture.cpp	duplicate-def	_texture_change_count	0x009EE888
