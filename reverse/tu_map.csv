@@ -49628,7 +49628,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x005C4CE7,52,code,,,-,,Code/GameEngine/Source/Common/GapBodiesS3I.cpp
 0x005C4D1B,20,code,,,-,,Code/GameEngine/Source/Common/GapBodiesGE13.cpp
 0x005C4D2F,28,code,,,-,,Code/GameEngine/Source/Common/OpaqueSingleInheritanceDtors.cpp
-0x005C4D4B,149,code,Code/GameEngine/Source/GameClient/LivingWorld/Helper005C4D4B.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/LivingWorld/Helper005C4D4B.cpp,Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldIconCreationParameters.cpp
+0x005C4D4B,149,code,Code/GameEngine/Source/GameClient/LivingWorld/Helper005C4D4B.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/LivingWorld/Helper005C4D4B.cpp,Code/GameEngine/Source/GameClient/LivingWorld/Helper005C4D4B.cpp
 0x005C4DE0,415,code,,,-,W=Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldIconSubObject.cpp,Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldIconSubObjectCtor.cpp
 0x005C4F7F,9,code,,,-,,Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindowSpiralCtor.cpp
 0x005C4F88,29,code,Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindow.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindow.cpp,Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindowSpiralCtor.cpp
@@ -88622,9 +88622,9 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007A0B2E,10,code,,,-,,Code/GameEngine/Source/Common/Rva005C4A91Dtor.cpp
 0x007A0B38,8,code,,,-,,Code/GameEngine/Source/GameClient/GUI/Rva007B4874Registrations.cpp
 0x007A0B40,10,code,,,-,,Code/GameEngine/Source/GameClient/GUI/Rva007B4874Registrations.cpp
-0x007A0B4A,11,code,Code/GameEngine/Source/GameClient/LivingWorld/Helper005C4D4B.cpp,approved,P,P=0x005C4D4B@FuncInfo0x00957CAC p-group provisional,Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldIconCreationParameters.cpp
-0x007A0B55,8,code,Code/GameEngine/Source/GameClient/LivingWorld/Helper005C4D4B.cpp,approved,P,P=0x005C4D4B@FuncInfo0x00957CAC p-group provisional,Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldIconCreationParameters.cpp
-0x007A0B5D,10,code,Code/GameEngine/Source/GameClient/LivingWorld/Helper005C4D4B.cpp,approved,P,P=0x005C4D4B@FuncInfo0x00957CAC p-group provisional,Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldIconCreationParameters.cpp
+0x007A0B4A,11,code,Code/GameEngine/Source/GameClient/LivingWorld/Helper005C4D4B.cpp,approved,P,P=0x005C4D4B@FuncInfo0x00957CAC p-group provisional,Code/GameEngine/Source/GameClient/LivingWorld/Helper005C4D4B.cpp
+0x007A0B55,8,code,Code/GameEngine/Source/GameClient/LivingWorld/Helper005C4D4B.cpp,approved,P,P=0x005C4D4B@FuncInfo0x00957CAC p-group provisional,Code/GameEngine/Source/GameClient/LivingWorld/Helper005C4D4B.cpp
+0x007A0B5D,10,code,Code/GameEngine/Source/GameClient/LivingWorld/Helper005C4D4B.cpp,approved,P,P=0x005C4D4B@FuncInfo0x00957CAC p-group provisional,Code/GameEngine/Source/GameClient/LivingWorld/Helper005C4D4B.cpp
 0x007A0B67,8,code,,,-,,Code/gen_small/uw_gen_012.cpp
 0x007A0B6F,8,code,,,-,,Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldIconSubObjectCtor.cpp
 0x007A0B77,8,code,,,-,,Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldIconSubObjectCtor.cpp
