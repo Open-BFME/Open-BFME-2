@@ -1,4 +1,5 @@
 // cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+#include "../../../../reference/shims/bfme2_ascii/unicode_string.h"
 // platformsdk
 // ?doSend@Connection@@QAEI_N@Z, retail 0x0058BB5C 499 bytes through RET 4.
 // Donor: Open-BFME-1 game/GameEngine/Source/GameNetwork/Connection_doSend.cpp
@@ -17,6 +18,8 @@
 // +0xC18).
 
 #include <windows.h>
+#include "../../Include/GameNetwork/Transport.h"
+#include "../Common/GameLogicObjectLookupView.h"
 typedef int Int;
 typedef unsigned int UnsignedInt;
 typedef unsigned short UnsignedShort;
@@ -26,64 +29,71 @@ typedef bool Bool;
 class NetCommandMsg
 {
 public:
-	UnsignedInt getTimestamp() const { return m_timestamp; }
-	UnsignedInt getExecutionFrame() const { return m_executionFrame; }
-	Int getNetCommandType() const { return m_commandType; }
+	unsigned int getTimestamp() const { return m_timestamp; }
+	unsigned int getExecutionFrame() const { return m_executionFrame; }
+	int getNetCommandType() const { return m_commandType; }
 
-protected:
-	void *m_vptr;
-	UnsignedInt m_timestamp;
-	UnsignedInt m_executionFrame;
-	UnsignedInt m_playerID;
-	UnsignedShort m_id;
-	Int m_commandType;
-	Int m_referenceCount;
+	void *m_vptr; // +0x00
+	unsigned int m_timestamp; // +0x04
+	unsigned int m_executionFrame; // +0x08
+	unsigned int m_playerID; // +0x0C
+	unsigned short m_id; // +0x10
+	int m_commandType; // +0x14
+	int m_referenceCount; // +0x18
 };
 
 class NetFrameCommandMsg : public NetCommandMsg
 {
 public:
-	UnsignedInt getOriginalFrame() const { return m_originalFrame; }
+	unsigned int getOriginalFrame() const { return m_originalFrame; }
 
 private:
-	UnsignedInt m_originalFrame;
+	unsigned int m_originalFrame;
 };
+
 
 class NetCommandRef
 {
 public:
+	NetCommandRef(NetCommandMsg *msg);
 	~NetCommandRef();
 	__declspec(dllimport) __forceinline NetCommandMsg *getCommand() { return m_msg; }
 	__declspec(dllimport) __forceinline NetCommandRef *getNext() { return m_next; }
-	UnsignedInt getTimeLastSent() const { return m_timeLastSent; }
-	void setTimeLastSent(UnsignedInt timeLastSent) { m_timeLastSent = timeLastSent; }
+	unsigned int getTimeLastSent() { return m_timeLastSent; }
+	unsigned int getTimeLastSent() const { return m_timeLastSent; }
+	void setTimeLastSent(unsigned int timeLastSent) { m_timeLastSent = timeLastSent; }
+	void setRelay(unsigned char relay) { m_relay = relay; }
 
-private:
-	NetCommandMsg *m_msg;
-	NetCommandRef *m_next;
-	NetCommandRef *m_prev;
-	UnsignedByte m_relay;
-	UnsignedInt m_timeLastSent;
+	NetCommandMsg *m_msg; // +0x00
+	NetCommandRef *m_next; // +0x04
+	NetCommandRef *m_prev; // +0x08
+	unsigned char m_relay; // +0x0C
+	unsigned int m_timeLastSent; // +0x10
 };
+
 
 class NetCommandList
 {
 public:
-	void reset();
-	void removeMessage(NetCommandRef *msg);
+	NetCommandList();
+	// The vfptr occupies +0x00.
+	virtual ~NetCommandList();
 	NetCommandRef *getFirstMessage() { return m_first; }
+	void removeMessage(NetCommandRef *msg);
+	void reset();
+	NetCommandRef *addMessage(NetCommandMsg *msg);
 
 private:
-	void *m_vptr;
-	NetCommandRef *m_first;
-	NetCommandRef *m_last;
-	NetCommandRef *m_lastMessageInserted;
+	NetCommandRef *m_first; // +0x04
+	NetCommandRef *m_last; // +0x08
+	NetCommandRef *m_lastMessageInserted; // +0x0C
 };
 
 struct NetPacketAddress
 {
-	UnsignedInt ip;
-	UnsignedShort port;
+	NetPacketAddress() : ip(0), port(0) {}
+	unsigned int ip;
+	unsigned short port;
 };
 
 class NetPacket
@@ -92,59 +102,75 @@ public:
 	NetPacket();
 	virtual ~NetPacket();
 	void init();
-	Bool addCommand(NetCommandRef *msg);
-	Int getNumCommands() const { return m_numCommands; }
-	Int getLength() const { return m_packetLen; }
-	UnsignedByte *getData() { return m_packet; }
+	bool addCommand(NetCommandRef *msg);
+	int getNumCommands() const { return m_numCommands; }
+	int getLength() const { return m_packetLen; }
+	unsigned char *getData() { return m_packet; }
 	NetPacketAddress *getAddress() { return &m_address; }
 	void setAddress(const NetPacketAddress &address) { m_address = address; }
 
 private:
-	UnsignedByte m_packet[0x1dc];
-	Int m_packetLen;
+	unsigned char m_packet[0x1dc];
+	int m_packetLen;
 	NetPacketAddress m_address;
-	Int m_numCommands;
-	UnsignedByte m_pad1F0[0x204 - 0x1f0];
+	int m_numCommands;
+	unsigned char m_pad1F0[0x204 - 0x1f0];
 };
 
-#include "../../Include/GameNetwork/Transport.h"
 
 class GlobalData
 {
 public:
 	char m_pad000[0xc18];
-	UnsignedInt m_networkRunAheadSlack;
+	unsigned int m_networkRunAheadSlack;
 };
 
-#include "../Common/GameLogicObjectLookupView.h"
 
 extern GlobalData *TheWritableGlobalData;
 extern GameLogic *TheGameLogic;
 Bool CommandRequiresAck(NetCommandMsg *msg);
 
+struct ConnectionBlock0C
+{
+	NetPacketAddress m_address;
+	UnicodeString m_name;
+};
+
+class Transport;
+class NetAckBothCommandMsg;
+struct InitAddrs;
+
 class Connection
 {
 public:
-	UnsignedInt doSend(Bool throttle);
+	Connection();
+	bool isQueueEmpty();
+	void setQuitting(unsigned int quitFrame);
+	NetCommandRef *processAck(unsigned short commandID, unsigned char playerID, unsigned int timestamp, unsigned int executionFrame);
+	void rva0058BAA7(InitAddrs *addrs, const UnicodeString &name, int id);
+	unsigned int doSend(bool throttle);
+	NetCommandRef *rva0058BD4F(void *msg);
+	NetCommandRef *processAck(NetCommandMsg *msg);
+	NetCommandRef *processAck(NetAckBothCommandMsg *msg);
+	void sendNetCommandMsg(NetCommandMsg *msg, unsigned char relay);
 
 protected:
 	void doRetryMetrics();
 
 private:
-	Int m_quitFrame;
-	UnsignedInt m_quitTime;
-	Transport *m_transport;
-	NetPacketAddress m_address;
-	void *m_name;
+	int m_id;
+	unsigned int m_openedTime;
+	Transport *m_unknown08;
+	ConnectionBlock0C m_block0C;
 	NetCommandList *m_netCommandList;
-	UnsignedInt m_retryTime;
+	long m_retryTime;
 	float m_averageLatency;
 	float m_latencies[200];
-	UnsignedInt m_frameGrouping;
-	UnsignedInt m_lastTimeSent;
-	UnsignedInt m_unknown34C;
-	Int m_numRetries;
-	UnsignedInt m_retryMetricsTime;
+	long m_frameGrouping;
+	long m_lastTimeSent;
+	unsigned int m_unknown34C;
+	int m_numRetries;
+	unsigned int m_retryMetricsTime;
 };
 
 UnsignedInt Connection::doSend(Bool throttle)
@@ -155,7 +181,7 @@ UnsignedInt Connection::doSend(Bool throttle)
 		m_lastTimeSent = currentTime;
 	Bool couldQueue = true;
 
-	if (m_quitFrame != -1 && currentTime > m_quitTime + 30000) {
+	if (m_id != -1 && currentTime > m_openedTime + 30000) {
 		m_netCommandList->reset();
 		return 0;
 	}
@@ -166,7 +192,7 @@ UnsignedInt Connection::doSend(Bool throttle)
 	while (msg && couldQueue) {
 		NetPacket *packet = new NetPacket;
 		packet->init();
-		packet->setAddress(m_address);
+		packet->setAddress(m_block0C.m_address);
 		Bool notDone = true;
 
 		while (msg && notDone) {
@@ -206,7 +232,7 @@ UnsignedInt Connection::doSend(Bool throttle)
 
 		++numPackets;
 		if (packet->getNumCommands() > 0) {
-			couldQueue = m_transport->queueSend(packet->getAddress(), packet->getData(), packet->getLength());
+			couldQueue = m_unknown08->queueSend(packet->getAddress(), packet->getData(), packet->getLength());
 			if (numPackets > 5 && throttle)
 				couldQueue = false;
 			m_lastTimeSent = currentTime;

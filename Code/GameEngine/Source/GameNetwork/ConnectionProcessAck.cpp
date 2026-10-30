@@ -1,4 +1,5 @@
 // cl: /DNDEBUG /MD
+#include "../../../../reference/shims/bfme2_ascii/unicode_string.h"
 // platformsdk
 //
 // Connection::processAck(NetCommandMsg *), retail 0x0058BD7B (37 bytes),
@@ -21,20 +22,69 @@ enum NetCommandType
 class NetCommandMsg
 {
 public:
-	NetCommandType getNetCommandType() const { return m_commandType; }
-private:
-	unsigned char m_pad00[0x14];
-	NetCommandType m_commandType; // +0x14
+	unsigned int getTimestamp() const { return m_timestamp; }
+	unsigned int getExecutionFrame() const { return m_executionFrame; }
+	int getNetCommandType() const { return m_commandType; }
+
+	void *m_vptr; // +0x00
+	unsigned int m_timestamp; // +0x04
+	unsigned int m_executionFrame; // +0x08
+	unsigned int m_playerID; // +0x0C
+	unsigned short m_id; // +0x10
+	int m_commandType; // +0x14
+	int m_referenceCount; // +0x18
 };
 class NetAckBothCommandMsg : public NetCommandMsg
 {
 };
+struct NetPacketAddress
+{
+	NetPacketAddress() : ip(0), port(0) {}
+	unsigned int ip;
+	unsigned short port;
+};
+
+struct ConnectionBlock0C
+{
+	NetPacketAddress m_address;
+	UnicodeString m_name;
+};
+
+class Transport;
+class NetCommandList;
+struct InitAddrs;
+
 class Connection
 {
 public:
-	NetCommandRef *processAck(NetCommandMsg *msg);
+	Connection();
+	bool isQueueEmpty();
+	void setQuitting(unsigned int quitFrame);
+	NetCommandRef *processAck(unsigned short commandID, unsigned char playerID, unsigned int timestamp, unsigned int executionFrame);
+	void rva0058BAA7(InitAddrs *addrs, const UnicodeString &name, int id);
+	unsigned int doSend(bool throttle);
 	NetCommandRef *rva0058BD4F(void *msg);
+	NetCommandRef *processAck(NetCommandMsg *msg);
 	NetCommandRef *processAck(NetAckBothCommandMsg *msg);
+	void sendNetCommandMsg(NetCommandMsg *msg, unsigned char relay);
+
+protected:
+	void doRetryMetrics();
+
+private:
+	int m_id;
+	unsigned int m_openedTime;
+	Transport *m_unknown08;
+	ConnectionBlock0C m_block0C;
+	NetCommandList *m_netCommandList;
+	long m_retryTime;
+	float m_averageLatency;
+	float m_latencies[200];
+	long m_frameGrouping;
+	long m_lastTimeSent;
+	unsigned int m_unknown34C;
+	int m_numRetries;
+	unsigned int m_retryMetricsTime;
 };
 
 NetCommandRef * Connection::processAck(NetCommandMsg *msg) {
