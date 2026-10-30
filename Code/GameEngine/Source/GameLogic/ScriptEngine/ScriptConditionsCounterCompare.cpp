@@ -52,12 +52,7 @@ struct ScriptCounter
 	int m_value;
 };
 
-class ScriptEngine
-{
-public:
-	void *rva002086C5(AsciiString name);
-};
-extern ScriptEngine *TheScriptEngine;
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 extern float g_parseDurationMsecScale;
 
