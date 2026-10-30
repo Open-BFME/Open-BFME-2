@@ -6,7 +6,7 @@
 // Callers are the array-copy loops at 0x002861C9/0x002861EF/0x00287BA0/0x00287F88
 // which stride by 8 and copy 6. No donor; identity is address-honest only.
 
-#include <windows.h>
+#include <stddef.h>
 
 void __cdecl Rva002861B0Copy(void *dst, const void *src)
 {

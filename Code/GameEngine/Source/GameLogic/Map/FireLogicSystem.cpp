@@ -22,6 +22,9 @@ class Rva002860CFHost
 {
 public:
 	void rva002860CF(Rva002860CFIterator it);
+private:
+	void *m_ptr; // +0x00
+	int m_4; // +0x04
 };
 struct Rva00287B2AResult
 {
@@ -46,8 +49,8 @@ public:
 };
 struct FireCellCentre
 {
-	Int x;
-	Int y;
+	int x;
+	int y;
 };
 class PolygonTrigger;
 #include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"
@@ -90,7 +93,14 @@ namespace _STL {
 	
 	
 }
-class Rva00285672 { public: bool rva00285672(const Rva00285672 &) const; char m_lead[8]; int m_first,m_second; };
+class Rva00285672
+{
+public:
+	bool rva00285672(const Rva00285672 &) const;
+	char m_lead[8]; // +0x00
+	int m_first; // +0x08
+	int m_second; // +0x0C
+};
 #include <algorithm>
 
 // Suppress this TU's non-retail copy of ??1?$_Rb_tree@W4ObjectID@@U?$pair@$$CBW4ObjectID@@H@_STL@@U?$_Select1st@U?$pair@$$CBW4Obje:
@@ -158,10 +168,12 @@ extern TerrainLogic *TheTerrainLogic;
 
 struct Rva00286214Node
 {
-	char m_pad00[8];
-	Rva00286214Node *m_left;		// +0x08
-	char m_pad0C[0x18 - 0x0C];
-	FireCellCentre m_key;			// +0x18, the cell's centre
+	void *pad0;
+	Rva00286214Node *link4;
+	Rva00286214Node *m_left;
+	Rva00286214Node *linkC;
+	char m_pad10[8];
+	FireCellCentre m_key;
 };
 
 // The 0x7C-byte damage record uses the rowed Rva00263895Member initializer.
