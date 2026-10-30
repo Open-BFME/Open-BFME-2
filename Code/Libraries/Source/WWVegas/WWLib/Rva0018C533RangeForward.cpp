@@ -1,9 +1,10 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP=
+// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// stlport
 // Native18C533..18C54E,27B. STLport copy category dispatch guide.
 // Four native argument channels are forwarded to owned18C3C9; its fourth
 // metadata argument is unused. Input nodes and destination are opaque at
 // this boundary; no application record or original template name is asserted.
-namespace _STL {struct __false_type {};}
+#include <stl/_algobase.h>
 struct Rva0018C2E7Node;
 short *__cdecl Rva0018C3C9Copy(Rva0018C2E7Node*,Rva0018C2E7Node*,short*,const _STL::__false_type&);
 struct Rva0018C533Input;
