@@ -1,4 +1,5 @@
-// cl: /DNDEBUG /MD -Ireference/shims/gamespy
+// cl: /DNDEBUG /MD
+// platformsdk
 /* GameSpy Peer SDK -- piCancelJoinOperation, retail 0x0085F0A0, 97 bytes,
    reconstructed from the retail bytes; the declarations are local for the same
    reason peerHost.c's next door are.
@@ -11,6 +12,7 @@
    The two accepted types are tested 2 before 1, which is the order the source
    writes them, and the first match returns rather than sweeping the rest. */
 
+#include <windows.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -134,8 +136,6 @@ typedef enum
 
 void *ArrayNew(int elemSize, int initialCount, void (*elemFree)(void *elem));
 void ArrayClear(void *array);
-int __stdcall closesocket(unsigned int s);
-int __stdcall WSACleanup(void);
 #define gsifree free
 
 static void piOperationFree(void *elem)

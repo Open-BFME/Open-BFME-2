@@ -1,6 +1,8 @@
 // cl: /DNDEBUG /MD
+// platformsdk
 // Upstream: GameSpy Peer SDK peerOperations.c, 2007 release.
 
+#include <windows.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -77,7 +79,6 @@ typedef struct chatGlobalCallbacks
 	void *param;
 } chatGlobalCallbacks;
 
-void *memset(void *dest, int value, unsigned int count);
 void ArrayAppend(void *array, const void *element);
 PEERBool piSBStartListingGroups(PEER peer, const char *fields);
 void piGetPlayerInfoCallbackA(void *chat, int success, const char *nick,
@@ -118,7 +119,6 @@ int piConnectTitle(PEER peer);
 void piDisconnectTitle(PEER peer);
 unsigned int current_time(void);
 const char *chatGetNickA(void *chat);
-__declspec(dllimport) int strcmpi(const char *left, const char *right);
 void piAddConnectCallback(PEER peer, int success, int failureReason,
 	PEERCBType callback, void *callbackParam, int opID);
 int piDemangleUser(const char *user, unsigned int *IP, int *profileID);
@@ -156,11 +156,6 @@ int piStartHosting(PEER peer, unsigned int socket, unsigned short port);
 void chatSetChannelTopicA(void *chat, const char *channel, const char *topic);
 void chatSetChannelLimitA(void *chat, const char *channel, int limit);
 int qr2_create_socket(unsigned int *socket, const char *ip, int *port);
-typedef struct in_addr
-{
-	unsigned int s_addr;
-} in_addr;
-char *__stdcall inet_ntoa(in_addr address);
 void piMangleStagingRoom(char *room, const char *title,
 	unsigned int publicIP, unsigned int privateIP, unsigned short port);
 char *goastrdup(const char *text);
@@ -704,7 +699,7 @@ PEERBool piNewCreateStagingRoomOperation(PEER peer, const char *name,
 	connection->maxPlayers = maxPlayers;
 	if (socket == (unsigned int)-1)
 	{
-		in_addr address;
+		struct in_addr address;
 		int privatePort;
 
 		address.s_addr = 0;
