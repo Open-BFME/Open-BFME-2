@@ -28315,7 +28315,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00381293,83,code,Code/GameEngine/Source/Common/MultiplayerSettings.cpp,approved,S,S=Code/GameEngine/Source/Common/MultiplayerSettings.cpp N=Code/GameEngine/Source/Common/MultiplayerSettings.cpp,Code/GameEngine/Source/Common/MultiplayerSettingsDtor.cpp
 0x003812E6,141,code,Code/GameEngine/Source/Common/MultiplayerSettings.cpp,approved,U,N=Code/GameEngine/Source/Common/RetailColorList.cpp,Code/GameEngine/Source/Common/MultiplayerColorMapOperator.cpp
 0x00381373,68,code,Code/GameEngine/Source/Common/MultiplayerSettings.cpp,approved,Z,Z=Code/GameEngine/Source/Common/MultiplayerSettings.cpp S=Code/GameEngine/Source/Common/MultiplayerSettings.cpp N=Code/GameEngine/Source/Common/MultiplayerSettings.cpp,Code/GameEngine/Source/Common/MultiplayerSettings.cpp
-0x003813B7,137,code,Code/GameEngine/Source/Common/MultiplayerSettings.cpp,approved,Z,Z=Code/GameEngine/Source/Common/MultiplayerSettings.cpp S=Code/GameEngine/Source/Common/MultiplayerSettings.cpp N=Code/GameEngine/Source/Common/MultiplayerSettings.cpp,Code/GameEngine/Source/Common/MultiplayerSettingsNewColor.cpp
+0x003813B7,137,code,Code/GameEngine/Source/Common/MultiplayerSettings.cpp,approved,Z,Z=Code/GameEngine/Source/Common/MultiplayerSettings.cpp S=Code/GameEngine/Source/Common/MultiplayerSettings.cpp N=Code/GameEngine/Source/Common/MultiplayerSettings.cpp,Code/GameEngine/Source/Common/MultiplayerSettings.cpp
 0x00381440,18,code,,,-,,Code/GameEngine/Source/Common/GapBodiesSeat1C.cpp
 0x00381452,6,code,,,-,,Code/GameEngine/Source/Common/ConstIntGetters.cpp
 0x00381458,78,code,,,-,W=Code/GameEngine/Source/GameNetwork/ChatSystem.cpp,Code/GameEngine/Source/GameNetwork/GameSpy/Rva00381458SendChat.cpp
@@ -74812,9 +74812,9 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0077F330,8,code,Code/GameEngine/Source/Common/MultiplayerSettings.cpp,approved,P,P=0x003812E6@FuncInfo0x00929984,Code/GameEngine/Source/Common/MultiplayerColorMapOperator.cpp
 0x0077F338,11,code,Code/GameEngine/Source/Common/MultiplayerSettings.cpp,approved,P,P=0x003812E6@FuncInfo0x00929984,Code/GameEngine/Source/Common/MultiplayerColorMapOperator.cpp
 0x0077F343,10,code,Code/GameEngine/Source/Common/MultiplayerSettings.cpp,approved,P,P=0x003812E6@FuncInfo0x00929984,Code/GameEngine/Source/Common/MultiplayerColorMapOperator.cpp
-0x0077F34D,8,code,Code/GameEngine/Source/Common/MultiplayerSettings.cpp,approved,P,P=0x003813B7@FuncInfo0x009299B0,Code/GameEngine/Source/Common/MultiplayerSettingsNewColor.cpp
-0x0077F355,8,code,Code/GameEngine/Source/Common/MultiplayerSettings.cpp,approved,P,P=0x003813B7@FuncInfo0x009299B0,Code/GameEngine/Source/Common/MultiplayerSettingsNewColor.cpp
-0x0077F35D,10,code,Code/GameEngine/Source/Common/MultiplayerSettings.cpp,approved,P,P=0x003813B7@FuncInfo0x009299B0,Code/GameEngine/Source/Common/MultiplayerSettingsNewColor.cpp
+0x0077F34D,8,code,Code/GameEngine/Source/Common/MultiplayerSettings.cpp,approved,P,P=0x003813B7@FuncInfo0x009299B0,Code/GameEngine/Source/Common/MultiplayerSettings.cpp
+0x0077F355,8,code,Code/GameEngine/Source/Common/MultiplayerSettings.cpp,approved,P,P=0x003813B7@FuncInfo0x009299B0,Code/GameEngine/Source/Common/MultiplayerSettings.cpp
+0x0077F35D,10,code,Code/GameEngine/Source/Common/MultiplayerSettings.cpp,approved,P,P=0x003813B7@FuncInfo0x009299B0,Code/GameEngine/Source/Common/MultiplayerSettings.cpp
 0x0077F367,14,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_construct_game_structs.cpp
 0x0077F375,10,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_construct_game_structs.cpp
 0x0077F37F,8,code,,,-,,Code/GameEngine/Source/Common/Rva0038153BListenerWalks.cpp

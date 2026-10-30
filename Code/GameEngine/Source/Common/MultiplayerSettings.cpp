@@ -271,6 +271,8 @@ template _STL::pair<const int, MultiplayerColorDefinition>::pair(
 
 typedef char MultiplayerColorDefinitionSizeMatchesRetail[(sizeof(MultiplayerColorDefinition) == 0x40) ? 1 : -1];
 
+// ---- from Code/GameEngine/Source/Common/MultiplayerSettings.cpp
+
 // ---- from Code/GameEngine/Source/Common/MultiplayerColorDefinitionCtor.cpp
 
 //
@@ -365,8 +367,6 @@ MultiplayerColorDefinition::MultiplayerColorDefinition(const MultiplayerColorDef
 	  m_extraFlag(other.m_extraFlag)
 {
 }
-
-// tu-skeleton: 0x00380D7F 36B ??0?$_Rb_tree_base@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@V?$allocator@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_int_colormap.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/MultiplayerSettings.cpp
 
@@ -489,20 +489,7 @@ done:
     return retval;
 }
 
-#pragma optimize("s", off)
-
-// findMultiplayerColorDefinitionByName remains in its existing matched owner.
-// Zero Hour's starting-money vector and Money member are absent from the
-// target layout, whose five scalar credit choices are parsed above.
-
-// MultiplayerColorDefinition *newMultiplayerColorDefinition lives in
-// MultiplayerSettingsNewColor.cpp (dedicated TU: retail 0x003813B7 lowers the
-// list assign to the opaque lookup helper plus the color operator= row, with
-// inline numColors refills; a same-TU definition would capture those REL32
-// locally). Declared above.
-
-// Color setters live in MultiplayerColorDefinitionCtor.cpp, which calls
-// the canonical out-of-line RGBColor::getAsInt instead of emitting a ZH copy.
+// tu-skeleton: 0x00380D7F 36B ??0?$_Rb_tree_base@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@V?$allocator@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_int_colormap.cpp (not merged yet)
 
 // tu-skeleton: 0x00380DC0 42B ??0?$_Rb_tree@HU?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@U?$_Select1st@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@2@@_STL@@QAE@ABU?$less@H@1@ABV?$allocator@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_int_colormap.cpp (not merged yet)
 
@@ -540,7 +527,41 @@ done:
 
 // tu-skeleton: 0x003812E6 141B ?lookup@RetailColorList@@QAEPAVMultiplayerColorDefinition@@PAH@Z -- matched in Code/GameEngine/Source/Common/MultiplayerColorMapOperator.cpp (not merged yet)
 
-// tu-skeleton: 0x003813B7 137B ?newMultiplayerColorDefinition@MultiplayerSettings@@QAEPAVMultiplayerColorDefinition@@VAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/MultiplayerSettingsNewColor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/MultiplayerSettingsNewColor.cpp
+
+//
+// ?newMultiplayerColorDefinition@MultiplayerSettings@@QAEPAVMultiplayerColorDefinition@@VAsciiString@@@Z,
+// retail 0x003813B7, 137 bytes. Dedicated TU (the shared
+// MultiplayerSettings.cpp TU carries the ZH-shaped body unmatched; a same-TU
+// definition would capture its callees' REL32 locally).
+//
+// ZH donor is in-tree (MultiplayerSettings.cpp::newMultiplayerColorDefinition:
+// default tmp + getNumColors + list-assign + size + return slot). BFME2 deltas,
+// all read off the body: the lazy numColors refill is inline (cache +0x40
+// from master +0x38 while zero, TWICE -- once per list access, no size() call
+// and no m_numColors store); the list at +0x34 is reached through the opaque
+// lookup helper (pinned 0x3812E6, one int* arg -- the extra &tmp push ahead of
+// the first call is hoisted early for the trailing operator=); the slot is
+// assigned from tmp through the 0x380CAE row; the AsciiString name param is
+// ignored on the value path (ZH does the same) and only torn down.
+// The list address stays in edi across both lookups via a named reference.
+
+// ?newMultiplayerColorDefinition@MultiplayerSettings@@QAEPAVMultiplayerColorDefinition@@VAsciiString@@@Z
+MultiplayerColorDefinition *MultiplayerSettings::newMultiplayerColorDefinition(AsciiString name)
+{
+	unsigned char *self = reinterpret_cast<unsigned char *>(this);
+	int *masterCount = reinterpret_cast<int *>(self + 0x38);
+	int *numColorsPtr = reinterpret_cast<int *>(self + 0x40);
+
+	MultiplayerColorDefinition tmp;
+	if (*numColorsPtr == 0)
+		*numColorsPtr = *masterCount;
+	Int numColors = *numColorsPtr;
+	RetailColorList &colorList = *reinterpret_cast<RetailColorList *>(self + 0x34);
+	colorList.lookup(&numColors)->operator=(tmp);
+	*numColorsPtr = *masterCount;
+	return colorList.lookup(&numColors);
+}
 
 // tu-skeleton: 0x0077F2CC 14B $L4971 -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types2.cpp (not merged yet)
 
@@ -560,8 +581,17 @@ done:
 
 // tu-skeleton: 0x0077F343 10B __ehhandler$?lookup@RetailColorList@@QAEPAVMultiplayerColorDefinition@@PAH@Z -- matched in Code/GameEngine/Source/Common/MultiplayerColorMapOperator.cpp (not merged yet)
 
-// tu-skeleton: 0x0077F34D 8B Unwind@00b7f34d -- matched in Code/GameEngine/Source/Common/MultiplayerSettingsNewColor.cpp (not merged yet)
+#pragma optimize("s", off)
 
-// tu-skeleton: 0x0077F355 8B $L1221 -- matched in Code/GameEngine/Source/Common/MultiplayerSettingsNewColor.cpp (not merged yet)
+// findMultiplayerColorDefinitionByName remains in its existing matched owner.
+// Zero Hour's starting-money vector and Money member are absent from the
+// target layout, whose five scalar credit choices are parsed above.
 
-// tu-skeleton: 0x0077F35D 10B __ehhandler$?newMultiplayerColorDefinition@MultiplayerSettings@@QAEPAVMultiplayerColorDefinition@@VAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/MultiplayerSettingsNewColor.cpp (not merged yet)
+// MultiplayerColorDefinition *newMultiplayerColorDefinition lives in
+// MultiplayerSettingsNewColor.cpp (dedicated TU: retail 0x003813B7 lowers the
+// list assign to the opaque lookup helper plus the color operator= row, with
+// inline numColors refills; a same-TU definition would capture those REL32
+// locally). Declared above.
+
+// Color setters live in MultiplayerColorDefinitionCtor.cpp, which calls
+// the canonical out-of-line RGBColor::getAsInt instead of emitting a ZH copy.
