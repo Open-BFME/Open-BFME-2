@@ -64,6 +64,22 @@ seven data rows, 17 literals, one float and three named imports. The native
 body/relocation/caller proof is rerun after that build. All 34 current ledger
 rows carry the migration token. No headline is inferred from these checks.
 
+## Publication and full-consumer boundary
+
+The source/ledger repair lands as
+7d15ffa2bd52c6a5a56c4cbd324c3345270bbecd through the normal publisher.
+Its push re-verifies 34/34 rows and passes DIR32, EH, pin, identity and
+converged-data checks. The source paths and maintained reference pin do not
+change. The follow-up pull changes neither repaired source.
+
+The outgoing audit is INCONCLUSIVE: index 85f6b7f40c predates the outgoing
+base 7f540888a6c33480d754d4bfc2e633ee175d4bed, and 1,151 source objects lack
+current receipts, first Common/AIGameTeam.cpp. It does not prove complete
+consumer closure, selection preservation or absence of losses. The extracted
+publication-audit.log preserves that scope. Carry the two migrated sources,
+their new providers and this affected-consumer scope into the next scheduled
+census. Do not replace that measurement with the four-source preview.
+
 Model GPT-6; ObjectID body t=6 minutes; integer body t=6 minutes; lane=R;
 budget=30m per body. Ledger readmission and publication are separate checks.
 

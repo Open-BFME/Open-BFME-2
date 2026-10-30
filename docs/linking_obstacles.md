@@ -10912,6 +10912,14 @@ preview with the old allocator owner and GameMemory retains4/4 LINKS against
 history above is retained. The missing-provider prerequisite for these two
 files is repaired; full consumer confirmation and census verification remain.
 
+Publication follow-up: source repair7d15ffa2bd52 passed its normal34-row push
+gate. The broader audit is INCONCLUSIVE against outgoing base7f540888a6c3:
+index85f6b7f40c is older, and1151 source objects lack current receipts, first
+Common/AIGameTeam.cpp. Full consumer selection/loss verification is unproven.
+Carry the migrated sources, new allocator providers and affected consumers to
+the next scheduled census; the four-source preview is only the bounded proof.
+[Published audit boundary](../reverse/attempt_support/allocator46-link-20261030/readme.md#publication-and-full-consumer-boundary).
+
 ### LINK-151: FlightDeckBehavior.cpp's override drop made its FlightDeckInfo copies the kept ones (2026-10-29)
 
 Status: repaired, pending census confirmation. 540ec8bf62 dropped

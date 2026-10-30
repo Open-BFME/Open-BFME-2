@@ -1,0 +1,5 @@
+link batch audit: INCONCLUSIVE baseline: index at 85f6b7f40c, outgoing base 7f540888a6c33480d754d4bfc2e633ee175d4bed; findings below are provisional since-index changes
+link batch audit: INCONCLUSIVE: 1151 source object(s) lack current receipts; first: Code/GameEngine/Source/Common/AIGameTeam.cpp
+pre-push: linking UNVERIFIED; audit evidence incomplete or check timed out
+PRE-PUSH OK (2 outgoing source(s) byte-verified)
+push: attempt 1: landed 1 commit(s) at 7d15ffa2bd in 40.0 s (rebase 7.0 s, hook and push 33.0 s)

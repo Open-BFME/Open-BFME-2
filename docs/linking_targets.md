@@ -6,6 +6,9 @@ stlport_deque_int.cpp to use STLport 4.6. All 34 rows match; the four-unit
 provider/consumer preview retains LINKS against `85f6b7f40c`. New unique
 coverage is zero. Full consumer/census confirmation remains pending.
 [Native body, relocation and call proof](../reverse/attempt_support/allocator46-link-20261030/readme.md).
+Published as `7d15ffa2bd52`. The outgoing audit remains INCONCLUSIVE on the
+older index and 1,151 missing source receipts, first AIGameTeam.cpp; full
+consumer selection/loss verification awaits the scheduled census.
 
 ### Vector allocation helper STLport 4.6 migration (2026-10-29)
 
