@@ -162,18 +162,6 @@ __declspec(noinline) inline void *NameKeyGenerator::KeyToBucketMap::allocateNode
 	return node;
 }
 
-int *NameKeyGenerator::KeyToBucketMap::insertNode(const value_type &value)
-{
-	resize(m_count + 1);
-	const unsigned bucketIndex = (unsigned)lookupKey(value) % tableSize();
-	Bucket *oldHead = tableAt(bucketIndex);
-	Bucket *node = (Bucket *)allocateNode(value);
-	node->next = oldHead;
-	tableAt(bucketIndex) = node;
-	++m_count;
-	return &node->key;
-}
-
 // KeyToBucketMap::rva0005559F, retail 0x0005559F, 115 bytes: the
 // insert_equal_noresize half beside do_insert: bucket walk with splice-after
 // on a key hit, else head-link; ++count and a {node, this} result either way.
