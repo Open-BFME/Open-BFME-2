@@ -208,6 +208,7 @@ public:
 class SiegeDeploySpecialPower : public UpdateModule, public SpecialPowerUpdateInterface, public SpecialPowerStopInterface
 {
 public:
+	virtual NameKeyType getModuleNameKey() const;
 	virtual void initiateIntentToDoSpecialPower(const SpecialPowerTemplate *specialPowerTemplate,
 		const Object *targetObj, const Coord3D *targetPos, UnsignedInt commandOptions, const Waypoint *way);
 public:
