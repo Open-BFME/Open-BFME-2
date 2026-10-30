@@ -1,18 +1,16 @@
-// cl: /Od /GZ /GS /MD /DNDEBUG
+// cl: /Od /GZ /GS /DNDEBUG
 /* EA DirtySock -- text-to-value scanners, /Od with /GZ.  Both take a default
  * to return when the input is unusable, so neither can fail visibly; a caller
  * that needs to tell "absent" from "parsed" has to pick a default it can
  * recognise.  Placement is by address neighbourhood.
  */
 
-/* DECLARED HERE RATHER THAN INCLUDED, and that is forced by the bytes.  Under
- * /MD the CRT headers mark these __declspec(dllimport), which turns each call
- * into an indirect ff 15 straight through the IAT.  Retail calls the import
- * STUB with a direct e8, so the translation unit it was built from did not see
- * <string.h> -- these prototypes reproduce that. */
-void * __cdecl memcpy( void *dest, const void *src, unsigned int count );
-void * __cdecl memmove( void *dest, const void *src, unsigned int count );
-int __cdecl memcmp( const void *a, const void *b, unsigned int count );
+/* BUILT WITHOUT /MD, and that is forced by the bytes.  Under /MD <string.h>
+ * marks memmove __declspec(dllimport), which turns each call into an indirect
+ * ff 15 straight through the IAT.  Retail calls the import STUB with a direct
+ * e8, so the library was compiled against the static CRT headers and resolved
+ * against msvcrt's stubs at link time. */
+#include <string.h>
 
 /* 0x007EE8B0 PACKS UP TO FOUR PRINTABLE CHARACTERS INTO AN INT -- the same
  * four-character tags the socket layer dispatches on, 'xmap' and the rest,
@@ -913,8 +911,6 @@ unsigned char g_Rva0112A010HexHigh[256] = {
 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 };
 extern unsigned char g_Rva0112A110Hex[];
-
-unsigned int __cdecl strlen( const char *text );
 
 /* 0x007EE930 EXTRACTS ONE VALUE FROM A SEPARATED LIST, undoing the escaping
  * the writers apply, and substitutes a caller default when the value is not
