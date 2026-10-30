@@ -65,16 +65,20 @@ template unsigned int vector<Coord3D, allocator<Coord3D> >::capacity() const;
 //#pragma optimize("", off)
 //#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
 
+
 #endif
 #include <deque>
 #include <string.h>
+#pragma comment(linker, "/alternatename:?rva0046444E@Rva0046444E@@QAE?AVRva00464984Iterator@@V2@ABVRva00464984Pair@@@Z=?insert_unique@?$_Rb_tree@HU?$pair@$$CBHURva0046444ERecord@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva0046444ERecord@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva0046444ERecord@@@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHURva0046444ERecord@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHURva0046444ERecord@@@_STL@@@2@@2@U32@ABU?$pair@$$CBHURva0046444ERecord@@@2@@Z")
+#include <set>
+#define _STLP_BFME_RB_MINMAX_IMPORT  // inline _Rb_tree_node_base::_S_minimum/_S_maximum without a COMDAT copy (vendor/stlport/stl/_tree.h)
+
 // map<unsigned> internals otherwise instantiate the less<unsigned>::operator()
 // COMDAT (one byte shape per TU flags); an explicit specialization declaration
 // suppresses this TU's copy so callers bind retail's instead.
 namespace _STL {
 template <> bool less<unsigned int>::operator()(const unsigned int &a, const unsigned int &b) const;
 }
-#pragma comment(linker, "/alternatename:?rva0046444E@Rva0046444E@@QAE?AVRva00464984Iterator@@V2@ABVRva00464984Pair@@@Z=?insert_unique@?$_Rb_tree@HU?$pair@$$CBHURva0046444ERecord@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva0046444ERecord@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva0046444ERecord@@@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHURva0046444ERecord@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHURva0046444ERecord@@@_STL@@@2@@2@U32@ABU?$pair@$$CBHURva0046444ERecord@@@2@@Z")
 
 // Suppress this TU's non-retail copy of ?_M_is_equal@?$_Base_bitset@$03@_STL@@QBE_NABU12@@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
@@ -579,6 +583,48 @@ public:
 		const Rva00464984Pair &value);
 };
 
+// The rowed callers erase ObjectID keys from the contain interface's int-keyed
+// name set: OpenContain::onRemoving passes opaqueKey(rider->getID())
+// (reinterpret_cast<const Element&>(int)) and HordeContain::removeMemberFromHorde
+// passes *(const Element*)&id, so the element is a trivial 4-byte key compared
+// as a signed int (the int-keyed twin of 0x00439862). The donor's declared
+// ctor/copy/assign/dtor were over-specification that left
+// ??1Rva00463D9BElement@@QAE@XZ unresolved; make the element trivial and give
+// the free operator< the inlined int compare.
+struct Rva00463D9BElement {
+ int m_key;
+ char m_pad[4];
+};
+
+// Instantiate the recovered operation and its required template dependencies.
+template unsigned int _STL::_Rb_tree<Rva00463D9BElement, Rva00463D9BElement, _STL::_Identity<Rva00463D9BElement>, _STL::less<Rva00463D9BElement>, _STL::allocator<Rva00463D9BElement> >::erase(Rva00463D9BElement const &);
+
+// Native 0x004643C9..0x004643CE is an independent forwarding entry.
+// Retain the verified tree/key view without claiming set or multiset identity.
+typedef _STL::_Rb_tree<Rva00463D9BElement, Rva00463D9BElement,
+    _STL::_Identity<Rva00463D9BElement>, _STL::less<Rva00463D9BElement>,
+    _STL::allocator<Rva00463D9BElement> > Rva004643C9Tree;
+
+class Rva004643C9 : public Rva004643C9Tree {
+public:
+    unsigned int rva004643C9(const Rva00463D9BElement &key);
+};
+
+struct Rva00463D59Element {
+ Rva00463D59Element(); Rva00463D59Element(const Rva00463D59Element&);
+ ~Rva00463D59Element(); Rva00463D59Element&operator=(const Rva00463D59Element&);
+ char bytes[8];
+};
+
+bool operator<(const Rva00463D59Element&,const Rva00463D59Element&);
+
+// MSVC also instantiates the unused member-tree destructor with this constructor.
+// Keep that operation external; this unit recovers only default construction.
+namespace _STL { template <> _Rb_tree<Rva00463D59Element, Rva00463D59Element, _Identity<Rva00463D59Element>, less<Rva00463D59Element>, allocator<Rva00463D59Element> >::~_Rb_tree(); }
+
+// Emit only the rowed constructor; unrelated set operations require element bodies.
+template _STL::set<Rva00463D59Element>::set();
+
 // tu-skeleton: 0x004624E3 8B ?containReactToTransformChange@OpenContain@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainReactToTransformChange.cpp (not merged yet)
 
 // tu-skeleton: 0x004626CA 107B ?rva004626CA@OpenContain@@UAEPBUCoord3D@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainRva004626CA.cpp (not merged yet)
@@ -609,6 +655,8 @@ public:
 
 // tu-skeleton: 0x00463425 68B ?dup_00463425@@YAXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_ptr_o1.cpp (not merged yet)
 
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp
+
 // ---- from Code/GameEngine/Source/Common/Rva00463469Ctor.cpp
 
 // ??0Rva00463469@@QAE@I@Z @0x00463469 (36B):
@@ -623,22 +671,6 @@ Rva00463469::Rva00463469(unsigned) : m_proxy(_STL::allocator<int>(), 0)
 {
 	m_proxy._M_data = (unsigned int)_STL::allocator<char>::allocate(0x60, 0);
 }
-
-// tu-skeleton: 0x0046348D 45B ??$_Construct@UBfmeContainerRecord00462D62@@U1@@_STL@@YAXPAUBfmeContainerRecord00462D62@@ABU1@@Z -- matched in Code/GameEngine/Source/Common/StringContainerRecordCopyBFME2.cpp (not merged yet)
-
-// tu-skeleton: 0x004634BA 34B ?Rva004634BACreate@@YGPAURva004634BANode@@ABVRva0046267A@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva004634BACreateNode.cpp (not merged yet)
-
-// tu-skeleton: 0x004634DC 45B ?Rva004634DCConstruct@@YAXPAUTreeKey00242F5E@@ABU1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_game_structs.cpp (not merged yet)
-
-// tu-skeleton: 0x00463509 183B ?removeFromContain@Rva00463509@@QAEXPAVObject@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainRemoveFromContain.cpp (not merged yet)
-
-// tu-skeleton: 0x004635C0 44B ?removeAllContained@OpenContain@@UAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain_removeAllContained.cpp (not merged yet)
-
-// tu-skeleton: 0x0046363F 135B ?getNaturalRallyPoint@OpenContain@@UBE_NAAUCoord3D@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SlaughterHordeContainIterate.cpp (not merged yet)
-
-// tu-skeleton: 0x004636C6 56B ??1?$_Rb_tree@HU?$pair@$$CBHURva00462D08Mapped@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva00462D08Mapped@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva00462D08Mapped@@@_STL@@@2@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_tree_dtor_00462D08.cpp (not merged yet)
-
-// tu-skeleton: 0x004636FE 56B ??1?$_Rb_tree@HU?$pair@$$CBHURva00462D35Mapped@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva00462D35Mapped@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva00462D35Mapped@@@_STL@@@2@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_tree_dtor_004636FE.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva00463736Ctor.cpp
 
@@ -659,10 +691,6 @@ Rva00463736::Rva00463736(const unsigned char &srcByte, unsigned dummy) : Rva0046
 	*(char **)((char *)m_proxy._M_data + 12) = (char *)m_proxy._M_data;
 }
 
-// tu-skeleton: 0x00463760 34B ?_M_create_node@?$list@UBfmeContainerRecord00462D62@@V?$allocator@UBfmeContainerRecord00462D62@@@_STL@@@_STL@@IAEPAU?$_List_node@UBfmeContainerRecord00462D62@@@2@ABUBfmeContainerRecord00462D62@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_create_nodes.cpp (not merged yet)
-
-// tu-skeleton: 0x00463782 53B ?rva00463782@Rva00463782@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/RvaTreeValueEraseFamily.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/Rva004637B7Finish.cpp
 
 // _Rb_tree<unsigned, pair<const unsigned, WeaponTemplateSetHead> >::_M_insert 0x004637B7 136B
@@ -680,15 +708,10 @@ Rva00463736::Rva00463736(const unsigned char &srcByte, unsigned dummy) : Rva0046
 // (map<unsigned, WeaponTemplateSetHead>, 0x00464431); the create call stays on
 // the rowed Rva004634BACreate provider.
 
-// tu-skeleton: 0x0046383F 134B ?insert_unique@?$_Rb_tree@IU?$pair@$$CBIVWeaponTemplateSetHead@@@_STL@@U?$_Select1st@U?$pair@$$CBIVWeaponTemplateSetHead@@@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIVWeaponTemplateSetHead@@@_STL@@@2@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBIVWeaponTemplateSetHead@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBIVWeaponTemplateSetHead@@@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBIVWeaponTemplateSetHead@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0046383FFinish.cpp (not merged yet)
 
-// tu-skeleton: 0x004638C5 34B ?rva004638C5@Rva004638C5@@QAEPAURva004638C5Node@@ABUTreeKey00242F5E@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva004638C5CreateNode.cpp (not merged yet)
 
-// tu-skeleton: 0x004638E7 5B ??1Rva004638E7@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva004638E7Dtor.cpp (not merged yet)
 
-// tu-skeleton: 0x004638EC 5B ??1Rva004DD206TreeView@@QAE@XZ -- matched in Code/GameEngine/Source/Common/INI/Rva004DD206TwoTreeConstructor.cpp (not merged yet)
 
-// tu-skeleton: 0x004638F1 42B ?addToContainList@OpenContain@@UAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainRva004638F1.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp
 
@@ -857,16 +880,6 @@ unsigned int Rva0046491E::rva0046491E(const int &key)
 	return erase(key);
 }
 
-// tu-skeleton: 0x00463D59 25B ??0?$set@URva00463D59Element@@U?$less@URva00463D59Element@@@_STL@@V?$allocator@URva00463D59Element@@@3@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva00463D59.cpp (not merged yet)
-
-// tu-skeleton: 0x00463D72 41B ?rva00463D72@Rva00463782@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeValueEraseFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x00463D9B 73B ?erase@?$_Rb_tree@URva00463D9BElement@@U1@U?$_Identity@URva00463D9BElement@@@_STL@@U?$less@URva00463D9BElement@@@3@V?$allocator@URva00463D9BElement@@@3@@_STL@@QAEIABURva00463D9BElement@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva00463D9B.cpp (not merged yet)
-
-// tu-skeleton: 0x00463DE4 37B ?insert@?$list@UBfmeContainerRecord00462D62@@V?$allocator@UBfmeContainerRecord00462D62@@@_STL@@@_STL@@QAE?AU?$_List_iterator@UBfmeContainerRecord00462D62@@U?$_Nonconst_traits@UBfmeContainerRecord00462D62@@@_STL@@@2@U32@ABUBfmeContainerRecord00462D62@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportListInsertFootprints.cpp (not merged yet)
-
-// tu-skeleton: 0x00463E09 68B ?erase@?$_Rb_tree@HU?$pair@$$CBHURva00463E09Record@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva00463E09Record@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva00463E09Record@@@_STL@@@2@@_STL@@QAEXU?$_Rb_tree_iterator@U?$pair@$$CBHURva00463E09Record@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHURva00463E09Record@@@_STL@@@2@@2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00463E09.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/Rva00463E4DHintInsert.cpp
 
 //
@@ -973,44 +986,6 @@ void Rva00464081ParseMask(INI *ini, void *instance, void *store, const void * /*
 	((Rva00464081Owner *)instance)->m_maskGiven86 = true;
 }
 
-// tu-skeleton: 0x004640BE 98B ?update@Rva004640BE@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva004640BERelease.cpp (not merged yet)
-
-// tu-skeleton: 0x00464120 145B ?onDelete@OpenContain@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainRva00464EE7.cpp (not merged yet)
-
-// tu-skeleton: 0x004641B1 213B ?onDie@OpenContain@@UAEXPBVDamageInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainOnDie.cpp (not merged yet)
-
-// tu-skeleton: 0x00464286 77B ?redeployOccupants@OpenContain@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain_redeployOccupants.cpp (not merged yet)
-
-// tu-skeleton: 0x00464692 227B ??1OpenContain@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainDtorRva00464692.cpp (not merged yet)
-
-// tu-skeleton: 0x00464775 69B ?getModuleNameKey@OpenContain@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Module/OpenContainPoolKey.cpp (not merged yet)
-
-// tu-skeleton: 0x004647BA 6B ?name@OpenContain@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x004647C0 13B ?get@Rva004647C0LeaNegSbbField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8LeaNegSbbGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x004647CD 4B ?get@Rva004647CDLeaField@@QBEPAXXZ -- matched in Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x004647D1 7B ?Rva004647D1Get@@YAMXZ -- matched in Code/GameEngine/Source/Common/GlobalFloatGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x004647D8 24B ?rva004647D8@Rva004647D8@@QAEPAXPAX@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesL.cpp (not merged yet)
-
-// tu-skeleton: 0x004647F0 13B ?Rva004647F0Adjust@@YIPAXPAX@Z -- matched in Code/GameEngine/Source/Common/Disp8NullAdjustGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x004647FD 13B ?set@Rva004647FDByteSlot@@QAEXE@Z -- matched in Code/GameEngine/Source/Common/DispByteFieldSetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0046480A 6B ?rva0046480A@Rva0046480A@@QAEHH@Z -- matched in Code/GameEngine/Source/Common/VtableConstantPredicates.cpp (not merged yet)
-
-// tu-skeleton: 0x00464810 13B ?set@Rva00464810ByteSlot@@QAEXE@Z -- matched in Code/GameEngine/Source/Common/DispByteFieldSetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0046481D 8B ?rva0050B238@Rva005E62F1@@WCA@AEXPAXI@Z -- matched in Code/GameEngine/Source/Common/GapForwardersSeat8.cpp (not merged yet)
-
-// tu-skeleton: 0x00464825 4B ?get@Rva00464825DwordField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8DwordFieldGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00464829 7B ?get@Rva00464829AddDwordField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8AddDwordFieldGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00464830 238B ?addToContain@OpenContain@@UAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainAdd.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Thing/WeaponTemplateSetHeadMapLookupRva00464923.cpp
 
 //
@@ -1052,6 +1027,104 @@ Rva00464984Iterator Rva00464984::rva00464984(
 // The retail call in this body reads 0x0046444E, an address the ledger already
 // carries as ?insert_unique@?$_Rb_tree@HU?$pair@$$CBHURva0046444ERecord@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva0046444ERecord@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva0046444ERecord@@@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHURva0046444ERecord@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHURva0046444ERecord@@@_STL@@@2@@2@U32@ABU?$pair@$$CBHURva0046444ERecord@@@2@@Z. Bind the donor spelling to that rowed owner so one
 // address keeps one definition and the unit links.
+
+// tu-skeleton: 0x0046348D 45B ??$_Construct@UBfmeContainerRecord00462D62@@U1@@_STL@@YAXPAUBfmeContainerRecord00462D62@@ABU1@@Z -- matched in Code/GameEngine/Source/Common/StringContainerRecordCopyBFME2.cpp (not merged yet)
+
+// tu-skeleton: 0x004634BA 34B ?Rva004634BACreate@@YGPAURva004634BANode@@ABVRva0046267A@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva004634BACreateNode.cpp (not merged yet)
+
+// tu-skeleton: 0x004634DC 45B ?Rva004634DCConstruct@@YAXPAUTreeKey00242F5E@@ABU1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_game_structs.cpp (not merged yet)
+
+// tu-skeleton: 0x00463509 183B ?removeFromContain@Rva00463509@@QAEXPAVObject@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainRemoveFromContain.cpp (not merged yet)
+
+// tu-skeleton: 0x004635C0 44B ?removeAllContained@OpenContain@@UAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain_removeAllContained.cpp (not merged yet)
+
+// tu-skeleton: 0x0046363F 135B ?getNaturalRallyPoint@OpenContain@@UBE_NAAUCoord3D@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SlaughterHordeContainIterate.cpp (not merged yet)
+
+// tu-skeleton: 0x004636C6 56B ??1?$_Rb_tree@HU?$pair@$$CBHURva00462D08Mapped@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva00462D08Mapped@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva00462D08Mapped@@@_STL@@@2@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_tree_dtor_00462D08.cpp (not merged yet)
+
+// tu-skeleton: 0x004636FE 56B ??1?$_Rb_tree@HU?$pair@$$CBHURva00462D35Mapped@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva00462D35Mapped@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva00462D35Mapped@@@_STL@@@2@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_tree_dtor_004636FE.cpp (not merged yet)
+
+// tu-skeleton: 0x00463760 34B ?_M_create_node@?$list@UBfmeContainerRecord00462D62@@V?$allocator@UBfmeContainerRecord00462D62@@@_STL@@@_STL@@IAEPAU?$_List_node@UBfmeContainerRecord00462D62@@@2@ABUBfmeContainerRecord00462D62@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_create_nodes.cpp (not merged yet)
+
+// tu-skeleton: 0x00463782 53B ?rva00463782@Rva00463782@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/RvaTreeValueEraseFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x0046383F 134B ?insert_unique@?$_Rb_tree@IU?$pair@$$CBIVWeaponTemplateSetHead@@@_STL@@U?$_Select1st@U?$pair@$$CBIVWeaponTemplateSetHead@@@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIVWeaponTemplateSetHead@@@_STL@@@2@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBIVWeaponTemplateSetHead@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBIVWeaponTemplateSetHead@@@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBIVWeaponTemplateSetHead@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0046383FFinish.cpp (not merged yet)
+
+// tu-skeleton: 0x004638C5 34B ?rva004638C5@Rva004638C5@@QAEPAURva004638C5Node@@ABUTreeKey00242F5E@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva004638C5CreateNode.cpp (not merged yet)
+
+// tu-skeleton: 0x004638E7 5B ??1Rva004638E7@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva004638E7Dtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004638EC 5B ??1Rva004DD206TreeView@@QAE@XZ -- matched in Code/GameEngine/Source/Common/INI/Rva004DD206TwoTreeConstructor.cpp (not merged yet)
+
+// tu-skeleton: 0x004638F1 42B ?addToContainList@OpenContain@@UAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainRva004638F1.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva00463D59.cpp
+
+// STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
+// Element identity and unconstrained fields remain address-derived structural inference.
+// STLport 4.5.3 reference instantiation. Target boundary and byte comparison prove operation shape.
+// Element spelling/layout is donor inference; opaque records have address-derived identity.
+
+// tu-skeleton: 0x00463D72 41B ?rva00463D72@Rva00463782@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeValueEraseFamily.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva00463D9B.cpp
+
+// STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
+// Element identity and unconstrained fields remain address-derived structural inference.
+// STLport 4.5.3 reference instantiation. Target boundary and byte comparison prove operation shape.
+// Element spelling/layout is donor inference; opaque records have address-derived identity.
+
+inline bool operator<(const Rva00463D9BElement &left, const Rva00463D9BElement &right)
+{
+ return left.m_key < right.m_key;
+}
+
+unsigned int Rva004643C9::rva004643C9(const Rva00463D9BElement &key)
+{
+    return erase(key);
+}
+
+// tu-skeleton: 0x00463DE4 37B ?insert@?$list@UBfmeContainerRecord00462D62@@V?$allocator@UBfmeContainerRecord00462D62@@@_STL@@@_STL@@QAE?AU?$_List_iterator@UBfmeContainerRecord00462D62@@U?$_Nonconst_traits@UBfmeContainerRecord00462D62@@@_STL@@@2@U32@ABUBfmeContainerRecord00462D62@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportListInsertFootprints.cpp (not merged yet)
+
+// tu-skeleton: 0x00463E09 68B ?erase@?$_Rb_tree@HU?$pair@$$CBHURva00463E09Record@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva00463E09Record@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva00463E09Record@@@_STL@@@2@@_STL@@QAEXU?$_Rb_tree_iterator@U?$pair@$$CBHURva00463E09Record@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHURva00463E09Record@@@_STL@@@2@@2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00463E09.cpp (not merged yet)
+
+// tu-skeleton: 0x004640BE 98B ?update@Rva004640BE@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva004640BERelease.cpp (not merged yet)
+
+// tu-skeleton: 0x00464120 145B ?onDelete@OpenContain@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainRva00464EE7.cpp (not merged yet)
+
+// tu-skeleton: 0x004641B1 213B ?onDie@OpenContain@@UAEXPBVDamageInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainOnDie.cpp (not merged yet)
+
+// tu-skeleton: 0x00464286 77B ?redeployOccupants@OpenContain@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain_redeployOccupants.cpp (not merged yet)
+
+// tu-skeleton: 0x00464692 227B ??1OpenContain@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainDtorRva00464692.cpp (not merged yet)
+
+// tu-skeleton: 0x00464775 69B ?getModuleNameKey@OpenContain@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Module/OpenContainPoolKey.cpp (not merged yet)
+
+// tu-skeleton: 0x004647BA 6B ?name@OpenContain@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x004647C0 13B ?get@Rva004647C0LeaNegSbbField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8LeaNegSbbGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x004647CD 4B ?get@Rva004647CDLeaField@@QBEPAXXZ -- matched in Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x004647D1 7B ?Rva004647D1Get@@YAMXZ -- matched in Code/GameEngine/Source/Common/GlobalFloatGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x004647D8 24B ?rva004647D8@Rva004647D8@@QAEPAXPAX@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesL.cpp (not merged yet)
+
+// tu-skeleton: 0x004647F0 13B ?Rva004647F0Adjust@@YIPAXPAX@Z -- matched in Code/GameEngine/Source/Common/Disp8NullAdjustGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x004647FD 13B ?set@Rva004647FDByteSlot@@QAEXE@Z -- matched in Code/GameEngine/Source/Common/DispByteFieldSetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0046480A 6B ?rva0046480A@Rva0046480A@@QAEHH@Z -- matched in Code/GameEngine/Source/Common/VtableConstantPredicates.cpp (not merged yet)
+
+// tu-skeleton: 0x00464810 13B ?set@Rva00464810ByteSlot@@QAEXE@Z -- matched in Code/GameEngine/Source/Common/DispByteFieldSetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0046481D 8B ?rva0050B238@Rva005E62F1@@WCA@AEXPAXI@Z -- matched in Code/GameEngine/Source/Common/GapForwardersSeat8.cpp (not merged yet)
+
+// tu-skeleton: 0x00464825 4B ?get@Rva00464825DwordField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8DwordFieldGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00464829 7B ?get@Rva00464829AddDwordField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8AddDwordFieldGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00464830 238B ?addToContain@OpenContain@@UAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainAdd.cpp (not merged yet)
 
 // tu-skeleton: 0x004649A1 87B ?rva004649A1@@YAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/Common/Thing/BoneSpecificConditionStateRva004649A1.cpp (not merged yet)
 

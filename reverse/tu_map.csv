@@ -36332,9 +36332,9 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00463A81,82,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/Rva00463A81Prune.cpp
 0x00463AD3,411,code,,,-,W=Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp,Code/GameEngine/Source/GameLogic/Object/Contain/SlaughterHordeContainRva00463AD3.cpp
 0x00463C6E,234,code,Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp S=Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp N=Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp W=Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp,Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp
-0x00463D59,25,code,Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp,approved,C,C=0x00463C6E..0x00463D72,Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva00463D59.cpp
+0x00463D59,25,code,Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp,approved,C,C=0x00463C6E..0x00463D72,Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp
 0x00463D72,41,code,Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp,approved,C,C=0x00463C6E..0x00463D9B,Code/GameEngine/Source/Common/RvaTreeValueEraseFamily.cpp
-0x00463D9B,73,code,Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp,approved,C,C=0x00463C6E..0x00463DE4,Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva00463D9B.cpp
+0x00463D9B,73,code,Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp,approved,C,C=0x00463C6E..0x00463DE4,Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp
 0x00463DE4,37,code,Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp,approved,C,C=0x00463C6E..0x00463E09,Code/Libraries/Source/WWVegas/WWLib/StlportListInsertFootprints.cpp
 0x00463E09,68,code,Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp,approved,C,C=0x00463C6E..0x00463E4D,Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00463E09.cpp
 0x00463E4D,294,code,Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp,approved,C,C=0x00463C6E..0x00463F73,Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp
@@ -36347,7 +36347,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00464286,77,code,Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp S=Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp N=Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp,Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain_redeployOccupants.cpp
 0x004642D3,190,code,Code/GameEngine/Source/GameLogic/Object/Contain/SlaughterHordeContain.cpp,proposed,N,N=Code/GameEngine/Source/GameLogic/Object/Contain/SlaughterHordeContain.cpp noncontiguous,Code/GameEngine/Source/GameLogic/Object/Contain/SlaughterHordeContainRva004642D3.cpp
 0x00464391,56,code,Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp,proposed,K,K=Rva00463782,Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp
-0x004643C9,5,code,Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp,proposed,C,C=0x00464391..0x004643CE,Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva00463D9B.cpp
+0x004643C9,5,code,Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp,proposed,C,C=0x00464391..0x004643CE,Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp
 0x004643CE,26,code,Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp,proposed,C,C=0x00464391..0x004643E8,Code/Libraries/Source/WWVegas/WWLib/StlportListInsertFootprints.cpp
 0x004643E8,73,code,Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp,proposed,C,C=0x00464391..0x00464431,Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00463E09.cpp
 0x00464431,29,code,Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp,proposed,C,C=0x00464391..0x0046444E,Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva00464431.cpp
