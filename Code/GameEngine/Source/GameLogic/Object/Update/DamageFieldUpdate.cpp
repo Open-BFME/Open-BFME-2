@@ -39,6 +39,26 @@ class Thing;
 class ModuleData;
 class Object;
 #include "../../../../Include/Common/BfmeXfer.h"
+#define BFME_SNAPSHOT_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	protected: \
+		virtual const char *GetSnapshotName() const; \
+	}; \
+	const char *NAME::GetSnapshotName() const \
+	{ \
+		return TEXT; \
+	}
+#define BFME_LITERAL_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	public: \
+		const char *name() const; \
+	}; \
+	const char *NAME::name() const \
+	{ \
+		return TEXT; \
+	}
 
 // ?getModuleNameKey@DamageFieldUpdate@@UBE?AW4NameKeyType@@XZ @0x491264
 // (69B): cached pool-name key for DamageFieldUpdate. The class
@@ -211,6 +231,22 @@ private:
 	BridgeBehaviorObjectIDList m_2C;
 };
 
+class DozerActionState
+{
+public:
+	virtual const char *GetSnapshotName() const;
+};
+
+BFME_LITERAL_NAME_GETTER(Rva0049125ENamed, "DamageFieldUpdate")
+
+class BoneFXDamage
+{
+protected:
+	virtual const char *GetSnapshotName() const;
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/DamageFieldUpdate.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/DamageFieldUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/DamageFieldUpdateModuleDataParse.cpp
@@ -243,18 +279,6 @@ NameKeyType DamageFieldUpdate::getModuleNameKey() const
 	return TheDamageFieldUpdatePoolKey;
 }
 
-// tu-skeleton: 0x0049116A 68B ??1DamageFieldUpdateModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DamageFieldUpdateModuleDataDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004911AE 126B ?rva004911AE@DamageFieldUpdate@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DamageFieldUpdateRva004911AE.cpp (not merged yet)
-
-// tu-skeleton: 0x0049122C 50B ??1DamageFieldUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DamageFieldUpdateBehaviorDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0049125E 6B ?name@Rva0049125ENamed@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
-
-// tu-skeleton: 0x004912A9 81B ??0DamageFieldUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DamageFieldUpdateBehaviorCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00491316 615B ?update@DamageFieldUpdate@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DamageFieldUpdateRva004911AE.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/DamageFieldUpdateXfer.cpp
 
 // ?xfer@DamageFieldUpdate@@MAEXPAVXfer@@@Z @0x0049157D
@@ -266,6 +290,32 @@ void DamageFieldUpdate::xfer(Xfer *xfer)
 	xferSTLObjectIDList(xfer, &m_2C);
 	FireWeaponUpdate::xfer(xfer);
 }
+
+// tu-skeleton: 0x0049116A 68B ??1DamageFieldUpdateModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DamageFieldUpdateModuleDataDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004911AE 126B ?rva004911AE@DamageFieldUpdate@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DamageFieldUpdateRva004911AE.cpp (not merged yet)
+
+// tu-skeleton: 0x0049122C 50B ??1DamageFieldUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DamageFieldUpdateBehaviorDtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/ModuleNameGetters3.cpp
+
+// Module literal name getters (cold slice): six-byte const members with one
+// shape:
+//
+//     mov eax,<offset string literal> / ret
+//
+// Each body returns a pointer to a NUL-terminated class-name string in
+// .rdata. Contributor-local unit split from ModuleNameGetters2.cpp to keep
+// concurrent landings conflict-free; the BFME_LITERAL_NAME_GETTER macro is
+// verbatim, only the class names follow this tree's address-derived
+// convention (identity unrecoverable from 6 bytes, string carried in source
+// where verify_string_refs re-reads it).
+// No // cl: line (defaults match the frameless 6-byte shape, same as the
+// ModuleNameGetters.cpp precedent).
+
+// tu-skeleton: 0x004912A9 81B ??0DamageFieldUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DamageFieldUpdateBehaviorCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00491316 615B ?update@DamageFieldUpdate@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DamageFieldUpdateRva004911AE.cpp (not merged yet)
 
 // tu-skeleton: 0x0078CAA2 8B Unwind@00b8caa2 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DamageFieldUpdateBehaviorCtor.cpp (not merged yet)
 
