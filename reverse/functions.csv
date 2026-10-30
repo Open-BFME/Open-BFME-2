@@ -31485,8 +31485,6 @@ _rva006D9D70Comparator,,0x006D9D70,203,Code/Libraries/Source/Apt/AptArray.cpp,ma
 ?rva007B6A10@@YAXXZ,,0x007B6A10,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,STLport wide string dtor atexit thunk at 0x007B6A10 (complete object: jumps to ~basic_string<unsigned short> 0x0000B3C0)
 ?rva007B6A40@@YAXXZ,,0x007B6A40,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,STLport wide string dtor atexit thunk at 0x007B6A40 (complete object: jumps to ~basic_string<unsigned short> 0x0000B3C0)
 ?rva007B6A6E@@YAXXZ,,0x007B6A6E,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,EvacuateDamage dtor thunk at 0x007B6A6E
-?rva007B6A80@@YAXXZ,,0x007B6A80,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,Rva00041004 dtor thunk at 0x007B6A80
-?rva007B6A90@@YAXXZ,,0x007B6A90,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,Rva00041004 dtor thunk at 0x007B6A90
 ?rva007B6B19@@YAXXZ,,0x007B6B19,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,GeometryInfo dtor thunk at 0x007B6B19
 ?rva007B6B23@@YAXXZ,,0x007B6B23,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,GeometryInfo dtor thunk at 0x007B6B23
 ?rva007B6C2A@@YAXXZ,,0x007B6C2A,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,Rva0090088 dtor thunk at 0x007B6C2A
