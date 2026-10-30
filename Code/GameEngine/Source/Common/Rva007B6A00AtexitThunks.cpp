@@ -180,10 +180,6 @@ extern unsigned g_Va00E02D94;
 extern unsigned g_Va00E02E70;
 extern unsigned g_Va00E02E74;
 extern unsigned g_Va00E032E8;
-unsigned g_Va00E03324;	// retail RVA 0x00A03324 (.bss), defined here
-unsigned g_Va00E03328;	// retail RVA 0x00A03328 (.bss), defined here
-unsigned g_Va00E0332C;	// retail RVA 0x00A0332C (.bss), defined here
-unsigned g_Va00E03330;	// retail RVA 0x00A03330 (.bss), defined here
 unsigned g_Va00E04444;	// retail RVA 0x00A04444 (.bss), defined here
 unsigned g_Va00E04448;	// retail RVA 0x00A04448 (.bss), defined here
 extern UnicodeString g_00E0447C;	// VA 0x00E0447C, defined in AptLobbyScreenInitCallbacks.cpp
@@ -367,33 +363,8 @@ void __cdecl rva007B83A5()
 	receiver->~UnicodeString();
 }
 
-// ?rva007B83EB@@YAXXZ @ 0x007B83EB (10B): ecx=&g_Va00E03324, tail-jump to rowed ??1AsciiString@@QAE@XZ (0x0048BA39)
-void __cdecl rva007B83EB()
-{
-	AsciiString *receiver = (AsciiString *)&g_Va00E03324;
-	receiver->~AsciiString();
-}
-
-// ?rva007B83F5@@YAXXZ @ 0x007B83F5 (10B): ecx=&g_Va00E03328, tail-jump to rowed ??1AsciiString@@QAE@XZ (0x0048BA39)
-void __cdecl rva007B83F5()
-{
-	AsciiString *receiver = (AsciiString *)&g_Va00E03328;
-	receiver->~AsciiString();
-}
-
-// ?rva007B83FF@@YAXXZ @ 0x007B83FF (10B): ecx=&g_Va00E0332C, tail-jump to rowed ??1AsciiString@@QAE@XZ (0x0048BA39)
-void __cdecl rva007B83FF()
-{
-	AsciiString *receiver = (AsciiString *)&g_Va00E0332C;
-	receiver->~AsciiString();
-}
-
-// ?rva007B8409@@YAXXZ @ 0x007B8409 (10B): ecx=&g_Va00E03330, tail-jump to rowed ??1AsciiString@@QAE@XZ (0x0048BA39)
-void __cdecl rva007B8409()
-{
-	AsciiString *receiver = (AsciiString *)&g_Va00E03330;
-	receiver->~AsciiString();
-}
+// 0x007B83EB/83F5/83FF/8409 are parseSpellIndex_Thunk.cpp's own atexit cleanups
+// (_$E5/_$E4/_$E3/_$E2) of AptSpellStore::rva0043CD3C's static strings.
 
 // ?rva007B8F12@@YAXXZ @ 0x007B8F12 (10B): ecx=&g_Va00E04444, tail-jump to rowed ??1AsciiString@@QAE@XZ (0x0048BA39)
 void __cdecl rva007B8F12()
