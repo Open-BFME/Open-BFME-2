@@ -1,0 +1,11 @@
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Code/GameEngine/Source/GameLogic/Object/Upgrade/GeometryUpgrade.cpp: LINKS  LINKED 1,231 -> 1,231 bytes (census 2026-10-30 15:43 at ccafe54d1d; file's own bytes 1,231)
+Code/GameEngine/Source/GameLogic/Object/Upgrade/GeometryUpgradeDtor.cpp: LINKS  LINKED 63 -> 63 bytes (census 2026-10-30 15:43 at ccafe54d1d; file's own bytes 63)
+Code/GameEngine/Source/GameLogic/Object/Upgrade/GeometryUpgradeModuleDataCtor.cpp: LINKS  LINKED 141 -> 141 bytes (census 2026-10-30 15:43 at ccafe54d1d; file's own bytes 141)
+Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp: does not link  LINKED 1,892 -> 0 bytes (census 2026-10-30 15:43 at ccafe54d1d; file's own bytes 1,838)
+  unresolved  ?iniParseAnim@INI@@SAXPAV1@PAX1PBX@Z
+  unresolved  ?iniParseAnimAndDuration@INI@@SAXPAV1@PAX1PBX@Z
+link_check: 3 of 4 link cleanly; LINKED 3,327 -> 1,435 bytes (5.5s)

@@ -1,0 +1,8 @@
+tu: Code/GameEngine/Source/GameLogic/Object/Upgrade/GeometryUpgrade.cpp
+approved: 31
+mixed: {'Code/GameEngine/Source/Common/ConstIntGetters4.cpp': 262}
+refused: {}
+accepted: []
+rejected: {'Code/GameEngine/Source/GameLogic/Object/Upgrade/GeometryUpgradeModuleDataCtor.cpp': "compile: Code\\GameEngine\\Source\\GameLogic\\Object\\Upgrade\\.GeometryUpgrade.4b3ca6f54e180333.tu_skeleton.cpp(298) : error C2600: 'GeometryUpgradeModuleData::GeometryUpgradeModuleData' : cannot define a compiler-generated special member function (must be declared in the class first)", 'Code/GameEngine/Source/GameLogic/Object/Upgrade/GeometryUpgradeDtor.cpp': 'bytes'}
+link_guard: census-linked: Code/GameEngine/Source/GameLogic/Object/Upgrade/GeometryUpgrade.cpp, Code/GameEngine/Source/GameLogic/Object/Upgrade/GeometryUpgradeDtor.cpp, Code/GameEngine/Source/GameLogic/Object/Upgrade/GeometryUpgradeModuleDataCtor.cpp
+blocked: no verified merge of two or more donors

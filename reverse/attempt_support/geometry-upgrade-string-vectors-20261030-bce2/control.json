@@ -1,0 +1,82 @@
+{
+  "raw_constructor_bytes_identical": 131,
+  "same_native_target": "0x211e58",
+  "changes": [
+    [
+      47,
+      "??0?$_Vector_base@IV?$allocator@I@_STL@@@_STL@@QAE@ABV?$allocator@I@1@@Z",
+      "??0?$_Vector_base@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@ABV?$allocator@VAsciiString@@@1@@Z"
+    ],
+    [
+      62,
+      "??0?$_Vector_base@IV?$allocator@I@_STL@@@_STL@@QAE@ABV?$allocator@I@1@@Z",
+      "??0?$_Vector_base@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@ABV?$allocator@VAsciiString@@@1@@Z"
+    ]
+  ],
+  "scoped_rows": 28,
+  "bindings": 72,
+  "changed_bindings": [
+    [
+      [
+        "??0GeometryUpgradeModuleData@@QAE@XZ",
+        "0x004B6EE2",
+        47,
+        20,
+        "??0?$_Vector_base@IV?$allocator@I@_STL@@@_STL@@QAE@ABV?$allocator@I@1@@Z",
+        2170456,
+        "owner",
+        ""
+      ],
+      [
+        "??0GeometryUpgradeModuleData@@QAE@XZ",
+        "0x004B6EE2",
+        47,
+        20,
+        "??0?$_Vector_base@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@ABV?$allocator@VAsciiString@@@1@@Z",
+        2170456,
+        "fold",
+        ""
+      ]
+    ],
+    [
+      [
+        "??0GeometryUpgradeModuleData@@QAE@XZ",
+        "0x004B6EE2",
+        62,
+        20,
+        "??0?$_Vector_base@IV?$allocator@I@_STL@@@_STL@@QAE@ABV?$allocator@I@1@@Z",
+        2170456,
+        "owner",
+        ""
+      ],
+      [
+        "??0GeometryUpgradeModuleData@@QAE@XZ",
+        "0x004B6EE2",
+        62,
+        20,
+        "??0?$_Vector_base@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@ABV?$allocator@VAsciiString@@@1@@Z",
+        2170456,
+        "fold",
+        ""
+      ]
+    ]
+  ],
+  "retained_external_definitions": 5,
+  "removed_definitions": [
+    "??$_Destroy@PAI@_STL@@YAXPAI0@Z",
+    "??$__destroy@PAII@_STL@@YAXPAI00@Z",
+    "??$__destroy_aux@PAI@_STL@@YAXPAI0ABU__true_type@0@@Z",
+    "??$__stl_alloc_rebind@II@_STL@@YAAAV?$allocator@I@0@AAV10@PBI@Z",
+    "??0?$allocator@I@_STL@@QAE@XZ",
+    "??1?$_STLP_alloc_proxy@PAIIV?$allocator@I@_STL@@@_STL@@QAE@XZ",
+    "??1?$_Vector_base@IV?$allocator@I@_STL@@@_STL@@QAE@XZ",
+    "??1?$allocator@I@_STL@@QAE@XZ",
+    "??1?$vector@IV?$allocator@I@_STL@@@_STL@@QAE@XZ",
+    "?deallocate@?$_STLP_alloc_proxy@PAIIV?$allocator@I@_STL@@@_STL@@QAEXPAII@Z",
+    "?deallocate@?$allocator@I@_STL@@QBEXPAII@Z"
+  ],
+  "new_trivial_allocator_definitions": [
+    "??0?$allocator@VAsciiString@@@_STL@@QAE@XZ",
+    "??1?$allocator@VAsciiString@@@_STL@@QAE@XZ"
+  ]
+}

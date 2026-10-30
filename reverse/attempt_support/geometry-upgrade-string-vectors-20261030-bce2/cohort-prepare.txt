@@ -1,0 +1,16 @@
+link_check: preparing 6 explicit safe provider(s), no extra sources
+Compile: 3 of 6 TU(s) (deps-cache: 3 current)
+Source claims: OK (6 sources, scoped byte-verified)
+Data rows: OK (60 row(s) byte-verified)
+Compile: 0 of 6 TU(s) (deps-cache: 6 current)
+Funclet pins: 13 row(s) verified past a renumbered $L label
+    Unwind@00b8ef9d (Code/GameEngine/Source/GameLogic/Object/Upgrade/GeometryUpgrade.cpp): $L5150 was renumbered; verified parent EH data places $L5944 at 0x0078EF9D
+    Unwind@00b8efa5 (Code/GameEngine/Source/GameLogic/Object/Upgrade/GeometryUpgrade.cpp): $L5151 was renumbered; verified parent EH data places $L5945 at 0x0078EFA5
+    Unwind@00b8efb3 (Code/GameEngine/Source/GameLogic/Object/Upgrade/GeometryUpgrade.cpp): $L5152 was renumbered; verified parent EH data places $L5946 at 0x0078EFB3
+    Unwind@00b8efc1 (Code/GameEngine/Source/GameLogic/Object/Upgrade/GeometryUpgrade.cpp): $L5153 was renumbered; verified parent EH data places $L5947 at 0x0078EFC1
+    Unwind@00b8efcf (Code/GameEngine/Source/GameLogic/Object/Upgrade/GeometryUpgrade.cpp): $L5154 was renumbered; verified parent EH data places $L5948 at 0x0078EFCF
+Functions: OK 101/101 matched across 6 source file(s)
+String-ref verify: OK (1 literals + 1 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (0 compiler literals verified)
+Import-ref verify: OK (0 named imports verified)
+link_check: 6 explicit providers byte-verified with strict reusable receipts; census/index/status unchanged, LINK closure not yet checked

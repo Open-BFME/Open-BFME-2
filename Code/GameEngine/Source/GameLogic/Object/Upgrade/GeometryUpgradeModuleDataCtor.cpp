@@ -21,15 +21,17 @@
 // the __EH_prolog prologue.
 
 #include <vector>
-// vector<unsigned int>'s allocator constructor inlines at every use here;
-// imported force-inline so this unit emits no COMDAT copy of it (its copy
-// differs from retail's kept /Od body at 0x00025100). The vector base
-// constructor stays a declared nothrow call to its kept copy (0x00211E58).
+#include "ascii_string.h"
+// The native field table uses parseAsciiStringVectorAppend for both lists;
+// the rowed destructor also destroys vector<AsciiString> at these offsets.
+// Keep the existing imported force-inline wrapper: its base constructor
+// remains a declared nothrow call to the existing ICF provider (0x00211E58).
 namespace _STL {
-template <> _Vector_base<unsigned int,allocator<unsigned int> >::_Vector_base(const allocator<unsigned int> &) throw();
+template <> vector<AsciiString,allocator<AsciiString> >::~vector();
+template <> _Vector_base<AsciiString,allocator<AsciiString> >::_Vector_base(const allocator<AsciiString> &) throw();
 template <> __declspec(dllimport) __forceinline
-vector<unsigned int, allocator<unsigned int> >::vector(const allocator<unsigned int> &__a)
-	: _Vector_base<unsigned int, allocator<unsigned int> >(__a) {}
+vector<AsciiString, allocator<AsciiString> >::vector(const allocator<AsciiString> &__a)
+	: _Vector_base<AsciiString, allocator<AsciiString> >(__a) {}
 }
 
 class Rva00253487Base
@@ -42,8 +44,6 @@ private:
 	unsigned char m_pad[0x118 - 4];
 };
 
-#include "ascii_string.h"
-
 class GeometryUpgradeModuleData : public Rva00253487Base
 {
 public:
@@ -51,8 +51,8 @@ public:
 	virtual ~GeometryUpgradeModuleData();
 
 private:
-	_STL::vector<unsigned int> m_showGeometry; // +0x118
-	_STL::vector<unsigned int> m_hideGeometry; // +0x124
+	_STL::vector<AsciiString> m_showGeometry; // +0x118
+	_STL::vector<AsciiString> m_hideGeometry; // +0x124
 	AsciiString m_wallBoundsMesh; // +0x130
 	AsciiString m_rampMesh1; // +0x134
 	AsciiString m_rampMesh2; // +0x138
