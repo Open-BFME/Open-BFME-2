@@ -1,4 +1,4 @@
-// cl: /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS /Ireference/shims/bfme2_ascii
 //
 // ??1DevastateSpecialPowerModuleData@@UAE@XZ, retail 0x004C8537, 56 bytes.
 // DevastateSpecialPower ModuleData dtor (ctor rowed at 0x004C84BD in
@@ -11,15 +11,11 @@
 // suppresses the derived vtable store retail lacks (CloudBreak precedent);
 // the base call restores the base table.
 
-template <typename T>
-class StringBase
-{
-public:
-	~StringBase();
-
-private:
-	T *m_data;
-};
+// The canonical frozen StringBase replaces the private copy; its switch makes
+// the member dtor reachable and keeps the teardown an out-of-line call to the
+// rowed releaseBuffer (0x00036410 narrow, 0x00036E70 wide).
+#define BFME_STRINGBASE_PUBLIC_DTOR
+#include "string_base.h"
 
 class SpecialPowerModuleData
 {
