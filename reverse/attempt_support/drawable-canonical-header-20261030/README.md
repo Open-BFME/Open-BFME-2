@@ -52,3 +52,65 @@ Coordinate with the Object work or wait for it.
   and Team headers did.
 - `reference/shims/drawable/GameClient/Drawable.h` is a BFME 1 (1.03) layout,
   not BFME 2 evidence.
+
+## Second pass (2026-10-30 afternoon, halilkkaya-cls4, worktree wt_e)
+
+object-retail's `class/Object` claim was gone, but `claims.py claim
+class:Drawable` was still refused. Drawable's footprint includes
+`Code/GameEngine/Source/Common/Drawable_handleWeaponFireFX.cpp`, which RVA
+claim 0x00271108 locks. That claim belongs to `Dave Razidlo@srx-2000`, has the
+note `tools/rename.py`, was created at 12:34 UTC and expires at 16:34 UTC. Its
+rename already landed in "Land 131 agreed names (batch 2 of naming round)",
+but the lander has not released the claim.
+
+Committed in this pass (no class claim needed):
+
+- thing.h declares the nine rowed Thing members it lacked (getDrawable,
+  getUnitDirectionVector3D, setTransformMatrix, ...), under class:Thing. A
+  trial Drawable adoption had failed 62 units on them.
+- The seven slot 8-14 rows are respelled QAE -> UAE with
+  `tools/rename.py function --rva R --virtual`, in two commits (slots 8-12,
+  then 13-14), under the tool's own RVA claims. First, each defining view had
+  to read the +0x14C list through an accessor at this+0x14C. With a raw
+  `m_pad[0x14C]`, the first virtual's vptr shifted every load to +0x150, and
+  the tool restored the files.
+
+Prepared and verified locally, not committed (these need class:Drawable):
+
+- `DrawableBFME2.h.txt` (this folder) is the hand-written header. A scratch
+  compile emits the 15-slot Thing-side table in retail order and the 4-slot
+  Snapshot table, and `sizeof == 0x470` is checked. Its home is
+  `Code/GameEngine/Include/GameClient/DrawableBFME2.h`.
+- The two slot units adopt the header and read the list through
+  `m_modules[0]`. The earlier manual trial of this was OK 48/48 with
+  Drawable.cpp.
+- 23 units adopt by hand. All pass `./build.sh`, link_check (every one
+  LINKS, linked bytes unchanged) and DIR32:
+  - 14 whose private view names the +0x14C list `m_drawModules`/`m_arr`:
+    the lane's swap is applied, then the list is read as
+    `((T **)m_modules[0])`.
+  - 9 whose private `class Thing { ... };` the lane's swap leaves behind:
+    the swap is applied, then that view is dropped, because thing.h now
+    declares getDrawable.
+  - `Drawable_rva00272BE7.cpp` and `Rva00272BABFinish.cpp` also name
+    `m_client`, so they stay queued.
+- A dry `header_adopt_lane run --class Drawable --header
+  Code/GameEngine/Include/GameClient/DrawableBFME2.h` passes 185/466 units
+  through the byte gate. Failures:
+  - C2039 missing member, 112: Matrix3D Get_Z_Rotation 8, and private field
+    names such as `object` 7, `m_selected`, `flag43c`;
+  - C2065, 67: private field names;
+  - bytes/callee, 39;
+  - C2011, 22: units' own `class Thing`;
+  - no private view, 6.
+
+To finish:
+1. Claim class:Drawable.
+2. Add the header and the canonical row. Commit them with the two slot units.
+3. Claim the 23 hand-adopted units and commit them.
+4. Run `header_adopt_lane run --class Drawable --header ... --apply
+   --skip-held --jobs 12`.
+5. Gate in chunks of 40, run link_check and DIR32, then commit.
+
+Do not commit `reverse/class_contracts/Drawable.json`: the lane writes the
+majority contract ("sizeof 256, bases []"), which retail contradicts.
