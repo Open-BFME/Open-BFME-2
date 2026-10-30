@@ -12,6 +12,8 @@
 // object to 0x004AC5F5 in eax, so it stays unrecovered; it is pinned here
 // under an address name from this call. Base layout follows
 // Rva0024A797Derived.cpp; the +0x20/+0x24 members follow the rowed ctor.
+enum NameKeyType { NK_UNKNOWN = 0 };
+
 class UpdateModule
 {
 public:
@@ -40,6 +42,7 @@ class DestroyEnvironmentUpdate : public UpdateModule, public MiBase1, public Des
 {
 public:
 	virtual ~DestroyEnvironmentUpdate();
+	virtual NameKeyType getModuleNameKey() const;
 	virtual UpdateSleepTime update();
 	void rva004AC722();
 private:
