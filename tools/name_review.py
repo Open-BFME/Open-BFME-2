@@ -103,7 +103,7 @@ def response_schema(keys):
         "type": "object", "properties": {"key": {"type": "string", "enum": keys},
         "name": {"type": "string"}, "reason": {"type": "string"},
         "role": {"type": "string", "maxLength": 200}},
-        "required": ["key", "name", "reason"], "additionalProperties": False}}},
+        "required": ["key", "name", "reason", "role"], "additionalProperties": False}}},
         "required": ["answers"], "additionalProperties": False}
 
 

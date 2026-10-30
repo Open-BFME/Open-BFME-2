@@ -38,6 +38,11 @@ def answer(packet, name="sumBox"):
                          "reason": "Computed from the function body"} for item in packet["targets"]]}
 
 
+def test_response_schema_requires_every_declared_answer_field():
+    item = name_review.response_schema([FN_KEY])["properties"]["answers"]["items"]
+    assert set(item["required"]) == set(item["properties"])
+
+
 def test_independent_dispatch_serves_a_single_review_and_records_real_quorum(tree, tmp_path):
     first(tree, tmp_path)
     owner = os.environ["BFME_CLAIM_OWNER"]
