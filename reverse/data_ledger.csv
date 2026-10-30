@@ -19005,7 +19005,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009FF034,4,.data,global,?buttonID@?1??OnBttnSpellStore@AptPalantir@@QAEXPBD@Z@4W4NameKeyType@@A,Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantirCallbacks.cpp,owned,,1,2
 0x009FF038,4,.data,global,?$S1@?1??OnBttnSpellStore@AptPalantir@@QAEXPBD@Z@4IA,Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantirCallbacks.cpp,owned,,1,2
 0x009FF03C,4,.data,global,?s_key@?1??Rva002D46ADSet@@YAXH@Z@4VAsciiString@@A,Code/GameEngine/Source/GameClient/Rva002D46AD.cpp,owned,,1,2
-0x009FF040,4,.data,global,?g_Va00DFF040@@3IA,Code/GameEngine/Source/Common/GlobalFlagClearers_DFxx.cpp,provisional,?$S1@?1??Rva002D46ADSet@@YAXH@Z@4IA@Code/GameEngine/Source/GameClient/Rva002D46AD.cpp;?g_Va00DFF040@@3IA,2,4
+0x009FF040,4,.data,global,?$S1@?1??Rva002D46ADSet@@YAXH@Z@4IA,Code/GameEngine/Source/GameClient/Rva002D46AD.cpp,owned,,1,4
 0x009FF044,4,.data,global,?good@?6??HandleOverSpellStoreButton@AptPalantir@@QAEXPBD@Z@4VAsciiString@@A,Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantirCallbacks.cpp,owned,,1,2
 0x009FF048,4,.data,global,?evil@?4??HandleOverSpellStoreButton@AptPalantir@@QAEXPBD@Z@4VAsciiString@@A,Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantirCallbacks.cpp,owned,,1,2
 0x009FF04C,4,.data,global,?$S2@?4??HandleOverSpellStoreButton@AptPalantir@@QAEXPBD@Z@4IA,Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantirCallbacks.cpp,owned,,1,4
