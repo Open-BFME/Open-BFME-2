@@ -124,7 +124,7 @@ struct Rva0022216EEntry : public Rva0022216EEntryHead, public InGameNotification
 {
 };
 
-struct Rva0022216EStore
+struct InGameNotificationTypeStore
 {
 	unsigned char m_pad00[0x0C];
 	InGameNotificationType m_defaultType;
@@ -240,7 +240,7 @@ class Rva00575674
 {
 public:
 	void rva00575674(void *p);
-	Rva0022216EStore *m_ptr;
+	InGameNotificationTypeStore *m_ptr;
 };
 extern Rva00575674 g_00DFE4C4;
 
@@ -276,13 +276,13 @@ static inline InGameNotificationType *rva002221A9Type(Rva0022216EEntry *entry)
 	return entry;
 }
 
-class Rva002221A9Visitor
+class InGameNotificationTypeVisitor
 {
 public:
 	virtual bool visit(InGameNotificationType *type) = 0;
 };
 
-void forEachInGameNotificationType(Rva002221A9Visitor &visitor)
+void forEachInGameNotificationType(InGameNotificationTypeVisitor &visitor)
 {
 	if (!g_00DFE4C4.m_ptr)
 		Rva002220DCInit();

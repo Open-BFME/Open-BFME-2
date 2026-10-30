@@ -231,7 +231,7 @@ public:
 	~BfmePod12();
 };
 
-struct Rva00420F0EPod
+struct DelayedExperienceLevelGrantEntry
 {
 	int m_a;
 	int m_b;
@@ -357,7 +357,7 @@ void Rva00420F0EHost::append(int a, int b, int c)
 {
 	if (m_14 != 0)
 		return;
-	Rva00420F0EPod tmp;
+	DelayedExperienceLevelGrantEntry tmp;
 	tmp.m_a = ((Rva00420F0EArg2 *)b)->m_id;
 	tmp.m_b = a;
 	tmp.m_c = (unsigned char)c;

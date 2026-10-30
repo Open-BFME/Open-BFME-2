@@ -111,7 +111,7 @@ void *Rva004B0942::rva004B0942()
 
 // tu-skeleton: 0x004B095C 139B ?xfer@AIGateUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateXfer.cpp (not merged yet)
 
-// tu-skeleton: 0x004B09E7 61B ?rva004B09E7@AIGateUpdate@@SAXPAVObject@@PAV1@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateTrigger.cpp (not merged yet)
+// tu-skeleton: 0x004B09E7 61B ?triggerCallback@AIGateUpdate@@SAXPAVObject@@PAV1@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateTrigger.cpp (not merged yet)
 
 // tu-skeleton: 0x004B0A24 134B ?rva004B0A24@AIGateUpdate@@QAE?AVVector2@@MM@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateTrigger.cpp (not merged yet)
 

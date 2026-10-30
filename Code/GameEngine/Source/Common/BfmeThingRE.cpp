@@ -637,9 +637,9 @@ void __stdcall bfmeGoVJB(BfmeMsgVJA *m, void *name, void **kw, int n, int max)
 	m->bfmeSet3VJA("keywords.[]", n);
 }
 
-// tu-skeleton: 0x00656750 173B ?bfmeGoVIV@@YGXPAVBfmeMsgVIT@@PAD11111@Z -- matched in Code/GameEngine/Source/Common/BfmeConv1378.cpp (not merged yet)
+// tu-skeleton: 0x00656750 173B ?bfmeGoVIV@@YGXPAVFeslMessage@@PAD11111@Z -- matched in Code/GameEngine/Source/Common/BfmeConv1378.cpp (not merged yet)
 
-// tu-skeleton: 0x00656800 78B ?bfmeGoVIT@@YGXPAVBfmeMsgVIT@@PAX1@Z -- matched in Code/GameEngine/Source/Common/BfmeConv1378.cpp (not merged yet)
+// tu-skeleton: 0x00656800 78B ?bfmeGoVIT@@YGXPAVFeslMessage@@PAX1@Z -- matched in Code/GameEngine/Source/Common/BfmeConv1378.cpp (not merged yet)
 
 // tu-skeleton: 0x00656850 61B ?bfmeSetupPair_007E9860@@YGXPAUBfmeSetupRecord@@H@Z -- matched in Code/GameEngine/Source/Common/Bfme5SetupPairs.cpp (not merged yet)
 

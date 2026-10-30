@@ -82,10 +82,10 @@ public:
 	virtual Bool rva000531F6();
 	virtual void rva00053281();
 	virtual void rva0005329C();
-	virtual void rva0005DABB(Int a);
+	virtual void addAudioEvent(Int a);
 	virtual void slot23(const Int &a);
 	virtual void rva0005DACF(const Int &a);
-	virtual void rva0005DAE6(Int a, Int resumeHandle);
+	virtual void resumeAudioEvent(Int a, Int resumeHandle);
 private:
 	char m_pad00[0x0C];
 	Rva000517F1Settings *m_10;
@@ -115,13 +115,13 @@ private:
 // Native5D734 returns an audio handle in EAX; WB786F40 identifies addOrResumeAudioEvent.
 // These vtable wrappers discard the returned handle.
 // vtable 0x00BC55B0#25
-void MilesAudioManager::rva0005DABB(Int a)
+void MilesAudioManager::addAudioEvent(Int a)
 {
 	addOrResumeAudioEvent(reinterpret_cast<AudioEventRTS *>(a), 0, 1, 0, 1);
 }
 
 // vtable 0x00BC55B0#29
-void MilesAudioManager::rva0005DAE6(Int a, Int resumeHandle)
+void MilesAudioManager::resumeAudioEvent(Int a, Int resumeHandle)
 {
 	addOrResumeAudioEvent(reinterpret_cast<AudioEventRTS *>(a), 1, resumeHandle, 0, 1);
 }

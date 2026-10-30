@@ -26,7 +26,7 @@ public:
 	virtual void slot2(const void *address, const void *data, int length);
 };
 
-class Rva007F49E0SharedSocket
+class SharedUdpSocket
 {
 public:
 	virtual void v0();
@@ -68,7 +68,7 @@ public:
 private:
 	Rva007F49E0Member4 m_object4;
 	char pad_08[ 8 ];
-	Rva007F49E0SharedSocket *m_sharedSocket;
+	SharedUdpSocket *m_sharedSocket;
 	unsigned int dword_14;
 };
 
@@ -115,7 +115,7 @@ int Rva007F49E0VtableSlot3::send( Rva007F49E0Packet *record )
 		return 0;
 	}
 
-	Rva007F49E0SharedSocket *socket = m_sharedSocket;
+	SharedUdpSocket *socket = m_sharedSocket;
 	if( socket == 0 )
 	{
 		Rva007EB810Get()->report( "Error: no shared socket registered." );

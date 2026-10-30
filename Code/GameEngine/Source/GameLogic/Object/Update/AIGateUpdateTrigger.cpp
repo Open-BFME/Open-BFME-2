@@ -38,7 +38,7 @@ class Object {public:Relationship getRelationship(const Object *) const;char pad
 struct AIGateUpdateModuleData {char pad[8];float width,height;};
 class AIGateUpdate {public:
  void loadTrigger();Vector2 rva004B0A24(float,float);
- static void rva004B09E7(Object *,AIGateUpdate *,bool);
+ static void triggerCallback(Object *,AIGateUpdate *,bool);
  char pad00[4];const AIGateUpdateModuleData *data;Object *object;char pad0C[0x18];int triggerID,count28,count2C;bool loaded,enabled;
 };
 // Keeping the verified rotation helper visible in this unit restores all
@@ -53,7 +53,7 @@ void AIGateUpdate::loadTrigger() {
   (((PolygonPointCalls*)polygon)->*add)(rva004B0A24(halfX,-halfY));
   (((PolygonPointCalls*)polygon)->*add)(rva004B0A24(-halfX,-halfY));
   (((PolygonPointCalls*)polygon)->*add)(rva004B0A24(-halfX,halfY));
-  ((Rva002E3766Holder*)polygon)->set((int)&AIGateUpdate::rva004B09E7,(int)this);
+  ((Rva002E3766Holder*)polygon)->set((int)&AIGateUpdate::triggerCallback,(int)this);
   AsciiString name;name.format("AIGateUpdateTrigger_%d",Rva00A03D80++);
   StringBase<char> &polygonName=polygon->getName();
   polygonName.set(*(const StringBase<char> *)&name);PolygonTrigger::addPolygonTrigger(polygon);triggerID=polygon->getID();
@@ -64,7 +64,7 @@ void AIGateUpdate::loadTrigger() {
 // Native callback4B09E7 is embedded in loadTrigger4B0AAA at4B0BBC;
 // complete entry through4B0A24 is61B. It classifies the entering/leaving
 // object relative to owner+8 and adjusts counters28/2C; names unresolved.
-void AIGateUpdate::rva004B09E7(Object *o,AIGateUpdate *gate,bool entered) {
+void AIGateUpdate::triggerCallback(Object *o,AIGateUpdate *gate,bool entered) {
  Relationship relationship=o->getRelationship(gate->object);
  if(entered) {
   switch(relationship) {case RELATION_0:++gate->count2C;break;case RELATION_2:++gate->count28;break;}

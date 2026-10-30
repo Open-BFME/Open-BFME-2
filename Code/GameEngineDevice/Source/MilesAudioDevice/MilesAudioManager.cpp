@@ -1179,10 +1179,10 @@ public:
     virtual void update(); virtual void rva00061C87(unsigned int viewMask);
     virtual void stopAudio(enum AudioAffect affect); virtual void rva000583BA(unsigned int affect, unsigned int viewMask, int arg); virtual void rva00058591(unsigned int affect, unsigned int viewMask, int keepMasks); virtual void rva0005CAE2(); virtual void rva0005CB39();
     virtual void setViewFocus(int viewType); virtual int rva0005189D() const; virtual void rva0005116B(); virtual void slot23(const int &a); virtual void rva0005DACF(const int &a);
-    virtual void rva0005DABB(int a); virtual void removePlayingAudio(const AsciiString &eventName, int viewType); virtual void rva00057787(unsigned int id);
+    virtual void addAudioEvent(int a); virtual void removePlayingAudio(const AsciiString &eventName, int viewType); virtual void rva00057787(unsigned int id);
     // Slot 28 (+0x70): kills the sound playing under a handle and reports
     // whether it did (playAudioEvent's handle-to-kill test; Zero Hour name).
-    virtual bool killAudioEventImmediately(unsigned int handle); virtual void rva0005DAE6(int a, int b);
+    virtual bool killAudioEventImmediately(unsigned int handle); virtual void resumeAudioEvent(int a, int b);
     virtual void rva00057408(unsigned int key); virtual bool rva000527E2(const Rva000527E2Event *event); virtual bool rva00055E6C(const AsciiString &name, int streamArg, int viewType, int musicSystem); virtual int rva0005A7BE(AudioEventRTS *event, int arg1); virtual void rva00055A58(int viewType, int musicSystem, int arg, int flag);
     virtual void rva00055B40(int viewType, int musicSystem, int arg); virtual void rva000568CE(int viewType, int musicSystem, int arg); virtual void rva000569A8(int viewType, int musicSystem, int arg, int flag); virtual void rva000567F4(int viewType, int musicSystem, int arg); virtual int rva000518A4(int index);
     virtual int rva00052917(); virtual bool rva0005538C(void); virtual AsciiString rva00054714(void); virtual void rva0005BD20(); virtual void rva0005BD28();

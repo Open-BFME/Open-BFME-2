@@ -5,10 +5,10 @@
 // 0x6569E0 uses Set/Set4/Set4 with TXN/eaMailFlag/thirdPartyMailFlag).
 // bfmeGoVIU's bytes ARE claimed: the five lotrbfme.exe fold-twins
 // collapse to one pick by call-arity -- retail 0x65F250 ends `ret 0x10`
-// (4 args: msg + 3 void*), which fits only ?bfmeGoVIU@@YGXPAVBfmeMsgVIT@@PAX11@Z;
+// (4 args: msg + 3 void*), which fits only ?bfmeGoVIU@@YGXPAVFeslMessage@@PAX11@Z;
 // the bfmeSetupPair twins take (record*, int) and Rva007F2B70 takes 7 args.
 
-class BfmeMsgVIT
+class FeslMessage
 {
 public:
 	char m_bfmePad[0x1c];
@@ -34,7 +34,7 @@ extern void *g_bfmeVIU;
 // g_bfmeVIU: matched references place it at VA 0xe0a07c (zero-filled .bss).
 void * g_bfmeVIU;
 
-void __stdcall bfmeGoVIT(BfmeMsgVIT *m, void *a, void *b)
+void __stdcall bfmeGoVIT(FeslMessage *m, void *a, void *b)
 {
 	void *g = g_bfmeVIT;
 	((Rva007E8810Message *)m)->reset();
@@ -44,7 +44,7 @@ void __stdcall bfmeGoVIT(BfmeMsgVIT *m, void *a, void *b)
 	((Rva007E8810Message *)m)->addString("newPassword", (const char *)b);
 }
 
-void __stdcall bfmeGoVIU(BfmeMsgVIT *m, void *sessionId, void *key, void *value)
+void __stdcall bfmeGoVIU(FeslMessage *m, void *sessionId, void *key, void *value)
 {
 	void *g = g_bfmeVIU;
 	((Rva007E8810Message *)m)->reset();
@@ -55,7 +55,7 @@ void __stdcall bfmeGoVIU(BfmeMsgVIT *m, void *sessionId, void *key, void *value)
 	((Rva007E8810Message *)m)->addString("value", (const char *)value);
 }
 
-void __stdcall bfmeGoVIV(BfmeMsgVIT *m, char *code, char *game, char *platform, char *name, char *password, char *email)
+void __stdcall bfmeGoVIV(FeslMessage *m, char *code, char *game, char *platform, char *name, char *password, char *email)
 {
 	void *g = g_bfmeVIV;
 	((Rva007E8810Message *)m)->reset();

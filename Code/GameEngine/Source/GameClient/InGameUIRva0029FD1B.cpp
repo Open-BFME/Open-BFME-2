@@ -59,7 +59,7 @@ private:
 	char m_pad[0x10];
 };
 
-struct Rva0029FD1BNode
+struct RadiusDecalTemplateNode
 {
 	char m_pad00[8];
 	RadiusDecalTemplate m_template; // +0x08 (embedded: retail passes node+8)
@@ -137,7 +137,7 @@ void InGameUI::rva0029FD1B(int id, MaterialPassClass *mp, Overridable *ov, int i
 		Rva0029FD1BHashtable::iterator it = ((Rva0029FD1BHashtable *)m_hashtable)->find(*(const unsigned *)&id);
 		if (it._M_cur == 0)
 			return;
-		Rva0029FD1BNode *node = (Rva0029FD1BNode *)it._M_cur;
+		RadiusDecalTemplateNode *node = (RadiusDecalTemplateNode *)it._M_cur;
 
 		Object *obj = 0;
 		if (m_238)

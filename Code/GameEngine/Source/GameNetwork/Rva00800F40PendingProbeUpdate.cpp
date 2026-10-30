@@ -49,7 +49,7 @@ struct BfmeSlotVNC
 // before it is the slot's m_bfme00, and the next record begins 0x24 bytes
 // later, so the loop uses an explicit byte stride rather than inventing a
 // second object layout.
-struct BfmeSlotCursorVNC
+struct PendingProbeCursor
 {
 	int m_bfme04;
 	char m_bfme08;
@@ -103,8 +103,8 @@ void Rva00800F40PendingProbeUpdate::update(unsigned int now)
 
 	if (m_numProbes != zero)
 	{
-		BfmeSlotCursorVNC *slot =
-			(BfmeSlotCursorVNC *)((char *)m_probes + 4);
+		PendingProbeCursor *slot =
+			(PendingProbeCursor *)((char *)m_probes + 4);
 		int n = 8;
 
 		do
@@ -139,7 +139,7 @@ void Rva00800F40PendingProbeUpdate::update(unsigned int now)
 				}
 			}
 
-			slot = (BfmeSlotCursorVNC *)((char *)slot + 0x24);
+			slot = (PendingProbeCursor *)((char *)slot + 0x24);
 			--n;
 		} while (n != zero);
 	}

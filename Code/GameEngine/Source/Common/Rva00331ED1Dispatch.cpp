@@ -22,10 +22,10 @@ public:
 };
 extern LuaScriptEngine *TheLuaScriptEngine;
 
-struct Rva00331ED1Node
+struct SpyEventObjectNode
 {
-    Rva00331ED1Node *next;
-    Rva00331ED1Node *previous;
+    SpyEventObjectNode *next;
+    SpyEventObjectNode *previous;
     ObjectID id;
 };
 
@@ -33,7 +33,7 @@ struct Rva00331ED1Record
 {
     int key;
     void *event;
-    Rva00331ED1Node *sentinel;
+    SpyEventObjectNode *sentinel;
 };
 
 class Rva00331ED1
@@ -53,7 +53,7 @@ void Rva00331ED1::rva00331ED1(int key, void *argument2, void *argument3)
     {
         if (record->key != key)
             continue;
-        Rva00331ED1Node *node = record->sentinel->next;
+        SpyEventObjectNode *node = record->sentinel->next;
         while (node != record->sentinel)
         {
             Object *object = TheGameLogic->findObjectByID(node->id);

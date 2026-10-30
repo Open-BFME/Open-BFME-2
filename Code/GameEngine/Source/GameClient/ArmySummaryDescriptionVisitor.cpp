@@ -35,7 +35,7 @@ typedef char ArmyDescriptionConfigExtent220D1E[sizeof(ArmyDescriptionConfig220D1
 StringBase<char> *Rva000BD22FFind(StringBase<char> *, StringBase<char> *, const StringBase<char> &);
 namespace _STL { template<> void vector<AsciiString>::push_back(const AsciiString &); }
 
-// Native secondary receiver is Rva00220B04+4: its constructor installs
+// Native secondary receiver is ArmySummaryDescriptionVisitor+4: its constructor installs
 // BE6A64 there, whose slot points to 0x00220D1E. This is that subobject's
 // measured ABI view, not another name for the complete primary receiver.
 // Names at secondary+4 and counters at secondary+10 are independently

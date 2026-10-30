@@ -4233,3 +4233,17 @@ $L4133,0x0077F308,Retracted incorrect nonvirtual MultiplayerSettings lifetime an
 ?reset@PlayerTemplateStore@@QAEXXZ,0x001FD4A2,"Renamed to ?reset@PlayerTemplateStore@@UAEXXZ by tools/rename.py (virtual: retail vtable slot)"
 ?bfmeGoUPC@@YAXPAUBfmeStateUPC@@H@Z,0x007478E0,Renamed to _bfmeGoUPC: Lua sized lua_newtable moved with C linkage into Code/Libraries/Source/Lua/lapi.c (identity evidence reverse/identity_evidence/007478e0-lua-sized-newtable.md); BfmeConv1339.cpp and its /alternatename hatch retired
 ?bfmeGo1039E@@YAXPAUBfmeQ1039@@H@Z,0x00747540,Renamed to _bfmeGo1039E: EA boolean-tag push moved with C linkage into Code/Libraries/Source/Lua/lapi.c (identity evidence reverse/identity_evidence/00747540-lua-push-boolean.md); BfmeConv1039E.cpp retired
+?rva0055D422@Rva0055D3F5@@QAEXUCoord3D@@@Z,0x0055D422,"Renamed to ?debugDraw@Rva0055D3F5@@QAEXUCoord3D@@@Z by tools/rename.py (inferred)"
+?rva004B09E7@AIGateUpdate@@SAXPAVObject@@PAV1@_N@Z,0x004B09E7,"Renamed to ?triggerCallback@AIGateUpdate@@SAXPAVObject@@PAV1@_N@Z by tools/rename.py (inferred)"
+?rva0005DABB@MilesAudioManager@@UAEXH@Z,0x0005DABB,"Renamed to ?addAudioEvent@MilesAudioManager@@UAEXH@Z by tools/rename.py (inferred)"
+?rva0005DAE6@MilesAudioManager@@UAEXHH@Z,0x0005DAE6,"Renamed to ?resumeAudioEvent@MilesAudioManager@@UAEXHH@Z by tools/rename.py (inferred)"
+?bfmeGoVIV@@YGXPAVBfmeMsgVIT@@PAD11111@Z,0x00656750,"Renamed to ?bfmeGoVIV@@YGXPAVFeslMessage@@PAD11111@Z by tools/rename.py (inferred)"
+?bfmeGoVIU@@YGXPAVBfmeMsgVIT@@PAX11@Z,0x0065F250,"Renamed to ?bfmeGoVIU@@YGXPAVFeslMessage@@PAX11@Z by tools/rename.py (inferred)"
+?bfmeGoVIT@@YGXPAVBfmeMsgVIT@@PAX1@Z,0x00656800,"Renamed to ?bfmeGoVIT@@YGXPAVFeslMessage@@PAX1@Z by tools/rename.py (inferred)"
+??0Rva00220B04@@QAE@H@Z,0x00220B04,"Renamed to ??0ArmySummaryDescriptionVisitor@@QAE@H@Z by tools/rename.py (inferred)"
+??1Rva00220B04@@QAE@XZ,0x00220AA6,"Renamed to ??1ArmySummaryDescriptionVisitor@@QAE@XZ by tools/rename.py (inferred)"
+?BuildDescriptionString@@YAXPAVUnicodeString@@PAVRva00220B04@@@Z,0x00220928,"Renamed to ?BuildDescriptionString@@YAXPAVUnicodeString@@PAVArmySummaryDescriptionVisitor@@@Z by tools/rename.py (inferred)"
+__ehhandler$??1Rva00220B04@@QAE@XZ,0x0076EE54,"Renamed to __ehhandler$??1ArmySummaryDescriptionVisitor@@QAE@XZ by tools/rename.py (inferred)"
+__ehhandler$??0Rva00220B04@@QAE@H@Z,0x0076EE7C,"Renamed to __ehhandler$??0ArmySummaryDescriptionVisitor@@QAE@H@Z by tools/rename.py (inferred)"
+__ehhandler$?BuildDescriptionString@@YAXPAVUnicodeString@@PAVRva00220B04@@@Z,0x0076EE37,"Renamed to __ehhandler$?BuildDescriptionString@@YAXPAVUnicodeString@@PAVArmySummaryDescriptionVisitor@@@Z by tools/rename.py (inferred)"
+?forEachInGameNotificationType@@YAXAAVRva002221A9Visitor@@@Z,0x002221A9,"Renamed to ?forEachInGameNotificationType@@YAXAAVInGameNotificationTypeVisitor@@@Z by tools/rename.py (inferred)"

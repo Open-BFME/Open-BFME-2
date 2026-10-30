@@ -69,8 +69,8 @@ struct Rva00474519Jitter {
  // ?Rva00474519Jitter::Rva00474519Jitter present-unmatched
  __forceinline Rva00474519Jitter(const Rva00474519Jitter &other) :x(other.x),y(other.y) {}
 };
-struct Rva00474519Position { Coord2D position; int partner,localIndex; };
-struct HordeRankInfo { int key; AsciiString name; _STL::vector<Rva00474519Position> positions; };
+struct HordeRankPosition { Coord2D position; int partner,localIndex; };
+struct HordeRankInfo { int key; AsciiString name; _STL::vector<HordeRankPosition> positions; };
 struct Rva00474519RecordValues { int key; Coord2D position,original; float value; unsigned partner; };
 class Rva00064640Record {
 public:
@@ -167,10 +167,10 @@ void Rva00474431::rva00474519(int force)
  Rva00226883 starts;
  for(i=0;i<ranks.size();++i) {
   int key=ranks[i]->key;
-  const _STL::vector<Rva00474519Position> &positions=ranks[i]->positions;
+  const _STL::vector<HordeRankPosition> &positions=ranks[i]->positions;
   starts.m_tree[key]=(int)recordList.size();
   for(unsigned j=0;j<positions.size();++j) {
-   const Rva00474519Position &pos=positions[j];
+   const HordeRankPosition &pos=positions[j];
    {
    Rva00474519RecordValues record;
    record.position=pos.position;record.key=key;

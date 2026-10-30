@@ -44,7 +44,7 @@ class Rva0055D3F5
 {
 public:
 	virtual void rva0055D3F5(Xfer *xfer);
-	void rva0055D422(Coord3D pos);
+	void debugDraw(Coord3D pos);
 private:
 	char m_pad[0x1C];
 	bool m_20;
@@ -64,7 +64,7 @@ void Rva0055D3F5::rva0055D3F5(Xfer *xfer)
 // beside the line volume's 0x0055CD70: two TacticalView slot-12 circles of
 // the +0x24 radius in 0xCCAAFFFF, half a radius below and above the centre.
 // The centre arrives by value and is moved in place.
-void Rva0055D3F5::rva0055D422(Coord3D pos)
+void Rva0055D3F5::debugDraw(Coord3D pos)
 {
 	pos.z -= m_radius * 0.5f;
 	((TacticalView *)TheTacticalView)->slot12(&pos, m_radius, 0xCCAAFFFF);

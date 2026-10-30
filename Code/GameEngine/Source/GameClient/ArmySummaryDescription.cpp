@@ -1,6 +1,6 @@
 // cl: /O1 /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /DNDEBUG
 // stlport
-// ??0Rva00220B04@@QAE@H@Z, retail 0x00220B04 124B.
+// ??0ArmySummaryDescriptionVisitor@@QAE@H@Z, retail 0x00220B04 124B.
 // Constructor and destructor share the native 36-byte layout: owning ASCII
 // strings at +8, integer category counts at +0x14, rule at +0x20, tables at +0/+4.
 // The 12-byte category records are counted through the existing global view.
@@ -67,17 +67,17 @@ struct Base220B04 : public Root220B04 {
 	}
 };
 
-class Rva00220B04 : public EmptyBase220B04, public Base220B04 {
+class ArmySummaryDescriptionVisitor : public EmptyBase220B04, public Base220B04 {
 public:
-	Rva00220B04(int a);
-    ~Rva00220B04();
+	ArmySummaryDescriptionVisitor(int a);
+    ~ArmySummaryDescriptionVisitor();
 public:
 	_STL::vector<AsciiString> m_vec08;
 	_STL::vector<int> m_vec14raw;
 	int m_rule;
 };
 
-Rva00220B04::Rva00220B04(int a)
+ArmySummaryDescriptionVisitor::ArmySummaryDescriptionVisitor(int a)
 	: EmptyBase220B04(),
 	  Base220B04(),
 	  m_vec08(_STL::allocator<AsciiString>()),
@@ -92,7 +92,7 @@ Rva00220B04::Rva00220B04(int a)
 // ?g_00DFE490@@3PAXA: matched references place it at VA 0xdfe490; also referenced as ?g_00DFE490@@3VRva00575674@@A.
 void * g_00DFE490 = 0;
 
-Rva00220B04::~Rva00220B04() {}
+ArmySummaryDescriptionVisitor::~ArmySummaryDescriptionVisitor() {}
 
 #include "unicode_string.h"
 #include "../Common/BattlePromptCounterView.h"
@@ -165,7 +165,7 @@ int Rva00220D1E::rva00220D1E(const ThingTemplate *thing)
     }
     return true;
 }
-static void BuildDescriptionString(UnicodeString *result, Rva00220B04 *items)
+static void BuildDescriptionString(UnicodeString *result, ArmySummaryDescriptionVisitor *items)
 {
     if(!items->m_vec08.empty()) {
         int count=items->m_vec08.size();
@@ -193,7 +193,7 @@ UnicodeString GetArmySummaryEntryDescription(Rva0037DCA5 *entry,int rule)
 {
     switch(rule) {
     case 0: {
-        Rva00220B04 items(0);
+        ArmySummaryDescriptionVisitor items(0);
         ((Rva0040CFC7Pred *)&items)->rva005FED99((Rva005FED99Arg *)entry);
         UnicodeString result;
         BuildDescriptionString(&result,&items);
@@ -206,7 +206,7 @@ UnicodeString GetArmySummaryEntryDescription(Rva0037DCA5 *entry,int rule)
 UnicodeString GetArmySummaryDescription(Rva0040CFC7 *army,int rule)
 {
     if(!g_00DFE490) Rva00220DCDInit();
-    Rva00220B04 items(rule);
+    ArmySummaryDescriptionVisitor items(rule);
     army->rva0040CFC7((Rva0040CFC7Pred *)&items);
     UnicodeString result;
     BuildDescriptionString(&result,&items);

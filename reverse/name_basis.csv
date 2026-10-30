@@ -5652,3 +5652,22 @@ param,RvaVector::rva0030E94F::n,RvaVector::rva0030E94F::newSize,inferred,agree:n
 local,LivingWorldBattle::rva003F5BDB::e,LivingWorldBattle::rva003F5BDB::element,inferred,agree:nl-6fe974073d90,Code/Libraries/Source/WWVegas/WWLib/Rva003F5BDB.cpp,0x003F5BDB
 local,LivingWorldBattle::rva003F5BDB::tmp,LivingWorldBattle::rva003F5BDB::science,inferred,agree:nl-62f823e8678d,Code/Libraries/Source/WWVegas/WWLib/Rva003F5BDB.cpp,0x003F5BDB
 function,?rva002E7F3E@Rva002E7F1E@@QBE_NXZ,?isNotEmpty@Rva002E7F1E@@QBE_NXZ,inferred,agree:nl-f54920f075b6,Code/GameEngine/Source/Common/GapBodiesGE06.cpp,0x002E7F3E
+function,?rva0055D422@Rva0055D3F5@@QAEXUCoord3D@@@Z,?debugDraw@Rva0055D3F5@@QAEXUCoord3D@@@Z,inferred,agree:nl-d76acd9941d4,Code/GameEngine/Source/GameClient/Rva0055D3F5Xfer.cpp,0x0055D422
+function,?rva004B09E7@AIGateUpdate@@SAXPAVObject@@PAV1@_N@Z,?triggerCallback@AIGateUpdate@@SAXPAVObject@@PAV1@_N@Z,inferred,agree:nl-121dc5129065,Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateTrigger.cpp,0x004B09E7
+carry,AIGateUpdate::rva004B09E7::relationship,AIGateUpdate::triggerCallback::relationship,inferred,scope renamed by Rename rva004B09E7 to triggerCallback (inferred),Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateTrigger.cpp,0x004B09E7
+function,?rva0005DABB@MilesAudioManager@@UAEXH@Z,?addAudioEvent@MilesAudioManager@@UAEXH@Z,inferred,agree:nl-f5d37ff81fa2,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerSmallSlots_Rva0005DABB.cpp,0x0005DABB
+function,?rva0005DAE6@MilesAudioManager@@UAEXHH@Z,?resumeAudioEvent@MilesAudioManager@@UAEXHH@Z,inferred,agree:nl-0e40813f5457,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerSmallSlots_Rva0005DABB.cpp,0x0005DAE6
+carry,MilesAudioManager::rva0005DAE6::resumeHandle,MilesAudioManager::resumeAudioEvent::resumeHandle,inferred,scope renamed by Rename rva0005DAE6 to resumeAudioEvent (inferred),Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerSmallSlots_Rva0005DABB.cpp,0x0005DAE6
+class,BfmeMsgVIT,FeslMessage,inferred,agree:nl-7e4357912c43,Code/GameEngine/Source/Common/BfmeConv1378.cpp,
+class,Rva00331ED1Node,SpyEventObjectNode,inferred,agree:nl-42e07d83df99,Code/GameEngine/Source/Common/Rva00331ED1Dispatch.cpp,
+class,Rva00220B04,ArmySummaryDescriptionVisitor,inferred,agree:nl-9295f6de1be5,Code/GameEngine/Source/GameClient/ArmySummaryDescription.cpp,
+carry,Rva00220B04::m_rule,ArmySummaryDescriptionVisitor::m_rule,inferred,scope renamed by Rename Rva00220B04 to ArmySummaryDescriptionVisitor (inferred),Code/GameEngine/Source/GameClient/ArmySummaryDescription.cpp,
+carry,Rva00220B04::Rva00220B04::descriptionData,ArmySummaryDescriptionVisitor::ArmySummaryDescriptionVisitor::descriptionData,inferred,scope renamed by Rename Rva00220B04 to ArmySummaryDescriptionVisitor (inferred),Code/GameEngine/Source/GameClient/ArmySummaryDescription.cpp,0x00220B04
+class,Rva0022216EStore,InGameNotificationTypeStore,inferred,agree:nl-9bd13be7cb02,Code/GameEngine/Source/GameClient/GUI/InGame/InGameNotificationType.cpp,
+class,Rva002221A9Visitor,InGameNotificationTypeVisitor,inferred,agree:nl-b149d1c1be8d,Code/GameEngine/Source/GameClient/GUI/InGame/InGameNotificationType.cpp,
+carry,?forEachInGameNotificationType@@YAXAAVRva002221A9Visitor@@@Z,?forEachInGameNotificationType@@YAXAAVInGameNotificationTypeVisitor@@@Z,inferred,scope renamed by Rename Rva002221A9Visitor to InGameNotificationTypeVisitor (inferred),Code/GameEngine/Source/GameClient/GUI/InGame/InGameNotificationType.cpp,0x002221A9
+class,Rva0029FD1BNode,RadiusDecalTemplateNode,inferred,agree:nl-255d2373cee6,Code/GameEngine/Source/GameClient/InGameUIRva0029FD1B.cpp,
+class,Rva00474519Position,HordeRankPosition,inferred,agree:nl-819fa29185f4,Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain/Rva00474483ConfigureSlots.cpp,
+class,Rva00420F0EPod,DelayedExperienceLevelGrantEntry,inferred,agree:nl-ff87778d173f,Code/GameEngine/Source/GameLogic/System/DelayedExperienceLevelGrantSystem.cpp,
+class,Rva007F49E0SharedSocket,SharedUdpSocket,inferred,agree:nl-85e074601105,Code/GameEngine/Source/GameNetwork/Rva007F49E0UdpPacketSend.cpp,
+class,BfmeSlotCursorVNC,PendingProbeCursor,inferred,agree:nl-1e32f2a79ffd,Code/GameEngine/Source/GameNetwork/Rva00800F40PendingProbeUpdate.cpp,
