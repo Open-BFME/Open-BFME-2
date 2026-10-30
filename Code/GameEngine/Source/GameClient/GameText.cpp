@@ -9,6 +9,7 @@
 // with its own STR/CSF readers; the manager holds two of them, the game's
 // strings and the map's.
 typedef bool Bool;
+#define BFME_STRINGBASE_PUBLIC_DTOR
 #include <vector>
 #include <algorithm>
 #include "ascii_string.h"
@@ -40,7 +41,6 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 struct NoString;
 class GameTextTable;
 #include <new>
-#define BFME_STRINGBASE_PUBLIC_DTOR
 #include "string_base.h"
 
 struct AsciiStringHeader
