@@ -67,6 +67,24 @@ two retyped wrapper names as lost HEAD-name coverage. False reject recorded;
 no verifier or baseline workaround. Original container/payload names remain
 unknown. [Target facts and checks](../reverse/attempt_support/rva-d3fa0-tree-link-20261030-codex3.md).
 
+### PlayerList stale constructor exemption and composition prerequisites (2026-10-30)
+
+At base `112d98e320`, PlayerList.cpp's stale constructor exemption is retired:
+the complete 136-byte constructor and its EH rows already belong to
+PlayerListCtorBFME2.cpp. All 57 rows across twelve fragments, the data row,
+four strings and 21 funclet pins pass; strict preparation verifies all twelve
+providers. External COMDATs, symbols and reference graphs remain identical.
+One hatch key is retired. Source-file and census gains are zero.
+
+The current class-view plan still reports Player size, PlayerList base and
+embedded Dict conflicts. The broad merge probe stopped during accretion with
+no final accepted-set verdict; no merge was applied. The staged audit is
+INCONCLUSIVE on older index `85f6b7f40c` and the missing current receipt for
+Common/0CreateAHeroManager21FE49.cpp. Carry this consumer and the PlayerList
+scope into the next scheduled census. Class reconciliation and the earlier
+Xfer/C1001 composition prerequisite remain open.
+[Verification and bounded probe](../reverse/attempt_support/playerlist-stale-ctor-marker-20261030-codexb5.md).
+
 ### CopyProtection Microsoft-header cleanup (2026-10-30)
 
 At base `3154df1e36`, CopyProtection.cpp uses the VS2003 Platform SDK and CRT

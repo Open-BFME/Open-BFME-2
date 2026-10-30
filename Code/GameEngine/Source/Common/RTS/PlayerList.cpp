@@ -237,7 +237,7 @@ public:
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
-// ?PlayerList::PlayerList present-unmatched
+// PlayerList::PlayerList: defined in PlayerListCtorBFME2.cpp (0x002A7F80).
 //-----------------------------------------------------------------------------
 // PlayerList::~PlayerList: defined in PlayerListDtor.cpp (its row's unit).
 
@@ -257,7 +257,7 @@ void PlayerList::reset()
 //-----------------------------------------------------------------------------
 // Note: a ZH-derived PlayerList::newGame body stood here. The census proves
 // our copy is not retail's (S: the kept definition differs from retail bytes)
-// while 0x002A8008 is rowed 766B from PlayerListRva002A8008.cpp, so this
+// while 0x002A8008 is rowed 766B from PlayerList_getNthPlayer.cpp, so this
 // unit no longer defines it and the link keeps the rowed copy.
 
 

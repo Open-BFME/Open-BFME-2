@@ -12367,7 +12367,6 @@ present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	setListInScoreScr
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	setTeamRelationship@Player@@QAEXPBVTeam@@W4Relationship@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	transferAssetsFromThat@Player@@QAEXPAV1@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	xfer@Player@@MAEXPAVXfer@@@Z	1
-present_unmatched	Code/GameEngine/Source/Common/RTS/PlayerList.cpp	PlayerList::PlayerList	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/PlayerList.cpp	PlayerList::crc	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/PlayerList.cpp	PlayerList::loadPostProcess	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/PlayerList.cpp	PlayerList::teamAboutToBeDeleted	1
