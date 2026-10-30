@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
 // stlport
 // Retail RE: ?parsePrerequisiteScience@@YAXPAVINI@@PAX1PBX@Z @0x0033EABD (93B).
 //
@@ -16,29 +16,46 @@
 // manglings; 3x vector inits at +0/+0xC/+0x18), prereq-vector push_back
 // @0x33EA10 (0x24 stride = 3x12B vectors; compiler-attested mangling).
 
+#include <vector>
+
 enum ScienceType
 {
 	SCIENCE_INVALID = 0
 };
 
+class ProductionPrerequisite;
+
 namespace _STL
 {
 
-template <class T>
-class allocator
+// Bind the two rowed push_backs to their workers: vector<ScienceType> at
+// 0x002E01C6 and vector<ProductionPrerequisite> at 0x0033EA10. Declarations
+// only: the definitions live in the row owners.
+template <class T, class A> class vector;
+template <> class vector<int, allocator<int> >
 {
+private:
+	int *m_start;
+	int *m_finish;
+	int *m_endOfStorage;
 };
-
-template <class T, class A = allocator<T> >
-class vector
+template <> class vector<ScienceType, allocator<ScienceType> >
 {
 public:
-	void push_back(const T &x);
-
+	void push_back(const ScienceType &x);
 private:
-	T *m_start;
-	T *m_finish;
-	T *m_end;
+	ScienceType *m_start;
+	ScienceType *m_finish;
+	ScienceType *m_endOfStorage;
+};
+template <> class vector<ProductionPrerequisite, allocator<ProductionPrerequisite> >
+{
+public:
+	void push_back(const ProductionPrerequisite &x);
+private:
+	ProductionPrerequisite *m_start;
+	ProductionPrerequisite *m_finish;
+	ProductionPrerequisite *m_endOfStorage;
 };
 
 }
