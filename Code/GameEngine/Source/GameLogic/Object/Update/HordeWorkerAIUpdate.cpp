@@ -29,6 +29,26 @@ class Thing;
 class ModuleData;
 class Object;
 #include "../../../../Include/Common/BfmeXfer.h"
+#define BFME_SNAPSHOT_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	protected: \
+		virtual const char *GetSnapshotName() const; \
+	}; \
+	const char *NAME::GetSnapshotName() const \
+	{ \
+		return TEXT; \
+	}
+#define BFME_LITERAL_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	public: \
+		const char *name() const; \
+	}; \
+	const char *NAME::name() const \
+	{ \
+		return TEXT; \
+	}
 
 // ?getModuleNameKey@HordeWorkerAIUpdate@@UBE?AW4NameKeyType@@XZ @0x49acd0
 // (69B): cached pool-name key for HordeWorkerAIUpdate. The class
@@ -163,11 +183,41 @@ private:
 	bool m_3F4;
 };
 
+class DozerActionState
+{
+public:
+	virtual const char *GetSnapshotName() const;
+};
+
+BFME_LITERAL_NAME_GETTER(Rva0049ACC5Named, "HordeWorkerAIUpdate")
+
+class BoneFXDamage
+{
+protected:
+	virtual const char *GetSnapshotName() const;
+};
+
 // tu-skeleton: 0x0049AC94 49B ??1HordeWorkerAIUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/HordeWorkerAIUpdateDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x0049ACC5 6B ?name@Rva0049ACC5Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/ModuleNameGetters3.cpp
+
+// Module literal name getters (cold slice): six-byte const members with one
+// shape:
+//
+//     mov eax,<offset string literal> / ret
+//
+// Each body returns a pointer to a NUL-terminated class-name string in
+// .rdata. Contributor-local unit split from ModuleNameGetters2.cpp to keep
+// concurrent landings conflict-free; the BFME_LITERAL_NAME_GETTER macro is
+// verbatim, only the class names follow this tree's address-derived
+// convention (identity unrecoverable from 6 bytes, string carried in source
+// where verify_string_refs re-reads it).
+// No // cl: line (defaults match the frameless 6-byte shape, same as the
+// ModuleNameGetters.cpp precedent).
 
 // tu-skeleton: 0x0049ACCB 5B ?j_0049accb@@YAXXZ -- matched in Code/gen_small/gthunks_000_admitted.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/HordeWorkerAIUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/HordeWorkerAIUpdate.cpp
 
@@ -221,10 +271,6 @@ void Rva0049AE5E::rva0049ADB7()
 	m_flag3CA = 0;
 }
 
-// tu-skeleton: 0x0049AD15 134B ??0HordeWorkerAIUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/HordeWorkerAIUpdateCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0049AD9B 28B ??_GHordeWorkerAIUpdate@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/HordeWorkerAIUpdateDtor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/HordeWorkerAIUpdateXfer.cpp
 
 // ?xfer@HordeWorkerAIUpdate@@MAEXPAVXfer@@@Z @0x0049AE07
@@ -237,6 +283,10 @@ void HordeWorkerAIUpdate::xfer(Xfer *xfer)
 	XferObjectID(xfer, &m_3F0);
 	*xfer == m_3F4;
 }
+
+// tu-skeleton: 0x0049AD15 134B ??0HordeWorkerAIUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/HordeWorkerAIUpdateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0049AD9B 28B ??_GHordeWorkerAIUpdate@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/HordeWorkerAIUpdateDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0078D665 8B uw_0078d665 -- matched in Code/gen_small/uw_gen_013.cpp (not merged yet)
 
