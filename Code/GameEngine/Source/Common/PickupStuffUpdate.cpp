@@ -70,24 +70,109 @@ public:
 class Xfer;
 class Thing;
 #include "../../Include/GameLogic/Module/BehaviorModule.h"
-
 enum UpdateSleepTime
 {
 	UPDATE_SLEEP_NONE = 1,
 	UPDATE_SLEEP_FOREVER = 0x3fffffff
 };
-
 enum CommandSourceType
 {
 	CMD_FROM_PLAYER = 0,
 	CMD_FROM_AI = 1,
 	CMD_FROM_PLAYER2 = 2
 };
-
 class AICommandInterface
 {
 public:
 	void aiMoveToObject(Object *obj, CommandSourceType src);	// 0x00352ECA
+};
+#include "PartitionRangeQueryCallView.h"
+//
+// ?xfer@PickupStuffUpdate@@MAEXPAVXfer@@@Z, retail 0x00491F18, 66 bytes. Virtual
+// slot 3 (offset 0x0C) of vtable 0x0084DDA8 (class of rowed dtor
+// ??1PickupStuffUpdate@@UAE@XZ in Rva0024A797Derived.cpp): base UpdateModule xfer
+// via rowed 0x44DF9F first, then Version(1,1) via Xfer slot 0x28 reusing the
+// dead argument slot, then bool at +0x20 via Xfer slot 0x90, then uint at
+// +0x24 via Xfer slot 0x78. Layout is UpdateModule base 0x20 plus bool plus
+// uint. Identity is slot 3 plus the UpdateModule base call; class name
+// stays honest Rva address name.
+
+class AsciiString;
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+#include "../../Include/Common/BfmeXfer.h"
+#include "GameLogicObjectLookupView.h"
+
+extern PartitionManager *ThePartitionManager;
+
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const char *name);
+};
+
+extern NameKeyGenerator *TheNameKeyGenerator;
+
+class Rva00360D26Member
+{
+public:
+	~Rva00360D26Member();
+
+private:
+	unsigned char m_data[4];
+};
+
+class ModuleData;
+
+class AIUpdateInterface;
+
+class UpdateModuleInterface
+{
+public:
+	virtual UpdateSleepTime update() = 0;
+};
+
+class Xfer::Version
+{
+public:
+	Version(unsigned char current, unsigned char minimum)
+		: m_current(current), m_minimum(minimum) {}
+
+	unsigned char m_current;
+	unsigned char m_minimum;
+};
+
+class BehaviorModuleBase
+{
+public:
+	virtual void unused();
+	Thing *m_thing;
+	Object *m_object;
+};
+
+class BehaviorModuleOther
+{
+public:
+	virtual void unused();
 };
 
 // The Object's AI as these units use it: slot 110 (+0x1B8) answers whether
@@ -217,6 +302,16 @@ public:
 	void *m_34;			// +0x34
 };
 
+extern GameLogic *TheGameLogic;
+
+extern int BfmeLogicFramesPerSecond;
+
+struct PickupStuffAI
+{
+	unsigned char m_pad00[0x34];
+	int m_34;
+};
+
 class Object
 {
 public:
@@ -229,31 +324,15 @@ public:
 	AIUpdateInterface *m_ai;	// +0x258
 };
 
-#include "PartitionRangeQueryCallView.h"
+struct Rva002A8AB1Record;
 
-extern PartitionManager *ThePartitionManager;
-
-enum NameKeyType
-{
-	NK_UNKNOWN = 0
-};
-
-class NameKeyGenerator
+class Rva002A8F24
 {
 public:
-	NameKeyType nameToKey(const char *name);
+	Rva002A8AB1Record *rva002A8AB1(void *owner);
 };
 
-extern NameKeyGenerator *TheNameKeyGenerator;
-
-class Rva00360D26Member
-{
-public:
-	~Rva00360D26Member();
-
-private:
-	unsigned char m_data[4];
-};
+extern Rva002A8F24 *TheSkirmishAIManager;
 
 class __declspec(novtable) PickupStuffUpdateModuleData : public Snapshot
 {
@@ -267,10 +346,13 @@ public:
 	float m_scanIntervalSeconds; // +0x14
 };
 
-class UpdateModuleInterface
+class ModuleBase
 {
 public:
-	virtual UpdateSleepTime update() = 0;
+	virtual ~ModuleBase();
+protected:
+	const ModuleData *m_moduleData;	// +0x04
+	Object *m_object;		// +0x08
 };
 
 class UpdateModule : public BehaviorModule, public UpdateModuleInterface
@@ -317,6 +399,8 @@ private:
 
 // tu-skeleton: 0x00491DEC 6B ?name@PickupStuffUpdate@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
 
+// ---- from Code/GameEngine/Source/Common/PickupStuffUpdate.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/PickupStuffUpdatePoolKey.cpp
 
 // ?getModuleNameKey@PickupStuffUpdate@@UBE?AW4NameKeyType@@XZ
@@ -326,20 +410,6 @@ NameKeyType PickupStuffUpdate::getModuleNameKey() const
 		TheNameKeyGenerator->nameToKey("PickupStuffUpdate");
 	return ThePickupStuffUpdatePoolKey;
 }
-
-// tu-skeleton: 0x00491E37 80B ??0PickupStuffUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/PickupStuffUpdateModuleDataCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00491E87 17B ?buildFieldParse@PickupStuffUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
-
-// tu-skeleton: 0x00491E98 50B ??0PickupStuffUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/PickupStuffUpdateCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00491ECA 28B ??_GPickupStuffUpdate@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
-
-// tu-skeleton: 0x00491EE6 50B ?rva00491EE6@PickupStuffUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva00491DD3Method.cpp (not merged yet)
-
-// tu-skeleton: 0x00491F18 66B ?xfer@PickupStuffUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/PickupStuffUpdate_xfer.cpp (not merged yet)
-
-// tu-skeleton: 0x00491F5A 28B ??_GPickupStuffUpdateModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-p7z-f52d.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/PickupStuffUpdateModuleDataDtor.cpp
 
@@ -376,8 +446,81 @@ Object *PickupStuffUpdate::rva00491FA6()
 	return hits.next();
 }
 
-// tu-skeleton: 0x00492089 44B ?moveToStuff@PickupStuffUpdate@@QAEXPAX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/PickupStuffUpdate_moveToStuff.cpp (not merged yet)
+// tu-skeleton: 0x00491E37 80B ??0PickupStuffUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/PickupStuffUpdateModuleDataCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x004920B5 118B ?updateInactive@PickupStuffUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/PickupStuffUpdateScan.cpp (not merged yet)
+// tu-skeleton: 0x00491E87 17B ?buildFieldParse@PickupStuffUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
 
-// tu-skeleton: 0x0049212B 78B ?update@PickupStuffUpdate@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/PickupStuffUpdateUpdate.cpp (not merged yet)
+// tu-skeleton: 0x00491E98 50B ??0PickupStuffUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/PickupStuffUpdateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00491ECA 28B ??_GPickupStuffUpdate@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva00491DD3Method.cpp
+
+void PickupStuffUpdate::rva00491EE6()
+{
+	Object *obj = m_object;
+	AIUpdateInterface *ai = obj->m_ai;
+	if (!ai->IsActive())
+		return;
+	ai = m_object->m_ai;
+	if (ai->m_34 != 0)
+		ai->rva0026331C();
+	m_20 = false;
+}
+
+// ---- from Code/GameEngine/Source/Common/PickupStuffUpdate_xfer.cpp
+
+void PickupStuffUpdate::xfer(Xfer *xfer)
+{
+	UpdateModule::xfer(xfer);
+	Xfer::Version version(1, 1);
+	*xfer == version;
+	*xfer == m_20;
+	*xfer == m_lastScanFrame;
+}
+
+// tu-skeleton: 0x00491F5A 28B ??_GPickupStuffUpdateModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-p7z-f52d.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/PickupStuffUpdate_moveToStuff.cpp
+
+void PickupStuffUpdate::moveToStuff(void *arg)
+{
+	m_object->m_ai->BeginTemporaryStateMachine();
+	m_object->m_ai->m_cmd.aiMoveToObject((Object *)arg, CMD_FROM_PLAYER2);
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/PickupStuffUpdateScan.cpp
+
+void PickupStuffUpdate::updateInactive()
+{
+	if ((float)TheGameLogic->getFrame() > (float)BfmeLogicFramesPerSecond * getPickupStuffUpdateModuleData()->m_scanIntervalSeconds + (float)m_lastScanFrame) {
+		if (m_object->m_ai->m_34 == 0) {
+			Object *found = rva00491FA6();
+			if (found) {
+				moveToStuff(found);
+				m_20 = true;
+			}
+		}
+		m_lastScanFrame = TheGameLogic->getFrame();
+	}
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/PickupStuffUpdateUpdate.cpp
+
+UpdateSleepTime PickupStuffUpdate::update()
+{
+	Object *obj = m_object;
+	if (obj->getAI())
+	{
+		const PickupStuffUpdateModuleData *data = (const PickupStuffUpdateModuleData *)m_moduleData;
+		if (!data->m_skirmishAIOnly || TheSkirmishAIManager->rva002A8AB1(obj->getControllingPlayer()))
+		{
+			if (m_20)
+				rva00491EE6();
+			else
+				updateInactive();
+			return UPDATE_SLEEP_NONE;
+		}
+	}
+	return UPDATE_SLEEP_FOREVER;
+}
