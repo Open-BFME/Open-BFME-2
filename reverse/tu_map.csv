@@ -35947,7 +35947,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0045A17D,28,code,Code/GameEngine/Source/GameLogic/Object/Behavior/SiegeDockingBehavior.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Behavior/SiegeDockingBehavior.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/SiegeDockingBehaviorDtor.cpp
 0x0045A199,29,code,Code/GameEngine/Source/Common/BfmeThingBQA.cpp,proposed,N,N=Code/GameEngine/Source/Common/BfmeThingBQA.cpp,Code/GameEngine/Source/Common/BfmeConv511.cpp
 0x0045A1B6,35,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Behavior/SiegeDockingBehaviorLoadPostProcess.cpp
-0x0045A1D9,18,code,Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityQueryEntry.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityQueryEntry.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityQueryEntryInit.cpp
+0x0045A1D9,18,code,Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityQueryEntry.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityQueryEntry.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityQueryEntry.cpp
 0x0045A1EB,12,code,Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityQueryEntry.cpp,approved,C,C=0x0045A1D9..0x0045A1F7 provisional,Code/GameEngine/Source/Common/GapBodiesGE22.cpp
 0x0045A1F7,12,code,Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityQueryEntry.cpp,approved,C,C=0x0045A1D9..0x0045A203 provisional,Code/GameEngine/Source/Common/GapBodiesGE22.cpp
 0x0045A203,7,code,Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityQueryEntry.cpp,approved,C,C=0x0045A1D9..0x0045A20A provisional,Code/GameEngine/Source/Common/DispByteFieldGetters.cpp
