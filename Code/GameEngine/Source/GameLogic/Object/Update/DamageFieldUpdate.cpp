@@ -34,10 +34,47 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class DamageFieldUpdate
+class Xfer;
+
+enum ObjectID
+{
+	INVALID_ID = 0
+};
+
+struct BridgeBehaviorObjectIDNode
+{
+	BridgeBehaviorObjectIDNode *m_next;
+	BridgeBehaviorObjectIDNode *m_previous;
+	ObjectID m_value;
+};
+
+class BridgeBehaviorObjectIDList
+{
+public:
+	void push_back(const ObjectID &value);
+
+	BridgeBehaviorObjectIDNode *m_node;
+};
+
+class FireWeaponUpdate
+{
+protected:
+	virtual void v00();
+	virtual void v01();
+	virtual void v02();
+	virtual void xfer(Xfer *xfer);
+
+	char m_unrecovered04[0x2C - 0x04];
+};
+
+class DamageFieldUpdate : public FireWeaponUpdate
 {
 public:
 	virtual NameKeyType getModuleNameKey() const;
+protected:
+	virtual void xfer(Xfer *xfer);
+private:
+	BridgeBehaviorObjectIDList m_2C;
 };
 
 //
