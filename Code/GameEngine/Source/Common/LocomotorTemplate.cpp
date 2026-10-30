@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /Ireference/shims/bfme2_ascii
+// cl: /FIzh_ascii.h /Ireference/shims/bfme2_ascii_zh /O1 /DNDEBUG /MD /Ireference/shims/bfme2_ascii
 //
 // ??0LocomotorTemplate@@QAE@ABV0@@Z, retail 0x001E4DEB, 961 bytes.
 // Copy constructor of the LocomotorTemplate holder (vtable 0x007DE8B4, rowed dtor

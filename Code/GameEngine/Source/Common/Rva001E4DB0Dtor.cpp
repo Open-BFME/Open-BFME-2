@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
+// cl: /FIzh_ascii.h /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /MD /EHsc
 //
 // ??1LocomotorTemplate@@UAE@XZ @0x001E4DB0 59B
 // Virtual dtor storing vtable 0x007DE8B4, destroying AsciiString at +0x10

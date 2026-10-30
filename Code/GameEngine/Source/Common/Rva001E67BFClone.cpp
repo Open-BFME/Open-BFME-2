@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
+// cl: /FIzh_ascii.h /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /MD /EHsc
 //
 // ?rva001E67BF@LocomotorTemplate@@QAE?AV1@XZ, retail 0x001E67BF, 94 bytes.
 // By-value copy helper: makes a local LocomotorTemplate from *this through the

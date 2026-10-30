@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// cl: /FIzh_ascii.h /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /O1 /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
 // stlport
 // ??1Rva001E72B4@@UAE@XZ, retail 0x001E72B4..0x001E7389 (213 bytes, EH):
 // a subsystem's destructor (opaque pin of its scalar deleting destructor;

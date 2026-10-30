@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /Ireference/shims/bfme2_ascii
+// cl: /FIzh_ascii.h /Ireference/shims/bfme2_ascii_zh /O1 /DNDEBUG /MD /Ireference/shims/bfme2_ascii
 //
 // ??4LocomotorTemplate@@QAEAAV0@ABV0@@Z, retail 0x001E3955, 927 bytes.
 // Copy assignment: base StreakDrawModuleTemplate operator= (rowed 0x1FD28E),

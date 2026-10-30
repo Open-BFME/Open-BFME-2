@@ -5,7 +5,7 @@
 // Object* is only the existing folded four-byte-pointer constructor ABI view;
 // the concrete pointee and map payload identities remain unresolved.
 // Sibling Rva001F092ACtor.cpp supplies the verified map/vector transfer pattern.
-// cl: /O1 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /FIzh_ascii.h /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /O1 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 #include <map>
 #include <vector>
