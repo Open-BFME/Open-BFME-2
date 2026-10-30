@@ -3383,8 +3383,8 @@ alternatename	Code/GameEngine/Source/GameNetwork/BfmeThingDGDDestructor.cpp	??1G
 alternatename	Code/GameEngine/Source/GameNetwork/BfmeThingTWA.cpp	?set@BfmeThingTWA@@UAEXHH@Z	1
 alternatename	Code/GameEngine/Source/GameNetwork/BfmeThingZI.cpp	?bfmeFindFN@BfmeOwnerFN@@QAEHPAVBfmeVecFN@@PBD@Z	1
 alternatename	Code/GameEngine/Source/GameNetwork/CDownloadCtorEmit.cpp	?Abort@CDownload@@UAEJXZ	1
+alternatename	Code/GameEngine/Source/GameNetwork/Connection.cpp	?processAck@Connection@@QAEPAVNetCommandRef@@PAVNetAckBothCommandMsg@@@Z	1
 alternatename	Code/GameEngine/Source/GameNetwork/ConnectionManager.cpp	?find@FontCharMap@@QAEPAUFontCharNode@@ABG@Z	1
-alternatename	Code/GameEngine/Source/GameNetwork/ConnectionProcessAck.cpp	?processAck@Connection@@QAEPAVNetCommandRef@@PAVNetAckBothCommandMsg@@@Z	1
 alternatename	Code/GameEngine/Source/GameNetwork/FeslEchoNotifier.cpp	??0FeslEchoMessage@@QAE@PADH@Z	1
 alternatename	Code/GameEngine/Source/GameNetwork/FeslEchoNotifier.cpp	??1FeslEchoMessage@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameNetwork/FeslEchoNotifier.cpp	?addInt@FeslEchoMessage@@QAEXPBDH@Z	1
