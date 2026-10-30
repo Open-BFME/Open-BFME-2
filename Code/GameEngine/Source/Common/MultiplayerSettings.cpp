@@ -1,4 +1,4 @@
-// cl: /FIzh_ascii.h /G7 /arch:SSE /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /DZH_EMIT_POOL_GLUE /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib
+// cl: /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib
 // stlport
 // TU Code/GameEngine/Source/Common/MultiplayerSettings.cpp: generated by tools/tu_skeleton.py from tu_map.csv (approved rows, retail order)
 #include <stl/_algobase.h>
@@ -6,17 +6,11 @@
 #include <cstddef>
 #include "ascii_string.h"
 #include "../../../Libraries/Include/Lib/RGBColor.h"
-
 typedef bool Bool;
 typedef int Int;
 typedef int Color;
 #include "../../../../reference/shims/subsystem_bfme2/subsystem_interface.h"
-
-// The native base has fourteen virtual slots and occupies 0x0C bytes.
-// Avoid PreRTS.h: its Zero Hour SubsystemInterface and inline RGBColor
-// declarations conflict with the target interfaces used by this TU.
 #define _MULTIPLAYERSETTINGS_H_
-
 // Only static parser callbacks are needed here; no INI object is constructed.
 // Signatures and FieldParse's four-word layout are the existing INI contract.
 class INI
@@ -27,7 +21,6 @@ public:
     static void parseInt(INI *, void *, void *, const void *);
     static void parseBool(INI *, void *, void *, const void *);
 };
-
 typedef void (*INIFieldParseProc)(INI *, void *, void *, const void *);
 struct FieldParse
 {
@@ -36,10 +29,8 @@ struct FieldParse
     const void *userData;
     Int offset;
 };
-
 // The existing GameInfo constants, also selected by getColor's retail tests.
 enum { PLAYERTEMPLATE_RANDOM = -1, PLAYERTEMPLATE_OBSERVER = -2 };
-
 class MultiplayerColorDefinition
 {
 public:
@@ -68,11 +59,9 @@ private:
     RGBColor m_rgbExtra2; // +0x30, LivingWorldBannerColor in the native table
     Bool m_extraFlag; // +0x3C, AvailableInWotR in the native table
 };
-
 typedef _STL::pair<const int, MultiplayerColorDefinition> ColorMapValue;
 typedef _STL::map<int, MultiplayerColorDefinition, _STL::less<int>, _STL::allocator<_STL::pair<const int, MultiplayerColorDefinition> > > MultiplayerColorList;
 typedef MultiplayerColorList::iterator MultiplayerColorIter;
-
 class MultiplayerSettings : public SubsystemInterface
 {
 public:
@@ -114,13 +103,11 @@ private:
     MultiplayerColorDefinition m_observerColor; // +0x44
     MultiplayerColorDefinition m_randomColor; // +0x84
 };
-
 typedef char MultiplayerBaseSize[sizeof(SubsystemInterface) == 0x0C ? 1 : -1];
 typedef char MultiplayerMapSize[sizeof(MultiplayerColorList) == 0x0C ? 1 : -1];
 typedef char MultiplayerColorSize[sizeof(MultiplayerColorDefinition) == 0x40 ? 1 : -1];
 typedef char MultiplayerSettingsSize[sizeof(MultiplayerSettings) == 0xC4 ? 1 : -1];
 typedef char MultiplayerFieldParseSize[sizeof(FieldParse) == 0x10 ? 1 : -1];
-
 extern MultiplayerSettings *TheMultiplayerSettings;
 #define _STLP_BFME_LOWER_BOUND_EXTERN
 #include <hash_map>
@@ -282,55 +269,130 @@ template <> void **vector<void*>::end();
 template _STL::pair<const int, MultiplayerColorDefinition>::pair(
 	const _STL::pair<const int, MultiplayerColorDefinition> &);
 
-// tu-skeleton: 0x00380C1E 24B ?setColor@MultiplayerColorDefinition@@QAEXURGBColor@@@Z -- matched in Code/GameEngine/Source/Common/MultiplayerColorDefinitionCtor.cpp (not merged yet)
+typedef char MultiplayerColorDefinitionSizeMatchesRetail[(sizeof(MultiplayerColorDefinition) == 0x40) ? 1 : -1];
 
-// tu-skeleton: 0x00380C36 24B ?setNightColor@MultiplayerColorDefinition@@QAEXURGBColor@@@Z -- matched in Code/GameEngine/Source/Common/MultiplayerColorDefinitionCtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/MultiplayerColorDefinitionCtor.cpp
 
-// tu-skeleton: 0x00380C4E 96B ??0MultiplayerColorDefinition@@QAE@XZ -- matched in Code/GameEngine/Source/Common/MultiplayerColorDefinitionCtor.cpp (not merged yet)
+//
+// ??0MultiplayerColorDefinition@@QAE@XZ, retail 0x00380C4E, 90 bytes.
+// Dedicated TU (the shared MultiplayerSettings.cpp TU carries the ZH-shaped
+// ctor unmatched; a same-TU definition would also capture its callers'
+// REL32 locally -- and that TU's /G7 emits the push-style SEH prologue while
+// retail uses the __EH_prolog cookie style here).
+//
+// BFME1 reference gives the ZH layout (AsciiString + RGBColor + int +
+// RGBColor + int = 0x24, cf. reference/open-bfme-1/.../MultiplayerColorDefinitionAssign.cpp).
+// BFME2 grew the class: retail touches two more RGBColors at +0x24/+0x30
+// (both setFromInt(-1)) and a zeroed byte at +0x3C. The INI parse function
+// only reaches the ZH fields, so the growth is invisible to it; the names
+// below for the added members are honest placeholders at retail-proven
+// offsets, not recovered identities.
+// Retail shape, all read off the body: inline-null string default
+// (mov [ebx],0), flag byte via shared al-zero, tooltip teardown through the
+// 0x36410 fold, setFromInt(-1) on +0x04, 12B movs copy +0x04 -> +0x14, one
+// shared -1 (or esi,-1) stored to +0x10/+0x20 and pushed to the +0x24/+0x30
+// setFromInt calls. Called from the color-list miss path (lookup 0x3812E6)
+// and the new-color path (0x3813B7), which is the identity proof.
 
-// tu-skeleton: 0x00380CAE 130B ??4MultiplayerColorDefinition@@QAEPAV0@ABV0@@Z -- matched in Code/GameEngine/Source/Common/MultiplayerColorDefinitionCtor.cpp (not merged yet)
+// ??0MultiplayerColorDefinition@@QAE@XZ
+MultiplayerColorDefinition::MultiplayerColorDefinition()
+{
+	m_extraFlag = false;
+	m_tooltipName.clear();
+	m_rgbValue.setFromInt(-1);
+	m_rgbValueNight = m_rgbValue;
+	// One shared -1 below: retail materializes it once (or esi,-1 reusing the
+	// dead movs source) and stores/pushes it four times, while the first
+	// setFromInt above keeps its literal push-imm.
+	const int unsetWhite = -1;
+	m_color = unsetWhite;
+	m_colorNight = unsetWhite;
+	m_rgbExtra1.setFromInt(unsetWhite);
+	m_rgbExtra2.setFromInt(unsetWhite);
+}
 
-// tu-skeleton: 0x00380D30 79B ??0MultiplayerColorDefinition@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/MultiplayerColorDefinitionCopy.cpp (not merged yet)
+// ??4MultiplayerColorDefinition@@QAEPAV0@ABV0@@Z, retail 0x00380CAE, 127 bytes.
+// Same TU as the ctor (same shells/flags; neither body calls the other, so no
+// same-TU capture). Retail reads every member directly off `other` -- only
+// the tooltip goes through the out-of-line getter (0x2E4336, pinned) plus the
+// 0x366F0 assign fold and the 0x36410 temp teardown -- then copies the two
+// BFME2-added RGBColors and the flag byte like the ZH ones.
+// ??4MultiplayerColorDefinition@@QAEPAV0@ABV0@@Z
+MultiplayerColorDefinition *MultiplayerColorDefinition::operator=(const MultiplayerColorDefinition &other)
+{
+	m_tooltipName = other.getTooltipName();
+	m_rgbValue = other.m_rgbValue;
+	m_color = other.m_color;
+	m_rgbValueNight = other.m_rgbValueNight;
+	m_colorNight = other.m_colorNight;
+	m_rgbExtra1 = other.m_rgbExtra1;
+	m_rgbExtra2 = other.m_rgbExtra2;
+	m_extraFlag = other.m_extraFlag;
+	return this;
+}
+
+// Retail 0x00380C1E / 0x00380C36, 24 bytes each. The canonical RGBColor
+// declaration keeps getAsInt owned by color.cpp (retail 0x00004EA7).
+void MultiplayerColorDefinition::setColor( RGBColor rgb )
+{
+	m_color = rgb.getAsInt() | 0xFF << 24;
+}
+
+void MultiplayerColorDefinition::setNightColor( RGBColor rgb )
+{
+	m_colorNight = rgb.getAsInt() | 0xFF << 24;
+}
+
+// ---- from Code/GameEngine/Source/Common/MultiplayerColorDefinitionCopy.cpp
+
+//
+// Ported from reference/open-bfme-1/Code/GameEngine/Source/Common/MultiplayerColorPairConstructor.cpp.
+// ??0MultiplayerColorDefinition@@QAE@ABV0@@Z, retail 0x00380D30, 79 bytes.
+// MultiplayerColorDefinition copy ctor over the BFME2 0x40-byte model (see
+// MultiplayerColorPairConstructor.cpp): AsciiString base copy via 0x365F0,
+// then rep-movsd member runs plus the trailing flag byte. Shard (not a graft
+// into the pair TU) so the pair bodies keep calling this out of line.
+
+// ??0MultiplayerColorDefinition@@QAE@ABV0@@Z @0x00380D30
+MultiplayerColorDefinition::MultiplayerColorDefinition(const MultiplayerColorDefinition &other)
+	: m_tooltipName(other.m_tooltipName),
+	  m_rgbValue(other.m_rgbValue),
+	  m_color(other.m_color),
+	  m_rgbValueNight(other.m_rgbValueNight),
+	  m_colorNight(other.m_colorNight),
+	  m_rgbExtra1(other.m_rgbExtra1),
+	  m_rgbExtra2(other.m_rgbExtra2),
+	  m_extraFlag(other.m_extraFlag)
+{
+}
 
 // tu-skeleton: 0x00380D7F 36B ??0?$_Rb_tree_base@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@V?$allocator@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_int_colormap.cpp (not merged yet)
 
+// ---- from Code/GameEngine/Source/Common/MultiplayerSettings.cpp
+
+// The native base has fourteen virtual slots and occupies 0x0C bytes.
+// Avoid PreRTS.h: its Zero Hour SubsystemInterface and inline RGBColor
+// declarations conflict with the target interfaces used by this TU.
+
 // ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva00380DA3.cpp
 
-// tu-skeleton: 0x00380DC0 42B ??0?$_Rb_tree@HU?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@U?$_Select1st@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@2@@_STL@@QAE@ABU?$less@H@1@ABV?$allocator@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_int_colormap.cpp (not merged yet)
 
-// tu-skeleton: 0x00380DEA 29B ??0?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@QAE@ABHABVMultiplayerColorDefinition@@@Z -- matched in Code/GameEngine/Source/Common/MultiplayerColorPairConstructor.cpp (not merged yet)
 
-// tu-skeleton: 0x00380E07 45B ??$_Construct@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHVMultiplayerColorDefinition@@@0@ABU10@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types2.cpp (not merged yet)
 
-// tu-skeleton: 0x00380E34 125B ?findMultiplayerColorDefinitionByName@MultiplayerSettings@@QAEPAVMultiplayerColorDefinition@@VAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/MultiplayerSettingsFindColorByName.cpp (not merged yet)
 
-// tu-skeleton: 0x00380EB1 53B ?_M_erase@?$_Rb_tree@HU?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@U?$_Select1st@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@2@@_STL@@AAEXPAU?$_Rb_tree_node@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_int_colormap_erase.cpp (not merged yet)
 
-// tu-skeleton: 0x00380EE6 34B ?_M_create_node@?$_Rb_tree@HU?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@U?$_Select1st@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@2@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@2@ABU?$pair@$$CBHVMultiplayerColorDefinition@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_int_colormap.cpp (not merged yet)
 
-// tu-skeleton: 0x00380F08 41B ?clear@?$_Rb_tree@HU?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@U?$_Select1st@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@2@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_int_colormap.cpp (not merged yet)
 
-// tu-skeleton: 0x00380F31 136B ?_M_insert@?$_Rb_tree@HU?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@U?$_Select1st@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@2@@_STL@@AAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@2@@2@PAU_Rb_tree_node_base@2@0ABU?$pair@$$CBHVMultiplayerColorDefinition@@@2@0@Z -- matched in Code/GameEngine/Source/Common/MultiplayerColorMapOperator.cpp (not merged yet)
 
-// tu-skeleton: 0x00380FB9 134B ?insert_unique@?$_Rb_tree@HU?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@U?$_Select1st@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@2@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBHVMultiplayerColorDefinition@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_int_colormap.cpp (not merged yet)
 
-// tu-skeleton: 0x0038103F 56B ??1?$_Rb_tree@HU?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@U?$_Select1st@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@2@@_STL@@QAE@XZ -- matched in Code/GameEngine/Source/Common/MultiplayerColorTreeDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x00381077 294B ?insert_unique@?$_Rb_tree@HU?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@U?$_Select1st@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@2@@2@U32@ABU?$pair@$$CBHVMultiplayerColorDefinition@@@2@@Z -- matched in Code/GameEngine/Source/Common/MultiplayerColorMapOperator.cpp (not merged yet)
 
-// tu-skeleton: 0x0038119D 5B ??1?$map@HVMultiplayerColorDefinition@@U?$less@H@_STL@@V?$allocator@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@3@@_STL@@QAE@XZ -- matched in Code/GameEngine/Source/Common/MultiplayerColorTreeDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x003811A2 25B ??0?$map@HVMultiplayerColorDefinition@@U?$less@H@_STL@@V?$allocator@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@3@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_int_colormap.cpp (not merged yet)
 
-// tu-skeleton: 0x003811BB 29B ?insert@?$map@HVMultiplayerColorDefinition@@U?$less@H@_STL@@V?$allocator@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@2@@2@U32@ABU?$pair@$$CBHVMultiplayerColorDefinition@@@2@@Z -- matched in Code/GameEngine/Source/Common/MultiplayerColorMapOperator.cpp (not merged yet)
 
-// tu-skeleton: 0x003811D8 159B ??0MultiplayerSettings@@QAE@XZ -- matched in Code/GameEngine/Source/Common/MultiplayerSettingsCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x00381277 28B ??_GMultiplayerSettings@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/MultiplayerSettingsDeletingDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x00381293 83B ??1MultiplayerSettings@@QAE@XZ -- matched in Code/GameEngine/Source/Common/MultiplayerSettingsDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x003812E6 141B ?lookup@RetailColorList@@QAEPAVMultiplayerColorDefinition@@PAH@Z -- matched in Code/GameEngine/Source/Common/MultiplayerColorMapOperator.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/MultiplayerSettings.cpp
 
@@ -442,4 +504,64 @@ done:
 // Color setters live in MultiplayerColorDefinitionCtor.cpp, which calls
 // the canonical out-of-line RGBColor::getAsInt instead of emitting a ZH copy.
 
+// tu-skeleton: 0x00380DC0 42B ??0?$_Rb_tree@HU?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@U?$_Select1st@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@2@@_STL@@QAE@ABU?$less@H@1@ABV?$allocator@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_int_colormap.cpp (not merged yet)
+
+// tu-skeleton: 0x00380DEA 29B ??0?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@QAE@ABHABVMultiplayerColorDefinition@@@Z -- matched in Code/GameEngine/Source/Common/MultiplayerColorPairConstructor.cpp (not merged yet)
+
+// tu-skeleton: 0x00380E07 45B ??$_Construct@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHVMultiplayerColorDefinition@@@0@ABU10@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types2.cpp (not merged yet)
+
+// tu-skeleton: 0x00380E34 125B ?findMultiplayerColorDefinitionByName@MultiplayerSettings@@QAEPAVMultiplayerColorDefinition@@VAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/MultiplayerSettingsFindColorByName.cpp (not merged yet)
+
+// tu-skeleton: 0x00380EB1 53B ?_M_erase@?$_Rb_tree@HU?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@U?$_Select1st@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@2@@_STL@@AAEXPAU?$_Rb_tree_node@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_int_colormap_erase.cpp (not merged yet)
+
+// tu-skeleton: 0x00380EE6 34B ?_M_create_node@?$_Rb_tree@HU?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@U?$_Select1st@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@2@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@2@ABU?$pair@$$CBHVMultiplayerColorDefinition@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_int_colormap.cpp (not merged yet)
+
+// tu-skeleton: 0x00380F08 41B ?clear@?$_Rb_tree@HU?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@U?$_Select1st@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@2@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_int_colormap.cpp (not merged yet)
+
+// tu-skeleton: 0x00380F31 136B ?_M_insert@?$_Rb_tree@HU?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@U?$_Select1st@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@2@@_STL@@AAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@2@@2@PAU_Rb_tree_node_base@2@0ABU?$pair@$$CBHVMultiplayerColorDefinition@@@2@0@Z -- matched in Code/GameEngine/Source/Common/MultiplayerColorMapOperator.cpp (not merged yet)
+
+// tu-skeleton: 0x00380FB9 134B ?insert_unique@?$_Rb_tree@HU?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@U?$_Select1st@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@2@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBHVMultiplayerColorDefinition@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_int_colormap.cpp (not merged yet)
+
+// tu-skeleton: 0x0038103F 56B ??1?$_Rb_tree@HU?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@U?$_Select1st@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@2@@_STL@@QAE@XZ -- matched in Code/GameEngine/Source/Common/MultiplayerColorTreeDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00381077 294B ?insert_unique@?$_Rb_tree@HU?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@U?$_Select1st@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@2@@2@U32@ABU?$pair@$$CBHVMultiplayerColorDefinition@@@2@@Z -- matched in Code/GameEngine/Source/Common/MultiplayerColorMapOperator.cpp (not merged yet)
+
+// tu-skeleton: 0x0038119D 5B ??1?$map@HVMultiplayerColorDefinition@@U?$less@H@_STL@@V?$allocator@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@3@@_STL@@QAE@XZ -- matched in Code/GameEngine/Source/Common/MultiplayerColorTreeDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x003811A2 25B ??0?$map@HVMultiplayerColorDefinition@@U?$less@H@_STL@@V?$allocator@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@3@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_int_colormap.cpp (not merged yet)
+
+// tu-skeleton: 0x003811BB 29B ?insert@?$map@HVMultiplayerColorDefinition@@U?$less@H@_STL@@V?$allocator@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@2@@2@U32@ABU?$pair@$$CBHVMultiplayerColorDefinition@@@2@@Z -- matched in Code/GameEngine/Source/Common/MultiplayerColorMapOperator.cpp (not merged yet)
+
+// tu-skeleton: 0x003811D8 159B ??0MultiplayerSettings@@QAE@XZ -- matched in Code/GameEngine/Source/Common/MultiplayerSettingsCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00381277 28B ??_GMultiplayerSettings@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/MultiplayerSettingsDeletingDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00381293 83B ??1MultiplayerSettings@@QAE@XZ -- matched in Code/GameEngine/Source/Common/MultiplayerSettingsDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x003812E6 141B ?lookup@RetailColorList@@QAEPAVMultiplayerColorDefinition@@PAH@Z -- matched in Code/GameEngine/Source/Common/MultiplayerColorMapOperator.cpp (not merged yet)
+
 // tu-skeleton: 0x003813B7 137B ?newMultiplayerColorDefinition@MultiplayerSettings@@QAEPAVMultiplayerColorDefinition@@VAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/MultiplayerSettingsNewColor.cpp (not merged yet)
+
+// tu-skeleton: 0x0077F2CC 14B $L4971 -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types2.cpp (not merged yet)
+
+// tu-skeleton: 0x0077F2DA 10B __ehhandler$??$_Construct@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHVMultiplayerColorDefinition@@@0@ABU10@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types2.cpp (not merged yet)
+
+// tu-skeleton: 0x0077F2E4 8B $L4665 -- matched in Code/GameEngine/Source/Common/MultiplayerSettingsFindColorByName.cpp (not merged yet)
+
+// tu-skeleton: 0x0077F2EC 10B __ehhandler$?findMultiplayerColorDefinitionByName@MultiplayerSettings@@QAEPAVMultiplayerColorDefinition@@VAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/MultiplayerSettingsFindColorByName.cpp (not merged yet)
+
+// tu-skeleton: 0x0077F2F6 8B $L4804 -- matched in Code/GameEngine/Source/Common/MultiplayerColorTreeDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0077F2FE 10B __ehhandler$??1?$_Rb_tree@HU?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@U?$_Select1st@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@2@@_STL@@QAE@XZ -- matched in Code/GameEngine/Source/Common/MultiplayerColorTreeDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0077F330 8B $L5300 -- matched in Code/GameEngine/Source/Common/MultiplayerColorMapOperator.cpp (not merged yet)
+
+// tu-skeleton: 0x0077F338 11B Unwind@00b7f338 -- matched in Code/GameEngine/Source/Common/MultiplayerColorMapOperator.cpp (not merged yet)
+
+// tu-skeleton: 0x0077F343 10B __ehhandler$?lookup@RetailColorList@@QAEPAVMultiplayerColorDefinition@@PAH@Z -- matched in Code/GameEngine/Source/Common/MultiplayerColorMapOperator.cpp (not merged yet)
+
+// tu-skeleton: 0x0077F34D 8B Unwind@00b7f34d -- matched in Code/GameEngine/Source/Common/MultiplayerSettingsNewColor.cpp (not merged yet)
+
+// tu-skeleton: 0x0077F355 8B $L1221 -- matched in Code/GameEngine/Source/Common/MultiplayerSettingsNewColor.cpp (not merged yet)
+
+// tu-skeleton: 0x0077F35D 10B __ehhandler$?newMultiplayerColorDefinition@MultiplayerSettings@@QAEPAVMultiplayerColorDefinition@@VAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/MultiplayerSettingsNewColor.cpp (not merged yet)

@@ -28289,11 +28289,11 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00380AE6,19,code,,,-,,Code/GameEngine/Source/Common/GapBodiesSeat1C.cpp
 0x00380AF9,19,code,,,-,,Code/GameEngine/Source/Common/GapBodiesSeat1C.cpp
 0x00380B0C,274,code,Code/GameEngine/Source/GameClient/GUI/AptGuiFX.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/AptGuiFX.cpp W=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptGuiFX.cpp,Code/GameEngine/Source/GameClient/GUI/AptGuiFXInit.cpp
-0x00380C1E,24,code,Code/GameEngine/Source/Common/MultiplayerSettings.cpp,approved,Z,Z=Code/GameEngine/Source/Common/MultiplayerSettings.cpp S=Code/GameEngine/Source/Common/MultiplayerSettings.cpp N=Code/GameEngine/Source/Common/MultiplayerColorDefinition.cpp,Code/GameEngine/Source/Common/MultiplayerColorDefinitionCtor.cpp
-0x00380C36,24,code,Code/GameEngine/Source/Common/MultiplayerSettings.cpp,approved,Z,Z=Code/GameEngine/Source/Common/MultiplayerSettings.cpp S=Code/GameEngine/Source/Common/MultiplayerSettings.cpp N=Code/GameEngine/Source/Common/MultiplayerColorDefinition.cpp,Code/GameEngine/Source/Common/MultiplayerColorDefinitionCtor.cpp
-0x00380C4E,96,code,Code/GameEngine/Source/Common/MultiplayerSettings.cpp,approved,Z,Z=Code/GameEngine/Source/Common/MultiplayerSettings.cpp S=Code/GameEngine/Source/Common/MultiplayerSettings.cpp N=Code/GameEngine/Source/Common/MultiplayerColorDefinition.cpp,Code/GameEngine/Source/Common/MultiplayerColorDefinitionCtor.cpp
-0x00380CAE,130,code,Code/GameEngine/Source/Common/MultiplayerSettings.cpp,approved,C,C=0x00380C4E..0x00380D30,Code/GameEngine/Source/Common/MultiplayerColorDefinitionCtor.cpp
-0x00380D30,79,code,Code/GameEngine/Source/Common/MultiplayerSettings.cpp,approved,C,C=0x00380C4E..0x00380D7F,Code/GameEngine/Source/Common/MultiplayerColorDefinitionCopy.cpp
+0x00380C1E,24,code,Code/GameEngine/Source/Common/MultiplayerSettings.cpp,approved,Z,Z=Code/GameEngine/Source/Common/MultiplayerSettings.cpp S=Code/GameEngine/Source/Common/MultiplayerSettings.cpp N=Code/GameEngine/Source/Common/MultiplayerColorDefinition.cpp,Code/GameEngine/Source/Common/MultiplayerSettings.cpp
+0x00380C36,24,code,Code/GameEngine/Source/Common/MultiplayerSettings.cpp,approved,Z,Z=Code/GameEngine/Source/Common/MultiplayerSettings.cpp S=Code/GameEngine/Source/Common/MultiplayerSettings.cpp N=Code/GameEngine/Source/Common/MultiplayerColorDefinition.cpp,Code/GameEngine/Source/Common/MultiplayerSettings.cpp
+0x00380C4E,96,code,Code/GameEngine/Source/Common/MultiplayerSettings.cpp,approved,Z,Z=Code/GameEngine/Source/Common/MultiplayerSettings.cpp S=Code/GameEngine/Source/Common/MultiplayerSettings.cpp N=Code/GameEngine/Source/Common/MultiplayerColorDefinition.cpp,Code/GameEngine/Source/Common/MultiplayerSettings.cpp
+0x00380CAE,130,code,Code/GameEngine/Source/Common/MultiplayerSettings.cpp,approved,C,C=0x00380C4E..0x00380D30,Code/GameEngine/Source/Common/MultiplayerSettings.cpp
+0x00380D30,79,code,Code/GameEngine/Source/Common/MultiplayerSettings.cpp,approved,C,C=0x00380C4E..0x00380D7F,Code/GameEngine/Source/Common/MultiplayerSettings.cpp
 0x00380D7F,36,code,Code/GameEngine/Source/Common/MultiplayerSettings.cpp,approved,C,C=0x00380C4E..0x00380DA3,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_int_colormap.cpp
 0x00380DA3,29,code,Code/GameEngine/Source/Common/MultiplayerSettings.cpp,approved,C,C=0x00380C4E..0x00380DC0,Code/GameEngine/Source/Common/MultiplayerSettings.cpp
 0x00380DC0,42,code,Code/GameEngine/Source/Common/MultiplayerSettings.cpp,approved,C,C=0x00380C4E..0x00380DEA,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_int_colormap.cpp
@@ -74795,10 +74795,10 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0077F28E,8,code,Code/GameEngine/Source/GameClient/GUI/AptGuiFX.cpp,approved,P,P=0x00380B0C@FuncInfo0x00929870 p-group provisional,Code/GameEngine/Source/GameClient/GUI/AptGuiFXInit.cpp
 0x0077F296,8,code,Code/GameEngine/Source/GameClient/GUI/AptGuiFX.cpp,approved,P,P=0x00380B0C@FuncInfo0x00929870 p-group provisional,Code/GameEngine/Source/GameClient/GUI/AptGuiFXInit.cpp
 0x0077F29E,10,code,Code/GameEngine/Source/GameClient/GUI/AptGuiFX.cpp,approved,P,P=0x00380B0C@FuncInfo0x00929870 p-group provisional,Code/GameEngine/Source/GameClient/GUI/AptGuiFXInit.cpp
-0x0077F2A8,8,code,Code/GameEngine/Source/Common/MultiplayerSettings.cpp,approved,P,P=0x00380C4E@FuncInfo0x00929894,Code/GameEngine/Source/Common/MultiplayerColorDefinitionCtor.cpp
-0x0077F2B0,10,code,Code/GameEngine/Source/Common/MultiplayerSettings.cpp,approved,P,P=0x00380C4E@FuncInfo0x00929894,Code/GameEngine/Source/Common/MultiplayerColorDefinitionCtor.cpp
-0x0077F2BA,8,code,Code/GameEngine/Source/Common/MultiplayerSettings.cpp,approved,P,P=0x00380CAE@FuncInfo0x009298B8,Code/GameEngine/Source/Common/MultiplayerColorDefinitionCtor.cpp
-0x0077F2C2,10,code,Code/GameEngine/Source/Common/MultiplayerSettings.cpp,approved,P,P=0x00380CAE@FuncInfo0x009298B8,Code/GameEngine/Source/Common/MultiplayerColorDefinitionCtor.cpp
+0x0077F2A8,8,code,Code/GameEngine/Source/Common/MultiplayerSettings.cpp,approved,P,P=0x00380C4E@FuncInfo0x00929894,Code/GameEngine/Source/Common/MultiplayerSettings.cpp
+0x0077F2B0,10,code,Code/GameEngine/Source/Common/MultiplayerSettings.cpp,approved,P,P=0x00380C4E@FuncInfo0x00929894,Code/GameEngine/Source/Common/MultiplayerSettings.cpp
+0x0077F2BA,8,code,Code/GameEngine/Source/Common/MultiplayerSettings.cpp,approved,P,P=0x00380CAE@FuncInfo0x009298B8,Code/GameEngine/Source/Common/MultiplayerSettings.cpp
+0x0077F2C2,10,code,Code/GameEngine/Source/Common/MultiplayerSettings.cpp,approved,P,P=0x00380CAE@FuncInfo0x009298B8,Code/GameEngine/Source/Common/MultiplayerSettings.cpp
 0x0077F2CC,14,code,Code/GameEngine/Source/Common/MultiplayerSettings.cpp,approved,P,P=0x00380E07@FuncInfo0x009298DC,Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types2.cpp
 0x0077F2DA,10,code,Code/GameEngine/Source/Common/MultiplayerSettings.cpp,approved,P,P=0x00380E07@FuncInfo0x009298DC,Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types2.cpp
 0x0077F2E4,8,code,Code/GameEngine/Source/Common/MultiplayerSettings.cpp,approved,P,P=0x00380E34@FuncInfo0x00929900,Code/GameEngine/Source/Common/MultiplayerSettingsFindColorByName.cpp
