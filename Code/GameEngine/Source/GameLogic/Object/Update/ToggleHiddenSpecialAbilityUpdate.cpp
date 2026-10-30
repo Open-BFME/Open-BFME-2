@@ -150,6 +150,8 @@ struct ToggleHiddenSpecialAbilityUpdateModuleData
 {
 	unsigned char m_pad00[0x38];
 	const SpecialPowerTemplate *m_38; // +0x38
+	unsigned char m_pad3C[0x7C - 0x3C];
+	unsigned int m_delay; // +0x7C
 };
 
 class SpecialPowerUpdateInterface : public Rva004AE2D0Slots<8>
@@ -158,23 +160,66 @@ public:
 	virtual bool rva004AE394Slot8(const void *button) = 0;
 };
 
-class UpdateModuleView
+class Xfer;
+enum UpdateSleepTime
+{
+	UPDATE_SLEEP_NONE = 1
+};
+// Table 0x00C552D8 slots 0-22 precede turnOff/turnOn (23/24); xfer is slot 3
+// and getModuleNameKey slot 4. No ctor here, so no vftable is emitted and the
+// ordinal placeholders never need bodies.
+class ModuleView
 {
 public:
-	virtual ~UpdateModuleView();
+	virtual ~ModuleView();
+	virtual void p01(); virtual void p02();
+protected:
+	virtual void xfer(Xfer *xfer);
+public:
+	virtual NameKeyType getModuleNameKey() const;
+	virtual void p05(); virtual void p06(); virtual void p07(); virtual void p08();
+	virtual void p09(); virtual void p10(); virtual void p11(); virtual void p12();
+	virtual void p13(); virtual void p14(); virtual void p15(); virtual void p16();
+	virtual void p17(); virtual void p18(); virtual void p19(); virtual void p20();
+	virtual void p21(); virtual void p22();
 protected:
 	const ModuleData *m_moduleData; // +0x04
 	Object *m_object; // +0x08
-	unsigned char m_pad0C[0x20 - 0x0C];
 };
-
-class ToggleHiddenSpecialAbilityUpdate : public UpdateModuleView, public SpecialPowerUpdateInterface
+class BehaviorModuleInterface
 {
 public:
+	virtual void b00() = 0;
+};
+// +0x10 table 0x00C552C8: slot 0 is update.
+class UpdateModuleInterface
+{
+public:
+	virtual UpdateSleepTime update() = 0;
+};
+class UpdateModuleView : public ModuleView, public BehaviorModuleInterface, public UpdateModuleInterface
+{
+protected:
+	unsigned char m_pad14[0x20 - 0x14];
+};
+class SpecialAbilityUpdate : public UpdateModuleView, public SpecialPowerUpdateInterface
+{
+public:
+	virtual UpdateSleepTime update();
+protected:
+	virtual void xfer(Xfer *xfer);
+	unsigned char m_pad24[0x88 - 0x24];
+};
+class ToggleHiddenSpecialAbilityUpdate : public SpecialAbilityUpdate
+{
+public:
+	virtual NameKeyType getModuleNameKey() const;
+	virtual UpdateSleepTime update();
 	virtual void turnOff();
 	virtual void turnOn();
+protected:
+	virtual void xfer(Xfer *xfer);
 private:
-	unsigned char m_pad24[0x88 - 0x24];
 	unsigned int m_88; // +0x88
 };
 

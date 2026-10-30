@@ -6,15 +6,16 @@
 // SpecialAbilityUpdate update 0x00451FA2 (the slot-0 entry of the
 // special-ability +0x10 tables, pinned by address) and keeps its sleep;
 // with a module data delay at +0x7C and the Object in status 0x10, once that
-// many frames have passed since the frame at +0x88 the primary slot 23 runs,
-// else the module sleeps for the delay.
+// many frames have passed since the frame at +0x88 the primary slot 23 runs
+// (turnOff 0x004AE2D0 in table 0x00C552D8), else the module sleeps for the
+// delay.
 enum UpdateSleepTime
 {
 	UPDATE_SLEEP_NONE = 1
 };
 enum ObjectStatusTypes
 {
-	OBJECT_STATUS_10 = 0x10
+	OBJECT_STATUS_NONE = 0
 };
 class Object
 {
@@ -39,7 +40,6 @@ public:
 	virtual void p13(); virtual void p14(); virtual void p15(); virtual void p16();
 	virtual void p17(); virtual void p18(); virtual void p19(); virtual void p20();
 	virtual void p21(); virtual void p22();
-	virtual void rvaSlot23();
 protected:
 	const ModuleData *m_moduleData;	// +0x04
 	Object *m_object;		// +0x08
@@ -66,6 +66,7 @@ class ToggleHiddenSpecialAbilityUpdate : public SpecialAbilityUpdate
 {
 public:
 	virtual UpdateSleepTime update();
+	virtual void turnOff();
 };
 UpdateSleepTime ToggleHiddenSpecialAbilityUpdate::update()
 {
@@ -75,10 +76,10 @@ UpdateSleepTime ToggleHiddenSpecialAbilityUpdate::update()
 	if (data)
 	{
 		unsigned int delay = data->m_delay;
-		if (delay && m_object->testStatus(OBJECT_STATUS_10))
+		if (delay && m_object->testStatus((ObjectStatusTypes)0x10))
 		{
 			if (TheGameLogic->getFrame() >= m_88 + delay)
-				rvaSlot23();
+				turnOff();
 			else
 				sleep = (UpdateSleepTime)delay;
 		}
