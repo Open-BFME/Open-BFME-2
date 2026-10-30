@@ -10,11 +10,11 @@ public:
 	int rva004031C9(int index);
 private:
 	char _pad[0x6C];
-	int m_array[15];
+	unsigned int m_poolCounts[15];
 };
 int AttributeModifierPoolUpdate::rva004031C9(int index)
 {
 	if (index < 15)
-		return m_array[index];
+		return m_poolCounts[index];
 	return 0;
 }

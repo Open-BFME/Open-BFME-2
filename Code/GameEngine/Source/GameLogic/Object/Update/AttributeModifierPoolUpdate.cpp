@@ -26,12 +26,12 @@ private:
 class Rva00297360Element
 {
 public:
-	~Rva00297360Element();
-private:
-	int m_00;
-	AsciiString m_04;
-	int m_08;
-	int m_0C;
+    Rva00297360Element(const Rva00297360Element &that);
+    ~Rva00297360Element();
+    int m_00;
+    AsciiString m_04;
+    int m_08;
+    int m_0C;
 };
 
 namespace _STL {
@@ -113,8 +113,13 @@ public:
 
 class Object
 {
-	AttributeModifierPoolUpdate *findAttributeModifierPoolUpdate() const;
+private:
 	friend class Rva0040327B;
+	AttributeModifierPoolUpdate *findAttributeModifierPoolUpdate() const;
+public:
+	bool addAttributeModifierToPool(const AsciiString &s, int v);
+	void makeDirty();
+	void rva00293077(const void *);
 };
 
 class Rva0040327B

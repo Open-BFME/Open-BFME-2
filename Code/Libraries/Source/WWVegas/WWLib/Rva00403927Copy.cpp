@@ -4,31 +4,20 @@
 // idiv by stride 0x14, per-element operator= through the rowed 0x00403927.
 // Called by the 29B forwarding wrapper at 0x00403BD2 (copy dispatch with tag
 // and NULL distance). Dedicated TU so the operator= call stays external.
+// stlport
+class AsciiString;
+#include <vector>
+
 class Rva00403927
 {
-	char _m[0x14];
-
 public:
-	Rva00403927 &operator=(const Rva00403927 &that);
+    Rva00403927(const Rva00403927 &other);
+    Rva00403927 &operator=(const Rva00403927 &other);
+private:
+    int m_00;
+    int m_04;
+    _STL::vector<AsciiString> m_names;
 };
 
-namespace _STL
-{
-
-struct random_access_iterator_tag {};
-
-template <class InputIter, class OutputIter, class Distance>
-OutputIter __copy(InputIter first, InputIter last, OutputIter result, const random_access_iterator_tag &, Distance *)
-{
-	for (int n = last - first; n > 0; --n)
-	{
-		*result = *first;
-		++first;
-		++result;
-	}
-	return result;
-}
-
-}
 
 template Rva00403927 *_STL::__copy(Rva00403927 *, Rva00403927 *, Rva00403927 *, const random_access_iterator_tag &, int *);

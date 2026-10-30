@@ -3,29 +3,30 @@
 // _STL::copy<Rva00403927> forwarding wrapper, retail 29 bytes. Pushes NULL
 // distance and a tag local, then calls the rowed 5-arg __copy at 0x004039E0.
 // Dedicated TU so the __copy call stays external. Called by 0x004043C2.
+// stlport
+class AsciiString;
+#include <vector>
+
 class Rva00403927
 {
-	char _m[0x14];
-
 public:
-	Rva00403927 &operator=(const Rva00403927 &that);
+    Rva00403927(const Rva00403927 &other);
+    Rva00403927 &operator=(const Rva00403927 &other);
+private:
+    int m_00;
+    int m_04;
+    _STL::vector<AsciiString> m_names;
 };
 
 namespace _STL
 {
-
-struct random_access_iterator_tag {};
-
 template <class InputIter, class OutputIter, class Distance>
-OutputIter __copy(InputIter first, InputIter last, OutputIter result, const random_access_iterator_tag &, Distance *);
+__declspec(noinline) OutputIter __copy(InputIter first, InputIter last, OutputIter result, const random_access_iterator_tag &, Distance *);
 
-template <class InputIter, class OutputIter>
-OutputIter copy(InputIter first, InputIter last, OutputIter result)
+template <>
+Rva00403927 *copy<Rva00403927 *, Rva00403927 *>(Rva00403927 *first, Rva00403927 *last, Rva00403927 *result)
 {
-	random_access_iterator_tag _t;
-	return __copy(first, last, result, _t, (int *)0);
+    random_access_iterator_tag tag;
+    return __copy(first, last, result, tag, (int *)0);
 }
-
 }
-
-template Rva00403927 *_STL::copy(Rva00403927 *, Rva00403927 *, Rva00403927 *);
