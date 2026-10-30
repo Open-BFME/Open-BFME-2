@@ -9959,6 +9959,20 @@ private-class/flag prerequisites are recorded in the
 [PartitionManager handoff](../reverse/attempt_support/partition-crt-consolidation-20261027-codex5.md).
 No merge or census gain is claimed.
 
+### PartitionManager obsolete touched-cell body retirement (2026-10-30)
+
+Cleared only for the unused donor updateCellsTouched copy: remove its 426-byte
+definition, stale present-unmatched marker and false 0x0073AD90 pin. Its only
+incoming relocation is debug-only; two accompanying GhostObject helper copies
+are likewise debug-only and no other indexed object touches the three names.
+The existing 37-byte friend facade and independently named 1,158-byte native
+ShroudManager::Data::UpdateCellsTouched owner remain exact. All four Partition
+rows and all 561 retained code bodies/relocations are unchanged; the sole
+onPartitionCellChange reference disappears with the donor body. The hatch
+tool retires exactly one marker and one pin. Other Partition unresolved names
+remain; no recovered native coverage or census gain is claimed.
+[Removal proof and target ownership](../reverse/attempt_support/partition-unused-update-retirement-20261030/README.md).
+
 ### LINK-089: SupplyTruckAIUpdateCtor's private interface slots disagree with native callbacks
 Status: Blocked on interface and provider-name reconciliation. Updated: 2026-10-26; inspected revision: 2a45addda1806342ac5c52757f63be902dcd428e.
 Evidence / affected units: `SupplyTruckAIUpdateCtor.cpp` remains U9 against index `d1f046749a`. Its constructor and destructor anchor the interface table at RVA 0x00852F38. Projecting the current private declaration onto that native table maps its gainOneBox slot to the rowed loseOneBox worker at 0x004A6E8E and its getActionDelayForDock slot to the unrelated byte setter at 0x00210CD3. The SupplyTruckStateMachine owner already records later native interface offsets for the force-state accessors. Equal calling-sequence sizes do not establish the current slot names or signatures.

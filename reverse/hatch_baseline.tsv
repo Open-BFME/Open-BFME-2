@@ -10226,7 +10226,6 @@ pin	reverse/symbols.csv	0x00732B50	1
 pin	reverse/symbols.csv	0x00736150	1
 pin	reverse/symbols.csv	0x0073A0A0	1
 pin	reverse/symbols.csv	0x0073A900	1
-pin	reverse/symbols.csv	0x0073AD90	1
 pin	reverse/symbols.csv	0x0073B350	1
 pin	reverse/symbols.csv	0x0073B410	1
 pin	reverse/symbols.csv	0x0073B660	1
@@ -13354,7 +13353,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	u
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	undoThreatAffect@PartitionManager@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	undoValueAffect@PartitionManager@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	update@PartitionManager@@	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	updateCellsTouched@PartitionData@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	validateCoiList@PartitionCell@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	xfer@PartitionCell@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	xfer@PartitionManager@@	1

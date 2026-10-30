@@ -1,0 +1,216 @@
+{
+  "source": "Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp",
+  "scope": "remove only obsolete debug-only nonnative updateCellsTouched body and marker; retain native facade and independently owned ShroudManager body",
+  "variants": {
+    "before": {
+      "source_sha256": "90b5a3244a633083ab24245d9853604fbc6018eb211c73735b9446108db3ea28",
+      "rows": [
+        {
+          "name": "??_ECellAndObjectIntersection@@QAEPAXI@Z",
+          "rva": "0x0073A370",
+          "size": "77",
+          "exact": true
+        },
+        {
+          "name": "?allocate@?$allocator@E@_STL@@QBEPAEIPBX@Z",
+          "rva": "0x000073E0",
+          "size": "27",
+          "exact": true
+        },
+        {
+          "name": "?friend_setPartitionData@Object@@QAEXPAVPartitionData@@@Z",
+          "rva": "0x00322167",
+          "size": "13",
+          "exact": true
+        },
+        {
+          "name": "?allow@PartitionFilterIsFlying@@UAE_NPAVObject@@@Z",
+          "rva": "0x00260E01",
+          "size": "12",
+          "exact": true
+        }
+      ],
+      "eh": []
+    },
+    "trial": {
+      "source_sha256": "fe1a8cf63a8b1a0f9741d2a07ed35e90561fb2554ed3ce712691c6ed6c211cc0",
+      "rows": [
+        {
+          "name": "??_ECellAndObjectIntersection@@QAEPAXI@Z",
+          "rva": "0x0073A370",
+          "size": "77",
+          "exact": true
+        },
+        {
+          "name": "?allocate@?$allocator@E@_STL@@QBEPAEIPBX@Z",
+          "rva": "0x000073E0",
+          "size": "27",
+          "exact": true
+        },
+        {
+          "name": "?friend_setPartitionData@Object@@QAEXPAVPartitionData@@@Z",
+          "rva": "0x00322167",
+          "size": "13",
+          "exact": true
+        },
+        {
+          "name": "?allow@PartitionFilterIsFlying@@UAE_NPAVObject@@@Z",
+          "rva": "0x00260E01",
+          "size": "12",
+          "exact": true
+        }
+      ],
+      "eh": []
+    }
+  },
+  "removed_debug_only_definitions": [
+    {
+      "name": "?updateCellsTouched@PartitionData@@AAEXXZ",
+      "raw": "83ec2453558b690485ed5657894c241474488b85ac000000f30f1045448a9db00000008d55388b3a8b7204f30f11442420f30f1085b80000008944241c8b4208f30f11442418f30f1085bc00000089442430f30f11442424eb4f8b410885c0743c8b5008f30f1040188a580c8954241c8d501c8b3a8b72048b5208f30f11442420f30f104010f30f11442418f30f10401489542430f30f11442424eb0c8a5c24138b74242c8b7c2428e80000000084db74128b4424188b4c2414505657e800000000eb3e8b44241c85c07c3683f8017e2183f802752c8b4c24208b5424248b442418518b4c241852505657e800000000eb108b4c2418518b4c24185657e8000000008b0d000000008d542420528d442428505657e8000000008b54242485d27c2e8b74242085f67c268b0d000000008b41303bd07d193b71347d140fafc603c28b513c69c0d800000003c28bf0eb0233f685ed8b7c241474153bb7c0000000740d8bcde80000000089b7c00000008d473033c9890889480489480889480c89481089481489481889481c89482089482489482889482c8948305f8948345e8948385d89483c5b83c424c3",
+      "relocations": [
+        [
+          170,
+          20,
+          "?removeAllTouchedCells@PartitionData@@AAEXXZ"
+        ],
+        [
+          190,
+          20,
+          "?doSmallFill@PartitionData@@AAEXMMM@Z"
+        ],
+        [
+          236,
+          20,
+          "?doRectFill@PartitionData@@AAEXMMMMM@Z"
+        ],
+        [
+          254,
+          20,
+          "?doCircleFill@PartitionData@@AAEXMMM@Z"
+        ],
+        [
+          260,
+          6,
+          "?ThePartitionManager@@3PAVPartitionManager@@A"
+        ],
+        [
+          277,
+          20,
+          "?worldToCell@PartitionManager@@QAEXMMPAH0@Z"
+        ],
+        [
+          299,
+          6,
+          "?ThePartitionManager@@3PAVPartitionManager@@A"
+        ],
+        [
+          356,
+          20,
+          "?onPartitionCellChange@Object@@QAEXXZ"
+        ]
+      ],
+      "incoming_refs": [
+        {
+          "section": ".debug$F",
+          "offset": 0,
+          "kind": 7
+        }
+      ]
+    },
+    {
+      "name": "?getParentAngle@GhostObject@@QBEMXZ",
+      "raw": "d94118c3",
+      "relocations": [],
+      "incoming_refs": [
+        {
+          "section": ".debug$F",
+          "offset": 0,
+          "kind": 7
+        }
+      ]
+    },
+    {
+      "name": "?getParentPosition@GhostObject@@QBEPBUCoord3D@@XZ",
+      "raw": "8d411cc3",
+      "relocations": [],
+      "incoming_refs": [
+        {
+          "section": ".debug$F",
+          "offset": 0,
+          "kind": 7
+        }
+      ]
+    }
+  ],
+  "all_external_code_and_symbolic_relocations_identical": false,
+  "all_retained_external_code_and_symbolic_relocations_identical": true,
+  "runtime_invariant": {
+    "removed_debug_only_definitions": [
+      "?updateCellsTouched@PartitionData@@AAEXXZ",
+      "?getParentAngle@GhostObject@@QBEMXZ",
+      "?getParentPosition@GhostObject@@QBEPBUCoord3D@@XZ"
+    ],
+    "remaining_code_definitions": 561,
+    "all_remaining_loadable_definitions_and_symbolic_relocations_identical": true,
+    "all_remaining_nondebug_sections_equal_as_multiset": true,
+    "undefined_removed": [
+      "?onPartitionCellChange@Object@@QAEXXZ"
+    ],
+    "undefined_added": [],
+    "remaining_nondebug_sha256": "7cb7f6dc9f1637bd1ceefe75a86216072f4b2760dbaa3c6790148c2d1cbff3b7"
+  },
+  "actual": {
+    "source_sha256": "fe1a8cf63a8b1a0f9741d2a07ed35e90561fb2554ed3ce712691c6ed6c211cc0",
+    "object_sha256": "297570a01508c2fa9971884476f8a78432d9aa2c3eb908185d2289c2358f3d8a",
+    "strict_current": true
+  },
+  "indexed_touches": {
+    "?updateCellsTouched@PartitionData@@AAEXXZ": [
+      "^code_^game^engine_^source_^game^logic_^object_^partition^manager.obj"
+    ],
+    "?getParentAngle@GhostObject@@QBEMXZ": [
+      "^code_^game^engine_^source_^game^logic_^object_^partition^manager.obj"
+    ],
+    "?getParentPosition@GhostObject@@QBEPBUCoord3D@@XZ": [
+      "^code_^game^engine_^source_^game^logic_^object_^partition^manager.obj"
+    ]
+  },
+  "native_witnesses": [
+    {
+      "name": "?friend_updateCellsTouched@PartitionData@@QAEXXZ",
+      "rva": "0x0073B250",
+      "size": "37",
+      "source": "Code/GameEngine/Source/GameLogic/Object/PartitionData_friendUpdateCellsTouched.cpp",
+      "native_resolved_sha256": "2f72ec4b57688cddb037b5f18881dc5e6ca3c67c0b9e225d7c58a1a41029b9bd",
+      "object_sha256": "05e5b403b793aa3d6ecc1fa688256ceb74fd4823d2164ab8536148d964724528"
+    },
+    {
+      "name": "?UpdateCellsTouched@Data@ShroudManager@@QAEXXZ",
+      "rva": "0x0073AD90",
+      "size": "1158",
+      "source": "Code/GameEngine/Source/Common/RTS/ShroudManagerDataDoSmallFill.cpp",
+      "native_resolved_sha256": "502e3dca48966be0e368992a572ae74461e3bc0fb85a5836e736b07a43fc1353",
+      "object_sha256": "a06d5f150a0fb94c7ddb772ab6bd9d3b0db51e463b5f2504a9bb48babf18e998"
+    }
+  ],
+  "retired_hatches": [
+    "pin reverse/symbols.csv 0x0073AD90",
+    "present_unmatched PartitionManager.cpp updateCellsTouched@PartitionData@@"
+  ],
+  "scope_limit": "remove stale donor implementation and false pin, no native-body recovery or census gain",
+  "bounded_preview": {
+    "cleared": {
+      "Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp": [
+        "unresolved  ?onPartitionCellChange@Object@@QAEXXZ",
+        "comdat      ?updateCellsTouched@PartitionData@@AAEXXZ  (retail: not retail's body)",
+        "selected    ?updateCellsTouched@PartitionData@@AAEXXZ  (the definition the link keeps is not retail's)"
+      ],
+      "Code/GameEngine/Source/GameLogic/Object/PartitionData_friendUpdateCellsTouched.cpp": [],
+      "Code/GameEngine/Source/Common/RTS/ShroudManagerDataDoSmallFill.cpp": []
+    },
+    "all_other_blockers_identical": true,
+    "linked_authored_bytes_before": 1899,
+    "linked_authored_bytes_after": 1899,
+    "census_gain_claimed": false
+  }
+}
