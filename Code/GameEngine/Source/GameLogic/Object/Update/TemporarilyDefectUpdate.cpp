@@ -31,39 +31,18 @@ class Thing;
 class ModuleData;
 class Object;
 #include "../../../../Include/Common/BfmeXfer.h"
-
-// BFME1 donor: ba7ddda7e8f261163972ddbe23c7e7a12ac5b84f,
-// game/GameEngine/Source/GameLogic/Object/Update/TemporarilyDefectUpdate_update.cpp.
-// Target identity: module factory/constructor at 0x004CC6AF names
-// TemporarilyDefectUpdate; its +0x10 update-interface vtable 0x0085F594
-// has this body in slot 0. WorldBuilder 0x012759A0 is the matching update.
-// Target boundary: native 0x004CC882..0x004CC96D, 235 bytes, ending RET;
-// the WB matcher incorrectly includes the following 27-byte module parser.
-// This TU uses the update-interface view: incoming this is complete-object
-// +0x10, Object is at this-8, and trailing state at +0x10/+0x14/+0x1C.
-// Independent target deltas: PlayerList local player +0x10, message slot
-// +0x48/type 0x3ED, InGameUI deselect slot +0x10C, completion state +0x274,
-// and the existing 0x004CC829 predicate replaces BFME1's inline test.
-
 #include "../../../Common/GameLogicObjectLookupView.h"
-
 enum ObjectStatusTypes;
-
 typedef unsigned int UnsignedInt;
-
 enum UpdateSleepTime
 {
 	UPDATE_SLEEP_NONE = 1,
 	UPDATE_SLEEP_10 = 10,
 	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
 };
-
 class Drawable;
-
 class Player;
-
 class GameMessage;
-
 class Team;
 class Object
 {
@@ -84,20 +63,17 @@ public:
 	unsigned char m_438; // +0x438
 	char m_pad439[0x3];
 };
-
 class Thing
 {
 public:
     Drawable *getDrawable() const;
 };
-
 class PlayerList
 {
 public:
 	unsigned char m_pad000[0x10];
 	Player *m_localPlayer;
 };
-
 class GameMessage
 {
 public:
@@ -108,7 +84,6 @@ public:
 
 	void appendObjectIDArgument(ObjectID id);
 };
-
 class MessageStream
 {
 public:
@@ -132,7 +107,6 @@ public:
 	virtual void slot44() = 0;
 	virtual GameMessage *appendMessage(GameMessage::Type type) = 0;
 };
-
 class InGameUI
 {
 public:
@@ -205,18 +179,13 @@ public:
 	virtual void slot108() = 0;
 	virtual void deselectDrawable(Drawable *draw) = 0;
 };
-
 extern PlayerList *ThePlayerList;
-
 extern MessageStream *TheMessageStream;
-
 extern InGameUI *TheInGameUI;
-
 enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
-
 class Xfer::Version
 {
 public:
@@ -226,10 +195,25 @@ public:
 	unsigned char m_current;
 	unsigned char m_minimum;
 };
-
 void XferObjectID(Xfer *xfer, ObjectID *objectID);
-
 #include "../../../../Include/Common/ObjectModule.h"
+struct ObjectPlus4
+{
+	char m_pad00[0x117];
+	unsigned char m_117;
+};
+class Rva002AA22AByteField
+{
+public:
+	unsigned char get() const;
+};
+extern GameLogic *TheGameLogic;
+enum NameKeyType;
+struct Rva004CC795ModuleData
+{
+	char m_pad00[8];
+	unsigned int m_08;
+};
 
 class BehaviorModuleInterface { public: virtual void behaviorSlot(); };
 
@@ -288,6 +272,23 @@ private:
 	unsigned char m_fxFired;
 };
 
+extern int BfmeLogicFramesPerSecond;
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/TemporarilyDefectUpdate.cpp
+
+// BFME1 donor: ba7ddda7e8f261163972ddbe23c7e7a12ac5b84f,
+// game/GameEngine/Source/GameLogic/Object/Update/TemporarilyDefectUpdate_update.cpp.
+// Target identity: module factory/constructor at 0x004CC6AF names
+// TemporarilyDefectUpdate; its +0x10 update-interface vtable 0x0085F594
+// has this body in slot 0. WorldBuilder 0x012759A0 is the matching update.
+// Target boundary: native 0x004CC882..0x004CC96D, 235 bytes, ending RET;
+// the WB matcher incorrectly includes the following 27-byte module parser.
+// This TU uses the update-interface view: incoming this is complete-object
+// +0x10, Object is at this-8, and trailing state at +0x10/+0x14/+0x1C.
+// Independent target deltas: PlayerList local player +0x10, message slot
+// +0x48/type 0x3ED, InGameUI deselect slot +0x10C, completion state +0x274,
+// and the existing 0x004CC829 predicate replaces BFME1's inline test.
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/TemporarilyDefectUpdatePoolKey.cpp
 
 // ?getModuleNameKey@TemporarilyDefectUpdate@@UBE?AW4NameKeyType@@XZ
@@ -297,12 +298,6 @@ NameKeyType TemporarilyDefectUpdate::getModuleNameKey() const
 		TheNameKeyGenerator->nameToKey("TemporarilyDefectUpdate");
 	return TheTemporarilyDefectUpdatePoolKey;
 }
-
-// tu-skeleton: 0x004CC69E 17B ?buildFieldParse@TemporarilyDefectUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
-
-// tu-skeleton: 0x004CC6AF 97B ??0TemporarilyDefectUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/PrisonDockUpdateCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004CC710 28B ??_GRva004CC63A@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/TemporarilyDefectUpdate.cpp
 
@@ -377,9 +372,94 @@ UpdateSleepTime TemporarilyDefectUpdate::update()
 	return UPDATE_SLEEP_10;
 }
 
-// tu-skeleton: 0x004CC795 148B ?defectNow@TemporarilyDefectUpdate@@QAEXPAVObject@@I@Z -- matched in Code/GameEngine/Source/Common/Rva004CC829Check.cpp (not merged yet)
+// tu-skeleton: 0x004CC69E 17B ?buildFieldParse@TemporarilyDefectUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
 
-// tu-skeleton: 0x004CC829 89B ?rva004CC829@TemporarilyDefectUpdate@@QAE_NXZ -- matched in Code/GameEngine/Source/Common/Rva004CC829Check.cpp (not merged yet)
+// tu-skeleton: 0x004CC6AF 97B ??0TemporarilyDefectUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/PrisonDockUpdateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004CC710 28B ??_GRva004CC63A@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva004CC829Check.cpp
+
+// ?rva004CC829@TemporarilyDefectUpdate@@QAE_NXZ @0x004CC829 89B ObjectID validity check.
+// Evidence: m_28 ObjectID via findObjectByID 0x00049DC5 then Object+4 +0x117 flag 8 then controlling player ByteField 0 then +0x438 flag 1 then GameLogic+0x40 vs m_20 frame; callers 0x004CC8F9.
+
+// ?defectNow@TemporarilyDefectUpdate@@QAEXPAVObject@@I@Z @0x004CC795 (148B).
+// Target evidence: this+0x08 is the Object passed to testStatus(0x3e) and
+// setWakeFrame; this+0x04 is read at +8 when wakeFrame is zero; this+0x20,
+// +0x24, +0x28 and +0x2c are written here, while the adjacent matched
+// 0x004CC829 reader uses +0x20 and +0x28. It stores other+0x74, passes
+// other+0x304 to the address-derived Object helper at 0x00298AAD, checks the
+// +0x117 flag through other+4, and schedules through rowed 0x0044DF71.
+// Structural inference: the first 0x20 bytes are an UpdateModule view
+// (module data +4, Object +8, wake-frame member +0x14). The module is
+// TemporarilyDefectUpdate: Object::bfmeTransferReplacementState (0x002928B5)
+// finds it by that name and calls this. The meaning of the other object's
+// +0x304 dword remains unknown.
+void TemporarilyDefectUpdate::defectNow(Object *other, unsigned int wakeFrame)
+{
+	if (m_endFrame != 0)
+		return;
+	if (other == 0)
+		return;
+	if (m_object == 0)
+		return;
+	if (m_object->testStatus((ObjectStatusTypes)0x3e))
+		return;
+
+	const Rva004CC795ModuleData *moduleData =
+		(const Rva004CC795ModuleData *)getModuleData();
+	m_defectorID = (ObjectID)other->m_id;
+	m_object->rva00298AAD((Team *)other->m_304);
+	if ((((ObjectPlus4 *)other->m_04)->m_117 & 8) != 0)
+	{
+		setWakeFrame(m_object, UPDATE_SLEEP_FOREVER);
+		return;
+	}
+
+	unsigned int frame = TheGameLogic->getFrame();
+	m_startFrame = frame;
+	if (wakeFrame > 0)
+		m_endFrame = wakeFrame;
+	else
+		m_endFrame = moduleData->m_08 + frame;
+	setWakeFrame(m_object, (UpdateSleepTime)(BfmeLogicFramesPerSecond * 2));
+	m_fxFired = 0;
+}
+
+bool TemporarilyDefectUpdate::rva004CC829()
+{
+	if (m_defectorID != INVALID_OBJECT_ID)
+	{
+		GameLogic *logic = TheGameLogic;
+		Object *obj = logic->findObjectByID(m_defectorID);
+		if (obj != 0)
+		{
+			if ((((ObjectPlus4 *)obj->m_04)->m_117 & 8) != 0)
+			{
+				Player *player = obj->getControllingPlayer();
+				if (((Rva002AA22AByteField *)player)->get() != 0)
+				{
+					m_defectorID = INVALID_OBJECT_ID;
+					return true;
+				}
+				return false;
+			}
+			if ((obj->m_438 & 1) != 0)
+			{
+				m_defectorID = INVALID_OBJECT_ID;
+				return true;
+			}
+			if (logic->getFrame() >= m_endFrame)
+			{
+				m_defectorID = INVALID_OBJECT_ID;
+				return true;
+			}
+			return false;
+		}
+	}
+	m_defectorID = INVALID_OBJECT_ID;
+	return true;
+}
 
 // tu-skeleton: 0x0079087D 8B Unwind@00b9087d -- matched in Code/GameEngine/Source/GameLogic/Object/Update/PrisonDockUpdateCtor.cpp (not merged yet)
 
