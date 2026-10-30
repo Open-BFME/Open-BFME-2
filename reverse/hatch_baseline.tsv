@@ -4544,7 +4544,6 @@ class_gate_allow	Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DSha
 class_gate_allow	Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowTextureUpdateBounds.cpp	Region3D	1
 class_gate_allow	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherDebugStats.cpp	GameLogic	1
 class_gate_allow	Code/Libraries/Source/Apt/AptActionInterpreterSetVariable.cpp	AptScriptFunctionBase	1
-class_gate_allow	Code/Libraries/Source/WWVegas/WWLib/VAsciiStringRva002460C3.cpp	GameLogic	1
 object_symbol	reverse/functions.csv	0x000240E0	1
 object_symbol	reverse/functions.csv	0x00024160	1
 object_symbol	reverse/functions.csv	0x00025090	1

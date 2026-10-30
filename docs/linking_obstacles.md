@@ -107,6 +107,25 @@ selection and loss checks remain unverified; carry the callbacks and wider
 consumers into the next scheduled census. No linked-byte gain is claimed.
 [Evidence and preserved object facts](../reverse/attempt_support/buddy-callbacks-msheaders-20261030-codex3.md).
 
+### Buildable-status map instantiation cleanup (2026-10-30)
+
+At base `43231d14ed`, VAsciiStringRva002460C3.cpp replaces its synthetic
+GameLogic instantiation caller with an explicit member-template instantiation.
+All four matched rows and all five retained external COMDAT fingerprints stay
+exact; only the unrowed caller disappears. The fetched index records no other
+source touching that name. Strict preparation passes and preview retains LINKS,
+131 -> 131 authored bytes against `6fe1089c24` (2026-10-30 04:25). The owning
+tools retire one Microsoft-header finding and one class-gate exemption.
+
+The GameLogic header queue row remains: acceptance requires the canonical
+include even after the class is removed. False reject recorded; no unused
+include or verifier workaround. The staged batch audit is INCONCLUSIVE on its
+older index and missing current `Common/0CreateAHeroManager21FE49.cpp` consumer
+receipt. Full affected-consumer selection and loss checks remain unverified;
+carry this provider and its wider consumers into the next scheduled census.
+No census gain is claimed.
+[Evidence and checks](../reverse/attempt_support/buildable-map-instantiation-20261030-codexb5.md).
+
 ### Script-event record key identity (2026-10-30)
 
 At base `cc891735cc`, the constructors at `0x00332F5B` and `0x00332FC1`
@@ -9467,6 +9486,14 @@ Completed: all three emitters now declare the Snapshot slots through `BFME_SNAPS
 Remaining / next check: `TeamRelationMap` (dtor 0x003A2563, deleter) uses the same `__purecall` view and should take the same slots once its constructor unit emits a different copy.
 Clearance: preview only, index `bf3dd31211`.
 Census confirmation: awaiting.
+
+2026-10-30 identity-retirement preflight at `43231d14ed`: the unchanged
+`RelationMapXfer.cpp` passes its supported 6/6-row build and strict explicit
+provider preparation. The owning `retire identity` command still refuses:
+1,645 ledger objects are missing, so kept-copy selection is unknown. The
+identity register remains unchanged; this does not clear that finding.
+Populate and verify the current whole-tree objects before retrying retirement.
+[Scoped evidence](../reverse/attempt_support/crt-headers-player-20261030-codexb5.md).
 
 ### LINK-117: ShellMenuScheme consolidation needs native string and list contracts
 

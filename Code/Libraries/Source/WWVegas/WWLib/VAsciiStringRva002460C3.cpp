@@ -4,19 +4,9 @@
 // the body is the banked one up to statement/operand order and local types.
 // stlport
 //
-// ?setBuildableStatusOverride@GameLogic@@QAEXPBVThingTemplate@@W4BuildableStatus@@@Z
-// Target evidence: retail 0x00246F71 is a 29-byte Ghidra function. Its body
-// null-checks the first argument, passes ThingTemplate+0x64 as the key to the
-// hash map at GameLogic+0x10, then writes the second argument through the
-// returned value pointer. The operation's semantic identity is inferred from
-// that behavior and the matching retail call relationships; the offsets below
-// are target-specific structural evidence, not donor layout claims.
-
 #include <hash_map>
+#include <stddef.h>
 #include "ascii_string.h"
-
-typedef unsigned int size_t;
-
 
 enum BuildableStatus
 {
@@ -60,6 +50,7 @@ struct BuildableSlotPair {
 // Native 0x002460C3..0x0024613C: GameLogic's +0x10 override map returns
 // node+8 or inserts the copied key and enum zero, then returns pair+4.
 // The 0x41534B provider has a proven nonthrowing hash/compare-only chain.
+// ??A?$hash_map@VAsciiString@@W4BuildableStatus@@U?$hash@VAsciiString@@@rts@@U?$equal_to@VAsciiString@@@4@V?$allocator@U?$pair@$$CBVAsciiString@@W4BuildableStatus@@@_STL@@@_STL@@@_STL@@QAEAAW4BuildableStatus@@ABVAsciiString@@@Z
 template<>
 BuildableStatus &BuildableMap::operator[](const AsciiString &name)
 {
@@ -74,24 +65,5 @@ BuildableStatus &BuildableMap::operator[](const AsciiString &name)
         : (char *)node + 8);
 }
 
-class ThingTemplate; // +0x64 AsciiString key; NOT ThingTemplate::getName (kept +0x10 in ThingFactory.cpp), retail inlines +0x64
-
-// class-gate: allow GameLogic the body defines GameLogic members over only the +0x10 override map; the banked view is byte-exact
-class GameLogic
-{
-	char m_unknown00[0x10];
-	BuildableMap m_thingTemplateBuildableOverrides;
-
-public:
-	void setBuildableStatusOverride(const ThingTemplate *tt, BuildableStatus bs);
-	void instantiateBuildableOverrideIndex(const ThingTemplate *tt, BuildableStatus bs);
-};
-
-// setBuildableStatusOverride itself is rowed in GameLogicSetBuildableStatusOverride.cpp; this unit
-// keeps the same body under a local name only to instantiate the hash_map operator[] it owns.
-void GameLogic::instantiateBuildableOverrideIndex(const ThingTemplate *tt, BuildableStatus bs)
-{
-	if (tt)
-		m_thingTemplateBuildableOverrides[*reinterpret_cast<const AsciiString *>(
-			reinterpret_cast<const char *>(tt) + 0x64)] = bs;
-}
+// Emit the owned specialization directly, without a synthetic GameLogic caller.
+template BuildableStatus &BuildableMap::operator[](const AsciiString &name);
