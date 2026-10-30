@@ -106,11 +106,6 @@ public:
 	virtual void v14(Int a);
 	void rva006CBCF0();
 };
-void Rva006CBCF0::rva006CBCF0()
-{
-	if (this)
-		v14(1);
-}
 
 // 0x006E0510: whether the rowed 0x006E04A0 answers non-NULL.
 class BfmeAptValue006DCD20

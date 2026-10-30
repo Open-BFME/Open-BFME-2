@@ -40649,7 +40649,7 @@ _$E5,,0x007ACE60,12,Code/Libraries/Source/WWVegas/WW3D2/meshmdl_sidehash.cpp,mat
 ?rva006680C0@Rva006680C0@@QAEHPBURva006680C0Arg@@H@Z,,0x006680C0,13,Code/GameEngine/Source/Common/VslotSmallBodiesAN.cpp,matched,vtable slot; the first arg +0x280 word; no Ghidra entry
 ?rva00669400@Rva00669400@@QAEHXZ,,0x00669400,15,Code/GameEngine/Source/Common/VslotSmallBodiesAN.cpp,matched,vtable slot; rowed getter 0x00656F40 of what virtual slot 0 of the secondary base at +0x04 answers; no Ghidra entry
 ?rva0066D810@Rva0066D810@@QBE?AURva0066D810Handle@@XZ,,0x0066D810,12,Code/GameEngine/Source/Common/VslotSmallBodiesAN.cpp,matched,vtable slot; returns the +0x08 handle through the hidden result pointer (four tables); no Ghidra entry
-?rva006CBCF0@Rva006CBCF0@@QAEXXZ,,0x006CBCF0,12,Code/GameEngine/Source/Common/VslotSmallBodiesAN.cpp,matched,vtable slot; virtual slot 14 (1) of this object unless NULL (18 tables); no Ghidra entry
+?rva006CBCF0@Rva006CBCF0@@QAEXXZ,,0x006CBCF0,12,Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp,matched,vtable slot; virtual slot 14 (1) of this object unless NULL (18 tables); no Ghidra entry
 ?rva006E0510@BfmeAptValue006DCD20@@QBEHXZ,,0x006E0510,12,Code/GameEngine/Source/Common/VslotSmallBodiesAN.cpp,matched,vtable slot; whether rowed 0x006E04A0 answers non-NULL; no Ghidra entry
 ?rva006E3490@Rva006E3490@@QAEXXZ,,0x006E3490,11,Code/GameEngine/Source/Common/VslotSmallBodiesAN.cpp,matched,vtable slot; rowed BfmeWrapper1279 0x006F80C0(false) on the +0x24 member; no Ghidra entry
 ?rva00743080@Rva00665430@@QAEXHHHHH@Z,,0x00743080,3,Code/GameEngine/Source/Common/VslotSmallBodiesAN.cpp,matched,vtable slot; empty slot taking five args; no Ghidra entry
