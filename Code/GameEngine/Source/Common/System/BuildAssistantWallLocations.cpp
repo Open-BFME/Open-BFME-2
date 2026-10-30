@@ -1,5 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /O1 /EHs /MD /arch:SSE /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_CRTIMP= /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
 // stlport
+// platformsdk
 // BuildAssistantWallLocations.cpp -- BuildAssistant::rva0039380F (retail 0x0039380F,
 // 2217 bytes), the wall-segment placement walk split out of BuildAssistant.cpp.
 //
@@ -12,6 +13,9 @@
 // Coord3D::length/normalize and Coord2D::toAngle get visible noinline bodies here: the
 // calls stay out of line (retail 0x3571, 0x35B6, 0x5923) but c2 then sees that `this`
 // does not escape, which gives retail's stack colouring (sub esp,0xe8).
+#define WIN32_LEAN_AND_MEAN
+#define NOMINMAX
+#include <windows.h>
 #include <list>
 class Drawable;
 class FreelistPool{public: void*pop();};
@@ -58,12 +62,6 @@ typedef unsigned short UnsignedShort;
 typedef float Real;
 typedef int Color;
 #define GameMakeColor(r, g, b, a) (((a) << 24) | ((r) << 16) | ((g) << 8) | (b))
-#ifndef FALSE
-#define FALSE 0
-#endif
-#ifndef TRUE
-#define TRUE 1
-#endif
 enum KindOfType
 {
 KINDOF_2=2,
