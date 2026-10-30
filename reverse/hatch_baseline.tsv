@@ -2973,7 +2973,7 @@ alternatename	Code/GameEngine/Source/GameLogic/Map/SidesList.cpp	?isEmpty@Rva003
 alternatename	Code/GameEngine/Source/GameLogic/Map/SidesListTeamsInfoRecClear.cpp	??0?$vector@VBfmeThingUBB@@V?$allocator@VBfmeThingUBB@@@_STL@@@_STL@@QAE@I@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Map/SidesListTeamsInfoRecClear.cpp	??1?$vector@VBfmeThingUBB@@V?$allocator@VBfmeThingUBB@@@_STL@@@_STL@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Map/SidesListTeamsInfoRecClear.cpp	?swap@?$vector@VBfmeThingUBB@@V?$allocator@VBfmeThingUBB@@@_STL@@@_STL@@QAEXAAV12@@Z	1
-alternatename	Code/GameEngine/Source/GameLogic/Map/StandingWaveAreasDataChunkParserParse.cpp	?rva005CB283@Rva005CB283@@QAEXPBVRva0030B9DD@@@Z	1
+alternatename	Code/GameEngine/Source/GameLogic/Map/StandingWaveAreasDataChunkParser.cpp	?rva005CB283@Rva005CB283@@QAEXPBVRva0030B9DD@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Map/TerrainLogicRva00285193.cpp	?rva00284DD2@TerrainLogic@@QAEXPBUCoord3D@@MPBXPAPAVObject@@_N3@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Module/WorkerAIUpdateDtor.cpp	??1Rva0026E836@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Module/WorkerAIUpdateDtor.cpp	?f1@DBaseM1@@UAEXXZ	1

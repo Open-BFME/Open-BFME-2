@@ -24443,7 +24443,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0030CDBF,11,code,,,-,,Code/GameEngine/Source/Common/Rva0030CAA9OwnerCtor.cpp
 0x0030CDCA,156,code,,,-,,Code/GameEngine/Source/Common/Rva0030CAA9OwnerDtor.cpp
 0x0030CE66,135,code,Code/GameEngine/Source/GameLogic/Map/StandingWaveAreaSetView.cpp,proposed,N,N=Code/GameEngine/Source/GameLogic/Map/StandingWaveAreaSetView.cpp,Code/GameEngine/Source/GameLogic/Map/AreaSetInsert.cpp
-0x0030CEED,510,code,Code/GameEngine/Source/GameLogic/Map/StandingWaveAreasDataChunkParser.cpp,proposed,N,N=Code/GameEngine/Source/GameLogic/Map/StandingWaveAreasDataChunkParser.cpp W=Code/GameEngine/Source/GameLogic/Map/StandingWaveArea.cpp,Code/GameEngine/Source/GameLogic/Map/StandingWaveAreasDataChunkParserParse.cpp
+0x0030CEED,510,code,Code/GameEngine/Source/GameLogic/Map/StandingWaveAreasDataChunkParser.cpp,proposed,N,N=Code/GameEngine/Source/GameLogic/Map/StandingWaveAreasDataChunkParser.cpp W=Code/GameEngine/Source/GameLogic/Map/StandingWaveArea.cpp,Code/GameEngine/Source/GameLogic/Map/StandingWaveAreasDataChunkParser.cpp
 0x0030D0EB,38,code,,,-,,Code/GameEngine/Source/Common/Rva0030CAA9OwnerDtor.cpp
 0x0030D111,304,code,,,-,,Code/GameEngine/Source/Common/Rva0030D111ContainsPoint.cpp
 0x0030D241,261,code,,,-,,Code/GameEngine/Source/Common/Rva0030D111ContainsPoint.cpp
@@ -72758,11 +72758,11 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0077A25E,8,code,Code/GameEngine/Source/GameLogic/Map/StandingWaveAreaSetView.cpp,approved,P,P=0x0030CE66@FuncInfo0x00922B78 p-group provisional,Code/GameEngine/Source/GameLogic/Map/AreaSetInsert.cpp
 0x0077A266,8,code,Code/GameEngine/Source/GameLogic/Map/StandingWaveAreaSetView.cpp,approved,P,P=0x0030CE66@FuncInfo0x00922B78 p-group provisional,Code/GameEngine/Source/GameLogic/Map/AreaSetInsert.cpp
 0x0077A26E,10,code,Code/GameEngine/Source/GameLogic/Map/StandingWaveAreaSetView.cpp,approved,P,P=0x0030CE66@FuncInfo0x00922B78 p-group provisional,Code/GameEngine/Source/GameLogic/Map/AreaSetInsert.cpp
-0x0077A278,10,code,Code/GameEngine/Source/GameLogic/Map/StandingWaveAreasDataChunkParser.cpp,approved,P,P=0x0030CEED@FuncInfo0x00922BB4 p-group provisional,Code/GameEngine/Source/GameLogic/Map/StandingWaveAreasDataChunkParserParse.cpp
+0x0077A278,10,code,Code/GameEngine/Source/GameLogic/Map/StandingWaveAreasDataChunkParser.cpp,approved,P,P=0x0030CEED@FuncInfo0x00922BB4 p-group provisional,Code/GameEngine/Source/GameLogic/Map/StandingWaveAreasDataChunkParser.cpp
 0x0077A282,8,code,Code/GameEngine/Source/GameLogic/Map/StandingWaveAreasDataChunkParser.cpp,approved,P,P=0x0030CEED@FuncInfo0x00922BB4 p-group provisional,Code/gen_small/uw_gen_006.cpp
-0x0077A28A,8,code,Code/GameEngine/Source/GameLogic/Map/StandingWaveAreasDataChunkParser.cpp,approved,P,P=0x0030CEED@FuncInfo0x00922BB4 p-group provisional,Code/GameEngine/Source/GameLogic/Map/StandingWaveAreasDataChunkParserParse.cpp
-0x0077A292,8,code,Code/GameEngine/Source/GameLogic/Map/StandingWaveAreasDataChunkParser.cpp,approved,P,P=0x0030CEED@FuncInfo0x00922BB4 p-group provisional,Code/GameEngine/Source/GameLogic/Map/StandingWaveAreasDataChunkParserParse.cpp
-0x0077A29A,10,code,Code/GameEngine/Source/GameLogic/Map/StandingWaveAreasDataChunkParser.cpp,approved,P,P=0x0030CEED@FuncInfo0x00922BB4 p-group provisional,Code/GameEngine/Source/GameLogic/Map/StandingWaveAreasDataChunkParserParse.cpp
+0x0077A28A,8,code,Code/GameEngine/Source/GameLogic/Map/StandingWaveAreasDataChunkParser.cpp,approved,P,P=0x0030CEED@FuncInfo0x00922BB4 p-group provisional,Code/GameEngine/Source/GameLogic/Map/StandingWaveAreasDataChunkParser.cpp
+0x0077A292,8,code,Code/GameEngine/Source/GameLogic/Map/StandingWaveAreasDataChunkParser.cpp,approved,P,P=0x0030CEED@FuncInfo0x00922BB4 p-group provisional,Code/GameEngine/Source/GameLogic/Map/StandingWaveAreasDataChunkParser.cpp
+0x0077A29A,10,code,Code/GameEngine/Source/GameLogic/Map/StandingWaveAreasDataChunkParser.cpp,approved,P,P=0x0030CEED@FuncInfo0x00922BB4 p-group provisional,Code/GameEngine/Source/GameLogic/Map/StandingWaveAreasDataChunkParser.cpp
 0x0077A2A4,8,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/MapObject_verifyValidTeam.cpp
 0x0077A2AC,10,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/MapObject_verifyValidTeam.cpp
 0x0077A2B6,8,code,,,-,,Code/GameEngine/Source/GameClient/Rva0030D773Method.cpp
