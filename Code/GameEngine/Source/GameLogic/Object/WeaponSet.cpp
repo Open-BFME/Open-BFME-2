@@ -6,6 +6,15 @@ struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
 #pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #pragma optimize("", on)
+// Bind the shared retail clear before KindOf.h instantiates its inline helpers.
+// GameMemory supplies array placement new; select the same guard as PreRTS
+// before the early STL headers so the CRT does not define it a second time.
+#define __PLACEMENT_VEC_NEW_INLINE
+#include "Lib/Basetype.h"
+#include "Common/BitFlags.h"
+template <> void BitFlags<116>::clear();
+
+#line 9
 #include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
 #include <list>
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
