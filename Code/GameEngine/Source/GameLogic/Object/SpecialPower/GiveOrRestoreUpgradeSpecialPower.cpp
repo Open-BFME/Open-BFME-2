@@ -15,15 +15,8 @@ class ModuleData;
 
 class Object;
 
-template <typename T>
-class StringBase
-{
-public:
-	~StringBase();
-
-private:
-	T *m_data;
-};
+#define BFME_STRINGBASE_PUBLIC_DTOR
+#include "string_base.h"
 
 class BehaviorModuleBase
 {
