@@ -88,12 +88,65 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-class FakePathfindPortalBehaviour
+class Thing;
+class ModuleData;
+class Xfer;
+class Waypoint;
+
+// Retail ctor 0x461944 stores five vptrs: +0x00, +0x0C and +0x10 inside the
+// UpdateModule base, +0x20 and +0x24 for two interface bases (whose own
+// vtables, 0x00C1C780 and 0x00C4EF80, the inlined base ctors store first).
+// The 0x00C42B50 interface's slot 0 is rva0046190A, entered with this at
+// +0x20. novtable: the ctor writes those stores explicitly.
+class UpdateModule
 {
 public:
-	virtual NameKeyType getModuleNameKey() const;
+	UpdateModule(Thing *thing, const ModuleData *moduleData);
+	virtual ~UpdateModule();
+	void xfer(Xfer *xfer);
+
+protected:
+	Thing *m_owner;		// +0x04
+	int m_pad08;
+	const void *m_p0C;	// +0x0C
+	const void *m_p10;	// +0x10
+	unsigned char m_pad[0x20 - 0x14];
+};
+
+class __declspec(novtable) Rva00C42B50Iface
+{
 public:
+	virtual void rva0046190A(void *arg) = 0;
+};
+
+class __declspec(novtable) Rva00C42B40Iface
+{
+public:
+	virtual void slot0() = 0;
+};
+
+class __declspec(novtable) FakePathfindPortalBehaviour : public UpdateModule, public Rva00C42B50Iface,
+	public Rva00C42B40Iface
+{
+public:
+	FakePathfindPortalBehaviour(Thing *thing, const ModuleData *moduleData);
+	virtual NameKeyType getModuleNameKey() const;
+	virtual void rva0046190A(void *arg);
+	void rva0046183B();
 	void rva00461C1F();
+
+protected:
+	virtual void xfer(Xfer *xfer);
+
+private:
+	void regWaypointsWithPathfinder();
+
+	enum { WAYPOINT_COUNT = 2 };
+	Waypoint *m_28[WAYPOINT_COUNT];	// +0x28
+	bool m_30;
+	bool m_31;
+	bool m_32;
+	int m_34;
 };
 
 class Rva00461DB5Owner
