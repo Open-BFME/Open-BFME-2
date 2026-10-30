@@ -1250,7 +1250,3 @@ void __cdecl Rva0008AFDCDestroy(void *first, void *last)
 // tu-skeleton: 0x0077A4AA 14B $L5403 -- matched in Code/GameEngine/Source/Common/Containers/Rva003A35A0Element.cpp (not merged yet)
 
 // tu-skeleton: 0x0077A4B8 10B __ehhandler$??$_Construct@URva003A35A0Element@@U1@@_STL@@YAXPAURva003A35A0Element@@ABU1@@Z -- matched in Code/GameEngine/Source/Common/Containers/Rva003A35A0Element.cpp (not merged yet)
-
-#undef BFME_UNUSED_VIRTUALS_16
-
-#undef BFME_SHAKE_DATA
