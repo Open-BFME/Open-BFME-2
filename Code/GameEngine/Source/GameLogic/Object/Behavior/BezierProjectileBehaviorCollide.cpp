@@ -48,9 +48,13 @@ private:
 
 class WeaponTemplate;
 
+class AsciiString;
 class WeaponStore
 {
 public:
+	void handleProjectileDetonation(const WeaponTemplate *tmpl, const Coord3D *launchPos, const Object *source, const Coord3D *pos, int bonus); // 0x002CE8AA
+	void rva002CE964(const WeaponTemplate *tmpl, const Object *source, const Object *victim); // 0x002CE964
+	const WeaponTemplate *findWeaponTemplate(const AsciiString &name) const;
 	void createAndFireTempWeapon(const WeaponTemplate *tmpl, const Object *source, const Coord3D *pos);
 };
 extern WeaponStore *TheWeaponStore;
@@ -69,10 +73,14 @@ struct BezierProjectileBehaviorModuleData
 
 class BfmeThingDI;
 
+class BfmeNodeDI;
 class Gen_001EFD20
 {
 public:
-	Bool bfmeIsNew(const BfmeThingDI *thing) const;
+	bool bfmeIsNew(const BfmeThingDI *thing) const;
+private:
+	int m_bfmeHead[31]; // +0x00 +0x00
+	BfmeNodeDI *m_bfmeList; // +0x7C +0x7C
 };
 
 class ProjectileUpdateInterface

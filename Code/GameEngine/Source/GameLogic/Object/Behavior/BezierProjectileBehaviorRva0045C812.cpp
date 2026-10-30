@@ -32,13 +32,18 @@ public:
 
 class BridgeBehaviorObjectIDList
 {
-public:
+private:
+	void *m_head; // +0x00
 };
 
+class AsciiString;
 class WeaponStore
 {
 public:
-	void handleProjectileDetonation(const WeaponTemplate *wt, const Coord3D *pos1, const Object *source, const Coord3D *pos2, int x);
+	void handleProjectileDetonation(const WeaponTemplate *tmpl, const Coord3D *launchPos, const Object *source, const Coord3D *pos, int bonus); // 0x002CE8AA
+	void rva002CE964(const WeaponTemplate *tmpl, const Object *source, const Object *victim); // 0x002CE964
+	const WeaponTemplate *findWeaponTemplate(const AsciiString &name) const;
+	void createAndFireTempWeapon(const WeaponTemplate *tmpl, const Object *source, const Coord3D *pos);
 };
 
 extern WeaponStore *TheWeaponStore;

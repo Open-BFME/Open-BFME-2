@@ -27,7 +27,11 @@ struct BezCoord : Coord3D {
  BezCoord &operator=(const Coord3D &p) { Coord3D::operator=(p); return *this; }
  ~BezCoord() {}
 };
-class WWMath { public: static float __fastcall Inv_Sqrt(float); };
+class WWMath
+{
+public:
+	static float __fastcall Inv_Sqrt(float);
+};
 class Vector3 { public:
  float X,Y,Z;
  Vector3(float x,float y,float z) { X=x; Y=y; Z=z; }
@@ -77,17 +81,39 @@ extern View *TheTacticalView;
 struct BezierGlobalData { char pad[0xE9C]; bool debug; };
 class GlobalData;
 extern GlobalData *TheWritableGlobalData;
-class Rva000421C8 { public:
- Rva000421C8():m_next(0){} virtual ~Rva000421C8(){} virtual bool allow(Object*)=0;
- virtual int getPlayerMask(); Rva000421C8 *link(Rva000421C8*); Rva000421C8 *m_next;
+class Rva000421C8
+{
+public:
+	Rva000421C8() : m_next(0) {}
+	Rva000421C8 *link(Rva000421C8 *next); // 0x00625790
+	virtual ~Rva000421C8() {}
+	virtual bool allow(Object *obj) = 0;
+	virtual int getPlayerMask();
+	Rva000421C8 *m_next; // +0x04
 };
-class Rva0026119DFilter:public Rva000421C8 { public: virtual bool allow(Object*); };
-class Rva002611BFFilter:public Rva000421C8 { public:
- Rva002611BFFilter(const Object*object):m_obj(object){} virtual bool allow(Object*);const Object *m_obj;
+class Rva0026119DFilter : public Rva000421C8
+{
+public:
+	virtual bool allow(Object *obj);
 };
-class Rva00260EB1Filter:public Rva000421C8 { public:
- Rva00260EB1Filter(const Object*object,int f,bool b):m_obj(object),m_flags(f),m_match(b){}
- virtual bool allow(Object*);virtual int getPlayerMask();const Object *m_obj;int m_flags;bool m_match;
+class Rva002611BFFilter : public Rva000421C8
+{
+public:
+	Rva002611BFFilter(const Object *obj) : m_obj(obj) {}
+	virtual bool allow(Object *obj);
+	const Object *m_obj; // +0x08
+};
+class Rva00260EB1Filter : public Rva000421C8
+{
+public:
+	Rva00260EB1Filter(const Object *obj, int flags, bool match)
+	: m_obj(obj), m_flags(flags), m_match(match) {}
+	virtual bool allow(Object *obj);
+	virtual int getPlayerMask();
+	const Object *m_obj; // +0x08
+	int m_flags; // +0x0C
+	bool m_match; // +0x10
+	char m_pad11[0x3];
 };
 enum UpdateSleepTime { UPDATE_SLEEP_NONE=1,UPDATE_SLEEP_FOREVER=0x3fffffff };
 struct BezierProjectileBehaviorModuleData {

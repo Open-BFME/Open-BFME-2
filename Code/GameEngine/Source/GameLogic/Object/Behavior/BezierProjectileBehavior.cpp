@@ -23,11 +23,11 @@ class Rva000421C8
 {
 public:
 	Rva000421C8() : m_next(0) {}
+	Rva000421C8 *link(Rva000421C8 *next); // 0x00625790
 	virtual ~Rva000421C8() {}
 	virtual bool allow(Object *obj) = 0;
 	virtual int getPlayerMask();
-	Rva000421C8 *link(Rva000421C8 *next);	// 0x00625790
-	Rva000421C8 *m_next;
+	Rva000421C8 *m_next; // +0x04
 };
 // vftable 0x00BFAD10, allow 0x0026119D: not effectively dead.
 class Rva0026119DFilter : public Rva000421C8
@@ -41,7 +41,7 @@ class Rva002611BFFilter : public Rva000421C8
 public:
 	Rva002611BFFilter(const Object *obj) : m_obj(obj) {}
 	virtual bool allow(Object *obj);
-	const Object *m_obj;
+	const Object *m_obj; // +0x08
 };
 // vftable 0x00BFBC90, allow 0x00260EB1: +0x08 the object, +0x0C
 // relationship flags, +0x10 whether a hit allows.
@@ -49,12 +49,13 @@ class Rva00260EB1Filter : public Rva000421C8
 {
 public:
 	Rva00260EB1Filter(const Object *obj, int flags, bool match)
-		: m_obj(obj), m_flags(flags), m_match(match) {}
+	: m_obj(obj), m_flags(flags), m_match(match) {}
 	virtual bool allow(Object *obj);
 	virtual int getPlayerMask();
-	const Object *m_obj;
-	int m_flags;
-	bool m_match;
+	const Object *m_obj; // +0x08
+	int m_flags; // +0x0C
+	bool m_match; // +0x10
+	char m_pad11[0x3];
 };
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../Common/PartitionRangeQueryCallView.h"
@@ -79,7 +80,10 @@ enum ObjectStatusTypes
 class Drawable
 {
 public:
-	void setDrawableHidden(bool hidden);	// 0x00271601
+	void setDrawableHidden(bool hidden); // 0x00271601
+	void fadeOut(unsigned int frames); // 0x00270756
+	void fadeIn(unsigned int frames); // 0x002707A8
+	void rva00272D77(unsigned int a, unsigned int b); // 0x00272D77
 };
 
 class Object
@@ -107,12 +111,14 @@ public:
 	bool m_hitStoredTarget;	// +0x131 fire at the victim
 };
 
+class AsciiString;
 class WeaponStore
 {
 public:
-	void handleProjectileDetonation(const WeaponTemplate *tmpl, const Coord3D *launchPos, const Object *source,
-		const Coord3D *pos, int bonus);	// 0x002CE8AA
-	void rva002CE964(const WeaponTemplate *tmpl, const Object *source, const Object *victim);	// 0x002CE964
+	void handleProjectileDetonation(const WeaponTemplate *tmpl, const Coord3D *launchPos, const Object *source, const Coord3D *pos, int bonus); // 0x002CE8AA
+	void rva002CE964(const WeaponTemplate *tmpl, const Object *source, const Object *victim); // 0x002CE964
+	const WeaponTemplate *findWeaponTemplate(const AsciiString &name) const;
+	void createAndFireTempWeapon(const WeaponTemplate *tmpl, const Object *source, const Coord3D *pos);
 };
 
 extern WeaponStore *TheWeaponStore;
@@ -183,10 +189,9 @@ class Gen_001EFD20
 {
 public:
 	bool bfmeIsNew(const BfmeThingDI *thing) const;
-
 private:
-	int m_bfmeHead[31];					// +0x00
-	BfmeNodeDI *m_bfmeList;					// +0x7C
+	int m_bfmeHead[31]; // +0x00 +0x00
+	BfmeNodeDI *m_bfmeList; // +0x7C +0x7C
 };
 
 enum NameKeyType

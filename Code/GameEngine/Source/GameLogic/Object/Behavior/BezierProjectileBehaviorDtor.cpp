@@ -118,9 +118,8 @@ class Rva0029FB3BMember
 public:
 	void init(void *context);
 	void reset();
-
 private:
-	void *m_head;
+	void *m_head; // +0x00
 };
 
 class PoolMember

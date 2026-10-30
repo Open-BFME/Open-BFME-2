@@ -72,10 +72,10 @@ extern PlayerList *ThePlayerList;
 class Drawable
 {
 public:
-	void fadeOut(UnsignedInt frames);	// 0x00270756
-	void fadeIn(UnsignedInt frames);	// 0x002707A8
-	void rva00272D77(UnsignedInt a, UnsignedInt b);	// 0x00272D77
-	void setDrawableHidden(Bool hidden);	// 0x00271601
+	void setDrawableHidden(bool hidden); // 0x00271601
+	void fadeOut(unsigned int frames); // 0x00270756
+	void fadeIn(unsigned int frames); // 0x002707A8
+	void rva00272D77(unsigned int a, unsigned int b); // 0x00272D77
 };
 
 class ThingTemplate

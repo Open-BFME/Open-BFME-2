@@ -133,7 +133,8 @@ Xfer *Rva00390911XferCoordVector(Xfer *xfer, AICommandCoordVector *vec);
 
 class BridgeBehaviorObjectIDList
 {
-	void *m_head;
+private:
+	void *m_head; // +0x00
 };
 
 Xfer *xferSTLObjectIDList(Xfer *xfer, BridgeBehaviorObjectIDList *list);
@@ -146,10 +147,14 @@ public:
 	const AsciiString &getName() const { return m_name; }
 };
 
+struct Coord3D;
 class WeaponStore
 {
 public:
+	void handleProjectileDetonation(const WeaponTemplate *tmpl, const Coord3D *launchPos, const Object *source, const Coord3D *pos, int bonus); // 0x002CE8AA
+	void rva002CE964(const WeaponTemplate *tmpl, const Object *source, const Object *victim); // 0x002CE964
 	const WeaponTemplate *findWeaponTemplate(const AsciiString &name) const;
+	void createAndFireTempWeapon(const WeaponTemplate *tmpl, const Object *source, const Coord3D *pos);
 };
 
 extern WeaponStore *TheWeaponStore;
@@ -216,7 +221,11 @@ class BezierFlightView {public:
 #undef S
  virtual void fire(Object *,const Coord3D *);
 };
-class WWMath {public:static float __fastcall Inv_Sqrt(float);};
+class WWMath
+{
+public:
+	static float __fastcall Inv_Sqrt(float);
+};
 void BezierProjectileBehavior::rva0045CC72(int flag) {
  Object *object=m_object;
  const BezierPathDataView *data=(const BezierPathDataView *)m_moduleData;
