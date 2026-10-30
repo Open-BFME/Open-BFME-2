@@ -15625,3 +15625,11 @@ Code/GameEngine/Source/Common/GapBodiesSeat5A.cpp|param|Rva00580154::rva00580154
 Code/GameEngine/Source/GameNetwork/Rva007F4440FeslClient.cpp|global||g_Rva012C3A18,a4589dc5cddadc68ab056cbb,gpt-6.1-sol,w5-10300646-4,w-f0819d403c17,2026-10-30
 Code/GameEngine/Source/Common/VslotSmallBodiesW.cpp|member|Rva00483B10|m_24,28baef464aede1f72eb813ee,gpt-6.1-sol,w5-10300646-5,w-f0819d403c17,2026-10-30
 Code/GameEngine/Source/Common/VslotSmallBodiesW.cpp|function|0x004059F6|rva004059F6,23f37aad06e2cc1fb949a8ce,gpt-6.1-sol,w5-10300646-5,w-f0819d403c17,2026-10-30
+Code/GameEngine/Source/GameClient/ViewXferBfme.cpp|param|Version|v,1af9d8856011c26f9caaa439,gpt-6.1-sol,w4-10300701-2,w-eb83eac9adc1,2026-10-30
+Code/GameEngine/Source/GameClient/ViewXferBfme.cpp|param|Version|c,3bd604c545f41cf6a4fecaef,gpt-6.1-sol,w4-10300701-2,w-eb83eac9adc1,2026-10-30
+Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdate.cpp|param|Rva0049C5D9::onExit|a,cfb338484a5e490bc04d41ef,gpt-6.1-sol,w4-10300701-5,w-eb83eac9adc1,2026-10-30
+Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdate.cpp|param|Rva0049C5D9::onExit|b,aa90c4561105861f03fb3974,gpt-6.1-sol,w4-10300701-5,w-eb83eac9adc1,2026-10-30
+Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DRadarDrawEvents.cpp|function|0x0004D835|Rva0004D835PingName,ea27192795f97c4ffc4c5a66,gpt-6.1-sol,w4-10300701-6,w-eb83eac9adc1,2026-10-30
+Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DRadarDrawEvents.cpp|function|0x0004E5A2|rva0004E5A2,1d15ef31aec435e235190ea8,gpt-6.1-sol,w4-10300701-6,w-eb83eac9adc1,2026-10-30
+Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DRadarDrawEvents.cpp|local|Rva0004D835PingName|n,f19b256331527fdd1707aef9,gpt-6.1-sol,w4-10300701-6,w-eb83eac9adc1,2026-10-30
+Code/GameEngine/Source/Common/Rva004E37CFNamedReplace.cpp|function|0x004E37CF|rva004E37CF,4577d8606acd461a40a3bfd1,gpt-6.1-sol,w4-10300701-7,w-eb83eac9adc1,2026-10-30
