@@ -26,14 +26,13 @@ private:
 	NameKeyType m_moduleTagNameKey;
 };
 
-class Module
+#include "../../Include/Common/Module.h"
+
+// Access to the existing +4 data pointer; no additional state or helper body.
+class Rva002786D9ModuleDataAccess : public Module
 {
 public:
-	const ModuleData *getModuleData() const { return m_moduleData; }
-	NameKeyType getModuleTagNameKey() const { return getModuleData()->getModuleTagNameKey(); }
-private:
-	void *m_vtable;
-	const ModuleData *m_moduleData;
+    using Module::getModuleData;
 };
 
 class NameKeyGenerator
@@ -87,7 +86,7 @@ void Drawable::xferDrawableModules(Xfer *xfer)
 		*xfer == moduleCount;
 		if (xfer->IsStoring()) {
 			for (m = m_modules[curModuleType]; m && *m; ++m) {
-				moduleIdentifier = TheNameKeyGenerator->keyToName((*m)->getModuleTagNameKey());
+				moduleIdentifier = TheNameKeyGenerator->keyToName(((Rva002786D9ModuleDataAccess *)(*m))->getModuleData()->getModuleTagNameKey());
 				*xfer == moduleIdentifier;
 				xfer->BeginBlock("DrawableModule");
 				*xfer == *(Snapshot *)(*m);
@@ -99,7 +98,7 @@ void Drawable::xferDrawableModules(Xfer *xfer)
 				NameKeyType moduleIdentifierKey = TheNameKeyGenerator->nameToKey(moduleIdentifier);
 				Module *module = 0;
 				for (Module **mm = m_modules[curModuleType]; mm && *mm; ++mm) {
-					if (moduleIdentifierKey == (*mm)->getModuleTagNameKey()) {
+					if (moduleIdentifierKey == ((Rva002786D9ModuleDataAccess *)(*mm))->getModuleData()->getModuleTagNameKey()) {
 						module = *mm;
 						break;
 					}

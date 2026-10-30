@@ -1,0 +1,185 @@
+{
+  "source": "Code/GameEngine/Source/GameClient/Drawable_xferDrawableModules.cpp",
+  "scope": "canonical Module8 plus existing protected data getter access; preserve ModuleData tag key at+4 and replace only the old forwarding helper calls",
+  "variants": {
+    "before": {
+      "source_sha256": "12c299c89c738fe67943b074f9bccba5c4a610da76cf9a8e4f91b39eb8d3ae8f",
+      "rows": [
+        {
+          "name": "?xferDrawableModules@Drawable@@QAEXPAVXfer@@@Z",
+          "rva": "0x002786D9",
+          "size": "400",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?xferDrawableModules@Drawable@@QAEXPAVXfer@@@Z",
+          "rva": "0x007735A8",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "$L1304",
+          "rva": "0x007735A0",
+          "size": "8",
+          "exact": true
+        }
+      ],
+      "eh": [
+        {
+          "name": "?xferDrawableModules@Drawable@@QAEXPAVXfer@@@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        }
+      ]
+    },
+    "trial": {
+      "source_sha256": "f973cc4c729c95daada2236e38ddfe18e386b3bfdab2ccc3870cbb151d180414",
+      "rows": [
+        {
+          "name": "?xferDrawableModules@Drawable@@QAEXPAVXfer@@@Z",
+          "rva": "0x002786D9",
+          "size": "400",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?xferDrawableModules@Drawable@@QAEXPAVXfer@@@Z",
+          "rva": "0x007735A8",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "$L1304",
+          "rva": "0x007735A0",
+          "size": "8",
+          "exact": true
+        }
+      ],
+      "eh": [
+        {
+          "name": "?xferDrawableModules@Drawable@@QAEXPAVXfer@@@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        }
+      ]
+    }
+  },
+  "removed_debug_only_definitions": [
+    {
+      "name": "?getModuleTagNameKey@Module@@QBE?AW4NameKeyType@@XZ",
+      "raw": "8b41048b4004c3",
+      "relocations": [],
+      "incoming_refs": [
+        {
+          "section": ".debug$F",
+          "offset": 0,
+          "kind": 7
+        }
+      ]
+    }
+  ],
+  "symbol_identity_changes": {
+    "?getModuleData@Module@@QBEPBVModuleData@@XZ": "?getModuleData@Module@@IBEPBVModuleData@@XZ"
+  },
+  "all_external_code_and_symbolic_relocations_identical": false,
+  "all_retained_external_code_and_symbolic_relocations_identical": true,
+  "actual": {
+    "source_sha256": "1dad60276e756ee3a735b20cf592d7acf1f851b8fd9271c99895b87751bc9859",
+    "object_sha256": "7db5bb3d4d66f243b53b00d75f85fb6f69c63da0690b307827e3c81f4399165c",
+    "strict_current": true,
+    "external_code_definitions_and_relocations_identical": 6
+  },
+  "external_definition_sha256": {
+    "??0AsciiString@@QAE@XZ": "247e2e047dec6917a9a9c3767903e18d596332f350d9ba4e4acb04837dfd97ae",
+    "??1AsciiString@@QAE@XZ": "815f3a6781bf2eba8e6e1b895564b6e3dc016ae58637181fbd815a1e3cfe433e",
+    "??4AsciiString@@QAEAAV0@ABV0@@Z": "3324be277c169fb49209814b96f061157d574c7d2d214a98777dce1631418560",
+    "?getModuleData@Module@@IBEPBVModuleData@@XZ": "50ec2995c3ef0d616ddbe247f0c0e4bea2bca9396923d38b6adc97efe1a58f1c",
+    "?getModuleTagNameKey@ModuleData@@QBE?AW4NameKeyType@@XZ": "50ec2995c3ef0d616ddbe247f0c0e4bea2bca9396923d38b6adc97efe1a58f1c",
+    "?xferDrawableModules@Drawable@@QAEXPAVXfer@@@Z": "a38b4d34366f9d1ed3dee6e9d45030ffbbe72c78e06f9818e0026b540d01e876"
+  },
+  "native_helpers": [],
+  "native_caller_access": [
+    {
+      "rva": "0x278777",
+      "raw": "8b4004",
+      "mnemonic": "mov",
+      "operands": "eax, dword ptr [eax + 4]"
+    },
+    {
+      "rva": "0x27877a",
+      "raw": "ff7004",
+      "mnemonic": "push",
+      "operands": "dword ptr [eax + 4]"
+    },
+    {
+      "rva": "0x2787ee",
+      "raw": "8b5204",
+      "mnemonic": "mov",
+      "operands": "edx, dword ptr [edx + 4]"
+    },
+    {
+      "rva": "0x2787f1",
+      "raw": "3b4204",
+      "mnemonic": "cmp",
+      "operands": "eax, dword ptr [edx + 4]"
+    }
+  ],
+  "removed_getter_consumer_scope": {
+    "index_meta": {
+      "date": "2026-10-30 15:43",
+      "commit": "ccafe54d1d",
+      "clean_tree": true,
+      "census_date": "2026-10-30 14:18",
+      "census_commit": "e1f7c1dd18"
+    },
+    "indexed_touches": {
+      "?getModuleData@Module@@QBEPBVModuleData@@XZ": [
+        "^code_^game^engine_^source_^game^client_^drawable_xfer^drawable^modules.obj",
+        "^code_^game^engine_^source_^game^logic_^object_^update_^a^i^update_^a^i^giant^bird^attack^state^on^enter.obj",
+        "^code_^game^engine_^source_^game^logic_^object_^update_^foundation^a^i^update^construct.obj"
+      ],
+      "?getModuleTagNameKey@Module@@QBE?AW4NameKeyType@@XZ": [
+        "^code_^game^engine_^source_^game^client_^drawable_xfer^drawable^modules.obj"
+      ]
+    },
+    "actual_current_objects": [
+      {
+        "source": "Code/GameEngine/Source/GameClient/Drawable_xferDrawableModules.cpp",
+        "source_sha256": "1dad60276e756ee3a735b20cf592d7acf1f851b8fd9271c99895b87751bc9859",
+        "object_sha256": "7db5bb3d4d66f243b53b00d75f85fb6f69c63da0690b307827e3c81f4399165c",
+        "source_command_dependency_hashes_current": true,
+        "object_matches_receipt_hash": true,
+        "strict_include_inventory_current": true,
+        "removed_names_defined": false,
+        "references_to_removed_names": [],
+        "protected_getter_raw": "8b4104c3"
+      },
+      {
+        "source": "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIGiantBirdAttackStateOnEnter.cpp",
+        "source_sha256": "6743b49cfa3161c23f4b204c1fb6a3ee0994b27cedcb88280bd7e016617c8d25",
+        "object_sha256": "e5361f51088c14f99d598afacf33d5c844b94e593612d6ec27a9078af1f138d2",
+        "source_command_dependency_hashes_current": true,
+        "object_matches_receipt_hash": true,
+        "strict_include_inventory_current": true,
+        "removed_names_defined": false,
+        "references_to_removed_names": [],
+        "protected_getter_raw": "8b4104c3"
+      },
+      {
+        "source": "Code/GameEngine/Source/GameLogic/Object/Update/FoundationAIUpdateConstruct.cpp",
+        "source_sha256": "685cdd1ab40779fa586a414475e630835569129e2649d144a5fdfa9f7bc1c1a2",
+        "object_sha256": "a79b4a38d630ab173a710f581f5a179f59bf21eaac142d9ac36b5c671c8116d5",
+        "source_command_dependency_hashes_current": true,
+        "object_matches_receipt_hash": true,
+        "strict_include_inventory_current": false,
+        "removed_names_defined": false,
+        "references_to_removed_names": [],
+        "protected_getter_raw": "8b4104c3"
+      }
+    ],
+    "scope": "all indexed touching objects for the removed public getter and forwarding wrapper; no whole-image/census claim"
+  }
+}
