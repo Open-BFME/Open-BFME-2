@@ -215,6 +215,8 @@ private:
 	Rva004FA935List m_list;
 };
 
+// ---- from Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuildingNuggetSpawnArmy.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuildingNuggetSpawnArmyRunProductionPhase_CanQueueUnit.cpp
 
 // Split from LivingWorldBuildingNuggetSpawnArmyRunProductionPhase.cpp: these definitions reference a callee with no matched body yet,
@@ -263,10 +265,6 @@ bool LivingWorldBuildingNuggetSpawnArmy::canQueueUnit(ObjectID id)
 	return result;
 }
 
-// tu-skeleton: 0x004FA935 30B ?forEach@Rva004FA935List@@QAEXP8Rva004FA935Listener@@AEXPAX@Z0@Z -- matched in Code/GameEngine/Source/Common/Rva004FA738ListenerWalks.cpp (not merged yet)
-
-// tu-skeleton: 0x004FA953 37B ?forEach@Rva004FA953List@@QAEXP8Rva004FA953Listener@@AEXPAXH@Z0H@Z -- matched in Code/GameEngine/Source/Common/Rva004FA738ListenerWalks.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva004FA978Forward.cpp
 
 void Rva004FA978::rva004FA978(void (Rva004FA935Listener::*notify)(void *), void *arg)
@@ -274,10 +272,6 @@ void Rva004FA978::rva004FA978(void (Rva004FA935Listener::*notify)(void *), void 
 	m_list.forEach(notify, arg);
 	reinterpret_cast<Rva004FA935List &>(g_00E044F0).forEach(notify, arg);
 }
-
-// tu-skeleton: 0x004FA992 31B ?rva004FA992@Rva004FA992@@QAEXP8Rva004FA953Listener@@AEXPAXH@Z0H@Z -- matched in Code/GameEngine/Source/Common/Rva004FA992Forward.cpp (not merged yet)
-
-// tu-skeleton: 0x004FA9B1 208B ?rva004FA9B1@Rva004FA992Owner@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/Rva004FA738ListenerWalks.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuildingNuggetSpawnArmyRunProductionPhase.cpp
 
@@ -379,6 +373,20 @@ void Rva004FA992::rva004FA686(ObjectID id)
 		}
 	}
 }
+
+// tu-skeleton: 0x004FA935 30B ?forEach@Rva004FA935List@@QAEXP8Rva004FA935Listener@@AEXPAX@Z0@Z -- matched in Code/GameEngine/Source/Common/Rva004FA738ListenerWalks.cpp (not merged yet)
+
+// tu-skeleton: 0x004FA953 37B ?forEach@Rva004FA953List@@QAEXP8Rva004FA953Listener@@AEXPAXH@Z0H@Z -- matched in Code/GameEngine/Source/Common/Rva004FA738ListenerWalks.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva004FA992Forward.cpp
+
+void Rva004FA992::rva004FA992(void (Rva004FA953Listener::*notify)(void *, int), void *arg, int value)
+{
+	m_list.forEach(notify, arg, value);
+	reinterpret_cast<Rva004FA953List &>(g_00E044F0).forEach(notify, arg, value);
+}
+
+// tu-skeleton: 0x004FA9B1 208B ?rva004FA9B1@Rva004FA992Owner@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/Rva004FA738ListenerWalks.cpp (not merged yet)
 
 // tu-skeleton: 0x00793406 8B $L5782 -- matched in Code/GameEngine/Source/Common/Rva004FA738ListenerWalks.cpp (not merged yet)
 
