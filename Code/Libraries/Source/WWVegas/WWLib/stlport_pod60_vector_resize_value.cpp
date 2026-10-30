@@ -5,24 +5,25 @@
 // 0x0058816D reaches the 38-byte erase body at 0x00587C1A.
 struct BfmePod60 { int a[15]; };
 namespace _STL {
-template <class T> class allocator {};
-template <class T, class A> class vector {
+template <class T> class allocator;
+template <class T, class A> class vector;
+template <class A> class vector<BfmePod60, A> {
 public:
     typedef unsigned int size_type;
-    typedef T *iterator;
+    typedef BfmePod60 *iterator;
     iterator erase(iterator first, iterator last);
-    void _M_fill_insert(iterator position, size_type count, const T &value);
-    void resize(size_type newSize, T value);
+    void _M_fill_insert(iterator position, size_type count, const BfmePod60 &value);
+    void resize(size_type newSize, BfmePod60 value);
 private:
     iterator begin() { return m_start; }
     iterator end() { return m_finish; }
     size_type size() const { return (size_type)(m_finish - m_start); }
-    T *m_start;
-    T *m_finish;
-    T *m_endOfStorage;
+    BfmePod60 *m_start;
+    BfmePod60 *m_finish;
+    BfmePod60 *m_endOfStorage;
 };
-template <class T, class A>
-void vector<T,A>::resize(size_type newSize, T value) {
+template <class A>
+void vector<BfmePod60,A>::resize(size_type newSize, BfmePod60 value) {
     if (newSize < size())
         erase(begin() + newSize, end());
     else
