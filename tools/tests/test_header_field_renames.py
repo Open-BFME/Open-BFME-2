@@ -52,7 +52,7 @@ def compiler(unit=UNIT_LAYOUTS, header=HEADER_LAYOUTS, seen=None):
 def test_private_fields_take_the_canonical_names_through_bases():
     mapping, why = lane.field_renames("u.cpp", UNIT, ["Object"], "Object.h", compiler())
     assert why is None
-    assert mapping == {"m_flags": "m_status", "m_speed": "m_moveSpeed"}   # padding needs no counterpart
+    assert mapping == {"Object": {"m_flags": "m_status", "m_speed": "m_moveSpeed"}}   # padding needs no counterpart
 
 
 def test_the_probe_compiles_the_unit_only_up_to_its_view():
@@ -74,7 +74,7 @@ def test_a_field_with_no_canonical_counterpart_is_refused():
 def test_a_field_the_header_types_differently_is_refused():
     header = dict(HEADER_LAYOUTS, Object=layout([(8, "m_moveSpeed", "int", 4)], bases=[("Thing", 0)]))
     mapping, why = lane.field_renames("u.cpp", UNIT, ["Object"], "Object.h", compiler(header=header))
-    assert mapping is None and "is float; the canonical m_moveSpeed is int" in why
+    assert mapping is None and "is float; the canonical Object::m_moveSpeed is int" in why
 
 
 def test_a_rename_that_would_reach_another_class_is_refused():
@@ -102,7 +102,7 @@ def test_a_failed_probe_is_the_units_verdict():
 def test_flat_fields_skip_virtual_bases():
     layouts = {"V": layout([(0, "m_v", "int", 4)], size=4),
                "D": layout([(4, "m_d", "int", 4)], bases=[("virtual V", -1)])}
-    assert lane.flat_fields("D", layouts) == {(4, 4): ("m_d", "int")}
+    assert lane.flat_fields("D", layouts) == {(4, 4): [("m_d", "int", "D")]}
 
 
 @pytest.fixture
@@ -134,7 +134,7 @@ def test_adopt_writes_passing_units_and_registers_nothing(tree, monkeypatch, cap
     monkeypatch.setattr(lane, "write_queue", lambda *a: pytest.fail("adopt must not queue"))
     assert lane.adopt("Object", "Code/Object.h", ["Code/u.cpp"]) == 0
     assert (root / "Code" / "u.cpp").read_text() == UNIT
-    assert "PASS Code/u.cpp (fields: m_flags -> m_status, m_speed -> m_moveSpeed)" in capsys.readouterr().out
+    assert "PASS Code/u.cpp (fields: Object::m_flags -> m_status, Object::m_speed -> m_moveSpeed)" in capsys.readouterr().out
     assert lane.adopt("Object", "Code/Object.h", ["Code/u.cpp"], apply=True) == 0
     assert "o->m_status" in (root / "Code" / "u.cpp").read_text()
 
@@ -145,3 +145,74 @@ def test_adopt_leaves_a_failing_unit_alone(tree, monkeypatch, capsys):
     assert lane.adopt("Object", "Code/Object.h", ["Code/u.cpp"], apply=True) == 1
     assert (root / "Code" / "u.cpp").read_text() == UNIT
     assert "FAIL Code/u.cpp: error C2039" in capsys.readouterr().out
+
+
+# -- R1 regressions: each was a silent wrong rename that no byte check catches in inactive #if code
+
+def test_s1_a_union_offset_with_several_candidates_is_refused():
+    header = dict(HEADER_LAYOUTS, Thing=layout([(0, "first", "int", 4), (0, "last", "int", 4),
+                                                (4, "m_extra", "int", 4)], size=8))
+    assert lane.flat_fields("Object", header)[(0, 4)] == [("first", "int", "Thing"), ("last", "int", "Thing")]
+    mapping, why = lane.field_renames("u.cpp", UNIT, ["Object"], "Object.h", compiler(header=header))
+    assert mapping is None and "could be any of Thing::first, Thing::last (a union)" in why
+
+
+def test_s1_a_union_candidate_carrying_the_private_name_resolves():
+    unit = dict(UNIT_LAYOUTS, Object=layout([(0, "last", "int", 4), (8, "m_speed", "float", 4)]))
+    text = UNIT.replace("m_flags", "last").replace("    char m_pad04[4];\n", "")
+    header = dict(HEADER_LAYOUTS, Thing=layout([(0, "first", "int", 4), (0, "last", "int", 4)], size=8))
+    mapping, why = lane.field_renames("u.cpp", text, ["Object"], "Object.h", compiler(unit=unit, header=header))
+    assert why is None and mapping == {"Object": {"m_speed": "m_moveSpeed"}}
+
+
+def test_s2_a_name_two_classes_of_the_hierarchy_declare_is_refused():
+    header = {"Thing": layout([(0, "value", "int", 4), (4, "m_extra", "int", 4)], size=8),
+              "Object": layout([(8, "value", "float", 4)], bases=[("Thing", 0)])}
+    mapping, why = lane.field_renames("u.cpp", UNIT, ["Object"], "Object.h", compiler(header=header))
+    assert mapping is None and "value is declared by Object, Thing" in why and "shadowed" in why
+
+
+RENAMES = {"Object": {"m_flags": "m_status"}}
+
+PROVEN = """class Object;
+Object *find();
+int a(Object *o) { return o->m_flags; }
+int b(Object &r) { return r.m_flags; }
+int c() { return find()->m_flags; }
+int Object::d() { return m_flags + this->m_flags; }
+int e() { return Object::m_flags; }
+"""
+
+
+def test_s3_members_reached_through_the_class_are_renamed():
+    out, why = lane.scoped_rename(PROVEN, RENAMES)
+    assert why is None and "m_flags" not in out and out.count("m_status") == 6
+
+
+def test_s3_a_member_of_an_unrelated_class_is_left_alone():
+    text = "class Other;\nint f(Other *x) { return x->m_flags + Other::m_flags; }\n"
+    out, why = lane.scoped_rename(text, RENAMES)
+    assert why is None and out == text
+
+
+@pytest.mark.parametrize("text, what", [
+    ("int f() { int m_flags = 0; return m_flags; }\n", "a local in a free function"),
+    ("#if 0\nint f() { int m_flags = 1; return m_flags; }\n#endif\n", "a local in inactive code"),
+    ("int Object::f() { int m_flags = 0; return m_flags; }\n", "a local that hides the member"),
+    ("int f(Object *o) { return g()->m_flags; }\n", "an object of no declared type"),
+    ("int f(Object *p) { return p->m_flags; }\nint g(Team *p) { return p->m_flags; }\n", "two types for p"),
+    ("int f(Object **v) { return v[0]->m_flags; }\n", "an indexed object"),
+    ("#define FLAGS(o) ((o)->m_flags)\n", "a macro body"),
+    ("class Derived : public Object {};\nint f(Derived *d) { return d->m_flags; }\n", "a derived class"),
+])
+def test_s3_an_occurrence_not_proven_a_member_refuses_the_unit(text, what):
+    out, why = lane.scoped_rename(text, RENAMES)
+    assert out is None and why, what
+
+
+def test_s3_try_unit_refuses_a_unit_with_an_unproven_occurrence(tree):
+    root, _ = tree
+    (root / "Code" / "u.cpp").write_text(UNIT + "#if 0\nint g() { int m_flags = 2; return m_flags; }\n#endif\n",
+                                         encoding="latin-1", newline="")
+    source, why, text, _ = lane.try_unit("Code/u.cpp", ["Object", "Thing"], "Code/Object.h", "class")
+    assert text is None and why.startswith("field renames: m_flags at line")

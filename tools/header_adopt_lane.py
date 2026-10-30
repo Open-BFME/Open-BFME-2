@@ -133,8 +133,10 @@ def swap_at(text, names, include):
 # A unit's private view names its fields its own way; the canonical header names them
 # once. Swapping the view out leaves the unit's code spelling the private names, so the
 # swap renames them: a private field and the header's field at one offset and size (in
-# the class or one of its non-virtual bases) are one field, and the unit's references
-# are rewritten token by token with tu_views' renamer and its safety checks.
+# the class or one of its non-virtual bases) are one field. Only references proven to be
+# members of the adopting class are rewritten (scoped_rename); a unit with any other
+# occurrence of an old name is refused: code inside an inactive #if is never compiled,
+# so no byte check would catch a wrong rename there.
 
 PROBE_FN = "header_adopt_lane_layout_probe"
 
@@ -169,22 +171,26 @@ def compile_text(source, text):
 
 
 def flat_fields(name, layouts, base=0, seen=()):
-    """{(offset, size): (field, cvtype)} for `name`'s data members and those of its
-    non-virtual bases, at their offsets in `name` (a virtual base has no fixed offset)."""
+    """{(offset, size): [(field, cvtype, declaring class), ...]} for `name`'s data members
+    and those of its non-virtual bases, at their offsets in `name` (a virtual base has no
+    fixed offset). Every candidate is kept: union members share an offset and size."""
     lay = layouts.get(name) or {}
     out = {}
     for base_name, offset in lay.get("bases", []):
         if offset >= 0 and base_name not in seen:
-            out.update(flat_fields(base_name, layouts, base + offset, seen + (name,)))
+            for key, found in flat_fields(base_name, layouts, base + offset, seen + (name,)).items():
+                out.setdefault(key, []).extend(found)
     for offset, field, cvtype, size in lay.get("fields", []):
-        out[(base + offset, size)] = (field, cvtype)
+        out.setdefault((base + offset, size), []).append((field, cvtype, name))
     return out
 
 
 def field_renames(source, text, strip, include, compile=None):
-    """({private field: canonical field}, None) for the unit's views of the `strip` classes,
-    or (None, why) when a private field has no canonical field of its offset and size, the
-    two disagree on what it is, two classes would rename one name two ways, or a token
+    """({class: {private field: canonical field}}, None) for the unit's views of the
+    `strip` classes, or (None, why) when a private field has no canonical field of its
+    offset and size, several canonical fields share that offset and size (a union) and
+    none carries the private name, the canonical name is declared by more than one class
+    of the hierarchy (hidden or shadowed), the two disagree on what the field is, or a
     rename is unsafe in the unit (tu_views.rename_problem). `compile(source, text)` gives
     {class: layout} (text None: the unit as it stands)."""
     import tu_views
@@ -211,32 +217,164 @@ def field_renames(source, text, strip, include, compile=None):
         laid = compile(source, probe_text(text, strip, include))
     except RuntimeError as exc:
         return None, f"the header's layout: {exc}"
-    mapping = {}
+    mappings = {}
     for view, own in views:
         name = view.cls
         canonical = flat_fields(name, laid)
         if not canonical:
             return None, f"{include}: the probe laid out no field of {name}"
+        declared = collections.defaultdict(set)         # canonical field -> classes declaring it
+        for found in canonical.values():
+            for field, _, owner in found:
+                declared[field].add(owner)
         table = tu_views.field_table(view)
         mine = {}
         for old in own:
             offset, size, cvtype = table[old]
-            found = canonical.get((offset, size))
+            found = canonical.get((offset, size), [])
             if not found:
                 return None, (f"{name}::{old} (+0x{offset:X}, {size} bytes) has no canonical field "
                               "of that offset and size")
-            new, want = found
+            same = [f for f in found if f[0] == old]
+            if not same and len(found) > 1:
+                return None, (f"{name}::{old} (+0x{offset:X}, {size} bytes) could be any of "
+                              + ", ".join(f"{o}::{f}" for f, _, o in found) + " (a union); not resolved")
+            new, want, owner = (same or found)[0]
+            if len(declared[new]) > 1:
+                return None, (f"{name}::{old} -> {new}: {new} is declared by "
+                              + ", ".join(sorted(declared[new])) + "; the unqualified name is hidden or shadowed")
             if not tu_views.cv_compatible(cvtype, want):
-                return None, f"{name}::{old} (+0x{offset:X}) is {cvtype}; the canonical {new} is {want}"
+                return None, f"{name}::{old} (+0x{offset:X}) is {cvtype}; the canonical {owner}::{new} is {want}"
             if new != old:
                 mine[old] = new
         why = tu_views.rename_problem(view, mine)
         if why:
             return None, why
-        for old, new in mine.items():
-            if mapping.setdefault(old, new) != new:
-                return None, f"{old} is renamed {mapping[old]} in one class and {new} in another"
-    return mapping, None
+        if mine:
+            mappings[name] = mine
+    return mappings, None
+
+
+# -- scoped renaming: a reference is rewritten only when its class is proven
+NOT_TYPES = {"return", "delete", "else", "case", "goto", "sizeof", "new", "throw", "typedef", "operator",
+             "using", "namespace", "public", "private", "protected", "virtual", "static", "extern", "inline",
+             "const", "volatile", "struct", "class", "union", "enum", "friend", "template", "typename", "do"}
+DECL = r"(?<![\w.>:])((?:[A-Za-z_]\w*\s*::\s*)*[A-Za-z_]\w*)\s*((?:const\s*)?(?:[*&]\s*(?:const\s*)?)*)\b{}\s*"
+
+
+def declared_types(code, ident, call=False):
+    """{type} the masked code declares `ident` with: a variable, parameter or field, or with
+    `call` a function's return type. Qualifiers and pointers are dropped."""
+    follow = r"(?=\()" if call else r"(?=[,;=)\[:])"
+    types = set()
+    for m in re.finditer(DECL.format(re.escape(ident)) + follow, code):
+        word = re.sub(r"\s+", "", m.group(1))
+        if word.split("::")[-1] in NOT_TYPES or word == ident:
+            continue
+        types.add(word.split("::")[-1])
+    return types
+
+
+def member_spans(code, classes):
+    """[(start, end, class)]: the out-of-line member function definitions of `classes` in the
+    masked unit, from the qualified name through the closing brace (initializer list included)."""
+    spans = []
+    for cls in classes:
+        for m in re.finditer(r"\b" + re.escape(cls) + r"\s*::\s*~?[A-Za-z_]\w*\s*\(", code):
+            depth, i = 0, m.end() - 1
+            while i < len(code):                        # the parameter list
+                depth += (code[i] == "(") - (code[i] == ")")
+                i += 1
+                if not depth:
+                    break
+            j = i
+            while j < len(code) and code[j] not in "{;":
+                j += 1
+            if j >= len(code) or code[j] != "{":
+                continue                                # a declaration or a call
+            depth, k = 0, j
+            while k < len(code):
+                depth += (code[k] == "{") - (code[k] == "}")
+                k += 1
+                if not depth:
+                    break
+            spans.append((m.start(), k, cls))
+    return spans
+
+
+def object_class(code, end, here):
+    """The class of the object expression ending at `end` (just before its `->` or `.`):
+    `this` in a member function, an identifier or a call the unit declares with exactly one
+    type; None for anything else (chains, indexing, casts, several declared types)."""
+    i = end
+    while i and code[i - 1] in " \t\r\n":
+        i -= 1
+    call = bool(i) and code[i - 1] == ")"
+    if call:
+        depth, j = 0, i
+        while j:
+            j -= 1
+            depth += (code[j] == ")") - (code[j] == "(")
+            if not depth:
+                break
+        i = j
+    name = re.search(r"([A-Za-z_]\w*)\s*$", code[:i])
+    if not name:
+        return None
+    if name.group(1) == "this" and not call:
+        return here
+    if code[:name.start()].rstrip().endswith(("->", ".", "::")):
+        return None                                     # a chained or qualified expression
+    types = declared_types(code, name.group(1), call)
+    return next(iter(types)) if len(types) == 1 else None
+
+
+def scoped_rename(text, mappings):
+    """(text with every reference to a renamed field rewritten, None), or (None, why) when an
+    occurrence of an old name is not proven to be a member of a class it is renamed in, or of
+    a class unrelated to them. Proven: `this->x` or a bare `x` inside an out-of-line member
+    function of the class (where nothing declares x locally), `p->x` / `o.x` / `f()->x`
+    where the unit declares p, o or f with exactly one type, and `Class::x`."""
+    olds = {old for m in mappings.values() for old in m}
+    if not olds:
+        return text, None
+    code = masked(text)
+    spans = member_spans(code, list(mappings))
+    derived = re.compile(r"\b(?:class|struct)\s+(\w+)\s*:[^{;]*\b(?:" + "|".join(map(re.escape, mappings)) + r")\b")
+    heirs = {m.group(1) for m in derived.finditer(code)}
+    pat = re.compile(r"(?<![\w$])(" + "|".join(re.escape(o) for o in sorted(olds, key=len, reverse=True))
+                     + r")(?![\w$])")
+    out, last = [], 0
+    for m in pat.finditer(code):
+        old, at = m.group(1), m.start()
+        where = f"{old} at line {code.count(chr(10), 0, at) + 1}"
+        line = code[code.rfind("\n", 0, at) + 1:at]
+        if line.lstrip().startswith("#"):
+            return None, f"{where} is in a preprocessor line; not proven a member"
+        inside = next((sp for sp in spans if sp[0] <= at < sp[1]), None)
+        here = inside[2] if inside else None
+        before = code[:at].rstrip()
+        if before.endswith("->") or (before.endswith(".") and not before.endswith("..")):
+            cls = object_class(code, len(before) - (2 if before.endswith("->") else 1), here)
+        elif before.endswith("::"):
+            q = re.search(r"([A-Za-z_]\w*)\s*$", before[:-2])
+            cls = q.group(1) if q else None
+        elif inside and not declared_types(code[inside[0]:inside[1]], old):
+            cls = here
+        else:
+            cls = None
+        if cls is None:
+            return None, (f"{where} is not proven a member of " + "/".join(sorted(mappings))
+                          + "; refusing rather than guessing")
+        if cls not in mappings and cls in heirs:
+            return None, f"{where}: {cls} derives from " + "/".join(sorted(mappings)) + "; not resolved"
+        new = mappings.get(cls, {}).get(old)
+        if new:
+            out.append(text[last:at])
+            out.append(new)
+            last = m.end()
+    out.append(text[last:])
+    return "".join(out), None
 
 
 def include_spelling(source, header):
@@ -683,7 +821,7 @@ def rewrite_ledger(renames):
     LEDGER.write_text("".join(lines), encoding="utf-8", newline="")
 
 
-FIELD_RENAMES = {}     # source -> {private field: canonical field} of its last swap, for reports
+FIELD_RENAMES = {}     # source -> {Class::private field: canonical field} of its last swap, for reports
 
 
 def try_unit(source, strip, header, key):
@@ -702,9 +840,10 @@ def try_unit(source, strip, header, key):
     if why:
         return source, f"field renames: {why}", None, []
     if fields:
-        import tu_views
-        swapped = tu_views.rename(swapped, fields)
-        FIELD_RENAMES[source] = fields
+        swapped, why = scoped_rename(swapped, fields)
+        if why:
+            return source, f"field renames: {why}", None, []
+        FIELD_RENAMES[source] = {f"{cls}::{old}": new for cls, m in fields.items() for old, new in m.items()}
     renames = ledger_renames(source, strip[0], key) if view_key != key else []
     if renames:
         return source, f"class-key {view_key}: {len(renames)} ledger rename(s) needed", swapped, renames
