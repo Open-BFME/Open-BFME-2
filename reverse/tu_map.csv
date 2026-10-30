@@ -21429,7 +21429,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x002B5C93,40,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp,approved,C,C=0x002B5AF7..0x002B5CBB,Code/GameEngine/Source/Common/GapBodiesGE01.cpp
 0x002B5CBB,64,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp
 0x002B5CFB,59,code,Code/GameEngine/Source/Common/LivingWorldLogic.cpp,proposed,N,N=Code/GameEngine/Source/Common/LivingWorldLogic.cpp noncontiguous,Code/GameEngine/Source/Common/LivingWorldLogic_WillPlayerBeEliminatedIfHeOrSheLosesThisRegion.cpp
-0x002B5D36,383,code,Code/GameEngine/Source/Common/LivingWorldLogic.cpp,proposed,N,N=Code/GameEngine/Source/Common/LivingWorldLogic.cpp W=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp noncontiguous,Code/GameEngine/Source/Common/Rva002B5D36EndGame.cpp
+0x002B5D36,383,code,Code/GameEngine/Source/Common/LivingWorldLogic.cpp,proposed,N,N=Code/GameEngine/Source/Common/LivingWorldLogic.cpp W=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp noncontiguous,Code/GameEngine/Source/Common/LivingWorldLogic.cpp
 0x002B5EB5,213,code,,,-,W=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp
 0x002B5F8A,98,code,,,-,,Code/GameEngine/Source/Common/Rva002B5F8A.cpp
 0x002B5FEC,5,code,,,-,,Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp
@@ -71163,12 +71163,12 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00776132,10,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp,approved,P,P=0x002B59AA@FuncInfo0x0091D860,Code/GameEngine/Source/Common/BfmeFiveArgCtorWI.cpp
 0x0077613C,8,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp,approved,P,P=0x002B5BBA@FuncInfo0x0091D884,Code/GameEngine/Source/Common/Rva002B5BBA.cpp
 0x00776144,10,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp,approved,P,P=0x002B5BBA@FuncInfo0x0091D884,Code/GameEngine/Source/Common/Rva002B5BBA.cpp
-0x0077614E,8,code,Code/GameEngine/Source/Common/LivingWorldLogic.cpp,approved,P,P=0x002B5D36@FuncInfo0x0091D8C8 p-group provisional,Code/GameEngine/Source/Common/Rva002B5D36EndGame.cpp
-0x00776156,8,code,Code/GameEngine/Source/Common/LivingWorldLogic.cpp,approved,P,P=0x002B5D36@FuncInfo0x0091D8C8 p-group provisional,Code/GameEngine/Source/Common/Rva002B5D36EndGame.cpp
-0x0077615E,8,code,Code/GameEngine/Source/Common/LivingWorldLogic.cpp,approved,P,P=0x002B5D36@FuncInfo0x0091D8C8 p-group provisional,Code/GameEngine/Source/Common/Rva002B5D36EndGame.cpp
-0x00776166,8,code,Code/GameEngine/Source/Common/LivingWorldLogic.cpp,approved,P,P=0x002B5D36@FuncInfo0x0091D8C8 p-group provisional,Code/GameEngine/Source/Common/Rva002B5D36EndGame.cpp
-0x0077616E,8,code,Code/GameEngine/Source/Common/LivingWorldLogic.cpp,approved,P,P=0x002B5D36@FuncInfo0x0091D8C8 p-group provisional,Code/GameEngine/Source/Common/Rva002B5D36EndGame.cpp
-0x00776176,10,code,Code/GameEngine/Source/Common/LivingWorldLogic.cpp,approved,P,P=0x002B5D36@FuncInfo0x0091D8C8 p-group provisional,Code/GameEngine/Source/Common/Rva002B5D36EndGame.cpp
+0x0077614E,8,code,Code/GameEngine/Source/Common/LivingWorldLogic.cpp,approved,P,P=0x002B5D36@FuncInfo0x0091D8C8 p-group provisional,Code/GameEngine/Source/Common/LivingWorldLogic.cpp
+0x00776156,8,code,Code/GameEngine/Source/Common/LivingWorldLogic.cpp,approved,P,P=0x002B5D36@FuncInfo0x0091D8C8 p-group provisional,Code/GameEngine/Source/Common/LivingWorldLogic.cpp
+0x0077615E,8,code,Code/GameEngine/Source/Common/LivingWorldLogic.cpp,approved,P,P=0x002B5D36@FuncInfo0x0091D8C8 p-group provisional,Code/GameEngine/Source/Common/LivingWorldLogic.cpp
+0x00776166,8,code,Code/GameEngine/Source/Common/LivingWorldLogic.cpp,approved,P,P=0x002B5D36@FuncInfo0x0091D8C8 p-group provisional,Code/GameEngine/Source/Common/LivingWorldLogic.cpp
+0x0077616E,8,code,Code/GameEngine/Source/Common/LivingWorldLogic.cpp,approved,P,P=0x002B5D36@FuncInfo0x0091D8C8 p-group provisional,Code/GameEngine/Source/Common/LivingWorldLogic.cpp
+0x00776176,10,code,Code/GameEngine/Source/Common/LivingWorldLogic.cpp,approved,P,P=0x002B5D36@FuncInfo0x0091D8C8 p-group provisional,Code/GameEngine/Source/Common/LivingWorldLogic.cpp
 0x00776180,8,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_sort_rva002bbc1c.cpp
 0x00776188,10,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_sort_rva002bbc1c.cpp
 0x00776192,8,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp,approved,P,P=0x002B64C7@FuncInfo0x0091D910,Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva002B64C7Observer.cpp
