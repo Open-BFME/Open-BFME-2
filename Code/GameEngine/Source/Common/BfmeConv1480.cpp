@@ -1,98 +1,13 @@
-// cl: /Od
+// cl: /DNDEBUG /MD /EHsc /Od /Ob1 /D_STLP_USE_STATIC_LIB
+// stlport46
+// Retail 0x00029850 (206B) is STLport 4.6 basic_string<char>::rfind(const char *,
+// size_type, size_type) const (_string.c:367): npos when the needle is longer,
+// min(len, pos) for an empty needle, else find_end with _Eq_traits (0x00027F30,
+// BfmeTwoHundredSixtyFour.cpp).
+#include <string>
 
-void bfmeGoPA(void *a, void *b, void *c, void *d, unsigned char e);
+extern template const char *_STL::find_end(const char *, const char *, const char *, const char *, _STL::_Eq_traits<_STL::char_traits<char> >);
 
-class BfmeStrV39
-{
-public:
-	char *b;
-	char *e;
-};
-
-int __stdcall bfmeFindV39(char *s, unsigned pos, unsigned n)
-{
-	char pad[44];
-
-	__asm
-	{
-		mov dword ptr [ebp-0x20], ecx
-		mov eax, dword ptr [ebp-0x20]
-		mov ecx, dword ptr [ebp-0x20]
-		mov edx, dword ptr [eax+4]
-		sub edx, dword ptr [ecx]
-		mov dword ptr [ebp-4], edx
-		mov eax, dword ptr [ebp+0x10]
-		cmp eax, dword ptr [ebp-4]
-		jbe check_zero
-		or eax, -1
-		jmp done
-	check_zero:
-		cmp dword ptr [ebp+0x10], 0
-		jnz search
-		mov ecx, dword ptr [ebp+0x0C]
-		cmp ecx, dword ptr [ebp-4]
-		jnb use_len
-		lea edx, dword ptr [ebp+0x0C]
-		mov dword ptr [ebp-0x24], edx
-		jmp got_pos
-	use_len:
-		lea eax, dword ptr [ebp-4]
-		mov dword ptr [ebp-0x24], eax
-	got_pos:
-		mov ecx, dword ptr [ebp-0x24]
-		mov dword ptr [ebp-0x18], ecx
-		mov edx, dword ptr [ebp-0x18]
-		mov eax, dword ptr [edx]
-		jmp done
-	search:
-		mov eax, dword ptr [ebp-4]
-		sub eax, dword ptr [ebp+0x10]
-		mov dword ptr [ebp-0x10], eax
-		mov ecx, dword ptr [ebp+0x0C]
-		cmp ecx, dword ptr [ebp-0x10]
-		jnb use_room
-		lea edx, dword ptr [ebp+0x0C]
-		mov dword ptr [ebp-0x28], edx
-		jmp got_room
-	use_room:
-		lea eax, dword ptr [ebp-0x10]
-		mov dword ptr [ebp-0x28], eax
-	got_room:
-		mov ecx, dword ptr [ebp-0x28]
-		mov dword ptr [ebp-0x1C], ecx
-		mov edx, dword ptr [ebp-0x20]
-		mov eax, dword ptr [edx]
-		mov ecx, dword ptr [ebp-0x1C]
-		add eax, dword ptr [ecx]
-		add eax, dword ptr [ebp+0x10]
-		mov dword ptr [ebp-0x0C], eax
-		mov dl, byte ptr [ebp-0x11]
-		push edx
-		mov eax, dword ptr [ebp+8]
-		add eax, dword ptr [ebp+0x10]
-		push eax
-		mov ecx, dword ptr [ebp+8]
-		push ecx
-		mov edx, dword ptr [ebp-0x0C]
-		push edx
-		mov eax, dword ptr [ebp-0x20]
-		mov ecx, dword ptr [eax]
-		push ecx
-		call bfmeGoPA
-		add esp, 0x14
-		mov dword ptr [ebp-8], eax
-		mov edx, dword ptr [ebp-8]
-		cmp edx, dword ptr [ebp-0x0C]
-		jz notfound
-		mov eax, dword ptr [ebp-0x20]
-		mov ecx, dword ptr [ebp-8]
-		sub ecx, dword ptr [eax]
-		mov dword ptr [ebp-0x2C], ecx
-		jmp ret_idx
-	notfound:
-		mov dword ptr [ebp-0x2C], 0xFFFFFFFF
-	ret_idx:
-		mov eax, dword ptr [ebp-0x2C]
-	done:
-	}
+namespace _STL {
+template string::size_type string::rfind(const char *, string::size_type, string::size_type) const;
 }

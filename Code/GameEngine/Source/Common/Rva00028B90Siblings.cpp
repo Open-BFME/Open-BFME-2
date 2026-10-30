@@ -1,57 +1,20 @@
-// cl: /Od
-// Three run-as-pair-of-ends callers recovered from the
-// ?bfmeGoPF@BfmeThingPF@@QAEXPBUBfmeRangePF@@PAX@Z recipe at 0x00028C10.
-// The body is byte-identical to the template except for its single REL32 call
-// site, so this is a wrapper that passes the range start and length through to
-// an address-specific callee. The callee is a thiscall spelling of a body the
-// ledger holds under another (free-function) name, exactly as the template's
-// bfmeDoPF pin at 0x000276B0 coexists with the rowed ?bfmeFindV20@@YGHPBDII@Z.
-// Nothing here names the real functions; the class names are address-derived.
-struct BfmeRangePF
-{
-	char *m_bfmeAt;				// 0x0
-	char *m_bfmeEnd;			// 0x4
-};
+// cl: /DNDEBUG /MD /EHsc /Od /Ob1 /D_STLP_USE_STATIC_LIB
+// stlport46
+// Three STLport 4.6 basic_string<char> forwarders (_string.h) that hand
+// (s._M_start, pos, s.size()) to the three-argument member:
+//   0x00028B90 find(const basic_string &, size_type) const -> 0x00027540
+//   0x0002A270 rfind(const basic_string &, size_type) const -> 0x00029850
+//   0x0002ACF0 find_last_not_of(const basic_string &, size_type) const -> 0x0002A420
+#include <string>
 
-class Rva00028B90Thing
-{
-public:
-	void bfmeGoPF(const BfmeRangePF *span, void *what);
-	void bfmeDoPF(char *at, void *what, int many);
-};
+// The three-argument members are instantiated in stlport_reverse_string_search.cpp
+// (find, find_last_not_of) and BfmeConv1480.cpp (rfind).
+extern template _STL::string::size_type _STL::string::find(const char *, _STL::string::size_type, _STL::string::size_type) const;
+extern template _STL::string::size_type _STL::string::rfind(const char *, _STL::string::size_type, _STL::string::size_type) const;
+extern template _STL::string::size_type _STL::string::find_last_not_of(const char *, _STL::string::size_type, _STL::string::size_type) const;
 
-void Rva00028B90Thing::bfmeGoPF(const BfmeRangePF *span, void *what)
-{
-	bfmeDoPF(span->m_bfmeAt, what, span->m_bfmeEnd - span->m_bfmeAt);
+namespace _STL {
+template string::size_type string::find(const string &, string::size_type) const;
+template string::size_type string::rfind(const string &, string::size_type) const;
+template string::size_type string::find_last_not_of(const string &, string::size_type) const;
 }
-
-class Rva0002A270Thing
-{
-public:
-	void bfmeGoPF(const BfmeRangePF *span, void *what);
-	void bfmeDoPF(char *at, void *what, int many);
-};
-
-void Rva0002A270Thing::bfmeGoPF(const BfmeRangePF *span, void *what)
-{
-	bfmeDoPF(span->m_bfmeAt, what, span->m_bfmeEnd - span->m_bfmeAt);
-}
-
-class Rva0002ACF0Thing
-{
-public:
-	void bfmeGoPF(const BfmeRangePF *span, void *what);
-	void bfmeDoPF(char *at, void *what, int many);
-};
-
-void Rva0002ACF0Thing::bfmeGoPF(const BfmeRangePF *span, void *what)
-{
-	bfmeDoPF(span->m_bfmeAt, what, span->m_bfmeEnd - span->m_bfmeAt);
-}
-
-// The callees below are thiscall spellings of bodies the ledger holds under
-// other (free-function/rowed) names at the same addresses (census owners of
-// those DIR32 targets); bind this unit's spellings.
-#pragma comment(linker, "/alternatename:?bfmeDoPF@Rva00028B90Thing@@QAEXPADPAXH@Z=?find@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QBEIPBDII@Z")
-#pragma comment(linker, "/alternatename:?bfmeDoPF@Rva0002A270Thing@@QAEXPADPAXH@Z=?bfmeFindV39@@YGHPADII@Z")
-#pragma comment(linker, "/alternatename:?bfmeDoPF@Rva0002ACF0Thing@@QAEXPADPAXH@Z=?find_last_not_of@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QBEIPBDII@Z")

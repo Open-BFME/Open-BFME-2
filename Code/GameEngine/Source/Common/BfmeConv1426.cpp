@@ -1,23 +1,11 @@
-// cl: /Od /Ob1
+// cl: /DNDEBUG /MD /EHsc /Od /Ob1 /D_STLP_USE_STATIC_LIB
+// stlport46
+// Retail 0x00026E40 (90B) is STLport 4.6's __find_first_of (_algobase.c:264)
+// over const char * with _Eq_traits<char_traits<char> > (_ctraits_fns.h:31),
+// the search under string::find_first_of(const char *, size_type, size_type)
+// const at 0x000276B0; the empty predicate is the fifth stack word.
+#include <string>
 
-// Native 276B0 passes five stack words; the final one is an empty object.
-// Its type name is structural; no original STL template identity is asserted.
-struct Rva00026E40Tag {};
-
-inline bool bfmeEqVMD(const char &a, const char &b)
-{
-	return a == b;
-}
-
-const char *bfmeFindFirstOfVMD(const char *first1, const char *last1, const char *first2, const char *last2, Rva00026E40Tag)
-{
-	for (; first1 != last1; ++first1)
-	{
-		for (const char *n1 = first2; n1 != last2; ++n1)
-		{
-			if (bfmeEqVMD(*first1, *n1))
-				return first1;
-		}
-	}
-	return last1;
+namespace _STL {
+template const char *__find_first_of(const char *, const char *, const char *, const char *, _Eq_traits<char_traits<char> >);
 }

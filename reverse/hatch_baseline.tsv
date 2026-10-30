@@ -1653,7 +1653,6 @@ alternatename	Code/GameEngine/Source/Common/BfmeConv1436.cpp	?bfmeImplVMO@BfmeSt
 alternatename	Code/GameEngine/Source/Common/BfmeConv1437.cpp	?bfmeImplVMP@BfmeStrVMP@@QAEXHHHH@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv1444.cpp	?bfmeImplVMW@BfmeStrVMW@@QAEXHHPAD@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv1453.cpp	?bfmeFillInsV38@BfmeStrV38@@QAEPAV1@PAD0ID@Z	1
-alternatename	Code/GameEngine/Source/Common/BfmeConv1468.cpp	?bfmeDoOR@@YAXPAX0EPAE@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv1496.cpp	?bfmeInsertV52@BfmeStrV52@@QAEXPAD0000@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv1497.cpp	?bfmeInsertV53@BfmeStrV53@@QAEXPAD0000@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv1503.cpp	?bfmeFreeVNC@Rva00800E50Owner@@QAEXPAVRva007E8810Message@@@Z	1
@@ -1782,7 +1781,6 @@ alternatename	Code/GameEngine/Source/Common/BfmeStrVM0Dtor.cpp	?v68@Display@@UAE
 alternatename	Code/GameEngine/Source/Common/BfmeTaintManager.cpp	?bfmeVecDtorDMC@@YGXPAXIHP6AX0@Z@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeThingBFGTail.cpp	?rva0025F30DCallView@BfmeThingBFG@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/BfmeThingCDEDestructor.cpp	?ArrayDeleteHelperBodyThunk@@YGXPAXII0@Z	1
-alternatename	Code/GameEngine/Source/Common/BfmeThingPF.cpp	?bfmeDoPG@BfmeThingPG@@QAEXPADPAXH@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeThingRE.cpp	?bfmeRunRE@BfmeThingRE@@QAEXPAX@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeThingSVA.cpp	?bfmeEraseV17@BfmeVecV17@@QAEXPAH0@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeThingSVA.cpp	?bfmeFwdOneSVA@BfmeThingSVA@@QAEXHH@Z	1
@@ -1797,7 +1795,6 @@ alternatename	Code/GameEngine/Source/Common/BfmeTwoHundredEightyThree.cpp	?bfmeD
 alternatename	Code/GameEngine/Source/Common/BfmeTwoHundredEightyThree.cpp	_bfmeCopy1152	1
 alternatename	Code/GameEngine/Source/Common/BfmeTwoHundredEightyThree.cpp	_bfmeCopy1153	1
 alternatename	Code/GameEngine/Source/Common/BfmeTwoHundredEightyThree.cpp	_bfmeCopy1154	1
-alternatename	Code/GameEngine/Source/Common/BfmeTwoHundredFiftyThree.cpp	?bfmeSearchQW@@YAPADPAD0E@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeTwoHundredFortyNine.cpp	_Rva0081B9D0	1
 alternatename	Code/GameEngine/Source/Common/BfmeWideResultForward.cpp	?bfmeMakeWideResult@BfmeWideResultSource@@QAE?AUBfmeWideResult@@HHHHHH@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeWideResultForward.cpp	?rva00628770@Rva00628770Impl@@QAE?AUBfmeWideResult@@PBUCoord3D@@MHHPAVRva000421C8@@H@Z	1
@@ -2034,9 +2031,6 @@ alternatename	Code/GameEngine/Source/Common/RTS/Rva00263895Init.cpp	?init@Rva002
 alternatename	Code/GameEngine/Source/Common/RTS/Science.cpp	?lookupScience@ScienceStore@@QBE?AW4ScienceType@@PBD@Z	1
 alternatename	Code/GameEngine/Source/Common/RTS/ShroudManagerImpl008FBA40.cpp	?getShroudStatusForPlayer@ShroudManager@@QBE?AW4CellShroudStatus@@HPBUCoord3D@@@Z	1
 alternatename	Code/GameEngine/Source/Common/RTS/ShroudManagerImpl008FBA40.cpp	?revealMapForPlayerPermanently@ShroudManager@@QAEXH@Z	1
-alternatename	Code/GameEngine/Source/Common/Rva00028B90Siblings.cpp	?bfmeDoPF@Rva00028B90Thing@@QAEXPADPAXH@Z	1
-alternatename	Code/GameEngine/Source/Common/Rva00028B90Siblings.cpp	?bfmeDoPF@Rva0002A270Thing@@QAEXPADPAXH@Z	1
-alternatename	Code/GameEngine/Source/Common/Rva00028B90Siblings.cpp	?bfmeDoPF@Rva0002ACF0Thing@@QAEXPADPAXH@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva00029F80Cluster.cpp	?rva00078c0@Rva00029F80@@AAEXPBD0PAX@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva000518E0Thunk.cpp	?handle@Gen0003AC38@@QAEXPAX@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva00072A08Ctor.cpp	??1RenderingMethodDelegate@FXShader@@MAE@XZ	1
@@ -4678,17 +4672,12 @@ pin	reverse/symbols.csv	0x00025330	1
 pin	reverse/symbols.csv	0x000253E0	1
 pin	reverse/symbols.csv	0x00025AD0	1
 pin	reverse/symbols.csv	0x00025B80	1
-pin	reverse/symbols.csv	0x00025F00	1
 pin	reverse/symbols.csv	0x00026C60	1
-pin	reverse/symbols.csv	0x00026F40	1
 pin	reverse/symbols.csv	0x00027370	2
 pin	reverse/symbols.csv	0x00027400	2
-pin	reverse/symbols.csv	0x00027540	1
-pin	reverse/symbols.csv	0x00027740	1
 pin	reverse/symbols.csv	0x00027A90	1
 pin	reverse/symbols.csv	0x00029380	2
 pin	reverse/symbols.csv	0x000297D0	1
-pin	reverse/symbols.csv	0x00029850	1
 pin	reverse/symbols.csv	0x00029CA0	1
 pin	reverse/symbols.csv	0x0002A0B0	1
 pin	reverse/symbols.csv	0x0002A300	1

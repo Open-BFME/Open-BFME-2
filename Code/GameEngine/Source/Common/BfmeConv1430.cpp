@@ -1,41 +1,11 @@
-// cl: /Od /Ob1
+// cl: /DNDEBUG /MD /EHsc /Od /Ob1 /D_STLP_USE_STATIC_LIB
+// stlport46
+// Retail 0x00026EA0 (147B) is STLport 4.6's __find_first_of (_algobase.c:264)
+// over reverse_iterator<const char *> and const char * with
+// _Eq_traits<char_traits<char> > (_ctraits_fns.h:31), the search under
+// string::find_last_of(const char *, size_type, size_type) const at 0x00027740.
+#include <string>
 
-struct BfmeRIterVMG
-{
-	BfmeRIterVMG() {}
-	const char *m_bfme00;
-};
-
-inline bool bfmeIterEqVMG(const BfmeRIterVMG &a, const BfmeRIterVMG &b)
-{
-	return a.m_bfme00 == b.m_bfme00;
-}
-
-inline bool bfmeIterNeVMG(BfmeRIterVMG a, const BfmeRIterVMG &b)
-{
-	return !bfmeIterEqVMG(a, b);
-}
-
-inline const char &bfmeDerefVMG(BfmeRIterVMG a)
-{
-	--a.m_bfme00;
-	return *a.m_bfme00;
-}
-
-inline bool bfmeEqVMG(const char &a, const char &b)
-{
-	return a == b;
-}
-
-BfmeRIterVMG bfmeFindFirstOfVMG(BfmeRIterVMG first1, BfmeRIterVMG last1, const char *first2, const char *last2)
-{
-	for (; bfmeIterNeVMG(first1, last1); --first1.m_bfme00)
-	{
-		for (const char *n1 = first2; n1 != last2; ++n1)
-		{
-			if (bfmeEqVMG(bfmeDerefVMG(first1), *n1))
-				return first1;
-		}
-	}
-	return last1;
+namespace _STL {
+template reverse_iterator<const char *> __find_first_of(reverse_iterator<const char *>, reverse_iterator<const char *>, const char *, const char *, _Eq_traits<char_traits<char> >);
 }

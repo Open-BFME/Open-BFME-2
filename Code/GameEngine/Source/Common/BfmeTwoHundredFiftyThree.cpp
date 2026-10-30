@@ -1,19 +1,10 @@
-// cl: /Od
-// A four-argument hand-off built without optimisation: the caller's three
-// values plus the address of a byte the callee fills in. The frame is eight
-// bytes with the byte at the top, so a second word sits below it; what that
-// word was is not knowable from these bytes.
+// cl: /DNDEBUG /MD /EHsc /Od /Ob1 /D_STLP_USE_STATIC_LIB
+// stlport46
+// Retail 0x00026F40 (34B) is STLport 4.6's find_if (_algobase.c:193) over
+// const char * with _Neq_char_bound, forwarding to the random-access __find_if
+// at 0x00025F00 (BfmeConv1468.cpp) with a temporary iterator-category tag.
+#include <string>
 
-void bfmeDoOR(void *one, void *two, unsigned char three, unsigned char *four);
-
-void bfmeGoOR(void *one, void *two, unsigned char three)
-{
-	int spare;
-	unsigned char got;
-
-	bfmeDoOR(one, two, three, &got);
+namespace _STL {
+template const char *find_if(const char *, const char *, _Neq_char_bound<char_traits<char> >);
 }
-
-// Callers elsewhere reach bodies in this unit through other spellings; retail's
-// call sites in their matched rows land on these addresses (same ABI). Bind them.
-#pragma comment(linker, "/alternatename:?bfmeSearchQW@@YAPADPAD0E@Z=?bfmeGoOR@@YAXPAX0E@Z")

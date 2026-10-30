@@ -4803,12 +4803,8 @@ name,address,notes
 ?bfmeDoBUC@BfmeSubBUC@@QAEXPAX000@Z,0x001F0878,callee read from the retail REL32 in placed BFME1-donor body ?bfmeGoBUC@@YAXPAVBfmeSubBUC@@PAX111@Z (0x00456520)
 ?bfmeDoECKa@BfmeHeldECKa@@QAEXXZ,0x00657A10
 ?bfmeDoECKb@BfmeHeldECKb@@QAEXXZ,0x00657AE0
-?bfmeDoOR@@YAXPAX0EPAE@Z,0x00025F00
 ?bfmeDoOU@BfmeThingOU@@QAEXE@Z,0x0000C330
-?bfmeDoPF@Rva00028B90Thing@@QAEXPADPAXH@Z,0x00027540,"thiscall callee of Rva00028B90Thing::bfmeGoPF at 0x00028B90; retail REL32 at +0x20; same body as rowed ?bfmeFindV20@@YGHPBDII@Z pin at 0x276B0"
-?bfmeDoPF@Rva0002A270Thing@@QAEXPADPAXH@Z,0x00029850,"thiscall callee of Rva0002A270Thing::bfmeGoPF at 0x0002A270; retail REL32 at +0x20; body already rowed as ?bfmeFindV39@@YGHPADII@Z"
 ?bfmeDoPF@Rva0002ACF0Thing@@QAEXPADPAXH@Z,0x0002A420,"thiscall callee of Rva0002ACF0Thing::bfmeGoPF at 0x0002ACF0; retail REL32 at +0x20; Ghidra size 254"
-?bfmeDoPG@BfmeThingPG@@QAEXPADPAXH@Z,0x00027740
 ?bfmeDoPQ@@YAXPAD000@Z,0x00024FC0
 ?bfmeDoQR@@YAXPAUBfmeElemQR@@U1@PAX@Z,0x002176F1,callee of ?bfmeEachQR@@YAXPAUBfmeElemQR@@0HPAX@Z at retail 0x002178FD read from its REL32 displacement; ICF alias onto ?Rva002176F1Insert@@YAXPAUFileInfoStruct@MixFileCreator@@U12@@Z (matched)
 ?bfmeDone1045@BfmeSub1045@@QAEXXZ,0x00655780
@@ -5025,7 +5021,6 @@ name,address,notes
 ?bfmeSameSX@@YA_NABUBfmeInnerSX@@0@Z,0x00301B24,inner-compare helper called by the placed ?bfmeEqualSX 0x00301E3B; returns bool so the caller tests al; REL32 read off retail at 0x00301E69
 ?bfmeSameUW@@YADPAXPAVBfmeItemUW@@0@Z,0x0030141B,callee read from the retail REL32 in placed BFME1-donor body ?Rva00452FE0Same@@YAHABURva00452FE0Key@@0@Z (0x00301B24)
 ?bfmeSay1025@BfmeP1025@@QAEDPAD@Z,0x00621170
-?bfmeSearchQW@@YAPADPAD0E@Z,0x00026F40
 ?bfmeSend986C@BfmeC986@@QAEXHHHHH@Z,0x00371166,callee of ?bfmeGo986C@BfmeC986@@QAEXHHHH@Z at retail 0x00372568 read from its REL32 displacement; body unrowed
 ?bfmeSendTP@@YAXPAXPAUBfmeBlockTP@@1U1@0H@Z,0x005B306A,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?bfmeSendVFA@@YAHPAXHHHH@Z,0x006733A0

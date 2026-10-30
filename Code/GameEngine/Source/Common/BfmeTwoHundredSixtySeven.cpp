@@ -1,22 +1,13 @@
-// cl: /Od
-// A run given as a pair of ends passed on as a start and a length, built
-// without optimisation. The callee is pinned by address; nothing here names it.
+// cl: /DNDEBUG /MD /EHsc /Od /Ob1 /D_STLP_USE_STATIC_LIB
+// stlport46
+// Retail 0x00028C90 (43B) is STLport 4.6 basic_string<char>::find_last_of(const
+// basic_string &, size_type) const (_string.h), forwarding (s._M_start, pos,
+// s.size()) to find_last_of(const char *, size_type, size_type) at 0x00027740
+// (BfmeThingPF.cpp).
+#include <string>
 
-struct BfmeRangePG
-{
-	char *m_bfmeAt;				// 0x0
-	char *m_bfmeEnd;			// 0x4
-};
+extern template _STL::string::size_type _STL::string::find_last_of(const char *, _STL::string::size_type, _STL::string::size_type) const;
 
-class BfmeThingPG
-{
-public:
-	void bfmeGoPG(const BfmeRangePG *span, void *what);
-
-	void bfmeDoPG(char *at, void *what, int many);
-};
-
-void BfmeThingPG::bfmeGoPG(const BfmeRangePG *span, void *what)
-{
-	bfmeDoPG(span->m_bfmeAt, what, span->m_bfmeEnd - span->m_bfmeAt);
+namespace _STL {
+template string::size_type string::find_last_of(const string &, string::size_type) const;
 }

@@ -4,8 +4,9 @@
 // 0x00028BC0 is STLport 4.5.3's basic_string<char>::find(const char *, size_type)
 // const: it forwards (s, pos, length(s)) to the three-argument find at
 // 0x00027540. The plain /Od build keeps both calls out of line, as retail does.
-// The 0x00028CC0 sibling keeps its address-derived names; its callee is pinned
-// (bfmeDoPG at 0x00027740).
+// 0x00028CC0 is STLport 4.6's find_last_of(const char *, size_type) const,
+// forwarding (s, pos, length(s)) to find_last_of(const char *, size_type,
+// size_type) at 0x00027740 (BfmeThingPF.cpp).
 #include <string>
 
 namespace _STL {
@@ -16,16 +17,8 @@ template <> const char *search(const char *, const char *, const char *, const c
 template string::size_type string::find(const char *, string::size_type) const;
 }
 
-int bfmeMakeOX(void *text);
+extern template _STL::string::size_type _STL::string::find_last_of(const char *, _STL::string::size_type, _STL::string::size_type) const;
 
-class BfmeThingPG
-{
-public:
-	void bfmeDoPG(char *at, void *what, int many);
-	void rva00028cc0(void *at, void *what);
-};
-
-void BfmeThingPG::rva00028cc0(void *at, void *what)
-{
-	bfmeDoPG((char *)at, what, bfmeMakeOX(at));
+namespace _STL {
+template string::size_type string::find_last_of(const char *, string::size_type) const;
 }

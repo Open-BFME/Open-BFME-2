@@ -1,11 +1,19 @@
-// cl: /Od
+// cl: /DNDEBUG /MD /EHsc /Od /D_STLP_USE_STATIC_LIB
+// stlport46
 // Siblings of the BfmeConv1428 wrapper recipe. Both are thin thiscall
 // forwarders: the first hands its first two arguments to the private
-// _M_range_initialize pinned at 0x000078C0 with a materialised iterator tag,
-// and the second is the bfmeMakeOX run wrapper for Rva0002A270Thing (the same
-// computed-length shape as Rva00028BC0Cluster.cpp). Names are address-derived.
+// _M_range_initialize pinned at 0x000078C0 with a materialised iterator tag;
+// its names are address-derived. The second, 0x0002A2A0, is STLport 4.6's
+// basic_string<char>::rfind(const char *, size_type) const (_string.h),
+// forwarding (s, pos, length(s)) to rfind(const char *, size_type, size_type)
+// at 0x00029850 (BfmeConv1480.cpp); plain /Od keeps length out of line.
+#include <string>
 
-int bfmeMakeOX(void *text);
+extern template _STL::string::size_type _STL::string::rfind(const char *, _STL::string::size_type, _STL::string::size_type) const;
+
+namespace _STL {
+template string::size_type string::rfind(const char *, string::size_type) const;
+}
 
 class Rva00029F80
 {
@@ -21,18 +29,6 @@ void Rva00029F80::rva00029f80(const char *first, const char *last, int unused)
 	char tag;
 	int pad[4];
 	rva00078c0(first, last, &tag);
-}
-
-class Rva0002A270Thing
-{
-public:
-	void bfmeDoPF(char *at, void *what, int many);
-	void rva0002a2a0(void *at, void *what);
-};
-
-void Rva0002A270Thing::rva0002a2a0(void *at, void *what)
-{
-	bfmeDoPF((char *)at, what, bfmeMakeOX(at));
 }
 
 // The retail call in this body reads 0x000078C0, an address the ledger already
