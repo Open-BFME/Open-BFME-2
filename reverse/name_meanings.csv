@@ -437,5 +437,15 @@ Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000AC4C6Finish.cpp|local|Wo
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000AC4C6Finish.cpp|local|WorldHeightMap::rva000AC4C6|s,bf307e973bd5227133fafa89,drz-k7,drz-k7-315,w-4471b1f6edef,2026-10-30,24799ca7555bf9b3bb4428be
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000AF841CellFlip.cpp|param|Rva000ABD19::rva000AF841|x,50c0e5750cee77ca23af62ab,drz-k7,drz-k7-316,w-4471b1f6edef,2026-10-30,7705a0e17ef6b287562b5fd1
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000AF841CellFlip.cpp|param|Rva000ABD19::rva000AF841|y,dfc47ae8f67e302d48bfc108,drz-k7,drz-k7-316,w-4471b1f6edef,2026-10-30,43bf618cb23fbd60ecfec75c
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000D3A17Dtor.cpp|param|Rva000D3A17DeleteAnchor|p,d5b4a5c08a3966a17f6032a8,drz-k8,drz-k8-300,w-87ae7cdc64ef,2026-10-30,c71eb977f5eb174fc47762e1
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000FBA57PostRender.cpp|local|Rva000FBA4A::rva000FBA57|u,5e12c72851c8c9b95677d0b7,drz-k8,drz-k8-303,w-87ae7cdc64ef,2026-10-30,9ff24379db31233f4f66451f
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000FBA57PostRender.cpp|local|Rva000FBA4A::rva000FBA57|v,fc12593754496a5e6744251c,drz-k8,drz-k8-303,w-87ae7cdc64ef,2026-10-30,b1be5c5f5b42201716e9ca00
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000FBA57PostRender.cpp|local|Rva000FBA4A::rva000FBA57|x,76997926505abc1e5d7dbe24,drz-k8,drz-k8-303,w-87ae7cdc64ef,2026-10-30,fe218a8465fbdedec0621f3d
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000FBA57PostRender.cpp|local|Rva000FBA4A::rva000FBA57|y,62af6d229a5b1fcb8dd35363,drz-k8,drz-k8-303,w-87ae7cdc64ef,2026-10-30,e9196ab4b0d0baefbf0bf28d
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000FDD1C.cpp|param|Rva000FDD1C::rva000FDD1C|arg1,6894f9f489b8c507ab37f14c,drz-k8,drz-k8-304,w-87ae7cdc64ef,2026-10-30,f3bd5db0a265163267e000da
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0010461FCtor.cpp|local|Rva0010461F::rva00104359|n,b1dd83f11501e2d5dbe549be,drz-k8,drz-k8-307,w-87ae7cdc64ef,2026-10-30,99f0d05198e86df44c5099fb
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva001049C7AddTriangle.cpp|param|Rva001040D5::rva0010473F|x,35b58c2c692103601728b489,drz-k8,drz-k8-308,w-87ae7cdc64ef,2026-10-30,f54923bad48c53dc1240f931
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva001049C7AddTriangle.cpp|param|Rva001040D5::rva0010473F|y,f50bd050ef6d7e37ccc079e9,drz-k8,drz-k8-308,w-87ae7cdc64ef,2026-10-30,cacdd7c6506540427b9ef56c
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva001049C7AddTriangle.cpp|local|Rva001040D5::rva00104956|p,34934b893f7f7b648352da1f,drz-k8,drz-k8-308,w-87ae7cdc64ef,2026-10-30,7cea915062c27dab397a5171
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowGeometryMesh.cpp|param|ShadowSubtract|a,d0d3d3b8464f7a845a820008,drz-k8,drz-k8-319,w-87ae7cdc64ef,2026-10-30,f89033ac0211bafb890519ee
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowGeometryMesh.cpp|param|ShadowSubtract|b,a0d14a0fc995816b7906bded,drz-k8,drz-k8-319,w-87ae7cdc64ef,2026-10-30,bcdb80576c88b4c77fd45f22
