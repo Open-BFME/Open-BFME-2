@@ -1,0 +1,2 @@
+recorded: tu-merge:Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp @ 0x00000000 -> blocked
+Elapsed minutes from planner file creation: 8.23

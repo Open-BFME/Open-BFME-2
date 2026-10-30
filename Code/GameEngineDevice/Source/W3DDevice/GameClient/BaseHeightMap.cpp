@@ -492,7 +492,6 @@ class Rva00069AF5Host
 {
 public:
 	void rva00069AF5(float *out);
-	float rva000670B8(float a1, float a2);
 private:
 	char m_pad[0x37C0];
 	Rva00069AF5Sub *m_sub; // +0x37C0
@@ -786,42 +785,6 @@ void Rva00069AF5Host::rva00069AF5(float *out)
 	out[0] = fa;
 	out[1] = fb;
 	out[3] = dist;
-}
-
-// ?rva000670B8@Rva00069AF5Host@@QAEMMM@Z present-unmatched
-float Rva00069AF5Host::rva000670B8(float a1, float a2)
-{
-	Rva00069AF5Sub *s = m_sub;
-	if (s == 0)
-		return 0.0f;
-	int i1 = (int)(a1 * -0.1f);
-	int m = s->m_10;
-	int x = m - i1;
-	int i2 = (int)(a2 * -0.1f);
-	int y = m - i2;
-	if (x < 0)
-		x = 0;
-	if (y < 0)
-		y = 0;
-	if (x >= s->m_08 - 1)
-		x = s->m_08 - 2;
-	if (y >= s->m_0C - 1)
-		y = s->m_0C - 2;
-	unsigned short *tab = s->m_table;
-	int r1 = s->m_08 * y + x;
-	int r2 = x + s->m_08 * (y + 1);
-	float v1 = (float)tab[r1] * 0.0390625f;
-	float v2 = (float)tab[r1 + 1] * 0.0390625f;
-	float v3 = (float)tab[r2 + 1] * 0.0390625f;
-	float v4 = (float)tab[r2] * 0.0390625f;
-	float r = v1;
-	if (r <= v2)
-		r = v2;
-	if (r <= v3)
-		r = v3;
-	if (r <= v4)
-		r = v4;
-	return r;
 }
 
 // tu-skeleton: 0x00069BCC 147B ?Get_Obj_Space_Bounding_Box@BaseHeightMapRenderObjClass@@UBEXAAVAABoxClass@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapBoundingBox.cpp (not merged yet)

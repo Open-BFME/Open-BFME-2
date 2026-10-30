@@ -1,0 +1,14 @@
+link_check: preparing 2 explicit safe provider(s), no extra sources
+Source claims: OK (2 sources, scoped byte-verified)
+Compile: 0 of 2 TU(s) (deps-cache: 2 current)
+Funclet pins: 6 row(s) verified past a renumbered $L label
+    $L369 (Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp): $L369 was renumbered; verified parent EH data places $L58560 at 0x0075E70F
+    $L370 (Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp): $L370 was renumbered; verified parent EH data places $L58561 at 0x0075E719
+    uw_0075e7c1 (Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp): $L540 was renumbered; verified parent EH data places $L58591 at 0x0075E7C1
+    Unwind@00b5e7ab (Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp): $L787 was renumbered; verified parent EH data places $L58589 at 0x0075E7AB
+    Unwind@00b5e7b6 (Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp): $L788 was renumbered; verified parent EH data places $L58590 at 0x0075E7B6
+Functions: OK 30/30 matched across 2 source file(s)
+String-ref verify: OK (6 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (15 compiler literals verified)
+Import-ref verify: OK (0 named imports verified)
+link_check: 2 explicit providers byte-verified with strict reusable receipts; census/index/status unchanged, LINK closure not yet checked

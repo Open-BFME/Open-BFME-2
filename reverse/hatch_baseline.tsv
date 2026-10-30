@@ -14171,7 +14171,6 @@ present_unmatched	Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadar.
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadar.cpp	getSurfaceLevel@W3DRadarResetTexture@@QAE?AVW3DRadarResetSurface@@XZ	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadar.cpp	renderObjectList@W3DRadar@@IAEXPBVRadarObject@@PAVTextureClass@@_N@Z	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp	Rva00069AF5Math::Sqrt	1
-present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp	rva000670B8@Rva00069AF5Host@@QAEMMM@Z	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DDebrisDrawLegacy.cpp	loadPostProcess@W3DDebrisDraw@@MAEXXZ	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DDebrisDrawLegacy.cpp	setFullyObscuredByShroud@W3DDebrisDraw@@UAEX_N@Z	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DDebrisDrawLegacy.cpp	setShadowsEnabled@W3DDebrisDraw@@UAEX_N@Z	1

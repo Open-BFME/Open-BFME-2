@@ -1,0 +1,2 @@
+note: Code\GameEngineDevice\Source\W3DDevice\GameClient\BaseHeightMap.cpp: 23 matched row(s), 2 unclaimed definition(s)
+All defined functions are already matched.

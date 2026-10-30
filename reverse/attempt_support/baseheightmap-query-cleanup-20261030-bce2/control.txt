@@ -1,0 +1,3 @@
+30 matched rows; all 64 code/data bindings unchanged; existing 250-byte query owner object unchanged.
+Every retained external COMDAT fingerprint/verdict is identical; no external copy is added.
+Only the unrowed 242-byte method and its three unused literal COMDATs leave the object; undefineds and weak aliases are unchanged.

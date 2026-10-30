@@ -1,0 +1,13 @@
+Source claims: OK (42 sources, scoped byte-verified)
+Compile: 19 of 42 TU(s) (deps-cache: 23 current)
+Object store: 7 of 19 stale TU(s) restored
+Funclet pins: 39 row(s) verified past a renumbered $L label
+    $L11875 (Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp): $L11875 was renumbered; verified parent EH data places $L11455 at 0x0075E8FD
+    $L11876 (Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp): $L11876 was renumbered; verified parent EH data places $L11456 at 0x0075E907
+    $L11877 (Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp): $L11877 was renumbered; verified parent EH data places $L11457 at 0x0075E911
+    $L11878 (Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp): $L11878 was renumbered; verified parent EH data places $L11458 at 0x0075E91B
+    $L11879 (Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp): $L11879 was renumbered; verified parent EH data places $L11459 at 0x0075E925
+Functions: OK 132/132 matched across 42 source file(s)
+String-ref verify: OK (14 literals + 2 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (152 compiler literals verified)
+Import-ref verify: OK (28 named imports verified)

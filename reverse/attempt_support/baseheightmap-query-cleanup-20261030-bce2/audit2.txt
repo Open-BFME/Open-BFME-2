@@ -1,0 +1,2 @@
+link batch audit: INCONCLUSIVE baseline: index at 6fe1089c24, outgoing base b657c77a8b81; findings below are provisional since-index changes
+link batch audit: INCONCLUSIVE: affected consumer lacks current receipt: Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp
