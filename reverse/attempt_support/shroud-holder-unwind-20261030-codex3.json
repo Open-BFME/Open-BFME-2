@@ -1,0 +1,21 @@
+{
+  "base": "b9f4ccb4a1bbc9e3a333e74145a19320414ef3a0",
+  "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp",
+  "object_sha256": "60a7a362d12f99f8a9d3ee37c347ef005cd38b670fbe96a464d6e2176a401f8b",
+  "parent": "?rva00072A51@Rva00072A51@@UAEXVRva00072A94@@@Z",
+  "parent_rva": "0x00072A51",
+  "EH": [
+    "EXACT",
+    ""
+  ],
+  "funclets": {
+    "$L59151": "0x0075ED9D"
+  },
+  "native_cleanup_hex": "8d4d08e97fc991ff",
+  "native_cleanup_target": "0x0007B724",
+  "destructor": "??1Rva00072A94@@QAE@XZ",
+  "destructor_object_hex": "8b0985c97409ff490475048b01ff20c3",
+  "destructor_relocations": [],
+  "destructor_native_hex": "8b0985c97409ff490475048b01ff20c3",
+  "source_unchanged": true
+}

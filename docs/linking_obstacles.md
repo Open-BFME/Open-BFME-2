@@ -8330,6 +8330,22 @@ Clearance: preview (link_check on current objects). Census confirmation: pending
 
 ### LINK-095: generated EH funclets whose parent TU emits an unpinned or wrong dtor callee
 
+**Shroud holder cleanup repointed (2026-10-30, base `b9f4ccb4a1`):**
+the existing setter at `0x00072A51` has an EXACT parent EH graph placing
+`0x0075ED9D` in its approved W3DShroud TU. Its already-emitted counted-holder
+destructor is a relocation-free 16-byte twin of the physical W3DView owner at
+`0x0007B724`. Rowing that ICF twin allows the eight-byte generated cleanup to
+move to its real parent without source, pin or unique-byte growth. Normal
+gates pass 12 destination rows, 56 remaining generated rows, and all 31 paired
+destination/provider rows. Ordinary paired preview retains 2/2 LINKS and
+2,533 authored bytes. Strict preparation fails twice when the unchanged
+W3DView receipt becomes stale during normal gates; the scoped consumer audit
+exits 2, INCONCLUSIVE, for that receipt and an index older than the outgoing
+base. Consumer preservation and census gain remain unverified. Repeat with
+current receipts and index in the next maintainer census. The remaining 56
+generated rows retain their own parent/callee prerequisites; full evidence:
+[`shroud-holder-unwind-20261030-codex3.md`](../reverse/attempt_support/shroud-holder-unwind-20261030-codex3.md).
+
 **Nested-vector constructor prerequisite repaired (2026-10-29, base
 `58059061af`):** the allocator-only shim and `/EHs` make the allocation base
 and full inner vector destructor reproduce retail in
