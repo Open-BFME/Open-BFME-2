@@ -770,7 +770,20 @@ def wine_path(path):
         winepath = shutil.which("winepath")
         if winepath is None:
             raise SystemExit("winepath not found. Install Wine to run MSVC 7.1 on this host.")
-        converted = subprocess.check_output([winepath, "-w", key], text=True).strip()
+        # winepath is usually a run's first Wine program, so the Wine services
+        # it boots (services.exe, winedevice.exe, plugplay, rpcss) inherit its
+        # stdio, and under a persistent wineserver (`wineserver -p`) they
+        # outlive this process: a pipe they hold never reaches EOF, so whatever
+        # waits on this process's output never returns. Files, never pipes.
+        import tempfile
+        with tempfile.TemporaryFile("w+") as out, tempfile.TemporaryFile("w+") as err:
+            code = subprocess.run([winepath, "-w", key], stdin=subprocess.DEVNULL, stdout=out,
+                                  stderr=err).returncode
+            out.seek(0)
+            err.seek(0)
+            if code:
+                raise subprocess.CalledProcessError(code, [winepath, "-w", key], out.read(), err.read())
+            converted = out.read().strip()
         _WINE_PATH_CACHE[key] = converted
         return converted
 
