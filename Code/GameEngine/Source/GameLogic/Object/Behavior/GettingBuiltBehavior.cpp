@@ -129,6 +129,19 @@ public:
 	{ \
 		return m_value; \
 	}
+#define BFME_DISP8_LEA_NEG_SBB_GETTER(NAME, LEADISP, ADDIMM) \
+	class NAME \
+	{ \
+	public: \
+		int get() const; \
+	}; \
+	int NAME::get() const \
+	{ \
+		const char *field = (const char *)this; \
+		const void *base = field - LEADISP; \
+		field += ADDIMM; \
+		return base ? (int)field : 0; \
+	}
 
 extern GameLogic *TheGameLogic;
 
@@ -376,6 +389,16 @@ private:
 	char m_pad9E[0xA8 - 0x9E];
 	unsigned char m_a8;
 };
+
+// 0x004543A9 is also reached through the this-0x14 thunk 0x004543E3 in four
+// vtables, so it is virtual (same body).
+class Rva004543A9LeaNegSbbField
+{
+public:
+	virtual int get() const;
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/GettingBuiltBehavior.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/GettingBuiltBehavior.cpp
 
@@ -814,6 +837,24 @@ void **__stdcall Rva00453AB8Insert(void **out, void *pos, const Rva004530ED &val
 	return out;
 }
 
+// ---- from Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp
+
+// Disp8 byte getters: four-byte __thiscall members with one shape:
+//
+//     mov al,[ecx+<DISP>] / ret
+//
+// One BYTE is read at a fixed displacement from `this` and left in al. The
+// return type is spelled `unsigned char` because only al is written and the
+// upper bytes of eax are left holding whatever the caller had; the bytes
+// cannot distinguish it from `signed char`, `bool` or a one-byte enum.
+// This is the small-offset sibling of the disp32 family in
+// DispByteFieldGetters.cpp (MSVC 7.1 uses disp8 whenever the offset fits,
+// so every offset here fits in a signed byte). Members before the accessed
+// one are spelled as a lead array because their types are not witnessed
+// here, only their total size. Identity is not recovered: every name is
+// derived from its address.
+// No // cl: line (defaults match the frameless four-byte shape).
+
 // tu-skeleton: 0x00453221 12B ?empty@?$list@W4ObjectID@@V?$allocator@W4ObjectID@@@_STL@@@_STL@@QBE_NXZ -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupRemove.cpp (not merged yet)
 
 // tu-skeleton: 0x0045322D 15B ??E?$_List_iterator@PAVObject@@U?$_Const_traits@PAVObject@@@_STL@@@_STL@@QAE?AU01@H@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AssaultTransportAIUpdateUpdate.cpp (not merged yet)
@@ -858,25 +899,27 @@ void **__stdcall Rva00453AB8Insert(void **out, void *pos, const Rva004530ED &val
 
 // tu-skeleton: 0x004543A3 6B ?Rva004543A3Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
-// tu-skeleton: 0x004543A9 13B ?get@Rva004543A9LeaNegSbbField@@UBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8LeaNegSbbGetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Disp8LeaNegSbbGetters.cpp
 
-// ---- from Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp
+// Disp8 lea-neg-sbb getters: thirteen-byte __thiscall members with one shape:
+//
+//     lea eax,[ecx-<LEADISP>] / add ecx,<ADDIMM> / neg eax / sbb eax,eax / and eax,ecx / ret
+//
+// A pointer derived from `this` is null-tested branchlessly: neg sets carry
+// exactly when the derived base is nonzero and sbb spreads it to a full mask
+// that selects the adjusted `this` or null. Deriving the base from a live
+// field-local keeps `this` in ecx so the adjustment compiles to an in-place
+// add instead of a lea into a scratch register. Identity is not recovered:
+// every name is derived from its address.
+// No // cl: line (defaults match the shape).
 
-// Disp8 byte getters: four-byte __thiscall members with one shape:
-//
-//     mov al,[ecx+<DISP>] / ret
-//
-// One BYTE is read at a fixed displacement from `this` and left in al. The
-// return type is spelled `unsigned char` because only al is written and the
-// upper bytes of eax are left holding whatever the caller had; the bytes
-// cannot distinguish it from `signed char`, `bool` or a one-byte enum.
-// This is the small-offset sibling of the disp32 family in
-// DispByteFieldGetters.cpp (MSVC 7.1 uses disp8 whenever the offset fits,
-// so every offset here fits in a signed byte). Members before the accessed
-// one are spelled as a lead array because their types are not witnessed
-// here, only their total size. Identity is not recovered: every name is
-// derived from its address.
-// No // cl: line (defaults match the frameless four-byte shape).
+int Rva004543A9LeaNegSbbField::get() const
+{
+	const char *field = (const char *)this;
+	const void *base = field - 12;
+	field += 0x14;
+	return base ? (int)field : 0;
+}
 
 // tu-skeleton: 0x004543BA 4B ?get@Rva004543BAFildField@@QBENXZ -- matched in Code/GameEngine/Source/Common/Disp8FildFieldGetters.cpp (not merged yet)
 
