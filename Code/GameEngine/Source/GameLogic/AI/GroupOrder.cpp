@@ -27,15 +27,18 @@ template <> inline _Vector_base<ScienceType, allocator<ScienceType> >::~_Vector_
 { if (_M_start) Rva00030830GameFree(_M_start); }
 }
 
+typedef _STL::vector<ScienceType> ScienceTypeVector;
+
 class GroupOrder : public Snapshot
 {
 public:
 	virtual ~GroupOrder();
+	virtual void xfer(Xfer *xfer); // slot 3 of 0x0086A520
 
 private:
-	_STL::vector<ScienceType> m_sciences; // +4
-	void *m_unused10; // +0x10
-	void *m_unused14; // +0x14
+	ScienceTypeVector m_list; // +4
+	unsigned int m_10; // +0x10 fresh nonzero id (copy and holder ctors)
+	unsigned int m_14; // +0x14
 };
 
 // tu-skeleton: 0x005488C5 36B ??0GroupOrder@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/GroupOrderCtor.cpp (not merged yet)
