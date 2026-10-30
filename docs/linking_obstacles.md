@@ -14459,6 +14459,53 @@ approved TU, the two obsolete lifetime views are removed, and their claims
 are released. The earlier dry-run view above is retained as history; the
 native constructor-table and complete EH evidence are in its existing handoff.
 
+**Placeholder update rows re-rowed (2026-10-30, seat halilkkaya-lk9).**
+Census diff 2c21184e84 -> e1f7c1dd18 (`reverse/link_status.csv` at
+`028f4f9ea3` and `541ef26a32`): 282 units left the linked set. 245 are
+deleted sources whose matched rows (54,296 B) all sit in census-linked units
+at e1f7c1dd18, so they are TU merges, not losses. The other 37 (50,708 B by
+row size) are real losses. Against current objects (index 2026-10-30 15:43
+at `ccafe54d1d`), 33 of them link again: this entry's 17 units and FX thunks,
+GiantBird, WallHub, LINK-161 (build queue), LINK-162/163 (Thai builder,
+monetary strings), LINK-164 (downloader) and the wide-deallocator selection
+in `dc24521e86` (PeerThread 18,622 B and the GameSpy/StlSweep units). Three
+more link after the two commits below, and RebuildHoleBehaviorDtor.cpp stays
+blocked. rn1's class-identity prerequisite is met by a hand re-row, the
+`PoisonedBehavior::update` precedent (deleted_rows: `?rva00483133@Rva00482E96`).
+A placeholder `?update@RvaX@@QAEHXZ` or receiver class at a class's +0x10
+update-table slot is that class's override. MSVC compiles an override of a
+function introduced in the +0x10 base with this at that subobject, so the
+defining unit can declare the UpdateModule layout (vptrs +0/+0x0C/+0x10,
+module data +4, object +8) and the member. The body keeps its bytes, with
+member names instead of `this-0x10` arithmetic. Two codegen traps came up:
+member access through an inline `getObject()` keeps retail's argument order,
+and converting this to a secondary base adds a null test (keep an address
+cast). Rename the row by hand with a tombstone, then make the two-line view
+fix in the consumers.
+- `?update@Rva004B327F@@QAEHXZ` -> `?update@AISpecialPowerUpdate@@UAE?AW4UpdateSleepTime@@XZ`
+  (table 0x00C56D50 slot 0; WB callgraph lead agrees). `./build.sh` 10/10;
+  scoped DIR32 OK; `link_check` 463 -> 586 B (AISpecialPowerUpdateDtor.cpp
+  0 -> 123).
+- `?update@GettingBuiltBehaviorUpdateReceiver@@QAE...` -> `?update@GettingBuiltBehavior@@UAE?AW4UpdateSleepTime@@XZ`
+  (table 0x00C40434 slot 0, installed by ctor 0x004542FA and dtor 0x0045448F).
+  `./build.sh` 7/7; scoped DIR32 OK; `link_check` 2,994 -> 3,324 B
+  (GettingBuiltBehaviorCtor.cpp 0 -> 188, Dtor 0 -> 142). Check
+  GettingBuiltBehavior.cpp together with Disp8LeaNegSbbGetters.cpp: the
+  15:43 index predates `9db79eae97`'s split and reports a stale duplicate
+  `?get@Rva004543A9LeaNegSbbField@@UBEHXZ`.
+- Still blocked: RebuildHoleBehaviorDtor.cpp (227 B). Its slot 0 body
+  `?update@Rva00483645@@QAEHXZ` (0x00483645, table 0x00C49A68) lives in
+  RebuildHoleBehavior.cpp, whose RebuildHoleBehavior view has no vptr. Its
+  ctor 0x00483271 stores the five tables as explicit members (TU-local
+  dummies plus the folded data-ledger names
+  `??_7SecondaryModuleBase@FXParticleSystem@@6B@` (0x00C1C780) and
+  `??_7BfmeCtorVirtualBase001B3A20@@6B@`), so the class cannot declare a
+  virtual override. 0x00483645 has no approved TU, so the body cannot move
+  either. Prerequisite: give RebuildHoleBehavior.cpp the dtor unit's
+  real-vptr class view and a real ctor. Its interface bases' own-table
+  stores (retail +0x20/+0x24 before the member zeroing) must keep the folded
+  data-ledger names, then the re-row above applies.
+
 ### GarrisonContain source-recovery prerequisites (2026-10-30, codex5)
 
 The seed's broad Zero Hour header stack blocked composition with native-layout
