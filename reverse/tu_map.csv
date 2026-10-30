@@ -50542,7 +50542,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x005D51B9,53,code,Code/GameEngine/Source/Common/BfmeStringRecord005D511F.cpp,approved,N,N=Code/GameEngine/Source/Common/BfmeStringRecord005D511F.cpp provisional,Code/GameEngine/Source/Common/StringRecordInlineCopyBFME2.cpp
 0x005D51EE,45,code,Code/GameEngine/Source/Common/BfmeStringRecord005D511F.cpp,approved,C,C=0x005D51B9..0x005D521B provisional,Code/GameEngine/Source/Common/StringRecordInlineCopyBFME2.cpp
 0x005D521B,38,code,Code/GameEngine/Source/Common/BfmeStringRecord005D511F.cpp,approved,C,C=0x005D51B9..0x005D5241 provisional,Code/GameEngine/Source/Common/BfmeStringRecord005D511F.cpp
-0x005D5241,37,code,Code/GameEngine/Source/Common/BfmeStringRecord005D511F.cpp,approved,C,C=0x005D51B9..0x005D5266 provisional,Code/Libraries/Source/WWVegas/WWLib/Rva005D5241FillN.cpp
+0x005D5241,37,code,Code/GameEngine/Source/Common/BfmeStringRecord005D511F.cpp,approved,C,C=0x005D51B9..0x005D5266 provisional,Code/GameEngine/Source/Common/BfmeStringRecord005D511F.cpp
 0x005D5266,28,code,Code/GameEngine/Source/Common/BfmeStringRecord005D511F.cpp,approved,N,N=Code/GameEngine/Source/Common/BfmeStringRecord005D511F.cpp provisional,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-3fc4.cpp
 0x005D5282,9,code,,,-,,Code/GameEngine/Source/Common/FamilyVectorDtors_muse-3fc4.cpp
 0x005D528B,400,code,Code/GameEngine/Source/GameClient/GUI/ChatWindowsLan.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/ChatWindowsLan.cpp W=Code/GameEngine/Source/GameClient/GUI/ChatWindowsLan.cpp provisional,Code/GameEngine/Source/GameClient/GUI/ChatWindowsLan.cpp
