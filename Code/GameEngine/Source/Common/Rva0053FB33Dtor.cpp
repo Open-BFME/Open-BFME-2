@@ -1,4 +1,4 @@
-// cl: /EHs /MD
+// cl: /EHs /MD /Ireference/shims/bfme2_ascii
 // ??1Rva0053FB33@@UAE@XZ, retail 0x0053FB33, 66 bytes.
 // Virtual dtor: installs vtable 0x008694DC, destroys StringBase<char> at
 // +0x18 via rowed releaseBuffer 0x00036410, frees heap pointer at +4 via
@@ -14,19 +14,12 @@
 #include <stdlib.h>
 #undef _CRTIMP
 
-template <typename T>
-class StringBase
-{
-public:
-	~StringBase() { releaseBuffer(); }
-private:
-	void releaseBuffer();
-	T *m_data;
-};
+// The canonical frozen StringBase replaces the private copy; its switch makes
+// the member dtor reachable and keeps the teardown an out-of-line call to the
+// rowed releaseBuffer (0x00036410 narrow, 0x00036E70 wide).
+#define BFME_STRINGBASE_PUBLIC_DTOR
+#include "string_base.h"
 
-// Existing public narrow teardown spelling resolves to the verified
-// 133-byte releaseBuffer worker at RVA 0x36410. Wide teardown is unchanged.
-template <> StringBase<char>::~StringBase();
 
 
 // Native20B cleanup guards null before adjusting to the base at +4.
