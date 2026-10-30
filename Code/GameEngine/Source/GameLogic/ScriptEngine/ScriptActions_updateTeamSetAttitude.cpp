@@ -1,5 +1,7 @@
 // ?updateTeamSetAttitude@ScriptActions@@IAEXABVAsciiString@@H@Z
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
+// stlport
+#include <vector>
 //
 // ScriptActions::updateTeamSetAttitude, retail 0x003BEE5E, 80 bytes.
 // Target identity: initActionTemplates index 0x2E (46) is TEAM_SET_ATTITUDE;
@@ -50,11 +52,7 @@ public:
     void getTeamAsAIGroup(AIGroup *);
 };
 
-class ScriptActions
-{
-protected:
-    void updateTeamSetAttitude(const AsciiString &, Int);
-};
+#include "../../../Include/GameLogic/ScriptActionsBFME2.h"
 
 void ScriptActions::updateTeamSetAttitude(const AsciiString &teamName,
                                          Int attitude)

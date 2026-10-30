@@ -1,5 +1,7 @@
 // ?doTeamFaceNamed@ScriptActions@@IAEXABVAsciiString@@0@Z
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
+// stlport
+#include <vector>
 // Target identity: action-template index 0x135 is TEAM_FACE_NAMED and
 // executeAction case 0x135 calls VA 0x007C9A80 (RVA 0x003C9A80), 153 bytes.
 // Target body resolves the team, resolves the face target through the opaque
@@ -63,11 +65,7 @@ class Rva00358752Opaque
 public:
     Object *lookupUnitByValue(AsciiString);
 };
-class ScriptActions
-{
-protected:
-    void doTeamFaceNamed(const AsciiString &, const AsciiString &);
-};
+#include "../../../Include/GameLogic/ScriptActionsBFME2.h"
 extern ScriptEngine *TheScriptEngine;
 
 void ScriptActions::doTeamFaceNamed(const AsciiString &teamName,
