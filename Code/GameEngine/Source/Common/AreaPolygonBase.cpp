@@ -143,10 +143,17 @@ bool __cdecl Rva0030B395Equal(const float *first1, const float *last1, const flo
 // Swap holder via rowed inner swap 0x0030B76F plus int at +0x28.
 // Evidence: chain from 0x0030B76F; callers 0x00329106 0x00330BC7; prev swap /O1 /Ob0 /EHsc /arch:SSE next reserve vector e8.
 
+struct Region2D;
 struct Rva0030B76F
 {
+public:
 	void rva0030B76F(Rva0030B76F *other);
-	char m_pad[0x28];
+	_STL::vector<BfmeE12, _STL::allocator<BfmeE12> > m_vec; // +0x00
+	Region2D m_region; // +0x0C
+	float m_1c; // +0x1C
+	float m_20; // +0x20
+	unsigned char m_24; // +0x24
+	char m_pad25[0x3];
 };
 
 struct Rva0030B812
