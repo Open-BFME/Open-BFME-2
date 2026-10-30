@@ -1,0 +1,136 @@
+[
+  {
+    "name": "??1Rva00589079@@UAE@XZ",
+    "old_name": "??1Rva00589079@@UAE@XZ",
+    "rva": "0x00589079",
+    "size": "39",
+    "raw_bytes_preserved": true,
+    "relocations_preserved_except_existing_update_xfer_twin": true,
+    "relocation_changes": []
+  },
+  {
+    "name": "??1Rva00481F82@@UAE@XZ",
+    "old_name": "??1Rva00481F82@@UAE@XZ",
+    "rva": "0x00481F82",
+    "size": "39",
+    "raw_bytes_preserved": true,
+    "relocations_preserved_except_existing_update_xfer_twin": true,
+    "relocation_changes": []
+  },
+  {
+    "name": "??1FireWeaponWhenDeadBehavior@@UAE@XZ",
+    "old_name": "??1FireWeaponWhenDeadBehavior@@UAE@XZ",
+    "rva": "0x00482E96",
+    "size": "39",
+    "raw_bytes_preserved": true,
+    "relocations_preserved_except_existing_update_xfer_twin": true,
+    "relocation_changes": []
+  },
+  {
+    "name": "??_GFireWeaponWhenDeadBehavior@@UAEPAXI@Z",
+    "old_name": "??_GFireWeaponWhenDeadBehavior@@UAEPAXI@Z",
+    "rva": "0x00482EBD",
+    "size": "28",
+    "raw_bytes_preserved": true,
+    "relocations_preserved_except_existing_update_xfer_twin": true,
+    "relocation_changes": []
+  },
+  {
+    "name": "??_GRva00589079@@UAEPAXI@Z",
+    "old_name": "??_GRva00589079@@UAEPAXI@Z",
+    "rva": "0x005890FE",
+    "size": "28",
+    "raw_bytes_preserved": true,
+    "relocations_preserved_except_existing_update_xfer_twin": true,
+    "relocation_changes": []
+  },
+  {
+    "name": "??_GRva00481F82@@UAEPAXI@Z",
+    "old_name": "??_GRva00481F82@@UAEPAXI@Z",
+    "rva": "0x00482118",
+    "size": "28",
+    "raw_bytes_preserved": true,
+    "relocations_preserved_except_existing_update_xfer_twin": true,
+    "relocation_changes": []
+  },
+  {
+    "name": "?loadPostProcess@FireWeaponWhenDeadBehavior@@UAEXXZ",
+    "old_name": "?loadPostProcess@FireWeaponWhenDeadBehavior@@UAEXXZ",
+    "rva": "0x00482C39",
+    "size": "17",
+    "raw_bytes_preserved": true,
+    "relocations_preserved_except_existing_update_xfer_twin": true,
+    "relocation_changes": []
+  },
+  {
+    "name": "?xfer@FireWeaponWhenDeadBehavior@@MAEXPAVXfer@@@Z",
+    "old_name": "?xfer@FireWeaponWhenDeadBehavior@@MAEXPAVXfer@@@Z",
+    "rva": "0x00482BDB",
+    "size": "94",
+    "raw_bytes_preserved": true,
+    "relocations_preserved_except_existing_update_xfer_twin": true,
+    "relocation_changes": [
+      [
+        [
+          40,
+          20,
+          "?xfer@UpdateModule@@QAEXPAVXfer@@@Z"
+        ],
+        [
+          40,
+          20,
+          "?xfer@UpdateModule@@UAEXPAVXfer@@@Z"
+        ]
+      ]
+    ]
+  },
+  {
+    "name": "??0FireWeaponWhenDeadBehavior@@QAE@PAVThing@@PBVModuleData@@@Z",
+    "old_name": "??0FireWeaponWhenDeadBehavior@@QAE@PAVThing@@PBVModuleData@@@Z",
+    "rva": "0x00482D80",
+    "size": "203",
+    "raw_bytes_preserved": true,
+    "relocations_preserved_except_existing_update_xfer_twin": true,
+    "relocation_changes": []
+  },
+  {
+    "name": "__ehhandler$??0FireWeaponWhenDeadBehavior@@QAE@PAVThing@@PBVModuleData@@@Z",
+    "old_name": "__ehhandler$??0FireWeaponWhenDeadBehavior@@QAE@PAVThing@@PBVModuleData@@@Z",
+    "rva": "0x0078BBDF",
+    "size": "10",
+    "raw_bytes_preserved": true,
+    "relocations_preserved_except_existing_update_xfer_twin": true,
+    "relocation_changes": [
+      [
+        [
+          1,
+          6,
+          "$T865"
+        ],
+        [
+          1,
+          6,
+          "$T753"
+        ]
+      ]
+    ]
+  },
+  {
+    "name": "$L500",
+    "old_name": "$L500",
+    "rva": "0x0078BBD7",
+    "size": "8",
+    "raw_bytes_preserved": true,
+    "relocations_preserved_except_existing_update_xfer_twin": true,
+    "relocation_changes": []
+  },
+  {
+    "name": "?GetSnapshotName@FireWeaponWhenDeadBehavior@@UBEPBDXZ",
+    "old_name": "?Rva00482E4BGet@@YAHXZ",
+    "rva": "0x00482E4B",
+    "size": "6",
+    "raw_bytes_preserved": true,
+    "relocations_preserved_except_existing_update_xfer_twin": true,
+    "relocation_changes": []
+  }
+]

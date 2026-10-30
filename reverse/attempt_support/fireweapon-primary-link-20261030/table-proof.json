@@ -242,5 +242,15 @@
       "native_rva": "0x22c4cb",
       "evidence": "existing ledger/pin binding"
     }
+  ],
+  "native_vptr_bindings": [
+    {
+      "rva": "0x00482D80",
+      "offset": 55
+    },
+    {
+      "rva": "0x00482E96",
+      "offset": 2
+    }
   ]
 }

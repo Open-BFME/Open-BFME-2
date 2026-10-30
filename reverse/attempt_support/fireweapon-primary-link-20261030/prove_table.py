@@ -17,6 +17,12 @@ patch=build.compile_function(row,symbols,obj)
 assert not patch['unresolved'] and not patch.get('masked') and patch['bytes']==patch['target']
 native=[x-0x400000 for x in struct.unpack('<13I',build.read_target_bytes(0x8497B4,52))]
 proof={'getter':{'name':getter,'rva':'0x00482E4B','size':6,'exact_resolved_bytes':True},'native_table_rva':'0x008497B4','sources':{},'slots':[]}
+for source,name,rva,size,offset in [(ctor,'??0FireWeaponWhenDeadBehavior@@QAE@PAVThing@@PBVModuleData@@@Z',0x482D80,203,55),(dtor,'??1FireWeaponWhenDeadBehavior@@UAE@XZ',0x482E96,39,2)]:
+    native_body=build.read_target_bytes(rva,size)
+    assert int.from_bytes(native_body[offset:offset+4],'little')==0xC497B4
+    _,refs=build.read_object_symbol_bytes(build.obj_path(Path(source)),name,code_only=True)
+    assert (offset,6,table) in refs
+proof['native_vptr_bindings']=[{'rva':'0x00482D80','offset':55},{'rva':'0x00482E96','offset':2}]
 all_tables=[]
 for source in (ctor,dtor):
     path=build.obj_path(Path(source)); raw=path.read_bytes(); body,relocs=build.read_object_symbol_bytes(path,table)

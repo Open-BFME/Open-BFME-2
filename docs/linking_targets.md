@@ -1361,3 +1361,14 @@ is retired. The older-index batch audit remains INCONCLUSIVE on the missing
 CreateAHeroManager consumer receipt. Carry that consumer/provider scope into
 the next scheduled census; no census gain or full consumer closure is claimed.
 [Evidence](../reverse/attempt_support/terrain-fire-crt-header-20261030-codexb.md).
+
+FireWeaponWhenDeadBehavior primary follow-up (2026-10-30, base `190db05cc6c2`,
+LINK-114): the two views now agree on all thirteen native primary slots and
+the correctly typed Snapshot getter. Fourteen directly related sources pass
+429/429 rows and seven EXACT EH graphs; all preview LINKS, preserving their
+previous linking scope and changing the constructor from 0 to 209 bytes.
+The obsolete alias is retired. The isolated ObjectModule acceptance preview
+still lacks the new getter provider in its old index; its queue row stays open.
+Secondary interfaces, the wider consumer audit and scheduled census remain
+pending; no measured linking gain is claimed.
+[Native table and row proofs](../reverse/attempt_support/fireweapon-primary-link-20261030/readme.md).

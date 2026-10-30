@@ -41,3 +41,34 @@ and changing the constructor from 0 to 209 authored preview bytes against
 secondary interfaces and the wider affected-consumer scope still require
 normal audit and scheduled census confirmation. The other destructor families
 must retain all existing row bytes and bindings.
+
+## Member readmission and direct consumer verification
+
+The required retraction is commit bad62c3aec. The following source stage
+readmits exactly 0x00482E4B/6 under
+`?GetSnapshotName@FireWeaponWhenDeadBehavior@@UBEPBDXZ` with add_match, not an
+ICF alias. Total unique coverage is unchanged. Its normal source gate passes
+4/4 rows, one string, one floating-point reference and the constructor's
+parent-verified cleanup. Implementation time t=18 minutes, model=GPT-6,
+lane=R, budget=30m; subsequent cohort verification and publication are separate.
+
+The independent row proof preserves all twelve original raw bodies. It records
+only the existing QAE-to-UAE UpdateModule xfer spelling at 0x0044DF9F and the
+local FuncInfo label renumbering; the BehaviorModule call remains the original
+QAE relocation. Seven EH graphs in the fourteen-source cohort are EXACT.
+Strict preparation passes 429/429 rows, 314 literals, one empty-string reference
+and one floating-point reference. The cohort includes both other destructor
+families and their class-view users, the factory, Fire onDie/factory/pool-key
+consumers and the changed pair. All fourteen ordinary previews LINKS, retaining
+every previously linking unit and 21,445 authored bytes. Of changes from that
+older census, only the constructor's 0 -> 209-byte prediction is this repair;
+other growth since the census is unrelated and is not credited to this work.
+No new measured census-linked bytes are claimed.
+
+The optional ObjectModule queue retirement is still refused by its single-unit
+preview: the old index lacks the newly named getter defined in the current
+constructor unit. That isolated preview reports only this one unresolved name
+and 311 -> 0 bytes; including the actual provider gives 311 -> 311. The queue
+row is retained. A supported local provider-index refresh is the next check
+before retrying retirement; no check, baseline or whitelist is relaxed. Wider
+consumer selection and scheduled census confirmation remain pending.

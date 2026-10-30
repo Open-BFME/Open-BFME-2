@@ -19,16 +19,8 @@ class Xfer;
 class Thing;
 class ModuleData;
 
-class ObjectModule
-{
-public:
-	ObjectModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~ObjectModule();
-	void xfer(Xfer *xfer);
-
-private:
-	char m_pad04[8];
-};
+#define BFME_SNAPSHOT_NAME_SLOT
+#include "../../Include/Common/ObjectModule.h"
 
 class BehaviorModuleInterface
 {
@@ -40,13 +32,20 @@ class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
 {
 public:
 	BehaviorModule(Thing *thing, const ModuleData *moduleData);
+    virtual void *vslot10() { return 0; }
+    virtual void *vslot11() { return 0; }
 	void xfer(Xfer *xfer);
 };
+
+enum SleepyUpdatePhase;
 
 class UpdateModule : public BehaviorModule
 {
 public:
 	virtual ~UpdateModule();
+protected:
+    virtual SleepyUpdatePhase getUpdatePhase() const;
+public:
 	void xfer(Xfer *xfer);
 };
 
@@ -208,7 +207,7 @@ public:
 	{
 	}
 	virtual void loadPostProcess();
-	virtual void s02();
+	virtual const char *GetSnapshotName() const;
 protected:
 	virtual void xfer(Xfer *xfer);
 public:
@@ -246,14 +245,25 @@ void FireWeaponWhenDeadBehavior::loadPostProcess()
 	((StringBase<unsigned short>*)((char*)this + 0x20))->validate();
 }
 
+extern "C" void __identifier("?xfer@BehaviorModule@@QAEXPAVXfer@@@Z")();
+
 void FireWeaponWhenDeadBehavior::xfer(Xfer *xfer)
 {
 	Xfer::Version version(1, 3);
 	*xfer == version;
 	if (version.m_minimum >= 2)
 		((UpdateModule *)this)->UpdateModule::xfer(xfer);
-	else
-		((BehaviorModule *)this)->BehaviorModule::xfer(xfer);
+	else {
+        // The native owner predates the canonical virtual declaration. Its
+        // one-pointer member-call ABI still uses ObjectModule at offset zero.
+        union {
+            void (*address)();
+            void (ObjectModule::*method)(Xfer *);
+        } transfer;
+        typedef char SameMemberWidth[sizeof(transfer.address) == sizeof(transfer.method) ? 1 : -1];
+        transfer.address = &__identifier("?xfer@BehaviorModule@@QAEXPAVXfer@@@Z");
+        (static_cast<ObjectModule *>(this)->*transfer.method)(xfer);
+    }
 	((UpgradeMux *)((char *)this + 0x20))->UpgradeMux::upgradeMuxXfer(xfer);
 	if (version.m_minimum >= 3) {
 		m_m2C.xfer(xfer);
