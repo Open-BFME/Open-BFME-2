@@ -35,6 +35,7 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 //#pragma optimize("", off)
 //#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
 
+
 #endif
 #define SC_DETAIL ( SHADE_CNST(ShaderClass::PASS_LEQUAL, ShaderClass::DEPTH_WRITE_ENABLE, ShaderClass::COLOR_WRITE_ENABLE, ShaderClass::SRCBLEND_ONE, \
 	ShaderClass::DSTBLEND_ZERO, ShaderClass::FOG_DISABLE, ShaderClass::GRADIENT_MODULATE, ShaderClass::SECONDARY_GRADIENT_DISABLE, ShaderClass::TEXTURING_ENABLE, \
@@ -120,27 +121,6 @@ private: int refs;
 
 class Rva00111F0E {public: void rva00111F0E();};
 
-struct Rva0011216CSlotQuartet
-{
-	char m_pad00[0x34];
-	CursorTextureSlot m_slot34;
-	CursorTextureSlot m_slot38;
-	CursorTextureSlot m_slot3C;
-	CursorTextureSlot m_slot40;
-	char m_pad44[0x84 - 0x44];
-	bool m_ready84;
-	char m_pad85[3];
-	int m_one88, m_one8C, m_one90, m_one94;
-	char m_pad98[0x30];
-	int m_zeroC8;
-	float m_zeroCC;
-	Rva00112153Elem *m_ptrD0; // +0xD0 array cleaned by 0x00112153 via delete[]
-
-	void FillFourSlots(void);
-	void rva00112153(void); // @0x00112153 25B abutting FillFourSlots
-	void rva00112197(void);
-};
-
 class Rva00112291TerrainOwner {
 public: ~Rva00112291TerrainOwner();
 private:
@@ -167,9 +147,38 @@ private:
 	int m_c0;
 };
 
+// FUN_00512197 at 0x00112197, 50 bytes. Its tail jump targets the rowed
+// Rva0011216CSlotQuartet::rva00112153; adjacent slot-quartet methods support
+// this class relationship, while the reset fields remain unnamed.
+
+typedef int Int;
+
+struct Rva0011216CSlotQuartet
+{
+	char m_pad00[0x34];
+	CursorTextureSlot m_slot34;
+	CursorTextureSlot m_slot38;
+	CursorTextureSlot m_slot3C;
+	CursorTextureSlot m_slot40;
+	char m_pad44[0x84 - 0x44];
+	bool m_ready84;
+	char m_pad85[3];
+	int m_one88, m_one8C, m_one90, m_one94;
+	char m_pad98[0x30];
+	int m_zeroC8;
+	float m_zeroCC;
+	Rva00112153Elem *m_ptrD0; // +0xD0 array cleaned by 0x00112153 via delete[]
+
+	void FillFourSlots(void);
+	void rva00112153(void); // @0x00112153 25B abutting FillFourSlots
+	void rva00112197(void);
+};
+
 // tu-skeleton: 0x00111FCF 124B ?rva00111FCF@W3DTerrainBackground@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundMarkTileGrid.cpp (not merged yet)
 
 // tu-skeleton: 0x0011204B 264B ?isEdgeAligned@W3DTerrainBackground@@QAE_NHHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundIsEdgeAligned.cpp (not merged yet)
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackground.cpp
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseCursorSlotQuartet.cpp
 
@@ -194,12 +203,6 @@ void Rva0011216CSlotQuartet::rva00112153(void)
 	}
 }
 
-// tu-skeleton: 0x00112197 50B ?rva00112197@Rva0011216CSlotQuartet@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00112197SlotQuartetReset.cpp (not merged yet)
-
-// tu-skeleton: 0x00112230 41B ?rva00112230@Rva00112230CameraGroup@@QBE?AV?$RefCountPtr@VCameraClass@@@@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundUpdateCenter.cpp (not merged yet)
-
-// tu-skeleton: 0x00112259 56B ?rva00112259@Rva00112259@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00112259.cpp (not merged yet)
-
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00112291TerrainDtor.cpp
 
 Rva00112291TerrainOwner::~Rva00112291TerrainOwner() {
@@ -212,52 +215,6 @@ Rva00112291TerrainOwner::~Rva00112291TerrainOwner() {
  ((Rva0011216CSlotQuartet *)this)->rva00112153();
 }
 
-// tu-skeleton: 0x0011234C 626B ?updateCenter@W3DTerrainBackground@@QAEXABVRva00112230CameraGroup@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundUpdateCenter.cpp (not merged yet)
-
-// tu-skeleton: 0x001125BE 319B ?updateTexture@W3DTerrainBackground@@QAE_NXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundUpdateTexture.cpp (not merged yet)
-
-// tu-skeleton: 0x001126FD 79B ?test@Rva00729300BitPlane@@QBE_NHH@Z -- matched in Code/GameEngine/Source/Common/Rva00729300BitPlanes.cpp (not merged yet)
-
-// tu-skeleton: 0x0011274C 166B ?advanceYThenX@Rva001127F2TerrainPrefix@@QAE_NAAUICoord2D@@HHHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundTriangleFan.cpp (not merged yet)
-
-// tu-skeleton: 0x001127F2 166B ?advanceScan@Rva001127F2TerrainPrefix@@QAE_NAAUICoord2D@@HHHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundTriangleFan.cpp (not merged yet)
-
-// tu-skeleton: 0x00112898 569B ?setFlipRecursive@W3DTerrainBackground@@QAEXHHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundSetFlipRecursive.cpp (not merged yet)
-
-// tu-skeleton: 0x00112AD1 749B ?setFlipRecursive@W3DTerrainBackground@@QAEXHHHM@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundSetFlipRecursiveTolerance.cpp (not merged yet)
-
-// tu-skeleton: 0x00112DBE 277B ??0Rva00112291TerrainOwner@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00112291TerrainCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00112ED3 237B ?countUnsetCorners@W3DTerrainBackground@@QAEHHHHPA_N000@Z -- matched in Code/GameEngine/Source/Common/Rva00729300BitPlanes.cpp (not merged yet)
-
-// tu-skeleton: 0x00112FC0 273B ?checkUnsetEdges@W3DTerrainBackground@@QAEXHHHPA_N000@Z -- matched in Code/GameEngine/Source/Common/Rva00729300BitPlanes.cpp (not merged yet)
-
-// tu-skeleton: 0x001130D1 63B ?castTriangle@W3DTerrainBackground@@QAE_NAAVRayCollisionTestClass@@ABVVector3@@11@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundCastTriangle.cpp (not merged yet)
-
-// tu-skeleton: 0x00113110 65B ?rva00113110@Rva00113110Holder@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/Rva00113110BarrierSweep.cpp (not merged yet)
-
-// tu-skeleton: 0x00113151 73B ?rva00113151@Rva00113110Holder@@QAEXPAXM@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00113151Replace.cpp (not merged yet)
-
-// tu-skeleton: 0x0011319A 511B ?getTriangleIntersection@W3DTerrainBackground@@QAEXPAVVector3@@HHHHABV2@11@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundGetTriangleIntersection.cpp (not merged yet)
-
-// tu-skeleton: 0x00113399 2158B ?rva00113399@W3DTerrainBackground@@QAEXPAGPAXHHHH0AAH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundTriangleFan.cpp (not merged yet)
-
-// tu-skeleton: 0x00113C07 473B ?rva00113C07@W3DTerrainBackground@@QAEXPAGPAXHHHPA_N2220AAH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundRva00113C07.cpp (not merged yet)
-
-// tu-skeleton: 0x00113DE0 3083B ?rva00113DE0@W3DTerrainBackground@@QAEXPAGPAVVector3@@HHH0AAH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundRva00113C07.cpp (not merged yet)
-
-// tu-skeleton: 0x001149EB 1625B ?doTesselatedUpdate@W3DTerrainBackground@@QAEXABUIRegion2D@@PAVWorldHeightMap@@_N@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDoTesselatedUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x00115044 1869B ?doPartialUpdate@W3DTerrainBackground@@QAEXABUIRegion2D@@PAVWorldHeightMap@@_N2@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDoPartialUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x00115791 121B ?rva00115791@W3DTerrainBackground@@QAEX_NM@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundRva00115791.cpp (not merged yet)
-
-// tu-skeleton: 0x0011580A 487B ?rva0011580A@W3DTerrainBackground@@QAEXAAVRenderInfoClass@@_NPAVRenderingMethod@FXShader@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDrawVisiblePolys.cpp (not merged yet)
-
-// tu-skeleton: 0x001159F1 106B ?rva001159F1@Rva001159F1@@QAEXPAX@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva001159F1.cpp (not merged yet)
-
-// tu-skeleton: 0x00115A5B 844B ?calcBlendHeight@W3DTerrainBackground@@QAEXMHPAM@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva001159F1.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva00115DA7.cpp
 
 void Rva00115DA7::rva00115DA7(int a, int b, int c, int d, int e)
@@ -268,54 +225,6 @@ void Rva00115DA7::rva00115DA7(int a, int b, int c, int d, int e)
 	m_c0 = d;
 	(void)e;
 }
-
-// tu-skeleton: 0x00115DD2 22B ?rva00115DD2@W3DTerrainBackground@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundRva00115DD2.cpp (not merged yet)
-
-// tu-skeleton: 0x00764A37 8B $L323 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00112259.cpp (not merged yet)
-
-// tu-skeleton: 0x00764A3F 10B __ehhandler$?rva00112259@Rva00112259@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00112259.cpp (not merged yet)
-
-// tu-skeleton: 0x00764A7F 8B $L768 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundUpdateCenter.cpp (not merged yet)
-
-// tu-skeleton: 0x00764A87 10B __ehhandler$?updateCenter@W3DTerrainBackground@@QAEXABVRva00112230CameraGroup@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundUpdateCenter.cpp (not merged yet)
-
-// tu-skeleton: 0x00764A91 8B Unwind@00b64a91 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundUpdateTexture.cpp (not merged yet)
-
-// tu-skeleton: 0x00764A99 8B Unwind@00b64a99 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundUpdateTexture.cpp (not merged yet)
-
-// tu-skeleton: 0x00764AA1 10B __ehhandler$?updateTexture@W3DTerrainBackground@@QAE_NXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundUpdateTexture.cpp (not merged yet)
-
-// tu-skeleton: 0x00764AAB 11B $L1278 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDoTesselatedUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x00764AB6 10B $L1279 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDoTesselatedUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x00764AC0 8B Unwind@00b64ac0 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDoTesselatedUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x00764AC8 10B $L1281 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDoTesselatedUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x00764AD2 8B Unwind@00b64ad2 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDoTesselatedUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x00764ADA 8B Unwind@00b64ada -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDoTesselatedUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x00764AE2 8B Unwind@00b64ae2 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDoTesselatedUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x00764AEA 8B Unwind@00b64aea -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDoTesselatedUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x00764AF2 10B __ehhandler$?doTesselatedUpdate@W3DTerrainBackground@@QAEXABUIRegion2D@@PAVWorldHeightMap@@_N@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDoTesselatedUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x00764AFC 11B Unwind@00b64afc -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDoPartialUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x00764B07 10B $L1262 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDoPartialUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x00764B11 10B $L1263 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDoPartialUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x00764B1B 8B Unwind@00b64b1b -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDoPartialUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x00764B23 8B Unwind@00b64b23 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDoPartialUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x00764B2B 10B __ehhandler$?doPartialUpdate@W3DTerrainBackground@@QAEXABUIRegion2D@@PAVWorldHeightMap@@_N2@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDoPartialUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x00764B35 10B __ehhandler$?rva00115DD2@W3DTerrainBackground@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundRva00115DD2.cpp (not merged yet)
 
  // default tex resolution allocated for each tile. jba. [3/24/2003]
 
@@ -817,3 +726,116 @@ void W3DTerrainBackground::drawVisiblePolys(RenderInfoClass & rinfo, Bool disabl
 	bfmeDrawTriangles(	0, m_curNumTerrainIndices/3, 0,	m_curNumTerrainVertices);
 #endif
 }
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00112197SlotQuartetReset.cpp
+
+void Rva0011216CSlotQuartet::rva00112197(void)
+{
+	register float zero = 0.0f;
+	register Int one = 1;
+	m_one88 = one;
+	m_zeroC8 &= 0;
+	m_one90 = one;
+	m_one8C = one;
+	m_one94 = one;
+	m_zeroCC = zero;
+	rva00112153();
+}
+
+// tu-skeleton: 0x00112230 41B ?rva00112230@Rva00112230CameraGroup@@QBE?AV?$RefCountPtr@VCameraClass@@@@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundUpdateCenter.cpp (not merged yet)
+
+// tu-skeleton: 0x00112259 56B ?rva00112259@Rva00112259@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00112259.cpp (not merged yet)
+
+// tu-skeleton: 0x0011234C 626B ?updateCenter@W3DTerrainBackground@@QAEXABVRva00112230CameraGroup@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundUpdateCenter.cpp (not merged yet)
+
+// tu-skeleton: 0x001125BE 319B ?updateTexture@W3DTerrainBackground@@QAE_NXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundUpdateTexture.cpp (not merged yet)
+
+// tu-skeleton: 0x001126FD 79B ?test@Rva00729300BitPlane@@QBE_NHH@Z -- matched in Code/GameEngine/Source/Common/Rva00729300BitPlanes.cpp (not merged yet)
+
+// tu-skeleton: 0x0011274C 166B ?advanceYThenX@Rva001127F2TerrainPrefix@@QAE_NAAUICoord2D@@HHHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundTriangleFan.cpp (not merged yet)
+
+// tu-skeleton: 0x001127F2 166B ?advanceScan@Rva001127F2TerrainPrefix@@QAE_NAAUICoord2D@@HHHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundTriangleFan.cpp (not merged yet)
+
+// tu-skeleton: 0x00112898 569B ?setFlipRecursive@W3DTerrainBackground@@QAEXHHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundSetFlipRecursive.cpp (not merged yet)
+
+// tu-skeleton: 0x00112AD1 749B ?setFlipRecursive@W3DTerrainBackground@@QAEXHHHM@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundSetFlipRecursiveTolerance.cpp (not merged yet)
+
+// tu-skeleton: 0x00112DBE 277B ??0Rva00112291TerrainOwner@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00112291TerrainCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00112ED3 237B ?countUnsetCorners@W3DTerrainBackground@@QAEHHHHPA_N000@Z -- matched in Code/GameEngine/Source/Common/Rva00729300BitPlanes.cpp (not merged yet)
+
+// tu-skeleton: 0x00112FC0 273B ?checkUnsetEdges@W3DTerrainBackground@@QAEXHHHPA_N000@Z -- matched in Code/GameEngine/Source/Common/Rva00729300BitPlanes.cpp (not merged yet)
+
+// tu-skeleton: 0x001130D1 63B ?castTriangle@W3DTerrainBackground@@QAE_NAAVRayCollisionTestClass@@ABVVector3@@11@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundCastTriangle.cpp (not merged yet)
+
+// tu-skeleton: 0x00113110 65B ?rva00113110@Rva00113110Holder@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/Rva00113110BarrierSweep.cpp (not merged yet)
+
+// tu-skeleton: 0x00113151 73B ?rva00113151@Rva00113110Holder@@QAEXPAXM@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00113151Replace.cpp (not merged yet)
+
+// tu-skeleton: 0x0011319A 511B ?getTriangleIntersection@W3DTerrainBackground@@QAEXPAVVector3@@HHHHABV2@11@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundGetTriangleIntersection.cpp (not merged yet)
+
+// tu-skeleton: 0x00113399 2158B ?rva00113399@W3DTerrainBackground@@QAEXPAGPAXHHHH0AAH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundTriangleFan.cpp (not merged yet)
+
+// tu-skeleton: 0x00113C07 473B ?rva00113C07@W3DTerrainBackground@@QAEXPAGPAXHHHPA_N2220AAH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundRva00113C07.cpp (not merged yet)
+
+// tu-skeleton: 0x00113DE0 3083B ?rva00113DE0@W3DTerrainBackground@@QAEXPAGPAVVector3@@HHH0AAH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundRva00113C07.cpp (not merged yet)
+
+// tu-skeleton: 0x001149EB 1625B ?doTesselatedUpdate@W3DTerrainBackground@@QAEXABUIRegion2D@@PAVWorldHeightMap@@_N@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDoTesselatedUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x00115044 1869B ?doPartialUpdate@W3DTerrainBackground@@QAEXABUIRegion2D@@PAVWorldHeightMap@@_N2@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDoPartialUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x00115791 121B ?rva00115791@W3DTerrainBackground@@QAEX_NM@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundRva00115791.cpp (not merged yet)
+
+// tu-skeleton: 0x0011580A 487B ?rva0011580A@W3DTerrainBackground@@QAEXAAVRenderInfoClass@@_NPAVRenderingMethod@FXShader@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDrawVisiblePolys.cpp (not merged yet)
+
+// tu-skeleton: 0x001159F1 106B ?rva001159F1@Rva001159F1@@QAEXPAX@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva001159F1.cpp (not merged yet)
+
+// tu-skeleton: 0x00115A5B 844B ?calcBlendHeight@W3DTerrainBackground@@QAEXMHPAM@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva001159F1.cpp (not merged yet)
+
+// tu-skeleton: 0x00115DD2 22B ?rva00115DD2@W3DTerrainBackground@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundRva00115DD2.cpp (not merged yet)
+
+// tu-skeleton: 0x00764A37 8B $L323 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00112259.cpp (not merged yet)
+
+// tu-skeleton: 0x00764A3F 10B __ehhandler$?rva00112259@Rva00112259@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00112259.cpp (not merged yet)
+
+// tu-skeleton: 0x00764A7F 8B $L768 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundUpdateCenter.cpp (not merged yet)
+
+// tu-skeleton: 0x00764A87 10B __ehhandler$?updateCenter@W3DTerrainBackground@@QAEXABVRva00112230CameraGroup@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundUpdateCenter.cpp (not merged yet)
+
+// tu-skeleton: 0x00764A91 8B Unwind@00b64a91 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundUpdateTexture.cpp (not merged yet)
+
+// tu-skeleton: 0x00764A99 8B Unwind@00b64a99 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundUpdateTexture.cpp (not merged yet)
+
+// tu-skeleton: 0x00764AA1 10B __ehhandler$?updateTexture@W3DTerrainBackground@@QAE_NXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundUpdateTexture.cpp (not merged yet)
+
+// tu-skeleton: 0x00764AAB 11B $L1278 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDoTesselatedUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x00764AB6 10B $L1279 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDoTesselatedUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x00764AC0 8B Unwind@00b64ac0 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDoTesselatedUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x00764AC8 10B $L1281 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDoTesselatedUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x00764AD2 8B Unwind@00b64ad2 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDoTesselatedUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x00764ADA 8B Unwind@00b64ada -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDoTesselatedUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x00764AE2 8B Unwind@00b64ae2 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDoTesselatedUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x00764AEA 8B Unwind@00b64aea -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDoTesselatedUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x00764AF2 10B __ehhandler$?doTesselatedUpdate@W3DTerrainBackground@@QAEXABUIRegion2D@@PAVWorldHeightMap@@_N@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDoTesselatedUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x00764AFC 11B Unwind@00b64afc -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDoPartialUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x00764B07 10B $L1262 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDoPartialUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x00764B11 10B $L1263 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDoPartialUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x00764B1B 8B Unwind@00b64b1b -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDoPartialUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x00764B23 8B Unwind@00b64b23 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDoPartialUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x00764B2B 10B __ehhandler$?doPartialUpdate@W3DTerrainBackground@@QAEXABUIRegion2D@@PAVWorldHeightMap@@_N2@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDoPartialUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x00764B35 10B __ehhandler$?rva00115DD2@W3DTerrainBackground@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundRva00115DD2.cpp (not merged yet)
