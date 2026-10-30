@@ -58538,7 +58538,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x006D84C0,29,code,,,-,,Code/Libraries/Source/Apt/AptValue/AptScalarValueConstructors.cpp
 0x006D84E0,35,code,,,-,,Code/GameEngine/Source/Common/Rva006D8510DeletingDtor.cpp
 0x006D8510,11,code,,,-,,Code/GameEngine/Source/Common/Rva006DE350Derived.cpp
-0x006D8520,263,code,Code/Libraries/Source/Apt/AptValue/AptInteger.cpp,approved,N,N=Code/Libraries/Source/Apt/AptValue/AptInteger.cpp provisional,Code/Libraries/Source/Apt/AptValue/AptIntegerCreateBFME2.cpp
+0x006D8520,263,code,Code/Libraries/Source/Apt/AptValue/AptInteger.cpp,approved,N,N=Code/Libraries/Source/Apt/AptValue/AptInteger.cpp provisional,Code/Libraries/Source/Apt/AptValue/AptInteger.cpp
 0x006D8630,55,code,Code/Libraries/Source/Apt/AptValue/AptInteger.cpp,approved,N,N=Code/Libraries/Source/Apt/AptValue/AptInteger.cpp provisional,Code/Libraries/Source/Apt/AptValue/AptScalarClearPoolsBFME2.cpp
 0x006D8670,15,code,,,-,,Code/GameEngine/Source/Common/VslotSmallBodiesP.cpp
 0x006D8680,22,code,,,-,,Code/Libraries/Source/Apt/AptAnimationPoolDataCtor.cpp
@@ -91681,8 +91681,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007A8A0E,15,code,Code/Libraries/Source/Apt/AptString.cpp,approved,P,P=0x006D7D80@FuncInfo0x009624D4,Code/Libraries/Source/Apt/AptString.cpp
 0x007A8A1D,15,code,Code/Libraries/Source/Apt/AptString.cpp,approved,P,P=0x006D7D80@FuncInfo0x009624D4,Code/Libraries/Source/Apt/AptString.cpp
 0x007A8A2C,10,code,Code/Libraries/Source/Apt/AptString.cpp,approved,P,P=0x006D7D80@FuncInfo0x009624D4,Code/Libraries/Source/Apt/AptString.cpp
-0x007A8A40,15,code,Code/Libraries/Source/Apt/AptValue/AptInteger.cpp,approved,P,P=0x006D8520@FuncInfo0x009624F8 provisional,Code/Libraries/Source/Apt/AptValue/AptIntegerCreateBFME2.cpp
-0x007A8A4F,10,code,Code/Libraries/Source/Apt/AptValue/AptInteger.cpp,approved,P,P=0x006D8520@FuncInfo0x009624F8 provisional,Code/Libraries/Source/Apt/AptValue/AptIntegerCreateBFME2.cpp
+0x007A8A40,15,code,Code/Libraries/Source/Apt/AptValue/AptInteger.cpp,approved,P,P=0x006D8520@FuncInfo0x009624F8 provisional,Code/Libraries/Source/Apt/AptValue/AptInteger.cpp
+0x007A8A4F,10,code,Code/Libraries/Source/Apt/AptValue/AptInteger.cpp,approved,P,P=0x006D8520@FuncInfo0x009624F8 provisional,Code/Libraries/Source/Apt/AptValue/AptInteger.cpp
 0x007A8A60,15,code,,,-,,Code/Libraries/Source/Apt/AptValue/AptFloatCreateBFME2.cpp
 0x007A8A6F,10,code,,,-,,Code/Libraries/Source/Apt/AptValue/AptFloatCreateBFME2.cpp
 0x007A8A80,15,code,Code/Libraries/Source/Apt/AptValue/AptBoolean.cpp,approved,P,P=0x006D88C0@FuncInfo0x00962540 provisional,Code/Libraries/Source/Apt/AptValue/AptBooleanCreateBFME2.cpp
