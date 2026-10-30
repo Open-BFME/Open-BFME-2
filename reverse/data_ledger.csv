@@ -20629,8 +20629,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A04270,4,.data,global,_s_rva007B29F2,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A04274,4,.data,global,?TheDeflectSpecialPowerPoolKey@?1??getModuleNameKey@DeflectSpecialPower@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/SpecialPower/DeflectSpecialPower.cpp,owned,,1,2
 0x00A04278,4,.data,global,?$S1@?1??getModuleNameKey@DeflectSpecialPower@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/SpecialPower/DeflectSpecialPower.cpp,owned,,1,4
-0x00A0427C,4,.data,global,?TheSiegeDeploySpecialPowerPoolKey@?1??getModuleNameKey@SiegeDeploySpecialPower@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPowerPoolKey.cpp,owned,,1,2
-0x00A04280,4,.data,global,?$S1@?1??getModuleNameKey@SiegeDeploySpecialPower@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPowerPoolKey.cpp,owned,,1,4
+0x00A0427C,4,.data,global,?TheSiegeDeploySpecialPowerPoolKey@?1??getModuleNameKey@SiegeDeploySpecialPower@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPower.cpp,owned,,1,2
+0x00A04280,4,.data,global,?$S1@?1??getModuleNameKey@SiegeDeploySpecialPower@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPower.cpp,owned,,1,4
 0x00A04288,8,.data,global,?$S1@?1??computeApproachPoint@SiegeDeploySpecialPower@@QAE?AURva004598F2Point@@PAVObject@@PAU3@PA_N@Z@4IA,Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPowerComputeApproachPoint.cpp,owned,,1,2
 0x00A04290,4,.data,global,?g_Va00E04290@@3IA,Code/GameEngine/Source/Common/GlobalFlagClearers_E042xx.cpp,owned,,1,2
 0x00A04294,4,.data,global,_s_rva007B2A1C,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1

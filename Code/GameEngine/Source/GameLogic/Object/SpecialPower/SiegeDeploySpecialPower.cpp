@@ -33,17 +33,11 @@ enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
 #include "Lib/Coord3D.h"
 #include "GameLogicObjectLookupView.h"
 #include "PartitionRangeQueryCallView.h"
-
 class SpecialPowerTemplate;
-
 class Waypoint;
-
 class Module;
-
 extern GameLogic *TheGameLogic;
-
 extern PartitionManager *ThePartitionManager;
-
 class Rva000421C8
 {
 public:
@@ -54,7 +48,6 @@ public:
 	Rva000421C8 *link(Rva000421C8 *next);	// 0x00625790
 	Rva000421C8 *m_next;
 };
-
 // A KindOfMaskType built from its set bits (0x00045411 one bit; the first
 // argument is unused).
 class BfmeFixedStorage0004543D
@@ -64,14 +57,12 @@ public:
 private:
 	unsigned char m_bytes[28];
 };
-
 // Rowed 44-byte single-bit constructor at 0x45411; same 28-byte mask.
 struct Rva00045411BitSet
 {
  unsigned int bits[7];
  Rva00045411BitSet(int reserved, int bit) throw();
 };
-
 // vftable 0x00C1A25C: any of the mask's kinds.
 class Rva003959FA : public Rva000421C8
 {
@@ -80,15 +71,12 @@ public:
 	virtual bool allow(Object *obj);
 	BfmeFixedStorage0004543D m_08;
 };
-
 class NameKeyGenerator
 {
 public:
 	NameKeyType nameToKey(const char *name);
 };
-
 extern NameKeyGenerator *TheNameKeyGenerator;
-
 struct Rva004598F2Point
 {
 	Rva004598F2Point() {}
@@ -97,7 +85,6 @@ struct Rva004598F2Point
 	float y;
 	float z;
 };
-
 class SiegeDockingIface
 {
 public:
@@ -106,32 +93,27 @@ public:
 	virtual int dockIndexFor(ObjectID id);
 	virtual bool acceptsDockFor(ObjectID id);
 };
-
 class SiegeDockingBehavior
 {
 public:
 	unsigned char m_pad00[0x20];
 	SiegeDockingIface m_iface;
 };
-
 class AICommandInterface
 {
 public:
 	void aiIdle(CommandSourceType cmdSource);
 	void aiMoveToPosition(const Coord3D *pos, CommandSourceType cmdSource);
 };
-
 class AIUpdateInterfaceHead
 {
 	unsigned char m_pad00[0x20];
 };
-
 class AIUpdateInterface : public AIUpdateInterfaceHead, public AICommandInterface
 {
 public:
 	void ignoreObstacle(const Object *obj);
 };
-
 class UpdateModule
 {
 protected:
@@ -141,7 +123,6 @@ protected:
 	Object *m_object;														// +0x08
 	unsigned char m_pad0C[0x20 - 0x0C];
 };
-
 class SpecialPowerUpdateInterface
 {
 public:
@@ -150,22 +131,17 @@ public:
 	virtual void gap1();
 	virtual bool rva004C575F();
 };
-
 class SpecialPowerStopInterface
 {
 public:
 	virtual void gap0();
 };
-
 struct SiegeDeployModuleDataView
 {
 	unsigned char m_pad00[0x24];
 	float m_searchRadius;											// +0x24
 	float m_pushDistance;											// +0x28
 };
-
-// ?rva004C573C@SiegeDeploySpecialPower@@QAEXXZ @0x004C573C 21B: SiegeDeploy helper that fetches the DynamicPortalBehaviour module for m_object via the rowed 0x004608E0 finder and tail-calls the pinned ?bfmeCallEBC@BfmeOwnerEBC@@QAEXXZ on the result when non-null. push [ecx+8] proves BehaviorModule m_object at +8. Callers at 0x004C57F8 0x004C5C4C 0x004C5E99 all SiegeDeploy bodies. Recipe ObjectFindModule plus WallUpgrade static prelude.
-
 #include "../../../../Include/Common/Module.h"
 
 class Object
@@ -356,6 +332,10 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
+// ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPower.cpp
+
+// ?rva004C573C@SiegeDeploySpecialPower@@QAEXXZ @0x004C573C 21B: SiegeDeploy helper that fetches the DynamicPortalBehaviour module for m_object via the rowed 0x004608E0 finder and tail-calls the pinned ?bfmeCallEBC@BfmeOwnerEBC@@QAEXXZ on the result when non-null. push [ecx+8] proves BehaviorModule m_object at +8. Callers at 0x004C57F8 0x004C5C4C 0x004C5E99 all SiegeDeploy bodies. Recipe ObjectFindModule plus WallUpgrade static prelude.
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPowerModuleDataParse.cpp
 
 // ?buildFieldParse@SiegeDeploySpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z @0x004C569F
@@ -364,10 +344,6 @@ void SiegeDeploySpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &pars
 	Rva005890EDBase::buildFieldParse(parse);
 	parse.add(g_00C5DBD8, 0);
 }
-
-// tu-skeleton: 0x004C56BA 124B ??0SiegeDeploySpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPowerCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004C5736 6B ?Rva004C5736Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPower.cpp
 
@@ -495,11 +471,23 @@ void SiegeDeploySpecialPower::initiateIntentToDoSpecialPower(const SpecialPowerT
 	setWakeFrame(m_object, UPDATE_SLEEP_NONE);
 }
 
+// tu-skeleton: 0x004C56BA 124B ??0SiegeDeploySpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPowerCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004C5736 6B ?Rva004C5736Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
 // tu-skeleton: 0x004C5751 14B ?rva004C5751@SiegeDeploySpecialPower@@UAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPowerSlots.cpp (not merged yet)
 
 // tu-skeleton: 0x004C5772 10B ?get@Rva004C5772CmpBoolField@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x004C577C 69B ?getModuleNameKey@SiegeDeploySpecialPower@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPowerPoolKey.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPowerPoolKey.cpp
+
+// ?getModuleNameKey@SiegeDeploySpecialPower@@UBE?AW4NameKeyType@@XZ
+NameKeyType SiegeDeploySpecialPower::getModuleNameKey() const
+{
+	static NameKeyType TheSiegeDeploySpecialPowerPoolKey =
+		TheNameKeyGenerator->nameToKey("SiegeDeploySpecialPower");
+	return TheSiegeDeploySpecialPowerPoolKey;
+}
 
 // tu-skeleton: 0x004C57C1 84B ??1SiegeDeploySpecialPower@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPowerDtor.cpp (not merged yet)
 
@@ -516,10 +504,6 @@ void SiegeDeploySpecialPower::initiateIntentToDoSpecialPower(const SpecialPowerT
 // tu-skeleton: 0x004C5E62 30B ?rva004C5E62@SiegeDeploySpecialPower@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPowerSlots.cpp (not merged yet)
 
 // tu-skeleton: 0x004C5E80 691B ?update@SiegeDeploySpecialPower@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPowerUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x00790124 13B $L310 -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPowerPoolKey.cpp (not merged yet)
-
-// tu-skeleton: 0x00790131 10B __ehhandler$?getModuleNameKey@SiegeDeploySpecialPower@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPowerPoolKey.cpp (not merged yet)
 
 // tu-skeleton: 0x0079013B 8B Unwind@00b9013b -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPowerDtor.cpp (not merged yet)
 
