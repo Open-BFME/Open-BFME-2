@@ -84,13 +84,10 @@ public:
 	float m_damageCoefficient[38];
 };
 
+#include "RtsHashView.h"
+
 namespace rts
 {
-
-template <class _Key>
-struct hash
-{
-};
 
 template <>
 struct hash<NameKeyType>
@@ -99,15 +96,6 @@ struct hash<NameKeyType>
 	{
 		const unsigned int *words = (const unsigned int *)&key;
 		return (words[1] << 16) + words[0];
-	}
-};
-
-template <class _Key>
-struct equal_to
-{
-	bool operator()(const _Key &left, const _Key &right) const
-	{
-		return left == right;
 	}
 };
 

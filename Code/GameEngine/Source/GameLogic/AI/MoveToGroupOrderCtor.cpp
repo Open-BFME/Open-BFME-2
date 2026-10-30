@@ -69,15 +69,7 @@ enum ObjectID
 	FORCE_OBJECTID_LONG = 0x7fffffff
 };
 
-namespace rts
-{
-
-template <typename T> struct hash
-{
-	size_t operator()(const T &value) const;
-};
-
-}
+#include "RtsHashView.h"
 
 // Retail stores the zeros before the map ctor call, so they come from member
 // construction in declaration order: the float-triple ctor in the init lists
