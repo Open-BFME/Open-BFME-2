@@ -5,6 +5,28 @@
 #include <cfloat>
 #include "Common/Snapshot.h"
 #include <algorithm>
+#define BFME_SNAPSHOT_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	protected: \
+		virtual const char *GetSnapshotName() const; \
+	}; \
+	const char *NAME::GetSnapshotName() const \
+	{ \
+		return TEXT; \
+	}
+#define BFME_LITERAL_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	public: \
+		const char *name() const; \
+	}; \
+	const char *NAME::name() const \
+	{ \
+		return TEXT; \
+	}
+#include "../GameLogic/AI/WorkOrder.h"
+#include "../GameLogic/AI/TeamInQueue.h"
 
 // bfme link decl-only begin
 namespace _STL { template <> _Rb_tree<int, pair<int const, void *>, _Select1st<pair<int const, void *> >, less<int>, allocator<pair<int const, void *> > >::~_Rb_tree(); }
@@ -115,27 +137,6 @@ template Rva004D755FTree::~_Rb_tree();
 // tree destructor004D755F. Original wrapper owner and name remain unknown.
 struct Rva004D7597TreeCleanupForward { void cleanup(); };
 
-// ?isGoalObjectDestroyed@StateMachine@@QBE_NXZ at retail 0x004D7ADD (30B).
-//
-// Target facts: `cmp [ecx+0x20],0 / jne / xor al,al / ret`, then a call to
-// 0x004D7726, null -> `mov al,1`, else `mov al,[eax+0x438] / and al,1`.
-// +0x20 is StateMachine's m_goalObjectID: the matched
-// StateMachine::internalSetGoalObject 0x004D7435 (StateMachineGoal.cpp) writes
-// the goal object's id there, and 0x004D7726 (rowed as
-// TurretStateMachine::getGoalObject, pinned as StateMachine::getGoalObject)
-// looks that id up through TheGameLogic. Object +0x438 bit 0 is the
-// effectively-dead status bit. The body sits in StateMachine.cpp's run
-// 0x004D7127..0x004D7B0F, just before StateMachine::defineState 0x004D7B0F.
-// Donor facts: Zero Hour and BFME 1 StateMachine.cpp define
-// `Bool StateMachine::isGoalObjectDestroyed() const` as
-// `if (m_goalObjectID == 0) return false; return getGoalObject() == NULL;`.
-// BFME 2 also reports an effectively dead goal as destroyed.
-// The const getGoalObject overload is the same body as the non-const one
-// (identical-code folded at 0x004D7726), so the call goes through the
-// non-const spelling the ledger resolves, as AIGuardStates.cpp does.
-
-typedef unsigned int ObjectID;
-
 class Object
 {
 public:
@@ -218,6 +219,14 @@ public:
 	StateReturnType friend_checkForTransitions(StateReturnType status);
 	StateReturnType friend_checkForSleepTransitions(StateReturnType status);
 };
+
+BFME_LITERAL_NAME_GETTER(Rva004D73F6Named, "SleepState")
+
+BFME_LITERAL_NAME_GETTER(Rva004D73F0Named, "ContinueState")
+
+BFME_LITERAL_NAME_GETTER(Rva004D73EANamed, "FailureState")
+
+// ---- from Code/GameEngine/Source/Common/StateMachine.cpp
 
 // ---- from Code/GameEngine/Source/Common/StateMachine.cpp
 
@@ -456,11 +465,22 @@ StateReturnType State::friend_checkForSleepTransitions(StateReturnType status)
 
 // tu-skeleton: 0x004D73E4 6B ?Rva004D73E4Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
-// tu-skeleton: 0x004D73EA 6B ?name@Rva004D73EANamed@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/ModuleNameGetters.cpp
 
-// tu-skeleton: 0x004D73F0 6B ?name@Rva004D73F0Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x004D73F6 6B ?name@Rva004D73F6Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+// Module literal name getters: six-byte const members with one shape:
+//
+//     mov eax,<offset string literal> / ret
+//
+// Each body returns a pointer to a NUL-terminated Behavior/Update/Contain
+// class-name string in .rdata. Each body VA carries exactly one .rdata
+// reference from its module vtable (descriptor tail closed by the shared
+// 0x004B3FD0 pair -- the same family marker as the Subsystem getters).
+// Split from Code/GameEngine/Source/Common/SubsystemNameGetters.cpp into a
+// contributor-local unit to keep concurrent landings conflict-free; the
+// BFME_LITERAL_NAME_GETTER macro is verbatim, only the class names follow
+// this tree's address-derived convention (identity unrecoverable from 6
+// bytes, string carried in source where verify_string_refs re-reads it).
+// No // cl: line (defaults match the frameless 6-byte shape).
 
 // tu-skeleton: 0x004D73FC 43B ??0State@@QAE@PAVStateMachine@@I@Z -- matched in Code/GameEngine/Source/Common/StateCtor.cpp (not merged yet)
 
