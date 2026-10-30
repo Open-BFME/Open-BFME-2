@@ -6,33 +6,17 @@
 // vector at +0x24 via rowed 0x00317EBB. Same offsets as Rva00317F6F ctor
 // 0x00317F6F; caller at 0x003181C1 unblocks 0x0031816C.
 #include "ascii_string.h"
+#include <vector>
+#include <utility>
+
+enum ScienceType
+{
+	SCIENCE_NONE = 0
+};
 struct NoCaseTreeValue4
 {
 	char m_body[4];
 };
-namespace _STL
-{
-template <class T1, class T2>
-struct pair
-{
-	T1 first;
-	T2 second;
-};
-template <class Type>
-class allocator
-{
-};
-template <class Type, class Allocator>
-class vector
-{
-public:
-	vector &operator=(const vector &x);
-private:
-	void *m_start;
-	void *m_finish;
-	void *m_endOfStorage;
-};
-}
 // Native 0x0021C21B is owned by the non-POD-traited four-byte record
 // specialization in StlSweepW5Rva0021C21B.cpp. Preserve this caller's
 // storage and argument ABI while naming the verified out-of-line provider.
@@ -44,30 +28,36 @@ vector<Rva0021C21BElement, allocator<Rva0021C21BElement> >::operator=(
     const vector<Rva0021C21BElement, allocator<Rva0021C21BElement> > &);
 }
 
+typedef _STL::vector<_STL::pair<const AsciiString, NoCaseTreeValue4>, _STL::allocator<_STL::pair<const AsciiString, NoCaseTreeValue4> > > RetailNoCaseVector;
+namespace _STL {
+template <> RetailNoCaseVector &RetailNoCaseVector::operator=(const RetailNoCaseVector &);
+}
+
 class TerrainType
 {
+	friend class TerrainTypeCollection;
 public:
+	TerrainType();
 	virtual ~TerrainType();
 	TerrainType &operator=(const TerrainType &that);
+	void friend_setName(AsciiString name);
 private:
-	AsciiString m_4;
-	AsciiString m_8;
-	unsigned char m_C;
-	char m_padD[3];
-	_STL::vector<int, _STL::allocator<int> > m_10;
-	unsigned char m_1C;
-	char m_pad1D[3];
-	int m_20;
-	_STL::vector<_STL::pair<const AsciiString, NoCaseTreeValue4>, _STL::allocator<_STL::pair<const AsciiString, NoCaseTreeValue4> > > m_24;
+	AsciiString m_str04;
+	AsciiString m_str08;
+	unsigned char m_f0c;
+	_STL::vector<ScienceType, _STL::allocator<ScienceType> > m_v1;
+	unsigned char m_f1c;
+	TerrainType *m_next;
+	_STL::vector<ScienceType, _STL::allocator<ScienceType> > m_v2;
 };
 TerrainType &TerrainType::operator=(const TerrainType &that)
 {
-	m_4 = that.m_4;
-	m_8 = that.m_8;
-	m_C = that.m_C;
-	*(RetailAssignVector *)&m_10 = *(const RetailAssignVector *)&that.m_10;
-	m_1C = that.m_1C;
-	m_20 = that.m_20;
-	m_24 = that.m_24;
+	m_str04 = that.m_str04;
+	m_str08 = that.m_str08;
+	m_f0c = that.m_f0c;
+	*(RetailAssignVector *)&m_v1 = *(const RetailAssignVector *)&that.m_v1;
+	m_f1c = that.m_f1c;
+	m_next = that.m_next;
+	*(RetailNoCaseVector *)&m_v2 = *(const RetailNoCaseVector *)&that.m_v2;
 	return *this;
 }

@@ -34,26 +34,30 @@ _Vector_base<ScienceType, allocator<ScienceType> >::~_Vector_base()
 }
 
 #include "ascii_string.h"
-class TerrainType {
+class TerrainType
+{
+	friend class TerrainTypeCollection;
 public:
-  virtual ~TerrainType();
-  TerrainType();
+	TerrainType();
+	virtual ~TerrainType();
+	TerrainType &operator=(const TerrainType &that);
+	void friend_setName(AsciiString name);
 private:
-  AsciiString m_a;
-  AsciiString m_b;
-  unsigned char m_f0c;
-  _STL::vector<ScienceType, _STL::allocator<ScienceType> > m_v1;
-  unsigned char m_f1c;
-  int m_i20;
-  _STL::vector<ScienceType, _STL::allocator<ScienceType> > m_v2;
+	AsciiString m_str04;
+	AsciiString m_str08;
+	unsigned char m_f0c;
+	_STL::vector<ScienceType, _STL::allocator<ScienceType> > m_v1;
+	unsigned char m_f1c;
+	TerrainType *m_next;
+	_STL::vector<ScienceType, _STL::allocator<ScienceType> > m_v2;
 };
 TerrainType::TerrainType()
 {
-  m_a.clear();
-  m_b.clear();
+  m_str04.clear();
+  m_str08.clear();
   ScienceType st = SCIENCE_NONE;
   m_f0c = 0;
   m_v1.push_back(st);
-  m_i20 = 0;
+  m_next = 0;
   m_f1c = 0;
 }

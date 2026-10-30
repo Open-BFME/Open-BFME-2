@@ -48,20 +48,27 @@ class AsciiStringMember {
 public:
   ~AsciiStringMember();
 };
+enum ScienceType
+{
+	SCIENCE_NONE = 0
+};
+
 class TerrainType
 {
 	friend class TerrainTypeCollection;
 public:
 	TerrainType();
+	virtual ~TerrainType();
 	TerrainType &operator=(const TerrainType &that);
 	void friend_setName(AsciiString name);
 private:
-	char m_pad00[4];
 	AsciiString m_str04;
 	AsciiString m_str08;
-	char m_pad0C[0x14];
+	unsigned char m_f0c;
+	_STL::vector<ScienceType, _STL::allocator<ScienceType> > m_v1;
+	unsigned char m_f1c;
 	TerrainType *m_next;
-	char m_pad24[0x0C];
+	_STL::vector<ScienceType, _STL::allocator<ScienceType> > m_v2;
 };
 struct Rva00317CCDElement {Rva00317CCDElement();Rva00317CCDElement(const Rva00317CCDElement&);Rva00317CCDElement&operator=(const Rva00317CCDElement&);virtual void slot0();virtual ~Rva00317CCDElement();char bytes[4]; bool operator==(const Rva00317CCDElement&)const;};
 // Retail's loop calls the rowed two-pointer cdecl placement-copy owner
