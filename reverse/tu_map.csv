@@ -10366,7 +10366,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x001610A0,23,code,Code/Libraries/Source/WWVegas/WW3D2/htree.cpp,approved,C,C=0x00160FC0..0x001610C0,Code/GameEngine/Source/GameLogic/Object/Behavior/ParkingPlaceBehavior.cpp
 0x001610C0,34,code,Code/Libraries/Source/WWVegas/WW3D2/htree.cpp,approved,C,C=0x00160FC0..0x001610F0,Code/GameEngine/Source/Common/System/ArchiveFile.cpp
 0x001610F0,81,code,Code/Libraries/Source/WWVegas/WW3D2/htree.cpp,approved,C,C=0x00160FC0..0x00161150,Code/Libraries/Source/WWVegas/WW3D2/htree.cpp
-0x00161150,45,code,Code/Libraries/Source/WWVegas/WW3D2/htree.cpp,approved,C,C=0x00160FC0..0x00161180,Code/GameEngine/Source/Common/ElementStrideWalks.cpp
+0x00161150,45,code,Code/Libraries/Source/WWVegas/WW3D2/htree.cpp,approved,C,C=0x00160FC0..0x00161180,Code/Libraries/Source/WWVegas/WW3D2/htree.cpp
 0x00161180,43,code,Code/Libraries/Source/WWVegas/WW3D2/htree.cpp,approved,C,C=0x00160FC0..0x001611B0,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_elem36_push_back.cpp
 0x001611B0,415,code,Code/Libraries/Source/WWVegas/WW3D2/htree.cpp,approved,C,C=0x00160FC0..0x00161350,Code/Libraries/Source/WWVegas/WW3D2/htree.cpp
 0x00161350,401,code,Code/Libraries/Source/WWVegas/WW3D2/htree.cpp,approved,C,C=0x00160FC0..0x001614F0,Code/Libraries/Source/WWVegas/WW3D2/htree.cpp
@@ -56542,7 +56542,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x006896D0,30,code,Code/GameEngine/Source/GameClient/VideoPlayer.cpp,approved,C,C=0x00689580..0x006896F0,Code/GameEngine/Source/GameClient/VideoPlayer.cpp
 0x006896F0,66,code,Code/GameEngine/Source/GameClient/VideoPlayer.cpp,approved,C,C=0x00689580..0x00689740,Code/GameEngine/Source/GameClient/VideoPlayer.cpp
 0x00689740,9,code,Code/GameEngine/Source/GameClient/VideoPlayer.cpp,approved,C,C=0x00689580..0x00689750,Code/Libraries/Source/WWVegas/WWLib/Rva001D28F0ElementDtor.cpp
-0x00689750,45,code,Code/GameEngine/Source/GameClient/VideoPlayer.cpp,approved,C,C=0x00689580..0x00689780,Code/GameEngine/Source/Common/ElementStrideWalks.cpp
+0x00689750,45,code,Code/GameEngine/Source/GameClient/VideoPlayer.cpp,approved,C,C=0x00689580..0x00689780,Code/GameEngine/Source/GameClient/VideoPlayer.cpp
 0x00689780,41,code,Code/GameEngine/Source/GameClient/VideoPlayer.cpp,approved,C,C=0x00689580..0x006897B0,Code/GameEngine/Source/GameClient/VideoPlayer.cpp
 0x006897B0,280,code,Code/GameEngine/Source/GameClient/VideoPlayer.cpp,approved,S,S=Code/GameEngine/Source/GameClient/VideoPlayer.cpp N=Code/GameEngine/Source/GameClient/VideoPlayer.cpp W=Code/Libraries/Source/VideoPlayer/VideoPlayer.cpp,Code/GameEngine/Source/GameClient/VideoPlayerGetVideo.cpp
 0x006898D0,574,code,Code/GameEngine/Source/GameClient/VideoPlayer.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/VideoPlayer.cpp S=Code/GameEngine/Source/GameClient/VideoPlayer.cpp N=Code/GameEngine/Source/GameClient/VideoPlayer.cpp W=Code/Libraries/Source/VideoPlayer/VideoPlayer.cpp,Code/GameEngine/Source/GameClient/VideoPlayerInit.cpp

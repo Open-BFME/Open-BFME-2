@@ -250,6 +250,36 @@ template<> inline void vector<Elem36>::push_back(const Elem36 &v) {
 
 template Elem36 *_STL::__copy_backward_ptrs<Elem36 *, Elem36 *>(Elem36 *, Elem36 *, Elem36 *, const _STL::__false_type &);
 
+namespace _STL {
+template <class T1, class T2> void _Construct(T1 *, const T2 &);
+template <> void _Construct<Elem36, Elem36>(Elem36 *, const Elem36 &);
+}
+
+// 28-byte copy walk, retail 0x00689750, 45 bytes.
+//
+// Same shape as the Elem36 walk above: bounded-by-end-pointer walk handing
+// each 28-byte slot to the helper at 0x006896F0 (rowed 66-byte pair
+// construct body). Both cursors advance by the retail step 0x1c; the returned
+// value is the advanced dest cursor. Element identity is not recovered --
+// Elem28 is a stride-sized stand-in in the ElementStrideWalks donor's own
+// convention.
+//
+// The callee is the ledger's rowed `_STL::_Construct<Rva001D28F0Element>`
+// (0x006896F0, 66 B): the walk's retail REL32 at 0x00689762 lands on that
+// address, and the address-derived gen006896F0 spelling had no definition to
+// link. The 28-byte stand-in only has to spell the rowed instantiation's
+// mangled name; the pointer casts are no-ops, so the walk's bytes do not move.
+
+struct Elem28
+{
+	char m_bytes[28];
+};
+
+struct Rva001D28F0Element
+{
+	char m_bytes[28];
+};
+
 // tu-skeleton: 0x001606E0 1144B ?Simple_Evaluate_Pivot@HTreeClass@@QBE_NHABVMatrix3D@@PAV2@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HTreeClassBoneLookup.cpp (not merged yet)
 
 // tu-skeleton: 0x00160B60 68B ?Get_Bone_Index@HTreeClass@@QBEHPBD@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HTreeClassBoneLookup.cpp (not merged yet)
@@ -257,6 +287,8 @@ template Elem36 *_STL::__copy_backward_ptrs<Elem36 *, Elem36 *>(Elem36 *, Elem36
 // tu-skeleton: 0x00160BB0 22B ?Get_Bone_Name@HTreeClass@@QBEPBDH@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HTreeClassBoneLookup.cpp (not merged yet)
 
 // tu-skeleton: 0x00160BD0 35B ?Get_Parent_Index@HTreeClass@@QBEHH@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HTreeClassBoneLookup.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/htree.cpp
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/htree.cpp
 
@@ -1142,13 +1174,28 @@ void HTreeClass::Capture_Bone(int boneindex)
  if(it == reinterpret_cast<Elem36 *>(OwnedSequence1C[1])) bones.push_back(bone);
 }
 
+// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00162860.cpp
+
+// STLport 4.5.3 captured-bone copy forwarder.
+
 // tu-skeleton: 0x00160CB0 770B ?Slave_Update@HTreeClass@@QAEXPBV1@ABVMatrix3D@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HTreeClassReadPivots.cpp (not merged yet)
 
 // tu-skeleton: 0x001610A0 23B ?size@?$vector@URunwayInfo@ParkingPlaceBehavior@@V?$allocator@URunwayInfo@ParkingPlaceBehavior@@@_STL@@@_STL@@QBEIXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/ParkingPlaceBehavior.cpp (not merged yet)
 
 // tu-skeleton: 0x001610C0 34B ?allocate@?$allocator@U?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@VArchivedFileInfo@@@_STL@@@_STL@@@_STL@@QBEPAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@VArchivedFileInfo@@@_STL@@@2@IPBX@Z -- matched in Code/GameEngine/Source/Common/System/ArchiveFile.cpp (not merged yet)
 
-// tu-skeleton: 0x00161150 45B ?rva00161150CopyWalk@@YAPAUElem36@@PAU1@00@Z -- matched in Code/GameEngine/Source/Common/ElementStrideWalks.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/ElementStrideWalks.cpp
+
+Elem36 *rva00161150CopyWalk(Elem36 *first, Elem36 *last, Elem36 *dest)
+{
+	Elem36 *cursor = dest;
+	for ( ; first != last; ++first)
+	{
+		_STL::_Construct(cursor, *first);
+		++cursor;
+	}
+	return cursor;
+}
 
 // tu-skeleton: 0x00161180 43B ??$__uninitialized_fill_n@PAUElem36@@IU1@@_STL@@YAPAUElem36@@PAU1@IABU1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_elem36_push_back.cpp (not merged yet)
 
@@ -1161,10 +1208,6 @@ void HTreeClass::Capture_Bone(int boneindex)
 // tu-skeleton: 0x001622B0 1335B ?Capture_Update@HTreeClass@@QAEHH@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HTreeClassFirstCapturedBone.cpp (not merged yet)
 
 // tu-skeleton: 0x001627F0 7B ?get_allocator@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QBE?AV?$allocator@G@2@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_wide_string_default_ctor.cpp (not merged yet)
-
-// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00162860.cpp
-
-// STLport 4.5.3 captured-bone copy forwarder.
 
 // tu-skeleton: 0x00162880 32B ??$__copy_ptrs@PAUBfmePod36@@PAU1@@_STL@@YAPAUBfmePod36@@PAU1@00U__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_o2_bodies.cpp (not merged yet)
 

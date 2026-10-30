@@ -200,6 +200,46 @@ public:
 	virtual ~Rva006892F0();
 };
 
+// 36-byte copy walk, retail 0x00161150, 45 bytes.
+//
+// Bounded-by-end-pointer walk handing each 36-byte slot to the helper at
+// 0x001610F0 (rowed STLport placement construction; element identity still opaque). Both
+// cursors advance by the retail step 0x24; the returned value is the
+// advanced dest cursor. Element identity is not recovered -- Elem36 is a
+// stride-sized stand-in in the ElementStrideWalks donor's own convention.
+
+struct Elem36
+{
+	char m_bytes[36];
+};
+
+namespace _STL {
+template <class T1, class T2> void _Construct(T1 *, const T2 &);
+template <> void _Construct<Elem36, Elem36>(Elem36 *, const Elem36 &);
+}
+
+// 28-byte copy walk, retail 0x00689750, 45 bytes.
+//
+// Same shape as the Elem36 walk above: bounded-by-end-pointer walk handing
+// each 28-byte slot to the helper at 0x006896F0 (rowed 66-byte pair
+// construct body). Both cursors advance by the retail step 0x1c; the returned
+// value is the advanced dest cursor. Element identity is not recovered --
+// Elem28 is a stride-sized stand-in in the ElementStrideWalks donor's own
+// convention.
+//
+// The callee is the ledger's rowed `_STL::_Construct<Rva001D28F0Element>`
+// (0x006896F0, 66 B): the walk's retail REL32 at 0x00689762 lands on that
+// address, and the address-derived gen006896F0 spelling had no definition to
+// link. The 28-byte stand-in only has to spell the rowed instantiation's
+// mangled name; the pointer casts are no-ops, so the walk's bytes do not move.
+
+struct Elem28
+{
+	char m_bytes[28];
+};
+
+// ---- from Code/GameEngine/Source/GameClient/VideoPlayer.cpp
+
 // ---- from Code/GameEngine/Source/GameClient/VideoPlayer.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/VideoPlayer.cpp
@@ -332,6 +372,16 @@ Rva00689320::Rva00689320(int first, int second, int third)
 // The global(s) below are defined elsewhere under another name at the same
 // address (the census owner of that DIR32 target); bind this unit's spelling.
 
+
+
+
+
+// ---- from Code/GameEngine/Source/Common/GameEngineDeletingBaseDerived2.cpp
+
+Rva006892F0::~Rva006892F0()
+{
+}
+
 // tu-skeleton: 0x006891A0 6B ?Rva006891A0Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp (not merged yet)
 
 // tu-skeleton: 0x006891E0 72B ?bfmeDropUC@BfmeSubUC@@QAEXPAVBfmeThingUC@@@Z -- matched in Code/GameEngine/Source/Common/BfmeThreeHundredFiftyFour.cpp (not merged yet)
@@ -339,12 +389,6 @@ Rva00689320::Rva00689320(int first, int second, int third)
 // tu-skeleton: 0x006892B0 18B ?deallocate@?$_STLP_alloc_proxy@PADDV?$allocator@D@_STL@@@_STL@@QAEXPADI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_string_insert_aux.cpp (not merged yet)
 
 // tu-skeleton: 0x006892D0 18B ??0Rva006892D0Derived@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00180E40Siblings.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/GameEngineDeletingBaseDerived2.cpp
-
-Rva006892F0::~Rva006892F0()
-{
-}
 
 // tu-skeleton: 0x00689350 35B ??1VideoPlayer@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/VideoPlayerDestructorThunk.cpp (not merged yet)
 
@@ -366,7 +410,18 @@ Rva006892F0::~Rva006892F0()
 
 // tu-skeleton: 0x00689740 9B ??$_Destroy@VRva001D28F0Element@@@_STL@@YAXPAVRva001D28F0Element@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001D28F0ElementDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x00689750 45B ?rva00689750CopyWalk@@YAPAUElem28@@PAU1@00@Z -- matched in Code/GameEngine/Source/Common/ElementStrideWalks.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/ElementStrideWalks.cpp
+
+Elem28 *rva00689750CopyWalk(Elem28 *first, Elem28 *last, Elem28 *dest)
+{
+	Elem28 *cursor = dest;
+	for ( ; first != last; ++first)
+	{
+		_STL::_Construct((Rva001D28F0Element *)cursor, *(const Rva001D28F0Element *)first);
+		++cursor;
+	}
+	return cursor;
+}
 
 // tu-skeleton: 0x006897B0 280B ?getSubTitleMgrForVideo@VideoPlayer@@UAEPAVSubtitleManager@@ABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/VideoPlayerGetVideo.cpp (not merged yet)
 
