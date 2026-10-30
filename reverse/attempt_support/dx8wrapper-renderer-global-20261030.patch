@@ -1,0 +1,78 @@
+diff --git a/Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp b/Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp
+index 1e1cdfcb2..f3938a927 100644
+--- a/Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp
++++ b/Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp
+@@ -727,7 +727,8 @@ BfmeResetAnyRef bfmeNextResource();
+ // The renderer instance is established by Do_Onetime_Device_Dependent_Inits;
+ // its empty hook has no independent body/identity claim.
+ struct BfmeResetMeshRenderer { void Device_Reset_Hook(); };
+-extern BfmeResetMeshRenderer *BfmeResetMeshRendererInstance;
++class DX8MeshRendererClass;
++extern DX8MeshRendererClass *TheDX8MeshRenderer;
+ namespace Debug_Statistics { void Begin_Statistics(); }
+ void bfmeReleaseQueuedDeviceInterfaces();
+ extern "C" const char *__stdcall bfmeDirectXErrorName(long);
+@@ -795,7 +796,7 @@ bool DX8Wrapper::Reset_Device(bool reload_assets)
+ 		bfmeBeginResourceEnumeration(0x46585348);
+ 		BfmeResetShaderRef shader;
+ 		while (shader=bfmeNextResource()) shader.Release_Device_Resources();
+-		BfmeResetMeshRendererInstance->Device_Reset_Hook();
++		reinterpret_cast<BfmeResetMeshRenderer *>(TheDX8MeshRenderer)->Device_Reset_Hook();
+ 		Debug_Statistics::Begin_Statistics();
+ 		bfmeReleaseQueuedDeviceInterfaces();
+ 		FrameCount=0;
+@@ -828,7 +829,7 @@ bool DX8Wrapper::Reset_Device(bool reload_assets)
+ 			BfmeResetShaderRef shader;
+ 			while (shader=bfmeNextResource()) shader.Recreate_Device_Resources();
+ 			if (m_pCleanupHook) m_pCleanupHook->ReAcquireResources();
+-			BfmeResetMeshRendererInstance->Device_Reset_Hook();
++			reinterpret_cast<BfmeResetMeshRenderer *>(TheDX8MeshRenderer)->Device_Reset_Hook();
+ 		}
+ 		Invalidate_Cached_Render_States();
+ 		Set_Default_Global_Render_States();
+@@ -3779,12 +3780,8 @@ void DX8Wrapper::Draw_Sorting_IB_VB(unsigned primitive_type,unsigned start_index
+ 
+ // ?bfmeSkipFixedFunctionState@@3_NA: matched references place it at VA 0xdeda20.
+ bool bfmeSkipFixedFunctionState;
+-// ?BfmeResetMeshRendererInstance@@3PAUBfmeResetMeshRenderer@@A: the global at this VA is ?TheDX8MeshRenderer@@3PAVDX8MeshRendererClass@@A; this name is an alias for it.
+-#pragma comment(linker, "/alternatename:?BfmeResetMeshRendererInstance@@3PAUBfmeResetMeshRenderer@@A=?TheDX8MeshRenderer@@3PAVDX8MeshRendererClass@@A")
+ // ?bfmeProjectionBias@@3MA: matched references place it at VA 0xdeda74; also referenced as ?g_Va00DEDA74@@3MA.
+ float bfmeProjectionBias;
+-// ?BfmeResetMeshRendererInstance@@3PAUBfmeResetMeshRenderer@@A: the global at VA 0xdf363c is ?TheDX8MeshRenderer@@3PAVDX8MeshRendererClass@@A.
+-#pragma comment(linker, "/alternatename:?BfmeResetMeshRendererInstance@@3PAUBfmeResetMeshRenderer@@A=?TheDX8MeshRenderer@@3PAVDX8MeshRendererClass@@A")
+ 
+ // Retail's call sites in this unit's matched rows land on bodies rowed under
+ // other spellings at the same addresses (same ABI). Bind the spellings used here.
+@@ -3826,10 +3823,8 @@ BfmeWideTextHook bfmeData00DEDBDC = 0;
+ BfmeVoidHook bfmeData00DEDBE0 = 0;
+ void *bfmeData00DEDBE4 = 0;
+ void *bfmeData00DEDBE8 = 0;
+-extern DX8MeshRendererClass *ShutdownMeshRenderer;
+ class Rva00DF6F94GapFillerContext { public: ~Rva00DF6F94GapFillerContext(); };
+ extern Rva00DF6F94GapFillerContext *TheMeshGapFillerContext;
+-#pragma comment(linker, "/alternatename:?ShutdownMeshRenderer@@3PAVDX8MeshRendererClass@@A=?TheDX8MeshRenderer@@3PAVDX8MeshRendererClass@@A")
+ // Registry's verified StringClass vector-deleting destructor takes this same
+ // four-byte-entry callback at RVA 0x00065F5B. Use the real inline destructor
+ // for both tables; ordinary cleanup still calls Free_String directly.
+@@ -3880,8 +3875,8 @@ void DX8Wrapper::Shutdown(void)
+ // Native DEE5B8 is ActiveCount +0x10 from the table at DEE5A8.
+ 	_RenderDeviceDescriptionTable.Reset_Active(); reinterpret_cast<VectorClass<BfmeEnumerationDesc> &>(_RenderDeviceDescriptionTable).VectorClass<BfmeEnumerationDesc>::Clear();	
+ 
+-	delete ShutdownMeshRenderer;
+-    ShutdownMeshRenderer = 0;
++	delete TheDX8MeshRenderer;
++    TheDX8MeshRenderer = 0;
+     delete TheMeshGapFillerContext;
+     TheMeshGapFillerContext = 0;
+ 	IsInitted = false;		// 010803 srj
+@@ -3943,8 +3938,8 @@ void DX8Wrapper::Do_Onetime_Device_Dependent_Shutdowns(void)
+ 	VertexMaterialClass::Shutdown();
+ 	BoxRenderObjClass::Shutdown();
+ 	SHD_SHUTDOWN;
+-	ShutdownMeshRenderer->Shutdown();
+-	reinterpret_cast<BfmeResetMeshRenderer *>(ShutdownMeshRenderer)->Device_Reset_Hook();
++	TheDX8MeshRenderer->Shutdown();
++	reinterpret_cast<BfmeResetMeshRenderer *>(TheDX8MeshRenderer)->Device_Reset_Hook();
+ 
+ 	if (CurrentCaps) {
+ 		delete reinterpret_cast<BfmeEnumerationCaps *>(CurrentCaps);

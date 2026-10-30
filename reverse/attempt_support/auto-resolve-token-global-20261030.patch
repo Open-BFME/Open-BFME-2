@@ -1,0 +1,67 @@
+diff --git a/Code/GameEngine/Source/GameClient/GUI/Rva00427157Ctor.cpp b/Code/GameEngine/Source/GameClient/GUI/Rva00427157Ctor.cpp
+index 4d8f01c41..6461276c0 100644
+--- a/Code/GameEngine/Source/GameClient/GUI/Rva00427157Ctor.cpp
++++ b/Code/GameEngine/Source/GameClient/GUI/Rva00427157Ctor.cpp
+@@ -104,7 +104,7 @@ public:
+ 	void initFromINI(void *what, const FieldParse *parseTable);
+ };
+ 
+-extern ConstCharPtr g_00DC85C4[];
++extern ConstCharPtr g_Va00DC85C4Names[];
+ extern "C" {
+ void __identifier("?Rva00427114Parse@@YAXPAVINI@@PAVRva00427157@@@Z")();
+ }
+@@ -135,7 +135,7 @@ void Rva00427114Parse(INI *ini, Rva00427157 *store)
+ 	const char *key = ini->getNextToken(0);
+ 	const char *val = ini->getNextToken(0);
+ 	float f = ini->dup_002EE10(val);
+-	int idx = ini->scanIndexList(key, g_00DC85C4);
++	int idx = ini->scanIndexList(key, g_Va00DC85C4Names);
+ 	store->m_vals[idx] = f;
+ }
+ 
+@@ -213,4 +213,3 @@ void __cdecl Rva00427294Parse(INI *ini, void *dummy1, void *instance, void *dumm
+ 
+ // The global(s) below are defined elsewhere under another name at the same
+ // address (the census owner of that DIR32 target); bind this unit's spelling.
+-#pragma comment(linker, "/alternatename:?g_00DC85C4@@3PAPBDA=?g_Va00DC85C4Names@@3PAPBDA")
+diff --git a/Code/GameEngine/Source/GameClient/Rva0041811DTokenParsers.cpp b/Code/GameEngine/Source/GameClient/Rva0041811DTokenParsers.cpp
+index 021bd300d..f12f02922 100644
+--- a/Code/GameEngine/Source/GameClient/Rva0041811DTokenParsers.cpp
++++ b/Code/GameEngine/Source/GameClient/Rva0041811DTokenParsers.cpp
+@@ -102,7 +102,7 @@ void Rva00419726Parse(INI *ini, void *, void *store, const void *)
+ 		throw INIException(1, "Unknown LivingWorldAutoResolveWeapon %s", token);
+ }
+ 
+-extern const char *g_00DC85C4[];
++extern const char *g_Va00DC85C4Names[];
+ 
+ // ?parseDamagePerRoundIntoTable@LivingWorldAutoResolveWeaponTemplate@@SAXPAVINI@@PAX1PBX@Z
+ class LivingWorldAutoResolveWeaponTemplate
+@@ -115,6 +115,6 @@ void LivingWorldAutoResolveWeaponTemplate::parseDamagePerRoundIntoTable(INI *ini
+ {
+ 	float damage = ini->scanReal(ini->getNextSubToken("Damage"));
+ 	const char *against = ini->getNextSubToken("Against");
+-	int index = ini->scanIndexList(against, g_00DC85C4);
++	int index = ini->scanIndexList(against, g_Va00DC85C4Names);
+ 	((float *)store)[index] = damage;
+ }
+diff --git a/reverse/data_check_baseline.txt b/reverse/data_check_baseline.txt
+index 214b03acf..5038c5f89 100644
+--- a/reverse/data_check_baseline.txt
++++ b/reverse/data_check_baseline.txt
+@@ -16,14 +16,12 @@ Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellCallbacks.c
+ Code/GameEngine/Source/GameClient/GUI/Palantir/BfmeObserverDispatchYU_Rva002d4f2d.cpp	wrong-name	?$S1@?4??bfmeApplyYU@@YGXH@Z@4IA	0x009FF064
+ Code/GameEngine/Source/GameClient/GUI/Palantir/BfmeObserverDispatchYU_Rva002d4f2d.cpp	wrong-name	?s_bfmeObjectivesYU@?4??bfmeApplyYU@@YGXH@Z@4VAsciiStringYU@@A	0x009FF060
+ Code/GameEngine/Source/GameClient/GUI/Palantir/BfmeObserverDispatchYU_Rva002d4f2d.cpp	wrong-name	?s_bfmeOtherYU@?6??bfmeApplyYU@@YGXH@Z@4VAsciiStringYU@@A	0x009FF05C
+-Code/GameEngine/Source/GameClient/GUI/Rva00427157Ctor.cpp	wrong-name	?g_00DC85C4@@3PAPBDA	0x009C85C4
+ Code/GameEngine/Source/GameClient/GUI/Rva0043D1C9Destructor.cpp	wrong-name	?g_Va00E03314@@3HA	0x00A03314
+ Code/GameEngine/Source/GameClient/GUI/parseSpellIndex_Thunk.cpp	wrong-name	?g_Va009FEDF0@@3HA	0x009FEDF0
+ Code/GameEngine/Source/GameClient/MapUtil.cpp	duplicate-def	_m_supplyPositions	0x009FF144
+ Code/GameEngine/Source/GameClient/MapUtil.cpp	duplicate-def	_m_techPositions	0x009FF148
+ Code/GameEngine/Source/GameClient/MapUtil.cpp	wrong-name	_m_supplyPositions	0x009FF144
+ Code/GameEngine/Source/GameClient/MapUtil.cpp	wrong-name	_m_techPositions	0x009FF148
+-Code/GameEngine/Source/GameClient/Rva0041811DTokenParsers.cpp	wrong-name	?g_00DC85C4@@3PAPBDA	0x009C85C4
+ Code/GameEngine/Source/GameClient/System/ParticleSystemMake001FCBD7.cpp	wrong-name	?$S1@?1??Make001FCBD7@@YAPAVParticleSystem@@XZ@4IA	0x009FE014
+ Code/GameEngine/Source/GameClient/System/ParticleSystemMake001FCBD7.cpp	wrong-name	?nullSystem@?1??Make001FCBD7@@YAPAVParticleSystem@@XZ@4V2@A	0x009FDD60
+ Code/GameEngine/Source/GameClient/System/ParticleSystemMake001FCBD7.cpp	wrong-name	?nullTemplate@?1??Make001FCBD7@@YAPAVParticleSystem@@XZ@4VParticleSystemTemplate@FXParticleSystem@@A	0x009FDF40

@@ -1,0 +1,39 @@
+diff --git a/Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsRecordTextureEnd.cpp b/Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsRecordTextureEnd.cpp
+index a56edf03d..a3b489b65 100644
+--- a/Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsRecordTextureEnd.cpp
++++ b/Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsRecordTextureEnd.cpp
+@@ -216,18 +216,19 @@ extern int last_frame_procedural_texture_count;
+ static int lastFrameRecordCount;
+ extern int last_frame_texture_change_count;
+ 
+-class Debug_Statistics
++namespace Debug_Statistics
+ {
+-public:
+ 	enum RecordTextureMode
+ 	{
+ 		RECORD_TEXTURE_NONE,
+ 		RECORD_TEXTURE_SIMPLE,
+ 		RECORD_TEXTURE_DETAILS
+ 	};
+-};
++}
+ 
+-static Debug_Statistics::RecordTextureMode recordTextureMode;
++// statistics.cpp owns the mode word at retail VA 0x00DEE8F4. Read its
++// existing enum global instead of defining a second file-static word.
++extern Debug_Statistics::RecordTextureMode record_texture_mode;
+ // Shared with statistics.cpp's getter and cleanup; retain the real initializer.
+ StringClass texture_statistics_string;
+ 
+@@ -242,8 +243,9 @@ void Record_Texture_End()
+ 	lastFrameRecordCount = record_count;
+ 	last_frame_texture_change_count = texture_change_count;
+ 
++	const bool recordDetails = record_texture_mode == Debug_Statistics::RECORD_TEXTURE_DETAILS;
+ 	texture_statistics_string.bfmeAssignInline("");
+-	if (recordTextureMode == Debug_Statistics::RECORD_TEXTURE_DETAILS)
++	if (recordDetails)
+ 	{
+ 		char temporary[1024];
+ 		_snprintf(temporary, sizeof(temporary),

@@ -1,0 +1,20 @@
+--- a/Code/GameEngine/Source/Common/RTS/PlayerInitFromDict.cpp
++++ b/Code/GameEngine/Source/Common/RTS/PlayerInitFromDict.cpp
+@@ -20,6 +20,8 @@
+ #include <list>
+ #include <vector>
+ #include <hash_map>
++#include <stdlib.h>
++#include <string.h>
+ 
+ // vector<void*> begin/end otherwise instantiate per-TU COMDATs (one byte
+ // shape per TU flags); explicit dllimport+forceinline specializations take
+@@ -48,8 +50,6 @@
+ typedef _STL::hash_map<const GameWindow*,WindowVideo*,WindowVideoManager::hashConstGameWindowPtr,_STL::equal_to<const GameWindow*> > WindowMapView;
+ typedef _STL::hashtable<_STL::pair<const GameWindow*const,WindowVideo*>,const GameWindow*,WindowVideoManager::hashConstGameWindowPtr,_STL::_Select1st<_STL::pair<const GameWindow*const,WindowVideo*> >,_STL::equal_to<const GameWindow*>,_STL::allocator<_STL::pair<const GameWindow*const,WindowVideo*> > > WindowTableView;
+ namespace _STL {template<> WindowTableView::iterator WindowTableView::begin();}
+-extern "C" void free(void*);
+-extern "C" void* memset(void*,int,unsigned);
+ class ThingTemplate {public:char pad[0x64];AsciiString name;};
+ class Object {public:char pad0[4];const ThingTemplate*tmplate;char pad8[0x38-8];Coord3D position;float angle;char pad48[0x74-0x48];unsigned id;};
+ class Rva002AAE81 {public:void rva002AAE81(AsciiString);};
