@@ -18,5 +18,4 @@
 		return TEXT; \
 	}
 
-BFME_LITERAL_NAME_GETTER(Rva006C0990Named, "TaintManager")
 BFME_LITERAL_NAME_GETTER(Rva00739970Named, "ShroudManager")
