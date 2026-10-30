@@ -3,7 +3,6 @@
 #include "Code/GameEngine/Source/Common/PartitionRangeQueryCallView.h"
 #include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
 #include "Code/Libraries/Include/Lib/Coord3D.h"
-
 class PooledString;
 class Coord3DBase;
 class ICoord3D;
@@ -18,9 +17,24 @@ class RGBColor;
 class RGBAColorReal;
 class RGBAColorInt;
 class Snapshot;
-
 #include "Code/GameEngine/Include/Common/BfmeXfer.h"
 #pragma intrinsic(_ReadWriteBarrier)
+//
+// ?xfer@InvisibilityUpdate@@MAEXPAVXfer@@@Z, retail 0x004A3981, 61 bytes.
+// InvisibilityUpdate xfer (slot 3 offset 0x0C of vtable 0x00852534, same
+// primary as rowed ctor 0x004A382D and dtor 0x004A389F): base UpdateModule
+// xfer via rowed 0x0044DF9F, then Version(1,2) via Xfer slot 0x28, then
+// version-gated bool at +0x24 via Xfer slot 0x90. Layout is the rowed
+// 0x28-byte class (real UpdateModule base 0x20 plus trailing interface at
+// +0x20 giving +0x24 start); donor is the Invisibility file-unit (pool key
+// 0x004A393C, Rva004A390B update at slot 5). Recipe: SlowDeathBehaviorXfer
+// slot-3 pattern with GameSlot Version(1,2) gating.
+
+class AsciiString;
+class UnicodeString;
+struct XferUnknown11;
+#include "../../../../Include/Common/BfmeXfer.h"
+#include "../../../../Include/Common/ObjectModule.h"
 
 extern "C" void _ReadWriteBarrier();
 
@@ -180,11 +194,68 @@ private:
 	bool m_24; // +0x24
 };
 
+//
+// ??1InvisibilityUpdate@@MAE@XZ, retail 0x004A389F, 32 bytes. Behavior-side
+// destructor completing the InvisibilityUpdate file-unit (ctor rowed at
+// 0x4A382D, friend-new at 0x24ECB4 news 0x28, pool key at 0x4A393C).
+//
+// The body restores the four vtable pointers of the complete object -- the
+// derived slot at +0x00 plus the BehaviorModuleOther slot at +0x0C, the
+// UpdateModuleInterface slot at +0x10 and the trailing interface slot at
+// +0x20 -- then tail-jumps to the UpdateModule base destructor (pinned
+// ??1UpdateModule@@UAE@XZ at 0x0024A797). The trailing base has a trivial
+// destructor, so it contributes a store but no call. The UpdateModule middle
+// is declared but never defined here so the call resolves via the pin, and
+// the vtable values are DIR32 auto-patches. Recipe: PoisonedBehaviorDtor.cpp.
+
+class Thing;
+
+class ModuleData;
+
+class BehaviorModuleBase
+{
+public:
+	virtual void behaviorModuleBaseAnchor();
+	const ModuleData *m_moduleData;
+	Object *m_object;
+};
+
+class BehaviorModule : public BehaviorModuleBase, public BehaviorModuleOther
+{
+public:
+	BehaviorModule(Thing *thing, const ModuleData *moduleData);
+};
+
+class UpdateModuleInterface
+{
+public:
+	virtual void update();
+};
+
+// The +0x20 interface's vftable 0x00C52518 opens with the rowed 0x004A3A09.
+class TrailingModuleInterface
+{
+public:
+	virtual bool rva004A3A09() = 0;
+};
+
+class Iface10
+{
+public:
+	virtual int fetchDelay();
+};
+
+class BehaviorModuleInterface { public: virtual void behaviorSlot(); };
+
+class InvisibilityTrailing { public: virtual void trailingSlot(); };
+
 // tu-skeleton: 0x004A381C 17B ?buildFieldParse@InvisibilityUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
 
 // tu-skeleton: 0x004A382D 68B ??0InvisibilityUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/InvisibilityUpdateCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x004A3871 6B ?Rva004A3871Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/InvisibilityUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/InvisibilityUpdateSlots.cpp
 
@@ -243,10 +314,6 @@ UpdateSleepTime InvisibilityUpdate::update() {
  return (UpdateSleepTime)data->m_interval;
 }
 
-// tu-skeleton: 0x004A3883 28B ??_GInvisibilityUpdate@@MAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/InvisibilityUpdateDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004A389F 32B ??1InvisibilityUpdate@@MAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/InvisibilityUpdateDtor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/InvisibilityUpdatePoolKey.cpp
 
 // ?rva0004A393C@InvisibilityUpdate@@SA?AW4NameKeyType@@XZ
@@ -270,11 +337,38 @@ NameKeyType InvisibilityUpdate::getModuleNameKey() const
 	return TheInvisibilityUpdateSlotKey;
 }
 
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/InvisibilityUpdateDtor.cpp
+
+InvisibilityUpdate::~InvisibilityUpdate()
+{
+}
+
 // tu-skeleton: 0x004A3904 7B ?get@Rva004A3904AddDwordField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8AddDwordFieldGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x004A390B 49B ?Rva004A390B@InvisibilityUpdate@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/InvisibilityUpdateRva004A390B.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/InvisibilityUpdateRva004A390B.cpp
 
-// tu-skeleton: 0x004A3981 61B ?xfer@InvisibilityUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/InvisibilityUpdateXfer.cpp (not merged yet)
+void InvisibilityUpdate::Rva004A390B()
+{
+	if (m_24 != 0) {
+		Object *obj = m_object;
+		int delay = ((Iface10 *)((char *)this + 0x10))->fetchDelay();
+		setWakeFrame(obj, (UpdateSleepTime)delay);
+	} else {
+		setWakeFrame(m_object, UPDATE_SLEEP_FOREVER);
+	}
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/InvisibilityUpdateXfer.cpp
+
+void InvisibilityUpdate::xfer(Xfer *xfer)
+{
+	UpdateModule::xfer(xfer);
+	Xfer::Version version(1, 2);
+	*xfer == version;
+	if (version.m_minimum >= 2) {
+		*xfer == m_24;
+	}
+}
 
 // tu-skeleton: 0x004A39BE 9B ?get@Rva004A39BEAddImm32Field@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8AddImm32DwordFieldGetters.cpp (not merged yet)
 
