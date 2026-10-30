@@ -63,8 +63,9 @@ def image_with(rdata=b"", data=b"", data_vsize=None, text=b"\xc3" * 16):
 
 def write_coff(path, sections, symbols):
     """sections [(name, flags, body or None, size, relocs [(offset, symbol index[, type])])],
-    symbols [(name, value, section number, storage[, type])]: one i386 COFF object.
-    A relocation is DIR32 and a symbol's type 0 (data) unless given."""
+    symbols [(name, value, section number, storage[, type[, aux bytes]])]: one i386 COFF
+    object. A relocation is DIR32 and a symbol's type 0 (data) unless given; aux bytes
+    (18 per record) follow their symbol and count in the raw index, as in COFF."""
     head = 20 + 40 * len(sections)
     strings, headers, body = bytearray(4), bytearray(), bytearray()
     for name, flags, data, size, relocs in sections:
@@ -76,16 +77,18 @@ def write_coff(path, sections, symbols):
         headers += name.encode().ljust(8, b"\0") + struct.pack(
             "<IIIIIIHHI", 0, 0, size, raw_ptr, rel_ptr, 0, len(relocs), 0, flags)
     table = bytearray()
-    for name, value, section, storage, *typ in symbols:
+    for name, value, section, storage, *rest in symbols:
         raw = name.encode("latin-1")
         if len(raw) <= 8:
             field = raw.ljust(8, b"\0")
         else:
             field = struct.pack("<II", 0, len(strings))
             strings += raw + b"\0"
-        table += field + struct.pack("<IhHBB", value, section, typ[0] if typ else 0, storage, 0)
+        aux = rest[1] if len(rest) > 1 else b""
+        table += field + struct.pack("<IhHBB", value, section, rest[0] if rest else 0, storage, len(aux) // 18)
+        table += aux
     struct.pack_into("<I", strings, 0, len(strings))
-    path.write_bytes(struct.pack("<HHIIIHH", 0x14C, len(sections), 0, head + len(body), len(symbols), 0, 0)
+    path.write_bytes(struct.pack("<HHIIIHH", 0x14C, len(sections), 0, head + len(body), len(table) // 18, 0, 0)
                      + bytes(headers) + bytes(body) + bytes(table) + bytes(strings))
 
 
@@ -322,6 +325,96 @@ def test_a_static_local_with_a_one_digit_block_number_is_sized_too(tmp_path, mon
 def test_only_a_static_local_alone_in_its_comdat_takes_the_section_size(tmp_path, monkeypatch, flags, symbols, name):
     compiled(tmp_path, monkeypatch, [(".data", flags, bytes(8), 8, [])], symbols)
     ok, message = verify(image_with(data=bytes(8)), row(name, size="4" if symbols[0][0] != name else "8"), {})
+    assert not ok and "unproven" in message
+
+
+VFTABLE = "??_7X@@6B@"
+COMDAT_RDATA = 0x40301040  # .rdata with IMAGE_SCN_LNK_COMDAT, as MSVC 7.1 emits a vftable
+COMDAT_TEXT = 0x60501020
+SLOT_F, SLOT_E, SLOT_G = "?f@X@@UAEXXZ", "??_EX@@UAEPAXI@Z", "??_GX@@UAEPAXI@Z"
+
+
+def weak_aux(tag):
+    """An IMAGE_WEAK_EXTERN aux record: TagIndex `tag`, search-alias characteristics."""
+    return struct.pack("<II", tag, 3).ljust(18, b"\0")
+
+
+def vftable_object(tmp_path, monkeypatch, flags=COMDAT_RDATA, body=bytes(8), relocs=((0, 1), (4, 2)),
+                   symbols=None):
+    """X's vftable {&X::f, &X::`vector deleting destructor'}: slot 1 is the weak
+    external ??_E whose default is the object's own ??_G (raw index 4: ??_E's aux
+    record takes index 3), as MSVC 7.1 compiles a class with a virtual destructor."""
+    obj = tmp_path / "G.obj"
+    write_coff(obj, [(".rdata", flags, body, len(body), list(relocs)), (".text", COMDAT_TEXT, b"\xc3", 1, [])],
+               symbols or [(VFTABLE, 0, 1, 2), (SLOT_F, 0, 0, 2, 0x20), (SLOT_E, 0, 0, 105, 0x20, weak_aux(4)),
+                           (SLOT_G, 0, 2, 2, 0x20)])
+    (tmp_path / "Code").mkdir(exist_ok=True)
+    (tmp_path / "Code/G.cpp").write_text("// fixture\n")
+    monkeypatch.setattr(data_rows, "ROOT", tmp_path)
+    monkeypatch.setattr(data_rows._tools()[0], "obj_path", lambda source: obj)
+
+
+VFT_IMAGE = struct.pack("<2I", BASE + 0x1004, BASE + 0x1008)  # retail .rdata 0x402000: f, then ??_G
+VFT_HOMES = {SLOT_F: {BASE + 0x1004}, SLOT_G: {BASE + 0x1008}}
+
+
+def vft_row(size="8"):
+    return row(VFTABLE, "0x00402000", size=size, section=".rdata")
+
+
+def test_a_vftable_is_sized_by_its_own_comdat_section_and_its_weak_slot_takes_its_default(tmp_path, monkeypatch):
+    # no probe TU can name ??_7X@@6B@; without RTTI it is alone in a COMDAT of
+    # 4 bytes per slot, and the ??_E slot is bound to its ??_G default
+    vftable_object(tmp_path, monkeypatch)
+    img = image_with(rdata=VFT_IMAGE)
+    ok, message = verify(img, vft_row(), VFT_HOMES)
+    assert ok, message
+    assert "size 12 unproven" in verify(img, vft_row("12"), VFT_HOMES)[1]
+    assert "size 4 unproven" in verify(img, vft_row("4"), VFT_HOMES)[1]
+    # a slot elsewhere than retail's is refused, the default's slot included
+    ok, message = verify(img, vft_row(), {**VFT_HOMES, SLOT_F: {BASE + 0x1010}})
+    assert not ok and "retail points at 0x00401004" in message
+    ok, message = verify(img, vft_row(), {**VFT_HOMES, SLOT_G: {BASE + 0x1010}})
+    assert not ok and "retail points at 0x00401008" in message
+    # a home of the weak name's own comes first: link.exe binds a defined ??_E
+    ok, message = verify(img, vft_row(), {**VFT_HOMES, SLOT_E: {BASE + 0x100C}})
+    assert not ok and SLOT_E in message
+    assert verify(img, vft_row(), {SLOT_F: {BASE + 0x1004}, SLOT_E: {BASE + 0x1008}})[0]
+    assert "no retail address" in verify(img, vft_row(), {SLOT_F: {BASE + 0x1004}})[1]
+
+
+def test_a_weak_external_with_no_default_record_cannot_be_placed(tmp_path, monkeypatch):
+    vftable_object(tmp_path, monkeypatch,
+                   symbols=[(VFTABLE, 0, 1, 2), (SLOT_F, 0, 0, 2, 0x20), (SLOT_E, 0, 0, 105, 0x20)])
+    ok, message = verify(image_with(rdata=VFT_IMAGE), vft_row(), VFT_HOMES)
+    assert not ok and "cannot be placed" in message
+
+
+OTHER_SLOTS = [(SLOT_F, 0, 0, 2, 0x20), (SLOT_E, 0, 0, 105, 0x20, weak_aux(4)), (SLOT_G, 0, 2, 2, 0x20)]
+
+
+@pytest.mark.parametrize("change", [
+    {"flags": 0x40300040},                                    # not a COMDAT: padding is no size
+    {"flags": 0xC0301040},                                    # writable data is no vftable
+    {"flags": 0x40301080},                                    # uninitialised
+    {"relocs": ((0, 1),)},                                    # a slot word with no relocation
+    {"body": bytes(12), "relocs": ((0, 1), (4, 2), (6, 1))},   # a relocation off the slot grid
+    {"body": bytes(10), "relocs": ((0, 1), (4, 2))},           # not whole slots
+    {"symbols": [(VFTABLE, 0, 1, 2)] + OTHER_SLOTS + [("?s@@3HA", 4, 1, 2)]},  # a second symbol shares it
+    {"body": bytes(12), "relocs": ((0, 1), (4, 2), (8, 1)),
+     "symbols": [("??_7Y@@6B@", 0, 1, 2)] + OTHER_SLOTS + [(VFTABLE, 4, 1, 2)]},  # not at the section start
+])
+def test_only_a_vftable_alone_in_its_comdat_with_a_pointer_in_every_slot_takes_the_section_size(
+        tmp_path, monkeypatch, change):
+    vftable_object(tmp_path, monkeypatch, **change)
+    ok, message = verify(image_with(rdata=VFT_IMAGE + bytes(8)), vft_row(), VFT_HOMES)
+    assert not ok and "unproven" in message, message
+
+
+def test_a_nameable_global_alone_in_a_comdat_is_no_vftable(tmp_path, monkeypatch):
+    vftable_object(tmp_path, monkeypatch, symbols=[("?s@@3PAP6AXXZA", 0, 1, 2)] + OTHER_SLOTS)
+    ok, message = verify(image_with(rdata=VFT_IMAGE),
+                         row("?s@@3PAP6AXXZA", "0x00402000", size="8", section=".rdata"), VFT_HOMES)
     assert not ok and "unproven" in message
 
 

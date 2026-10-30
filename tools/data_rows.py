@@ -26,7 +26,12 @@ Verification (build.py, per source and in the full gate), per row:
             in the build), agreeing with the mangled scalar type when there is
             one, and no larger than the symbol's allocation extent (to the next
             symbol or the section end, padding included), which alone proves
-            nothing; a COMMON symbol's own size; otherwise refused.
+            nothing; a COMMON symbol's own size. Two compiler-emitted names
+            no probe can spell are sized by their own COMDAT section, only in
+            the one shape MSVC 7.1 gives them: a function-local static, and a
+            vftable (`??_7<class>@@6B...@`, alone in a read-only COMDAT data
+            section, every 4-byte slot a relocated pointer; BFME 2 is built
+            without RTTI, so no locator precedes it); otherwise refused.
   bytes     initialised: equal to retail over the extent outside relocation
             fields, and every relocation's target (symbol + in-place addend)
             equal to retail's pointer there, the target's address coming from
@@ -44,6 +49,10 @@ Verification (build.py, per source and in the full gate), per row:
             with two such readings places nothing. DIR32 holds the target's
             VA, DIR32NB its RVA.
             A relocation to a TU-local symbol cannot be placed and fails.
+            A weak external (a vftable slot's `??_E` deleting destructor) is
+            placed by its own name when the ledgers give it a home, else by its
+            default (the IMAGE_WEAK_EXTERN TagIndex, MSVC's `??_G`), which is
+            what link.exe binds when no object defines the weak name.
             uninitialised (.bss / COMMON): retail holds zeros over the extent.
             Each symbol is checked alone at its own address: MSVC 7.1 lays a
             TU's zero-filled globals out by name, so no TU-internal order is
@@ -79,6 +88,7 @@ FIELDS = HEADER.split(",")
 IMAGE_BASE = 0x400000
 DIR32, DIR32NB = 0x0006, 0x0007
 EXTERNAL, STATIC = 2, 3
+WEAK_EXTERNAL = 105  # IMAGE_SYM_CLASS_WEAK_EXTERNAL: a vftable slot's ??_E, defaulting to ??_G
 UNINIT = 0x80
 EXECUTABLE = 0x20000000 | 0x00000020  # IMAGE_SCN_MEM_EXECUTE | IMAGE_SCN_CNT_CODE
 DTYPE_FUNCTION = 2  # COFF symbol type: (type >> 4) & 3 == 2 is a function (MSVC writes 0x20)
@@ -511,6 +521,44 @@ def _local_static_size(sec, symbols, sym):
     return sec["size"], "the function-local static's own COMDAT section size"
 
 
+# ??_7<class>@@6B@ (or 6B<base path>@ for a secondary table): a compiler-emitted vftable
+VFTABLE = re.compile(r"^\?\?_7.+@6B.*@$")
+IMAGE_SCN_CNT_INITIALIZED_DATA, IMAGE_SCN_MEM_WRITE = 0x40, 0x80000000
+
+
+def _vftable_size(sec, symbols, sym):
+    """(bytes, how) for a vftable, which no probe TU can name: BFME 2 is built
+    without RTTI (no ??_R4 locator precedes any table), and MSVC 7.1 then emits
+    each vftable at offset 0 of its own read-only COMDAT data section, one
+    relocated 4-byte pointer per slot (`__purecall` for a pure slot) and nothing
+    else. Only that shape is accepted: an external ??_7 name at offset 0 of an
+    initialised, non-writable, non-executable COMDAT section that defines no
+    other named symbol, whose every 4-byte word, and nothing else, carries a
+    relocation. Else None."""
+    flags = sec["flags"]
+    if (not VFTABLE.match(sym["name"]) or sym["storage"] != EXTERNAL or sym["value"]
+            or not flags & IMAGE_SCN_LNK_COMDAT or not flags & IMAGE_SCN_CNT_INITIALIZED_DATA
+            or flags & (EXECUTABLE | IMAGE_SCN_MEM_WRITE | UNINIT)
+            or sec["body"] is None or not sec["size"] or sec["size"] % 4):
+        return None
+    others = [s for s in symbols.values() if s["section"] == sym["section"] and s is not sym
+              and s["name"] and not s["name"].startswith(".")]
+    if others:
+        return None
+    if sorted(w for w, _, _ in sec["relocs"]) != list(range(0, sec["size"], 4)):
+        return None
+    return sec["size"], "the vftable's own COMDAT section size"
+
+
+def weak_default(data, index, symbols):
+    """The default symbol of weak external `index` in COFF `data` (the
+    IMAGE_WEAK_EXTERN aux record's TagIndex), or None when it has no aux record."""
+    table, count = struct.unpack_from("<II", data, 8)
+    if not 0 <= index < count - 1 or data[table + 18 * index + 17] < 1:
+        return None
+    return symbols.get(struct.unpack_from("<I", data, table + 18 * (index + 1))[0])
+
+
 def symbol_size(sections, symbols, sym, source=None, sizer=compiled_size):
     """(proven sizes, what proves them) for a defined or COMMON data symbol.
 
@@ -533,7 +581,8 @@ def symbol_size(sections, symbols, sym, source=None, sizer=compiled_size):
         return set(), f"no source to evaluate sizeof in (allocation extent {extent} is not a size)"
     size, how = sizer(source, sym["name"])
     if size is None:
-        size, how = _local_static_size(sec, symbols, sym) or (None, how)
+        size, how = (_local_static_size(sec, symbols, sym) or _vftable_size(sec, symbols, sym)
+                     or (None, how))
     if size is None:
         return set(), how
     scalar = rl.mangled_scalar_size(sym["name"])
@@ -647,7 +696,8 @@ def verify_row(row, img, resolve, compile=True, sizer=compiled_size):
             return False, f"{row['source']} does not compile: {(text or '').strip()[-300:]}"
     if not obj.exists():
         return False, f"object {obj.name} missing"
-    sections, symbols = rl.parse_coff(obj.read_bytes())
+    data = obj.read_bytes()
+    sections, symbols = rl.parse_coff(data)
     found = [s for s in symbols.values() if s["name"] == row["name"] and s["storage"] == EXTERNAL
              and (s["section"] > 0 or s["value"] > 0)]
     if len(found) != 1:
@@ -684,10 +734,14 @@ def verify_row(row, img, resolve, compile=True, sizer=compiled_size):
         value = struct.unpack_from("<I", retail, w - lo)[0]
         if target is None or kind not in (DIR32, DIR32NB):
             return False, f"+{w - lo:#x}: unsupported relocation type {kind:#x}"
-        if target["storage"] != EXTERNAL:
+        default = weak_default(data, index, symbols) if target["storage"] == WEAK_EXTERNAL else None
+        if target["storage"] != EXTERNAL and (default is None or default["storage"] != EXTERNAL):
             return False, f"+{w - lo:#x}: relocation to TU-local {target['name']} cannot be placed"
         addend = struct.unpack_from("<i", sec["body"], w)[0]
         function = (target["type"] >> 4) & 3 == DTYPE_FUNCTION
+        if default is not None and not resolve(target["name"], function):
+            # no ledger home for the weak name: link.exe binds its default
+            target, function = default, (default["type"] >> 4) & 3 == DTYPE_FUNCTION
         if target["name"].startswith("??_C@") and not function:
             pointed = value if kind == DIR32 else (value + IMAGE_BASE) & 0xFFFFFFFF
             problem = string_literal_problem(build, sections, target, addend, pointed, img)
