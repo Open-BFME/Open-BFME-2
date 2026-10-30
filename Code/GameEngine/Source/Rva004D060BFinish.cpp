@@ -1,5 +1,5 @@
 // ??1Rva004D060B@@QAE@XZ
-// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii
 // stlport
 // ??1Rva004D060B@@QAE@XZ @0x004D060B 66B
 // Dtor: wide string at +0x14 via releaseBuffer 0x36E70 plus iface ptr at +0x18
@@ -17,14 +17,11 @@
 // The member load must also be the first source-level statement, with the null
 // materialised only inside the inner scope that deletes it; spelling the delete
 // as a named local initialized to 0 lets cl hoist the pair back to frame entry.
-template <typename T> class StringBase
-{
-public:
-	~StringBase() { releaseBuffer(); }
-private:
-	void releaseBuffer();
-	void *m_data;
-};
+// The canonical frozen StringBase replaces the private copy; its switch makes
+// the member dtor reachable and keeps the teardown an out-of-line call to the
+// rowed releaseBuffer (0x00036410 narrow, 0x00036E70 wide).
+#define BFME_STRINGBASE_PUBLIC_DTOR
+#include "string_base.h"
 class Rva004D060BIface
 {
 public:
