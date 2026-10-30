@@ -33,10 +33,12 @@
 //#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
 
 
+
 #endif
 #include <string.h>
 #pragma intrinsic( memcpy )
 #include "ascii_string.h"
+
 // Native 0004EFE9..0004F037, RET0. The rowed deleting destructor at
 // 0004F7D8 establishes the address-derived owner. Target bytes set its vptr,
 // invoke virtual slot 3 on the +20 object, release that reference, and call
@@ -46,6 +48,7 @@ class Rva00539926Base
 public:
     virtual ~Rva00539926Base();
 };
+
 class RadarEventRef
 {
 public:
@@ -55,6 +58,7 @@ public:
 	virtual void slot2();
 	virtual void slot3();
 };
+
 struct Rva0004EFE9Reference
 {
     RadarEventRef *value;
@@ -64,6 +68,7 @@ struct Rva0004EFE9Reference
             value->release();
     }
 };
+
 // Just enough of STLport's list<Snapshot *> for the rowed erase 0x00438539:
 // the iterator is non-POD, so it comes back through a hidden pointer.
 class Snapshot;
@@ -191,7 +196,9 @@ static const KindOfType BFME_KINDOF_DISGUISER = static_cast<KindOfType>(89);
 //-------------------------------------------------------------------------------------------------
 // BFME's value surfaces and radar layout differ from the shared Zero Hour headers.
 struct IDirect3DSurface8;
+
 class SurfaceClass;
+
 class W3DRadarResetSurface
 {
 public:
@@ -476,6 +483,22 @@ private:
     char m_unmodelled14[0x0c];
     Rva0004EFE9Reference m_reference; // +20
 };
+
+// BF1 f98983a7d Rva006C13E0ColorBlend semantic donor.
+// Native 0x4DE72..0x4DF6F is a 253-byte CDECL body used by the radar blip
+// helpers. Packed ARGB extraction and weighted alpha agree with the donor;
+// the original target name is unknown. Preserve one final destination store
+// for both branches, as witnessed by the native shared epilog. Color remains
+// in EAX at RET; no extra caller cleanup or callee pins are introduced.
+typedef int Color;
+
+typedef unsigned int UnsignedInt;
+
+typedef unsigned char UnsignedByte;
+
+void GameGetColorComponents(Color,UnsignedByte *,UnsignedByte *,UnsignedByte *,UnsignedByte *);
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadar.cpp
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadar.cpp
 
@@ -828,13 +851,60 @@ GeometryRecord &GeometryRecord::operator=( const GeometryRecord &other )
 	return *this;
 }
 
+// ---- from Code/GameEngine/Source/Common/Rva0004EFE9Dtor.cpp
+
+Rva004EFE9::~Rva004EFE9()
+{
+    void (RadarEventRef::*callback)() = &RadarEventRef::slot3;
+    (m_reference.value->*callback)();
+}
+
+// Native 0004F7F4..0004F82B, slot 1 after the deleting destructor: leaves
+// the owner's +1500 snapshot list (when there is an owner) and destroys
+// itself through the global delete of a virtual-destructor class (slot 0
+// with 0, then operator delete).
+void Rva004EFE9::rva0004F7F4()
+{
+    if (m_owner)
+        m_owner->m_snapshots.erase(m_position);
+    ::delete this;
+}
+
 // tu-skeleton: 0x0004D9B6 381B ?reconstructViewBox@W3DRadar@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarReconstructViewBox.cpp (not merged yet)
 
 // tu-skeleton: 0x0004DBD5 490B ?drawViewBox@W3DRadar@@QAEXHHHHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarDrawViewBox.cpp (not merged yet)
 
 // tu-skeleton: 0x0004DDBF 179B ?rva0004DDBF@W3DRadar@@QAEXHHHHHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarDrawBeacon.cpp (not merged yet)
 
-// tu-skeleton: 0x0004DE72 253B ?Rva0004DE72Blend@@YAHPAHHE@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarColorBlend.cpp (not merged yet)
+// ---- from Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarColorBlend.cpp
+
+Color Rva0004DE72Blend(Color *color, Color source, UnsignedByte alpha)
+{
+	Color *out = color;
+	UnsignedByte oldAlpha, blue, green, red;
+	UnsignedByte sourceAlpha, sourceBlue, sourceGreen, sourceRed;
+
+	GameGetColorComponents(*out, &red, &green, &blue, &oldAlpha);
+	GameGetColorComponents(source, &sourceRed, &sourceGreen, &sourceBlue, &sourceAlpha);
+
+	UnsignedByte effectiveAlpha = (UnsignedInt)(sourceAlpha * alpha) / 255;
+	Color result;
+	if (oldAlpha == 0 || effectiveAlpha == 255)
+		result = (effectiveAlpha << 24) | (sourceRed << 16) | (sourceGreen << 8) | sourceBlue;
+	else {
+
+	red = (UnsignedInt)(red * oldAlpha + sourceRed * effectiveAlpha) /
+		(oldAlpha + effectiveAlpha);
+	green = (UnsignedInt)(green * oldAlpha + sourceGreen * effectiveAlpha) /
+		(oldAlpha + effectiveAlpha);
+	blue = (UnsignedInt)(blue * oldAlpha + sourceBlue * effectiveAlpha) /
+		(oldAlpha + effectiveAlpha);
+	oldAlpha = 255 - (UnsignedInt)((255 - oldAlpha) * (255 - effectiveAlpha)) / 255;
+	result = (Color)(UnsignedInt)blue;
+	result |= (oldAlpha << 24) | (red << 16) | (green << 8);
+	}
+	return *out = result;
+}
 
 // tu-skeleton: 0x0004DF6F 569B ?rva0004DF6F@@YAXPBVObject@@PAXHHMM@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarFootprintFill.cpp (not merged yet)
 
@@ -863,25 +933,6 @@ GeometryRecord &GeometryRecord::operator=( const GeometryRecord &other )
 // tu-skeleton: 0x0004ED3D 544B ?rva0004ED3D@W3DRadar@@QAEXHHE@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarRva0004ED3D.cpp (not merged yet)
 
 // tu-skeleton: 0x0004EF5D 140B ??0Rva004EFE9@@QAE@PAURva0004F7F4Owner@@U?$_List_iterator@PAVSnapshot@@U?$_Nonconst_traits@PAVSnapshot@@@_STL@@@_STL@@PBD@Z -- matched in Code/GameEngine/Source/Common/Rva0004EFE9Ctor.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/Rva0004EFE9Dtor.cpp
-
-Rva004EFE9::~Rva004EFE9()
-{
-    void (RadarEventRef::*callback)() = &RadarEventRef::slot3;
-    (m_reference.value->*callback)();
-}
-
-// Native 0004F7F4..0004F82B, slot 1 after the deleting destructor: leaves
-// the owner's +1500 snapshot list (when there is an owner) and destroys
-// itself through the global delete of a virtual-destructor class (slot 0
-// with 0, then operator delete).
-void Rva004EFE9::rva0004F7F4()
-{
-    if (m_owner)
-        m_owner->m_snapshots.erase(m_position);
-    ::delete this;
-}
 
 // tu-skeleton: 0x0004F037 612B ?rva0004F037@@YAXPAXHHHHHPBE@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarBlobBlips.cpp (not merged yet)
 
