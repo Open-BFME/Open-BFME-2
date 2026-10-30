@@ -8596,7 +8596,7 @@ retire the port. No source edit, clearance or census gain is retained.
 Clearance: pending. Census confirmation: not claimed.
 
 **2026-10-30 dd-63 target-grouping pilot (base `92cfd28721`):** Grouped the 961
-current `Code/gen_small` funclets by their retail relocation target: 329 targets,
+current `Code/gen_small` funclets by their retail relocation target: 328 targets,
 of which 383 blocked rows name a missing callee, 90 resolve to a different body
 and 101 lack a same-source parent EH location. Five targets were investigated on
 boat with the supported tools. None of the five could land a proven identity.
