@@ -12,10 +12,8 @@ enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
-
 #include "../../../Common/GameLogicObjectLookupView.h"
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-
 class AsciiString;
 class UnicodeString;
 class PooledString;
@@ -38,6 +36,12 @@ class ModuleData;
 class Object;
 class DamageInfo;
 #include "../../../../Include/Common/BfmeXfer.h"
+#include <math.h>
+#include "GameLogicObjectLookupView.h"
+extern GameLogic *TheGameLogic;
+#include "Coord3D.h"
+#define WAU_SLOTS10(p) virtual void p##0(); virtual void p##1(); virtual void p##2(); virtual void p##3(); virtual void p##4(); \
+	virtual void p##5(); virtual void p##6(); virtual void p##7(); virtual void p##8(); virtual void p##9();
 
 // ?getModuleNameKey@WoundArrowUpdate@@UBE?AW4NameKeyType@@XZ @0x4C6999
 // (69B): cached pool-name key for WoundArrowUpdate. The class
@@ -144,7 +148,6 @@ private:
 
 enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1, UPDATE_SLEEP_FOREVER = 0x3fffffff };
 
-class Xfer;
 template <int N> class BitFlags;
 
 class UpdateModuleInterface
@@ -208,6 +211,78 @@ private:
 	bool m_88; // +0x88
 };
 
+enum KindOfType
+{
+	KINDOF_INVALID = -1
+};
+
+class WoundArrowConditionBits
+{
+public:
+	unsigned int test(int bit) const { return m_words[bit >> 5] & (1U << (bit & 0x1f)); }
+	void set(int bit) { m_words[bit >> 5] |= 1U << (bit & 0x1f); }
+	void clear(int bit) { m_words[bit >> 5] &= ~(1U << (bit & 0x1f)); }
+private:
+	unsigned int m_words[19];
+};
+
+enum CommandSourceType { CMD_FROM_PLAYER = 0, CMD_FROM_AI = 2 };
+
+enum WeaponLockType { LOCKED_TEMPORARILY = 2 };
+
+enum LocomotorSetType { LOCOMOTORSET_WOUNDED = 4 };
+
+class AIUpdateInterface;
+
+class Object
+{
+public:
+	void rva0028AE6D();
+public:
+	void releaseWeaponLock(WeaponLockType type);
+public:
+	unsigned char m_pad000[0x38];
+public:
+	Coord3D m_pos;
+public:
+	unsigned char m_pad044[0x10C - 0x44];
+public:
+	WoundArrowConditionBits m_conditionBits;
+public:
+	unsigned char m_pad158[0x258 - 0x158];
+public:
+	AIUpdateInterface *m_ai;
+public:
+	bool isKindOf(KindOfType t) const;
+};
+
+class AICommandInterface
+{
+public:
+	void aiMoveToPosition(const Coord3D *pos, CommandSourceType cmdSource);
+	void rva0026C2D9(Object *victim, int count, CommandSourceType cmdSource);
+};
+
+class AIUpdateInterfaceHead
+{
+public:
+	WAU_SLOTS10(s0) WAU_SLOTS10(s1) WAU_SLOTS10(s2) WAU_SLOTS10(s3) WAU_SLOTS10(s4)
+	WAU_SLOTS10(s5) WAU_SLOTS10(s6) WAU_SLOTS10(s7) WAU_SLOTS10(s8) WAU_SLOTS10(s9)
+	WAU_SLOTS10(s10)
+	virtual bool isIdle() const;	// slot 110
+	WAU_SLOTS10(s11) WAU_SLOTS10(s12) WAU_SLOTS10(s13)
+	virtual void s141();
+	virtual bool chooseLocomotorSet(LocomotorSetType set);	// slot 142
+private:
+	unsigned char m_pad04[0x20 - 4];
+};
+
+class AIUpdateInterface : public AIUpdateInterfaceHead, public AICommandInterface
+{
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/WoundArrowUpdate.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/WoundArrowUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/WoundArrowUpdateModuleDataCtor.cpp
@@ -239,12 +314,6 @@ NameKeyType WoundArrowUpdate::getModuleNameKey() const
 	return TheWoundArrowUpdatePoolKey;
 }
 
-// tu-skeleton: 0x004C6905 56B ??0WoundArrowUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/WoundArrowUpdateCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004C693D 6B ?Rva004C693DGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
-// tu-skeleton: 0x004C6943 32B ??1Rva004C6943@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00451F45Derived.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/WoundArrowUpdateXfer.cpp
 
 void WoundArrowUpdate::xfer(Xfer *xfer)
@@ -256,10 +325,88 @@ void WoundArrowUpdate::xfer(Xfer *xfer)
 	*xfer == m_88;
 }
 
+// tu-skeleton: 0x004C6905 56B ??0WoundArrowUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/WoundArrowUpdateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004C693D 6B ?Rva004C693DGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x004C6943 32B ??1Rva004C6943@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00451F45Derived.cpp (not merged yet)
+
 // tu-skeleton: 0x004C69DE 28B ??_GRva004C6943@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva00451F45Derived.cpp (not merged yet)
 
-// tu-skeleton: 0x004C69FA 38B ?rva004C69FA@WoundArrowUpdate@@UAE_NH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/WoundArrowUpdateSlot8.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/WoundArrowUpdateSlot8.cpp
 
-// tu-skeleton: 0x004C6A20 347B ?update@WoundArrowUpdate@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/WoundArrowUpdateUpdate.cpp (not merged yet)
+bool WoundArrowUpdate::rva004C69FA(int unused)
+{
+	if ((((const WoundArrowUpdateModuleData *)m_moduleData)->m_wordCC & 1) && m_object->isKindOf((KindOfType)0xD6))
+		return false;
+	return true;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/WoundArrowUpdateUpdate.cpp
+
+static __forceinline void setModelConditionBit(Object *object, int bit)
+{
+	if (object->m_conditionBits.test(bit) == 0)
+	{
+		object->m_conditionBits.set(bit);
+		object->rva0028AE6D();
+	}
+}
+
+static __forceinline void clearModelConditionBit(Object *object, int bit)
+{
+	if (object->m_conditionBits.test(bit) != 0)
+	{
+		object->m_conditionBits.clear(bit);
+		object->rva0028AE6D();
+	}
+}
+
+UpdateSleepTime WoundArrowUpdate::update()
+{
+	if (!m_88)
+	{
+		triggerAbilityEffect();
+	}
+	else
+	{
+		if (m_object->m_ai->isIdle())
+		{
+			Object *owner = m_object;
+			m_88 = false;
+			Object *target = TheGameLogic->findObjectByID(m_targetID);
+			if (target)
+			{
+				AIUpdateInterface *ai = target->m_ai;
+				if (ai)
+				{
+				Coord3D dir;
+				dir.x = target->m_pos.x - owner->m_pos.x;
+				dir.y = target->m_pos.y - owner->m_pos.y;
+				const WoundArrowUpdateModuleData *data = (const WoundArrowUpdateModuleData *)m_moduleData;
+				// Preserve the double CRT overload when math.h also offers sqrt(float).
+				float length = ((float)sqrt((double)(dir.y * dir.y + dir.x * dir.x)));
+				float nx = dir.x / length;
+				float ny = dir.y / length;
+				float ox = nx * data->m_capC8, oy = ny * data->m_capC8;
+				dir.y = oy;
+				dir.x = ox;
+				dir.x += target->m_pos.x;
+				dir.y += target->m_pos.y;
+				ai->chooseLocomotorSet(LOCOMOTORSET_WOUNDED);
+				ai->aiMoveToPosition(&dir, CMD_FROM_AI);
+				setModelConditionBit(target, 77);
+				}
+				else
+					return UPDATE_SLEEP_FOREVER;
+			}
+			owner->releaseWeaponLock(LOCKED_TEMPORARILY);
+			clearModelConditionBit(owner, 207);
+			SpecialAbilityUpdate::onExit(false, false);
+			return UPDATE_SLEEP_FOREVER;
+		}
+	}
+	return UPDATE_SLEEP_NONE;
+}
 
 // tu-skeleton: 0x004C6B7B 163B ?triggerAbilityEffect@WoundArrowUpdate@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/WoundArrowUpdateSlot17.cpp (not merged yet)
