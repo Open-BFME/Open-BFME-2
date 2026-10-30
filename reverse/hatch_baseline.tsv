@@ -1604,6 +1604,7 @@ alternatename	Code/GameEngine/Source/Common/AnimationSoundTreeFree.cpp	?rva004C9
 alternatename	Code/GameEngine/Source/Common/AptDisplayStringBase.cpp	?TheRva00222A8BTarget@@3PAVRva00222A8BTarget@@A	1
 alternatename	Code/GameEngine/Source/Common/AptUpgradeIconSetter.cpp	??1ArmyMemberIconMovieClip@StrategicHUD@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/AptUpgradeIconSetter_ArmyUnitIconMovieClip.cpp	??1ArmyMemberIconMovieClip@StrategicHUD@@UAE@XZ	1
+alternatename	Code/GameEngine/Source/Common/AsyncServiceQueue.cpp	?Rva0010F760@@YA?AVRva0036CA00Str@@V1@@Z	1
 alternatename	Code/GameEngine/Source/Common/AtlSimpleArrayHInstanceAdd.cpp	?realloc@@YAPAXPAXI@Z	1
 alternatename	Code/GameEngine/Source/Common/Bfme/BfmeChainRecord.cpp	??0BfmeRecEQR@@QAE@PAX0PAPAV0@@Z	1
 alternatename	Code/GameEngine/Source/Common/Bfme/IngameNoticeDisplay.cpp	??RRva004E5CB0Deleter@@QBEXPAVRva004E5A78@@@Z	1
@@ -2073,7 +2074,6 @@ alternatename	Code/GameEngine/Source/Common/Rva000C79C9Derived.cpp	?f2@Rva000CAE
 alternatename	Code/GameEngine/Source/Common/Rva000E5EE5Method.cpp	?rva000E5EE5@Rva000E5EE5@@QAEXPBVRva0055A88BDwordField@@VAsciiString@@@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva00102215Singleton.cpp	??1Rva001021F7@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/Rva001040D5Ctor.cpp	??1Rva001040D5@@UAE@XZ	1
-alternatename	Code/GameEngine/Source/Common/Rva0010F873QueueForward.cpp	?Rva0010F760@@YA?AVRva0036CA00Str@@V1@@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva00135E35Ctor.cpp	??1Rva00135E35@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/Rva0013A820Reset.cpp	?clear@Rva0036CA00Str@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva0014FDerivedCopies.cpp	?dummy@Rva0014F480@@UAEXXZ	1
