@@ -5095,6 +5095,23 @@ Whole-unit clearance and census confirmation remain pending.
 
 - **Network, audio and library Xfer package (2026-10-27; inspected `32db0f683ab`):** The compatible assigned units adopt the canonical Xfer header through the owning acceptance tool. Individual and combined ordinary previews preserve every adopted unit against index `5ce093a71a` (`retail-truth-4`); final byte, declaration, EH and data checks pass. [The local worker report](../build/header-report.md) maps every source, raw receipt and verdict under `build/hx6-xfer/`. Remaining prerequisites are concrete save/load interfaces in ConnectionManager, PersistentStorageThread and MilesAudioManager, the typed slot-0x2C operation for the timer-list and ASCII/real-map helpers, the stream identity in XferSaveOpen, and block operations plus protected transfer state in xfer_load. Stopped sources are restored exactly and retain their queue rows. The shared header and ledgers are unchanged; census confirmation is not claimed.
 
+  **Native identity follow-up (2026-10-30):** XferSaveOpen still verifies169 B
+  and retains LINKS, but its stream is a File-family object: two independent
+  native callers pass the unchanged6023C1 factory result, whose MemoryWriteFile
+  constructor602316 invokes File6024FD and installs C7A7B8; slot4 is the
+  matched139-byte write6021CA. Canonical serializer Xfer's slot4 is a bool
+  getter with no arguments, so its header is not a stream-type repair.
+  Original static formal spelling remains unproven. Correcting the typed
+  stream chain touches nine direct Open declarations, Chain's CRC caller and
+  three row signatures; retain genuine serializer parameters separately.
+  The autosave probe also exposes three new undefined placeholder block-call
+  names. The real block rows remain base-scoped lowercase; constructor60C5FA
+  is a flat32-byte view, and slot38's compatibility spelling XferData has no
+  rowed implementation. A coordinated API/loader pass is needed. Required
+  MilesAudioManager and PersistentStorageThread scopes are held, so no
+  production source/header/ledger is edited and all four queue keys remain.
+  [Exact native tables, dataflow, scope and handoff](../reverse/attempt_support/xfer-identity-prerequisites-20261030/README.md).
+
 - **Object and GameLogic system Xfer package (2026-10-27; inspected `6338687e62c`; index `5ce093a71a`, `retail-truth-4`):** The accepted consumers use the canonical Xfer header, retain every matched row and preserve their clean ordinary link previews. The existing Coord3DBase companion reconciles the containment and breadcrumb transfers. Only the owning acceptance tool removes queue rows. ObjectDoXfer.cpp and WeaponFireSpecialAbilityUpdateXfer.cpp still require evidenced block-operation signatures at slots 5-7; FireWeaponUpdate.cpp requires Coord3D's inline add and pointer set interface. Those sources are restored exactly and retain their queue rows, with blocked verdicts recorded through re_log.py. The per-unit results, shadow data findings and raw verification logs are in `build/header-report.md` and `build/header-hx7/`. Resolve the stated class-owner prerequisites before retrying the stopped units. Other consumers, class-wide closure and census confirmation remain open.
 
 - **FX, AI, audio and behavior Xfer header subset (2026-10-27):** The assigned consumers that pass `header_adopt_lane.py accept` use the registered Xfer header and retain their exact rows and clean ordinary link previews. The source list, per-unit before/after results and raw gates are retained in `build/header-report.md` and `build/header-hx4-w5/`. AIAttackStateXfer, LargeGroupAudioAudioMap and LargeGroupAudioXfer still need the class owner to reconcile the block interfaces with the header's parameterless virtual declarations. MoveToGroupOrderXfer and Rva00355770GroupOrderMaps still need a decision on the name-transfer operand currently declared as XferUnknown11. Those stopped sources remain unchanged. This scope retires header-queue debt; class-wide closure and census confirmation remain pending.

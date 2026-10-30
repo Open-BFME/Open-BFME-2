@@ -1,0 +1,330 @@
+{
+  "scope": "native runtime File-family and loader ABI evidence; no original static formal spelling or new source recovery claim",
+  "native_slices": [
+    {
+      "label": "sendHero factory result to Open",
+      "rva": "0x4d025c",
+      "raw": "e860211300598d4da8894514e88acf13006a0053ff7514895dfc8d4da8c645fc02e888ce1300",
+      "instructions": [
+        {
+          "rva": "0x4d025c",
+          "mnemonic": "call",
+          "operands": "0x6023c1"
+        },
+        {
+          "rva": "0x4d0261",
+          "mnemonic": "pop",
+          "operands": "ecx"
+        },
+        {
+          "rva": "0x4d0262",
+          "mnemonic": "lea",
+          "operands": "ecx, [ebp - 0x58]"
+        },
+        {
+          "rva": "0x4d0265",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp + 0x14], eax"
+        },
+        {
+          "rva": "0x4d0268",
+          "mnemonic": "call",
+          "operands": "0x60d1f7"
+        },
+        {
+          "rva": "0x4d026d",
+          "mnemonic": "push",
+          "operands": "0"
+        },
+        {
+          "rva": "0x4d026f",
+          "mnemonic": "push",
+          "operands": "ebx"
+        },
+        {
+          "rva": "0x4d0270",
+          "mnemonic": "push",
+          "operands": "dword ptr [ebp + 0x14]"
+        },
+        {
+          "rva": "0x4d0273",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 4], ebx"
+        },
+        {
+          "rva": "0x4d0276",
+          "mnemonic": "lea",
+          "operands": "ecx, [ebp - 0x58]"
+        },
+        {
+          "rva": "0x4d0279",
+          "mnemonic": "mov",
+          "operands": "byte ptr [ebp - 4], 2"
+        },
+        {
+          "rva": "0x4d027d",
+          "mnemonic": "call",
+          "operands": "0x60d10a"
+        }
+      ]
+    },
+    {
+      "label": "persistent storage factory result to Open",
+      "rva": "0x556885",
+      "raw": "e837bb0a008bf033db3bf359750c8b450c891833c0e9d40000008d4db0e850690b00536a01895dfc568d4db0c645fc01e850680b00",
+      "instructions": [
+        {
+          "rva": "0x556885",
+          "mnemonic": "call",
+          "operands": "0x6023c1"
+        },
+        {
+          "rva": "0x55688a",
+          "mnemonic": "mov",
+          "operands": "esi, eax"
+        },
+        {
+          "rva": "0x55688c",
+          "mnemonic": "xor",
+          "operands": "ebx, ebx"
+        },
+        {
+          "rva": "0x55688e",
+          "mnemonic": "cmp",
+          "operands": "esi, ebx"
+        },
+        {
+          "rva": "0x556890",
+          "mnemonic": "pop",
+          "operands": "ecx"
+        },
+        {
+          "rva": "0x556891",
+          "mnemonic": "jne",
+          "operands": "0x55689f"
+        },
+        {
+          "rva": "0x556893",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [ebp + 0xc]"
+        },
+        {
+          "rva": "0x556896",
+          "mnemonic": "mov",
+          "operands": "dword ptr [eax], ebx"
+        },
+        {
+          "rva": "0x556898",
+          "mnemonic": "xor",
+          "operands": "eax, eax"
+        },
+        {
+          "rva": "0x55689a",
+          "mnemonic": "jmp",
+          "operands": "0x556973"
+        },
+        {
+          "rva": "0x55689f",
+          "mnemonic": "lea",
+          "operands": "ecx, [ebp - 0x50]"
+        },
+        {
+          "rva": "0x5568a2",
+          "mnemonic": "call",
+          "operands": "0x60d1f7"
+        },
+        {
+          "rva": "0x5568a7",
+          "mnemonic": "push",
+          "operands": "ebx"
+        },
+        {
+          "rva": "0x5568a8",
+          "mnemonic": "push",
+          "operands": "1"
+        },
+        {
+          "rva": "0x5568aa",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 4], ebx"
+        },
+        {
+          "rva": "0x5568ad",
+          "mnemonic": "push",
+          "operands": "esi"
+        },
+        {
+          "rva": "0x5568ae",
+          "mnemonic": "lea",
+          "operands": "ecx, [ebp - 0x50]"
+        },
+        {
+          "rva": "0x5568b1",
+          "mnemonic": "mov",
+          "operands": "byte ptr [ebp - 4], 1"
+        },
+        {
+          "rva": "0x5568b5",
+          "mnemonic": "call",
+          "operands": "0x60d10a"
+        }
+      ]
+    },
+    {
+      "label": "MemoryWriteFile invokes File constructor and installs table",
+      "rva": "0x602327",
+      "raw": "e8d101000033c0c706b8a7c7",
+      "instructions": [
+        {
+          "rva": "0x602327",
+          "mnemonic": "call",
+          "operands": "0x6024fd"
+        },
+        {
+          "rva": "0x60232c",
+          "mnemonic": "xor",
+          "operands": "eax, eax"
+        }
+      ]
+    }
+  ],
+  "ledger_facts": [
+    {
+      "name": "??0File@@QAE@XZ",
+      "target_rva": "0x006024FD",
+      "target_size": "70",
+      "source": "Code/GameEngine/Source/Common/System/File.cpp",
+      "status": "matched"
+    },
+    {
+      "name": "?beginBlock@Xfer@@UAEHPBD@Z",
+      "target_rva": "0x0060C629",
+      "target_size": "205",
+      "source": "Code/Libraries/Source/xfer/xfer_load.cpp",
+      "status": "matched"
+    },
+    {
+      "name": "?skipBlock@Xfer@@UAEXPBD@Z",
+      "target_rva": "0x0060C6F6",
+      "target_size": "183",
+      "source": "Code/Libraries/Source/xfer/xfer_load.cpp",
+      "status": "matched"
+    },
+    {
+      "name": "?endBlock@Xfer@@UAEXXZ",
+      "target_rva": "0x0060C469",
+      "target_size": "129",
+      "source": "Code/Libraries/Source/xfer/xfer_load.cpp",
+      "status": "matched"
+    },
+    {
+      "name": "?bfmeMake_009CB5F0@@YAPAVBfmeMade_009CB5F0@@PAX@Z",
+      "target_rva": "0x006023C1",
+      "target_size": "53",
+      "source": "Code/GameEngine/Source/Common/Bfme5MakeFromArgument.cpp",
+      "status": "matched"
+    },
+    {
+      "name": "?XferImpl@XferMD5CRC@@QAEXPAXPBXI@Z",
+      "target_rva": "0x0052B4FF",
+      "target_size": "61",
+      "source": "Code/GameEngine/Source/Common/XferMD5CRC.cpp",
+      "status": "matched"
+    },
+    {
+      "name": "??0MemoryWriteFile@@QAE@PBD@Z",
+      "target_rva": "0x00602316",
+      "target_size": "103",
+      "source": "Code/GameEngine/Source/Common/System/File.cpp",
+      "status": "matched"
+    },
+    {
+      "name": "?Open@XferSave@@QAEEPAVXfer@@H_N@Z",
+      "target_rva": "0x0060D10A",
+      "target_size": "169",
+      "source": "Code/Libraries/Source/xfer/XferSaveOpen.cpp",
+      "status": "matched"
+    },
+    {
+      "name": "?XferImpl@XferLoad@@UAEXIPAXI@Z",
+      "target_rva": "0x0060C7AD",
+      "target_size": "260",
+      "source": "Code/Libraries/Source/xfer/xfer_load.cpp",
+      "status": "matched"
+    },
+    {
+      "name": "?write@MemoryWriteFile@@UAEHPBXH@Z",
+      "target_rva": "0x006021CA",
+      "target_size": "139",
+      "source": "Code/GameEngine/Source/Common/System/File.cpp",
+      "status": "matched"
+    }
+  ],
+  "held_required_paths": [
+    {
+      "source": "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+      "claim": "file/47478d3389bce4ba"
+    },
+    {
+      "source": "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PersistentStorageThread.cpp",
+      "claim": "file/48e92743273d4d11"
+    }
+  ],
+  "MemoryWriteFile_table": {
+    "rva": "0x87a7b8",
+    "raw": "f623a000f1b590009a25a00073449700ca21a0003621a000",
+    "entries_va": [
+      "0xa023f6",
+      "0x90b5f1",
+      "0xa0259a",
+      "0x974473",
+      "0xa021ca",
+      "0xa02136"
+    ]
+  },
+  "loader_table": {
+    "rva": "0x87af18",
+    "raw": "b1c8a000c6b5900099a6870099a6870099a6870029c6a00069c4a000f6c6a000eac4a00086b8a000d9b8a0008ed25f0049c5a000a9bba0007dbba00051bba00025bba000e4baa000a3baa00077baa0004bbaa0000abaa000c9b9a0009db9a00071b9a000a0c0a0009ebfa000a4bea0004c554000dc544000f8544000c05440003055400014554000885440006c544000a4544000d5bba000adc7a000",
+    "entries_va": [
+      "0xa0c8b1",
+      "0x90b5c6",
+      "0x87a699",
+      "0x87a699",
+      "0x87a699",
+      "0xa0c629",
+      "0xa0c469",
+      "0xa0c6f6",
+      "0xa0c4ea",
+      "0xa0b886",
+      "0xa0b8d9",
+      "0x5fd28e",
+      "0xa0c549",
+      "0xa0bba9",
+      "0xa0bb7d",
+      "0xa0bb51",
+      "0xa0bb25",
+      "0xa0bae4",
+      "0xa0baa3",
+      "0xa0ba77",
+      "0xa0ba4b",
+      "0xa0ba0a",
+      "0xa0b9c9",
+      "0xa0b99d",
+      "0xa0b971",
+      "0xa0c0a0",
+      "0xa0bf9e",
+      "0xa0bea4",
+      "0x40554c",
+      "0x4054dc",
+      "0x4054f8",
+      "0x4054c0",
+      "0x405530",
+      "0x405514",
+      "0x405488",
+      "0x40546c",
+      "0x4054a4",
+      "0xa0bbd5",
+      "0xa0c7ad"
+    ]
+  }
+}
