@@ -45,19 +45,35 @@ extern "C" int __cdecl sprintf(char *, const char *, ...);
 
 class EAStringC
 {
-    void *mpData;
 public:
-    EAStringC();
-    EAStringC(const char *value);
-    ~EAStringC();
-    EAStringC &operator=(const EAStringC &);
-    bool IsEmpty() const;
-    bool rva006D3510(const char *) const;
-    const char *rva00620090() const;
-    EAStringC(const EAStringC &);
-    EAStringC &Rva006D4F00Append(const EAStringC &);
-    EAStringC &Rva006D50A0Append(const char *);
-    void __cdecl rva006D62C0(const char *, ...);
+	class StringDataC { public: unsigned short m_uRefCount; unsigned short m_uSize; unsigned short m_uMaxSize; unsigned short m_uHash; };
+	EAStringC();
+	EAStringC(const char *value);
+	~EAStringC();
+	EAStringC &operator=(const EAStringC &);
+	bool IsEmpty() const;
+	bool rva006D3510(const char *) const;
+	const char *rva00620090() const; // 0x00620090
+	EAStringC(const EAStringC &);
+	EAStringC &Rva006D4F00Append(const EAStringC &);
+	EAStringC &Rva006D50A0Append(const char *);
+	void __cdecl rva006D62C0(const char *, ...);
+	EAStringC &clear();
+	unsigned int rva006D3750() const;
+	void rva006D3470();
+	EAStringC &TrimRight(const char *);
+	EAStringC(unsigned int,unsigned int);
+	EAStringC rva006D5ED0(int) const;
+	EAStringC rva006d5f30(int,int) const;
+	int Find(char,int=0);
+	EAStringC &Append(const char *const,unsigned int);
+	bool IsEqualTo(const EAStringC *) const;
+	bool rva006D3560(const EAStringC *) const;
+	int rva006d6070(const char *,int=0);
+	int GetAt(int) const;
+	int rva006D54B0(int,int);
+private:
+	StringDataC *mpData; // +0x00
 };
 
 EAStringC rva006D5160(const char *, const EAStringC &);
@@ -79,6 +95,8 @@ public:
 class BfmeAptValue006DCD20
 {
 public:
+    virtual void AddRef();
+    virtual void Release();
     int rva006E02B0() const; // rowed provider at 0x006E02B0; callers test AL
     int isNativeFunction() const;
     bool rva006DCA60() const;
@@ -95,6 +113,12 @@ public:
     int rva006E03A0() const;
     BfmeAptValue006DCD20 *rva006DCF20();
     BfmeAptValue006DCD20 *rva006DCEE0();
+    void rva006DD6C0(EAStringC *out);
+    // These call-site views follow the retail test-al instruction at 0x6FED89
+    // and 0x6FEF02; the matched predicate declarations keep their own names.
+    int rva006E0260() const;
+    int rva006DCC60(bool) const;
+    void *rva006E04A0() const;
 };
 
 class AptCIH : public AptValue
@@ -165,6 +189,37 @@ public:
                    "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\_AptBasePtrStack.h", 0x90)
         items[count++] = value;
     }
+
+    __forceinline AptValue *At(int nPos) const
+    {
+        if (!(count-nPos>0)) {
+            g_bfmeAptAssertAtE17734("m_nElements - nPos > 0", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\_AptBasePtrStack.h", 0x10A);
+            if (g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
+        }
+        return items[count-nPos-1];
+    }
+    __forceinline void Pop(int n)
+    {
+        if (count<n) {
+            g_bfmeAptAssertAtE17734("false && \"[APT] Error, Popping more elements than the stack contains. Please contact the Apt Team for Support.\"", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\_AptBasePtrStack.h", 0xAA);
+            if (g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
+        } else {
+            for (int i=1;i<=n;++i) items[count-i]->Release();
+            count-=n;
+        }
+    }
+    __forceinline void Pop()
+    {
+        if (count<=0) {
+            g_bfmeAptAssertAtE17734("false && \"[APT] Error, Popping from Stack with 0 elements. Please contact the Apt Team for Support.\"", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\_AptBasePtrStack.h", 0x98);
+            if (g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
+        } else {
+            items[count-1]->Release();
+            --count;
+        }
+    }
+    void Push(AptValue *);
+    __forceinline int GetSize() const { return count; }
 };
 
 template<class T> struct AptValuePtrStack
@@ -182,25 +237,37 @@ template<class T> struct AptValuePtrStack
     }
 };
 
+struct AptCharacterInst;
 struct AptActionInterpreter
 {
-    struct DebugCallStackInfo_t;
-    AptBasePtrStack stack;
-    char pad0C[0x24 - 12];
-    AptValuePtrStack<AptValue> thisStack; // +0x24
-    AptScriptFunctionBase *mpCurrentFunction; // +0x30
-    char pad34[12];
-    AptConstantPool constantPool; // +0x40
-    char pad48[0x60 - 0x48];
-    AptValue *mpThrownValue; // +0x60
-
-    const unsigned char *runStream(const unsigned char *, AptCIH *, int,
-                                   struct AptCharacterInst *);
-    AptValue *getVariable(AptValue *, AptValue *, const EAStringC *, int=1, int=1, int=0);
-    void callFunction(AptValue *, AptValue *, int);
+public:
+	struct DebugCallStackInfo_t;
+	struct LocalContextT { const unsigned char *pInstruction; AptCIH *pCurrentContext; AptValue *pCurWith; const unsigned char *pRemoveWithAt; AptValue *pSuper; bool bEncounteredReturn; AptCharacterInst *pParentCharacter; };
+	const unsigned char *runStream(const unsigned char *, AptCIH *, int, struct AptCharacterInst *);
+	AptValue *getVariable(AptValue *, AptValue *, const EAStringC *, int=1, int=1, int=0);
+	void callFunction(AptValue *, AptValue *, int);
 private:
-    static AptValue *getObject(AptValue *, AptValue *, const EAStringC *);
-    AptObject *_createObject(AptValue *, AptValue *, const EAStringC *, int, bool);
+	static AptValue *getObject(AptValue *, AptValue *, const EAStringC *);
+	AptObject *_createObject(AptValue *, AptValue *, const EAStringC *, int, bool);
+public:
+	bool setVariable(AptValue *,AptValue *,const EAStringC *,AptValue *,int=1,int=1,int=0);
+private:
+	static void _FunctionAptActionDefineLocal(AptActionInterpreter *const,LocalContextT *const);
+	static void _FunctionAptActionDefineLocal2(AptActionInterpreter *const,LocalContextT *const);
+	static void _FunctionAptActionStoreRegister(AptActionInterpreter *const, LocalContextT *const);
+	static void _FunctionAptActionTry(AptActionInterpreter *const, LocalContextT *const);
+	static void _FunctionAptActionDefineFunction(AptActionInterpreter *const,LocalContextT *const);
+	static void _FunctionAptActionDefineFunction2(AptActionInterpreter *const,LocalContextT *const);
+public:
+	AptBasePtrStack stack; // +0x00
+	char m_pad0C[0x18];
+	AptValuePtrStack<AptValue> thisStack; // +0x24 +0x24
+	AptScriptFunctionBase *mpCurrentFunction; // +0x30 +0x30
+	char m_pad34[0xC];
+	AptConstantPool constantPool; // +0x40 +0x40
+	char m_pad48[0x18];
+	AptValue *mpThrownValue; // +0x60 +0x60
+	int mnStackFrameBase; // +0x64
 };
 
 // Retail's 20-byte local frame holds the pre-call stack count and this

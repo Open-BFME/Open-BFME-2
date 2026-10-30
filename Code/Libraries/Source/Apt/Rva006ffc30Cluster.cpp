@@ -13,12 +13,35 @@
 
 class EAStringC
 {
-    void *m_pData;
 public:
-    EAStringC(const char *value);
-    ~EAStringC();
-    EAStringC &operator=(const EAStringC &other);
-    unsigned int rva006D3750() const;
+	class StringDataC { public: unsigned short m_uRefCount; unsigned short m_uSize; unsigned short m_uMaxSize; unsigned short m_uHash; };
+	EAStringC();
+	EAStringC(const char *value);
+	~EAStringC();
+	EAStringC &operator=(const EAStringC &);
+	bool IsEmpty() const;
+	bool rva006D3510(const char *) const;
+	const char *rva00620090() const; // 0x00620090
+	EAStringC(const EAStringC &);
+	EAStringC &Rva006D4F00Append(const EAStringC &);
+	EAStringC &Rva006D50A0Append(const char *);
+	void __cdecl rva006D62C0(const char *, ...);
+	EAStringC &clear();
+	unsigned int rva006D3750() const;
+	void rva006D3470();
+	EAStringC &TrimRight(const char *);
+	EAStringC(unsigned int,unsigned int);
+	EAStringC rva006D5ED0(int) const;
+	EAStringC rva006d5f30(int,int) const;
+	int Find(char,int=0);
+	EAStringC &Append(const char *const,unsigned int);
+	bool IsEqualTo(const EAStringC *) const;
+	bool rva006D3560(const EAStringC *) const;
+	int rva006d6070(const char *,int=0);
+	int GetAt(int) const;
+	int rva006D54B0(int,int);
+private:
+	StringDataC *mpData; // +0x00
 };
 
 class AptValue;

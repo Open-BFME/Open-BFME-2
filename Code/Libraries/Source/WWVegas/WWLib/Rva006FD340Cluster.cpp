@@ -12,17 +12,35 @@ void __debugbreak();
 
 class EAStringC
 {
-	void *m_pData;
-
 public:
+	class StringDataC { public: unsigned short m_uRefCount; unsigned short m_uSize; unsigned short m_uMaxSize; unsigned short m_uHash; };
 	EAStringC();
+	EAStringC(const char *value);
 	~EAStringC();
+	EAStringC &operator=(const EAStringC &);
+	bool IsEmpty() const;
+	bool rva006D3510(const char *) const;
+	const char *rva00620090() const; // 0x00620090
+	EAStringC(const EAStringC &);
+	EAStringC &Rva006D4F00Append(const EAStringC &);
+	EAStringC &Rva006D50A0Append(const char *);
+	void __cdecl rva006D62C0(const char *, ...);
 	EAStringC &clear();
 	unsigned int rva006D3750() const;
-	const char *rva00620090() const;
-	EAStringC &Rva006D50A0Append(const char *text);
-	EAStringC &operator=(const EAStringC &other);
 	void rva006D3470();
+	EAStringC &TrimRight(const char *);
+	EAStringC(unsigned int,unsigned int);
+	EAStringC rva006D5ED0(int) const;
+	EAStringC rva006d5f30(int,int) const;
+	int Find(char,int=0);
+	EAStringC &Append(const char *const,unsigned int);
+	bool IsEqualTo(const EAStringC *) const;
+	bool rva006D3560(const EAStringC *) const;
+	int rva006d6070(const char *,int=0);
+	int GetAt(int) const;
+	int rva006D54B0(int,int);
+private:
+	StringDataC *mpData; // +0x00
 };
 
 class BfmeStrVKK
@@ -34,9 +52,30 @@ public:
 class BfmeAptValue006DCD20
 {
 public:
-	virtual void slot0();
-	virtual void release();
-	void rva006DD6C0(EAStringC *out);
+    virtual void AddRef();
+    virtual void Release();
+    int rva006E02B0() const; // rowed provider at 0x006E02B0; callers test AL
+    int isNativeFunction() const;
+    bool rva006DCA60() const;
+    int isObject() const;
+    int isInteger() const;
+    int isFloat() const;
+    int isString() const;
+    int toInteger() const;
+    float rva006DD460();
+    BfmeAptValue006DCD20 *rva006DCF60(bool);
+    BfmeAptValue006DCD20 *checkedString();
+    int isScriptFunction() const;
+    bool isUndefined() const;
+    int rva006E03A0() const;
+    BfmeAptValue006DCD20 *rva006DCF20();
+    BfmeAptValue006DCD20 *rva006DCEE0();
+    void rva006DD6C0(EAStringC *out);
+    // These call-site views follow the retail test-al instruction at 0x6FED89
+    // and 0x6FEF02; the matched predicate declarations keep their own names.
+    int rva006E0260() const;
+    int rva006DCC60(bool) const;
+    void *rva006E04A0() const;
 };
 
 void __cdecl Rva006CC110Log(int level, const char *fmt, ...);
@@ -71,7 +110,7 @@ void Rva006FD340Object::rva006FD340(char *text, void *arg2)
 		pending->rva006DD6C0(&name);
 		Rva006CC110Log(3, "<WARNING> Actionscript un-caught exception encountered during \"%s\"\n", text);
 		Rva006CC110Log(3, "<WARNING> Actionscript error message: \"%s\"\n", name.rva00620090());
-		m_pending->release();
+		m_pending->Release();
 		m_pending = 0;
 	}
 	rva007097B0(arg2);
