@@ -99,20 +99,6 @@ private:
 	bool m_flag2C;
 };
 
-class __declspec(novtable) ObjectCreationUpgradeModuleData : public Snapshot
-{
-public:
-	virtual ~ObjectCreationUpgradeModuleData();
-
-private:
-	// Opaque inherited state; the first owned string remains at +0x120.
-	unsigned char m_moduleDataState[0x120 - sizeof(Snapshot)];
-	AsciiString m_removeUpgrade; // +0x120
-	AsciiString m_grantUpgrade; // +0x124
-	AsciiString m_thingToSpawn; // +0x128
-	unsigned char m_tail[0x154 - 0x12C]; // +0x12C..+0x153 trivial tail
-};
-
 //
 // Ported from Open-BFME-1 GameEngine/Source/GameLogic/AI/Rva002D6EB0ForwardedMember.cpp
 // (donor revision 6d9434269164392c5ba62aaa7c15a86b5b020d76, donor flags plus /O1). Compiled that way each body
@@ -146,6 +132,98 @@ private:
 	void *m_forwarded;
 };
 
+//
+// CreateModuleData::buildFieldParse procs: GrantUpgrade is a single-table
+// leaf (11 bytes); ObjectCreationUpgrade registers its own table followed by
+// the shared Upgrade table from Rva004CE29DGet at extraOffset 0x10 (34 bytes).
+// ?buildFieldParse@GrantUpgradeCreateModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// retail 0x004B8FF0, registers the table at 0x00C594A0 (UpgradeToGrant plus
+// ExemptStatus plus GiveOnBuildComplete) with MultiIniFieldParse::add (rowed
+// at 0x2BC6E). Provenance: the BFME1 GrantUpgradeCreate.cpp donor carries
+// the UpgradeToGrant plus ExemptStatus table for GrantUpgradeCreateModuleData;
+// the BFME2 table extends it with GiveOnBuildComplete. The owning factory
+// (0x250B41) pushes this proc immediate.
+
+class MultiIniFieldParse;
+
+class INI
+{
+public:
+	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
+	static void parseBool(INI *ini, void *instance, void *store, const void *userData);
+	static void parseUnsignedInt(INI *ini, void *instance, void *store, const void *userData);
+	static void parseDurationUnsignedInt(INI *ini, void *instance, void *store, const void *userData);
+	static void parseCoord3D(INI *ini, void *instance, void *store, const void *userData);
+	static void parseAngleReal(INI *ini, void *instance, void *store, const void *userData);
+	static void parseObjectCreationList(INI *ini, void *instance, void *store, const void *userData);
+	static void Rva0044E6CD_ParseCustomAnimAndDuration(INI *ini, void *instance, void *store, const void *userData);
+};
+
+// The rowed ExemptStatus parser 0x003B1327 (opaque owner class).
+class Rva003B1017
+{
+public:
+	static void parseFromINI(INI *ini, void *instance, void *store, const void *userData);
+};
+
+typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
+
+struct FieldParse
+{
+	const char *token;
+	INIFieldParseProc parse;
+	const void *userData;
+	int offset;
+};
+
+class MultiIniFieldParse
+{
+public:
+	void add(const FieldParse *parse, unsigned int extraOffset);
+};
+
+int Rva004CE29DGet(void);
+
+extern const FieldParse ObjectCreationUpgradeModuleDataFieldParse[12] =
+{
+	{ "UpgradeObject",			&INI::parseObjectCreationList,	0, 0x08 },
+	{ "Delay",					&INI::parseDurationUnsignedInt,	0, 0x0C },
+	{ "RemoveUpgrade",			&INI::parseAsciiString,			0, 0x120 },
+	{ "GrantUpgrade",			&INI::parseAsciiString,			0, 0x124 },
+	{ "ThingToSpawn",			&INI::parseAsciiString,			0, 0x128 },
+	{ "Offset",					&INI::parseCoord3D,				0, 0x12C },
+	{ "Angle",					&INI::parseAngleReal,			0, 0x138 },
+	{ "DestroyWhenSold",		&INI::parseBool,				0, 0x13C },
+	{ "DeathAnimAndDuration",	&INI::Rva0044E6CD_ParseCustomAnimAndDuration, 0, 0x140 },
+	{ "FadeInTime",				&INI::parseUnsignedInt,			0, 0x14C },
+	{ "UseBuildingProduction",	&INI::parseBool,				0, 0x150 },
+	{ 0, 0, 0, 0 }
+};
+
+class GrantUpgradeCreateModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class __declspec(novtable) ObjectCreationUpgradeModuleData : public Snapshot
+{
+public:
+	virtual ~ObjectCreationUpgradeModuleData();
+private:
+	unsigned char m_moduleDataState[0x120 - sizeof(Snapshot)];
+private:
+	AsciiString m_removeUpgrade;
+private:
+	AsciiString m_grantUpgrade;
+private:
+	AsciiString m_thingToSpawn;
+private:
+	unsigned char m_tail[0x154 - 0x12C];
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
 // tu-skeleton: 0x004B3F90 36B ??1ObjectCreationUpgrade@@MAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x004B3FB4 6B ?name@ObjectCreationUpgrade@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
@@ -159,6 +237,8 @@ private:
 // tu-skeleton: 0x004B3FDC 17B ?rva004B3FDC@Rva00406F9C@@QAEHPBX@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE24.cpp (not merged yet)
 
 // tu-skeleton: 0x004B3FED 8B ??_EObjectCreationUpgrade@@O7AEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeDtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp
 
@@ -195,26 +275,6 @@ NameKeyType ObjectCreationUpgrade::rva004B3FF5()
 	return TheObjectCreationUpgradePoolKey;
 }
 
-// tu-skeleton: 0x004B403A 39B ?getUpgradeActivationMasks@ObjectCreationUpgrade@@MBEXAAUUpgradeMaskType@@0@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpgradeMuxSlotOverrides.cpp (not merged yet)
-
-// tu-skeleton: 0x004B4061 10B ?get@Rva004B4061ByteChase32Field@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x004B406B 10B ?get@Rva004B406BByteChase32Field@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x004B4075 15B ?performUpgradeFX@ObjectCreationUpgrade@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpgradeMuxSlotOverrides.cpp (not merged yet)
-
-// tu-skeleton: 0x004B4084 34B ?buildFieldParse@ObjectCreationUpgradeModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Create/CreateModuleDataBuildFieldParse.cpp (not merged yet)
-
-// tu-skeleton: 0x004B40A6 68B ??0ObjectCreationUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004B40EA 28B ??_GObjectCreationUpgrade@@MAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004B4106 42B ?upgradeImplementation@ObjectCreationUpgrade@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpgradeMuxSlotOverrides.cpp (not merged yet)
-
-// tu-skeleton: 0x004B4130 121B ?rva004B4130@Rva004B4130@@QAE_NPAVRva00406F9C@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeCheck.cpp (not merged yet)
-
-// tu-skeleton: 0x004B41A9 91B ?rva004B41A9@Rva004B4130@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeCheck.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/AI/Rva002D6EB0ForwardedMember.cpp
 
 void Rva002D6EB0::update()
@@ -223,14 +283,6 @@ void Rva002D6EB0::update()
 	if (parent->m_nested != 0)
 		parent->m_nested->bfmeDoBPB(m_forwarded, 0, 0);
 }
-
-// tu-skeleton: 0x004B421D 62B ?xfer@ObjectCreationUpgrade@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x004B425B 128B ??0ObjectCreationUpgradeModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeModuleDataCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004B42DB 753B ?update@ObjectCreationUpgrade@@MAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x004B45CC 28B ??_GObjectCreationUpgradeModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/UpgradeModuleDeletingDtors.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeModuleDataDtor.cpp
 
@@ -250,6 +302,44 @@ void Rva002D6EB0::update()
 ObjectCreationUpgradeModuleData::~ObjectCreationUpgradeModuleData()
 {
 }
+
+// tu-skeleton: 0x004B403A 39B ?getUpgradeActivationMasks@ObjectCreationUpgrade@@MBEXAAUUpgradeMaskType@@0@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpgradeMuxSlotOverrides.cpp (not merged yet)
+
+// tu-skeleton: 0x004B4061 10B ?get@Rva004B4061ByteChase32Field@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x004B406B 10B ?get@Rva004B406BByteChase32Field@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x004B4075 15B ?performUpgradeFX@ObjectCreationUpgrade@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpgradeMuxSlotOverrides.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Create/CreateModuleDataBuildFieldParse.cpp
+
+// ?buildFieldParse@ObjectCreationUpgradeModuleData@@SAXAAVMultiIniFieldParse@@@Z
+// Retail starts at 0x004B4084 and ends at its ret at 0x004B40A5, directly
+// before the rowed ObjectCreationUpgrade constructor at 0x004B40A6. Its
+// factory at 0x24FFAC pushes this proc VA.
+void ObjectCreationUpgradeModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	parse.add(ObjectCreationUpgradeModuleDataFieldParse, 0);
+	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE29DGet()), 0x10);
+}
+
+// tu-skeleton: 0x004B40A6 68B ??0ObjectCreationUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004B40EA 28B ??_GObjectCreationUpgrade@@MAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004B4106 42B ?upgradeImplementation@ObjectCreationUpgrade@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpgradeMuxSlotOverrides.cpp (not merged yet)
+
+// tu-skeleton: 0x004B4130 121B ?rva004B4130@Rva004B4130@@QAE_NPAVRva00406F9C@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeCheck.cpp (not merged yet)
+
+// tu-skeleton: 0x004B41A9 91B ?rva004B41A9@Rva004B4130@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeCheck.cpp (not merged yet)
+
+// tu-skeleton: 0x004B421D 62B ?xfer@ObjectCreationUpgrade@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x004B425B 128B ??0ObjectCreationUpgradeModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeModuleDataCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004B42DB 753B ?update@ObjectCreationUpgrade@@MAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x004B45CC 28B ??_GObjectCreationUpgradeModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/UpgradeModuleDeletingDtors.cpp (not merged yet)
 
 // tu-skeleton: 0x0078EB92 13B $L2109 -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeUpdate.cpp (not merged yet)
 
