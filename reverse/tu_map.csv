@@ -10776,7 +10776,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00172E70,118,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/meshmdl_sidehash.cpp
 0x00172EF0,154,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/meshmdl_sidehash.cpp
 0x00172F90,663,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdl.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/meshmdl.cpp N=Code/Libraries/Source/WWVegas/WW3D2/MeshModelClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/MeshModelInitNPatch.cpp
-0x00173230,150,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdl.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/meshmdl.cpp N=Code/Libraries/Source/WWVegas/WW3D2/MeshModelClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/MeshModelClass_Register_For_Rendering.cpp
+0x00173230,150,code,Code/Libraries/Source/WWVegas/WW3D2/meshmdl.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/meshmdl.cpp N=Code/Libraries/Source/WWVegas/WW3D2/MeshModelClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/meshmdl.cpp
 0x001732C6,28,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderGeometry.cpp,proposed,K,K=Rva001732C6,Code/GameEngine/Source/Common/RvaDeletingDtorBatch01.cpp
 0x001732E2,40,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderRenderer.cpp,proposed,K,K=Rva00DF6F94GapFillerContext,Code/GameEngine/Source/Common/Rva00DF6F94GapFillerDelete.cpp
 0x0017330A,71,code,Code/Libraries/Source/WWVegas/WWLib/BfmeAssignRecord32.cpp,approved,N,N=Code/Libraries/Source/WWVegas/WWLib/BfmeAssignRecord32.cpp provisional,Code/Libraries/Source/WWVegas/WWLib/BfmeAssignRecord32.cpp

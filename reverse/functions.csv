@@ -32494,7 +32494,7 @@ _Rva008143F0,,0x006802F0,5,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,matc
 ?rva005FC02A@Rva005FC02A@@QAEXXZ,,0x005FC02A,58,Code/GameEngine/Source/Common/Rva005FC02A.cpp,matched,Apt FadeOut tail to rowed audio remove via TheTarget
 ??0Rva0010EE4F@@QAE@ABVRva0036CA00Str@@@Z,,0x0010EE4F,24,Code/GameEngine/Source/Common/Rva0010EE4FCtor.cpp,matched,Derived ctor via rowed base 0x001164D3 plus vtable sibling 0x0010EE9E
 ??0Rva0010EE86@@QAE@ABVRva0036CA00Str@@@Z,,0x0010EE86,24,Code/GameEngine/Source/Common/Rva0010EE86Ctor.cpp,matched,Derived ctor via rowed base 0x001164D3 plus vtable sibling 0x0010EE4F
-?Register_For_Rendering@MeshModelClass@@QAEXXZ,,0x00173230,150,Code/Libraries/Source/WWVegas/WW3D2/MeshModelClass_Register_For_Rendering.cpp,matched,retail 150B exact; callee pins respelled to real mangled names; goto spelling reaches retail block layout
+?Register_For_Rendering@MeshModelClass@@QAEXXZ,,0x00173230,150,Code/Libraries/Source/WWVegas/WW3D2/meshmdl.cpp,matched,retail 150B exact; callee pins respelled to real mangled names; goto spelling reaches retail block layout
 ?CommSerialUnresolve@@YAXXZ,,0x00686F00,5,Code/Libraries/Source/DirtySock/Rva00819630TapiTransport.cpp,matched,SERIAL op slot3 empty stub via retail ops table at 0x0068559B
 ?CommSerialCallback@@YAXXZ,,0x00686D10,5,Code/Libraries/Source/DirtySock/Rva00819630TapiTransport.cpp,matched,SERIAL op slot8 empty stub via retail ops table at 0x006855CD
 ?rva003F1044@Rva003F055A@@QAEXHH@Z,,0x003F1044,15,Code/GameEngine/Source/Common/System/Rva003F055AScan.cpp,matched,ecx pass-through to rowed 0x003F055A ret8 two args
