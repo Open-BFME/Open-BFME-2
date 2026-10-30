@@ -80,6 +80,8 @@ struct Rva002A8AB1Record
 	int m_16C;
 };
 
+class Xfer;
+
 class Rva0055B0CC
 {
 	friend class Rva005DAC85;
@@ -96,7 +98,7 @@ public:
 	virtual void slot9();
 	virtual void slot10();
 	virtual void slot11();
-	virtual void Rva0055AED6(void *xfer, void *arg2);
+	virtual void Rva0055AED6(Xfer *xfer, void *arg2);
 	virtual ~Rva0055B0CC();
 private:
 	float m_04;

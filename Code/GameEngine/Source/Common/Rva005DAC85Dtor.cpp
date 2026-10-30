@@ -10,6 +10,8 @@ private:
 	void *m_data;
 };
 
+class Xfer;
+
 class Rva0055B0CC
 {
 	friend class Rva005DAC85;
@@ -26,7 +28,7 @@ public:
 	virtual void slot9();
 	virtual void slot10();
 	virtual void slot11();
-	virtual void Rva0055AED6(void *xfer, void *arg2);
+	virtual void Rva0055AED6(Xfer *xfer, void *arg2);
 	virtual ~Rva0055B0CC();
 private:
 	float m_04;
@@ -63,7 +65,6 @@ Rva005DAC85::~Rva005DAC85()
 #pragma comment(linker, "/alternatename:?slot4@Rva0055B0CC@@UAEXXZ=?IsCRC@Xfer@@UBE_NXZ")
 #pragma comment(linker, "/alternatename:?slot7@Rva0055B0CC@@UAEXXZ=?friend_setNext@Upgrade@@QAEXPAV1@@Z")
 #pragma comment(linker, "/alternatename:?slot11@Rva0055B0CC@@UAEXXZ=?rva0050B5C6@Rva0050B5C6@@QAE_NXZ")
-#pragma comment(linker, "/alternatename:?Rva0055AED6@Rva0055B0CC@@UAEXPAX0@Z=?Rva0055AED6@Rva0055B0CC@@UAEXPAVXfer@@PAX@Z")
 
 // Placeholder virtuals this unit's vftables hold.  In retail each such slot
 // holds a rowed function; the vftable's address is proven by the vptr stores in

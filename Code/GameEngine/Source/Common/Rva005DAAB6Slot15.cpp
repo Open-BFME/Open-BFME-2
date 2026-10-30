@@ -42,6 +42,8 @@ public:
 	virtual int slot14(Object *a1, void *a2, void *a3, float a4, bool a5);
 };
 
+class Xfer;
+
 class Rva0055B0CC
 {
 	friend class Rva005DAAB6;
@@ -58,7 +60,7 @@ public:
 	virtual void slot9();
 	virtual void slot10();
 	virtual void slot11();
-	virtual void Rva0055AED6(void *xfer, void *arg2);
+	virtual void Rva0055AED6(Xfer *xfer, void *arg2);
 private:
 	float m_04;
 	ObjectID m_08;
