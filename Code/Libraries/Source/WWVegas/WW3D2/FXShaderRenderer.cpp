@@ -56,6 +56,9 @@ void Rva00168952Clear(Rva001688FFElement **items,int count);
 class Rva00149A90Obj { public: bool rva00149A90(Rva00149A90Obj *); };
 class Rva0014A710 { public: void prepare(); };
 struct Rva001741EBElement { int a[12]; };
+// Range erase uses the stock const-reference copy dispatch, before the
+// allocation shim can select its by-value dispatch variant.
+#include "../../../../../vendor/stlport/stl/_algobase.h"
 #include <vector>
 #include "../../Code/Libraries/Source/WWVegas/WWLib/StlRecordRva0017341B.h"
 #pragma comment(linker, "/alternatename:??1Rva0017480CRecord@@QAE@XZ=??1BfmeAssignRecord32@@QAE@XZ")
