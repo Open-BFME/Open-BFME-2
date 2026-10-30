@@ -5,7 +5,57 @@
 #include <utility>
 #include <vector>
 #include "ascii_string.h"
-#include "ScienceStoreQueryView.h"
+#include "unicode_string.h"
+
+// Shared declarations for the query and purchase-cost consumers, preserving their target
+// accesses. The opaque bytes do not assert a complete ScienceInfo layout.
+enum ScienceType { SCIENCE_INVALID = -1 };
+class AsciiString;
+class Player;
+class Rva0043D3A8;
+
+// Existing name-key operations used by the two inverse query consumers.
+enum NameKeyType { NAMEKEY_INVALID = -1 };
+class NameKeyGenerator
+{
+public:
+    const AsciiString &keyToName(NameKeyType key);
+    NameKeyType nameToKey(const AsciiString &str);
+    NameKeyType nameToKey(const char *name);
+};
+
+class ScienceInfo
+{
+    char m_opaque00[0x14];
+public:
+    UnicodeString m_name; // +0x14
+    UnicodeString m_description; // +0x18
+private:
+    char m_opaque1c[0x28 - 0x1c];
+public:
+    int m_sciencePurchasePointCost; // +0x28
+    int m_sciencePurchasePointCostMP; // +0x2c
+    bool m_grantable; // +0x30
+};
+
+class ScienceStore
+{
+    const ScienceInfo *findScienceInfo(ScienceType st) const;
+    bool rva000E7C20SciencePrereqMemo(const Player *player, ScienceType st,
+        void *memo) const;
+public:
+    bool isScienceGrantable(ScienceType st) const;
+    bool playerHasPrereqsForScience(const Rva0043D3A8 *holder, ScienceType science) const;
+    int getSciencePurchaseCost(ScienceType science) const;
+    bool rva001FF4D3(Rva0043D3A8 *holder, ScienceType science) const;
+    bool isValidScience(ScienceType st) const;
+    ScienceType friend_lookupScience(const char *scienceName) const;
+    AsciiString getInternalNameForScience(ScienceType science) const;
+    bool playerHasRootPrereqsForScience(const Player *player, ScienceType st) const;
+    bool getNameAndDescription(ScienceType st, UnicodeString &name,
+        UnicodeString &description) const;
+    ScienceType getScienceFromInternalName(const AsciiString &name) const;
+};
 #include <map>
 #include <stl/_algobase.h>
 #include <algorithm>
@@ -86,9 +136,26 @@ template <> __declspec(dllimport) __forceinline
 void **vector<void *>::end() { return this->_M_finish; }
 }
 
-class Overridable {
+class Overridable
+{
 public:
 	Overridable *deleteOverrides();
+	Overridable() : m_nextOverride(0), m_isOverride(false), m_reloadState(-1) {}
+	Overridable *friend_getFinalOverride()
+	{
+		if (m_nextOverride)
+			return m_nextOverride->friend_getFinalOverride();
+		return this;
+	}
+	void setNextOverride(Overridable *next) { m_nextOverride = next; }
+	void markAsOverride() { m_isOverride = true; }
+	void setReloadState(int state) { m_reloadState = state; }
+	virtual ~Overridable();
+private:
+	Overridable *m_nextOverride; // +0x04
+	bool m_isOverride; // +0x08
+	char m_pad09[0x3];
+	int m_reloadState; // +0x0C
 };
 
 class AsciiStringMember {
@@ -221,10 +288,10 @@ class Rva001FFA5A
 {
 public:
 	void rva001FFA5A(CreateAHeroData *val);
-private:
 	char m_pad00[0xC];
-	_STL::vector<CreateAHeroData *> m_vec0C;
-	_STL::vector<const ModuleData *> m_vec18;
+private:
+	_STL::vector<CreateAHeroData *> m_vec0C; // +0x0C
+	_STL::vector<const ModuleData *> m_vec18; // +0x18
 };
 
 typedef _STL::pair<const ScienceType, bool> SciencePair;
@@ -265,16 +332,17 @@ class Rva001FFEE9
 {
 public:
 	Rva001FFEE9 &operator=(const Rva001FFEE9 &that);
-private:
 	char m_pad00[0x10];
-	int m_10;
-	UnicodeString m_14;
-	UnicodeString m_18;
-	char m_1C[4];
-	char m_pad20[8];
-	int m_28;
-	int m_2C;
-	unsigned char m_30;
+private:
+	int m_10; // +0x10
+	UnicodeString m_14; // +0x14
+	UnicodeString m_18; // +0x18
+	char m_1C[4]; // +0x1C
+	char m_pad20[0x8];
+	int m_28; // +0x28
+	int m_2C; // +0x2C
+	unsigned char m_30; // +0x30
+	char m_pad31[0x3];
 };
 
 // tu-skeleton: 0x001FF3AD 47B ?findScienceInfo@ScienceStore@@ABEPBVScienceInfo@@W4ScienceType@@@Z -- matched in Code/GameEngine/Source/Common/RTS/ScienceStoreFindScienceInfo.cpp (not merged yet)

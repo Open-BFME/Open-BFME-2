@@ -16,21 +16,40 @@ enum ScienceType
 	SCIENCE_INVALID = -1
 };
 
+class AsciiString;
+class UnicodeString;
+class ScienceInfo;
+class Player;
+class Rva0043D3A8;
+
 class NameKeyGenerator
 {
 public:
-	NameKeyType nameToKey(const char *name);
+    const AsciiString &keyToName(NameKeyType key);
+    NameKeyType nameToKey(const AsciiString &str);
+    NameKeyType nameToKey(const char *name);
 };
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 class ScienceStore
 {
+    const ScienceInfo *findScienceInfo(ScienceType st) const;
+    bool rva000E7C20SciencePrereqMemo(const Player *player, ScienceType st,
+        void *memo) const;
 public:
-	bool isValidScience(ScienceType st) const;
-	ScienceType friend_lookupScience(const char *scienceName) const;
+    bool isScienceGrantable(ScienceType st) const;
+    bool playerHasPrereqsForScience(const Rva0043D3A8 *holder, ScienceType science) const;
+    int getSciencePurchaseCost(ScienceType science) const;
+    bool rva001FF4D3(Rva0043D3A8 *holder, ScienceType science) const;
+    bool isValidScience(ScienceType st) const;
+    ScienceType friend_lookupScience(const char *scienceName) const;
+    AsciiString getInternalNameForScience(ScienceType science) const;
+    bool playerHasRootPrereqsForScience(const Player *player, ScienceType st) const;
+    bool getNameAndDescription(ScienceType st, UnicodeString &name,
+        UnicodeString &description) const;
+    ScienceType getScienceFromInternalName(const AsciiString &name) const;
 };
-
 struct INIException
 {
 	INIException(int argCount, const char *format, ...);

@@ -7,32 +7,8 @@
 // (proxy via rowed int ctor then pool pop to +0 returning this).
 #include "../../../../GameEngine/Include/Common/Rva002E8548Pool.h"
 
-namespace _STL
-{
-template <class _Tp> class allocator
-{
-};
-template <class _P, class _T, class _A> class _STLP_alloc_proxy
-{
-public:
-	_STLP_alloc_proxy(const _A &__a, _P __p);
-	_P _M_data;
-};
-template <class _K, class _V> struct pair
-{
-	_K first;
-	_V second;
-};
-template <class _Value, class _Alloc> struct _Rb_tree_base
-{
-	_Rb_tree_base(const _Alloc &__a);
-};
-}
-
-inline void *__cdecl operator new(unsigned int, void *__p)
-{
-	return __p;
-}
+// stlport
+#include <map>
 
 enum ScienceType
 {
@@ -42,13 +18,11 @@ enum ScienceType
 typedef _STL::pair<const ScienceType, bool> SciencePair;
 typedef _STL::allocator<SciencePair> ScienceAlloc;
 
-_STL::_Rb_tree_base<SciencePair, ScienceAlloc>::_Rb_tree_base(const ScienceAlloc &__a)
+template <>
+_STL::_Rb_tree_base<SciencePair, ScienceAlloc>::_Rb_tree_base(const ScienceAlloc &__a) :
+    _M_header(_STLP_CONVERT_ALLOCATOR(__a, _Node), (_Node *)0)
 {
-	(void)__a;
-	_STL::allocator<int> tmp;
-	_STL::_STLP_alloc_proxy<unsigned int, int, _STL::allocator<int> > *proxy =
-		(_STL::_STLP_alloc_proxy<unsigned int, int, _STL::allocator<int> > *)this;
-	__assume(proxy != 0);
-	new (proxy) _STL::_STLP_alloc_proxy<unsigned int, int, _STL::allocator<int> >(tmp, 0);
-	proxy->_M_data = (unsigned int)g_Va00DB9440.rva002EB448();
+    _M_header._M_data = (_Node *)g_Va00DB9440.rva002EB448();
 }
+
+template _STL::_Rb_tree_base<SciencePair, ScienceAlloc>::_Rb_tree_base(const ScienceAlloc &);
