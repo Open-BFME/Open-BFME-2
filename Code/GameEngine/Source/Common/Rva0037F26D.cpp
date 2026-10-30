@@ -4,24 +4,17 @@
 // ?rva0037F26D@UnitRevivalTracker@@QAEXXZ @0x0037F26D 14B
 // Evidence: adjacent UnitRevivalTracker methods and retail call of the full
 // member vector range to the rowed erase instantiation at 0x002E2690.
-namespace _STL
-{
-template <class T> class allocator;
-template <class T, class A = allocator<T> >
-class vector
-{
-public:
-    typedef T *iterator;
-    iterator erase(iterator first, iterator last);
-    void clear() { erase(_M_start, _M_finish); }
-private:
-    T *_M_start;
-    T *_M_finish;
-    T *_M_end_of_storage;
-};
-}
+#include <vector>
 
 struct Rva002E2690Element;
+
+// The real STLport vector replaces the private three-pointer view; erase stays
+// a declaration bound to the rowed 0x002E2690 provider, which clear() calls
+// over the whole member range.
+namespace _STL
+{
+template <> vector<Rva002E2690Element>::iterator vector<Rva002E2690Element>::erase(iterator, iterator);
+}
 
 class UnitRevivalTracker
 {
