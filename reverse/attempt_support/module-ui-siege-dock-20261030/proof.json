@@ -1,0 +1,460 @@
+{
+  "source": "Code/GameEngine/Source/GameClient/InGameUISiegeDeployTarget.cpp",
+  "scope": "partial Module-relative dock view: canonical8 plus observed gap08..1F and unchanged SiegeDockInterface at20; no complete module identity or interface implementation claim",
+  "variants": {
+    "before": {
+      "source_sha256": "d8ee666d44810e8f10547721b94a02322430dff53a7bcf915642d5544385ee1e",
+      "rows": [
+        {
+          "name": "?rva0029CC19@InGameUI@@QAE_NPBVObject@@@Z",
+          "rva": "0x0029CC19",
+          "size": "441",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?rva0029CC19@InGameUI@@QAE_NPBVObject@@@Z",
+          "rva": "0x00774B65",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b74b48",
+          "rva": "0x00774B48",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b74b50",
+          "rva": "0x00774B50",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "$L5025",
+          "rva": "0x00774B58",
+          "size": "13",
+          "exact": true
+        }
+      ],
+      "eh": [
+        {
+          "name": "?rva0029CC19@InGameUI@@QAE_NPBVObject@@@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        }
+      ]
+    },
+    "trial": {
+      "source_sha256": "b58963ac39ecc66cdff3858eac09d0628d1ed0c4f582d03789ca6cd8ca4479f8",
+      "rows": [
+        {
+          "name": "?rva0029CC19@InGameUI@@QAE_NPBVObject@@@Z",
+          "rva": "0x0029CC19",
+          "size": "441",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?rva0029CC19@InGameUI@@QAE_NPBVObject@@@Z",
+          "rva": "0x00774B65",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b74b48",
+          "rva": "0x00774B48",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b74b50",
+          "rva": "0x00774B50",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "$L5025",
+          "rva": "0x00774B58",
+          "size": "13",
+          "exact": true
+        }
+      ],
+      "eh": [
+        {
+          "name": "?rva0029CC19@InGameUI@@QAE_NPBVObject@@@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        }
+      ]
+    }
+  },
+  "all_external_code_and_symbolic_relocations_identical": true,
+  "all_retained_external_code_and_symbolic_relocations_identical": true,
+  "actual": {
+    "source_sha256": "ea741022250b9645286685a54b9d65af38d1f7e1781930ef2afc4b52bbf3f644",
+    "object_sha256": "6852de86bbdef31ace8b655314728cbf5f8339fcdc4fa26c56b844824f5a5daa",
+    "strict_current": true,
+    "external_code_definitions_and_relocations_identical": 10
+  },
+  "external_definition_sha256": {
+    "??0?$_List_iterator@PAVDrawable@@U?$_Const_traits@PAVDrawable@@@_STL@@@_STL@@QAE@PAU?$_List_node@PAVDrawable@@@1@@Z": "83f17d904484444f3320847b3384fdb7e8027ccaed7dccdc74a39c84d51485d5",
+    "??0AsciiString@@QAE@PBD@Z": "59040a0cd1b71d7436c9407fe338f4582312037d9c6c4662a6ec15191c48f704",
+    "??0_List_iterator_base@_STL@@QAE@PAU_List_node_base@1@@Z": "83f17d904484444f3320847b3384fdb7e8027ccaed7dccdc74a39c84d51485d5",
+    "??1AsciiString@@QAE@XZ": "815f3a6781bf2eba8e6e1b895564b6e3dc016ae58637181fbd815a1e3cfe433e",
+    "??D?$_List_iterator@PAVDrawable@@U?$_Const_traits@PAVDrawable@@@_STL@@@_STL@@QBEABQAVDrawable@@XZ": "5a2c26e55181aada1ad3b8ca770f17776c62ae48eee440eb9efeb6f7a855c462",
+    "??E?$_List_iterator@PAVDrawable@@U?$_Const_traits@PAVDrawable@@@_STL@@@_STL@@QAEAAU01@XZ": "c594e90468c34b1e11f88ab6ad0d1ff456f2942aea1f50a8d4c91fe8b2acb653",
+    "?_M_incr@_List_iterator_base@_STL@@QAEXXZ": "a47512a000a9cbc5ca3e9762fc3f42bf9cdb8d3dcd72bafc36df58d16436de52",
+    "?begin@?$list@PAVDrawable@@V?$allocator@PAVDrawable@@@_STL@@@_STL@@QBE?AU?$_List_iterator@PAVDrawable@@U?$_Const_traits@PAVDrawable@@@_STL@@@2@XZ": "43c3467948fc2ec5afc3668c7b363eec474a0c0bae597ff00aafd41802b434cf",
+    "?end@?$list@PAVDrawable@@V?$allocator@PAVDrawable@@@_STL@@@_STL@@QBE?AU?$_List_iterator@PAVDrawable@@U?$_Const_traits@PAVDrawable@@@_STL@@@2@XZ": "a1d3445d557ad8dd455bd8a07171a4b13c3335b13cb2026fb9c426daab70e856",
+    "?rva0029CC19@InGameUI@@QAE_NPBVObject@@@Z": "4391f88c12f4b35e0ec2c8c271429dc70f1b68d5718689a82a69c82c1e438740"
+  },
+  "native_helpers": [
+    {
+      "rva": "0x28b6d6",
+      "size": 43,
+      "raw": "568bb1440200005733ffeb0e8b01ff50103b44240c740b83c6048b0e85c975eceb028b3e8bc75f5ec20400",
+      "instructions": [
+        {
+          "rva": "0x28b6d6",
+          "mnemonic": "push",
+          "operands": "esi"
+        },
+        {
+          "rva": "0x28b6d7",
+          "mnemonic": "mov",
+          "operands": "esi, dword ptr [ecx + 0x244]"
+        },
+        {
+          "rva": "0x28b6dd",
+          "mnemonic": "push",
+          "operands": "edi"
+        },
+        {
+          "rva": "0x28b6de",
+          "mnemonic": "xor",
+          "operands": "edi, edi"
+        },
+        {
+          "rva": "0x28b6e0",
+          "mnemonic": "jmp",
+          "operands": "0x28b6f0"
+        },
+        {
+          "rva": "0x28b6e2",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [ecx]"
+        },
+        {
+          "rva": "0x28b6e4",
+          "mnemonic": "call",
+          "operands": "dword ptr [eax + 0x10]"
+        },
+        {
+          "rva": "0x28b6e7",
+          "mnemonic": "cmp",
+          "operands": "eax, dword ptr [esp + 0xc]"
+        },
+        {
+          "rva": "0x28b6eb",
+          "mnemonic": "je",
+          "operands": "0x28b6f8"
+        },
+        {
+          "rva": "0x28b6ed",
+          "mnemonic": "add",
+          "operands": "esi, 4"
+        },
+        {
+          "rva": "0x28b6f0",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [esi]"
+        },
+        {
+          "rva": "0x28b6f2",
+          "mnemonic": "test",
+          "operands": "ecx, ecx"
+        },
+        {
+          "rva": "0x28b6f4",
+          "mnemonic": "jne",
+          "operands": "0x28b6e2"
+        },
+        {
+          "rva": "0x28b6f6",
+          "mnemonic": "jmp",
+          "operands": "0x28b6fa"
+        },
+        {
+          "rva": "0x28b6f8",
+          "mnemonic": "mov",
+          "operands": "edi, dword ptr [esi]"
+        },
+        {
+          "rva": "0x28b6fa",
+          "mnemonic": "mov",
+          "operands": "eax, edi"
+        },
+        {
+          "rva": "0x28b6fc",
+          "mnemonic": "pop",
+          "operands": "edi"
+        },
+        {
+          "rva": "0x28b6fd",
+          "mnemonic": "pop",
+          "operands": "esi"
+        },
+        {
+          "rva": "0x28b6fe",
+          "mnemonic": "ret",
+          "operands": "4"
+        }
+      ]
+    }
+  ],
+  "native_caller_access": [
+    {
+      "rva": "0x29cd7f",
+      "raw": "e852e9feff",
+      "mnemonic": "call",
+      "operands": "0x28b6d6"
+    },
+    {
+      "rva": "0x29cd8e",
+      "raw": "8d4820",
+      "mnemonic": "lea",
+      "operands": "ecx, [eax + 0x20]"
+    },
+    {
+      "rva": "0x29cd95",
+      "raw": "ff5004",
+      "mnemonic": "call",
+      "operands": "dword ptr [eax + 4]"
+    }
+  ],
+  "runtime_invariant": {
+    "all_nondebug_sections_and_relocations_identical": true,
+    "coff_index_normalization": ".sxdata symbol-table indices resolved to SafeSEH handler names; indices are object metadata, not image addresses",
+    "all_loadable_definitions_identical": true,
+    "undefined_names_identical": true,
+    "new_vtables_or_thunks": false,
+    "definitions": {
+      "??0AsciiString@@QAE@PBD@Z": {
+        "raw": "56ff7424088bf1e8000000008bc65ec20400",
+        "relocations": [
+          [
+            8,
+            20,
+            "??0?$StringBase@D@@AAE@PBD@Z"
+          ]
+        ]
+      },
+      "??1AsciiString@@QAE@XZ": {
+        "raw": "e900000000",
+        "relocations": [
+          [
+            1,
+            20,
+            "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+          ]
+        ]
+      },
+      "??0_List_iterator_base@_STL@@QAE@PAU_List_node_base@1@@Z": {
+        "raw": "8bc18b4c24048908c20400",
+        "relocations": []
+      },
+      "?_M_incr@_List_iterator_base@_STL@@QAEXXZ": {
+        "raw": "8b018b008901c3",
+        "relocations": []
+      },
+      "??D?$_List_iterator@PAVDrawable@@U?$_Const_traits@PAVDrawable@@@_STL@@@_STL@@QBEABQAVDrawable@@XZ": {
+        "raw": "8b0183c008c3",
+        "relocations": []
+      },
+      "??E?$_List_iterator@PAVDrawable@@U?$_Const_traits@PAVDrawable@@@_STL@@@_STL@@QAEAAU01@XZ": {
+        "raw": "8bc18b088b098908c3",
+        "relocations": []
+      },
+      "??0?$_List_iterator@PAVDrawable@@U?$_Const_traits@PAVDrawable@@@_STL@@@_STL@@QAE@PAU?$_List_node@PAVDrawable@@@1@@Z": {
+        "raw": "8bc18b4c24048908c20400",
+        "relocations": []
+      },
+      "?begin@?$list@PAVDrawable@@V?$allocator@PAVDrawable@@@_STL@@@_STL@@QBE?AU?$_List_iterator@PAVDrawable@@U?$_Const_traits@PAVDrawable@@@_STL@@@2@XZ": {
+        "raw": "8b018b088b4424048908c20400",
+        "relocations": []
+      },
+      "?end@?$list@PAVDrawable@@V?$allocator@PAVDrawable@@@_STL@@@_STL@@QBE?AU?$_List_iterator@PAVDrawable@@U?$_Const_traits@PAVDrawable@@@_STL@@@2@XZ": {
+        "raw": "8b098b4424048908c20400",
+        "relocations": []
+      },
+      "?rva0029CC19@InGameUI@@QAE_NPBVObject@@@Z": {
+        "raw": "b800000000e80000000083ec188b450885c0741e8b4004f6800f0100001074128b0d000000008b01ff901801000085c0750732c0e96e0100008b0d000000008b01535657ff90240100008bc88b018b183bd8894de80f84470100008b43088bb0fc00000085f60f842c01000083be74020000000f851f0100008b4604f6801901000008742568000000008d4df0e8000000008b0d000000008365fc008d45f050e8000000008d4df0eb2668000000008d4dece8000000008b0d000000008d45ec50c745fc01000000e8000000008d4dec834dfcff8bf8e80000000085ff0f84b20000008b4604f68013010000200f84a20000006a3b8bcee80000000084c00f8591000000578bcee80000000084c00f8481000000568bcfe80000000084c0747583be58020000000f8488000000f60500000000017527830d00000000018b0d000000006800000000c745fc02000000e800000000834dfcffa300000000ff35000000008b4d08e80000000085c074268b56748d7ddc8d48208b015752ff500484c074328b8e580200008bc750e80000000084c075208b4de88b1b3b190f85b9feffff32c05f5e5b8b4df464890d00000000c9c20400b001ebeb",
+        "relocations": [
+          [
+            1,
+            6,
+            "__ehhandler$?rva0029CC19@InGameUI@@QAE_NPBVObject@@@Z"
+          ],
+          [
+            6,
+            20,
+            "__EH_prolog"
+          ],
+          [
+            34,
+            6,
+            "?TheInGameUI@@3PAVInGameUI@@A"
+          ],
+          [
+            59,
+            6,
+            "?TheInGameUI@@3PAVInGameUI@@A"
+          ],
+          [
+            134,
+            6,
+            "??_C@_0CI@LFGMOBLK@Command_SpecialAbilitySiegeLadde@"
+          ],
+          [
+            142,
+            20,
+            "??0?$StringBase@D@@AAE@PBD@Z"
+          ],
+          [
+            148,
+            6,
+            "?TheControlBar@@3PAVControlBar@@A"
+          ],
+          [
+            161,
+            20,
+            "?findCommandButton@ControlBar@@QAEPBVCommandButton@@ABVAsciiString@@@Z"
+          ],
+          [
+            171,
+            6,
+            "??_C@_0CC@NLGJDDBG@Command_SpecialAbilitySiegeDeplo@"
+          ],
+          [
+            179,
+            20,
+            "??0?$StringBase@D@@AAE@PBD@Z"
+          ],
+          [
+            185,
+            6,
+            "?TheControlBar@@3PAVControlBar@@A"
+          ],
+          [
+            201,
+            20,
+            "?findCommandButton@ControlBar@@QAEPBVCommandButton@@ABVAsciiString@@@Z"
+          ],
+          [
+            215,
+            20,
+            "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+          ],
+          [
+            248,
+            20,
+            "?testStatus@Object@@QBE_NW4ObjectStatusTypes@@@Z"
+          ],
+          [
+            264,
+            20,
+            "?rva002922D9@Object@@QAE_NPBVCommandButton@@@Z"
+          ],
+          [
+            280,
+            20,
+            "?isReady@CommandButton@@QBE_NPBVObject@@@Z"
+          ],
+          [
+            303,
+            6,
+            "?$S1@?BB@??rva0029CC19@InGameUI@@QAE_NPBVObject@@@Z@4IA"
+          ],
+          [
+            312,
+            6,
+            "?$S1@?BB@??rva0029CC19@InGameUI@@QAE_NPBVObject@@@Z@4IA"
+          ],
+          [
+            319,
+            6,
+            "?TheNameKeyGenerator@@3PAVNameKeyGenerator@@A"
+          ],
+          [
+            324,
+            6,
+            "??_C@_0BF@HFENPCFN@SiegeDockingBehavior?$AA@"
+          ],
+          [
+            336,
+            20,
+            "?nameToKey@NameKeyGenerator@@QAE?AW4NameKeyType@@PBD@Z"
+          ],
+          [
+            345,
+            6,
+            "?key@?BB@??rva0029CC19@InGameUI@@QAE_NPBVObject@@@Z@4W4NameKeyType@@A"
+          ],
+          [
+            351,
+            6,
+            "?key@?BB@??rva0029CC19@InGameUI@@QAE_NPBVObject@@@Z@4W4NameKeyType@@A"
+          ],
+          [
+            359,
+            20,
+            "?findModule@Object@@IBEPAVModule@@W4NameKeyType@@@Z"
+          ],
+          [
+            397,
+            20,
+            "?isQuickPathAvailable@AIUpdateInterface@@QBE_NPBUCoord3D@@@Z"
+          ],
+          [
+            429,
+            6,
+            "__except_list"
+          ]
+        ]
+      },
+      "??_C@_0BF@HFENPCFN@SiegeDockingBehavior?$AA@": {
+        "raw": "5369656765446f636b696e674265686176696f7200",
+        "relocations": []
+      },
+      "??_C@_0CC@NLGJDDBG@Command_SpecialAbilitySiegeDeplo@": {
+        "raw": "436f6d6d616e645f5370656369616c4162696c69747953696567654465706c6f7900",
+        "relocations": []
+      },
+      "??_C@_0CI@LFGMOBLK@Command_SpecialAbilitySiegeLadde@": {
+        "raw": "436f6d6d616e645f5370656369616c4162696c69747953696567654c61646465724465706c6f7900",
+        "relocations": []
+      }
+    },
+    "undefined": [
+      "??0?$StringBase@D@@AAE@PBD@Z",
+      "?TheControlBar@@3PAVControlBar@@A",
+      "?TheInGameUI@@3PAVInGameUI@@A",
+      "?TheNameKeyGenerator@@3PAVNameKeyGenerator@@A",
+      "?findCommandButton@ControlBar@@QAEPBVCommandButton@@ABVAsciiString@@@Z",
+      "?findModule@Object@@IBEPAVModule@@W4NameKeyType@@@Z",
+      "?isQuickPathAvailable@AIUpdateInterface@@QBE_NPBUCoord3D@@@Z",
+      "?isReady@CommandButton@@QBE_NPBVObject@@@Z",
+      "?nameToKey@NameKeyGenerator@@QAE?AW4NameKeyType@@PBD@Z",
+      "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+      "?rva002922D9@Object@@QAE_NPBVCommandButton@@@Z",
+      "?testStatus@Object@@QBE_NW4ObjectStatusTypes@@@Z",
+      "__EH_prolog",
+      "___CxxFrameHandler",
+      "__except_list"
+    ],
+    "nondebug_section_sha256": "a6ef556a0e13ba09d2776e99e8f546779ff624fef1a02e4b0d0d91ec5a7fc06e"
+  }
+}

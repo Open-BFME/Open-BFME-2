@@ -1,0 +1,383 @@
+{
+  "source": "Code/GameEngine/Source/GameClient/DrawableHealthBarGate.cpp",
+  "scope": "partial Module-relative primary storage: canonical8 plus gap08..23 before unchanged UpgradeMux at24; preserve real lookup owner and do not claim complete derived hierarchy",
+  "variants": {
+    "before": {
+      "source_sha256": "950b909c6c17577a81a06e6295051d406469ca481e69e33070e54063729bf777",
+      "rows": [
+        {
+          "name": "?rva0027601B@Rva0027601BHost@@QAEXXZ",
+          "rva": "0x0027601B",
+          "size": "472",
+          "exact": true
+        }
+      ],
+      "eh": []
+    },
+    "trial": {
+      "source_sha256": "09a1c0d2215f9773e29ff741d576257ce1214afb27b8ae68293b02938a96a29a",
+      "rows": [
+        {
+          "name": "?rva0027601B@Rva0027601BHost@@QAEXXZ",
+          "rva": "0x0027601B",
+          "size": "472",
+          "exact": true
+        }
+      ],
+      "eh": []
+    }
+  },
+  "all_external_code_and_symbolic_relocations_identical": true,
+  "all_retained_external_code_and_symbolic_relocations_identical": true,
+  "actual": {
+    "source_sha256": "7171e4e7f4ae7799a5e579fab5476632201509db904381754142718db36edd86",
+    "object_sha256": "bbf84505f6abce483bb84858ccd8463a606ef68b9f9d7dac8e7bf0ae960a553a",
+    "strict_current": true,
+    "external_code_definitions_and_relocations_identical": 11
+  },
+  "external_definition_sha256": {
+    "?bfme_is_selected_nz@Drawable@@QBE_NXZ": "71b487d02565ea17bc783c65cbd6a3e898e993af4aa394c106cecb016243896d",
+    "?getBodyModule@Object@@QBEPAVBodyModuleInterface@@XZ": "69c2d96206db4897163b8c338750ed96f4c2bafd9e6ede19eb00f60681e0ab39",
+    "?getContainedBy@Object@@QBEPAV1@XZ": "da20066b1df5819d10c42c651e3addd016c886e2f5774a249f642aacab141bf2",
+    "?getDefaultTeam@Player@@QBEPAVTeam@@XZ": "a747056a4e21fb337320e8d362c515a33809b3bb1622fba334a38cd5a820cba3",
+    "?getID@Drawable@@QBE?AW4DrawableID@@XZ": "a0ccff81c72c985fc2c0e97feb942a8cf5dbed742972719aa097c5a2f4368e69",
+    "?getLocalPlayer@PlayerList@@QBEPAVPlayer@@XZ": "374194b4575e5b0d97f57a2e42835a27e284508ac2b3ad325fa863eb63e259eb",
+    "?getObject@Drawable@@QBEPAVObject@@XZ": "1cf927442ee15b00a4538f10649b1d3ac136ae2e00c029902e150a645e5d4d70",
+    "?getTeam@Object@@QBEPAVTeam@@XZ": "aa8f2ac418cad594788e601f7d9252560d857bdc296031d5c8f2faaa9d56ac7a",
+    "?getTemplate@Object@@QBEPBVThingTemplate@@XZ": "50ec2995c3ef0d616ddbe247f0c0e4bea2bca9396923d38b6adc97efe1a58f1c",
+    "?isKindOf@ThingTemplate@@QBEIH@Z": "9e73681d77a53b88025130b39750604df02747479a9d983f850b56e9033c3923",
+    "?rva0027601B@Rva0027601BHost@@QAEXXZ": "db3968eba54d3b72eebdc15a19aceb4114f89997afb7ab37e7e295a6c85c963d"
+  },
+  "native_helpers": [
+    {
+      "rva": "0x4ab1f5",
+      "size": 81,
+      "raw": "b808e2b800e889df1700f605c83ce000017524830dc83ce000018b0da436df008365fc0068304fbf00e8f7dbc9ff834dfcffa3c43ce000ff35c43ce0008b4d08e89c04deff8b4df464890d00000000c9c3",
+      "instructions": [
+        {
+          "rva": "0x4ab1f5",
+          "mnemonic": "mov",
+          "operands": "eax, 0xb8e208"
+        },
+        {
+          "rva": "0x4ab1fa",
+          "mnemonic": "call",
+          "operands": "0x629188"
+        },
+        {
+          "rva": "0x4ab1ff",
+          "mnemonic": "test",
+          "operands": "byte ptr [0xe03cc8], 1"
+        },
+        {
+          "rva": "0x4ab206",
+          "mnemonic": "jne",
+          "operands": "0x4ab22c"
+        },
+        {
+          "rva": "0x4ab208",
+          "mnemonic": "or",
+          "operands": "dword ptr [0xe03cc8], 1"
+        },
+        {
+          "rva": "0x4ab20f",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [0xdf36a4]"
+        },
+        {
+          "rva": "0x4ab215",
+          "mnemonic": "and",
+          "operands": "dword ptr [ebp - 4], 0"
+        },
+        {
+          "rva": "0x4ab219",
+          "mnemonic": "push",
+          "operands": "0xbf4f30"
+        },
+        {
+          "rva": "0x4ab21e",
+          "mnemonic": "call",
+          "operands": "0x148e1a"
+        },
+        {
+          "rva": "0x4ab223",
+          "mnemonic": "or",
+          "operands": "dword ptr [ebp - 4], 0xffffffff"
+        },
+        {
+          "rva": "0x4ab227",
+          "mnemonic": "mov",
+          "operands": "dword ptr [0xe03cc4], eax"
+        },
+        {
+          "rva": "0x4ab22c",
+          "mnemonic": "push",
+          "operands": "dword ptr [0xe03cc4]"
+        },
+        {
+          "rva": "0x4ab232",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [ebp + 8]"
+        },
+        {
+          "rva": "0x4ab235",
+          "mnemonic": "call",
+          "operands": "0x28b6d6"
+        },
+        {
+          "rva": "0x4ab23a",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [ebp - 0xc]"
+        },
+        {
+          "rva": "0x4ab23d",
+          "mnemonic": "mov",
+          "operands": "dword ptr fs:[0], ecx"
+        },
+        {
+          "rva": "0x4ab244",
+          "mnemonic": "leave",
+          "operands": ""
+        },
+        {
+          "rva": "0x4ab245",
+          "mnemonic": "ret",
+          "operands": ""
+        }
+      ]
+    },
+    {
+      "rva": "0x28b6d6",
+      "size": 43,
+      "raw": "568bb1440200005733ffeb0e8b01ff50103b44240c740b83c6048b0e85c975eceb028b3e8bc75f5ec20400",
+      "instructions": [
+        {
+          "rva": "0x28b6d6",
+          "mnemonic": "push",
+          "operands": "esi"
+        },
+        {
+          "rva": "0x28b6d7",
+          "mnemonic": "mov",
+          "operands": "esi, dword ptr [ecx + 0x244]"
+        },
+        {
+          "rva": "0x28b6dd",
+          "mnemonic": "push",
+          "operands": "edi"
+        },
+        {
+          "rva": "0x28b6de",
+          "mnemonic": "xor",
+          "operands": "edi, edi"
+        },
+        {
+          "rva": "0x28b6e0",
+          "mnemonic": "jmp",
+          "operands": "0x28b6f0"
+        },
+        {
+          "rva": "0x28b6e2",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [ecx]"
+        },
+        {
+          "rva": "0x28b6e4",
+          "mnemonic": "call",
+          "operands": "dword ptr [eax + 0x10]"
+        },
+        {
+          "rva": "0x28b6e7",
+          "mnemonic": "cmp",
+          "operands": "eax, dword ptr [esp + 0xc]"
+        },
+        {
+          "rva": "0x28b6eb",
+          "mnemonic": "je",
+          "operands": "0x28b6f8"
+        },
+        {
+          "rva": "0x28b6ed",
+          "mnemonic": "add",
+          "operands": "esi, 4"
+        },
+        {
+          "rva": "0x28b6f0",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [esi]"
+        },
+        {
+          "rva": "0x28b6f2",
+          "mnemonic": "test",
+          "operands": "ecx, ecx"
+        },
+        {
+          "rva": "0x28b6f4",
+          "mnemonic": "jne",
+          "operands": "0x28b6e2"
+        },
+        {
+          "rva": "0x28b6f6",
+          "mnemonic": "jmp",
+          "operands": "0x28b6fa"
+        },
+        {
+          "rva": "0x28b6f8",
+          "mnemonic": "mov",
+          "operands": "edi, dword ptr [esi]"
+        },
+        {
+          "rva": "0x28b6fa",
+          "mnemonic": "mov",
+          "operands": "eax, edi"
+        },
+        {
+          "rva": "0x28b6fc",
+          "mnemonic": "pop",
+          "operands": "edi"
+        },
+        {
+          "rva": "0x28b6fd",
+          "mnemonic": "pop",
+          "operands": "esi"
+        },
+        {
+          "rva": "0x28b6fe",
+          "mnemonic": "ret",
+          "operands": "4"
+        }
+      ]
+    }
+  ],
+  "native_caller_access": [
+    {
+      "rva": "0x27614a",
+      "raw": "e8a6502300",
+      "mnemonic": "call",
+      "operands": "0x4ab1f5"
+    },
+    {
+      "rva": "0x276154",
+      "raw": "8d4824",
+      "mnemonic": "lea",
+      "operands": "ecx, [eax + 0x24]"
+    }
+  ],
+  "runtime_invariant": {
+    "all_nondebug_sections_and_relocations_identical": true,
+    "coff_index_normalization": ".sxdata symbol-table indices resolved to SafeSEH handler names; indices are object metadata, not image addresses",
+    "all_loadable_definitions_identical": true,
+    "undefined_names_identical": true,
+    "new_vtables_or_thunks": false,
+    "definitions": {
+      "?isKindOf@ThingTemplate@@QBEIH@Z": {
+        "raw": "8b542404568bf133c08bca4083e11fd3e0c1fa05238496080100005ec20400",
+        "relocations": []
+      },
+      "?getDefaultTeam@Player@@QBEPAVTeam@@XZ": {
+        "raw": "8b81ec020000c3",
+        "relocations": []
+      },
+      "?getLocalPlayer@PlayerList@@QBEPAVPlayer@@XZ": {
+        "raw": "8b4110c3",
+        "relocations": []
+      },
+      "?getTemplate@Object@@QBEPBVThingTemplate@@XZ": {
+        "raw": "8b4104c3",
+        "relocations": []
+      },
+      "?getBodyModule@Object@@QBEPAVBodyModuleInterface@@XZ": {
+        "raw": "8b8154020000c3",
+        "relocations": []
+      },
+      "?getContainedBy@Object@@QBEPAV1@XZ": {
+        "raw": "8b8174020000c3",
+        "relocations": []
+      },
+      "?getTeam@Object@@QBEPAVTeam@@XZ": {
+        "raw": "8b8104030000c3",
+        "relocations": []
+      },
+      "?getID@Drawable@@QBE?AW4DrawableID@@XZ": {
+        "raw": "8b8100010000c3",
+        "relocations": []
+      },
+      "?getObject@Drawable@@QBEPAVObject@@XZ": {
+        "raw": "8b81fc000000c3",
+        "relocations": []
+      },
+      "?bfme_is_selected_nz@Drawable@@QBE_NXZ": {
+        "raw": "33c038813c0400000f95c0c3",
+        "relocations": []
+      },
+      "?rva0027601B@Rva0027601BHost@@QAEXXZ": {
+        "raw": "558bec83ec14a10000000080b8bd09000000578bf9897df40f84b701000080bf3c04000000560f95c084c075568b87fc00000085c074288b887402000085c9741e8b4104f68015010000207412e80000000085c0740980b83c0400000075248b0d0000000085c90f84670100008b018bb700010000ff90740100003bc60f85510100008bb7fc00000085f60f8443010000538bcee80000000084c07437a1000000008b781085ff8b9e04030000742585db74218bcfe80000000084c07416ffb7ec0200008bcbe80000000083f8020f85ff0000008b4604f6801301000004bb00040000753c8b8808010000f6c50c7531f6800e01000080752884c9782485981c010000751c8b150000000080babe090000000f84bb000000f6c5030f84b2000000bf0000400085b818010000741a56e80000000085c059740f8d48248b01ff1084c00f848b0000008b46048b880c010000f7c100000020740885981c010000747285cf756ef68019010000017565f6801501000020755c8bb6540200008b068bceff5018d95df8d9eed945f8dfe9ddd89ff6c4447b3d8b068365ec008365f0008bceff5010d95dfcd9eed945fcdfe9ddd89ff6c4447b1cf30f1045fcf30f5e45f8518b4df48d45ecf30f11042450e8000000005b5e5fc9c3",
+        "relocations": [
+          [
+            7,
+            6,
+            "?TheWritableGlobalData@@3PAVGlobalData@@A"
+          ],
+          [
+            78,
+            20,
+            "?getDrawable@Object@@QBEPAVDrawable@@XZ"
+          ],
+          [
+            97,
+            6,
+            "?TheInGameUI@@3PAVInGameUI@@A"
+          ],
+          [
+            149,
+            20,
+            "?rva0028F518@Object@@QAE_NXZ"
+          ],
+          [
+            158,
+            6,
+            "?ThePlayerList@@3PAVPlayerList@@A"
+          ],
+          [
+            182,
+            20,
+            "?isPlayerActive@Player@@QBE_NXZ"
+          ],
+          [
+            199,
+            20,
+            "?getRelationship@Team@@QBE?AW4Relationship@@PBV1@@Z"
+          ],
+          [
+            263,
+            6,
+            "?TheWritableGlobalData@@3PAVGlobalData@@A"
+          ],
+          [
+            304,
+            20,
+            "?rva004AB1F5@WallUpgradeUpdate@@SAPAVModule@@PAVObject@@@Z"
+          ],
+          [
+            463,
+            20,
+            "?rva0027411F@Drawable@@QAEXPAXM@Z"
+          ]
+        ]
+      }
+    },
+    "undefined": [
+      "?TheInGameUI@@3PAVInGameUI@@A",
+      "?ThePlayerList@@3PAVPlayerList@@A",
+      "?TheWritableGlobalData@@3PAVGlobalData@@A",
+      "?getDrawable@Object@@QBEPAVDrawable@@XZ",
+      "?getRelationship@Team@@QBE?AW4Relationship@@PBV1@@Z",
+      "?isPlayerActive@Player@@QBE_NXZ",
+      "?rva0027411F@Drawable@@QAEXPAXM@Z",
+      "?rva0028F518@Object@@QAE_NXZ",
+      "?rva004AB1F5@WallUpgradeUpdate@@SAPAVModule@@PAVObject@@@Z",
+      "__fltused"
+    ],
+    "nondebug_section_sha256": "8e083b846ec571d022de49d69ef831869746213cf517a7cc0cf607612972bf85"
+  }
+}

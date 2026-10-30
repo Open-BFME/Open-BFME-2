@@ -138,13 +138,13 @@ private:
 	Team *m_team; // +0x304
 };
 
-class Module
+#include "../../Include/Common/Module.h"
+
+// Partial primary storage preceding the native module+0x24 interface.
+class Rva0027601BModuleStorage : public Module
 {
 public:
-	virtual void slot00();
-
-private:
-	char m_pad004[0x24 - 4];
+    char m_pad08[0x24 - 0x08];
 };
 
 class UpgradeMux
@@ -153,7 +153,7 @@ public:
 	virtual Bool isUpgradeActive() const; // +0x24 subobject slot 0
 };
 
-class WallUpgradeUpdate : public Module, public UpgradeMux
+class WallUpgradeUpdate : public Rva0027601BModuleStorage, public UpgradeMux
 {
 public:
 	static Module *rva004AB1F5(Object *obj);

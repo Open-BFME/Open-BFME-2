@@ -273,7 +273,15 @@ class NameKeyGenerator { public: NameKeyType nameToKey(const char*); };
 extern NameKeyGenerator *TheNameKeyGenerator;
 class AIUpdateInterface { public: bool isQuickPathAvailable(const Coord3D*) const; };
 class SiegeDockInterface { public: virtual void slot0(); virtual bool slot1(ObjectID,Coord3D*); };
-class Module { public: char prefix[0x20]; SiegeDockInterface dock; };
+#include "../../Include/Common/Module.h"
+
+// Partial storage view: the native dock receiver is module+0x20.
+class Rva0029CC19ModuleView : public Module
+{
+public:
+    char prefix08[0x20 - 0x08];
+    SiegeDockInterface dock;
+};
 static __forceinline bool rva0029CC19Applies(const Object *target) {
  return target && (target->m_template->kind10c&0x10000000) && TheInGameUI->getSelectCount();
 }
@@ -295,7 +303,7 @@ bool InGameUI::rva0029CC19(const Object *target) {
    Coord3D location;
    Coord3D *pos=&location;
    ObjectID id=object->id;
-   if(!module->dock.slot1(id,pos) || object->ai->isQuickPathAvailable(pos))return true;
+   if(!((Rva0029CC19ModuleView *)module)->dock.slot1(id,pos) || object->ai->isQuickPathAvailable(pos))return true;
   }
  }
  return false;
