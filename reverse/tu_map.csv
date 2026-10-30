@@ -14865,7 +14865,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0020F774,8,code,Code/Libraries/Source/WWVegas/WWLib/LivingWorldRegionManager.cpp,proposed,C,C=0x0020F3E8..0x0020F77C noncontiguous,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp
 0x0020F77C,25,code,Code/Libraries/Source/WWVegas/WWLib/LivingWorldRegionManager.cpp,proposed,C,C=0x0020F3E8..0x0020F795 noncontiguous,Code/GameEngine/Source/Common/Rva0020F77CPush.cpp
 0x0020F795,157,code,Code/Libraries/Source/WWVegas/WWLib/LivingWorldRegionManager.cpp,proposed,C,C=0x0020F3E8..0x0020F832 noncontiguous,Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp
-0x0020F832,235,code,Code/Libraries/Source/WWVegas/WWLib/LivingWorldRegionManager.cpp,proposed,C,C=0x0020F3E8..0x0020F91D noncontiguous,Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva0020EE29Rva0020F832.cpp
+0x0020F832,235,code,Code/Libraries/Source/WWVegas/WWLib/LivingWorldRegionManager.cpp,proposed,C,C=0x0020F3E8..0x0020F91D noncontiguous,Code/Libraries/Source/WWVegas/WWLib/LivingWorldRegionManager.cpp
 0x0020F91D,217,code,Code/Libraries/Source/WWVegas/WWLib/LivingWorldRegionManager.cpp,proposed,C,C=0x0020F3E8..0x0020F9F6 noncontiguous,Code/Libraries/Source/WWVegas/WW3D2/Rva002BF4F3.cpp
 0x0020F9F6,190,code,Code/Libraries/Source/WWVegas/WWLib/LivingWorldRegionManager.cpp,proposed,C,C=0x0020F3E8..0x0020FAB4 noncontiguous,Code/GameEngine/Source/GameLogic/LivingWorld/LivingWorldCandidateRaySearch.cpp
 0x0020FAB4,54,code,Code/Libraries/Source/WWVegas/WWLib/LivingWorldRegionManager.cpp,proposed,C,C=0x0020F3E8..0x0020FAEA noncontiguous,Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp
@@ -67732,8 +67732,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0076D57C,8,code,Code/Libraries/Source/WWVegas/WWLib/LivingWorldRegionManager.cpp,approved,P,P=0x0020F712@FuncInfo0x0091302C p-group provisional,Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp
 0x0076D584,25,code,Code/Libraries/Source/WWVegas/WWLib/LivingWorldRegionManager.cpp,approved,P,P=0x0020F712@FuncInfo0x0091302C p-group provisional,Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp
 0x0076D59D,10,code,Code/Libraries/Source/WWVegas/WWLib/LivingWorldRegionManager.cpp,approved,P,P=0x0020F712@FuncInfo0x0091302C p-group provisional,Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp
-0x0076D5A7,8,code,Code/Libraries/Source/WWVegas/WWLib/LivingWorldRegionManager.cpp,approved,P,P=0x0020F832@FuncInfo0x00913050 p-group provisional,Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva0020EE29Rva0020F832.cpp
-0x0076D5AF,10,code,Code/Libraries/Source/WWVegas/WWLib/LivingWorldRegionManager.cpp,approved,P,P=0x0020F832@FuncInfo0x00913050 p-group provisional,Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva0020EE29Rva0020F832.cpp
+0x0076D5A7,8,code,Code/Libraries/Source/WWVegas/WWLib/LivingWorldRegionManager.cpp,approved,P,P=0x0020F832@FuncInfo0x00913050 p-group provisional,Code/Libraries/Source/WWVegas/WWLib/LivingWorldRegionManager.cpp
+0x0076D5AF,10,code,Code/Libraries/Source/WWVegas/WWLib/LivingWorldRegionManager.cpp,approved,P,P=0x0020F832@FuncInfo0x00913050 p-group provisional,Code/Libraries/Source/WWVegas/WWLib/LivingWorldRegionManager.cpp
 0x0076D5B9,8,code,Code/Libraries/Source/WWVegas/WWLib/LivingWorldRegionManager.cpp,approved,P,P=0x0020F91D@FuncInfo0x00913084 p-group provisional,Code/Libraries/Source/WWVegas/WW3D2/Rva002BF4F3.cpp
 0x0076D5C1,8,code,Code/Libraries/Source/WWVegas/WWLib/LivingWorldRegionManager.cpp,approved,P,P=0x0020F91D@FuncInfo0x00913084 p-group provisional,Code/Libraries/Source/WWVegas/WW3D2/Rva002BF4F3.cpp
 0x0076D5C9,10,code,Code/Libraries/Source/WWVegas/WWLib/LivingWorldRegionManager.cpp,approved,P,P=0x0020F91D@FuncInfo0x00913084 p-group provisional,Code/Libraries/Source/WWVegas/WW3D2/Rva002BF4F3.cpp
