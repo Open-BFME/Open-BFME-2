@@ -8133,7 +8133,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00109C27,60,code,Code/GameEngine/Source/Common/BfmeSub928F.cpp,proposed,C,C=0x00109BEB..0x00109C63 noncontiguous,Code/GameEngine/Source/Common/Rva00109C27Ctor.cpp
 0x00109C63,28,code,Code/GameEngine/Source/Common/BfmeSub928F.cpp,proposed,C,C=0x00109BEB..0x00109C7F noncontiguous,Code/GameEngine/Source/Common/Rva00109C7FDtor.cpp
 0x00109C7F,54,code,Code/GameEngine/Source/Common/BfmeSub928F.cpp,proposed,C,C=0x00109BEB..0x00109CB5 noncontiguous,Code/GameEngine/Source/Common/Rva00109C7FDtor.cpp
-0x00109CB5,72,code,Code/GameEngine/Source/Common/BfmeSub928F.cpp,proposed,C,C=0x00109BEB..0x00109CFD noncontiguous,Code/GameEngine/Source/Common/Rva00109CB5Add.cpp
+0x00109CB5,72,code,Code/GameEngine/Source/Common/BfmeSub928F.cpp,proposed,C,C=0x00109BEB..0x00109CFD noncontiguous,Code/GameEngine/Source/Common/BfmeSub928F.cpp
 0x00109CFD,61,code,Code/GameEngine/Source/Common/BfmeSub928F.cpp,proposed,C,C=0x00109BEB..0x00109D3A noncontiguous,Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp
 0x00109D3A,37,code,Code/GameEngine/Source/Common/BfmeSub928F.cpp,proposed,U,N=Code/GameEngine/Source/Main/WinMainTitlePair.cpp noncontiguous,Code/GameEngine/Source/Main/WinMainPairUnicode.cpp
 0x00109D5F,5,code,Code/GameEngine/Source/Common/BfmeSub928F.cpp,proposed,C,C=0x00109D3A..0x00109D64 noncontiguous,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/Rva00109D5FInit.cpp
@@ -64498,8 +64498,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007645CD,10,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp,approved,P,P=0x0010930F@FuncInfo0x009086AC,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowUpdateTexture.cpp
 0x007645D7,8,code,,,-,,Code/GameEngine/Source/Common/Rva00109C27Ctor.cpp
 0x007645DF,10,code,,,-,,Code/GameEngine/Source/Common/Rva00109C27Ctor.cpp
-0x007645E9,10,code,Code/GameEngine/Source/Common/BfmeSub928F.cpp,approved,P,P=0x00109CB5@FuncInfo0x009086F4 p-group provisional,Code/GameEngine/Source/Common/Rva00109CB5Add.cpp
-0x007645F3,10,code,Code/GameEngine/Source/Common/BfmeSub928F.cpp,approved,P,P=0x00109CB5@FuncInfo0x009086F4 p-group provisional,Code/GameEngine/Source/Common/Rva00109CB5Add.cpp
+0x007645E9,10,code,Code/GameEngine/Source/Common/BfmeSub928F.cpp,approved,P,P=0x00109CB5@FuncInfo0x009086F4 p-group provisional,Code/GameEngine/Source/Common/BfmeSub928F.cpp
+0x007645F3,10,code,Code/GameEngine/Source/Common/BfmeSub928F.cpp,approved,P,P=0x00109CB5@FuncInfo0x009086F4 p-group provisional,Code/GameEngine/Source/Common/BfmeSub928F.cpp
 0x007645FD,8,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp,approved,P,P=0x00109E11@FuncInfo0x00908798,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowManagerFlushDecals.cpp
 0x00764605,8,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp,approved,P,P=0x00109E11@FuncInfo0x00908798,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowManagerFlushDecals.cpp
 0x0076460D,8,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp,approved,P,P=0x00109E11@FuncInfo0x00908798,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowManagerFlushDecals.cpp

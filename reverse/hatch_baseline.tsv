@@ -12193,6 +12193,7 @@ present_unmatched	Code/GameEngine/Source/Common/BfmeOwnVVD.cpp	bfmeSlot0VVD@Bfme
 present_unmatched	Code/GameEngine/Source/Common/BfmeRefVGOCopyDtor.cpp	1Rva006D07E0Key@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/BfmeRefVGOCopyDtor.cpp	1Rva008A2BA0Handle@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/BfmeStringRecord00426A5B.cpp	rva004266A1@Rva004266A1@@QAE_NH@Z	1
+present_unmatched	Code/GameEngine/Source/Common/BfmeSub928F.cpp	1Rva00109C27@@UAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/BfmeThingRE.cpp	Rva007EA0A0Owner::forwardSentinel	1
 present_unmatched	Code/GameEngine/Source/Common/BfmeTwoHundredOne.cpp	BfmeThingGH::bfmeSetGH	1
 present_unmatched	Code/GameEngine/Source/Common/BfmeTwoHundredOne.cpp	BfmeThingGL::bfmeReleaseGL	1
@@ -12405,7 +12406,6 @@ present_unmatched	Code/GameEngine/Source/Common/Rva000AF917Finish.cpp	WorldHeigh
 present_unmatched	Code/GameEngine/Source/Common/Rva000AF917Finish.cpp	makeNrmTextureName@@	1
 present_unmatched	Code/GameEngine/Source/Common/Rva000AF917Finish.cpp	readTiles@WorldHeightMap@@SA_NPAVInputStream@@0PAPAVTileData@@H@Z	1
 present_unmatched	Code/GameEngine/Source/Common/Rva00108AD8Finish.cpp	Is_Done@HashTableIteratorClass@@QAE_NXZ	1
-present_unmatched	Code/GameEngine/Source/Common/Rva00109CB5Add.cpp	1Rva00109C27@@UAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/Rva00111A05Finish.cpp	TileData::rva00111A05	1
 present_unmatched	Code/GameEngine/Source/Common/Rva0014F699Assign.cpp	1Rva00BC6F24Base@@UAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/Rva0014F699Assign.cpp	_bfmeRva0014F699Anchor	1
