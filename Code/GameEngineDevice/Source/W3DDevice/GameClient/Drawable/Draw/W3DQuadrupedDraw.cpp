@@ -129,15 +129,35 @@ protected:
 };
 }
 
+struct Gen_p12pod;
+
 class Rva000CA1EEVector : public _STL::vector<Coord3D> {
 public:
  void fillInsert(Coord3D*,unsigned int,const Coord3D&);
  void insertFill(Coord3D*,unsigned int,const Coord3D&);
 };
 
+namespace _STL {
+template <> vector<Gen_p12pod>::iterator
+vector<Gen_p12pod>::erase(iterator first, iterator last);
+
+void vector<Coord3D>::resize(size_type n, Coord3D value) {
+	Coord3D *start = _M_start;
+	Coord3D *finish = _M_finish;
+	const size_type size = (size_type)(finish - start);
+	if (n < size) {
+		((vector<Gen_p12pod> *)this)->erase((Gen_p12pod *)(start + n), (Gen_p12pod *)finish);
+	} else {
+		((Rva000CA1EEVector *)this)->fillInsert(_M_finish, n - (size_type)(_M_finish - start), value);
+	}
+}
+}
+
 // tu-skeleton: 0x000CA089 27B ?buildFieldParse@W3DQuadrupedDrawModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawModuleDataBuildFieldParseChained.cpp (not merged yet)
 
 // tu-skeleton: 0x000CA0A4 42B ??0W3DQuadrupedDraw@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DQuadrupedDrawCtor.cpp (not merged yet)
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DQuadrupedDraw.cpp
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DQuadrupedDrawPoolKey.cpp
 
@@ -148,22 +168,6 @@ NameKeyType W3DQuadrupedDraw::getModuleNameKey() const
 		TheNameKeyGenerator->nameToKey("W3DQuadrupedDraw");
 	return TheW3DQuadrupedDrawPoolKey;
 }
-
-// tu-skeleton: 0x000CA113 6B ?name@Rva000CA113Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/W3DDrawNameGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x000CA119 25B ??1Rva000CA119@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva000C79C9Derived.cpp (not merged yet)
-
-// tu-skeleton: 0x000CA132 5B ?rva000CA132@Rva000CA132@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp (not merged yet)
-
-// tu-skeleton: 0x000CA137 27B ?xfer@W3DQuadrupedDraw@@MAEXPAVXfer@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawBfmeXfers.cpp (not merged yet)
-
-// tu-skeleton: 0x000CA152 5B ?Rva000CA152@@YAXPAVRva000C19C3@@PAXPB_N@Z -- matched in Code/GameEngine/Source/Common/Rva000C32C7Callback.cpp (not merged yet)
-
-// tu-skeleton: 0x000CA157 48B ??$__copy@PBUBfmeE12@@PAU1@H@_STL@@YAPAUBfmeE12@@PBU1@0PAU1@ABUrandom_access_iterator_tag@0@PAH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_e12_o1.cpp (not merged yet)
-
-// tu-skeleton: 0x000CA187 48B ??$__copy_backward@PAUBfmeE12@@PAU1@H@_STL@@YAPAUBfmeE12@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_e12_o1.cpp (not merged yet)
-
-// tu-skeleton: 0x000CA1B7 28B ??_GRva000CA119@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva000C79C9Derived.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Coord3DUninitializedFillNWrapper.cpp
 
@@ -238,7 +242,32 @@ void Rva000CA1EEVector::insertFill(
 	fillInsert(position, count, value);
 }
 
-// tu-skeleton: 0x000CA2F3 73B ?resize@?$vector@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@QAEXIUCoord3D@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Coord3DVectorResizeValue.cpp (not merged yet)
+// tu-skeleton: 0x000CA113 6B ?name@Rva000CA113Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/W3DDrawNameGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x000CA119 25B ??1Rva000CA119@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva000C79C9Derived.cpp (not merged yet)
+
+// tu-skeleton: 0x000CA132 5B ?rva000CA132@Rva000CA132@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp (not merged yet)
+
+// tu-skeleton: 0x000CA137 27B ?xfer@W3DQuadrupedDraw@@MAEXPAVXfer@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawBfmeXfers.cpp (not merged yet)
+
+// tu-skeleton: 0x000CA152 5B ?Rva000CA152@@YAXPAVRva000C19C3@@PAXPB_N@Z -- matched in Code/GameEngine/Source/Common/Rva000C32C7Callback.cpp (not merged yet)
+
+// tu-skeleton: 0x000CA157 48B ??$__copy@PBUBfmeE12@@PAU1@H@_STL@@YAPAUBfmeE12@@PBU1@0PAU1@ABUrandom_access_iterator_tag@0@PAH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_e12_o1.cpp (not merged yet)
+
+// tu-skeleton: 0x000CA187 48B ??$__copy_backward@PAUBfmeE12@@PAU1@H@_STL@@YAPAUBfmeE12@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_e12_o1.cpp (not merged yet)
+
+// tu-skeleton: 0x000CA1B7 28B ??_GRva000CA119@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva000C79C9Derived.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Coord3DVectorResizeValue.cpp
+
+// Retail evidence: 0x000CA2F3 is the 73-byte vector<Coord3D> two-argument
+// resize body. Its identity is supported by the rowed one-argument forwarder
+// at 0x000CA33C and the direct DockUpdate call. The body calls rowed 12-byte
+// range erase 0x002A133B and the rowed fill insertion at 0x000CA1EE decoded
+// from its REL32; both are called by their row names (the Coord3D erase name
+// rows the distinct body at 0x00081A24). Coord3D uses the existing three-float
+// codegen view; the body proves stride and calls, not the target's complete
+// source layout.
 
 // tu-skeleton: 0x000CA33C 22B ?resize@?$vector@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@QAEXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Coord3DVectorDefaultResizeThunk.cpp (not merged yet)
 
