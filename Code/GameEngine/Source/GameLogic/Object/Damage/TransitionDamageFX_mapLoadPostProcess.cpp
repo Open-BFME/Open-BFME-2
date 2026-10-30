@@ -19,6 +19,9 @@
 #include "Common/PartitionRangeQueryCallView.h"
 #include <string.h>
 #include <vector>
+// Use the existing string-vector destructor instead of emitting this unit's
+// conflicting buffer-base destructor and its unused cleanup helpers.
+namespace _STL {template <> vector<AsciiString, allocator<AsciiString> >::~vector();}
 class Matrix3D;class ObjectCreationList;class Dict;
 // Bind the append to the rowed vector<Rva004BA1D0>::push_back instead of
 // emitting this unit's own copy of the header's inline growth path.

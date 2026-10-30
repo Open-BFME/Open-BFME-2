@@ -1,0 +1,321 @@
+{
+  "source": "Code/GameEngine/Source/GameLogic/Object/Damage/TransitionDamageFX_mapLoadPostProcess.cpp",
+  "base": "080799847f",
+  "before_comdats": {
+    "??1AsciiString@@QAE@XZ": {
+      "digest": "d08bf29c9c2b",
+      "size": 5
+    },
+    "?getID@Object@@QBEIXZ": {
+      "digest": "5a0f2e8d4d05",
+      "size": 4
+    },
+    "??1Rva000421C8@@UAE@XZ": {
+      "digest": "d3bc83dcfec7",
+      "size": 7
+    },
+    "??_7Rva000421C8@@6B@": {
+      "digest": "a744882bafaf",
+      "size": 12
+    },
+    "?getPlayerMask@Rva000421C8@@UAEHXZ": {
+      "digest": "c60a64f68b82",
+      "size": 4
+    },
+    "??_GRva000421C8@@UAEPAXI@Z": {
+      "digest": "e99a253b610c",
+      "size": 29
+    },
+    "??1Rva003959FA@@UAE@XZ": {
+      "digest": "d3bc83dcfec7",
+      "size": 7
+    },
+    "?getTransitionDamageFXModuleData@TransitionDamageFX@@QBEPBUTransitionDamageFXModuleDataView@@XZ": {
+      "digest": "78e4fbf1d9d9",
+      "size": 4
+    },
+    "?begin@?$vector@VRva004BA1D0@@V?$allocator@VRva004BA1D0@@@_STL@@@_STL@@QBEPBVRva004BA1D0@@XZ": {
+      "digest": "afd9af583299",
+      "size": 3
+    },
+    "?end@?$vector@VRva004BA1D0@@V?$allocator@VRva004BA1D0@@@_STL@@@_STL@@QBEPBVRva004BA1D0@@XZ": {
+      "digest": "78e4fbf1d9d9",
+      "size": 4
+    },
+    "?empty@?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QBE_NXZ": {
+      "digest": "f214478bc20d",
+      "size": 11
+    },
+    "??1?$allocator@VAsciiString@@@_STL@@QAE@XZ": {
+      "digest": "8bf7b464aaa2",
+      "size": 1
+    },
+    "?deallocate@?$allocator@VAsciiString@@@_STL@@QBEXPAVAsciiString@@I@Z": {
+      "digest": "4df37f3f7ad2",
+      "size": 21
+    },
+    "??$__stl_alloc_rebind@VAsciiString@@V1@@_STL@@YAAAV?$allocator@VAsciiString@@@0@AAV10@PBVAsciiString@@@Z": {
+      "digest": "341dc3ec187f",
+      "size": 5
+    },
+    "??_GAsciiString@@QAEPAXI@Z": {
+      "digest": "3f5cf7c81575",
+      "size": 28
+    },
+    "??1?$_STLP_alloc_proxy@PAVAsciiString@@V1@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@XZ": {
+      "digest": "8bf7b464aaa2",
+      "size": 1
+    },
+    "?deallocate@?$_STLP_alloc_proxy@PAVAsciiString@@V1@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAEXPAVAsciiString@@I@Z": {
+      "digest": "4df37f3f7ad2",
+      "size": 21
+    },
+    "??$_Destroy@VAsciiString@@@_STL@@YAXPAVAsciiString@@@Z": {
+      "digest": "89c54a683dba",
+      "size": 9
+    },
+    "??1?$_Vector_base@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@XZ": {
+      "digest": "55cd40c9bbc8",
+      "size": 15
+    },
+    "??$__destroy_aux@PAVAsciiString@@@_STL@@YAXPAVAsciiString@@0ABU__false_type@0@@Z": {
+      "digest": "2f4f400e17b2",
+      "size": 25
+    },
+    "??$__destroy@PAVAsciiString@@V1@@_STL@@YAXPAVAsciiString@@00@Z": {
+      "digest": "2f4f400e17b2",
+      "size": 25
+    },
+    "??$_Destroy@PAVAsciiString@@@_STL@@YAXPAVAsciiString@@0@Z": {
+      "digest": "2f4f400e17b2",
+      "size": 25
+    },
+    "??1?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@XZ": {
+      "digest": "408785d92785",
+      "size": 57
+    },
+    "??1Rva004BA1D0@@QAE@XZ": {
+      "digest": "49d558d20201",
+      "size": 8
+    },
+    "?mapLoadPostProcess@TransitionDamageFX@@UAEXPBVDict@@@Z": {
+      "digest": "0d396a9f458e",
+      "size": 321
+    },
+    "__real@46ea6000": {
+      "digest": "0aa2b2d08794",
+      "size": 4
+    }
+  },
+  "after_comdats": {
+    "?getID@Object@@QBEIXZ": {
+      "digest": "5a0f2e8d4d05",
+      "size": 4
+    },
+    "??1Rva000421C8@@UAE@XZ": {
+      "digest": "d3bc83dcfec7",
+      "size": 7
+    },
+    "??_7Rva000421C8@@6B@": {
+      "digest": "a744882bafaf",
+      "size": 12
+    },
+    "?getPlayerMask@Rva000421C8@@UAEHXZ": {
+      "digest": "c60a64f68b82",
+      "size": 4
+    },
+    "??_GRva000421C8@@UAEPAXI@Z": {
+      "digest": "e99a253b610c",
+      "size": 29
+    },
+    "??1Rva003959FA@@UAE@XZ": {
+      "digest": "d3bc83dcfec7",
+      "size": 7
+    },
+    "?getTransitionDamageFXModuleData@TransitionDamageFX@@QBEPBUTransitionDamageFXModuleDataView@@XZ": {
+      "digest": "78e4fbf1d9d9",
+      "size": 4
+    },
+    "??1Rva004BA1D0@@QAE@XZ": {
+      "digest": "49d558d20201",
+      "size": 8
+    },
+    "?empty@?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QBE_NXZ": {
+      "digest": "f214478bc20d",
+      "size": 11
+    },
+    "?begin@?$vector@VRva004BA1D0@@V?$allocator@VRva004BA1D0@@@_STL@@@_STL@@QBEPBVRva004BA1D0@@XZ": {
+      "digest": "afd9af583299",
+      "size": 3
+    },
+    "?end@?$vector@VRva004BA1D0@@V?$allocator@VRva004BA1D0@@@_STL@@@_STL@@QBEPBVRva004BA1D0@@XZ": {
+      "digest": "78e4fbf1d9d9",
+      "size": 4
+    },
+    "?mapLoadPostProcess@TransitionDamageFX@@UAEXPBVDict@@@Z": {
+      "digest": "0d396a9f458e",
+      "size": 321
+    },
+    "__real@46ea6000": {
+      "digest": "0aa2b2d08794",
+      "size": 4
+    }
+  },
+  "unchanged_comdats": [
+    "??1Rva000421C8@@UAE@XZ",
+    "??1Rva003959FA@@UAE@XZ",
+    "??1Rva004BA1D0@@QAE@XZ",
+    "??_7Rva000421C8@@6B@",
+    "??_GRva000421C8@@UAEPAXI@Z",
+    "?begin@?$vector@VRva004BA1D0@@V?$allocator@VRva004BA1D0@@@_STL@@@_STL@@QBEPBVRva004BA1D0@@XZ",
+    "?empty@?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QBE_NXZ",
+    "?end@?$vector@VRva004BA1D0@@V?$allocator@VRva004BA1D0@@@_STL@@@_STL@@QBEPBVRva004BA1D0@@XZ",
+    "?getID@Object@@QBEIXZ",
+    "?getPlayerMask@Rva000421C8@@UAEHXZ",
+    "?getTransitionDamageFXModuleData@TransitionDamageFX@@QBEPBUTransitionDamageFXModuleDataView@@XZ",
+    "?mapLoadPostProcess@TransitionDamageFX@@UAEXPBVDict@@@Z",
+    "__real@46ea6000"
+  ],
+  "changed_comdats": [],
+  "removed_comdats": [
+    "??$_Destroy@PAVAsciiString@@@_STL@@YAXPAVAsciiString@@0@Z",
+    "??$_Destroy@VAsciiString@@@_STL@@YAXPAVAsciiString@@@Z",
+    "??$__destroy@PAVAsciiString@@V1@@_STL@@YAXPAVAsciiString@@00@Z",
+    "??$__destroy_aux@PAVAsciiString@@@_STL@@YAXPAVAsciiString@@0ABU__false_type@0@@Z",
+    "??$__stl_alloc_rebind@VAsciiString@@V1@@_STL@@YAAAV?$allocator@VAsciiString@@@0@AAV10@PBVAsciiString@@@Z",
+    "??1?$_STLP_alloc_proxy@PAVAsciiString@@V1@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@XZ",
+    "??1?$_Vector_base@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@XZ",
+    "??1?$allocator@VAsciiString@@@_STL@@QAE@XZ",
+    "??1?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@XZ",
+    "??1AsciiString@@QAE@XZ",
+    "??_GAsciiString@@QAEPAXI@Z",
+    "?deallocate@?$_STLP_alloc_proxy@PAVAsciiString@@V1@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAEXPAVAsciiString@@I@Z",
+    "?deallocate@?$allocator@VAsciiString@@@_STL@@QBEXPAVAsciiString@@I@Z"
+  ],
+  "added_comdats": [],
+  "definitions_removed": [
+    "??$_Destroy@PAVAsciiString@@@_STL@@YAXPAVAsciiString@@0@Z",
+    "??$_Destroy@VAsciiString@@@_STL@@YAXPAVAsciiString@@@Z",
+    "??$__destroy@PAVAsciiString@@V1@@_STL@@YAXPAVAsciiString@@00@Z",
+    "??$__destroy_aux@PAVAsciiString@@@_STL@@YAXPAVAsciiString@@0ABU__false_type@0@@Z",
+    "??$__stl_alloc_rebind@VAsciiString@@V1@@_STL@@YAAAV?$allocator@VAsciiString@@@0@AAV10@PBVAsciiString@@@Z",
+    "??1?$_STLP_alloc_proxy@PAVAsciiString@@V1@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@XZ",
+    "??1?$_Vector_base@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@XZ",
+    "??1?$allocator@VAsciiString@@@_STL@@QAE@XZ",
+    "??1?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@XZ",
+    "??1AsciiString@@QAE@XZ",
+    "??_GAsciiString@@QAEPAXI@Z",
+    "?deallocate@?$_STLP_alloc_proxy@PAVAsciiString@@V1@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAEXPAVAsciiString@@I@Z",
+    "?deallocate@?$allocator@VAsciiString@@@_STL@@QBEXPAVAsciiString@@I@Z"
+  ],
+  "definitions_added": [],
+  "undefined_removed": [
+    "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+    "__imp__free"
+  ],
+  "undefined_added": [
+    "??1?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@XZ"
+  ],
+  "weak_before": [
+    [
+      "??_ERva000421C8@@UAEPAXI@Z",
+      "??_GRva000421C8@@UAEPAXI@Z"
+    ]
+  ],
+  "weak_after": [
+    [
+      "??_ERva000421C8@@UAEPAXI@Z",
+      "??_GRva000421C8@@UAEPAXI@Z"
+    ]
+  ],
+  "removed_provider_census_check": [
+    {
+      "name": "??$_Destroy@PAVAsciiString@@@_STL@@YAXPAVAsciiString@@0@Z",
+      "other_census_copies": 48,
+      "first_census_holder": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^stl^sweep^w5^rva0002^c^b64.obj",
+      "removed_unit_first": false
+    },
+    {
+      "name": "??$_Destroy@VAsciiString@@@_STL@@YAXPAVAsciiString@@@Z",
+      "other_census_copies": 76,
+      "first_census_holder": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_rb_tree_hint_asciistring_set.obj",
+      "removed_unit_first": false
+    },
+    {
+      "name": "??$__destroy@PAVAsciiString@@V1@@_STL@@YAXPAVAsciiString@@00@Z",
+      "other_census_copies": 47,
+      "first_census_holder": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^stlport^ascii^string^vector^dtor.obj",
+      "removed_unit_first": false
+    },
+    {
+      "name": "??$__destroy_aux@PAVAsciiString@@@_STL@@YAXPAVAsciiString@@0ABU__false_type@0@@Z",
+      "other_census_copies": 47,
+      "first_census_holder": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^stlport^ascii^string^vector^dtor.obj",
+      "removed_unit_first": false
+    },
+    {
+      "name": "??$__stl_alloc_rebind@VAsciiString@@V1@@_STL@@YAAAV?$allocator@VAsciiString@@@0@AAV10@PBVAsciiString@@@Z",
+      "other_census_copies": 54,
+      "first_census_holder": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^stlport^ascii^string^vector^dtor.obj",
+      "removed_unit_first": false
+    },
+    {
+      "name": "??1?$_STLP_alloc_proxy@PAVAsciiString@@V1@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@XZ",
+      "other_census_copies": 99,
+      "first_census_holder": "^code_^game^engine_^source_^common_^i^n^i_^i^n^i.obj",
+      "removed_unit_first": false
+    },
+    {
+      "name": "??1?$_Vector_base@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@XZ",
+      "other_census_copies": 48,
+      "first_census_holder": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^stlport^ascii^string^vector^dtor.obj",
+      "removed_unit_first": false
+    },
+    {
+      "name": "??1?$allocator@VAsciiString@@@_STL@@QAE@XZ",
+      "other_census_copies": 131,
+      "first_census_holder": "^code_^game^engine_^source_^common_^i^n^i_^i^n^i.obj",
+      "removed_unit_first": false
+    },
+    {
+      "name": "??1?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@XZ",
+      "other_census_copies": 40,
+      "first_census_holder": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^stlport^ascii^string^vector^dtor.obj",
+      "removed_unit_first": false
+    },
+    {
+      "name": "??1AsciiString@@QAE@XZ",
+      "other_census_copies": 2493,
+      "first_census_holder": "^code_^game^engine_^source_^main_^win^main.obj",
+      "removed_unit_first": false
+    },
+    {
+      "name": "??_GAsciiString@@QAEPAXI@Z",
+      "other_census_copies": 102,
+      "first_census_holder": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_rb_tree_hint_asciistring_set.obj",
+      "removed_unit_first": false
+    },
+    {
+      "name": "?deallocate@?$_STLP_alloc_proxy@PAVAsciiString@@V1@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAEXPAVAsciiString@@I@Z",
+      "other_census_copies": 51,
+      "first_census_holder": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^stlport^ascii^string^vector^dtor.obj",
+      "removed_unit_first": false
+    },
+    {
+      "name": "?deallocate@?$allocator@VAsciiString@@@_STL@@QBEXPAVAsciiString@@I@Z",
+      "other_census_copies": 51,
+      "first_census_holder": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^stlport^ascii^string^vector^dtor.obj",
+      "removed_unit_first": false
+    }
+  ],
+  "checks": {
+    "strict_rows": 36,
+    "strict_sources": 3,
+    "eh_exact": 1,
+    "preview_index": "6fe1089c24",
+    "preview_index_date": "2026-10-30 04:25",
+    "paired_preview_sources": 3,
+    "paired_preview_bytes": 1546,
+    "batch_audit": "INCONCLUSIVE: older baseline and missing current Common/AIBuildable.cpp consumer receipt"
+  }
+}
