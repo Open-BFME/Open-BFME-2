@@ -1,0 +1,11 @@
+{
+  "compared_comdats": 7,
+  "normalized_renames": {
+    "??0?$auto_ptr@URva004E72C0@@@_STL@@QAE@AAU01@@Z": "??0?$auto_ptr@URva004E72C0@@@_STL@@QAE@AAV01@@Z",
+    "?rva004E74A0@Rva004E7392@@UBE?AU?$auto_ptr@URva004E72C0@@@_STL@@XZ": "?rva004E74A0@Rva004E7392@@UBE?AV?$auto_ptr@URva004E72C0@@@_STL@@XZ"
+  },
+  "body_digests_and_sizes_equal": true,
+  "undefined_equal": true,
+  "weak_equal": true,
+  "scope": "COFF facts only; link_check is a prediction against the saved census, not a new census"
+}

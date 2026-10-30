@@ -1,0 +1,51 @@
+{
+  "source": "Code/GameEngine/Source/Common/Rva004E74A0Clone.cpp",
+  "object_sha256": "d7c018ceb2e44c42a76b38736e58128cbbf7970620c55b45eda146995ff5afcc",
+  "comdats": {
+    "?__set@__ptr_base@_STL@@QAEXPAX@Z": [
+      "ae33e3a295a5",
+      9
+    ],
+    "??0?$auto_ptr@URva004E72C0@@@_STL@@QAE@PAURva004E72C0@@@Z": [
+      "431f5c99fd6f",
+      11
+    ],
+    "?get@?$auto_ptr@URva004E72C0@@@_STL@@QBEPAURva004E72C0@@XZ": [
+      "afd9af583299",
+      3
+    ],
+    "??1?$auto_ptr@URva004E72C0@@@_STL@@QAE@XZ": [
+      "19a70eebf8ed",
+      13
+    ],
+    "?release@?$auto_ptr@URva004E72C0@@@_STL@@QAEPAURva004E72C0@@XZ": [
+      "17017c3109db",
+      6
+    ],
+    "??0?$auto_ptr@URva004E72C0@@@_STL@@QAE@AAV01@@Z": [
+      "b7cb11bf6b31",
+      16
+    ],
+    "?rva004E74A0@Rva004E7392@@UBE?AV?$auto_ptr@URva004E72C0@@@_STL@@XZ": [
+      "b9f2bf4b5e07",
+      64
+    ]
+  },
+  "definitions": [
+    "??0?$auto_ptr@URva004E72C0@@@_STL@@QAE@AAV01@@Z",
+    "??0?$auto_ptr@URva004E72C0@@@_STL@@QAE@PAURva004E72C0@@@Z",
+    "??1?$auto_ptr@URva004E72C0@@@_STL@@QAE@XZ",
+    "?__set@__ptr_base@_STL@@QAEXPAX@Z",
+    "?get@?$auto_ptr@URva004E72C0@@@_STL@@QBEPAURva004E72C0@@XZ",
+    "?release@?$auto_ptr@URva004E72C0@@@_STL@@QAEPAURva004E72C0@@XZ",
+    "?rva004E74A0@Rva004E7392@@UBE?AV?$auto_ptr@URva004E72C0@@@_STL@@XZ"
+  ],
+  "undefined": [
+    "??0Rva004E7392@@QAE@ABU0@@Z",
+    "??2@YAPAXI@Z",
+    "__EH_prolog",
+    "___CxxFrameHandler",
+    "__except_list"
+  ],
+  "weak": []
+}
