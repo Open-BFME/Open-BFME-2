@@ -59,23 +59,11 @@ private:
 	GetNextFunc m_getNextFunc;
 };
 
-class Team
-{
-public:
-	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
-
-private:
-	unsigned char m_pad00[0x08];
-	unsigned int m_id;
-	unsigned char m_pad0C[0x30 - 0x0C];
-	void *m_proto;
-	unsigned char m_pad34[0x38 - 0x34];
-	Object *m_head;
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 inline DLINK_ITERATOR<Object> Team::iterate_TeamMemberList() const
 {
-	return DLINK_ITERATOR<Object>(m_head, &Object::dlink_next_TeamMemberList);
+	return DLINK_ITERATOR<Object>(m_dlinkhead_TeamMemberList, &Object::dlink_next_TeamMemberList);
 }
 
 // Header inlines that the units including the header emit as select-any
