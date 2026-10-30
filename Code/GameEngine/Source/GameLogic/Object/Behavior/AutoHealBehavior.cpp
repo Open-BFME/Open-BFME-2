@@ -32,6 +32,7 @@
 
 
 // INCLUDES ///////////////////////////////////////////////////////////////////////////////////////
+#define __XFER_H_
 #include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
 #include <list>
 
@@ -46,7 +47,24 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 #include "Common/ThingTemplate.h"
 #include "Common/INI.h"
 #include "Common/Player.h"
-#include "Common/Xfer.h"
+class AsciiString;
+class UnicodeString;
+class PooledString;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+
+#include "../../../../Include/Common/BfmeXfer.h"
 #include "GameClient/ParticleSys.h"
 #include "GameClient/Anim2D.h"
 #include "GameClient/InGameUI.h"
