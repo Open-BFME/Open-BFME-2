@@ -75,8 +75,13 @@ private:
 	bool m_upgradeExecuted;
 };
 
+enum NameKeyType;
+
 class RadiateFearUpdate : public UpdateModule
 {
+public:
+	virtual NameKeyType getModuleNameKey() const;
+
 protected:
 	virtual void xfer(Xfer *xfer);
 

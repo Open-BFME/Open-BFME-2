@@ -41,10 +41,53 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class RadiateFearUpdate
+// Match the transfer unit's native primary base and +0x20 UpgradeMux
+// member. Module supplies getModuleNameKey's slot 4; the transfer at
+// 0x0049C195 calls UpdateModule::xfer and the member at +0x20.
+class Thing;
+class ModuleData;
+class Object;
+#include "../../../../Include/Common/ObjectModule.h"
+
+class BehaviorModuleInterface { public: virtual void behaviorSlot(); };
+class UpdateModuleInterface { public: virtual void updateSlot(); };
+
+class UpdateModule : public ObjectModule,
+	public BehaviorModuleInterface, public UpdateModuleInterface
+{
+public:
+	UpdateModule(Thing *thing, const ModuleData *data);
+	virtual ~UpdateModule();
+	void xfer(Xfer *xfer);
+
+private:
+	unsigned int m_nextCallFrameAndPhase;
+	int m_indexInLogic;
+	int m_updateState;
+};
+
+class RadiateFearUpdate;
+
+class UpgradeMux
+{
+	friend class RadiateFearUpdate;
+protected:
+	virtual void upgradeMuxXfer(Xfer *xfer);
+
+private:
+	bool m_upgradeExecuted;
+};
+
+class RadiateFearUpdate : public UpdateModule
 {
 public:
 	virtual NameKeyType getModuleNameKey() const;
+
+protected:
+	virtual void xfer(Xfer *xfer);
+
+private:
+	UpgradeMux m_20;
 };
 
 template <int N> class BitFlags;

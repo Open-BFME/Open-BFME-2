@@ -13499,6 +13499,7 @@ published at `acab09b4e1`: all six rows and 151 bytes are preserved in the
 approved TU, the two obsolete lifetime views are removed, and their claims
 are released. The earlier dry-run view above is retained as history; the
 native constructor-table and complete EH evidence are in its existing handoff.
+
 ### LINK-155: ParticleSystem's base clause and FXParticleSystem's nested views block ParticleSys.cpp (2026-10-30)
 
 Packet 15 (ParticleSystem) reached its first step only. 441f51de64 gives
@@ -13540,3 +13541,21 @@ premise no longer holds at this master. Next step: a canonical
 `Include/GameClient/ParticleSys.h` (ZH path) carrying `ParticleSystem` and
 the FXParticleSystem nested types, adopted by the seed and the donors, plus
 a shared declaration for the manager's system list.
+
+### RadiateFearUpdate: transfer view reconciled; three donors remain (2026-10-30)
+
+The destination's getter-only declaration and the transfer donor now share
+the existing ObjectModule-based UpdateModule view and getModuleNameKey
+declaration. Eight rows byte-match, two EH graphs are EXACT, and the two
+objects preserve their original external COMDAT bodies and symbol records.
+Strict current-provider preparation passes; the link preview preserves
+269 bytes against the 2026-10-30 10:11 index at 12b9e7a7c0. This is a
+scoped preview, not a census gain. ObjectModule header acceptance passes.
+The staged batch audit is INCONCLUSIVE because the index predates HEAD and
+affected consumer Common/0CreateAHeroManager21FE49.cpp lacks a current receipt;
+carry that consumer and the providers into the next scheduled census.
+The supported merge dry run now accepts the 61-byte transfer donor into the
+approved provisional TU. Constructor/update donors still have incompatible
+module views; the module-data destructor donor changes bytes in composition.
+Keep those donors, mixed files and the generated constructor funclet separate.
+[Evidence and remaining boundary](../reverse/attempt_support/radiatefear-consolidation-20261030-codex.md).
