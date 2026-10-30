@@ -223,7 +223,7 @@ class UpgradeCenter {public:const UpgradeTemplate*rva0026EEA0(int)const;};
 
 extern UpgradeCenter*TheUpgradeCenter;
 
-class LinearCampaign {public:void onCurrentMissionWon();char p0[0x10];int value10;_STL::vector<ScienceType>sciences;Bits1024 upgrades;float valueA0;_STL::vector<BfmePod172>units;char pB0[4];_STL::vector<BfmeAssignRecord172>used;bool won;};
+class LinearCampaign {public:void onCurrentMissionWon();void beginCampaign();char p0[0x10];int value10;_STL::vector<ScienceType>sciences;Bits1024 upgrades;float valueA0;_STL::vector<BfmePod172>units;char pB0[4];_STL::vector<BfmeAssignRecord172>used;bool won;};
 
 class Rva001EC349
 {
