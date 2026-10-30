@@ -6,46 +6,43 @@
 // ret 8 with an unused second slot: the Player, as in WorldBuilder's
 // signature; caller 0x001EC8C0 and the callers in PlayerNewMapBFME2.cpp and
 // ScriptActions_livingWorldRegion.cpp pass one.
-// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
-// overload takes the call instead, so this TU emits no external max COMDAT.
-namespace _STL {
-static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
-{
-    return a < b ? b : a;
-}
-}
+class Xfer;
 #include <vector>
 
 class Player;
 
 // The record is the rowed UnitRevivalEntry (copy ctor 0x002E134C); the
-// address-derived name is only a view. Forward to the real body so _Construct
-// binds the canonical symbol instead of an undefined address-named twin.
-class UnitRevivalEntry { public: UnitRevivalEntry(const UnitRevivalEntry &); };
-struct Rva002E2D10Record
+// address-derived name is only the parameter's view. The member vector is the
+// tracker's UnitRevivalEntry vector, whose push_back is the rowed 0x002E2D10.
+class UnitRevivalEntry
 {
-    Rva002E2D10Record();
-    __declspec(dllimport) __forceinline Rva002E2D10Record(const Rva002E2D10Record &that)
-    {
-        ((UnitRevivalEntry *)this)->UnitRevivalEntry::UnitRevivalEntry(*(const UnitRevivalEntry *)&that);
-    }
-    ~Rva002E2D10Record();
-    Rva002E2D10Record &operator=(const Rva002E2D10Record &that);
+public:
+    UnitRevivalEntry();
+    UnitRevivalEntry(const UnitRevivalEntry &that);
+    ~UnitRevivalEntry();
+    UnitRevivalEntry &operator=(const UnitRevivalEntry &that);
 
 private:
-    char bytes[216];
+    char m_bytes[0xD8];
 };
+struct Rva002E2D10Record;
+
+namespace _STL { template <> void vector<UnitRevivalEntry,allocator<UnitRevivalEntry> >::push_back(UnitRevivalEntry const &); }
 
 class UnitRevivalTracker
 {
-    int m_unk00;
-    _STL::vector<Rva002E2D10Record> m_vec04;
-
 public:
     void addRevivableUnit(const Rva002E2D10Record &item, Player *player);
+
+protected:
+    virtual void xfer(Xfer *xfer);
+
+private:
+    _STL::vector<UnitRevivalEntry> m_entries; // +0x04
+    Player *m_player; // +0x10
 };
 
 void UnitRevivalTracker::addRevivableUnit(const Rva002E2D10Record &item, Player *)
 {
-    m_vec04.push_back(item);
+    m_entries.push_back(reinterpret_cast<const UnitRevivalEntry &>(item));
 }
