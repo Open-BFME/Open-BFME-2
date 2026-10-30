@@ -64,6 +64,7 @@ import re
 import subprocess
 import sys
 import tempfile
+import threading
 import time
 import warnings
 from pathlib import Path
@@ -84,6 +85,11 @@ HEADER_SUFFIXES = {".h", ".hh", ".hpp", ".hxx", ".inl", ""}
 # seconds one file's analysis (its include closure included) may take; past
 # it the file's result is an explicit failure, never an empty occurrence list
 FILE_TIMEOUT = float(os.environ.get("MS_HEADER_FILE_TIMEOUT", "60"))
+
+# seconds one `cl /E` probe of the index build may take; past it the probe is
+# killed and its unit counts as not preprocessing (a backstop: see _preprocess)
+PROBE_TIMEOUT = float(os.environ.get("MS_HEADER_PROBE_TIMEOUT", "300"))
+_C1083 = re.compile(r"\bfatal error C1083\b")
 
 
 class AnalysisIncomplete(Exception):
@@ -1389,10 +1395,13 @@ def root_headers(roots):
 
 
 def index_key(roots):
+    # Whole-second mtimes: a disk restored from a snapshot (boat.dev) reports
+    # seconds-only times until a file is first read, then the nanoseconds, so
+    # an st_mtime_ns key changed on first use and rebuilt a valid index.
     h = hashlib.sha1(f"v{TOOL_VERSION}".encode())
     for label, path in root_headers(roots):
         st = path.stat()
-        h.update(f"{label}\0{st.st_size}\0{st.st_mtime_ns}\n".encode())
+        h.update(f"{label}\0{st.st_size}\0{st.st_mtime_ns // 1_000_000_000}\n".encode())
     return h.hexdigest()[:16]
 
 
@@ -1410,8 +1419,61 @@ def _cl_env(roots):
     return env
 
 
+def _preprocess(command, env, timeout=None):
+    """(returncode, stdout, stderr, why) of one `cl /E` run. `why` is "" when cl
+    exited by itself, "C1083" when it reported a missing include and was ended
+    at once, "timeout" when it outlived `timeout` seconds (PROBE_TIMEOUT) and
+    was killed. VC7.1 cl.exe under Wine never exits after "fatal error C1083"
+    (it spins at full CPU); on Windows it exits 2 right after printing it, so
+    ending it there gives the same verdict on both hosts."""
+    timeout = PROBE_TIMEOUT if timeout is None else timeout
+    proc = subprocess.Popen(command, env=env, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                            text=True, errors="replace")
+    out, err = [], []
+    missing_include = threading.Event()
+
+    def read_stderr():
+        for line in proc.stderr:
+            err.append(line)
+            if _C1083.search(line):
+                missing_include.set()
+
+    readers = [threading.Thread(target=lambda: out.append(proc.stdout.read()), daemon=True),
+               threading.Thread(target=read_stderr, daemon=True)]
+    for reader in readers:
+        reader.start()
+    deadline = time.monotonic() + timeout
+    why = ""
+    while True:
+        try:
+            proc.wait(timeout=0.05)
+            break
+        except subprocess.TimeoutExpired:
+            pass
+        if missing_include.is_set():
+            why = "C1083"
+        elif time.monotonic() >= deadline:
+            why = "timeout"
+        if why:
+            proc.kill()
+            proc.wait()
+            break
+    for reader in readers:
+        # a killed cl's output is discarded, and a Wine daemon it started may
+        # still hold the pipes: do not wait on them
+        reader.join(10 if why else None)
+    return proc.returncode, "".join(out), "".join(err), why
+
+
 def run_cl_e(lines, roots, lang="cpp", workdir=None):
     """(ok, stdout, stderr) of `cl /E` on a temporary unit made of `lines`."""
+    ok, out, err, _ = cl_probe(lines, roots, lang, workdir)
+    return ok, out, err
+
+
+def cl_probe(lines, roots, lang="cpp", workdir=None):
+    """(ok, stdout, stderr, why) of `cl /E` on a temporary unit made of `lines`;
+    a probe ended for a missing include or a timeout (`why`) is not ok."""
     vc = vc71_root()
     cl = vc / "Vc7" / "bin" / "cl.exe"
     command = [str(cl)]
@@ -1428,13 +1490,15 @@ def run_cl_e(lines, roots, lang="cpp", workdir=None):
             name_arg = wine_path(name)
         else:
             name_arg = name
-        result = subprocess.run(command + ["-nologo", "-E", "-MD", "-EHsc", "-DWIN32", "-D_WINDOWS",
-                                           "-TP" if lang == "cpp" else "-TC", name_arg],
-                                env=_cl_env(roots), capture_output=True, text=True, errors="replace")
+        returncode, out, err, why = _preprocess(
+            command + ["-nologo", "-E", "-MD", "-EHsc", "-DWIN32", "-D_WINDOWS",
+                       "-TP" if lang == "cpp" else "-TC", name_arg], _cl_env(roots))
     finally:
         os.unlink(name)
-    errors = [ln for ln in result.stderr.splitlines() if re.search(r"\b(fatal )?error [CD]\d+", ln)]
-    return result.returncode == 0 and not errors, result.stdout, result.stderr
+    if why == "timeout":
+        err += f"\nms_header_audit: cl /E killed after {PROBE_TIMEOUT:g} s (MS_HEADER_PROBE_TIMEOUT)\n"
+    errors = [ln for ln in err.splitlines() if re.search(r"\b(fatal )?error [CD]\d+", ln)]
+    return returncode == 0 and not errors and not why, out, err, why
 
 
 def fit_headers(prefix, candidates, roots, lang):
@@ -1550,7 +1614,9 @@ def build_index(roots, jobs=4, verbose=True):
                 args = ",".join("__MSA_VA__" if p == "..." else f"__MSA_P{j}__" for j, p in enumerate(params))
                 lines.append(f"__MSA_PROBE_{k}__ {name}({args}) __MSA_END__")
             lines.append("#endif")
-        ok, out, err = run_cl_e(lines, roots, lang)
+        ok, out, err, why = cl_probe(lines, roots, lang)
+        if why:  # a partial probe would silently drop macros from the index
+            raise SystemExit(f"ms_header_audit: macro probe ({unit}) did not finish ({why}):\n{err[-2000:]}")
         table = {}
         for m in re.finditer(r"__MSA_PROBE_(\d+)__ (.*?) ?__MSA_END__", out):
             name = names[int(m.group(1))]

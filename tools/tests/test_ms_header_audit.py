@@ -4,9 +4,13 @@ The index here is built from a small fake Microsoft header parsed by the
 tool's own parser, so no toolchain is needed; the real index is validated by
 `ms_header_audit.py index --validate`.
 """
+import os
 import sys
-from types import SimpleNamespace
+import threading
+import time
 from pathlib import Path
+
+import pytest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
@@ -188,12 +192,11 @@ def test_preprocessor_uses_wine_paths_and_compiler_environment(tmp_path, monkeyp
 
     monkeypatch.setattr(build, "wine_path", fake_wine_path)
     calls = []
-    monkeypatch.setattr(mha.subprocess, "run", lambda command, **kw:
-                        calls.append((command, kw)) or SimpleNamespace(returncode=0, stdout="ok", stderr=""))
+    monkeypatch.setattr(mha, "_preprocess", lambda command, env: calls.append((command, env)) or (0, "ok", "", ""))
     assert mha.run_cl_e(["#include <windows.h>"], [("sdk", tmp_path / "include")], workdir=tmp_path)[0]
-    command, kwargs = calls[0]
+    command, env = calls[0]
     assert command[0] == "wine" and command[-1].startswith("Z:\\")
-    assert kwargs["env"] == {"WINEPATH": "compiler-dlls", "INCLUDE": fake_wine_path(tmp_path / "include")}
+    assert env == {"WINEPATH": "compiler-dlls", "INCLUDE": fake_wine_path(tmp_path / "include")}
 
 
 def test_preprocessor_line_paths_recover_header_provenance_under_wine(tmp_path, monkeypatch):
@@ -204,6 +207,95 @@ def test_preprocessor_line_paths_recover_header_provenance_under_wine(tmp_path, 
     assert mha._label_for("T:\\SDK\\WinDef.h", roots) == "sdk/WinDef.h"
     assert mha._label_for(str(tmp_path / "WinDef.h"), roots) == "sdk/WinDef.h"
     assert mha._label_for("T:\\Other\\WinDef.h", roots) is None
+
+
+# A stand-in for `wine cl.exe /E` that behaves like VC7.1 cl under Wine: a unit
+# including <missing.h> prints C1083 and then never exits; <slow.h> hangs
+# silently; anything else preprocesses.
+FAKE_CL = """\
+import sys, time
+unit = open(sys.argv[-1]).read()
+if "<missing.h>" in unit:
+    print(sys.argv[-1] + "(2) : fatal error C1083: Cannot open include file: 'missing.h': "
+          "No such file or directory", file=sys.stderr, flush=True)
+    time.sleep(60)
+if "<slow.h>" in unit:
+    time.sleep(60)
+print("#line 1 \\"" + sys.argv[-1] + "\\"")
+"""
+
+
+@pytest.fixture
+def wine_cl(tmp_path, monkeypatch):
+    """Run the index build's cl probes against FAKE_CL, as `wine` on PATH."""
+    import build
+    bin_dir = tmp_path / "bin"
+    bin_dir.mkdir()
+    wine = bin_dir / "wine"
+    wine.write_text(f"#!{sys.executable}\n" + FAKE_CL)
+    wine.chmod(0o755)
+    monkeypatch.setattr(mha, "vc71_root", lambda: tmp_path)
+    monkeypatch.setattr(mha, "CACHE_DIR", tmp_path / "cache")
+    monkeypatch.setattr(build, "compiler_environment", lambda root: {"PATH": str(bin_dir)})
+    monkeypatch.setattr(build, "wine_path", str)
+    return [("sdk", tmp_path / "include")]
+
+
+def finishes(fn, seconds=20):
+    """fn()'s result, or a failure when it does not return within `seconds`
+    (instead of hanging the run as the probe itself would)."""
+    result = []
+    worker = threading.Thread(target=lambda: result.append(fn()), daemon=True)
+    worker.start()
+    worker.join(seconds)
+    assert result, f"still running after {seconds} s"
+    return result[0]
+
+
+wine_only = pytest.mark.skipif(os.name == "nt", reason="the probe runs cl through Wine only off Windows")
+
+
+@wine_only
+def test_a_missing_include_ends_the_probe_at_once_as_unfit(wine_cl):
+    start = time.monotonic()
+    ok, out, err = finishes(lambda: mha.run_cl_e(["#include <missing.h>"], wine_cl))
+    assert not ok and "C1083" in err
+    assert time.monotonic() - start < 15
+
+
+@wine_only
+def test_a_probe_past_the_timeout_is_killed_and_unfit(wine_cl, monkeypatch):
+    monkeypatch.setattr(mha, "PROBE_TIMEOUT", 1, raising=False)
+    ok, out, err = finishes(lambda: mha.run_cl_e(["#include <slow.h>"], wine_cl))
+    assert not ok and "MS_HEADER_PROBE_TIMEOUT" in err
+
+
+@wine_only
+def test_kitchen_sink_drops_the_header_cl_cannot_open_and_keeps_the_rest(wine_cl):
+    accepted, out = finishes(lambda: mha.fit_headers(["#include <windows.h>"], ["a.h", "missing.h", "c.h"],
+                                                     wine_cl, "cpp"), 60)
+    assert accepted == ["a.h", "c.h"]
+
+
+@wine_only
+def test_a_probe_that_exits_by_itself_keeps_its_output(wine_cl):
+    ok, out, err = finishes(lambda: mha.run_cl_e(["#include <a.h>"], wine_cl))
+    assert ok and out.startswith("#line 1")
+
+
+def test_index_key_survives_a_snapshot_restore_dropping_subsecond_mtimes(tmp_path):
+    root = tmp_path / "include"
+    root.mkdir()
+    header = root / "windows.h"
+    header.write_text("#define WINAPI __stdcall\n")
+    roots = [("sdk", root)]
+    second = 1_793_301_543
+    os.utime(header, ns=(second * 10**9, second * 10**9 + 446_709_376))
+    key = mha.index_key(roots)
+    os.utime(header, ns=(second * 10**9, second * 10**9))
+    assert mha.index_key(roots) == key
+    os.utime(header, ns=((second + 1) * 10**9, (second + 1) * 10**9))
+    assert mha.index_key(roots) != key
 
 
 def test_queue_round_trip_and_repair_queue_lane(tmp_path, monkeypatch, capsys):
