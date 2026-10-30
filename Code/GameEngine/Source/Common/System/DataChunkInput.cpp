@@ -84,10 +84,12 @@ static void bfmeDataChunkYieldToOS(void)
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/AsciiString.h
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/NameKeyGenerator.h
+class AsciiString;
 class NameKeyGenerator
 {
 public:
-	NameKeyType nameToKey(const char *name);
+	NameKeyType nameToKey(const AsciiString &nameString);
+	const AsciiString &keyToName(NameKeyType key);
 };
 extern NameKeyGenerator *TheNameKeyGenerator;
 

@@ -25,23 +25,36 @@ class UnicodeString;
 
 class Mapping;
 
+class Mapping;
+class ChunkInputStream;
+class OutputStream;
+class AsciiString;
+
 class DataChunkTableOfContents
 {
 public:
-	DataChunkTableOfContents();
-	~DataChunkTableOfContents();
+    DataChunkTableOfContents() : m_list(0), m_nextID(1), m_listLength(0), m_headerOpened(false) {}
+    ~DataChunkTableOfContents();
+    void read(ChunkInputStream &s);
+    void write(OutputStream &stream);
+    unsigned int allocateID(const AsciiString &name);
+    AsciiString getName(unsigned int id);
 
-	void read( ChunkInputStream &s);
-	unsigned int allocateID( const AsciiString& name );
-	AsciiString getName(unsigned int id);
-
-	Mapping *m_list;			// +0x00
-	int m_listLength;			// +0x04
-	unsigned int m_nextID;		// +0x08
-	bool m_headerOpened;		// +0x0C
+    Mapping *m_list;
+    int m_listLength;
+    unsigned int m_nextID;
+    bool m_headerOpened;
 
 private:
-	Mapping *findMapping( const AsciiString& name );
+    Mapping *findMapping(const AsciiString &name);
+};
+struct InputChunk;
+class Dict;
+class UnicodeString;
+
+enum NameKeyType
+{
+	NAMEKEY_INVALID = 0
 };
 
 class DataChunkInput
@@ -58,6 +71,9 @@ public:
 	AsciiString getChunkLabel();
 	AsciiString readAsciiString();
 	UnicodeString readUnicodeString();
+	int readInt();
+	NameKeyType readNameKey();
+	Dict readDict();
 
 protected:
 	void decrementDataLeft(int size);
@@ -151,23 +167,38 @@ private:
 // both four bytes on the stack, so those two bodies fold to identical code;
 // byte writes a single byte with the same shape and a smaller size immediate.
 
+struct _iobuf;
 extern "C" __declspec(dllimport) unsigned int __cdecl fwrite(
-	const void *ptr, unsigned int size, unsigned int count, void *file);
+	const void *ptr, unsigned int size, unsigned int count, struct _iobuf *file);
 
 typedef unsigned char WriteByteValue;
+
+struct _iobuf;
+class OutputStream;
+class OutputChunk;
+class AsciiString;
+class UnicodeString;
+class Dict;
 
 class DataChunkOutput
 {
 public:
-	void writeInt(int intValue);
-	void writeReal(float realValue);
-	void writeByte(WriteByteValue byteValue);
+    void writeInt(int intValue);
+    void writeReal(float realValue);
+    void writeByte(unsigned char byteValue);
+    DataChunkOutput(OutputStream *pOut);
+    ~DataChunkOutput();
+    void writeAsciiString(const AsciiString &textValue) throw();
+    void writeUnicodeString(UnicodeString textValue);
+    void writeNameKey(NameKeyType key);
+    void writeDict(const Dict &d);
 
 private:
-	char pad_0000[4];
-	void *file;
+    OutputStream *m_pOut;
+    _iobuf *file;
+    DataChunkTableOfContents m_contents;
+    OutputChunk *m_chunkStack;
 };
-
 // Open-BFME: Q1Forwardee0000871A::handle, retail 0x00102610, 37 bytes.
 //
 // An intrusive unlink and a delete, on the node the argument names -- `this' is
@@ -428,13 +459,6 @@ unsigned short DataChunkInput::getChunkVersion()
 template <class T> inline T const & max(T const & lhs, T const & rhs) { return (lhs > rhs) ? lhs : rhs; }
 
 // ??0DataChunkTableOfContents@@QAE@XZ
-inline DataChunkTableOfContents::DataChunkTableOfContents() :
-	m_list(0),
-	m_nextID(1),
-	m_listLength(0),
-	m_headerOpened(false)
-{
-}
 
 // Retail 0x00306D5C (31B): frees every Mapping in the list head at +0 via
 // the MemoryPoolObject pattern (MessageStreamListCtors.cpp precedent):

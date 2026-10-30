@@ -13,24 +13,69 @@
 typedef unsigned short UnsignedShort;
 typedef unsigned short WideChar;
 
+struct _iobuf;
 extern "C" __declspec(dllimport) unsigned int __cdecl fwrite(
-	const void *chunkBuffer, unsigned int elementSize, unsigned int elementCount, void *outputFile) throw();
+	const void *chunkBuffer, unsigned int elementSize, unsigned int elementCount, struct _iobuf *file) throw();
 
 #include "unicode_string.h"
+
+struct _iobuf;
+class OutputStream;
+class OutputChunk;
+class AsciiString;
+class UnicodeString;
+class Dict;
+
+enum NameKeyType
+{
+	NAMEKEY_INVALID = 0
+};
+
+class Mapping;
+class ChunkInputStream;
+
+class DataChunkTableOfContents
+{
+public:
+    DataChunkTableOfContents() : m_list(0), m_nextID(1), m_listLength(0), m_headerOpened(false) {}
+    ~DataChunkTableOfContents();
+    void read(ChunkInputStream &s);
+    void write(OutputStream &stream);
+    unsigned int allocateID(const AsciiString &name);
+    AsciiString getName(unsigned int id);
+
+    Mapping *m_list;
+    int m_listLength;
+    unsigned int m_nextID;
+    bool m_headerOpened;
+
+private:
+    Mapping *findMapping(const AsciiString &name);
+};
+
 
 class DataChunkOutput
 {
 public:
-	void writeUnicodeString(UnicodeString textValue);
+    void writeInt(int intValue);
+    void writeReal(float realValue);
+    void writeByte(unsigned char byteValue);
+    DataChunkOutput(OutputStream *pOut);
+    ~DataChunkOutput();
+    void writeAsciiString(const AsciiString &textValue) throw();
+    void writeUnicodeString(UnicodeString textValue);
+    void writeNameKey(NameKeyType key);
+    void writeDict(const Dict &d);
 
 private:
-	void *outputStream; ///< retail this+0x00
-	void *tempFile; ///< retail this+0x04
+    OutputStream *m_pOut;
+    _iobuf *file;
+    DataChunkTableOfContents m_contents;
+    OutputChunk *m_chunkStack;
 };
-
 void DataChunkOutput::writeUnicodeString(UnicodeString textValue)
 {
 	UnsignedShort textLength = (UnsignedShort)textValue.getLength();
-	::fwrite((const char *)&textLength, sizeof(UnsignedShort), 1, tempFile);
-	::fwrite(textValue.str(), textLength * sizeof(WideChar), 1, tempFile);
+	::fwrite((const char *)&textLength, sizeof(UnsignedShort), 1, file);
+	::fwrite(textValue.str(), textLength * sizeof(WideChar), 1, file);
 }

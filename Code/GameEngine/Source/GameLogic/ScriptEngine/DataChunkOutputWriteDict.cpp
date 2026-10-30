@@ -16,7 +16,8 @@ typedef unsigned int UnsignedInt;
 typedef unsigned short UnsignedShort;
 typedef bool Bool;
 
-#include <stdio.h>
+extern "C" __declspec(dllimport) unsigned int __cdecl fwrite(
+    const void *ptr, unsigned int size, unsigned int count, struct _iobuf *file);
 #include "ascii_string.h"
 #include "unicode_string.h"
 
@@ -28,75 +29,98 @@ enum NameKeyType
 class NameKeyGenerator
 {
 public:
+	NameKeyType nameToKey(const AsciiString &nameString);
 	const AsciiString &keyToName(NameKeyType key);
 };
 extern NameKeyGenerator *TheNameKeyGenerator;
 
+class Mapping;
+class ChunkInputStream;
+class OutputStream;
+class AsciiString;
+
 class DataChunkTableOfContents
 {
 public:
-	UnsignedInt allocateID(const AsciiString &name);
+    DataChunkTableOfContents() : m_list(0), m_nextID(1), m_listLength(0), m_headerOpened(false) {}
+    ~DataChunkTableOfContents();
+    void read(ChunkInputStream &s);
+    void write(OutputStream &stream);
+    unsigned int allocateID(const AsciiString &name);
+    AsciiString getName(unsigned int id);
+
+    Mapping *m_list;
+    int m_listLength;
+    unsigned int m_nextID;
+    bool m_headerOpened;
 
 private:
-	void *m_list;
-	Int m_listLength;
-	UnsignedInt m_nextID;
-	unsigned char m_headerOpened;
+    Mapping *findMapping(const AsciiString &name);
 };
-
 class Dict
 {
 public:
-	enum DataType
-	{
-		DICT_NONE = -1,
-		DICT_BOOL,
-		DICT_INT,
-		DICT_REAL,
-		DICT_ASCIISTRING,
-		DICT_UNICODESTRING
-	};
-
-	Int getPairCount() const { return m_data ? m_data->m_numPairsUsed : 0; }
-	NameKeyType getNthKey(Int n) const;
-	DataType getNthType(Int n) const;
-	Bool getNthBool(Int n) const;
-	Int getNthInt(Int n) const;
-	float getNthReal(Int n) const;
-	AsciiString getNthAsciiString(Int n) const;
-	UnicodeString getNthUnicodeString(Int n) const;
-
+	enum DataType { DICT_NONE = -1, DICT_BOOL, DICT_INT, DICT_REAL, DICT_ASCIISTRING, DICT_UNICODESTRING };
 private:
-	struct DictPairData
+	struct DictPairData { unsigned short m_refCount; unsigned short m_numPairsAllocated; unsigned short m_numPairsUsed; };
+public:
+	Dict(int numPairsToPreAllocate);
+	Dict(const Dict &other) : m_data(other.m_data)
 	{
-		UnsignedShort m_refCount;
-		UnsignedShort m_numPairsAllocated;
-		UnsignedShort m_numPairsUsed;
-	};
-
-	DictPairData *m_data;
+	    if (m_data)
+	        ++m_data->m_refCount;
+	}
+	~Dict() { releaseData(); }
+	void setBool(int key, bool value);
+	void setInt(int key, int value);
+	void setReal(int key, float value);
+	void setAsciiString(int key, const AsciiString &value);
+	void setUnicodeString(int key, const UnicodeString &value);
+private:
+	void releaseData();
+public:
+	int getPairCount() const { return m_data ? m_data->m_numPairsUsed : 0; }
+	NameKeyType getNthKey(int n) const;
+	DataType getNthType(int n) const;
+	bool getNthBool(int n) const;
+	int getNthInt(int n) const;
+	float getNthReal(int n) const;
+	AsciiString getNthAsciiString(int n) const;
+	UnicodeString getNthUnicodeString(int n) const;
+private:
+	DictPairData *m_data; // +0x00
 };
+
+struct _iobuf;
+class OutputStream;
+class OutputChunk;
+class AsciiString;
+class UnicodeString;
+class Dict;
 
 class DataChunkOutput
 {
 public:
-	void writeDict(const Dict &d);
-	void writeInt(Int value);
-	void writeByte(unsigned char value);
-	void writeAsciiString(const AsciiString &value) throw();
-	void writeUnicodeString(UnicodeString value);
-	void writeReal(float value);
+    void writeInt(int intValue);
+    void writeReal(float realValue);
+    void writeByte(unsigned char byteValue);
+    DataChunkOutput(OutputStream *pOut);
+    ~DataChunkOutput();
+    void writeAsciiString(const AsciiString &textValue) throw();
+    void writeUnicodeString(UnicodeString textValue);
+    void writeNameKey(NameKeyType key);
+    void writeDict(const Dict &d);
 
 private:
-	void *m_outputStream;			// +0x00
-	FILE *m_tmp_file;			// +0x04
-	DataChunkTableOfContents m_contents;	// +0x08
+    OutputStream *m_pOut;
+    _iobuf *file;
+    DataChunkTableOfContents m_contents;
+    OutputChunk *m_chunkStack;
 };
-
 void DataChunkOutput::writeDict(const Dict &dict)
 {
 	UnsignedShort len = dict.getPairCount();
-	::fwrite((const char *)&len, sizeof(UnsignedShort), 1, m_tmp_file);
+	::fwrite((const char *)&len, sizeof(UnsignedShort), 1, file);
 	for (int i = 0; i < len; i++)
 	{
 		NameKeyType k = dict.getNthKey(i);
