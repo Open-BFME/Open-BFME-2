@@ -8,6 +8,39 @@
 #include "Common/BfmeAudioEventPrefix136.h"
 #include "../../../../Common/GameLogicObjectLookupView.h"
 #pragma comment(linker, "/alternatename:??0Rva0026E9BDBase@@QAE@PAVThing@@PBVModuleData@@@Z=??0AIUpdateInterface@@QAE@PAVThing@@PBVModuleData@@@Z")
+#define BFME_DISP8_BYTECHASE_GETTER(NAME, DISP1, DISP2) \
+	class NAME \
+	{ \
+	public: \
+		unsigned char get() const; \
+		char m_lead[DISP1]; \
+		void *m_ptr; \
+	}; \
+	unsigned char NAME::get() const \
+	{ \
+		return *(unsigned char *)((char *)m_ptr + DISP2); \
+	}
+#define BFME_DISP8_BYTECHASE_BEFORE_GETTER(NAME, BACK, INNER) \
+	class Inner##NAME \
+	{ \
+	public: \
+		char m_lead[INNER]; \
+		unsigned char m_value; \
+	}; \
+	class Sub##NAME \
+	{ \
+	public: \
+		Inner##NAME *m_holder; \
+	}; \
+	class NAME \
+	{ \
+	public: \
+		unsigned char get() const; \
+	}; \
+	unsigned char NAME::get() const \
+	{ \
+		return ((const Sub##NAME *)((const char *)this - (BACK)))->m_holder->m_value; \
+	}
 
 enum AICommandType { AICMD_NO_COMMAND=-1 };
 
@@ -415,7 +448,26 @@ public:
 	virtual NameKeyType getModuleNameKey() const;
 };
 
+BFME_DISP8_BYTECHASE_GETTER(Rva0048E836ByteChaseField, 0x04, 0x6D)
+
+BFME_DISP8_BYTECHASE_GETTER(Rva0048E83DByteChaseField, 0x04, 0x6E)
+
+BFME_DISP8_BYTECHASE_GETTER(Rva0048E844ByteChaseField, 0x04, 0x6F)
+
+// 0x0039ADAF is ExperienceTracker::isTrainable (pinned under that name from
+// VeterancyCrateCollide::isValidToExecute; ZH's isTrainable reads the
+// template's trainable flag): the byte at +0x5E7 of the +0x04 template.
+class ExperienceTracker
+{
+public:
+	bool isTrainable() const;
+	char m_lead[0x4];
+	void *m_template;
+};
+
 // tu-skeleton: 0x0048E634 15B ?Rva0048E634Reset@DeployStyleAIUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DeployStyleAIUpdateHelper.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DeployStyleAIUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DeployStyleAIUpdate.cpp
 
@@ -723,6 +775,16 @@ UpdateSleepTime DeployStyleAIUpdate::update()
  return mine<ret ? mine:ret;
 }
 
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/DeployStyleAIUpdatePoolKey.cpp
+
+// ?getModuleNameKey@DeployStyleAIUpdate@@UBE?AW4NameKeyType@@XZ
+NameKeyType DeployStyleAIUpdate::getModuleNameKey() const
+{
+	static NameKeyType TheDeployStyleAIUpdatePoolKey =
+		TheNameKeyGenerator->nameToKey("DeployStyleAIUpdate");
+	return TheDeployStyleAIUpdatePoolKey;
+}
+
 // tu-skeleton: 0x0048E6AB 39B ?rva0048E6AB@DeployStyleAIUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DeployStyleAIUpdateHelper.cpp (not merged yet)
 
 // tu-skeleton: 0x0048E6D2 38B ?rva0048E6D2@DeployStyleAIUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DeployStyleAIUpdateHelper.cpp (not merged yet)
@@ -733,25 +795,27 @@ UpdateSleepTime DeployStyleAIUpdate::update()
 
 // tu-skeleton: 0x0048E82F 7B ?get@Rva0000048E82FPtrChaseField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x0048E836 7B ?get@Rva0048E836ByteChaseField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp
 
-// tu-skeleton: 0x0048E83D 7B ?get@Rva0048E83DByteChaseField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp (not merged yet)
+// Disp8 byte-chase getters: seven-byte __thiscall members with one shape:
+//
+//     mov eax,[ecx+<DISP1>] / mov al,[eax+<DISP2>] / ret
+//
+// A pointer is read at a fixed displacement from `this`, then a byte is read
+// at a second displacement from that pointer and returned in `al` (only the
+// low byte is defined; the caller uses `al`). MSVC 7.1 emits the disp8 loads
+// `8B 41 XX` + `8A 40 XX`, plus `ret`, for seven bytes total.
+// Identity is not recovered: every name is derived from its address.
+// No // cl: line (defaults match the frameless seven-byte shape).
 
-// tu-skeleton: 0x0048E844 7B ?get@Rva0048E844ByteChaseField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp (not merged yet)
+// Backward variant: the holder sits at a NEGATIVE displacement from `this`
+// (a sub-object `this` pointing into a larger object). Spelled as an explicit
+// backward cast, which MSVC folds to `mov eax,[ecx-BACK]`; same shape and
+// reading as BFME1's ChainedFieldGetters.
 
 // tu-skeleton: 0x0048E84B 7B ?get@Rva0048E84BAddDwordField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8AddDwordFieldGetters.cpp (not merged yet)
 
 // tu-skeleton: 0x0048E852 90B ??1DeployStyleAIUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DeployStyleAIUpdateDtor.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/GameLogic/Object/Update/DeployStyleAIUpdatePoolKey.cpp
-
-// ?getModuleNameKey@DeployStyleAIUpdate@@UBE?AW4NameKeyType@@XZ
-NameKeyType DeployStyleAIUpdate::getModuleNameKey() const
-{
-	static NameKeyType TheDeployStyleAIUpdatePoolKey =
-		TheNameKeyGenerator->nameToKey("DeployStyleAIUpdate");
-	return TheDeployStyleAIUpdatePoolKey;
-}
 
 // tu-skeleton: 0x0048E8F1 6B ?name@Rva0048E8F1Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
 
