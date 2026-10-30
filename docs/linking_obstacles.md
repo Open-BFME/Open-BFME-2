@@ -5634,6 +5634,18 @@ its row is untouched. Census confirmation remains pending.
   (a signature change rename.py cannot express) plus the 14-slot view in the
   constructor. No source change, alias or pin was landed by this audit.
 
+**MultiplayerSettings implicit-lifetime prerequisite (2026-10-30):** the
+constructor adopts the seed's existing complete fourteen-slot subsystem
+interface and real STL map view. Removing the explicit destructor declaration
+lets the compiler emit the native virtual lifetime without a derived-vptr store.
+Strict constructor preparation passes 1/1 and its ordinary preview clears
+159 bytes against `12b9e7a7c0`. Private constructor/complete/delete bodies
+159/83/28 are fully resolved exact, and both EH parents are EXACT. The old
+non-virtual rows still need separately reviewable withdrawal and proper UAE
+readmission, preserving all four destructor companions, plus supported TU
+composition and outgoing consumer checks. This is not canonical-header adoption
+or a census gain. [Native facts and scope](../reverse/attempt_support/multiplayer-implicit-lifetime-20261030/readme.md).
+
 **Multiplayer seed prerequisite (2026-10-28, inspected `d5843cec`, index
 `d92e7e6635`):** MultiplayerSettings.cpp now uses the target 0xC4 layout,
 complete 0x40-byte colors and native INI tables. Its two rows and singleton

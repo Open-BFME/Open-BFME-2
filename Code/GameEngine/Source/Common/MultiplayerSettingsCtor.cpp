@@ -31,20 +31,12 @@ private:
 	bool m_extraFlag; // +0x3C
 };
 
-#include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
+typedef bool Bool;
+#include "../../../../reference/shims/subsystem_bfme2/subsystem_interface.h"
 
-namespace _STL
-{
-template <>
-class map<int, MultiplayerColorDefinition, less<int>, allocator<pair<const int, MultiplayerColorDefinition> > >
-{
-public:
-	map();
-	~map();
-
-private:
-	char m_pad[0xC];
-};
+namespace _STL {
+template <> map<int, MultiplayerColorDefinition, less<int>, allocator<pair<const int, MultiplayerColorDefinition> > >::map();
+template <> _Rb_tree<int, pair<const int, MultiplayerColorDefinition>, _Select1st<pair<const int, MultiplayerColorDefinition> >, less<int>, allocator<pair<const int, MultiplayerColorDefinition> > >::~_Rb_tree();
 }
 
 typedef _STL::map<int, MultiplayerColorDefinition, _STL::less<int>, _STL::allocator<_STL::pair<const int, MultiplayerColorDefinition> > > MultiplayerColorList;
@@ -53,12 +45,15 @@ class MultiplayerSettings : public SubsystemInterface
 {
 public:
 	MultiplayerSettings();
-	~MultiplayerSettings();
+	virtual void init() {}
+	virtual void reset() {}
+	virtual void update() {}
+
 
 private:
 	int m_unknown0C; // +0x0C, zeroed
-	int m_startCountdownTimerSeconds; // +0x10, retail default 0x2710
-	int m_unknown14; // +0x14, zeroed
+	int m_unknown10; // +0x10, retail default 0x2710
+	int m_startCountdownTimerSeconds; // +0x14, zeroed
 	int m_maxBeaconsPerPlayer; // +0x18, retail default 3
 	bool m_isShroudInMultiplayer; // +0x1C
 	bool m_showRandomPlayerTemplate; // +0x1D
@@ -76,9 +71,9 @@ MultiplayerSettings::MultiplayerSettings()
 	: SubsystemInterface()
 {
 	m_unknown0C = 0;
-	m_unknown14 = 0;
+	m_startCountdownTimerSeconds = 0;
 	m_numColors = 0;
-	m_startCountdownTimerSeconds = 0x2710;
+	m_unknown10 = 0x2710;
 	m_maxBeaconsPerPlayer = 3;
 	m_isShroudInMultiplayer = true;
 	m_showRandomPlayerTemplate = true;
