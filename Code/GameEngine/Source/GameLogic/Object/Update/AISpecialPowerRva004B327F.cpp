@@ -18,9 +18,18 @@ public:
 };
 class Rva004B327F;
 
+enum ObjectStatusTypes
+{
+	OBJECT_STATUS_5A = 0x5A
+};
+
+class SpecialPowerModuleInterface;
+
 class Object
 {
 public:
+	bool testStatus(ObjectStatusTypes status) const;
+	SpecialPowerModuleInterface *getSpecialPowerModule(const SpecialPowerTemplate *tmpl) const;
 	Player *getControllingPlayer() const;
 };
 
@@ -40,9 +49,17 @@ public:
 
 extern Rva002A8F24 *TheSkirmishAIManager;
 
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
 class AISpecialPowerUpdate
 {
 	friend class Rva004B327F;
+
+public:
+	virtual NameKeyType getModuleNameKey() const;
 
 private:
 	void postInitAISpecialPower();
@@ -52,6 +69,12 @@ class Rva004B2F7B
 {
 public:
 	bool rva004B2F7B(const SpecialPowerTemplate *tmpl);
+
+private:
+	char m_pad[0x08];
+	Object *m_obj;
+	char m_mid[0x14];
+	volatile unsigned char m_flag;
 };
 
 class PowerInner

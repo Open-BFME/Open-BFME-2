@@ -26,8 +26,13 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 
 class AISpecialPowerUpdate
 {
+	friend class Rva004B327F;
+
 public:
 	virtual NameKeyType getModuleNameKey() const;
+
+private:
+	void postInitAISpecialPower();
 };
 
 //
@@ -42,6 +47,7 @@ enum ObjectStatusTypes
 };
 
 class SpecialPowerTemplate;
+class Player;
 
 class SpecialPowerModuleInterface
 {
@@ -55,6 +61,7 @@ class Object
 public:
 	bool testStatus(ObjectStatusTypes status) const;
 	SpecialPowerModuleInterface *getSpecialPowerModule(const SpecialPowerTemplate *tmpl) const;
+	Player *getControllingPlayer() const;
 };
 
 class SpecialPowerStore

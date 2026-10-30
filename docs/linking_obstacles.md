@@ -11957,3 +11957,14 @@ externals are identical. Preview against index `6fe1089c24`: LINKS, 0 -> 90
 bytes. Census confirmation is pending. Of the other 544 `/Oy-` units, only
 `DebugDestructorThunk.cpp` and `ArmyHeroIconCtor.cpp` are blocked, and
 neither by an inline copy of this kind.
+
+### AISpecialPowerUpdate consolidation prerequisites (2026-10-30, codex3)
+
+The Update TU and its update donor now share their existing private class
+contracts. Six rows byte-verify; external COMDAT digests, strong definitions
+and undefined/weak/COMMON bindings are unchanged. Ordinary preview retains
+LINKS, 199 and 211 authored bytes, against index `6fe1089c24`. This clears the
+pair's declaration prerequisite only. Constructor/destructor/xfer base views,
+post-init declarations and the map-load secondary interface still need separate
+reconciliation before those donors can merge; the two mixed sources stay put.
+[Target facts and remaining work](../reverse/attempt_support/aispecialpower-consolidation-20261030-codex3.md).
