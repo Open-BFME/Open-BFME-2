@@ -1,4 +1,5 @@
 // cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /ICode/GameEngine/Source/Common /ICode/Libraries/Include/Lib
+// platformsdk
 // stlport
 // Split from TransportContainRiders.cpp: these definitions reference a callee with no matched body yet,
 // so they are kept apart from the unit's bodies that already link.
@@ -23,8 +24,7 @@ typedef bool Bool;
 typedef int Int;
 typedef unsigned int UnsignedInt;
 typedef float Real;
-#define TRUE true
-#define FALSE false
+#include <windows.h>
 
 #include <list>
 #include "../../../../Include/GameLogic/ContainmentListView.h"

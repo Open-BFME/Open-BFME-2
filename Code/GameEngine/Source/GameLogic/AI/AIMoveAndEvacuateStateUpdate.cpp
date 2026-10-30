@@ -1,4 +1,5 @@
 // cl: /DNDEBUG /MD
+// platformsdk
 //
 // AIMoveAndEvacuateState::update, retail 0x00353C27 (100 bytes): slot 6 of
 // vtable 0x00C12C28, whose slot-2 name getter 0x00342DA5 returns
@@ -9,7 +10,7 @@
 // BFME2 layout (target evidence): Object private status byte +0x438 bit 0,
 // AI +0x258, team +0x304; Team m_active +0x5D and m_created +0x5E.
 typedef bool Bool;
-#define FALSE false
+#include <windows.h>
 enum StateExitType
 {
 	EXIT_NORMAL = 0

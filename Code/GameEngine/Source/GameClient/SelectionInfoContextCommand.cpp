@@ -1,4 +1,5 @@
 // cl: /O1 /arch:SSE /G7 /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS
+// platformsdk
 // stlport
 // contextCommandForNewSelection, retail 0x0030ECD6 (767 bytes).
 //
@@ -27,8 +28,7 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 typedef bool Bool;
 typedef int Int;
 typedef unsigned int UnsignedInt;
-#define TRUE true
-#define FALSE false
+#include <windows.h>
 
 enum Relationship { ENEMIES = 0, NEUTRAL = 1, ALLIES = 2 };
 enum CommandSourceType { CMD_FROM_PLAYER = 0 };

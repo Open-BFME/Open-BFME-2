@@ -1,4 +1,5 @@
 // cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfme2_ascii
+// platformsdk
 // BFME 2 port of Open-BFME-1's dedicated GameWindowManagerMessageBox body.
 // Donor source: reference/open-bfme-1/game/GameEngine/Source/GameClient/GUI/GameWindowManagerMessageBox.cpp.
 // Donor revision d6db6bfa4fd3bd86c1d7ca4a5ab882d7c453a92c; its original flags were
@@ -20,7 +21,7 @@ typedef bool Bool;
 typedef unsigned int UnsignedInt;
 typedef unsigned short UnsignedShort;
 enum NameKeyType { NAMEKEY_INVALID = 0 };
-#define FALSE false
+#include <windows.h>
 #define NEW new
 #define DEBUG_ASSERTCRASH(condition, message) ((void)0)
 

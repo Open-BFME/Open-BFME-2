@@ -1,4 +1,5 @@
 // cl: /O1 /EHsc /MD /arch:SSE /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// platformsdk
 // stlport
 // ?addObjectLost@ScoreKeeper@@QAEXPBVObject@@@Z 0x0039CF73 392 scoring-gated lost count with killer player index
 // ?addObjectsLost@ScoreKeeper@@QAEXIH@Z 0x0039D0FB 117 dual map add via rowed _M_find 0x00357180 and ImageSubscriptMap operator[] 0x002077D6
@@ -40,8 +41,7 @@ static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
 
 typedef bool Bool;
 typedef int Int;
-#define TRUE true
-#define FALSE false
+#include <windows.h>
 
 class Image;
 

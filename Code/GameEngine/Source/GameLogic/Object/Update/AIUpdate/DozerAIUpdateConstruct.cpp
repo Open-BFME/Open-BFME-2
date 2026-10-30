@@ -1,4 +1,5 @@
 // cl: /DNDEBUG /MD /GX /O1 /arch:SSE /G7
+// platformsdk
 //
 // ?construct@DozerAIUpdate@@UAEPAVObject@@PBVThingTemplate@@PBVCoord3D@@MPAVPlayer@@_N@Z, retail 0x00488F52, 231 bytes. VTABLE slot 126 of 0x0084B848 class DozerAIUpdate via ctor 0x004894F5; stores isRebuild at +0x40C then createMachines rowed 0x00488EFC; early NULL and playerType checks match ZH DozerAIUpdate::construct; BuildAssistant globals g_00A027B8 TheSkirmishAIManager and task tail via dozer vslots 6 13 12 25 29.
 #include "../../../../../../Libraries/Include/Lib/Coord3D.h"
@@ -8,9 +9,7 @@ typedef int Int;
 typedef unsigned int UnsignedInt;
 typedef float Real;
 
-#define FALSE false
-#define TRUE true
-#define NULL 0
+#include <windows.h>
 
 enum ObjectID
 {

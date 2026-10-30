@@ -1,4 +1,5 @@
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /DWIN32 /MD /EHsc
+// platformsdk
 //
 // ?renderOneObject@RTS3DScene@@IAEXAAVRenderInfoClass@@PAVRenderObjClass@@HH@Z
 // retail 0x0006FB59..0x0007054F (2550 bytes) thiscall RET 0x10 with EH.
@@ -39,8 +40,7 @@ typedef int Int;
 typedef unsigned int UnsignedInt;
 typedef float Real;
 typedef bool Bool;
-#define TRUE true
-#define FALSE false
+#include <windows.h>
 
 class Vector3
 {

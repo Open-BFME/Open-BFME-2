@@ -1,4 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
+// platformsdk
 // ?dumpWindow@GameWindowManager@@IAEXPAVGameWindow@@@Z @0x002C1148 43B
 // GameWindowManager::dumpWindow; FINAL build strips DEBUG_LOG leaving only
 // the child/sibling walk (m_child +0x204 m_next +0x1F8) with self recursion;
@@ -32,9 +33,7 @@
 typedef int Int;
 typedef unsigned int UnsignedInt;
 typedef bool Bool;
-#ifndef FALSE
-#define FALSE false
-#endif
+#include <windows.h>
 class AsciiString;
 class UnicodeString;
 class GameFont;

@@ -1,4 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX
+// platformsdk
 //
 // ??0SpecialPowerModule@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x00493C5A,
 // 330 bytes. Zero Hour's SpecialPowerModule::SpecialPowerModule (GeneralsMD
@@ -28,7 +29,7 @@ typedef bool Bool;
 typedef float Real;
 typedef int Int;
 typedef unsigned int UnsignedInt;
-#define TRUE true
+#include <windows.h>
 
 class Thing;
 

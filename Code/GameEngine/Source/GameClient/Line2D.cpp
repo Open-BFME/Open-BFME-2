@@ -1,4 +1,5 @@
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// platformsdk
 // Ported from the Generals Zero Hour reference
 // (GameEngine/Source/GameClient/Line2D.cpp); the function bodies are verbatim.
 //
@@ -63,12 +64,7 @@ typedef bool Bool;
 typedef int Int;
 typedef float Real;
 
-#ifndef TRUE
-#define TRUE true
-#endif
-#ifndef FALSE
-#define FALSE false
-#endif
+#include <windows.h>
 
 template <typename NUM>
 inline NUM sqr(NUM x)

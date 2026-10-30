@@ -1,6 +1,7 @@
 // ?winProcessMouseEvent@GameWindowManager@@UAE?AW4WinInputReturnCode@@W4GameWindowMessage@@PAUICoord2D@@PAX@Z
 // ?winProcessMouseEvent@GameWindowManager@@UAE?AW4WinInputReturnCode@@W4GameWindowMessage@@PAUICoord2D@@PAX@Z
 // cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /Ireference/shims/bfme2_ascii
+// platformsdk
 // Target adaptation of the entire ZH GameWindowManager.cpp reviewed
 // at BFME1 ba7ddda7e8f261163972ddbe23c7e7a12ac5b84f.
 // Target native 2C1FD5..2C2533 proves the accessed prefixes, child/point-test
@@ -25,8 +26,7 @@
 */
 #include "unicode_string.h"
 typedef int Int; typedef unsigned int UnsignedInt; typedef bool Bool;
-#define TRUE true
-#define FALSE false
+#include <windows.h>
 #define BitTest(v,m) (((v)&(m))!=0)
 #define BitClear(v,m) ((v)&=~(m))
 #define SHORTTOLONG(a,b) ((unsigned short)(a)|((unsigned short)(b)<<16))

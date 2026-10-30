@@ -1,4 +1,5 @@
 // cl: /GX- /O1 /G7 /arch:SSE /Ob2
+// platformsdk
 // Cold-slice global dword getters without vtable carriage (twin-free TU).
 //
 // Same shape as GlobalGetterSingles.cpp (mov eax,[mem] / ret, 6B) but kept in
@@ -438,8 +439,7 @@ typedef bool Bool;
 typedef float Real;
 typedef int Int;
 extern GameLogic *TheGameLogic;
-#define TRUE true
-#define FALSE false
+#include <windows.h>
 
 struct WaterHandle;
 struct TerrainWaterDispatch {

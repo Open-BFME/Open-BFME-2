@@ -1,4 +1,5 @@
 // cl: /DNDEBUG /MD /GX
+// platformsdk
 //
 // ??0GarrisonContain@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x00477F06,
 // 278 bytes. Zero Hour's GarrisonContain::GarrisonContain (GeneralsMD
@@ -25,7 +26,7 @@ typedef int Int;
 typedef unsigned int UnsignedInt;
 typedef unsigned int ObjectID;
 
-#define FALSE false
+#include <windows.h>
 
 class Thing;
 class ModuleData;

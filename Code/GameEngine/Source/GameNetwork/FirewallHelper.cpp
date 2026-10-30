@@ -1,4 +1,5 @@
 // cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
+// platformsdk
 //
 // BFME2 FirewallHelperClass empty-message scan, transferred from the exact
 // BFME1 reconstruction (Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp).
@@ -120,8 +121,7 @@ unsigned char FirewallHelperClass::rva00594F0C()
 typedef int Int;
 typedef unsigned short UnsignedShort;
 typedef bool Bool;
-#define TRUE true
-#define FALSE false
+#include <windows.h>
 #define NUM_TEST_PORTS 4
 class Rva00594F19 {
 public:

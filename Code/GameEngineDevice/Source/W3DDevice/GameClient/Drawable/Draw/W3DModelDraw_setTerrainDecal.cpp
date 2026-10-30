@@ -1,6 +1,7 @@
 // ?setTerrainDecal@W3DModelDraw@@UAEXW4TerrainDecalType@@@Z
 // ?setTerrainDecal@W3DModelDraw@@UAEXW4TerrainDecalType@@@Z
 // cl: /Ireference/shims/bfme2_ascii    /MD /DNDEBUG /EHsc /O1 /G7 /arch:SSE
+// platformsdk
 //
 // W3DModelDraw::setTerrainDecalSize (retail 0x000B314B, 32 bytes) and
 // W3DModelDraw::setTerrainDecalOpacity (0x000B316B, 34 bytes), ported from
@@ -36,8 +37,7 @@
 typedef float Real;
 typedef int Int;
 typedef bool Bool;
-#define TRUE true
-#define FALSE false
+#include <windows.h>
 #include "ascii_string.h"
 
 enum TerrainDecalType

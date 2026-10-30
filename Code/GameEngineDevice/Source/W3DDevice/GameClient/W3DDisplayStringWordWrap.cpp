@@ -1,4 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
+// platformsdk
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
@@ -34,8 +35,7 @@
 typedef bool Bool;
 typedef int Int;
 typedef int Color;
-#define TRUE true
-#define FALSE false
+#include <windows.h>
 
 class FontCharsClass;
 

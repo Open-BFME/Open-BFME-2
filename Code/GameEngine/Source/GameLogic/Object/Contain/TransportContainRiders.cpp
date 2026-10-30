@@ -1,4 +1,5 @@
 // cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /ICode/GameEngine/Source/Common /ICode/Libraries/Include/Lib
+// platformsdk
 // stlport
 //
 // Zero Hour TransportContain's rider-exit pair as BFME 2 builds it. Both are
@@ -21,8 +22,7 @@ typedef bool Bool;
 typedef int Int;
 typedef unsigned int UnsignedInt;
 typedef float Real;
-#define TRUE true
-#define FALSE false
+#include <windows.h>
 
 #include <stddef.h>
 #include <list>
