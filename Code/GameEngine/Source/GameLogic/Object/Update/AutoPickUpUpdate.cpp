@@ -85,6 +85,39 @@ public:
 #define _CRTIMP
 #include <stdlib.h>
 #undef _CRTIMP
+#define BFME_DISP8_BYTECHASE_GETTER(NAME, DISP1, DISP2) \
+	class NAME \
+	{ \
+	public: \
+		unsigned char get() const; \
+		char m_lead[DISP1]; \
+		void *m_ptr; \
+	}; \
+	unsigned char NAME::get() const \
+	{ \
+		return *(unsigned char *)((char *)m_ptr + DISP2); \
+	}
+#define BFME_DISP8_BYTECHASE_BEFORE_GETTER(NAME, BACK, INNER) \
+	class Inner##NAME \
+	{ \
+	public: \
+		char m_lead[INNER]; \
+		unsigned char m_value; \
+	}; \
+	class Sub##NAME \
+	{ \
+	public: \
+		Inner##NAME *m_holder; \
+	}; \
+	class NAME \
+	{ \
+	public: \
+		unsigned char get() const; \
+	}; \
+	unsigned char NAME::get() const \
+	{ \
+		return ((const Sub##NAME *)((const char *)this - (BACK)))->m_holder->m_value; \
+	}
 
 extern PartitionManager *ThePartitionManager;
 
@@ -281,6 +314,19 @@ public:
 	BfmeStringRecord00426A5B *m_last;
 };
 
+BFME_DISP8_BYTECHASE_BEFORE_GETTER(Rva00495DCDByteChaseField, 0x1C, 0x21)
+
+// 0x0039ADAF is ExperienceTracker::isTrainable (pinned under that name from
+// VeterancyCrateCollide::isValidToExecute; ZH's isTrainable reads the
+// template's trainable flag): the byte at +0x5E7 of the +0x04 template.
+class ExperienceTracker
+{
+public:
+	bool isTrainable() const;
+	char m_lead[0x4];
+	void *m_template;
+};
+
 // tu-skeleton: 0x00495C48 32B ??1AutoPickUpUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AutoPickUpUpdateDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00495C68 6B ?name@AutoPickUpUpdate@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
@@ -297,11 +343,29 @@ public:
 
 // tu-skeleton: 0x00495DC6 7B ?get@Rva00495DC6PtrChaseField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x00495DCD 7B ?get@Rva00495DCDByteChaseField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp
+
+// Disp8 byte-chase getters: seven-byte __thiscall members with one shape:
+//
+//     mov eax,[ecx+<DISP1>] / mov al,[eax+<DISP2>] / ret
+//
+// A pointer is read at a fixed displacement from `this`, then a byte is read
+// at a second displacement from that pointer and returned in `al` (only the
+// low byte is defined; the caller uses `al`). MSVC 7.1 emits the disp8 loads
+// `8B 41 XX` + `8A 40 XX`, plus `ret`, for seven bytes total.
+// Identity is not recovered: every name is derived from its address.
+// No // cl: line (defaults match the frameless seven-byte shape).
+
+// Backward variant: the holder sits at a NEGATIVE displacement from `this`
+// (a sub-object `this` pointing into a larger object). Spelled as an explicit
+// backward cast, which MSVC folds to `mov eax,[ecx-BACK]`; same shape and
+// reading as BFME1's ChainedFieldGetters.
 
 // tu-skeleton: 0x00495DD4 36B ?rva00495DD4@AutoPickUpUpdate@@QAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/Rva00495DD4.cpp (not merged yet)
 
 // tu-skeleton: 0x00495DF8 9B ??$_Destroy@VRva00495C43PoolRecord@@@_STL@@YAXPAVRva00495C43PoolRecord@@@Z -- matched in Code/GameEngine/Source/Common/DestroyInstances.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/AutoPickUpUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/AutoPickUpUpdateUpdate.cpp
 
@@ -443,8 +507,6 @@ void destroyRange(void *first, void *last)
 	}
 }
 
-// tu-skeleton: 0x004962AB 63B ??1Rva004962ABVector@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AutoPickUpUpdateModuleDataDtor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/Rva004962EA.cpp
 
 // ??1Rva004962EA@@QAE@XZ 0x004962EA 30B vector teardown via destroy range and free no EH
@@ -461,6 +523,8 @@ Rva004962EA::~Rva004962EA()
 		free(block);
 	}
 }
+
+// tu-skeleton: 0x004962AB 63B ??1Rva004962ABVector@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AutoPickUpUpdateModuleDataDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00496308 151B ??0AutoPickUpUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AutoPickUpUpdateModuleDataCtor.cpp (not merged yet)
 
