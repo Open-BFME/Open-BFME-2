@@ -1,4 +1,8 @@
-// cl: /MD
+// cl: /MD /EHsc
+// platformsdk
+// /EHsc retains the nonthrowing C API contract of the lock calls.
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
 //
 // ?rva00035080@GeneralAllocator@Allocator@EA@@QAEPAXIH@Z @0x00035080 120B.
 // Malloc-like lock-guard wrapper: counted guard over the lock at +0x4E4
@@ -22,9 +26,7 @@
 // unproven); the call below reuses that pin and adds none. Target evidence
 // proves the wrapper ABI, call chain and lock offsets +0x4E4/+0x18. The
 // GeneralAllocator class spelling is carried by existing pins and siblings;
-// its original retail type identity remains uncertain. No new pins or headers.
-extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(void *cs) throw();
-extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(void *cs) throw();
+// its original retail type identity remains uncertain. No new pins.
 
 class Rva00035080Lock
 {
@@ -34,7 +36,7 @@ public:
 	{
 		if (m_obj)
 		{
-			EnterCriticalSection(m_obj);
+			EnterCriticalSection(static_cast<CRITICAL_SECTION *>(m_obj));
 			++*(volatile int *)((char *)m_obj + 0x18);
 		}
 	}
@@ -43,7 +45,7 @@ public:
 		if (m_obj)
 		{
 			--*(volatile int *)((char *)m_obj + 0x18);
-			LeaveCriticalSection(m_obj);
+			LeaveCriticalSection(static_cast<CRITICAL_SECTION *>(m_obj));
 		}
 	}
 };

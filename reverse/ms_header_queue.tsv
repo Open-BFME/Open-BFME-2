@@ -36,7 +36,6 @@ Code/Libraries/Source/ATL/cstringt_compare.cpp	adapt	unknown	3	1	1	1	0	0	0	0	0	0
 Code/Libraries/Source/EA/Apt/AptString/EAStringCConcat.cpp	adapt	source	3	2	1	0	0	0	0	0	0	0	0	<string.h>,<tchar.h>	no	yes	hand			strstr:source,memcpy:same,strlen:same
 Code/GameEngine/Source/Common/Rva00034C90Finish.cpp	adapt	source	2	0	2	0	0	0	0	0	0	0	0	<windows.h>	yes	yes	hand			EnterCriticalSection:source,LeaveCriticalSection:source
 Code/GameEngine/Source/Common/System/Rva00033A80Query.cpp	adapt	source	2	0	2	0	0	0	0	0	0	0	0	<windows.h>	yes	yes	hand			EnterCriticalSection:source,LeaveCriticalSection:source
-Code/GameEngine/Source/Common/System/Rva00035080Finish.cpp	adapt	source	2	0	2	0	0	0	0	0	0	0	0	<windows.h>	yes	yes	hand			EnterCriticalSection:source,LeaveCriticalSection:source
 Code/GameEngine/Source/Common/System/Rva00035100Wrappers.cpp	adapt	source	2	0	2	0	0	0	0	0	0	0	0	<windows.h>	yes	yes	hand			EnterCriticalSection:source,LeaveCriticalSection:source
 Code/GameEngine/Source/Common/System/Rva00035190Wrappers.cpp	adapt	source	2	0	2	0	0	0	0	0	0	0	0	<windows.h>	yes	yes	hand			EnterCriticalSection:source,LeaveCriticalSection:source
 Code/GameEngine/Source/Common/System/Rva000353F0Trace.cpp	adapt	source	2	0	2	0	0	0	0	0	0	0	0	<windows.h>	yes	yes	hand			EnterCriticalSection:source,LeaveCriticalSection:source

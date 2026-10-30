@@ -41,6 +41,16 @@ CreateAHeroManager consumer receipt; full consumer/census confirmation is
 pending. No unique-byte or census gain is claimed.
 [Native twin and audit scope](../reverse/attempt_support/word-vector-stlport46-20261030-codex3/readme.md).
 
+Allocator lock wrapper SDK cleanup (2026-10-30, base `335b60649d17`):
+Rva00035080Finish.cpp replaces its two local Windows API declarations with
+windows.h and leaves the Microsoft-header queue. The 120-byte row, both imports, EH graph and all external object
+facts are preserved. Strict preparation passes; preview retains LINKS for
+119 authored bytes against `85f6b7f40c`. The staged audit is INCONCLUSIVE on
+the older index and missing current CreateAHeroManager consumer receipt;
+carry the wrapper and consumer into the next scheduled census. No census
+gain is claimed.
+[Verification](../reverse/attempt_support/allocator-lock-msheaders-20261030-codexb5.md).
+
 Physics trajectory ObjectModule follow-up (2026-10-30, base `0c90b528d9`):
 one canonical base adoption retires one header queue row while preserving all
 three rows and all external object facts. Thing's missing `setTransformMatrix`
