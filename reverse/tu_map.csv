@@ -54233,7 +54233,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x006223F0,31,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_int.cpp
 0x00622410,106,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int.cpp
 0x00622480,496,code,Code/Libraries/Source/assetmanager/AssetRegistry.cpp,approved,N,N=Code/Libraries/Source/assetmanager/AssetRegistry.cpp W=Code/Libraries/Source/assetmanager/assetmanager_impl.cpp provisional,Code/Libraries/Source/assetmanager/Rva0061FFA0.cpp
-0x00622670,9,code,Code/Libraries/Source/assetmanager/AssetRegistry.cpp,approved,C,C=0x00622480..0x00622680 provisional,Code/Libraries/Source/assetmanager/AssetManagerImplThreadProc.cpp
+0x00622670,9,code,Code/Libraries/Source/assetmanager/AssetRegistry.cpp,approved,C,C=0x00622480..0x00622680 provisional,Code/Libraries/Source/assetmanager/AssetRegistry.cpp
 0x00622680,337,code,Code/Libraries/Source/assetmanager/AssetRegistry.cpp,approved,N,N=Code/Libraries/Source/assetmanager/AssetRegistry.cpp W=Code/Libraries/Source/assetmanager/assetmanager_impl.cpp provisional,Code/Libraries/Source/assetmanager/Rva0061FFA0.cpp
 0x006227E0,3244,code,Code/Libraries/Source/assetmanager/Q1Receiver0134FAAC.cpp,proposed,N,N=Code/Libraries/Source/assetmanager/Q1Receiver0134FAAC.cpp,Code/Libraries/Source/assetmanager/AssetManagerImplRefresh.cpp
 0x00623490,238,code,Code/Libraries/Source/assetmanager/Q1Receiver0134FAAC.cpp,proposed,N,N=Code/Libraries/Source/assetmanager/Q1Receiver0134FAAC.cpp,Code/Libraries/Source/assetmanager/assetmanager_impl.cpp
