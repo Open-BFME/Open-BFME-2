@@ -3617,12 +3617,38 @@ def compile_rows(rows, sources, *, input_proof=None, strict=False):
     return source_outputs
 
 
+def selector_matcher(only):
+    """match(text): whether any selector in `only` is a substring of `text`, as
+    `any(sel in text for sel in only)`, made cheap for the hooks' scoped verifies,
+    which pass hundreds of whole source paths: an exact hit is a set lookup, and a
+    selector holding "/" cannot occur in a text without one."""
+    exact = frozenset(only)
+    slashed = tuple(sel for sel in only if "/" in sel)
+    plain = tuple(sel for sel in only if "/" not in sel)
+
+    def match(text):
+        if text in exact:
+            return True
+        if any(sel in text for sel in plain):
+            return True
+        return "/" in text and any(sel in text for sel in slashed)
+    return match
+
+
 def _function_scope(rows, only=None, exact_sources=None):
     if exact_sources is not None:
         return [row for row in rows if row["source"] in exact_sources]
     if only:
-        return [row for row in rows
-                if any(sel in row["source"] or sel in row["name"] for sel in only)]
+        # One answer per distinct source (99,000 rows share ~20,000), and the
+        # selector test linear in the selectors: the hooks pass hundreds.
+        match = selector_matcher(only)
+        by_source = {}
+
+        def source_hit(source):
+            if source not in by_source:
+                by_source[source] = match(source)
+            return by_source[source]
+        return [row for row in rows if source_hit(row["source"]) or match(row["name"])]
     return rows
 
 
@@ -4297,8 +4323,11 @@ def verify_source_claims(only=None, *, exact_sources=None):
     if exact_sources is not None:
         sources = [p for p in sources if p.relative_to(ROOT).as_posix() in exact_sources]
     elif only:
-        sources = [p for p in sources
-                   if any(sel in p.relative_to(ROOT).as_posix() for sel in only)]
+        # Each path's relative spelling once: computing it per selector, for every
+        # source under Code/, was quadratic -- a 441-source carried retry (three
+        # scoped verifies) spent most of its 339 s here on one core.
+        match = selector_matcher(only)
+        sources = [p for p in sources if match(p.relative_to(ROOT).as_posix())]
     for path in sources:
         rel = path.relative_to(ROOT).as_posix()
         text = path.read_text(encoding="utf-8", errors="replace")
