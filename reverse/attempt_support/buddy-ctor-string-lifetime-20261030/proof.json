@@ -1,0 +1,434 @@
+{
+  "kind": "native string lifetime binding; no Buddy destructor identity or body admission",
+  "private_rows_and_eh": {
+    "before": {
+      "source_sha256": "5315b559b80a4592100dfc11d49cae22c8c2eb94aa0b04ede2642803cf250a1a",
+      "object_sha256": "33ac69b028027d2cbd456f845dabe52b8a7dbdc80cbcba0f9e7774a174ddc54e",
+      "rows": [
+        {
+          "name": "??0BuddyThreadClass@@QAE@PAVMutexClass@@@Z",
+          "rva": "0x00550F01",
+          "size": "220",
+          "exact": true
+        },
+        {
+          "name": "uw_007989a7",
+          "rva": "0x007989A7",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$??0BuddyThreadClass@@QAE@PAVMutexClass@@@Z",
+          "rva": "0x007989B1",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b98946",
+          "rva": "0x00798946",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b9894e",
+          "rva": "0x0079894E",
+          "size": "11",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b98959",
+          "rva": "0x00798959",
+          "size": "11",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b98964",
+          "rva": "0x00798964",
+          "size": "11",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b9896f",
+          "rva": "0x0079896F",
+          "size": "14",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b9897d",
+          "rva": "0x0079897D",
+          "size": "14",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b9898b",
+          "rva": "0x0079898B",
+          "size": "14",
+          "exact": true
+        }
+      ],
+      "eh": [
+        {
+          "name": "??0BuddyThreadClass@@QAE@PAVMutexClass@@@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        }
+      ],
+      "all_emitted_handler_parents": []
+    },
+    "trial": {
+      "source_sha256": "eeb5f32a0ad1656917a3a06752de2aceb335c951a99a75fd105d4c4eecc18479",
+      "object_sha256": "b3bb21a6a755f550359545981124bced155090df86a104d9d00122a93061b2bf",
+      "rows": [
+        {
+          "name": "??0BuddyThreadClass@@QAE@PAVMutexClass@@@Z",
+          "rva": "0x00550F01",
+          "size": "220",
+          "exact": true
+        },
+        {
+          "name": "uw_007989a7",
+          "rva": "0x007989A7",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$??0BuddyThreadClass@@QAE@PAVMutexClass@@@Z",
+          "rva": "0x007989B1",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b98946",
+          "rva": "0x00798946",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b9894e",
+          "rva": "0x0079894E",
+          "size": "11",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b98959",
+          "rva": "0x00798959",
+          "size": "11",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b98964",
+          "rva": "0x00798964",
+          "size": "11",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b9896f",
+          "rva": "0x0079896F",
+          "size": "14",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b9897d",
+          "rva": "0x0079897D",
+          "size": "14",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b9898b",
+          "rva": "0x0079898B",
+          "size": "14",
+          "exact": true
+        }
+      ],
+      "eh": [
+        {
+          "name": "??0BuddyThreadClass@@QAE@PAVMutexClass@@@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        }
+      ],
+      "all_emitted_handler_parents": []
+    }
+  },
+  "removed_external_definitions": [
+    "??$__stl_alloc_rebind@DD@_STL@@YAAAV?$allocator@D@0@AAV10@PBD@Z",
+    "??1?$_STLP_alloc_proxy@PADDV?$allocator@D@_STL@@@_STL@@QAE@XZ",
+    "??1?$_String_base@DV?$allocator@D@_STL@@@_STL@@QAE@XZ",
+    "??1?$allocator@D@_STL@@QAE@XZ",
+    "??1?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@XZ",
+    "?_Destroy@_STL@@YAXPAD0@Z",
+    "?_M_deallocate_block@?$_String_base@DV?$allocator@D@_STL@@@_STL@@QAEXXZ",
+    "?__stl_delete@_STL@@YAXPAX@Z",
+    "?deallocate@?$_STLP_alloc_proxy@PADDV?$allocator@D@_STL@@@_STL@@QAEXPADI@Z",
+    "?deallocate@?$__node_alloc@$00$0A@@_STL@@SAXPAXI@Z",
+    "?deallocate@?$allocator@D@_STL@@QBEXPADI@Z"
+  ],
+  "retained_external_definitions_unchanged": 3,
+  "implicit_Buddy_destructor": {
+    "raw_unchanged": true,
+    "size": 140,
+    "only_changes": [
+      {
+        "offset": 61,
+        "before": "?_M_deallocate_block@?$_String_base@DV?$allocator@D@_STL@@@_STL@@QAEXXZ",
+        "after": "??1?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@XZ",
+        "existing_native_binding": "0x00142D70"
+      },
+      {
+        "offset": 76,
+        "before": "?_M_deallocate_block@?$_String_base@DV?$allocator@D@_STL@@@_STL@@QAEXXZ",
+        "after": "??1?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@XZ",
+        "existing_native_binding": "0x00142D70"
+      },
+      {
+        "offset": 88,
+        "before": "?_M_deallocate_block@?$_String_base@DV?$allocator@D@_STL@@@_STL@@QAEXXZ",
+        "after": "??1?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@XZ",
+        "existing_native_binding": "0x00142D70"
+      },
+      {
+        "offset": 100,
+        "before": "?_M_deallocate_block@?$_String_base@DV?$allocator@D@_STL@@@_STL@@QAEXXZ",
+        "after": "??1?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@XZ",
+        "existing_native_binding": "0x00142D70"
+      },
+      {
+        "offset": 112,
+        "before": "?_M_deallocate_block@?$_String_base@DV?$allocator@D@_STL@@@_STL@@QAEXXZ",
+        "after": "??1?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@XZ",
+        "existing_native_binding": "0x00142D70"
+      }
+    ],
+    "native_exact_claim": false,
+    "new_row_or_pin": false,
+    "remaining_prerequisite": "native170B body remains rowed under Rva0055133F; implicit140B view is not admitted or repaired here"
+  },
+  "native_cleanup_targets": [
+    {
+      "rva": "0x79894e",
+      "raw": "8b4df083c160e917a49aff",
+      "branch": {
+        "at": "0x798954",
+        "mnemonic": "jmp",
+        "target": "0x142d70"
+      }
+    },
+    {
+      "rva": "0x798959",
+      "raw": "8b4df083c16ce90ca49aff",
+      "branch": {
+        "at": "0x79895f",
+        "mnemonic": "jmp",
+        "target": "0x142d70"
+      }
+    },
+    {
+      "rva": "0x798964",
+      "raw": "8b4df083c178e901a49aff",
+      "branch": {
+        "at": "0x79896a",
+        "mnemonic": "jmp",
+        "target": "0x142d70"
+      }
+    },
+    {
+      "rva": "0x79896f",
+      "raw": "8b4df081c184000000e9f3a39aff",
+      "branch": {
+        "at": "0x798978",
+        "mnemonic": "jmp",
+        "target": "0x142d70"
+      }
+    },
+    {
+      "rva": "0x79897d",
+      "raw": "8b4df081c190000000e9e5a39aff",
+      "branch": {
+        "at": "0x798986",
+        "mnemonic": "jmp",
+        "target": "0x142d70"
+      }
+    }
+  ],
+  "existing_string_providers": [
+    {
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_num_get_double.cpp",
+      "strict_current": true,
+      "object_md5": "7a8c5e4c7472cd7c8f214a8af45d821f",
+      "raw": "8b0185c0740750e80000000059c3",
+      "relocations": [
+        [
+          8,
+          20,
+          "_free"
+        ]
+      ],
+      "native": "8b0185c0740750e8b4daeeff59c3",
+      "resolved": "8b0185c0740750e8b4daeeff59c3",
+      "complete_size": 14,
+      "exact": true
+    },
+    {
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_locale_global.cpp",
+      "strict_current": true,
+      "object_md5": "92af8a1956139178ecd309126ee8f939",
+      "raw": "8b0185c0740750e80000000059c3",
+      "relocations": [
+        [
+          8,
+          20,
+          "_free"
+        ]
+      ],
+      "native": "8b0185c0740750e8b4daeeff59c3",
+      "resolved": "8b0185c0740750e8b4daeeff59c3",
+      "complete_size": 14,
+      "exact": true
+    }
+  ],
+  "actual_source": {
+    "source": "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/BuddyThreadClassCtor.cpp",
+    "strict_current": true,
+    "source_sha256": "eeb5f32a0ad1656917a3a06752de2aceb335c951a99a75fd105d4c4eecc18479",
+    "object_md5": "a1917a3a257abd5411943fa933b24010",
+    "actual_vs_private_all_external_code_identical": true
+  },
+  "removed_helper_selection": [
+    {
+      "name": "??$__stl_alloc_rebind@DD@_STL@@YAAAV?$allocator@D@0@AAV10@PBD@Z",
+      "before": [
+        "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_narrow_num_get_bool.obj",
+        null
+      ],
+      "after": [
+        "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_narrow_num_get_bool.obj",
+        null
+      ],
+      "globally_referenced": false
+    },
+    {
+      "name": "??1?$_STLP_alloc_proxy@PADDV?$allocator@D@_STL@@@_STL@@QAE@XZ",
+      "before": [
+        "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_narrow_num_get_bool.obj",
+        "ok"
+      ],
+      "after": [
+        "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_narrow_num_get_bool.obj",
+        "ok"
+      ],
+      "globally_referenced": true
+    },
+    {
+      "name": "??1?$_String_base@DV?$allocator@D@_STL@@@_STL@@QAE@XZ",
+      "before": [
+        "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_money_put_long_double.obj",
+        "ok"
+      ],
+      "after": [
+        "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_money_put_long_double.obj",
+        "ok"
+      ],
+      "globally_referenced": true
+    },
+    {
+      "name": "??1?$allocator@D@_STL@@QAE@XZ",
+      "before": [
+        "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_classic_locale.obj",
+        "ok"
+      ],
+      "after": [
+        "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_classic_locale.obj",
+        "ok"
+      ],
+      "globally_referenced": true
+    },
+    {
+      "name": "??1?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@XZ",
+      "before": [
+        "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_locale_global.obj",
+        "ok"
+      ],
+      "after": [
+        "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_locale_global.obj",
+        "ok"
+      ],
+      "globally_referenced": true
+    },
+    {
+      "name": "?_Destroy@_STL@@YAXPAD0@Z",
+      "before": [
+        "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_classic_locale.obj",
+        null
+      ],
+      "after": [
+        "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_classic_locale.obj",
+        null
+      ],
+      "globally_referenced": false
+    },
+    {
+      "name": "?_M_deallocate_block@?$_String_base@DV?$allocator@D@_STL@@@_STL@@QAEXXZ",
+      "before": [
+        "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_money_put_long_double.obj",
+        "ok"
+      ],
+      "after": [
+        "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_money_put_long_double.obj",
+        "ok"
+      ],
+      "globally_referenced": true
+    },
+    {
+      "name": "?__stl_delete@_STL@@YAXPAX@Z",
+      "before": [
+        "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_new_alloc_deallocate.obj",
+        null
+      ],
+      "after": [
+        "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_new_alloc_deallocate.obj",
+        null
+      ],
+      "globally_referenced": false
+    },
+    {
+      "name": "?deallocate@?$_STLP_alloc_proxy@PADDV?$allocator@D@_STL@@@_STL@@QAEXPADI@Z",
+      "before": [
+        "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_narrow_num_get_bool.obj",
+        "ok"
+      ],
+      "after": [
+        "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_narrow_num_get_bool.obj",
+        "ok"
+      ],
+      "globally_referenced": true
+    },
+    {
+      "name": "?deallocate@?$__node_alloc@$00$0A@@_STL@@SAXPAXI@Z",
+      "before": [
+        "^code_^game^engine_^source_^common_^system_^rva003^f1^f^b6^ctor.obj",
+        "unknown"
+      ],
+      "after": [
+        "^code_^game^engine_^source_^common_^system_^rva003^f1^f^b6^ctor.obj",
+        "unknown"
+      ],
+      "globally_referenced": true
+    },
+    {
+      "name": "?deallocate@?$allocator@D@_STL@@QBEXPADI@Z",
+      "before": [
+        "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_narrow_num_get_bool.obj",
+        "unknown"
+      ],
+      "after": [
+        "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_narrow_num_get_bool.obj",
+        "unknown"
+      ],
+      "globally_referenced": true
+    }
+  ]
+}

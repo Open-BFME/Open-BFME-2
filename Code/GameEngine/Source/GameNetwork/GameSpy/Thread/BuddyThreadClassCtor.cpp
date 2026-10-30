@@ -24,6 +24,8 @@
 // Use the existing byte-matched narrow-string constructor.
 namespace _STL {
 template <> basic_string<char, char_traits<char>, allocator<char> >::basic_string();
+// Bind constructor unwind cleanup to the existing native string destructor.
+template <> basic_string<char, char_traits<char>, allocator<char> >::~basic_string();
 }
 
 typedef _STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> > BfmeStateString;

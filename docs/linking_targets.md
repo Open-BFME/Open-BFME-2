@@ -1,5 +1,16 @@
 # Linking target checklist
 
+Buddy constructor lifetime follow-up (2026-10-30, LINK-165): declare the existing
+native string destructor beside its constructor specialization. The five native
+cleanup targets and all ten owned rows remain exact; eleven unused/wrong local
+lifetime definitions disappear while referenced selected providers remain.
+Strict three-source preparation passes 27 rows, one data row and seven EH
+graphs. The preview retains 3/3 LINKS, 1,607 -> 1,837 authored bytes against
+`ccafe54d1d`. No pin, row, alias, hatch or header changes. The unrowed implicit
+Buddy body and native Buddy lifetime identities remain separate prerequisites;
+no new body admission is claimed. Consumer/census confirmation remains pending.
+[Evidence](../reverse/attempt_support/buddy-ctor-string-lifetime-20261030/readme.md).
+
 Downloader allocator follow-up (2026-10-30, LINK-164): direct native cleanup
 in two local proxy specializations avoids instantiating three debug-only
 helpers per unit. The selected proxy/rebind providers remain unchanged and
