@@ -5,19 +5,43 @@
 
 class Player;
 
-template<int N> class BitFlags { public: bool any() const; };
+template<int N>
+class BitFlags
+{
+public:
+	bool any() const;
+	unsigned int m_bits[(N + 31) / 32];
+};
 
+enum Relationship
+{
+	REL_0 = 0,
+	REL_1 = 1,
+	REL_2 = 2
+};
+struct Tmpl;
+class Mult;
 class Object
 {
 public:
 	Player *getControllingPlayer() const;
 	const Coord3D *getPosition() const { return &m_position; }
+	Relationship getRelationship(const Object *other) const;
+	void attemptHealing(float amount, const Object *source);
+	char m_pad00[0x4];
+	Tmpl *m_4; // +0x04
+	char m_pad08[0x30];
 private:
-	unsigned char m_pad00[0x38];
-	Coord3D m_position;		// +0x38
+	Coord3D m_position; // +0x38
+	char m_pad44[0x30];
 public:
-	unsigned char pad44[0x1C8-0x44];
-	BitFlags<11> m_disabledMask;
+	int m_74; // +0x74
+	char m_pad78[0x150];
+	BitFlags<11> m_disabledMask; // +0x1C8
+	char m_pad1CC[0x88];
+	Mult *m_254; // +0x254
+	char m_pad258[0x28];
+	float m_280; // +0x280
 };
 
 class ModuleData;
@@ -66,18 +90,50 @@ public:
 
 class ObjectCreationList;
 
-// Module data offsets read by the heal: radius +0x84, dispatch OCL +0xA8.
-struct PlayerHealSpecialPowerModuleData
+class SpecialPowerModuleData
 {
-	unsigned char m_pad00[0x84];
-	float m_healRadius;
-	unsigned char m_pad88[0xA8 - 0x88];
-	ObjectCreationList *m_dispatchList;
+public:
+	SpecialPowerModuleData();
+};
+
+class Rva0024C7B3Member
+{
+public:
+	Rva0024C7B3Member();
+
+	unsigned char m_data[0x1C];
+};
+
+// Module data offsets read by the heal: radius +0x84, dispatch OCL +0xA8.
+struct PlayerHealSpecialPowerModuleData : public SpecialPowerModuleData
+{
+public:
+	PlayerHealSpecialPowerModuleData();
+
+private:
+	const void *m_vtable;				// +0x00
+	unsigned char m_pad04[0x7C - 4];	// +0x04
+	float m_healAmount;					// +0x7C
+	unsigned char m_healAsPercent;		// +0x80
+	unsigned char m_pad81[3];			// +0x81
+public:
+	float m_healRadius;					// +0x84
+private:
+	Rva0024C7B3Member m_filter;			// +0x88
+	void *m_healFX;						// +0xA4
+public:
+	ObjectCreationList *m_dispatchList;					// +0xA8
+};
+
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
 };
 
 class PlayerHealSpecialPower : public SpecialPowerModule
 {
 public:
+	virtual NameKeyType getModuleNameKey() const;
 	virtual void doSpecialPower(unsigned int options);
 	virtual void doSpecialPowerAtObject(Object *obj, unsigned int options);
 	virtual void doSpecialPowerAtLocation(const Coord3D *loc, unsigned int options);

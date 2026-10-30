@@ -37,6 +37,8 @@ extern "C" const void *const __identifier("??_7CombineHordeSpecialPowerModuleDat
 #include <string.h>
 
 
+class ObjectCreationList;
+
 class SpecialPowerModuleData
 {
 public:
@@ -51,7 +53,7 @@ public:
 	unsigned char m_data[0x1C];
 };
 
-class PlayerHealSpecialPowerModuleData : public SpecialPowerModuleData
+struct PlayerHealSpecialPowerModuleData : public SpecialPowerModuleData
 {
 public:
 	PlayerHealSpecialPowerModuleData();
@@ -62,10 +64,13 @@ private:
 	float m_healAmount;					// +0x7C
 	unsigned char m_healAsPercent;		// +0x80
 	unsigned char m_pad81[3];			// +0x81
+public:
 	float m_healRadius;					// +0x84
+private:
 	Rva0024C7B3Member m_filter;			// +0x88
 	void *m_healFX;						// +0xA4
-	void *m_healOCL;					// +0xA8
+public:
+	ObjectCreationList *m_dispatchList;					// +0xA8
 };
 
 // ??0PlayerHealSpecialPowerModuleData@@QAE@XZ @0x4C803A
@@ -80,5 +85,5 @@ PlayerHealSpecialPowerModuleData::PlayerHealSpecialPowerModuleData()
 	m_healRadius = healRadius;
 	memset(&m_filter, 0, 0x1C);
 	m_healFX = 0;
-	m_healOCL = 0;
+	m_dispatchList = 0;
 }

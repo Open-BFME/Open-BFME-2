@@ -22,10 +22,66 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class PlayerHealSpecialPower
+class Object;
+struct Coord3D;
+class ModuleData;
+struct PlayerHealSpecialPowerModuleData;
+
+class ModuleBase
+{
+public:
+	virtual ~ModuleBase();
+protected:
+	const ModuleData *m_moduleData;	// +0x04
+	Object *m_object;		// +0x08
+};
+
+class BehaviorModuleInterface
+{
+public:
+	virtual void b00() = 0;
+};
+
+class SpecialPowerModuleInterface
+{
+public:
+	virtual void s00() = 0;
+	virtual void s01() = 0;
+	virtual void s02() = 0;
+	virtual void s03() = 0;
+	virtual void s04() = 0;
+	virtual void s05() = 0;
+	virtual void s06() = 0;
+	virtual void s07() = 0;
+	virtual void s08() = 0;
+	virtual void s09() = 0;
+	virtual void doSpecialPower(unsigned int options) = 0;
+	virtual void doSpecialPowerAtObject(Object *obj, unsigned int options) = 0;
+	virtual void doSpecialPowerAtLocation(const Coord3D *loc, unsigned int options) = 0;
+};
+
+class SpecialPowerModule : public ModuleBase, public BehaviorModuleInterface,
+	public SpecialPowerModuleInterface
+{
+public:
+	virtual void doSpecialPower(unsigned int options);					// 0x0049490F
+	virtual void doSpecialPowerAtObject(Object *obj, unsigned int options);		// 0x0049495B
+	virtual void doSpecialPowerAtLocation(const Coord3D *loc, unsigned int options);	// 0x004949D8
+};
+
+class PlayerHealSpecialPower : public SpecialPowerModule
 {
 public:
 	virtual NameKeyType getModuleNameKey() const;
+	virtual void doSpecialPower(unsigned int options);
+	virtual void doSpecialPowerAtObject(Object *obj, unsigned int options);
+	virtual void doSpecialPowerAtLocation(const Coord3D *loc, unsigned int options);
+	void rva004C8095(const Coord3D *loc);
+	void rva004C7F5C(Object *obj); // the per-object heal
+	const PlayerHealSpecialPowerModuleData *getPlayerHealSpecialPowerModuleData() const
+	{
+		return (const PlayerHealSpecialPowerModuleData *)m_moduleData;
+	}
 };
 
 // ?getModuleNameKey@PlayerHealSpecialPower@@UBE?AW4NameKeyType@@XZ
