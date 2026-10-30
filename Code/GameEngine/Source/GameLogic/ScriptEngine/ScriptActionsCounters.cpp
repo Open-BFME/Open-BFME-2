@@ -112,7 +112,7 @@ public:
 class Parameter
 {
 public:
-	__declspec(dllimport) __forceinline Int getInt() const { return m_int; }
+	__forceinline Int getInt() const { return m_int; }
 	const AsciiString &getString() const { return m_string; }
 
 	unsigned char m_beforeInt[8];

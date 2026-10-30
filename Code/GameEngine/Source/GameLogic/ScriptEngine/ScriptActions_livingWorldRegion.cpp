@@ -345,8 +345,7 @@ enum ObjectStatusTypes { OBJECT_STATUS_INVALID = -1 };
 class Parameter
 {
 public:
-    // Every call inlines; dllimport stops the TU emitting an unreferenced copy.
-    __declspec(dllimport) __forceinline int getInt() const { return m_int; }
+    __forceinline int getInt() const { return m_int; }
     float getReal() const { return m_real; }
     const AsciiString &getString() const { return m_string; }
     void getCoord3D(Coord3D *) const;

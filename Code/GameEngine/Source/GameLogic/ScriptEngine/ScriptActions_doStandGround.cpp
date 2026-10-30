@@ -61,7 +61,7 @@ enum ObjectStatusTypes
 class Parameter
 {
 public:
-	__declspec(dllimport) __forceinline Int getInt() const { return m_int; }
+	__forceinline Int getInt() const { return m_int; }
 	const AsciiString &getString() const { return m_string; }
 private:
 	unsigned char m_pad00[8];
