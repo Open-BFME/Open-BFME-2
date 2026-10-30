@@ -104,9 +104,7 @@ struct TargetRef00217D4C
 	virtual void *destroy(unsigned);
 	int references;
 };
-
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
-
 struct TreeHintRef00217D4C
 {
 	TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &);
@@ -117,9 +115,7 @@ struct TreeHintRef00217D4C
 	}
 	TargetRef00217D4C *m_ptr;
 };
-
 class Rva003FE20FBase;
-
 // The stats display: constructor 0x00579E82.
 namespace StrategicHUD
 {
@@ -177,7 +173,6 @@ private:
 };
 
 }
-
 // The checklist's per-frame update is reached through the HUD's slot.
 namespace StrategicHUD
 {
@@ -193,7 +188,6 @@ private:
 	unsigned char m_pad004[0x50 - 4];
 };
 }
-
 namespace StrategicHUD
 {
 class SelectionDetailsUIImpl
@@ -247,6 +241,7 @@ namespace StrategicHUD
 #pragma data_seg()
 #include "unicode_string.h"
 #pragma comment(linker, "/alternatename:?g_Va007C9260@@3QBGB=??_C@_15KNBIKKIN@?$AA?$CF?$AAd?$AA?$AA@")
+#include <stdlib.h>
 
 // The slot holders. Each one's destructor is its rowed clear, which the
 // Impl destructor calls once per slot, in reverse, under its own
@@ -586,13 +581,6 @@ public:
 	virtual int rva005CB265();
 };
 
-class Rva003FE20FBase
-{
-public:
-	virtual void rva001FF3A9();
-	virtual void slot1(void *flag);
-};
-
 class Rva005796B3
 {
 public:
@@ -675,22 +663,6 @@ class Rva0057A4A3Target
 public:
 	char m_pad00[0x38];
 	bool m_38;
-};
-
-class Rva0057A382
-{
-public:
-	__declspec(noinline) void rva0057A382();
-	void rva0057A471(int val);
-	void rva0057A4A3();
-private:
-	char m_pad00[8];
-	Rva005D3F6D m_08;
-	char m_pad38[0x10];
-	Rva0057A4A3Target *m_48;
-	char m_pad4C[0xC];
-	int m_58;
-	bool m_5C;
 };
 
 // ?GetPhaseIndicatorIndex@StrategicHUD@@YAHH@Z @0x0057A3B2 33B
@@ -829,9 +801,165 @@ public:
 	int rva00222B19(void *level, const char *prefix, const char *function, int argc, const char *a0, void *a1, void *a2, void *a3, void *a4);
 };
 
+// WorldBuilder StrategicHUD::ParseRowNum, WB VA 0x014C10A0 (callgraph lead, score 1.0).
+namespace StrategicHUD {
+bool __cdecl ParseRowNum(const char *s, int *out)
+{
+    int v = atoi(s);
+    if (v < 0 || v >= 6)
+        return false;
+    *out = v;
+    return true;
+}
+}
+
+class Rva00579731
+{
+public:
+	TreeHintRef00217D4C rva00579770(int);
+};
+
+extern unsigned g_Va00E0631C;
+
+	// the StatsDisplay instance at 0x00E0631C
+// Defined here: nothing else in the tree did. Retail's 56-byte zero-filled
+// .bss object (RVA 0x00A0631C), constructed in place by the 0x007AC6DD
+// initializer; its referencing units spell it as this scalar.
+unsigned g_Va00E0631C;
+
+class Rva003FE20FBase
+{
+public:
+	virtual void rva001FF3A9();
+public:
+	virtual void slot1(void *flag);
+public:
+	__declspec(noinline) void slot0(void *) {}
+};
+
+class AsciiString;
+
+struct ChecklistSelectNode
+{
+	ChecklistSelectNode *next;
+	ChecklistSelectNode *prev;
+	StrategicHUD::ChecklistUIImpl::Item *item;
+};
+
+struct ChecklistIteratorView
+{
+	ChecklistSelectNode *node;
+	ChecklistIteratorView(const ChecklistIteratorView &other) : node(other.node) {}
+};
+
+struct ChecklistFontDesc;
+
+extern unsigned g_Va00E06360;
+
+class Rva005D1A6C
+{
+public:
+	Rva005D1A6C();
+	virtual ~Rva005D1A6C() {}
+
+private:
+	int m_04;
+};
+
+class Rva005D40A6
+{
+public:
+	// The rowed constructor 0x005D4433 (Rva005D40A6Dtor.cpp).
+	Rva005D40A6(int level, const AsciiString &name, const ChecklistFontDesc &fontDesc);
+	virtual ~Rva005D40A6();
+
+private:
+	char m_pad04[0x40 - 0x04];
+};
+
+class Rva0057A382
+{
+public:
+	__declspec(noinline) void rva0057A382();
+	void rva0057A471(int val);
+	void rva0057A4A3();
+private:
+	char m_pad00[8];
+	Rva005D3F6D m_08;
+	char m_pad38[0x10];
+	Rva0057A4A3Target *m_48;
+	char m_pad4C[0xC];
+	int m_58;
+	bool m_5C;
+};
+
+struct ItemObserver
+{
+	virtual void s0();
+	virtual void s1();
+	virtual void s2();
+	virtual void s3();
+	virtual void s4();
+	virtual void s5();
+	virtual void onItemDestroyed(void *item);
+};
+
+namespace StrategicHUD
+{
+class ChecklistUIImpl::Item : public Rva005D1A6C, public Rva005D40A6
+{
+public:
+	Item(ChecklistUIImpl *owner, ChecklistIteratorView position, int value, void *level,
+		const AsciiString &path);
+	// Retail 0x0057A2B0 (rowed under the Rva0057A2B0 view): its vptr stores
+	// are this constructor's 0x00C6EF0C/0x00C6EEF8.
+	virtual ~Item()
+	{
+		if (m_observer != 0)
+			static_cast<ItemObserver *>(m_observer)->onItemDestroyed(this);
+	}
+
+private:
+	ChecklistUIImpl *m_owner; // +0x48
+	ChecklistIteratorView m_listPos; // +0x4C
+	int m_value; // +0x50
+	void *m_observer; // +0x54
+	int m_58;
+	bool m_5c;
+};
+}
+
 // tu-skeleton: 0x00579674 2B ?GetBonusRowNum@StrategicHUD@@YAHH@Z -- matched in Code/GameEngine/Source/Common/Rva00579AB7Dtor.cpp (not merged yet)
 
-// tu-skeleton: 0x00579676 32B ?ParseRowNum@StrategicHUD@@YA_NPBDPAH@Z -- matched in Code/GameEngine/Source/Common/Rva00579676Parse.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva00579676Parse.cpp
+
+// ?ParseRowNum@StrategicHUD@@YA_NPBDPAH@Z @0x00579676 (32B): atoi range check 0<=v<6
+// (unlock lane, missing callee of 0x00579B81/0x00579C00 delegate methods).
+// Parses int via IAT atoi, rejects <0 or >=6, stores to *out and returns true.
+// Evidence: callers at 0x00579B95 and 0x00579C0D (push value then address,
+// caller cleans via pop ecx pop ecx, so __cdecl); IAT FF15 atoi needs
+// dllimport; pop ecx cleanup and xor-al false indicate /O1. Free-function
+// honest Rva name with Parse verb.
+
+void StrategicHUD::StatsDisplayImpl::OnStatRollOver(const char *param)
+{
+	int stat;
+	{
+		int parsed;
+		if (!StrategicHUD::ParseRowNum(param, &parsed))
+			return;
+		stat = parsed;
+	}
+	if (stat != current)
+	{
+		hint = ((Rva00579731 *)&g_Va00E0631C)->rva00579770(stat);
+		current = stat;
+		if (tooltip != 0 && hint.m_ptr != 0)
+			tooltip->Rva003FE20FBase::slot1(&hint);
+	}
+}
+
+// ---- from Code/GameEngine/Source/Common/StrategicHUD.cpp
 
 // ---- from Code/GameEngine/Source/Common/StrategicHUD.cpp
 
@@ -1336,6 +1464,23 @@ Rva0042D85A::~Rva0042D85A()
 	if (old) { old->~SelectionDetailsUIImpl(); ::operator delete(old); }
 }
 
+// ---- from Code/GameEngine/Source/Common/Rva0057A9B7Fire.cpp
+
+// ?Rva0057A9B7Fire@@YAHPAX0PBD1PAH0@Z, retail 0x0057A9B7 104B unlock via AptCall plus Get.
+// Free int ID via rowed Get 0x00222834 then AptCall 0x00222B19 argc 2 with empty fallback.
+// Evidence: callees rowed Get 0x00222834 plus AptCall 0x00222B19 plus releaseBuffer 0x00036410 plus empty g_Rva0107301CEmptyString; callers 0x0057AB16 0x005ED7CC 0x005FE122; prev 0x0057A961 same page.
+
+__forceinline const char *GetStr(const AsciiString &asciiString)
+{
+	char *t = *(char **)(void *)&asciiString;
+	return t ? t + 8 : "";
+}
+
+int __cdecl Rva0057A9B7Fire(void *a1, void *a2, const char *a3, const char *a4, int *a5, void *a6)
+{
+	return ((Rva00222A8BTarget *)a1)->rva00222B19(a2, a3, a4, 2, GetStr(Rva00222834Get(*a5)), a6, 0, 0, 0);
+}
+
 // tu-skeleton: 0x005796FC 53B ??1Rva005796FC@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_stringrecord_b94d2_allocate_copy.cpp (not merged yet)
 
 // tu-skeleton: 0x00579731 63B ??1Rva00579731@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00579731Dtor.cpp (not merged yet)
@@ -1345,8 +1490,6 @@ Rva0042D85A::~Rva0042D85A()
 // tu-skeleton: 0x00579AB7 96B ??1StatsDisplayImpl@StrategicHUD@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00579AB7Dtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00579B17 106B ?SetRowText@StatsDisplayImpl@StrategicHUD@@QAEXHABVUnicodeString@@@Z -- matched in Code/GameEngine/Source/Common/AptImageKeySetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00579B81 127B ?OnStatRollOver@StatsDisplayImpl@StrategicHUD@@QAEXPBD@Z -- matched in Code/GameEngine/Source/Common/Rva00579676Parse.cpp (not merged yet)
 
 // tu-skeleton: 0x00579C00 82B ?OnStatRollOut@StatsDisplayImpl@StrategicHUD@@QAEXPBD@Z -- matched in Code/GameEngine/Source/Common/Rva00579AB7Dtor.cpp (not merged yet)
 
@@ -1460,10 +1603,6 @@ Rva0042D85A::~Rva0042D85A()
 
 // tu-skeleton: 0x0079BBB0 10B __ehhandler$?SetRowText@StatsDisplayImpl@StrategicHUD@@QAEXHABVUnicodeString@@@Z -- matched in Code/GameEngine/Source/Common/AptImageKeySetters.cpp (not merged yet)
 
-// tu-skeleton: 0x0079BBBA 8B Unwind@00b9bbba -- matched in Code/GameEngine/Source/Common/Rva00579676Parse.cpp (not merged yet)
-
-// tu-skeleton: 0x0079BBC2 10B __ehhandler$?OnStatRollOver@StatsDisplayImpl@StrategicHUD@@QAEXPBD@Z -- matched in Code/GameEngine/Source/Common/Rva00579676Parse.cpp (not merged yet)
-
 // tu-skeleton: 0x0079BBCC 8B Unwind@00b9bbcc -- matched in Code/GameEngine/Source/Common/Rva00579731Dtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0079BBD4 8B $L6228 -- matched in Code/GameEngine/Source/Common/Rva00579731Dtor.cpp (not merged yet)
@@ -1518,28 +1657,39 @@ Rva0042D85A::~Rva0042D85A()
 
 // tu-skeleton: 0x0079BCCD 10B __ehhandler$??1Rva0057A2B0@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0057A2B0Dtor.cpp (not merged yet)
 
-// tu-skeleton: 0x0079BD47 8B $L1309 -- matched in Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDChecklistUIImpl.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDChecklistUIImpl.cpp
 
-// tu-skeleton: 0x0079BD4F 11B uw_0079bd4f -- matched in Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDChecklistUIImpl.cpp (not merged yet)
+//
+// StrategicHUD::ChecklistUIImpl (WorldBuilder StrategicHUDChecklistUIImpl.cpp).
+//
+// Item::Item, retail 0x0057A748 134B (ret 0x14): WB 0x014BAB40 names it
+// (assert line 333, *m_listPos == NULL). Target facts: the primary base is
+// the rowed 13-byte ctor 0x005D1A6C (vptr plus a zeroed +4); the second base
+// at +8 is the ChecklistUIItemMovieClip, constructed by 0x005D4433 (WB
+// 0x015A67C0) from the item's last two arguments and the static font
+// descriptor at 0x00E06368 (+8 inside g_Va00E06360). Retail's unwind map
+// destroys the two bases through 0x0057A23C (state 0) and the movie clip's
+// rowed destructor 0x005D40A6 on this+8 (state 1). Own vftables 0x00C6EF0C
+// (+0) and 0x00C6EEF8 (+8). Fields: +0x48 owner, +0x4C the list position
+// whose node's +8 is set to the item, +0x50 the third argument, +0x54/+0x58
+// cleared, +0x5C set. Finally the movie clip's 0x005D3FBD(false) and the
+// item's 0x0057A382 run. The field layout agrees with Rva0057AD26 in
+// AptWotrPanelCallbacks.cpp (owner +0x48, position +0x4C, observer +0x54).
+// Argument types beyond the WB-visible roles stay opaque.
 
-// tu-skeleton: 0x0079BD5A 10B __ehhandler$??0Item@ChecklistUIImpl@StrategicHUD@@QAE@PAV12@UChecklistIteratorView@@HPAXABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDChecklistUIImpl.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/Rva0057A9B7Fire.cpp
-
-// ?Rva0057A9B7Fire@@YAHPAX0PBD1PAH0@Z, retail 0x0057A9B7 104B unlock via AptCall plus Get.
-// Free int ID via rowed Get 0x00222834 then AptCall 0x00222B19 argc 2 with empty fallback.
-// Evidence: callees rowed Get 0x00222834 plus AptCall 0x00222B19 plus releaseBuffer 0x00036410 plus empty g_Rva0107301CEmptyString; callers 0x0057AB16 0x005ED7CC 0x005FE122; prev 0x0057A961 same page.
-
-__forceinline const char *GetStr(const AsciiString &asciiString)
+StrategicHUD::ChecklistUIImpl::Item::Item(ChecklistUIImpl *owner, ChecklistIteratorView position,
+	int value, void *level, const AsciiString &path)
+	: Rva005D40A6((int)level, path,
+		*reinterpret_cast<const ChecklistFontDesc *>(reinterpret_cast<char *>(&g_Va00E06360) + 8)),
+	  m_owner(owner), m_listPos(position), m_value(value), m_observer(0), m_58(0), m_5c(true)
 {
-	char *t = *(char **)(void *)&asciiString;
-	return t ? t + 8 : "";
+	m_listPos.node->item = this;
+	reinterpret_cast<Rva005D3FBD *>(static_cast<Rva005D40A6 *>(this))->rva005D3FBD(false);
+	reinterpret_cast<Rva0057A382 *>(this)->rva0057A382();
 }
 
-int __cdecl Rva0057A9B7Fire(void *a1, void *a2, const char *a3, const char *a4, int *a5, void *a6)
-{
-	return ((Rva00222A8BTarget *)a1)->rva00222B19(a2, a3, a4, 2, GetStr(Rva00222834Get(*a5)), a6, 0, 0, 0);
-}
+// The height query 0x0057ABD0 and spacing 0x0057A24A live with their other
+// caller DoCreateNewItem in StrategicHUDChecklistUIImplConstructor.cpp.
 
 // tu-skeleton: 0x0079BD76 8B $L1221 -- matched in Code/GameEngine/Source/Common/Rva0057A4E7Ctor.cpp (not merged yet)
 

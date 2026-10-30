@@ -323,7 +323,6 @@ address_global	Code/GameEngine/Source/Common/Rva00574499Dtor_Unresolved.cpp	g_Va
 address_global	Code/GameEngine/Source/Common/Rva00574499Dtor_Unresolved.cpp	g_Va00E0630C	2
 address_global	Code/GameEngine/Source/Common/Rva005745D8.cpp	g_Va00BBB8D8	2
 address_global	Code/GameEngine/Source/Common/Rva005794EDDtor.cpp	g_Rva0107301CEmptyString	2
-address_global	Code/GameEngine/Source/Common/Rva00579676Parse.cpp	g_Va00E0631C	3
 address_global	Code/GameEngine/Source/Common/Rva00583015Destroy.cpp	g_Va00E06398	5
 address_global	Code/GameEngine/Source/Common/Rva005B02B5.cpp	g_Va00BBB8D8	2
 address_global	Code/GameEngine/Source/Common/Rva005B922FDtor.cpp	g_Va00E06480	3
@@ -825,6 +824,8 @@ address_global	Code/GameEngine/Source/Common/RvaSingletonFwdMisc.cpp	g_Va00E032F
 address_global	Code/GameEngine/Source/Common/RvaSingletonFwdMisc.cpp	g_pRva00437E9C	2
 address_global	Code/GameEngine/Source/Common/StrategicHUD.cpp	g_Va007BB5C4	2
 address_global	Code/GameEngine/Source/Common/StrategicHUD.cpp	g_Va007C9260	3
+address_global	Code/GameEngine/Source/Common/StrategicHUD.cpp	g_Va00E0631C	3
+address_global	Code/GameEngine/Source/Common/StrategicHUD.cpp	g_Va00E06360	2
 address_global	Code/GameEngine/Source/Common/System/FileSystemRestricted.cpp	g_Va00E06E60	2
 address_global	Code/GameEngine/Source/Common/System/FormationBuild.cpp	g_Va00E03174	2
 address_global	Code/GameEngine/Source/Common/System/GameMemory.cpp	g_Va00DE03E8	4
@@ -998,7 +999,6 @@ address_global	Code/GameEngine/Source/GameClient/GUI/Gadget/Rva0056EDBAPick.cpp	
 address_global	Code/GameEngine/Source/GameClient/GUI/Gadget/Rva0056EDBAPick.cpp	g_Va00DD2A6C	2
 address_global	Code/GameEngine/Source/GameClient/GUI/Gadget/Rva0056EDBAPick.cpp	g_Va00DD2A7C	2
 address_global	Code/GameEngine/Source/GameClient/GUI/Gadget/Rva0056EDBAPick.cpp	g_Va00DD2A8C	2
-address_global	Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDChecklistUIImpl.cpp	g_Va00E06360	2
 address_global	Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDChecklistUIImplConstructor.cpp	g_Va00E06360	4
 address_global	Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/PalantirCommandInterfacePortrait.cpp	g_Va00BC2424	2
 address_global	Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp	g_Rva00E02EEC	1
