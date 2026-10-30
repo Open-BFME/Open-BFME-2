@@ -1,7 +1,12 @@
 // cl: /DNDEBUG /MD
+// stlport46
 // ?Rva0039BA22UninitCopy@@YAPAVRva0039B893@@PAV1@00ABU__false_type@_STL@@@Z @0x0039BA22 41B null-guarded uninitialized copy
 // via placement new with rowed copy ctor 0x0039B893 and stride 0x14. Evidence: callers 0x0039C204 0x0039C252 push four args
 // (first last result plus tag at ebp+0x1b) and clean 0x10; sibling fill_n at 0x0039B8D8 shares null guard and stride.
+
+#include <stl/_prolog.h>
+#include <stl/type_traits.h>
+#include <stl/_epilog.h>
 
 typedef int Int;
 typedef short Short;
@@ -21,11 +26,6 @@ public:
 };
 
 inline void *__cdecl operator new(unsigned int, void *p) { return p; }
-
-namespace _STL
-{
-struct __false_type {};
-}
 
 Rva0039B893 *__cdecl Rva0039BA22UninitCopy(Rva0039B893 *first, Rva0039B893 *last, Rva0039B893 *result, const _STL::__false_type &)
 {
