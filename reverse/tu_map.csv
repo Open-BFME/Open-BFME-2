@@ -18362,7 +18362,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00260A3C,154,code,Code/GameEngine/Source/GameClient/SubTitleWindow.cpp,approved,N,N=Code/GameEngine/Source/GameClient/SubTitleWindow.cpp W=Code/GameEngine/Source/GameClient/GameSubTitles.cpp provisional,Code/GameEngine/Source/GameClient/SubTitleWindowDestructor.cpp
 0x00260AD6,178,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlportVectorInsertOverflowFamily.cpp
 0x00260B88,55,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlportVectorPushBackFamily.cpp
-0x00260BBF,528,code,Code/Libraries/Source/WWVegas/WWLib/SubTitleWindow.cpp,proposed,N,N=Code/Libraries/Source/WWVegas/WWLib/SubTitleWindow.cpp,Code/Libraries/Source/WWVegas/WWLib/rva00260BBFRva00260BBFFarm.cpp
+0x00260BBF,528,code,Code/Libraries/Source/WWVegas/WWLib/SubTitleWindow.cpp,proposed,N,N=Code/Libraries/Source/WWVegas/WWLib/SubTitleWindow.cpp,Code/Libraries/Source/WWVegas/WWLib/SubTitleWindow.cpp
 0x00260DCF,13,code,,,-,,Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp
 0x00260DDC,17,code,,,-,,Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp
 0x00260DED,20,code,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate.cpp,proposed,S,S=Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate.cpp N=Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface.cpp noncontiguous,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_rva00260DED.cpp
@@ -69913,12 +69913,12 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00772D06,10,code,,,-,,Code/GameEngine/Source/Common/RvaVectorDtorFamily.cpp
 0x00772D10,11,code,,,-,,Code/GameEngine/Source/GameClient/SubTitleWindowDestructor.cpp
 0x00772D1B,10,code,,,-,,Code/GameEngine/Source/GameClient/SubTitleWindowDestructor.cpp
-0x00772D25,8,code,Code/Libraries/Source/WWVegas/WWLib/SubTitleWindow.cpp,approved,P,P=0x00260BBF@FuncInfo0x009198C4 p-group provisional,Code/Libraries/Source/WWVegas/WWLib/rva00260BBFRva00260BBFFarm.cpp
-0x00772D2D,8,code,Code/Libraries/Source/WWVegas/WWLib/SubTitleWindow.cpp,approved,P,P=0x00260BBF@FuncInfo0x009198C4 p-group provisional,Code/Libraries/Source/WWVegas/WWLib/rva00260BBFRva00260BBFFarm.cpp
-0x00772D35,8,code,Code/Libraries/Source/WWVegas/WWLib/SubTitleWindow.cpp,approved,P,P=0x00260BBF@FuncInfo0x009198C4 p-group provisional,Code/Libraries/Source/WWVegas/WWLib/rva00260BBFRva00260BBFFarm.cpp
-0x00772D3D,8,code,Code/Libraries/Source/WWVegas/WWLib/SubTitleWindow.cpp,approved,P,P=0x00260BBF@FuncInfo0x009198C4 p-group provisional,Code/Libraries/Source/WWVegas/WWLib/rva00260BBFRva00260BBFFarm.cpp
-0x00772D45,8,code,Code/Libraries/Source/WWVegas/WWLib/SubTitleWindow.cpp,approved,P,P=0x00260BBF@FuncInfo0x009198C4 p-group provisional,Code/Libraries/Source/WWVegas/WWLib/rva00260BBFRva00260BBFFarm.cpp
-0x00772D4D,10,code,Code/Libraries/Source/WWVegas/WWLib/SubTitleWindow.cpp,approved,P,P=0x00260BBF@FuncInfo0x009198C4 p-group provisional,Code/Libraries/Source/WWVegas/WWLib/rva00260BBFRva00260BBFFarm.cpp
+0x00772D25,8,code,Code/Libraries/Source/WWVegas/WWLib/SubTitleWindow.cpp,approved,P,P=0x00260BBF@FuncInfo0x009198C4 p-group provisional,Code/Libraries/Source/WWVegas/WWLib/SubTitleWindow.cpp
+0x00772D2D,8,code,Code/Libraries/Source/WWVegas/WWLib/SubTitleWindow.cpp,approved,P,P=0x00260BBF@FuncInfo0x009198C4 p-group provisional,Code/Libraries/Source/WWVegas/WWLib/SubTitleWindow.cpp
+0x00772D35,8,code,Code/Libraries/Source/WWVegas/WWLib/SubTitleWindow.cpp,approved,P,P=0x00260BBF@FuncInfo0x009198C4 p-group provisional,Code/Libraries/Source/WWVegas/WWLib/SubTitleWindow.cpp
+0x00772D3D,8,code,Code/Libraries/Source/WWVegas/WWLib/SubTitleWindow.cpp,approved,P,P=0x00260BBF@FuncInfo0x009198C4 p-group provisional,Code/Libraries/Source/WWVegas/WWLib/SubTitleWindow.cpp
+0x00772D45,8,code,Code/Libraries/Source/WWVegas/WWLib/SubTitleWindow.cpp,approved,P,P=0x00260BBF@FuncInfo0x009198C4 p-group provisional,Code/Libraries/Source/WWVegas/WWLib/SubTitleWindow.cpp
+0x00772D4D,10,code,Code/Libraries/Source/WWVegas/WWLib/SubTitleWindow.cpp,approved,P,P=0x00260BBF@FuncInfo0x009198C4 p-group provisional,Code/Libraries/Source/WWVegas/WWLib/SubTitleWindow.cpp
 0x00772D57,8,code,,,-,,Code/GameEngine/Source/Common/Rva00261058Ctor.cpp
 0x00772D5F,10,code,,,-,,Code/GameEngine/Source/Common/Rva00261058Ctor.cpp
 0x00772D69,11,code,,,-,,Code/GameEngine/Source/Common/Rva00261D2EFilter.cpp
