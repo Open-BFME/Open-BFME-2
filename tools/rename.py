@@ -6074,6 +6074,9 @@ class RunBatchResult:
     failure: Exception = None                  # the combined transaction was restored
     suspects: list = field(default_factory=list)  # exact diagnostic request indices
     diagnostics: str = ""                    # captured verifier output, when available
+    planning_seconds: float = 0.0
+    claims_seconds: float = 0.0
+    apply_verify_seconds: float = 0.0
 
 
 def run_batch(ctx, requests, *, claim=True, verify=build_verify, checks=ledger_checks, session=None):
@@ -6086,6 +6089,7 @@ def run_batch(ctx, requests, *, claim=True, verify=build_verify, checks=ledger_c
     """
     from portable_lock import lock, unlock
 
+    batch_started = time.perf_counter()
     refuse_pending_journal(ctx)
     requests = list(requests)
     result = RunBatchResult()
@@ -6204,12 +6208,14 @@ def run_batch(ctx, requests, *, claim=True, verify=build_verify, checks=ledger_c
                     result.plans.append((index, plan))
                     view._cache.clear()
                 if not result.plans:
+                    result.planning_seconds = time.perf_counter() - batch_started
                     return result
                 combined.claims = claim_keys(combined)
                 for _, plan in result.plans:
                     print(plan.report())
                 print(f"rename: run batch of {len(result.plans)} names; "
                       f"one verification of {len(combined.verify)} source(s).", flush=True)
+                result.planning_seconds = time.perf_counter() - batch_started
                 claimed = None
                 try:
                     problems = pin_preflight(ctx, combined)
@@ -6217,13 +6223,23 @@ def run_batch(ctx, requests, *, claim=True, verify=build_verify, checks=ledger_c
                         message = "pin_admission: " + "; ".join(problems)
                         result.suspects = diagnostic_suspects(result.plans, problems)
                         raise VerifyFailed(message)
+                    claim_started = time.perf_counter()
                     claimed = session.acquire(combined.claims, claim)
-                    apply_rename(combined, ctx=ctx, verify=verify, checks=checks, claimed=claimed)
+                    result.claims_seconds = time.perf_counter() - claim_started
+                    verify_started = time.perf_counter()
+                    try:
+                        apply_rename(combined, ctx=ctx, verify=verify, checks=checks, claimed=claimed)
+                    finally:
+                        result.apply_verify_seconds = time.perf_counter() - verify_started
                 except (Refusal, VerifyFailed) as exc:
                     if not result.suspects:
                         result.suspects = diagnostic_suspects(result.plans, getattr(exc, "problems", [str(exc)]))
                     result.failure = exc
                     result.diagnostics = getattr(exc, "diagnostics", "")
+                    print("rename: batch timing " + json.dumps(dict(
+                        planning=round(result.planning_seconds, 3),
+                        claims=round(result.claims_seconds, 3),
+                        apply_verify=round(result.apply_verify_seconds, 3))), flush=True)
                     return result
                 except BaseException:
                     raise
@@ -6233,6 +6249,10 @@ def run_batch(ctx, requests, *, claim=True, verify=build_verify, checks=ledger_c
                           + " ".join(map(claim_label, claimed.new)))
                 print(f"rename: run batch verified OK ({len(result.plans)} names, "
                       f"{len(combined.verify)} source(s)).")
+                print("rename: batch timing " + json.dumps(dict(
+                    planning=round(result.planning_seconds, 3),
+                    claims=round(result.claims_seconds, 3),
+                    apply_verify=round(result.apply_verify_seconds, 3))), flush=True)
                 return result
             finally:
                 ctx._cache.clear()

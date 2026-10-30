@@ -77,6 +77,7 @@ def test_run_batch_composes_overlapping_sources_and_ledgers_once(repo, monkeypat
 
     result = rename.run_batch(context(repo), requests(), claim=False, verify=verify, checks=check)
     assert result.failure is None and not result.refused
+    assert result.planning_seconds > 0 and result.apply_verify_seconds > 0
     assert [i for i, _ in result.plans] == [0, 1]
     assert len(agreements) == 2
     assert builds == [[A, B]]

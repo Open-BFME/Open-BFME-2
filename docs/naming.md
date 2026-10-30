@@ -148,6 +148,16 @@ available locally; an old hash without its proposal cannot be reconstructed.
 For a manual comparison, both voters can use `resolve` with a selected name and
 source-based reason. `next --count N` prepares multiple files from one subsystem
 in a single picker call; `apply` verifies eligible approvals as a run-wide batch.
+For an explicit set, `next --files Code/.../A.cpp Code/.../B.cpp --session S
+--model M` serves them together, using one claim snapshot and one shared brief.
+Blind shared-name proposals may include a role sentence in
+`{"name":"...","role":"..."}`; the reviewer records its own role description
+before seeing the first proposal. The comparison packet carries both roles so
+the decision can distinguish different wording from different interpretations.
+The role is context, not a canonical naming basis. Picker timing separates
+queue, claims, selection and brief generation; reviewer reports blind and
+comparison time and each resolution outcome; the run batch reports planning,
+claims and apply/verification time. Publication timing remains in `push.py`.
 
 When the TU map is current, a fragmented file can be grouped by its approved
 TU directory only when every owned row has an approved, non-provisional

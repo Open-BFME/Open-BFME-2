@@ -835,6 +835,12 @@ that a game or Zero Hour header declares, answer that class's name.
 Write a JSON object mapping each key below to a name or "skip", then run:
   python3 tools/name_lane.py submit <that file> --session {session} --model {model}
 
+For a function, class, member or global, a structured answer may give the
+identifier's role as a short factual sentence, e.g.
+{{"name":"writeFieldNamePrefix","role":"Writes the field name and '=' before its value."}}.
+The role helps a later reviewer distinguish a wording difference from a
+different interpretation. It is context, not proof of a canonical name.
+
 For a parameter/local, first identify its role before choosing a spelling.
 When that role is justified, prefer {{"name":"destination","meaning":
 {{"role":"destination","entity":"buffer","units":"bytes","ownership":"borrowed"}}}}.
@@ -855,6 +861,14 @@ structured form or skip if you cannot justify its meaning.
 @claims.pick_snapshot()
 def cmd_next(lane, args):
     timing_start = time.perf_counter()
+    requested_files = list(getattr(args, "files", None) or ())
+    if requested_files and getattr(args, "file", None):
+        fail("--file and --files cannot be combined")
+    if len(requested_files) != len(set(requested_files)) or any(
+            not rel.startswith("Code/") or "\\" in rel
+            or any(part in ("", ".", "..") for part in rel.split("/"))
+            for rel in requested_files):
+        fail("--files requires distinct Code/ source paths")
     selected_keys = set(getattr(args, "key", None) or ())
     max_keys = getattr(args, "max_keys", None)
     if max_keys is not None and max_keys < 1:
@@ -866,6 +880,11 @@ def cmd_next(lane, args):
     reviews = second_reviews(worker, state, tally, refused)
     clarifications = meaning_reviews(worker, state, tally, refused)
     files, voted = queue(lane, worker, model, args.file, reviews=reviews, clarifications=clarifications)
+    if requested_files:
+        eligible = set(files)
+        files = [rel for rel in requested_files if rel in eligible]
+        if not getattr(args, "mixed", False) and len({lane.subsystem(rel)[0] for rel in files}) > 1:
+            fail("--files must belong to one subsystem; use --mixed for unrelated files")
     queue_done = time.perf_counter()
     only_meaning = getattr(args, "meaning_review_only", False)
     if only_meaning and getattr(args, "review_only", False):
@@ -892,7 +911,7 @@ def cmd_next(lane, args):
     files = [rel for rel in available if not selected_keys or any(k.startswith(rel + "|") for k in selected_keys)]
     sticky = lane.path(f"{LANE_DIR}/subsystems/{worker}.json")
     preferred = current.get("subsystem")
-    if not mixed and not prefix and not args.file:
+    if not mixed and not prefix and not args.file and not requested_files:
         if not preferred and sticky.exists():
             preferred = subsystem_prefix(json.loads(sticky.read_text())["subsystem"])
         if preferred:
@@ -940,7 +959,7 @@ def cmd_next(lane, args):
         if max_keys is not None:
             remaining = max_keys - key_count()
             items = items[:max(0, remaining)]
-        if len(items) < (1 if voted[rel] or args.file or explicit_review else 3):      # an asked-for file needs one key
+        if len(items) < (1 if voted[rel] or args.file or requested_files or explicit_review else 3):
             continue
         if selected_review is None:
             selected_review = review
@@ -956,7 +975,7 @@ def cmd_next(lane, args):
                                      "items": [list(i) for i in items], "second_review": review,
                                      "meaning_review": meaning_review}
             served.append((rel, text, items))
-        if len(served) + len(metadata) >= args.count:
+        if len(served) + len(metadata) >= (len(requested_files) or args.count):
             break
     if args.list_only:
         print(json.dumps(metadata, indent=1))
@@ -1035,11 +1054,19 @@ def cmd_submit(lane, args, *, lead=2, min_models=1, verify=rename.build_verify, 
         for kind, scope, ident, rva in items:
             proposal = mapping.get(answer_key(kind, scope, ident), "skip")
             meaning = None
+            role = ""
             if isinstance(proposal, dict):
                 try:
-                    if set(proposal) != {"name", "meaning"}:
-                        raise ValueError("structured answers need exactly name and meaning")
-                    meaning = name_agreement.meaning_digest(key_of(rel, kind, scope, ident), proposal["meaning"])
+                    if "name" not in proposal or set(proposal) - {"name", "meaning", "role"} or len(proposal) < 2:
+                        raise ValueError("structured answers need a name and role or meaning")
+                    if "meaning" in proposal:
+                        meaning = name_agreement.meaning_digest(key_of(rel, kind, scope, ident), proposal["meaning"])
+                    if "role" in proposal:
+                        role = proposal["role"]
+                        if (not isinstance(role, str) or not 12 <= len(role.strip()) <= 200
+                                or "\n" in role or "\r" in role):
+                            raise ValueError("role must be a 12-200 character single-line description")
+                        role = role.strip()
                     proposal = proposal["name"]
                 except (ValueError, TypeError) as exc:
                     rejected.append(f"{answer_key(kind, scope, ident)}: {exc}")
@@ -1074,7 +1101,7 @@ def cmd_submit(lane, args, *, lead=2, min_models=1, verify=rename.build_verify, 
                 votes.append(vote)
                 tally[key][h][worker] = model
                 local_proposals.append(dict(key=key, name=answer, worker=worker,
-                                            source_sha=entry["sha"]))
+                                            source_sha=entry["sha"], role=role))
             if meaning:
                 meanings.append({**vote, "meaning": meaning})
                 tally.meanings[key][h, worker].add(meaning)
@@ -1660,6 +1687,7 @@ def cmd_resolve(lane, args):
 
 
 def cmd_apply(lane, args, *, verify=rename.build_verify, checks=rename.ledger_checks):
+    apply_started = time.perf_counter()
     limit = getattr(args, "limit", None)
     if limit is not None and limit < 1:
         fail("--limit must be positive")
@@ -1691,7 +1719,10 @@ def cmd_apply(lane, args, *, verify=rename.build_verify, checks=rename.ledger_ch
                 outside += 1
                 continue
             if not valid:
-                print(f"{key}: approval is no longer valid for this source and voter set; left")
+                if row["id"].startswith("nr-"):
+                    print(f"{key}: reviewed approval is no longer valid for this source and voter set; left")
+                else:
+                    print(f"{key}: votes no longer agree under --lead {args.lead} --min-models {args.min_models}; left")
                 continue
             if (row["status"] == "blocked" and args.retry_blocked
                     and not getattr(args, "retry_unchanged", False)
@@ -1722,6 +1753,7 @@ def cmd_apply(lane, args, *, verify=rename.build_verify, checks=rename.ledger_ch
         print("name_lane: nothing agreed is waiting to land.")
         return 0
     print(f"name_lane: selected {sum(map(len, todo.values()))} key(s) across {len(todo)} file(s).", flush=True)
+    print(f"name_lane: apply selection {time.perf_counter() - apply_started:.3f}s", flush=True)
     if not todo:
         file_groups = []
     elif not getattr(args, "no_batch", False) and not getattr(args, "per_file", False):
@@ -1804,6 +1836,7 @@ def cmd_apply(lane, args, *, verify=rename.build_verify, checks=rename.ledger_ch
             lane.append(AGREED, AGREED_COLUMNS, [outcome])
     print(f"name_lane: landed {landed}, blocked {blocked}, stale {stale}. Stage the files rename.py listed "
           f"and {AGREED} (plus {MEANINGS} when structured votes added it); the lander commits.")
+    print(f"name_lane: apply total {time.perf_counter() - apply_started:.3f}s", flush=True)
     if deferred:
         print(f"name_lane: {deferred} ready key(s) left waiting by --limit {limit}; run apply again to continue.")
     if claim_deferred:
@@ -1931,6 +1964,8 @@ def main(argv=None, lane=None):
     n.add_argument("--model", required=True, help="the label you vote under, e.g. seat-a")
     n.add_argument("--count", type=int, default=1, help="serve this many files")
     n.add_argument("--file", help="serve this file instead of the next in the queue")
+    n.add_argument("--files", nargs="+", metavar="SOURCE",
+                   help="serve these explicit source files in one packet and one claim snapshot")
     n.add_argument("--subsystem", metavar="CODE_PREFIX",
                    help="restrict to this source/approved-TU directory; one subsystem per batch")
     n.add_argument("--mixed", action="store_true", help="retain the shuffled multi-subsystem queue")

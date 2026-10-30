@@ -500,6 +500,22 @@ def test_subsystem_batch_keeps_related_files_and_shared_context(tree):
     assert all(rel in brief for rel in ai)
 
 
+def test_explicit_files_share_one_claim_snapshot_and_brief(tree, monkeypatch):
+    ai = [add_subsystem_source(tree, "AI", n) for n in range(2)]
+    real_busy = name_lane.claims.busy_keys
+    calls = []
+    def busy(root):
+        calls.append(root)
+        return real_busy(root)
+    monkeypatch.setattr(name_lane.claims, "busy_keys", busy)
+    record = subsystem_next(tree, "selected", count=1, files=ai,
+                            subsystem="Code/Game/AI")
+    assert list(record["files"]) == ai
+    assert len(calls) == 1
+    brief = (tree / "build/name_lane/briefs/selected.txt").read_text()
+    assert all(rel in brief for rel in ai)
+
+
 def test_worker_keeps_subsystem_then_moves_on_when_voted_files_are_exhausted(tree):
     ai = [add_subsystem_source(tree, "AI", n) for n in range(3)]
     audio = add_subsystem_source(tree, "Audio", 4)

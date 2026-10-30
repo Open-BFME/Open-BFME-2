@@ -114,6 +114,40 @@ def test_comparison_chooses_reviewer_name_then_original_accepts(tree, tmp_path):
     assert lane_of(tree).state()[FN_KEY]["status"] == "agreed"
 
 
+def test_comparison_receives_independent_role_descriptions(tree, tmp_path):
+    vote(tree, tmp_path, "first", {"rva00401000": {
+        "name": "sumBox", "role": "Adds the box width to the supplied count."}},
+        worker="original-worker")
+    enable(tree, resolve_disagreements=True)
+    def runner(packet, _config, _job, *, resolution=False):
+        if resolution:
+            assert packet["targets"][0]["roles"] == [
+                "Adds the box width to the supplied count.",
+                "Computes the sum using the box width."]
+            return {"answers": [{"key": FN_KEY, "name": "sumBox",
+                                 "reason": "The function sums the box width and count"}]}
+        assert "sumBox" not in json.dumps(packet)
+        return {"answers": [{"key": FN_KEY, "name": "addBoxWidth",
+                             "role": "Computes the sum using the box width.",
+                             "reason": "The body reads width and adds the argument"}]}
+    result = name_review.dispatch(lane_of(tree), runner=runner)
+    assert result["newly_agreed"] == [FN_KEY]
+    assert result["blind_seconds"] >= 0
+    assert result["resolution"]["seconds"] >= 0
+
+
+def test_comparison_leaves_conflicting_interpretations_unresolved(tree, tmp_path):
+    first(tree, tmp_path, resolve_disagreements=True)
+    def runner(packet, _config, _job, *, resolution=False):
+        if resolution:
+            return {"answers": [{"key": FN_KEY, "name": "skip",
+                "reason": "The two names claim different effects and the body is inconclusive"}]}
+        return answer(packet, "advanceQueue")
+    result = name_review.dispatch(lane_of(tree), runner=runner)
+    assert result["resolution_counts"] == {"unresolved": 1}
+    assert FN_KEY not in lane_of(tree).state()
+
+
 def test_source_change_during_review_rejects_stale_vote(tree, tmp_path):
     first(tree, tmp_path)
     def runner(packet, *_):
