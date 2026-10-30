@@ -61,14 +61,14 @@ int GetGameLogicRandomValue(int lo, int hi, char *file, int line);
 bool __stdcall Rva0058AF47Check(Rva002A9BF2 *p)
 {
 	int diff = (int)p->rva002A9BF2();
-	AIDiffEntry e = TheSkirmishAIManager->m_table[diff];
-	float num = (float)e.m_num;
-	float den = (float)e.m_den;
+	AIDiffEntry entry = TheSkirmishAIManager->m_table[diff];
+	float num = (float)entry.m_num;
+	float den = (float)entry.m_den;
 	float ratio = num / den;
 	if (ratio < 1.0f)
 	{
-		int r = GetGameLogicRandomValue(0, e.m_den - 1, "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\SkirmishAI\\AIDifficulty.cpp", 0x40);
-		return r < e.m_num;
+		int roll = GetGameLogicRandomValue(0, entry.m_den - 1, "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\SkirmishAI\\AIDifficulty.cpp", 0x40);
+		return roll < entry.m_num;
 	}
 	return true;
 }
@@ -79,14 +79,14 @@ bool __stdcall Rva0058AF47Check(Rva002A9BF2 *p)
 bool Rva002A9BF2::fromGate(Rva002A9BF2 *p)
 {
 	int diff = (int)p->rva002A9BF2();
-	AIDiffEntry e = TheSkirmishAIManager->m_table[diff];
-	float num = (float)e.m_num;
-	float den = (float)e.m_den;
+	AIDiffEntry entry = TheSkirmishAIManager->m_table[diff];
+	float num = (float)entry.m_num;
+	float den = (float)entry.m_den;
 	float ratio = num / den;
 	if (ratio < 1.0f)
 	{
-		int r = GetGameLogicRandomValue(0, e.m_den - 1, "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\SkirmishAI\\AIDifficulty.cpp", 0x40);
-		return r < e.m_num;
+		int roll = GetGameLogicRandomValue(0, entry.m_den - 1, "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\SkirmishAI\\AIDifficulty.cpp", 0x40);
+		return roll < entry.m_num;
 	}
 	return true;
 }
@@ -104,14 +104,14 @@ bool AIDifficulty::allowOffensiveTactic(Rva002A9BF2 *key)
 		if (rec->m_16C == diff)
 			return false;
 	}
-	AIDiffEntry e = TheSkirmishAIManager->m_table[diff];
-	float num = (float)e.m_14;
-	float den = (float)e.m_18;
+	AIDiffEntry entry = TheSkirmishAIManager->m_table[diff];
+	float num = (float)entry.m_14;
+	float den = (float)entry.m_18;
 	float ratio = num / den;
 	if (ratio < 1.0f)
 	{
-		int r = GetGameLogicRandomValue(0, e.m_18 - 1, "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\SkirmishAI\\AIDifficulty.cpp", 0x5b);
-		return r < e.m_14;
+		int roll = GetGameLogicRandomValue(0, entry.m_18 - 1, "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\SkirmishAI\\AIDifficulty.cpp", 0x5b);
+		return roll < entry.m_14;
 	}
 	return true;
 }
@@ -125,17 +125,17 @@ bool AIDifficulty::allowOffensiveTactic(Rva002A9BF2 *key)
 bool AIDifficulty::allowEconomyUpgrade(Rva002A9BF2 *p)
 {
 	int diff = (int)p->rva002A9BF2();
-	AIDiffEntry e = TheSkirmishAIManager->m_table[diff];
+	AIDiffEntry entry = TheSkirmishAIManager->m_table[diff];
 	Rva002A8AB1Record *rec = TheSkirmishAIManager->rva002A8AB1(p);
-	if (rec->m_cc + rec->m_d0 < e.m_1C)
+	if (rec->m_cc + rec->m_d0 < entry.m_1C)
 	{
-		float num = (float)e.m_04;
-		float den = (float)e.m_08;
+		float num = (float)entry.m_04;
+		float den = (float)entry.m_08;
 		float ratio = num / den;
 		if (ratio < 1.0f)
 		{
-			int r = GetGameLogicRandomValue(0, e.m_08 - 1, "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\SkirmishAI\\AIDifficulty.cpp", 0x2d);
-			return r < e.m_04;
+			int roll = GetGameLogicRandomValue(0, entry.m_08 - 1, "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\SkirmishAI\\AIDifficulty.cpp", 0x2d);
+			return roll < entry.m_04;
 		}
 		return true;
 	}

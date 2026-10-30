@@ -89,8 +89,8 @@ void GameLogic::rva0023D30F(int a1, int a2, UnicodeString *name)
 {
 	if (TheGameInfo == 0)
 		return;
-	Rva0023D30FTarget *t = (*(Rva0023D30FTarget **)&TheNetwork);
-	if (t == 0)
+	Rva0023D30FTarget *network = (*(Rva0023D30FTarget **)&TheNetwork);
+	if (network == 0)
 		return;
-	t->slot108(a1, a2, (int)name);
+	network->slot108(a1, a2, (int)name);
 }

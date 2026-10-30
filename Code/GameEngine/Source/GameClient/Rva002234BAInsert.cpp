@@ -45,11 +45,11 @@ private:
 _STL::pair<const AsciiString, NoCaseTreeValue4> *Rva000427195::rva002234BA(const _STL::pair<const AsciiString, NoCaseTreeValue4> *arg)
 {
 	rva00212858(m_numElements + 1);
-	int b = bucketIndex(&arg->first);
-	void *old = m_beginBuckets[b];
-	void *n = ((Rva002230FF *)this)->rva002230FF(arg);
-	*(void **)n = old;
-	m_beginBuckets[b] = n;
+	int bucket = bucketIndex(&arg->first);
+	void *old = m_beginBuckets[bucket];
+	void *node = ((Rva002230FF *)this)->rva002230FF(arg);
+	*(void **)node = old;
+	m_beginBuckets[bucket] = node;
 	++m_numElements;
-	return (_STL::pair<const AsciiString, NoCaseTreeValue4> *)((char *)n + 4);
+	return (_STL::pair<const AsciiString, NoCaseTreeValue4> *)((char *)node + 4);
 }

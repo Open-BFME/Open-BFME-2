@@ -44,7 +44,7 @@ struct Rva005D839BParam
 	int m_54;
 };
 
-static bool __fastcall Rva005D839BCheck(int dummy, Rva005D839BParam *p)
+static bool __fastcall Rva005D839BCheck(int dummy, Rva005D839BParam *player)
 {
 	_STL::vector<BfmeE8>::iterator first = g_00E06654.begin();
 	_STL::vector<BfmeE8>::iterator last = g_00E06654.end();
@@ -55,22 +55,22 @@ static bool __fastcall Rva005D839BCheck(int dummy, Rva005D839BParam *p)
 		{
 			if (found != 0)
 				break;
-			if (it != 0 && it->a == (unsigned int)p->m_54)
+			if (it != 0 && it->a == (unsigned int)player->m_54)
 				found = it;
 		}
 	}
 	if (found == 0)
 	{
 		BfmeE8 tmp;
-		tmp.a = (unsigned int)p->m_54;
+		tmp.a = (unsigned int)player->m_54;
 		tmp.b = TheGameLogic->getFrame();
 		g_00E06654.push_back(tmp);
 		found = &g_00E06654[g_00E06654.size() - 1];
 	}
 	if (found->b <= TheGameLogic->getFrame())
 	{
-		unsigned int r = (unsigned int)GetGameLogicRandomValue(g_00E06650, g_00E06660, "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\SkirmishAI\\AISpecialPowers\\AISpellBookPowers\\AISpellBookAssistBattle.cpp", 0x4D);
-		found->b = TheGameLogic->getFrame() + r;
+		unsigned int delay = (unsigned int)GetGameLogicRandomValue(g_00E06650, g_00E06660, "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\SkirmishAI\\AISpecialPowers\\AISpellBookPowers\\AISpellBookAssistBattle.cpp", 0x4D);
+		found->b = TheGameLogic->getFrame() + delay;
 		return true;
 	}
 	return false;

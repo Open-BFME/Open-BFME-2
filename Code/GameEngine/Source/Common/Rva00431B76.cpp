@@ -68,17 +68,17 @@ void FormationTranslator::WaitForSecondButtonDownStateHandler::Update()
 	msg->appendIntegerArgument(m_14);
 	msg->appendIntegerArgument(m_18);
 	void *mem = operator new(8);
-	Rva00431B76Helper *h;
+	Rva00431B76Helper *m_nextState;
 	if (mem != 0)
 	{
-		h = (Rva00431B76Helper *)mem;
-		h->m_parent = m_04;
-		h->m_vptr = (void *)__identifier("??_7Rva004318FC@@6B@");
+		m_nextState = (Rva00431B76Helper *)mem;
+		m_nextState->m_parent = m_04;
+		m_nextState->m_vptr = (void *)__identifier("??_7Rva004318FC@@6B@");
 	}
 	else
 	{
-		h = 0;
+		m_nextState = 0;
 	}
 	Rva00575674 *q = (Rva00575674 *)((char *)m_04 + 8);
-	q->rva00575674((Object *)h);
+	q->rva00575674((Object *)m_nextState);
 }

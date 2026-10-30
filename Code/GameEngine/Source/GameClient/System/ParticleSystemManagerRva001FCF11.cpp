@@ -70,8 +70,8 @@ typedef _STL::pair<const AsciiString, FXParticleSystem::ParticleSystemTemplate *
 class Rva000427195
 {
 public:
-	InsertRet001F8F2A rva001F93A3(const void *key);
-	InsertRet001F8F2A insert(const TemplateMapEntry &entry) { return rva001F93A3(&entry); }
+	InsertRet001F8F2A insertWithGrow(const void *key);
+	InsertRet001F8F2A insert(const TemplateMapEntry &entry) { return insertWithGrow(&entry); }
 };
 
 class ParticleSystemManager

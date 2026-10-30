@@ -49,9 +49,9 @@ private:
 
 void AutoAbilityBehavior::rva0045A748(void *src, bool flag)
 {
-	Rva0045A748Arg *s = (Rva0045A748Arg *)src;
-	if (!s || s->m_str10.compare(m_str20) != 0 || flag != false) {
-		rva0045A421(s);
+	Rva0045A748Arg *source = (Rva0045A748Arg *)src;
+	if (!source || source->m_str10.compare(m_str20) != 0 || flag != false) {
+		rva0045A421(source);
 		return;
 	}
 	rva0045A413();

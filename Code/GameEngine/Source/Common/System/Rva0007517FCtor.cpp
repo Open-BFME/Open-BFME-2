@@ -67,15 +67,15 @@ public:
 	virtual void _D10();
 	virtual void _D11(char *p1, char *p2, int a, int b, int c);
 	virtual void _D12(float const *m, int f, int a, int b, int c);
-	virtual void rva00074BC8(float const *p, int f, int a, int b, int c);
+	virtual void rva00074BC8(float const *position, int f, int a, int b, int c);
 	virtual void _D14(float const *m, float f, int a, int b, int c);
-	virtual void rva00074D39(float const *p, float f, int a, int b, int c);
+	virtual void rva00074D39(float const *position, float f, int a, int b, int c);
 	virtual void _D16(float const *m, float f1, float f2, int a, int b, int c);
-	virtual void rva00074EA2(float const *p, float f1, float f2, int a, int b, int c);
+	virtual void rva00074EA2(float const *position, float f1, float f2, int a, int b, int c);
 	virtual void _S18(float const *m, float f, int a, int b, int c);
-	virtual void rva00075016(float const *p, float f, int a, int b, int c);
+	virtual void rva00075016(float const *position, float f, int a, int b, int c);
 	virtual void _D20();
-	virtual void rva000749C1(char *a, char *b, int n, int x1, int x2, int x3, int x4, int x5);
+	virtual void rva000749C1(char *a, char *b, int count, int x1, int x2, int x3, int x4, int x5);
 
 private:
 	int m_14;
@@ -89,91 +89,91 @@ private:
 };
 
 
-void Rva0007517F::rva00075016(float const *p, float f, int a, int b, int c)
+void Rva0007517F::rva00075016(float const *position, float f, int a, int b, int c)
 {
 	float m[12];
 	m[0] = g_Va00BBB8D8;
 	m[1] = 0.0f;
 	m[2] = 0.0f;
-	m[3] = p[0];
+	m[3] = position[0];
 	m[4] = 0.0f;
 	m[5] = g_Va00BBB8D8;
 	m[6] = 0.0f;
-	m[7] = p[1];
+	m[7] = position[1];
 	m[8] = 0.0f;
 	m[9] = 0.0f;
 	m[10] = g_Va00BBB8D8;
-	m[11] = p[2];
+	m[11] = position[2];
 	_S18(m, f, a, b, c);
 }
 
-void Rva0007517F::rva00074BC8(float const *p, int f, int a, int b, int c)
+void Rva0007517F::rva00074BC8(float const *position, int f, int a, int b, int c)
 {
 	float m[12];
 	m[0] = g_Va00BBB8D8;
 	m[1] = 0.0f;
 	m[2] = 0.0f;
-	m[3] = p[0];
+	m[3] = position[0];
 	m[4] = 0.0f;
 	m[5] = g_Va00BBB8D8;
 	m[6] = 0.0f;
-	m[7] = p[1];
+	m[7] = position[1];
 	m[8] = 0.0f;
 	m[9] = 0.0f;
 	m[10] = g_Va00BBB8D8;
-	m[11] = p[2];
+	m[11] = position[2];
 	_D12(m, f, a, b, c);
 }
 
-void Rva0007517F::rva00074D39(float const *p, float f, int a, int b, int c)
+void Rva0007517F::rva00074D39(float const *position, float f, int a, int b, int c)
 {
 	float m[12];
 	m[0] = g_Va00BBB8D8;
 	m[1] = 0.0f;
 	m[2] = 0.0f;
-	m[3] = p[0];
+	m[3] = position[0];
 	m[4] = 0.0f;
 	m[5] = g_Va00BBB8D8;
 	m[6] = 0.0f;
-	m[7] = p[1];
+	m[7] = position[1];
 	m[8] = 0.0f;
 	m[9] = 0.0f;
 	m[10] = g_Va00BBB8D8;
-	m[11] = p[2];
+	m[11] = position[2];
 	_D14(m, f, a, b, c);
 }
 
-void Rva0007517F::rva00074EA2(float const *p, float f1, float f2, int a, int b, int c)
+void Rva0007517F::rva00074EA2(float const *position, float f1, float f2, int a, int b, int c)
 {
 	float m[12];
 	m[0] = g_Va00BBB8D8;
 	m[1] = 0.0f;
 	m[2] = 0.0f;
-	m[3] = p[0];
+	m[3] = position[0];
 	m[4] = 0.0f;
 	m[5] = g_Va00BBB8D8;
 	m[6] = 0.0f;
-	m[7] = p[1];
+	m[7] = position[1];
 	m[8] = 0.0f;
 	m[9] = 0.0f;
 	m[10] = g_Va00BBB8D8;
-	m[11] = p[2];
+	m[11] = position[2];
 	_D16(m, f1, f2, a, b, c);
 }
 
-void Rva0007517F::rva000749C1(char *a, char *b, int n, int x1, int x2, int x3, int x4, int x5)
+void Rva0007517F::rva000749C1(char *a, char *b, int count, int x1, int x2, int x3, int x4, int x5)
 {
-	if (n <= 0)
+	if (count <= 0)
 		return;
 	int i = 1;
 	int diff = (int)(a - b);
-	int left = n;
+	int left = count;
 	char *pb = b;
 	do {
 		_D11(pb + diff, pb, x1, x4, x5);
-		int r = i % n;
-		_D11(pb + diff, (char *)&((RubbleFXVec *)a)[r], x2, x4, x5);
-		_D11(pb, (char *)&((RubbleFXVec *)b)[r], x3, x4, x5);
+		int index = i % count;
+		_D11(pb + diff, (char *)&((RubbleFXVec *)a)[index], x2, x4, x5);
+		_D11(pb, (char *)&((RubbleFXVec *)b)[index], x3, x4, x5);
 		++i;
 		pb += 12;
 		--left;

@@ -116,15 +116,15 @@ static inline void cameraTrackSeek(void *track, int frame, const Rva00540E9D *)
 {
 	((Rva005418CB *)track)->rva00541641(frame);
 }
-static inline Rva00540D94 cameraTrackInterpolate(float t, Rva00540D94 *a, int ta, Rva00540D94 *b, int tb,
-	Rva00540D94 *c, int tc, Rva00540D94 *d, int td)
+static inline Rva00540D94 cameraTrackInterpolate(float fraction, Rva00540D94 *prevKey, int ta, Rva00540D94 *startKey, int tb,
+	Rva00540D94 *endKey, int tc, Rva00540D94 *nextKey, int td)
 {
-	return Rva00540DCAGet(t, a, ta, b, tb, c, tc, d, td);
+	return Rva00540DCAGet(fraction, prevKey, ta, startKey, tb, endKey, tc, nextKey, td);
 }
-static inline Rva00540E9D cameraTrackInterpolate(float t, Rva00540E9D *a, int ta, Rva00540E9D *b, int tb,
-	Rva00540E9D *c, int tc, Rva00540E9D *d, int td)
+static inline Rva00540E9D cameraTrackInterpolate(float fraction, Rva00540E9D *prevKey, int ta, Rva00540E9D *startKey, int tb,
+	Rva00540E9D *endKey, int tc, Rva00540E9D *nextKey, int td)
 {
-	return rva00540EBD(t, a, (void *)ta, (Rva005C71ADView *)b, (void *)tb, c, (void *)tc, d, (void *)td);
+	return rva00540EBD(fraction, prevKey, (void *)ta, (Rva005C71ADView *)startKey, (void *)tb, endKey, (void *)tc, nextKey, (void *)td);
 }
 
 template <class T>

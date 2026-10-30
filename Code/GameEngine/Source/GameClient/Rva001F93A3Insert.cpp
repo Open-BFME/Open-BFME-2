@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /Ob2 /DNDEBUG /MD /EHsc
-// ?rva001F93A3@Rva000427195@@QAE?AUInsertRet001F8F2A@@PBX@Z retail 0x001F93A3 36 bytes.
+// ?insertWithGrow@Rva000427195@@QAE?AUInsertRet001F8F2A@@PBX@Z retail 0x001F93A3 36 bytes.
 // Hashtable insert with grow: loads count at +0x10 inc calls pinned grow
 // rva00212858 at 0x00212858 then tail-returns rowed insert rva001F8F2A at
 // 0x001F8F2A with the same hidden return and key. Class proven by +0x10
@@ -24,7 +24,7 @@ class Rva000427195
 public:
 	void rva00212858(unsigned int newSize);
 	InsertRet001F8F2A rva001F8F2A(const void *key);
-	InsertRet001F8F2A rva001F93A3(const void *key);
+	InsertRet001F8F2A insertWithGrow(const void *key);
 
 	void *m_unused00;
 	void **m_beginBuckets;
@@ -33,7 +33,7 @@ public:
 	unsigned int m_numElements;
 };
 
-InsertRet001F8F2A Rva000427195::rva001F93A3(const void *key)
+InsertRet001F8F2A Rva000427195::insertWithGrow(const void *key)
 {
 	rva00212858(m_numElements + 1);
 	return rva001F8F2A(key);
@@ -53,5 +53,5 @@ private:
 
 InsertRet001F8F2A Rva001FA45F::rva001FA45F(const void *key)
 {
-	return m_table.rva001F93A3(key);
+	return m_table.insertWithGrow(key);
 }

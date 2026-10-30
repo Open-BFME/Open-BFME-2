@@ -33,10 +33,10 @@ extern unsigned char g_Va0130A58D;
 
 ServiceHubImpl *createServiceHubImpl(void *a, void *b, void *c, void *d, void *e, void *f)
 {
-	void *p = ((void *)Gen007EFFC0());
-	if (p == 0)
+	void *allocator = ((void *)Gen007EFFC0());
+	if (allocator == 0)
 	{
-		Rva007F0120(p, p);
+		Rva007F0120(allocator, allocator);
 		g_Va0130A58C = 1;
 	}
 	if (Rva007EB810Get() == 0)

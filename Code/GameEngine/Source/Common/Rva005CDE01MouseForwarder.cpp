@@ -35,15 +35,15 @@ class Rva005D1F14 { public: int rva005D1F14(int, int); };
 class Rva005CDE31
 {
 public:
-	virtual void rva005CDE31(void *a, int b);
+	virtual void rva005CDE31(void *buffer, int b);
 private:
 	char prefix[0x1c];
 	Rva005E687F *state;
 };
-void Rva005CDE31::rva005CDE31(void *a, int b)
+void Rva005CDE31::rva005CDE31(void *buffer, int b)
 {
 	if (state && !state->get())
-		((Rva005E5920 *)this)->rva005E5920(a, b);
+		((Rva005E5920 *)this)->rva005E5920(buffer, b);
 	else
-		((Rva005D1F14 *)((char *)this + 0xc))->rva005D1F14((int)a, b);
+		((Rva005D1F14 *)((char *)this + 0xc))->rva005D1F14((int)buffer, b);
 }

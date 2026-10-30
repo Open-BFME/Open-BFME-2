@@ -45,16 +45,16 @@ void Rva0029D3FB::rva0029D3FB()
 {
 	_STL::list<int>::iterator it = m_8CC.begin();
 	while (it._M_node != m_8CC.end()._M_node) {
-		int v = *it;
-		Rva0029D3FBHolder *h = (Rva0029D3FBHolder *)v;
-		if (h != 0) {
-			void *q;
-			if (h->ptr != 0)
-				q = h->ptr->slot00(0);
+		int handle = *it;
+		Rva0029D3FBHolder *holder = (Rva0029D3FBHolder *)handle;
+		if (holder != 0) {
+			void *payload;
+			if (holder->ptr != 0)
+				payload = holder->ptr->slot00(0);
 			else
-				q = 0;
-			::operator delete(q);
-			::operator delete(h);
+				payload = 0;
+			::operator delete(payload);
+			::operator delete(holder);
 		}
 		it = m_8CC.erase(it);
 	}

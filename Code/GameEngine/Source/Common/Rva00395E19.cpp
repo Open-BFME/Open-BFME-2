@@ -29,11 +29,11 @@ public:
 };
 void Rva00395E19::rva00395E19(AsciiString *out, int idx)
 {
-	Rva00395E19P *p = m_p;
-	if (!p)
+	Rva00395E19P *entry = m_p;
+	if (!entry)
 		return;
-	int id = p->m_id;
-	Rva00395E19Mid *mid = p->m_mid;
+	int id = entry->m_id;
+	Rva00395E19Mid *mid = entry->m_mid;
 	char *addr = (char *)mid + 100;
 	_ReadWriteBarrier();
 	Rva00395E19Q *q = *(Rva00395E19Q **)addr;

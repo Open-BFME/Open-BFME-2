@@ -32,17 +32,17 @@ struct Rva0059E647World
 {
     void Apply(Rva0059E647Entry *, void *, Rva0059E647Arg *);
 };
-void Rva0059E647World::Apply(Rva0059E647Entry *templateView, void *regionView, Rva0059E647Arg *playerView)
+void Rva0059E647World::Apply(Rva0059E647Entry *buildingTemplate, void *regionView, Rva0059E647Arg *playerView)
 {
-    void *p1 = templateView;
-    LivingWorldRegion *p2 = (LivingWorldRegion *)regionView;
-    Rva002B2590P3 *p3 = (Rva002B2590P3 *)playerView;
-    if (p2->m_13C != p3->m_14)
+    void *p1 = buildingTemplate;
+    LivingWorldRegion *region = (LivingWorldRegion *)regionView;
+    Rva002B2590P3 *player = (Rva002B2590P3 *)playerView;
+    if (region->m_13C != player->m_14)
         return;
-    void *result = p2->rva003F0588();
+    void *result = region->rva003F0588();
     if (result == 0)
         return;
-    p2->rva003EFE72(result, (Rva0059E647Entry *)p1);
+    region->rva003EFE72(result, (Rva0059E647Entry *)p1);
 }
 
 class Rva0060EF3E

@@ -23,7 +23,7 @@ protected:
 }
 template<class T> class ReserveAccess : public _STL::vector<T,_STL::allocator<T> > {
 public:
- __forceinline T *copy(unsigned int n,T *f,T *l) {return this->_M_allocate_and_copy(n,f,l);}
+ __forceinline T *copy(unsigned int n,T *first,T *last) {return this->_M_allocate_and_copy(n,first,last);}
  __forceinline void clear() {this->_M_clear();}
 };
 class Rva00081BAFVector

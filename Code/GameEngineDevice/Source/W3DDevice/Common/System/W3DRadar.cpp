@@ -842,7 +842,7 @@ GeometryRecord &GeometryRecord::operator=( const GeometryRecord &other )
 
 // tu-skeleton: 0x0004E4ED 37B ?legalRadarPoint@@YA_NHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarRenderObjectList.cpp (not merged yet)
 
-// tu-skeleton: 0x0004E5A2 354B ?rva0004E5A2@W3DRadar@@QAEXHHHHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DRadarDrawEvents.cpp (not merged yet)
+// tu-skeleton: 0x0004E5A2 354B ?drawEvents@W3DRadar@@QAEXHHHHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DRadarDrawEvents.cpp (not merged yet)
 
 // tu-skeleton: 0x0004E704 206B ?rva0004E704@@YA_NPAVObject@@PAH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarStealthBlink.cpp (not merged yet)
 
@@ -913,7 +913,7 @@ void Rva004EFE9::rva0004F7F4()
 
 // tu-skeleton: 0x0075D488 8B $L1674 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DRadarDrawEvents.cpp (not merged yet)
 
-// tu-skeleton: 0x0075D490 10B __ehhandler$?rva0004E5A2@W3DRadar@@QAEXHHHHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DRadarDrawEvents.cpp (not merged yet)
+// tu-skeleton: 0x0075D490 10B __ehhandler$?drawEvents@W3DRadar@@QAEXHHHHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DRadarDrawEvents.cpp (not merged yet)
 
 // tu-skeleton: 0x0075D49A 10B $L629 -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarInit.cpp (not merged yet)
 

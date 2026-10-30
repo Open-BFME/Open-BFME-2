@@ -219,7 +219,7 @@ protected:
 class Rva0049C5D9
 {
 public:
-	void onExit(bool a, bool b);
+	void onExit(bool cleanup, bool aborted);
 };
 
 // tu-skeleton: 0x0049C391 27B ?buildFieldParse@GiveUpgradeUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp (not merged yet)
@@ -361,10 +361,10 @@ void Rva0049C51A::rva0049C51A(int specialPowerTemplate, int targetObj, int targe
 
 // ---- from Code/GameEngine/Source/Common/Rva0049C5D9Exit.cpp
 
-void Rva0049C5D9::onExit(bool a, bool b)
+void Rva0049C5D9::onExit(bool cleanup, bool aborted)
 {
 	((Rva0049C592 *)this)->rva0049C592();
-	((SpecialAbilityUpdate *)this)->SpecialAbilityUpdate::onExit(a, b);
+	((SpecialAbilityUpdate *)this)->SpecialAbilityUpdate::onExit(cleanup, aborted);
 }
 
 // tu-skeleton: 0x0049C5F4 48B ?rva0049C5F4@Rva0049C5F4@@QAEPAXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/Rva0049C5F4ProviderGet.cpp (not merged yet)

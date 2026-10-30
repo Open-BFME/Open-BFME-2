@@ -18,9 +18,9 @@ extern class GameLogic *TheGameLogic;
 // WorldBuilder canPlayersTransferMoneyYet, WB VA 0x00D10670 (callsite lead, score 1.0).
 bool canPlayersTransferMoneyYet()
 {
-	unsigned int tmp = (*(Rva0023D339A **)&TheWritableGlobalData)->m_122C;
-	tmp *= (*(unsigned int *)&BfmeLogicFramesPerSecond);
+	unsigned int threshold = (*(Rva0023D339A **)&TheWritableGlobalData)->m_122C;
+	threshold *= (*(unsigned int *)&BfmeLogicFramesPerSecond);
 	Rva0023D339B *b = (*(Rva0023D339B **)&TheGameLogic);
-	tmp *= 60;
-	return b->m_40 >= tmp;
+	threshold *= 60;
+	return b->m_40 >= threshold;
 }

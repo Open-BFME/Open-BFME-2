@@ -69,7 +69,7 @@ class Rva000427195
 public:
 	void *first(Rva000411084 *iter);
 	void rva003A37DC(VideoPair p);
-	InsertRet001F8F2A rva001F93A3(const void *key);
+	InsertRet001F8F2A insertWithGrow(const void *key);
 };
 
 #include <new>
@@ -78,7 +78,7 @@ public:
 static __forceinline bool InsertPairHelper(Rva000427195 *m, const _STL::pair<AsciiString, int> &made)
 {
 	_STL::pair<const AsciiString, int> stored(made);
-	InsertRet001F8F2A inserted = m->rva001F93A3(&stored);
+	InsertRet001F8F2A inserted = m->insertWithGrow(&stored);
 	return inserted.m_found == 0;
 }
 ParticleSystemTemplate *ParticleSystemManager::newTemplate(const AsciiString &name)

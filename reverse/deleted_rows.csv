@@ -4194,3 +4194,8 @@ __ehhandler$?method@Rva002B64C7Observer@@QAEXPAUBuildingView@@@Z,0x0077619A,"Ren
 ?Rva00117A80GetFlag@@YAEXZ,0x00117A80,Renamed to ?Is_Movie_Paused@WW3D@@SA_NXZ: the byte load of ?PauseRecord@WW3D@@0_NA (0x00DEC3C9) is ZH ww3d.cpp's Is_Movie_Paused; ww3d.cpp's body compiles to the same bytes
 ?hasBfmeThingTXA@@YAHXZ,0x00117AC0,Renamed to ?Is_Movie_Ready@WW3D@@SA_NXZ: the null test of ?Movie@WW3D@@0PAVFrameGrabClass@@A (0x00DEC3DC) is ZH ww3d.cpp's Is_Movie_Ready; ww3d.cpp's body compiles to the same xor-first bytes
 ?Rva00117AC0HasFlag@@YA_NXZ,0x00117AC0,Renamed to ?Is_Movie_Ready@WW3D@@SA_NXZ: duplicate claim of the same 12-byte body as ?hasBfmeThingTXA@@YAHXZ (one body per address); ZH ww3d.cpp's Is_Movie_Ready
+?rva001F93A3@Rva000427195@@QAE?AUInsertRet001F8F2A@@PBX@Z,0x001F93A3,"Renamed to ?insertWithGrow@Rva000427195@@QAE?AUInsertRet001F8F2A@@PBX@Z by tools/rename.py (inferred)"
+?rva002628C3@Rva002628C3@@QAEXPAXHH@Z,0x002628C3,"Renamed to ?DispatchSpyEvent@Rva002628C3@@QAEXPAXHH@Z by tools/rename.py (inferred)"
+??__FeventSound@?9??rva0004E5A2@W3DRadar@@QAEXHHHHH@Z@YAXXZ,0x007B6B05,"Renamed to ??__FeventSound@?9??drawEvents@W3DRadar@@QAEXHHHHH@Z@YAXXZ by tools/rename.py (inferred)"
+?rva0004E5A2@W3DRadar@@QAEXHHHHH@Z,0x0004E5A2,"Renamed to ?drawEvents@W3DRadar@@QAEXHHHHH@Z by tools/rename.py (inferred)"
+__ehhandler$?rva0004E5A2@W3DRadar@@QAEXHHHHH@Z,0x0075D490,"Renamed to __ehhandler$?drawEvents@W3DRadar@@QAEXHHHHH@Z by tools/rename.py (inferred)"

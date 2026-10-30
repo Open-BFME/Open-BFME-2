@@ -62,8 +62,8 @@ void Rva000427195::rva002ADCE1(const VideoPair &it) {
 // to the rowed chain-erase worker at 2ADCE1. No original container name is
 // inferred from this wrapper or from its generic STLport instruction shape.
 #pragma optimize("y", off)
-void Rva000427195::rva003A37DC(VideoPair p)
+void Rva000427195::rva003A37DC(VideoPair cursor)
 {
- VideoPair local=p;
+ VideoPair local=cursor;
  rva002ADCE1(local);
 }

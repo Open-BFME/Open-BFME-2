@@ -37,17 +37,17 @@ private:
 // ?check@Rva003B483DHolder@@QBE_NPBX@Z
 Bool Rva003B483DHolder::check(const void *arg) const
 {
-	const char *p = (const char *)arg;
-	Int index = *(const Int *)(p + 4);
-	Int other = *(const Int *)(p + 8);
+	const char *record = (const char *)arg;
+	Int index = *(const Int *)(record + 4);
+	Int other = *(const Int *)(record + 8);
 	Short word = m_table[index].m_word;
 	return (word - other) == 0;
 }
 
 Int Rva003B483DHolder::rva003B4826(const void *arg) const
 {
-	const char *p = (const char *)arg;
-	Int index = *(const Int *)(p + 4);
+	const char *record = (const char *)arg;
+	Int index = *(const Int *)(record + 4);
 	return m_table[index].m_val10 + 4;
 }
 
@@ -63,14 +63,14 @@ struct Rva003B46E0RecordBytes { unsigned char m_bytes[20]; };
 class Rva003B46E0Holder
 {
 public:
-    void *atKey(const void *arg) const;
+    void *atKey(const void *record) const;
     unsigned char m_pad[0x18];
     Rva003B46E0RecordBytes *m_table;
 };
 
-void *Rva003B46E0Holder::atKey(const void *arg) const
+void *Rva003B46E0Holder::atKey(const void *record) const
 {
-    int index = *(const int *)((const unsigned char *)arg + 4);
+    int index = *(const int *)((const unsigned char *)record + 4);
     return m_table[index].m_bytes + 8;
 }
 

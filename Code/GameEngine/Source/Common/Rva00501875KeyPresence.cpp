@@ -71,7 +71,7 @@ private:
 
 struct Rva00501875Count {
  int value;
- Rva00501875Count(int n=0):value(n){}
+ Rva00501875Count(int initialValue=0):value(initialValue){}
  Rva00501875Count &operator+=(int n){value+=n;return *this;}
 };
 

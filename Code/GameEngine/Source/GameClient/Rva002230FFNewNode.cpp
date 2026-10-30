@@ -36,8 +36,8 @@ public:
 
 void *Rva002230FF::rva002230FF(const void *obj)
 {
-	Rva002230FFNode *n = (Rva002230FFNode *)_STL::allocator<char>().allocate(12, 0);
-	n->_M_next = 0;
-	Rva00222DBFConstruct(&n->_M_val, (const _STL::pair<const AsciiString, NoCaseTreeValue4> *)obj);
-	return n;
+	Rva002230FFNode *node = (Rva002230FFNode *)_STL::allocator<char>().allocate(12, 0);
+	node->_M_next = 0;
+	Rva00222DBFConstruct(&node->_M_val, (const _STL::pair<const AsciiString, NoCaseTreeValue4> *)obj);
+	return node;
 }

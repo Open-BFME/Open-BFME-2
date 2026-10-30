@@ -52,11 +52,11 @@ private:
 	unsigned char m_14;
 };
 
-void LivingWorldScenario::PlayerDefeatCondition::QueryRegionsAndNumbers(void *a1, _STL::vector<const ModuleData *> *vec, int *maxOut)
+void LivingWorldScenario::PlayerDefeatCondition::QueryRegionsAndNumbers(void *player, _STL::vector<const ModuleData *> *vec, int *maxOut)
 {
 	if (m_14 != 0) {
 		Rva002104B6 *mgr = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->m_B0;
-		const ModuleData *mod = (const ModuleData *)mgr->rva002104B6((char *)a1 + 0x2c);
+		const ModuleData *mod = (const ModuleData *)mgr->rva002104B6((char *)player + 0x2c);
 		struct Vec12
 		{
 			const ModuleData **m_begin;
@@ -65,8 +65,8 @@ void LivingWorldScenario::PlayerDefeatCondition::QueryRegionsAndNumbers(void *a1
 		};
 		Vec12 *vl = (Vec12 *)vec;
 		unsigned i = 0;
-		int n = ((char *)vl->m_end - (char *)vl->m_begin) >> 2;
-		if (n != 0) {
+		int count = ((char *)vl->m_end - (char *)vl->m_begin) >> 2;
+		if (count != 0) {
 			int key = mod->m_12c;
 			const ModuleData **pp = vl->m_begin;
 			do {
@@ -74,12 +74,12 @@ void LivingWorldScenario::PlayerDefeatCondition::QueryRegionsAndNumbers(void *a1
 					goto done;
 				++i;
 				++pp;
-			} while (i < (unsigned)n);
+			} while (i < (unsigned)count);
 		}
 		vec->push_back(mod);
 done:;
 	}
-	int v = m_10;
-	if (*maxOut < v)
-		*maxOut = v;
+	int maxValue = m_10;
+	if (*maxOut < maxValue)
+		*maxOut = maxValue;
 }

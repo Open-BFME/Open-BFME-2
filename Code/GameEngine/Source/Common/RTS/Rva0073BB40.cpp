@@ -27,17 +27,17 @@ class Rva0073BAA0Base
 public:
 	Rva0073BAA0Base(Gen_008F7CD0 *grid, unsigned int mask);
 	virtual char testFunc(int x, int y);
-	char rva0073BB40(int x1, int x2, int y);
+	char rva0073BB40(int minX, int maxX, int cellY);
 private:
 	Gen_008F7CD0 *m_grid;
 	unsigned int m_mask;
 };
 
-char Rva0073BAA0Base::rva0073BB40(int x1, int x2, int y)
+char Rva0073BAA0Base::rva0073BB40(int minX, int maxX, int cellY)
 {
 	BfmeCellFD *volatile first;
 	BfmeCellFD *last;
-	m_grid->rva0073A2A0((BfmeCellFD **)&first, &last, x1, x2, y);
+	m_grid->rva0073A2A0((BfmeCellFD **)&first, &last, minX, maxX, cellY);
 	unsigned int mask = m_mask;
 	int index = 0;
 	if (mask != 0)
@@ -48,15 +48,15 @@ char Rva0073BAA0Base::rva0073BB40(int x1, int x2, int y)
 			if ((mask & 1) != 0)
 			{
 				BfmeCellFD *cell = first;
-				int x = x1;
+				int cellX = minX;
 				if (cell != end)
 				{
 					do
 					{
-						if (testFunc(x, y))
+						if (testFunc(cellX, cellY))
 							((ShroudManagerCell *)cell)->updatePlayerCells008FC3B0(
 								(ShroudManagerImpl *)m_grid, index);
-						++x;
+						++cellX;
 						cell = (BfmeCellFD *)((char *)cell + 0xA8);
 					} while (cell != end);
 				}

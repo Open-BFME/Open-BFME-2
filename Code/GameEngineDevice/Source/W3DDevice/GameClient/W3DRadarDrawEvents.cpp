@@ -1,4 +1,4 @@
-// ?rva0004E5A2@W3DRadar@@QAEXHHHHH@Z
+// ?drawEvents@W3DRadar@@QAEXHHHHH@Z
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
@@ -30,7 +30,7 @@ virtual unsigned getFrame();};
 struct RadarPingName {int type;const char*name;};
 static const RadarPingName pingNames[]={{6,"PingBeacon"},{3,"PingAttack"},{1,"PingGeneric"},{0,"PingInformation"},{2,"PingUpgrade"}};
 static __forceinline const char*Rva0004D835PingName(int type){for(unsigned n=0;n<5;++n)if(pingNames[n].type==type)return pingNames[n].name;return 0;}
-class W3DRadar {public:void rva0004E5A2(int,int,int,int,int);protected:void radarToPixel(const ICoord2D*,ICoord2D*,int,int,int,int);public:char pad[0x2C];RadarEventView events[64];};
-void W3DRadar::rva0004E5A2(int pixelX,int pixelY,int width,int height,int unused){for(int i=0;i<64;++i){RadarEventView&radarEventView=events[i];if(radarEventView.active==true&&radarEventView.type!=10){if(!radarEventView.soundPlayed&&radarEventView.type!=6){static BfmeAudioEventPrefix136 eventSound(((RadarAudioView*)TheAudio)->getMiscAudio()->radarEvent,0);((RadarAudioView*)TheAudio)->addAudioEvent(&eventSound);}int type=radarEventView.type;radarEventView.soundPlayed=true;
+class W3DRadar {public:void drawEvents(int,int,int,int,int);protected:void radarToPixel(const ICoord2D*,ICoord2D*,int,int,int,int);public:char pad[0x2C];RadarEventView events[64];};
+void W3DRadar::drawEvents(int pixelX,int pixelY,int width,int height,int unused){for(int i=0;i<64;++i){RadarEventView&radarEventView=events[i];if(radarEventView.active==true&&radarEventView.type!=10){if(!radarEventView.soundPlayed&&radarEventView.type!=6){static BfmeAudioEventPrefix136 eventSound(((RadarAudioView*)TheAudio)->getMiscAudio()->radarEvent,0);((RadarAudioView*)TheAudio)->addAudioEvent(&eventSound);}int type=radarEventView.type;radarEventView.soundPlayed=true;
 _ReadWriteBarrier();
 if(!radarEventView.ping.ptr){const char*name=Rva0004D835PingName(type);if(name)radarEventView.ping=theRadarWindowOverrideSource->rva002D508B(name);}RadarEventRef*ping=radarEventView.ping.ptr;if(ping){ICoord2D pixel;radarToPixel(&radarEventView.radarLoc,&pixel,pixelX,pixelY,width,height);((Rva002D3366*)ping)->rva002D3366((float)pixel.x,(float)pixel.y);if(((RadarClientView*)TheGameClient)->getFrame()>radarEventView.expiry)((Rva002D5333*)radarEventView.ping.ptr)->rva005CB265();}}}}

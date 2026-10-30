@@ -37,7 +37,7 @@ struct TargetRef00217D4C { virtual void *destroy(unsigned flags); int references
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 struct TreeHintRef00217D4C
 {
-	TreeHintRef00217D4C(TargetRef00217D4C *p) : m_ptr(p) { if (m_ptr) ++m_ptr->references; }
+	TreeHintRef00217D4C(TargetRef00217D4C *target) : m_ptr(target) { if (m_ptr) ++m_ptr->references; }
 	~TreeHintRef00217D4C() { if (m_ptr) ReleaseTreeHintRef00217D4C(m_ptr); }
 	__declspec(noinline) TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &other)
 	{

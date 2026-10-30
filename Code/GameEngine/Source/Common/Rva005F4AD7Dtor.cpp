@@ -37,9 +37,9 @@ struct Rva005F4AD7
 };
 Rva005F4AD7::~Rva005F4AD7()
 {
-	Rva005F4AD7Inner *p = m_ptr;
-	if (p)
-		ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)((char *)p + 4 + p->m_04->m_04));
+	Rva005F4AD7Inner *inner = m_ptr;
+	if (inner)
+		ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)((char *)inner + 4 + inner->m_04->m_04));
 }
 Rva005F4AD7::Rva005F4AD7(const Rva005F4AD7 &other) throw()
 {

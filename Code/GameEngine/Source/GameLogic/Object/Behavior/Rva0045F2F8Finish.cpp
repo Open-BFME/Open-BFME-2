@@ -18,18 +18,18 @@ public:
 class Rva0045F2F8
 {
 public:
-    unsigned char rva0045F2F8(float v);
+    unsigned char rva0045F2F8(float maxSelfTaskersRatio);
 private:
     char m_00[0x34];
     int m_34;
     unsigned int m_38;
 };
 
-unsigned char Rva0045F2F8::rva0045F2F8(float v)
+unsigned char Rva0045F2F8::rva0045F2F8(float maxSelfTaskersRatio)
 {
     if (m_34 == 0)
         return 0;
-    if (v == 0.0f)
+    if (maxSelfTaskersRatio == 0.0f)
         return 0;
     char *base = (char *)this - 0x18;
     void *obj = *(void **)base;
@@ -42,5 +42,5 @@ unsigned char Rva0045F2F8::rva0045F2F8(float v)
     if (ret != 2)
         return 0;
     float f = (float)m_38 / (float)m_34;
-    return v > f ? 1 : 0;
+    return maxSelfTaskersRatio > f ? 1 : 0;
 }

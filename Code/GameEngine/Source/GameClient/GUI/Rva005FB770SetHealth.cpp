@@ -37,12 +37,12 @@ private:
 	bool m_flag4D;
 };
 
-void StrategicHUD::DynamicAutoResolvePlayerPanelMovieClip::Impl::SetPlayerHealth(float v)
+void StrategicHUD::DynamicAutoResolvePlayerPanelMovieClip::Impl::SetPlayerHealth(float health)
 {
-	if (v != m_float34) {
+	if (health != m_float34) {
 		const char *team = m_team08 ? m_team08->m_name : "";
-		Rva00527925Fire((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), m_level04, team, "SetPlayerHealth", &v);
-		m_float34 = v;
+		Rva00527925Fire((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), m_level04, team, "SetPlayerHealth", &health);
+		m_float34 = health;
 	}
 }
 

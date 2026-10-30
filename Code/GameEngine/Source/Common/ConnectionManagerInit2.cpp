@@ -197,9 +197,9 @@ void ConnectionManager::init()
 	((NetCommandList *)m_12124)->reset();
 	if (m_12128 == 0)
 	{
-		NetCommandList *q = new NetCommandList;
-		m_12128 = (unsigned int)q;
-		q->reset();
+		NetCommandList *m_netCommandList = new NetCommandList;
+		m_12128 = (unsigned int)m_netCommandList;
+		m_netCommandList->reset();
 	}
 	((NetCommandList *)m_12128)->reset();
 	m_localSlot = -1;

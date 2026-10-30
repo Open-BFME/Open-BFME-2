@@ -64,20 +64,20 @@ extern UpgradeCenter *TheUpgradeCenter;
 class LuaScriptEngine
 {
 public:
-	static int ObjectModifyUpgrade(lua_State *L, bool grant);
+	static int ObjectModifyUpgrade(lua_State *luaState, bool grant);
 };
 
-int LuaScriptEngine::ObjectModifyUpgrade(lua_State *L, bool b)
+int LuaScriptEngine::ObjectModifyUpgrade(lua_State *luaState, bool grant)
 {
-	if (lua_gettop(L) < 2)
+	if (lua_gettop(luaState) < 2)
 		return 0;
-	unsigned id = Rva00990030Lookup((Rva00990030Range *)L, 1);
-	if (id == 0 && lua_type(L, 1) != 1)
+	unsigned id = Rva00990030Lookup((Rva00990030Range *)luaState, 1);
+	if (id == 0 && lua_type(luaState, 1) != 1)
 		return 0;
 	Object *obj = TheGameLogic->findObjectByID((ObjectID)id);
 	if (obj == 0)
 		return 0;
-	const char *upName = lua_tostring(L, 2);
+	const char *upName = lua_tostring(luaState, 2);
 	const UpgradeTemplate *tpl;
 	{
 		AsciiString tmp(upName);
@@ -87,13 +87,13 @@ int LuaScriptEngine::ObjectModifyUpgrade(lua_State *L, bool b)
 		return 0;
 	if (tpl->m_type == 0) {
 		Player *player = obj->getControllingPlayer();
-		if (b != 0) {
+		if (grant != 0) {
 			player->addUpgrade(tpl, (UpgradeStatusType)2, 0);
 		} else {
 			player->removeUpgrade(tpl, 0);
 		}
 	} else {
-		if (b != 0) {
+		if (grant != 0) {
 			obj->rva00293077(tpl);
 		} else {
 			obj->removeUpgrade(tpl);
@@ -105,15 +105,15 @@ int LuaScriptEngine::ObjectModifyUpgrade(lua_State *L, bool b)
 // ?ObjectGrantUpgrade@@YAHPAUlua_State@@@Z, retail 0x00335692 14B: the Lua
 // callback registration 0x003386BF names ObjectGrantUpgrade (pushcclosure
 // then setglobal); it forwards to the shared worker above with grant=true.
-int ObjectGrantUpgrade(lua_State *L)
+int ObjectGrantUpgrade(lua_State *luaState)
 {
-	return LuaScriptEngine::ObjectModifyUpgrade(L, true);
+	return LuaScriptEngine::ObjectModifyUpgrade(luaState, true);
 }
 
 // ?ObjectRemoveUpgrade@@YAHPAUlua_State@@@Z, retail 0x003356A0 14B: the Lua
 // callback registration 0x003386DA names ObjectRemoveUpgrade; same worker
 // with grant=false.
-int ObjectRemoveUpgrade(lua_State *L)
+int ObjectRemoveUpgrade(lua_State *luaState)
 {
-	return LuaScriptEngine::ObjectModifyUpgrade(L, false);
+	return LuaScriptEngine::ObjectModifyUpgrade(luaState, false);
 }

@@ -201,9 +201,9 @@ void __cdecl rva003967A5(Rva003967A5Owner *owner, int x, int y)
 				while (TheSidesList->rva0032BD25(key, idx, &info)) {
 					++idx;
 					AsciiString hitName(((const TerrainType *)&info)->getTexture());
-					void *tmpl = (void *)TheThingFactory->findTemplate(hitName);
-					if (tmpl != 0)
-						((ThingTemplate *)tmpl)->GetAssetList(x, y);
+					void *thingTemplate = (void *)TheThingFactory->findTemplate(hitName);
+					if (thingTemplate != 0)
+						((ThingTemplate *)thingTemplate)->GetAssetList(x, y);
 				}
 			}
 			node = (Rva003967A5Node *)_STL::_Rb_global<bool>::_M_increment(&node->m_link);
@@ -214,9 +214,9 @@ void __cdecl rva003967A5(Rva003967A5Owner *owner, int x, int y)
 	if (count != 0) {
 		do {
 			NoCaseTreePair4 tmp(owner->m_begin[i]);
-			void *tmpl = (void *)TheThingFactory->findTemplate(tmp.first);
-			if (tmpl != 0)
-				((ThingTemplate *)tmpl)->GetAssetList(x, y);
+			void *thingTemplate = (void *)TheThingFactory->findTemplate(tmp.first);
+			if (thingTemplate != 0)
+				((ThingTemplate *)thingTemplate)->GetAssetList(x, y);
 		} while (++i < count);
 	}
 }

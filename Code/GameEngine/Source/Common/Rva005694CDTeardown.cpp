@@ -65,16 +65,16 @@ void Rva00569393::rva005694CD()
 	Rva005C8565 **slot2 = (Rva005C8565 **)m_slots;
 	left = 4;
 	do {
-		Rva005C8565 *s = *slot2;
-		if (s != 0) {
-			s->~Rva005C8565();
-			::operator delete(s);
+		Rva005C8565 *slotObject = *slot2;
+		if (slotObject != 0) {
+			slotObject->~Rva005C8565();
+			::operator delete(slotObject);
 			*slot2 = 0;
 		}
 		++slot2;
 	} while (--left != 0);
-	for (Rva005694CDElem *e = m_begin; e != m_end; ++e)
-		e->m_flag = 0;
+	for (Rva005694CDElem *element = m_begin; element != m_end; ++element)
+		element->m_flag = 0;
 	::_STL::vector<void *, ::_STL::allocator<void *> > *v40 = &m_40;
 	v40->erase(v40->begin(), v40->end());
 	::_STL::vector<void *, ::_STL::allocator<void *> > *v4C = &m_4C;

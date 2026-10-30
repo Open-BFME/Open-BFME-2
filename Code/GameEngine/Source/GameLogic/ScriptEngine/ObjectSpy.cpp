@@ -81,7 +81,7 @@ extern LuaScriptEngine *TheLuaScriptEngine;	// 0x00E01DBC
 class Rva002628C3
 {
 public:
-	void rva002628C3(void *object, int eventKey, int spyKey);	// 0x002628C3 pinned
+	void DispatchSpyEvent(void *object, int eventKey, int spyKey);	// 0x002628C3 pinned
 };
 
 class Object
@@ -129,7 +129,7 @@ int ObjectSpy(lua_State *state)
 		return 0;
 	}
 	if (target->m_module258 != 0) {
-		target->m_module258->rva002628C3(object, (int)eventKey, (int)spyKey);
+		target->m_module258->DispatchSpyEvent(object, (int)eventKey, (int)spyKey);
 	}
 	return 0;
 }

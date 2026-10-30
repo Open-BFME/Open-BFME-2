@@ -15,7 +15,7 @@ void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 
 struct RvaF6Ret
 {
-	RvaF6Ret(TargetRef00217D4C *p) : m_ptr(p)
+	RvaF6Ret(TargetRef00217D4C *ptr) : m_ptr(ptr)
 	{
 		if (m_ptr)
 			++m_ptr->m_refCount;

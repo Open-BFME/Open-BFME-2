@@ -162,7 +162,7 @@ public:
 static __forceinline void copyCoord(Coord3D &c, const Coord3D *pos) { c.x = pos->x; c.y = pos->y; c.z = pos->z; }
 static __forceinline void subCoord(Coord3D &c, const Coord3D *pos) { c.x -= pos->x; c.y -= pos->y; c.z -= pos->z; }
 static __forceinline void addCoord(Coord3D &c, const Coord3D *pos) { c.x += pos->x; c.y += pos->y; c.z += pos->z; }
-static __forceinline void scaleCoord(Coord3D &c, float s) { c.x *= s; c.y *= s; c.z *= s; }
+static __forceinline void scaleCoord(Coord3D &c, float factor) { c.x *= factor; c.y *= factor; c.z *= factor; }
 
 extern bool g_bfmeCritterDesyncLog;
 extern "C" FILE *theLogicRandomLogFile;

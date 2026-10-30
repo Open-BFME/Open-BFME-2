@@ -68,18 +68,18 @@ bool Rva002634E0Equal(const void *a, const void *b);
 class Rva003317F9
 {
 public:
-    bool rva003317F9(const BfmeObject872Header *arg);
+    bool rva003317F9(const BfmeObject872Header *candidate);
 private:
     int m_00;
     BfmeObject872Header m_required;
     BfmeObject872Header m_forbidden;
 };
 
-bool Rva003317F9::rva003317F9(const BfmeObject872Header *arg)
+bool Rva003317F9::rva003317F9(const BfmeObject872Header *candidate)
 {
-    if (((const Rva00331682Holder *)&m_forbidden)->test(arg))
+    if (((const Rva00331682Holder *)&m_forbidden)->test(candidate))
         return false;
-    BfmeObject872Header tmp(*arg);
+    BfmeObject872Header tmp(*candidate);
     ((_STL::_Base_bitset<4> *)&tmp)->_M_do_and(
         *(const _STL::_Base_bitset<4> *)&m_required);
     unsigned char eq = Rva002634E0Equal(&m_required, &tmp);

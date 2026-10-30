@@ -18,22 +18,22 @@ namespace _STL
 // ordered equality as a source lead. Native30BCBF..30BD08 is independently
 // bounded after the rowed30BCBA/5 tail. Four float accesses and ordered
 // equality are target facts; the original record and function names are not.
-__forceinline bool Rva0030BCBFFloatsEqual(const BfmeE16 &a, const BfmeE16 &b)
+__forceinline bool Rva0030BCBFFloatsEqual(const BfmeE16 &lhs, const BfmeE16 &rhs)
 {
-	return a.x == b.x && a.y == b.y && a.z == b.z && a.w == b.w;
+	return lhs.x == rhs.x && lhs.y == rhs.y && lhs.z == rhs.z && lhs.w == rhs.w;
 }
 
-bool Rva0030BCBFEqual(const BfmeE16 &a, const BfmeE16 &b)
+bool Rva0030BCBFEqual(const BfmeE16 &lhs, const BfmeE16 &rhs)
 {
-	return Rva0030BCBFFloatsEqual(a, b);
+	return Rva0030BCBFFloatsEqual(lhs, rhs);
 }
 
 // Native30BD08..30BD5B ends immediately before the rowed41-byte setter.
 // Its comparison result is materialized before boolean negation, including
 // unordered inputs. An inlined equality helper preserves that native shape.
-bool Rva0030BD08NotEqual(const BfmeE16 &a, const BfmeE16 &b)
+bool Rva0030BD08NotEqual(const BfmeE16 &lhs, const BfmeE16 &rhs)
 {
-	return !Rva0030BCBFFloatsEqual(a, b);
+	return !Rva0030BCBFFloatsEqual(lhs, rhs);
 }
 
 struct BfmePod16

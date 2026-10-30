@@ -67,10 +67,10 @@ void Rva00355CD8::slot1(int value)
 // truncates (b-a) * (t * 0.01f), then adds a; target scale is VA00BCF628.
 // The original function name and callers are not recovered. Keep an opaque
 // address-derived name beside the independently established range updater.
-int Rva00355C39Interpolate(int a, int b, int t)
+int Rva00355C39Interpolate(int start, int end, int percent)
 {
-	float factor = (float)t / 100.0f;
-	int difference = b - a;
+	float factor = (float)percent / 100.0f;
+	int difference = end - start;
 	factor *= (float)difference;
-	return a + (int)factor;
+	return start + (int)factor;
 }

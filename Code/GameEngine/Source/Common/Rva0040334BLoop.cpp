@@ -14,7 +14,7 @@ extern GameLogic *TheGameLogic;
 struct Rva0040334BElem
 {
     int m_00;
-    AsciiString m_04;
+    AsciiString m_attributeName;
     int m_08;
     int m_0C;
 };
@@ -33,6 +33,6 @@ void Rva0040334B::rva0040334B(Object *obj)
 {
     if (!obj)
         return;
-    for (Rva0040334BElem *e = m_begin; e != m_end; ++e)
-        obj->addAttributeModifierToPool(e->m_04, e->m_08 - *(int *)((char *)TheGameLogic + 0x40));
+    for (Rva0040334BElem *entry = m_begin; entry != m_end; ++entry)
+        obj->addAttributeModifierToPool(entry->m_attributeName, entry->m_08 - *(int *)((char *)TheGameLogic + 0x40));
 }

@@ -97,7 +97,7 @@ struct Rva004F88BBNode : public _STL::_Rb_tree_node_base
 struct Rva004F88BBIterator {
  void *node;
  Rva004F88BBIterator(void *p):node(p){}
- Rva004F88BBIterator(const Rva004F88BBIterator &p):node(p.node){}
+ Rva004F88BBIterator(const Rva004F88BBIterator &other):node(other.node){}
 };
 class Rva004FA168Map
 {

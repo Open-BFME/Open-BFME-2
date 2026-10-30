@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /MD
-// Retail RE: ?rva002628C3@Rva002628C3@@QAEXPAXHH@Z @0x002628C3 (29B).
+// Retail RE: ?DispatchSpyEvent@Rva002628C3@@QAEXPAXHH@Z @0x002628C3 (29B).
 //
 // BFME2 ScriptEngine event/spy adapter from ObjectSpy 0x335B88.
 // Target facts from retail bytes (writer-2 this round):
@@ -29,7 +29,7 @@ public:
 class Rva002628C3
 {
 public:
-	void rva002628C3(void *object, int eventKey, int spyKey);
+	void DispatchSpyEvent(void *object, int eventKey, int spyKey);
 };
 
 struct Rva002628C3Object74
@@ -38,7 +38,7 @@ struct Rva002628C3Object74
 	void *m_74;
 };
 
-void Rva002628C3::rva002628C3(void *object, int eventKey, int spyKey)
+void Rva002628C3::DispatchSpyEvent(void *object, int eventKey, int spyKey)
 {
 	Rva003328ED *disp = (Rva003328ED *)((char *)this + 0x224);
 	disp->rva003328ED(((Rva002628C3Object74 *)object)->m_74, eventKey, spyKey);

@@ -69,31 +69,31 @@ public:
 class Rva0059517F
 {
 public:
-	bool sendToManglerFromPort(unsigned long a1, unsigned short a2, unsigned short a3, unsigned short a4, bool a5);
+	bool sendToManglerFromPort(unsigned long address, unsigned short m_localPort, unsigned short packetID, unsigned short port, bool blitzme);
 	bool rva00595213(UDP *udp, unsigned long address, unsigned short packetID, unsigned short port, bool blitzme);
 private:
 	char m_pad[0x88];
 	unsigned short m_88;
 };
 
-bool Rva0059517F::sendToManglerFromPort(unsigned long a1, unsigned short a2, unsigned short a3, unsigned short a4, bool a5)
+bool Rva0059517F::sendToManglerFromPort(unsigned long address, unsigned short m_localPort, unsigned short packetID, unsigned short port, bool blitzme)
 {
 	Rva0059517FPacket pkt;
 	memset(&pkt, 0x44, 0x14);
-	pkt.m_06 = a3;
-	pkt.m_11 = (a5 != 0);
+	pkt.m_06 = packetID;
+	pkt.m_11 = (blitzme != 0);
 	pkt.m_10 = 0xC;
 	pkt.m_04 = 0xF00E;
-	pkt.m_0A = a2;
+	pkt.m_0A = m_localPort;
 	((Rva00594DC0 *)this)->rva00594DC0((Rva00594DC0Msg *)&pkt);
 	unsigned int crc = ComputeCRC((const unsigned char *)&pkt.m_04, 0x10, 0);
 	pkt.m_crc = htonl(crc);
 	pkt._len = 0x14;
-	void *entry = ((FirewallHelperClass *)this)->findSpareSocketByPort(a2);
+	void *entry = ((FirewallHelperClass *)this)->findSpareSocketByPort(m_localPort);
 	if (entry == 0)
 		return false;
 	Rva00594C12 *udp = *(Rva00594C12 **)entry;
-	udp->Write((const char *)&pkt, 0x14, a1, a4);
+	udp->Write((const char *)&pkt, 0x14, address, port);
 	return true;
 }
 

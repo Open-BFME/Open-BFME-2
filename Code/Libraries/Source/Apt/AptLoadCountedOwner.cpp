@@ -10,10 +10,10 @@ extern void*g_aptFreeConstantTableSlot;
 class Rva006DB270{public:void freeBlock(void*,int);};
 extern Rva006DB270*g_pChainBlockAllocator;
 class Rva006D0280{public:int m_useCount;int unused4;void*name8;int typeC;void*argument10;void*object14;void*buffer18;~Rva006D0280(); __forceinline void setData(void*a,void*b,void*c){argument10=a;object14=b;buffer18=c;} __forceinline int getState()const{return typeC;}};
-__forceinline static int dec(int*p){return --*p;}
+__forceinline static int dec(int*m_refCount){return --*m_refCount;}
 class Rva006D07E0Key{public:Rva006D0280*m_object;
  Rva006D07E0Key(Rva006D0280*p=0):m_object(p){if(p)++p->m_useCount;}
- Rva006D07E0Key(const Rva006D07E0Key&o):m_object(o.m_object){if(m_object)++m_object->m_useCount;}
+ Rva006D07E0Key(const Rva006D07E0Key&source):m_object(source.m_object){if(m_object)++m_object->m_useCount;}
  ~Rva006D07E0Key(){Rva006D0280*releasedFile=m_object;if(releasedFile&&dec(&releasedFile->m_useCount)==0){releasedFile->Rva006D0280::~Rva006D0280();g_pChainBlockAllocator->freeBlock(releasedFile,0x1c);}}
 };
 class Rva008951B0Node{public:Rva006D0280*entry;Rva008951B0Node*next;};

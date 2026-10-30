@@ -48,8 +48,8 @@ public:
 
 bool FormationTranslator::WaitForSecondButtonDownStateHandler::IsStartOfDrag(GameMessage *msg)
 {
-	int t = *(int *)((char *)msg + 0x10);
-	if (t == m_08)
+	int messageType = *(int *)((char *)msg + 0x10);
+	if (messageType == m_08)
 		return false;
 	const GameMessageArgumentType *gameMessageArgumentType = msg->getArgument(0);
 	int x = gameMessageArgumentType->pixel.x;
@@ -59,7 +59,7 @@ bool FormationTranslator::WaitForSecondButtonDownStateHandler::IsStartOfDrag(Gam
 	tmp.x = x;
 	if (!((Rva00431978 *)this)->rva00431978(&tmp))
 		return false;
-	int v = msg->getArgument(2)->integer;
-	v -= m_18;
-	return (unsigned int)v < 0x1f4;
+	int timeDelta = msg->getArgument(2)->integer;
+	timeDelta -= m_18;
+	return (unsigned int)timeDelta < 0x1f4;
 }

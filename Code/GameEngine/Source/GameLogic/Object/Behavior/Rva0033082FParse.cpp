@@ -86,17 +86,17 @@ private:
 class Rva0033082FTarget
 {
 public:
-	unsigned char rva0033082F(int a0, int a1);
+	unsigned char rva0033082F(int input, int a1);
 private:
 	Rva0033068BList m_list;
 	_STL::vector<const ModuleData *> m_vec;
 };
 
-unsigned char Rva0033082FTarget::rva0033082F(int a0, int a1)
+unsigned char Rva0033082FTarget::rva0033082F(int input, int a1)
 {
 	while (!m_vec.empty())
 		((Rva003306B0 *)this)->rva003306B0((CreateAHeroData *)m_vec.front());
-	DataChunkInput *in = (DataChunkInput *)a0;
+	DataChunkInput *in = (DataChunkInput *)input;
 	int remaining = in->readInt();
 	if (remaining <= 0)
 		return 1;
@@ -116,7 +116,7 @@ unsigned char Rva0033082FTarget::rva0033082F(int a0, int a1)
 		}
 		if (obj == 0)
 			break;
-		obj->b4(a0, a1);
+		obj->b4(input, a1);
 		((Rva003307F2 *)this)->rva003307F2((const ModuleData *)obj);
 	} while (remaining > 0);
 	return 1;

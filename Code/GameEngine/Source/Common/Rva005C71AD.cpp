@@ -31,7 +31,7 @@ class Rva005C71ADVec
 {
 public:
 	Rva005C71ADVec() {}
-	Rva005C71ADVec(const Rva005C71ADVec &v) { X = v.X; Y = v.Y; Z = v.Z; }
+	Rva005C71ADVec(const Rva005C71ADVec &other) { X = other.X; Y = other.Y; Z = other.Z; }
 	Rva005C71ADVec(float x, float y, float z) { X = x; Y = y; Z = z; }
 	Rva005C71ADVec &operator=(const Rva005C71ADVec &v) { X = v.X; Y = v.Y; Z = v.Z; return *this; }
 	float &operator[](int i) { return (&X)[i]; }
@@ -68,42 +68,42 @@ inline Rva005C71ADVec operator/(const Rva005C71ADVec &a, float k)
 class Rva005C71ADView
 {
 public:
-	void *rva005C71AD(void *result, float t, void *pa, void *ta, void *pc, void *tc, void *pf, void *tf, void *pd, void *td);
+	void *rva005C71AD(void *result, float factor, void *pa, void *ta, void *pc, void *tc, void *pf, void *tf, void *pd, void *td);
 	int m_key;
 };
 
-void *Rva005C71ADView::rva005C71AD(void *result, float t, void *pa, void *ta, void *pc, void *tc, void *pf, void *tf, void *pd, void *td)
+void *Rva005C71ADView::rva005C71AD(void *result, float factor, void *pa, void *ta, void *pc, void *tc, void *pf, void *tf, void *pd, void *td)
 {
 	Rva005C71ADVec *out = (Rva005C71ADVec *)result;
-	const Rva005C71ADVec &a = *(const Rva005C71ADVec *)pa;
-	const Rva005C71ADVec &c = *(const Rva005C71ADVec *)pc;
-	const Rva005C71ADVec &f = *(const Rva005C71ADVec *)pf;
-	const Rva005C71ADVec &d = *(const Rva005C71ADVec *)pd;
+	const Rva005C71ADVec &previous = *(const Rva005C71ADVec *)pa;
+	const Rva005C71ADVec &start = *(const Rva005C71ADVec *)pc;
+	const Rva005C71ADVec &end = *(const Rva005C71ADVec *)pf;
+	const Rva005C71ADVec &next = *(const Rva005C71ADVec *)pd;
 	switch (m_key) {
 	case 1:
-		*out = (1.0f - t) * c + t * f;
+		*out = (1.0f - factor) * start + factor * end;
 		break;
 	case 2: {
-		float d0 = (float)((int)tc - (int)ta);
-		float d1 = (float)((int)tf - (int)tc);
-		float d2 = (float)((int)td - (int)tf);
-		Rva005C71ADVec v0;
-		if (d0 > 0.0f)
-			v0 = (a - c) * d1 / d0 + c;
+		float prevDelta = (float)((int)tc - (int)ta);
+		float segmentDelta = (float)((int)tf - (int)tc);
+		float nextDelta = (float)((int)td - (int)tf);
+		Rva005C71ADVec controlBefore;
+		if (prevDelta > 0.0f)
+			controlBefore = (previous - start) * segmentDelta / prevDelta + start;
 		else
-			v0 = a;
-		Rva005C71ADVec v1;
-		if (d2 > 0.0f)
-			v1 = (d - f) * d1 / d2 + f;
+			controlBefore = previous;
+		Rva005C71ADVec controlAfter;
+		if (nextDelta > 0.0f)
+			controlAfter = (next - end) * segmentDelta / nextDelta + end;
 		else
-			v1 = d;
-		*out = Rva005C71ADVec(Rva00503D8EEvaluate(v0.X, c.X, f.X, v1.X, t),
-			Rva00503D8EEvaluate(v0.Y, c.Y, f.Y, v1.Y, t),
-			Rva00503D8EEvaluate(v0.Z, c.Z, f.Z, v1.Z, t));
+			controlAfter = next;
+		*out = Rva005C71ADVec(Rva00503D8EEvaluate(controlBefore.X, start.X, end.X, controlAfter.X, factor),
+			Rva00503D8EEvaluate(controlBefore.Y, start.Y, end.Y, controlAfter.Y, factor),
+			Rva00503D8EEvaluate(controlBefore.Z, start.Z, end.Z, controlAfter.Z, factor));
 		break;
 	}
 	default:
-		*out = c;
+		*out = start;
 		break;
 	}
 	return out;

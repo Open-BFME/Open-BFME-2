@@ -62,9 +62,9 @@ class CameraPlanar : public Coord2D {
 public:
     CameraPlanar() {}
     CameraPlanar(float px, float py) { x = px; y = py; }
-    CameraPlanar(const Coord3D &p) { x = p.x; y = p.y; }
-    CameraPlanar(const Coord2D &p) { x = p.x; y = p.y; }
-    CameraPlanar(const CameraPlanar &p) { x = p.x; y = p.y; }
+    CameraPlanar(const Coord3D &source) { x = source.x; y = source.y; }
+    CameraPlanar(const Coord2D &source) { x = source.x; y = source.y; }
+    CameraPlanar(const CameraPlanar &source) { x = source.x; y = source.y; }
     CameraPlanar &operator-=(const Coord2D &p) { x -= p.x; y -= p.y; return *this; }
     float operator*(const Coord2D &p) const { return x * p.x + y * p.y; }
 };

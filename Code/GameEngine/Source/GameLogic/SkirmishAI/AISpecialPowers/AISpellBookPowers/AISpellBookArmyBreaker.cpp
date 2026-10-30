@@ -30,7 +30,7 @@ struct Rva005D839BParam
 extern unsigned int g_Va00E06670;
 int g_00E06668; // Native .bss random lower endpoint, VA 0x00E06668.
 int g_00E0666C; // Native .bss random upper endpoint, VA 0x00E0666C.
-static bool __fastcall Rva005D8571Check(int dummy, Rva005D839BParam *p)
+static bool __fastcall Rva005D8571Check(int dummy, Rva005D839BParam *player)
 {
 	_STL::vector<BfmeE8> &list = reinterpret_cast<_STL::vector<BfmeE8> &>(g_Va00E06670);
 	_STL::vector<BfmeE8>::iterator first = list.begin();
@@ -42,22 +42,22 @@ static bool __fastcall Rva005D8571Check(int dummy, Rva005D839BParam *p)
 		{
 			if (found != 0)
 				break;
-			if (it != 0 && it->a == (unsigned int)p->m_54)
+			if (it != 0 && it->a == (unsigned int)player->m_54)
 				found = it;
 		}
 	}
 	if (found == 0)
 	{
 		BfmeE8 tmp;
-		tmp.a = (unsigned int)p->m_54;
+		tmp.a = (unsigned int)player->m_54;
 		tmp.b = TheGameLogic->getFrame();
 		list.push_back(tmp);
 		found = &list[list.size() - 1];
 	}
 	if (found->b <= TheGameLogic->getFrame())
 	{
-		unsigned int r = (unsigned int)GetGameLogicRandomValue(g_00E06668, g_00E0666C, "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\SkirmishAI\\AISpecialPowers\\AISpellBookPowers\\AISpellBookArmyBreaker.cpp", 0x4E);
-		found->b = TheGameLogic->getFrame() + r;
+		unsigned int delay = (unsigned int)GetGameLogicRandomValue(g_00E06668, g_00E0666C, "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\SkirmishAI\\AISpecialPowers\\AISpellBookPowers\\AISpellBookArmyBreaker.cpp", 0x4E);
+		found->b = TheGameLogic->getFrame() + delay;
 		return true;
 	}
 	return false;

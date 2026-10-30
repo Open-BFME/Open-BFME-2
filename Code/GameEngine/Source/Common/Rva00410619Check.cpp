@@ -38,14 +38,14 @@ struct Rva0045F0A0Input
 class Rva0045F0A0
 {
 public:
-	void process(Rva0045F0A0Input *arg);
+	void process(Rva0045F0A0Input *input);
 private:
 	bool m_flag;
 	char m_pad[3];
 	AsciiString m_name;
 };
 
-void Rva0045F0A0::process(Rva0045F0A0Input *arg)
+void Rva0045F0A0::process(Rva0045F0A0Input *input)
 {
 	AsciiHeader *asciiHeader = *(AsciiHeader **)&m_name;
 	unsigned int len;
@@ -54,15 +54,15 @@ void Rva0045F0A0::process(Rva0045F0A0Input *arg)
 	else
 		len = 0;
 	AsciiHeader *p2 = *(AsciiHeader * volatile *)&m_name;
-	const char *b;
+	const char *prefix;
 	if (p2 != 0)
-		b = p2->data;
+		prefix = p2->data;
 	else
-		b = (char *)"";
-	const char *a = arg->m_10.str();
-	if (strncmp(a, b, len) != 0)
+		prefix = (char *)"";
+	const char *text = input->m_10.str();
+	if (strncmp(text, prefix, len) != 0)
 		return;
-	GameWindow *win = arg->m_14;
+	GameWindow *win = input->m_14;
 	if (win == 0)
 		return;
 	if (((win->winGetStatus() >> 3) & 1) != (unsigned int)m_flag)

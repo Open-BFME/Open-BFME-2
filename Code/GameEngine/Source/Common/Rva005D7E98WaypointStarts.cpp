@@ -13,9 +13,9 @@ class Rva005D7E98 { public:void rva005D7E98();unsigned char unknown[0x28];int co
 // ?findWaypoint present-unmatched
 // Helper is expanded into the verified caller; no independent retail entry asserted.
 static __forceinline Rva005D7E98Waypoint *findWaypoint(AsciiString key) {
- Rva005D7E98Waypoint *p=((Rva005D7E98TerrainView*)TheTerrainLogic)->firstWaypoint();
- for(;p;p=p->next)
-  if(p->name.compare(*(StringBase<char>*)&key)==0)return p;
+ Rva005D7E98Waypoint *current=((Rva005D7E98TerrainView*)TheTerrainLogic)->firstWaypoint();
+ for(;current;current=current->next)
+  if(current->name.compare(*(StringBase<char>*)&key)==0)return current;
  return 0;
 }
 void Rva005D7E98::rva005D7E98() {

@@ -14,7 +14,7 @@
 #include <new>
 struct Rva005FAABFResult {
  Rva005FAF5D *ptr;
- Rva005FAABFResult(Rva005FAF5D *p):ptr(p){if(p)++*(int *)((char *)p+4);}
+ Rva005FAABFResult(Rva005FAF5D *panel):ptr(panel){if(panel)++*(int *)((char *)panel+4);}
  ~Rva005FAABFResult();
 };
 class Rva005FAABF {public:Rva005FAABFResult rva005FAABF(int a,int b);private:char pad[8];Rva005FA89CC context;};

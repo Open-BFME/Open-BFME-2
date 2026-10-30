@@ -45,13 +45,13 @@ struct Key003192B9
 	char m_pad00[0x18];
 	AsciiString m_str18;
 	char m_pad1C[0x54 - 0x1C];
-	int m_id54;
+	int m_playerID;
 };
 
 int GetMaxCommandPoints(void *keyPtr)
 {
 	Key003192B9 *key = (Key003192B9 *)keyPtr;
-	int id = key->m_id54;
+	int id = key->m_playerID;
 	Rva002E2903Player *player = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->find(id, (unsigned int *)0);
 	if (player == 0)
 		return 0;

@@ -40,7 +40,7 @@ public:
 void Rva00567960::rva00567D70()
 {
 	m_08->SetStance(m_0c);
-	Rva005C394D *p = m_08->m_0c->v18();
-	if (p)
-		p->go();
+	Rva005C394D *target = m_08->m_0c->v18();
+	if (target)
+		target->go();
 }
