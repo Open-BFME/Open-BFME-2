@@ -122,7 +122,6 @@ BFME_LITERAL_NAME_GETTER(Rva004B67FCNamed, "CastleUpgrade")
 BFME_LITERAL_NAME_GETTER(Rva004B79CDNamed, "TooltipUpgrade")
 BFME_LITERAL_NAME_GETTER(RemoveUpgradeUpgrade, "RemoveUpgradeUpgrade")
 BFME_LITERAL_NAME_GETTER(Rva004B82C5Named, "BuildableHeroListUpgrade")
-BFME_LITERAL_NAME_GETTER(Rva004B850ANamed, "AllowBannerSpawnUpgrade")
 BFME_LITERAL_NAME_GETTER(Rva004B85F4Named, "CommandPointsUpgrade")
 class BoneFXDamage
 {
