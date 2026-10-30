@@ -12978,6 +12978,15 @@ The staged batch audit is INCONCLUSIVE on the older `12b9e7a7c0` index and
 missing current `Common/0CreateAHeroManager21FE49.cpp` consumer receipt.
 Carry this provider/caller cohort and broader affected consumers into the next
 scheduled census; full-image selected-provider/loss verification remains open.
+
+The source/hatch batch is accepted at `08f6c3a0fa` (72 outgoing rows, 13 EXACT
+EH graphs, scoped DIR32 checks pass). Its post-rebase audit is INCONCLUSIVE on
+three missing current receipts, first `Common/AIStatBase.cpp`; carry that wider
+scope forward too. A separate retirement after this accepted push compares
+against master's corrected rows, so the unchanged owning tool now passes all
+three keys without any coverage-guard change. The separate outgoing verdict
+still has to pass before retirement is published.
+
 ### LINK-159: FunctionLexicon init consumed seven callback tables that no object defined (2026-10-30, seat halilkkaya-lk8)
 
 Status: repaired; census confirmation pending.

@@ -122,7 +122,24 @@ the outgoing verdict still compares against the pre-correction names.
 
 Record this as `false-reject repair_queue.outgoing-coverage`, retain all three
 original identity entries, and reopen only the final unpublished own commit to
-remove its retirement. No guard is edited or bypassed. A separate tooling repair
-with regression tests is required before those three entries can be retired.
-The publishable debt improvement is three net pins and one alternatename;
-identity-register retirement is explicitly not claimed.
+remove its retirement. No guard is edited or bypassed. That source/hatch batch
+lands as `08f6c3a0fa`; it claims only three net pins and one alternatename.
+The broader atomic replacement/retirement case needs a separate tooling repair
+with regression tests. Once the source replacement is published, however, a
+separate retirement can be judged normally against master's corrected rows.
+
+## Separate post-publication retirement
+
+With `08f6c3a0fa` on master, reclaim the source scope and rerun the unchanged
+`repair_queue.py retire identity` path. It passes all three keys again, this
+time against a parent already holding every corrected row. The separate
+retirement changes no game source, name, pin or row; its normal outgoing verdict
+must also pass before those three debt removals count as published progress.
+
+The accepted source/hatch push verifies 72 rows across five outgoing sources,
+one data row and 13 EXACT EH graphs. Scoped DIR32 checks pass 15 direct symbols
+and 142 symbols including witnesses. Its final batch audit is INCONCLUSIVE on
+the older index and three objects without current receipts, first
+`Code/GameEngine/Source/Common/AIStatBase.cpp`. This supersedes neither the
+earlier Hero-manager limitation nor the eight-source bounded proof; full
+consumer closure remains pending in the next scheduled census.
