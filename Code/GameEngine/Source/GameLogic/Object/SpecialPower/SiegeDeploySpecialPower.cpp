@@ -129,10 +129,18 @@ public:
     void rva0026DE3B(int);
 };
 #include "../../../../Include/Common/ObjectModule.h"
+#include "ContainmentListView.h"
+namespace _STL {
+template<class T,class Traits> static inline bool operator!=(const _List_iterator<T,Traits>&a,const _List_iterator<T,Traits>&b){return a._M_node!=b._M_node;}
+template<> _List_base<Rva0036ADF9Element,allocator<Rva0036ADF9Element> >::~_List_base();
+}
+class Rva001E46E1 {public:void rva001E53D8(float,Object*);};
+template<int N> class SiegePhaseSlots : public SiegePhaseSlots<N-1> {public:virtual void gap(char(*)[N])=0;};
+template<> class SiegePhaseSlots<0> {};
+class SiegePhaseContain : public SiegePhaseSlots<70> {public:virtual Rva0036AE51ListView slot70()=0;virtual Rva0036AE51ListView slot71()=0;};
 
-class SpecialPowerTemplate;
-class Waypoint;
 struct BehaviorModuleInterface { virtual void f0C(); };
+
 struct UpdateModuleInterface
 {
     virtual void f10();
@@ -146,6 +154,7 @@ struct UpdateModuleInterface
     virtual void u8();
     virtual UpdateSleepTime update() = 0;
 };
+
 class UpdateModule : public ObjectModule, public BehaviorModuleInterface, public UpdateModuleInterface
 {
 protected:
@@ -155,6 +164,7 @@ protected:
     int m_18;
     int m_1C;
 };
+
 class SpecialPowerUpdateInterface
 {
 public:
@@ -163,6 +173,7 @@ public:
     virtual void gap1();
     virtual bool rva004C575F();
 };
+
 class SpecialPowerStopInterface
 {
 public:
@@ -185,6 +196,7 @@ public:
     virtual void gap16() = 0;
     virtual void stopSpecialPower() = 0;
 };
+
 class WeaponModeSpecialPowerUpdateBase : public UpdateModule,
     public SpecialPowerUpdateInterface, public SpecialPowerStopInterface
 {
@@ -196,6 +208,7 @@ protected:
     unsigned int m_30;
     float m_34;
 };
+
 struct SiegeDeployModuleDataView
 {
 public:
@@ -211,12 +224,16 @@ public:
 	float m_approachScale; // +0x2C
 };
 
-
 enum DisabledType { DISABLED_ZERO=0 };
+
 struct Rva0028AC4EEntry;
+
 class SiegePhaseContain;
+
 class AIUpdateInterface;
+
 struct SiegePhaseConditions {unsigned words[19];__forceinline unsigned test(int i)const{return words[i>>5]&(1u<<(i&31));}__forceinline void set(int i){words[i>>5]|=1u<<(i&31);}__forceinline void clear(int i){words[i>>5]&=~(1u<<(i&31));}};
+
 class Object
 {
 	friend class SiegeDeploySpecialPower;
@@ -258,6 +275,7 @@ public:
 };
 
 class ModuleData;
+
 class BehaviorModule
 {
 public:
@@ -416,6 +434,25 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
+//
+// Three SiegeDeploySpecialPower overrides on the interface vtables its matched
+// ctor 0x004C56BA installs over WeaponModeSpecialPowerUpdateBase: 0x00C5DCCC
+// at +0x20 and 0x00C5DC68 at +0x24. Each is compiled with its subobject this.
+// The deploy state int sits at +0x38 (the matched xfer saves it first; the
+// unrowed setter 0x004C5BE3 compares its argument with it), the bool at +0x70.
+// Names are by address.
+//
+// ?rva004C575F@SiegeDeploySpecialPower@@UAE_NXZ, retail 0x004C575F, 19 bytes:
+// +0x20 slot 2; true unless the state is 0 or 1.
+// ?rva004C5751@SiegeDeploySpecialPower@@UAE_NXZ, retail 0x004C5751, 14 bytes:
+// +0x24 slot 1; the negation of +0x20 slot 2, called virtually.
+// ?stopSpecialPower@SiegeDeploySpecialPower@@UAEXXZ, retail 0x004C5E41, 33 bytes:
+// +0x24 slot 17; states 0/1 call the setter with 0, states 2/3 set +0x70.
+
+class Object;
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPower.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPower.cpp
 
 // ?rva004C573C@SiegeDeploySpecialPower@@QAEXXZ @0x004C573C 21B: SiegeDeploy helper that fetches the DynamicPortalBehaviour module for m_object via the rowed 0x004608E0 finder and tail-calls the pinned ?bfmeCallEBC@BfmeOwnerEBC@@QAEXXZ on the result when non-null. push [ecx+8] proves BehaviorModule m_object at +8. Callers at 0x004C57F8 0x004C5C4C 0x004C5E99 all SiegeDeploy bodies. Recipe ObjectFindModule plus WallUpgrade static prelude.
@@ -555,14 +592,6 @@ void SiegeDeploySpecialPower::initiateIntentToDoSpecialPower(const SpecialPowerT
 	setWakeFrame(m_object, UPDATE_SLEEP_NONE);
 }
 
-// tu-skeleton: 0x004C56BA 124B ??0SiegeDeploySpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPowerCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004C5736 6B ?Rva004C5736Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
-// tu-skeleton: 0x004C5751 14B ?rva004C5751@SiegeDeploySpecialPower@@UAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPowerSlots.cpp (not merged yet)
-
-// tu-skeleton: 0x004C5772 10B ?get@Rva004C5772CmpBoolField@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPowerPoolKey.cpp
 
 // ?getModuleNameKey@SiegeDeploySpecialPower@@UBE?AW4NameKeyType@@XZ
@@ -573,6 +602,50 @@ NameKeyType SiegeDeploySpecialPower::getModuleNameKey() const
 	return TheSiegeDeploySpecialPowerPoolKey;
 }
 
+// tu-skeleton: 0x004C56BA 124B ??0SiegeDeploySpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPowerCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004C5736 6B ?Rva004C5736Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPowerSlots.cpp
+
+// ?rva004C575F@SiegeDeploySpecialPower@@UAE_NXZ @0x004C575F
+bool SiegeDeploySpecialPower::rva004C575F()
+{
+	return !(m_phase == 0 || m_phase == 1);
+}
+
+// ?rva004C5751@SiegeDeploySpecialPower@@UAE_NXZ @0x004C5751
+bool SiegeDeploySpecialPower::rva004C5751()
+{
+	return !rva004C575F();
+}
+
+// ?stopSpecialPower@SiegeDeploySpecialPower@@UAEXXZ @0x004C5E41
+void SiegeDeploySpecialPower::stopSpecialPower()
+{
+	switch (m_phase)
+	{
+	case 0:
+	case 1:
+		setPhase(0);
+		break;
+	case 2:
+	case 3:
+		m_stop = true;
+		break;
+	}
+}
+
+// ?rva004C5E62@SiegeDeploySpecialPower@@QAEXXZ @0x004C5E62 30B
+void SiegeDeploySpecialPower::rva004C5E62()
+{
+	m_object->setStatus((ObjectStatusTypes)0x40, false);
+	setPhase(0);
+	m_dockID = INVALID_OBJECT_ID;
+}
+
+// tu-skeleton: 0x004C5772 10B ?get@Rva004C5772CmpBoolField@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp (not merged yet)
+
 // tu-skeleton: 0x004C57C1 84B ??1SiegeDeploySpecialPower@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPowerDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x004C585B 28B ??_GSiegeDeploySpecialPower@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPowerDtor.cpp (not merged yet)
@@ -581,11 +654,43 @@ NameKeyType SiegeDeploySpecialPower::getModuleNameKey() const
 
 // tu-skeleton: 0x004C5B39 170B ?xfer@SiegeDeploySpecialPower@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPowerXfer.cpp (not merged yet)
 
-// tu-skeleton: 0x004C5BE3 606B ?setPhase@SiegeDeploySpecialPower@@AAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPower_setPhase.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPower_setPhase.cpp
 
-// tu-skeleton: 0x004C5E41 33B ?stopSpecialPower@SiegeDeploySpecialPower@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPowerSlots.cpp (not merged yet)
+// ?setPhase@SiegeDeploySpecialPower@@AAEXH@Z
+// WB1264270 is the semantic guide for SiegeDeploySpecialPower::setPhase.
+// Retail4C5BE3 proves primary this, phase38/frame3C/target40 and Object condition offsets.
 
-// tu-skeleton: 0x004C5E62 30B ?rva004C5E62@SiegeDeploySpecialPower@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPowerSlots.cpp (not merged yet)
+// WorldBuilder SiegeDeploySpecialPower::setPhase, WB VA 0x01264270 (callgraph lead, score 1).
+void SiegeDeploySpecialPower::setPhase(int next)
+{
+ if(next==m_phase)return;
+ Object *obj=m_object;
+ switch(m_phase){
+ case 2:if(obj->conditions.test(96)){obj->conditions.clear(96);obj->rva0028AE6D();}break;
+ case 3:obj->setStatus((ObjectStatusTypes)59,false);if(obj->conditions.test(100)){obj->conditions.clear(100);obj->rva0028AE6D();}rva004C573C();break;
+ case 4:m_dockID=INVALID_OBJECT_ID;if(obj->conditions.test(94)){obj->conditions.clear(94);obj->rva0028AE6D();}break;
+ }
+ m_phase=next;m_frame=0;
+ switch(m_phase){
+ case 2:{
+  if(!obj->conditions.test(96)){obj->conditions.set(96);obj->rva0028AE6D();}
+  if(obj->rva0028AC4E())((Rva001E46E1*)obj->rva0028AC4E())->rva001E53D8(0.0f,obj);
+  SiegePhaseContain *contained=obj->contain;
+  if(contained){Rva0036AE51ListView view=contained->slot70();for(ContainmentList::iterator it=view.b->begin();it!=view.b->end();++it){Object *child=(Object*)containmentFirstWord(*it);if(!child->conditions.test(96)){child->conditions.set(96);child->rva0028AE6D();}}}
+  break;}
+ case 3:
+  obj->setStatus((ObjectStatusTypes)59,true);
+  if(!obj->conditions.test(100)){obj->conditions.set(100);obj->rva0028AE6D();}
+  if(obj->conditions.test(61)){obj->conditions.clear(61);obj->rva0028AE6D();}
+  {Module *portal=DynamicPortalBehaviour::rva004608E0(obj);if(portal)((DynamicPortalBehaviour*)portal)->createWaypoints();}
+  if(data()->m_evacuate){AIUpdateInterface *ai=obj->m_ai;if(ai)ai->aiEvacuate(0,(CommandSourceType)2);}
+  if(data()->m_exit){SiegePhaseContain *contain=m_object->contain;if(contain){ContainmentList list=contain->slot71().rva0036AE51();for(ContainmentList::iterator it=list.begin();it!=list.end();++it){Object *child=(Object*)containmentFirstWord(*it);AIUpdateInterface *ai=child->m_ai;if(ai){ai->rva0026DE3B((m_object->m_ai?m_object->m_ai:m_object->m_ai)->getAttitude());Object *owner=m_object;(child->m_ai?child->m_ai:child->m_ai)->aiExit(owner,(CommandSourceType)2);}}}}
+  break;
+ case 4:
+  if(!obj->conditions.test(94)){obj->conditions.set(94);obj->rva0028AE6D();}
+  obj->setDisabledUntil((DisabledType)8,TheGameLogic->getFrame()+data()->m_disabledDuration);break;
+ }
+}
 
 // tu-skeleton: 0x004C5E80 691B ?update@SiegeDeploySpecialPower@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPowerUpdate.cpp (not merged yet)
 
@@ -596,7 +701,3 @@ NameKeyType SiegeDeploySpecialPower::getModuleNameKey() const
 // tu-skeleton: 0x0079014D 13B $L677 -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPowerComputeApproachPoint.cpp (not merged yet)
 
 // tu-skeleton: 0x0079015A 10B __ehhandler$?computeApproachPoint@SiegeDeploySpecialPower@@QAE?AURva004598F2Point@@PAVObject@@PAU2@PA_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPowerComputeApproachPoint.cpp (not merged yet)
-
-// tu-skeleton: 0x00790164 8B $L4898 -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPower_setPhase.cpp (not merged yet)
-
-// tu-skeleton: 0x0079016C 10B __ehhandler$?setPhase@SiegeDeploySpecialPower@@AAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPower_setPhase.cpp (not merged yet)
