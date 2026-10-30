@@ -295,6 +295,26 @@ struct Rva004E5CB0Deleter
 
 template Rva004E5CB0Deleter _STL::for_each<Rva004E5A78 **, Rva004E5CB0Deleter>(Rva004E5A78 **, Rva004E5A78 **, Rva004E5CB0Deleter);
 
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+void **vector<void *, allocator<void *> >::begin()
+{ return _M_start; }
+template <> __declspec(dllimport) __forceinline
+void **vector<void *, allocator<void *> >::end()
+{ return _M_finish; }
+template <> void **vector<void *, allocator<void *> >::erase(void **, void **);
+}
+
+struct Rva004E5D6EChild
+{
+	unsigned char m_pad[0x18];
+	unsigned int m_field18;
+};
+
+struct Rva004E61C8Inner;
+
+// ---- from Code/GameEngine/Source/Common/Bfme/IngameNoticeDisplay.cpp
+
 // ---- from Code/GameEngine/Source/Common/Bfme/IngameNoticeDisplay.cpp
 
 // EH already preserves the parent frames; omit /Oy- so the generated
@@ -325,8 +345,6 @@ void IngameNoticeDisplay::init()
 {
 	m_c = reinterpret_cast<Rva004E61C8Inner *>(new FadeInTextRender);
 }
-
-// tu-skeleton: 0x004E5724 194B ?update@IngameNoticeDisplay@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/IngameNoticeDisplay.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Bfme/Rva004E57E6Method.cpp
 
@@ -396,10 +414,6 @@ void __cdecl Rva004E588DFill(int *out, Rva004E588DNode **first, Rva004E588DNode 
 	out[0] = acc;
 }
 
-// tu-skeleton: 0x004E58BA 11B ?invoke@Rva004E58BAHolder@@QAEXPAVRva004E58BATarget@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/IngameNoticeDisplay.cpp (not merged yet)
-
-// tu-skeleton: 0x004E58C5 40B ??0NoticeLineInputView@@QAE@HHPAV?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@PAVNoticeResource@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/IngameNoticeDisplay.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva004E58EDStrRelease.cpp
 
 Rva004E58ED::~Rva004E58ED()
@@ -434,8 +448,6 @@ void Rva004E5911::rva004E5911(Rva0048E730Layout layout)
     layoutRva0048E730(m_first, m_last, layout);
 }
 
-// tu-skeleton: 0x004E594E 96B ??0Rva004E594E@@QAE@ABVUnicodeString@@PAURva004E594EDescriptor@@H@Z -- matched in Code/GameEngine/Source/GameClient/GUI/IngameNoticeDisplay.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Bfme/Rva004E59AEFunc.cpp
 
 void __cdecl Rva004E59AEFunc(FuncType *out, Rva004E59AE **first, Rva004E59AE **last, FuncType func)
@@ -444,16 +456,6 @@ void __cdecl Rva004E59AEFunc(FuncType *out, Rva004E59AE **first, Rva004E59AE **l
 		((*first)->*func)();
 	*out = func;
 }
-
-// tu-skeleton: 0x004E59D0 11B ?rva004E59D0@@YAPAIPAII@Z -- matched in Code/GameEngine/Source/GameClient/GUI/IngameNoticeDisplay.cpp (not merged yet)
-
-// tu-skeleton: 0x004E59DB 25B ?rva004E59DB@Rva004E5B0A@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/IngameNoticeDisplay.cpp (not merged yet)
-
-// tu-skeleton: 0x004E59F4 48B ?rva004E59F4@IngameNoticeDisplay@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/IngameNoticeDisplay.cpp (not merged yet)
-
-// tu-skeleton: 0x004E5A24 84B ??0Rva004E5A24@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Bfme/Rva004E5A24Ctor.cpp (not merged yet)
-
-// tu-skeleton: 0x004E5A78 118B ??1Rva004E5A78@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Bfme/Rva004E5A78Method.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Bfme/Rva004E5CB0Delete.cpp
 
@@ -468,9 +470,7 @@ void __stdcall Rva004E5CB0Delete(void *p)
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 
-// tu-skeleton: 0x004E5B0A 422B ??0Rva004E5B0A@@QAE@ABVUnicodeString@@PAURva004E594EDescriptor@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/IngameNoticeDisplay.cpp (not merged yet)
 
-// tu-skeleton: 0x004E5CCB 130B ?rva004E5CCB@IngameNoticeDisplay@@QAEXPAUNoticeLineInputView@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/IngameNoticeDisplay.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Bfme/Rva004E5D4DForEach.cpp
 
@@ -484,7 +484,46 @@ void __stdcall Rva004E5CB0Delete(void *p)
 // pinned in symbols.csv (identical bytes: ret 4, this unused).
 // Structural inference: STLport for_each, functor operator() out of line.
 
-// tu-skeleton: 0x004E5D6E 68B ?reset@IngameNoticeDisplay@@UAEXXZ -- matched in Code/GameEngine/Source/Common/Bfme/IngameNoticeDisplay_reset.cpp (not merged yet)
+// tu-skeleton: 0x004E5724 194B ?update@IngameNoticeDisplay@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/IngameNoticeDisplay.cpp (not merged yet)
+
+// tu-skeleton: 0x004E58BA 11B ?invoke@Rva004E58BAHolder@@QAEXPAVRva004E58BATarget@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/IngameNoticeDisplay.cpp (not merged yet)
+
+// tu-skeleton: 0x004E58C5 40B ??0NoticeLineInputView@@QAE@HHPAV?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@PAVNoticeResource@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/IngameNoticeDisplay.cpp (not merged yet)
+
+// tu-skeleton: 0x004E594E 96B ??0Rva004E594E@@QAE@ABVUnicodeString@@PAURva004E594EDescriptor@@H@Z -- matched in Code/GameEngine/Source/GameClient/GUI/IngameNoticeDisplay.cpp (not merged yet)
+
+// tu-skeleton: 0x004E59D0 11B ?rva004E59D0@@YAPAIPAII@Z -- matched in Code/GameEngine/Source/GameClient/GUI/IngameNoticeDisplay.cpp (not merged yet)
+
+// tu-skeleton: 0x004E59DB 25B ?rva004E59DB@Rva004E5B0A@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/IngameNoticeDisplay.cpp (not merged yet)
+
+// tu-skeleton: 0x004E59F4 48B ?rva004E59F4@IngameNoticeDisplay@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/IngameNoticeDisplay.cpp (not merged yet)
+
+// tu-skeleton: 0x004E5A24 84B ??0Rva004E5A24@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Bfme/Rva004E5A24Ctor.cpp (not merged yet)
+
+// tu-skeleton: 0x004E5A78 118B ??1Rva004E5A78@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Bfme/Rva004E5A78Method.cpp (not merged yet)
+
+// tu-skeleton: 0x004E5B0A 422B ??0Rva004E5B0A@@QAE@ABVUnicodeString@@PAURva004E594EDescriptor@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/IngameNoticeDisplay.cpp (not merged yet)
+
+// tu-skeleton: 0x004E5CCB 130B ?rva004E5CCB@IngameNoticeDisplay@@QAEXPAUNoticeLineInputView@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/IngameNoticeDisplay.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Bfme/IngameNoticeDisplay_reset.cpp
+
+// ?reset@IngameNoticeDisplay@@UAEXXZ
+// Slot 9 (reset) of the IngameNoticeDisplay subsystem table; the fields
+// (+0xC descriptor, +0x10 group vector, +0x1C..+0x24 frames) are those
+// IngameNoticeDisplay.cpp reads, and ~IngameNoticeDisplay 0x004E61C8 calls it.
+// @0x004E5D6E 68B via STL clear: for_each delete + erase + zero + 0xff000000 store
+
+void IngameNoticeDisplay::reset()
+{
+	m_1c = 0;
+	m_20 = 0;
+	m_24 = 0;
+	_STL::for_each((Rva004E5A78 **)m_vec.begin(), (Rva004E5A78 **)m_vec.end(), Rva004E5CB0Deleter());
+	_STL::vector<void *, _STL::allocator<void *> > *pv = &m_vec;
+	pv->erase(pv->begin(), pv->end());
+	((Rva004E5D6EChild *)m_c)->m_field18 = 0xff000000;
+}
 
 // tu-skeleton: 0x004E5DB2 268B ?AddWord@IngameNoticeDisplay@@QAEXPAUNoticeLineInputView@@HABVUnicodeString@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/IngameNoticeDisplay.cpp (not merged yet)
 
