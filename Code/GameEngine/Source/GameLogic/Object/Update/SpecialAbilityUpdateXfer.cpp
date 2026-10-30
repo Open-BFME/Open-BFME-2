@@ -89,6 +89,9 @@ public:
 
 typedef unsigned int AudioHandle;
 
+struct BfmeAudioEventPrefix136;
+class Xfer;
+struct AbilityMiscAudio;
 class AudioManager
 {
 public:
@@ -117,9 +120,11 @@ public:
 	virtual void _pad22() = 0;
 	virtual void _pad23() = 0;
 	virtual void _pad24() = 0;
-	virtual void _pad25() = 0;
+	// vslot 25 (+0x64)
+	virtual int addAudioEvent(BfmeAudioEventPrefix136 *event) = 0;
 	virtual void _pad26() = 0;
-	virtual void removeAudioEvent(AudioHandle handle) = 0;
+	// vslot 27 (+0x6C)
+	virtual void removeAudioEvent(unsigned int handle) = 0;
 	virtual void _pad28() = 0;
 	virtual void _pad29() = 0;
 	virtual void _pad30() = 0;
@@ -144,7 +149,8 @@ public:
 	virtual void _pad49() = 0;
 	virtual void _pad50() = 0;
 	virtual void _pad51() = 0;
-	virtual void _pad52() = 0;
+	// vslot 52 (+0xD0)
+	virtual bool isCurrentlyPlaying(int handle) = 0;
 	virtual void _pad53() = 0;
 	virtual void _pad54() = 0;
 	virtual void _pad55() = 0;
@@ -170,7 +176,8 @@ public:
 	virtual void _pad75() = 0;
 	virtual void _pad76() = 0;
 	virtual void _pad77() = 0;
-	virtual void _pad78() = 0;
+	// vslot 78 (+0x138)
+	virtual AbilityMiscAudio * getMiscAudio() = 0;
 	virtual void _pad79() = 0;
 	virtual void _pad80() = 0;
 	virtual void _pad81() = 0;
@@ -180,7 +187,8 @@ public:
 	virtual void _pad85() = 0;
 	virtual void _pad86() = 0;
 	virtual void _pad87() = 0;
-	virtual void xferAudioHandle(Xfer *xfer, AudioHandle *handle) = 0;
+	// vslot 88 (+0x160)
+	virtual void xferAudioHandle(Xfer *xfer, unsigned int *handle) = 0;
 };
 
 // TheAudio (VA 0x00DFE6E8) is defined in AnimationSoundClientBehaviorCtor.cpp.
