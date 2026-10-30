@@ -28,12 +28,19 @@
 class BfmeAptValue006DCD20
 {
 public:
-    virtual void vtableSlot0();
-    virtual void vtableSlot1();
-    bool isUndefined() const;
-    bool isCIH(bool) const;
-    BfmeAptValue006DCD20 *rva006DCF60(bool);
-    int rva006E02B0() const; // rowed, 0x006DC010
+	int isString() const;
+	bool isUndefined() const;
+	void *rva006E04A0() const;
+	int isScriptFunction() const;
+	BfmeAptValue006DCD20 *rva006DCEE0();
+	void setGCRootCount(unsigned int);
+	bool isCIH(bool) const;
+	int rva006DCC60(bool) const;
+	BfmeAptValue006DCD20 *rva006DCF60(bool);
+	BfmeAptValue006DCD20 *checkedString();
+	int rva006E02B0() const;
+	virtual void vtableSlot0();
+	virtual void vtableSlot1();
 };
 
 struct Rva006E3710Node;
@@ -42,57 +49,67 @@ extern Rva006E34D0 *g_bfmeAptPtrAtE176D0;
 class Rva006E3710
 {
 public:
-    bool rva006E3710(Rva006E3710Node *node); // rowed, 0x006E3710
+	bool rva006E3710(Rva006E3710Node*);
 };
 class AptCIH : public BfmeAptValue006DCD20
 {
 public:
-    bool rva006CFCD0() const; // rowed predicate, 0x006CFCD0
-    void *rva006E1090() const; // rowed, 0x006E1090
-    void rva006E1F00(int value); // address-derived, 0x006E1F00
+	bool rva006CFCD0()const;
+	void *rva006E1170()const;
+	int rva006E1F90(int);
+	bool queueClipEvents(int,int,int);
+	void factorySetProperty(int,float,bool);
+	void *rva006E1090() const; // rowed, 0x006E1090
+	void rva006E1F00(int value); // address-derived, 0x006E1F00
 };
 extern AptCIH *__cdecl rva006F99D0(int eventCode, AptCIH *first,
                                    AptCIH *second);
 
-// The object these members share. Only the fields the 0x006FB910 body reads
-// are modelled; the full layout is not claimed.
-class AptAnimationPoolData
-{
+// Partial pool view for input dispatch, button state and hit testing.
+struct ButtonHitTestRecord;
+class Rva006E1E30;
+struct BfmeMesh1290;
+struct BfmeTransform2_1290;
+struct BfmePickNode1284;
+
+class AptAnimationPoolData {
 public:
-    unsigned char _unread[0x18];
-    unsigned short m18, m1a;
-    BfmeAptValue006DCD20 **m1c;
-    unsigned short m20, m22;
-    BfmeAptValue006DCD20 **m24;
-    unsigned char _unread28[0x14];
-    int mListCount;                   // +0x3C
-    int *aList;                       // +0x40, dword elements
-    BfmeAptValue006DCD20 *mValue;     // +0x44, a pointer the body calls through
-    unsigned char _unread48[0x18];
-    BfmeAptValue006DCD20 *m60;
-    BfmeAptValue006DCD20 *m64;
-    BfmeAptValue006DCD20 *m68;
-    AptCIH *m6c;
-    unsigned char m70;
-    unsigned char _unread71[3];
-    int m74;
-    int m78;
-    AptCIH *rva006FA420(int x, int y); // address-derived, 0x006FA420
-    void rva006FA100(AptCIH *value, int mode); // address-derived, 0x006FA100
-    void setValidFocusButton(); // address-derived call target from this object view
-    void rva006FB860(int value, char isFirst);
-    void rva006FB120(int x, int y, int packed, int field, char isFirst);
-    void AddListenerToQueue(BfmeAptValue006DCD20 *, int, int);
-    void rva006FB5B0(int x, int y, int packed, int field);
-    bool HandleFocusButton(int x, int y, void **candidate);
-    void Rva006F9EF0();
-    void rva006FB910();
-    void ProcessButtonState();
-    // ?HandleAutoNav@AptAnimationPoolData@@QAEXPAVAptCIH@@HH@Z @0x006FAF80 416B:
-    // renamed from placeholder rva006FAF80 — the WorldBuilder twin names
-    // AptAnimationPoolData::HandleAutoNav at EA's own AptInput.cpp
-    // (callgraph 3).
-    void HandleAutoNav(AptCIH *candidate, int eventCode, int transition);
+	char pad[0x10];
+	int mBILCount;
+	ButtonHitTestRecord *aButtonInstanceList;
+	unsigned short m18, m1a;
+	BfmeAptValue006DCD20 **m1c;
+	unsigned short m20, m22;
+	BfmeAptValue006DCD20 **m24;
+	char pad28[0x3C - 0x28];
+	int mListCount;
+	int *aList;
+	BfmeAptValue006DCD20 *mValue;
+	float m48, m4C, m50, m54, m58, m5C;
+	BfmeAptValue006DCD20 *m60, *m64, *m68;
+	AptCIH *current;
+	unsigned char m70;
+	char pad71[3];
+	int m74, m78;
+	bool validateBIL();
+	void Rva006F9EF0();
+	void rva006FA7E0(bool first, bool enabled, int value);
+	bool rva006F9FC0(Rva006E1E30 *object, int unused);
+	void rva006E6540();
+	bool HandleFocusButton(int, int, void **);
+	void AddListenerToQueue(BfmeAptValue006DCD20 *, int, int);
+	void rva006FA100(AptCIH *, int);
+	bool bfmeMeshHitTest1290(BfmeMesh1290 *mesh, const BfmeTransform2_1290 *transform,
+		int pointX, int pointY);
+	BfmePickNode1284 *bfmePick1284(int pointX, int pointY);
+	AptCIH *rva006FA420(int x, int y);
+	void setValidFocusButton();
+	void rva006FB860(int value, char isFirst);
+	void rva006FB120(int x, int y, int packed, int field, char isFirst);
+	void rva006FB5B0(int x, int y, int packed, int field);
+	void rva006FB910();
+	void ProcessButtonState();
+	void HandleAutoNav(AptCIH *candidate, int eventCode, int transition);
 };
 
 // 0x006F9EF0 is an unnamed sibling of the same class, called thiscall on
@@ -125,31 +142,31 @@ void AptAnimationPoolData::ProcessButtonState()
         value->vtableSlot0();
 
     if (m70) {
-        if (m6c && !m6c->isUndefined()) {
-            if (value != m6c) {
-                if (*(int *)((char *)m6c->rva006E1090() + 0x18) == 4) {
-                    m6c->rva006E1F00(2);
-                    rva006FA100(m6c, 0x10);
+        if (current && !current->isUndefined()) {
+            if (value != current) {
+                if (*(int *)((char *)current->rva006E1090() + 0x18) == 4) {
+                    current->rva006E1F00(2);
+                    rva006FA100(current, 0x10);
                 }
-            } else if (*(int *)((char *)m6c->rva006E1090() + 0x18) == 2) {
-                m6c->rva006E1F00(4);
-                rva006FA100(m6c, 0x20);
+            } else if (*(int *)((char *)current->rva006E1090() + 0x18) == 2) {
+                current->rva006E1F00(4);
+                rva006FA100(current, 0x20);
             }
         } else if (value && !value->isUndefined()) {
             rva006FA100(value, 0x20);
         }
-    } else if (value != m6c) {
-        if (m6c && !m6c->isUndefined()) {
-            m6c->rva006E1F00(1);
-            rva006FA100(m6c, 2);
+    } else if (value != current) {
+        if (current && !current->isUndefined()) {
+            current->rva006E1F00(1);
+            rva006FA100(current, 2);
         }
-        if (m6c)
-            m6c->vtableSlot1();
-        m6c = value;
+        if (current)
+            current->vtableSlot1();
+        current = value;
         if (value) {
             value->vtableSlot0();
             if (!value->isUndefined()) {
-                m6c->rva006E1F00(2);
+                current->rva006E1F00(2);
                 rva006FA100(value, 1);
             }
         }
@@ -176,56 +193,56 @@ void AptAnimationPoolData::HandleAutoNav(AptCIH *candidate, int eventCode,
         if (m70 || transition)
             return;
         setValidFocusButton();
-        if (!m6c)
+        if (!current)
             return;
         if (!candidate) {
             candidate = rva006F99D0(
-                eventCode, *(AptCIH **)((char *)m6c + 0x48), m6c);
+                eventCode, *(AptCIH **)((char *)current + 0x48), current);
         } else if (candidate->rva006CFCD0()) {
             candidate = rva006F99D0(eventCode, candidate, 0);
         }
         if (!candidate)
             return;
 
-        m6c->rva006E1F00(1);
+        current->rva006E1F00(1);
         candidate->rva006E1F00(2);
-        rva006FA100(m6c, 2);
+        rva006FA100(current, 2);
         rva006FA100(candidate, 1);
-        if (m6c)
-            m6c->vtableSlot1();
-        m6c = candidate;
+        if (current)
+            current->vtableSlot1();
+        current = candidate;
         candidate->vtableSlot0();
         return;
 
     case 0:
-        if (!m6c) {
+        if (!current) {
             m70 = transition != 1;
             return;
         }
 
         if (!m70 && !transition) {
             m70 = 1;
-            m6c->rva006E1F00(4);
-            rva006FA100(m6c, 4);
+            current->rva006E1F00(4);
+            rva006FA100(current, 4);
         }
         if (!m70 || transition != 1)
             return;
 
         m70 = 0;
-        if (*(int *)((char *)m6c->rva006E1090() + 0x18) == 2) {
-            m6c->rva006E1F00(1);
-            rva006FA100(m6c, 0x40);
-            if (!m6c)
+        if (*(int *)((char *)current->rva006E1090() + 0x18) == 2) {
+            current->rva006E1F00(1);
+            rva006FA100(current, 0x40);
+            if (!current)
                 return;
-            m6c->rva006E1F00(2);
-            if ((void *)mValue == *(void **)((char *)m6c + 0x48))
-                rva006FA100(m6c, 8);
+            current->rva006E1F00(2);
+            if ((void *)mValue == *(void **)((char *)current + 0x48))
+                rva006FA100(current, 8);
             else
-                rva006FA100(m6c, 1);
+                rva006FA100(current, 1);
             return;
         }
-        m6c->rva006E1F00(2);
-        rva006FA100(m6c, 8);
+        current->rva006E1F00(2);
+        rva006FA100(current, 8);
         return;
     }
 }
@@ -268,7 +285,16 @@ extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
 void __debugbreak();
 #pragma intrinsic(__debugbreak)
-class EAStringC { public: EAStringC(const char *); ~EAStringC(); unsigned short *m_data; };
+class EAStringC
+{
+public:
+	EAStringC();
+	~EAStringC();
+	const char *rva00620090() const;
+	unsigned int rva006D3750() const;
+	EAStringC(const char *);
+	void *data; // +0x00
+};
 class AptValue;
 class AptInteger { public: static AptValue *Create(int); };
 bool rva006EE6C0(AptValue *target, const EAStringC *name, AptValue *value);

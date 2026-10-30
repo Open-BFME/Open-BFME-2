@@ -15,34 +15,50 @@
 // semantics, but its clean compiled bodies do not place this handler; the
 // complete string-resolution and interpreter paths here follow WB and retail.
 // No donor layout or complete class identity is asserted by byte matching.
-class EAStringC {
-    void *data;
+class EAStringC
+{
 public:
-    EAStringC();
-    ~EAStringC();
-    const char *rva00620090() const;
-    unsigned int rva006D3750() const;
+	EAStringC();
+	~EAStringC();
+	const char *rva00620090() const;
+	unsigned int rva006D3750() const;
+	EAStringC(const char *);
+	void *data; // +0x00
 };
 
 class AptValue;
 
 class Rva006E1E30;
 
-class BfmeAptValue006DCD20 {
+class BfmeAptValue006DCD20
+{
 public:
-    int isString() const;
-    bool isUndefined() const;
-    void *rva006E04A0() const;
-    int isScriptFunction() const;
-    BfmeAptValue006DCD20 *rva006DCEE0();
-    void setGCRootCount(unsigned int);
-    bool isCIH(bool) const;
-    int rva006DCC60(bool) const;
-    BfmeAptValue006DCD20 *rva006DCF60(bool);
-    BfmeAptValue006DCD20 *checkedString();
+	int isString() const;
+	bool isUndefined() const;
+	void *rva006E04A0() const;
+	int isScriptFunction() const;
+	BfmeAptValue006DCD20 *rva006DCEE0();
+	void setGCRootCount(unsigned int);
+	bool isCIH(bool) const;
+	int rva006DCC60(bool) const;
+	BfmeAptValue006DCD20 *rva006DCF60(bool);
+	BfmeAptValue006DCD20 *checkedString();
+	int rva006E02B0() const;
+	virtual void vtableSlot0();
+	virtual void vtableSlot1();
 };
 
-class AptCIH {public:bool rva006CFCD0()const;void *rva006E1170()const;int rva006E1F90(int);bool queueClipEvents(int,int,int);void factorySetProperty(int,float,bool);};
+class AptCIH : public BfmeAptValue006DCD20
+{
+public:
+	bool rva006CFCD0()const;
+	void *rva006E1170()const;
+	int rva006E1F90(int);
+	bool queueClipEvents(int,int,int);
+	void factorySetProperty(int,float,bool);
+	void *rva006E1090() const; // rowed, 0x006E1090
+	void rva006E1F00(int value); // address-derived, 0x006E1F00
+};
 
 struct AptNativeHash;
 
@@ -66,7 +82,11 @@ extern Rva006E34D0 *g_bfmeAptPtrAtE176D0;
 
 struct Rva006E3710Node;
 
-class Rva006E3710 {public:bool rva006E3710(Rva006E3710Node*);};
+class Rva006E3710
+{
+public:
+	bool rva006E3710(Rva006E3710Node*);
+};
 
 extern void(__cdecl *g_bfmeAptAssertAtE17734)(const char*,const char*,int);
 
@@ -96,7 +116,13 @@ class Rva006F97B0 {public:void rva006F97B0();};
 
 class Rva006DBB60ShrNAndField {public:bool get() const;};
 
-class AptActionQueueC {public:void rva006E3740(AptValue *,AptValue *,AptValue *,int,int);void rva006E3810(AptValue *,AptValue *,AptValue *,int,int);void enqueueAction(void *,AptCIH *,int,int);};
+class AptActionQueueC
+{
+public:
+	void rva006E3740(AptValue *,AptValue *,AptValue *,int,int);
+	void rva006E3810(AptValue *,AptValue *,AptValue *,int,int);
+	void enqueueAction(void *,AptCIH *,int,int);
+};
 
 class AptInputScriptFunction {
 public:
@@ -125,7 +151,11 @@ struct AptInputPoolView {
 // (BfmeBroadcast1282) is the semantic guide only; its original name is unknown.
 // Retail fixes the +0x48 parent/+0x4C character, descriptor +0x34/+0x38/+0x3C,
 // the 7x12B key-route table at 0xDDC898 and the pool queue callees.
-class Rva006DBB30SarDwordField {public:int get() const;};
+class Rva006DBB30SarDwordField
+{
+public:
+	int get() const;
+};
 
 extern int g_00E17704;
 
@@ -272,31 +302,39 @@ public:
 	char pad[0x10];
 	int mBILCount;
 	ButtonHitTestRecord *aButtonInstanceList;
-	char pad18[0x44 - 0x18];
+	unsigned short m18, m1a;
+	BfmeAptValue006DCD20 **m1c;
+	unsigned short m20, m22;
+	BfmeAptValue006DCD20 **m24;
+	char pad28[0x3C - 0x28];
+	int mListCount;
+	int *aList;
 	BfmeAptValue006DCD20 *mValue;
 	float m48, m4C, m50, m54, m58, m5C;
 	BfmeAptValue006DCD20 *m60, *m64, *m68;
-public:
 	AptCIH *current;
-	char pad70[4];
+	unsigned char m70;
+	char pad71[3];
 	int m74, m78;
 	bool validateBIL();
 	void Rva006F9EF0();
 	void rva006FA7E0(bool first, bool enabled, int value);
 	bool rva006F9FC0(Rva006E1E30 *object, int unused);
-public:
 	void rva006E6540();
-public:
-	bool HandleFocusButton(int,int,void**);
-public:
-	void AddListenerToQueue(BfmeAptValue006DCD20 *,int,int);
-public:
-	void rva006FA100(AptCIH *,int);
-public:
+	bool HandleFocusButton(int, int, void **);
+	void AddListenerToQueue(BfmeAptValue006DCD20 *, int, int);
+	void rva006FA100(AptCIH *, int);
 	bool bfmeMeshHitTest1290(BfmeMesh1290 *mesh, const BfmeTransform2_1290 *transform,
 		int pointX, int pointY);
-public:
 	BfmePickNode1284 *bfmePick1284(int pointX, int pointY);
+	AptCIH *rva006FA420(int x, int y);
+	void setValidFocusButton();
+	void rva006FB860(int value, char isFirst);
+	void rva006FB120(int x, int y, int packed, int field, char isFirst);
+	void rva006FB5B0(int x, int y, int packed, int field);
+	void rva006FB910();
+	void ProcessButtonState();
+	void HandleAutoNav(AptCIH *candidate, int eventCode, int transition);
 };
 
 // ?validateBIL@AptAnimationPoolData@@QAE_NXZ @0x006FA020 224B. Global BIL button validation.
