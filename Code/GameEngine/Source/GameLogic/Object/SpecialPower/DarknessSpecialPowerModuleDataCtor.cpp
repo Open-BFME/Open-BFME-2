@@ -6,21 +6,20 @@
 // with the GrabPassenger ModuleData vtable) and loads DarknessRadius at
 // +0x7C from the shared 10.0f constant at 0x00BC2428 (see the pinned
 // buildFieldParse proc holding DarknessRadius plus DarknessFX). The TU-local
-// base keeps an explicit vtable slot plus pad to 0x7C (ReflectDamage
-// precedent, so no vtable is emitted); the absolute float stays extern so it
-// keeps the movss form (Rain precedent), materialized into a named local
+// base has a virtual destructor and size 0x7C. The 10.0f radius uses the
+// movss form (Rain precedent), materialized into a named local
 // first so the load hoists above the stores. Size 0x84 matches the rowed
 // 0x251FFC factory news. Row supersedes the ctor pin.
 
-extern "C" const void *const __identifier("??_7CombineHordeSpecialPowerModuleData@@6B@")[];  // folded vftable 0x00C5E7A8 (2 classes), by its data-ledger name
 
 class SpecialPowerModuleData
 {
 public:
 	SpecialPowerModuleData();
+	virtual ~SpecialPowerModuleData();
 
-	void *m_vtable; // +0
-	unsigned char m_pad[0x7C - 4]; // +4..0x7B
+private:
+	unsigned char m_pad[0x7C - 4];
 };
 
 
@@ -40,6 +39,5 @@ DarknessSpecialPowerModuleData::DarknessSpecialPowerModuleData()
 {
 	float radius = 10.0f;
 	m_darknessFX = 0;
-	m_vtable = reinterpret_cast<void *>(((unsigned int)__identifier("??_7CombineHordeSpecialPowerModuleData@@6B@")));
 	m_darknessRadius = radius;
 }

@@ -9,6 +9,7 @@
 class Thing;
 class ModuleData;
 class Object;
+class Player;
 class Team;
 struct Coord3D;
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h
@@ -42,6 +43,8 @@ public:
 
 	// Public: the rowed dtor at 0x00493DEF is ??1SpecialPowerModule@@UAE@XZ.
 	virtual ~SpecialPowerModule();
+protected:
+	unsigned char m_pad14[0x34 - 0x14];
 };
 enum NameKeyType
 {
@@ -52,6 +55,10 @@ class ElvenWoodSpecialPower : public SpecialPowerModule
 public:
 	ElvenWoodSpecialPower( Thing *thing, const ModuleData *moduleData );
 	Object *addObject(const Coord3D *position, const AsciiString *name);
+
+	void rva004C3C36(const Coord3D *position);
+
+	void rva004C3B17(const Coord3D *position);
 
 protected:
 	virtual ~ElvenWoodSpecialPower();
@@ -86,30 +93,57 @@ private:
 	unsigned char m_pad124[0x4E0 - 0x124];
 	float m_scale;                  // +0x4E0
 };
+class ThingTemplate;
+class Matrix3D;
+struct Coord3D;
+struct Region3D;
 class TerrainLogic
 {
 public:
+	virtual void v00();
+	virtual void v01();
+	virtual void v02();
+	virtual void v03();
+	virtual void v04();
+	virtual void v05();
+	virtual float getGroundHeight( float x, float y, Coord3D *normal ) const;
+	virtual void v07();
+	virtual void getExtent( Region3D *extent ) const;
 	void addTree(const ThingTemplate *, const Coord3D *, const Matrix3D *, float);
 	void rva00280176(const ThingTemplate *, const Coord3D *, const Matrix3D *, float);
 	void rva0027D3D9(const ThingTemplate *, const Coord3D *, const Matrix3D *, float);
+	void rva0027F28E(const Coord3D *loc, float radius, int flag);
+	void rva0027D1A4(const Coord3D *loc, float radius, int flag);
 };
 extern TerrainLogic *TheTerrainLogic;
 struct CreateMask
 {
-	unsigned int m_words[4];
+public:
+	unsigned int m_words[4]; // +0x00
 };
 class Thing
 {
 public:
 	void setPosition(const Coord3D *);
 };
+enum ObjectStatusTypes
+{
+	OBJECT_STATUS_0x54 = 0x54
+};
 class Object : public Thing
 {
 public:
+	void setStatus(ObjectStatusTypes status, bool set);
+	Player *getControllingPlayer() const;
+	void rva0028EC68(int a, void *b, int c);
 	void setTeam(Team *);
 	Team *getTeam() const { return m_team; }
 private:
-	char m_pad[0x304];
+	char m_pad00[0x74];
+public:
+	int m_id; // +0x74
+private:
+	char m_pad78[0x304 - 0x78];
 	Team *m_team; // +0x304
 };
 enum ObjectID;
@@ -177,10 +211,14 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class WeaponChangeSpecialPowerModule
+class WeaponChangeSpecialPowerModule : public SpecialPowerModule
 {
 public:
+	WeaponChangeSpecialPowerModule( Thing *thing, const ModuleData *moduleData );
 	virtual NameKeyType getModuleNameKey() const;
+
+protected:
+	virtual ~WeaponChangeSpecialPowerModule();
 };
 
 struct ToggleFlags
@@ -203,10 +241,14 @@ private:
 	AsciiString m_nameB; // +0x98
 };
 
-class ScavengerSpecialPower
+class ScavengerSpecialPower : public SpecialPowerModule
 {
 public:
+	ScavengerSpecialPower(Thing *thing, const ModuleData *moduleData);
 	virtual NameKeyType getModuleNameKey() const;
+
+private:
+	bool m_34; // +0x34
 };
 
 class Xfer::Version
@@ -237,28 +279,52 @@ private:
 	bool m_34;
 };
 
-class CloudBreakSpecialPower
+class CloudBreakSpecialPower : public SpecialPowerModule
 {
 public:
+	CloudBreakSpecialPower( Thing *thing, const ModuleData *moduleData );
 	virtual NameKeyType getModuleNameKey() const;
+
+	void rva004C4582();
+
+	void rva004C4621(const Coord3D *position);
+	void rva004C45CF(const Coord3D *position, const AsciiString *name);
+
+protected:
+	virtual ~CloudBreakSpecialPower();
 };
 
-class TaintSpecialPower
+class TaintSpecialPower : public SpecialPowerModule
 {
 public:
+	TaintSpecialPower( Thing *thing, const ModuleData *moduleData );
 	virtual NameKeyType getModuleNameKey() const;
+
+	void rva004C49AE(const Coord3D *position);
+	Object *addObject(const Coord3D *position, const AsciiString &name);
+
+protected:
+	virtual ~TaintSpecialPower();
 };
 
-class FreezingRainSpecialPower
+class FreezingRainSpecialPower : public SpecialPowerModule
 {
 public:
+	FreezingRainSpecialPower( Thing *thing, const ModuleData *moduleData );
 	virtual NameKeyType getModuleNameKey() const;
+
+protected:
+	virtual ~FreezingRainSpecialPower();
 };
 
-class DarknessSpecialPower
+class DarknessSpecialPower : public SpecialPowerModule
 {
 public:
+	DarknessSpecialPower( Thing *thing, const ModuleData *moduleData );
 	virtual NameKeyType getModuleNameKey() const;
+
+protected:
+	virtual ~DarknessSpecialPower();
 };
 
 // ??0TaintSpecialPowerModuleData@@QAE@XZ at retail 0x004C4AB8 (51 bytes,

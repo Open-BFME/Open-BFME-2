@@ -27,11 +27,13 @@ class Matrix3D;
 class FXList
 {
 public:
-	static void doFXPos( const FXList *fx, const Coord3D *primary,
-		const Matrix3D *primaryMtx = 0, const Real primarySpeed = 0.0f,
-		const Coord3D *secondary = 0 );
+	static void doFXPos( const FXList *fx, const Coord3D *primary, const Matrix3D *primaryMtx = 0, const float primarySpeed = 0.0f, const Coord3D *secondary = 0 );
 };
 
+class ThingTemplate;
+class Matrix3D;
+struct Coord3D;
+struct Region3D;
 class TerrainLogic
 {
 public:
@@ -41,9 +43,14 @@ public:
 	virtual void v03();
 	virtual void v04();
 	virtual void v05();
-	virtual Real getGroundHeight( Real x, Real y, Coord3D *normal ) const;
+	virtual float getGroundHeight( float x, float y, Coord3D *normal ) const;
 	virtual void v07();
 	virtual void getExtent( Region3D *extent ) const;
+	void addTree(const ThingTemplate *, const Coord3D *, const Matrix3D *, float);
+	void rva00280176(const ThingTemplate *, const Coord3D *, const Matrix3D *, float);
+	void rva0027D3D9(const ThingTemplate *, const Coord3D *, const Matrix3D *, float);
+	void rva0027F28E(const Coord3D *loc, float radius, int flag);
+	void rva0027D1A4(const Coord3D *loc, float radius, int flag);
 };
 
 extern TerrainLogic *TheTerrainLogic;
@@ -56,19 +63,63 @@ struct CloudBreakSpecialPowerModuleData
 	Real m_spacing;
 };
 
-class CloudBreakSpecialPower
+class Thing;
+class ModuleData;
+class Object;
+enum NameKeyType;
+class BehaviorModule
 {
 public:
-	void rva004C4621( const Coord3D *loc );
-	void rva004C45CF( const Coord3D *pos, const AsciiString *name );
-private:
-	void *m_vtable;
-	const CloudBreakSpecialPowerModuleData *m_moduleData;
+	virtual void behaviorModuleAnchor();
+
+protected:
+	const ModuleData *m_moduleData;
+	Object *m_object;
+};
+
+class SpecialPowerModuleInterface
+{
+public:
+	virtual void specialPowerModuleInterfaceAnchor();
+};
+
+class ModuleInterface
+{
+public:
+	virtual void moduleInterfaceAnchor();
+};
+
+class SpecialPowerModule : public BehaviorModule,
+	public SpecialPowerModuleInterface,
+	public ModuleInterface
+{
+public:
+	SpecialPowerModule( Thing *thing, const ModuleData *moduleData );
+
+	// Public: the rowed dtor at 0x00493DEF is ??1SpecialPowerModule@@UAE@XZ.
+	virtual ~SpecialPowerModule();
+protected:
+	unsigned char m_pad14[0x34 - 0x14];
+};
+
+class CloudBreakSpecialPower : public SpecialPowerModule
+{
+public:
+	CloudBreakSpecialPower( Thing *thing, const ModuleData *moduleData );
+	virtual NameKeyType getModuleNameKey() const;
+
+	void rva004C4582();
+
+	void rva004C4621(const Coord3D *position);
+	void rva004C45CF(const Coord3D *position, const AsciiString *name);
+
+protected:
+	virtual ~CloudBreakSpecialPower();
 };
 
 void CloudBreakSpecialPower::rva004C4621( const Coord3D * )
 {
-	const CloudBreakSpecialPowerModuleData *data = m_moduleData;
+	const CloudBreakSpecialPowerModuleData *data = (const CloudBreakSpecialPowerModuleData *)m_moduleData;
 	Region3D extent;
 	TheTerrainLogic->getExtent( &extent );
 

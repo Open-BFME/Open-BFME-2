@@ -6,22 +6,21 @@
 // installs vtable 0x00C5E7A8 (folded across the weather ModuleData) and loads
 // FreezingRainRadius at +0x7C from the shared 10.0f constant at 0x00BC2428
 // (see the pinned buildFieldParse proc holding FreezingRainRadius plus
-// FreezingRainFX plus BurnRateModifier). The TU-local base keeps an explicit
-// vtable slot plus pad to 0x7C (ReflectDamage precedent, so no vtable is
-// emitted); the absolute float stays extern so it keeps the movss form,
+// FreezingRainFX plus BurnRateModifier). The base has a virtual destructor
+// and size 0x7C; the 10.0f radius uses the shared movss constant load,
 // materialized into a named local first so the load hoists above the stores
 // (Darkness precedent). Size 0x88 matches the rowed 0x251F70 factory news.
 // Row supersedes the ctor pin.
 
-extern "C" const void *const __identifier("??_7CombineHordeSpecialPowerModuleData@@6B@")[];  // folded vftable 0x00C5E7A8 (2 classes), by its data-ledger name
 
 class SpecialPowerModuleData
 {
 public:
 	SpecialPowerModuleData();
+	virtual ~SpecialPowerModuleData();
 
-	void *m_vtable; // +0
-	unsigned char m_pad[0x7C - 4]; // +4..0x7B
+private:
+	unsigned char m_pad[0x7C - 4];
 };
 
 
@@ -43,6 +42,5 @@ FreezingRainSpecialPowerModuleData::FreezingRainSpecialPowerModuleData()
 	float radius = 10.0f;
 	m_freezingRainFX = 0;
 	m_burnRateModifier = 0;
-	m_vtable = reinterpret_cast<void *>(((unsigned int)__identifier("??_7CombineHordeSpecialPowerModuleData@@6B@")));
 	m_freezingRainRadius = radius;
 }

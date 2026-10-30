@@ -37,26 +37,70 @@ struct Rva004C4582TabHolder
 	BfmeTab1026 m_tab;
 };
 
-class CloudBreakSpecialPower
+class Thing;
+class ModuleData;
+enum NameKeyType;
+class BehaviorModule
 {
 public:
+	virtual void behaviorModuleAnchor();
+
+protected:
+	const ModuleData *m_moduleData;
+	Object *m_object;
+};
+
+class SpecialPowerModuleInterface
+{
+public:
+	virtual void specialPowerModuleInterfaceAnchor();
+};
+
+class ModuleInterface
+{
+public:
+	virtual void moduleInterfaceAnchor();
+};
+
+class SpecialPowerModule : public BehaviorModule,
+	public SpecialPowerModuleInterface,
+	public ModuleInterface
+{
+public:
+	SpecialPowerModule( Thing *thing, const ModuleData *moduleData );
+
+	// Public: the rowed dtor at 0x00493DEF is ??1SpecialPowerModule@@UAE@XZ.
+	virtual ~SpecialPowerModule();
+protected:
+	unsigned char m_pad14[0x34 - 0x14];
+};
+
+struct Coord3D;
+class AsciiString;
+class CloudBreakSpecialPower : public SpecialPowerModule
+{
+public:
+	CloudBreakSpecialPower( Thing *thing, const ModuleData *moduleData );
+	virtual NameKeyType getModuleNameKey() const;
+
 	void rva004C4582();
 
-private:
-	char m_pad00[4];
-	Rva004C4582TabHolder *m_04;
-	Object *m_08;
+	void rva004C4621(const Coord3D *position);
+	void rva004C45CF(const Coord3D *position, const AsciiString *name);
+
+protected:
+	virtual ~CloudBreakSpecialPower();
 };
 
 void CloudBreakSpecialPower::rva004C4582()
 {
-	Object *object = m_08;
+	Object *object = m_object;
 	Object *cur = TheGameLogic->getFirstObject();
 	if (cur == 0)
 		return;
 	for (; cur != 0; cur = *(Object **)((char *)cur + 0x8C))
 	{
-		Rva004C4582TabHolder *holder = m_04;
+		Rva004C4582TabHolder *holder = (Rva004C4582TabHolder *)m_moduleData;
 		if (holder->m_tab.accepts(cur, object->getControllingPlayer()))
 			cur->rva0028EC68(5, object, 1);
 	}
