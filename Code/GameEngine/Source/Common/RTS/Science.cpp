@@ -10,6 +10,25 @@
 #include <stl/_algobase.h>
 #include <algorithm>
 #include "../../../Include/Common/Rva002E8548Pool.h"
+#include "../GameLogicObjectLookupView.h"
+// ??4Rva001FFEE9@@QAEAAV0@ABV0@@Z @0x001FFEE9 81B
+// Copy-assign with 0x10 pad then int plus two UnicodeString via rowed set plus custom plus1C via pinned 0x1FFD6B plus tail ints/byte; base 5B ICF via pinned placeholder 0x1FD28E; 8B pad20 unproven gap; UnicodeString 4B for plus18.
+class FXParticleSystem
+{
+public:
+	template <int N> class CategoryModuleInfo
+	{
+	public:
+		CategoryModuleInfo &operator=(const CategoryModuleInfo &that);
+	};
+};
+struct Rva001FFD6BRecord;
+namespace _STL {
+// Bind the assignment to the kept vector copy-assignment worker.
+template <> vector<Rva001FFD6BRecord, allocator<Rva001FFD6BRecord> > &vector<Rva001FFD6BRecord, allocator<Rva001FFD6BRecord> >::operator=(const vector<Rva001FFD6BRecord, allocator<Rva001FFD6BRecord> > &that);
+}
+typedef _STL::vector<Rva001FFD6BRecord, _STL::allocator<Rva001FFD6BRecord> > Rva001FFD6BRecordVector;
+#include "../../../../../reference/shims/bfme2_ascii/unicode_string.h"
 
 class Rva0043D3A8
 {
@@ -232,9 +251,65 @@ typedef _STL::vector<int, _STL::allocator<int> > SciVec;
 
 SciVec *__cdecl Rva00339A8DCopy(SciVec *first, SciVec *last, SciVec *dest, void *tag, int extra);
 
+class RecorderClass
+{
+public:
+	bool isMultiplayer();
+};
+
+extern GameLogic *TheGameLogic;
+
+extern RecorderClass *TheRecorder;
+
+class Rva001FFEE9
+{
+public:
+	Rva001FFEE9 &operator=(const Rva001FFEE9 &that);
+private:
+	char m_pad00[0x10];
+	int m_10;
+	UnicodeString m_14;
+	UnicodeString m_18;
+	char m_1C[4];
+	char m_pad20[8];
+	int m_28;
+	int m_2C;
+	unsigned char m_30;
+};
+
 // tu-skeleton: 0x001FF3AD 47B ?findScienceInfo@ScienceStore@@ABEPBVScienceInfo@@W4ScienceType@@@Z -- matched in Code/GameEngine/Source/Common/RTS/ScienceStoreFindScienceInfo.cpp (not merged yet)
 
-// tu-skeleton: 0x001FF3DC 86B ?getSciencePurchaseCost@ScienceStore@@QBEHW4ScienceType@@@Z -- matched in Code/GameEngine/Source/Common/RTS/ScienceStore_getSciencePurchaseCost.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/RTS/ScienceStore_getSciencePurchaseCost.cpp
+
+//
+// ?getSciencePurchaseCost@ScienceStore@@QBEHW4ScienceType@@@Z @0x1FF3DC (86B):
+// findScienceInfo (matched 0x1FF3AD) plus the BFME2 online-mode gate: the
+// multiplayer predicate is called first, the mode dword (+0x110) is only read
+// on the false path, and modes 2/3 (with TheRecorder::isMultiplayer for a
+// replay) select the alt purchase cost at +0x2C over +0x28. The conditional
+// mode load is what keeps retail's `mov esi,[esi+0x110]` coalescing and the
+// load below the isInMultiplayerGame branch.
+
+// ?getSciencePurchaseCost@ScienceStore@@QBEHW4ScienceType@@@Z
+int ScienceStore::getSciencePurchaseCost(ScienceType st) const
+{
+	const ScienceInfo *si = findScienceInfo(st);
+	if (si)
+	{
+		GameLogic *game = TheGameLogic;
+		const bool mp = game->isInMultiplayerGame();
+		int mode = 0;
+		if (!mp)
+			mode = game->m_110;
+		if (mp || mode == 2 ||
+		    (mode == 3 && TheRecorder && TheRecorder->isMultiplayer()))
+			return si->m_sciencePurchasePointCostMP;
+		return si->m_sciencePurchasePointCost;
+	}
+	return 0;
+}
+
+// ---- from Code/GameEngine/Source/Common/RTS/Science.cpp
 
 // ---- from Code/GameEngine/Source/Common/RTS/Science.cpp
 
@@ -434,9 +509,17 @@ ScienceType ScienceStore::getScienceFromInternalName(const AsciiString &name) co
 	return (ScienceType)TheNameKeyGenerator->nameToKey(name);
 }
 
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/Rva001FFC38.cpp
+
+void *__cdecl Rva001FFC38Copy(void *a, void *b, void *c, void *d)
+{
+	char tmp;
+	return (void *)Rva00339A8DCopy((SciVec *)a, (SciVec *)b, (SciVec *)c, &tmp, 0);
+}
+
 // tu-skeleton: 0x001FF47D 86B ?playerHasPrereqsForScience@ScienceStore@@QBE_NPBVRva0043D3A8@@W4ScienceType@@@Z -- matched in Code/GameEngine/Source/Common/RTS/ScienceStoreFindScienceInfo.cpp (not merged yet)
 
-// tu-skeleton: 0x001FF51F 40B ?erase@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEPAPAXPAPAX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_voidptr_opt.cpp (not merged yet)
+// tu-skeleton: 0x001FF51F 40B ?erase@?$vector@PAVObjectTypes@@V?$allocator@PAVObjectTypes@@@_STL@@@_STL@@QAEPAPAVObjectTypes@@PAPAV3@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineReset.cpp (not merged yet)
 
 // tu-skeleton: 0x001FF547 24B ?deallocate@Rva001FF547@@QAEXPAXI@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE53.cpp (not merged yet)
 
@@ -480,14 +563,6 @@ ScienceType ScienceStore::getScienceFromInternalName(const AsciiString &name) co
 
 // tu-skeleton: 0x001FFB64 212B ?getPurchasableSciences@ScienceStore@@QBEXPBVPlayer@@AAV?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@1@Z -- matched in Code/GameEngine/Source/Common/RTS/ScienceStoreFindScienceInfo.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/Rva001FFC38.cpp
-
-void *__cdecl Rva001FFC38Copy(void *a, void *b, void *c, void *d)
-{
-	char tmp;
-	return (void *)Rva00339A8DCopy((SciVec *)a, (SciVec *)b, (SciVec *)c, &tmp, 0);
-}
-
 // tu-skeleton: 0x001FFCA3 137B ?friend_getScienceNames@ScienceStore@@QBE?AV?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@XZ -- matched in Code/GameEngine/Source/Common/RTS/ScienceStoreFindScienceInfo.cpp (not merged yet)
 
 // tu-skeleton: 0x001FFD2C 63B ??1DynamicPortalLinkVectorCopy1FFD2C@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalLinkVector.cpp (not merged yet)
@@ -500,7 +575,23 @@ void *__cdecl Rva001FFC38Copy(void *a, void *b, void *c, void *d)
 
 // tu-skeleton: 0x001FFE93 86B ??1Rva001FFE93@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalLinkVector.cpp (not merged yet)
 
-// tu-skeleton: 0x001FFEE9 81B ??4Rva001FFEE9@@QAEAAV0@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Rva001FFEE9Assign.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva001FFEE9Assign.cpp
+
+// UnicodeString is StringBase<WideChar>; its set is the inherited
+// StringBase<unsigned short>::set, the row at 0x00037150 the calls land on.
+
+Rva001FFEE9 &Rva001FFEE9::operator=(const Rva001FFEE9 &that)
+{
+	*(FXParticleSystem::CategoryModuleInfo<0> *)this = *(const FXParticleSystem::CategoryModuleInfo<0> *)&that;
+	m_10 = that.m_10;
+	m_14.set(that.m_14);
+	m_18.set(that.m_18);
+	*(Rva001FFD6BRecordVector *)&m_1C = *(const Rva001FFD6BRecordVector *)&that.m_1C;
+	m_28 = that.m_28;
+	m_2C = that.m_2C;
+	m_30 = that.m_30;
+	return *this;
+}
 
 // tu-skeleton: 0x001FFF3A 330B ?friend_parseScienceDefinition@ScienceStore@@SAXPAVINI@@@Z -- matched in Code/GameEngine/Source/Common/RTS/ScienceStoreParseScienceDefinition.cpp (not merged yet)
 
