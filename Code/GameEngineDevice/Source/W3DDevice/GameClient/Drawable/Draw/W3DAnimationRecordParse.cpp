@@ -21,11 +21,49 @@ struct BfmeVectorRecord000BDF17 {
 };
 
 #include <string.h>
-extern "C" void _ReadWriteBarrier(void);
+extern "C"
+{
+void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
+}
 class INI;typedef void(*INIFieldParseProc)(INI*,void*,void*,const void*);
-struct FieldParse{const char*token;INIFieldParseProc parse;const void*userData;int offset;};
-class INI{public:static void parseAsciiStringVector(INI*,void*,void*,const void*);static void parseIndexList(INI*,void*,void*,const void*);static void parseReal(INI*,void*,void*,const void*);static void parseBool(INI*,void*,void*,const void*);static void parseInt(INI*,void*,void*,const void*);AsciiString getNextAsciiString();void initFromINI(void*,const FieldParse*);};
+struct FieldParse
+{
+public:
+	const char *token; // +0x00
+	INIFieldParseProc parse; // +0x04
+	const void *userData; // +0x08
+	int offset; // +0x0C
+};
+class INI
+{
+public:
+	const char *getNextTokenOrNull(const char *seps); // 0x0002DEED
+	void initFromINI(void *what, const FieldParse *parseTable); // 0x0002DE78
+	static void parseBool(INI *ini, void *instance, void *store, const void *userData);
+	static void parseReal(INI *ini, void *instance, void *store, const void *userData);
+	static void parseUnsignedInt(INI *ini, void *instance, void *store, const void *userData);
+	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
+	static void Rva000C2B23_ParseModelName(INI *ini, void *instance, void *store, const void *userData);
+	static void Rva000B6E5A_ParseLowercasedString(INI *ini, void *instance, void *store, const void *userData);
+	static void Rva000C3824_ParseTexturePair(INI *ini, void *instance, void *store, const void *userData);
+	static void Rva000C3AB3Parse(INI *ini, void *instance, void *store, const void *userData);
+	static void Rva000B9AFF_ParseShadowEvent(INI *ini, void *instance, void *store, const void *userData);
+	static void Rva000B2D93_ParseShadowReal(INI *ini, void *instance, void *store, const void *userData);
+	static void Rva000B2DBB_ParseShadowAsciiString(INI *ini, void *instance, void *store, const void *userData);
+	static void Rva000B2DE3_ParseShadowBool(INI *ini, void *instance, void *store, const void *userData);
+	static void Rva000C2C5FParseBoneRecord(INI *ini, void *instance, void *store, const void *userData);
+	static void Rva000B6E9E_ParseTurretArtAngle(INI *ini, void *instance, void *store, const void *userData);
+	static void Rva000C2CA4ParseTurretPitch(INI *ini, void *instance, void *store, const void *userData);
+	static void Rva000B6EBE_ParseTurretArtPitch(INI *ini, void *instance, void *store, const void *userData);
+	AsciiString getNextAsciiString();
+	const char *getNextToken(const char *delimiter = 0);
+	static void parseAsciiStringVector(INI*,void*,void*,const void*);
+	static void parseIndexList(INI*,void*,void*,const void*);
+	static void parseInt(INI*,void*,void*,const void*);
+	char m_pad00[0x420];
+	const char *m_420; // +0x420
+};
 extern const FieldParse animationRecordFields[];
 struct Rva000C838FOwner{char prefix[0x50];_STL::vector<BfmeVectorRecord000BDF17>animations;};
 namespace _STL{template<>void vector<BfmeVectorRecord000BDF17>::push_back(const BfmeVectorRecord000BDF17&);}

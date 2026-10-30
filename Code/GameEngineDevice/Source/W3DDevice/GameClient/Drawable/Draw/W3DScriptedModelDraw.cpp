@@ -7,6 +7,7 @@
 #define NAMEKEY(s) TheNameKeyGenerator->nameToKey(s)
 #define TheBarrelDebug (*(Rva000BE775Debug **)&theDebug)
 class HTreeClass;
+class INI;
 // The empty string at 0x00BBAC1C under the name Rva000B992CBuild.cpp gives it.
 extern const char g_Rva0107301CEmptyString[];
 AsciiString Rva000BDD6CReplace(const AsciiString &source, const AsciiString &find, const AsciiString &replace);
@@ -77,6 +78,7 @@ struct ModelConditionInfo
 		Matrix3D m_projectileOffsetMtx;   // +0x0C
 		WeaponBarrelInfo();
 	};
+	static void parseRealRange(INI *ini, void *instance, void *store, const void *userData);
 };
 
 typedef ModelConditionInfo::WeaponBarrelInfo WeaponBarrelInfo;
@@ -204,17 +206,18 @@ typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const v
 
 struct FieldParse
 {
-	const char *token;
-	INIFieldParseProc parse;
-	const void *userData;
-	int offset;
+public:
+	const char *token; // +0x00
+	INIFieldParseProc parse; // +0x04
+	const void *userData; // +0x08
+	int offset; // +0x0C
 };
 
 class INI
 {
 public:
-	const char *getNextTokenOrNull(const char *seps);			// 0x0002DEED
-	void initFromINI(void *what, const FieldParse *parseTable);	// 0x0002DE78
+	const char *getNextTokenOrNull(const char *seps); // 0x0002DEED
+	void initFromINI(void *what, const FieldParse *parseTable); // 0x0002DE78
 	static void parseBool(INI *ini, void *instance, void *store, const void *userData);
 	static void parseReal(INI *ini, void *instance, void *store, const void *userData);
 	static void parseUnsignedInt(INI *ini, void *instance, void *store, const void *userData);
@@ -231,6 +234,13 @@ public:
 	static void Rva000B6E9E_ParseTurretArtAngle(INI *ini, void *instance, void *store, const void *userData);
 	static void Rva000C2CA4ParseTurretPitch(INI *ini, void *instance, void *store, const void *userData);
 	static void Rva000B6EBE_ParseTurretArtPitch(INI *ini, void *instance, void *store, const void *userData);
+	AsciiString getNextAsciiString();
+	const char *getNextToken(const char *delimiter = 0);
+	static void parseAsciiStringVector(INI*,void*,void*,const void*);
+	static void parseIndexList(INI*,void*,void*,const void*);
+	static void parseInt(INI*,void*,void*,const void*);
+	char m_pad00[0x420];
+	const char *m_420; // +0x420
 };
 
 void ParseScriptedModelParticleSysBone(INI *ini, void *instance, void *store, const void *userData);
@@ -366,15 +376,16 @@ struct ScriptedModelConditionInfo
 	unsigned char m_tail[252 - 0x4c - sizeof(_STL::vector<AsciiString>)];
 };
 
+struct WeightedModel;
 class W3DScriptedModelDrawModuleData
 {
 public:
+	struct AttachModelStruct { char pad[0x10]; _STL::vector<WeightedModel> models; static void parseModel(INI *ini, void *instance, void *store, const void *userData); };
 	static void parseConditionState(INI *ini, void *instance, void *store, const void *userData);
-
-	unsigned char m_pad00[0x18];
-	_STL::vector<BfmePod252> m_conditionStates;		// +0x18
-	unsigned char m_pad24[0x4c - 0x24];
-	int m_defaultState;								// +0x4C
+	char m_pad00[0x18];
+	_STL::vector<BfmePod252> m_conditionStates; // +0x18 +0x18
+	char m_pad24[0x28];
+	int m_defaultState; // +0x4C +0x4C
 };
 
 // tu-skeleton: 0x00761697 8B $L2438 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawEventUpdate.cpp (not merged yet)
