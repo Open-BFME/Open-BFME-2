@@ -6576,7 +6576,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x000BC874,317,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DScriptedTransitionAssetsRva000BC874.cpp
 0x000BC9B1,164,code,,,-,,Code/GameEngine/Source/Common/Rva000BC9B1Cleanup.cpp
 0x000BCA55,28,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_set_int_wrapper.cpp
-0x000BCA71,846,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/ModelSMConditionInfo.cpp,proposed,N,N=Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/ModelSMConditionInfo.cpp W=Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DScriptedModelDraw.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/ModelSMConditionInfoGetAssetList.cpp
+0x000BCA71,846,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/ModelSMConditionInfo.cpp,proposed,N,N=Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/ModelSMConditionInfo.cpp W=Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DScriptedModelDraw.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/ModelSMConditionInfo.cpp
 0x000BCDBF,93,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_stringrecord_b94d2_allocate_copy.cpp
 0x000BCE1C,26,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_pod_list_bodies.cpp
 0x000BCE36,96,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva000bb491_allocate_copy.cpp
@@ -63317,16 +63317,16 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007616F7,10,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DScriptedTransitionAssetsRva000BC874.cpp
 0x00761701,8,code,,,-,,Code/GameEngine/Source/Common/Rva000BC9B1Cleanup.cpp
 0x00761709,10,code,,,-,,Code/GameEngine/Source/Common/Rva000BC9B1Cleanup.cpp
-0x00761713,8,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/ModelSMConditionInfo.cpp,approved,P,P=0x000BCA71@FuncInfo0x00904C80 p-group provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/ModelSMConditionInfoGetAssetList.cpp
-0x0076171B,8,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/ModelSMConditionInfo.cpp,approved,P,P=0x000BCA71@FuncInfo0x00904C80 p-group provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/ModelSMConditionInfoGetAssetList.cpp
-0x00761723,8,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/ModelSMConditionInfo.cpp,approved,P,P=0x000BCA71@FuncInfo0x00904C80 p-group provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/ModelSMConditionInfoGetAssetList.cpp
-0x0076172B,8,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/ModelSMConditionInfo.cpp,approved,P,P=0x000BCA71@FuncInfo0x00904C80 p-group provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/ModelSMConditionInfoGetAssetList.cpp
-0x00761733,8,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/ModelSMConditionInfo.cpp,approved,P,P=0x000BCA71@FuncInfo0x00904C80 p-group provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/ModelSMConditionInfoGetAssetList.cpp
-0x0076173B,8,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/ModelSMConditionInfo.cpp,approved,P,P=0x000BCA71@FuncInfo0x00904C80 p-group provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/ModelSMConditionInfoGetAssetList.cpp
-0x00761743,8,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/ModelSMConditionInfo.cpp,approved,P,P=0x000BCA71@FuncInfo0x00904C80 p-group provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/ModelSMConditionInfoGetAssetList.cpp
-0x0076174B,8,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/ModelSMConditionInfo.cpp,approved,P,P=0x000BCA71@FuncInfo0x00904C80 p-group provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/ModelSMConditionInfoGetAssetList.cpp
-0x00761753,8,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/ModelSMConditionInfo.cpp,approved,P,P=0x000BCA71@FuncInfo0x00904C80 p-group provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/ModelSMConditionInfoGetAssetList.cpp
-0x0076175B,10,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/ModelSMConditionInfo.cpp,approved,P,P=0x000BCA71@FuncInfo0x00904C80 p-group provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/ModelSMConditionInfoGetAssetList.cpp
+0x00761713,8,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/ModelSMConditionInfo.cpp,approved,P,P=0x000BCA71@FuncInfo0x00904C80 p-group provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/ModelSMConditionInfo.cpp
+0x0076171B,8,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/ModelSMConditionInfo.cpp,approved,P,P=0x000BCA71@FuncInfo0x00904C80 p-group provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/ModelSMConditionInfo.cpp
+0x00761723,8,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/ModelSMConditionInfo.cpp,approved,P,P=0x000BCA71@FuncInfo0x00904C80 p-group provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/ModelSMConditionInfo.cpp
+0x0076172B,8,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/ModelSMConditionInfo.cpp,approved,P,P=0x000BCA71@FuncInfo0x00904C80 p-group provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/ModelSMConditionInfo.cpp
+0x00761733,8,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/ModelSMConditionInfo.cpp,approved,P,P=0x000BCA71@FuncInfo0x00904C80 p-group provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/ModelSMConditionInfo.cpp
+0x0076173B,8,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/ModelSMConditionInfo.cpp,approved,P,P=0x000BCA71@FuncInfo0x00904C80 p-group provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/ModelSMConditionInfo.cpp
+0x00761743,8,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/ModelSMConditionInfo.cpp,approved,P,P=0x000BCA71@FuncInfo0x00904C80 p-group provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/ModelSMConditionInfo.cpp
+0x0076174B,8,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/ModelSMConditionInfo.cpp,approved,P,P=0x000BCA71@FuncInfo0x00904C80 p-group provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/ModelSMConditionInfo.cpp
+0x00761753,8,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/ModelSMConditionInfo.cpp,approved,P,P=0x000BCA71@FuncInfo0x00904C80 p-group provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/ModelSMConditionInfo.cpp
+0x0076175B,10,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/ModelSMConditionInfo.cpp,approved,P,P=0x000BCA71@FuncInfo0x00904C80 p-group provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/ModelSMConditionInfo.cpp
 0x00761765,8,code,,,-,,Code/gen_small/uw_gen_010.cpp
 0x0076176D,10,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_map_namekey_pristinebone.cpp
 0x00761777,8,code,,,-,,Code/GameEngine/Source/GameClient/AssetListOperatorInsert.cpp
