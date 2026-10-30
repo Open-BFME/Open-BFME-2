@@ -17453,7 +17453,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009C9954,844,.data,global,?TheMeleeBehaviorNames@@3PAPBDA,,unowned,,0,1
 0x009C9CA0,4580,.data,global,?dataFieldParse@?1??buildFieldParse@RiderChangeContainModuleData@@SAXAAVMultiIniFieldParse@@@Z@4QBUFieldParse@@B,Code/GameEngine/Source/GameLogic/Object/Contain/RiderChangeContainModuleDataParse.cpp,owned,,1,11
 0x009CAE84,1608,.data,global,?g_00DCAE84@@3PAPBDA,,unowned,,0,1
-0x009CB4CC,1984,.data,global,?g_00DCB4CC@@3HA,Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorModuleDataCtor.cpp,owned,,1,3
+0x009CB4CC,1984,.data,global,?g_00DCB4CC@@3HA,Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehavior.cpp,owned,,1,3
 0x009CBC8C,84,.data,global,?TheStructureCollapsePhaseNames@@3PAPBDA,,unowned,,0,2
 0x009CBCE0,80,.data,global,?TheRubbleRisePhaseNames@@3PAPBDA,,unowned,,0,2
 0x009CBD30,532,.data,global,?TheStructureTopplePhaseNames@@3PAPBDA,,unowned,,0,1
