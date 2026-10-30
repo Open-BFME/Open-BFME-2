@@ -14351,3 +14351,12 @@ the outgoing base `0b2b06a5e4`, and affected consumer
 provider/caller scope and broader affected consumers into the next scheduled
 census; the bounded preview does not establish full-image selected-provider
 or loss clearance.
+
+The separate consolidation now absorbs the two-argument resize donor and removes
+one source file. All seven rows and the 19 code definitions/reference graph
+survive composition; the destination's strict receipts and four-unit caller
+preview pass (3,272 bytes including the moved 73 bytes, no coverage gain).
+The broader outgoing batch audit remains INCONCLUSIVE on the older index and
+missing current `Common/0CreateAHeroManager21FE49.cpp` affected-consumer receipt.
+Carry the source moves and broader selected-provider/consumer scope into the
+next scheduled census; this does not clear the other quadruped prerequisites.

@@ -48,3 +48,53 @@ cleanup prerequisites, not lost coverage.
 The committed TU map is stale; the merge tool rebuilds approval in memory.
 The destination is approved provisionally, rather than by a retail __FILE__
 anchor. WorldBuilder's related path is evidence for that binary only.
+
+## Applied merge and compatibility audit
+
+`tu_skeleton.py --merge` absorbs only the resize donor and repoints its sole
+function and TU-map source cell. The committed map is not regenerated. This
+removes one Code source file, retaining all seven rows. The new source passes
+its frozen check, normal byte build, strict provider preparation, string and
+import/float-reference checks. The ordinary preview retains 440 authored bytes
+in the destination (367 seed + 73 donor); this is relocation of existing
+coverage, not a linking gain.
+
+The merged object's 19 normalized code/relocation definitions, strong names,
+roots and reference edges exactly equal the two reconciled objects' union.
+The only removed undefined is fillInsert, now defined in the same object.
+The resize's erase target stays with Rva007D85C0FilterShutdown.cpp at 0x002A133B;
+the fill target is the unchanged 0x000CA1EE body in the destination. The merge's
+census LinkGuard accepts the retired-donor composition and selected-provider
+bindings. Broader outgoing-consumer confirmation is separately qualified below.
+
+Register review: neither source has code-identity, data-check, hatch, flag,
+canonical-header or Microsoft-header queue keys to transfer or retire. The
+seed's two pool-name/guard globals in data_ledger.csv retain their owner.
+The Matrix3D/Vector4 queue entries stay on the rejected foot-location source.
+No baseline or whitelist is edited; the Microsoft-header check passes.
+
+The path-consumer audit covers both deletions pending over origin/master
+(e1f46279c7): this resize donor and the previously queued Rva00451EACMethod.cpp
+SpecialAbilityUpdate donor. Searches of tools, hooks, workflows, source includes,
+docs and reverse registers find only source provenance comments, historical
+attempt evidence, documentation and the last census's link_status.csv. No active
+old-path tool/include/build consumer needs a change. Historical references and
+census status are retained. Both moved rows resolve to their current source
+owners. The consolidation planner is regenerated after composition and its
+`--check build/consolidation` currency check passes. The tool's single-cell
+TU-map repoint accompanies the core ledger change; no approval is invented.
+
+Strict preparation also verifies 68/68 rows in the five explicitly required
+current providers/callers (HugeFourLegs, DockUpdateCtor, default resize,
+SpecialAbilityUpdate and its Run helper). A bounded ordinary preview is 4/4
+LINKS for the merged seed, HugeFourLegs, DockUpdateCtor and default resize:
+3,272 bytes after composition equals their previous 3,199 plus the absorbed
+73-byte donor. This is the same census cohort, not a headline measurement.
+
+The staged-tree outgoing batch audit is **INCONCLUSIVE**: the available index
+is still `12b9e7a7c0`, older than outgoing base `e1f46279c7`, and the broader
+affected consumer `Common/0CreateAHeroManager21FE49.cpp` lacks a current receipt.
+The five initial missing receipts were prepared successfully before this verdict.
+Do not treat it as full-image clearance. Carry the pending published source
+moves, resize callers and wider selected-provider/consumer scope into the next
+scheduled census. No direct census or smoke runner is started here.
