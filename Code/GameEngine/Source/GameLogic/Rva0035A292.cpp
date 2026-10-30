@@ -29,11 +29,16 @@ struct Rva0035A292Argument
 class Rva0035A292
 {
 public:
-	void rva0035A292(int argument, float value);
 	void rva0035A005(int argument, float value);
+	void rva0035A292(int argument, float value);
+	char m_pad00[0x14];
 private:
-	char unknown00[0x14];
-	_STL::list<int> keys;
+	_STL::list<int> keys; // +0x14
+	float m_18; // +0x18
+	float m_originX1C; // +0x1C
+	float m_originY20; // +0x20
+	char m_pad24[0x18];
+	float m_cell3C; // +0x3C
 };
 
 void Rva0035A292::rva0035A292(int argument, float value)

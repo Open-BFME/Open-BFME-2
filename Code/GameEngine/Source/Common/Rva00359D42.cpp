@@ -6,14 +6,28 @@
 class Player
 {
 public:
-	int m_00[21];
-	int m_side;
+	int m_00[21]; // +0x00
+	int m_side; // +0x54
 };
 
+class Player;
+class Module;
+class Rva0035A292;
+enum CellShroudStatus;
+enum NameKeyType { NAMEKEY_INVALID = 0 };
 class Object
 {
+protected:
+	friend class Rva0035A292;
+public:
+	float x38() const { return *(const float *)((const char *)this + 0x38); }
+	float y3C() const { return *(const float *)((const char *)this + 0x3c); }
+	unsigned int id74() const { return *(const unsigned int *)((const char *)this + 0x74); }
+protected:
+	Module *findModule(NameKeyType) const;
 public:
 	Player *getControllingPlayer() const;
+	CellShroudStatus getShroudStatusForPlayer(int) const;
 };
 
 
@@ -35,13 +49,48 @@ struct Entry00359D42
 	char m_pad[3];
 };
 
-class TerrainResourceManager
-{
+struct Entry00359D42;
+class Cb00359D42;
+struct ResourceCell;
+class TerrainResourceManager {
 public:
 	void enumerateRegisteredClaimants(int mask, Cb00359D42 *cb);
+	void rva003598A5(int,int,int,void *);
+public:
+	void rva0035997F(int,int,int,void *);
+public:
+	float rva00359A0C(float,float,float,bool,int);
+public:
+	unsigned int getCellClaimant(int,int,int);
+public:
+	void updateMapConstantCells();
+public:
+	float getCellSize() const { return cell3C; }
 private:
-	int m_00[5];
+	char pad00[0x14];
 	Entry00359D42 *m_list;
+	char pad18[4];
+private:
+	float originX1C, originY20;
+private:
+	char pad24[0x10];
+private:
+	int width34,height38;
+private:
+	float cell3C;
+private:
+	ResourceCell *cells40;
+public:
+	void tryToClaimCell(int,int,int,ObjectID,bool,int*,int*);
+public:
+	bool isCellClaimable(int, int, int, int, bool, int);
+public:
+	void rva0035A61F(unsigned int *color, int x, int y, int claimant);
+private:
+	__forceinline bool isClaimable(int cx, int cy, int claimant)
+	{
+		return isCellClaimable(cx, cy, 0, 0, false, claimant);
+	}
 };
 
 void TerrainResourceManager::enumerateRegisteredClaimants(int mask, Cb00359D42 *cb)

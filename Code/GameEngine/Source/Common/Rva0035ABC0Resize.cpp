@@ -12,7 +12,8 @@
 
 struct BfmePod8
 {
-	int a[2];
+public:
+	int a[2]; // +0x00
 };
 
 class BfmePod8Vector : public _STL::vector<BfmePod8, _STL::allocator<BfmePod8> >

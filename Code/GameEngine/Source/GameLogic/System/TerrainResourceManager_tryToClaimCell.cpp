@@ -25,20 +25,43 @@
 class Player
 {
 public:
-	char m_pad00[0x54];
-	int m_playerIndex; // +0x54
+	int m_00[21]; // +0x00
+	int m_side; // +0x54
 };
 
+class Player;
+class Module;
+class Rva0035A292;
+enum CellShroudStatus;
+enum NameKeyType { NAMEKEY_INVALID = 0 };
 class Object
 {
+protected:
+	friend class Rva0035A292;
+public:
+	float x38() const { return *(const float *)((const char *)this + 0x38); }
+	float y3C() const { return *(const float *)((const char *)this + 0x3c); }
+	unsigned int id74() const { return *(const unsigned int *)((const char *)this + 0x74); }
+protected:
+	Module *findModule(NameKeyType) const;
 public:
 	Player *getControllingPlayer() const;
+	CellShroudStatus getShroudStatusForPlayer(int) const;
 };
 
 extern GameLogic *TheGameLogic;
 
-struct BfmeE8 { int a, b; };
-struct BfmePod8 { int a[2]; };
+struct BfmeE8
+{
+public:
+	int a; // +0x00
+	int b; // +0x04
+};
+struct BfmePod8
+{
+public:
+	int a[2]; // +0x00
+};
 
 namespace _STL {
 // Retail calls both out of line.
@@ -55,24 +78,53 @@ public:
 	int state;
 };
 
-class TerrainResourceManager
-{
+struct Entry00359D42;
+class Cb00359D42;
+struct ResourceCell;
+class TerrainResourceManager {
+public:
+	void enumerateRegisteredClaimants(int mask, Cb00359D42 *cb);
+	void rva003598A5(int,int,int,void *);
+public:
+	void rva0035997F(int,int,int,void *);
+public:
+	float rva00359A0C(float,float,float,bool,int);
+public:
+	unsigned int getCellClaimant(int,int,int);
+public:
+	void updateMapConstantCells();
+public:
+	float getCellSize() const { return cell3C; }
+private:
+	char pad00[0x14];
+	Entry00359D42 *m_list;
+	char pad18[4];
+private:
+	float originX1C, originY20;
+private:
+	char pad24[0x10];
+private:
+	int width34,height38;
+private:
+	float cell3C;
+private:
+	ResourceCell *cells40;
+public:
+	void tryToClaimCell(int,int,int,ObjectID,bool,int*,int*);
 public:
 	bool isCellClaimable(int, int, int, int, bool, int);
-	void tryToClaimCell(int cellX, int cellY, int a, ObjectID id, bool exclusive, int *attempts, int *successes);
-
+public:
+	void rva0035A61F(unsigned int *color, int x, int y, int claimant);
 private:
-	void *m_vtable00;
-	unsigned char m_opaque04[0x30];
-	int m_width; // +0x34
-	int m_height; // +0x38
-	float m_value3C;
-	Rva0035A18D *m_cells; // +0x40
+	__forceinline bool isClaimable(int cx, int cy, int claimant)
+	{
+		return isCellClaimable(cx, cy, 0, 0, false, claimant);
+	}
 };
 
 void TerrainResourceManager::tryToClaimCell(int cellX, int cellY, int a, ObjectID id, bool exclusive, int *attempts, int *successes)
 {
-	if (m_cells == 0)
+	if (cells40 == 0)
 		return;
 	++*attempts;
 	if (!isCellClaimable(cellX, cellY, a, id, exclusive, -1))
@@ -83,8 +135,8 @@ void TerrainResourceManager::tryToClaimCell(int cellX, int cellY, int a, ObjectI
 	Player *player = obj->getControllingPlayer();
 	if (player == 0)
 		return;
-	int claimerPlayerID = player->m_playerIndex;
-	Rva0035A18D *cell = &m_cells[cellY * m_width + cellX];
+	int claimerPlayerID = player->m_side;
+	Rva0035A18D *cell = &reinterpret_cast<Rva0035A18D *>(cells40)[cellY * width34 + cellX];
 	_STL::vector<BfmeE8> *claimants = (_STL::vector<BfmeE8> *)&cell->values;
 	switch (cell->state)
 	{

@@ -14,7 +14,8 @@
 
 struct BfmePod8
 {
-	int a[2];
+public:
+	int a[2]; // +0x00
 };
 // vector<BfmePod8>::erase(first,last) otherwise emits a per-TU COMDAT that loses to the
 // owner's copy; this declaration-only specialization binds the call to the kept one.

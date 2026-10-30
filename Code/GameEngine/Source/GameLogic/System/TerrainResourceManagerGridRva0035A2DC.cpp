@@ -5,12 +5,22 @@
 #define _CRTIMP __declspec(dllimport)
 #include <math.h>
 #include <vector>
+#include <list>
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../Common/GameLogicObjectLookupView.h"
 
 #include "../../../../Libraries/Include/Lib/Region3D.h"
-struct BfmePod8 {int a[2];};
-struct BfmeE8 {int a,b;};
+struct BfmePod8
+{
+public:
+	int a[2]; // +0x00
+};
+struct BfmeE8
+{
+public:
+	int a; // +0x00
+	int b; // +0x04
+};
 namespace _STL {template<> void vector<BfmeE8,allocator<BfmeE8> >::reserve(unsigned int);}
 class Rva0035A18D {
 public: Rva0035A18D();~Rva0035A18D();
@@ -20,14 +30,80 @@ class PlayerList {public:int rva002A7C0B(bool);};
 extern PlayerList *ThePlayerList;
 extern GameLogic *TheGameLogic;
 struct Rva0035A238Argument;
-class Rva0035A238 {public:void rva00359E93(Rva0035A238Argument*,float,bool,bool);};
-class TerrainResourceManager {public:void updateMapConstantCells();};
+class Rva000CBA20;
+struct BfmePod12;
+class Rva0035A238
+{
+public:
+	void rva0035A238(Rva0035A238Argument *argument, float value, bool flag, bool front);
+	void rva00359E93(Rva0035A238Argument *argument, float value, bool front, bool extra);
+	void rva00359D99(Rva000CBA20 *center, float radius);
+	void rva0035A14F(Rva0035A238Argument *argument);
+private:
+	char unknown00[0x14];
+	_STL::list<BfmePod12> records;
+};
+struct Entry00359D42;
+class Cb00359D42;
+struct ResourceCell;
+class TerrainResourceManager {
+public:
+	void enumerateRegisteredClaimants(int mask, Cb00359D42 *cb);
+	void rva003598A5(int,int,int,void *);
+public:
+	void rva0035997F(int,int,int,void *);
+public:
+	float rva00359A0C(float,float,float,bool,int);
+public:
+	unsigned int getCellClaimant(int,int,int);
+public:
+	void updateMapConstantCells();
+public:
+	float getCellSize() const { return cell3C; }
+private:
+	char pad00[0x14];
+	Entry00359D42 *m_list;
+	char pad18[4];
+private:
+	float originX1C, originY20;
+private:
+	char pad24[0x10];
+private:
+	int width34,height38;
+private:
+	float cell3C;
+private:
+	ResourceCell *cells40;
+public:
+	void tryToClaimCell(int,int,int,ObjectID,bool,int*,int*);
+public:
+	bool isCellClaimable(int, int, int, int, bool, int);
+public:
+	void rva0035A61F(unsigned int *color, int x, int y, int claimant);
+private:
+	__forceinline bool isClaimable(int cx, int cy, int claimant)
+	{
+		return isCellClaimable(cx, cy, 0, 0, false, claimant);
+	}
+};
 class Rva00359E04Owner;
+class Rva00359E04Listener;
 class Rva00359E04Listener {
 public:virtual void slot00();virtual void slot01();virtual void notify00(Rva00359E04Owner*);
 };
-class Rva00359BE8List {
-public:void forEach(void (Rva00359E04Listener::*)(Rva00359E04Owner*),Rva00359E04Owner*);
+class Rva00359E04Listener;
+class Rva00359E04Owner;
+struct Rva00359AECCall;
+class Rva00359BE8List
+{
+public:
+	void forEach(void (Rva00359E04Listener::*notify)(Rva00359E04Owner *), Rva00359E04Owner *owner);
+	void apply(const Rva00359AECCall &call);
+private:
+	Rva00359E04Listener **m_begin;
+	Rva00359E04Listener **m_end;
+	Rva00359E04Listener **m_capacity;
+	unsigned int m_index;
 };
 struct StoredClaim {StoredClaim *next,*prev;ObjectID id;float radius;bool flag,extra;char pad[2];};
 class Rva0035A2DC {

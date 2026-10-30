@@ -5,6 +5,8 @@
 #define inline static inline
 #include <math.h>
 #pragma pop_macro("inline")
+// stlport
+#include <list>
 #include "TerrainResourceVisitorView.h"
 // The existing ratio provider reads the complete visitor's counters10/14.
 class Rva00359835 { public: float rva00359835() const; };
@@ -106,6 +108,7 @@ private:
 // names they declare (slots at +0x10 and others with the owner as argument).
 class Rva00359E04Owner;
 
+class Rva00359E04Listener;
 class Rva00359E04Listener
 {
 public:
@@ -118,17 +121,19 @@ struct Rva00359AECCall
 	Rva00359E04Owner *owner;
 };
 
+class Rva00359E04Listener;
+class Rva00359E04Owner;
+struct Rva00359AECCall;
 class Rva00359BE8List
 {
 public:
 	void forEach(void (Rva00359E04Listener::*notify)(Rva00359E04Owner *), Rva00359E04Owner *owner);
 	void apply(const Rva00359AECCall &call);
-
 private:
-	Rva00359E04Listener **m_begin;		// +0x00
-	Rva00359E04Listener **m_end;		// +0x04
-	Rva00359E04Listener **m_capacity;	// +0x08
-	unsigned int m_index;	// +0x0C
+	Rva00359E04Listener **m_begin;
+	Rva00359E04Listener **m_end;
+	Rva00359E04Listener **m_capacity;
+	unsigned int m_index;
 };
 
 extern GameLogic *TheGameLogic;
@@ -144,23 +149,16 @@ struct BfmePod12
 
 namespace _STL
 {
-	template<class T> class allocator {};
-	template<class T, class A = allocator<T> > class list
-	{
-	public:
-		struct Node
-		{
-			Node *next;
-			Node *previous;
-			T data;
-		};
-		Node *begin() const { return head->next; }
-		Node *end() const { return head; }
-		void push_front(const T &);
-		void push_back(const T &);
-	private:
-		Node *head;
-	};
+	template <> void list<BfmePod12>::push_front(const BfmePod12 &);
+	template <> void list<BfmePod12>::push_back(const BfmePod12 &);
+
+}
+
+namespace _STL {
+template <class _IterTp, class _LeftTraits, class _RightTraits>
+static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
+                              const _List_iterator<_IterTp, _RightTraits> &b)
+{ return a._M_node != b._M_node; }
 }
 
 struct Rva0035A238Argument
@@ -192,8 +190,12 @@ private:
 // ?rva0035A61F@TerrainResourceManager@@QAEXPAIHHH@Z
 typedef unsigned int Rva0035A61FColor;
 
+struct Entry00359D42;
+class Cb00359D42;
+struct ResourceCell;
 class TerrainResourceManager {
 public:
+	void enumerateRegisteredClaimants(int mask, Cb00359D42 *cb);
 	void rva003598A5(int,int,int,void *);
 public:
 	void rva0035997F(int,int,int,void *);
@@ -206,7 +208,9 @@ public:
 public:
 	float getCellSize() const { return cell3C; }
 private:
-	char pad00[0x1c];
+	char pad00[0x14];
+	Entry00359D42 *m_list;
+	char pad18[4];
 private:
 	float originX1C, originY20;
 private:
@@ -222,7 +226,7 @@ public:
 public:
 	bool isCellClaimable(int, int, int, int, bool, int);
 public:
-	void rva0035A61F(Rva0035A61FColor *color, int x, int y, int claimant);
+	void rva0035A61F(unsigned int *color, int x, int y, int claimant);
 private:
 	__forceinline bool isClaimable(int cx, int cy, int claimant)
 	{
@@ -240,15 +244,23 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 
 class Rva0035A292;
 
+class Player;
+class Module;
+class Rva0035A292;
+enum CellShroudStatus;
 class Object
 {
+protected:
+	friend class Rva0035A292;
 public:
 	float x38() const { return *(const float *)((const char *)this + 0x38); }
 	float y3C() const { return *(const float *)((const char *)this + 0x3c); }
 	unsigned int id74() const { return *(const unsigned int *)((const char *)this + 0x74); }
 protected:
 	Module *findModule(NameKeyType) const;
-	friend class Rva0035A292;
+public:
+	Player *getControllingPlayer() const;
+	CellShroudStatus getShroudStatusForPlayer(int) const;
 };
 
 class Rva00481FAFFloatSlot { public: void store(float); };
@@ -273,13 +285,15 @@ class Rva0035A292
 {
 public:
 	void rva0035A005(int argument, float value);
+	void rva0035A292(int argument, float value);
+	char m_pad00[0x14];
 private:
-	char pad00[0x18];
-	float m_18;
-	float m_originX1C;
-	float m_originY20;
-	char pad24[0x18];
-	float m_cell3C;
+	_STL::list<int> keys; // +0x14
+	float m_18; // +0x18
+	float m_originX1C; // +0x1C
+	float m_originY20; // +0x20
+	char m_pad24[0x18];
+	float m_cell3C; // +0x3C
 };
 
 // ---- from Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp
@@ -491,11 +505,11 @@ void Rva0035A238::rva0035A238(Rva0035A238Argument *argument, float value, bool f
 void Rva0035A238::rva00359D99(Rva000CBA20 *center, float radius)
 {
 	radius *= radius;
-	for (_STL::list<BfmePod12>::Node *item = records.begin(); item != records.end(); item = item->next)
+	for (_STL::list<BfmePod12>::iterator item = records.begin(); item != records.end(); ++item)
 	{
-		Object *object = TheGameLogic->findObjectByID(static_cast<ObjectID>(item->data.key));
+		Object *object = TheGameLogic->findObjectByID(static_cast<ObjectID>(item->key));
 		if (object && center->distSq(reinterpret_cast<const Rva000CBA20Point *>(reinterpret_cast<char *>(object) + 0x38)) <= radius)
-			rva00359E93(reinterpret_cast<Rva0035A238Argument *>(object), item->data.value, false, item->data.zero);
+			rva00359E93(reinterpret_cast<Rva0035A238Argument *>(object), item->value, false, item->zero);
 	}
 }
 
@@ -504,12 +518,12 @@ void Rva0035A238::rva00359D99(Rva000CBA20 *center, float radius)
 // dispatches the existing callback and sets the node's +11 flag.
 void Rva0035A238::rva0035A14F(Rva0035A238Argument *argument)
 {
-	for (_STL::list<BfmePod12>::Node *item = records.begin(); item != records.end(); item = item->next)
+	for (_STL::list<BfmePod12>::iterator item = records.begin(); item != records.end(); ++item)
 	{
-		if (item->data.key == argument->key)
+		if (item->key == argument->key)
 		{
-			rva00359E93(argument, item->data.value, false, true);
-			item->data.zero = true;
+			rva00359E93(argument, item->value, false, true);
+			item->zero = true;
 		}
 	}
 }
