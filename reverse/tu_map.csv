@@ -54348,8 +54348,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00626FB0,100,code,Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp,approved,U,N=Code/Libraries/Source/partitionmanager/BfmeHostER.cpp provisional,Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp
 0x00627020,101,code,Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp,approved,U,N=Code/Libraries/Source/partitionmanager/BfmeHostES.cpp provisional,Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp
 0x00627090,64,code,Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp,approved,C,C=0x00627020..0x006270D0 provisional,Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp
-0x006270D0,83,code,Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp,approved,C,C=0x00627020..0x00627130 provisional,Code/GameEngine/Source/Common/BfmeConv2034.cpp
-0x00627130,145,code,Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp,approved,C,C=0x00627020..0x006271D0 provisional,Code/GameEngine/Source/GameLogic/Object/distCalcProc_BoundaryAndBoundary_3D.cpp
+0x006270D0,83,code,Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp,approved,C,C=0x00627020..0x00627130 provisional,Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp
+0x00627130,145,code,Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp,approved,C,C=0x00627020..0x006271D0 provisional,Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp
 0x006271D0,225,code,Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp,approved,N,N=Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp provisional,Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp
 0x006272C0,12,code,Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp,approved,C,C=0x006271D0..0x006272D0 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pair.cpp
 0x006272D0,5,code,Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp,approved,C,C=0x006271D0..0x006272E0 provisional,Code/GameEngine/Source/Common/Disp8DwordFieldIncDec.cpp
@@ -54367,7 +54367,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x006278A0,65,code,Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp,approved,U,N=Code/GameEngine/Source/Common/PartitionManagerImpl.cpp provisional,Code/GameEngine/Source/Common/BfmeConv2102.cpp
 0x006278F0,99,code,Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp,approved,C,C=0x006278A0..0x00627960 provisional,Code/GameEngine/Source/Common/PartitionSolver.cpp
 0x00627960,78,code,Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp,approved,C,C=0x006278A0..0x006279B0 provisional,Code/Libraries/Source/partitionmanager/partitionmanager_impl.cpp
-0x006279B0,93,code,Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp,approved,C,C=0x006278A0..0x00627A10 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_push_heap_s4sortelem24.cpp
+0x006279B0,93,code,Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp,approved,C,C=0x006278A0..0x00627A10 provisional,Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp
 0x00627A10,133,code,Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp,approved,C,C=0x006278A0..0x00627AA0 provisional,Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp
 0x00627AA0,57,code,Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp,approved,C,C=0x006278A0..0x00627AE0 provisional,Code/Libraries/Source/partitionmanager/partitionmanager_impl.cpp
 0x00627AE0,43,code,Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp,approved,C,C=0x006278A0..0x00627B10 provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDraw.cpp
