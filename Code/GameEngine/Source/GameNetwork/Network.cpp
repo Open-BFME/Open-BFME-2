@@ -23,6 +23,52 @@ enum PlayerLeaveCode
 	PLAYERLEAVECODE_UNKNOWN = 0
 };
 class GameMessage;
+class ConnectionManager;
+
+// Carved VslotSmallBodiesBA slot bodies read these ConnectionManager extents;
+// offsets follow the BFME2 view in reference/shims/connectionmanager. The
+// 0x2000-byte per-slot record at +0x24 queries the folded `xor eax,eax; ret`
+// 0x000D43D0; the 8-byte record at +0x12050 is Zero Hour's local-addr pair.
+struct Rva0025DBDCPair
+{
+	UnsignedInt m_first;
+	UnsignedInt m_second;
+};
+
+class Rva0057429ADwordField
+{
+public:
+	Int get() const;
+};
+class Rva0028A65EDwordField
+{
+public:
+	Int get() const;
+};
+class Rva004E05E9DwordField
+{
+public:
+	Int get() const;
+};
+
+class DisconnectManager
+{
+public:
+	void voteForPlayerDisconnect(Int slot, ConnectionManager *conMgr);
+private:
+	char m_pad00[0x270];
+public:
+	bool m_270;
+};
+
+class Rva0025DE76Slot
+{
+public:
+	__declspec(noinline) Int rva000D43D0();
+private:
+	char m_pad[0x2000];
+};
+
 class ConnectionManager
 {
 public:
@@ -33,8 +79,8 @@ public:
 	void rva004D0E8B(void);
 	void SetLocalAddr(const NetLocalAddress &addr)
 	{
-		m_localAddr = addr.m_addr;
-		m_localPort = addr.m_port;
+		m_12050.m_first = addr.m_addr;
+		m_12050.m_second = addr.m_port;
 	}
 	int getFileTransferProgress(int pid, AsciiString path);
 	UnicodeString getPlayerName(int pid);
@@ -43,13 +89,20 @@ public:
 	int getNumPlayers(); // 0x004CF926
 	bool rva004CF3E1(); // 0x004CF3E1
 	PlayerLeaveCode processPlayerLeave(unsigned char playerID); // 0x004D1D37
+	void voteForPlayerDisconnect(Int slot);
 	virtual void slot00(void);
 	virtual void slot01(void);
 	virtual void slot02(void);
-	char m_pad04[0x1204C];
-private:
-	unsigned int m_localAddr; // +0x12050 +0x12050
-	unsigned int m_localPort; // +0x12054 +0x12054
+	virtual void rva0025DBAESlot(bool flag, Int value);	// vtable slot 3
+	char m_pad04[0x20];										// +0x04
+	Rva0025DE76Slot m_slots[9];								// +0x24
+	char m_pad12024[0x12050 - 0x12024];						// +0x12024
+	Rva0025DBDCPair m_12050;								// +0x12050
+	unsigned int m_12058;									// +0x12058
+	unsigned int m_frameCeiling;							// +0x1205C
+	unsigned int m_playerLatestFrame[8];					// +0x12060
+	char m_pad12080[0x12100 - 0x12080];						// +0x12080
+	DisconnectManager *m_12100;								// +0x12100
 };
 #include "../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
@@ -198,6 +251,7 @@ public:
 	bool isPacketRouter(void);
 	bool isPlayerConnected(int arg);
 	bool areFrameCommandsComplete(unsigned int frame, bool debugSpewage);
+	void sendFrameInfo(bool flag);
 	bool hasPacketRouterFrameStall(void);
 	int isPlayerSlotActive(int playerID);
 	char m_pad00[0x12024];
@@ -419,17 +473,35 @@ class Rva0025E4CD : public GameEngineDeletingBase
 public:
     virtual void v01(); virtual void v02(); virtual void v03(); virtual void v04(); virtual void v05();
     virtual void v06(); virtual void v07(); virtual void v08(); virtual void v09(); virtual void v10();
-    virtual void v11(); virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
+    virtual void v11(); virtual void v12(); virtual void v13(); virtual void v14();
+    virtual void rva0025DBAE(Int value);											// slot 15
     virtual void v16(); virtual void v17(); virtual void v18(); virtual void v19(); virtual void v20();
-    virtual void v21(); virtual void v22(); virtual void v23(); virtual void v24(); virtual void v25();
+    virtual void v21(); virtual void v22(); virtual void v23(); virtual void v24();
+    virtual void rva0025E28E();														// slot 25
     virtual void v26(); virtual void v27(); virtual void v28(); virtual void v29(); virtual void v30();
     virtual void v31(); virtual void v32(); virtual void v33(); virtual void v34(); virtual void v35();
-    virtual void v36(); virtual void v37(); virtual void v38(); virtual void v39(); virtual void v40();
-    virtual void v41(); virtual void v42(); virtual void v43(); virtual void v44(); virtual void v45();
-    virtual void v46();
-    virtual UnicodeString rva0025E406(int pid);
+    virtual void v36(); virtual void v37();
+    virtual void rva0025E20F(Int slot);												// slot 38
+    virtual void v39();
+    virtual Int rva0025DC7A();														// slot 40
+    virtual Int rva0025DC95();														// slot 41
+    virtual Int rva0025DCB0();														// slot 42
+    virtual void v43(); virtual void v44(); virtual void v45(); virtual void v46();
+    virtual UnicodeString rva0025E406(int pid);										// slot 47
+    virtual void v48(); virtual void v49(); virtual void v50(); virtual void v51();
+    virtual Int rva0025DD25();														// slot 52
+    virtual void v53(); virtual void v54(); virtual void v55(); virtual void v56();
+    virtual void v57(); virtual void v58();
+    virtual Int rva0025DE5C();														// slot 59
+    virtual void v60();
+    virtual Int rva0025DE76(Int slot);												// slot 61
+    virtual Int rva0025DEA2(Int slot);												// slot 62
+    virtual void v63(); virtual void v64(); virtual void v65(); virtual void v66(); virtual void v67();
+    virtual void v68(); virtual void v69(); virtual void v70(); virtual void v71();
+    void rva0025DBDC(const Rva0025DBDCPair &pair);									// non-virtual member
 private:
-    ConnectionManager *m_mgr;
+    ConnectionManager *m_mgr;														// +0x0C
+    Int m_10;																		// +0x10
 };
 
 class UnicodeString;

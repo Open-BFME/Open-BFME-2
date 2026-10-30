@@ -108,7 +108,7 @@ public:
 	virtual void rva0025E28E();
 private:
 	char m_pad04[8];
-	ConnectionManager *m_conMgr;	// +0x0C
+	ConnectionManager *m_mgr;	// +0x0C
 	Int m_10;
 };
 
@@ -122,65 +122,65 @@ void ConnectionManager::voteForPlayerDisconnect(Int slot)
 // vtable 0x00BF6040#15
 void Rva0025E4CD::rva0025DBAE(Int value)
 {
-	if (m_conMgr)
-		m_conMgr->rva0025DBAESlot(m_10 == 1, value);
+	if (m_mgr)
+		m_mgr->rva0025DBAESlot(m_10 == 1, value);
 }
 
 // vtable 0x00BF6040#18
 void Rva0025E4CD::rva0025DBDC(const Rva0025DBDCPair &pair)
 {
-	if (m_conMgr)
-		m_conMgr->m_12050 = pair;
+	if (m_mgr)
+		m_mgr->m_12050 = pair;
 }
 
 // vtable 0x00BF6040#40
 Int Rva0025E4CD::rva0025DC7A()
 {
-	if (m_conMgr && m_conMgr->m_12100)
-		return ((Rva0057429ADwordField *)m_conMgr->m_12100)->get();
+	if (m_mgr && m_mgr->m_12100)
+		return ((Rva0057429ADwordField *)m_mgr->m_12100)->get();
 	return 0;
 }
 
 // vtable 0x00BF6040#41
 Int Rva0025E4CD::rva0025DC95()
 {
-	if (m_conMgr && m_conMgr->m_12100)
-		return ((Rva0028A65EDwordField *)m_conMgr->m_12100)->get();
+	if (m_mgr && m_mgr->m_12100)
+		return ((Rva0028A65EDwordField *)m_mgr->m_12100)->get();
 	return 0;
 }
 
 // vtable 0x00BF6040#42
 Int Rva0025E4CD::rva0025DCB0()
 {
-	if (m_conMgr && m_conMgr->m_12100)
-		return ((Rva004E05E9DwordField *)m_conMgr->m_12100)->get();
+	if (m_mgr && m_mgr->m_12100)
+		return ((Rva004E05E9DwordField *)m_mgr->m_12100)->get();
 	return 0;
 }
 
 // vtable 0x00BF6040#52
 Int Rva0025E4CD::rva0025DD25()
 {
-	if (m_conMgr)
-		return (unsigned char)(m_conMgr->m_12100 ? m_conMgr->m_12100->m_270 : 0);
+	if (m_mgr)
+		return (unsigned char)(m_mgr->m_12100 ? m_mgr->m_12100->m_270 : 0);
 	return 0;
 }
 
 // vtable 0x00BF6040#59
 Int Rva0025E4CD::rva0025DE5C()
 {
-	if (m_conMgr)
-		return m_conMgr->m_frameCeiling - TheGameLogic->getFrame();
+	if (m_mgr)
+		return m_mgr->m_frameCeiling - TheGameLogic->getFrame();
 	return 0;
 }
 
 // vtable 0x00BF6040#61
 Int Rva0025E4CD::rva0025DE76(Int slot)
 {
-	if (m_conMgr)
+	if (m_mgr)
 	{
 		if (slot < 0 || slot >= 9)
 			return -1;
-		return m_conMgr->m_slots[slot].rva000D43D0();
+		return m_mgr->m_slots[slot].rva000D43D0();
 	}
 	return 0;
 }
@@ -188,17 +188,17 @@ Int Rva0025E4CD::rva0025DE76(Int slot)
 // vtable 0x00BF6040#62
 Int Rva0025E4CD::rva0025DEA2(Int slot)
 {
-	if (m_conMgr)
-		return m_conMgr->m_playerLatestFrame[slot];
+	if (m_mgr)
+		return m_mgr->m_playerLatestFrame[slot];
 	return 0;
 }
 
 // vtable 0x00BF6040#38
 void Rva0025E4CD::rva0025E20F(Int slot)
 {
-	if (m_conMgr)
+	if (m_mgr)
 	{
-		m_conMgr->voteForPlayerDisconnect(slot);
+		m_mgr->voteForPlayerDisconnect(slot);
 		TheGameLogic->rva0023D201(slot, 2);
 	}
 }
@@ -206,8 +206,8 @@ void Rva0025E4CD::rva0025E20F(Int slot)
 // vtable 0x00BF6040#25
 void Rva0025E4CD::rva0025E28E()
 {
-	if (m_conMgr)
-		((BFMEConnectionManager *)m_conMgr)->sendFrameInfo(false);
+	if (m_mgr)
+		((BFMEConnectionManager *)m_mgr)->sendFrameInfo(false);
 }
 
 // The slot query is the shared `xor eax,eax; ret` 0x000D43D0 (rowed as an
