@@ -30,14 +30,14 @@ private:
 	Int m_08;
 	Rva0057A51CTeam *m_0C;
 	char m_pad10[0x3C - 0x10];
-	Int m_3C;
+	Int m_turnNumber;
 };
 void Rva0057A83C::rva0057A83C(Int value)
 {
-	if (value != m_3C)
+	if (value != m_turnNumber)
 	{
 		StrategicHUD::SetTurnNumberString(m_08, &m_0C, value);
-		m_3C = value;
+		m_turnNumber = value;
 	}
 }
 

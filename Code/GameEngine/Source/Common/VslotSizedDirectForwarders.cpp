@@ -48,31 +48,31 @@ public:
 class Rva001428E0Forwarder
 {
 public:
-	void rva001428E0(Int a0);
+	void rva001428E0(Int bounds);
 private:
 	char m_lead[0x34];
 	BfmeSceneVector m_target;
 };
 
 // vtable 0x00BC6310#18 (??_7Rva0006EE6F@@6B@): +0x34.rva00141F90
-void Rva001428E0Forwarder::rva001428E0(Int a0)
+void Rva001428E0Forwarder::rva001428E0(Int bounds)
 {
-	m_target.rva00141F90(*reinterpret_cast<const Rva00141F90Bounds *>(a0));
+	m_target.rva00141F90(*reinterpret_cast<const Rva00141F90Bounds *>(bounds));
 }
 
 class Rva001428F0Forwarder
 {
 public:
-	void rva001428F0(Int a0);
+	void rva001428F0(Int level);
 private:
 	char m_lead[0x34];
 	BfmeSceneVector m_target;
 };
 
 // vtable 0x00BC6310#19 (??_7Rva0006EE6F@@6B@): +0x34.rva00142060
-void Rva001428F0Forwarder::rva001428F0(Int a0)
+void Rva001428F0Forwarder::rva001428F0(Int level)
 {
-	m_target.Set_Level(a0);
+	m_target.Set_Level(level);
 }
 
 struct Rva002BEECDSubject;
@@ -85,16 +85,16 @@ public:
 class Rva002BEF43Forwarder
 {
 public:
-	void rva002BEF43(Int a0);
+	void rva002BEF43(Int subject);
 private:
 	char m_lead[0x4];
 	Rva002BEECD m_target;
 };
 
 // vtable 0x00BFE4F4#1: +0x4.rva002BEECD
-void Rva002BEF43Forwarder::rva002BEF43(Int a0)
+void Rva002BEF43Forwarder::rva002BEF43(Int subject)
 {
-	m_target.rva002BEECD(reinterpret_cast<Rva002BEECDSubject *>(a0));
+	m_target.rva002BEECD(reinterpret_cast<Rva002BEECDSubject *>(subject));
 }
 
 class Gen0058BCD0

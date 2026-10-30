@@ -66,7 +66,7 @@ class Rva0015F920
 {
 public:
 	Rva0015F920(bool identity);
-	Rva0015F920(const GapQuat &q, const GapVec3 &t);
+	Rva0015F920(const GapQuat &rotation, const GapVec3 &translation);
 	static void rva0015F9E0(const Rva0015F920 &,const Rva0015F920 &,Rva0015F920 *);
 	void rva0015FE80(const GapVec3 &v);
 private:
@@ -88,12 +88,12 @@ Rva0015F920::Rva0015F920(bool identity)
 	m_t.z = 0.0f;
 }
 
-Rva0015F920::Rva0015F920(const GapQuat &q, const GapVec3 &t)
+Rva0015F920::Rva0015F920(const GapQuat &rotation, const GapVec3 &translation)
 {
-	m_q = q;
-	m_t.x = t.x;
-	m_t.y = t.y;
-	m_t.z = t.z;
+	m_q = rotation;
+	m_t.x = translation.x;
+	m_t.y = translation.y;
+	m_t.z = translation.z;
 }
 
 // --- 0x00167E04 (24B): copy a three-word value into +0x0C.

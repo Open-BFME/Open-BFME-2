@@ -39,7 +39,7 @@ public:
 class MilesMutexGuard
 {
 public:
-    MilesMutexGuard(void *m, int x);
+    MilesMutexGuard(void *mutex, int x);
     ~MilesMutexGuard();
     bool rva00041037(int x);
     bool rva00041055();
@@ -51,7 +51,7 @@ private:
 class Rva00041168
 {
 public:
-	void rva00041168(void *p);
+	void rva00041168(void *buffer);
 private:
 	void *m_ptr00;
 };
@@ -60,7 +60,7 @@ private:
 
 // ---- from Code/GameEngine/Source/Common/Rva00041037Acquire.cpp
 
-MilesMutexGuard::MilesMutexGuard(void *m, int x) : m_mutex((Rva00041037Mutex *)m), m_flag(0)
+MilesMutexGuard::MilesMutexGuard(void *mutex, int x) : m_mutex((Rva00041037Mutex *)mutex), m_flag(0)
 {
     if (x == 0)
         rva00041037(-1);
@@ -80,12 +80,12 @@ bool MilesMutexGuard::rva00041037(int x)
 // ?rva00041168@Rva00041168@@QAEXPAX@Z retail 0x00041168 28B
 // Evidence: unlock lane; callee delete[] 0x0002FD80; unblocks 0x0004123B 0x0004128E; prev Rva00041004Lock same /O1 MD; setter frees old array if different.
 
-void Rva00041168::rva00041168(void *p)
+void Rva00041168::rva00041168(void *buffer)
 {
 	void *old = m_ptr00;
-	if (p != old) {
+	if (buffer != old) {
 		::operator delete[](old);
-		m_ptr00 = p;
+		m_ptr00 = buffer;
 	}
 }
 

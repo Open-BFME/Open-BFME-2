@@ -43,7 +43,7 @@ public:
 class Rva0052BFE1 : public Rva0052C036
 {
 public:
-	Rva00564DF2NameView *rva0052C119();
+	Rva00564DF2NameView *getCurrentEntry();
     Rva00564DF2NameView *rva0052C7A2(const AsciiString &name);
 	Rva005657FEElement *rva0052BFE1(const StringBase<char> &key, const Rva005657FEHolder *holder);	// 0x0052BFE1
 	unsigned char opaque_00[4];
@@ -300,7 +300,7 @@ AsciiString LivingWorldCampaignManager::GetCurrentActName()
 {
     if (m_campaignIndex >= 0 && (UnsignedInt)m_campaignIndex < m_campaignVector.size())
         {
-        Rva00564DF2NameView *entry = m_campaignVector[m_campaignIndex]->rva0052C119();
+        Rva00564DF2NameView *entry = m_campaignVector[m_campaignIndex]->getCurrentEntry();
         return entry->rva00564DF2();
     }
     return AsciiString::TheEmptyString;

@@ -27,18 +27,18 @@ private:
 };
 __forceinline float tornadoAbs(float f){ int bits=*(int *)&f; bits&=0x7fffffff; return *(float *)&bits; }
 __forceinline float tornadoQuickDistance(const Coord3D &lhs,const Coord3D &rhs){
- Coord3D tmp; tmp.x=lhs.x-rhs.x;tmp.y=lhs.y-rhs.y;tmp.z=lhs.z-rhs.z;
- float max=tornadoAbs(tmp.x),mid=tornadoAbs(tmp.y),min=tornadoAbs(tmp.z),temp;
+ Coord3D delta; delta.x=lhs.x-rhs.x;delta.y=lhs.y-rhs.y;delta.z=lhs.z-rhs.z;
+ float max=tornadoAbs(delta.x),mid=tornadoAbs(delta.y),min=tornadoAbs(delta.z),temp;
  if(max<mid){temp=max;max=mid;mid=temp;}
  if(max<min){temp=max;max=min;min=temp;}
  if(mid<min){mid=min;}
  return max+0.34375f*mid+0.25f*min;
 }
-bool Rva002768AC::rva00276952(const Coord3D *p,Coord3D *out){
+bool Rva002768AC::rva00276952(const Coord3D *position,Coord3D *out){
  if(!m_drawC)return false;
  rva002768AC();
  if(!m_count8)return false;
- Coord3D pos={p->x,p->y,p->z};
+ Coord3D pos={position->x,position->y,position->z};
  pos.x-=m_drawC->getPosition()->x;pos.y-=m_drawC->getPosition()->y;pos.z-=m_drawC->getPosition()->z;
  float best=2000.0f; unsigned which=0xffff;
  Coord3D bone={0,0,0};

@@ -96,26 +96,26 @@ void Rva0010F62E::rva0010F62E()
 {
     RVA0010F28D_LOCK(g);
     Rva0010F28DInner *in = m_inner;
-    void *s = in->m_stream;
-    if (s == 0) {
+    void *stream = in->m_stream;
+    if (stream == 0) {
         RVA0010F28D_UNLOCK(g);
         return;
     }
     if (m_userData0C != 0) {
         if (InterlockedExchangeAdd(m_counter10, 0) != 0) {
             AIL_lock_mutex();
-            AIL_set_stream_user_data(s, 1, in->m_userData20);
-            AIL_set_stream_user_data(s, 0, m_userData0C);
-            AIL_register_stream_callback(s, rva0010EE29);
+            AIL_set_stream_user_data(stream, 1, in->m_userData20);
+            AIL_set_stream_user_data(stream, 0, m_userData0C);
+            AIL_register_stream_callback(stream, rva0010EE29);
             if (InterlockedExchangeAdd(m_counter10, 0) == 0) {
-                AIL_register_stream_callback(s, 0);
-                AIL_set_stream_user_data(s, 0, 0);
+                AIL_register_stream_callback(stream, 0);
+                AIL_set_stream_user_data(stream, 0, 0);
             }
             AIL_unlock_mutex();
         }
     } else {
-        AIL_register_stream_callback(s, 0);
-        AIL_set_stream_user_data(s, 0, 0);
+        AIL_register_stream_callback(stream, 0);
+        AIL_set_stream_user_data(stream, 0, 0);
     }
     RVA0010F28D_UNLOCK(g);
 }

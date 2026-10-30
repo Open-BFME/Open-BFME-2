@@ -62,25 +62,25 @@ private:
 	char m_pad144[0x198 - 0x144];
 	Rva003F1AFF198 *m_198;
 public:
-	void rva003F1AFF(int arg);
+	void rva003F1AFF(int newValue);
 };
 
-void Rva003F1AFF::rva003F1AFF(int arg)
+void Rva003F1AFF::rva003F1AFF(int newValue)
 {
-	if (m_13C == arg)
+	if (m_13C == newValue)
 		return;
 	int old = m_13C;
 	m_138 = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->m_FC;
 	Rva002E2903Player *found = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->find(old, 0);
 	if (found != 0)
 	{
-		if ((unsigned char)((Rva002E071E *)found)->rva002E0BC0(arg))
+		if ((unsigned char)((Rva002E071E *)found)->rva002E0BC0(newValue))
 			goto broadcast;
 	}
 	m_134 = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->m_FC;
 broadcast:
-	m_13C = arg;
-	m_140 = arg;
-	m_198->m_18 = arg;
-	((Rva003F1A03 *)this)->rva003F1A03((void (Rva003F119CListener::*)(void *, int, int))&Rva001FF3A9::rva001FF3A9, this, old, arg);
+	m_13C = newValue;
+	m_140 = newValue;
+	m_198->m_18 = newValue;
+	((Rva003F1A03 *)this)->rva003F1A03((void (Rva003F119CListener::*)(void *, int, int))&Rva001FF3A9::rva001FF3A9, this, old, newValue);
 }

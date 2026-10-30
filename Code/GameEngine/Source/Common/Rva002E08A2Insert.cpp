@@ -34,23 +34,23 @@ void Rva002E180DReinsert(void **begin, void **end, void *extra)
 	Rva002E0E7CReinsert(begin, end, 0, extra);
 }
 
-void **Rva002E0864Median(void **a, void **b, void **c)
+void **Rva002E0864Median(void **first, void **middle, void **last)
 {
-	if (((int *)(*a))[3] > ((int *)(*b))[3])
+	if (((int *)(*first))[3] > ((int *)(*middle))[3])
 	{
-		if (((int *)(*b))[3] > ((int *)(*c))[3])
-			return b;
-		if (((int *)(*a))[3] <= ((int *)(*c))[3])
-			return a;
-		return c;
+		if (((int *)(*middle))[3] > ((int *)(*last))[3])
+			return middle;
+		if (((int *)(*first))[3] <= ((int *)(*last))[3])
+			return first;
+		return last;
 	}
 	else
 	{
-		if (((int *)(*a))[3] > ((int *)(*c))[3])
-			return a;
-		if (((int *)(*b))[3] > ((int *)(*c))[3])
-			return c;
-		return b;
+		if (((int *)(*first))[3] > ((int *)(*last))[3])
+			return first;
+		if (((int *)(*middle))[3] > ((int *)(*last))[3])
+			return last;
+		return middle;
 	}
 }
 
@@ -65,10 +65,10 @@ void Rva002E08C7SiftUp(void **base, int idx, int top, void *pivot)
 {
 	int parent = (idx - 1) / 2;
 	while (idx > top) {
-		void *p = base[parent];
-		if (((int *)p)[3] <= ((int *)pivot)[3])
+		void *parentElement = base[parent];
+		if (((int *)parentElement)[3] <= ((int *)pivot)[3])
 			break;
-		base[idx] = p;
+		base[idx] = parentElement;
 		idx = parent;
 		parent = (parent - 1) / 2;
 	}

@@ -28,12 +28,12 @@ public:
 	void rva00531300();
 	void rva00531481();
 	void MarkDirty(int a, int b);
-	void rva005314C6(int a, int b, unsigned char c);
-	unsigned char IsPassable(int a, int b);
+	void rva005314C6(int worldX, int worldY, unsigned char passable);
+	unsigned char IsPassable(int worldX, int worldY);
 	void MarkDirty(struct Rva005312BERect *r);
-	void rva0053155E(int a, int b, bool add, int value);
-	int GetPortal(int a, int b, int index);
-	bool rva005315C8(int a, int b);
+	void rva0053155E(int worldX, int worldY, bool add, int value);
+	int GetPortal(int worldX, int worldY, int index);
+	bool rva005315C8(int worldX, int worldY);
 	char m_pad[0x1BA30];
 	unsigned char m_flag1BA30;
 	char m_pad2[0x1BA38 - 0x1BA30 - 1];
@@ -73,12 +73,12 @@ void PathfindZoneManager::rva00531300()
 			m_ppItems[i][j].m_cleared = 1;
 	}
 }
-unsigned char PathfindZoneManager::IsPassable(int a, int b)
+unsigned char PathfindZoneManager::IsPassable(int worldX, int worldY)
 {
-	if (a < 0 || b < 0)
+	if (worldX < 0 || worldY < 0)
 		return 0;
-	int i = a / 16;
-	int j = b / 16;
+	int i = worldX / 16;
+	int j = worldY / 16;
 	if (i >= m_outer || j >= m_inner)
 		return 0;
 	return m_ppItems[i][j].m_cleared;
@@ -97,15 +97,15 @@ void PathfindZoneManager::MarkDirty(int a, int b)
 // ?rva005314C6@PathfindZoneManager@@QAEXHHE@Z, retail 0x005314C6, 76 bytes.
 // Bounded setter writes byte at +0x34 with value; gap between 0x00531481 and 0x00531512.
 // Callers at 0x002F368A 0x002F36AD; shares 0x1BA38/0x1BA3C/0x1BA40 stride 0x44.
-void PathfindZoneManager::rva005314C6(int a, int b, unsigned char c)
+void PathfindZoneManager::rva005314C6(int worldX, int worldY, unsigned char passable)
 {
-	if (a < 0 || b < 0)
+	if (worldX < 0 || worldY < 0)
 		return;
-	int i = a / 16;
-	int j = b / 16;
+	int i = worldX / 16;
+	int j = worldY / 16;
 	if (i >= m_outer || j >= m_inner)
 		return;
-	m_ppItems[i][j].m_cleared = c;
+	m_ppItems[i][j].m_cleared = passable;
 }
 
 void PathfindZoneManager::MarkDirty(Rva005312BERect *r)
@@ -134,12 +134,12 @@ void PathfindZoneManager::MarkDirty(Rva005312BERect *r)
 	}
 }
 // ?rva0053155E@PathfindZoneManager@@QAEXHH_NH@Z @ 0x0053155E (82B): bounded forward to Rva00531132 set; callers at 0x002E9033 0x002E9090.
-void PathfindZoneManager::rva0053155E(int a, int b, bool add, int value)
+void PathfindZoneManager::rva0053155E(int worldX, int worldY, bool add, int value)
 {
-	if (a < 0 || b < 0)
+	if (worldX < 0 || worldY < 0)
 		return;
-	int i = a / 16;
-	int j = b / 16;
+	int i = worldX / 16;
+	int j = worldY / 16;
 	if (i >= m_outer || j >= m_inner)
 		return;
 	m_ppItems[i][j].m_set.rva00531132(add, value);
@@ -149,12 +149,12 @@ void PathfindZoneManager::rva0053155E(int a, int b, bool add, int value)
 // Same signed16-unit coordinate division, header offsets and44h cell stride
 // as the rowed grid getter/setter siblings above. Original owner and word
 // identity remain unknown; this only returns the selected stored bits.
-int PathfindZoneManager::GetPortal(int a, int b, int index)
+int PathfindZoneManager::GetPortal(int worldX, int worldY, int index)
 {
-	if (a < 0 || b < 0)
+	if (worldX < 0 || worldY < 0)
 		return 0;
-	int i = a / 16;
-	int j = b / 16;
+	int i = worldX / 16;
+	int j = worldY / 16;
 	if (i >= m_outer || j >= m_inner)
 		return 0;
 	return m_ppItems[i][j].m_set.rva0053117F(index);
@@ -162,12 +162,12 @@ int PathfindZoneManager::GetPortal(int a, int b, int index)
 // ?rva005315C8@PathfindZoneManager@@QAE_NHH@Z, retail 0x005315C8, 82 bytes.
 // Leaf: bounded check whether cell count is positive; shares 0x1BA38/0x1BA3C/0x1BA40 stride 0x44.
 // Caller at 0x002F7C3F; sibling getter 0x00531512 shape.
-bool PathfindZoneManager::rva005315C8(int a, int b)
+bool PathfindZoneManager::rva005315C8(int worldX, int worldY)
 {
-	if (a < 0 || b < 0)
+	if (worldX < 0 || worldY < 0)
 		return false;
-	int i = a / 16;
-	int j = b / 16;
+	int i = worldX / 16;
+	int j = worldY / 16;
 	if (i >= m_outer || j >= m_inner)
 		return false;
 	return m_ppItems[i][j].m_set.m_count > 0;

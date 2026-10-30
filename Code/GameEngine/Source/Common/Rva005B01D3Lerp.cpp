@@ -10,12 +10,12 @@
 class Rva005B01D3
 {
 public:
-	float rva005B01D3(float a, float b, float t);
-	float rva005B0569(float t);
-	float rva005B0588(float t);
-	float rva005B05A8(float t);
-	float rva005B05C8(float t);
-	float rva005B05E8(float t);
+	float rva005B01D3(float startValue, float endValue, float fraction);
+	float rva005B0569(float fraction);
+	float rva005B0588(float fraction);
+	float rva005B05A8(float fraction);
+	float rva005B05C8(float fraction);
+	float rva005B05E8(float fraction);
 
 private:
 	float m_00;
@@ -33,34 +33,34 @@ private:
 	float m_60;
 };
 
-float Rva005B01D3::rva005B01D3(float a, float b, float t)
+float Rva005B01D3::rva005B01D3(float startValue, float endValue, float fraction)
 {
-	if (t < 0.0f)
-		t = m_60;
-	return a + (b - a) * t;
+	if (fraction < 0.0f)
+		fraction = m_60;
+	return startValue + (endValue - startValue) * fraction;
 }
 
-float Rva005B01D3::rva005B0588(float t)
+float Rva005B01D3::rva005B0588(float fraction)
 {
-	return rva005B01D3(m_04, m_1C, t);
+	return rva005B01D3(m_04, m_1C, fraction);
 }
 
-float Rva005B01D3::rva005B0569(float t)
+float Rva005B01D3::rva005B0569(float fraction)
 {
-	return rva005B01D3(m_00, m_18, t);
+	return rva005B01D3(m_00, m_18, fraction);
 }
 
-float Rva005B01D3::rva005B05A8(float t)
+float Rva005B01D3::rva005B05A8(float fraction)
 {
-	return rva005B01D3(m_08, m_20, t);
+	return rva005B01D3(m_08, m_20, fraction);
 }
 
-float Rva005B01D3::rva005B05C8(float t)
+float Rva005B01D3::rva005B05C8(float fraction)
 {
-	return rva005B01D3(m_0C, m_24, t);
+	return rva005B01D3(m_0C, m_24, fraction);
 }
 
-float Rva005B01D3::rva005B05E8(float t)
+float Rva005B01D3::rva005B05E8(float fraction)
 {
-	return rva005B01D3(m_10, m_28, t);
+	return rva005B01D3(m_10, m_28, fraction);
 }

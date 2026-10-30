@@ -31,44 +31,44 @@ class Rva0021937D
 	int m_19C;
 	int m_1A0;
 public:
-	void rva0021937D(Rva0021937DTarget *u);
-	void rva002193AB(Rva0021937DTarget *u);
-	void rva002193D9(Rva0021937DTarget *u);
-	void rva00219407(Rva0021937DTarget *u);
+	void rva0021937D(Rva0021937DTarget *target);
+	void rva002193AB(Rva0021937DTarget *target);
+	void rva002193D9(Rva0021937DTarget *target);
+	void rva00219407(Rva0021937DTarget *target);
 };
 
-void Rva0021937D::rva0021937D(Rva0021937DTarget *u)
+void Rva0021937D::rva0021937D(Rva0021937DTarget *target)
 {
-	if (!u)
+	if (!target)
 		return;
-	u->rva00407E94();
-	u->rva004089C7(m_198, 1);
-	((CreateAHeroData *)u)->WriteNamedHeroAtRva004074CF();
+	target->rva00407E94();
+	target->rva004089C7(m_198, 1);
+	((CreateAHeroData *)target)->WriteNamedHeroAtRva004074CF();
 }
 
-void Rva0021937D::rva002193AB(Rva0021937DTarget *u)
+void Rva0021937D::rva002193AB(Rva0021937DTarget *target)
 {
-	if (!u)
+	if (!target)
 		return;
-	u->rva00407E94();
-	u->rva004089C7(m_194, 1);
-	((CreateAHeroData *)u)->WriteNamedHeroAtRva004074CF();
+	target->rva00407E94();
+	target->rva004089C7(m_194, 1);
+	((CreateAHeroData *)target)->WriteNamedHeroAtRva004074CF();
 }
 
-void Rva0021937D::rva002193D9(Rva0021937DTarget *u)
+void Rva0021937D::rva002193D9(Rva0021937DTarget *target)
 {
-	if (!u)
+	if (!target)
 		return;
-	u->rva00407E94();
-	u->rva004089C7(m_1A0, 1);
-	((CreateAHeroData *)u)->WriteNamedHeroAtRva004074CF();
+	target->rva00407E94();
+	target->rva004089C7(m_1A0, 1);
+	((CreateAHeroData *)target)->WriteNamedHeroAtRva004074CF();
 }
 
-void Rva0021937D::rva00219407(Rva0021937DTarget *u)
+void Rva0021937D::rva00219407(Rva0021937DTarget *target)
 {
-	if (!u)
+	if (!target)
 		return;
-	u->rva00407E94();
-	u->rva004089C7(m_19C, 1);
-	((CreateAHeroData *)u)->WriteNamedHeroAtRva004074CF();
+	target->rva00407E94();
+	target->rva004089C7(m_19C, 1);
+	((CreateAHeroData *)target)->WriteNamedHeroAtRva004074CF();
 }

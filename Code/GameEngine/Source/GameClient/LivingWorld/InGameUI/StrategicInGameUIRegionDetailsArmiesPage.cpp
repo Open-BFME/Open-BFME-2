@@ -79,9 +79,9 @@ class Rva005E19CAInterface {public:
  char unknown04[4];bool active;
 };
 class Rva005E187A {public:void rva005E187A(bool);};
-class Rva005EF3DE {public:void rva005EF3DE();};
-class Rva005EF3EE {public:void rva005EF3EE();};
-class Rva005EF3E6 {public:void rva005EF3E6(int,int);};
+class Rva005EF3DE {public:void hideArmyName();};
+class Rva005EF3EE {public:void hideCommandPoints();};
+class Rva005EF3E6 {public:void showCommandPoints(int,int);};
 class Rva005EF5C2 {public:void rva005EF5C2(const UnicodeString &);};
 class Rva005E18B9 {public:void rva005E18B9();};
 namespace StrategicInGameUI {UnicodeString GetDisplayName(void *);}
@@ -93,7 +93,7 @@ void StrategicInGameUI::RegionDetailsArmiesPage::Impl::rva005E19CA(int next){
  if(selected){
   if(ui->active)ui->f6();
   Rva005EF3DE *view=(Rva005EF3DE*)clip;
-  view->rva005EF3DE();((Rva005EF3EE*)view)->rva005EF3EE();
+  view->hideArmyName();((Rva005EF3EE*)view)->hideCommandPoints();
   ((Rva005E187A*)selected)->rva005E187A(false);
  }
  selected=next;
@@ -102,7 +102,7 @@ void StrategicInGameUI::RegionDetailsArmiesPage::Impl::rva005E19CA(int next){
  void *army=((Rva005E19CAEntry*)selected)->army;
  ((Rva005EF5C2*)clip)->rva005EF5C2(StrategicInGameUI::GetDisplayName(army));
  Rva005EF3E6 *view=(Rva005EF3E6*)clip;
- ((Rva005EF3E6*)view)->rva005EF3E6(((Rva00318FBE*)army)->rva00318FBE(),GetMaxCommandPoints(army));
+ ((Rva005EF3E6*)view)->showCommandPoints(((Rva00318FBE*)army)->rva00318FBE(),GetMaxCommandPoints(army));
  if(ui->active)((Rva005E18B9*)this)->rva005E18B9();
 }
 

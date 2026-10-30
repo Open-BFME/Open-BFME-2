@@ -56,10 +56,10 @@ int __cdecl ComputeFrameState()
 		BfmeMemberRV *pickedMember = ((BfmeThingRV *)ThePlayerList)->bfmePickRV();
 		if (pickedMember)
 		{
-			Inner1BC *p = pickedMember->m_34;
-			if (p)
+			Inner1BC *pickInfo = pickedMember->m_34;
+			if (pickInfo)
 			{
-				return p->m_1BC ? 3 : 1;
+				return pickInfo->m_1BC ? 3 : 1;
 			}
 		}
 	}

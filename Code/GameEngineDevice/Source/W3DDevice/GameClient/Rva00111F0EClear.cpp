@@ -28,7 +28,7 @@ class Rva00111F0E
 public:
 	void rva00111F0E();
 	void rva00111F6F(RvaRef *a, int b, int c, int d);
-	int rva00111FBC(unsigned char *a);
+	int rva00111FBC(unsigned char *culled);
 private:
 	char m_pad00[0x24];
 	RvaRef *m_24;
@@ -95,9 +95,9 @@ void Rva00111F0E::rva00111F6F(RvaRef *rvaRef, int b, int c, int d)
 	}
 }
 
-int Rva00111F0E::rva00111FBC(unsigned char *a)
+int Rva00111F0E::rva00111FBC(unsigned char *culled)
 {
 	m_90 = 1;
-	*a = 0;
+	*culled = 0;
 	return 1;
 }

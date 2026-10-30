@@ -1,7 +1,7 @@
 // cl: /MD
 #include "../../Include/Common/Rva00041004Lock.h"
-// ?rva0010F557@Rva0010F557@@QAEXXZ @0x0010F557 81B.
-// ?rva0010F4FA@Rva0010F4FA@@QAEXXZ @0x0010F4FA 93B.
+// ?setLoopCount@Rva0010F557@@QAEXXZ @0x0010F557 81B.
+// ?setReverbLevels@Rva0010F4FA@@QAEXXZ @0x0010F4FA 93B.
 // Guarded Miles stream operations, each the only slot (slot 1) of its own
 // one-slot vftable at 0x00BCFA4C / 54 / 74 / 7C / 84 / 8C / 94:
 //
@@ -81,19 +81,19 @@ struct Rva0010F28DGuard
 class Rva0010F4FA
 {
 public:
-    void rva0010F4FA();
+    void setReverbLevels();
 private:
     char m_pad0[8]; // +0..+7
     Rva0010F28DInner *m_inner; // +8
-    float m_dry0C; // +0x0C
-    float m_wet10; // +0x10
+    float m_dryLevel; // +0x0C
+    float m_wetLevel; // +0x10
 };
 
-void Rva0010F4FA::rva0010F4FA()
+void Rva0010F4FA::setReverbLevels()
 {
     RVA0010F28D_LOCK(g);
     if (m_inner->m_stream != 0) {
-        AIL_set_stream_reverb_levels(m_inner->m_stream, m_dry0C, m_wet10);
+        AIL_set_stream_reverb_levels(m_inner->m_stream, m_dryLevel, m_wetLevel);
         if (g.m_locked != 0)
             ((Rva0010F26E *)&g)->rva0010F26E();
     } else if (g.m_locked != 0)
@@ -103,18 +103,18 @@ void Rva0010F4FA::rva0010F4FA()
 class Rva0010F557
 {
 public:
-    void rva0010F557();
+    void setLoopCount();
 private:
     char m_pad0[8]; // +0..+7
     Rva0010F28DInner *m_inner; // +8
-    int m_count0C; // +0x0C
+    int m_loopCount; // +0x0C
 };
 
-void Rva0010F557::rva0010F557()
+void Rva0010F557::setLoopCount()
 {
     RVA0010F28D_LOCK(g);
     if (m_inner->m_stream != 0) {
-        AIL_set_stream_loop_count(m_inner->m_stream, m_count0C);
+        AIL_set_stream_loop_count(m_inner->m_stream, m_loopCount);
         if (g.m_locked != 0)
             ((Rva0010F26E *)&g)->rva0010F26E();
     } else if (g.m_locked != 0)
@@ -133,7 +133,7 @@ void Rva0010F28D::rva0010F28D() {
 class Rva0010F2E5 { public: void rva0010F2E5(); private: char pad[8]; Rva0010F28DInner *m_inner; int m_0C; };
 void Rva0010F2E5::rva0010F2E5() {
  RVA0010F28D_LOCK(g);
- void *s=m_inner->m_stream;
- if(s) { AIL_service_stream(s,m_0C==0); if(g.m_locked) ((Rva0010F26E*)&g)->rva0010F26E(); }
+ void *stream=m_inner->m_stream;
+ if(stream) { AIL_service_stream(stream,m_0C==0); if(g.m_locked) ((Rva0010F26E*)&g)->rva0010F26E(); }
  else if(g.m_locked) ((Rva0010F26E*)&g)->rva0010F26E();
 }

@@ -52,7 +52,7 @@ class Rva002B5B55Arg
 public:
 	virtual void *rva002B5B55v0(int x);
 	char m_pad[0x54 - 4];
-	int m_id54; // +0x54 id passed by value to the 0x2B51F8 find
+	int m_id; // +0x54 id passed by value to the 0x2B51F8 find
 	char m_pad2[0x75 - 0x58];
 	unsigned char m_flag75; // +0x75 set to 1
 };
@@ -72,7 +72,7 @@ void Rva002B5B55::rva002B5B55(Rva002B5B55Arg *arg)
 	if (arg == 0)
 		return;
 	arg->m_flag75 = 1;
-	int id = arg->m_id54;
+	int id = arg->m_id;
 	Rva002E2903Player *found = ((Rva002BA8F1Logic *)this)->find(id, 0);
 	if (found != 0)
 		((Rva002E10BDOwner *)found)->rva002E10BD((CreateAHeroData *)arg);

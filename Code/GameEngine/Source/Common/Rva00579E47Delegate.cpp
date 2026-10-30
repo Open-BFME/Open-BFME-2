@@ -30,7 +30,7 @@ struct ImplBase {
 };
 
 struct Impl : ImplBase {
-    virtual void rva005b4c73(const char *argument);
+    virtual void rva005b4c73(const char *text);
     void *m_object;
     void *m_method;
     Impl(const DelegateDesc &delegateDesc) : m_object(delegateDesc.m_object), m_method(delegateDesc.m_method) {}
@@ -78,10 +78,10 @@ private:
 };
 Rva002165B0 &Rva002165B0::rva002165B0(const DelegateDesc *delegateDesc)
 {
-    Impl002165B0 *p = new Impl002165B0(*delegateDesc);
-    m_ptr = p;
-    if (p)
-        p->m_ref++;
+    Impl002165B0 *impl = new Impl002165B0(*delegateDesc);
+    m_ptr = impl;
+    if (impl)
+        impl->m_ref++;
     return *this;
 }
 
@@ -98,10 +98,10 @@ private:
 };
 Rva00525916 &Rva00525916::rva00525916(const DelegateDesc *delegateDesc)
 {
-    Impl00525916 *p = new Impl00525916(*delegateDesc);
-    m_ptr = p;
-    if (p)
-        p->m_ref++;
+    Impl00525916 *impl = new Impl00525916(*delegateDesc);
+    m_ptr = impl;
+    if (impl)
+        impl->m_ref++;
     return *this;
 }
 
@@ -118,10 +118,10 @@ private:
 };
 Rva0052A786 &Rva0052A786::rva0052A786(const DelegateDesc *delegateDesc)
 {
-    Impl0052A786 *p = new Impl0052A786(*delegateDesc);
-    m_ptr = p;
-    if (p)
-        p->m_ref++;
+    Impl0052A786 *impl = new Impl0052A786(*delegateDesc);
+    m_ptr = impl;
+    if (impl)
+        impl->m_ref++;
     return *this;
 }
 
@@ -138,10 +138,10 @@ private:
 };
 Rva0052A7C1 &Rva0052A7C1::rva0052A7C1(const DelegateDesc *delegateDesc)
 {
-    Impl0052A7C1 *p = new Impl0052A7C1(*delegateDesc);
-    m_ptr = p;
-    if (p)
-        p->m_ref++;
+    Impl0052A7C1 *impl = new Impl0052A7C1(*delegateDesc);
+    m_ptr = impl;
+    if (impl)
+        impl->m_ref++;
     return *this;
 }
 
@@ -156,7 +156,7 @@ Rva0052A7C1 &Rva0052A7C1::rva0052A7C1(const DelegateDesc *delegateDesc)
 class __single_inheritance Rva005B4C73Target;
 typedef void (Rva005B4C73Target::*Rva005B4C73Method)(const char *);
 
-void Impl::rva005b4c73(const char *argument)
+void Impl::rva005b4c73(const char *text)
 {
     union
     {
@@ -164,5 +164,5 @@ void Impl::rva005b4c73(const char *argument)
         Rva005B4C73Method method;
     } binding;
     binding.code = m_method;
-    (static_cast<Rva005B4C73Target *>(m_object)->*binding.method)(argument);
+    (static_cast<Rva005B4C73Target *>(m_object)->*binding.method)(text);
 }

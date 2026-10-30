@@ -69,8 +69,8 @@ private:
 
 bool Rva00690CB0Owner::init()
 {
-	BSTR h2 = 0;
-	BSTR h = 0;
+	BSTR appName = 0;
+	BSTR processImageFileName = 0;
 	Rva00690CB0Unk *outB = 0;
 	Rva00690CB0Unk *outA = 0;
 
@@ -91,15 +91,15 @@ bool Rva00690CB0Owner::init()
 			return false;
 		}
 
-		h = SysAllocString(m_04);
-		if (SysStringLen(h) == 0)
+		processImageFileName = SysAllocString(m_04);
+		if (SysStringLen(processImageFileName) == 0)
 		{
 			if (outA) outA->vtable->release(outA);
 			if (outB) outB->vtable->release(outB);
 			return false;
 		}
 
-		hr = outB->vtable->callB(outB, h);
+		hr = outB->vtable->callB(outB, processImageFileName);
 		if (hr < 0)
 		{
 			if (outA) outA->vtable->release(outA);
@@ -107,20 +107,20 @@ bool Rva00690CB0Owner::init()
 			return false;
 		}
 
-		h2 = SysAllocString(m_00);
-		if (SysStringLen(h2) == 0)
+		appName = SysAllocString(m_00);
+		if (SysStringLen(appName) == 0)
 		{
-			SysFreeString(h);
+			SysFreeString(processImageFileName);
 			if (outA) outA->vtable->release(outA);
 			if (outB) outB->vtable->release(outB);
 			return false;
 		}
 
-		hr = outB->vtable->callA(outB, h2);
+		hr = outB->vtable->callA(outB, appName);
 		if (hr < 0)
 		{
-			SysFreeString(h);
-			SysFreeString(h2);
+			SysFreeString(processImageFileName);
+			SysFreeString(appName);
 			if (outA) outA->vtable->release(outA);
 			if (outB) outB->vtable->release(outB);
 			return false;
@@ -129,16 +129,16 @@ bool Rva00690CB0Owner::init()
 		hr = outA->vtable->callA(outA, outB);
 		if (hr < 0)
 		{
-			SysFreeString(h);
-			SysFreeString(h2);
+			SysFreeString(processImageFileName);
+			SysFreeString(appName);
 			if (outA) outA->vtable->release(outA);
 			if (outB) outB->vtable->release(outB);
 			return false;
 		}
 	}
 
-	SysFreeString(h2);
-	SysFreeString(h);
+	SysFreeString(appName);
+	SysFreeString(processImageFileName);
 	if (outB) outB->vtable->release(outB);
 	if (outA) outA->vtable->release(outA);
 	m_flag = 1;

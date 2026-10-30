@@ -40,10 +40,10 @@ void Rva00528309::rva00528309()
 	while (m_count > 0)
 	{
 		--m_count;
-		Rva00528309Elem &e = m_elems[m_count];
-		e.m_a.clear();
-		e.m_b.clear();
-		e.m_c = -1;
+		Rva00528309Elem &element = m_elems[m_count];
+		element.m_a.clear();
+		element.m_b.clear();
+		element.m_c = -1;
 	}
 }
 

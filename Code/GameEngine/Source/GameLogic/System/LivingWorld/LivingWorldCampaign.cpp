@@ -1035,7 +1035,7 @@ ok:
 	return r;
 }
 
-// tu-skeleton: 0x0052C119 72B ?rva0052C119@Rva0052BFE1@@QAEPAVRva00564DF2NameView@@XZ -- matched in Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva0052C119CurrentEntry.cpp (not merged yet)
+// tu-skeleton: 0x0052C119 72B ?getCurrentEntry@Rva0052BFE1@@QAEPAVRva00564DF2NameView@@XZ -- matched in Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva0052C119CurrentEntry.cpp (not merged yet)
 
 // tu-skeleton: 0x0052C161 117B ?rva0052C161@Rva0052C036@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionCampaignInitPathfinder.cpp (not merged yet)
 
@@ -1073,7 +1073,7 @@ ok:
 
 // tu-skeleton: 0x0052C431 45B ??$_Construct@VRva0052BEF0@@V1@@_STL@@YAXPAVRva0052BEF0@@ABV1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_game_structs.cpp (not merged yet)
 
-// tu-skeleton: 0x0052C72B 119B ?rva0052C72B@Rva0052BFE1@@QAE_NABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva0052C119CurrentEntry.cpp (not merged yet)
+// tu-skeleton: 0x0052C72B 119B ?hasEntryNamed@Rva0052BFE1@@QAE_NABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva0052C119CurrentEntry.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignFindRecord.cpp
 

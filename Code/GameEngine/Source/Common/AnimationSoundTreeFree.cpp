@@ -96,12 +96,12 @@ public:
 	void rva004CA26A();
 	AnimationSoundTree *rva004CA018(void const *dummy);
 	AnimationSoundTree *rva004CA13D(void const *d1, void const *d2);
-	AnimationSoundTreeNode *rva004C9FE0(void const *v);
+	AnimationSoundTreeNode *rva004C9FE0(void const *key);
 	void *rva004CA19C(void const *v);
 	void rva004CA293(
 		AnimationSoundTreeNode *&out,
 		AnimationSoundTreeNode *a,
-		AnimationSoundTreeNode *b,
+		AnimationSoundTreeNode *parent,
 		void const *v,
 		AnimationSoundTreeNode *c);
 	AnimationSoundTreeNode **rva004CA68B(AnimationSoundTreeNode **out, void const *v);
@@ -132,7 +132,7 @@ void AnimationSoundTree::rva004CA167(void *nodeIn)
 // retail 0x004C9FE0, 56 bytes. Searches from the header's root and returns
 // the last right-side candidate; the member comparator and node offsets match
 // the adjacent AnimationSoundTree insert helpers.
-AnimationSoundTreeNode *AnimationSoundTree::rva004C9FE0(void const *v)
+AnimationSoundTreeNode *AnimationSoundTree::rva004C9FE0(void const *key)
 {
 	AnimationSoundTreeNode *parent =
 		(AnimationSoundTreeNode *)m_handle.m_header;
@@ -140,7 +140,7 @@ AnimationSoundTreeNode *AnimationSoundTree::rva004C9FE0(void const *v)
 		((AnimationSoundTreeHead *)parent)->m_parent;
 	while (node)
 	{
-		if (!m_compare.rva004C9D93Compare((char *)node + 0x10, (void *)v))
+		if (!m_compare.rva004C9D93Compare((char *)node + 0x10, (void *)key))
 		{
 			parent = node;
 			node = node->m_left;
@@ -257,38 +257,38 @@ void *AnimationSoundTree::rva004CA19C(void const *v)
 void AnimationSoundTree::rva004CA293(
 	AnimationSoundTreeNode *&out,
 	AnimationSoundTreeNode *animationSoundTreeNode,
-	AnimationSoundTreeNode *b,
+	AnimationSoundTreeNode *parent,
 	void const *v,
 	AnimationSoundTreeNode *c)
 {
 	AnimationSoundTreeNode *node;
-	if (b != (AnimationSoundTreeNode *)m_handle.m_header
+	if (parent != (AnimationSoundTreeNode *)m_handle.m_header
 		&& (c != 0
 			|| (animationSoundTreeNode == 0
-				&& !m_compare.rva004C9D93Compare((void *)v, (char *)b + 0x10))))
+				&& !m_compare.rva004C9D93Compare((void *)v, (char *)parent + 0x10))))
 	{
 		node = (AnimationSoundTreeNode *)rva004CA19C(v);
-		b->m_right = node;
+		parent->m_right = node;
 		AnimationSoundTreeHead *root = (AnimationSoundTreeHead *)m_handle.m_header;
-		if (b == (AnimationSoundTreeNode *)root->m_right)
+		if (parent == (AnimationSoundTreeNode *)root->m_right)
 			root->m_right = (AnimationSoundTreeHead *)node;
 	}
 	else
 	{
 		node = (AnimationSoundTreeNode *)rva004CA19C(v);
-		b->m_left = node;
+		parent->m_left = node;
 		AnimationSoundTreeHead *root = (AnimationSoundTreeHead *)m_handle.m_header;
-		if (b == (AnimationSoundTreeNode *)root)
+		if (parent == (AnimationSoundTreeNode *)root)
 		{
 			root->m_parent = node;
 			((AnimationSoundTreeHead *)m_handle.m_header)->m_right = (AnimationSoundTreeHead *)node;
 		}
-		else if (b == (AnimationSoundTreeNode *)root->m_left)
+		else if (parent == (AnimationSoundTreeNode *)root->m_left)
 			root->m_left = (AnimationSoundTreeHead *)node;
 	}
 	node->m_left = 0;
 	node->m_right = 0;
-	node->m_parent = b;
+	node->m_parent = parent;
 	_STL::_Rb_global<bool>::_Rebalance(
 		(_STL::_Rb_tree_node_base *)node,
 		(_STL::_Rb_tree_node_base *&)((AnimationSoundTreeHead *)m_handle.m_header)->m_parent);

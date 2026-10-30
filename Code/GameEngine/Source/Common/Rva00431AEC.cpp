@@ -46,8 +46,8 @@ inline void *__cdecl operator new(unsigned int, void *p) { return p; }
 
 int Rva00431AEC::rva00431AEC(GameMessage *msg)
 {
-	int t = *(int *)((char *)msg + 0x10);
-	if (t != 4 && t != 0x0e)
+	int messageType = *(int *)((char *)msg + 0x10);
+	if (messageType != 4 && messageType != 0x0e)
 		return 0;
 	const GameMessageArgumentType *gameMessageArgumentType = msg->getArgument(0);
 	ICoord2D tmp;

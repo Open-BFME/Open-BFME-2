@@ -49,10 +49,10 @@ void StrategicHUD::DynamicAutoResolvePlayerPanelMovieClip::Impl::SetPlayerHealth
 void StrategicHUD::DynamicAutoResolvePlayerPanelMovieClip::Impl::PlayHitAnim(float damage)
 {
 	float *pHealth = &m_float34;
-	float *p = pHealth;
+	float *chosen = pHealth;
 	if (!(damage > *pHealth))
-		p = &damage;
-	damage = *p;
+		chosen = &damage;
+	damage = *chosen;
 	const char *team = m_team08 ? m_team08->m_name : "";
 	Rva00527925Fire((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), m_level04, team, "PlayHitAnim", &damage);
 	*pHealth -= damage;
@@ -62,10 +62,10 @@ void StrategicHUD::DynamicAutoResolvePlayerPanelMovieClip::Impl::PlayHitAnim(flo
 void StrategicHUD::DynamicAutoResolvePlayerPanelMovieClip::Impl::PlayReinforceAnim(float amount)
 {
 	float cap = kF7C - m_float34;
-	float *p = &cap;
+	float *chosen = &cap;
 	if (!(amount > cap))
-		p = &amount;
-	amount = *p;
+		chosen = &amount;
+	amount = *chosen;
 	const char *team = m_team08 ? m_team08->m_name : "";
 	Rva00527925Fire((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), m_level04, team, "PlayReinforceAnim", &amount);
 	m_flag4D = true;

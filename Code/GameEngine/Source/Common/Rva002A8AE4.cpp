@@ -57,13 +57,13 @@ public:
 
 Rva002A8AE4Record *Rva002A8F24::rva002A8AE4(void *key)
 {
-	Rva002A8AB1Record *r = rva002A8AB1(key);
-	if (r != 0 && !r->get())
+	Rva002A8AB1Record *record = rva002A8AB1(key);
+	if (record != 0 && !record->get())
 	{
-		Player *player = ThePlayerList->getNthPlayer(r->m_value);
+		Player *player = ThePlayerList->getNthPlayer(record->m_value);
 		return (Rva002A8AE4Record *)rva002A8AB1(player);
 	}
-	return (Rva002A8AE4Record *)r;
+	return (Rva002A8AE4Record *)record;
 }
 
 // ?rva002A8B59@Rva002A8F24@@QAEPAURva002A8B59Data@@PAX@Z, retail 0x002A8B59, 26 bytes.

@@ -77,9 +77,9 @@ private:
 };
 Rva0036CA00Str Rva0027937BHost::rva0027937B()
 {
-	int v = 0;
+	int selector = 0;
 	Rva0027937BMid *mid = m_fc;
 	if (mid != 0)
-		v = mid->m_254->v20();
-	return ((Drawable *)this)->rva0027824D(v);
+		selector = mid->m_254->v20();
+	return ((Drawable *)this)->rva0027824D(selector);
 }

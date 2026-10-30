@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
-// ?rva005FF267@Rva005FF267@@QAEXH@Z @ 0x005FF267 69B
+// ?setState@Rva005FF267@@QAEXH@Z @ 0x005FF267 69B
 // Apt SetState via rowed AptCall 0x0050E9FE with team prefix or empty fallback and state table.
 // Evidence: caller jmp 0x005FF4C0; globals TheRva00222A8BTarget g_Rva0107301CEmptyString;
 // string SetState; layout +4 level +8 team +0x24 state matches StrategicHUD::BattlePromptArmyPanelMovieClip::Impl; precedent Rva005FFC26SetState.
@@ -21,7 +21,7 @@ struct Rva005FF267Team
 class Rva005FF267
 {
 public:
-	void rva005FF267(int state);
+	void setState(int state);
 private:
 	char m_pad0[4];
 	void *m_level;
@@ -30,7 +30,7 @@ private:
 	int m_state;
 };
 
-void Rva005FF267::rva005FF267(int state)
+void Rva005FF267::setState(int state)
 {
 	if (state == m_state)
 		return;

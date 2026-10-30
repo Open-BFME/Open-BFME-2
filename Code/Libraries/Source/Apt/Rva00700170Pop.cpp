@@ -70,11 +70,11 @@ void AptBasePtrStack::rva00700170(void *a1, void *a2)
 		if (g_bfmeAptBreakOnAssertAtDDC01C)
 			__debugbreak();
 	}
-	BfmeAptValue006DCD20 *v = m_8[m_0 - 1];
-	if ((char)v->isString() != 0) {
-		BfmeAptValue006DCD20 *s = v->checkedString();
+	BfmeAptValue006DCD20 *topValue = m_8[m_0 - 1];
+	if ((char)topValue->isString() != 0) {
+		BfmeAptValue006DCD20 *s = topValue->checkedString();
 		// 0x006FFD80 is rowed as AptActionInterpreter::getVariable; retail calls it on this stack.
-		v = (BfmeAptValue006DCD20 *)((AptActionInterpreter *)this)->getVariable((AptValue *)a1, (AptValue *)a2, (const EAStringC *)((char *)s + 8), 1, 1, 0);
+		topValue = (BfmeAptValue006DCD20 *)((AptActionInterpreter *)this)->getVariable((AptValue *)a1, (AptValue *)a2, (const EAStringC *)((char *)s + 8), 1, 1, 0);
 	}
 	if (m_0 <= 0) {
 		g_bfmeAptAssertAtE17734("false && \"[APT] Error, Popping from Stack with 0 elements. Please contact the Apt Team for Support.\"", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\_AptBasePtrStack.h", 0xbf);
@@ -84,7 +84,7 @@ void AptBasePtrStack::rva00700170(void *a1, void *a2)
 		m_0 = m_0 - 1;
 	}
 	rva006FE7B0((*(BfmeAptValue006DCD20 * *)&gpUndefinedValue));
-	AptNativeHash *aptNativeHash = v->v3();
+	AptNativeHash *aptNativeHash = topValue->v3();
 	while (aptNativeHash != 0) {
 		EAStringC *eAStringC = (EAStringC *)aptNativeHash->rva0070AA40();
 		while (eAStringC != 0) {
@@ -95,8 +95,8 @@ void AptBasePtrStack::rva00700170(void *a1, void *a2)
 			}
 			eAStringC = (EAStringC *)aptNativeHash->rva0070AAA0((AptNativeHash::Entry *)eAStringC);
 		}
-		BfmeAptValue006DCD20 *n8 = aptNativeHash->m_8;
-		aptNativeHash = n8 != 0 ? n8->v3() : 0;
+		BfmeAptValue006DCD20 *nextHash = aptNativeHash->m_8;
+		aptNativeHash = nextHash != 0 ? nextHash->v3() : 0;
 	}
-	v->v1();
+	topValue->v1();
 }

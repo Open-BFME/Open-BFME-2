@@ -69,8 +69,8 @@ private:
 int Rva003F02E4::rva003F036E()
 {
 	Rva003F02E4Vec *v = &m_164;
-	unsigned n = (unsigned)(v->end - v->begin);
-	if (n > 0 || rva003F02E4())
+	unsigned count = (unsigned)(v->end - v->begin);
+	if (count > 0 || rva003F02E4())
 		return 1;
 	return 0;
 }

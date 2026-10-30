@@ -63,12 +63,12 @@ int Rva003BD52F(const char *name)
 {
 	if (!name)
 		return 6;
-	const char **p = g_rva0033A3F4Table;
-	for (int i = 0; p; ++p, ++i)
+	const char **entry = g_rva0033A3F4Table;
+	for (int i = 0; entry; ++entry, ++i)
 	{
-		if (!*p)
+		if (!*entry)
 			break;
-		if (!_strcmpi(*p, name))
+		if (!_strcmpi(*entry, name))
 			return i;
 	}
 	return 6;

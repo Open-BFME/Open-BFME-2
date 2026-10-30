@@ -41,10 +41,10 @@ public:
 
 int Rva00431F0C::rva00431F0C(GameMessage *msg)
 {
-	int t = msg->m_10;
-	if (t == 6 || t == 0x10)
+	int messageType = msg->m_10;
+	if (messageType == 6 || messageType == 0x10)
 	{
-		if (t != m_08)
+		if (messageType != m_08)
 		{
 			((Rva00431A4D *)m_04)->EatNextClickMessage(msg);
 			void *mem = operator new(8);

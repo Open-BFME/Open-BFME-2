@@ -30,15 +30,15 @@ public:
 	char m_pad[0xF4];
 	int m_0F4;
 };
-unsigned char __cdecl Rva005E9137Check(class Rva00318F42 *a)
+unsigned char __cdecl Rva005E9137Check(class Rva00318F42 *target)
 {
 	class Rva002BA8F1Logic *logic = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic);
 	if (logic == 0)
 		return 0;
 	if (logic->m_0F4 != 0)
 		return 0;
-	if (((class Rva002B280C *)logic)->rva002B280C((struct Arg54 *)a))
-		return a->rva00318F42();
+	if (((class Rva002B280C *)logic)->rva002B280C((struct Arg54 *)target))
+		return target->rva00318F42();
 	return 0;
 }
 // ?rva005E917A@Rva005E917A@@QAEXXZ @0x005E917A 47B

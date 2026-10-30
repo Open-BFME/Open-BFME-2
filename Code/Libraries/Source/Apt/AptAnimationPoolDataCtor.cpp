@@ -30,13 +30,13 @@ class Rva006E6060Root{
 public:Rva006E6060Root(const Rva00222343*);~Rva006E6060Root();
 };
 #define ROOT_CHECK(c,l,s) if(!(c)){g_bfmeAptAssertAtE17734(s,"C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptAnimation.cpp",l);if(g_bfmeAptBreakOnAssertAtDDC01C){__asm int 3}}
-Rva006E6060Root::Rva006E6060Root(const Rva00222343*p):a(p->fields[0]),b(p->fields[2]),c(p->fields[2]),d(p->fields[1]){
- maxNew=p->fields[6];maxTimers=p->fields[4];maxInputs=p->fields[7];maxRecords=p->fields[5];
+Rva006E6060Root::Rva006E6060Root(const Rva00222343*config):a(config->fields[0]),b(config->fields[2]),c(config->fields[2]),d(config->fields[1]){
+ maxNew=config->fields[6];maxTimers=config->fields[4];maxInputs=config->fields[7];maxRecords=config->fields[5];
  ROOT_CHECK(g_bfmeAptAllocAtE17728,0x278,"gAptFuncs.pfnMemAlloc");
  ROOT_CHECK(maxNew!=0,0x27A,"m_iMaxNewMovieClips != 0");
  newInsts=(void**)((Rva006DB160*)g_pChainBlockAllocator)->allocBlock(maxNew*4);
  ROOT_CHECK(newInsts!=0,0x27C,"apNewInsts != NULL");
- queue=new AptActionQueueC(p->fields[3]);
+ queue=new AptActionQueueC(config->fields[3]);
  if(maxRecords==0)records28=0;else records28=Rva006CD440Alloc(maxRecords*28);
  timers=new AptIntervalTimer[maxTimers];
  ROOT_CHECK(timers!=0,0x28A,"aIntervalTimers != 0");

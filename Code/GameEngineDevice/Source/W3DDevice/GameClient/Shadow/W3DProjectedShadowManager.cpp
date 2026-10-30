@@ -50,7 +50,7 @@ W3DProjectedShadowManager::~W3DProjectedShadowManager(){
 ((BfmeThing928F*)this)->bfmeOne928F();
 ((BfmeThing928F*)this)->bfmeTwo928F();
 ((Rva00109DCF*)this)->rva00109DCF();
-Rva0010C785Ref *p=m_20; if(p){if(--p->m_ref==0)p->Release();m_20=0;}
+Rva0010C785Ref *ref=m_20; if(ref){if(--ref->m_ref==0)ref->Release();m_20=0;}
 BfmeSub928F *q=m_24c; if(q){q->BfmeSub928F::~BfmeSub928F();::operator delete(q);}m_24c=0;
 }
 

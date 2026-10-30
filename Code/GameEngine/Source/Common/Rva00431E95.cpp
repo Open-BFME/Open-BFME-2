@@ -32,15 +32,15 @@ class Rva00431E95
 	void *m_00;
 	void *m_04;
 public:
-	int HandleButtonUp(void *p);
+	int HandleButtonUp(void *message);
 };
 
 #include <new>
 
-int Rva00431E95::HandleButtonUp(void *p)
+int Rva00431E95::HandleButtonUp(void *message)
 {
 	Rva004319F2Update();
-	Rva00431E95Param *par = (Rva00431E95Param *)p;
+	Rva00431E95Param *par = (Rva00431E95Param *)message;
 	void *mem = operator new(12);
 	Rva00431E95Helper *h;
 	if (mem != 0)

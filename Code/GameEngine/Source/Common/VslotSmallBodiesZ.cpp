@@ -63,21 +63,21 @@ struct Rva003F468DEntry
 class Rva003F468D
 {
 public:
-	Int rva003F468D(Int a, Int b);
-	Int rva003F4DAE(Int a);
+	Int rva003F468D(Int entryIndex, Int recordIndex);
+	Int rva003F4DAE(Int entryIndex);
 private:
 	char m_pad00[0x18];
 	Rva003F468DEntry *m_18;
 };
-Int Rva003F468D::rva003F468D(Int a, Int b)
+Int Rva003F468D::rva003F468D(Int entryIndex, Int recordIndex)
 {
-	return m_18[a].m_records.m_begin[b].m_00;
+	return m_18[entryIndex].m_records.m_begin[recordIndex].m_00;
 }
 // 0x003F4DAE (28 B; LivingWorldLogic battle bodies and the tactical-victor
 // lookup call it): the record count of entry [a], (end - begin) / 0x30.
-Int Rva003F468D::rva003F4DAE(Int a)
+Int Rva003F468D::rva003F4DAE(Int entryIndex)
 {
-	return m_18[a].m_records.size();
+	return m_18[entryIndex].m_records.size();
 }
 
 // 0x0056a9cf: vtable-backed integer predicate; only the accessed word

@@ -34,7 +34,7 @@ class Rva005C9B76
 {
 public:
 	void rva005C9AB4();
-	int rva005C9ADD(int v, int);
+	int rva005C9ADD(int id, int);
 	void rva005C9B56(int v);
 	virtual ~Rva005C9B76();
 private:
@@ -59,10 +59,10 @@ void Rva005C9B76::rva005C9AB4()
 	}
 	m_b18 = 0;
 }
-int Rva005C9B76::rva005C9ADD(int v, int)
+int Rva005C9B76::rva005C9ADD(int id, int)
 {
 	m_b18 = 1;
-	int r = reinterpret_cast<int>(reinterpret_cast<Rva005C98C0 *>(this)->rva005C98C0(v));
+	int r = reinterpret_cast<int>(reinterpret_cast<Rva005C98C0 *>(this)->rva005C98C0(id));
 	int cur = m_i1C;
 	if (r != cur) {
 		m_i1C = r;
@@ -97,7 +97,7 @@ private:
 class Obj005C9B0C
 {
 public:
-	int rva005C9B0C(int v, int, int extra);
+	int rva005C9B0C(int id, int, int extra);
 	int rva005C9B31(int v, int, int extra);
 
 private:
@@ -105,9 +105,9 @@ private:
 	Rva005C9A89List m_list;
 };
 
-int Obj005C9B0C::rva005C9B0C(int v, int, int extra)
+int Obj005C9B0C::rva005C9B0C(int id, int, int extra)
 {
-	int value = reinterpret_cast<int>(reinterpret_cast<Rva005C98C0 *>(this)->rva005C98C0(v));
+	int value = reinterpret_cast<int>(reinterpret_cast<Rva005C98C0 *>(this)->rva005C98C0(id));
 	m_list.forEach(&Rva005C9A89Listener::notify08, this, value, extra);
 	return 0;
 }

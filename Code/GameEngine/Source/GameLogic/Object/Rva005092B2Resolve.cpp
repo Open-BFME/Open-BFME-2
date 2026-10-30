@@ -36,13 +36,13 @@ public:
 	void rva005092B2();
 
 private:
-	const WeaponTemplate *m_128;
+	const WeaponTemplate *m_weaponTemplate;
 	char m_pad12C[4];
-	AsciiString m_130;
+	AsciiString m_weaponName;
 };
 
 void Rva005092B2::rva005092B2()
 {
 	Rva00507823::rva00507877();
-	m_128 = TheWeaponStore->findWeaponTemplate(m_130);
+	m_weaponTemplate = TheWeaponStore->findWeaponTemplate(m_weaponName);
 }

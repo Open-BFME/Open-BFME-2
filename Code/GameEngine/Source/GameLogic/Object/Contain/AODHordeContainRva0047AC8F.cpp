@@ -10,8 +10,8 @@
 #include <math.h>
 // Keep the CRT float wrapper visible under a local name so this unit does
 // not emit competing sin(float)/cos(float) definitions.
-inline float __cdecl aodSin(float x) { return sinf(x); }
-inline float __cdecl aodCos(float x) { return cosf(x); }
+inline float __cdecl aodSin(float radians) { return sinf(radians); }
+inline float __cdecl aodCos(float radians) { return cosf(radians); }
 #include "../../../Common/GameLogicObjectLookupView.h"
 float Cos(float);
 float Sin(float);
@@ -20,10 +20,10 @@ struct AODSway : Coord2D
  AODSway()
  {
  }
- AODSway(const Coord2D &v)
+ AODSway(const Coord2D &source)
  {
-  x=v.x;
-  y=v.y;
+  x=source.x;
+  y=source.y;
  }
  AODSway(const AODSway &aODSway)
  {
@@ -270,11 +270,11 @@ __declspec(noinline) inline float Coord2D::toAngle() const
  return ACos(cosine);
 }
 
-static __forceinline float AODHeightFalloff(float x)
+static __forceinline float AODHeightFalloff(float normalizedDistance)
 {
- float a = (float)sqrt(x) * x;
- float b = x * x;
- b *= 1.0f - x;
+ float a = (float)sqrt(normalizedDistance) * normalizedDistance;
+ float b = normalizedDistance * normalizedDistance;
+ b *= 1.0f - normalizedDistance;
  return a + b;
 }
 
@@ -321,14 +321,14 @@ Coord3D *AODHordeContain::rva0047AC8F(Coord3D *out,Object *obj,int word)
   Locomotor *loco = me->m_ai->m_curLocomotor;
   speedRatio = reinterpret_cast<Rva0008BB38FloatField *>(loco)->get() / loco->getMaxSpeed(me);
  }
- float t = md->m_stillAmplitude;
- if (t < 0.0f)
- t = 0.0f;
- if (t > 1.0f)
- t = 1.0f;
- if (t > 0.01f)
+ float stillBlend = md->m_stillAmplitude;
+ if (stillBlend < 0.0f)
+ stillBlend = 0.0f;
+ if (stillBlend > 1.0f)
+ stillBlend = 1.0f;
+ if (stillBlend > 0.01f)
  m_04 = true;
- float speedFactor = (1.0f - t) * speedRatio + t;
+ float speedFactor = (1.0f - stillBlend) * speedRatio + stillBlend;
  AODWave *wave = &m_wavesBegin[index];
  AODSway sway;
  sway.y = (float)aodSin(wave->m_00 + wave->m_08 * ((float)TheGameLogic->getFrame() * md->m_frequencyScale)) * wave->m_04;
@@ -341,20 +341,20 @@ Coord3D *AODHordeContain::rva0047AC8F(Coord3D *out,Object *obj,int word)
  dir.y = Sin(angle);
  dir.x *= len;
  dir.y *= len;
- t = md->m_stillAmplitudeZ;
- if (t < 0.0f)
- t = 0.0f;
- if (t > 1.0f)
- t = 1.0f;
- if (t > 0.01f)
+ stillBlend = md->m_stillAmplitudeZ;
+ if (stillBlend < 0.0f)
+ stillBlend = 0.0f;
+ if (stillBlend > 1.0f)
+ stillBlend = 1.0f;
+ if (stillBlend > 0.01f)
  m_04 = true;
  bob += (float)aodSin(wave->m_0C + wave->m_14 * ((float)TheGameLogic->getFrame() * md->m_frequencyScaleZ)) * wave->m_10;
- speedFactor = (1.0f - t) * speedRatio + t;
+ speedFactor = (1.0f - stillBlend) * speedRatio + stillBlend;
  bob = speedFactor * md->m_amplitudeScaleZ * bob;
  if (obj->isKindOf((KindOfType)0xD7))
  {
-  Coord2D temporary;
-  Coord2D spread = *rva0046A5B1(&temporary, index);
+  Coord2D spreadOutput;
+  Coord2D spread = *rva0046A5B1(&spreadOutput, index);
   spread.normalize();
   float s = md->m_scatterSpeedFactor * m_218;
   s = (float)(index % 5) * md->m_scatterRandomness * m_218 * 0.25f + s;

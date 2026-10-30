@@ -69,30 +69,30 @@ inline Rva004D1C81Pair::Rva004D1C81Pair(Rva004D1C81Iter it, bool s) : first(it.n
 struct Rva004D1C81 {
 	Rva004D1C81Node *_head;
 	unsigned int _size;
-	Rva004D1C81Iter rva004D1C81(Rva004D1C81Node *x, Rva004D1C81Node *y, const Rva004D1C81Key &v, Rva004D1C81Node *w);
+	Rva004D1C81Iter rva004D1C81(Rva004D1C81Node *x, Rva004D1C81Node *parent, const Rva004D1C81Key &v, Rva004D1C81Node *w);
 	Rva004D1C81Pair rva0046ABA6(const Rva004D1C81Key &v);
 	Rva004D1C81Iter rva0046E31F(Rva004D1C81Iter position, const Rva004D1C81Key &v);
 };
-Rva004D1C81Iter Rva004D1C81::rva004D1C81(Rva004D1C81Node *x, Rva004D1C81Node *y, const Rva004D1C81Key &v, Rva004D1C81Node *w)
+Rva004D1C81Iter Rva004D1C81::rva004D1C81(Rva004D1C81Node *x, Rva004D1C81Node *parent, const Rva004D1C81Key &v, Rva004D1C81Node *w)
 {
 	Rva004D1C81Node *z;
-	if (y == _head || (w == 0 && (x != 0 || v.key < y->_key10))) {
+	if (parent == _head || (w == 0 && (x != 0 || v.key < parent->_key10))) {
 		z = (Rva004D1C81Node *)((Rva004DCC62 *)this)->rva004DCC62((const void *)&v);
-		y->_left = z;
-		if (y == _head) {
+		parent->_left = z;
+		if (parent == _head) {
 			_head->_parent = z;
 			_head->_right = z;
-		} else if (y == _head->_left) {
+		} else if (parent == _head->_left) {
 			_head->_left = z;
 		}
 	} else {
 		z = (Rva004D1C81Node *)((Rva004DCC62 *)this)->rva004DCC62((const void *)&v);
-		y->_right = z;
-		if (y == _head->_right) {
+		parent->_right = z;
+		if (parent == _head->_right) {
 			_head->_right = z;
 		}
 	}
-	z->_parent = y;
+	z->_parent = parent;
 	z->_left = 0;
 	z->_right = 0;
 	_STL::_Rb_global<bool>::_Rebalance((_STL::_Rb_tree_node_base *)z, (_STL::_Rb_tree_node_base *&)_head->_parent);
@@ -107,21 +107,21 @@ Rva004D1C81Pair Rva004D1C81::rva0046ABA6(const Rva004D1C81Key &v)
 {
 	Rva004D1C81Node *header = _head;
 	Rva004D1C81Node *x = header->_parent;
-	Rva004D1C81Node *y = header;
+	Rva004D1C81Node *parent = header;
 	bool comp = true;
 	while (x != 0) {
-		y = x;
+		parent = x;
 		comp = v.key < x->_key10;
 		x = comp ? x->_left : x->_right;
 	}
-	Rva004D1C81Node *j = y;
+	Rva004D1C81Node *j = parent;
 	if (comp) {
 		if (j == header->_left)
-			return Rva004D1C81Pair(rva004D1C81(y, y, v, 0), true);
-		j = (Rva004D1C81Node *)_STL::_Rb_global<bool>::_M_decrement((_STL::_Rb_tree_node_base *)y);
+			return Rva004D1C81Pair(rva004D1C81(parent, parent, v, 0), true);
+		j = (Rva004D1C81Node *)_STL::_Rb_global<bool>::_M_decrement((_STL::_Rb_tree_node_base *)parent);
 	}
 	if (j->_key10 < v.key)
-		return Rva004D1C81Pair(rva004D1C81(x, y, v, 0), true);
+		return Rva004D1C81Pair(rva004D1C81(x, parent, v, 0), true);
 	return Rva004D1C81Pair(j, false);
 }
 Rva004D1C81Iter Rva004D1C81::rva0046E31F(Rva004D1C81Iter position, const Rva004D1C81Key &v)

@@ -12,13 +12,13 @@ struct Bfme5Quad16
 class Bfme5QuadOwner
 {
 public:
-	Bfme5Quad16 bfmeGetQuad(void);
+	Bfme5Quad16 getQuad(void);
 
 	char m_bfmePad[0x84];
 	Bfme5Quad16 m_bfmeQuad;
 };
 
-Bfme5Quad16 Bfme5QuadOwner::bfmeGetQuad(void)
+Bfme5Quad16 Bfme5QuadOwner::getQuad(void)
 {
 	return m_bfmeQuad;
 }

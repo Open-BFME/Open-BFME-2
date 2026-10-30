@@ -17,8 +17,8 @@ class File;
 class FileSystem
 {
 public:
-	File *rva00600676(const unsigned short *a1, int a2, int a3);
-	bool rva006006A9(const unsigned short *a1);
+	File *rva00600676(const unsigned short *path, int a2, int a3);
+	bool rva006006A9(const unsigned short *path);
 };
 
 class Rva00600676Target
@@ -41,12 +41,12 @@ public:
 
 extern class ArchiveFileSystem *TheArchiveFileSystem;
 
-File *FileSystem::rva00600676(const unsigned short *a1, int a2, int a3)
+File *FileSystem::rva00600676(const unsigned short *path, int a2, int a3)
 {
-	Rva00600676Target *p = (*(Rva00600676Target **)&TheArchiveFileSystem);
+	Rva00600676Target *archiveFileSystem = (*(Rva00600676Target **)&TheArchiveFileSystem);
 	File *file = 0;
-	if (p != 0)
-		file = p->v2(a1, a2, a3);
+	if (archiveFileSystem != 0)
+		file = archiveFileSystem->v2(path, a2, a3);
 	return file;
 }
 
@@ -55,21 +55,21 @@ File *FileSystem::rva00600676(const unsigned short *a1, int a2, int a3)
 // GameState::saveGame (0x002DD45B) loads TheFileSystem into ECX before the
 // call and FileSystem::rva0037BD2B reaches it with ECX still this; both pass
 // a wide string (UnicodeString text or the wide empty literal 0x00BBB5C4).
-bool FileSystem::rva006006A9(const unsigned short *a1)
+bool FileSystem::rva006006A9(const unsigned short *path)
 {
-	Rva00600676Target *p = (*(Rva00600676Target **)&TheArchiveFileSystem);
-	if (p != 0)
-		return p->v11((const char *)a1);
+	Rva00600676Target *archiveFileSystem = (*(Rva00600676Target **)&TheArchiveFileSystem);
+	if (archiveFileSystem != 0)
+		return archiveFileSystem->v11((const char *)path);
 	return false;
 }
 // ?Rva00600695Get@@YG_NPBD@Z @0x00600695 20B. Guarded global virtual forward
 // to slot 12 (0x30) with 1 stdcall arg returning bool; null returns false.
 // Same shape as v11 sibling above; prev 0x0060068A next 0x006006A9 same TU;
 // caller 0x003006D9 pushes empty literal; address-derived honest name.
-bool __stdcall Rva00600695Get(const char *a1)
+bool __stdcall Rva00600695Get(const char *path)
 {
-	Rva00600676Target *p = (*(Rva00600676Target **)&TheArchiveFileSystem);
-	if (p != 0)
-		return p->v12(a1);
+	Rva00600676Target *archiveFileSystem = (*(Rva00600676Target **)&TheArchiveFileSystem);
+	if (archiveFileSystem != 0)
+		return archiveFileSystem->v12(path);
 	return false;
 }

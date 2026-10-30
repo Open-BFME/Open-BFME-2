@@ -88,4 +88,4 @@ private:
 	char m_pad[32];
 	Inner00466D50 m_20;
 };
-bool Rva00466D50::rva00466D50(unsigned int count){if(count==0)return false;unsigned int b=(m_20.v69(0)+count)+m_20.v51();unsigned int capacity=m_20.v28();return capacity>=b;}
+bool Rva00466D50::rva00466D50(unsigned int count){if(count==0)return false;unsigned int required=(m_20.v69(0)+count)+m_20.v51();unsigned int capacity=m_20.v28();return capacity>=required;}

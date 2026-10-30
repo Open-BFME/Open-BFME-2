@@ -16,15 +16,15 @@ private:
 class Rva0052BFE1
 {
 public:
-    Rva00564DF2NameView *rva0052C119();
-    bool rva0052C72B(const AsciiString &key);
+    Rva00564DF2NameView *getCurrentEntry();
+    bool hasEntryNamed(const AsciiString &key);
 private:
     char unknown00[8];
     int index;
     _STL::vector<Rva00564DF2NameView> entries;
 };
 
-Rva00564DF2NameView *Rva0052BFE1::rva0052C119()
+Rva00564DF2NameView *Rva0052BFE1::getCurrentEntry()
 {
     int current = index;
     if (current >= 0 && (unsigned int)current < entries.size())
@@ -50,7 +50,7 @@ struct Rva0052BFE1RawVec
     const char *m_end;
 };
 
-bool Rva0052BFE1::rva0052C72B(const AsciiString &key)
+bool Rva0052BFE1::hasEntryNamed(const AsciiString &key)
 {
     const volatile Rva0052BFE1RawVec *vec = (const volatile Rva0052BFE1RawVec *)&entries;
     unsigned i = 0;

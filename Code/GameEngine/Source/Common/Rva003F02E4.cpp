@@ -62,13 +62,13 @@ bool Rva003F02E4::rva003F02E4()
 		return true;
 	Rva003F02E4Node **pp = m_170;
 	for (; pp != m_174; ++pp) {
-		Rva003F02E4Node *n = *pp;
-		Rva004E0605ByteChaseField *h = n->m_holder;
-		if (h == 0)
+		Rva003F02E4Node *node = *pp;
+		Rva004E0605ByteChaseField *holder = node->m_holder;
+		if (holder == 0)
 			continue;
-		if (n->m_34 != 0)
+		if (node->m_34 != 0)
 			continue;
-		if (h->get() != 0)
+		if (holder->get() != 0)
 			return true;
 	}
 	return false;
@@ -80,10 +80,10 @@ bool Rva003F02E4::rva003F02E4()
 // Evidence: callers 0x0020FF46 0x0020FFDA in 0x0020FDDF; prev 0x003F02E4 same TU flags.
 bool Rva003F02E4::rva003F0336(const Rva002E071E *other)
 {
-	Rva002E2903Player *p = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->find(m_13C, 0);
-	if (p == 0)
+	Rva002E2903Player *player = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->find(m_13C, 0);
+	if (player == 0)
 		return false;
-	if (!p->rva002E071E(other))
+	if (!player->rva002E071E(other))
 		return rva003F02E4();
 	return false;
 }

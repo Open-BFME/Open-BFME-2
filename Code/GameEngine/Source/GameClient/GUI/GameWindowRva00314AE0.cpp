@@ -38,9 +38,9 @@ void __stdcall Rva00314BC9(int a0, float a1, int a2, int a3, int a4, int a5)
 	((W3DDisplay *)TheDisplay)->rva0004D664((float)a2, (float)a3, (float)a4, (float)a5, a1, a0);
 }
 
-void __stdcall Rva00314B28(int a0, int a1, int x0, int y0, int x1, int y1)
+void __stdcall Rva00314B28(int color, int a1, int x0, int y0, int x1, int y1)
 {
-	((Rva0004263F *)TheDisplay)->rva0004263F((float)x0, (float)y0, (float)(x1 - x0), (float)(y1 - y0), a0);
+	((Rva0004263F *)TheDisplay)->rva0004263F((float)x0, (float)y0, (float)(x1 - x0), (float)(y1 - y0), color);
 }
 
 void __stdcall Rva00314B75(int a0, float a1, int x0, int y0, int x1, int y1)

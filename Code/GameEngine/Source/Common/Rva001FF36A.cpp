@@ -11,18 +11,18 @@
 class Rva001FF36A : public Rva002E8548
 {
 public:
-	bool rva001FF36A(int a1, int a2, int a3, int a4, int a5, int a6);
+	bool rva001FF36A(int a1, int a2, int a3, int allocCallback, int freeCallback, int callbackContext);
 };
 
-bool Rva001FF36A::rva001FF36A(int a1, int a2, int a3, int a4, int a5, int a6)
+bool Rva001FF36A::rva001FF36A(int a1, int a2, int a3, int allocCallback, int freeCallback, int callbackContext)
 {
 	if (a1)
 		m_00 = a1;
-	if (a4)
-		m_alloc = reinterpret_cast<void *(__cdecl *)(int, int)>(a4);
-	if (a5)
-		m_free = reinterpret_cast<void (__cdecl *)(void *, int)>(a5);
-	m_14 = a6;
+	if (allocCallback)
+		m_alloc = reinterpret_cast<void *(__cdecl *)(int, int)>(allocCallback);
+	if (freeCallback)
+		m_free = reinterpret_cast<void (__cdecl *)(void *, int)>(freeCallback);
+	m_14 = callbackContext;
 	if (m_04 == 0)
 		return rva002E8548(a2, a3);
 	return false;

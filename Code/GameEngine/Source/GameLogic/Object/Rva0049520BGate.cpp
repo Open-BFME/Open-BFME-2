@@ -210,9 +210,9 @@ int Rva0049520B::update()
 	View *view = obj->m_view;
 	if (view == 0)
 		return 1;
-	float a = view->s4();
+	float health = view->s4();
 	float scaled = view->s6() * other->m_scale;
-	if (a > scaled)
+	if (health > scaled)
 		return 1;
 	if (actor->a110()) {
 		Object *created = ((Rva00495183 *)((char *)this - 0x10))->rva00495183();

@@ -72,10 +72,10 @@ void __fastcall Rva005745D8Get(void *a)
 	void *esi_obj = (void *)first;
 	if (esi_obj == 0)
 		return;
-	void *g = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic);
-	if (g == 0)
+	void *logic = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic);
+	if (logic == 0)
 		return;
-	void *edi_obj = *(void **)((char *)g + 0x98);
+	void *edi_obj = *(void **)((char *)logic + 0x98);
 	if (edi_obj == 0)
 		return;
 	int saved298 = *(int *)((char *)edi_obj + 0x298);
@@ -86,8 +86,8 @@ void __fastcall Rva005745D8Get(void *a)
 	((Virt0C *)esi_obj)->v03(1, *(int *)((char *)edi_obj + 0x26C));
 	((Virt0C *)esi_obj)->v03(2, *(int *)((char *)edi_obj + 0x270));
 	int third = ((Rva002E0C2B *)edi_obj)->rva002E0C2B();
-	float g1 = (float)third * 0.01f + g_Va00BBB8D8;
-	((Virt14 *)esi_obj)->v05(g1);
+	float scale = (float)third * 0.01f + g_Va00BBB8D8;
+	((Virt14 *)esi_obj)->v05(scale);
 	int fourth = ((Rva002E063B *)edi_obj)->get();
 	((Virt1C *)esi_obj)->v07(fourth);
 }

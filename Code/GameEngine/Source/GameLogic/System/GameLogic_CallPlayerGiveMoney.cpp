@@ -49,47 +49,47 @@ public:
 };
 #include "../../Common/GameLogicObjectLookupView.h"
 
-void GameLogic::CallPlayerGiveMoney(int a1, int a2, int a3)
+void GameLogic::CallPlayerGiveMoney(int fromPlayerIndex, int toPlayerIndex, int amount)
 {
 	if (!canPlayersTransferMoneyYet())
 		return;
-	if (a1 < 0 || a1 >= 20)
+	if (fromPlayerIndex < 0 || fromPlayerIndex >= 20)
 		return;
-	if (a2 < 0 || a2 >= 20)
+	if (toPlayerIndex < 0 || toPlayerIndex >= 20)
 		return;
 	Player *player = 0;
-	Player *p1 = 0;
+	Player *fromPlayer = 0;
 	for (int i = 0; i < 20; i++) {
 		Player *p = ThePlayerList->getNthPlayer(i);
 		if (p == 0)
 			continue;
-		if (p->m_playerIndex == a1)
-			p1 = p;
-		else if (p->m_playerIndex == a2)
+		if (p->m_playerIndex == fromPlayerIndex)
+			fromPlayer = p;
+		else if (p->m_playerIndex == toPlayerIndex)
 			player = p;
-		if (p1 == 0)
+		if (fromPlayer == 0)
 			continue;
 		if (player == 0)
 			continue;
 		break;
 	}
-	if (p1 == 0 || player == 0)
+	if (fromPlayer == 0 || player == 0)
 		return;
-	if (((Rva002AA22AByteField *)p1)->get() != 0)
+	if (((Rva002AA22AByteField *)fromPlayer)->get() != 0)
 		return;
 	if (((Rva002AA22AByteField *)player)->get() != 0)
 		return;
-	Rva003B0D7C *m1 = &p1->m_money;
-	if (m1 == 0)
+	Rva003B0D7C *fromMoney = &fromPlayer->m_money;
+	if (fromMoney == 0)
 		return;
-	unsigned int reqSlot = a3;
-	unsigned int balSlot = m1->m_val04;
+	unsigned int reqSlot = amount;
+	unsigned int balSlot = fromMoney->m_val04;
 	unsigned int *pmin = (balSlot < reqSlot) ? &balSlot : &reqSlot;
-	Rva0039B795 *t1 = (Rva0039B795 *)p1->m_track;
-	unsigned int got = m1->withdraw(*pmin, t1, true);
-	Rva0039B795 *t2 = (Rva0039B795 *)player->m_track;
-	Rva003B0D7C *m2 = &player->m_money;
-	m2->rva003B0D7C((int)got, (Rva0039B7AD *)t2, true);
-	t1->rva0039B7E3((int)got);
-	t2->rva0039B7CB((int)got);
+	Rva0039B795 *fromTrack = (Rva0039B795 *)fromPlayer->m_track;
+	unsigned int got = fromMoney->withdraw(*pmin, fromTrack, true);
+	Rva0039B795 *toTrack = (Rva0039B795 *)player->m_track;
+	Rva003B0D7C *toMoney = &player->m_money;
+	toMoney->rva003B0D7C((int)got, (Rva0039B7AD *)toTrack, true);
+	fromTrack->rva0039B7E3((int)got);
+	toTrack->rva0039B7CB((int)got);
 }

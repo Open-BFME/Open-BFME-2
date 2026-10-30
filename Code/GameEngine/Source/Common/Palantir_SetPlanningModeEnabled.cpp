@@ -53,7 +53,7 @@ struct Rva002D37BDMid10
 class Palantir
 {
 public:
-	void SetPlanningModeEnabled(unsigned char v);
+	void SetPlanningModeEnabled(unsigned char enabled);
 
 private:
 	char m_pad[0x10];
@@ -61,11 +61,11 @@ private:
 };
 
 // ?SetPlanningModeEnabled@Palantir@@QAEXE@Z
-void Palantir::SetPlanningModeEnabled(unsigned char v)
+void Palantir::SetPlanningModeEnabled(unsigned char enabled)
 {
-	if (v == m_10->m_128)
+	if (enabled == m_10->m_128)
 		return;
-	if (v == 0) {
+	if (enabled == 0) {
 		Rva002D37BDMid *mid = ThePlayerList->m_mid;
 		if (mid != 0 && mid->m_750 == 2) {
 			GameMessage *gameMessage = TheMessageStream->appendMessage(GameMessage::MSG_RVA469);
@@ -73,5 +73,5 @@ void Palantir::SetPlanningModeEnabled(unsigned char v)
 			gameMessage->appendIntegerArgument(2);
 		}
 	}
-	m_10->m_128 = v;
+	m_10->m_128 = enabled;
 }

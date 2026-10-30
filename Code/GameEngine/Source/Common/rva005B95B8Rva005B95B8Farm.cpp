@@ -45,7 +45,7 @@ template<class T> inline const T &onlineHomeMax(const T &a, const T &b)
 	return a < b ? b : a;
 }
 
-float rva005B909F(int *selected, int category)
+float getWinShare(int *selected, int category)
 {
 	int t0 = g_Va00E06484.losses[category] + g_Va00E06484.wins[category];
 	float r0 = float(g_Va00E06484.wins[category] * 100) / float(onlineHomeMax(t0, 1));
@@ -84,22 +84,22 @@ public:
 
 void AptOnline::OnlineHome::rva005B95B8()
 {
-	float callResult = rva005B909F(reinterpret_cast<int *>(&g_Va00E06484), 3);
+	float callResult = getWinShare(reinterpret_cast<int *>(&g_Va00E06484), 3);
 	int a = int(callResult * 100.0f);
-	callResult = rva005B909F(reinterpret_cast<int *>(&g_Va00E064A4), 3);
+	callResult = getWinShare(reinterpret_cast<int *>(&g_Va00E064A4), 3);
 	int b = int(callResult * 100.0f);
-	callResult = rva005B909F(reinterpret_cast<int *>(&g_Va00E064C4), 3);
+	callResult = getWinShare(reinterpret_cast<int *>(&g_Va00E064C4), 3);
 	int c = int(callResult * 100.0f);
-	callResult = rva005B909F(reinterpret_cast<int *>(&g_Va00E064E4), 3);
+	callResult = getWinShare(reinterpret_cast<int *>(&g_Va00E064E4), 3);
 	int d = int(callResult * 100.0f);
-	callResult = rva005B909F(reinterpret_cast<int *>(&g_Va00E06504), 3);
+	callResult = getWinShare(reinterpret_cast<int *>(&g_Va00E06504), 3);
 	int e = int(callResult * 100.0f);
-	int f = 10000 - e - d - c - b - a;
+	int remainder = 10000 - e - d - c - b - a;
 	AptOnlineHome *home = reinterpret_cast<AptOnlineHome *>(this);
 	home->rva005B947D(6, a / 100, (a % 100) / 10);
 	home->rva005B947D(7, b / 100, (b % 100) / 10);
 	home->rva005B947D(8, c / 100, (c % 100) / 10);
 	home->rva005B947D(9, d / 100, (d % 100) / 10);
 	home->rva005B947D(10, e / 100, (e % 100) / 10);
-	home->rva005B947D(11, f / 100, (f % 100) / 10);
+	home->rva005B947D(11, remainder / 100, (remainder % 100) / 10);
 }
