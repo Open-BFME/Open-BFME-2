@@ -25,6 +25,11 @@ public:
 #include <utility>
 #include <vector>
 #include <stdlib.h>
+#include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
+#include <new>
+#define REPORT(message) if (bfmeRva000387C0()) { _bfme_debugRecordCallsite(1); theDebug->slot60(); (theDebug->slot6c(0,0,0) << *(const StringBase<char> *)&name).slot38(message).slot4c(2); }
+#pragma pack(push,1)
+#pragma pack(pop)
 
 class Rva00330757Member
 {
@@ -387,7 +392,57 @@ private:
 	unsigned char m_flag;
 };
 
-// tu-skeleton: 0x003080CE 96B ?rva003080CE@StandingWaterArea@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Map/StandingWaterAreaReleasePCA.cpp (not merged yet)
+struct StandingWaterPCARecord { float values[4]; };
+
+class File
+{
+public:
+ virtual void unused0(); virtual void unused1();
+ virtual void close();
+ virtual int read(void *buffer, int count);
+};
+
+class FileSystem { public: File *openFile(const char *, int, int); };
+
+extern FileSystem *TheFileSystem;
+
+class Debug
+{
+public:
+ virtual void slot00(); virtual void slot04(); virtual void slot08(); virtual void slot0c();
+ virtual void slot10(); virtual void slot14(); virtual void slot18(); virtual void slot1c();
+ virtual void slot20(); virtual void slot24(); virtual void slot28(); virtual void slot2c();
+ virtual void slot30(); virtual void slot34(); virtual Debug &slot38(const char *);
+ virtual void slot3c(); virtual void slot40(); virtual void slot44(); virtual void slot48();
+ virtual void slot4c(int); virtual void slot50(); virtual void slot54(); virtual void slot58();
+ virtual void slot5c(); virtual void slot60(); virtual void slot64(); virtual void slot68();
+ virtual Debug &slot6c(int,int,int);
+};
+
+extern Debug *theDebug;
+
+bool bfmeRva000387C0();
+
+void _bfme_debugRecordCallsite(int);
+
+struct DepthTgaHeader { unsigned char idLength,colorMapType,imageType,unused[9]; unsigned short width,height; unsigned char bitsPerPixel,descriptor; };
+
+// ---- from Code/GameEngine/Source/GameLogic/Map/StandingWaterAreaReleasePCA.cpp
+
+// Native PCA release96: 3080CE..30812E; original helper name unknown.
+// Class relationship is established by WB LoadPCAFile's same-this call and
+// native array ownership at A8, AC..CC. No original record type is claimed.
+
+void StandingWaterArea::rva003080CE()
+{
+ if(mean) { delete[] mean; mean=0; }
+ for(int i=0;i<3;++i)
+ {
+  if(channels[i]) { delete[] channels[i]; channels[i]=0; }
+  if(channels[i+3]) { delete[] channels[i+3]; channels[i+3]=0; }
+  if(channels[i+6]) { delete[] channels[i+6]; channels[i+6]=0; }
+ }
+}
 
 // tu-skeleton: 0x0030812E 11B ?getTextureName@Rva0030812E@@QAEPAXH@Z -- matched in Code/GameEngine/Source/Common/Rva00142C80LeaIndexer.cpp (not merged yet)
 
@@ -406,6 +461,8 @@ private:
 // tu-skeleton: 0x003081DF 28B ?rva003081DF@Rva003081DF@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/Rva00330B2EMemberCall.cpp (not merged yet)
 
 // tu-skeleton: 0x003081FB 24B ?rva003081FB@Rva003081FB@@QAEEXZ -- matched in Code/GameEngine/Source/GameClient/Rva00330B2EMemberCall.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Map/StandingWaterArea.cpp
 
 // ---- from Code/GameEngine/Source/Common/Rva00308213StringReset.cpp
 
@@ -524,10 +581,6 @@ Rva004733E0 *Rva00308663Fill(Rva004733E0 *dst, unsigned int count, const Rva0047
 	return cur;
 }
 
-// tu-skeleton: 0x00308688 109B ?apply@Rva003089CFList@@QAEXABURva00308688Call@@@Z -- matched in Code/GameEngine/Source/Common/Rva00308AA4Notifiers.cpp (not merged yet)
-
-// tu-skeleton: 0x003086F5 112B ?apply@Rva003089CFList@@QAEXABURva003086F5Call@@@Z -- matched in Code/GameEngine/Source/Common/Rva00308AA4Notifiers.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva00308765IndexedAssign.cpp
 
 // ?rva00308765@Rva00308765@@QAEXHABVAsciiString@@@Z, retail 0x00308765, 52B.
@@ -545,12 +598,6 @@ void Rva00308765::rva00308765(int index, const AsciiString &value)
 		s07(index);
 	}
 }
-
-// tu-skeleton: 0x00308799 566B ?getDepthColoringTexturePixels@StandingWaterArea@@QAEPAEPAH0@Z -- matched in Code/GameEngine/Source/GameLogic/Map/StandingWaterAreaDepthColoring.cpp (not merged yet)
-
-// tu-skeleton: 0x003089CF 30B ?forEach@Rva003089CFList@@QAEXP8Rva00308AA4Listener@@AEXPAVRva00308AA4Owner@@@Z0@Z -- matched in Code/GameEngine/Source/Common/Rva00308AA4Notifiers.cpp (not merged yet)
-
-// tu-skeleton: 0x003089ED 37B ?forEach@Rva003089CFList@@QAEXP8Rva00308AA4Listener@@AEXPAVRva00308AA4Owner@@H@Z0H@Z -- matched in Code/GameEngine/Source/Common/Rva00308AA4Notifiers.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva00308A12.cpp
 
@@ -585,18 +632,6 @@ void StandingWaterArea::rva00308A12(float position, int *red, int *green, int *b
   *blue = 255;
  }
 }
-
-// tu-skeleton: 0x00308AA4 24B ?rva00308AA4@Rva00308AA4Owner@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva00308AA4Notifiers.cpp (not merged yet)
-
-// tu-skeleton: 0x00308ABC 24B ?rva00308ABC@Rva00308AA4Owner@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva00308AA4Notifiers.cpp (not merged yet)
-
-// tu-skeleton: 0x00308AD4 24B ?rva00308AD4@Rva00308AA4Owner@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva00308AA4Notifiers.cpp (not merged yet)
-
-// tu-skeleton: 0x00308AEC 24B ?rva00308AEC@Rva00308AA4Owner@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva00308AA4Notifiers.cpp (not merged yet)
-
-// tu-skeleton: 0x00308B04 31B ?rva00308B04@Rva00308AA4Owner@@UAEXXZ -- matched in Code/GameEngine/Source/Common/Rva00308AA4Notifiers.cpp (not merged yet)
-
-// tu-skeleton: 0x00308B23 21B ?rva00308B23@Rva00308AA4Owner@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/Rva00308AA4Notifiers.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva00308B38Write.cpp
 
@@ -711,8 +746,6 @@ Rva00308DF0Ref *Rva00308DF0::rva00308DF0()
 	return m_ref;
 }
 
-// tu-skeleton: 0x00308E2C 55B ?push_back@?$vector@URva00308E2CElement@@V?$allocator@URva00308E2CElement@@@_STL@@@_STL@@QAEXABURva00308E2CElement@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorPushBackFamily.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva0030902ECtor.cpp
 
 //
@@ -758,6 +791,56 @@ Rva0030902E::Rva0030902E(int count)
 	m_D0 = true;
 }
 
+// tu-skeleton: 0x00308688 109B ?apply@Rva003089CFList@@QAEXABURva00308688Call@@@Z -- matched in Code/GameEngine/Source/Common/Rva00308AA4Notifiers.cpp (not merged yet)
+
+// tu-skeleton: 0x003086F5 112B ?apply@Rva003089CFList@@QAEXABURva003086F5Call@@@Z -- matched in Code/GameEngine/Source/Common/Rva00308AA4Notifiers.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Map/StandingWaterAreaDepthColoring.cpp
+
+// WB BDDCA0 StandingWaterArea::getDepthColoringTexturePixels and native
+// 308799..3089CF RET8 prove identity and ABI. Target name8C and dimensions
+// 90/94 plus owned pixel cache98/reload9C are witnessed by this body.
+// Existing exact TerrainLogic ambient loader supplies File and diagnostic
+// interfaces; target adds cached reload and Art\\Terrain\\ fallback path.
+// Explicit array new/delete declarations preserve native 2FDE0/2FD80.
+
+unsigned char *StandingWaterArea::getDepthColoringTexturePixels(int *outWidth,int*outHeight) {
+ if(reload) {
+  reload=false;
+  if(pixels){delete[] pixels;pixels=0;width=0;height=0;}
+  AsciiString path("Art\\Terrain\\");path.concat(name);
+  File *file=TheFileSystem->openFile(path.str(),0x41,0);
+  if(!file)file=TheFileSystem->openFile(name.str(),0x41,0);
+  if(!file)return pixels;
+  DepthTgaHeader header;
+  if(file->read(&header,18)!=18){REPORT(" is damaged");file->close();return pixels;}
+  if(!header.idLength&&!header.colorMapType&&header.imageType==2&&header.bitsPerPixel==24){
+   width=header.width;height=header.height;
+   pixels=new unsigned char[width*height*3];
+   file->read(pixels,width*height*3);file->close();
+  }else{file->close();REPORT(" is no valid 24 bit RGB TGA");return pixels;}
+ }
+ *outWidth=width;*outHeight=height;return pixels;
+}
+
+// tu-skeleton: 0x003089CF 30B ?forEach@Rva003089CFList@@QAEXP8Rva00308AA4Listener@@AEXPAVRva00308AA4Owner@@@Z0@Z -- matched in Code/GameEngine/Source/Common/Rva00308AA4Notifiers.cpp (not merged yet)
+
+// tu-skeleton: 0x003089ED 37B ?forEach@Rva003089CFList@@QAEXP8Rva00308AA4Listener@@AEXPAVRva00308AA4Owner@@H@Z0H@Z -- matched in Code/GameEngine/Source/Common/Rva00308AA4Notifiers.cpp (not merged yet)
+
+// tu-skeleton: 0x00308AA4 24B ?rva00308AA4@Rva00308AA4Owner@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva00308AA4Notifiers.cpp (not merged yet)
+
+// tu-skeleton: 0x00308ABC 24B ?rva00308ABC@Rva00308AA4Owner@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva00308AA4Notifiers.cpp (not merged yet)
+
+// tu-skeleton: 0x00308AD4 24B ?rva00308AD4@Rva00308AA4Owner@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva00308AA4Notifiers.cpp (not merged yet)
+
+// tu-skeleton: 0x00308AEC 24B ?rva00308AEC@Rva00308AA4Owner@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva00308AA4Notifiers.cpp (not merged yet)
+
+// tu-skeleton: 0x00308B04 31B ?rva00308B04@Rva00308AA4Owner@@UAEXXZ -- matched in Code/GameEngine/Source/Common/Rva00308AA4Notifiers.cpp (not merged yet)
+
+// tu-skeleton: 0x00308B23 21B ?rva00308B23@Rva00308AA4Owner@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/Rva00308AA4Notifiers.cpp (not merged yet)
+
+// tu-skeleton: 0x00308E2C 55B ?push_back@?$vector@URva00308E2CElement@@V?$allocator@URva00308E2CElement@@@_STL@@@_STL@@QAEXABURva00308E2CElement@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorPushBackFamily.cpp (not merged yet)
+
 // tu-skeleton: 0x00308FD1 8B ??_ERva0030902E@@WDA@AEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0030902EDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00308FD9 8B ?rva0030817A@Rva0030817A@@WDA@AEXH@Z -- matched in Code/GameEngine/Source/Common/GapForwardersSeat8.cpp (not merged yet)
@@ -773,10 +856,6 @@ Rva0030902E::Rva0030902E(int count)
 // tu-skeleton: 0x00309358 158B ?Rva00309358Tokenize@@YAXABV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@AAV?$vector@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@V?$allocator@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@@2@0@Z -- matched in Code/GameEngine/Source/Common/System/Rva00309358Tokenize.cpp (not merged yet)
 
 // tu-skeleton: 0x003093F6 2306B ?LoadPCAFile@StandingWaterArea@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Map/StandingWaterAreaLoadPCA.cpp (not merged yet)
-
-// tu-skeleton: 0x00779D4B 8B $L1303 -- matched in Code/GameEngine/Source/GameLogic/Map/StandingWaterAreaDepthColoring.cpp (not merged yet)
-
-// tu-skeleton: 0x00779D53 10B __ehhandler$?getDepthColoringTexturePixels@StandingWaterArea@@QAEPAEPAH0@Z -- matched in Code/GameEngine/Source/GameLogic/Map/StandingWaterAreaDepthColoring.cpp (not merged yet)
 
 // tu-skeleton: 0x00779E00 8B $L1337 -- matched in Code/GameEngine/Source/Common/Rva0030902EDtor.cpp (not merged yet)
 
