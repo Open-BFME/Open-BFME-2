@@ -40,7 +40,7 @@ template<int N> class SquadMembersSlots : public SquadMembersSlots<N-1>{public:v
 class SquadMembersHorde : public SquadMembersSlots<67>{public:virtual void slot67(_STL::list<Object*>*)=0;};
 class SquadMembersContain : public SquadMembersSlots<31>{public:virtual SquadMembersHorde*slot31()=0;};
 class Object {public:char pad0[0x74];ObjectID id;char pad78[0x250-0x78];SquadMembersContain *contain;};
-class Squad {public:virtual void *slot0(int);void rva004D6DF3(Object*,bool);_STL::vector<ObjectID> ids;_STL::vector<Object*> objects;};
+class Squad {public:virtual void *slot0(int);void rva004D6DF3(Object*,bool);const _STL::vector<Object*> &getAllObjectsAndRemoveDead();const _STL::vector<Object*> &rva004D6CAC();_STL::vector<ObjectID> ids;_STL::vector<Object*> objects;};
 void Squad::rva004D6DF3(Object *obj,bool clearFirst){
  if(!obj)return;
  if(clearFirst){_STL::vector<ObjectID> *v=&ids;v->erase(v->begin(),v->end());}
