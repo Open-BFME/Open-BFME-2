@@ -106,13 +106,17 @@ public:
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 // SupplyWarehouseDockUpdate as this condition reads it.
-class Module
+#include "../../../Include/Common/Module.h"
+
+// Partial storage view of the module found by this condition. Native
+// 3EA6DF reads +0x88; the original complete derived layout is not recovered.
+class Rva003EA566ModuleView : public Module
 {
 public:
-	virtual void moduleSlot();
-	char m_pad04[0x84];
-	unsigned m_boxesStored; // +0x88 +0x88
+    char m_pad08[0x88 - 0x08];
+    unsigned m_boxesStored;
 };
+
 
 class Object
 {
@@ -188,7 +192,7 @@ bool ScriptConditions::evaluateSkirmishSuppliesWithinDistancePerimeter(Parameter
 			Module *dock = obj->findModule(key);
 			if (!dock)
 				continue;
-			unsigned boxes = dock->m_boxesStored;
+			unsigned boxes = ((Rva003EA566ModuleView *)dock)->m_boxesStored;
 			float supplies = (float)(boxes * player->getSupplyBoxValue());
 			if (supplies > best)
 				best = supplies;

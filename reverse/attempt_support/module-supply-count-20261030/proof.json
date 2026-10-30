@@ -1,0 +1,456 @@
+{
+  "source": "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_Rva003EA566.cpp",
+  "scope": "canonical eight-byte Module plus observed unsigned supply count at +88; no new original derived type claim",
+  "variants": {
+    "before": {
+      "source_sha256": "69d4508b020b793a91c8b4757fef018822f1e7a3bc58e157c9b3cae458f2020c",
+      "rows": [
+        {
+          "name": "?evaluateSkirmishSuppliesWithinDistancePerimeter@ScriptConditions@@QAE_NPAVParameter@@000@Z",
+          "rva": "0x003EA566",
+          "size": "510",
+          "exact": true
+        },
+        {
+          "name": "uw_007835c6",
+          "rva": "0x007835C6",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?evaluateSkirmishSuppliesWithinDistancePerimeter@ScriptConditions@@QAE_NPAVParameter@@000@Z",
+          "rva": "0x007835DB",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b835b3",
+          "rva": "0x007835B3",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b835bb",
+          "rva": "0x007835BB",
+          "size": "11",
+          "exact": true
+        },
+        {
+          "name": "$L1553",
+          "rva": "0x007835AB",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "$L1557",
+          "rva": "0x007835CE",
+          "size": "13",
+          "exact": true
+        }
+      ],
+      "eh": [
+        {
+          "name": "?evaluateSkirmishSuppliesWithinDistancePerimeter@ScriptConditions@@QAE_NPAVParameter@@000@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        }
+      ]
+    },
+    "trial": {
+      "source_sha256": "f28484f25b99c08a183db928412e79e72f6f8a87735c0554d9b4efebd10d5c13",
+      "rows": [
+        {
+          "name": "?evaluateSkirmishSuppliesWithinDistancePerimeter@ScriptConditions@@QAE_NPAVParameter@@000@Z",
+          "rva": "0x003EA566",
+          "size": "510",
+          "exact": true
+        },
+        {
+          "name": "uw_007835c6",
+          "rva": "0x007835C6",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?evaluateSkirmishSuppliesWithinDistancePerimeter@ScriptConditions@@QAE_NPAVParameter@@000@Z",
+          "rva": "0x007835DB",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b835b3",
+          "rva": "0x007835B3",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b835bb",
+          "rva": "0x007835BB",
+          "size": "11",
+          "exact": true
+        },
+        {
+          "name": "$L1553",
+          "rva": "0x007835AB",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "$L1557",
+          "rva": "0x007835CE",
+          "size": "13",
+          "exact": true
+        }
+      ],
+      "eh": [
+        {
+          "name": "?evaluateSkirmishSuppliesWithinDistancePerimeter@ScriptConditions@@QAE_NPAVParameter@@000@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        }
+      ]
+    }
+  },
+  "all_external_code_and_symbolic_relocations_identical": true,
+  "external_definitions": {
+    "??0AsciiString@@QAE@ABV0@@Z": {
+      "raw": "56ff7424088bf1e8000000008bc65ec20400",
+      "relocations": [
+        [
+          8,
+          20,
+          "??0?$StringBase@D@@AAE@ABV0@@Z"
+        ]
+      ]
+    },
+    "??1AsciiString@@QAE@XZ": {
+      "raw": "e900000000",
+      "relocations": [
+        [
+          1,
+          20,
+          "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+        ]
+      ]
+    },
+    "??0Rva000421C8@@QAE@XZ": {
+      "raw": "8bc183600400c70000000000c3",
+      "relocations": [
+        [
+          8,
+          6,
+          "??_7Rva000421C8@@6B@"
+        ]
+      ]
+    },
+    "??1Rva000421C8@@UAE@XZ": {
+      "raw": "c70100000000c3",
+      "relocations": [
+        [
+          2,
+          6,
+          "??_7Rva000421C8@@6B@"
+        ]
+      ]
+    },
+    "??_GRva000421C8@@UAEPAXI@Z": {
+      "raw": "f644240401568bf1c70600000000740756e800000000598bc65ec20400",
+      "relocations": [
+        [
+          10,
+          6,
+          "??_7Rva000421C8@@6B@"
+        ],
+        [
+          18,
+          20,
+          "??3@YAXPAX@Z"
+        ]
+      ]
+    },
+    "??0Rva00261409Filter@@QAE@PAVPlayer@@_NH@Z": {
+      "raw": "8bc18b4c2404836004008948088a4c240888480c8b4c240cc70000000000894810c20c00",
+      "relocations": [
+        [
+          26,
+          6,
+          "??_7Rva00261409Filter@@6B@"
+        ]
+      ]
+    },
+    "??1Rva00261409Filter@@UAE@XZ": {
+      "raw": "c70100000000c3",
+      "relocations": [
+        [
+          2,
+          6,
+          "??_7Rva000421C8@@6B@"
+        ]
+      ]
+    },
+    "??1Rva0004584D@@UAE@XZ": {
+      "raw": "c70100000000c3",
+      "relocations": [
+        [
+          2,
+          6,
+          "??_7Rva000421C8@@6B@"
+        ]
+      ]
+    },
+    "??0Rva002611DDFilter@@QAE@XZ": {
+      "raw": "8bc183600400c70000000000c3",
+      "relocations": [
+        [
+          8,
+          6,
+          "??_7Rva002611DDFilter@@6B@"
+        ]
+      ]
+    },
+    "??1Rva002611DDFilter@@UAE@XZ": {
+      "raw": "c70100000000c3",
+      "relocations": [
+        [
+          2,
+          6,
+          "??_7Rva000421C8@@6B@"
+        ]
+      ]
+    },
+    "??_GRva002611DDFilter@@UAEPAXI@Z": {
+      "raw": "568bf1e800000000f644240801740756e800000000598bc65ec20400",
+      "relocations": [
+        [
+          4,
+          20,
+          "??1Rva002611DDFilter@@UAE@XZ"
+        ],
+        [
+          17,
+          20,
+          "??3@YAXPAX@Z"
+        ]
+      ]
+    },
+    "??_GRva00261409Filter@@UAEPAXI@Z": {
+      "raw": "568bf1e800000000f644240801740756e800000000598bc65ec20400",
+      "relocations": [
+        [
+          4,
+          20,
+          "??1Rva00261409Filter@@UAE@XZ"
+        ],
+        [
+          17,
+          20,
+          "??3@YAXPAX@Z"
+        ]
+      ]
+    },
+    "?evaluateSkirmishSuppliesWithinDistancePerimeter@ScriptConditions@@QAE_NPAVParameter@@000@Z": {
+      "raw": "b800000000e80000000081ec9c0000008b0d00000000535657ff7508e80000000033db3bc38945e40f84b4010000be000000008b0d000000008d45e450e8000000003bc38945e80f848c0100008b45105183c0108965f08bcc50e8000000008b0d00000000e8000000008bf83bfb0f84650100008d45b4508bcfe8000000008b450c8b400c8d4f088945d4e800000000d845d48b4514f30f10400cf30f1145e0d95df00f57c0f30f1145ec895ddcc745d8000000008b45e8895dfc895dc4c745c0000000008945c8c645cc01c745d00800000068000000006a07538d4d98e800000000508d8d58ffffffe8000000008bf8538d45d8508d4dc0c645fc02e800000000508bcfe800000000d945f05053518b0d00000000d91c248d45b4508d450850e80000000089b558ffffff8975c0c645fc048975d8eb78f60500000000017524830d00000000018b0d000000006800000000c645fc07e800000000a300000000c645fc04ff35000000008bcfe8000000003bc3743a8b4de88bb888000000e8000000000fafc785c08945f0db45f07d06d80500000000d95df0d945ecd945f0dff1ddd8760af30f1045f0f30f1145ec8d4d08e8000000008bf83bfb0f8576fffffff30f1045ec834dfcff0f2f45e08d4d087721e800000000395de40f8551feffff32c08b4df45f5e64890d000000005bc9c21000e800000000b001ebe6",
+      "relocations": [
+        [
+          1,
+          6,
+          "__ehhandler$?evaluateSkirmishSuppliesWithinDistancePerimeter@ScriptConditions@@QAE_NPAVParameter@@000@Z"
+        ],
+        [
+          6,
+          20,
+          "__EH_prolog"
+        ],
+        [
+          18,
+          6,
+          "?TheScriptEngine@@3PAVScriptEngine@@A"
+        ],
+        [
+          29,
+          20,
+          "?rva00357B82@ScriptEngine@@QAEHPAVParameter@@@Z"
+        ],
+        [
+          47,
+          6,
+          "??_7Rva000421C8@@6B@"
+        ],
+        [
+          53,
+          6,
+          "?ThePlayerList@@3PAVPlayerList@@A"
+        ],
+        [
+          62,
+          20,
+          "?getEachPlayerFromMask@PlayerList@@QAEPAVPlayer@@AAH@Z"
+        ],
+        [
+          91,
+          20,
+          "??0?$StringBase@D@@AAE@ABV0@@Z"
+        ],
+        [
+          97,
+          6,
+          "?TheScriptEngine@@3PAVScriptEngine@@A"
+        ],
+        [
+          102,
+          20,
+          "?getQualifiedTriggerAreaByName@ScriptEngine@@QAEPAVPolygonTrigger@@VAsciiString@@@Z"
+        ],
+        [
+          123,
+          20,
+          "?getCenterPoint@PolygonTrigger@@QBEXPAUCoord3D@@@Z"
+        ],
+        [
+          140,
+          20,
+          "?getRadius@Rva0030B719Shape@@QBEMXZ"
+        ],
+        [
+          177,
+          6,
+          "??_7Rva002611DDFilter@@6B@"
+        ],
+        [
+          193,
+          6,
+          "??_7Rva00261409Filter@@6B@"
+        ],
+        [
+          212,
+          6,
+          "?KINDOFMASK_NONE@@3V?$BitFlags@$0HE@@@A"
+        ],
+        [
+          223,
+          20,
+          "??0Rva00045411BitSet@@QAE@HH@Z"
+        ],
+        [
+          235,
+          20,
+          "??0Rva0004584D@@QAE@ABVBfmeFixedStorage0004543D@@0@Z"
+        ],
+        [
+          254,
+          20,
+          "?link@Rva000421C8@@QAEPAV1@PAV1@@Z"
+        ],
+        [
+          262,
+          20,
+          "?link@Rva000421C8@@QAEPAV1@PAV1@@Z"
+        ],
+        [
+          274,
+          6,
+          "?ThePartitionManager@@3PAVPartitionManager@@A"
+        ],
+        [
+          290,
+          20,
+          "?iterateObjectsInRange@PartitionManager@@QAE?AUBfmeWideResult@@PBUCoord3D@@MHPAVRva000421C8@@H@Z"
+        ],
+        [
+          314,
+          6,
+          "?$S1@?9??evaluateSkirmishSuppliesWithinDistancePerimeter@ScriptConditions@@QAE_NPAVParameter@@000@Z@4IA"
+        ],
+        [
+          323,
+          6,
+          "?$S1@?9??evaluateSkirmishSuppliesWithinDistancePerimeter@ScriptConditions@@QAE_NPAVParameter@@000@Z@4IA"
+        ],
+        [
+          330,
+          6,
+          "?TheNameKeyGenerator@@3PAVNameKeyGenerator@@A"
+        ],
+        [
+          335,
+          6,
+          "??_C@_0BK@GDIHPEOG@SupplyWarehouseDockUpdate?$AA@"
+        ],
+        [
+          344,
+          20,
+          "?nameToKey@NameKeyGenerator@@QAE?AW4NameKeyType@@PBD@Z"
+        ],
+        [
+          349,
+          6,
+          "?key@?9??evaluateSkirmishSuppliesWithinDistancePerimeter@ScriptConditions@@QAE_NPAVParameter@@000@Z@4W4NameKeyType@@A"
+        ],
+        [
+          359,
+          6,
+          "?key@?9??evaluateSkirmishSuppliesWithinDistancePerimeter@ScriptConditions@@QAE_NPAVParameter@@000@Z@4W4NameKeyType@@A"
+        ],
+        [
+          366,
+          20,
+          "?findModule@Object@@IBEPAVModule@@W4NameKeyType@@@Z"
+        ],
+        [
+          384,
+          20,
+          "?getSupplyBoxValue@Player@@QAEHXZ"
+        ],
+        [
+          403,
+          6,
+          "__real@4f800000"
+        ],
+        [
+          436,
+          20,
+          "?next@BfmeWideResult@@QAEPAVObject@@XZ"
+        ],
+        [
+          469,
+          20,
+          "??1BfmeWideResult@@QAE@XZ"
+        ],
+        [
+          492,
+          6,
+          "__except_list"
+        ],
+        [
+          502,
+          20,
+          "??1BfmeWideResult@@QAE@XZ"
+        ]
+      ]
+    }
+  },
+  "actual": {
+    "source_sha256": "f28484f25b99c08a183db928412e79e72f6f8a87735c0554d9b4efebd10d5c13",
+    "object_sha256": "dc84ec560b34499c507ea807d6cdeb535c377cf17be11dc393a9a534841ce0a0",
+    "strict_current": true,
+    "all_external_definitions_and_relocations_identical": 13
+  },
+  "native_instructions": [
+    {
+      "rva": "0x3ea6d3",
+      "raw": "e8fe0feaff",
+      "mnemonic": "call",
+      "operands": "0x28b6d6"
+    },
+    {
+      "rva": "0x3ea6df",
+      "raw": "8bb888000000",
+      "mnemonic": "mov",
+      "operands": "edi, dword ptr [eax + 0x88]"
+    }
+  ]
+}
