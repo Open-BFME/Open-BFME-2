@@ -259,6 +259,10 @@ namespace _STL { template <> void allocator<_List_node<TeamPrototype *> >::deall
 // first copies, and AIPlayerTeamBuild.cpp's differ from them.
 namespace _STL { template <> void _List_base<TeamPrototype *, allocator<TeamPrototype *> >::clear(); }
 namespace _STL { template <> _List_node<TeamPrototype *> *list<TeamPrototype *, allocator<TeamPrototype *> >::_M_create_node(TeamPrototype * const &); }
+// Suppress this TU's non-retail copy of ?allocate@?$allocator@W4ScienceType@@@_STL@@QBEPAW4ScienceType@@IPBX@Z
+// (26B through the __new_alloc import; retail 0x00068E15 is the 28B copy
+// FXShaderParameterBinderInit.cpp keeps). Plain declaration-only form (no __imp_).
+namespace _STL { template <> ScienceType *allocator<ScienceType>::allocate(size_t, const void *) const; }
 // Suppress this TU's non-retail copy of ?_M_is_equal@?$_Base_bitset@$03@_STL@@QBE_NABU12@@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL { template <> bool _Base_bitset<4>::_M_is_equal(_Base_bitset<4> const &) const; }
