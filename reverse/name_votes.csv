@@ -15685,3 +15685,15 @@ Code/GameEngine/Source/Common/Rva005FED61Leaf.cpp|member|Rva005FED61Payload|m_id
 Code/GameEngine/Source/Common/Rva005FED61Leaf.cpp|function|0x005FED61|rva005FED61,a6ee0d0d7deb529a733712cd,drz-k7,drz-k7-106,w-4471b1f6edef,2026-10-30
 Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderMoveAlliesCallback.cpp|param|Rva002F3F7DInfo::cellCallback|x,29cdcef097de5e7b8ae4126f,drz-k7,drz-k7-110,w-4471b1f6edef,2026-10-30
 Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderMoveAlliesCallback.cpp|param|Rva002F3F7DInfo::cellCallback|y,d275b62d263b0e50cfce52e0,drz-k7,drz-k7-110,w-4471b1f6edef,2026-10-30
+Code/GameEngine/Source/Common/Rva0009C0EBAcquire.cpp|member|Rva0009C0EBRef|m_4,a08e266627df5ad76098e1d0,drz-k8,drz-k8-93,w-87ae7cdc64ef,2026-10-29
+Code/Libraries/Source/WWVegas/WWLib/AsyncServiceQueueWorker.cpp|function|0x0073F6FC|Rva0073F6FCCb,901c31ed86f8cadd48686646,drz-k8,drz-k8-95,w-87ae7cdc64ef,2026-10-29
+Code/Libraries/Source/WWVegas/WWLib/AsyncServiceQueueWorker.cpp|param|Rva0073F6FCCb|arg,db3cef4decbabcfc5fe39d5a,drz-k8,drz-k8-95,w-87ae7cdc64ef,2026-10-29
+Code/GameEngine/Source/GameLogic/Object/Behavior/Rva0045F2F8Finish.cpp|param|Rva0045F2F8::rva0045F2F8|v,96511b3ecf8acaae80576f27,drz-k8,drz-k8-98,w-87ae7cdc64ef,2026-10-30
+Code/GameEngine/Source/GameLogic/AI/Rva002E6EFFCellQuery.cpp|local|Rva002E6EFFGrid::rva002E6EFF|x,99eb905a0adf1403ec691860,drz-k8,drz-k8-100,w-87ae7cdc64ef,2026-10-30
+Code/GameEngine/Source/GameLogic/AI/Rva002E6EFFCellQuery.cpp|local|Rva002E6EFFGrid::rva002E6EFF|y,036f385ee67f3bf839965a10,drz-k8,drz-k8-100,w-87ae7cdc64ef,2026-10-30
+Code/GameEngine/Source/GameLogic/AI/Rva002E6EFFCellQuery.cpp|local|Rva002E6EFFGrid::rva00285860|x,19f3a39f044109bb80c1409f,drz-k8,drz-k8-100,w-87ae7cdc64ef,2026-10-30
+Code/GameEngine/Source/GameLogic/AI/Rva002E6EFFCellQuery.cpp|local|Rva002E6EFFGrid::rva00285860|y,3cb9f6d862fa4e1289e23d88,drz-k8,drz-k8-100,w-87ae7cdc64ef,2026-10-30
+Code/GameEngine/Source/GameClient/Rva002234BAInsert.cpp|local|Rva000427195::rva002234BA|b,e1ab256693c21e2de6da3553,drz-k8,drz-k8-103,w-87ae7cdc64ef,2026-10-30
+Code/GameEngine/Source/GameClient/Rva002234BAInsert.cpp|local|Rva000427195::rva002234BA|n,34ac417ce5aeecadd6825407,drz-k8,drz-k8-103,w-87ae7cdc64ef,2026-10-30
+Code/GameEngine/Source/GameClient/Rva002230FFNewNode.cpp|local|Rva002230FF::rva002230FF|n,5b57023c9b8ded6b7a15a350,drz-k8,drz-k8-104,w-87ae7cdc64ef,2026-10-30
+Code/GameEngine/Source/Common/canPlayersTransferMoneyYet.cpp|local|canPlayersTransferMoneyYet|tmp,f7d1a7f29b43921bd52871eb,drz-k8,drz-k8-105,w-87ae7cdc64ef,2026-10-30
