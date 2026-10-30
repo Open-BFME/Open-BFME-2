@@ -67,21 +67,6 @@ void bfmeAnchorLANGameInfoDtor(LANGameInfo *game)
     game->LANGameInfo::~LANGameInfo();
 }
 
-// ?setSlot@LANGameInfo@@QAEXHVLANGameSlot@@@Z @0x00448352 106B: Zero Hour's
-// LANGameInfo::setSlot. Evidence: imul 0x1D0 over the slots at +0xDC and
-// ret 0x1D4 prove the by-value 0x1D0 slot; the slot 0 copy is accepted (+8)
-// and gets the map; the argument is destroyed with ~LANGameSlot.
-void LANGameInfo::setSlot(int slotNum, LANGameSlot slotInfo)
-{
-    if (slotNum < 0 || slotNum >= MAX_SLOTS)
-        return;
-    ((Rva00447B0E &)m_LANSlot[slotNum]).rva00447B58((const Rva00447B0E &)slotInfo);
-    if (slotNum != 0)
-        return;
-    m_LANSlot[0].setAccept();
-    m_LANSlot[0].setMapAvailability(true);
-}
-
 // ?getSlotNum@Rva004482FB@@QAEHVUnicodeString@@@Z @0x004483BC (103B):
 // LANGameInfo-style getSlotNum by Unicode name: inGame gate at +0x10,
 // per-slot getConstLANSlot scan over 8x0x1D0 at +0xDC via rowed 0x447773,
