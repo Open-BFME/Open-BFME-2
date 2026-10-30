@@ -105,7 +105,14 @@ bool Rva00397F45::isPlayerAllowedToPackOrUnpack( Player *player, Int arg )
 // template bit, CastleMemberBehavior key, member +14 and interface slots
 // are native evidence; BFME1 createOwnedObject corroborates the factory
 // relationship but does not establish the interface's original class name.
-class Module { public: char m_pad00[0x14]; void *m_pending; };
+#include "../../../../Include/Common/Module.h"
+// Partial storage view of the member observed at +0x14; derived identity unknown.
+class Rva00397FEBModuleView : public Module
+{
+public:
+ char m_pad08[0x14 - 0x08];
+ void *m_pending;
+};
 class BfmeItemE63 { public: bool checkValid(); };
 class Rva00397FEBInterface
 {
@@ -123,7 +130,7 @@ void *__cdecl rva00397FEB(void *context, unsigned int id, void *target, int mode
  if (!object || (object->m_chain->m_flags11A & 0x40)) return 0;
  static NameKeyType key = TheNameKeyGenerator->nameToKey("CastleMemberBehavior");
  Module *module = object->findModule(key);
- if (!(unsigned char)mode && module && module->m_pending &&
+ if (!(unsigned char)mode && module && ((Rva00397FEBModuleView *)module)->m_pending &&
      ((BfmeItemE63 *)module)->checkValid()) return 0;
  Rva00397FEBInterface *factory = (Rva00397FEBInterface *)object->rva0028BCF4();
  if (!factory || factory->query()) return 0;

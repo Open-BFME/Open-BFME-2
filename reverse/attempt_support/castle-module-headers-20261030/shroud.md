@@ -33,3 +33,8 @@ still records the former GlobalFlagClearers owner; this adoption changes
 neither that ownership record nor its debt and claims no retirement of it.
 Enforced converged-data checks pass. The evidence records the unchanged guard
 explicitly, rather than treating the shadow finding as new data progress.
+
+Ready-batch audit: INCONCLUSIVE because `ccafe54d1d` predates outgoing base
+`6d6ae2f4d5` and affected CreateAHeroManager lacks a current receipt. Carry
+both adoptions and their affected consumers into the next scheduled census;
+no complete consumer selection/loss clearance is claimed.

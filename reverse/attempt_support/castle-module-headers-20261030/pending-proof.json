@@ -1,0 +1,94 @@
+{
+  "source": "Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehaviorRva00397F45.cpp",
+  "change": "adopt canonical8B Module base; retain observed derived storage through partial address-named views",
+  "objects": {
+    "before": {
+      "source_sha256": "de8947777802c8662fdee7688633a3c22c3a81bae9c316655c961df71893f995",
+      "object_sha256": "17eb9c744a40dcaa10e0611d89af75ae2202b9ac17ed60ad45912fa30607b8b5",
+      "rows": [
+        {
+          "name": "?isPlayerAllowedToPackOrUnpack@Rva00397F45@@QAE_NPAVPlayer@@H@Z",
+          "rva": "0x00397F45",
+          "size": "166",
+          "exact": true
+        },
+        {
+          "name": "?rva00397FEB@@YAPAXPAXI0H@Z",
+          "rva": "0x00397FEB",
+          "size": "212",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?rva00397FEB@@YAPAXPAXI0H@Z",
+          "rva": "0x00780F0D",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "$L1558",
+          "rva": "0x00780F00",
+          "size": "13",
+          "exact": true
+        }
+      ],
+      "eh": [
+        {
+          "name": "?rva00397FEB@@YAPAXPAXI0H@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        }
+      ]
+    },
+    "trial": {
+      "source_sha256": "4d1b7a76345c6e4733a718c399f50d4a3ee5c9a74a7c7a0813f0f22b078ea4dd",
+      "object_sha256": "0278b4ef8288e61f5024f34e90bc352b332d8d6b9a219f7d2225bf3ea23cab09",
+      "rows": [
+        {
+          "name": "?isPlayerAllowedToPackOrUnpack@Rva00397F45@@QAE_NPAVPlayer@@H@Z",
+          "rva": "0x00397F45",
+          "size": "166",
+          "exact": true
+        },
+        {
+          "name": "?rva00397FEB@@YAPAXPAXI0H@Z",
+          "rva": "0x00397FEB",
+          "size": "212",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?rva00397FEB@@YAPAXPAXI0H@Z",
+          "rva": "0x00780F0D",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "$L1558",
+          "rva": "0x00780F00",
+          "size": "13",
+          "exact": true
+        }
+      ],
+      "eh": [
+        {
+          "name": "?rva00397FEB@@YAPAXPAXI0H@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        }
+      ]
+    }
+  },
+  "all_external_code_and_symbolic_relocations_identical": true,
+  "retained_external_definitions": 4,
+  "label_comparison": "Same-section static labels use actual section offsets; external relocation names unchanged.",
+  "actual_object": {
+    "strict_current": true,
+    "source_sha256": "4d1b7a76345c6e4733a718c399f50d4a3ee5c9a74a7c7a0813f0f22b078ea4dd",
+    "object_md5": "6bbc9581bf986d5089b203ab8569d718",
+    "all_external_code_matches_private_candidate": true,
+    "checked_count": 4
+  }
+}

@@ -19,6 +19,20 @@ name, storage and data, while the data ledger retains the former clearer owner.
 No data-ownership or debt retirement is claimed for it; enforced converged-data
 checks pass.
 
+The separate castle helper adoption retains its observed four-byte storage at
+`+14` over the canonical base. Native `398064` tests that storage and `398069`
+passes the unchanged module pointer to the existing checkValid owner; the
+original type/name is not recovered. All four rows, EH and four external code
+definitions/relocations remain identical. The owning acceptance tool retires
+its one Module queue row. The pair conserves 1,268 authored LINKS bytes and
+retires two header rows, with no new body/provider or shared-header change.
+[Castle helper evidence](../reverse/attempt_support/castle-module-headers-20261030/pending.md).
+
+Outgoing audit: INCONCLUSIVE on older `ccafe54d1d` versus base `6d6ae2f4d5`
+and the missing current CreateAHeroManager receipt. Carry the changed pair and
+affected consumers into the next scheduled census; the bounded preview and
+header acceptances do not clear the full consumer selection/loss scope.
+
 ### findEldest canonical Module adoption (2026-10-30)
 
 CreateObjectDieFindEldest now includes the canonical eight-byte Module base
