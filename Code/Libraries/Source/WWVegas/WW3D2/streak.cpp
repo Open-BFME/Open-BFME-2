@@ -72,6 +72,84 @@ public:
   ~TextureHandleClass();
  };
 };
+#include "ww3d.h"
+#include "rinfo.h"
+#include "predlod.h"
+#include "v3_rnd.h"
+#include "texture.h"
+#include "coltest.h"
+#include "w3d_file.h"
+#include "dx8wrapper.h"
+#include "vp.h"
+#include "vector3i.h"
+#include "sortingrenderer.h"
+#pragma inline_depth(0)
+#pragma inline_depth()
+#include "always.h"
+#define WWASSERT(x) ((void)0)
+
+// bfme link decl-only begin
+template <> SimpleDynVecClass<Vector4>::~SimpleDynVecClass();
+
+template <> SimpleDynVecClass<float>::~SimpleDynVecClass();
+
+template <> SimpleDynVecClass<Vector3>::~SimpleDynVecClass();
+
+template <> SimpleVecClass<float>::~SimpleVecClass();
+
+template <> SimpleVecClass<Vector3>::~SimpleVecClass();
+
+template <> bool SimpleDynVecClass<Vector3>::Add(Vector3 const &, int);
+
+template <> bool SimpleDynVecClass<Vector3>::Resize(int);
+
+template <> bool SimpleVecClass<float>::Resize(int);
+
+template <> bool SimpleVecClass<float>::Uninitialised_Grow(int);
+
+template <> bool SimpleDynVecClass<float>::Resize(int);
+
+template <> bool SimpleVecClass<Vector3>::Uninitialised_Grow(int);
+
+static SegLineRendererClass _LineRenderer;
+
+//StreakLineClass::~StreakLineClass(void)
+//{
+//}
+
+
+
+
+
+// ?Reset_Line@StreakLineClass@@QAEXXZ @0x00741730 26B: LineRenderer at +0x100 is SegLineRendererClass, StreakRenderer at +0x150 calls rowed Rva00743060Class::Reset_Line.
+class Rva00743060Class { public: void Reset_Line(); };
+
+////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+// These are segment points, and include the start and end point of the
+// entire line. Therefore there must be at least two.
+// BFME 2 caches bounding volumes in RenderObjClass::Bits bit 0x20000.
+// Set_Point_Location clears it at 0x00741C5E, matching bfme2renderobj/rendobj.h.
+enum { BFME_BOUNDING_VOLUMES_VALID = 0x00020000 };
+
+class SegLineTileFactorAltClass { public: void Set_Texture_Tile_Factor(float factor); };
+
+template<> bool SimpleDynVecClass<Vector3>::Add(Vector3 const &object, int new_size_hint);
+
+class BFMELineRendererTexture {
+ TextureClass *Texture;
+public:
+ ParticleBufferClass::TextureHandleClass Get_Texture() const;
+};
+
 class StreakLineClass : public RenderObjClass
 {
 	public:
@@ -222,81 +300,8 @@ class StreakLineClass : public RenderObjClass
 	SegLineRendererClass		LineRenderer;
 	StreakRendererClass		StreakRenderer;//special, per-point alpha/color/size
 };
-#include "ww3d.h"
-#include "rinfo.h"
-#include "predlod.h"
-#include "v3_rnd.h"
-#include "texture.h"
-#include "coltest.h"
-#include "w3d_file.h"
-#include "dx8wrapper.h"
-#include "vp.h"
-#include "vector3i.h"
-#include "sortingrenderer.h"
-#pragma inline_depth(0)
-#pragma inline_depth()
-#include "always.h"
-#include "simplevec.h"
-#define WWASSERT(x) ((void)0)
 
-// bfme link decl-only begin
-template <> SimpleDynVecClass<Vector4>::~SimpleDynVecClass();
-
-template <> SimpleDynVecClass<float>::~SimpleDynVecClass();
-
-template <> SimpleDynVecClass<Vector3>::~SimpleDynVecClass();
-
-template <> SimpleVecClass<float>::~SimpleVecClass();
-
-template <> SimpleVecClass<Vector3>::~SimpleVecClass();
-
-template <> bool SimpleDynVecClass<Vector3>::Add(Vector3 const &, int);
-
-template <> bool SimpleDynVecClass<Vector3>::Resize(int);
-
-template <> bool SimpleVecClass<float>::Resize(int);
-
-template <> bool SimpleVecClass<float>::Uninitialised_Grow(int);
-
-template <> bool SimpleDynVecClass<float>::Resize(int);
-
-template <> bool SimpleVecClass<Vector3>::Uninitialised_Grow(int);
-
-static SegLineRendererClass _LineRenderer;
-
-//StreakLineClass::~StreakLineClass(void)
-//{
-//}
-
-
-
-
-
-// ?Reset_Line@StreakLineClass@@QAEXXZ @0x00741730 26B: LineRenderer at +0x100 is SegLineRendererClass, StreakRenderer at +0x150 calls rowed Rva00743060Class::Reset_Line.
-class Rva00743060Class { public: void Reset_Line(); };
-
-
-
-
-////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////
-
-
-
-
-
-
-
-// These are segment points, and include the start and end point of the
-// entire line. Therefore there must be at least two.
-// BFME 2 caches bounding volumes in RenderObjClass::Bits bit 0x20000.
-// Set_Point_Location clears it at 0x00741C5E, matching bfme2renderobj/rendobj.h.
-enum { BFME_BOUNDING_VOLUMES_VALID = 0x00020000 };
-
-class SegLineTileFactorAltClass { public: void Set_Texture_Tile_Factor(float factor); };
-
-template<> bool SimpleDynVecClass<Vector3>::Add(Vector3 const &object, int new_size_hint);
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/streak.cpp
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/streak.cpp
 
@@ -1033,14 +1038,6 @@ bool StreakLineClass::Cast_Ray(RayCollisionTestClass & raytest)
 	return retval;
 }
 
-// tu-skeleton: 0x00741750 33B ?Get_Texture@StreakLineClass@@QAE?AVTextureHandleClass@ParticleBufferClass@@XZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/StreakLineGetTexture.cpp (not merged yet)
-
-// tu-skeleton: 0x00741C20 7B ?get@Rva00741C20DwordField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00742550 6B ?Rva00742550Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters2.cpp (not merged yet)
-
-// tu-skeleton: 0x00742590 327B ??1StreakLineClass@@UAE@XZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/StreakLineDestructor.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/StreakLineSetPoints.cpp
 
 /*
@@ -1083,3 +1080,15 @@ void StreakLineClass::Set_LocsWidthsColors(unsigned int num_points, Vector3 *loc
     }
     Invalidate_Cached_Bounding_Volumes();
 }
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/StreakLineGetTexture.cpp
+
+ParticleBufferClass::TextureHandleClass StreakLineClass::Get_Texture() {
+ return ((BFMELineRendererTexture *)&LineRenderer)->Get_Texture();
+}
+
+// tu-skeleton: 0x00741C20 7B ?get@Rva00741C20DwordField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00742550 6B ?Rva00742550Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters2.cpp (not merged yet)
+
+// tu-skeleton: 0x00742590 327B ??1StreakLineClass@@UAE@XZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/StreakLineDestructor.cpp (not merged yet)

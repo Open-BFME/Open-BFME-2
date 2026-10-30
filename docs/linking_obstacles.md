@@ -5791,6 +5791,19 @@ this scope into the next census; no linking gain is claimed.
 
 **Status: Open. Updated: 2026-10-26; inspected revision: 377ffd1724.**
 
+- **StreakLine getter composition (2026-10-30, input `2cb44b0cb2`):**
+  the supported merge absorbs the getter into its approved streak.cpp TU,
+  removing one C++ source while keeping 67 rows and three EXACT EH graphs.
+  All 276 external COMDATs, symbol facts and relocation graphs equal the input
+  union; strict preparation passes 74 rows across both remaining providers and
+  the two direct particle callers. All four previews retain LINKS, with the
+  same aggregate 8,228 authored bytes. The staged batch audit remains
+  INCONCLUSIVE on older index `6fe1089c24` and the missing current receipt for
+  Common/0CreateAHeroManager21FE49.cpp. Carry the provider/removal and affected
+  consumers into the next scheduled census; full consumer selection/loss
+  clearance and census confirmation remain open. The destructor still fails
+  C2908 and remains separate. No linking gain or debt retirement is claimed.
+  [Merge, path/register audit and remaining scope](../reverse/attempt_support/streak-texture-consolidation-20261030-codex.md).
 - **StreakLine getter prerequisite (2026-10-30, input `1b0276b877`):**
   The getter's redundant /O2 flag is normalized through flag_defaults, and
   the seed's TU-local declaration now uses its verified owning-handle return
