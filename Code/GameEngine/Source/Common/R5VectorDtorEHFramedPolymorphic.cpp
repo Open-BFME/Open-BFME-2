@@ -6,7 +6,6 @@
 // 6d9434269164392c5ba62aaa7c15a86b5b020d76, donor flags plus /O1). Compiled
 // that way each body below places uniquely on unclaimed game.dat .text by
 // masked whole-.text search, and ./build.sh reproduces it byte for byte:
-// ??4?$vector@UGen00141A00@@V?$allocator@U 0x002D0F65 (206B),
 // vector<Gen003AA0D0>::vector 0x005DE870 (93B). Callee addresses are read off
 // retail's call sites (reverse/symbols.csv). Only the placed bodies are
 // carried; the donor's other definitions are omitted.
@@ -54,12 +53,11 @@ void _STLP_CALL __node_alloc<true, 0>::deallocate(void *__p, size_t __n)
 		T &operator=( const T & );                                            \
 	};
 
-// Only the two placed members are instantiated. The donor instantiated all
+// Only the placed member is instantiated. The donor instantiated all
 // fourteen vector<T> classes, and their other members (pinned elsewhere to
 // different retail bodies) came out as private wrong COMDAT copies.
-R5_POLY_ELEM( Gen00141A00, 0x5C )		// 168B at 0x00141A00
+// vector<Gen00141A00>::operator= (0x002D0F65) is not carried: it is
+// Thing/Rva002D0F65VectorAssign.cpp's vector<Rva002D0EDCElement> row.
 R5_POLY_ELEM( Gen003AA0D0, 0x18 )		// 167B at 0x003AA0D0
 
-template _STL::vector<Gen00141A00> &
-	_STL::vector<Gen00141A00>::operator=( const _STL::vector<Gen00141A00> & );
 template _STL::vector<Gen003AA0D0>::vector( _STL::vector<Gen003AA0D0>::size_type );
