@@ -24,6 +24,28 @@
 	{ \
 		return m_value + IMM; \
 	}
+#define BFME_DISP8_ADD_BEFORE_DWORD_GETTER(NAME, BACK, IMM) \
+	class NAME \
+	{ \
+	public: \
+		int get() const; \
+	}; \
+	int NAME::get() const \
+	{ \
+		return *(const int *)((const char *)this - (BACK)) + (IMM); \
+	}
+#define BFME_DISP8_ADD_DWORD_GETTER(NAME, DISP, IMM) \
+	class NAME \
+	{ \
+	public: \
+		int get() const; \
+		char m_lead[DISP]; \
+		int m_value; \
+	}; \
+	int NAME::get() const \
+	{ \
+		return m_value + IMM; \
+	}
 
 // ?rva004AB7C8@LargeGroupAudioUpdate@@QBEHXZ @0x004AB7C8 35B: returns GetGameLogicRandomValue(0 m_18 file 0xA7) plus m_14 plus 1. File literal at 0x008547B8 is LargeGroupAudioUpdate.cpp. Callers at 0x004AB94B 0x004ABB60 0x004ABB72 0x004ABC52. Prev Rva0024A797Grandchildren next V3PolyCopyCtors.
 
@@ -89,6 +111,18 @@ public:
 BFME_DISP8_ADD_IMM32_BEFORE_DWORD_GETTER(Rva004ABAAAAddImm32Field, 0x1C, 0x10C)
 
 BFME_DISP8_ADD_IMM32_BEFORE_DWORD_GETTER(Rva004ABAB3AddImm32Field, 0x1C, 0x94)
+
+BFME_DISP8_ADD_BEFORE_DWORD_GETTER(Rva004ABAC4AddDwordField, 0x20, 0x08)
+
+// Native5F83ED..5F83F4 follows a complete tail JMP and ends RET:
+// read raw word4 and add12. Clean BF1 9cb tagblock.cpp supplies the source
+// expression only; original receiver, signedness and complete bounds remain
+// unresolved. Unsigned storage preserves the native32-bit wrap semantics.
+
+// ?get@Rva005F83EDFields@@QBEIXZ
+struct Rva005F83EDFields { char pad[4]; unsigned int word4; unsigned int get() const; };
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdate.cpp
 
@@ -203,22 +237,6 @@ BfmeFixedStorage002CF0F0 Rva004AB9D5::getDisabledTypesToProcess()
 	return *(const BfmeFixedStorage002CF0F0 *)&DISABLEDMASK_ALL;
 }
 
-// tu-skeleton: 0x004AB7EB 21B ??0Rva004AB7EB@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/V3PolyCopyCtors.cpp (not merged yet)
-
-// tu-skeleton: 0x004AB800 17B ?buildFieldParse@LargeGroupAudioUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
-
-// tu-skeleton: 0x004AB811 120B ??0LargeGroupAudioUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdateCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004AB889 6B ?Rva004AB889Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
-// tu-skeleton: 0x004AB8DC 46B ??1LargeGroupAudioUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdateDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004AB90A 152B ?rva004AB90A@LargeGroupAudioUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdate004AB90A.cpp (not merged yet)
-
-// tu-skeleton: 0x004AB9A2 51B ?rva004AB9A2@LargeGroupAudioUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdate004AB9A2.cpp (not merged yet)
-
-// tu-skeleton: 0x004AB9EA 135B ?xfer@LargeGroupAudioUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdateXfer.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Disp8AddImm32DwordFieldGetters.cpp
 
 // Disp8 add-imm32 dword getters: nine-byte __thiscall members with one shape:
@@ -237,7 +255,39 @@ BfmeFixedStorage002CF0F0 Rva004AB9D5::getDisabledTypesToProcess()
 // Spelled as an explicit backward read, which MSVC folds to
 // `mov eax,[ecx-BACK]`.
 
-// tu-skeleton: 0x004ABAC4 7B ?get@Rva004ABAC4AddDwordField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8AddDwordFieldGetters.cpp (not merged yet)
+// tu-skeleton: 0x004AB7EB 21B ??0Rva004AB7EB@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/V3PolyCopyCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x004AB800 17B ?buildFieldParse@LargeGroupAudioUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
+
+// tu-skeleton: 0x004AB811 120B ??0LargeGroupAudioUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004AB889 6B ?Rva004AB889Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x004AB8DC 46B ??1LargeGroupAudioUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdateDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004AB90A 152B ?rva004AB90A@LargeGroupAudioUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdate004AB90A.cpp (not merged yet)
+
+// tu-skeleton: 0x004AB9A2 51B ?rva004AB9A2@LargeGroupAudioUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdate004AB9A2.cpp (not merged yet)
+
+// tu-skeleton: 0x004AB9EA 135B ?xfer@LargeGroupAudioUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdateXfer.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Disp8AddDwordFieldGetters.cpp
+
+// Disp8 add dword getters: seven-byte __thiscall members with one shape:
+//
+//     mov eax,[ecx+<DISP>] / add eax,<IMM8> / ret
+//
+// One dword is read at a fixed displacement from `this`, a small immediate
+// is added, and the result is returned. The immediate fits in a signed
+// byte, so MSVC 7.1 emits the `83 C0 XX` form (three bytes) after the disp8
+// load `8B 41 XX`, plus `ret`, for seven bytes total. This is the add
+// sibling of the sub Disp8SubDwordFieldGetters family; the opcode itself
+// is why the two families are kept in separate translation units. Identity
+// is not recovered: every name is derived from its address.
+// No // cl: line (defaults match the frameless seven-byte shape).
+// Backward variant: the field sits at a NEGATIVE displacement from `this`.
+// Spelled as an explicit backward read, which MSVC folds to
+// `mov eax,[ecx-BACK]`; same reading as the chase-family backward cast.
 
 // tu-skeleton: 0x004ABAD6 45B ?_M_erase@?$_Rb_tree@HU?$pair@$$CBHPAX@_STL@@U?$_Select1st@U?$pair@$$CBHPAX@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@AAEXPAU?$_Rb_tree_node@U?$pair@$$CBHPAX@_STL@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_ptr_o1.cpp (not merged yet)
 

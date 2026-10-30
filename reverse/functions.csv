@@ -17231,7 +17231,7 @@ _VP60D_GetVersionNumber,,0x001B5830,6,Code/Libraries/Source/VP6/PbAccessors.cpp,
 ?get@Rva0046294EByteChaseField@@QBEEXZ,,0x0046294E,7,Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp,matched,disp8 byte-chase getter with negative holder; backward cast
 ?get@Rva004A1942ByteChaseField@@QBEEXZ,,0x004A1942,7,Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp,matched,disp8 byte-chase getter abutting matched deleting-dtor; backward cast
 ?get@Rva004A3904AddDwordField@@QBEHXZ,,0x004A3904,7,Code/GameEngine/Source/Common/Disp8AddDwordFieldGetters.cpp,matched,disp8 add dword getter with negative field; backward read
-?get@Rva004ABAC4AddDwordField@@QBEHXZ,,0x004ABAC4,7,Code/GameEngine/Source/Common/Disp8AddDwordFieldGetters.cpp,matched,disp8 add dword getter with negative field; backward read
+?get@Rva004ABAC4AddDwordField@@QBEHXZ,,0x004ABAC4,7,Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdate.cpp,matched,disp8 add dword getter with negative field; backward read
 ?get@Rva004BDC41FloatChaseField@@QBEMXZ,,0x004BDC41,7,Code/GameEngine/Source/Common/Disp8FloatChaseGetters.cpp,matched,disp8 float-chase getter with negative holder; backward cast
 ?get@Rva004BDC4FFloatChaseField@@QBEMXZ,,0x004BDC4F,7,Code/GameEngine/Source/Common/Disp8FloatChaseGetters.cpp,matched,disp8 float-chase getter abutting landed chase row; backward cast
 ?get@Rva00464829AddDwordField@@QBEHXZ,,0x00464829,7,Code/GameEngine/Source/Common/Disp8AddDwordFieldGetters.cpp,matched,disp8 add dword getter with negative field; backward read overturns prior negative-disp decline
