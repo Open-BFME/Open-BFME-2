@@ -24,6 +24,7 @@
 //#pragma optimize("", off)
 //#pragma message("************************************** WARNING, optimization disabled for debugging purposes")
 
+
 #endif
 #include <vector>
 #include <list>
@@ -143,6 +144,7 @@ public:
 	virtual void * rva0005E959();
 };
 #include "../../../../GameEngine/Source/GameClient/Rva000869CF.h"
+#include <new>
 
 //Since there can't be more than 1 mouse, might as well keep these static.
 // W3DMouseCtor.cpp and W3DMouseInitW3DAssets.cpp, split out of this unit, name the
@@ -1687,9 +1689,35 @@ public:
  ~Rva00200667();
 };
 
+class Rva0009990D
+{
+public:
+	void set(void *p);
+	void clear();
+private:
+	MutexClass::LockClass *m_ptr;
+};
+
+// Native scalar-deleting destructor ABI: slot0 takes flags and returns
+// the allocation pointer. Keep the original payload type unresolved.
+class Rva00550B4CThreadVtable { public: virtual void *destroy(int flags); };
+
+class Rva00550B4C
+{
+public:
+    void rva00550B4C();
+private:
+    char unknown00[0x64];
+    ThreadClass *thread;
+    char unknown68[8];
+    Rva0009990D lockOwner;
+};
+
 // tu-skeleton: 0x00098D8A 20B ??0MouseThreadClass@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/MouseThreadCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00098D9E 56B ??1MouseThreadClass@@UAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/MouseThreadDestructor.cpp (not merged yet)
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouse.cpp
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouse.cpp
 
@@ -1844,13 +1872,9 @@ void W3DMouse::init( void )
 // bound to the row that owns the pinned retail address (same address, same
 // body); the pin keeps the name, the row supplies the definition.
 
-// tu-skeleton: 0x00098E69 218B ??0W3DMouse@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x00098F43 15B ?freePolygonAssets@W3DMouse@@AAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp (not merged yet)
 
-// tu-skeleton: 0x00098F52 111B ?releaseD3DCursorTextures@W3DMouse@@AAE_NW4MouseCursor@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouse_releaseD3DCursorTextures.cpp (not merged yet)
 
-// tu-skeleton: 0x00098FF1 102B ?freeD3DAssets@W3DMouse@@AAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouse_freeD3DAssets.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp
 
@@ -1859,15 +1883,49 @@ void Rva00099109::rva00099109()
 	Rva00041A06::rva00041A06();
 }
 
+// tu-skeleton: 0x00098E69 218B ??0W3DMouse@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00098F43 15B ?freePolygonAssets@W3DMouse@@AAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp (not merged yet)
+
+// tu-skeleton: 0x00098F52 111B ?releaseD3DCursorTextures@W3DMouse@@AAE_NW4MouseCursor@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouse_releaseD3DCursorTextures.cpp (not merged yet)
+
+// tu-skeleton: 0x00098FF1 102B ?freeD3DAssets@W3DMouse@@AAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouse_freeD3DAssets.cpp (not merged yet)
+
 // tu-skeleton: 0x0009910E 245B ?setCursorDirection@W3DMouse@@AAEXW4MouseCursor@Mouse@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseCursorDirection.cpp (not merged yet)
 
 // tu-skeleton: 0x00099203 28B ??_GLockClass@MutexClass@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyDeletingDtors3.cpp (not merged yet)
 
 // tu-skeleton: 0x000992B0 1594B ?draw@W3DMouse@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp (not merged yet)
 
-// tu-skeleton: 0x000998EA 35B ?set@Rva0009990D@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/Rva0009990DSet.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva0009990DSet.cpp
 
-// tu-skeleton: 0x0009990D 26B ?clear@Rva0009990D@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva0009990DSet.cpp (not merged yet)
+// ?set@Rva0009990D@@QAEXPAX@Z retail 0x000998EA 35B guarded pointer swap with
+// LockClass dtor plus delete. Evidence: named pin plus rowed dtor 0x00613AC0
+// plus delete 0x0002FD60; callers at 0x002256FD 0x0038B200.
+
+void Rva0009990D::set(void *p)
+{
+	MutexClass::LockClass *old = m_ptr;
+	if (p == old)
+		return;
+	m_ptr = (MutexClass::LockClass *)p;
+	if (old == 0)
+		return;
+	old->~LockClass();
+	::operator delete(old);
+}
+
+// ?clear@Rva0009990D@@QAEXXZ retail 0x0009990D 26B clear pointer with dtor plus
+// delete. Evidence: named pin plus same callees as set; 23 callers.
+void Rva0009990D::clear()
+{
+	MutexClass::LockClass *old = m_ptr;
+	m_ptr = 0;
+	if (old == 0)
+		return;
+	old->~LockClass();
+	::operator delete(old);
+}
 
 // tu-skeleton: 0x00099927 139B ??1W3DMouse@@UAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseCtor.cpp (not merged yet)
 

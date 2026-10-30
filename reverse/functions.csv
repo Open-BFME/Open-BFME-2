@@ -23133,12 +23133,12 @@ uw_0076443a,,0x0076443A,8,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DD
 ?rva002AA123@Rva002AA123@@QAEHH@Z,,0x002AA123,42,Code/GameEngine/Source/GameLogic/Object/Update/Rva002AA123Get.cpp,matched,1-2-3 to AC-B0-B4 else 0
 ?rva004E1F62@Rva004E1F62@@QAEXXZ,,0x004E1F62,53,Code/Libraries/Source/WWVegas/WWLib/stlport_tree_004e1f62.cpp,matched,unlock tree iterate virtual6 gates virtual5 via increment
 ?rva004E1F97@Rva004E1F97@@QAEXPAURva004E1F97Node@@@Z,,0x004E1F97,53,Code/Libraries/Source/WWVegas/WWLib/stlport_tree_erase_004e1f97.cpp,matched,unlock tree erase recurse right walk left clear free
-?set@Rva0009990D@@QAEXPAX@Z,,0x000998EA,35,Code/GameEngine/Source/Common/Rva0009990DSet.cpp,matched,guarded swap via dtor plus delete
+?set@Rva0009990D@@QAEXPAX@Z,,0x000998EA,35,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouse.cpp,matched,guarded swap via dtor plus delete
 ?Rva000B9596Fill@@YAPAVAsciiString@@PAV1@IABV1@@Z,,0x000B9596,27,Code/Libraries/Source/WWVegas/WWLib/stlport_uninitialized_fill_n_asciistring.cpp,matched,fill_n dispatcher via rowed tag body
 ?rva003B2322@UserPreferences@@QAEXABVAsciiString@@H_N@Z,,0x003B2322,104,Code/GameEngine/Source/Common/UserPreferences.cpp,matched,indexed conditional setter via format subscript erase; callers 0x385B1C 0x385E2A
 ?rva0029A407@Rva0029A407@@QAEXXZ,,0x0029A407,19,Code/GameEngine/Source/GameClient/Rva0029A407Clear.cpp,matched,guarded slot2 clear callers 0x29B53F 0x29D9EB
 ?rva005382A6@Rva005382A6@@QAEPAXHH@Z,,0x005382A6,16,Code/GameEngine/Source/Common/Rva005382A6Getter.cpp,matched,indexed address base plus i16 plus off
-?clear@Rva0009990D@@QAEXXZ,,0x0009990D,26,Code/GameEngine/Source/Common/Rva0009990DSet.cpp,matched,clear via dtor plus delete
+?clear@Rva0009990D@@QAEXXZ,,0x0009990D,26,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouse.cpp,matched,clear via dtor plus delete
 ?rva000B980E@Rva000B980E@@QAEXPADHH@Z,,0x000B980E,44,Code/GameEngine/Source/Common/Rva000B980ECopy.cpp,matched,string data memcpy via empty default
 ?rva0029AA27@Rva0029AA27@@QAEXPBUS12_0029AA27@@@Z,,0x0029AA27,24,Code/GameEngine/Source/Common/Rva0029AA27Copy.cpp,matched,guarded 12B copy via movsd caller 0x432145
 ?Rva00212AD6Get@@YAXPAURva002115C5@@0@Z,,0x00212AD6,25,Code/GameEngine/Source/GameClient/Rva00212AD6Loop.cpp,matched,chain range 0x10 calling 0x002115C5 callers 2
