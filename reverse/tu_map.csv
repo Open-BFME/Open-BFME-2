@@ -41339,13 +41339,13 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x004DCE51,56,code,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp,approved,C,C=0x004DCC84..0x004DCE89 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_tree_dtor_004DCE51.cpp
 0x004DCE89,5,code,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp,approved,C,C=0x004DCC84..0x004DCE8E provisional,Code/GameEngine/Source/GameNetwork/ConnectionManager.cpp
 0x004DCE8E,54,code,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp,approved,C,C=0x004DCC84..0x004DCEC4 provisional,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp
-0x004DCEC4,340,code,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/Object/Update/Emotion.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Update/EmotionUpdateStep.cpp
+0x004DCEC4,340,code,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/Object/Update/Emotion.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp
 0x004DCECE,330,code-unledgered,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp,approved,C,C=0x004DCEC4..0x004DD018 provisional,
 0x004DD018,494,code,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp W=Code/GameEngine/Source/GameLogic/System/EmotionNugget.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNuggetCanBeActivatedFor.cpp
 0x004DD206,84,code,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp,approved,U,N=Code/GameEngine/Source/Common/INI/Emotion.cpp provisional,Code/GameEngine/Source/Common/INI/Rva004DD206TwoTreeConstructor.cpp
 0x004DD25A,29,code,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp,approved,C,C=0x004DD206..0x004DD277 provisional,Code/GameEngine/Source/Common/ConnectionManagerRva004D28C6.cpp
 0x004DD277,73,code,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp,approved,C,C=0x004DD206..0x004DD2C0 provisional,Code/GameEngine/Source/Common/ConnectionManagerRva004D28C6.cpp
-0x004DD2C0,457,code,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp W=Code/GameEngine/Source/GameLogic/System/EmotionNugget.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNuggetOnDeactivation.cpp
+0x004DD2C0,457,code,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp W=Code/GameEngine/Source/GameLogic/System/EmotionNugget.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp
 0x004DD489,400,code,,,-,,Code/GameEngine/Source/Common/Rva004DD489Xfer.cpp
 0x004DD619,30,code,,,-,,Code/GameEngine/Source/Common/System/Rva004DD619Footprint.cpp
 0x004DD637,33,code,Code/GameEngine/Source/GameLogic/Object/PathfinderPosGoalManager.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/PathfinderPosGoalManager.cpp provisional,Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp
@@ -82220,12 +82220,12 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007916B3,10,code,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp,approved,P,P=0x004DCC84@FuncInfo0x009437A8 provisional,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp
 0x007916BD,8,code,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp,approved,P,P=0x004DCE51@FuncInfo0x009437CC provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_tree_dtor_004DCE51.cpp
 0x007916C5,10,code,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp,approved,P,P=0x004DCE51@FuncInfo0x009437CC provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_tree_dtor_004DCE51.cpp
-0x007916CF,8,code,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp,approved,P,P=0x004DCEC4@FuncInfo0x009437F0 provisional,Code/GameEngine/Source/GameLogic/Object/Update/EmotionUpdateStep.cpp
-0x007916D7,10,code,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp,approved,P,P=0x004DCEC4@FuncInfo0x009437F0 provisional,Code/GameEngine/Source/GameLogic/Object/Update/EmotionUpdateStep.cpp
+0x007916CF,8,code,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp,approved,P,P=0x004DCEC4@FuncInfo0x009437F0 provisional,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp
+0x007916D7,10,code,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp,approved,P,P=0x004DCEC4@FuncInfo0x009437F0 provisional,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp
 0x007916E1,11,code,,,-,,Code/GameEngine/Source/Common/INI/Rva004DD206TwoTreeConstructor.cpp
 0x007916EC,10,code,,,-,,Code/GameEngine/Source/Common/INI/Rva004DD206TwoTreeConstructor.cpp
-0x007916F6,8,code,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp,approved,P,P=0x004DD2C0@FuncInfo0x00943838 provisional,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNuggetOnDeactivation.cpp
-0x007916FE,10,code,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp,approved,P,P=0x004DD2C0@FuncInfo0x00943838 provisional,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNuggetOnDeactivation.cpp
+0x007916F6,8,code,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp,approved,P,P=0x004DD2C0@FuncInfo0x00943838 provisional,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp
+0x007916FE,10,code,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp,approved,P,P=0x004DD2C0@FuncInfo0x00943838 provisional,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp
 0x00791708,8,code,Code/GameEngine/Source/GameLogic/Object/PathfinderPosGoalManager.cpp,approved,P,P=0x004DD73B@FuncInfo0x0094385C provisional,Code/GameEngine/Source/GameLogic/Object/PathfinderPosGoalManager.cpp
 0x00791710,10,code,Code/GameEngine/Source/GameLogic/Object/PathfinderPosGoalManager.cpp,approved,P,P=0x004DD73B@FuncInfo0x0094385C provisional,Code/GameEngine/Source/GameLogic/Object/PathfinderPosGoalManager.cpp
 0x0079171A,8,code,Code/GameEngine/Source/GameLogic/Object/PathfinderPosGoalManager.cpp,approved,P,P=0x004DDF51@FuncInfo0x00943880 provisional,Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderPosGoalManager.cpp

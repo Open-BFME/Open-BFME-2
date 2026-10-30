@@ -4,13 +4,19 @@
 #include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
 #include <map>
 #include "ascii_string.h"
+#include "../../../Common/GameLogicObjectLookupView.h"
 template <typename T>
 inline bool StringBase<T>::isEmpty() const
 {
     return m_data == 0 || m_data->length == 0;
 }
+class FXList;
+class AIUpdateInterface;
+
 class EmotionNugget;
+
 class Object;
+
 class AIUpdateInterface {
     friend class EmotionNugget;
 protected:
@@ -131,7 +137,9 @@ public:
     void rva002632E1();
     char pad04[0x3c5-4]; unsigned char allow04;
 };
+
 class ThingTemplate { public: unsigned short getTemplateID() const { return templateID; } char pad00[0x5d8]; unsigned short templateID; };
+
 struct ModelConditionFlags {
  unsigned int words[19];
  // Returns the masked word (WB's BitFlags::test compares it with zero).
@@ -139,7 +147,9 @@ struct ModelConditionFlags {
  void set(int bit) { words[bit>>5] |= 1U << (bit & 0x1f); }
  void clear(int bit) { words[bit >> 5] &= ~(1 << (bit & 0x1f)); }
 };
+
 enum ObjectStatusTypes { STATUS_46 = 0x46 };
+
 class Object {
 public:
     void *rva0029439D();
@@ -163,6 +173,7 @@ public:
     char pad25C[0x438 - 0x25C];
     unsigned char m_status438; // +0x438
 };
+
 class Rva0029439DIface {
 public:
     virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
@@ -171,12 +182,14 @@ public:
     virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
     virtual void v16(); virtual void v17(); virtual void v18(); virtual Object *v19();
 };
+
 class FXList
 {
 public:
 	static void doFXObj(const FXList *, const Object *, const Object *);
 	void doFXObj(const Object *primary, const Object *secondary) const;
 };
+
 class Rva004DC902AsciiField {
 public:
     AsciiString get() const;
@@ -214,6 +227,7 @@ class LuaScriptEngine;
 extern LuaScriptEngine *TheLuaScriptEngine;
 
 struct Gen_lt_00940b40 : public _STL::less<unsigned short> {};
+
 class EmotionNugget {
 public:
     void OnActivation(Object *, int);
@@ -266,6 +280,127 @@ private:
 	Rva004DCE8ETree14 m_tree14;
 	Rva004DCE8ETree20 m_tree20;
 };
+
+class GameLogic;
+
+// What Object::rva0029439D reports; its slot 19 names the FX target.
+class Rva0029439DResult
+{
+public:
+	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
+	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
+	virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
+	virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
+	virtual void v16(); virtual void v17(); virtual void v18();
+	virtual Object *v19();
+};
+
+class ThingTemplate;
+
+// The template's attribute modifier name, read through the rowed getter.
+class Rva004DC8E7AsciiField
+{
+public:
+	AsciiString get() const;
+	int getDelay() const { return m_40; }
+	char m_pad00[0x10];
+	int m_10; // +0x10
+	int m_14; // +0x14
+	int m_18; // +0x18
+	char m_pad1C[0x1C];
+	const FXList *m_fx38; // +0x38
+	AsciiString m_str3C; // +0x3C
+	int m_40; // +0x40
+	unsigned char m_flag44; // +0x44
+	char m_pad45[0x3];
+	int m_48; // +0x48
+	int m_4C; // +0x4C
+	char m_pad50[0x50];
+	int m_a0; // +0xA0
+	char m_padA4[0x94];
+	int m_138; // +0x138
+	char m_pad13C[0x48];
+	unsigned char m_184; // +0x184
+	char m_pad185[0x3];
+};
+
+class EmotionTrackerUpdateEntry
+{
+public:
+	char pad00[4];
+	int m_type; // +0x04
+	char pad08[0x34 - 8];
+	const FXList *m_fx; // +0x34
+	char pad38[0x40 - 0x38];
+	unsigned int getModifierDelay() const { return m_modifierDelay; }
+	unsigned int m_modifierDelay; // +0x40
+	bool m_noStrength; // +0x44
+	char pad45[0x48 - 0x45];
+	int m_strength; // +0x48
+	char pad4C[0x50 - 0x4C];
+	unsigned int m_aiDelay; // +0x50
+};
+
+class Emotion
+{
+public:
+	bool rva004DCEC4();
+
+	Object *word00;
+	EmotionTrackerUpdateEntry *word04;
+	ObjectID word08;
+	char pad0C[0x2C - 0x0C];
+	unsigned int word2C; // +0x2C, end frame
+	unsigned int word30; // +0x30, frame the emotion began
+};
+
+// Suppress this TU's non-retail copy of ?_M_lower_bound@?$_Rb_tree@GU?$pair@$$CBGH@_STL@@U?$_Select1st@U?$pair@$$CBGH@_STL@@@2@UGe:
+// the kept copy serves the link. Plain declaration-only form (no __imp_).
+struct Gen_lt_00940b40;
+
+namespace _STL { template <> _Rb_tree_node<pair<unsigned short const ,int> > * _Rb_tree<unsigned short,pair<unsigned short const ,int>,_Select1st<pair<unsigned short const ,int> >,Gen_lt_00940b40,allocator<pair<unsigned short const ,int> > >::_M_lower_bound(unsigned short const &) const; }
+
+// Suppress this TU's non-retail copy of ??R?$less@G@_STL@@QBE_NABG0@Z:
+// the kept copy serves the link. Plain declaration-only form (no __imp_).
+namespace _STL { template <> bool less<unsigned short>::operator()(unsigned short const &,unsigned short const &) const; }
+
+// Suppress this TU's non-retail copy of ??A?$map@HHU?$less@H@_STL@@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAEAAHABH@Z:
+// the kept copy serves the link. Plain declaration-only form (no __imp_).
+namespace _STL { template <> int & map<int,int,less<int>,allocator<pair<int const ,int> > >::operator[](int const &); }
+
+// Suppress this TU's non-retail copy of ??0?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBHH@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHH@_ST:
+// the kept copy serves the link. Plain declaration-only form (no __imp_).
+namespace _STL { template <> pair<_Rb_tree_iterator<pair<int const ,int>,_Nonconst_traits<pair<int const ,int> > >,bool>::pair(_Rb_tree_iterator<pair<int const ,int>,_Nonconst_traits<pair<int const ,int> > > const &,bool const &); }
+
+// Suppress this TU's non-retail copy of ??E?$_Rb_tree_iterator@U?$pair@$$CBHH@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHH@_STL@@@2@@_:
+// the kept copy serves the link. Plain declaration-only form (no __imp_).
+namespace _STL { template <> _Rb_tree_iterator<pair<int const ,int>,_Nonconst_traits<pair<int const ,int> > > & _Rb_tree_iterator<pair<int const ,int>,_Nonconst_traits<pair<int const ,int> > >::operator++(); }
+
+// Suppress this TU's non-retail copy of ??F?$_Rb_tree_iterator@U?$pair@$$CBHH@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHH@_STL@@@2@@_:
+// the kept copy serves the link. Plain declaration-only form (no __imp_).
+namespace _STL { template <> _Rb_tree_iterator<pair<int const ,int>,_Nonconst_traits<pair<int const ,int> > > & _Rb_tree_iterator<pair<int const ,int>,_Nonconst_traits<pair<int const ,int> > >::operator--(); }
+
+// Suppress this TU's non-retail copy of ??0?$pair@$$CBGH@_STL@@QAE@ABGABH@Z:
+// the kept copy serves the link. Plain declaration-only form (no __imp_).
+namespace _STL { template <> pair<unsigned short const ,int>::pair(unsigned short const &,int const &); }
+
+// Suppress this TU's non-retail copy of ??R?$less@H@_STL@@QBE_NABH0@Z:
+// the kept copy serves the link. Plain declaration-only form (no __imp_).
+namespace _STL { template <> bool less<int>::operator()(int const &,int const &) const; }
+
+namespace _STL { template <> pair<_Rb_tree_iterator<pair<unsigned short const ,int>,_Nonconst_traits<pair<unsigned short const ,int> > >,bool> _Rb_tree<unsigned short,pair<unsigned short const ,int>,_Select1st<pair<unsigned short const ,int> >,Gen_lt_00940b40,allocator<pair<unsigned short const ,int> > >::insert_unique(pair<unsigned short const ,int> const &); }
+
+// Suppress this TU's copies of template members whose kept copy (first in link
+// order) is another unit's. Plain declaration-only form (no __imp_).
+namespace _STL { template <> _Rb_tree_node<pair<unsigned short const,int> > * _Rb_tree<unsigned short,pair<unsigned short const,int>,_Select1st<pair<unsigned short const,int> >,Gen_lt_00940b40,allocator<pair<unsigned short const,int> > >::_M_create_node(pair<unsigned short const,int> const &); }
+
+namespace _STL { template <> _Rb_tree_iterator<pair<unsigned short const,int>,_Nonconst_traits<pair<unsigned short const,int> > > _Rb_tree<unsigned short,pair<unsigned short const,int>,_Select1st<pair<unsigned short const,int> >,Gen_lt_00940b40,allocator<pair<unsigned short const,int> > >::_M_insert(_Rb_tree_node_base *,_Rb_tree_node_base *,pair<unsigned short const,int> const &,_Rb_tree_node_base *); }
+
+namespace _STL { template <> _Rb_tree_node<pair<unsigned short const,int> > * allocator<_Rb_tree_node<pair<unsigned short const,int> > >::allocate(unsigned int,void const *)const ; }
+
+namespace _STL { template <> _Rb_tree_iterator<pair<unsigned short const,int>,_Nonconst_traits<pair<unsigned short const,int> > > _Rb_tree<unsigned short,pair<unsigned short const,int>,_Select1st<pair<unsigned short const,int> >,Gen_lt_00940b40,allocator<pair<unsigned short const,int> > >::insert_unique(_Rb_tree_iterator<pair<unsigned short const,int>,_Nonconst_traits<pair<unsigned short const,int> > >,pair<unsigned short const,int> const &); }
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/EmotionNuggetOnActivation.cpp
 
@@ -335,10 +470,6 @@ void EmotionNugget::OnActivation(Object *target, int duration)
     }
 }
 
-// tu-skeleton: 0x004DCE51 56B ??1?$_Rb_tree@GU?$pair@$$CBGH@_STL@@U?$_Select1st@U?$pair@$$CBGH@_STL@@@2@U?$less@G@2@V?$allocator@U?$pair@$$CBGH@_STL@@@2@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_tree_dtor_004DCE51.cpp (not merged yet)
-
-// tu-skeleton: 0x004DCE89 5B ??1?$map@GHU?$less@G@_STL@@V?$allocator@U?$pair@$$CBGH@_STL@@@2@@_STL@@QAE@XZ -- matched in Code/GameEngine/Source/GameNetwork/ConnectionManager.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/INI/Rva004DCE8EDtor.cpp
 
 // ??1Rva004DCE8E@@QAE@XZ @0x004DCE8E 54B: dtor destroying two Rb_tree maps at +0x14 and +0x20.
@@ -348,7 +479,83 @@ Rva004DCE8E::~Rva004DCE8E()
 {
 }
 
-// tu-skeleton: 0x004DCEC4 340B ?rva004DCEC4@Emotion@@QAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/EmotionUpdateStep.cpp (not merged yet)
+// tu-skeleton: 0x004DCE51 56B ??1?$_Rb_tree@GU?$pair@$$CBGH@_STL@@U?$_Select1st@U?$pair@$$CBGH@_STL@@@2@U?$less@G@2@V?$allocator@U?$pair@$$CBGH@_STL@@@2@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_tree_dtor_004DCE51.cpp (not merged yet)
+
+// tu-skeleton: 0x004DCE89 5B ??1?$map@GHU?$less@G@_STL@@V?$allocator@U?$pair@$$CBGH@_STL@@@2@@_STL@@QAE@XZ -- matched in Code/GameEngine/Source/GameNetwork/ConnectionManager.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/EmotionUpdateStep.cpp
+
+// ?rva004DCEC4@Emotion@@QAE_NXZ retail 0x004DCEC4..0x004DD018 (340 bytes,
+// RET): the per-frame step of one emotion an object's EmotionTrackerUpdate
+// keeps (its only caller is EmotionTrackerUpdate::update at 0x004B1633,
+// WorldBuilder twin 0x01230DD0 in EmotionTrackerUpdate.cpp; this body's own
+// twin is 0x010EA740). Ghidra split it after the EH prolog (0x004DCEC4, 10
+// bytes) and called the rest 0x004DCECE.
+//
+// The emotion is the record whose constructor is rowed at 0x004DD206
+// (Rva004DD206TwoTreeConstructor.cpp): the object at +0x00, its nugget
+// template at +0x04, a source object id at +0x08, the start frame at +0x2C and
+// the frame it began at +0x30. Once the end frame passes the emotion is done.
+// On the template's start delay (+0x40) frame it adds the template's
+// attribute modifier (name read by the rowed 0x004DC8E7, strength +0x48
+// unless +0x44 is set) to the object; after the +0x50 delay it pokes the
+// object's AI (0x00263298); a template FX list (+0x34) plays on the object, or
+// on what the object's 0x0029439D relation reports through its slot 19,
+// against the source object while that still exists; a type-3 template ends
+// with its source object or once that object's +0x438 bit 0 is set.
+// Returns true while the emotion keeps running.
+//
+// Target facts: boundary, caller, callees, member offsets and branch order
+// are from retail. Member and method names are address-derived.
+//
+// The modifier-name temporary is live across the out-of-line
+// StringBase<char>::isEmpty call (0x00001E2F) with no EH state of its own and
+// only the zeroed destroy flag at [ebp-0x18] left behind, which a throw()
+// isEmpty declaration (string_base.h) reproduces. The frame test reads the
+// template delay through an inline getter, as the WorldBuilder twin's
+// separate temporary for it shows; that gives retail's load order.
+
+bool Emotion::rva004DCEC4()
+{
+	bool done = false;
+	if (word2C && TheGameLogic->getFrame() >= word2C)
+		done = true;
+
+	bool apply = !((const StringBase<char> *)&((Rva004DC8E7AsciiField *)word04)->get())->isEmpty()
+		&& TheGameLogic->getFrame() == word30 + word04->getModifierDelay();
+	if (apply) {
+		int strength = 0;
+		if (!word04->m_noStrength)
+			strength = word04->m_strength;
+		word00->addAttributeModifierToPool(((Rva004DC8E7AsciiField *)word04)->get(), strength);
+	}
+
+	unsigned int aiDelay = word04->m_aiDelay;
+	if (aiDelay && TheGameLogic->getFrame() >= word30 + aiDelay) {
+		AIUpdateInterface *ai = word00->getAI();
+		if (ai)
+			ai->rva00263298();
+	}
+
+	if (word04->m_fx) {
+		Object *target = word00;
+		Rva0029439DResult *related = (Rva0029439DResult *)word00->rva0029439D();
+		if (related)
+			target = related->v19();
+		ObjectID sourceID = word08;
+		Object *source = TheGameLogic->findObjectByID(sourceID);
+		if (source || sourceID == INVALID_OBJECT_ID) {
+			FXList::doFXObj(word04->m_fx, target ? target : word00, source);
+		}
+	}
+
+	if (word04->m_type == 3) {
+		Object *source = TheGameLogic->findObjectByID(word08);
+		if (!source || source->testStatus438())
+			done = true;
+	}
+	return !done;
+}
 
 // tu-skeleton: 0x004DCECE 330B (unledgered) -- unmatched, no code, never credited
 
@@ -360,16 +567,87 @@ Rva004DCE8E::~Rva004DCE8E()
 
 // tu-skeleton: 0x004DD277 73B ??A?$map@GHUGen_lt_00940b40@@V?$allocator@U?$pair@$$CBGH@_STL@@@_STL@@@_STL@@QAEAAHABG@Z -- matched in Code/GameEngine/Source/Common/ConnectionManagerRva004D28C6.cpp (not merged yet)
 
-// tu-skeleton: 0x004DD2C0 457B ?OnDeactivation@EmotionNugget@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/EmotionNuggetOnDeactivation.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/EmotionNuggetOnDeactivation.cpp
+
+//
+// EmotionNugget::OnDeactivation @ 0x004DD2C0 (457B). Identity: WorldBuilder
+// EmotionNugget.cpp OnDeactivation (WB 0x010EAAC0, callgraph lead).
+// Model condition 200 is cleared through Object's ModelConditionFlags words at
+// +0x10C (WB inlines BitFlags::test/ClearBit; retail tests byte +0x125 bit 0).
+// The attribute gate reads TheGameLogic->getFrame() and the entry delay
+// through inline getters, as the WB body does (frame read first).
+// Deactivation: folds entry delays into local frames through TheGameLogic,
+// plays entry FX, nudges AI, applies weapon-set/condition changes and applies
+// the entry attribute modifier by name. Evidence: callers at 0x004B0E12,
+// 0x004B0EB2, 0x004B15F2, 0x004B1689 pass [EmotionTrackerUpdate+0x7c] as this;
+// callees rowed map<int,int>::operator[] 0x0028932C, map<ushort,int> 0x004DD277,
+// Object::rva0029439D, GameLogic::findObjectByID 0x00049DC5,
+// FXList::doFXObj 0x000B2235, AIUpdateInterface::rva002632E1,
+// Object::clearAndSetModelConditionFlagsForHorde/0x0028CFB2/0x0028AE6D, AsciiField::get 0x004DC8E7,
+// StringBase::isEmpty 0x00001E2F/releaseBuffer 0x00036410,
+// Object::addAttributeModifierToPool (pin); TheGameLogic 0x009FE78C.
+
+void EmotionNugget::OnDeactivation()
+{
+	if (entry04->m_10)
+		next10 = TheGameLogic->getFrame() + entry04->m_10;
+	if (entry04->m_14 && id08)
+	{
+		unsigned frame = TheGameLogic->getFrame();
+		int duration = entry04->m_14;
+		targets14[id08] = frame + duration;
+	}
+	if (entry04->m_18 && template0c)
+	{
+		unsigned int frame = TheGameLogic->getFrame();
+		int duration = entry04->m_18;
+		templates20[template0c] = duration + frame;
+	}
+	if (entry04->m_fx38)
+	{
+		Object *obj = object00;
+		void *iface = obj->rva0029439D();
+		if (iface)
+			obj = ((Rva0029439DIface *)iface)->v19();
+		int id = id08;
+		Object *found = TheGameLogic->findObjectByID((ObjectID)id);
+		if (found || !id)
+		{
+			if (!obj)
+				obj = object00;
+			FXList::doFXObj((object00 ? (entry04->m_fx38) : (entry04->m_fx38)), obj, found);
+		}
+	}
+	AIUpdateInterface *ai = object00->ai;
+	if (ai)
+	{
+		int kind = entry04->state4c;
+		if (!kind || (kind > 1 && kind <= 5))
+		{
+			ai->rva002632E1();
+			if (entry04->flag184)
+				ai->allow04 = 0;
+		}
+	{
+		void *iface = object00->rva0029439D();
+		if (iface)
+			object00->clearAndSetModelConditionFlagsForHorde(entry04->clearA0, entry04->set138);
+		else
+			object00->rva0028CFB2(entry04->clearA0, entry04->set138);
+		Object *object = object00;
+		if (object->modelConditions.test(200))
+		{
+			object->modelConditions.clear(200);
+			object->rva0028AE6D();
+		}
+	}
+	if (!((const StringBase<char> &)(((Rva004DC8E7AsciiField *)entry04)->get())).isEmpty() && TheGameLogic->getFrame() >= activated30 + ((Rva004DC8E7AsciiField *)entry04)->getDelay() && entry04->m_flag44)
+	{
+		object00->addAttributeModifierToPool(((Rva004DC8E7AsciiField *)entry04)->get(), entry04->m_48);
+	}
+	}
+}
 
 // tu-skeleton: 0x007916BD 8B $L3852 -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_tree_dtor_004DCE51.cpp (not merged yet)
 
 // tu-skeleton: 0x007916C5 10B __ehhandler$??1?$_Rb_tree@GU?$pair@$$CBGH@_STL@@U?$_Select1st@U?$pair@$$CBGH@_STL@@@2@U?$less@G@2@V?$allocator@U?$pair@$$CBGH@_STL@@@2@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_tree_dtor_004DCE51.cpp (not merged yet)
-
-// tu-skeleton: 0x007916CF 8B $L1483 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/EmotionUpdateStep.cpp (not merged yet)
-
-// tu-skeleton: 0x007916D7 10B __ehhandler$?rva004DCEC4@Emotion@@QAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/EmotionUpdateStep.cpp (not merged yet)
-
-// tu-skeleton: 0x007916F6 8B Unwind@00b916f6 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/EmotionNuggetOnDeactivation.cpp (not merged yet)
-
-// tu-skeleton: 0x007916FE 10B __ehhandler$?OnDeactivation@EmotionNugget@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/EmotionNuggetOnDeactivation.cpp (not merged yet)
