@@ -1,0 +1,599 @@
+{
+  "scope": "current two-source preview; no census or header-debt clearance",
+  "symbol": "?name@Rva00486C8FNamed@@QBEPBDXZ",
+  "sources": [
+    {
+      "source": "Code/GameEngine/Source/GameLogic/Object/Die/KeepObjectDie.cpp",
+      "source_sha256": "9882abd14bbdb2ab6e0c5b878687bcc5497e6745362e7daa5bd4cd899ebfc5e2",
+      "object_sha256": "e95b2617092241f88329443976486ae69f5eb8da711f7b7cc830236a63c85355",
+      "strict_current": true,
+      "rows": [
+        {
+          "name": "??1KeepObjectDie@@UAE@XZ",
+          "rva": "0x00486C76",
+          "size": 25
+        },
+        {
+          "name": "?getModuleNameKey@KeepObjectDie@@UBE?AW4NameKeyType@@XZ",
+          "rva": "0x00486C95",
+          "size": 69
+        },
+        {
+          "name": "??_GKeepObjectDie@@UAEPAXI@Z",
+          "rva": "0x00486CDA",
+          "size": 28
+        },
+        {
+          "name": "??0KeepObjectDie@@QAE@PAVThing@@PBVModuleData@@@Z",
+          "rva": "0x00486D73",
+          "size": 165
+        },
+        {
+          "name": "?name@Rva00486C8FNamed@@QBEPBDXZ",
+          "rva": "0x00486C8F",
+          "size": 6
+        },
+        {
+          "name": "?onDie@KeepObjectDie@@UAEXPBVDamageInfo@@@Z",
+          "rva": "0x00486CF6",
+          "size": 125
+        },
+        {
+          "name": "__ehhandler$??0KeepObjectDie@@QAE@PAVThing@@PBVModuleData@@@Z",
+          "rva": "0x0078C13C",
+          "size": 10
+        },
+        {
+          "name": "__ehhandler$?getModuleNameKey@KeepObjectDie@@UBE?AW4NameKeyType@@XZ",
+          "rva": "0x0078C12A",
+          "size": 10
+        },
+        {
+          "name": "Unwind@00b8c134",
+          "rva": "0x0078C134",
+          "size": 8
+        },
+        {
+          "name": "$L606",
+          "rva": "0x0078C11D",
+          "size": 13
+        }
+      ],
+      "defines_name": true,
+      "native_rva": "0x00486C8F",
+      "native_size": 6,
+      "raw": "b800000000c3",
+      "relocations": [
+        [
+          1,
+          6,
+          "??_C@_0O@DBIDNLGA@KeepObjectDie?$AA@"
+        ]
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/ModuleNameGetters3.cpp",
+      "source_sha256": "7942c7d6164234a53b919ef61408ed6ff3e908a5718598868ce767cc1ab51863",
+      "object_sha256": "e47ae16ffd31a271060899618cd61a9087721eaadeba775a7c967d31502dd8e2",
+      "strict_current": true,
+      "rows": [
+        {
+          "name": "?name@AttackContesterStateMachine@@QBEPBDXZ",
+          "rva": "0x0033FB8F",
+          "size": 6
+        },
+        {
+          "name": "?name@GiantBirdGuardMachine@@QBEPBDXZ",
+          "rva": "0x00367F98",
+          "size": 6
+        },
+        {
+          "name": "?name@CastleBehavior@@QBEPBDXZ",
+          "rva": "0x00398525",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva003A433BNamed@@QBEPBDXZ",
+          "rva": "0x003A433B",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva003ABCEENamed@@QBEPBDXZ",
+          "rva": "0x003ABCEE",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva00452D72Named@@QBEPBDXZ",
+          "rva": "0x00452D72",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva004561BBNamed@@QBEPBDXZ",
+          "rva": "0x004561BB",
+          "size": 6
+        },
+        {
+          "name": "?name@RampageBehavior@@QBEPBDXZ",
+          "rva": "0x00458AC7",
+          "size": 6
+        },
+        {
+          "name": "?name@AimWeaponBehavior@@QBEPBDXZ",
+          "rva": "0x0045B14D",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva0045CE86Named@@QBEPBDXZ",
+          "rva": "0x0045CE86",
+          "size": 6
+        },
+        {
+          "name": "?name@ProductionQueueHordeContain@@QBEPBDXZ",
+          "rva": "0x00481273",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva00485217Named@@QBEPBDXZ",
+          "rva": "0x00485217",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva0048543ENamed@@QBEPBDXZ",
+          "rva": "0x0048543E",
+          "size": 6
+        },
+        {
+          "name": "?name@DamageFilteredCreateObjectDie@@QBEPBDXZ",
+          "rva": "0x00485EE3",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva0048614FNamed@@QBEPBDXZ",
+          "rva": "0x0048614F",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva004864C3Named@@QBEPBDXZ",
+          "rva": "0x004864C3",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva00486592Named@@QBEPBDXZ",
+          "rva": "0x00486592",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva00486A15Named@@QBEPBDXZ",
+          "rva": "0x00486A15",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva00486B6FNamed@@QBEPBDXZ",
+          "rva": "0x00486B6F",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva00487F5ANamed@@QBEPBDXZ",
+          "rva": "0x00487F5A",
+          "size": 6
+        },
+        {
+          "name": "?GetSnapshotName@DeletionUpdate@@MBEPBDXZ",
+          "rva": "0x00488351",
+          "size": 6
+        },
+        {
+          "name": "?GetSnapshotName@DozerActionState@@UBEPBDXZ",
+          "rva": "0x00488900",
+          "size": 6
+        },
+        {
+          "name": "?GetSnapshotName@DozerPrimaryStateMachine@@MBEPBDXZ",
+          "rva": "0x00488997",
+          "size": 6
+        },
+        {
+          "name": "?GetSnapshotName@FireSpreadUpdate@@MBEPBDXZ",
+          "rva": "0x0048B68A",
+          "size": 6
+        },
+        {
+          "name": "?GetSnapshotName@FloatUpdate@@MBEPBDXZ",
+          "rva": "0x0048D75B",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva0048FBD3Named@@QBEPBDXZ",
+          "rva": "0x0048FBD3",
+          "size": 6
+        },
+        {
+          "name": "?name@ArrowStormUpdate@@QBEPBDXZ",
+          "rva": "0x004907F1",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva004918A6Named@@QBEPBDXZ",
+          "rva": "0x004918A6",
+          "size": 6
+        },
+        {
+          "name": "?name@PickupStuffUpdate@@QBEPBDXZ",
+          "rva": "0x00491DEC",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva00495087Named@@QBEPBDXZ",
+          "rva": "0x00495087",
+          "size": 6
+        },
+        {
+          "name": "?name@AutoPickUpUpdate@@QBEPBDXZ",
+          "rva": "0x00495C68",
+          "size": 6
+        },
+        {
+          "name": "?name@BoredUpdate@@QBEPBDXZ",
+          "rva": "0x004966B3",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva00496A18Named@@QBEPBDXZ",
+          "rva": "0x00496A18",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva00499954Named@@QBEPBDXZ",
+          "rva": "0x00499954",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva00499F5ENamed@@QBEPBDXZ",
+          "rva": "0x00499F5E",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva0049A1C4Named@@QBEPBDXZ",
+          "rva": "0x0049A1C4",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva0049B2BBNamed@@QBEPBDXZ",
+          "rva": "0x0049B2BB",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva0049BFD7Named@@QBEPBDXZ",
+          "rva": "0x0049BFD7",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva0049FE94Named@@QBEPBDXZ",
+          "rva": "0x0049FE94",
+          "size": 6
+        },
+        {
+          "name": "?name@QueueProductionExitUpdate@@QBEPBDXZ",
+          "rva": "0x004A0017",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva004A0C27Named@@QBEPBDXZ",
+          "rva": "0x004A0C27",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva004A4234Named@@QBEPBDXZ",
+          "rva": "0x004A4234",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva004A4C39Named@@QBEPBDXZ",
+          "rva": "0x004A4C39",
+          "size": 6
+        },
+        {
+          "name": "?GetSnapshotName@StructureToppleUpdate@@MBEPBDXZ",
+          "rva": "0x004A54C8",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva004A655DNamed@@QBEPBDXZ",
+          "rva": "0x004A655D",
+          "size": 6
+        },
+        {
+          "name": "?name@SupplyTruckStateMachine@@QBEPBDXZ",
+          "rva": "0x004A6C64",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva004A7D75Named@@QBEPBDXZ",
+          "rva": "0x004A7D75",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva004A80B1Named@@QBEPBDXZ",
+          "rva": "0x004A80B1",
+          "size": 6
+        },
+        {
+          "name": "?GetSnapshotName@WorkerStateMachine@@MBEPBDXZ",
+          "rva": "0x004A996F",
+          "size": 6
+        },
+        {
+          "name": "?name@RousingSpeechUpdate@@QBEPBDXZ",
+          "rva": "0x004ACED2",
+          "size": 6
+        },
+        {
+          "name": "?name@GloriousChargeUpdate@@QBEPBDXZ",
+          "rva": "0x004AD5C8",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva004AD9DANamed@@QBEPBDXZ",
+          "rva": "0x004AD9DA",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva004AE7A7Named@@QBEPBDXZ",
+          "rva": "0x004AE7A7",
+          "size": 6
+        },
+        {
+          "name": "?name@ArmorUpgrade@@QBEPBDXZ",
+          "rva": "0x004B341D",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva004B364DNamed@@QBEPBDXZ",
+          "rva": "0x004B364D",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva004B3A1CNamed@@QBEPBDXZ",
+          "rva": "0x004B3A1C",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva004B3C2ANamed@@QBEPBDXZ",
+          "rva": "0x004B3C2A",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva004B3D5BNamed@@QBEPBDXZ",
+          "rva": "0x004B3D5B",
+          "size": 6
+        },
+        {
+          "name": "?name@LocomotorSetUpgrade@@QBEPBDXZ",
+          "rva": "0x004B3EC0",
+          "size": 6
+        },
+        {
+          "name": "?name@ObjectCreationUpgrade@@QBEPBDXZ",
+          "rva": "0x004B3FB4",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva004B4719Named@@QBEPBDXZ",
+          "rva": "0x004B4719",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva004B48F3Named@@QBEPBDXZ",
+          "rva": "0x004B48F3",
+          "size": 6
+        },
+        {
+          "name": "?name@DoCommandUpgrade@@QBEPBDXZ",
+          "rva": "0x004B4BC1",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva004B4CFFNamed@@QBEPBDXZ",
+          "rva": "0x004B4CFF",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva004B53FFNamed@@QBEPBDXZ",
+          "rva": "0x004B53FF",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva004B55E8Named@@QBEPBDXZ",
+          "rva": "0x004B55E8",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva004B56ABNamed@@QBEPBDXZ",
+          "rva": "0x004B56AB",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva004B57EENamed@@QBEPBDXZ",
+          "rva": "0x004B57EE",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva004B59A9Named@@QBEPBDXZ",
+          "rva": "0x004B59A9",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva004B5D32Named@@QBEPBDXZ",
+          "rva": "0x004B5D32",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva004B613CNamed@@QBEPBDXZ",
+          "rva": "0x004B613C",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva004B6279Named@@QBEPBDXZ",
+          "rva": "0x004B6279",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva004B63DDNamed@@QBEPBDXZ",
+          "rva": "0x004B63DD",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva004B66D3Named@@QBEPBDXZ",
+          "rva": "0x004B66D3",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva004B67FCNamed@@QBEPBDXZ",
+          "rva": "0x004B67FC",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva004B79CDNamed@@QBEPBDXZ",
+          "rva": "0x004B79CD",
+          "size": 6
+        },
+        {
+          "name": "?name@RemoveUpgradeUpgrade@@QBEPBDXZ",
+          "rva": "0x004B7F21",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva004B82C5Named@@QBEPBDXZ",
+          "rva": "0x004B82C5",
+          "size": 6
+        },
+        {
+          "name": "?GetSnapshotName@BoneFXDamage@@MBEPBDXZ",
+          "rva": "0x004B96FE",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva004BAB4FNamed@@QBEPBDXZ",
+          "rva": "0x004BAB4F",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva004BB962Named@@QBEPBDXZ",
+          "rva": "0x004BB962",
+          "size": 6
+        },
+        {
+          "name": "?name@AODCrushCollide@@QBEPBDXZ",
+          "rva": "0x004BBEFD",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva004BC33ENamed@@QBEPBDXZ",
+          "rva": "0x004BC33E",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva004BC515Named@@QBEPBDXZ",
+          "rva": "0x004BC515",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva004BD606Named@@QBEPBDXZ",
+          "rva": "0x004BD606",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva004BD7A8Named@@QBEPBDXZ",
+          "rva": "0x004BD7A8",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva004C0A65Named@@QBEPBDXZ",
+          "rva": "0x004C0A65",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva004C187FNamed@@QBEPBDXZ",
+          "rva": "0x004C187F",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva004C1BCENamed@@QBEPBDXZ",
+          "rva": "0x004C1BCE",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva004C2293Named@@QBEPBDXZ",
+          "rva": "0x004C2293",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva004CC653Named@@QBEPBDXZ",
+          "rva": "0x004CC653",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva004DF34BNamed@@QBEPBDXZ",
+          "rva": "0x004DF34B",
+          "size": 6
+        },
+        {
+          "name": "?name@AIGuardMachine@@QBEPBDXZ",
+          "rva": "0x00542C24",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva005440C7Named@@QBEPBDXZ",
+          "rva": "0x005440C7",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva00544C5CNamed@@QBEPBDXZ",
+          "rva": "0x00544C5C",
+          "size": 6
+        },
+        {
+          "name": "?name@AIGuardRetaliateMachine@@QBEPBDXZ",
+          "rva": "0x0054521C",
+          "size": 6
+        },
+        {
+          "name": "?name@AITNGuardMachine@@QBEPBDXZ",
+          "rva": "0x00545B8F",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva005890A0Named@@QBEPBDXZ",
+          "rva": "0x005890A0",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva005CC5DFNamed@@QBEPBDXZ",
+          "rva": "0x005CC5DF",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva005E39E0Named@@QBEPBDXZ",
+          "rva": "0x005E39E0",
+          "size": 6
+        },
+        {
+          "name": "?name@Rva005E717ENamed@@QBEPBDXZ",
+          "rva": "0x005E717E",
+          "size": 6
+        }
+      ],
+      "defines_name": false
+    }
+  ],
+  "stale_index_provider_objects": [
+    "^code_^game^engine_^source_^common_^module^name^getters3.obj"
+  ],
+  "index_meta": {
+    "date": "2026-10-30 15:43",
+    "commit": "ccafe54d1d",
+    "clean_tree": true,
+    "census_date": "2026-10-30 14:18",
+    "census_commit": "e1f7c1dd18"
+  }
+}
