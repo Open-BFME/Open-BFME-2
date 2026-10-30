@@ -1,8 +1,9 @@
-// cl: /DNDEBUG /MD -Ireference/shims/gamespy
+// cl: /DNDEBUG /MD
+// platformsdk
 /* GameSpy Peer SDK pinger shutdown path. The split response-trip unit shares
    these globals through their existing data-ledger owners. */
 
-#include <winsock.h>
+#include <windows.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -49,7 +50,6 @@ static GSIBool piUDPEnabled;
 static unsigned short piNextID;
 unsigned int piLastThinkTime;
 
-int __stdcall closesocket(SOCKET socket);
 void SocketStartUp(void);
 void SocketShutDown(void);
 static int piSocketInit(const char *localAddress, unsigned short localPort)
