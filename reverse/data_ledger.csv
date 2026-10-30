@@ -20429,8 +20429,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A03E7C,4,.data,global,?TheWeaponSetUpgradePoolKey@?1??getModuleNameKey@WeaponSetUpgrade@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Upgrade/WeaponSetUpgrade.cpp,owned,,1,2
 0x00A03E80,4,.data,global,?$S1@?1??getModuleNameKey@WeaponSetUpgrade@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Upgrade/WeaponSetUpgrade.cpp,owned,,1,4
 0x00A03E84,4,.data,global,_s_rva007B2120,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
-0x00A03E88,4,.data,global,?TheGarrisonUpgradePoolKey@?1??getModuleNameKey@GarrisonUpgrade@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/Common/System/GarrisonUpgradePoolKey.cpp,owned,,1,2
-0x00A03E8C,4,.data,global,?$S1@?1??getModuleNameKey@GarrisonUpgrade@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/Common/System/GarrisonUpgradePoolKey.cpp,owned,,1,4
+0x00A03E88,4,.data,global,?TheGarrisonUpgradePoolKey@?1??getModuleNameKey@GarrisonUpgrade@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/Common/System/GarrisonUpgrade.cpp,owned,,1,2
+0x00A03E8C,4,.data,global,?$S1@?1??getModuleNameKey@GarrisonUpgrade@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/Common/System/GarrisonUpgrade.cpp,owned,,1,4
 0x00A03E90,4,.data,global,_s_rva007B214A,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A03E94,4,.data,global,?TheCostModifierUpgradePoolKey@?1??getModuleNameKey@CostModifierUpgrade@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Upgrade/CostModifierUpgrade.cpp,owned,,1,2
 0x00A03E98,4,.data,global,?$S1@?1??getModuleNameKey@CostModifierUpgrade@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Upgrade/CostModifierUpgrade.cpp,owned,,1,4

@@ -39363,7 +39363,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x004B57AA,36,code,,displaced,-,N=Code/GameEngine/Source/GameLogic/Object/Contain/WeaponSetUpgrade.cpp,Code/GameEngine/Source/GameLogic/Object/Contain/HealContainModuleDataCtorThunk.cpp
 0x004B57CE,32,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/GarrisonUpgrade.cpp,proposed,K,K=Rva004B57CE,Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp
 0x004B57EE,6,code,,,-,,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp
-0x004B57F4,69,code,Code/GameEngine/Source/Common/System/GarrisonUpgrade.cpp,proposed,N,N=Code/GameEngine/Source/Common/System/GarrisonUpgrade.cpp,Code/GameEngine/Source/Common/System/GarrisonUpgradePoolKey.cpp
+0x004B57F4,69,code,Code/GameEngine/Source/Common/System/GarrisonUpgrade.cpp,proposed,N,N=Code/GameEngine/Source/Common/System/GarrisonUpgrade.cpp,Code/GameEngine/Source/Common/System/GarrisonUpgrade.cpp
 0x004B5839,49,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/GarrisonUpgrade.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Upgrade/GarrisonUpgrade.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Upgrade/GarrisonUpgradeCtor.cpp
 0x004B586A,28,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/GarrisonUpgrade.cpp,approved,C,C=0x004B5839..0x004B5886 provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp
 0x004B5886,121,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/GarrisonUpgrade.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Upgrade/GarrisonUpgrade.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Upgrade/GarrisonUpgrade.cpp
@@ -81195,8 +81195,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0078ED21,10,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/WeaponBonusUpgrade.cpp,approved,P,P=0x004B55EE@FuncInfo0x0093F9B8,Code/GameEngine/Source/GameLogic/Object/Upgrade/WeaponBonusUpgrade.cpp
 0x0078ED2B,13,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/WeaponSetUpgrade.cpp,approved,P,P=0x004B56B1@FuncInfo0x0093F9DC,Code/GameEngine/Source/GameLogic/Object/Upgrade/WeaponSetUpgrade.cpp
 0x0078ED38,10,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/WeaponSetUpgrade.cpp,approved,P,P=0x004B56B1@FuncInfo0x0093F9DC,Code/GameEngine/Source/GameLogic/Object/Upgrade/WeaponSetUpgrade.cpp
-0x0078ED42,13,code,Code/GameEngine/Source/Common/System/GarrisonUpgrade.cpp,approved,P,P=0x004B57F4@FuncInfo0x0093FA00 p-group provisional,Code/GameEngine/Source/Common/System/GarrisonUpgradePoolKey.cpp
-0x0078ED4F,10,code,Code/GameEngine/Source/Common/System/GarrisonUpgrade.cpp,approved,P,P=0x004B57F4@FuncInfo0x0093FA00 p-group provisional,Code/GameEngine/Source/Common/System/GarrisonUpgradePoolKey.cpp
+0x0078ED42,13,code,Code/GameEngine/Source/Common/System/GarrisonUpgrade.cpp,approved,P,P=0x004B57F4@FuncInfo0x0093FA00 p-group provisional,Code/GameEngine/Source/Common/System/GarrisonUpgrade.cpp
+0x0078ED4F,10,code,Code/GameEngine/Source/Common/System/GarrisonUpgrade.cpp,approved,P,P=0x004B57F4@FuncInfo0x0093FA00 p-group provisional,Code/GameEngine/Source/Common/System/GarrisonUpgrade.cpp
 0x0078ED59,13,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/CostModifierUpgrade.cpp,approved,P,P=0x004B59B7@FuncInfo0x0093FA24,Code/GameEngine/Source/GameLogic/Object/Upgrade/CostModifierUpgrade.cpp
 0x0078ED66,10,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/CostModifierUpgrade.cpp,approved,P,P=0x004B59B7@FuncInfo0x0093FA24,Code/GameEngine/Source/GameLogic/Object/Upgrade/CostModifierUpgrade.cpp
 0x0078ED70,8,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/CostModifierUpgrade.cpp,approved,P,P=0x004B5BAC@FuncInfo0x0093FA68,Code/GameEngine/Source/GameLogic/Object/Upgrade/CostModifierUpgrade.cpp
