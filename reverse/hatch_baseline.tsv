@@ -3202,6 +3202,7 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/ObjectFilterRelease.cpp	??
 alternatename	Code/GameEngine/Source/GameLogic/Object/ObjectFilterRelease.cpp	??1Rva003623E5Member@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/ObjectGoDownOnCorpse.cpp	?doSpecialPowerAtLocation@Object@@QAEXPAX@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/ObjectKill.cpp	?bfmeDoBGB@BfmeSubBGB@@QAEXHH@Z	1
+alternatename	Code/GameEngine/Source/GameLogic/Object/ObjectTypes.cpp	?erase@?$vector@UGen_t_001db910_p4cd@@V?$allocator@UGen_t_001db910_p4cd@@@_STL@@@_STL@@QAEPAUGen_t_001db910_p4cd@@PAU3@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Object_setGeometryInfoZ.cpp	?bfmeOneCNG@BfmeSubCNG@@QAEXM@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/PartitionFilterPossibleToAttackAllow.cpp	?allow@Rva00260FD0Filter@@UAE_NPAVObject@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/PartitionFilterSameMapStatusAllow.cpp	?allow@Rva002611BFFilter@@UAE_NPAVObject@@@Z	1
@@ -3349,7 +3350,6 @@ alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/DelayedLuaEventUpdat
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/DelayedLuaEventUpdateModuleDataCtorThunk.cpp	??0HordeTransportContainDamageModuleData@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine.cpp	??4Rva003371B1@@QAEAAV0@ABV0@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine.cpp	?Rva002EBEF0Intro@@YAXPAUS4SortElem20@@00HUS4Cmp002EB8E0@@@Z	1
-alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/ObjectTypesRemoveObjectType.cpp	?erase@?$vector@UGen_t_001db910_p4cd@@V?$allocator@UGen_t_001db910_p4cd@@@_STL@@@_STL@@QAEPAUGen_t_001db910_p4cd@@PAU3@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/OrConditionCtor.cpp	??1OrCondition@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/Rva0020453CHolderBaseDtor.cpp	?holderSlot0@Rva0020453CHolderBase@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BBFFB.cpp	?g_Va00BCF628@@3MA	1

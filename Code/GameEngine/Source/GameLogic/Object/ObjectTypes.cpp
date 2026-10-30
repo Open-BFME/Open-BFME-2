@@ -11,9 +11,6 @@ public:
 	bool canBuild( const ThingTemplate *thingTemplate ) const;
 };
 StringBase<char> *Rva000BD22FFind(StringBase<char> *first, StringBase<char> *last, const StringBase<char> &val);
-// The real STLport algobase (the vector<AsciiString> erase's const-ref
-// __copy_ptrs primary) loads before <vector> so the allocator shim's
-// by-value-tag copy of it stays out of this unit.
 #include <stlport/stl/_algobase.h>
 #include <vector>
 #define _STLP_NO_EXCEPTIONS 1
@@ -42,6 +39,7 @@ class RGBColor;
 class RGBAColorReal;
 class RGBAColorInt;
 #include "../../../Include/Common/BfmeXfer.h"
+#pragma comment(linker, "/alternatename:?erase@?$vector@UGen_t_001db910_p4cd@@V?$allocator@UGen_t_001db910_p4cd@@@_STL@@@_STL@@QAEPAUGen_t_001db910_p4cd@@PAU3@@Z=?erase@Rva003769C2StringVector@@QAEPAVAsciiString@@PAV2@@Z")
 
 // Retail's ObjectTypes::addObjectType calls push_back out of line (the pinned
 // copy). The explicit specialization declared without a body keeps every
@@ -108,6 +106,27 @@ public:
 	int tag;
 };
 
+// Retail's vector<AsciiString>::erase calls the out-of-line pointer copy (the
+// rowed 0x000B6614 wrapper); the explicit instantiation declaration keeps the
+// call on that external instance instead of expanding the template inline.
+template AsciiString * _STL::__copy_ptrs<AsciiString *, AsciiString *>(AsciiString *, AsciiString *, AsciiString *, _STL::__false_type const &);
+
+class Rva003769C2StringVector {
+public:
+ AsciiString *first;
+ AsciiString *finish;
+ AsciiString *capacity;
+ AsciiString *end() { return finish; }
+ AsciiString *begin() { return first; }
+ AsciiString *erase(AsciiString *position);
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/ObjectTypes.cpp
+
+// The real STLport algobase (the vector<AsciiString> erase's const-ref
+// __copy_ptrs primary) loads before <vector> so the allocator shim's
+// by-value-tag copy of it stays out of this unit.
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/ObjectCreationTemplatePredicate.cpp
 
 // Retail walks the vector's begin/end pointers (this+0x08/+0x0C) directly.
@@ -122,14 +141,6 @@ bool ObjectTypes::canBuildAny( Player *player )
 
 	return false;
 }
-
-// tu-skeleton: 0x003769C2 55B ?erase@?$vector@UGen_t_001db910_p4cd@@V?$allocator@UGen_t_001db910_p4cd@@@_STL@@@_STL@@QAEPAUGen_t_001db910_p4cd@@PAU3@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ObjectTypesRemoveObjectType.cpp (not merged yet)
-
-// tu-skeleton: 0x003769F9 32B ??0ObjectTypes@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ObjectTypesCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00376A19 6B ?name@ObjectTypes@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters4.cpp (not merged yet)
-
-// tu-skeleton: 0x00376A1F 67B ??0ObjectTypes@@QAE@ABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ObjectTypesCtor.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/ObjectTypes.cpp
 
@@ -169,8 +180,6 @@ bool Rva00376A62::rva0059E872(const Rva00376A62 &o)
 	return ((const ObjectTypes *)this)->isInSet((const AsciiString &)o.m_14);
 }
 
-// tu-skeleton: 0x00376A9C 39B ??4ObjectTypes@@QAEAAV0@ABV0@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ObjectTypesCtor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ObjectTypesDtor.cpp
 
 // ??1ObjectTypes@@UAE@XZ @0x00376ADF 63B: ObjectTypes dtor.
@@ -186,8 +195,6 @@ bool Rva00376A62::rva0059E872(const Rva00376A62 &o)
 ObjectTypes::~ObjectTypes()
 {
 }
-
-// tu-skeleton: 0x00376B1E 50B ?remove@ObjectTypes@@QAEXABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ObjectTypesRemoveObjectType.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ObjectTypesXfer.cpp
 
@@ -224,6 +231,62 @@ void ObjectTypes::xfer(Xfer *xfer)
 		}
 	}
 }
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ObjectTypesRemoveObjectType.cpp
+
+// Clean reference: BFME1 game/GameEngine/Source/GameLogic/Object/
+// ObjectTypesRemoveObjectType.cpp at 1281192f682ce6f29b8f06b7daea4b5e8fdfbb24,
+// itself preserving the Zero Hour ObjectTypes::removeObjectType algorithm.
+// Native 0x00376B1E/50 calls contains 0x00376A62/34, find 0x000BD22F/27,
+// then this erase 0x003769C2/55 on the vector prefix at ObjectTypes+8.
+// ObjectTypes identity comes from its native vtable/name getter and constructor
+// family (0x003769F9, 0x00376A19), independently of the donor's method label.
+// Original template/payload spellings at 0x003769C2 are not established.
+// The historical generated ledger name is retained only as a compatibility
+// alias; object-symbol names the verified address view below. It is not an
+// original payload-name claim. No source under Code/gen_small is edited.
+//
+// Native erase observes 4-byte elements and finish at vector+4, shifts the
+// suffix through the existing 0x000B6614/29 copy wrapper, decrements finish,
+// then reaches the existing 0x0048BA39/5 narrow-string cleanup entry: the
+// rowed AsciiString destructor, which this body calls directly. The copy
+// wrapper routes to 0x000B4431/47, whose loop calls StringBase<char>
+// assignment; cleanup tail-jumps to releaseBuffer 0x00036410/133. Canonical
+// AsciiString/StringBase supply the proven width and character-buffer ABI.
+// Inline end() preserves the donor header's access/codegen pattern. An
+// uninitialized empty copy tag carries no value, as the native caller does.
+
+// ?erase@?$vector@UGen_t_001db910_p4cd@@V?$allocator@UGen_t_001db910_p4cd@@@_STL@@@_STL@@QAEPAUGen_t_001db910_p4cd@@PAU3@@Z
+AsciiString *Rva003769C2StringVector::erase(AsciiString *position) {
+ if(position+1!=end()) {
+  _STL::__false_type tag;
+  _STL::__copy_ptrs(position+1,end(),position,tag);
+ }
+ --finish;
+ ((AsciiString *)finish)->~AsciiString();
+ return position;
+}
+
+// ?remove@ObjectTypes@@QAEXABVAsciiString@@@Z
+// Retail walks the vector's begin/end pointers (this+0x08/+0x0C) through the
+// facade view at +8, whose member is the rowed erase.
+void ObjectTypes::remove(const AsciiString &name) {
+	const StringBase<char> &needle=*(const StringBase<char> *)&name;
+	if(isInSet(name)) {
+		AsciiString *position=(AsciiString *)Rva000BD22FFind(
+			(StringBase<char> *)((Rva003769C2StringVector *)((char *)this + 8))->begin(),
+			(StringBase<char> *)((Rva003769C2StringVector *)((char *)this + 8))->end(),needle);
+		((Rva003769C2StringVector *)((char *)this + 8))->erase(position);
+	}
+}
+
+// tu-skeleton: 0x003769F9 32B ??0ObjectTypes@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ObjectTypesCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00376A19 6B ?name@ObjectTypes@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x00376A1F 67B ??0ObjectTypes@@QAE@ABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ObjectTypesCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00376A9C 39B ??4ObjectTypes@@QAEAAV0@ABV0@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ObjectTypesCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0077EB0E 8B Unwind@00b7eb0e -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ObjectTypesCtor.cpp (not merged yet)
 
