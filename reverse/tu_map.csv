@@ -10403,7 +10403,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00166980,229,code,Code/Libraries/Source/WWVegas/WW3D2/htree.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/htree.cpp S=Code/Libraries/Source/WWVegas/WW3D2/htree.cpp N=Code/Libraries/Source/WWVegas/WW3D2/HTreeClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/htree.cpp
 0x00166A70,413,code,Code/Libraries/Source/WWVegas/WW3D2/line3d.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/line3d.cpp S=Code/Libraries/Source/WWVegas/WW3D2/line3d.cpp N=Code/Libraries/Source/WWVegas/WW3D2/Line3DClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/line3d.cpp
 0x00166C10,6,code,Code/Libraries/Source/WWVegas/WW3D2/line3d.cpp,approved,C,C=0x00166A70..0x00166C20,Code/GameEngine/Source/Common/ConstIntGetters.cpp
-0x00166C20,13,code,Code/Libraries/Source/WWVegas/WW3D2/line3d.cpp,approved,C,C=0x00166A70..0x00166C30,Code/GameEngine/Source/Common/DispByteFieldSetters.cpp
+0x00166C20,13,code,Code/Libraries/Source/WWVegas/WW3D2/line3d.cpp,approved,C,C=0x00166A70..0x00166C30,Code/Libraries/Source/WWVegas/WW3D2/line3d.cpp
 0x00166C30,8,code,Code/Libraries/Source/WWVegas/WW3D2/line3d.cpp,approved,S,S=Code/Libraries/Source/WWVegas/WW3D2/line3d.cpp N=Code/Libraries/Source/WWVegas/WW3D2/Line3DClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/Line3DClassRender.cpp
 0x00166C40,413,code,Code/Libraries/Source/WWVegas/WW3D2/line3d.cpp,approved,C,C=0x00166C30..0x00166DE0,Code/Libraries/Source/WWVegas/WW3D2/line3d.cpp
 0x00166DE0,18,code,Code/Libraries/Source/WWVegas/WW3D2/line3d.cpp,approved,C,C=0x00166C30..0x00166E00,Code/Libraries/Source/WWVegas/WW3D2/line3d.cpp

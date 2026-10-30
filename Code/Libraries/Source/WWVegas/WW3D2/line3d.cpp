@@ -15,6 +15,18 @@
 #define Matrix4x4 Matrix4  // BFME renamed it
 #include "matrix3d.h"
 #pragma comment(linker, "/alternatename:?Class_ID@Line3DClass@@UBEHXZ=?Rva00166C10Get@@YAHXZ")
+#define BFME_DISP_BYTE_SETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		void set(unsigned char value); \
+		char m_lead[DISP]; \
+		unsigned char m_value; \
+	}; \
+	void NAME::set(unsigned char value) \
+	{ \
+		m_value = value; \
+	}
 
 class Rva00166DE0 : public RenderObjClass
 {
@@ -49,6 +61,36 @@ public:
 typedef char Line3DSizeIsRetail[(sizeof(Line3DClass) == 0x144) ? 1 : -1];
 
 enum { SORT_LEVEL_NONE = 0 };
+
+BFME_DISP_BYTE_SETTER(Rva00166C20ByteSlot, 0x140)
+
+// Address-owned initializer at 0x0047A2B6..0x0047A2E1 (RET0).
+// Clean donor: Open-BFME-1 34f59164, game/GameEngine/Source/Common/
+// Rva00221100TinyBodies.cpp, Rva0022F780Pair constructor, /O1 /arch:SSE /G7.
+// Target evidence establishes six float slots at 0/4/8/C/10/14, the
+// 0,0,1,0,0,1 stores, and ECX returned through EAX. No target class name
+// or constructor identity is established; retain the target address and
+// describe its proven initializer ABI. Destination is the repository's
+// nearest-neighbour home, immediately after its 0x0047A2A9 setter.
+class Rva0047A2B6Floats
+{
+public:
+    Rva0047A2B6Floats *initialize();
+private:
+    float first[3];
+    float second[3];
+};
+
+// Clean BF1 9cbfb551fe Common/Rva007AE610Array.cpp semantic donor, normal O1/SSE/G7.
+// Native 0010855F..0010856E has its own complete RET boundary and establishes
+// receiver68 indexed dword store, RET8. Original owner and full array bound remain
+// unresolved; this separate address-owned view models only observed accesses.
+class Rva0010855FArray {
+public: void setValue(unsigned int index, unsigned int value);
+private: unsigned char unknown[0x68]; unsigned int values[1];
+};
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/line3d.cpp
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/line3d.cpp
 
@@ -103,12 +145,6 @@ Line3DClass &Line3DClass::operator=(const Line3DClass &that)
     return *this;
 }
 
-// tu-skeleton: 0x00166C10 6B ?Rva00166C10Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00166C20 13B ?set@Rva00166C20ByteSlot@@QAEXE@Z -- matched in Code/GameEngine/Source/Common/DispByteFieldSetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00166C30 8B ?Get_Sort_Level@Line3DClass@@UBEHXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/Line3DClassRender.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/RenderObjClassDerivedDtors.cpp
 
 // The compiler-generated vector constructor iterator (??_H) takes the
@@ -157,18 +193,6 @@ Line3DClass &Line3DClass::operator=(const Line3DClass &that)
 Rva00166DE0::~Rva00166DE0()
 {
 }
-
-// tu-skeleton: 0x00166E60 548B ?Scale@Line3DClass@@UAEXM@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/Line3DClassRender.cpp (not merged yet)
-
-// tu-skeleton: 0x00167090 560B ?Scale@Line3DClass@@UAEXMMM@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/Line3DClassRender.cpp (not merged yet)
-
-// tu-skeleton: 0x001672C0 45B ?Get_Obj_Space_Bounding_Sphere@Line3DClass@@UBEXAAVSphereClass@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/Line3DClassRender.cpp (not merged yet)
-
-// tu-skeleton: 0x001672F0 55B ?Get_Obj_Space_Bounding_Box@Line3DClass@@UBEXAAVAABoxClass@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/Line3DClassRender.cpp (not merged yet)
-
-// tu-skeleton: 0x00167330 61B ?Re_Color@Line3DClass@@QAEXMMM@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/Line3DClassRender.cpp (not merged yet)
-
-// tu-skeleton: 0x00167370 66B ?Set_Opacity@Line3DClass@@QAEXM@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/Line3DClassRender.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/Line3DClassCtor.cpp
 
@@ -264,6 +288,38 @@ Line3DClass::Line3DClass(const Vector3& start, const Vector3& end,
 // Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
 // each one has the same function in that slot (vftable addresses from matched vptr
 // stores). Bind them to the rows at those functions.
+
+// tu-skeleton: 0x00166C10 6B ?Rva00166C10Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/DispByteFieldSetters.cpp
+
+// Disp32 byte setters: thirteen-byte __thiscall members with one shape:
+//
+//     mov al,[esp+4] / mov [ecx+<DISP>],al / ret 4
+//
+// One byte is taken from the stack argument slot and stored at a fixed
+// displacement from `this`. Ported from Open-BFME-1
+// (Code/GameEngine/Source/Common/DispByteFieldSetters.cpp): the
+// BFME_DISP_BYTE_SETTER macro is verbatim (unsigned char set over a lead
+// array), only the class names follow this tree's Disp* convention
+// (address-derived Rva<addr>ByteSlot, identity unrecoverable from 13 bytes).
+// Every displacement here is a disp32 (MSVC 7.1 uses disp8 whenever the
+// offset fits, so every offset is at least 0x80).
+// No // cl: line (defaults match the frameless 13-byte shape).
+
+// tu-skeleton: 0x00166C30 8B ?Get_Sort_Level@Line3DClass@@UBEHXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/Line3DClassRender.cpp (not merged yet)
+
+// tu-skeleton: 0x00166E60 548B ?Scale@Line3DClass@@UAEXM@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/Line3DClassRender.cpp (not merged yet)
+
+// tu-skeleton: 0x00167090 560B ?Scale@Line3DClass@@UAEXMMM@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/Line3DClassRender.cpp (not merged yet)
+
+// tu-skeleton: 0x001672C0 45B ?Get_Obj_Space_Bounding_Sphere@Line3DClass@@UBEXAAVSphereClass@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/Line3DClassRender.cpp (not merged yet)
+
+// tu-skeleton: 0x001672F0 55B ?Get_Obj_Space_Bounding_Box@Line3DClass@@UBEXAAVAABoxClass@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/Line3DClassRender.cpp (not merged yet)
+
+// tu-skeleton: 0x00167330 61B ?Re_Color@Line3DClass@@QAEXMMM@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/Line3DClassRender.cpp (not merged yet)
+
+// tu-skeleton: 0x00167370 66B ?Set_Opacity@Line3DClass@@QAEXM@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/Line3DClassRender.cpp (not merged yet)
 
 // tu-skeleton: 0x00167660 1267B ?Render@Line3DClass@@UAEXAAVRenderInfoClass@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/Line3DClassRender.cpp (not merged yet)
 
