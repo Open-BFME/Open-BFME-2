@@ -227,7 +227,7 @@ class Made002CC8A4 : public Rva00507823
 {
 public:
 	Made002CC8A4();
-	void rva0050A1E9(void *a, Object *b);
+	void rva0050A1E9(void *source, Object *b);
 	virtual void rva0050A4A2(void *source, const Coord3D *pos);
 	unsigned char rva00509F3A(void *weapon, Object *victim, DamageInfo *info);
 private:
@@ -298,13 +298,13 @@ unsigned char Made002CC8A4::rva00509F3A(void *weapon, Object *victim, DamageInfo
  return 1;
 }
 
-void Made002CC8A4::rva0050A1E9(void *a, Object *shooter)
+void Made002CC8A4::rva0050A1E9(void *source, Object *shooter)
 {
-	if (!a)
+	if (!source)
 		return;
 	if (!shooter)
 		return;
-	Object *found = TheGameLogic->findObjectByID((ObjectID)*(int *)((char *)a + 8));
+	Object *found = TheGameLogic->findObjectByID((ObjectID)*(int *)((char *)source + 8));
 	if (found)
 	{
 		char *base = (char *)this + 0x160;
@@ -317,12 +317,12 @@ void Made002CC8A4::rva0050A1E9(void *a, Object *shooter)
 	}
 doAttr:
 	{
-		float v;
-		shooter->rva0028C149(0xA, &v, 0);
-		if (!(v > 0.0f))
+		float chance;
+		shooter->rva0028C149(0xA, &chance, 0);
+		if (!(chance > 0.0f))
 			goto checkBit;
-		float r = GetGameLogicRandomValueReal(0.0f, MetaImpactRandomUpperBound, (char *)"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\WeaponEffects\\MetaImpactNugget.cpp", 0x19B);
-		if (!(r > v))
+		float roll = GetGameLogicRandomValueReal(0.0f, MetaImpactRandomUpperBound, (char *)"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\WeaponEffects\\MetaImpactNugget.cpp", 0x19B);
+		if (!(roll > chance))
 			return;
 	}
 checkBit:
@@ -330,8 +330,8 @@ checkBit:
 		void *vp = (void *)*(int *)((char *)shooter + 4);
 		if (*(unsigned char *)((char *)vp + 0x113) & 4)
 		{
-			float r2 = GetGameLogicRandomValueReal(0.0f, MetaImpactRandomUpperBound, (char *)"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\WeaponEffects\\MetaImpactNugget.cpp", 0x1A4);
-			if (r2 < m_150)
+			float secondRoll = GetGameLogicRandomValueReal(0.0f, MetaImpactRandomUpperBound, (char *)"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\WeaponEffects\\MetaImpactNugget.cpp", 0x1A4);
+			if (secondRoll < m_150)
 				return;
 		}
 	}
@@ -345,7 +345,7 @@ checkBit:
 		void *t250 = (void *)*(int *)((char *)t274 + 0x250);
 		if (!t250)
 			return;
-		Object *found2 = TheGameLogic->findObjectByID((ObjectID)*(int *)((char *)a + 8));
+		Object *found2 = TheGameLogic->findObjectByID((ObjectID)*(int *)((char *)source + 8));
 		if (found2)
 			((Rva00294D61 *)found2)->report(object, 1);
 		((DamageInfoish *)((TargetIface *)t250)->v01())->v15(((TargetIface *)t250)->v31(object));
@@ -355,7 +355,7 @@ checkBit:
 tryDamage:
 	{
 		Rva00263895Member info;
-		if (((SelfIface *)this)->v14(a, shooter, &info) != 1)
+		if (((SelfIface *)this)->v14(source, shooter, &info) != 1)
 			return;
 		shooter->attemptDamage((DamageInfo *)&info);
 	}
@@ -386,12 +386,12 @@ struct Vector3
 
 // This unit needs the header-inline SSE operation; retain the canonical
 // out-of-line Vector3::Normalize provider instead of emitting a second copy.
-static __forceinline void normalizeDirection(Vector3 &v)
+static __forceinline void normalizeDirection(Vector3 &direction)
 {
- float len2 = v.Length2();
+ float len2 = direction.Length2();
  if (len2 != 0.0f) {
   float oolen = WWMath::Inv_Sqrt(len2);
-  v.X *= oolen; v.Y *= oolen; v.Z *= oolen;
+  direction.X *= oolen; direction.Y *= oolen; direction.Z *= oolen;
  }
 }
 
@@ -459,10 +459,10 @@ void Made002CC8A4::rva0050A4A2(void *source, const Coord3D *pos)
 			diff.x = px - src->getPosition()->x;
 			diff.y = py - src->getPosition()->y;
 			diff.z = pz - src->getPosition()->z;
-			Coord3D tmp;
-			tmp.set(&diff);
+			Coord3D diffCopy;
+			diffCopy.set(&diff);
 			Vector3 dir(diff.x, diff.y, diff.z);
-			if (tmp.length() == 0.0f)
+			if (diffCopy.length() == 0.0f)
 				dir.Set(src->m_transform[0][0], src->m_transform[1][0], src->m_transform[2][0]);
 			Vector3 toV(toObj.x, toObj.y, toObj.z);
 			normalizeDirection(dir);

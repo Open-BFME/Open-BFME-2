@@ -251,9 +251,9 @@ struct Rva004EA4E5Mask
 	unsigned int m_bits[7];
 };
 
-static __forceinline Real rva004EA4E5LengthSqr(const Coord3D &c)
+static __forceinline Real rva004EA4E5LengthSqr(const Coord3D &offset)
 {
-	return c.x * c.x + c.y * c.y + c.z * c.z;
+	return offset.x * offset.x + offset.y * offset.y + offset.z * offset.z;
 }
 
 class AIEconomyBuilder

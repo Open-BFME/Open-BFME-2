@@ -89,10 +89,10 @@ void StrategicHUD::DynamicAutoResolvePlayerPanelMovieClip::Impl::rva005FB903(int
 {
     if (count == m_cachedCount)
         return;
-    UnicodeString tmp;
+    UnicodeString countString;
     if (count >= 0)
-        tmp.format(L"%d", count);
-    SetPlayerUnitCountString(tmp);
+        countString.format(L"%d", count);
+    SetPlayerUnitCountString(countString);
     m_cachedCount = count;
 }
 class Rva005FBB68
@@ -100,9 +100,9 @@ class Rva005FBB68
 public:
     void setPlayerColor(int color);
     void rva005FBB68(int count);
-    void rva005FBB70(float v);
-    void rva005FBB83(float v);
-    void rva005FBB55(float v);
+    void rva005FBB70(float damage);
+    void rva005FBB83(float amount);
+    void rva005FBB55(float health);
 private:
     char m_pad[4];
     StrategicHUD::DynamicAutoResolvePlayerPanelMovieClip::Impl *m_member;
@@ -115,17 +115,17 @@ void Rva005FBB68::rva005FBB68(int count)
 {
     return m_member->rva005FB903(count);
 }
-void Rva005FBB68::rva005FBB70(float v)
+void Rva005FBB68::rva005FBB70(float damage)
 {
-    m_member->PlayHitAnim(v);
+    m_member->PlayHitAnim(damage);
 }
-void Rva005FBB68::rva005FBB83(float v)
+void Rva005FBB68::rva005FBB83(float amount)
 {
-    m_member->PlayReinforceAnim(v);
+    m_member->PlayReinforceAnim(amount);
 }
-void Rva005FBB68::rva005FBB55(float v)
+void Rva005FBB68::rva005FBB55(float health)
 {
-    m_member->SetPlayerHealth(v);
+    m_member->SetPlayerHealth(health);
 }
 
 // ?rva005FB83E@Rva005FB83E@@QAEXPBVImage@@@Z @0x005FB83E 8B unlock tail-jmp forwarder to rowed _PlayerIcon 0x005FB666

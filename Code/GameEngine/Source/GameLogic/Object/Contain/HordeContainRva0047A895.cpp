@@ -62,22 +62,22 @@ public:
 	__forceinline void Rotate_Z(float theta)
 	{
 		float tmp1, tmp2;
-		float c, s;
+		float cosTheta, s;
 
-		c = cosf(theta);
+		cosTheta = cosf(theta);
 		s = sinf(theta);
 
 		tmp1 = Row[0][0]; tmp2 = Row[0][1];
-		Row[0][0] = (float)( c*tmp1 + s*tmp2);
-		Row[0][1] = (float)(-s*tmp1 + c*tmp2);
+		Row[0][0] = (float)( cosTheta*tmp1 + s*tmp2);
+		Row[0][1] = (float)(-s*tmp1 + cosTheta*tmp2);
 
 		tmp1 = Row[1][0]; tmp2 = Row[1][1];
-		Row[1][0] = (float)( c*tmp1 + s*tmp2);
-		Row[1][1] = (float)(-s*tmp1 + c*tmp2);
+		Row[1][0] = (float)( cosTheta*tmp1 + s*tmp2);
+		Row[1][1] = (float)(-s*tmp1 + cosTheta*tmp2);
 
 		tmp1 = Row[2][0]; tmp2 = Row[2][1];
-		Row[2][0] = (float)( c*tmp1 + s*tmp2);
-		Row[2][1] = (float)(-s*tmp1 + c*tmp2);
+		Row[2][0] = (float)( cosTheta*tmp1 + s*tmp2);
+		Row[2][1] = (float)(-s*tmp1 + cosTheta*tmp2);
 	}
 private:
 	Vector4 Row[3];
@@ -318,7 +318,7 @@ private:
 };
 
 // The module data's flags read through a plain bit test (retail shifts and tests AL).
-static inline bool flagTest(unsigned int w, int bit) { return (w & (1u << (bit & 31))) != 0; }
+static inline bool flagTest(unsigned int flags, int bit) { return (flags & (1u << (bit & 31))) != 0; }
 
 static __forceinline void clearModelConditionBit(Object *object, int bit)
 {
@@ -460,13 +460,13 @@ void HordeContain::rva0047A413()
 				d.scaleInlined(remaining);
 				d.add(&m_points[seg].m_pos);
 				m_ranks[i].m_pos = d;
-				float a0 = m_points[seg].m_angle;
-				float a1 = a0;
+				float startAngle = m_points[seg].m_angle;
+				float endAngle = startAngle;
 				if (seg < m_pointCount - 1)
-					a1 = m_points[seg + 1].m_angle;
+					endAngle = m_points[seg + 1].m_angle;
 				float ratio = remaining / segLen;
-				float delta = normalizeAngle(a1 - a0) * ratio;
-				float target = normalizeAngle(a0 + delta);
+				float delta = normalizeAngle(endAngle - startAngle) * ratio;
+				float target = normalizeAngle(startAngle + delta);
 				cur = m_ranks[i].m_angle;
 				delta = normalizeAngle(target - cur);
 				if (delta > maxTurn)

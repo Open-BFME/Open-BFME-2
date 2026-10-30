@@ -29,7 +29,7 @@ class Vector3 {public:float X,Y,Z;__forceinline Vector3(){} __forceinline Vector
 // bytes); the TU no longer emits their loser COMDAT copies. No flags touched.
 static __forceinline void bfmeScaleV3(Vector3&vec,float k){vec.X*=k;vec.Y*=k;vec.Z*=k;}
 static __forceinline Vector3 bfmeSumV3(const Vector3&lhs,const Vector3&rhs){return Vector3(lhs.X+rhs.X,lhs.Y+rhs.Y,lhs.Z+rhs.Z);}
-static __forceinline Vector3 bfmeAddV3(const Vector3&lhs,const Vector3&rhs){Vector3 r;r.X=lhs.X+rhs.X;r.Y=lhs.Y+rhs.Y;r.Z=lhs.Z+rhs.Z;return r;}
+static __forceinline Vector3 bfmeAddV3(const Vector3&lhs,const Vector3&rhs){Vector3 sum;sum.X=lhs.X+rhs.X;sum.Y=lhs.Y+rhs.Y;sum.Z=lhs.Z+rhs.Z;return sum;}
 
 
 // Scoped vector operations reproduce the donor header behavior and full557
@@ -103,7 +103,7 @@ void Rva00107E76Elem::rva00107B41(Vector3 *vertex, short vertexBase,
 		*vertex++ = bfmeAddV3(m_allocation0[j],offset);
 
 	BfmeShadowEdge *edge = m_allocation2;
-	for (int e = m_reserved10; e > 0; --e, ++edge, index += 6)
+	for (int edgesLeft = m_reserved10; edgesLeft > 0; --edgesLeft, ++edge, index += 6)
 	{
 		index[0] = (unsigned short)(edge->m_vertex0 + count) + vertexBase;
 		index[1] = edge->m_vertex1 + vertexBase;
@@ -116,7 +116,7 @@ void Rva00107E76Elem::rva00107B41(Vector3 *vertex, short vertexBase,
 	unsigned char *front = m_allocation1;
 	BfmeShadowTriIndex *tri = m_mesh->m_model->m_poly->m_data;
 	int polyCount = m_mesh->m_model->m_polyCount;
-	for (int t = 0; t < polyCount; ++t, index += 3, ++front, ++tri)
+	for (int triIndex = 0; triIndex < polyCount; ++triIndex, index += 3, ++front, ++tri)
 	{
 		if (*front)
 		{
@@ -154,7 +154,7 @@ int Rva00107E76Elem::rva00106D56(int vertexBuf, short vertexBase, int indexBuf,
 			*vertex++ = bfmeAddV3(offset, m_allocation0[j]);
 
 		BfmeShadowEdge *edge = m_allocation2;
-		for (int e = m_reserved10; e > 0; --e, ++edge, index += 6)
+		for (int edgesLeft = m_reserved10; edgesLeft > 0; --edgesLeft, ++edge, index += 6)
 		{
 			index[0] = vertexBase + edge->m_vertex0 + count;
 			index[1] = vertexBase + edge->m_vertex1;
@@ -167,7 +167,7 @@ int Rva00107E76Elem::rva00106D56(int vertexBuf, short vertexBase, int indexBuf,
 	}
 
 	BfmeShadowEdge *edge = m_allocation2;
-	for (int e = m_reserved10; e > 0; --e, ++edge, vertex += 4)
+	for (int edgesLeft = m_reserved10; edgesLeft > 0; --edgesLeft, ++edge, vertex += 4)
 	{
 		vertex[0] = m_allocation0[edge->m_vertex0];
 		vertex[1] = m_allocation0[edge->m_vertex1];

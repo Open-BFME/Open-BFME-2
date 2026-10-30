@@ -37,9 +37,9 @@ AsciiString getNameOfRequestType(int type)
 		return AsciiString("AR_ClearOutMusicSystem");
 	default:
 		{
-			AsciiString temp;
-			temp.format("<Unknown %d>", type);
-			return temp;
+			AsciiString unknownName;
+			unknownName.format("<Unknown %d>", type);
+			return unknownName;
 		}
 	}
 }

@@ -46,11 +46,11 @@ struct BfmePointFC
 // Zero Hour's inline Coord3D::zero, expanded in place as in retail. A unit-local
 // inline member emitted a /GX COMDAT for ?zero@Coord3D@@QAEXXZ that is not
 // retail's coord3d.cpp owner at 0x0000366B.
-__forceinline void bfmeZeroCoord3D(Coord3D &c)
+__forceinline void bfmeZeroCoord3D(Coord3D &coord)
 {
-	c.x = 0.0f;
-	c.y = 0.0f;
-	c.z = 0.0f;
+	coord.x = 0.0f;
+	coord.y = 0.0f;
+	coord.z = 0.0f;
 }
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include/Lib/BaseType.h
@@ -120,7 +120,7 @@ public:
 	virtual void bfmeResetGrid();
 	void bfmeApplyCircleWorld(const BfmePointFC *point, Real radius, int amount, bool absolute, int mode);
 	int rva006C0850(const BfmePointFC *point, int *extra);
-	unsigned char rva006C0840(int x, int y);
+	unsigned char rva006C0840(int cellX, int cellY);
 	void rva006C07F0();
 
 private:
@@ -186,9 +186,9 @@ int BfmeTaintManager::rva006C0850(const BfmePointFC *point, int *extra)
 // rowed TaintManagerImpl::rva006C0E70. Same (x y) signature forwards.
 // Evidence: chain from 0x006C0E70 landing, mov ecx [ecx+0x10] plus jmp shape,
 // BfmeTaintManager grid at +0x10.
-unsigned char BfmeTaintManager::rva006C0840(int x, int y)
+unsigned char BfmeTaintManager::rva006C0840(int cellX, int cellY)
 {
-	return m_bfmeGrid->rva006C0E70(x, y);
+	return m_bfmeGrid->rva006C0E70(cellX, cellY);
 }
 
 // ?rva006C07F0@BfmeTaintManager@@QAEXXZ @ 0x006C07F0 8B

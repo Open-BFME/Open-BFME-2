@@ -144,18 +144,18 @@ void AptSkirmish::rva00521841()
 	}
 }
 
-static inline const char *Rva005252CDPass(const char *s)
+static inline const char *Rva005252CDPass(const char *text)
 {
-	return s;
+	return text;
 }
 
 // ?Rva005252CDInvoke@@YAHPAVRva00222A8BTarget@@PAXPBD2ABHABQBD@Z @0x005252CD
 // 107B: a two-argument call through the level-scoped rva00222B19 (level,
 // prefix, name), an int via the rowed Rva00222834Get and a string held by
 // reference.
-int __cdecl Rva005252CDInvoke(Rva00222A8BTarget *target, void *level, const char *prefix, const char *name, const int &a, const char *const &b)
+int __cdecl Rva005252CDInvoke(Rva00222A8BTarget *target, void *level, const char *prefix, const char *name, const int &a, const char *const &text)
 {
-	return target->rva00222B19(level, prefix, name, 2, Rva002162CFStr(Rva00222834Get(a)), (void *)Rva005252CDPass(b), 0, 0, 0);
+	return target->rva00222B19(level, prefix, name, 2, Rva002162CFStr(Rva00222834Get(a)), (void *)Rva005252CDPass(text), 0, 0, 0);
 }
 
 // ?Rva007410ECInvoke@@YAHPAVRva00222A8BTarget@@PAXPBD2ABI@Z @0x007410EC 102B:
@@ -167,7 +167,7 @@ int __cdecl Rva007410ECInvoke(Rva00222A8BTarget *target, void *level, const char
 
 // ?Rva002D3409Invoke@@YAHPAVRva00222A8BTarget@@PAXPBDABQBD@Z @0x002D3409 33B:
 // the one-string member: the string held by reference passes straight through.
-int __cdecl Rva002D3409Invoke(Rva00222A8BTarget *target, void *owner, const char *name, const char *const &a)
+int __cdecl Rva002D3409Invoke(Rva00222A8BTarget *target, void *owner, const char *name, const char *const &text)
 {
-	return target->invoke(owner, name, 1, Rva005252CDPass(a), 0, 0, 0, 0);
+	return target->invoke(owner, name, 1, Rva005252CDPass(text), 0, 0, 0, 0);
 }

@@ -55,13 +55,13 @@ struct RoamVector3 {
  __forceinline RoamVector3(float x,float y,float z):X(x),Y(y),Z(z){}
  __forceinline float length2()const{return X*X+Y*Y+Z*Z;}
  __forceinline void rotate(float angle){float s=sinf(angle);float c=cosf(angle);rotate(s,c);}
- __forceinline void rotate(float s_angle,float c_angle){float tmp_x=X;float tmp_y=Y;X=c_angle*tmp_x-s_angle*tmp_y;Y=s_angle*tmp_x+c_angle*tmp_y;}
+ __forceinline void rotate(float s_angle,float c_angle){float oldX=X;float oldY=Y;X=c_angle*oldX-s_angle*oldY;Y=s_angle*oldX+c_angle*oldY;}
  __forceinline RoamVector3 &operator*=(float k){X=X*k;Y=Y*k;Z=Z*k;return *this;}
  __forceinline void scale(float f){X*=f;Y*=f;Z*=f;}
 };
 static __forceinline void RoamSet(Coord3D *pos,float x,float y,float z){pos->x=x;pos->y=y;pos->z=z;}
-static __forceinline void RoamAdd(Coord3D *pos,const Coord3D *q){pos->x+=q->x;pos->y+=q->y;pos->z+=q->z;}
-static __forceinline float RoamDistance2(const RoamVector3 &roamVector3,const RoamVector3 &b){RoamVector3 diff(0,0,0);diff.Z=roamVector3.Z-b.Z;diff.Y=roamVector3.Y-b.Y;diff.X=roamVector3.X-b.X;return diff.length2();}
+static __forceinline void RoamAdd(Coord3D *pos,const Coord3D *delta){pos->x+=delta->x;pos->y+=delta->y;pos->z+=delta->z;}
+static __forceinline float RoamDistance2(const RoamVector3 &roamVector3,const RoamVector3 &other){RoamVector3 diff(0,0,0);diff.Z=roamVector3.Z-other.Z;diff.Y=roamVector3.Y-other.Y;diff.X=roamVector3.X-other.X;return diff.length2();}
 class AIRoamingDefenseTactic {public:void roam(Object *);char pad[0x24];Player *owner;};
 void AIRoamingDefenseTactic::roam(Object *obj)
 {

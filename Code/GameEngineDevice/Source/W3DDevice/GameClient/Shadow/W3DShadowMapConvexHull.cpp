@@ -26,15 +26,15 @@ struct Rva0007B734Item {char m_pad[8];};
 typedef bool (__cdecl *Rva0007B734Pred)(const Rva0007B734Item *,const Rva0007B734Item *);
 Rva0007B734Item *Rva0007B734Find(Rva0007B734Item *,Rva0007B734Item *,Rva0007B734Pred);
 bool Rva0007B701Cmp(const BfmeE8 &,const BfmeE8 &);
-static inline void ClearPoints(std::vector<BfmeE8> &v) {
- std::vector<BfmePod8> &p=*(std::vector<BfmePod8> *)&v;
+static inline void ClearPoints(std::vector<BfmeE8> &points) {
+ std::vector<BfmePod8> &p=*(std::vector<BfmePod8> *)&points;
  p.erase(p.begin(),p.end());
 }
-static inline void PushIndex(std::vector<int> &v,const int &i) {
- ((std::vector<const ModuleData *> *)&v)->push_back(*(const ModuleData *const *)&i);
+static inline void PushIndex(std::vector<int> &indices,const int &i) {
+ ((std::vector<const ModuleData *> *)&indices)->push_back(*(const ModuleData *const *)&i);
 }
-static inline float PointDistance(const BfmeE8 &a,const BfmeE8 &b) {
- float y=a.Y-b.Y,x=a.X-b.X;
+static inline float PointDistance(const BfmeE8 &from,const BfmeE8 &to) {
+ float y=from.Y-to.Y,x=from.X-to.X;
  float sum=x*x+y*y;
  return WWMath::Sqrt(sum);
 }

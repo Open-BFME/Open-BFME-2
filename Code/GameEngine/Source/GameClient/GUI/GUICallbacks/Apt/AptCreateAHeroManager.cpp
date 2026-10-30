@@ -87,17 +87,17 @@ class Rva005B5BDC
     unsigned int m_1C;
     bool m_20;
 public:
-    void setSortColumn(unsigned int arg);
+    void setSortColumn(unsigned int column);
 };
 
-void Rva005B5BDC::setSortColumn(unsigned int arg)
+void Rva005B5BDC::setSortColumn(unsigned int column)
 {
-    unsigned int next = arg + 1;
+    unsigned int next = column + 1;
     unsigned int old = m_18;
-    if (old == arg) {
+    if (old == column) {
         m_18 = next;
     } else {
-        m_18 = arg;
+        m_18 = column;
         if (old != next)
             m_1C = old;
     }

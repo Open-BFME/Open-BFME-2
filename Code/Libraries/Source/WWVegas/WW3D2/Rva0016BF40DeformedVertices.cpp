@@ -12,7 +12,7 @@
 void Rva00129510Inc();
 // HTree pivot transform at pivot+0x30: rotation quaternion and translation.
 struct BoneTransform {
- __forceinline void Get_Matrix3D(Matrix3D &m) const {
+ __forceinline void Get_Matrix3D(Matrix3D &matrix) const {
   float xx=Rotation.X*Rotation.X*2.0f;
   float xy=Rotation.X*Rotation.Y*2.0f;
   float xz=Rotation.X*Rotation.Z*2.0f;
@@ -22,10 +22,10 @@ struct BoneTransform {
   float yw=Rotation.Y*Rotation.W*2.0f;
   float zz=Rotation.Z*Rotation.Z*2.0f;
   float zw=Rotation.Z*Rotation.W*2.0f;
-  m[0][0]=1.0f-yy-zz;m[0][1]=xy-zw;m[0][2]=xz+yw;
-  m[1][0]=xy+zw;m[1][1]=1.0f-zz-xx;m[1][2]=yz-xw;
-  m[2][0]=xz-yw;m[2][1]=yz+xw;m[2][2]=1.0f-yy-xx;
-  m[0][3]=Translation.X;m[1][3]=Translation.Y;m[2][3]=Translation.Z;
+  matrix[0][0]=1.0f-yy-zz;matrix[0][1]=xy-zw;matrix[0][2]=xz+yw;
+  matrix[1][0]=xy+zw;matrix[1][1]=1.0f-zz-xx;matrix[1][2]=yz-xw;
+  matrix[2][0]=xz-yw;matrix[2][1]=yz+xw;matrix[2][2]=1.0f-yy-xx;
+  matrix[0][3]=Translation.X;matrix[1][3]=Translation.Y;matrix[2][3]=Translation.Z;
  }
  __forceinline void TransformPositionArray(const Vector3 *inPosition,Vector3 *outPosition,int count) const {
   while(count--) {
@@ -67,23 +67,23 @@ private:
 template<class T> struct BfmeSkinBuffer {T *Get_Array() {return Array;} char fields00[0xc];T *Array;};
 // The two blend members BFME 2's Matrix3D carries and the shared WWMath header lacks, as a layout-identical view.
 struct Matrix3DBlend : public Matrix3D {
- __forceinline void blendVector3Array(const Vector3 *in,const Matrix3D &tm1,const Vector3 *in2,Vector3 *out,int count) const {
+ __forceinline void blendVector3Array(const Vector3 *in,const Matrix3D &secondTransform,const Vector3 *secondPositions,Vector3 *out,int count) const {
   while(count--) {
-   out->X=(Row[0].X*in->X+Row[0].Y*in->Y+Row[0].Z*in->Z+Row[0].W+tm1[0].X*in2->X+tm1[0].Y*in2->Y+tm1[0].Z*in2->Z+tm1[0].W);
-   out->Y=Row[1].X*in->X+Row[1].Y*in->Y+Row[1].Z*in->Z+Row[1].W+tm1[1].X*in2->X+tm1[1].Y*in2->Y+tm1[1].Z*in2->Z+tm1[1].W;
-   out->Z=Row[2].X*in->X+Row[2].Y*in->Y+Row[2].Z*in->Z+Row[2].W+tm1[2].X*in2->X+tm1[2].Y*in2->Y+tm1[2].Z*in2->Z+tm1[2].W;
+   out->X=(Row[0].X*in->X+Row[0].Y*in->Y+Row[0].Z*in->Z+Row[0].W+secondTransform[0].X*secondPositions->X+secondTransform[0].Y*secondPositions->Y+secondTransform[0].Z*secondPositions->Z+secondTransform[0].W);
+   out->Y=Row[1].X*in->X+Row[1].Y*in->Y+Row[1].Z*in->Z+Row[1].W+secondTransform[1].X*secondPositions->X+secondTransform[1].Y*secondPositions->Y+secondTransform[1].Z*secondPositions->Z+secondTransform[1].W;
+   out->Z=Row[2].X*in->X+Row[2].Y*in->Y+Row[2].Z*in->Z+Row[2].W+secondTransform[2].X*secondPositions->X+secondTransform[2].Y*secondPositions->Y+secondTransform[2].Z*secondPositions->Z+secondTransform[2].W;
    ++in;
-   ++in2;
+   ++secondPositions;
    ++out;
   }
  }
- __forceinline void blendNormalArray(const Vector3 *in,const Matrix3DBlend &tm1,const Vector3 *in2,Vector3 *out,int count) const {
+ __forceinline void blendNormalArray(const Vector3 *in,const Matrix3DBlend &secondTransform,const Vector3 *secondNormals,Vector3 *out,int count) const {
   while(count--) {
-   out->X=Row[0].X*in->X+Row[0].Y*in->Y+Row[0].Z*in->Z+tm1.Row[0].X*in2->X+tm1.Row[0].Y*in2->Y+tm1.Row[0].Z*in2->Z;
-   out->Y=(Row[1].X*in->X+((Row[1].Y*in->Y))+Row[1].Z*in->Z+(tm1.Row[1].X*in2->X)+((tm1.Row[1].Y*in2->Y))+(tm1.Row[1].Z*in2->Z));
-   out->Z=Row[2].X*in->X+Row[2].Y*in->Y+Row[2].Z*in->Z+tm1.Row[2].X*in2->X+tm1.Row[2].Y*in2->Y+tm1.Row[2].Z*in2->Z;
+   out->X=Row[0].X*in->X+Row[0].Y*in->Y+Row[0].Z*in->Z+secondTransform.Row[0].X*secondNormals->X+secondTransform.Row[0].Y*secondNormals->Y+secondTransform.Row[0].Z*secondNormals->Z;
+   out->Y=(Row[1].X*in->X+((Row[1].Y*in->Y))+Row[1].Z*in->Z+(secondTransform.Row[1].X*secondNormals->X)+((secondTransform.Row[1].Y*secondNormals->Y))+(secondTransform.Row[1].Z*secondNormals->Z));
+   out->Z=Row[2].X*in->X+Row[2].Y*in->Y+Row[2].Z*in->Z+secondTransform.Row[2].X*secondNormals->X+secondTransform.Row[2].Y*secondNormals->Y+secondTransform.Row[2].Z*secondNormals->Z;
    ++in;
-   ++in2;
+   ++secondNormals;
    ++out;
   }
  }
@@ -122,21 +122,21 @@ void MeshModelClass::get_deformed_vertices(Vector3 *dst_vert,Vector3 *dst_norm,c
   int bone0=bonelink[0];
   int bone1=bonelink[vertex_count];
   if(streams==2&&bone1!=0) {
-   const BoneTransform *bt0=0,*bt1=0;
-   float w0=(bonelink[vertex_count*2]/100.0f);
-   float w1=(bonelink[vertex_count*3]/100.0f);
-   bt0=&htree->Get_Transform(bone0);
-   Matrix3D tm0;
-   bt0->Get_Matrix3D(tm0);
+   const BoneTransform *firstTransform=0,*bt1=0;
+   float firstWeight=(bonelink[vertex_count*2]/100.0f);
+   float secondWeight=(bonelink[vertex_count*3]/100.0f);
+   firstTransform=&htree->Get_Transform(bone0);
+   Matrix3D firstMatrix;
+   firstTransform->Get_Matrix3D(firstMatrix);
    bt1=&htree->Get_Transform(bone1);
-   Matrix3D tm1;
-   bt1->Get_Matrix3D(tm1);
-   for(int r=0;r<3;r++) {
-    tm0[r]*=w0;
-    tm1[r]*=w1;
+   Matrix3D secondMatrix;
+   bt1->Get_Matrix3D(secondMatrix);
+   for(int row=0;row<3;row++) {
+    firstMatrix[row]*=firstWeight;
+    secondMatrix[row]*=secondWeight;
    }
-   ((const Matrix3DBlend &)tm0).blendVector3Array(src_vert[0],tm1,src_vert[1],dst_vert,cnt);
-   ((const Matrix3DBlend &)tm0).blendNormalArray(src_norm[0],(const Matrix3DBlend &)tm1,src_norm[1],dst_norm,cnt);
+   ((const Matrix3DBlend &)firstMatrix).blendVector3Array(src_vert[0],secondMatrix,src_vert[1],dst_vert,cnt);
+   ((const Matrix3DBlend &)firstMatrix).blendNormalArray(src_norm[0],(const Matrix3DBlend &)secondMatrix,src_norm[1],dst_norm,cnt);
   } else {
    const BoneTransform &tm=htree->Get_Transform(bone0);
    tm.TransformPositionArray(src_vert[0],dst_vert,cnt);
