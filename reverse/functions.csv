@@ -2908,7 +2908,7 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?Get@CacheStraw@@UAEHPAXH@Z,,0x0061B430,128,Code/Libraries/Source/WWVegas/WWLib/cstraw.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ??0BufferedFileClass@@QAE@PBD@Z,,0x0061AE00,39,Code/Libraries/Source/WWVegas/WWLib/bufffile.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ?Delete@?$DynamicVectorClass@PAX@@QAE_NABQAX@Z,,0x001969F0,38,Code/Libraries/Source/WWVegas/WWLib/msgloop.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
-??0Buffer@@QAE@ABV0@@Z,,0x00615740,23,Code/Libraries/Source/WWVegas/WWLib/buff.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+??0Buffer@@QAE@ABV0@@Z,,0x00615740,23,Code/Libraries/Source/WWVegas/WWLib/Buffer.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ?Set@LineSegClass@@QAEXABV1@ABVMatrix3D@@@Z,,0x00718F70,608,Code/Libraries/Source/WWVegas/WWMath/lineseg.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ?Set_Random@LineSegClass@@QAEXABVVector3@@0@Z,,0x007195C0,363,Code/Libraries/Source/WWVegas/WWMath/lineseg.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ?Find_Point_Closest_To@LineSegClass@@QBE?AVVector3@@ABV2@@Z,,0x007191D0,204,Code/Libraries/Source/WWVegas/WWMath/lineseg.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
@@ -2930,10 +2930,10 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?Set_Point_Orientation@PointGroupClass@@QAEXE@Z,,0x00179020,10,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp,matched,screened exact by tools/unclaimed_scan.py
 ?Get_Render_Target_Resolution@WW3D@@SAXAAH00AA_N@Z,,0x00116FF0,5,Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp,matched,screened exact by tools/unclaimed_scan.py
 ??4OBBoxClass@@QAEAAV0@ABV0@@Z,,0x00133990,97,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp,matched,OBBoxClass assignment; screened exact by tools/unclaimed_scan.py
-??0Buffer@@QAE@PAXJ@Z,,0x006156D0,49,Code/Libraries/Source/WWVegas/WWLib/buff.cpp,matched,Buffer constructor; screened exact
-??0Buffer@@QAE@J@Z,,0x00615710,45,Code/Libraries/Source/WWVegas/WWLib/buff.cpp,matched,Buffer; array new and delete fold to the scalar operators in this unit
-??1Buffer@@QAE@XZ,,0x006157A0,39,Code/Libraries/Source/WWVegas/WWLib/buff.cpp,matched,Buffer; array new and delete fold to the scalar operators in this unit
-??4Buffer@@QAEAAV0@ABV0@@Z,,0x00615760,50,Code/Libraries/Source/WWVegas/WWLib/buff.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+??0Buffer@@QAE@PAXJ@Z,,0x006156D0,49,Code/Libraries/Source/WWVegas/WWLib/Buffer.cpp,matched,Buffer constructor; screened exact
+??0Buffer@@QAE@J@Z,,0x00615710,45,Code/Libraries/Source/WWVegas/WWLib/Buffer.cpp,matched,Buffer; array new and delete fold to the scalar operators in this unit
+??1Buffer@@QAE@XZ,,0x006157A0,39,Code/Libraries/Source/WWVegas/WWLib/Buffer.cpp,matched,Buffer; array new and delete fold to the scalar operators in this unit
+??4Buffer@@QAEAAV0@ABV0@@Z,,0x00615760,50,Code/Libraries/Source/WWVegas/WWLib/Buffer.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ??6Debug@@UAEAAV0@PBX@Z,,0x00038950,101,Code/Libraries/Source/debug/debug_debug.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ??6Debug@@UAEAAV0@M@Z,,0x000388B0,68,Code/Libraries/Source/debug/debug_debug.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ??6Debug@@UAEAAV0@N@Z,,0x00038900,68,Code/Libraries/Source/debug/debug_debug.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
@@ -6056,7 +6056,7 @@ _CommSRPTick,,0x00681790,17,Code/Libraries/Source/DirtySock/commsrp.cpp,matched,
 ??0MatBufferClass@@QAE@ABV0@@Z,,0x0015B2C0,58,Code/Libraries/Source/WWVegas/WW3D2/meshmatdesc.cpp,matched,header-inline copy over ShareBufferClass<VertexMaterialClass*> (pinned base 0x15AB50); retail vtable 0xBD3C9C matches the MatBuffer ctor vtable
 ?SimpleMatch@Debug@@SA_NPBD0@Z,,0x00039480,135,Code/Libraries/Source/WWVegas/WWDebug/DebugSimpleMatch.cpp,matched,BFME1 DebugSimpleMatch port (input-only ASCII fold); pinned from the placed UpdateFrameStatus caller
 ?LookupFrame@Debug@@AAEPAUFrameHashEntry@1@I@Z,,0x00038330,50,Code/Libraries/Source/WWVegas/WWDebug/Debug_GetFrameEntry.cpp,matched,placed by masked whole-text search of the compiled body - single hit
-?Reset@Buffer@@QAEXXZ,,0x006157A0,39,Code/Libraries/Source/WWVegas/WWLib/buff.cpp,matched,ICF-folded with Buffer destructor; same 39B reset body
+?Reset@Buffer@@QAEXXZ,,0x006157A0,39,Code/Libraries/Source/WWVegas/WWLib/Buffer.cpp,matched,ICF-folded with Buffer destructor; same 39B reset body
 ?resize@BfmeWordVec@@QAEXI@Z,,0x00157E50,15,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_word_o1_resize.cpp,matched,Word-vector single-arg resize; tail-calls two-arg form at 0x000824F9; supersedes retracted narrow-string row
 ?AddFrameEntry@Debug@@AAEPAUFrameHashEntry@1@IIPBDH@Z,,0x00038FF0,223,Code/Libraries/Source/WWVegas/WWDebug/Debug_AddFrameEntry.cpp,matched,BFME1 WWDebug AddFrameEntry port with virtual AddLogGroup slot and dual-separator scan
 ?isLogEnabled@Debug@@UAE_NI@Z,,0x0003B5D0,109,Code/Libraries/Source/WWVegas/WWDebug/Debug_IsLogEnabled.cpp,matched,"BFME1 WWDebug isLogEnabled port with frame pointer; spelled virtual: slot 28 of Debug's vftable 0x00BBE810, installed at +0 by Debug's own constructor and destructor; retail never calls it directly"
