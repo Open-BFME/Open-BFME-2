@@ -20508,8 +20508,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A03FBC,4,.data,global,?$S24@?1??onBodyDamageStateChange@BoneFXDamage@@UAEXPBVDamageInfo@@W4BodyDamageType@@1@Z@4IA,Code/GameEngine/Source/GameLogic/Object/Damage/BoneFXDamage.cpp,owned,,1,4
 0x00A03FC0,8,.data,global,_s_rva007B24C0,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A03FC8,4,.data,global,?g_Va00E03FC8@@3IA,Code/GameEngine/Source/Common/GlobalFlagClearers_E03Fxx.cpp,owned,,1,2
-0x00A03FCC,4,.data,global,?TheTransitionDamageFXPoolKey@?1??getModuleNameKey@TransitionDamageFX@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Die/TransitionDamageFXPoolKey.cpp,owned,,1,2
-0x00A03FD0,4,.data,global,?$S1@?1??getModuleNameKey@TransitionDamageFX@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Die/TransitionDamageFXPoolKey.cpp,owned,,1,4
+0x00A03FCC,4,.data,global,?TheTransitionDamageFXPoolKey@?1??getModuleNameKey@TransitionDamageFX@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Damage/TransitionDamageFX.cpp,owned,,1,2
+0x00A03FD0,4,.data,global,?$S1@?1??getModuleNameKey@TransitionDamageFX@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Damage/TransitionDamageFX.cpp,owned,,1,4
 0x00A03FD4,4,.data,global,_s_rva007B24EA,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A03FD8,4,.data,global,?TheReflectDamagePoolKey@?1??getModuleNameKey@ReflectDamage@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Die/ReflectDamage.cpp,owned,,1,2
 0x00A03FDC,4,.data,global,?$S1@?1??getModuleNameKey@ReflectDamage@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Die/ReflectDamage.cpp,owned,,1,4
