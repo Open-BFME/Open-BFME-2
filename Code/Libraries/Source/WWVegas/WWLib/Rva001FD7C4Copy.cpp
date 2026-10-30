@@ -1,4 +1,5 @@
-// cl: /MD
+// cl: /MD /D_STLP_USE_STATIC_LIB
+// stlport
 // ?rva001FD7C4@Rva001FD7C4@@QAEPAURva001FD7C4Node@@PAU2@0@Z @0x001FD7C4 115B.
 // Tree copy for map<int,int> nodes: clones the top through the twin of the
 // rowed _M_clone_node 0x0053444F, links the parent, recurses right, then
@@ -16,26 +17,16 @@ struct Rva001FD7C4Node
 	unsigned char m_value[8];
 };
 
-namespace _STL
-{
-	template <class T1, class T2> struct pair;
-	template <class T> struct _Select1st;
-	template <class T> struct less;
-	template <class T> class allocator;
-	template <class T> struct _Rb_tree_node;
-	template <class Key, class Value, class KeyOfValue, class Compare, class Alloc>
-	class _Rb_tree
-	{
-	protected:
-		typedef _Rb_tree_node<Value> *_Link_type;
-		_Link_type _M_clone_node(_Link_type x);
-	};
-}
+#include <map>
 
 typedef _STL::pair<const int, int> Rva001FD7C4Value;
 typedef _STL::_Rb_tree<int, Rva001FD7C4Value,
 	_STL::_Select1st<Rva001FD7C4Value>, _STL::less<int>,
 	_STL::allocator<Rva001FD7C4Value> > Rva001FD7C4Tree;
+// The clone is the rowed out-of-line twin of 0x0053444F.
+// bfme link decl-only begin
+namespace _STL { template <> _Rb_tree_node<Rva001FD7C4Value> *Rva001FD7C4Tree::_M_clone_node(_Rb_tree_node<Rva001FD7C4Value> *); }
+// bfme link decl-only end
 
 struct Rva001FD7C4 : Rva001FD7C4Tree
 {
