@@ -1846,7 +1846,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x007CCFE8,400,.rdata,global,?g_00BCCFE8@@3QBUFieldParse@@B,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTreeDraw.cpp,owned,,1,1
 0x007CD178,248,.rdata,vtable,??_7W3DBuffDraw@@6B@,,literal,,0,1
 0x007CD270,132,.rdata,vtable,??_7W3DBuffDrawModuleData@@6B@,,literal,??_7W3DBuffDrawModuleData@@6B@;_vtbl_00BCD270,0,2
-0x007CD2F4,52,.rdata,global,?g_00BCD2F4@@3QBUFieldParse@@B,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DBuffDrawModuleDataCtor.cpp,owned,,1,1
+0x007CD2F4,52,.rdata,global,?g_00BCD2F4@@3QBUFieldParse@@B,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DBuffDraw.cpp,owned,,1,1
 0x007CD328,248,.rdata,vtable,??_7W3DPropDraw@@6B@,,literal,,0,1
 0x007CD420,136,.rdata,vtable,??_7W3DPropDrawModuleData@@6B@,,literal,,0,2
 0x007CD4A8,48,.rdata,global,?g_00BCD4A8@@3QBUFieldParse@@B,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DPropDraw.cpp,owned,,1,1

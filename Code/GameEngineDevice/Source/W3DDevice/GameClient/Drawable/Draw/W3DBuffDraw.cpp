@@ -55,9 +55,43 @@ private:
 	char m_pad0D[3];
 };
 
+class INI;
+
+typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
+
+struct FieldParse
+{
+	const char *token;
+	INIFieldParseProc parse;
+	const void *userData;
+	int offset;
+};
+
+class INI
+{
+public:
+	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
+	static void parseBool(INI *ini, void *instance, void *store, const void *userData);
+};
+
+// Retail VA 0x00BCD2F4 (.rdata): 2 field records and a zero sentinel.
+extern const FieldParse g_00BCD2F4[] = {
+	{ "ModelName", &INI::parseAsciiString, 0, 0x8 },
+	{ "PreDraw", &INI::parseBool, 0, 0xC },
+	{ 0, 0, 0, 0 }
+};
+
+class MultiIniFieldParse
+{
+public:
+	void add(const FieldParse *parseTable, unsigned int extraOffset);
+};
+
 // tu-skeleton: 0x000CEDE1 32B ??0W3DBuffDraw@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DBuffDrawConstructor.cpp (not merged yet)
 
 // tu-skeleton: 0x000CEE01 6B ?name@W3DBuffDraw@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/W3DDrawNameGetters.cpp (not merged yet)
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DBuffDraw.cpp
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DBuffDrawPoolKey.cpp
 
@@ -68,8 +102,6 @@ NameKeyType W3DBuffDraw::getModuleNameKey() const
 		TheNameKeyGenerator->nameToKey("W3DBuffDraw");
 	return TheW3DBuffDrawPoolKey;
 }
-
-// tu-skeleton: 0x000CEE4C 17B ??0W3DBuffDrawModuleData@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DBuffDrawModuleDataCtor.cpp (not merged yet)
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DBuffDrawModuleDataDtor.cpp
 
@@ -85,6 +117,25 @@ W3DBuffDrawModuleData::~W3DBuffDrawModuleData()
 {
 }
 
-// tu-skeleton: 0x000CEE93 17B ?buildFieldParse@W3DBuffDrawModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DBuffDrawModuleDataCtor.cpp (not merged yet)
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DBuffDrawModuleDataCtor.cpp
+
+//
+// ??0W3DBuffDrawModuleData@@QAE@XZ, retail 0x000CEE4C, 17 bytes.
+// Root ModuleData ctor (no base call): installs vtable 0x00BCD270
+// before initializing the AsciiString at +8 and the flag at +0x0C.
+// Class size 0x10 proven by the rowed W3DBuffDraw data
+// factory 0x64C94 (news 0x10, sole caller). Row supersedes the ctor pin.
+
+// ??0W3DBuffDrawModuleData@@QAE@XZ @0x000CEE4C
+W3DBuffDrawModuleData::W3DBuffDrawModuleData()
+	: m_flag(false)
+{
+}
+
+// ?buildFieldParse@W3DBuffDrawModuleData@@SAXAAVMultiIniFieldParse@@@Z @0x000CEE93
+void W3DBuffDrawModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	parse.add(g_00BCD2F4, 0);
+}
 
 // tu-skeleton: 0x007626F8 8B uw_007626f8 -- matched in Code/gen_small/uw_gen_013.cpp (not merged yet)
