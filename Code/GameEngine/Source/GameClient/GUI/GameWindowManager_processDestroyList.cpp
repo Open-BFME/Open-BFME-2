@@ -14,9 +14,10 @@ public:
 };
 struct ModalWindow
 {
-	void *m_vtable;
-	GameWindow *window;
-	ModalWindow *next;
+public:
+	void *m_vtable; // +0x00
+	GameWindow *window; // +0x04
+	ModalWindow *next; // +0x08
 };
 class GameWindowManager
 {

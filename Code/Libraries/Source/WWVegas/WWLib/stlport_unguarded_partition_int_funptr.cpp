@@ -5,29 +5,7 @@
 // (indirect calls); scan up while comp(*first,pivot), scan down while
 // comp(pivot,*last), swap on cross, return the split. Callers 0x0021DDC5
 // 0x002C56E7 are the 123B introsort_loops.
-namespace _STL {
-template <class ForwardIter1, class ForwardIter2>
-__forceinline void iter_swap(ForwardIter1 left, ForwardIter2 right)
-{
-	int temporary = *left;
-	*left = *right;
-	*right = temporary;
-}
-template <class RandomAccessIter, class Tp, class Compare>
-RandomAccessIter __unguarded_partition(RandomAccessIter first, RandomAccessIter last, Tp pivot, Compare comp)
-{
-	while (true) {
-		while (comp(*first, pivot))
-			++first;
-		--last;
-		while (comp(pivot, *last))
-			--last;
-		if (!(first < last))
-			return first;
-		iter_swap(first, last);
-		++first;
-	}
-}
-}
+#include <algorithm>
+
 typedef bool (__cdecl *IntFunLess)(int a, int b);
 template int* _STL::__unguarded_partition(int*, int*, int, IntFunLess);

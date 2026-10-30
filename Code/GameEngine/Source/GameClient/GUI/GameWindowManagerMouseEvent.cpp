@@ -62,7 +62,13 @@ public:
  unsigned char winPointInWindow(int,int);
  Int winGetPosition(Int*,Int*); Int winGetSize(Int*,Int*); Int winSetPosition(Int,Int);
 };
-struct ModalWindow { void *unknown0; GameWindow *window; };
+struct ModalWindow
+{
+public:
+	void *m_vtable; // +0x00
+	GameWindow *window; // +0x04
+	ModalWindow *next; // +0x08
+};
 class GameWindowManager { public:
  virtual void slot00();
  virtual void slot04();
