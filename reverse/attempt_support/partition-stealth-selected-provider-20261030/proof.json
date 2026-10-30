@@ -1,0 +1,221 @@
+{
+  "source": "Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp",
+  "scope": "remove only the debug-only isDisguised outlined copy; getStealthLevel is absent in both control and trial; original inline disguise body and layout retained",
+  "variants": {
+    "before": {
+      "source_sha256": "8f4b388cd0fff8b1c6fae3fa2c66ad5d74d69673a31b65513d0f52535e348c23",
+      "rows": [
+        {
+          "name": "??_ECellAndObjectIntersection@@QAEPAXI@Z",
+          "rva": "0x0073A370",
+          "size": "77",
+          "exact": true
+        },
+        {
+          "name": "?allocate@?$allocator@E@_STL@@QBEPAEIPBX@Z",
+          "rva": "0x000073E0",
+          "size": "27",
+          "exact": true
+        },
+        {
+          "name": "?friend_setPartitionData@Object@@QAEXPAVPartitionData@@@Z",
+          "rva": "0x00322167",
+          "size": "13",
+          "exact": true
+        },
+        {
+          "name": "?allow@PartitionFilterIsFlying@@UAE_NPAVObject@@@Z",
+          "rva": "0x00260E01",
+          "size": "12",
+          "exact": true
+        }
+      ],
+      "eh": []
+    },
+    "trial": {
+      "source_sha256": "86cae08de2bcedc8151da379dd9ec375a974cd2be796453752c00408b06bb223",
+      "rows": [
+        {
+          "name": "??_ECellAndObjectIntersection@@QAEPAXI@Z",
+          "rva": "0x0073A370",
+          "size": "77",
+          "exact": true
+        },
+        {
+          "name": "?allocate@?$allocator@E@_STL@@QBEPAEIPBX@Z",
+          "rva": "0x000073E0",
+          "size": "27",
+          "exact": true
+        },
+        {
+          "name": "?friend_setPartitionData@Object@@QAEXPAVPartitionData@@@Z",
+          "rva": "0x00322167",
+          "size": "13",
+          "exact": true
+        },
+        {
+          "name": "?allow@PartitionFilterIsFlying@@UAE_NPAVObject@@@Z",
+          "rva": "0x00260E01",
+          "size": "12",
+          "exact": true
+        }
+      ],
+      "eh": []
+    }
+  },
+  "removed_debug_only_definitions": [
+    {
+      "name": "?isDisguised@StealthUpdate@@QBE_NXZ",
+      "raw": "8b513833c085d20f95c0c3",
+      "relocations": [],
+      "incoming_refs": [
+        {
+          "section": ".debug$F",
+          "offset": 0,
+          "kind": 7
+        }
+      ]
+    }
+  ],
+  "all_external_code_and_symbolic_relocations_identical": false,
+  "all_retained_external_code_and_symbolic_relocations_identical": true,
+  "runtime_invariant": {
+    "one_removed_debug_only_definition": "?isDisguised@StealthUpdate@@QBE_NXZ",
+    "removed_raw": {
+      "raw": "8b513833c085d20f95c0c3",
+      "relocations": []
+    },
+    "all_other_nondebug_section_contents_and_relocations_identical_as_multiset": true,
+    "coff_section_order_changed": true,
+    "normalization": "COFF section records compared as multiset; .sxdata indices resolved to handler names; exact rows and all retained code/data definitions compared independently",
+    "all_other_loadable_definitions_identical": true,
+    "undefined_names_identical": true,
+    "imports_added": false,
+    "remaining_nondebug_sha256": "9890f96f607924bbfb60ca3586fffd0c11f2c097a73c70ad397735f2981e13a9",
+    "retained_definitions": 1142
+  },
+  "native_provider": {
+    "source": "Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdate.cpp",
+    "rva": "0x0004D65B",
+    "size": 9,
+    "raw": "33c039413c0f95c0c3",
+    "object_sha256": "ed0eb7e103aeb4fb3a8263b7350ddec83ac514e1977c499413931a50812e7bc0"
+  },
+  "source_sha256": "90b5a3244a633083ab24245d9853604fbc6018eb211c73735b9446108db3ea28",
+  "cohort_before_log": "build/partition-stealth-cohort-before-20261030.log",
+  "scope_limit": "private emission probe only; no complete unit LINK or census gain; StealthUpdate layout/other Partition blockers remain separate",
+  "actual": {
+    "source_sha256": "90b5a3244a633083ab24245d9853604fbc6018eb211c73735b9446108db3ea28",
+    "object_sha256": "32b29d86bf8b305bea664a12a2b8e6b1dfc667855cddb2dedc937a00535ad672",
+    "matches_private_runtime": true,
+    "strict_current": true
+  },
+  "bounded_preview": {
+    "sources": [
+      "Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp",
+      "Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdate.cpp",
+      "Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdateLogic.cpp",
+      "Code/GameEngine/Source/GameLogic/Object/WeaponSet.cpp"
+    ],
+    "before": {
+      "Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp": [
+        "unresolved  ?canEnterObject@ActionManager@@QAE_NPBVObject@@0W4CommandSourceType@@W4CanEnterType@@@Z",
+        "unresolved  ?clientSafeQuickDoesPathExist@Pathfinder@@QAE_NABVLocomotorSet@@PBUCoord3D@@1@Z",
+        "unresolved  ?getPlayersWithRelationship@PlayerList@@QAEGHI@Z",
+        "unresolved  ?getShroudedStatus@Object@@QBE?AW4ObjectShroudStatus@@H@Z",
+        "unresolved  ?getZDeltaToCenterPosition@GeometryInfo@@QBEMXZ",
+        "unresolved  ?insert@SimpleObjectIterator@@QAEXPAVObject@@M@Z",
+        "unresolved  ?isNonFactionStructure@Object@@QBE_NXZ",
+        "unresolved  ?isOnSquad@Squad@@QBE_NPBVObject@@@Z",
+        "unresolved  ?isValidToUseOn@CommandButton@@QBE_NPBVObject@@0PBUCoord3D@@W4CommandSourceType@@@Z",
+        "unresolved  ?onCollide@Object@@QAEXPAV1@PBUCoord3D@@1@Z",
+        "unresolved  ?onPartitionCellChange@Object@@QAEXXZ",
+        "unresolved  ?pointInTrigger@PolygonTrigger@@QBE_NAAUICoord3D@@@Z",
+        "comdat      ?updateCellsTouched@PartitionData@@AAEXXZ  (retail: not retail's body)",
+        "selected    ?isDisguised@StealthUpdate@@QBE_NXZ  (the definition the link keeps is not retail's)",
+        "selected    ?updateCellsTouched@PartitionData@@AAEXXZ  (the definition the link keeps is not retail's)"
+      ],
+      "Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdate.cpp": [
+        "unresolved  ??0AudioEventRTS@@QAE@ABV0@@Z",
+        "unresolved  ??0AudioEventRTS@@QAE@XZ",
+        "unresolved  ??1AudioEventRTS@@UAE@XZ",
+        "unresolved  ??4AudioEventRTS@@QAEAAV0@ABV0@@Z",
+        "unresolved  ?DISABLEDMASK_NONE@@3V?$BitFlags@$0N@@@A",
+        "unresolved  ?clearAndSetModelConditionFlags@Drawable@@QAEXABV?$BitFlags@$0HF@@@0@Z",
+        "unresolved  ?crc@UpdateModule@@MAEXPAVXfer@@@Z",
+        "unresolved  ?forceRefreshSubObjectUpgradeStatus@Object@@QAEXXZ",
+        "unresolved  ?newDrawable@ThingFactory@@QAEPAVDrawable@@PBVThingTemplate@@W4DrawableStatus@@@Z",
+        "unresolved  ?removeObject@Radar@@QAEXPAVObject@@@Z",
+        "unresolved  ?setEffectiveOpacity@Drawable@@QAEXMM@Z",
+        "unresolved  ?setObjectID@AudioEventRTS@@QAEXW4ObjectID@@@Z",
+        "unresolved  ?setStatus@Object@@QAEXV?$BitFlags@$0CN@@@_N@Z",
+        "selected    ?isDisguised@StealthUpdate@@QBE_NXZ  (the definition the link keeps is not retail's)"
+      ],
+      "Code/GameEngine/Source/GameLogic/Object/WeaponSet.cpp": [
+        "unresolved  ?getAbleToUseWeaponAgainstTarget@Object@@QBE?AW4CanAttackResult@@W4AbleToAttackType@@PBV1@PBUCoord3D@@W4CommandSourceType@@W4WeaponSlotType@@@Z",
+        "unresolved  ?isWithinAttackRange@Weapon@@QBE_NPBVObject@@0@Z",
+        "unresolved  ?isWithinAttackRange@Weapon@@QBE_NPBVObject@@PBUCoord3D@@@Z",
+        "unresolved  ?scanIndexList@INI@@SAHPBDPBQBD@Z",
+        "duplicate   ?get@Rva002C74B2ByteField@@QBEEXZ",
+        "duplicate   ?get@Rva002C74B9ByteField@@QBEEXZ",
+        "comdat      ??_7WeaponSet@@6B@  (first: differs from the first copy in link order (no retail address))",
+        "selected    ?clear@?$BitFlags@$0HE@@@QAEXXZ  (the definition the link keeps is not retail's)",
+        "selected    ?isDisguised@StealthUpdate@@QBE_NXZ  (the definition the link keeps is not retail's)"
+      ],
+      "Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdateLogic.cpp": []
+    },
+    "after": {
+      "Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp": [
+        "unresolved  ?canEnterObject@ActionManager@@QAE_NPBVObject@@0W4CommandSourceType@@W4CanEnterType@@@Z",
+        "unresolved  ?clientSafeQuickDoesPathExist@Pathfinder@@QAE_NABVLocomotorSet@@PBUCoord3D@@1@Z",
+        "unresolved  ?getPlayersWithRelationship@PlayerList@@QAEGHI@Z",
+        "unresolved  ?getShroudedStatus@Object@@QBE?AW4ObjectShroudStatus@@H@Z",
+        "unresolved  ?getZDeltaToCenterPosition@GeometryInfo@@QBEMXZ",
+        "unresolved  ?insert@SimpleObjectIterator@@QAEXPAVObject@@M@Z",
+        "unresolved  ?isNonFactionStructure@Object@@QBE_NXZ",
+        "unresolved  ?isOnSquad@Squad@@QBE_NPBVObject@@@Z",
+        "unresolved  ?isValidToUseOn@CommandButton@@QBE_NPBVObject@@0PBUCoord3D@@W4CommandSourceType@@@Z",
+        "unresolved  ?onCollide@Object@@QAEXPAV1@PBUCoord3D@@1@Z",
+        "unresolved  ?onPartitionCellChange@Object@@QAEXXZ",
+        "unresolved  ?pointInTrigger@PolygonTrigger@@QBE_NAAUICoord3D@@@Z",
+        "comdat      ?updateCellsTouched@PartitionData@@AAEXXZ  (retail: not retail's body)",
+        "selected    ?updateCellsTouched@PartitionData@@AAEXXZ  (the definition the link keeps is not retail's)"
+      ],
+      "Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdate.cpp": [
+        "unresolved  ??0AudioEventRTS@@QAE@ABV0@@Z",
+        "unresolved  ??0AudioEventRTS@@QAE@XZ",
+        "unresolved  ??1AudioEventRTS@@UAE@XZ",
+        "unresolved  ??4AudioEventRTS@@QAEAAV0@ABV0@@Z",
+        "unresolved  ?DISABLEDMASK_NONE@@3V?$BitFlags@$0N@@@A",
+        "unresolved  ?clearAndSetModelConditionFlags@Drawable@@QAEXABV?$BitFlags@$0HF@@@0@Z",
+        "unresolved  ?crc@UpdateModule@@MAEXPAVXfer@@@Z",
+        "unresolved  ?forceRefreshSubObjectUpgradeStatus@Object@@QAEXXZ",
+        "unresolved  ?newDrawable@ThingFactory@@QAEPAVDrawable@@PBVThingTemplate@@W4DrawableStatus@@@Z",
+        "unresolved  ?removeObject@Radar@@QAEXPAVObject@@@Z",
+        "unresolved  ?setEffectiveOpacity@Drawable@@QAEXMM@Z",
+        "unresolved  ?setObjectID@AudioEventRTS@@QAEXW4ObjectID@@@Z",
+        "unresolved  ?setStatus@Object@@QAEXV?$BitFlags@$0CN@@@_N@Z"
+      ],
+      "Code/GameEngine/Source/GameLogic/Object/WeaponSet.cpp": [
+        "unresolved  ?getAbleToUseWeaponAgainstTarget@Object@@QBE?AW4CanAttackResult@@W4AbleToAttackType@@PBV1@PBUCoord3D@@W4CommandSourceType@@W4WeaponSlotType@@@Z",
+        "unresolved  ?isWithinAttackRange@Weapon@@QBE_NPBVObject@@0@Z",
+        "unresolved  ?isWithinAttackRange@Weapon@@QBE_NPBVObject@@PBUCoord3D@@@Z",
+        "unresolved  ?scanIndexList@INI@@SAHPBDPBQBD@Z",
+        "duplicate   ?get@Rva002C74B2ByteField@@QBEEXZ",
+        "duplicate   ?get@Rva002C74B9ByteField@@QBEEXZ",
+        "comdat      ??_7WeaponSet@@6B@  (first: differs from the first copy in link order (no retail address))",
+        "selected    ?clear@?$BitFlags@$0HE@@@QAEXXZ  (the definition the link keeps is not retail's)"
+      ],
+      "Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdateLogic.cpp": []
+    },
+    "cleared_selected_provider": [
+      "Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp",
+      "Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdate.cpp",
+      "Code/GameEngine/Source/GameLogic/Object/WeaponSet.cpp"
+    ],
+    "other_blockers_identical": true,
+    "linked_authored_bytes_before": 5722,
+    "linked_authored_bytes_after": 5722,
+    "census_gain_claimed": false
+  }
+}

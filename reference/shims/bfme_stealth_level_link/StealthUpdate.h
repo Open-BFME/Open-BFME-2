@@ -1,6 +1,8 @@
 // Link view of Open-BFME-1 68c5ce2789e974f36b6c742d57437d157bc159e9, inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/StealthUpdate.h.
 // Verbatim except that getStealthLevel is declared, not defined: calls bind to the retail row in
 // StealthUpdateLogic.cpp, and the Zero Hour inline copy without the +0x2C override is not emitted.
+// PartitionManager additionally selects BFME_STEALTH_DISGUISE_INLINE_ONLY to
+// retain inline behavior without an optimization/layout-specific outlined copy.
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
@@ -130,6 +132,9 @@ public:
 	virtual DisabledMaskType getDisabledTypesToProcess() const { return MAKE_DISABLED_MASK( DISABLED_HELD ); }
 
 	// ??? ugh
+#ifdef BFME_STEALTH_DISGUISE_INLINE_ONLY
+	__declspec(dllimport) __forceinline
+#endif
 	Bool isDisguised() const { return m_disguiseAsTemplate != NULL; }
 	Int getDisguisedPlayerIndex() const { return m_disguiseAsPlayerIndex; }
 	const ThingTemplate *getDisguisedTemplate() { return m_disguiseAsTemplate; }

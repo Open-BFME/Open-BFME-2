@@ -77,6 +77,12 @@ template unsigned char *allocator<unsigned char>::allocate(unsigned int, const v
 #include "Common/DiscreteCircle.h"
 #include "Common/GameEngine.h"
 #include "Common/GameState.h"
+// Keep the existing inline instructions, while the native out-of-line
+// isDisguised owner remains in StealthUpdate.cpp (0x0004D65B).
+#include "GameLogic/WeaponSetType.h"
+#define BFME_STEALTH_DISGUISE_INLINE_ONLY
+#include "../../../../../reference/shims/bfme_stealth_level_link/StealthUpdate.h"
+#undef BFME_STEALTH_DISGUISE_INLINE_ONLY
 #include "Common/MessageStream.h"
 #include "Common/NameKeyGenerator.h"
 #include "Common/PerfTimer.h"
