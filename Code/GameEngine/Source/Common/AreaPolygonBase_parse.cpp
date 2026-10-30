@@ -30,12 +30,15 @@ public:
 	int readInt();
 	float readReal();
 };
+struct AreaPolygonBounds { float v[4]; };
 struct AreaPolygonBase
 {
+	_STL::vector<BfmeE8, _STL::allocator<BfmeE8> > m_points;
+	AreaPolygonBounds m_bounds;
+	float m_1c;
+	float m_20;
+	bool m_dirty;
 	void parse(DataChunkInput &file, int unused);
-	_STL::vector<BfmeE8, _STL::allocator<BfmeE8> > m_vec;
-	char m_pad[0x24 - 12];
-	bool m_flag;
 };
 void AreaPolygonBase::parse(DataChunkInput &file, int unused)
 {
@@ -49,6 +52,6 @@ void AreaPolygonBase::parse(DataChunkInput &file, int unused)
 		tmp.push_back(e);
 		--count;
 	}
-	(((_STL::vector<BfmeE12, _STL::allocator<BfmeE12> > *)&m_vec)->swap(*(_STL::vector<BfmeE12, _STL::allocator<BfmeE12> > *)&tmp));
-	m_flag = true;
+	(((_STL::vector<BfmeE12, _STL::allocator<BfmeE12> > *)&m_points)->swap(*(_STL::vector<BfmeE12, _STL::allocator<BfmeE12> > *)&tmp));
+	m_dirty = true;
 }

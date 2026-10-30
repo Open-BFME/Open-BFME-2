@@ -19,34 +19,34 @@
 
 #include <vector>
 
-struct BfmePod8
+struct BfmeE8
 {
 	float x;
 	float y;
 };
 
+struct BfmePod8 { float x; float y; };
+
+struct AreaPolygonBounds { float v[4]; };
 struct AreaPolygonBase
 {
-	_STL::vector<BfmePod8, _STL::allocator<BfmePod8> > m_vec;
-	float m_0c;
-	float m_10;
-	float m_14;
-	float m_18;
-	int m_1c;
-	int m_20;
-	unsigned char m_24;
+	_STL::vector<BfmeE8, _STL::allocator<BfmeE8> > m_points;
+	AreaPolygonBounds m_bounds;
+	float m_1c;
+	float m_20;
+	bool m_dirty;
 	void rva0030B135(const BfmePod8 *a);
 };
 
 void AreaPolygonBase::rva0030B135(const BfmePod8 *a)
 {
-	for (BfmePod8 *p = m_vec.begin(), *e = m_vec.end(); p != e; ++p) {
+	for (BfmeE8 *p = m_points.begin(), *e = m_points.end(); p != e; ++p) {
 		p->x += a->x;
 		p->y += a->y;
 	}
-	if (m_24 != 0)
+	if (m_dirty != 0)
 		return;
-	float *pm = &m_0c;
+	float *pm = m_bounds.v;
 	const float *pa = &a->x;
 	pm[0] = pm[0] + pa[0];
 	pm[1] = pm[1] + pa[1];

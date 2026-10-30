@@ -10,27 +10,25 @@
 #include <vector>
 #define _OPERATOR_NEW_DEFINED_
 #include "matrix3d.h"
-struct BfmePod8 { float x; float y; };
+struct BfmeE8 { float x; float y; };
+struct AreaPolygonBounds { float v[4]; };
 struct AreaPolygonBase
 {
-	_STL::vector<BfmePod8, _STL::allocator<BfmePod8> > m_vec;
-	float m_0c;
-	float m_10;
-	float m_14;
-	float m_18;
+	_STL::vector<BfmeE8, _STL::allocator<BfmeE8> > m_points;
+	AreaPolygonBounds m_bounds;
 	float m_1c;
 	float m_20;
-	unsigned char m_24;
+	bool m_dirty;
 	void rva0030B232(const Matrix3D &matrix);
 };
 void AreaPolygonBase::rva0030B232(const Matrix3D &matrix)
 {
-	BfmePod8 *e = m_vec.end();
-	for (BfmePod8 *p = m_vec.begin(); p != e; ++p) {
+	BfmeE8 *e = m_points.end();
+	for (BfmeE8 *p = m_points.begin(); p != e; ++p) {
 		Vector3 v(p->x, p->y, 0.0f);
 		Matrix3D::Transform_Vector(matrix, v, &v);
 		p->x = v.X;
 		p->y = v.Y;
 	}
-	m_24 = 1;
+	m_dirty = 1;
 }

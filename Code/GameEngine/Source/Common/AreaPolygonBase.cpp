@@ -55,7 +55,12 @@ template<> inline void vector<BfmeE8>::_M_insert_overflow(
 // Retail 0x0030B8E4..0x0030B92C copies the same 0x0C..0x1C block and the
 // two floats at 0x1C/0x20 under the same dirty-flag gate as the rowed
 // operator= at 0x0030B92C; the bounds block's member names are unknown.
-struct AreaPolygonBounds { int v[4]; };
+struct AreaPolygonBounds { float v[4]; };
+
+// The rowed rva0030B135 keeps its own eight-byte point spelling in the signature.
+struct BfmePod8;
+
+class DataChunkInput;
 
 struct AreaPolygonBase {
     _STL::vector<BfmeE8, _STL::allocator<BfmeE8> > m_points;
@@ -66,6 +71,12 @@ struct AreaPolygonBase {
     AreaPolygonBase(const AreaPolygonBase& that);
     void insertPoint(int index, const BfmeE8& point);
     void reserve(int n);
+    void setPoint(int i, const BfmeE8& val);
+    void parse(DataChunkInput& file, int unused);
+    void rva0030B135(const BfmePod8* a);
+    void rva0030B1A7(float f);
+    void rva0030B232(const class Matrix3D& matrix);
+    void deletePoint(int i);
 };
 
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
@@ -152,7 +163,7 @@ struct Rva0030B831Item
 
 int __cdecl Rva0030B6A6Equal(const Rva0030B6A6Range *lhs, const Rva0030B6A6Range *rhs);
 
-struct BfmePod8 { int a[2]; };
+struct BfmePod8 { float x; float y; };
 
 struct Rva0030B9CA
 {

@@ -10,20 +10,23 @@ struct Rva0030BA8C
 	void rva0030BA8C(const BfmeE8 &val);
 };
 
+struct AreaPolygonBounds { float v[4]; };
 struct AreaPolygonBase
 {
+	_STL::vector<BfmeE8, _STL::allocator<BfmeE8> > m_points;
+	AreaPolygonBounds m_bounds;
+	float m_1c;
+	float m_20;
+	bool m_dirty;
 	void setPoint(int i, const BfmeE8 &val);
-	_STL::vector<BfmeE8, _STL::allocator<BfmeE8> > m_vec;
-	char m_pad[0x24 - 12];
-	bool m_flag;
 };
 
 void AreaPolygonBase::setPoint(int i, const BfmeE8 &val)
 {
-	if (i == (int)m_vec.size()) {
+	if (i == (int)m_points.size()) {
 		((Rva0030BA8C *)this)->rva0030BA8C(val);
 		return;
 	}
-	m_vec[i] = val;
-	m_flag = true;
+	m_points[i] = val;
+	m_dirty = true;
 }
