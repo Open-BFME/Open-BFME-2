@@ -24156,9 +24156,9 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00306EF5,12,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,U,N=Code/GameEngine/Source/Common/System/BfmeThingEF.cpp,Code/GameEngine/Source/Common/System/DataChunk.cpp
 0x00306F01,82,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,Z,Z=Code/GameEngine/Source/Common/System/DataChunk.cpp S=Code/GameEngine/Source/Common/System/DataChunk.cpp N=Code/GameEngine/Source/Common/System/DataChunkInput.cpp,Code/GameEngine/Source/Common/System/DataChunkInput.cpp
 0x00306F53,82,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,Z,Z=Code/GameEngine/Source/Common/System/DataChunk.cpp S=Code/GameEngine/Source/Common/System/DataChunk.cpp N=Code/GameEngine/Source/Common/System/DataChunkInput.cpp,Code/GameEngine/Source/Common/System/DataChunkInput.cpp
-0x00306FA5,142,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,Z,Z=Code/GameEngine/Source/Common/System/DataChunk.cpp S=Code/GameEngine/Source/Common/System/DataChunk.cpp N=Code/GameEngine/Source/Common/System/DataChunkOutput.cpp,Code/GameEngine/Source/Common/System/DataChunkOutputDestructor.cpp
-0x00307033,91,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,Z,Z=Code/GameEngine/Source/Common/System/DataChunk.cpp S=Code/GameEngine/Source/Common/System/DataChunk.cpp N=Code/GameEngine/Source/GameLogic/ScriptEngine/DataChunkOutput.cpp,Code/GameEngine/Source/GameLogic/ScriptEngine/DataChunkOutput_writeAsciiString.cpp
-0x0030708E,99,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,Z,Z=Code/GameEngine/Source/Common/System/DataChunk.cpp S=Code/GameEngine/Source/Common/System/DataChunk.cpp N=Code/GameEngine/Source/GameLogic/ScriptEngine/DataChunkOutput.cpp,Code/GameEngine/Source/GameLogic/ScriptEngine/DataChunkOutput_writeUnicodeString.cpp
+0x00306FA5,142,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,Z,Z=Code/GameEngine/Source/Common/System/DataChunk.cpp S=Code/GameEngine/Source/Common/System/DataChunk.cpp N=Code/GameEngine/Source/Common/System/DataChunkOutput.cpp,Code/GameEngine/Source/Common/System/DataChunk.cpp
+0x00307033,91,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,Z,Z=Code/GameEngine/Source/Common/System/DataChunk.cpp S=Code/GameEngine/Source/Common/System/DataChunk.cpp N=Code/GameEngine/Source/GameLogic/ScriptEngine/DataChunkOutput.cpp,Code/GameEngine/Source/Common/System/DataChunk.cpp
+0x0030708E,99,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,Z,Z=Code/GameEngine/Source/Common/System/DataChunk.cpp S=Code/GameEngine/Source/Common/System/DataChunk.cpp N=Code/GameEngine/Source/GameLogic/ScriptEngine/DataChunkOutput.cpp,Code/GameEngine/Source/Common/System/DataChunk.cpp
 0x003070F1,53,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,Z,Z=Code/GameEngine/Source/Common/System/DataChunk.cpp S=Code/GameEngine/Source/Common/System/DataChunk.cpp N=Code/GameEngine/Source/Common/System/DataChunkTableOfContents.cpp,Code/GameEngine/Source/Common/System/DataChunk.cpp
 0x00307126,13,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,C,C=0x003070F1..0x00307133,Code/GameEngine/Source/Common/System/DataChunk.cpp
 0x00307133,28,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,C,C=0x003070F1..0x0030714F,Code/GameEngine/Source/Common/AsciiStringFoldDeleters.cpp
@@ -24175,10 +24175,10 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0030750A,153,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,Z,Z=Code/GameEngine/Source/Common/System/DataChunk.cpp S=Code/GameEngine/Source/Common/System/DataChunk.cpp N=Code/GameEngine/Source/Common/System/DataChunkInput.cpp,Code/GameEngine/Source/Common/System/DataChunk.cpp
 0x003075A3,158,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,Z,Z=Code/GameEngine/Source/Common/System/DataChunk.cpp S=Code/GameEngine/Source/Common/System/DataChunk.cpp N=Code/GameEngine/Source/Common/System/DataChunkInput.cpp,Code/GameEngine/Source/Common/System/DataChunk.cpp
 0x00307641,63,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,C,C=0x003075A3..0x00307680,Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp
-0x00307680,249,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,Z,Z=Code/GameEngine/Source/Common/System/DataChunk.cpp S=Code/GameEngine/Source/Common/System/DataChunk.cpp N=Code/GameEngine/Source/Common/System/DataChunkOutput.cpp,Code/GameEngine/Source/Common/System/DataChunkOutputDestructor.cpp
+0x00307680,249,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,Z,Z=Code/GameEngine/Source/Common/System/DataChunk.cpp S=Code/GameEngine/Source/Common/System/DataChunk.cpp N=Code/GameEngine/Source/Common/System/DataChunkOutput.cpp,Code/GameEngine/Source/Common/System/DataChunk.cpp
 0x00307779,103,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,Z,Z=Code/GameEngine/Source/Common/System/DataChunk.cpp S=Code/GameEngine/Source/Common/System/DataChunk.cpp N=Code/GameEngine/Source/Common/System/DataChunkInput.cpp,Code/GameEngine/Source/Common/System/DataChunkInput.cpp
-0x003077E0,83,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,Z,Z=Code/GameEngine/Source/Common/System/DataChunk.cpp S=Code/GameEngine/Source/Common/System/DataChunk.cpp N=Code/GameEngine/Source/Common/System/DataChunkInput.cpp,Code/GameEngine/Source/Common/System/DataChunkReadNameKey.cpp
-0x00307833,397,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,Z,Z=Code/GameEngine/Source/Common/System/DataChunk.cpp S=Code/GameEngine/Source/Common/System/DataChunk.cpp N=Code/GameEngine/Source/Common/System/DataChunkInput.cpp,Code/GameEngine/Source/Common/System/DataChunkReadDict.cpp
+0x003077E0,83,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,Z,Z=Code/GameEngine/Source/Common/System/DataChunk.cpp S=Code/GameEngine/Source/Common/System/DataChunk.cpp N=Code/GameEngine/Source/Common/System/DataChunkInput.cpp,Code/GameEngine/Source/Common/System/DataChunk.cpp
+0x00307833,397,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,Z,Z=Code/GameEngine/Source/Common/System/DataChunk.cpp S=Code/GameEngine/Source/Common/System/DataChunk.cpp N=Code/GameEngine/Source/Common/System/DataChunkInput.cpp,Code/GameEngine/Source/Common/System/DataChunk.cpp
 0x003079C1,44,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,C,C=0x00307833..0x003079ED,Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp
 0x003079ED,63,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,C,C=0x00307833..0x00307A2C,Code/GameEngine/Source/Common/System/DataChunk.cpp
 0x00307A2C,39,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,C,C=0x00307833..0x00307A53,Code/GameEngine/Source/Common/System/DataChunk.cpp
@@ -24187,8 +24187,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00307AC0,387,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,Z,Z=Code/GameEngine/Source/Common/System/DataChunk.cpp S=Code/GameEngine/Source/Common/System/DataChunk.cpp N=Code/GameEngine/Source/Common/System/DataChunkInput.cpp,Code/GameEngine/Source/Common/System/DataChunkInput.cpp
 0x00307C43,51,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,C,C=0x00307AC0..0x00307C76,Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp
 0x00307C76,179,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,Z,Z=Code/GameEngine/Source/Common/System/DataChunk.cpp S=Code/GameEngine/Source/Common/System/DataChunk.cpp N=Code/GameEngine/Source/GameLogic/ScriptEngine/DataChunkOutput.cpp,Code/GameEngine/Source/GameLogic/ScriptEngine/ConditionWriteDataChunk.cpp
-0x00307D29,92,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,Z,Z=Code/GameEngine/Source/Common/System/DataChunk.cpp S=Code/GameEngine/Source/Common/System/DataChunk.cpp N=Code/GameEngine/Source/GameLogic/ScriptEngine/DataChunkOutput.cpp,Code/GameEngine/Source/GameLogic/ScriptEngine/DataChunkOutputWriteNameKey.cpp
-0x00307D85,343,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,Z,Z=Code/GameEngine/Source/Common/System/DataChunk.cpp S=Code/GameEngine/Source/Common/System/DataChunk.cpp N=Code/GameEngine/Source/GameLogic/ScriptEngine/DataChunkOutput.cpp W=Code/GameEngine/Source/Common/System/DataChunk.cpp,Code/GameEngine/Source/GameLogic/ScriptEngine/DataChunkOutputWriteDict.cpp
+0x00307D29,92,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,Z,Z=Code/GameEngine/Source/Common/System/DataChunk.cpp S=Code/GameEngine/Source/Common/System/DataChunk.cpp N=Code/GameEngine/Source/GameLogic/ScriptEngine/DataChunkOutput.cpp,Code/GameEngine/Source/Common/System/DataChunk.cpp
+0x00307D85,343,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,Z,Z=Code/GameEngine/Source/Common/System/DataChunk.cpp S=Code/GameEngine/Source/Common/System/DataChunk.cpp N=Code/GameEngine/Source/GameLogic/ScriptEngine/DataChunkOutput.cpp W=Code/GameEngine/Source/Common/System/DataChunk.cpp,Code/GameEngine/Source/Common/System/DataChunk.cpp
 0x00307EDC,372,code,,,-,,Code/GameEngine/Source/Common/Rva00240000Load308050.cpp
 0x00308050,90,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,proposed,K,K=Rva00240000,Code/GameEngine/Source/Common/Rva00240000Load308050.cpp
 0x003080AA,25,code,,,-,,Code/GameEngine/Source/Common/Rva00142C80LeaIndexer.cpp
@@ -72593,9 +72593,9 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00779B6A,10,code,,,-,,Code/GameEngine/Source/Common/Rva00306910DrawableTemplateXfer.cpp
 0x00779B74,8,code,,,-,,Code/gen_small/uw_gen_013.cpp
 0x00779B7C,10,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Create/ObjectModuleCtor.cpp
-0x00779B86,11,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,P,P=0x00306FA5@FuncInfo0x0092232C,Code/GameEngine/Source/Common/System/DataChunkOutputDestructor.cpp
-0x00779B91,8,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,P,P=0x00306FA5@FuncInfo0x0092232C,Code/GameEngine/Source/Common/System/DataChunkOutputDestructor.cpp
-0x00779B99,10,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,P,P=0x00306FA5@FuncInfo0x0092232C,Code/GameEngine/Source/Common/System/DataChunkOutputDestructor.cpp
+0x00779B86,11,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,P,P=0x00306FA5@FuncInfo0x0092232C,Code/GameEngine/Source/Common/System/DataChunk.cpp
+0x00779B91,8,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,P,P=0x00306FA5@FuncInfo0x0092232C,Code/GameEngine/Source/Common/System/DataChunk.cpp
+0x00779B99,10,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,P,P=0x00306FA5@FuncInfo0x0092232C,Code/GameEngine/Source/Common/System/DataChunk.cpp
 0x00779BA3,11,code,,,-,,Code/GameEngine/Source/Common/System/DataChunkInput.cpp
 0x00779BAE,10,code,,,-,,Code/GameEngine/Source/Common/System/DataChunkInput.cpp
 0x00779BB8,11,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,P,P=0x0030739E@FuncInfo0x00922350,Code/GameEngine/Source/Common/System/DataChunkInput.cpp
@@ -72608,25 +72608,25 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00779C0A,8,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,P,P=0x003075A3@FuncInfo0x009223CC,Code/GameEngine/Source/Common/System/DataChunk.cpp
 0x00779C12,25,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,P,P=0x003075A3@FuncInfo0x009223CC,Code/GameEngine/Source/Common/System/DataChunk.cpp
 0x00779C2B,10,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,P,P=0x003075A3@FuncInfo0x009223CC,Code/GameEngine/Source/Common/System/DataChunk.cpp
-0x00779C35,11,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,P,P=0x00307680@FuncInfo0x009223F8,Code/GameEngine/Source/Common/System/DataChunkOutputDestructor.cpp
-0x00779C40,8,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,P,P=0x00307680@FuncInfo0x009223F8,Code/GameEngine/Source/Common/System/DataChunkOutputDestructor.cpp
-0x00779C48,10,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,P,P=0x00307680@FuncInfo0x009223F8,Code/GameEngine/Source/Common/System/DataChunkOutputDestructor.cpp
-0x00779C52,8,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,P,P=0x003077E0@FuncInfo0x0092241C,Code/GameEngine/Source/Common/System/DataChunkReadNameKey.cpp
-0x00779C5A,10,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,P,P=0x003077E0@FuncInfo0x0092241C,Code/GameEngine/Source/Common/System/DataChunkReadNameKey.cpp
-0x00779C64,8,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,P,P=0x00307833@FuncInfo0x00922460,Code/GameEngine/Source/Common/System/DataChunkReadDict.cpp
-0x00779C6C,8,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,P,P=0x00307833@FuncInfo0x00922460,Code/GameEngine/Source/Common/System/DataChunkReadDict.cpp
-0x00779C74,8,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,P,P=0x00307833@FuncInfo0x00922460,Code/GameEngine/Source/Common/System/DataChunkReadDict.cpp
-0x00779C7C,8,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,P,P=0x00307833@FuncInfo0x00922460,Code/GameEngine/Source/Common/System/DataChunkReadDict.cpp
-0x00779C84,25,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,P,P=0x00307833@FuncInfo0x00922460,Code/GameEngine/Source/Common/System/DataChunkReadDict.cpp
-0x00779C9D,10,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,P,P=0x00307833@FuncInfo0x00922460,Code/GameEngine/Source/Common/System/DataChunkReadDict.cpp
+0x00779C35,11,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,P,P=0x00307680@FuncInfo0x009223F8,Code/GameEngine/Source/Common/System/DataChunk.cpp
+0x00779C40,8,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,P,P=0x00307680@FuncInfo0x009223F8,Code/GameEngine/Source/Common/System/DataChunk.cpp
+0x00779C48,10,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,P,P=0x00307680@FuncInfo0x009223F8,Code/GameEngine/Source/Common/System/DataChunk.cpp
+0x00779C52,8,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,P,P=0x003077E0@FuncInfo0x0092241C,Code/GameEngine/Source/Common/System/DataChunk.cpp
+0x00779C5A,10,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,P,P=0x003077E0@FuncInfo0x0092241C,Code/GameEngine/Source/Common/System/DataChunk.cpp
+0x00779C64,8,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,P,P=0x00307833@FuncInfo0x00922460,Code/GameEngine/Source/Common/System/DataChunk.cpp
+0x00779C6C,8,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,P,P=0x00307833@FuncInfo0x00922460,Code/GameEngine/Source/Common/System/DataChunk.cpp
+0x00779C74,8,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,P,P=0x00307833@FuncInfo0x00922460,Code/GameEngine/Source/Common/System/DataChunk.cpp
+0x00779C7C,8,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,P,P=0x00307833@FuncInfo0x00922460,Code/GameEngine/Source/Common/System/DataChunk.cpp
+0x00779C84,25,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,P,P=0x00307833@FuncInfo0x00922460,Code/GameEngine/Source/Common/System/DataChunk.cpp
+0x00779C9D,10,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,P,P=0x00307833@FuncInfo0x00922460,Code/GameEngine/Source/Common/System/DataChunk.cpp
 0x00779CA7,8,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,P,P=0x00307AC0@FuncInfo0x009224A4,Code/GameEngine/Source/Common/System/DataChunkInput.cpp
 0x00779CAF,8,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,P,P=0x00307AC0@FuncInfo0x009224A4,Code/GameEngine/Source/Common/System/DataChunkInput.cpp
 0x00779CB7,8,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,P,P=0x00307AC0@FuncInfo0x009224A4,Code/GameEngine/Source/Common/System/DataChunkInput.cpp
 0x00779CBF,8,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,P,P=0x00307AC0@FuncInfo0x009224A4,Code/GameEngine/Source/Common/System/DataChunkInput.cpp
 0x00779CC7,8,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,P,P=0x00307AC0@FuncInfo0x009224A4,Code/GameEngine/Source/Common/System/DataChunkInput.cpp
 0x00779CCF,10,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,P,P=0x00307AC0@FuncInfo0x009224A4,Code/GameEngine/Source/Common/System/DataChunkInput.cpp
-0x00779CD9,8,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,P,P=0x00307D85@FuncInfo0x009224EC,Code/GameEngine/Source/GameLogic/ScriptEngine/DataChunkOutputWriteDict.cpp
-0x00779CE1,10,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,P,P=0x00307D85@FuncInfo0x009224EC,Code/GameEngine/Source/GameLogic/ScriptEngine/DataChunkOutputWriteDict.cpp
+0x00779CD9,8,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,P,P=0x00307D85@FuncInfo0x009224EC,Code/GameEngine/Source/Common/System/DataChunk.cpp
+0x00779CE1,10,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,P,P=0x00307D85@FuncInfo0x009224EC,Code/GameEngine/Source/Common/System/DataChunk.cpp
 0x00779CEB,8,code,,,-,,Code/GameEngine/Source/Common/Rva00240000Load308050.cpp
 0x00779CF3,8,code,,,-,,Code/GameEngine/Source/Common/Rva00240000Load308050.cpp
 0x00779CFB,8,code,,,-,,Code/GameEngine/Source/Common/Rva00240000Load308050.cpp

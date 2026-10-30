@@ -7,6 +7,46 @@ typedef unsigned short UnsignedShort;
 typedef bool Bool;
 #include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 #include "unicode_string.h"
+#include <stddef.h>
+extern "C" __declspec(dllimport) struct _iobuf *__cdecl _wfopen(const wchar_t *, const wchar_t *);
+extern "C" __declspec(dllimport) int __cdecl fclose(struct _iobuf *);
+extern "C" __declspec(dllimport) int __cdecl fseek(struct _iobuf *, long, int);
+extern "C" __declspec(dllimport) size_t __cdecl fread(void *, size_t, size_t, struct _iobuf *);
+extern "C" __declspec(dllimport) int __cdecl _wunlink(const wchar_t *);
+#define SEEK_SET 0
+extern "C" __declspec(dllimport) unsigned int __cdecl fwrite(
+	const void *chunkBuffer, unsigned int elementSize, unsigned int elementCount, struct _iobuf *file);
+typedef unsigned short WideChar;
+extern "C" __declspec(dllimport) unsigned int __cdecl fwrite(
+	const void *chunkBuffer, unsigned int elementSize, unsigned int elementCount, struct _iobuf *file) throw();
+// Zero Hour's Common/Errors.h (ERROR_BASE 0xDEAD0001 + 4). Retail throws the enum:
+// its ThrowInfo is __TI1?AW4ErrorCode@@ (0x00CFEEE4), not int's __TI1H (0x00CFE2C8).
+enum ErrorCode
+{
+	ERROR_CORRUPT_FILE_FORMAT = 0xDEAD0005
+};
+//
+// DataChunkOutput::writeNameKey, retail 0x00307D29 (true 92 bytes; the 10B
+// reloc row covers only the SEH-prologue head: mov eax,cookie + call
+// __EH_prolog, so that row size is a misbound).
+// ZH DataChunk.cpp writeNameKey ported with one BFME2 delta proven by the
+// retail bodies: keyToName returns a reference to the generator's interned
+// string (retail 0x00148C95 returns the bucket/global AsciiString pointer in
+// eax with ret 4: no hidden pointer, no copy on the return path), so the
+// declaration here returns const AsciiString &. kname copy-constructs from
+// it through AsciiString's inline forwarder, which routes directly to the
+// StringBase<char> copy body at 0x365F0 (the push eax + lea ecx + call shape
+// at all 61 keyToName call sites, cf. BFME1 ascii_string.h for the same
+// delegation evidence). Teardown inlines to the folded releaseBuffer at
+// 0x36410.
+
+struct BfmeStringData
+{
+	unsigned short m_refCount;
+	unsigned short m_numCharsAllocated;
+	unsigned short m_len;
+	unsigned short m_pad;
+};
 
 struct InputChunk
 {
@@ -25,9 +65,8 @@ class UnicodeString;
 
 class Mapping;
 
-class Mapping;
-class ChunkInputStream;
 class OutputStream;
+
 class AsciiString;
 
 class DataChunkTableOfContents
@@ -48,9 +87,10 @@ public:
 private:
     Mapping *findMapping(const AsciiString &name);
 };
+
 struct InputChunk;
+
 class Dict;
-class UnicodeString;
 
 enum NameKeyType
 {
@@ -116,16 +156,6 @@ private:
 	unsigned int m_id;			// +0x0C
 };
 
-// Zero Hour's ChunkInputStream: read is vslot 0, eof vslot 3.
-class ChunkInputStream
-{
-public:
-	virtual int read(void *buf, int numBytes) = 0;
-	virtual unsigned int tell(void) = 0;
-	virtual bool absoluteSeek(unsigned int pos) = 0;
-	virtual bool eof(void) = 0;
-};
-
 void operator delete(void *ptr);
 
 // Ordinary member-address datum emits the real method; no retail data
@@ -168,17 +198,13 @@ private:
 // byte writes a single byte with the same shape and a smaller size immediate.
 
 struct _iobuf;
+
 extern "C" __declspec(dllimport) unsigned int __cdecl fwrite(
 	const void *ptr, unsigned int size, unsigned int count, struct _iobuf *file);
 
 typedef unsigned char WriteByteValue;
 
-struct _iobuf;
-class OutputStream;
 class OutputChunk;
-class AsciiString;
-class UnicodeString;
-class Dict;
 
 class DataChunkOutput
 {
@@ -199,6 +225,7 @@ private:
     DataChunkTableOfContents m_contents;
     OutputChunk *m_chunkStack;
 };
+
 // Open-BFME: Q1Forwardee0000871A::handle, retail 0x00102610, 37 bytes.
 //
 // An intrusive unlink and a delete, on the node the argument names -- `this' is
@@ -429,6 +456,75 @@ private:
 // AsciiString char ctor at 0x00037BA0; getName row 0x003070F1.
 
 typedef unsigned int UnsignedInt;
+
+class GlobalData
+{
+public:
+    UnicodeString rva002360FC() const;
+};
+
+extern GlobalData *TheWritableGlobalData;
+
+class OutputStream
+{
+public:
+    virtual int write(const void *data, int count) = 0;
+};
+
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const AsciiString &nameString);
+	const AsciiString &keyToName(NameKeyType key);
+};
+
+extern NameKeyGenerator *TheNameKeyGenerator;
+
+// Zero Hour's ChunkInputStream: read is vslot 0, eof vslot 3.
+class ChunkInputStream
+{
+public:
+	virtual int read(void *buf, int numBytes) = 0;
+	virtual unsigned int tell(void) = 0;
+	virtual bool absoluteSeek(unsigned int pos) = 0;
+	virtual bool eof(void) = 0;
+};
+
+class Dict
+{
+public:
+	enum DataType { DICT_NONE = -1, DICT_BOOL, DICT_INT, DICT_REAL, DICT_ASCIISTRING, DICT_UNICODESTRING };
+private:
+	struct DictPairData { unsigned short m_refCount; unsigned short m_numPairsAllocated; unsigned short m_numPairsUsed; };
+public:
+	Dict(int numPairsToPreAllocate);
+	Dict(const Dict &other) : m_data(other.m_data)
+	{
+	    if (m_data)
+	        ++m_data->m_refCount;
+	}
+	~Dict() { releaseData(); }
+	void setBool(int key, bool value);
+	void setInt(int key, int value);
+	void setReal(int key, float value);
+	void setAsciiString(int key, const AsciiString &value);
+	void setUnicodeString(int key, const UnicodeString &value);
+private:
+	void releaseData();
+public:
+	int getPairCount() const { return m_data ? m_data->m_numPairsUsed : 0; }
+	NameKeyType getNthKey(int n) const;
+	DataType getNthType(int n) const;
+	bool getNthBool(int n) const;
+	int getNthInt(int n) const;
+	float getNthReal(int n) const;
+	AsciiString getNthAsciiString(int n) const;
+	UnicodeString getNthUnicodeString(int n) const;
+private:
+	DictPairData *m_data; // +0x00
+};
+
+// ---- from Code/GameEngine/Source/Common/System/DataChunk.cpp
 
 // ---- from Code/GameEngine/Source/Common/System/DataChunk.cpp
 
@@ -797,6 +893,18 @@ UnicodeString DataChunkInput::readUnicodeString(void)
     return theString;
 }
 
+// ---- from Code/GameEngine/Source/Common/System/DataChunkTableOfContentsGetName.cpp
+
+AsciiString DataChunkTableOfContents::getName(UnsignedInt id)
+{
+	for (Mapping *mapping = m_list; mapping; mapping = mapping->m_next)
+	{
+		if (mapping->m_id == id)
+			return mapping->m_name;
+	}
+	return AsciiString::TheEmptyString;
+}
+
 // tu-skeleton: 0x00306C42 7B ?slot04@Rva0023DB34@@UAEHXZ -- matched in Code/GameEngine/Source/Common/Disp8BinarySubGetters.cpp (not merged yet)
 
 // tu-skeleton: 0x00306C49 15B ?slot08@Rva0023DB34@@UAE_NH@Z -- matched in Code/GameEngine/Source/Common/VtableSlotBodiesR3.cpp (not merged yet)
@@ -829,22 +937,63 @@ UnicodeString DataChunkInput::readUnicodeString(void)
 
 // tu-skeleton: 0x00306F53 82B ?closeDataChunk@DataChunkInput@@IAEXXZ -- matched in Code/GameEngine/Source/Common/System/DataChunkInput.cpp (not merged yet)
 
-// tu-skeleton: 0x00306FA5 142B ??0DataChunkOutput@@QAE@PAVOutputStream@@@Z -- matched in Code/GameEngine/Source/Common/System/DataChunkOutputDestructor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/System/DataChunkOutputDestructor.cpp
 
-// tu-skeleton: 0x00307033 91B ?writeAsciiString@DataChunkOutput@@QAEXABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/DataChunkOutput_writeAsciiString.cpp (not merged yet)
+// Donor: Open-BFME-1 34f59164f6d1efd413c5fd37f4894ec834c3c0fe,
+// game/GameEngine/Source/Common/System/DataChunkOutputDestructor.cpp;
+// Zero Hour DataChunk.cpp supplies the output teardown and 256-byte copy loop.
+// Target 00307680..00307779 and WB BD8650 prove stream +0, FILE +4,
+// table +8, wide path getter 2360FC and the added _wunlink after closing.
+// UnicodeString and its StringBase view use the shared BFME2 headers.
 
-// tu-skeleton: 0x0030708E 99B ?writeUnicodeString@DataChunkOutput@@QAEXVUnicodeString@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/DataChunkOutput_writeUnicodeString.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/System/DataChunkTableOfContentsGetName.cpp
-
-AsciiString DataChunkTableOfContents::getName(UnsignedInt id)
+// Target 00306FA5..00307033 (RET4): Zero Hour's DataChunkOutput ctor with
+// BFME 2's wide user-data path (getter 2360FC) and _wfopen of the same
+// _tmpChunk.dat the destructor reads back.
+DataChunkOutput::DataChunkOutput(OutputStream *pOut) :
+    m_pOut(pOut)
 {
-	for (Mapping *mapping = m_list; mapping; mapping = mapping->m_next)
-	{
-		if (mapping->m_id == id)
-			return mapping->m_name;
-	}
-	return AsciiString::TheEmptyString;
+    UnicodeString tmpFileName = TheWritableGlobalData->rva002360FC();
+    tmpFileName.concat(L"_tmpChunk.dat");
+    file = ::_wfopen(tmpFileName.str(), L"wb");
+    m_chunkStack = 0;
+}
+
+DataChunkOutput::~DataChunkOutput()
+{
+    m_contents.write(*m_pOut);
+    ::fclose(file);
+    UnicodeString tmpFileName = TheWritableGlobalData->rva002360FC();
+    tmpFileName.concat(L"_tmpChunk.dat");
+    file = ::_wfopen(tmpFileName.str(), L"rb");
+    ::fseek(file, 0, SEEK_SET);
+    char buffer[256];
+    int len = 256;
+    while (len == 256)
+    {
+        len = ::fread(buffer, 1, 256, file);
+        m_pOut->write(buffer, len);
+    }
+    ::fclose(file);
+    ::_wunlink(tmpFileName.str());
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/DataChunkOutput_writeAsciiString.cpp
+
+// ?writeAsciiString@DataChunkOutput@@QAEXABVAsciiString@@@Z
+void DataChunkOutput::writeAsciiString(const AsciiString &textValue) throw()
+{
+	UnsignedShort textLength = textValue.getLength();
+	::fwrite((const char *)&textLength, sizeof(UnsignedShort), 1, file);
+	::fwrite(textValue.str(), textLength, 1, file);
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/DataChunkOutput_writeUnicodeString.cpp
+
+void DataChunkOutput::writeUnicodeString(UnicodeString textValue)
+{
+	UnsignedShort textLength = (UnsignedShort)textValue.getLength();
+	::fwrite((const char *)&textLength, sizeof(UnsignedShort), 1, file);
+	::fwrite(textValue.str(), textLength * sizeof(WideChar), 1, file);
 }
 
 // tu-skeleton: 0x00307133 28B ??_GRva0030714F@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/AsciiStringFoldDeleters.cpp (not merged yet)
@@ -867,13 +1016,65 @@ AsciiString DataChunkTableOfContents::getName(UnsignedInt id)
 
 // tu-skeleton: 0x00307641 63B ??0?$_Vector_base@DV?$allocator@D@_STL@@@_STL@@QAE@IABV?$allocator@D@1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp (not merged yet)
 
-// tu-skeleton: 0x00307680 249B ??1DataChunkOutput@@QAE@XZ -- matched in Code/GameEngine/Source/Common/System/DataChunkOutputDestructor.cpp (not merged yet)
-
 // tu-skeleton: 0x00307779 103B ?registerParser@DataChunkInput@@QAEPAVUserParser@@ABVAsciiString@@0P6A_NAAV1@PAUDataChunkInfo@@PAX@Z3@Z -- matched in Code/GameEngine/Source/Common/System/DataChunkInput.cpp (not merged yet)
 
-// tu-skeleton: 0x003077E0 83B ?readNameKey@DataChunkInput@@QAE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/Common/System/DataChunkReadNameKey.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/System/DataChunkReadNameKey.cpp
 
-// tu-skeleton: 0x00307833 397B ?readDict@DataChunkInput@@QAE?AVDict@@XZ -- matched in Code/GameEngine/Source/Common/System/DataChunkReadDict.cpp (not merged yet)
+NameKeyType DataChunkInput::readNameKey(void)
+{
+	Int keyAndType = readInt();
+	keyAndType >>= 8;
+	AsciiString kname = m_contents.getName((UnsignedInt)keyAndType);
+	NameKeyType k = TheNameKeyGenerator->nameToKey(kname);
+	return k;
+}
+
+// ---- from Code/GameEngine/Source/Common/System/DataChunkReadDict.cpp
+
+Dict DataChunkInput::readDict(void)
+{
+    UnsignedShort len;
+    m_file->read(&len, sizeof(UnsignedShort));
+    decrementDataLeft(sizeof(UnsignedShort));
+
+    Dict d(len);
+
+    for (int i = 0; i < len; i++)
+    {
+        Int keyAndType = readInt();
+        Int t = keyAndType & 0xff;
+        keyAndType >>= 8;
+
+        AsciiString kname = m_contents.getName((UnsignedInt)keyAndType);
+        NameKeyType k = TheNameKeyGenerator->nameToKey(kname);
+
+        switch (t)
+        {
+            case Dict::DICT_BOOL:
+                d.setBool((int)k, readByte() ? true : false);
+                break;
+            case Dict::DICT_INT:
+                d.setInt((int)k, readInt());
+                break;
+            case Dict::DICT_REAL:
+                d.setReal((int)k, readReal());
+                break;
+            case Dict::DICT_ASCIISTRING:
+                d.setAsciiString((int)k, readAsciiString());
+                break;
+            case Dict::DICT_UNICODESTRING:
+                d.setUnicodeString((int)k, readUnicodeString());
+                break;
+            default:
+            {
+                throw ERROR_CORRUPT_FILE_FORMAT;
+                break;
+            }
+        }
+    }
+
+    return d;
+}
 
 // tu-skeleton: 0x003079C1 44B ?swap@?$vector@DV?$allocator@D@_STL@@@_STL@@QAEXAAV12@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp (not merged yet)
 
@@ -885,15 +1086,58 @@ AsciiString DataChunkTableOfContents::getName(UnsignedInt id)
 
 // tu-skeleton: 0x00307C76 179B ?openDataChunk@DataChunkOutput@@QAEXPADG@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ConditionWriteDataChunk.cpp (not merged yet)
 
-// tu-skeleton: 0x00307D29 92B ?writeNameKey@DataChunkOutput@@QAEXW4NameKeyType@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/DataChunkOutputWriteNameKey.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/DataChunkOutputWriteNameKey.cpp
 
-// tu-skeleton: 0x00307D85 343B ?writeDict@DataChunkOutput@@QAEXABVDict@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/DataChunkOutputWriteDict.cpp (not merged yet)
+// ?writeNameKey@DataChunkOutput@@QAEXW4NameKeyType@@@Z
+void DataChunkOutput::writeNameKey(NameKeyType key)
+{
+	AsciiString kname = TheNameKeyGenerator->keyToName(key);
+	int keyAndType = m_contents.allocateID(kname);
+	keyAndType <<= 8;
+	Dict::DataType t = Dict::DICT_ASCIISTRING;
+	keyAndType |= (t & 0xff);
+	writeInt(keyAndType);
+}
 
-// tu-skeleton: 0x00779B86 11B ?rva00779b86@@YAXXZ -- matched in Code/GameEngine/Source/Common/System/DataChunkOutputDestructor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/DataChunkOutputWriteDict.cpp
 
-// tu-skeleton: 0x00779B91 8B Unwind@00b79b91 -- matched in Code/GameEngine/Source/Common/System/DataChunkOutputDestructor.cpp (not merged yet)
+void DataChunkOutput::writeDict(const Dict &dict)
+{
+	UnsignedShort len = dict.getPairCount();
+	::fwrite((const char *)&len, sizeof(UnsignedShort), 1, file);
+	for (int i = 0; i < len; i++)
+	{
+		NameKeyType k = dict.getNthKey(i);
+		AsciiString kname = TheNameKeyGenerator->keyToName(k);
 
-// tu-skeleton: 0x00779B99 10B __ehhandler$??0DataChunkOutput@@QAE@PAVOutputStream@@@Z -- matched in Code/GameEngine/Source/Common/System/DataChunkOutputDestructor.cpp (not merged yet)
+		Int keyAndType = m_contents.allocateID(kname);
+		keyAndType <<= 8;
+		Dict::DataType t = dict.getNthType(i);
+		keyAndType |= (t & 0xff);
+		writeInt(keyAndType);
+
+		switch (t)
+		{
+			case Dict::DICT_BOOL:
+				writeByte(dict.getNthBool(i) ? 1 : 0);
+				break;
+			case Dict::DICT_INT:
+				writeInt(dict.getNthInt(i));
+				break;
+			case Dict::DICT_REAL:
+				writeReal(dict.getNthReal(i));
+				break;
+			case Dict::DICT_ASCIISTRING:
+				writeAsciiString(dict.getNthAsciiString(i));
+				break;
+			case Dict::DICT_UNICODESTRING:
+				writeUnicodeString(dict.getNthUnicodeString(i));
+				break;
+			default:
+				break;
+		}
+	}
+}
 
 // tu-skeleton: 0x00779BB8 11B Unwind@00b79bb8 -- matched in Code/GameEngine/Source/Common/System/DataChunkInput.cpp (not merged yet)
 
@@ -902,28 +1146,6 @@ AsciiString DataChunkTableOfContents::getName(UnsignedInt id)
 // tu-skeleton: 0x00779BCD 8B Unwind@00b79bcd -- matched in Code/GameEngine/Source/Common/System/DataChunkInput.cpp (not merged yet)
 
 // tu-skeleton: 0x00779BD5 10B __ehhandler$??1DataChunkInfo@@QAE@XZ -- matched in Code/GameEngine/Source/Common/System/DataChunkInput.cpp (not merged yet)
-
-// tu-skeleton: 0x00779C35 11B ?rva00779c35@@YAXXZ -- matched in Code/GameEngine/Source/Common/System/DataChunkOutputDestructor.cpp (not merged yet)
-
-// tu-skeleton: 0x00779C40 8B Unwind@00b79c40 -- matched in Code/GameEngine/Source/Common/System/DataChunkOutputDestructor.cpp (not merged yet)
-
-// tu-skeleton: 0x00779C48 10B __ehhandler$??1DataChunkOutput@@QAE@XZ -- matched in Code/GameEngine/Source/Common/System/DataChunkOutputDestructor.cpp (not merged yet)
-
-// tu-skeleton: 0x00779C52 8B Unwind@00b79c52 -- matched in Code/GameEngine/Source/Common/System/DataChunkReadNameKey.cpp (not merged yet)
-
-// tu-skeleton: 0x00779C5A 10B __ehhandler$?readNameKey@DataChunkInput@@QAE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/Common/System/DataChunkReadNameKey.cpp (not merged yet)
-
-// tu-skeleton: 0x00779C64 8B Unwind@00b79c64 -- matched in Code/GameEngine/Source/Common/System/DataChunkReadDict.cpp (not merged yet)
-
-// tu-skeleton: 0x00779C6C 8B Unwind@00b79c6c -- matched in Code/GameEngine/Source/Common/System/DataChunkReadDict.cpp (not merged yet)
-
-// tu-skeleton: 0x00779C74 8B Unwind@00b79c74 -- matched in Code/GameEngine/Source/Common/System/DataChunkReadDict.cpp (not merged yet)
-
-// tu-skeleton: 0x00779C7C 8B Unwind@00b79c7c -- matched in Code/GameEngine/Source/Common/System/DataChunkReadDict.cpp (not merged yet)
-
-// tu-skeleton: 0x00779C84 25B uw_00779c84 -- matched in Code/GameEngine/Source/Common/System/DataChunkReadDict.cpp (not merged yet)
-
-// tu-skeleton: 0x00779C9D 10B __ehhandler$?readDict@DataChunkInput@@QAE?AVDict@@XZ -- matched in Code/GameEngine/Source/Common/System/DataChunkReadDict.cpp (not merged yet)
 
 // tu-skeleton: 0x00779CA7 8B Unwind@00b79ca7 -- matched in Code/GameEngine/Source/Common/System/DataChunkInput.cpp (not merged yet)
 
@@ -936,7 +1158,3 @@ AsciiString DataChunkTableOfContents::getName(UnsignedInt id)
 // tu-skeleton: 0x00779CC7 8B Unwind@00b79cc7 -- matched in Code/GameEngine/Source/Common/System/DataChunkInput.cpp (not merged yet)
 
 // tu-skeleton: 0x00779CCF 10B __ehhandler$?parse@DataChunkInput@@QAE_NPAX@Z -- matched in Code/GameEngine/Source/Common/System/DataChunkInput.cpp (not merged yet)
-
-// tu-skeleton: 0x00779CD9 8B $L1534 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/DataChunkOutputWriteDict.cpp (not merged yet)
-
-// tu-skeleton: 0x00779CE1 10B __ehhandler$?writeDict@DataChunkOutput@@QAEXABVDict@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/DataChunkOutputWriteDict.cpp (not merged yet)
