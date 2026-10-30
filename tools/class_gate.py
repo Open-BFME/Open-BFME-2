@@ -15,6 +15,12 @@ declaration) is refused. Units that already carry a private copy are the
 reconciliation backlog (tools/class_views.py --class NAME), not a reason to
 refuse unrelated edits to them or a pure move of them.
 
+A body that a unit deleted in the same commit carried verbatim (after comment
+and whitespace normalisation) is moved, not introduced: a TU merge
+(tools/tu_skeleton.py --merge) composes one unit from several deleted donors,
+which git rarely rates as a rename. Each deleted unit's body credits at most
+one staged unit, and an edited body gets no credit.
+
 A unit that genuinely needs its own layout for a registered class (a
 deliberately different codegen view, proved by its bytes) can say so on any
 line:
@@ -81,12 +87,36 @@ def staged_renames():
     return renames
 
 
-def introduced(path, text, canon, renamed_from=None):
+def staged_deletions(renames):
+    """{(class name, normalised body): [HEAD path, ...]} for gated units the index deletes.
+
+    --no-renames lists every vanished path as D; a path a staged rename already
+    credits is skipped so one body is never credited twice. Any git failure
+    gives {}: no credit.
+    """
+    result = subprocess.run(["git", "diff", "--cached", "--no-renames", "--name-only", "-z",
+                             "--diff-filter=D", "HEAD", "--", "Code/"], cwd=ROOT, capture_output=True)
+    if result.returncode != 0:
+        return {}
+    credited = set(renames.values())
+    bodies = {}
+    for old in result.stdout.decode("utf-8", "surrogateescape").split("\0"):
+        if not old or not gated(old) or old in credited:
+            continue
+        before = git_text(f"HEAD:{old}")
+        if before:
+            for item in class_views.class_bodies(before).items():
+                bodies.setdefault(item, []).append(old)
+    return bodies
+
+
+def introduced(path, text, canon, renamed_from=None, moved=None):
     """Registered classes `text` declares a body for that HEAD's copy of `path` did not.
 
     `renamed_from` is the HEAD path the index moves to `path`: its bodies are
     the unit's own, not new ones (a rename plus an edit equals a pure rename
-    then the in-place edit, both admitted).
+    then the in-place edit, both admitted). `moved` is staged_deletions()'s
+    pool: a body found there verbatim is consumed from it and credited.
     """
     now = set(class_views.class_bodies(text)) & set(canon)
     if not now:
@@ -103,7 +133,15 @@ def introduced(path, text, canon, renamed_from=None):
         if before:
             had |= set(class_views.class_bodies(before))
     allowed = set(ALLOW.findall(text))
-    return sorted(now - had - allowed)
+    fresh = now - had - allowed
+    if moved:
+        bodies = class_views.class_bodies(text)
+        for name in sorted(fresh):
+            donors = moved.get((name, bodies[name]))
+            if donors:
+                donors.pop()
+                fresh.discard(name)
+    return sorted(fresh)
 
 
 def main(argv=None):
@@ -116,8 +154,10 @@ def main(argv=None):
         return 0
     if args.staged:
         renames = staged_renames()
+        moved = staged_deletions(renames)
         checks = [(p, git_text(f":{p}"), renames.get(p)) for p in staged_sources()]
     else:
+        moved = None
         checks = [(p, (ROOT / p).read_text(encoding="latin-1"), None) for p in args.files]
     bad = 0
     for path, text, renamed_from in checks:
@@ -126,7 +166,7 @@ def main(argv=None):
             print(f"  {path}: staged content unreadable; refusing rather than skipping it", file=sys.stderr)
             bad = 1
             continue
-        for name in introduced(path, text, canon, renamed_from):
+        for name in introduced(path, text, canon, renamed_from, moved):
             print(f"  {path}: declares its own `{name}`; include {canon[name]} instead "
                   f"(or `// class-gate: allow {name} <reason>` for a proved codegen view)", file=sys.stderr)
             bad = 1

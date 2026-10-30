@@ -1,7 +1,8 @@
 """class_gate --staged against real throwaway git repositories.
 
 A staged unit is judged against HEAD's copy of its own path or, for a git
-rename (R, never a copy), of the path it was moved from. Each case builds a
+rename (R, never a copy), of the path it was moved from; a body a deleted unit
+carried verbatim is credited to one staged unit (a TU merge's move). Each case builds a
 repository with `GameLogic` and `Widget` registered as shared-header classes
 and runs the real gate against its index.
 """
@@ -108,13 +109,24 @@ def test_recreated_old_path_does_not_double_credit(repo, capsys):
     assert rc == 1 and NEW in err and OLD not in err
 
 
+FRESH = "".join(f"int Fresh::f{i}() {{ return {i * 7919}; }}\n" for i in range(40))
+
+
 def test_rename_below_the_similarity_threshold_is_refused(repo, capsys):
     repo.git("mv", OLD, NEW)
-    repo.write(NEW, LOGIC + "".join(f"int Fresh::f{i}() {{ return {i * 7919}; }}\n" for i in range(40)))
+    repo.write(NEW, LOGIC.replace("m_frame;", "m_frame;\n    int m_new;") + FRESH)
     repo.stage(NEW)
     assert class_gate.staged_renames() == {}
     rc, err = repo.gate(capsys)
     assert rc == 1 and "`GameLogic`" in err
+
+
+def test_rename_below_the_threshold_keeping_the_body_verbatim_is_a_move(repo, capsys):
+    repo.git("mv", OLD, NEW)
+    repo.write(NEW, LOGIC + FRESH)
+    repo.stage(NEW)
+    assert class_gate.staged_renames() == {}
+    assert repo.gate(capsys) == (0, "")
 
 
 @pytest.mark.parametrize("origin", ["Code/gen_small/x.cpp", "reference/open-bfme-1/x.cpp", "Code/Game/old.h"])
@@ -203,3 +215,56 @@ def test_file_mode_is_unchanged(repo, capsys):
     repo.write(NEW, LOGIC + BODY)
     assert class_gate.main([NEW]) == 1
     assert "`GameLogic`" in capsys.readouterr().err
+
+
+SECOND = "Code/Game/Second.cpp"
+FILLER = "".join(f"// tu-skeleton: 0x{i:08X} placeholder for a row not merged yet\n" for i in range(60))
+
+
+@pytest.fixture
+def donors(repo):
+    repo.write(SECOND, "int second() { return 2; }\n")
+    repo.commit(SECOND)
+    return repo
+
+
+def merge_into(repo, text, *deleted):
+    for path in deleted:
+        repo.git("rm", "-q", "--", path)
+    repo.write(NEW, text)
+    repo.stage(NEW)
+
+
+def test_tu_merge_moving_a_deleted_donors_body_passes(donors, capsys):
+    merge_into(donors, FILLER + LOGIC + "// another donor\n" + BODY + "int second() { return 2; }\n", OLD, SECOND)
+    assert class_gate.staged_renames() == {}
+    assert donors.gate(capsys) == (0, "")
+
+
+def test_tu_merge_with_an_edited_body_is_refused(donors, capsys):
+    merge_into(donors, FILLER + LOGIC.replace("m_frame;", "m_frame;\n    int m_extra;") + BODY, OLD, SECOND)
+    rc, err = donors.gate(capsys)
+    assert rc == 1 and "`GameLogic`" in err
+
+
+def test_deleted_body_credits_only_one_new_unit(donors, capsys):
+    merge_into(donors, FILLER + LOGIC + BODY, OLD)
+    donors.write("Code/Game/Third.cpp", FILLER + LOGIC + "int third() { return 3; }\n")
+    donors.stage("Code/Game/Third.cpp")
+    rc, err = donors.gate(capsys)
+    assert rc == 1 and err.count("`GameLogic`") == 1
+
+
+def test_deleted_body_is_no_credit_for_another_class(donors, capsys):
+    merge_into(donors, FILLER + WIDGET + BODY, OLD)
+    rc, err = donors.gate(capsys)
+    assert rc == 1 and "`Widget`" in err
+
+
+def test_rename_credited_body_is_not_credited_again(repo, capsys):
+    repo.git("mv", OLD, NEW)
+    repo.write("Code/Game/Third.cpp", FILLER + LOGIC + "int third() { return 3; }\n")
+    repo.stage("Code/Game/Third.cpp")
+    assert class_gate.staged_renames() == {NEW: OLD}
+    rc, err = repo.gate(capsys)
+    assert rc == 1 and "Third.cpp" in err and NEW not in err
