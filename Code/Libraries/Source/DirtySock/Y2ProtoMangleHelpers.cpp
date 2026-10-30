@@ -1282,7 +1282,7 @@ struct Rva0130AB60Map
 };
 
 // g_Rva0130AB60: matched references place it at VA 0xe0a578 (retail .data initial value 0).
-void * g_Rva0130AB60 = 0;
+extern "C" void * g_Rva0130AB60 = 0;	// C linkage: Y4DirtySockSocketWrappers.c (C) shares it
 // g_Rva012C3C60Message: matched references place it at VA 0xdd83b8; retail contents, sized to the
 // 0x1c-byte gap before the next known global there.
 char g_Rva012C3C60Message[28] = {

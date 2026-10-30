@@ -15,7 +15,7 @@
 // restore it, which is what makes this a scoped override rather than a setter.
 // The old value goes through a one-byte local rather than staying in a register,
 // which is why the frame exists at all.
-extern char g_Rva012C391CSeparator;
+extern "C" char g_Rva012C391CSeparator;
 // g_Rva012C391CSeparator: VA 0xdd8074 (retail .data initial value 10).
 char g_Rva012C391CSeparator = 10;
 
@@ -1313,7 +1313,8 @@ int Rva007ED850( char *record, int size, const char *name,
 }
 
 // g_Rva0112A310Class: matched references place it at VA 0xce1b60 (.rdata); retail bytes.
-unsigned char g_Rva0112A310Class[256] = {
+// C linkage, like the separator: Y4TextToValue.c (C) reads both under these names.
+extern "C" unsigned char g_Rva0112A310Class[256] = {
 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -1539,7 +1540,7 @@ char g_Rva0130A5A4Names[8];
 // The configurable separator, also used by the record engine in Y4TextToValue.c
 // -- one byte of writable data shared across the seam between the two halves of
 // this module.
-extern char g_Rva012C391CSeparator;
+extern "C" char g_Rva012C391CSeparator;
 
 // 0x007EE280 BUILDS A RECORD FROM A FORMAT STRING AND VARARGS, dispatching
 // each directive to the typed writer for it.  It is the top of this module:

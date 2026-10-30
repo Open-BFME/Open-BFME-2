@@ -1391,8 +1391,6 @@ int Rva008187E0( struct Rva00816BF0Comm *comm,
 	comm->m_depth = comm->m_depth - 1;
 	return 1;
 }
-// _g_Rva0130AD08Count: the global at VA 0xe0a720 is ?g_Rva0130AD08Count@@3HA.
-#pragma comment(linker, "/alternatename:_g_Rva0130AD08Count=?g_Rva0130AD08Count@@3HA")
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.

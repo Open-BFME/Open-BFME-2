@@ -56,7 +56,7 @@ struct CommUdpLockRegion
 };
 
 extern "C" CommUdpLockRegion g_Rva0130AF38Lock;
-extern int g_Rva0130AD08Count;
+extern "C" int g_Rva0130AD08Count;	// C linkage: Y4CommTransportLife.c (C) shares it
 
 int Rva007FE780Printf(const char *format, ...);
 // The C++ printf spelling and rowed C printer both resolve to retail VA 0x0066AC50.

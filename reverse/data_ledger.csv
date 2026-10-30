@@ -14687,7 +14687,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x008E1860,256,.rdata,global,_g_Rva0112A010HexHigh,Code/Libraries/Source/DirtySock/Y4TextToValue.c,owned,,1,6
 0x008E1960,256,.rdata,global,_g_Rva0112A110Hex,Code/Libraries/Source/DirtySock/Y4CivilTime.c,owned,,1,8
 0x008E1A60,256,.rdata,global,_g_Rva0112A210Fold,,unowned,?g_Rva0112A210Lower@@3QBEB;_g_Rva0112A210Fold,1,4
-0x008E1B60,256,.rdata,global,?g_Rva0112A310Class@@3PAEA,Code/Libraries/Source/DirtySock/Y2Rva007EBAE0Module.cpp,provisional,?g_Rva0112A310Class@@3PAEA;_g_Rva0112A310Class,1,4
+0x008E1B60,256,.rdata,global,_g_Rva0112A310Class,Code/Libraries/Source/DirtySock/Y2Rva007EBAE0Module.cpp,owned,,1,4
 0x008E1C60,32,.rdata,global,?g_Rva0112A410FlagLetters@@3PADA,Code/Libraries/Source/DirtySock/Y2Rva007EBAE0Module.cpp,owned,,1,1
 0x008E1C80,256,.rdata,global,?GenCharToBit0012A430@@3PACA,Code/GameEngine/Source/Common/ParseAlphaNumericBitMask_Thunk.cpp,owned,,1,1
 0x008E1D80,96,.rdata,global,_g_Rva0112A530MonthDays,Code/Libraries/Source/DirtySock/Y4CivilTime.c,owned,,1,1
@@ -17569,7 +17569,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009D7F18,48,.data,global,?g_bfmeArgDXE@@3PAEA,Code/GameEngine/Source/Common/BfmeConv793.cpp,owned,,1,1
 0x009D7F48,8,.data,global,?g_Va00DD7F48@@3PBDB,,unowned,,0,20
 0x009D7F50,292,.data,global,?g_Rva012C37F8@@3PAPAURva007E9A50Entry@@A,,unowned,,0,2
-0x009D8074,16,.data,global,?g_Rva012C391CSeparator@@3DA,Code/Libraries/Source/DirtySock/Y2Rva007EBAE0Module.cpp,provisional,?g_Rva012C391CSeparator@@3DA;_g_Rva012C391CSeparator,1,11
+0x009D8074,16,.data,global,_g_Rva012C391CSeparator,Code/Libraries/Source/DirtySock/Y2Rva007EBAE0Module.cpp,owned,,1,11
 0x009D8084,8,.data,global,_g_Rva012C392CSuffix,Code/Libraries/Source/DirtySock/Y4TextToValue.c,owned,,1,1
 0x009D808C,4,.data,global,?g_Rva012C3934DefaultKey@@3PAEA,Code/Libraries/Source/DirtySock/Y2Rva007EBAE0Module.cpp,owned,,1,1
 0x009D8090,24,.data,global,?g_Rva012C3938Format@@3PADA,Code/Libraries/Source/DirtySock/Y2Rva007EBAE0Module.cpp,owned,,1,1
@@ -21467,7 +21467,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A0A56C,4,.data,global,_g_Rva0130AB54Version,Code/Libraries/Source/DirtySock/Y4DirtySockSocketWrappers.c,owned,,1,2
 0x00A0A570,4,.data,global,_g_Rva0130AB58Head,Code/Libraries/Source/DirtySock/Y4DirtySockSocketWrappers.c,owned,,1,10
 0x00A0A574,4,.data,global,_g_Rva0130AB5CKillList,Code/Libraries/Source/DirtySock/Y4DirtySockSocketWrappers.c,owned,,1,4
-0x00A0A578,4,.data,global,?g_Rva0130AB60@@3PAXA,Code/Libraries/Source/DirtySock/Y2ProtoMangleHelpers.cpp,provisional,?g_Rva0130AB60@@3PAXA;_g_Rva0130AB60,1,3
+0x00A0A578,4,.data,global,_g_Rva0130AB60,Code/Libraries/Source/DirtySock/Y2ProtoMangleHelpers.cpp,owned,,1,3
 0x00A0A57C,4,.data,global,_g_Rva0130AB64,,unowned,,0,2
 0x00A0A580,40,.data,global,_g_Rva0130AB68Default,Code/Libraries/Source/DirtySock/Y4DirtySockSocketWrappers.c,owned,,1,5
 0x00A0A5A8,256,.data,global,_g_Rva0130AB90,,unowned,,0,14
@@ -21487,7 +21487,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A0A712,2,.data,global,_g_Rva0130ACFAFilter,,unowned,,0,1
 0x00A0A714,4,.data,global,_g_Rva0130ACFCRefCount,Code/Libraries/Source/DirtySock/Y4CommTable.c,owned,,1,7
 0x00A0A718,8,.data,global,_g_Rva0130AD00Module,Code/Libraries/Source/DirtySock/Y4CommTable.c,owned,,1,4
-0x00A0A720,560,.data,global,?g_Rva0130AD08Count@@3HA,Code/Libraries/Source/DirtySock/commudp.cpp,provisional,?g_Rva0130AD08Count@@3HA;_g_Rva0130AD08Count,1,6
+0x00A0A720,560,.data,global,_g_Rva0130AD08Count,Code/Libraries/Source/DirtySock/commudp.cpp,owned,,1,49
 0x00A0A950,592,.data,global,_g_Rva0130AF38Lock,,unowned,?g_Rva0130AF38Lock@@3PADA;_g_Rva0130AF38Lock,0,12
 0x00A0ABA0,4,.data,global,_g_Rva0130B188List,Code/Libraries/Source/DirtySock/Y4CommTransportLife.c,owned,,1,7
 0x00A0ABA4,4,.data,global,?g_00E0ABA4@@3DA,Code/Libraries/Source/DirtySock/Rva0081B010CommWorker.cpp,owned,,1,1

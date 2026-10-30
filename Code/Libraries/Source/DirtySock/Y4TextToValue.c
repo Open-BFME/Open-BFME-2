@@ -193,9 +193,8 @@ int Rva007EFD00( const char *a, const char *b )
  * among the literals, so both are configurable at run time.  The separator is
  * a plain char -- read with movsx where the buffer's own bytes are read with
  * movzx, which is what types the two differently. */
-// _g_Rva012C391CSeparator: the global at this VA is ?g_Rva012C391CSeparator@@3DA; this name is an alias for it.
+/* g_Rva012C391CSeparator: Y2Rva007EBAE0Module.cpp defines it with C linkage. */
 extern char g_Rva012C391CSeparator;
-#pragma comment(linker, "/alternatename:_g_Rva012C391CSeparator=?g_Rva012C391CSeparator@@3DA")
 /* g_Rva012C392CSuffix: matched references place it at VA 0xdd8084 (.data); retail bytes. */
 char g_Rva012C392CSuffix[8] = "~~=\n";
 
@@ -366,7 +365,6 @@ const char *Rva007EFAB0( const char *text, int *value, int maxLength )
  * indexed by the buffer's bytes UNSIGNED and by the field text's bytes SIGNED,
  * so a high-bit byte in the field reads BEFORE the table start. */
 /* The same .rdata tables Y2Rva007EBAE0Module.cpp defines (VA 0xce1b60, 0xce1a60). */
-#pragma comment(linker, "/alternatename:_g_Rva0112A310Class=?g_Rva0112A310Class@@3PAEA")
 #pragma comment(linker, "/alternatename:_g_Rva0112A210Fold=?g_Rva0112A210Lower@@3QBEB")
 extern unsigned char g_Rva0112A310Class[];
 

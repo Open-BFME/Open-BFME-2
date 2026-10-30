@@ -1447,7 +1447,7 @@ address_global	Code/Libraries/Source/DirtySock/Y4CommTable.c	g_Rva0130AD00Module
 address_global	Code/Libraries/Source/DirtySock/Y4CommTransportLife.c	g_Rva012C4D48Message	2
 address_global	Code/Libraries/Source/DirtySock/Y4CommTransportLife.c	g_Rva012C4DF4	6
 address_global	Code/Libraries/Source/DirtySock/Y4CommTransportLife.c	g_Rva012C4DF8Message	2
-address_global	Code/Libraries/Source/DirtySock/Y4CommTransportLife.c	g_Rva0130AD08Count	6
+address_global	Code/Libraries/Source/DirtySock/Y4CommTransportLife.c	g_Rva0130AD08Count	5
 address_global	Code/Libraries/Source/DirtySock/Y4CommTransportLife.c	g_Rva0130AF38Lock	10
 address_global	Code/Libraries/Source/DirtySock/Y4CommTransportLife.c	g_Rva0130B188List	9
 address_global	Code/Libraries/Source/DirtySock/Y4DirtySockDebug.c	g_Rva01358EA8Print	2
@@ -1475,7 +1475,7 @@ address_global	Code/Libraries/Source/DirtySock/Y4TextToValue.c	g_Rva0112A010HexH
 address_global	Code/Libraries/Source/DirtySock/Y4TextToValue.c	g_Rva0112A110Hex	8
 address_global	Code/Libraries/Source/DirtySock/Y4TextToValue.c	g_Rva0112A210Fold	3
 address_global	Code/Libraries/Source/DirtySock/Y4TextToValue.c	g_Rva0112A210Lower	1
-address_global	Code/Libraries/Source/DirtySock/Y4TextToValue.c	g_Rva0112A310Class	5
+address_global	Code/Libraries/Source/DirtySock/Y4TextToValue.c	g_Rva0112A310Class	4
 address_global	Code/Libraries/Source/DirtySock/Y4TextToValue.c	g_Rva012C391CSeparator	10
 address_global	Code/Libraries/Source/DirtySock/Y4TextToValue.c	g_Rva012C392CSuffix	3
 address_global	Code/Libraries/Source/DirtySock/Y4TextToValue.c	g_Rva012C3950DefaultKey	3
@@ -3807,7 +3807,6 @@ alternatename	Code/Libraries/Source/DirtySock/Y4CommTable.c	_Rva007F0000	1
 alternatename	Code/Libraries/Source/DirtySock/Y4CommTransportLife.c	_Rva008171C0Op	1
 alternatename	Code/Libraries/Source/DirtySock/Y4CommTransportLife.c	_Rva00818BF0Op	1
 alternatename	Code/Libraries/Source/DirtySock/Y4CommTransportLife.c	_Rva00818D20Op	1
-alternatename	Code/Libraries/Source/DirtySock/Y4CommTransportLife.c	_g_Rva0130AD08Count	1
 alternatename	Code/Libraries/Source/DirtySock/Y4DirtySockDate.cpp	??0Rva007FF700FeslString@@QAE@XZ	1
 alternatename	Code/Libraries/Source/DirtySock/Y4DirtySockSocketWrappers.c	?Rva007FD2D0SocketOpen@@YAPAXHHH@Z	1
 alternatename	Code/Libraries/Source/DirtySock/Y4DirtySockSocketWrappers.c	?Rva007FD3F0SocketClose@@YAXPAX@Z	1
@@ -3826,8 +3825,6 @@ alternatename	Code/Libraries/Source/DirtySock/Y4DirtySockSocketWrappers.c	?Rva00
 alternatename	Code/Libraries/Source/DirtySock/Y4TextToValue.c	?bfmeFormatUPB@@YAXPAXPAD0PBD@Z	1
 alternatename	Code/Libraries/Source/DirtySock/Y4TextToValue.c	?bfmeTwoRF@@YAPAXPAX0@Z	1
 alternatename	Code/Libraries/Source/DirtySock/Y4TextToValue.c	_g_Rva0112A210Fold	1
-alternatename	Code/Libraries/Source/DirtySock/Y4TextToValue.c	_g_Rva0112A310Class	1
-alternatename	Code/Libraries/Source/DirtySock/Y4TextToValue.c	_g_Rva012C391CSeparator	1
 alternatename	Code/Libraries/Source/DirtySock/Y5SmallHelpers.c	?bfmeNextIdUNC@@YAHXZ	1
 alternatename	Code/Libraries/Source/DirtySock/commudp.cpp	?Rva007FE780Printf@@YAHPBDZZ	1
 alternatename	Code/Libraries/Source/DirtySock/commudp.cpp	_Rva00817030	1
