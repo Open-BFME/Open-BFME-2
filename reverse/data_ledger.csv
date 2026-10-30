@@ -18441,8 +18441,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009F2950,4,.data,global,_temp_index_array_count,Code/Libraries/Source/WWVegas/WW3D2/sortingrenderer.cpp,provisional,_temp_index_array_count@Code/Libraries/Source/WWVegas/WW3D2/SortingRendererBFME1.cpp;_temp_index_array_count@Code/Libraries/Source/WWVegas/WW3D2/sortingrenderer.cpp,2,5
 0x009F2954,4,.data,global,_total_sorting_vertices,Code/Libraries/Source/WWVegas/WW3D2/SortingRendererBFME1.cpp,owned,,1,1
 0x009F2958,4,.data,global,_overlapping_vertex_count,Code/Libraries/Source/WWVegas/WW3D2/SortingRendererBFME1.cpp,owned,,1,5
-0x009F295C,20,.data,global,?fallback@?4??getFilter@ShroudTexture@@QAEPAVShroudFilter@@XZ@4VGen_00920A20@@A,Code/Libraries/Source/WWVegas/WW3D2/ShroudTexture_getFilter.cpp,owned,,1,2
-0x009F2970,4,.data,global,?$S1@?4??getFilter@ShroudTexture@@QAEPAVShroudFilter@@XZ@4IA,Code/Libraries/Source/WWVegas/WW3D2/ShroudTexture_getFilter.cpp,owned,,1,4
+0x009F295C,20,.data,global,?fallback@?4??getFilter@ShroudTexture@@QAEPAVShroudFilter@@XZ@4VGen_00920A20@@A,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp,owned,,1,2
+0x009F2970,4,.data,global,?$S1@?4??getFilter@ShroudTexture@@QAEPAVShroudFilter@@XZ@4IA,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp,owned,,1,4
 0x009F2974,4,.data,global,?g_Va00DF2974@@3IA,,unowned,?g_Va00DF2974@@3IA;?texture@?1??Rva00132E76WhiteTexture@@YA?AV?$RefCountPtr@VTextureClass@@@@XZ@4V2@A@Code/GameEngineDevice/Source/W3DDevice/GameClient/BFME2FallbackTextures.cpp,1,6
 0x009F2978,4,.data,global,?$S1@?1??Rva00132E76WhiteTexture@@YA?AV?$RefCountPtr@VTextureClass@@@@XZ@4IA,Code/GameEngineDevice/Source/W3DDevice/GameClient/BFME2FallbackTextures.cpp,owned,,1,2
 0x009F297C,4,.data,global,?g_Va00DF297C@@3IA,,unowned,?g_Va00DF297C@@3IA;?texture@?1??Rva00132F30BlackTexture@@YA?AV?$RefCountPtr@VTextureClass@@@@XZ@4V2@A@Code/GameEngineDevice/Source/W3DDevice/GameClient/BFME2FallbackTextures.cpp,1,6

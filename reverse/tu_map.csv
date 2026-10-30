@@ -8931,28 +8931,28 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x001320B4,28,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/Rva00131BE5Dtor.cpp
 0x001320D0,89,code,Code/GameEngine/Source/Common/BfmeThingSJ.cpp,proposed,N,N=Code/GameEngine/Source/Common/BfmeThingSJ.cpp,Code/GameEngine/Source/Common/BfmeThreeHundredThirtyEight_Rva001320d0.cpp
 0x00132129,18,code,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp,approved,U,N=Code/GameEngine/Source/Common/BfmeThing937B.cpp,Code/GameEngine/Source/Common/BfmeConv937.cpp
-0x0013213B,80,code,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp,approved,C,C=0x00132129..0x0013218B,Code/GameEngine/Source/Common/Rva00132C28PrototypeCtor.cpp
+0x0013213B,80,code,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp,approved,C,C=0x00132129..0x0013218B,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp
 0x0013218B,28,code,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp,approved,C,C=0x00132129..0x001321A7,Code/GameEngine/Source/Common/Rva00131D07.cpp
 0x001321A7,1347,code,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp,approved,U,N=Code/Libraries/Source/WWVegas/WW3D2/BfmeThing937B.cpp W=Code/Libraries/Source/WWVegas/WW3D2/texture.cpp,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp
-0x001326EA,34,code,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp,approved,U,N=Code/Libraries/Source/WWVegas/WW3D2/TextureRecolorView.cpp,Code/Libraries/Source/WWVegas/WW3D2/TextureAssetDynamicRecolor.cpp
+0x001326EA,34,code,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp,approved,U,N=Code/Libraries/Source/WWVegas/WW3D2/TextureRecolorView.cpp,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp
 0x0013270C,37,code,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/texture.cpp S=Code/Libraries/Source/WWVegas/WW3D2/texture.cpp N=Code/Libraries/Source/WWVegas/WW3D2/TextureBaseClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp
 0x00132731,41,code,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp,approved,S,S=Code/Libraries/Source/WWVegas/WW3D2/texture.cpp N=Code/Libraries/Source/WWVegas/WW3D2/TextureBaseClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/TextureRvaGetters.cpp
 0x0013275A,42,code,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp,approved,S,S=Code/Libraries/Source/WWVegas/WW3D2/texture.cpp N=Code/Libraries/Source/WWVegas/WW3D2/TextureBaseClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/TextureRvaGetters.cpp
 0x00132784,42,code,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp,approved,S,S=Code/Libraries/Source/WWVegas/WW3D2/texture.cpp N=Code/Libraries/Source/WWVegas/WW3D2/TextureBaseClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/TextureRvaGetters.cpp
-0x001327AE,42,code,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp,approved,U,N=Code/GameEngine/Source/Common/BfmeThingIJ.cpp,Code/GameEngine/Source/Common/BfmeTwoHundredTwelve.cpp
+0x001327AE,42,code,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp,approved,U,N=Code/GameEngine/Source/Common/BfmeThingIJ.cpp,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp
 0x001327D8,42,code,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp,approved,S,S=Code/Libraries/Source/WWVegas/WW3D2/texture.cpp N=Code/Libraries/Source/WWVegas/WW3D2/TextureBaseClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/TextureRvaGetters.cpp
 0x00132802,42,code,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp,approved,S,S=Code/Libraries/Source/WWVegas/WW3D2/texture.cpp N=Code/Libraries/Source/WWVegas/WW3D2/TextureBaseClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/TextureRvaGetters.cpp
 0x0013282C,42,code,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp,approved,S,S=Code/Libraries/Source/WWVegas/WW3D2/texture.cpp N=Code/Libraries/Source/WWVegas/WW3D2/TextureBaseClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/TextureRvaGetters.cpp
-0x00132856,71,code,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp,approved,U,N=Code/Libraries/Source/WWVegas/WW3D2/ShroudTexture.cpp,Code/Libraries/Source/WWVegas/WW3D2/ShroudTexture_getFilter.cpp
+0x00132856,71,code,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp,approved,U,N=Code/Libraries/Source/WWVegas/WW3D2/ShroudTexture.cpp,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp
 0x0013289D,236,code,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp,approved,U,N=Code/GameEngineDevice/Source/W3DDevice/GameClient/CursorTextureSlot.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseCursorSurfaceLevel.cpp
 0x00132989,266,code,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp,approved,U,N=Code/GameEngineDevice/Source/W3DDevice/GameClient/CursorTextureSlot.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseCursorSurfaceLevel.cpp
-0x00132A93,101,code,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp,approved,C,C=0x00132989..0x00132AF8,Code/Libraries/Source/WWVegas/WW3D2/TextureHolderRecolorBFME2.cpp
+0x00132A93,101,code,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp,approved,C,C=0x00132989..0x00132AF8,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp
 0x00132AF8,139,code,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp,approved,U,N=Code/Libraries/Source/WWVegas/WW3D2/BfmeApplyTextureRef.cpp,Code/Libraries/Source/WWVegas/WW3D2/BfmeApplyTextureRef_Apply.cpp
 0x00132B83,79,code,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp,approved,C,C=0x00132AF8..0x00132BD2,Code/Libraries/Source/WWVegas/WW3D2/Rva00132B83Finish.cpp
-0x00132BD2,86,code,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp,approved,U,N=Code/Libraries/Source/WWVegas/WW3D2/TextureAsset.cpp,Code/Libraries/Source/WWVegas/WW3D2/TextureAssetRegister.cpp
-0x00132C28,85,code,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp,approved,U,N=Code/GameEngineDevice/Source/W3DDevice/GameClient/TextureAsset.cpp W=Code/Libraries/Source/WWVegas/WW3D2/texture.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/TextureAsset_RegisterRecolorForHouseColorDecal.cpp
-0x00132C7D,16,code,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp,approved,C,C=0x00132C28..0x00132C8D,Code/GameEngine/Source/Common/Rva0090E190Set.cpp
-0x00132C8D,16,code,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp,approved,C,C=0x00132C28..0x00132C9D,Code/GameEngine/Source/Common/Rva0090E190Set.cpp
+0x00132BD2,86,code,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp,approved,U,N=Code/Libraries/Source/WWVegas/WW3D2/TextureAsset.cpp,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp
+0x00132C28,85,code,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp,approved,U,N=Code/GameEngineDevice/Source/W3DDevice/GameClient/TextureAsset.cpp W=Code/Libraries/Source/WWVegas/WW3D2/texture.cpp,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp
+0x00132C7D,16,code,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp,approved,C,C=0x00132C28..0x00132C8D,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp
+0x00132C8D,16,code,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp,approved,C,C=0x00132C28..0x00132C9D,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp
 0x00132C9D,16,code,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp,approved,U,N=Code/Libraries/Source/WWVegas/WW3D2/TextureAsset.cpp,Code/Libraries/Source/WWVegas/WW3D2/TextureAssetSetQualityLevel.cpp
 0x00132CAD,44,code,,displaced,-,N=Code/Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.cpp,Code/Libraries/Source/WWVegas/WW3D2/bfme_reset_texture_ref_device.cpp
 0x00132CD9,54,code,,displaced,-,N=Code/Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.cpp,Code/Libraries/Source/WWVegas/WW3D2/bfme_reset_texture_ref_recreate_device.cpp
@@ -64893,7 +64893,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00765748,10,code,Code/Libraries/Source/WWVegas/WW3D2/light.cpp,approved,P,P=0x00130AC0@FuncInfo0x00909A98,Code/Libraries/Source/WWVegas/WW3D2/LightClassCopyCtor.cpp
 0x00765760,11,code,Code/Libraries/Source/WWVegas/WW3D2/light.cpp,approved,P,P=0x00130EA0@FuncInfo0x00909ABC,Code/Libraries/Source/WWVegas/WW3D2/collect.cpp
 0x0076576B,10,code,Code/Libraries/Source/WWVegas/WW3D2/light.cpp,approved,P,P=0x00130EA0@FuncInfo0x00909ABC,Code/Libraries/Source/WWVegas/WW3D2/LightClassCopyCtor.cpp
-0x00765775,8,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/TextureHolderRecolorBFME2.cpp
+0x00765775,8,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp
 0x0076577D,10,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/BfmeResetTextureBackendCreateTexture.cpp
 0x00765787,8,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/Rva00131965TextureLoaders.cpp
 0x0076578F,10,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/Rva00131965TextureLoaders.cpp
@@ -64904,11 +64904,11 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007657BD,8,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/Rva00131965TextureLoaders.cpp
 0x007657C5,10,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/Rva00131965TextureLoaders.cpp
 0x007657CF,8,code,,,-,,Code/GameEngine/Source/Common/Rva00131D07.cpp
-0x007657D7,10,code,,,-,,Code/GameEngine/Source/Common/Rva00132C28PrototypeCtor.cpp
+0x007657D7,10,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp
 0x007657E1,8,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/TextureAssetGet.cpp
 0x007657E9,10,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/TextureAssetGet.cpp
-0x007657F3,10,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/TextureAsset_RegisterRecolorForHouseColorDecal.cpp
-0x007657FD,10,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/TextureAsset_RegisterRecolorForHouseColorDecal.cpp
+0x007657F3,10,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp
+0x007657FD,10,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp
 0x00765807,8,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/Rva00131965TextureLoaders.cpp
 0x0076580F,8,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/Rva00131965TextureLoaders.cpp
 0x00765817,8,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/Rva00131965TextureLoaders.cpp
@@ -64919,8 +64919,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00765846,8,code,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp,approved,P,P=0x001321A7@FuncInfo0x00909C68,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp
 0x0076584E,8,code,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp,approved,P,P=0x001321A7@FuncInfo0x00909C68,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp
 0x00765856,10,code,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp,approved,P,P=0x001321A7@FuncInfo0x00909C68,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp
-0x00765860,13,code,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp,approved,P,P=0x00132856@FuncInfo0x00909C8C,Code/Libraries/Source/WWVegas/WW3D2/ShroudTexture_getFilter.cpp
-0x0076586D,10,code,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp,approved,P,P=0x00132856@FuncInfo0x00909C8C,Code/Libraries/Source/WWVegas/WW3D2/ShroudTexture_getFilter.cpp
+0x00765860,13,code,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp,approved,P,P=0x00132856@FuncInfo0x00909C8C,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp
+0x0076586D,10,code,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp,approved,P,P=0x00132856@FuncInfo0x00909C8C,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp
 0x00765877,25,code,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp,approved,P,P=0x0013289D@FuncInfo0x00909CB8,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseCursorSurfaceLevel.cpp
 0x00765890,8,code,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp,approved,P,P=0x0013289D@FuncInfo0x00909CB8,Code/gen_small/uw_gen_001.cpp
 0x00765898,10,code,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp,approved,P,P=0x0013289D@FuncInfo0x00909CB8,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseCursorSurfaceLevel.cpp
