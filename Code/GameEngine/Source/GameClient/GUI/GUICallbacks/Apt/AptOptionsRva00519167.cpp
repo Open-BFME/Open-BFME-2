@@ -1,4 +1,5 @@
 // cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /ICode/GameEngine/Include /ICode/GameEngine/Source/Common
+// stlport
 //
 // ?rva00519167@AptOptions@@UAEHHII@Z
 // retail 0x00519167..0x005194F5 (911 bytes) thiscall RET 0xC.
@@ -20,6 +21,7 @@
 // for slider 2 in a multiplayer game or with +0x280 set). Message 0x4010
 // stops the preview and falls into the base result. The WorldBuilder twin
 // 0x013D6C20 has the same shape with its fields 4 lower from +0x2A8.
+#include <vector>
 #include "ascii_string.h"
 #include "Common/BfmeAudioEventPrefix136.h"
 #include "GameLogicObjectLookupView.h"
@@ -51,6 +53,7 @@ class Rva005183A0
 {
 public:
 	void rva005183FA();
+	bool rva005183A0();
 };
 
 // The audio manager's misc-audio record: one sound per volume slider at +0xA8.
@@ -71,43 +74,141 @@ public:
 	virtual void gap(char (*)[1]) = 0;
 };
 
-class AudioManager : public AptOptionsAudioSlots<25>
+struct BfmeAudioSettings;
+class AudioManager
 {
 public:
-	virtual int addAudioEvent(const BfmeAudioEventPrefix136 *event);			// +0x64
+	virtual void slot0();
+	virtual void slot1();
+	virtual void slot2();
+	virtual void slot3();
+	virtual void slot4();
+	virtual void slot5();
+	virtual void slot6();
+	virtual void slot7();
+	virtual void slot8();
+	virtual void slot9();
+	virtual void slot10();
+	virtual void slot11();
+	virtual void slot12();
+	virtual void slot13();
+	virtual void slot14();
+	virtual void slot15();
+	virtual void slot16();
+	virtual void slot17();
+	virtual void slot18();
+	virtual void slot19();
+	virtual void slot20();
+	virtual void slot21();
+	virtual void slot22();
+	virtual void slot23();
+	virtual void slot24();
+	virtual int addAudioEvent(const BfmeAudioEventPrefix136 *event);
 	virtual void slot26();
 	virtual void slot27();
-	virtual void removeAudioEvent(int handle);									// +0x70
-	virtual void slot29(); virtual void slot30(); virtual void slot31(); virtual void slot32();
-	virtual void slot33(); virtual void slot34(); virtual void slot35(); virtual void slot36();
-	virtual void slot37(); virtual void slot38(); virtual void slot39(); virtual void slot40();
-	virtual void slot41(); virtual void slot42(); virtual void slot43(); virtual void slot44();
-	virtual void slot45(); virtual void slot46(); virtual void slot47(); virtual void slot48();
-	virtual void slot49(); virtual void slot50(); virtual void slot51();
-	virtual bool isCurrentlyPlaying(int handle);								// +0xD0
-	virtual void slot53(); virtual void slot54(); virtual void slot55(); virtual void slot56();
+	virtual void removeAudioEvent(int handle);
+	virtual void slot29();
+	virtual void slot30();
+	virtual void slot31();
+	virtual void slot32();
+	virtual void slot33();
+	virtual void slot34();
+	virtual void slot35();
+	virtual void slot36();
+	virtual void slot37();
+	virtual void slot38();
+	virtual void slot39();
+	virtual void slot40();
+	virtual void slot41();
+	virtual void slot42();
+	virtual void slot43();
+	virtual void slot44();
+	virtual void slot45();
+	virtual void slot46();
+	virtual void slot47();
+	virtual void slot48();
+	virtual void slot49();
+	virtual void slot50();
+	virtual void slot51();
+	virtual bool isCurrentlyPlaying(int handle);
+	virtual void slot53();
+	virtual void slot54();
+	virtual void slot55();
+	virtual void slot56();
 	virtual void slot57();
-	virtual void setVolume(int which, float volume);							// +0xE8
-	virtual void slot59(); virtual void slot60(); virtual void slot61(); virtual void slot62();
-	virtual void slot63(); virtual void slot64(); virtual void slot65(); virtual void slot66();
-	virtual void slot67(); virtual void slot68(); virtual void slot69(); virtual void slot70();
-	virtual void slot71(); virtual void slot72(); virtual void slot73(); virtual void slot74();
-	virtual void slot75(); virtual void slot76(); virtual void slot77();
-	virtual AptOptionsMiscAudio *getMiscAudio();								// +0x138
-	virtual void slot79(); virtual void slot80(); virtual void slot81(); virtual void slot82();
-	virtual void slot83(); virtual void slot84(); virtual void slot85(); virtual void slot86();
-	virtual void slot87(); virtual void slot88(); virtual void slot89(); virtual void slot90();
-	virtual void slot91(); virtual void slot92(); virtual void slot93(); virtual void slot94();
-	virtual void slot95(); virtual void slot96();
-	virtual bool setUseEAX(bool use);											// +0x184
+	virtual void setVolume(int which, float volume);
+	virtual void slot59();
+	virtual void slot60();
+	virtual void slot61();
+	virtual void slot62();
+	virtual void slot63();
+	virtual void slot64();
+	virtual void slot65();
+	virtual void slot66();
+	virtual void slot67();
+	virtual void slot68();
+	virtual void slot69();
+	virtual void slot70();
+	virtual void slot71();
+	virtual void slot72();
+	virtual void slot73();
+	virtual void slot74();
+	virtual void slot75();
+	virtual void slot76();
+	virtual const BfmeAudioSettings *getAudioSettings();
+	virtual AptOptionsMiscAudio *getMiscAudio();
+	virtual void slot79();
+	virtual void slot80();
+	virtual void slot81();
+	virtual void slot82();
+	virtual void slot83();
+	virtual void slot84();
+	virtual void slot85();
+	virtual void slot86();
+	virtual void slot87();
+	virtual void slot88();
+	virtual void slot89();
+	virtual void slot90();
+	virtual void slot91();
+	virtual void slot92();
+	virtual void slot93();
+	virtual void slot94();
+	virtual void slot95();
+	virtual void slot96();
+	virtual bool setUseEAX(bool use);
 };
 
 extern AudioManager *TheAudio;
 
-class Display : public AptOptionsAudioSlots<25>
+class Display
 {
 public:
-	virtual void setGamma(float gamma, float bright, float contrast, bool calibrate);	// +0x64
+	virtual void slot00();
+	virtual void slot01();
+	virtual void slot02();
+	virtual void slot03();
+	virtual void slot04();
+	virtual void slot05();
+	virtual void slot06();
+	virtual void slot07();
+	virtual void slot08();
+	virtual void slot09();
+	virtual void slot10();
+	virtual void slot11();
+	virtual void slot12();
+	virtual void slot13();
+	virtual void slot14();
+	virtual void slot15();
+	virtual void slot16();
+	virtual void slot17();
+	virtual void slot18();
+	virtual void slot19();
+	virtual void slot20();
+	virtual bool getWindowed();
+	virtual void slot22();
+	virtual int getDisplayModeCount();
+	virtual void getDisplayModeDescription(int modeIndex, int *xres, int *yres, int *bitDepth);
+	virtual void setGamma(float gamma, float bright, float contrast, bool calibrate);
 };
 
 extern Display *TheDisplay;
@@ -117,35 +218,65 @@ extern GameLogic *TheGameLogic;
 class AptOptions
 {
 public:
+	void InitGadgets(const char *name, int unused, GameWindow *window);
+	void rva0051A669();
+	void RefreshNat(const char *unused);
+	void AdvancedOptionNum(int option, char *result, bool skip);
+	void EnterAdvancedSettings(const char *unused);
+	void ExternsLODTemplate(int query, char *value, bool set);
+	void rva00518FEA(int query, int kind);
+	void Externs(int query, char *value, bool set);
+	void rva00518B05(const AsciiString &text, int kind);
+	void rva0051890E(int answer);
+	void Reset(const char *unused);
+	void Save(const char *unused);
 	virtual void vslot0();
 	virtual void vslot1();
 	virtual int rva00519167(int message, unsigned int data1, unsigned int data2);
-
-	void rva00518FEA(int query, int kind);
-	// Unrowed 0x00518B05 (a warning prompt), pinned by address.
-	void rva00518B05(const AsciiString &text, int kind);
-
+	char m_pad04[0x270];
 private:
-	unsigned char m_pad004[0x274 - 0x04];
-	void *m_aptOwner; // +0x274
-	unsigned char m_pad278[0x280 - 0x278];
+	void *m_274; // +0x274 +0x274, the screen's Apt movie level
+	char m_pad278[0x4];
+	int m_state; // +0x27C +0x27C
 	bool m_280; // +0x280
-	unsigned char m_pad281[0x2AC - 0x281];
+	bool m_281; // +0x281
+	bool m_282; // +0x282
+	bool m_online; // +0x283
+	bool m_284; // +0x284 +0x284
+	char m_pad285[0x3];
+	_STL::vector<bool> m_warned; // +0x288 +0x288, one per warning kind
+	int m_xres; // +0x29C +0x29C, the resolution chosen
+	int m_yres; // +0x2A0 +0x2A0
+	int m_bitDepth; // +0x2A4 +0x2A4
+	bool m_windowed; // +0x2A8 +0x2A8
+	char m_pad2A9[0x3];
 	GameWindow *m_resolutionCombo; // +0x2AC
 	GameWindow *m_detailCombo; // +0x2B0
-	unsigned char m_pad2B4[0x2D4 - 0x2B4];
-	GameWindow *m_eaxCheckBox; // +0x2D4
-	unsigned char m_pad2D8[0x2DC - 0x2D8];
+	GameWindow *m_onlineIPCombo; // +0x2B4
+	GameWindow *m_portEntry; // +0x2B8
+	GameWindow *m_healthBars; // +0x2BC
+	GameWindow *m_alternateMouse; // +0x2C0
+	GameWindow *m_sendDelay; // +0x2C4
+	GameWindow *m_messenger; // +0x2C8
+	GameWindow *m_foreignLanguage; // +0x2CC
+	GameWindow *m_languageFilter; // +0x2D0
+	GameWindow *m_eax3; // +0x2D4
+	GameWindow *m_highAudioQuality; // +0x2D8
 	GameWindow *m_volumeSliders[5]; // +0x2DC
-	unsigned char m_pad2F0[0x2F4 - 0x2F0];
-	GameWindow *m_gammaSlider; // +0x2F4
-	unsigned char m_pad2F8[0x2FC - 0x2F8];
-	int m_previewHandle; // +0x2FC
-	int m_previewSlider; // +0x300
-	int m_304; // +0x304
-	unsigned char m_pad308[0x30C - 0x308];
+	GameWindow *m_scrollSpeed; // +0x2F0
+	GameWindow *m_brightness; // +0x2F4
+	bool m_2f8; // +0x2F8 +0x2F8
+	char m_pad2F9[0x3];
+	int m_previewHandle; // +0x2FC +0x2FC
+	int m_previewSlider; // +0x300 +0x300
+	int m_defaultResolution; // +0x304
+	AsciiString m_308; // +0x308 +0x308
 	int m_resolution; // +0x30C
-	int m_preset; // +0x310
+	int m_preset; // +0x310 +0x310, -1 for custom settings
+	AsciiString m_presetText; // +0x314 +0x314
+	int m_saved30c; // +0x318 +0x318
+	int m_savedPreset; // +0x31C +0x31C
+	AsciiString m_savedPresetText; // +0x320 +0x320
 };
 
 int AptOptions::rva00519167(int message, unsigned int data1, unsigned int data2)
@@ -171,7 +302,7 @@ int AptOptions::rva00519167(int message, unsigned int data1, unsigned int data2)
 			int preset = (int)GadgetComboBoxGetItemData(m_detailCombo, index);
 			if (preset == 5)
 			{
-				TheRva00222A8BTarget->invoke(m_aptOwner, "ShowAdvancedSettings", 0, 0, 0, 0, 0, 0);
+				TheRva00222A8BTarget->invoke(m_274, "ShowAdvancedSettings", 0, 0, 0, 0, 0, 0);
 				break;
 			}
 			rva00518FEA(preset, 1);
@@ -182,7 +313,7 @@ int AptOptions::rva00519167(int message, unsigned int data1, unsigned int data2)
 		{
 			int index;
 			GadgetComboBoxGetSelectedPos(m_resolutionCombo, &index);
-			if (index > m_resolution && index > m_304)
+			if (index > m_resolution && index > m_defaultResolution)
 				rva00518B05(AsciiString("APT:WarnHighGraphicResolution"), 0);
 			m_resolution = index;
 		}
@@ -192,16 +323,16 @@ int AptOptions::rva00519167(int message, unsigned int data1, unsigned int data2)
 	case 0x4008:
 	{
 		GameWindow *control = (GameWindow *)data1;
-		if (control == m_eaxCheckBox)
+		if (control == m_eax3)
 		{
-			bool checked = GadgetCheckBoxIsChecked(m_eaxCheckBox);
+			bool checked = GadgetCheckBoxIsChecked(m_eax3);
 			if (checked)
 			{
 				bool ok = TheAudio->setUseEAX(checked);
 				if (!ok)
 				{
-					TheRva00222A8BTarget->invoke(m_aptOwner, "DoOpenPopMessage", 1, "Eax3NotSupported", 0, 0, 0, 0);
-					GadgetCheckBoxSetChecked(m_eaxCheckBox, false);
+					TheRva00222A8BTarget->invoke(m_274, "DoOpenPopMessage", 1, "Eax3NotSupported", 0, 0, 0, 0);
+					GadgetCheckBoxSetChecked(m_eax3, false);
 				}
 			}
 			else
@@ -214,7 +345,7 @@ int AptOptions::rva00519167(int message, unsigned int data1, unsigned int data2)
 	{
 		GameWindow *control = (GameWindow *)data1;
 		int val = (int)data2;
-		if (control == m_gammaSlider)
+		if (control == m_brightness)
 		{
 			if (val != -1)
 			{
