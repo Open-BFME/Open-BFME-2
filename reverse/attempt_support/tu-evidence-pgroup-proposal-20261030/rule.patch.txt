@@ -1,0 +1,247 @@
+commit 75b378c3b157d15cd7354efe627b3672119c5b12
+Author: Halil İbrahim Kaya <64750076+halilkkaya@users.noreply.github.com>
+Date:   Fri Oct 30 22:39:03 2026 +0300
+
+    p-group: a funclet group follows its parent, never leads it
+    
+    Symptom (cmi1, reverse/re_attempts.log "tu-merge:...ImmortalBody.cpp",
+    "...Behavior/UpgradeSoundSelectorClientBehavior.cpp"): the map approved
+    33 .text$x funclets 0x0078FB39..0x0078FCD4 into
+    Body/ImmortalBody.cpp, 31 of them with SymbioticStructuresBody,
+    RespawnBody, DelayedDeathBody, FreeLifeBody, DetachableRiderBody,
+    OathbreakerBody and PorcupineFormationBodyModule parents. It also
+    approved 11 funclets into Behavior/UpgradeSoundSelectorClientBehavior.cpp,
+    among them the getModuleNameKey $L310 rows 0x00771C54/0x00771C6B, whose
+    parents 0x00253DB2/0x00253E8E are there by U while their own N names
+    (Horde)NotifyTargetsOfImminentProbableCrushingUpdate.cpp. A merge
+    trial pulled three $L310 rows into one source (check_csv refused it)
+    and would fold seven classes into ImmortalBody.cpp.
+    
+    Root cause: tu_evidence.apply's P_GROUPS exception approves a funclet
+    of a proposed parent with the parent's TU and skips every check on
+    that TU. Both TUs are noncontiguous: StructureBody.cpp's rows
+    interrupt ImmortalBody.cpp's span, and tu_map approves none of their
+    rows. tu_skeleton absorbs a donor whose rows are all assigned to the
+    TU at any confidence. An approved funclet therefore brings its
+    proposed parent's file along, so the parent moves because of the
+    funclet's approval. The hold-out that measured P_GROUPS cannot see
+    this: the wrongly grouped parents have no truth label.
+    
+    Fix: group_refused(). A group joins no TU the map marks noncontiguous
+    and follows no parent whose own evidence names another file
+    (`contradicted`, or by U). U also covers ArmySummary's 10 funclets.
+    They were grouped into WWLib/ArmySummary.cpp and
+    Common/ArmySummaryEntry.cpp after U parents whose W lead names
+    GameLogic/System/ArmySummary.cpp. A refused funclet keeps its TU as
+    proposed (by P, no p-group token), the same as with P_GROUPS off.
+    
+    Verified, map rebuilt from current inputs at 53f28dd7ad:
+    - progress.py TU-APPROVED 47,924 -> 46,881 rows (-1,043, 50.15% ->
+      49.06%); approved TUs 1,438 -> 1,382; provisional 15,185 rows in
+      739 TUs -> 14,142 in 683. Exactly 1,043 p-group rows go from
+      approved to proposed with the same TU; no other row changes. 56 TUs
+      lose approval entirely (p-group was their only approval), among them
+      GameClient.cpp -93, W3DDisplay.cpp -92, W3DScriptedModelDraw.cpp
+      -76, AIPlayer.cpp -67, AIUpdate.cpp -67, W3DVolumetricShadow.cpp
+      -64, ImmortalBody.cpp -33, Behavior/UpgradeSoundSelectorClient-
+      Behavior.cpp -11. WWLib/ArmySummary.cpp -6 stays approved.
+    - tu_map.py --validate c6926a544d unchanged: approved 0/63 disagree,
+      W 170/170, L 1035/1035.
+    - tu_evidence.py --validate unchanged: E 1082/1082, V 702/705,
+      P 20468/20469; exit 0.
+    - tu_map.py --holdout p-groups: purity 5,979/5,986 -> 5,719/5,726
+      (99.88% both; the same 7 Apt.cpp/AptLoad.cpp misses). The 260
+      held-out rows the rule removes had the right TU name in 64 cases
+      (25%), against 4,248/5,726 (74%) for the rows it keeps.
+    - New tests: a noncontiguous TU takes no group, and a U or
+      contradicted parent leads none, while a sibling with its own
+      evidence still does. Both fail at HEAD. test_tu_evidence 17 pass;
+      test_tu_structure 90 pass plus the same 2 failures as at HEAD;
+      test_tu_skeleton/tu_evidence/source_layout 176 pass;
+      test_tu_skeleton_split has 1 failure that HEAD also has.
+    
+    Alternative measured and not taken: exempting parents whose own
+    F/Z/S names the TU keeps 426 more live rows (GameClient.cpp's Z
+    parents; that TU is broken only by WindowXlat.cpp's Z row
+    0x002390E8). Its held-out numbers are the same, because held-out rows
+    have no F/Z/S. Those funclets would still lead parents that tu_map
+    refuses. The fix is to repair the span, after which the funclets
+    follow their approved parents.
+    
+    No regenerated tu_map.csv is committed.
+    
+    Verifier-Change: p-group joins no noncontiguous TU and follows no U or contradicted parent
+    
+    Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+diff --git a/docs/consolidation.md b/docs/consolidation.md
+index 6c4711ee38..ca5d28875a 100644
+--- a/docs/consolidation.md
++++ b/docs/consolidation.md
+@@ -170,13 +170,22 @@ with its parent's TU (`tu_evidence.P_GROUPS`). It carries the evidence token
+ `p-group`, plus `provisional` when that TU has no anchor. `python3
+ tools/tu_map.py --holdout p-groups` measures it with the method above, now in
+ `tools/tu_holdout.py`. Five folds, scoring only rows whose anchored TU was held
+-out: 5,974/5,981 (99.88%) join a group whose other rows share their TU. The
++out: 5,719/5,726 (99.88%) join a group whose other rows share their TU. The
+ misses are Apt.cpp/AptLoad.cpp funclets that land on the wrong side of the
+-boundary. On the live map it approves +4,073 code rows, nearly all in
++boundary. On the live map it approves +2,954 code rows, nearly all in
+ `gen_small` funclet files, so it frees few authored files directly. The same
+ harness measures the rules that did not clear: `prov-min-1`, `brackets`,
+ `interleave` and `k-only`.
+ 
++A group follows its parent and never leads it (`tu_evidence.group_refused`).
++It joins no TU the map marks `noncontiguous`, and it follows no parent whose
++own evidence names another file: a `contradicted` parent, or one placed by U.
++The merge absorbs a donor whose rows are all assigned to the TU at any
++confidence. An approved funclet therefore brings its proposed parent's file
++along. Without this rule, merging ImmortalBody.cpp would have folded seven
++other classes into it, and Behavior/UpgradeSoundSelectorClientBehavior.cpp
++would have taken three classes' `$L310` rows (`reverse/re_attempts.log`).
++
+ ## Retail layout evidence (the TU-evidence lane)
+ 
+ About 8,400 sources have no tu_map row with any TU: no `__FILE__` string, no Zero
+diff --git a/tools/tests/test_tu_evidence.py b/tools/tests/test_tu_evidence.py
+index 3401e8f063..ad558173f7 100644
+--- a/tools/tests/test_tu_evidence.py
++++ b/tools/tests/test_tu_evidence.py
+@@ -199,6 +199,47 @@ def test_p_groups_place_nothing_a_parent_without_a_tu_does_not(tree, monkeypatch
+     assert got[f"0x{FUNCLET:08X}"]["tu"] == "" and got[f"0x{FUNCLET:08X}"]["confidence"] == ""
+ 
+ 
++def _p_rows(tree, out):
++    layout, _ = tree
++    return {r["rva"]: r for r in te.apply(layout, out, {"P"}, structures(tree, out))}
++
++
++def _funclets(i):
++    return f"0x{HANDLER + 0x10 * i:08X}", f"0x{FUNCLET + 0x10 * i:08X}"
++
++
++def test_p_groups_join_no_noncontiguous_tu(tree, monkeypatch):
++    """ImmortalBody.cpp (cmi1): tu_map approves no row of a TU another anchored TU's rows
++    interrupt; a group must not approve its parents' funclets there either. B stays grouped."""
++    monkeypatch.setattr(te, "P_GROUPS", True)
++    out = [dict(r, evidence="noncontiguous") if r["tu"] == "Code/A.cpp" else r for r in map_rows(False)]
++    got = _p_rows(tree, out)
++    for i in (0, 1, 3):                                   # A1, A2, A3: TU A is noncontiguous
++        for rva in _funclets(i):
++            r = got[rva]
++            assert (r["tu"], r["confidence"], r["by"]) == ("Code/A.cpp", "proposed", "P")
++            assert te.P_GROUP_TOKEN not in r["evidence"].split()
++    for i in (4, 5):                                      # B1, B2: contiguous, still a group
++        for rva in _funclets(i):
++            assert got[rva]["confidence"] == "approved" and te.P_GROUP_TOKEN in got[rva]["evidence"].split()
++
++
++def test_p_groups_follow_no_parent_whose_own_evidence_names_another_file(tree, monkeypatch):
++    """UpgradeSoundSelectorClientBehavior.cpp (cmi1): a parent there only by U (its own N names
++    HordeNotifyTargetsOfImminentProbableCrushingUpdate.cpp), or contradicted, leads no group;
++    a sibling parent whose own evidence names the TU still does."""
++    monkeypatch.setattr(te, "P_GROUPS", True)
++    own = {"0x00001000": dict(by="U", evidence="N=Code/Other.cpp"),
++           "0x00001100": dict(evidence="Z=Code/Other.cpp S=Code/Other.cpp contradicted")}
++    out = [dict(r, **own.get(r["rva"], {})) for r in map_rows(False)]
++    got = _p_rows(tree, out)
++    for i in (0, 1):                                      # A1 (U), A2 (contradicted)
++        for rva in _funclets(i):
++            assert got[rva]["confidence"] == "proposed" and te.P_GROUP_TOKEN not in got[rva]["evidence"].split()
++    for rva in _funclets(3):                              # A3: its own Z names A
++        assert got[rva]["confidence"] == "approved" and te.P_GROUP_TOKEN in got[rva]["evidence"].split()
++
++
+ def test_a_row_inside_another_approved_tus_span_is_only_proposed(tree):
+     out = map_rows() + [code_row(0x1480, 0x10, source="Code/Y.cpp")]
+     roots, broken, spans = te.approvable(out)
+diff --git a/tools/tu_evidence.py b/tools/tu_evidence.py
+index 58b88b099d..6ecb66abea 100644
+--- a/tools/tu_evidence.py
++++ b/tools/tu_evidence.py
+@@ -93,6 +93,9 @@ GATE = 0.99
+ # does not approve is approved with its parent's TU anyway, evidence token P_GROUP_TOKEN (plus
+ # tu_map.PROV_TOKEN when that TU has no anchor, so its name stays unproven). Held-out purity
+ # 5,984/5,991 (99.88%) at a136856afb: every funclet joins a group whose other rows share its TU.
++# A group follows its parent, never leads it (group_refused()): no group joins a TU tu_map marks
++# noncontiguous, or follows a parent whose own evidence names another file (contradicted, or U).
++# Re-measured with that rule at 53f28dd7ad: 5,719/5,726 (99.88%), live +2,954 approved code rows.
+ P_GROUPS = True
+ P_GROUP_TOKEN = "p-group"
+ ANCHOR_BY = frozenset("FZSLNU")
+@@ -447,12 +450,37 @@ class SpanIndex:
+         return None
+ 
+ 
++def group_refused(key, broken, parent):
++    """True when a funclet group may not approve a funclet into TU `key` after its proposed
++    `parent` (that parent's map row, or None). The group borrows the parent's TU, so it must
++    not borrow one tu_map itself refuses for the parent:
++
++      * `key` is noncontiguous (in `broken`): another anchored TU's rows interrupt its span,
++        so tu_map approves none of its rows;
++      * the parent's own evidence names another file: `contradicted` (its own F, or Z and S),
++        or by U (its own naming hint names another TU; only the interleaving merge put it
++        in `key`).
++
++    tu_skeleton absorbs a donor whose rows are all assigned to the TU at any confidence, so an
++    approved funclet brings its proposed parent's file into the merge: the parent would move
++    on the funclet's approval. cmi1's trials (re_attempts.log): ImmortalBody.cpp (split by
++    StructureBody.cpp) approved 33 funclets, 31 of them of SymbioticStructuresBody,
++    RespawnBody, DelayedDeathBody, FreeLifeBody, DetachableRiderBody, OathbreakerBody and
++    PorcupineFormationBodyModule parents; Behavior/UpgradeSoundSelectorClientBehavior.cpp
++    approved the $L310 funclets 0x00771C54/0x00771C6B of U parents whose own N names
++    (Horde)NotifyTargetsOfImminentProbableCrushingUpdate.cpp."""
++    if key in broken:
++        return True
++    return parent is not None and (parent["by"] == "U" or "contradicted" in parent["evidence"].split())
++
++
+ def apply(layout, out, signals=None, st=None):
+     """`out` (tu_map rows) with every row no other signal reaches assigned by `signals`
+     where they agree. A row is approved only when its TU is anchored, contiguous and the
+     row is inside no other approved TU's span (a P row: when its parent is approved, or
+-    always under P_GROUPS, tokened P_GROUP_TOKEN); else proposed. `signals` defaults to PROMOTED; unchanged (and the image unread) when
+-    it is empty."""
++    under P_GROUPS when its parent is proposed and group_refused() does not object, tokened
++    P_GROUP_TOKEN); else proposed. `signals` defaults to PROMOTED; unchanged (and the image
++    unread) when it is empty."""
+     signals = PROMOTED if signals is None else signals
+     if not signals:
+         return out
+@@ -460,11 +488,12 @@ def apply(layout, out, signals=None, st=None):
+     got = gather(out, st, tuple(s for s in SIGNALS if s in signals))
+     roots, broken, spans = approvable(out)
+     _, spelled = anchors_of(out)
+-    new, conf = list(out), {}
++    new, conf, row_at = list(out), {}, {}
+     prov = set()                              # TUs tu_map approved under a provisional name
+     for i, r in enumerate(out):
+         if r["kind"].startswith("code"):
+             conf[int(r["rva"], 16)] = r["confidence"]
++            row_at[int(r["rva"], 16)] = r
+             if tu_map.provisional_name(r):
+                 prov.add(r["tu"].lower())
+     for funclets in (False, True):            # parents first: a P row follows its parent's confidence
+@@ -478,9 +507,11 @@ def apply(layout, out, signals=None, st=None):
+             ok = key in roots and key not in broken and not other
+             group = False
+             if s == "P":
+-                ok = ok and conf.get(st.parent[rva][0]) == "approved"
++                parent = st.parent[rva][0]
++                ok = ok and conf.get(parent) == "approved"
+                 # a proposed parent's group only: an approved parent's funclet keeps the usual checks
+-                group = P_GROUPS and not ok and conf.get(st.parent[rva][0]) == "proposed"
++                group = (P_GROUPS and not ok and conf.get(parent) == "proposed"
++                         and not group_refused(key, broken, row_at.get(parent)))
+             unproven = ok and key in prov or group and (key not in roots or key in prov)
+             ev = " ".join(x for x in (r["evidence"], ref, f"inside={spelled.get(other, other)}" if other else "",
+                                       P_GROUP_TOKEN if group else "", tu_map.PROV_TOKEN if unproven else "") if x)
+@@ -488,6 +519,7 @@ def apply(layout, out, signals=None, st=None):
+             new[i] = dict(r, tu=spelled.get(key, key), confidence="approved" if ok else "proposed", by=s,
+                           evidence=ev)
+             conf[rva] = new[i]["confidence"]
++            row_at[rva] = new[i]
+     return new
+ 
+ 

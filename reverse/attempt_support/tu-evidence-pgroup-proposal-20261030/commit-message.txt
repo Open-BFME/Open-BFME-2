@@ -1,0 +1,72 @@
+p-group: a funclet group follows its parent, never leads it
+
+Symptom (cmi1, reverse/re_attempts.log "tu-merge:...ImmortalBody.cpp",
+"...Behavior/UpgradeSoundSelectorClientBehavior.cpp"): the map approved
+33 .text$x funclets 0x0078FB39..0x0078FCD4 into
+Body/ImmortalBody.cpp, 31 of them with SymbioticStructuresBody,
+RespawnBody, DelayedDeathBody, FreeLifeBody, DetachableRiderBody,
+OathbreakerBody and PorcupineFormationBodyModule parents. It also
+approved 11 funclets into Behavior/UpgradeSoundSelectorClientBehavior.cpp,
+among them the getModuleNameKey $L310 rows 0x00771C54/0x00771C6B, whose
+parents 0x00253DB2/0x00253E8E are there by U while their own N names
+(Horde)NotifyTargetsOfImminentProbableCrushingUpdate.cpp. A merge
+trial pulled three $L310 rows into one source (check_csv refused it)
+and would fold seven classes into ImmortalBody.cpp.
+
+Root cause: tu_evidence.apply's P_GROUPS exception approves a funclet
+of a proposed parent with the parent's TU and skips every check on
+that TU. Both TUs are noncontiguous: StructureBody.cpp's rows
+interrupt ImmortalBody.cpp's span, and tu_map approves none of their
+rows. tu_skeleton absorbs a donor whose rows are all assigned to the
+TU at any confidence. An approved funclet therefore brings its
+proposed parent's file along, so the parent moves because of the
+funclet's approval. The hold-out that measured P_GROUPS cannot see
+this: the wrongly grouped parents have no truth label.
+
+Fix: group_refused(). A group joins no TU the map marks noncontiguous
+and follows no parent whose own evidence names another file
+(`contradicted`, or by U). U also covers ArmySummary's 10 funclets.
+They were grouped into WWLib/ArmySummary.cpp and
+Common/ArmySummaryEntry.cpp after U parents whose W lead names
+GameLogic/System/ArmySummary.cpp. A refused funclet keeps its TU as
+proposed (by P, no p-group token), the same as with P_GROUPS off.
+
+Verified, map rebuilt from current inputs at 53f28dd7ad:
+- progress.py TU-APPROVED 47,924 -> 46,881 rows (-1,043, 50.15% ->
+  49.06%); approved TUs 1,438 -> 1,382; provisional 15,185 rows in
+  739 TUs -> 14,142 in 683. Exactly 1,043 p-group rows go from
+  approved to proposed with the same TU; no other row changes. 56 TUs
+  lose approval entirely (p-group was their only approval), among them
+  GameClient.cpp -93, W3DDisplay.cpp -92, W3DScriptedModelDraw.cpp
+  -76, AIPlayer.cpp -67, AIUpdate.cpp -67, W3DVolumetricShadow.cpp
+  -64, ImmortalBody.cpp -33, Behavior/UpgradeSoundSelectorClient-
+  Behavior.cpp -11. WWLib/ArmySummary.cpp -6 stays approved.
+- tu_map.py --validate c6926a544d unchanged: approved 0/63 disagree,
+  W 170/170, L 1035/1035.
+- tu_evidence.py --validate unchanged: E 1082/1082, V 702/705,
+  P 20468/20469; exit 0.
+- tu_map.py --holdout p-groups: purity 5,979/5,986 -> 5,719/5,726
+  (99.88% both; the same 7 Apt.cpp/AptLoad.cpp misses). The 260
+  held-out rows the rule removes had the right TU name in 64 cases
+  (25%), against 4,248/5,726 (74%) for the rows it keeps.
+- New tests: a noncontiguous TU takes no group, and a U or
+  contradicted parent leads none, while a sibling with its own
+  evidence still does. Both fail at HEAD. test_tu_evidence 17 pass;
+  test_tu_structure 90 pass plus the same 2 failures as at HEAD;
+  test_tu_skeleton/tu_evidence/source_layout 176 pass;
+  test_tu_skeleton_split has 1 failure that HEAD also has.
+
+Alternative measured and not taken: exempting parents whose own
+F/Z/S names the TU keeps 426 more live rows (GameClient.cpp's Z
+parents; that TU is broken only by WindowXlat.cpp's Z row
+0x002390E8). Its held-out numbers are the same, because held-out rows
+have no F/Z/S. Those funclets would still lead parents that tu_map
+refuses. The fix is to repair the span, after which the funclets
+follow their approved parents.
+
+No regenerated tu_map.csv is committed.
+
+Verifier-Change: p-group joins no noncontiguous TU and follows no U or contradicted parent
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
