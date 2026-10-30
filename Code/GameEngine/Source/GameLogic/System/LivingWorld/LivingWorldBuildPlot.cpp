@@ -6,6 +6,29 @@
 #include "Lib/Coord2D.h"
 class Xfer;
 #include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
+#define BFME_SNAPSHOT_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	protected: \
+		virtual const char *GetSnapshotName() const; \
+	}; \
+	const char *NAME::GetSnapshotName() const \
+	{ \
+		return TEXT; \
+	}
+#define BFME_LITERAL_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	public: \
+		const char *name() const; \
+	}; \
+	const char *NAME::name() const \
+	{ \
+		return TEXT; \
+	}
+BFME_LITERAL_NAME_GETTER(Rva004FC55DNamed, "LivingWorldBuildPlot")
+#include "../../AI/WorkOrder.h"
+#include "../../AI/TeamInQueue.h"
 
 class Rva00330757Member
 {
@@ -270,6 +293,8 @@ private:
 
 // ---- from Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuildPlot.cpp
 
+// ---- from Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuildPlot.cpp
+
 // WorldBuilder 0x01311550 names LivingWorldBuildPlot::CreateIcon and
 // 0x014D96C0 names its icon constructor. Retail 0x004FC185..0x004FC207
 // proves the lookup, 0x3C allocation, position reference at +0x28, owning
@@ -348,8 +373,6 @@ int Rva004FC21AOwner::rva004FC207()
     return 0;
 }
 
-// tu-skeleton: 0x004FC23E 55B ?BeginTurn@LivingWorldBuildPlot@@UAEXHH@Z -- matched in Code/GameEngine/Source/Common/Rva004FC4D1Dtor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva004FC275Set.cpp
 
 void Rva004FC275::rva004FC275(unsigned char v)
@@ -382,6 +405,8 @@ void Rva004FC275::rva004FC2A6()
 	return h->f2();
 }
 
+// tu-skeleton: 0x004FC23E 55B ?BeginTurn@LivingWorldBuildPlot@@UAEXHH@Z -- matched in Code/GameEngine/Source/Common/Rva004FC4D1Dtor.cpp (not merged yet)
+
 // tu-skeleton: 0x004FC2B3 109B ?apply@Rva004FC320List@@QAEXABURva004FC2B3Call@@@Z -- matched in Code/GameEngine/Source/Common/Rva004FA738ListenerWalks.cpp (not merged yet)
 
 // tu-skeleton: 0x004FC320 30B ?forEach@Rva004FC320List@@QAEXP8Rva004FC320Listener@@AEXPAX@Z0@Z -- matched in Code/GameEngine/Source/Common/Rva004FA738ListenerWalks.cpp (not merged yet)
@@ -390,7 +415,22 @@ void Rva004FC275::rva004FC2A6()
 
 // tu-skeleton: 0x004FC4D1 140B ??1LivingWorldBuildPlot@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva004FC4D1Dtor.cpp (not merged yet)
 
-// tu-skeleton: 0x004FC55D 6B ?name@Rva004FC55DNamed@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/ModuleNameGetters.cpp
+
+// Module literal name getters: six-byte const members with one shape:
+//
+//     mov eax,<offset string literal> / ret
+//
+// Each body returns a pointer to a NUL-terminated Behavior/Update/Contain
+// class-name string in .rdata. Each body VA carries exactly one .rdata
+// reference from its module vtable (descriptor tail closed by the shared
+// 0x004B3FD0 pair -- the same family marker as the Subsystem getters).
+// Split from Code/GameEngine/Source/Common/SubsystemNameGetters.cpp into a
+// contributor-local unit to keep concurrent landings conflict-free; the
+// BFME_LITERAL_NAME_GETTER macro is verbatim, only the class names follow
+// this tree's address-derived convention (identity unrecoverable from 6
+// bytes, string carried in source where verify_string_refs re-reads it).
+// No // cl: line (defaults match the frameless 6-byte shape).
 
 // tu-skeleton: 0x004FC563 28B ??_GLivingWorldBuildPlot@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB11.cpp (not merged yet)
 

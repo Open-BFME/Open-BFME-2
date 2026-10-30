@@ -37,7 +37,6 @@
 
 BFME_LITERAL_NAME_GETTER(DockUpdate, "DockUpdate")
 BFME_LITERAL_NAME_GETTER(Rva0052BA04Named, "LWPlayerDef")
-BFME_LITERAL_NAME_GETTER(Rva004FC55DNamed, "LivingWorldBuildPlot")
 BFME_LITERAL_NAME_GETTER(ResourceGatheringManager, "ResourceGatheringManager")
 BFME_LITERAL_NAME_GETTER(Rva004F59ACNamed, "MissionStats")
 #include "../GameLogic/AI/WorkOrder.h"

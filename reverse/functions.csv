@@ -10352,7 +10352,7 @@ _readname,,0x007570C0,141,Code/Libraries/Source/Lua/llex.c,matched,BFME1 byte-id
 ?GetRegistryG2@@YAPBDXZ,,0x0002FAA0,27,Code/GameEngine/Source/Common/System/RegistryValueDispatch.cpp,matched,
 ?GetRegistryG3@@YAPBDXZ,,0x0002FAC0,27,Code/GameEngine/Source/Common/System/RegistryValueDispatch.cpp,matched,
 ?GetRegistryG4@@YAPBDXZ,,0x0002FAE0,27,Code/GameEngine/Source/Common/System/RegistryValueDispatch.cpp,matched,
-?name@Rva004FC55DNamed@@QBEPBDXZ,,0x004FC55D,6,Code/GameEngine/Source/Common/ModuleNameGetters.cpp,matched,literal name getter returning LivingWorldBuildPlot; body VA has exactly 1 .rdata ref (module vtable closed by 004B3FD0 pair); address-derived placeholder name
+?name@Rva004FC55DNamed@@QBEPBDXZ,,0x004FC55D,6,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuildPlot.cpp,matched,literal name getter returning LivingWorldBuildPlot; body VA has exactly 1 .rdata ref (module vtable closed by 004B3FD0 pair); address-derived placeholder name
 ?Reset_Texture_Mappers@MaterialInfoClass@@QAEXXZ,,0x00184010,69,Code/Libraries/Source/WWVegas/WW3D2/MaterialInfoTextureMappers.cpp,matched,BFME1 matinfo.h port; DynamicVector at +0x0C count +0x18; Mapper8 at +0x20; Reset slot 0x18
 ?name@ResourceGatheringManager@@QBEPBDXZ,,0x004F5BAA,6,Code/GameEngine/Source/Common/ModuleNameGetters.cpp,matched,literal name getter returning ResourceGatheringManager; body VA has exactly 1 .rdata ref (module vtable closed by 004B3FD0 pair); address-derived placeholder name
 ?name@Rva004F59ACNamed@@QBEPBDXZ,,0x004F59AC,6,Code/GameEngine/Source/Common/ModuleNameGetters.cpp,matched,literal name getter returning MissionStats; body VA has exactly 1 .rdata ref (module vtable closed by 004B3FD0 pair); address-derived placeholder name
