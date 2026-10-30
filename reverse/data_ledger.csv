@@ -19883,8 +19883,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A03478,4,.data,global,?$S1@?1??getModuleNameKey@SiegeDockingBehavior@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/SiegeDockingBehaviorPoolKey.cpp,owned,,1,4
 0x00A03480,4,.data,global,?$S1@?8??rva00459B68@SiegeDockingBehavior@@ABEXXZ@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/SiegeDockingBehaviorRefresh.cpp,owned,,1,4
 0x00A03484,4,.data,global,_s_rva007B0A40,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
-0x00A03488,4,.data,global,?TheAutoAbilityBehaviorPoolKey@?1??getModuleNameKey@AutoAbilityBehavior@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityBehaviorPoolKey.cpp,owned,,1,2
-0x00A0348C,4,.data,global,?$S1@?1??getModuleNameKey@AutoAbilityBehavior@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityBehaviorPoolKey.cpp,owned,,1,4
+0x00A03488,4,.data,global,?TheAutoAbilityBehaviorPoolKey@?1??getModuleNameKey@AutoAbilityBehavior@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityBehavior.cpp,owned,,1,2
+0x00A0348C,4,.data,global,?$S1@?1??getModuleNameKey@AutoAbilityBehavior@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityBehavior.cpp,owned,,1,4
 0x00A03490,4,.data,global,?key@?1??Rva0045A63F@@YAPAVRva0045A63FModule@@PBURva0045A63FObject@@ABVAsciiString@@@Z@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityBehavior.cpp,owned,,1,2
 0x00A03494,4,.data,global,?$S1@?1??Rva0045A63F@@YAPAVRva0045A63FModule@@PBURva0045A63FObject@@ABVAsciiString@@@Z@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityBehavior.cpp,owned,,1,4
 0x00A03498,4,.data,global,_s_rva007B0A6A,Code/GameEngine/Source/Common/Rva007AD295ZeroInits.cpp,owned,,1,1

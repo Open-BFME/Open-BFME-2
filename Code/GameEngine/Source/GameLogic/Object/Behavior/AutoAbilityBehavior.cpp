@@ -28,8 +28,11 @@ class RGBColor;
 class RGBAColorReal;
 class RGBAColorInt;
 class Snapshot;
-
 #include "../../../../Include/Common/BfmeXfer.h"
+#pragma comment(linker, "/alternatename:?unused@BehaviorModuleOther@@EAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
+class Object;
+#include "../../../../Include/Common/ObjectModule.h"
+#include "../../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
 class Xfer::Version
 {
@@ -46,14 +49,17 @@ enum UpdateSleepTime
 	UPDATE_SLEEP_NONE = 1,
 	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
 };
+
 enum
 {
 	MAX_COMMANDS_PER_SET = 0x20
 };
+
 enum GUICommandType
 {
 	GUI_COMMAND_SPECIAL_POWER_BFME = 0x18
 };
+
 class Overridable
 {
 public:
@@ -62,6 +68,7 @@ __declspec(noinline) inline const Overridable *friend_getFinalOverride() const {
 private:
 	unsigned char m_pad00[4]; Overridable *m_nextOverride; unsigned char m_pad08[8];
 };
+
 class SpecialPowerTemplate : public Overridable
 {
 public:
@@ -72,12 +79,15 @@ public:
 	unsigned char m_pad14[0x1C - 0x14];
 	Int m_type; // +0x1C
 };
+
 class SpecialPowerStore
 {
 public:
 	const SpecialPowerTemplate *findSpecialPowerTemplate(AsciiString name);
 };
+
 extern SpecialPowerStore *TheSpecialPowerStore;
+
 class CommandButton
 {
 public:
@@ -89,18 +99,23 @@ private:
 	unsigned char m_pad18[0x44 - 0x18];
 	const SpecialPowerTemplate *m_specialPower; // +0x44
 };
+
 class CommandSet
 {
 public:
 	const CommandButton *getCommandButton(Int i) const;
 };
+
 class Object
 {
 public:
 	const AsciiString *rva00290E67() const;
 };
+
 class ControlBar;
+
 extern ControlBar *TheControlBar;
+
 // TheControlBar's command-set lookup at 0x0031D5F8, rowed under an address
 // name.
 class Rva0031D5F8
@@ -108,6 +123,7 @@ class Rva0031D5F8
 public:
 	void *rva0031D5F8(const AsciiString *name);
 };
+
 // Slot 0 of each module's primary vftable is its deleting destructor
 // (0x0045A560 in 0x00C4175C), so the base's first virtual is the destructor.
 class BehaviorModuleBase
@@ -118,20 +134,24 @@ protected:
 	const ModuleData *m_moduleData;
 	Object *m_object;
 };
+
 class BehaviorModuleOther
 {
 	virtual void unused();
 };
+
 class BehaviorModule : public BehaviorModuleBase, public BehaviorModuleOther
 {
 public:
 	BehaviorModule(Thing *thing, const ModuleData *moduleData);
 };
+
 class UpdateModuleInterface
 {
 public:
 	virtual void update() = 0;
 };
+
 class UpdateModule : public BehaviorModule, public UpdateModuleInterface
 {
 	unsigned m_nextCallFrameAndPhase;
@@ -146,7 +166,6 @@ protected:
 	Object *getObject() const { return m_object; }
 	void setWakeFrame(Object *obj, UpdateSleepTime wakeDelay);
 };
-#pragma comment(linker, "/alternatename:?unused@BehaviorModuleOther@@EAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
 
 struct Rva0045A6D3Arg
 {
@@ -233,11 +252,54 @@ private:
 	Bool m_30;
 };
 
-// tu-skeleton: 0x0045A291 86B ?xfer@AutoAbilityBehavior@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityBehaviorXfer.cpp (not merged yet)
+class BehaviorModuleInterface { public: virtual void behaviorSlot(); };
+
+struct Rva0045A421Src
+{
+	unsigned char m_pad[0x10];
+	AsciiString m_str10;
+};
+
+struct Rva0045A6FEArg
+{
+	unsigned char m_pad[0x10];
+	AsciiString m_str10;
+	unsigned char m_mid[0x10C - 0x10 - 4];
+	bool m_flag10C;
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityBehaviorXfer.cpp
+
+//
+// ?xfer@AutoAbilityBehavior@@MAEXPAVXfer@@@Z, retail 0x0045A291, 86 bytes.
+// Virtual slot 3 (offset 0x0C) of vtable 0x0084175C (class of rowed dtor
+// ??1AutoAbilityBehavior@@UAE@XZ in AutoAbilityBehaviorDtor.cpp): Version(1,2)
+// via Xfer slot 0x28 then base UpdateModule xfer via rowed 0x0044DF9F then
+// AsciiString at +0x20 via Xfer slot 0x6C then version-gated bool at +0x30
+// via Xfer slot 0x90 and Coord3DBase at +0x24 via Xfer slot 0x60 (>=2).
+// Layout is UpdateModule base 0x20 giving +0x20 start (AsciiString null at
+// +0x20 plus three zeroed floats at +0x24/+0x28/+0x2C plus zeroed bool at
+// +0x30 in pinned ctor 0x0045A78F; dtor only destroys the string at +0x20).
+// Identity is slot 3 plus the UpdateModule base call; shape follows the rowed
+// Rva0045ADC1 xfer at 0x0045AEC9 (same Version(1,2) plus add edi,0x24 tail).
+
+void AutoAbilityBehavior::xfer(Xfer *xfer)
+{
+	Xfer::Version version(1, 2);
+	*xfer == version;
+	UpdateModule::xfer(xfer);
+	*xfer == m_str20;
+	if (version.m_minimum >= 2) {
+		*xfer == m_30;
+		*xfer == m_state;
+	}
+}
 
 // tu-skeleton: 0x0045A2E7 135B ??0AutoAbilityBehaviorModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityBehaviorModuleDataCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0045A36E 17B ?buildFieldParse@AutoAbilityBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityBehavior.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityBehaviorDtor.cpp
 
@@ -331,10 +393,6 @@ AutoAbilityBehavior::AutoAbilityBehavior(Thing *thing, const ModuleData *moduleD
 	}
 }
 
-// tu-skeleton: 0x0045A3C8 6B ?name@AutoAbilityBehavior@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0045A3CE 69B ?getModuleNameKey@AutoAbilityBehavior@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityBehaviorPoolKey.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityBehaviorRva0045A413.cpp
 
 //
@@ -351,7 +409,27 @@ void AutoAbilityBehavior::rva0045A413()
 	m_str20.set("");
 }
 
-// tu-skeleton: 0x0045A421 38B ?rva0045A421@AutoAbilityBehavior@@QAEXPAX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityBehaviorRva0045A421.cpp (not merged yet)
+// tu-skeleton: 0x0045A3C8 6B ?name@AutoAbilityBehavior@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityBehaviorPoolKey.cpp
+
+// ?getModuleNameKey@AutoAbilityBehavior@@UBE?AW4NameKeyType@@XZ
+NameKeyType AutoAbilityBehavior::getModuleNameKey() const
+{
+	static NameKeyType TheAutoAbilityBehaviorPoolKey =
+		TheNameKeyGenerator->nameToKey("AutoAbilityBehavior");
+	return TheAutoAbilityBehaviorPoolKey;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityBehaviorRva0045A421.cpp
+
+void AutoAbilityBehavior::rva0045A421(void *src)
+{
+	Object *obj = getObject();
+	Rva0045A421Src *s = (Rva0045A421Src *)src;
+	m_str20 = s->m_str10;
+	setWakeFrame(obj, UPDATE_SLEEP_NONE);
+}
 
 // tu-skeleton: 0x0045A447 180B ?rva0045A447@AutoAbilityBehavior@@QAEPAVObject@@PAUBfmeWideResult@@PBVCommandButton@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityBehaviorRva0045A447.cpp (not merged yet)
 
@@ -361,17 +439,24 @@ void AutoAbilityBehavior::rva0045A413()
 
 // tu-skeleton: 0x0045A57C 195B ?rva0045A57C@AutoAbilityBehavior@@QAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityBehaviorTargetPredicate.cpp (not merged yet)
 
-// tu-skeleton: 0x0045A6FE 74B ?rva0045A6FE@AutoAbilityBehavior@@QAEXPAX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityBehaviorRva0045A6FE.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityBehaviorRva0045A6FE.cpp
+
+void AutoAbilityBehavior::rva0045A6FE(void *src)
+{
+	Rva0045A6FEArg *s = (Rva0045A6FEArg *)src;
+	if (!s || !s->m_flag10C || s->m_str10.compare(m_str20) == 0) {
+		rva0045A413();
+		setWakeFrame(getObject(), UPDATE_SLEEP_FOREVER);
+		return;
+	}
+	rva0045A421(s);
+}
 
 // tu-skeleton: 0x0045A748 71B ?rva0045A748@AutoAbilityBehavior@@QAEXPAX_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityBehaviorRva0045A748.cpp (not merged yet)
 
 // tu-skeleton: 0x0045A8C2 161B ?rva0045A8C2@AutoAbilityBehavior@@QAEXPAVObject@@0PBURva0045A8C2Options@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityBehaviorRva0045A748.cpp (not merged yet)
 
 // tu-skeleton: 0x0045A963 1118B ?update@AutoAbilityBehavior@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityBehaviorUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x0078A34C 13B $L310 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityBehaviorPoolKey.cpp (not merged yet)
-
-// tu-skeleton: 0x0078A359 10B __ehhandler$?getModuleNameKey@AutoAbilityBehavior@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityBehaviorPoolKey.cpp (not merged yet)
 
 // tu-skeleton: 0x0078A3B4 8B uw_0078a3b4 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityBehaviorRva0045A748.cpp (not merged yet)
 
