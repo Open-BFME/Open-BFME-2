@@ -125,11 +125,6 @@ class BehaviorModule
 protected:
 	virtual const char *GetSnapshotName() const;
 };
-
-const char *BehaviorModule::GetSnapshotName() const
-{
-	return "BehaviorModule";
-}
 BFME_LITERAL_NAME_GETTER(GateProxyBehavior, "GateProxyBehavior")
 BFME_LITERAL_NAME_GETTER(SpawnedModelConditionCreate, "SpawnedModelConditionCreate")
 BFME_LITERAL_NAME_GETTER(Rva00251C76Named, "SpecialPowerTimerRefreshSpecialPower")

@@ -17227,7 +17227,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0024A178,464,code,Code/GameEngine/Source/GameNetwork/LANAPICallbacks.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/LANAPICallbacks.cpp N=Code/GameEngine/Source/GameNetwork/LANAPI.cpp,Code/GameEngine/Source/GameNetwork/LANAPICallbacks.cpp
 0x0024A348,1088,code,Code/GameEngine/Source/GameNetwork/LANAPICallbacks.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/LANAPICallbacks.cpp N=Code/GameEngine/Source/GameNetwork/LANAPI.cpp,Code/GameEngine/Source/GameNetwork/LANAPICallbacks.cpp
 0x0024A788,9,code,,,-,,Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp
-0x0024A791,6,code,Code/GameEngine/Source/GameLogic/Object/Behavior/BehaviorModule.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Object/Behavior/BehaviorModule.cpp N=Code/GameEngine/Source/Common/BehaviorModule.cpp,Code/GameEngine/Source/Common/SubsystemNameGetters.cpp
+0x0024A791,6,code,Code/GameEngine/Source/GameLogic/Object/Behavior/BehaviorModule.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Object/Behavior/BehaviorModule.cpp N=Code/GameEngine/Source/Common/BehaviorModule.cpp,Code/GameEngine/Source/GameLogic/Object/Behavior/BehaviorModule.cpp
 0x0024A797,25,code,,,-,,Code/GameEngine/Source/Common/Rva0024A797DeletingDtor.cpp
 0x0024A7B0,56,code,,displaced,-,N=Code/GameEngine/Source/GameLogic/Object/Update/BloodthirstyUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/BloodthirstyUpdateFriendNew.cpp
 0x0024A7E8,81,code,,displaced,-,N=Code/GameEngine/Source/GameLogic/Object/Update/BloodthirstyUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/BloodthirstyUpdateModuleDataFriendNew.cpp
