@@ -18,11 +18,11 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include <hash_set>
 // Keep vector<void*> accessors inline without emitting this unit's COMDAT
 // copies: retail's out-of-line ones are the /Od bodies at 0x00023B90-0x00023C20.
+// Bind to the kept retail copy instead of emitting this unit's own.
+namespace _STL { template <> __declspec(dllimport) __forceinline void * const * vector<void *,allocator<void *> >::begin()const  { return this->_M_start; } }
 namespace _STL {
 template <> __declspec(dllimport) __forceinline
 void **vector<void*>::begin() { return this->_M_start; }
-template <> __declspec(dllimport) __forceinline
-void *const *vector<void*>::begin() const { return this->_M_start; }
 template <> __declspec(dllimport) __forceinline
 void **vector<void*>::end() { return this->_M_finish; }
 template <> __declspec(dllimport) __forceinline
