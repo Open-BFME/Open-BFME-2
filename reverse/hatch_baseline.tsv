@@ -1133,7 +1133,7 @@ address_global	Code/GameEngine/Source/GameLogic/System/GameLogic.cpp	g_Va00A0490
 address_global	Code/GameEngine/Source/GameLogic/System/GameLogic.cpp	g_Va00E032E8	3
 address_global	Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp	g_Va00DFE840	2
 address_global	Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldAI.cpp	g_Va00E04508	3
-address_global	Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldAIBuilderScores.cpp	g_Va007C26F0	2
+address_global	Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldAIBuilder.cpp	g_Va007C26F0	2
 address_global	Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldAIOrders.cpp	g_Va00E04508	2
 address_global	Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldAISupport/LivingWorldAIArmyMover.cpp	g_Va00E04544	3
 address_global	Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldAISupport/LivingWorldAIInformation.cpp	g_Va00E04544	2
