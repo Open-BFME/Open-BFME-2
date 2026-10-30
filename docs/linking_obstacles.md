@@ -35,6 +35,71 @@ the older index and missing current CreateAHeroManager consumer receipt. Full
 affected-consumer and census confirmation remain pending; carry this provider
 and its consumers into the next scheduled census. No census gain is claimed.
 [Checks and boundaries](../reverse/attempt_support/physics-trajectory-objectmodule-20261030-codex.md).
+### Module-view C2039 merges: the one-line recipe is exhausted (2026-10-30, dd-32)
+
+At base `a5c01ba2ba`, 62 approved TUs whose donor refusals name C2039 were run
+through `tools/tu_views.py TU --dry-run` and a fresh
+`tools/tu_skeleton.py --merge TU --dry-run` (the small-donor set of the
+2026-10-29 merge map; the map itself is stale for this class of refusal).
+
+Result: after the 2026-10-29 batches (`052be997ad`, `994ae1ced0`, `0ed602c54f`,
+`2674d49106`) a refusal is no longer a single missing member. Every sampled TU
+now fails on a *view hierarchy* disagreement, which `tu_views` reports as
+CONFLICT and skips: the base clause differs (module ctor/dtor donors spell
+`BehaviorModule`/`UpdateModule` by hand while Xfer donors include
+`Include/Common/ObjectModule.h`), a declspec differs, or two views fill one
+virtual slot differently. The merge keeps one spelling per type - the longest -
+so a seed's minimal view usually loses, and the seed's own bodies then fail
+(`'m_layout' : undeclared identifier` once AptLoadScreen's Init donor spelling
+won over the seed's).
+
+Sampled CONFLICTs (all with their donors present on master): EntEnragedUpdate,
+PassiveAreaEffectBehavior, PickupStuffUpdate, PillageModule, WallHubBehavior,
+GarrisonObjectGroupOrder (all: base clause), SynchronizeGroupOrder (fields
+overlap at +0x18), GameLogicDispatch (GlobalData view), W3DGameFont (private
+STLport template copies). Single-donor TUs in the same set cannot merge at all
+(`blocked: no verified merge of two or more donors`): BoneFXDamage,
+LockWeaponCreate, SupplyWarehouseCreate, FunctionLexicon.
+
+Two concrete hand reconciles, both verified and both still short of a merge:
+
+- **AttackObjectGroupOrder** (16 approved rows, donors Ctor + Xfer, 3 mixed
+  satellites). The TU's `slot03` is retail slot 3 =
+  `?xfer@AttackObjectGroupOrder@@UAEXPAVXfer@@@Z` (vtable 0x0086A420; the Xfer
+  donor's header names slot 3). Renaming `slot03` to `xfer(Xfer *)` and renaming
+  the Xfer donor's `m_18`/`m_1c`/`m_20` to the seed's
+  `m_targetID`/`m_b1C`/`m_pos` byte-verifies (TU 5/5, Xfer 1/1) and clears the
+  C2039. The next refusal is structural: the donor calls `GroupOrder::xfer`, so
+  the seed needs `GroupOrder` as a polymorphic base; the ctor donor spells
+  GroupOrder non-polymorphic and declares
+  `extern "C" const void *const __identifier("??_7AttackObjectGroupOrder@@6B@")[]`,
+  which collides with the class's implicit vftable (C2373) even with
+  `__declspec(novtable)` - and a polymorphic base renames that vftable to
+  `??_7AttackObjectGroupOrder@@6BGroupOrder@@@`. Blocked on the "Module base
+  chain" entry below; GarrisonObjectGroupOrder, SynchronizeGroupOrder and
+  ChangeStanceGroupOrder have the same shape.
+- **AptLoadScreen** (55 rows, picker item). `tu_views.py` applies and verifies
+  four shared views (Rva00355D66, AptMapPreview, BfmeAptWindowManager,
+  GameSpyStagingRoom) and reverts Rva0057E3DB (its funclet is not exact). The
+  merge still refuses: AptLoadScreen's base clause differs (the Init donor
+  spells no base) and the Init donor defines five virtuals while the seed
+  deliberately declares only the destructor so its emitted vftable stays the
+  ctor unit's COMDAT (retail 0x00C3D50C has six slots). Unblocking needs the
+  full six-slot spelling in all three files, judged by the link guard.
+
+Reproduce: `python3 tools/tu_views.py <TU> --dry-run`, then
+`python3 tools/tu_skeleton.py --merge <TU> --dry-run`.
+
+### TeamTemplateInfo destructor and deleter link predictions (2026-10-30, dd-32)
+
+At base `a5c01ba2ba`, `tools/link_check.py
+Code/GameEngine/Source/Common/RTS/TeamTemplateInfoDtor.cpp` reports
+`LINKS LINKED 0 -> 236 bytes` against census index `85f6b7f40c`, and the
+sibling `TeamTemplateInfoDeleter.cpp` links too. Both census rows still say
+`linked=no, unresolved=1` because their sources changed after the 15:08 census;
+the blocker was the `??1Rva0039EA9C@@QAE@XZ` provider now rowed in
+`Common/RTS/Team.cpp`. No source change is needed; the next census records
+`linked=yes`. The picker's `0x0039EAED` claim is released as census-awaiting.
 
 ### Vector reserve cleanup identity (2026-10-30)
 
