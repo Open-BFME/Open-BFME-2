@@ -13,6 +13,8 @@
 
 extern "C" const void *const __identifier("??_7AnimalAIUpdateModuleData@@6B@")[];  // folded vftable 0x00C4B6C8 (3 classes), by its data-ledger name
 
+class FXList;
+
 class __declspec(novtable) TransportAIUpdateModuleData
 {
 public:
@@ -28,26 +30,26 @@ class __declspec(novtable) GiantBirdAIUpdateModuleData : public TransportAIUpdat
 public:
 	GiantBirdAIUpdateModuleData();
 
-private:
-	int m_int64;	// +0x64
-	int m_int68;	// +0x68
-	float m_float6C;	// +0x6C
-	float m_float70;	// +0x70
-	float m_float74;	// +0x74
-	float m_float78;	// +0x78
-	float m_float7C;	// +0x7C
-	int m_int80;	// +0x80
+	// Field names are the INI tokens of the retail parse table 0x00C178D8.
+	int m_attackLocomotorType;	// +0x64 AttackLocomotorType
+	int m_returnForAmmoLocomotorType;	// +0x68 ReturnForAmmoLocomotorType
+	float m_grabTossTimeTrigger;	// +0x6C GrabTossTimeTrigger
+	float m_grabTossHeightTrigger;	// +0x70 GrabTossHeightTrigger
+	float m_followThroughDistance;	// +0x74 FollowThroughDistance
+	float m_followThroughCheckStep;	// +0x78 FollowThroughCheckStep
+	float m_followThroughGradient;	// +0x7C FollowThroughGradient
+	const FXList *m_tossFX;	// +0x80 TossFX
 };
 
 GiantBirdAIUpdateModuleData::GiantBirdAIUpdateModuleData()
 {
 	*(unsigned int *)this = ((unsigned int)__identifier("??_7AnimalAIUpdateModuleData@@6B@"));
-	m_int64 = 0;
-	m_int68 = 0;
-	m_float6C = 0.0f;
-	m_float70 = 0.0f;
-	m_float74 = 100.0f;
-	m_float78 = 10.0f;
-	m_float7C = 1.0f;
-	m_int80 = 0;
+	m_attackLocomotorType = 0;
+	m_returnForAmmoLocomotorType = 0;
+	m_grabTossTimeTrigger = 0.0f;
+	m_grabTossHeightTrigger = 0.0f;
+	m_followThroughDistance = 100.0f;
+	m_followThroughCheckStep = 10.0f;
+	m_followThroughGradient = 1.0f;
+	m_tossFX = 0;
 }

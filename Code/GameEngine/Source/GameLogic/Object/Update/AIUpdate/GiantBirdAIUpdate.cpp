@@ -368,12 +368,33 @@ private:
 	State *m_currentState; // +0x04
 };
 
-struct GiantBirdAIUpdateModuleData
+// Field names are the INI tokens of the retail parse table 0x00C178D8.
+class MultiIniFieldParse;
+
+class __declspec(novtable) TransportAIUpdateModuleData
 {
-	unsigned char m_pad00[0x6C];
+public:
+	TransportAIUpdateModuleData();
+	virtual ~TransportAIUpdateModuleData();
+	static void buildFieldParse(MultiIniFieldParse &parse);
+
+private:
+	unsigned char m_opaque[0x64 - 4];
+};
+
+class __declspec(novtable) GiantBirdAIUpdateModuleData : public TransportAIUpdateModuleData
+{
+public:
+	GiantBirdAIUpdateModuleData();
+	static void buildFieldParse(MultiIniFieldParse &parse);
+
+	Int m_attackLocomotorType; // +0x64 AttackLocomotorType
+	Int m_returnForAmmoLocomotorType; // +0x68 ReturnForAmmoLocomotorType
 	Real m_grabTossTimeTrigger; // +0x6C GrabTossTimeTrigger
 	Real m_grabTossHeightTrigger; // +0x70 GrabTossHeightTrigger
-	unsigned char m_pad74[0x80 - 0x74];
+	Real m_followThroughDistance; // +0x74 FollowThroughDistance
+	Real m_followThroughCheckStep; // +0x78 FollowThroughCheckStep
+	Real m_followThroughGradient; // +0x7C FollowThroughGradient
 	const FXList *m_tossFX; // +0x80 TossFX
 };
 
