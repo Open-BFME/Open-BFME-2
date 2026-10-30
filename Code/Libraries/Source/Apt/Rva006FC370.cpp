@@ -33,12 +33,11 @@ public:
 };
 
 int Rva006CD220Get();
-extern "C" long __cdecl strtol(const char *, char **, int);
 
-// Retail calls the six-byte isdigit import thunk at 0x00629982 directly:
-// <ctype.h>'s isdigit, with _CRTIMP empty (the header's own guard) so the
-// call is not made through __imp__isdigit.
+// Retail calls the strtol (0x00629ABA) and isdigit (0x00629982) import
+// thunks directly. The CRT headers' _CRTIMP guard preserves those calls.
 #define _CRTIMP
+#include <stdlib.h>
 #include <ctype.h>
 
 bool rva006fc370(AptValue *value)
