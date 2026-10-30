@@ -11357,6 +11357,17 @@ separately by LINK-145, which moved that row into its approved TU. The
 CallHelpOnDamage duplicate LINK-145 leaves open for TailJumpWrappers5B.cpp is
 the one this entry's CallHelpOnDamageCtor.cpp view repair addresses.
 
+Current-object follow-up (2026-10-30, base `c083ef052d`): both
+Rva0026E836Derived.cpp and WanderAIUpdate.cpp verify 12/12 rows. Their paired
+preview overlays the repaired declaration and retains 2/2 LINKS, 428 + 646
+authored bytes, against `85f6b7f40c`; an isolated destructor-unit preview still
+sees the index's historical duplicate. No new repair or census gain is claimed.
+The supported split of the Wander destructor into its approved TU is blocked
+before writing: the mixed file's retained linker alias would be duplicated,
+growing its hatch count. Recover the secondary-interface contract and remove
+the alias before retrying. No paths moved; consumer and census confirmation
+remain pending. [Checks and prerequisite](../reverse/attempt_support/wander-dtor-split-20261030-codexb4.md).
+
 ### LINK-150: STLport 4.6 moves left two body-less allocate specializations without a provider (2026-10-29)
 
 Status: repaired, pending census confirmation. After the 85f6b7f40c census,

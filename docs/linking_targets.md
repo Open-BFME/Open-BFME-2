@@ -627,7 +627,7 @@ through `tools/progress.py`'s provenance and retail-byte functions.
 | `Code/Libraries/Source/WWVegas/WW3D2/mesh.cpp` | 454 | 6 (U=3, C=2, S=1) | Open |
 | `Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva001041BDASlot1.cpp` | 438 | 7 (U=6, C=1) | Open |
 | `Code/GameEngine/Source/Common/RTS/ProductionPrerequisite.cpp` | 429 | 11 (U=2, C=6, S=3) | Open |
-| `Code/GameEngine/Source/Common/Rva0026E836Derived.cpp` | 428 | 5 (U=3, A=2) | Open |
+| `Code/GameEngine/Source/Common/Rva0026E836Derived.cpp` | 428 | 5 (U=3, A=2) | 2026-10-30 at `c083ef052d`: paired current-object preview with WanderAIUpdate.cpp confirms the existing duplicate repair, 2/2 LINKS (428 + 646 authored bytes) against `85f6b7f40c`. Both units verify 12/12 rows. A supported destructor split is blocked by alias hatch duplication; no path moved or census gain claimed. LINK-149; [evidence](../reverse/attempt_support/wander-dtor-split-20261030-codexb4.md). |
 | `Code/GameEngine/Source/Common/System/CrateCreationEntryList.cpp` | 417 | 5 (U=1, C=2, S=2) | Open |
 | `Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_record_deferred.cpp` | 413 | 12 (C=6, S=6) | Open |
 | `Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/SupplyTruckAIUpdateCtor.cpp` | 409 | 9 (U=9) | 2026-10-26 at `2a45addda1`: current-provider preview U9. Native interface projections contradict the current slot names and signatures. Reconcile the complete table before naming or admitting folded accessors (LINK-071). Evidence: `build/c136-logic/final-cohort-after.log`, `build/link-report.md`; census confirmation pending. |
