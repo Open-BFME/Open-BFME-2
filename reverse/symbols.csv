@@ -7895,7 +7895,7 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?rva0041B603@Rva0041B790@@QAEXXZ,0x0041B603,callee of ??1Rva0041B790@@UAE@XZ
 ?rva00282135@Rva0028279F@@QAEXXZ,0x00282135,callee of ??1Rva0028279F@@QAE@XZ
 ??0Rva005CCC74Record@@QAE@ABUChecklistItemRef@StrategicInGameUI@@PAVImpl@ChecklistItem@2@@Z,0x005CCC74,callee of ?AddItem@Impl@Checklist@StrategicInGameUI@@QAEXABUChecklistItemRef@3@PAV1ChecklistItem@3@@Z
-?rva005D1A87@Rva005D1A87UI@@QAE?AVRva005D1A87Ref@@XZ,0x005D1A87,callee of ?AddItem@Impl@Checklist@StrategicInGameUI@@QAEXABUChecklistItemRef@3@PAV1ChecklistItem@3@@Z
+?rva005D1A87@Rva005D1A87UI@@QAE?AVChecklistUIItemRef@@XZ,0x005D1A87,callee of ?AddItem@Impl@Checklist@StrategicInGameUI@@QAEXABUChecklistItemRef@3@PAV1ChecklistItem@3@@Z
 ??0Rva00084206Track@@QAE@XZ,0x000840F1,Native init84D01 and WorldBuilder init8BFFE0 both allocate1328 then call constructor840F1; and call resources83D54 on the same track-system receiver; WB names ReAcquireResources; class views remain address-derived and partial
 ?ReAcquireResources@Rva00084C05System@@QAEXXZ,0x00083D54,Native init84D01 and WorldBuilder init8BFFE0 both allocate1328 then call constructor840F1; and call resources83D54 on the same track-system receiver; WB names ReAcquireResources; class views remain address-derived and partial
 ?push_back@?$vector@PAVTeamPrototype@@V?$allocator@PAVTeamPrototype@@@_STL@@@_STL@@QAEXABQAVTeamPrototype@@@Z,0x004DFCB0,Native AITactic prototype vector push call; whole bytes and recursive relocation proof verified; fold-proof=Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/AITactic.cpp
@@ -9147,7 +9147,7 @@ _D3DXCheckTextureRequirements@28,0x0062AF86,Named d3dx9_27.dll PE import thunk F
 ??1Rva0045F0A0@@QAE@XZ,0x0029D7C2,ICF fold of this destructor: retail unwind funclets of matched parents reach it at this address; fold-proof=Code/GameEngine/Source/GameClient/Rva00462710ModeCheckForEach.cpp
 ??1Rva00261058@@UAE@XZ,0x0049C38A,ICF fold of this destructor: retail unwind funclets of matched parents reach it at this address; fold-proof=Code/GameEngine/Source/GameLogic/Object/Behavior/ReplenishUnitsBehaviorUpdate.cpp
 ??1ConstTreeHintRef00217D4C@@QAE@XZ,0x005F8F96,ICF fold of this destructor: retail unwind funclets of matched parents reach it at this address; fold-proof=Code/Libraries/Source/WWVegas/WWLib/PAUTreeHintRef00217D4CRva004F9565.cpp
-??1Rva005D1A87Ref@@QAE@XZ,0x0057A40C,ICF fold of this destructor: retail unwind funclets of matched parents reach it at this address; fold-proof=Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIChecklist.cpp
+??1ChecklistUIItemRef@@QAE@XZ,0x0057A40C,ICF fold of this destructor: retail unwind funclets of matched parents reach it at this address; fold-proof=Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIChecklist.cpp
 ??1PanelFactoryResultView@@QAE@XZ,0x005F8F96,ICF fold of this destructor: retail unwind funclets of matched parents reach it at this address; fold-proof=Code/GameEngine/Source/Common/RvaPayloadValueFactories.cpp
 ??1Rva005F2577Holder@@QAE@XZ,0x0007B724,ICF fold of this destructor: retail unwind funclets of matched parents reach it at this address; fold-proof=Code/GameEngine/Source/Common/Rva005F2CBAProgress.cpp
 ??1?$pair@$$CBV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@I@_STL@@QAE@XZ,0x0007FAB3,ICF fold of this destructor: retail unwind funclets of matched parents reach it at this address; fold-proof=Code/Libraries/Source/WWVegas/WWLib/Rva0060D269.cpp

@@ -4261,3 +4261,6 @@ __ehhandler$?Rva002A92F2Parse@@YAXPAVINI@@@Z,0x0077587F,"Renamed to __ehhandler$
 ?rva00397F45@Rva00397F45@@QAE_NPAVPlayer@@H@Z,0x00397F45,"Renamed to ?isPlayerAllowedToPackOrUnpack@Rva00397F45@@QAE_NPAVPlayer@@H@Z by tools/rename.py (canonical:string)"
 ?Rva004B6481_ParseAnim@INI@@SAXPAV1@PAX1PBX@Z,0x004B6481,"Renamed to ?iniParseAnim@INI@@SAXPAV1@PAX1PBX@Z by tools/rename.py (canonical:string)"
 ?Rva0044E6CD_ParseCustomAnimAndDuration@INI@@SAXPAV1@PAX1PBX@Z,0x0044E6CD,"Renamed to ?iniParseAnimAndDuration@INI@@SAXPAV1@PAX1PBX@Z by tools/rename.py (canonical:string)"
+?rva005CCA0B@Impl@ChecklistItem@StrategicInGameUI@@QAEXABVRva005D1A87Ref@@@Z,0x005CCA0B,"Renamed to ?rva005CCA0B@Impl@ChecklistItem@StrategicInGameUI@@QAEXABVChecklistUIItemRef@@@Z by tools/rename.py (inferred)"
+?rva005D1A87@Rva005D1A87UI@@QAE?AVRva005D1A87Ref@@XZ,0x005D1A87,"Renamed to ?rva005D1A87@Rva005D1A87UI@@QAE?AVChecklistUIItemRef@@XZ by tools/rename.py (inferred)"
+__ehhandler$?rva005D1A87@Rva005D1A87UI@@QAE?AVRva005D1A87Ref@@XZ,0x007A1E49,"Renamed to __ehhandler$?rva005D1A87@Rva005D1A87UI@@QAE?AVChecklistUIItemRef@@XZ by tools/rename.py (inferred)"

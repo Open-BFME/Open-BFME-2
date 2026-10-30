@@ -17992,3 +17992,6 @@ Code/GameEngine/Source/Common/GapBodiesGE39.cpp|local|rva001116E7|g,76289713df4d
 Code/GameEngine/Source/Common/GapBodiesGE39.cpp|local|rva001116E7|b,0e7e8c1f64b2b80594ef16dc,drz-k2,drz-k2-234,w-ded32b2e2c5e,2026-10-30
 Code/GameEngine/Source/GameLogic/AI/AIFormationRangeGate.cpp|param|rva00344EB2Gate|a,b5292731fd620ff71ff1106b,drz-k2,drz-k2-237,w-ded32b2e2c5e,2026-10-30
 Code/GameEngine/Source/Common/Rva0059ECD2.cpp|local|AptOnlineCustomMatch::rva0059EC72|s,d3823f3404a427cb540bb606,drz-k2,drz-k2-238,w-ded32b2e2c5e,2026-10-30
+Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIChecklist.cpp|class||Rva005D1A87Ref,b2d3d3c1c55dfaf67ef51c09,claude-opus-5-5,nm1-r1,w-f9b8ad33520e,2026-10-30
+Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIChecklist.cpp|class||Rva005CCC74Record,24b63c10da018079c16270f4,claude-opus-5-5,nm1-r1,w-f9b8ad33520e,2026-10-30
+Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUITurnPhaseFactory.cpp|class||Rva0042C23APointee,6e6b934791a1d0da46a2f7f0,claude-opus-5-5,nm1-r1,w-f9b8ad33520e,2026-10-30

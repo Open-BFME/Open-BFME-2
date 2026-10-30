@@ -38,20 +38,20 @@ public:
  ChecklistInlineCountedView *ptr;
  __forceinline ~ChecklistTempRef() { if(ptr) { ChecklistInlineCountedView *obj=ptr; if(--obj->references==0) obj->destroy(); } }
 };
-class Rva005D1A87Ref
+class ChecklistUIItemRef
 {
 public:
 	RefCountClass *m_ptr;
- Rva005D1A87Ref(ChecklistInlineCountedView *ptr) : m_ptr(reinterpret_cast<RefCountClass*>(ptr)) {
+ ChecklistUIItemRef(ChecklistInlineCountedView *ptr) : m_ptr(reinterpret_cast<RefCountClass*>(ptr)) {
   if(ptr) ++ptr->references;
  }
- ~Rva005D1A87Ref() { if (m_ptr) m_ptr->Release_Ref(); }
+ ~ChecklistUIItemRef() { if (m_ptr) m_ptr->Release_Ref(); }
 };
 class Rva005D1A87UI
 {
 public:
 	virtual ChecklistTempRef createNativeItem();
- Rva005D1A87Ref rva005D1A87();
+ ChecklistUIItemRef rva005D1A87();
 };
 
 class ChecklistUIFactory {
@@ -86,7 +86,7 @@ public:
 class ChecklistItem::Impl
 {
 public:
-	void rva005CCA0B(const Rva005D1A87Ref &);
+	void rva005CCA0B(const ChecklistUIItemRef &);
  void rva005CCA57();
  virtual void slot0(ChecklistUIItemNative*); virtual void slot1(); virtual void slot2(); virtual void slot3(ChecklistUIItemNative*);
  virtual void slot4(); virtual void slot5(); virtual void slot6(); virtual void updateNative();
@@ -221,17 +221,17 @@ void Rva005CCEB6::rva005CCEB6()
 
 // Native5D1A87..5D1ADE and WB15A87B0 ChecklistUI CreateNewItem: slot0 returns
 // a temporary counted reference; acquire output ownership then release the temporary.
-Rva005D1A87Ref Rva005D1A87UI::rva005D1A87()
+ChecklistUIItemRef Rva005D1A87UI::rva005D1A87()
 {
  ChecklistTempRef result=createNativeItem();
- return Rva005D1A87Ref(result.ptr);
+ return ChecklistUIItemRef(result.ptr);
 }
 
 // Native5CCA0B..5CCA57: bind the counted UI item at+4 then initialize its
 // listener and presentation state. G7 preserves native's MOV AL boolean ABI.
-void StrategicInGameUI::ChecklistItem::Impl::rva005CCA0B(const Rva005D1A87Ref &item)
+void StrategicInGameUI::ChecklistItem::Impl::rva005CCA0B(const ChecklistUIItemRef &item)
 {
- reinterpret_cast<Rva005CC9CB*>(&uiItem)->rva005CC9CB(reinterpret_cast<Rva005CC9CB*>(const_cast<Rva005D1A87Ref*>(&item)));
+ reinterpret_cast<Rva005CC9CB*>(&uiItem)->rva005CC9CB(reinterpret_cast<Rva005CC9CB*>(const_cast<ChecklistUIItemRef*>(&item)));
  (uiItem->*&ChecklistUIItemNative::bindListener)(this);
  (uiItem->*&ChecklistUIItemNative::setText)(text);
  (uiItem->*&ChecklistUIItemNative::setImportance)(importance);
