@@ -6,7 +6,6 @@
 #include <new.h>
 #include <new>
 #include "../../../../../reference/shims/wwmath/Vector2.h"
-
 //
 // Bodies ported from Open-BFME-1's
 // GameEngine/Source/Common/Bfme/Rva006DABB0Destructor.cpp (donor revision
@@ -22,11 +21,8 @@
 // Twin constructor is 0x006DB470 (same vtable and counter).
 
 extern int g_012F801C;
-
 class Rva006DABB0;
-
 extern class G00DFF080Obj *TheTerrainVisual;
-
 class Rva009FF080Manager
 {
 public:
@@ -57,7 +53,6 @@ public:
 	virtual void _slot24() = 0;
 	virtual void _slot25(void *arg) = 0;
 };
-
 class Manager012EF4F0
 {
 public:
@@ -73,23 +68,105 @@ public:
 		manager->_slot25(obj);
 	}
 };
-
 // g_012EF4F0 is only an alias of the owned global TheBuffLogic (ledger names column); this unit reads the owner through its own view type.
 extern class BuffLogic *TheBuffLogic;
-
 class Rva006DABB0Base
 {
 public:
 	virtual ~Rva006DABB0Base() {}
 };
-
 class Rva006DABB0 : public Rva006DABB0Base
 {
 public:
 	virtual ~Rva006DABB0();
 };
-
 #include "../PartitionRangeQueryCallView.h"
+// Small accessors from .text gaps no ledger row covered (each begins after
+// its neighbour's padding or return and ends in its own ret), none reached by
+// a direct caller in retail. Retail bytes establish every shape; the owning
+// classes are not recovered, so each keeps an address-derived name and a view
+// of only the members it touches.
+
+// --- 0x000AD711 (12B): address of 16-bit element `index` of the array whose
+// base pointer is at +0.
+class Rva000AD711
+{
+public:
+	unsigned short *getElement(int index);
+private:
+	unsigned short *m_items;
+};
+// --- 0x000B3F5B (12B): address of 64-byte record `index` of the array whose
+// base pointer is at +0.
+struct Rva000B3F5BRecord
+{
+	unsigned char m_data[0x40];
+};
+class Rva000B3F5B
+{
+public:
+	Rva000B3F5BRecord *getRecord(int index);
+private:
+	Rva000B3F5BRecord *m_records;
+};
+// --- 0x00135F0C (13B): address of dword `index` of the array whose base
+// pointer is at +4.
+class Rva00135F0C
+{
+public:
+	int *GetItem(int index);
+private:
+	int m_00;
+	int *m_items;
+};
+// --- 0x000CF0FF (12B): element count of a [begin,end) range of 0x4C-byte
+// records held at +0/+4.
+struct Rva000CF0FFRecord
+{
+	unsigned char m_data[0x4C];
+};
+class Rva000CF0FF
+{
+public:
+	int size() const;
+private:
+	Rva000CF0FFRecord *m_begin;
+	Rva000CF0FFRecord *m_end;
+};
+// --- 0x000A47AE (8B): cdecl read of the dword at +0x58 of its argument.
+struct Rva000A47AERecord
+{
+	unsigned char m_pad00[0x58];
+	int m_58;
+};
+// --- 0x000D1D2B / 0x000D1EA2 (8B each): cdecl addresses of the link words
+// at +8 and +4 of a tree-node-like record (the shape of STLport's
+// _Rb_tree _S_left / _S_parent; the instantiation is not recovered).
+struct Rva000D1D2BNode
+{
+	int m_color;
+	Rva000D1D2BNode *m_parent;
+	Rva000D1D2BNode *m_left;
+	Rva000D1D2BNode *m_right;
+};
+Rva000D1D2BNode **_S_left(Rva000D1D2BNode *node)
+{
+	return &node->m_left;
+}
+Rva000D1D2BNode **_S_parent(Rva000D1D2BNode *node)
+{
+	return &node->m_parent;
+}
+// --- 0x000E0F0E (8B): sets the byte flag at +0x44555.
+class Rva000E0F0E
+{
+public:
+	void rva000E0F0E();
+private:
+	unsigned char m_pad00[0x44555];
+	bool m_44555;
+};
+#include <math.h>
 
 extern PartitionManager *TheShroudManager;
 
@@ -228,9 +305,107 @@ public:
 	void set(const Rva006DB2F0Vec *p);
 };
 
+// --- 0x000A87E1 (18B): a constructor that only runs the rowed
+// ??0Rva0073F4F3@@QAE@PAX@Z (0x0073F468) on itself with its argument.
+class Rva0073F4F3
+{
+public:
+	Rva0073F4F3(void *source);
+};
+
+class Rva000A87E1 : public Rva0073F4F3
+{
+public:
+	Rva000A87E1(void *source);
+};
+
+// --- 0x000E0197 (12B): XOR of the two dwords of the record it is given
+// (the receiver is not read).
+struct Rva000E0197Pair
+{
+	unsigned int m_00;
+	unsigned int m_04;
+};
+
+class Rva000E0197
+{
+public:
+	unsigned int rva000E0197(const Rva000E0197Pair *pair);
+};
+
+// --- 0x000E4422 (12B): clears the dword at +0x2C and sets the flag at +0x9C.
+class Rva000E4422
+{
+public:
+	void rva000E4422();
+private:
+	unsigned char m_pad00[0x2C];
+	int m_2C;
+	unsigned char m_pad30[0x9C - 0x30];
+	bool m_9C;
+};
+
+// --- 0x0010E4C6 (14B): runs the rowed ?rva0010E482@Rva0010E482@@QAEHH@Z
+// (0x0010E482) with 0 on the object at +0x94 and returns its result.
+class Rva0010E482
+{
+public:
+	int rva0010E482(int index);
+};
+
+class Rva0010E4C6
+{
+public:
+	int rva0010E4C6();
+private:
+	unsigned char m_pad00[0x94];
+	Rva0010E482 *m_94;
+};
+
+// --- 0x001338A0 (7B): the float at +8 minus the float at +0.
+class Rva001338A0
+{
+public:
+	float Width() const;
+	float Height() const;
+private:
+	float m_00;
+	float m_04;
+	float m_08;
+	float m_bottom;
+};
+
+// --- 0x000FA927 (8B) / 0x000FA92F (6B): clear and read the shared dirty
+// flag g_bfmeDirtyCU (0x00DFF48C) the screen-filter preRenders test, in the
+// screen-filter run ahead of ScreenHilightFilter::init 0x000FA935.
+extern bool g_bfmeDirtyCU;
+
+// --- 0x000F0FB8 (5B): a destructor whose only work is its leading Geometry
+// member's (the rowed ??1Geometry@@QAE@XZ, 0x000EFC45), emitted as a tail
+// jump, in the shadow-geometry run after ??0Geometry 0x000F0F98.
+class Geometry
+{
+public:
+	~Geometry();
+};
+
+class Rva000F0FB8
+{
+public:
+	~Rva000F0FB8();
+private:
+	Geometry m_geometry;
+};
+
+// --- 0x000E0E64 (6B): reads the dx8wrapper flag bfmeOnlyEmissiveDraws
+// (0x00DEC3D8); in the aabtreecull run, no direct caller.
+extern bool bfmeOnlyEmissiveDraws;
+
 // tu-skeleton: 0x000D1AF3 173B ??0TBuff@@QAE@PBUTBuffSource@@H@Z -- matched in Code/GameEngine/Source/Common/System/SnapshotXfersBfme.cpp (not merged yet)
 
 // tu-skeleton: 0x000D1BA0 6B ?name@Rva000D1BA0Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/W3DDrawNameGetters.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/System/TBuff.cpp
 
 // ---- from Code/GameEngine/Source/Common/Bfme/Rva006DABB0Destructor.cpp
 
@@ -321,10 +496,6 @@ void W3DBuffBuffer::allocateBuffBuffers()
 // or WB function currently provide a callable-contract witness.
 unsigned char __stdcall Rva000D1D21ByteResult(unsigned int, unsigned int, unsigned int, unsigned int) { return 1; }
 
-// tu-skeleton: 0x000D1D26 5B ?Rva000D1D26Identity@@YAHH@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x000D1D2B 8B ?_S_left@@YAPAPAURva000D1D2BNode@@PAU1@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat2B.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/sharebuf_vector2_ctor.cpp
 
 //
@@ -367,14 +538,6 @@ ShareBufferClass<Type>::~ShareBufferClass()
 	delete[] RawBuffer;
 }
 
-// tu-skeleton: 0x000D1DE2 110B ??0?$ShareBufferClass@I@@QAE@HPBDH@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/ShareBufferClassUnsignedCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x000D1E6C 28B ??_G?$ShareBufferClass@I@@UAEPAXI@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/ShareBufferClassUnsignedCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x000D1E88 26B ??1?$ShareBufferClass@I@@UAE@XZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/ShareBufferClassUnsignedCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x000D1EA2 8B ?_S_parent@@YAPAPAURva000D1D2BNode@@PAU1@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat2B.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva006DB2F0Set.cpp
 
 void Rva006DB2F0::set(const Rva006DB2F0Vec *p)
@@ -392,6 +555,19 @@ void Rva006DB2F0::set(const Rva006DB2F0Vec *p)
 	m_14.a10 = p->a10;
 	m_14.a11 = p->a11;
 }
+
+// tu-skeleton: 0x000D1D26 5B ?Rva000D1D26Identity@@YAHH@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicCtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/GapBodiesSeat2B.cpp
+
+// --- 0x0009DBF4 (17B): log10 of a float through the msvcr71 import
+// (thunk 0x0062997C), returned as double.
+
+// tu-skeleton: 0x000D1DE2 110B ??0?$ShareBufferClass@I@@QAE@HPBDH@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/ShareBufferClassUnsignedCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x000D1E6C 28B ??_G?$ShareBufferClass@I@@UAEPAXI@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/ShareBufferClassUnsignedCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x000D1E88 26B ??1?$ShareBufferClass@I@@UAE@XZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/ShareBufferClassUnsignedCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x000D204B 20B ?rva000D204B@Rva000D204B@@QAEPAVVector2@@H@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE37.cpp (not merged yet)
 

@@ -71,11 +71,6 @@ private:
 	Rva000CF0FFRecord *m_end;
 };
 
-int Rva000CF0FF::size() const
-{
-	return m_end - m_begin;
-}
-
 // --- 0x000B2B7C (11B): scales its argument by 0.001 (the constant at
 // VA 0x00BC28F8), e.g. milliseconds to seconds.
 float Rva000B2B7CScale(float value)
@@ -105,16 +100,6 @@ struct Rva000D1D2BNode
 	Rva000D1D2BNode *m_left;
 	Rva000D1D2BNode *m_right;
 };
-
-Rva000D1D2BNode **_S_left(Rva000D1D2BNode *node)
-{
-	return &node->m_left;
-}
-
-Rva000D1D2BNode **_S_parent(Rva000D1D2BNode *node)
-{
-	return &node->m_parent;
-}
 
 // --- 0x000E0F0E (8B): sets the byte flag at +0x44555.
 class Rva000E0F0E
