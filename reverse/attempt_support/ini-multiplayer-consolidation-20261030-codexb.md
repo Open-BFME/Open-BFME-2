@@ -38,5 +38,41 @@ Verification before composition:
   no current receipt. Removed providers and affected consumers require the
   next scheduled census. This is not full consumer clearance or a census gain.
 
-The composition and its complete source-path audit will be recorded below
-when the separate prerequisite commit is complete.
+## Composition after prerequisite ce4c6f3670
+
+The runner handed the prerequisite commit to the fleet publisher. After its
+rebase onto `25a4a78293`, the ledger check passed and the evidence planner
+was regenerated and passed its currency check. The supported merge again
+accepted both sources with no rejection. It removed INIMultiplayerSettings.cpp
+and repointed its three rows in functions.csv and the source column of
+three TU-map records. No TU-map assignment or approval was regenerated.
+All eight original rows remain, now in one source; source-file count falls
+by one. The existing two accessor rows retain their prior approval status.
+
+- Strict preparation: 8/8 rows, both renumbered funclets proven by parent EH.
+- EH verification: both parent graphs EXACT. Data check: zero findings;
+  converged check: zero second names or unjudged rows. Staged TU ownership
+  and ledger integrity checks pass.
+- COFF comparison against both pre-merge objects: all nine external
+  definitions retained, no added or removed definition, unchanged retained
+  COMDAT fingerprints, unchanged undefined bindings and equal union of
+  reference roots and edges. This verifies the composition's local bindings.
+- Ordinary link preview: combined source LINKS for 302 authored bytes,
+  absorbing the fragment's existing 88 bytes into the seed's existing 214.
+  This is coverage preservation, not a linked-byte gain.
+- The merge tool refreshed destination header and Microsoft-header queues;
+  neither queue changed. No data/identity debt, data-ledger, flag-override
+  or hatch-register key names either source. No debt transfer or retirement.
+- Whole pending path audit at parent ce4c6f3670, relative to origin/master
+  25a4a78293: one removed path, INIMultiplayerSettings.cpp, absorbed into
+  the unchanged seed directory. Combined basename/path search covered tools,
+  hooks, workflows, Code includes, root build/configuration files, docs and
+  reverse registries. Only remaining old-path hits are the generated source
+  provenance comment and reverse/link_status.csv's historical census entry;
+  both are intentional. No active tooling consumer needs modification.
+  The RGBColor relative include resolves unchanged; no include consumes
+  either .cpp. Active function and TU-map owners resolve to the surviving TU.
+
+Full consumer selection/loss verification remains subject to the older-index
+and missing-consumer limitation recorded above; carry the composition and
+removed header providers into the next scheduled census.

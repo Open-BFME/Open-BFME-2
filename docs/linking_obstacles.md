@@ -243,7 +243,13 @@ The staged audit is INCONCLUSIVE on index `12b9e7a7c0` and the missing current
 `Common/0CreateAHeroManager21FE49.cpp` consumer receipt. Carry removed
 providers and affected consumers into the next scheduled census; full
 consumer verification and census confirmation remain pending. No census
-gain is claimed. [Evidence and composition audit](../reverse/attempt_support/ini-multiplayer-consolidation-20261030-codexb.md).
+gain is claimed. The separate supported composition now removes the settings
+fragment and retains all eight rows, nine external COMDATs, bindings and
+reference edges; both EH graphs are EXACT. The combined preview retains
+302 authored bytes (214 + 88 previously linking bytes). The path-consumer
+and debt audit found no additional active consumers or register transfers.
+The wider consumer and census prerequisites remain open.
+[Evidence and composition audit](../reverse/attempt_support/ini-multiplayer-consolidation-20261030-codexb.md).
 
 ### Ghost-manager factory unused ATL declaration (2026-10-30)
 
