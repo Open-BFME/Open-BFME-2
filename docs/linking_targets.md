@@ -1103,3 +1103,14 @@ Carry that consumer and the provider scope into the next scheduled census.
 Thing adoption and the complete derived virtual interface remain separate
 prerequisites; no census gain or full consumer closure is claimed.
 [Evidence](../reverse/attempt_support/emotion-tracker-ctor-link-20261029-codexb.md).
+
+### Terrain fire emission CRT header cleanup (2026-10-30)
+
+At base `7f540888a6`, the local free declaration in Rva0055E6D4Write.cpp
+is replaced by stdlib.h with `/D_CRTIMP=`. Four rows and the EH graph remain
+exact; all external object facts are unchanged, strict preparation passes,
+and preview retains LINKS for 322 bytes. One Microsoft-header queue finding
+is retired. The older-index batch audit remains INCONCLUSIVE on the missing
+CreateAHeroManager consumer receipt. Carry that consumer/provider scope into
+the next scheduled census; no census gain or full consumer closure is claimed.
+[Evidence](../reverse/attempt_support/terrain-fire-crt-header-20261030-codexb.md).
