@@ -430,7 +430,7 @@ struct PlayerTemplateOverrideView : public Overridable
 class PlayerTemplateStore
 {
 public:
-	void reset();
+	virtual void reset();
 	bool rva001FD4E1(NameKeyType key, int *index);
 	bool rva001FD367(int faction, int *outIndex) const;
 	static void parsePlayerTemplateDefinition(INI *);
@@ -440,7 +440,7 @@ public:
 
 private:
 	public:
-    char m_pad00[4];
+    // +0x00: the vptr (retail table 0x00BE1BB0, installed at +0 by the ctor 0x001FDB55)
     bool showReload;
     char m_pad05[7];
 	PlayerTemplateVector m_playerTemplates;
