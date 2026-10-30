@@ -144,3 +144,39 @@ unchanged. All sixteen retained rows and the data row verify and frozen-source
 preflight passes. The actual correct virtual lifetimes are already emitted
 byte-exactly by the approved seed; restore their complete parent-derived cleanup
 set through normal admission before publishing this temporary withdrawal.
+
+## Complete virtual-lifetime readmission
+
+All six withdrawn extents are restored through ordinary `add_match.py`, each
+in its own checked commit: virtual complete destructor `00381293/83`, virtual
+deleting destructor `00381277/28`, handler `0077F326/10` and cleanups
+`0077F308/8`, `0077F310/11`, `0077F31B/11`. The cleanup identities are derived
+from the current UAE parent's EXACT EH graph, not adjacent addresses or old
+compiler labels. There is one row per restored address. All 151 bytes and the
+global 99,014-row ledger are preserved. The approved seed now owns 22 rows and
+its existing data row. No new pin, manual alias or hatch is introduced.
+
+The actual-object evidence now uses only production ledger identities, with no
+probe-only symbol-map bindings. Strict preparation of the same seven-provider
+cohort passes 564 rows and four data rows; all 191 owned EH graphs are EXACT.
+The ordinary preview preserves 7/7 LINKS for 33,891 authored bytes. The seed's
+857 bytes include the newly rehomed 111 bytes of complete/deleting lifetime;
+these were already matched in the old views. No unique-byte or census gain is
+inferred from rehoming, and the historical printed preview delta is not credited
+to this batch. The existing color-constructor clear-binding warning remains
+separate, with its unchanged caller-byte/relocation control preserved.
+
+The outgoing path audit covers both removed lifetime views, across active tools,
+hooks, workflows, Code and shim includes, root build/configuration files, reverse
+registries and documentation. The supported `tu_skeleton.repoint_all` API moves
+only six TU-map source-column fields; approval, TU and evidence columns are
+unchanged. Its queue refresh requires no changes. No protected debt key, fold
+proof, active include or other tooling consumer still names either source.
+Remaining mentions are measured census history, prior attempts and historical
+obstacle evidence, intentionally retained. The constructor's live dependent-name
+test was already fixed and verified in accepted `33564ef244`.
+
+The complete moved-provider/consumer scope still needs the next scheduled census.
+The repeated outgoing audit is INCONCLUSIVE: index `12b9e7a7c0` predates the
+outgoing base, and affected `Common/0CreateAHeroManager21FE49.cpp` lacks a current
+receipt. No full-image clearance or official linked-count change is claimed.

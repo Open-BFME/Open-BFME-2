@@ -1,10 +1,10 @@
 {
   "source": "Code/GameEngine/Source/Common/MultiplayerSettings.cpp",
   "strict_current": true,
-  "object_md5": "b0aafb6ee71675772e459a19a9f65c8e",
-  "receipt_object": "b0aafb6ee71675772e459a19a9f65c8e",
-  "source_sha256": "0df11419cf75aceb5abab6655ef3970cce5b4561906ef4fe089d7c972bc66794",
-  "probe_bindings": {
+  "object_md5": "b47a6a062d6861db1fa1c4d8031334fc",
+  "receipt_object": "b47a6a062d6861db1fa1c4d8031334fc",
+  "source_sha256": "827931487e289dad4950d8b565724481027b46248b11414ba2707c56d07288e8",
+  "ledger_bindings": {
     "??0MultiplayerSettings@@QAE@XZ": "0x3811d8",
     "??1MultiplayerSettings@@UAE@XZ": "0x381293",
     "??_GMultiplayerSettings@@UAEPAXI@Z": "0x381277"

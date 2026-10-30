@@ -5677,6 +5677,18 @@ TU already emits the correct UAE operations with exact parent EH graphs;
 normal readmission must restore every withdrawn byte before this next batch
 is published.
 
+The separate lifetime correction now restores all six rows and 151 bytes through
+normal admissions, one verified body per commit, under the correct UAE parent
+in the approved seed. Native EH data proves all four companion placements.
+The two obsolete lifetime sources are removed; supported metadata synchronization
+repoints six source-column fields without changing TU approvals. Strict seven-
+source preparation passes 564 rows and four data rows, with EXACT 191 EH graphs;
+the bounded preview retains 7/7 LINKS for 33,891 authored bytes. This is source
+recovery and identity repair with unchanged unique coverage, not a census gain.
+The complete outgoing path audit finds only intentional historical mentions of
+the retired paths. Broader consumer/census confirmation and the inherited
+color-constructor binding warning remain open as recorded in the handoff.
+
 **Multiplayer seed prerequisite (2026-10-28, inspected `d5843cec`, index
 `d92e7e6635`):** MultiplayerSettings.cpp now uses the target 0xC4 layout,
 complete 0x40-byte colors and native INI tables. Its two rows and singleton

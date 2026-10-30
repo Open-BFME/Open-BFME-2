@@ -28311,8 +28311,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x003811A2,25,code,Code/GameEngine/Source/Common/MultiplayerSettings.cpp,approved,C,C=0x00380E34..0x003811BB,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_int_colormap.cpp
 0x003811BB,29,code,Code/GameEngine/Source/Common/MultiplayerSettings.cpp,approved,C,C=0x00380E34..0x003811D8,Code/GameEngine/Source/Common/MultiplayerColorMapOperator.cpp
 0x003811D8,159,code,Code/GameEngine/Source/Common/MultiplayerSettings.cpp,approved,Z,Z=Code/GameEngine/Source/Common/MultiplayerSettings.cpp S=Code/GameEngine/Source/Common/MultiplayerSettings.cpp N=Code/GameEngine/Source/Common/MultiplayerSettings.cpp,Code/GameEngine/Source/Common/MultiplayerSettings.cpp
-0x00381277,28,code,Code/GameEngine/Source/Common/MultiplayerSettings.cpp,approved,N,N=Code/GameEngine/Source/Common/MultiplayerSettings.cpp,Code/GameEngine/Source/Common/MultiplayerSettingsDeletingDtor.cpp
-0x00381293,83,code,Code/GameEngine/Source/Common/MultiplayerSettings.cpp,approved,S,S=Code/GameEngine/Source/Common/MultiplayerSettings.cpp N=Code/GameEngine/Source/Common/MultiplayerSettings.cpp,Code/GameEngine/Source/Common/MultiplayerSettingsDtor.cpp
+0x00381277,28,code,Code/GameEngine/Source/Common/MultiplayerSettings.cpp,approved,N,N=Code/GameEngine/Source/Common/MultiplayerSettings.cpp,Code/GameEngine/Source/Common/MultiplayerSettings.cpp
+0x00381293,83,code,Code/GameEngine/Source/Common/MultiplayerSettings.cpp,approved,S,S=Code/GameEngine/Source/Common/MultiplayerSettings.cpp N=Code/GameEngine/Source/Common/MultiplayerSettings.cpp,Code/GameEngine/Source/Common/MultiplayerSettings.cpp
 0x003812E6,141,code,Code/GameEngine/Source/Common/MultiplayerSettings.cpp,approved,U,N=Code/GameEngine/Source/Common/RetailColorList.cpp,Code/GameEngine/Source/Common/MultiplayerColorMapOperator.cpp
 0x00381373,68,code,Code/GameEngine/Source/Common/MultiplayerSettings.cpp,approved,Z,Z=Code/GameEngine/Source/Common/MultiplayerSettings.cpp S=Code/GameEngine/Source/Common/MultiplayerSettings.cpp N=Code/GameEngine/Source/Common/MultiplayerSettings.cpp,Code/GameEngine/Source/Common/MultiplayerSettings.cpp
 0x003813B7,137,code,Code/GameEngine/Source/Common/MultiplayerSettings.cpp,approved,Z,Z=Code/GameEngine/Source/Common/MultiplayerSettings.cpp S=Code/GameEngine/Source/Common/MultiplayerSettings.cpp N=Code/GameEngine/Source/Common/MultiplayerSettings.cpp,Code/GameEngine/Source/Common/MultiplayerSettings.cpp
@@ -74805,10 +74805,10 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0077F2EC,10,code,Code/GameEngine/Source/Common/MultiplayerSettings.cpp,approved,P,P=0x00380E34@FuncInfo0x00929900,Code/GameEngine/Source/Common/MultiplayerSettingsFindColorByName.cpp
 0x0077F2F6,8,code,Code/GameEngine/Source/Common/MultiplayerSettings.cpp,approved,P,P=0x0038103F@FuncInfo0x00929924,Code/GameEngine/Source/Common/MultiplayerColorTreeDtor.cpp
 0x0077F2FE,10,code,Code/GameEngine/Source/Common/MultiplayerSettings.cpp,approved,P,P=0x0038103F@FuncInfo0x00929924,Code/GameEngine/Source/Common/MultiplayerColorTreeDtor.cpp
-0x0077F308,8,code,,,-,,Code/GameEngine/Source/Common/MultiplayerSettingsDtor.cpp
-0x0077F310,11,code,,,-,,Code/GameEngine/Source/Common/MultiplayerSettingsDtor.cpp
-0x0077F31B,11,code,,,-,,Code/GameEngine/Source/Common/MultiplayerSettingsDtor.cpp
-0x0077F326,10,code,,,-,,Code/GameEngine/Source/Common/MultiplayerSettingsDtor.cpp
+0x0077F308,8,code,,,-,,Code/GameEngine/Source/Common/MultiplayerSettings.cpp
+0x0077F310,11,code,,,-,,Code/GameEngine/Source/Common/MultiplayerSettings.cpp
+0x0077F31B,11,code,,,-,,Code/GameEngine/Source/Common/MultiplayerSettings.cpp
+0x0077F326,10,code,,,-,,Code/GameEngine/Source/Common/MultiplayerSettings.cpp
 0x0077F330,8,code,Code/GameEngine/Source/Common/MultiplayerSettings.cpp,approved,P,P=0x003812E6@FuncInfo0x00929984,Code/GameEngine/Source/Common/MultiplayerColorMapOperator.cpp
 0x0077F338,11,code,Code/GameEngine/Source/Common/MultiplayerSettings.cpp,approved,P,P=0x003812E6@FuncInfo0x00929984,Code/GameEngine/Source/Common/MultiplayerColorMapOperator.cpp
 0x0077F343,10,code,Code/GameEngine/Source/Common/MultiplayerSettings.cpp,approved,P,P=0x003812E6@FuncInfo0x00929984,Code/GameEngine/Source/Common/MultiplayerColorMapOperator.cpp
