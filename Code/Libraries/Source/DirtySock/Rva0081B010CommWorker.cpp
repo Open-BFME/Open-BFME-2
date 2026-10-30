@@ -1,4 +1,7 @@
-// cl: /Od /GZ /GS /MD /DNDEBUG
+// cl: /Od /GZ /GS /DNDEBUG
+// platformsdk
+#include <windows.h>
+#include <string.h>
 
 struct Rva0081B010Comm
 {
@@ -14,70 +17,15 @@ struct Rva0081B010Comm
 	int m_state;
 };
 
-struct Rva0081B010Dcb
-{
-	unsigned int m_length;
-	unsigned int m_baudRate;
-	unsigned int m_flags;
-	unsigned short m_reserved;
-	unsigned short m_xonLimit;
-	unsigned short m_xoffLimit;
-	unsigned char m_byteSize;
-	unsigned char m_parity;
-	unsigned char m_stopBits;
-	char m_xonChar;
-	char m_xoffChar;
-	char m_errorChar;
-	char m_eofChar;
-	char m_evtChar;
-	unsigned short m_reserved1;
-};
-
-struct Rva0081B010Timeouts
-{
-	unsigned int m_readInterval;
-	unsigned int m_readMultiplier;
-	unsigned int m_readConstant;
-	unsigned int m_writeMultiplier;
-	unsigned int m_writeConstant;
-};
-
 /* Retail calls the serial API through import thunks this repo names
  * Rva01358* (see the pin log); the import verifier maps each slot to its
- * real kernel32 entry, so the declarations below use the real names.
+ * real kernel32 entry.
  * Rva01358CCC=CloseHandle Rva01358CE8=CreateFileA Rva01358D54=GetCommConfig
  * Rva01358D58=GetCommState Rva01358F28=SetupComm Rva01358ED8=SetCommConfig
  * Rva01358EDC=SetCommMask Rva01358EE0=SetCommState Rva01358EE4=SetCommTimeouts
- * Rva01358EB0=PurgeComm Rva01358F0C=SetEvent. */
-extern "C" {
-__declspec(dllimport) int __stdcall CloseHandle( void *handle );
-__declspec(dllimport) void *__stdcall CreateFileA( const char *name,
-	unsigned int desiredAccess, unsigned int shareMode, void *security,
-	unsigned int creation, unsigned int flags, void *templateHandle );
-__declspec(dllimport) int __stdcall GetCommConfig( void *handle, void *config,
-	unsigned int *size );
-__declspec(dllimport) int __stdcall GetCommState( void *handle,
-	struct Rva0081B010Dcb *dcb );
-__declspec(dllimport) int __stdcall SetupComm( void *handle,
-	unsigned int inQueue, unsigned int outQueue );
-__declspec(dllimport) int __stdcall SetCommConfig( void *handle, void *config,
-	unsigned int size );
-__declspec(dllimport) int __stdcall SetCommMask( void *handle,
-	unsigned int mask );
-__declspec(dllimport) int __stdcall SetCommState( void *handle,
-	struct Rva0081B010Dcb *dcb );
-__declspec(dllimport) int __stdcall SetCommTimeouts( void *handle,
-	struct Rva0081B010Timeouts *timeouts );
-__declspec(dllimport) int __stdcall PurgeComm( void *handle,
-	unsigned int flags );
-__declspec(dllimport) int __stdcall SetEvent( void *eventHandle );
-
-char *__cdecl strncpy( char *destination, const char *source,
-	unsigned int count );
-char *__cdecl strchr( const char *string, int character );
-int __cdecl strncmp( const char *left, const char *right,
-	unsigned int count );
-}
+ * Rva01358EB0=PurgeComm Rva01358F0C=SetEvent.  strncpy, strchr and strncmp
+ * go through msvcrt's import stubs with a direct e8, so the unit is built
+ * without /MD, as a library compiled against the static CRT headers is. */
 
 // g_00E0ABA4: VA 0x00E0ABA4 (.data(bss)); retail initial byte is zero.
 char g_00E0ABA4 = 0;
@@ -89,19 +37,19 @@ extern "C" int Rva0081B010( struct Rva0081B010Comm *comm, char *argument )
 {
 	int baud;
 	char device[ 0x20 ];
-	struct Rva0081B010Timeouts timeouts;
+	COMMTIMEOUTS timeouts;
 	char config[ 0x1000 ];
-	struct Rva0081B010Dcb *dcb;
+	DCB *dcb;
 	char *parse;
-	unsigned int len;
+	DWORD len;
 
 	baud = 0;
-	timeouts.m_readInterval = 0xffffffff;
-	timeouts.m_readMultiplier = 0;
-	timeouts.m_readConstant = 0;
-	timeouts.m_writeMultiplier = 0;
-	timeouts.m_writeConstant = 0;
-	dcb = (struct Rva0081B010Dcb *)( config + 8 );
+	timeouts.ReadIntervalTimeout = 0xffffffff;
+	timeouts.ReadTotalTimeoutMultiplier = 0;
+	timeouts.ReadTotalTimeoutConstant = 0;
+	timeouts.WriteTotalTimeoutMultiplier = 0;
+	timeouts.WriteTotalTimeoutConstant = 0;
+	dcb = (DCB *)( config + 8 );
 
 	if ( argument == 0 && comm->m_state == 4 )
 	{
@@ -162,31 +110,31 @@ extern "C" int Rva0081B010( struct Rva0081B010Comm *comm, char *argument )
 	if ( baud != 0 )
 	{
 		len = 0x1000;
-		GetCommConfig( comm->m_handle, config, &len );
-		dcb->m_evtChar = 0x0a;
-		dcb->m_flags = dcb->m_flags | 1;
-		dcb->m_flags = dcb->m_flags & 0xfffff7ff;
-		dcb->m_flags = dcb->m_flags & 0xfffffeff;
-		dcb->m_flags = dcb->m_flags & 0xfffffdff;
-		dcb->m_flags = dcb->m_flags & 0xffffbfff;
-		SetCommConfig( comm->m_handle, config, len );
+		GetCommConfig( comm->m_handle, (COMMCONFIG *)config, &len );
+		dcb->EvtChar = 0x0a;
+		dcb->fBinary = 1;
+		dcb->fNull = 0;
+		dcb->fOutX = 0;
+		dcb->fInX = 0;
+		dcb->fAbortOnError = 0;
+		SetCommConfig( comm->m_handle, (COMMCONFIG *)config, len );
 		goto finish;
 	}
 
-	dcb->m_length = 0x1c;
+	dcb->DCBlength = 0x1c;
 	GetCommState( comm->m_handle, dcb );
-	dcb->m_evtChar = 0x0a;
-	dcb->m_flags = dcb->m_flags | 1;
-	dcb->m_flags = dcb->m_flags & 0xfffff7ff;
-	dcb->m_flags = dcb->m_flags & 0xfffffeff;
-	dcb->m_flags = dcb->m_flags & 0xfffffdff;
-	dcb->m_flags = dcb->m_flags & 0xffffbfff;
-	dcb->m_byteSize = 8;
-	dcb->m_flags = dcb->m_flags | 2;
-	dcb->m_stopBits = 0;
-	dcb->m_flags = dcb->m_flags & 0xffffffbf;
-	dcb->m_flags = dcb->m_flags & 0xfffffff7;
-	dcb->m_flags = ( dcb->m_flags & 0xffffffcf ) | 0x10;
+	dcb->EvtChar = 0x0a;
+	dcb->fBinary = 1;
+	dcb->fNull = 0;
+	dcb->fOutX = 0;
+	dcb->fInX = 0;
+	dcb->fAbortOnError = 0;
+	dcb->ByteSize = 8;
+	dcb->fParity = 1;
+	dcb->StopBits = ONESTOPBIT;
+	dcb->fDsrSensitivity = 0;
+	dcb->fOutxDsrFlow = 0;
+	dcb->fDtrControl = DTR_CONTROL_ENABLE;
 
 	while ( argument != 0 && *argument != 0 )
 	{
@@ -194,20 +142,20 @@ extern "C" int Rva0081B010( struct Rva0081B010Comm *comm, char *argument )
 			argument++;
 
 		if ( strncmp( argument, "+RTS", 4 ) == 0 )
-			dcb->m_flags = ( dcb->m_flags & 0xffffcfff ) | 0x2000;
+			dcb->fRtsControl = RTS_CONTROL_HANDSHAKE;
 		if ( strncmp( argument, "-RTS", 4 ) == 0 )
-			dcb->m_flags = ( dcb->m_flags & 0xffffcfff ) | 0x1000;
+			dcb->fRtsControl = RTS_CONTROL_ENABLE;
 		if ( strncmp( argument, "+CTS", 4 ) == 0 )
-			dcb->m_flags = dcb->m_flags | 4;
+			dcb->fOutxCtsFlow = 1;
 		if ( strncmp( argument, "-CTS", 4 ) == 0 )
-			dcb->m_flags = dcb->m_flags & 0xfffffffb;
+			dcb->fOutxCtsFlow = 0;
 
 		if ( *argument >= '0' && *argument <= '9' )
 		{
-			dcb->m_baudRate = 0;
+			dcb->BaudRate = 0;
 			while ( *argument >= '0' && *argument <= '9' )
 			{
-				dcb->m_baudRate = dcb->m_baudRate * 10
+				dcb->BaudRate = dcb->BaudRate * 10
 					+ ( *argument & 0x0f );
 				argument++;
 			}
