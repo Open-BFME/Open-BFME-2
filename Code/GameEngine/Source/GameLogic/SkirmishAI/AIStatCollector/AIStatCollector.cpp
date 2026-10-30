@@ -45,6 +45,7 @@ template <> void _STLP_alloc_proxy<int*, int, allocator<int> >::deallocate(int*,
 #include "Coord3DCtorView.h"
 #include <math.h>
 #include <stl/_algobase.h>
+#include "ascii_string.h"
 
 // bfme link decl-only begin
 namespace _STL { template <> _Vector_base<void *, allocator<void *> >::_Vector_base(allocator<void *> const &); }
@@ -315,6 +316,89 @@ private:
  Rva004DFE4FCallback m_callback;
 };
 
+// ?rva004DFA0E@Rva004DFA0E@@QAEXPAX0@Z @0x004DFA0E 53B
+// __thiscall guarded triple dispatch: if second arg ptr byte+1 >=2, builds
+// TwoBytes{1,1} by reusing dead arg slot at [ebp+0xC] (no new stack), calls
+// holder vtable+0x28 with it, then this+0xC AIEconomyStats::rva0059640C(holder).
+// EBP frame, ret8, slot reuse gives lea/mov at +0xC not +0xE.
+// Evidence: mov eax[ebp+C] cmp [eax+1]2 jb; push esi edi; mov esi[ebp+8];
+// lea [ebp+C] push mov ecx esi mov [ebp+C]1 [ebp+D]1 call [eax+28];
+// mov ecx[edi+C] push esi call 0x59640C; ret8. Caller at 0x002A8CB2.
+class Holder
+{
+public:
+	virtual void v00(void *);
+	virtual void v01(void *);
+	virtual void v02(void *);
+	virtual void v03(void *);
+	virtual void v04(void *);
+	virtual void v05(void *);
+	virtual void v06(void *);
+	virtual void v07(void *);
+	virtual void v08(void *);
+	virtual void v09(void *);
+	virtual void v10(void *);
+};
+
+struct TwoBytes
+{
+	unsigned char a;
+	unsigned char b;
+};
+
+class Rva004DFA0E
+{
+public:
+	void rva004DFA0E(void *holder, void *ptr);
+private:
+	char m_pad[12];
+	AIEconomyStats *m_0C;
+};
+
+struct BuilderNames004DFB7E {unsigned char prefix[0x98];_STL::vector<AsciiString> names;};
+
+struct Rva002A8AB1Record {unsigned char prefix[0x160];BuilderNames004DFB7E *data;};
+
+class Rva002A8F24 {public:Rva002A8AB1Record *rva002A8AB1(void*);};
+
+struct BuilderTemplate004DFB7E {unsigned char prefix[0x64];AsciiString name;};
+
+class Object {public:unsigned char prefix[4];BuilderTemplate004DFB7E *thingTemplate;};
+
+class Rva005961D6;
+
+class Rva00596069;
+
+class Rva005965A5;
+
+class AIEconomyStats;
+
+class Rva00283081;
+
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+bool vector<void*>::empty() const { return this->_M_start == this->_M_finish; }
+template <> __declspec(dllimport) __forceinline
+void vector<void*>::clear() { erase(begin(), end()); }
+}
+
+class Rva00281A06 { public: ~Rva00281A06(); };
+
+class Rva00281A76;
+
+class Rva004E02D7Owner
+{
+public:
+	void rva004E00D9();
+
+private:
+	char unknown00[4];
+	_STL::vector<void *> records;
+	_STL::vector<void *> holders;
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AIStatCollector/AIStatCollector.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AIStatCollector/AIStatCollector.cpp
 
 // The target has no operator-delete rollback state for this last helper's
@@ -348,7 +432,6 @@ void AIStatCollector::addInfoReceiver(const ModuleData *receiver)
 // The count-map constructor call site reads 0x004E02B8 from retail, where the folded hash_map
 // constructor row (StlSweepW4Rva004E02B8.cpp) lives; bind this unit's int/int spelling to it.
 
-// tu-skeleton: 0x004DF9B9 43B ?rva004DF9B9@AIStatCollector@@QAEXPAXH@Z -- matched in Code/GameEngine/Source/Common/Rva004DF9B9Loop.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva004DF9E4Loop.cpp
 
@@ -363,8 +446,6 @@ void Rva004DF9E4::rva004DF9E4(void *a, int mask)
 			filterElem->v1(a);
 	}
 }
-
-// tu-skeleton: 0x004DFA0E 53B ?rva004DFA0E@Rva004DFA0E@@QAEXPAX0@Z -- matched in Code/GameEngine/Source/Common/Rva004DFA0EChain.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva004DFA43Sphere.cpp
 
@@ -413,20 +494,6 @@ void Rva004DFB55::rva004DFB55(CreateAHeroData *createAHeroData)
 		((_STL::vector<void *> *)&m_vec2c)->erase((void **)it);
 	}
 }
-
-// tu-skeleton: 0x004DFB7E 111B ?rva004DFB7E@AIStatCollector@@QAE_NPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilderNameMembership.cpp (not merged yet)
-
-// tu-skeleton: 0x004DFBED 51B ?rva004DFBED@Rva004DFBED@@QAEHABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilderRva00598D7A.cpp (not merged yet)
-
-// tu-skeleton: 0x004DFC20 57B ??1Rva004DFC20@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva004E013BOwnedResources.cpp (not merged yet)
-
-// tu-skeleton: 0x004DFC59 59B ??0Rva00283081@@QAE@MH@Z -- matched in Code/GameEngine/Source/Common/Rva00283081Ctor.cpp (not merged yet)
-
-// tu-skeleton: 0x004DFC94 28B ??_GRva00281A06@@QAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/Rva002827F3Clear.cpp (not merged yet)
-
-// tu-skeleton: 0x004DFCB0 49B ?push_back@?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@QAEXABQBVModuleData@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_moduledatavector_push.cpp (not merged yet)
-
-// tu-skeleton: 0x004DFCE1 5B ??1Rva004DFCE1@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva004E013BOwnedResources.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva004DFCE6SphereMerge.cpp
 
@@ -487,10 +554,6 @@ void Rva004DFCE6::rva004DFCE6(Object *object,void *callback)
  objects->push_back(object);
 }
 
-// tu-skeleton: 0x004DFE4F 121B ?rva004DFE4F@Rva004DFE4F@@QAEHPAX@Z -- matched in Code/GameEngine/Source/Common/Rva00282B26.cpp (not merged yet)
-
-// tu-skeleton: 0x004DFED8 84B ??1Rva004DFED8@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva004DFED8Dtor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva004DFF2CGroupMerge.cpp
 
 // ?rva004DFF2C@Rva004DFF2C@@QAEXPAX@Z, retail 0x004DFF2C..0x004E005E (306
@@ -550,13 +613,86 @@ void Rva004DFF2C::rva004DFF2C(void *key)
  }
 }
 
+// tu-skeleton: 0x004DF9B9 43B ?rva004DF9B9@AIStatCollector@@QAEXPAXH@Z -- matched in Code/GameEngine/Source/Common/Rva004DF9B9Loop.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva004DFA0EChain.cpp
+
+void Rva004DFA0E::rva004DFA0E(void *holder, void *ptr)
+{
+	if (((unsigned char *)ptr)[1] >= 2)
+	{
+		TwoBytes *twoBytes = (TwoBytes *)&ptr;
+		twoBytes->a = 1;
+		twoBytes->b = 1;
+		((Holder *)holder)->v10(twoBytes);
+		m_0C->rva0059640C(holder);
+	}
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilderNameMembership.cpp
+
+// Native004DFB7E..004DFBED RET4; WB0129B1A0 callgraph twin; same name-vector
+// search as AIStructureCreepTactic::isOffensiveBuilding but with a null-record
+// guard. Target receiver owner28; lookup002A8AB1 returns record160 pointer;
+// names98 is a three-word vector of four-byte strings; argument's template4
+// supplies name64. Original receiver and method spellings remain unproved.
+
+bool AIStatCollector::rva004DFB7E(Object *object)
+{
+ Rva002A8AB1Record *record=TheSkirmishAIManager->rva002A8AB1(player);
+ if(record) {
+  for(unsigned int i=0;i<record->data->names.size();++i) {
+   const AsciiString &name=object->thingTemplate->name;
+   if(((const StringBase<char>&)record->data->names[i]).compare((const StringBase<char>&)name)==0)return true;
+  }
+ }
+ return false;
+}
+
+// tu-skeleton: 0x004DFBED 51B ?rva004DFBED@Rva004DFBED@@QAEHABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilderRva00598D7A.cpp (not merged yet)
+
+// tu-skeleton: 0x004DFC20 57B ??1Rva004DFC20@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva004E013BOwnedResources.cpp (not merged yet)
+
+// tu-skeleton: 0x004DFC59 59B ??0Rva00283081@@QAE@MH@Z -- matched in Code/GameEngine/Source/Common/Rva00283081Ctor.cpp (not merged yet)
+
+// tu-skeleton: 0x004DFC94 28B ??_GRva00281A06@@QAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/Rva002827F3Clear.cpp (not merged yet)
+
+// tu-skeleton: 0x004DFCB0 49B ?push_back@?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@QAEXABQBVModuleData@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_moduledatavector_push.cpp (not merged yet)
+
+// tu-skeleton: 0x004DFCE1 5B ??1Rva004DFCE1@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva004E013BOwnedResources.cpp (not merged yet)
+
+// tu-skeleton: 0x004DFE4F 121B ?rva004DFE4F@Rva004DFE4F@@QAEHPAX@Z -- matched in Code/GameEngine/Source/Common/Rva00282B26.cpp (not merged yet)
+
+// tu-skeleton: 0x004DFED8 84B ??1Rva004DFED8@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva004DFED8Dtor.cpp (not merged yet)
+
 // tu-skeleton: 0x004E005E 28B ??_GRva004DFED8@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva004DFED8Dtor.cpp (not merged yet)
 
 // tu-skeleton: 0x004E007A 64B ??0?$hashtable@U?$pair@$$CBHURva004E007AElement@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHURva004E007AElement@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHURva004E007AElement@@@_STL@@@2@@_STL@@QAE@IABU?$hash@H@1@ABU?$equal_to@H@1@ABV?$allocator@U?$pair@$$CBHURva004E007AElement@@@_STL@@@1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva004E007A.cpp (not merged yet)
 
 // tu-skeleton: 0x004E00BA 31B ?addObject@Rva004E00BAOwner@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Rva004E00BA.cpp (not merged yet)
 
-// tu-skeleton: 0x004E00D9 98B ?rva004E00D9@Rva004E02D7Owner@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Rva004E00D9.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Rva004E00D9.cpp
+
+//
+// ?rva004E00D9@Rva004E02D7Owner@@QAEXXZ @0x004E00D9 98B: clear of the owner's two pointer vectors, byte-identical
+// in shape to Rva00283CB3::rva00283505 (Map/TerrainLogicRva00283CE7.cpp): destroy and free every element of the
+// vector at +0x10 (rowed destructor 0x00281A06), clear it, then pass every element of the vector at +4 to the
+// same-receiver member 0x004DFF2C (rowed as Rva004DFF2C::rva004DFF2C in Rva004DFF2CGroupMerge.cpp). Target evidence:
+// retail body read byte for byte; the follow-up call's callee read at its REL32. Class identity unresolved; names
+// are address-derived.
+
+void Rva004E02D7Owner::rva004E00D9()
+{
+	void **end = holders.end();
+	for (void **i = holders.begin(); i != end; ++i)
+		delete (Rva00281A06 *)*i;
+	holders.clear();
+	if (!records.empty()) {
+		void **last = records.end();
+		for (void **i = records.begin(); i != last; ++i)
+			((Rva004DFF2C *)this)->rva004DFF2C(*i);
+	}
+}
 
 // tu-skeleton: 0x004E013B 168B ??1Rva004E013B@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva004E013BOwnedResources.cpp (not merged yet)
 
