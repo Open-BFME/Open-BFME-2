@@ -4,19 +4,16 @@
 #include <list>
 char g_00C59CF8;
 #include "ascii_string.h"
-
 // Declaration-only: retail keeps one copy of this STLport member (rowed elsewhere); this unit calls it
 // rather than emitting its own.
 namespace _STL {
 template <> void _List_base<int, allocator<int> >::clear();
 }
-
 // Declaration-only: retail keeps one copy of this STLport member (rowed elsewhere); this unit calls it
 // rather than emitting its own.
 namespace _STL {
 template <> _List_base<int, allocator<int> >::~_List_base();
 }
-
 // list<int> destruction otherwise instantiates per-TU deallocate
 // COMDATs (one byte shape per TU flags); explicit dllimport+forceinline
 // specializations take those calls inline so this TU emits no external copy.
@@ -31,25 +28,56 @@ void _STLP_alloc_proxy<_List_node<int> *, _List_node<int>, allocator<_List_node<
   allocator<_List_node<int> >().deallocate(__p, __n);
 }
 }
-
 enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
-
 class NameKeyGenerator
 {
 public:
 	NameKeyType nameToKey(const char *name);
 };
-
 extern NameKeyGenerator *TheNameKeyGenerator;
-
 class Thing;
-
 class ModuleData;
-
 #include "../../../../Include/Common/ObjectModule.h"
+//
+// ?xfer@EvacuateDamage@@MAEXPAVXfer@@@Z, retail 0x004BAC83, 44 bytes.
+// Virtual slot 3 (offset 0x0C) of vtable 0x00859E2C (VA 0x00C59E2C, class of
+// rowed ctor ??0EvacuateDamage@@QAE@PAVThing@@PBVModuleData@@@Z in
+// EvacuateDamageCtorModuleFactoryBody.cpp): Version(1,2) via Xfer slot 0x28
+// then base DamageModule xfer via rowed 0x004CE56D. No members and no
+// IsLightCRC early-out in retail. Recipe is the WallHubBehaviorXfer and
+// ReplaceSelfUpgradeXfer 44B Version-plus-base pattern with protected xfer.
+
+class AsciiString;
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+class Object;
+#include "../../../../Include/Common/BfmeXfer.h"
+class Xfer::Version
+{
+public:
+	Version(unsigned char current, unsigned char minimum)
+		: m_current(current), m_minimum(minimum) {}
+
+	unsigned char m_current;
+	unsigned char m_minimum;
+};
 
 class PB_Iface1 { public: virtual void slot(); };
 
@@ -111,7 +139,25 @@ private:
 	int m_trackingTimeSpan; // +0x14
 };
 
-// tu-skeleton: 0x004BAC83 44B ?xfer@EvacuateDamage@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Damage/EvacuateDamageXfer.cpp (not merged yet)
+class Rva004CE56D
+{
+public:
+	virtual void baseAnchor();
+	void xfer(Xfer *xfer);
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Damage/EvacuateDamageXfer.cpp
+
+void EvacuateDamage::xfer(Xfer *xfer)
+{
+	Xfer::Version version(1, 2);
+	*xfer == version;
+	reinterpret_cast<Rva004CE56D *>(this)->Rva004CE56D::xfer(xfer);
+}
+
+// tu-skeleton: 0x004BACAF 97B ?Rva004BACAF_ParseWeaponName@@YAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/Common/INI/INIInlineTableParsers.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Damage/EvacuateDamage.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/PanicUpdateModuleDataCtor.cpp
 
@@ -144,18 +190,6 @@ EvacuateDamageModuleData::EvacuateDamageModuleData()
 	m_trackingTimeSpan = 6;
 }
 
-// tu-skeleton: 0x004BAD64 17B ?buildFieldParse@EvacuateDamageModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
-
-// tu-skeleton: 0x004BAD75 28B ??_GEvacuateDamageModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/EvacuateDamageModuleDataDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004BAD91 48B ??1EvacuateDamageModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/EvacuateDamageModuleDataDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004BADC1 92B ?rva004BADC1@EvacuateDamage@@QAEMXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Damage/EvacuateDamageEvacuationSum.cpp (not merged yet)
-
-// tu-skeleton: 0x004BAE1D 96B ??0EvacuateDamage@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Damage/EvacuateDamageCtorModuleFactoryBody.cpp (not merged yet)
-
-// tu-skeleton: 0x004BAE7D 6B ?Rva004BAE7DGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Die/EvacuateDamagePoolKey.cpp
 
 // ?getModuleNameKey@EvacuateDamage@@UBE?AW4NameKeyType@@XZ @0x4BAE83
@@ -180,11 +214,27 @@ EvacuateDamage::~EvacuateDamage()
 {
 }
 
+// tu-skeleton: 0x004BAD64 17B ?buildFieldParse@EvacuateDamageModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
+
+// tu-skeleton: 0x004BAD75 28B ??_GEvacuateDamageModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/EvacuateDamageModuleDataDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004BAD91 48B ??1EvacuateDamageModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/EvacuateDamageModuleDataDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004BADC1 92B ?rva004BADC1@EvacuateDamage@@QAEMXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Damage/EvacuateDamageEvacuationSum.cpp (not merged yet)
+
+// tu-skeleton: 0x004BAE1D 96B ??0EvacuateDamage@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Damage/EvacuateDamageCtorModuleFactoryBody.cpp (not merged yet)
+
+// tu-skeleton: 0x004BAE7D 6B ?Rva004BAE7DGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
 // tu-skeleton: 0x004BAF11 28B ??_GRva004BAEC8@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAR.cpp (not merged yet)
 
 // tu-skeleton: 0x004BAF2D 40B ?rva004BAF2D@EvacuateDamage@@QAEXPAX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Damage/EvacuateDamageOnDamage.cpp (not merged yet)
 
 // tu-skeleton: 0x004BAF55 144B ?onDamage@EvacuateDamage@@UAEXPAUDamageInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Damage/EvacuateDamageRva004BAF55.cpp (not merged yet)
+
+// tu-skeleton: 0x0078F54A 8B $L55594 -- matched in Code/GameEngine/Source/Common/INI/INIInlineTableParsers.cpp (not merged yet)
+
+// tu-skeleton: 0x0078F552 10B __ehhandler$?Rva004BACAF_ParseWeaponName@@YAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/Common/INI/INIInlineTableParsers.cpp (not merged yet)
 
 // tu-skeleton: 0x0078F579 8B uw_0078f579 -- matched in Code/gen_small/uw_gen_013.cpp (not merged yet)
 
