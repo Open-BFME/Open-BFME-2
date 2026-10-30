@@ -1,4 +1,5 @@
-// cl: /Ireference/shims/bfme2_ascii /GX /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /GX /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
+// stlport
 // platformsdk
 //
 // Two FieldParse procs whose bodies are generic but which sit in their own
@@ -26,11 +27,10 @@ public:
 	static void Rva00289228_ParseRealList(INI *ini, void *instance, void *store, const void *userData);
 };
 
+#include <vector>
+
 namespace _STL
 {
-template <class T> class allocator
-{
-};
 template <class T, class A> class vector;
 template <> class vector<Real, allocator<Real> >
 {

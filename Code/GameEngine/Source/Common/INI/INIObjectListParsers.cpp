@@ -1,4 +1,5 @@
-// cl: /Ireference/shims/bfme2_ascii /GX /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /GX /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
+// stlport
 // platformsdk
 //
 // Object-record FieldParse proc (name address-derived):
@@ -34,11 +35,10 @@ private:
 	unsigned char m_unreconstructed_08[0x18 - 0x08];
 };
 
+#include <vector>
+
 namespace _STL
 {
-template <class T> class allocator
-{
-};
 template <class T, class A> class vector;
 template <> class vector<LivingWorldRegionConnection, allocator<LivingWorldRegionConnection> >
 {
