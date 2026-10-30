@@ -48964,7 +48964,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x005AD6C3,39,code,Code/GameEngine/Source/Common/AINavyUnitBattleShip.cpp,approved,N,N=Code/GameEngine/Source/Common/AINavyUnitBattleShip.cpp provisional,Code/GameEngine/Source/Common/AINavyUnitBattleShip.cpp
 0x005AD6EA,11,code,Code/GameEngine/Source/Common/AINavyUnitBattleShip.cpp,approved,N,N=Code/GameEngine/Source/Common/AINavyUnitBattleShip.cpp provisional,Code/GameEngine/Source/Common/AINavyUnitBattleShip.cpp
 0x005AD6F5,273,code,Code/GameEngine/Source/Common/AINavyUnitBattleShip.cpp,approved,N,N=Code/GameEngine/Source/Common/AINavyUnitBattleShip.cpp provisional,Code/GameEngine/Source/Common/AINavyUnitBattleShip.cpp
-0x005AD806,291,code,Code/GameEngine/Source/Common/AINavyUnitBattleShip.cpp,approved,N,N=Code/GameEngine/Source/Common/AINavyUnitBattleShip.cpp provisional,Code/GameEngine/Source/Common/AINavyUnitBattleShip_update.cpp
+0x005AD806,291,code,Code/GameEngine/Source/Common/AINavyUnitBattleShip.cpp,approved,N,N=Code/GameEngine/Source/Common/AINavyUnitBattleShip.cpp provisional,Code/GameEngine/Source/Common/AINavyUnitBattleShip.cpp
 0x005AD929,17,code,,displaced,-,S=Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp N=Code/GameEngine/Source/GameLogic/AI/Pathfinder.cpp,Code/GameEngine/Source/GameLogic/AI/AIPathfind_setDebugPathPosition_Pathfinder_QAEXPBUCoord3D_Z.cpp
 0x005AD948,28,code,,,-,,Code/GameEngine/Source/Common/FamilyDeletingDtors8.cpp
 0x005AD964,56,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AIBaseBuilder/AIBase.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/SkirmishAI/AIBaseBuilder/AIBase.cpp,Code/GameEngine/Source/GameLogic/SkirmishAI/AIBaseBuilder/AIBase.cpp
@@ -87711,8 +87711,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0079EAB6,8,code,,,-,,Code/gen_small/uw_gen_000.cpp
 0x0079EABE,8,code,,,-,,Code/gen_small/uw_gen_005.cpp
 0x0079EAC6,10,code,,,-,,Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/TargetlessTactics/AIFarmKillSquad.cpp
-0x0079EAD0,8,code,Code/GameEngine/Source/Common/AINavyUnitBattleShip.cpp,approved,P,P=0x005AD806@FuncInfo0x00955300 provisional,Code/GameEngine/Source/Common/AINavyUnitBattleShip_update.cpp
-0x0079EAD8,10,code,Code/GameEngine/Source/Common/AINavyUnitBattleShip.cpp,approved,P,P=0x005AD806@FuncInfo0x00955300 provisional,Code/GameEngine/Source/Common/AINavyUnitBattleShip_update.cpp
+0x0079EAD0,8,code,Code/GameEngine/Source/Common/AINavyUnitBattleShip.cpp,approved,P,P=0x005AD806@FuncInfo0x00955300 provisional,Code/GameEngine/Source/Common/AINavyUnitBattleShip.cpp
+0x0079EAD8,10,code,Code/GameEngine/Source/Common/AINavyUnitBattleShip.cpp,approved,P,P=0x005AD806@FuncInfo0x00955300 provisional,Code/GameEngine/Source/Common/AINavyUnitBattleShip.cpp
 0x0079EAE2,8,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AIBaseBuilder/AIBase.cpp,approved,P,P=0x005ADA40@FuncInfo0x00955324,Code/GameEngine/Source/GameLogic/SkirmishAI/AIBaseBuilder/AIBase.cpp
 0x0079EAEA,10,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AIBaseBuilder/AIBase.cpp,approved,P,P=0x005ADA40@FuncInfo0x00955324,Code/GameEngine/Source/GameLogic/SkirmishAI/AIBaseBuilder/AIBase.cpp
 0x0079EAF4,10,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AIBaseBuilder/AIBase.cpp,approved,P,P=0x005ADAB2@FuncInfo0x00955348,Code/GameEngine/Source/GameLogic/SkirmishAI/AIBaseBuilder/AIBase_DoXfer.cpp

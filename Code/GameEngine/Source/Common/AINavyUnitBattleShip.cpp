@@ -157,6 +157,8 @@ public:
 
 // ---- from Code/GameEngine/Source/Common/AINavyUnitBattleShip.cpp
 
+// ---- from Code/GameEngine/Source/Common/AINavyUnitBattleShip.cpp
+
 AINavyUnitBattleShip::AINavyUnitBattleShip(const Rva005DCC4BSource *source)
 	: Rva005DCC4B(source)
 {
@@ -226,8 +228,38 @@ void AINavyUnitBattleShip::patrol()
 	}
 }
 
-// tu-skeleton: 0x005AD806 291B ?update@AINavyUnitBattleShip@@UAEXXZ -- matched in Code/GameEngine/Source/Common/AINavyUnitBattleShip_update.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/AINavyUnitBattleShip_update.cpp
 
-// tu-skeleton: 0x0079EAD0 8B $L5014 -- matched in Code/GameEngine/Source/Common/AINavyUnitBattleShip_update.cpp (not merged yet)
-
-// tu-skeleton: 0x0079EAD8 10B __ehhandler$?update@AINavyUnitBattleShip@@UAEXXZ -- matched in Code/GameEngine/Source/Common/AINavyUnitBattleShip_update.cpp (not merged yet)
+void AINavyUnitBattleShip::update()
+{
+	GameLogic *logic = TheGameLogic;
+	Object *ship = logic->findObjectByID((ObjectID)m_field04);
+	if (!ship)
+		return;
+	if (m_field08) {
+		Object *target = logic->findObjectByID((ObjectID)m_field08);
+		if (target) {
+			if (logic->getFrame() == (unsigned int)m_field0C) {
+				ship->m_ai->m_commands.rva003C7653(target, CMD_FROM_PLAYER);
+				m_field0C = TheGameLogic->getFrame() + 25;
+			}
+		} else {
+			m_field08 = 0;
+		}
+		return;
+	}
+	Player *player = (Player *)TheSkirmishAIManager->rva002A8AB1(ship->getControllingPlayer())->rva002C6ACB();
+	if (!player)
+		return;
+	_STL::vector<ObjectID> targets(*(const _STL::vector<ObjectID> *)((Rva005AD6C3Holder *)TheSkirmishAIManager->rva002A8F24(player))->m_04->get());
+	if (!targets.empty()) {
+		ObjectID chosen = targets[GetGameLogicRandomValue(0, targets.size() - 1,
+			"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\SkirmishAI\\AITacticalAI\\AITacticalNavy\\AINavyUnitBattleShip.cpp",
+			65)];
+		m_field08 = chosen;
+		Rva005AD6C3AI *ai = ship->m_ai;
+		ai->m_commands.rva003C7653(TheGameLogic->findObjectByID(chosen), CMD_FROM_PLAYER);
+	} else {
+		patrol();
+	}
+}
