@@ -66,10 +66,12 @@ public:
 	virtual void getBody();
 };
 
+enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
+
 class UpdateModuleInterface
 {
 public:
-	virtual void update();
+	virtual UpdateSleepTime update() = 0;
 private:
 	unsigned char m_pad14[0x0C]; // +0x14
 };
@@ -94,6 +96,7 @@ public:
 class GarrisonContain : public OpenContain
 {
 public:
+	virtual UpdateSleepTime update(); // UpdateModuleInterface slot 0, the rowed override
 	GarrisonContain(Thing *thing, const ModuleData *moduleData);
 	virtual ~GarrisonContain();
 private:

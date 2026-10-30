@@ -87,10 +87,12 @@ class BehaviorModule : public BehaviorModuleBase, public BehaviorModuleOther
 public:
 };
 
+enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
+
 class UpdateModuleInterface
 {
 public:
-	virtual void update();
+	virtual UpdateSleepTime update() = 0;
 };
 
 class UpdateModule : public BehaviorModule, public UpdateModuleInterface
@@ -116,6 +118,7 @@ struct FloodUpdateRecord
 class FloodUpdate : public UpdateModule
 {
 public:
+	virtual UpdateSleepTime update(); // UpdateModuleInterface slot 0, the rowed override
 	virtual ~FloodUpdate();
 private:
 	_STL::list<int> m_bfme20;

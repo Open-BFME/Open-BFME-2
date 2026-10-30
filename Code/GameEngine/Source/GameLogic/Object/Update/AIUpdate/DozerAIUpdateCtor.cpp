@@ -360,10 +360,12 @@ class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
 {
 };
 
+enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
+
 class UpdateModuleInterface
 {
 public:
-	virtual void update();
+	virtual UpdateSleepTime update() = 0;
 };
 
 class UpdateModule : public BehaviorModule, public UpdateModuleInterface
@@ -1029,6 +1031,7 @@ struct Rva004894F5DockPoint
 class DozerAIUpdate : public AIUpdateInterface, public DozerAIInterface
 {
 public:
+	virtual UpdateSleepTime update(); // UpdateModuleInterface slot 0, the rowed override
 	DozerAIUpdate(Thing *thing, const ModuleData *moduleData);
 	virtual NameKeyType getModuleNameKey() const;
 	virtual void onDelete();

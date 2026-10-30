@@ -26,10 +26,12 @@ class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
 {
 };
 
+enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
+
 class UpdateModuleInterface
 {
 public:
-	virtual void update();
+	virtual UpdateSleepTime update() = 0;
 };
 
 class UpdateModule : public BehaviorModule, public UpdateModuleInterface
@@ -60,6 +62,7 @@ private:
 class BroadcastStealthUpdate : public UpdateModule, public BroadcastStealthUpdate_B3
 {
 public:
+	virtual UpdateSleepTime update(); // UpdateModuleInterface slot 0, the rowed override
 	virtual ~BroadcastStealthUpdate();
 	void rva004A33EE();
 private:

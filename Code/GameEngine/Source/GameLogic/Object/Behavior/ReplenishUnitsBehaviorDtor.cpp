@@ -39,10 +39,12 @@ public:
 	BehaviorModule(Thing *thing, const ModuleData *moduleData);
 };
 
+enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
+
 class UpdateModuleInterface
 {
 public:
-	virtual void update();
+	virtual UpdateSleepTime update() = 0;
 };
 
 class UpdateModule : public BehaviorModule, public UpdateModuleInterface
@@ -67,6 +69,7 @@ public:
 class ReplenishUnitsBehavior : public UpdateModule, public SpawnBehaviorFourthBase
 {
 public:
+	virtual UpdateSleepTime update(); // UpdateModuleInterface slot 0, the rowed override
 	virtual ~ReplenishUnitsBehavior();
 };
 

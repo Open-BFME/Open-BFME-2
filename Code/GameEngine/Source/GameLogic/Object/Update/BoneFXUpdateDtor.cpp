@@ -45,10 +45,12 @@ public:
 	BehaviorModule(Thing *thing, const ModuleData *moduleData);
 };
 
+enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
+
 class UpdateModuleInterface
 {
 public:
-	virtual void update();
+	virtual UpdateSleepTime update() = 0;
 };
 
 class UpdateModule : public BehaviorModule, public UpdateModuleInterface
@@ -111,6 +113,7 @@ protected:
 	void killRunningParticleSystems();
 
 public:
+	virtual UpdateSleepTime update(); // UpdateModuleInterface slot 0, the rowed override
 	BoneFXUpdate(Thing *thing, const ModuleData *moduleData);
 
 private:

@@ -43,7 +43,7 @@ class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
 class UpdateModuleInterface
 {
 public:
-	virtual void update();
+	virtual UpdateSleepTime update() = 0;
 };
 
 class UpdateModule : public BehaviorModule, public UpdateModuleInterface
@@ -107,6 +107,7 @@ public:
 class BroadcastStealthUpdate : public UpdateModule, public UpgradeMux
 {
 public:
+	virtual UpdateSleepTime update(); // UpdateModuleInterface slot 0, the rowed override
 	BroadcastStealthUpdate(Thing *thing, const ModuleData *moduleData);
 	virtual ~BroadcastStealthUpdate();
 private:

@@ -33,10 +33,12 @@ public:
 	BehaviorModule(Thing *thing, const ModuleData *moduleData);
 };
 
+enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
+
 class UpdateModuleInterface
 {
 public:
-	virtual void update();
+	virtual UpdateSleepTime update() = 0;
 };
 
 class UpdateModule : public BehaviorModule, public UpdateModuleInterface
@@ -64,6 +66,7 @@ public:
 class BloodthirstyUpdate : public UpdateModule, public BloodthirstyUpdateIface
 {
 public:
+	virtual UpdateSleepTime update(); // UpdateModuleInterface slot 0, the rowed override
 	virtual void sacrificeHorde(Object *victim, CommandSourceType source);
 protected:
 	virtual ~BloodthirstyUpdate();

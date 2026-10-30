@@ -12984,3 +12984,32 @@ The element type is now a 12-byte `TableEntry`, so the spellings become
 FunctionLexicon.cpp OK; `link_check` 401 -> 536 B (init 0 -> 135,
 FunctionLexicon.cpp unchanged). Follow-up for consolidation: the tables' proposed
 home is FunctionLexicon.cpp (tu_map), with the init.
+
+### LINK-160: dropping PartTheHeavensUpdate.cpp's link-wide alternatename unresolved 23 linked units' update slot (2026-10-30, seat halilkkaya-lk8)
+
+Status: 17 units repaired; 6 remain (needs identity work or another seat's file).
+`6e9a7c16cc` (after census 2c21184e84) removed PartTheHeavensUpdate.cpp's
+`/alternatename:?update@UpdateModuleInterface@@UAEXXZ=?update@PartTheHeavensUpdate@@...`
+as dead. It was not dead: 24 other census-linked units' private
+`UpdateModuleInterface { virtual void update(); }` views make their update-interface
+vftable (slot 0) name `?update@UpdateModuleInterface@@UAEXXZ`, which only that
+link-wide alias resolved. Current-object `link_check` over the 25 referencing
+units: 1 links, LINKED 17,456 -> 858 B (a 16,598 B loss waiting for the next census).
+Retail fills each class's update-interface table slot 0 with its own update
+(data-ledger table addresses read from retail: e.g. 0x0084B83C ->
+`?update@DozerAIUpdate@@UAE?AW4UpdateSleepTime@@XZ` 0x00489800). Fix in 17 files:
+the view's interface declares `virtual UpdateSleepTime update() = 0` and the class
+declares its rowed `UpdateSleepTime update()` override, so each table names the
+retail row (no alias, no new hatch). Verified: `./build.sh` 149/149 rows over the 17
+files; scoped DIR32 OK (106 symbols); `link_check` over the 25 units 858 ->
+16,104 B (18 link). Still unresolved: GettingBuiltBehaviorCtor/Dtor.cpp (slot 0
+0x00454DF9 is rowed `?update@GettingBuiltBehaviorUpdateReceiver@@QAE...`),
+RebuildHoleBehaviorDtor.cpp (0x00483645 `?update@Rva00483645@@QAEHXZ`),
+WallHubBehaviorCtor.cpp (0x004A6563 `?Rva004A6563Get@@YAHXZ`, a folded constant
+getter), AISpecialPowerUpdateDtor.cpp (0x004B327F `?update@Rva004B327F@@QAEHXZ`),
+FireWeaponWhenDeadBehavior.cpp (0x00482BB9 `?update@Rva00482BB9@@QAEHXZ`): each needs
+the row respelled as the class's virtual update (a signature change). 
+GiantBirdAIUpdateCtor_GiantBirdAIUpdate.cpp (518 B) takes the same two-line fix
+(`?update@GiantBirdAIUpdate@@UAE?AW4UpdateSleepTime@@XZ` is rowed) but is held by
+a TU-merge seat. Pattern: before removing a link-wide alternatename, grep every
+object for its source name, not only the defining unit.

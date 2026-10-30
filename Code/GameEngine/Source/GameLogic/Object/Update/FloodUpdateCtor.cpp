@@ -53,10 +53,12 @@ public:
 	BehaviorModule(Thing *thing, const ModuleData *moduleData);
 };
 
+enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
+
 class UpdateModuleInterface
 {
 public:
-	virtual void update();
+	virtual UpdateSleepTime update() = 0;
 };
 
 class UpdateModule : public BehaviorModule, public UpdateModuleInterface
@@ -75,6 +77,7 @@ private:
 class FloodUpdate : public UpdateModule
 {
 public:
+	virtual UpdateSleepTime update(); // UpdateModuleInterface slot 0, the rowed override
 	FloodUpdate(Thing *thing, const ModuleData *moduleData);
 	virtual ~FloodUpdate();
 private:

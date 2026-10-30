@@ -58,7 +58,7 @@ class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
 class UpdateModuleInterface
 {
 public:
-	virtual void update();
+	virtual UpdateSleepTime update() = 0;
 };
 
 class UpdateModule : public BehaviorModule, public UpdateModuleInterface
@@ -141,6 +141,7 @@ struct Rva003983D4Element74;
 class CastleBehavior : public FoundationAIUpdate, public CastleBehaviorInterface
 {
 public:
+	virtual UpdateSleepTime update(); // UpdateModuleInterface slot 0, the rowed override
 	CastleBehavior(Thing *thing, const ModuleData *moduleData);
 	virtual ~CastleBehavior();
 	virtual void slot0() = 0;

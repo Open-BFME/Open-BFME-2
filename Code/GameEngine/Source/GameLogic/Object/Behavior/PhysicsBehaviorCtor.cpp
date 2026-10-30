@@ -59,7 +59,7 @@ public:
 class UpdateModuleInterface
 {
 public:
-	virtual void update();
+	virtual UpdateSleepTime update() = 0;
 };
 
 class UpdateModule : public BehaviorModule, public UpdateModuleInterface
@@ -85,6 +85,7 @@ public:
 class PhysicsBehavior : public UpdateModule
 {
 public:
+	virtual UpdateSleepTime update(); // UpdateModuleInterface slot 0, the rowed override
 	PhysicsBehavior(Thing *thing, const ModuleData *moduleData);
 	virtual ~PhysicsBehavior();
 private:

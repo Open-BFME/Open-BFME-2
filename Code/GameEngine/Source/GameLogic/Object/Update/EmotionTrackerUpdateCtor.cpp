@@ -101,10 +101,12 @@ class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
 {
 };
 
+enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
+
 class UpdateModuleInterface
 {
 public:
-	virtual void update();
+	virtual UpdateSleepTime update() = 0;
 };
 
 class UpdateModule : public BehaviorModule, public UpdateModuleInterface
@@ -140,6 +142,7 @@ private:
 class EmotionTrackerUpdate : public UpdateModule, public EmotionTrackerUpdateSecondaryBase
 {
 public:
+	virtual UpdateSleepTime update(); // UpdateModuleInterface slot 0, the rowed override
 	EmotionTrackerUpdate(Thing *thing, const ModuleData *moduleData);
 	virtual ~EmotionTrackerUpdate();
 	virtual void rva004B15E6();	// 0x004B15E6, the +0x20 interface's slot 0
