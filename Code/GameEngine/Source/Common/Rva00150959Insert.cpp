@@ -70,7 +70,7 @@ void *__cdecl rva0014FA47(void *first, unsigned int n, void *value);
 class Rva00150959 : public _STL::vector<Rva001504A1Record>
 {
 public:
-	void rva00150959(Rva001504A1Record *pos, unsigned int n, const Rva0014F699 &x);
+	void rva00150959(Rva001504A1Record*,unsigned,const Rva0014F699&);
 };
 
 void Rva00150959::rva00150959(Rva001504A1Record *pos, unsigned int n, const Rva0014F699 &x)
