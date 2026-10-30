@@ -1,4 +1,5 @@
-// cl: /MD /EHsc
+// cl: /MD /EHsc /Ireference/shims/bfme2_ascii
+// stlport
 // ?rva000E5EE5@Rva000E5EE5@@QAEXPBVRva0055A88BDwordField@@V?$StringBase@D@@@Z @0x000E5EE5 123B
 // Target facts: 123B thiscall ret 8 (field ptr + by-value StringBase<char>),
 // list at +0x18 (head->next, item at +0x08) like Rva000E5F60Lookup, null check
@@ -6,19 +7,11 @@
 // 0x000E5EC1, on match clears dword at item+0x2C and sets byte at +0x9C.
 // Donor: Code/GameEngine/Source/Common/Rva000E5F60Lookup.cpp (loop shape,
 // by-value temp with __forceinline dtor) + Rva000E6135Method.cpp (get+matcher).
-template <typename T> class StringBase
-{
-public:
-	__forceinline ~StringBase() { releaseBuffer(); }
-	int compare(const StringBase<T> &other) const;
-private:
-	void releaseBuffer();
-	void *m_data;
-};
-
-// The narrow teardown is rowed at 0x00036410 (StringBaseWideReleaseBuffer.cpp).
-template <> StringBase<char>::~StringBase();
-
+// The canonical frozen StringBase replaces the private copy; its switch
+// declares the narrow teardown out of line, rowed at 0x00036410
+// (StringBaseWideReleaseBuffer.cpp).
+#define BFME_STRINGBASE_PUBLIC_DTOR
+#include "string_base.h"
 
 class Rva0055A88BDwordField
 {

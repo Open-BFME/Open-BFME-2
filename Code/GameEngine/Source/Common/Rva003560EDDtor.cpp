@@ -1,19 +1,16 @@
-// cl: /MD /EHsc
+// cl: /MD /EHsc /Ireference/shims/bfme2_ascii
+// stlport
 // ??1Rva003560ED@@UAE@XZ @0x003560ED (112B)
 // Derived dtor of Rva00355D66 clearing TheGameLogic +0x78 then calling
 // TheDisplay slot 0x110 plus rowed W3DDisplay::rva0025D2F6 0x0025D2F6 then
 // destroying StringBase narrow at +0x14/+0x10 via rowed releaseBuffer
 // 0x00036410 then base 0x00355D66. Same recipe as Rva003563A7Dtor.
 // Evidence: vtable 0x00814EA4 plus deleting caller 0x0035670B.
-template <typename T> class StringBase {
-public: ~StringBase() { releaseBuffer(); }
-private: void releaseBuffer();
-	T *m_data;
-};
-
-// The narrow teardown is rowed at 0x00036410 (StringBaseWideReleaseBuffer.cpp).
-template <> StringBase<char>::~StringBase();
-
+// The canonical frozen StringBase replaces the private copy; its switch
+// declares the narrow teardown out of line, rowed at 0x00036410
+// (StringBaseWideReleaseBuffer.cpp).
+#define BFME_STRINGBASE_PUBLIC_DTOR
+#include "string_base.h"
 
 class Display {
 public:

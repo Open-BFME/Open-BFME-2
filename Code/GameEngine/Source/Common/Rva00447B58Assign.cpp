@@ -1,17 +1,14 @@
-// cl: /MD
+// cl: /MD /Ireference/shims/bfme2_ascii
+// stlport
 // ?rva00447B58@Rva00447B0E@@QAEAAU1@ABU1@@Z, retail 0x00447B58, 69 bytes.
 // Copy-assign of Rva00447B0E (0x1D0): base GameSlot at +0 via
 // rowed 0x002DBAB9, Rva004479FD at +0x1AC via rowed 0x004479FD, StringBase at
 // +0x1C8 via set 0x366F0, dword at +0x1CC. Layout from Rva00447B0EDtor.cpp
 // (base 0x1AC, 0x1C at +0x1AC, StringBase at +0x1C8). Evidence: chain caller of
 // just-landed 0x002DBAB9; neighbours share /O1; unblocks 0x00448352.
-template <typename T> class StringBase
-{
-public:
-	void set(const StringBase &other);
-private:
-	T *m_data;
-};
+// The canonical frozen StringBase replaces the private copy; set stays
+// declared, bound to the rowed provider.
+#include "string_base.h"
 
 class GameSlot {
 public:

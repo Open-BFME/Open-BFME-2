@@ -1,4 +1,5 @@
-// cl: /MD
+// cl: /MD /Ireference/shims/bfme2_ascii
+// stlport
 // Retail 0x00689380 (69B). Three-string-plus-POD record copy ctor: each
 // string member copies via StringBase<char>::set at 0x366F0 (the retail
 // inlined AsciiString assignment path, NOT the 0x365F0 ctor family), then the
@@ -6,12 +7,9 @@
 // (Rva000C3380Copy.cpp); member layout and call shape match retail exactly.
 // Members use the implicit trivial default ctor (no AsciiString() defined,
 // so this TU emits no ??0AsciiString copy); retail never calls it.
-
-template <class T> class StringBase
-{
-public:
-	void set(const StringBase<T> &other);
-};
+// The canonical frozen StringBase replaces the private copy; set stays
+// declared, bound to the rowed provider.
+#include "string_base.h"
 
 class AsciiString
 {
