@@ -10,8 +10,10 @@
 // VectorMax) is the vendor simplevec.h dtor. Recipe from the matched
 // SimpleVecClass<float> dtor in simplevec_float_cleanup.cpp. The scalar
 // deleting dtor at 0x0007E320 calls this body.
+#include <new>
+// Use the toolchain allocation declarations and placement operators.
+#define _OPERATOR_NEW_DEFINED_
 #include "always.h"
-void __cdecl operator delete[](void *) throw();
 #include "simplevec.h"
 
 class Vector3

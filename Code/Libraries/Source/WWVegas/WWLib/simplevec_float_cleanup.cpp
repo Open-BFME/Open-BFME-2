@@ -6,9 +6,11 @@
 // StreakLine's matched constructor initializes the float widths member at +0xF0.
 // Its derived/base tables BD41B8/BD41AC point to these deleting destructors.
 // /O1 preserves the target's separate base and derived cleanup calls.
+#include <new>
+// Use the toolchain allocation declarations and placement operators.
+#define _OPERATOR_NEW_DEFINED_
 #include "always.h"
 #include <assert.h>
-void __cdecl operator delete[](void *) throw();
 
 // LINK-COMDAT 2026-10-02: this TU owns only the two dtors, the two deleting
 // dtors and Add. A whole-class instantiation emitted its own /O1 copies of 8
