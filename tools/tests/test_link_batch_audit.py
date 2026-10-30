@@ -281,10 +281,14 @@ def test_push_hook_honors_audit_exit_status(status, blocked):
     if not bash:
         pytest.skip("bash unavailable")
     hook = (Path(__file__).resolve().parents[2] / ".githooks/pre-push").read_text()
-    block = hook[hook.index('    link_scope=$(mktemp)'):hook.index('    # Replayed commits')]
-    setup = (f'set -euo pipefail\nverify=(); scope_units=(); base=a; local_sha=b\n'
+    # the audit runs as one of the hook's concurrent jobs, beside the scoped audits
+    jobs = hook[hook.index('_job_pids=()'):hook.index('# fast_forward_or_fail')]
+    audits = hook[hook.index('# link_audit LIST'):hook.index('protected_paths_check() {')]
+    block = hook[hook.index('    link_scope=$(mktemp)'):
+                 hook.index('    stage "scoped DIR32 + eh + data audits, link_batch_audit')]
+    setup = (f'set -euo pipefail\nverify=(); scope_units=(); scoped_list=""; base=a; local_sha=b\n'
              f'fail() {{ exit 1; }}\nshadow_cap() {{ return {status}; }}\nstage() {{ :; }}\n')
-    done = subprocess.run([bash, "-c", setup + block], capture_output=True, text=True)
+    done = subprocess.run([bash, "-c", setup + jobs + audits + block], capture_output=True, text=True)
     assert (done.returncode != 0) == blocked, done.stderr
     if status in (2, 124):
         assert "UNVERIFIED" in done.stderr

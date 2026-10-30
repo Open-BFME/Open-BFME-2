@@ -571,6 +571,24 @@ scope_data_audit() {
     printf '%s\0' "${scope_units[@]}" \
         | python3 tools/data_check.py --converged --ref "$local_sha" --converged-base "$base" --sources-from -
 }
+# link_audit LIST: the link batch audit over the NUL-separated sources in LIST;
+# its exit status is the verdict (0 clean, 1 a proven link regression, which
+# fails the push; 2/124/137 stale or missing evidence, explicitly inconclusive:
+# it cannot establish either a regression or a clean result).
+link_audit() {
+    BFME_SHADOW_BUDGET_S=60 shadow_cap python3 tools/link_batch_audit.py \
+        --base "$base" --tip "$local_sha" --sources-from "$1" < /dev/null
+}
+# replay_shadow: replayed commits, SHADOW: an outgoing commit with the author,
+# author date and subject of one already upstream (a possible replay), or whose
+# patch-id or added ledger lines are already there (a replay). Seats re-pushed old
+# commits 3,541 times on 2026-10-06..08, each a duplicate row every byte gate
+# passes. About a second for a typical push, ~4 s for 2,000 commits; bounded by
+# $BFME_SHADOW_BUDGET_S (default 10 s), then shadow_cap. Reports, never fails the push.
+replay_shadow() {
+    shadow_cap python3 tools/replay_check.py --shadow --range "$base" "$local_sha" < /dev/null \
+        || echo "pre-push: replay_check shadow check failed to run (ignored)" >&2
+}
 
 # The static checks pre-push runs concurrently that take more than one command.
 protected_paths_check() {
@@ -863,36 +881,28 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
         fi
         spawn "data identity: a second name for a converged data address in outgoing sources" scope_data_audit
     fi
-    join_jobs
-    [ -z "$scoped_list" ] || rm -f "$scoped_list"
-    stage "scoped DIR32 + eh + data audits"
-    # Fail proven link regressions. Stale or missing evidence stays explicitly
-    # inconclusive; it cannot establish either a regression or a clean result.
-    link_scope=$(mktemp) || fail "temporary link audit source list"
+    # The link batch audit and the replay shadow check read only git objects,
+    # the ledgers and the objects byte-verify left, as the audits above do: they
+    # run beside them instead of after them (2026-10-29, a warm scoped push on an
+    # idle 8-core runner: 2.4 s + 0.4 s run one after another).
+    link_scope=$(mktemp) && link_out=$(mktemp) || fail "temporary link audit files"
     if [ "${#scope_units[@]}" -ne 0 ]; then
         printf '%s\0' "${scope_units[@]}" > "$link_scope"
     fi
-    link_status=0
-    BFME_SHADOW_BUDGET_S=60 shadow_cap python3 tools/link_batch_audit.py \
-        --base "$base" --tip "$local_sha" --sources-from "$link_scope" < /dev/null \
-        || link_status=$?
-    rm -f "$link_scope"
+    spawn_status "$link_out" link_audit "$link_scope"
+    spawn "the replay shadow check" replay_shadow
+    join_jobs
+    [ -z "$scoped_list" ] || rm -f "$scoped_list"
+    cat "$link_out"
+    link_status=$(cat "$link_out.status" 2>/dev/null || echo missing)
+    rm -f "$link_scope" "$link_out" "$link_out.status"
     case "$link_status" in
         0) ;;
         1) fail "linking regression in the outgoing batch (see above)" ;;
         2|124|137) echo "pre-push: linking UNVERIFIED; audit evidence incomplete or check timed out" >&2 ;;
         *) fail "link batch audit failed to run (exit $link_status)" ;;
     esac
-    stage "link_batch_audit"
-    # Replayed commits, SHADOW: an outgoing commit with the author, author date and
-    # subject of one already upstream (a possible replay), or whose patch-id or added
-    # ledger lines are already there (a replay). Seats re-pushed old commits 3,541 times
-    # on 2026-10-06..08, each a duplicate row every byte gate passes. About a second for
-    # a typical push, ~4 s for 2,000 commits; bounded by $BFME_SHADOW_BUDGET_S (default
-    # 10 s), then shadow_cap. Reports, never fails the push.
-    shadow_cap python3 tools/replay_check.py --shadow --range "$base" "$local_sha" < /dev/null \
-        || echo "pre-push: replay_check shadow check failed to run (ignored)" >&2
-    stage "replay_check"
+    stage "scoped DIR32 + eh + data audits, link_batch_audit, replay_check (concurrent)"
     # A bounded scope of 512+ sources can also lose the race with master while
     # its chunks run, so it is recorded after all required checks pass. A rebased retry
     # carries it under the same verifier and dependency guards as a full gate.
