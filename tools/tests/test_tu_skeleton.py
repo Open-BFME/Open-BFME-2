@@ -609,6 +609,37 @@ class MergeDiagnosticsTests(unittest.TestCase):
         self.assertEqual(out["accepted"], [tu, donor])
         apply.assert_not_called()
 
+    def test_a_donor_override_that_costs_the_tu_rows_leaves_the_donor_out(self):
+        # Connection.cpp, Mouse.cpp, ScriptActions.cpp: a one-row donor's override was carried
+        # (the TU has none), the TU's own rows stopped matching under it and the whole merge
+        # blocked; the TU now keeps its region default and only the overridden donor stays out.
+        tu, plain, odd = "Code/T.cpp", "Code/A.cpp", "Code/B.cpp"
+        texts = {tu: "seed", plain: "plain", odd: "odd"}
+        don = {tu: [{"target_rva": "0x1000"}, {"target_rva": "0x1008"}],
+               plain: [{"target_rva": "0x1010"}], odd: [{"target_rva": "0x1020"}]}
+        overrides = {odd: {"flags": "-O2 -arch:SSE", "rows": "1"}}
+
+        class Verifier:
+            fd = SimpleNamespace(MANAGED=re.compile(r"(?!)"), overrides=lambda: overrides)
+            errors, all_errors = [], []
+
+            def __init__(self, tu_=None, flags=None, region=False):
+                self.flags, self.region = flags, region
+
+            def matched(self, text, rows):
+                if self.flags and text == "seed":   # the TU's rows need the region default
+                    return set()
+                return {r["target_rva"] for r in rows}
+
+        with patch.object(T, "Verifier", side_effect=Verifier), \
+                patch.object(T, "compose", return_value="composed"), \
+                patch.object(T, "apply") as apply:
+            out = T._merge(tu, [], don, {"accepted": [], "rejected": {}}, True, texts=texts)
+        self.assertNotIn("blocked", out)
+        self.assertEqual(out["accepted"], [tu, plain])
+        self.assertIn("costs the TU file 2 row(s)", out["rejected"][odd])
+        apply.assert_not_called()
+
     def test_a_final_reverify_failure_blocks_instead_of_writing_the_token(self):
         # A PlayerList.cpp merge accepted its donors, but the final re-composition failed to
         # compile; attempt() then returned "compile", and apply() wrote that word as the TU.

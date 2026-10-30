@@ -1680,11 +1680,18 @@ def _merge(tu, sk, don, report, dry_run, texts=None, applier=None, guard=None):
         base[f] = got or set()
     if ov:   # nobody may lose a row its own build matches under the region default
         rv = Verifier(tu, region=True)
-        for f in [f for f in don if f not in ov and base[f]]:
+        if tu in don and tu not in ov:
+            # the TU builds under its region default and a donor's override would cost it
+            # rows: the TU keeps its default and the overridden donors stay out
+            lost = (rv.matched(texts[tu], don[tu]) or set()) - base[tu]
+            if lost:
+                report["rejected"].update({f: f"its flag override '{e['flags']}' costs the TU file "
+                                              f"{len(lost)} row(s) its region default matches"
+                                           for f, e in sorted(ov.items())})
+                return _merge(tu, sk, {f: r for f, r in don.items() if f not in ov}, report, dry_run,
+                              texts, applier, guard)
+        for f in [f for f in don if f not in ov and f != tu and base[f]]:
             lost = (rv.matched(texts[f], don[f]) or set()) - base[f]
-            if lost and f == tu:
-                report["blocked"] = f"the TU file loses {len(lost)} row(s) under the carried flag override"
-                return report
             if lost:
                 report["rejected"][f] = f"loses {len(lost)} row(s) under the carried flag override '{v.flags}'"
                 base[f] = set()

@@ -100,7 +100,7 @@ on a deleted file and no follow-up `Debt-Retired:` cleanup is needed:
 | `code_identity_baseline.tsv` | `source<TAB>row<TAB>symbol<TAB>target<TAB>class` | source rewritten to the TU; a key two donors share is kept once |
 | `data_check_baseline.txt` | `source<TAB>check<TAB>symbol<TAB>address` | same |
 | `hatch_baseline.tsv` | `hatch<TAB>path<TAB>token<TAB>count` | `hatch_counters.py --update` after staging (a total-keeping move); the merged text may not hold more occurrences than its donors; refused on a tree with other modified files |
-| `flag_overrides.csv` | `source,flags,rows,default_lost,reason` | the donors' (and TU's) entries become one TU entry with summed counts; the merge is verified under those flags (the TU's own when it has one, else the most rows'), the TU spells them, a donor overridden with other flags is rejected, and a donor that would lose a row its region-default build matches is rejected |
+| `flag_overrides.csv` | `source,flags,rows,default_lost,reason` | the donors' (and TU's) entries become one TU entry with summed counts; the merge is verified under those flags (the TU's own when it has one, else the most rows'), the TU spells them, a donor overridden with other flags is rejected, and a donor that would lose a row its region-default build matches is rejected; when the TU has no override and the carried one would cost it a row, the TU keeps its region default and the overridden donors are rejected |
 | `data_ledger.csv` | `source` column; `name@source` in `names` | rewritten to the TU |
 
 The hooks read a re-keyed line as a transfer: a grown key counts as moved only
