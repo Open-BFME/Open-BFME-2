@@ -5515,7 +5515,7 @@ pin	reverse/symbols.csv	0x001559C0	1
 pin	reverse/symbols.csv	0x00156750	2
 pin	reverse/symbols.csv	0x001569C0	2
 pin	reverse/symbols.csv	0x00156FA0	1
-pin	reverse/symbols.csv	0x00157C20	2
+pin	reverse/symbols.csv	0x00157C20	1
 pin	reverse/symbols.csv	0x00157FF0	1
 pin	reverse/symbols.csv	0x00158520	1
 pin	reverse/symbols.csv	0x00159700	1

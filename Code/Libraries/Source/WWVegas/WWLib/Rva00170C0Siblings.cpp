@@ -12,7 +12,7 @@
 // 0x00141C10 -> dtor 0x00141C30
 // 0x00156840 -> dtor 0x00155330
 // 0x00157110 -> dtor 0x00156750
-// 0x00157E60 -> dtor 0x00157C20
+// 0x00157E60 -> dtor 0x00157C20 (now rowed as DynamicVectorClass<PendingSurfaceStruct>'s in render2dsentence.cpp)
 // 0x00188320 -> dtor 0x001880D0 (non-virtual; see Rva001880D0Dtor below)
 // 0x00616490 -> dtor 0x006162B0
 // 0x00626D90 -> dtor 0x00625800
@@ -67,16 +67,6 @@ public:
 };
 
 __declspec(noinline) Rva00156750Dtor::~Rva00156750Dtor()
-{
-}
-
-class Rva00157C20Dtor
-{
-public:
-	virtual ~Rva00157C20Dtor();
-};
-
-__declspec(noinline) Rva00157C20Dtor::~Rva00157C20Dtor()
 {
 }
 
