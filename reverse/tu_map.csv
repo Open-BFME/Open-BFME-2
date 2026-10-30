@@ -23008,11 +23008,11 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x002DF2DA,28,code,Code/GameEngine/Source/Common/System/SaveGame/GameState.cpp,approved,N,N=Code/GameEngine/Source/Common/System/SaveGame/GameState.cpp,Code/GameEngine/Source/Common/System/SaveGame/GameStateDtor.cpp
 0x002DF2F6,186,code,Code/GameEngine/Source/Common/System/SaveGame/GameState.cpp,approved,S,S=Code/GameEngine/Source/Common/System/SaveGame/GameState.cpp N=Code/GameEngine/Source/Common/GameState.cpp,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB06.cpp
 0x002DF3B0,1148,code,Code/GameEngine/Source/Common/System/SaveGame/GameState.cpp,approved,Z,Z=Code/GameEngine/Source/Common/System/SaveGame/GameState.cpp S=Code/GameEngine/Source/Common/System/SaveGame/GameState.cpp N=Code/GameEngine/Source/Common/System/SaveGame/GameState.cpp,Code/GameEngine/Source/Common/System/SaveGame/GameStateAutoSave.cpp
-0x002DF82C,70,code,Code/GameEngine/Source/Common/DiscreteCircle.cpp,approved,Z,Z=Code/GameEngine/Source/Common/DiscreteCircle.cpp S=Code/GameEngine/Source/Common/DiscreteCircle.cpp N=Code/GameEngine/Source/Common/DiscreteCircle.cpp,Code/GameEngine/Source/Common/discrete_circle.cpp
+0x002DF82C,70,code,Code/GameEngine/Source/Common/DiscreteCircle.cpp,approved,Z,Z=Code/GameEngine/Source/Common/DiscreteCircle.cpp S=Code/GameEngine/Source/Common/DiscreteCircle.cpp N=Code/GameEngine/Source/Common/DiscreteCircle.cpp,Code/GameEngine/Source/Common/DiscreteCircle.cpp
 0x002DF872,41,code,Code/GameEngine/Source/Common/DiscreteCircle.cpp,approved,C,C=0x002DF82C..0x002DF89B,Code/GameEngine/Source/Common/Thing/Rva002DF872Dedup.cpp
 0x002DF89B,52,code,Code/GameEngine/Source/Common/DiscreteCircle.cpp,approved,C,C=0x002DF82C..0x002DF8CF,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_prerequnitrec_allocate_copy.cpp
-0x002DF8CF,110,code,Code/GameEngine/Source/Common/DiscreteCircle.cpp,approved,Z,Z=Code/GameEngine/Source/Common/DiscreteCircle.cpp S=Code/GameEngine/Source/Common/DiscreteCircle.cpp N=Code/GameEngine/Source/Common/DiscreteCircle.cpp,Code/GameEngine/Source/Common/discrete_circle.cpp
-0x002DF93D,96,code,Code/GameEngine/Source/Common/DiscreteCircle.cpp,approved,Z,Z=Code/GameEngine/Source/Common/DiscreteCircle.cpp S=Code/GameEngine/Source/Common/DiscreteCircle.cpp N=Code/GameEngine/Source/Common/DiscreteCircle.cpp,Code/GameEngine/Source/Common/discrete_circle.cpp
+0x002DF8CF,110,code,Code/GameEngine/Source/Common/DiscreteCircle.cpp,approved,Z,Z=Code/GameEngine/Source/Common/DiscreteCircle.cpp S=Code/GameEngine/Source/Common/DiscreteCircle.cpp N=Code/GameEngine/Source/Common/DiscreteCircle.cpp,Code/GameEngine/Source/Common/DiscreteCircle.cpp
+0x002DF93D,96,code,Code/GameEngine/Source/Common/DiscreteCircle.cpp,approved,Z,Z=Code/GameEngine/Source/Common/DiscreteCircle.cpp S=Code/GameEngine/Source/Common/DiscreteCircle.cpp N=Code/GameEngine/Source/Common/DiscreteCircle.cpp,Code/GameEngine/Source/Common/DiscreteCircle.cpp
 0x002DF99D,6,code,,,-,,Code/GameEngine/Source/Common/ConstIntGetters10.cpp
 0x002DF9A3,28,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pod80_allocator.cpp
 0x002DF9BF,14,code,,,-,,Code/GameEngine/Source/Common/S3IteratorMakers.cpp
@@ -72013,7 +72013,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00778479,8,code,Code/GameEngine/Source/Common/System/SaveGame/GameState.cpp,approved,P,P=0x002DF3B0@FuncInfo0x009204F4,Code/GameEngine/Source/Common/System/SaveGame/GameStateAutoSave.cpp
 0x00778481,10,code,Code/GameEngine/Source/Common/System/SaveGame/GameState.cpp,approved,P,P=0x002DF3B0@FuncInfo0x009204F4,Code/GameEngine/Source/Common/System/SaveGame/GameStateAutoSave.cpp
 0x0077848B,8,code,Code/GameEngine/Source/Common/DiscreteCircle.cpp,approved,P,P=0x002DF93D@FuncInfo0x00920518,Code/gen_small/uw_gen_010.cpp
-0x00778493,10,code,Code/GameEngine/Source/Common/DiscreteCircle.cpp,approved,P,P=0x002DF93D@FuncInfo0x00920518,Code/GameEngine/Source/Common/discrete_circle.cpp
+0x00778493,10,code,Code/GameEngine/Source/Common/DiscreteCircle.cpp,approved,P,P=0x002DF93D@FuncInfo0x00920518,Code/GameEngine/Source/Common/DiscreteCircle.cpp
 0x0077849D,8,code,,,-,,Code/GameEngine/Source/Common/Rva002DFAD1Dtor.cpp
 0x007784A5,11,code,,,-,,Code/GameEngine/Source/Common/Rva002DFAD1Dtor.cpp
 0x007784B0,11,code,,,-,,Code/GameEngine/Source/Common/Rva002DFAD1Dtor.cpp
