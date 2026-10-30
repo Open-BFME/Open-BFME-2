@@ -7,15 +7,11 @@
 #include <windows.h>
 #include <time.h>
 #include "GameLogicObjectLookupView.h"
-#define EOF (-1)
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../Libraries/Include/Lib/ICoord2D.h"
 #include "../../../Libraries/Include/Lib/IRegion2D.h"
 #include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
 typedef int Int;
-void __cdecl operator delete[](void*);
-void* __cdecl operator new[](unsigned int);
-void __cdecl operator delete(void*);
 class FileSystem {public:bool rva0037BD2B(const UnicodeString &);};
 extern FileSystem*TheFileSystem;
 UnicodeString Rva0037B9D4Get();
@@ -251,24 +247,6 @@ extern bool TheLiteCRC;
 // literals in ZH GameCommon.cpp's order, followed by the retail null sentinel.
 const char *TheRelationshipNames[] = { "ENEMIES", "NEUTRAL", "ALLIES", 0 };
 
-struct _iobuf;
-
-typedef _iobuf FILE;
-
-extern "C" __declspec(dllimport) FILE *__cdecl _wfopen(const unsigned short *, const unsigned short *);
-
-extern "C" __declspec(dllimport) unsigned int __cdecl fread(void *, unsigned int, unsigned int, FILE *);
-
-extern "C" __declspec(dllimport) unsigned int __cdecl fwrite(const void *, unsigned int, unsigned int, FILE *);
-
-extern "C" __declspec(dllimport) int __cdecl fseek(FILE *, long, int);
-
-extern "C" __declspec(dllimport) int __cdecl fclose(FILE *);
-
-extern "C" __declspec(dllimport) int __cdecl fwprintf(FILE *, const unsigned short *, ...);
-
-extern "C" __declspec(dllimport) unsigned short __cdecl fputwc(unsigned short, FILE *);
-
 UnicodeString Rva0037D55EGet();
 
 UnicodeString readUnicodeString(FILE *);
@@ -282,12 +260,6 @@ struct Pair8 { volatile int a; volatile int b; };
 // Evidence: callees rowed 0x36E70 plus IAT ftell fseek fwrite; caller 0x004D422C;
 // neighbours RecorderIsMultiplayer 0x0037B18C and Rva0037B5DF dtor 0x0037B5DF same flags.
 typedef unsigned short WideChar;
-
-extern "C" __declspec(dllimport) long __cdecl ftell(FILE *stream);
-
-extern "C" __declspec(dllimport) int __cdecl fseek(FILE *stream, long offset, int origin);
-
-extern "C" __declspec(dllimport) unsigned int __cdecl fwrite(const void *buf, unsigned int size, unsigned int count, FILE *stream);
 
 // ?readUnicodeString@@YA?AVUnicodeString@@PAU_iobuf@@@Z @0x0037B648 194B.
 // Ported from BFME 1 donor game/GameEngine/Source/Common/System/
@@ -304,11 +276,7 @@ typedef unsigned short UnsignedShort;
 
 typedef bool Bool;
 
-extern "C" __declspec(dllimport) unsigned short __cdecl fgetwc(_iobuf *stream);
-
 union GameMessageArgumentType {int integer;char payload[16];unsigned timestamp;float real;bool boolean;unsigned short character;Coord0037BE15 coord;struct{int x,y;}pixel;Region0037BE15 region;};
-
-extern "C" __declspec(dllimport) unsigned int __cdecl fread(void *buf, unsigned int size, unsigned int count, FILE *stream);
 
 enum ObjectID;
 
@@ -612,8 +580,6 @@ struct BFME2WideConcatTriple
 class RecorderClass;
 
 unsigned int GetGameLogicRandomSeed();
-
-extern "C" __declspec(dllimport) int __cdecl fgetc(_iobuf *file);
 
 // The CRC queue's list wrappers at 0x0037D097/0x0037BD64 are rowed (ICF-shared)
 // under FXList's names; bind to those owners and cast at the call.
