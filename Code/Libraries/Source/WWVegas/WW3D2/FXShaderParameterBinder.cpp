@@ -15,6 +15,9 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #pragma comment(linker, "/alternatename:?Rva00153A5ERangeCallee@@YAPAURva00153A5EOutput@@PAURva00153A5EInput@@0PAU1@ABURva00153A5EIteratorTag@@PAH@Z=?Rva001539ECCopyBackward@@YAPAURva00153729@@PAU1@00@Z")
 #pragma comment(linker, "/alternatename:?rva001538A8@Rva001538A8@@QAEPAXXZ=??0Rva00153729@@QAE@XZ")
 #pragma comment(linker, "/alternatename:?rva00153E6F@Rva00153E6F@@QAEXHURva00153EE5Tmp@@@Z=?resize@Rva00153E6FVector@@QAEXIURva00153729@@@Z")
+#define _strcmpi _stlport_hides_strcmpi
+#undef _strcmpi
+
 struct TargetRef00217D4C { virtual void *destroy(unsigned int flags); int references; };
 
 struct Rva005F8F96
@@ -274,11 +277,47 @@ public:
 	virtual void ResolveBindings(const char *arg1, const char *arg2, FXShaderParameterBinder *arg3);
 };
 
+// Bind the append to the rowed vector<ScienceType>::push_back 0x002E01C6
+// instead of emitting this unit's own copy of the header's inline path.
+namespace _STL
+{
+template <> void vector<ScienceType, allocator<ScienceType> >::push_back(const ScienceType &);
+}
+
+struct Rva0015354EStore
+{
+	unsigned char m_pad00[4];
+	_STL::vector<ScienceType> m_sciences04; // +4
+};
+
+struct Rva001531E6Target;
+
+struct BfmePod68 { int a[17]; };
+
+// Retail calls the 0x001534D3 push_back owned by stlport_pod_vector_bodies.cpp.
+// Do not instantiate another push_back and its incompatible growth helper.
+namespace _STL { template <> void vector<BfmePod68>::push_back(BfmePod68 const &); }
+
+extern _STL::vector<BfmePod68> *g_Rva00153565Vec;
+
+// g_Rva00153565Vec: VA 0xdf6f20 (zero-filled .bss).
+_STL::vector<BfmePod68> * g_Rva00153565Vec;
+
+extern "C" {
+unsigned __cdecl strlen(const char *s);
+extern "C" char *__cdecl _mbscpy(char *d, const char *s);
+__declspec(dllimport) int __cdecl _strcmpi(const char *a, const char *b);
+}
+
+void *__cdecl operator new(unsigned int s);
+
 // tu-skeleton: 0x0015306D 124B ?ResolveBindings@FXShaderParameterBinder@@QAEXPBD0@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterBinderInit.cpp (not merged yet)
 
 // tu-skeleton: 0x001530E9 224B ?Rva001530E9Parse@@YAXPBDRAX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001530E9PropertyPath.cpp (not merged yet)
 
 // tu-skeleton: 0x001531C9 29B ??$__copy_ptrs@PAUBfmePod68@@PAU1@@_STL@@YAPAUBfmePod68@@PAU1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001532E1Erase.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterBinder.cpp
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterBinder.cpp
 
@@ -446,11 +485,8 @@ void Rva00153EE5::rva00153EE5(int n)
 
 //   0x00153E6F reads ?resize@Rva00153E6FVector@@QAEXIURva00153729@@@Z
 
-// tu-skeleton: 0x00153223 47B ?erase@?$vector@UBfmePod68@@V?$allocator@UBfmePod68@@@_STL@@@_STL@@QAEPAUBfmePod68@@PAU3@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001532E1Erase.cpp (not merged yet)
 
-// tu-skeleton: 0x0015326D 116B ?apply@Rva0015326DTarget@@QAEXIPAX@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva001514B2ForwardAndApply.cpp (not merged yet)
 
-// tu-skeleton: 0x001532E1 63B ?Rva001532E1Erase@@YAXPBD@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001532E1Erase.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/Rva00153252Copy.cpp
 
@@ -459,20 +495,6 @@ Rva00153252 *Rva001534B6Copy(Rva00153252 *first, Rva00153252 *last, Rva00153252 
 	const _STL::random_access_iterator_tag tag;
 	return _STL::__copy(first, last, result, tag, (int *)0);
 }
-
-// tu-skeleton: 0x00153368 189B ?_M_insert_overflow@?$vector@UBfmePod68@@V?$allocator@UBfmePod68@@@_STL@@@_STL@@IAEXPAUBfmePod68@@ABU3@ABU__false_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp (not merged yet)
-
-// tu-skeleton: 0x00153489 45B ??$_M_allocate_and_copy@PAVRva00468520@@@?$vector@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@IAEPAUBfmeE8@@IPAVRva00468520@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_bfmee8_allocate_copy.cpp (not merged yet)
-
-// tu-skeleton: 0x001534D3 55B ?push_back@?$vector@UBfmePod68@@V?$allocator@UBfmePod68@@@_STL@@@_STL@@QAEXABUBfmePod68@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp (not merged yet)
-
-// tu-skeleton: 0x0015350A 68B ??0?$vector@URva00153A27Element@@V?$allocator@URva00153A27Element@@@_STL@@@_STL@@QAE@ABV01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorPodCopyCtorFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x0015354E 23B ?PushDynamicSetStack@FXShaderParameterBinder@@QAEXW4ScienceType@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterBinderPushDynamicSetStack.cpp (not merged yet)
-
-// tu-skeleton: 0x00153565 154B ?Rva00153565Register@@YAXPBDPAX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00153565Register.cpp (not merged yet)
-
-// tu-skeleton: 0x001535FF 101B ?PushDynamicSetStack@FXShaderParameterBinder@@QAEXPBD@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterBinderPushDynamicSetStackName.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceStruct.cpp
 
@@ -503,6 +525,66 @@ void FXShaderParameterSourceNamespace_Struct::ResolveBindings(const char *arg1, 
 done:
 	fXShaderParameterBinder->PopDynamicSetStack();
 }
+
+// tu-skeleton: 0x00153223 47B ?erase@?$vector@UBfmePod68@@V?$allocator@UBfmePod68@@@_STL@@@_STL@@QAEPAUBfmePod68@@PAU3@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001532E1Erase.cpp (not merged yet)
+
+// tu-skeleton: 0x0015326D 116B ?apply@Rva0015326DTarget@@QAEXIPAX@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva001514B2ForwardAndApply.cpp (not merged yet)
+
+// tu-skeleton: 0x001532E1 63B ?Rva001532E1Erase@@YAXPBD@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001532E1Erase.cpp (not merged yet)
+
+// tu-skeleton: 0x00153368 189B ?_M_insert_overflow@?$vector@UBfmePod68@@V?$allocator@UBfmePod68@@@_STL@@@_STL@@IAEXPAUBfmePod68@@ABU3@ABU__false_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp (not merged yet)
+
+// tu-skeleton: 0x00153489 45B ??$_M_allocate_and_copy@PAVRva00468520@@@?$vector@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@IAEPAUBfmeE8@@IPAVRva00468520@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_bfmee8_allocate_copy.cpp (not merged yet)
+
+// tu-skeleton: 0x001534D3 55B ?push_back@?$vector@UBfmePod68@@V?$allocator@UBfmePod68@@@_STL@@@_STL@@QAEXABUBfmePod68@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp (not merged yet)
+
+// tu-skeleton: 0x0015350A 68B ??0?$vector@URva00153A27Element@@V?$allocator@URva00153A27Element@@@_STL@@@_STL@@QAE@ABV01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorPodCopyCtorFamily.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterBinderPushDynamicSetStack.cpp
+
+void FXShaderParameterBinder::PushDynamicSetStack(ScienceType value)
+{
+	Rva0015354EStore *store = (Rva0015354EStore *)m_ParsingData;
+	if (store == 0)
+		return;
+	store->m_sciences04.push_back(value);
+}
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva00153565Register.cpp
+
+//
+// ?Rva00153565Register@@YAXPBDPAX@Z, retail 0x00153565, 154 bytes.
+// Unique-register helper over global vector<BfmePod68> pointer at 0x00DF6F20:
+// validates name and obj non-null plus strlen<=0x40 via strlen thunk 0x629170,
+// lazily creates the vector via rowed operator new 0x2FDA0 plus Vector_base
+// 0x211E58, copies name via strcpy thunk 0x629176 into a 68-byte {char[64],
+// void*} slot with obj at +0x40, dedups via _strcmpi IAT 0xBBA518 over the
+// 0x44-stride entries, and push_backs via rowed 0x1534D3 when absent.
+// Called from ctors with "WaterDraw" 0x7EBFB, "Vegetation" 0xE6350,
+// "WW3D" 0x18BEC7 and "Sas" 0x1510C2. Flags match prev TU
+// stlport_pod_vector_bodies.cpp.
+
+void __cdecl Rva00153565Register(const char *name, void *obj)
+{
+	if (!name)
+		return;
+	if (!obj)
+		return;
+	if (strlen(name) > 0x40)
+		return;
+	if (!g_Rva00153565Vec)
+		g_Rva00153565Vec = new _STL::vector<BfmePod68>;
+	BfmePod68 entry;
+	_mbscpy((char *)&entry, name);
+	entry.a[16] = (int)obj;
+	for (BfmePod68 *it = g_Rva00153565Vec->begin(); it != g_Rva00153565Vec->end(); ++it) {
+		if (!_strcmpi((char *)it, name))
+			return;
+	}
+	g_Rva00153565Vec->push_back(entry);
+}
+
+// tu-skeleton: 0x001535FF 101B ?PushDynamicSetStack@FXShaderParameterBinder@@QAEXPBD@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterBinderPushDynamicSetStackName.cpp (not merged yet)
 
 // tu-skeleton: 0x00153729 19B ??1Rva00153729@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00153729Dtor.cpp (not merged yet)
 
@@ -548,7 +630,27 @@ done:
 
 // tu-skeleton: 0x00153F08 336B ?Init@FXShaderParameterBinder@@QAEXPAUID3DXEffect@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterBinderInit.cpp (not merged yet)
 
-// tu-skeleton: 0x00154058 73B ??0FXShaderParameterBinder@@QAE@PAX@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterBinderCtor.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterBinderCtor.cpp
+
+//
+// ??0FXShaderParameterBinder@@QAE@PAX@Z, retail 0x00154058, 73 bytes.
+// Constructor of the holder whose destructor is rowed at 0x00153D16
+// (Rva00153D16Dtor.cpp): it zeroes the COM pointer at +0, builds a
+// vector<BfmeE16> at +4 through the rowed _Vector_base ctor 0x00211E58, zeroes
+// the pointer at +0x10 and then hands the argument to the holder's set-surface
+// method at 0x00153F08 (336B, pinned). Identity: WorldBuilder's
+// fxshaderparameterbinder.cpp:27 is FXShaderParameterBinder's constructor
+// (asserts the effect) handing it to FXShaderParameterBinder::Init, and the
+// layout (effect +0, vector +4, parsing data +0x10) is the binder's. The 0x00154370 SSE
+// sibling needs /G7 /arch:SSE and lives in its own TU (Rva00154370Cluster.cpp)
+// because /O1 changes that body by one byte.
+
+FXShaderParameterBinder::FXShaderParameterBinder(void *surface)
+	: m_ptr(0), m_vec(_STL::allocator<BfmeE16>()), m_ParsingData(0)
+{
+	if (surface)
+		Init((struct ID3DXEffect *)surface);
+}
 
 // tu-skeleton: 0x00766DE3 14B $L3556 -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportConstructFamily.cpp (not merged yet)
 
