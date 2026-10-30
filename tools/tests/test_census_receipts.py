@@ -125,6 +125,16 @@ def test_real_capture_nonzero_exit_is_rejected_by_snapshot(tmp_path, monkeypatch
         proofs.snapshot(source, [sys.executable, str(compiler), '-c', str(source)], dict(os.environ))
 
 
+def emit(kwargs, text):
+    """What a fake compiler prints: build captures cl's output through a file
+    (build.run_captured), so it goes where a real process would write it."""
+    target = kwargs.get('stdout')
+    if hasattr(target, 'write'):
+        target.write(text)
+        target.flush()
+    return text
+
+
 def fixture(tmp_path, monkeypatch):
     source = tmp_path / 'game/unit.cpp'
     source.parent.mkdir()
@@ -148,7 +158,7 @@ def fixture(tmp_path, monkeypatch):
             return SimpleNamespace(returncode=0, stdout=pp,
                                    stderr=('Note: including file: ' + str(header)).encode())
         output.write_bytes(b'compiled object')
-        return SimpleNamespace(returncode=0, stdout='Note: including file: ' + str(header))
+        return SimpleNamespace(returncode=0, stdout=emit(kwargs, 'Note: including file: ' + str(header)))
     monkeypatch.setattr(build.subprocess, 'run', run)
     # Input-proof unit tests replace the compiler with the same byte transcript
     # as before. Real regular-file capture is exercised separately below.
@@ -242,7 +252,7 @@ def test_new_shadow_and_raw_newline_change_refuse_old_input(tmp_path, monkeypatc
 def test_failed_actual_compile_cannot_bless_existing_object(tmp_path, monkeypatch):
     source, header, obj, command, env, run = fixture(tmp_path, monkeypatch)
     def failed(cmd, **kwargs):
-        return run(cmd, **kwargs) if '-E' in cmd else SimpleNamespace(returncode=1, stdout='error C1000')
+        return run(cmd, **kwargs) if '-E' in cmd else SimpleNamespace(returncode=1, stdout=emit(kwargs, 'error C1000'))
     monkeypatch.setattr(build.subprocess, 'run', failed)
     receipt = proofs.Receipts(tmp_path / 'inputs.json')
     assert not build.try_compile_source(source, obj, input_proof=receipt)[0]
@@ -314,7 +324,7 @@ def test_successful_sweep_retry_gets_its_actual_command_receipt(tmp_path, monkey
         error = "fatal error C1083: Cannot open include file: 'windows.h'"
         if '-E' in cmd:
             return SimpleNamespace(returncode=2, stdout=b'', stderr=error.encode())
-        return SimpleNamespace(returncode=2, stdout=error)
+        return SimpleNamespace(returncode=2, stdout=emit(kwargs, error))
     monkeypatch.setattr(build.subprocess, 'run', needs_sweep)
     receipt = proofs.Receipts(tmp_path / 'inputs.json')
     assert build.try_compile_source(source, obj, input_proof=receipt)[0]
