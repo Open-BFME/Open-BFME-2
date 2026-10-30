@@ -21,8 +21,9 @@ class AsciiString;
 
 struct StringLookUp
 {
-	AsciiString *label;
-	void *info;
+public:
+	AsciiString *label; // +0x00
+	void *info; // +0x04
 };
 
 struct Rva002E5678Cmp

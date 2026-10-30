@@ -161,10 +161,15 @@ public:
 	void rva002CF1E2();
 };
 
+struct StringLookUp;
 class Rva002E6451
 {
 public:
 	void *rva002E6451(const char *label);
+private:
+	int m_count; // +0x00
+	char m_pad04[0x4];
+	StringLookUp *m_items; // +0x08
 };
 
 // One label/text pair; the array is new[]'d with a cookie (??_U plus the
@@ -177,8 +182,9 @@ struct StringInfo
 
 struct StringLookUp
 {
-	AsciiString *label;
-	void *info;
+public:
+	AsciiString *label; // +0x00
+	void *info; // +0x04
 };
 
 struct Rva002E5678Cmp

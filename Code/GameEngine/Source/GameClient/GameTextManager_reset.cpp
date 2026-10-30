@@ -21,16 +21,16 @@ public:
 
 private:
 	char m_pad[0x2C];
-	GameTextTable *m_ptr30;
+	GameTextTable *m_mapTable;
 };
 
 void GameTextManager::reset()
 {
-	GameTextTable *ptr = m_ptr30;
+	GameTextTable *ptr = m_mapTable;
 	if (ptr)
 	{
 		ptr->~GameTextTable();
 		::operator delete(ptr);
-		m_ptr30 = 0;
+		m_mapTable = 0;
 	}
 }

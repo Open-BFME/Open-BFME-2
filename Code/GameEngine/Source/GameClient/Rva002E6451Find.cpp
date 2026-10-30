@@ -4,21 +4,22 @@
 
 void *__cdecl rva002E6329(void *, void *, void *, void *, void *) throw();
 
+class AsciiString;
 struct StringLookUp
 {
-	void *label;
-	void *info;
+public:
+	AsciiString *label; // +0x00
+	void *info; // +0x04
 };
 
 class Rva002E6451
 {
 public:
-	void *rva002E6451(const char *key);
-
+	void *rva002E6451(const char *label);
 private:
-	int m_count;
-	int m_pad4;
-	StringLookUp *m_items;
+	int m_count; // +0x00
+	char m_pad04[0x4];
+	StringLookUp *m_items; // +0x08
 };
 
 void *Rva002E6451::rva002E6451(const char *key)

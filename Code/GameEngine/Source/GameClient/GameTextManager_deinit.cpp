@@ -26,31 +26,31 @@ public:
 
 private:
 	char m_pad04[0x1d - 4];
-	unsigned char m_flag1d;
+	unsigned char m_initialized;
 	char m_pad1e[0x06];
-	Rva002E5711 *m_list24;
+	Rva002E5711 *m_noStringList;
 	char m_pad28[0x04];
-	GameTextTable *m_ptr2c;
-	GameTextTable *m_ptr30;
+	GameTextTable *m_textTable;
+	GameTextTable *m_mapTable;
 };
 
 void GameTextManager::deinit()
 {
-	GameTextTable *ptr = m_ptr2c;
+	GameTextTable *ptr = m_textTable;
 	if (ptr)
 	{
 		ptr->~GameTextTable();
 		::operator delete(ptr);
-		m_ptr2c = 0;
+		m_textTable = 0;
 	}
-	ptr = m_ptr30;
+	ptr = m_mapTable;
 	if (ptr)
 	{
 		ptr->~GameTextTable();
 		::operator delete(ptr);
-		m_ptr30 = 0;
+		m_mapTable = 0;
 	}
-	Rva002E5711 *cur = m_list24;
+	Rva002E5711 *cur = reinterpret_cast<Rva002E5711 *>(m_noStringList);
 	if (cur)
 	{
 		do
@@ -61,6 +61,6 @@ void GameTextManager::deinit()
 			cur = next;
 		} while (cur);
 	}
-	m_list24 = 0;
-	m_flag1d = 0;
+	m_noStringList = 0;
+	m_initialized = 0;
 }
