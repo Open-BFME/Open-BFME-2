@@ -114,23 +114,23 @@ public:
 class Rva000B3814
 {
 public:
-	void rva000B3814(Rva000B3814Arg *o, float f);
+	void rva000B3814(Rva000B3814Arg *o, float fraction);
 private:
 	char m_pad[0x1C9];
 	unsigned char m_flag;
 };
 
-void Rva000B3814::rva000B3814(Rva000B3814Arg *o, float f)
+void Rva000B3814::rva000B3814(Rva000B3814Arg *o, float fraction)
 {
-	if (f <= 0.0f) {
+	if (fraction <= 0.0f) {
 		o->v23(1, 0.0f);
 		o->v101(1);
 	} else {
 		o->v101(0);
-		if (f >= g_Va00BBB8D8) {
+		if (fraction >= g_Va00BBB8D8) {
 			o->v23(1, 1.0f);
 		} else {
-			o->v23(1, f);
+			o->v23(1, fraction);
 			m_flag = 1;
 		}
 	}

@@ -69,9 +69,9 @@ public:
 	Rva00150BF9()
 	{
 	}
-	Rva00150BF9(const _STL::allocator<int> &a)
+	Rva00150BF9(const _STL::allocator<int> &alloc)
 	{
-		((_STL::_Vector_base<int, _STL::allocator<int> > *)this)->_STL::_Vector_base<int, _STL::allocator<int> >::_Vector_base(a);
+		((_STL::_Vector_base<int, _STL::allocator<int> > *)this)->_STL::_Vector_base<int, _STL::allocator<int> >::_Vector_base(alloc);
 	}
 	void rva00150BF9(int n);
 	void rva00150A8B(int n, Rva00150A8BArg t);
@@ -107,7 +107,7 @@ class Rva00150C97
 {
 public:
 	Rva00150C97(int n);
-	void rva00150C97(int n);
+	void rva00150C97(int count);
 	volatile const void *m_vtable;
 	Rva00150BF9 m_vec;
 	int m_pad0C;
@@ -118,7 +118,7 @@ class Rva00150CD0
 {
 public:
 	Rva00150CD0(int n);
-	void rva00150CD0(int n);
+	void rva00150CD0(int count);
 	volatile const void *m_vtable;
 	Rva00150C22 m_vec;
 	int m_pad0C;
@@ -129,7 +129,7 @@ class Rva00150D09
 {
 public:
 	Rva00150D09(int n);
-	void rva00150D09(int n);
+	void rva00150D09(int count);
 	volatile const void *m_vtable;
 	Rva00150C4B m_vec;
 	int m_pad0C;
@@ -144,40 +144,40 @@ public:
 // stamps the +0x10/0x14 pair, and grows when n > 0.
 
 // ?rva00150C97@Rva00150C97@@QAEXH@Z
-void Rva00150C97::rva00150C97(int n)
+void Rva00150C97::rva00150C97(int count)
 {
-	if ((unsigned int)n < (unsigned int)m_vec.size())
+	if ((unsigned int)count < (unsigned int)m_vec.size())
 		return;
 	int *pair = (int *)&m_vec;
 	int oldCount = (pair[1] - pair[0]) >> 3;
-	m_vec.rva00150BF9(n);
-	for (; oldCount < n; ++oldCount)
+	m_vec.rva00150BF9(count);
+	for (; oldCount < count; ++oldCount)
 		((Rva00150C97Elem *)m_vec.m_first)[oldCount].m_index = oldCount;
 }
 
 // ?rva00150CD0@Rva00150CD0@@QAEXH@Z
 // ?rva00150C97@Rva00150C97@@QAEXH@Z
-void Rva00150CD0::rva00150CD0(int n)
+void Rva00150CD0::rva00150CD0(int count)
 {
-	if ((unsigned int)n < (unsigned int)m_vec.size())
+	if ((unsigned int)count < (unsigned int)m_vec.size())
 		return;
 	int *pair = (int *)&m_vec;
 	int oldCount = (pair[1] - pair[0]) >> 3;
-	m_vec.rva00150C22(n);
-	for (; oldCount < n; ++oldCount)
+	m_vec.rva00150C22(count);
+	for (; oldCount < count; ++oldCount)
 		((Rva00150C97Elem *)m_vec.m_first)[oldCount].m_index = oldCount;
 }
 
 // ?rva00150D09@Rva00150D09@@QAEXH@Z
 // ?rva00150C97@Rva00150C97@@QAEXH@Z
-void Rva00150D09::rva00150D09(int n)
+void Rva00150D09::rva00150D09(int count)
 {
-	if ((unsigned int)n < (unsigned int)m_vec.size())
+	if ((unsigned int)count < (unsigned int)m_vec.size())
 		return;
 	int *pair = (int *)&m_vec;
 	int oldCount = (pair[1] - pair[0]) >> 3;
-	m_vec.rva00150C4B(n);
-	for (; oldCount < n; ++oldCount)
+	m_vec.rva00150C4B(count);
+	for (; oldCount < count; ++oldCount)
 		((Rva00150C97Elem *)m_vec.m_first)[oldCount].m_index = oldCount;
 }
 
@@ -204,7 +204,7 @@ class Rva00150B8D
 {
 public:
 	void rva00150B8D(int n, Rva0014DB9F fill);
-	void rva00150C74(int n);
+	void rva00150C74(int count);
 	int size() const { return (m_last - m_first) / 76; }
 	int m_first;
 	int m_last;
@@ -214,34 +214,34 @@ public:
 class Rva00150D42
 {
 public:
-	void rva00150D42(int n);
+	void rva00150D42(int count);
 private:
 	int m_00;
 	Rva00150B8D m_grow;
 };
 
 // ?rva00150C74@Rva00150B8D@@QAEXH@Z
-void Rva00150B8D::rva00150C74(int n)
+void Rva00150B8D::rva00150C74(int count)
 {
-	rva00150B8D(n, Rva0014DB9F());
+	rva00150B8D(count, Rva0014DB9F());
 }
 
 // ?rva00150D42@Rva00150D42@@QAEXH@Z
-void Rva00150D42::rva00150D42(int n)
+void Rva00150D42::rva00150D42(int count)
 {
-	if ((unsigned int)n < (unsigned int)m_grow.size())
+	if ((unsigned int)count < (unsigned int)m_grow.size())
 		return;
 	int *pair = (int *)&m_grow;
 	int oldCount = (pair[1] - pair[0]) / 76;
-	m_grow.rva00150C74(n);
-	if (oldCount >= n)
+	m_grow.rva00150C74(count);
+	if (oldCount >= count)
 		return;
 	int off = oldCount * 76;
 	do {
 		((Rva00150D42Elem *)((char *)m_grow.m_first + off))->m_index = oldCount;
 		++oldCount;
 		off += 76;
-	} while (oldCount < n);
+	} while (oldCount < count);
 }
 
 // 86B growers (0x150A8B/0x150AE1/0x150B37): resize core over the 8-byte

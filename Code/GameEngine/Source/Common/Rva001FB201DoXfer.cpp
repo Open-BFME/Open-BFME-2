@@ -53,7 +53,7 @@ class ParticleSystemInfo { public: virtual void pad0(); virtual void pad1(); vir
 class Rva001FB201 : public ParticleSystemInfo {
 public: void DoXfer(Xfer&);
 private:
- void *m_template; int m_fieldA0; Snapshot *m_fieldA4;
+ void *m_template; int m_fieldA0; Snapshot *m_snapshot;
  int m_systemID; float m_fieldAC; int m_attachedToDrawableID; ObjectID m_attachedToObjectID;
  AsciiString m_fieldB8; float m_localTransform[12]; float m_transform[12];
  unsigned m_burstDelayLeft, m_delayLeft, m_startTimestamp, m_systemLifetimeLeft, m_personalityStore;
@@ -87,6 +87,6 @@ void Rva001FB201::DoXfer(Xfer &xfer) {
  xfer == m_pos; xfer == m_lastPos; xfer == m_isFirstPos;
  XferParticleSystemID(&xfer,&m_slaveSystemID);
  XferParticleSystemID(&xfer,&m_masterSystemID);
- xfer == *m_fieldA4;
+ xfer == *m_snapshot;
 }
 }

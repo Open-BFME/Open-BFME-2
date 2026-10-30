@@ -46,28 +46,28 @@ void StrategicHUD::DynamicAutoResolvePlayerPanelMovieClip::Impl::SetPlayerHealth
 	}
 }
 
-void StrategicHUD::DynamicAutoResolvePlayerPanelMovieClip::Impl::PlayHitAnim(float v)
+void StrategicHUD::DynamicAutoResolvePlayerPanelMovieClip::Impl::PlayHitAnim(float damage)
 {
 	float *pHealth = &m_float34;
 	float *p = pHealth;
-	if (!(v > *pHealth))
-		p = &v;
-	v = *p;
+	if (!(damage > *pHealth))
+		p = &damage;
+	damage = *p;
 	const char *team = m_team08 ? m_team08->m_name : "";
-	Rva00527925Fire((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), m_level04, team, "PlayHitAnim", &v);
-	*pHealth -= v;
+	Rva00527925Fire((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), m_level04, team, "PlayHitAnim", &damage);
+	*pHealth -= damage;
 	m_flag4C = true;
 }
 
-void StrategicHUD::DynamicAutoResolvePlayerPanelMovieClip::Impl::PlayReinforceAnim(float v)
+void StrategicHUD::DynamicAutoResolvePlayerPanelMovieClip::Impl::PlayReinforceAnim(float amount)
 {
 	float cap = kF7C - m_float34;
 	float *p = &cap;
-	if (!(v > cap))
-		p = &v;
-	v = *p;
+	if (!(amount > cap))
+		p = &amount;
+	amount = *p;
 	const char *team = m_team08 ? m_team08->m_name : "";
-	Rva00527925Fire((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), m_level04, team, "PlayReinforceAnim", &v);
+	Rva00527925Fire((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), m_level04, team, "PlayReinforceAnim", &amount);
 	m_flag4D = true;
-	m_float34 += v;
+	m_float34 += amount;
 }

@@ -105,7 +105,7 @@ class Rva005B6F1E
 	unsigned char _p2[5];
 	IThird *m_com;
 public:
-	void rva005B6F1E(const unsigned short *a1, const unsigned short *a2);
+	void rva005B6F1E(const unsigned short *name, const unsigned short *imageFileName);
 };
 
 // ?rva005B7010@Rva005B7010@@QAEXXZ @0x005B7010 34B
@@ -281,15 +281,15 @@ BfmeThingTTD::~BfmeThingTTD()
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/Rva005B6F1EComInit.cpp
 
-void Rva005B6F1E::rva005B6F1E(const unsigned short *a1, const unsigned short *a2)
+void Rva005B6F1E::rva005B6F1E(const unsigned short *name, const unsigned short *imageFileName)
 {
 	IFirst *first = 0;
 	IFirst *p2 = 0;
 	unsigned short v;
-	m_a = new unsigned short[wcslen(a1) + 1];
-	m_b = new unsigned short[wcslen(a2) + 1];
-	wcscpy(m_a, a1);
-	wcscpy(m_b, a2);
+	m_a = new unsigned short[wcslen(name) + 1];
+	m_b = new unsigned short[wcslen(imageFileName) + 1];
+	wcscpy(m_a, name);
+	wcscpy(m_b, imageFileName);
 	m_ok1 = false;
 	m_ok2 = false;
 	HRESULT hr = CoCreateInstance(g_00C73770, 0, 1, g_00C73780, (void **)&first);

@@ -33,12 +33,12 @@ struct Rva005D232DIn {
 namespace StrategicInGameUI { const Image *GetSelectionPortrait(Rva005D232DIn *in); }
 const Image *StrategicInGameUI::GetSelectionPortrait(Rva005D232DIn *in)
 {
-    void *q = in->p28;
-    if (q != 0) {
-        const AsciiString &asciiString = *(const AsciiString *)((char *)q + 0x0C);
-        void *v = (void *)TheThingFactory->findTemplate(asciiString);
-        if (v != 0)
-            return ((ThingTemplate *)v)->rva0033BA46();
+    void *holder = in->p28;
+    if (holder != 0) {
+        const AsciiString &asciiString = *(const AsciiString *)((char *)holder + 0x0C);
+        void *thingTemplate = (void *)TheThingFactory->findTemplate(asciiString);
+        if (thingTemplate != 0)
+            return ((ThingTemplate *)thingTemplate)->rva0033BA46();
     }
     return 0;
 }

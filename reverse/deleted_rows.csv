@@ -4199,3 +4199,4 @@ __ehhandler$?method@Rva002B64C7Observer@@QAEXPAUBuildingView@@@Z,0x0077619A,"Ren
 ??__FeventSound@?9??rva0004E5A2@W3DRadar@@QAEXHHHHH@Z@YAXXZ,0x007B6B05,"Renamed to ??__FeventSound@?9??drawEvents@W3DRadar@@QAEXHHHHH@Z@YAXXZ by tools/rename.py (inferred)"
 ?rva0004E5A2@W3DRadar@@QAEXHHHHH@Z,0x0004E5A2,"Renamed to ?drawEvents@W3DRadar@@QAEXHHHHH@Z by tools/rename.py (inferred)"
 __ehhandler$?rva0004E5A2@W3DRadar@@QAEXHHHHH@Z,0x0075D490,"Renamed to __ehhandler$?drawEvents@W3DRadar@@QAEXHHHHH@Z by tools/rename.py (inferred)"
+?rva003FB682@Rva003FB682@@QAEXM@Z,0x003FB682,"Renamed to ?setOpacity@Rva003FB682@@QAEXM@Z by tools/rename.py (inferred)"

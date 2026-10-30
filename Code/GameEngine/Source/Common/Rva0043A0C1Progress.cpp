@@ -105,11 +105,11 @@ public:
 	void rva0043A0C1(int percent);
 private:
 	Slot10 *m_10;
-	int m_14;
+	int m_mode;
 	Rva0057E3DB m_18;
 	Slot88 *m_88;
 	char m_pad8C[0xD0 - 0x8C];
-	bool m_D0;
+	bool m_initialized;
 };
 
 int Rva00559F7EGet(int mode);
@@ -117,12 +117,12 @@ int Rva00559F95Get(int mode);
 
 void Rva0043A0C1::rva0043A0C1(int percent)
 {
-	if (!m_D0) {
+	if (!m_initialized) {
 		m_18.rva0057E24B((int)m_88);
-		m_D0 = ((Rva0057DFFB *)&m_18)->rva0057DFFB(true);
+		m_initialized = ((Rva0057DFFB *)&m_18)->rva0057DFFB(true);
 	}
 	m_10->a2(0);
-	int mode = m_14;
+	int mode = m_mode;
 	if (mode > 0 && (mode <= 2 || mode == 5)) {
 		if (TheNetwork != 0) {
 			if (percent <= 100)

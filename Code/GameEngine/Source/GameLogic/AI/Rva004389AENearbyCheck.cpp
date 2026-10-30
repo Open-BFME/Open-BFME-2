@@ -256,11 +256,11 @@ bool Rva004389AE::rva0043912F(Object *obj, const Coord3D *pos, Rva004388E3Templa
 		m_10 * tmpl->m_14, 2, &notThis, 0);
 	Object *other;
 	while ((other = hits.next()) != 0) {
-		float r = other->m_template->m_10 * tmpl->m_14;
+		float radius = other->m_template->m_10 * tmpl->m_14;
 		float dx = pos->x - other->m_pos.x;
 		float dy = pos->y - other->m_pos.y;
 		float dz = pos->z - other->m_pos.z;
-		if (dx * dx + dy * dy + dz * dz < r * r) {
+		if (dx * dx + dy * dy + dz * dz < radius * radius) {
 			if (out)
 				*out = other->m_74;
 			return true;

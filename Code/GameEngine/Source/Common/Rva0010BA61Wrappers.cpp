@@ -316,17 +316,17 @@ public:
 class Rva005E5920 : public RAMFile
 {
 public:
-	int rva005E5920(void *a, int b);
+	int rva005E5920(void *buffer, int size);
 private:
 	char m_pad04[4];
 	Rva005E5884 *m_8;
 };
 
-int Rva005E5920::rva005E5920(void *a, int b)
+int Rva005E5920::rva005E5920(void *buffer, int size)
 {
-	int r = RAMFile::write(a, b);
+	int r = RAMFile::write(buffer, size);
 	_ReadWriteBarrier();
 	if ((r == -1) && (m_8 != 0 || m_8 == 0))
-		return (b ? m_8 : m_8)->rva005E5884(a, b);
+		return (size ? m_8 : m_8)->rva005E5884(buffer, size);
 	return r;
 }

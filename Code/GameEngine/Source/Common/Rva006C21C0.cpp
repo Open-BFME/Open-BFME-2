@@ -113,7 +113,7 @@ public:
 	GeneralAllocatorDebug(void *a, unsigned int size, bool b, void *c, void *d, void *e);
 	unsigned __int64 rva006C1B50() const;
 	static void *__cdecl rva006C3D20(unsigned int size, void *context);
-	static void __cdecl rva006C2240(void *p, void *context);
+	static void __cdecl rva006C2240(void *block, void *context);
 private:
 	bool m_debugInitialized; // +0x510
 	unsigned int m_514[8]; // +0x514
@@ -187,16 +187,16 @@ void *__cdecl GeneralAllocatorDebug::rva006C3D20(unsigned int size, void *contex
     return ((Rva006C39F0Owner *)context)->rva006C3940Alloc(size);
 }
 
-void __cdecl GeneralAllocatorDebug::rva006C2240(void *p, void *context)
+void __cdecl GeneralAllocatorDebug::rva006C2240(void *block, void *context)
 {
     GeneralAllocatorDebug *allocator = (GeneralAllocatorDebug *)context;
     if (allocator->m_self == allocator)
     {
         if (allocator->m_debugInitialized)
-            ((EA::Allocator::GeneralAllocator *)allocator)->rva00033150(p);
+            ((EA::Allocator::GeneralAllocator *)allocator)->rva00033150(block);
     }
     else
-        ((EA::Allocator::GeneralAllocator *)allocator->m_self)->rva000338F0(p);
+        ((EA::Allocator::GeneralAllocator *)allocator->m_self)->rva000338F0(block);
 }
 
 // Native6C1B50..6C1B5D,13B, between CC alignment regions. Returns the

@@ -68,7 +68,7 @@ public:
 class Rva004FD37F
 {
 public:
-	bool rva004FD5C7(Rva002E1001 *p) const;
+	bool rva004FD5C7(Rva002E1001 *player) const;
 	void rva004FD37F(const ModuleData *p);
 private:
 	char m_pad00[0x50];
@@ -84,13 +84,13 @@ struct Rva004FCD49Vec
 	int m_10;
 };
 
-bool Rva004FD37F::rva004FD5C7(Rva002E1001 *p) const
+bool Rva004FD37F::rva004FD5C7(Rva002E1001 *player) const
 {
-	int key = p->m_key;
+	int key = player->m_key;
 	_STL::pair<_STL::multimap<int, int>::const_iterator, _STL::multimap<int, int>::const_iterator> r = m_map.equal_range(key);
 	for (_STL::multimap<int, int>::const_iterator it = r.first; it != r.second; ++it) {
 		LivingWorldScenario::PlayerDefeatCondition *cand = (LivingWorldScenario::PlayerDefeatCondition *)(*it).second;
-		if (cand->isPlayerDefeated(p))
+		if (cand->isPlayerDefeated(player))
 			return true;
 	}
 	return false;
@@ -107,8 +107,8 @@ void Rva004FD37F::rva004FD37F(const ModuleData *moduleData)
 		return;
 	const _STL::vector<int> &vec = ((const Rva004FCD49Vec *)moduleData)->m_vec;
 	for (unsigned int i = 0; i < vec.size(); ++i) {
-		int v = vec[i];
-		m_map.insert(_STL::multimap<int, int>::value_type(v, (int)moduleData));
+		int key = vec[i];
+		m_map.insert(_STL::multimap<int, int>::value_type(key, (int)moduleData));
 	}
 	m_vec.push_back(moduleData);
 }

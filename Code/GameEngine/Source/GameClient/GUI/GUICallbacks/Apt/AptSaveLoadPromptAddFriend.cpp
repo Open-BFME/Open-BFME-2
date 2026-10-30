@@ -124,7 +124,7 @@ public:
 	Rva0023E8D8() : m_impl(0) {}
 	~Rva0023E8D8() { if(m_impl)ReleaseTreeHintRef00217D4C((TargetRef00217D4C*)m_impl); }
 	Rva0023E8D8(void *function);
-	Rva0023E8D8(const Rva0023E8D8 &r) : m_impl(r.m_impl) {if(m_impl)++((int*)m_impl)[1];}
+	Rva0023E8D8(const Rva0023E8D8 &other) : m_impl(other.m_impl) {if(m_impl)++((int*)m_impl)[1];}
 	void *m_impl;
 };
 
@@ -140,7 +140,7 @@ class AptMessageBox { public: static bool Change(int type,
 struct TreeHintRef00217D4C {
  Rva0023E8D8 holder;
  TreeHintRef00217D4C(void*p):holder(p){}
- TreeHintRef00217D4C(const TreeHintRef00217D4C&r):holder(r.holder){}
+ TreeHintRef00217D4C(const TreeHintRef00217D4C&other):holder(other.holder){}
 };
 bool AptSaveLoad::PromptAddFriend()
 {

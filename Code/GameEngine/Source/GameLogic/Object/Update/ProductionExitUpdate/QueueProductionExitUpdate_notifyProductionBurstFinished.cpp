@@ -155,12 +155,12 @@ void QueueProductionExitUpdate::notifyProductionBurstFinished()
 	if (!m_rallyPointExists)
 		return;
 	const Coord3D *rally = v8();
-	Coord3D tmp;
-	tmp.x = rally->x;
+	Coord3D rallyPos;
+	rallyPos.x = rally->x;
 	Object *selfObj2 = *(Object **)((char *)this - 0x18);
-	tmp.y = rally->y;
-	tmp.z = rally->z;
-	Object *overrideHost = bfmeQueryRallyOverride(selfObj2, &tmp);
+	rallyPos.y = rally->y;
+	rallyPos.z = rally->z;
+	Object *overrideHost = bfmeQueryRallyOverride(selfObj2, &rallyPos);
 	if (overrideHost)
 	{
 		top->setStatus((ObjectStatusTypes)78, true);
@@ -170,5 +170,5 @@ void QueueProductionExitUpdate::notifyProductionBurstFinished()
 		aic->rva0036EBB8(overrideHost, CS_2);
 	}
 	else
-		provider->v145(&tmp);
+		provider->v145(&rallyPos);
 }

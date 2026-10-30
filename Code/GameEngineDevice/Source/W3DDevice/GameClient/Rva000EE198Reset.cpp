@@ -53,7 +53,7 @@ void Rva000EE198Owner::rva000EE198()
 		}
 	}
 	m_count = 0;
-	int n = 0x60;
+	int remaining = 0x60;
 	Rva000EE198Pair *pair = m_pairs;
 	do {
 		Rva000EE198Ref *ref = pair->m_ref;
@@ -65,6 +65,6 @@ void Rva000EE198Owner::rva000EE198()
 		}
 		pair->m_name.~AsciiString();
 		++pair;
-	} while (--n);
+	} while (--remaining);
 	m_flag = 0;
 }

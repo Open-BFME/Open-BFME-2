@@ -138,8 +138,8 @@ void GameEngine::update()
 		if (m_50 % 25 == 0) {
 			unsigned int t = timeGetTime();
 			unsigned int dt = t - m_54;
-			double ext19 = ((double)(float)dt * g_bfmeMillisecondsToSeconds);
-			float den = (float)ext19;
+			double elapsedSeconds = ((double)(float)dt * g_bfmeMillisecondsToSeconds);
+			float den = (float)elapsedSeconds;
 			float a = (float)m_50;
 			m_50 = 0;
 			float b = (float)m_5c;

@@ -22,13 +22,13 @@ struct GapCountedLock
 class Rva00032AC0
 {
 public:
-	unsigned int rva00032AC0(const void *p, int unused);
+	unsigned int rva00032AC0(const void *block, int unused);
 private:
 	char m_pad00[0x4E4];
 	GapCountedLock *m_lock;									// +0x4E4
 };
 
-unsigned int Rva00032AC0::rva00032AC0(const void *p, int unused)
+unsigned int Rva00032AC0::rva00032AC0(const void *block, int unused)
 {
 	GapCountedLock *lock = m_lock;
 	if (lock)
@@ -36,7 +36,7 @@ unsigned int Rva00032AC0::rva00032AC0(const void *p, int unused)
 		EnterCriticalSection(&lock->m_section);
 		++lock->m_depth;
 	}
-	unsigned int size = ((const unsigned int *)p)[-1] & 0x7FFFFFF8;
+	unsigned int size = ((const unsigned int *)block)[-1] & 0x7FFFFFF8;
 	if (lock)
 	{
 		--lock->m_depth;

@@ -53,10 +53,10 @@ int __cdecl ComputeFrameState()
 	}
 	if (TheGameLogic && TheGameLogic->rva0042219())
 	{
-		BfmeMemberRV *m = ((BfmeThingRV *)ThePlayerList)->bfmePickRV();
-		if (m)
+		BfmeMemberRV *pickedMember = ((BfmeThingRV *)ThePlayerList)->bfmePickRV();
+		if (pickedMember)
 		{
-			Inner1BC *p = m->m_34;
+			Inner1BC *p = pickedMember->m_34;
 			if (p)
 			{
 				return p->m_1BC ? 3 : 1;

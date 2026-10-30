@@ -60208,7 +60208,7 @@ __ehhandler$??0WorldHeightMap@@QAE@PAVChunkInputStream@@HHH@Z,,0x00761418,10,Cod
 ?rva0026FCB6@Rva0026FCA3@@QAEXI@Z,,0x0026FCB6,13,Code/GameEngine/Source/Common/GapBodiesGE10.cpp,matched,Ghidra-unlisted gap body; shape from retail bytes; address-derived identity
 ?rva0026FCC3@Rva0026FCA3@@QBEHI@Z,,0x0026FCC3,19,Code/GameEngine/Source/Common/GapBodiesGE10.cpp,matched,Ghidra-unlisted gap body; shape from retail bytes; address-derived identity
 ?rva0026FCD6@Rva0026FCA3@@QAEXI@Z,,0x0026FCD6,15,Code/GameEngine/Source/Common/GapBodiesGE10.cpp,matched,Ghidra-unlisted gap body; shape from retail bytes; address-derived identity
-?rva003FB682@Rva003FB682@@QAEXM@Z,,0x003FB682,67,Code/GameEngine/Source/Common/GapBodiesGE11.cpp,matched,Ghidra-unlisted gap body; shape from retail bytes; address-derived identity
+?setOpacity@Rva003FB682@@QAEXM@Z,,0x003FB682,67,Code/GameEngine/Source/Common/GapBodiesGE11.cpp,matched,Ghidra-unlisted gap body; shape from retail bytes; address-derived identity
 ?rva0052416D@Rva0052416D@@QAEXABVAsciiString@@@Z,,0x0052416D,67,Code/GameEngine/Source/Common/GapBodiesGE11.cpp,matched,Ghidra-unlisted gap body; shape from retail bytes; address-derived identity
 ?rva00524222@Rva0052416D@@QAEXABVAsciiString@@@Z,,0x00524222,67,Code/GameEngine/Source/Common/GapBodiesGE11.cpp,matched,Ghidra-unlisted gap body; shape from retail bytes; address-derived identity
 ?rva00524294@Rva0052416D@@QAEXABVAsciiString@@@Z,,0x00524294,67,Code/GameEngine/Source/Common/GapBodiesGE11.cpp,matched,Ghidra-unlisted gap body; shape from retail bytes; address-derived identity

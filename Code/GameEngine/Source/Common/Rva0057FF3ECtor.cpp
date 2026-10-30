@@ -17,11 +17,11 @@ void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 struct Holder58
 {
 	TargetRef00217D4C *m_ptr;
-	Holder58(TargetRef00217D4C *r)
+	Holder58(TargetRef00217D4C *target)
 	{
-		m_ptr = r;
-		if (r)
-			++r->references;
+		m_ptr = target;
+		if (target)
+			++target->references;
 	}
 	~Holder58() { if (m_ptr) ReleaseTreeHintRef00217D4C(m_ptr); }
 };
@@ -38,7 +38,7 @@ class Rva0057FE6B : public Rva005248D0
 public:
 	// The complete destructor is owned by the verified destructor TU.
 	virtual ~Rva0057FE6B();
-	Rva0057FE6B(TargetRef00217D4C *a, int b, bool c);
+	Rva0057FE6B(TargetRef00217D4C *target, int b, bool c);
 private:
 	char m_pad0[84];
 	Holder58 m_58;
@@ -48,7 +48,7 @@ private:
 	unsigned char m_68;
 };
 
-Rva0057FE6B::Rva0057FE6B(TargetRef00217D4C *a, int b, bool c) : m_58(a)
+Rva0057FE6B::Rva0057FE6B(TargetRef00217D4C *target, int b, bool c) : m_58(target)
 {
 	m_5C = -1;
 	m_60 = b;

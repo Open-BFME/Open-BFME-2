@@ -28,13 +28,13 @@ struct RasterEdge
 	int remaining;
 	int index;
 
-	__forceinline void set(int x0, int x1, int dy)
+	__forceinline void set(int startX, int endX, int dy)
 	{
 		remaining = dy;
 		if (remaining > 0)
 		{
-			step = ((x1 - x0) << 8) / dy;
-			value = (x0 << 8) + step / 2;
+			step = ((endX - startX) << 8) / dy;
+			value = (startX << 8) + step / 2;
 		}
 	}
 	__forceinline bool advance()
@@ -45,19 +45,19 @@ struct RasterEdge
 	__forceinline int x() const { return (value + 128) / 256; }
 };
 
-__forceinline int prevIndex(int i, int n) { return i ? i - 1 : n - 1; }
-__forceinline int nextIndex(int i, int n) { return i + 1 == n ? 0 : i + 1; }
+__forceinline int prevIndex(int i, int vertexCount) { return i ? i - 1 : vertexCount - 1; }
+__forceinline int nextIndex(int i, int vertexCount) { return i + 1 == vertexCount ? 0 : i + 1; }
 
-char __cdecl Rva0073BFE0Raster(int *xs, int *ys, int n, Rva0073BAA0Base updater)
+char __cdecl Rva0073BFE0Raster(int *xs, int *ys, int vertexCount, Rva0073BAA0Base updater)
 {
-	int y;
+	int row;
 	int kept = 1;
 	int i;
 	RasterEdge left;
 	RasterEdge right;
 	int top;
 
-	for (i = 1; i < n; ++i)
+	for (i = 1; i < vertexCount; ++i)
 	{
 		if (xs[i] != xs[kept - 1] || ys[i] != ys[kept - 1])
 		{
@@ -66,38 +66,38 @@ char __cdecl Rva0073BFE0Raster(int *xs, int *ys, int n, Rva0073BAA0Base updater)
 			++kept;
 		}
 	}
-	n = kept;
-	while (n > 2 && xs[0] == xs[n - 1] && ys[0] == ys[n - 1])
-		--n;
-	if (n < 3)
+	vertexCount = kept;
+	while (vertexCount > 2 && xs[0] == xs[vertexCount - 1] && ys[0] == ys[vertexCount - 1])
+		--vertexCount;
+	if (vertexCount < 3)
 		return 1;
 
 	top = 0;
-	for (i = 1; i < n; ++i)
+	for (i = 1; i < vertexCount; ++i)
 	{
 		if (ys[i] < ys[top] || (ys[i] == ys[top] && xs[i] < xs[top]))
 			top = i;
 	}
-	y = ys[top];
+	row = ys[top];
 	left.index = top;
-	left.set(xs[left.index], xs[prevIndex(left.index, n)], ys[prevIndex(left.index, n)] - ys[left.index]);
-	left.index = prevIndex(left.index, n);
-	while (ys[top] == ys[nextIndex(top, n)])
-		top = nextIndex(top, n);
+	left.set(xs[left.index], xs[prevIndex(left.index, vertexCount)], ys[prevIndex(left.index, vertexCount)] - ys[left.index]);
+	left.index = prevIndex(left.index, vertexCount);
+	while (ys[top] == ys[nextIndex(top, vertexCount)])
+		top = nextIndex(top, vertexCount);
 	right.index = top;
-	right.set(xs[right.index], xs[nextIndex(right.index, n)], ys[nextIndex(right.index, n)] - ys[right.index]);
-	right.index = nextIndex(right.index, n);
+	right.set(xs[right.index], xs[nextIndex(right.index, vertexCount)], ys[nextIndex(right.index, vertexCount)] - ys[right.index]);
+	right.index = nextIndex(right.index, vertexCount);
 
 	for (;;)
 	{
-		if (!updater.rva0073BAA0(left.x(), right.x(), y++))
+		if (!updater.rva0073BAA0(left.x(), right.x(), row++))
 			return 0;
 		if (!left.advance())
 		{
 			while (left.remaining == 0)
 			{
-				left.set(xs[left.index], xs[prevIndex(left.index, n)], ys[prevIndex(left.index, n)] - ys[left.index]);
-				left.index = prevIndex(left.index, n);
+				left.set(xs[left.index], xs[prevIndex(left.index, vertexCount)], ys[prevIndex(left.index, vertexCount)] - ys[left.index]);
+				left.index = prevIndex(left.index, vertexCount);
 				if (left.remaining < 0)
 					return 1;
 			}
@@ -106,8 +106,8 @@ char __cdecl Rva0073BFE0Raster(int *xs, int *ys, int n, Rva0073BAA0Base updater)
 		{
 			while (right.remaining == 0)
 			{
-				right.set(xs[right.index], xs[nextIndex(right.index, n)], ys[nextIndex(right.index, n)] - ys[right.index]);
-				right.index = nextIndex(right.index, n);
+				right.set(xs[right.index], xs[nextIndex(right.index, vertexCount)], ys[nextIndex(right.index, vertexCount)] - ys[right.index]);
+				right.index = nextIndex(right.index, vertexCount);
 				if (right.remaining < 0)
 					return 1;
 			}

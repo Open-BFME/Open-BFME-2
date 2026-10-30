@@ -127,14 +127,14 @@ struct IdRange
 class AISpellBookBase
 {
 public:
-	bool findDenseStructureCenter(Player *a1, Player *a2, Coord3D *out);
+	bool findDenseStructureCenter(Player *a1, Player *viewingPlayer, Coord3D *out);
 public:
 	void findUnitInCombat(_STL::vector<const ModuleData *, _STL::allocator<const ModuleData *> > *vec, Player *player);
 };
 
 // ---- from Code/GameEngine/Source/Common/AISpellBookBase_findDenseStructureCenter.cpp
 
-bool AISpellBookBase::findDenseStructureCenter(Player *player, Player *a2, Coord3D *out)
+bool AISpellBookBase::findDenseStructureCenter(Player *player, Player *viewingPlayer, Coord3D *out)
 {
 	Coord3D tmp;
 	tmp.x = 0.0f;
@@ -151,7 +151,7 @@ bool AISpellBookBase::findDenseStructureCenter(Player *player, Player *a2, Coord
 		if (c <= best)
 			continue;
 		((Rva00049D20 *)tbl)->rva00049D20(&tmp, (int)i);
-		int idx = a2->m_playerIndex;
+		int idx = viewingPlayer->m_playerIndex;
 		if (TheShroudManager->getShroudStatusForPlayer(idx, &tmp) == SHROUDED)
 			continue;
 		best = c;

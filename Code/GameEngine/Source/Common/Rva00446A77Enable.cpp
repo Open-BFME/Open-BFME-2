@@ -27,10 +27,10 @@ void Rva00446A77Enable(void)
 {
 	if (g_Va00A0335C == 0)
 		return;
-	Outer00446A77 *p = (Outer00446A77 *)AptLanLobby::Instance();
-	if (p == 0)
+	Outer00446A77 *lobby = (Outer00446A77 *)AptLanLobby::Instance();
+	if (lobby == 0)
 		return;
-	return p->m_sub.enable();
+	return lobby->m_sub.enable();
 }
 
 // ?Rva00248D84Enable@@YAXXZ @0x00248D84 25B unlock lane.
@@ -40,9 +40,9 @@ void Rva00446A77Enable(void)
 // Evidence: 6 callers in unclaimed bodies; landing unblocks 5 waiters.
 void Rva00248D84Enable(void)
 {
-	Outer00446A77 *p = (Outer00446A77 *)AptLanLobby::Instance();
-	if (p != 0)
-		return p->m_sub.enable();
+	Outer00446A77 *lobby = (Outer00446A77 *)AptLanLobby::Instance();
+	if (lobby != 0)
+		return lobby->m_sub.enable();
 	return Rva00446A77Enable();
 }
 
@@ -82,10 +82,10 @@ void Rva00248E98Enable(void)
 		return;
 	if (!Rva00446A71Get())
 		return;
-	Outer00446A77 *p = (Outer00446A77 *)AptLanLobby::Instance();
-	if (p == 0)
+	Outer00446A77 *lobby = (Outer00446A77 *)AptLanLobby::Instance();
+	if (lobby == 0)
 		return;
-	return ((Rva00444462 *)p)->rva00444462();
+	return ((Rva00444462 *)lobby)->rva00444462();
 }
 
 // TheLAN (the data ledger's name): matched references place it at VA 0xdfe958.

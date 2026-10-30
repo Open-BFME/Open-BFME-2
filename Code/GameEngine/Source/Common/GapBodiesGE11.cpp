@@ -19,7 +19,7 @@ bool Rva0010E87A_SetOpacity(RenderObjClass *robj, float opacity);	// 0x0010E87A
 class Rva003FB682
 {
 public:
-	void rva003FB682(float opacity);
+	void setOpacity(float opacity);
 private:
 	char m_pad[8];
 	RenderObjClass *m_robj;									// +0x08
@@ -27,7 +27,7 @@ private:
 	float m_opacity;										// +0x98
 };
 
-void Rva003FB682::rva003FB682(float opacity)
+void Rva003FB682::setOpacity(float opacity)
 {
 	if (opacity > 0.0f && opacity <= 1.0f)
 	{

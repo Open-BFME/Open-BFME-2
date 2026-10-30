@@ -74,12 +74,12 @@ Rva0027C36A::Rva0027C36A(const Rva0027C36A &other)
 	m_54 = other.m_54;
 	memcpy(m_58, other.m_58, sizeof(m_58));
 	m_68 = other.m_68;
-	Region12 *d = m_6c;
-	const Region12 *s = other.m_6c;
-	for (int i = 0; i < 4; ++i, ++d, ++s) {
-		d->m_0 = s->m_0;
-		d->m_4 = s->m_4;
-		d->m_8 = s->m_8;
+	Region12 *destination = m_6c;
+	const Region12 *source = other.m_6c;
+	for (int i = 0; i < 4; ++i, ++destination, ++source) {
+		destination->m_0 = source->m_0;
+		destination->m_4 = source->m_4;
+		destination->m_8 = source->m_8;
 	}
 	memcpy(m_9c, other.m_9c, sizeof(m_9c));
 }

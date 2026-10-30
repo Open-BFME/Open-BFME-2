@@ -165,16 +165,16 @@ Rva003F7D86Inner *Rva003F81FDProxy::rva003F81B0()
 // when its 0x003F8478 test reports done.
 void Rva003F8090::rva003F8FB2()
 {
-	Rva003F8052 *s = (Rva003F8052 *)rva003F80C3();
-	if (s == 0)
+	Rva003F8052 *session = (Rva003F8052 *)rva003F80C3();
+	if (session == 0)
 	{
 		rva003F8509();
-		s = (Rva003F8052 *)rva003F80C3();
-		if (s == 0)
+		session = (Rva003F8052 *)rva003F80C3();
+		if (session == 0)
 			return;
 	}
-	((LivingWorldTutorial::PhaseSession *)s)->rva003F8F94();
-	if (s->rva003F8478())
+	((LivingWorldTutorial::PhaseSession *)session)->rva003F8F94();
+	if (session->rva003F8478())
 		rva003F8509();
 }
 

@@ -272,9 +272,9 @@ static void rva0004F29B(void *surface, Int width, Int height,
 
 // ?rva0004F037Caller absent-from-retail
 // The emission driver takes its tables from its caller; it owns no retail data.
-void rva0004F037Caller(void *surface, Int width, Int height, Int x, Int y, Color c, Color light,
+void rva0004F037Caller(void *surface, Int width, Int height, Int x, Int y, Color color, Color light,
 	const UnsignedByte *blobAlpha, const UnsignedByte blipAlpha[][2])
 {
-	rva0004F037(surface, width, height, x, y, c, blobAlpha);
+	rva0004F037(surface, width, height, x, y, color, blobAlpha);
 	rva0004F29B(surface, width, height, x, y, light, blipAlpha);
 }

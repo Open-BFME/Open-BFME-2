@@ -56,14 +56,14 @@ void Rva00330AF6::rva00330AF6(Int i, const BfmeE8 &value)
 class Rva00330BA3 : public Rva00330AF6Base
 {
 public:
-	void rva00330BA3(Int a);
+	void rva00330BA3(Int transform);
 private:
 	Int m_04;
 	AreaPolygonBase m_08;
 };
-void Rva00330BA3::rva00330BA3(Int a)
+void Rva00330BA3::rva00330BA3(Int transform)
 {
-	m_08.rva0030B232(*(const Matrix3D *)a);
+	m_08.rva0030B232(*(const Matrix3D *)transform);
 	v12();
 }
 
@@ -116,7 +116,7 @@ class Rva005E1B41Primary
 {
 public:
 	virtual void primarySlot();
-	void rva005E1AB6(Int a);
+	void rva005E1AB6(Int newObject);
 	Int m_04;
 	Int m_08;
 };
@@ -163,10 +163,10 @@ public:
 };
 // ?rva005E1AB6@Rva005E1B41Primary@@QAEXH@Z @0x005E1AB6 139B: setter for interface at +0x18 with old release via v00/v04 and new init via v04/v0c plus two Image lookups.
 // Evidence: pin ?rva005E1AB6@Rva005E1B41Primary@@QAEXH@Z; callers 0x005E1B46 rowed rva005E1B41 and 0x005E1B86; rowed 0x005E197E 0x005F031D 0x005F002C and pinned 0x005E1928; vtable slots 0/4/c/14/1c.
-void Rva005E1B41Primary::rva005E1AB6(Int a)
+void Rva005E1B41Primary::rva005E1AB6(Int newObject)
 {
 	Rva005E1B41 *full = (Rva005E1B41 *)this;
-	if ((Rva005E1AB6Obj *)a != full->m_18)
+	if ((Rva005E1AB6Obj *)newObject != full->m_18)
 	{
 		if (full->m_18 != 0)
 		{
@@ -174,7 +174,7 @@ void Rva005E1B41Primary::rva005E1AB6(Int a)
 				((Rva005E197E *)this)->rva005E197E();
 			full->m_18->v04(0);
 		}
-		full->m_18 = (Rva005E1AB6Obj *)a;
+		full->m_18 = (Rva005E1AB6Obj *)newObject;
 		if (full->m_18 == 0)
 			return;
 		full->m_18->v04((void *)static_cast<Rva005E1B41Iface *>(full));

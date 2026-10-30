@@ -122,11 +122,11 @@ void Rva002B9CFC::rva002B9CFC(Other002B9CFC *other)
 			unsigned int i = 0;
 			do
 			{
-				RegionAwardDispute *p = (RegionAwardDispute *)::operator new(0x20);
-				p = p ? (RegionAwardDispute *)new (p) RegionAwardDispute() : 0;
-				other->v30(p);
-				int key = *(int *)((char *)p + 4);
-				(*map130)[key] = (int)p;
+				RegionAwardDispute *dispute = (RegionAwardDispute *)::operator new(0x20);
+				dispute = dispute ? (RegionAwardDispute *)new (dispute) RegionAwardDispute() : 0;
+				other->v30(dispute);
+				int key = *(int *)((char *)dispute + 4);
+				(*map130)[key] = (int)dispute;
 			} while (++i < count);
 		}
 	}

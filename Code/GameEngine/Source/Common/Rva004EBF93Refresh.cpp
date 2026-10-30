@@ -97,19 +97,19 @@ void Rva004EBF93::rva004EBF93()
 	m_FC.postInit();
 	m_38.rva00598CBC();
 	m_12C->postInit();
-	Rva004EBF93World *w = (Rva004EBF93World *)((char *)TheSkirmishAIManager + 0x10);
-	if (w->m_848 != 0)
+	Rva004EBF93World *world = (Rva004EBF93World *)((char *)TheSkirmishAIManager + 0x10);
+	if (world->m_848 != 0)
 		m_8 = 1;
-	if (w->m_849 != 0)
+	if (world->m_849 != 0)
 		m_C4 = 1;
-	if (w->m_84E != 0)
+	if (world->m_84E != 0)
 		m_94 = 1;
-	if (w->m_84A != 0)
+	if (world->m_84A != 0)
 		m_3C = 1;
-	if (w->m_84B != 0)
+	if (world->m_84B != 0)
 		((Rva004EBF93M12C *)m_12C)->m_10 = 1;
-	if (w->m_84C != 0)
+	if (world->m_84C != 0)
 		m_10C = 1;
-	if (w->m_84F != 0)
+	if (world->m_84F != 0)
 		m_E8 = 1;
 }

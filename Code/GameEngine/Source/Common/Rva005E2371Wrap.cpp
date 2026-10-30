@@ -58,11 +58,11 @@ protected:
 void StrategicInGameUI::RegionDetailsStructuresPage::Impl::Icon::OnRegionDetailsStructuresIconSlotRollOut(int ignored)
 {
 	(void)ignored;
-	int b = m_10.m_0;
-	if (b == 0)
+	int stored = m_10.m_0;
+	if (stored == 0)
 		return;
-	int r = m_8->m_10->Rva005CB265::rva005CB265();
-	if (r == b)
+	int current = m_8->m_10->Rva005CB265::rva005CB265();
+	if (current == stored)
 		((Rva005CB260 *)m_8->m_10)->rva005CB260();
 	m_10.clear();
 }

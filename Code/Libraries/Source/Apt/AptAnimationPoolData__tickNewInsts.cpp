@@ -62,18 +62,18 @@ void AptAnimationPoolData::_tickNewInsts()
 		}
 		if (((const Rva006DBB30SarDwordField *)aptCIH)->get() == 0xE
 			&& !((const BfmeAptValue006DCD20 *)aptCIH)->isUndefined()) {
-			void *p = ((const AptCIH *)m_arr[i])->rva006E1090();
-			if (*(int *)((char *)p + 0x18) == 0)
+			void *button = ((const AptCIH *)m_arr[i])->rva006E1090();
+			if (*(int *)((char *)button + 0x18) == 0)
 				m_arr[i]->rva006E1F00(1);
 		} else {
-			AptCIH *e2 = m_arr[i];
-			if (!e2) {
+			AptCIH *element = m_arr[i];
+			if (!element) {
 				g_bfmeAptAssertAtE17734("this", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h", 0xAB);
 				if (g_bfmeAptBreakOnAssertAtDDC01C)
 					__debugbreak();
 			}
-			if (((const Rva006DBB30SarDwordField *)e2)->get() == 0xD
-				&& !((const BfmeAptValue006DCD20 *)e2)->isUndefined()) {
+			if (((const Rva006DBB30SarDwordField *)element)->get() == 0xD
+				&& !((const BfmeAptValue006DCD20 *)element)->isUndefined()) {
 				int v = ((Rva006E3C80 *)m_arr[i])->rva006E3C80();
 				if (*(int *)(v + 0x18) == -1)
 					m_arr[i]->rva006E2D60();

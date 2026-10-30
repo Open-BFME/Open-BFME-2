@@ -11,10 +11,10 @@
 class Rva000A4826
 {
 public:
-	void rva000A4826(float a, float b, float c, float d, float e, int f);
-	void rva000A47DE(float a, float b, float c, float d, int e);
-	void rva000A4875(float a, float b, float c, float d, float e, int f);
-	void rva000A48C4(int a, float b, float c, float d, float e, float f, int g);
+	void rva000A4826(float startX, float startY, float width, float height, float percent, int color);
+	void rva000A47DE(float startX, float startY, float width, float height, int color);
+	void rva000A4875(float startX, float startY, float width, float height, float percent, int color);
+	void rva000A48C4(int image, float startX, float startY, float endX, float endY, float percent, int color);
 private:
 	virtual void v000(); virtual void v001(); virtual void v002(); virtual void v003();
 	virtual void v004(); virtual void v005(); virtual void v006(); virtual void v007();
@@ -39,30 +39,30 @@ private:
 	virtual void v064();
 };
 
-void Rva000A4826::rva000A4826(float a, float b, float c, float d, float e, int f)
+void Rva000A4826::rva000A4826(float startX, float startY, float width, float height, float percent, int color)
 {
 	v053();
-	v059(a, b, c, d, e, f);
+	v059(startX, startY, width, height, percent, color);
 	v064();
 }
 
-void Rva000A4826::rva000A47DE(float a, float b, float c, float d, int e)
+void Rva000A4826::rva000A47DE(float startX, float startY, float width, float height, int color)
 {
 	v053();
-	v058(a, b, c, d, e);
+	v058(startX, startY, width, height, color);
 	v064();
 }
 
-void Rva000A4826::rva000A4875(float a, float b, float c, float d, float e, int f)
+void Rva000A4826::rva000A4875(float startX, float startY, float width, float height, float percent, int color)
 {
 	v053();
-	v060(a, b, c, d, e, f);
+	v060(startX, startY, width, height, percent, color);
 	v064();
 }
 
-void Rva000A4826::rva000A48C4(int a, float b, float c, float d, float e, float f, int g)
+void Rva000A4826::rva000A48C4(int image, float startX, float startY, float endX, float endY, float percent, int color)
 {
 	v053();
-	v061(a, b, c, d, e, f, g);
+	v061(image, startX, startY, endX, endY, percent, color);
 	v064();
 }

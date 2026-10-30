@@ -40,12 +40,12 @@ bool Rva0056EBA1::rva0056EBA1(const UnicodeString &text)
 
 UnicodeString Rva0056EBA1::rva0056EB15()
 {
-	UnicodeString tmp = UnicodeString::TheEmptyString;
+	UnicodeString text = UnicodeString::TheEmptyString;
 	if (m_combo != NULL) {
-		tmp = GadgetComboBoxGetText(m_combo);
-		tmp.trim();
+		text = GadgetComboBoxGetText(m_combo);
+		text.trim();
 	}
-	return tmp;
+	return text;
 }
 
 // ?rva0056EA91@Rva0056EA91@@QAE?AVUnicodeString@@XZ retail 0x0056EA91 132B
@@ -61,11 +61,11 @@ private:
 
 UnicodeString Rva0056EA91::rva0056EA91()
 {
-	UnicodeString tmp = UnicodeString::TheEmptyString;
+	UnicodeString text = UnicodeString::TheEmptyString;
 	if (m_combo != NULL) {
-		tmp = GadgetComboBoxGetText(m_combo);
+		text = GadgetComboBoxGetText(m_combo);
 	}
-	return tmp;
+	return text;
 }
 
 // ?rva0056EBD0@AptOnlineLogin@@QAE?AVUnicodeString@@XZ retail 0x0056EBD0 132B
@@ -81,9 +81,9 @@ private:
 
 UnicodeString AptOnlineLogin::rva0056EBD0()
 {
-	UnicodeString tmp = UnicodeString::TheEmptyString;
+	UnicodeString text = UnicodeString::TheEmptyString;
 	if (m_combo != NULL) {
-		tmp = GadgetTextEntryGetText(m_combo);
+		text = GadgetTextEntryGetText(m_combo);
 	}
-	return tmp;
+	return text;
 }

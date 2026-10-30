@@ -106,7 +106,7 @@ struct Accum
 class Drawable
 {
 public:
-	bool handleWeaponFireFX(int a0, int a1, int a2, float a3, float a4, float a5, int a6);
+	bool handleWeaponFireFX(int a0, int a1, int a2, float a3, float magnitude, float angle, int a6);
 
 private:
 	char m_pre[0xfc];
@@ -117,17 +117,17 @@ private:
 	Node **m_list;
 };
 
-bool Drawable::handleWeaponFireFX(int a0, int a1, int a2, float a3, float a4, float a5, int a6)
+bool Drawable::handleWeaponFireFX(int a0, int a1, int a2, float a3, float magnitude, float angle, int a6)
 {
-	if (a4 != 0.0f) {
+	if (magnitude != 0.0f) {
 		if (m_fc != 0)
-			a5 -= m_fc->m_44;
-		a5 = a5 + 3.1415927410125732f;
+			angle -= m_fc->m_44;
+		angle = angle + 3.1415927410125732f;
 		if (m_acc != 0) {
-			float c = Cos(a5);
-			m_acc->m_1c += c * a4;
-			float s = Sin(a5);
-			m_acc->m_24 += s * a4;
+			float cosine = Cos(angle);
+			m_acc->m_1c += cosine * magnitude;
+			float sine = Sin(angle);
+			m_acc->m_24 += sine * magnitude;
 		}
 	}
 	Node **pp = m_list;

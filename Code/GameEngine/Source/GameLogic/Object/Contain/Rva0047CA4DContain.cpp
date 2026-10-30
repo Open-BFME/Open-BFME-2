@@ -94,10 +94,10 @@ bool Rva0047CA4D::rva0047CA4D(Object *obj, int a2, int a3)
 		if ((unsigned char)a2 != 0 && *(unsigned int *)((char *)this + 0x10c) >= (unsigned int)limit)
 			return ((TransportContain *)this)->TransportContain::slot38(obj, a2, a3);
 		{
-			Object *o2 = *(Object **)((char *)this - 0x18);
-			Player *p2 = o2->getControllingPlayer();
-			Player *p3 = obj->getControllingPlayer();
-			if (p3 != p2)
+			Object *containerOwner = *(Object **)((char *)this - 0x18);
+			Player *ownerPlayer = containerOwner->getControllingPlayer();
+			Player *objectPlayer = obj->getControllingPlayer();
+			if (objectPlayer != ownerPlayer)
 				return ((TransportContain *)this)->TransportContain::slot38(obj, a2, a3);
 			return true;
 		}

@@ -57,19 +57,19 @@ public:
 class Rva000B304B
 {
 public:
-	void setMuzzleFlashHidden(void *p, bool flag);
+	void setMuzzleFlashHidden(void *provider, bool flag);
 private:
 	char m_pad00[8];
 	int m_val08; // +8
 };
 
-void Rva000B304B::setMuzzleFlashHidden(void *p, bool flag)
+void Rva000B304B::setMuzzleFlashHidden(void *provider, bool flag)
 {
 	if (!flag)
 		flag = false;
-	if (!p)
+	if (!provider)
 		return;
-	Rva000B304BProvider *prov = (Rva000B304BProvider *)p;
+	Rva000B304BProvider *prov = (Rva000B304BProvider *)provider;
 	Rva000B304BRef *q = prov->slot34(0, m_val08);
 	if (!q)
 		return;

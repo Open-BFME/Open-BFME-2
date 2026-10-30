@@ -42,9 +42,9 @@ private:
 	int m_count;
 };
 
-void AptInGameSideCommandBar::Impl::HideButtons(int v)
+void AptInGameSideCommandBar::Impl::HideButtons(int visibleCount)
 {
-	while (m_count > v)
+	while (m_count > visibleCount)
 	{
 		--m_count;
 		_ReadWriteBarrier();

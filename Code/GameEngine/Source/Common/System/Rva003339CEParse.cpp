@@ -13,14 +13,14 @@
 
 __forceinline const char *GetStr00334506(const AsciiString &asciiString)
 {
-	char *t = *(char * *)(void *)&asciiString;
-	return t ? t + 8 : "";
+	char *text = *(char * *)(void *)&asciiString;
+	return text ? text + 8 : "";
 }
 
 class Rva003339CE
 {
 public:
-	void rva00334506(AsciiString s);
+	void rva00334506(AsciiString text);
 	bool rva003339CE(const char *token, bool *foundNormal, bool *foundAddOrSub);
 
 private:
@@ -29,29 +29,29 @@ private:
 class Rva000B664E
 {
 public:
-	void rva0033394D(AsciiString s);
+	void rva0033394D(AsciiString text);
 	bool rva000B664E(const char *token, bool *foundNormal, bool *foundAddOrSub);
 private:
 	unsigned m_words[19];
 };
 
-void Rva003339CE::rva00334506(AsciiString s)
+void Rva003339CE::rva00334506(AsciiString text)
 {
 	bool foundNormal = false;
 	bool foundAddOrSub = false;
 	AsciiString token;
-	while (s.nextToken(&token, 0)) {
+	while (text.nextToken(&token, 0)) {
 		const char *tokStr = GetStr00334506(token);
 		if (!rva003339CE(tokStr, &foundNormal, &foundAddOrSub))
 			break;
 	}
 }
-void Rva000B664E::rva0033394D(AsciiString s)
+void Rva000B664E::rva0033394D(AsciiString text)
 {
 	bool foundNormal = false;
 	bool foundAddOrSub = false;
 	AsciiString token;
-	while (s.nextToken(&token, 0)) {
+	while (text.nextToken(&token, 0)) {
 		const char *tokStr = GetStr00334506(token);
 		if (!rva000B664E(tokStr, &foundNormal, &foundAddOrSub))
 			break;

@@ -83,9 +83,9 @@ public:
 class Rva00466D50
 {
 public:
-	bool rva00466D50(unsigned int arg);
+	bool rva00466D50(unsigned int count);
 private:
 	char m_pad[32];
 	Inner00466D50 m_20;
 };
-bool Rva00466D50::rva00466D50(unsigned int arg){if(arg==0)return false;unsigned int b=(m_20.v69(0)+arg)+m_20.v51();unsigned int c=m_20.v28();return c>=b;}
+bool Rva00466D50::rva00466D50(unsigned int count){if(count==0)return false;unsigned int b=(m_20.v69(0)+count)+m_20.v51();unsigned int capacity=m_20.v28();return capacity>=b;}

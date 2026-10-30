@@ -108,18 +108,18 @@ void Rva0054034A::rva00540A26()
 	BfmePod40 **vec = &m_keys.m_begin;
 	while ((unsigned int)(((char *)vec[1] - (char *)vec[0]) / 40) > 1)
 		rva005404CF(m_keys.m_begin[1].m_00);
-	Rva0054000B tmp;
-	tmp.m_00 = 0;
-	((Vec4000B *)vec)->push_back(tmp);
+	Rva0054000B sentinel;
+	sentinel.m_00 = 0;
+	((Vec4000B *)vec)->push_back(sentinel);
 }
 
 bool Rva0054034A::rva0054034A(int key)
 {
-	int h = m_hint1C;
-	if (h >= 0 && (unsigned)h < m_keys.size()) {
-		BfmePod40 *b = m_keys.m_begin;
-		int cur = b[h].m_00;
-		if (key >= cur && ((unsigned)(h + 1) >= (unsigned)(m_keys.m_end - b) || key < b[h + 1].m_00))
+	int cachedIndex = m_hint1C;
+	if (cachedIndex >= 0 && (unsigned)cachedIndex < m_keys.size()) {
+		BfmePod40 *keyBegin = m_keys.m_begin;
+		int cur = keyBegin[cachedIndex].m_00;
+		if (key >= cur && ((unsigned)(cachedIndex + 1) >= (unsigned)(m_keys.m_end - keyBegin) || key < keyBegin[cachedIndex + 1].m_00))
 			return cur == key;
 	}
 	if (m_keys.empty())
@@ -128,9 +128,9 @@ bool Rva0054034A::rva0054034A(int key)
 		return false;
 	}
 	int &hint = m_hint1C;
-	BfmePod40 *b = m_keys.m_begin;
-	hint = rva00540301(b, m_keys.m_end, *reinterpret_cast<const BfmePod40 *>(&key)) - b;
-	if ((unsigned)hint >= (unsigned)(m_keys.m_end - b) || (hint > 0 && b[hint].m_00 != key))
+	BfmePod40 *keyBegin = m_keys.m_begin;
+	hint = rva00540301(keyBegin, m_keys.m_end, *reinterpret_cast<const BfmePod40 *>(&key)) - keyBegin;
+	if ((unsigned)hint >= (unsigned)(m_keys.m_end - keyBegin) || (hint > 0 && keyBegin[hint].m_00 != key))
 		--hint;
-	return b[hint].m_00 == key;
+	return keyBegin[hint].m_00 == key;
 }

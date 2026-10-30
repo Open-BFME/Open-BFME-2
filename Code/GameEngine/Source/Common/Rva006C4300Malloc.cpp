@@ -108,14 +108,14 @@ private:
 // materializes the address with a LEA and stores a word through it, which is
 // what a two-byte fill loop compiles to; a plain 16-bit store folds the
 // address into the MOV instead.
-static inline void *rva006C40C0MarkEnd(void *p)
+static inline void *rva006C40C0MarkEnd(void *block)
 {
-	unsigned n = ((unsigned *)p)[-1];
+	unsigned n = ((unsigned *)block)[-1];
 	unsigned usable = !(n & 2) ? (n & 0x7ffffff8) + 4 : (n & 0x7ffffff8);
-	char *end = (char *)p + usable - 10;
+	char *end = (char *)block + usable - 10;
 	for (int i = 0; i < 2; ++i)
 		end[i] = 0;
-	return p;
+	return block;
 }
 
 class Rva006C40C0 : public Rva006C4300Layout
@@ -128,23 +128,23 @@ private:
 		unsigned request = size;
 		if (flags & 0x80000000)
 			request = size + 2;
-		void *p = ((Rva006C1F60 *)this)->rva00033ED0(request, flags);
-		if (p != 0)
-			rva006C40C0MarkEnd(p);
-		return p;
+		void *block = ((Rva006C1F60 *)this)->rva00033ED0(request, flags);
+		if (block != 0)
+			rva006C40C0MarkEnd(block);
+		return block;
 	}
 };
 
 class Rva006C4460 : public Rva006C4300Layout
 {
 public:
-	int rva006C4300(int a, int b, int c, int d);
+	int rva006C4300(int a, int alignment, int alignmentOffset, int flags);
 };
 
 class Rva006C4530 : public Rva006C4300Layout
 {
 public:
-	void *rva006C4530(void *a, void *b, void *c);
+	void *rva006C4530(void *count, void *b, void *c);
 };
 
 void *Rva006C40C0::rva006C40C0(void *a, void *b)
@@ -164,15 +164,15 @@ void *Rva006C40C0::rva006C40C0(void *a, void *b)
 		return 0;
 
 	Rva00034C90Lock guard(m_lock);
-	void *p;
+	void *block;
 	for (;;) {
-		p = mallocMarked(total, flags);
-		if (p != 0) {
-			if (((GeneralAllocatorDebug *)this)->rva006C3D30(&record, p, true))
-				((GeneralAllocatorDebug *)this)->rva006C26F0((char *)p - 8, true);
+		block = mallocMarked(total, flags);
+		if (block != 0) {
+			if (((GeneralAllocatorDebug *)this)->rva006C3D30(&record, block, true))
+				((GeneralAllocatorDebug *)this)->rva006C26F0((char *)block - 8, true);
 			else {
-				((EA::Allocator::GeneralAllocator *)this)->rva00033150(p);
-				p = 0;
+				((EA::Allocator::GeneralAllocator *)this)->rva00033150(block);
+				block = 0;
 			}
 			break;
 		}
@@ -180,44 +180,44 @@ void *Rva006C40C0::rva006C40C0(void *a, void *b)
 			break;
 		((Rva006C1F60 *)this)->rva006C33D0(0, 0);
 	}
-	return p;
+	return block;
 }
 
-int Rva006C4460::rva006C4300(int a, int b, int c, int d)
+int Rva006C4460::rva006C4300(int a, int alignment, int alignmentOffset, int flags)
 {
 	unsigned size = (unsigned)a;
 	Rva006C2270Record record;
 
 	if (m_lock != 0)
 		Rva00030DD0AddRef(m_lock);
-	((GeneralAllocatorDebug *)this)->rva006C2270(&record, size, d, b, c);
+	((GeneralAllocatorDebug *)this)->rva006C2270(&record, size, flags, alignment, alignmentOffset);
 	unsigned total = size + record.inlineTotal;
 	if (m_lock != 0)
 		Rva00030DF0Release(m_lock);
 
 	Rva00034C90Lock guard(m_lock);
-	void *p = ((EA::Allocator::GeneralAllocator *)this)->rva000344A0(total, b, c, d);
+	void *block = ((EA::Allocator::GeneralAllocator *)this)->rva000344A0(total, alignment, alignmentOffset, flags);
 	for (;;) {
-		if (p != 0) {
-			if (((GeneralAllocatorDebug *)this)->rva006C3D30(&record, p, true))
-				((GeneralAllocatorDebug *)this)->rva006C26F0((char *)p - 8, true);
+		if (block != 0) {
+			if (((GeneralAllocatorDebug *)this)->rva006C3D30(&record, block, true))
+				((GeneralAllocatorDebug *)this)->rva006C26F0((char *)block - 8, true);
 			else {
-				((EA::Allocator::GeneralAllocator *)this)->rva00033150(p);
-				p = 0;
+				((EA::Allocator::GeneralAllocator *)this)->rva00033150(block);
+				block = 0;
 			}
 			break;
 		}
 		if (m_delayed.prev == &m_delayed)
 			break;
 		((Rva006C1F60 *)this)->rva006C33D0(0, 0);
-		p = ((EA::Allocator::GeneralAllocator *)this)->rva000344A0(total, b, c, d);
+		block = ((EA::Allocator::GeneralAllocator *)this)->rva000344A0(total, alignment, alignmentOffset, flags);
 	}
-	return (int)p;
+	return (int)block;
 }
 
-void *Rva006C4530::rva006C4530(void *a, void *b, void *c)
+void *Rva006C4530::rva006C4530(void *count, void *b, void *c)
 {
-	unsigned size = (unsigned)a * (unsigned)b;
+	unsigned size = (unsigned)count * (unsigned)b;
 	int flags = (int)c;
 	Rva006C2270Record record;
 
@@ -229,21 +229,21 @@ void *Rva006C4530::rva006C4530(void *a, void *b, void *c)
 		Rva00030DF0Release(m_lock);
 
 	Rva00034C90Lock guard(m_lock);
-	void *p = ((EA::Allocator::GeneralAllocator *)this)->calloc(1, total, flags);
+	void *block = ((EA::Allocator::GeneralAllocator *)this)->calloc(1, total, flags);
 	for (;;) {
-		if (p != 0) {
-			if (((GeneralAllocatorDebug *)this)->rva006C3D30(&record, p, false))
-				((GeneralAllocatorDebug *)this)->rva006C26F0((char *)p - 8, true);
+		if (block != 0) {
+			if (((GeneralAllocatorDebug *)this)->rva006C3D30(&record, block, false))
+				((GeneralAllocatorDebug *)this)->rva006C26F0((char *)block - 8, true);
 			else {
-				((EA::Allocator::GeneralAllocator *)this)->rva00033150(p);
-				p = 0;
+				((EA::Allocator::GeneralAllocator *)this)->rva00033150(block);
+				block = 0;
 			}
 			break;
 		}
 		if (m_delayed.prev == &m_delayed)
 			break;
 		((Rva006C1F60 *)this)->rva006C33D0(0, 0);
-		p = ((EA::Allocator::GeneralAllocator *)this)->calloc(1, total, flags);
+		block = ((EA::Allocator::GeneralAllocator *)this)->calloc(1, total, flags);
 	}
-	return p;
+	return block;
 }

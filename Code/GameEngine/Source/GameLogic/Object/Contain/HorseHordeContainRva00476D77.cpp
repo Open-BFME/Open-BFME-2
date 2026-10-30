@@ -167,7 +167,7 @@ enum ObjectStatusTypes {STATUS_75=75};
 enum KindOfType {KINDOF_0088=0x88};
 struct FlagBytes{unsigned char w[8];
  unsigned char test(unsigned b)const{return (unsigned char)(w[b>>3]&(1<<(b&7)));}
- void clear(unsigned b){w[b>>3]=(unsigned char)(w[b>>3]&~(1<<(b&7)));}};
+ void clear(unsigned bit){w[bit>>3]=(unsigned char)(w[bit>>3]&~(1<<(bit&7)));}};
 struct Rva00476D77Stun {char pad[0x5c];bool stunned;};
 class Object {public:
 const Rva0028AC4EEntry*rva0028AC4E()const;bool testStatus(ObjectStatusTypes)const;

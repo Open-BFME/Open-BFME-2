@@ -38,10 +38,10 @@ struct BfmeElemAA
 
 BfmeElemAA *bfmeCopyAA(BfmeElemAA *first, BfmeElemAA *last, BfmeElemAA *dest)
 {
-	int n = last - first;
-	if (n > 0)
+	int count = last - first;
+	if (count > 0)
 	{
-		int m = n;
+		int remaining = count;
 		do
 		{
 			--last;
@@ -54,7 +54,7 @@ BfmeElemAA *bfmeCopyAA(BfmeElemAA *first, BfmeElemAA *last, BfmeElemAA *dest)
 			dest->m_1C.set(last->m_1C);
 			dest->m_20 = last->m_20;
 			dest->m_21 = last->m_21;
-		} while (--m);
+		} while (--remaining);
 	}
 	return dest;
 }
