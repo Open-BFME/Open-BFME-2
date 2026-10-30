@@ -1,20 +1,13 @@
-// cl: /DNDEBUG /MD /EHsc /Ireference/shims/moduledata
+// cl: /DNDEBUG /MD /EHsc /Ireference/shims/moduledata /Ireference/shims/bfme2_ascii
 #include "Common/Snapshot.h"
 // ??1Rva00497DD6@@UAE@XZ retail 0x00497DD6 250B
 // Evidence: unlock lane no initial vtable store final BBB554 Snapshot base; 4 StringBase releaseBuffer at +0xA4 +0x48 +0x38 +0x24 plus 10 ref holders Release_Ref at +0x4C +0x44 +0x40 +0x3C +0x34 +0x30 +0x2C +0x28 +0x20 +0x1C; callees rowed releaseBuffer 0x00036410 plus Release_Ref 0x00050ED3; caller deleting dtor 0x00497DBA
-template <typename T>
-class StringBase
-{
-public:
-	~StringBase() { releaseBuffer(); }
-private:
-	void releaseBuffer();
-	T *m_data;
-};
+// The canonical frozen StringBase replaces the private copy; its switch makes
+// the member dtor reachable and keeps the teardown an out-of-line call to the
+// rowed releaseBuffer (0x00036410 narrow, 0x00036E70 wide).
+#define BFME_STRINGBASE_PUBLIC_DTOR
+#include "string_base.h"
 
-// Existing public narrow teardown spelling resolves to the verified
-// 133-byte releaseBuffer worker at RVA 0x36410. Wide teardown is unchanged.
-template <> StringBase<char>::~StringBase();
 
 
 class OpaqueRefCounted
