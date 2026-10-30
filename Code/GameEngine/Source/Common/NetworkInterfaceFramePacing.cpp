@@ -6,6 +6,7 @@
 // retail body; no network policy is changed by exposing this query.
 
 #include <windows.h>
+#include "ascii_string.h"
 
 extern class CommandList *TheCommandList;
 extern class GameLogic *TheGameLogic;
@@ -14,12 +15,23 @@ extern int BfmeLogicFramesPerSecond;
 
 struct GameLogicFrame
 {
-	char unknown[0x40];
+public:
+	char m_pad00[0x40];
+	unsigned int frame; // +0x40
 };
 
-struct BFMEConnectionManager
+class Transport;
+class BFMEConnectionManager
 {
-	char unknown[0x1205C];
+public:
+	bool isPacketRouter(void);
+	bool isPlayerConnected(int arg);
+	bool areFrameCommandsComplete(unsigned int frame, bool debugSpewage);
+	bool hasPacketRouterFrameStall(void);
+	int isPlayerSlotActive(int playerID);
+	char m_pad00[0x12024];
+	Transport *m_transport12024;
+	char m_pad12028[0x34];
 	volatile int frameCeiling;
 };
 
@@ -43,7 +55,7 @@ public:
 	virtual void slot12(void);
 	virtual void slot13(void);
 	virtual void slot14(void);
-	virtual void slot15(void);
+	virtual void updateNetwork(int flush);
 	virtual void slot16(void);
 	virtual void slot17(void);
 	virtual void slot18(void);
@@ -51,8 +63,7 @@ public:
 	virtual void slot20(void);
 	virtual void slot21(void);
 	virtual void slot22(void);
-	int getFramePacingStatus(void);
-	void ProcessDestroyPlayerCommand(NetWrapperCommandMsg *msg);
+	int getFrameAdvanceCount(void);
 	virtual void slot23(void);
 	virtual void slot24(void);
 	virtual void slot25(void);
@@ -75,6 +86,9 @@ public:
 	virtual void slot42(void);
 	virtual bool isPacketRouter(void);
 
+	int getFramePacingStatus(void);
+	void ProcessDestroyPlayerCommand(NetWrapperCommandMsg *msg);
+
 private:
 	char m_unknown04[4];
 	BFMEConnectionManager *m_connectionManager;
@@ -83,9 +97,13 @@ private:
 	__int64 m_frequency;
 	__int64 m_lastCounter;
 	__int64 m_accumulator;
+	bool m_stallTimerRunning;
+	char m_unknown31[3];
+	unsigned int m_stallCount;
+	bool m_flag38;
+	int m_lastValue;
 };
 
-#define TheGameLogic (*(volatile GameLogicFrame **)&TheGameLogic)
 #define LogicFramesPerSecond BfmeLogicFramesPerSecond
 #define OneAndHalf 1.5f
 
@@ -119,7 +137,6 @@ int NetworkInterface::getFramePacingStatus(void)
 // Player+0x54, virtual send at +0x38 on global 0xA00954. Evidence: caller
 // 0x0025E5F4 push edi + mov ecx,esi, all callees rowed/pinned, ret 4.
 
-#include "ascii_string.h"
 
 enum NameKeyType
 {
@@ -140,10 +157,20 @@ public:
 	AsciiString m_name;
 };
 
-class GameInfo
+template <int N> class Rva0025E75FSlots : public Rva0025E75FSlots<N - 1>
+{
+public:
+	virtual void gap(char (*)[N]) = 0;
+};
+template <> class Rva0025E75FSlots<0>
+{
+};
+
+class GameInfo : public Rva0025E75FSlots<19>
 {
 public:
 	GameSlot *getSlot(int n);
+	virtual bool rva0025E75FSlot13(); // +0x4C
 };
 extern GameInfo *TheGameInfo;
 
@@ -167,10 +194,23 @@ public:
 	unsigned char *getData();
 };
 
+union GameMessageArgumentType;
 class GameMessage
 {
 public:
+	void appendIntegerArgument(int value);
 	void appendBooleanArgument(bool arg);
+	const GameMessageArgumentType *getArgument(int argIndex) const; // 0x0030F4EA
+	GameMessage *next() { return m_next; }
+	int getType() const { return m_type; }
+	unsigned char getArgumentCount() const { return m_argCount; }
+	virtual void *deleteInstance(int flags); // slot 0
+	GameMessage *m_next; // +0x04 +0x04
+	char m_pad08[0x8];
+	int m_type; // +0x10 +0x10
+	char m_pad14[0x4];
+	unsigned char m_argCount; // +0x18 +0x18
+	char m_pad19[0x3];
 };
 
 class Rva0030F47A

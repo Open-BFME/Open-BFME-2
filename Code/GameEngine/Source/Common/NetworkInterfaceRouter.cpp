@@ -4,10 +4,19 @@
 // frame-pacing query. It asks the connection manager whether its two router
 // frame counters are equal; this source only exposes the retail predicate.
 
+class Transport;
 class BFMEConnectionManager
 {
 public:
 	bool isPacketRouter(void);
+	bool isPlayerConnected(int arg);
+	bool areFrameCommandsComplete(unsigned int frame, bool debugSpewage);
+	bool hasPacketRouterFrameStall(void);
+	int isPlayerSlotActive(int playerID);
+	char m_pad00[0x12024];
+	Transport *m_transport12024;
+	char m_pad12028[0x34];
+	volatile int frameCeiling;
 };
 
 class NetworkInterface

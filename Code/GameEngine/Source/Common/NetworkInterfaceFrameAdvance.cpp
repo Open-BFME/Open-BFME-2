@@ -16,20 +16,27 @@ extern int BfmeLogicFramesPerSecond;
 
 struct GameLogicFrame
 {
-	char unknown[0x40];
-	unsigned int frame;
+public:
+	char m_pad00[0x40];
+	unsigned int frame; // +0x40
 };
 
+class Transport;
 class BFMEConnectionManager
 {
 public:
+	bool isPacketRouter(void);
+	bool isPlayerConnected(int arg);
 	bool areFrameCommandsComplete(unsigned int frame, bool debugSpewage);
 	bool hasPacketRouterFrameStall(void);
-
-	char unknown[0x1205C];
+	int isPlayerSlotActive(int playerID);
+	char m_pad00[0x12024];
+	Transport *m_transport12024;
+	char m_pad12028[0x34];
 	volatile int frameCeiling;
 };
 
+class NetWrapperCommandMsg;
 class NetworkInterface
 {
 public:
@@ -79,6 +86,9 @@ public:
 	virtual void slot42(void);
 	virtual bool isPacketRouter(void);
 
+	int getFramePacingStatus(void);
+	void ProcessDestroyPlayerCommand(NetWrapperCommandMsg *msg);
+
 private:
 	char m_unknown04[4];
 	BFMEConnectionManager *m_connectionManager;
@@ -94,7 +104,6 @@ private:
 	int m_lastValue;
 };
 
-#define TheGameLogic (*(volatile GameLogicFrame **)&TheGameLogic)
 #define LogicFramesPerSecond BfmeLogicFramesPerSecond
 
 // g_00DFEA2C: VA 0x00DFEA2C (.data(bss)); retail initial value is zero.
@@ -125,7 +134,7 @@ int NetworkInterface::getFrameAdvanceCount(void)
 		}
 
 		BFMEConnectionManager *manager = m_connectionManager;
-		volatile GameLogicFrame *logic = TheGameLogic;
+		volatile GameLogicFrame *logic = (volatile GameLogicFrame *)TheGameLogic;
 		unsigned int ceiling = (unsigned int)manager->frameCeiling;
 		unsigned int currentFrame = logic->frame;
 		int allowance;
@@ -147,7 +156,7 @@ int NetworkInterface::getFrameAdvanceCount(void)
 		else if (currentFrame != g_00DFEA38)
 		{
 			++m_stallCount;
-			g_00DFEA38 = TheGameLogic->frame;
+			g_00DFEA38 = ((volatile GameLogicFrame *)TheGameLogic)->frame;
 		}
 		return allowance;
 	}

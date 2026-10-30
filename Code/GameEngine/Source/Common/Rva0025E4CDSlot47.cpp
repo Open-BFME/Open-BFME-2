@@ -5,10 +5,45 @@
 // Layout from dtor 0x25E4CD (base 8B pad plus manager at +0xC). Evidence: vtable slot, callers, globals.
 #include "unicode_string.h"
 
+struct NetLocalAddress
+{
+	unsigned int m_addr;
+	unsigned int m_port;
+};
+
+enum PlayerLeaveCode
+{
+	PLAYERLEAVECODE_UNKNOWN = 0
+};
+class AsciiString;
+class GameMessage;
 class ConnectionManager
 {
 public:
-    UnicodeString getPlayerName(int pid);
+	void sendChat(UnicodeString text, int playerMask);
+	void sendDisconnectChat(UnicodeString text);
+	void sendFile(AsciiString path, unsigned char playerMask, unsigned short commandID);
+	unsigned short sendFileAnnounce(AsciiString path, unsigned char playerMask);
+	void rva004D0E8B(void);
+	void SetLocalAddr(const NetLocalAddress &addr)
+	{
+		m_localAddr = addr.m_addr;
+		m_localPort = addr.m_port;
+	}
+	int getFileTransferProgress(int pid, AsciiString path);
+	UnicodeString getPlayerName(int pid);
+	void sendLocalGameMessage(GameMessage *msg); // 0x004D0E06, sendLocalGameMessage
+	void rva004D0A0A(); // 0x004D0A0A
+	int getNumPlayers(); // 0x004CF926
+	bool rva004CF3E1(); // 0x004CF3E1
+	PlayerLeaveCode processPlayerLeave(unsigned char playerID); // 0x004D1D37
+	virtual void slot00(void);
+	virtual void slot01(void);
+	virtual void slot02(void);
+	char m_pad04[0x1204C];
+private:
+	unsigned int m_localAddr; // +0x12050 +0x12050
+	unsigned int m_localPort; // +0x12054 +0x12054
 };
 
 class GameEngineDeletingBase

@@ -12,11 +12,19 @@ public:
 	float rva004D50CE();
 };
 
+class Transport;
 class BFMEConnectionManager
 {
 public:
-	char m_pad[0x12024];
+	bool isPacketRouter(void);
+	bool isPlayerConnected(int arg);
+	bool areFrameCommandsComplete(unsigned int frame, bool debugSpewage);
+	bool hasPacketRouterFrameStall(void);
+	int isPlayerSlotActive(int playerID);
+	char m_pad00[0x12024];
 	Transport *m_transport12024;
+	char m_pad12028[0x34];
+	volatile int frameCeiling;
 };
 
 class Rva0025DDD2

@@ -16,42 +16,65 @@ typedef unsigned short UnsignedShort;
 
 struct NetLocalAddress
 {
-	UnsignedInt m_addr;
-	UnsignedInt m_port;
+	unsigned int m_addr;
+	unsigned int m_port;
 };
 
+enum PlayerLeaveCode
+{
+	PLAYERLEAVECODE_UNKNOWN = 0
+};
+class GameMessage;
 class ConnectionManager
 {
 public:
-	virtual void slot00(void);
-	virtual void slot01(void);
-	virtual void slot02(void);
-	void sendChat(UnicodeString text, Int playerMask);
+	void sendChat(UnicodeString text, int playerMask);
 	void sendDisconnectChat(UnicodeString text);
-	void sendFile(AsciiString path, UnsignedByte playerMask, UnsignedShort commandID);
-	UnsignedShort sendFileAnnounce(AsciiString path, UnsignedByte playerMask);
+	void sendFile(AsciiString path, unsigned char playerMask, unsigned short commandID);
+	unsigned short sendFileAnnounce(AsciiString path, unsigned char playerMask);
 	void rva004D0E8B(void);
-
 	void SetLocalAddr(const NetLocalAddress &addr)
 	{
 		m_localAddr = addr.m_addr;
 		m_localPort = addr.m_port;
 	}
-
+	int getFileTransferProgress(int pid, AsciiString path);
+	UnicodeString getPlayerName(int pid);
+	void sendLocalGameMessage(GameMessage *msg); // 0x004D0E06, sendLocalGameMessage
+	void rva004D0A0A(); // 0x004D0A0A
+	int getNumPlayers(); // 0x004CF926
+	bool rva004CF3E1(); // 0x004CF3E1
+	PlayerLeaveCode processPlayerLeave(unsigned char playerID); // 0x004D1D37
+	virtual void slot00(void);
+	virtual void slot01(void);
+	virtual void slot02(void);
+	char m_pad04[0x1204C];
 private:
-	unsigned char m_pad04[0x12050 - 4];
-	UnsignedInt m_localAddr;		// +0x12050
-	UnsignedInt m_localPort;		// +0x12054
+	unsigned int m_localAddr; // +0x12050 +0x12050
+	unsigned int m_localPort; // +0x12054 +0x12054
 };
 
 #include "../Common/GameLogicObjectLookupView.h"
 
 extern GameLogic *TheGameLogic;
 
+union GameMessageArgumentType;
 class GameMessage
 {
 public:
 	void appendIntegerArgument(int value);
+	void appendBooleanArgument(bool arg);
+	const GameMessageArgumentType *getArgument(int argIndex) const; // 0x0030F4EA
+	GameMessage *next() { return m_next; }
+	int getType() const { return m_type; }
+	unsigned char getArgumentCount() const { return m_argCount; }
+	virtual void *deleteInstance(int flags); // slot 0
+	GameMessage *m_next; // +0x04 +0x04
+	char m_pad08[0x8];
+	int m_type; // +0x10 +0x10
+	char m_pad14[0x4];
+	unsigned char m_argCount; // +0x18 +0x18
+	char m_pad19[0x3];
 };
 
 class MessageStream
@@ -81,9 +104,6 @@ public:
 };
 
 extern class MessageStream *TheMessageStream;
-
-#define NOMINMAX
-#include <windows.h>
 
 // Retail keeps the vtable at +0 and m_pConMgr at +0x0C although the class
 // holds 64-bit QPC fields; 4-byte packing reproduces that layout.
@@ -116,6 +136,9 @@ private:
 	int m_lastValue;					// +0x3C
 };
 #pragma pack(pop)
+
+#define NOMINMAX
+#include <windows.h>
 
 // Target vtable view for Network slot 39 (byte offset 0x9C). The method name
 // and all preceding slots remain unresolved; this view emits only the target
