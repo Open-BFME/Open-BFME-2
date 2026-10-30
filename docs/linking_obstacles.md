@@ -12162,3 +12162,17 @@ base 8b26704cf8, and affected consumer Common/AIBuildable.cpp lacks a current
 receipt. Carry the retired provider, surviving destination, earlier outgoing
 providers and affected consumers into the next scheduled census. No census
 gain is claimed; the other five donors and two mixed sources stay separate.
+
+### Group-merge and allocate-copy STLport 4.6 moves (2026-10-30)
+
+`Common/Rva00283114GroupMerge.cpp` (f1f69f5166) and
+`Common/Rva0008A1D0AllocateCopy.cpp` now select STLport 4.6. The group merge's
+gen-alias allocate at 0x00068E15 takes the non-const QAE spelling shared by the
+other 4.6 allocate rows there; the QBE key is tombstoned in
+`reverse/deleted_rows.csv`. Its only other user,
+`SkirmishAI/AIStatCollector/AIStatCollector.cpp` (still 4.5.3), defines its own
+COMDAT of the QBE allocate in its object (checked in its `build/match` object's
+symbol table), so no provider was lost. The allocate-copy unit keeps its private
+vector/allocator views and only takes 4.6's `__false_type` (as
+`Rva00568D68AllocateCopy.cpp` did). Both files byte-verify 9/9; no census gain
+is claimed. Carry both units into the next scheduled census.
