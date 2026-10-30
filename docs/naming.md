@@ -535,7 +535,9 @@ pin decisions remain in the full final gate. Exact pin diagnostics select a
 suspect group, expanded to include plans sharing affected sources. Ambiguous
 failures fall back to splitting. A retry session keeps fenced claims until the
 run ends, releases only unused newly acquired claims, and retains claims needed
-by verified changes. Prepared inferred plans are reused only when their recorded
+by verified changes. Scope keys are normalized across acquisition, recovery
+journals and retention, so a file/class lease is not accidentally released after
+a successful group. Prepared inferred plans are reused only when their recorded
 reads and tracked searches still match. A lightweight object and dependency-file
 stamp, including source-file stamps, catches builds and source edits by other workers; object consumer results are rechecked
 when that stamp changes. Outcome rows are
@@ -556,6 +558,30 @@ under the ledger lock; newly introduced scope spellings use the normal searches.
 Static pin conflicts are also checked on each prepared pin edit so an invalid
 proposal can remain blocked while the valid proposals proceed together. The
 combined pin check and full verification still run on the accepted union.
+Class symbols also join the shared object scan, retaining a separate exact
+consumer set for each class. Cheap name collisions, protected source checks and
+text-only scope overflow are refused before starting object lookup.
+
+If claim acquisition races the preflight snapshot, the refused claim keys are
+matched back to their plans. Those approvals stay agreed, and the unheld names
+are retried together without binary-splitting the claim failure. When the
+compiler names a failing translation unit, it narrows the suspect group; a
+source location alone does not prove every name touching that source is invalid.
+An unchanged direct include with C1083 proves that source cannot build: its
+proposals are blocked once and the clean proposals are retried together.
+Other compiler errors retain the conservative split fallback within the suspect
+group. Diagnostics belong to one verification context and survive timing wrappers.
+
+Only a missing-include failure with sufficient compiler-input evidence is
+persistently suppressed. Its fingerprint covers indexed and dirty repository
+inputs (including submodules and new headers), compiler commands and executables,
+include inventories, available dependency receipts, missing-header search paths,
+and the requested scope bound. Missing proof disables suppression. The cache
+merges per-key updates under a lock so concurrent workers retain each other's
+records. `--retry-blocked --retry-unchanged` forces an attempt despite an unchanged
+fingerprint. Transient failures and other unexplained errors are always eligible
+for an explicit retry. Class plans report text and object-consumer fan-out before
+rewriting sources or ledgers.
 
 Use `apply --per-file` for the previous grouping of same-file members and scoped
 names, or `apply --no-batch` for individual verification. Repeat `--key KEY` to

@@ -84,6 +84,88 @@ def test_run_batch_composes_overlapping_sources_and_ledgers_once(repo, monkeypat
     assert not rename.journals(context(repo))
 
 
+def test_verifier_diagnostics_survive_wrapper_and_do_not_leak_between_attempts(repo, monkeypatch):
+    ctx = context(repo)
+    def build(ctx, _sources):
+        ctx._build_diagnostics = f"{A}(1): fatal error C1083: Cannot open include file: 'missing.h'"
+        return False
+    monkeypatch.setattr(rename, "build_verify", build)
+    def wrapper(ctx, sources):
+        return rename.build_verify(ctx, sources)
+    first = rename.run_batch(ctx, requests()[:1], claim=False, verify=wrapper, checks=lambda *_: [])
+    assert "C1083" in first.diagnostics
+    second = rename.run_batch(ctx, requests()[:1], claim=False, verify=lambda *_: False, checks=lambda *_: [])
+    assert second.failure and second.diagnostics == ""
+    assert "readFirst" not in (repo / A).read_text()
+
+
+def test_class_symbol_queries_share_one_scan_without_warming_generic_identifiers(monkeypatch):
+    import name_dependents
+    one, two = "?slot4@RvaOne@@QAEXXZ", "?slot4@RvaTwo@@QAEXXZ"
+    ctx = SimpleNamespace(root=Path("."), rows=lambda: [{"name": one}, {"name": two}],
+                          pins=lambda: [], dicts=lambda _: [])
+    terms, symbols = rename._planning_names(ctx, [
+        ("class", {"name": "RvaOne", "new": "FirstRecord"}),
+        ("class", {"name": "RvaTwo", "new": "SecondRecord"})])
+    assert symbols == {one, two}
+    assert terms == {"RvaOne", "RvaTwo", "FirstRecord", "SecondRecord"}
+    calls = []
+    monkeypatch.setattr(name_dependents, "_row_objects", lambda _: {})
+    def scan(names, *_):
+        calls.append(set(names))
+        return {one: {A}, two: {B}}
+    monkeypatch.setattr(name_dependents, "dependents_by_name", scan)
+    lookup = rename._PlanningConsumers(ctx, symbols)
+    assert lookup({one}) == {A}
+    assert lookup({two}) == {B}
+    assert calls == [{one, two}]
+
+
+def test_general_compile_error_does_not_block_every_name_sharing_a_source(repo, monkeypatch):
+    lane = name_lane.Lane(repo, context(repo))
+    rows = approved_rows()
+    monkeypatch.setattr(name_lane, "approval_detail", lambda *_: "test agreement")
+    groups = []
+    def run(_ctx, req, **_kwargs):
+        names = [kw["new"] for _kind, kw in req]
+        groups.append(names)
+        bad = "readSecond" in names
+        return rename.RunBatchResult(
+            plans=[(i, SimpleNamespace(verify=[A])) for i in range(len(names))],
+            failure=rename.VerifyFailed("compile error") if bad else None,
+            diagnostics=f"{A}(1): error C2065: undeclared identifier" if bad else "")
+    monkeypatch.setattr(rename, "run_batch", run)
+    assert name_lane._apply_run(lane, {A: [rows[0]], B: [rows[1]]}, SimpleNamespace(claim=False),
+                               {}, {}, verify=None, checks=None, max_files=25) == (1, 1, 0)
+    assert groups == [["readFirst", "readSecond"], ["readFirst"], ["readSecond"]]
+
+
+def test_claim_race_recombines_survivors_and_initial_planning_refusals(repo, monkeypatch):
+    lane = name_lane.Lane(repo, context(repo))
+    rows = approved_rows()
+    third = dict(rows[0], id="third", key=name_lane.key_of(A, "function", "0x00403000", "Rva00403000"),
+                 old="Rva00403000", new="readThird", rva="0x00403000")
+    monkeypatch.setattr(lane, "owned", lambda *_a, **_kw: [
+        ("function", f"0x{rva:08X}", old, None) for rva, old in
+        [(0x00401000, "Rva00401000"), (0x00402000, "Rva00402000"), (0x00403000, "Rva00403000")]])
+    monkeypatch.setattr(name_lane, "approval_detail", lambda *_: "test agreement")
+    groups = []
+    def plan(held=False):
+        return SimpleNamespace(kind="function", claims=["file:held.cpp" if held else "file:free.cpp"],
+                               after={}, moves=[], verify=[A])
+    def run(_ctx, req, **_kwargs):
+        names = [kw["new"] for _kind, kw in req]
+        groups.append(names)
+        if len(groups) == 1:
+            return rename.RunBatchResult(plans=[(0, plan(True)), (2, plan())], refused={1: "overlay collision"},
+                                         failure=rename.ClaimConflict(["file:held.cpp"]))
+        return rename.RunBatchResult(plans=[(i, plan()) for i in range(len(names))])
+    monkeypatch.setattr(rename, "run_batch", run)
+    assert name_lane._apply_run(lane, {A: [rows[0], third], B: [rows[1]]}, SimpleNamespace(claim=True),
+                               {}, {}, verify=None, checks=None, max_files=25) == (2, 0, 0)
+    assert groups == [["readFirst", "readThird", "readSecond"], ["readThird", "readSecond"]]
+
+
 def test_overlay_search_sees_new_words_from_earlier_plans(repo, monkeypatch):
     ordinary = rename.plan_rename
 
@@ -161,8 +243,9 @@ def test_member_then_class_keeps_both_edits_and_carried_provenance(repo):
 
 @pytest.mark.parametrize("success", [True, False])
 def test_run_claims_union_once_and_releases_after_failure(repo, monkeypatch, success):
+    import claims
     taken, released = [], []
-    keys = [0x00401000, 0x00402000, f"file:{A}", f"file:{B}"]
+    keys = [claims.key_of(key) for key in [0x00401000, 0x00402000, f"file:{A}", f"file:{B}"]]
     def take(wanted, enabled, root):
         taken.append((wanted, enabled, root))
         return rename.Claimed(list(wanted), {k: "fence" for k in wanted})
@@ -333,10 +416,32 @@ def test_recovery_claims_exclude_previously_verified_group(repo, monkeypatch):
     monkeypatch.setattr(rename, "take_claims", lambda keys, *_: rename.Claimed(
         list(keys), {key: "fenced" for key in keys}))
     session.acquire([1, "file:shared.cpp"], True)
-    session.kept.update([1, "file:shared.cpp"])
+    session.keep([1, "file:shared.cpp"])
     current = session.acquire([2, "file:shared.cpp"], True)
     assert current.new == [2]
     assert current.tokens == {2: "fenced"}
+
+
+def test_real_scope_key_format_is_journalled_and_retained_after_success(repo, monkeypatch):
+    import claims
+    session = rename.RunBatchSession(context(repo))
+    released, acquisitions = [], []
+    def take(keys, *_args):
+        acquisitions.append(list(keys))
+        canonical = [claims.key_of(key) for key in keys]
+        return rename.Claimed(canonical, {key: "fence" for key in canonical})
+    monkeypatch.setattr(rename, "take_claims", take)
+    monkeypatch.setattr(rename.Claimed, "release", lambda self, _root: released.extend(self.new))
+    raw = [1, "file:Code/Game/A.cpp", "class:RvaExample"]
+    canonical = [claims.key_of(key) for key in raw]
+    current = session.acquire(raw, True)
+    assert current.new == canonical
+    assert set(current.tokens) == set(canonical)
+    session.keep(raw)
+    assert session.acquire(canonical, True).new == []
+    session.close()
+    assert acquisitions == [canonical, []]
+    assert released == []
 
 
 def test_recorded_search_change_invalidates_prepared_plan(repo, monkeypatch):

@@ -1144,12 +1144,18 @@ def _apply_run(lane, todo, args, tally, refused, *, verify, checks, max_files):
     """
     counts = collections.Counter()
     outcomes = []
+    blockers = _blockers(lane)
+    blockers_changed = False
     session = rename.RunBatchSession(lane.ctx)
 
     def record(row, status, detail):
+        nonlocal blockers_changed
         outcome = dict(row, status=status, detail=" ".join(str(detail).split())[:300])
         if status == "stale":
             outcome["agents"] = ""
+        if status in ("landed", "stale") and row["key"] in blockers:
+            blockers.pop(row["key"], None)
+            blockers_changed = True
         outcomes.append(outcome)
         counts[status] += 1
         if status == "blocked":
@@ -1174,8 +1180,10 @@ def _apply_run(lane, todo, args, tally, refused, *, verify, checks, max_files):
     ready.sort(key=lambda row: (LAND_ORDER[row["kind"]], row["key"]))
 
     def apply_group(rows):
+        nonlocal blockers_changed
         if not rows:
             return
+        rows = sorted(rows, key=lambda row: (LAND_ORDER[row["kind"]], row["key"]))
         requests = []
         for row in rows:
             rel, kind, scope, old = split_key(row["key"])
@@ -1190,6 +1198,48 @@ def _apply_run(lane, todo, args, tally, refused, *, verify, checks, max_files):
             for index, reason in result.refused.items():
                 record(rows[index], "blocked", reason)
             return
+        conflict_keys = _claim_conflicts(result)
+        if conflict_keys:
+            held_rows = []
+            for index, plan in result.plans:
+                keys = rename.claim_keys(plan)
+                keys = {claims.key_of(key) for key in keys}
+                expanded = claims.lock_keys(keys, root=lane.root)
+                if conflict_keys.intersection(keys | expanded):
+                    held_rows.append(rows[index])
+            if held_rows:
+                held_keys = {row["key"] for row in held_rows}
+                survivors = [row for row in planned if row["key"] not in held_keys]
+                print(f"name_lane: claim race identified {len(held_rows)} held approval(s); "
+                      "leaving their approvals unchanged and retrying the free names together.", flush=True)
+                apply_group(survivors + rejected)
+                return
+        failed_sources, diagnostic = _diagnostic_sources(result, result.plans)
+        missing_header = _unchanged_missing_include(lane, result.plans, failed_sources, diagnostic)
+        if failed_sources and missing_header:
+            affected = [(index, plan) for index, plan in result.plans
+                        if failed_sources.intersection(plan.verify)]
+            if affected:
+                affected_rows = [rows[index] for index, _plan in affected]
+                affected_keys = {row["key"] for row in affected_rows}
+                clean = [row for row in planned if row["key"] not in affected_keys]
+                detail = f"verification failed in {', '.join(sorted(failed_sources))}: {diagnostic}"
+                for row in affected_rows:
+                    record(row, "blocked", detail)
+                    _remember_blocker(lane, blockers, row,
+                                      [plan for index, plan in affected if rows[index]["key"] == row["key"]],
+                                      detail, header=missing_header, max_files=max_files,
+                                      sources=failed_sources)
+                blockers_changed = True
+                print(f"name_lane: compiler diagnostic isolated {len(affected_rows)} proposal(s) in "
+                      f"{len(failed_sources)} source(s); retrying the remaining names as one batch.", flush=True)
+                apply_group(clean + rejected)
+                return
+        elif failed_sources:
+            # A source location narrows the suspect group; it does not prove
+            # that every proposal touching that source is invalid.
+            result.suspects = [index for index, plan in result.plans
+                               if failed_sources.intersection(plan.verify)]
         if len(planned) > 1:
             suspects = {id(rows[index]) for index in result.suspects}
             if suspects and len(suspects) < len(planned):
@@ -1234,6 +1284,11 @@ def _apply_run(lane, todo, args, tally, refused, *, verify, checks, max_files):
         finally:
             if outcomes:
                 lane.append(AGREED, AGREED_COLUMNS, outcomes)
+            if blockers_changed:
+                updates = {key: value for key, value in blockers.items()
+                           if key in {row["key"] for row in outcomes if row["status"] == "blocked"}}
+                removed = {row["key"] for row in outcomes if row["status"] in ("landed", "stale")}
+                _save_blockers(lane, updates, remove=removed)
     return counts["landed"], counts["blocked"], counts["stale"]
 
 
@@ -1251,6 +1306,239 @@ def approval_claim_keys(row):
     return keys
 
 
+APPLY_BLOCKERS = f"{LANE_DIR}/apply_blockers.json"
+
+
+def _input_fingerprint(lane, paths, new, *, max_files=25, compiler_state=None):
+    """Conservative tracked, untracked and compiler-input snapshot.
+
+    Broader invalidation is preferable to suppressing a retry after a header,
+    flag, tool or ledger changed. Git failures make the blocker uncacheable.
+    """
+    digest = hashlib.sha256()
+    def repository(root):
+        scope = ("--", ".", ":(exclude)build")
+        if root == lane.root:
+            scope += (f":(exclude){AGREED}",)
+        index = b""
+        for command in (("ls-files", "--stage", "-z"), ("diff", "--binary", "--no-ext-diff", "--no-textconv")):
+            result = subprocess.run(["git", "-C", str(root), *command, *scope], capture_output=True)
+            if result.returncode:
+                return False
+            if command[0] == "ls-files":
+                index = result.stdout
+            digest.update(result.stdout)
+        result = subprocess.run(["git", "-C", str(root), "ls-files", "--others", "--exclude-standard", "-z", *scope],
+                                capture_output=True)
+        if result.returncode:
+            return False
+        for raw in result.stdout.split(b"\0"):
+            if raw:
+                path = root / raw.decode("utf-8", errors="surrogateescape")
+                try:
+                    digest.update(raw + hashlib.sha256(path.read_bytes()).digest())
+                except OSError:
+                    return False
+        # A dirty submodule's diff only says '-dirty'; inspect its own index
+        # and worktree as well so edits inside it invalidate the snapshot.
+        for item in index.split(b"\0"):
+            if item.startswith(b"160000 ") and b"\t" in item:
+                path = root / item.split(b"\t", 1)[1].decode("utf-8", errors="surrogateescape")
+                if not (path / ".git").exists() or not repository(path):
+                    return False
+        return True
+    if not repository(lane.root):
+        return None
+    for rel in sorted(set(paths)):
+        digest.update(rel.encode("utf-8") + b"\0")
+        try:
+            data = lane.path(rel).read_bytes()
+        except OSError:
+            data = None
+        digest.update(b"<missing>" if data is None else hashlib.sha256(data).digest())
+    digest.update(json.dumps([new, max_files, compiler_state], sort_keys=True).encode("utf-8"))
+    return digest.hexdigest()
+
+
+def _blockers(lane):
+    try:
+        value = json.loads(lane.path(APPLY_BLOCKERS).read_text(encoding="utf-8"))
+        return {key: row for key, row in value.items() if isinstance(row, dict)} if isinstance(value, dict) else {}
+    except (OSError, ValueError):
+        return {}
+
+
+def _save_blockers(lane, updates, *, remove=()):
+    from portable_lock import lock, unlock
+    lane.path(LANE_DIR).mkdir(parents=True, exist_ok=True)
+    with lane.path(f"{LANE_DIR}/.lock").open("a") as handle:
+        lock(handle, exclusive=True, wait_notice="name_lane: waiting for the lane lock...")
+        try:
+            path = lane.path(APPLY_BLOCKERS)
+            value = _blockers(lane)
+            for key in remove:
+                value.pop(key, None)
+            value.update(updates)
+            temp = path.with_suffix(".tmp")
+            temp.write_text(json.dumps(value, sort_keys=True, indent=2) + "\n", encoding="utf-8")
+            temp.replace(path)
+        finally:
+            unlock(handle)
+
+
+def _same_blocker(lane, key, row, blockers, *, max_files=25):
+    saved = blockers.get(key)
+    if not saved or saved.get("version") != 2 or saved.get("new") != row.get("new"):
+        return False
+    if (not isinstance(saved.get("inputs"), list) or not saved["inputs"]
+            or not all(isinstance(path, str) for path in saved["inputs"])
+            or not isinstance(saved.get("header"), str)
+            or not isinstance(saved.get("fingerprint"), str)):
+        return False
+    state = _missing_header_state(lane, saved.get("inputs", ()), saved.get("header", ""))
+    if state is None:
+        return False
+    current = _input_fingerprint(lane, saved.get("inputs", ()), row.get("new"),
+                                 max_files=max_files, compiler_state=state)
+    return current is not None and saved.get("fingerprint") == current
+
+
+def _remember_blocker(lane, blockers, row, plans, detail, *, header=None, max_files=25, sources=None):
+    inputs = sorted(sources if sources is not None else {source for plan in plans for source in plan.verify})
+    state = _missing_header_state(lane, inputs, header) if header else None
+    if state is None:
+        return
+    fingerprint = _input_fingerprint(lane, inputs, row.get("new"),
+                                     max_files=max_files, compiler_state=state)
+    if fingerprint is None:
+        return
+    blockers[row["key"]] = {
+        "version": 2, "header": header,
+        "new": row.get("new", ""), "inputs": inputs,
+        "fingerprint": fingerprint,
+        "detail": " ".join(str(detail).split())[:300],
+    }
+
+
+def _claim_conflicts(result):
+    if hasattr(result.failure, "claim_keys"):
+        return set(result.failure.claim_keys)
+    match = re.search(r"claimed by another worker:\s*([^\r\n]+)", str(result.failure or ""))
+    if not match:
+        return set()
+    found = set()
+    for label in match.group(1).split(","):
+        label = label.strip()
+        if not label:
+            continue
+        try:
+            found.add(claims.key_of(label))
+        except ValueError:
+            continue
+    return found
+
+
+def _diagnostic_sources(result, plans):
+    """Find verifier translation units named by MSVC diagnostics."""
+    output = getattr(result, "diagnostics", "") or ""
+    diagnostics = []
+    for line in output.splitlines():
+        if re.search(r":\s*(?:fatal\s+)?error\s+C\d+\b", line, re.I):
+            diagnostics.append(line.strip())
+    if not diagnostics:
+        return set(), ""
+    named = set()
+    pattern = re.compile(r"^\s*[\"']?(?P<path>.+?\.(?:cpp|cc|cxx|c))[\"']?\(\d+(?:,\d+)?\)\s*:", re.I)
+    for line in diagnostics:
+        match = pattern.match(line)
+        if match:
+            named.add(match.group("path").replace("\\", "/").casefold())
+    sources = set()
+    for _index, plan in plans:
+        for source in plan.verify:
+            normal = source.replace("\\", "/").casefold()
+            if any(path == normal or path.endswith("/" + normal) for path in named):
+                sources.add(source)
+    detail = diagnostics[-1]
+    return sources, detail
+
+
+def _unchanged_missing_include(lane, plans, sources, diagnostic):
+    """Only an unchanged direct include proves the whole source cannot build."""
+    found = re.search(r"\bC1083\s*:.*?Cannot open include file:\s*['\"]([^'\"]+)['\"]", diagnostic, re.I)
+    if len(sources) != 1 or not found:
+        return None
+    header = found.group(1)
+    include = re.compile(r"^\s*#\s*include\s*[<\"]" + re.escape(header) + r"[>\"]", re.M)
+    def spells_include(data):
+        text = data.decode("utf-8", errors="replace")
+        text = rename.SEGMENT.sub(lambda match: re.sub(r"[^\n]", " ", match.group(0))
+                                  if match.group(0).startswith(("//", "/*")) else match.group(0), text)
+        return include.search(text)
+    for source in sources:
+        before = lane.ctx.read(source) or b""
+        if not spells_include(before):
+            return None
+        for _index, plan in plans:
+            after = getattr(plan, "after", {}).get(source, before)
+            if not spells_include(after):
+                return None
+    return header
+
+
+def _missing_header_state(lane, sources, header):
+    """Prove enough compiler inputs to reuse a direct missing-include failure.
+
+    Missing receipts, macro/forced includes or unreadable inventories disable
+    persistent suppression. The ordinary diagnostic still isolates this run.
+    """
+    import build
+    if not header or Path(header).is_absolute() or ".." in header.replace("\\", "/").split("/"):
+        return None
+    if lane.root.resolve() != build.ROOT.resolve():
+        return None
+    state = []
+    try:
+        for source in sorted(sources):
+            path = lane.path(source)
+            command, env = build.compiler_command(path, lane.path("build/match/blocker-probe.obj"))
+            if any(arg.lower().startswith(("/fi", "-fi")) for arg in command):
+                return None
+            inventory = build.search_inventory(path, command, env)
+            roots = build._include_search_roots(path, command, env)
+            if inventory is None or roots is None:
+                return None
+            deps = {}
+            for row in lane.ctx.rows():
+                if row.get("source") == source:
+                    output = build.row_object(row)
+                    receipt = build._deps_sidecar(output) if output else None
+                    if receipt and receipt.is_file():
+                        meta = json.loads(receipt.read_text(encoding="utf-8"))
+                        if not isinstance(meta, dict):
+                            return None
+                        if meta.get("source") == build._hash_file(str(path)) and isinstance(meta.get("deps"), dict):
+                            deps = meta["deps"]
+                    break
+            includes = re.findall(r"^\s*#\s*include\s+(.+)$", path.read_text(encoding="utf-8"), re.M)
+            if not deps and (len(includes) != 1 or includes[0].strip() not in (f'"{header}"', f'<{header}>')):
+                return None
+            dependency_hashes = {key: build._hash_file(str(build.ROOT / key)) for key in deps}
+            candidates = {}
+            for directory in [path.parent, *roots, *build._SWEEP_INCLUDE_DIRS]:
+                candidate = Path(directory) / header
+                resolved = build._case_resolve(str(candidate))
+                candidates[str(candidate)] = build._hash_file(str(resolved)) if resolved else None
+            executables = {part: build._hash_file(part) for part in command if part.lower().endswith(".exe")}
+            if not executables or any(value is None for value in executables.values()):
+                return None
+            state.append([source, build._cmd_fingerprint(command, env), inventory, dependency_hashes,
+                          candidates, executables, env.get("BFME_COMPILER_INPUTS", "")])
+    except (OSError, ValueError, RuntimeError, SystemExit):
+        return None
+    return state
+
+
 @claims.pick_snapshot()
 def cmd_apply(lane, args, *, verify=rename.build_verify, checks=rename.ledger_checks):
     limit = getattr(args, "limit", None)
@@ -1266,6 +1554,9 @@ def cmd_apply(lane, args, *, verify=rename.build_verify, checks=rename.ledger_ch
     landed = blocked = stale = outside = selected = deferred = 0
     busy = None
     claim_deferred = 0
+    blocker_deferred = 0
+    blockers = _blockers(lane)
+    blocker_removals = set()
     pending = False
     for key, row in state.items():
         if selected_keys and key not in selected_keys:
@@ -1279,6 +1570,16 @@ def cmd_apply(lane, args, *, verify=rename.build_verify, checks=rename.ledger_ch
             if not wins(mine, rivals, lead=args.lead, min_models=args.min_models, key=key):
                 print(f"{key}: votes no longer agree under --lead {args.lead} --min-models {args.min_models}; left")
                 continue
+            if (row["status"] == "blocked" and args.retry_blocked
+                    and not getattr(args, "retry_unchanged", False)
+                    and _same_blocker(lane, key, row, blockers, max_files=max_files)):
+                blocker_deferred += 1
+                saved = blockers[key]
+                print(f"{key}: skipped unchanged blocker: {saved.get('detail', 'inputs unchanged')}", flush=True)
+                continue
+            if key in blockers:
+                blockers.pop(key, None)
+                blocker_removals.add(key)
             if args.claim:
                 if busy is None:
                     busy = claims.busy_keys(lane.root)
@@ -1292,6 +1593,8 @@ def cmd_apply(lane, args, *, verify=rename.build_verify, checks=rename.ledger_ch
             selected += 1
             agents = ";".join(f"{w}@{m}" for w, m in sorted(mine.items()))
             todo[split_key(key)[0]].append(dict(row, agents=agents))
+    if blocker_removals:
+        _save_blockers(lane, {}, remove=blocker_removals)
     if not pending:
         print("name_lane: nothing agreed is waiting to land.")
         return 0
@@ -1383,6 +1686,8 @@ def cmd_apply(lane, args, *, verify=rename.build_verify, checks=rename.ledger_ch
     if claim_deferred:
         print(f"name_lane: {claim_deferred} ready key(s) deferred for other workers' claims; "
               "run apply again after the claims are released.")
+    if blocker_deferred:
+        print(f"name_lane: skipped {blocker_deferred} unchanged blocker(s); retry after their source or tools change.")
     if only:
         print(f"name_lane: --only-labels {','.join(sorted(only))}: {outside} key(s) with a voter outside those "
               "labels left untouched.")
@@ -1520,6 +1825,7 @@ def main(argv=None, lane=None):
     a = sub.add_parser("apply", help="land agreed names through tools/rename.py")
     a.add_argument("--limit", type=int, metavar="N", help="attempt at most N eligible approvals, leaving the rest waiting")
     a.add_argument("--retry-blocked", action="store_true", help="try blocked names again, e.g. after a fix")
+    a.add_argument("--retry-unchanged", action="store_true", help="ignore saved failure fingerprints with --retry-blocked")
     a.add_argument("--key", action="append", help="apply only this exact source|kind|scope|placeholder key (repeatable)")
     a.add_argument("--max-files", type=int, default=25, help="maximum affected sources; every selected source is still verified")
     a.add_argument("--no-batch", action="store_true",

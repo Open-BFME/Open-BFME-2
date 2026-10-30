@@ -1712,9 +1712,225 @@ def test_ready_cli_options_are_forwarded(tree, monkeypatch):
 
 
 
+def test_claim_conflict_diagnostic_is_parsed_for_batch_pruning():
+    result = SimpleNamespace(failure=rename.Refusal(
+        "claimed by another worker: file/0123456789abcdef, 0x00401000"))
+    assert name_lane._claim_conflicts(result) == {"file/0123456789abcdef", 0x00401000}
+
+
+def test_compiler_diagnostic_maps_back_to_exact_verification_source():
+    bad = SimpleNamespace(verify=[SOURCE])
+    good = SimpleNamespace(verify=["Code/Game/Slow.cpp"])
+    result = SimpleNamespace(diagnostics=(
+        "Code/Game/Box.cpp(12): fatal error C1083: Cannot open include file: 'ascii_string.h'\n"))
+    sources, detail = name_lane._diagnostic_sources(result, [(0, bad), (1, good)])
+    assert sources == {SOURCE}
+    assert "C1083" in detail and "ascii_string.h" in detail
+
+
+def test_retry_blocker_fingerprint_changes_with_verified_input(tree, monkeypatch):
+    monkeypatch.setattr(name_lane, "_missing_header_state", lambda *_: {"missing": True})
+    lane = lane_of(tree)
+    row = {"key": FN_KEY, "new": "sumBox"}
+    plan = SimpleNamespace(verify=[SOURCE])
+    blockers = {}
+    name_lane._remember_blocker(lane, blockers, row, [plan], "missing header", header="missing.h")
+    assert name_lane._same_blocker(lane, FN_KEY, row, blockers)
+    (tree / SOURCE).write_text((tree / SOURCE).read_text() + "// changed\n")
+    assert not name_lane._same_blocker(lane, FN_KEY, row, blockers)
+
+
+def test_class_scope_estimate_stops_before_rewriting(tree, monkeypatch, capsys):
+    lane = lane_of(tree)
+    lane.ctx.object_scan = True
+    monkeypatch.setattr(rename, "check_basis", lambda *a, **kw: None)
+    monkeypatch.setattr(rename, "object_referencers", lambda _ctx, _symbols:
+                        {"Code/Game/ObjectConsumerA.cpp", "Code/Game/ObjectConsumerB.cpp"})
+    with pytest.raises(rename.Refusal, match="object consumers"):
+        rename.plan_class(lane.ctx, name="Rva00401000Box", new="BoxRecord", basis="inferred",
+                          evidence="test", max_files=1)
+    assert "2 object consumer(s)" in capsys.readouterr().out
+
+
+def test_class_collision_does_not_scan_all_objects(tree, monkeypatch):
+    lane = lane_of(tree)
+    lane.ctx.object_scan = True
+    (tree / "Code/Game/Existing.h").write_text("struct BoxRecord {};\n")
+    _git(tree, "add", "--", "Code/Game/Existing.h")
+    monkeypatch.setattr(rename, "check_basis", lambda *a, **kw: None)
+    monkeypatch.setattr(rename, "object_referencers", lambda *_: pytest.fail("needless object scan"))
+    with pytest.raises(rename.Refusal, match="BoxRecord already appears"):
+        rename.plan_class(lane.ctx, name="Rva00401000Box", new="BoxRecord", basis="inferred", evidence="test")
+
+
+def test_apply_prunes_a_claim_race_and_retries_free_names_together(tree, monkeypatch, capsys):
+    lane = lane_of(tree)
+    monkeypatch.setattr(name_lane, "warm_donor_parameters", lambda *_: {})
+    first = {"key": FN_KEY, "id": "one", "kind": "function", "old": "rva00401000",
+             "new": "sumBox", "rva": "0x00401000"}
+    slow_key = name_lane.key_of("Code/Game/Slow.cpp", "function", "0x00402000", "rva00402000")
+    second = {"key": slow_key, "id": "two", "kind": "function", "old": "rva00402000",
+              "new": "slowCount", "rva": "0x00402000"}
+    # Real plans use file:PATH, while the claims API refuses file/<hash>.
+    first_claim = "file:" + SOURCE
+    other_claim = "file:Code/Game/Slow.cpp"
+    calls = []
+    def plan(claim):
+        return SimpleNamespace(kind="function", claims=[claim], after={}, moves=[], old_word="", old="",
+                               verify=[SOURCE if claim == first_claim else "Code/Game/Slow.cpp"])
+    def run_batch(_ctx, requests, **_kwargs):
+        calls.append(len(requests))
+        plans = [(i, plan(first_claim if i == 0 else other_claim)) for i in range(len(requests))]
+        if len(calls) == 1:
+            return rename.RunBatchResult(plans=plans,
+                failure=rename.ClaimConflict([first_claim]))
+        return rename.RunBatchResult(plans=plans)
+    monkeypatch.setattr(rename, "run_batch", run_batch)
+    tally = {FN_KEY: {}, slow_key: {}}
+    name_lane._apply_run(lane, {SOURCE: [first], "Code/Game/Slow.cpp": [second]},
+                         SimpleNamespace(claim=True), tally, {}, verify=ok_verify, checks=no_checks, max_files=25)
+    assert calls == [2, 1]
+    assert "leaving their approvals unchanged" in capsys.readouterr().out
+    assert lane.state().get(FN_KEY) is None
+    assert lane.state()[slow_key]["status"] == "landed"
+
+
+def test_apply_uses_compiler_source_to_retry_survivors_as_one_batch(tree, monkeypatch):
+    (tree / SOURCE).write_text('#include "ascii_string.h"\n' + (tree / SOURCE).read_text())
+    monkeypatch.setattr(name_lane, "_missing_header_state", lambda *_: {"missing": True})
+    lane = lane_of(tree)
+    monkeypatch.setattr(name_lane, "warm_donor_parameters", lambda *_: {})
+    first = {"key": FN_KEY, "id": "one", "kind": "function", "old": "rva00401000",
+             "new": "sumBox", "rva": "0x00401000"}
+    slow_key = name_lane.key_of("Code/Game/Slow.cpp", "function", "0x00402000", "rva00402000")
+    second = {"key": slow_key, "id": "two", "kind": "function", "old": "rva00402000",
+              "new": "slowCount", "rva": "0x00402000"}
+    calls = []
+    def run_batch(_ctx, requests, **_kwargs):
+        calls.append(len(requests))
+        plans = [(i, SimpleNamespace(verify=[SOURCE if i == 0 else "Code/Game/Slow.cpp"]))
+                 for i in range(len(requests))]
+        if len(calls) == 1:
+            return rename.RunBatchResult(plans=plans, failure=rename.VerifyFailed("build failed"),
+                diagnostics=f"{SOURCE}(12): fatal error C1083: Cannot open include file: 'ascii_string.h'")
+        return rename.RunBatchResult(plans=plans)
+    monkeypatch.setattr(rename, "run_batch", run_batch)
+    tally = {FN_KEY: {}, slow_key: {}}
+    name_lane._apply_run(lane, {SOURCE: [first], "Code/Game/Slow.cpp": [second]},
+                         SimpleNamespace(claim=False), tally, {}, verify=ok_verify, checks=no_checks, max_files=25)
+    assert calls == [2, 1]
+    assert lane.state()[FN_KEY]["status"] == "blocked"
+    assert lane.state()[slow_key]["status"] == "landed"
+    blocker = name_lane._blockers(lane)[FN_KEY]
+    assert "C1083" in blocker["detail"]
+
+
+def test_retry_blocked_skips_identical_fingerprint_then_retries_changed_source(tree, tmp_path, monkeypatch,
+                                                                               capsys):
+    monkeypatch.setattr(name_lane, "_missing_header_state", lambda *_: {"missing": True})
+    agree_on(tree, tmp_path, FN_ANSWER)
+    lane = lane_of(tree)
+    row = lane.state()[FN_KEY]
+    lane.append(name_lane.AGREED, name_lane.AGREED_COLUMNS,
+                [dict(row, status="blocked", detail="missing include")])
+    blockers = {}
+    name_lane._remember_blocker(lane, blockers, row, [SimpleNamespace(verify=[SOURCE])], "missing include",
+                                header="ascii_string.h")
+    name_lane._save_blockers(lane, blockers)
+    args = claim_apply_args(claim=False, key=[FN_KEY])
+    monkeypatch.setattr(name_lane, "_apply_run", lambda *a, **kw: pytest.fail("same inputs must not retry"))
+    name_lane.cmd_apply(lane, args, verify=ok_verify, checks=no_checks)
+    assert "skipped unchanged blocker" in capsys.readouterr().out
+
+    (tree / SOURCE).write_text((tree / SOURCE).read_text() + "// dependency changed\n")
+    selected = []
+    monkeypatch.setattr(name_lane, "_apply_run",
+                        lambda _lane, todo, *_a, **_kw: selected.extend(todo) or (0, 0, 0))
+    name_lane.cmd_apply(lane, args, verify=ok_verify, checks=no_checks)
+    assert selected == [SOURCE]
+    assert FN_KEY not in name_lane._blockers(lane)
+
+
 def test_submit_apply_ready_includes_local_proof_in_one_verified_batch(tree, tmp_path):
     builds = []
     submit_ready(tree, tmp_path, limit=3, verify=lambda ctx, sources: builds.append(sources) or True)
     assert builds == [[SOURCE]]
     assert {row["status"] for row in lane_of(tree).state().values()} == {"landed"}
     assert len(rows(tree, rename.NAME_BINDINGS)) == 1
+
+
+def test_diagnostic_does_not_attribute_non_error_lines_to_failed_sources():
+    result = SimpleNamespace(diagnostics=(
+        'Code/Game/Slow.cpp(3): note: previously compiled\n'
+        '"C:\\repo with space\\Code\\Game\\Box.cpp"(12): fatal error C1083: '
+        "Cannot open include file: 'missing.h'\n"))
+    plans = [(0, SimpleNamespace(verify=[SOURCE])),
+             (1, SimpleNamespace(verify=["Code/Game/Slow.cpp"]))]
+    assert name_lane._diagnostic_sources(result, plans)[0] == {SOURCE}
+
+
+def test_blocker_store_merges_concurrent_keys_and_removes_only_requested_key(tree):
+    lane = lane_of(tree)
+    name_lane._save_blockers(lane, {"first": {"detail": "a"}})
+    name_lane._save_blockers(lane, {"second": {"detail": "b"}})
+    assert set(name_lane._blockers(lane)) == {"first", "second"}
+    name_lane._save_blockers(lane, {}, remove={"first"})
+    assert name_lane._blockers(lane) == {"second": {"detail": "b"}}
+
+
+def test_blocker_invalidates_for_header_creation_configuration_and_input_edits(tree, monkeypatch):
+    monkeypatch.setattr(name_lane, "_missing_header_state", lambda *_: {"missing": True})
+    lane = lane_of(tree)
+    row = {"key": FN_KEY, "new": "sumBox"}
+    blockers = {}
+    plan = SimpleNamespace(verify=[SOURCE])
+    name_lane._remember_blocker(lane, blockers, row, [plan], "missing header", header="missing.h")
+    assert name_lane._same_blocker(lane, FN_KEY, row, blockers)
+    assert not name_lane._same_blocker(lane, FN_KEY, row, blockers, max_files=100)
+    header = tree / "Code/Game/missing.h"
+    header.write_text("// now available\n")
+    assert not name_lane._same_blocker(lane, FN_KEY, row, blockers)
+    _git(tree, "add", "--", "Code/Game/missing.h")
+    name_lane._remember_blocker(lane, blockers, row, [plan], "missing header", header="missing.h")
+    header.write_text("// modified existing dependency\n")
+    assert not name_lane._same_blocker(lane, FN_KEY, row, blockers)
+
+
+def test_unproved_or_transient_failure_is_not_persistently_suppressed(tree):
+    lane = lane_of(tree)
+    row = {"key": FN_KEY, "new": "sumBox"}
+    blockers = {}
+    name_lane._remember_blocker(lane, blockers, row, [SimpleNamespace(verify=[SOURCE])], "network timeout")
+    assert blockers == {}
+
+
+def test_missing_include_must_be_unchanged_before_and_after_the_proposals(tree):
+    lane = lane_of(tree)
+    detail = "fatal error C1083: Cannot open include file: 'missing.h'"
+    assert name_lane._unchanged_missing_include(lane, [], {SOURCE}, detail) is None
+    before = b'#include "missing.h"\n' + (tree / SOURCE).read_bytes()
+    (tree / SOURCE).write_bytes(before)
+    assert name_lane._unchanged_missing_include(lane, [], {SOURCE}, detail) == "missing.h"
+    changed = SimpleNamespace(after={SOURCE: before.replace(b'missing.h', b'other.h')})
+    assert name_lane._unchanged_missing_include(lane, [(0, changed)], {SOURCE}, detail) is None
+
+
+def test_missing_header_state_detects_header_added_to_an_ignored_search_directory(tree, monkeypatch):
+    import build
+    lane = lane_of(tree)
+    (tree / SOURCE).write_text('#include "missing.h"\n')
+    include = tree / "build/private-includes"
+    include.mkdir(parents=True)
+    compiler = tree / "build/cl.exe"
+    compiler.write_bytes(b"test compiler identity")
+    monkeypatch.setattr(build, "ROOT", tree)
+    monkeypatch.setattr(build, "compiler_command", lambda *_: ([str(compiler)], {"INCLUDE": str(include)}))
+    monkeypatch.setattr(build, "search_inventory", lambda *_: "inventory")
+    monkeypatch.setattr(build, "_include_search_roots", lambda *_: [include])
+    monkeypatch.setattr(build, "_SWEEP_INCLUDE_DIRS", [])
+    monkeypatch.setattr(build, "row_object", lambda *_: tree / "build/absent.obj")
+    before = name_lane._missing_header_state(lane, [SOURCE], "missing.h")
+    assert before is not None
+    (include / "missing.h").write_text("// now supplied\n")
+    after = name_lane._missing_header_state(lane, [SOURCE], "missing.h")
+    assert after is not None and before != after

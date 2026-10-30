@@ -345,6 +345,14 @@ class Refusal(Exception):
     """The rename is refused; the message says why. Nothing was written."""
 
 
+class ClaimConflict(Refusal):
+    """Acquisition refused these canonical claim keys; no edits were made."""
+    def __init__(self, keys):
+        import claims
+        self.claim_keys = tuple(claims.key_of(key) for key in keys)
+        super().__init__("claimed by another worker: " + ", ".join(map(claim_label, self.claim_keys)))
+
+
 class VerifyFailed(Exception):
     """./build.sh did not report every touched source OK; everything was restored."""
 
@@ -3864,11 +3872,14 @@ def plan_class(ctx, name, new, basis, evidence, *, max_files=25):
     texts = {}
     for rel in ctx.grep_files(old):
         data = ctx.read(rel)
-        if data is None:
-            continue
-        text = data.decode("utf-8", errors="surrogateescape")
-        if token.search(text):
-            texts[rel] = text
+        if data is not None:
+            text = data.decode("utf-8", errors="surrogateescape")
+            if token.search(text):
+                texts[rel] = text
+    # Cheap text/protection failures should not start an object scan.
+    refuse_vendored(ctx, set(texts), f"renaming the type {old}")
+    if len(texts) > max_files:
+        raise Refusal(f"{len(texts)} files spell {old} (over --max-files {max_files}; text scope alone)")
     declarers = sorted(rel for rel, text in texts.items() if declares_type(name_metric.strip(text), old))
     for text in texts.values():
         enclosing |= {outer for name, _s, _e, outer in enclosing_types(name_metric.strip(text)) if name == old}
@@ -3878,10 +3889,7 @@ def plan_class(ctx, name, new, basis, evidence, *, max_files=25):
                       "them all -- phase 1 renames one type only when its spelling is unique")
     if not scoped and not declarers:
         raise Refusal(f"no class, struct, union or enum named {old} (no definition, no ledger name)")
-    by_object = set()
-    if ctx.object_scan and scoped:
-        import name_dependents
-        by_object = object_referencers(ctx, set(scoped))
+    by_object = object_referencers(ctx, set(scoped)) if ctx.object_scan and scoped else set()
     touched = set(texts) | by_object
     refuse_vendored(ctx, touched | set(declarers), f"renaming the type {old}")
     generated = sorted(p for p in touched if is_generated(p))
@@ -3889,7 +3897,10 @@ def plan_class(ctx, name, new, basis, evidence, *, max_files=25):
         raise Refusal(f"generated source(s) spell {old}: {', '.join(generated[:5])}; "
                       "the rename would leave them stale and they are never edited")
     if len(touched) > max_files:
-        raise Refusal(f"{len(touched)} files spell {old} (over --max-files {max_files})")
+        print(f"rename: class scope for {old}: {len(texts)} spelling file(s), "
+              f"{len(by_object)} object consumer(s), {len(touched)} total; limit {max_files}", flush=True)
+        raise Refusal(f"{len(touched)} files spell {old} (over --max-files {max_files}; "
+                      f"{len(texts)} text, {len(by_object)} object consumers)")
 
     owner = next((d for d in declarers if d in ctx.ledger_sources()), declarers[0] if declarers else "")
     plan = Plan("class", old, new, basis, evidence.strip(), owner, None, old_word=old, new_word=new)
@@ -5072,6 +5083,7 @@ def plan_rename(kind, *, ctx=None, **kwargs):
 def build_verify(ctx, sources, cancel=None):
     """One ./build.sh over `sources`; True only on exit 0 with `Functions: OK`.
     `cancel`, a threading.Event, kills the build once set (False then)."""
+    ctx._build_diagnostics = ""
     command = ([sys.executable, str(ctx.path("tools/build.py"))] if sys.platform == "win32"
                else [str(ctx.path("build.sh"))]) + list(sources)
     print(f"rename: verifying {len(sources)} source(s): ./build.sh {' '.join(sources)}", flush=True)
@@ -5082,6 +5094,9 @@ def build_verify(ctx, sources, cancel=None):
         if result is None:
             return False
     output = result.stdout + result.stderr
+    # Per-context diagnostics survive wrappers without leaking a previous
+    # invocation's output or relying on mutable attributes on a callable.
+    ctx._build_diagnostics = output
     tail = "\n".join(output.rstrip().splitlines()[-25:])
     print(tail)
     return result.returncode == 0 and re.search(r"^Functions: OK \d+/\d+", output, re.M) is not None
@@ -5533,8 +5548,12 @@ def apply_rename(plan, *, ctx=None, verify=build_verify, checks=ledger_checks, c
         for rel, data in plan.after.items():
             ctx.path(rel).parent.mkdir(parents=True, exist_ok=True)
             ctx.path(rel).write_bytes(data)
+        ctx._build_diagnostics = ""
         if not verify(ctx, plan.verify):
-            raise VerifyFailed(f"verification failed for {plan.old} -> {plan.new}; every file restored")
+            error = VerifyFailed(f"verification failed for {plan.old} -> {plan.new}; every file restored")
+            error.diagnostics = ctx._build_diagnostics
+            error.verify_sources = list(plan.verify)
+            raise error
         problems = checks(ctx, plan) if checks else []
         if problems:
             error = VerifyFailed(f"the commit hooks would refuse {plan.old} -> {plan.new} "
@@ -5618,7 +5637,7 @@ def take_claims(keys, enabled, root=None):
     except claims.ClaimsUnavailable as error:
         if error.refused:
             claims.release([k for k in error.claimed], root=root)
-            raise Refusal(f"claimed by another worker: {', '.join(map(claim_label, error.refused))}")
+            raise ClaimConflict(error.refused)
         print(f"rename: warning: claims unavailable ({error}); working unclaimed", file=sys.stderr)
         return Claimed(new=list(error.claimed))
     claimed, refused = result
@@ -5630,7 +5649,7 @@ def take_claims(keys, enabled, root=None):
     others = [k for k in refused if k not in unconfirmed]
     if others:
         taken.release(root)
-        raise Refusal(f"claimed by another worker: {', '.join(map(claim_label, others))}")
+        raise ClaimConflict(others)
     if unconfirmed:
         print("rename: warning: origin could not confirm claims on "
               f"{', '.join(map(claim_label, unconfirmed))} (network; nobody else holds them): working unclaimed "
@@ -5843,6 +5862,9 @@ def _planning_names(ctx, requests):
         for row in ctx.rows():
             by_rva[_rva(row.get("target_rva"))].append(row)
     data = ctx.dicts(DATA_ROWS) if "global" in kinds else []
+    class_symbols = ([row["name"] for row in ctx.rows()] +
+                     [pin.get("name", "") for pin in ctx.pins()] +
+                     [row.get("name", "") for row in ctx.dicts(DATA_ROWS)]) if "class" in kinds else []
     symbols, terms = set(), set()
     for kind, kwargs in requests:
         if kind == "function":
@@ -5858,6 +5880,17 @@ def _planning_names(ctx, requests):
             old = kwargs.get("name")
             owners = [row["name"] for row in data
                       if row.get("name") == old or _identifier(row.get("name", "")) == old]
+        elif kind == "class":
+            old, new = kwargs.get("name"), kwargs.get("new")
+            if isinstance(old, str) and IDENT.fullmatch(old):
+                fragment = type_fragment_re(old)
+                symbols.update(name for name in class_symbols if name and fragment.search(name))
+                terms.add(old)
+            if isinstance(new, str):
+                terms.add(new)
+            # Class member identifiers can be very generic (get, slot4, etc.).
+            # Warm their exact object symbols, not broad source-word searches.
+            continue
         else:
             continue
         symbols.update(owners)
@@ -5989,6 +6022,11 @@ class RunBatchSession:
         self.object_stamp = stamp
 
     def acquire(self, keys, enabled):
+        import claims
+        # Plans spell scopes as file:PATH/class:NAME; the coordination API
+        # returns canonical file/<hash>/class/<name> keys. Journals, retained
+        # leases and release decisions must all compare the same representation.
+        keys = list(dict.fromkeys(claims.key_of(key) for key in keys))
         missing = [key for key in keys if key not in self.held]
         got = take_claims(missing, enabled, self.ctx.root)
         self.held.update(missing)
@@ -5999,6 +6037,10 @@ class RunBatchSession:
         # preserve those supporting an earlier verified group.
         current = [key for key in self.claimed.new if key in keys and key not in self.kept]
         return Claimed(current, {k: v for k, v in self.claimed.tokens.items() if k in current})
+
+    def keep(self, keys):
+        import claims
+        self.kept.update(claims.key_of(key) for key in keys)
 
     def close(self):
         unused = [key for key in self.claimed.new if key not in self.kept]
@@ -6012,6 +6054,7 @@ class RunBatchResult:
     refused: dict = field(default_factory=dict)  # request index -> planning refusal
     failure: Exception = None                  # the combined transaction was restored
     suspects: list = field(default_factory=list)  # exact diagnostic request indices
+    diagnostics: str = ""                    # captured verifier output, when available
 
 
 def run_batch(ctx, requests, *, claim=True, verify=build_verify, checks=ledger_checks, session=None):
@@ -6156,10 +6199,11 @@ def run_batch(ctx, requests, *, claim=True, verify=build_verify, checks=ledger_c
                     if not result.suspects:
                         result.suspects = diagnostic_suspects(result.plans, getattr(exc, "problems", [str(exc)]))
                     result.failure = exc
+                    result.diagnostics = getattr(exc, "diagnostics", "")
                     return result
                 except BaseException:
                     raise
-                session.kept.update(combined.claims)
+                session.keep(combined.claims)
                 if claimed.new:
                     print("rename: claims kept until the rename is pushed; then run: python3 tools/claims.py release "
                           + " ".join(map(claim_label, claimed.new)))
