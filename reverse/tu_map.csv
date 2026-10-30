@@ -60237,12 +60237,12 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0073D090,939,code,Code/GameEngine/Source/Common/BfmeOwnerCDE.cpp,proposed,N,N=Code/GameEngine/Source/Common/BfmeOwnerCDE.cpp,Code/GameEngine/Source/Common/BfmeOwnerCDECount.cpp
 0x0073D440,170,code,Code/GameEngine/Source/Common/BfmeOwnerCDE.cpp,proposed,N,N=Code/GameEngine/Source/Common/BfmeOwnerCDE.cpp W=Code/Libraries/Source/shroudmanager/shroudmanager_impl.cpp,Code/GameEngine/Source/Common/BfmeOwnerCDE.cpp
 0x0073D4F0,144,code,Code/GameEngine/Source/Common/RTS/ShroudManagerImpl.cpp,proposed,N,N=Code/GameEngine/Source/Common/RTS/ShroudManagerImpl.cpp noncontiguous,Code/GameEngine/Source/Common/RTS/ShroudManagerImpl_processPending.cpp
-0x0073D580,46,code,Code/GameEngine/Source/Common/RTS/ShroudManagerImpl.cpp,proposed,C,C=0x0073D4F0..0x0073D5B0 noncontiguous,Code/GameEngine/Source/Common/RTS/ShroudManagerImpl008FBA40CtorDrain.cpp
+0x0073D580,46,code,Code/GameEngine/Source/Common/RTS/ShroudManagerImpl.cpp,proposed,C,C=0x0073D4F0..0x0073D5B0 noncontiguous,Code/GameEngine/Source/Common/RTS/ShroudManagerImpl.cpp
 0x0073D5B0,46,code,Code/GameEngine/Source/Common/RTS/ShroudManagerImpl.cpp,proposed,C,C=0x0073D4F0..0x0073D5E0 noncontiguous,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_e8_o2.cpp
 0x0073D5E0,323,code,Code/GameEngine/Source/Common/RTS/ShroudManagerImpl.cpp,proposed,C,C=0x0073D4F0..0x0073D730 noncontiguous,Code/Libraries/Source/assetmanager/Rva0061FFA0.cpp
 0x0073D730,78,code,Code/GameEngine/Source/Common/RTS/ShroudManagerImpl.cpp,proposed,C,C=0x0073D4F0..0x0073D780 noncontiguous,Code/Libraries/Source/WWVegas/WWLib/QueueDefaultCtorAnchors.cpp
 0x0073D780,78,code,Code/GameEngine/Source/Common/RTS/ShroudManagerImpl.cpp,proposed,C,C=0x0073D4F0..0x0073D7D0 noncontiguous,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_e8_o2.cpp
-0x0073D7D0,54,code,Code/GameEngine/Source/Common/RTS/ShroudManagerImpl.cpp,proposed,N,N=Code/GameEngine/Source/Common/RTS/ShroudManagerImpl.cpp noncontiguous,Code/GameEngine/Source/Common/RTS/ShroudManagerImpl008FBA40CtorDrain.cpp
+0x0073D7D0,54,code,Code/GameEngine/Source/Common/RTS/ShroudManagerImpl.cpp,proposed,N,N=Code/GameEngine/Source/Common/RTS/ShroudManagerImpl.cpp noncontiguous,Code/GameEngine/Source/Common/RTS/ShroudManagerImpl.cpp
 0x0073D810,74,code,Code/GameEngine/Source/Common/RTS/ShroudManager.cpp,proposed,N,N=Code/GameEngine/Source/Common/RTS/ShroudManager.cpp,Code/GameEngine/Source/Common/RTS/ShroudManagerImpl008FBA40.cpp
 0x0073D860,74,code,Code/GameEngine/Source/Common/RTS/ShroudManager.cpp,proposed,N,N=Code/GameEngine/Source/Common/RTS/ShroudManager.cpp W=Code/Libraries/Source/shroudmanager/shroudmanager_impl.cpp,Code/GameEngine/Source/Common/RTS/ShroudManagerImpl008FBA40.cpp
 0x0073D8B0,818,code,Code/GameEngine/Source/Common/RTS/ShroudManagerImpl.cpp,proposed,N,N=Code/GameEngine/Source/Common/RTS/ShroudManagerImpl.cpp noncontiguous,Code/GameEngine/Source/Common/RTS/ShroudManagerImpl008FBA40.cpp
@@ -60253,7 +60253,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0073E160,154,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_e8_o2.cpp
 0x0073E200,131,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_e32_initmap.cpp
 0x0073E290,123,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/Rva008FB570DequePushBackAux.cpp
-0x0073E310,214,code,Code/GameEngine/Source/Common/RTS/ShroudManagerImpl.cpp,proposed,N,N=Code/GameEngine/Source/Common/RTS/ShroudManagerImpl.cpp noncontiguous,Code/GameEngine/Source/Common/RTS/ShroudManagerImpl008FBA40CtorDrain.cpp
+0x0073E310,214,code,Code/GameEngine/Source/Common/RTS/ShroudManagerImpl.cpp,proposed,N,N=Code/GameEngine/Source/Common/RTS/ShroudManagerImpl.cpp noncontiguous,Code/GameEngine/Source/Common/RTS/ShroudManagerImpl.cpp
 0x0073E3F0,140,code,Code/Libraries/Source/WWVegas/WWLib/ShroudManagerImpl.cpp,proposed,N,N=Code/Libraries/Source/WWVegas/WWLib/ShroudManagerImpl.cpp,Code/Libraries/Source/WWVegas/WWLib/ShroudManagerImpl.cpp
 0x0073E480,49,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_e32_initmap.cpp
 0x0073E4C0,59,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlContainerRva0073E4C0.cpp
@@ -92490,8 +92490,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007AB21B,10,code,Code/GameEngine/Source/Common/RTS/ShroudManagerImpl.cpp,approved,P,P=0x0073DBF0@FuncInfo0x00964A04 p-group provisional,Code/GameEngine/Source/Common/RTS/ShroudManagerImpl008FBA40.cpp
 0x007AB230,11,code,Code/GameEngine/Source/Common/RTS/ShroudManager.cpp,approved,P,P=0x0073DFD0@FuncInfo0x00964A28 p-group provisional,Code/GameEngine/Source/Common/RTS/Rva0073DFD0Finish.cpp
 0x007AB23B,10,code,Code/GameEngine/Source/Common/RTS/ShroudManager.cpp,approved,P,P=0x0073DFD0@FuncInfo0x00964A28 p-group provisional,Code/GameEngine/Source/Common/RTS/Rva0073DFD0Finish.cpp
-0x007AB250,11,code,Code/GameEngine/Source/Common/RTS/ShroudManagerImpl.cpp,approved,P,P=0x0073E310@FuncInfo0x00964A4C p-group provisional,Code/GameEngine/Source/Common/RTS/ShroudManagerImpl008FBA40CtorDrain.cpp
-0x007AB25B,10,code,Code/GameEngine/Source/Common/RTS/ShroudManagerImpl.cpp,approved,P,P=0x0073E310@FuncInfo0x00964A4C p-group provisional,Code/GameEngine/Source/Common/RTS/ShroudManagerImpl008FBA40CtorDrain.cpp
+0x007AB250,11,code,Code/GameEngine/Source/Common/RTS/ShroudManagerImpl.cpp,approved,P,P=0x0073E310@FuncInfo0x00964A4C p-group provisional,Code/GameEngine/Source/Common/RTS/ShroudManagerImpl.cpp
+0x007AB25B,10,code,Code/GameEngine/Source/Common/RTS/ShroudManagerImpl.cpp,approved,P,P=0x0073E310@FuncInfo0x00964A4C p-group provisional,Code/GameEngine/Source/Common/RTS/ShroudManagerImpl.cpp
 0x007AB270,11,code,Code/Libraries/Source/WWVegas/WWLib/ShroudManagerImpl.cpp,approved,P,P=0x0073E3F0@FuncInfo0x00964A70 p-group provisional,Code/Libraries/Source/WWVegas/WWLib/ShroudManagerImpl.cpp
 0x007AB27B,10,code,Code/Libraries/Source/WWVegas/WWLib/ShroudManagerImpl.cpp,approved,P,P=0x0073E3F0@FuncInfo0x00964A70 p-group provisional,Code/Libraries/Source/WWVegas/WWLib/ShroudManagerImpl.cpp
 0x007AB290,8,code,Code/GameEngine/Source/Common/RTS/ShroudManagerImpl.cpp,approved,P,P=0x0073E5A0@FuncInfo0x00964A9C p-group provisional,Code/gen_small/uw_gen_000.cpp
