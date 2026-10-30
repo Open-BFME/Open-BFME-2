@@ -10,18 +10,7 @@
 #include "ascii_string.h"
 typedef bool Bool;
 class ModuleData;
-class Drawable
-{
-public:
-	unsigned char m_pad000[0x348];
-	AsciiString m_348;		// +0x348
-	AsciiString m_34C;		// +0x34C
-};
-class Thing
-{
-public:
-	Drawable *getDrawable() const;
-};
+#include "../../../../Include/GameClient/DrawableBFME2.h"
 class Object : public Thing
 {
 };
@@ -77,8 +66,8 @@ void TooltipUpgrade::upgradeRemovalImplementation()
 		Drawable *draw = getObject()->getDrawable();
 		if (draw)
 		{
-			draw->m_348.clear();
-			draw->m_34C.clear();
+			((AsciiString *)((unsigned char *)draw + 0x348))->clear();
+			((AsciiString *)((unsigned char *)draw + 0x34C))->clear();
 			TheControlBar->m_28 = true;
 		}
 		setUpgradeExecuted(false);
