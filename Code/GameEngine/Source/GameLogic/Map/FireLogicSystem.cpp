@@ -79,7 +79,6 @@ void __cdecl Rva00286136Free(void *p)
 	g_pool00286136.FreeObject(p);
 }
 #define _CRTIMP
-#include <stdlib.h>
 #undef _CRTIMP
 #include <memory>
 // Native286E33..286EC8 is the149B unique-insert twin of39F692.
@@ -102,6 +101,11 @@ public:
 	int m_second; // +0x0C
 };
 #include <algorithm>
+void __cdecl Rva00030830GameFree(void *p);
+#ifndef _STLP_USE_STATIC_LIB
+#define _STLP_USE_STATIC_LIB 1
+#endif
+#include <stddef.h>
 
 // Suppress this TU's non-retail copy of ??1?$_Rb_tree@W4ObjectID@@U?$pair@$$CBW4ObjectID@@H@_STL@@U?$_Select1st@U?$pair@$$CBW4Obje:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
@@ -402,13 +406,53 @@ private:
 	int m_7C;
 };
 
+class Rva002860CFVirt
+{
+public:
+	virtual void v00();
+	virtual void v04();
+	virtual void v08();
+	virtual void v0C();
+	virtual void v10();
+	virtual void v14();
+	virtual void v18();
+	virtual void v1C();
+	virtual void v20();
+	virtual void v24();
+	virtual void v28();
+	virtual void v2C(int v);
+};
+
+struct BurningCellTreeNode
+{
+	unsigned char m_pad[0x10];
+	Rva002860CFVirt m_10;
+};
+
 // tu-skeleton: 0x00285778 232B ?ResetCellToOriginalFlammability@FireLogicSystem@@QAEXHH@Z -- matched in Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp (not merged yet)
 
 // tu-skeleton: 0x00285F43 102B ?ChangeCellToObjectFlammability@FireLogicSystem@@QAEXHHPBVThingTemplate@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp (not merged yet)
 
 // tu-skeleton: 0x00285FA9 293B ?Rva00285FA9Parse@@YAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/Map/FireLogicSystemParseMaterial.cpp (not merged yet)
 
-// tu-skeleton: 0x002860CF 61B ?rva002860CF@Rva002860CFHost@@QAEXURva002860CFIterator@@@Z -- matched in Code/GameEngine/Source/Common/Rva002860CF.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva002860CF.cpp
+
+// ?rva002860CF@Rva002860CFHost@@QAEXURva002860CFIterator@@@Z
+void Rva002860CFHost::rva002860CF(Rva002860CFIterator it)
+{
+	_STL::_Rb_tree_node_base *node = _STL::_Rb_global<bool>::_Rebalance_for_erase(
+		reinterpret_cast<_STL::_Rb_tree_node_base *>(it.m_node),
+		*(_STL::_Rb_tree_node_base **)((char *)m_ptr + 4),
+		*(_STL::_Rb_tree_node_base **)((char *)m_ptr + 8),
+		*(_STL::_Rb_tree_node_base **)((char *)m_ptr + 12));
+	Rva002860CFVirt *pm = &((BurningCellTreeNode *)node)->m_10;
+	pm->v2C(0);
+	if (node != 0)
+		Rva00030830GameFree(node);
+	m_4--;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp
 
 // ---- from Code/GameEngine/Source/Common/Rva00286116PoolFrees.cpp
 
@@ -468,7 +512,6 @@ void *rva0028612C()
 // STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
 // Key identity: ObjectID, value int (map<ObjectID, int>; evidence in stlport_map_int_ptr_tree_dtor.cpp).
 
-// tu-skeleton: 0x002861B0 25B ?Rva002861B0Copy@@YAXPAXPBX@Z -- matched in Code/GameEngine/Source/Common/Rva002861B0Copy6.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva002861C9Copy.cpp
 
@@ -501,48 +544,28 @@ void *__cdecl Rva002861EFFill(void *dst, unsigned int count, const void *src)
 	return d;
 }
 
-// tu-skeleton: 0x00286214 73B ?rva00286214@Rva00286214@@QAEPAURva00286214Node@@PBVRva00285672@@@Z -- matched in Code/GameEngine/Source/Common/Rva00286214Finish.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_construct_rva00285bec.cpp
 
 // ??$_Construct@VRva00285BEC@@V1@@_STL@@YAXPAVRva00285BEC@@ABV1@@Z retail 0x0028625D 45B: EH-framed placement copy via rowed copy ctor 0x00285C30. Evidence: same 45B shape as rowed 0x00481514 plus caller 0x00286693 allocating 0x24 and constructing at +0x10.
 
-// tu-skeleton: 0x0028628A 13B ?get@Rva0028628ADivAvgField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8DivAvgDwordGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00286297 22B ??0Rva00286297@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00286297Zero.cpp (not merged yet)
-
-// tu-skeleton: 0x002862AD 28B ??_GRva00285BEC@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva00285BECDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x002862C9 136B ?rva002862C9@Rva002862C9@@QAEPAVLargeGroupAudioKeyMap@@XZ -- matched in Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioKeyMapBfmeAddKey.cpp (not merged yet)
-
-// tu-skeleton: 0x00286351 5B ?rva00286351@Rva00286351@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp (not merged yet)
-
-// tu-skeleton: 0x00286356 29B ?rva00286356@Rva00286356@@QAE?AVRva003ED658@@XZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp (not merged yet)
-
-// tu-skeleton: 0x00286373 172B ?rva00286373@FireLogicSystem@@QAEXHPBUCoord3D@@PBVThingTemplate@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp (not merged yet)
-
-// tu-skeleton: 0x0028641F 199B ?rva0028641F@FireLogicSystem@@QAEXIPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp (not merged yet)
-
-// tu-skeleton: 0x00286772 163B ?rva00286772@FireLogicSystem@@QAE_NPBVPolygonTrigger@@H@Z -- matched in Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp (not merged yet)
-
-// tu-skeleton: 0x00286815 5B ?rva00286815@Rva00286815@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
-
-// tu-skeleton: 0x0028681A 56B ??1?$_Rb_tree@HU?$pair@$$CBHURva0028681ARecord@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva0028681ARecord@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva0028681ARecord@@@_STL@@@2@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0028681A.cpp (not merged yet)
-
-// tu-skeleton: 0x00286852 56B ??1?$_Rb_tree@W4ObjectID@@U?$pair@$$CBW4ObjectID@@H@_STL@@U?$_Select1st@U?$pair@$$CBW4ObjectID@@H@_STL@@@3@U?$less@W4ObjectID@@@3@V?$allocator@U?$pair@$$CBW4ObjectID@@H@_STL@@@3@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_ptr_tree_dtor.cpp (not merged yet)
 
 
-// tu-skeleton: 0x0028691C 5B ?cleanup@Rva0028691CTreeCleanupForward@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0028681A.cpp (not merged yet)
 
-// tu-skeleton: 0x00286921 5B ??1?$map@W4ObjectID@@HU?$less@W4ObjectID@@@_STL@@V?$allocator@U?$pair@$$CBW4ObjectID@@H@_STL@@@3@@_STL@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITargetChooser/AITargetHeuristics/AITargetHeuristicEnemyStructure.cpp (not merged yet)
 
-// tu-skeleton: 0x00286926 398B ?ChangeBurnRate@FireLogicSystem@@QAEXHHHH_N@Z -- matched in Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp (not merged yet)
 
-// tu-skeleton: 0x00286AB4 528B ?ChangeBurnRate@FireLogicSystem@@QAEXPBUCoord3D@@0MHHHH_N@Z -- matched in Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp (not merged yet)
 
-// tu-skeleton: 0x00286CC4 138B ?rva00286CC4@FireLogicSystem@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp (not merged yet)
 
-// tu-skeleton: 0x00286D4E 229B ?rva00286D4E@FireLogicSystem@@QAEPAXW4ObjectID@@HH_N@Z -- matched in Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp (not merged yet)
+
+
+
+
+
+
+
+
+
+
+
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/Rva00286E33InsertUnique.cpp
 
@@ -592,16 +615,6 @@ Rva00286E33Result Rva0028688A::rva00286E33(const Rva0028688AKey &value) {
  return Rva00286E33Result(j,false);
 }
 
-// tu-skeleton: 0x00286EC8 185B ??0FireLogicSystem@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Map/FireLogicSystemCtorDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00286F8F 129B ??1FireLogicSystem@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Map/FireLogicSystemCtorDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x002871A4 278B ?ChangeBurnRateInArea@FireLogicSystem@@QAEXPBUCoord3D@@MH_N@Z -- matched in Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp (not merged yet)
-
-// tu-skeleton: 0x002872BA 293B ?rva002872BA@FireLogicSystem@@QAEXPBVPolygonTrigger@@H_N@Z -- matched in Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp (not merged yet)
-
-// tu-skeleton: 0x002873DF 314B ?ChangeBurnRateInArea@FireLogicSystem@@QAEXPBUCoord3D@@M0MH_N@Z -- matched in Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva00287519.cpp
 
 // ?rva00287519@Rva00287519Host@@QAEXH@Z
@@ -626,12 +639,6 @@ next_outer: ;
 		i++;
 	} while (i < m_78);
 }
-
-// tu-skeleton: 0x00287552 1496B ?rva00287552@FireLogicSystem@@QAEXPAURva00287C21Other@@H@Z -- matched in Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp (not merged yet)
-
-// tu-skeleton: 0x00287C51 805B ?xfer@FireLogicSystem@@UAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp (not merged yet)
-
-// tu-skeleton: 0x00287F76 55B ?push_back@?$vector@URva00287F76Element@@V?$allocator@URva00287F76Element@@@_STL@@@_STL@@QAEXABURva00287F76Element@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva00287f76_overflow.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Map/FireLogicSystemUpdate.cpp
 
@@ -886,6 +893,110 @@ void FireLogicSystem::update()
 
 // The primary retail vtable at VA 0x00BFB7BC dispatches update through slot 10.
 // Target fuel comparison at 0x002880CE converts the unsigned-short value to float.
+
+// ---- from Code/GameEngine/Source/Common/Rva002861B0Copy6.cpp
+
+// platformsdk
+//
+// ?Rva002861B0Copy@@YAXPAXPBX@Z @0x002861B0 25B.
+// Null-checked 6-byte copy (dword + word) with caller-cleaned __cdecl.
+// Callers are the array-copy loops at 0x002861C9/0x002861EF/0x00287BA0/0x00287F88
+// which stride by 8 and copy 6. No donor; identity is address-honest only.
+
+void __cdecl Rva002861B0Copy(void *dst, const void *src)
+{
+	if (dst == NULL)
+		return;
+	*(unsigned int *)dst = *(const unsigned int *)src;
+	*(unsigned short *)((char *)dst + 4) = *(const unsigned short *)((const char *)src + 4);
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva00286214Finish.cpp
+
+Rva00286214Node *Rva00286214::rva00286214(const Rva00285672 *key)
+{
+	Rva00286214Node *table = m_header;
+	Rva00286214Node *best = table;
+	Rva00286214Node *n = table->link4;
+	if (!n)
+		goto test;
+body:
+	if (!reinterpret_cast<const Rva00285672 *>(n->m_pad10)->rva00285672(*key)) {
+		best = n;
+		n = n->m_left;
+	}
+	else
+		n = n->linkC;
+test:
+	if (n)
+		goto body;
+	if (best == table || key->rva00285672(*reinterpret_cast<const Rva00285672 *>(best->m_pad10)))
+		best = table;
+	return best;
+
+}
+
+// tu-skeleton: 0x0028628A 13B ?get@Rva0028628ADivAvgField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8DivAvgDwordGetters.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva00286297Zero.cpp
+
+Rva00286297::Rva00286297() : unknown00(0), unknown04(0), fuel(0), field18(0), field00(0), field10(0)
+{
+}
+
+// tu-skeleton: 0x002862AD 28B ??_GRva00285BEC@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva00285BECDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x002862C9 136B ?rva002862C9@Rva002862C9@@QAEPAVLargeGroupAudioKeyMap@@XZ -- matched in Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioKeyMapBfmeAddKey.cpp (not merged yet)
+
+// tu-skeleton: 0x00286351 5B ?rva00286351@Rva00286351@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp (not merged yet)
+
+// tu-skeleton: 0x00286356 29B ?rva00286356@Rva00286356@@QAE?AVRva003ED658@@XZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp (not merged yet)
+
+// tu-skeleton: 0x00286373 172B ?rva00286373@FireLogicSystem@@QAEXHPBUCoord3D@@PBVThingTemplate@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp (not merged yet)
+
+// tu-skeleton: 0x0028641F 199B ?rva0028641F@FireLogicSystem@@QAEXIPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp (not merged yet)
+
+// tu-skeleton: 0x00286772 163B ?rva00286772@FireLogicSystem@@QAE_NPBVPolygonTrigger@@H@Z -- matched in Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp (not merged yet)
+
+// tu-skeleton: 0x00286815 5B ?rva00286815@Rva00286815@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
+
+// tu-skeleton: 0x0028681A 56B ??1?$_Rb_tree@HU?$pair@$$CBHURva0028681ARecord@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva0028681ARecord@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva0028681ARecord@@@_STL@@@2@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0028681A.cpp (not merged yet)
+
+// tu-skeleton: 0x00286852 56B ??1?$_Rb_tree@W4ObjectID@@U?$pair@$$CBW4ObjectID@@H@_STL@@U?$_Select1st@U?$pair@$$CBW4ObjectID@@H@_STL@@@3@U?$less@W4ObjectID@@@3@V?$allocator@U?$pair@$$CBW4ObjectID@@H@_STL@@@3@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_ptr_tree_dtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0028691C 5B ?cleanup@Rva0028691CTreeCleanupForward@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0028681A.cpp (not merged yet)
+
+// tu-skeleton: 0x00286921 5B ??1?$map@W4ObjectID@@HU?$less@W4ObjectID@@@_STL@@V?$allocator@U?$pair@$$CBW4ObjectID@@H@_STL@@@3@@_STL@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITargetChooser/AITargetHeuristics/AITargetHeuristicEnemyStructure.cpp (not merged yet)
+
+// tu-skeleton: 0x00286926 398B ?ChangeBurnRate@FireLogicSystem@@QAEXHHHH_N@Z -- matched in Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp (not merged yet)
+
+// tu-skeleton: 0x00286AB4 528B ?ChangeBurnRate@FireLogicSystem@@QAEXPBUCoord3D@@0MHHHH_N@Z -- matched in Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp (not merged yet)
+
+// tu-skeleton: 0x00286CC4 138B ?rva00286CC4@FireLogicSystem@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp (not merged yet)
+
+// tu-skeleton: 0x00286D4E 229B ?rva00286D4E@FireLogicSystem@@QAEPAXW4ObjectID@@HH_N@Z -- matched in Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp (not merged yet)
+
+// tu-skeleton: 0x00286EC8 185B ??0FireLogicSystem@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Map/FireLogicSystemCtorDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00286F8F 129B ??1FireLogicSystem@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Map/FireLogicSystemCtorDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x002871A4 278B ?ChangeBurnRateInArea@FireLogicSystem@@QAEXPBUCoord3D@@MH_N@Z -- matched in Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp (not merged yet)
+
+// tu-skeleton: 0x002872BA 293B ?rva002872BA@FireLogicSystem@@QAEXPBVPolygonTrigger@@H_N@Z -- matched in Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp (not merged yet)
+
+// tu-skeleton: 0x002873DF 314B ?ChangeBurnRateInArea@FireLogicSystem@@QAEXPBUCoord3D@@M0MH_N@Z -- matched in Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp (not merged yet)
+
+// tu-skeleton: 0x00287552 1496B ?rva00287552@FireLogicSystem@@QAEXPAURva00287C21Other@@H@Z -- matched in Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp (not merged yet)
+
+// tu-skeleton: 0x00287C51 805B ?xfer@FireLogicSystem@@UAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp (not merged yet)
+
+// tu-skeleton: 0x00287F76 55B ?push_back@?$vector@URva00287F76Element@@V?$allocator@URva00287F76Element@@@_STL@@@_STL@@QAEXABURva00287F76Element@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva00287f76_overflow.cpp (not merged yet)
+
+// tu-skeleton: 0x00773E7A 8B $L699 -- matched in Code/GameEngine/Source/Common/Rva00285BECDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00773E82 20B uw_00773e82 -- matched in Code/GameEngine/Source/Common/Rva00285BECDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00773E96 10B __ehhandler$??1Rva00285BEC@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00285BECDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00773EB8 13B $L4991 -- matched in Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioKeyMapBfmeAddKey.cpp (not merged yet)
 
