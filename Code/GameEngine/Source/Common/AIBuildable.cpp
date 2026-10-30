@@ -170,33 +170,85 @@ public:
 	void withdrawSavedAmount(int amount);
 };
 
+class Rva0039B7AD;
+
+class Rva0039B795;
+
+class Rva003B0D7C
+{
+public:
+    unsigned int withdraw(unsigned int amount, Rva0039B795 *arg2, bool flag);
+    void rva003B0D7C(int amount, Rva0039B7AD *arg2, bool flag);
+};
+
+class PlayerFull
+{
+public:
+    char _0[0x90];
+    Rva003B0D7C m_money;
+};
+
+struct MapResInner
+{
+    char _0[0x14];
+    int m_14;
+};
+
+struct MapRes
+{
+    char _0[0x0C];
+    MapResInner *m_0C;
+};
+
 class AIBuildable
 {
 public:
 	virtual void v00();
+public:
 	virtual void v01();
+public:
 	virtual void v02();
+public:
 	virtual void v03();
+public:
 	virtual void v04();
+public:
 	virtual void v05();
+public:
 	virtual void v06();
+public:
 	virtual void v07();
+public:
 	virtual void v08();
+public:
 	virtual float v09(Player *p);
+public:
 	virtual void v10();
+public:
 	virtual void v11();
+public:
 	virtual void v12();
+public:
 	virtual void v13();
+public:
 	virtual void v14();
+public:
 	virtual bool v15(Player *p);
+public:
 	virtual int v16(Player *p);
+public:
 	bool doBuild(Player *player);
 private:
 	char m_pad04[0x21 - 4];
+private:
 	bool m_flag21;
+public:
+	int doCanMake(Player *player);
 };
 
 // tu-skeleton: 0x0055AD91 41B ?registerWithBuilder@AIBuildable@@UAEXPAX_N@Z -- matched in Code/GameEngine/Source/Common/Rva0055AD91Wrapper.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/AIBuildable.cpp
 
 // ---- from Code/GameEngine/Source/Common/AIBuildable.cpp
 
@@ -334,10 +386,6 @@ bool AIBuildable::doBuild(Player *player)
 	return v15(player);
 }
 
-// tu-skeleton: 0x0055AE75 97B ?doCanMake@AIBuildable@@QAEHPAVPlayer@@@Z -- matched in Code/GameEngine/Source/Common/AIBuildable_doCanMake.cpp (not merged yet)
-
-// tu-skeleton: 0x0055AED6 205B ?Rva0055AED6@Rva0055B0CC@@UAEXPAVXfer@@PAX@Z -- matched in Code/GameEngine/Source/Common/Rva0055AED6Xfer.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva0055B01FCleanup.cpp
 
 // ?rva0055B01F@Rva0055B0CC@@QAEXXZ @ 0x0055B01F, 41 bytes.
@@ -352,6 +400,28 @@ void Rva0055B0CC::rva0055B01F()
 	}
 	m_1C.clear();
 }
+
+// ---- from Code/GameEngine/Source/Common/AIBuildable_doCanMake.cpp
+
+int AIBuildable::doCanMake(Player *player)
+{
+    MapRes *res = (MapRes *)TheSkirmishAIManager->rva002A8F24(player);
+    int virtRes = 0;
+    if (m_flag21)
+    {
+        int amount = res->m_0C->m_14;
+        ((PlayerFull *)player)->m_money.rva003B0D7C(amount, 0, false);
+    }
+    virtRes = v16(player);
+    if (m_flag21)
+    {
+        int amount = res->m_0C->m_14;
+        ((PlayerFull *)player)->m_money.withdraw((unsigned int)amount, 0, false);
+    }
+    return virtRes;
+}
+
+// tu-skeleton: 0x0055AED6 205B ?Rva0055AED6@Rva0055B0CC@@UAEXPAVXfer@@PAX@Z -- matched in Code/GameEngine/Source/Common/Rva0055AED6Xfer.cpp (not merged yet)
 
 // tu-skeleton: 0x0055B0B9 19B ?rva0055B0B9@Rva0055B0B9@@QBEMXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesSseA.cpp (not merged yet)
 
