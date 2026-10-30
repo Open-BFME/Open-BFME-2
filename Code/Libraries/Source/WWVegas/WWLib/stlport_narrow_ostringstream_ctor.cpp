@@ -1,9 +1,10 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // ??0?$basic_ostringstream@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@H@Z @0x001FA85C 129B
-// STLport 4.5.3 basic_ostringstream<char> openmode ctor (mode default out).
-// Donor vendor/stlport/stl/_sstream.c basic_ostringstream::__mode version.
+// STLport 4.6 basic_ostringstream<char> openmode ctor (mode default out).
+// Original donor: vendor/stlport/stl/_sstream.c basic_ostringstream::__mode.
+// Now verified against the STLport 4.6 headers and BFME patch layer.
 // Evidence: ret 8 single openmode param plus virtual-base flag; callees
 // basic_ios ctor 0x000134D0 and basic_ostream ctor 0x000163B0 and stringbuf
 // ctor 0x001F6813 and init 0x000162F0; 34 writeINI-style callers.
@@ -57,9 +58,6 @@ namespace _STL { template <> int basic_stringbuf<char,char_traits<char>,allocato
 namespace _STL {
 template <> void _STLP_alloc_proxy<char*, char, allocator<char> >::deallocate(char*, size_t);
 }
-// Suppress this TU's non-retail proxy<char> allocate copy (family2-LK3 row 30):
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-namespace _STL {
-template <> char *_STLP_alloc_proxy<char*, char, allocator<char> >::allocate(size_t);
-}
+// In 4.6 the proxy inherits allocate from allocator<char>; the old proxy
+// allocate specialization is invalid and no longer needed here.
 template _STL::basic_ostringstream<char, _STL::char_traits<char>, _STL::allocator<char> >::basic_ostringstream(_STL::ios_base::openmode);
