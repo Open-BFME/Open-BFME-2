@@ -391,3 +391,17 @@ Code/GameEngine/Source/Common/Rva00330590ListenerWalks.cpp|param|Rva0033068BList
 Code/GameEngine/Source/Common/Rva002E16C0ListenerWalks.cpp|param|Rva002E1E51List::forEach|arg,b85dabeeedaea55a289a1480,drz-k1,drz-k1-317,w-d29055ee9848,2026-10-30,3d155283f427575e42bf0644
 Code/GameEngine/Source/Common/Rva002E16C0ListenerWalks.cpp|param|Rva002E1E6FList::forEach|arg,01552f92b395848ce987e17c,drz-k1,drz-k1-317,w-d29055ee9848,2026-10-30,93d0e11600314d52b722543b
 Code/GameEngine/Source/Common/Rva002B8817Filter.cpp|local|Rva002B8817::rva002B8817|e,799fa22ee4cbe2c281e38408,drz-k1,drz-k1-319,w-d29055ee9848,2026-10-30,45ba642b7bd35bbee425c4f3
+Code/GameEngine/Source/Common/Rva0021BC2CWrapper.cpp|param|CreateAHeroManager::CreateAHeroSubClass::rva0021BC2C|a1,bea75e3ffd4f3c7de10aa45b,drz-k2,drz-k2-3,w-ded32b2e2c5e,2026-10-30,6138178eb334f4cd7a3264b9
+Code/GameEngine/Source/Common/Rva0021BC2CWrapper.cpp|local|CreateAHeroManager::CreateAHeroSubClass::rva0021BC2C|v,2049dd34920fcb74af2e444d,drz-k2,drz-k2-3,w-ded32b2e2c5e,2026-10-30,97f2e2923e07e620b98a43b0
+Code/Libraries/Source/WWVegas/WWLib/realcrc_one_arg.cpp|local|CRC_String|c,3974c339ac00cb7b7c76a7a1,drz-k2,drz-k2-4,w-ded32b2e2c5e,2026-10-30,ab6b1704217a5fdcbf0f6e08
+Code/Libraries/Source/WWVegas/WWLib/realcrc_one_arg.cpp|local|CRC_Stringi|c,bd3295017dcb1200b3199352,drz-k2,drz-k2-4,w-ded32b2e2c5e,2026-10-30,722424e4965e431b5b77767f
+Code/Libraries/Source/WWVegas/WWLib/realcrc_one_arg.cpp|param|Rva003EC991|s,f69065d1e08fda0779cca066,drz-k2,drz-k2-4,w-ded32b2e2c5e,2026-10-30,3054766d5ae2a7bd773e22db
+Code/Libraries/Source/WWVegas/WWLib/realcrc_one_arg.cpp|local|Rva003EC991|c,bdf50c3db546d404221e6a0f,drz-k2,drz-k2-4,w-ded32b2e2c5e,2026-10-30,369a3e8fab945121611ff8e2
+Code/Libraries/Source/WWVegas/WWLib/realcrc_one_arg.cpp|param|Rva003EC9CD|s,90d3cae5d81acc98ee36c725,drz-k2,drz-k2-4,w-ded32b2e2c5e,2026-10-30,768ab928a8aa2ac2b84e8c56
+Code/Libraries/Source/WWVegas/WWLib/realcrc_one_arg.cpp|local|Rva003EC9CD|c,62df0f4e5552e7be038a7b14,drz-k2,drz-k2-4,w-ded32b2e2c5e,2026-10-30,c33b2eae8d9b31c71a5828ab
+Code/GameEngine/Source/GameLogic/System/GameLogicBuildableMapInsert.cpp|local|Rva0002CA72::rva0002CA72|n,5e540eeb5e231b1cf22fea72,drz-k2,drz-k2-305,w-ded32b2e2c5e,2026-10-30,5e47ba5c3840416284625688
+Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamIsLedByUnit.cpp|param|ScriptConditions::evaluateTeamIsLedByUnit|p1,49216a5f7ed39df61c37ae1e,drz-k2,drz-k2-306,w-ded32b2e2c5e,2026-10-30,4fe20cd5c2ff415b14704a15
+Code/GameEngine/Source/Common/Rva002E4049Dtor.cpp|param|Rva0030B72CPoint#2|p,b8aeb4670b5b537b075e19b4,drz-k2,drz-k2-308,w-ded32b2e2c5e,2026-10-30,4ad3aebd434ed9f7d94645de
+Code/Libraries/Source/WWVegas/WWLib/OuterRecordCtorRva003F64B2.cpp|param|LivingWorldBattle::BattleSide::BattleSide|p,96b8e50b715964f2779bec01,drz-k2,drz-k2-310,w-ded32b2e2c5e,2026-10-30,73628e7c9d02a6e5c9cb7131
+Code/Libraries/Source/WWVegas/WWLib/OuterRecordCtorRva003F64B2.cpp|param|LivingWorldBattle::BattleSide::BattleSide#2|p,72472c3f902a0bd119aabfc7,drz-k2,drz-k2-310,w-ded32b2e2c5e,2026-10-30,90c7d7078743db2d0d521de1
+Code/GameEngine/Source/GameClient/Rva0029D30AClear.cpp|local|Rva0029D30A::rva0029D30A|p,417e0521e6881cbdada006d0,drz-k2,drz-k2-314,w-ded32b2e2c5e,2026-10-30,dcb87ad05ce82fb0308cefc8
