@@ -34384,7 +34384,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00426203,259,code,,,-,,Code/GameEngine/Source/GameClient/GUI/FontLibraryInit.cpp
 0x00426306,13,code,,,-,,Code/GameEngine/Source/Common/DispByteFieldSetters.cpp
 0x00426313,28,code,,,-,,Code/GameEngine/Source/Common/Rva0042643DDtor.cpp
-0x0042632F,73,code,Code/GameEngine/Source/Common/INI/EmotionSystem.cpp,proposed,N,N=Code/GameEngine/Source/Common/INI/EmotionSystem.cpp,Code/GameEngine/Source/Common/INI/EmotionSystem_createEmotion.cpp
+0x0042632F,73,code,Code/GameEngine/Source/Common/INI/EmotionSystem.cpp,proposed,N,N=Code/GameEngine/Source/Common/INI/EmotionSystem.cpp,Code/GameEngine/Source/Common/INI/EmotionSystem.cpp
 0x00426378,22,code,,,-,,Code/GameEngine/Source/Common/VslotSmallBodiesD.cpp
 0x0042638E,60,code,,,-,,Code/GameEngine/Source/Common/Rva0042638EFindRemove.cpp
 0x004263CA,56,code,,,-,,Code/GameEngine/Source/Common/ReloadIniFileNotices.cpp
@@ -78063,8 +78063,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0078723E,10,code,,,-,,Code/GameEngine/Source/GameClient/GUI/FontLibraryInit.cpp
 0x00787248,8,code,,,-,,Code/GameEngine/Source/GameClient/GUI/FontLibraryInit.cpp
 0x00787250,10,code,,,-,,Code/GameEngine/Source/GameClient/GUI/FontLibraryInit.cpp
-0x0078725A,10,code,Code/GameEngine/Source/Common/INI/EmotionSystem.cpp,approved,P,P=0x0042632F@FuncInfo0x009347E4 p-group provisional,Code/GameEngine/Source/Common/INI/EmotionSystem_createEmotion.cpp
-0x00787264,10,code,Code/GameEngine/Source/Common/INI/EmotionSystem.cpp,approved,P,P=0x0042632F@FuncInfo0x009347E4 p-group provisional,Code/GameEngine/Source/Common/INI/EmotionSystem_createEmotion.cpp
+0x0078725A,10,code,Code/GameEngine/Source/Common/INI/EmotionSystem.cpp,approved,P,P=0x0042632F@FuncInfo0x009347E4 p-group provisional,Code/GameEngine/Source/Common/INI/EmotionSystem.cpp
+0x00787264,10,code,Code/GameEngine/Source/Common/INI/EmotionSystem.cpp,approved,P,P=0x0042632F@FuncInfo0x009347E4 p-group provisional,Code/GameEngine/Source/Common/INI/EmotionSystem.cpp
 0x0078726E,8,code,Code/GameEngine/Source/Common/EmotionSystem.cpp,approved,P,P=0x0042643D@FuncInfo0x00934820 provisional,Code/GameEngine/Source/Common/Rva0042643DDtor.cpp
 0x00787276,11,code,Code/GameEngine/Source/Common/EmotionSystem.cpp,approved,P,P=0x0042643D@FuncInfo0x00934820 provisional,Code/GameEngine/Source/Common/Rva0042643DDtor.cpp
 0x00787281,11,code,Code/GameEngine/Source/Common/EmotionSystem.cpp,approved,P,P=0x0042643D@FuncInfo0x00934820 provisional,Code/GameEngine/Source/Common/Rva0042643DDtor.cpp
