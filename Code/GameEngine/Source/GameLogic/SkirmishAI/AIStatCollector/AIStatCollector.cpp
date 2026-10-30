@@ -131,7 +131,14 @@ class Rva00596069 { public: Rva00596069(); private: char bytes[0x10]; };
 
 class Rva005965A5 { public: Rva005965A5(); private: char bytes[0x1c]; };
 
-class AIEconomyStats { public: AIEconomyStats(int); private: char bytes[0x1c]; };
+class AIEconomyStats
+{
+public:
+	AIEconomyStats(int);
+	void rva0059640C(void *holder);
+private:
+	char bytes[0x1c]; // +0x00
+};
 
 class Rva00283081 { public: Rva00283081(float,int) throw(); private: char bytes[0x24]; };
 
@@ -147,6 +154,7 @@ class AIStatCollector {
 public: AIStatCollector(Player *);
  void Register(Object *,int);
  void addInfoReceiver(const ModuleData *);
+ bool rva004DFB7E(Object *);
 private:
  Rva005961D6 *units;
  Rva00596069 *otherUnits;

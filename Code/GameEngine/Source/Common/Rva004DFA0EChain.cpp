@@ -30,7 +30,10 @@ struct TwoBytes
 class AIEconomyStats
 {
 public:
+	AIEconomyStats(int);
 	void rva0059640C(void *holder);
+private:
+	char bytes[0x1c]; // +0x00
 };
 class Rva004DFA0E
 {

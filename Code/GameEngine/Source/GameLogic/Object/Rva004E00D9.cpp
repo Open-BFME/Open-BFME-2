@@ -12,9 +12,19 @@
 // copies: retail's out-of-line ones are the /Od bodies at 0x00023B90-0x00023C20.
 namespace _STL {
 template <> __declspec(dllimport) __forceinline
-void **vector<void*>::begin() { return this->_M_start; }
+void **vector<void*>::begin()
+{ return _M_start; }
 template <> __declspec(dllimport) __forceinline
-void **vector<void*>::end() { return this->_M_finish; }
+void **vector<void*>::end()
+{ return _M_finish; }
+template <> __declspec(dllimport) __forceinline
+size_t vector<void*>::size() const
+{ return size_t(this->_M_finish - this->_M_start); }
+template <> __declspec(dllimport) __forceinline
+void *&vector<void*>::operator[](size_t __n)
+{ return *(begin() + __n); }
+}
+namespace _STL {
 template <> __declspec(dllimport) __forceinline
 bool vector<void*>::empty() const { return this->_M_start == this->_M_finish; }
 template <> __declspec(dllimport) __forceinline
@@ -25,10 +35,19 @@ class Object;
 
 class Rva00281A06 { public: ~Rva00281A06(); };
 
+class Rva00281A76;
+typedef void *(__cdecl *Rva004DFE4FCallback)(void *key);
+
 class Rva004DFF2C
 {
 public:
-	void rva004DFF2C(void *object);
+ virtual float padding() = 0;
+ void rva004DFF2C(void *key);
+private:
+ char m_pad04[0xC];
+ _STL::vector<Rva00281A76 *> m_groups;
+ int m_1C;
+ Rva004DFE4FCallback m_callback;
 };
 
 class Rva004E02D7Owner
