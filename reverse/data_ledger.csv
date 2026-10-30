@@ -18698,8 +18698,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009FE468,4,.data,global,?emptyKey@?1??parseCreateAHeroBlingBinderDefinition@@YAXPAVINI@@@Z@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/Object/CreateAHeroBlingParsers.cpp,owned,,1,2
 0x009FE46C,4,.data,global,?noneKey@?1??parseCreateAHeroBlingBinderDefinition@@YAXPAVINI@@@Z@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/Object/CreateAHeroBlingParsers.cpp,owned,,1,2
 0x009FE470,4,.data,global,?g_Va00DFE470@@3IA,Code/GameEngine/Source/Common/GlobalFlagClearers_DFE4xx.cpp,provisional,?$S1@?1??parseCreateAHeroBlingBinderDefinition@@YAXPAVINI@@@Z@4IA@Code/GameEngine/Source/GameLogic/Object/CreateAHeroBlingParsers.cpp;?g_Va00DFE470@@3IA,2,8
-0x009FE474,4,.data,global,?emptyKey@?M@??parseCreateAHeroSubClass@CreateAHeroManager@@SAXPAVINI@@PAX1PBX@Z@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/Object/CreateAHeroSubClassParse.cpp,owned,,1,2
-0x009FE478,4,.data,global,?$S1@?M@??parseCreateAHeroSubClass@CreateAHeroManager@@SAXPAVINI@@PAX1PBX@Z@4IA,Code/GameEngine/Source/GameLogic/Object/CreateAHeroSubClassParse.cpp,owned,,1,4
+0x009FE474,4,.data,global,?emptyKey@?M@??parseCreateAHeroSubClass@CreateAHeroManager@@SAXPAVINI@@PAX1PBX@Z@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/Object/CreateAHeroManager.cpp,owned,,1,2
+0x009FE478,4,.data,global,?$S1@?M@??parseCreateAHeroSubClass@CreateAHeroManager@@SAXPAVINI@@PAX1PBX@Z@4IA,Code/GameEngine/Source/GameLogic/Object/CreateAHeroManager.cpp,owned,,1,4
 0x009FE47C,4,.data,global,?emptyKey@?3??iniParseCreateAHeroSystem@CreateAHeroManager@@SAXPAVINI@@@Z@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/Object/CreateAHero.cpp,owned,,1,2
 0x009FE480,4,.data,global,?noneKey@?3??iniParseCreateAHeroSystem@CreateAHeroManager@@SAXPAVINI@@@Z@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/Object/CreateAHero.cpp,owned,,1,2
 0x009FE484,8,.data,global,?$S1@?3??iniParseCreateAHeroSystem@CreateAHeroManager@@SAXPAVINI@@@Z@4IA,Code/GameEngine/Source/GameLogic/Object/CreateAHero_FindBlingByUpgradeName.cpp,owned,,1,8
