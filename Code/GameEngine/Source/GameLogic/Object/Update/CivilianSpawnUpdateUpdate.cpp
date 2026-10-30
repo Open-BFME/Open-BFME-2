@@ -1,4 +1,6 @@
-// cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /ICode/Libraries/Include /ICode/GameEngine/Source /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /ICode/Libraries/Include /ICode/GameEngine/Source
+// stlport
+// Spawn a civilian and send it toward a nearby object that matches the filter.
 //
 // ?update@CivilianSpawnUpdate@@UAE?AW4UpdateSleepTime@@XZ retail
 // 0x0047FAFE..0x0047FDF7 (761 bytes).
@@ -34,6 +36,7 @@
 // - The PANICKING bit is 2*32+13 of the flags at +0x10C, as in the rowed
 //   AIWanderStateMethods.cpp.
 #include <string.h>
+#include <vector>
 #include "ascii_string.h"
 #include "Lib/Coord3D.h"
 #include "Common/GameLogicObjectLookupView.h"
@@ -44,7 +47,6 @@ typedef unsigned int UnsignedInt;
 typedef float Real;
 typedef bool Bool;
 
-enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1, UPDATE_SLEEP_FOREVER = 0x3FFFFFFF };
 enum ModelConditionFlagType
 {
 	MODELCONDITION_PANICKING = 2 * 32 + 13
@@ -222,45 +224,85 @@ __forceinline void CivilianSpawnScale(Coord3D &c, Real s)
 	c.z *= s;
 }
 
-struct CivilianSpawnUpdateModuleData
-{
-	void *m_vtable;
-	Int m_04;
-	UnsignedInt m_spawnDelay;					// +0x08 SpawnDelayTime
-	char m_runToFilter[4];						// +0x0C RunToFilter
-	Int m_maximumDistance;						// +0x10 MaximumDistance
-	AsciiString *m_civilianStart;				// +0x14 Civilian
-	AsciiString *m_civilianFinish;			// +0x18
-};
+class MultiIniFieldParse;
 
-class CSU_DeepBase
+class Rva003623E5Filter
 {
 public:
-	virtual ~CSU_DeepBase();
-protected:
-	const CivilianSpawnUpdateModuleData *m_moduleData;	// +0x04
-	Object *m_object;									// +0x08
-};
-class CSU_Iface1 { public: virtual void slot(); };
-class CSU_Iface2 { public: virtual UpdateSleepTime update() = 0; };
-
-class UpdateModule : public CSU_DeepBase, public CSU_Iface1, public CSU_Iface2
-{
-protected:
-	Object *getObject() const { return m_object; }
-	const CivilianSpawnUpdateModuleData *getCivilianSpawnUpdateModuleData() const { return m_moduleData; }
+	Rva003623E5Filter();
+	~Rva003623E5Filter();
 private:
+	unsigned char m_data[4]; // +0x00
+};
+
+class __declspec(novtable) ModuleData
+{
+public:
+	__declspec(dllimport) __forceinline ModuleData() {}
+	virtual ~ModuleData();
+
+protected:
+	void *m_unsourced04;	// +0x04, retail never stores it
+public:
+	unsigned int m_int08;	// +0x08, spawn delay in logic frames
+};
+
+class CivilianSpawnUpdateModuleData : public ModuleData
+{
+public:
+	CivilianSpawnUpdateModuleData();
+	virtual ~CivilianSpawnUpdateModuleData();
+	Rva003623E5Filter m_filter0C;
+	int m_int10;
+	_STL::vector<AsciiString> m_vec14;
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+#define BFME_SNAPSHOT_NAME_SLOT
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
+
+enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1, UPDATE_SLEEP_FOREVER = 0x3FFFFFFF };
+enum SleepyUpdatePhase;
+template <int N> class BitFlags;
+class CivilianSpawnUpdateModuleData;
+
+class UpdateModuleInterface
+{
+public:
+	virtual UpdateSleepTime update() = 0;
+	virtual BitFlags<11> getDisabledTypesToProcess() const = 0;
+	virtual void rva0044DF8D(UpdateSleepTime wakeDelay) = 0;
+};
+
+class UpdateModule : public BehaviorModule, public UpdateModuleInterface
+{
+public:
+	UpdateModule(Thing *, const ModuleData *);
+	virtual ~UpdateModule();
+	virtual BitFlags<11> getDisabledTypesToProcess() const;
+	virtual void rva0044DF8D(UpdateSleepTime wakeDelay);
+	virtual void xfer(Xfer *);
+protected:
+	virtual void loadPostProcess();
+	virtual const char *GetSnapshotName() const;
+	virtual SleepyUpdatePhase getUpdatePhase() const;
+	const CivilianSpawnUpdateModuleData *getCivilianSpawnUpdateModuleData() const
+	{
+		return (const CivilianSpawnUpdateModuleData *)m_moduleData;
+	}
 	unsigned int m_nextCallFrameAndPhase;
 	int m_indexInLogic;
-	int m_updateState;
+	int m_indexInUpdate;
 };
 
 class CivilianSpawnUpdate : public UpdateModule
 {
 public:
+	CivilianSpawnUpdate(Thing *, const ModuleData *);
+	virtual NameKeyType getModuleNameKey() const;
 	virtual UpdateSleepTime update();
 private:
-	UpdateSleepTime m_spawnFrame;						// +0x20
+	UpdateSleepTime m_spawnFrame;
 };
 
 #define CIVILIAN_SPAWN_FILE "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\CivilianSpawnUpdate.cpp"
@@ -269,17 +311,17 @@ UpdateSleepTime CivilianSpawnUpdate::update()
 {
 	const CivilianSpawnUpdateModuleData *civilianSpawnUpdateModuleData = getCivilianSpawnUpdateModuleData();
 	Object *obj = getObject();
-	Int index = GetGameLogicRandomValue(0, (civilianSpawnUpdateModuleData->m_civilianFinish - civilianSpawnUpdateModuleData->m_civilianStart) - 1, CIVILIAN_SPAWN_FILE, 0x55);
-	const ThingTemplate *unitTemplate = TheThingFactory->findTemplate(civilianSpawnUpdateModuleData->m_civilianStart[index]);
+	Int index = GetGameLogicRandomValue(0, civilianSpawnUpdateModuleData->m_vec14.size() - 1, CIVILIAN_SPAWN_FILE, 0x55);
+	const ThingTemplate *unitTemplate = TheThingFactory->findTemplate(civilianSpawnUpdateModuleData->m_vec14[index]);
 	if (!unitTemplate)
 		return UPDATE_SLEEP_FOREVER;
 
 	Rva0026119DFilter filterAlive;
 	Rva002611BFFilter filterNotSelf(obj);
-	Rva002614ECFilter filterObjects(&civilianSpawnUpdateModuleData->m_runToFilter, obj->getControllingPlayer(), true);
+	Rva002614ECFilter filterObjects(&civilianSpawnUpdateModuleData->m_filter0C, obj->getControllingPlayer(), true);
 	filterAlive.link(&filterNotSelf);
 	filterAlive.link(&filterObjects);
-	BfmeWideResult iter = ThePartitionManager->iterateObjectsInRange(obj->getPosition(), (Real)civilianSpawnUpdateModuleData->m_maximumDistance, 0, &filterAlive, 0);
+	BfmeWideResult iter = ThePartitionManager->iterateObjectsInRange(obj->getPosition(), (Real)civilianSpawnUpdateModuleData->m_int10, 0, &filterAlive, 0);
 	Int count = CivilianSpawnHitCount(iter);
 	if (count == 0)
 		return m_spawnFrame;
