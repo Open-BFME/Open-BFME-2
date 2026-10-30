@@ -3235,7 +3235,6 @@ name,address,notes
 ??1Rva0060CC99Member@@QAE@XZ,0x0060CC99,Target direct call from XferSave field at +0x2C; opaque helper identity
 ??1Rva0060FE2@@UAE@XZ,0x0060FE2,opaque SEH dtor (mov-eax-cookie prologue, sub esp frame); called by scalar-deleting-dtor at 0x61AA1; identity unproven, address-derived name
 ??1Rva006109C0@@UAE@XZ,0x006109C0,"destructor the scalar deleting destructor 0x000657E6 calls (REL32 at 0x000657E9; vtable 0x00BC5C6C#0); opaque address name"
-??1Rva006162B0Dtor@@UAE@XZ,0x006162B0,address-derived class dtor called by the 30B scalar deleting destructor at 0x00616490; address read from that body REL32; class identity unproven so the model is named for the call target
 ??1Rva0061ED80@@UAE@XZ,0x0061ED80,opaque vector-destroying dtor (17B: member+0xC via ehvec 0x42FD80 + vptr); tail-called by single-inheritance dtor at 0x180EA0; identity unproven, address-derived name
 ??1Rva00625800Dtor@@UAE@XZ,0x00625800,address-derived class dtor called by the 30B scalar deleting destructor at 0x00626D90; address read from that body REL32; class identity unproven so the model is named for the call target
 ??1Rva0064C290Tree@@QAE@XZ,0x0038A48B,callee of ??1Rva006609D0@@UAE@XZ at retail 0x0054FFA5 read from its REL32 displacement; ICF alias onto the matched STLport string-pair Rb_tree destructor body at this address

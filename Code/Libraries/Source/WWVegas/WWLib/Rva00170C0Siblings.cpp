@@ -14,7 +14,7 @@
 // 0x00157110 -> dtor 0x00156750
 // 0x00157E60 -> dtor 0x00157C20 (now rowed as DynamicVectorClass<PendingSurfaceStruct>'s in render2dsentence.cpp)
 // 0x00188320 -> dtor 0x001880D0 (non-virtual; see Rva001880D0Dtor below)
-// 0x00616490 -> dtor 0x006162B0
+// 0x00616490 -> dtor 0x006162B0 (now rowed as Node<INIEntry*>'s in ini.cpp)
 // 0x00626D90 -> dtor 0x00625800
 // 0x00663410 -> dtor 0x0066C730
 // 0x0073AAC0 -> dtor 0x0073A900
@@ -94,16 +94,6 @@ private:
 
 // ?forceRva001880D0Delete@@YAXPAVRva001880D0Dtor@@@Z absent-from-retail
 void forceRva001880D0Delete(Rva001880D0Dtor *object) { delete object; }
-
-class Rva006162B0Dtor
-{
-public:
-	virtual ~Rva006162B0Dtor();
-};
-
-__declspec(noinline) Rva006162B0Dtor::~Rva006162B0Dtor()
-{
-}
 
 class Rva00625800Dtor
 {
