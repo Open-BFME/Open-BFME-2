@@ -38,10 +38,33 @@ so it is not an additional gain from this work. Unique matched coverage
 gain is zero, and no new census-linked-byte gain is claimed.
 
 Full affected-consumer verification and scheduled census confirmation remain
-pending. The outgoing batch audit is recorded separately below when available.
+pending. The outgoing audit and completed direct-consumer checks are below.
 The newer BFME 1 donor revision is not adopted by this change; the maintained
 verified b53c85e7 reference and the prior freshness boundary remain in force.
 
 Model GPT-6; homogeneous four-row source migration t=6 minutes; lane=R;
 budget=30m. Ledger readmission, final verification and publication are separate
 checks.
+
+## Direct-consumer receipt repair and remaining audit boundary
+
+At the source commit bff5edae3d, the batch audit initially exits 2 because
+15 source objects lack current receipts, first BfmeObject476Copy.cpp. Its
+base is the parent 182dfeedd1e2; index 85f6b7f40c predates that base, so
+its since-index selection/loss findings are provisional.
+
+The supported link_check.py --prepare-current is run on exactly the 15
+explicit sources in missing-receipts.json. It exits zero: 357/357 rows match
+across those sources, with 13 literals, five empty-string references, 59
+float references and one named import. Thirteen complete STLport constructor
+folds also verify against their retail owners and resolved callees. These
+are strict reusable source receipts; no source, row or verifier is edited by
+the preparation. The successful terminal exit and full log are preserved.
+
+Repeating the original batch audit gets beyond those missing direct receipts.
+It still exits 2, now on an affected consumer lacking a current receipt:
+Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp. This does not
+establish complete consumer closure, selection preservation or absence of
+linking losses. Carry the source, allocator provider, 15-source direct scope
+and remaining affected consumers into the next scheduled census. The byte
+and object proofs above remain bounded to their stated fixed inputs.

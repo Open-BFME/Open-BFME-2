@@ -1,0 +1,17 @@
+[
+  "Code/GameEngine/Source/Common/BfmeObject476Copy.cpp",
+  "Code/GameEngine/Source/Common/INI/WaterTransparencySettingCtor.cpp",
+  "Code/GameEngine/Source/Common/RTS/ScienceStoreParseScienceDefinition.cpp",
+  "Code/GameEngine/Source/Common/RTS/SpecialPower.cpp",
+  "Code/GameEngine/Source/Common/Rva001E4DB0Ctor.cpp",
+  "Code/GameEngine/Source/Common/Rva0020182BDtor.cpp",
+  "Code/GameEngine/Source/Common/Rva0035BB4BCtor.cpp",
+  "Code/GameEngine/Source/Common/Thing/ProductionPrerequisiteAssign.cpp",
+  "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+  "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarCommandSetCtor.cpp",
+  "Code/GameEngine/Source/GameClient/WeatherSettingCtor.cpp",
+  "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+  "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioAudioMap.cpp",
+  "Code/GameEngine/Source/GameLogic/System/CrateTemplateCtor.cpp",
+  "Code/GameEngine/Source/GameLogic/System/RankInfoParse.cpp"
+]

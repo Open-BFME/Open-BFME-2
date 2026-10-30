@@ -1,0 +1,16 @@
+link_check: preparing 15 explicit safe provider(s), no extra sources
+Source claims: OK (15 sources, scoped byte-verified)
+Data rows: OK (3 row(s) byte-verified)
+Compile: 0 of 15 TU(s) (deps-cache: 15 current)
+Funclet pins: 208 row(s) verified past a renumbered $L label
+    $L6239 (Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp): $L6239 was renumbered; verified parent EH data places $L6234 at 0x0076D46D
+    $L6597 (Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp): $L6597 was renumbered; verified parent EH data places $L6594 at 0x0076D481
+    $L6598 (Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp): $L6598 was renumbered; verified parent EH data places $L6595 at 0x0076D48B
+    $L6732 (Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp): $L6732 was renumbered; verified parent EH data places $L6729 at 0x0076D4E6
+    $L6734 (Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp): $L6734 was renumbered; verified parent EH data places $L6731 at 0x0076D4F8
+STLport folds: 13 complete emitted constructor(s) verified against retail owners and resolved callees
+Functions: OK 357/357 matched across 15 source file(s)
+String-ref verify: OK (13 literals + 5 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (59 compiler literals verified)
+Import-ref verify: OK (1 named imports verified)
+link_check: 15 explicit providers byte-verified with strict reusable receipts; census/index/status unchanged, LINK closure not yet checked

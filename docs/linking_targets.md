@@ -15,6 +15,10 @@ callee spelling reaches the same native address. The paired 15-row build and
 2/2 preview pass; RankInfo retains 236 bytes. Consumer/census checks remain
 pending, with zero new unique coverage claimed.
 [Proof and scope](../reverse/attempt_support/rankinfo-allocator46-link-20261030/readme.md).
+The 15 direct sources initially lacking receipts now pass 357/357 strict
+checks. The repeated audit reaches the wider consumer scope but remains
+INCONCLUSIVE at CreateAHeroManager's missing receipt and the older baseline;
+no complete consumer or census clearance is claimed.
 
 Allocator46 follow-up (2026-10-30, base `84887c9bc04`, LINK-150): two complete
 native allocator-provider twins permit VectorObjectIDFillInsert.cpp and

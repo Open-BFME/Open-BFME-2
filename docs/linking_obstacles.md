@@ -10985,6 +10985,14 @@ Consumer-wide selection/loss verification and census confirmation remain open;
 no unique-byte or census gain is claimed.
 [Native edge and object comparison](../reverse/attempt_support/rankinfo-allocator46-link-20261030/readme.md).
 
+RankInfo audit follow-up: the initial15 missing direct-source receipts are
+prepared through the supported tool, passing357/357 functions across15 sources
+with strict reusable receipts. The repeated audit gets past that stage and
+remains INCONCLUSIVE on an affected consumer lacking a current receipt,
+Common/0CreateAHeroManager21FE49.cpp; its older-index baseline remains
+provisional. Full consumer selection/loss verification is still unproven.
+[Exact scope and terminal results](../reverse/attempt_support/rankinfo-allocator46-link-20261030/readme.md#direct-consumer-receipt-repair-and-remaining-audit-boundary).
+
 ### LINK-151: FlightDeckBehavior.cpp's override drop made its FlightDeckInfo copies the kept ones (2026-10-29)
 
 Status: repaired, pending census confirmation. 540ec8bf62 dropped
