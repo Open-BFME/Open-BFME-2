@@ -129,6 +129,7 @@ class Rva001FF6D7
 {
 public:
 	void rva001FF6AE();
+	void rva001FF6D7();
 	void rva001FF55F(Rva001FF6D7Node *head);
 
 private:
