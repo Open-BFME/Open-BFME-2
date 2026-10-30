@@ -1,4 +1,6 @@
 // cl: /MD
+#include "../../../Libraries/Include/Lib/Coord3D.h"
+#include "GameLogicObjectLookupView.h"
 // AITacticSiege::sideHasIdleSiegeWeapons, retail 0x005DC8A2, 97 bytes.
 // Predicate over holder from TheSkirmishAIManager map lookup keyed by Player at this+0x24.
 // Holder's first dword dereferenced, then index loop over bucket_count with
@@ -24,10 +26,16 @@ public:
 class Object
 {
 public:
-	char m_pad0[4];
-	void *m_p4; // +0x4
-	char m_pad1[0x304 - 8];
-	int m_304; // +0x304
+	char m_pad00[0x4];
+	void *m_p4;
+	char m_pad08[0x38 - 8];
+	Coord3D position;
+	char m_pad44[0x74 - 0x44];
+	ObjectID id;
+	char m_pad78[0x304 - 0x78];
+	int m_304;
+	char m_pad308[0x438 - 0x308];
+	unsigned char m_438;
 };
 
 struct Inner520
@@ -36,10 +44,12 @@ struct Inner520
 	int m_520; // +0x520
 };
 
+struct Rva002A8AB1Record;
 class Rva002A8F24
 {
 public:
 	void *rva002A8F24(Player *player);
+	Rva002A8AB1Record*rva002A8AB1(void*);
 };
 
 extern Rva002A8F24 *TheSkirmishAIManager;
@@ -75,18 +85,36 @@ public:
 
 typedef _STL::hash_map<int, int, _STL::hash<int>, _STL::equal_to<int>, _STL::allocator<_STL::pair<const int, int> > > IntMap;
 
-class AITacticSiege
+class Rva002C589B;
+class AITacticOffensive
 {
 public:
+	virtual ~AITacticOffensive();
+	AITacticOffensive(const AsciiString &name);
+protected:
+	char m_pad04[0x10 - 4];
+	bool m_running;
+	char m_pad11[0x20 - 0x11];
+	Rva002C589B *m_record;
+	void *m_owner;
+	char m_pad28[0x58 - 0x28];
+};
+
+class AITacticSiege : public AITacticOffensive
+{
+public:
+	virtual ~AITacticSiege();
+	AITacticSiege(const AsciiString &name);
+	bool rva005DCAF4();
+	class Object *rva005DCAE5();
 	bool sideHasIdleSiegeWeapons();
 private:
-	char m_pad[0x24];
-	Player *m_player; // +0x24
+	int m_58;
 };
 
 bool AITacticSiege::sideHasIdleSiegeWeapons()
 {
-	void *store = TheSkirmishAIManager->rva002A8F24(m_player);
+	void *store = TheSkirmishAIManager->rva002A8F24((Player *)m_owner);
 	Rva0025BFF8 *holder = *(Rva0025BFF8 **)store;
 	IntMap *map = (IntMap *)holder;
 	for (unsigned int i = 0; i < map->bucket_count(); ++i)
@@ -94,7 +122,7 @@ bool AITacticSiege::sideHasIdleSiegeWeapons()
 		Object *obj = holder->rva0025BFF8((int)i);
 		if (!obj)
 			continue;
-		if (obj->m_304 != m_player->m_2EC)
+		if (obj->m_304 != ((Player *)m_owner)->m_2EC)
 			continue;
 		if (((Inner520 *)obj->m_p4)->m_520 == 7)
 			return true;
