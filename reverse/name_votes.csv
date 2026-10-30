@@ -16152,3 +16152,12 @@ Code/GameEngine/Source/GameLogic/Object/Update/WeaponFireSpecialAbilityUpdate_st
 Code/GameEngine/Source/GameLogic/Object/Update/WeaponFireSpecialAbilityUpdate_startUnpacking.cpp|member|Rva0049283EHolder|m_04,5f339682c8ae7b293f1443ce,drz-k8,drz-k8-147,w-87ae7cdc64ef,2026-10-30
 Code/GameEngine/Source/GameLogic/Object/Rva005C9AB4.cpp|param|Rva005C9B76::rva005C9ADD|v,b8478e7ac1a2fe90a4f6bae4,drz-k8,drz-k8-148,w-87ae7cdc64ef,2026-10-30
 Code/GameEngine/Source/GameLogic/Object/Rva005C9AB4.cpp|param|Obj005C9B0C::rva005C9B0C|v,0a1afdd75b128f62a9c9505d,drz-k8,drz-k8-148,w-87ae7cdc64ef,2026-10-30
+Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUITacticalBattleResolverStateForward.cpp|param|StrategicInGameUI::TacticalBattleResolver::Impl::Impl|p,ec346167c4a01c978a773f2e,drz-k7,drz-k7-181,w-4471b1f6edef,2026-10-30
+Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUITacticalBattleResolverStateForward.cpp|param|Rva005D10F9::Rva005D10F9|p,8228c321562b2f391cbe4032,drz-k7,drz-k7-181,w-4471b1f6edef,2026-10-30
+Code/GameEngine/Source/Common/Rva00528309Clear.cpp|local|Rva00528309::rva00528309|e,bb52c7882efb78cca2b58c65,drz-k7,drz-k7-190,w-4471b1f6edef,2026-10-30
+Code/GameEngine/Source/Common/Rva0038201DFree.cpp|param|Rva0038201D::rva0038201D|n,da459312034de68cb4e3f19e,drz-k7,drz-k7-191,w-4471b1f6edef,2026-10-30
+Code/GameEngine/Source/Common/Rva0038201DFree.cpp|param|Rva0038204A::rva0038204A|n,012d299d5c51bc86aa115e2f,drz-k7,drz-k7-191,w-4471b1f6edef,2026-10-30
+Code/GameEngine/Source/Common/Rva0038201DFree.cpp|param|Rva00382077::rva00382077|n,b41bbcfac9d7a6bd59469094,drz-k7,drz-k7-191,w-4471b1f6edef,2026-10-30
+Code/GameEngine/Source/Common/Rva0038201DFree.cpp|param|Rva003820A4::rva003820A4|n,5db58078cfda9a80aeb4c2ca,drz-k7,drz-k7-191,w-4471b1f6edef,2026-10-30
+Code/GameEngine/Source/Common/Rva0038201DFree.cpp|param|Rva003820D1::rva003820D1|n,d7285af4d9566a88144c3f69,drz-k7,drz-k7-191,w-4471b1f6edef,2026-10-30
+Code/Libraries/Source/WWVegas/WW3D2/Rva0053FDE6Init.cpp|param|Rva0054000B::Rva0054000B#2|o,55831b5d00a7cca0a8590c23,drz-k7,drz-k7-198,w-4471b1f6edef,2026-10-30
