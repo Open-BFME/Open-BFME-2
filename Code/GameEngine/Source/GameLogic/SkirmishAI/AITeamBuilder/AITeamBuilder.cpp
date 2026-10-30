@@ -59,7 +59,6 @@ extern Rva002A8F24 *TheSkirmishAIManager;
 extern GameLogic *TheGameLogic;
 class TeamPrototype;
 class Rva0039D769;
-class TeamPrototype;
 template<class T> class DLINK_ITERATOR;
 class Team
 {
@@ -359,11 +358,202 @@ void AITeamBuilder::recruitUnDefined(Team* teamToBuild,int* curNumUnits) {
 }
 #include <hash_map>
 #include <stdlib.h>
-void Rva00030830FreeAllocation(void *);
 #define free Rva00030830FreeAllocation
 #undef free
 #define _BFME_RETAIL_TREE_INSERT_LAYOUT
 #pragma pointers_to_members(full_generality, multiple_inheritance)
+//
+// ?getCurNumUnits@AITeamBuilder@@QAEHPAVTeam@@@Z @0x00599FD7 69B
+// Count team members whose template kind bytes have bit 8 at +0x108 or bit 4
+// at +0x113. Evidence: unlock lane, iterate at 0x00263864 plus advance,
+// ret-4 single Team arg, 2 callers, OR of two byte tests, honest Count verb.
+class ThingTemplate
+{
+public:
+	char m_pad00[0x108];
+	unsigned char m_kind0; // +0x108
+	char m_pad109[0xA];
+	unsigned char m_kind1; // +0x113
+	char m_pad114[0x408];
+	float m_threatLevel; // +0x51C
+};
+#include "../../../../../Libraries/Include/Lib/Coord3D.h"
+#define _STLP_BFME_COPY_TRIVIAL_EXTERN  // call retail's one __copy_trivial (vendor/stlport/stl/_algobase.h)
+#include <stl/_algobase.h>
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+#include <algorithm>
+// bfme link decl-only begin
+namespace _STL { template <> void * __malloc_alloc<0>::allocate(unsigned int); }
+namespace _STL { template <> void __malloc_alloc<0>::deallocate(void *, unsigned int); }
+// bfme link decl-only end
+// Suppress this TU's non-retail copy of ?_M_insert_overflow@?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@IAEX:
+// the kept copy serves the link. Plain declaration-only form (no __imp_).
+class ModuleData;
+namespace _STL { template <> void vector<const ModuleData *, allocator<const ModuleData *> >::_M_insert_overflow(const ModuleData **, const ModuleData *const &, const __true_type &, size_t, bool); }
+namespace _STL { template <> const ModuleData **_STLP_alloc_proxy<const ModuleData **, const ModuleData *, allocator<const ModuleData *> >::allocate(size_t); }
+namespace _STL { template <> const ModuleData **allocator<const ModuleData *>::allocate(size_t, const void *) const; }
+namespace _STL { template <> void allocator<const ModuleData *>::deallocate(const ModuleData **, size_t) const; }
+namespace _STL { template <> void vector<const ModuleData *, allocator<const ModuleData *> >::_M_clear(); }
+// push_back is called out of line: bind it to the rowed retail copy instead of
+// emitting this unit's own (0x004DFCB0, stlport_moduledatavector_push.cpp).
+namespace _STL { template <> void vector<const ModuleData *, allocator<const ModuleData *> >::push_back(const ModuleData *const &); }
+class CreateAHeroData;
+struct Leaf
+{
+	char m_pad[0x14];
+	StringBase<char> m_name;
+};
+struct Mid2
+{
+	char m_pad[0x30];
+	Leaf *m_leaf;
+};
+struct Mid1
+{
+	char m_pad[0x2ec];
+	Mid2 *m_mid;
+};
+struct Arg
+{
+	char m_pad[0x14];
+	StringBase<char> m_name;
+};
+#define _BFME_RETAIL_TREE_INSERT_LAYOUT
+namespace _STL { template <> __declspec(dllimport) __forceinline _Vector_base<Object *, allocator<Object *> >::~_Vector_base() { if (this->_M_start != 0) this->_M_end_of_storage.deallocate(this->_M_start, this->_M_end_of_storage._M_data - this->_M_start); } }
+#pragma pointers_to_members(full_generality, multiple_inheritance)
+
+void Rva00030830FreeAllocation(void *);
+
+class Rva0039D761DwordClearer { public: void clear(); };
+
+namespace _STL { template<> unsigned int hash_map<int,int>::bucket_count() const; }
+
+// Bind to the kept retail copy instead of emitting this unit's own.
+namespace _STL { template <> __declspec(dllimport) __forceinline allocator<void *>::~allocator() {} }
+
+// Bind to the kept retail copy instead of emitting this unit's own.
+namespace _STL { template <> __declspec(dllimport) __forceinline void * * vector<void *,allocator<void *> >::end() { return this->_M_finish; } }
+
+// Bind to the kept retail copy instead of emitting this unit's own.
+namespace _STL { template <> __declspec(dllimport) __forceinline void * * vector<void *,allocator<void *> >::begin() { return this->_M_start; } }
+
+// bfme link decl-only begin
+namespace _STL { template <> _STLP_alloc_proxy<void **, void *, allocator<void *> >::~_STLP_alloc_proxy(); }
+
+class Rva00506B1B
+{
+public:
+	Rva00506B1B();
+	virtual ~Rva00506B1B();
+	virtual void v1();
+	bool m_04;
+};
+
+class Rva002EE9B7
+{
+public:
+	~Rva002EE9B7();
+	char m_data[25];
+};
+
+class Rva0059A85C : public Rva00506B1B
+{
+public:
+	virtual ~Rva0059A85C();
+	virtual void v1();
+private:
+	_STL::vector<void *> m_vec;
+	void *m_outer;
+	char m_set[25];
+};
+
+struct Node00599FAA
+{
+	void *m_pad00;
+	void *m_pad04;
+	void *m_next08;
+	Node00599FAA *m_child0C;
+};
+
+class Team;
+
+struct RecruitThingTemplate;
+
+class AIUpdateInterface;
+
+struct TeamProto
+{
+	char m_pad[0x2C4];
+	int m_2C4;
+};
+
+class Rva002C589B
+{
+public:
+	float getEnemyThreat();
+};
+
+class Object;
+
+// Import-inline: less<int> and _Construct<int,int> are inlined at every use here, and
+// this unit's out-of-line copies (referenced from .debug$F alone) are not retail's bodies.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline bool less<int>::operator()(const int &__x, const int &__y) const { return __x < __y; }
+template <> __declspec(dllimport) __forceinline void _Construct(int *__p, const int &__val) { _STLP_PLACEMENT_NEW (__p) int(__val); }
+}
+
+// Import-inline: every _STL::max<unsigned int> use here is inlined, and this
+// unit's out-of-line copy (referenced from .debug$F alone) is not the one the link keeps.
+namespace _STL { template <> __declspec(dllimport) __forceinline const unsigned int &max<unsigned int>(const unsigned int &__a, const unsigned int &__b) { return __a < __b ? __b : __a; } }
+
+struct IdleTargetPoint { int word0; Coord3D position; };
+
+struct IdleTargetList { char prefix[0x20]; _STL::vector<IdleTargetPoint*> points; };
+
+struct Rva002A8AB1Record { char prefix[0x164]; IdleTargetList* targetList; };
+
+class Rva0025BFF8 { public: Object* rva0025BFF8(int); };
+
+class Rva00295A0FCommands { public: void Rva00295A0FCommand(void*,int,int); };
+
+int GetGameLogicRandomValue(int,int,char*,int);
+
+static inline Object **FillObjectPointers(Object **, unsigned int, Object * const &);
+
+namespace _STL {
+
+// Retail calls _M_clear out of line (0x0007FAB3) rather than expanding it.
+template <> __declspec(noinline) void vector<Object *>::_M_clear();
+
+template <> void vector<Object *>::_M_insert_overflow(Object **__position, Object * const &__x,
+    const __true_type &, unsigned int __fill_len, bool __atend)
+{
+    const unsigned int __old_size = size();
+    const unsigned int __len = __old_size + (max)(__old_size, __fill_len);
+    pointer __new_start = __len ? (pointer)allocator<char>::allocate(__len * sizeof(Object *), 0) : 0;
+    pointer __new_finish = (pointer)__copy_trivial(this->_M_start, __position, __new_start);
+    __new_finish = FillObjectPointers(__new_finish, __fill_len, __x);
+    if (!__atend)
+        __new_finish = (pointer)__copy_trivial(__position, this->_M_finish, __new_finish);
+    _M_clear();
+    _M_set(__new_start, __new_finish, __new_start + __len);
+}
+
+template <> void vector<Object *>::_M_clear()
+{
+    _Destroy(this->_M_start, this->_M_finish);
+    this->_M_end_of_storage.deallocate(this->_M_start, this->_M_end_of_storage._M_data - this->_M_start);
+}
+
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AITeamBuilder/AITeamBuilder.cpp
+
 // Native59AC6E..59ADB9,331B; WB1528FA0 AITeamBuilder::update (assert125).
 // The two prototype passes, owner14, active/ready31C/31D, Team flags5D/5E
 // and110/111, set18 and every call are corroborated by retail. Keep the
@@ -410,49 +600,6 @@ void AITeamBuilder::update()
  checkIdleTeams();
 }
 
-class Rva0039D761DwordClearer { public: void clear(); };
-
-namespace _STL { template<> unsigned int hash_map<int,int>::bucket_count() const; }
-
-// Bind to the kept retail copy instead of emitting this unit's own.
-namespace _STL { template <> __declspec(dllimport) __forceinline allocator<void *>::~allocator() {} }
-
-// Bind to the kept retail copy instead of emitting this unit's own.
-namespace _STL { template <> __declspec(dllimport) __forceinline void * * vector<void *,allocator<void *> >::end() { return this->_M_finish; } }
-
-// Bind to the kept retail copy instead of emitting this unit's own.
-namespace _STL { template <> __declspec(dllimport) __forceinline void * * vector<void *,allocator<void *> >::begin() { return this->_M_start; } }
-
-// bfme link decl-only begin
-namespace _STL { template <> _STLP_alloc_proxy<void **, void *, allocator<void *> >::~_STLP_alloc_proxy(); }
-
-class Rva00506B1B
-{
-public:
-	Rva00506B1B();
-	virtual ~Rva00506B1B();
-	virtual void v1();
-	bool m_04;
-};
-
-class Rva002EE9B7
-{
-public:
-	~Rva002EE9B7();
-	char m_data[25];
-};
-
-class Rva0059A85C : public Rva00506B1B
-{
-public:
-	virtual ~Rva0059A85C();
-	virtual void v1();
-private:
-	_STL::vector<void *> m_vec;
-	void *m_outer;
-	char m_set[25];
-};
-
 // ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AITeamBuilder/AITeamBuilder.cpp
 
 // Native59A2BE..59A40D,335B; WB152ABC0 names defineUnitsNormal_old,
@@ -485,18 +632,6 @@ bool AITeamBuilder::defineUnitsNormal_old(TeamPrototype* prototype) {
  return false;
 }
 
-// tu-skeleton: 0x00599FAA 45B ?rva00599FAA@Rva00599FAA@@QAEXPAUNode00599FAA@@@Z -- matched in Code/GameEngine/Source/Common/Rva00599FAAClear.cpp (not merged yet)
-
-// tu-skeleton: 0x00599FD7 69B ?getCurNumUnits@AITeamBuilder@@QAEHPAVTeam@@@Z -- matched in Code/GameEngine/Source/Common/AITeamBuilder_getCurNumUnits.cpp (not merged yet)
-
-// tu-skeleton: 0x0059A1C1 151B ?doesTeamMeetThreat@AITeamBuilder@@QAEHPAVTeam@@@Z -- matched in Code/GameEngine/Source/Common/AITeamBuilder_doesTeamMeetThreat.cpp (not merged yet)
-
-// tu-skeleton: 0x0059A258 41B ?rva0059A258@Rva00599FAA@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x0059A281 56B ??1Rva00599FAA@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x0059A2B9 5B ?rva0059A2B9@Rva0059A2B9@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva0059A40DDtor.cpp
 
 // ??1Rva0059A85C@@UAE@XZ @0x0059A40D 98B (the opaque pin spelling). Destructor
@@ -528,34 +663,200 @@ void bfmeAnchorRva0059A85CDtor(Rva0059A85C *p)
 	p->Rva0059A85C::~Rva0059A85C();
 }
 
-// tu-skeleton: 0x0059A47D 28B ??_GRva0059A85C@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0059A85CCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0059A71C 90B ?registerTeamPrototype@AITeamBuilder@@QAEXPAUArg@@@Z -- matched in Code/GameEngine/Source/Common/AITeamBuilder_registerTeamPrototype.cpp (not merged yet)
-
-// tu-skeleton: 0x0059A776 230B ?distanceSortUnits@AITeamBuilder@@QAEXPAXPBXPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/SkirmishAI/AITeamBuilder/AITeamBuilderDistanceSortUnits.cpp (not merged yet)
-
-// tu-skeleton: 0x0059A85C 123B ??0Rva0059A85C@@QAE@PAX@Z -- matched in Code/GameEngine/Source/Common/Rva0059A85CCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0059AA37 402B ?checkIdleTeams@AITeamBuilder@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/SkirmishAI/AITeamBuilder/AITeamBuilder_checkIdleTeams.cpp (not merged yet)
-
-// tu-skeleton: 0x0059ABC9 132B ?rva0059ABC9@AITeamBuilder@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/Rva0059ADB9.cpp (not merged yet)
-
-// tu-skeleton: 0x0059AC4D 33B ?rva0059AC4D@AITeamBuilder@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/Rva0059ADB9.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AITeamBuilder/AITeamBuilder_Update.cpp
 
 // Split from AITeamBuilder.cpp: these definitions reference a callee with no matched body yet,
 // so they are kept apart from the unit's bodies that already link.
+
+// ---- from Code/GameEngine/Source/Common/Rva00599FAAClear.cpp
+
+//
+// ?rva00599FAA@Rva00599FAA@@QAEXPAUNode00599FAA@@@Z @0x00599FAA 45B
+// Intrusive list clear with recursive child at +0x0C and next at +0x08
+// via game free at 0x00030830. Evidence: self-call at 0x00599FBC,
+// free row, ret-4 single pointer arg, 2 callers, address-derived name.
+
+void Rva00599FAA::rva00599FAA(Node00599FAA *p)
+{
+	if (p == 0)
+		return;
+	do
+	{
+		rva00599FAA(p->m_child0C);
+		Node00599FAA *next = (Node00599FAA *)p->m_next08;
+		free(p);
+		p = next;
+	} while (p != 0);
+}
+
+// ---- from Code/GameEngine/Source/Common/AITeamBuilder_getCurNumUnits.cpp
+
+int AITeamBuilder::getCurNumUnits(Team *team)
+{
+	int count = 0;
+	for (DLINK_ITERATOR<Object> iter = team->iterate_TeamMemberList(); !iter.done(); ((DLINK_ITERATOR<Object> &)iter).advance()) {
+		Object *cur = iter.cur();
+		ThingTemplate *thingTemplate = (ThingTemplate *)cur->objectTemplate;
+		if ((thingTemplate->m_kind0 & 8) != 0 || (thingTemplate->m_kind1 & 4) != 0)
+			++count;
+	}
+	return count;
+}
+
+// ---- from Code/GameEngine/Source/Common/AITeamBuilder_doesTeamMeetThreat.cpp
+
+int AITeamBuilder::doesTeamMeetThreat(Team *team)
+{
+	void *found = TheSkirmishAIManager->rva002A8B73((void *)owner14, ((TeamProto *)team->prototype30)->m_2C4);
+	float vmax = 0.0f;
+	if (found != 0)
+		vmax = ((Rva002C589B *)found)->getEnemyThreat();
+	float sum = 0.0f;
+	for (DLINK_ITERATOR<Object> iter = team->iterate_TeamMemberList(); !iter.done(); ((DLINK_ITERATOR<Object> &)iter).advance())
+	{
+		Object *cur = iter.cur();
+		ThingTemplate *thingTemplate = (ThingTemplate *)cur->objectTemplate;
+		if ((thingTemplate->m_kind0 & 8) != 0 || (thingTemplate->m_kind1 & 4) != 0)
+			sum += thingTemplate->m_threatLevel;
+	}
+	return sum >= vmax;
+}
+
+// tu-skeleton: 0x0059A258 41B ?rva0059A258@Rva00599FAA@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x0059A281 56B ??1Rva00599FAA@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x0059A2B9 5B ?rva0059A2B9@Rva0059A2B9@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x0059A47D 28B ??_GRva0059A85C@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0059A85CCtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/AITeamBuilder_registerTeamPrototype.cpp
+
+// ?registerTeamPrototype@AITeamBuilder@@QAEXPAUArg@@@Z @0x0059A71C (90B)
+// Thiscall takes one pointer arg with AsciiString at +0x14. Loads chain
+// [this+0x14]->+0x2ec->+0x30 for other string or TheEmptyString then
+// arg+0x14 compare via rowed StringBase compare. If equal return. Else
+// _STL find CreateAHeroData range [this+8 this+0xc) for arg and if found
+// return else vector ModuleData push_back at this+8. Ret 4. Caller
+// 0x0059A85C unblocks 0x0059A85C. Evidence unlock lane plus compare find
+// push_back rows plus TheEmptyString extern plus ret N thiscall.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+
+void AITeamBuilder::registerTeamPrototype(Arg *arg)
+{
+	Mid2 *mid = ((Mid1 *)owner14)->m_mid;
+	Leaf *leaf = mid->m_leaf;
+	StringBase<char> *other;
+	if (leaf == 0)
+		other = (StringBase<char> *)&AsciiString::TheEmptyString;
+	else
+		other = &leaf->m_name;
+	if (arg->m_name.compare(*other) == 0)
+		return;
+	CreateAHeroData **beg = (CreateAHeroData **)((_STL::vector<const ModuleData *> *)&prototypes)->begin();
+	CreateAHeroData **end = (CreateAHeroData **)((_STL::vector<const ModuleData *> *)&prototypes)->end();
+	CreateAHeroData **found = _STL::find(beg, end, (CreateAHeroData * const &)arg);
+	if (found != end)
+		return;
+	((_STL::vector<const ModuleData *> *)&prototypes)->push_back((const ModuleData * const &)arg);
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AITeamBuilder/AITeamBuilderDistanceSortUnits.cpp
+
+// WB 0x0152B630 names distanceSortUnits (assert 492). Native
+// [0x0059A776,0x0059A85C) sorts ObjectIDs by squared distance from a point.
+// Native object position is +0x38, input IDs have stride four, and tree
+// records contain a float key and one ID. All callees retain their existing
+// ledger owners. The ScienceType vector and int-pointer map constructor
+// below are ABI views of the measured storage, not application type claims.
+
+void AITeamBuilder::distanceSortUnits(void *sortedStorage,
+    const void *unitsStorage, const Coord3D *center)
+{
+    Rva00599FAA distances;
+    const IDVectorView *units = static_cast<const IDVectorView *>(unitsStorage);
+    IDVectorView *sorted = static_cast<IDVectorView *>(sortedStorage);
+    const ScienceType *id = units->begin();
+    const ScienceType *end = units->end();
+    for (; id != end; ++id) {
+        unsigned int objectID = (unsigned int)*id;
+        Object *object = TheGameLogic->findObjectByID((ObjectID)objectID);
+        const Coord3D *position = (const Coord3D *)((const char *)object + 0x38);
+        Coord3D delta={center->x,center->y,center->z};
+        delta.x -= position->x;
+        delta.y -= position->y;
+        delta.z -= position->z;
+        TreeOpaqueMapped00372FF4 value;
+        value.m_bits = objectID;
+        ((sorted ? ((DistanceTree *)&distances) : ((DistanceTree *)&distances)))->insert_equal(DistanceValue(delta.x*delta.x + delta.y*delta.y + delta.z*delta.z, value));
+    }
+    sorted->reserve(distances.size());
+    DistanceTree *tree = (DistanceTree *)&distances;
+    DistanceTree::iterator finish = tree->end();
+    for (DistanceTree::iterator item = tree->begin();
+         item._M_node != finish._M_node; ++item) {
+        sorted->push_back(*(const ScienceType *)&item->second.m_bits);
+    }
+}
+
+// tu-skeleton: 0x0059A85C 123B ??0Rva0059A85C@@QAE@PAX@Z -- matched in Code/GameEngine/Source/Common/Rva0059A85CCtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AITeamBuilder/AITeamBuilder_checkIdleTeams.cpp
+
+static inline Object **FillObjectPointers(Object **first, unsigned int n, Object * const &value)
+{
+    for (; n > 0; --n, ++first)
+        *first = value;
+    return first;
+}
+
+void AITeamBuilder::checkIdleTeams() {
+ void* stats=TheSkirmishAIManager->rva002A8F24(owner14);
+ void* units=*(void**)stats;
+ int count=((_STL::hash_map<int,int>*)units)->bucket_count();
+ if(count>0) {
+  _STL::vector<Object*> idle;
+  Team* defaultTeam=owner14->defaultTeam;
+  for(int i=0;i<count;++i) {
+   Object* obj=((Rva0025BFF8*)units)->rva0025BFF8(i);
+   RecruitThingTemplate* recruitThingTemplate = obj->objectTemplate;
+   RecruitThingTemplate* tmplCopy = obj->objectTemplate;
+   if((recruitThingTemplate->kindOf().test(3)&&!tmplCopy->kindOf().test(7))||recruitThingTemplate->kindOf().test(90)) {
+    if(obj->team==defaultTeam&&!obj->testStatus(STATUS_90)) {
+     int id=obj->objectID;
+     if(busy.find(id)==busy.end()&&TheGameLogic->getFrame()-obj->frame4c0>=(unsigned)g_00E063E0) {
+      Object* recruit=obj;
+      idle.push_back(recruit);
+     }
+    }
+   }
+  }
+  IdleTargetList* list=TheSkirmishAIManager->rva002A8AB1(owner14)->targetList;
+  if(!idle.empty() && !list->points.empty()) {
+   Object** idleBegin=&idle[0];
+   int idx=GetGameLogicRandomValue(0,idle.size()-1,"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\SkirmishAI\\AITeamBuilder\\AITeamBuilder.cpp",0x251);
+   Object* obj=idleBegin[idx];
+   _STL::vector<IdleTargetPoint*>& pts=list->points;
+   int last=pts.size()-1;
+   IdleTargetPoint* point=pts[last];
+   int id=obj->objectID;
+   busy.insert(id);
+   AIUpdateInterface* ai=obj->ai;
+   ((Rva00295A0FCommands*)((char*)ai+0x20))->Rva00295A0FCommand(&point->position,0x7fffffff,0);
+  }
+ }
+}
+
+// tu-skeleton: 0x0059ABC9 132B ?rva0059ABC9@AITeamBuilder@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/Rva0059ADB9.cpp (not merged yet)
+
+// tu-skeleton: 0x0059AC4D 33B ?rva0059AC4D@AITeamBuilder@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/Rva0059ADB9.cpp (not merged yet)
 
 // tu-skeleton: 0x0079D6A1 8B $L3210 -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
 
 // tu-skeleton: 0x0079D6A9 10B __ehhandler$??1Rva00599FAA@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
 
 // tu-skeleton: 0x0079D6D5 11B uw_0079d6d5 -- matched in Code/gen_small/uw_gen_010.cpp (not merged yet)
-
-// tu-skeleton: 0x0079D70C 8B uw_0079d70c -- matched in Code/GameEngine/Source/GameLogic/SkirmishAI/AITeamBuilder/AITeamBuilderDistanceSortUnits.cpp (not merged yet)
-
-// tu-skeleton: 0x0079D714 10B __ehhandler$?distanceSortUnits@AITeamBuilder@@QAEXPAXPBXPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/SkirmishAI/AITeamBuilder/AITeamBuilderDistanceSortUnits.cpp (not merged yet)
 
 // tu-skeleton: 0x0079D71E 8B Unwind@00b9d71e -- matched in Code/GameEngine/Source/Common/Rva0059A85CCtor.cpp (not merged yet)
 
@@ -564,7 +865,3 @@ void bfmeAnchorRva0059A85CDtor(Rva0059A85C *p)
 // tu-skeleton: 0x0079D731 11B uw_0079d731 -- matched in Code/gen_small/uw_gen_011.cpp (not merged yet)
 
 // tu-skeleton: 0x0079D73C 10B __ehhandler$??0Rva0059A85C@@QAE@PAX@Z -- matched in Code/GameEngine/Source/Common/Rva0059A85CCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0079D758 8B Unwind@00b9d758 -- matched in Code/GameEngine/Source/GameLogic/SkirmishAI/AITeamBuilder/AITeamBuilder_checkIdleTeams.cpp (not merged yet)
-
-// tu-skeleton: 0x0079D760 10B __ehhandler$?checkIdleTeams@AITeamBuilder@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/SkirmishAI/AITeamBuilder/AITeamBuilder_checkIdleTeams.cpp (not merged yet)
