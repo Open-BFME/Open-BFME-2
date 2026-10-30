@@ -1,29 +1,21 @@
 // cl: /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /O1 /G7 /arch:SSE /ICode/Libraries/Include /DNDEBUG /MD
+// stlport
 // QuadStrip2D::rva0053841C (retail 0x0053841C, 239 bytes); its WorldBuilder twin 0x00BACBF0 lies in the QuadStrip2D.cpp run.
 // Layout as in Rva005388C2Assign.cpp: four-float edges at +0x00, Region2D at +0x0C, float at +0x1C, refresh flag at +0x20.
+#include <new>
+#define _OPERATOR_NEW_DEFINED_
 #include "matrix3d.h"
 #include "Lib/Region2D.h"
+#include <vector>
 
-struct BfmeFloat4Record00469C61 { float x; float y; float z; float w; };
-
-namespace _STL {
-template <class T> class allocator
+struct BfmeFloat4Record00469C61
 {
 public:
-	allocator();
+	float x; // +0x00
+	float y; // +0x04
+	float z; // +0x08
+	float w; // +0x0C
 };
-template <class T, class Alloc> class vector
-{
-public:
-	typedef T *iterator;
-	iterator begin() { return m_start; }
-	iterator end() { return m_finish; }
-private:
-	T *m_start;
-	T *m_finish;
-	T *m_end;
-};
-}
 
 class QuadStrip2D
 {
@@ -39,8 +31,8 @@ private:
 // Transforms both points of every edge as Vector3(x, y, 0) in place, then sets the refresh flag.
 void QuadStrip2D::rva0053841C(const Matrix3D &mtx)
 {
-	_STL::vector<BfmeFloat4Record00469C61, _STL::allocator<BfmeFloat4Record00469C61> >::iterator end = m_vec.end();
-	for (_STL::vector<BfmeFloat4Record00469C61, _STL::allocator<BfmeFloat4Record00469C61> >::iterator it = m_vec.begin(); it != end; ++it) {
+	_STL::vector<BfmeFloat4Record00469C61>::iterator end = ((_STL::vector<BfmeFloat4Record00469C61> *)&m_vec)->end();
+	for (_STL::vector<BfmeFloat4Record00469C61>::iterator it = ((_STL::vector<BfmeFloat4Record00469C61> *)&m_vec)->begin(); it != end; ++it) {
 		Vector3 v(it->x, it->y, 0.0f);
 		Matrix3D::Transform_Vector(mtx, v, &v);
 		it->x = v.X;

@@ -25,10 +25,26 @@ namespace _STL {
 template <> void vector<BfmeE12, allocator<BfmeE12> >::swap(vector &);
 }
 
+class DataChunkInput;
+struct BfmeE8;
+struct BfmeFloat4Record00469C61;
+class W3DAnimationInfo;
+class Matrix3D;
+
 class QuadStrip2D
 {
 public:
 	QuadStrip2D(const QuadStrip2D &other);
+	void parse(DataChunkInput &file, int unused);
+	QuadStrip2D &rva005388F7(const QuadStrip2D &other);
+	void addStrip(const BfmeFloat4Record00469C61 &strip);
+	void removeStrip(int index);
+	void clear();
+	void rva0053892C(unsigned int count);
+	void insertStrip(int index, const W3DAnimationInfo &x);
+	void rva00538383(float scale);
+	void rva005382F4(const BfmeE8 &delta);
+	void rva0053841C(const Matrix3D &mtx);
 private:
 	Rva005386F5 m_vec;
 	Region2D m_region;
@@ -49,7 +65,11 @@ public:
 
 struct BfmeFloat4Record00469C61
 {
-	float x, y, z, w;
+public:
+	float x; // +0x00
+	float y; // +0x04
+	float z; // +0x08
+	float w; // +0x0C
 };
 
 class Rva0053850B

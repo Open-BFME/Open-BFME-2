@@ -15,7 +15,14 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 #include <vector>
 #include "../../../Libraries/Include/Lib/BfmeE16.h"
-struct BfmeFloat4Record00469C61 { float x, y, z, w; };
+struct BfmeFloat4Record00469C61
+{
+public:
+	float x; // +0x00
+	float y; // +0x04
+	float z; // +0x08
+	float w; // +0x0C
+};
 // reserve 0x00538839 and push_back 0x00473F13 are rowed in
 // stlport_vector_float4_469c61.cpp. This unit's own copies of their callees
 // (_M_allocate_and_copy, _M_insert_overflow, _Construct) were not retail's.
@@ -33,10 +40,11 @@ public:
 };
 struct QuadStrip2D
 {
+	QuadStrip2D(const QuadStrip2D &other);
 	void parse(DataChunkInput &file, int unused);
 	_STL::vector<BfmeE16, _STL::allocator<BfmeE16> > m_vec;
 	char m_pad[0x20 - 12];
-	bool m_flag;
+	bool m_20;
 };
 void QuadStrip2D::parse(DataChunkInput &file, int unused)
 {
@@ -53,5 +61,5 @@ void QuadStrip2D::parse(DataChunkInput &file, int unused)
 		--count;
 	}
 	((_STL::vector<BfmeE12, _STL::allocator<BfmeE12> > *)&m_vec)->swap(*(_STL::vector<BfmeE12, _STL::allocator<BfmeE12> > *)&tmp);
-	m_flag = true;
+	m_20 = true;
 }

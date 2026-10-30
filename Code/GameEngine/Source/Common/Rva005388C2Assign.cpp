@@ -1,10 +1,18 @@
 // cl: /MD
+// stlport
 // ?rva005388F7@QuadStrip2D@@QAEAAV1@ABV1@@Z @0x005388F7 53B
 // Holder copy-assign via rowed vector<BfmePod16> assign then flag and conditional region copy.
 // Evidence: callee 0x00538782 row vector<BfmePod16> assign; prev 0x005388C2 holder copy same layout region+flag; next 0x00538A0B holder load same layout.
 struct BfmePod16 { int a[4]; };
 struct BfmeE8 { float x; float y; };
-struct BfmeFloat4Record00469C61 { float x; float y; float z; float w; };
+struct BfmeFloat4Record00469C61
+{
+public:
+	float x; // +0x00
+	float y; // +0x04
+	float z; // +0x08
+	float w; // +0x0C
+};
 class W3DAnimationInfo
 {
 public:
@@ -14,32 +22,21 @@ private:
 	char m_bfmeBody[0x10];
 };
 #include "../../../Libraries/Include/Lib/Region2D.h"
+#include <vector>
 namespace _STL {
-template <class T> class allocator
-{
-public:
-	allocator();
-};
-template <class T, class Alloc> class vector
-{
-public:
- 	vector &operator=(const vector &other);
- 	void push_back(const T &x);
- 	T *erase(T *pos);
- 	T *erase(T *first, T *last);
- 	T *insert(T *pos, const T &x);
-    void reserve(unsigned int count);
-	T *begin() { return m_start; }
-	T *end() { return m_finish; }
-private:
-	T *m_start;
-	T *m_finish;
-	T *m_end;
-};
+template <> vector<BfmePod16> &vector<BfmePod16>::operator=(const vector &);
+template <> BfmePod16 *vector<BfmePod16>::erase(BfmePod16 *);
+template <> BfmePod16 *vector<BfmePod16>::erase(BfmePod16 *, BfmePod16 *);
+template <> void vector<BfmeFloat4Record00469C61>::push_back(const BfmeFloat4Record00469C61 &);
+template <> void vector<BfmeFloat4Record00469C61>::reserve(unsigned int);
+template <> W3DAnimationInfo *vector<W3DAnimationInfo>::insert(W3DAnimationInfo *, const W3DAnimationInfo &);
 }
+class DataChunkInput;
 class QuadStrip2D
 {
 public:
+	QuadStrip2D(const QuadStrip2D &other);
+	void parse(DataChunkInput &file, int unused);
  	QuadStrip2D &rva005388F7(const QuadStrip2D &other);
  	void addStrip(const BfmeFloat4Record00469C61 &strip);
  	void removeStrip(int index);
@@ -56,7 +53,7 @@ private:
 };
 QuadStrip2D &QuadStrip2D::rva005388F7(const QuadStrip2D &other)
 {
-	m_vec = other.m_vec;
+	((_STL::vector<BfmePod16> *)&m_vec)->operator=(*(const _STL::vector<BfmePod16> *)&other.m_vec);
 	m_20 = other.m_20;
 	if (other.m_20 != 0) {
 		m_region = other.m_region;
@@ -78,7 +75,8 @@ void QuadStrip2D::addStrip(const BfmeFloat4Record00469C61 &strip)
 // passes the QuadStrip2D at +0x68 and refreshes through vtable slot 0x28.
 void QuadStrip2D::removeStrip(int index)
 {
-	m_vec.erase(m_vec.begin() + index);
+	_STL::vector<BfmePod16> &strips = *(_STL::vector<BfmePod16> *)&m_vec;
+	strips.erase(strips.begin() + index);
 	m_20 = 1;
 }
 
@@ -88,7 +86,8 @@ void QuadStrip2D::removeStrip(int index)
 // this TU is QuadStrip2D 0x005388F7; caller 0x0030BE4E passes the holder.
 void QuadStrip2D::clear()
 {
-	m_vec.erase(m_vec.begin(), m_vec.end());
+	_STL::vector<BfmePod16> &strips = *(_STL::vector<BfmePod16> *)&m_vec;
+	strips.erase(strips.begin(), strips.end());
 	m_20 = 1;
 }
 
