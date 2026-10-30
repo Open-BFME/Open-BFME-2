@@ -1600,6 +1600,11 @@ alternatename	Code/GameEngine/Source/Common/Bfme5TwoWordPairFactory_Rva0002C621.
 alternatename	Code/GameEngine/Source/Common/BfmeAllocRva.cpp	?bfmeSmallAllocPS@@YAPAXI@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeBigNewDeleteForwarders.cpp	_bfmeMalloc1149	1
 alternatename	Code/GameEngine/Source/Common/BfmeBigNewDeleteForwarders.cpp	_bfmeMalloc1150	1
+alternatename	Code/GameEngine/Source/Common/BfmeC986.cpp	?bfmePrep986C@BfmeC986@@QAEXXZ	1
+alternatename	Code/GameEngine/Source/Common/BfmeC986.cpp	?bfmeReady986C@BfmeC986@@QAEDXZ	1
+alternatename	Code/GameEngine/Source/Common/BfmeC986.cpp	?bfmeSend986C@BfmeC986@@QAEXHHHHH@Z	1
+alternatename	Code/GameEngine/Source/Common/BfmeC986.cpp	?rva0036D3A3@BfmeC986@@QAEDHH@Z	1
+alternatename	Code/GameEngine/Source/Common/BfmeC986.cpp	?rva00372B09@BfmeC986@@QAEXHHH@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv1019.cpp	?Rva007F0030Free@@YAXPAX@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv1019.cpp	?bfmeInit1019@@YAXPAD@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv1019.cpp	_Rva007F0030	1
@@ -1707,11 +1712,6 @@ alternatename	Code/GameEngine/Source/Common/BfmeConv932.cpp	?bfmeTest932E@BfmeTh
 alternatename	Code/GameEngine/Source/Common/BfmeConv936.cpp	?bfmeVecDtor936B@@YGXPAXIHP6GX0@Z@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv937.cpp	?bfmeThrow937C@@YGXI@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv969.cpp	??1Gen007F4D00@@UAE@XZ	1
-alternatename	Code/GameEngine/Source/Common/BfmeConv986.cpp	?bfmePrep986C@BfmeC986@@QAEXXZ	1
-alternatename	Code/GameEngine/Source/Common/BfmeConv986.cpp	?bfmeReady986C@BfmeC986@@QAEDXZ	1
-alternatename	Code/GameEngine/Source/Common/BfmeConv986.cpp	?bfmeSend986C@BfmeC986@@QAEXHHHHH@Z	1
-alternatename	Code/GameEngine/Source/Common/BfmeConv986.cpp	?rva0036D3A3@BfmeC986@@QAEDHH@Z	1
-alternatename	Code/GameEngine/Source/Common/BfmeConv986.cpp	?rva00372B09@BfmeC986@@QAEXHHH@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeDualVtableReleaseDtorCtor.cpp	_vtbl_00BE3994	1
 alternatename	Code/GameEngine/Source/Common/BfmeFiveArgCtorWI.cpp	??1AsciiStringWI@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/BfmeLexEAN.cpp	?bfmeExpandEAN@BfmeLexEAN@@QAEDPAD@Z	1
