@@ -168,9 +168,49 @@ private:
 	int m_value;
 };
 
+// RVA 0x00072A51, 67B (vtable entries in 0x00BC655C, 0x00BC6584 and
+// 0x00BC6C40): stores a by-value ref-counted holder into the member at +8
+// through the rowed assignment ??4Rva00072A94 (0x00072A94); the argument's
+// destructor then drops the caller's reference under EH protection.
+class RefCountClass
+{
+public:
+	virtual void Delete_This(void);
+	void Release_Ref(void) { NumRefs--; if (NumRefs == 0) Delete_This(); }
+
+protected:
+	int NumRefs;
+};
+
+class Rva00072A94
+{
+public:
+	Rva00072A94 &operator=(const Rva00072A94 &);
+	~Rva00072A94()
+	{
+		if (m_ptr)
+			m_ptr->Release_Ref();
+	}
+
+private:
+	RefCountClass *m_ptr;
+};
+
+class Rva00072A51
+{
+public:
+	virtual void rva00072A51(Rva00072A94 value);
+
+private:
+	int m_field04;
+	Rva00072A94 m_value;	// +8
+};
+
 // tu-skeleton: 0x000728F0 152B ?ReAcquireResources@W3DShroud@@QAE_NXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudReAcquire.cpp (not merged yet)
 
 // tu-skeleton: 0x00072988 68B ?getShroudLevel@W3DShroud@@QAEEHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualXfer.cpp (not merged yet)
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp
 
 // ---- from Code/GameEngine/Source/Common/Rva000729CCSet.cpp
 
@@ -187,8 +227,6 @@ void Gen_00727030::set(bool on)
 {
 	m_value = on ? 4 : 0;
 }
-
-// tu-skeleton: 0x000729EB 9B ?UnInstall_Materials@W3DShroudMaterialPassClass@@UBEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudMaterialPass.cpp (not merged yet)
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp
 
@@ -338,6 +376,8 @@ void W3DShroud::rva00073628(void *cam)
 	}
 }
 
+// tu-skeleton: 0x000729EB 9B ?UnInstall_Materials@W3DShroudMaterialPassClass@@UBEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudMaterialPass.cpp (not merged yet)
+
 // tu-skeleton: 0x00072D5D 179B ?Rva00072D5DShroudPixel@@YAGE@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudMaterialPass.cpp (not merged yet)
 
 // tu-skeleton: 0x00072E10 116B ?fillShroudData@Rva00072B3A@@QAEXE@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudMaterialPass.cpp (not merged yet)
@@ -391,6 +431,19 @@ void W3DShroud::rva00073628(void *cam)
 // tu-skeleton: 0x0075ED8B 8B uw_0075ed8b -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudReAcquire.cpp (not merged yet)
 
 // tu-skeleton: 0x0075ED93 10B __ehhandler$?ReAcquireResources@W3DShroud@@QAE_NXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudReAcquire.cpp (not merged yet)
+
+// tu-skeleton: 0x0075ED9D 8B uw_0075ed9d -- matched in Code/gen_small/uw_gen_006.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva00072A51HolderSet.cpp
+
+void Rva00072A51::rva00072A51(Rva00072A94 value)
+{
+	m_value = value;
+}
+
+// tu-skeleton: 0x0075EDAF 8B $L403 -- matched in Code/GameEngine/Source/Common/Rva00072AEDDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0075EDB7 10B __ehhandler$??1Rva0072AED@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00072AEDDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0075EDD3 8B $L664 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudMaterialPass.cpp (not merged yet)
 
