@@ -7,10 +7,7 @@
 // ?nameToKey@NameKeyGenerator@@QAE?AW4NameKeyType@@PBD@Z; string "(NULL)" at
 // VA 0x007C6868; global dword at VA 0x009F36A4 used as NameKeyGenerator this.
 
-enum NameKeyType
-{
-	NK_UNKNOWN = 0
-};
+enum NameKeyType { NAMEKEY_INVALID = 0, NK_UNKNOWN = 0 };
 
 class NameKeyGenerator
 {
@@ -92,7 +89,7 @@ public:
 	virtual void a48();
 	virtual Rva000789A0Named *getProvider();
 	char m_pad[0x2E4];
-	Rva000789A0KeyHolder *m_holder;
+	Rva000789A0KeyHolder *m_holder; // +0x2E8
 };
 
 // Native caller 7A847 loads manager singleton DE1FB8 into ECX, then

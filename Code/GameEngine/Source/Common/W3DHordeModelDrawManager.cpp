@@ -57,6 +57,7 @@ struct Rva00078F95Item;
 
 struct Rva00078F95Cmp
 {
+public:
 	bool operator()(const Rva00078F95Item *a, const Rva00078F95Item *b) const;
 };
 
@@ -122,9 +123,13 @@ bool (W3DHordeModelDrawHandle::*g_HordePartOfSameGroupBody)(const W3DHordeModelD
 // vector map at manager00 and stores the handle at draw2E8. All dependencies
 // are independently rowed: map7A26E, vector4DFCB0, nameToKey148E1A, new2FDA0.
 // Existing attachment source lead retained; no attachment body is claimed here.
-enum NameKeyType { NAMEKEY_INVALID=0 };
+enum NameKeyType { NAMEKEY_INVALID = 0, NK_UNKNOWN = 0 };
 
-class NameKeyGenerator {public: NameKeyType nameToKey(const char *name);};
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const char *name);
+};
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
@@ -185,12 +190,16 @@ template <> void _STLP_alloc_proxy<char*, char, allocator<char> >::deallocate(ch
 
 struct BfmeNarrowRecord00079C23
 {
+public:
 	BfmeNarrowRecord00079C23();
-	_STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> > m_00;
-	_STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> > m_0C;
-	_STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> > m_18;
-	int m_24;
-	int m_28;
+	BfmeNarrowRecord00079C23(const BfmeNarrowRecord00079C23&);
+	~BfmeNarrowRecord00079C23();
+	BfmeNarrowRecord00079C23 &operator=(const BfmeNarrowRecord00079C23&);
+	_STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> > m_00; // +0x00
+	_STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> > m_0C; // +0x0C
+	_STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> > m_18; // +0x18
+	int m_24; // +0x24
+	int m_28; // +0x28
 };
 
 class W3DHordeModelDraw
@@ -262,10 +271,11 @@ public:
 	struct ShadowTypeInfo
 	{
 		ShadowTypeInfo();
+		~ShadowTypeInfo();
 
 		AsciiString m_first;
 		AsciiString m_second;
-		Int m_type;
+		int m_type;
 		float m_floatC;
 		float m_float10;
 		float m_float14;
@@ -276,6 +286,10 @@ public:
 		unsigned char m_byte25;
 		unsigned char m_byte26;
 	};
+    char pad0[4];
+    bool enabled, invisible;
+    void enableShadowRender(bool b) { enabled = b; }
+    void enableShadowInvisible(bool b) { invisible = b; }
 };
 
 // Retail 0x00079985, 16 bytes. Name unknown. If the horde model-draw manager
@@ -329,12 +343,15 @@ struct Rva00079D14Node
 
 struct Rva00079D14Iter
 {
-	::_STL::_Rb_tree_node_base *_M_node;
-	Rva00079D14Iter &operator--()
-	{
-		_M_node = _STL::_Rb_global<bool>::_M_decrement(_M_node);
-		return *this;
-	}
+    ::_STL::_Rb_tree_node_base *_M_node;
+    Rva00079D14Iter() {}
+    Rva00079D14Iter(Rva00079D14Node *p)
+        : _M_node((::_STL::_Rb_tree_node_base *)p) {}
+    Rva00079D14Iter &operator--()
+    {
+        _M_node = _STL::_Rb_global<bool>::_M_decrement(_M_node);
+        return *this;
+    }
 };
 
 struct Rva00079D14Out
@@ -347,13 +364,13 @@ struct Rva00079D14Out
 
 class Rva00079D14Tree
 {
-	Rva00079D14Node *m_header;
-	unsigned int m_count;
 public:
-	Rva00079D14Iter rva00079AB9(Rva00079D14Node *x,
-		Rva00079D14Node *y, const Rva00079D14Value &value,
-		Rva00079D14Node *w);
+	Rva00079D14Iter rva00079AB9(Rva00079D14Node *x, Rva00079D14Node *y, const Rva00079D14Value &value, Rva00079D14Node *w);
 	Rva00079D14Out rva00079B41(const Rva00079D14Value &value);
+	Rva00079D14Iter rva00079D14(Rva00079D14Iter position, const Rva00079D14Value &value);
+private:
+	Rva00079D14Node *m_header; // +0x00
+	unsigned int m_count; // +0x04
 };
 
 // map/set<int> internals otherwise instantiate the less<int>::operator()
@@ -385,11 +402,9 @@ class Rva00270260
 {
 public:
 	bool rva00270260();
-private:
 	char m_pad00[0x440];
-public:
-	unsigned char m_440;
-	unsigned char m_441;
+	unsigned char m_440; // +0x440
+	unsigned char m_441; // +0x441
 };
 
 class Rva0007894EOuter
@@ -449,11 +464,64 @@ public:
 	Rva00270260 *m_08;
 };
 
+class Rva000789A0Named;
+struct Rva000789A0KeyHolder { int m_unk; NameKeyType m_key; };
+
 class Rva000789A0Outer
 {
 public:
-	char m_pad[0x2E8];
-	void *m_holder;			// +0x2E8
+	virtual void a00();
+	virtual void a01();
+	virtual void a02();
+	virtual void a03();
+	virtual void a04();
+	virtual void a05();
+	virtual void a06();
+	virtual void a07();
+	virtual void a08();
+	virtual void a09();
+	virtual void a10();
+	virtual void a11();
+	virtual void a12();
+	virtual void a13();
+	virtual void a14();
+	virtual void a15();
+	virtual void a16();
+	virtual void a17();
+	virtual void a18();
+	virtual void a19();
+	virtual void a20();
+	virtual void a21();
+	virtual void a22();
+	virtual void a23();
+	virtual void a24();
+	virtual void a25();
+	virtual void a26();
+	virtual void a27();
+	virtual void a28();
+	virtual void a29();
+	virtual void a30();
+	virtual void a31();
+	virtual void a32();
+	virtual void a33();
+	virtual void a34();
+	virtual void a35();
+	virtual void a36();
+	virtual void a37();
+	virtual void a38();
+	virtual void a39();
+	virtual void a40();
+	virtual void a41();
+	virtual void a42();
+	virtual void a43();
+	virtual void a44();
+	virtual void a45();
+	virtual void a46();
+	virtual void a47();
+	virtual void a48();
+	virtual Rva000789A0Named *getProvider();
+	char m_pad[0x2E4];
+	Rva000789A0KeyHolder *m_holder; // +0x2E8
 };
 
 class W3DHordeModelDrawManager {
@@ -529,12 +597,28 @@ extern GameLODManager *TheGameLODManager;
 class Rva00078C10
 {
 public:
-	bool rva00078C10(Rva00078C10 const *other, int *out2, int *out3);
-private:
-	char m_pad00[8];
-	Rva0055A88BDwordField *m_08;
-	char m_pad0C[0x0C];
-	Rva000B49F9 *m_18;
+    bool rva00078C10(Rva00078C10 const *other, int *out2, int *out3);
+    struct Drawable
+    {
+        char m_pad00[0x200];
+        float m_200;
+    };
+    struct Slot
+    {
+        void *m_key;
+        float m_amount;
+        char m_pad08[8];
+        int m_order;
+        int m_rank;
+        unsigned char m_flag;
+    };
+    Drawable *getDrawable() const { return reinterpret_cast<Drawable *>(m_08); }
+    char m_pad00[8];
+    Rva0055A88BDwordField *m_08;
+    char m_pad0C[0x0C];
+    Rva000B49F9 *m_18;
+    char m_pad1C[0x110 - 0x1C];
+    Slot m_slots[2];
 };
 
 BFME_DISP_BYTE_SETTER(Rva00078ACEByteSlot, 0x28E)

@@ -10,34 +10,34 @@
 // 0x91dc60 in W3DHordeModelDraw.cpp (asserts "lhs drawable NULL" and "rhs
 // drawable NULL") gives the comparison order; its single byte result local
 // (local_65) is the shared result variable kept here.
+class Rva0055A88BDwordField;
+class Rva000B49F9;
+
 class Rva00078C10
 {
 public:
-	bool rva00078C10(Rva00078C10 const *other, int *out2, int *out3);
-
-	struct Drawable
-	{
-		char m_pad00[0x200];
-		float m_200;
-	};
-	struct Slot
-	{
-		void *m_key;
-		float m_amount;
-		char m_pad08[8];
-		int m_order;
-		int m_rank;
-		unsigned char m_flag;
-	};
-
-	Drawable *getDrawable() const { return m_08; }
-
-	char m_pad00[8];
-	Drawable *m_08;
-	char m_pad0C[0x0C];
-	void *m_18;
-	char m_pad1C[0x110 - 0x1C];
-	Slot m_slots[2];
+    bool rva00078C10(Rva00078C10 const *other, int *out2, int *out3);
+    struct Drawable
+    {
+        char m_pad00[0x200];
+        float m_200;
+    };
+    struct Slot
+    {
+        void *m_key;
+        float m_amount;
+        char m_pad08[8];
+        int m_order;
+        int m_rank;
+        unsigned char m_flag;
+    };
+    Drawable *getDrawable() const { return reinterpret_cast<Drawable *>(m_08); }
+    char m_pad00[8];
+    Rva0055A88BDwordField *m_08;
+    char m_pad0C[0x0C];
+    Rva000B49F9 *m_18;
+    char m_pad1C[0x110 - 0x1C];
+    Slot m_slots[2];
 };
 
 struct Rva00078F95Item
@@ -48,7 +48,8 @@ struct Rva00078F95Item
 
 struct Rva00078F95Cmp
 {
-	bool operator()(const Rva00078F95Item *lhs, const Rva00078F95Item *rhs) const;
+public:
+	bool operator()(const Rva00078F95Item *a, const Rva00078F95Item *b) const;
 };
 
 bool Rva00078F95Cmp::operator()(const Rva00078F95Item *lhs, const Rva00078F95Item *rhs) const
