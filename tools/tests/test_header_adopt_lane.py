@@ -556,7 +556,7 @@ def test_merge_inputs_fingerprint_follows_the_first_dirty_file(tmp_path, monkeyp
     assert before[0] == after[0] == "head" and before[1] and before[1] != after[1]
 
 
-def _apply_run(tmp_path, monkeypatch, claim_result, released):
+def _apply_run(tmp_path, monkeypatch, claim_result, released, skip_held=False, generate=False):
     """run --apply of a fixed header over two census units whose tournament passes both."""
     import json
     import claims
@@ -573,7 +573,7 @@ def _apply_run(tmp_path, monkeypatch, claim_result, released):
     path = class_contract.contract_path("Coord3D")
     path.parent.mkdir()
     path.write_text(json.dumps({**CONTRACT, "queue": []}), encoding="utf-8")
-    monkeypatch.setattr(lane, "tournament", lambda *a, **k: {"registered": {
+    monkeypatch.setattr(lane, "tournament", lambda *a, **k: {("data" if generate else "registered"): {
         "verdicts": dict.fromkeys(units), "seconds": 0.0, "header": "", "renames": {},
         "texts": {u: '#include "Coord3D.h"\n' for u in units}}})
     registered = []
@@ -588,9 +588,13 @@ def _apply_run(tmp_path, monkeypatch, claim_result, released):
     monkeypatch.setattr(claims, "release", lambda keys, **k: released.extend(keys) or list(keys))
     monkeypatch.setattr(claims, "_blocking_records", lambda root=None: [
         {claims.key_of("file:Code/Elsewhere/NoRows.cpp"): {"owner": "seat-7"}}])
-    args = type("A", (), {"name": "Coord3D", "header": "Coord3D.h", "generate": False, "sample": None, "seed": 1,
-                          "jobs": 1, "variants": "data", "apply": True})()
-    return lane.run(args), units, asked, registered
+    args = type("A", (), {"name": "Coord3D", "header": "Coord3D.h", "generate": generate, "sample": None, "seed": 1,
+                          "jobs": 1, "variants": "data", "apply": True, "skip_held": skip_held})()
+    queued = {}
+    monkeypatch.setattr(lane, "write_queue", lambda name, header, failed: queued.update(failed))
+    code = lane.run(args)
+    _apply_run.queued = queued
+    return code, units, asked, registered
 
 
 def test_apply_refuses_when_a_census_unit_is_held_by_another_seat(tmp_path, monkeypatch, capsys):
@@ -605,6 +609,38 @@ def test_apply_refuses_when_a_census_unit_is_held_by_another_seat(tmp_path, monk
     out = capsys.readouterr().out
     assert "refusing to apply" in out and "Code/Elsewhere/NoRows.cpp (seat-7)" in out
     assert not (tmp_path / "build/header_lane/Coord3D.claims").exists()
+
+
+def test_skip_held_queues_the_held_unit_and_applies_the_rest(tmp_path, monkeypatch, capsys):
+    import claims
+    held = claims.key_of("file:Code/Elsewhere/NoRows.cpp")
+
+    def claim(keys):
+        if "file:Code/Elsewhere/NoRows.cpp" in keys:
+            return claims.ClaimResult([], [held])
+        return claims.ClaimResult([claims.key_of(k) for k in keys], [])
+    released = []
+    code, units, asked, registered = _apply_run(tmp_path, monkeypatch, claim, released, skip_held=True)
+    assert code == 0 and registered
+    assert asked[-1][0] == ["file:Code/A.cpp"]                                   # reduced set claimed
+    assert (tmp_path / units[0]).read_text().startswith("#include")
+    assert (tmp_path / units[1]).read_text().startswith("struct Coord3D")        # held unit untouched
+    assert _apply_run.queued == {"Code/Elsewhere/NoRows.cpp": "held by seat-7 during run; retry when released"}
+
+
+def test_skip_held_still_refuses_when_the_header_is_held(tmp_path, monkeypatch, capsys):
+    import claims
+    held = claims.key_of("file:Coord3D.h")
+
+    def claim(keys):
+        return claims.ClaimResult([], [held])
+    monkeypatch.setattr(lane, "registered", lambda: {})
+    released = []
+    import class_contract
+    monkeypatch.setattr(class_contract, "decide", lambda *a, **k: {"queue": []})
+    code, units, asked, registered = _apply_run(tmp_path, monkeypatch, claim, released, skip_held=True, generate=True)
+    assert code == 3 and not registered
+    assert all((tmp_path / u).read_text().startswith("struct Coord3D") for u in units)
 
 
 def test_apply_claims_the_units_it_rewrites_and_release_gives_them_back(tmp_path, monkeypatch, capsys):

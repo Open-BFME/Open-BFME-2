@@ -1049,6 +1049,17 @@ def run(args):
         # The picker claims only the class, its header and the merge donors; the units
         # rewritten here are claimed now, right before they change, and refused if held.
         held = claim_rewrites(name, ([] if fixed else [header]) + passed)
+        if held and getattr(args, "skip_held", False):
+            # Opt-in: queue the held units and apply the rest. The claim is atomic, so
+            # each retry claims the reduced set; a unit taken meanwhile is queued too.
+            for _ in range(3):
+                if not held or any(path == header or path.startswith("(") for path, _ in held):
+                    break      # the header itself (or an unavailable claim service) still refuses
+                for path, who in held:
+                    if path in passed:
+                        passed.remove(path)
+                        failed[path] = f"held by {who} during run; retry when released"
+                held = claim_rewrites(name, ([] if fixed else [header]) + passed)
         if held:
             print(f"  refusing to apply: {len(held)} file(s) another worker holds: " + "; ".join(
                 f"{key} ({who})" for key, who in held[:8]) + (" ..." if len(held) > 8 else ""))
@@ -2056,6 +2067,9 @@ def main(argv=None):
     p.add_argument("--jobs", type=int, help="parallel unit gates (one class); with --all, classes run side by side "
                                             "(default 1)")
     p.add_argument("--apply", action="store_true")
+    p.add_argument("--skip-held", action="store_true", dest="skip_held",
+                   help="--apply: queue the units another worker holds and apply the rest, "
+                        "instead of refusing the whole class (a held header still refuses)")
     p = sub.add_parser("accept")
     p.add_argument("--class", dest="name", required=True)
     p.add_argument("--header")
