@@ -116,7 +116,8 @@ void piRemoveOperation(PEER peer, void *operation)
    +0x24 -- so those three are owned heap pointers; what they hold is not
    determined by anything this file can see, so they are numbered rather than
    named.  The pair behind the flag at +0x34 IS determined: the call is
-   closesocket, so +0x2C is a socket, and the winsock teardown follows it.
+   closesocket, so +0x2C is a socket, and the winsock teardown follows it
+   through nonport.c's SocketShutDown (retail's call lands on 0x0060A860).
 
    The counters bracket each other -- +0x179C is bumped once per operation
    created and +0x17A0 once per operation removed -- and this is where both
@@ -136,6 +137,7 @@ typedef enum
 
 void *ArrayNew(int elemSize, int initialCount, void (*elemFree)(void *elem));
 void ArrayClear(void *array);
+void SocketShutDown(void);
 #define gsifree free
 
 static void piOperationFree(void *elem)
@@ -149,7 +151,7 @@ static void piOperationFree(void *elem)
 	if(operation->sockOpen)
 	{
 		closesocket(operation->sock);
-		WSACleanup();
+		SocketShutDown();
 	}
 
 	gsifree(operation);
