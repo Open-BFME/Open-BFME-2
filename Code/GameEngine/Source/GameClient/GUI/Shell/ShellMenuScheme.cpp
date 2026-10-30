@@ -11,6 +11,13 @@
 #define Matrix4x4 Matrix4  // BFME renamed it
 #include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
 #include <list>
+// LINK: single-node insert binds the verified native STLport owner at RVA
+// 0x005925E2; keep the out-of-line call without emitting a competing copy.
+namespace _STL {
+template <> list<int>::iterator list<int>::insert(iterator position, const int &x);
+}
+#include <new>
+
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
 namespace _STL {
 template <class T, class LeftTraits, class RightTraits>
@@ -158,6 +165,31 @@ public:
 	}
 };
 
+namespace _STL {
+static inline void _Construct(int *__p, const int &__val)
+{ new (__p) int(__val); }
+}
+
+class ShellMenuSchemeImage;
+
+struct FieldParse;
+
+class ShellMenuScheme;
+
+class Shell
+{
+public:
+	ShellMenuSchemeManager *getShellMenuSchemeManager(void) { return m_schemeManager; }
+
+private:
+	char m_pad00[0x64];
+	ShellMenuSchemeManager *m_schemeManager;   // +0x64
+};
+
+extern Shell *TheShell;
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuScheme.cpp
+
 // ---- from Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuScheme.cpp
 
 // draw: BFME 1 donor 6583b3c1ff21db4a561285717028fdafc780b7db,
@@ -212,8 +244,6 @@ ShellMenuSchemeLine::ShellMenuSchemeLine(void)
 	m_width = 1;
 }
 
-// tu-skeleton: 0x002004C3 58B ??0ShellMenuSchemeImage@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuSchemeImageConstructor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva002004FDDtor.cpp
 
 // ??1Rva002004FD@@QAE@XZ @0x002004FD 9B: dtor zeroes +0x14 then releases StringBase; retail and [ecx+0x14],0 then jmp releaseBuffer 0x00036410. Evidence: deleting-dtor caller 0x0031F83A calls this as ??1; same idiom as Rva0031F831Dtor (+8); and-mem-zero needs /O1.
@@ -222,26 +252,6 @@ Rva002004FD::~Rva002004FD()
 {
 	m_14 = 0;
 }
-
-// tu-skeleton: 0x002005DE 124B ?setShellMenuScheme@ShellMenuSchemeManager@@QAEXVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuSchemeSet.cpp (not merged yet)
-
-// tu-skeleton: 0x0020065A 13B ?draw@Rva0020065ANullForwarder@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp (not merged yet)
-
-// tu-skeleton: 0x00200667 5B ??1?$list@URva0036ADF9Element@@V?$allocator@URva0036ADF9Element@@@_STL@@@_STL@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/Rva00588E44.cpp (not merged yet)
-
-// tu-skeleton: 0x0020066C 68B ??0ShellMenuScheme@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuScheme_Rva0020066C.cpp (not merged yet)
-
-// tu-skeleton: 0x002006B0 196B ??1ShellMenuScheme@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuSchemeDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00200774 23B ??0Rva002007D5@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuSchemeDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0020078B 28B ??_GShellMenuScheme@@QAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuSchemeDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x002007A7 23B ?m@Gen_00581350@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/RTS/Gen_guarded_list_push_back.cpp (not merged yet)
-
-// tu-skeleton: 0x002007BE 23B ?addImage@ShellMenuScheme@@QAEXPAVShellMenuSchemeImage@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuScheme_addImage.cpp (not merged yet)
-
-// tu-skeleton: 0x002007D5 109B ??1Rva002007D5@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuSchemeDtor.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuScheme_Rva002008c8.cpp
 
@@ -395,9 +405,74 @@ ShellMenuScheme *ShellMenuSchemeManager::newShellMenuScheme(AsciiString name)
 	return newScheme;
 }
 
+// tu-skeleton: 0x002004C3 58B ??0ShellMenuSchemeImage@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuSchemeImageConstructor.cpp (not merged yet)
+
+// tu-skeleton: 0x002005DE 124B ?setShellMenuScheme@ShellMenuSchemeManager@@QAEXVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuSchemeSet.cpp (not merged yet)
+
+// tu-skeleton: 0x0020065A 13B ?draw@Rva0020065ANullForwarder@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp (not merged yet)
+
+// tu-skeleton: 0x00200667 5B ??1?$list@URva0036ADF9Element@@V?$allocator@URva0036ADF9Element@@@_STL@@@_STL@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/Rva00588E44.cpp (not merged yet)
+
+// tu-skeleton: 0x0020066C 68B ??0ShellMenuScheme@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuScheme_Rva0020066C.cpp (not merged yet)
+
+// tu-skeleton: 0x002006B0 196B ??1ShellMenuScheme@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuSchemeDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00200774 23B ??0Rva002007D5@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuSchemeDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0020078B 28B ??_GShellMenuScheme@@QAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuSchemeDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x002007A7 23B ?m@Gen_00581350@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/RTS/Gen_guarded_list_push_back.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuScheme_addImage.cpp
+
+//
+// ?addImage@ShellMenuScheme@@QAEXPAVShellMenuSchemeImage@@@Z retail
+// 0x002007BE (23B), pinned. Zero Hour's ShellMenuScheme::addImage: a null
+// image is ignored, otherwise it is appended to the image list at +0x04
+// through the folded list<int>::push_back (row 0x0005548F).
+
+// vector<int> fill/insert otherwise instantiates the _Construct<int,int>
+// COMDAT (one byte shape per TU flags); a file-static overload takes those
+// calls instead so this TU emits no external copy.
+
+void ShellMenuScheme::addImage( ShellMenuSchemeImage *schemeImage )
+{
+	if( !schemeImage )
+		return;
+	reinterpret_cast<_STL::list<int> &>(m_imageList).push_back( *(int *)&schemeImage );
+}
+
+// tu-skeleton: 0x002007D5 109B ??1Rva002007D5@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuSchemeDtor.cpp (not merged yet)
+
 // tu-skeleton: 0x00200893 53B ?Rva00200893Parse@@YAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/Common/INI/INIThinFieldParsers3.cpp (not merged yet)
 
-// tu-skeleton: 0x00200984 113B ?parseShellMenuSchemeDefinition@INI@@SAXPAV1@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuSchemeParse.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuSchemeParse.cpp
+
+// INI::parseShellMenuSchemeDefinition @0x00200984 (113B): Zero Hour
+// ShellMenuScheme.cpp's block parser. Identity from the INI block table: the
+// "ShellMenuScheme" token's entry names this address. The body reads the
+// name token, takes TheShell's scheme manager (+0x64, ZH's inline
+// getShellMenuSchemeManager()), returns when there is none, else makes the
+// scheme with the rowed newShellMenuScheme 0x002008C8 and fills it from the
+// manager's field-parse table 0x00BE29EC.
+
+void INI::parseShellMenuSchemeDefinition(INI *ini)
+{
+	AsciiString name;
+	ShellMenuSchemeManager *SMSchemeManager;
+	ShellMenuScheme *SMScheme;
+
+	const char *c = ini->getNextToken();
+	name.set(c);
+
+	SMSchemeManager = TheShell->getShellMenuSchemeManager();
+	if (!SMSchemeManager)
+		return;
+
+	SMScheme = SMSchemeManager->newShellMenuScheme(name);
+
+	ini->initFromINI(SMScheme, SMSchemeManager->getFieldParse());
+}
 
 // tu-skeleton: 0x0076C32E 8B $L347 -- matched in Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuSchemeImageConstructor.cpp (not merged yet)
 
@@ -409,7 +484,7 @@ ShellMenuScheme *ShellMenuSchemeManager::newShellMenuScheme(AsciiString name)
 
 // tu-skeleton: 0x0076C352 8B $L35239 -- matched in Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuScheme_Rva0020066C.cpp (not merged yet)
 
-// tu-skeleton: 0x0076C35A 11B uw_0076c35a -- matched in Code/gen_small/uw_gen_011.cpp (not merged yet)
+// tu-skeleton: 0x0076C35A 11B $L35240 -- matched in Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuScheme_Rva0020066C.cpp (not merged yet)
 
 // tu-skeleton: 0x0076C365 10B __ehhandler$??0ShellMenuScheme@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuScheme_Rva0020066C.cpp (not merged yet)
 
@@ -424,7 +499,3 @@ ShellMenuScheme *ShellMenuSchemeManager::newShellMenuScheme(AsciiString name)
 // tu-skeleton: 0x0076C397 8B $L4176 -- matched in Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuSchemeDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0076C39F 10B __ehhandler$??1Rva002007D5@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuSchemeDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076C3D9 8B $L1208 -- matched in Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuSchemeParse.cpp (not merged yet)
-
-// tu-skeleton: 0x0076C3E1 10B __ehhandler$?parseShellMenuSchemeDefinition@INI@@SAXPAV1@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuSchemeParse.cpp (not merged yet)
