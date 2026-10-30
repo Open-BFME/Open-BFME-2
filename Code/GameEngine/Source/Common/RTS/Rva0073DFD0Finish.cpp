@@ -30,23 +30,20 @@ struct Rva0073DFD0PlayerState
 	unsigned short unknown06;
 };
 
-class Rva0073DFD0Element
+// reset's new[] constructs ShroudManagerCell (retail 0x0073B600, rowed in
+// ShroudManagerImpl008FBA40.cpp); its empty destructor is the shared bare
+// ret at 0x0069E440 that delete[] hands the vector destructor iterator.
+class ShroudManagerCell
 {
 public:
-	Rva0073DFD0Element();
-	~Rva0073DFD0Element();
+	__declspec(noinline) ShroudManagerCell();
+	__declspec(noinline) ~ShroudManagerCell() {}
 
 private:
 	void *cellNodes;
 	Rva0073DFD0PlayerState playerStates[20];
 	int unknown64;
 };
-
-// ?Rva0073DFD0Element::Rva0073DFD0Element present-unmatched
-Rva0073DFD0Element::Rva0073DFD0Element() : cellNodes(0), unknown64(0) {}
-// Retail's element destructor is the shared empty body at 0x0069E440 (a bare
-// ret): reset's delete[] hands that address to the vector destructor iterator.
-Rva0073DFD0Element::~Rva0073DFD0Element() {}
 
 class ShroudManager
 {
@@ -61,7 +58,7 @@ private:
 	Real inverseCellSize;
 	unsigned int width;
 	unsigned int height;
-	Rva0073DFD0Element *elements;
+	ShroudManagerCell *elements;
 	void *nodes;
 	void *pendingPartitionData;
 	int unknown38;
@@ -82,5 +79,5 @@ void ShroudManager::reset()
 
 	enabled = true;
 	delete[] elements;
-	elements = new Rva0073DFD0Element[1];
+	elements = new ShroudManagerCell[1];
 }
