@@ -68,15 +68,3 @@ protected:
 	unsigned char m_gap08[0x30 - 0x08];
 	UnicodeString m_name;
 };
-
-// ?isPlayer@Rva004481A7@@QBE_NVUnicodeString@@@Z
-Bool Rva004481A7::isPlayer(UnicodeString userName) const
-{
-	Bool result;
-	if (m_state == SLOT_PLAYER && userName.compareNoCase(m_name) == 0)
-		result = true;
-	else
-		result = false;
-
-	return result;
-}

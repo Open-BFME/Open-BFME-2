@@ -35414,7 +35414,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00448113,61,code,Code/GameEngine/Source/Common/BfmeStringRecord00448113.cpp,proposed,N,N=Code/GameEngine/Source/Common/BfmeStringRecord00448113.cpp,Code/GameEngine/Source/Common/StringRecordInlineCopyBFME2.cpp
 0x00448150,59,code,Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp S=Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp N=Code/GameEngine/Source/GameNetwork/LANGameSlot.cpp,Code/GameEngine/Source/GameNetwork/LANGameInfoCtor.cpp
 0x0044818B,28,code,,displaced,-,N=Code/GameEngine/Source/Common/LANGameSlot.cpp,Code/GameEngine/Source/Common/LANGameSlot.cpp
-0x004481A7,45,code,Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp,approved,C,C=0x00448150..0x004481D4,Code/GameEngine/Source/GameNetwork/GameSlotIsPlayer.cpp
+0x004481A7,45,code,Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp,approved,C,C=0x00448150..0x004481D4,Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp
 0x004481D4,162,code,Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp S=Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp N=Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp,Code/GameEngine/Source/GameNetwork/LANGameInfoCtor.cpp
 0x00448276,6,code,Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp,approved,C,C=0x004481D4..0x00448280,Code/GameEngine/Source/Common/ModuleNameGetters.cpp
 0x0044827C,4,code,,displaced,-,N=Code/Libraries/Source/ATL/ATL.cpp,Code/Libraries/Source/ATL/atlconv.cpp
