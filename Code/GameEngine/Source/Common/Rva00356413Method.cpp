@@ -1,4 +1,4 @@
-// cl: /MD /EHsc
+// cl: /MD /EHsc /Ireference/shims/bfme2_ascii
 // ??1Rva00355D66@@UAE@XZ @0x00355D66 73B
 // Intermediate dtor in the ProgressIndicator family (base dtor rowed at 0x00355C77,
 // base ctor unrowed at 0x00355C60, own ctor at 0x00355D4E with vtable 0x00814E5C).
@@ -118,14 +118,12 @@ private:
 // at +0x14 via rowed releaseBuffer, then calls base 0x00355D66; deleting dtor at
 // 0x00356AFA calls here; chain of 0x00355D66; EH states 1/0/-1 with scope
 // 0x00B7D5F0.
-template <typename T> class StringBase {
-public: ~StringBase() { releaseBuffer(); }
-private: void releaseBuffer();
-	T *m_data;
-};
+// The canonical frozen StringBase replaces the private copy; its switch makes
+// the member dtor reachable and keeps the teardown an out-of-line call to the
+// rowed releaseBuffer (0x00036410 narrow, 0x00036E70 wide).
+#define BFME_STRINGBASE_PUBLIC_DTOR
+#include "string_base.h"
 
-// The narrow teardown is rowed at 0x00036410 (StringBaseWideReleaseBuffer.cpp).
-template <> StringBase<char>::~StringBase();
 
 
 class DisplayManager {
