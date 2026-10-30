@@ -688,10 +688,13 @@ def test_unanchored_naming_hint_does_not_break_its_host_span(unconverted):
     assert "noncontiguous" not in unconverted[0x8000]["evidence"]
     hint = unconverted[0x9000]
     assert hint["tu"] == "Code/X/BfmeThingQQ.cpp" and hint["confidence"] == "proposed"
-    # the unledgered functions either side of it are bracketed by different TUs: no TU,
-    # but their extents are written (tu_at needs every known body)
+    # the unledgered functions either side of it: C stops at the hint (its nearest assigned
+    # rows differ), but Host's Z anchors bracket them and an unanchored guess does not veto,
+    # so T (tu_evidence) places them in Host; their extents are written (tu_at needs every body)
     for rva in (0x8040, 0x9800):
-        assert (unconverted[rva]["tu"], unconverted[rva]["confidence"], unconverted[rva]["size"]) == ("", "", 16)
+        r = unconverted[rva]
+        assert (r["tu"], r["confidence"], r["by"], r["size"]) == ("Code/X/Host.cpp", "approved", "T", 16)
+        assert "T=0x00008000..0x0000A800@0x00008000,0x0000A800" in r["evidence"].split()
 
 
 def test_map_with_unconverted_rows_is_deterministic(tmp_path, unconverted):

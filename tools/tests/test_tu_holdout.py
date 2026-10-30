@@ -118,3 +118,49 @@ def test_holdout_is_reproducible(monkeypatch):
     second = H.holdout("p-groups", builder=FakeBuilder(), log=lambda *a: None)
     assert first == second and first["scored"] == 6 and first["purity"] == 1.0
     assert "purity 6/6 = 100.00%" in H.render(first)
+
+
+def test_strip_by_row_removes_only_the_held_out_rows_own_anchors():
+    rows = [ev(1, Z="Code/A.cpp", N="Code/A.cpp"), ev(2, Z="Code/A.cpp", S="Code/A.cpp")]
+    out = H.strip(rows, frozenset(), frozenset({1}))
+    assert (out[0]["Z"], out[0]["hard"], out[0]["hint"]) == (None, None, "Code/A.cpp")
+    assert (out[1]["Z"], out[1]["S"]) == ("Code/A.cpp", "Code/A.cpp")      # the TU keeps its other anchors
+
+
+def test_a_signal_rule_promotes_it_for_on_and_drops_it_for_off(monkeypatch):
+    import tu_evidence
+    seen = []
+    monkeypatch.setattr(tu_map, "build", lambda layout: seen.append(tu_evidence.PROMOTED) or [])
+    monkeypatch.setattr(tu_evidence, "PROMOTED", frozenset("EP"))
+    b = H.Builder(layout=None)
+    b.rows = [ev(1, Z="Code/A.cpp")]
+    off, on = H.toggles("signal-T")
+    b.build(**off)
+    b.build(**on)
+    assert seen == [frozenset("EP"), frozenset("EPT")]
+    assert H.toggles("signal-E")[0] == {"without": "E"} and H.toggles("brackets") is None
+    assert tu_evidence.PROMOTED == frozenset("EP")                        # restored after the build
+
+
+class RowBuilder:
+    """Rows of two TUs; a held-out row loses approval unless the signal (T) is on."""
+    layout = None
+
+    def build(self, held=frozenset(), p_groups=False, prov_min=2, signal=None, without=None,
+              held_rows=frozenset()):
+        out = []
+        for i, key in enumerate(("Code/A.cpp", "Code/B.cpp")):
+            for j in range(10):
+                rva = 0x100 * i + j
+                gone = rva in held_rows
+                out.append(row(rva, key if not gone or signal else "", conf="approved" if not gone or signal else "",
+                               by="T" if gone else "Z"))
+        return out
+
+
+def test_row_folds_hold_out_rows_and_score_the_rule_on_them(monkeypatch):
+    monkeypatch.setattr(H, "files_freed", lambda layout, live, gained: 0)
+    rep = H.holdout("signal-T", builder=RowBuilder(), log=lambda *a: None, unit="row")
+    assert rep["unit"] == "row" and rep["truth_rows"] == 20
+    assert rep["scored"] == 20 and rep["name_correct"] == 20 and rep["purity"] == 1.0
+    assert "hold-out of truth rows" in H.render(rep)

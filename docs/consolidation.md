@@ -184,10 +184,13 @@ Hour definition, no usable name and no bracketing anchor. `tools/tu_evidence.py`
 reads layouts the linker kept in object order out of the retail image and the
 committed xref tables: funclet order in `.text$x` (E, parents from the image's own
 EH FuncInfo tables), vftable layout (V), the `.CRT$XCU` initializer table (I),
-`.rdata` order (R), and funclet parentage (P: a handler or funclet takes its
-parent's TU and confidence). A row is placed only when the nearest anchored entries
-on both sides of each of its entries name one TU within the signal's gap, and all
-signals that reach it agree.
+`.rdata` order (R), `.text` order itself (T: brackets of approved F/Z/L rows, past
+other TUs' proposed guesses, vetoed by any row between that names another TU
+firmly), and funclet parentage (P: a handler or funclet takes its parent's TU and
+confidence). A row is placed only when the nearest anchored entries on both sides
+of each of its entries name one TU within the signal's gap, and all signals that
+reach it agree. E, P and T are promoted; V, R and I only propose (the docstring
+records each measurement).
 
     python3 tools/tu_evidence.py --validate          # precision/recall per signal, rows a pass would approve
     python3 tools/tu_evidence.py --source FILE       # what reaches one source's rows
@@ -197,8 +200,11 @@ signals that reach it agree.
 Every signal starts proposal-only. It counts toward tu_map approval only when
 `tu_evidence.PROMOTED` lists it, in a Verifier-Change commit recording
 `--validate` at >= 99% precision (leave-one-out over approved F/Z/S rows; P
-against the ledger's `parent=` notes) in the tool's docstring. `--validate` exits 1
-when a promoted signal has fallen below the gate. Even then tu_map computes the
+against the ledger's `parent=` notes) in the tool's docstring, and the hold-out
+harness on the signal (`tu_map.py --holdout signal-X`, and `--unit row` for a
+signal that anchors only on a TU's own hard rows, which a TU fold strips
+entirely) at >= 99%. `--validate` exits 1 when a promoted signal has fallen below
+the gate. Even then tu_map computes the
 approval: the TU must be anchored and contiguous, the row must not sit inside
 another approved TU's span, and a funclet's parent must be approved. Nothing here is
 entered by hand, and the lane never commits a regenerated map.

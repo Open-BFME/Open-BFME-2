@@ -162,7 +162,7 @@ Usage:
   python3 tools/tu_map.py                write tu_map.csv (+ fingerprint), print a summary
   python3 tools/tu_map.py --check        exit 1 when tu_map.csv differs from a rebuild
   python3 tools/tu_map.py --check-fresh  exit 1 when an input changed since tu_map.csv was written
-  python3 tools/tu_map.py --holdout RULE   held-out purity of an approval rule (tools/tu_holdout.py)
+  python3 tools/tu_map.py --holdout RULE [--unit row]   held-out purity of an approval rule (tools/tu_holdout.py)
   python3 tools/tu_map.py --validate REV score approved predictions against independent evidence:
                                          each approved row's own F/Z/S, and the F/Z/S of rows
                                          landed since REV at addresses a map built from REV's
@@ -1665,8 +1665,10 @@ def main(argv=None):
     g.add_argument("--dir", help="summarise rows whose current source starts with this prefix")
     g.add_argument("--holdout", metavar="RULE",
                    help="held-out purity of an approval rule (tools/tu_holdout.py): p-groups, prov-min-1, "
-                        "brackets, interleave, k-only")
+                        "signal-E/I/V/T/R, brackets, interleave, k-only")
     ap.add_argument("--folds", type=int, default=5, help="with --holdout: folds")
+    ap.add_argument("--unit", choices=("tu", "row"), default="tu",
+                    help="with --holdout: hold out anchored TUs (default) or truth rows")
     ap.add_argument("--json", help="with --holdout: write the report here")
     ap.add_argument("--root", type=Path, default=ROOT)
     ap.add_argument("--zh", type=Path, help="ZH GeneralsMD/Code tree (default: the Open-BFME-1 submodule's)")
@@ -1687,7 +1689,7 @@ def main(argv=None):
         return report_validation(layout, a.validate)
     if a.holdout:
         import tu_holdout
-        return tu_holdout.main(a.holdout, a.folds, a.json, layout)
+        return tu_holdout.main(a.holdout, a.folds, a.json, layout, a.unit)
     out = build(layout)
     text = render(out)
     if a.check:

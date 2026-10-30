@@ -18,6 +18,13 @@ The method is the provisional gate's (76341ba6b2), made reproducible here:
           precision: the rule's TU is the truth TU's own path; recall: correct scored rows
           over the held-out truth rows the OFF map leaves unapproved.
 
+Row folds (`--unit row`): a TU fold strips every anchor a held-out TU has, so it cannot score a
+rule that places rows only between a TU's own F/Z/L anchors (signal-T): it reports how many
+held-out rows such a rule puts in a neighbour (purity), never a correct placement. A row fold
+holds out ROWS instead: the truth rows split into FOLDS folds by a hash of their address, and
+per fold the held-out rows' own F/Z/S/L/W are stripped (the other rows of their TU keep theirs),
+so a held-out row looks like a row nothing anchors. Scored as above, over the held-out rows.
+
 Leakage: the only route from a held-out TU's anchors into a fold's map is the evidence rows,
 and they are stripped there; tu_evidence (E/P) reads only the fold's own map and the retail
 image (FuncInfo, vftables), never the committed tu_map.csv or the ledger's strings. What the
@@ -25,7 +32,8 @@ fold still sees is non-anchor input: row names (class names give N), current sou
 (directories), retail layout. Truth is computed once, rule OFF, and never fed back.
 
 Rules: `p-groups` and `prov-min-1` toggle the real gate (tu_evidence.P_GROUPS,
-tu_map.PROV_MIN); `brackets`, `interleave` and `k-only` are candidate post-passes on a built
+tu_map.PROV_MIN); `signal-X` builds with tu_evidence signal X promoted on top of PROMOTED
+(rule OFF: X left out); `brackets`, `interleave` and `k-only` are candidate post-passes on a built
 map, measured here only (not in the gate).
 
     python3 tools/tu_map.py --holdout p-groups [--folds 5] [--json FILE]
@@ -48,13 +56,14 @@ RULE_TOKENS = ("p-group",)          # evidence tokens of candidate rules: never 
 
 # ---------------------------------------------------------------- input
 
-def strip(rows, held):
-    """Evidence rows with every F/Z/S/L/W naming a held-out TU removed (copies)."""
+def strip(rows, held, held_rows=frozenset()):
+    """Evidence rows with every F/Z/S/L/W naming a held-out TU removed, and every F/Z/S/L/W
+    of a held-out row (by rva) (copies)."""
     out = []
     for r in rows:
         r = dict(r)
         for s in STRIP:
-            if r.get(s) and r[s].lower() in held:
+            if r.get(s) and (r[s].lower() in held or r["rva"] in held_rows):
                 r[s] = None
         r["hard"] = r["F"] or r["Z"] or r["S"] or r["L"]
         r["hint"] = r["hard"] or r["N"]
@@ -70,17 +79,21 @@ class Builder:
         self.layout = layout
         self.rows = None
 
-    def build(self, held=frozenset(), p_groups=False, prov_min=2):
+    def build(self, held=frozenset(), p_groups=False, prov_min=2, signal=None, without=None,
+              held_rows=frozenset()):
+        """`signal` is promoted for this build, `without` left out of PROMOTED; `held_rows`
+        (int rvas) lose their own anchors."""
         import tu_evidence
         if self.rows is None:
             self.rows = tu_map.evidence_rows(self.layout)
-        orig = tu_map.evidence_rows, tu_map.PROV_MIN, tu_evidence.P_GROUPS
-        tu_map.evidence_rows = lambda layout, ledger=None: strip(self.rows, held)
+        orig = tu_map.evidence_rows, tu_map.PROV_MIN, tu_evidence.P_GROUPS, tu_evidence.PROMOTED
+        tu_map.evidence_rows = lambda layout, ledger=None: strip(self.rows, held, held_rows)
         tu_map.PROV_MIN, tu_evidence.P_GROUPS = prov_min, p_groups
+        tu_evidence.PROMOTED = (orig[3] | {signal} if signal else orig[3]) - {without}
         try:
             out = tu_map.build(self.layout)
         finally:
-            tu_map.evidence_rows, tu_map.PROV_MIN, tu_evidence.P_GROUPS = orig
+            tu_map.evidence_rows, tu_map.PROV_MIN, tu_evidence.P_GROUPS, tu_evidence.PROMOTED = orig
         return sorted((r for r in out if r["kind"].startswith("code")), key=lambda r: int(r["rva"], 16))
 
 
@@ -161,7 +174,19 @@ def pass_interleave(rows):
 
 POST_PASSES = {"brackets": pass_brackets, "interleave": pass_interleave, "k-only": pass_k}
 GATE_RULES = {"p-groups": {"p_groups": True}, "prov-min-1": {"prov_min": 1}}
-RULES = tuple(GATE_RULES) + tuple(POST_PASSES)
+# one rule per tu_evidence layout signal: ON promotes it, OFF leaves it out (a promoted
+# signal is measured as if it were not)
+SIGNAL_RULES = {f"signal-{s}": s for s in ("E", "I", "V", "T", "R")}
+RULES = tuple(GATE_RULES) + tuple(SIGNAL_RULES) + tuple(POST_PASSES)
+
+
+def toggles(rule):
+    """(OFF build kwargs, ON build kwargs) of a gate or signal rule, or None for a post-pass."""
+    if rule in GATE_RULES:
+        return {}, GATE_RULES[rule]
+    if rule in SIGNAL_RULES:
+        return {"without": SIGNAL_RULES[rule]}, {"signal": SIGNAL_RULES[rule]}
+    return None
 
 
 def newly_approved(rule, off, on=None):
@@ -174,11 +199,13 @@ def newly_approved(rule, off, on=None):
 
 # ---------------------------------------------------------------- scoring
 
-def score_fold(rule, off, on, truth, held, stats, worst):
-    """Add one fold's counts to `stats`; append mixed rows to `worst`."""
+def score_fold(rule, off, on, truth, held, stats, worst, held_truth=None):
+    """Add one fold's counts to `stats`; append mixed rows to `worst`. `held_truth` (row
+    folds) are the held-out truth rows; by default those of the held-out TUs `held`."""
     got = newly_approved(rule, off, on)
-    final = on if rule in GATE_RULES else off
-    held_truth = {rva for rva, k in truth.items() if k in held}
+    final = off if rule in POST_PASSES else on
+    if held_truth is None:
+        held_truth = {rva for rva, k in truth.items() if k in held}
     recoverable = {r["rva"] for r in off if r["rva"] in held_truth and r["confidence"] != "approved"}
     stats["recoverable"] += len(recoverable)
     groups = collections.defaultdict(collections.Counter)
@@ -205,8 +232,8 @@ def score_fold(rule, off, on, truth, held, stats, worst):
             worst.append({"rva": rva, "by": r["by"], "tu": tu, "truth": truth[rva], "group": dict(g.most_common(3))})
 
 
-def holdout(rule, layout=None, folds=FOLDS, builder=None, log=print):
-    """The rule's held-out report (a dict)."""
+def holdout(rule, layout=None, folds=FOLDS, builder=None, log=print, unit="tu"):
+    """The rule's held-out report (a dict); `unit` "tu" holds out anchored TUs, "row" truth rows."""
     if rule not in RULES:
         raise SystemExit(f"tu_holdout: unknown rule {rule!r}; one of {', '.join(RULES)}")
     builder = builder or Builder(layout or tu_map.Layout(tu_map.ROOT))
@@ -214,16 +241,25 @@ def holdout(rule, layout=None, folds=FOLDS, builder=None, log=print):
     truth = truth_of(live)
     keys = sorted(set(truth.values()))
     stats, worst = collections.Counter(), []
-    toggle = GATE_RULES.get(rule)
+    toggle = toggles(rule)
+    if toggle and toggle[0]:            # truth never includes the rule's own approvals
+        live = builder.build(**toggle[0])
+        truth = truth_of(live)
+        keys = sorted(set(truth.values()))
     for f in range(folds):
-        held = frozenset(k for k in keys if fold_of(k, folds) == f)
-        off = builder.build(held)
-        on = builder.build(held, **toggle) if toggle else None
-        score_fold(rule, off, on, truth, held, stats, worst)
-        log(f"tu_holdout {rule}: fold {f + 1}/{folds} ({len(held)} TUs held out)")
-    live_on = builder.build(**toggle) if toggle else None
+        if unit == "row":
+            rows = frozenset(rva for rva in truth if fold_of(rva, folds) == f)
+            held, held_truth, extra = frozenset(), rows, {"held_rows": frozenset(int(a, 16) for a in rows)}
+        else:
+            held = frozenset(k for k in keys if fold_of(k, folds) == f)
+            held_truth, extra = None, {}
+        off = builder.build(held, **(toggle[0] if toggle else {}), **extra)
+        on = builder.build(held, **toggle[1], **extra) if toggle else None
+        score_fold(rule, off, on, truth, held, stats, worst, held_truth)
+        log(f"tu_holdout {rule}: fold {f + 1}/{folds} ({len(held_truth or held)} {unit}s held out)")
+    live_on = builder.build(**toggle[1]) if toggle else None
     gained = newly_approved(rule, live, live_on)
-    report = {"rule": rule, "folds": folds, "anchored_tus": len(keys), "truth_rows": len(truth),
+    report = {"rule": rule, "unit": unit, "folds": folds, "anchored_tus": len(keys), "truth_rows": len(truth),
               "scored": stats["scored"], "pure": stats["pure"], "singleton_groups": stats["singleton"],
               "name_correct": stats["name"], "recovered": stats["recovered"], "recoverable": stats["recoverable"],
               "not_held_out": stats["not held out"], "unlabelled": stats["unlabelled"],
@@ -247,8 +283,9 @@ def files_freed(layout, live, gained):
 
 def render(report):
     p = report["purity"]
-    lines = [f"rule {report['rule']}: {report['folds']}-fold hold-out of {report['anchored_tus']} anchored TUs "
-             f"({report['truth_rows']} truth rows)",
+    held = "truth rows" if report.get("unit") == "row" else "anchored TUs"
+    lines = [f"rule {report['rule']}: {report['folds']}-fold hold-out of {held} ({report['anchored_tus']} "
+             f"anchored TUs, {report['truth_rows']} truth rows)",
              f"  purity {report['pure']}/{report['scored']}" + (f" = {100 * p:.2f}%" if p is not None else "")
              + f" ({report['singleton_groups']} in one-row groups, pure by construction)",
              f"  name precision {report['name_correct']}/{report['scored']}; recall "
@@ -261,8 +298,8 @@ def render(report):
     return "\n".join(lines)
 
 
-def main(rule, folds=FOLDS, json_path=None, layout=None):
-    report = holdout(rule, layout, folds, log=lambda m: print(m, file=sys.stderr))
+def main(rule, folds=FOLDS, json_path=None, layout=None, unit="tu"):
+    report = holdout(rule, layout, folds, log=lambda m: print(m, file=sys.stderr), unit=unit)
     print(render(report))
     if json_path:
         Path(json_path).write_text(json.dumps(report, indent=1), encoding="utf-8")

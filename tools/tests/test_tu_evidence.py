@@ -124,7 +124,7 @@ def test_the_image_layouts_are_read(tree):
 
 def test_every_ordered_signal_brackets_the_unplaced_row_inside_one_tu(tree):
     got = te.gather(map_rows(), structures(tree))
-    assert {s: tu for s, (tu, _) in got[0x1200].items()} == dict.fromkeys("EIVR", "code/a.cpp")
+    assert {s: tu for s, (tu, _) in got[0x1200].items()} == dict.fromkeys("EIVTR", "code/a.cpp")
     assert got[0x1200]["E"][1].startswith("E=0x")                     # the ref names the bracket
     assert te.choose(got[0x1200])[0] == "E"
 
@@ -199,6 +199,46 @@ def test_p_groups_place_nothing_a_parent_without_a_tu_does_not(tree, monkeypatch
     assert got[f"0x{FUNCLET:08X}"]["tu"] == "" and got[f"0x{FUNCLET:08X}"]["confidence"] == ""
 
 
+def t_layout(tree, out):
+    st = structures(tree, out)
+    return te.layouts(st, te.anchors_of(out)[0])["T"]
+
+
+def test_t_brackets_a_row_between_one_tus_hard_anchors(tree):
+    lay = t_layout(tree, map_rows())
+    tu, ref = lay.predict(0x1200)                                     # X: A2 (Z) below, A3 (Z) above
+    assert tu == "code/a.cpp" and ref == "T=0x00001100..0x00001300@0x00001100,0x00001300"
+    assert lay.predict(0x1400) is None                                # B1: A3 below, B2 above
+
+
+def test_t_never_anchors_on_a_naming_hint_or_class_site(tree):
+    """Near miss: S (a class site) and N/U place header inlines of a class beside another TU's
+    code (WWMath aabox.cpp inlines inside gridcull.cpp); T takes F/Z/L anchors only."""
+    for by in "SNU":
+        out = [dict(r, by=by) if r["rva"] in ("0x00001100", "0x00001300") else r for r in map_rows()]
+        assert t_layout(tree, out).predict(0x1200) is None, by
+        assert te.layouts(structures(tree, out), te.anchors_of(out)[0])["V"].predict(0x1200), by   # V still may
+
+
+def test_t_is_vetoed_by_a_row_firmly_naming_another_tu_between_its_anchors(tree):
+    extra = code_row(0x1280, 0x10, "Code/B.cpp", "proposed", "Z", "Code/B.cpp", "Z=Code/B.cpp")
+    assert t_layout(tree, map_rows() + [extra]).predict(0x1200) is None
+    hard_x = code_row(0x1280, 0x10, "", "", "-", "Code/Y.cpp", "F=Code/B.cpp")          # no TU, its own F names B
+    assert t_layout(tree, map_rows() + [hard_x]).predict(0x1200) is None
+    soft = code_row(0x1280, 0x10, "Code/Guess.cpp", "proposed", "N", "Code/G.cpp", "N=Code/Guess.cpp")
+    assert t_layout(tree, map_rows() + [soft]).predict(0x1200)[0] == "code/a.cpp"      # a guess does not veto
+
+
+def test_t_is_promoted_and_approves_inside_an_anchored_tu(tree):
+    layout, _ = tree
+    assert "T" in te.PROMOTED
+    out = map_rows()
+    new = {r["rva"]: r for r in te.apply(layout, out, {"T"}, structures(tree, out))}
+    x = new["0x00001200"]
+    assert (x["tu"], x["confidence"], x["by"]) == ("Code/A.cpp", "approved", "T")
+    assert "T=0x00001100..0x00001300" in x["evidence"]
+
+
 def test_a_row_inside_another_approved_tus_span_is_only_proposed(tree):
     out = map_rows() + [code_row(0x1480, 0x10, source="Code/Y.cpp")]
     roots, broken, spans = te.approvable(out)
@@ -227,7 +267,7 @@ def test_evidence_rows_are_deterministic_and_re_checked(tree, tmp_path, monkeypa
     st = structures(tree)
     rows = te.evidence_rows(layout, map_rows(), st)
     assert te.render(rows) == te.render(te.evidence_rows(layout, map_rows(), structures(tree)))
-    assert {r["signal"] for r in rows if r["rva"] == "0x00001200"} == set("EIVR")
+    assert {r["signal"] for r in rows if r["rva"] == "0x00001200"} == set("EIVTR")
     assert all(r["status"] == "proposal" for r in rows)
     path = tmp_path / "ev.csv"
     path.write_text(te.render(rows))

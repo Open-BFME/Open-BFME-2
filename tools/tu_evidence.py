@@ -25,8 +25,15 @@ definition, no usable name, no bracketing anchors. The linker lays out more than
   P  funclet parentage: a handler or funclet takes its parent's TU (the parent read
      from the same EH tables). Its parent is scored against the ledger's eh_verify
      `parent=` notes.
+  T  .text brackets: .text itself is in object order, so a row with no TU whose nearest
+     anchored rows on both sides name one TU within tu_map.GAP sits in that TU's object.
+     T anchors on approved F/Z/L rows only (T_ANCHOR_BY). tu_map's C already takes a row
+     whose nearest assigned rows agree; T reaches past proposed N/U/K/C guesses of other
+     TUs between the anchors (contiguity contradicts them), and is vetoed by any row
+     between them that names another TU firmly (approved, or its own F/Z/S/L evidence).
+     A displaced COMDAT is never placed: it has a naming hint elsewhere.
 
-R, V, I and E share one rule: a function's entries in the layout, the nearest
+R, V, I, E and T share one rule: a function's entries in the layout, the nearest
 anchored entries below and above each of them (an anchor is an approved F/Z/S/L/N/U
 map row; never C, so a bracket does not lean on contiguity), both naming one TU
 within the signal's gap. A function whose entries name two TUs gets nothing.
@@ -52,6 +59,22 @@ with the ZH tree; 6,858 approved F/Z/S rows held out one at a time; P against 18
   I  no prediction: 1,164 of the 1,166 initializers have no TU, so nothing anchors I
   E+V+P together would approve 7,680 rows in 1,501 sources.
 `--validate` prints the current numbers; a promotion commit records them here.
+
+Promoted 2026-10-30 (T). Measured at ffdc977670 with the map rebuilt in memory:
+  --validate (leave-one-out, 9,824 held-out F/Z/S rows):
+  T  precision 1.0000 (7671/7671)    recall 0.781  alone approves 1,396 rows (+125 funclets
+                                                   whose parents it approves) in 61 TUs
+  `tu_map.py --holdout signal-T --unit row` (a fifth of the 32,366 truth rows at a time lose
+  their own F/Z/S/L/W, the map rebuilt): 365/365 placed rows name their own TU (100.00%).
+  `tu_map.py --holdout signal-T` (whole TUs held out): no held-out row placed in a neighbour.
+  T with S/N/U anchors too failed that test, 126/130 (96.92%): AABox inlines with S=aabox.cpp
+  inside gridcull.cpp pulled gridcull's rows into aabox.cpp; hence T_ANCHOR_BY.
+  The same runs keep V and R proposal-only: V row purity 6/10, TU name precision 0/25;
+  R row name precision 31/46. Not added, below the gate leave-one-out: R over .data items
+  (0.92-0.95 at gaps 0x40-0x400 and referencer caps 1-all), and a vote by the TU of the other
+  functions referencing a row's .data/.bss globals (0.79-0.88). I still predicts nothing: its
+  1,166 `.CRT$XCU` functions sit in their own region at the end of .text and none is anchored;
+  that vote would reach only 65 of them.
 
 Promoted 2026-10-26 (E and P; V stays proposal-only: 3 of its 462 predictions
 were wrong). `--validate` at ed0e06e23f, 6,860 held-out rows, P against 19,649
@@ -86,8 +109,8 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import tu_map  # noqa: E402
 
-SIGNALS = ("E", "I", "V", "R", "P")            # order of preference when several agree
-PROMOTED = frozenset("EP")                    # approval-capable signals (Verifier-Change commit)
+SIGNALS = ("E", "I", "V", "T", "R", "P")            # order of preference when several agree
+PROMOTED = frozenset("EPT")                   # approval-capable signals (Verifier-Change commit)
 GATE = 0.99
 # P groups (owner decision pending; `tu_map.py --holdout p-groups`): a funclet whose parent the map
 # does not approve is approved with its parent's TU anyway, evidence token P_GROUP_TOKEN (plus
@@ -96,9 +119,12 @@ GATE = 0.99
 P_GROUPS = True
 P_GROUP_TOKEN = "p-group"
 ANCHOR_BY = frozenset("FZSLNU")
+# T anchors on hard evidence only: S (a class site) and N/U (naming) also land on header inlines
+# emitted in another TU's object, which a bracket would then pull that object's rows into
+T_ANCHOR_BY = frozenset("FZL")
 TEST_BY = frozenset("FZS")
 # Max distance (bytes in the signal's own layout) between the two bracketing anchors.
-GAPS = {"R": 0x100, "V": 0x400, "I": 0x40, "E": 0x2000}
+GAPS = {"R": 0x100, "V": 0x400, "I": 0x40, "E": 0x2000, "T": tu_map.GAP}
 EH_MAGIC = (0x19930520, 0x19930521, 0x19930522)
 MAX_STATES = 4096
 COLUMNS = ["rva", "source", "signal", "tu", "ref", "status"]
@@ -269,6 +295,12 @@ class Structures:
 
     def __init__(self, layout, out, img=None):
         self.code = Code((int(r["rva"], 16), tu_map._int(r["size"])) for r in out if r["kind"].startswith("code"))
+        # (rva, TU keys) of every code row that names a TU firmly: its approved TU and the
+        # TUs its own F/Z/S/L evidence names (T's veto)
+        got = sorted((int(r["rva"], 16), named) for r in out if r["kind"].startswith("code")
+                     for named in [hard_named(r)] if named)
+        self.firm_at, self.firm_tus = [a for a, _ in got], [k for _, k in got]
+        self.t_anchor = anchors_of(out, T_ANCHOR_BY)[0]
         img = img if img is not None else Retail.open(layout.image)
         self.img = img
         items = rdata_items(layout, self.code)
@@ -299,6 +331,8 @@ class Structures:
             got = list(self.inits)
         elif signal == "E":
             got = [(f, p) for f, (p, _) in self.parent.items()]
+        elif signal == "T":
+            got = [(a, a) for a in self.code.starts]
         else:
             raise ValueError(signal)
         return sorted(set(got))
@@ -308,8 +342,8 @@ class Structures:
 class Layout1:
     """One ordered layout and its bracketing rule."""
 
-    def __init__(self, signal, entries, anchor):
-        self.signal, self.gap = signal, GAPS[signal]
+    def __init__(self, signal, entries, anchor, veto=None):
+        self.signal, self.gap, self.veto = signal, GAPS[signal], veto
         self.pos = [p for p, _ in entries]
         self.fn = [f for _, f in entries]
         self.anchor = anchor                    # function rva -> TU key (lowercase) or None
@@ -335,6 +369,8 @@ class Layout1:
             lo, hi = self._side(i, -1, fn), self._side(i, 1, fn)
             if not lo or not hi or lo[1] != hi[1] or self.pos[hi[0]] - self.pos[lo[0]] > self.gap:
                 continue
+            if self.veto and self.veto(self.pos[lo[0]], self.pos[hi[0]], lo[1], fn):
+                continue
             votes.setdefault(lo[1], (f"{self.signal}=0x{self.pos[lo[0]]:08X}..0x{self.pos[hi[0]]:08X}"
                                      f"@0x{self.fn[lo[0]]:08X},0x{self.fn[hi[0]]:08X}"))
         if len(votes) != 1:
@@ -353,8 +389,36 @@ def anchors_of(out, by=ANCHOR_BY):
     return anchor, spelled
 
 
+HARD_TOKEN = re.compile(r"^([FZSL])=(.+)$")
+
+
+def hard_named(r):
+    """frozenset of TU keys a map row names firmly: its TU when approved, and every TU its own
+    F/Z/S/L evidence names (whatever it was assigned)."""
+    got = {r["tu"].lower()} if r["tu"] and r["confidence"] == "approved" else set()
+    for token in (r["evidence"] or "").split():
+        m = HARD_TOKEN.match(token)
+        if m:
+            got.add(m.group(2).lower())
+    return frozenset(got)
+
+
+def other_between(st):
+    """T's veto: does a row strictly between positions lo and hi, other than `fn`, firmly name
+    a TU other than `key` (hard_named)? A proposed N/U/K/C guess of another TU does not veto:
+    T's anchors on both sides already contradict it, by contiguity."""
+    def veto(lo, hi, key, fn):
+        i, j = bisect.bisect_right(st.firm_at, lo), bisect.bisect_left(st.firm_at, hi)
+        return any(st.firm_at[k] != fn and st.firm_tus[k] - {key} for k in range(i, j))
+    return veto
+
+
 def layouts(st, anchor):
-    return {s: Layout1(s, st.entries(s), anchor) for s in SIGNALS if s != "P"}
+    out = {s: Layout1(s, st.entries(s), anchor) for s in SIGNALS if s not in "PT"}
+    # T anchors on F/Z/L only, and only those of `anchor` (validate's leave-one-out)
+    out["T"] = Layout1("T", st.entries("T"), {a: k for a, k in st.t_anchor.items() if anchor.get(a) == k},
+                       other_between(st))
+    return out
 
 
 def gather(out, st, signals=SIGNALS):
