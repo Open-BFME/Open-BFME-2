@@ -4241,6 +4241,13 @@ Whole-unit clearance and census confirmation remain pending.
   Composition still accepts no donors: pool/constructor members and legacy
   Coord3D/Xfer definitions remain incompatible. No merge unblock, identity
   retirement, census gain or later Luna landing is claimed.
+  Follow-up (2026-10-30): [canonical Thing/Matrix3D adoption](../reverse/attempt_support/consolidation-default-exit-header-prerequisite-20261030-codex3.md)
+  retires two further header-queue rows with 4/4 rows exact, exact EH and a
+  scoped 534 -> 534 link prediction. The old transform COMDAT has an identical
+  fallback in QueueProductionExitUpdateExitObjectViaDoor; the new unit helper
+  and compiler array helper are discardable. Review affected consumers in the
+  next census if the outgoing audit lacks current receipts. The receiver,
+  pool/constructor and legacy-header composition prerequisites remain.
 - **SupplyWarehouseDockUpdate Xfer prerequisite (2026-10-26):**
   [Canonical integer transfer](../reverse/attempt_support/consolidation-supplywarehouse-xfer-prerequisite-20261026-codex.md)
   retires one header-queue row with 4/4 seed/donor rows exact and identical

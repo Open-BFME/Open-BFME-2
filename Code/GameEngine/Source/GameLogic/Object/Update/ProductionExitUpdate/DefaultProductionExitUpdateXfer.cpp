@@ -37,6 +37,8 @@
 // path, which the two inner scopes reproduce.
 
 #include "../../../../../../Libraries/Include/Lib/Coord3DBase.h"
+#include "../../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
+#include "../../../../Common/Thing/thing.h"
 
 class AsciiString;
 class UnicodeString;
@@ -131,9 +133,9 @@ struct Vector3
 	void Set(Real x, Real y, Real z) { X = x; Y = y; Z = z; }
 };
 
-class Matrix3D
+// Preserve this unit's alias-safe transform using canonical Matrix3D storage.
+struct DefaultExitTransform
 {
-public:
 	static __forceinline void Transform_Vector(const Matrix3D &matrix3D, const Vector3 &in, Vector3 *out)
 	{
 		Vector3 tmp;
@@ -144,27 +146,10 @@ public:
 		} else {
 			v = &in;
 		}
-		out->X = (matrix3D.Row[0][0] * v->X + matrix3D.Row[0][1] * v->Y + matrix3D.Row[0][2] * v->Z + matrix3D.Row[0][3]);
-		out->Y = (matrix3D.Row[1][0] * v->X + matrix3D.Row[1][1] * v->Y + matrix3D.Row[1][2] * v->Z + matrix3D.Row[1][3]);
-		out->Z = (matrix3D.Row[2][0] * v->X + matrix3D.Row[2][1] * v->Y + matrix3D.Row[2][2] * v->Z + matrix3D.Row[2][3]);
+		out->X = (matrix3D.Row[0].X * v->X + matrix3D.Row[0].Y * v->Y + matrix3D.Row[0].Z * v->Z + matrix3D.Row[0].W);
+		out->Y = (matrix3D.Row[1].X * v->X + matrix3D.Row[1].Y * v->Y + matrix3D.Row[1].Z * v->Z + matrix3D.Row[1].W);
+		out->Z = (matrix3D.Row[2].X * v->X + matrix3D.Row[2].Y * v->Y + matrix3D.Row[2].Z * v->Z + matrix3D.Row[2].W);
 	}
-
-	Real Row[3][4];
-};
-
-class Thing
-{
-public:
-	const Matrix3D *getTransformMatrix() const { return &m_transform; }
-	Real getOrientation() const { return m_cachedAngle; }
-	void setPosition(const Coord3D *pos);
-	void setOrientation(Real angle);
-
-private:
-	char m_unrecovered00[0x08];
-	Matrix3D m_transform;																											///< 0x08
-	Coord3D m_cachedPos;																											///< 0x38
-	Real m_cachedAngle;																												///< 0x44
 };
 
 #define VM10(p) \
@@ -239,7 +224,7 @@ public:
 	void setLayer(PathfindLayerEnum layer);
 
 private:
-	char m_unrecovered48[0x258 - 0x48];
+	char m_unrecovered60[0x258 - 0x60];
 	AIUpdateInterface *m_ai;																									///< 0x258
 };
 
@@ -355,7 +340,7 @@ void DefaultProductionExitUpdate::exitObjectViaDoor( Object *newObj, ExitDoorTyp
 			// and translate for building location via a transform call
 			//
 			loc.Set( md->m_unitCreatePoint.x, md->m_unitCreatePoint.y, md->m_unitCreatePoint.z );
-			transform->Transform_Vector( *transform, loc, &loc );
+			DefaultExitTransform::Transform_Vector( *transform, loc, &loc );
 
 			// make sure the point is on the terrain
 			loc.Z = TheTerrainLogic ? TheTerrainLogic->getLayerHeight( loc.X, loc.Y, creationObject->getLayer() ) : 0.0f;
