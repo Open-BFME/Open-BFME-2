@@ -17250,7 +17250,7 @@ _VP60D_GetVersionNumber,,0x001B5830,6,Code/Libraries/Source/VP6/PbAccessors.cpp,
 ?get@Rva00169650ShlDwordField@@QBEHXZ,,0x00169650,7,Code/GameEngine/Source/Common/Disp8ShlDwordFieldGetters.cpp,matched,disp8 shl getter; shift left; phase-proven no-branch-to-addr
 ?get@Rva002D371DAddImm32Field@@QBEHXZ,,0x002D371D,9,Code/GameEngine/Source/Common/Disp8AddImm32DwordFieldGetters.cpp,matched,disp8 add-imm32 getter; phase-proven no-branch-to-addr
 ?get@Rva0044E642AddImm32Field@@QBEHXZ,,0x0044E642,9,Code/GameEngine/Source/Common/Disp8AddImm32DwordFieldGetters.cpp,matched,disp8 add-imm32 getter; phase-proven no-branch-to-addr
-?get@Rva00483D9BAddImm32Field@@QBEHXZ,,0x00483D9B,9,Code/GameEngine/Source/Common/Disp8AddImm32DwordFieldGetters.cpp,matched,disp8 add-imm32 getter; phase-proven no-branch-to-addr
+?get@Rva00483D9BAddImm32Field@@QBEHXZ,,0x00483D9B,9,Code/GameEngine/Source/Common/ClearanceTestingSlowDeathBehavior.cpp,matched,disp8 add-imm32 getter; phase-proven no-branch-to-addr
 ?get@Rva004A39BEAddImm32Field@@QBEHXZ,,0x004A39BE,9,Code/GameEngine/Source/Common/Disp8AddImm32DwordFieldGetters.cpp,matched,disp8 add-imm32 getter; phase-proven no-branch-to-addr
 ?get@Rva004A39C7AddImm32Field@@QBEHXZ,,0x004A39C7,9,Code/GameEngine/Source/Common/Disp8AddImm32DwordFieldGetters.cpp,matched,disp8 add-imm32 getter; phase-proven no-branch-to-addr
 ?get@Rva004ABAAAAddImm32Field@@QBEHXZ,,0x004ABAAA,9,Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdate.cpp,matched,disp8 add-imm32 getter; phase-proven no-branch-to-addr

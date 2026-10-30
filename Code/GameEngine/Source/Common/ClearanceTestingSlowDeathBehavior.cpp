@@ -39,6 +39,28 @@ class RGBAColorInt;
 struct XferUnknown11;
 #include "../../Include/Common/BfmeXfer.h"
 #include "../../../Libraries/Include/Lib/Coord3D.h"
+#define BFME_DISP8_ADD_IMM32_BEFORE_DWORD_GETTER(NAME, BACK, IMM) \
+	class NAME \
+	{ \
+	public: \
+		int get() const; \
+	}; \
+	int NAME::get() const \
+	{ \
+		return *(const int *)((const char *)this - (BACK)) + (IMM); \
+	}
+#define BFME_DISP8_ADD_IMM32_DWORD_GETTER(NAME, DISP, IMM) \
+	class NAME \
+	{ \
+	public: \
+		int get() const; \
+		char m_lead[DISP]; \
+		int m_value; \
+	}; \
+	int NAME::get() const \
+	{ \
+		return m_value + IMM; \
+	}
 
 class Thing
 {
@@ -171,9 +193,13 @@ public:
 	float get() const;
 };
 
+BFME_DISP8_ADD_IMM32_BEFORE_DWORD_GETTER(Rva00483D9BAddImm32Field, 0x4C, 0x190)
+
 // tu-skeleton: 0x00483C35 46B ??1ClearanceTestingSlowDeathBehavior@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0045D39EDerived.cpp (not merged yet)
 
 // tu-skeleton: 0x00483C63 6B ?name@ClearanceTestingSlowDeathBehavior@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters2.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/ClearanceTestingSlowDeathBehavior.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/ClearanceTestingSlowDeathBehaviorSlot13.cpp
 
@@ -181,10 +207,6 @@ Rva00483C69Interface *ClearanceTestingSlowDeathBehavior::rva00483C69()
 {
 	return this;
 }
-
-// tu-skeleton: 0x00483C75 13B ?get@Rva00483C75LeaNegSbbField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8LeaNegSbbGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00483C82 29B ??0Rva00483C9FFilter@@QAE@H_N@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PartitionFilterCtorCopies.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/ClearanceTestingSlowDeathBehavior.cpp
 
@@ -234,14 +256,6 @@ ClearanceTestingSlowDeathBehaviorModuleData::~ClearanceTestingSlowDeathBehaviorM
 {
 }
 
-// tu-skeleton: 0x00483CEF 5B ?rva00483CEF@Rva00483CEF@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp (not merged yet)
-
-// tu-skeleton: 0x00483D39 70B ??0ClearanceTestingSlowDeathBehavior@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/ClearanceTestingSlowDeathBehaviorCtorThunk.cpp (not merged yet)
-
-// tu-skeleton: 0x00483D7F 28B ??_GClearanceTestingSlowDeathBehavior@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0045D39EDerived.cpp (not merged yet)
-
-// tu-skeleton: 0x00483D9B 9B ?get@Rva00483D9BAddImm32Field@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8AddImm32DwordFieldGetters.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/ClearanceTestingSlowDeathBehavior_getClearanceTestGeometryCenter.cpp
 
 void ClearanceTestingSlowDeathBehavior::getClearanceTestGeometryCenter(Coord3D *out)
@@ -271,6 +285,34 @@ void ClearanceTestingSlowDeathBehavior::xfer(Xfer *xfer)
 	xfer->Version1();
 	SlowDeathBehavior::xfer(xfer);
 }
+
+// tu-skeleton: 0x00483C75 13B ?get@Rva00483C75LeaNegSbbField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8LeaNegSbbGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00483C82 29B ??0Rva00483C9FFilter@@QAE@H_N@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PartitionFilterCtorCopies.cpp (not merged yet)
+
+// tu-skeleton: 0x00483CEF 5B ?rva00483CEF@Rva00483CEF@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp (not merged yet)
+
+// tu-skeleton: 0x00483D39 70B ??0ClearanceTestingSlowDeathBehavior@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/ClearanceTestingSlowDeathBehaviorCtorThunk.cpp (not merged yet)
+
+// tu-skeleton: 0x00483D7F 28B ??_GClearanceTestingSlowDeathBehavior@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0045D39EDerived.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Disp8AddImm32DwordFieldGetters.cpp
+
+// Disp8 add-imm32 dword getters: nine-byte __thiscall members with one shape:
+//
+//     mov eax,[ecx+<DISP>] / add eax,<IMM32> / ret
+//
+// One dword is read at a fixed displacement from `this`, a 32-bit immediate
+// too large for the sign-byte form is added, and the result is returned.
+// MSVC 7.1 emits the disp8 load `8B 41 XX` plus `05 IMM32`, plus `ret`, for
+// nine bytes total. This is the imm32 sibling of the Disp8AddDwordFieldGetters
+// family; the opcode itself is why the two families are kept in separate
+// translation units. Identity is not recovered: every name is derived from
+// its address.
+// No // cl: line (defaults match the frameless nine-byte shape).
+// Backward variant: the field sits at a NEGATIVE displacement from `this`.
+// Spelled as an explicit backward read, which MSVC folds to
+// `mov eax,[ecx-BACK]`.
 
 // tu-skeleton: 0x00483E25 160B ??0ClearanceTestingSlowDeathBehaviorModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/ClearanceTestingSlowDeathBehaviorModuleDataCtor.cpp (not merged yet)
 
