@@ -17,7 +17,6 @@
 
 extern "C" const void *const __identifier("??_7RadiateFearUpdateModuleData@@6B@")[];
 #include "Common/Snapshot.h"
-
 // ?getModuleNameKey@RadiateFearUpdate@@UBE?AW4NameKeyType@@XZ @0x49BFDD
 // (69B): cached pool-name key for RadiateFearUpdate. The class
 // identity comes from the pool-name string the body pushes
@@ -32,15 +31,12 @@ enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
-
 class NameKeyGenerator
 {
 public:
 	NameKeyType nameToKey(const char *name);
 };
-
 extern NameKeyGenerator *TheNameKeyGenerator;
-
 // Match the transfer unit's native primary base and +0x20 UpgradeMux
 // member. Module supplies getModuleNameKey's slot 4; the transfer at
 // 0x0049C195 calls UpdateModule::xfer and the member at +0x20.
@@ -48,8 +44,48 @@ class Thing;
 class ModuleData;
 class Object;
 #include "../../../../Include/Common/ObjectModule.h"
+//
+// ?xfer@RadiateFearUpdate@@MAEXPAVXfer@@@Z, retail 0x0049C195, 61 bytes.
+// Virtual slot 3 (offset 0x0C) of vtable RVA 0x00850FBC (VA 0x00C50FBC
+// installed by rowed ctor 0x0049C106 in RadiateFearUpdateCtor.cpp): base
+// UpdateModule xfer via rowed 0x44DF9F then IsLightCRC early-out via Xfer
+// slot 0x10 then Version(1,1) via Xfer slot 0x28 then UpgradeMux member at
+// +0x20 via rowed 0x004CE397. Layout is UpdateModule base 0x20 plus
+// UpgradeMux m_20 (news 0x28 per rowed factory 0x24E6B0). Address cluster
+// 0x49C106 ctor / 0x49C179 deleting-dtor / 0x49C195 xfer / 0x49C1D2 module
+// data deleting-dtor proves the RadiateFearUpdate identity; no donor (BFME2
+// only).
+
+class AsciiString;
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+#include "../../../../Include/Common/BfmeXfer.h"
+class Xfer::Version
+{
+public:
+	Version(unsigned char current, unsigned char minimum)
+		: m_current(current), m_minimum(minimum) {}
+
+	unsigned char m_current;
+	unsigned char m_minimum;
+};
 
 class BehaviorModuleInterface { public: virtual void behaviorSlot(); };
+
 class UpdateModuleInterface { public: virtual void updateSlot(); };
 
 class UpdateModule : public ObjectModule,
@@ -149,6 +185,10 @@ private:
 	unsigned char m_pad[0x130 - 0x20 - 4];
 };
 
+enum NameKeyType;
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdate.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdatePoolKey.cpp
 
 // ?getModuleNameKey@RadiateFearUpdate@@UBE?AW4NameKeyType@@XZ
@@ -158,14 +198,6 @@ NameKeyType RadiateFearUpdate::getModuleNameKey() const
 		TheNameKeyGenerator->nameToKey("RadiateFearUpdate");
 	return TheRadiateFearUpdatePoolKey;
 }
-
-// tu-skeleton: 0x0049C022 39B ?getUpgradeActivationMasks@RadiateFearUpdate@@MBEXAAUUpgradeMaskType@@0@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpgradeMuxSlotOverrides.cpp (not merged yet)
-
-// tu-skeleton: 0x0049C049 15B ?performUpgradeFX@RadiateFearUpdate@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpgradeMuxSlotOverrides.cpp (not merged yet)
-
-// tu-skeleton: 0x0049C058 10B ?get@Rva0049C058ByteChase32Field@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0049C062 10B ?get@Rva0049C062ByteChase32Field@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdateModuleDataCtor.cpp
 
@@ -188,13 +220,31 @@ RadiateFearUpdateModuleData::RadiateFearUpdateModuleData()
 		BfmeFixedStorage0004543D(*reinterpret_cast<const BfmeFixedStorage0004543D *>(&KINDOFMASK_NONE)));
 }
 
+// tu-skeleton: 0x0049C022 39B ?getUpgradeActivationMasks@RadiateFearUpdate@@MBEXAAUUpgradeMaskType@@0@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpgradeMuxSlotOverrides.cpp (not merged yet)
+
+// tu-skeleton: 0x0049C049 15B ?performUpgradeFX@RadiateFearUpdate@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpgradeMuxSlotOverrides.cpp (not merged yet)
+
+// tu-skeleton: 0x0049C058 10B ?get@Rva0049C058ByteChase32Field@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0049C062 10B ?get@Rva0049C062ByteChase32Field@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp (not merged yet)
+
 // tu-skeleton: 0x0049C0E4 34B ?buildFieldParse@RadiateFearUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp (not merged yet)
 
 // tu-skeleton: 0x0049C106 115B ??0RadiateFearUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdateCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0049C179 28B ??_GRva0049BFB7@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp (not merged yet)
 
-// tu-skeleton: 0x0049C195 61B ?xfer@RadiateFearUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdateXfer.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdateXfer.cpp
+
+void RadiateFearUpdate::xfer(Xfer *xfer)
+{
+	UpdateModule::xfer(xfer);
+	if (xfer->IsLightCRC())
+		return;
+	Xfer::Version version(1, 1);
+	*xfer == version;
+	m_20.UpgradeMux::upgradeMuxXfer(xfer);
+}
 
 // tu-skeleton: 0x0049C1EE 48B ??1RadiateFearUpdateModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdateModuleDataDtor.cpp (not merged yet)
 

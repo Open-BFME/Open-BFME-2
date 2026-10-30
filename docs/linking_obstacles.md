@@ -13559,3 +13559,13 @@ approved provisional TU. Constructor/update donors still have incompatible
 module views; the module-data destructor donor changes bytes in composition.
 Keep those donors, mixed files and the generated constructor funclet separate.
 [Evidence and remaining boundary](../reverse/attempt_support/radiatefear-consolidation-20261030-codex.md).
+
+Follow-up: tu_skeleton absorbs the transfer donor into the existing approved
+provisional seed, removing one source file and repointing its row. All eight
+rows and both EXACT EH graphs remain verified; the merged object preserves
+the inputs' nine external COMDAT fingerprints, nine definitions, eighteen
+external dependencies and one weak binding. The merge's provider guard
+passes and strict current preparation/ordinary preview retain 269 bytes.
+Queue refresh, data ownership and path consumers are checked in the evidence.
+The broader census/consumer limitation above remains; no census gain is
+claimed. Constructor, update and module-data destructor prerequisites remain.

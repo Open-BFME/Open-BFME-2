@@ -55,3 +55,44 @@ The scoped Microsoft-header scan finds zero local Microsoft declarations.
 No new matched bytes, measured linking gain or image-ownership reduction is
 claimed by this prerequisite. Follow with the supported merge, current
 provider/consumer audit, header-queue refresh and full path-consumer review.
+
+## Supported merge
+
+After publishing the prerequisite (45efb91f18), refresh the naming planner
+and check its snapshot. `tu_skeleton.py --merge` absorbs only
+RadiateFearUpdateXfer.cpp into the existing seed, deleting one source file
+and repointing the 0x0049C195 row. Its census-linked-provider guard accepts
+the composition. functions.csv and tu_map.csv each change only that row's
+source; the committed map is not regenerated. The other three complete
+donors retain their compilation/byte blockers, and all mixed files stay put.
+
+The resulting TU passes ./build.sh (8/8), find_declared_unmatched, two EXACT
+EH graphs, class_gate and staged tu_ownership. Strict preparation accepts
+the new source object. The ordinary preview reports LINKS for 269 bytes,
+preserving the original two providers' total; its displayed 208 -> 269
+destination-byte change is a transfer, not a measured linking gain.
+
+The composed object retains the inputs' exact union of nine external
+COMDAT fingerprints and nine definitions, eighteen external dependencies,
+one weak binding and zero COMMON bindings. No provider is added or removed.
+The converged-data gate checks eleven addresses without a second name or
+unjudged row. No protected-register key belongs to the deleted donor; the
+getter's existing two data-ledger owners remain in the seed. The merge's
+owning header-queue transfer and scoped Microsoft-header refresh produce
+no queue changes. No debt or header closure is claimed.
+
+The path-consumer review covers origin/master through the staged merge,
+including the preceding ScriptActions edits (which move no paths). Search
+the deleted donor's basename/path in tools, hooks, workflows, Code, reverse,
+documentation and root build files. There is no active tool/config/include
+consumer to update. The surviving mentions are the seed's source-provenance
+comment, AudioLoopUpgradeXfer.cpp's shape-provenance comment and the previous
+census row in reverse/link_status.csv; preserve them as history. The core
+ledger repointing accompanies this merge. SOURCE FILES decreases by one;
+matched coverage is unchanged. Census-wide linking and ownership remain
+unmeasured here.
+
+The repeated staged merge audit has the same INCONCLUSIVE result: older
+12b9e7a7c0 index and missing current 0CreateAHeroManager21FE49.cpp consumer
+receipt. Carry the absorbed provider, surviving seed and that consumer into
+the next scheduled census. No direct census or smoke run is started.

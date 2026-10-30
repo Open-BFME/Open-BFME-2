@@ -20144,7 +20144,7 @@ _$E5,,0x007B7060,10,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsRecordTex
 ?xfer@AutoHealBehavior@@MAEXPAVXfer@@@Z,,0x00452401,95,Code/GameEngine/Source/GameLogic/Object/Update/AutoHealBehaviorXfer.cpp,matched,AutoHealBehavior slot 3 plus mux member plus version gate plus ZH donor
 ??1RebuildHoleBehaviorModuleData@@UAE@XZ,,0x0048334A,48,Code/GameEngine/Source/GameLogic/Object/Behavior/RebuildHoleBehaviorModuleDataDtor.cpp,matched,audited wrapper 0x0048332E plus ctor 0x0048323E plus table 0x00C49A10 plus AIUpdate shape
 ?xfer@GeometryUpgrade@@MAEXPAVXfer@@@Z,,0x004B6C02,55,Code/GameEngine/Source/GameLogic/Object/Upgrade/GeometryUpgrade.cpp,matched,slot 3 of vtable 0x008589C0 via rowed ctor plus Version11 plus string plus base 0x004CE3F9
-?xfer@RadiateFearUpdate@@MAEXPAVXfer@@@Z,,0x0049C195,61,Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdateXfer.cpp,matched,slot3 of vtable 0xC50FBC via rowed ctor 0x49C106 plus UpdateModule base plus UpgradeMux member
+?xfer@RadiateFearUpdate@@MAEXPAVXfer@@@Z,,0x0049C195,61,Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdate.cpp,matched,slot3 of vtable 0xC50FBC via rowed ctor 0x49C106 plus UpdateModule base plus UpgradeMux member
 ?xfer@Rva0045CE8C@@QAEXPAVXfer@@@Z,,0x0045CE8C,27,Code/GameEngine/Source/Common/Rva0045CE8CXfer.cpp,matched,slot 3 DieModuleDerived vtables via Version1 plus base 0x004CE56D
 ?xfer@Rva00485BB8@@QAEXPAVXfer@@@Z,,0x00485BB8,28,Code/GameEngine/Source/Common/Rva00485BB8Xfer.cpp,matched,Version1 plus uint at 0x00 via slot 0x78 caller 0x00485BD4
 ?xfer@Rva00485BD4@@MAEXPAVXfer@@@Z,,0x00485BD4,69,Code/GameEngine/Source/Common/Rva00485BD4Xfer.cpp,matched,slot 3 vtable 0x0084A8D4 Version12 plus base 0x45CE8C plus uint plus helper
