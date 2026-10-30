@@ -53,10 +53,17 @@ public:
 	WeaponModeSpecialPowerUpdateBase(Thing *, const ModuleData *);
 };
 
+class Object;
+class Coord3D;
+
+// The +0x38 collide interface. DeflectSpecialPower.cpp's table for it,
+// ??_7DeflectSpecialPower@@6B@ (retail 0x00C5D974), holds only the rowed
+// onCollide override 0x004C55B2 in slot 0, so this view declares that one
+// slot; the interface's own table (0x00C40818) is all __purecall.
 class DeflectSpecialPowerIface5
 {
 public:
-	virtual void deflectSpecialPowerIface5Anchor();
+	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal) = 0;
 };
 
 class DeflectSpecialPower : public WeaponModeSpecialPowerUpdateBase,
@@ -64,6 +71,7 @@ class DeflectSpecialPower : public WeaponModeSpecialPowerUpdateBase,
 {
 public:
 	DeflectSpecialPower(Thing *, const ModuleData *);
+	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal);
 
 private:
 	unsigned char m_byte3C;
