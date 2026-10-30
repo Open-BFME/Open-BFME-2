@@ -160,6 +160,7 @@ public:
 	BfmePod28 *m_slots[2];
 };
 #include "../../../../../../Libraries/Source/subsystem/SubsystemInterface.h"
+#define BFME_ASCII_DTOR_DECL
 
 class BannerUI : public SubsystemInterface
 {
@@ -560,6 +561,8 @@ AsciiString Rva0022288EGet(unsigned int val);
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
 
+// ---- from Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
+
 // stlport46
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
@@ -835,9 +838,45 @@ _STL::pair<const AsciiString, Gen_003A8BE0> *Rva000427195::rva00216D5C(const _ST
 	return (_STL::pair<const AsciiString, Gen_003A8BE0> *)((char *)node + 4);
 }
 
+// ---- from Code/GameEngine/Source/GameClient/Rva00216517Fire.cpp
+
+// Retail RVA 0x00216517, 153 bytes.
+// ?Rva00216517Fire@@YAHPAVRva00222A8BTarget@@PAXPBDPBIPBM@Z int-return firer: formats int and float via rowed gets, empty fallback, returns invoke result.
+// Free __cdecl UI firer with (int float) as strings: formats via rowed Rva002228E8Get(float) and
+// Rva0022288EGet(uint), substitutes rowed empty string when a buffer is null, invokes with argc 2, returns result.
+// Evidence: callees Rva002228E8Get 0x002228E8 and Rva0022288EGet 0x0022288E plus invoke row 0x00222A8B QAEH
+// and releaseBuffer row 0x00036410; caller 0x00216670 pushes (target owner SetBannerXOffset int* float*); retail leaves invoke result in EAX at ret so outer returns int not void.
+
+__forceinline const char *GetStr00216517(const AsciiString &asciiString)
+{
+	char *t = *(char **)(void *)&asciiString;
+	return t ? t + 8 : "";
+}
+
+int __cdecl Rva00216517Fire(Rva00222A8BTarget *target, void *owner, const char *name, const unsigned int *pInt, const float *pFloat)
+{
+	return target->invoke(owner, name, 2, GetStr00216517(Rva0022288EGet(*pInt)), (void *)GetStr00216517(Rva002228E8Get(*pFloat)), 0, 0, 0);
+}
+
 // tu-skeleton: 0x00216094 48B ??1Rva00216094@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00216094Dtor.cpp (not merged yet)
 
-// tu-skeleton: 0x0021613D 77B ??0Gen_003A8BE0@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/BfmeThreeStringCopyWH.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/BfmeThreeStringCopyWH.cpp
+
+// BFME1 donor BfmeThreeStringCopyWH.cpp reviewed at
+// f98983a7d3bb405f1a4ba94bb6a2a168062a819d already uses real AsciiString.
+// BFME2's complete 77-byte constructor at RVA 0x0021613D copies the
+// four-byte strings at +0/+4/+8 through actual StringBase<char>::copy365F0.
+// Retail unwind cleanup calls the existing AsciiString destructor48BA39,
+// so use the canonical header's declaration-only destructor contract.
+// Gen_003A8BE0 remains the donor address label; original owner identity
+// and BFME1's donor RVA 0x003A8BE0 are not asserted for the BFME2 target.
+
+Gen_003A8BE0::Gen_003A8BE0(const Gen_003A8BE0 &other)
+    : first(other.first),
+      second(other.second),
+      third(other.third)
+{
+}
 
 // tu-skeleton: 0x0021618A 27B ?Rva0021618AFind@@YAPAUBfmePod28@@PAU1@0H@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0021618A.cpp (not merged yet)
 
@@ -862,26 +901,6 @@ _STL::pair<const AsciiString, Gen_003A8BE0> *Rva000427195::rva00216D5C(const _ST
 // tu-skeleton: 0x0021642F 103B ?Rva0021642FInvoke@@YAHPAVRva00222A8BTarget@@PAXPBDABM@Z -- matched in Code/GameEngine/Source/Common/AptInvokeWrappers.cpp (not merged yet)
 
 // tu-skeleton: 0x00216496 129B ?Rva00216496Invoke@@YAHPAVRva00222A8BTarget@@PAXPBDABIABVAsciiString@@4@Z -- matched in Code/GameEngine/Source/Common/AptInvokeWrappers.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/GameClient/Rva00216517Fire.cpp
-
-// Retail RVA 0x00216517, 153 bytes.
-// ?Rva00216517Fire@@YAHPAVRva00222A8BTarget@@PAXPBDPBIPBM@Z int-return firer: formats int and float via rowed gets, empty fallback, returns invoke result.
-// Free __cdecl UI firer with (int float) as strings: formats via rowed Rva002228E8Get(float) and
-// Rva0022288EGet(uint), substitutes rowed empty string when a buffer is null, invokes with argc 2, returns result.
-// Evidence: callees Rva002228E8Get 0x002228E8 and Rva0022288EGet 0x0022288E plus invoke row 0x00222A8B QAEH
-// and releaseBuffer row 0x00036410; caller 0x00216670 pushes (target owner SetBannerXOffset int* float*); retail leaves invoke result in EAX at ret so outer returns int not void.
-
-__forceinline const char *GetStr00216517(const AsciiString &asciiString)
-{
-	char *t = *(char **)(void *)&asciiString;
-	return t ? t + 8 : "";
-}
-
-int __cdecl Rva00216517Fire(Rva00222A8BTarget *target, void *owner, const char *name, const unsigned int *pInt, const float *pFloat)
-{
-	return target->invoke(owner, name, 2, GetStr00216517(Rva0022288EGet(*pInt)), (void *)GetStr00216517(Rva002228E8Get(*pFloat)), 0, 0, 0);
-}
 
 // tu-skeleton: 0x002165B0 59B ?rva002165B0@Rva002165B0@@QAEAAV1@PBUDelegateDesc@@@Z -- matched in Code/GameEngine/Source/Common/Rva00579E47Delegate.cpp (not merged yet)
 
