@@ -12,7 +12,7 @@
 // TU-local layout views; unnamed fields and address-qualified types are intentional.
 // The bytecode proves offsets/operations, not original EA type names or full layouts.
 // cl: /DNDEBUG /DWIN32 /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
-// stlport
+// stlport46
 // Match the game allocator profile of stlport_moduledatavector_push.cpp;
 // the CRT allocator profile emitted a different player-vector growth body.
 // vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned

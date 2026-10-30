@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /Ireference/shims/moduledata /O1 /EHs /D_BFME_RETAIL_TREE_INSERT_LAYOUT /D_STLP_NO_EXCEPTIONS /arch:SSE /G7 /DBFME_SNAPSHOT_CAPITALIZED_SLOTS
-// stlport
+// stlport46
 //
 // ScriptEngine::DoXfer, retail 0x0020A859 (6131 B): the script engine's save
 // game block, version 5. Retail evidence: the Snapshot thunk of the
