@@ -120,6 +120,43 @@ private:
 // data.
 void (Image::*_bfmeInlineAnchor_Image_0)(ICoord2D *size) = &Image::setImageSize;
 #include <map>
+#define _BFME_RETAIL_TREE_INSERT_LAYOUT
+#include <set>
+#include "BFME2ParticleTextureHandles.h"
+// Keep __node_alloc<true,0>::deallocate inline-only: every call here is inlined,
+// and this TU's /O1 COMDAT copy differs from the copy the link keeps.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+void _STLP_CALL __node_alloc<true, 0>::deallocate(void *__p, size_t __n)
+{ if (__n > (size_t)_MAX_BYTES) __stl_delete(__p); else _M_deallocate(__p, __n); }
+}
+// Suppress this TU's non-retail copy of ??1?$_Rb_tree_base@PAURva001408C0Target@@V?$allocator@PAURva001408C0Target@@@_STL@@@_STL@@:
+// the kept copy serves the link. Plain declaration-only form (no __imp_).
+struct Rva001408C0Target;
+namespace _STL { template <> _Rb_tree_base<Rva001408C0Target *, allocator<Rva001408C0Target *> >::~_Rb_tree_base(); }
+namespace _STL { template <> _Rb_tree_base<Rva001408C0Target *, allocator<Rva001408C0Target *> >::_Rb_tree_base(const allocator<Rva001408C0Target *> &); }
+namespace _STL { template <> void _Rb_tree<Rva001408C0Target *, Rva001408C0Target *, _Identity<Rva001408C0Target *>, less<Rva001408C0Target *>, allocator<Rva001408C0Target *> >::_M_erase(_Rb_tree_node<Rva001408C0Target *> *); }
+namespace _STL { template <> _Rb_tree<Rva001408C0Target *, Rva001408C0Target *, _Identity<Rva001408C0Target *>, less<Rva001408C0Target *>, allocator<Rva001408C0Target *> >::~_Rb_tree(); }
+namespace _STL { template <> void allocator<_Rb_tree_node<Rva001408C0Target *> >::deallocate(_Rb_tree_node<Rva001408C0Target *> *, size_t) const; }
+namespace _STL { template <> _Rb_tree_node<Rva001408C0Target *> *allocator<_Rb_tree_node<Rva001408C0Target *> >::allocate(size_t, const void *) const; }
+namespace _STL { template <> _Rb_tree_node<Rva001408C0Target *> *_STLP_alloc_proxy<_Rb_tree_node<Rva001408C0Target *> *, _Rb_tree_node<Rva001408C0Target *>, allocator<_Rb_tree_node<Rva001408C0Target *> > >::allocate(size_t); }
+BFME2ParticleTextureHandle BFME2LoadParticleTexture(const char*,int,int);
+class ShroudFilter;
+class ShroudTexture { public: ShroudFilter *getFilter(); };
+class TextureAsset { public: static BFME2ParticleTextureHandle Get(const char*,int,int); void rva00132FE9(bool); };
+struct ImageTextureOptions { unsigned char pad[12]; int optionC,option10; };
+typedef Rva001408C0Target *Rva001408C0Key;
+typedef _STL::set<Rva001408C0Key,_STL::less<Rva001408C0Key>,_STL::allocator<Rva001408C0Key> > Rva001408C0Set;
+struct AssetList00208F90 {
+ Rva001408C0Set m_prototypes;
+ unsigned m_treeLayoutPad;
+ bool m_changed;
+ AssetList00208F90():m_treeLayoutPad(0),m_changed(true) {}
+ AssetList00208F90 &operator<<(const AsciiString&);
+};
+class Rva009EB960;
+extern Rva009EB960 *Rva0134FAA0;
+void bfmeMergeReceiverKeys(int);
 
 namespace _STL
 {
@@ -161,6 +198,10 @@ public:
 private:
     ImageTree value;
 };
+
+class BfmeMapPictureTexture;
+
+// ---- from Code/GameEngine/Source/GameClient/System/Image.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/System/Image.cpp
 
@@ -396,12 +437,6 @@ void ImageCollection::load(int textureSize)
 	ini.loadDirectory("Data\\INI\\MappedImages\\TransitionImages", true, INI_LOAD_OVERWRITE, (Xfer *)0, 0);
 }
 
-// tu-skeleton: 0x002D8FB7 45B ?_M_erase@?$_Rb_tree@URva002D8FB7Element@@U?$pair@$$CBURva002D8FB7Element@@H@_STL@@U?$_Select1st@U?$pair@$$CBURva002D8FB7Element@@H@_STL@@@3@U?$less@URva002D8FB7Element@@@3@V?$allocator@U?$pair@$$CBURva002D8FB7Element@@H@_STL@@@3@@_STL@@AAEXPAU?$_Rb_tree_node@U?$pair@$$CBURva002D8FB7Element@@H@_STL@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva002D8FB7.cpp (not merged yet)
-
-// tu-skeleton: 0x002D9186 41B ?clear@?$_Rb_tree@URva002D9186Element@@U?$pair@$$CBURva002D9186Element@@H@_STL@@U?$_Select1st@U?$pair@$$CBURva002D9186Element@@H@_STL@@@3@U?$less@URva002D9186Element@@@3@V?$allocator@U?$pair@$$CBURva002D9186Element@@H@_STL@@@3@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva002D9186.cpp (not merged yet)
-
-// tu-skeleton: 0x002D922A 56B (unledgered) -- unmatched, no code, never credited
-
 // ---- from Code/GameEngine/Source/GameClient/System/Rva002D927EImageMapCleanup.cpp
 
 // Clean BFME1 Image.cpp (f98983a7) supplies map teardown semantics.
@@ -414,11 +449,43 @@ void Rva002D927EImageTree::rva002D927ECleanup()
     value.~ImageTree();
 }
 
+// tu-skeleton: 0x002D8FB7 45B ?_M_erase@?$_Rb_tree@URva002D8FB7Element@@U?$pair@$$CBURva002D8FB7Element@@H@_STL@@U?$_Select1st@U?$pair@$$CBURva002D8FB7Element@@H@_STL@@@3@U?$less@URva002D8FB7Element@@@3@V?$allocator@U?$pair@$$CBURva002D8FB7Element@@H@_STL@@@3@@_STL@@AAEXPAU?$_Rb_tree_node@U?$pair@$$CBURva002D8FB7Element@@H@_STL@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva002D8FB7.cpp (not merged yet)
+
+// tu-skeleton: 0x002D9186 41B ?clear@?$_Rb_tree@URva002D9186Element@@U?$pair@$$CBURva002D9186Element@@H@_STL@@U?$_Select1st@U?$pair@$$CBURva002D9186Element@@H@_STL@@@3@U?$less@URva002D9186Element@@@3@V?$allocator@U?$pair@$$CBURva002D9186Element@@H@_STL@@@3@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva002D9186.cpp (not merged yet)
+
+// tu-skeleton: 0x002D922A 56B (unledgered) -- unmatched, no code, never credited
+
 // tu-skeleton: 0x002D9283 115B ??1ImageCollection@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/System/ImageCollectionDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x002D92F6 53B ?findImageByName@ImageCollection@@QAEPBVImage@@ABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/System/ImageCollectionFindImage.cpp (not merged yet)
 
-// tu-skeleton: 0x002D937E 217B ?rva002D937E@Image@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/System/ImageRva002D937E.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameClient/System/ImageRva002D937E.cpp
+
+//
+// ?rva002D937E@Image@@QAEXXZ retail 0x002D937E (217B): lazy texture setup and
+// registry; filename +8, holder +0x2C, status +0x30. Exact via W7-D3
+// sweepeq4x equal-arm (frame slot ranking).
+// Reference BF1 f98983a7d and ZH Image.cpp establish Image filename/status.
+// Target 0x002D937E..0x002D9457 supplies the lazy texture setup and registry;
+// no original method name is asserted. Image.cpp's ctor/dtor independently prove
+// filename +8, holder +2C, status +30. Existing helper names denote ABI views.
+
+void Image::rva002D937E()
+{
+ const AsciiString *source=&m_filename;
+ if(reinterpret_cast<const StringBase<char>*>(source)->isEmpty()	/* rowed 0x00001E2F */) return;
+ if(m_texture || (m_status&2)) return;
+ BFME2ParticleTextureHandle texture=TextureAsset::Get(source->str(),1,0);
+ ShroudTexture *getter=reinterpret_cast<ShroudTexture*>(&texture);
+ reinterpret_cast<ImageTextureOptions*>((source ? (getter->getFilter()) : (getter->getFilter())))->option10=1;
+ reinterpret_cast<ImageTextureOptions*>(getter->getFilter())->optionC=1;
+ reinterpret_cast<TextureAsset*>(&texture)->rva00132FE9(true);
+ if(Rva0134FAA0) {
+  AssetList00208F90 assets;
+  assets<<m_filename;
+  bfmeMergeReceiverKeys((int)&assets);
+ }
+}
 
 // tu-skeleton: 0x002D9457 48B ?addImage@ImageCollection@@QAEXPAVImage@@@Z -- matched in Code/GameEngine/Source/GameClient/System/ImageCollectionFindImage.cpp (not merged yet)
 
@@ -431,9 +498,3 @@ void Rva002D927EImageTree::rva002D927ECleanup()
 // tu-skeleton: 0x00777ADB 11B $L6058 -- matched in Code/GameEngine/Source/GameClient/System/ImageCollectionDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00777AE6 10B __ehhandler$??1ImageCollection@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/System/ImageCollectionDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00777B02 8B Unwind@00b77b02 -- matched in Code/GameEngine/Source/GameClient/System/ImageRva002D937E.cpp (not merged yet)
-
-// tu-skeleton: 0x00777B0A 8B $L4726 -- matched in Code/GameEngine/Source/GameClient/System/ImageRva002D937E.cpp (not merged yet)
-
-// tu-skeleton: 0x00777B12 10B __ehhandler$?rva002D937E@Image@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/System/ImageRva002D937E.cpp (not merged yet)
