@@ -597,7 +597,7 @@ existing LINK-011 preview clearances retained for its two rows.
 | `Code/gen_small/uw_gen_002.cpp` | 1,647 | 2 (U=2) | Open |
 | `Code/gen_small/uw_gen_008.cpp` | 1,238 | 2 (U=2) | Open |
 | `Code/GameEngine/Source/GameClient/System/FXParticleSystem/T1Base005F3750Ctor.cpp` | 184 | 2 (U=1, C=1) | Open |
-| `Code/GameEngine/Source/Common/MultiplayerSettingsCtor.cpp` | 159 | 2 (U=2) | Open |
+| `Code/GameEngine/Source/Common/MultiplayerSettingsCtor.cpp` | 159 | 2 (U=2) | 2026-10-30: constructor absorbs into approved MultiplayerSettings.cpp through tu_skeleton after native implicit-lifetime reconciliation. All sixteen combined rows and data row verify; four EH graphs EXACT. Constructor preview clears 159 bytes; old QAE lifetime records remain a separate correction, census pending. [Evidence](../reverse/attempt_support/multiplayer-implicit-lifetime-20261030/readme.md). |
 | `Code/Libraries/Source/WWVegas/WW3D2/HRawLoadW3D_Unresolved.cpp` | 149 | 2 (C=2) | Current-object preview LINKS (2026-10-27); census pending; shared-view/consolidation prerequisites in LINK-023 |
 | `Code/Libraries/Source/WWVegas/WWLib/Rva00056da2Finish.cpp` | 136 | 2 (C=1, S=1) | Open |
 | `Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShaderManagerScreenBWFilterInit.cpp` | 101 | 2 (U=2) | Open |

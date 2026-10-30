@@ -56,4 +56,78 @@ Preserve the entire destructor companion set: `0077F308/8`, `0077F310/11`,
 `0077F31B/11`, `0077F326/10`. Bind new cleanup labels to their verified UAE
 parent graph; no parent or placement is inferred from adjacency. The merge tool
 supports companions following their approved same-file parent. Restore all
-withdrawn coverage before publishing the batch.
+withdrawn coverage before publishing the separate lifetime-correction batch.
+
+## Supported constructor composition
+
+After the separately committed prerequisite, regenerate and recheck the
+consolidation snapshot. The supported dry run and actual merge accept only the
+seed and constructor donor. All sixteen existing rows and the seed's data row
+verify, four owned EH graphs are EXACT, and frozen-definition preflight passes.
+The constructor file is absorbed and its one approved row repointed by the tool;
+the TU-map edit is only that source-column repoint, not a regenerated map.
+The tool refreshes the destination's header and Microsoft-header queues; neither
+requires a staged queue change. No relevant identity or data debt keys name the
+constructor donor. The seed's four existing optimization hatches stay unchanged.
+An unrelated stale RTS marker removed by the global counter refresh is retained,
+so this batch claims no unrelated debt retirement.
+
+The actual merged object also emits all three native lifetime bodies exactly,
+fully resolved, and both parent EH graphs remain EXACT. Its deleting-destructor
+weak pair is the compiler-generated `??_E...UAE -> ??_G...UAE` relationship.
+The UAE destructor graph independently binds `$L7591/$L7592/$L7593` to
+`0077F308/0077F310/0077F31B` in this object; rederive those associations after
+any relevant compile rather than relying on the label numbers.
+
+Other donors are retained: the STLport-family sources and color pair have
+template/allocator composition errors; the old destructor view redefines the
+subsystem interface and has the incorrect lifetime qualification; the standalone
+deleting wrapper also fails composition. The name lookup donor's merge changes
+a selected tree-iterator increment copy and is refused by the link guard.
+Three mixed files remain intact. These are separate prerequisites, not a claim
+that the whole retail TU has been recovered. The ready constructor move publishes
+after its own complete path-consumer audit. The lifetime correction then follows
+as a separate batch that restores all withdrawn coverage before publication.
+
+## Constructor-move publication audit
+
+The outgoing path set is the constructor donor absorbed into the approved seed;
+no other source path moves in this batch. Combined case-insensitive path and
+basename searches cover tools, hooks, workflows, Code includes, shared shims,
+build/configuration files, documentation and reverse registries. No active ledger,
+register, queue or fold proof still names the removed source. The source's
+`from` marker, prior obstacle reports, attempt evidence and measured census row
+are intentional history, preserved. The checklist links this historical census
+source to its current owner.
+
+The one active tooling consumer was a live name-dependent regression test. It now
+derives the constructor's source from the ledger instead of silently skipping
+after a path move. That actual regression passes: normal bytes verify, and
+removing the called base-constructor identity still fails verification.
+The source's stale ownership comment is corrected too.
+
+Strict preparation covers 404 rows and three data rows in the seed, native map,
+tree cleanup, subsystem provider and direct INI caller. All five preview LINKS
+for 23,244 authored bytes, and 187 EH graphs are EXACT. The seed contains 746
+authored bytes; only the constructor's 159-byte improvement belongs to this
+repair, not the printed historical 296-byte difference. The other 137 bytes
+were already present in the current seed before this batch.
+
+The shadow AsciiString clear-binding finding in the pre-existing color
+constructor remains separate. An independently compiled pre-merge source has
+identical caller bytes and symbolic relocations; neither object defines that
+external clear helper. No new provider is introduced for it and no retirement is
+claimed. [Control](inherited-binding-control.json).
+[Actual object probes](actual-lifetime-probes.json) record strict receipt/hash,
+all three native lifetime bodies, their exact EH graphs and parent-bound cleanup
+locations. The unrowed lifetime probes are explicitly distinguished from ledger
+admissions. No new pin, alias, header, hatch or canonical-header adoption occurs.
+
+The batch audit initially lacks current GameEngineInit and coord2d consumers.
+Their explicit strict preparation passes another 154 rows and one data row,
+including 111 literals, five empty references, twelve floats and nine imports.
+The combined seven prepared sources therefore cover 558 rows and four data
+rows. The repeated audit remains **INCONCLUSIVE** on the older index and the
+broader affected `Common/0CreateAHeroManager21FE49.cpp` consumer without a
+current receipt. Carry the complete moved-provider/consumer scope into the next
+scheduled census; this is not a clean full-image loss or selection verdict.

@@ -5646,6 +5646,29 @@ readmission, preserving all four destructor companions, plus supported TU
 composition and outgoing consumer checks. This is not canonical-header adoption
 or a census gain. [Native facts and scope](../reverse/attempt_support/multiplayer-implicit-lifetime-20261030/readme.md).
 
+The supported constructor merge now preserves all sixteen seed/constructor
+rows and the data row; four EH graphs are EXACT. One approved donor file is
+absorbed, with only the tool's one-row source repoint in the TU map. The actual
+combined object retains exact native 159/83/28 lifetime bodies and both parent
+EH graphs. Other allocator/template donors and the iterator-increment selection
+refusal remain separate. The ready constructor move publishes with all existing
+coverage retained; the old QAE lifetime admissions and their four companions
+remain a separate correction. The path audit updates the live dependent-name
+test to follow the constructor's ledger owner (regression passes), preserving
+historical path mentions. Strict five-source preparation passes 404 rows and
+three data rows, with 187 EXACT EH graphs and 5/5 LINKS. The seed's 746 authored
+bytes include only 159 newly cleared by this repair; no historical 137-byte
+difference is credited. The existing color-constructor AsciiString clear warning
+has unchanged caller bytes/relocations and remains separate. Full consumer and
+census confirmation remain pending.
+
+The outgoing constructor-move audit additionally prepares GameEngineInit and
+coord2d (154 rows plus one data row), covering 558 strict rows and four data
+rows across seven sources in total. It remains INCONCLUSIVE on the older
+index and missing current `Common/0CreateAHeroManager21FE49.cpp` consumer.
+Carry the moved constructor, complete provider cohort and broader consumers
+into the next scheduled census; no full-image loss/selection claim is made.
+
 **Multiplayer seed prerequisite (2026-10-28, inspected `d5843cec`, index
 `d92e7e6635`):** MultiplayerSettings.cpp now uses the target 0xC4 layout,
 complete 0x40-byte colors and native INI tables. Its two rows and singleton

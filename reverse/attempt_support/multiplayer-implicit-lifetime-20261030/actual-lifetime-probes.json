@@ -1,0 +1,158 @@
+{
+  "source": "Code/GameEngine/Source/Common/MultiplayerSettings.cpp",
+  "strict_current": true,
+  "object_md5": "b0aafb6ee71675772e459a19a9f65c8e",
+  "receipt_object": "b0aafb6ee71675772e459a19a9f65c8e",
+  "source_sha256": "0df11419cf75aceb5abab6655ef3970cce5b4561906ef4fe089d7c972bc66794",
+  "probe_bindings": {
+    "??0MultiplayerSettings@@QAE@XZ": "0x3811d8",
+    "??1MultiplayerSettings@@UAE@XZ": "0x381293",
+    "??_GMultiplayerSettings@@UAEPAXI@Z": "0x381277"
+  },
+  "compiler_weaks": [
+    [
+      "??_EMultiplayerSettings@@UAEPAXI@Z",
+      "??_GMultiplayerSettings@@UAEPAXI@Z"
+    ]
+  ],
+  "proof": [
+    {
+      "name": "??0MultiplayerSettings@@QAE@XZ",
+      "rva": "0x3811d8",
+      "size": 159,
+      "exact": true,
+      "masked": false,
+      "unresolved": [],
+      "eh": [
+        "EXACT",
+        ""
+      ],
+      "raw": "b800000000e80000000051568bf18975f0e8000000008365fc008d4e34c70600000000e8000000008d4e44c645fc01e8000000008d8e84000000c645fc02e80000000083660c0083661400836640008b4df4c7461010270000c7461803000000c6461c01c6461d01c6461e01c6461f01c74620f4010000c74624e8030000c74628dc050000c7462cd0070000c74630c40900008bc65e64890d00000000c9c3",
+      "resolved": "b826f3b700e8a67f2a0051568bf18975f0e8753ce3ff8365fc008d4e34c706b891c100e8a2ffffff8d4e44c645fc01e842faffff8d8e84000000c645fc02e833faffff83660c0083661400836640008b4df4c7461010270000c7461803000000c6461c01c6461d01c6461e01c6461f01c74620f4010000c74624e8030000c74628dc050000c7462cd0070000c74630c40900008bc65e64890d00000000c9c3",
+      "native": "b826f3b700e8a67f2a0051568bf18975f0e8753ce3ff8365fc008d4e34c706b891c100e8a2ffffff8d4e44c645fc01e842faffff8d8e84000000c645fc02e833faffff83660c0083661400836640008b4df4c7461010270000c7461803000000c6461c01c6461d01c6461e01c6461f01c74620f4010000c74624e8030000c74628dc050000c7462cd0070000c74630c40900008bc65e64890d00000000c9c3",
+      "relocations": [
+        [
+          1,
+          6,
+          "__ehhandler$??0MultiplayerSettings@@QAE@XZ"
+        ],
+        [
+          6,
+          20,
+          "__EH_prolog"
+        ],
+        [
+          18,
+          20,
+          "??0SubsystemInterface@@QAE@XZ"
+        ],
+        [
+          31,
+          6,
+          "??_7MultiplayerSettings@@6B@"
+        ],
+        [
+          36,
+          20,
+          "??0?$map@HVMultiplayerColorDefinition@@U?$less@H@_STL@@V?$allocator@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@3@@_STL@@QAE@XZ"
+        ],
+        [
+          48,
+          20,
+          "??0MultiplayerColorDefinition@@QAE@XZ"
+        ],
+        [
+          63,
+          20,
+          "??0MultiplayerColorDefinition@@QAE@XZ"
+        ],
+        [
+          153,
+          6,
+          "__except_list"
+        ]
+      ]
+    },
+    {
+      "name": "??1MultiplayerSettings@@UAE@XZ",
+      "rva": "0x381293",
+      "size": 83,
+      "exact": true,
+      "masked": false,
+      "unresolved": [],
+      "eh": [
+        "EXACT",
+        ""
+      ],
+      "raw": "b800000000e80000000051568bf18975f08d8e84000000c745fc02000000e8000000008d4e44c645fc01e8000000008d4e34c645fc00e800000000834dfcff8bcee8000000008b4df45e64890d00000000c9c3",
+      "resolved": "b826f3b700e8eb7e2a0051568bf18975f08d8e84000000c745fc02000000e85a51cbff8d4e44c645fc01e84e51cbff8d4e34c645fc00e871fdffff834dfcff8bcee89b3be3ff8b4df45e64890d00000000c9c3",
+      "native": "b826f3b700e8eb7e2a0051568bf18975f08d8e84000000c745fc02000000e85a51cbff8d4e44c645fc01e84e51cbff8d4e34c645fc00e871fdffff834dfcff8bcee89b3be3ff8b4df45e64890d00000000c9c3",
+      "relocations": [
+        [
+          1,
+          6,
+          "__ehhandler$??1MultiplayerSettings@@UAE@XZ"
+        ],
+        [
+          6,
+          20,
+          "__EH_prolog"
+        ],
+        [
+          31,
+          20,
+          "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+        ],
+        [
+          43,
+          20,
+          "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+        ],
+        [
+          55,
+          20,
+          "??1?$_Rb_tree@HU?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@U?$_Select1st@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@2@@_STL@@QAE@XZ"
+        ],
+        [
+          66,
+          20,
+          "??1SubsystemInterface@@UAE@XZ"
+        ],
+        [
+          77,
+          6,
+          "__except_list"
+        ]
+      ]
+    },
+    {
+      "name": "??_GMultiplayerSettings@@UAEPAXI@Z",
+      "rva": "0x381277",
+      "size": 28,
+      "exact": true,
+      "masked": false,
+      "unresolved": [],
+      "eh": null,
+      "raw": "568bf1e800000000f644240801740756e800000000598bc65ec20400",
+      "resolved": "568bf1e814000000f644240801740756e8d4eacaff598bc65ec20400",
+      "native": "568bf1e814000000f644240801740756e8d4eacaff598bc65ec20400",
+      "relocations": [
+        [
+          4,
+          20,
+          "??1MultiplayerSettings@@UAE@XZ"
+        ],
+        [
+          17,
+          20,
+          "??3@YAXPAX@Z"
+        ]
+      ]
+    }
+  ],
+  "uae_cleanup_locations": {
+    "$L7593": "0x77f31b",
+    "$L7592": "0x77f310",
+    "$L7591": "0x77f308"
+  }
+}

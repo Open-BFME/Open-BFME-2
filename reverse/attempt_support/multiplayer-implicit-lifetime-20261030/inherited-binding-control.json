@@ -1,0 +1,94 @@
+[
+  {
+    "name": "??0MultiplayerColorDefinition@@QAE@XZ",
+    "identical": true,
+    "before_defined": true,
+    "after_defined": true,
+    "before_bytes": "b800000000e80000000051538bd95633c057895df089038945fc88433ce8000000008d73046aff8bcee8000000008d7b14a5a5a583ceff568d4b24897310897320e800000000568d4b30e8000000008b4df45f5e8bc35b64890d00000000c9c3",
+    "after_bytes": "b800000000e80000000051538bd95633c057895df089038945fc88433ce8000000008d73046aff8bcee8000000008d7b14a5a5a583ceff568d4b24897310897320e800000000568d4b30e8000000008b4df45f5e8bc35b64890d00000000c9c3",
+    "before_relocations": [
+      [
+        1,
+        6,
+        "__ehhandler$??0MultiplayerColorDefinition@@QAE@XZ"
+      ],
+      [
+        6,
+        20,
+        "__EH_prolog"
+      ],
+      [
+        30,
+        20,
+        "?clear@AsciiString@@QAEXXZ"
+      ],
+      [
+        42,
+        20,
+        "?setFromInt@RGBColor@@QAEXH@Z"
+      ],
+      [
+        66,
+        20,
+        "?setFromInt@RGBColor@@QAEXH@Z"
+      ],
+      [
+        75,
+        20,
+        "?setFromInt@RGBColor@@QAEXH@Z"
+      ],
+      [
+        90,
+        6,
+        "__except_list"
+      ]
+    ],
+    "after_relocations": [
+      [
+        1,
+        6,
+        "__ehhandler$??0MultiplayerColorDefinition@@QAE@XZ"
+      ],
+      [
+        6,
+        20,
+        "__EH_prolog"
+      ],
+      [
+        30,
+        20,
+        "?clear@AsciiString@@QAEXXZ"
+      ],
+      [
+        42,
+        20,
+        "?setFromInt@RGBColor@@QAEXH@Z"
+      ],
+      [
+        66,
+        20,
+        "?setFromInt@RGBColor@@QAEXH@Z"
+      ],
+      [
+        75,
+        20,
+        "?setFromInt@RGBColor@@QAEXH@Z"
+      ],
+      [
+        90,
+        6,
+        "__except_list"
+      ]
+    ]
+  },
+  {
+    "name": "?clear@AsciiString@@QAEXXZ",
+    "identical": true,
+    "before_defined": false,
+    "after_defined": false,
+    "before_bytes": null,
+    "after_bytes": null,
+    "before_relocations": null,
+    "after_relocations": null
+  }
+]

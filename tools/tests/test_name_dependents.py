@@ -493,7 +493,11 @@ def test_real_rename_is_refused_for_a_real_dependent(tmp_path, monkeypatch):
     renamed, unpinned = nd.csv_dicts(renamed_text), nd.csv_dicts(unpinned_text)
     assert not any(r["name"] == NEW for r in renamed) and not any(p["name"] == NEW for p in unpinned)
     found = nd.dependent_sources(functions, pins, renamed, unpinned)
-    dependent = "Code/GameEngine/Source/Common/MultiplayerSettingsCtor.cpp"
+    constructor = next((r for r in functions
+                        if r["name"] == "??0MultiplayerSettings@@QAE@XZ"), None)
+    if constructor is None:
+        pytest.skip("live MultiplayerSettings constructor is unavailable")
+    dependent = constructor["source"]
     if dependent not in found:
         pytest.skip("object cache does not hold the dependent's current object")
     source = ROOT / dependent
