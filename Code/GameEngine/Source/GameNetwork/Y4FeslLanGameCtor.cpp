@@ -105,20 +105,21 @@ extern "C" void Rva0080EF50( Rva00808CB0Advert *advert,
 
 void Rva00655700( char *dest, unsigned int size, const char *source );
 
+struct Rva00809050Input;
 class Rva00803620Sink
 {
 public:
+	Rva00808CB0LanGameEntry *rva00809050( Rva00809050Input *input );
 	void apply( int tid, char *name, int port, int maxPlayers, char *ugid );
-
-	char m_pad00[ 0x08 ];
-	Rva00808CB0Browser *m_browser;
-	Rva00808CB0Advert *m_advert;
-	int m_field10;
-	int m_nextLanGameId;
-	Rva00808CB0LanGameEntry *m_lanGames[ 16 ];
-	Rva00808920LanGame *m_game;
-	char m_pad5c[ 0x110 ];
-	int m_tid;
+	char m_pad00[0x8];
+	Rva00808CB0Browser *m_browser; // +0x08
+	Rva00808CB0Advert *m_advert; // +0x0C
+	int m_field10; // +0x10
+	int m_nextLanGameId; // +0x14
+	Rva00808CB0LanGameEntry *m_lanGames[ 16 ]; // +0x18
+	Rva00808920LanGame *m_game; // +0x58
+	char m_pad5C[0x110];
+	int m_tid; // +0x16C
 };
 
 void Rva00803620Sink::apply( int tid, char *name, int port,

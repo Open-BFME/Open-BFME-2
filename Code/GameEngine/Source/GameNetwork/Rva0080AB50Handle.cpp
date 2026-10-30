@@ -18,25 +18,35 @@ public:
 class BfmeThingCIB
 {
 public:
-	void bfmeGoCIB( void *one, void *two );
+	void bfmeGoCIB( void *key, void *value );
 };
 
 class BfmeMsgVJJ
 {
 public:
-	char m_pad00[ 0x34 ];
+	void bfmeSetVJJ(const char *k, const char *v) throw();
+	int m_bfme00; // +0x00
+	int m_bfme04; // +0x04
+	int m_bfme08; // +0x08
+	int m_bfme0c; // +0x0C
+	char m_pad10[0x24];
 };
 
 class BfmeThingVJJ
 {
 public:
-	void bfmeGoVJJ( BfmeMsgVJJ *out );
+	void bfmeGoVJJ(BfmeMsgVJJ *out);
+	void bfmeFmtVJJ(char *buf, int n) throw();
+	int m_bfme00; // +0x00
+	int m_bfme04; // +0x04
+	int m_bfme08; // +0x08
+	int m_bfme0c; // +0x0C
 };
 
 class BfmeThingCIC
 {
 public:
-	void bfmeGoCIC( void *one, void *two );
+	void bfmeGoCIC( void *key, void *value );
 };
 
 class Gen_007e86c0
@@ -48,14 +58,29 @@ public:
 class BfmeSinkSKA
 {
 public:
-	void sendCreateGameRequest( int transactionId, int gameId,
-		int maxPlayers, const char *userGameId );
+	void bfmeSendSKA(int tag, int a, int v);
+	void sendCreateGameRequest( int transactionId, int gameId, int maxPlayers, const char *userGameId );
 };
 
+struct Rva0080F100Object;
+class Rva00808CB0LanGameEntry;
 class Rva0080A940Owner
 {
 public:
 	bool finish();
+	void *m_field00; // +0x00
+	void *m_field04; // +0x04
+	void *m_field08; // +0x08
+	Rva0080F100Object *m_field0c; // +0x0C
+	void *m_field10; // +0x10
+	int m_nextLanGameId; // +0x14
+	Rva00808CB0LanGameEntry *m_lanGames[ 16 ]; // +0x18
+	void *m_game; // +0x58
+	unsigned int m_t0; // +0x5C +0x5C
+	unsigned int m_t1; // +0x60 +0x60
+	int m_tid; // +0x64 +0x64
+	char m_favGameUid[ 0x100 ]; // +0x68 +0x68
+	char m_pad168[0x4];
 };
 
 struct Rva0080AB50Entry

@@ -20,11 +20,10 @@ void bfmeFreeSizedVF( void *block, unsigned int size );
 class BfmeSubSKA
 {
 public:
-	char bfmeTestSKA( int id );
-
-	int m_gap00;
-	int m_count;
-	BfmeSub1045 **m_array;
+	char bfmeTestSKA(int a);
+	char m_pad00[0x4];
+	int m_count; // +0x04
+	BfmeSub1045 **m_array; // +0x08
 };
 
 char BfmeSubSKA::bfmeTestSKA( int id )

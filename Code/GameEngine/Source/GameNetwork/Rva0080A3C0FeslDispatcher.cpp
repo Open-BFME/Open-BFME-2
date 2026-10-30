@@ -32,13 +32,13 @@ public:
 class BfmeThingCIB
 {
 public:
-	void bfmeGoCIB( void *one, void *two );
+	void bfmeGoCIB( void *key, void *value );
 };
 
 class BfmeThingRF
 {
 public:
-	void *bfmeGoRF( void *one, void *two );
+	void *bfmeGoRF( void *key, void *defaultValue );
 };
 
 class BfmeThingUPB
@@ -95,10 +95,17 @@ struct Rva0080A3C0Input
 	int m_field1c;
 };
 
+struct FeslState;
 class Rva008091C0Owner
 {
 public:
-	void handle( BfmeC994 *message, int gid, char *name );
+	void handle(BfmeC994 *message, int gid, char *name);
+	char m_pad00[0x8];
+	FeslState *m_state; // +0x08
+	char m_pad0C[0x4C];
+	char *m_field58; // +0x58
+	char m_pad5C[0x118];
+	int m_174; // +0x174
 };
 
 struct Rva0080A680Input;
@@ -207,13 +214,42 @@ struct Rva0080A680Input { int m_00, m_04, m_08, m_0c, m_10, m_14, m_18, m_1c, m_
 struct Rva00800E50Header;
 void Rva007F91D0(Rva00800E50Header *, const char *);
 struct Rva00809500Entry;
-struct Rva00809500Sink { void accept(Rva00809500Entry *); };
-class Rva00809010Finder { public: Rva00809500Sink *find(Rva00809500Entry *); };
+struct Rva00809500Sink
+{
+public:
+	void accept(Rva00809500Entry *entry);
+	char m_pad00[0x4];
+	int m_value04; // +0x04
+	int m_value08; // +0x08
+	int m_value0c; // +0x0C
+	void *m_match; // +0x10
+	char *m_gdatBuffer; // +0x14
+	int m_gdatBufferSize; // +0x18
+	unsigned int m_gdatTimestamp; // +0x1C
+};
+class Rva00809010Finder
+{
+public:
+	Rva00809500Sink *find( Rva00809500Entry *entry );
+	char m_pad00[0x18];
+	Rva00809500Sink *m_sinks[ 16 ]; // +0x18
+};
 class Rva00809E40Owner { public: void rva00809E40(Rva007E8810Message *); };
 struct Rva0080A110Message;
 class Rva0080A110Owner { public: void route(Rva0080A110Message *); };
 struct Rva0080A280Input;
-class Rva0080A280Owner { public: void rva0080A280(Rva0080A280Input *); };
+struct Rva0080A280State;
+class Rva0080A280Owner
+{
+public:
+	void rva0080A280( Rva0080A280Input *input );
+	char m_pad00[0x8];
+	Rva0080A280State *m_state; // +0x08
+	char m_pad0C[0x4];
+	void *m_routeOwner; // +0x10
+	char m_pad14[0x44];
+	char *m_field58; // +0x58
+};
 class Rva0080A680Forwarder
 {
 public:

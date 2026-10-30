@@ -41,10 +41,23 @@ struct Rva00809050Input
 	int m_field0c;
 };
 class Rva00808CB0LanGameEntry;
+struct Rva00808CB0Browser;
+struct Rva00808CB0Advert;
+class Rva00808920LanGame;
 class Rva00803620Sink
 {
 public:
 	Rva00808CB0LanGameEntry *rva00809050( Rva00809050Input *input );
+	void apply( int tid, char *name, int port, int maxPlayers, char *ugid );
+	char m_pad00[0x8];
+	Rva00808CB0Browser *m_browser; // +0x08
+	Rva00808CB0Advert *m_advert; // +0x0C
+	int m_field10; // +0x10
+	int m_nextLanGameId; // +0x14
+	Rva00808CB0LanGameEntry *m_lanGames[ 16 ]; // +0x18
+	Rva00808920LanGame *m_game; // +0x58
+	char m_pad5C[0x110];
+	int m_tid; // +0x16C
 };
 class Rva007E86B0Base
 {
@@ -143,6 +156,11 @@ public:
 	virtual void slot14();
 	virtual void slot18();
 	virtual const char *uid() const;
+	virtual void slot20();
+	virtual void slot24();
+	virtual void slot28();
+	virtual int count();
+	virtual Rva00802680Owner *at( int index );
 };
 
 struct BfmeOwnerUNC
@@ -186,7 +204,16 @@ struct Rva00809500Entry
 
 struct Rva00809500Sink
 {
+public:
 	void accept(Rva00809500Entry *entry);
+	char m_pad00[0x4];
+	int m_value04; // +0x04
+	int m_value08; // +0x08
+	int m_value0c; // +0x0C
+	void *m_match; // +0x10
+	char *m_gdatBuffer; // +0x14
+	int m_gdatBufferSize; // +0x18
+	unsigned int m_gdatTimestamp; // +0x1C
 };
 
 extern Rva00809500Sink *__stdcall Rva00809010Find(Rva00809500Entry *entry);
@@ -272,34 +299,38 @@ class Rva0080A940Owner
 {
 public:
 	bool finish();
-
-	void *m_field00;
-	void *m_field04;
-	void *m_field08;
-	Rva0080F100Object *m_field0c;
-	void *m_field10;
-	int m_nextLanGameId;
-	Rva00808CB0LanGameEntry *m_lanGames[ 16 ];
-	void *m_game;
-	unsigned int m_t0;       // +0x5C
-	unsigned int m_t1;       // +0x60
-	int m_tid;               // +0x64
-	char m_favGameUid[ 0x100 ]; // +0x68
-	char m_gap168[ 1 ];      // +0x168
+	void *m_field00; // +0x00
+	void *m_field04; // +0x04
+	void *m_field08; // +0x08
+	Rva0080F100Object *m_field0c; // +0x0C
+	void *m_field10; // +0x10
+	int m_nextLanGameId; // +0x14
+	Rva00808CB0LanGameEntry *m_lanGames[ 16 ]; // +0x18
+	void *m_game; // +0x58
+	unsigned int m_t0; // +0x5C +0x5C
+	unsigned int m_t1; // +0x60 +0x60
+	int m_tid; // +0x64 +0x64
+	char m_favGameUid[ 0x100 ]; // +0x68 +0x68
+	char m_pad168[0x4];
 };
 
 // Open-BFME5 conversions.
 
+class BfmeSub1045;
 class BfmeSubSKA
 {
 public:
 	char bfmeTestSKA(int a);
+	char m_pad00[0x4];
+	int m_count; // +0x04
+	BfmeSub1045 **m_array; // +0x08
 };
 
 class BfmeSinkSKA
 {
 public:
 	void bfmeSendSKA(int tag, int a, int v);
+	void sendCreateGameRequest( int transactionId, int gameId, int maxPlayers, const char *userGameId );
 };
 
 class BfmeThingSKA
@@ -421,12 +452,12 @@ class Rva008091C0Owner
 {
 public:
 	void handle(BfmeC994 *message, int gid, char *name);
-	char m_pad00[8];
-	FeslState *m_state;
-	char m_pad0c[0x4c];
-	char *m_field58;
-	char m_pad5c[0x118];
-	int m_174;
+	char m_pad00[0x8];
+	FeslState *m_state; // +0x08
+	char m_pad0C[0x4C];
+	char *m_field58; // +0x58
+	char m_pad5C[0x118];
+	int m_174; // +0x174
 };
 
 // Open-BFME5 conversions.
@@ -435,10 +466,11 @@ class BfmeMsgVJJ
 {
 public:
 	void bfmeSetVJJ(const char *k, const char *v) throw();
-	int m_bfme00;
-	int m_bfme04;
-	int m_bfme08;
-	int m_bfme0c;
+	int m_bfme00; // +0x00
+	int m_bfme04; // +0x04
+	int m_bfme08; // +0x08
+	int m_bfme0c; // +0x0C
+	char m_pad10[0x24];
 };
 
 class BfmeThingVJJ
@@ -446,10 +478,10 @@ class BfmeThingVJJ
 public:
 	void bfmeGoVJJ(BfmeMsgVJJ *out);
 	void bfmeFmtVJJ(char *buf, int n) throw();
-	int m_bfme00;
-	int m_bfme04;
-	int m_bfme08;
-	int m_bfme0c;
+	int m_bfme00; // +0x00
+	int m_bfme04; // +0x04
+	int m_bfme08; // +0x08
+	int m_bfme0c; // +0x0C
 };
 
 // tu-skeleton: 0x00674C00 330B ?apply@Rva00803620Sink@@QAEXHPADHH0@Z -- matched in Code/GameEngine/Source/GameNetwork/Y4FeslLanGameCtor.cpp (not merged yet)

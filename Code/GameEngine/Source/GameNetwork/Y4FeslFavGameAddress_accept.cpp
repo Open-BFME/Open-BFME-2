@@ -46,16 +46,16 @@ struct Rva00809500Entry
 
 struct Rva00809500Sink
 {
-	void accept( Rva00809500Entry *entry );
-
-	int m_pad00;
-	int m_value04;
-	int m_value08;
-	int m_value0c;
-	int m_pad10;
-	char *m_gdatBuffer;
-	int m_gdatBufferSize;
-	unsigned int m_gdatTimestamp;
+public:
+	void accept(Rva00809500Entry *entry);
+	char m_pad00[0x4];
+	int m_value04; // +0x04
+	int m_value08; // +0x08
+	int m_value0c; // +0x0C
+	void *m_match; // +0x10
+	char *m_gdatBuffer; // +0x14
+	int m_gdatBufferSize; // +0x18
+	unsigned int m_gdatTimestamp; // +0x1C
 };
 
 void Rva00809500Sink::accept( Rva00809500Entry *entry )

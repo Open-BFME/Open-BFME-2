@@ -41,7 +41,8 @@ public:
 class BfmeSinkSKA
 {
 public:
-	void bfmeSendSKA( int category, int transactionId, int depth );
+	void bfmeSendSKA(int tag, int a, int v);
+	void sendCreateGameRequest( int transactionId, int gameId, int maxPlayers, const char *userGameId );
 };
 
 struct Rva007EB810Diag

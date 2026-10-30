@@ -34,13 +34,13 @@ public:
 class BfmeThingCIB
 {
 public:
-	void bfmeGoCIB( void *one, void *two );
+	void bfmeGoCIB( void *key, void *value );
 };
 
 class BfmeThingRF
 {
 public:
-	void *bfmeGoRF( void *one, void *two );
+	void *bfmeGoRF( void *key, void *defaultValue );
 };
 
 class BfmeThingUPB
@@ -49,10 +49,17 @@ public:
 	char bfmeGoUPB( void *one, char *out, void *two );
 };
 
+struct FeslState;
 class Rva008091C0Owner
 {
 public:
-	void handle( BfmeC994 *message, int value, char *name );
+	void handle(BfmeC994 *message, int gid, char *name);
+	char m_pad00[0x8];
+	FeslState *m_state; // +0x08
+	char m_pad0C[0x4C];
+	char *m_field58; // +0x58
+	char m_pad5C[0x118];
+	int m_174; // +0x174
 };
 
 struct Rva0080A280State
@@ -75,13 +82,12 @@ class Rva0080A280Owner
 {
 public:
 	void rva0080A280( Rva0080A280Input *input );
-
-	char m_pad00[ 8 ];
-	Rva0080A280State *m_state;
-	char m_pad0c[ 4 ];
-	void *m_routeOwner;
-	char m_pad14[ 0x44 ];
-	char *m_field58;
+	char m_pad00[0x8];
+	Rva0080A280State *m_state; // +0x08
+	char m_pad0C[0x4];
+	void *m_routeOwner; // +0x10
+	char m_pad14[0x44];
+	char *m_field58; // +0x58
 };
 
 void *Rva007F93E0( void *message, void *route, void *owner );

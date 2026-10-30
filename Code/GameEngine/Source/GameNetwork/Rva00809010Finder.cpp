@@ -4,10 +4,19 @@ public:
 	void *bfmeGoRF( void *key, void *defaultValue );
 };
 
+struct Rva00809500Entry;
 struct Rva00809500Sink
 {
-	char m_pad00[ 0x10 ];
-	void *m_match;
+public:
+	void accept(Rva00809500Entry *entry);
+	char m_pad00[0x4];
+	int m_value04; // +0x04
+	int m_value08; // +0x08
+	int m_value0c; // +0x0C
+	void *m_match; // +0x10
+	char *m_gdatBuffer; // +0x14
+	int m_gdatBufferSize; // +0x18
+	unsigned int m_gdatTimestamp; // +0x1C
 };
 
 struct Rva00809500Entry
@@ -19,9 +28,8 @@ class Rva00809010Finder
 {
 public:
 	Rva00809500Sink *find( Rva00809500Entry *entry );
-
-	char m_pad00[ 0x18 ];
-	Rva00809500Sink *m_sinks[ 16 ];
+	char m_pad00[0x18];
+	Rva00809500Sink *m_sinks[ 16 ]; // +0x18
 };
 
 Rva00809500Sink *Rva00809010Finder::find( Rva00809500Entry *entry )
