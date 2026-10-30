@@ -14276,7 +14276,10 @@ FireWeaponWhenDeadBehavior.cpp (0x00482BB9 `?update@Rva00482BB9@@QAEHXZ`): each 
 the row respelled as the class's virtual update (a signature change). 
 GiantBirdAIUpdateCtor_GiantBirdAIUpdate.cpp (518 B) takes the same two-line fix
 (`?update@GiantBirdAIUpdate@@UAE?AW4UpdateSleepTime@@XZ` is rowed) but is held by
-a TU-merge seat. Pattern: before removing a link-wide alternatename, grep every
+a TU-merge seat. 2026-10-30 (Noro420): GiantBirdAIUpdateCtor_GiantBirdAIUpdate.cpp
+took that fix (interface `virtual UpdateSleepTime update() = 0`, class declares the
+rowed `update()`); `./build.sh` 6/6 rows; `link_check` 0 -> 518 B (LINKS). Census
+confirmation pending. Pattern: before removing a link-wide alternatename, grep every
 object for its source name, not only the defining unit.
 Same pattern, second case: `14810fae7b` replaced FXParticleSystem.cpp's
 `?v1@DefaultAlphaModuleInfo/DefaultColorModuleInfo@FXParticleSystem@@UAEXXZ`
