@@ -45,9 +45,11 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 VOTES = "reverse/name_votes.csv"
 AGREED = "reverse/name_agreed.csv"
 MEANINGS = "reverse/name_meanings.csv"
+RESOLUTIONS = "reverse/name_resolutions.csv"
 VOTE_COLUMNS = ["key", "hash", "model", "session", "worker", "date"]
 MEANING_COLUMNS = VOTE_COLUMNS + ["meaning"]
 AGREED_COLUMNS = ["id", "kind", "old", "new", "rva", "agents", "key", "status", "detail"]
+RESOLUTION_COLUMNS = ["key", "hash", "name", "source_sha", "worker", "model", "reason", "date"]
 SYNONYMS = {"num": "count", "number": "count", "cnt": "count", "idx": "index", "len": "length", "pos": "position",
             "str": "string", "msg": "message", "btn": "button", "wnd": "window", "tex": "texture", "obj": "object"}
 WORKER = re.compile(r"w-[0-9a-f]{12}")
@@ -245,6 +247,42 @@ def verify(votes, agreed_rows, key, name, *, lead=1, meaning_votes=(), meaning=N
     top = max((len(r) for r in rivals), default=0)
     if mine and len(mine) - top < (1 if needed == 1 else lead):
         problems.append(f"a rival spelling has {top} worker(s) against its {len(mine)}")
+    return problems
+
+
+def resolved_workers(votes, agreed_rows, resolutions, key, name, source_sha):
+    """Original voters who accepted a spelling after seeing the disagreement.
+
+    A blind vote for the selected spelling is itself an acceptance. A later
+    acceptance can only come from one of the original voters and binds to the
+    unchanged source. Every voter must accept when more than two participated.
+    """
+    selected = digest(key, name)
+    voters = {}
+    for row in votes:
+        if row.get("key") == key and WORKER.fullmatch(row.get("worker") or "") \
+                and HASH.fullmatch(row.get("hash") or ""):
+            voters.setdefault(row["worker"], row.get("model", ""))
+    accepted = {row["worker"] for row in votes if row.get("key") == key
+                and row.get("hash") == selected and row.get("worker") in voters}
+    accepted.update(row["worker"] for row in resolutions if row.get("key") == key
+                    and row.get("hash") == selected and row.get("name") == name
+                    and row.get("source_sha") == source_sha
+                    and row.get("worker") in voters and len((row.get("reason") or "").strip()) >= 12)
+    return voters, accepted
+
+
+def verify_resolution(votes, agreed_rows, resolutions, key, name, source_sha):
+    problems = []
+    if not re.fullmatch(r"[0-9a-f]{64}", source_sha or ""):
+        problems.append("missing source fingerprint")
+    if canon(name) in disputed(agreed_rows).get(key, ()):
+        problems.append("chosen spelling was disputed")
+    voters, accepted = resolved_workers(votes, agreed_rows, resolutions, key, name, source_sha)
+    if len(voters) < 2:
+        problems.append("resolution needs two original independent voters")
+    if accepted != set(voters):
+        problems.append(f"only {len(accepted)} of {len(voters)} original voters accepted this spelling")
     return problems
 
 

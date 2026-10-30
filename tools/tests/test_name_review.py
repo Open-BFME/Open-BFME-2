@@ -3,6 +3,7 @@
 The subprocess adapter has separate real-process tests with a tiny fake CLI.
 No test sends fixture source to a model or uses production claims.
 """
+import argparse
 import json
 import os
 from pathlib import Path
@@ -20,7 +21,8 @@ from test_name_lane import (tree, seat, lane_of, vote, rows, SOURCE, FN_KEY,
 
 def enable(root, **options):
     config = dict(enabled=True, worker="independent-reviewer", model="gpt-6.1-sol",
-                  count=6, max_keys=10, timeout=30, max_chars=150000)
+                  count=6, max_keys=10, timeout=30, max_chars=150000,
+                  resolve_disagreements=False)
     config.update(options)
     name_review.save_json(name_review.config_path(lane_of(root)), config)
     return config
@@ -74,6 +76,42 @@ def test_disagreement_remains_unapproved(tree, tmp_path):
     result = name_review.dispatch(lane_of(tree), runner=lambda packet, *_: answer(packet, "advanceQueue"))
     assert result["votes_recorded"] == 1 and result["newly_agreed"] == []
     assert FN_KEY not in lane_of(tree).state()
+
+
+def test_comparison_accepts_original_without_new_blind_vote(tree, tmp_path):
+    first(tree, tmp_path, resolve_disagreements=True)
+    packets = []
+    def runner(packet, _config, _job, *, resolution=False):
+        packets.append((resolution, packet))
+        if resolution:
+            assert packet["targets"][0]["proposals"] == ["sumBox", "addBoxWidth"]
+            return {"answers": [{"key": FN_KEY, "name": "sumBox",
+                                 "reason": "The function sums the width into the box value"}]}
+        assert "sumBox" not in json.dumps(packet)
+        return answer(packet, "addBoxWidth")
+    result = name_review.dispatch(lane_of(tree), runner=runner)
+    assert [mode for mode, _ in packets] == [False, True]
+    assert len(rows(tree, name_lane.VOTES)) == 2
+    assert len(rows(tree, name_lane.RESOLUTIONS)) == 1
+    assert result["newly_agreed"] == [FN_KEY]
+    assert lane_of(tree).state()[FN_KEY]["new"] == "sumBox"
+
+
+def test_comparison_chooses_reviewer_name_then_original_accepts(tree, tmp_path):
+    first(tree, tmp_path, resolve_disagreements=True)
+    def runner(packet, _config, _job, *, resolution=False):
+        if resolution:
+            return {"answers": [{"key": FN_KEY, "name": "addBoxWidth",
+                                 "reason": "The body adds width to the box value"}]}
+        return answer(packet, "addBoxWidth")
+    result = name_review.dispatch(lane_of(tree), runner=runner)
+    assert result["newly_agreed"] == []
+    assert result["resolution"]["decisions"][0]["status"] == "pending"
+    assert FN_KEY not in lane_of(tree).state()
+    os.environ["BFME_CLAIM_OWNER"] = "original-worker"
+    name_lane.cmd_resolve(lane_of(tree), argparse.Namespace(key=FN_KEY, name="addBoxWidth",
+        reason="The body adds width to the box value"))
+    assert lane_of(tree).state()[FN_KEY]["status"] == "agreed"
 
 
 def test_source_change_during_review_rejects_stale_vote(tree, tmp_path):

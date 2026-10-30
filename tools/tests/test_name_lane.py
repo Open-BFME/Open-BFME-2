@@ -130,6 +130,84 @@ def apply(root, **kw):
                                checks=kw.get("checks", no_checks))
 
 
+def test_reviewed_disagreement_can_accept_reviewer_name_and_apply(tree, tmp_path):
+    vote(tree, tmp_path, "original", {"rva00401000": "sumBox"}, worker="original-worker")
+    vote(tree, tmp_path, "reviewer", {"rva00401000": "addBoxWidth"}, worker="reviewer-worker")
+    assert FN_KEY not in lane_of(tree).state()
+    be("original-worker")
+    args = SimpleNamespace(key=FN_KEY, name="addBoxWidth",
+                           reason="The body adds the width to the box count")
+    assert name_lane.cmd_resolve(lane_of(tree), args) == 0
+    row = lane_of(tree).state()[FN_KEY]
+    assert row["status"] == "agreed" and row["id"].startswith("nr-")
+    assert len(rows(tree, name_lane.VOTES)) == 2  # no synthetic vote
+    assert len(rows(tree, name_lane.RESOLUTIONS)) == 1
+    assert apply(tree, key=[FN_KEY]) == 0
+    assert lane_of(tree).state()[FN_KEY]["status"] == "landed"
+
+
+def test_reviewed_resolution_rejects_outsider_and_stale_source(tree, tmp_path):
+    vote(tree, tmp_path, "original", {"rva00401000": "sumBox"}, worker="original-worker")
+    vote(tree, tmp_path, "reviewer", {"rva00401000": "addBoxWidth"}, worker="reviewer-worker")
+    args = SimpleNamespace(key=FN_KEY, name="addBoxWidth",
+                           reason="The body adds the width to the box count")
+    be("outsider")
+    with pytest.raises(SystemExit, match="only an original voter"):
+        name_lane.cmd_resolve(lane_of(tree), args)
+    be("original-worker")
+    name_lane.cmd_resolve(lane_of(tree), args)
+    path = tree / SOURCE
+    path.write_bytes(path.read_bytes() + b"\n")
+    assert apply(tree, key=[FN_KEY]) == 0
+    assert lane_of(tree).state()[FN_KEY]["status"] == "agreed"
+    assert not rows(tree, "reverse/name_basis.csv")
+
+
+def test_two_reviewed_names_in_one_source_share_a_batch(tree, tmp_path):
+    vote(tree, tmp_path, "original", {"rva00401000": "sumBox",
+         "Rva00401000Box::m_x2C": "m_width"}, worker="original-worker")
+    vote(tree, tmp_path, "reviewer", {"rva00401000": "addBoxWidth",
+         "Rva00401000Box::m_x2C": "m_boxWidth"}, worker="reviewer-worker")
+    be("original-worker")
+    name_lane.cmd_resolve(lane_of(tree), SimpleNamespace(key=FN_KEY, name="addBoxWidth",
+        reason="The body adds the box width to its result"))
+    name_lane.cmd_resolve(lane_of(tree), SimpleNamespace(key=MEMBER_KEY, name="m_boxWidth",
+        reason="The member supplies the box width in the function body"))
+    built = []
+    assert apply(tree, key=[FN_KEY, MEMBER_KEY], per_file=False,
+                 verify=lambda _ctx, sources: built.append(sources) or True) == 0
+    assert built == [[SOURCE]]
+    assert all(lane_of(tree).state()[key]["status"] == "landed" for key in (FN_KEY, MEMBER_KEY))
+
+
+def test_forged_resolution_agreement_without_acceptance_is_refused(tree, tmp_path):
+    vote(tree, tmp_path, "original", {"rva00401000": "sumBox"}, worker="original-worker")
+    vote(tree, tmp_path, "reviewer", {"rva00401000": "addBoxWidth"}, worker="reviewer-worker")
+    source_sha = __import__("hashlib").sha256((tree / SOURCE).read_bytes()).hexdigest()
+    rid = "nr-" + __import__("hashlib").sha256(
+        f"{FN_KEY}|addBoxWidth|{source_sha}".encode()).hexdigest()[:24]
+    lane_of(tree).append(name_lane.AGREED, name_lane.AGREED_COLUMNS, [dict(
+        id=rid, kind="function", old="rva00401000", new="addBoxWidth",
+        rva="0x00401000", agents="", key=FN_KEY, status="agreed", detail="forged")])
+    with pytest.raises(rename.Refusal, match="original voters accepted"):
+        rename.check_agreement(rename.Context(tree, object_scan=False), "function",
+                               f"agree:{rid}", {"rva00401000"}, {"addBoxWidth"}, 0x00401000)
+
+
+def test_reviewed_resolution_only_labels_counts_both_original_voters(tree, tmp_path):
+    vote(tree, tmp_path, "original", {"rva00401000": "sumBox"},
+         model="seat-a", worker="original-worker")
+    vote(tree, tmp_path, "reviewer", {"rva00401000": "addBoxWidth"},
+         model="seat-b", worker="reviewer-worker")
+    be("original-worker")
+    name_lane.cmd_resolve(lane_of(tree), SimpleNamespace(key=FN_KEY, name="addBoxWidth",
+        reason="The body adds width to the box value"))
+    assert apply(tree, key=[FN_KEY], only_labels="seat-b") == 0
+    assert lane_of(tree).state()[FN_KEY]["status"] == "agreed"
+    assert apply(tree, key=[FN_KEY], only_labels="seat-a,seat-b") == 0
+    assert lane_of(tree).state()[FN_KEY]["status"] == "landed"
+
+
 FN_KEY = name_lane.key_of(SOURCE, "function", "0x00401000", "rva00401000")
 MEMBER_KEY = name_lane.key_of(SOURCE, "member", "Rva00401000Box", "m_x2C")
 PARAM_KEY = name_lane.key_of(SOURCE, "param", "rva00401000", "param_1")

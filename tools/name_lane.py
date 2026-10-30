@@ -101,6 +101,7 @@ import random
 import re
 import subprocess
 import sys
+import time
 from pathlib import Path, PurePosixPath
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -116,6 +117,8 @@ VOTE_COLUMNS = name_agreement.VOTE_COLUMNS
 AGREED_COLUMNS = name_agreement.AGREED_COLUMNS
 MEANINGS = name_agreement.MEANINGS
 MEANING_COLUMNS = name_agreement.MEANING_COLUMNS
+RESOLUTIONS = name_agreement.RESOLUTIONS
+RESOLUTION_COLUMNS = name_agreement.RESOLUTION_COLUMNS
 LANE_DIR = "build/name_lane"
 EVIDENCE_TSV = "build/name_evidence.tsv"
 MAX_CHARS = 15000
@@ -166,14 +169,34 @@ def record_id(key, name, meaning=None):
         ("-m" + meaning if meaning else "")
 
 
+def proposal_path(lane, key, worker):
+    token = hashlib.sha256(f"{key}|{worker}".encode()).hexdigest()
+    return lane.path(f"{LANE_DIR}/proposals/{token}.json")
+
+
 def approval_support(tally, refused, row):
     return name_agreement.support(tally, refused, row["key"], row["new"],
                                   name_agreement.record_meaning(row["id"]))
 
 
 def approval_detail(tally, refused, row):
+    if row["id"].startswith("nr-"):
+        return "reviewed resolution: original voters accepted the selected name"
     mine, rivals, meaning = approval_support(tally, refused, row)
     return ("meaning agreement; " if meaning else "") + name_agreement.review_detail(row["key"], mine, rivals)
+
+
+def resolution_support(lane, row):
+    key, name = row["key"], row["new"]
+    source = lane.ctx.read(split_key(key)[0])
+    source_sha = hashlib.sha256(source).hexdigest() if source is not None else ""
+    expected = "nr-" + hashlib.sha256(f"{key}|{name}|{source_sha}".encode()).hexdigest()[:24]
+    votes, agreed = lane.votes(), lane.agreed_rows()
+    resolutions = lane.resolutions()
+    voters, _ = name_agreement.resolved_workers(votes, agreed, resolutions, key, name, source_sha)
+    valid = row["id"] == expected and not name_agreement.verify_resolution(
+        votes, agreed, resolutions, key, name, source_sha)
+    return voters, valid
 
 
 def model_id(text):
@@ -276,6 +299,9 @@ class Lane:
 
     def agreed_rows(self):
         return self.table(AGREED, AGREED_COLUMNS)
+
+    def resolutions(self):
+        return self.table(RESOLUTIONS, RESOLUTION_COLUMNS)
 
     def state(self):
         """key -> its state row. A key's current record is its latest agreement
@@ -828,6 +854,7 @@ structured form or skip if you cannot justify its meaning.
 
 @claims.pick_snapshot()
 def cmd_next(lane, args):
+    timing_start = time.perf_counter()
     selected_keys = set(getattr(args, "key", None) or ())
     max_keys = getattr(args, "max_keys", None)
     if max_keys is not None and max_keys < 1:
@@ -839,6 +866,7 @@ def cmd_next(lane, args):
     reviews = second_reviews(worker, state, tally, refused)
     clarifications = meaning_reviews(worker, state, tally, refused)
     files, voted = queue(lane, worker, model, args.file, reviews=reviews, clarifications=clarifications)
+    queue_done = time.perf_counter()
     only_meaning = getattr(args, "meaning_review_only", False)
     if only_meaning and getattr(args, "review_only", False):
         fail("--review-only and --meaning-review-only cannot be combined")
@@ -856,6 +884,7 @@ def cmd_next(lane, args):
     # but retaining foreign namespaces and mirrors. Do this before choosing a
     # subsystem or scanning bodies so busy files cannot anchor/waste a batch.
     busy = claims.busy_keys(lane.root)
+    claims_done = time.perf_counter()
     available = [rel for rel in files if claims.file_key(rel) not in busy]
     skipped = len(files) - len(available)
     if skipped:
@@ -935,6 +964,7 @@ def cmd_next(lane, args):
     if not served:
         print(f"name_lane: no file is left for session {session} to name.")
         return 0
+    selection_done = time.perf_counter()
     record.parent.mkdir(parents=True, exist_ok=True)
     if selected is not None:
         current["subsystem"] = selected
@@ -952,6 +982,12 @@ def cmd_next(lane, args):
                        for rel, text, items in served),
                    encoding="utf-8", errors="surrogateescape")
     print(f"name_lane: brief for {len(served)} file(s) ({sum(len(i) for _, _, i in served)} keys): {out}")
+    print("name_lane: prepare timing " + json.dumps(dict(
+        queue=round(queue_done-timing_start, 3),
+        claims=round(claims_done-queue_done, 3),
+        selection=round(selection_done-claims_done, 3),
+        brief=round(time.perf_counter()-selection_done, 3),
+        total=round(time.perf_counter()-timing_start, 3))))
     if len(served) > 1:
         print("name_lane: answer {\"<file>\": {<key>: <name>|\"skip\"}, ...} for several files")
     return 0
@@ -984,7 +1020,7 @@ def cmd_submit(lane, args, *, lead=2, min_models=1, verify=rename.build_verify, 
     prior_votes = lane.votes()
     tally, state, refused = lane.tally(), lane.state(), lane.disputed()
     now = datetime.date.today().isoformat()
-    votes, meanings, agreed, rejected = [], [], [], []
+    votes, meanings, agreed, rejected, local_proposals = [], [], [], [], []
     for rel, mapping in answers.items():
         entry = files[rel]
         text = lane.text(rel) or ""
@@ -1037,6 +1073,8 @@ def cmd_submit(lane, args, *, lead=2, min_models=1, verify=rename.build_verify, 
                 vote = {"key": key, "hash": h, "model": model, "session": session, "worker": worker, "date": now}
                 votes.append(vote)
                 tally[key][h][worker] = model
+                local_proposals.append(dict(key=key, name=answer, worker=worker,
+                                            source_sha=entry["sha"]))
             if meaning:
                 meanings.append({**vote, "meaning": meaning})
                 tally.meanings[key][h, worker].add(meaning)
@@ -1056,6 +1094,18 @@ def cmd_submit(lane, args, *, lead=2, min_models=1, verify=rename.build_verify, 
     lane.append(VOTES, VOTE_COLUMNS, votes)
     lane.append(MEANINGS, MEANING_COLUMNS, meanings)
     lane.append(AGREED, AGREED_COLUMNS, agreed)
+    # Plaintext stays local and is never included in a blind review packet.
+    # Once both blind votes exist, the comparison stage can retrieve it.
+    for proposal in local_proposals:
+        path = proposal_path(lane, proposal["key"], proposal["worker"])
+        path.parent.mkdir(parents=True, exist_ok=True)
+        if not path.exists():
+            temporary = path.with_suffix(f".{session}.tmp")
+            temporary.write_text(json.dumps(proposal, indent=2), encoding="utf-8")
+            if not path.exists():
+                temporary.replace(path)
+            else:
+                temporary.unlink()
     for rel in answers:
         files.pop(rel, None)
     if files:
@@ -1540,6 +1590,75 @@ def _missing_header_state(lane, sources, header):
 
 
 @claims.pick_snapshot()
+def cmd_resolve(lane, args):
+    """An original voter accepts a proposed spelling after reviewing the source.
+
+    Votes stay blind and unchanged. This is an explicit, auditable second-stage
+    decision by the original voters, not an extra vote under a new identity.
+    """
+    key, chosen = args.key, args.name.strip()
+    try:
+        rel, kind, scope, old = split_key(key)
+    except ValueError:
+        fail("--key needs source|kind|scope|placeholder")
+    if kind not in KINDS or not rel.startswith("Code/"):
+        fail("resolution needs an eligible Code/ name key")
+    text = lane.text(rel)
+    if text is None or not lane.servable(rel):
+        fail(f"source unavailable or protected: {rel}")
+    source_sha = hashlib.sha256(text.encode("utf-8", "surrogateescape")).hexdigest()
+    state = lane.state()
+    if state.get(key, {}).get("status") in ("agreed", "landed", "disputed"):
+        fail("this key is already approved, landed or disputed")
+    owned = {key_of(rel, k, s, i): rva for k, s, i, rva in lane.owned(rel, text)}
+    if key not in owned:
+        fail("the placeholder is no longer owned by this source")
+    rva = owned[key]
+    why = lane.eligibility(rel, kind, scope, old, rva) or lane.problem(
+        kind, old, chosen, set(name_metric.WORD.findall(name_metric.strip(text))))
+    if not why and kind == "class" and lane.ctx.grep_files(chosen, word=True):
+        why = f"{chosen} already exists; reconcile declarations before a class rename"
+    if why:
+        fail(f"resolution refused: {why}")
+    if canon(chosen) in lane.disputed().get(key, ()):
+        fail("chosen spelling was disputed for this key")
+    if len(args.reason.strip()) < 12:
+        fail("--reason must describe why this spelling fits the source")
+    original = [v for v in lane.votes() if v["key"] == key]
+    voter = lane.worker()
+    own = [v for v in original if v["worker"] == voter]
+    if not own:
+        fail("only an original voter can accept a resolution")
+    if len({v["worker"] for v in original}) < 2 or len({v["hash"] for v in original}) < 2:
+        fail("resolution needs two independent, competing proposals")
+    previous = [r for r in lane.resolutions() if r["key"] == key and r["worker"] == voter
+                and r["source_sha"] == source_sha]
+    if previous and any(r["hash"] != digest(key, chosen) for r in previous):
+        fail("this worker already accepted a different spelling for this source")
+    if not previous and all(v["hash"] != digest(key, chosen) for v in own):
+        lane.append(RESOLUTIONS, RESOLUTION_COLUMNS, [dict(key=key, hash=digest(key, chosen),
+            name=chosen, source_sha=source_sha, worker=voter, model=own[0]["model"],
+            reason=args.reason.strip(), date=datetime.date.today().isoformat())])
+    resolutions = lane.resolutions()
+    problems = name_agreement.verify_resolution(original, lane.agreed_rows(), resolutions,
+                                                 key, chosen, source_sha)
+    if problems:
+        print(f"name_lane: resolution pending: {'; '.join(problems)}")
+        return 0
+    agreed_name = chosen  # The reviewed spelling itself, never a donor respelling.
+    rid = "nr-" + hashlib.sha256(f"{key}|{agreed_name}|{source_sha}".encode()).hexdigest()[:24]
+    voters, _ = name_agreement.resolved_workers(original, lane.agreed_rows(), resolutions,
+                                                 key, chosen, source_sha)
+    row = dict(id=rid, kind=kind, old=old, new=agreed_name,
+               rva=f"0x{rva:08X}" if rva is not None else "",
+               agents=";".join(f"{worker}@{model}" for worker, model in sorted(voters.items())),
+               key=key, status="agreed", detail="reviewed resolution: " + args.reason.strip())
+    if not any(r["id"] == rid for r in lane.agreed_rows()):
+        lane.append(AGREED, AGREED_COLUMNS, [row])
+    print(f"name_lane: RESOLVED {key} -> {agreed_name} ({len(voters)} original voters)")
+    return 0
+
+
 def cmd_apply(lane, args, *, verify=rename.build_verify, checks=rename.ledger_checks):
     limit = getattr(args, "limit", None)
     if limit is not None and limit < 1:
@@ -1564,11 +1683,15 @@ def cmd_apply(lane, args, *, verify=rename.build_verify, checks=rename.ledger_ch
         if row["status"] == "agreed" or (args.retry_blocked and row["status"] == "blocked"):
             pending = True
             mine, rivals, _ = approval_support(tally, refused, row)
+            if row["id"].startswith("nr-"):
+                mine, valid = resolution_support(lane, row)
+            else:
+                valid = wins(mine, rivals, lead=args.lead, min_models=args.min_models, key=key)
             if only and not own_voters(mine, only):
                 outside += 1
                 continue
-            if not wins(mine, rivals, lead=args.lead, min_models=args.min_models, key=key):
-                print(f"{key}: votes no longer agree under --lead {args.lead} --min-models {args.min_models}; left")
+            if not valid:
+                print(f"{key}: approval is no longer valid for this source and voter set; left")
                 continue
             if (row["status"] == "blocked" and args.retry_blocked
                     and not getattr(args, "retry_unchanged", False)
@@ -1787,7 +1910,11 @@ def cmd_status(lane, args):
             if row["status"] != "agreed":
                 continue
             mine, rivals, _ = approval_support(tally, refused, row)
-            picked += wins(mine, rivals, lead=args.lead, min_models=args.min_models, key=key) and own_voters(mine, only)
+            if row["id"].startswith("nr-"):
+                mine, valid = resolution_support(lane, row)
+            else:
+                valid = wins(mine, rivals, lead=args.lead, min_models=args.min_models, key=key)
+            picked += valid and own_voters(mine, only)
         print(f"--only-labels {','.join(sorted(only))}: apply would select {picked} of {count['agreed']} "
               f"waiting key(s) (--lead {args.lead} --min-models {args.min_models})")
     if args.metric:
@@ -1837,6 +1964,10 @@ def main(argv=None, lane=None):
     a.add_argument("--only-labels", metavar="L,L",
                    help="land only keys whose winning spelling was voted entirely under these --model labels")
     a.add_argument("--no-claim", dest="claim", action="store_false", help="do not take tools/claims.py claims")
+    resolution = sub.add_parser("resolve", help="an original voter accepts a name after comparing competing proposals")
+    resolution.add_argument("--key", required=True, help="exact source|kind|scope|placeholder key")
+    resolution.add_argument("--name", required=True, help="selected name (an original proposal or a replacement)")
+    resolution.add_argument("--reason", required=True, help="source-based reason for the selected spelling")
     d = sub.add_parser("dispute", help="put landed names back and refuse them for their keys")
     d.add_argument("keys", nargs="+", help="as name_agreed.csv spells them (source|kind|scope|placeholder)")
     d.add_argument("--reason", required=True, help="what the code shows against the landed name")
@@ -1873,6 +2004,8 @@ def main(argv=None, lane=None):
         return cmd_submit(lane, args, lead=args.lead, min_models=args.min_models)
     if args.cmd == "apply":
         return cmd_apply(lane, args)
+    if args.cmd == "resolve":
+        return cmd_resolve(lane, args)
     if args.cmd == "reconcile":
         return cmd_reconcile(lane, args)
     if args.cmd == "dispute":

@@ -793,6 +793,10 @@ class Context:
         path = self.path(rel)
         return path.read_bytes() if path.exists() else None
 
+    def resolution_source_sha(self, rel):
+        data = self.read(rel)
+        return hashlib.sha256(data).hexdigest() if data is not None else ""
+
     def dicts(self, rel):
         if rel not in self._cache:
             raw = self.read(rel)
@@ -1338,9 +1342,20 @@ def check_agreement(ctx, kind, evidence, old_names, new_names, rva):
     if any(r.get("status") == "disputed" for r in rows):
         problems.append("the record was disputed")
     if not problems:
-        problems = name_agreement.verify(ctx.dicts(name_agreement.VOTES), ctx.dicts(AGREED), key,
-                                         row.get("new", ""), meaning_votes=ctx.dicts(name_agreement.MEANINGS),
-                                         meaning=name_agreement.record_meaning(rid))
+        if rid.startswith("nr-"):
+            source_sha = ctx.resolution_source_sha(parts[0]) if len(parts) == 4 else ""
+            expected = "nr-" + hashlib.sha256(
+                f"{key}|{row.get('new', '')}|{source_sha}".encode()).hexdigest()[:24]
+            if rid != expected:
+                problems.append("the source changed after the reviewed resolution")
+            else:
+                problems = name_agreement.verify_resolution(
+                    ctx.dicts(name_agreement.VOTES), ctx.dicts(AGREED),
+                    ctx.dicts(name_agreement.RESOLUTIONS), key, row.get("new", ""), source_sha)
+        else:
+            problems = name_agreement.verify(ctx.dicts(name_agreement.VOTES), ctx.dicts(AGREED), key,
+                                             row.get("new", ""), meaning_votes=ctx.dicts(name_agreement.MEANINGS),
+                                             meaning=name_agreement.record_meaning(rid))
     if problems:
         raise Refusal(f"agreement record {rid} does not agree to this rename: {'; '.join(problems)}")
 
@@ -5680,6 +5695,10 @@ def run_scoped_batch(ctx, requests, *, claim=True, verify=build_verify, checks=l
         def read(self, rel):
             return combined.after[rel] if rel in combined.after else ctx.read(rel)
 
+        def resolution_source_sha(self, rel):
+            data = ctx.read(rel)
+            return hashlib.sha256(data).hexdigest() if data is not None else ""
+
     if len(requests) < 2:
         raise Refusal("a scoped batch needs at least two renames")
     refuse_pending_journal(ctx)
@@ -6082,6 +6101,11 @@ def run_batch(ctx, requests, *, claim=True, verify=build_verify, checks=ledger_c
             data = combined.after[rel] if rel in combined.after else ctx.read(rel)
             reads[rel] = data
             return data
+
+        def resolution_source_sha(self, rel):
+            data = ctx.read(rel)
+            reads[rel] = data
+            return hashlib.sha256(data).hexdigest() if data is not None else ""
 
         def git(self, *args):
             output = ctx.git(*args)

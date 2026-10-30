@@ -125,6 +125,30 @@ target's source and evidence. Read the related files together before proposing
 names. Unlanded proposals and votes are never used as shared vocabulary.
 This provides context, not proof that two private class views are the same type.
 
+When two blind voters choose different names, the configured reviewer can make
+one further comparison against the same source. The first proposal is kept in
+`build/name_lane/proposals/` locally and is shown to the reviewer only after
+both blind votes are recorded. The comparison selects the original name, the
+reviewer's name, a replacement, or `skip` with a source-based reason. If the
+reviewer selects the original name, its reviewed acceptance completes the two
+workers' agreement. If it selects its own name, the original voter can accept
+it with `name_lane.py resolve --key KEY --name NAME --reason REASON`. A
+replacement needs both original voters to accept it. A substantive disagreement
+stays pending. No new blind votes or worker identities are created by this step.
+
+Reviewed acceptances are recorded in `reverse/name_resolutions.csv`; the original
+hashed votes remain unchanged. The approval record carries the agreed name and
+the source fingerprint. The rename engine recomputes the original voter set,
+their accepted spelling, and the source fingerprint before applying an inferred
+rename. If the source changes, resolve it again against the changed code.
+
+`review --no-resolve` disables this comparison for a configured reviewer. The
+reviewer runs the comparison only when the original plaintext proposal is
+available locally; an old hash without its proposal cannot be reconstructed.
+For a manual comparison, both voters can use `resolve` with a selected name and
+source-based reason. `next --count N` prepares multiple files from one subsystem
+in a single picker call; `apply` verifies eligible approvals as a run-wide batch.
+
 When the TU map is current, a fragmented file can be grouped by its approved
 TU directory only when every owned row has an approved, non-provisional
 assignment in that directory. Otherwise the packet explicitly labels the

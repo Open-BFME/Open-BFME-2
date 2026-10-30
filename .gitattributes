@@ -52,6 +52,7 @@ reverse/name_basis.csv text eol=lf merge=union
 reverse/name_agreed.csv text eol=lf merge=union
 reverse/name_votes.csv text eol=lf merge=union
 reverse/name_meanings.csv text eol=lf merge=union
+reverse/name_resolutions.csv text eol=lf merge=union
 # Ledgers tu_skeleton --merge and rename.py repoint through ledger_io.lf_terminator,
 # which refuses CRLF: a core.autocrlf=true checkout (T3 and other worktrees not made by
 # tools/worktree_setup.py) aborted merges halfway, after functions.csv was already
