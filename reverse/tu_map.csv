@@ -45265,7 +45265,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00544C4B,6,code,Code/GameEngine/Source/Common/AIHarvestPrepareSiteState.cpp,proposed,C,C=0x00544C2A..0x00544C51 noncontiguous,Code/GameEngine/Source/Common/ConstIntGetters4.cpp
 0x00544C51,11,code,Code/GameEngine/Source/Common/AIHarvestPrepareSiteState.cpp,proposed,K,K=Rva00544C51 noncontiguous,Code/GameEngine/Source/Common/Rva004D759CDerived.cpp
 0x00544C5C,6,code,,,-,,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp
-0x00544C62,473,code,Code/GameEngine/Source/GameLogic/AI/AIHarvest.cpp,approved,F,F=Code/GameEngine/Source/GameLogic/AI/AIHarvest.cpp W=Code/GameEngine/Source/GameLogic/AI/AIHarvest.cpp,Code/GameEngine/Source/GameLogic/AI/Rva00544EB1OnEnter.cpp
+0x00544C62,473,code,Code/GameEngine/Source/GameLogic/AI/AIHarvest.cpp,approved,F,F=Code/GameEngine/Source/GameLogic/AI/AIHarvest.cpp W=Code/GameEngine/Source/GameLogic/AI/AIHarvest.cpp,Code/GameEngine/Source/GameLogic/AI/AIHarvest.cpp
 0x00544E3B,59,code,Code/GameEngine/Source/Common/AIHarvestPrepareSiteState.cpp,proposed,N,N=Code/GameEngine/Source/Common/AIHarvestPrepareSiteState.cpp W=Code/GameEngine/Source/GameLogic/AI/AIHarvest.cpp noncontiguous,Code/GameEngine/Source/Common/AIHarvestPrepareSiteState.cpp
 0x00544E76,59,code,Code/GameEngine/Source/Common/AIHarvestPrepareSiteState.cpp,proposed,C,C=0x00544E3B..0x00544EB1 noncontiguous,Code/GameEngine/Source/Common/Rva00544E76.cpp
 0x00544EB1,29,code,Code/GameEngine/Source/Common/AIHarvestPrepareSiteState.cpp,proposed,C,C=0x00544E3B..0x00544ECE noncontiguous,Code/GameEngine/Source/Common/Rva00544EB1Ctor.cpp
