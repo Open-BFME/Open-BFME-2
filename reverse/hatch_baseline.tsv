@@ -13367,9 +13367,7 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/CashHackS
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/CashHackSpecialPower.cpp	CashHackSpecialPower::loadPostProcess	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/CashHackSpecialPower.cpp	CashHackSpecialPower::xfer	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/CashHackSpecialPower.cpp	CashHackSpecialPower::~CashHackSpecialPower	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/CloudBreakSpecialPower.cpp	1CloudBreakSpecialPower@@MAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/CombineHordeSpecialPower.cpp	1CombineHordeSpecialPower@@MAE@XZ	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/DarknessSpecialPower.cpp	1DarknessSpecialPower@@MAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/DefectorSpecialPower.cpp	DefectorSpecialPower::crc	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/DefectorSpecialPower.cpp	DefectorSpecialPower::doSpecialPowerAtLocation	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/DefectorSpecialPower.cpp	DefectorSpecialPower::doSpecialPowerAtObject	1
@@ -13378,8 +13376,12 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/DefectorS
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/DefectorSpecialPower.cpp	DefectorSpecialPower::~DefectorSpecialPower	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/DevastateSpecialPower.cpp	1DevastateSpecialPower@@MAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/DominateEnemySpecialPower.cpp	DominateEnemySpecialPower::~DominateEnemySpecialPower	1
+present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp	1CloudBreakSpecialPower@@MAE@XZ	1
+present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp	1DarknessSpecialPower@@MAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp	1ElvenWoodSpecialPower@@MAE@XZ	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/FreezingRainSpecialPower.cpp	1FreezingRainSpecialPower@@MAE@XZ	1
+present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp	1FreezingRainSpecialPower@@MAE@XZ	1
+present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp	1TaintSpecialPower@@MAE@XZ	1
+present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp	1WeaponChangeSpecialPowerModule@@MAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/GrabPassengerSpecialPower.cpp	1GrabPassengerSpecialPower@@MAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/OCLSpecialPower.cpp	1OCLSpecialPower@@MAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/OCLSpecialPower.cpp	crc@OCLSpecialPower@@MAEXPAVXfer@@@Z	1
@@ -13407,8 +13409,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPo
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModule.cpp	triggerSpecialPower@SpecialPowerModule@@IAEXPBUCoord3D@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModule.cpp	xfer@SpecialPowerModule@@MAEXPAVXfer@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/SplitHordeSpecialPower.cpp	1SplitHordeSpecialPower@@MAE@XZ	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/TaintSpecialPowerConstructor.cpp	1TaintSpecialPower@@MAE@XZ	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/WeaponChangeSpecialPowerModule.cpp	1WeaponChangeSpecialPowerModule@@MAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate.cpp	blockedBy@AIUpdateInterface@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate.cpp	calculateMaxBlockedSpeed@AIUpdateInterface@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate.cpp	canAutoAcquireWhileStealthed@AIUpdateInterface@@	1

@@ -95,7 +95,6 @@ private:
 };
 class ThingTemplate;
 class Matrix3D;
-struct Coord3D;
 struct Region3D;
 class TerrainLogic
 {
@@ -129,22 +128,6 @@ public:
 enum ObjectStatusTypes
 {
 	OBJECT_STATUS_0x54 = 0x54
-};
-class Object : public Thing
-{
-public:
-	void setStatus(ObjectStatusTypes status, bool set);
-	Player *getControllingPlayer() const;
-	void rva0028EC68(int a, void *b, int c);
-	void setTeam(Team *);
-	Team *getTeam() const { return m_team; }
-private:
-	char m_pad00[0x74];
-public:
-	int m_id; // +0x74
-private:
-	char m_pad78[0x304 - 0x78];
-	Team *m_team; // +0x304
 };
 enum ObjectID;
  class ThingFactory
@@ -192,6 +175,52 @@ class RGBAColorInt;
 class Snapshot;
 #include "../../../../Include/Common/BfmeXfer.h"
 #pragma intrinsic(_ReadWriteBarrier)
+// ?rva004C3B17@ElvenWoodSpecialPower@@QAEXPBUCoord3D@@@Z
+// Retail 0x004C3B17..0x004C3C36 (287 bytes): ElvenWoodSpecialPower's
+// location member (ret 4; WorldBuilder twin 0x0125E7C0 by callgraph score
+// 2.0 calls ElvenWoodSpecialPower::addObject 0x0125EB20 = retail 0x004C397F).
+// Same shape as TaintSpecialPower::rva004C49AE (0x004C49AE): clear
+// (0x0027F28E) and refresh (0x0027D1A4 at radius + 50) the terrain area
+// with flag 2; play the module data's FX (+0x94) and OCL (+0x98 on a copy
+// of the location); add the wood object named at +0x88; give it status
+// 0x54 (Object::setStatus 0x0023DB0E); then paint TheTaintManager
+// (0x006C0AB0): radius x 1.25 at 0x80 for everyone and when the object
+// exists the plain radius at 0xFF for its id (+0x74). Radius is +0x90.
+
+typedef float Real;
+#include "../../../../../Libraries/Include/Lib/Coord3D.h"
+class GameLogic;
+// 0x00362437 is rowed as Rva2225E0Filter::accepts(Object *, Player *); the old
+// ?bfmeHas1026@BfmeTab1026@@QAEDHH@Z pin names the same body.
+class Rva2225E0Filter
+{
+public:
+	bool accepts(Object *obj, Player *player);
+};
+class BfmeTab1026 : public Rva2225E0Filter
+{
+public:
+};
+class Object : public Thing
+{
+public:
+	void setStatus(ObjectStatusTypes status, bool set);
+	Player *getControllingPlayer() const;
+	void rva0028EC68(int a, void *b, int c);
+	void setTeam(Team *);
+	Team *getTeam() const { return m_team; }
+private:
+	char m_pad00[0x74];
+public:
+	int m_id; // +0x74
+private:
+	char m_pad78[0x304 - 0x78];
+	Team *m_team; // +0x304
+};
+#include "../../../Common/GameLogicObjectLookupView.h"
+typedef int Int;
+#include "Code/Libraries/Include/Lib/Coord3D.h"
+#include "../../../../../Libraries/Include/Lib/Region3D.h"
 
 // ?getModuleNameKey@WeaponChangeSpecialPowerModule@@UBE?AW4NameKeyType@@XZ @0x4C4075
 // (68B): cached pool-name key for WeaponChangeSpecialPowerModule. The class
@@ -399,6 +428,78 @@ public:
 	int m_taintOCL;
 };
 
+struct BfmePointFC;
+
+class FXList
+{
+public:
+	static void doFXPos( const FXList *fx, const Coord3D *primary, const Matrix3D *primaryMtx = 0, const float primarySpeed = 0.0f, const Coord3D *secondary = 0 );
+};
+
+class ObjectCreationList
+{
+public:
+	void create( void *primaryObj, void *primary, void *secondary, int createOwner );
+};
+
+class BfmeTaintManager
+{
+public:
+	void bfmeApplyCircleWorld( const BfmePointFC *point, Real radius, int amount, bool absolute, int owner );
+};
+
+extern BfmeTaintManager *TheTaintManager;
+
+struct ElvenWoodSpecialPowerModuleData
+{
+	unsigned char m_pad00[0x88];
+	unsigned char m_objectName[8];
+	Real m_radius;						// +0x90
+	FXList *m_fx;						// +0x94
+	ObjectCreationList *m_ocl;				// +0x98
+};
+
+enum NameKeyType;
+
+extern GameLogic *TheGameLogic;
+
+struct Rva004C4582TabHolder
+{
+	char m_pad[0x24];
+	BfmeTab1026 m_tab;
+};
+
+struct CloudBreakSpecialPowerModuleData
+{
+	unsigned char m_pad00[0x80];
+	const FXList *m_fx;
+	unsigned char m_objectName[4];
+	Real m_spacing;
+};
+
+class FreezingRainSpecialPowerModuleData : public SpecialPowerModuleData
+{
+public:
+	FreezingRainSpecialPowerModuleData();
+
+private:
+	float m_freezingRainRadius; // +0x7C
+	void *m_freezingRainFX; // +0x80
+	int m_burnRateModifier; // +0x84
+};
+
+class DarknessSpecialPowerModuleData : public SpecialPowerModuleData
+{
+public:
+	DarknessSpecialPowerModuleData();
+
+private:
+	float m_darknessRadius; // +0x7C
+	void *m_darknessFX; // +0x80
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp
@@ -567,10 +668,6 @@ TaintSpecialPowerModuleData::TaintSpecialPowerModuleData()
 	m_taintRadius = 10.0f;
 }
 
-// tu-skeleton: 0x004C38FF 6B ?Rva004C38FFGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
-// tu-skeleton: 0x004C3905 25B ??1Rva004C3905@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPowerPoolKey.cpp
 
 // ?getModuleNameKey@ElvenWoodSpecialPower@@UBE?AW4NameKeyType@@XZ
@@ -581,6 +678,10 @@ NameKeyType ElvenWoodSpecialPower::getModuleNameKey() const
 	return TheElvenWoodSpecialPowerPoolKey;
 }
 
+// tu-skeleton: 0x004C38FF 6B ?Rva004C38FFGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x004C3905 25B ??1Rva004C3905@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
+
 // tu-skeleton: 0x004C3963 28B ??_GRva004C3905@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
 
 // tu-skeleton: 0x004C3A9F 45B ?Rva004C3A9FConstruct@@YAXPAXPBX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp (not merged yet)
@@ -589,7 +690,37 @@ NameKeyType ElvenWoodSpecialPower::getModuleNameKey() const
 
 // tu-skeleton: 0x004C3AF2 37B ??$__uninitialized_fill_n@PAURva004C3AF2Element@@IU1@@_STL@@YAPAURva004C3AF2Element@@PAU1@IABU1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW6Rva004C3AF2.cpp (not merged yet)
 
-// tu-skeleton: 0x004C3B17 287B ?rva004C3B17@ElvenWoodSpecialPower@@QAEXPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPowerRva004C3B17.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPowerRva004C3B17.cpp
+
+void ElvenWoodSpecialPower::rva004C3B17( const Coord3D *loc )
+{
+	ElvenWoodSpecialPowerModuleData *data = (ElvenWoodSpecialPowerModuleData *)m_moduleData;
+	Real radius = data->m_radius;
+	Object *owner = m_object;
+
+	TheTerrainLogic->rva0027F28E( loc, radius, 2 );
+	TheTerrainLogic->rva0027D1A4( loc, radius + 50.0f, 2 );
+
+	if( data->m_fx )
+		FXList::doFXPos( data->m_fx, loc );
+
+	ObjectCreationList *ocl = data->m_ocl;
+	if( ocl )
+	{
+		Coord3D oclPoint;
+		oclPoint.x = loc->x;
+		oclPoint.y = loc->y;
+		oclPoint.z = loc->z;
+		ocl->create( owner, &oclPoint, 0, 0 );
+	}
+
+	Object *wood = addObject( loc, (const AsciiString *)data->m_objectName );
+	if( wood )
+		wood->setStatus( OBJECT_STATUS_0x54, true );
+	TheTaintManager->bfmeApplyCircleWorld( (const BfmePointFC *)loc, radius * 1.25f, 0x80, true, -1 );
+	if( wood )
+		TheTaintManager->bfmeApplyCircleWorld( (const BfmePointFC *)loc, radius, 0xff, true, wood->m_id );
+}
 
 // tu-skeleton: 0x004C3C36 201B ?rva004C3C36@ElvenWoodSpecialPower@@QAEXPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPowerChoice.cpp (not merged yet)
 
@@ -615,7 +746,17 @@ NameKeyType ElvenWoodSpecialPower::getModuleNameKey() const
 
 // tu-skeleton: 0x004C3FDD 27B ?buildFieldParse@WeaponChangeSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDataBuildFieldParse.cpp (not merged yet)
 
-// tu-skeleton: 0x004C3FF8 42B ??0WeaponChangeSpecialPowerModule@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/WeaponChangeSpecialPowerModule.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/WeaponChangeSpecialPowerModule.cpp
+
+WeaponChangeSpecialPowerModule::WeaponChangeSpecialPowerModule( Thing *thing, const ModuleData *moduleData )
+	: SpecialPowerModule( thing, moduleData )
+{
+}
+
+// ??1WeaponChangeSpecialPowerModule@@MAE@XZ present-unmatched
+WeaponChangeSpecialPowerModule::~WeaponChangeSpecialPowerModule()
+{
+}
 
 // tu-skeleton: 0x004C4022 6B ?Rva004C4022Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
@@ -635,7 +776,14 @@ NameKeyType ElvenWoodSpecialPower::getModuleNameKey() const
 
 // tu-skeleton: 0x004C4338 27B ?buildFieldParse@ScavengerSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDataBuildFieldParse.cpp (not merged yet)
 
-// tu-skeleton: 0x004C4353 46B ??0ScavengerSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/ScavengerSpecialPowerCtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/ScavengerSpecialPowerCtor.cpp
+
+// ??0ScavengerSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z @0x4C4353
+ScavengerSpecialPower::ScavengerSpecialPower(Thing *thing, const ModuleData *moduleData)
+	: SpecialPowerModule(thing, moduleData)
+{
+	m_34 = 0;
+}
 
 // tu-skeleton: 0x004C4381 6B ?Rva004C4381Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
@@ -649,7 +797,17 @@ NameKeyType ElvenWoodSpecialPower::getModuleNameKey() const
 
 // tu-skeleton: 0x004C44BD 27B ?buildFieldParse@CloudBreakSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDataBuildFieldParse.cpp (not merged yet)
 
-// tu-skeleton: 0x004C44D8 42B ??0CloudBreakSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/CloudBreakSpecialPower.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/CloudBreakSpecialPower.cpp
+
+CloudBreakSpecialPower::CloudBreakSpecialPower( Thing *thing, const ModuleData *moduleData )
+	: SpecialPowerModule( thing, moduleData )
+{
+}
+
+// ??1CloudBreakSpecialPower@@MAE@XZ present-unmatched
+CloudBreakSpecialPower::~CloudBreakSpecialPower()
+{
+}
 
 // tu-skeleton: 0x004C4502 6B ?Rva004C4502Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
@@ -657,11 +815,57 @@ NameKeyType ElvenWoodSpecialPower::getModuleNameKey() const
 
 // tu-skeleton: 0x004C4566 28B ??_GRva004C4508@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
 
-// tu-skeleton: 0x004C4582 77B ?rva004C4582@CloudBreakSpecialPower@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/CloudBreakSpecialPowerRva004C4582.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/CloudBreakSpecialPowerRva004C4582.cpp
+
+void CloudBreakSpecialPower::rva004C4582()
+{
+	Object *object = m_object;
+	Object *cur = TheGameLogic->getFirstObject();
+	if (cur == 0)
+		return;
+	for (; cur != 0; cur = *(Object **)((char *)cur + 0x8C))
+	{
+		Rva004C4582TabHolder *holder = (Rva004C4582TabHolder *)m_moduleData;
+		if (holder->m_tab.accepts(cur, object->getControllingPlayer()))
+			cur->rva0028EC68(5, object, 1);
+	}
+}
 
 // tu-skeleton: 0x004C45CF 82B ?Rva004C45CFCreate@@YGXPBUCoord3D@@PBVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/CloudBreakSpecialPowerRva004C45CF.cpp (not merged yet)
 
-// tu-skeleton: 0x004C4621 377B ?rva004C4621@CloudBreakSpecialPower@@QAEXPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/CloudBreakSpecialPowerTileMap.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/CloudBreakSpecialPowerTileMap.cpp
+
+void CloudBreakSpecialPower::rva004C4621( const Coord3D * )
+{
+	const CloudBreakSpecialPowerModuleData *data = (const CloudBreakSpecialPowerModuleData *)m_moduleData;
+	Region3D extent;
+	TheTerrainLogic->getExtent( &extent );
+
+	if( data->m_fx )
+	{
+		Coord3D pos;
+		pos.x = ( extent.lo.x + extent.hi.x ) * 0.5f;
+		pos.y = ( extent.lo.y + extent.hi.y ) * 0.5f;
+		pos.z = TheTerrainLogic->getGroundHeight( pos.x, pos.y, 0 );
+		FXList::doFXPos( data->m_fx, &pos );
+	}
+
+	Real spacing = data->m_spacing;
+	if( spacing > 1.0f )
+	{
+		for( Int y = (Int)( extent.lo.y + spacing ); y < extent.hi.y - spacing; y = (Int)( y + spacing ) )
+		{
+			for( Int x = (Int)( extent.lo.x + spacing ); x < extent.hi.x - spacing; x = (Int)( x + spacing ) )
+			{
+				Coord3D pos;
+				pos.x = (Real)x;
+				pos.y = (Real)y;
+				pos.z = TheTerrainLogic->getGroundHeight( pos.x, pos.y, 0 );
+				rva004C45CF( &pos, (const AsciiString *)data->m_objectName );
+			}
+		}
+	}
+}
 
 // tu-skeleton: 0x004C479A 61B ??0CloudBreakSpecialPowerModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/CloudBreakSpecialPowerModuleDataCtor.cpp (not merged yet)
 
@@ -673,7 +877,17 @@ NameKeyType ElvenWoodSpecialPower::getModuleNameKey() const
 
 // tu-skeleton: 0x004C487B 27B ?buildFieldParse@TaintSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDataBuildFieldParse.cpp (not merged yet)
 
-// tu-skeleton: 0x004C4896 42B ??0TaintSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/TaintSpecialPowerConstructor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/TaintSpecialPowerConstructor.cpp
+
+TaintSpecialPower::TaintSpecialPower( Thing *thing, const ModuleData *moduleData )
+	: SpecialPowerModule( thing, moduleData )
+{
+}
+
+// ??1TaintSpecialPower@@MAE@XZ present-unmatched
+TaintSpecialPower::~TaintSpecialPower()
+{
+}
 
 // tu-skeleton: 0x004C48C0 6B ?Rva004C48C0Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
@@ -693,7 +907,17 @@ NameKeyType ElvenWoodSpecialPower::getModuleNameKey() const
 
 // tu-skeleton: 0x004C4B86 27B ?buildFieldParse@FreezingRainSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDataBuildFieldParse.cpp (not merged yet)
 
-// tu-skeleton: 0x004C4BA1 42B ??0FreezingRainSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/FreezingRainSpecialPower.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/FreezingRainSpecialPower.cpp
+
+FreezingRainSpecialPower::FreezingRainSpecialPower( Thing *thing, const ModuleData *moduleData )
+	: SpecialPowerModule( thing, moduleData )
+{
+}
+
+// ??1FreezingRainSpecialPower@@MAE@XZ present-unmatched
+FreezingRainSpecialPower::~FreezingRainSpecialPower()
+{
+}
 
 // tu-skeleton: 0x004C4BCB 6B ?Rva004C4BCBGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
@@ -707,11 +931,31 @@ NameKeyType ElvenWoodSpecialPower::getModuleNameKey() const
 
 // tu-skeleton: 0x004C4D22 79B ?doSpecialPowerAtLocation@FreezingRainSpecialPower@@UAEXPBUCoord3D@@I@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/AreaSpecialPowersAtLocation.cpp (not merged yet)
 
-// tu-skeleton: 0x004C4D71 45B ??0FreezingRainSpecialPowerModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/FreezingRainSpecialPowerModuleDataCtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/FreezingRainSpecialPowerModuleDataCtor.cpp
+
+// ??0FreezingRainSpecialPowerModuleData@@QAE@XZ @0x4C4D71
+FreezingRainSpecialPowerModuleData::FreezingRainSpecialPowerModuleData()
+	: SpecialPowerModuleData()
+{
+	float radius = 10.0f;
+	m_freezingRainFX = 0;
+	m_burnRateModifier = 0;
+	m_freezingRainRadius = radius;
+}
 
 // tu-skeleton: 0x004C4D9E 27B ?buildFieldParse@DarknessSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDataBuildFieldParse.cpp (not merged yet)
 
-// tu-skeleton: 0x004C4DB9 42B ??0DarknessSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/DarknessSpecialPower.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/DarknessSpecialPower.cpp
+
+DarknessSpecialPower::DarknessSpecialPower( Thing *thing, const ModuleData *moduleData )
+	: SpecialPowerModule( thing, moduleData )
+{
+}
+
+// ??1DarknessSpecialPower@@MAE@XZ present-unmatched
+DarknessSpecialPower::~DarknessSpecialPower()
+{
+}
 
 // tu-skeleton: 0x004C4DE3 6B ?Rva004C4DE3Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
@@ -725,7 +969,16 @@ NameKeyType ElvenWoodSpecialPower::getModuleNameKey() const
 
 // tu-skeleton: 0x004C4F1C 71B ?doSpecialPowerAtLocation@DarknessSpecialPower@@UAEXPBUCoord3D@@I@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/AreaSpecialPowersAtLocation.cpp (not merged yet)
 
-// tu-skeleton: 0x004C4F63 38B ??0DarknessSpecialPowerModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/DarknessSpecialPowerModuleDataCtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/DarknessSpecialPowerModuleDataCtor.cpp
+
+// ??0DarknessSpecialPowerModuleData@@QAE@XZ @0x4C4F63
+DarknessSpecialPowerModuleData::DarknessSpecialPowerModuleData()
+	: SpecialPowerModuleData()
+{
+	float radius = 10.0f;
+	m_darknessFX = 0;
+	m_darknessRadius = radius;
+}
 
 // tu-skeleton: 0x0078FF54 14B $L6620 -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp (not merged yet)
 
