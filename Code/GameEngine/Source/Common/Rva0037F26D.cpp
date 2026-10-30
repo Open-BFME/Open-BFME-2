@@ -19,7 +19,7 @@ template <> vector<Rva002E2690Element>::iterator vector<Rva002E2690Element>::era
 class UnitRevivalTracker
 {
     int m_unk00;
-    _STL::vector<Rva002E2690Element> m_vec04;
+    _STL::vector<Rva002E2690Element> m_entries;
 
 public:
     void rva0037F26D();
@@ -27,5 +27,5 @@ public:
 
 void UnitRevivalTracker::rva0037F26D()
 {
-    m_vec04.clear();
+    m_entries.clear();
 }
