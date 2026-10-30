@@ -541,26 +541,29 @@ class Rva0037B5DF;
 class Rva0037BBED : public SubsystemInterface
 {
 public:
-    Rva0037BBED();
-    virtual ~Rva0037BBED();
-    virtual void init();
-    UnicodeString rva0037BCA8();
-    AsciiString rva0037B70A();
-    bool rva0037CBB6(Rva0037B5DF &header);
-    bool rva0037D0EF(UnicodeString filename);
-    void rva0037D0A7(unsigned int crc, int player, bool fromPlayback, unsigned int frame);
-    Rva0037D097CRCView *m_0c;
-    FILE *m_file;
-    UnicodeString m_14;
-    int m_18;
-    int m_1c;
-    UnicodeString m_20;
-    Rva0037BB53 m_gameInfo;
-    int m_crcInterval, m_mode, m_numPlayers, m_localIndex;
-    unsigned char m_e70;
-    char m_padE71[3];
-    int m_e74;
-    int m_frameE78;
+	Rva0037BBED();
+	UnicodeString rva0037BCA8();
+	AsciiString rva0037B70A();
+	bool rva0037CBB6(Rva0037B5DF &header);
+	bool rva0037D0EF(UnicodeString filename);
+	void rva0037D0A7(unsigned int crc, int player, bool fromPlayback, unsigned int frame);
+	virtual ~Rva0037BBED();
+	virtual void init();
+	Rva0037D097CRCView *m_0c; // +0x0C
+	FILE *m_file; // +0x10
+	UnicodeString m_14; // +0x14
+	int m_18; // +0x18
+	int m_1c; // +0x1C
+	UnicodeString m_20; // +0x20
+	Rva0037BB53 m_gameInfo; // +0x24
+	int m_crcInterval; // +0xE60
+	int m_mode; // +0xE64
+	int m_numPlayers; // +0xE68
+	int m_localIndex; // +0xE6C
+	unsigned char m_e70; // +0xE70
+	char m_padE71[0x3];
+	int m_e74; // +0xE74
+	int m_frameE78; // +0xE78
 };
 
 struct Triple12 { Triple12() {} int a, b, c; };

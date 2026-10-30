@@ -11,7 +11,9 @@
 
 class GameInfo;
 extern GameInfo *TheGameInfo;
-extern "C" __declspec(dllimport) int __cdecl fclose(void *fp);
+struct _iobuf;
+typedef struct _iobuf FILE;
+extern "C" __declspec(dllimport) int __cdecl fclose(FILE *fp);
 
 class Rva0037BB53
 {
@@ -22,27 +24,41 @@ public:
 
 #include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
 
+class AsciiString;
+class Rva0037B5DF;
+class Rva0037D097CRCView;
 class Rva0037BBED : public SubsystemInterface
 {
 public:
+	Rva0037BBED();
+	UnicodeString rva0037BCA8();
+	AsciiString rva0037B70A();
+	bool rva0037CBB6(Rva0037B5DF &header);
+	bool rva0037D0EF(UnicodeString filename);
+	void rva0037D0A7(unsigned int crc, int player, bool fromPlayback, unsigned int frame);
 	virtual ~Rva0037BBED();
-	// Slot 1 of vtable 0x00C18828 (rowed in Rva0037BCC4.cpp); keeps this
-	// COMDAT copy identical to the constructor's.
 	virtual void init();
-private:
-	int m_0c;
-	void *m_10;
-	UnicodeString m_14;
-	int m_18;
-	int m_1c;
-	UnicodeString m_20;
-	Rva0037BB53 m_24;
+	Rva0037D097CRCView *m_0c; // +0x0C
+	FILE *m_file; // +0x10
+	UnicodeString m_14; // +0x14
+	int m_18; // +0x18
+	int m_1c; // +0x1C
+	UnicodeString m_20; // +0x20
+	Rva0037BB53 m_gameInfo; // +0x24
+	int m_crcInterval; // +0xE60
+	int m_mode; // +0xE64
+	int m_numPlayers; // +0xE68
+	int m_localIndex; // +0xE6C
+	unsigned char m_e70; // +0xE70
+	char m_padE71[0x3];
+	int m_e74; // +0xE74
+	int m_frameE78; // +0xE78
 };
 
 Rva0037BBED::~Rva0037BBED()
 {
-	if (TheGameInfo == (GameInfo *)&m_24)
+	if (TheGameInfo == (GameInfo *)&m_gameInfo)
 		TheGameInfo = 0;
-	if (m_10)
-		fclose(m_10);
+	if (m_file)
+		fclose(m_file);
 }
