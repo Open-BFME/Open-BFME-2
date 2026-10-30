@@ -5,6 +5,30 @@
 #include "../../../Common/GameLogicObjectLookupView.h"
 #include <vector>
 #include "ascii_string.h"
+//
+// ?xfer@ReplaceObjectUpdate@@MAEXPAVXfer@@@Z 33B @0x004B29DE: virtual slot 3
+// (offset 0x0C) of vtable 0x00856BB0 installed by the ReplaceObjectUpdate
+// ctor. Base SpecialAbilityUpdate xfer via rowed 0x0044F996, IsLightCRC
+// early-out via Xfer slot 0x10, then rowed Version1. No members.
+
+class Snapshot;
+class UnicodeString;
+class PooledString;
+class Coord3DBase;
+struct ICoord3D;
+struct Region3D;
+struct IRegion3D;
+class Coord2D;
+struct ICoord2D;
+struct Region2D;
+struct IRegion2D;
+class RealRange;
+struct RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+struct XferUnknown11;
+#include "../../../../Include/Common/BfmeXfer.h"
+#include <windows.h>
 
 //
 // ReplaceObjectUpdate.cpp (the unit 0x004B2A9D's random-range assert names).
@@ -438,7 +462,112 @@ protected:
 	virtual void xfer(Xfer *xfer);
 };
 
+class ReplaceObjectUpdateModuleData;
+
+class Rva004B2A9D;
+
+//
+// ?rva004B2A9D@Rva004B2A9D@@QAEPAHXZ 39B @0x004B2A9D: picks a random int
+// from the int array at +4/+8 via rowed GetGameLogicRandomValue(0,
+// count-1, file, 0x47) and returns its address. Caller at 0x004B2C0E;
+// file literal is the ReplaceObjectUpdate TU per the neighbourhood.
+
+int GetGameLogicRandomValue(int lo, int hi, char *file, int line);
+
+struct FieldParse;
+
+class MultiIniFieldParse
+{
+public:
+	MultiIniFieldParse();
+	void add(const FieldParse *parseTable, unsigned int extraOffset);
+private:
+	unsigned char m_unreconstructed_00[0x84];
+};
+
+class INI
+{
+public:
+	const char *getNextTokenOrNull(const char *seps = 0);
+	void initFromINIMulti(void *what, const MultiIniFieldParse &parseTableList);
+	static void Rva003F341E_ParseConnections(INI *ini, void *instance, void *store, const void *userData);
+	static void Rva004B2B64_ParseReplaceObject(INI *ini, void *instance, void *store, const void *userData);
+	static void parseAsciiStringVectorAppend(INI *ini, void *instance, void *store, const void *userData);
+	const char *separators() const { return m_separators; }
+private:
+	unsigned char m_unreconstructed_000[0x420];
+	const char *m_separators;		// +0x420
+};
+
+struct FieldParse
+{
+	const char *token;
+	void (*parse)(INI *, void *, void *, const void *);
+	const void *userData;
+	int offset;
+};
+
+class LivingWorldRegionConnection
+{
+public:
+	LivingWorldRegionConnection();
+	virtual ~LivingWorldRegionConnection();
+	AsciiString m_regionName;		// +0x04
+private:
+	unsigned char m_unreconstructed_08[0x18 - 0x08];
+};
+
+class ModuleData;
+
+void iniParseObjectFilter(INI *ini, void *instance, void *store, const void *userData);
+
+// Retail's own two-record ReplaceObject table, transcribed from .rdata at RVA
+// 0x00856D20 (VA 0x00C56D20, file offset 0x00857A20): TargetObjectFilter through
+// the rowed free iniParseObjectFilter at +0 and ReplacementObjectName through
+// INI::parseAsciiStringVectorAppend at +4, a null user-data column in both
+// records, then the zero terminator. `extern` on the definition keeps the table
+// external, which a plain const array at namespace scope would not be.
+extern const FieldParse g_00C56D20[];
+
+const FieldParse g_00C56D20[] =
+{
+	{ "TargetObjectFilter", &iniParseObjectFilter, 0, 0 },
+	{ "ReplacementObjectName", &INI::parseAsciiStringVectorAppend, 0, 4 },
+	{ 0, 0, 0, 0 }
+};
+
+namespace _STL
+{
+template <class T, class A> class vector;
+template <> class vector<LivingWorldRegionConnection, allocator<LivingWorldRegionConnection> >
+{
+public:
+	void push_back(const LivingWorldRegionConnection &x);
+private:
+	LivingWorldRegionConnection *m_start;
+	LivingWorldRegionConnection *m_finish;
+	LivingWorldRegionConnection *m_endOfStorage;
+};
+template <> class vector<const ModuleData *, allocator<const ModuleData *> >
+{
+public:
+	void push_back(const ModuleData *const &x);
+private:
+	const ModuleData **m_start;
+	const ModuleData **m_finish;
+	const ModuleData **m_endOfStorage;
+};
+}
+
+struct Rva004B2B64Owner
+{
+	unsigned char m_unreconstructed_00[0xC8];
+	_STL::vector<const ModuleData *, _STL::allocator<const ModuleData *> > m_entries;	// +0xC8
+};
+
 // tu-skeleton: 0x004B2987 49B ??0ReplaceObjectUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ReplaceObjectUpdateCtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/ReplaceObjectUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/ReplaceObjectUpdate.cpp
 
@@ -540,10 +669,6 @@ void ReplaceObjectUpdate::rva004B2C00(Object *obj, Rva004B2A9D *entry)
 	rva004B2A60(obj);
 }
 
-// tu-skeleton: 0x004B29BE 32B ??1Rva004B29BE@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors.cpp (not merged yet)
-
-// tu-skeleton: 0x004B29DE 33B ?xfer@ReplaceObjectUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ReplaceObjectUpdateXfer.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/ReplaceObjectUpdatePoolKey.cpp
 
 // ?getModuleNameKey@ReplaceObjectUpdate@@UBE?AW4NameKeyType@@XZ
@@ -554,25 +679,67 @@ NameKeyType ReplaceObjectUpdate::getModuleNameKey() const
 	return TheReplaceObjectUpdatePoolKey;
 }
 
+// tu-skeleton: 0x004B29BE 32B ??1Rva004B29BE@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/ReplaceObjectUpdateXfer.cpp
+
+void ReplaceObjectUpdate::xfer(Xfer *xfer)
+{
+	SpecialAbilityUpdate::xfer(xfer);
+	if (xfer->IsLightCRC())
+		return;
+	xfer->Version1();
+}
+
 // tu-skeleton: 0x004B2A44 28B ??_GRva004B29BE@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors.cpp (not merged yet)
 
-// tu-skeleton: 0x004B2A9D 39B ?rva004B2A9D@Rva004B2A9D@@QAEPAHXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/Rva004B2A9D.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/Rva004B2A9D.cpp
+
+int *Rva004B2A9D::rva004B2A9D()
+{
+	int count = (m_finish - m_start) >> 2;
+	int picked = GetGameLogicRandomValue(0, count - 1, (char *)"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\ReplaceObjectUpdate.cpp", 0x47);
+	return (int *)(m_start + picked * 4);
+}
 
 // tu-skeleton: 0x004B2AC4 61B ??0ReplaceObjectUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ReplaceObjectUpdateModuleDataCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x004B2B01 19B ?rva004B2B01@Rva004B2B01@@QAEXPBVModuleData@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE24.cpp (not merged yet)
 
-// tu-skeleton: 0x004B2B64 128B ?Rva004B2B64_ParseReplaceObject@INI@@SAXPAV1@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ReplaceObjectUpdateFieldParse.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/ReplaceObjectUpdateFieldParse.cpp
+
+// platformsdk
+//
+// Object-record FieldParse procs (names address-derived):
+//   0x003F341E 113B ConnectsTo (0x00C36640): for every token (separators
+//       from the INI's +0x420 field) a LivingWorldRegionConnection (rowed
+//       ctor 0x003F24F3 / virtual dtor 0x003F2517) takes the token as its
+//       region name (+0x04) and is appended to the vector at the store
+//       (rowed push_back 0x003F309A); it is destroyed after the next token
+//       is read.
+//   0x004B2B64 128B ReplaceObject (0x00BEF960): news a 0x10-byte
+//       Rva004B2B2F entry (rowed ctor 0x004B2B14, unwound on a throwing
+//       ctor), fills it from a local MultiIniFieldParse holding table
+//       0x00C56D20 through the pinned initFromINIMulti, and appends the
+//       pointer to the vector at instance + 0xC8 (pointer push_back fold
+//       0x004DFCB0).
+
+// ?Rva004B2B64_ParseReplaceObject@INI@@SAXPAV1@PAX1PBX@Z
+void INI::Rva004B2B64_ParseReplaceObject(INI *ini, void *instance, void *, const void *)
+{
+	MultiIniFieldParse parseTables;
+	Rva004B2B2F *entry = 0;
+	parseTables.add(g_00C56D20, 0);
+	entry = new Rva004B2B2F;
+	ini->initFromINIMulti(entry, parseTables);
+	((Rva004B2B64Owner *)instance)->m_entries.push_back(reinterpret_cast<const ModuleData *>(entry));
+}
 
 // tu-skeleton: 0x004B2BE4 28B ??_GRva004B2B2F@@QAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ReplaceObjectUpdateModuleDataDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x004B2C9A 142B ??1ReplaceObjectUpdateModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ReplaceObjectUpdateModuleDataDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x004B2E5D 28B ??_GReplaceObjectUpdateModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ReplaceObjectUpdateModuleDataDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078E9D8 10B uw_0078e9d8 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ReplaceObjectUpdateFieldParse.cpp (not merged yet)
-
-// tu-skeleton: 0x0078E9E2 10B __ehhandler$?Rva004B2B64_ParseReplaceObject@INI@@SAXPAV1@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ReplaceObjectUpdateFieldParse.cpp (not merged yet)
 
 // tu-skeleton: 0x0078E9EC 8B Unwind@00b8e9ec -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ReplaceObjectUpdateModuleDataDtor.cpp (not merged yet)
 
