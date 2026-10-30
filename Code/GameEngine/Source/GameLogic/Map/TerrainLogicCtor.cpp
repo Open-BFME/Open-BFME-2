@@ -140,6 +140,8 @@ int __cdecl Rva000D1D26Identity(int value)
 	return value;
 }
 
+int __cdecl Rva000D1D26Identity(int value);
+
 struct TerrainLogicRecord
 {
 	Int m_00;
