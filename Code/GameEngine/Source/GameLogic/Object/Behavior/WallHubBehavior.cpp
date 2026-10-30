@@ -34,10 +34,86 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class WallHubBehavior
+typedef float Real;
+typedef int Int;
+typedef unsigned int UnsignedInt;
+
+enum UpdateSleepTime
+{
+	UPDATE_SLEEP_NONE = 1,
+	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
+};
+
+#include "../../../../Include/Common/ObjectModule.h"
+
+class BehaviorModuleInterface
 {
 public:
+	virtual void getBody();
+};
+
+class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
+{
+};
+
+class UpdateModuleInterface
+{
+public:
+	virtual UpdateSleepTime update() = 0;
+};
+
+class UpdateModule : public BehaviorModule, public UpdateModuleInterface
+{
+public:
+	UpdateModule(Thing *thing, const ModuleData *moduleData);
+	virtual ~UpdateModule();
+	void xfer(Xfer *xfer);
+protected:
+	Object *getObject() const { return m_object; }
+	void setWakeFrame(Object *obj, UpdateSleepTime wakeDelay);
+private:
+	UnsignedInt m_nextCallFrameAndPhase; // +0x14
+	Int m_indexInLogic; // +0x18
+	Int m_reserved1C; // +0x1C
+};
+
+// The abstract interface at +0x20; its vtable holds five methods and the
+// trailing slot.
+class WallHubInterface
+{
+public:
+	virtual void slot00() = 0;
+	virtual void slot01() = 0;
+	virtual void slot02() = 0;
+	virtual void slot03() = 0;
+	virtual void slot04() = 0;
+	virtual void slot05() = 0;
+};
+
+class WallHubBehaviorModuleData;
+
+class WallHubBehavior : public UpdateModule, public WallHubInterface
+{
+public:
+	WallHubBehavior(Thing *thing, const ModuleData *moduleData);
 	virtual NameKeyType getModuleNameKey() const;
+	virtual UpdateSleepTime update() { return UPDATE_SLEEP_FOREVER; }
+	// Retail 0x00452D52 (rowed ??1Rva00452D52) stores the four vptrs the ctor
+	// installs and tail-jumps ~UpdateModule 0x0024A797; this body folds onto it.
+	virtual ~WallHubBehavior() {}
+	virtual void slot00() = 0;
+	virtual void slot01() = 0;
+	virtual void slot02() = 0;
+	virtual void slot03() = 0;
+	virtual void slot04() = 0;
+	virtual void slot05() = 0;
+protected:
+	virtual void xfer(Xfer *xfer);
+
+private:
+	const WallHubBehaviorModuleData *getWallHubBehaviorModuleData() const { return (const WallHubBehaviorModuleData *)m_moduleData; }
+
+	Real m_24; // +0x24
 };
 
 class Rva00452F51 {public:__declspec(noinline) const AsciiString&rva00452F51(unsigned)const;char pad[8];_STL::vector<AsciiString> names;};
@@ -70,10 +146,13 @@ template <> void allocator<AsciiString>::deallocate(AsciiString*, size_t) const;
 class WallHubBehaviorModuleData : public ModuleData
 {
 public:
+	WallHubBehaviorModuleData();
 	virtual ~WallHubBehaviorModuleData();
 	virtual bool slot06() const { return true; }
 
 private:
+	friend class WallHubBehavior;
+
 	unsigned char m_pad04[4]; // +0x04
 	_STL::vector<AsciiString> m_segmentTemplateNames; // +0x08
 	AsciiString m_hubCapTemplateName; // +0x14

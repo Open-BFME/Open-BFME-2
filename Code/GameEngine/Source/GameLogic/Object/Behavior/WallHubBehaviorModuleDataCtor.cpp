@@ -1,4 +1,4 @@
-// cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /GX /MD /D_CRTIMP= /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/moduledata
+// cl: /DBFME_ASCII_DTOR_DECL /GX /MD /D_CRTIMP= /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /Ireference/shims/moduledata /ICode/GameEngine/Include/Common
 // stlport
 //
 // ??0WallHubBehaviorModuleData@@QAE@XZ, retail 0x00453020, 148 bytes.
@@ -11,14 +11,15 @@
 // at +2C defaults to the 9.876 pool float, MaxBuildoutDistance at +30 to the
 // 54321.0 pool float, Options at +34 is 0, StaggeredBuildFactor at +38 is 5.
 // Table 0xC3FED8 carries all eleven fields at these offsets; factory
+// 0x24A94C news 0x3C with this ctor as sole caller (pinned).
+// The ModuleData base and typed members drive the EH frame. Body stores
+// clear names first, then set the radius, options, factor and distance.
+
 // 0x24A94C news 0x3C with this ctor as sole caller (pinned). Shape follows
 // PassiveAreaEffect (empty UpdateModuleData base with declared-only dtor
 // driving the EH frame, explicit vtable first member, implicit member init
 // in decl order, body in retail order: clears first, then the radius,
 // options, factor and distance stores).
-
-extern "C" const void *const __identifier("??_7WallHubBehaviorModuleData@@6B@")[];  // vftable 0x00C3FF98
-
 #include <vector>
 
 #include "ascii_string.h"
@@ -35,23 +36,20 @@ template <> AsciiString *vector<AsciiString, allocator<AsciiString> >::erase(Asc
 
 #include "Common/Snapshot.h"
 
-class UpdateModuleData
-{
-public:
-	__declspec(dllimport) __forceinline UpdateModuleData() {}
-	~UpdateModuleData() { reinterpret_cast<Snapshot *>(this)->Snapshot::~Snapshot(); }
+#include "BfmeModuleData.h"
+inline ModuleData::~ModuleData() { reinterpret_cast<Snapshot *>(this)->Snapshot::~Snapshot(); }
 
-private:
-};
-
-class WallHubBehaviorModuleData : public UpdateModuleData
+class WallHubBehaviorModuleData : public ModuleData
 {
 public:
 	WallHubBehaviorModuleData();
+	virtual ~WallHubBehaviorModuleData();
+	virtual bool slot06() const { return true; }
 
 private:
-	const void *m_vtable; // +0x00
-	unsigned int m_unused04; // +0x04, unstored gap (DemoTrap law)
+	friend class WallHubBehavior;
+
+	unsigned char m_pad04[4]; // +0x04
 	_STL::vector<AsciiString> m_segmentTemplateNames; // +0x08
 	AsciiString m_hubCapTemplateName; // +0x14
 	AsciiString m_defaultSegmentTemplateName; // +0x18
@@ -67,7 +65,6 @@ private:
 
 // ??0WallHubBehaviorModuleData@@QAE@XZ @0x453020
 WallHubBehaviorModuleData::WallHubBehaviorModuleData()
-	: m_vtable(reinterpret_cast<const void *>(((unsigned int)__identifier("??_7WallHubBehaviorModuleData@@6B@"))))
 {
 	m_segmentTemplateNames.clear();
 	m_hubCapTemplateName.clear();

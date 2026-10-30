@@ -1,4 +1,5 @@
-// cl: /MD
+// cl: /DBFME_ASCII_DTOR_DECL /GX /MD /D_CRTIMP= /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /Ireference/shims/moduledata /ICode/GameEngine/Include/Common
+// stlport
 //
 // ?xfer@WallHubBehavior@@MAEXPAVXfer@@@Z, retail 0x00452F25, 44 bytes.
 // Virtual slot 3 (offset 0x0C) of vtable 0x0083FDBC (VA 0x00C3FDBC, class of
@@ -43,29 +44,86 @@ public:
 	unsigned char m_minimum;
 };
 
-#include "../../../../Include/Common/ObjectModule.h"
+typedef float Real;
+typedef int Int;
+typedef unsigned int UnsignedInt;
 
-class BehaviorModuleInterface { public: virtual void behaviorSlot(); };
-class UpdateModuleInterface { public: virtual void updateSlot(); };
-
-class UpdateModule : public ObjectModule,
-	public BehaviorModuleInterface, public UpdateModuleInterface
+enum UpdateSleepTime
 {
-public:
-	UpdateModule(Thing *thing, const ModuleData *data);
-	virtual ~UpdateModule();
-	void xfer(Xfer *xfer);
-
-private:
-	unsigned int m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_updateState;
+	UPDATE_SLEEP_NONE = 1,
+	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
 };
 
-class WallHubBehavior : public UpdateModule
+#include "../../../../Include/Common/ObjectModule.h"
+
+class BehaviorModuleInterface
 {
+public:
+	virtual void getBody();
+};
+
+class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
+{
+};
+
+class UpdateModuleInterface
+{
+public:
+	virtual UpdateSleepTime update() = 0;
+};
+
+class UpdateModule : public BehaviorModule, public UpdateModuleInterface
+{
+public:
+	UpdateModule(Thing *thing, const ModuleData *moduleData);
+	virtual ~UpdateModule();
+	void xfer(Xfer *xfer);
+protected:
+	Object *getObject() const { return m_object; }
+	void setWakeFrame(Object *obj, UpdateSleepTime wakeDelay);
+private:
+	UnsignedInt m_nextCallFrameAndPhase; // +0x14
+	Int m_indexInLogic; // +0x18
+	Int m_reserved1C; // +0x1C
+};
+
+// The abstract interface at +0x20; its vtable holds five methods and the
+// trailing slot.
+class WallHubInterface
+{
+public:
+	virtual void slot00() = 0;
+	virtual void slot01() = 0;
+	virtual void slot02() = 0;
+	virtual void slot03() = 0;
+	virtual void slot04() = 0;
+	virtual void slot05() = 0;
+};
+
+class WallHubBehaviorModuleData;
+
+class WallHubBehavior : public UpdateModule, public WallHubInterface
+{
+public:
+	WallHubBehavior(Thing *thing, const ModuleData *moduleData);
+	virtual NameKeyType getModuleNameKey() const;
+	virtual UpdateSleepTime update() { return UPDATE_SLEEP_FOREVER; }
+	// Retail 0x00452D52 (rowed ??1Rva00452D52) stores the four vptrs the ctor
+	// installs and tail-jumps ~UpdateModule 0x0024A797; this body folds onto it.
+	virtual ~WallHubBehavior() {}
+	virtual void slot00() = 0;
+	virtual void slot01() = 0;
+	virtual void slot02() = 0;
+	virtual void slot03() = 0;
+	virtual void slot04() = 0;
+	virtual void slot05() = 0;
 protected:
 	virtual void xfer(Xfer *xfer);
+
+private:
+	const WallHubBehaviorModuleData *getWallHubBehaviorModuleData() const { return (const WallHubBehaviorModuleData *)m_moduleData; }
+
+	Real m_24; // +0x24
 };
 
 void WallHubBehavior::xfer(Xfer *xfer)
