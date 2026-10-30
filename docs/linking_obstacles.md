@@ -3361,6 +3361,19 @@ Whole-unit clearance and census confirmation remain pending.
   carry this scope into the next census. The rebase retains upstream's string.h
   adoption and its cleared Microsoft-header queue entry.
 
+- **SpecialAbilityUpdate AI view prerequisite (2026-10-30, base 2447888c81):**
+  [Scoped view reconciliation and remaining blockers](../reverse/attempt_support/specialability-ai-view-20261030-codexb.md)
+  makes the seed and trigger AIUpdateModuleView declarations identical with
+  unchanged 32-byte layout and secondary-base offset. Strict preparation passes
+  all 39 rows, seven EH graphs are exact, and all 120 external COMDATs and native
+  symbol sets are unchanged. Both ordinary previews retain LINKS. Global header
+  establishment still needs factory/pathfinder layout and identity evidence;
+  the supported merge accepts no donors because other declarations and canonical
+  headers remain unresolved. The batch audit is inconclusive: its index predates
+  the base and CreateAHeroManager lacks a current consumer receipt. Carry these
+  providers and consumers into the next census; no merge, debt retirement or
+  census-linked-byte gain is claimed.
+
 - **ControlBarScheme manager prerequisite (2026-10-26):**
   [Canonical manager adoption](../reverse/attempt_support/consolidation-controlbar-manager-prerequisite-20261026-codex4.md)
   preserves all 14 seed/lookup/setter rows and their code/data facts; all 37

@@ -291,7 +291,7 @@ public:
 	virtual void v88();
 	virtual void v89();
 	virtual bool rvaSlot168(); // +0x168
-	unsigned char m_pad04[0x20 - 4];
+	char prefix[0x1c]; // +0x04
 };
 
 class AIUpdateInterface : public AIUpdateModuleView, public AICommandInterface
