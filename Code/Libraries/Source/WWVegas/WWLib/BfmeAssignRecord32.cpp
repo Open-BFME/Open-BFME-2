@@ -26,6 +26,7 @@ class Rva00087A93 {
 	};
 	Data *m_data;
 public:
+	Rva00087A93() { m_data = 0; }
 	~Rva00087A93()
 	{
 		Data *d = m_data;
@@ -42,6 +43,7 @@ public:
 public:
 	Rva00087A93 arr[6];
 public:
+	BfmeAssignRecord32();
 	~BfmeAssignRecord32();
 public:
 	BfmeAssignRecord32 &operator=(const BfmeAssignRecord32 &other);

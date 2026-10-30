@@ -8,10 +8,17 @@ struct Rva00087A93 {
 };
 
 struct BfmeAssignRecord32 {
+public:
 	Rva00087A93 s;
+public:
 	int x;
+public:
 	Rva00087A93 arr[6];
+public:
 	BfmeAssignRecord32();
+	~BfmeAssignRecord32();
+public:
+	BfmeAssignRecord32 &operator=(const BfmeAssignRecord32 &other);
 };
 
 BfmeAssignRecord32::BfmeAssignRecord32() : s()
