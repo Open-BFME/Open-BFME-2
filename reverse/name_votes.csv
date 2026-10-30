@@ -18081,3 +18081,16 @@ Code/Libraries/Source/WWVegas/WWLib/OuterRecordCtorRva003F64B2.cpp|param|LivingW
 Code/Libraries/Source/WWVegas/WWLib/OuterRecordCtorRva003F64B2.cpp|param|LivingWorldBattle::BattleSide::BattleSide#2|p,72472c3f902a0bd119aabfc7,drz-k2,drz-k2-310,w-ded32b2e2c5e,2026-10-30
 Code/GameEngine/Source/Main/BfmeDfe6e4.cpp|function|0x0022546B|rva0022546B,62d62463b6c6762e0ef4456d,drz-k2,drz-k2-311,w-ded32b2e2c5e,2026-10-30
 Code/GameEngine/Source/GameClient/Rva0029D30AClear.cpp|local|Rva0029D30A::rva0029D30A|p,417e0521e6881cbdada006d0,drz-k2,drz-k2-314,w-ded32b2e2c5e,2026-10-30
+Code/GameEngine/Source/Common/StrategicInGameUI_GetTypeImage.cpp|local|StrategicInGameUI::GetTypeImage|p,df1d12661fba49908bb5612d,drz-k3,drz-k3-304,w-077d7aeb666b,2026-10-30
+Code/Libraries/Source/WWVegas/WWMath/Rva009F40A0DistanceSquared.cpp|local|Rva009F40A0DistanceSquared|b,eb200b88c32078099a262485,drz-k3,drz-k3-308,w-077d7aeb666b,2026-10-30
+Code/GameEngine/Source/Common/Rva005B6967Box.cpp|param|AptCreateAHero::Manager::InitGadgets|a,ec77567b6b70d4aa4ed35576,drz-k3,drz-k3-311,w-077d7aeb666b,2026-10-30
+Code/GameEngine/Source/Common/Rva005B6967Box.cpp|param|AptCreateAHero::Manager::InitGadgets|c,841ae1bd2d51aa39d9027d5f,drz-k3,drz-k3-311,w-077d7aeb666b,2026-10-30
+Code/GameEngine/Source/Common/BfmeConv812.cpp|local|bfmeGoEHAa|s,c09ff3011387fc1373f92312,drz-k3,drz-k3-315,w-077d7aeb666b,2026-10-30
+Code/GameEngine/Source/Common/BfmeConv812.cpp|local|bfmeGoEHAb|s,be9954ce014fe361fc6aaf26,drz-k3,drz-k3-315,w-077d7aeb666b,2026-10-30
+Code/Libraries/Source/WWVegas/WWMath/Rva005EA33DMethod.cpp|local|Rva005EA33D::rva005EA2B2|n,9d4e58c5eb338b3cbf1a149f,drz-k3,drz-k3-316,w-077d7aeb666b,2026-10-30
+Code/Libraries/Source/WWVegas/WWLib/Rva00080221Ctor.cpp|local|Rva00080221::Rva00080221|p,134d81a21371a63f9bc20986,drz-k3,drz-k3-318,w-077d7aeb666b,2026-10-30
+Code/Libraries/Source/WWVegas/WWLib/Rva00080221Ctor.cpp|local|Rva002D4594::Rva002D4594|p,893c1600fd16587d33399f74,drz-k3,drz-k3-318,w-077d7aeb666b,2026-10-30
+Code/Libraries/Source/WWVegas/WWLib/Rva00080221Ctor.cpp|local|Rva002D45C9::Rva002D45C9|p,5de27b34d349a3675494e87d,drz-k3,drz-k3-318,w-077d7aeb666b,2026-10-30
+Code/Libraries/Source/WWVegas/WWLib/Rva00080221Ctor.cpp|local|Rva002D45FE::Rva002D45FE|p,dbf763d84f1164f197707e02,drz-k3,drz-k3-318,w-077d7aeb666b,2026-10-30
+Code/Libraries/Source/WWVegas/WWLib/Rva00079AB9Worker.cpp|param|Rva00079D14Iter|p,fafa7cebafa3ecf50f824e7d,drz-k3,drz-k3-320,w-077d7aeb666b,2026-10-30
+Code/Libraries/Source/WWVegas/WWLib/Rva00079AB9Worker.cpp|local|Rva00079D14Tree::rva00079AB9|z,354a955c6d44db9c9ff8dd08,drz-k3,drz-k3-320,w-077d7aeb666b,2026-10-30
