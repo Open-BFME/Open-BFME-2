@@ -40,10 +40,14 @@ private:
 	unsigned int m_word;
 };
 
+class MultiIniFieldParse;
+
 class W3DBuffDrawModuleData : public W3DBuffDrawModuleDataBase
 {
 public:
+	W3DBuffDrawModuleData();
 	virtual ~W3DBuffDrawModuleData();
+	static void buildFieldParse(MultiIniFieldParse &parse);
 
 private:
 	AsciiString m_modelName; // +08
@@ -74,8 +78,8 @@ NameKeyType W3DBuffDraw::getModuleNameKey() const
 // Gap between ctor 0xCEE4C and buildFieldParse 0xCEE93 in
 // W3DBuffDrawModuleDataCtor.cpp; same flags. Single AsciiString at +08
 // (BFME1 Destructor donor: m_modelName plus +0C flag) tears down through
-// folded 0x36410 with derived-to-base vtable swap. Ctor models +08 as a
-// word for its and-RMW, so the string view lives here.
+// folded 0x36410 with derived-to-base vtable swap. The constructor uses
+// the same AsciiString member at +08.
 
 W3DBuffDrawModuleData::~W3DBuffDrawModuleData()
 {

@@ -1,16 +1,12 @@
-// cl: /DNDEBUG /MD
+// cl: /DNDEBUG /MD /Ireference/shims/bfme2_ascii
 //
 // ??0W3DBuffDrawModuleData@@QAE@XZ, retail 0x000CEE4C, 17 bytes.
 // Root ModuleData ctor (no base call): installs vtable 0x00BCD270
-// explicitly, clears the +8 word (and-RMW) and zeroes the +0x0C flag.
-// A barrier pins the and-RMW below the vtable install (bare and-RMW hoists
-// above the plain mov). Class size 0x10 proven by the rowed W3DBuffDraw data
+// before initializing the AsciiString at +8 and the flag at +0x0C.
+// Class size 0x10 proven by the rowed W3DBuffDraw data
 // factory 0x64C94 (news 0x10, sole caller). Row supersedes the ctor pin.
 
-extern "C" const void *const __identifier("??_7W3DBuffDrawModuleData@@6B@")[];  // vftable 0x00BCD270
-
-extern "C" void _ReadWriteBarrier(void);
-#pragma intrinsic(_ReadWriteBarrier)
+#include "ascii_string.h"
 
 class MultiIniFieldParse;
 class INI;
@@ -43,31 +39,32 @@ public:
 	void add(const FieldParse *parseTable, unsigned int extraOffset);
 };
 
-class W3DBuffDrawModuleData
+class W3DBuffDrawModuleDataBase
+{
+public:
+	virtual ~W3DBuffDrawModuleDataBase() {}
+
+private:
+	unsigned int m_word;
+};
+
+class W3DBuffDrawModuleData : public W3DBuffDrawModuleDataBase
 {
 public:
 	W3DBuffDrawModuleData();
+	virtual ~W3DBuffDrawModuleData();
 	static void buildFieldParse(MultiIniFieldParse &parse);
 
 private:
-	// +0x00 vtable (installed explicitly below; no base, no virtuals here).
-	const void *m_vtable;
-	// +0x04 opaque pad (untouched by this ctor).
-	unsigned int m_pad04;
-	// +0x08 cleared word.
-	unsigned int m_modelName;
-	// +0x0C flag (false).
-	bool m_preDraw;
-	char m_pad0D[3]; // to the rowed 0x10 instance size
+	AsciiString m_modelName; // +08
+	bool m_flag; // +0C
+	char m_pad0D[3];
 };
 
 // ??0W3DBuffDrawModuleData@@QAE@XZ @0x000CEE4C
 W3DBuffDrawModuleData::W3DBuffDrawModuleData()
+	: m_flag(false)
 {
-	*(unsigned int *)this = ((unsigned int)__identifier("??_7W3DBuffDrawModuleData@@6B@"));
-	_ReadWriteBarrier();
-	m_modelName &= 0;
-	m_preDraw = false;
 }
 
 // ?buildFieldParse@W3DBuffDrawModuleData@@SAXAAVMultiIniFieldParse@@@Z @0x000CEE93

@@ -216,6 +216,23 @@ witnesses, including WallHub, but remains INCONCLUSIVE on the older index and
 missing current `Common/0CreateAHeroManager21FE49.cpp` affected consumer.
 Carry the full scope into the next scheduled census; no aggregate clearance
 is inferred from the bounded preview.
+### W3DBuffDraw module-data composition prerequisite (2026-10-30)
+
+At base `a861e89a4c`, the constructor and destructor views disagree on the
+module-data base and string member. The constructor now reuses the seed's
+existing polymorphic base and AsciiString at +8. All eight paired rows, the
+field-table data row and both EXACT EH graphs verify. Every retained external
+COMDAT fingerprint is unchanged; only two implicit constructors join the input
+union. Strict preparation passes and both census-only and current previews
+retain 2/2 LINKS and 205 authored bytes against `12b9e7a7c0`.
+The supported merge probe accepts this donor. The draw-instance constructor's
+DrawModule inheritance remains a separate prerequisite; the mixed name getter
+and generated unwind row remain outside composition. The staged-tree outgoing
+audit is INCONCLUSIVE on the older index and a missing current receipt for
+Common/0CreateAHeroManager21FE49.cpp. Carry these providers and affected
+consumers into the next scheduled census/current-receipt audit; full selection
+and loss verification remains open. No census gain is claimed.
+[Target facts and scope](../reverse/attempt_support/w3dbuffdraw-consolidation-20261030-codexb4.md).
 
 ### Narrow ostringstream constructor STLport 4.6 migration (2026-10-30)
 
