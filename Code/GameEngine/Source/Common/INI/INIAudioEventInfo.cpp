@@ -8,6 +8,7 @@
 #include <memory>
 #include "string_base.h"
 #define _STLP_NO_EXCEPTIONS 1
+
 // STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
 // Element identity and unconstrained fields remain address-derived structural inference.
 
@@ -15,7 +16,9 @@
 // placement-copy owner directly. Keep only that neutral footprint here;
 // original element identity and the provider's inherited type view are unknown.
 struct Rva001D9B62Element { unsigned words[2]; };
+
 void Rva001D9B0FConstruct(void *, const void *);
+
 namespace _STL {
 // TU-local forwarding glue; its discardable out-of-line copy has no retail entry.
 // ?_STL::_Construct absent-from-retail
@@ -564,6 +567,83 @@ template void _STL::vector<BfmeStringTailRecord156>::reserve(unsigned int);
 // Instantiate the recovered operation and its required template dependencies.
 template Rva001D9B62Element * _STL::__uninitialized_fill_n<Rva001D9B62Element *, unsigned int, Rva001D9B62Element>(Rva001D9B62Element *, unsigned int, Rva001D9B62Element const &, _STL::__false_type const &);
 
+// ?Rva000DFB80@@YAPAVR1DwordPair@@PAV1@HH@Z, retail 0x005E6A11 (18B).
+// Ported from Open-BFME-1 Code/GameEngine/Source/Common/R1SmallFieldInitialisers.cpp
+// (BFME1 0x000DFB80), recompiled /Os by the bfme1_csweep placement.
+//
+// Same shape as its BFME 1 twin Rva000BEED0 (retail 0x00219701, in
+// R1SmallFieldInitialisers.cpp): two ints stored at +0x00 and +0x04 in
+// argument order, the pair returned unchanged. The bodies differ only in
+// register allocation, and THAT difference is why this one is a separate TU
+// rather than a second definition in its twin's file:
+//
+//     0x00219701  mov eax,[esp+4] / mov ecx,[esp+8] / mov edx,[esp+0xC]
+//                 mov [eax],ecx / mov [eax+4],edx / ret        (batched loads)
+//     0x005E6A11  mov eax,[esp+4] / mov ecx,[esp+8]
+//                 mov [eax],ecx / mov ecx,[esp+0xC]
+//                 mov [eax+4],ecx / ret                        (interleaved)
+//
+// /Os produces the interleaved schedule and the default BFME 2 optimisation
+// produces the batched one, so each address needs its own flag set. Putting
+// both in one TU makes the pair fail together: whichever flags the file
+// carries, one of the two rows then mismatches.
+//
+// R1DwordPair is a shape name, not a recovered identity: the two stores at
+// +0x00 and +0x04 establish two consecutive dwords and nothing more.
+
+class R1DwordPair
+{
+public:
+	int m_first;
+	int m_second;
+};
+
+// Clean BF1 9cbfb551fe Common/MidTwoStoreCtors.cpp supplies two-field
+// initialization semantics only; donor constructor/class identity is not
+// asserted for these target bodies. Actual native ECX receiver/EAX return,
+// complete prior-RET to own-RET extents and accessed offsets are independent.
+// 1D976E..1D9781 writes raw word00=all ones, float04=1.0f; target BBB8D8
+// literal is independently 0000803F. 4689FA..468A04 writes word00=0,
+// word04=all ones. Complete class bounds and field purposes remain unknown.
+// Ordinary address-owned initialize methods preserve this uncertainty.
+// Fixed-field initializer proof; native names remain unknown.
+struct Rva001D976EFields {
+    unsigned int word00; float value04;
+    Rva001D976EFields *initialize();
+};
+
+struct Rva004689FAFields {
+    unsigned int word00; unsigned int word04;
+    Rva004689FAFields *initialize();
+};
+
+// BF1 9cbfb551fe Common/Q1ConstantFieldConstructors.cpp is the clean
+// zero-field/receiver-return semantic guide only. The target bodies are
+// independently RET-bounded: 23DC7F..23DC86 writes dword18=0 after RET23DC7E;
+// 85524..8552B writes dword28=0 after RET85523. Incoming ECX is returned in
+// EAX. Constructor-versus-reset, owner identity and complete bounds are unknown.
+struct Rva0023DC7FFields {
+    unsigned char unknown[0x18]; unsigned int word18;
+    Rva0023DC7FFields *clear();
+};
+
+struct Rva00085524Fields {
+    unsigned char unknown[0x28]; unsigned int word28;
+    Rva00085524Fields *clear();
+};
+
+// BF1 9cbfb551fe Common/RTS/Player_resetOrStartSpecialPowerReadyFrame.cpp
+// emits the SpecialPowerReadyTimerType constructor, a two-field initialization
+// semantic guide only. The target 2AA3B5..2AA3BF follows RET2AA3B4 and stores
+// raw word04=all ones BEFORE word00=zero, returning incoming ECX in EAX.
+// Original timer/class identity, constructor-versus-reset and bounds unknown.
+struct Rva002AA3B5Fields {
+    unsigned int word00, word04;
+    Rva002AA3B5Fields *initialize();
+};
+
+// ---- from Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp
+
 // ---- from Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp
 
 // ---- from Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp
@@ -1000,6 +1080,20 @@ bool Rva001D9A00::rva001D9A00()
 	}
 }
 
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_vector_tailrecord156_allocate_copy.cpp
+
+//
+// Retail 0x001D9AAC 45B: vector _M_allocate_and_copy twin of E8 0x001D9AD9.
+// Calls rowed allocate 0x00523D6C and rowed TailRecord copy 0x001D9A61.
+// Callers 0x001D9D75/0x001D9E29 are TailRecord vector growth/clear paths.
+
+
+
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW6Rva001D9B62.cpp
+
+// Expose the local overload when the reference template is parsed.
+
 // tu-skeleton: 0x001D96FF 10B ?rva001D96FF@Rva001D96FF@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/Disp8DwordMaskClearers.cpp (not merged yet)
 
 // tu-skeleton: 0x001D9709 12B ?rva001D9709@Rva001D9709@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/Disp8DwordMaskClearers.cpp (not merged yet)
@@ -1010,7 +1104,11 @@ bool Rva001D9A00::rva001D9A00()
 
 // tu-skeleton: 0x001D972B 17B ?set@Rva001D972BFloatField@@QAEXM@Z -- matched in Code/GameEngine/Source/Common/Disp32FloatFieldSetters.cpp (not merged yet)
 
-// tu-skeleton: 0x001D976E 19B ?initialize@Rva001D976EFields@@QAEPAU1@XZ -- matched in Code/GameEngine/Source/Common/R1SmallFieldInitialisersOs.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/R1SmallFieldInitialisersOs.cpp
+
+Rva001D976EFields *Rva001D976EFields::initialize() {
+    word00 = ~0u; value04 = 1.0f; return this;
+}
 
 // tu-skeleton: 0x001D9990 27B ??4FXBoneInfo@@QAEAAU0@ABU0@@Z -- matched in Code/GameEngine/Source/Common/Thing/ModuleFactory.cpp (not merged yet)
 
@@ -1024,22 +1122,11 @@ bool Rva001D9A00::rva001D9A00()
 
 // tu-skeleton: 0x001D9A87 37B ??$__uninitialized_fill_n@PAVBfmeStringTailRecord156@@IV1@@_STL@@YAPAVBfmeStringTailRecord156@@PAV1@IABV1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
 
-// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_vector_tailrecord156_allocate_copy.cpp
-
-//
-// Retail 0x001D9AAC 45B: vector _M_allocate_and_copy twin of E8 0x001D9AD9.
-// Calls rowed allocate 0x00523D6C and rowed TailRecord copy 0x001D9A61.
-// Callers 0x001D9D75/0x001D9E29 are TailRecord vector growth/clear paths.
-
 // tu-skeleton: 0x001D9AD9 45B ??$_M_allocate_and_copy@PAUBfmeE8@@@?$vector@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@IAEPAUBfmeE8@@IPAU2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_e8_allocate_copy.cpp (not merged yet)
 
 // tu-skeleton: 0x001D9B06 9B ??$_Destroy@URva0010F149Handle@@@_STL@@YAXPAURva0010F149Handle@@@Z -- matched in Code/GameEngine/Source/Common/DestroyInstances.cpp (not merged yet)
 
 // tu-skeleton: 0x001D9B0F 45B ?Rva001D9B0FConstruct@@YAXPAXPBX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp (not merged yet)
-
-// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW6Rva001D9B62.cpp
-
-// Expose the local overload when the reference template is parsed.
 
 // tu-skeleton: 0x001D9B87 29B ??$__copy_ptrs@PAVBfmeStringTailRecord156@@PAV1@@_STL@@YAPAVBfmeStringTailRecord156@@PAV1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeDeferred.cpp (not merged yet)
 

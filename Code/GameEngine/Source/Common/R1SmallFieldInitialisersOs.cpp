@@ -49,9 +49,6 @@ struct Rva001D976EFields {
     unsigned int word00; float value04;
     Rva001D976EFields *initialize();
 };
-Rva001D976EFields *Rva001D976EFields::initialize() {
-    word00 = ~0u; value04 = 1.0f; return this;
-}
 struct Rva004689FAFields {
     unsigned int word00; unsigned int word04;
     Rva004689FAFields *initialize();
