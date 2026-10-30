@@ -21,7 +21,7 @@ class AnimationSoundModuleManager : public SubsystemInterface
 public:
 	AnimationSoundModuleManager();
 	virtual ~AnimationSoundModuleManager();
-	void update();
+	virtual void update();
 	void remove(Rva00432F23Node *node);
 	void rva00432F7D(Rva00432F23Node *node);
 	void rva00432EC0(Rva00432F23Node *node);
