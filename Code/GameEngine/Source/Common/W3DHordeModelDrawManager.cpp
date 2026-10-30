@@ -465,6 +465,7 @@ public:
 };
 
 class Rva000789A0Named;
+
 struct Rva000789A0KeyHolder { int m_unk; NameKeyType m_key; };
 
 class Rva000789A0Outer
@@ -522,25 +523,6 @@ public:
 	virtual Rva000789A0Named *getProvider();
 	char m_pad[0x2E4];
 	Rva000789A0KeyHolder *m_holder; // +0x2E8
-};
-
-class W3DHordeModelDrawManager {
-public:
-	int rva0007A54B();
-public:
-	void rva00079911();
-public:
-	void rva007A41E();
-public:
-	void ProcessGroup(W3DHordeModelDrawHandle **begin,W3DHordeModelDrawHandle **end);
-public:
-	HordeGroupNode *header;
-public:
-	int count;
-public:
-	bool rva0007894E(Rva0007894EOuter *);
-public:
-	void rva0007898BClear(Rva000789A0Outer *obj);
 };
 
 class W3DScriptedModelDraw
@@ -650,6 +632,69 @@ class Rva0010855FArray {
 public: void setValue(unsigned int index, unsigned int value);
 private: unsigned char unknown[0x68]; unsigned int values[1];
 };
+
+class Rva000789A0Named
+{
+public:
+	virtual void na0();
+	virtual void na1();
+	virtual void na2();
+	virtual void na3();
+	virtual void na4();
+	virtual void na5();
+	virtual const char *getName();
+};
+
+class W3DHordeModelDrawManager {
+public:
+	int rva0007A54B();
+public:
+	void rva00079911();
+public:
+	void rva007A41E();
+public:
+	void ProcessGroup(W3DHordeModelDrawHandle **begin,W3DHordeModelDrawHandle **end);
+public:
+	HordeGroupNode *header;
+public:
+	int count;
+public:
+	bool rva0007894E(Rva0007894EOuter *);
+public:
+	void rva0007898BClear(Rva000789A0Outer *obj);
+public:
+	void rva000789A0Update(Rva000789A0Outer *obj);
+};
+
+// The manager entry7A7DD installs its static40B instance; guarded7A75E reads
+// the same pointer. Original singleton identifier is unknown.
+W3DHordeModelDrawManager *TheW3DHordeModelDrawManager;
+
+// ??RRva00078F95Cmp@@QBE_NPBURva00078F95Item@@0@Z @0x00078F95 380B
+//
+// Sort predicate of the sort<Rva00078F95Item**> family (rowed in
+// stlport_sort_rva00078f95.cpp; its 12 comparator call sites are this pin).
+// Orders items by the dword at +4 (descending) then the owner pointer when it
+// is zero; otherwise by the owner's drawable float at +0x200 then the +0x18
+// handle then the rowed 0x00078C10 LOD query and finally two 28-byte slots at
+// +0x110 (key/rank/order/flag) and their summed amounts. WorldBuilder twin
+// 0x91dc60 in W3DHordeModelDraw.cpp (asserts "lhs drawable NULL" and "rhs
+// drawable NULL") gives the comparison order; its single byte result local
+// (local_65) is the shared result variable kept here.
+class Rva0055A88BDwordField;
+
+class Rva000B49F9;
+
+struct Rva00078F95Item
+{
+	Rva00078C10 *m_draw;
+	int m_priority;
+};
+
+typedef Rva00079D14Out (Rva00079D14Tree::*Rva00079D14FindFn)(
+	const Rva00079D14Value &);
+
+// ---- from Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp
 
 // ---- from Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp
 
@@ -1103,16 +1148,6 @@ bool Rva00078C10::rva00078C10(Rva00078C10 const *other, int *out2, int *out3)
 	return false;
 }
 
-// tu-skeleton: 0x0007898B 21B ?Rva0007898BClear@@YGXPAVRva000789A0Outer@@@Z -- matched in Code/GameEngine/Source/Common/Rva000789A0Update.cpp (not merged yet)
-
-// tu-skeleton: 0x000789A0 67B ?rva000789A0Update@W3DHordeModelDrawManager@@QAEXPAVRva000789A0Outer@@@Z -- matched in Code/GameEngine/Source/Common/Rva000789A0Update.cpp (not merged yet)
-
-// tu-skeleton: 0x000789E3 159B ??0W3DHordeModelDrawModuleData@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DHordeModelDrawModuleDataCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00078A82 68B ??0W3DHordeModelDraw@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DHordeModelDrawCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00078AC6 8B ?rva00078AC6@Rva00078AC6Forwarder@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSizedForwarders.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/DispByteFieldSetters.cpp
 
 // Disp32 byte setters: thirteen-byte __thiscall members with one shape:
@@ -1129,6 +1164,38 @@ bool Rva00078C10::rva00078C10(Rva00078C10 const *other, int *out2, int *out3)
 // offset fits, so every offset is at least 0x80).
 // No // cl: line (defaults match the frameless 13-byte shape).
 
+// ---- from Code/GameEngine/Source/Common/Rva000789A0Update.cpp
+
+void W3DHordeModelDrawManager::rva000789A0Update(Rva000789A0Outer *obj)
+{
+	Rva000789A0Named *provider = obj->getProvider();
+	if (obj->m_holder == 0)
+		return;
+	const char *name;
+	if (provider != 0)
+		name = provider->getName();
+	else
+		name = "(NULL)";
+	NameKeyType key = TheNameKeyGenerator->nameToKey(name);
+	obj->m_holder->m_key = key;
+}
+
+// ?Rva0007898BClear@@YGXPAVRva000789A0Outer@@@Z, retail 0x0007898B, 21 bytes.
+// Companion to Rva000789A0Update above: same outer (+0x2E8 holder) and holder
+// (+4 m_key) layout; clears m_key to NK_UNKNOWN when holder is non-null.
+// Evidence: ret 4 single stack arg; and [eax+4],0 under /O1; called from 0x78BAF.
+void __stdcall Rva0007898BClear(Rva000789A0Outer *obj)
+{
+	if (obj->m_holder != 0)
+		obj->m_holder->m_key = NK_UNKNOWN;
+}
+
+// tu-skeleton: 0x000789E3 159B ??0W3DHordeModelDrawModuleData@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DHordeModelDrawModuleDataCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00078A82 68B ??0W3DHordeModelDraw@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DHordeModelDrawCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00078AC6 8B ?rva00078AC6@Rva00078AC6Forwarder@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSizedForwarders.cpp (not merged yet)
+
 // tu-skeleton: 0x00078ADB 8B ?rva00078ADB@Rva00078ADB@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAP.cpp (not merged yet)
 
 // tu-skeleton: 0x00078AE3 72B ?rva00078AE3@Rva00078AE3@@QAEAAV1@PBV1@@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAP.cpp (not merged yet)
@@ -1137,7 +1204,67 @@ bool Rva00078C10::rva00078C10(Rva00078C10 const *other, int *out2, int *out3)
 
 // tu-skeleton: 0x00078BBB 51B ?xfer@W3DHordeModelDraw@@MAEXPAVXfer@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawBfmeXfers.cpp (not merged yet)
 
-// tu-skeleton: 0x00078F95 380B ??RRva00078F95Cmp@@QBE_NPBURva00078F95Item@@0@Z -- matched in Code/GameEngine/Source/Common/Rva00078F95Cmp.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva00078F95Cmp.cpp
+
+bool Rva00078F95Cmp::operator()(const Rva00078F95Item *lhs, const Rva00078F95Item *rhs) const
+{
+	bool result;
+	if (lhs->m_priority != rhs->m_priority)
+		{ result = lhs->m_priority > rhs->m_priority; goto done; }
+	if (lhs->m_priority == 0)
+		{ result = lhs->m_draw < rhs->m_draw; goto done; }
+	{
+	Rva00078C10::Drawable *ld = lhs->m_draw->getDrawable();
+	if (!ld)
+		{ result = true; goto done; }
+	Rva00078C10::Drawable *rd = rhs->m_draw->getDrawable();
+	if (!rd)
+		{ result = true; goto done; }
+	if (ld->m_200 != rd->m_200)
+		{ result = ld->m_200 < rd->m_200; goto done; }
+	}
+	if (lhs->m_draw->m_18 != rhs->m_draw->m_18)
+		{ result = lhs->m_draw->m_18 < rhs->m_draw->m_18; goto done; }
+	{
+	int lv, rv;
+	if (lhs->m_draw->rva00078C10(rhs->m_draw, &lv, &rv))
+	{
+		if (lv != rv)
+			{ result = lv < rv; goto done; }
+		result = lhs->m_draw < rhs->m_draw; goto done;
+	}
+	}
+	{
+	for (int i = 0; i <= 1; ++i)
+	{
+		const Rva00078C10::Slot &l = lhs->m_draw->m_slots[i];
+		const Rva00078C10::Slot &r = rhs->m_draw->m_slots[i];
+		if (l.m_key != r.m_key)
+			{ result = l.m_key < r.m_key; goto done; }
+		if (l.m_key == 0)
+			continue;
+		if (l.m_rank != r.m_rank)
+			{ result = l.m_rank < r.m_rank; goto done; }
+		if (l.m_order != r.m_order)
+			{ result = l.m_order < r.m_order; goto done; }
+		if (l.m_flag != r.m_flag)
+			{ result = l.m_flag; goto done; }
+	}
+	}
+	{
+	const Rva00078C10::Slot &l0 = lhs->m_draw->m_slots[0];
+	const Rva00078C10::Slot &l1 = lhs->m_draw->m_slots[1];
+	const Rva00078C10::Slot &r0 = rhs->m_draw->m_slots[0];
+	const Rva00078C10::Slot &r1 = rhs->m_draw->m_slots[1];
+	float lsum = (l1.m_key ? l1.m_amount : 0.0f) + l0.m_amount;
+	float rsum = (r1.m_key ? r1.m_amount : 0.0f) + r0.m_amount;
+	if (lsum != rsum)
+		{ result = lsum < rsum; goto done; }
+	result = lhs->m_draw < rhs->m_draw;
+	}
+done:
+	return result;
+}
 
 // tu-skeleton: 0x00079111 28B ??_GRva000D089D@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB08.cpp (not merged yet)
 
@@ -1203,7 +1330,91 @@ bool Rva00078C10::rva00078C10(Rva00078C10 const *other, int *out2, int *out3)
 
 // tu-skeleton: 0x00079CB6 94B ?insert@?$list@V?$vector@IV?$allocator@I@_STL@@@_STL@@V?$allocator@V?$vector@IV?$allocator@I@_STL@@@_STL@@@2@@_STL@@QAE?AU?$_List_iterator@V?$vector@IV?$allocator@I@_STL@@@_STL@@U?$_Nonconst_traits@V?$vector@IV?$allocator@I@_STL@@@_STL@@@2@@2@U32@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_create_node_vecuint.cpp (not merged yet)
 
-// tu-skeleton: 0x00079D14 294B ?rva00079D14@Rva00079D14Tree@@QAE?AURva00079D14Iter@@U2@ABVRva00079D14Value@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00079D14HintInsert.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva00079D14HintInsert.cpp
+
+//
+// ?rva00079D14@Rva00079D14Tree@@QAE?AURva00079D14Iter@@U2@ABVRva00079D14Value@@@Z
+// Candidate 0x00079D14, 294B. family_scan's inventory extent is a boundary
+// lead; byte verification decides the row. Its body is in the same
+// operand-normalized family as the exact hinted insert at 0x00170EFE. Target
+// calls 0x00079AB9 as the insertion worker and 0x00079B41 for fallback search,
+// with _Rb_global increment/decrement at 0x24250/0x242C0. The tree header and
+// unsigned key at node +0x10 are visible in the target bytes; trailing value
+// layout and owning container remain unknown.
+
+Rva00079D14Iter Rva00079D14Tree::rva00079D14(Rva00079D14Iter position,
+	const Rva00079D14Value &value)
+{
+	Rva00079D14Node *pos = ((Rva00079D14Node *)position._M_node);
+	if (pos == m_header->_left) {
+		if (m_count <= 0) {
+			Rva00079D14FindFn find = (Rva00079D14FindFn)&Rva00079D14Tree::rva00079B41;
+			return Rva00079D14Iter(((this->*find)(value)).node);
+		}
+		if (*(const unsigned int *)&value < *(const unsigned int *)&pos->_key) {
+			return rva00079AB9(pos, pos, value, 0);
+		} else {
+			bool comp_pos_v = pos->_key < *(const unsigned int *)&value;
+			if (comp_pos_v == false)
+				return position;
+			Rva00079D14Iter after = position;
+			after._M_node = _STL::_Rb_global<bool>::_M_increment(
+				(_STL::_Rb_tree_node_base *)((Rva00079D14Node *)after._M_node));
+			if (((Rva00079D14Node *)after._M_node) == m_header) {
+				return rva00079AB9(0, pos, value, pos);
+			}
+			if (*(const unsigned int *)&value < *(const unsigned int *)&((Rva00079D14Node *)after._M_node)->_key) {
+				if (pos->_right == 0)
+					return rva00079AB9(0, pos, value, pos);
+				else
+					return rva00079AB9(((Rva00079D14Node *)after._M_node), ((Rva00079D14Node *)after._M_node), value, 0);
+			} else {
+				Rva00079D14FindFn find = (Rva00079D14FindFn)&Rva00079D14Tree::rva00079B41;
+				return Rva00079D14Iter(((this->*find)(value)).node);
+			}
+		}
+	} else if (pos == m_header) {
+		if (m_header->_right->_key < *(const unsigned int *)&value) {
+			return rva00079AB9(0, m_header->_right, value, pos);
+		} else {
+			Rva00079D14FindFn find = (Rva00079D14FindFn)&Rva00079D14Tree::rva00079B41;
+			return Rva00079D14Iter(((this->*find)(value)).node);
+		}
+	} else {
+		Rva00079D14Iter before = position;
+		before._M_node = _STL::_Rb_global<bool>::_M_decrement(
+			(_STL::_Rb_tree_node_base *)((Rva00079D14Node *)before._M_node));
+		bool comp_v_pos = *(const unsigned int *)&value < *(const unsigned int *)&pos->_key;
+		if (comp_v_pos && ((Rva00079D14Node *)before._M_node)->_key < *(const unsigned int *)&value) {
+			if (((Rva00079D14Node *)before._M_node)->_right == 0)
+				return rva00079AB9(0, ((Rva00079D14Node *)before._M_node), value, ((Rva00079D14Node *)before._M_node));
+			else
+				return rva00079AB9(pos, pos, value, 0);
+		} else {
+			Rva00079D14Iter after = position;
+			after._M_node = _STL::_Rb_global<bool>::_M_increment(
+				(_STL::_Rb_tree_node_base *)((Rva00079D14Node *)after._M_node));
+			bool comp_pos_v = !comp_v_pos;
+			if (!comp_v_pos)
+				comp_pos_v = pos->_key < *(const unsigned int *)&value;
+			if (!comp_v_pos && comp_pos_v &&
+				(((Rva00079D14Node *)after._M_node) == m_header ||
+				 *(const unsigned int *)&value < *(const unsigned int *)&((Rva00079D14Node *)after._M_node)->_key)) {
+				if (pos->_right == 0)
+					return rva00079AB9(0, pos, value, pos);
+				else
+					return rva00079AB9(((Rva00079D14Node *)after._M_node), ((Rva00079D14Node *)after._M_node), value, 0);
+			} else {
+				if (comp_v_pos == comp_pos_v)
+					return position;
+				else {
+					Rva00079D14FindFn find = (Rva00079D14FindFn)&Rva00079D14Tree::rva00079B41;
+					return Rva00079D14Iter(((this->*find)(value)).node);
+				}
+			}
+		}
+	}
+}
 
 // tu-skeleton: 0x00079E55 56B ??1Rva00079A0C@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
 
