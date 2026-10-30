@@ -49,9 +49,9 @@ public:
 class Rva003FE05E
 {
     char m_pad00[0x38];
-    Rva003FE38 *m_38;
-    char m_pad3C[0x4C - 0x3C];
-    TreeHintRef00217D4C m_hint;
+    int m_38;                       // +0x38 the TU's own spelling of the link
+    char m_pad3C[0x10];
+    TreeHintRef00217D4C m_hint;     // +0x4C
 public:
     void rva003FE05E();
     TreeHintRef00217D4C rva003FE0EB();
@@ -60,7 +60,7 @@ TreeHintRef00217D4C Rva003FE05E::rva003FE0EB()
 {
     if (m_38)
     {
-        int v = m_38->m_54;
+        int v = ((Rva003FE38 *)m_38)->m_54;
         Rva002BA8F1Logic *logic = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic);
         int f4 = logic->m_F4;
         Rva002E071E *helper = logic->m_98;
