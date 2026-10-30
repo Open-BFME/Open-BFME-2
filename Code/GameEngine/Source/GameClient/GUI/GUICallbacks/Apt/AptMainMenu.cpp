@@ -517,6 +517,15 @@ public:
 
 extern AudioManager *TheAudio;
 
+class Rva00514B66
+{
+public:
+	unsigned char rva00514B66();
+	char m_pad00[0x290];
+private:
+	BfmeThingTTD m_ttd; // +0x290
+};
+
 // tu-skeleton: 0x00514950 331B ?rva00514950@AptMainMenu@@UAEHHHH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuCallbacks.cpp (not merged yet)
 
 // tu-skeleton: 0x00514A9B 23B ?LoadGame@AptMainMenu@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuCallbacks.cpp (not merged yet)
@@ -533,7 +542,12 @@ extern AudioManager *TheAudio;
 
 // tu-skeleton: 0x00514B4F 23B ?LoadCampaign@AptMainMenu@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuCallbacks.cpp (not merged yet)
 
-// tu-skeleton: 0x00514B66 39B ?rva00514B66@Rva00514B66@@QAEEXZ -- matched in Code/GameEngine/Source/Common/Rva00514B66Check.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva00514B66Check.cpp
+
+unsigned char Rva00514B66::rva00514B66()
+{
+    return m_ttd.m_initialized && m_ttd.m_added && !m_ttd.rva005B7032();
+}
 
 // tu-skeleton: 0x00514B8D 20B ?rva00514B8D@AptMainMenu@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuCallbacks.cpp (not merged yet)
 
@@ -549,6 +563,8 @@ extern AudioManager *TheAudio;
 
 // tu-skeleton: 0x00514C15 214B ?ResetResolution@AptMainMenu@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuCallbacks_ExitGame.cpp (not merged yet)
 
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenu.cpp
+
 // ---- from Code/GameEngine/Source/Common/AptMainMenu_RenderCredits.cpp
 
 void AptMainMenu::RenderCredits(void *one, void *two, void *three, void *four)
@@ -557,10 +573,6 @@ void AptMainMenu::RenderCredits(void *one, void *two, void *three, void *four)
 	if (sink != 0)
 		sink->bfmeDoBOE(one, two);
 }
-
-// tu-skeleton: 0x00514D05 187B ?LinearCampaignStart@AptMainMenu@@SAHABVAsciiString@@M_N@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuCallbacks.cpp (not merged yet)
-
-// tu-skeleton: 0x00514DC0 26B ?rva00514DC0@AptMainMenu@@QAEXH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuCallbacks.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva00514DDACheck.cpp
 
@@ -614,34 +626,6 @@ void AptMainMenu::rva00514E20()
         ((Rva0073F778 *)nw)->rva0073F83F(1, 0, 4, 0);
     }
 }
-
-// tu-skeleton: 0x00514E6B 11B ??1Rva00514E6B@@UAE@XZ -- matched in Code/GameEngine/Source/Common/OpaqueSingleInheritanceDtors.cpp (not merged yet)
-
-// tu-skeleton: 0x00514E76 42B ?OnInitialized@AptMainMenu@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuCallbacks_ExitGame.cpp (not merged yet)
-
-// tu-skeleton: 0x00514EA0 11B ?invoke@Rva0057BC63FunctorWrapper@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva0057BC63FunctorHolder.cpp (not merged yet)
-
-// tu-skeleton: 0x00514EAB 120B ??1AptMainMenu@@UAE@XZ -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB12.cpp (not merged yet)
-
-// tu-skeleton: 0x00514F23 11B ??_EAptMainMenu@@WCBI@AEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB12.cpp (not merged yet)
-
-// tu-skeleton: 0x00514F2E 187B ?rva00514F2E@AptMainMenu@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuCallbacks.cpp (not merged yet)
-
-// tu-skeleton: 0x00514FE9 88B ?rva00514FE9@AptMainMenu@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuCallbacks.cpp (not merged yet)
-
-// tu-skeleton: 0x00515041 51B ?ContinueCampaign@AptMainMenu@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuCallbacks.cpp (not merged yet)
-
-// tu-skeleton: 0x00515074 169B ?BattleSchool@AptMainMenu@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuCallbacks.cpp (not merged yet)
-
-// tu-skeleton: 0x0051508B 146B (unledgered) -- unmatched, no code, never credited
-
-// tu-skeleton: 0x0051511D 276B ?Credits@AptMainMenu@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuCallbacks.cpp (not merged yet)
-
-// tu-skeleton: 0x00515231 182B ?CreditsExit@AptMainMenu@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuCallbacks.cpp (not merged yet)
-
-// tu-skeleton: 0x005152E7 114B ?ExitGame@AptMainMenu@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuCallbacks_ExitGame.cpp (not merged yet)
-
-// tu-skeleton: 0x00515359 730B ?OnTutorial@AptMainMenu@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuCallbacks.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva00515633Delete.cpp
 
@@ -706,8 +690,6 @@ void Rva0051569FMainMenuFields::access(int field, char *buffer, bool setting)
     }
 }
 
-// tu-skeleton: 0x0051573A 180B ?rva0051573A@@YAHM_N@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuCallbacks.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameClient/GUI/PreParchmentMapFadeStartNew.cpp
 
 // ?rva0051E280PreParchmentMapFadeStartNew@@YAHH_N@Z
@@ -737,10 +719,6 @@ int rva0051E280PreParchmentMapFadeStartNew(int, bool start)
 	return result;
 }
 
-// tu-skeleton: 0x0051588B 28B ??_GAptMainMenu@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB12.cpp (not merged yet)
-
-// tu-skeleton: 0x005158A7 27B ?rva005158A7@AptMainMenu@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuCallbacks_ExitGame.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva00515921Permuted.cpp
 
 //
@@ -760,20 +738,6 @@ int evilCampaignRva005158C2(float time,bool start) {
  static AsciiString campaign("EVIL_CAMPAIGN");
  return AptMainMenu::LinearCampaignStart(campaign,time,start);
 }
-
-// tu-skeleton: 0x00515980 394B ?rva00515980@AptMainMenu@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuCallbacks_ExitGame.cpp (not merged yet)
-
-// tu-skeleton: 0x00515B0A 192B ?rva00515B0A@@YAXPAVRva00515Handle@@D@Z -- matched in Code/GameEngine/Source/Common/Rva00515Wrappers.cpp (not merged yet)
-
-// tu-skeleton: 0x00515BCA 77B ?startGoodCampaign@@YAXD@Z -- matched in Code/GameEngine/Source/Common/Rva00515Wrappers.cpp (not merged yet)
-
-// tu-skeleton: 0x00515C17 77B ?startEvilCampaign@@YAXD@Z -- matched in Code/GameEngine/Source/Common/Rva00515Wrappers.cpp (not merged yet)
-
-// tu-skeleton: 0x00515C64 839B ?rva00515C64@AptMainMenu@@QAEHXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x00515FAB 307B ?LAN@AptMainMenu@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuFirewallPrompts.cpp (not merged yet)
-
-// tu-skeleton: 0x005160DE 307B ?OnlineButtonPressed@AptMainMenu@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuFirewallPrompts.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuConstructor.cpp
 
@@ -878,6 +842,58 @@ AptMainMenu::AptMainMenu(void *context)
 	if (!TheWritableGlobalData->m_shellMapOn)
 		m_27E = true;
 }
+
+// tu-skeleton: 0x00514D05 187B ?LinearCampaignStart@AptMainMenu@@SAHABVAsciiString@@M_N@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuCallbacks.cpp (not merged yet)
+
+// tu-skeleton: 0x00514DC0 26B ?rva00514DC0@AptMainMenu@@QAEXH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuCallbacks.cpp (not merged yet)
+
+// tu-skeleton: 0x00514E6B 11B ??1Rva00514E6B@@UAE@XZ -- matched in Code/GameEngine/Source/Common/OpaqueSingleInheritanceDtors.cpp (not merged yet)
+
+// tu-skeleton: 0x00514E76 42B ?OnInitialized@AptMainMenu@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuCallbacks_ExitGame.cpp (not merged yet)
+
+// tu-skeleton: 0x00514EA0 11B ?invoke@Rva0057BC63FunctorWrapper@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva0057BC63FunctorHolder.cpp (not merged yet)
+
+// tu-skeleton: 0x00514EAB 120B ??1AptMainMenu@@UAE@XZ -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB12.cpp (not merged yet)
+
+// tu-skeleton: 0x00514F23 11B ??_EAptMainMenu@@WCBI@AEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB12.cpp (not merged yet)
+
+// tu-skeleton: 0x00514F2E 187B ?rva00514F2E@AptMainMenu@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuCallbacks.cpp (not merged yet)
+
+// tu-skeleton: 0x00514FE9 88B ?rva00514FE9@AptMainMenu@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuCallbacks.cpp (not merged yet)
+
+// tu-skeleton: 0x00515041 51B ?ContinueCampaign@AptMainMenu@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuCallbacks.cpp (not merged yet)
+
+// tu-skeleton: 0x00515074 169B ?BattleSchool@AptMainMenu@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuCallbacks.cpp (not merged yet)
+
+// tu-skeleton: 0x0051508B 146B (unledgered) -- unmatched, no code, never credited
+
+// tu-skeleton: 0x0051511D 276B ?Credits@AptMainMenu@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuCallbacks.cpp (not merged yet)
+
+// tu-skeleton: 0x00515231 182B ?CreditsExit@AptMainMenu@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuCallbacks.cpp (not merged yet)
+
+// tu-skeleton: 0x005152E7 114B ?ExitGame@AptMainMenu@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuCallbacks_ExitGame.cpp (not merged yet)
+
+// tu-skeleton: 0x00515359 730B ?OnTutorial@AptMainMenu@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuCallbacks.cpp (not merged yet)
+
+// tu-skeleton: 0x0051573A 180B ?rva0051573A@@YAHM_N@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuCallbacks.cpp (not merged yet)
+
+// tu-skeleton: 0x0051588B 28B ??_GAptMainMenu@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB12.cpp (not merged yet)
+
+// tu-skeleton: 0x005158A7 27B ?rva005158A7@AptMainMenu@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuCallbacks_ExitGame.cpp (not merged yet)
+
+// tu-skeleton: 0x00515980 394B ?rva00515980@AptMainMenu@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuCallbacks_ExitGame.cpp (not merged yet)
+
+// tu-skeleton: 0x00515B0A 192B ?rva00515B0A@@YAXPAVRva00515Handle@@D@Z -- matched in Code/GameEngine/Source/Common/Rva00515Wrappers.cpp (not merged yet)
+
+// tu-skeleton: 0x00515BCA 77B ?startGoodCampaign@@YAXD@Z -- matched in Code/GameEngine/Source/Common/Rva00515Wrappers.cpp (not merged yet)
+
+// tu-skeleton: 0x00515C17 77B ?startEvilCampaign@@YAXD@Z -- matched in Code/GameEngine/Source/Common/Rva00515Wrappers.cpp (not merged yet)
+
+// tu-skeleton: 0x00515C64 839B ?rva00515C64@AptMainMenu@@QAEHXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x00515FAB 307B ?LAN@AptMainMenu@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuFirewallPrompts.cpp (not merged yet)
+
+// tu-skeleton: 0x005160DE 307B ?OnlineButtonPressed@AptMainMenu@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuFirewallPrompts.cpp (not merged yet)
 
 // tu-skeleton: 0x007951AE 8B $L1972 -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB12.cpp (not merged yet)
 
