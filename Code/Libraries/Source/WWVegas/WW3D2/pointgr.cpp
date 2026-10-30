@@ -210,6 +210,8 @@ public:
  void RenderVolumeParticle(RenderInfoClass &,unsigned int,void *);
 
  void rva00914860(int,int,int *);
+ void rva00917B10(Vector3 *,Vector4 *,float *,unsigned char *,unsigned char *,
+                  int,int,int *,int);
 
 	virtual ~PointGroupClass(void);
 	PointGroupClass & operator = (const PointGroupClass & that);

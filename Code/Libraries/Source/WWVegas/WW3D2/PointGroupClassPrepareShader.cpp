@@ -35,7 +35,7 @@ private:
 	int PointCount;
 	unsigned char FrameRowColumnCountLog2;
 	void *Texture;
-	unsigned int ShaderBits;
+	unsigned int Shader;
 	int PointMode;
 	unsigned int Flags;
 	float DefaultPointSize;
@@ -46,7 +46,7 @@ private:
 // ?prepare_shader@PointGroupClass@@QAEXXZ
 void PointGroupClass::prepare_shader(void)
 {
-	ShaderBits &= ~0x100000u;
+	reinterpret_cast<unsigned int &>(Shader) &= ~0x100000u;
 
 	float value_255 = 0.9961f;
 	bool default_white_opaque = (DefaultPointColor.X > value_255 &&
@@ -55,15 +55,15 @@ void PointGroupClass::prepare_shader(void)
 		DefaultPointAlpha > value_255);
 
 	if (!PointDiffuse && default_white_opaque && Texture) {
-		((unsigned char *)&ShaderBits)[1] &= (unsigned char)~0x1Cu;
+		((unsigned char *)&reinterpret_cast<unsigned int &>(Shader))[1] &= (unsigned char)~0x1Cu;
 	} else {
-		unsigned int &shaderBits = ShaderBits;
+		unsigned int &shaderBits = reinterpret_cast<unsigned int &>(Shader);
 		shaderBits = (shaderBits & ~0x400u) | 0x1800u;
 	}
 
 	if (Texture) {
-		ShaderBits |= 0x10000u;
+		reinterpret_cast<unsigned int &>(Shader) |= 0x10000u;
 	} else {
-		ShaderBits &= ~0x10000u;
+		reinterpret_cast<unsigned int &>(Shader) &= ~0x10000u;
 	}
 }

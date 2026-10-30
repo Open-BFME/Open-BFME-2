@@ -19,7 +19,7 @@
 class Rva00914860Sizer
 {
 public:
-	void updatePoolSizes(int width, int height, int *storedWidth);
+	void updatePoolSizes(int active_points, int total_points, int *vnum);
 };
 
 class PointGroupClass
