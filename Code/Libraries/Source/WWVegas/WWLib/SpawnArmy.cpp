@@ -363,6 +363,7 @@ private:
 class Rva004E32F2
 {
 public:
+	Rva004E32F2(); // rowed 0x004E32D5 (Rva004E32D5Ctor.cpp)
 	virtual ~Rva004E32F2();
 
 private:
@@ -489,30 +490,32 @@ public:
 	void rva000C0513(unsigned int n, Coord3D val);
 };
 
-struct Rva003AB460Tree
-{
-	~Rva003AB460Tree();
-	char m_body[ 0x0C ];
-};
-
-class Rva003BA660Record
+// SplineCameraParseINIBlock's record is Rva004E32F2: native 0x004E3300 calls
+// its rowed ctor 0x004E32D5, appends it through the rowed 0x00566D7B and
+// destroys it inline (vptr 0x00C61F68, then the tree dtor 0x002B80CE), the
+// body of the rowed dtor 0x004E32F2.
+class Rva00566D7B
 {
 public:
-	Rva003BA660Record();
-	virtual ~Rva003BA660Record() {}
-
-private:
-	Int m_04;
-	Int m_08;
-	Rva003AB460Tree m_tree;
+	void rva00566D7B( const Rva004E32F2 &record ); // rowed 0x00566D7B
 };
 
-extern const FieldParse Rva003BA660FieldParseTable[];
+extern "C" {
+void __identifier("?parseControlPointBlock@Rva00064680@@SAXPAVINI@@PAX1PBX@Z")();
+void __identifier("?Rva003B70F0@@YAXPAVRva003B70F0Owner@@PAVGenForwardedArg@@@Z")();
+}
 
-class Rva003BA660Owner
-{
-public:
-	void append( Rva003BA660Record *record );
+// The native table at RVA 0x00861FB8 that 0x004E3300 passes to initFromINI:
+// three 16-byte entries and the null terminator. DelayFromActStart uses the
+// rowed callback 0x0002F0F7 at offset 4, SummaryEvent parseBool 0x0002E850 at
+// offset 8, and ControlPoint the rowed block parser 0x00503FD1 with the rowed
+// 0x004E148C as its userData. Existing data-ledger spelling retained.
+extern const FieldParse Rva003BA660FieldParseTable[4] = {
+	{ "DelayFromActStart", INI::dup_002F0F7, 0, 4 },
+	{ "SummaryEvent", INI::parseBool, 0, 8 },
+	{ "ControlPoint", (FieldParseProc)&__identifier("?parseControlPointBlock@Rva00064680@@SAXPAVINI@@PAX1PBX@Z"),
+		(const void *)&__identifier("?Rva003B70F0@@YAXPAVRva003B70F0Owner@@PAVGenForwardedArg@@@Z"), 0 },
+	{ 0, 0, 0, 0 }
 };
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp
@@ -1025,9 +1028,9 @@ void SplineCameraParseINIBlock( INI *ini, void *instance, void *, const void * )
 {
 	if( ini && instance )
 	{
-		Rva003BA660Record record;
+		Rva004E32F2 record;
 		ini->initFromINI( &record, Rva003BA660FieldParseTable );
-		((Rva003BA660Owner *)instance)->append( &record );
+		((Rva00566D7B *)instance)->rva00566D7B( record );
 	}
 	else
 		throw INIException( 3, "SplineCamera::ParseINIBlock::Invalid data passed in." );
