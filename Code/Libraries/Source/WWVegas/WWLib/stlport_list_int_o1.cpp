@@ -57,3 +57,9 @@ template class _STL::list<int, _STL::allocator<int> >;
 #pragma comment(linker, "/alternatename:?clear@Rva0023DAA5List@@QAEXXZ=?clear@?$_List_base@HV?$allocator@H@_STL@@@_STL@@QAEXXZ")
 #pragma comment(linker, "/alternatename:??0?$_List_base@MV?$allocator@M@_STL@@@_STL@@QAE@ABV?$allocator@M@1@@Z=??0?$_List_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z")
 #pragma comment(linker, "/alternatename:??0?$_List_base@UFloodMember@@V?$allocator@UFloodMember@@@_STL@@@_STL@@QAE@ABV?$allocator@UFloodMember@@@1@@Z=??0?$_List_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z")
+
+// HeaderTemplateManager::newHeaderTemplate's push_front reaches the folded
+// list insert at 0x5925E2, which calls node creation out of line (0xB6447);
+// HeaderTemplate.cpp's bfmelist copy is inlined, so the call binds this one.
+class HeaderTemplate;
+template _STL::list<HeaderTemplate *>::_Node *_STL::list<HeaderTemplate *>::_M_create_node(HeaderTemplate *const &);

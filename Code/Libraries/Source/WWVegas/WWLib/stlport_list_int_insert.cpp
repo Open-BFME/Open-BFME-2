@@ -29,3 +29,12 @@ namespace _STL {
 template <> list<CreditsLine *>::_Node *list<CreditsLine *>::_M_create_node(CreditsLine *const &);
 template list<CreditsLine *>::iterator list<CreditsLine *>::insert(list<CreditsLine *>::iterator, CreditsLine *const &);
 }
+
+// list<HeaderTemplate *>::insert folds into 0x5925E2 too; HeaderTemplate.cpp's
+// copy inlines node creation, this one calls the 0xB6447 twin rowed in
+// stlport_list_int_o1.cpp.
+class HeaderTemplate;
+namespace _STL {
+template <> list<HeaderTemplate *>::_Node *list<HeaderTemplate *>::_M_create_node(HeaderTemplate *const &);
+template list<HeaderTemplate *>::iterator list<HeaderTemplate *>::insert(list<HeaderTemplate *>::iterator, HeaderTemplate *const &);
+}
