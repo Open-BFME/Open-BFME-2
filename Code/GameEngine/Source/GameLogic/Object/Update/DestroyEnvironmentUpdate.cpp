@@ -79,6 +79,16 @@ private:
 	int m_destructionTime; // +0xC
 };
 
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const char *name);
+};
+
+extern NameKeyGenerator *TheNameKeyGenerator;
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/DestroyEnvironmentUpdate.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/DestroyEnvironmentUpdateModuleDataCtor.cpp
 
 // ??0DestroyEnvironmentUpdateModuleData@@QAE@XZ @0x4AC615
@@ -89,20 +99,6 @@ DestroyEnvironmentUpdateModuleData::DestroyEnvironmentUpdateModuleData()
 	m_destructionTime = 100;
 }
 
-// tu-skeleton: 0x004AC629 17B ?buildFieldParse@DestroyEnvironmentUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
-
-// tu-skeleton: 0x004AC63A 70B ??0DestroyEnvironmentUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DestroyEnvironmentUpdateCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004AC680 6B ?Rva004AC680Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
-// tu-skeleton: 0x004AC686 69B ?getModuleNameKey@DestroyEnvironmentUpdate@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DestroyEnvironmentUpdatePoolKey.cpp (not merged yet)
-
-// tu-skeleton: 0x004AC6CB 60B ?xfer@DestroyEnvironmentUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DestroyEnvironmentUpdateXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x004AC707 27B ?Rva004AC707@@YAHW4ObjectID@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Rva004AC7C9FindModuleObject.cpp (not merged yet)
-
-// tu-skeleton: 0x004AC722 69B ?rva004AC722@DestroyEnvironmentUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Rva004AC7C9FindModuleObject.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/DestroyEnvironmentUpdateDtor.cpp
 
 DestroyEnvironmentUpdate::~DestroyEnvironmentUpdate()
@@ -110,13 +106,31 @@ DestroyEnvironmentUpdate::~DestroyEnvironmentUpdate()
 	rva004AC722();
 }
 
+// tu-skeleton: 0x004AC629 17B ?buildFieldParse@DestroyEnvironmentUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
+
+// tu-skeleton: 0x004AC63A 70B ??0DestroyEnvironmentUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DestroyEnvironmentUpdateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004AC680 6B ?Rva004AC680Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/DestroyEnvironmentUpdatePoolKey.cpp
+
+// ?getModuleNameKey@DestroyEnvironmentUpdate@@UBE?AW4NameKeyType@@XZ
+NameKeyType DestroyEnvironmentUpdate::getModuleNameKey() const
+{
+	static NameKeyType TheDestroyEnvironmentUpdatePoolKey =
+		TheNameKeyGenerator->nameToKey("DestroyEnvironmentUpdate");
+	return TheDestroyEnvironmentUpdatePoolKey;
+}
+
+// tu-skeleton: 0x004AC6CB 60B ?xfer@DestroyEnvironmentUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DestroyEnvironmentUpdateXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x004AC707 27B ?Rva004AC707@@YAHW4ObjectID@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Rva004AC7C9FindModuleObject.cpp (not merged yet)
+
+// tu-skeleton: 0x004AC722 69B ?rva004AC722@DestroyEnvironmentUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Rva004AC7C9FindModuleObject.cpp (not merged yet)
+
 // tu-skeleton: 0x004AC7C9 130B ?Rva004AC7C9@@YAPAVObject@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Rva004AC7C9FindModuleObject.cpp (not merged yet)
 
 // tu-skeleton: 0x004AC84B 142B ?update@DestroyEnvironmentUpdate@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Rva004AC7C9FindModuleObject.cpp (not merged yet)
-
-// tu-skeleton: 0x0078E337 13B $L310 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DestroyEnvironmentUpdatePoolKey.cpp (not merged yet)
-
-// tu-skeleton: 0x0078E344 10B __ehhandler$?getModuleNameKey@DestroyEnvironmentUpdate@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DestroyEnvironmentUpdatePoolKey.cpp (not merged yet)
 
 // tu-skeleton: 0x0078E360 8B $L1730 -- matched in Code/GameEngine/Source/GameLogic/Object/Rva004AC7C9FindModuleObject.cpp (not merged yet)
 
