@@ -52,48 +52,31 @@ struct FXListDieModuleData
 	unsigned char m_pad00[0x38];
 	const FXList *m_defaultDeathFX;
 	Bool m_orientToObject;
-	Bool isDieApplicable(const Object *object, const DamageInfo *damageInfo) const
-	{
-		return ((const DieMuxData *)((const unsigned char *)this + 8))
-			->isDieApplicable(object, damageInfo);
-	}
 };
 
-class BehaviorModule
+#include "../../../../Include/GameLogic/Module/DieModule.h"
+
+// ZH DieModuleData's DieMuxData sits at module data +8; retail 0x0045CEA7
+// confirms that offset and the owner Object at +8. SpecialPowerCompletionDie.cpp
+// emits the same SELECT_ANY copy, so this body stays an inline COMDAT.
+struct DieModuleData
 {
-public:
-	virtual ~BehaviorModule();
-protected:
-	Object *getObject() const { return m_object; }
-	const FXListDieModuleData *getFXListDieModuleData() const { return m_moduleData; }
-private:
-	const FXListDieModuleData *m_moduleData;
-	Object *m_object;
-	unsigned char m_pad0C[0x10 - 0x0C];
+	unsigned char m_pad00[0x08];
+	DieMuxData m_dieMuxData;
 };
 
-class DieModuleInterface
+__declspec(noinline) inline Bool DieModule::isDieApplicable( const DamageInfo *damageInfo ) const
 {
-public:
-	virtual void onDie( const DamageInfo *damageInfo ) = 0;
-};
-
-class DieModule : public BehaviorModule, public DieModuleInterface
-{
-protected:
-	// The ZH DieModule helper uses the module-data DieMuxData at +8.
-	// Retail 0x0045CEA7 confirms that offset and the owner Object at +8.
-	// Keep its SELECT_ANY body here with the retail onDie consumer.
-	__declspec(noinline) Bool isDieApplicable( const DamageInfo *damageInfo ) const
-	{
-		return getFXListDieModuleData()->isDieApplicable(getObject(), damageInfo);
-	}
-};
+	return ((const DieModuleData *)getModuleData())->m_dieMuxData.isDieApplicable(getObject(), damageInfo);
+}
 
 class FXListDie : public DieModule
 {
 public:
 	virtual void onDie( const DamageInfo *damageInfo );
+
+protected:
+	const FXListDieModuleData *getFXListDieModuleData() const { return (const FXListDieModuleData *)getModuleData(); }
 };
 
 //-------------------------------------------------------------------------------------------------
