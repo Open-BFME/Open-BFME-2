@@ -36,12 +36,7 @@ class Object;
 class HAnimClass;
 class RenderObjClass;
 class Shadow;
-class Matrix3D;
-struct Coord3D;
-class Drawable {
-public:
-	const Matrix3D *getTransformMatrix() const;
-};
+#include "../../../../../../GameEngine/Include/GameClient/DrawableBFME2.h"
 // The transform donor uses DrawableModule: its drawable is at +0x08.
 class DrawableModule {
 public:
