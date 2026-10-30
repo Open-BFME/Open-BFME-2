@@ -41,12 +41,17 @@ struct Rva002CB35CAI
 	void *m_1F0;						// +0x1F0
 };
 
-class Module
+#include "../../../Include/Common/Module.h"
+
+// Partial storage view: the portal finder returns an unadjusted Module entry.
+// Native 2CB45A tests its byte at +0x3C; derived identity is not recovered.
+class Rva002CB35CModuleView : public Module
 {
 public:
-	char m_pad00[0x3C];
-	bool m_3C;							// +0x3C
+    char m_pad08[0x3C - 0x08];
+    bool m_3C;
 };
+
 
 class Object
 {
@@ -188,7 +193,7 @@ bool Weapon::isWithinAttackRange(Object *source, const Coord3D *pos,
 				if (victimLayer == 1 && sourceLayer >= 17)
 				{
 					Module *portal = DynamicPortalBehaviour::rva004608E0(victim);
-					if (!portal || !portal->m_3C)
+					if (!portal || !((Rva002CB35CModuleView *)portal)->m_3C)
 						return false;
 				}
 			}

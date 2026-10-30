@@ -13,6 +13,19 @@ claimed. Broader consumer verification retains the published-index and
 missing-receipt qualification.
 [Native/actual-object proof](../reverse/attempt_support/module-interface-finish-20261030/README.md).
 
+### Weapon portal-flag canonical Module storage view (2026-10-30)
+
+WeaponRva002CB2D1Range includes the canonical Module and keeps the observed
+bool at +3C in a partial derived view. Native 2CB44C calls the existing finder
+and 2CB45A tests that offset; the complete 4608E0 finder confirms that 460948
+returns the raw module-list entry. The lookup/call ABI stays unchanged.
+Both rows and all three external code definitions/relocations are identical;
+strict preparation and bounded prediction retain LINKS/707 B. Normal Module
+header acceptance retires this source's one key; its separate Weapon-header
+key remains open. No complete derived identity or census gain is claimed;
+broader consumer verification retains the old-index/receipt qualification.
+[Native/actual-object proof](../reverse/attempt_support/module-portal-flag-20261030/README.md).
+
 ### Castle/shroud canonical Module storage views (2026-10-30)
 
 DrawableShroud includes the canonical eight-byte Module base and retains the

@@ -1,0 +1,377 @@
+{
+  "source": "Code/GameEngine/Source/GameLogic/Object/WeaponRva002CB2D1Range.cpp",
+  "scope": "canonical eight-byte Module plus bool at +3C; finder returns raw module-list entry; no derived identity recovery",
+  "variants": {
+    "before": {
+      "source_sha256": "9aa3279fd74020df44999c5fac23c98207b5fb2fabc30fc03326720bfe0f0a08",
+      "rows": [
+        {
+          "name": "?isSourceObjectWithGoalPositionWithinAttackRange@Weapon@@QBE_NPBVObject@@PBUCoord3D@@01@Z",
+          "rva": "0x002CB2D1",
+          "size": "139",
+          "exact": true
+        },
+        {
+          "name": "?isWithinAttackRange@Weapon@@QAE_NPAVObject@@PBUCoord3D@@01M_N@Z",
+          "rva": "0x002CB35C",
+          "size": "568",
+          "exact": true
+        }
+      ],
+      "eh": []
+    },
+    "trial": {
+      "source_sha256": "c0abb63147f171d9c71012d48b1e57908fb4ce8e027906152baa1cf643adacdc",
+      "rows": [
+        {
+          "name": "?isSourceObjectWithGoalPositionWithinAttackRange@Weapon@@QBE_NPBVObject@@PBUCoord3D@@01@Z",
+          "rva": "0x002CB2D1",
+          "size": "139",
+          "exact": true
+        },
+        {
+          "name": "?isWithinAttackRange@Weapon@@QAE_NPAVObject@@PBUCoord3D@@01M_N@Z",
+          "rva": "0x002CB35C",
+          "size": "568",
+          "exact": true
+        }
+      ],
+      "eh": []
+    }
+  },
+  "all_external_code_and_symbolic_relocations_identical": true,
+  "external_definitions": {
+    "?isKindOf@Rva002CB35CTemplate@@QBE_NH@Z": {
+      "raw": "8b44240433d2568bf18bc84283e107d3e2c1f8038a8430080100005e22d0f6da1bd2f7da8ac2c20400",
+      "relocations": []
+    },
+    "?isSourceObjectWithGoalPositionWithinAttackRange@Weapon@@QBE_NPBVObject@@PBUCoord3D@@01@Z": {
+      "raw": "558bec8b451085c056578bf974128b4d088d70385650ff750ce800000000eb138b751485f6745c8b4d0856ff750ce8000000008b450cd95d10f30f104608f30f5c400851f30f110424ff75088bcfe800000000d95d0c8b4f04e800000000d9c0d8c9d94510d9c9dff1ddd9ddd87714f30f10450cf30f59c033c00f2f4510720540eb0232c05f5e5dc21000",
+      "relocations": [
+        [
+          26,
+          20,
+          "?rva002636F6@Object@@QBEMPBUCoord3D@@PBX0@Z"
+        ],
+        [
+          47,
+          20,
+          "?rva002C97E8@Object@@QBEMPBUCoord3D@@0@Z"
+        ],
+        [
+          79,
+          20,
+          "?rva002C9B80@Rva002C9B80Owner@@QAEMPAXM@Z"
+        ],
+        [
+          90,
+          20,
+          "?getMinimumAttackRange@WeaponTemplate@@QBEMXZ"
+        ]
+      ]
+    },
+    "?isWithinAttackRange@Weapon@@QAE_NPAVObject@@PBUCoord3D@@01M_N@Z": {
+      "raw": "558bec518b410480b8250100000053568b7510578b7d08894dfc0f84ef00000085f60f84070200006a258bcfe80000000084c074116a258bcee80000000084c00f85e50100008b4604f6800801000080751b8b865802000085c00f84af00000083b8f0010000000f84a20000006a4b8bcfe80000000084c07429a1000000008b40188b80d0000000568bcf89451ce800000000d9451cd84d1cdff1ddd80f8788010000a1000000008b481056ff750c57e8000000008ad884db744d8b4604f6801a0100004075418bcfe8000000008bce8bf8e80000000083ff01750983f8110f8d4a01000083f801751e83ff117c1956e80000000085c0590f843101000080783c000f84270100008ac3e92201000085f60f84870000008d9fa80000008bcbe80000000084c0741a8d8ea8000000e80000000084c0750bff75148bcf56ff750ceb238bcbe80000000084c0751f8d8ea8000000e80000000084c07410ff750c8bce57ff7514e800000000eb0eff75148bcf56ff750ce8000000008b4514d95d10f30f1040088b450cf30f5c4008518b4dfcf30f11042457e800000000eb318b75148b5d0c56538bcfe800000000d95d10f30f104608f30f5c4308518b4dfcf30f11042457e800000000d82500000000f30f104518d9c08b45fcd8c98b4804f30f59c0f30f584510d95d0cf30f114510ddd8e800000000d9c06a25d8c98bcfd95d14ddd8e80000000084c00f57c07505f30f104514807d1c0074060f2f4510770ff30f10450c0f2f45107204b001eb0232c05f5e5bc9c21800",
+      "relocations": [
+        [
+          45,
+          20,
+          "?testStatus@Object@@QBE_NW4ObjectStatusTypes@@@Z"
+        ],
+        [
+          58,
+          20,
+          "?testStatus@Object@@QBE_NW4ObjectStatusTypes@@@Z"
+        ],
+        [
+          114,
+          20,
+          "?testStatus@Object@@QBE_NW4ObjectStatusTypes@@@Z"
+        ],
+        [
+          123,
+          6,
+          "?TheAI@@3PAVAI@@A"
+        ],
+        [
+          143,
+          20,
+          "?rva00263763@Object@@QBEMPBX@Z"
+        ],
+        [
+          164,
+          6,
+          "?TheAI@@3PAVAI@@A"
+        ],
+        [
+          177,
+          20,
+          "?rva002EC479@Pathfinder@@QAE_NPAVObject@@PBUCoord3D@@0@Z"
+        ],
+        [
+          202,
+          20,
+          "?rva0028B511@Object@@QBEHXZ"
+        ],
+        [
+          211,
+          20,
+          "?rva0028B511@Object@@QBEHXZ"
+        ],
+        [
+          241,
+          20,
+          "?rva004608E0@DynamicPortalBehaviour@@SAPAVModule@@PAVObject@@@Z"
+        ],
+        [
+          288,
+          20,
+          "?usePluralShadowName@BfmeThingTemplateShadowSelector@@QBE_NXZ"
+        ],
+        [
+          303,
+          20,
+          "?usePluralShadowName@BfmeThingTemplateShadowSelector@@QBE_NXZ"
+        ],
+        [
+          325,
+          20,
+          "?usePluralShadowName@BfmeThingTemplateShadowSelector@@QBE_NXZ"
+        ],
+        [
+          340,
+          20,
+          "?usePluralShadowName@BfmeThingTemplateShadowSelector@@QBE_NXZ"
+        ],
+        [
+          358,
+          20,
+          "?rva0028ED19@Object@@QBEMPBUCoord3D@@PBX0@Z"
+        ],
+        [
+          374,
+          20,
+          "?rva002636F6@Object@@QBEMPBUCoord3D@@PBX0@Z"
+        ],
+        [
+          408,
+          20,
+          "?rva002C9B80@Rva002C9B80Owner@@QAEMPAXM@Z"
+        ],
+        [
+          425,
+          20,
+          "?rva002C97E8@Object@@QBEMPBUCoord3D@@0@Z"
+        ],
+        [
+          453,
+          20,
+          "?rva002C9B80@Rva002C9B80Owner@@QAEMPAXM@Z"
+        ],
+        [
+          459,
+          6,
+          "__real@40200000"
+        ],
+        [
+          498,
+          20,
+          "?getMinimumAttackRange@WeaponTemplate@@QBEMXZ"
+        ],
+        [
+          516,
+          20,
+          "?testStatus@Object@@QBE_NW4ObjectStatusTypes@@@Z"
+        ]
+      ]
+    }
+  },
+  "actual": {
+    "source_sha256": "c0abb63147f171d9c71012d48b1e57908fb4ce8e027906152baa1cf643adacdc",
+    "object_sha256": "deb8bb9a9aa631af5f521f9c3536980e291a37cfe71c52395a55b4a7a8fdc5e4",
+    "strict_current": true,
+    "all_external_definitions_and_relocations_identical": 3
+  },
+  "native_instructions": [
+    {
+      "rva": "0x2cb44c",
+      "raw": "e88f541900",
+      "mnemonic": "call",
+      "operands": "0x4608e0"
+    },
+    {
+      "rva": "0x2cb45a",
+      "raw": "80783c00",
+      "mnemonic": "cmp",
+      "operands": "byte ptr [eax + 0x3c], 0"
+    },
+    {
+      "rva": "0x460948",
+      "raw": "8b06",
+      "mnemonic": "mov",
+      "operands": "eax, dword ptr [esi]"
+    }
+  ],
+  "native_finder": {
+    "rva": "0x004608E0",
+    "size": 108,
+    "raw": "b8cea7b800e89e881c00f605d835e000017524830dd835e000018b0da436df008365fc0068ac5abf00e80c85ceff834dfcffa3d435e0008b4508568bb044020000eb108b01ff50103b05d435e000741883c6048b0e85c975ea33c08b4df45e64890d00000000c9c38b06ebef",
+    "instructions": [
+      {
+        "rva": "0x4608e0",
+        "mnemonic": "mov",
+        "operands": "eax, 0xb8a7ce"
+      },
+      {
+        "rva": "0x4608e5",
+        "mnemonic": "call",
+        "operands": "0x629188"
+      },
+      {
+        "rva": "0x4608ea",
+        "mnemonic": "test",
+        "operands": "byte ptr [0xe035d8], 1"
+      },
+      {
+        "rva": "0x4608f1",
+        "mnemonic": "jne",
+        "operands": "0x460917"
+      },
+      {
+        "rva": "0x4608f3",
+        "mnemonic": "or",
+        "operands": "dword ptr [0xe035d8], 1"
+      },
+      {
+        "rva": "0x4608fa",
+        "mnemonic": "mov",
+        "operands": "ecx, dword ptr [0xdf36a4]"
+      },
+      {
+        "rva": "0x460900",
+        "mnemonic": "and",
+        "operands": "dword ptr [ebp - 4], 0"
+      },
+      {
+        "rva": "0x460904",
+        "mnemonic": "push",
+        "operands": "0xbf5aac"
+      },
+      {
+        "rva": "0x460909",
+        "mnemonic": "call",
+        "operands": "0x148e1a"
+      },
+      {
+        "rva": "0x46090e",
+        "mnemonic": "or",
+        "operands": "dword ptr [ebp - 4], 0xffffffff"
+      },
+      {
+        "rva": "0x460912",
+        "mnemonic": "mov",
+        "operands": "dword ptr [0xe035d4], eax"
+      },
+      {
+        "rva": "0x460917",
+        "mnemonic": "mov",
+        "operands": "eax, dword ptr [ebp + 8]"
+      },
+      {
+        "rva": "0x46091a",
+        "mnemonic": "push",
+        "operands": "esi"
+      },
+      {
+        "rva": "0x46091b",
+        "mnemonic": "mov",
+        "operands": "esi, dword ptr [eax + 0x244]"
+      },
+      {
+        "rva": "0x460921",
+        "mnemonic": "jmp",
+        "operands": "0x460933"
+      },
+      {
+        "rva": "0x460923",
+        "mnemonic": "mov",
+        "operands": "eax, dword ptr [ecx]"
+      },
+      {
+        "rva": "0x460925",
+        "mnemonic": "call",
+        "operands": "dword ptr [eax + 0x10]"
+      },
+      {
+        "rva": "0x460928",
+        "mnemonic": "cmp",
+        "operands": "eax, dword ptr [0xe035d4]"
+      },
+      {
+        "rva": "0x46092e",
+        "mnemonic": "je",
+        "operands": "0x460948"
+      },
+      {
+        "rva": "0x460930",
+        "mnemonic": "add",
+        "operands": "esi, 4"
+      },
+      {
+        "rva": "0x460933",
+        "mnemonic": "mov",
+        "operands": "ecx, dword ptr [esi]"
+      },
+      {
+        "rva": "0x460935",
+        "mnemonic": "test",
+        "operands": "ecx, ecx"
+      },
+      {
+        "rva": "0x460937",
+        "mnemonic": "jne",
+        "operands": "0x460923"
+      },
+      {
+        "rva": "0x460939",
+        "mnemonic": "xor",
+        "operands": "eax, eax"
+      },
+      {
+        "rva": "0x46093b",
+        "mnemonic": "mov",
+        "operands": "ecx, dword ptr [ebp - 0xc]"
+      },
+      {
+        "rva": "0x46093e",
+        "mnemonic": "pop",
+        "operands": "esi"
+      },
+      {
+        "rva": "0x46093f",
+        "mnemonic": "mov",
+        "operands": "dword ptr fs:[0], ecx"
+      },
+      {
+        "rva": "0x460946",
+        "mnemonic": "leave",
+        "operands": ""
+      },
+      {
+        "rva": "0x460947",
+        "mnemonic": "ret",
+        "operands": ""
+      },
+      {
+        "rva": "0x460948",
+        "mnemonic": "mov",
+        "operands": "eax, dword ptr [esi]"
+      },
+      {
+        "rva": "0x46094a",
+        "mnemonic": "jmp",
+        "operands": "0x46093b"
+      }
+    ]
+  }
+}
