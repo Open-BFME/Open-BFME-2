@@ -1,4 +1,5 @@
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
+// stlport46
 //
 // vector<vector<BfmePod88>>::_M_allocate_and_copy, retail 0x00500BC8, 45 bytes.
 // Allocates n slots through the end-of-storage proxy (allocator pinned at
@@ -9,6 +10,10 @@
 // vector<BfmePod88> * to match the rowed callee. Caller at 0x00500F34 in
 // FUN_00900efa.
 
+#include <stl/_prolog.h>
+#include <stl/type_traits.h>
+#include <stl/_epilog.h>
+
 struct BfmePod88
 {
 	char m_body[88];
@@ -16,13 +21,6 @@ struct BfmePod88
 
 namespace _STL
 {
-
-struct __false_type
-{
-	__false_type()
-	{
-	}
-};
 
 template <class Type>
 class allocator
@@ -72,7 +70,8 @@ Type *_STL::vector<Type, Allocator>::_M_allocate_and_copy(size_type n,
 	ForwardIter first, ForwardIter last)
 {
 	Type *result = m_endOfStorage.m_alloc.allocate(n, 0);
-	__uninitialized_copy(first, last, result, __false_type());
+	__false_type tag;
+	__uninitialized_copy(first, last, result, tag);
 	return result;
 }
 

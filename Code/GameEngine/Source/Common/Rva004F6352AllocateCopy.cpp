@@ -1,4 +1,5 @@
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
+// stlport46
 //
 // vector<Rva004F6352>::_M_allocate_and_copy, retail 0x004F6C05, 45 bytes.
 // Allocates n slots through the end-of-storage proxy (12-byte allocator
@@ -7,6 +8,10 @@
 // Spelled after the STLport _Vector_base shape: _M_start at +0 _M_finish
 // at +4 the allocating proxy at +8. Caller at 0x004F8BDC in FUN_008f8ba2
 // with idiv 0xC stride.
+
+#include <stl/_prolog.h>
+#include <stl/type_traits.h>
+#include <stl/_epilog.h>
 
 struct Rva004F6352
 {
@@ -18,13 +23,6 @@ public:
 
 namespace _STL
 {
-
-struct __false_type
-{
-	__false_type()
-	{
-	}
-};
 
 template <class Type>
 class allocator
@@ -69,7 +67,8 @@ Type *_STL::vector<Type, Allocator>::_M_allocate_and_copy(size_type n,
 	ForwardIter first, ForwardIter last)
 {
 	Type *result = m_endOfStorage.m_alloc.allocate(n, 0);
-	__uninitialized_copy(first, last, result, __false_type());
+	__false_type tag;
+	__uninitialized_copy(first, last, result, tag);
 	return result;
 }
 

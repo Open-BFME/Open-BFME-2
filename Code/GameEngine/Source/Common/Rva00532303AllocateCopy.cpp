@@ -1,10 +1,15 @@
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
+// stlport46
 //
 // vector<Rva005334A4Element>::_M_allocate_and_copy, retail 0x00532303, 45 bytes.
 // 4-byte non-trivial view used by push_back 0x005334A4. Allocates via the
 // folded allocator at 0x00068E15 and copies with __uninitialized_copy at
 // 0x005322B8 (primary matched under unsigned-short alias name). Prior
 // vector<int> pin at this RVA was a false identity.
+
+#include <stl/_prolog.h>
+#include <stl/type_traits.h>
+#include <stl/_epilog.h>
 
 struct Rva005334A4Element
 {
@@ -17,13 +22,6 @@ public:
 
 namespace _STL
 {
-
-struct __false_type
-{
-	__false_type()
-	{
-	}
-};
 
 template <class Type>
 class allocator
@@ -68,7 +66,8 @@ Type *_STL::vector<Type, Allocator>::_M_allocate_and_copy(size_type n,
 	ForwardIter first, ForwardIter last)
 {
 	Type *result = m_endOfStorage.m_alloc.allocate(n, 0);
-	__uninitialized_copy(first, last, result, __false_type());
+	__false_type tag;
+	__uninitialized_copy(first, last, result, tag);
 	return result;
 }
 

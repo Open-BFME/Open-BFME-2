@@ -1,8 +1,13 @@
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
+// stlport46
 //
 // vector<Rva001DAAF2Element>::_M_allocate_and_copy, retail 0x001D9C9F, 45 bytes.
 // 8-byte non-trivial view used by push_back 0x001DAAF2. Allocates via
 // 0x00523D6C and copies with __uninitialized_copy at 0x001D9B3C.
+
+#include <stl/_prolog.h>
+#include <stl/type_traits.h>
+#include <stl/_epilog.h>
 
 struct Rva001DAAF2Element
 {
@@ -15,13 +20,6 @@ public:
 
 namespace _STL
 {
-
-struct __false_type
-{
-	__false_type()
-	{
-	}
-};
 
 template <class Type>
 class allocator
@@ -66,7 +64,8 @@ Type *_STL::vector<Type, Allocator>::_M_allocate_and_copy(size_type n,
 	ForwardIter first, ForwardIter last)
 {
 	Type *result = m_endOfStorage.m_alloc.allocate(n, 0);
-	__uninitialized_copy(first, last, result, __false_type());
+	__false_type tag;
+	__uninitialized_copy(first, last, result, tag);
 	return result;
 }
 

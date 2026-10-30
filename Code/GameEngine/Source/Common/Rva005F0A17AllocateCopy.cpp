@@ -1,4 +1,5 @@
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
+// stlport46
 //
 // vector<Rva005EFD53Element>::_M_allocate_and_copy, retail 0x005F0A17, 45 bytes.
 // Element is the 4-byte non-trivial view used by push_back 0x005EFD53.
@@ -7,17 +8,14 @@
 // as Rva004F6352AllocateCopy.cpp. Prior ObjectID pin at this RVA was a false
 // identity: ObjectID emits the 31B trivial copy, retail calls the 38B ctor copy.
 
+#include <stl/_prolog.h>
+#include <stl/type_traits.h>
+#include <stl/_epilog.h>
+
 #include "RegionIconSlotReferenceView.h"
 
 namespace _STL
 {
-
-struct __false_type
-{
-	__false_type()
-	{
-	}
-};
 
 template <class Type>
 class allocator
@@ -62,7 +60,8 @@ Type *_STL::vector<Type, Allocator>::_M_allocate_and_copy(size_type n,
 	ForwardIter first, ForwardIter last)
 {
 	Type *result = m_endOfStorage.m_alloc.allocate(n, 0);
-	__uninitialized_copy(first, last, result, __false_type());
+	__false_type tag;
+	__uninitialized_copy(first, last, result, tag);
 	return result;
 }
 
