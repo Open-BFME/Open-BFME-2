@@ -1,4 +1,10 @@
-// cl: /Od /GZ /GS /MD /DNDEBUG
+// cl: /Od /GZ /GS /DNDEBUG
+// platformsdk
+/* Built without /MD: retail calls the msvcrt _mbscpy import stub with a
+ * direct e8, as a library compiled against the static CRT headers does. */
+#include <windows.h>
+#include <string.h>
+#include <mbstring.h>
 
 struct CommTAPIRef
 {
@@ -11,7 +17,7 @@ struct CommTAPIRef
 	int m_callHandle;
 	int m_state;
 	char m_gap94[ 0x104 ];
-	unsigned int m_workerId;
+	DWORD m_workerId;
 };
 
 extern "C"
@@ -28,22 +34,6 @@ extern "C"
 	void Rva008140A0( void );
 	// Rva00812FD0 is the retail cdecl worker entry and returns its status in EAX.
 	int Rva00812FD0( void *comm );
-	void *memset( void *dest, int value, unsigned int size );
-	extern "C" char *_mbscpy( char *dest, const char *source );
-	// Retail reaches the six KERNEL32 APIs below through import thunks this
-	// repo names Rva01358* (GetProcessHeap HeapAlloc HeapFree CreateThread
-	// CloseHandle Sleep, in IAT-slot order); the declarations use the real
-	// names the import verifier maps each slot to, as in Rva0081B010CommWorker.
-	__declspec(dllimport) void *__stdcall GetProcessHeap( void );
-	__declspec(dllimport) void *__stdcall HeapAlloc( void *heap,
-		unsigned int flags, unsigned int size );
-	__declspec(dllimport) int __stdcall HeapFree( void *heap,
-		unsigned int flags, void *block );
-	__declspec(dllimport) void *__stdcall CreateThread( void *security,
-		unsigned int stackSize, void *start, void *argument,
-		unsigned int flags, unsigned int *threadId );
-	__declspec(dllimport) int __stdcall CloseHandle( void *handle );
-	__declspec(dllimport) void __stdcall Sleep( unsigned int interval );
 	unsigned int Rva007FEA00( void );
 	void *CommSerialConstruct( int first, int second, int third );
 }
@@ -76,10 +66,10 @@ extern "C" CommTAPIRef *CommTAPIConstruct( int first, int second, int third )
 	comm->m_ops[ 11 ] = (void *)Rva00814040;
 	comm->m_ops[ 12 ] = (void *)Rva00814070;
 	comm->m_ops[ 13 ] = (void *)Rva008140A0;
-	_mbscpy( comm->m_name, "TAPI" );
+	_mbscpy( (unsigned char *)comm->m_name, (const unsigned char *)"TAPI" );
 	comm->m_state = 0;
 	threadHandle = CreateThread(
-		0, 0, (void *)Rva00812FD0, comm, 0, &comm->m_workerId );
+		0, 0, (LPTHREAD_START_ROUTINE)Rva00812FD0, comm, 0, &comm->m_workerId );
 	CloseHandle( threadHandle );
 	while ( comm->m_state == 0 )
 		Sleep( 0 );
