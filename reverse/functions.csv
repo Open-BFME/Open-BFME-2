@@ -10206,7 +10206,7 @@ _lmemfind,,0x007496B0,110,Code/Libraries/Source/Lua/lstrlib.c,matched,vendored=l
 ?get@Rva0023C513DwordField@@QBEHXZ,,0x0023C513,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
 ?get@Rva0029A7EADwordField@@QBEHXZ,,0x0029A7EA,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
 ?get@Rva00381E3ADwordField@@QBEHXZ,,0x00381E3A,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
-?get@Rva004421DADwordField@@QBEHXZ,,0x004421DA,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
+?get@Rva004421DADwordField@@QBEHXZ,,0x004421DA,7,Code/GameEngine/Source/Common/AptMpGameSetup.cpp,matched,Disp32 dword getter
 ?get@Rva0054902CDwordField@@QBEHXZ,,0x0054902C,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
 ?get@Rva0008BB23FloatField@@QBEMXZ,,0x0008BB23,4,Code/GameEngine/Source/Common/Disp8FloatFieldGetters.cpp,matched,Disp8 float getter; address-derived opaque holder
 ?get@Rva0008BB46FloatField@@QBEMXZ,,0x0008BB46,4,Code/GameEngine/Source/Common/Disp8FloatFieldGetters.cpp,matched,Disp8 float getter; address-derived opaque holder
