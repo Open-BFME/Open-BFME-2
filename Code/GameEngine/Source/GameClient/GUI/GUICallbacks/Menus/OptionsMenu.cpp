@@ -19,6 +19,7 @@ typedef float Real;
 #include "../../../../../../../reference/shims/bfme2_ascii/unicode_string.h"
 #pragma const_seg(".data")
 #pragma const_seg()
+
 // Retail's tree frees nodes through a direct _free; the dllimport+forceinline
 // specialization takes __malloc_alloc<0>::deallocate inline so this TU emits
 // no copy of its own (retail's is the unoptimized import entry, 0x00023A70).
@@ -27,6 +28,7 @@ template <> __declspec(dllimport) __forceinline
 void __malloc_alloc<0>::deallocate(void *__p, size_t)
 { free((char *)__p); }
 }
+
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
 namespace _STL {
 template <class T, class LeftTraits, class RightTraits>
@@ -427,7 +429,19 @@ public:
 	void rva002E53FA(Int val);
 public:
 	void rva002E54EA();
+public:
+	UnsignedInt getOnlineIPAddress(void);
 };
+
+class MultiplayerColorDefinition
+{
+public:
+	AsciiString getTooltipName() const throw();
+};
+
+extern GlobalData *TheWritableGlobalData;
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionsMenu.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getStaticGameDetail.cpp
 
@@ -533,30 +547,6 @@ Int OptionPreferences::Rva002E432EForward(void)
 	return Rva002E42AFDispatch(8);
 }
 
-// tu-skeleton: 0x002E42D2 28B ??_GRva002E4272@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva003B1F65Derived.cpp (not merged yet)
-
-// tu-skeleton: 0x002E434E 88B ??0OptionPreferences@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_ctor.cpp (not merged yet)
-
-// tu-skeleton: 0x002E43A6 72B ?rva002E43A6@OptionPreferences@@QAEXH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_rva002E43A6.cpp (not merged yet)
-
-// tu-skeleton: 0x002E43EE 74B ?rva002E43EE@OptionPreferences@@QAEXF@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_rva002E43A6.cpp (not merged yet)
-
-// tu-skeleton: 0x002E4438 74B ?rva002E4438@OptionPreferences@@QAEXG@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_rva002E43A6.cpp (not merged yet)
-
-// tu-skeleton: 0x002E4482 59B ?erase@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@QAEXU?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@V1@@_STL@@@2@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_string_pair_cleanup.cpp (not merged yet)
-
-// tu-skeleton: 0x002E44BD 53B ?_M_erase@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@AAEXPAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@V1@@_STL@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_string_pair_cleanup.cpp (not merged yet)
-
-// tu-skeleton: 0x002E44F2 41B ?clear@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_string_pair_cleanup.cpp (not merged yet)
-
-// tu-skeleton: 0x002E451B 20B ?upper_bound@?$_Rb_tree@VAsciiString@@V1@U?$_Identity@VAsciiString@@@_STL@@U?$less@VAsciiString@@@3@V?$allocator@VAsciiString@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@VAsciiString@@U?$_Nonconst_traits@VAsciiString@@@_STL@@@2@ABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/PeerDefs.cpp (not merged yet)
-
-// tu-skeleton: 0x002E452F 68B ?erase@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@QAEXU?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@V1@@_STL@@@2@@2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_string_pair_cleanup.cpp (not merged yet)
-
-// tu-skeleton: 0x002E4573 103B ?getCampaignDifficulty@OptionPreferences@@QAEHXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_mapFind.cpp (not merged yet)
-
-// tu-skeleton: 0x002E45DA 121B ?getScrollFactor@OptionPreferences@@QAEMXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getScrollFactor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_usesSystemMapDir.cpp
 
 //
@@ -660,16 +650,6 @@ Int OptionPreferences::getAudioLOD(void)
 	return TheGameLODManager->getAudioLODIndex(it->second);
 }
 
-// tu-skeleton: 0x002E47B0 101B ?getSendDelay@OptionPreferences@@QAE_NXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getSendDelay.cpp (not merged yet)
-
-// tu-skeleton: 0x002E4815 95B ?getFirewallBehavior@OptionPreferences@@QAEHXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getFirewallBehavior.cpp (not merged yet)
-
-// tu-skeleton: 0x002E4874 90B ?getFirewallPortAllocationDelta@OptionPreferences@@QAEFXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getFirewallPortAllocationDelta.cpp (not merged yet)
-
-// tu-skeleton: 0x002E48CE 90B ?getFirewallPortOverride@OptionPreferences@@QAEGXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getFirewallPortOverride.cpp (not merged yet)
-
-// tu-skeleton: 0x002E4928 103B ?getFirewallNeedToRefresh@OptionPreferences@@QAE_NXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getFirewallNeedToRefresh.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_hasSeenLogoMovies.cpp
 
 //
@@ -744,8 +724,6 @@ float OptionPreferences::getBrightness(void)
 	return brightness;
 }
 
-// tu-skeleton: 0x002E4AA1 140B ?getResolution@OptionPreferences@@QAEXPAH0@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getResolution.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getVolume.cpp
 
 //
@@ -801,12 +779,6 @@ Real OptionPreferences::getVolume(Int index)
 	return volume;
 }
 
-// tu-skeleton: 0x002E4BC7 100B ?getLanguageFilter@OptionPreferences@@QAE_NXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getLanguageFilter.cpp (not merged yet)
-
-// tu-skeleton: 0x002E4C2B 100B ?getTurnOffMessengerInGame@OptionPreferences@@QAE_NXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getTurnOffMessengerInGame.cpp (not merged yet)
-
-// tu-skeleton: 0x002E4C8F 100B ?getDoubleClickGuard@OptionPreferences@@QAE_NXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getDoubleClickGuard.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getAllHealthBars.cpp
 
 //
@@ -831,12 +803,6 @@ Bool OptionPreferences::getAllHealthBars(void)
 	return false;
 }
 
-// tu-skeleton: 0x002E4D4E 96B ?getAlternateMouseSetup@OptionPreferences@@QAE_NXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getAlternateMouseSetup.cpp (not merged yet)
-
-// tu-skeleton: 0x002E4DAE 100B ?getRefreshNet@OptionPreferences@@QAE_NXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getRefreshNet.cpp (not merged yet)
-
-// tu-skeleton: 0x002E4E12 100B ?getDisplayForeignLanguage@OptionPreferences@@QAE_NXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getDisplayForeignLanguage.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getUseEAX3.cpp
 
 //
@@ -860,10 +826,6 @@ Bool OptionPreferences::getUseEAX3(void)
 	}
 	return false;
 }
-
-// tu-skeleton: 0x002E4ED1 73B ?erase@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@QAEIABVAsciiString@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_string_pair_cleanup.cpp (not merged yet)
-
-// tu-skeleton: 0x002E4F1A 5B ?erase@?$map@VAsciiString@@V1@U?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@QAEIABVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/GameSpyLoginPreferences.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_setCampaignDifficulty.cpp
 
@@ -918,16 +880,6 @@ UnsignedInt OptionPreferences::getLANIPAddress(void)
 	}
 	return TheWritableGlobalData->m_defaultIP;
 }
-
-// tu-skeleton: 0x002E505A 97B ?setLANIPAddress@OptionPreferences@@QAEXVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_setLANIPAddress.cpp (not merged yet)
-
-// tu-skeleton: 0x002E50BB 143B ?setLANIPAddress@OptionPreferences@@QAEXI@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_setLANIPAddress.cpp (not merged yet)
-
-// tu-skeleton: 0x002E514A 194B ?getOnlineIPAddress@OptionPreferences@@QAEIXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getGameSpyIPAddress.cpp (not merged yet)
-
-// tu-skeleton: 0x002E520C 97B ?setOnlineIPAddress@OptionPreferences@@QAEXVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_setLANIPAddress.cpp (not merged yet)
-
-// tu-skeleton: 0x002E526D 143B ?setOnlineIPAddress@OptionPreferences@@QAEXI@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_setLANIPAddress.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_setStaticGameLOD.cpp
 
@@ -1046,6 +998,107 @@ void OptionPreferences::rva002E54EA()
 	} while ((int)it < (int)(BfmeEnumTable + 9));
 }
 
+// ?GadgetSliderGetMinMax@@YAXPAVGameWindow@@PAH1@Z
+void GadgetSliderGetMinMax(GameWindow *window, int *min, int *max)
+{
+    SliderData *slider = (SliderData *)window->winGetUserData();
+    *max = slider->maxVal;
+    *min = slider->minVal;
+}
+
+// tu-skeleton: 0x002E42D2 28B ??_GRva002E4272@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva003B1F65Derived.cpp (not merged yet)
+
+// tu-skeleton: 0x002E434E 88B ??0OptionPreferences@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_ctor.cpp (not merged yet)
+
+// tu-skeleton: 0x002E43A6 72B ?rva002E43A6@OptionPreferences@@QAEXH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_rva002E43A6.cpp (not merged yet)
+
+// tu-skeleton: 0x002E43EE 74B ?rva002E43EE@OptionPreferences@@QAEXF@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_rva002E43A6.cpp (not merged yet)
+
+// tu-skeleton: 0x002E4438 74B ?rva002E4438@OptionPreferences@@QAEXG@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_rva002E43A6.cpp (not merged yet)
+
+// tu-skeleton: 0x002E4482 59B ?erase@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@QAEXU?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@V1@@_STL@@@2@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_string_pair_cleanup.cpp (not merged yet)
+
+// tu-skeleton: 0x002E44BD 53B ?_M_erase@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@AAEXPAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@V1@@_STL@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_string_pair_cleanup.cpp (not merged yet)
+
+// tu-skeleton: 0x002E44F2 41B ?clear@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_string_pair_cleanup.cpp (not merged yet)
+
+// tu-skeleton: 0x002E451B 20B ?upper_bound@?$_Rb_tree@VAsciiString@@V1@U?$_Identity@VAsciiString@@@_STL@@U?$less@VAsciiString@@@3@V?$allocator@VAsciiString@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@VAsciiString@@U?$_Nonconst_traits@VAsciiString@@@_STL@@@2@ABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/PeerDefs.cpp (not merged yet)
+
+// tu-skeleton: 0x002E452F 68B ?erase@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@QAEXU?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@V1@@_STL@@@2@@2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_string_pair_cleanup.cpp (not merged yet)
+
+// tu-skeleton: 0x002E4573 103B ?getCampaignDifficulty@OptionPreferences@@QAEHXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_mapFind.cpp (not merged yet)
+
+// tu-skeleton: 0x002E45DA 121B ?getScrollFactor@OptionPreferences@@QAEMXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getScrollFactor.cpp (not merged yet)
+
+// tu-skeleton: 0x002E47B0 101B ?getSendDelay@OptionPreferences@@QAE_NXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getSendDelay.cpp (not merged yet)
+
+// tu-skeleton: 0x002E4815 95B ?getFirewallBehavior@OptionPreferences@@QAEHXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getFirewallBehavior.cpp (not merged yet)
+
+// tu-skeleton: 0x002E4874 90B ?getFirewallPortAllocationDelta@OptionPreferences@@QAEFXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getFirewallPortAllocationDelta.cpp (not merged yet)
+
+// tu-skeleton: 0x002E48CE 90B ?getFirewallPortOverride@OptionPreferences@@QAEGXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getFirewallPortOverride.cpp (not merged yet)
+
+// tu-skeleton: 0x002E4928 103B ?getFirewallNeedToRefresh@OptionPreferences@@QAE_NXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getFirewallNeedToRefresh.cpp (not merged yet)
+
+// tu-skeleton: 0x002E4AA1 140B ?getResolution@OptionPreferences@@QAEXPAH0@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getResolution.cpp (not merged yet)
+
+// tu-skeleton: 0x002E4BC7 100B ?getLanguageFilter@OptionPreferences@@QAE_NXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getLanguageFilter.cpp (not merged yet)
+
+// tu-skeleton: 0x002E4C2B 100B ?getTurnOffMessengerInGame@OptionPreferences@@QAE_NXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getTurnOffMessengerInGame.cpp (not merged yet)
+
+// tu-skeleton: 0x002E4C8F 100B ?getDoubleClickGuard@OptionPreferences@@QAE_NXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getDoubleClickGuard.cpp (not merged yet)
+
+// tu-skeleton: 0x002E4D4E 96B ?getAlternateMouseSetup@OptionPreferences@@QAE_NXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getAlternateMouseSetup.cpp (not merged yet)
+
+// tu-skeleton: 0x002E4DAE 100B ?getRefreshNet@OptionPreferences@@QAE_NXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getRefreshNet.cpp (not merged yet)
+
+// tu-skeleton: 0x002E4E12 100B ?getDisplayForeignLanguage@OptionPreferences@@QAE_NXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getDisplayForeignLanguage.cpp (not merged yet)
+
+// tu-skeleton: 0x002E4ED1 73B ?erase@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@QAEIABVAsciiString@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_string_pair_cleanup.cpp (not merged yet)
+
+// tu-skeleton: 0x002E4F1A 5B ?erase@?$map@VAsciiString@@V1@U?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@QAEIABVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/GameSpyLoginPreferences.cpp (not merged yet)
+
+// tu-skeleton: 0x002E505A 97B ?setLANIPAddress@OptionPreferences@@QAEXVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_setLANIPAddress.cpp (not merged yet)
+
+// tu-skeleton: 0x002E50BB 143B ?setLANIPAddress@OptionPreferences@@QAEXI@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_setLANIPAddress.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getGameSpyIPAddress.cpp
+
+//
+// ?getOnlineIPAddress@OptionPreferences@@QAEIXZ, retail 0x002E514A, 194 bytes.
+// GameSpy twin of the landed getLANIPAddress at 0x002E4F98 (same 194B shape:
+// stored pref matched case-insensitively against enumerated locals, fallback
+// to writable global default at +0xA48). Differences from the LAN twin, all
+// forced by retail: pref key "GameSpyIPAddress", per-address string via the
+// rowed ?getTooltipName@MultiplayerColorDefinition (ICF-identical to
+// EnumeratedIP::getIPstring copy-at-+0 body at 0x002E4336, called through a
+// cast so the call resolves to the existing row), writable global
+// TheWritableGlobalData, and a named Bool match flag which is what emits the
+// neg/sbb/inc byte. Private StringBase/AsciiString copies with throw() on
+// compareNoCase are copied verbatim from the twin TU so the tooltip temporary
+// needs no EH state, matching retail. Caller at 0x0038BAB9 etc. Neighbours
+// setLANIPAddress 0x002E50BB and setOnlineIPAddress.
+
+// ?getOnlineIPAddress@OptionPreferences@@QAEIXZ, retail 0x002E514A, 194 bytes.
+UnsignedInt OptionPreferences::getOnlineIPAddress(void)
+{
+	AsciiString wanted = (*this)["GameSpyIPAddress"];
+	IPEnumeration IPs;
+	EnumeratedIP *IPlist = IPs.getAddresses();
+	while (IPlist)
+	{
+		Bool match = (wanted.compareNoCase(((MultiplayerColorDefinition *)IPlist)->getTooltipName()) == 0);
+		if (match)
+			return IPlist->getIP();
+		IPlist = IPlist->getNext();
+	}
+	return TheWritableGlobalData->m_defaultIP;
+}
+
+// tu-skeleton: 0x002E520C 97B ?setOnlineIPAddress@OptionPreferences@@QAEXVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_setLANIPAddress.cpp (not merged yet)
+
+// tu-skeleton: 0x002E526D 143B ?setOnlineIPAddress@OptionPreferences@@QAEXI@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_setLANIPAddress.cpp (not merged yet)
+
 // tu-skeleton: 0x002E553D 155B ?setSetting@OptionPreferences@@QAEXHH@Z -- matched in Code/GameEngine/Source/Common/OptionPreferences.cpp (not merged yet)
 
 // tu-skeleton: 0x00778BE5 8B Unwind@00b78be5 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_ctor.cpp (not merged yet)
@@ -1059,11 +1112,3 @@ void OptionPreferences::rva002E54EA()
 // tu-skeleton: 0x00778CA3 8B Unwind@00b78ca3 -- matched in Code/GameEngine/Source/Common/OptionPreferences.cpp (not merged yet)
 
 // tu-skeleton: 0x00778CAB 10B __ehhandler$?setSetting@OptionPreferences@@QAEXHH@Z -- matched in Code/GameEngine/Source/Common/OptionPreferences.cpp (not merged yet)
-
-// ?GadgetSliderGetMinMax@@YAXPAVGameWindow@@PAH1@Z
-void GadgetSliderGetMinMax(GameWindow *window, int *min, int *max)
-{
-    SliderData *slider = (SliderData *)window->winGetUserData();
-    *max = slider->maxVal;
-    *min = slider->minVal;
-}
