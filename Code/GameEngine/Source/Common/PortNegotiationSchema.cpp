@@ -133,6 +133,13 @@ private:
 	unsigned int m_index; // +0x0C
 };
 
+struct Tag
+{
+	char x;
+};
+
+// ---- from Code/GameEngine/Source/Common/PortNegotiationSchema.cpp
+
 // ---- from Code/GameEngine/Source/Common/PortNegotiationSchema.cpp
 
 void* PortNegotiationSchema::peekPing(unsigned short x, unsigned short y)
@@ -156,11 +163,8 @@ int PortNegotiationSchema::GetConnectionState(unsigned short x, unsigned short y
 // The conflict scan definition is now co-located with its 5DC586 consumer
 // in NATUpdateBfme.cpp so the compiler observes its ECX-preserving contract.
 
-// tu-skeleton: 0x005DB9E4 89B ?rva005DB9E4@PortNegotiationSchema@@AAEXXZ -- matched in Code/GameEngine/Source/GameNetwork/PortNegotiationSchema.cpp (not merged yet)
 
-// tu-skeleton: 0x005DBA3D 35B ?attachSlotList@PortNegotiationSchema@@QAEXPAXG@Z -- matched in Code/GameEngine/Source/GameNetwork/PortNegotiationSchema.cpp (not merged yet)
 
-// tu-skeleton: 0x005DBA60 60B ?IsConflictingWithProceedingNegotiation@PortNegotiationSchema@@QAE_NG@Z -- matched in Code/GameEngine/Source/GameNetwork/NATUpdateBfme.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva005DBA9CFinish.cpp
 
@@ -211,28 +215,6 @@ bool PortNegotiationSchema::rva005DBA9C(bool flag)
 	return true;
 }
 
-// tu-skeleton: 0x005DBB4D 45B ?rva005DBB4D@Rva005DBB4D@@QBEFGG@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE15.cpp (not merged yet)
-
-// tu-skeleton: 0x005DBB7A 43B ?rva005DBB7A@Rva005DBB7A@@QBEHGG@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE38.cpp (not merged yet)
-
-// tu-skeleton: 0x005DBBA5 28B ?getTimeToSendPing@PortNegotiationSchema@@QAEHG@Z -- matched in Code/GameEngine/Source/Common/PortNegotiationSchema_getTimeToSendPing.cpp (not merged yet)
-
-// tu-skeleton: 0x005DBBC1 109B ?isConnectionDone@PortNegotiationSchema@@QAE_NGG@Z -- matched in Code/GameEngine/Source/Common/Rva005DBCA6Get.cpp (not merged yet)
-
-// tu-skeleton: 0x005DBC2E 120B ?isRetryConnectingOverLimit@PortNegotiationSchema@@QAE_NGG@Z -- matched in Code/GameEngine/Source/Common/Rva005DBCA6Get.cpp (not merged yet)
-
-// tu-skeleton: 0x005DBCA6 43B ?getActionID@PortNegotiationSchema@@QAEHGG@Z -- matched in Code/GameEngine/Source/Common/Rva005DBCA6Get.cpp (not merged yet)
-
-// tu-skeleton: 0x005DBCD1 31B ??0Rva005DBCD1@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/V3PolyCopyCtors.cpp (not merged yet)
-
-// tu-skeleton: 0x005DBCF0 32B ??0Rect@Gdiplus@@QAE@HHHH@Z -- matched in Code/Libraries/Source/ATL/atlimage.cpp (not merged yet)
-
-// tu-skeleton: 0x005DBD10 25B ??4Rva005DBD10@@QAEAAV0@ABV0@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE03.cpp (not merged yet)
-
-// tu-skeleton: 0x005DBD29 20B ?invoke@Rva005DBD10@@QAEXPAVGapReceiver@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE03.cpp (not merged yet)
-
-// tu-skeleton: 0x005DBD3D 18B ??$_Construct@VRva005DBCD1@@V1@@_STL@@YAXPAVRva005DBCD1@@ABV1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportConstructCopySiblings.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva005DBD4FUninitCopy.cpp
 
 inline void *__cdecl operator new(unsigned int, void *p) { return p; }
@@ -247,8 +229,6 @@ Rva005DBCD1 *__cdecl Rva005DBD4FUninitCopy(Rva005DBCD1 *first, Rva005DBCD1 *last
 	}
 	return cur;
 }
-
-// tu-skeleton: 0x005DBD78 40B ?Rva005DBD78FillN@@YAPAVRva005DBCD1@@PAV1@IABV1@ABUTag@@@Z -- matched in Code/GameEngine/Source/Common/Rva005DBD78FillN.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva005DBDA0Copy.cpp
 
@@ -271,8 +251,6 @@ Rva005DC408Element *_STL::__copy<Rva005DC408Element *, Rva005DC408Element *, int
 	}
 	return dst;
 }
-
-// tu-skeleton: 0x005DBDDA 29B ??$__copy_ptrs@PAURva005DC408Element@@PAU1@@_STL@@YAPAURva005DC408Element@@PAU1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeDeferred.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva005DBDF7ListenerWalks.cpp
 
@@ -297,6 +275,50 @@ void Rva005DBE6AList::apply(const Rva005DBDF7Call &call)
 		i = m_index;
 	}
 }
+
+// tu-skeleton: 0x005DB9E4 89B ?rva005DB9E4@PortNegotiationSchema@@AAEXXZ -- matched in Code/GameEngine/Source/GameNetwork/PortNegotiationSchema.cpp (not merged yet)
+
+// tu-skeleton: 0x005DBA3D 35B ?attachSlotList@PortNegotiationSchema@@QAEXPAXG@Z -- matched in Code/GameEngine/Source/GameNetwork/PortNegotiationSchema.cpp (not merged yet)
+
+// tu-skeleton: 0x005DBA60 60B ?IsConflictingWithProceedingNegotiation@PortNegotiationSchema@@QAE_NG@Z -- matched in Code/GameEngine/Source/GameNetwork/NATUpdateBfme.cpp (not merged yet)
+
+// tu-skeleton: 0x005DBB4D 45B ?rva005DBB4D@Rva005DBB4D@@QBEFGG@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE15.cpp (not merged yet)
+
+// tu-skeleton: 0x005DBB7A 43B ?rva005DBB7A@Rva005DBB7A@@QBEHGG@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE38.cpp (not merged yet)
+
+// tu-skeleton: 0x005DBBA5 28B ?getTimeToSendPing@PortNegotiationSchema@@QAEHG@Z -- matched in Code/GameEngine/Source/Common/PortNegotiationSchema_getTimeToSendPing.cpp (not merged yet)
+
+// tu-skeleton: 0x005DBBC1 109B ?isConnectionDone@PortNegotiationSchema@@QAE_NGG@Z -- matched in Code/GameEngine/Source/Common/Rva005DBCA6Get.cpp (not merged yet)
+
+// tu-skeleton: 0x005DBC2E 120B ?isRetryConnectingOverLimit@PortNegotiationSchema@@QAE_NGG@Z -- matched in Code/GameEngine/Source/Common/Rva005DBCA6Get.cpp (not merged yet)
+
+// tu-skeleton: 0x005DBCA6 43B ?getActionID@PortNegotiationSchema@@QAEHGG@Z -- matched in Code/GameEngine/Source/Common/Rva005DBCA6Get.cpp (not merged yet)
+
+// tu-skeleton: 0x005DBCD1 31B ??0Rva005DBCD1@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/V3PolyCopyCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x005DBCF0 32B ??0Rect@Gdiplus@@QAE@HHHH@Z -- matched in Code/Libraries/Source/ATL/atlimage.cpp (not merged yet)
+
+// tu-skeleton: 0x005DBD10 25B ??4Rva005DBD10@@QAEAAV0@ABV0@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE03.cpp (not merged yet)
+
+// tu-skeleton: 0x005DBD29 20B ?invoke@Rva005DBD10@@QAEXPAVGapReceiver@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE03.cpp (not merged yet)
+
+// tu-skeleton: 0x005DBD3D 18B ??$_Construct@VRva005DBCD1@@V1@@_STL@@YAXPAVRva005DBCD1@@ABV1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportConstructCopySiblings.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva005DBD78FillN.cpp
+
+Rva005DBCD1 *__cdecl Rva005DBD78FillN(Rva005DBCD1 *result, unsigned int count, const Rva005DBCD1 &value, const Tag &tag)
+{
+	Rva005DBCD1 *cur = result;
+	for (; count > 0; --count)
+	{
+		if (cur != 0)
+			new (cur) Rva005DBCD1(value);
+		++cur;
+	}
+	return cur;
+}
+
+// tu-skeleton: 0x005DBDDA 29B ??$__copy_ptrs@PAURva005DC408Element@@PAU1@@_STL@@YAPAURva005DC408Element@@PAU1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeDeferred.cpp (not merged yet)
 
 // tu-skeleton: 0x005DBE95 86B ?setPingStats@PortNegotiationSchema@@QAE_NGGMMM@Z -- matched in Code/GameEngine/Source/Common/Rva005DBEEB.cpp (not merged yet)
 
