@@ -728,11 +728,13 @@ Two concrete hand reconciles, both verified and both still short of a merge:
   with `m_ai` at +0x258. The donors were renamed onto the seed's names
   (`m_lastScanFrame`, `m_scanIntervalSeconds`, `m_ai`, `Thing` -> `Object`).
   `tu_skeleton.py --merge` absorbed the Xfer, Rva00491DD3, Scan, Update and
-  moveToStuff donors (TU 16/16 matched). Two donors are still refused:
-  `PickupStuffUpdateCtor.cpp` (hand vptr store, `m_vtable` and `s_*` dummies)
-  and `PickupStuffUpdateModuleDataCtor.cpp` (C2600, an `EmptyBase` and
-  vtable-as-data spelling). Both need a real-ctor rewrite that emits the
-  class vftables, and the link guard should judge that rewrite.
+  moveToStuff donors (TU 16/16 matched). The ctor donor's hand vptr stores
+  turned out to be unnecessary. Over the seed's views, the plain
+  `: UpdateModule(thing, moduleData) { m_lastScanFrame = 0; m_20 = false; }`
+  byte-matches, and `link_check.py` reports LINKS 50 -> 50. It is merged
+  too (TU 17/17). Still refused: `PickupStuffUpdateModuleDataCtor.cpp`
+  (C2600, an `EmptyBase` and vtable-as-data spelling, plus a `novtable` seed
+  view of the module data class).
 
 Reproduce: `python3 tools/tu_views.py <TU> --dry-run`, then
 `python3 tools/tu_skeleton.py --merge <TU> --dry-run`.

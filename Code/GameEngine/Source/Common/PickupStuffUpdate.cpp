@@ -401,6 +401,8 @@ private:
 
 // ---- from Code/GameEngine/Source/Common/PickupStuffUpdate.cpp
 
+// ---- from Code/GameEngine/Source/Common/PickupStuffUpdate.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/PickupStuffUpdatePoolKey.cpp
 
 // ?getModuleNameKey@PickupStuffUpdate@@UBE?AW4NameKeyType@@XZ
@@ -446,14 +448,6 @@ Object *PickupStuffUpdate::rva00491FA6()
 	return hits.next();
 }
 
-// tu-skeleton: 0x00491E37 80B ??0PickupStuffUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/PickupStuffUpdateModuleDataCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00491E87 17B ?buildFieldParse@PickupStuffUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
-
-// tu-skeleton: 0x00491E98 50B ??0PickupStuffUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/PickupStuffUpdateCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00491ECA 28B ??_GPickupStuffUpdate@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva00491DD3Method.cpp
 
 void PickupStuffUpdate::rva00491EE6()
@@ -478,8 +472,6 @@ void PickupStuffUpdate::xfer(Xfer *xfer)
 	*xfer == m_20;
 	*xfer == m_lastScanFrame;
 }
-
-// tu-skeleton: 0x00491F5A 28B ??_GPickupStuffUpdateModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-p7z-f52d.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/PickupStuffUpdate_moveToStuff.cpp
 
@@ -524,3 +516,31 @@ UpdateSleepTime PickupStuffUpdate::update()
 	}
 	return UPDATE_SLEEP_FOREVER;
 }
+
+// tu-skeleton: 0x00491E37 80B ??0PickupStuffUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/PickupStuffUpdateModuleDataCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00491E87 17B ?buildFieldParse@PickupStuffUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/PickupStuffUpdateCtor.cpp
+
+//
+// ??0PickupStuffUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x00491E98, 50 bytes.
+// PickupStuffUpdate behavior ctor over the rowed UpdateModule base
+// (0x253390), spelled over PickupStuffUpdate.cpp's class views: the compiler
+// stores the three vptrs (+0, +0x0C, +0x10) and the body zeroes the scan
+// frame (+0x24) and the found-stuff flag (+0x20). The rowed pool key at
+// 0x491DF2 and ModuleData triple (proc 0x491E87 plus ctor 0x491E37 plus
+// factory 0x24D95B) prove the class; the rowed instance factory 0x24D923 is
+// the sole caller.
+
+// ??0PickupStuffUpdate@@QAE@PAVThing@@PBVModuleData@@@Z @0x491E98
+PickupStuffUpdate::PickupStuffUpdate(Thing *thing, const ModuleData *moduleData)
+	: UpdateModule(thing, moduleData)
+{
+	m_lastScanFrame = 0;
+	m_20 = false;
+}
+
+// tu-skeleton: 0x00491ECA 28B ??_GPickupStuffUpdate@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
+
+// tu-skeleton: 0x00491F5A 28B ??_GPickupStuffUpdateModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-p7z-f52d.cpp (not merged yet)
