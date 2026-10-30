@@ -10,6 +10,11 @@
 #include <list>
 struct BfmePod72 { int a[18]; };
 
+// The native push_back provider owns the record construction machinery.
+namespace _STL {
+template <> void list<BfmePod72>::push_back(const BfmePod72 &);
+}
+
 class Rva001B4D0E {
 public:
     void append(const BfmePod72 &value);

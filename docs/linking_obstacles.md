@@ -5674,6 +5674,18 @@ Census confirmation pending.
 
 ### LINK-016: folded bodies whose consumers declare them decl-only, with no provider
 
+**2026-10-30 native list append (base `505b71888c`):** the 0x001B4D0E wrapper
+declares its already-rowed push_back at 0x001B4CEF instead of instantiating
+11 local helper copies, including the selected non-retail POD72 construction.
+Its eight bytes and native target remain exact. Normal strict three-source
+verification passes 71 rows and four EXACT EH graphs; paired bounded previews
+improve 2/3 to 3/3 LINKS, 2,361 -> 2,369 bytes, with both providers preserved.
+No census gain, element identity or provisional-TU clearance is claimed.
+The staged audit is INCONCLUSIVE on the older index and affected consumer
+Common/0CreateAHeroManager21FE49.cpp without a strict receipt. Carry the removed
+instantiation chain and affected consumers into the next scheduled census.
+[Evidence](../reverse/attempt_support/native-list-append-1b4d0e-20261030/readme.md).
+
 **2026-10-30 native range cleanup (base `8e99791e22`):** SidesList provides the
 existing pinned `_Destroy<RvaPair00257544 *>` operation at 0x0032C0CA directly;
 the last Deferred alias and its one counter key are retired. The actual kept

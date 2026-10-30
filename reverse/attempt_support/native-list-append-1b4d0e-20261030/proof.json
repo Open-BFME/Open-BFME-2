@@ -1,0 +1,58 @@
+{
+  "base": "505b71888c",
+  "rva": "0x001B4D0E",
+  "size": 8,
+  "native_callee": "0x001B4CEF",
+  "receiver_adjustment": 12,
+  "resolved_hex": "83c10ce9d9ffffff",
+  "retail_hex": "83c10ce9d9ffffff",
+  "unresolved": [],
+  "masked": false,
+  "function_rows_verified": 71,
+  "eh_exact": 4,
+  "comdat": {
+    "retained": 1,
+    "changed": [],
+    "removed": [
+      "??$_Construct@UBfmePod72@@U1@@_STL@@YAXPAUBfmePod72@@ABU1@@Z",
+      "??$__stl_alloc_rebind@U?$_List_node@UBfmePod72@@@_STL@@U12@@_STL@@YAAAV?$allocator@U?$_List_node@UBfmePod72@@@_STL@@@0@AAV10@PBU?$_List_node@UBfmePod72@@@0@@Z",
+      "??0?$_List_iterator@UBfmePod72@@U?$_Nonconst_traits@UBfmePod72@@@_STL@@@_STL@@QAE@PAU?$_List_node@UBfmePod72@@@1@@Z",
+      "??0_List_iterator_base@_STL@@QAE@PAU_List_node_base@1@@Z",
+      "??2@YAPAXIPAX@Z",
+      "?_M_create_node@?$list@UBfmePod72@@V?$allocator@UBfmePod72@@@_STL@@@_STL@@IAEPAU?$_List_node@UBfmePod72@@@2@ABUBfmePod72@@@Z",
+      "?allocate@?$_STLP_alloc_proxy@PAU?$_List_node@UBfmePod72@@@_STL@@U12@V?$allocator@U?$_List_node@UBfmePod72@@@_STL@@@2@@_STL@@QAEPAU?$_List_node@UBfmePod72@@@2@I@Z",
+      "?allocate@?$allocator@U?$_List_node@UBfmePod72@@@_STL@@@_STL@@QBEPAU?$_List_node@UBfmePod72@@@2@IPBX@Z",
+      "?end@?$list@UBfmePod72@@V?$allocator@UBfmePod72@@@_STL@@@_STL@@QAE?AU?$_List_iterator@UBfmePod72@@U?$_Nonconst_traits@UBfmePod72@@@_STL@@@2@XZ",
+      "?insert@?$list@UBfmePod72@@V?$allocator@UBfmePod72@@@_STL@@@_STL@@QAE?AU?$_List_iterator@UBfmePod72@@U?$_Nonconst_traits@UBfmePod72@@@_STL@@@2@U32@ABUBfmePod72@@@Z",
+      "?push_back@?$list@UBfmePod72@@V?$allocator@UBfmePod72@@@_STL@@@_STL@@QAEXABUBfmePod72@@@Z"
+    ],
+    "added": []
+  },
+  "receipts": [
+    {
+      "source": "Code/Libraries/Source/WWVegas/WW3D2/Rva001B4D0EAppend.cpp",
+      "strict_current": true,
+      "object_md5": "51a823e2c79acbc817c202b9d8ca269d",
+      "receipt_object_md5": "51a823e2c79acbc817c202b9d8ca269d"
+    },
+    {
+      "source": "Code/Libraries/Source/WWVegas/WWLib/StlportListInsertFootprints.cpp",
+      "strict_current": true,
+      "object_md5": "b6831cb7960cf54e98f922b636768226",
+      "receipt_object_md5": "b6831cb7960cf54e98f922b636768226"
+    },
+    {
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_pod_list_bodies.cpp",
+      "strict_current": true,
+      "object_md5": "44d391f666a28413736889c7b68a5549",
+      "receipt_object_md5": "44d391f666a28413736889c7b68a5549"
+    }
+  ],
+  "before_units_linked": 2,
+  "after_units_linked": 3,
+  "before_preview_bytes": 2361,
+  "after_preview_bytes": 2369,
+  "new_preview_bytes": 8,
+  "census_gain_claimed": false,
+  "pins_or_rows_added": 0
+}
