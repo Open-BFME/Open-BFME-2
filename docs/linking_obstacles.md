@@ -9505,6 +9505,23 @@ Census confirmation remains pending. [Durable scope and evidence](../reverse/att
 
 ### LINK-098: Snapshot and Coord2D header adoption prerequisites
 
+2026-10-30 math-header follow-up (base `a5f5309dbd`): coord2d.cpp now selects
+an explicit math declaration view in the registered Coord2D header instead
+of declaring its own class. The view transfers its existing non-POD lifetime,
+base conversions and arithmetic surface; the other header users retain their
+current declaration views. All 46 math/rotation rows pass strict preparation,
+and all 60 external COMDAT fingerprints and external bindings stay identical.
+The owning acceptance tool retires the math unit's one header queue row.
+Ordinary preview retains 2/2 LINKS and 1,293 authored bytes against index
+`12b9e7a7c0`; no census gain is claimed. The staged consumer audit remains
+INCONCLUSIVE on the older index and missing current CreateAHeroManager
+consumer receipt. Carry the coordinate providers and header consumers into
+the next scheduled census; full consumer selection/loss verification remains
+open. This clears only the math-unit declaration prerequisite. The struct/class
+callee spellings in the animation and AI consumers and the terrain-init
+historical-identity acceptance boundary remain separate work.
+[Target facts and verification](../reverse/attempt_support/coord2d-math-header-20261030-codex3.md).
+
 Status: Blocked for the remaining assigned units; retained adoptions verified in ordinary-preview scope. Updated: 2026-10-27; inspected revision: `6c583e82f0c53df8e12b2ac83e1a48206513de5e`.
 
 2026-10-30 constructor follow-up (base `904c5b5d55`): native constructor calls

@@ -54,54 +54,9 @@ Coord2DBase &Coord2DBase::operator=(const Coord2DBase &that)
     return *this;
 }
 
-class Coord2D : public Coord2DBase
-{public:
-    Coord2D();
-    ~Coord2D();
-
-    Coord2D(const Coord2D &that);
-    Coord2D(const Coord2DBase &that);
-    Coord2D(const Coord3DBase &that);
-    Coord2D(float x, float y);
-    Coord2D(int x, int y);
-
-    Coord2D &operator=(const Coord2D &that);
-    Coord2D &operator=(const Coord2DBase &that);
-    Coord2D &operator=(const Coord3DBase &that);
-
-    Coord2D &Set(float x, float y);
-    Coord2D &Add(const Coord2D &that);
-    Coord2D &Add(const Coord3DBase &that);
-    Coord2D &Sub(const Coord2D &that);
-    Coord2D &Sub(const Coord3DBase &that);
-    Coord2D &Scale(float scale);
-    Coord2D &operator+=(const Coord2D &that);
-    Coord2D &operator+=(const Coord3DBase &that);
-    Coord2D &operator-=(const Coord2D &that);
-    Coord2D &operator-=(const Coord3DBase &that);
-    Coord2D &operator*=(float scale);
-    float operator*(const Coord2D &that) const;
-    float operator*(const Coord3DBase &that) const;
-    bool IsExactlyEqualTo(const Coord2D &that) const;
-    float length() const;
-    void normalize();
-    Coord2D &Negate();
-    Coord2D &operator/=(float divisor);
-    Coord2D &Rotate(float sine, float cosine);
-    Coord2D &Rotate(Coord2D &coord, float sine, float cosine);
-    Coord2D &SetMaxVect();
-    Coord2D &SetMinVect();
-    Coord2D &SetXAxis();
-    Coord2D &SetYAxis();
-    Coord2D &SetZero();
-
-    float GetLength() const;
-    float GetLengthSqrd() const;
-    float Normalize();
-    float toAngle() const;
-
-    float GetLengthEstimate() const;
-};
+#define COORD2D_VIEW_MATH
+#include "../../../Include/Lib/Coord2D.h"
+#undef COORD2D_VIEW_MATH
 
 // These header bodies must be select-any copies, like their inlined callers.
 // The anchor below retains their exact three-byte and one-byte ledger bodies.
