@@ -477,3 +477,14 @@ Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/Rva00107A50ShadowFaces.
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/Rva00107A50ShadowFaces.cpp|local|Rva00107E76Elem::rva00107A50|v1,87fbbc14c618840330f2910f,drz-k7,drz-k7-415,w-4471b1f6edef,2026-10-30,5652080d8005ada1bc8d8863
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/Rva00107A50ShadowFaces.cpp|local|Rva00107E76Elem::rva00107A50|v2,7734e1ef1bd99ec79c76c6bb,drz-k7,drz-k7-415,w-4471b1f6edef,2026-10-30,cd499f6589a481aac11c6851
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowGeometryMesh.cpp|local|buildPolygonNormals|tempVec,7f7080e332f49347e4d4c2a0,drz-k7,drz-k7-418,w-4471b1f6edef,2026-10-30,bbcdd2a07aa38e866b5ceb43
+Code/GameEngine/Source/Common/System/Rva003F11ECFind.cpp|local|Rva003F11EC::rva003F11EC|p,ca4a62b58865c33a0f5c0075,drz-k4,drz-k4-402,w-855a0f400af4,2026-10-30,e8226dbc4f9970524520930f
+Code/GameEngine/Source/Common/System/Rva003F11ECFind.cpp|local|Rva003F11EC::rva003F11EC|h,4de6d15c92d2f87509b433f5,drz-k4,drz-k4-402,w-855a0f400af4,2026-10-30,550a117113af386a269e9ede
+Code/GameEngine/Source/Common/System/Rva003F11ECFind.cpp|local|Rva003F11EC::rva003F11EC|v,43b90c17e5cf7277ed82ec02,drz-k4,drz-k4-402,w-855a0f400af4,2026-10-30,2036ed3b25a047acbe1ac2ce
+Code/GameEngine/Source/Common/Rva0088A1F0Broadcast.cpp|local|Rva0088A1F0Owner::broadcast|n,3c433ab2b27b2a33bfe34236,drz-k4,drz-k4-407,w-855a0f400af4,2026-10-30,0573b5843c3e4a61c7b93b50
+Code/GameEngine/Source/Common/Rva00625840Init.cpp|local|Rva00625840::rva00625840|p,23270b3175357dcfe5d94777,drz-k4,drz-k4-409,w-855a0f400af4,2026-10-30,fe4a9b653733fb871485d4ec
+Code/GameEngine/Source/Common/Rva00625840Init.cpp|local|Rva00625840::rva00625840|q,ddaa66ac283b5583629fb8b0,drz-k4,drz-k4-409,w-855a0f400af4,2026-10-30,8f4512309450e7b25257ac32
+Code/GameEngine/Source/Common/Rva005CE93ECtor.cpp|param|Rva005CE93E::Rva005CE93E|c,d13f0258d916da433cb5530c,drz-k4,drz-k4-411,w-855a0f400af4,2026-10-30,0477a981453d274d02428ac9
+Code/GameEngine/Source/Common/Rva005421AAClone.cpp|param|Rva0053FC81|p,07b8dedbd923fa49c0015d07,drz-k4,drz-k4-415,w-855a0f400af4,2026-10-30,660e0b959acd34fa88fd5184
+Code/GameEngine/Source/Common/Rva005421AAClone.cpp|param|Rva0053FC99|h,3cc00532dbf00602fb3d3dbb,drz-k4,drz-k4-415,w-855a0f400af4,2026-10-30,c90d1e3ed7627d90da616756
+Code/GameEngine/Source/Common/Rva00540A88Clone.cpp|param|Rva0053FC81|p,ec64a1829efbcc37cbb49f3c,drz-k4,drz-k4-416,w-855a0f400af4,2026-10-30,f4ab95135330d7726764cc1b
+Code/GameEngine/Source/Common/Rva00540A88Clone.cpp|param|Rva0053FC99|h,a7165a0ae4591cdc6e3b8a6b,drz-k4,drz-k4-416,w-855a0f400af4,2026-10-30,e15a5a6b56c2e542edebc65c
