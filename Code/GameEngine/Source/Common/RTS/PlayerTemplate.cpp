@@ -109,10 +109,8 @@ private:
 	unsigned char m_tree[0xC];
 };
 }
-
 typedef _STL::map<int, float, _STL::less<int>, _STL::allocator<_STL::pair<const int, float> > > ProductionChangeMap;
 typedef _STL::map<int, int, _STL::less<int>, _STL::allocator<_STL::pair<const int, int> > > ProductionVeterancyMap;
-
 class Rva001FDE3F
 {
 public:
@@ -120,7 +118,6 @@ public:
 private:
 	unsigned char m_table[0x14];
 };
-
 class PlayerTemplate : public Overridable
 {
 public:
@@ -150,38 +147,6 @@ public:
     AsciiString m_174;
     char m_pad178[0x1D8 - 0x178];
     AsciiString m_1D8;
-};
-class PlayerTemplateVector
-{
-public:
-	PlayerTemplate &operator[](int index) { return m_first[index]; }
-	unsigned size() const { return static_cast<unsigned>(m_last - m_first); }
-	const PlayerTemplate &operator[](int index) const { return m_first[index]; }
-
-	PlayerTemplate *m_first;
-	PlayerTemplate *m_last;
-    PlayerTemplate *m_capacity;
-    void push_back(const PlayerTemplate &pt) { reinterpret_cast<_STL::vector<BfmeObject476> *>(this)->push_back(reinterpret_cast<const BfmeObject476 &>(pt)); }
-};
-class PlayerTemplateStore
-{
-public:
-	void reset();
-	bool rva001FD4E1(NameKeyType key, int *index);
-	bool rva001FD367(int faction, int *outIndex) const;
-	static void parsePlayerTemplateDefinition(INI *);
-    const PlayerTemplate *findPlayerTemplate(NameKeyType namekey) const;
-	const PlayerTemplate *getNthPlayerTemplate(int index) const;
-	void getAllSideStrings(_STL::list<AsciiString> *outStringList);
-
-private:
-	public:
-    char m_pad00[4];
-    bool showReload;
-    char m_pad05[7];
-	PlayerTemplateVector m_playerTemplates;
-    _STL::set<int> playableIndices;
-    int index24;
 };
 class INI
 {
@@ -264,6 +229,13 @@ struct Rva001FD404
 #include "string_base.h"
 #define _CRTIMP
 #undef _CRTIMP
+template <typename T> struct BfmeStringData
+{
+	int refCount;
+	unsigned short length;
+	unsigned short capacity;
+	T text[1];
+};
 
 // ?rva001FD8DF@Rva001FD42B@@QAEPAU1@ABU1@@Z @0x001FD8DF 115B.
 // Tree assign for the Rva001FD42B node family: self-check, clear via rowed
@@ -425,6 +397,93 @@ class Rva001FD9EF
 public:
 	void rva001FD9EF(void *node);
 };
+
+class ImageCollection
+{
+public:
+	const Image *findImageByName(const AsciiString &name);
+};
+
+extern ImageCollection *TheMappedImageCollection;
+
+int Rva0033A3F4Lookup(const AsciiString &name);
+
+class PlayerTemplateVector
+{
+public:
+	PlayerTemplate &operator[](int index) { return m_first[index]; }
+	unsigned size() const { return static_cast<unsigned>(m_last - m_first); }
+	const PlayerTemplate &operator[](int index) const { return m_first[index]; }
+
+	PlayerTemplate *m_first;
+	PlayerTemplate *m_last;
+    PlayerTemplate *m_capacity;
+    void push_back(const PlayerTemplate &pt) { reinterpret_cast<_STL::vector<BfmeObject476> *>(this)->push_back(reinterpret_cast<const BfmeObject476 &>(pt)); }
+};
+
+struct PlayerTemplateOverrideView : public Overridable
+{
+	NameKeyType m_nameKey;
+	char m_rest[0x1DC - 0x14];
+};
+
+class PlayerTemplateStore
+{
+public:
+	void reset();
+	bool rva001FD4E1(NameKeyType key, int *index);
+	bool rva001FD367(int faction, int *outIndex) const;
+	static void parsePlayerTemplateDefinition(INI *);
+    const PlayerTemplate *findPlayerTemplate(NameKeyType namekey) const;
+	const PlayerTemplate *getNthPlayerTemplate(int index) const;
+	void getAllSideStrings(_STL::list<AsciiString> *outStringList);
+
+private:
+	public:
+    char m_pad00[4];
+    bool showReload;
+    char m_pad05[7];
+	PlayerTemplateVector m_playerTemplates;
+    _STL::set<int> playableIndices;
+    int index24;
+};
+
+bool operator==(const AsciiString &a, const AsciiString &b);
+
+bool operator<(const AsciiString &a, const AsciiString &b);
+
+// Rowed _Construct<AsciiString> helper at 0x0002C485 (defined as
+// ??$_Construct@VAsciiString@@V1@@_STL@@YAXPAVAsciiString@@ABV1@@Z).
+namespace _STL {
+template <> void _Construct<AsciiString, AsciiString>(AsciiString *, const AsciiString &);
+}
+
+// Emit only the admitted node operation. Whole-class instantiation also
+// emitted an incompatible list-base constructor used by other exact callers.
+template _STL::_List_node<AsciiString> *
+_STL::list<AsciiString, _STL::allocator<AsciiString> >::_M_create_node(const AsciiString &);
+
+typedef float Real;
+
+typedef int Int;
+
+class AsciiString;
+
+extern const char *TheVeterancyNames[];
+
+class Rva000427195
+{
+public:
+	~Rva000427195();
+};
+
+class Rva001FE065
+{
+public:
+	void rva001FE065();
+};
+
+// ---- from Code/GameEngine/Source/Common/RTS/PlayerTemplate.cpp
 
 // ---- from Code/GameEngine/Source/Common/RTS/PlayerTemplate.cpp
 
@@ -740,27 +799,106 @@ Rva001FD42B *Rva001FD42B::rva001FD8DF(const Rva001FD42B &other)
 	return this;
 }
 
+// ---- from Code/GameEngine/Source/Common/Rva001FD9EFFree.cpp
+
+// ?rva001FD9EF@Rva001FD9EF@@QAEXPAX@Z @0x001FD9EF 28B
+// Hash-node free: clears the AsciiString key at +0x04 via rowed StringBase clear
+// at 0x0048BA39 then frees the node via rowed _free at 0x00030830 with a null guard.
+// Callers pass their table this in ecx and the node on the stack (0x0022346D/0x002234A6
+// 0x002ADD24 0x003A2A62); the body ignores this. thiscall with one stack arg gives ret 4.
+// The canonical frozen StringBase replaces the private copy; BFME_SB_CLEAR_DECL
+// declares clear() so the call binds to the rowed 0x0048BA39 worker.
+
+// Retail calls free directly (the game allocator), not through the CRT
+// import: read <stdlib.h> without dllimport.
+
+void Rva001FD9EF::rva001FD9EF(void *node)
+{
+	Rva001FD9EFNode *p = static_cast<Rva001FD9EFNode *>(node);
+	p->m_key.clear();
+	if (p)
+		free(p);
+}
+
 // tu-skeleton: 0x001FD1E8 19B ?getHeadWaterMarkImage@Rva001FD1E8@@QAEPBVImage@@XZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE51.cpp (not merged yet)
 
-// tu-skeleton: 0x001FD1FB 19B ?getFlagWaterMarkImage@PlayerTemplate@@QBEPBVImage@@XZ -- matched in Code/GameEngine/Source/Common/PlayerTemplateImageGetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/PlayerTemplateImageGetters.cpp
+
+// PlayerTemplate image getters via TheMappedImageCollection (0x00DFF078).
+// ?getFlagWaterMarkImage@PlayerTemplate@@QBEPBVImage@@XZ @0x001FD1FB 19B (AsciiString at +0x170)
+// ?getEnabledImage@PlayerTemplate@@QBEPBVImage@@XZ @0x001FD221 19B (AsciiString at +0x174)
+// ?rva001FD23F@PlayerTemplate@@QBEPBVImage@@XZ @0x001FD23F 19B (AsciiString at +0x1D8)
+// BFME1 PlayerTemplate.cpp getHeadWaterMarkImage/getFlagWaterMarkImage/getSideIconImage/
+// getGeneralImage/getEnabledImage all do TheMappedImageCollection->findImageByName(member).
+// Retail class proven by callers derefing Player+0x34 (getPlayerTemplate): 0x001FD221 used by
+// GadgetButtonSetEnabledImage at 0x0050E135/0x0050E321, 0x001FD1FB by winSetEnabledImage at
+// 0x0050E66B, 0x001FD23F on PlayerTemplate from getControllingPlayer at 0x005294C7.
+// Sibling offsets 0x170/0x174 are adjacent AsciiStrings and 0x1D8 closes the 0x1DC object.
+
+const Image *PlayerTemplate::getFlagWaterMarkImage() const
+{
+	return TheMappedImageCollection->findImageByName(m_170);
+}
+
+const Image *PlayerTemplate::getEnabledImage() const
+{
+	return TheMappedImageCollection->findImageByName(m_174);
+}
+
+int PlayerTemplate::rva001FD234() const
+{
+	return Rva0033A3F4Lookup(side);
+}
+
+const Image *PlayerTemplate::rva001FD23F() const
+{
+	return TheMappedImageCollection->findImageByName(m_1D8);
+}
 
 // tu-skeleton: 0x001FD20E 19B ?getSideIconImage@Rva001FD1E8@@QAEPBVImage@@XZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE51.cpp (not merged yet)
-
-// tu-skeleton: 0x001FD221 19B ?getEnabledImage@PlayerTemplate@@QBEPBVImage@@XZ -- matched in Code/GameEngine/Source/Common/PlayerTemplateImageGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x001FD234 11B ?rva001FD234@PlayerTemplate@@QBEHXZ -- matched in Code/GameEngine/Source/Common/PlayerTemplateImageGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x001FD23F 19B ?rva001FD23F@PlayerTemplate@@QBEPBVImage@@XZ -- matched in Code/GameEngine/Source/Common/PlayerTemplateImageGetters.cpp (not merged yet)
 
 // tu-skeleton: 0x001FD2CA 15B ?getPlayerTemplateCount@PlayerTemplateStore@@QAEHXZ -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
 
 // tu-skeleton: 0x001FD348 31B ?rva001FD348@Rva001FD348@@QAEPAUGapRecord1DC@@H@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE51.cpp (not merged yet)
 
-// tu-skeleton: 0x001FD367 95B ?rva001FD367@PlayerTemplateStore@@QBE_NHPAH@Z -- matched in Code/GameEngine/Source/Common/PlayerTemplateStoreFactionLookup.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/PlayerTemplateStoreFactionLookup.cpp
+
+// ?rva001FD367@PlayerTemplateStore@@QBE_NHPAH@Z @0x001FD367 95B.
+// Faction-index lookup over PlayerTemplateStore vector at +0x0C/+0x10 stride
+// 0x1DC: calls rowed Rva0033A3F4Lookup on the AsciiString at template +0x18,
+// writes the matching index through outIndex and returns true else false.
+// Evidence: unlock lane callers at 0x0052203E and 0x00522085 in 0x00521EDA;
+// vector layout and stride from sibling PlayerTemplateStoreFind/GetNth TUs.
+
+bool PlayerTemplateStore::rva001FD367(int faction, int *outIndex) const
+{
+	for (int i = 0; i < m_playerTemplates.size(); ++i)
+	{
+		if (Rva0033A3F4Lookup(m_playerTemplates[i].side) == faction)
+		{
+			*outIndex = i;
+			return true;
+		}
+	}
+	return false;
+}
 
 // tu-skeleton: 0x001FD485 29B ??$__destroy_aux@PAUBfmeObject476@@@_STL@@YAXPAUBfmeObject476@@0ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportObject476Vector.cpp (not merged yet)
 
-// tu-skeleton: 0x001FD4A2 63B ?reset@PlayerTemplateStore@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RTS/PlayerTemplateStoreDeleteOverrides.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/RTS/PlayerTemplateStoreDeleteOverrides.cpp
+
+// PlayerTemplateStore::reset, retail 0x001FD4A2 (63 B; WB 0x00A78370,
+// unnamed, reached through a vtable): drops the INI overrides of every
+// player template (Overridable::deleteOverrides 0x001E35ED) in the store's
+// template vector at +0x0C (stride 0x1DC, as the rowed lookups in
+// PlayerTemplate.cpp read it). Zero Hour's reset() keeps the list; this is
+// BFME's override-aware counterpart: slot 9, the subsystem reset slot.
+
+void PlayerTemplateStore::reset()
+{
+	for (unsigned int i = 0; i < m_playerTemplates.size(); ++i)
+		m_playerTemplates[i].deleteOverrides();
+}
 
 // tu-skeleton: 0x001FD4E1 153B ?rva001FD4E1@PlayerTemplateStore@@QAE_NW4NameKeyType@@PAH@Z -- matched in Code/GameEngine/Source/Common/RTS/Rva001FD4E1Find.cpp (not merged yet)
 
@@ -770,7 +908,27 @@ Rva001FD42B *Rva001FD42B::rva001FD8DF(const Rva001FD42B &other)
 
 // tu-skeleton: 0x001FD613 29B ?splice@?$list@HV?$allocator@H@_STL@@@_STL@@QAEXU?$_List_iterator@HU?$_Nonconst_traits@H@_STL@@@2@AAV12@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_o1.cpp (not merged yet)
 
-// tu-skeleton: 0x001FD682 34B ?_M_create_node@?$list@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@IAEPAU?$_List_node@VAsciiString@@@2@ABVAsciiString@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_asciistring_create_node.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_list_asciistring_create_node.cpp
+
+//
+// list<AsciiString>::_M_create_node, retail 0x001FD682 (34 bytes, frameless).
+// Hand-written explicit specialization, mirroring the dedicated
+// AsciiStringUninitializedCopy.cpp precedent: the node comes from the rowed
+// raw byte allocator at 0x000307F0 (12 bytes, null hint) and the element is
+// built by the opaque StringBase _Construct helper pinned at 0x0002C485,
+// whose true _STL mangling is spent at 0x00142CC0. A whole-class
+// instantiation instead routes _Construct through the inline copy ctor and
+// wraps the body in a try region (93 bytes), so it cannot reproduce this
+// out-of-line-helper flavor.
+
+template <>
+_STL::_List_node<AsciiString> *_STL::list<AsciiString, _STL::allocator<AsciiString> >::_M_create_node(const AsciiString &__x)
+{
+	_STL::_List_node<AsciiString> *__p =
+		(_STL::_List_node<AsciiString> *)_STL::allocator<char>::allocate(12, 0);
+	_STL::_Construct<AsciiString, AsciiString>(&__p->_M_data, __x);
+	return __p;
+}
 
 // tu-skeleton: 0x001FD6A4 24B ??$_Destroy@PAUBfmeObject476@@@_STL@@YAXPAUBfmeObject476@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportObject476Vector.cpp (not merged yet)
 
@@ -798,27 +956,6 @@ Rva001FD42B *Rva001FD42B::rva001FD8DF(const Rva001FD42B &other)
 
 // tu-skeleton: 0x001FD9C5 42B ??$find@U?$_List_iterator@VAsciiString@@U?$_Nonconst_traits@VAsciiString@@@_STL@@@_STL@@VAsciiString@@@_STL@@YA?AU?$_List_iterator@VAsciiString@@U?$_Nonconst_traits@VAsciiString@@@_STL@@@0@U10@0ABVAsciiString@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_find_list_asciistring_rva001fd9c5.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/Rva001FD9EFFree.cpp
-
-// ?rva001FD9EF@Rva001FD9EF@@QAEXPAX@Z @0x001FD9EF 28B
-// Hash-node free: clears the AsciiString key at +0x04 via rowed StringBase clear
-// at 0x0048BA39 then frees the node via rowed _free at 0x00030830 with a null guard.
-// Callers pass their table this in ecx and the node on the stack (0x0022346D/0x002234A6
-// 0x002ADD24 0x003A2A62); the body ignores this. thiscall with one stack arg gives ret 4.
-// The canonical frozen StringBase replaces the private copy; BFME_SB_CLEAR_DECL
-// declares clear() so the call binds to the rowed 0x0048BA39 worker.
-
-// Retail calls free directly (the game allocator), not through the CRT
-// import: read <stdlib.h> without dllimport.
-
-void Rva001FD9EF::rva001FD9EF(void *node)
-{
-	Rva001FD9EFNode *p = static_cast<Rva001FD9EFNode *>(node);
-	p->m_key.clear();
-	if (p)
-		free(p);
-}
-
 // tu-skeleton: 0x001FDA0B 165B ??0?$_Rb_tree@HU?$pair@$$CBHPAX@_STL@@U?$_Select1st@U?$pair@$$CBHPAX@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@QAE@ABV01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_ptr_tree_copy.cpp (not merged yet)
 
 // tu-skeleton: 0x001FDB55 76B ??0PlayerTemplateStore@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva001FDB55Ctor.cpp (not merged yet)
@@ -841,7 +978,31 @@ void Rva001FD9EF::rva001FD9EF(void *node)
 
 // tu-skeleton: 0x001FDF14 18B ??0?$hash_map@HURva001FDCE1Record@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHURva001FDCE1Record@@@_STL@@@3@@_STL@@QAE@ABV01@@Z -- matched in Code/GameEngine/Source/Common/BfmeObject476Copy.cpp (not merged yet)
 
-// tu-skeleton: 0x001FDF26 77B ?parseProductionCostChange@PlayerTemplate@@KAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/Common/RTS/PlayerTemplateProductionParsers_ParseProductionCostChange.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/RTS/PlayerTemplateProductionParsers_ParseProductionCostChange.cpp
+
+// Split from PlayerTemplateProductionParsers.cpp: these definitions reference a callee with no matched body yet,
+// so they are kept apart from the unit's bodies that already link.
+//
+// PlayerTemplate production FieldParse procs (Zero Hour PlayerTemplate.cpp
+// protected statics) on the BFME 2 layout. Target evidence: the PlayerTemplate
+// table at VA 0x00BE2070 maps ProductionCostChange (0x00BE2220) -> 0x001FDF26,
+// ProductionTimeChange (0x00BE2230) -> 0x001FDF73 and ProductionVeterancyLevel
+// (0x00BE2240) -> 0x001FDFDB. BFME 2 deltas: the percent scan is the member
+// form rowed at 0x0002EE10; the cost map (+0xF4) is the rowed map<int,float>;
+// the time map (+0x100) is keyed by the template name itself through the
+// unrowed lookup 0x001FDE3F (pinned by address); the veterancy map (+0x114) is
+// the rowed map<int,int>.
+
+// ?parseProductionCostChange@PlayerTemplate@@KAXPAVINI@@PAX1PBX@Z
+void PlayerTemplate::parseProductionCostChange(INI *ini, void *instance, void * /*store*/, const void * /*userData*/)
+{
+	PlayerTemplate *self = (PlayerTemplate *)instance;
+
+	int buildTemplateKey = TheNameKeyGenerator->nameToKey(ini->getNextToken());
+	Real percentChange = ini->dup_002EE10(ini->getNextToken());
+
+	self->m_productionCostChanges[buildTemplateKey] = percentChange;
+}
 
 // tu-skeleton: 0x001FDF73 104B ?parseProductionTimeChange@PlayerTemplate@@KAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/Common/RTS/PlayerTemplateProductionParsers.cpp (not merged yet)
 
