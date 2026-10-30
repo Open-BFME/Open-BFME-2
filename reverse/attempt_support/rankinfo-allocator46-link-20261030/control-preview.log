@@ -1,0 +1,5 @@
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Code/GameEngine/Source/GameLogic/System/RankInfoCtor.cpp: LINKS  LINKED 236 -> 236 bytes (census 2026-10-29 15:08 at 85f6b7f40c; file's own bytes 236)
+Code/GameEngine/Source/Common/VectorObjectIDFillInsert.cpp: LINKS  LINKED 578 -> 606 bytes (census 2026-10-29 15:08 at 85f6b7f40c; file's own bytes 606)
+link_check: 2 of 2 link cleanly; LINKED 814 -> 842 bytes (4.5s)

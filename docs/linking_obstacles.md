@@ -10974,6 +10974,17 @@ Carry the migrated sources, new allocator providers and affected consumers to
 the next scheduled census; the four-source preview is only the bounded proof.
 [Published audit boundary](../reverse/attempt_support/allocator46-link-20261030/readme.md#publication-and-full-consumer-boundary).
 
+RankInfo follow-up (2026-10-30, base182dfeedd1e2): the newly rowed QAE integer
+allocator lets RankInfoCtor.cpp adopt STLport4.6. All four raw row bodies
+remain identical; the single changed external/row relocation still reaches
+native00068E15. Two obsolete unreferenced proxy helpers leave the object;
+every retained external definition stays byte/relocation-identical. All four
+rows and strict preparation pass, and the paired15-row provider build passes.
+Both sources preview LINKS against85f6b7f40c; RankInfo retains236 bytes.
+Consumer-wide selection/loss verification and census confirmation remain open;
+no unique-byte or census gain is claimed.
+[Native edge and object comparison](../reverse/attempt_support/rankinfo-allocator46-link-20261030/readme.md).
+
 ### LINK-151: FlightDeckBehavior.cpp's override drop made its FlightDeckInfo copies the kept ones (2026-10-29)
 
 Status: repaired, pending census confirmation. 540ec8bf62 dropped

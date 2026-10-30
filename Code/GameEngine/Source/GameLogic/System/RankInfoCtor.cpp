@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /MD /EHsc
-// stlport
+// stlport46
 //
 // ??0RankInfo@@QAE@XZ,
 // retail 0x0020010B, 76 bytes. Dedicated TU.
@@ -11,7 +11,8 @@
 
 #include <vector>
 // bfme link decl-only begin
-namespace _STL { template <> int * allocator<int>::allocate(unsigned int, void const *) const; }
+// The 4.6 member binds the native 28-byte provider in VectorObjectIDFillInsert.cpp.
+namespace _STL { template <> int * allocator<int>::allocate(unsigned int, void const *); }
 // bfme link decl-only end
 // Suppress this TU's non-retail copy of ?_M_clear@?$vector@HV?$allocator@H@_STL@@@_STL@@IAEXXZ:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
@@ -23,7 +24,7 @@ namespace _STL { template <> void vector<int, allocator<int> >::_M_clear(); }
 // TU emits no external copies. Bodies are verbatim primary.
 namespace _STL {
 template <> __declspec(dllimport) __forceinline
-void allocator<int>::deallocate(int* __p, size_t __n) const {
+void allocator<int>::deallocate(int* __p, size_t __n) {
   _STLP_ASSERT( (__p == 0) == (__n == 0) )
     if (__p != 0) __sgi_alloc::deallocate((void*)__p, __n * sizeof(value_type));
 }

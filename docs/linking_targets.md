@@ -8,6 +8,14 @@ current CreateAHeroManager consumer receipt; full consumer/census confirmation
 remains pending. No new linking gain is claimed.
 [Verification](../reverse/attempt_support/team-template-marker-cleanup-20261030-codexb4.md).
 
+RankInfo allocator46 follow-up (2026-10-30, base `182dfeedd1e2`, LINK-150):
+RankInfoCtor.cpp adopts STLport 4.6 using the new native integer allocator.
+Four raw bodies and every retained definition are unchanged; the sole new
+callee spelling reaches the same native address. The paired 15-row build and
+2/2 preview pass; RankInfo retains 236 bytes. Consumer/census checks remain
+pending, with zero new unique coverage claimed.
+[Proof and scope](../reverse/attempt_support/rankinfo-allocator46-link-20261030/readme.md).
+
 Allocator46 follow-up (2026-10-30, base `84887c9bc04`, LINK-150): two complete
 native allocator-provider twins permit VectorObjectIDFillInsert.cpp and
 stlport_deque_int.cpp to use STLport 4.6. All 34 rows match; the four-unit

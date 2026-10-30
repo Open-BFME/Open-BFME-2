@@ -1,0 +1,144 @@
+{
+  "source": "Code/GameEngine/Source/GameLogic/System/RankInfoCtor.cpp",
+  "rows": {
+    "??0RankInfo@@QAE@XZ": {
+      "rva": "0x0020010B",
+      "size": "76",
+      "raw_code_identical": true,
+      "relocations": [
+        [
+          26,
+          6,
+          "??_7RankInfo@@6B@"
+        ],
+        [
+          38,
+          20,
+          "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+        ]
+      ]
+    },
+    "??4RankInfo@@QAEAAV0@ABV0@@Z": {
+      "rva": "0x0020032B",
+      "size": "99",
+      "raw_code_identical": true,
+      "relocations": [
+        [
+          10,
+          20,
+          "??4Overridable@@QAEAAV0@ABV0@@Z"
+        ],
+        [
+          22,
+          20,
+          "?set@?$StringBase@G@@QAEXABV1@@Z"
+        ],
+        [
+          88,
+          20,
+          "??4?$vector@URva0021C21BElement@@V?$allocator@URva0021C21BElement@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z"
+        ]
+      ]
+    },
+    "??0Overridable@@QAE@XZ": {
+      "rva": "0x001E35CA",
+      "size": "21",
+      "raw_code_identical": true,
+      "relocations": [
+        [
+          12,
+          6,
+          "??_7Overridable@@6B@"
+        ]
+      ]
+    },
+    "??$_M_allocate_and_copy@PBH@?$vector@HV?$allocator@H@_STL@@@_STL@@IAEPAHIPBH0@Z": {
+      "rva": "0x0053BD39",
+      "size": "40",
+      "raw_code_identical": true,
+      "relocations": [
+        [
+          11,
+          20,
+          "?allocate@?$allocator@H@_STL@@QAEPAHIPBX@Z"
+        ],
+        [
+          27,
+          20,
+          "?__copy_trivial@_STL@@YAPAXPBX0PAX@Z"
+        ]
+      ]
+    }
+  },
+  "changed_relocations": [
+    {
+      "caller": "??$_M_allocate_and_copy@PBH@?$vector@HV?$allocator@H@_STL@@@_STL@@IAEPAHIPBH0@Z",
+      "offset": 11,
+      "old": "?allocate@?$allocator@H@_STL@@QBEPAHIPBX@Z",
+      "new": "?allocate@?$allocator@H@_STL@@QAEPAHIPBX@Z",
+      "native_target": "0x68e15"
+    }
+  ],
+  "external_definitions_preserved": [
+    "??$_IsOKToMemCpy@HH@_STL@@YA?AU?$_OKToMemCpy@HH@0@PAH0@Z",
+    "??$_M_allocate_and_copy@PBH@?$vector@HV?$allocator@H@_STL@@@_STL@@IAEPAHIPBH0@Z",
+    "??$__copy_aux@PBHPAH@_STL@@YAPAHPBH0PAHABU__true_type@0@@Z",
+    "??$__copy_ptrs@PBHPAH@_STL@@YAPAHPBH0PAHABU__true_type@0@@Z",
+    "??$__uninitialized_copy@PBHPAH@_STL@@YAPAHPBH0PAHABU__true_type@0@@Z",
+    "??0?$StringBase@G@@QAE@XZ",
+    "??0?$_STLP_alloc_proxy@PAHHV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@PAH@Z",
+    "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z",
+    "??0?$allocator@H@_STL@@QAE@ABV01@@Z",
+    "??0?$allocator@H@_STL@@QAE@XZ",
+    "??0?$vector@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z",
+    "??0Overridable@@QAE@XZ",
+    "??0RankInfo@@QAE@XZ",
+    "??1?$_STLP_alloc_proxy@PAHHV?$allocator@H@_STL@@@_STL@@QAE@XZ",
+    "??1?$allocator@H@_STL@@QAE@XZ",
+    "??4RankInfo@@QAEAAV0@ABV0@@Z",
+    "??_7Overridable@@6B@",
+    "??_7RankInfo@@6B@",
+    "??_GOverridable@@UAEPAXI@Z",
+    "??_GRankInfo@@UAEPAXI@Z",
+    "?_Ret@?$_BothPtrType@PBHPAH@_STL@@SA?AU__true_type@2@XZ",
+    "?_Ret@?$_OKToMemCpy@HH@_STL@@SA?AU__true_type@2@XZ",
+    "?__copy_trivial@_STL@@YAPAXPBX0PAX@Z"
+  ],
+  "removed_definitions": [
+    "??$__stl_alloc_rebind@HH@_STL@@YAAAV?$allocator@H@0@AAV10@PBH@Z",
+    "?allocate@?$_STLP_alloc_proxy@PAHHV?$allocator@H@_STL@@@_STL@@QAEPAHI@Z"
+  ],
+  "removed_externals": [
+    "?allocate@?$allocator@H@_STL@@QBEPAHIPBX@Z"
+  ],
+  "added_externals": [
+    "?allocate@?$allocator@H@_STL@@QAEPAHIPBX@Z"
+  ],
+  "index": {
+    "date": "2026-10-29 15:08",
+    "commit": "85f6b7f40c",
+    "clean_tree": true
+  },
+  "removed_helper_index_evidence": {
+    "??$__stl_alloc_rebind@HH@_STL@@YAAAV?$allocator@H@0@AAV10@PBH@Z": {
+      "other_provider_count": 55,
+      "example_objects": [
+        "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_deque_int.obj",
+        "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_deque_sighting_initmap.obj",
+        "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^unsigned^set^helpers^b^f^m^e2.obj"
+      ],
+      "referenced_in_index": false,
+      "scope": "published index; not a current whole-tree receipt"
+    },
+    "?allocate@?$_STLP_alloc_proxy@PAHHV?$allocator@H@_STL@@@_STL@@QAEPAHI@Z": {
+      "other_provider_count": 7,
+      "example_objects": [
+        "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^unsigned^set^helpers^b^f^m^e2.obj",
+        "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_^mesh^geometry^get^edges.obj",
+        "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^stlport^tree^key^range^vector.obj"
+      ],
+      "referenced_in_index": false,
+      "scope": "published index; not a current whole-tree receipt"
+    }
+  }
+}
