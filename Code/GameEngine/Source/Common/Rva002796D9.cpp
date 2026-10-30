@@ -1,14 +1,6 @@
 // cl: /O1 /MD
 // 0x00273808 (drawAmmo), 0x00273F74, 0x00277669 and 0x002778E1 are rowed on Drawable.
-class Drawable
-{
-public:
-	void rva00273755();
-	void drawAmmo();
-	void rva00273F74();
-	void rva00277669();
-	void rva002778E1();
-};
+#include "../../Include/GameClient/DrawableBFME2.h"
 class Rva0027601BHost
 {
 public:
