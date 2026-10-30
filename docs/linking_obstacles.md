@@ -11475,6 +11475,19 @@ the override would return it to its census-time code, but that is a flag change
 (full gate). SlowDeathBehavior.cpp and MultiplayerSettings.cpp lost the same
 override in that commit; neither links yet.
 
+2026-10-30 header follow-up: partitionmanager_impl.cpp already previews LINKS
+before this cleanup. Its local `ceil`/`floor` declarations now come from the
+toolchain headers, retaining retail's indirect IAT calls. Its FlightDeckInfo
+release helpers explicitly use the existing GameMemory provider at RVA
+`0x00030830`, matching the native growth call. All 13 rows and strict preparation
+pass. The 93 external COMDAT bodies retain their bytes; four change only the
+release relocation identity. Paired preview retains 2,620 and 441 authored bytes.
+The seven-source outgoing audit remains INCONCLUSIVE: its index predates base
+`3ff66d3dd92a`, and two earlier batch sources lack current strict receipts,
+first AptPlayerStatusDtor.cpp. Full consumer selection/loss verification and
+census confirmation remain open; no linked-byte gain is claimed.
+[Target facts and remaining header debt](../reverse/attempt_support/partition-math-headers-20261030-codexb4.md).
+
 ### SkirmishAI phase donor composition (2026-10-29)
 
 The supported merger absorbs `SkirmishAI_updatePhase.cpp` into its approved

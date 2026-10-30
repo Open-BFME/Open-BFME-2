@@ -1,6 +1,16 @@
 // cl: /O2 /G6 /MD /EHsc /DNDEBUG /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /I.
 // stlport
+// Native math calls use the CRT IAT. Keep the headers' shared atof declaration
+// consistent while selecting that import ABI.
+#pragma push_macro("_CRTIMP")
+#undef _CRTIMP
+#define _CRTIMP __declspec(dllimport)
 #include <stdlib.h>
+#pragma push_macro("inline")
+#define inline static inline
+#include <math.h>
+#pragma pop_macro("inline")
+#pragma pop_macro("_CRTIMP")
 namespace _STL { void __cdecl free(void *); }
 #define free _STL::free
 // The target calls the ordinary STLport copy dispatch rather than force-inlining
@@ -150,8 +160,6 @@ Rva00627960Element*Rva00627960Vector::allocateCopy(unsigned n,const Rva00627960E
 // Record field names are structural inferences; provider names below retain
 // their established storage identities. Advance the child cursor before the
 // half-size calculation to preserve the native preheader and reload schedule.
-extern "C" __declspec(dllimport) double __cdecl ceil(double value);
-extern "C" __declspec(dllimport) double __cdecl floor(double value);
 
 struct BfmeCoord3D1050
 {
@@ -295,13 +303,13 @@ namespace _STL { template <> pair<int, int> * __uninitialized_copy<pair<int, int
 // bfme link decl-only end
 enum ObjectID;
 class FlightDeckBehavior { public: struct FlightDeckInfo { Coord3D m_prep; float m_orientation; int m_runway; ObjectID m_objectInSpace; }; };
-// Match the existing FlightDeckInfo growth provider's malloc/free allocator.
-// This preserves its inline release semantics and its three emitted helpers.
+// Native growth at 0x00627BC0 releases through GameMemory's 0x00030830
+// wrapper, also used by the other vectors here, rather than the CRT import.
 namespace _STL {
 template<> inline void allocator<FlightDeckBehavior::FlightDeckInfo>::deallocate(
     FlightDeckBehavior::FlightDeckInfo *p, unsigned int) const
 {
-    if (p) ::free(p);
+    if (p) _STL::free(p);
 }
 }
 class ClosestFlightVector : public _STL::vector<FlightDeckBehavior::FlightDeckInfo> {
