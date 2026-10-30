@@ -4029,7 +4029,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0006E2B5,13,code,,,-,,Code/GameEngine/Source/Common/DispByteFieldSetters.cpp
 0x0006E2C2,277,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/ColorSpaceO1Inlines.cpp
 0x0006E3D7,321,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/ColorSpaceO1Inlines.cpp
-0x0006E518,18,code,Code/Libraries/Source/WWVegas/WW3D2/BfmeRefSceneList.cpp,proposed,N,N=Code/Libraries/Source/WWVegas/WW3D2/BfmeRefSceneList.cpp noncontiguous,Code/Libraries/Source/WWVegas/WW3D2/BfmeRefSceneListDtor.cpp
+0x0006E518,18,code,Code/Libraries/Source/WWVegas/WW3D2/BfmeRefSceneList.cpp,proposed,N,N=Code/Libraries/Source/WWVegas/WW3D2/BfmeRefSceneList.cpp noncontiguous,Code/Libraries/Source/WWVegas/WW3D2/BfmeRefSceneList.cpp
 0x0006E52A,61,code,,,-,,Code/GameEngine/Source/Common/Rva0006E52ASet.cpp
 0x0006E567,57,code,,,-,,Code/GameEngine/Source/Common/Rva0006E567Set.cpp
 0x0006E5A0,40,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DScene.cpp,approved,S,S=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DScene.cpp N=Code/GameEngine/Source/Common/RTS3DScene.cpp,Code/GameEngine/Source/Common/Rva0006E5A0Get.cpp
@@ -4072,7 +4072,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0006F24A,28,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DScene.cpp,proposed,K,K=Rva006ED6F,Code/GameEngine/Source/Common/Rva006ED6FDtor.cpp
 0x0006F266,28,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DScene.cpp,proposed,K,K=Rva0006EE6F,Code/Libraries/Source/WWVegas/WW3D2/SimpleSceneDerivedDtors.cpp
 0x0006F282,25,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/Rva0006F282Clear.cpp
-0x0006F29B,68,code,Code/Libraries/Source/WWVegas/WW3D2/BfmeRefSceneList.cpp,proposed,N,N=Code/Libraries/Source/WWVegas/WW3D2/BfmeRefSceneList.cpp noncontiguous,Code/Libraries/Source/WWVegas/WW3D2/BfmeRefSceneListDtor.cpp
+0x0006F29B,68,code,Code/Libraries/Source/WWVegas/WW3D2/BfmeRefSceneList.cpp,proposed,N,N=Code/Libraries/Source/WWVegas/WW3D2/BfmeRefSceneList.cpp noncontiguous,Code/Libraries/Source/WWVegas/WW3D2/BfmeRefSceneList.cpp
 0x0006F2DF,25,code,Code/Libraries/Source/WWVegas/WW3D2/BfmeRefSceneList.cpp,proposed,C,C=0x0006F29B..0x0006F2F8 noncontiguous,Code/Libraries/Source/WWVegas/WW3D2/renderobjectrecycler.cpp
 0x0006F2F8,17,code,Code/Libraries/Source/WWVegas/WW3D2/BfmeRefSceneList.cpp,proposed,C,C=0x0006F29B..0x0006F309 noncontiguous,Code/GameEngine/Source/Common/GapBodiesGE29.cpp
 0x0006F309,10,code,Code/Libraries/Source/WWVegas/WW3D2/BfmeRefSceneList.cpp,proposed,C,C=0x0006F29B..0x0006F313 noncontiguous,Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp
@@ -4086,7 +4086,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0006F400,112,code,Code/Libraries/Source/WWVegas/WW3D2/BfmeRefSceneList.cpp,proposed,U,N=Code/Libraries/Source/WWVegas/WWMath/SphereClass.cpp noncontiguous,Code/Libraries/Source/WWVegas/WWMath/SphereClassReCenter.cpp
 0x0006F470,806,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DScene.cpp,approved,Z,Z=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DScene.cpp S=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DScene.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DScene.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneCtor.cpp
 0x0006F796,11,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DScene.cpp,proposed,K,K=Rva006F7BD,Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneDtor.cpp
-0x0006F7A1,28,code,Code/Libraries/Source/WWVegas/WW3D2/BfmeRefSceneList.cpp,proposed,N,N=Code/Libraries/Source/WWVegas/WW3D2/BfmeRefSceneList.cpp noncontiguous,Code/Libraries/Source/WWVegas/WW3D2/BfmeRefSceneListDtor.cpp
+0x0006F7A1,28,code,Code/Libraries/Source/WWVegas/WW3D2/BfmeRefSceneList.cpp,proposed,N,N=Code/Libraries/Source/WWVegas/WW3D2/BfmeRefSceneList.cpp noncontiguous,Code/Libraries/Source/WWVegas/WW3D2/BfmeRefSceneList.cpp
 0x0006F7BD,362,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DScene.cpp,approved,Z,Z=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DScene.cpp S=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DScene.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DScene.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneCtor.cpp
 0x0006F927,35,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DScene.cpp,approved,Z,Z=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DScene.cpp S=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DScene.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DScene.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DScene_createLightsIterator.cpp
 0x0006F94A,140,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DScene.cpp,approved,Z,Z=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DScene.cpp S=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DScene.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DScene.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneGetADynamicLight.cpp
@@ -62194,8 +62194,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0075EAE8,8,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DScene.cpp,approved,P,P=0x0006ED6F@FuncInfo0x00901110,Code/GameEngine/Source/Common/Rva006ED6FDtor.cpp
 0x0075EAF0,22,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DScene.cpp,approved,P,P=0x0006ED6F@FuncInfo0x00901110,Code/GameEngine/Source/Common/Rva006ED6FDtor.cpp
 0x0075EB06,10,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DScene.cpp,approved,P,P=0x0006ED6F@FuncInfo0x00901110,Code/GameEngine/Source/Common/Rva006ED6FDtor.cpp
-0x0075EB10,8,code,Code/Libraries/Source/WWVegas/WW3D2/BfmeRefSceneList.cpp,approved,P,P=0x0006F29B@FuncInfo0x00901134 p-group provisional,Code/Libraries/Source/WWVegas/WW3D2/BfmeRefSceneListDtor.cpp
-0x0075EB18,10,code,Code/Libraries/Source/WWVegas/WW3D2/BfmeRefSceneList.cpp,approved,P,P=0x0006F29B@FuncInfo0x00901134 p-group provisional,Code/Libraries/Source/WWVegas/WW3D2/BfmeRefSceneListDtor.cpp
+0x0075EB10,8,code,Code/Libraries/Source/WWVegas/WW3D2/BfmeRefSceneList.cpp,approved,P,P=0x0006F29B@FuncInfo0x00901134 p-group provisional,Code/Libraries/Source/WWVegas/WW3D2/BfmeRefSceneList.cpp
+0x0075EB18,10,code,Code/Libraries/Source/WWVegas/WW3D2/BfmeRefSceneList.cpp,approved,P,P=0x0006F29B@FuncInfo0x00901134 p-group provisional,Code/Libraries/Source/WWVegas/WW3D2/BfmeRefSceneList.cpp
 0x0075EB22,8,code,,,-,,Code/Libraries/Source/subsystem/SubsystemInterfaceSetName.cpp
 0x0075EB2A,10,code,,,-,,Code/Libraries/Source/subsystem/SubsystemInterfaceSetName.cpp
 0x0075EB34,8,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DScene.cpp,approved,P,P=0x0006F470@FuncInfo0x009011CC,Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneCtor.cpp
