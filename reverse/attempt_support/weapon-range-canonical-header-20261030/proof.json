@@ -1,0 +1,214 @@
+{
+  "source": "Code/GameEngine/Source/GameLogic/Object/WeaponRva002CB2D1Range.cpp",
+  "scope": "adopt existing canonical Weapon and its same-offset +4 const template field; signatures unchanged",
+  "variants": {
+    "before": {
+      "source_sha256": "c0abb63147f171d9c71012d48b1e57908fb4ce8e027906152baa1cf643adacdc",
+      "rows": [
+        {
+          "name": "?isSourceObjectWithGoalPositionWithinAttackRange@Weapon@@QBE_NPBVObject@@PBUCoord3D@@01@Z",
+          "rva": "0x002CB2D1",
+          "size": "139",
+          "exact": true
+        },
+        {
+          "name": "?isWithinAttackRange@Weapon@@QAE_NPAVObject@@PBUCoord3D@@01M_N@Z",
+          "rva": "0x002CB35C",
+          "size": "568",
+          "exact": true
+        }
+      ],
+      "eh": []
+    },
+    "trial": {
+      "source_sha256": "bcd8010293d9bdedf1ef68f297334bd80c80ff8a25c71be9d049f258f46ec32a",
+      "rows": [
+        {
+          "name": "?isSourceObjectWithGoalPositionWithinAttackRange@Weapon@@QBE_NPBVObject@@PBUCoord3D@@01@Z",
+          "rva": "0x002CB2D1",
+          "size": "139",
+          "exact": true
+        },
+        {
+          "name": "?isWithinAttackRange@Weapon@@QAE_NPAVObject@@PBUCoord3D@@01M_N@Z",
+          "rva": "0x002CB35C",
+          "size": "568",
+          "exact": true
+        }
+      ],
+      "eh": []
+    }
+  },
+  "all_external_code_and_symbolic_relocations_identical": true,
+  "external_definitions": {
+    "?isKindOf@Rva002CB35CTemplate@@QBE_NH@Z": {
+      "raw": "8b44240433d2568bf18bc84283e107d3e2c1f8038a8430080100005e22d0f6da1bd2f7da8ac2c20400",
+      "relocations": []
+    },
+    "?isSourceObjectWithGoalPositionWithinAttackRange@Weapon@@QBE_NPBVObject@@PBUCoord3D@@01@Z": {
+      "raw": "558bec8b451085c056578bf974128b4d088d70385650ff750ce800000000eb138b751485f6745c8b4d0856ff750ce8000000008b450cd95d10f30f104608f30f5c400851f30f110424ff75088bcfe800000000d95d0c8b4f04e800000000d9c0d8c9d94510d9c9dff1ddd9ddd87714f30f10450cf30f59c033c00f2f4510720540eb0232c05f5e5dc21000",
+      "relocations": [
+        [
+          26,
+          20,
+          "?rva002636F6@Object@@QBEMPBUCoord3D@@PBX0@Z"
+        ],
+        [
+          47,
+          20,
+          "?rva002C97E8@Object@@QBEMPBUCoord3D@@0@Z"
+        ],
+        [
+          79,
+          20,
+          "?rva002C9B80@Rva002C9B80Owner@@QAEMPAXM@Z"
+        ],
+        [
+          90,
+          20,
+          "?getMinimumAttackRange@WeaponTemplate@@QBEMXZ"
+        ]
+      ]
+    },
+    "?isWithinAttackRange@Weapon@@QAE_NPAVObject@@PBUCoord3D@@01M_N@Z": {
+      "raw": "558bec518b410480b8250100000053568b7510578b7d08894dfc0f84ef00000085f60f84070200006a258bcfe80000000084c074116a258bcee80000000084c00f85e50100008b4604f6800801000080751b8b865802000085c00f84af00000083b8f0010000000f84a20000006a4b8bcfe80000000084c07429a1000000008b40188b80d0000000568bcf89451ce800000000d9451cd84d1cdff1ddd80f8788010000a1000000008b481056ff750c57e8000000008ad884db744d8b4604f6801a0100004075418bcfe8000000008bce8bf8e80000000083ff01750983f8110f8d4a01000083f801751e83ff117c1956e80000000085c0590f843101000080783c000f84270100008ac3e92201000085f60f84870000008d9fa80000008bcbe80000000084c0741a8d8ea8000000e80000000084c0750bff75148bcf56ff750ceb238bcbe80000000084c0751f8d8ea8000000e80000000084c07410ff750c8bce57ff7514e800000000eb0eff75148bcf56ff750ce8000000008b4514d95d10f30f1040088b450cf30f5c4008518b4dfcf30f11042457e800000000eb318b75148b5d0c56538bcfe800000000d95d10f30f104608f30f5c4308518b4dfcf30f11042457e800000000d82500000000f30f104518d9c08b45fcd8c98b4804f30f59c0f30f584510d95d0cf30f114510ddd8e800000000d9c06a25d8c98bcfd95d14ddd8e80000000084c00f57c07505f30f104514807d1c0074060f2f4510770ff30f10450c0f2f45107204b001eb0232c05f5e5bc9c21800",
+      "relocations": [
+        [
+          45,
+          20,
+          "?testStatus@Object@@QBE_NW4ObjectStatusTypes@@@Z"
+        ],
+        [
+          58,
+          20,
+          "?testStatus@Object@@QBE_NW4ObjectStatusTypes@@@Z"
+        ],
+        [
+          114,
+          20,
+          "?testStatus@Object@@QBE_NW4ObjectStatusTypes@@@Z"
+        ],
+        [
+          123,
+          6,
+          "?TheAI@@3PAVAI@@A"
+        ],
+        [
+          143,
+          20,
+          "?rva00263763@Object@@QBEMPBX@Z"
+        ],
+        [
+          164,
+          6,
+          "?TheAI@@3PAVAI@@A"
+        ],
+        [
+          177,
+          20,
+          "?rva002EC479@Pathfinder@@QAE_NPAVObject@@PBUCoord3D@@0@Z"
+        ],
+        [
+          202,
+          20,
+          "?rva0028B511@Object@@QBEHXZ"
+        ],
+        [
+          211,
+          20,
+          "?rva0028B511@Object@@QBEHXZ"
+        ],
+        [
+          241,
+          20,
+          "?rva004608E0@DynamicPortalBehaviour@@SAPAVModule@@PAVObject@@@Z"
+        ],
+        [
+          288,
+          20,
+          "?usePluralShadowName@BfmeThingTemplateShadowSelector@@QBE_NXZ"
+        ],
+        [
+          303,
+          20,
+          "?usePluralShadowName@BfmeThingTemplateShadowSelector@@QBE_NXZ"
+        ],
+        [
+          325,
+          20,
+          "?usePluralShadowName@BfmeThingTemplateShadowSelector@@QBE_NXZ"
+        ],
+        [
+          340,
+          20,
+          "?usePluralShadowName@BfmeThingTemplateShadowSelector@@QBE_NXZ"
+        ],
+        [
+          358,
+          20,
+          "?rva0028ED19@Object@@QBEMPBUCoord3D@@PBX0@Z"
+        ],
+        [
+          374,
+          20,
+          "?rva002636F6@Object@@QBEMPBUCoord3D@@PBX0@Z"
+        ],
+        [
+          408,
+          20,
+          "?rva002C9B80@Rva002C9B80Owner@@QAEMPAXM@Z"
+        ],
+        [
+          425,
+          20,
+          "?rva002C97E8@Object@@QBEMPBUCoord3D@@0@Z"
+        ],
+        [
+          453,
+          20,
+          "?rva002C9B80@Rva002C9B80Owner@@QAEMPAXM@Z"
+        ],
+        [
+          459,
+          6,
+          "__real@40200000"
+        ],
+        [
+          498,
+          20,
+          "?getMinimumAttackRange@WeaponTemplate@@QBEMXZ"
+        ],
+        [
+          516,
+          20,
+          "?testStatus@Object@@QBE_NW4ObjectStatusTypes@@@Z"
+        ]
+      ]
+    }
+  },
+  "actual": {
+    "source_sha256": "bcd8010293d9bdedf1ef68f297334bd80c80ff8a25c71be9d049f258f46ec32a",
+    "object_sha256": "e499fd0939a12c5161a3f011b1d70b8dfc0ff2dece02fdd5fa655a49db48c2d8",
+    "strict_current": true,
+    "all_external_definitions_and_relocations_identical": 3
+  },
+  "native_instructions": [
+    {
+      "rva": "0x2cb2d1",
+      "raw": "55",
+      "mnemonic": "push",
+      "operands": "ebp"
+    },
+    {
+      "rva": "0x2cb35c",
+      "raw": "55",
+      "mnemonic": "push",
+      "operands": "ebp"
+    }
+  ],
+  "canonical_header": {
+    "source": "Code/GameEngine/Include/GameLogic/Weapon.h",
+    "sha256": "820d5804a338ae33dd4c46883aba7a8a185765029f853c6abe0434d7954390bf",
+    "existing_registered_field": "const WeaponTemplate *m_template at +4; no header/signature edit"
+  }
+}

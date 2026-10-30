@@ -117,17 +117,8 @@ private:
 
 // The same weapon object under its WorldBuilder class name; only the method
 // named from WorldBuilder is declared on it so far.
-class Weapon
-{
-public:
-	bool isSourceObjectWithGoalPositionWithinAttackRange(const Object *source, const Coord3D *goalPos,
-		const Object *target, const Coord3D *targetPos) const;
-	bool isWithinAttackRange(Object *source, const Coord3D *pos, Object *victim,
-		const Coord3D *victimPos, float bonus, bool checkMinimum);
-private:
-	void *m_00;
-	WeaponTemplate *m_04;		// +0x04
-};
+#include "../../../Include/GameLogic/Weapon.h"
+
 
 bool Weapon::isSourceObjectWithGoalPositionWithinAttackRange(const Object *source, const Coord3D *goalPos,
 	const Object *target, const Coord3D *targetPos) const
@@ -147,7 +138,7 @@ bool Weapon::isSourceObjectWithGoalPositionWithinAttackRange(const Object *sourc
 		distSq = source->rva002C97E8(goalPos, pos);
 	}
 	float range = ((Rva002C9B80Owner *)this)->rva002C9B80((void *)source, pos->z - goalPos->z);
-	float minRange = m_04->getMinimumAttackRange();
+	float minRange = m_template->getMinimumAttackRange();
 	if (!(minRange * minRange > distSq))
 		return range * range >= distSq;
 	return false;
@@ -162,7 +153,7 @@ bool Weapon::isSourceObjectWithGoalPositionWithinAttackRange(const Object *sourc
 bool Weapon::isWithinAttackRange(Object *source, const Coord3D *pos,
 	Object *victim, const Coord3D *victimPos, float bonus, bool checkMinimum)
 {
-	if (m_04->m_meleeWeapon)
+	if (m_template->m_meleeWeapon)
 	{
 		if (!victim)
 			return false;
@@ -220,7 +211,7 @@ bool Weapon::isWithinAttackRange(Object *source, const Coord3D *pos,
 		rangeSq = range * range;
 	}
 	distSq += bonus * bonus;
-	float minRange = m_04->getMinimumAttackRange();
+	float minRange = m_template->getMinimumAttackRange();
 	float minSq = minRange * minRange;
 	if (source->testStatus(OBJECT_STATUS_25))
 		minSq = 0.0f;
