@@ -1,9 +1,9 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC
-// stlport
+// stlport46
 
 // Native narrow append calls the static byte allocator at 0x307F0.
 // Preserve the standard empty allocator view with that recovered ABI; the
-// remaining members retain STLport 4.5.3 semantics. This is TU-local.
+// remaining members use STLport 4.6. This is TU-local.
 #include <memory>
 namespace _STL {
 template <>
@@ -52,9 +52,7 @@ public:
 #include <string>
 // BFME uses its direct game free at 0x30830 rather than the CRT import.
 extern "C" void __cdecl free(void *);
-// The recovered append calls the static allocator directly. Let the other
-// string units supply their unchanged allocator-proxy implementation.
-namespace _STL { template <> char *_STLP_alloc_proxy<char *, char, allocator<char> >::allocate(size_t); }
+// In STLport 4.6 the proxy inherits this allocator's static allocate member.
 
 // Retail folds the mutable byte-copy dispatch onto the 21-byte 4598CC
 // wrapper. Its three memory pushes need size optimization: the surrounding
@@ -122,10 +120,6 @@ namespace _STL
 {
 template <>
 basic_string<char, char_traits<char>, allocator<char> >::~basic_string();
-
-template <>
-void _STLP_alloc_proxy<char*, char, allocator<char> >::deallocate(
-        char*, size_t);
 
 template <>
 basic_string<char, char_traits<char>, allocator<char> >&

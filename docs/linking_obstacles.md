@@ -12788,6 +12788,25 @@ claimed. The full consumer and scheduled-census prerequisites above remain.
 
 ### LINK-140: STLport 4.6 migration removed the only provider of the 4.5.3 proxy<char> allocate (2026-10-29, seat yasinschroeder-claudeb2)
 
+**2026-10-30 narrow-string migration (base `40e30bd124`, codexb4):**
+`stlport_narrow_string.cpp` now selects 4.6 and removes its obsolete proxy
+allocate/deallocate specializations, which are inherited allocator operations
+under that release. All eight rows remain exact; all 30 retained external
+COMDAT fingerprints and external references stay identical. Only the emitted
+`string::npos` constant disappears. The owning migration queue no longer
+serves the file. Strict six-source preparation passes 51/51 rows and both
+EH graphs are EXACT; joint preview retains 6/6 LINKS and 4,529 authored bytes
+against index `12b9e7a7c0` (2026-10-30 10:11). This file did not provide the
+old proxy helper, so its migration leaves that wider prerequisite unchanged.
+
+The full outgoing staged audit against `6e3f45976c` is INCONCLUSIVE on the
+older index and 48 objects without current receipts, first
+`Common/BfmeConv1456.cpp`. Carry this provider, its removed constant and
+affected consumers into the next scheduled census/current-receipt audit;
+full consumer selection/loss verification remains open. No census gain or
+debt retirement is claimed.
+[Changes, object comparison and verification](../reverse/attempt_support/narrow-string-stlport46-20261030-codexb4.md).
+
 **2026-10-30 Buddy constructor follow-up (base `89295774ff`):** declaring its
 existing native narrow-string constructor (0x00007850) suppresses 11 local
 copies, including the competing allocator proxy. All 17 retained Buddy copies
