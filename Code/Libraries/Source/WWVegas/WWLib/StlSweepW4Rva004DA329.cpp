@@ -19,7 +19,30 @@ static inline bool operator!=(const _Rb_tree_iterator<_RbVal, _RbLeft> &a,
 struct Rva004DA329Element {
  Rva004DA329Element(); Rva004DA329Element(const Rva004DA329Element&);
  ~Rva004DA329Element(); Rva004DA329Element&operator=(const Rva004DA329Element&);
- char bytes[8];
+ // The native header allocation is 56 bytes; its tree-node links take 16.
+ // Independently rowed voice-tree nodes also carry 40-byte values.
+ // This reserves storage only; the original element identity remains unknown.
+ char bytes[40];
 };
 bool operator<(const Rva004DA329Element&,const Rva004DA329Element&);
+namespace _STL {
+typedef _Rb_tree<Rva004DA329Element, Rva004DA329Element,
+    _Identity<Rva004DA329Element>, less<Rva004DA329Element>,
+    allocator<Rva004DA329Element> > NativeTreeView;
+
+// This constructor-only unit needs no local destruction machinery.
+template <> NativeTreeView::~_Rb_tree();
+
+template <> NativeTreeView::_Rb_tree(const less<Rva004DA329Element> &compare,
+                                    const allocator<Rva004DA329Element> &alloc)
+    : _Base(alloc), _M_node_count(0), _M_key_compare(compare)
+{
+    // Retail copies this representation byte even for an empty comparator.
+    // Its value and the original comparator's identity are not established.
+    *reinterpret_cast<unsigned char *>(&_M_key_compare) =
+        *reinterpret_cast<const unsigned char *>(&compare);
+    _M_empty_initialize();
+}
+}
+
 template _STL::set<Rva004DA329Element>::set();

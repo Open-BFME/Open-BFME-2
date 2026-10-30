@@ -8342,6 +8342,21 @@ pair-constructor identity may still be wrong. That is naming-lane work, not a li
 
 #### Additional constructor-only sweep cleanup, 2026-10-26
 
+**2026-10-30 0x004DA329 storage/representation repair (base `b4c2cc394c`):**
+the opaque construction view now reserves a 56-byte node and copies the
+native comparator representation byte. Its 25-byte wrapper stays identical;
+both emitted 51/36-byte helpers are wholly exact, uniquely kept and certified
+retail. The native storage fold is tool-admitted; no row or signature rename
+is made. Four-source strict verification passes 84 rows, one data row and
+four EXACT EH graphs. The bounded preview improves the wrapper 0 -> 25 bytes,
+retaining both owners and the 8,150-byte voice caller (4/4 LINKS). Original
+element/comparator identities and unapproved TU routes remain unresolved.
+The staged audit is INCONCLUSIVE on the older index and affected consumer
+Common/0CreateAHeroManager21FE49.cpp without a strict receipt; carry this
+construction chain, fold binding and consumers into the next scheduled census.
+No census gain is claimed.
+[Evidence](../reverse/attempt_support/tree-header-4da329-20261030/readme.md).
+
 Status: Open; unused-emission subset cleared in ordinary-preview scope; census confirmation pending. Inspected revision: `58598f540fd3c84610304b3659ed382a4c05acca`; index `d1f046749a`, rules `retail-truth-4`.
 
 Evidence / affected units: `StlSweepW4Rva0033A7DC.cpp`, `StlSweepW4Rva0056DDF5.cpp`, `StlSweepW4Rva004DA329.cpp` and `StlSweepW4Rva00501B33.cpp`. Completed: instantiate only the two rowed `pair` constructors and the default/copy `set` constructors from the unchanged STLport headers. All five rows remain exact. The paired preview changes the four units from U5/U5/U3-L1-S1/U3-L1-S1 to U1/U1/U1-L1-S1/U2-L1-S1 respectively. Object inventories remove 389 distinct emitted names without adding any definition. The index reference-edge audit finds no retained external referrer for the 383 names without alternate providers; the other six have alternatives, and no selected first provider changes. The same 70 of 91 current units preview LINKS before and after, including `StlportElementCopyCtorsW3G15.cpp` and `PickAndPlayUnitVoiceResponse.cpp`; no compared unit gains a named blocker. Raw inventories, reference audit, comparisons and all passing byte/declaration/EH/shadow-data/CSV/pin checks are under `build/c136-w4sweep/`, mapped by `build/link-report.md`.
