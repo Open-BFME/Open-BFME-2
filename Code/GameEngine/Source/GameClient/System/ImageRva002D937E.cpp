@@ -74,20 +74,45 @@ struct AssetList00208F90 {
 class Rva009EB960;
 extern Rva009EB960 *Rva0134FAA0;
 void bfmeMergeReceiverKeys(int);
-class Image {
+#include "../../../../Libraries/Include/Lib/ICoord2D.h"
+#include "../../../../Libraries/Include/Lib/Region2D.h"
+class INI;
+class BfmeMapPictureTexture;
+class Image
+{
 public:
- virtual ~Image();
- void rva002D937E();
- AsciiString name,filename;
- unsigned char geometry[0x20];
- void *textureHolder;
- unsigned status;
+	Image();
+	virtual ~Image();
+	unsigned int setStatus(unsigned int bit);
+	unsigned int clearStatus(unsigned int bit);
+	void bfmeSetTexture(const BfmeMapPictureTexture &texture);
+	void rva002D937E();
+	const AsciiString &getName() const { return m_name; }
+	const AsciiString &bfme_image_name_fi() const { return m_name; }
+	void setImageSize(ICoord2D *size);
+	void setUV(Region2D *uv) { if (uv) m_UVCoords = *uv; }
+	const ICoord2D *getTextureSize(void) const { return &m_textureSize; }
+
+	int getImageWidth(void) const { return m_imageSize.x; }
+	int getImageHeight(void) const { return m_imageSize.y; }
+
+	static void parseImageCoords(INI *ini, void *instance, void *store, const void *userData);
+	static void parseImageStatus(INI *ini, void *instance, void *store, const void *userData);
+
+private:
+	AsciiString m_name; // +0x04
+	AsciiString m_filename; // +0x08
+	ICoord2D m_textureSize; // +0x0C
+	Region2D m_UVCoords; // +0x14
+	ICoord2D m_imageSize; // +0x24
+	BfmeMapPictureTexture *m_texture; // +0x2C
+	unsigned int m_status; // +0x30
 };
 void Image::rva002D937E()
 {
- const AsciiString *source=&filename;
+ const AsciiString *source=&m_filename;
  if(reinterpret_cast<const StringBase<char>*>(source)->isEmpty()	/* rowed 0x00001E2F */) return;
- if(textureHolder || (status&2)) return;
+ if(m_texture || (m_status&2)) return;
  BFME2ParticleTextureHandle texture=TextureAsset::Get(source->str(),1,0);
  ShroudTexture *getter=reinterpret_cast<ShroudTexture*>(&texture);
  reinterpret_cast<ImageTextureOptions*>((source ? (getter->getFilter()) : (getter->getFilter())))->option10=1;
@@ -95,7 +120,7 @@ void Image::rva002D937E()
  reinterpret_cast<TextureAsset*>(&texture)->rva00132FE9(true);
  if(Rva0134FAA0) {
   AssetList00208F90 assets;
-  assets<<filename;
+  assets<<m_filename;
   bfmeMergeReceiverKeys((int)&assets);
  }
 }

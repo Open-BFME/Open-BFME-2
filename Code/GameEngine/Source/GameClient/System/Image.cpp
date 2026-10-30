@@ -92,6 +92,9 @@ public:
 	unsigned int setStatus(unsigned int bit);
 	unsigned int clearStatus(unsigned int bit);
 	void bfmeSetTexture(const BfmeMapPictureTexture &texture);
+	void rva002D937E();
+	const AsciiString &getName() const { return m_name; }
+	const AsciiString &bfme_image_name_fi() const { return m_name; }
 	void setImageSize(ICoord2D *size);
 	void setUV(Region2D *uv) { if (uv) m_UVCoords = *uv; }
 	const ICoord2D *getTextureSize(void) const { return &m_textureSize; }
