@@ -106,12 +106,18 @@ public:
 	bool eof();
 
 protected:
+	void setName(const char *name)
+	{
+		((StringBase<char> *)&m_sourceFile)->set(name);
+	}
+
+protected:
 	AsciiString m_sourceFile; // +0x04
 	int m_08; // +0x08 File m_access
 	unsigned char m_0C; // +0x0C File m_open
 	unsigned char m_0D; // +0x0D
 	unsigned char m_pad0E[2];
-	int m_10; // +0x10 File m_mutex
+	void *m_10; // +0x10 File m_mutex
 };
 
 class MemoryReadFile : public File

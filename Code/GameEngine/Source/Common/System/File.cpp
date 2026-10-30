@@ -62,24 +62,25 @@ public:
 protected:
 	void setName(const char *name)
 	{
-		m_nameStr.set(name);
+		((StringBase<char> *)&m_sourceFile)->set(name);
 	}
 
 protected:
-	AsciiString m_nameStr;
-	int m_access;
-	unsigned char m_isOpen;
-	unsigned char m_deleteOnClose;
+	AsciiString m_sourceFile; // +0x04
+	int m_08; // +0x08 File m_08
+	unsigned char m_0C; // +0x0C File m_open
+	unsigned char m_0D; // +0x0D
 	unsigned char m_pad0E[2];
-	FileHandle m_mutex;
+	void *m_10; // +0x10 File m_10
 };
+
 
 void File::lock()
 {
-	if (m_mutex == 0)
-		m_mutex = CreateMutexA(0, 1, 0);
+	if (m_10 == 0)
+		m_10 = CreateMutexA(0, 1, 0);
 	else
-		WaitForSingleObject(m_mutex, FILE_INFINITE);
+		WaitForSingleObject(m_10, FILE_INFINITE);
 }
 
 // ?unlock@File@@UAEXXZ
@@ -88,8 +89,8 @@ void File::lock()
 // a File that was never locked has no mutex, hence the test.
 void File::unlock()
 {
-	if (m_mutex != 0)
-		ReleaseMutex(m_mutex);
+	if (m_10 != 0)
+		ReleaseMutex(m_10);
 }
 
 // ??0File@@QAE@XZ, retail 0x006024FD, 70 bytes. Stores File's own vtable
@@ -102,7 +103,7 @@ void File::unlock()
 // (0x006054E7) calls it as its base. Previously rowed as ModuleData's ctor
 // from that one call site; the vtable it stores is File's, not a ModuleData's.
 File::File()
-	: m_access(0), m_isOpen(0), m_deleteOnClose(0), m_mutex(0)
+	: m_08(0), m_0C(0), m_0D(0), m_10(0)
 {
 	setName("<no file>");
 }
@@ -136,7 +137,7 @@ bool File::print(const char *format, ...)
 	char buffer[10*1024];
 	int len;
 
-	if (!(m_access & TEXT))
+	if (!(m_08 & TEXT))
 	{
 		return false;
 	}
@@ -164,18 +165,18 @@ bool File::eof()
 
 // ?close@File@@UAEXXZ
 // BFME1 File::close shape (their setName ends with deleteInstance; ours clears
-// m_deleteOnClose first and then deletes through vtable slot 0 with a separate
+// m_0D first and then deletes through vtable slot 0 with a separate
 // operator delete -- a plain delete this, not MemoryPoolObject's
 // getObjectMemoryPool/dtor/freeBlock sequence). Retail calls the one-arg
 // StringBase::set, so setName is the one-arg form here, not the two-arg +
 // strlen spelling BFME1 uses.
 void File::close()
 {
-	if (m_isOpen) {
+	if (m_0C) {
 		setName("<no file>");
-		m_isOpen = 0;
-		if (m_deleteOnClose) {
-			m_deleteOnClose = 0;
+		m_0C = 0;
+		if (m_0D) {
+			m_0D = 0;
 			::delete this;
 		}
 	}
@@ -188,7 +189,7 @@ void File::close()
 // TEXT 0x20, BINARY 0x40, STREAMING 0x100).
 bool File::open(const char *filename, int access)
 {
-	if (m_isOpen) {
+	if (m_0C) {
 		return false;
 	}
 	setName(filename);
@@ -207,8 +208,8 @@ bool File::open(const char *filename, int access)
 	if ((access & (0x20 | 0x40)) == 0) {
 		access |= 0x40;
 	}
-	m_access = access;
-	m_isOpen = 1;
+	m_08 = access;
+	m_0C = 1;
 	return true;
 }
 
@@ -219,10 +220,10 @@ bool File::open(const char *filename, int access)
 // dtor) is implicit.
 File::~File()
 {
-	m_deleteOnClose = 0;
+	m_0D = 0;
 	close();
-	if (m_mutex) {
-		CloseHandle(m_mutex);
+	if (m_10) {
+		CloseHandle(m_10);
 	}
 }
 
@@ -234,6 +235,7 @@ File::~File()
 class MemoryReadFile : public File
 {
 public:
+	MemoryReadFile(char *data, int size);
 	virtual int read(void *buffer, int bytes);
 	virtual int seek(int bytes, seekMode mode);
 	virtual char *readEntireAndClose();
@@ -403,8 +405,8 @@ char *MemoryReadFile::readEntireAndClose()
 MemoryWriteFile::MemoryWriteFile(const char *name)
 	: m_data(0), m_size(0), m_pos(0), m_capacity(0), m_name()
 {
-	m_isOpen = 1;
-	m_access = 0x42;
+	m_0C = 1;
+	m_08 = 0x42;
 	if (name)
 		setName(name);
 	else
