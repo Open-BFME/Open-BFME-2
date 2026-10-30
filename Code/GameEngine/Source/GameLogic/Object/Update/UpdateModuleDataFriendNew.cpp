@@ -377,15 +377,6 @@ private:
 	unsigned char m_pad[0xD8 - 4];
 };
 
-// ?friend_newModuleData@TeleportSpecialAbilityUpdateModuleData@@SAPAVModuleData@@PAVINI@@@Z
-ModuleData *TeleportSpecialAbilityUpdateModuleData::friend_newModuleData(INI *ini)
-{
-	TeleportSpecialAbilityUpdateModuleData *data = new TeleportSpecialAbilityUpdateModuleData;
-	if (ini)
-		ini->initFromINIMultiProc(data, TeleportSpecialAbilityUpdateModuleData::buildFieldParse);
-	return reinterpret_cast<ModuleData *>(data);
-}
-
 class HeroModeSpecialAbilityUpdateModuleData
 {
 public:
@@ -418,15 +409,6 @@ public:
 private:
 	unsigned char m_pad[0xD0 - 4];
 };
-
-// ?friend_newModuleData@WeaponSetSpecialAbilityUpdateModuleData@@SAPAVModuleData@@PAVINI@@@Z
-ModuleData *WeaponSetSpecialAbilityUpdateModuleData::friend_newModuleData(INI *ini)
-{
-	WeaponSetSpecialAbilityUpdateModuleData *data = new WeaponSetSpecialAbilityUpdateModuleData;
-	if (ini)
-		ini->initFromINIMultiProc(data, WeaponSetSpecialAbilityUpdateModuleData::buildFieldParse);
-	return reinterpret_cast<ModuleData *>(data);
-}
 
 class ScaleWallSpecialAbilityUpdateModuleData
 {
@@ -717,15 +699,6 @@ public:
 private:
 	unsigned char m_pad[0xD0 - 4];
 };
-
-// ?friend_newModuleData@FellBeastSwoopPowerModuleData@@SAPAVModuleData@@PAVINI@@@Z
-ModuleData *FellBeastSwoopPowerModuleData::friend_newModuleData(INI *ini)
-{
-	FellBeastSwoopPowerModuleData *data = new FellBeastSwoopPowerModuleData;
-	if (ini)
-		ini->initFromINIMultiProc(data, FellBeastSwoopPowerModuleData::buildFieldParse);
-	return reinterpret_cast<ModuleData *>(data);
-}
 
 // Registration SpecialAbilityUpdate (0x00259DD9) pushes this data factory with
 // the rowed SpecialAbilityUpdate::friend_newModuleInstance 0x0024A847. Its
