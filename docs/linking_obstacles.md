@@ -17,6 +17,26 @@ the removed provider/literals and affected consumers into the next scheduled
 census. No census gain or seed linking clearance is claimed.
 [Verification, counter retirement and merge blocker](../reverse/attempt_support/baseheightmap-query-cleanup-20261030-bce2/README.md).
 
+### HighlanderBody name-key composition prerequisite (2026-10-30)
+
+At base `6ac652269a`, the seed now takes its +4/+8 fields and primary base
+slots from the registered Module/ObjectModule headers. Its existing name-key
+method is declared in slot 4 and ActiveBody::onDelete in slot 8, as native
+table C5B440 proves. All seven rows across seed and two donors pass strict
+preparation; ordinary preview retains 3/3 LINKS and 241 authored bytes against
+`6fe1089c24`. The primary table expands; secondary tables and retained code
+fingerprints stay unchanged. This remains a partial class view.
+
+The supported merge probe now accepts the pool-key donor; the damage donor
+still needs base/interface reconciliation. Snapshot overrides and full primary
+and secondary table recovery remain open. The staged prerequisite audit is
+INCONCLUSIVE on the older index and missing current Common/AIBuildable.cpp
+consumer receipt. Full affected-consumer verification and census confirmation
+remain pending; carry the new canonical inline providers, primary table and
+existing onDelete provider into the next scheduled census. No census gain or
+debt retirement is claimed.
+[Target facts and checks](../reverse/attempt_support/highlanderbody-consolidation-20261030-codex3.md).
+
 ### CreateAHeroManager owned-pointer cleanup view (2026-10-30)
 
 At base `69fa252df2`, the destructor's `+174` member still used the older

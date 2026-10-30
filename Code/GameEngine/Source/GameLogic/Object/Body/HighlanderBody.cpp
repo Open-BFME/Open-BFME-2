@@ -5,14 +5,12 @@ class Thing;
 
 class ModuleData;
 
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h
-class BehaviorModule
-{
-public:
-	virtual void behaviorModuleAnchor();
+#include "../../../../Include/Common/Module.h"
+#include "../../../../Include/Common/ObjectModule.h"
 
-private:
-	unsigned char m_data[8];
+// The common +4 ModuleData and +8 object fields belong to ObjectModule.
+class BehaviorModule : public ObjectModule
+{
 };
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h
@@ -37,6 +35,8 @@ class ActiveBody : public BehaviorModule,
 public:
 	ActiveBody( Thing *thing, const ModuleData *moduleData );
 	virtual ~ActiveBody();
+	// Native primary table C5B440 slot 8 uses the existing ActiveBody owner.
+	virtual void onDelete();
 };
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/HighlanderBody.h
@@ -45,6 +45,8 @@ class HighlanderBody : public ActiveBody
 public:
 	HighlanderBody( Thing *thing, const ModuleData *moduleData );
 	virtual ~HighlanderBody();
+	// Retail primary-vtable slot 4; its body remains in the pool-key donor.
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Body/HighlanderBodyConstructor.cpp
