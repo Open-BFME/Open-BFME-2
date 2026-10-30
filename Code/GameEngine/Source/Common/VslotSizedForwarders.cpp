@@ -351,12 +351,6 @@ public:
 	void rva0025C25A();
 };
 
-// vtable 0x00BF5DA0#12 (??_7Display@@6B@): this->slot38()
-void Rva0025C25AForwarder::rva0025C25A()
-{
-	slot38();
-}
-
 class Rva0029AC98Forwarder : public SizedForwarderSlots
 {
 public:
