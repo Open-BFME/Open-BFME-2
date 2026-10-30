@@ -2,9 +2,8 @@
 // stlport46
 // STLport 4.5.3 Win32 _Locale_compose_name.
 
-__declspec(dllimport) int __cdecl strcmp(const char *left, const char *right);
-__declspec(dllimport) char *__cdecl strcpy(char *destination, const char *source);
-__declspec(dllimport) char *__cdecl strcat(char *destination, const char *source);
+#include <string.h>
+#include <locale.h>
 
 char *_Locale_compose_name(
     char *buf,
@@ -80,14 +79,6 @@ char *Rva0084D360(char *name, char *out)
    The five unpinned source callers preserve that compiler contract; their
    presence is not a BF2 identity or retail-body claim. Whole-byte search
    supplies no supported BF2 placement for those callers. */
-typedef unsigned int size_t;
-__declspec(dllimport) char *__cdecl strstr(const char *, const char *);
-__declspec(dllimport) char *__cdecl strchr(const char *, int);
-__declspec(dllimport) size_t __cdecl strcspn(const char *, const char *);
-__declspec(dllimport) char *__cdecl strncpy(char *, const char *, size_t);
-
-#define LC_ALL 0
-#define LC_MAX 5
 #define _Locale_MAX_SIMPLE_NAME 256
 
 extern const char *__category_name[];
