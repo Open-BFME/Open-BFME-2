@@ -68,11 +68,14 @@ private:
 	unsigned char m_kindOf[28];						// +0x108
 };
 
+struct Coord3D;
 class AICommandInterface
 {
 public:
 	void aiIdle(CommandSourceType cmdSource);
-	void rva0045003E(Int value, CommandSourceType cmdSource);
+	void aiMoveToPosition(const Coord3D *pos, CommandSourceType cmdSource);
+	void aiMoveToObject(Object *target, CommandSourceType cmdSource);
+	void rva0045003E(int value, CommandSourceType cmdSource);
 };
 
 class AIUpdateInterfaceHead

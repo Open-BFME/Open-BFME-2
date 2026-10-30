@@ -42,6 +42,7 @@ public:
 	void aiIdle(CommandSourceType cmdSource);
 	void aiMoveToPosition(const Coord3D *pos, CommandSourceType cmdSource);
 	void aiMoveToObject(Object *target, CommandSourceType cmdSource);
+	void rva0045003E(int value, CommandSourceType cmdSource);
 };
 
 class SiegeDeployHordeAIView
