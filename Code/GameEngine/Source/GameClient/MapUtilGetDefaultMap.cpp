@@ -2,7 +2,7 @@
 // Retail sorts filtered metadata pointers and returns the selected filename.
 // The 0x00302459 collector is recovered in this translation unit.
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /D_CRTIMP= /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 #define free bfmeUnusedCRTFree
 // vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
 // overload takes the call instead, so this TU emits no external max COMDAT.
@@ -67,8 +67,7 @@ public:
 // STLport semantics inline-only, as in AIWall, so this unit does not emit
 // unused cleanup COMDATs that conflict with other template instantiations.
 namespace _STL {
-template<> __declspec(dllimport) __forceinline void allocator<MapMetaData *>::deallocate(MapMetaData **p,size_t n)const {if(p) ::free(p);}
-template<> __declspec(dllimport) __forceinline void _STLP_alloc_proxy<MapMetaData **,MapMetaData *,allocator<MapMetaData *> >::deallocate(MapMetaData **p,size_t n){static_cast<allocator<MapMetaData *> &>(*this).deallocate(p,n);}
+template<> __declspec(dllimport) __forceinline void allocator<MapMetaData *>::deallocate(MapMetaData **p,size_t n) {if(p) ::free(p);}
 template<> __declspec(dllimport) __forceinline void vector<MapMetaData *,allocator<MapMetaData *> >::_M_clear(){_Destroy(_M_start,_M_finish);_M_end_of_storage.deallocate(_M_start,_M_end_of_storage._M_data-_M_start);}
 }
 
