@@ -58,12 +58,17 @@ template <class T> struct RvaCopyVectorStorage {
 struct Rva0052BF9BElem;
 void __cdecl Rva0022C8E3DestroyRange(Rva0052BF9BElem *, Rva0052BF9BElem *);
 
-namespace _STL {
-template <typename T> class allocator {};
-template <typename T, typename A> class vector : public RvaCopyVectorStorage<T> {
+namespace _STL
+{
+template <class T> class allocator
+{
+};
+template <class T, class A> class vector : public RvaCopyVectorStorage<T>
+{
 public:
 	vector(const vector &other);
 	~vector();
+	void push_back(const T &x);
 };
 }
 
@@ -129,6 +134,7 @@ template <> inline __declspec(noinline) vector<Rva005668E9Element, allocator<Rva
 
 class Rva0056616B {
 public:
+	void rva005666C5(void);
 	Rva0056616B(const Rva0056616B &other);
 	virtual ~Rva0056616B();
 	AsciiString m_04;

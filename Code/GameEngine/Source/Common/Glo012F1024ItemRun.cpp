@@ -12,6 +12,10 @@ public:
 class LivingWorldCampaignAct
 {
 public:
+	void rva00564EC0(void);
+	void rva00565106(void);
+	void SetPlayerControlOfArmies(void);
+	void MoveArmies(void);
 	void rva00565148(void);
 	void rva005651D2(void);
 };

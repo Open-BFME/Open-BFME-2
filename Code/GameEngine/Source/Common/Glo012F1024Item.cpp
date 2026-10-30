@@ -271,34 +271,56 @@ public:
 class Rva004E18A2
 {
 public:
+	Rva004E18A2(const Rva004E18A2 &other);
 	virtual ~Rva004E18A2();
-private:
-	char m_pad[0xC];
+	int a[3]; // +0x04
 };
 
-class Rva0052BDE6 { char m_pad[0xC]; };
+class Rva0052BDE6
+{
+public:
+	virtual ~Rva0052BDE6();
+	int a[2]; // +0x04
+};
 
 class Rva0052BE33 { char m_pad[0x10]; };
 
-class Rva003A6F70 { char m_pad[0x20]; };
+class Rva003A6F70
+{
+public:
+	virtual ~Rva003A6F70();
+	int a[7]; // +0x04
+};
 
-class Rva0052BEF0 { char m_pad[0xC]; };
+class Rva0052BEF0
+{
+public:
+	Rva0052BEF0(const Rva0052BEF0 &other);
+	virtual ~Rva0052BEF0();
+	int a[2]; // +0x04
+};
+
+template <class T> struct RvaCopyVectorStorage {
+ T *m_start; T *m_finish; T *m_end;
+ ~RvaCopyVectorStorage() { if (m_start) free(m_start); }
+};
 
 namespace _STL
 {
 template <class T> class allocator
 {
 };
-template <class T, class A> class vector;
-template <class T> class vector<T, allocator<T> >
+template <class T, class A> class vector : public RvaCopyVectorStorage<T>
 {
 public:
+	vector(const vector &other);
+	~vector();
 	void push_back(const T &x);
-private:
-	T *m_start;
-	T *m_finish;
-	T *m_endOfStorage;
 };
+}
+
+namespace _STL
+{
 template <> class vector<Rva004E18A2, allocator<Rva004E18A2> >
 {
 public:
@@ -380,14 +402,6 @@ struct Rva005668E9Element
 	int a[3];
 };
 
-namespace _STL
-{
-template <> class vector<Rva005668E9Element, allocator<Rva005668E9Element> >
-{
-public:
-	void push_back(const Rva005668E9Element &x);
-};
-}
 
 class Rva005669B7Owner
 {
@@ -528,8 +542,6 @@ public:
 class Glo012F1028Type
 {
 public:
-	char m_bfmeHead[0x28];
-	Glo012F1028Sub *m_bfmeSub;				// +0x28
 	void j_00008c0b(void);
 };
 
@@ -550,13 +562,65 @@ public:
 	void rva00565106(void);
 	void SetPlayerControlOfArmies(void);
 	void MoveArmies(void);
+	void rva00565148(void);
+	void rva005651D2(void);
 };
 
 // SpawnArmies 0x005666C5, rowed on the campaign-act view Rva0056616B.
-class Rva0056616B
+class FXList;
+struct BfmePod40;
+struct BfmePod88;
+class Rva004E32F2;
+class Rva004E1A04;
+struct Rva005668E9Element;
+
+class Rva0052CD81
 {
 public:
+	Rva0052CD81(const Rva0052CD81 &other);
+	~Rva0052CD81();
+private:
+	char m_pad[12];
+};
+class Rva0052C867
+{
+public:
+	Rva0052C867(const Rva0052C867 &other);
+	~Rva0052C867();
+private:
+	char m_pad[12];
+};
+class Rva0052C8AB
+{
+public:
+	Rva0052C8AB(const Rva0052C8AB &other);
+	~Rva0052C8AB();
+private:
+	char m_pad[12];
+};
+
+class Rva0056616B {
+public:
 	void rva005666C5(void);
+	Rva0056616B(const Rva0056616B &other);
+	virtual ~Rva0056616B();
+	AsciiString m_04;
+	_STL::vector<FXList, _STL::allocator<FXList> > m_08;
+	_STL::vector<BfmePod40, _STL::allocator<BfmePod40> > m_14;
+	_STL::vector<BfmePod88, _STL::allocator<BfmePod88> > m_20;
+	_STL::vector<Rva0052BDE6, _STL::allocator<Rva0052BDE6> > m_2C;
+	_STL::vector<Rva0052BE33, _STL::allocator<Rva0052BE33> > m_38;
+	_STL::vector<AsciiString, _STL::allocator<AsciiString> > m_44;
+	AsciiString m_50;
+	_STL::vector<Rva003A6F70, _STL::allocator<Rva003A6F70> > m_54;
+	_STL::vector<Rva004E32F2, _STL::allocator<Rva004E32F2> > m_60;
+	Rva0052CD81 m_6C;
+	Rva0052C867 m_78;
+	Rva0052C8AB m_84;
+	_STL::vector<Rva004E1A04, _STL::allocator<Rva004E1A04> > m_90;
+	_STL::vector<Rva005668E9Element, _STL::allocator<Rva005668E9Element> > m_9C;
+	_STL::vector<Rva0052BEF0, _STL::allocator<Rva0052BEF0> > m_A8;
+	unsigned char m_B4;
 };
 
 // j_00019eca's callees, rowed under these views: the campaign manager's
@@ -600,10 +664,10 @@ extern LivingWorldManager *TheLivingWorldManager;
 // 0x0056561E.
 class FXList
 {
-	char _m[8];
-
 public:
 	FXList(const FXList &that);
+private:
+	char _m[8]; // +0x00
 };
 
 namespace _STL
@@ -697,8 +761,7 @@ class Rva004E1A04
 {
 public:
 	~Rva004E1A04();
-private:
-	char m_pad[16];
+	char m_pad00[0x10];
 };
 
 void __cdecl Rva0052CEDDClear(Rva004E1A04 *first, Rva004E1A04 *last);
