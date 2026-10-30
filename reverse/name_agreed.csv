@@ -10198,3 +10198,8 @@ nl-cf5f0aa11b28,param,p,newObject,,w-077d7aeb666b@drz-k3,Code/GameEngine/Source/
 nl-f61cdadc62b9,param,a,entryIndex,,w-077d7aeb666b@drz-k3,Code/GameEngine/Source/Common/VslotSmallBodiesZ.cpp|param|Rva003F468D::rva003F468D|a,agreed,single-worker scoped approval: w-077d7aeb666b@drz-k3
 nl-c19d34315bd3,param,b,recordIndex,,w-077d7aeb666b@drz-k3,Code/GameEngine/Source/Common/VslotSmallBodiesZ.cpp|param|Rva003F468D::rva003F468D|b,agreed,single-worker scoped approval: w-077d7aeb666b@drz-k3
 nl-8cb78b71cbdc,param,a,entryIndex,,w-077d7aeb666b@drz-k3,Code/GameEngine/Source/Common/VslotSmallBodiesZ.cpp|param|Rva003F468D::rva003F4DAE|a,agreed,single-worker scoped approval: w-077d7aeb666b@drz-k3
+nl-b365b6a35591,local,h,header,,w-88a32c4f7da7@drz-k10,Code/GameEngine/Source/Common/Rva004EE037Div.cpp|local|LivingWorldScoreKeeper::rva004EE33B|h,agreed,single-worker scoped approval: w-88a32c4f7da7@drz-k10
+nl-7525bfca6bfe,param,q,rotation,,w-88a32c4f7da7@drz-k10,Code/GameEngine/Source/Common/GapBodiesGE47.cpp|param|Rva0015F920::Rva0015F920#2|q,agreed,single-worker scoped approval: w-88a32c4f7da7@drz-k10
+nl-bbfe9668c830,param,t,translation,,w-88a32c4f7da7@drz-k10,Code/GameEngine/Source/Common/GapBodiesGE47.cpp|param|Rva0015F920::Rva0015F920#2|t,agreed,single-worker scoped approval: w-88a32c4f7da7@drz-k10
+nl-6be1f125fe6d,local,g,logic,,w-88a32c4f7da7@drz-k10,Code/GameEngine/Source/Common/Rva005745D8.cpp|local|Rva005745D8Get|g,agreed,single-worker scoped approval: w-88a32c4f7da7@drz-k10
+nl-ad40ba443f67,local,g1,scale,,w-88a32c4f7da7@drz-k10,Code/GameEngine/Source/Common/Rva005745D8.cpp|local|Rva005745D8Get|g1,agreed,single-worker scoped approval: w-88a32c4f7da7@drz-k10

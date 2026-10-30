@@ -16025,3 +16025,12 @@ Code/GameEngine/Source/Common/VslotSmallBodiesZ.cpp|param|Rva003F468D::rva003F46
 Code/GameEngine/Source/Common/VslotSmallBodiesZ.cpp|param|Rva003F468D::rva003F4DAE|a,9f5273a796f0a6ffdc461d00,drz-k3,drz-k3-126,w-077d7aeb666b,2026-10-30
 Code/GameEngine/Source/Common/VslotSmallBodiesI.cpp|member|Rva0057A83C|m_08,fc14f0fde1b981b1ddf22f37,drz-k3,drz-k3-128,w-077d7aeb666b,2026-10-30
 Code/GameEngine/Source/Common/VslotSmallBodiesI.cpp|member|Rva0057A83C|m_3C,a2526a159fc71a4d9ab14517,drz-k3,drz-k3-128,w-077d7aeb666b,2026-10-30
+Code/GameEngine/Source/Common/Rva0056B89F.cpp|member|Inner0056B89F|m_58,f0f940ee5414bd9854419740,drz-k10,drz-k10-111,w-88a32c4f7da7,2026-10-29
+Code/GameEngine/Source/Common/Rva0056B89F.cpp|member|Record0056B88A|m_54,f71f44eac373ea3176d6bd1f,drz-k10,drz-k10-111,w-88a32c4f7da7,2026-10-29
+Code/GameEngine/Source/Common/Rva0056B89F.cpp|member|Target0056B8D7|m_38,88240bba307838ccbc4b4ce7,drz-k10,drz-k10-111,w-88a32c4f7da7,2026-10-29
+Code/GameEngine/Source/Common/Rva004EE037Div.cpp|local|LivingWorldScoreKeeper::rva004EE33B|h,b365b6a355916b245a7b7150,drz-k10,drz-k10-112,w-88a32c4f7da7,2026-10-30
+Code/GameEngine/Source/Common/GapBodiesGE47.cpp|param|Rva0015F920::Rva0015F920#2|q,7525bfca6bfe099b9936f1f1,drz-k10,drz-k10-119,w-88a32c4f7da7,2026-10-30
+Code/GameEngine/Source/Common/GapBodiesGE47.cpp|param|Rva0015F920::Rva0015F920#2|t,bbfe9668c830ad1d11a59024,drz-k10,drz-k10-119,w-88a32c4f7da7,2026-10-30
+Code/GameEngine/Source/Common/Rva005745D8.cpp|local|Rva005745D8Get|g,6be1f125fe6d7096862b5fab,drz-k10,drz-k10-122,w-88a32c4f7da7,2026-10-30
+Code/GameEngine/Source/Common/Rva005745D8.cpp|local|Rva005745D8Get|g1,ad40ba443f670a375314fe4e,drz-k10,drz-k10-122,w-88a32c4f7da7,2026-10-30
+Code/GameEngine/Source/Common/Rva00091DC4Forward.cpp|member|Rva00091DE3Arg|m_74,9f92c7275dd93ebf9261f5e0,drz-k10,drz-k10-128,w-88a32c4f7da7,2026-10-30
