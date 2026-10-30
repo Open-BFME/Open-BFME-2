@@ -19,57 +19,30 @@
 // twin 0x005430E7); BFME 2 reads the attacker id once and drops the
 // clearLastAttacker call.
 #include <windows.h>
-#include "../../Common/GameLogicObjectLookupView.h"
+#include "AITNGuardObjectView.h"
 typedef bool Bool;
-enum Relationship
-{
-	ENEMIES = 0,
-	NEUTRAL = 1,
-	ALLIES = 2
-};
-enum AbleToAttackType
-{
-	ATTACK_NEW_TARGET = 0
-};
-enum CommandSourceType
-{
-	CMD_FROM_PLAYER = 0,
-	CMD_FROM_SCRIPT = 1,
-	CMD_FROM_AI = 2
-};
-enum CanAttackResult
-{
-	ATTACKRESULT_NOT_POSSIBLE = 0,
-	ATTACKRESULT_INVALID_SHOT = 1,
-	ATTACKRESULT_POSSIBLE_AFTER_MOVING = 2,
-	ATTACKRESULT_POSSIBLE = 3
-};
+typedef unsigned int UnsignedInt;
+struct DamageInfo;
+
 template <int N> class VSlots : public VSlots<N - 1>
 {
 public:
 	virtual void gap(char (*)[N]) = 0;
 };
+
 template <> class VSlots<0>
 {
 };
-class BodyModuleInterface : public VSlots<18>
+
+class BodyModuleInterface : public VSlots<15>
 {
 public:
+	virtual const DamageInfo *getLastDamageInfo() const = 0;
+	virtual UnsignedInt getLastDamageTimestamp() const = 0;
+	virtual void slot17() = 0;
 	virtual ObjectID getClearableLastAttacker() const = 0;
 };
-class Object
-{
-public:
-	BodyModuleInterface *getBodyModule() const { return m_body; }
-	Bool isEffectivelyDead() const { return (m_privateStatus & 1) != 0; }
-	Relationship getRelationship(const Object *that) const;
-	CanAttackResult getAbleToAttackSpecificObject(AbleToAttackType t, const Object *target, CommandSourceType cmdSource) const;
-private:
-	unsigned char m_pad00[0x254];
-	BodyModuleInterface *m_body; // +0x254
-	unsigned char m_pad258[0x438 - 0x258];
-	unsigned char m_privateStatus; // +0x438
-};
+
 class StateMachine
 {
 public:

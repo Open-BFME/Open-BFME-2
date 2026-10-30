@@ -96,6 +96,8 @@ class BodyModuleInterface : public VSlots<15>
 public:
 	virtual const DamageInfo *getLastDamageInfo() const = 0;
 	virtual UnsignedInt getLastDamageTimestamp() const = 0;
+	virtual void slot17() = 0;
+	virtual ObjectID getClearableLastAttacker() const = 0;
 };
 
 class StateMachine
@@ -168,8 +170,11 @@ struct TnLookupMap { unsigned char hashEqual[4]; TnLookupBuckets buckets; };
 
 struct TAiData
 {
-	unsigned char m_pad00[0x40];
+public:
+	char m_pad00[0x3C];
+	UnsignedInt m_guardChaseUnitFrames; // +0x3C
 	UnsignedInt m_guardEnemyScanRate; // +0x40
+	UnsignedInt m_guardEnemyReturnScanRate; // +0x44
 };
 
 class AI
