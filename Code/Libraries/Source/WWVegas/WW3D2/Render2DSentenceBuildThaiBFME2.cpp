@@ -28,6 +28,15 @@ template <> void VectorClass<Render2DClass *>::Clear();
 
 // These word helpers retain STLport's inline operations and external providers.
 namespace _STL {
+// Keep the allocator operation inline without publishing this TU's non-retail copy.
+template <> __declspec(dllimport) __forceinline void
+allocator<unsigned short>::deallocate(unsigned short *p, size_type n) const
+{
+    _STLP_ASSERT((p == 0) == (n == 0))
+    if (p != 0)
+        ::free((void *)p);
+}
+
 template <> __declspec(dllimport) __forceinline void
 fill<unsigned short *, unsigned short>(unsigned short *first, unsigned short *last, const unsigned short &value)
 {

@@ -1,0 +1,112 @@
+{
+  "source": "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceBuildThaiBFME2.cpp",
+  "change": "suppress debug-only non-retail allocator COMDAT; preserve header body",
+  "objects": {
+    "before": {
+      "source_sha256": "8f71c09d090c714482fa4530fc9a634b3f64fa36ea7abc707f50bc7db94cd05d",
+      "object_sha256": "07e9baf9106713ef0b79b279f817b6de7a0d99471429ef1416450cac46f25dd6",
+      "rows": [
+        {
+          "name": "?Rva00158E90@Render2DSentenceClass@@AAE?AVVector2@@PBGPAH1_N@Z",
+          "rva": "0x00158E90",
+          "size": "2151",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?Rva00158E90@Render2DSentenceClass@@AAE?AVVector2@@PBGPAH1_N@Z",
+          "rva": "0x007671A8",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "??1BfmeWordVec@@QAE@XZ",
+          "rva": "0x0007FAB3",
+          "size": "14",
+          "exact": true
+        },
+        {
+          "name": "?Set@Vector2i@@QAEXHH@Z",
+          "rva": "0x001541D0",
+          "size": "16",
+          "exact": true
+        },
+        {
+          "name": "$L7867",
+          "rva": "0x007671A0",
+          "size": "8",
+          "exact": true
+        }
+      ],
+      "eh": [
+        {
+          "name": "?Rva00158E90@Render2DSentenceClass@@AAE?AVVector2@@PBGPAH1_N@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        }
+      ],
+      "all_emitted_handler_parents": []
+    },
+    "trial": {
+      "source_sha256": "0604f39762d249e3717e947ea4799f3dad43e5bdaf3cef0954a72efd23d07256",
+      "object_sha256": "3b8360c572911e769105d37f4e06a644a851d706fec724a5f2f7d855e23b5a3d",
+      "rows": [
+        {
+          "name": "?Rva00158E90@Render2DSentenceClass@@AAE?AVVector2@@PBGPAH1_N@Z",
+          "rva": "0x00158E90",
+          "size": "2151",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?Rva00158E90@Render2DSentenceClass@@AAE?AVVector2@@PBGPAH1_N@Z",
+          "rva": "0x007671A8",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "??1BfmeWordVec@@QAE@XZ",
+          "rva": "0x0007FAB3",
+          "size": "14",
+          "exact": true
+        },
+        {
+          "name": "?Set@Vector2i@@QAEXHH@Z",
+          "rva": "0x001541D0",
+          "size": "16",
+          "exact": true
+        },
+        {
+          "name": "$L7867",
+          "rva": "0x007671A0",
+          "size": "8",
+          "exact": true
+        }
+      ],
+      "eh": [
+        {
+          "name": "?Rva00158E90@Render2DSentenceClass@@AAE?AVVector2@@PBGPAH1_N@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        }
+      ],
+      "all_emitted_handler_parents": []
+    }
+  },
+  "removed_definition": {
+    "name": "?deallocate@?$allocator@G@_STL@@QBEXPAGI@Z",
+    "raw": "8b44240485c0740750e80000000059c20800",
+    "relocations": [
+      [
+        10,
+        20,
+        "_free"
+      ]
+    ]
+  },
+  "retained_external_code_definitions_identical": 46,
+  "unexpected_added_definitions": [],
+  "deallocate_import_symbols": []
+}

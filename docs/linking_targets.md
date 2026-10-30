@@ -1,5 +1,14 @@
 # Linking target checklist
 
+Wide-deallocator selection follow-up (2026-10-30, LINK-162): suppress only the
+Thai builder's debug-only non-retail allocator copy while retaining inline
+behavior. The next existing provider is complete native 20-byte exact; no pin,
+row, alias or header changes. Strict six-source preparation passes 195/195 rows
+and two data rows. Against `ccafe54d1d`, all six preview LINKS, 0 -> 21,683
+authored bytes, including PeerThread. Full consumer selection/loss checks and
+census confirmation remain separate.
+[Evidence](../reverse/attempt_support/thai-deallocate-link-20261030/readme.md).
+
 Build-queue clear duplicate-provider follow-up (2026-10-30, LINK-161): preserve
 the observer's native inline instructions while suppressing its extra emitted
 clear definition. The existing strong 11-byte owner is unchanged. Strict

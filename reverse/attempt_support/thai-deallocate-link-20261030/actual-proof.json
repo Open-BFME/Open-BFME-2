@@ -1,0 +1,91 @@
+{
+  "kind": "remove unused non-retail first COMDAT; retain existing native provider",
+  "before_incoming_relocations": [
+    {
+      "section": ".debug$F",
+      "offset": 0,
+      "type": 7
+    }
+  ],
+  "sources": {
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceBuildThaiBFME2.cpp": {
+      "source_sha256": "0604f39762d249e3717e947ea4799f3dad43e5bdaf3cef0954a72efd23d07256",
+      "object_md5": "b654642abf497cc5f8c1270683f7f46c",
+      "strict_current": true,
+      "defines_deallocate": false,
+      "deallocate_imports": [],
+      "actual_vs_private_identical_code": [
+        "??$__copy_backward_ptrs@PAGPAG@_STL@@YAPAGPAG00ABU__true_type@0@@Z",
+        "??$__copy_ptrs@PAGPAG@_STL@@YAPAGPAG00U__true_type@0@@Z",
+        "??$__stl_alloc_rebind@GG@_STL@@YAAAV?$allocator@G@0@AAV10@PBG@Z",
+        "??$__uninitialized_fill_n@PAGIG@_STL@@YAPAGPAGIABGABU__true_type@0@@Z",
+        "??$max@I@_STL@@YAABIABI0@Z",
+        "??$max@M@@YAMMM@Z",
+        "??$uninitialized_fill_n@PAGIG@_STL@@YAPAGPAGIABG@Z",
+        "??0?$_STLP_alloc_proxy@PAGGV?$allocator@G@_STL@@@_STL@@QAE@ABV?$allocator@G@1@PAG@Z",
+        "??0?$_Vector_base@GV?$allocator@G@_STL@@@_STL@@QAE@ABV?$allocator@G@1@@Z",
+        "??0?$allocator@G@_STL@@QAE@ABV01@@Z",
+        "??0?$allocator@G@_STL@@QAE@XZ",
+        "??0?$vector@GV?$allocator@G@_STL@@@_STL@@QAE@ABV?$allocator@G@1@@Z",
+        "??0BfmeWordVec@@QAE@XZ",
+        "??0Vector2@@QAE@ABV0@@Z",
+        "??0Vector2@@QAE@MM@Z",
+        "??0Vector2@@QAE@XZ",
+        "??1?$_STLP_alloc_proxy@PAGGV?$allocator@G@_STL@@@_STL@@QAE@XZ",
+        "??1?$_Vector_base@GV?$allocator@G@_STL@@@_STL@@QAE@XZ",
+        "??1?$allocator@G@_STL@@QAE@XZ",
+        "??1?$vector@GV?$allocator@G@_STL@@@_STL@@QAE@XZ",
+        "??1BfmeWordVec@@QAE@XZ",
+        "??1SentenceDataStruct@Render2DSentenceClass@@QAE@XZ",
+        "??A?$VectorClass@USentenceDataStruct@Render2DSentenceClass@@@@QAEAAUSentenceDataStruct@Render2DSentenceClass@@H@Z",
+        "??_EPendingSurfaceStruct@Render2DSentenceClass@@QAEPAXI@Z",
+        "??_ESentenceDataStruct@Render2DSentenceClass@@QAEPAXI@Z",
+        "?AlternateFont@FontCharsClass@@QAEPAV1@XZ",
+        "?Count@?$DynamicVectorClass@USentenceDataStruct@Render2DSentenceClass@@@@QBEHXZ",
+        "?Get_Char_Height@FontCharsClass@@QBEHXZ",
+        "?Get_Extra_Overlap@FontCharsClass@@QAEHXZ",
+        "?Get_Glyph_Advance@FontCharsClass@@QAEHG@Z",
+        "?Get_Left_Adjust@FontCharsClass@@QAEHGAAVVector2@@@Z",
+        "?Rva00158E90@Render2DSentenceClass@@AAE?AVVector2@@PBGPAH1_N@Z",
+        "?Set@Vector2i@@QAEXHH@Z",
+        "?_Destroy@_STL@@YAXPAG0@Z",
+        "?_M_clear@?$vector@GV?$allocator@G@_STL@@@_STL@@IAEXXZ",
+        "?_M_fill_insert@?$vector@GV?$allocator@G@_STL@@@_STL@@QAEXPAGIABG@Z",
+        "?_M_insert_overflow@?$vector@GV?$allocator@G@_STL@@@_STL@@IAEXPAGABGABU__true_type@2@I_N@Z",
+        "?_M_set@?$vector@GV?$allocator@G@_STL@@@_STL@@IAEXPAG00@Z",
+        "?allocate@?$_STLP_alloc_proxy@PAGGV?$allocator@G@_STL@@@_STL@@QAEPAGI@Z",
+        "?allocate@?$allocator@G@_STL@@QBEPAGIPBX@Z",
+        "?begin@?$vector@GV?$allocator@G@_STL@@@_STL@@QAEPAGXZ",
+        "?deallocate@?$_STLP_alloc_proxy@PAGGV?$allocator@G@_STL@@@_STL@@QAEXPAGI@Z",
+        "?end@?$vector@GV?$allocator@G@_STL@@@_STL@@QAEPAGXZ",
+        "?erase@?$vector@GV?$allocator@G@_STL@@@_STL@@QAEPAGPAG0@Z",
+        "?resize@BfmeWordVec@@QAEXIG@Z",
+        "?size@?$vector@GV?$allocator@G@_STL@@@_STL@@QBEIXZ"
+      ]
+    },
+    "Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0022CCEF.cpp": {
+      "source_sha256": "852e642cc68701035a3b316bb1317e28c4cdcd6bb23773c1733a9454f004ed1d",
+      "object_md5": "887ce89d520582a10cafeba926aac395",
+      "strict_current": true,
+      "defines_deallocate": true,
+      "deallocate_imports": []
+    }
+  },
+  "native_provider": {
+    "name": "?deallocate@?$allocator@G@_STL@@QBEXPAGI@Z",
+    "existing_pin_rva": "0x0046264A",
+    "complete_code_size": 20,
+    "raw": "837c240400740aff742404e80000000059c20800",
+    "relocations": [
+      [
+        12,
+        20,
+        "_free"
+      ]
+    ],
+    "resolved": "837c240400740aff742404e8d6e1bcff59c20800",
+    "native": "837c240400740aff742404e8d6e1bcff59c20800",
+    "exact": true,
+    "new_row_or_pin": false
+  }
+}
