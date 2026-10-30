@@ -153,8 +153,12 @@ def verify_data_objects():
         data_rows.check(data_rows.DATA_ROWS.read_bytes(), problems)
     if problems:
         raise SystemExit("link_census: invalid data rows:\n  " + "\n  ".join(problems))
-    stale = [source for source in data_sources()
-             if not object_current(source, build.obj_path(source))]
+    # object_current for each provider, through stale_objects: the strict
+    # receipts across BUILD_POOL processes, this census's fresh proofs in threads.
+    sources = data_sources()
+    objects_of = {source: build.obj_path(source) for source in sources}
+    not_current = set(stale_objects(list(objects_of.values()), {obj: source for source, obj in objects_of.items()}))
+    stale = [source for source in sources if objects_of[source] in not_current]
     if stale:
         raise SystemExit(f"link_census: {len(stale):,} data provider objects are missing or stale, "
                          f"e.g. {stale[0].relative_to(ROOT)}; rerun with --build")
@@ -2380,7 +2384,6 @@ def object_symbols(obj, data=None):
     """(defined, referenced, weak externals [(name, default)], /alternatename
     {alias: target}, /INCLUDE: names) of one object: what predicted_unresolved
     needs from its symbol table and directives."""
-    import link_check
     data = obj.read_bytes() if data is None else data
     defined, referenced = set(), set()
     for symbol in _coff_symbols(data):
