@@ -151,6 +151,8 @@ private:
 class MonitorConditionUpdate : public UpdateModule
 {
 public:
+	MonitorConditionUpdate(Thing *thing, const ModuleData *moduleData);
+	virtual ~MonitorConditionUpdate();
 	virtual NameKeyType getModuleNameKey() const;
 	virtual UpdateSleepTime update();
 	virtual void xfer(Xfer *xfer);
