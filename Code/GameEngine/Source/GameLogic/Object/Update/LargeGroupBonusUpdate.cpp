@@ -39,12 +39,6 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class LargeGroupBonusUpdate
-{
-public:
-	virtual NameKeyType getModuleNameKey() const;
-};
-
 class Rva00360D26Member
 {
 public:
@@ -81,12 +75,71 @@ private:
 // An ordinary out-of-line override emits the body without instantiating the
 // unrelated Zero Hour module, parser, update loop or drawable callbacks.
 
-class UpdateModule
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Thing;
+class ModuleData;
+class Object;
+
+#include "../../../../Include/Common/BfmeXfer.h"
+
+class Xfer::Version
 {
 public:
-    virtual ~UpdateModule();
+	Version(unsigned char current, unsigned char minimum)
+		: m_current(current), m_minimum(minimum) {}
+
+	unsigned char m_current;
+	unsigned char m_minimum;
+};
+
+#include "../../../../Include/Common/ObjectModule.h"
+
+class BehaviorModuleInterface { public: virtual void behaviorSlot(); };
+class UpdateModuleInterface { public: virtual void updateSlot(); };
+
+class UpdateModule : public ObjectModule,
+	public BehaviorModuleInterface, public UpdateModuleInterface
+{
+public:
+	UpdateModule(Thing *thing, const ModuleData *moduleData);
+	virtual ~UpdateModule();
+	void xfer(Xfer *xfer);
+
 private:
-    unsigned char m_storage[0x20 - sizeof(void *)];
+	unsigned int m_nextCallFrameAndPhase;
+	int m_indexInLogic;
+	int m_updateState;
+};
+
+class LargeGroupBonusTrailing { public: virtual void trailingSlot(); };
+
+class LargeGroupBonusUpdate : public UpdateModule, public LargeGroupBonusTrailing
+{
+public:
+	virtual NameKeyType getModuleNameKey() const;
+
+protected:
+	virtual void xfer(Xfer *xfer);
+
+private:
+	unsigned int m_24;
+	bool m_28;
+	bool m_29;
+	bool m_2A;
 };
 
 class HordeUpdateInterface

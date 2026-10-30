@@ -44,16 +44,7 @@ public:
 	unsigned char m_minimum;
 };
 
-class ObjectModule
-{
-public:
-	ObjectModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~ObjectModule();
-
-protected:
-	const ModuleData *m_moduleData;
-	Object *m_object;
-};
+#include "../../../../Include/Common/ObjectModule.h"
 
 class BehaviorModuleInterface { public: virtual void behaviorSlot(); };
 class UpdateModuleInterface { public: virtual void updateSlot(); };
@@ -76,6 +67,9 @@ class LargeGroupBonusTrailing { public: virtual void trailingSlot(); };
 
 class LargeGroupBonusUpdate : public UpdateModule, public LargeGroupBonusTrailing
 {
+public:
+	virtual NameKeyType getModuleNameKey() const;
+
 protected:
 	virtual void xfer(Xfer *xfer);
 
