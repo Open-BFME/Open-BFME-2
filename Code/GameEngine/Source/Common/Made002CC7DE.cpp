@@ -5,10 +5,8 @@
 #include "Libraries/Include/Lib/Coord3D.h"
 #include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
 #define NAMEKEY(x) TheNameKeyGenerator->nameToKey(x)
-
 class Object;
 class Rva002CA9CA;
-
 class Rva00507823
 {
 public:
@@ -19,7 +17,6 @@ public:
 private:
 	unsigned char m_pad[0x128 - 4];
 };
-
 class Made002CC7DE : public Rva00507823
 {
 public:
@@ -29,7 +26,6 @@ private:
 	Rva002CA9CA *m_128; // +0x128
 	AsciiString m_12C; // +0x12C
 };
-
 //
 // ?q4Notify002CC841@@YAXPAXPAVMade002CC841@@HH@Z @0x00509780 (77B).
 // ProjectileNugget field parser: MultiIni tmp, add table from getter
@@ -38,11 +34,8 @@ private:
 // at 0x002CC886. Same tail as q4Notify002CCBCA precedent.
 
 class Made002CC841;
-
 class INI;
-
 class MultiIniFieldParse;
-
 // The projectile-nugget FieldParse table, recovered from retail 0x00864640
 // (.rdata, six 16-byte entries plus the null terminator): names are pooled
 // field-name literals, parse functions are the rowed INI statics, userData
@@ -55,7 +48,6 @@ struct FieldParse
     const void *userData;
     unsigned int offset;
 };
-
 class INI
 {
 public:
@@ -65,31 +57,18 @@ public:
     static void parseBool(INI *ini, void *instance, void *store, const void *userData);
     static void Rva005096FF_ParseWeaponSlot(INI *ini, void *instance, void *store, const void *userData);
 };
-
 extern const char BfmeProjectileWarheadTemplateNameField[];
-
 const char BfmeProjectileWarheadTemplateNameField[] = "WarheadTemplateName";
-
 extern const char BfmeProjectileTemplateNameField[];
-
 const char BfmeProjectileTemplateNameField[] = "ProjectileTemplateName";
-
 extern const char BfmeProjectileStreamNameField[];
-
 const char BfmeProjectileStreamNameField[] = "ProjectileStreamName";
-
 extern const char BfmeWeaponLaunchBoneSlotOverrideField[];
-
 const char BfmeWeaponLaunchBoneSlotOverrideField[] = "WeaponLaunchBoneSlotOverride";
-
 extern const char BfmeAlwaysAttackHereOffsetField[];
-
 const char BfmeAlwaysAttackHereOffsetField[] = "AlwaysAttackHereOffset";
-
 extern const char BfmeUseAlwaysAttackOffsetField[];
-
 const char BfmeUseAlwaysAttackOffsetField[] = "UseAlwaysAttackOffset";
-
 const FieldParse TheProjectileFieldTable[] = {
     { BfmeProjectileWarheadTemplateNameField,   INI::parseAsciiString,            0, 0x130 },
     { BfmeProjectileTemplateNameField,          INI::parseAsciiString,            0, 0x134 },
@@ -99,9 +78,7 @@ const FieldParse TheProjectileFieldTable[] = {
     { BfmeUseAlwaysAttackOffsetField,           INI::parseBool,                   0, 0x14C },
     { 0, 0, 0, 0 }
 };
-
 int __cdecl Rva00507552Get();
-
 class MultiIniFieldParse
 {
 public:
@@ -110,25 +87,19 @@ public:
 
     char m_pad[0x84];
 };
-
 typedef bool Bool;
-
 typedef int Int;
-
 typedef float Real;
-
 class Rva002CA9CA
 {
 public:
 	Bool rva002CAA59(Int arg, const void *obj);		// 0x002CAA59
 	void rva002CAC6E(int a, int b);		// 0x002CAC6E
 };
-
 enum WeaponSlotType
 {
 	PRIMARY_WEAPON = 0
 };
-
 // Local views of the WWMath types; only Matrix3D's name is load-bearing (the
 // launch-position callee takes one). The helpers below expand retail's inline
 // Matrix3D copy (member-wise) and Matrix3D::Transform_Vector.
@@ -139,28 +110,22 @@ struct ProjectileNuggetRow
 	float Z;
 	float W;
 };
-
 class Matrix3D
 {
 public:
 	ProjectileNuggetRow Row[3];
 };
-
 class Team;
-
 class ThingTemplate
 {
 public:
 	void GetAssetList(int a, int b);		// 0x0033CF34
 };
-
 class WeaponTemplate;
-
 struct CreateMask
 {
 	unsigned int m_bits[4];
 };
-
 class Player
 {
 public:
@@ -169,7 +134,6 @@ private:
 	unsigned char m_pad000[0x2EC];
 	Team *m_defaultTeam; // +0x2EC
 };
-
 class ObjectFilter
 {
 public:
@@ -177,7 +141,6 @@ public:
 private:
  int m_entryIndex; // native descriptor reads4B at0
 };
-
 class ProjectileUpdateInterface
 {
 public:
@@ -186,26 +149,22 @@ public:
 		const void *fireInfo, const WeaponTemplate *detonationWeapon,
 		const Matrix3D *launchTransform) = 0;
 };
-
 template <int N> class ProjectileNuggetSlots : public ProjectileNuggetSlots<N - 1>
 {
 public:
 	virtual void gap(char (*)[N]) = 0;
 };
-
 template <> class ProjectileNuggetSlots<1>
 {
 public:
 	virtual void gap(char (*)[1]) = 0;
 };
-
 // The behavior-module interface each module carries at +0x0C.
 class BehaviorModuleInterface : public ProjectileNuggetSlots<18>
 {
 public:
 	virtual ProjectileUpdateInterface *getProjectileUpdateInterface() = 0; // slot 18
 };
-
 class BehaviorModule
 {
 public:
@@ -215,38 +174,30 @@ public:
 		return ((BehaviorModuleInterface *)((char *)this + 0x0C))->getProjectileUpdateInterface();
 	}
 };
-
 // The firer's +0x250 module: slot 79 hands out the projectile.
 class ProjectileSourceModule : public ProjectileNuggetSlots<79>
 {
 public:
 	virtual Object *getProjectileToLaunch(const ObjectFilter *filter) = 0; // slot 79
 };
-
 class Module;
-
 enum NameKeyType { NAMEKEY_INVALID = 0 };
-
 class NameKeyGenerator
 {
 public:
 	NameKeyType nameToKey(const char *name);
 };
-
 extern NameKeyGenerator *TheNameKeyGenerator;
-
 class Rva0033EEC9
 {
 public:
 	void rva0033EF86(const Coord3D *pos);	// the stream's position
 };
-
 class ProjectileStreamUpdate
 {
 public:
 	void addProjectile(ObjectID sourceID, ObjectID projectileID, ObjectID victimID, const Coord3D *victimPos);
 };
-
 class Object
 {
 	friend class ProjectileNugget;
@@ -271,8 +222,53 @@ private:
 	unsigned char m_pad248[0x250 - 0x248];
 	ProjectileSourceModule *m_250; // +0x250
 };
-
 #include "../../Include/GameLogic/Weapon.h"
+#include "../../../Libraries/Include/Lib/Coord3D.h"
+#include "GameLogicObjectLookupView.h"
+// Local views of the WWMath types; only Matrix3D's name is load-bearing (the
+// launch-position callee takes one). The helpers below expand retail's inline
+// Matrix3D copy (member-wise) and Matrix3D::Transform_Vector.
+struct ProjectileNuggetVector3
+{
+	float X;
+	float Y;
+	float Z;
+	ProjectileNuggetVector3() {}
+	ProjectileNuggetVector3(float x, float y, float z) : X(x), Y(y), Z(z) {}
+};
+struct ProjectileNuggetMath
+{
+	static __forceinline void copyRow(ProjectileNuggetRow &dst, const ProjectileNuggetRow &src)
+	{
+		dst.X = src.X;
+		dst.Y = src.Y;
+		dst.Z = src.Z;
+		dst.W = src.W;
+	}
+	static __forceinline void copyMatrix(Matrix3D &dst, const Matrix3D &src)
+	{
+		copyRow(dst.Row[0], src.Row[0]);
+		copyRow(dst.Row[1], src.Row[1]);
+		copyRow(dst.Row[2], src.Row[2]);
+	}
+	static __forceinline void transformVector(const Matrix3D &matrix3D, const ProjectileNuggetVector3 &in, ProjectileNuggetVector3 *out)
+	{
+		ProjectileNuggetVector3 tmp;
+		const ProjectileNuggetVector3 *projectileNuggetVector3;
+		if (out == &in)
+		{
+			tmp = in;
+			projectileNuggetVector3 = &tmp;
+		}
+		else
+		{
+			projectileNuggetVector3 = &in;
+		}
+		out->X = (matrix3D.Row[0].X * projectileNuggetVector3->X + matrix3D.Row[0].Y * projectileNuggetVector3->Y + matrix3D.Row[0].Z * projectileNuggetVector3->Z + matrix3D.Row[0].W);
+		out->Y = (matrix3D.Row[1].X * projectileNuggetVector3->X + matrix3D.Row[1].Y * projectileNuggetVector3->Y + matrix3D.Row[1].Z * projectileNuggetVector3->Z + matrix3D.Row[1].W);
+		out->Z = (matrix3D.Row[2].X * projectileNuggetVector3->X + matrix3D.Row[2].Y * projectileNuggetVector3->Y + matrix3D.Row[2].Z * projectileNuggetVector3->Z + matrix3D.Row[2].W);
+	}
+};
 
 enum ObjectID;
 
@@ -343,6 +339,24 @@ struct ProjectileLookupBuckets {
 
 struct ProjectileLookupMap { unsigned char hashEqual[4]; ProjectileLookupBuckets buckets; };
 
+class WeaponTemplate
+{
+};
+
+class WeaponStore
+{
+public:
+	const WeaponTemplate *findWeaponTemplate(const AsciiString &name) const;
+};
+
+extern WeaponStore *TheWeaponStore;
+
+class ThingTemplate;
+
+extern class ThingFactory *TheThingFactory;
+
+// ---- from Code/GameEngine/Source/Common/Made002CC7DE.cpp
+
 // ---- from Code/GameEngine/Source/Common/Made002CC7DECtor_muse-8c42.cpp
 
 // ??0Made002CC7DE@@QAE@XZ @0x0050968B 32B
@@ -359,10 +373,6 @@ Made002CC7DE::Made002CC7DE()
 	m_128 = 0;
 }
 
-// tu-skeleton: 0x00509720 51B ?canAffectObject@ProjectileNugget@@QAE_NPBVObject@@H@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponEffects/ProjectileNugget.cpp (not merged yet)
-
-// tu-skeleton: 0x00509753 45B ?rva00509753@Made002CC7DE@@QAEXHH@Z -- matched in Code/GameEngine/Source/Common/Made002CC7DERva00509753.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Made002CC841Parse.cpp
 
 void q4Notify002CC841(void *ini, Made002CC841 *instance, int store, int d)
@@ -372,8 +382,6 @@ void q4Notify002CC841(void *ini, Made002CC841 *instance, int store, int d)
     multiFieldParse.add(TheProjectileFieldTable, 0);
     ((INI *)ini)->initFromINIMulti(instance, multiFieldParse);
 }
-
-// tu-skeleton: 0x005097CD 71B ?friend_postProcessLoad@ProjectileNugget@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ProjectileNugget_friend_postProcessLoad.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/WeaponEffects/ProjectileNuggetObjectEffect.cpp
 
@@ -479,4 +487,152 @@ void ProjectileNugget::doEffectObject(const ProjectileNuggetFireInfo *info, Obje
 		victim ? victim->getID() : INVALID_OBJECT_ID, victim->getPosition());
 }
 
-// tu-skeleton: 0x00509A3C 647B ?rva00509A3C@ProjectileNugget@@UAEXPBUProjectileNuggetFireInfo@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponEffects/ProjectileNuggetLaunch.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/WeaponEffects/ProjectileNugget.cpp
+
+// ProjectileNugget::canAffectObject, retail 0x00509720.
+Bool ProjectileNugget::canAffectObject(const Object *obj, Int arg)
+{
+	if (!rva005075D6((const void *)obj, (Object *)arg))
+		return false;
+	const WeaponTemplate *weapon = m_detonationWeapon;
+	if (weapon == 0)
+		return false;
+	return ((Rva002CA9CA *)weapon)->rva002CAA59(arg, obj);
+}
+
+// ---- from Code/GameEngine/Source/Common/Made002CC7DERva00509753.cpp
+
+//
+// ?rva00509753@Made002CC7DE@@QAEXHH@Z retail 0x00509753 45B.
+// Forward (a,b) to Rva002CA9CA at +0x128 when present, then tail to
+// ThingTemplate::GetAssetList (row 0x0033CF34) on +0x12c when present.
+// Evidence: prev Made002CC7DE ctor zeroes +0x128/+0x12c; base size 0x128;
+// callees rowed/pinned; chain via 0x002CAC6E.
+// The implicit dtor 0x005096C7 destroys +0x12C as an AsciiString, yet this
+// body passes that word straight to GetAssetList as a ThingTemplate; the read
+// below keeps both target facts until the member's identity is settled.
+
+void Made002CC7DE::rva00509753(int a, int b)
+{
+	Rva002CA9CA *p1 = m_128;
+	if (p1 != 0)
+		p1->rva002CAC6E(a, b);
+	ThingTemplate *thingTemplate = *(ThingTemplate *const *)&m_12C;
+	if (thingTemplate == 0)
+		return;
+	thingTemplate->GetAssetList(a, b);
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/ProjectileNugget_friend_postProcessLoad.cpp
+
+// ?friend_postProcessLoad@ProjectileNugget@@UAEXXZ @0x005097CD 71B: resolve helper over base
+// Rva00507823 slot 8 plus WeaponStore find by +0x130 name into +0x128 plus
+// FX lookup by +0x134 name into +0x12c when non-empty. All callees rowed.
+// A virtual: it overrides that slot 8 in vtable 0x00C646B0 (installed at
+// 0x00509CC3), as its WB twin is slot 8 of WB table 0x01EC39D8.
+
+void ProjectileNugget::friend_postProcessLoad()
+{
+	Rva00507823::rva00507877();
+	m_detonationWeapon = TheWeaponStore->findWeaponTemplate(m_warheadTemplateName);
+	if (!m_projectileTemplateName.isEmpty())
+		m_projectileTemplate = TheThingFactory->findTemplate(m_projectileTemplateName);
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/WeaponEffects/ProjectileNuggetLaunch.cpp
+
+//
+// ?rva00509A3C@ProjectileNugget@@UAEXPBUProjectileNuggetFireInfo@@PBUCoord3D@@@Z,
+// retail 0x00509A3C (647 bytes). Slot 6 of the ProjectileNugget vtable
+// 0x00C646B0 (slot 1 the rowed canAffectObject 0x00509720, slot 8 the rowed
+// friend_postProcessLoad 0x005097CD, which fills the detonation weapon +0x128
+// and projectile template +0x12C). Zero Hour's projectile launch from
+// Weapon::fireWeaponTemplate in nugget form. WorldBuilder twin 0x010A4D90
+// (callgraph evidence). Target evidence:
+//  - the firer is the rowed GameLogic::findObjectByID 0x00049DC5 of the fire
+//    info's +0x08 ID; none returns;
+//  - the launch point is the firer's transform applied to the nugget offset
+//    +0x140 when +0x14C is set (Matrix3D::Transform_Vector inline), else the
+//    given position;
+//  - with a valid filter at the info's template +0x120 (rowed
+//    ObjectFilter::isValid 0x00360CED) and a firer +0x250 module, the pinned
+//    Weapon::calcProjectileLaunchPosition 0x002C9E48 fills the launch matrix
+//    and that module's slot 79 hands out the projectile; else with the
+//    template's +0x124 byte the firer itself is launched from its own
+//    transform; else (with a projectile template) the rowed
+//    ThingFactory::newObject 0x002D0A23 makes one for the controlling player's
+//    team (+0x2EC) with no launch matrix;
+//  - the first behavior module (+0x244 list) with a projectile update
+//    interface (slot 18 of its +0x0C interface) launches it after the rowed
+//    setProducer 0x0028AFD2 (weapon slot overridden by +0x13C when 0..5);
+//    without one the rowed GameLogic::destroyObject 0x00242C09 removes it.
+// The method name is a placeholder for the vtable slot.
+
+void ProjectileNugget::rva00509A3C(const ProjectileNuggetFireInfo *info, const Coord3D *pos)
+{
+	Object *source = TheGameLogic->findObjectByID(info->m_sourceID);
+	if (source == 0)
+		return;
+
+	Matrix3D launchTransform;
+	const Matrix3D *launchTransformPtr = &launchTransform;
+	Coord3D launchPos;
+	Coord3D worldPos;
+	CreateMask mask;
+	if (m_useLaunchOffset)
+	{
+		ProjectileNuggetVector3 result;
+		ProjectileNuggetMath::transformVector(*source->getTransformMatrix(),
+			ProjectileNuggetVector3(m_launchOffset.x, m_launchOffset.y, m_launchOffset.z), &result);
+		launchPos.x = result.X;
+		launchPos.y = result.Y;
+		launchPos.z = result.Z;
+	}
+	else
+	{
+		launchPos = *pos;
+	}
+
+	Object *projectile;
+	const ProjectileNuggetWeapon *weapon = info->m_weapon;
+	if (weapon->m_filter.isValid() && source->getProjectileSource())
+	{
+		Weapon::calcProjectileLaunchPosition(source, info->m_wslot, info->m_specificBarrel, launchTransform, worldPos);
+		const ObjectFilter *filter = &info->m_weapon->m_filter;
+		projectile = source->getProjectileSource()->getProjectileToLaunch(filter);
+	}
+	else if (info->m_weapon->m_launchSelf)
+	{
+		ProjectileNuggetMath::copyMatrix(launchTransform, *source->getTransformMatrix());
+		projectile = source;
+	}
+	else
+	{
+		if (m_projectileTemplate == 0)
+			return;
+		launchTransformPtr = 0;
+		memset(&mask, 0, sizeof(mask));
+		projectile = TheThingFactory->newObject(m_projectileTemplate,
+			source->getControllingPlayer()->getDefaultTeam(), &mask, (ObjectID)0);
+	}
+
+	ProjectileUpdateInterface *pui = 0;
+	for (BehaviorModule **behaviorModule = projectile->getBehaviorModules(); *behaviorModule; ++behaviorModule)
+	{
+		if ((pui = (*behaviorModule)->projectileUpdateInterfaceView()) != 0)
+			break;
+	}
+	if (pui)
+	{
+		WeaponSlotType wslot = info->m_wslot;
+		if (m_weaponSlotOverride >= 0 && m_weaponSlotOverride < 6)
+			wslot = (WeaponSlotType)m_weaponSlotOverride;
+		projectile->setProducer(source);
+		pui->projectileLaunch(0, &launchPos, source, wslot, info->m_specificBarrel, info,
+			m_detonationWeapon, launchTransformPtr);
+	}
+	else
+	{
+		TheGameLogic->destroyObject(projectile);
+	}
+}

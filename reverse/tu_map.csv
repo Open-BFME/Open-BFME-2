@@ -43186,12 +43186,12 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x005096AB,28,code,Code/GameEngine/Source/Common/Made002CC7DE.cpp,approved,N,N=Code/GameEngine/Source/Common/Made002CC7DE.cpp provisional,Code/GameEngine/Source/Common/Made002CC7DE.cpp
 0x005096C7,56,code,Code/GameEngine/Source/Common/Made002CC7DE.cpp,approved,N,N=Code/GameEngine/Source/Common/Made002CC7DE.cpp provisional,Code/GameEngine/Source/Common/Made002CC7DE.cpp
 0x005096FF,33,code,,displaced,-,N=Code/GameEngine/Source/Common/INI/INI.cpp,Code/GameEngine/Source/Common/INI/INIThinFieldParsersEH.cpp
-0x00509720,51,code,Code/GameEngine/Source/Common/Made002CC7DE.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/Object/WeaponEffects/ProjectileNugget.cpp provisional,Code/GameEngine/Source/GameLogic/Object/WeaponEffects/ProjectileNugget.cpp
-0x00509753,45,code,Code/GameEngine/Source/Common/Made002CC7DE.cpp,approved,N,N=Code/GameEngine/Source/Common/Made002CC7DE.cpp provisional,Code/GameEngine/Source/Common/Made002CC7DERva00509753.cpp
+0x00509720,51,code,Code/GameEngine/Source/Common/Made002CC7DE.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/Object/WeaponEffects/ProjectileNugget.cpp provisional,Code/GameEngine/Source/Common/Made002CC7DE.cpp
+0x00509753,45,code,Code/GameEngine/Source/Common/Made002CC7DE.cpp,approved,N,N=Code/GameEngine/Source/Common/Made002CC7DE.cpp provisional,Code/GameEngine/Source/Common/Made002CC7DE.cpp
 0x00509780,77,code,Code/GameEngine/Source/Common/Made002CC7DE.cpp,approved,C,C=0x00509753..0x005097CD provisional,Code/GameEngine/Source/Common/Made002CC7DE.cpp
-0x005097CD,71,code,Code/GameEngine/Source/Common/Made002CC7DE.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/Object/ProjectileNugget.cpp W=Code/GameEngine/Source/GameLogic/Object/WeaponEffects/ProjectileNugget.cpp provisional,Code/GameEngine/Source/GameLogic/Object/ProjectileNugget_friend_postProcessLoad.cpp
+0x005097CD,71,code,Code/GameEngine/Source/Common/Made002CC7DE.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/Object/ProjectileNugget.cpp W=Code/GameEngine/Source/GameLogic/Object/WeaponEffects/ProjectileNugget.cpp provisional,Code/GameEngine/Source/Common/Made002CC7DE.cpp
 0x00509814,552,code,Code/GameEngine/Source/Common/Made002CC7DE.cpp,approved,U,N=Code/GameEngine/Source/Common/ProjectileNugget.cpp W=Code/GameEngine/Source/GameLogic/Object/WeaponEffects/ProjectileNugget.cpp provisional,Code/GameEngine/Source/Common/Made002CC7DE.cpp
-0x00509A3C,647,code,Code/GameEngine/Source/Common/Made002CC7DE.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/Object/WeaponEffects/ProjectileNugget.cpp provisional,Code/GameEngine/Source/GameLogic/Object/WeaponEffects/ProjectileNuggetLaunch.cpp
+0x00509A3C,647,code,Code/GameEngine/Source/Common/Made002CC7DE.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/Object/WeaponEffects/ProjectileNugget.cpp provisional,Code/GameEngine/Source/Common/Made002CC7DE.cpp
 0x00509CC3,95,code,Code/GameEngine/Source/GameLogic/Object/Made002CC841.cpp,proposed,N,N=Code/GameEngine/Source/GameLogic/Object/Made002CC841.cpp,Code/GameEngine/Source/GameLogic/Object/Made002CC841Ctor.cpp
 0x00509D22,7,code,,,-,,Code/GameEngine/Source/Common/DispByteFieldGetters.cpp
 0x00509D29,7,code,,displaced,-,S=Code/GameEngine/Source/Common/RTS/Player.cpp N=Code/GameEngine/Source/GameLogic/Object/Update/Player.cpp,Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdate.cpp
