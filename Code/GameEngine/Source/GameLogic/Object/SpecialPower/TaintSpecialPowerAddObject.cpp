@@ -21,11 +21,7 @@ struct CreateMask
 	unsigned int m_bits[4];
 };
 
-class Thing
-{
-public:
-	void setPosition(const Coord3D *pos);
-};
+#include "../../../Common/Thing/thing.h"
 
 class Object : public Thing
 {
@@ -34,7 +30,7 @@ public:
 	Team *getTeam() const { return m_team; }
 
 private:
-	unsigned char m_pad00[0x304];
+	unsigned char m_pad060[0x304 - 0x60];
 	Team *m_team;
 };
 

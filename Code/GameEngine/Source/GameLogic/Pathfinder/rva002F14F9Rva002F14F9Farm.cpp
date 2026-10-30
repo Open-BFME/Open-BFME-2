@@ -122,11 +122,7 @@ class Object
 };
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../../Libraries/Include/Lib/ICoord2DBase.h"
-class Thing
-{
- public:
- const Coord3D *getUnitDirectionVector2D() const;
-};
+#include "../../Common/Thing/thing.h"
 struct Rva002E7ED6Info;
 class Pathfinder;
 // Native aircraft-path node ABI agrees with the rowed ctor and prepend provider.

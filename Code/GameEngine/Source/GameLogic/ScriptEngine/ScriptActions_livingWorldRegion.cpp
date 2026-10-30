@@ -269,11 +269,9 @@ class Rva0040D701ArmySummary;
 
 struct Coord3D;
 
-class Thing
-{
-public:
-	void setPosition(const Coord3D *pos);
-};
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
+
+#include "../../Common/Thing/thing.h"
 
 class Object : public Thing
 {
@@ -281,7 +279,7 @@ public:
 	void setName(const AsciiString &name) { m_name = name; }
 
 private:
-	unsigned char m_pad00[0x88];
+	unsigned char m_pad060[0x88 - 0x60];
 	AsciiString m_name;
 };
 

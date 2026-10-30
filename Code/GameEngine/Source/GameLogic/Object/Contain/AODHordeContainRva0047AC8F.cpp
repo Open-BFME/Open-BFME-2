@@ -75,11 +75,7 @@ class AIUpdateInterface
  Locomotor *m_curLocomotor; // +0x1F0
 };
 
-class Thing
-{
- public:
- const Coord3D *getUnitDirectionVector2D() const;
-};
+#include "../../../Common/Thing/thing.h"
 
 class GeometryInfo
 {
@@ -91,9 +87,7 @@ class Object : public Thing
  public:
  bool isKindOf(KindOfType t) const;
  int rva0028B511() const;
- char m_pad00[0x38];
- Coord3D m_position;
- char m_pad44[0x74-0x44];
+ char m_pad060[0x74 - 0x60];
  int m_id; // +0x74
  char m_pad78[0xA8-0x78];
  GeometryInfo m_geometry;

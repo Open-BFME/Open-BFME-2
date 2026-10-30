@@ -18,11 +18,7 @@
 
 template<class T> inline volatile T &__vref(T &x) { return *(volatile T *)&x; }
 
-class Thing
-{
-public:
-	const Coord3D *getUnitDirectionVector2D() const;
-};
+#include "../../../Common/Thing/thing.h"
 
 class Object;
 
@@ -71,9 +67,7 @@ public:
 class Object : public Thing
 {
 public:
-	unsigned char m_pad000[4];
-	const Rva0046950DTemplate *m_template; // +0x04
-	unsigned char m_pad008[0x74 - 8];
+	unsigned char m_pad060[0x74 - 0x60];
 	unsigned int m_id; // +0x74
 	unsigned char m_pad078[0x258 - 0x78];
 	AIUpdateInterface *m_ai; // +0x258
@@ -94,7 +88,7 @@ private:
 void Rva0046950D24::rva0046950D(Object *obj, int, int)
 {
 	unsigned int targetId = *(unsigned int *)((char *)this + 0x2CC);
-	if (!obj || !(obj->m_template->m_121 & 2) || (obj->m_status & 1)
+	if (!obj || !(((const Rva0046950DTemplate *)obj->m_template)->m_121 & 2) || (obj->m_status & 1)
 		|| obj->m_id == targetId)
 		return;
 	AIUpdateInterface *ai = owner()->m_ai;

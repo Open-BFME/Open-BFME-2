@@ -149,23 +149,12 @@ struct ThingTemplate
 	float m_B0;	// +0xB0
 };
 
-class Thing
-{
-public:
-	void getUnitDirectionVector2D(Coord3D &dir) const;	// 0x0030A2A2
-};
+#include "../../../Common/Thing/thing.h"
 
 class Object : public Thing
 {
 public:
-	const Coord3D *getPosition() const { return &m_pos; }
-	float getOrientation() const { return m_angle; }
 	const ThingTemplate *getTemplate() const { return m_template; }
-	char m_pad000[0x04];
-	const ThingTemplate *m_template;	// +0x04
-	char m_pad008[0x38 - 0x08];
-	Coord3D m_pos;		// +0x38
-	float m_angle;		// +0x44
 };
 
 class ModuleData;

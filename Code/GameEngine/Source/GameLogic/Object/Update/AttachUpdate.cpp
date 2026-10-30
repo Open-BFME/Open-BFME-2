@@ -144,11 +144,7 @@ public:
 
 extern Eva *TheEva;
 
-class Thing
-{
-public:
-	void setPosition(const Coord3D *pos);	// 0x0030AA80
-};
+#include "../../../Common/Thing/thing.h"
 
 class Object : public Thing
 {
@@ -160,15 +156,10 @@ public:
 	bool rva002931BA();	// 0x002931BA
 	void rva0028CDEB(const Rva00346BC0 &mask, bool set);	// 0x0028CDEB (row spelling)
 	void setStatus(ObjectStatusTypes bit, bool flag);	// 0x0023DB0E
-	const Coord3D *getPosition() const { return &m_pos; }
 	ObjectID getID() const { return m_id; }
 	const ThingTemplate *getTemplate() const { return m_template; }
 	Object *getRider() const { return m_274; }	// +0x274 (WB reads it through a getter)
-	char m_pad000[0x04];
-	const ThingTemplate *m_template;	// +0x04
-	char m_pad008[0x38 - 0x08];
-	Coord3D m_pos;		// +0x38
-	char m_pad044[0x74 - 0x44];
+	char m_pad060[0x74 - 0x60];
 	ObjectID m_id;		// +0x74
 	char m_pad078[0x274 - 0x78];
 	Object *m_274;		// +0x274

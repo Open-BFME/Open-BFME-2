@@ -184,19 +184,13 @@ private:
 	UnsignedInt m_words[19];
 };
 
-class Thing
-{
-public:
-	const Coord3D *getUnitDirectionVector2D() const;
-	void setPosition(const Coord3D *pos);
-};
+#include "../../../Common/Thing/thing.h"
 
 class Object : public Thing
 {
 public:
 	Player *getControllingPlayer() const;
 	void rva0028AE6D();
-	const Coord3D *getPosition() const { return &m_pos; }
 	ObjectID getID() const { return m_id; }
 	Real getBoundingRadius() const { return m_boundingRadius; }
 	Team *getTeam() const { return m_team; }
@@ -209,9 +203,7 @@ public:
 			rva0028AE6D();
 		}
 	}
-	char m_pad000[0x38];
-	Coord3D m_pos;								// +0x38
-	char m_pad044[0x74 - 0x44];
+	char m_pad060[0x74 - 0x60];
 	ObjectID m_id;								// +0x74
 	char m_pad078[0xCC - 0x78];
 	Real m_boundingRadius;						// +0xCC

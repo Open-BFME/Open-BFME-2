@@ -13,11 +13,7 @@ struct CreateMask
 {
 	unsigned int words[4];
 };
-class Thing
-{
-public:
-	void setPosition(const Coord3D *pos);
-};
+#include "../../../Common/Thing/thing.h"
 class Player
 {
 public:
@@ -131,13 +127,10 @@ enum DeathType { DEATH_NORMAL = 0 };
 class Object : public Thing
 {
 public:
-	const Coord3D *getPosition() const { return &m_position; }
 private:
-	unsigned char m_pad00[0x38];
 public:
-	Coord3D m_position;
 private:
-	unsigned char m_pad44[0x74 - 0x44];
+	unsigned char m_pad060[0x74 - 0x60];
 public:
 	unsigned int m_id74;
 private:

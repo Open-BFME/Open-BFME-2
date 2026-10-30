@@ -25,24 +25,14 @@ struct CreateMask
 	char m_pad[0x10];
 };
 
-class Thing
-{
-public:
-	void setOrientation(float angle);	// 0x0030AB9D
-	void setPosition(const Coord3D *pos);	// 0x0030AA80
-};
+#include "../../../../Common/Thing/thing.h"
 
 class Object : public Thing
 {
 public:
 	Player *getControllingPlayer() const;	// 0x0028AFA9
-	const Coord3D *getPosition() const { return &m_pos; }
-	float getOrientation() const { return m_orientation; }
 	int getID() const { return m_id; }
-	char m_pad000[0x38];
-	Coord3D m_pos;		// +0x38
-	float m_orientation;	// +0x44
-	char m_pad048[0x74 - 0x48];
+	char m_pad060[0x74 - 0x60];
 	int m_id;			// +0x74
 };
 
@@ -263,9 +253,9 @@ bool UnitCrateCollide::executeCrateBehavior(Object *other)
 		if (newObj != 0)
 		{
 			Coord3D creationPoint;
-			creationPoint.x = other->m_pos.x;
-			creationPoint.y = other->m_pos.y;
-			creationPoint.z = other->m_pos.z;
+			creationPoint.x = other->m_cachedPos.x;
+			creationPoint.y = other->m_cachedPos.y;
+			creationPoint.z = other->m_cachedPos.z;
 			FindPositionOptions fpOptions;
 			fpOptions.startAngle = g_00C5A910;
 			fpOptions.maxZDelta = 10000000000.0f;

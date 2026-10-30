@@ -50,19 +50,12 @@ private:
 
 #include <new>
 
-class Thing
-{
-public:
-	void getUnitDirectionVector2D(Coord3D &dir) const;
-};
+#include "../../../Common/Thing/thing.h"
 
 class Object : public Thing
 {
 public:
-	const Coord3D *getPosition() const { return &m_position; }
 private:
-	unsigned char m_pad00[0x38];
-	Coord3D m_position;						// +0x38
 };
 
 class TerrainLogic

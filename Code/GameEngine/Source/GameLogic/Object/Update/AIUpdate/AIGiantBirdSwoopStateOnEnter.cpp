@@ -295,11 +295,7 @@ private:
 	unsigned char m_privateStatus; // +0x438
 };
 
-class Thing
-{
-public:
-	void setPosition(const Coord3D *pos);
-};
+#include "../../../../Common/Thing/thing.h"
 
 class BfmeVec3EJ;
 class Gen_000E5A50

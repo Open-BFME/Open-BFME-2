@@ -162,23 +162,15 @@ template <class T, class U> struct _Alloc_traits<T, BfmeObjectIdPoolAllocator<U>
 }
 typedef std::list<ObjectID, BfmeObjectIdPoolAllocator<ObjectID> > ObjectIDList;
 
-class Thing
-{
-public:
-	void setPosition(const Coord3D *);
-	void setOrientation(Real);
-};
+#include "../../../Common/Thing/thing.h"
 
 class Object : public Thing
 {
 public:
 	ObjectID getID() const { return m_id; }
-	const Coord3D *getPosition() const { return &m_pos; }
 	Team *getTeam() const { return m_team; }
 private:
-	unsigned char m_unmodelled000[0x38];
-	Coord3D m_pos;	// +0x38
-	unsigned char m_unmodelled044[0x74 - 0x44];
+	unsigned char m_pad060[0x74 - 0x60];
 	ObjectID m_id;	// +0x74
 	unsigned char m_unmodelled078[0x304 - 0x78];
 	Team *m_team;	// +0x304

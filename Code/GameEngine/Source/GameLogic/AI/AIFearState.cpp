@@ -160,17 +160,11 @@ private:
 	UnsignedInt m_words[19];
 };
 
-class Thing
-{
-public:
-	void setOrientation(Real angle);
-};
+#include "../../Common/Thing/thing.h"
 
 class Object : public Thing
 {
 public:
-	const Coord3D *getPosition() const { return &m_position; }
-	Real getOrientation() const { return m_orientation; }
 	const GeometryInfo &getGeometryInfo() const { return m_geometryInfo; }
 	AIUpdateInterface *getAI() { return m_ai; }
 	UnsignedInt getPrivateStatus() const { return m_privateStatus; }
@@ -194,10 +188,7 @@ public:
 		}
 	}
 private:
-	char m_pad000[0x38];
-	Coord3D m_position; // +0x38
-	Real m_orientation; // +0x44
-	char m_pad048[0xA8 - 0x48];
+	char m_pad060[0xA8 - 0x60];
 	GeometryInfo m_geometryInfo; // +0xA8
 	char m_pad104[0x10C - 0x104];
 	ModelConditionFlags m_conditionBits; // +0x10C

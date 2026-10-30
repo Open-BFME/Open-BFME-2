@@ -92,11 +92,7 @@ public:
 	Object *container;
 };
 #include "Lib/Coord3D.h"
-class Thing
-{
-public:
-	const Coord3D *getUnitDirectionVector2D() const;
-};
+#include "../../Common/Thing/thing.h"
 struct Rva002E7ED6Info;
 class Pathfinder;
 struct Rva002E93A7Info

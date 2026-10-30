@@ -101,12 +101,7 @@ public:
 	unsigned int words[4]; // +0x00
 };
 
-class Thing
-{
-public:
-	void setPosition(const Coord3D *pos);
-	void setOrientation(Real angle);
-};
+#include "../../Common/Thing/thing.h"
 
 class Object : public Thing
 {
@@ -114,7 +109,7 @@ public:
 	ObjectID getID() const { return m_id; }
 	void updateObjValuesFromMapProperties(Dict *properties);
 private:
-	char m_pad00[0x74];
+	char m_pad060[0x74 - 0x60];
 	ObjectID m_id; // +0x74
 };
 

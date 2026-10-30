@@ -18,11 +18,7 @@
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-class Thing
-{
-public:
-	void setOrientation(float angle);
-};
+#include "../../Common/Thing/thing.h"
 
 class Object : public Thing
 {
@@ -34,7 +30,7 @@ public:
 	const Coord2D *getFormationOffset() const { return &m_formationOffset; }
 
 private:
-	unsigned char m_pad000[0x414];
+	unsigned char m_pad060[0x414 - 0x60];
 	Coord2D m_formationOffset; // +0x414
 };
 

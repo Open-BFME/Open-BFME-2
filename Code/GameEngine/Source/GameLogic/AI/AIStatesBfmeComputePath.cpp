@@ -291,11 +291,7 @@ private:
 
 class Module;
 
-class Thing
-{
-public:
-	const Coord3D *getUnitDirectionVector2D() const;
-};
+#include "../../Common/Thing/thing.h"
 
 // KindOf bits named from retail's KindOf name table (0x00DBBE18).
 enum KindOfType
@@ -317,7 +313,6 @@ class Object : public Thing
 public:
 	AIUpdateInterface *getAI() { return m_ai; }
 	const ThingTemplate *getTemplate() const { return m_template; }
-	const Coord3D *getPosition() const { return &m_position; }
 	ObjectID getID() const { return m_id; }
 	const Weapon *getCurrentWeapon(WeaponSlotType *wslot = 0) const;
 protected:
@@ -346,11 +341,7 @@ public:
 		}
 	}
 private:
-	unsigned char m_pad000[4];
-	const ThingTemplate *m_template; // +0x04
-	unsigned char m_pad008[0x38 - 0x08];
-	Coord3D m_position; // +0x38
-	unsigned char m_pad044[0x74 - 0x44];
+	unsigned char m_pad060[0x74 - 0x60];
 	ObjectID m_id; // +0x74
 	unsigned char m_pad078[0xB8 - 0x78];
 	Real m_geometryRadiusB8; // +0xB8 (geometry info +0xA8, its +0x10)

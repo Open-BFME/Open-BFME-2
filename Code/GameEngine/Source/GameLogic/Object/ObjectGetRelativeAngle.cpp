@@ -16,17 +16,12 @@
 typedef float Real;
 extern Real ACos(Real);
 
-class Thing {
-public:
-  const Coord3D *getUnitDirectionVector2D() const;
-};
+#include "../../Common/Thing/thing.h"
 
 class Object : public Thing {
 public:
   Real GetRelativeAngle(const Coord3D *pos) const;
 private:
-  unsigned char m_pad004[0x38];
-  Coord3D m_cachedPos;
 };
 
 // Select-any like the inline copy other TUs emit (WB: Object.h inline; a
