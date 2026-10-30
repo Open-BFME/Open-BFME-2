@@ -58,13 +58,7 @@ private:
 	unsigned char m_dead; // +0x438
 };
 
-class Team
-{
-public:
-	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
-	int rva0039DC05(int kind, bool ignoreDead, bool ignoreUnderConstruction) const;
-	void countObjectsByThingTemplate(int numTmplates, const ThingTemplate *const *things, bool ignoreDead, int *counts, bool ignoreUnderConstruction) const;
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 int Team::rva0039DC05(int kind, bool ignoreDead, bool ignoreUnderConstruction) const
 {

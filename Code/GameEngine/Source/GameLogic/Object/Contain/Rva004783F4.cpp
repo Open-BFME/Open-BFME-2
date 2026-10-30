@@ -9,12 +9,7 @@
 // 0x00480BFD, TheTeamFactory global 0x00A028BC, rowed findTeamByID
 // 0x0039F761.
 
-class Team
-{
-public:
-	unsigned char m_pad[0x34];
-	unsigned int m_id;
-};
+#include "../../../../Include/Common/TeamBFME2.h"
 class TeamFactory;
 
 class TeamFactory

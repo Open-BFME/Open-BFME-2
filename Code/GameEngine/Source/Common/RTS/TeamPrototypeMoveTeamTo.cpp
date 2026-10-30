@@ -36,12 +36,7 @@ public:
 	OBJCLASS *cur() const { return m_cur; }
 };
 
-class Team : public MemoryPoolObject, public Snapshot
-{
-public:
-	Team *dlink_next_TeamInstanceList() const;
-	void moveTeamTo(Coord3D destination);
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 class TeamPrototype
 {

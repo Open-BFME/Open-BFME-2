@@ -225,13 +225,7 @@ public:
 	unsigned char m_pad000[0x216];
 	Bool m_attackCommonTarget; // +0x216
 };
-class Team
-{
-public:
-	Object *getTeamTargetObject();
-	unsigned char m_pad00[0x30];
-	TeamPrototype *m_proto; // +0x30
-};
+#include "../../../../Include/Common/TeamBFME2.h"
 
 class Player
 {

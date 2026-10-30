@@ -68,12 +68,7 @@ struct ThingTemplate
 	unsigned char m_kindByte115;
 };
 
-class Team
-{
-public:
-	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
-	void getTeamAsAIGroup(AIGroup *group);
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 void Team::getTeamAsAIGroup(AIGroup *pAIGroup)
 {

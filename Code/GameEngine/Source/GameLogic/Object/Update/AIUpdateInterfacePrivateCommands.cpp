@@ -577,11 +577,7 @@ private:
 	unsigned char m_unmodelled_04[0x18 - 0x04];
 };
 
-class Team
-{
-public:
-	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;	///< matched 0x00263864
-};
+#include "../../../../Include/Common/TeamBFME2.h"
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Object.h
 class Rva0028B525DwordSlot { public: void set(Int); };

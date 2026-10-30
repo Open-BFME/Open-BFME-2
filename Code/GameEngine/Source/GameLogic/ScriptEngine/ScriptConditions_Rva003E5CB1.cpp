@@ -91,12 +91,7 @@ public:
 	AsciiString m_string;	// +0x10
 };
 
-class Team
-{
-public:
-	Object *rva0039E8EB();			// 0x0039E8EB
-	void rva0039E5B9(Coord3D *center);	// 0x0039E5B9
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;

@@ -54,11 +54,7 @@ struct Rva00204FBBScript
     unsigned char pad00[0x40];
     bool active;
 };
-class Team
-{
-public:
-    bool enableGenericScript(const AsciiString &name, const AsciiString &group, bool enabled);
-};
+#include "../../../Include/Common/TeamBFME2.h"
 class ScriptEngine
 {
 protected:

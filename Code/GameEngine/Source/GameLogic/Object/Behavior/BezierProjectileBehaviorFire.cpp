@@ -48,11 +48,7 @@ public:
 	Real Get_Z_Rotation() const;	// 0x00712020
 };
 
-class Team
-{
-public:
-	Relationship getRelationship(const Team *that) const;	// 0x003A0FD2
-};
+#include "../../../../Include/Common/TeamBFME2.h"
 
 class Player
 {

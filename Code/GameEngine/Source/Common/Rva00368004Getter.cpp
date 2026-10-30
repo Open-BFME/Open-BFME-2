@@ -40,11 +40,7 @@ public:
 
 extern GameLogic *TheGameLogic;
 
-class Team
-{
-public:
-	void rva0039E5B9(Coord3D *pos);
-};
+#include "../../Include/Common/TeamBFME2.h"
 
 class TeamFactory
 {

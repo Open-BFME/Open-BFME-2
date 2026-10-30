@@ -252,9 +252,7 @@ enum Relationship
 	Rva0053EAECRelationshipValue0 = 0
 };
 
-class Team
-{
-};
+#include "../../../../Include/Common/TeamBFME2.h"
 
 class Player
 {

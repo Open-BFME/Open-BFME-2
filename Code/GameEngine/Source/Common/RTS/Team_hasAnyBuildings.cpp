@@ -60,12 +60,7 @@ public:
 	unsigned char m_dead;
 };
 
-class Team
-{
-public:
-	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
-	bool hasAnyBuildings(Rva0039DF1CFilter f1, Rva0039DF1CFilter f2);
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 bool Team::hasAnyBuildings(Rva0039DF1CFilter f1, Rva0039DF1CFilter f2)
 {

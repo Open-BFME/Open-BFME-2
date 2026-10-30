@@ -124,11 +124,7 @@ private:
 	unsigned char m_rest[20];
 };
 
-class Team
-{
-public:
-	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;	// 0x00263864
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 class ThingFactory
 {

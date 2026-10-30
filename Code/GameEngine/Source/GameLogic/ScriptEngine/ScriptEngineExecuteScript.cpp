@@ -121,11 +121,7 @@ private:
 	Team *m_dlinkhead_TeamInstanceList;	// +0x334
 };
 
-class Team : public MemoryPoolObject, public Snapshot
-{
-public:
-	Team *dlink_next_TeamInstanceList() const;
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 inline DLINK_ITERATOR<Team> TeamPrototype::iterate_TeamInstanceList() const
 {

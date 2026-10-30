@@ -83,11 +83,7 @@ public:
 	unsigned char m_dead;
 };
 
-class Team {
-public:
- DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
- bool damageTeamMembers(float);
-};
+#include "../../../Include/Common/TeamBFME2.h"
 bool Team::damageTeamMembers(float f)
 {
 	for (DLINK_ITERATOR<Object> iter = iterate_TeamMemberList(); ; iter.advance()) {

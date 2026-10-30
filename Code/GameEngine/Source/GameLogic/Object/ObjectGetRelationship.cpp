@@ -44,11 +44,7 @@ public:
 	unsigned int m_field118;
 };
 
-class Team
-{
-public:
-	Relationship getRelationship(const Team *other) const;
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 class Rva002CA9CA
 {

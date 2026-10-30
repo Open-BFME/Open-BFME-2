@@ -42,12 +42,7 @@ public:
 	unsigned char m_dead;
 };
 
-class Team
-{
-public:
-	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
-	bool hasAnyUnits();
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 bool Team::hasAnyUnits()
 {

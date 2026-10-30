@@ -38,11 +38,7 @@ private:
 	OBJCLASS *m_cur;
 	unsigned char m_rest[20];
 };
-class Team
-{
-public:
-	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
-};
+#include "../../../Include/Common/TeamBFME2.h"
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 #include "../../../Include/GameLogic/ScriptConditions.h"

@@ -37,15 +37,7 @@ public:
 	unsigned char m_pad00[0x20];
 	AICommandInterface m_commands; // +0x20
 };
-class Team
-{
-public:
-	void setActive(void) { if (!m_active) { m_created = true; m_active = true; } }
-private:
-	unsigned char m_pad00[0x5D];
-	Bool m_active; // +0x5D
-	Bool m_created; // +0x5E
-};
+#include "../../../Include/Common/TeamBFME2.h"
 class Object
 {
 public:

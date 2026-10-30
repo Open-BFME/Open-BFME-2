@@ -71,11 +71,7 @@ private:
 	const ThingTemplate *m_template;	// +0x04
 };
 
-class Team
-{
-public:
-	float rva003A3736(float radius);
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 // WB ThreatFinderUpdate.cpp: the record getThreatForPlayer returns by value.
 struct ThreatInfo

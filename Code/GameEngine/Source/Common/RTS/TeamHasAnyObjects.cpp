@@ -54,16 +54,7 @@ public:
 	unsigned char m_dead;
 };
 
-class Team
-{
-public:
-	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
-	bool hasAnyObjects(bool bfmeFlag);
-
-private:
-	unsigned char m_pad[0x5c];
-	bool m_enteredOrExited;
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 bool Team::hasAnyObjects(bool bfmeFlag)
 {

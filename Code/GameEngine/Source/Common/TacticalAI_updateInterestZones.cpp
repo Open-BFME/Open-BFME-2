@@ -150,10 +150,7 @@ private: T *current; GetNextFunc next;
 };
 template<> void DLINK_ITERATOR<Object>::advance();
 class Rva002C6607Base0 {}; class Rva002C6607Base1 {};
-class Team : public Rva002C6607Base0, public Rva002C6607Base1 { public:
- DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
- Team *dlink_next_TeamInstanceList() const {return *(Team**)((char*)this+0x40); }
-};
+#include "../../Include/Common/TeamBFME2.h"
 class TeamPrototype { public: char pad[0x334]; Team *head;
  DLINK_ITERATOR<Team> iterate_TeamInstanceList() const {return DLINK_ITERATOR<Team>(head,&Team::dlink_next_TeamInstanceList);}
 };

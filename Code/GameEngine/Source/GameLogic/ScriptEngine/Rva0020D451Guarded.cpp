@@ -18,11 +18,7 @@ struct Rva002048A2
 
 class Player;
 
-class Team
-{
-public:
-	Player *getControllingPlayer() const;
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 class ScriptAction;
 class ScriptEngine

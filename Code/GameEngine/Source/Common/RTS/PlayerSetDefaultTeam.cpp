@@ -13,23 +13,7 @@
 // (Zero Hour Team::setActive shape, donor naming).
 #include "ascii_string.h"
 
-class Team
-{
-public:
-	void setActive()
-	{
-		if (!m_active)
-		{
-			m_created = true;
-			m_active = true;
-		}
-	}
-
-private:
-	char m_pad00[0x5D];
-	bool m_active; // +0x5D
-	bool m_created; // +0x5E
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 class TeamFactory
 {

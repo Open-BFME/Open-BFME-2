@@ -12,7 +12,7 @@
 #pragma pointers_to_members(full_generality, multiple_inheritance)
 class Team;
 typedef Team *(Team::*Rva00203E47Next)() const;
-class Team { public: Team *dlink_next_TeamInstanceList() const; };
+#include "../../Include/Common/TeamBFME2.h"
 struct Rva00203E47IteratorView
 {
     void *current;

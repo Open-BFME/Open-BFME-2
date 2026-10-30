@@ -63,11 +63,7 @@ public:
 	unsigned char m_unreconstructed_000[0x34];
 	const PlayerTemplate *m_playerTemplate;
 };
-class Team
-{
-public:
-	Player *getControllingPlayer() const;
-};
+#include "../../../../../Include/Common/TeamBFME2.h"
 
 class Object
 {

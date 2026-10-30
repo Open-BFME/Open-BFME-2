@@ -148,11 +148,7 @@ public:
 	W3DBridge m_3bc;			// +0x3BC
 };
 
-class Team
-{
-public:
-	Player *getControllingPlayer() const;
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 class PlayerList
 {

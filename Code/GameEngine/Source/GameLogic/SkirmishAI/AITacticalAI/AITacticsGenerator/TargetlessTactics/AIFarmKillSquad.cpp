@@ -105,12 +105,7 @@ public:
 	OBJCLASS *cur() const { return m_cur; }
 };
 
-class Team
-{
-public:
-	void rva0039E5B9(Coord3D *center);
-	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
-};
+#include "../../../../../../Include/Common/TeamBFME2.h"
 
 extern GameLogic *TheGameLogic;
 

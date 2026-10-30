@@ -191,15 +191,7 @@ private:
     unsigned char m_projectileKindFlags; // +0x10B, retail test at 0x0034EFE5
     unsigned char m_kindOf[4]; // +0x10C (CAN_BE_REPULSED: byte +0x10D mask 0x20)
 };
-class Team
-{
-public:
-    void setCurrentWaypoint(const Waypoint *waypoint) { m_currentWaypoint = waypoint; }
-    const Waypoint *getCurrentWaypoint() const { return m_currentWaypoint; }
-private:
-    unsigned char m_pad00[0x6C];
-    const Waypoint *m_currentWaypoint; // +0x6C
-};
+#include "../../../Include/Common/TeamBFME2.h"
 class Object
 {
 public:

@@ -184,11 +184,7 @@ public:
 	Player *m_local;	// +0x10
 };
 
-class Team
-{
-public:
-	void notifyTeamOfObjectDeath(Object *obj);
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 struct Rva002D76C6Owner;
 class Radar

@@ -46,12 +46,7 @@ private:
 	unsigned char m_kindOf[0x20]; // +0x108
 };
 
-class Team
-{
-public:
-	bool rva0039F0D2();
-	bool rva0039F824();
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 class Player
 {

@@ -17,11 +17,7 @@ public:
 	char m_pad[0x38];
 	Coord3D m_pos;
 };
-class Team
-{
-public:
-	Object *rva0039E8EB();
-};
+#include "../../../Include/Common/TeamBFME2.h"
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 class Waypoint

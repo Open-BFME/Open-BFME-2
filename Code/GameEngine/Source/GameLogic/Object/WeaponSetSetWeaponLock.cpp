@@ -79,11 +79,7 @@ enum KindOfType
 {
 	KINDOF_NONE = 0
 };
-class Team
-{
-public:
-	Relationship getRelationship(const Team *that) const;
-};
+#include "../../../Include/Common/TeamBFME2.h"
 class Player
 {
 public:

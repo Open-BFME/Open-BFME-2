@@ -121,7 +121,7 @@ template<class T>class DLINK_ITERATOR {
 public:DLINK_ITERATOR(){} T*current;unsigned char state[20];void advance();
  T*cur()const{return current;}bool done()const{return !current;}
 };
-class Team {public:DLINK_ITERATOR<Object>iterate_TeamMemberList()const;Object*rva0039E8EB();};
+#include "../../Include/Common/TeamBFME2.h"
 class Rva002C589B {public:Object*rva002C5DA6();unsigned char pad[12];Coord3D position;};
 class Pathfinder {public:
  bool QuickDoesPathExistToStructure(Object*,const Coord3D*,Object*,int);

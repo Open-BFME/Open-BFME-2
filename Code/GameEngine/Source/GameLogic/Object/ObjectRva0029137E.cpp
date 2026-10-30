@@ -9,11 +9,7 @@ enum Relationship
 	REL_ALLY = 2
 };
 
-class Team
-{
-public:
-	Relationship getRelationship(const Team *other) const;
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 class BfmeMemberRV
 {

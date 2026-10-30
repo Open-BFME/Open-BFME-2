@@ -26,11 +26,7 @@ public:
 	Relationship getRelationship(const Team *that) const;
 };
 
-class Team
-{
-public:
-	Player *getControllingPlayer() const;
-};
+#include "../../Include/Common/TeamBFME2.h"
 
 struct FlagBlock108
 {

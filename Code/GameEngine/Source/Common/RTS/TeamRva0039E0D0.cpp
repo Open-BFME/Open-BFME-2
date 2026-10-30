@@ -99,16 +99,7 @@ public:
 	Rva0039E0D0AI *m_inner250;
 };
 
-class Team
-{
-public:
-	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
-	bool rva0039E0D0();
-
-private:
-	unsigned char m_pad[0x112];
-	bool m_112;
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 bool Team::rva0039E0D0()
 {

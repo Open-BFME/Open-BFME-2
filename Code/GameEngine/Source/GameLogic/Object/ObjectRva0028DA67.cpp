@@ -21,11 +21,7 @@ public:
 	void addCommandPoints(Rva002A7588In *in);
 	void removeCommandPoints(Rva002A7588In *in);
 };
-class Team
-{
-public:
-	Player *getControllingPlayer() const;
-};
+#include "../../../Include/Common/TeamBFME2.h"
 class TeamFactory
 {
 public:

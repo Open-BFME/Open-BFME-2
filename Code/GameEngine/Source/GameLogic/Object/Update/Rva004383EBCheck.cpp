@@ -4,11 +4,7 @@ enum Relationship
 {
 	REL_DUMMY = 0
 };
-class Team
-{
-public:
-	Relationship getRelationship(const Team *other) const;
-};
+#include "../../../../Include/Common/TeamBFME2.h"
 class BfmeMemberRV
 {
 public:

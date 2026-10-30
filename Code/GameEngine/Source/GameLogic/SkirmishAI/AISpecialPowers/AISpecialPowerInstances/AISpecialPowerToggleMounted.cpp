@@ -22,7 +22,7 @@ template<class T> class DLINK_ITERATOR {public:
  void advance();bool done() const {return current==0;}T *cur() const {return current;}
  private:T *current;char unknownState[20];
 };
-class Team {public:DLINK_ITERATOR<Object> iterate_TeamMemberList() const;};
+#include "../../../../../Include/Common/TeamBFME2.h"
 class AISpecialPowerToggleMounted {public:
  virtual void slot0();virtual void slot1();virtual void slot2();
  virtual void slot3();virtual void slot4();virtual void slot5();

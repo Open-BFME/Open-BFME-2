@@ -627,11 +627,7 @@ public:
  virtual void d72();
  virtual int getStealthUnitsContained() const;
 };
-class Team
-{
-public:
-	Relationship getRelationship(const Team *that) const;
-};
+#include "../../../Include/Common/TeamBFME2.h"
 static __declspec(noinline) bool Rva0041B80FCheck(Object *visObj, Object *teamObj);
 static __declspec(noinline) bool Rva0041B80FCheck(Object *visObj, Object *teamObj)
 {

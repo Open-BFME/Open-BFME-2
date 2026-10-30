@@ -80,11 +80,7 @@ public:
 	OrCondition *m_condition;		// +0x30
 };
 class Player;
-class Team
-{
-public:
-	Player *getControllingPlayer() const;
-};
+#include "../../../Include/Common/TeamBFME2.h"
 // TheScriptConditions 0x00A02E04: slot 14 evaluates the other condition types
 // (Zero Hour's ScriptConditionsInterface::evaluateCondition).
 class ScriptConditions

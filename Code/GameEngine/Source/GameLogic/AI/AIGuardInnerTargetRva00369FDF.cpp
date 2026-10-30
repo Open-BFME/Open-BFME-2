@@ -210,16 +210,7 @@ struct TeamPrototype
 	TeamTemplateInfo m_info;
 };
 
-class Team
-{
-public:
-	Object *getTeamTargetObject();	// 0x003A105B
-	void rva0039E5B9(Coord3D *pos);	// 0x0039E5B9
-	TeamPrototype *getPrototype() { return m_proto; }
-private:
-	char m_pad00[0x30];
-	TeamPrototype *m_proto;	// +0x30
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 class TeamFactory
 {

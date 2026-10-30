@@ -48,11 +48,7 @@ public:
 class DLINK_ITERATOR_Object;
 typedef int (__cdecl *TeamPredicate)(Object *obj, void *userData);
 
-class Team
-{
-public:
-	int rva0039DD12(TeamPredicate pred, void *userData) const;
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 // The object's member at +0x264 receives both per-object calls.
 struct Rva003C4570Object

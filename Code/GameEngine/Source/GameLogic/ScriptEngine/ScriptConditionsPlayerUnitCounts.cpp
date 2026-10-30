@@ -395,12 +395,7 @@ private:
 	unsigned char m_privateStatus; // +0x438
 };
 
-class Team : public MemoryPoolObject, public Snapshot
-{
-public:
-	Team *dlink_next_TeamInstanceList() const;
-	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 class TeamPrototype
 {

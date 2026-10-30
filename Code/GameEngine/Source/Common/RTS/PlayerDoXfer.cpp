@@ -75,7 +75,7 @@ class Upgrade;
 class UpgradeCenter { public: const UpgradeTemplate *findUpgrade(const AsciiString&) const; };
 extern UpgradeCenter *TheUpgradeCenter;
 class TeamPrototype;
-class Team { public: unsigned getID() const { return m_id; } char pad00[0x34]; unsigned m_id; };
+#include "../../../Include/Common/TeamBFME2.h"
 class TeamFactory { public: Team *findTeamByID(unsigned); TeamPrototype *findTeamPrototypeByID(unsigned); };
 extern TeamFactory *TheTeamFactory;
 class Rva002AAC74PoolList { public: void clear(); };

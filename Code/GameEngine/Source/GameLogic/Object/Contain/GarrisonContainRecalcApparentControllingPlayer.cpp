@@ -51,14 +51,7 @@ public:
     void setIndicatorColor(int color);
 };
 
-class Team
-{
-public:
-    unsigned int getID() const { return m_id; }
-private:
-    unsigned char m_pad00[0x34];
-    unsigned int m_id; // +0x34
-};
+#include "../../../../Include/Common/TeamBFME2.h"
 
 class Player
 {

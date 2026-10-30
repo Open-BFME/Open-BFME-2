@@ -42,11 +42,7 @@ public:
 	Team *m_defaultTeam; // +0x2EC
 };
 
-class Team
-{
-public:
-	Player *getControllingPlayer() const;
-};
+#include "../../../../Include/Common/TeamBFME2.h"
 
 class TeamFactory
 {

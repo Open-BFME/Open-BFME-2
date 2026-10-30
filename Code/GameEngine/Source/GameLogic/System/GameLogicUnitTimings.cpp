@@ -140,22 +140,7 @@ public:
 	void rva0028CBFD();
 };
 
-class Team
-{
-public:
-	void setActive()
-	{
-		if (!m_active)
-		{
-			m_5E = true;
-			m_active = true;
-		}
-	}
-
-	unsigned char m_pad00[0x5D];
-	bool m_active; // +0x5D
-	bool m_5E;     // +0x5E
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 class Player
 {

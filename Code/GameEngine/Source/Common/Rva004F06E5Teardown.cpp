@@ -20,11 +20,7 @@ public:
 	Rva004F06E5Inner30 *m_30;
 };
 
-class Team
-{
-public:
-	void disband();
-};
+#include "../../Include/Common/TeamBFME2.h"
 
 class Rva004F06E5
 {

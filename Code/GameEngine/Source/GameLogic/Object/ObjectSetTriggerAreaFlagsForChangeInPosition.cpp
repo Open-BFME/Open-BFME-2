@@ -112,11 +112,7 @@ struct ObjectTriggerListView
 struct Rva002E373CHolder;
 extern Rva002E373CHolder *g_Va00DBD0F4;
 
-class Team
-{
-public:
-	void rva0039D8BA(Object *obj);	// 0x0039D8BA setEnteredExited
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 class PathfinderPosGoalManager
 {

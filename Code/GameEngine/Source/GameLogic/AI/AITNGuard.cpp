@@ -132,16 +132,7 @@ private:
 	TeamTemplateInfo m_teamTemplate; // +0x12C (the TeamPrototype ctor at 0x3A3299 constructs it there)
 };
 
-class Team
-{
-public:
-	const TeamPrototype *getPrototype(void) { return m_proto; }
-	Object *getTeamTargetObject();
-	void setTeamTargetObject(Object *target);
-private:
-	unsigned char m_pad00[0x30];
-	TeamPrototype *m_proto; // +0x30
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 class TunnelTracker
 {

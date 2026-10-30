@@ -34,12 +34,7 @@ public:
 	ThingTemplate *m_template;
 };
 
-class Team
-{
-public:
-	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
-	bool hasAnyBuildFacility();
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 bool Team::hasAnyBuildFacility()
 {

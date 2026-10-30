@@ -106,11 +106,7 @@ public:
 
 extern Rva002A8F24 *TheSkirmishAIManager;
 
-class Team
-{
-public:
-	Coord3D *rva0039DA2A(Coord3D *out) const;
-};
+#include "../../../../../../Include/Common/TeamBFME2.h"
 
 struct Rva005AA55DRecord
 {

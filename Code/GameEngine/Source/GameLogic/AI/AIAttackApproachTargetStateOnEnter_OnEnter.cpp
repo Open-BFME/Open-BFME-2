@@ -422,14 +422,7 @@ public:
 	Bool m_216; // +0x216
 };
 
-class Team
-{
-public:
-	Object *getTeamTargetObject();
-	void setTeamTargetObject(Object *target);
-	unsigned char m_pad00[0x30];
-	TeamPrototype *m_proto; // +0x30
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 class Player
 {

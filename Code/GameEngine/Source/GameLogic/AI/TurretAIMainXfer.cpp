@@ -111,14 +111,7 @@ public:
 };
 extern AudioManager *TheAudio;
 
-class Team
-{
-public:
-	UnsignedInt getID( void ) const { return m_id; }
-private:
-	char m_unrecovered00[ 0x34 ];
-	UnsignedInt m_id;																													///< 0x34
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 class TeamFactory
 {

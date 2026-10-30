@@ -57,11 +57,7 @@ public:
 	AIGroup *createGroup();
 	void destroyGroup(AIGroup *group);
 };
-class Team
-{
-public:
-	void getTeamAsAIGroup(AIGroup *group);
-};
+#include "../../../../GameEngine/Include/Common/TeamBFME2.h"
 class AITactic
 {
 public:

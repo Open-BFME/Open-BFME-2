@@ -234,16 +234,7 @@ class Rva0036E346
 public:
 	Int rva0036E346();
 };
-class Team
-{
-public:
-	void getTeamAsAIGroup(AIGroup *aiGroup);
-	const Waypoint *getCurrentWaypoint() { return m_currentWaypoint; }
-	void setCurrentWaypoint(const Waypoint *way) { m_currentWaypoint = way; }
-private:
-	unsigned char m_pad00[0x6C];
-	const Waypoint *m_currentWaypoint; // +0x6C
-};
+#include "../../../Include/Common/TeamBFME2.h"
 class Player
 {
 public:

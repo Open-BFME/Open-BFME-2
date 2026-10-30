@@ -17,11 +17,7 @@ typedef bool Bool;
 class Object;
 typedef int (__cdecl *TeamPredicate)(Object *obj, void *userData);
 
-class Team
-{
-public:
-	int rva0039DD12(TeamPredicate pred, void *userData) const;
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;

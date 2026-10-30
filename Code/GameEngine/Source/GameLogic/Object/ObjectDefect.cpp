@@ -78,11 +78,7 @@ public:
 	Team *m_defaultTeam;
 };
 
-class Team
-{
-public:
-	Player *getControllingPlayer() const;
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 class Radar
 {

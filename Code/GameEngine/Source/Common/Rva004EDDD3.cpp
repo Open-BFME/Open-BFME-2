@@ -43,13 +43,7 @@ public:
 	Team *findTeamByID(unsigned int id);
 };
 
-class Team
-{
-public:
-	void rva0039E5B9(Coord3D *pos);
-	char m_pad00[0x34];
-	int m_id;	// +0x34
-};
+#include "../../Include/Common/TeamBFME2.h"
 
 struct BfmePod20
 {

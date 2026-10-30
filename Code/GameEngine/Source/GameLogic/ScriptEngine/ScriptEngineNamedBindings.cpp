@@ -40,14 +40,7 @@ private:
     char m_before[0x74];
     int m_id;
 };
-class Team
-{
-public:
-    int getID() const { return m_id; }
-private:
-    char m_before[0x34];
-    int m_id;
-};
+#include "../../../Include/Common/TeamBFME2.h"
 // 0x002046C0 qualifies a name with ScriptEngine's scope at +0x1A10C;
 // its row keeps the owner's address-derived spelling.
 class Rva002046C0Owner

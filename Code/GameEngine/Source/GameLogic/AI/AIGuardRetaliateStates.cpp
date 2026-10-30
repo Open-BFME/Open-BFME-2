@@ -281,11 +281,7 @@ private:
 enum WeaponSlotType { WEAPON_PRIMARY = 0 };
 class Rva002C9400ByteField { public: unsigned char get() const; };
 class Weapon { public: const Rva002C9400ByteField *getTemplate() const { return m_template; } private: unsigned char pad00[4]; const Rva002C9400ByteField *m_template; };
-class Team
-{
-public:
-	void setTeamTargetObject(Object *target);
-};
+#include "../../../Include/Common/TeamBFME2.h"
 class Object
 {
 	friend class AIGuardRetaliateAttackAggressorState;

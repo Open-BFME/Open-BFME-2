@@ -116,12 +116,7 @@ public:
 	virtual void s65() = 0; virtual void s66() = 0; virtual void s67() = 0; virtual void s68() = 0;
 	virtual Int getContainCount(Int kind) = 0;
 };
-class Team
-{
-public:
-	Object *getTeamTargetObject();
-	void setTeamTargetObject(Object *obj);
-};
+#include "../../../Include/Common/TeamBFME2.h"
 class ThingTemplate
 {
 public:

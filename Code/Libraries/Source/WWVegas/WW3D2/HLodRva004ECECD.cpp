@@ -60,12 +60,7 @@ public:
     OBJCLASS *cur() const { return m_cur; }
 };
 
-class Team
-{
-public:
-    DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
-    void getTeamAsAIGroup(class AIGroup *grp);
-};
+#include "../../../../GameEngine/Include/Common/TeamBFME2.h"
 
 class AIGroup
 {

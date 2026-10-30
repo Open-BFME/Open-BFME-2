@@ -25,11 +25,7 @@ struct Rva003412E0Node;
 class ScriptList;
 class Player;
 
-class Team
-{
-public:
-	Player *getControllingPlayer() const;
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 class Parameter
 {

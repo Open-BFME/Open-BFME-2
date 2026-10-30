@@ -10,13 +10,7 @@ struct _Rb_tree_node_base { bool color; _Rb_tree_node_base *parent,*left,*right;
 template<class Dummy> class _Rb_global { public: static _Rb_tree_node_base *__cdecl _M_increment(_Rb_tree_node_base *); };
 }
 #include "../../../Include/Common/MemoryPoolObject.h"
-class Team : public MemoryPoolObject, public Snapshot {
-public:
- Team *dlink_next_TeamInstanceList() const;
- unsigned getID() const { return id; }
-private:
- char unknown08[0x34-8]; unsigned id;
-};
+#include "../../../Include/Common/TeamBFME2.h"
 template<class T> class DLINK_ITERATOR {
 public:
  typedef T *(T::*GetNextFunc)() const;

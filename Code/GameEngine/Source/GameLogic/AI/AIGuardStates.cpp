@@ -131,12 +131,7 @@ private:
 };
 extern int BfmeLogicFramesPerSecond;
 #define LOGICFRAMES_PER_SECOND BfmeLogicFramesPerSecond
-class Team
-{
-public:
-	void setTeamTargetObject(Object *target);
-	void rva0039E5B9(Coord3D *pos);
-};
+#include "../../../Include/Common/TeamBFME2.h"
 class TeamFactory
 {
 public:

@@ -68,11 +68,7 @@ public:
 	int getPlayerIndex() const { return m_2EC; }
 };
 
-class Team
-{
-public:
-	Object *rva0039E8EB();
-};
+#include "../../Include/Common/TeamBFME2.h"
 
 struct Rva005A9CB3Record
 {

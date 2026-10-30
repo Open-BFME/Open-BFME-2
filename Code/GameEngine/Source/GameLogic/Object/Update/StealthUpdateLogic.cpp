@@ -61,11 +61,7 @@ private:
 
 extern ControlBar *TheControlBar;
 
-class Team
-{
-public:
-	Relationship getRelationship(const Team *that) const;
-};
+#include "../../../../Include/Common/TeamBFME2.h"
 
 // Player::isPlayerActive (0x002AA231), rowed under an address-derived name.
 class BfmeMemberRV

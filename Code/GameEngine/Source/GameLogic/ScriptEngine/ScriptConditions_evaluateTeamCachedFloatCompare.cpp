@@ -17,7 +17,7 @@ public:
     float value;
     AsciiString text;
 };
-class Team {public: float rva003A3736(float value);};
+#include "../../../Include/Common/TeamBFME2.h"
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 #include "../../../Include/GameLogic/ScriptConditions.h"

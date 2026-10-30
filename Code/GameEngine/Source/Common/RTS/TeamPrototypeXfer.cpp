@@ -51,18 +51,7 @@ public:
 };
 extern PlayerList *ThePlayerList;
 
-class Team : public Snapshot, public MemoryPoolObject
-{
-public:
-	Team *dlink_next_TeamInstanceList() const;
-private:
-	char m_pad08[0x34 - 0x08];
-public:
-	unsigned int m_id;
-private:
-	char m_pad38[0x40 - 0x38];
-	Team *m_next;
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 template <class OBJCLASS>
 class DLINK_ITERATOR

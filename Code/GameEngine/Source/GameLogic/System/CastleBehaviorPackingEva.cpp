@@ -91,11 +91,7 @@ extern GameLogic *TheGameLogic;
 
 template<class T> inline T& field(void* p,int n) { return *(T*)((char*)p+n); }
 
-class Team
-{
-public:
-    Player *getControllingPlayer() const;
-};
+#include "../../../Include/Common/TeamBFME2.h"
 class W3DBridge;
 class Player
 {

@@ -58,11 +58,7 @@ public:
 	int iterateObjects(ObjectIterateFunc func, void *userData) const;
 	Relationship getRelationship(const Team *team) const;
 };
-class Team
-{
-public:
-	char m_pad[0x2EC];
-};
+#include "../../Include/Common/TeamBFME2.h"
 #define ThePlayerList004381C4 ThePlayerList
 int setWakeupIfInRange(Object *obj, void *userData);
 void __stdcall Rva004381C4Iterate(const Object *obj);

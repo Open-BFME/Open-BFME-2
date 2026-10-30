@@ -386,16 +386,7 @@ public:
 	Team *m_dlinkhead_TeamInstanceList; // +0x334
 };
 
-class Team : public MemoryPoolObject, public Snapshot
-{
-public:
-	Object *getTeamTargetObject();
-	void setTeamTargetObject(Object *target);
-	Team *dlink_next_TeamInstanceList() const;
-	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
-	unsigned char m_pad08[0x30 - 8];
-	TeamPrototype *m_proto; // +0x30
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 inline DLINK_ITERATOR<Team> iterate_TeamInstanceList(const TeamPrototype *proto)
 {

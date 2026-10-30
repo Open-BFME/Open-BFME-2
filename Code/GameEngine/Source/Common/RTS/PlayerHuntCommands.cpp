@@ -106,12 +106,7 @@ private:
 class Rva2AE9B8TeamBase1 {};
 class Rva2AE9B8TeamBase2 {};
 
-class Team : public Rva2AE9B8TeamBase1, public Rva2AE9B8TeamBase2
-{
-public:
-	Team *dlink_next_TeamInstanceList() const;
-	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 template<> __forceinline void DLINK_ITERATOR<Team>::advance()
 {

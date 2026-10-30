@@ -304,13 +304,7 @@ private:
 
 #include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
 
-class Team : public MemoryPoolObject, public Snapshot
-{
-public:
-	Team *dlink_next_TeamInstanceList() const;
-	void getTeamAsAIGroup(AIGroup *group);	// 0x003A0F62
-	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;	// 0x00263864
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 class TeamPrototype
 {

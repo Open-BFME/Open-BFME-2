@@ -21,11 +21,7 @@ public:
 	__declspec(dllimport) __forceinline Color getPlayerNightColor() const { return m_nightColor; }
 };
 
-class Team
-{
-public:
-	Player *getControllingPlayer() const;
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 class Drawable
 {

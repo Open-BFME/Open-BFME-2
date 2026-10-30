@@ -13,16 +13,7 @@
 
 typedef bool Bool;
 
-class Team
-{
-public:
-	Bool dlink_isInList_TeamInstanceList(Team *const *pListHead) const;
-
-private:
-	char m_pad00[0x3C];
-	Team *m_dlink_TeamInstanceList_prev; // +0x3C
-	Team *m_dlink_TeamInstanceList_next; // +0x40
-};
+#include "../../Include/Common/TeamBFME2.h"
 
 Bool Team::dlink_isInList_TeamInstanceList(Team *const *pListHead) const
 {

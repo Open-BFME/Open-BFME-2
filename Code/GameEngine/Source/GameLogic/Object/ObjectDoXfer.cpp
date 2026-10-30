@@ -168,14 +168,7 @@ public:
 	unsigned char m_kindOfByte10F;  // +0x10F
 };
 
-class Team
-{
-public:
-	unsigned int getID() const { return m_id; }
-
-	char m_pad00[0x34];
-	unsigned int m_id;              // +0x34
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 class TeamFactory
 {

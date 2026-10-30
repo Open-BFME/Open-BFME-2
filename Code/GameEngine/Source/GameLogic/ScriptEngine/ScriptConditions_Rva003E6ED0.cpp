@@ -107,15 +107,7 @@ protected:
 	Module *findModule(NameKeyType key) const;	// 0x0028B6D6
 };
 
-class Team
-{
-public:
-	void rva0039E5B9(Coord3D *center);	// 0x0039E5B9
-	bool didPartialEnter(PolygonTrigger *trigger, unsigned int whichToConsider);	// 0x0039E20D
-	bool didAllEnter(PolygonTrigger *trigger, unsigned int whichToConsider);	// 0x0039E15D
-	bool didPartialExit(PolygonTrigger *trigger, unsigned int whichToConsider);	// 0x0039E288
-	bool didAllExit(PolygonTrigger *trigger, unsigned int whichToConsider);	// 0x0039E303
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 class PlayerList
 {

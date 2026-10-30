@@ -438,11 +438,7 @@ enum Relationship
 	NEUTRAL = 1,
 	ALLIES = 2
 };
-class Team
-{
-public:
-	Relationship getRelationship(const Team *that) const;
-};
+#include "../../../../Include/Common/TeamBFME2.h"
 class ScoreKeeper
 {
 public:

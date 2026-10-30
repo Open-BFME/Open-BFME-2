@@ -47,13 +47,7 @@ class SkirmishAI {
 };
 #include "../../../Include/Common/MemoryPoolObject.h"
 template<class T> class DLINK_ITERATOR;
-class Team : public MemoryPoolObject, public Snapshot {
-  public:
-    Team *dlink_next_TeamInstanceList() const;
-    void evacuateTeam(bool);
-    void killTeam();
-    DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
-};
+#include "../../../Include/Common/TeamBFME2.h"
 template <class T> class DLINK_ITERATOR {
     T *p;
     T *(T::*next)() const;

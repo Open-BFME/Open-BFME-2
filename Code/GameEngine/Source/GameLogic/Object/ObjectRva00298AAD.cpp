@@ -11,9 +11,7 @@
 // Object layout (template-adjacent team slot +0x304) after
 // ObjectSetProducer.cpp. Identity unproven: honest address-derived
 // name; neighbour range bodies reuse this TU's views.
-class Team
-{
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 enum ObjectStatusTypes
 {

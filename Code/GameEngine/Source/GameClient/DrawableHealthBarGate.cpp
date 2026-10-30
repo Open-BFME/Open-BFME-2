@@ -48,11 +48,7 @@ private:
 	UnsignedInt m_kindOf[8]; // +0x108
 };
 
-class Team
-{
-public:
-	Relationship getRelationship(const Team *that) const;
-};
+#include "../../Include/Common/TeamBFME2.h"
 
 class Player
 {
