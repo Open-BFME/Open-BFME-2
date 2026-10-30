@@ -30,7 +30,17 @@ the same three native units linking for 2,330 authored bytes. Their existing
 uw_gen_011 retains precisely its pre-existing unresolved names and zero authored
 bytes; it was verified, not edited. The larger current-ledger preview refused
 11,957 other objects lacking strict compiler receipts, so no full-image closure
-is inferred from the bounded results. The outgoing batch audit still applies.
+is inferred from the bounded results.
+
+The outgoing audit against base `8e99791e22` is INCONCLUSIVE: the published
+index is older and affected consumer Common/0CreateAHeroManager21FE49.cpp
+lacks a current strict receipt. Carry the new worker, retired alias and affected
+consumers into the next scheduled census; full consumer closure is not proved.
+The normal commit hook passes. Its shadow identity scan reports four findings
+in existing definitions (the Rva0032EA7FRecord node construction, the
+Rva0032A3A9Element destroy, Rva002B2F97 copy-backward and OpaqueRefElement4
+deallocation); the retained object fingerprints show those bodies and
+relocations are unchanged. No identity retirement or baseline addition is made.
 
 Private trials of a direct vector-destructor specialization, including
 `noinline`, emitted no destructor symbol. They were not applied to Code.

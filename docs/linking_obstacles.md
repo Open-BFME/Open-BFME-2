@@ -5684,7 +5684,11 @@ of the existing owner. No new row or pin is added. All 269 cohort rows and
 The generated unwind unit's existing unresolved names are unchanged. A larger
 current-ledger preview lacks strict receipts for 11,957 other objects, so full
 closure is unmeasured; the scheduled census and outgoing batch audit retain
-that scope. [Evidence](../reverse/attempt_support/pair-range-provider-20261030/readme.md).
+that scope. The outgoing audit is INCONCLUSIVE on the older index and affected
+consumer Common/0CreateAHeroManager21FE49.cpp without a strict receipt. Carry
+the new provider, retired alias and affected consumers into the next scheduled
+census. Four shadow identity findings in unchanged definitions remain separate.
+[Evidence](../reverse/attempt_support/pair-range-provider-20261030/readme.md).
 
 **Status: Repair landed / awaiting verification. Updated: 2026-10-26; inspected revision: 856b8bc032.**
 
