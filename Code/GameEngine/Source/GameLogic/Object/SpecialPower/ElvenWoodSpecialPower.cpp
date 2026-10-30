@@ -118,7 +118,7 @@ extern TerrainLogic *TheTerrainLogic;
 struct CreateMask
 {
 public:
-	unsigned int m_words[4]; // +0x00
+	unsigned int m_words[4]; // +0x00 +0x00
 };
 class Thing
 {

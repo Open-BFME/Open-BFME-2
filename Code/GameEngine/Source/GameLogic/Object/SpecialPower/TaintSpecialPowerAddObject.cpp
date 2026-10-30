@@ -18,7 +18,8 @@ class ThingTemplate;
 
 struct CreateMask
 {
-	unsigned int m_bits[4];
+public:
+	unsigned int m_words[4]; // +0x00 +0x00
 };
 
 #include "../../../Common/Thing/thing.h"

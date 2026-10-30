@@ -15,7 +15,11 @@ struct ElvenWoodChoice {AsciiString name;float weight;};
 class ModuleData {public:unsigned char prefix[0x7c];_STL::vector<ElvenWoodChoice> choices;};
 class BehaviorModule {public:virtual void behaviorModuleAnchor();protected:const ModuleData*m_data;Object*m_object;};
 class SpecialPowerModuleInterface {public:virtual void specialPowerModuleInterfaceAnchor();};
-class ModuleInterface {public:virtual void moduleInterfaceAnchor();};
+class ModuleInterface
+{
+public:
+	virtual void moduleInterfaceAnchor();
+};
 class SpecialPowerModule:public BehaviorModule,public SpecialPowerModuleInterface,public ModuleInterface {public:SpecialPowerModule(Thing*,const ModuleData*);protected:virtual~SpecialPowerModule();};
 class ElvenWoodSpecialPower:public SpecialPowerModule {public:Object*addObject(const Coord3D*,const AsciiString*);void rva004C3C36(const Coord3D*);};
 extern int GetGameLogicRandomValue(int,int,char*,int);

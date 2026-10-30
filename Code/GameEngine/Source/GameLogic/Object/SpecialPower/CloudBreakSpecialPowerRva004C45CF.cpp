@@ -11,7 +11,11 @@ enum ObjectID; extern class ThingFactory *TheThingFactory;
 #pragma function(memset)
 class ThingTemplate;
 class Team;
-struct CreateMask { char m_pad[0x10]; };
+struct CreateMask
+{
+public:
+	unsigned int m_words[4]; // +0x00 +0x00
+};
 class Object;
 class ThingFactory { public: const ThingTemplate *findTemplate(const AsciiString &name); Object *newObject(const ThingTemplate *tmpl, Team *team, const CreateMask *mask, ObjectID flag); };
 #include "../../../Common/Thing/thing.h"

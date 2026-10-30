@@ -25,9 +25,7 @@ class Matrix3D;
 class FXList
 {
 public:
-	static void doFXPos( const FXList *fx, const Coord3D *primary,
-		const Matrix3D *primaryMtx = 0, const Real primarySpeed = 0.0f,
-		const Coord3D *secondary = 0 );
+	static void doFXPos( const FXList *fx, const Coord3D *primary, const Matrix3D *primaryMtx = 0, const float primarySpeed = 0.0f, const Coord3D *secondary = 0 );
 };
 
 class ObjectCreationList

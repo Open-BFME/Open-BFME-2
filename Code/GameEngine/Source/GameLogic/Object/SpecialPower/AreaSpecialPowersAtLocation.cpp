@@ -292,7 +292,7 @@ class Matrix3D;
 class FXList
 {
 public:
- static void doFXPos(const FXList *, const Coord3D *, const Matrix3D *, float, const Coord3D *);
+	static void doFXPos( const FXList *fx, const Coord3D *primary, const Matrix3D *primaryMtx = 0, const float primarySpeed = 0.0f, const Coord3D *secondary = 0 );
 };
 struct DarknessSpecialPowerFXData
 {
