@@ -153,13 +153,8 @@ public:
 	Rva003623E5Filter m_objectFilter;	// +0x14 the object filter
 };
 
-class Module
-{
-public:
-	virtual ~Module();
-	const ShareExperienceBehaviorModuleData *m_moduleData;	// +0x04
-	Object *m_object;					// +0x08
-};
+#include "../../../../Include/Common/Module.h"
+#include "../../../../Include/Common/ObjectModule.h"
 
 class BehaviorModuleInterface
 {
@@ -258,7 +253,7 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class ShareExperienceBehavior : public Module, public BehaviorModuleInterface, public Rva00480093Base10,
+class ShareExperienceBehavior : public ObjectModule, public BehaviorModuleInterface, public Rva00480093Base10,
 	public Rva00480093Iface20
 {
 public:
@@ -300,7 +295,7 @@ UpdateSleepTime ShareExperienceBehavior::update()
 
 float ShareExperienceBehavior::GetDropOffValue(Coord3D *a, Pos0047FFFE *recipient)
 {
-	const ShareExperienceBehaviorModuleData *md = m_moduleData;
+	const ShareExperienceBehaviorModuleData *md = (const ShareExperienceBehaviorModuleData *)m_moduleData;
 	if (md->m_dropOff == g_Va00BBB8D8)
 	{
 		Coord3D diff;
@@ -321,7 +316,7 @@ float ShareExperienceBehavior::GetDropOffValue(Coord3D *a, Pos0047FFFE *recipien
 
 void ShareExperienceBehavior::rva00480093(float amount)
 {
-	const ShareExperienceBehaviorModuleData *data = m_moduleData;
+	const ShareExperienceBehaviorModuleData *data = (const ShareExperienceBehaviorModuleData *)m_moduleData;
 	Object *obj = m_object;
 	if (!(data->m_percentage > 0.0f))
 		return;

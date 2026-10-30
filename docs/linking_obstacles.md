@@ -2923,6 +2923,19 @@ consumer selection and new census-linked bytes remain unclaimed.
 
 ### ShareExperienceBehavior update composition (2026-10-28)
 
+2026-10-30 canonical-module prerequisite, base `9b63406115`: the seed
+replaces its private Module (which also held the +8 object) with canonical
+ObjectModule and casts inherited module data to its existing partial view.
+All 15 rows and three EXACT EH graphs pass; all 48 external COMDAT fingerprints,
+89 external symbol records and relocation roots/edges remain identical.
+Strict preparation passes; ordinary preview retains LINKS for 840 authored
+bytes against `12b9e7a7c0` (2026-10-30 10:11). The owning acceptance tool
+retires one Module header-queue row. No census gain is claimed. Constructor
+and secondary-interface reconciliation remain prerequisites. The staged audit
+is INCONCLUSIVE on the older index and missing current CreateAHeroManager
+consumer receipt; full consumer selection/loss checks and census confirmation
+remain pending. [Scope and verification](../reverse/attempt_support/share-experience-module-20261030-codexb5.md).
+
 2026-10-28 module-data prerequisite, base `24454a208b3`, index `d92e7e6635`:
 the seed and destructor donor now share the existing polymorphic layout and
 the +0x14 filter type. All 15 changed-file rows and three EH graphs remain
