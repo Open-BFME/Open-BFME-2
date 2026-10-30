@@ -157,6 +157,7 @@ public:
 	virtual void update(void);
 	virtual void initCursorResources(void);
 	virtual void setCursor(MouseCursor cursor);
+	void addWin32Event(UINT msg, WPARAM wParam, LPARAM lParam, DWORD time);
 
 protected:
 	virtual UnsignedByte getMouseEvent(MouseIO *result, Bool flush);
