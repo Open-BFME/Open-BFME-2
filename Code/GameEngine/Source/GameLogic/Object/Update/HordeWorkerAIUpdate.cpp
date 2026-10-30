@@ -25,10 +25,31 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class HordeWorkerAIUpdate
+class Xfer;
+
+class TransportAIUpdate
+{
+protected:
+	virtual void v00();
+	virtual void v01();
+	virtual void v02();
+	virtual void xfer(Xfer *xfer);
+	char m_unrecovered04[0x3E8 - 0x04];
+};
+
+class HordeWorkerAIUpdate : public TransportAIUpdate
 {
 public:
 	virtual NameKeyType getModuleNameKey() const;
+
+protected:
+	virtual void xfer(Xfer *xfer);
+
+private:
+	ObjectID m_3E8;
+	ObjectID m_3EC;
+	ObjectID m_3F0;
+	bool m_3F4;
 };
 
 class Object

@@ -28,6 +28,7 @@ class ModuleData;
 class Object;
 
 #include "../../../../Include/Common/BfmeXfer.h"
+#include "../../../Common/GameLogicObjectLookupView.h"
 
 class Xfer::Version
 {
@@ -37,11 +38,6 @@ public:
 
 	unsigned char m_current;
 	unsigned char m_minimum;
-};
-
-enum ObjectID
-{
-	INVALID_ID = 0
 };
 
 void XferObjectID(Xfer *xfer, ObjectID *id);
