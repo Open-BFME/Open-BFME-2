@@ -1,0 +1,174 @@
+{
+  "source": "Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00395C80Check.cpp",
+  "scope": "canonical Module +4 data pointer and separate observed module/data bytes",
+  "objects": {
+    "before": {
+      "source_sha256": "a161b570d0c8538312154b9a77e659487586d5d248ba0f945fd0edb671115d5d",
+      "rows": [
+        {
+          "name": "?rva00395C80@@YAHPAVObject@@@Z",
+          "rva": "0x00395C80",
+          "size": "107",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?rva00395C80@@YAHPAVObject@@@Z",
+          "rva": "0x00780DC4",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "$L341",
+          "rva": "0x00780DB7",
+          "size": "13",
+          "exact": true
+        }
+      ],
+      "eh": [
+        {
+          "name": "?rva00395C80@@YAHPAVObject@@@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        }
+      ]
+    },
+    "trial": {
+      "source_sha256": "1c37eb332bc3262a8eae0dc126a61b8a30b451f4c204f2e34a9c8b2869619c29",
+      "rows": [
+        {
+          "name": "?rva00395C80@@YAHPAVObject@@@Z",
+          "rva": "0x00395C80",
+          "size": "107",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?rva00395C80@@YAHPAVObject@@@Z",
+          "rva": "0x00780DC4",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "$L341",
+          "rva": "0x00780DB7",
+          "size": "13",
+          "exact": true
+        }
+      ],
+      "eh": [
+        {
+          "name": "?rva00395C80@@YAHPAVObject@@@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        }
+      ]
+    }
+  },
+  "all_external_code_and_symbolic_relocations_identical": true,
+  "external_definitions": {
+    "??0Rva00395C80Key@@QAE@PBD@Z": {
+      "raw": "558bec56ff75088bf18b0d00000000e80000000089068bc65e5dc20400",
+      "relocations": [
+        [
+          11,
+          6,
+          "?TheNameKeyGenerator@@3PAVNameKeyGenerator@@A"
+        ],
+        [
+          16,
+          20,
+          "?nameToKey@NameKeyGenerator@@QAE?AW4NameKeyType@@PBD@Z"
+        ]
+      ]
+    },
+    "?rva00395C80@@YAHPAVObject@@@Z": {
+      "raw": "b800000000e800000000f60500000000017524830d00000000018b0d000000008365fc006800000000e800000000834dfcffa300000000ff35000000008b4d08e80000000085c0741380782500740d8b400480781900740433c0eb0333c0408b4df464890d00000000c9c3",
+      "relocations": [
+        [
+          1,
+          6,
+          "__ehhandler$?rva00395C80@@YAHPAVObject@@@Z"
+        ],
+        [
+          6,
+          20,
+          "__EH_prolog"
+        ],
+        [
+          12,
+          6,
+          "?$S1@?1??rva00395C80@@YAHPAVObject@@@Z@4IA"
+        ],
+        [
+          21,
+          6,
+          "?$S1@?1??rva00395C80@@YAHPAVObject@@@Z@4IA"
+        ],
+        [
+          28,
+          6,
+          "?TheNameKeyGenerator@@3PAVNameKeyGenerator@@A"
+        ],
+        [
+          37,
+          6,
+          "??_C@_0BF@NKHIJLND@CastleMemberBehavior?$AA@"
+        ],
+        [
+          42,
+          20,
+          "?nameToKey@NameKeyGenerator@@QAE?AW4NameKeyType@@PBD@Z"
+        ],
+        [
+          51,
+          6,
+          "?s_key@?1??rva00395C80@@YAHPAVObject@@@Z@4URva00395C80Key@@A"
+        ],
+        [
+          57,
+          6,
+          "?s_key@?1??rva00395C80@@YAHPAVObject@@@Z@4URva00395C80Key@@A"
+        ],
+        [
+          65,
+          20,
+          "?findModule@Object@@IBEPAVModule@@W4NameKeyType@@@Z"
+        ],
+        [
+          101,
+          6,
+          "__except_list"
+        ]
+      ]
+    }
+  },
+  "actual": {
+    "strict_current": true,
+    "source_sha256": "1c37eb332bc3262a8eae0dc126a61b8a30b451f4c204f2e34a9c8b2869619c29",
+    "object_sha256": "73521aee3a99a38929427bde900e1a4f846d3e0db74c4b8a650af4fba69f4f4f",
+    "all_external_definitions_and_relocations_identical": 2
+  },
+  "native_accesses": [
+    {
+      "rva": "0x395cc9",
+      "raw": "80782500",
+      "mnemonic": "cmp",
+      "operands": "byte ptr [eax + 0x25], 0"
+    },
+    {
+      "rva": "0x395ccf",
+      "raw": "8b4004",
+      "mnemonic": "mov",
+      "operands": "eax, dword ptr [eax + 4]"
+    },
+    {
+      "rva": "0x395cd2",
+      "raw": "80781900",
+      "mnemonic": "cmp",
+      "operands": "byte ptr [eax + 0x19], 0"
+    }
+  ]
+}

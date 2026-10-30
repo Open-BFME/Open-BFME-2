@@ -1,18 +1,13 @@
 // cl: /Oy- /EHsc /MD
-//
-// ?rva00395C80@@YAHPAVObject@@@Z @0x00395C80 107B: cached module-key veto.
-// First call resolves the module name key once through TheNameKeyGenerator
-// (global 0xDF36A4) and keeps it in a function-static wrapper (guard
-// 0xE027E4, storage 0xE027E0); the wrapper's inlined ctor is what holds the
-// EH state open across the nameToKey call. Then findModule (rowed 0x28B6D6)
-// looks the key up on the caller's Object: missing module, clear +0x25 flag,
-// or clear +0x19 flag on the +0x0 next module vetoes (returns true); all set
-// returns false. /O1 keeps the frame in the shared __EH_prolog helper
-// (0x629188) like the neighbouring NameKeyGenerator bodies. The +0x0 next
-// link is dereferenced unconditionally, matching retail; it is evidently
-// non-null whenever the +0x25 flag is set. The key string lives outside the
-// packed image (slot 0xBF5CCC), so it is modeled as an extern array whose
-// slot the DIR32 patcher fills, never as a literal.
+// ?rva00395C80@@YAHPAVObject@@@Z, native 00395C80 (107B).
+// Cached CastleMemberBehavior module-key veto. The static wrapper keeps EH
+// state open over nameToKey; findModule is the existing 0028B6D6 provider.
+// Native 395CC9 tests module byte +25; 395CCF loads its canonical ModuleData
+// pointer at +4, and 395CD2 tests data byte +19. A missing module or either
+// clear flag returns true. The data pointer is dereferenced unconditionally
+// after the module flag succeeds. No linked-list interpretation is implied.
+// Flags/derived layouts retain address-based view names; the key literal
+// proves the lookup key, not original class or function identities.
 
 typedef int Int;
 
@@ -30,15 +25,21 @@ public:
 extern NameKeyGenerator *TheNameKeyGenerator;
 // Rva00BF5CCC was the retail address (RVA 0x007F5CCC) of the "CastleMemberBehavior" text; the literal is the source.
 
-class Module
+#include "../../../../Include/Common/Module.h"
+
+// Partial storage views, not recovered original derived/data class identities.
+class Rva00395C80ModuleView : public Module
 {
 public:
-	char m_pad00[4]; // +0x00
-	Module *m_next; // +0x04
-	char m_pad08[0x11]; // +0x08
-	unsigned char m_flag19; // +0x19
-	char m_pad1A[0x0B]; // +0x1A
-	unsigned char m_flag25; // +0x25
+    using Module::m_moduleData;
+    char m_pad08[0x25 - 0x08];
+    unsigned char m_flag25;
+};
+
+struct Rva00395C80ModuleDataView
+{
+    char m_pad00[0x19];
+    unsigned char m_flag19;
 };
 
 class Object
@@ -59,7 +60,7 @@ int rva00395C80(Object *obj)
 {
 	static Rva00395C80Key s_key("CastleMemberBehavior");
 	Module *module = obj->findModule(s_key.key);
-	if (module != 0 && module->m_flag25 != 0 && module->m_next->m_flag19 != 0)
+	if (module != 0 && ((Rva00395C80ModuleView *)module)->m_flag25 != 0 && ((const Rva00395C80ModuleDataView *)((Rva00395C80ModuleView *)module)->m_moduleData)->m_flag19 != 0)
 		return false;
 	return true;
 }

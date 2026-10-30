@@ -12318,6 +12318,28 @@ Update 2026-10-30 (ObjectShroudClient query interface):
   batch still requires the normal broader audit; an inconclusive audit is
   unverified outside this stated scope.
 
+- **Publication receipt:** the shroud interface landed as a6312d3202 after a
+  normal lost-race retry. Its final broader audit was INCONCLUSIVE: index
+  ccafe54d1d predates outgoing base d6fa23a6fd and affected consumer
+  `Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp` lacked a current
+  receipt. Five rows and the three-unit preview remain the verified scope.
+
+Update 2026-10-30 (Rva00395C80Check Module header debt):
+
+- Canonical Module's +4 member is ModuleData, not the old private view's
+  purported next-module link. Native 395CC9/CF/D2 independently show module
+  byte +25, pointer +4, then data byte +19. Separate partial module/data
+  views retain that storage without inventing a derived identity or getter.
+- All three rows and the parent's EH graph match retail; both external
+  functions and their relocations are unchanged. Normal Module header
+  acceptance retires this file's one key. The bounded preview conserves
+  106 linked bytes; no census gain is claimed. Evidence:
+  `reverse/attempt_support/castle-member-module-data-20261030/`.
+- The previous failed header-only swap remains in the attempt log. This
+  closes its missing-private-fields prerequisite; actual flag meanings and
+  original function/derived data class names remain unrecovered. Broader
+  audit results retain their published-index/current-receipt limitations.
+
 Update 2026-10-29 (DieModule and BehaviorModuleInterface, d8d766afec7 / 7f9ddce7413):
 
 - **BehaviorModuleInterface (target facts).** ??0BehaviorModule (0x00253330)
