@@ -16138,3 +16138,10 @@ Code/GameEngine/Source/Common/Rva0038201DFree.cpp|param|Rva003820D1::rva003820D1
 Code/GameEngine/Source/Common/Rva00239380Clear.cpp|function|0x00239368|rva00239368,b46f24c9c43f6908b80a4b3d,drz-k8,drz-k8-122,w-87ae7cdc64ef,2026-10-30
 Code/Libraries/Source/WWVegas/WW3D2/Rva0053FDE6Init.cpp|param|Rva0054000B::Rva0054000B|o,c7ee39934441078a62e8a745,drz-k8,drz-k8-124,w-87ae7cdc64ef,2026-10-30
 Code/Libraries/Source/WWVegas/WW3D2/Rva0053FDE6Init.cpp|param|Rva0054000B::Rva0054000B#2|o,8479c4543bf002558eb2871f,drz-k8,drz-k8-124,w-87ae7cdc64ef,2026-10-30
+Code/GameEngine/Source/Common/Rva00542953Reset.cpp|function|0x00542953|rva00542953,03c2e2fb7c67ed791ff69d59,drz-k5,drz-k5-170,w-526a51702f64,2026-10-30
+Code/GameEngine/Source/Common/Rva0010F557Finish.cpp|member|Rva0010F4FA|m_dry0C,652343ffd63db4569904e5dd,drz-k5,drz-k5-176,w-526a51702f64,2026-10-30
+Code/GameEngine/Source/Common/Rva0010F557Finish.cpp|member|Rva0010F4FA|m_wet10,1155d91bfb8a9f4683279653,drz-k5,drz-k5-176,w-526a51702f64,2026-10-30
+Code/GameEngine/Source/Common/Rva0010F557Finish.cpp|member|Rva0010F557|m_count0C,6a4640191dcb99e92656585e,drz-k5,drz-k5-176,w-526a51702f64,2026-10-30
+Code/GameEngine/Source/Common/Rva0010F557Finish.cpp|function|0x0010F4FA|rva0010F4FA,f0422d3d68ca22375674102a,drz-k5,drz-k5-176,w-526a51702f64,2026-10-30
+Code/GameEngine/Source/Common/Rva0010F557Finish.cpp|function|0x0010F557|rva0010F557,ed66239156fa74f20a533180,drz-k5,drz-k5-176,w-526a51702f64,2026-10-30
+Code/GameEngine/Source/GameLogic/Object/Rva0049520BGate.cpp|local|Rva0049520B::update|a,686d9495b50c65daed41d941,drz-k5,drz-k5-179,w-526a51702f64,2026-10-30
