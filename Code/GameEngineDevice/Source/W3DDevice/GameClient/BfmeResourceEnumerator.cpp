@@ -8,6 +8,7 @@
 #include <hash_map>
 #define _STLP_NO_EXCEPTIONS 1
 #include <deque>
+#include <map>
 
 // The header-node initialization stays inline; the shared base owns its external copy.
 namespace _STL {
@@ -189,6 +190,21 @@ private:
 	int m_1e4;
 };
 
+typedef _STL::pair<const int, void *> BfmeUnsignedKeyTree620C70Value;
+
+class BfmeUnsignedKeyTree620C70
+{
+public:
+	bool contains(unsigned int key);
+
+private:
+	typedef _STL::_Rb_tree<int, BfmeUnsignedKeyTree620C70Value, _STL::_Select1st<BfmeUnsignedKeyTree620C70Value>,
+		_STL::less<int>, _STL::allocator<BfmeUnsignedKeyTree620C70Value> > Tree;
+	Tree m_tree;
+};
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp
+
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator_FindOrCreate.cpp
 
 // ?FindOrCreatePrototypeId@BfmeResourceEnumerator@@QAEHPBD@Z
@@ -196,14 +212,6 @@ int BfmeResourceEnumerator::FindOrCreatePrototypeId(const char *prototypeName)
 {
 	return m_nameTable->nameToLowercaseKey(prototypeName);
 }
-
-// tu-skeleton: 0x006205D0 42B ?size@?$deque@HV?$allocator@H@_STL@@@_STL@@QBEIXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_int.cpp (not merged yet)
-
-// tu-skeleton: 0x00620600 64B ?pop_back@?$deque@HV?$allocator@H@_STL@@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_int.cpp (not merged yet)
-
-// tu-skeleton: 0x00620640 67B ?pop_front@?$deque@HV?$allocator@H@_STL@@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_int.cpp (not merged yet)
-
-// tu-skeleton: 0x00620690 76B ??0?$_Deque_base@PAVSightingInfo@@V?$allocator@PAVSightingInfo@@@_STL@@@_STL@@QAE@ABV?$allocator@PAVSightingInfo@@@1@I@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_sighting_initmap.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/Rva006206E0Clear.cpp
 
@@ -217,18 +225,6 @@ void Rva006206E0::rva006206E0()
 	m_sentinel->m_nextC = m_sentinel;
 	m_size = 0;
 }
-
-// tu-skeleton: 0x00620720 37B ??0?$_Rb_tree_base@U?$pair@$$CBVUnicodeString@@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVUnicodeString@@VAsciiString@@@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$pair@$$CBVUnicodeString@@VAsciiString@@@_STL@@@1@@Z -- matched in Code/GameEngine/Source/GameClient/MapUtil.cpp (not merged yet)
-
-// tu-skeleton: 0x00620750 19B ??Y?$_Deque_iterator@HU?$_Const_traits@H@_STL@@@_STL@@QAEAAU01@H@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_int.cpp (not merged yet)
-
-// tu-skeleton: 0x00620770 84B ?clear@?$hashtable@U?$pair@$$CBHH@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int.cpp (not merged yet)
-
-// tu-skeleton: 0x006207D0 41B ?_M_new_node@?$hashtable@U?$pair@$$CBHH@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@AAEPAU?$_Hashtable_node@U?$pair@$$CBHH@_STL@@@2@ABU?$pair@$$CBHH@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int.cpp (not merged yet)
-
-// tu-skeleton: 0x00620800 51B ??$_M_find@H@?$hashtable@U?$pair@$$CBHH@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@ABEPAU?$_Hashtable_node@U?$pair@$$CBHH@_STL@@@1@ABH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int.cpp (not merged yet)
-
-// tu-skeleton: 0x00620870 63B ?Remove_All@?$SList@VTagBlockIndex@@@@UAEXXZ -- matched in Code/GameEngine/Source/Common/SListTagBlockIndexRemoveAllThunk.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Bfme/Gen_009EBB60Target_bfmeForward.cpp
 
@@ -259,22 +255,6 @@ int Gen_009EBB60Target::bfmeForward(void)
 	return 99 - (int)((unsigned int)(result * 99) / total);
 }
 
-// tu-skeleton: 0x006209C0 5B ?clear@?$hash_map@HHU?$hash@H@_STL@@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int.cpp (not merged yet)
-
-// tu-skeleton: 0x006209D0 46B ??0?$deque@PAVSightingInfo@@V?$allocator@PAVSightingInfo@@@_STL@@@_STL@@QAE@ABV?$allocator@PAVSightingInfo@@@1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_sighting_initmap.cpp (not merged yet)
-
-// tu-skeleton: 0x00620A00 122B ??1?$_Rb_tree@IU?$pair@$$CBIURva00620A00Record@@@_STL@@U?$_Select1st@U?$pair@$$CBIURva00620A00Record@@@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIURva00620A00Record@@@_STL@@@2@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00620A00.cpp (not merged yet)
-
-// tu-skeleton: 0x00620A80 78B ?begin@?$hashtable@U?$pair@$$CBHH@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBHH@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHH@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@2@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int.cpp (not merged yet)
-
-// tu-skeleton: 0x00620AD0 81B ??H?$_Deque_iterator@HU?$_Const_traits@H@_STL@@@_STL@@QBE?AU01@H@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_int.cpp (not merged yet)
-
-// tu-skeleton: 0x00620B30 59B ?_M_skip_to_next@?$_Hashtable_iterator@U?$pair@$$CBHH@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAEPAU?$_Hashtable_node@U?$pair@$$CBHH@_STL@@@2@XZ -- matched in Code/Libraries/Source/assetmanager/Rva00622290CollectKeys.cpp (not merged yet)
-
-// tu-skeleton: 0x00620B70 244B ?resize@?$hashtable@U?$pair@$$CBHH@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAEXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int_resize.cpp (not merged yet)
-
-// tu-skeleton: 0x00620C70 39B ?contains@BfmeUnsignedKeyTree620C70@@QAE_NI@Z -- matched in Code/GameEngine/Source/Common/Rva00620C70Finish.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_set_int_tree_copy_ctor.cpp
 
 //
@@ -292,37 +272,21 @@ int Gen_009EBB60Target::bfmeForward(void)
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 
-// tu-skeleton: 0x00620D70 11B ??1Rva009EEA70CleanupDeleting@@UAE@XZ -- matched in Code/GameEngine/Source/Common/VptrCleanupDeletingDestructors.cpp (not merged yet)
 
-// tu-skeleton: 0x00620D80 13B ??_F?$deque@HV?$allocator@H@_STL@@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/assetmanager/AssetManagerImplCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x00620D90 5B ?release@Rva00620D90TreeRelease@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00620A00.cpp (not merged yet)
 
-// tu-skeleton: 0x00620DA0 5B ?forward@Rva00620DA0@@QAEHXZ -- matched in Code/GameEngine/Source/Common/TailJumpWrappers5B.cpp (not merged yet)
 
-// tu-skeleton: 0x00620DB0 17B ?begin@?$hash_map@HPAUQ1ReceiverHashPayload@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHPAUQ1ReceiverHashPayload@@@_STL@@@3@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBHPAUQ1ReceiverHashPayload@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAUQ1ReceiverHashPayload@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAUQ1ReceiverHashPayload@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAUQ1ReceiverHashPayload@@@_STL@@@2@@2@XZ -- matched in Code/Libraries/Source/assetmanager/assetmanager_impl.cpp (not merged yet)
 
-// tu-skeleton: 0x00620DD0 60B ??$find@H@?$hashtable@U?$pair@$$CBHH@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBHH@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHH@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@1@ABH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int.cpp (not merged yet)
 
-// tu-skeleton: 0x00620E10 82B ??1?$hashtable@U?$pair@$$CBHH@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/Rva0016DEE0Cluster.cpp (not merged yet)
 
-// tu-skeleton: 0x00620E70 22B (unledgered) -- unmatched, no code, never credited
 
-// tu-skeleton: 0x00620E90 56B ??0?$map@VUnicodeString@@VAsciiString@@U?$less@VUnicodeString@@@_STL@@V?$allocator@U?$pair@$$CBVUnicodeString@@VAsciiString@@@_STL@@@4@@_STL@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/MapUtil.cpp (not merged yet)
 
-// tu-skeleton: 0x00620ED0 58B ?insert_equal@?$_Rb_tree@PBVThingTemplate@@U?$pair@QBVThingTemplate@@H@_STL@@U?$_Select1st@U?$pair@QBVThingTemplate@@H@_STL@@@3@U?$less@PBVThingTemplate@@@3@V?$allocator@U?$pair@QBVThingTemplate@@H@_STL@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@QBVThingTemplate@@H@_STL@@U?$_Nonconst_traits@U?$pair@QBVThingTemplate@@H@_STL@@@2@@2@ABU?$pair@QBVThingTemplate@@H@2@@Z -- matched in Code/GameEngine/Source/Common/RTS/ScoreKeeper_insert_unique.cpp (not merged yet)
 
-// tu-skeleton: 0x00620F10 76B ??A?$_Deque_iterator@HU?$_Nonconst_traits@H@_STL@@@_STL@@QBEAAHH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_int.cpp (not merged yet)
 
-// tu-skeleton: 0x00620F60 112B ?_M_insert@?$hashtable@U?$pair@$$CBHH@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAEAAU?$pair@$$CBHH@2@ABU32@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int.cpp (not merged yet)
 
-// tu-skeleton: 0x00620FD0 38B ?_M_reserve_map_at_back@?$deque@HV?$allocator@H@_STL@@@_STL@@IAEXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_int.cpp (not merged yet)
 
-// tu-skeleton: 0x00621000 30B ?_M_reserve_map_at_front@?$deque@HV?$allocator@H@_STL@@@_STL@@IAEXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_int.cpp (not merged yet)
 
-// tu-skeleton: 0x00621040 36B ??_GRva009EEA70CleanupDeleting@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/VptrCleanupDeletingDestructors.cpp (not merged yet)
 
-// tu-skeleton: 0x00621070 5B ??1?$hash_map@HHU?$hash@H@_STL@@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/Rva0016DEE0Cluster.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Bfme/Gen_009EBA60Target_bfmeInvoke.cpp
 
@@ -377,6 +341,82 @@ void Gen_009EBA60Target::RegisterDependencies(void *name, void *source)
 		record->m_items[count++] = *it;
 	record->m_items[count] = 0;
 }
+
+// tu-skeleton: 0x006205D0 42B ?size@?$deque@HV?$allocator@H@_STL@@@_STL@@QBEIXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_int.cpp (not merged yet)
+
+// tu-skeleton: 0x00620600 64B ?pop_back@?$deque@HV?$allocator@H@_STL@@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_int.cpp (not merged yet)
+
+// tu-skeleton: 0x00620640 67B ?pop_front@?$deque@HV?$allocator@H@_STL@@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_int.cpp (not merged yet)
+
+// tu-skeleton: 0x00620690 76B ??0?$_Deque_base@PAVSightingInfo@@V?$allocator@PAVSightingInfo@@@_STL@@@_STL@@QAE@ABV?$allocator@PAVSightingInfo@@@1@I@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_sighting_initmap.cpp (not merged yet)
+
+// tu-skeleton: 0x00620720 37B ??0?$_Rb_tree_base@U?$pair@$$CBVUnicodeString@@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVUnicodeString@@VAsciiString@@@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$pair@$$CBVUnicodeString@@VAsciiString@@@_STL@@@1@@Z -- matched in Code/GameEngine/Source/GameClient/MapUtil.cpp (not merged yet)
+
+// tu-skeleton: 0x00620750 19B ??Y?$_Deque_iterator@HU?$_Const_traits@H@_STL@@@_STL@@QAEAAU01@H@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_int.cpp (not merged yet)
+
+// tu-skeleton: 0x00620770 84B ?clear@?$hashtable@U?$pair@$$CBHH@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int.cpp (not merged yet)
+
+// tu-skeleton: 0x006207D0 41B ?_M_new_node@?$hashtable@U?$pair@$$CBHH@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@AAEPAU?$_Hashtable_node@U?$pair@$$CBHH@_STL@@@2@ABU?$pair@$$CBHH@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int.cpp (not merged yet)
+
+// tu-skeleton: 0x00620800 51B ??$_M_find@H@?$hashtable@U?$pair@$$CBHH@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@ABEPAU?$_Hashtable_node@U?$pair@$$CBHH@_STL@@@1@ABH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int.cpp (not merged yet)
+
+// tu-skeleton: 0x00620870 63B ?Remove_All@?$SList@VTagBlockIndex@@@@UAEXXZ -- matched in Code/GameEngine/Source/Common/SListTagBlockIndexRemoveAllThunk.cpp (not merged yet)
+
+// tu-skeleton: 0x006209C0 5B ?clear@?$hash_map@HHU?$hash@H@_STL@@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int.cpp (not merged yet)
+
+// tu-skeleton: 0x006209D0 46B ??0?$deque@PAVSightingInfo@@V?$allocator@PAVSightingInfo@@@_STL@@@_STL@@QAE@ABV?$allocator@PAVSightingInfo@@@1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_sighting_initmap.cpp (not merged yet)
+
+// tu-skeleton: 0x00620A00 122B ??1?$_Rb_tree@IU?$pair@$$CBIURva00620A00Record@@@_STL@@U?$_Select1st@U?$pair@$$CBIURva00620A00Record@@@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIURva00620A00Record@@@_STL@@@2@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00620A00.cpp (not merged yet)
+
+// tu-skeleton: 0x00620A80 78B ?begin@?$hashtable@U?$pair@$$CBHH@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBHH@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHH@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@2@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int.cpp (not merged yet)
+
+// tu-skeleton: 0x00620AD0 81B ??H?$_Deque_iterator@HU?$_Const_traits@H@_STL@@@_STL@@QBE?AU01@H@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_int.cpp (not merged yet)
+
+// tu-skeleton: 0x00620B30 59B ?_M_skip_to_next@?$_Hashtable_iterator@U?$pair@$$CBHH@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAEPAU?$_Hashtable_node@U?$pair@$$CBHH@_STL@@@2@XZ -- matched in Code/Libraries/Source/assetmanager/Rva00622290CollectKeys.cpp (not merged yet)
+
+// tu-skeleton: 0x00620B70 244B ?resize@?$hashtable@U?$pair@$$CBHH@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAEXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int_resize.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva00620C70Finish.cpp
+
+// The unsigned key is passed by address to the signed-key STL tree lookup.
+
+bool BfmeUnsignedKeyTree620C70::contains(unsigned int key)
+{
+	Tree::iterator it = m_tree.find(*(const int *)&key);
+	return it != m_tree.end();
+}
+
+// tu-skeleton: 0x00620D70 11B ??1Rva009EEA70CleanupDeleting@@UAE@XZ -- matched in Code/GameEngine/Source/Common/VptrCleanupDeletingDestructors.cpp (not merged yet)
+
+// tu-skeleton: 0x00620D80 13B ??_F?$deque@HV?$allocator@H@_STL@@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/assetmanager/AssetManagerImplCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00620D90 5B ?release@Rva00620D90TreeRelease@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00620A00.cpp (not merged yet)
+
+// tu-skeleton: 0x00620DA0 5B ?forward@Rva00620DA0@@QAEHXZ -- matched in Code/GameEngine/Source/Common/TailJumpWrappers5B.cpp (not merged yet)
+
+// tu-skeleton: 0x00620DB0 17B ?begin@?$hash_map@HPAUQ1ReceiverHashPayload@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHPAUQ1ReceiverHashPayload@@@_STL@@@3@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBHPAUQ1ReceiverHashPayload@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAUQ1ReceiverHashPayload@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAUQ1ReceiverHashPayload@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAUQ1ReceiverHashPayload@@@_STL@@@2@@2@XZ -- matched in Code/Libraries/Source/assetmanager/assetmanager_impl.cpp (not merged yet)
+
+// tu-skeleton: 0x00620DD0 60B ??$find@H@?$hashtable@U?$pair@$$CBHH@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBHH@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHH@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@1@ABH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int.cpp (not merged yet)
+
+// tu-skeleton: 0x00620E10 82B ??1?$hashtable@U?$pair@$$CBHH@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/Rva0016DEE0Cluster.cpp (not merged yet)
+
+// tu-skeleton: 0x00620E70 22B (unledgered) -- unmatched, no code, never credited
+
+// tu-skeleton: 0x00620E90 56B ??0?$map@VUnicodeString@@VAsciiString@@U?$less@VUnicodeString@@@_STL@@V?$allocator@U?$pair@$$CBVUnicodeString@@VAsciiString@@@_STL@@@4@@_STL@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/MapUtil.cpp (not merged yet)
+
+// tu-skeleton: 0x00620ED0 58B ?insert_equal@?$_Rb_tree@PBVThingTemplate@@U?$pair@QBVThingTemplate@@H@_STL@@U?$_Select1st@U?$pair@QBVThingTemplate@@H@_STL@@@3@U?$less@PBVThingTemplate@@@3@V?$allocator@U?$pair@QBVThingTemplate@@H@_STL@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@QBVThingTemplate@@H@_STL@@U?$_Nonconst_traits@U?$pair@QBVThingTemplate@@H@_STL@@@2@@2@ABU?$pair@QBVThingTemplate@@H@2@@Z -- matched in Code/GameEngine/Source/Common/RTS/ScoreKeeper_insert_unique.cpp (not merged yet)
+
+// tu-skeleton: 0x00620F10 76B ??A?$_Deque_iterator@HU?$_Nonconst_traits@H@_STL@@@_STL@@QBEAAHH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_int.cpp (not merged yet)
+
+// tu-skeleton: 0x00620F60 112B ?_M_insert@?$hashtable@U?$pair@$$CBHH@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAEAAU?$pair@$$CBHH@2@ABU32@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int.cpp (not merged yet)
+
+// tu-skeleton: 0x00620FD0 38B ?_M_reserve_map_at_back@?$deque@HV?$allocator@H@_STL@@@_STL@@IAEXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_int.cpp (not merged yet)
+
+// tu-skeleton: 0x00621000 30B ?_M_reserve_map_at_front@?$deque@HV?$allocator@H@_STL@@@_STL@@IAEXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_int.cpp (not merged yet)
+
+// tu-skeleton: 0x00621040 36B ??_GRva009EEA70CleanupDeleting@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/VptrCleanupDeletingDestructors.cpp (not merged yet)
+
+// tu-skeleton: 0x00621070 5B ??1?$hash_map@HHU?$hash@H@_STL@@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/Rva0016DEE0Cluster.cpp (not merged yet)
 
 // tu-skeleton: 0x00621170 170B ?Render_Obj_Exists_Impl@AssetRegistry@@QAE_NPBD@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Render_Obj_Exists_Impl.cpp (not merged yet)
 

@@ -177,7 +177,6 @@ Code/GameEngine/Source/Common/Rva005745D8.cpp,-O1,1,1,region default loses rows
 Code/GameEngine/Source/Common/Rva0059ADD1Check.cpp,-O2 -G7 -arch:SSE,1,1,region default loses rows
 Code/GameEngine/Source/Common/Rva0059E2ABFind.cpp,-O1,1,1,region default loses rows
 Code/GameEngine/Source/Common/Rva006026E0Cluster.cpp,,3,3,region default loses rows
-Code/GameEngine/Source/Common/Rva00620C70Finish.cpp,-O2,1,1,region default loses rows
 Code/GameEngine/Source/Common/Rva00625840Init.cpp,-O2,1,1,region default loses rows
 Code/GameEngine/Source/Common/Rva0062AFC8Import.cpp,-O2 -G7,1,1,region default loses rows
 Code/GameEngine/Source/Common/Rva006C0630Cluster.cpp,,1,1,region default loses rows
@@ -428,7 +427,7 @@ Code/GameEngineDevice/Source/W3DDevice/D3DX9ImportThunks.cpp,-O2 -G7,2,1,region 
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Add_Prototype.cpp,-O2,3,1,region default loses rows
 Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap_getMaximumVisibleBox_Rva00376D29.cpp,-Os,1,1,region default loses rows
 Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeObjEME_bfmeGetEME.cpp,-O2,1,1,region default loses rows
-Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp,-O2,5,4,region default loses rows
+Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp,-O2,6,5,region default loses rows
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDraw.cpp,-G7 -arch:SSE,6,1,region default loses rows
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DRopeDraw.cpp,-arch:SSE,5,1,region default loses rows
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Find_Asset.cpp,-O2,5,3,region default loses rows
