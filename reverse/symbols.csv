@@ -1565,7 +1565,6 @@ name,address,notes
 ??0Rva003B31ADMember@@QAE@XZ,0x003B31AD,alias of the rowed Rva003B31ADMember construct; PassiveAreaEffectBehaviorModuleDataCtor TU default-init spelling
 ??0Rva003B7DC0Record@@QAE@XZ,0x004E15FB,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ??0Rva003BA5F0Tree@@QAE@XZ,0x005011C1,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
-??0Rva003BA660Record@@QAE@XZ,0x004E32D5,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ??0Rva003BAE20Record@@QAE@XZ,0x004E364F,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ??0Rva003BB730Record@@QAE@XZ,0x004E3C8F,callee of ?SplineEffectParseINIBlock@@YAXPAVINI@@PAX1PBD@Z at retail 0x004E3F48 read from its REL32 displacement; donor record-alloc ctor name for the body already rowed at this address as ??0Rva004E3CD0@@QAE@XZ (ICF alias)
 ??0Rva003C2F40Tree@@QAE@XZ,0x005011C1,callee of ??0Rva003C2F40Owner@@QAE@XZ at retail 0x002BAE57 read from its REL32 displacement; body unrowed
@@ -3135,7 +3134,6 @@ name,address,notes
 ??1Rva003AA0C0@@UAE@XZ,0x003AA0C0,"destructor the vector deleting destructor 0x003A9A40 calls and hands to the eh vector destructor iterator (DIR32 at 0x003A9A4F); opaque address name"
 ??1Rva003AA17FVec@@UAE@XZ,0x003AA0C0,"destructor the vector deleting destructor 0x003AA17F calls and hands to the eh vector destructor iterator (DIR32 at 0x003AA18E); opaque address name"
 ??1Rva003AA6BD@@UAE@XZ,0x003AA6BD,"destructor the vector deleting destructor 0x003AA704 calls and hands to the eh vector destructor iterator (DIR32 at 0x003AA713); opaque address name"
-??1Rva003AB460Tree@@QAE@XZ,0x002B80CE,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ??1Rva003ABC0B@@UAE@XZ,0x003ABC0B,"destructor the scalar deleting destructor 0x003AEFF6 calls (REL32 at 0x003AEFF9; vtable 0x00C1D654#0); opaque address name"
 ??1Rva003ABC21@@UAE@XZ,0x003ABC21,"destructor the scalar deleting destructor 0x003AF10B calls (REL32 at 0x003AF10E; vtable 0x00C1D708#0); opaque address name"
 ??1Rva003B241AOwner@@QAE@XZ,0x003B241A,destructor called by the vtable-referenced scalar deleting dtor 0x0041E6F3 (REL32 at +4 of its 28B delete-flag wrapper; body stores vftable 0x00BC9574); identity unproven; address-derived name
@@ -4675,7 +4673,6 @@ name,address,notes
 ?append@Rva003B7BA0Owner@@QAEXPAVRva003B7BA0Record@@@Z,0x00566527,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?append@Rva003B7DC0Owner@@QAEXPAVRva003B7DC0Record@@@Z,0x0056652F,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?append@Rva003B8610Owner@@QAEXPAVRva003B8610Record@@@Z,0x00566557,callee of ?ParseWorldTextBlock@@YAXPAVINI@@PAX1PBX@Z at retail 0x004E19A4 read from its REL32 displacement; owner append routine taking the 0x14-byte Rva003B8610Record (donor comment calls it the 0x00443167 append); body unrowed; distinct from the 0x0056655F adjustor thunk pinned by ParseFlashRegionsEvent
-?append@Rva003BA660Owner@@QAEXPAVRva003BA660Record@@@Z,0x00566D7B,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?append@Rva003BAE20Owner@@QAEXPAVRva003BAE20Record@@@Z,0x005669B7,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?append@Rva003F309AVector@@QAEXABVLivingWorldRegionConnection@@@Z,0x003F309A,native Connection parser call 0x003F34C0 passes constructed24B local; complete rowed55 vector<LivingWorldRegionConnection> push_back independently verified
 ?append@Rva00424185Deque@@QAEXABURva00424185Criteria@@@Z,0x00423BFD,native parser call 0x004242E8 passes 12-byte index/float/count record; full rowed41 STLport push_back independently verified; original container/type names unknown
