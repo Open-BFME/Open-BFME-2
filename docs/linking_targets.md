@@ -1,5 +1,15 @@
 # Linking target checklist
 
+W3DPropDraw Snapshot identity follow-up (2026-10-30, LINK-102/107): remove the
+false post-effect-base macro while preserving all seven source rows, EXACT EH
+and all 64 external code/data definitions under the corrected base spelling.
+Strict five-source preparation passes 17 rows and one data row. The native
+post-effect base and LookupTablePostEffect constructors newly preview LINKS
+(13 + 22 bytes), while both Snapshot witnesses retain LINKS. Preview against
+`ccafe54d1d`: 154 -> 189 authored linking bytes. W3DPropDraw's independent native
+table reconciliation remains open; no census gain is claimed.
+[Evidence and remaining scope](../reverse/attempt_support/w3dprop-snapshot-provider-link-20261030/README.md).
+
 Particle template writer migration (2026-10-30): the complete existing unit
 uses STLport 4.6 after removal of obsolete proxy specializations, with all
 8 rows and its EH graph exact. Strict two-source verification with the native

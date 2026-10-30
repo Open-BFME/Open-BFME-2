@@ -1,0 +1,360 @@
+{
+  "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DPropDraw.cpp",
+  "before_source_sha256": "e7cf9ad9d5668901eff6d5b116fb153051ff992ffec0c063dd8572d1fa8b141c",
+  "after_source_sha256": "216884643b63662455a4005ee43e037fb79b9c0738defef3f1cace420592b7c5",
+  "object_sha256": "66c05644f2868064f6bada60caae29e830a2601cb61cb7838e941828bdbcea91",
+  "strict_current": true,
+  "external_code_data_definitions": 64,
+  "allowed_identity_change": "BfmeModuleDataSnapshotBase -> Snapshot only in this falsely renamed base; native post-effect providers remain unchanged",
+  "all_normalized_external_code_data_and_relocations_identical": true,
+  "definition_sha256": {
+    "??0AsciiString@@QAE@XZ": "082671b0cec09099d083425fd24cf3572d79c68bfee9f253b6c151646ad639bb",
+    "??0DrawModule@@QAE@PAVThing@@PBVModuleData@@@Z": "ff5fa7d5c004487be3819e5a69aa3c344981a888ea93fb6a55ad608ee66f22cf",
+    "??0ModuleData@@QAE@XZ": "2f9b05446692e5cd19b8420aa16456f9ebc936bd8b67dad1e91d83d977d6ccc8",
+    "??0Snapshot@@QAE@XZ": "2f9b05446692e5cd19b8420aa16456f9ebc936bd8b67dad1e91d83d977d6ccc8",
+    "??0W3DPropDraw@@QAE@PAVThing@@PBVModuleData@@@Z": "b44ab7c5c9906f3264512f934d810e84655a5a10c8ea5f0c9122052d336b206c",
+    "??0W3DPropDrawModuleData@@QAE@XZ": "92c0852231b8434413403cab8c750f40249a14ddb68fda8aef2c0e7f1d13753f",
+    "??1AsciiString@@QAE@XZ": "0c0a72ee86c92a59010c7099d45d84a29b23f73d34067751d842dea86e19615b",
+    "??1DrawModule@@MAE@XZ": "1977683c2382f023798af4b637955e681875ad0066a6dd38d554cf1615a8618a",
+    "??1ModuleData@@UAE@XZ": "40699b1c3fea59ca609fb3c756abb0e57dc3334428fb1871f181eaa954de6c43",
+    "??1Snapshot@@UAE@XZ": "40699b1c3fea59ca609fb3c756abb0e57dc3334428fb1871f181eaa954de6c43",
+    "??1W3DPropDraw@@MAE@XZ": "1977683c2382f023798af4b637955e681875ad0066a6dd38d554cf1615a8618a",
+    "??1W3DPropDrawModuleData@@UAE@XZ": "dcbaba5444c4fa58359495ea5e0e365ff1de00dd48be25a196ebd2490791b87d",
+    "??_7DrawModule@@6B@": "4447d0468daec73ede983b690f8639eb5c47b66c55bb5034224f57f8e9d25ee2",
+    "??_7Snapshot@@6B@": "0301138b45d3b3b5b8111ff1b242f8de0c9793da304516b4acebb61b5eb61246",
+    "??_7W3DPropDraw@@6B@": "a6d3f61ba2b48300657291adee4fe981f936b84cde762084621ca327780ab4f8",
+    "??_7W3DPropDrawModuleData@@6B@": "4d272d1a7e47a7182cc9ccbe34e5008625540067d8518b9ab1d70067c157db7a",
+    "??_C@_09DKCOOGBB@ModelName?$AA@": "c46254c6714c922219d0d28f4f9b1b889de34831402f0303186d8cecd0862ee0",
+    "??_C@_0M@EFMFDODK@W3DPropDraw?$AA@": "dca95f90547d217e114354d260f01a3f27e009f9d322a66b61590596326ef456",
+    "??_C@_0M@ODNFNFCI@DistanceFog?$AA@": "2c8049f7f3457ee2e7fdd4c427ba2ec09e2d7a126e1867432ddc1f5cce94e4d9",
+    "??_GDrawModule@@MAEPAXI@Z": "0f00f11d62b154b579a6eb2795ac70c1061817731fccd3f98d0528f733fc24b5",
+    "??_GSnapshot@@UAEPAXI@Z": "db7dc17e2881134dce07c3ef74c639c79afd582d6f8a4bd6f8ced0311b252c39",
+    "??_GW3DPropDraw@@MAEPAXI@Z": "4e09aa63e90fe6d7035016d5b08ecb0fb03dcf4e0526b8c087f1c75b5e4be776",
+    "??_GW3DPropDrawModuleData@@UAEPAXI@Z": "06a38ec29db36c0c87831e671441a6db83a9c0beda7ba04d834845e145ec0816",
+    "??_H@YGXPAXIHP6EPAX0@Z@Z": "b4d038f9e08c1743d5cdd7b85386c75591c6aa82fd820c9e8618db6351742245",
+    "??_R0?AW4ErrorCode@@@8": "283319a400d0e0bb5ac4472f675fcba1da0b166bc7f6c4163e8d57d3b9e46986",
+    "?allocateShadows@W3DPropDraw@@UAEXXZ": "490a34cf8c217937201039431356fdf02891bc156d2a9e2d70959194e81a1e7d",
+    "?buildFieldParse@W3DPropDrawModuleData@@SAXAAVMultiIniFieldParse@@@Z": "800d5243b74e697deb6169c8e8d2b89bae875df1131fb662ed16a7c678277283",
+    "?doDrawModule@W3DPropDraw@@UAEXPBVMatrix3D@@@Z": "82306032a73924e2413c8d88c86123bae750c3dd9f6a6c059fcac9128dcbf7e4",
+    "?g_00BCD4A8@@3QBUFieldParse@@B": "90c2bb1fb4f630b9db39933f446c4511055e07546168466200b6679ae46bd900",
+    "?getAsW3DModelDrawModuleData@ModuleData@@UBEPBVW3DModelDrawModuleData@@XZ": "dc56bbf62cade526e46e69b061da0f6326790f14154c9c55bae02cca481f3e55",
+    "?getAsW3DPropDrawModuleData@W3DPropDrawModuleData@@UBEPBV1@XZ": "44f4305b6d2aaff2dd6a959057a2c9b5aebe6cef2eb94ebc727ad438ae21eed1",
+    "?getAsW3DTreeDrawModuleData@ModuleData@@UBEPBVW3DTreeDrawModuleData@@XZ": "dc56bbf62cade526e46e69b061da0f6326790f14154c9c55bae02cca481f3e55",
+    "?getClassMemoryPool@W3DPropDraw@@CAPAVMemoryPool@@XZ": "5c77dd5cfcd95c4493a127a848832dbf7e7822fded0875bec3ebc6e4511f2ab1",
+    "?getDebrisDrawInterface@DrawModule@@UAEPAVDebrisDrawInterface@@XZ": "dc56bbf62cade526e46e69b061da0f6326790f14154c9c55bae02cca481f3e55",
+    "?getDebrisDrawInterface@DrawModule@@UBEPBVDebrisDrawInterface@@XZ": "dc56bbf62cade526e46e69b061da0f6326790f14154c9c55bae02cca481f3e55",
+    "?getLaserDrawInterface@DrawModule@@UAEPAVLaserDrawInterface@@XZ": "dc56bbf62cade526e46e69b061da0f6326790f14154c9c55bae02cca481f3e55",
+    "?getLaserDrawInterface@DrawModule@@UBEPBVLaserDrawInterface@@XZ": "dc56bbf62cade526e46e69b061da0f6326790f14154c9c55bae02cca481f3e55",
+    "?getMinimumRequiredGameLOD@ModuleData@@UBE?AW4StaticGameLODLevel@@XZ": "dc56bbf62cade526e46e69b061da0f6326790f14154c9c55bae02cca481f3e55",
+    "?getModuleNameKey@W3DPropDraw@@UBE?AW4NameKeyType@@XZ": "74a72ae83b2d4856389909c4021abec25442718aeb59a1fdbb26de46e6769953",
+    "?getObjectDrawInterface@DrawModule@@UAEPAVObjectDrawInterface@@XZ": "dc56bbf62cade526e46e69b061da0f6326790f14154c9c55bae02cca481f3e55",
+    "?getObjectDrawInterface@DrawModule@@UBEPBVObjectDrawInterface@@XZ": "dc56bbf62cade526e46e69b061da0f6326790f14154c9c55bae02cca481f3e55",
+    "?getObjectMemoryPool@DrawModule@@EAEPAVMemoryPool@@XZ": "296775b0303219680759a0324b7c7ea41e8d88fa6f4ef3bdb63c9bc5344bea13",
+    "?getObjectMemoryPool@W3DPropDraw@@EAEPAVMemoryPool@@XZ": "23b35d4435a828396d673ea269dad6b500d4fc42105d52fb61adee9b139dafdb",
+    "?getRopeDrawInterface@DrawModule@@UAEPAVRopeDrawInterface@@XZ": "dc56bbf62cade526e46e69b061da0f6326790f14154c9c55bae02cca481f3e55",
+    "?getRopeDrawInterface@DrawModule@@UBEPBVRopeDrawInterface@@XZ": "dc56bbf62cade526e46e69b061da0f6326790f14154c9c55bae02cca481f3e55",
+    "?getTracerDrawInterface@DrawModule@@UAEPAVTracerDrawInterface@@XZ": "dc56bbf62cade526e46e69b061da0f6326790f14154c9c55bae02cca481f3e55",
+    "?getTracerDrawInterface@DrawModule@@UBEPBVTracerDrawInterface@@XZ": "dc56bbf62cade526e46e69b061da0f6326790f14154c9c55bae02cca481f3e55",
+    "?isAiModuleData@ModuleData@@UBE_NXZ": "053630c32838c52cb67a8b3ef318d38d0a5e7de57339478682d203c54ce623e4",
+    "?isLaser@DrawModule@@UBE_NXZ": "053630c32838c52cb67a8b3ef318d38d0a5e7de57339478682d203c54ce623e4",
+    "?isVisible@DrawModule@@UBE_NXZ": "e9465dc0d7bbe94f4ada608d165b05256e23c9d12037e37b1984426d2f9f4886",
+    "?loadPostProcess@ModuleData@@UAEXXZ": "490a34cf8c217937201039431356fdf02891bc156d2a9e2d70959194e81a1e7d",
+    "?loadPostProcess@W3DPropDraw@@MAEXXZ": "3a34297c0f717ea44cee31cfd7754c909e396b2dacbd6bad5099e1f6d73a8c8c",
+    "?onDelete@Module@@UAEXXZ": "490a34cf8c217937201039431356fdf02891bc156d2a9e2d70959194e81a1e7d",
+    "?onDrawableBoundToObject@Module@@UAEXXZ": "490a34cf8c217937201039431356fdf02891bc156d2a9e2d70959194e81a1e7d",
+    "?onObjectCreated@Module@@UAEXXZ": "490a34cf8c217937201039431356fdf02891bc156d2a9e2d70959194e81a1e7d",
+    "?preloadAssets@Module@@UAEXW4TimeOfDay@@@Z": "82306032a73924e2413c8d88c86123bae750c3dd9f6a6c059fcac9128dcbf7e4",
+    "?reactToGeometryChange@W3DPropDraw@@UAEXXZ": "490a34cf8c217937201039431356fdf02891bc156d2a9e2d70959194e81a1e7d",
+    "?releaseShadows@W3DPropDraw@@UAEXXZ": "490a34cf8c217937201039431356fdf02891bc156d2a9e2d70959194e81a1e7d",
+    "?setFullyObscuredByShroud@W3DPropDraw@@UAEX_N@Z": "82306032a73924e2413c8d88c86123bae750c3dd9f6a6c059fcac9128dcbf7e4",
+    "?setShadowsEnabled@W3DPropDraw@@UAEX_N@Z": "82306032a73924e2413c8d88c86123bae750c3dd9f6a6c059fcac9128dcbf7e4",
+    "?setTerrainDecal@DrawModule@@UAEXW4TerrainDecalType@@@Z": "82306032a73924e2413c8d88c86123bae750c3dd9f6a6c059fcac9128dcbf7e4",
+    "?setTerrainDecalOpacity@DrawModule@@UAEXM@Z": "82306032a73924e2413c8d88c86123bae750c3dd9f6a6c059fcac9128dcbf7e4",
+    "?setTerrainDecalSize@DrawModule@@UAEXMM@Z": "af144c2a496034ff05ef4640d56910070803cd4ee0a9ca53399e77892f8596b3",
+    "?xfer@ModuleData@@UAEXPAVXfer@@@Z": "82306032a73924e2413c8d88c86123bae750c3dd9f6a6c059fcac9128dcbf7e4"
+  },
+  "private_row_checks": {
+    "before": [
+      {
+        "name": "??0W3DPropDraw@@QAE@PAVThing@@PBVModuleData@@@Z",
+        "rva": "0x000CEEC0",
+        "size": "32",
+        "exact": true,
+        "eh": null
+      },
+      {
+        "name": "?buildFieldParse@W3DPropDrawModuleData@@SAXAAVMultiIniFieldParse@@@Z",
+        "rva": "0x000CEF72",
+        "size": "17",
+        "exact": true,
+        "eh": null
+      },
+      {
+        "name": "??1W3DPropDrawModuleData@@UAE@XZ",
+        "rva": "0x000CEF3C",
+        "size": "54",
+        "exact": true,
+        "eh": [
+          "EXACT",
+          ""
+        ]
+      },
+      {
+        "name": "??_GW3DPropDrawModuleData@@UAEPAXI@Z",
+        "rva": "0x000CF058",
+        "size": "28",
+        "exact": true,
+        "eh": null
+      },
+      {
+        "name": "??0W3DPropDrawModuleData@@QAE@XZ",
+        "rva": "0x000CEF2B",
+        "size": "17",
+        "exact": true,
+        "eh": null
+      },
+      {
+        "name": "__ehhandler$??1W3DPropDrawModuleData@@UAE@XZ",
+        "rva": "0x00762729",
+        "size": "10",
+        "exact": true,
+        "eh": null
+      },
+      {
+        "name": "Unwind@00b62721",
+        "rva": "0x00762721",
+        "size": "8",
+        "exact": true,
+        "eh": null
+      }
+    ],
+    "trial": [
+      {
+        "name": "??0W3DPropDraw@@QAE@PAVThing@@PBVModuleData@@@Z",
+        "rva": "0x000CEEC0",
+        "size": "32",
+        "exact": true,
+        "eh": null
+      },
+      {
+        "name": "?buildFieldParse@W3DPropDrawModuleData@@SAXAAVMultiIniFieldParse@@@Z",
+        "rva": "0x000CEF72",
+        "size": "17",
+        "exact": true,
+        "eh": null
+      },
+      {
+        "name": "??1W3DPropDrawModuleData@@UAE@XZ",
+        "rva": "0x000CEF3C",
+        "size": "54",
+        "exact": true,
+        "eh": [
+          "EXACT",
+          ""
+        ]
+      },
+      {
+        "name": "??_GW3DPropDrawModuleData@@UAEPAXI@Z",
+        "rva": "0x000CF058",
+        "size": "28",
+        "exact": true,
+        "eh": null
+      },
+      {
+        "name": "??0W3DPropDrawModuleData@@QAE@XZ",
+        "rva": "0x000CEF2B",
+        "size": "17",
+        "exact": true,
+        "eh": null
+      },
+      {
+        "name": "__ehhandler$??1W3DPropDrawModuleData@@UAE@XZ",
+        "rva": "0x00762729",
+        "size": "10",
+        "exact": true,
+        "eh": null
+      },
+      {
+        "name": "Unwind@00b62721",
+        "rva": "0x00762721",
+        "size": "8",
+        "exact": true,
+        "eh": null
+      }
+    ]
+  },
+  "cohort": [
+    {
+      "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DPropDraw.cpp",
+      "source_sha256": "216884643b63662455a4005ee43e037fb79b9c0738defef3f1cace420592b7c5",
+      "object_sha256": "66c05644f2868064f6bada60caae29e830a2601cb61cb7838e941828bdbcea91",
+      "rows": [
+        {
+          "name": "??0W3DPropDraw@@QAE@PAVThing@@PBVModuleData@@@Z",
+          "rva": "0x000CEEC0",
+          "size": "32",
+          "exact": true
+        },
+        {
+          "name": "?buildFieldParse@W3DPropDrawModuleData@@SAXAAVMultiIniFieldParse@@@Z",
+          "rva": "0x000CEF72",
+          "size": "17",
+          "exact": true
+        },
+        {
+          "name": "??1W3DPropDrawModuleData@@UAE@XZ",
+          "rva": "0x000CEF3C",
+          "size": "54",
+          "exact": true
+        },
+        {
+          "name": "??_GW3DPropDrawModuleData@@UAEPAXI@Z",
+          "rva": "0x000CF058",
+          "size": "28",
+          "exact": true
+        },
+        {
+          "name": "??0W3DPropDrawModuleData@@QAE@XZ",
+          "rva": "0x000CEF2B",
+          "size": "17",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$??1W3DPropDrawModuleData@@UAE@XZ",
+          "rva": "0x00762729",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b62721",
+          "rva": "0x00762721",
+          "size": "8",
+          "exact": true
+        }
+      ]
+    },
+    {
+      "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeModuleDataSnapshotBaseCtor.cpp",
+      "source_sha256": "5d352bcf46833041eb927e80f946c033aea4c24452883a173eed60e2217b864e",
+      "object_sha256": "e1cfe1bde7cee009ecb8ca16c5874bd6e144a3f449f68c842c33ae9d842f14f5",
+      "rows": [
+        {
+          "name": "??0BfmeModuleDataSnapshotBase@@QAE@XZ",
+          "rva": "0x0011646E",
+          "size": "13",
+          "exact": true
+        }
+      ]
+    },
+    {
+      "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/LookupTablePostEffectCtor.cpp",
+      "source_sha256": "6ce73dd5b2569da2745bca18c9dd5cc0dfc42b5fba3514fd028731038f2bd45f",
+      "object_sha256": "32fd1746de6de5fcd122019c717b3b2606063e356011f56160241c0a008babde",
+      "rows": [
+        {
+          "name": "??0LookupTablePostEffect@@QAE@XZ",
+          "rva": "0x00111B84",
+          "size": "22",
+          "exact": true
+        }
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/System/Snapshot.cpp",
+      "source_sha256": "4c4be200e9f5f1025c25c477127a752fd1cf37a5e607bfb9fbfb134688b22bf6",
+      "object_sha256": "18811b35abfb03374e1ad0c32abf6e3222026d557d8533ecffe82f300e6aec2b",
+      "rows": [
+        {
+          "name": "??0Snapshot@@QAE@ABV0@@Z",
+          "rva": "0x00001745",
+          "size": "11",
+          "exact": true
+        },
+        {
+          "name": "??0Snapshot@@QAE@XZ",
+          "rva": "0x000053A6",
+          "size": "9",
+          "exact": true
+        },
+        {
+          "name": "??1Snapshot@@UAE@XZ",
+          "rva": "0x0049B47C",
+          "size": "7",
+          "exact": true
+        },
+        {
+          "name": "??4Snapshot@@QAEAAV0@ABV0@@Z",
+          "rva": "0x001FD28E",
+          "size": "5",
+          "exact": true
+        }
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/System/LivingWorldRegionConnectionCopy.cpp",
+      "source_sha256": "4c982e9e8c0b169cc0852855ad77e79d25fed6d09f65bd87d70d6e2016dfc2a8",
+      "object_sha256": "674058a636c62289be526559c8d72b53aee56bbd02a138a1c1f25820110d7204",
+      "rows": [
+        {
+          "name": "??0LivingWorldRegionConnection@@QAE@ABV0@@Z",
+          "rva": "0x003F247D",
+          "size": "83",
+          "exact": true
+        },
+        {
+          "name": "??_GSnapshot@@UAEPAXI@Z",
+          "rva": "0x000053AF",
+          "size": "29",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$??0LivingWorldRegionConnection@@QAE@ABV0@@Z",
+          "rva": "0x00783B33",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "$L5380",
+          "rva": "0x00783B28",
+          "size": "11",
+          "exact": true
+        }
+      ]
+    }
+  ],
+  "native_constructors": [
+    {
+      "rva": "0x11646e",
+      "size": 13,
+      "raw": "8bc1c70024fbbc00c6400400c3"
+    },
+    {
+      "rva": "0x53a6",
+      "size": 9,
+      "raw": "8bc1c70054b5bb00c3"
+    },
+    {
+      "rva": "0x111b84",
+      "size": 22,
+      "raw": "568bf1e8e2480000c706c8fabc00836608008bc65ec3"
+    }
+  ],
+  "preview": {
+    "index": "ccafe54d1d",
+    "linked_authored_bytes_before": 154,
+    "linked_authored_bytes_after": 189,
+    "newly_linking_sources": [
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeModuleDataSnapshotBaseCtor.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/LookupTablePostEffectCtor.cpp"
+    ],
+    "retained_linking_sources": [
+      "Code/GameEngine/Source/Common/System/Snapshot.cpp",
+      "Code/GameEngine/Source/Common/System/LivingWorldRegionConnectionCopy.cpp"
+    ],
+    "remaining_w3dprop_blockers": [
+      "??_7DrawModule@@6B@",
+      "??_GDrawModule@@MAEPAXI@Z"
+    ],
+    "census_gain_claimed": false
+  }
+}
