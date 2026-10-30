@@ -4,9 +4,11 @@
 // Slot 3 of ??_7ReplenishUnitsBehavior 0x00C4A034 (slot-2 name getter
 // returns "ReplenishUnitsBehavior"; installed by the rowed dtor 0x00484161).
 // Version1, the rowed UpdateModule::xfer 0x0044DF9F, then the rowed
+// UpgradeMux::upgradeMuxXfer 0x004CE397 on the +0x20 mux base (the
+// same transfer used by AudioLoopUpgradeXfer).
+
 // UpgradeMux::upgradeMuxXfer 0x004CE397 on the +0x20 mux subobject (the
 // AudioLoopUpgradeXfer view of the mux as a member).
-
 class AsciiString;
 class UnicodeString;
 class PooledString;
@@ -42,28 +44,51 @@ public:
 
 #include "../../../../Include/Common/ObjectModule.h"
 
-class BehaviorModuleInterface { public: virtual void behaviorSlot(); };
-class UpdateModuleInterface { public: virtual void updateSlot(); };
+enum UpdateSleepTime
+{
+	UPDATE_SLEEP_NONE = 1,
+	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
+};
 
-class UpdateModule : public ObjectModule,
-	public BehaviorModuleInterface, public UpdateModuleInterface
+class Thing;
+class ModuleData;
+class Object;
+class Xfer;
+class ReplenishUnitsBehaviorModuleData;
+
+class BehaviorModuleInterface
 {
 public:
-	UpdateModule(Thing *thing, const ModuleData *data);
+	virtual void behaviorModuleInterfaceAnchor();
+};
+
+class UpdateModuleInterface
+{
+public:
+	virtual UpdateSleepTime update() = 0;
+};
+
+class UpdateModule : public ObjectModule, public BehaviorModuleInterface, public UpdateModuleInterface
+{
+public:
+	UpdateModule(Thing *thing, const ModuleData *moduleData);
 	virtual ~UpdateModule();
 	void xfer(Xfer *xfer);
 
-private:
+protected:
+	void setWakeFrame(Object *object, UpdateSleepTime frame);
 	unsigned int m_nextCallFrameAndPhase;
 	int m_indexInLogic;
-	int m_updateState;
+	int m_bfmeReserved;
 };
-
-class ReplenishUnitsBehavior;
 
 class UpgradeMux
 {
-	friend class ReplenishUnitsBehavior;
+public:
+	UpgradeMux();
+	virtual bool isUpgradeActive() const = 0;
+	void giveSelfUpgrade();
+
 protected:
 	virtual void upgradeMuxXfer(Xfer *xfer);
 
@@ -71,13 +96,23 @@ private:
 	bool m_upgradeExecuted;
 };
 
-class ReplenishUnitsBehavior : public UpdateModule
+class ReplenishUnitsBehavior : public UpdateModule, public UpgradeMux
 {
+public:
+	ReplenishUnitsBehavior(Thing *thing, const ModuleData *moduleData);
+	virtual ~ReplenishUnitsBehavior();
+	virtual NameKeyType getModuleNameKey() const;
+	virtual UpdateSleepTime update();
+	void rva004842DD(Object *target);
+
 protected:
 	virtual void xfer(Xfer *xfer);
 
 private:
-	UpgradeMux m_20;
+	const ReplenishUnitsBehaviorModuleData *getReplenishUnitsBehaviorModuleData() const
+	{
+		return (const ReplenishUnitsBehaviorModuleData *)m_moduleData;
+	}
 };
 
 // ?xfer@ReplenishUnitsBehavior@@MAEXPAVXfer@@@Z @0x00484365
@@ -85,5 +120,5 @@ void ReplenishUnitsBehavior::xfer(Xfer *xfer)
 {
 	xfer->Version1();
 	UpdateModule::xfer(xfer);
-	m_20.UpgradeMux::upgradeMuxXfer(xfer);
+	UpgradeMux::upgradeMuxXfer(xfer);
 }

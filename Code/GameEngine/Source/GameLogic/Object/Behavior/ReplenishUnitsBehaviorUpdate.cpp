@@ -17,6 +17,10 @@
 // 0x004842DD: replenish the target: the data's +0x120 FX on it, and when the
 // data's +0x124 status mask has bit 39 its DetachableRiderUpdate module (if
 // any) gets 0x004AE8FA.
+#include "../../../../../Libraries/Include/Lib/Coord3D.h"
+#include "../../../../Include/Common/Module.h"
+#include "../../../../Include/Common/ObjectModule.h"
+
 class Object;
 class Player;
 
@@ -130,9 +134,6 @@ public:
 	ObjectStatusMask m_mustNot;
 };
 
-
-#include "../../../../../Libraries/Include/Lib/Coord3D.h"
-
 class FXList
 {
 public:
@@ -151,8 +152,6 @@ public:
 };
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-#include "../../../../Include/Common/Module.h"
-
 class DetachableRiderUpdate
 {
 public:
@@ -169,6 +168,7 @@ extern PartitionManager *ThePartitionManager;
 
 enum UpdateSleepTime
 {
+	UPDATE_SLEEP_NONE = 1,
 	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
 };
 
@@ -227,21 +227,39 @@ protected:
 	Module *findModule(NameKeyType key) const;	// 0x0028B6D6
 };
 
-struct ReplenishUnitsBehaviorModuleData
+class Rva0025342CMember
 {
-	char m_pad00[0x118];
+public:
+	Rva0025342CMember *construct();
+
+private:
+	unsigned char m_body[0x110];
+};
+
+class __declspec(novtable) ReplenishUnitsBehaviorModuleData
+{
+public:
+	ReplenishUnitsBehaviorModuleData();
+
+private:
+	friend class ReplenishUnitsBehavior;
+	void *m_vtable;			// +0x00
+	unsigned int m_04;		// +0x04 (retail never stores)
+	Rva0025342CMember m_08;		// +0x08
 	float m_replenishRadius;			// +0x118 the replenish radius
 	float m_enemyCheckRadius;			// +0x11C the enemy check radius
 	const FXList *m_120;		// +0x120 the replenish FX
-	ObjectStatusMask m_requiredTargetStatus;		// +0x124 the status a target needs
-	UpdateSleepTime m_replenishDelay;		// +0x134 the sleep
-	char m_pad138;
-	bool m_replenishHordeMembersOnly;			// +0x139
+	ObjectStatusMask m_124;		// +0x124 bitset<128>, the status a target needs
+	UpdateSleepTime m_134;		// +0x134 the sleep
+	bool m_138;			// +0x138
+	bool m_139;			// +0x139 replenish horde members only
 };
 
+class Thing;
 class ModuleData;
-
-#include "../../../../Include/Common/ObjectModule.h"
+class Object;
+class Xfer;
+class ReplenishUnitsBehaviorModuleData;
 
 class BehaviorModuleInterface
 {
@@ -257,21 +275,44 @@ public:
 
 class UpdateModule : public ObjectModule, public BehaviorModuleInterface, public UpdateModuleInterface
 {
+public:
+	UpdateModule(Thing *thing, const ModuleData *moduleData);
+	virtual ~UpdateModule();
+	void xfer(Xfer *xfer);
+
 protected:
-	char m_pad14[0x20 - 0x14];
+	void setWakeFrame(Object *object, UpdateSleepTime frame);
+	unsigned int m_nextCallFrameAndPhase;
+	int m_indexInLogic;
+	int m_bfmeReserved;
 };
 
 class UpgradeMux
 {
 public:
+	UpgradeMux();
 	virtual bool isUpgradeActive() const = 0;
+	void giveSelfUpgrade();
+
+protected:
+	virtual void upgradeMuxXfer(Xfer *xfer);
+
+private:
+	bool m_upgradeExecuted;
 };
 
 class ReplenishUnitsBehavior : public UpdateModule, public UpgradeMux
 {
 public:
+	ReplenishUnitsBehavior(Thing *thing, const ModuleData *moduleData);
+	virtual ~ReplenishUnitsBehavior();
+	virtual NameKeyType getModuleNameKey() const;
 	virtual UpdateSleepTime update();
 	void rva004842DD(Object *target);
+
+protected:
+	virtual void xfer(Xfer *xfer);
+
 private:
 	const ReplenishUnitsBehaviorModuleData *getReplenishUnitsBehaviorModuleData() const
 	{
@@ -284,7 +325,7 @@ void ReplenishUnitsBehavior::rva004842DD(Object *target)
 	const ReplenishUnitsBehaviorModuleData *data = getReplenishUnitsBehaviorModuleData();
 	if (data->m_120)
 		FXList::doFXObj(data->m_120, target, 0);
-	if (data->m_requiredTargetStatus.test(39)) {
+	if (data->m_124.test(39)) {
 		static NameKeyType key = TheNameKeyGenerator->nameToKey("DetachableRiderUpdate");
 		Module *rider = target->findModule(key);
 		if (rider)
@@ -299,7 +340,7 @@ UpdateSleepTime ReplenishUnitsBehavior::update()
 	ReplenishUnitsBehavior *self = this;
 	if (self->isUpgradeActive() && !obj->isEffectivelyDead()) {
 		void *subject = 0;
-		if (data->m_replenishHordeMembersOnly) {
+		if (data->m_139) {
 			Rva0048438AInterface *provider = obj->m_250;
 			subject = provider ? provider->slot31() : 0;
 			if (!subject)
@@ -310,12 +351,12 @@ UpdateSleepTime ReplenishUnitsBehavior::update()
 					&Rva00261058(obj, false))))) == 0) {
 			Object *target = ThePartitionManager->getClosestObject(obj->getPosition(), data->m_replenishRadius, 0,
 				Rva00260E2AFilter(obj->getControllingPlayer()).link(
-					Rva003685CF(*(const BfmeObject872Header *)&data->m_requiredTargetStatus, *Rva0023DA79().rva0023DA79(0, OBJECT_STATUS_RVA0048438A_50)).link(
+					Rva003685CF(*(const BfmeObject872Header *)&data->m_124, *Rva0023DA79().rva0023DA79(0, OBJECT_STATUS_RVA0048438A_50)).link(
 						Rva0026119DFilter().link(Rva002611BFFilter(obj).link(&Rva00260F77Filter(subject, true))))));
 			if (target)
 				self->rva004842DD(target);
 		}
-		return data->m_replenishDelay;
+		return data->m_134;
 	}
 	return UPDATE_SLEEP_FOREVER;
 }
