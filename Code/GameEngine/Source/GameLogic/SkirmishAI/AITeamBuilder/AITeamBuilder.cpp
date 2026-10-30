@@ -48,17 +48,34 @@ struct Coord3D;
 struct AITeamRequirementView;
 struct AITargetView;
 struct Rva002A8AB1Record;
-class Rva002A8F24 { public: Rva002A8AB1Record *rva002A8AB1(void *); void *rva002A8F24(Player *); void *rva002A8B73(void *,int); };
+class Rva002A8F24
+{
+public:
+	Rva002A8AB1Record *rva002A8AB1(void *);
+	void *rva002A8F24(Player *);
+	void *rva002A8B73(void *,int);
+};
 extern Rva002A8F24 *TheSkirmishAIManager;
 extern GameLogic *TheGameLogic;
 class TeamPrototype;
 class Rva0039D769;
-class Team {
+class TeamPrototype;
+template<class T> class DLINK_ITERATOR;
+class Team
+{
 public:
- char pad[0x30]; TeamPrototype *prototype30; char pad34[0x5d-0x34]; bool active; bool dirty;
- char pad5f[0x110-0x5f]; bool flag110; bool flag111;
- Team *dlink_next_TeamInstanceList() const;
- void disband();
+	Team *dlink_next_TeamInstanceList() const;
+	void disband();
+	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
+	char m_pad00[0x30];
+	TeamPrototype *prototype30; // +0x30
+	char m_pad34[0x29];
+	bool active; // +0x5D
+	bool dirty; // +0x5E
+	char m_pad5F[0xB1];
+	bool flag110; // +0x110
+	bool flag111; // +0x111
+	char m_pad112[0x2];
 };
 template<class T> class DLINK_ITERATOR {
  typedef T *(T::*Next)() const;
@@ -69,6 +86,16 @@ public:
  void advance() { if (current) current=((*current).*next)(); }
  bool done() const { return current==0; }
  T *cur() const { return current; }
+};
+template<> class DLINK_ITERATOR<Object>
+{
+private:
+    Object *m_cur;
+    unsigned char m_targetAbiState[20];
+public:
+    void advance();
+    bool done() const { return m_cur == 0; }
+    Object *cur() const { return m_cur; }
 };
 class SkirmishAI { public: void Register(Team *); };
 class Rva0039D5A9 { public: int rva0039D5A9(); };
@@ -84,12 +111,14 @@ public:
  char pad31e[0x334-0x31e]; Team *head;
  DLINK_ITERATOR<Team> iterate_TeamInstanceList() const { return DLINK_ITERATOR<Team>(head,&Team::dlink_next_TeamInstanceList); }
 };
+struct Arg;
 class AITeamBuilder {
 public:
  void recruitPreDefined(Team*,int*,TeamPrototype*);
  bool defineUnitsNormal_old(TeamPrototype*);
  void recruitUnDefined(Team*,int*);
  void distanceSortUnits(void*,const void*,const Coord3D*);
+ void registerTeamPrototype(Arg *);
  int getCurNumUnits(Team *);
  int doesTeamMeetThreat(Team *);
  bool rva0059A01C(Object*,const AITeamRequirementView*,const AITargetView*);
@@ -143,18 +172,27 @@ struct RecruitThingTemplate { char prefix[0x64]; AsciiString name; char pad68[0x
  const RecruitKindOfFlags &kindOf() const { return *(const RecruitKindOfFlags *)((const char *)this + 0x108); } };
 class AIUpdateInterface { public: Object* getCurrentVictim() const; };
 enum ObjectStatusTypes { STATUS_90=90 };
-class Object {
+class Object
+{
 public:
- void setTeam(Team*);
- bool testStatus(ObjectStatusTypes) const;
- Team *getTeam() const { return team; }
- const RecruitThingTemplate *getTemplate() const { return objectTemplate; }
- char pad00[4]; RecruitThingTemplate* objectTemplate;
- char pad08[0x38-8]; Coord3D position;
- char pad44[0x258-0x44]; AIUpdateInterface* ai;
- char pad25c[0x304-0x25c]; Team* team;
- char pad308[0x438-0x308]; unsigned char flag438;
- char pad439[0x4c0-0x439]; unsigned int frame4c0;
+	void setTeam(Team*);
+	bool testStatus(ObjectStatusTypes) const;
+	Team *getTeam() const { return team; }
+	const RecruitThingTemplate *getTemplate() const { return objectTemplate; }
+	char m_pad00[0x4];
+	RecruitThingTemplate * objectTemplate; // +0x04
+	char m_pad08[0x30];
+	Coord3D position; // +0x38
+	char m_pad44[0x30];
+	int objectID; // +0x74
+	char m_pad78[0x1E0];
+	AIUpdateInterface * ai; // +0x258
+	char m_pad25C[0xA8];
+	Team * team; // +0x304
+	char m_pad308[0x130];
+	unsigned char flag438; // +0x438
+	char m_pad439[0x87];
+	unsigned int frame4c0; // +0x4C0
 };
 class Player { public: char prefix[0x2ec]; Team* defaultTeam; };
 struct AITeamRequirementView {
@@ -213,16 +251,20 @@ enum ScienceType { SCIENCE_0 = 0 };
 typedef _STL::vector<ScienceType> IDVectorView;
 // Existing owned providers keep their verified compiler settings.
 namespace _STL {
+template <> HeaderConstructor::map();
+template <> DistanceTree::iterator DistanceTree::insert_equal(const DistanceValue &);
 template <> void IDVectorView::reserve(unsigned int);
 template <> void IDVectorView::push_back(const ScienceType &);
 }
 // The rowed destructor owns an eight-byte tree header/count pair. Native
 // construction uses the existing map constructor with this same storage.
+struct Node00599FAA;
 class Rva00599FAA : public HeaderConstructor
 {
 public:
     __forceinline Rva00599FAA() {}
     ~Rva00599FAA();
+    void rva00599FAA(Node00599FAA *p);
 };
 // Native 59A499..59A71C, 643B; WB015297E0 names recruitPreDefined (assert236..279).
 // Runtime object offsets, requirement stride 0x18, priority 0x21C and call relationships

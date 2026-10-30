@@ -60,7 +60,7 @@ static inline bool operator!=(const _Rb_tree_iterator<_RbVal, _RbLeft> &a,
 
 #pragma pointers_to_members(full_generality, multiple_inheritance)
 
-enum ObjectStatusTypes { STATUS_90 = 90 };
+enum ObjectStatusTypes { STATUS_90=90 };
 struct RecruitKindOfFlags { unsigned int m_words[3]; __forceinline int test(int b) const { return m_words[b >> 5] & (1u << (b & 31)); } };
 struct RecruitThingTemplate { char prefix[0x64]; AsciiString name; char pad68[0x113-0x68]; unsigned char kind113;
  const AsciiString &getName() const { return name; }
@@ -68,32 +68,65 @@ struct RecruitThingTemplate { char prefix[0x64]; AsciiString name; char pad68[0x
 
 class AIUpdateInterface;
 class Team;
-class Object {
+class Object
+{
 public:
- void setTeam(Team*);
- bool testStatus(ObjectStatusTypes) const;
- char pad00[4]; RecruitThingTemplate* objectTemplate;
- char pad08[0x38-8]; Coord3D position;
- char pad44[0x74-0x44]; int objectID;
- char pad78[0x258-0x78]; AIUpdateInterface* ai;
- char pad25c[0x304-0x25c]; Team* team;
- char pad308[0x438-0x308]; unsigned char flag438;
- char pad439[0x4c0-0x439]; unsigned int frame4c0;
+	void setTeam(Team*);
+	bool testStatus(ObjectStatusTypes) const;
+	Team *getTeam() const { return team; }
+	const RecruitThingTemplate *getTemplate() const { return objectTemplate; }
+	char m_pad00[0x4];
+	RecruitThingTemplate * objectTemplate; // +0x04
+	char m_pad08[0x30];
+	Coord3D position; // +0x38
+	char m_pad44[0x30];
+	int objectID; // +0x74
+	char m_pad78[0x1E0];
+	AIUpdateInterface * ai; // +0x258
+	char m_pad25C[0xA8];
+	Team * team; // +0x304
+	char m_pad308[0x130];
+	unsigned char flag438; // +0x438
+	char m_pad439[0x87];
+	unsigned int frame4c0; // +0x4C0
 };
 
 class Player { public: char prefix[0x2ec]; Team* defaultTeam; };
 
+class TeamPrototype;
+struct AITeamRequirementView;
+struct AITargetView;
+struct Arg;
 class AITeamBuilder {
 public:
+ void recruitPreDefined(Team*,int*,TeamPrototype*);
+ bool defineUnitsNormal_old(TeamPrototype*);
+ void recruitUnDefined(Team*,int*);
+ void distanceSortUnits(void*,const void*,const Coord3D*);
+ void registerTeamPrototype(Arg *);
+ int getCurNumUnits(Team *);
+ int doesTeamMeetThreat(Team *);
+ bool rva0059A01C(Object*,const AITeamRequirementView*,const AITargetView*);
  void checkIdleTeams();
- char prefix00[0x14]; Player* owner14;
- _STL::set<int> idleIDs;
+ void update();
+ void rva0059ABC9(void *);
+ void rva0059AC4D(void *);
+ Team *rva00599F74(TeamPrototype *);
+ void rva0059A153(TeamPrototype *);
+ char prefix[8]; _STL::vector<TeamPrototype *> prototypes;
+ Player* owner14; _STL::set<int> busy;
 };
 
 struct IdleTargetPoint { int word0; Coord3D position; };
 struct IdleTargetList { char prefix[0x20]; _STL::vector<IdleTargetPoint*> points; };
 struct Rva002A8AB1Record { char prefix[0x164]; IdleTargetList* targetList; };
-class Rva002A8F24 { public: Rva002A8AB1Record *rva002A8AB1(void *); void *rva002A8F24(Player *); };
+class Rva002A8F24
+{
+public:
+	Rva002A8AB1Record *rva002A8AB1(void *);
+	void *rva002A8F24(Player *);
+	void *rva002A8B73(void *,int);
+};
 extern Rva002A8F24 *TheSkirmishAIManager;
 
 extern GameLogic *TheGameLogic;
@@ -102,6 +135,8 @@ extern int g_00E063E0;
 class Rva0025BFF8 { public: Object* rva0025BFF8(int); };
 class Rva00295A0FCommands { public: void Rva00295A0FCommand(void*,int,int); };
 int GetGameLogicRandomValue(int,int,char*,int);
+
+static inline Object **FillObjectPointers(Object **, unsigned int, Object * const &);
 
 static inline Object **FillObjectPointers(Object **first, unsigned int n, Object * const &value)
 {
@@ -151,7 +186,7 @@ void AITeamBuilder::checkIdleTeams() {
    if((recruitThingTemplate->kindOf().test(3)&&!tmplCopy->kindOf().test(7))||recruitThingTemplate->kindOf().test(90)) {
     if(obj->team==defaultTeam&&!obj->testStatus(STATUS_90)) {
      int id=obj->objectID;
-     if(idleIDs.find(id)==idleIDs.end()&&TheGameLogic->getFrame()-obj->frame4c0>=(unsigned)g_00E063E0) {
+     if(busy.find(id)==busy.end()&&TheGameLogic->getFrame()-obj->frame4c0>=(unsigned)g_00E063E0) {
       Object* recruit=obj;
       idle.push_back(recruit);
      }
@@ -167,7 +202,7 @@ void AITeamBuilder::checkIdleTeams() {
    int last=pts.size()-1;
    IdleTargetPoint* point=pts[last];
    int id=obj->objectID;
-   idleIDs.insert(id);
+   busy.insert(id);
    AIUpdateInterface* ai=obj->ai;
    ((Rva00295A0FCommands*)((char*)ai+0x20))->Rva00295A0FCommand(&point->position,0x7fffffff,0);
   }

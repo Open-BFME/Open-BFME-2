@@ -28,11 +28,13 @@ template <> void IDVectorView::push_back(const ScienceType &);
 
 // The rowed destructor owns an eight-byte tree header/count pair. Native
 // construction uses the existing map constructor with this same storage.
+struct Node00599FAA;
 class Rva00599FAA : public HeaderConstructor
 {
 public:
     __forceinline Rva00599FAA() {}
     ~Rva00599FAA();
+    void rva00599FAA(Node00599FAA *p);
 
 };
 

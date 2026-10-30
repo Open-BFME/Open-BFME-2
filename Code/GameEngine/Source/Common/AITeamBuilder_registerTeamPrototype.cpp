@@ -71,18 +71,37 @@ struct Arg
 	char m_pad[0x14];
 	StringBase<char> m_name;
 };
-class AITeamBuilder
-{
+struct Arg;
+#include <set>
+class Team;
+class TeamPrototype;
+class Object;
+class Player;
+struct Coord3D;
+struct AITeamRequirementView;
+struct AITargetView;
+class AITeamBuilder {
 public:
-	void registerTeamPrototype(Arg *arg);
-private:
-	char m_pad0[8];
-	_STL::vector<const ModuleData *> m_vec;
-	Mid1 *m_obj;
+ void recruitPreDefined(Team*,int*,TeamPrototype*);
+ bool defineUnitsNormal_old(TeamPrototype*);
+ void recruitUnDefined(Team*,int*);
+ void distanceSortUnits(void*,const void*,const Coord3D*);
+ void registerTeamPrototype(Arg *);
+ int getCurNumUnits(Team *);
+ int doesTeamMeetThreat(Team *);
+ bool rva0059A01C(Object*,const AITeamRequirementView*,const AITargetView*);
+ void checkIdleTeams();
+ void update();
+ void rva0059ABC9(void *);
+ void rva0059AC4D(void *);
+ Team *rva00599F74(TeamPrototype *);
+ void rva0059A153(TeamPrototype *);
+ char prefix[8]; _STL::vector<TeamPrototype *> prototypes;
+ Player* owner14; _STL::set<int> busy;
 };
 void AITeamBuilder::registerTeamPrototype(Arg *arg)
 {
-	Mid2 *mid = m_obj->m_mid;
+	Mid2 *mid = ((Mid1 *)owner14)->m_mid;
 	Leaf *leaf = mid->m_leaf;
 	StringBase<char> *other;
 	if (leaf == 0)
@@ -91,10 +110,10 @@ void AITeamBuilder::registerTeamPrototype(Arg *arg)
 		other = &leaf->m_name;
 	if (arg->m_name.compare(*other) == 0)
 		return;
-	CreateAHeroData **beg = (CreateAHeroData **)m_vec.begin();
-	CreateAHeroData **end = (CreateAHeroData **)m_vec.end();
+	CreateAHeroData **beg = (CreateAHeroData **)((_STL::vector<const ModuleData *> *)&prototypes)->begin();
+	CreateAHeroData **end = (CreateAHeroData **)((_STL::vector<const ModuleData *> *)&prototypes)->end();
 	CreateAHeroData **found = _STL::find(beg, end, (CreateAHeroData * const &)arg);
 	if (found != end)
 		return;
-	m_vec.push_back((const ModuleData * const &)arg);
+	((_STL::vector<const ModuleData *> *)&prototypes)->push_back((const ModuleData * const &)arg);
 }
