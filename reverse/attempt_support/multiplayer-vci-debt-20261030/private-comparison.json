@@ -1,0 +1,406 @@
+{
+  "source": "Code/GameEngine/Source/Common/MultiplayerSettings.cpp",
+  "rows": 22,
+  "objects": {
+    "before": {
+      "source_sha256": "827931487e289dad4950d8b565724481027b46248b11414ba2707c56d07288e8",
+      "object_sha256": "271b727b21448264afca94a367c8b02ff8e741178ff59d7017d49cbe3ae8a839",
+      "row_verdicts": [
+        {
+          "name": "?setColor@MultiplayerColorDefinition@@QAEXURGBColor@@@Z",
+          "rva": "0x00380C1E",
+          "exact": true,
+          "unresolved": [],
+          "masked": false
+        },
+        {
+          "name": "?setNightColor@MultiplayerColorDefinition@@QAEXURGBColor@@@Z",
+          "rva": "0x00380C36",
+          "exact": true,
+          "unresolved": [],
+          "masked": false
+        },
+        {
+          "name": "?getColor@MultiplayerSettings@@QAEPAVMultiplayerColorDefinition@@H@Z",
+          "rva": "0x00381373",
+          "exact": true,
+          "unresolved": [],
+          "masked": false
+        },
+        {
+          "name": "??0MultiplayerColorDefinition@@QAE@XZ",
+          "rva": "0x00380C4E",
+          "exact": true,
+          "unresolved": [],
+          "masked": false
+        },
+        {
+          "name": "??4MultiplayerColorDefinition@@QAEPAV0@ABV0@@Z",
+          "rva": "0x00380CAE",
+          "exact": true,
+          "unresolved": [],
+          "masked": false
+        },
+        {
+          "name": "?newMultiplayerColorDefinition@MultiplayerSettings@@QAEPAVMultiplayerColorDefinition@@VAsciiString@@@Z",
+          "rva": "0x003813B7",
+          "exact": true,
+          "unresolved": [],
+          "masked": false
+        },
+        {
+          "name": "??0MultiplayerColorDefinition@@QAE@ABV0@@Z",
+          "rva": "0x00380D30",
+          "exact": true,
+          "unresolved": [],
+          "masked": false
+        },
+        {
+          "name": "??0MultiplayerSettings@@QAE@XZ",
+          "rva": "0x003811D8",
+          "exact": true,
+          "unresolved": [],
+          "masked": false
+        },
+        {
+          "name": "??0?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@QAE@ABU01@@Z",
+          "rva": "0x00380DA3",
+          "exact": true,
+          "unresolved": [],
+          "masked": false
+        },
+        {
+          "name": "__ehhandler$??0MultiplayerColorDefinition@@QAE@XZ",
+          "rva": "0x0077F2B0",
+          "exact": true,
+          "unresolved": [],
+          "masked": false
+        },
+        {
+          "name": "__ehhandler$??4MultiplayerColorDefinition@@QAEPAV0@ABV0@@Z",
+          "rva": "0x0077F2C2",
+          "exact": true,
+          "unresolved": [],
+          "masked": false
+        },
+        {
+          "name": "__ehhandler$?newMultiplayerColorDefinition@MultiplayerSettings@@QAEPAVMultiplayerColorDefinition@@VAsciiString@@@Z",
+          "rva": "0x0077F35D",
+          "exact": true,
+          "unresolved": [],
+          "masked": false
+        },
+        {
+          "name": "Unwind@00b7f2a8",
+          "rva": "0x0077F2A8",
+          "exact": true,
+          "unresolved": [],
+          "masked": false
+        },
+        {
+          "name": "Unwind@00b7f2ba",
+          "rva": "0x0077F2BA",
+          "exact": true,
+          "unresolved": [],
+          "masked": false
+        },
+        {
+          "name": "Unwind@00b7f34d",
+          "rva": "0x0077F34D",
+          "exact": true,
+          "unresolved": [],
+          "masked": false
+        },
+        {
+          "name": "$L1221",
+          "rva": "0x0077F355",
+          "exact": true,
+          "unresolved": [],
+          "masked": false
+        },
+        {
+          "name": "??1MultiplayerSettings@@UAE@XZ",
+          "rva": "0x00381293",
+          "exact": true,
+          "unresolved": [],
+          "masked": false
+        },
+        {
+          "name": "??_GMultiplayerSettings@@UAEPAXI@Z",
+          "rva": "0x00381277",
+          "exact": true,
+          "unresolved": [],
+          "masked": false
+        },
+        {
+          "name": "__ehhandler$??1MultiplayerSettings@@UAE@XZ",
+          "rva": "0x0077F326",
+          "exact": true,
+          "unresolved": [],
+          "masked": false
+        },
+        {
+          "name": "$L7591",
+          "rva": "0x0077F308",
+          "exact": true,
+          "unresolved": [],
+          "masked": false
+        },
+        {
+          "name": "$L7592",
+          "rva": "0x0077F310",
+          "exact": true,
+          "unresolved": [],
+          "masked": false
+        },
+        {
+          "name": "$L7593",
+          "rva": "0x0077F31B",
+          "exact": true,
+          "unresolved": [],
+          "masked": false
+        }
+      ],
+      "eh": [
+        {
+          "name": "??0MultiplayerColorDefinition@@QAE@XZ",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        },
+        {
+          "name": "??4MultiplayerColorDefinition@@QAEPAV0@ABV0@@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        },
+        {
+          "name": "?newMultiplayerColorDefinition@MultiplayerSettings@@QAEPAVMultiplayerColorDefinition@@VAsciiString@@@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        },
+        {
+          "name": "??0MultiplayerSettings@@QAE@XZ",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        },
+        {
+          "name": "??1MultiplayerSettings@@UAE@XZ",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        }
+      ]
+    },
+    "trial": {
+      "source_sha256": "440846f7a035e1b46d556312c4bc97ac9a8ede45017dd20b2badd96a610ddb2c",
+      "object_sha256": "38058d1259817dfdb6039c7457cd323f10513b23506d3464971b7bde0151c584",
+      "row_verdicts": [
+        {
+          "name": "?setColor@MultiplayerColorDefinition@@QAEXURGBColor@@@Z",
+          "rva": "0x00380C1E",
+          "exact": true,
+          "unresolved": [],
+          "masked": false
+        },
+        {
+          "name": "?setNightColor@MultiplayerColorDefinition@@QAEXURGBColor@@@Z",
+          "rva": "0x00380C36",
+          "exact": true,
+          "unresolved": [],
+          "masked": false
+        },
+        {
+          "name": "?getColor@MultiplayerSettings@@QAEPAVMultiplayerColorDefinition@@H@Z",
+          "rva": "0x00381373",
+          "exact": true,
+          "unresolved": [],
+          "masked": false
+        },
+        {
+          "name": "??0MultiplayerColorDefinition@@QAE@XZ",
+          "rva": "0x00380C4E",
+          "exact": true,
+          "unresolved": [],
+          "masked": false
+        },
+        {
+          "name": "??4MultiplayerColorDefinition@@QAEPAV0@ABV0@@Z",
+          "rva": "0x00380CAE",
+          "exact": true,
+          "unresolved": [],
+          "masked": false
+        },
+        {
+          "name": "?newMultiplayerColorDefinition@MultiplayerSettings@@QAEPAVMultiplayerColorDefinition@@VAsciiString@@@Z",
+          "rva": "0x003813B7",
+          "exact": true,
+          "unresolved": [],
+          "masked": false
+        },
+        {
+          "name": "??0MultiplayerColorDefinition@@QAE@ABV0@@Z",
+          "rva": "0x00380D30",
+          "exact": true,
+          "unresolved": [],
+          "masked": false
+        },
+        {
+          "name": "??0MultiplayerSettings@@QAE@XZ",
+          "rva": "0x003811D8",
+          "exact": true,
+          "unresolved": [],
+          "masked": false
+        },
+        {
+          "name": "??0?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@QAE@ABU01@@Z",
+          "rva": "0x00380DA3",
+          "exact": true,
+          "unresolved": [],
+          "masked": false
+        },
+        {
+          "name": "__ehhandler$??0MultiplayerColorDefinition@@QAE@XZ",
+          "rva": "0x0077F2B0",
+          "exact": true,
+          "unresolved": [],
+          "masked": false
+        },
+        {
+          "name": "__ehhandler$??4MultiplayerColorDefinition@@QAEPAV0@ABV0@@Z",
+          "rva": "0x0077F2C2",
+          "exact": true,
+          "unresolved": [],
+          "masked": false
+        },
+        {
+          "name": "__ehhandler$?newMultiplayerColorDefinition@MultiplayerSettings@@QAEPAVMultiplayerColorDefinition@@VAsciiString@@@Z",
+          "rva": "0x0077F35D",
+          "exact": true,
+          "unresolved": [],
+          "masked": false
+        },
+        {
+          "name": "Unwind@00b7f2a8",
+          "rva": "0x0077F2A8",
+          "exact": true,
+          "unresolved": [],
+          "masked": false
+        },
+        {
+          "name": "Unwind@00b7f2ba",
+          "rva": "0x0077F2BA",
+          "exact": true,
+          "unresolved": [],
+          "masked": false
+        },
+        {
+          "name": "Unwind@00b7f34d",
+          "rva": "0x0077F34D",
+          "exact": true,
+          "unresolved": [],
+          "masked": false
+        },
+        {
+          "name": "$L1221",
+          "rva": "0x0077F355",
+          "exact": true,
+          "unresolved": [],
+          "masked": false
+        },
+        {
+          "name": "??1MultiplayerSettings@@UAE@XZ",
+          "rva": "0x00381293",
+          "exact": true,
+          "unresolved": [],
+          "masked": false
+        },
+        {
+          "name": "??_GMultiplayerSettings@@UAEPAXI@Z",
+          "rva": "0x00381277",
+          "exact": true,
+          "unresolved": [],
+          "masked": false
+        },
+        {
+          "name": "__ehhandler$??1MultiplayerSettings@@UAE@XZ",
+          "rva": "0x0077F326",
+          "exact": true,
+          "unresolved": [],
+          "masked": false
+        },
+        {
+          "name": "$L7591",
+          "rva": "0x0077F308",
+          "exact": true,
+          "unresolved": [],
+          "masked": false
+        },
+        {
+          "name": "$L7592",
+          "rva": "0x0077F310",
+          "exact": true,
+          "unresolved": [],
+          "masked": false
+        },
+        {
+          "name": "$L7593",
+          "rva": "0x0077F31B",
+          "exact": true,
+          "unresolved": [],
+          "masked": false
+        }
+      ],
+      "eh": [
+        {
+          "name": "??0MultiplayerColorDefinition@@QAE@XZ",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        },
+        {
+          "name": "??4MultiplayerColorDefinition@@QAEPAV0@ABV0@@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        },
+        {
+          "name": "?newMultiplayerColorDefinition@MultiplayerSettings@@QAEPAVMultiplayerColorDefinition@@VAsciiString@@@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        },
+        {
+          "name": "??0MultiplayerSettings@@QAE@XZ",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        },
+        {
+          "name": "??1MultiplayerSettings@@UAE@XZ",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        }
+      ]
+    }
+  },
+  "removed_external_code": [
+    "??_H@YGXPAXIHP6EPAX0@Z@Z"
+  ],
+  "added_external_code": [],
+  "changed_retained_external_code": [],
+  "retained_external_count": 30
+}

@@ -10525,10 +10525,6 @@ pragma_optimize	Code/GameEngine/Source/Common/MessageStream.cpp	"",on	5
 pragma_optimize	Code/GameEngine/Source/Common/MessageStream.cpp	"gsy",on	1
 pragma_optimize	Code/GameEngine/Source/Common/MessageStream.cpp	"s",on	4
 pragma_optimize	Code/GameEngine/Source/Common/MessageStream.cpp	"t",off	2
-pragma_optimize	Code/GameEngine/Source/Common/MultiplayerSettings.cpp	"",on	1
-pragma_optimize	Code/GameEngine/Source/Common/MultiplayerSettings.cpp	"gsy",on	1
-pragma_optimize	Code/GameEngine/Source/Common/MultiplayerSettings.cpp	"s",off	1
-pragma_optimize	Code/GameEngine/Source/Common/MultiplayerSettings.cpp	"s",on	1
 pragma_optimize	Code/GameEngine/Source/Common/NameKeyGeneratorNameToLowercaseKey.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/Common/NameKeyGeneratorNameToLowercaseKey.cpp	"gsy",on	1
 pragma_optimize	Code/GameEngine/Source/Common/Open2RecChain146.cpp	"",on	1

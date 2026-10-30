@@ -1,0 +1,27 @@
+{
+  "source": "Code/GameEngine/Source/Common/MultiplayerSettings.cpp",
+  "retained_provider": "Code/Libraries/Source/ATL/atl_vector_constructor_iterator.cpp",
+  "objects": {
+    "Code/GameEngine/Source/Common/MultiplayerSettings.cpp": {
+      "source_sha256": "e23bde9393ef6397cb8d37ae0d63d57ffffa7c0e96db9160afe9919eb551fbfe",
+      "object_md5": "feaec30961f5ba0fe78117a925253355",
+      "strict_current": true,
+      "defines_constructor_iterator": false
+    },
+    "Code/Libraries/Source/ATL/atl_vector_constructor_iterator.cpp": {
+      "source_sha256": "a626cc99d4044897f2ddc335c6372e5ea8551be9490b2dd3fc5ebd828f951c27",
+      "object_md5": "0f2f18add89fad9e34df3be80c60ea10",
+      "strict_current": true,
+      "defines_constructor_iterator": true
+    }
+  },
+  "new_pin_or_row": false,
+  "native_owner": {
+    "name": "??_H@YGXPAXIHP6EPAX0@Z@Z",
+    "rva": "0x00001423",
+    "size": 34,
+    "exact": true,
+    "resolved": "8b44240c487818568b742408578d78018bceff542418037424104f75f35f5ec21000",
+    "native": "8b44240c487818568b742408578d78018bceff542418037424104f75f35f5ec21000"
+  }
+}

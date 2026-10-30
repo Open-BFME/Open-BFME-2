@@ -5787,6 +5787,17 @@ The complete outgoing path audit finds only intentional historical mentions of
 the retired paths. Broader consumer/census confirmation and the inherited
 color-constructor binding warning remain open as recorded in the handoff.
 
+**Multiplayer local optimization-debt follow-up (2026-10-30):** remove the
+artificial unused array anchor and all four obsolete optimization overrides.
+Private before/after verification preserves all 22 rows, five EXACT parent EH
+graphs and all 30 retained external code bodies/relocations; only the unneeded
+local vector-constructor iterator copy disappears. Its rowed native ATL owner
+at `00001423/34` remains exact. Strict two-source preparation passes 23 rows and
+one data row, retaining 2/2 LINKS for 891 authored bytes against `e1f7c1dd18`.
+The owning counter retires exactly four pragma keys; unique coverage is kept.
+Full consumer/census confirmation and the unchanged inherited binding warning
+remain separate. [Scope and proof](../reverse/attempt_support/multiplayer-vci-debt-20261030/readme.md).
+
 **Multiplayer seed prerequisite (2026-10-28, inspected `d5843cec`, index
 `d92e7e6635`):** MultiplayerSettings.cpp now uses the target 0xC4 layout,
 complete 0x40-byte colors and native INI tables. Its two rows and singleton
