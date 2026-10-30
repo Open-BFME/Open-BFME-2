@@ -36133,7 +36133,7 @@ _HorizontalLine_4_5_Scale_C,,0x001B9C10,247,Code/Libraries/Source/VP6/Horizontal
 ??$pop_heap@PAPAU_Rva002EBB53Wrap@@URva002EBB53Compare@@@_STL@@YAXPAPAU_Rva002EBB53Wrap@@0URva002EBB53Compare@@@Z,,0x002F1F02,23,Code/Libraries/Source/WWVegas/WWLib/Rva002F1F02Wrap.cpp,matched,STLport4.5.3 pop_heap over _Rva002EBB53Wrap pointers; forwards to __pop_heap_aux 0x2F0EE4; called by priority_queue pop 0x2F301F
 ?Term@CAtlWinModule@ATL@@QAEXXZ,,0x00006AF1,24,Code/Libraries/Source/ATL/atlbase.cpp,matched,Term via rowed AtlWinModuleTerm plus tail RemoveAll after ctor 0x00006ACE
 ?rva007B686F@@YAXXZ,,0x007B686F,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,global Term thunk via rowed 0x00006AF1 after ctor chain
-??0BfmeAssignRecord32@@QAE@XZ,,0x001736D6,62,Code/Libraries/Source/WWVegas/WWLib/stlport_bfmeassignrecord32_ctor.cpp,matched,default ctor via neighbours push_heap copy stride 0x20 caller 0x00174A8A
+??0BfmeAssignRecord32@@QAE@XZ,,0x001736D6,62,Code/Libraries/Source/WWVegas/WWLib/BfmeAssignRecord32.cpp,matched,default ctor via neighbours push_heap copy stride 0x20 caller 0x00174A8A
 ?Rva001E3896Check@@YAHM@Z,,0x001E3896,35,Code/GameEngine/Source/Common/Rva001E3896Check.cpp,matched,fabs 0x629210 plus global 0x00BC28F8 plus 2 callers in 0x1E7CDF
 ?rva001E3557@Rva001E3557@@QAE_NXZ,,0x001E3557,58,Code/GameEngine/Source/Common/Rva001E3557.cpp,matched,plus 4 plus 0x10 via row 0x363BC7 plus global 0x00BC2428 plus caller 0x1E9157
 ?rva004E5542@ResourceOwnedEntryList@@QAEXXZ,,0x004E5542,23,Code/GameEngine/Source/GameClient/InGameUIResourceEntries.cpp,matched,same ecx to ResourceOwnedEntryList clear then free head callers 0x004E5654 and jmp 0x004E560B

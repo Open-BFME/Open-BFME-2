@@ -100,6 +100,8 @@ public:
 	void rva001735F9(MeshModelClass *mesh);
 };
 
+// ---- from Code/Libraries/Source/WWVegas/WWLib/BfmeAssignRecord32.cpp
+
 // ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_bfmeassignrecord32_dtor.cpp
 
 inline BfmeAssignRecord32::~BfmeAssignRecord32()
@@ -116,22 +118,13 @@ void _bfmeBfmeAssignRecord32InlineAnchor(BfmeAssignRecord32 *p)
     p->BfmeAssignRecord32::~BfmeAssignRecord32();
 }
 
-// tu-skeleton: 0x00173351 127B ??$_Construct@URva001741EBElement@@U1@@_STL@@YAXPAURva001741EBElement@@ABU1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva001741eb_fill.cpp (not merged yet)
-
-// tu-skeleton: 0x001733D0 38B ??$__uninitialized_copy@PAURva001741EBElement@@PAU1@@_STL@@YAPAURva001741EBElement@@PAU1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva001741eb_fill.cpp (not merged yet)
-
-// tu-skeleton: 0x001733F6 37B ??$__uninitialized_fill_n@PAURva001741EBElement@@IU1@@_STL@@YAPAURva001741EBElement@@PAU1@IABU1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva001741eb_fill.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/StlScalarCopyRva0017341B.cpp
 
 // STLport4.5.3 __copy, instantiated with the target-supported 48-byte word record.
 // Application identity and the four/eight grouping remain structural inference.
 
-// tu-skeleton: 0x00173499 56B ??4BfmeAssignRecord32@@QAEAAU0@ABU0@@Z -- matched in Code/GameEngine/Source/Common/BfmeAssignRecord32Assign.cpp (not merged yet)
 
-// tu-skeleton: 0x001734D1 47B ??$__copy_backward@PAUBfmeAssignRecord32@@PAU1@H@_STL@@YAPAUBfmeAssignRecord32@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_bfmeassignrecord32_sort.cpp (not merged yet)
 
-// tu-skeleton: 0x00173500 28B ??_GBfmeAssignRecord32@@QAEPAXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_bfmeassignrecord32_destroy.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_bfmeassignrecord32_linear_insert.cpp
 
@@ -174,11 +167,27 @@ void Rva001735F9::rva001735F9(MeshModelClass *mesh)
 	}
 }
 
+// tu-skeleton: 0x00173351 127B ??$_Construct@URva001741EBElement@@U1@@_STL@@YAXPAURva001741EBElement@@ABU1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva001741eb_fill.cpp (not merged yet)
+
+// tu-skeleton: 0x001733D0 38B ??$__uninitialized_copy@PAURva001741EBElement@@PAU1@@_STL@@YAPAURva001741EBElement@@PAU1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva001741eb_fill.cpp (not merged yet)
+
+// tu-skeleton: 0x001733F6 37B ??$__uninitialized_fill_n@PAURva001741EBElement@@IU1@@_STL@@YAPAURva001741EBElement@@PAU1@IABU1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva001741eb_fill.cpp (not merged yet)
+
+// tu-skeleton: 0x00173499 56B ??4BfmeAssignRecord32@@QAEAAU0@ABU0@@Z -- matched in Code/GameEngine/Source/Common/BfmeAssignRecord32Assign.cpp (not merged yet)
+
+// tu-skeleton: 0x001734D1 47B ??$__copy_backward@PAUBfmeAssignRecord32@@PAU1@H@_STL@@YAPAUBfmeAssignRecord32@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_bfmeassignrecord32_sort.cpp (not merged yet)
+
+// tu-skeleton: 0x00173500 28B ??_GBfmeAssignRecord32@@QAEPAXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_bfmeassignrecord32_destroy.cpp (not merged yet)
+
 // tu-skeleton: 0x0017368A 29B ?Rva0017368ACompare@@YAIABURva0017368ATask@@0@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/FXShaderRendererFlushRenderingTasks.cpp (not merged yet)
 
 // tu-skeleton: 0x001736A7 47B ?Rva001736A7Compare@@YAIABURva0017368ATask@@0@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/FXShaderRendererFlushRenderingTasks.cpp (not merged yet)
 
-// tu-skeleton: 0x001736D6 62B ??0BfmeAssignRecord32@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_bfmeassignrecord32_ctor.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_bfmeassignrecord32_ctor.cpp
+
+BfmeAssignRecord32::BfmeAssignRecord32() : s()
+{
+}
 
 // tu-skeleton: 0x00173714 29B ??$__copy_ptrs@PAURva0017341BWords@@PAU1@@_STL@@YAPAURva0017341BWords@@PAU1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlRangeEraseRva00173DF8.cpp (not merged yet)
 

@@ -10792,7 +10792,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x001735F9,145,code,Code/Libraries/Source/WWVegas/WWLib/BfmeAssignRecord32.cpp,approved,C,C=0x00173500..0x0017368A provisional,Code/Libraries/Source/WWVegas/WWLib/BfmeAssignRecord32.cpp
 0x0017368A,29,code,Code/Libraries/Source/WWVegas/WWLib/BfmeAssignRecord32.cpp,approved,C,C=0x00173500..0x001736A7 provisional,Code/Libraries/Source/WWVegas/WW3D2/FXShaderRendererFlushRenderingTasks.cpp
 0x001736A7,47,code,Code/Libraries/Source/WWVegas/WWLib/BfmeAssignRecord32.cpp,approved,C,C=0x00173500..0x001736D6 provisional,Code/Libraries/Source/WWVegas/WW3D2/FXShaderRendererFlushRenderingTasks.cpp
-0x001736D6,62,code,Code/Libraries/Source/WWVegas/WWLib/BfmeAssignRecord32.cpp,approved,N,N=Code/Libraries/Source/WWVegas/WWLib/BfmeAssignRecord32.cpp provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_bfmeassignrecord32_ctor.cpp
+0x001736D6,62,code,Code/Libraries/Source/WWVegas/WWLib/BfmeAssignRecord32.cpp,approved,N,N=Code/Libraries/Source/WWVegas/WWLib/BfmeAssignRecord32.cpp provisional,Code/Libraries/Source/WWVegas/WWLib/BfmeAssignRecord32.cpp
 0x00173714,29,code,Code/Libraries/Source/WWVegas/WWLib/BfmeAssignRecord32.cpp,approved,C,C=0x001736D6..0x00173731 provisional,Code/Libraries/Source/WWVegas/WWLib/StlRangeEraseRva00173DF8.cpp
 0x00173731,85,code,Code/Libraries/Source/WWVegas/WWLib/BfmeAssignRecord32.cpp,approved,N,N=Code/Libraries/Source/WWVegas/WWLib/BfmeAssignRecord32.cpp provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_bfmeassignrecord32_copy.cpp
 0x00173786,29,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva00173786.cpp
