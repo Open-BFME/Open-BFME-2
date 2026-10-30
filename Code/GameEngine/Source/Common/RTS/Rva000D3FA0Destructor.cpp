@@ -1,56 +1,35 @@
 // cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
 // stlport
-// Byte-twin of ??1TeamRelationMap@@UAE@XZ at 0x000F21C0
-// (Code/GameEngine/Source/Common/RTS/TeamRelationMapDestructor.cpp): identical
-// 89 bytes once relocations are masked, itself the ZH-twin of
-// ??1DisplayString@@MAE@XZ (m_map.clear(); the compiler inlines the empty
-// Snapshot destructor). The installed derived vtable (0x01083E94) differs
-// from TeamRelationMap's own, matching the sibling class installed by the
-// constructor twin Rva000DA590Constructor.cpp (0x000DA590); no name is
-// provable, so this is claimed address-derived.
+// Native 0x004398D8 clears and destroys the red-black tree at +4 through
+// its existing owners 0x00240C60 and 0x002418E2. The former hash_map view
+// only matched these call operands through incorrect hashtable pins.
+// The 5-byte container forwards at 0x0043985D and 0x00241C20 retain
+// address-derived names until the original container identity is recovered.
 
-#include <hash_map>
-#include <cstddef>
-// bfme link decl-only begin
-namespace _STL { template <> _STLP_alloc_proxy<void **, void *, allocator<void *> >::~_STLP_alloc_proxy(); }
-namespace _STL { template <> _Vector_base<void *, allocator<void *> >::~_Vector_base(); }
-namespace _STL { template <> vector<void *, allocator<void *> >::~vector(); }
-namespace _STL { template <> allocator<void *>::~allocator(); }
-// bfme link decl-only end
-// Keep __node_alloc<true,0>::deallocate inline-only: every call here is inlined,
-// and this TU's /O1 COMDAT copy differs from the copy the link keeps.
-namespace _STL {
-template <> __declspec(dllimport) __forceinline
-void _STLP_CALL __node_alloc<true, 0>::deallocate(void *__p, size_t __n)
-{ if (__n > (size_t)_MAX_BYTES) __stl_delete(__p); else _M_deallocate(__p, __n); }
-}
-// Suppress this TU's non-retail vector<void*> operator[] copy (family2-LK3 row 25):
-// the retail copy serves the link. Plain declaration-only form (no __imp_).
-namespace _STL {
-template <> void *&_STL::vector<void*>::operator[](size_t);
-}
-// Suppress this TU's non-retail vector<void*> size copy (family2-LK3 row 17):
-// the retail copy serves the link. Plain declaration-only form (no __imp_).
-namespace _STL {
-template <> size_t vector<void*>::size() const;
-template <> void **vector<void*>::begin();
-template <> void **vector<void*>::end();
-}
+class Rva00439325
+{
+public:
+    ~Rva00439325();
+    void rva00240C60();
+private:
+    void *m_header;
+    int m_count;
+};
+
+class Rva00241C20
+{
+public:
+    ~Rva00241C20() {}
+    void rva0043985D() { m_tree.rva00240C60(); }
+private:
+    Rva00439325 m_tree;
+};
 
 // The base is the canonical Snapshot (vtable 0x00BBB554): the parent's unwind
 // funclet 0x007881DE destroys it through the folded Snapshot destructor
 // 0x0049B47C.
 #include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
 
-typedef unsigned int TeamID;
-enum Rva000D3FA0Relationship
-{
-	Rva000D3FA0_NEUTRAL = 0
-};
-
-typedef _STL::pair<const TeamID, Rva000D3FA0Relationship> Rva000D3FA0MapPair;
-
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Team.h
 class Rva000D3FA0Map : public Snapshot
 {
 public:
@@ -62,13 +41,13 @@ protected:
 	virtual void xfer(Xfer *xfer);
 
 private:
-	_STL::hash_map<TeamID, Rva000D3FA0Relationship, _STL::hash<TeamID>, _STL::equal_to<TeamID>, _STL::allocator<Rva000D3FA0MapPair> > m_map;
+	Rva00241C20 m_map;
 };
 
 // ??1Rva000D3FA0Map@@UAE@XZ
 Rva000D3FA0Map::~Rva000D3FA0Map()
 {
-	m_map.clear();
+	m_map.rva0043985D();
 }
 
 // Placeholder virtuals in this unit's vftables: in retail, every vftable that holds

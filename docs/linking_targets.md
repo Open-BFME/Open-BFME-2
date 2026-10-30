@@ -1,5 +1,16 @@
 # Linking target checklist
 
+Rva000D3FA0Map follow-up (2026-10-30, base `39b2df5afd`): native tree
+bindings replace the incorrect hash_map view and two hashtable pins. All six
+rows remain exact; strict four-source preparation passes 236/236, paired EH
+is EXACT 3, and all four preview LINKS against `85f6b7f40c` (destructor
+0 -> 82 authored bytes). This predicts linking only; census and full consumer
+confirmation remain pending. The outgoing audit is INCONCLUSIVE on the older
+index and missing CreateAHeroManager consumer receipt. Identity-register
+retirement is refused on the two retyped wrapper names; four keys remain
+and the false reject is recorded.
+[Native facts and verification](../reverse/attempt_support/rva-d3fa0-tree-link-20261030-codex3.md).
+
 Word-vector allocator46 follow-up (2026-10-30, base `32a7f941eb`, LINK-150):
 the vector unit adopts STLport 4.6 with a complete 29-byte word allocator twin
 in the existing num-put unit. All 18 changed-source rows match; strict checks
@@ -734,7 +745,7 @@ through `tools/progress.py`'s provenance and retail-byte functions.
 | `Code/GameEngine/Source/Common/R5VectorDtorEHFramedPolymorphic_Rva005de870.cpp` | 111 | 7 (U=2, C=2, S=3) | Open |
 | `Code/GameEngine/Source/Common/Rva005BA1FDCtor.cpp` | 108 | 7 (U=7) | Open |
 | `Code/GameEngineDevice/Source/W3DDevice/GameClient/HeightMap.cpp` | 107 | 30 (U=28, C=1, S=1) | 2026-10-29, base `722e87427f`: two redundant optimization pragmas removed; 6/6 rows, 230 COMDATs and external bindings unchanged. Strict preparation passes; preview remains blocked by 35 unresolved port-context references at index `85f6b7f40c`. Terrain/header/provider contracts and consumer/census confirmation remain open. [Evidence](../reverse/attempt_support/heightmap-optimize-20261029-codex.md). |
-| `Code/GameEngine/Source/Common/RTS/Rva000D3FA0Destructor.cpp` | 103 | 4 (C=2, S=2) | Open |
+| `Code/GameEngine/Source/Common/RTS/Rva000D3FA0Destructor.cpp` | 103 | 4 (C=2, S=2) | Scoped tree binding repair previews LINKS (2026-10-30); consumer/census confirmation and identity-register retirement pending |
 | `Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankTruckDraw.cpp` | 103 | 16 (U=12, C=3, S=1) | Open |
 | `Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/JetAIUpdate.cpp` | 101 | 53 (U=47, C=3, S=3) | 2026-10-27 at `97c2335311`: existing Locomotor flags header adopted; current preview 47 U, 3 L, 1 S, still blocked. The one Matrix3D row stays exact. Three obsolete setter copies cease emission and existing retail providers are kept. Shared state/audio views remain; LINK-062. Cleared setter findings are ordinary-preview scope; census confirmation pending. |
 | `Code/GameEngine/Source/Common/Rva00415704Ctor.cpp` | 100 | 3 (U=1, C=1, S=1) | 2026-10-28, `bd82c0156d2e`: existing LINK-112 repair rechecked; 4/4 rows pass, joint current-provider preview LINKS (90 authored bytes). [Receipt](../reverse/attempt_support/update-e038-guard-data-index-20261028-codex.md); census pending. |
