@@ -79,7 +79,7 @@ private:
 	unsigned char m_438;
 };
 
-struct PassiveAreaEffectBehaviorModuleData
+struct AreaData
 {
 	char m_pad00[0x0C];
 	float m_healPercentPerSecond;
@@ -101,7 +101,7 @@ public:
 	virtual void s08(); virtual void s09(); virtual void s10(); virtual void s11();
 	virtual void s12(); virtual void s13();
 protected:
-	const PassiveAreaEffectBehaviorModuleData *m_moduleData;
+	const AreaData *m_moduleData;
 	Object *m_object;
 };
 
@@ -133,7 +133,7 @@ void PassiveAreaEffectBehavior::rva0048491F(Object *obj)
 	if (obj->rva0028C264(&gate, 4))
 		return;
 
-	const PassiveAreaEffectBehaviorModuleData *passiveAreaEffectBehaviorModuleData = m_moduleData;
+	const AreaData *passiveAreaEffectBehaviorModuleData = m_moduleData;
 	if (passiveAreaEffectBehaviorModuleData->m_healPercentPerSecond > 0.0f)
 	{
 		BodyModule *body = obj->getBodyModule();
@@ -164,7 +164,7 @@ void PassiveAreaEffectBehavior::rva00484A08(Object *obj)
 	if (obj == 0)
 		return;
 
-	const PassiveAreaEffectBehaviorModuleData *passiveAreaEffectBehaviorModuleData = m_moduleData;
+	const AreaData *passiveAreaEffectBehaviorModuleData = m_moduleData;
 	for (const AsciiString *it = passiveAreaEffectBehaviorModuleData->m_14Begin; it != passiveAreaEffectBehaviorModuleData->m_14End; ++it)
 		obj->addAttributeModifierToPool(*it, -1);
 

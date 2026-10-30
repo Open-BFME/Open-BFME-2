@@ -71,7 +71,7 @@ protected:
 
 private:
 	unsigned int m_20;
-	_STL::list<int> m_24;
+	_STL::list<int> m_trackedIds;
 };
 
 // ?xfer@PassiveAreaEffectBehavior@@MAEXPAVXfer@@@Z @0x00484C58
@@ -80,5 +80,5 @@ void PassiveAreaEffectBehavior::xfer(Xfer *xfer)
 	xfer->Version1();
 	UpdateModule::xfer(xfer);
 	*xfer == m_20;
-	Rva0036ABAFXfer(xfer, &m_24);
+	Rva0036ABAFXfer(xfer, &m_trackedIds);
 }

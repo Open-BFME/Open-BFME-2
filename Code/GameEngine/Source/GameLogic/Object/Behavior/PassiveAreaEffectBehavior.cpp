@@ -7,6 +7,12 @@
 namespace _STL {
 template <> list<int>::iterator list<int>::insert(iterator position, const int &x);
 }
+// Declaration-only: retail keeps one copy of these STLport members (rowed
+// elsewhere); the ctor, dtor and scan call them rather than emitting their own.
+namespace _STL {
+template <> void _List_base<int, allocator<int> >::clear();
+template <> _List_base<int, allocator<int> >::~_List_base();
+}
 #include <algorithm>
 #include <new>
 namespace _STL {
@@ -63,10 +69,90 @@ private:
 };
 extern "C" const void *const __identifier("??_7PassiveAreaEffectBehaviorModuleData@@6B@")[];
 #include "Common/Snapshot.h"
+#include "Common/GameLogicObjectLookupView.h"
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+#include "../../../../Include/Common/BfmeXfer.h"
+
+class Xfer::Version
+{
+public:
+	Version(unsigned char current, unsigned char minimum)
+		: m_current(current), m_minimum(minimum) {}
+
+	unsigned char m_current;
+	unsigned char m_minimum;
+};
 
 class Player;
+class FXList;
 
-class Object {public:int getID()const{return id;}Player *getControllingPlayer()const;char pad[0x38];Coord3D position;char pad44[0x74-0x44];int id;};
+class FXList
+{
+public:
+	static void doFXObj(const FXList *fx, const Object *primary, const Object *secondary);
+};
+
+extern GameLogic *TheGameLogic;
+extern int BfmeLogicFramesPerSecond;
+
+class BodyModule
+{
+public:
+	virtual void s00(); virtual void s01(); virtual void s02(); virtual void s03();
+	virtual float getHealth() const;
+	virtual void s05();
+	virtual float getMaxHealth() const;
+	virtual void s07(); virtual void s08(); virtual void s09(); virtual void s10();
+	virtual void s11(); virtual void s12(); virtual void s13(); virtual void s14();
+	virtual void s15(); virtual void s16();
+	virtual unsigned int getLastDamageFrame() const;
+};
+
+class AttributeModifierPoolUpdate
+{
+public:
+	void rva00403415(int *entry, int untilFrame);
+};
+
+class PassiveAreaEffectBehavior;
+
+class Object
+{
+	friend class PassiveAreaEffectBehavior;
+public:
+	int getID() const { return id; }
+	Player *getControllingPlayer() const;
+	bool rva0028C264(int *out, int frames);
+	bool attemptHealingFromSoleBenefactor(float amount, const Object *source, unsigned int delay);
+	bool addAttributeModifierToPool(const AsciiString &name, int value);
+	bool isEffectivelyDead() const { return (m_438 & 1) != 0; }
+	BodyModule *getBodyModule() const { return m_body; }
+private:
+	AttributeModifierPoolUpdate *findAttributeModifierPoolUpdate() const;
+public:
+	char pad[0x38];
+	Coord3D position; // +0x38
+	char pad44[0x74 - 0x44];
+	int id; // +0x74
+private:
+	char pad78[0x254 - 0x78];
+	BodyModule *m_body; // +0x254
+	char pad258[0x438 - 0x258];
+	unsigned char m_438; // +0x438, bit 0 effectively dead
+};
 
 class Rva000421C8
 {
@@ -146,9 +232,126 @@ class Thing {public:bool isAnyKindOf(const BitFlags<69>&)const;};
 
 extern PartitionManager *ThePartitionManager;
 
-struct AreaData {char pad00[8];float radius;char pad0C[0x20-0x0C];char sub20;};
+// The behavior's read view of PassiveAreaEffectBehaviorModuleData (the
+// vector's begin/end words are read raw).
+struct AreaData
+{
+	char m_pad00[0x08];
+	float m_effectRadius; // +0x08
+	float m_healPercentPerSecond; // +0x0C
+	unsigned int m_pingDelay; // +0x10
+	const AsciiString *m_14Begin; // +0x14
+	const AsciiString *m_14End; // +0x18
+	char m_pad1C[0x20 - 0x1C];
+	char m_allowFilter; // +0x20
+	char m_pad21[0x28 - 0x21];
+	bool m_nonStackable; // +0x28
+	int m_antiCategories; // +0x2C
+	const FXList *m_30; // +0x30
+	const FXList *m_34; // +0x34
+};
 
-class PassiveAreaEffectBehavior {public:virtual void rva00484C8B();AreaData *data;Object *object;char pad0C[0x24-0x0C];_STL::list<int> ids;};
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const char *name);
+};
+
+extern NameKeyGenerator *TheNameKeyGenerator;
+
+class ModuleData;
+
+// Slot 0 of each module's primary vftable is its deleting destructor
+// (0x00484C3C in 0x00C4A448), so the base's first virtual is the destructor.
+class BehaviorModuleBase
+{
+	virtual ~BehaviorModuleBase();
+protected:
+	const AreaData *m_moduleData; // +0x04
+	Object *m_object; // +0x08
+};
+
+class BehaviorModuleOther
+{
+	virtual void unused();
+};
+
+class BehaviorModule : public BehaviorModuleBase, public BehaviorModuleOther
+{
+public:
+	BehaviorModule(Thing *thing, const ModuleData *moduleData);
+};
+
+enum UpdateSleepTime
+{
+	UPDATE_SLEEP_INVALID = 0,
+	UPDATE_SLEEP_NONE = 1,
+	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
+};
+
+// Slot 0 of 0x00C4A438 is update (0x00484B6B), whose this is this base.
+class UpdateModuleInterface
+{
+public:
+	virtual UpdateSleepTime update() = 0;
+};
+
+class UpdateModule : public BehaviorModule, public UpdateModuleInterface
+{
+	unsigned m_nextCallFrameAndPhase;
+	int m_indexInLogic;
+	int m_bfmeReserved;
+
+public:
+	UpdateModule(Thing *thing, const ModuleData *moduleData);
+	virtual ~UpdateModule();
+	void xfer(Xfer *xfer);
+
+protected:
+	void setWakeFrame(Object *obj, UpdateSleepTime frame);
+};
+
+Xfer *Rva0036ABAFXfer(Xfer *xfer, _STL::list<int> *values);
+
+// Primary vftable 0x00C4A448: slot 3 xfer, slot 4 getModuleNameKey, slot 13
+// the scan, slots 14-16 the pulses (called through 0x3C and 0x40). The other
+// slots hold shared base bodies this unit does not name yet.
+class PassiveAreaEffectBehavior : public UpdateModule
+{
+public:
+	PassiveAreaEffectBehavior(Thing *thing, const ModuleData *moduleData);
+	virtual ~PassiveAreaEffectBehavior();
+	virtual void slot01() = 0;
+	virtual void slot02() = 0;
+
+protected:
+	virtual void xfer(Xfer *xfer);
+
+public:
+	virtual NameKeyType getModuleNameKey() const;
+	virtual void slot05() = 0;
+	virtual void slot06() = 0;
+	virtual void slot07() = 0;
+	virtual void slot08() = 0;
+	virtual void slot09() = 0;
+	virtual void slot10() = 0;
+	virtual void slot11() = 0;
+	virtual void slot12() = 0;
+	virtual void rva00484C8B();
+	virtual void rva004848E6(Object *obj);
+	virtual void rva0048491F(Object *obj);
+	virtual void rva00484A08(Object *obj);
+	virtual UpdateSleepTime update();
+
+private:
+	unsigned int m_20; // +0x20
+	_STL::list<int> m_trackedIds; // +0x24, runtime watch list
+};
 
 class UpdateModuleData
 {
@@ -215,19 +418,19 @@ private:
 
 void PassiveAreaEffectBehavior::rva00484C8B()
 {
- Object *owner=object;AreaData *areaData=data;
- ids.clear();
+ Object *owner=m_object;const AreaData *areaData=m_moduleData;
+ m_trackedIds.clear();
  Rva00260EB1Filter relationship(owner,4,false);
  Rva0026119DFilter alive;
  Rva002611BFFilter sameMap(owner);
- Rva002614ECFilter match(&areaData->sub20,owner->getControllingPlayer(),true);
+ Rva002614ECFilter match(&areaData->m_allowFilter,owner->getControllingPlayer(),true);
  relationship.link(&alive);relationship.link(&sameMap);relationship.link(&match);
- BfmeWideResult iterator=ThePartitionManager->iterateObjectsInRange(&owner->position,areaData->radius,0,&relationship,1);
+ BfmeWideResult iterator=ThePartitionManager->iterateObjectsInRange(&owner->position,areaData->m_effectRadius,0,&relationship,1);
  Object *other=iterator.next();
  if(other)do{
   if(other!=owner&&!((const Thing*)other)->isAnyKindOf(Rva0006EE7A(0,47,151))){
    int id=other->getID();
-   if(_STL::find(ids.begin(),ids.end(),id)==ids.end())ids.push_front(other->getID());
+   if(_STL::find(m_trackedIds.begin(),m_trackedIds.end(),id)==m_trackedIds.end())m_trackedIds.push_front(other->getID());
   }
   other=iterator.next();
  }while(other);
