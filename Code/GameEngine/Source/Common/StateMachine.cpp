@@ -51,30 +51,6 @@ class State;
 
 typedef Bool (*StateTransFuncPtr)(State *state, void *userData);
 
-struct StateConditionInfo
-{
-	StateTransFuncPtr test;
-	int toStateID;
-	void *userData;
-};
-
-class __declspec(novtable) State
-{
-public:
-	virtual ~State();
-	int m_id; // +0x04
-	int m_successStateID; // +0x08
-	int m_failureStateID; // +0x0C
-	const StateConditionInfo *m_transitionsFirst; // +0x10
-	int m_transitionsCount; // +0x14
-	StateMachine *m_machine; // +0x18
-	bool m_tail1C; // +0x1C
-
-	void rva004D7127(const StateConditionInfo *conditions);
-	StateReturnType friend_checkForTransitions(StateReturnType status);
-	StateReturnType friend_checkForSleepTransitions(StateReturnType status);
-};
-
 // ?bfmeQuery932C@BfmeSub932C@@QAEEXZ, retail 0x004D7383, 18 bytes.
 // Nullable-delegate query: when the +0x4 sub-chain is present the answer comes
 // from its 16th virtual (slot 0x3C); otherwise the +0x3A fallback byte answers.
@@ -219,6 +195,32 @@ public:
 	Bool isGoalObjectDestroyed() const;
 };
 
+struct StateConditionInfo
+{
+	StateTransFuncPtr test;
+	int toStateID;
+	void *userData;
+};
+
+class __declspec(novtable) State
+{
+public:
+	virtual ~State();
+	int m_id; // +0x04
+	int m_successStateID; // +0x08
+	int m_failureStateID; // +0x0C
+	const StateConditionInfo *m_transitionsFirst; // +0x10
+	int m_transitionsCount; // +0x14
+	StateMachine *m_machine; // +0x18
+	bool m_tail1C; // +0x1C
+
+	void rva004D7127(const StateConditionInfo *conditions);
+	StateReturnType friend_checkForTransitions(StateReturnType status);
+	StateReturnType friend_checkForSleepTransitions(StateReturnType status);
+};
+
+// ---- from Code/GameEngine/Source/Common/StateMachine.cpp
+
 // ---- from Code/GameEngine/Source/Common/StateMachine.cpp
 
 // ---- from Code/GameEngine/Source/Common/StateRva004D7127.cpp
@@ -315,9 +317,126 @@ StateMachine::StateMachine(Object *owner, unsigned int name, bool flag)
 	m_goalRange = FLT_MAX;
 }
 
-// tu-skeleton: 0x004D7148 226B ?friend_checkForTransitions@State@@QAE?AW4StateReturnType@@W42@@Z -- matched in Code/GameEngine/Source/Common/StateMachineTransitions.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/AI/StateMachine_isGoalObjectDestroyed.cpp
 
-// tu-skeleton: 0x004D722A 115B ?friend_checkForSleepTransitions@State@@QAE?AW4StateReturnType@@W42@@Z -- matched in Code/GameEngine/Source/Common/StateMachineSleepTransitions.cpp (not merged yet)
+Bool StateMachine::isGoalObjectDestroyed() const
+{
+	if (m_goalObjectID == 0)
+		return false; // never had a goal object
+	const Object *goal = const_cast<StateMachine *>(this)->getGoalObject();
+	if (goal == 0)
+		return true;
+	return goal->isEffectivelyDead();
+}
+
+// ---- from Code/GameEngine/Source/Common/StateMachineTransitions.cpp
+
+StateReturnType State::friend_checkForTransitions(StateReturnType status)
+{
+	static Int checkfortransitionsnum = 0;
+	StateReturnType result;
+	++checkfortransitionsnum;
+	if (checkfortransitionsnum >= 20)
+		result = STATE_FAILURE;
+	else
+	{
+		result = STATE_CONTINUE;
+		StateMachine *machine = m_machine;
+		switch (status)
+		{
+		case STATE_SUCCESS:
+			if (m_successStateID == EXIT_MACHINE_WITH_SUCCESS)
+			{
+				machine->internalSetState(MACHINE_DONE_STATE_ID);
+				result = STATE_SUCCESS;
+			}
+			else if (m_successStateID == EXIT_MACHINE_WITH_FAILURE)
+			{
+				machine->internalSetState(MACHINE_DONE_STATE_ID);
+				result = STATE_FAILURE;
+			}
+			else
+				result = machine->internalSetState(m_successStateID);
+			break;
+		case STATE_FAILURE:
+			if (m_failureStateID == EXIT_MACHINE_WITH_SUCCESS)
+			{
+				machine->internalSetState(MACHINE_DONE_STATE_ID);
+				result = STATE_SUCCESS;
+			}
+			else if (m_failureStateID == EXIT_MACHINE_WITH_FAILURE)
+			{
+				machine->internalSetState(MACHINE_DONE_STATE_ID);
+				result = STATE_FAILURE;
+			}
+			else
+				result = machine->internalSetState(m_failureStateID);
+			break;
+		case STATE_CONTINUE:
+		{
+			Int n = m_transitionsCount;
+			if (n != 0)
+			{
+				const StateConditionInfo *it = m_transitionsFirst;
+				do
+				{
+					if (it->test(this, it->userData))
+					{
+						if (it->toStateID == EXIT_MACHINE_WITH_SUCCESS)
+							result = STATE_SUCCESS;
+						else if (it->toStateID == EXIT_MACHINE_WITH_FAILURE)
+							result = STATE_FAILURE;
+						else
+							result = machine->internalSetState(it->toStateID);
+						break;
+					}
+					++it;
+				} while (--n);
+			}
+			break;
+		}
+		}
+	}
+	--checkfortransitionsnum;
+	return result;
+}
+
+// ---- from Code/GameEngine/Source/Common/StateMachineSleepTransitions.cpp
+
+StateReturnType State::friend_checkForSleepTransitions(StateReturnType status)
+{
+	static Int checkfortransitionsnum = 0;
+	StateReturnType result;
+	++checkfortransitionsnum;
+	if (checkfortransitionsnum >= 20)
+		result = STATE_FAILURE;
+	else
+	{
+		result = status;
+		Int n = m_transitionsCount;
+		if (n != 0)
+		{
+			const StateConditionInfo *it = m_transitionsFirst;
+			do
+			{
+				if (it->test(this, it->userData))
+				{
+					StateMachine *machine = m_machine;
+					if (it->toStateID == EXIT_MACHINE_WITH_SUCCESS)
+						result = STATE_SUCCESS;
+					else if (it->toStateID == EXIT_MACHINE_WITH_FAILURE)
+						result = STATE_FAILURE;
+					else
+						result = machine->internalSetState(it->toStateID);
+					break;
+				}
+				++it;
+			} while (--n);
+		}
+	}
+	--checkfortransitionsnum;
+	return result;
+}
 
 // tu-skeleton: 0x004D729D 40B ?rva004D729D@Rva004D729D@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE24.cpp (not merged yet)
 
@@ -386,18 +505,6 @@ StateMachine::StateMachine(Object *owner, unsigned int name, bool flag)
 // tu-skeleton: 0x004D7A75 88B ?resetToDefaultState@StateMachine@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp (not merged yet)
 
 // tu-skeleton: 0x004D7ACD 16B ?setState@StateMachine@@UAE?AW4StateReturnType@@H@Z -- matched in Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/GameLogic/AI/StateMachine_isGoalObjectDestroyed.cpp
-
-Bool StateMachine::isGoalObjectDestroyed() const
-{
-	if (m_goalObjectID == 0)
-		return false; // never had a goal object
-	const Object *goal = const_cast<StateMachine *>(this)->getGoalObject();
-	if (goal == 0)
-		return true;
-	return goal->isEffectivelyDead();
-}
 
 // tu-skeleton: 0x004D7AFB 20B ?insert@?$map@IPAVImage@@U?$less@I@_STL@@V?$allocator@U?$pair@$$CBIPAVImage@@@_STL@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBIPAVImage@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBIPAVImage@@@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBIPAVImage@@@2@@Z -- matched in Code/GameEngine/Source/Common/Rva00295927.cpp (not merged yet)
 
