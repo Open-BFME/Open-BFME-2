@@ -24839,9 +24839,9 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00317D89,243,code,Code/GameEngine/Source/Common/TerrainTypes.cpp,approved,C,C=0x00317D18..0x00317E7C,Code/GameEngine/Source/Common/TerrainTypes.cpp
 0x00317E7C,63,code,Code/GameEngine/Source/Common/TerrainTypes.cpp,approved,C,C=0x00317D18..0x00317EBB,Code/GameEngine/Source/Common/RvaVectorDtorFamily.cpp
 0x00317EBB,180,code,Code/GameEngine/Source/Common/TerrainTypes.cpp,approved,C,C=0x00317D18..0x00317F6F,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_nocasepair_assign.cpp
-0x00317F6F,129,code,Code/GameEngine/Source/Common/TerrainTypes.cpp,approved,Z,Z=Code/GameEngine/Source/Common/TerrainTypes.cpp S=Code/GameEngine/Source/Common/TerrainTypes.cpp N=Code/GameEngine/Source/Common/TerrainType.cpp,Code/GameEngine/Source/Common/Rva00317F6FCtor.cpp
+0x00317F6F,129,code,Code/GameEngine/Source/Common/TerrainTypes.cpp,approved,Z,Z=Code/GameEngine/Source/Common/TerrainTypes.cpp S=Code/GameEngine/Source/Common/TerrainTypes.cpp N=Code/GameEngine/Source/Common/TerrainType.cpp,Code/GameEngine/Source/Common/TerrainTypes.cpp
 0x00317FF0,93,code,Code/GameEngine/Source/Common/TerrainTypes.cpp,approved,Z,Z=Code/GameEngine/Source/Common/TerrainTypes.cpp S=Code/GameEngine/Source/Common/TerrainTypes.cpp N=Code/GameEngine/Source/Common/TerrainType.cpp,Code/GameEngine/Source/Common/TerrainType.cpp
-0x0031804D,81,code,Code/GameEngine/Source/Common/TerrainTypes.cpp,approved,C,C=0x00317FF0..0x0031809E,Code/GameEngine/Source/Common/Rva0031804DAssign.cpp
+0x0031804D,81,code,Code/GameEngine/Source/Common/TerrainTypes.cpp,approved,C,C=0x00317FF0..0x0031809E,Code/GameEngine/Source/Common/TerrainTypes.cpp
 0x0031809E,178,code,Code/GameEngine/Source/Common/TerrainTypes.cpp,approved,C,C=0x00317FF0..0x0031816C,Code/Libraries/Source/WWVegas/WWLib/StlportVectorInsertOverflowFamily.cpp
 0x00318150,28,code,,displaced,-,N=Code/GameEngine/Source/Common/TerrainType.cpp,Code/GameEngine/Source/Common/TerrainType.cpp
 0x0031816C,151,code,Code/GameEngine/Source/Common/TerrainTypes.cpp,approved,Z,Z=Code/GameEngine/Source/Common/TerrainTypes.cpp S=Code/GameEngine/Source/Common/TerrainTypes.cpp N=Code/GameEngine/Source/Common/TerrainTypeCollection.cpp,Code/GameEngine/Source/Common/TerrainTypes.cpp
@@ -72889,11 +72889,11 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0077A75A,10,code,Code/GameEngine/Source/Common/TerrainTypes.cpp,approved,P,P=0x00317D89@FuncInfo0x009232F0,Code/GameEngine/Source/Common/TerrainTypes.cpp
 0x0077A764,8,code,Code/GameEngine/Source/Common/TerrainTypes.cpp,approved,P,P=0x00317E7C@FuncInfo0x00923314,Code/GameEngine/Source/Common/RvaVectorDtorFamily.cpp
 0x0077A76C,10,code,Code/GameEngine/Source/Common/TerrainTypes.cpp,approved,P,P=0x00317E7C@FuncInfo0x00923314,Code/GameEngine/Source/Common/RvaVectorDtorFamily.cpp
-0x0077A776,11,code,Code/GameEngine/Source/Common/TerrainTypes.cpp,approved,P,P=0x00317F6F@FuncInfo0x00923350,Code/GameEngine/Source/Common/Rva00317F6FCtor.cpp
-0x0077A781,11,code,Code/GameEngine/Source/Common/TerrainTypes.cpp,approved,P,P=0x00317F6F@FuncInfo0x00923350,Code/GameEngine/Source/Common/Rva00317F6FCtor.cpp
-0x0077A78C,11,code,Code/GameEngine/Source/Common/TerrainTypes.cpp,approved,P,P=0x00317F6F@FuncInfo0x00923350,Code/GameEngine/Source/Common/Rva00317F6FCtor.cpp
+0x0077A776,11,code,Code/GameEngine/Source/Common/TerrainTypes.cpp,approved,P,P=0x00317F6F@FuncInfo0x00923350,Code/GameEngine/Source/Common/TerrainTypes.cpp
+0x0077A781,11,code,Code/GameEngine/Source/Common/TerrainTypes.cpp,approved,P,P=0x00317F6F@FuncInfo0x00923350,Code/GameEngine/Source/Common/TerrainTypes.cpp
+0x0077A78C,11,code,Code/GameEngine/Source/Common/TerrainTypes.cpp,approved,P,P=0x00317F6F@FuncInfo0x00923350,Code/GameEngine/Source/Common/TerrainTypes.cpp
 0x0077A797,11,code,Code/GameEngine/Source/Common/TerrainTypes.cpp,approved,P,P=0x00317F6F@FuncInfo0x00923350,Code/gen_small/uw_gen_011.cpp
-0x0077A7A2,10,code,Code/GameEngine/Source/Common/TerrainTypes.cpp,approved,P,P=0x00317F6F@FuncInfo0x00923350,Code/GameEngine/Source/Common/Rva00317F6FCtor.cpp
+0x0077A7A2,10,code,Code/GameEngine/Source/Common/TerrainTypes.cpp,approved,P,P=0x00317F6F@FuncInfo0x00923350,Code/GameEngine/Source/Common/TerrainTypes.cpp
 0x0077A7AC,11,code,Code/GameEngine/Source/Common/TerrainTypes.cpp,approved,P,P=0x00317FF0@FuncInfo0x00923384,Code/GameEngine/Source/Common/TerrainType.cpp
 0x0077A7B7,11,code,Code/GameEngine/Source/Common/TerrainTypes.cpp,approved,P,P=0x00317FF0@FuncInfo0x00923384,Code/GameEngine/Source/Common/TerrainType.cpp
 0x0077A7C2,11,code,Code/GameEngine/Source/Common/TerrainTypes.cpp,approved,P,P=0x00317FF0@FuncInfo0x00923384,Code/GameEngine/Source/Common/TerrainType.cpp

@@ -52,7 +52,6 @@ enum ScienceType
 {
 	SCIENCE_NONE = 0
 };
-
 class TerrainType
 {
 	friend class TerrainTypeCollection;
@@ -122,6 +121,24 @@ private:
 #include <new>
 #pragma comment(linker, "/alternatename:?allocate@?$allocator@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@_STL@@QBEPAU?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@2@IPBX@Z=?allocate@?$allocator@UBfmeE8@@@_STL@@QBEPAUBfmeE8@@IPBX@Z")
 #include <utility>
+#include <stl/_algobase.h>
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+// Nothing here calls the base destructor out of line (~vector inlines it); its
+// unreferenced copy differed from the first one in link order. Declared imported
+// and force-inlined, it is not emitted.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+_Vector_base<ScienceType, allocator<ScienceType> >::~_Vector_base()
+{
+	if (_M_start != 0)
+		_M_end_of_storage.deallocate(_M_start, _M_end_of_storage._M_data - _M_start);
+}
+}
 
 // This view uses the external retail table throughout its lifetime; no
 // separate table for the partial method declarations belongs in the link.
@@ -167,6 +184,27 @@ vector<CopyNoCasePair, allocator<CopyNoCasePair> >::_M_allocate_and_copy<const C
     return result;
 }
 }
+
+// Native 0x0021C21B is owned by the non-POD-traited four-byte record
+// specialization in StlSweepW5Rva0021C21B.cpp. Preserve this caller's
+// storage and argument ABI while naming the verified out-of-line provider.
+struct Rva0021C21BElement { char bytes[4]; };
+
+typedef _STL::vector<Rva0021C21BElement, _STL::allocator<Rva0021C21BElement> > RetailAssignVector;
+
+namespace _STL {
+template <> vector<Rva0021C21BElement, allocator<Rva0021C21BElement> > &
+vector<Rva0021C21BElement, allocator<Rva0021C21BElement> >::operator=(
+    const vector<Rva0021C21BElement, allocator<Rva0021C21BElement> > &);
+}
+
+typedef _STL::vector<_STL::pair<const AsciiString, NoCaseTreeValue4>, _STL::allocator<_STL::pair<const AsciiString, NoCaseTreeValue4> > > RetailNoCaseVector;
+
+namespace _STL {
+template <> RetailNoCaseVector &RetailNoCaseVector::operator=(const RetailNoCaseVector &);
+}
+
+// ---- from Code/GameEngine/Source/Common/TerrainTypes.cpp
 
 // ---- from Code/GameEngine/Source/Common/TerrainTypes.cpp
 
@@ -301,21 +339,58 @@ AsciiString &Rva00317C68Append(AsciiString &dst, const char *src)
 // The global(s) below are defined elsewhere under another name at the same
 // address (the census owner of that DIR32 target); bind this unit's spelling.
 
-// tu-skeleton: 0x00317CA0 45B ?Rva00317CA0Construct@@YAXPAXPBX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_vector_nocasepair_allocate_copy.cpp
 
 // ??$_M_allocate_and_copy@PBU?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@?$vector@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@2@@_STL@@IAEPAU?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@1@IPBU21@0@Z @0x00317D5C 45B: vector allocate-and-copy for 8-byte NoCase pair via allocate 0x00523D6C plus uninitialized_copy 0x00317CF2. Evidence: retail calls rowed allocate plus dup_00317CF2 worker for CopyNoCasePair; caller 0x00317EBB assign path sar 3 stride 8; same 45B ebp-tag shape as 0x0040D077 and 0x000BC72B.
 
+// tu-skeleton: 0x00317CA0 45B ?Rva00317CA0Construct@@YAXPAXPBX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp (not merged yet)
+
 // tu-skeleton: 0x00317E7C 63B ??1Rva00317E7C@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaVectorDtorFamily.cpp (not merged yet)
 
 // tu-skeleton: 0x00317EBB 180B ??4?$vector@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@2@@_STL@@QAEAAV01@ABV01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_nocasepair_assign.cpp (not merged yet)
 
-// tu-skeleton: 0x00317F6F 129B ??0TerrainType@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00317F6FCtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva00317F6FCtor.cpp
+
+// ??0TerrainType@@QAE@XZ @0x00317F6F 129B: ctor storing vtable 0x0080C66C, clearing two AsciiString members, defaulting two vector<ScienceType> members, pushing SCIENCE_NONE into the first, zeroing flag bytes plus0C plus1C and dword plus20. Evidence: rowed Vector_base plus releaseBuffer plus push_back callees plus vtable store; class identity: ZH TerrainTypeCollection::newTerrain constructs it at 0x00318194 (pinned ??0TerrainType).
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+// _STLP_NO_EXCEPTIONS: push_back's out-of-line overflow path is retail's one copy
+// (ThingTemplate.cpp's 179-byte row at 0x00148D00), which has no unwind guard; with
+// the guard this TU emitted a 236-byte copy that loses to it at link time.
+
+TerrainType::TerrainType()
+{
+  m_str04.clear();
+  m_str08.clear();
+  ScienceType st = SCIENCE_NONE;
+  m_f0c = 0;
+  m_v1.push_back(st);
+  m_next = 0;
+  m_f1c = 0;
+}
 
 // tu-skeleton: 0x00317FF0 93B ??1TerrainType@@UAE@XZ -- matched in Code/GameEngine/Source/Common/TerrainType.cpp (not merged yet)
 
-// tu-skeleton: 0x0031804D 81B ??4TerrainType@@QAEAAV0@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Rva0031804DAssign.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva0031804DAssign.cpp
+
+// ??4Rva0031804D@@QAEAAV0@ABV0@@Z @0x0031804D (81B): copy-assign copying
+// AsciiStrings at +0x4/+0x8 via pinned 0x000366F0, byte +0xC, 4B-POD vector
+// at +0x10 via int pin at 0x0021C21B, byte +0x1C, int +0x20, NoCase pair
+// vector at +0x24 via rowed 0x00317EBB. Same offsets as Rva00317F6F ctor
+// 0x00317F6F; caller at 0x003181C1 unblocks 0x0031816C.
+
+TerrainType &TerrainType::operator=(const TerrainType &that)
+{
+	m_str04 = that.m_str04;
+	m_str08 = that.m_str08;
+	m_f0c = that.m_f0c;
+	*(RetailAssignVector *)&m_v1 = *(const RetailAssignVector *)&that.m_v1;
+	m_f1c = that.m_f1c;
+	m_next = that.m_next;
+	*(RetailNoCaseVector *)&m_v2 = *(const RetailNoCaseVector *)&that.m_v2;
+	return *this;
+}
 
 // tu-skeleton: 0x0031809E 178B ?_M_insert_overflow@?$vector@URva00318203Element@@V?$allocator@URva00318203Element@@@_STL@@@_STL@@IAEXPAURva00318203Element@@ABU3@ABU__false_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorInsertOverflowFamily.cpp (not merged yet)
 
@@ -329,15 +404,7 @@ AsciiString &Rva00317C68Append(AsciiString &dst, const char *src)
 
 // tu-skeleton: 0x0077A76C 10B __ehhandler$??1Rva00317E7C@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaVectorDtorFamily.cpp (not merged yet)
 
-// tu-skeleton: 0x0077A776 11B Unwind@00b7a776 -- matched in Code/GameEngine/Source/Common/Rva00317F6FCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0077A781 11B Unwind@00b7a781 -- matched in Code/GameEngine/Source/Common/Rva00317F6FCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0077A78C 11B Unwind@00b7a78c -- matched in Code/GameEngine/Source/Common/Rva00317F6FCtor.cpp (not merged yet)
-
 // tu-skeleton: 0x0077A797 11B uw_0077a797 -- matched in Code/gen_small/uw_gen_011.cpp (not merged yet)
-
-// tu-skeleton: 0x0077A7A2 10B __ehhandler$??0TerrainType@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00317F6FCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0077A7AC 11B Unwind@00b7a7ac -- matched in Code/GameEngine/Source/Common/TerrainType.cpp (not merged yet)
 
