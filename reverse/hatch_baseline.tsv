@@ -73,8 +73,8 @@ address_global	Code/GameEngine/Source/Common/ConstIntGetters.cpp	g_Va00DD83B4	2
 address_global	Code/GameEngine/Source/Common/ConstIntGetters5.cpp	g_Va00DD263CNames	2
 address_global	Code/GameEngine/Source/Common/ConstIntGetters5.cpp	g_Va00E04544	2
 address_global	Code/GameEngine/Source/Common/ConstIntGetters5Addr.cpp	g_Va00DC85C4Names	2
+address_global	Code/GameEngine/Source/Common/CreateAHeroManager.cpp	g_Va00DFE348	1
 address_global	Code/GameEngine/Source/Common/CreateAHeroManagerAvailableHeroes.cpp	g_Va00DFE348	1
-address_global	Code/GameEngine/Source/Common/CreateAHeroManagerLoadMyHeroList.cpp	g_Va00DFE348	1
 address_global	Code/GameEngine/Source/Common/Disp8NullAdjustGetters.cpp	g_Rva0107301CEmptyString	1
 address_global	Code/GameEngine/Source/Common/Elem005DB98EFalloff.cpp	g_Va00BBB8D8	3
 address_global	Code/GameEngine/Source/Common/GameEngine.cpp	g_Va00BBB8D8	2

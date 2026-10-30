@@ -60,6 +60,152 @@ extern const char *g_CreateAHeroFilenamePrefix;
 extern const char *g_CreateAHeroFilenameExtension;
 #include <string.h>
 #include "unicode_string.h"
+#include <map>
+#include <algorithm>
+typedef unsigned int UnsignedInt;
+class AsciiString;
+class CreateAHeroHero
+{
+public:
+	int GetBlingCount(int blingKey) const; // 0x004079F4
+	int GetBlingId(int blingKey, unsigned int index) const; // 0x00407A29
+	bool rva004098BE(const AsciiString &file, bool system);
+};
+// A bling entry starts with its name and description string tags.
+struct CreateAHeroBling
+{
+	AsciiString m_nameTag;					// +0x00
+	AsciiString m_descTag;					// +0x04
+	AsciiString m_upgradeName;				// +0x08
+};
+// The manager's bling table at +0x15C holds 16-byte entries with the bling
+// id at +0x0C; the lookup by upgrade name is the unrowed cdecl find at
+// 0x0021D120 (unnamed in WB).
+struct CreateAHeroBlingEntry
+{
+	unsigned char m_pad00[0xc];
+	int m_blingId;						// +0x0C
+};
+CreateAHeroBlingEntry *rva0021D120(CreateAHeroBlingEntry *first, CreateAHeroBlingEntry *last, const AsciiString &upgradeName);
+	// 0x0021D120
+
+class CommandButton;
+class CommandSet
+{
+public:
+	const CommandButton *getCommandButton(int i) const;	// 0x00409EE8
+};
+class ControlBar
+{
+public:
+	const CommandSet *findCommandSet(const AsciiString &name);	// 0x0031D5F8
+};
+extern ControlBar *TheControlBar;
+// GetHeroForPlayer's views. A game slot keeps the name compared with the
+// player's key at +0x34 and its created hero at +0x64, valid when the byte
+// at +0x60 is set; the player's name key is at +0x50.
+enum NameKeyType { NAMEKEY_INVALID = 0 };
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const AsciiString &name);		// 0x0009FA65
+};
+extern NameKeyGenerator *TheNameKeyGenerator;
+class GameSlot
+{
+public:
+	const AsciiString &getPlayerName() const { return m_playerName; }
+	const CreateAHeroHero *getHero() const { return m_hasHero ? &m_hero : 0; }
+
+private:
+	unsigned char m_pad00[0x34];
+	AsciiString m_playerName;				// +0x34
+	unsigned char m_pad38[0x60 - 0x38];
+	Bool m_hasHero;						// +0x60
+	unsigned char m_pad61[0x64 - 0x61];
+	CreateAHeroHero m_hero;					// +0x64
+};
+class GameInfo
+{
+public:
+	GameSlot *getSlot(int index);				// 0x003FF29F
+};
+extern GameInfo *TheGameInfo;
+// init's INI load: the file goes through INI::loadFile with the subsystem
+// list's xfer (+0x24) when TheSubsystemList (VA 0x00DFD940) exists.
+class Xfer;
+enum INILoadType { INI_LOAD_INVALID, INI_LOAD_OVERWRITE };
+class INI
+{
+public:
+	INI();							// 0x0002CDB0
+	~INI();							// 0x0002CE5B
+	void loadFile(AsciiString filename, INILoadType loadType, Xfer *pXfer);	// 0x0002DC75
+
+private:
+	unsigned char m_data[0x87c];
+};
+// The dword at VA 0x00DFE348 (ColdGlobalDwordGetters.cpp) gates init's load.
+extern int g_Va00DFE348;
+class Player
+{
+public:
+	NameKeyType getPlayerNameKey() const { return m_playerNameKey; }
+
+private:
+	unsigned char m_pad00[0x50];
+	NameKeyType m_playerNameKey;				// +0x50
+};
+class ModuleData;
+class Rva00423A68
+{
+public:
+    void rva00423A68(const ModuleData *p);
+};
+struct CreateAHeroFileEntry
+{
+    AsciiString filename;
+    bool system;
+};
+struct Rva0021DB35
+{
+    Rva0021DB35(); // native21F19B fills a vector of file-name / flag pairs
+    ~Rva0021DB35();
+    CreateAHeroFileEntry *m_begin;
+    CreateAHeroFileEntry *m_end;
+    CreateAHeroFileEntry *m_capacity;
+};
+#include "../../../../reference/shims/subsystem_bfme2/subsystem_interface.h"
+#include <windows.h>
+class GameState;
+extern GameState *TheGameState;
+// The game state's save directory (0x002DC267), rowed under its own spelling.
+class Rva002DC267
+{
+public:
+	UnicodeString rva002DC267() const;
+};
+extern unsigned char g_rva005B5C02Flag;
+class CreateAHeroData;
+struct Rva0021F5F8Hero
+{
+	unsigned char m_pad00[0x48];
+	bool m_system;					// +0x48
+	unsigned char m_pad49[0x4c - 0x49];
+	AsciiString m_name;				// +0x4C
+	bool isSystem() const { return m_system; }
+	const AsciiString &getName() const { return m_name; }
+};
+AsciiString Rva0021A651Filename(const AsciiString &name);
+AsciiString Rva0021C12FStripName(const AsciiString &file);
+class BFME2WideConcatPair
+{
+public:
+	__forceinline BFME2WideConcatPair(const UnicodeString &left, const UnicodeString &right) { m_right = &right; m_left = &left; }
+	operator UnicodeString();			// 0x0021C3F7 (pinned UnicodeString spelling)
+	const UnicodeString *m_left;
+	const UnicodeString *m_right;
+};
 
 class CreateAHeroData
 {
@@ -228,6 +374,11 @@ public:
 
 extern GameTextInterface *TheGameText;
 
+// The manager's global: GameEngine::init registers the subsystem under the
+// name "TheCreateAHeroManager" (call site 0x0022FC2F) into VA 0x00DFE344;
+// matched references place it there (retail .data initial value 0).
+extern CreateAHeroManager *TheCreateAHeroManager;
+
 // tu-skeleton: 0x0076E694 13B $L2254 -- matched in Code/GameEngine/Source/Common/Rva00219B9EAccessor.cpp (not merged yet)
 
 // tu-skeleton: 0x0076E6A1 10B __ehhandler$?GetClassNameTag@CreateAHeroManager@@QAEABVAsciiString@@I@Z -- matched in Code/GameEngine/Source/Common/Rva00219B9EAccessor.cpp (not merged yet)
@@ -260,6 +411,8 @@ extern GameTextInterface *TheGameText;
 
 // tu-skeleton: 0x0076E742 10B __ehhandler$?GetSubClassDescTag@CreateAHeroManager@@QAEABVAsciiString@@II@Z -- matched in Code/GameEngine/Source/Common/Rva00219B9EAccessor.cpp (not merged yet)
 
+// ---- from Code/GameEngine/Source/Common/CreateAHeroManager.cpp
+
 // ---- from Code/GameEngine/Source/Common/System/Rva0021B68DCmp.cpp
 
 // Retail 0x0021B68D (198 bytes): the out-of-line comparator the rowed STLport
@@ -288,12 +441,6 @@ bool Rva0021B68DCmp::operator()(const Rva0021B68DKey &a, const Rva0021B68DKey &b
 	return false;
 }
 
-// tu-skeleton: 0x0076E782 8B Unwind@00b6e782 -- matched in Code/GameEngine/Source/Common/System/SaveGame/CreateAHeroDataDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076E78A 8B Unwind@00b6e78a -- matched in Code/GameEngine/Source/Common/System/SaveGame/CreateAHeroDataDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076E792 10B __ehhandler$?rva0021B7B6@Rva0021B7B6@@QAEXPAVINI@@PAX@Z -- matched in Code/GameEngine/Source/Common/System/SaveGame/CreateAHeroDataDtor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva0021BFD8.cpp
 
 //
@@ -314,74 +461,6 @@ AsciiString __cdecl Rva0021C12FStripName(const AsciiString &name)
 	stripped = *Rva000B6AF5Build((Rva000B6AF5Rec *)&rec, (void **)&stripped, stripped.getLength() - strlen(g_CreateAHeroFilenamePrefix));
 	return stripped;
 }
-
-// tu-skeleton: 0x0076E825 8B Unwind@00b6e825 -- matched in Code/GameEngine/Source/Common/System/WideConcatPair.cpp (not merged yet)
-
-// tu-skeleton: 0x0076E82D 25B $L588 -- matched in Code/GameEngine/Source/Common/System/WideConcatPair.cpp (not merged yet)
-
-// tu-skeleton: 0x0076E846 10B __ehhandler$??BBFME2WideConcatPair@@QAE?AVUnicodeString@@XZ -- matched in Code/GameEngine/Source/Common/System/WideConcatPair.cpp (not merged yet)
-
-// tu-skeleton: 0x0076E850 13B $L2388 -- matched in Code/GameEngine/Source/Common/Rva00219B9EAccessor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076E85D 10B __ehhandler$?GetBlingNameTag@CreateAHeroManager@@QAEABVAsciiString@@HIII@Z -- matched in Code/GameEngine/Source/Common/Rva00219B9EAccessor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076E867 13B $L2403 -- matched in Code/GameEngine/Source/Common/Rva00219B9EAccessor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076E874 10B __ehhandler$?GetBlingDescTag@CreateAHeroManager@@QAEABVAsciiString@@HIII@Z -- matched in Code/GameEngine/Source/Common/Rva00219B9EAccessor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076EA98 8B $L8696 -- matched in Code/GameEngine/Source/Common/CreateAHeroManagerLoadMyHeroList.cpp (not merged yet)
-
-// tu-skeleton: 0x0076EAA0 10B $L8697 -- matched in Code/GameEngine/Source/Common/CreateAHeroManagerLoadMyHeroList.cpp (not merged yet)
-
-// tu-skeleton: 0x0076EAAA 10B __ehhandler$?LoadMyHeroList@CreateAHeroManager@@QAEXXZ -- matched in Code/GameEngine/Source/Common/CreateAHeroManagerLoadMyHeroList.cpp (not merged yet)
-
-// tu-skeleton: 0x0076EAB4 8B Unwind@00b6eab4 -- matched in Code/GameEngine/Source/Common/CreateAHeroManagerRva0021F5F8.cpp (not merged yet)
-
-// tu-skeleton: 0x0076EABC 8B Unwind@00b6eabc -- matched in Code/GameEngine/Source/Common/CreateAHeroManagerRva0021F5F8.cpp (not merged yet)
-
-// tu-skeleton: 0x0076EAC4 8B Unwind@00b6eac4 -- matched in Code/GameEngine/Source/Common/CreateAHeroManagerRva0021F5F8.cpp (not merged yet)
-
-// tu-skeleton: 0x0076EACC 8B Unwind@00b6eacc -- matched in Code/GameEngine/Source/Common/CreateAHeroManagerRva0021F5F8.cpp (not merged yet)
-
-// tu-skeleton: 0x0076EAD4 8B Unwind@00b6ead4 -- matched in Code/GameEngine/Source/Common/CreateAHeroManagerRva0021F5F8.cpp (not merged yet)
-
-// tu-skeleton: 0x0076EADC 8B Unwind@00b6eadc -- matched in Code/GameEngine/Source/Common/CreateAHeroManagerRva0021F5F8.cpp (not merged yet)
-
-// tu-skeleton: 0x0076EAE4 8B Unwind@00b6eae4 -- matched in Code/GameEngine/Source/Common/CreateAHeroManagerRva0021F5F8.cpp (not merged yet)
-
-// tu-skeleton: 0x0076EAEC 10B __ehhandler$?rva0021F5F8@CreateAHeroManager@@QAEXXZ -- matched in Code/GameEngine/Source/Common/CreateAHeroManagerRva0021F5F8.cpp (not merged yet)
-
-// tu-skeleton: 0x0076EBA9 8B Unwind@00b6eba9 -- matched in Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp (not merged yet)
-
-// tu-skeleton: 0x0076EBB1 11B Unwind@00b6ebb1 -- matched in Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp (not merged yet)
-
-// tu-skeleton: 0x0076EBBC 14B $L10323 -- matched in Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp (not merged yet)
-
-// tu-skeleton: 0x0076EBCA 14B $L9932 -- matched in Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp (not merged yet)
-
-// tu-skeleton: 0x0076EBD8 14B $L9933 -- matched in Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp (not merged yet)
-
-// tu-skeleton: 0x0076EBE6 14B $L9971 -- matched in Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp (not merged yet)
-
-// tu-skeleton: 0x0076EBF4 14B Unwind@00b6ebf4 -- matched in Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp (not merged yet)
-
-// tu-skeleton: 0x0076EC02 14B Unwind@00b6ec02 -- matched in Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp (not merged yet)
-
-// tu-skeleton: 0x0076EC10 14B Unwind@00b6ec10 -- matched in Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp (not merged yet)
-
-// tu-skeleton: 0x0076EC1E 14B Unwind@00b6ec1e -- matched in Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp (not merged yet)
-
-// tu-skeleton: 0x0076EC2C 14B Unwind@00b6ec2c -- matched in Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp (not merged yet)
-
-// tu-skeleton: 0x0076EC3A 14B Unwind@00b6ec3a -- matched in Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp (not merged yet)
-
-// tu-skeleton: 0x0076EC48 14B Unwind@00b6ec48 -- matched in Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp (not merged yet)
-
-// tu-skeleton: 0x0076EC56 14B Unwind@00b6ec56 -- matched in Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp (not merged yet)
-
-// tu-skeleton: 0x0076EC64 14B Unwind@00b6ec64 -- matched in Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp (not merged yet)
-
-// tu-skeleton: 0x0076EC72 10B __ehhandler$??0CreateAHeroManager@@QAE@XZ -- matched in Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva0021FFEEDtor.cpp
 
@@ -416,3 +495,154 @@ CreateAHeroManager::CreateAHeroClass *CreateAHeroManager::rva0022020C(CreateAHer
 	}
 	return m_vector14C.end() - 1;
 }
+
+// tu-skeleton: 0x0076E782 8B Unwind@00b6e782 -- matched in Code/GameEngine/Source/Common/System/SaveGame/CreateAHeroDataDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0076E78A 8B Unwind@00b6e78a -- matched in Code/GameEngine/Source/Common/System/SaveGame/CreateAHeroDataDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0076E792 10B __ehhandler$?rva0021B7B6@Rva0021B7B6@@QAEXPAVINI@@PAX@Z -- matched in Code/GameEngine/Source/Common/System/SaveGame/CreateAHeroDataDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0076E825 8B Unwind@00b6e825 -- matched in Code/GameEngine/Source/Common/System/WideConcatPair.cpp (not merged yet)
+
+// tu-skeleton: 0x0076E82D 25B $L588 -- matched in Code/GameEngine/Source/Common/System/WideConcatPair.cpp (not merged yet)
+
+// tu-skeleton: 0x0076E846 10B __ehhandler$??BBFME2WideConcatPair@@QAE?AVUnicodeString@@XZ -- matched in Code/GameEngine/Source/Common/System/WideConcatPair.cpp (not merged yet)
+
+// tu-skeleton: 0x0076E850 13B $L2388 -- matched in Code/GameEngine/Source/Common/Rva00219B9EAccessor.cpp (not merged yet)
+
+// tu-skeleton: 0x0076E85D 10B __ehhandler$?GetBlingNameTag@CreateAHeroManager@@QAEABVAsciiString@@HIII@Z -- matched in Code/GameEngine/Source/Common/Rva00219B9EAccessor.cpp (not merged yet)
+
+// tu-skeleton: 0x0076E867 13B $L2403 -- matched in Code/GameEngine/Source/Common/Rva00219B9EAccessor.cpp (not merged yet)
+
+// tu-skeleton: 0x0076E874 10B __ehhandler$?GetBlingDescTag@CreateAHeroManager@@QAEABVAsciiString@@HIII@Z -- matched in Code/GameEngine/Source/Common/Rva00219B9EAccessor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/CreateAHeroManagerLoadMyHeroList.cpp
+
+// WB B7EE40 names LoadMyHeroList; retail21F47E..21F5E3 supplies extent and layout.
+// Complete357B instruction sequence with three unresolved calls: 408A55 data refresh;
+// 21F19B file vector construction; 4099CA file load with one-byte mode argument.
+// 4099CA takes the flag as one byte (the spilled flag's dword is pushed whole);
+// its row (CreateAHeroDataDtor.cpp) and the 21F19B ctor row carry these names.
+// Qualified ::delete is required by native vslot0(flags0) then global delete.
+// CreateAHero.cpp -- CreateAHeroManager forwarding accessors recovered from
+// WorldBuilder leads (reverse/wb_name_leads.csv): WB's debug build names each
+// function and its nesting (CreateAHeroManager::CreateAHeroClass, ::
+// CreateAHeroSubClass); retail supplies the bytes.
+//
+// Layout (target evidence): the manager keeps a vector of 32-byte hero classes
+// at +0x14C and the command-set name at +0x1DC; a class's out-of-line
+// bounds-checked subclass accessor (0x00219B9E, unnamed in WB) returns NULL
+// for a bad index.
+
+// CreateAHeroManager::GetBlingCount, retail 0x00219239.
+
+void CreateAHeroManager::LoadMyHeroList()
+{
+    if (m_tree174.size()) {
+        if (m_1D8) {
+            for (unsigned int i = 0; i < m_tree174.size(); ++i) {
+                CreateAHeroData *hero = m_tree174.rva0040A32F(i);
+                if (hero) hero->rva00408A55();
+            }
+            m_1D8 = false;
+        }
+    } else {
+        Rva0021DB35 files;
+        unsigned int crc = 0;
+        m_158 = 0;
+        for (CreateAHeroFileEntry *it = files.m_begin; it != files.m_end; ++it) {
+            CreateAHeroData *hero = new CreateAHeroData(0,0,0,UnicodeString::TheEmptyString,-1,0xff707070,-1);
+            bool system = it->system;
+            if (hero->rva004099CA(&it->filename, system)) {
+                ((Rva00423A68 *)&m_tree174)->rva00423A68((const ModuleData *)hero);
+                if (system && !m_systemHeroCRC) {
+                    ++m_158;
+                    crc += hero->m_crc;
+                    crc = (crc << 1) | (crc >> 31);
+                }
+            } else {
+                ::delete hero;
+            }
+        }
+        if (!m_systemHeroCRC) m_systemHeroCRC = crc;
+    }
+}
+
+// ---- from Code/GameEngine/Source/Common/CreateAHeroManagerRva0021F5F8.cpp
+
+// platformsdk
+//
+// ?rva0021F5F8@CreateAHeroManager@@QAEXXZ, retail 0x0021F5F8..0x0021F797
+// (415 bytes, EH, RET 0; caller the screen destructor 0x00513BAB; WB twin
+// 0x00B7F190, unnamed): reconciles the hero save files with the manager's
+// heroes. For each listed file (the 0x0021F19B file list, destroyed through
+// its rowed destructor 0x0021DB35) whose suffix-stripped name (0x0021C12F)
+// the hero list at +0x174 does not know (0x0040A5CF), it deletes that save
+// file: the save directory (0x002DC267) plus the file name, joined by the
+// wide concat materializer 0x0021C3F7, passed to kernel32 DeleteFileW (IAT
+// 0xBBA324). Then each hero (0x0040A32F) that is not a system hero (+0x48,
+// unless the 0x009FE34C flag is set) and has a name (+0x4C) is saved under
+// its file name (0x0021A651) through 0x004098BE.
+//
+// Codegen evidence: both containers are STLport vectors (8-byte file
+// entries, CreateAHeroData pointers); with real vectors and the WB twin's
+// inline hero accessors (its isSystem/getName temporaries) cl gives retail's
+// this/EBX, iterator/hero EDI allocation, which the hand-written views and
+// direct member reads mirrored. Owner class and method names are unknown.
+
+void CreateAHeroManager::rva0021F5F8()
+{
+	Rva0021DB35 files;
+	for (_STL::vector<CreateAHeroFileEntry>::iterator it = files.m_begin; it != files.m_end; ++it)
+	{
+		AsciiString name = Rva0021C12FStripName(it->filename);
+		if (!m_tree174.rva0040A5CF(name))
+		{
+			UnicodeString path = BFME2WideConcatPair(((const Rva002DC267 *)TheGameState)->rva002DC267(),
+				UnicodeString(it->filename));
+			DeleteFileW(path.str());
+		}
+	}
+	unsigned int count = m_tree174.size();
+	for (unsigned int i = 0; i < count; ++i)
+	{
+		Rva0021F5F8Hero *hero = (Rva0021F5F8Hero *)m_tree174.rva0040A32F(i);
+		if (hero && (!hero->isSystem() || g_rva005B5C02Flag) && !hero->getName().isEmpty())
+		{
+			AsciiString file = Rva0021A651Filename(hero->getName());
+			((CreateAHeroHero *)hero)->rva004098BE(file, hero->isSystem() || g_rva005B5C02Flag);
+		}
+	}
+}
+
+// tu-skeleton: 0x0076EBA9 8B Unwind@00b6eba9 -- matched in Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp (not merged yet)
+
+// tu-skeleton: 0x0076EBB1 11B Unwind@00b6ebb1 -- matched in Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp (not merged yet)
+
+// tu-skeleton: 0x0076EBBC 14B $L10323 -- matched in Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp (not merged yet)
+
+// tu-skeleton: 0x0076EBCA 14B $L9932 -- matched in Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp (not merged yet)
+
+// tu-skeleton: 0x0076EBD8 14B $L9933 -- matched in Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp (not merged yet)
+
+// tu-skeleton: 0x0076EBE6 14B $L9971 -- matched in Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp (not merged yet)
+
+// tu-skeleton: 0x0076EBF4 14B Unwind@00b6ebf4 -- matched in Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp (not merged yet)
+
+// tu-skeleton: 0x0076EC02 14B Unwind@00b6ec02 -- matched in Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp (not merged yet)
+
+// tu-skeleton: 0x0076EC10 14B Unwind@00b6ec10 -- matched in Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp (not merged yet)
+
+// tu-skeleton: 0x0076EC1E 14B Unwind@00b6ec1e -- matched in Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp (not merged yet)
+
+// tu-skeleton: 0x0076EC2C 14B Unwind@00b6ec2c -- matched in Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp (not merged yet)
+
+// tu-skeleton: 0x0076EC3A 14B Unwind@00b6ec3a -- matched in Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp (not merged yet)
+
+// tu-skeleton: 0x0076EC48 14B Unwind@00b6ec48 -- matched in Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp (not merged yet)
+
+// tu-skeleton: 0x0076EC56 14B Unwind@00b6ec56 -- matched in Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp (not merged yet)
+
+// tu-skeleton: 0x0076EC64 14B Unwind@00b6ec64 -- matched in Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp (not merged yet)
+
+// tu-skeleton: 0x0076EC72 10B __ehhandler$??0CreateAHeroManager@@QAE@XZ -- matched in Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp (not merged yet)
