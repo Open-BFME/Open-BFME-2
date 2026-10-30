@@ -73,7 +73,7 @@ public:
 class Rva00397F45
 {
 public:
-	bool rva00397F45(Player *player, Int arg);
+	bool isPlayerAllowedToPackOrUnpack(Player *player, Int arg);
 
 private:
 	void *m_vtable;
@@ -81,7 +81,7 @@ private:
 	Object *m_object;
 };
 
-bool Rva00397F45::rva00397F45( Player *player, Int arg )
+bool Rva00397F45::isPlayerAllowedToPackOrUnpack( Player *player, Int arg )
 {
 	Object *object = m_object;
 	bool alreadyMyCastle = ( player == object->getControllingPlayer() );

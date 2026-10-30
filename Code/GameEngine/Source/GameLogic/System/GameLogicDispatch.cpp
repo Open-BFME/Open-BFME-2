@@ -930,16 +930,16 @@ case ((GameMessage::Type)1067):
         case ((GameMessage::Type)1086):
 { Object *obj=getSingleObjectFromSelection(currentlySelectedGroup); if(!obj) return;
 Module *castle=(Module *)obj->findUpdateModule(CastleBehavior::rva0003955DA());
-if(castle && ((Rva0039567CCmpBoolField *)castle)->get() && ((Rva00397F45 *)castle)->rva00397F45(obj->getControllingPlayer(),0)) ((CastleBehavior *)castle)->initiatePack(); break; }
+if(castle && ((Rva0039567CCmpBoolField *)castle)->get() && ((Rva00397F45 *)castle)->isPlayerAllowedToPackOrUnpack(obj->getControllingPlayer(),0)) ((CastleBehavior *)castle)->initiatePack(); break; }
 case ((GameMessage::Type)1085):
 { Object *obj=getSingleObjectFromSelection(currentlySelectedGroup); if(!obj) return;
 Module *castle=(Module *)obj->findUpdateModule(CastleBehavior::rva0003955DA());
-if(castle && ((Rva00395F57 *)castle)->canUnpack(true) && ((Rva00397F45 *)castle)->rva00397F45(obj->getControllingPlayer(),0) && ((Rva0039718B *)castle)->rva0039718B(obj->getControllingPlayer())) ((CastleBehavior *)castle)->initiateUnpack(false,0); break; }
+if(castle && ((Rva00395F57 *)castle)->canUnpack(true) && ((Rva00397F45 *)castle)->isPlayerAllowedToPackOrUnpack(obj->getControllingPlayer(),0) && ((Rva0039718B *)castle)->rva0039718B(obj->getControllingPlayer())) ((CastleBehavior *)castle)->initiateUnpack(false,0); break; }
 case ((GameMessage::Type)1087):
 { Object *obj=getSingleObjectFromSelection(currentlySelectedGroup); if(!obj) return;
 ThingTemplate *tmpl=(ThingTemplate *)((Rva002CF1FB *)TheThingFactory)->findByTemplateID((unsigned short)msg->getArgument(0)->integer);
 Module *castle=(Module *)obj->findUpdateModule(CastleBehavior::rva0003955DA());
-if(tmpl && castle && ((Rva00395F57 *)castle)->canUnpack(true) && ((Rva00397F45 *)castle)->rva00397F45(obj->getControllingPlayer(),0) && ((Rva00395686 *)castle)->rva00395686(obj->getControllingPlayer(),tmpl)) ((CastleBehavior *)castle)->initiateUnpack(false,tmpl); break; }
+if(tmpl && castle && ((Rva00395F57 *)castle)->canUnpack(true) && ((Rva00397F45 *)castle)->isPlayerAllowedToPackOrUnpack(obj->getControllingPlayer(),0) && ((Rva00395686 *)castle)->rva00395686(obj->getControllingPlayer(),tmpl)) ((CastleBehavior *)castle)->initiateUnpack(false,tmpl); break; }
 case ((GameMessage::Type)1117):
 { Object *obj=getSingleObjectFromSelection(currentlySelectedGroup); if(!obj) return; LogicDispatchRepairInterface *repair=(LogicDispatchRepairInterface *)obj->rva0028BD17(); if(repair && repair->canSelfRepair() && repair->canPlayerRepair(obj->getControllingPlayer())) repair->startSelfRepair(0); break; }
 case ((GameMessage::Type)1134):

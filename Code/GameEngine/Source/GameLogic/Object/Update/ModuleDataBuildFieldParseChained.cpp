@@ -77,10 +77,10 @@ public:
 	static void parseObjectCreationList(INI *, void *, void *, const void *);
 	static void parseAsciiStringVector(INI *, void *, void *, const void *);
 	static void Rva004B2B64_ParseReplaceObject(INI *, void *, void *, const void *);
-	static void Rva004B6481_ParseAnim(INI *, void *, void *, const void *);
+	static void iniParseAnim(INI *, void *, void *, const void *);
 	static void parseDurationReal(INI *, void *, void *, const void *);
 	static void parseUpgradeTemplate(INI *, void *, void *, const void *);
-	static void Rva0044E6CD_ParseCustomAnimAndDuration(INI *, void *, void *, const void *);
+	static void iniParseAnimAndDuration(INI *, void *, void *, const void *);
 	static void dup_002F02F(INI *, void *, void *, const void *);
 	static void parseBitString32(INI *, void *, void *, const void *);
 	static void parseIndexList(INI *, void *, void *, const void *);
@@ -282,8 +282,8 @@ extern const FieldParse BfmeSpecialAbilityUpdateFields[] = {
 	{ "SkillPointsForTriggering", &INI::parseInt, 0, 0x68 },
 	{ "ApproachRequiresLOS", &INI::parseBool, 0, 0xB1 },
 	{ "ChargeAttackSpeedBoost", &INI::parseBool, 0, 0xB2 },
-	{ "CustomAnimAndDuration", &INI::Rva0044E6CD_ParseCustomAnimAndDuration, 0, 0x18 },
-	{ "GrabPassengerAnimAndDuration", &INI::Rva0044E6CD_ParseCustomAnimAndDuration, 0, 0x24 },
+	{ "CustomAnimAndDuration", &INI::iniParseAnimAndDuration, 0, 0x18 },
+	{ "GrabPassengerAnimAndDuration", &INI::iniParseAnimAndDuration, 0, 0x24 },
 	{ "GrabPassengerHealGainPercent", &INI::dup_002F02F, 0, 0x30 },
 	{ "UnpackingVariation", &INI::parseInt, 0, 0x6C },
 	{ "MustFinishAbility", &INI::parseBool, 0, 0xB5 },
@@ -1160,7 +1160,7 @@ extern const FieldParse BfmeModelConditionUpgradeFields[] = {
 	{ "AddConditionFlags", &Rva000B9468Parse, 0, 0x118 },
 	{ "RemoveConditionFlags", &Rva000B9468Parse, 0, 0x164 },
 	{ "RemoveConditionFlagsInRange", &Rva004B65E4::rva004B65E4, 0, 0x164 },
-	{ "AddTempConditionFlag", &INI::Rva004B6481_ParseAnim, 0, 0x1B0 },
+	{ "AddTempConditionFlag", &INI::iniParseAnim, 0, 0x1B0 },
 	{ "TempConditionTime", &INI::parseReal, 0, 0x1B4 },
 	{ 0, 0, 0, 0 }
 };

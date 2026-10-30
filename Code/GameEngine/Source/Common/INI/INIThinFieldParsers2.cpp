@@ -264,7 +264,7 @@ void __identifier("?Rva0026F28BParse@@YAXPAVINI@@PAXPAI@Z")();
 void __identifier("?Rva00339761_ParseDurationUnsignedByte@INI@@SAXPAV1@PAX1PBX@Z")();
 void __identifier("?Rva00403233Parse@@YAXPAVINI@@PAX1PBX@Z")();
 void __identifier("?Rva00404648Parse@@YAXPAVINI@@PAVRva004045B4@@@Z")();
-void __identifier("?Rva0044E6CD_ParseCustomAnimAndDuration@INI@@SAXPAV1@PAX1PBX@Z")();
+void __identifier("?iniParseAnimAndDuration@INI@@SAXPAV1@PAX1PBX@Z")();
 void __identifier("?Rva0056A83BParseAudioMap@@YAXPAVINI@@PAX1PBX@Z")();
 void __identifier("?dup_002F0F7@INI@@SAXPAV1@PAX1PBX@Z")();
 void __identifier("?iniParseObjectFilter@@YAXPAVINI@@PAX1PBX@Z")();
@@ -428,7 +428,7 @@ extern const FieldParse g_00C5FEA0[] = {
     { "ConflictsWith", (FieldParseProc)&__identifier("?Rva0026F28BParse@@YAXPAVINI@@PAXPAI@Z"), 0, 128 },
     { "RequiresAllTriggers", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 268 },
     { "RequiresAllConflictingTriggers", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 269 },
-    { "CustomAnimAndDuration", (FieldParseProc)&__identifier("?Rva0044E6CD_ParseCustomAnimAndDuration@INI@@SAXPAV1@PAX1PBX@Z"), 0, 256 },
+    { "CustomAnimAndDuration", (FieldParseProc)&__identifier("?iniParseAnimAndDuration@INI@@SAXPAV1@PAX1PBX@Z"), 0, 256 },
     { "Permanent", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 270 },
     { 0, 0, 0, 0 }
 };

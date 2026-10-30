@@ -255,7 +255,7 @@ public:
 
 class Rva0039567CCmpBoolField { public: bool get() const; };
 
-class Rva00397F45 { public: bool rva00397F45(Player *player, int cmdSource); };
+class Rva00397F45 { public: bool isPlayerAllowedToPackOrUnpack(Player *player, int cmdSource); };
 
 class Rva0039718B { public: bool rva0039718B(Player *player); };
 
@@ -2061,7 +2061,7 @@ void Object::doCommandButton(const CommandButton *commandButton, int cmdSource, 
 		Module *castle = findModule(CastleBehavior::rva0003955DA());
 		if (castle && ((Rva0039567CCmpBoolField *)castle)->get())
 		{
-			if (((Rva00397F45 *)castle)->rva00397F45(getControllingPlayer(), cmdSource) == 1)
+			if (((Rva00397F45 *)castle)->isPlayerAllowedToPackOrUnpack(getControllingPlayer(), cmdSource) == 1)
 				((CastleBehavior *)castle)->initiatePack();
 		}
 		break;
@@ -2072,7 +2072,7 @@ void Object::doCommandButton(const CommandButton *commandButton, int cmdSource, 
 		Module *castle = findModule(CastleBehavior::rva0003955DA());
 		if (castle && ((Rva00395F57 *)castle)->canUnpack(true))
 		{
-			if (((Rva00397F45 *)castle)->rva00397F45(getControllingPlayer(), cmdSource)
+			if (((Rva00397F45 *)castle)->isPlayerAllowedToPackOrUnpack(getControllingPlayer(), cmdSource)
 				&& ((Rva0039718B *)castle)->rva0039718B(getControllingPlayer()))
 				((CastleBehavior *)castle)->initiateUnpack(false, 0);
 		}
@@ -2085,7 +2085,7 @@ void Object::doCommandButton(const CommandButton *commandButton, int cmdSource, 
 		Module *castle = findModule(CastleBehavior::rva0003955DA());
 		if (tt && castle && ((Rva00395F57 *)castle)->canUnpack(true))
 		{
-			if (((Rva00397F45 *)castle)->rva00397F45(getControllingPlayer(), cmdSource)
+			if (((Rva00397F45 *)castle)->isPlayerAllowedToPackOrUnpack(getControllingPlayer(), cmdSource)
 				&& ((Rva00395686 *)castle)->rva00395686(getControllingPlayer(), const_cast<ThingTemplate *>(tt)))
 				((CastleBehavior *)castle)->initiateUnpack(false, tt);
 		}

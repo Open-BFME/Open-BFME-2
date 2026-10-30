@@ -34,7 +34,7 @@ void __identifier("?Rva003393F7Parse@@YAXPAVINI@@PAX1PBX@Z")();
 void __identifier("?Rva00415B91Parse@@YAXPAVINI@@PAX1PBX@Z")();
 void __identifier("?Rva00464081ParseMask@@YAXPAVINI@@PAX1PBX@Z")();
 void __identifier("?Rva00468908Parse@@YAXPAVINI@@PAX1PBX@Z")();
-void __identifier("?Rva004B6481_ParseAnim@INI@@SAXPAV1@PAX1PBX@Z")();
+void __identifier("?iniParseAnim@INI@@SAXPAV1@PAX1PBX@Z")();
 void __identifier("?dup_002F0F7@INI@@SAXPAV1@PAX1PBX@Z")();
 void __identifier("?iniParseDefaultRule@RespawnUpdate@@SAXPAVINI@@PAX1PBX@Z")();
 void __identifier("?iniParseNewRuleForLevel@RespawnUpdate@@SAXPAVINI@@PAX1PBX@Z")();
@@ -548,7 +548,7 @@ extern const FieldParse s_animalAiFieldTable[8] = {
 // Retail VA 0x00bef580: 4 entries + terminator (80B).
 extern const FieldParse s_wanderAiFieldTable[5] = {
     { "WildBeast", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x64 },
-    { "ConditionForEntry", (FieldParseProc)&__identifier("?Rva004B6481_ParseAnim@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x68 },
+    { "ConditionForEntry", (FieldParseProc)&__identifier("?iniParseAnim@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x68 },
     { "Selectable", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x6C },
     { "WanderDistance", (FieldParseProc)&__identifier("?parseUnsignedInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x70 },
     { 0, 0, 0, 0 },
@@ -628,7 +628,7 @@ extern const FieldParse s_transportContainFieldTable[34] = {
     { "CanGrabStructure", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x13D },
     { "GrabWeapon", (FieldParseProc)&__identifier("?parseWeaponTemplate@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x144 },
     { "FireGrabWeaponOnVictim", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x148 },
-    { "ConditionForEntry", (FieldParseProc)&__identifier("?Rva004B6481_ParseAnim@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x14C },
+    { "ConditionForEntry", (FieldParseProc)&__identifier("?iniParseAnim@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x14C },
     { "ShouldThrowOutPassengers", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x150 },
     { "ThrowOutPassengersDelay", (FieldParseProc)&__identifier("?parseDurationUnsignedInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x154 },
     { "ThrowOutPassengersVelocity", (FieldParseProc)&__identifier("?parseCoord3D@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x158 },

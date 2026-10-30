@@ -156,7 +156,7 @@ public:
 	static void parseCoord3D(INI *ini, void *instance, void *store, const void *userData);
 	static void parseAngleReal(INI *ini, void *instance, void *store, const void *userData);
 	static void parseObjectCreationList(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva0044E6CD_ParseCustomAnimAndDuration(INI *ini, void *instance, void *store, const void *userData);
+	static void iniParseAnimAndDuration(INI *ini, void *instance, void *store, const void *userData);
 };
 
 // The rowed ExemptStatus parser 0x003B1327 (opaque owner class).
@@ -194,7 +194,7 @@ extern const FieldParse ObjectCreationUpgradeModuleDataFieldParse[12] =
 	{ "Offset",					&INI::parseCoord3D,				0, 0x12C },
 	{ "Angle",					&INI::parseAngleReal,			0, 0x138 },
 	{ "DestroyWhenSold",		&INI::parseBool,				0, 0x13C },
-	{ "DeathAnimAndDuration",	&INI::Rva0044E6CD_ParseCustomAnimAndDuration, 0, 0x140 },
+	{ "DeathAnimAndDuration",	&INI::iniParseAnimAndDuration, 0, 0x140 },
 	{ "FadeInTime",				&INI::parseUnsignedInt,			0, 0x14C },
 	{ "UseBuildingProduction",	&INI::parseBool,				0, 0x150 },
 	{ 0, 0, 0, 0 }

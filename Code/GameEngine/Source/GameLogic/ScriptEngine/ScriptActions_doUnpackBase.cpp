@@ -53,7 +53,7 @@ public:
 class Rva00397F45
 {
 public:
-	bool rva00397F45(Player *pl, int v);
+	bool isPlayerAllowedToPackOrUnpack(Player *pl, int v);
 };
 class Rva0039718B
 {
@@ -80,7 +80,7 @@ void ScriptActions::doUnpackBase(Parameter *parameter, const AsciiString *str, i
 		return;
 	if (!((Rva00395F57 *)mod)->canUnpack(true))
 		return;
-	if (!((Rva00397F45 *)mod)->rva00397F45(obj->getControllingPlayer(), 1))
+	if (!((Rva00397F45 *)mod)->isPlayerAllowedToPackOrUnpack(obj->getControllingPlayer(), 1))
 		return;
 	if ((unsigned char)flag == 0) {
 		if (!((Rva0039718B *)mod)->rva0039718B(obj->getControllingPlayer()))

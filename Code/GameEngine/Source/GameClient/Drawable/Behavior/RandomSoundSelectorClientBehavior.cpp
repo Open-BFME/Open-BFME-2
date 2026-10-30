@@ -166,13 +166,13 @@ public:
 public:
 	static void Rva004B2B64_ParseReplaceObject(INI *, void *, void *, const void *);
 public:
-	static void Rva004B6481_ParseAnim(INI *, void *, void *, const void *);
+	static void iniParseAnim(INI *, void *, void *, const void *);
 public:
 	static void parseDurationReal(INI *, void *, void *, const void *);
 public:
 	static void parseUpgradeTemplate(INI *, void *, void *, const void *);
 public:
-	static void Rva0044E6CD_ParseCustomAnimAndDuration(INI *, void *, void *, const void *);
+	static void iniParseAnimAndDuration(INI *, void *, void *, const void *);
 public:
 	static void dup_002F02F(INI *, void *, void *, const void *);
 public:

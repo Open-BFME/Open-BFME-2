@@ -78,10 +78,10 @@ public:
 	static void parseObjectCreationList(INI *, void *, void *, const void *);
 	static void parseAsciiStringVector(INI *, void *, void *, const void *);
 	static void Rva004B2B64_ParseReplaceObject(INI *, void *, void *, const void *);
-	static void Rva004B6481_ParseAnim(INI *, void *, void *, const void *);
+	static void iniParseAnim(INI *, void *, void *, const void *);
 	static void parseDurationReal(INI *, void *, void *, const void *);
 	static void parseUpgradeTemplate(INI *, void *, void *, const void *);
-	static void Rva0044E6CD_ParseCustomAnimAndDuration(INI *, void *, void *, const void *);
+	static void iniParseAnimAndDuration(INI *, void *, void *, const void *);
 	static void dup_002F02F(INI *, void *, void *, const void *);
 	static void parseBitString32(INI *, void *, void *, const void *);
 	static void parseIndexList(INI *, void *, void *, const void *);

@@ -41,7 +41,7 @@ class Rva00395F57
 class Rva00397F45 : public Rva00395F57
 {
  public:
- bool rva00397F45(Player *, int);
+ bool isPlayerAllowedToPackOrUnpack(Player *, int);
 };
 class Rva0039718B : public Rva00397F45
 {
@@ -116,7 +116,7 @@ bool ScriptConditions::evaluateNamedBaseUnpackableForPlayer(Parameter *baseParm,
  return false;
  const NameKeyType baseModuleKey = CastleBehavior::rva0003955DA();
  CastleBehavior *castle = (CastleBehavior *)base->findModule(baseModuleKey);
- if (castle && castle->canUnpack(true) && castle->rva00397F45(player, 1) && castle->rva0039718B(player))
+ if (castle && castle->canUnpack(true) && castle->isPlayerAllowedToPackOrUnpack(player, 1) && castle->rva0039718B(player))
  return true;
  CommandSet *commandSet = (CommandSet *)TheControlBar->rva0031D5F8(base->rva00290E67());
  if (commandSet) 
@@ -131,7 +131,7 @@ bool ScriptConditions::evaluateNamedBaseUnpackableForPlayer(Parameter *baseParm,
    
    {
     ThingTemplate *thing = (ThingTemplate *)button->rva0035B570();
-    if (thing && castle && castle->canUnpack(true) && castle->rva00397F45(player, 1) &&
+    if (thing && castle && castle->canUnpack(true) && castle->isPlayerAllowedToPackOrUnpack(player, 1) &&
     castle->rva00395686(player, thing))
     return true;
     

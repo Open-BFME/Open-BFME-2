@@ -37,7 +37,7 @@ class INI
 public:
 	char padding[0x420];
 	const char *separators;
-	static void Rva004B6481_ParseAnim(INI *, void *, void *, const void *);
+	static void iniParseAnim(INI *, void *, void *, const void *);
 	const char *getNextToken(const char *seps);
 	static void Rva004DC745_ParseAIState(INI *ini, void *instance, void *store, const void *userData);
 };
@@ -77,7 +77,7 @@ void INI::Rva004DC745_ParseAIState(INI *ini, void *instance, void *store, const 
 
 // Retail 0x004B6481..0x004B64E4 requires the ModelConditionState keyword
 // before resolving the following model-condition name.
-void INI::Rva004B6481_ParseAnim(INI *ini, void *, void *store, const void *)
+void INI::iniParseAnim(INI *ini, void *, void *store, const void *)
 {
     const char *token = ini->getNextToken(ini->separators);
     if (token && strcmp(token, "ModelConditionState") == 0) {

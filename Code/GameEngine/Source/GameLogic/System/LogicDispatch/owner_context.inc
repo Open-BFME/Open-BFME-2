@@ -144,7 +144,7 @@ struct LogicDispatchPlayerView { char pad[0x750]; int orderMode; };
 struct LogicDispatchGlobalDataView { char pad[0x11ca]; bool orderQueueEnabled; };
 class CastleBehavior { public: static NameKeyType rva0003955DA(); void initiatePack(); void initiateUnpack(bool,const ThingTemplate *); };
 class Rva0039567CCmpBoolField { public: bool get() const; };
-class Rva00397F45 { public: bool rva00397F45(Player *,int); };
+class Rva00397F45 { public: bool isPlayerAllowedToPackOrUnpack(Player *,int); };
 class Rva00395F57 { public: bool canUnpack(bool); };
 class Rva0039718B { public: bool rva0039718B(Player *); };
 class Rva00395686 { public: bool rva00395686(Player *,ThingTemplate *); };

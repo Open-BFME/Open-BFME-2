@@ -4258,3 +4258,6 @@ __ehhandler$?BuildDescriptionString@@YAXPAVUnicodeString@@PAVRva00220B04@@@Z,0x0
 ?Rva002A92F2Parse@@YAXPAVINI@@@Z,0x002A92F2,"Renamed to ?parseAIDozerAssignmentDefinition@@YAXPAVINI@@@Z by tools/rename.py (canonical:iniblock)"
 __ehhandler$?Rva002A92F2Parse@@YAXPAVINI@@@Z,0x0077587F,"Renamed to __ehhandler$?parseAIDozerAssignmentDefinition@@YAXPAVINI@@@Z by tools/rename.py (canonical:iniblock)"
 ?Rva00413D58Parse@@YAXPAVINI@@@Z,0x00413D58,"Renamed to ?parseAutoResolveReinforcementScheduleDefinition@@YAXPAVINI@@@Z by tools/rename.py (canonical:iniblock)"
+?rva00397F45@Rva00397F45@@QAE_NPAVPlayer@@H@Z,0x00397F45,"Renamed to ?isPlayerAllowedToPackOrUnpack@Rva00397F45@@QAE_NPAVPlayer@@H@Z by tools/rename.py (canonical:string)"
+?Rva004B6481_ParseAnim@INI@@SAXPAV1@PAX1PBX@Z,0x004B6481,"Renamed to ?iniParseAnim@INI@@SAXPAV1@PAX1PBX@Z by tools/rename.py (canonical:string)"
+?Rva0044E6CD_ParseCustomAnimAndDuration@INI@@SAXPAV1@PAX1PBX@Z,0x0044E6CD,"Renamed to ?iniParseAnimAndDuration@INI@@SAXPAV1@PAX1PBX@Z by tools/rename.py (canonical:string)"

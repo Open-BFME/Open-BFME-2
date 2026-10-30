@@ -254,7 +254,7 @@ class Rva0044E642AddImm32Field { public: Int get() const; };
 
 class Rva0039567CCmpBoolField { public: Bool get() const; };
 class Rva00395F57 { public: Bool canUnpack(Bool b); };
-class Rva00397F45 { public: Bool rva00397F45(Player *player, Int flag); };
+class Rva00397F45 { public: Bool isPlayerAllowedToPackOrUnpack(Player *player, Int flag); };
 class Rva0039718B { public: Bool rva0039718B(Player *player); };
 class Rva00395686 { public: Bool rva00395686(Player *player, ThingTemplate *tt); };
 class Rva00395A82 { public: Real rva00395A82(); };
@@ -715,7 +715,7 @@ CommandAvailability ControlBar::getCommandAvailability(const CommandButton *comm
 		{
 			Module *castleBehavior = obj->findModule(CastleBehavior::rva0003955DA());
 			if (castleBehavior && ((Rva0039567CCmpBoolField *)castleBehavior)->get()
-				&& ((Rva00397F45 *)castleBehavior)->rva00397F45(obj->getControllingPlayer(), 0))
+				&& ((Rva00397F45 *)castleBehavior)->isPlayerAllowedToPackOrUnpack(obj->getControllingPlayer(), 0))
 				return COMMAND_ACTIVE;
 			return COMMAND_HIDDEN;
 		}
@@ -724,7 +724,7 @@ CommandAvailability ControlBar::getCommandAvailability(const CommandButton *comm
 		{
 			Module *castleBehavior = obj->findModule(CastleBehavior::rva0003955DA());
 			if (castleBehavior && ((Rva00395F57 *)castleBehavior)->canUnpack(false)
-				&& ((Rva00397F45 *)castleBehavior)->rva00397F45(obj->getControllingPlayer(), 0))
+				&& ((Rva00397F45 *)castleBehavior)->isPlayerAllowedToPackOrUnpack(obj->getControllingPlayer(), 0))
 			{
 				if (!((Rva0039718B *)castleBehavior)->rva0039718B(obj->getControllingPlayer()))
 					return COMMAND_CANT_AFFORD;
@@ -741,7 +741,7 @@ CommandAvailability ControlBar::getCommandAvailability(const CommandButton *comm
 			const ThingTemplate *tt = command->rva0035B570();
 			Module *castleBehavior = obj->findModule(CastleBehavior::rva0003955DA());
 			if (tt && castleBehavior && ((Rva00395F57 *)castleBehavior)->canUnpack(false)
-				&& ((Rva00397F45 *)castleBehavior)->rva00397F45(obj->getControllingPlayer(), 0))
+				&& ((Rva00397F45 *)castleBehavior)->isPlayerAllowedToPackOrUnpack(obj->getControllingPlayer(), 0))
 			{
 				if (!((Rva00395686 *)castleBehavior)->rva00395686(obj->getControllingPlayer(), (ThingTemplate *)tt))
 					return COMMAND_CANT_AFFORD;

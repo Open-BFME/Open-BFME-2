@@ -1,6 +1,6 @@
 // cl: /Oy- /DNDEBUG /MD /EHsc
 //
-// ?Rva0044E6CD_ParseCustomAnimAndDuration@INI@@SAXPAV1@PAX1PBX@Z
+// ?iniParseAnimAndDuration@INI@@SAXPAV1@PAX1PBX@Z
 // retail 0x0044E6CD, 218 bytes: CustomAnimAndDuration field parser serving
 // the base upgrade table at 0x00C5FEA0 entry [4] (label "CustomAnimAndDuration"
 // at 0x00C3F4F0, offset 0x100, userData 0). Writes a 12-byte struct at store:
@@ -33,7 +33,7 @@ public:
 	const char *getNextToken(const char *seps);
 	const char *getNextTokenOrNull(const char *seps);
 	static void parseDurationUnsignedInt(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva0044E6CD_ParseCustomAnimAndDuration(INI *ini, void *instance, void *store, const void *userData);
+	static void iniParseAnimAndDuration(INI *ini, void *instance, void *store, const void *userData);
 
 private:
 	char _pad[0x420];
@@ -57,8 +57,8 @@ public:
 	static Int getSingleBitFromName(const char *token);
 };
 
-// ?Rva0044E6CD_ParseCustomAnimAndDuration@INI@@SAXPAV1@PAX1PBX@Z
-void INI::Rva0044E6CD_ParseCustomAnimAndDuration(INI *ini, void *instance, void *store, const void *userData)
+// ?iniParseAnimAndDuration@INI@@SAXPAV1@PAX1PBX@Z
+void INI::iniParseAnimAndDuration(INI *ini, void *instance, void *store, const void *userData)
 {
 	const char *token = ini->getNextToken(ini->m_sepsColon);
 
