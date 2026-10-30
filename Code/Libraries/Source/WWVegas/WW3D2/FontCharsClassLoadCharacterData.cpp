@@ -1,4 +1,5 @@
 // cl: /DNDEBUG /MD
+// platformsdk
 //
 // FontCharsClass::loadCharacterData, retail 0x00158580 (260 bytes).
 // Dedicated TU: the Thai-first glyph-ensure helper behind Get_Char_Spacing
@@ -20,14 +21,10 @@
 
 struct FontCharsClassCharDataStruct;
 
-struct HDC__;
-typedef struct HDC__ *HDC;
-struct HGDIOBJ__;
-typedef struct HGDIOBJ__ *HGDIOBJ;
-typedef HGDIOBJ HFONT;
-
-extern "C" __declspec(dllimport) HGDIOBJ __stdcall SelectObject(HDC hdc, HGDIOBJ obj);
-extern "C" __declspec(dllimport) int __stdcall GetGlyphIndicesW(HDC hdc, const unsigned short *str, int count, unsigned short *indices, int flags);
+#define WIN32_LEAN_AND_MEAN
+#define NOMINMAX
+#define _WIN32_WINNT 0x0500
+#include <windows.h>
 
 // Cached screen-DC provider: retail reads the HDC from +0x10 of the
 // structure at 0x00DF6F24 (same model as the banked Create_GDI_Font unit;

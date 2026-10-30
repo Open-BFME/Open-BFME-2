@@ -1,10 +1,15 @@
-// cl: /Ireference/shims/sweep /O2 /G7 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /O2 /G7 /DNDEBUG /MD /EHsc /arch:SSE
 // stlport
+// platformsdk
 // FontCharsClass::loadCharBitmap: rasterizes one glyph through the shared GDI DIB in 64x64 tiles and
 // box-filters it by Scale into 4-bit alpha (ZH Store_GDI_Char semantics, Thai sibling 0x00157FF0 shape).
 // Tile, origin and cell coordinates are POINT/SIZE pairs; a missing glyph caches the -1 sentinel.
+#define WIN32_LEAN_AND_MEAN
+#define NOMINMAX
+// Preserve the existing opaque-handle ABI of FontGlyphDCSelection.
+#define NO_STRICT
+#define _WIN32_WINNT 0x0500
 #include <windows.h>
-extern "C" __declspec(dllimport) DWORD WINAPI GetGlyphIndicesW(HDC,LPCWSTR,int,LPWORD,DWORD);
 #include <map>
 #include <string.h>
 

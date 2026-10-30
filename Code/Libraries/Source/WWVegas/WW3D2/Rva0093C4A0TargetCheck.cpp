@@ -9,10 +9,8 @@ extern class FontCharsClassGdiState *g_fontCharsGdiState;
 
 // The existing font-state view stores opaque Win32 handles.
 #define NO_STRICT
+#define _WIN32_WINNT 0x0500
 #include <windows.h>
-
-extern "C" __declspec(dllimport) DWORD WINAPI GetGlyphIndicesW(
-	HDC dc, LPCWSTR text, int count, LPWORD glyphs, DWORD flags);
 
 struct FontCharsGDIState
 {
