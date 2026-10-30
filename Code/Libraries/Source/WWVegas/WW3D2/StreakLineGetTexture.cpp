@@ -1,4 +1,4 @@
-// cl: /O2 /G7 /arch:SSE /EHsc /MD /DNDEBUG
+// cl: /arch:SSE /G7 /EHsc /MD /DNDEBUG
 // Donor: Open-BFME-1 a7c38d3b2597121f178ab5190b3062478823257d
 // game/Libraries/Source/WWVegas/WW3D2/streak.cpp and the ZH streak.cpp.
 // StreakLineClass::Get_Texture forwards to its line renderer.
@@ -30,5 +30,5 @@ public:
  ParticleBufferClass::TextureHandleClass Get_Texture();
 };
 ParticleBufferClass::TextureHandleClass StreakLineClass::Get_Texture() {
- return LineRenderer.Get_Texture();
+ return ((BFMELineRendererTexture *)&LineRenderer)->Get_Texture();
 }

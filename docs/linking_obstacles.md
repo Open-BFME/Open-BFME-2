@@ -5791,6 +5791,16 @@ this scope into the next census; no linking gain is claimed.
 
 **Status: Open. Updated: 2026-10-26; inspected revision: 377ffd1724.**
 
+- **StreakLine getter prerequisite (2026-10-30, input `1b0276b877`):**
+  The getter's redundant /O2 flag is normalized through flag_defaults, and
+  the seed's TU-local declaration now uses its verified owning-handle return
+  type. All 67 affected rows and three EXACT EH graphs are preserved, as are
+  every external COMDAT digest, symbol fact and relocation graph. These clear
+  the getter's compiler/declaration prerequisites; composition still needs
+  the supported merge and its provider/consumer checks. The destructor's
+  template specialization contract remains open. No census gain is claimed.
+  [Evidence and remaining scope](../reverse/attempt_support/streak-texture-consolidation-20261030-codex.md).
+
 - **StreakLine setter composition (2026-10-28, input `9e87a05faf`):**
   Identical Shrink specialization spelling clears the SetPoints donor's
   duplicate-definition blocker. The supported merge removes one source file,
