@@ -14,6 +14,14 @@ AsciiString Rva000BDD6CReplace(const AsciiString &source, const AsciiString &fin
 AsciiString Rva000B992CBuild(const AsciiString &a1, const AsciiString &a2, int dummy, bool flag, int num);
 #include "../../../../../../Libraries/Source/WWVegas/WW3D2/AnimationAssetBFME2.h"
 #include <string.h>
+struct BfmeVectorRecord000BDF17 {
+ _STL::vector<AsciiString>names;AsciiString text0,text1;
+ float word14,word18;int word1C;float word20,word24,word28;
+ bool flag2C,flag2D;int word30;float word34,word38;bool flag3C;
+ BfmeVectorRecord000BDF17(const AsciiString&,float);
+ BfmeVectorRecord000BDF17(const BfmeVectorRecord000BDF17&);
+ ~BfmeVectorRecord000BDF17();
+};
 
 typedef int Int;
 
@@ -200,8 +208,6 @@ namespace _STL {
 template <> const unsigned int &max<unsigned int>(const unsigned int &, const unsigned int &);
 }
 
-class INI;
-
 typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
 
 struct FieldParse
@@ -377,6 +383,7 @@ struct ScriptedModelConditionInfo
 };
 
 struct WeightedModel;
+
 class W3DScriptedModelDrawModuleData
 {
 public:
@@ -387,6 +394,60 @@ public:
 	char m_pad24[0x28];
 	int m_defaultState; // +0x4C +0x4C
 };
+
+extern "C"
+{
+void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
+}
+
+typedef void(*INIFieldParseProc)(INI*,void*,void*,const void*);
+
+extern const FieldParse animationRecordFields[];
+
+struct Rva000C838FOwner{char prefix[0x50];_STL::vector<BfmeVectorRecord000BDF17>animations;};
+
+namespace _STL{template<>void vector<BfmeVectorRecord000BDF17>::push_back(const BfmeVectorRecord000BDF17&);}
+
+extern const char g_animationModeManual[]="MANUAL";
+
+extern const char g_animationModeLoop[]="LOOP";
+
+extern const char g_animationModeOnce[]="ONCE";
+
+extern const char g_animationModeLoopPingPong[]="LOOP_PINGPONG";
+
+extern const char g_animationModePlayToFrame[]="PLAY_TO_FRAME";
+
+extern const char g_animationModeLoopBackwards[]="LOOP_BACKWARDS";
+
+extern const char g_animationModeOnceBackwards[]="ONCE_BACKWARDS";
+
+const char*animationModeNames[]={g_animationModeManual,g_animationModeLoop,g_animationModeOnce,g_animationModeLoopPingPong,g_animationModePlayToFrame,g_animationModeLoopBackwards,g_animationModeOnceBackwards,0};
+
+extern const char g_animationNameField[]="AnimationName";
+
+extern const char g_animationModeField[]="AnimationMode";
+
+extern const char g_animationDistanceField[]="Distance";
+
+extern const char g_animationBlendTimeField[]="AnimationBlendTime";
+
+extern const char g_animationMustCompleteBlendField[]="AnimationMustCompleteBlend";
+
+extern const char g_animationSpeedFactorRangeField[]="AnimationSpeedFactorRange";
+
+extern const char g_useWeaponTimingField[]="UseWeaponTiming";
+
+extern const char g_animationPriorityField[]="AnimationPriority";
+
+extern const char g_fadeBeginFrameField[]="FadeBeginFrame";
+
+extern const char g_fadeEndFrameField[]="FadeEndFrame";
+
+extern const char g_fadingInField[]="FadingIn";
+
+extern const FieldParse animationRecordFields[]={{g_animationNameField,INI::parseAsciiStringVector,0,0},{g_animationModeField,INI::parseIndexList,animationModeNames,28},{g_animationDistanceField,INI::parseReal,0,20},{g_animationBlendTimeField,INI::parseReal,0,32},{g_animationMustCompleteBlendField,INI::parseBool,0,44},{g_animationSpeedFactorRangeField,ModelConditionInfo::parseRealRange,0,0},{g_useWeaponTimingField,INI::parseBool,0,45},{g_animationPriorityField,INI::parseInt,0,48},{g_fadeBeginFrameField,INI::parseReal,0,52},{g_fadeEndFrameField,INI::parseReal,0,56},{g_fadingInField,INI::parseBool,0,60},{0,0,0,0}};
 
 // tu-skeleton: 0x00761697 8B $L2438 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawEventUpdate.cpp (not merged yet)
 
@@ -405,6 +466,8 @@ public:
 // tu-skeleton: 0x007617D3 8B Unwind@00b617d3 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawEventUpdate.cpp (not merged yet)
 
 // tu-skeleton: 0x007617DB 10B __ehhandler$?rva000BD6C2@W3DScriptedModelDraw@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawEventUpdate.cpp (not merged yet)
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDraw.cpp
 
 // ---- from Code/GameEngine/Source/Common/Rva000BE775WeaponBarrels.cpp
 
@@ -553,12 +616,6 @@ void Rva000C3886Obj::rva000BE775(Rva000C3886 *src)
 	m_validStuff |= BARRELS_VALID;
 }
 
-// tu-skeleton: 0x007618DD 8B Unwind@00b618dd -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawAnimationFrameCount.cpp (not merged yet)
-
-// tu-skeleton: 0x007618E5 8B Unwind@00b618e5 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawAnimationFrameCount.cpp (not merged yet)
-
-// tu-skeleton: 0x007618ED 10B __ehhandler$?adjustAnimation@Rva000B8F5AOuter@@QAEXPAXM_N11@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawAnimationFrameCount.cpp (not merged yet)
-
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Rva000BF7E8FindAnimTree.cpp
 
 //
@@ -602,6 +659,72 @@ HTreeClass *Rva000BF7E8FindAnimTree(const AsciiString &pattern, const AsciiStrin
 	}
 	return tree;
 }
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawParseConditionState.cpp
+
+//
+// ?parseConditionState@W3DScriptedModelDrawModuleData@@SAXPAVINI@@PAX1PBX@Z,
+// retail 0x000C8914..0x000C8B83 (623 bytes, EH). WorldBuilder names it
+// W3DScriptedModelDrawModuleData::parseConditionState; Zero Hour's
+// W3DModelDrawModuleData::parseConditionState (W3DModelDraw.cpp) is the
+// semantic donor, reduced in BFME 2 to its normal (0) and default (1)
+// forms. Each form validates against the module data's 0xFC-byte state
+// records (vector at +0x18) and default index (+0x4C) and throws Zero
+// Hour's asset errors as INIException(3, ...); then the state's fields are
+// read through the condition-state field table (retail 0x00BCAB20), its
+// model list (+0x4C of the record) is required and dropped when it names
+// "None", the condition bits (0x4C bytes, parsed by the rowed 0x000B937E
+// and compared by 0x00045473) are copied in and the record is appended.
+// The record's rowed constructor 0x000C47F4, assignment 0x000C27B0 and
+// destructor 0x000C2980 carry address-derived names, so a stack view
+// binds them. The table and record names are descriptive.
+
+void W3DScriptedModelDrawModuleData::parseConditionState(INI *ini, void *instance, void *store, const void *userData)
+{
+	ScriptedModelConditionInfo info;
+	ScriptedModelConditionFlags conditions;
+	memset(&conditions, 0, sizeof(conditions));
+	W3DScriptedModelDrawModuleData *self = (W3DScriptedModelDrawModuleData *)instance;
+	switch ((unsigned int)userData)
+	{
+	case 0:
+		if (self->m_defaultState >= 0)
+			info = self->m_conditionStates[self->m_defaultState];
+		conditions.parse(ini);
+		if (self->m_defaultState < 0 && self->m_conditionStates.empty() && conditions.any())
+			throw INIException(3, "*** ASSET ERROR: when not using DefaultConditionState, the first ConditionState must be for NONE (%s)", "");
+		if (!conditions.any() && self->m_defaultState >= 0)
+			throw INIException(3, "*** ASSET ERROR: you may not specify both a Default state and a Conditions=None state");
+		for (_STL::vector<BfmePod252>::iterator it = self->m_conditionStates.begin(); it != self->m_conditionStates.end(); ++it)
+		{
+			if (Rva00045473Equal(&conditions, &*it))
+				throw INIException(3, "*** ASSET ERROR: duplicate condition states are not currently allowed (%s)", "");
+		}
+		break;
+	case 1:
+		if (self->m_defaultState >= 0)
+			throw INIException(3, "*** ASSET ERROR: you may have only one default state!");
+		if (ini->getNextTokenOrNull(0))
+			throw INIException(3, "*** ASSET ERROR: unknown keyword");
+		if (!self->m_conditionStates.empty())
+			throw INIException(3, "*** ASSET ERROR: when using DefaultConditionState, it must be the first state listed (%s)\n", "");
+		self->m_defaultState = self->m_conditionStates.size();
+		break;
+	}
+	ini->initFromINI(&info, TheScriptedModelConditionStateFieldParse);
+	if (info.models().size() == 0)
+		throw INIException(3, "*** ASSET ERROR: you must specify a model name");
+	if (info.models()[0].isNone())
+		info.models().erase(info.models().begin(), info.models().end());
+	info.m_flags = conditions;
+	self->m_conditionStates.push_back(*(const BfmePod252 *)&info);
+}
+
+// tu-skeleton: 0x007618DD 8B Unwind@00b618dd -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawAnimationFrameCount.cpp (not merged yet)
+
+// tu-skeleton: 0x007618E5 8B Unwind@00b618e5 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawAnimationFrameCount.cpp (not merged yet)
+
+// tu-skeleton: 0x007618ED 10B __ehhandler$?adjustAnimation@Rva000B8F5AOuter@@QAEXPAXM_N11@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawAnimationFrameCount.cpp (not merged yet)
 
 // tu-skeleton: 0x00761B89 8B Unwind@00b61b89 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawAnimationFrameCount.cpp (not merged yet)
 
@@ -689,13 +812,30 @@ HTreeClass *Rva000BF7E8FindAnimTree(const AsciiString &pattern, const AsciiStrin
 
 // tu-skeleton: 0x00761EBC 10B __ehhandler$?xfer@W3DScriptedModelDraw@@MAEXPAVXfer@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawXfer.cpp (not merged yet)
 
-// tu-skeleton: 0x00761FE6 8B Unwind@00b61fe6 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DAnimationRecordParse.cpp (not merged yet)
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DAnimationRecordParse.cpp
 
-// tu-skeleton: 0x00761FEE 8B Unwind@00b61fee -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DAnimationRecordParse.cpp (not merged yet)
+// Native fullC838F..C8492 CDECL animation-record parser and tableBCA560.
+// ZH W3DModelDraw::parseAnimation supplies the semantic lead; BFME2 uses
+// nested eleven-field INI parsing and a64B record (existing copy/dtor/ctor).
+// Exact field tokens, offsets and callback pointers establish animation
+// behavior; retained Bfme neutral record identity and original meanings
+// only where table tokens prove them. All enum/token data explicitly owned.
+// Native unused76B zeroed stack area retained without a class identity claim.
+// size()!=0 gives native masked byte distance; barriers keep both separate
+// front-pointer loads across the string calls instead of adding ESI save.
 
-// tu-skeleton: 0x00761FF6 8B Unwind@00b61ff6 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DAnimationRecordParse.cpp (not merged yet)
-
-// tu-skeleton: 0x00761FFE 10B __ehhandler$?Rva000C838FParse@@YAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DAnimationRecordParse.cpp (not merged yet)
+void Rva000C838FParse(INI*ini,void*instance,void*store,const void*userData){
+ AsciiString token=ini->getNextAsciiString();
+ AsciiString original(token);((StringBase<char> &)token).toLower();
+ BfmeVectorRecord000BDF17 record(token,0.0f);record.text1=original;
+ unsigned char scratch[76];memset(scratch,0,sizeof scratch);
+ if((unsigned)userData==1)record.word1C=2;
+ ini->initFromINI(&record,animationRecordFields);
+ if(record.word30<0)record.word30=0;
+ if(record.word30>100)record.word30=100;
+ if(record.names.size()!=0&&(_ReadWriteBarrier(),!record.names.front().isEmpty())&&(_ReadWriteBarrier(),!record.names.front().isNone()))
+  ((Rva000C838FOwner*)instance)->animations.push_back(record);
+}
 
 // tu-skeleton: 0x00762008 10B uw_00762008 -- matched in Code/GameEngine/Source/Common/Containers/Rva000C781ERecordGrowth.cpp (not merged yet)
 
@@ -708,63 +848,3 @@ HTreeClass *Rva000BF7E8FindAnimTree(const AsciiString &pattern, const AsciiStrin
 // tu-skeleton: 0x0076202C 10B __ehhandler$?Rva000C855CParseRecord@@YAXPAVINI@@PAVRva000C8492RecordOwner@@@Z -- matched in Code/GameEngine/Source/Common/Containers/Rva000C781ERecordGrowth.cpp (not merged yet)
 
 // tu-skeleton: 0x0076204B 11B uw_0076204b -- matched in Code/gen_small/uw_gen_000.cpp (not merged yet)
-
-// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawParseConditionState.cpp
-
-//
-// ?parseConditionState@W3DScriptedModelDrawModuleData@@SAXPAVINI@@PAX1PBX@Z,
-// retail 0x000C8914..0x000C8B83 (623 bytes, EH). WorldBuilder names it
-// W3DScriptedModelDrawModuleData::parseConditionState; Zero Hour's
-// W3DModelDrawModuleData::parseConditionState (W3DModelDraw.cpp) is the
-// semantic donor, reduced in BFME 2 to its normal (0) and default (1)
-// forms. Each form validates against the module data's 0xFC-byte state
-// records (vector at +0x18) and default index (+0x4C) and throws Zero
-// Hour's asset errors as INIException(3, ...); then the state's fields are
-// read through the condition-state field table (retail 0x00BCAB20), its
-// model list (+0x4C of the record) is required and dropped when it names
-// "None", the condition bits (0x4C bytes, parsed by the rowed 0x000B937E
-// and compared by 0x00045473) are copied in and the record is appended.
-// The record's rowed constructor 0x000C47F4, assignment 0x000C27B0 and
-// destructor 0x000C2980 carry address-derived names, so a stack view
-// binds them. The table and record names are descriptive.
-
-void W3DScriptedModelDrawModuleData::parseConditionState(INI *ini, void *instance, void *store, const void *userData)
-{
-	ScriptedModelConditionInfo info;
-	ScriptedModelConditionFlags conditions;
-	memset(&conditions, 0, sizeof(conditions));
-	W3DScriptedModelDrawModuleData *self = (W3DScriptedModelDrawModuleData *)instance;
-	switch ((unsigned int)userData)
-	{
-	case 0:
-		if (self->m_defaultState >= 0)
-			info = self->m_conditionStates[self->m_defaultState];
-		conditions.parse(ini);
-		if (self->m_defaultState < 0 && self->m_conditionStates.empty() && conditions.any())
-			throw INIException(3, "*** ASSET ERROR: when not using DefaultConditionState, the first ConditionState must be for NONE (%s)", "");
-		if (!conditions.any() && self->m_defaultState >= 0)
-			throw INIException(3, "*** ASSET ERROR: you may not specify both a Default state and a Conditions=None state");
-		for (_STL::vector<BfmePod252>::iterator it = self->m_conditionStates.begin(); it != self->m_conditionStates.end(); ++it)
-		{
-			if (Rva00045473Equal(&conditions, &*it))
-				throw INIException(3, "*** ASSET ERROR: duplicate condition states are not currently allowed (%s)", "");
-		}
-		break;
-	case 1:
-		if (self->m_defaultState >= 0)
-			throw INIException(3, "*** ASSET ERROR: you may have only one default state!");
-		if (ini->getNextTokenOrNull(0))
-			throw INIException(3, "*** ASSET ERROR: unknown keyword");
-		if (!self->m_conditionStates.empty())
-			throw INIException(3, "*** ASSET ERROR: when using DefaultConditionState, it must be the first state listed (%s)\n", "");
-		self->m_defaultState = self->m_conditionStates.size();
-		break;
-	}
-	ini->initFromINI(&info, TheScriptedModelConditionStateFieldParse);
-	if (info.models().size() == 0)
-		throw INIException(3, "*** ASSET ERROR: you must specify a model name");
-	if (info.models()[0].isNone())
-		info.models().erase(info.models().begin(), info.models().end());
-	info.m_flags = conditions;
-	self->m_conditionStates.push_back(*(const BfmePod252 *)&info);
-}
