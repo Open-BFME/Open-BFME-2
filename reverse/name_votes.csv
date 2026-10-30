@@ -16360,3 +16360,17 @@ Code/Libraries/Source/Apt/Rva006E3810FrontEnqueue.cpp|function|0x006E3810|rva006
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/Rva00082D6AInit.cpp|function|0x00082D2A|rva00082D2A,d384b657d3bcd11b13c4c55b,drz-k2,drz-k2-187,w-ded32b2e2c5e,2026-10-30
 Code/GameEngine/Source/Common/Rva0060147B.cpp|param|Rva0060147BValue|v,3fc42b016d5cbda063c3a7e8,drz-k2,drz-k2-196,w-ded32b2e2c5e,2026-10-30
 Code/GameEngine/Source/Common/Rva0060147B.cpp|param|insert|v,8e14d5b2b94b0b192631eb8e,drz-k2,drz-k2-196,w-ded32b2e2c5e,2026-10-30
+Code/Libraries/Source/Apt/Rva00700170Pop.cpp|local|AptBasePtrStack::rva00700170|s,1fc33d25139cf0ff0e2cf1c3,drz-k4,drz-k4-161,w-855a0f400af4,2026-10-30
+Code/Libraries/Source/Apt/Rva00700170Pop.cpp|local|AptBasePtrStack::rva00700170|n8,f1685b5ce6e621059ca57117,drz-k4,drz-k4-161,w-855a0f400af4,2026-10-30
+Code/GameEngine/Source/GameLogic/System/GameLogic_CallPlayerGiveMoney.cpp|param|GameLogic::CallPlayerGiveMoney|a1,b68a4041ca1c10baf2f0e999,drz-k4,drz-k4-165,w-855a0f400af4,2026-10-30
+Code/GameEngine/Source/GameLogic/System/GameLogic_CallPlayerGiveMoney.cpp|param|GameLogic::CallPlayerGiveMoney|a2,053e2dad561a607b5a547bb0,drz-k4,drz-k4-165,w-855a0f400af4,2026-10-30
+Code/GameEngine/Source/GameLogic/System/GameLogic_CallPlayerGiveMoney.cpp|param|GameLogic::CallPlayerGiveMoney|a3,39f485936d2538b0b5c7c239,drz-k4,drz-k4-165,w-855a0f400af4,2026-10-30
+Code/GameEngine/Source/GameLogic/System/GameLogic_CallPlayerGiveMoney.cpp|local|GameLogic::CallPlayerGiveMoney|p1,10fd81bac9d7b7343b0a71ab,drz-k4,drz-k4-165,w-855a0f400af4,2026-10-30
+Code/GameEngine/Source/GameLogic/System/GameLogic_CallPlayerGiveMoney.cpp|local|GameLogic::CallPlayerGiveMoney|m1,51ec0fc3a63ef32019b62807,drz-k4,drz-k4-165,w-855a0f400af4,2026-10-30
+Code/GameEngine/Source/GameLogic/System/GameLogic_CallPlayerGiveMoney.cpp|local|GameLogic::CallPlayerGiveMoney|t1,4cd6a2f6266e87604dd00aa1,drz-k4,drz-k4-165,w-855a0f400af4,2026-10-30
+Code/GameEngine/Source/GameLogic/System/GameLogic_CallPlayerGiveMoney.cpp|local|GameLogic::CallPlayerGiveMoney|t2,0b0d6acc3345b74d370e70c4,drz-k4,drz-k4-165,w-855a0f400af4,2026-10-30
+Code/GameEngine/Source/GameLogic/System/GameLogic_CallPlayerGiveMoney.cpp|local|GameLogic::CallPlayerGiveMoney|m2,2470f0ed3a1c2a53c997644c,drz-k4,drz-k4-165,w-855a0f400af4,2026-10-30
+Code/GameEngine/Source/GameLogic/Pathfinder/Rva002ECE6AInfoCtor.cpp|param|Rva002ECE6AInfo::Rva002ECE6AInfo|a,43f9bf0d9f27686663f872f2,drz-k4,drz-k4-166,w-855a0f400af4,2026-10-30
+Code/GameEngine/Source/GameLogic/Pathfinder/Rva002ECE6AInfoCtor.cpp|param|Rva002ECE6AInfo::Rva002ECE6AInfo|c,c202a26223f8aa215008ef1a,drz-k4,drz-k4-166,w-855a0f400af4,2026-10-30
+Code/GameEngine/Source/GameClient/Rva002706A8.cpp|local|Rva002706A8::rva002706A8|h,5386093b03bdc3a28e7e0bc0,drz-k4,drz-k4-168,w-855a0f400af4,2026-10-30
+Code/GameEngine/Source/GameClient/Rva002706A8.cpp|local|Rva002706A8::rva002706A8|e,480e07db358588fcea4b7521,drz-k4,drz-k4-168,w-855a0f400af4,2026-10-30
