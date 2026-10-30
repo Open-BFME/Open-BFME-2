@@ -364,6 +364,35 @@ def test_decisions_the_current_map_no_longer_supports_are_not_served(tmp_path, m
     assert tu_skeleton.split_rows("Code/M.cpp", "Code/T.cpp")[0] == "no row of that file is approved for that TU"
 
 
+def test_the_picker_and_split_agree_on_a_tu_file_holding_a_row_the_map_places_nowhere(monkeypatch):
+    """split_rows -- --split's precondition, and the picker's test that a served split is
+    still alive -- judges only the donor's rows; the destination TU file's own rows are
+    judged by split()'s guard, placed_elsewhere. A TU file holding a row the map places
+    nowhere (W3DView.cpp's displaced header-inline COMDAT) blocks neither, so the picker
+    serves the split split() then accepts; a row the map gives another TU blocks only
+    split(), which says to split that TU file first."""
+    import tu_skeleton
+
+    def led(name, rva, source):
+        return {"name": name, "target_rva": rva, "source": source, "status": "matched", "notes": ""}
+
+    def at(rva, tu):
+        return {"rva": rva, "kind": "code", "tu": tu, "confidence": "approved"}
+
+    ledger = [led("?m1@@YAXXZ", "0x10", "Code/M.cpp"), led("?m2@@YAXXZ", "0x20", "Code/M.cpp"),
+              led("?t@@YAXXZ", "0x40", "Code/T.cpp"), led("?inline@@YAXXZ", "0x50", "Code/T.cpp")]
+    tree = SimpleNamespace(refusals=lambda f, rows: [])
+    rows = [at("0x10", "Code/T.cpp"), at("0x20", "Code/U.cpp"), at("0x40", "Code/T.cpp")]   # 0x50: nowhere
+    monkeypatch.setattr(tu_skeleton, "_CACHE", {"ledger": ledger, "map": rows, "stale": ["x"], "tree": tree})
+    assert tu_skeleton.split_rows("Code/M.cpp", "Code/T.cpp")[0] is None
+    own = [r for r in ledger if r["source"] == "Code/T.cpp"]
+    assigned = {int(r["rva"], 16): r["tu"].lower() for r in rows}
+    assert tu_skeleton.placed_elsewhere("Code/T.cpp", own, assigned) == {}
+    assigned[0x50] = "code/v.cpp"                     # now another TU's row
+    assert tu_skeleton.placed_elsewhere("Code/T.cpp", own, assigned) == {"v.cpp": 1}
+    assert tu_skeleton.split_rows("Code/M.cpp", "Code/T.cpp")[0] is None
+
+
 def test_a_split_of_the_tu_file_itself_is_served_for_the_tus_its_rows_are_approved_for(tmp_path, monkeypatch):
     """merge_all's "TU path exists" split names the TU file as both file and TU. `--split T --for T`
     is refused (none of the work is T's own), so the picker serves the split for each TU the
