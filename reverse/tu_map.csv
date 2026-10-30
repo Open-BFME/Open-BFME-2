@@ -59013,9 +59013,9 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x006F1F30,25,code,,,-,,Code/GameEngine/Source/Common/R2GuardedOwnedRelease.cpp
 0x006F1F50,52,code,,,-,,Code/GameEngine/Source/Common/Rva006F1F50Cluster.cpp
 0x006F1F90,52,code,,,-,,Code/GameEngine/Source/Common/Rva006F1F90Cluster.cpp
-0x006F1FD0,172,code,Code/Libraries/Source/Apt/AptXml.cpp,approved,N,N=Code/Libraries/Source/Apt/AptXml.cpp provisional,Code/Libraries/Source/Apt/AptXmlLookup.cpp
-0x006F2080,172,code,Code/Libraries/Source/Apt/AptXml.cpp,approved,N,N=Code/Libraries/Source/Apt/AptXml.cpp provisional,Code/Libraries/Source/Apt/AptXmlLookup.cpp
-0x006F2130,940,code,Code/Libraries/Source/Apt/AptXml.cpp,approved,N,N=Code/Libraries/Source/Apt/AptXml.cpp W=Code/Libraries/Source/Apt/AptObject/AptXml.cpp provisional,Code/Libraries/Source/Apt/AptXmlLookup.cpp
+0x006F1FD0,172,code,Code/Libraries/Source/Apt/AptXml.cpp,approved,N,N=Code/Libraries/Source/Apt/AptXml.cpp provisional,Code/Libraries/Source/Apt/AptXml.cpp
+0x006F2080,172,code,Code/Libraries/Source/Apt/AptXml.cpp,approved,N,N=Code/Libraries/Source/Apt/AptXml.cpp provisional,Code/Libraries/Source/Apt/AptXml.cpp
+0x006F2130,940,code,Code/Libraries/Source/Apt/AptXml.cpp,approved,N,N=Code/Libraries/Source/Apt/AptXml.cpp W=Code/Libraries/Source/Apt/AptObject/AptXml.cpp provisional,Code/Libraries/Source/Apt/AptXml.cpp
 0x006F24E0,229,code,Code/Libraries/Source/Apt/AptObject/AptScriptColour.cpp,approved,F,F=Code/Libraries/Source/Apt/AptObject/AptScriptColour.cpp N=Code/Libraries/Source/Apt/AptObject/AptScriptColour.cpp,Code/Libraries/Source/Apt/AptObject/AptFactoryConstructors.cpp
 0x006F25D0,11,code,Code/Libraries/Source/Apt/AptObject/AptScriptColour.cpp,approved,C,C=0x006F24E0..0x006F25E0,Code/GameEngine/Source/Common/Rva006D6470Derived.cpp
 0x006F25E0,89,code,Code/Libraries/Source/Apt/AptObject/AptScriptColour.cpp,approved,C,C=0x006F24E0..0x006F2640,Code/GameEngine/Source/Common/BfmeConv1082.cpp
@@ -92013,13 +92013,13 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007A9BDA,10,code,,,-,,Code/Libraries/Source/Apt/AptObject/Rva006F1360XmlLookup.cpp
 0x007A9BF0,8,code,Code/Libraries/Source/Apt/AptObject/AptXml.cpp,approved,P,P=0x006F1E70@FuncInfo0x0096348C,Code/Libraries/Source/Apt/AptObject/AptXml.cpp
 0x007A9BF8,10,code,Code/Libraries/Source/Apt/AptObject/AptXml.cpp,approved,P,P=0x006F1E70@FuncInfo0x0096348C,Code/Libraries/Source/Apt/AptObject/AptXml.cpp
-0x007A9C10,8,code,,,-,,Code/Libraries/Source/Apt/AptXmlLookup.cpp
-0x007A9C18,10,code,,,-,,Code/Libraries/Source/Apt/AptXmlLookup.cpp
-0x007A9C30,15,code,Code/Libraries/Source/Apt/AptXml.cpp,approved,P,P=0x006F2130@FuncInfo0x009634EC provisional,Code/Libraries/Source/Apt/AptXmlLookup.cpp
-0x007A9C3F,15,code,Code/Libraries/Source/Apt/AptXml.cpp,approved,P,P=0x006F2130@FuncInfo0x009634EC provisional,Code/Libraries/Source/Apt/AptXmlLookup.cpp
-0x007A9C4E,15,code,Code/Libraries/Source/Apt/AptXml.cpp,approved,P,P=0x006F2130@FuncInfo0x009634EC provisional,Code/Libraries/Source/Apt/AptXmlLookup.cpp
-0x007A9C5D,15,code,Code/Libraries/Source/Apt/AptXml.cpp,approved,P,P=0x006F2130@FuncInfo0x009634EC provisional,Code/Libraries/Source/Apt/AptXmlLookup.cpp
-0x007A9C6C,10,code,Code/Libraries/Source/Apt/AptXml.cpp,approved,P,P=0x006F2130@FuncInfo0x009634EC provisional,Code/Libraries/Source/Apt/AptXmlLookup.cpp
+0x007A9C10,8,code,,,-,,Code/Libraries/Source/Apt/AptXml.cpp
+0x007A9C18,10,code,,,-,,Code/Libraries/Source/Apt/AptXml.cpp
+0x007A9C30,15,code,Code/Libraries/Source/Apt/AptXml.cpp,approved,P,P=0x006F2130@FuncInfo0x009634EC provisional,Code/Libraries/Source/Apt/AptXml.cpp
+0x007A9C3F,15,code,Code/Libraries/Source/Apt/AptXml.cpp,approved,P,P=0x006F2130@FuncInfo0x009634EC provisional,Code/Libraries/Source/Apt/AptXml.cpp
+0x007A9C4E,15,code,Code/Libraries/Source/Apt/AptXml.cpp,approved,P,P=0x006F2130@FuncInfo0x009634EC provisional,Code/Libraries/Source/Apt/AptXml.cpp
+0x007A9C5D,15,code,Code/Libraries/Source/Apt/AptXml.cpp,approved,P,P=0x006F2130@FuncInfo0x009634EC provisional,Code/Libraries/Source/Apt/AptXml.cpp
+0x007A9C6C,10,code,Code/Libraries/Source/Apt/AptXml.cpp,approved,P,P=0x006F2130@FuncInfo0x009634EC provisional,Code/Libraries/Source/Apt/AptXml.cpp
 0x007A9C80,8,code,Code/Libraries/Source/Apt/AptObject/AptScriptColour.cpp,approved,P,P=0x006F24E0@FuncInfo0x00963518,Code/Libraries/Source/Apt/AptObject/AptFactoryConstructors.cpp
 0x007A9C88,8,code,Code/Libraries/Source/Apt/AptObject/AptScriptColour.cpp,approved,P,P=0x006F24E0@FuncInfo0x00963518,Code/Libraries/Source/Apt/AptObject/AptFactoryConstructors.cpp
 0x007A9C90,10,code,Code/Libraries/Source/Apt/AptObject/AptScriptColour.cpp,approved,P,P=0x006F24E0@FuncInfo0x00963518,Code/Libraries/Source/Apt/AptObject/AptFactoryConstructors.cpp
