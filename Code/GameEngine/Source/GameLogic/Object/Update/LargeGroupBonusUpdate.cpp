@@ -40,7 +40,6 @@ struct Rva00490225MemberFilter
 {
 	void *m_00;
 };
-
 class Rva00360D26Member
 {
 public:
@@ -105,6 +104,163 @@ public:
 	unsigned char m_minimum;
 };
 #include "../../../../Include/Common/ObjectModule.h"
+#include "../../../Common/RTS/XYDistanceCallView.h"
+typedef bool Bool;
+typedef unsigned int UnsignedInt;
+typedef float Real;
+class Player;
+#include "../../../../../Libraries/Include/Lib/Coord3D.h"
+template <int N> class Rva00490225Slots : public Rva00490225Slots<N - 1>
+{
+public:
+	virtual void gap(char (*)[N]) = 0;
+};
+template <> class Rva00490225Slots<0>
+{
+};
+// The interface Object::rva0028C197 returns: slot 0x60 counts the members
+// the given filter accepts.
+class Rva00490225Contain : public Rva00490225Slots<96>
+{
+public:
+	virtual UnsignedInt countMembers(const Rva00490225MemberFilter *filter) = 0;
+};
+// What a behavior module's slot 0x74 hands back: slot 2 says whether it
+// counts toward the bonus.
+class Rva00490225Member
+{
+public:
+	virtual void slot00() = 0;
+	virtual void slot01() = 0;
+	virtual Bool isActive() = 0;
+};
+class Rva00490225BehaviorIface : public Rva00490225Slots<29>
+{
+public:
+	virtual Rva00490225Member *getMember() = 0;
+};
+class BehaviorModule : public ObjectModule, public Rva00490225BehaviorIface
+{
+};
+struct ObjectKindBytes
+{
+	// The KindOf mask. Retail tests +0x109 bit 0 and bit 1 with two
+	// separate byte tests; read at one width, cl 7.1 folds the pair into a
+	// single test al,3, so the second bit is read off the dword.
+	unsigned char m_pad000[0x108];
+	union {
+		unsigned char m_bytes[28];
+		unsigned int m_words[7];
+	};
+};
+class Drawable {
+public:
+ void rva002724FD(const AsciiString &, int, int, float, float);
+ void updateSubObjects();
+};
+class Object
+{
+public:
+ Drawable *getDrawable() const;
+	Player *getControllingPlayer() const;				// 0x0028AFA9
+	void *rva0028C197() const;				// 0x0028C197
+	Bool addAttributeModifierToPool(const AsciiString &name, int duration);
+	void removeAttributeModifierFromPool(const AsciiString &name);
+	const Coord3D *getPosition() const { return &m_pos; }
+	BehaviorModule **getBehaviorModules() const { return m_behaviors; }
+	Bool isKindOf109Bit0() const { return (m_template->m_bytes[1] & 1) != 0; }
+	unsigned int isKindOf109Bit1() const { return m_template->m_words[0] & 0x200; }
+	__forceinline Rva00490225Member *findMember() const
+	{
+		for (BehaviorModule **behaviorModule = getBehaviorModules(); *behaviorModule; ++behaviorModule) {
+			Rva00490225Member *member = (*behaviorModule)->getMember();
+			if (member)
+				return member;
+		}
+		return 0;
+	}
+	const ObjectKindBytes *m_template;	// +0x04 (after the vptr)
+	unsigned char m_pad008[0x38 - 0x08];
+	Coord3D m_pos;				// +0x38
+	unsigned char m_pad044[0x244 - 0x44];
+	BehaviorModule **m_behaviors;		// +0x244
+	unsigned char m_pad248[0x438 - 0x248];
+	unsigned char m_438;			// +0x438
+private:
+	virtual void anchor();
+};
+class Rva000421C8
+{
+public:
+	Rva000421C8() : m_next(0) {}
+	virtual ~Rva000421C8() {}
+	virtual bool allow(Object *obj) = 0;
+	virtual int getPlayerMask();
+	Rva000421C8 *link(Rva000421C8 *next);	// 0x00625790
+	Rva000421C8 *m_next;
+};
+// vftable 0x00C4D040, allow 0x00260F9E: the member filter at +0x08 and
+// whether a counted hit allows.
+class Rva00260F9EFilter : public Rva000421C8
+{
+public:
+	Rva00260F9EFilter(const Rva00490225MemberFilter *filter, bool match)
+		: m_filter(filter), m_match(match) {}
+	virtual bool allow(Object *obj);
+	const Rva00490225MemberFilter *m_filter;
+	bool m_match;
+};
+// vftable 0x00BFAD04, allow 0x00260E2A, slot 2 0x00260E1E: +0x08 a player.
+class Rva00260E2AFilter : public Rva000421C8
+{
+public:
+	Rva00260E2AFilter(Player *player) : m_player(player) {}
+	virtual bool allow(Object *obj);
+	virtual int getPlayerMask();
+	Player *m_player;
+};
+// vftable 0x00BFAD10, allow 0x0026119D: not effectively dead.
+class Rva0026119DFilter : public Rva000421C8
+{
+public:
+	virtual bool allow(Object *obj);
+};
+// vftable 0x00BF91BC, allow 0x002611BF: not the given object.
+class Rva002611BFFilter : public Rva000421C8
+{
+public:
+	Rva002611BFFilter(const Object *obj) : m_obj(obj) {}
+	virtual bool allow(Object *obj);
+	const Object *m_obj;
+};
+struct Rva00490225HitEntry
+{
+	Object *m_object;
+	unsigned m_distanceBits;
+};
+struct Rva00490225HitList
+{
+	Rva00490225HitEntry *m_begin;	// +0x00
+	Rva00490225HitEntry *m_end;	// +0x04
+	void *m_08;
+	Rva00490225HitEntry *m_cursor;	// +0x0C
+};
+struct BfmeWideResult
+{
+	Object *next() throw();	// 0x00045623
+	~BfmeWideResult();	// 0x0004AA28
+	void reset() { m_value->m_cursor = m_value->m_begin; }
+	Rva00490225HitList *m_value;
+};
+class PartitionManager
+{
+public:
+	BfmeWideResult iterateObjectsInRange(const Coord3D *pos, float radius, int distCalc,
+		Rva000421C8 *filters, int order);	// 0x00625610
+};
+extern PartitionManager *ThePartitionManager;
+#include "../../../Common/GameLogicObjectLookupView.h"
+
 //
 // ?xfer@LargeGroupBonusUpdate@@MAEXPAVXfer@@@Z, retail 0x00490031, 111 bytes.
 // Slot 3 (offset 0x0C) of vtable 0x0084D124 (class of rowed dtor
@@ -118,6 +274,7 @@ public:
 // the InvisibilityUpdateXfer slot-3 pattern with IsLightCRC guard.
 
 class AsciiString;
+
 class Snapshot;
 
 class BehaviorModuleInterface { public: virtual void behaviorSlot(); };
@@ -195,6 +352,10 @@ private:
     bool m_hasFlag;
 };
 
+extern GameLogic *TheGameLogic;
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupBonusUpdate.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupBonusUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupBonusUpdate.cpp
@@ -238,10 +399,6 @@ bool HordeUpdate::isTrueHordeMember() const
     return m_trueHordeMember && m_inHorde;
 }
 
-// tu-skeleton: 0x00490019 6B ?name@Rva00490019Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0049002D 4B ?get@Rva0049002DByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupBonusUpdateXfer.cpp
 
 void LargeGroupBonusUpdate::xfer(Xfer *xfer)
@@ -259,19 +416,117 @@ void LargeGroupBonusUpdate::xfer(Xfer *xfer)
 	}
 }
 
+// tu-skeleton: 0x00490019 6B ?name@Rva00490019Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0049002D 4B ?get@Rva0049002DByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp (not merged yet)
+
 // tu-skeleton: 0x004900A0 17B ?buildFieldParse@LargeGroupBonusUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
 
 // tu-skeleton: 0x004900B1 143B ??0LargeGroupBonusUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupBonusUpdateCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00490140 28B ??_GRva0048FFB4@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp (not merged yet)
 
-// tu-skeleton: 0x0049015C 89B ?notify@LargeGroupBonusUpdate@@QAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupBonusUpdateUpdate.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupBonusUpdateUpdate.cpp
 
-// tu-skeleton: 0x004901B5 8B ?rva004901B5@LargeGroupBonusUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupBonusUpdateUpdate.cpp (not merged yet)
+//
+// ?update@LargeGroupBonusUpdate@@UAE?AW4UpdateSleepTime@@XZ, retail
+// 0x00490225, 589 bytes: slot 0 of the UpdateModuleInterface vtable
+// 0x00C4D058 that the matched ctor 0x004900B1 installs at +0x10, so the
+// override runs with the +0x10 subobject this. Layout is the 0x2C-byte class
+// of LargeGroupBonusUpdateCtor.cpp / LargeGroupBonusUpdateXfer.cpp.
+//
+// Every module-data delay (+0x08) frames, or every frame for the object
+// kinds whose template bits +0x109 bit 0/1 are set: count the horde members
+// within the +0x14 radius (the HordeMemberFilter-led field +0x0C, BFME2's
+// partition filter chain: that filter, same controlling player, alive, not
+// this object), and turn the bonus on when the count reaches +0x10 - 1, or
+// otherwise when a hit whose behavior interface (slot 0x74) answers slot 2
+// lies within the +0x1C distance. A change applies or removes the attribute
+// modifier named at +0x2C (Object::addAttributeModifierToPool /
+// Object::removeAttributeModifierFromPool).
+
+// ObjectModule stores m_moduleData at +0x04 and m_object at +0x08.
+
+UpdateSleepTime LargeGroupBonusUpdate::update()
+{
+	Object *obj = m_object;
+	if (!obj)
+		return UPDATE_SLEEP_FOREVER;
+
+	Bool wasActive = m_28;
+	const LargeGroupBonusUpdateModuleData *data = getLargeGroupBonusUpdateModuleData();
+	Bool everyFrame = obj->isKindOf109Bit0() || obj->isKindOf109Bit1();
+	if (everyFrame || TheGameLogic->getFrame() > m_24 + data->m_updateRate) {
+		m_24 = TheGameLogic->getFrame();
+		Rva00260F9EFilter filterMember(reinterpret_cast<const Rva00490225MemberFilter *>(&data->m_hordeMemberFilter), true);
+		Rva00260E2AFilter filterPlayer(obj->getControllingPlayer());
+		Rva0026119DFilter filterAlive;
+		Rva002611BFFilter filterNotThis(obj);
+		BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(obj->getPosition(), data->m_radius, 3,
+			filterMember.link(filterPlayer.link(filterAlive.link(&filterNotThis))), 0);
+		UnsignedInt count = 0;
+		Object *other;
+		while ((other = hits.next()) != 0) {
+			Rva00490225Contain *contain = (Rva00490225Contain *)other->rva0028C197();
+			if (contain)
+				count += contain->countMembers(reinterpret_cast<const Rva00490225MemberFilter *>(&data->m_hordeMemberFilter));
+		}
+		hits.reset();
+		if (count >= data->m_count - 1) {
+			m_29 = true;
+			m_28 = true;
+		} else {
+			m_28 = false;
+			m_29 = false;
+			Real nearSqr = data->m_rubOffRadius * data->m_rubOffRadius;
+			while ((other = hits.next()) != 0) {
+				Rva00490225Member *member = other->findMember();
+				if (member && member->isActive()) {
+					Real distSqr = reinterpret_cast<Rva000CBA20 *>(m_object)->distSq(reinterpret_cast<const Rva000CBA20Point *>(other->getPosition()));
+					if (distSqr <= nearSqr) {
+						m_28 = true;
+						break;
+					}
+				}
+			}
+		}
+		if (wasActive != m_28) {
+			if (m_28)
+				obj->addAttributeModifierToPool(data->m_attributeModifier, 0);
+			else
+				obj->removeAttributeModifierFromPool(data->m_attributeModifier);
+		}
+	}
+	if (obj->m_438 & 1)
+		return UPDATE_SLEEP_FOREVER;
+	obj->rva0028C197();
+	return everyFrame ? (UpdateSleepTime)data->m_updateRate : UPDATE_SLEEP_NONE;
+}
+
+// BF1 f98983a7 LargeGroupBonusUpdateNotify.cpp supplies the loop purpose;
+// native49015C and WB11DC2A0 independently establish the BFME2 Drawable
+// getter and two scalar-zero float arguments.
+void LargeGroupBonusUpdate::notify(int value)
+{
+ const LargeGroupBonusUpdateModuleData *data = getLargeGroupBonusUpdateModuleData();
+ if (data->m_flagSubObjectNames.empty()) return;
+ Drawable *drawable = m_object->getDrawable();
+ if (!drawable || !m_object) return;
+ for (_STL::vector<AsciiString>::const_iterator it = data->m_flagSubObjectNames.begin(); it != data->m_flagSubObjectNames.end(); ++it)
+  drawable->rva002724FD(*it, value, 0, 0.0f, 0.0f);
+ drawable->updateSubObjects();
+}
+
+// ?rva004901B5@LargeGroupBonusUpdate@@QAEXXZ @0x004901B5 8B, right after
+// notify: slot 6 of the Rva0024A797_Root table 0x0084D124 of Rva0048FFB4,
+// whose scalar deleting destructor 0x00490140 sits just before notify. It is
+// notify(0). Address-named.
+void LargeGroupBonusUpdate::rva004901B5()
+{
+ notify(0);
+}
 
 // tu-skeleton: 0x004901BD 104B ??0LargeGroupBonusUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupBonusUpdateModuleDataCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00490225 589B ?update@LargeGroupBonusUpdate@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupBonusUpdateUpdate.cpp (not merged yet)
 
 // tu-skeleton: 0x00490472 28B ??_GLargeGroupBonusUpdateModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupBonusUpdateModuleDataCtor.cpp (not merged yet)
 
@@ -282,15 +537,3 @@ void LargeGroupBonusUpdate::xfer(Xfer *xfer)
 // tu-skeleton: 0x0078C90B 8B $L4860 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupBonusUpdateModuleDataCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0078C913 10B __ehhandler$??0LargeGroupBonusUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupBonusUpdateModuleDataCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078C91D 8B $L6586 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupBonusUpdateUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x0078C925 8B $L6587 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupBonusUpdateUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x0078C92D 8B Unwind@00b8c92d -- matched in Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupBonusUpdateUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x0078C935 8B Unwind@00b8c935 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupBonusUpdateUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x0078C93D 8B uw_0078c93d -- matched in Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupBonusUpdateUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x0078C945 10B __ehhandler$?update@LargeGroupBonusUpdate@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupBonusUpdateUpdate.cpp (not merged yet)
