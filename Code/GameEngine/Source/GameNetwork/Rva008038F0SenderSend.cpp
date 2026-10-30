@@ -19,9 +19,9 @@ public:
 	int m_field04;
 };
 
-struct Rva0066F930Prefix
+struct FeslSendEnvelopePrefix
 {
-	Rva0066F930Prefix()
+	FeslSendEnvelopePrefix()
 	{
 		m_00 = 0;
 		m_04 = 0;
@@ -42,9 +42,9 @@ class Rva0066F930Tail : public Rva007E86B0Base
 {
 };
 
-struct Rva0066F930Envelope
+struct FeslSendEnvelope
 {
-	Rva0066F930Prefix m_prefix;
+	FeslSendEnvelopePrefix m_prefix;
 	Rva0066F930Tail m_tail;
 	int m_1c;
 	int m_20;
@@ -62,13 +62,13 @@ public:
 	int m_field20;
 };
 
-class Rva0066F930Connection
+class FeslSendConnection
 {
 public:
 	virtual void v0() = 0;
 	virtual void v1() = 0;
 	virtual void v2() = 0;
-	virtual void v3( Rva0066F930Envelope *envelope ) = 0;
+	virtual void v3( FeslSendEnvelope *envelope ) = 0;
 };
 
 class Rva008038F0Sender
@@ -82,7 +82,7 @@ public:
 
 void Rva008038F0Sender::send( BfmeC994 *message )
 {
-	Rva0066F930Envelope envelope;
+	FeslSendEnvelope envelope;
 	void *owner = m_owner;
 
 	envelope.m_prefix.m_00 = message->m_category;
@@ -94,7 +94,7 @@ void Rva008038F0Sender::send( BfmeC994 *message )
 	envelope.m_20 = 0;
 	envelope.m_tail.m_field04 = 0;
 
-	Rva0066F930Connection *connection =
-		(Rva0066F930Connection *)((char *)owner + 4);
+	FeslSendConnection *connection =
+		(FeslSendConnection *)((char *)owner + 4);
 	connection->v3( &envelope );
 }

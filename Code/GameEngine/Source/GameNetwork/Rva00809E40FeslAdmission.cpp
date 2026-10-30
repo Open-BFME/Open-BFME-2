@@ -136,8 +136,8 @@ public:
 class Rva00809E40Record : public Energy
 {
 public:
-	int m_field14;
-	char m_field18[ 0x20 ];
+	int m_gameID;
+	char m_ipAddress[ 0x20 ];
 };
 
 struct Rva00809E40State
@@ -243,7 +243,7 @@ void Rva00809E40Owner::rva00809E40( Rva007E8810Message *input )
 	int state = m_game->m_state;
 	++m_game->m_state;
 	record->m_powerSabotagedTillFrame = state;
-	record->m_field14 = reinterpret_cast< Rva007E8810Message * >( input )->getInt(
+	record->m_gameID = reinterpret_cast< Rva007E8810Message * >( input )->getInt(
 		(const char *)"GID", 0 );
 	Rva007F93E0( &message, (void *)"->L", m_routeOwner );
 
@@ -253,7 +253,7 @@ void Rva00809E40Owner::rva00809E40( Rva007E8810Message *input )
 		{
 			char second[ 0x20 ];
 			input->getString( (const char *)"IP", second, 0x20 );
-			strncpy( record->m_field18, second, 0x20 );
+			strncpy( record->m_ipAddress, second, 0x20 );
 		}
 
 		BfmeC994 request( buffer, 0x40 );
@@ -273,13 +273,13 @@ void Rva00809E40Owner::rva00809E40( Rva007E8810Message *input )
 class Rva00808C60Owner
 {
 public:
-	void rva00808C60( void *message );
+	void forwardToLRoute( void *message );
 	char m_pad00[ 0x10 ];
 	void *m_routeOwner;
 };
 
-// ?rva00808C60@Rva00808C60Owner@@QAEXPAX@Z
-void Rva00808C60Owner::rva00808C60( void *message )
+// ?forwardToLRoute@Rva00808C60Owner@@QAEXPAX@Z
+void Rva00808C60Owner::forwardToLRoute( void *message )
 {
 	Rva007F93E0( message, (void *)"->L", m_routeOwner );
 }
@@ -289,13 +289,13 @@ void Rva00808C60Owner::rva00808C60( void *message )
 class Rva0066CC40Owner
 {
 public:
-	void rva0066CC40( void *message );
+	void forwardToDRoute( void *message );
 	char m_pad00[ 0x10 ];
 	void *m_routeOwner;
 };
 
-// ?rva0066CC40@Rva0066CC40Owner@@QAEXPAX@Z
-void Rva0066CC40Owner::rva0066CC40( void *message )
+// ?forwardToDRoute@Rva0066CC40Owner@@QAEXPAX@Z
+void Rva0066CC40Owner::forwardToDRoute( void *message )
 {
 	Rva007F93E0( message, (void *)"->D", m_routeOwner );
 }

@@ -61,7 +61,7 @@ public:
 #define FESL_ADD_BOOL(message, key, value) \
 	((Rva007E8980 *)(message))->go((int)(void *)(key), (unsigned char)(value))
 
-struct Rva007FC3B0Filter
+struct FeslAttributeFilter
 {
 	const char *m_key;
 	const char *m_value;
@@ -69,7 +69,7 @@ struct Rva007FC3B0Filter
 
 void __stdcall Rva007FC3B0( Rva007E8810Message *msg, int lid, bool favOnly,
 	bool notFull, bool notPrivate, int minSize,
-	const Rva007FC3B0Filter *attributes, unsigned int numAttributes,
+	const FeslAttributeFilter *attributes, unsigned int numAttributes,
 	const char *favPlayer, const char *favGame, int gid, int count,
 	const char *favPlayerUid, const char *favGameUid )
 {
@@ -101,7 +101,7 @@ void __stdcall Rva007FC3B0( Rva007E8810Message *msg, int lid, bool favOnly,
 
 void __stdcall Rva007FC290( Rva007E8810Message *msg, bool favOnly,
 	bool notFull, bool notPrivate, int minSize,
-	const Rva007FC3B0Filter *attributes, unsigned int numAttributes,
+	const FeslAttributeFilter *attributes, unsigned int numAttributes,
 	const char *favPlayer, const char *favGame, const char *favPlayerUid,
 	const char *favGameUid )
 {

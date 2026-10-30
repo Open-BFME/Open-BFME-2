@@ -237,12 +237,12 @@ public:
 class Rva00809E40Owner { public: void rva00809E40(Rva007E8810Message *); };
 struct Rva0080A110Message;
 class Rva0080A110Owner { public: void route(Rva0080A110Message *); };
-struct Rva0080A280Input;
+struct FeslHandlerMessageView;
 struct Rva0080A280State;
 class Rva0080A280Owner
 {
 public:
-	void rva0080A280( Rva0080A280Input *input );
+	void rva0080A280( FeslHandlerMessageView *input );
 	char m_pad00[0x8];
 	Rva0080A280State *m_state; // +0x08
 	char m_pad0C[0x4];
@@ -286,7 +286,7 @@ void BfmeThingUNC::rva0080A680(Rva0080A680Input *input)
    case 0x4547414d: ((Rva00809E40Owner *)this)->rva00809E40(&message); break;
    case 0x45434e4c: ((Rva0080A110Owner *)this)->route((Rva0080A110Message *)&message); break;
    case 0x47444154: rva0080A3C0((Rva0080A3C0Input *)&message); break;
-   case 0x474c5354: ((Rva0080A280Owner *)this)->rva0080A280((Rva0080A280Input *)&message); break;
+   case 0x474c5354: ((Rva0080A280Owner *)this)->rva0080A280((FeslHandlerMessageView *)&message); break;
   }
  }
 }

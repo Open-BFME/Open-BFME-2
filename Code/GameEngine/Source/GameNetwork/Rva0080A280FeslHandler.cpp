@@ -68,7 +68,7 @@ struct Rva0080A280State
 	char *m_text;
 };
 
-struct Rva0080A280Input
+struct FeslHandlerMessageView
 {
 	int m_field00;
 	int m_field04;
@@ -81,7 +81,7 @@ struct Rva0080A280Input
 class Rva0080A280Owner
 {
 public:
-	void rva0080A280( Rva0080A280Input *input );
+	void rva0080A280( FeslHandlerMessageView *input );
 	char m_pad00[0x8];
 	Rva0080A280State *m_state; // +0x08
 	char m_pad0C[0x4];
@@ -92,7 +92,7 @@ public:
 
 void *Rva007F93E0( void *message, void *route, void *owner );
 
-void Rva0080A280Owner::rva0080A280( Rva0080A280Input *input )
+void Rva0080A280Owner::rva0080A280( FeslHandlerMessageView *input )
 {
 	char buffer[ 0x200 ];
 	BfmeC994 message( buffer, sizeof( buffer ) );

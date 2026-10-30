@@ -5691,3 +5691,14 @@ class,Rva007F6740AsyncService,GameBrowserAsyncService,inferred,agree:nr-2acdf459
 class,Rva007F6740RequestService,GameBrowserRequestService,inferred,agree:nr-c72916bcadab0671ec62c76d,Code/GameEngine/Source/GameNetwork/Rva007F6740GameBrowserArrayRequest.cpp,
 class,Rva007F7AE0AsyncService,LobbyListAsyncService,inferred,agree:nr-9ecbc2319d7548f99499e2cc,Code/GameEngine/Source/GameNetwork/Rva007F7AE0LobbyListRequest.cpp,
 class,Rva007F7AE0RequestService,LobbyListRequestService,inferred,agree:nr-524f8775b6b987553482bb5f,Code/GameEngine/Source/GameNetwork/Rva007F7AE0LobbyListRequest.cpp,
+member,Rva00809E40Record::m_field14,Rva00809E40Record::m_gameID,inferred,agree:nl-0e4ebad68a3d,Code/GameEngine/Source/GameNetwork/Rva00809E40FeslAdmission.cpp,
+member,Rva00809E40Record::m_field18,Rva00809E40Record::m_ipAddress,inferred,agree:nl-b24301f0d240,Code/GameEngine/Source/GameNetwork/Rva00809E40FeslAdmission.cpp,
+function,?rva0066CC40@Rva0066CC40Owner@@QAEXPAX@Z,?forwardToDRoute@Rva0066CC40Owner@@QAEXPAX@Z,inferred,agree:nr-03e9e977a4919e3c842a5642,Code/GameEngine/Source/GameNetwork/Rva00809E40FeslAdmission.cpp,0x0066CC40
+function,?rva00808C60@Rva00808C60Owner@@QAEXPAX@Z,?forwardToLRoute@Rva00808C60Owner@@QAEXPAX@Z,inferred,agree:nr-e6099de30066b530c34160aa,Code/GameEngine/Source/GameNetwork/Rva00809E40FeslAdmission.cpp,0x00674BB0
+class,Rva0066F930Connection,FeslSendConnection,inferred,agree:nr-44063287336e63faeee87c6c,Code/GameEngine/Source/GameNetwork/Rva008038F0SenderSend.cpp,
+class,Rva0066F930Envelope,FeslSendEnvelope,inferred,agree:nr-359f1e4a0d8578c72073051d,Code/GameEngine/Source/GameNetwork/Rva008038F0SenderSend.cpp,
+class,Rva0066F930Prefix,FeslSendEnvelopePrefix,inferred,agree:nr-3044447bc03cc1ed6071cf5e,Code/GameEngine/Source/GameNetwork/Rva008038F0SenderSend.cpp,
+class,Rva0080A280Input,FeslHandlerMessageView,inferred,agree:nr-23baf0efa4d62fd7516bbe3c,Code/GameEngine/Source/GameNetwork/Rva0080A280FeslHandler.cpp,
+class,Rva0080AB50Entry,LanGameEntryView,inferred,agree:nr-1c6520ebab498e0acab92098,Code/GameEngine/Source/GameNetwork/Rva0080AB50Handle.cpp,
+class,Rva0080AB50Game,HostedLanGameView,inferred,agree:nr-1bddb390c76f2bf38d9fb85d,Code/GameEngine/Source/GameNetwork/Rva0080AB50Handle.cpp,
+class,Rva007FC3B0Filter,FeslAttributeFilter,inferred,agree:nl-b319dcf7e465,Code/GameEngine/Source/GameNetwork/Y4FeslGameListRequest.cpp,

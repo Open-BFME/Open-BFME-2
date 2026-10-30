@@ -807,7 +807,7 @@ void BfmeThingSKA::bfmeGoSKA(int a, int b)
 
 // tu-skeleton: 0x00676010 362B ?route@Rva0080A110Owner@@QAEXPAURva0080A110Message@@@Z -- matched in Code/GameEngine/Source/GameNetwork/Rva0080A110Route.cpp (not merged yet)
 
-// tu-skeleton: 0x00676180 317B ?rva0080A280@Rva0080A280Owner@@QAEXPAURva0080A280Input@@@Z -- matched in Code/GameEngine/Source/GameNetwork/Rva0080A280FeslHandler.cpp (not merged yet)
+// tu-skeleton: 0x00676180 317B ?rva0080A280@Rva0080A280Owner@@QAEXPAUFeslHandlerMessageView@@@Z -- matched in Code/GameEngine/Source/GameNetwork/Rva0080A280FeslHandler.cpp (not merged yet)
 
 // tu-skeleton: 0x006762C0 703B ?rva0080A3C0@BfmeThingUNC@@QAEXPAURva0080A3C0Input@@@Z -- matched in Code/GameEngine/Source/GameNetwork/Rva0080A3C0FeslDispatcher.cpp (not merged yet)
 

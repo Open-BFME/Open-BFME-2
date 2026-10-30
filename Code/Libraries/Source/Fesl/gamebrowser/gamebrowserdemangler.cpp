@@ -450,7 +450,7 @@ void Rva00800780Owner::onConnectReply( Rva007E8810Message *msg )
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 
-// tu-skeleton: 0x0066CC40 25B ?rva0066CC40@Rva0066CC40Owner@@QAEXPAX@Z -- matched in Code/GameEngine/Source/GameNetwork/Rva00809E40FeslAdmission.cpp (not merged yet)
+// tu-skeleton: 0x0066CC40 25B ?forwardToDRoute@Rva0066CC40Owner@@QAEXPAX@Z -- matched in Code/GameEngine/Source/GameNetwork/Rva00809E40FeslAdmission.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Bfme5SeventyFive.cpp
 

@@ -83,13 +83,13 @@ public:
 	char m_pad168[0x4];
 };
 
-struct Rva0080AB50Entry
+struct LanGameEntryView
 {
 	char m_pad00[ 0x10 ];
 	int m_gameId;
 };
 
-struct Rva0080AB50Game
+struct HostedLanGameView
 {
 	char m_pad00[ 4 ];
 	int m_maxPlayers;
@@ -119,9 +119,9 @@ public:
 	char m_pad08[ 8 ];
 	void *m_field10;
 	char m_pad14[ 4 ];
-	Rva0080AB50Entry *m_entry;
+	LanGameEntryView *m_entry;
 	char m_pad1c[ 0x3c ];
-	Rva0080AB50Game *m_game;
+	HostedLanGameView *m_game;
 	unsigned int m_field5c;
 	unsigned int m_field60;
 	int m_tid;
@@ -161,7 +161,7 @@ int Gen0080AB50::handle( unsigned int timestamp )
 		char buffer[ 0x40 ];
 		BfmeC994 message( buffer, sizeof( buffer ) );
 
-		Rva0080AB50Entry *entry = m_entry;
+		LanGameEntryView *entry = m_entry;
 		if( entry == 0 )
 		{
 			Rva007EB810Get()->fail(
