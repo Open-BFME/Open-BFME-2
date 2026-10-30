@@ -9,18 +9,29 @@
 // pin @0x9A587; callers use result as 3-float Vector3.
 
 #include "vector3.h"
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
+
+struct Rva0009A710LightPosition : Coord3D { __declspec(noinline) Rva0009A710LightPosition(); };
+class RenderInfoClass;
 
 // Row name ?getLightPosWorld@W3DShadowManager@@ (ZH/BFME1 name; W3DProjectedShadow::update calls it with ECX = TheW3DShadowManager).
 class W3DShadowManager
 {
 public:
+	W3DShadowManager();
+	bool ReAcquireResources();
+	bool rva0009A254();
+	void rva0009A348(RenderInfoClass &rinfo);
 	Vector3 &getLightPosWorld(int lightIndex);
 private:
-	unsigned char m_unk00[12];
-	Vector3 m_lightPos[1];
+	bool m_isShadowScene;
+	char padding[3];
+	unsigned m_shadowColor;
+	int m_stencilShadowMask;
+	Rva0009A710LightPosition m_lightPos[1];
 };
 
 Vector3 &W3DShadowManager::getLightPosWorld(int lightIndex)
 {
-	return m_lightPos[lightIndex];
+	return reinterpret_cast<Vector3 &>(m_lightPos[lightIndex]);
 }

@@ -38,7 +38,14 @@ extern Rva0007DA23ResourceManager *Rva00DE1FF8Manager;
 
 struct ShadowTerrainLight {float x,y,z;};
 
-class GlobalData {public:char prefix[0x920];ShadowTerrainLight light[1];};
+class GlobalData
+{
+public:
+	char prefix[0x60];
+	bool m_useShadowVolumes;
+	char m_pad61[0x8BF];
+	ShadowTerrainLight light[1];
+};
 
 extern GlobalData *TheWritableGlobalData;
 
@@ -80,12 +87,20 @@ W3DProjectedShadowManager * TheW3DProjectedShadowManager;
 // Rva00DE1FF8Manager: matched references place it at VA 0xde1ff8 (zero-filled .bss).
 Rva0007DA23ResourceManager * Rva00DE1FF8Manager;
 
-class W3DShadowManager {
-public:W3DShadowManager(); Bool ReAcquireResources(); Bool rva0009A254();
- void rva0009A348(RenderInfoClass &rinfo);
+class W3DShadowManager
+{
+public:
+	W3DShadowManager();
+	bool ReAcquireResources();
+	bool rva0009A254();
+	void rva0009A348(RenderInfoClass &rinfo);
+	Vector3 &getLightPosWorld(int lightIndex);
 private:
- bool m_isShadowScene;char padding[3];unsigned m_shadowColor;
- int m_stencilShadowMask;Rva0009A710LightPosition m_lightPos[1];
+	bool m_isShadowScene;
+	char padding[3];
+	unsigned m_shadowColor;
+	int m_stencilShadowMask;
+	Rva0009A710LightPosition m_lightPos[1];
 };
 
 // ?Rva00DEC2D8Manager@@3PAVRva00108660ResourceManager@@A: matched references place it at VA 0xdec2d8; also referenced as ?R2Ptr01306DF0@@3PAVR2GlobalReceiver@@A.
