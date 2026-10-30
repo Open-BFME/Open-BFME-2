@@ -693,37 +693,40 @@ def _snapshot(root, remote, seen, timeout):
     With no new claim, a snapshot is one ls-remote and local reads."""
     side = _seen_repo(root)
     mirrors = list(_namespace_mirrors(seen))
-    listed = _git("ls-remote", remote, *(f"{namespace}*" for namespace, _ in mirrors), cwd=root, timeout=timeout)
-    if listed.returncode:
-        return listed
-    want = {}
-    for line in listed.stdout.splitlines():   # "<sha>\t<ref>"; patterns match ref tails, so filter
-        sha, _, name = line.partition("\t")
-        for namespace, mirror in mirrors:
-            if name.startswith(namespace):
-                want[mirror + name[len(namespace):]] = sha
-                break
-    shas = sorted(set(want.values()))
-    lacking = _missing(shas, root, side)
-    if not isinstance(lacking, list):
-        return lacking
-    absent = _missing(lacking, root)
-    if not isinstance(absent, list):
-        return absent
-    if absent:
-        got = _git("fetch", "-q", "--no-write-fetch-head", "--no-auto-maintenance", "--no-tags",
-                   "--recurse-submodules=no", "--stdin", remote,
-                   input_text="".join(f"{sha}\n" for sha in absent), cwd=root, timeout=timeout)
-        if got.returncode:
-            return got
-    adopted = _adopt(lacking, root, side)
-    if adopted.returncode:
-        return adopted
-    # Deletions go first, in their own transaction: git refuses one transaction
-    # that deletes X and creates X/Y (or the reverse), a ref directory conflict
-    # that left mirrors failing on every fetch. A failure (another process of
-    # this worktree moving the same mirror refs) re-reads the mirror once.
+    # A failed transaction (another process of this worktree moving the same
+    # mirror refs) restarts the whole snapshot once: a retry from the old listing
+    # would erase a claim write origin accepted meanwhile.
     for attempt in range(2):
+        listed = _git("ls-remote", remote, *(f"{namespace}*" for namespace, _ in mirrors), cwd=root,
+                      timeout=timeout)
+        if listed.returncode:
+            return listed
+        want = {}
+        for line in listed.stdout.splitlines():   # "<sha>\t<ref>"; patterns match ref tails, so filter
+            sha, _, name = line.partition("\t")
+            for namespace, mirror in mirrors:
+                if name.startswith(namespace):
+                    want[mirror + name[len(namespace):]] = sha
+                    break
+        shas = sorted(set(want.values()))
+        lacking = _missing(shas, root, side)
+        if not isinstance(lacking, list):
+            return lacking
+        absent = _missing(lacking, root)
+        if not isinstance(absent, list):
+            return absent
+        if absent:
+            got = _git("fetch", "-q", "--no-write-fetch-head", "--no-auto-maintenance", "--no-tags",
+                       "--recurse-submodules=no", "--stdin", remote,
+                       input_text="".join(f"{sha}\n" for sha in absent), cwd=root, timeout=timeout)
+            if got.returncode:
+                return got
+        adopted = _adopt(lacking, root, side)
+        if adopted.returncode:
+            return adopted
+        # Deletions go first, in their own transaction: git refuses one transaction
+        # that deletes X and creates X/Y (or the reverse), a ref directory conflict
+        # that left mirrors failing on every fetch.
         held = _git("for-each-ref", "--format=%(refname) %(objectname)", *(mirror for _, mirror in mirrors),
                     cwd=root, git_dir=side)
         if held.returncode:
@@ -1388,9 +1391,11 @@ def renew(tokens, who=None, ttl_hours=TTL_HOURS, note="", root=None):
     # which re-reads origin to tell a lost claim from a lost race.
     by_ref = {ref_of(rva): rva for rva in pending}
     for chunk in _arg_batches(list(pending), lambda r: [f"--force-with-lease={ref_of(r)}:{pending[r][0]}",
-                                                         f"+{pending[r][1]}:{ref_of(r)}"], 0):
+                                                         f"{pending[r][1]}:{ref_of(r)}"], 0):
+        # No "+": a forced refspec overrides a stale lease, so a claim taken over
+        # after the fetch above was overwritten. A matching lease forces anyway.
         pushed = _git("push", "--porcelain", *(f"--force-with-lease={ref_of(r)}:{pending[r][0]}" for r in chunk),
-                      REMOTE, *(f"+{pending[r][1]}:{ref_of(r)}" for r in chunk), cwd=root, timeout=120)
+                      REMOTE, *(f"{pending[r][1]}:{ref_of(r)}" for r in chunk), cwd=root, timeout=120)
         for line in pushed.stdout.splitlines():
             flag, _, rest = line.partition("\t")
             ref = rest.split("\t", 1)[0].rpartition(":")[2]
@@ -1402,7 +1407,7 @@ def renew(tokens, who=None, ttl_hours=TTL_HOURS, note="", root=None):
             continue
         for attempt in range(5):
             pushed = _git("push", "-q", f"--force-with-lease={ref_of(rva)}:{token}", REMOTE,
-                          f"+{sha}:{ref_of(rva)}", cwd=root, timeout=120)
+                          f"{sha}:{ref_of(rva)}", cwd=root, timeout=120)
             if pushed.returncode == 0:
                 renewed[rva] = sha
                 _mirror(rva, sha, root)

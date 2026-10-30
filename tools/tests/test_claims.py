@@ -352,13 +352,43 @@ def test_a_batch_renew_is_one_push(hosts, monkeypatch):
 
 
 def test_a_batch_renew_still_reports_a_claim_taken_over(hosts, monkeypatch):
+    # b takes an expired key over after a's renew fetched but before its batch
+    # push: a forced ("+") refspec overrode the stale lease and erased b's claim
+    peer = hosts("b")
     hosts("a")
     got = claims.claim([0x400, 0x410], ttl_hours=-1)      # already expired
-    hosts("b")
-    assert claims.claim([0x410]).claimed == [0x410]      # b takes one over
-    hosts("a")
+    real, taken = claims._git, {}
+
+    def git(*args, **kwargs):
+        if args[:2] == ("push", "--porcelain") and not taken:
+            taken["b"] = None
+            taken["b"] = claims.claim([0x410], who="b", root=peer).tokens[0x410]
+        return real(*args, **kwargs)
+    monkeypatch.setattr(claims, "_git", git)
     renewed, lost = claims.renew(got.tokens)
-    assert list(renewed) == [0x400] and lost == [0x410]
+    assert taken["b"] and list(renewed) == [0x400] and lost == [0x410]
+    assert _git(hosts.origin, "rev-parse", claims.ref_of(0x410)).strip() == taken["b"]
+
+
+def test_a_failed_mirror_transaction_restarts_the_snapshot(hosts, monkeypatch):
+    # a retry that re-read the mirror but kept the old listing deleted a claim
+    # origin accepted meanwhile (here 0x200, claimed while the transaction failed)
+    peer = hosts("b")
+    root = hosts("a")
+    assert claims.claim([0x100], who="b", root=peer).claimed == [0x100]
+    real, raced = claims._git, {}
+
+    def git(*args, **kwargs):
+        if args[:2] == ("update-ref", "--stdin") and not raced:
+            raced["a"] = None
+            raced["a"] = claims.claim([0x200], root=root).tokens[0x200]
+            return subprocess.CompletedProcess(args, 1, "", "fatal: injected lock failure")
+        return real(*args, **kwargs)
+    monkeypatch.setattr(claims, "_git", git)
+    claims._invalidate_snapshot(root)
+    assert claims.fetch(root) is True
+    assert raced["a"] and claims.mirror_sha(0x200, root) == raced["a"]
+    assert claims.mirror_sha(0x100, root)
 
 
 def test_a_batch_claim_mirrors_in_one_transaction(hosts, monkeypatch):
