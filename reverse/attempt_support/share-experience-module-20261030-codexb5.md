@@ -89,3 +89,14 @@ and structural checks, and the no-op patch. The eight-file source-count
 reduction between full gates belongs to upstream consolidation. This run
 covers the second queue-conflict resolution and the whole rebased batch.
 Its log is `build/share-experience-module-20261030-codexb5/full-gate-rebased.log`.
+
+The next publication attempt met another queue append conflict when rebasing
+onto `4d6c1d7693`. The GlobalLanguage entry and all earlier entries are
+retained. The refreshed FXShaderRenderer row is restored to its original
+position before W3DTaint, avoiding repeated conflicts at the append point;
+its fields are unchanged. The ledger check passes, and the final path audit
+has the same 18 provenance/history hits (census row numbers changed).
+AGENTS.md is unchanged. The two full gates above remain evidence for their
+stated bases; the normal runner publication hook owns verification of this
+final rebased batch before landing. No extra final-base full-gate or
+consumer-audit pass is claimed.
