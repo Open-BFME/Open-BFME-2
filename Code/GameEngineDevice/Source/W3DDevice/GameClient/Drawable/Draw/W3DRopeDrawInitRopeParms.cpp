@@ -14,10 +14,13 @@ typedef float Real;
 
 struct BfmePod16 { int a[4]; };
 
+class Vector3;
 class Line3DClass
 {
 public:
+	Line3DClass(const Vector3 &start, const Vector3 &end, float width, float r, float g, float b, float opacity);
 	virtual void Release();
+	char m_pad04[0x140];
 };
 
 class BfmeScene
@@ -25,22 +28,17 @@ class BfmeScene
 public:
 	virtual void slot0();
 	virtual void slot1();
-	virtual void slot2();
+	virtual void Add_Render_Object(Line3DClass *obj);
 	virtual void Remove_Render_Object(Line3DClass *obj);
 };
 
-class W3DDisplay
-{
-public:
-	static BfmeScene *m_3DScene;
-};
-
+class Drawable;
 class DrawableModule
 {
 protected:
 	virtual ~DrawableModule();
-	void *m_moduleData;
-	void *m_drawable;
+	void *m_moduleData; // +0x04
+	Drawable *m_drawable; // +0x08
 };
 
 class DrawModule : public DrawableModule

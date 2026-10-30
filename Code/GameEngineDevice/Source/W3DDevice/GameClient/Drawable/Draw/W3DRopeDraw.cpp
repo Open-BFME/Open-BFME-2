@@ -75,9 +75,7 @@ class Line3DClass
 public:
 	Line3DClass(const Vector3 &start, const Vector3 &end, float width, float r, float g, float b, float opacity);
 	virtual void Release();
-
-private:
-	unsigned char m_pad04[0x144 - 4];
+	char m_pad04[0x140];
 };
 
 float Cos(float value);
@@ -108,8 +106,8 @@ class DrawableModule
 {
 protected:
 	virtual ~DrawableModule();
-	void *m_moduleData;
-	Drawable *m_drawable;
+	void *m_moduleData; // +0x04
+	Drawable *m_drawable; // +0x08
 };
 
 class DrawModule : public DrawableModule
