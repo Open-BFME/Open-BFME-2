@@ -26,6 +26,11 @@ enum BodyDamageType
 	BODY_RUBBLE
 };
 
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
 class Matrix3D;
 
 class Player;
@@ -250,6 +255,7 @@ public:
 	virtual AsciiString rva004C0ECE();
 	virtual void rva004C121B(void *a1);
 	virtual void rva004C123C(void *a1, bool doFX);
+	virtual NameKeyType getModuleNameKey() const;
 	void rva004C0B63();
 	void rva004C0C52();
 protected:
@@ -338,11 +344,6 @@ private:
 // and the address carries no getClassMemoryPool row anywhere. /EHsc for the
 // static-guard EH prologue; globals are TU-local externs (DIR32 slots patch
 // from retail, no pins; nameToKey resolves via its matched row).
-
-enum NameKeyType
-{
-	NK_UNKNOWN = 0
-};
 
 class NameKeyGenerator
 {
