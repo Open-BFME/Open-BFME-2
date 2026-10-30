@@ -55,7 +55,17 @@ extern void bfmeMergeReceiverKeys(int value);
 class Rva009EB960;
 extern Rva009EB960 *Rva0134FAA0;
 
-class Rva007401A3 { public: void SetFrame(int,int); };
+class NotifyTarget;
+class Rva007401A3
+{
+public:
+	void SetFrame(int a, int b);
+private:
+	NotifyTarget *m_p0; // +0x00 +0x00
+	void *m_p1; // +0x04 +0x04
+	int m_08; // +0x08 +0x08
+	int m_0C; // +0x0C +0x0C
+};
 
 class W3DAptComponentView3D { public: class AnimInfo; };
 

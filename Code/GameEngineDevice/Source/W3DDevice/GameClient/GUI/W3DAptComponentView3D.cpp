@@ -104,7 +104,8 @@ inline void CameraClass::Set_Viewport(const Vector2 &min, const Vector2 &max)
 	cameraViewportFields->FrustumValid = false;
 }
 // Display vtable slots 0x40/0x44 return the unsigned viewport extents.
-class Display {
+class Display
+{
 public:
 	virtual void d00();
 	virtual void d01();
