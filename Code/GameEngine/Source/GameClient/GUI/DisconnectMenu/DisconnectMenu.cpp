@@ -8,6 +8,13 @@
 #pragma pointers_to_members(full_generality, multiple_inheritance)
 #pragma pointers_to_members(full_generality, multiple_inheritance)
 #pragma comment(linker, "/alternatename:?g_Va007C9260@@3QBGB=??_C@_15KNBIKKIN@?$AA?$CF?$AAd?$AA?$AA@")
+#pragma pointers_to_members(full_generality, multiple_inheritance)
+#pragma pointers_to_members(full_generality, multiple_inheritance)
+#define _CRTIMP
+#include <mbstring.h>
+#undef _CRTIMP
+#define _CRTIMP __declspec(dllimport)
+#include <stdlib.h>
 
 class GameWindow
 {
@@ -325,7 +332,63 @@ public:
 	void updateVotes(int slot, int votes);
 };
 
+void GadgetTextEntrySetText(GameWindow *textEntry, UnicodeString text);
+
+UnicodeString GadgetTextEntryGetText(GameWindow *textEntry);
+
+void GadgetListBoxReset(GameWindow *listBox);
+
+void BfmeGadgetListBoxSetAudioFeedback(GameWindow *listBox, bool enable);
+
+int GadgetListBoxAddEntryText(GameWindow *listBox, UnicodeString text, int color, int row, int column, bool overwrite);
+
+// Rva0066B3E0Adj.cpp's slot translation (0x004D39F0).
+int rva0066b3e0(int slot, int localSlot);
+
+class LanguageFilter
+{
+public:
+	void filterLine(UnicodeString &line);
+};
+
+extern LanguageFilter *TheLanguageFilter;
+
+// Zero Hour's TheNetwork: vslot 46 is the local slot, vslot 47 a slot's
+// player name, vslot 38 votes, vslot 37 quits, vslot 65 tells whether a
+// slot is connected and vslot 27 sends disconnect chat.
+class NetworkInterface
+{
+public:
+	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
+	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
+	virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
+	virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
+	virtual void v16(); virtual void v17(); virtual void v18(); virtual void v19();
+	virtual void v20(); virtual void v21(); virtual void v22(); virtual void v23();
+	virtual void v24(); virtual void v25(); virtual void v26();
+	virtual void v27(UnicodeString text);
+	virtual void v28(); virtual void v29(); virtual void v30(); virtual void v31();
+	virtual void v32(); virtual void v33(); virtual void v34(); virtual void v35();
+	virtual void v36();
+	virtual void v37();
+	virtual void v38(int slot);
+	virtual void v39(); virtual void v40(); virtual void v41(); virtual void v42();
+	virtual void v43(); virtual void v44(); virtual void v45();
+	virtual int v46();
+	virtual UnicodeString v47(int slot);
+	virtual void v48(); virtual void v49(); virtual void v50(); virtual void v51();
+	virtual void v52(); virtual void v53(); virtual void v54(); virtual void v55();
+	virtual void v56(); virtual void v57(); virtual void v58(); virtual void v59();
+	virtual void v60(); virtual void v61(); virtual void v62(); virtual void v63();
+	virtual void v64();
+	virtual bool v65(int slot);
+};
+
+extern NetworkInterface *TheNetwork;
+
 // tu-skeleton: 0x00512CDF 10B ?OnInitialized@AptDisconnectScreen@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLobbyScreenInitCallbacks.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/DisconnectMenu/DisconnectMenu.cpp
 
 // ---- from Code/GameEngine/Source/Common/Rva00512CE9Kick.cpp
 
@@ -354,10 +417,6 @@ bool AptDisconnectScreen::rva00512D47(int player)
 {
 	return m_kickButtons[player];
 }
-
-// tu-skeleton: 0x00512D55 66B ?Kick@AptDisconnectScreen@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptDisconnectScreenKick.cpp (not merged yet)
-
-// tu-skeleton: 0x00512D97 26B ?PlayerColor@AptDisconnectScreen@@QAEXHPAD_N@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptDisconnectScreenKick.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/DisconnectMenu/DisconnectMenu.cpp
 
@@ -546,10 +605,6 @@ void Rva00513138::rva00513138(class UnicodeString text)
 	GadgetListBoxAddEntryText(m_listbox, text, g_00DD1488, -1, -1, true);
 }
 
-// tu-skeleton: 0x00512ED2 11B ??_EAptDisconnectScreen@@WCBI@AEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB11.cpp (not merged yet)
-
-// tu-skeleton: 0x005130E2 86B ?rva005130E2@AptDisconnectScreen@@QAEXVUnicodeString@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptDisconnectScreenKick.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva0051318EVotes.cpp
 
 // ?updateVotes@DisconnectMenu@@QAEXHH@Z @0x0051318E 140B: DisconnectScreen VotesReceived update via AsciiString format plus Unicode wide space plus conditional format plus bfmeSetText.
@@ -572,27 +627,108 @@ void DisconnectMenu::updateVotes(int slot, int votes)
 // Retail's data references in this unit's matched rows land on globals defined
 // under other spellings at the same addresses (addend-corrected DIR32). Bind them.
 
-// tu-skeleton: 0x0051321A 184B ?InitGadgets@AptDisconnectScreen@@QAEXPBDPAXPAVGameWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptDisconnectScreenKick.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptDisconnectScreenKick.cpp
 
-// tu-skeleton: 0x005132D2 176B ?Quit@AptDisconnectScreen@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptDisconnectScreenKick.cpp (not merged yet)
+//
+// BFME2's disconnect screen Apt callbacks "AptDisconnectScreen::Kick"
+// (0x00512D55; votes to kick the player in the given slot),
+// "DisconnectScreen::InitGadgets" (0x0051321A), "AptDisconnectScreen::Quit"
+// (0x005132D2) and "AptDisconnectScreen::Chat::OnBttnEnterText"
+// (0x00513382), bound by those names as member pointers by the screen's
+// registration; that binding is their only reference.
+// Views and flags are those of the approved TU, DisconnectMenu.cpp.
 
-// tu-skeleton: 0x00513382 171B ?OnBttnEnterText@AptDisconnectScreen@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptDisconnectScreenKick.cpp (not merged yet)
+// Retail calls _mbscpy through the import thunk at 0x00629176 but atoi
+// through the IAT.
 
-// tu-skeleton: 0x0051342D 28B ??_GAptDisconnectScreen@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB11.cpp (not merged yet)
+static inline bool unicodeIsEmpty(const UnicodeString &text)
+{
+	const unsigned char *data = *(const unsigned char *const *)&text;
+	return data == 0 || *(const unsigned short *)(data + 4) == 0;
+}
+
+// Retail 0x00512D55, 66 bytes: "AptDisconnectScreen::Kick".
+void AptDisconnectScreen::Kick(const char *slot)
+{
+	if (slot && *slot)
+	{
+		int index = atoi(slot);
+		int target = rva0066b3e0(index, TheNetwork->v46());
+		TheNetwork->v38(target);
+	}
+}
+
+// Retail 0x0051321A, 184 bytes: bound as "DisconnectScreen::InitGadgets";
+// keeps "ChatBox" and the emptied "ChatEntry", and fills "RulesBox" with
+// the localized APT:DisconnectRules.
+void AptDisconnectScreen::InitGadgets(const char *name, void *argument, GameWindow *window)
+{
+	if (strcmp(name, "ChatBox") == 0)
+		m_chatBox = window;
+	else if (strcmp(name, "ChatEntry") == 0)
+	{
+		m_chatEntry = window;
+		GadgetTextEntrySetText(window, UnicodeString::TheEmptyString);
+	}
+	else if (strcmp(name, "RulesBox") == 0)
+	{
+		GadgetListBoxReset(window);
+		BfmeGadgetListBoxSetAudioFeedback(window, true);
+		GadgetListBoxAddEntryText(window, TheGameText->fetch("APT:DisconnectRules"), -1, -1, -1, true);
+	}
+}
+
+// Retail 0x005130E2, 84 bytes. Name unknown. Zero Hour's
+// DisconnectMenu::sendChat with the line passed through the language filter
+// first.
+void AptDisconnectScreen::rva005130E2(UnicodeString text)
+{
+	if (TheLanguageFilter)
+		TheLanguageFilter->filterLine(text);
+	TheNetwork->v27(text);
+}
+
+// Retail 0x005132D2, 176 bytes: "AptDisconnectScreen::Quit" announces the
+// local player's leaving, votes out every unconnected slot and quits.
+void AptDisconnectScreen::Quit(const char *unused)
+{
+	m_quit = true;
+	UnicodeString text = TheNetwork->v47(TheNetwork->v46());
+	text.concat(L" has left the game.");
+	rva005130E2(text);
+	for (int slot = 0; slot < 8; ++slot)
+	{
+		if (!TheNetwork->v65(slot))
+			TheNetwork->v38(slot);
+	}
+	TheNetwork->v37();
+}
+
+// Retail 0x00513382, 171 bytes: "AptDisconnectScreen::Chat::OnBttnEnterText"
+// takes and clears the chat entry and sends the trimmed line.
+void AptDisconnectScreen::OnBttnEnterText(const char *unused)
+{
+	UnicodeString text;
+	if (!m_chatEntry)
+		return;
+	text.set(GadgetTextEntryGetText(m_chatEntry));
+	GadgetTextEntrySetText(m_chatEntry, UnicodeString::TheEmptyString);
+	text.trim();
+	if (!unicodeIsEmpty(text))
+		rva005130E2(text);
+}
+
+// Retail 0x00512D97, 26 bytes: "DisconnectScreen:PlayerColor:%d" for each
+// slot, an Apt query answering white.
+void AptDisconnectScreen::PlayerColor(int slot, char *result, bool skip)
+{
+	if (!skip)
+		_mbscpy(reinterpret_cast<unsigned char *>(result), reinterpret_cast<const unsigned char *>("0xFFFFFFFF"));
+}
 
 // tu-skeleton: 0x00513449 78B ?rva00513449@AptDisconnectScreen@@UAEHHII@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptDisconnectScreenRva00513449.cpp (not merged yet)
 
 // tu-skeleton: 0x00513497 193B ?rva00513497@Rva00513497@@QAEXHVUnicodeString@@@Z -- matched in Code/GameEngine/Source/Common/AptHeroPowerText.cpp (not merged yet)
-
-// tu-skeleton: 0x00794F8C 8B Unwind@00b94f8c -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptDisconnectScreenKick.cpp (not merged yet)
-
-// tu-skeleton: 0x00794F94 10B __ehhandler$?Quit@AptDisconnectScreen@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptDisconnectScreenKick.cpp (not merged yet)
-
-// tu-skeleton: 0x00794F9E 8B Unwind@00b94f9e -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptDisconnectScreenKick.cpp (not merged yet)
-
-// tu-skeleton: 0x00794FA6 8B Unwind@00b94fa6 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptDisconnectScreenKick.cpp (not merged yet)
-
-// tu-skeleton: 0x00794FAE 10B __ehhandler$?OnBttnEnterText@AptDisconnectScreen@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptDisconnectScreenKick.cpp (not merged yet)
 
 // tu-skeleton: 0x00794FB8 8B Unwind@00b94fb8 -- matched in Code/GameEngine/Source/Common/AptHeroPowerText.cpp (not merged yet)
 
