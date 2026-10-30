@@ -433,6 +433,8 @@ extern "C" void _ReadWriteBarrier(void);
 
 // ---- from Code/Libraries/Source/Apt/AptActionInterpreter.cpp
 
+// ---- from Code/Libraries/Source/Apt/AptActionInterpreter.cpp
+
 // ---- from Code/Libraries/Source/WWVegas/WWLib/Rva006FD040Siblings.cpp
 
 
@@ -798,18 +800,6 @@ void __cdecl Rva006FD060Forward(void *a1, void *a2, void *a3, void *a4)
 	BfmeAux006FC670(a1, a2, a3, a4);
 }
 
-// tu-skeleton: 0x006FD100 454B ?rva006FD100@@YAEHHPAVEAStringC@@PAHPAD@Z -- matched in Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp (not merged yet)
-
-// tu-skeleton: 0x006FD2D0 47B ?callback006FD2D0@@YAPAVAptValue@@PAV1@H@Z -- matched in Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp (not merged yet)
-
-// tu-skeleton: 0x006FD300 49B ?rva006FD300@AptActionInterpreter@@QAEPAXPAUAptActionSetup@@@Z -- matched in Code/Libraries/Source/Apt/AptInterpreterLightPrepare.cpp (not merged yet)
-
-// tu-skeleton: 0x006FD340 171B ?rva006FD340@Rva006FD340Object@@QAEXPADPAX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva006FD340Cluster.cpp (not merged yet)
-
-// tu-skeleton: 0x006FD3F0 203B ?_concatAsStrings@@YAPAVAptString@@PAVAptValue@@0@Z -- matched in Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp (not merged yet)
-
-// tu-skeleton: 0x006FD4C0 233B ?rva006FD4C0@@YAXPAVEAStringC@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva006FD340Cluster.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/Apt/Rva006FD5B0HexPair.cpp
 
 unsigned char Rva006FD5B0(char hi, char lo)
@@ -834,6 +824,18 @@ unsigned char Rva006FD5B0(char hi, char lo)
 //   0x006291C0 reads ?ji_006291c0@@YAXXZ
 
 //   0x00629B6E reads ?ji_00629b6e@@YAXXZ
+
+// tu-skeleton: 0x006FD100 454B ?rva006FD100@@YAEHHPAVEAStringC@@PAHPAD@Z -- matched in Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp (not merged yet)
+
+// tu-skeleton: 0x006FD2D0 47B ?callback006FD2D0@@YAPAVAptValue@@PAV1@H@Z -- matched in Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp (not merged yet)
+
+// tu-skeleton: 0x006FD300 49B ?rva006FD300@AptActionInterpreter@@QAEPAXPAUAptActionSetup@@@Z -- matched in Code/Libraries/Source/Apt/AptInterpreterLightPrepare.cpp (not merged yet)
+
+// tu-skeleton: 0x006FD340 171B ?rva006FD340@Rva006FD340Object@@QAEXPADPAX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva006FD340Cluster.cpp (not merged yet)
+
+// tu-skeleton: 0x006FD3F0 203B ?_concatAsStrings@@YAPAVAptString@@PAVAptValue@@0@Z -- matched in Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp (not merged yet)
+
+// tu-skeleton: 0x006FD4C0 233B ?rva006FD4C0@@YAXPAVEAStringC@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva006FD340Cluster.cpp (not merged yet)
 
 // tu-skeleton: 0x006FD630 199B ?rva006FD630@@YAXPAVEAStringC@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva006FD340Cluster.cpp (not merged yet)
 
@@ -1095,7 +1097,19 @@ unsigned char Rva006FD5B0(char hi, char lo)
 
 // tu-skeleton: 0x00706240 163B ?_FunctionAptActionThrow@AptActionInterpreter@@CAXQAU1@QAULocalContextT@1@@Z -- matched in Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp (not merged yet)
 
-// tu-skeleton: 0x00706330 57B ?rva00706330@Rva00706330Stack@@QAEXXZ -- matched in Code/Libraries/Source/Apt/Rva00706330Cluster.cpp (not merged yet)
+// ---- from Code/Libraries/Source/Apt/Rva00706330Cluster.cpp
+
+// ?rva00706330@Rva00706330Stack@@QAEXXZ
+void Rva00706330Stack::rva00706330()
+{
+	--m_bfmeCount;
+	Rva006FBDB0 *element = m_bfmeArray[m_bfmeCount];
+	if (element) {
+		element->Rva006FBDB0::~Rva006FBDB0();
+		g_pChainBlockAllocator->freeBlock(element, 0xC);
+	}
+	m_bfmeArray[m_bfmeCount] = 0;
+}
 
 // tu-skeleton: 0x00706370 369B ?loadVariables@AptActionInterpreter@@QAEXPAVAptValue@@0PBVEAStringC@@@Z -- matched in Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp (not merged yet)
 
