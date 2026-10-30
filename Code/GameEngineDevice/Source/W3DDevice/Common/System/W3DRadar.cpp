@@ -32,10 +32,41 @@
 //#pragma optimize("", off)
 //#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
 
+
 #endif
 #include <string.h>
 #pragma intrinsic( memcpy )
 #include "ascii_string.h"
+// Native 0004EFE9..0004F037, RET0. The rowed deleting destructor at
+// 0004F7D8 establishes the address-derived owner. Target bytes set its vptr,
+// invoke virtual slot 3 on the +20 object, release that reference, and call
+// the base destructor at 004E84A4. The original class identity is unknown.
+class Rva00539926Base
+{
+public:
+    virtual ~Rva00539926Base();
+};
+class RadarEventRef
+{
+public:
+    virtual void slot0();
+    virtual void slot1();
+    virtual void slot2();
+    virtual void slot3();
+    void release();
+};
+struct Rva0004EFE9Reference
+{
+    RadarEventRef *value;
+    ~Rva0004EFE9Reference()
+    {
+        if (value)
+            value->release();
+    }
+};
+// Just enough of STLport's list<Snapshot *> for the rowed erase 0x00438539:
+// the iterator is non-POD, so it comes back through a hidden pointer.
+class Snapshot;
 
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
 namespace _STL {
@@ -373,12 +404,6 @@ public:
 	void inc();
 };
 
-class RadarEventRef
-{
-public:
-	void release();
-};
-
 class RadarEventRefSlot
 {
 public:
@@ -413,6 +438,36 @@ struct GeometryRecord
 
 	GeometryRecord &operator=( const GeometryRecord &other );
 };
+
+namespace _STL
+{
+    // Bind the element erase to the rowed 0x00438539 worker.
+    template <> _List_iterator<Snapshot *, _Nonconst_traits<Snapshot *> >
+    list<Snapshot *, allocator<Snapshot *> >::erase(_List_iterator<Snapshot *, _Nonconst_traits<Snapshot *> > position);
+}
+
+typedef _STL::list<Snapshot *, _STL::allocator<Snapshot *> > Rva0004F7F4SnapshotList;
+
+struct Rva0004F7F4Owner
+{
+    char m_unmodelled00[0x1500];
+    Rva0004F7F4SnapshotList m_snapshots; // +1500
+};
+
+class Rva004EFE9 : public Rva00539926Base
+{
+public:
+    virtual ~Rva004EFE9();
+    virtual void rva0004F7F4();
+private:
+    char m_unmodelled04[0x08];
+    Rva0004F7F4Owner *m_owner; // +0C
+    Rva0004F7F4SnapshotList::iterator m_position; // +10
+    char m_unmodelled14[0x0c];
+    Rva0004EFE9Reference m_reference; // +20
+};
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadar.cpp
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadar.cpp
 
@@ -677,16 +732,6 @@ void rva0004E55BCaller(Int firstX, Int lastX, Int y, SurfaceClass *surface)
  rva0004E55B(firstX, lastX, y, surface);
 }
 
-// tu-skeleton: 0x0004D9B6 381B ?reconstructViewBox@W3DRadar@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarReconstructViewBox.cpp (not merged yet)
-
-// tu-skeleton: 0x0004DBD5 490B ?drawViewBox@W3DRadar@@QAEXHHHHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarDrawViewBox.cpp (not merged yet)
-
-// tu-skeleton: 0x0004DDBF 179B ?rva0004DDBF@W3DRadar@@QAEXHHHHHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarDrawBeacon.cpp (not merged yet)
-
-// tu-skeleton: 0x0004DE72 253B ?Rva0004DE72Blend@@YAHPAHHE@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarColorBlend.cpp (not merged yet)
-
-// tu-skeleton: 0x0004DF6F 569B ?rva0004DF6F@@YAXPBVObject@@PAXHHMM@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarFootprintFill.cpp (not merged yet)
-
 // ---- from Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarInterpolateColor.cpp
 
 // ?interpolateColorForHeight@W3DRadar@@IAEXPAURGBColor@@MMMM@Z @0x0004E1A8 338B via ZH donor W3DRadar.cpp callers at 0x0004FAFF
@@ -734,14 +779,6 @@ void W3DRadar::interpolateColorForHeight(RGBColor *color, Real height, Real hiZ,
 		color->blue = 1.0f;
 }
 
-// tu-skeleton: 0x0004E2FA 167B ?reset@W3DRadar@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarReset.cpp (not merged yet)
-
-// tu-skeleton: 0x0004E3A1 5B ?rva0004E3A1@Rva0004E3A1@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAJ_Rva00034D00.cpp (not merged yet)
-
-// tu-skeleton: 0x0004E3A6 12B ?rva0004E3A6@Rva0004E3A6@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesB.cpp (not merged yet)
-
-// tu-skeleton: 0x0004E3F1 159B ?rva0004E3F1@W3DRadar@@IAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarInit.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/System/RadarEventRefSlotAssign.cpp
 
 RadarEventRefSlot &RadarEventRefSlot::operator=(const RadarEventRefSlot &other)
@@ -756,8 +793,6 @@ RadarEventRefSlot &RadarEventRefSlot::operator=(const RadarEventRefSlot &other)
 	return *this;
 }
 
-// tu-skeleton: 0x0004E4BD 12B ?rva0004E4BD@Rva0004E4BD@@QAEXXZ -- matched in Code/GameEngine/Source/Common/PinnedForwarders1830.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/System/Rva0004E4C9Assign.cpp
 
 Rva0004E4C9 &Rva0004E4C9::rva0004E4C9(void *p)
@@ -767,10 +802,6 @@ Rva0004E4C9 &Rva0004E4C9::rva0004E4C9(void *p)
 		((RadarMarker *)p)->AddReference();
 	return *this;
 }
-
-// tu-skeleton: 0x0004E4E1 12B ??1Rva004C9B8F@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/Drawable/Update/Rva004C9B8FAssign.cpp (not merged yet)
-
-// tu-skeleton: 0x0004E4ED 37B ?legalRadarPoint@@YA_NHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarRenderObjectList.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/System/GeometryRecordAssign.cpp
 
@@ -787,6 +818,30 @@ GeometryRecord &GeometryRecord::operator=( const GeometryRecord &other )
 	return *this;
 }
 
+// tu-skeleton: 0x0004D9B6 381B ?reconstructViewBox@W3DRadar@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarReconstructViewBox.cpp (not merged yet)
+
+// tu-skeleton: 0x0004DBD5 490B ?drawViewBox@W3DRadar@@QAEXHHHHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarDrawViewBox.cpp (not merged yet)
+
+// tu-skeleton: 0x0004DDBF 179B ?rva0004DDBF@W3DRadar@@QAEXHHHHHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarDrawBeacon.cpp (not merged yet)
+
+// tu-skeleton: 0x0004DE72 253B ?Rva0004DE72Blend@@YAHPAHHE@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarColorBlend.cpp (not merged yet)
+
+// tu-skeleton: 0x0004DF6F 569B ?rva0004DF6F@@YAXPBVObject@@PAXHHMM@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarFootprintFill.cpp (not merged yet)
+
+// tu-skeleton: 0x0004E2FA 167B ?reset@W3DRadar@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarReset.cpp (not merged yet)
+
+// tu-skeleton: 0x0004E3A1 5B ?rva0004E3A1@Rva0004E3A1@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAJ_Rva00034D00.cpp (not merged yet)
+
+// tu-skeleton: 0x0004E3A6 12B ?rva0004E3A6@Rva0004E3A6@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesB.cpp (not merged yet)
+
+// tu-skeleton: 0x0004E3F1 159B ?rva0004E3F1@W3DRadar@@IAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarInit.cpp (not merged yet)
+
+// tu-skeleton: 0x0004E4BD 12B ?rva0004E4BD@Rva0004E4BD@@QAEXXZ -- matched in Code/GameEngine/Source/Common/PinnedForwarders1830.cpp (not merged yet)
+
+// tu-skeleton: 0x0004E4E1 12B ??1Rva004C9B8F@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/Drawable/Update/Rva004C9B8FAssign.cpp (not merged yet)
+
+// tu-skeleton: 0x0004E4ED 37B ?legalRadarPoint@@YA_NHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarRenderObjectList.cpp (not merged yet)
+
 // tu-skeleton: 0x0004E5A2 354B ?rva0004E5A2@W3DRadar@@QAEXHHHHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DRadarDrawEvents.cpp (not merged yet)
 
 // tu-skeleton: 0x0004E704 206B ?rva0004E704@@YA_NPAVObject@@PAH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarStealthBlink.cpp (not merged yet)
@@ -799,7 +854,24 @@ GeometryRecord &GeometryRecord::operator=( const GeometryRecord &other )
 
 // tu-skeleton: 0x0004EF5D 140B ??0Rva004EFE9@@QAE@PAURva0004F7F4Owner@@U?$_List_iterator@PAVSnapshot@@U?$_Nonconst_traits@PAVSnapshot@@@_STL@@@_STL@@PBD@Z -- matched in Code/GameEngine/Source/Common/Rva0004EFE9Ctor.cpp (not merged yet)
 
-// tu-skeleton: 0x0004EFE9 78B ??1Rva004EFE9@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0004EFE9Dtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva0004EFE9Dtor.cpp
+
+Rva004EFE9::~Rva004EFE9()
+{
+    void (RadarEventRef::*callback)() = &RadarEventRef::slot3;
+    (m_reference.value->*callback)();
+}
+
+// Native 0004F7F4..0004F82B, slot 1 after the deleting destructor: leaves
+// the owner's +1500 snapshot list (when there is an owner) and destroys
+// itself through the global delete of a virtual-destructor class (slot 0
+// with 0, then operator delete).
+void Rva004EFE9::rva0004F7F4()
+{
+    if (m_owner)
+        m_owner->m_snapshots.erase(m_position);
+    ::delete this;
+}
 
 // tu-skeleton: 0x0004F037 612B ?rva0004F037@@YAXPAXHHHHHPBE@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarBlobBlips.cpp (not merged yet)
 
@@ -873,11 +945,7 @@ GeometryRecord &GeometryRecord::operator=( const GeometryRecord &other )
 
 // tu-skeleton: 0x0075D51B 10B __ehhandler$??0Rva004EFE9@@QAE@PAURva0004F7F4Owner@@U?$_List_iterator@PAVSnapshot@@U?$_Nonconst_traits@PAVSnapshot@@@_STL@@@_STL@@PBD@Z -- matched in Code/GameEngine/Source/Common/Rva0004EFE9Ctor.cpp (not merged yet)
 
-// tu-skeleton: 0x0075D525 8B Unwind@00b5d525 -- matched in Code/GameEngine/Source/Common/Rva0004EFE9Dtor.cpp (not merged yet)
-
 // tu-skeleton: 0x0075D52D 11B uw_0075d52d -- matched in Code/gen_small/uw_gen_009.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D538 10B __ehhandler$??1Rva004EFE9@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0004EFE9Dtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0075D542 8B $L4400 -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarBlobBlips.cpp (not merged yet)
 
@@ -896,6 +964,40 @@ GeometryRecord &GeometryRecord::operator=( const GeometryRecord &other )
 // tu-skeleton: 0x0075D57C 8B uw_0075d57c -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarScrollShroud.cpp (not merged yet)
 
 // tu-skeleton: 0x0075D584 10B __ehhandler$?rva0004F580@W3DRadar@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarScrollShroud.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D5A2 8B uw_0075d5a2 -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/Rva004FA1FRadarDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D5AA 14B $L6331 -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/Rva004FA1FRadarDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D5B8 14B $L6332 -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/Rva004FA1FRadarDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D5C6 14B $L6333 -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/Rva004FA1FRadarDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D5D4 14B $L6334 -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/Rva004FA1FRadarDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D5E2 14B $L6335 -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/Rva004FA1FRadarDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D5F0 24B $L6327 -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/Rva004FA1FRadarDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D608 10B __ehhandler$??0Rva004FA1F@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/Rva004FA1FRadarDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D612 8B $L6174 -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/Rva004FA1FRadarDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D61A 14B $L6184 -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/Rva004FA1FRadarDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D628 14B $L6185 -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/Rva004FA1FRadarDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D636 14B $L6186 -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/Rva004FA1FRadarDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D644 14B $L6187 -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/Rva004FA1FRadarDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D652 14B $L6188 -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/Rva004FA1FRadarDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D660 24B $L6180 -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/Rva004FA1FRadarDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D678 14B $L6190 -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/Rva004FA1FRadarDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D686 10B __ehhandler$??1Rva004FA1F@@UAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/Rva004FA1FRadarDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0075D690 8B Unwind@00b5d690 -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarTerrainTexture.cpp (not merged yet)
 
