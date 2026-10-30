@@ -35,16 +35,23 @@ public:
 	NameKeyType nameToKey(const char *name);
 };
 extern NameKeyGenerator *TheNameKeyGenerator;
+// The +0x0C field of the module data (the HordeMemberFilter entry).
+struct Rva00490225MemberFilter
+{
+	void *m_00;
+};
+
 class Rva00360D26Member
 {
 public:
 	~Rva00360D26Member();
 
 private:
-	unsigned char m_data[4];
+	Rva00490225MemberFilter m_data;
 };
-class __declspec(novtable) LargeGroupBonusUpdateModuleData : public Snapshot
+struct __declspec(novtable) LargeGroupBonusUpdateModuleData : public Snapshot
 {
+	friend class LargeGroupBonusUpdate;
 public:
 	virtual ~LargeGroupBonusUpdateModuleData();
 
@@ -115,7 +122,17 @@ class Snapshot;
 
 class BehaviorModuleInterface { public: virtual void behaviorSlot(); };
 
-class UpdateModuleInterface { public: virtual void updateSlot(); };
+enum UpdateSleepTime
+{
+	UPDATE_SLEEP_NONE = 1,
+	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
+};
+
+class UpdateModuleInterface
+{
+public:
+	virtual UpdateSleepTime update() = 0;
+};
 
 class UpdateModule : public ObjectModule,
 	public BehaviorModuleInterface, public UpdateModuleInterface
@@ -124,6 +141,9 @@ public:
 	UpdateModule(Thing *thing, const ModuleData *moduleData);
 	virtual ~UpdateModule();
 	void xfer(Xfer *xfer);
+
+protected:
+	void setWakeFrame(Object *object, UpdateSleepTime frame);
 
 private:
 	unsigned int m_nextCallFrameAndPhase;
@@ -137,14 +157,21 @@ class LargeGroupBonusUpdate : public UpdateModule, public LargeGroupBonusTrailin
 {
 public:
 	virtual NameKeyType getModuleNameKey() const;
+	virtual UpdateSleepTime update();
+	void notify(int value);
+	void rva004901B5();
 
 protected:
 	virtual void xfer(Xfer *xfer);
 
 private:
-	unsigned int m_24;
-	bool m_28;
-	bool m_29;
+	const LargeGroupBonusUpdateModuleData *getLargeGroupBonusUpdateModuleData() const
+	{
+		return (const LargeGroupBonusUpdateModuleData *)m_moduleData;
+	}
+	unsigned int m_24; // +0x24
+	bool m_28; // +0x28
+	bool m_29; // +0x29
 	bool m_2A;
 };
 

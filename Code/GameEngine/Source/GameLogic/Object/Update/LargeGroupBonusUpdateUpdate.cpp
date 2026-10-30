@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /DBFME_ASCII_DTOR_DECL /DNDEBUG /MD /GX /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_STLP_USE_MALLOC /D_CRTIMP= /Ireference/shims/update_modules_bfme2 /Ireference/shims/moduledata /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/dockupdate /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib /Ireference/shims/bfme_namekey /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/shims -ICode/Libraries/Source/Compression/LZHCompress/CompLibHeader /Ireference/shims/bfme2htree /Ireference/shims/bfme2renderobj /Ireference/shims/bfmecamera /Ireference/shims/bfmelight /Ireference/shims/bfmeparticlehandle /Ireference/shims/bfmeparticleload /Ireference/shims/bfmeparticlequat /Ireference/shims/bfmeparticlesave /Ireference/shims/bfmeparticleline /Ireference/shims/bfme2ray /Ireference/shims/bfme2scene /Ireference/shims/bfmefrustum
 // stlport
 #include "../../../Common/RTS/XYDistanceCallView.h"
 //
@@ -77,16 +77,11 @@ public:
 	virtual Rva00490225Member *getMember() = 0;
 };
 
-class ObjectModuleBase
-{
-public:
-	virtual ~ObjectModuleBase();
-protected:
-	const ModuleData *m_moduleData;	// +0x04
-	Object *m_object;			// +0x08
-};
+enum NameKeyType { NK_UNKNOWN = 0 };
+// ObjectModule stores m_moduleData at +0x04 and m_object at +0x08.
+#include "../../../../Include/Common/ObjectModule.h"
 
-class BehaviorModule : public ObjectModuleBase, public Rva00490225BehaviorIface
+class BehaviorModule : public ObjectModule, public Rva00490225BehaviorIface
 {
 };
 
@@ -222,58 +217,78 @@ extern PartitionManager *ThePartitionManager;
 #include "../../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 
-struct LargeGroupBonusUpdateModuleData
-{
-	unsigned char m_pad00[0x08];
-	UnsignedInt m_delay;				// +0x08
-	Rva00490225MemberFilter m_memberFilter;	// +0x0C
-	UnsignedInt m_count;				// +0x10
-	Real m_radius;					// +0x14
-	unsigned char m_pad18[0x1C - 0x18];
-	Real m_nearDistance;				// +0x1C
-	_STL::vector<AsciiString> m_flagSubObjectNames;
-	AsciiString m_modifierName;			// +0x2C
-};
-
-class BehaviorModuleInterface
+class Rva00360D26Member
 {
 public:
-	virtual void behaviorModuleInterfaceAnchor();
+	~Rva00360D26Member();
+
+private:
+	Rva00490225MemberFilter m_data;
 };
+struct __declspec(novtable) LargeGroupBonusUpdateModuleData : public Snapshot
+{
+	friend class LargeGroupBonusUpdate;
+public:
+	virtual ~LargeGroupBonusUpdateModuleData();
+
+private:
+	int m_unused04; // +4
+	int m_updateRate; // +8
+	Rva00360D26Member m_hordeMemberFilter; // +0xC
+	int m_count; // +0x10
+	float m_radius; // +0x14
+	bool m_alliesOnly; // +0x18
+	float m_rubOffRadius; // +0x1C
+	_STL::vector<AsciiString> m_flagSubObjectNames; // +0x20
+	AsciiString m_attributeModifier; // +0x2C
+};
+class BehaviorModuleInterface { public: virtual void behaviorSlot(); };
+
 class UpdateModuleInterface
 {
 public:
 	virtual UpdateSleepTime update() = 0;
 };
-class UpdateModule : public ObjectModuleBase, public BehaviorModuleInterface, public UpdateModuleInterface
-{
-protected:
-	unsigned int m_14;
-	int m_18;
-	int m_1C;
-};
 
-class LargeGroupBonusTrailing
+class UpdateModule : public ObjectModule,
+	public BehaviorModuleInterface, public UpdateModuleInterface
 {
 public:
-	virtual void trailingSlot();
+	UpdateModule(Thing *thing, const ModuleData *moduleData);
+	virtual ~UpdateModule();
+	void xfer(Xfer *xfer);
+
+protected:
+	void setWakeFrame(Object *object, UpdateSleepTime frame);
+
+private:
+	unsigned int m_nextCallFrameAndPhase;
+	int m_indexInLogic;
+	int m_updateState;
 };
+
+class LargeGroupBonusTrailing { public: virtual void trailingSlot(); };
 
 class LargeGroupBonusUpdate : public UpdateModule, public LargeGroupBonusTrailing
 {
 public:
+	virtual NameKeyType getModuleNameKey() const;
 	virtual UpdateSleepTime update();
- void notify(int value);
- void rva004901B5();
+	void notify(int value);
+	void rva004901B5();
+
+protected:
+	virtual void xfer(Xfer *xfer);
+
 private:
 	const LargeGroupBonusUpdateModuleData *getLargeGroupBonusUpdateModuleData() const
 	{
 		return (const LargeGroupBonusUpdateModuleData *)m_moduleData;
 	}
-	UnsignedInt m_lastFrame;	// +0x24
-	Bool m_active;			// +0x28
-	Bool m_bySize;			// +0x29
-	Bool m_2A;
+	unsigned int m_24; // +0x24
+	bool m_28; // +0x28
+	bool m_29; // +0x29
+	bool m_2A;
 };
 
 UpdateSleepTime LargeGroupBonusUpdate::update()
@@ -282,12 +297,12 @@ UpdateSleepTime LargeGroupBonusUpdate::update()
 	if (!obj)
 		return UPDATE_SLEEP_FOREVER;
 
-	Bool wasActive = m_active;
+	Bool wasActive = m_28;
 	const LargeGroupBonusUpdateModuleData *data = getLargeGroupBonusUpdateModuleData();
 	Bool everyFrame = obj->isKindOf109Bit0() || obj->isKindOf109Bit1();
-	if (everyFrame || TheGameLogic->getFrame() > m_lastFrame + data->m_delay) {
-		m_lastFrame = TheGameLogic->getFrame();
-		Rva00260F9EFilter filterMember(&data->m_memberFilter, true);
+	if (everyFrame || TheGameLogic->getFrame() > m_24 + data->m_updateRate) {
+		m_24 = TheGameLogic->getFrame();
+		Rva00260F9EFilter filterMember(reinterpret_cast<const Rva00490225MemberFilter *>(&data->m_hordeMemberFilter), true);
 		Rva00260E2AFilter filterPlayer(obj->getControllingPlayer());
 		Rva0026119DFilter filterAlive;
 		Rva002611BFFilter filterNotThis(obj);
@@ -298,38 +313,38 @@ UpdateSleepTime LargeGroupBonusUpdate::update()
 		while ((other = hits.next()) != 0) {
 			Rva00490225Contain *contain = (Rva00490225Contain *)other->rva0028C197();
 			if (contain)
-				count += contain->countMembers(&data->m_memberFilter);
+				count += contain->countMembers(reinterpret_cast<const Rva00490225MemberFilter *>(&data->m_hordeMemberFilter));
 		}
 		hits.reset();
 		if (count >= data->m_count - 1) {
-			m_bySize = true;
-			m_active = true;
+			m_29 = true;
+			m_28 = true;
 		} else {
-			m_active = false;
-			m_bySize = false;
-			Real nearSqr = data->m_nearDistance * data->m_nearDistance;
+			m_28 = false;
+			m_29 = false;
+			Real nearSqr = data->m_rubOffRadius * data->m_rubOffRadius;
 			while ((other = hits.next()) != 0) {
 				Rva00490225Member *member = other->findMember();
 				if (member && member->isActive()) {
 					Real distSqr = reinterpret_cast<Rva000CBA20 *>(m_object)->distSq(reinterpret_cast<const Rva000CBA20Point *>(other->getPosition()));
 					if (distSqr <= nearSqr) {
-						m_active = true;
+						m_28 = true;
 						break;
 					}
 				}
 			}
 		}
-		if (wasActive != m_active) {
-			if (m_active)
-				obj->addAttributeModifierToPool(data->m_modifierName, 0);
+		if (wasActive != m_28) {
+			if (m_28)
+				obj->addAttributeModifierToPool(data->m_attributeModifier, 0);
 			else
-				obj->removeAttributeModifierFromPool(data->m_modifierName);
+				obj->removeAttributeModifierFromPool(data->m_attributeModifier);
 		}
 	}
 	if (obj->m_438 & 1)
 		return UPDATE_SLEEP_FOREVER;
 	obj->rva0028C197();
-	return everyFrame ? (UpdateSleepTime)data->m_delay : UPDATE_SLEEP_NONE;
+	return everyFrame ? (UpdateSleepTime)data->m_updateRate : UPDATE_SLEEP_NONE;
 }
 
 // BF1 f98983a7 LargeGroupBonusUpdateNotify.cpp supplies the loop purpose;
