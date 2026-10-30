@@ -27312,7 +27312,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0035D43E,28,code,,,-,,Code/GameEngine/Source/Common/Rva001DBAC3Derived.cpp
 0x0035D45A,33,code,Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp,proposed,K,K=Rva0035D47B,Code/GameEngine/Source/Common/Rva0035D47BCtor.cpp
 0x0035D47B,15,code,Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp,proposed,K,K=Rva0035D47B,Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp
-0x0035D48A,81,code,Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp,proposed,C,C=0x0035D47B..0x0035D4DB,Code/GameEngine/Source/Common/Rva0059EE10AttackNuggetFactory_Rva0035D48A.cpp
+0x0035D48A,81,code,Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp,proposed,C,C=0x0035D47B..0x0035D4DB,Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp
 0x0035D4DB,11,code,Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp,proposed,C,C=0x0035D47B..0x0035D4E6,Code/GameEngine/Source/Common/VtableSlotBodiesR3.cpp
 0x0035D4E6,44,code,Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp S=Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp N=Code/GameEngine/Source/GameClient/GUI/ReverseSoundTransition.cpp,Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStylesO1.cpp
 0x0035D512,14,code,Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp,approved,C,C=0x0035D4E6..0x0035D520,Code/GameEngine/Source/Common/VslotSmallBodiesC.cpp
@@ -74263,8 +74263,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0077DE07,10,code,,,-,,Code/GameEngine/Source/Main/AudioManagerFocusVolume.cpp
 0x0077DE11,10,code,,,-,,Code/GameEngine/Source/Common/Rva0059D1F0AttackNuggetFactory.cpp
 0x0077DE1B,10,code,,,-,,Code/GameEngine/Source/Common/Rva0059D1F0AttackNuggetFactory.cpp
-0x0077DE25,10,code,Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp,approved,P,P=0x0035D48A@FuncInfo0x00927B6C p-group,Code/GameEngine/Source/Common/Rva0059EE10AttackNuggetFactory_Rva0035D48A.cpp
-0x0077DE2F,10,code,Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp,approved,P,P=0x0035D48A@FuncInfo0x00927B6C p-group,Code/GameEngine/Source/Common/Rva0059EE10AttackNuggetFactory_Rva0035D48A.cpp
+0x0077DE25,10,code,Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp,approved,P,P=0x0035D48A@FuncInfo0x00927B6C p-group,Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp
+0x0077DE2F,10,code,Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp,approved,P,P=0x0035D48A@FuncInfo0x00927B6C p-group,Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp
 0x0077DE39,10,code,Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp,approved,P,P=0x0035D6F9@FuncInfo0x00927B90,Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp
 0x0077DE43,10,code,Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp,approved,P,P=0x0035D6F9@FuncInfo0x00927B90,Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp
 0x0077DE4D,10,code,Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp,approved,P,P=0x0035D7ED@FuncInfo0x00927BB4,Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp
