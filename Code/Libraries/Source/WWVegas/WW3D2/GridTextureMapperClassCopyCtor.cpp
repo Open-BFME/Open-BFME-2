@@ -33,7 +33,12 @@ class Matrix4;
 class TextureMapperClass : public RefCountClass
 {
 public:
-	TextureMapperClass(const TextureMapperClass &src);
+	// ??0TextureMapperClass@@QAE@ABV0@@Z is owned by mapper.cpp; its strong copy wins at link time.
+	// This inline body lets Grid's copy constructor inline the base initialization.
+	TextureMapperClass(const TextureMapperClass &src)
+	{
+		Stage = src.Stage;
+	}
 	virtual ~TextureMapperClass();
 	virtual int Mapper_ID() const;
 	virtual TextureMapperClass *Clone() const = 0;
@@ -48,13 +53,32 @@ public:
 class GridTextureMapperClass : public TextureMapperClass
 {
 public:
-	GridTextureMapperClass(const GridTextureMapperClass &src);
+	GridTextureMapperClass(const GridTextureMapperClass &src)
+		: TextureMapperClass(src)
+	{
+		Unk = src.Unk;
+		Sign = src.Sign;
+		MSPerFrame = src.MSPerFrame;
+		OOGridWidth = src.OOGridWidth;
+		GridWidthLog2 = src.GridWidthLog2;
+		LastFrame = src.LastFrame;
+		Offset = src.Offset;
+		Reset();
+	}
 	virtual ~GridTextureMapperClass();
 	virtual int Mapper_ID() const;
 	virtual TextureMapperClass *Clone() const;
 	virtual bool Is_Time_Variant();
 	virtual void Apply(int);
-	virtual void Reset();
+	virtual void Reset()
+	{
+		Remainder = 0;
+		if (Sign >= 0)
+			CurrentFrame = Offset;
+		else
+			CurrentFrame = (LastFrame - 1) - Offset;
+		LastUsedSyncTime = WW3D::Get_Sync_Time();
+	}
 	virtual void Calculate_Texture_Matrix(Matrix4 &);
 
 	int Unk;
@@ -68,37 +92,6 @@ public:
 	unsigned CurrentFrame;
 	unsigned LastUsedSyncTime;
 };
-
-// ??0TextureMapperClass@@QAE@ABV0@@Z is owned by mapper.cpp; kept inline
-// here so Grid's copy ctor can inline it. Emitted as select-any; the owner
-// keeps the strong copy.
-inline TextureMapperClass::TextureMapperClass(const TextureMapperClass &src)
-{
-	Stage = src.Stage;
-}
-
-inline void GridTextureMapperClass::Reset()
-{
-	Remainder = 0;
-	if (Sign >= 0)
-		CurrentFrame = Offset;
-	else
-		CurrentFrame = (LastFrame - 1) - Offset;
-	LastUsedSyncTime = WW3D::Get_Sync_Time();
-}
-
-inline GridTextureMapperClass::GridTextureMapperClass(const GridTextureMapperClass &src)
-	: TextureMapperClass(src)
-{
-	Unk = src.Unk;
-	Sign = src.Sign;
-	MSPerFrame = src.MSPerFrame;
-	OOGridWidth = src.OOGridWidth;
-	GridWidthLog2 = src.GridWidthLog2;
-	LastFrame = src.LastFrame;
-	Offset = src.Offset;
-	Reset();
-}
 
 // The copy constructor is a header inline in mapper.cpp. This anchor retains
 // its matched row body here, but the anchor is not retail code.

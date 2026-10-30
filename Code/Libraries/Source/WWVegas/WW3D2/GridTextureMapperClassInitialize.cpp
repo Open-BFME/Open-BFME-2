@@ -21,7 +21,10 @@ public:
 class RefCountClass
 {
 public:
+	virtual void Delete_This();
+protected:
 	virtual ~RefCountClass();
+private:
 	int NumRefs;
 };
 
@@ -35,7 +38,34 @@ public:
 class GridTextureMapperClass : public TextureMapperClass
 {
 protected:
-	void initialize(float fps, unsigned int gridwidth_log2);
+	// Select-any like every other TU's copy (a strong definition would duplicate theirs at link time);
+	// the anchor keeps the noinline body emitted.
+	__declspec(noinline) void initialize(float fps, unsigned int gridwidth_log2)
+	{
+		unsigned int grid_width = (1u << gridwidth_log2);
+
+		if (LastFrame == 0)
+			LastFrame = (grid_width * grid_width);
+		Offset = Offset % LastFrame;
+		LastUsedSyncTime = WW3D::Get_Sync_Time();
+		GridWidthLog2 = gridwidth_log2;
+		OOGridWidth = 1.0f / (float)grid_width;
+		Fps = fps;
+		if (fps == 0.0f) {
+			Sign = 0;
+			MSPerFrame = 1;
+			CurrentFrame = Offset;
+		} else if (fps < 0.0f) {
+			Sign = -1;
+			MSPerFrame = (unsigned int)(1000.0f / fabs(fps));
+			CurrentFrame = (LastFrame - 1) - Offset;
+		} else {
+			Sign = 1;
+			MSPerFrame = (unsigned int)(1000.0f / fabs(fps));
+			CurrentFrame = Offset;
+		}
+		Remainder = 0;
+	}
 	friend void bfmeAnchorGridTextureMapperInitialize(GridTextureMapperClass *, float, unsigned int);
 
 	float Fps;
@@ -50,37 +80,15 @@ protected:
 	unsigned LastUsedSyncTime;
 };
 
-// Select-any like every other TU's copy (a strong definition would duplicate theirs at link time);
-// the anchor keeps the noinline body emitted.
-__declspec(noinline) inline void GridTextureMapperClass::initialize(float fps, unsigned int gridwidth_log2)
+struct GridTextureMapperInitializeAccess : GridTextureMapperClass
 {
-	unsigned int grid_width = (1u << gridwidth_log2);
+	using GridTextureMapperClass::initialize;
+};
 
-	if (LastFrame == 0)
-		LastFrame = (grid_width * grid_width);
-	Offset = Offset % LastFrame;
-	LastUsedSyncTime = WW3D::Get_Sync_Time();
-	GridWidthLog2 = gridwidth_log2;
-	OOGridWidth = 1.0f / (float)grid_width;
-	Fps = fps;
-	if (fps == 0.0f) {
-		Sign = 0;
-		MSPerFrame = 1;
-		CurrentFrame = Offset;
-	} else if (fps < 0.0f) {
-		Sign = -1;
-		MSPerFrame = (unsigned int)(1000.0f / fabs(fps));
-		CurrentFrame = (LastFrame - 1) - Offset;
-	} else {
-		Sign = 1;
-		MSPerFrame = (unsigned int)(1000.0f / fabs(fps));
-		CurrentFrame = Offset;
-	}
-	Remainder = 0;
-}
-
+#pragma inline_depth(0)
 // ?bfmeAnchorGridTextureMapperInitialize absent-from-retail
 void bfmeAnchorGridTextureMapperInitialize(GridTextureMapperClass *gridTextureMapper, float fps, unsigned int gridwidth_log2)
 {
-	gridTextureMapper->initialize(fps, gridwidth_log2);
+	reinterpret_cast<GridTextureMapperInitializeAccess *>(gridTextureMapper)->initialize(fps, gridwidth_log2);
 }
+#pragma inline_depth()

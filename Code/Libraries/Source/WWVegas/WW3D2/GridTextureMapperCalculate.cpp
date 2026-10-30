@@ -37,7 +37,7 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include <stdlib.h>
 
 
-inline void GridTextureMapperClass::update_temporal_state()
+inline void GridTextureMapperClass::update_temporal_state(void)
 {
 	unsigned int now = WW3D::Get_Sync_Time();
 	unsigned int delta = now - LastUsedSyncTime;
@@ -45,16 +45,17 @@ inline void GridTextureMapperClass::update_temporal_state()
 	LastUsedSyncTime = now;
 
 	int new_frame = (int)CurrentFrame + ((int)(Remainder / MSPerFrame) * Sign);
-	new_frame = (int)((unsigned)new_frame % LastFrame);
+	new_frame=new_frame % LastFrame;
 
-	if (new_frame < 0)
-		CurrentFrame = LastFrame + new_frame;
-	else
-		CurrentFrame = (unsigned int)new_frame;
+	if (new_frame<0) {
+		CurrentFrame=LastFrame+new_frame;
+	} else {
+		CurrentFrame=(unsigned int) new_frame;
+	}
 	Remainder = Remainder % MSPerFrame;
 }
 
-__declspec(dllimport) __forceinline void GridTextureMapperClass::calculate_uv_offset(float * u_offset, float * v_offset)
+void GridTextureMapperClass::calculate_uv_offset(float * u_offset, float * v_offset)
 {
 	unsigned int row_mask = ~(0xFFFFFFFF << GridWidthLog2);
 	unsigned int col_mask = row_mask << GridWidthLog2;

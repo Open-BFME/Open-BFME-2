@@ -15,7 +15,10 @@ public:
 class RefCountClass
 {
 public:
+	virtual void Delete_This();
+protected:
 	virtual ~RefCountClass();
+private:
 	int NumRefs;
 };
 
@@ -44,7 +47,7 @@ protected:
 	unsigned LastUsedSyncTime;
 };
 
-inline void GridTextureMapperClass::update_temporal_state()
+inline void GridTextureMapperClass::update_temporal_state(void)
 {
 	unsigned int now = WW3D::Get_Sync_Time();
 	unsigned int delta = now - LastUsedSyncTime;
@@ -52,20 +55,26 @@ inline void GridTextureMapperClass::update_temporal_state()
 	LastUsedSyncTime = now;
 
 	int new_frame = (int)CurrentFrame + ((int)(Remainder / MSPerFrame) * Sign);
-	new_frame = (int)((unsigned)new_frame % LastFrame);
+	new_frame=new_frame % LastFrame;
 
-	if (new_frame < 0)
-		CurrentFrame = LastFrame + new_frame;
-	else
-		CurrentFrame = (unsigned int)new_frame;
+	if (new_frame<0) {
+		CurrentFrame=LastFrame+new_frame;
+	} else {
+		CurrentFrame=(unsigned int) new_frame;
+	}
 	Remainder = Remainder % MSPerFrame;
 }
+
+struct GridTextureMapperTemporalAccess : GridTextureMapperClass
+{
+	using GridTextureMapperClass::update_temporal_state;
+};
 
 // This method is a header inline in the copier unit; the anchor is not retail code.
 #pragma inline_depth(0)
 // ?_bfmeGridTextureMapperUpdateTemporalStateInlineAnchor@@YAXPAVGridTextureMapperClass@@@Z absent-from-retail
 void _bfmeGridTextureMapperUpdateTemporalStateInlineAnchor(GridTextureMapperClass *mapper)
 {
-	mapper->update_temporal_state();
+	reinterpret_cast<GridTextureMapperTemporalAccess *>(mapper)->update_temporal_state();
 }
 #pragma inline_depth()
