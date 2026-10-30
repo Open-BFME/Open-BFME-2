@@ -8669,8 +8669,8 @@ _Rva0088E1A0ShowAssertCrashDialog,,0x0003D880,410,Code/Libraries/Source/debug/de
 ?clear@Rva007F6C60@@QAEXXZ,,0x00663370,78,Code/GameEngine/Source/Common/S3PolymorphicArrayClear.cpp,matched,BFME1 donor stride 64; b1 0x007F6C60
 ?clear@Rva00801570@@QAEXXZ,,0x0066D890,78,Code/GameEngine/Source/Common/S3PolymorphicArrayClear.cpp,matched,BFME1 donor stride 48; b1 0x00801570
 ?clear@Rva00801600@@QAEXXZ,,0x0066D900,78,Code/GameEngine/Source/Common/S3PolymorphicArrayClear.cpp,matched,BFME1 donor stride 56; b1 0x00801600
-?sendCreateGameRequest@BfmeSinkSKA@@QAEXHHHPBD@Z,,0x006700C0,199,Code/GameEngine/Source/GameNetwork/FeslTidMessageSender.cpp,matched,BFME1 byte-identical donor b1 0x00804080 ICF pick 6 literals
-?bfmeSendSKA@BfmeSinkSKA@@QAEXHHH@Z,,0x00670050,103,Code/GameEngine/Source/GameNetwork/FeslTidMessageSender.cpp,matched,BFME1 byte-identical donor b1 0x00804010 ICF pick 1 literal
+?sendCreateGameRequest@BfmeSinkSKA@@QAEXHHHPBD@Z,,0x006700C0,199,Code/GameEngine/Source/GameNetwork/BfmeSinkSKA.cpp,matched,BFME1 byte-identical donor b1 0x00804080 ICF pick 6 literals
+?bfmeSendSKA@BfmeSinkSKA@@QAEXHHH@Z,,0x00670050,103,Code/GameEngine/Source/GameNetwork/BfmeSinkSKA.cpp,matched,BFME1 byte-identical donor b1 0x00804010 ICF pick 1 literal
 ?bfmeMakeQB@BfmeThingQB@@QAEXIPAX@Z,,0x00024CF0,59,Code/GameEngine/Source/Common/BfmeTwoHundredEightyFive.cpp,matched,BFME1 byte-identical donor; b1 0x0082C230; ICF-folded in BFME1 so the name is this sweep's pick among its twins
 ?bfmeGoCCD@BfmeThingCCD@@QAEHXZ,,0x004C1121,38,Code/GameEngine/Source/Common/BfmeConv575.cpp,matched,BFME1 near-miss donor; b1 0x00215580; sub +0xD0 to +0xF0
 ?d_00884e50@Rva00884E50Class@@QAEHXZ,,0x006C9970,95,Code/Libraries/Source/WWVegas/WWDownload/Download.cpp,matched,BFME1 byte-identical donor; b1 0x00884E50; ICF-folded in BFME1 so the name is this sweep's pick among its twins
