@@ -892,6 +892,8 @@ address_global	Code/GameEngine/Source/GameClient/GUI/AptGuiFXInit.cpp	g_Va00E022
 address_global	Code/GameEngine/Source/GameClient/GUI/AptGuiFXInit.cpp	g_Va00E022E8	3
 address_global	Code/GameEngine/Source/GameClient/GUI/AptMessageBoxUpdateDispatch.cpp	g_Va00E032FC	2
 address_global	Code/GameEngine/Source/GameClient/GUI/AptMessageBoxUpdateDispatch.cpp	g_Va00E04478	2
+address_global	Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp	g_Rva00E02EEC	3
+address_global	Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp	g_Va00E0333C	2
 address_global	Code/GameEngine/Source/GameClient/GUI/AptMpGameSetupRva0043DC40.cpp	g_Va00E0333C	1
 address_global	Code/GameEngine/Source/GameClient/GUI/AptMpGameSetupRva00440BDF.cpp	g_Va00E0333C	1
 address_global	Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp	g_Va00E0330C	1
@@ -1014,10 +1016,6 @@ address_global	Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicH
 address_global	Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/PalantirCommandInterfacePortrait.cpp	g_Va00BC2424	2
 address_global	Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp	g_Rva00E02EEC	1
 address_global	Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp	g_Va00E0333C	6
-address_global	Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init.cpp	g_Rva00E02EEC	2
-address_global	Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init.cpp	g_Va00E0333C	2
-address_global	Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init_InitGadgets.cpp	g_Rva00E02EEC	1
-address_global	Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init_InitGadgets.cpp	g_Va00E0333C	1
 address_global	Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init_InitGadgets_InitGadgets.cpp	g_Rva00E02EEC	1
 address_global	Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init_InitGadgets_InitGadgets.cpp	g_Va00E0333C	1
 address_global	Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantirUpdate.cpp	g_Va00A04450	2

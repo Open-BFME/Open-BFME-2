@@ -35184,7 +35184,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0043DC7F,10,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp
 0x0043DC89,10,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp
 0x0043DC93,103,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp
-0x0043DCFA,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init.cpp
+0x0043DCFA,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp
 0x0043DD02,50,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp
 0x0043DD34,138,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp
 0x0043DDBE,21,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,C,C=0x0043DD34..0x0043DDD3,Code/GameEngine/Source/Common/GapBodiesGE08.cpp
@@ -35199,8 +35199,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0043E04D,120,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp
 0x0043E0C5,109,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,C,C=0x0043E04D..0x0043E132,Code/GameEngine/Source/Common/Rva0043E0C5.cpp
 0x0043E132,154,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,C,C=0x0043E04D..0x0043E1CC,Code/GameEngine/Source/Common/Rva0043E0C5.cpp
-0x0043E1CC,135,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init.cpp
-0x0043E253,188,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init.cpp
+0x0043E1CC,135,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp
+0x0043E253,188,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp
 0x0043E30F,211,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp
 0x0043E3E2,186,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp
 0x0043E49C,26,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp
@@ -35213,24 +35213,24 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0043EA9C,45,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,C,C=0x0043E750..0x0043EAC9,Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp
 0x0043EAC9,84,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,C,C=0x0043E750..0x0043EB1D,Code/Libraries/Source/WWVegas/WWLib/stlport_bit_const_equal.cpp
 0x0043EB1D,420,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,Code/GameEngine/Source/GameClient/GUI/MpGameSetupOnInitGadget.cpp
-0x0043ECC1,243,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init_InitGadgets.cpp
+0x0043ECC1,243,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp
 0x0043EDB4,543,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,Code/GameEngine/Source/GameClient/GUI/MpGameSetupAdjustSlots.cpp
-0x0043EFD3,304,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init.cpp
+0x0043EFD3,304,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp
 0x0043F103,33,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,C,C=0x0043EFD3..0x0043F124,Code/GameEngine/Source/GameClient/GUI/Rva0043F103Holder.cpp
 0x0043F124,41,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,C,C=0x0043EFD3..0x0043F14D,Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp
 0x0043F14D,87,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,C,C=0x0043EFD3..0x0043F1A4,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetupPopulateColorCombo.cpp
 0x0043F1A4,104,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,C,C=0x0043EFD3..0x0043F20C,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp
-0x0043F20C,56,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,C,C=0x0043EFD3..0x0043F244,Code/Libraries/Source/WWVegas/WWLib/Rva0043F20CFinish.cpp
+0x0043F20C,56,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,C,C=0x0043EFD3..0x0043F244,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp
 0x0043F244,575,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp
 0x0043F483,1072,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp W=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMpGameSetup.cpp,Code/GameEngine/Source/GameClient/GUI/Rva0043F483PopulatePlayerCombo.cpp
 0x0043F8B3,437,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp
 0x0043FA68,244,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp
 0x0043FB5C,195,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp
-0x0043FC1F,482,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init.cpp
-0x0043FE01,18,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,C,C=0x0043FC1F..0x0043FE13,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init.cpp
+0x0043FC1F,482,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp
+0x0043FE01,18,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,C,C=0x0043FC1F..0x0043FE13,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp
 0x0043FE13,79,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,C,C=0x0043FC1F..0x0043FE62,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_bool_ctor.cpp
 0x0043FE62,56,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,C,C=0x0043FC1F..0x0043FE9A,Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp
-0x0043FE9A,309,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,C,C=0x0043FC1F..0x0043FFCF,Code/GameEngine/Source/GameClient/GUI/Rva0043FE9AComparer.cpp
+0x0043FE9A,309,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,C,C=0x0043FC1F..0x0043FFCF,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp
 0x0043FFCF,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp
 0x0043FFD7,59,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp
 0x00440012,5,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,C,C=0x0043FFD7..0x00440017,Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp
@@ -35268,29 +35268,29 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x004422B4,41,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp
 0x004422DD,522,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp W=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMpGameSetup.cpp,Code/GameEngine/Source/GameClient/GUI/HostValidateColorsRva004422DDFarm.cpp
 0x004424E7,734,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp W=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMpGameSetup.cpp,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetupRva00440BDF.cpp
-0x004427C5,53,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init.cpp
-0x004427FA,46,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init.cpp
+0x004427C5,53,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp
+0x004427FA,46,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp
 0x00442828,77,code,,,-,,Code/GameEngine/Source/GameClient/GUI/Rva00442828Final.cpp
 0x00442875,29,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_comparator_ptr_sort.cpp
 0x00442892,27,code,,,-,,Code/GameEngine/Source/GameClient/GUI/Rva00442892Pop.cpp
 0x004428AD,28,code,Code/GameEngine/Source/Common/AptMpGameSetup.cpp,proposed,N,N=Code/GameEngine/Source/Common/AptMpGameSetup.cpp island,Code/GameEngine/Source/Common/Rva004421E1Dtor.cpp
-0x004428C9,336,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init_InitGadgets.cpp
+0x004428C9,336,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp
 0x00442A19,79,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init_InitGadgets_InitGadgets.cpp
 0x00442A68,266,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp
 0x00442B72,29,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,C,C=0x00442A68..0x00442B8F,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp
 0x00442B8F,61,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,C,C=0x00442A68..0x00442BCC,Code/GameEngine/Source/GameClient/GUI/Rva00442B8FSort.cpp
 0x00442BCC,208,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp
 0x00442C9C,23,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp
-0x00442CB3,690,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init_InitGadgets.cpp
+0x00442CB3,690,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp
 0x00442F65,115,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp
 0x00442FD8,101,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,C,C=0x00442F65..0x0044303D,Code/Libraries/Source/WWVegas/WWLib/stlport_comparator_ptr_sort.cpp
-0x0044303D,1040,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init.cpp
+0x0044303D,1040,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp
 0x0044344D,30,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,C,C=0x0044303D..0x0044346B,Code/Libraries/Source/WWVegas/WWLib/stlport_comparator_ptr_sort.cpp
 0x0044346B,132,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,C,C=0x0044303D..0x004434EF,Code/Libraries/Source/WWVegas/WWLib/stlport_comparator_ptr_sort.cpp
 0x004434EF,73,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,C,C=0x0044303D..0x00443538,Code/Libraries/Source/WWVegas/WWLib/stlport_comparator_ptr_sort.cpp
 0x00443538,1723,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetupRefreshMapList.cpp
 0x00443BF3,123,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp
-0x00443C6E,570,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init.cpp
+0x00443C6E,570,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp
 0x00443EA8,358,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init_InitGadgets_InitGadgets.cpp
 0x0044400E,8,code,,,-,,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMapPreview.cpp
 0x00444016,25,code,,,-,,Code/GameEngine/Source/GameClient/GadgetTextEntryHasSelection.cpp
@@ -78645,8 +78645,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0078882C,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0043DE19@FuncInfo0x009365E4 p-group provisional,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init_InitGadgets_InitGadgets.cpp
 0x00788834,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0043DE19@FuncInfo0x009365E4 p-group provisional,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init_InitGadgets_InitGadgets.cpp
 0x0078883C,10,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0043DE19@FuncInfo0x009365E4 p-group provisional,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init_InitGadgets_InitGadgets.cpp
-0x00788846,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0043E253@FuncInfo0x00936608 p-group provisional,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init.cpp
-0x0078884E,10,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0043E253@FuncInfo0x00936608 p-group provisional,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init.cpp
+0x00788846,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0043E253@FuncInfo0x00936608 p-group provisional,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp
+0x0078884E,10,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0043E253@FuncInfo0x00936608 p-group provisional,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp
 0x00788858,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0043E30F@FuncInfo0x0093662C p-group provisional,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp
 0x00788860,10,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0043E30F@FuncInfo0x0093662C p-group provisional,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp
 0x0078886A,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0043E512@FuncInfo0x00936660 p-group provisional,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp
@@ -78665,11 +78665,11 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007888D6,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0043E8F1@FuncInfo0x009366E8 p-group provisional,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp
 0x007888DE,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0043E8F1@FuncInfo0x009366E8 p-group provisional,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp
 0x007888E6,10,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0043E8F1@FuncInfo0x009366E8 p-group provisional,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp
-0x007888F0,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0043EFD3@FuncInfo0x00936714 p-group provisional,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init.cpp
-0x007888F8,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0043EFD3@FuncInfo0x00936714 p-group provisional,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init.cpp
-0x00788900,10,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0043EFD3@FuncInfo0x00936714 p-group provisional,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init.cpp
-0x0078890A,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0043F20C@FuncInfo0x00936738 p-group provisional,Code/Libraries/Source/WWVegas/WWLib/Rva0043F20CFinish.cpp
-0x00788912,10,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0043F20C@FuncInfo0x00936738 p-group provisional,Code/Libraries/Source/WWVegas/WWLib/Rva0043F20CFinish.cpp
+0x007888F0,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0043EFD3@FuncInfo0x00936714 p-group provisional,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp
+0x007888F8,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0043EFD3@FuncInfo0x00936714 p-group provisional,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp
+0x00788900,10,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0043EFD3@FuncInfo0x00936714 p-group provisional,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp
+0x0078890A,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0043F20C@FuncInfo0x00936738 p-group provisional,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp
+0x00788912,10,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0043F20C@FuncInfo0x00936738 p-group provisional,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp
 0x0078891C,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0043F244@FuncInfo0x0093676C p-group provisional,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp
 0x00788924,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0043F244@FuncInfo0x0093676C p-group provisional,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp
 0x0078892C,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0043F244@FuncInfo0x0093676C p-group provisional,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp
@@ -78688,16 +78688,16 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0078899A,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0043FA68@FuncInfo0x00936818 p-group provisional,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp
 0x007889A2,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0043FA68@FuncInfo0x00936818 p-group provisional,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp
 0x007889AA,10,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0043FA68@FuncInfo0x00936818 p-group provisional,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp
-0x007889B4,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0043FC1F@FuncInfo0x0093685C p-group provisional,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init.cpp
-0x007889BC,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0043FC1F@FuncInfo0x0093685C p-group provisional,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init.cpp
-0x007889C4,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0043FC1F@FuncInfo0x0093685C p-group provisional,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init.cpp
-0x007889CC,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0043FC1F@FuncInfo0x0093685C p-group provisional,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init.cpp
-0x007889D4,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0043FC1F@FuncInfo0x0093685C p-group provisional,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init.cpp
-0x007889DC,10,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0043FC1F@FuncInfo0x0093685C p-group provisional,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init.cpp
+0x007889B4,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0043FC1F@FuncInfo0x0093685C p-group provisional,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp
+0x007889BC,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0043FC1F@FuncInfo0x0093685C p-group provisional,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp
+0x007889C4,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0043FC1F@FuncInfo0x0093685C p-group provisional,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp
+0x007889CC,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0043FC1F@FuncInfo0x0093685C p-group provisional,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp
+0x007889D4,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0043FC1F@FuncInfo0x0093685C p-group provisional,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp
+0x007889DC,10,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0043FC1F@FuncInfo0x0093685C p-group provisional,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp
 0x007889E6,8,code,,,-,,Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp
 0x007889EE,10,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_bool_ctor.cpp
-0x007889F8,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0043FE9A@FuncInfo0x009368A4 p-group provisional,Code/GameEngine/Source/GameClient/GUI/Rva0043FE9AComparer.cpp
-0x00788A00,10,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0043FE9A@FuncInfo0x009368A4 p-group provisional,Code/GameEngine/Source/GameClient/GUI/Rva0043FE9AComparer.cpp
+0x007889F8,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0043FE9A@FuncInfo0x009368A4 p-group provisional,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp
+0x00788A00,10,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0043FE9A@FuncInfo0x009368A4 p-group provisional,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp
 0x00788A0A,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0044009D@FuncInfo0x009368F8 p-group provisional,Code/gen_small/uw_gen_000.cpp
 0x00788A12,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0044009D@FuncInfo0x009368F8 p-group provisional,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetupPopulateColorCombo.cpp
 0x00788A1A,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0044009D@FuncInfo0x009368F8 p-group provisional,Code/gen_small/uw_gen_000.cpp
@@ -78706,8 +78706,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00788A37,13,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0044009D@FuncInfo0x009368F8 p-group provisional,Code/GameEngine/Source/Common/GlobalFlagClearers_E033xx.cpp
 0x00788A44,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0044009D@FuncInfo0x009368F8 p-group provisional,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetupPopulateColorCombo.cpp
 0x00788A4C,10,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0044009D@FuncInfo0x009368F8 p-group provisional,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetupPopulateColorCombo.cpp
-0x00788A56,8,code,,,-,,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init_InitGadgets.cpp
-0x00788A5E,10,code,,,-,,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init_InitGadgets.cpp
+0x00788A56,8,code,,,-,,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp
+0x00788A5E,10,code,,,-,,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp
 0x00788A68,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x004406BA@FuncInfo0x00936950 p-group provisional,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetupRva00440BDF.cpp
 0x00788A70,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x004406BA@FuncInfo0x00936950 p-group provisional,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetupRva00440BDF.cpp
 0x00788A78,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x004406BA@FuncInfo0x00936950 p-group provisional,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetupRva00440BDF.cpp
@@ -78778,26 +78778,26 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00788CF2,10,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x004422DD@FuncInfo0x00936BF8 p-group provisional,Code/GameEngine/Source/GameClient/GUI/HostValidateColorsRva004422DDFarm.cpp
 0x00788CFC,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x004424E7@FuncInfo0x00936C1C p-group provisional,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetupRva00440BDF.cpp
 0x00788D04,10,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x004424E7@FuncInfo0x00936C1C p-group provisional,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetupRva00440BDF.cpp
-0x00788D0E,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x004428C9@FuncInfo0x00936C48 p-group provisional,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init_InitGadgets.cpp
-0x00788D16,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x004428C9@FuncInfo0x00936C48 p-group provisional,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init_InitGadgets.cpp
-0x00788D1E,10,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x004428C9@FuncInfo0x00936C48 p-group provisional,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init_InitGadgets.cpp
+0x00788D0E,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x004428C9@FuncInfo0x00936C48 p-group provisional,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp
+0x00788D16,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x004428C9@FuncInfo0x00936C48 p-group provisional,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp
+0x00788D1E,10,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x004428C9@FuncInfo0x00936C48 p-group provisional,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp
 0x00788D28,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x00442A68@FuncInfo0x00936C6C p-group provisional,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp
 0x00788D30,10,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x00442A68@FuncInfo0x00936C6C p-group provisional,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp
-0x00788D3A,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x00442CB3@FuncInfo0x00936C98 p-group provisional,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init_InitGadgets.cpp
-0x00788D42,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x00442CB3@FuncInfo0x00936C98 p-group provisional,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init_InitGadgets.cpp
-0x00788D4A,10,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x00442CB3@FuncInfo0x00936C98 p-group provisional,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init_InitGadgets.cpp
-0x00788D54,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0044303D@FuncInfo0x00936D0C p-group provisional,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init.cpp
-0x00788D5C,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0044303D@FuncInfo0x00936D0C p-group provisional,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init.cpp
-0x00788D64,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0044303D@FuncInfo0x00936D0C p-group provisional,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init.cpp
-0x00788D6C,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0044303D@FuncInfo0x00936D0C p-group provisional,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init.cpp
-0x00788D74,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0044303D@FuncInfo0x00936D0C p-group provisional,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init.cpp
-0x00788D7C,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0044303D@FuncInfo0x00936D0C p-group provisional,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init.cpp
-0x00788D84,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0044303D@FuncInfo0x00936D0C p-group provisional,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init.cpp
-0x00788D8C,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0044303D@FuncInfo0x00936D0C p-group provisional,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init.cpp
-0x00788D94,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0044303D@FuncInfo0x00936D0C p-group provisional,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init.cpp
-0x00788D9C,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0044303D@FuncInfo0x00936D0C p-group provisional,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init.cpp
-0x00788DA4,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0044303D@FuncInfo0x00936D0C p-group provisional,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init.cpp
-0x00788DAC,10,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0044303D@FuncInfo0x00936D0C p-group provisional,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init.cpp
+0x00788D3A,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x00442CB3@FuncInfo0x00936C98 p-group provisional,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp
+0x00788D42,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x00442CB3@FuncInfo0x00936C98 p-group provisional,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp
+0x00788D4A,10,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x00442CB3@FuncInfo0x00936C98 p-group provisional,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp
+0x00788D54,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0044303D@FuncInfo0x00936D0C p-group provisional,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp
+0x00788D5C,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0044303D@FuncInfo0x00936D0C p-group provisional,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp
+0x00788D64,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0044303D@FuncInfo0x00936D0C p-group provisional,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp
+0x00788D6C,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0044303D@FuncInfo0x00936D0C p-group provisional,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp
+0x00788D74,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0044303D@FuncInfo0x00936D0C p-group provisional,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp
+0x00788D7C,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0044303D@FuncInfo0x00936D0C p-group provisional,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp
+0x00788D84,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0044303D@FuncInfo0x00936D0C p-group provisional,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp
+0x00788D8C,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0044303D@FuncInfo0x00936D0C p-group provisional,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp
+0x00788D94,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0044303D@FuncInfo0x00936D0C p-group provisional,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp
+0x00788D9C,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0044303D@FuncInfo0x00936D0C p-group provisional,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp
+0x00788DA4,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0044303D@FuncInfo0x00936D0C p-group provisional,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp
+0x00788DAC,10,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0044303D@FuncInfo0x00936D0C p-group provisional,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp
 0x00788DB6,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x00443538@FuncInfo0x00936DB8 p-group provisional,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetupRefreshMapList.cpp
 0x00788DBE,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x00443538@FuncInfo0x00936DB8 p-group provisional,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetupRefreshMapList.cpp
 0x00788DC6,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x00443538@FuncInfo0x00936DB8 p-group provisional,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetupRefreshMapList.cpp
