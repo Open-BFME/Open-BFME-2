@@ -14,10 +14,7 @@ namespace _STL { template<> void vector<Rva005F8447>::push_back(const Rva005F844
 class Rva005F888C {public:void rva005F888C(const Rva005F888CRef&);char p00[0x20];_STL::vector<Rva005F8447> entries;};
 void Rva005F888C::rva005F888C(const Rva005F888CRef& value){entries.push_back(Rva005F8447(value));}
 
-// Each retail call in this body reads an address the ledger already carries
-// under the rowed name below. Bind the donor spelling to that owner so one
-// address keeps one definition and the unit links.
-//   0x005F8855 reads ?push_back@?$vector@UPayload@DeliverPayloadNugget@@V?$allocator@UPayload@DeliverPayloadNugget@@@_STL@@@_STL@@QAEXABUPayload@DeliverPayloadNugget@@@Z
-#pragma comment(linker, "/alternatename:?push_back@?$vector@URva005F8447@@V?$allocator@URva005F8447@@@_STL@@@_STL@@QAEXABURva005F8447@@@Z=?push_back@?$vector@UPayload@DeliverPayloadNugget@@V?$allocator@UPayload@DeliverPayloadNugget@@@_STL@@@_STL@@QAEXABUPayload@DeliverPayloadNugget@@@Z")
+// The append at 0x005F8855 now has its native holder spelling directly.
+// The temporary constructor retains its separate existing ABI binding.
 //   0x005F842F reads ?rva005F842F@Rva005F842F@@QAEPAU1@ABURva004F6986Member@@@Z
 #pragma comment(linker, "/alternatename:??0Rva005F8447@@QAE@ABURva005F888CRef@@@Z=?rva005F842F@Rva005F842F@@QAEPAU1@ABURva004F6986Member@@@Z")

@@ -68,3 +68,61 @@ preflight passes. The removed-provider audit compares the 117 removed external
 code definitions with every indexed definer and consumer: none loses its sole
 provider while retaining an external indexed consumer. This is an index-bounded
 negative check, not proof that all current image consumers have receipts.
+
+## Verified readmission and debt retirement
+
+The reviewable withdrawal is followed by separately verified admissions
+for clear, growth and append.
+All original 26 source rows are restored, with no net unique-byte change.
+The normal withdrawal hook verifies 1,169 rows across 98 affected sources,
+18 data rows and 181 EXACT EH graphs. Each readmission passes its own hooks.
+
+`build.sh` verifies 29/29 rows in the repaired source and its native caller.
+The local `repair_queue.py retire identity` verdict finds all three source keys
+fixed. The outgoing guard refuses that retirement as described below; the
+three entries remain registered in the published batch. The caller's obsolete
+append-to-Payload linker alias is removed;
+its separate pre-existing temporary-constructor ABI binding remains open.
+This lowers alternatename debt by one in addition to the three net retired pins.
+
+Strict preparation passes 115 rows over eight sources: the changed source and
+caller, native construct/destructor/range/allocator providers, vector-destructor
+provider and its already landed SidesList range provider. All 25 EH graphs are
+EXACT. The eight-source preview is 8/8 LINKS, 4,888 authored bytes, including
+ObjectCreationList 0 -> 1,427. SidesList's separately landed 774-byte historical
+difference is not this repair's gain; do not sum the printed cohort difference
+as new work. The first seven-source preview lacked that already-landed provider
+from the older index; adding its strict current object resolves that omission.
+
+[Actual object proof](actual-object-proof.json) uses the real current symbol map,
+strict compiler receipt and matching raw object MD5, with no scratch bindings.
+All six complete bodies are exact and fully resolved. Two shadow map-end
+definition warnings have byte-identical pre/post bodies, rather than being new
+helper changes. Two hundred retained code symbols have identical raw bytes and
+symbolic relocations; the recorded remaining differences include section/local
+ordinal and EH-symbol renumbering. The four owned parent EH graphs stay EXACT.
+[Removed provider audit](removed-provider-audit.json) records its full index scope.
+
+The staged full-batch audit is **INCONCLUSIVE**: its index predates outgoing
+base `7497c3becc`, and affected consumer
+`Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp` lacks a current
+receipt. Carry the changed source, native caller, removed providers and broader
+consumers into the next scheduled census. The scoped clearance above does not
+establish whole-image consumer selection or absence of wider losses.
+
+## Outgoing debt-retirement false reject
+
+The first push attempt refuses the three identity-key removals. Its outgoing
+`coverage_problems` compares original and replacement function-name sets, rather
+than addresses/extents, so it reports all three withdrawn Payload names as lost
+coverage. All three extents have in fact been restored in the same source:
+`005F8653/30`, `005F8752/178`, `005F8855/55`, with complete resolved-byte proof
+and 26/26 normal checks. The local retirement verdict passes after readmission;
+the outgoing verdict still compares against the pre-correction names.
+
+Record this as `false-reject repair_queue.outgoing-coverage`, retain all three
+original identity entries, and reopen only the final unpublished own commit to
+remove its retirement. No guard is edited or bypassed. A separate tooling repair
+with regression tests is required before those three entries can be retired.
+The publishable debt improvement is three net pins and one alternatename;
+identity-register retirement is explicitly not claimed.

@@ -12946,3 +12946,20 @@ element/application identity and TU approval remain unproven; no paths move.
 Final readmission, debt retirement and outgoing-consumer scope are recorded in
 [the verification handoff](../reverse/attempt_support/ocl-native-handles-20261030/readme.md).
 Census confirmation remains pending; no unique matched-byte gain is claimed.
+
+Separate normal clear/growth/append readmissions restore all 26 original rows
+under the native view. The local owning-tool verdict finds all three identity
+keys fixed, but the outgoing guard refuses the removal on function-name coverage
+despite the same restored addresses/extents. The keys remain registered, with a
+recorded false reject; no identity retirement is claimed. The native caller's
+obsolete append alias is removed
+(its constructor ABI alias remains). Strict eight-source preparation passes
+115 rows; 25 EH graphs are EXACT; the bounded preview is 8/8 LINKS, including
+ObjectCreationList 0 -> 1,427 authored bytes. The separate, already-landed
+SidesList historical difference is excluded from this repair's gain. Net pins
+decrease by three and alternatename count by one. Full outgoing-consumer and
+census confirmation remain separate from this preview clearance.
+The staged batch audit is INCONCLUSIVE on the older `12b9e7a7c0` index and
+missing current `Common/0CreateAHeroManager21FE49.cpp` consumer receipt.
+Carry this provider/caller cohort and broader affected consumers into the next
+scheduled census; full-image selected-provider/loss verification remains open.

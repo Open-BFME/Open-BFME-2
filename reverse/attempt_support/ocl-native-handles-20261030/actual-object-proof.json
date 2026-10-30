@@ -1,0 +1,166 @@
+{
+  "source": "Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp",
+  "commit": "306d42eb70a049cb419c2010579d7ad62f005c50",
+  "strict_current": true,
+  "object_md5": "8ef66afc8f17a5e8703ea52c436e6226",
+  "receipt_object": "8ef66afc8f17a5e8703ea52c436e6226",
+  "retained_identical_count": 200,
+  "changed_retained": [
+    ".text$x",
+    ".text$yc",
+    "_$E117",
+    "__ehhandler$??$_Construct@U?$pair@$$CBW4NameKeyType@@VObjectCreationList@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBW4NameKeyType@@VObjectCreationList@@@0@ABU10@@Z",
+    "__ehhandler$??$_Construct@UAnimSet@GenericObjectCreationNugget@@U12@@_STL@@YAXPAUAnimSet@GenericObjectCreationNugget@@ABU12@@Z",
+    "__ehhandler$??0AnimSet@GenericObjectCreationNugget@@QAE@ABU01@@Z",
+    "__ehhandler$??1?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@XZ",
+    "__ehhandler$??1AnimSet@GenericObjectCreationNugget@@QAE@XZ",
+    "__ehhandler$??A?$map@W4NameKeyType@@VObjectCreationList@@U?$less@W4NameKeyType@@@_STL@@V?$allocator@U?$pair@$$CBW4NameKeyType@@VObjectCreationList@@@_STL@@@4@@_STL@@QAEAAVObjectCreationList@@ABW4NameKeyType@@@Z",
+    "__ehhandler$?parseAnimSet@GenericObjectCreationNugget@@SAXPAVINI@@PAX1PBX@Z",
+    "__ehhandler$?parseObjectCreationListDefinition@ObjectCreationListStore@@SAXPAVINI@@@Z"
+  ],
+  "proof": [
+    {
+      "name": "?_M_clear@?$vector@URva005F8447@@V?$allocator@URva005F8447@@@_STL@@@_STL@@IAEXXZ",
+      "rva": "0x005F8653",
+      "size": 30,
+      "exact": true,
+      "masked": false,
+      "unresolved": [],
+      "raw": "568bf1ff7604ff36e8000000008b3685f65959740756e800000000595ec3",
+      "resolved": "568bf1ff7604ff36e868ffffff8b3685f65959740756e8c281a3ff595ec3",
+      "target": "568bf1ff7604ff36e868ffffff8b3685f65959740756e8c281a3ff595ec3",
+      "relocations": [
+        [
+          9,
+          20,
+          "?Rva005F85C8Destroy@@YAXPAURva005F8447@@0@Z"
+        ],
+        [
+          23,
+          20,
+          "_free"
+        ]
+      ]
+    },
+    {
+      "name": "?_M_insert_overflow@?$vector@URva005F8447@@V?$allocator@URva005F8447@@@_STL@@@_STL@@IAEXPAURva005F8447@@ABU3@ABU__false_type@2@I_N@Z",
+      "rva": "0x005F8752",
+      "size": 178,
+      "exact": true,
+      "masked": false,
+      "unresolved": [],
+      "raw": "558bec515153568bf18b46042b0657c1f8033b45148945fc8d4d1472038d4dfc8b3903f86a008d5e08578bcbe8000000008d4d1b5150ff75088945f8ff36e80000000083c410837d14018945fc7511ff750c50e8000000008345fc085959eb168d4d1b51ff750cff751450e80000000083c4108945fc807d180075188d451b50ff75fcff7604ff7508e80000000083c4108945fc8bcee8000000008b45f88b4dfc89068d04f85f894e045e89035bc9c21400",
+      "resolved": "558bec515153568bf18b46042b0657c1f8033b45148945fc8d4d1472038d4dfc8b3903f86a008d5e08578bcbe8e9b5f2ff8d4d1b5150ff75088945f8ff36e8f3e2efff83c410837d14018945fc7511ff750c50e8a8e2efff8345fc085959eb168d4d1b51ff750cff751450e8ece2efff83c4108945fc807d180075188d451b50ff75fcff7604ff7508e8a8e2efff83c4108945fc8bcee866feffff8b45f88b4dfc89068d04f85f894e045e89035bc9c21400",
+      "target": "558bec515153568bf18b46042b0657c1f8033b45148945fc8d4d1472038d4dfc8b3903f86a008d5e08578bcbe8e9b5f2ff8d4d1b5150ff75088945f8ff36e8f3e2efff83c410837d14018945fc7511ff750c50e8a8e2efff8345fc085959eb168d4d1b51ff750cff751450e8ece2efff83c4108945fc807d180075188d451b50ff75fcff7604ff7508e8a8e2efff83c4108945fc8bcee866feffff8b45f88b4dfc89068d04f85f894e045e89035bc9c21400",
+      "relocations": [
+        [
+          45,
+          20,
+          "?allocate@?$allocator@URva005F8447@@@_STL@@QBEPAURva005F8447@@IPBX@Z"
+        ],
+        [
+          63,
+          20,
+          "??$__uninitialized_copy@PAURva005F8447@@PAU1@@_STL@@YAPAURva005F8447@@PAU1@00ABU__false_type@0@@Z"
+        ],
+        [
+          84,
+          20,
+          "?Rva004F6A52Assign@@YAXPAVRva004C5DD0@@PBURva004C5DD0Pair@@@Z"
+        ],
+        [
+          108,
+          20,
+          "??$__uninitialized_fill_n@PAURva005F8447@@IU1@@_STL@@YAPAURva005F8447@@PAU1@IABU1@ABU__false_type@0@@Z"
+        ],
+        [
+          138,
+          20,
+          "??$__uninitialized_copy@PAURva005F8447@@PAU1@@_STL@@YAPAURva005F8447@@PAU1@00ABU__false_type@0@@Z"
+        ],
+        [
+          151,
+          20,
+          "?_M_clear@?$vector@URva005F8447@@V?$allocator@URva005F8447@@@_STL@@@_STL@@IAEXXZ"
+        ]
+      ]
+    },
+    {
+      "name": "?push_back@?$vector@URva005F8447@@V?$allocator@URva005F8447@@@_STL@@@_STL@@QAEXABURva005F8447@@@Z",
+      "rva": "0x005F8855",
+      "size": 55,
+      "exact": true,
+      "masked": false,
+      "unresolved": [],
+      "raw": "558bec568bf18b46043b46087411ff750850e800000000834604085959eb136a016a018d4d0b51ff75088bce50e8000000005e5dc20400",
+      "resolved": "558bec568bf18b46043b46087411ff750850e8e6e1efff834604085959eb136a016a018d4d0b51ff75088bce50e8cbfeffff5e5dc20400",
+      "target": "558bec568bf18b46043b46087411ff750850e8e6e1efff834604085959eb136a016a018d4d0b51ff75088bce50e8cbfeffff5e5dc20400",
+      "relocations": [
+        [
+          19,
+          20,
+          "?Rva004F6A52Assign@@YAXPAVRva004C5DD0@@PBURva004C5DD0Pair@@@Z"
+        ],
+        [
+          46,
+          20,
+          "?_M_insert_overflow@?$vector@URva005F8447@@V?$allocator@URva005F8447@@@_STL@@@_STL@@IAEXPAURva005F8447@@ABU3@ABU__false_type@2@I_N@Z"
+        ]
+      ]
+    },
+    {
+      "name": "?allocate@?$allocator@URva005F8447@@@_STL@@QBEPAURva005F8447@@IPBX@Z",
+      "rva": "0x00523D6C",
+      "size": 28,
+      "exact": true,
+      "masked": false,
+      "unresolved": [],
+      "raw": "8b44240485c0740fc1e0036a0050e8000000005959eb0233c0c20800",
+      "resolved": "8b44240485c0740fc1e0036a0050e871cab0ff5959eb0233c0c20800",
+      "target": "8b44240485c0740fc1e0036a0050e871cab0ff5959eb0233c0c20800",
+      "relocations": [
+        [
+          15,
+          20,
+          "?allocate@?$allocator@D@_STL@@SAPADIPBX@Z"
+        ]
+      ]
+    },
+    {
+      "name": "??$__uninitialized_copy@PAURva005F8447@@PAU1@@_STL@@YAPAURva005F8447@@PAU1@00ABU__false_type@0@@Z",
+      "rva": "0x004F6A88",
+      "size": 38,
+      "exact": true,
+      "masked": false,
+      "unresolved": [],
+      "raw": "568b742410578b7c240ceb0f5756e8000000005983c7085983c6083b7c241075eb5f8bc65ec3",
+      "resolved": "568b742410578b7c240ceb0f5756e8b7ffffff5983c7085983c6083b7c241075eb5f8bc65ec3",
+      "target": "568b742410578b7c240ceb0f5756e8b7ffffff5983c7085983c6083b7c241075eb5f8bc65ec3",
+      "relocations": [
+        [
+          15,
+          20,
+          "?Rva004F6A52Assign@@YAXPAVRva004C5DD0@@PBURva004C5DD0Pair@@@Z"
+        ]
+      ]
+    },
+    {
+      "name": "??$__uninitialized_fill_n@PAURva005F8447@@IU1@@_STL@@YAPAURva005F8447@@PAU1@IABU1@ABU__false_type@0@@Z",
+      "rva": "0x004F6AAE",
+      "size": 37,
+      "exact": true,
+      "masked": false,
+      "unresolved": [],
+      "raw": "568b742408578b7c241085ff7612ff74241456e8000000005983c6084f5975ee5f8bc65ec3",
+      "resolved": "568b742408578b7c241085ff7612ff74241456e88cffffff5983c6084f5975ee5f8bc65ec3",
+      "target": "568b742408578b7c241085ff7612ff74241456e88cffffff5983c6084f5975ee5f8bc65ec3",
+      "relocations": [
+        [
+          20,
+          20,
+          "?Rva004F6A52Assign@@YAXPAVRva004C5DD0@@PBURva004C5DD0Pair@@@Z"
+        ]
+      ]
+    }
+  ]
+}
