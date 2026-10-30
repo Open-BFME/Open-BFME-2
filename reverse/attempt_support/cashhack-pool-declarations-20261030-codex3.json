@@ -1,0 +1,9 @@
+{
+  "base": "3602c6ffb3af7364e5adb11a21f2d79ce5cf4de5",
+  "source": "Code/GameEngine/Source/GameLogic/Object/SpecialPower/CashHackSpecialPower.cpp",
+  "comdat_fingerprints": 622,
+  "external_binding_records": 660,
+  "comdats_unchanged": true,
+  "external_bindings_unchanged": true,
+  "reference_graph_unchanged": true
+}

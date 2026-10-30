@@ -450,6 +450,23 @@ current `Common/0CreateAHeroManager21FE49.cpp` consumer receipt. Full consumer
 selection/loss checks remain pending; carry all five providers and wider
 consumers into the next scheduled census. No census or source-file reduction
 is claimed. [Evidence and remaining prerequisites](../reverse/attempt_support/chat-playerinfo-views-20261030-codex4.md).
+### CashHackSpecialPower pool-key merge prerequisites (2026-10-30)
+
+At base `3602c6ffb3`, localizing the seed's existing Zero Hour class declarations
+and declaring the matched pool-key member clears the pool donor's composer
+blocker. A parser forward declaration fixes composer ordering. All 16 scoped
+rows verify; the seed's 622 COMDAT fingerprints, 660 external binding records
+and reference graph remain unchanged. Strict preparation passes both seed and
+pool donor; ordinary preview retains LINKS, 435 -> 435 authored bytes, against
+`12b9e7a7c0` (2026-10-30 10:11). The supported dry-run accepts that donor.
+
+Action still has native/shim type conflicts; the module-data constructor and
+destructor collide with seed-emitted definitions. Five mixed-source contributors
+remain separate. The staged outgoing audit is INCONCLUSIVE on the older index and 58 affected
+sources without current receipts (first Common/FamilyDeletingDtors_muse-2c79.cpp).
+Carry these providers and wider consumers into the next scheduled census; full
+consumer selection/loss checks, reconciliation and census confirmation remain pending.
+[Evidence and remaining prerequisites](../reverse/attempt_support/cashhack-pool-consolidation-20261030-codex3.md).
 
 ### ProjectileNugget canonical Matrix3D storage (2026-10-30)
 
