@@ -89,24 +89,20 @@ private:
 	char m_unrecovered04[0x20 - 0x04];
 };
 
-class BroadcastStealthUpdate;
-
 class UpgradeMux
 {
-	friend class BroadcastStealthUpdate;
 protected:
 	virtual void upgradeMuxXfer(Xfer *xfer);
 private:
 	bool m_upgradeExecuted;
 };
 
-class BroadcastStealthUpdate : public UpdateModule
+class BroadcastStealthUpdate : public UpdateModule, public UpgradeMux
 {
 protected:
 	virtual void xfer(Xfer *xfer);
 
 private:
-	UpgradeMux m_20;
 	BridgeBehaviorObjectIDList m_28;
 };
 
@@ -122,7 +118,7 @@ void BroadcastStealthUpdate::xfer(Xfer *xfer)
 	*xfer == version;
 
 	if (version.m_minimum >= 2)
-		m_20.UpgradeMux::upgradeMuxXfer(xfer);
+		UpgradeMux::upgradeMuxXfer(xfer);
 
 	ObjectID id;
 	if (xfer->IsStoring())

@@ -138,11 +138,12 @@ public:
 extern GameLogic *TheGameLogic;
 
 // A list<ObjectID>: STLport nodes (+0 next, +8 the ID) behind the header node.
-struct Rva004A35C9Node
+typedef unsigned int UnsignedInt;
+struct BridgeBehaviorObjectIDNode
 {
-	Rva004A35C9Node *m_next;
-	Rva004A35C9Node *m_prev;
-	ObjectID m_id;
+	BridgeBehaviorObjectIDNode *m_next;
+	BridgeBehaviorObjectIDNode *m_previous;
+	ObjectID m_value;
 };
 
 // LINK: 0x002A1B6F is rowed as Rva002A1B6FNativeList::append (Rva002A1316.cpp; pointer-sized element by reference).
@@ -155,9 +156,21 @@ public:
 class BridgeBehaviorObjectIDList
 {
 public:
-	Rva004A35C9Node *m_head;
+	UnsignedInt size() const
+	{
+		UnsignedInt n = 0;
+		for (BridgeBehaviorObjectIDNode *bridgeBehaviorObjectIDNode = m_node->m_next; bridgeBehaviorObjectIDNode != m_node; bridgeBehaviorObjectIDNode = bridgeBehaviorObjectIDNode->m_next)
+			++n;
+		return n;
+	}
+	BridgeBehaviorObjectIDNode *m_node;
 };
 
+class Xfer;
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
 enum UpdateSleepTime
 {
 	UPDATE_SLEEP_NONE = 1
@@ -188,8 +201,18 @@ public:
 
 class UpdateModule : public BehaviorModule, public BehaviorModuleInterface, public UpdateModuleInterface
 {
+public:
+	void xfer(Xfer *xfer);	// 0x0044DF9F
 protected:
-	char m_pad14[0x28 - 0x14];
+	char m_pad14[0x20 - 0x14];
+};
+// +0x20: vptr and the executed flag; xfer runs its upgradeMuxXfer 0x004CE397.
+class UpgradeMux
+{
+protected:
+	virtual void upgradeMuxXfer(Xfer *xfer);
+private:
+	bool m_upgradeExecuted;
 };
 
 struct BroadcastStealthUpdateModuleData
@@ -202,11 +225,14 @@ struct BroadcastStealthUpdateModuleData
 	unsigned m_140;			// +0x140 the flags to keep
 };
 
-class BroadcastStealthUpdate : public UpdateModule
+class BroadcastStealthUpdate : public UpdateModule, public UpgradeMux
 {
 public:
+	virtual NameKeyType getModuleNameKey() const;
 	virtual UpdateSleepTime update();
 	void rva004A33EE();	// 0x004A33EE
+protected:
+	virtual void xfer(Xfer *xfer);
 private:
 	const BroadcastStealthUpdateModuleData *getBroadcastStealthUpdateModuleData() const
 	{
@@ -250,8 +276,8 @@ UpdateSleepTime BroadcastStealthUpdate::update()
 		ObjectID id = other->getID();
 		((Rva002A1B6FNativeList *)&m_28)->append(*(void *const *)&id);
 	}
-	for (Rva004A35C9Node *n = m_28.m_head->m_next; n != m_28.m_head; n = n->m_next) {
-		Object *member = TheGameLogic->findObjectByID(n->m_id);
+	for (BridgeBehaviorObjectIDNode *n = m_28.m_node->m_next; n != m_28.m_node; n = n->m_next) {
+		Object *member = TheGameLogic->findObjectByID(n->m_value);
 		if (!member)
 			continue;
 		Rva00373EC6 *stealth = member->rva0028F4BC();
