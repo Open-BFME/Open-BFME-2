@@ -74,6 +74,7 @@ class GameWindow
 {
 public:
 	int winSetTooltipFunc(void (*tooltip)(GameWindow *window, WinInstanceData *data, unsigned int mouse));
+	void *winGetUserData();
 };
 
 class BfmeKeyLC;
@@ -355,10 +356,12 @@ class GameSlot
 public:
 	void setPlayerTemplate(int playerTemplate);
 	void setMapAvailability(bool available);
-
-	unsigned char m_pad00[0x0C];
+	bool isHuman() const;
+	char m_pad00[0xC];
 	int m_color; // +0x0C
-	unsigned char m_pad10[0x40 - 0x10];
+	char m_pad10[0x20];
+	UnicodeString m_name; // +0x30
+	char m_pad34[0xC];
 	int m_40; // +0x40
 };
 
@@ -396,15 +399,6 @@ public:
 class GameInfo
 {
 public:
-	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
-	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
-	virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
-	virtual void v12();
-	virtual int getLocalSlotNum() const;
-	virtual void resetAccepted();
-	virtual void resetStartSpots();
-	virtual void adjustSlotsForMap();
-
 	int getNumPlayers() const;
 	int getNumOpenOrOccupiedSlots() const;
 	GameSlot *getSlot(int index);
@@ -414,6 +408,24 @@ public:
 	// Unrowed 0x003FF1A7 (27 bytes; stores the game mode at +0x5C and resets
 	// the rules for it), pinned by address.
 	void rva003FF1A7(int mode);
+	const GameSlot *getConstSlot(int slot) const;
+	virtual void v00();
+	virtual void v01();
+	virtual void v02();
+	virtual void v03();
+	virtual void v04();
+	virtual void v05();
+	virtual void v06();
+	virtual void v07();
+	virtual void v08();
+	virtual void v09();
+	virtual void v10();
+	virtual void v11();
+	virtual void v12();
+	virtual int getLocalSlotNum() const;
+	virtual void resetAccepted();
+	virtual void resetStartSpots();
+	virtual void adjustSlotsForMap();
 };
 
 // TheLAN's game list: eight 0x1D0-byte slots from +0xDC end at +0xF5C, where
@@ -457,26 +469,18 @@ class AptMpGameSetup
 {
 public:
 	void InitGadgets();
-public:
 	void rva0043FFCF();
-public:
 	bool OnHostStartGame(bool flag);
-public:
 	bool WaitStartGame();
-public:
 	bool OnUpdate();
-public:
 	int rva00442CB3(unsigned int msg, unsigned int data1, unsigned int data2);
-public:
 	void rva0043FA68(GameInfo *game);
-public:
 	void rva004422B4(int mode);
-public:
 	bool rva00442C9C();
-public:
 	bool InitGameInfoFromSaveGame(GameInfo *game);
-public:
 	bool Init(GameInfo *game, int flag);
+	void rva0044303D();
+	void rva0043DC0F();
 };
 
 // The screen's base class (destroyed by 0x005126F5); its message handler
@@ -495,8 +499,11 @@ public:
 
 class GameEngine
 {
+	friend class AptLanLobby;
 public:
 	void rva004443E7();
+private:
+	void stopHeadlessClients();
 };
 
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
@@ -520,8 +527,15 @@ public:
 	AsciiString rva0044D986();
 };
 
+class UnicodeString;
+class TransportAddress;
+class LANGameInfo;
+class GameWindow;
+class WinInstanceData;
 class LANAPI
 {
+	friend class AptLanLobby;
+	friend void Rva00445BAALanLobbyTooltip(GameWindow *window, WinInstanceData *data, unsigned int mouse);
 public:
 	LANAPI();
 	virtual void v00();
@@ -555,9 +569,13 @@ public:
 	virtual void v57();
 	virtual void v58();
 
-	unsigned char m_pad04[0x5D - 0x04];
+	unsigned char m_pad04[0x10 - 0x04];
+	LANGameInfo *m_games;
+	unsigned char m_pad14[0x5D - 0x14];
 	unsigned char m_isInLANMenu; // +0x5D
 	unsigned char m_pad5e[0x60 - 0x5E];
+protected:
+	bool ValidateGameInfo(LANGameInfo *game);
 };
 
 //

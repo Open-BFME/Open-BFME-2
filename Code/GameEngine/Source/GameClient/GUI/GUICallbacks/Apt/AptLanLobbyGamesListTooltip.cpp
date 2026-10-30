@@ -36,6 +36,9 @@ class WinInstanceData;
 
 class GameWindow
 {
+public:
+	int winSetTooltipFunc(void (*tooltip)(GameWindow *window, WinInstanceData *data, unsigned int mouse));
+	void *winGetUserData();
 };
 
 
@@ -45,20 +48,63 @@ void *GadgetListBoxGetItemData(GameWindow *listbox, int row, int column);
 class GameSlot
 {
 public:
+	void setPlayerTemplate(int playerTemplate);
+	void setMapAvailability(bool available);
 	bool isHuman() const;
-
-	unsigned char m_pad00[0x30];
+	char m_pad00[0xC];
+	int m_color; // +0x0C
+	char m_pad10[0x20];
 	UnicodeString m_name; // +0x30
+	char m_pad34[0xC];
+	int m_40; // +0x40
 };
 
+class AsciiString;
 class GameInfo
 {
 public:
+	int getNumPlayers() const;
+	int getNumOpenOrOccupiedSlots() const;
+	GameSlot *getSlot(int index);
+	void setMapForwarder(AsciiString mapName);
+	void setMapCRC(unsigned int mapCRC);
+	void setMapSize(unsigned int mapSize);
+	// Unrowed 0x003FF1A7 (27 bytes; stores the game mode at +0x5C and resets
+	// the rules for it), pinned by address.
+	void rva003FF1A7(int mode);
 	const GameSlot *getConstSlot(int slot) const;
+	virtual void v00();
+	virtual void v01();
+	virtual void v02();
+	virtual void v03();
+	virtual void v04();
+	virtual void v05();
+	virtual void v06();
+	virtual void v07();
+	virtual void v08();
+	virtual void v09();
+	virtual void v10();
+	virtual void v11();
+	virtual void v12();
+	virtual int getLocalSlotNum() const;
+	virtual void resetAccepted();
+	virtual void resetStartSpots();
+	virtual void adjustSlotsForMap();
 };
 
 class LANGameInfo : public GameInfo
 {
+public:
+	unsigned char m_pad004[0x44 - 0x04];
+	unsigned int m_mapCRC; // +0x44
+	unsigned int m_mapSize; // +0x48
+	unsigned char m_pad04c[0x58 - 0x4C];
+	int m_58; // +0x58
+	int m_5c; // +0x5C (game mode)
+	int m_rules[10]; // +0x60
+	int m_88; // +0x88
+	unsigned char m_pad08c[0xF5C - 0x8C];
+	LANGameInfo *m_next; // +0xF5C
 };
 
 // GameInfo's 16-byte nonzero test (rowed under its address name).
@@ -70,10 +116,53 @@ public:
 
 void Rva00445BAALanLobbyTooltip(GameWindow *window, WinInstanceData *data, unsigned int mouse);
 
+class UnicodeString;
+class TransportAddress;
+class LANGameInfo;
+class GameWindow;
+class WinInstanceData;
 class LANAPI
 {
+	friend class AptLanLobby;
 	friend void Rva00445BAALanLobbyTooltip(GameWindow *window, WinInstanceData *data, unsigned int mouse);
+public:
+	LANAPI();
+	virtual void v00();
+	virtual void init();
+	virtual void v02(); virtual void v03(); virtual void v04(); virtual void v05();
+	virtual void v06(); virtual void v07(); virtual void v08();
+	virtual void reset();
+	virtual void update();
+	virtual void v11(); virtual void v12(); virtual void v13(); virtual void v14();
+	virtual void RequestLocations();
+	virtual void v16(LANGameInfo *game, TransportAddress *address);
+	virtual void v17(); virtual void v18(); virtual void v19();
+	virtual void RequestHasMap();
+	virtual void v21(); virtual void v22(); virtual void v23();
+	virtual void v24(); virtual void v25(); virtual void v26();
+	virtual void v27(UnicodeString text, int value);
+	virtual void v28();
+	virtual void RequestSetName(UnicodeString name);
+	virtual void v30(); virtual void v31(); virtual void v32(); virtual void v33();
+	virtual void v34(); virtual void v35(); virtual void v36(); virtual void v37();
+	virtual void v38(); virtual void v39(); virtual void v40(); virtual void v41();
+	virtual void v42(); virtual void v43(); virtual void v44(); virtual void v45();
+	virtual void v46(); virtual void v47(); virtual void v48(); virtual void v49();
+	virtual void v50();
+	virtual LANGameInfo *v51();
+	virtual void v52();
+	virtual bool SetLocalIP(unsigned int ip);
+	virtual bool AmIHost();
+	virtual void v55();
+	virtual LANGameInfo *GetMyGame();
+	virtual void v57();
+	virtual void v58();
 
+	unsigned char m_pad04[0x10 - 0x04];
+	LANGameInfo *m_games;
+	unsigned char m_pad14[0x5D - 0x14];
+	unsigned char m_isInLANMenu; // +0x5D
+	unsigned char m_pad5e[0x60 - 0x5E];
 protected:
 	bool ValidateGameInfo(LANGameInfo *game);
 };
