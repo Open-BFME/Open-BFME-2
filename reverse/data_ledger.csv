@@ -17649,8 +17649,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009D9550,400,.data,global,_g_Rva012C4DF8Message,Code/Libraries/Source/DirtySock/Y4CommTransportLife.c,owned,,1,1
 0x009D96E0,564,.data,global,_g_Rva012C4F88Name,,unowned,,0,1
 0x009D9914,12,.data,global,?g_00DD9914@@3PAPBDA,,unowned,,0,1
-0x009D9920,8,.data,global,?s_compressionNames@?1??getCompressionNameByType@CompressionManager@@SAPBDW4CompressionType@@@Z@4PAPBDA,Code/Libraries/Source/Compression/CompressionManager_decompressData.cpp,owned,,1,1
-0x009D9928,8,.data,global,?s_decompressionNames@?1??getDecompressionNameByType@CompressionManager@@SAPBDW4CompressionType@@@Z@4PAPBDA,Code/Libraries/Source/Compression/CompressionManager_decompressData.cpp,owned,,1,1
+0x009D9920,8,.data,global,?s_compressionNames@?1??getCompressionNameByType@CompressionManager@@SAPBDW4CompressionType@@@Z@4PAPBDA,Code/Libraries/Source/Compression/CompressionManager.cpp,owned,,1,1
+0x009D9928,8,.data,global,?s_decompressionNames@?1??getDecompressionNameByType@CompressionManager@@SAPBDW4CompressionType@@@Z@4PAPBDA,Code/Libraries/Source/Compression/CompressionManager.cpp,owned,,1,1
 0x009D9930,8,.data,global,?my_version@?1??deflateInit2_@@9@9,Code/Libraries/Source/Compression/ZLib/deflate.c,owned,,1,1
 0x009D9938,1096,.data,global,?symbolTable0@LZHLEncoderStat@@2PAUSymbol@1@A,Code/Libraries/Source/Compression/LZHCompress/CompLibSource/Huff.cpp,owned,,1,1
 0x009D9D80,128,.data,global,?groupTable0@LZHLDecoderStat@@2PAUGroup@1@A,Code/Libraries/Source/Compression/LZHCompress/CompLibSource/Huff.cpp,provisional,?Rva00826740SmallInit@@3URva00826740Small@@B;?groupTable0@LZHLDecoderStat@@2PAUGroup@1@A,1,3
