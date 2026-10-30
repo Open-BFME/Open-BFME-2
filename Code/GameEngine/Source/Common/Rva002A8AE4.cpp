@@ -72,8 +72,8 @@ Rva002A8AE4Record *Rva002A8F24::rva002A8AE4(void *key)
 // callers (2 matched rows show void* key), prev/next flags, pin-held name.
 Rva002A8B59Data *Rva002A8F24::rva002A8B59(void *key)
 {
-	Rva002A8AB1Record *r = rva002A8AB1(key);
-	return r ? *(Rva002A8B59Data **)((char *)r + 0x160) : 0;
+	Rva002A8AB1Record *record = rva002A8AB1(key);
+	return record ? *(Rva002A8B59Data **)((char *)record + 0x160) : 0;
 }
 
 // ?rva002A8B24@Rva002A8F24@@QAEPAVRva004E9600@@PAX@Z, retail 0x002A8B24, 53 bytes.
@@ -103,8 +103,8 @@ done:
 // 0x004EDC65 0x0059A1DD pass two pushes with ecx=TheSkirmishAIManager; LINK 4 files.
 void *Rva002A8F24::rva002A8B73(void *key, int key2)
 {
-	Rva004E9600 *r = rva002A8B24(key);
-	if (r != 0)
-		return ((AIGameTeam *)r)->getTargetByIndexForPlayer((int)key, key2);
+	Rva004E9600 *candidate = rva002A8B24(key);
+	if (candidate != 0)
+		return ((AIGameTeam *)candidate)->getTargetByIndexForPlayer((int)key, key2);
 	return 0;
 }

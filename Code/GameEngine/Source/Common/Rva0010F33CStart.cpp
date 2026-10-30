@@ -57,20 +57,20 @@ void Rva0010F33C::rva0010F33C()
     Rva00041004 *p;
     Rva0010F33CInner *inner = m_inner;
     if (inner != 0) {
-        Rva0010F33CMid *o = inner->m_outer;
-        if (o == 0)
+        Rva0010F33CMid *outer = inner->m_outer;
+        if (outer == 0)
             p = 0;
         else
-            p = (Rva00041004 *)((char *)o + 0x38);
+            p = (Rva00041004 *)((char *)outer + 0x38);
     } else
         p = 0;
-    Rva0010F33CGuard g;
-    g.m_target = p;
-    g.m_locked = 0;
-    ((Rva0010F24F *)&g)->rva0010F24F();
-    void *s = m_inner->m_stream;
-    if (s != 0)
-        AIL_start_stream(s);
-    if (g.m_locked != 0)
-        ((Rva0010F26E *)&g)->rva0010F26E();
+    Rva0010F33CGuard guard;
+    guard.m_target = p;
+    guard.m_locked = 0;
+    ((Rva0010F24F *)&guard)->rva0010F24F();
+    void *stream = m_inner->m_stream;
+    if (stream != 0)
+        AIL_start_stream(stream);
+    if (guard.m_locked != 0)
+        ((Rva0010F26E *)&guard)->rva0010F26E();
 }

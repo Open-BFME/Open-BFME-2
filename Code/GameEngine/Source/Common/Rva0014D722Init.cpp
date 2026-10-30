@@ -38,9 +38,9 @@ class Rva0014D722This {
 public:
   char m_pad00[4];
   volatile int m_04;
-  void rva0014D722(Rva0014D722Outer *o, void *b);
+  void rva0014D722(Rva0014D722Outer *o, void *parameter);
 };
-void Rva0014D722This::rva0014D722(Rva0014D722Outer *o, void *b) {
+void Rva0014D722This::rva0014D722(Rva0014D722Outer *o, void *parameter) {
   float buf[4];
   Rva0013F6F0LightEnv *le = (Rva0013F6F0LightEnv *)DX8Wrapper::Light_Environment;
   if (le == 0)
@@ -70,5 +70,5 @@ zero:
 done:
   buf[3] = 0.0f;
   Rva0014D722Inner *inner = o->m_body00;
-  inner->m_fn88(o, b, buf);
+  inner->m_fn88(o, parameter, buf);
 }

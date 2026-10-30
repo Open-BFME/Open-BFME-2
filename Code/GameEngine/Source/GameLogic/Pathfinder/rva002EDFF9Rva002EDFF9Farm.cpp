@@ -115,19 +115,19 @@ int yStart;
 *(volatile int *)&yStart = pair.y;
 *(volatile int *)&yStart -= half;
 int yEnd = pair.y + rest;
-int y;
+int cellY;
 for (; xStart < xEnd; ++xStart)
 {
-y = yStart;
-for (; y < yEnd; ++y)
+cellY = yStart;
+for (; cellY < yEnd; ++cellY)
 {
-PathfindCell *cell = getCell(layer, xStart, y);
+PathfindCell *cell = getCell(layer, xStart, cellY);
 if (!cell)
 return false;
 if ((cell->m_flags0C & 0xF) == 5)
 return false;
-unsigned int f = cell->m_flags0C;
-unsigned char shifted = (unsigned char)(f >> 0x12);
+unsigned int cellFlags = cell->m_flags0C;
+unsigned char shifted = (unsigned char)(cellFlags >> 0x12);
 if ((shifted & 1) == 1)
 {
 if (obj->rva0028AFBB())
@@ -141,9 +141,9 @@ if ((cell->m_flags0C & 0xF) == 6)
 return false;
 CellHead *head = cell->m_head00;
 ListNode *listNode = head ? head->m_list20 : 0;
-for (ListNode *n = listNode; n; n = n->m_next)
+for (ListNode *node = listNode; node; node = node->m_next)
 {
-Object *other = n->m_obj08;
+Object *other = node->m_obj08;
 if (other == obj)
 continue;
 if (other->m_kind74 == kind)
@@ -160,9 +160,9 @@ return false;
 if ((other->m_info04->m_b109 & 1) == 0)
 return false;
 }
-for (ListNode *n = head ? head->m_list14 : 0; n; n = n->m_next)
+for (ListNode *node = head ? head->m_list14 : 0; node; node = node->m_next)
 {
-Object *other = n->m_obj08;
+Object *other = node->m_obj08;
 if (other == obj)
 continue;
 ObjectInfo *oi = other->m_info04;

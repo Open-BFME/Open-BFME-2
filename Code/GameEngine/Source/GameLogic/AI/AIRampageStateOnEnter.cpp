@@ -120,12 +120,12 @@ StateReturnType AIRampageState::onEnter()
 		return STATE_FAILURE;
 	Rva00264F3D *ai = owner->getAI();
 	ai->slot142(8);
-	Coord3D tmp;
-	tmp.x = owner->m_position.x;
-	tmp.y = owner->m_position.y;
-	tmp.z = owner->m_position.z;
+	Coord3D destination;
+	destination.x = owner->m_position.x;
+	destination.y = owner->m_position.y;
+	destination.z = owner->m_position.z;
 	owner->rva0028AD32();
-	Rva002EDE5B(owner, &tmp);
+	Rva002EDE5B(owner, &destination);
 	ai->m_flag3C6 = true;
 	ai->m_flag3C5 = true;
 	owner->setWeaponSetFlag(WEAPONSET_8);

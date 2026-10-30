@@ -60,16 +60,16 @@ private:
 
 void Rva000B9A0E::rva000B9A0E(void *obj, int b, int c)
 {
-	Vec &v = m_vec;
-	if (v.m_first == v.m_last)
+	Vec &vec = m_vec;
+	if (vec.m_first == vec.m_last)
 		return;
-	for (Rva000B9A0EEntry *p = m_vec.m_first; p != m_vec.m_last; ++p) {
-		if (p->m_c != b)
+	for (Rva000B9A0EEntry *entry = m_vec.m_first; entry != m_vec.m_last; ++entry) {
+		if (entry->m_c != b)
 			continue;
-		if (b == 0 && p->m_a != c)
+		if (b == 0 && entry->m_a != c)
 			continue;
 		DelayedLuaEventList list;
-		list.m_events[0].set(p->m_b);
+		list.m_events[0].set(entry->m_b);
 		reinterpret_cast<BfmeObjectEventDispatch *>(TheLuaScriptEngine)->rva003360D2(15, obj, (BfmeDelayedLuaEventList *)&list);
 	}
 }

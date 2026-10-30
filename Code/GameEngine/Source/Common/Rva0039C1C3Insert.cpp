@@ -51,8 +51,8 @@ public:
 class Rva0039C1C3
 {
 public:
-	void rva0039C1C3(Rva0039B893 *pos, const Rva0039B893 &x, const _STL::__false_type &, unsigned int n, bool at_end);
-	void rva0039C27D(Rva0039B893 *x);
+	void rva0039C1C3(Rva0039B893 *pos, const Rva0039B893 &element, const _STL::__false_type &, unsigned int count, bool at_end);
+	void rva0039C27D(Rva0039B893 *element);
 private:
 	Rva0039B893 *m_start;
 	Rva0039B893 *m_finish;
@@ -63,22 +63,22 @@ private:
 	};
 };
 
-void Rva0039C1C3::rva0039C1C3(Rva0039B893 *pos, const Rva0039B893 &x, const _STL::__false_type &, unsigned int n, bool at_end)
+void Rva0039C1C3::rva0039C1C3(Rva0039B893 *pos, const Rva0039B893 &element, const _STL::__false_type &, unsigned int count, bool at_end)
 {
 	unsigned int old_size = (unsigned int)(m_finish - m_start);
-	const unsigned int &maxv = old_size < n ? n : old_size;
+	const unsigned int &maxv = old_size < count ? count : old_size;
 	unsigned int len = old_size + maxv;
 	Rva0039B893 *new_start = (Rva0039B893 *)m_alloc.allocate(len, 0);
 	Rva0039B893 *new_finish = Rva0039BA22UninitCopy(m_start, pos, new_start, *(const _STL::__false_type *)((char *)&at_end + 3));
-	if (n == 1)
+	if (count == 1)
 	{
 		if (new_finish != 0)
-			new (new_finish) Rva0039B893(x);
+			new (new_finish) Rva0039B893(element);
 		++new_finish;
 	}
 	else
 	{
-		new_finish = Rva0039B8D8FillN(new_finish, n, x, *(const _STL::__false_type *)((char *)&at_end + 3));
+		new_finish = Rva0039B8D8FillN(new_finish, count, element, *(const _STL::__false_type *)((char *)&at_end + 3));
 	}
 	if (!at_end)
 	{
@@ -97,16 +97,16 @@ void Rva0039C1C3::rva0039C1C3(Rva0039B893 *pos, const Rva0039B893 &x, const _STL
 // just landed), caller 0x0039C5B8, callees rowed copy-ctor 0x0039B893 overflow 0x0039C1C3,
 // stride 0x14, ret 4, null-guarded copy-ctor.
 
-void Rva0039C1C3::rva0039C27D(Rva0039B893 *x)
+void Rva0039C1C3::rva0039C27D(Rva0039B893 *element)
 {
 	if (m_finish != m_end)
 	{
 		if (m_finish != 0)
-			new (m_finish) Rva0039B893(*x);
+			new (m_finish) Rva0039B893(*element);
 		m_finish++;
 	}
 	else
 	{
-		rva0039C1C3(m_finish, *x, *(const _STL::__false_type *)((char *)&x + 3), 1, true);
+		rva0039C1C3(m_finish, *element, *(const _STL::__false_type *)((char *)&element + 3), 1, true);
 	}
 }

@@ -36,4 +36,4 @@ private:
 	int m_1c;
 };
 
-void *Rva005C98C0::rva005C98C0(int id){Rva0020FAB4Ret*p=0;if(TheLivingWorldLogic&&((Rva002BA8F1Logic *)TheLivingWorldLogic)->m_b0){p=(Rva0020FAB4Ret*)((Rva002BA8F1Logic *)TheLivingWorldLogic)->m_b0->rva0020FAB4(id,m_1c);if(p&&!p->m_1a2)p=0;}return p;}
+void *Rva005C98C0::rva005C98C0(int id){Rva0020FAB4Ret*region=0;if(TheLivingWorldLogic&&((Rva002BA8F1Logic *)TheLivingWorldLogic)->m_b0){region=(Rva0020FAB4Ret*)((Rva002BA8F1Logic *)TheLivingWorldLogic)->m_b0->rva0020FAB4(id,m_1c);if(region&&!region->m_1a2)region=0;}return region;}

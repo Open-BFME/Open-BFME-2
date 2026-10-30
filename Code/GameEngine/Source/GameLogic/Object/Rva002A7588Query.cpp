@@ -30,14 +30,14 @@ struct Rva002A7588In
 class Rva002A7588
 {
 public:
-	int rva002A7588(Rva002A7588In *p);
+	int rva002A7588(Rva002A7588In *input);
 };
 
-int Rva002A7588::rva002A7588(Rva002A7588In *p)
+int Rva002A7588::rva002A7588(Rva002A7588In *input)
 {
-	if (p == 0)
+	if (input == 0)
 		return 0;
-	Rva002A7588Mid *q = p->m_p4;
+	Rva002A7588Mid *q = input->m_p4;
 	if ((q->m_flags108 & 2) == 0)
 		return 0;
 	if ((q->m_flags108 & 0x80) != 0)
@@ -54,19 +54,19 @@ int Rva002A7588::rva002A7588(Rva002A7588In *p)
 class Rva002A75B8
 {
 public:
-	int rva002A75B8(Rva002A7588In *p);
+	int rva002A75B8(Rva002A7588In *input);
 
 private:
 	char m_lead[8];
 	int m_i8; // +0x08
 };
 
-int Rva002A75B8::rva002A75B8(Rva002A7588In *p)
+int Rva002A75B8::rva002A75B8(Rva002A7588In *input)
 {
 	Rva002A7588 *self = reinterpret_cast<Rva002A7588 *>(this);
-	int v = self->rva002A7588(p);
-	m_i8 += v;
-	return v;
+	int amount = self->rva002A7588(input);
+	m_i8 += amount;
+	return amount;
 }
 
 // Sub wrapper at retail 0x002A75C9 (17 bytes): same shape, subtracts.
@@ -75,17 +75,17 @@ int Rva002A75B8::rva002A75B8(Rva002A7588In *p)
 class Rva002A75C9
 {
 public:
-	int rva002A75C9(Rva002A7588In *p);
+	int rva002A75C9(Rva002A7588In *input);
 
 private:
 	char m_lead[8];
 	int m_i8; // +0x08
 };
 
-int Rva002A75C9::rva002A75C9(Rva002A7588In *p)
+int Rva002A75C9::rva002A75C9(Rva002A7588In *input)
 {
 	Rva002A7588 *self = reinterpret_cast<Rva002A7588 *>(this);
-	int v = self->rva002A7588(p);
-	m_i8 -= v;
-	return v;
+	int amount = self->rva002A7588(input);
+	m_i8 -= amount;
+	return amount;
 }

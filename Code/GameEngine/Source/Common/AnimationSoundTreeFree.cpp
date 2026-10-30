@@ -102,9 +102,9 @@ public:
 		AnimationSoundTreeNode *&out,
 		AnimationSoundTreeNode *a,
 		AnimationSoundTreeNode *parent,
-		void const *v,
+		void const *key,
 		AnimationSoundTreeNode *c);
-	AnimationSoundTreeNode **rva004CA68B(AnimationSoundTreeNode **out, void const *v);
+	AnimationSoundTreeNode **rva004CA68B(AnimationSoundTreeNode **out, void const *key);
 
 private:
 	AnimationSoundTreeHeaderHandle m_handle;
@@ -258,16 +258,16 @@ void AnimationSoundTree::rva004CA293(
 	AnimationSoundTreeNode *&out,
 	AnimationSoundTreeNode *animationSoundTreeNode,
 	AnimationSoundTreeNode *parent,
-	void const *v,
+	void const *key,
 	AnimationSoundTreeNode *c)
 {
 	AnimationSoundTreeNode *node;
 	if (parent != (AnimationSoundTreeNode *)m_handle.m_header
 		&& (c != 0
 			|| (animationSoundTreeNode == 0
-				&& !m_compare.rva004C9D93Compare((void *)v, (char *)parent + 0x10))))
+				&& !m_compare.rva004C9D93Compare((void *)key, (char *)parent + 0x10))))
 	{
-		node = (AnimationSoundTreeNode *)rva004CA19C(v);
+		node = (AnimationSoundTreeNode *)rva004CA19C(key);
 		parent->m_right = node;
 		AnimationSoundTreeHead *root = (AnimationSoundTreeHead *)m_handle.m_header;
 		if (parent == (AnimationSoundTreeNode *)root->m_right)
@@ -275,7 +275,7 @@ void AnimationSoundTree::rva004CA293(
 	}
 	else
 	{
-		node = (AnimationSoundTreeNode *)rva004CA19C(v);
+		node = (AnimationSoundTreeNode *)rva004CA19C(key);
 		parent->m_left = node;
 		AnimationSoundTreeHead *root = (AnimationSoundTreeHead *)m_handle.m_header;
 		if (parent == (AnimationSoundTreeNode *)root)
@@ -302,17 +302,17 @@ void AnimationSoundTree::rva004CA293(
 // (+0xC), then insert through rowed rva004CA293 with out, 0, parent, v, 0 and
 // return out. Layout header+0 count+4 compare+8 from siblings.
 // Evidence: callees rowed 0x004C9D93 plus 0x004CA293; callers at 0x004CA6FD etc.
-AnimationSoundTreeNode **AnimationSoundTree::rva004CA68B(AnimationSoundTreeNode **out, void const *v)
+AnimationSoundTreeNode **AnimationSoundTree::rva004CA68B(AnimationSoundTreeNode **out, void const *key)
 {
 	AnimationSoundTreeNode *parent = (AnimationSoundTreeNode *)m_handle.m_header;
 	AnimationSoundTreeNode *cur = ((AnimationSoundTreeHead *)parent)->m_parent;
 	while (cur) {
 		parent = cur;
-		if (m_compare.rva004C9D93Compare((void *)v, (char *)cur + 0x10))
+		if (m_compare.rva004C9D93Compare((void *)key, (char *)cur + 0x10))
 			cur = cur->m_left;
 		else
 			cur = cur->m_right;
 	}
-	rva004CA293((AnimationSoundTreeNode *&)*out, 0, parent, v, 0);
+	rva004CA293((AnimationSoundTreeNode *&)*out, 0, parent, key, 0);
 	return out;
 }

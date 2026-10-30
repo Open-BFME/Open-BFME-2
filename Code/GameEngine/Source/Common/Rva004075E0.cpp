@@ -60,58 +60,58 @@ inline Rva004075E0Pair::Rva004075E0Pair(Rva004075E0Iter it, bool s) : first(it.n
 struct Rva004075E0 {
 	Rva004075E0Node *_head;
 	unsigned int _size;
-	Rva004075E0Iter rva004075E0(Rva004075E0Node *x, Rva004075E0Node *y, const Rva004075E0Key &v, Rva004075E0Node *w);
+	Rva004075E0Iter rva004075E0(Rva004075E0Node *x, Rva004075E0Node *parent, const Rva004075E0Key &v, Rva004075E0Node *w);
 	Rva004075E0Pair rva00407668(const Rva004075E0Key &v);
 	Rva004075E0Iter rva00407C7F(Rva004075E0Iter position, const Rva004075E0Key &v);
 };
 typedef _STL::_Rb_tree<unsigned int, _STL::pair<const unsigned int, bool>, _STL::_Select1st<_STL::pair<const unsigned int, bool> >, _STL::less<unsigned int>, _STL::allocator<_STL::pair<const unsigned int, bool> > > UIntBoolTree075E0;
-Rva004075E0Iter Rva004075E0::rva004075E0(Rva004075E0Node *x, Rva004075E0Node *y, const Rva004075E0Key &v, Rva004075E0Node *w)
+Rva004075E0Iter Rva004075E0::rva004075E0(Rva004075E0Node *x, Rva004075E0Node *parent, const Rva004075E0Key &v, Rva004075E0Node *w)
 {
-	Rva004075E0Node *z;
-	if (y == _head || (w == 0 && (x != 0 || v.key < y->_key10))) {
-		z = (Rva004075E0Node *)((UIntBoolTree075E0 *)this)->_M_create_node((const UIntBoolTree075E0::value_type &)v);
-		y->_left = z;
-		if (y == _head) {
-			_head->_parent = z;
-			_head->_right = z;
-		} else if (y == _head->_left) {
-			_head->_left = z;
+	Rva004075E0Node *newNode;
+	if (parent == _head || (w == 0 && (x != 0 || v.key < parent->_key10))) {
+		newNode = (Rva004075E0Node *)((UIntBoolTree075E0 *)this)->_M_create_node((const UIntBoolTree075E0::value_type &)v);
+		parent->_left = newNode;
+		if (parent == _head) {
+			_head->_parent = newNode;
+			_head->_right = newNode;
+		} else if (parent == _head->_left) {
+			_head->_left = newNode;
 		}
 	} else {
-		z = (Rva004075E0Node *)((UIntBoolTree075E0 *)this)->_M_create_node((const UIntBoolTree075E0::value_type &)v);
-		y->_right = z;
-		if (y == _head->_right) {
-			_head->_right = z;
+		newNode = (Rva004075E0Node *)((UIntBoolTree075E0 *)this)->_M_create_node((const UIntBoolTree075E0::value_type &)v);
+		parent->_right = newNode;
+		if (parent == _head->_right) {
+			_head->_right = newNode;
 		}
 	}
-	z->_parent = y;
-	z->_left = 0;
-	z->_right = 0;
-	_STL::_Rb_global<bool>::_Rebalance((_STL::_Rb_tree_node_base *)z, (_STL::_Rb_tree_node_base *&)_head->_parent);
+	newNode->_parent = parent;
+	newNode->_left = 0;
+	newNode->_right = 0;
+	_STL::_Rb_global<bool>::_Rebalance((_STL::_Rb_tree_node_base *)newNode, (_STL::_Rb_tree_node_base *&)_head->_parent);
 	++_size;
-	return Rva004075E0Iter(z);
+	return Rva004075E0Iter(newNode);
 }
 // ?rva00407668@Rva004075E0@@QAE?AURva004075E0Pair@@ABURva004075E0Key@@@Z retail 0x00407668 134B
 // Evidence: chain lane calls rowed 0x004075E0 plus rowed _M_decrement 0x000242C0 plus inlined less uint; caller 0x00407D92; prev same TU same flags.
 Rva004075E0Pair Rva004075E0::rva00407668(const Rva004075E0Key &v)
 {
 	Rva004075E0Node *header = _head;
-	Rva004075E0Node *x = header->_parent;
-	Rva004075E0Node *y = header;
+	Rva004075E0Node *root = header->_parent;
+	Rva004075E0Node *parent = header;
 	bool comp = true;
-	while (x != 0) {
-		y = x;
-		comp = v.key < x->_key10;
-		x = comp ? x->_left : x->_right;
+	while (root != 0) {
+		parent = root;
+		comp = v.key < root->_key10;
+		root = comp ? root->_left : root->_right;
 	}
-	Rva004075E0Node *j = y;
+	Rva004075E0Node *j = parent;
 	if (comp) {
 		if (j == header->_left)
-			return Rva004075E0Pair(rva004075E0(y, y, v, 0), true);
-		j = (Rva004075E0Node *)_STL::_Rb_global<bool>::_M_decrement((_STL::_Rb_tree_node_base *)y);
+			return Rva004075E0Pair(rva004075E0(parent, parent, v, 0), true);
+		j = (Rva004075E0Node *)_STL::_Rb_global<bool>::_M_decrement((_STL::_Rb_tree_node_base *)parent);
 	}
 	if (j->_key10 < v.key)
-		return Rva004075E0Pair(rva004075E0(x, y, v, 0), true);
+		return Rva004075E0Pair(rva004075E0(root, parent, v, 0), true);
 	return Rva004075E0Pair(j, false);
 }
 // ?rva00407C7F@Rva004075E0@@QAE?AURva004075E0Iter@@U2@ABURva004075E0Key@@@Z retail 0x00407C7F 294B

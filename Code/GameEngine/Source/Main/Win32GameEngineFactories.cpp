@@ -152,12 +152,12 @@ class Win32GameEngine
 {
 public:
 	virtual void *rva00041D62();
-	virtual void *rva00041D97();
+	virtual void *createThingFactory();
 	virtual void *rva00041E30();
 	virtual void *rva0005E959();
 	virtual void *rva00041E6A();
 	virtual void *createGameLogic();
-	virtual void *rva00042091();
+	virtual void *createModuleFactory();
 };
 
 void *Win32GameEngine::rva00041D62()
@@ -165,7 +165,7 @@ void *Win32GameEngine::rva00041D62()
 	return new Rva004C743;
 }
 
-void *Win32GameEngine::rva00041D97()
+void *Win32GameEngine::createThingFactory()
 {
 	return new W3DThingFactory;
 }
@@ -190,7 +190,7 @@ void *Win32GameEngine::createGameLogic()
 	return new W3DGameLogic;
 }
 
-void *Win32GameEngine::rva00042091()
+void *Win32GameEngine::createModuleFactory()
 {
 	return new W3DModuleFactory;
 }

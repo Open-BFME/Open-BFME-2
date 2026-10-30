@@ -36,10 +36,10 @@ int Rva0020EEF4Outer::rva0020EEF4(int v)
 	{
 		for (unsigned i = 0; i < (unsigned)(((char *)inner->m_end - (char *)inner->m_begin) >> 2); ++i)
 		{
-			Rva0020EEF4Elem *e = (Rva0020EEF4Elem *)inner->m_begin[i];
-			if (e->m_13C == -1)
+			Rva0020EEF4Elem *element = (Rva0020EEF4Elem *)inner->m_begin[i];
+			if (element->m_13C == -1)
 				continue;
-			int r = ((Rva003F08D7 *)e)->rva003F08D7(v);
+			int r = ((Rva003F08D7 *)element)->rva003F08D7(v);
 			if (r)
 				return r;
 		}
@@ -64,9 +64,9 @@ bool Rva0060EF3E::rva0060EF3E(int v) {
  if(inner) {
   Rva0020EEF4Inner *p=inner;
   for(unsigned i=0;i<(unsigned)(((char*)p->m_end-(char*)p->m_begin)>>2);++i) {
-   Rva0020EEF4Elem *e=(Rva0020EEF4Elem*)p->m_begin[i];
-   if(e->m_13C==-1)continue;
-   CreateAHeroData *createAHeroData=((Rva003F1093*)e)->rva003F083A(reinterpret_cast<void *>(v));
+   Rva0020EEF4Elem *element=(Rva0020EEF4Elem*)p->m_begin[i];
+   if(element->m_13C==-1)continue;
+   CreateAHeroData *createAHeroData=((Rva003F1093*)element)->rva003F083A(reinterpret_cast<void *>(v));
    if(createAHeroData && createAHeroData->field20) {((Rva003F1093*)p->m_begin[i])->rva003F1CA2(createAHeroData,0); return 1;}
   }
  }

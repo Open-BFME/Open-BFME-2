@@ -54,7 +54,7 @@ struct Rva00418BFBPair
 {
 	Rva00418BFBNode *first;
 	bool second;
-	Rva00418BFBPair(Rva00418BFBNode *f, bool s) : first(f), second(s) {}
+	Rva00418BFBPair(Rva00418BFBNode *f, bool inserted) : first(f), second(inserted) {}
 };
 struct Rva00418BFB
 {

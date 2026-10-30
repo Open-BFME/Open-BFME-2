@@ -282,12 +282,12 @@ void Rva004BAFE5::rva004BAFE5(DamageInfo *damageInfo)
 		}
 		Rva004BAFE5Out out;
 		ifc->v70(&out);
-		Rva004BAFE5Node *n = (*out.m_ppHead)->m_next;
-		if (n == *out.m_ppHead)
+		Rva004BAFE5Node *node = (*out.m_ppHead)->m_next;
+		if (node == *out.m_ppHead)
 			return;
 		do
 		{
-			Rva004BAFE5Team *team = n->m_team;
+			Rva004BAFE5Team *team = node->m_team;
 			Rva004BAFE5State *st = team->m_state;
 			if ((st->m_flags & 0x20) != 0)
 			{
@@ -301,8 +301,8 @@ void Rva004BAFE5::rva004BAFE5(DamageInfo *damageInfo)
 				((AICommandInterface *)(aicBase + 0x20))->aiExit(
 					*(Object **)((char *)this - 8), (CommandSourceType)2);
 			}
-			n = n->m_next;
-		} while (n != *out.m_ppHead);
+			node = node->m_next;
+		} while (node != *out.m_ppHead);
 		return;
 	}
 	if (data->m_damageType != damageInfo->m_damageType)

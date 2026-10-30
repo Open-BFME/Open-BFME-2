@@ -43,7 +43,7 @@ struct Rva00600F9CElement {
  Rva00600F9CElement(const char *const &,const NativeNestedTree &);
 };
 struct Rva0060147BValue : Rva00600F9CElement {
- __forceinline Rva0060147BValue(const Rva00600F9CElement &v) : Rva00600F9CElement(v) {}
+ __forceinline Rva0060147BValue(const Rva00600F9CElement &element) : Rva00600F9CElement(element) {}
 };
 Rva00600F9CElement __cdecl Rva00600F5B(const char *const &k,const NativeNestedTree &t);
 
@@ -70,7 +70,7 @@ struct Rva0060126D {
  void *header;
  Rva006013B7Pair rva006013B7(const Rva00600F9CElement &);
  NativeNestedTree &rva0060147B(const char *name);
- __forceinline Rva006013B7Pair insert(const Rva00600F9CElement &v) { return rva006013B7(v); }
+ __forceinline Rva006013B7Pair insert(const Rva00600F9CElement &element) { return rva006013B7(element); }
 };
 __forceinline const Rva00600F9CElement &KeepPair(const Rva00600F9CElement &v) { return v; }
 __forceinline const NativeNestedTree &HeaderView(const _STL::set<AsciiString,_STL::less<AsciiString>,_STL::allocator<AsciiString> > &v) { return reinterpret_cast<const NativeNestedTree &>(v); }

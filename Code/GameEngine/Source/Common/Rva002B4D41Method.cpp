@@ -54,8 +54,8 @@ void Rva002B4D41::rva002B4D41()
 			return;
 		int p = m_b0->get();
 		int v = *(int *)p;
-		const char *s = v ? (const char *)(v + 8) : "";
-		PlaySound(s);
+		const char *eventName = v ? (const char *)(v + 8) : "";
+		PlaySound(eventName);
 	}
 	if (m_16c != 0)
 		--m_16c;

@@ -111,10 +111,10 @@ class Pathfinder
 	char m_pad00[0x58];
 	Path *m_path;
 public:
-	void SetDebugPath(Rva002EDEABArg *arg);
+	void SetDebugPath(Rva002EDEABArg *nodeList);
 };
 
-void Pathfinder::SetDebugPath(Rva002EDEABArg *arg)
+void Pathfinder::SetDebugPath(Rva002EDEABArg *nodeList)
 {
 	if (TheGameInfo != 0)
 		(*(Rva00E02EECObj **)&TheGameInfo)->virt19();
@@ -122,6 +122,6 @@ void Pathfinder::SetDebugPath(Rva002EDEABArg *arg)
 		return;
 	delete m_path;
 	m_path = new Path;
-	for (Rva002EDEABSrcNode *node = arg->m_head; node != 0; node = node->m_next)
+	for (Rva002EDEABSrcNode *node = nodeList->m_head; node != 0; node = node->m_next)
 		m_path->appendNode(&node->m_pos, node->m_layer, 0x7FFFFFFF);
 }

@@ -129,7 +129,7 @@ class WorldHeightMap
 public:
 	Int getXExtent() { return m_width; }
 	Int getYExtent() { return m_height; }
-	bool isInMesh(Int x, Int y) { return ((const Rva00729300BitPlane *)this)->test(x, y); }
+	bool isInMesh(Int gridX, Int gridY) { return ((const Rva00729300BitPlane *)this)->test(gridX, gridY); }
 	void refreshBitPlane() { ((Rva000AD9AB *)this)->rva000AD9FE(); }
 
 private:
@@ -157,16 +157,16 @@ void W3DTerrainBackground::calcBlendHeight(Real param, Int mode, Real *maxDelta)
 	if (yLimit > mapYMax)
 		yLimit = mapYMax;
 
-	Int x, y;
+	Int gridX, y;
 	if (param == 0.0f) {
 		((Rva0011216CSlotQuartet *)this)->rva00112153();
 		Int count = (m_width + 1) * (m_width + 1);
 		m_heights = new Vector3[count];
 		for (y = yOrigin; y <= yLimit; y++) {
-			for (x = xOrigin; x <= xLimit; x++) {
-				Int cx = x < mapXMax ? x : mapXMax;
+			for (gridX = xOrigin; gridX <= xLimit; gridX++) {
+				Int cx = gridX < mapXMax ? gridX : mapXMax;
 				Int cy = y < mapYMax ? y : mapYMax;
-				Int idx = (x - xOrigin) + (m_width + 1) * (y - yOrigin);
+				Int idx = (gridX - xOrigin) + (m_width + 1) * (y - yOrigin);
 				m_heights[idx].X = (UnsignedShort)((BoundedShortGrid *)m_map)->load(cx, cy) * MAP_HEIGHT_SCALE;
 				m_heights[idx].Z = m_heights[idx].X;
 				m_heights[idx].Y = m_heights[idx].Z;
@@ -184,9 +184,9 @@ void W3DTerrainBackground::calcBlendHeight(Real param, Int mode, Real *maxDelta)
 		UnsignedShort *ndx = new UnsignedShort[count];
 		memset(ndx, 0, count * sizeof(UnsignedShort));
 		for (y = yOrigin; y <= yLimit; y += m_step) {
-			for (x = xOrigin; x <= xLimit; x += m_step) {
-				if (m_map->isInMesh(x, y)) {
-					ndx[(y - yOrigin) * (m_width + 1) + (x - xOrigin)] = ndxCount++;
+			for (gridX = xOrigin; gridX <= xLimit; gridX += m_step) {
+				if (m_map->isInMesh(gridX, y)) {
+					ndx[(y - yOrigin) * (m_width + 1) + (gridX - xOrigin)] = ndxCount++;
 				}
 			}
 		}

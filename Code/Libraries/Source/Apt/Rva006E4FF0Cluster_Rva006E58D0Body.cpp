@@ -60,16 +60,16 @@ class Rva006E58D0
 
 public:
 	void rva006E5050(void *a, void *b, void *c);
-	void rva006E58D0Body(void *a, void *b, void *c);
+	void rva006E58D0Body(void *a, void *constFile, void *c);
 };
 
 // ?rva006E58D0Body@Rva006E58D0@@QAEXPAX00@Z @0x006E58D0 (105B). Fixes up the
 // pConstFile->aConstants offset into a pointer, asserts it is below 0xfffff at
 // AptAnimation.cpp:0xC3, clears this+0x30 and forwards to rva006E5050, then
 // restores the offset. Address-derived name; arg2 is the constant file.
-void Rva006E58D0::rva006E58D0Body(void *a, void *b, void *c)
+void Rva006E58D0::rva006E58D0Body(void *a, void *constFile, void *c)
 {
-	Rva006E58D0ConstFile *pConstFile = (Rva006E58D0ConstFile *)b;
+	Rva006E58D0ConstFile *pConstFile = (Rva006E58D0ConstFile *)constFile;
 	if (!(pConstFile->aConstants < 0xfffff))
 	{
 		g_bfmeAptAssertAtE17734("(unsigned)pConstFile->aConstants < 0xfffff", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptAnimation.cpp", 0xC3);
@@ -79,7 +79,7 @@ void Rva006E58D0::rva006E58D0Body(void *a, void *b, void *c)
 	if (pConstFile->aConstants != 0)
 		pConstFile->aConstants += (unsigned int)pConstFile;
 	m_field30 = 0;
-	rva006E5050(a, b, c);
+	rva006E5050(a, constFile, c);
 	if (pConstFile->aConstants != 0)
 		pConstFile->aConstants -= (unsigned int)pConstFile;
 }

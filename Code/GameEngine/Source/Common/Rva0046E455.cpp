@@ -50,55 +50,55 @@ struct Rva0046E455
 {
 	Rva0046E455Node *_head;
 	unsigned int _size;
-	Rva0046E455Iter rva0046E455(Rva0046E455Node *x, Rva0046E455Node *y, const Rva00469BEA &v, Rva0046E455Node *w);
+	Rva0046E455Iter rva0046E455(Rva0046E455Node *x, Rva0046E455Node *parent, const Rva00469BEA &v, Rva0046E455Node *w);
 	Rva0046E455Pair rva0046E4DD(const Rva00469BEA &v);
 	Rva0046E455Iter rva0046EEB5(Rva0046E455Iter position, const Rva00469BEA &v);
 };
-Rva0046E455Iter Rva0046E455::rva0046E455(Rva0046E455Node *x, Rva0046E455Node *y, const Rva00469BEA &v, Rva0046E455Node *w)
+Rva0046E455Iter Rva0046E455::rva0046E455(Rva0046E455Node *x, Rva0046E455Node *parent, const Rva00469BEA &v, Rva0046E455Node *w)
 {
-	Rva0046E455Node *z;
-	if (y == _head || (w == 0 && (x != 0 || v.m_key00 < y->_key10))) {
-		z = (Rva0046E455Node *)((Rva0046AC30 *)this)->rva0046AC30(v);
-		y->_left = z;
-		if (y == _head) {
-			_head->_parent = z;
-			_head->_right = z;
-		} else if (y == _head->_left) {
-			_head->_left = z;
+	Rva0046E455Node *newNode;
+	if (parent == _head || (w == 0 && (x != 0 || v.m_key00 < parent->_key10))) {
+		newNode = (Rva0046E455Node *)((Rva0046AC30 *)this)->rva0046AC30(v);
+		parent->_left = newNode;
+		if (parent == _head) {
+			_head->_parent = newNode;
+			_head->_right = newNode;
+		} else if (parent == _head->_left) {
+			_head->_left = newNode;
 		}
 	} else {
-		z = (Rva0046E455Node *)((Rva0046AC30 *)this)->rva0046AC30(v);
-		y->_right = z;
-		if (y == _head->_right) {
-			_head->_right = z;
+		newNode = (Rva0046E455Node *)((Rva0046AC30 *)this)->rva0046AC30(v);
+		parent->_right = newNode;
+		if (parent == _head->_right) {
+			_head->_right = newNode;
 		}
 	}
-	z->_parent = y;
-	z->_left = 0;
-	z->_right = 0;
-	_STL::_Rb_global<bool>::_Rebalance((_STL::_Rb_tree_node_base *)z, (_STL::_Rb_tree_node_base *&)_head->_parent);
+	newNode->_parent = parent;
+	newNode->_left = 0;
+	newNode->_right = 0;
+	_STL::_Rb_global<bool>::_Rebalance((_STL::_Rb_tree_node_base *)newNode, (_STL::_Rb_tree_node_base *&)_head->_parent);
 	++_size;
-	return Rva0046E455Iter(z);
+	return Rva0046E455Iter(newNode);
 }
 Rva0046E455Pair Rva0046E455::rva0046E4DD(const Rva00469BEA &v)
 {
 	Rva0046E455Node *header = _head;
-	Rva0046E455Node *x = header->_parent;
-	Rva0046E455Node *y = header;
+	Rva0046E455Node *root = header->_parent;
+	Rva0046E455Node *parent = header;
 	bool comp = true;
-	while (x != 0) {
-		y = x;
-		comp = v.m_key00 < x->_key10;
-		x = comp ? x->_left : x->_right;
+	while (root != 0) {
+		parent = root;
+		comp = v.m_key00 < root->_key10;
+		root = comp ? root->_left : root->_right;
 	}
-	Rva0046E455Node *j = y;
+	Rva0046E455Node *j = parent;
 	if (comp) {
 		if (j == header->_left)
-			return Rva0046E455Pair(rva0046E455(y, y, v, 0), true);
-		j = (Rva0046E455Node *)_STL::_Rb_global<bool>::_M_decrement((_STL::_Rb_tree_node_base *)y);
+			return Rva0046E455Pair(rva0046E455(parent, parent, v, 0), true);
+		j = (Rva0046E455Node *)_STL::_Rb_global<bool>::_M_decrement((_STL::_Rb_tree_node_base *)parent);
 	}
 	if (j->_key10 < v.m_key00)
-		return Rva0046E455Pair(rva0046E455(x, y, v, 0), true);
+		return Rva0046E455Pair(rva0046E455(root, parent, v, 0), true);
 	return Rva0046E455Pair(j, false);
 }
 Rva0046E455Iter Rva0046E455::rva0046EEB5(Rva0046E455Iter position, const Rva00469BEA &v)

@@ -70,7 +70,7 @@ class OpaqueRefCounted { public: void Release_Ref(); };
 class BfmeStringTailRecord156
 {
 public:
-    __forceinline BfmeStringTailRecord156(void *p) : m_ptr(p) {}
+    __forceinline BfmeStringTailRecord156(void *refCounted) : m_ptr(refCounted) {}
     ~BfmeStringTailRecord156() { if (m_ptr) ((OpaqueRefCounted *)m_ptr)->Release_Ref(); }
 private:
     void *m_ptr;
@@ -132,9 +132,9 @@ Rva0030DBD5::Rva0030DBD5(Coord3D pos, const AsciiString &name, float angle, int 
 	{
 		m_dict = *dictSrc;
 		bool exists = false;
-		int v = m_dict.getInt(((Rva00148F5ECache *)&TheKey_GenericAIObjectType)->get(), &exists);
+		int aiObjectType = m_dict.getInt(((Rva00148F5ECache *)&TheKey_GenericAIObjectType)->get(), &exists);
 		if (exists)
-			((Rva0030D773 *)this)->rva0030D773(v);
+			((Rva0030D773 *)this)->rva0030D773(aiObjectType);
 	}
 	else
 	{

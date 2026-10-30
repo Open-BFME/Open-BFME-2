@@ -73,28 +73,28 @@ public:
 	void rva00150959(Rva001504A1Record*,unsigned,const Rva0014F699&);
 };
 
-void Rva00150959::rva00150959(Rva001504A1Record *pos, unsigned int n, const Rva0014F699 &x)
+void Rva00150959::rva00150959(Rva001504A1Record *pos, unsigned int count, const Rva0014F699 &fillValue)
 {
-	if (n == 0)
+	if (count == 0)
 		return;
-	if ((unsigned int)(_M_end_of_storage._M_data - _M_finish) >= n) {
-		Rva0014F699 x_copy(x);
+	if ((unsigned int)(_M_end_of_storage._M_data - _M_finish) >= count) {
+		Rva0014F699 x_copy(fillValue);
 		unsigned int elems_after = (unsigned int)(_M_finish - pos);
 		Rva001504A1Record *old_finish = _M_finish;
-		if (elems_after > n) {
-			_STL::__uninitialized_copy(old_finish - n, old_finish, old_finish, *(const _STL::__false_type *)((char *)&pos + 3));
-			_M_finish += n;
+		if (elems_after > count) {
+			_STL::__uninitialized_copy(old_finish - count, old_finish, old_finish, *(const _STL::__false_type *)((char *)&pos + 3));
+			_M_finish += count;
 			Rva001504A1Record *p = pos;
-			((CopyBackward4Fn)Rva0014FA0DCopyBackward)((Rva0014F699 *)p, (Rva0014F699 *)(old_finish - n), (Rva0014F699 *)old_finish, *(const _STL::__false_type *)((char *)&pos + 3));
-			Rva0014FA2AFill((Rva0014F699 *)p, (Rva0014F699 *)(p + n), x_copy);
+			((CopyBackward4Fn)Rva0014FA0DCopyBackward)((Rva0014F699 *)p, (Rva0014F699 *)(old_finish - count), (Rva0014F699 *)old_finish, *(const _STL::__false_type *)((char *)&pos + 3));
+			Rva0014FA2AFill((Rva0014F699 *)p, (Rva0014F699 *)(p + count), x_copy);
 		} else {
-			rva0014FA47(old_finish, n - elems_after, (void *)&x_copy);
-			_M_finish += n - elems_after;
+			rva0014FA47(old_finish, count - elems_after, (void *)&x_copy);
+			_M_finish += count - elems_after;
 			_STL::__uninitialized_copy(pos, old_finish, _M_finish, *(const _STL::__false_type *)((char *)&pos + 3));
 			_M_finish += elems_after;
 			Rva0014FA2AFill((Rva0014F699 *)pos, (Rva0014F699 *)old_finish, x_copy);
 		}
 	} else {
-		_M_insert_overflow(pos, (const Rva001504A1Record &)x, *(const _STL::__false_type *)((char *)&pos + 3), n, false);
+		_M_insert_overflow(pos, (const Rva001504A1Record &)fillValue, *(const _STL::__false_type *)((char *)&pos + 3), count, false);
 	}
 }

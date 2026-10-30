@@ -27,14 +27,14 @@ protected:
 class Rva002573EE
 {
 public:
-	void rva002573EE(int a1, int a2, int a3, ModuleType a4, const AsciiString &a5, int a6);
+	void rva002573EE(int a1, int a2, int a3, ModuleType moduleType, const AsciiString &a5, int a6);
 private:
 	char _pad[16];
 	Rva00257252 m_holder;
 };
-void Rva002573EE::rva002573EE(int a1, int a2, int a3, ModuleType a4, const AsciiString &asciiString, int a6)
+void Rva002573EE::rva002573EE(int a1, int a2, int a3, ModuleType moduleType, const AsciiString &asciiString, int a6)
 {
-	int key = ModuleFactory::makeDecoratedNameKey(asciiString, a4);
+	int key = ModuleFactory::makeDecoratedNameKey(asciiString, moduleType);
 	BfmePod16 &slot = m_holder.rva00257252(key);
 	slot.a[0] = a1;
 	slot.a[1] = a2;

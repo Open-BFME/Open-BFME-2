@@ -59,21 +59,21 @@ void Rva0010F49A::rva0010F49A()
     Rva00041004 *p;
     Rva0010F49AInner *inner = m_inner;
     if (inner != 0) {
-        Rva0010F49AMid *o = inner->m_outer;
-        if (o == 0)
+        Rva0010F49AMid *outer = inner->m_outer;
+        if (outer == 0)
             p = 0;
         else
-            p = (Rva00041004 *)((char *)o + 0x38);
+            p = (Rva00041004 *)((char *)outer + 0x38);
     } else
         p = 0;
-    Rva0010F49AGuard g;
-    g.m_target = p;
-    g.m_locked = 0;
-    ((Rva0010F24F *)&g)->rva0010F24F();
+    Rva0010F49AGuard guard;
+    guard.m_target = p;
+    guard.m_locked = 0;
+    ((Rva0010F24F *)&guard)->rva0010F24F();
     if (m_inner->m_stream != 0) {
         AIL_set_stream_volume_pan(m_inner->m_stream, m_volume0C, 0.5f);
-        if (g.m_locked != 0)
-            ((Rva0010F26E *)&g)->rva0010F26E();
-    } else if (g.m_locked != 0)
-        ((Rva0010F26E *)&g)->rva0010F26E();
+        if (guard.m_locked != 0)
+            ((Rva0010F26E *)&guard)->rva0010F26E();
+    } else if (guard.m_locked != 0)
+        ((Rva0010F26E *)&guard)->rva0010F26E();
 }

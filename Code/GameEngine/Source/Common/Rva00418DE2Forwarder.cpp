@@ -33,11 +33,11 @@ struct Rva00418BFB {
 };
 struct Rva00418DE2 {
 	Rva00418BFB m_tree;
-	Rva00418BFBPair rva00418DE2(const Rva00418BFBKey &v);
+	Rva00418BFBPair rva00418DE2(const Rva00418BFBKey &key);
 };
 
-Rva00418BFBPair Rva00418DE2::rva00418DE2(const Rva00418BFBKey &v)
+Rva00418BFBPair Rva00418DE2::rva00418DE2(const Rva00418BFBKey &key)
 {
-	Rva00418BFBPair tmp = m_tree.rva00418D3C(v);
+	Rva00418BFBPair tmp = m_tree.rva00418D3C(key);
 	return Rva00418BFBPair(tmp.first, tmp.second);
 }

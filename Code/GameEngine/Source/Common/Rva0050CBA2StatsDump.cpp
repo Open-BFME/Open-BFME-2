@@ -54,43 +54,43 @@ public:
 	INIStatsRecord(const char *filename);
 	// Inline: the stats writer 0x0050CBA2 inlines the fclose ahead of the base
 	// destructor, while its unwind funclet calls the out-of-line copy.
-	~INIStatsRecord() { fclose(m_bfme48); }
+	~INIStatsRecord() { fclose(m_file); }
 	void bfmeDump1191(void);
 	void rva0050C90D();
-	char *m_bfme48;
+	char *m_file;
 };
 
 INIStatsRecord::INIStatsRecord(const char *filename)
 {
 	reset();
-	m_bfme48 = (char *)fopen(filename, "w+");
+	m_file = (char *)fopen(filename, "w+");
 	GetLastError();
-	fprintf(m_bfme48, "Thing,Class,Draw,Tag,Model,Verts,Polys,Skel,Anim,Frames,Texture,Width,Height,Depth,TexTotl,File,Line,Desc\n");
+	fprintf(m_file, "Thing,Class,Draw,Tag,Model,Verts,Polys,Skel,Anim,Frames,Texture,Width,Height,Depth,TexTotl,File,Line,Desc\n");
 }
 
 void INIStatsRecord::bfmeDump1191(void)
 {
-	const char *s0 = m_00.str();
+	const char *thingName = m_00.str();
 	int (__cdecl *fn)(void *dst, const char *fmt, ...) = fprintf;
 
-	fn(m_bfme48, (char *)"%s,", s0);
-	fn(m_bfme48, (char *)"%s,", m_04.str());
-	fn(m_bfme48, (char *)"%s,", m_08.str());
-	fn(m_bfme48, (char *)"%s,", m_0C.str());
-	fn(m_bfme48, (char *)"%s,", m_10.str());
-	fn(m_bfme48, (char *)"%d,", m_14);
-	fn(m_bfme48, (char *)"%d,", m_18);
-	fn(m_bfme48, (char *)"%s,", m_1C.str());
-	fn(m_bfme48, (char *)"%s,", m_20.str());
-	fn(m_bfme48, (char *)"%d,", m_24);
-	fn(m_bfme48, (char *)"%s,", m_28.str());
-	fn(m_bfme48, (char *)"%d,", m_2C);
-	fn(m_bfme48, (char *)"%d,", m_30);
-	fn(m_bfme48, (char *)"%d,", m_34);
-	fn(m_bfme48, (char *)"%d,", m_38);
-	fn(m_bfme48, (char *)"%s,", m_3C.str());
-	fn(m_bfme48, (char *)"%d,", m_40);
-	fn(m_bfme48, (char *)"%s\n", m_44.str());
+	fn(m_file, (char *)"%s,", thingName);
+	fn(m_file, (char *)"%s,", m_04.str());
+	fn(m_file, (char *)"%s,", m_08.str());
+	fn(m_file, (char *)"%s,", m_0C.str());
+	fn(m_file, (char *)"%s,", m_10.str());
+	fn(m_file, (char *)"%d,", m_14);
+	fn(m_file, (char *)"%d,", m_18);
+	fn(m_file, (char *)"%s,", m_1C.str());
+	fn(m_file, (char *)"%s,", m_20.str());
+	fn(m_file, (char *)"%d,", m_24);
+	fn(m_file, (char *)"%s,", m_28.str());
+	fn(m_file, (char *)"%d,", m_2C);
+	fn(m_file, (char *)"%d,", m_30);
+	fn(m_file, (char *)"%d,", m_34);
+	fn(m_file, (char *)"%d,", m_38);
+	fn(m_file, (char *)"%s,", m_3C.str());
+	fn(m_file, (char *)"%d,", m_40);
+	fn(m_file, (char *)"%s\n", m_44.str());
 }
 
 // Native50C90D..50C91D16B calls diagnostic dump50C69D then tailcalls reset50C45A

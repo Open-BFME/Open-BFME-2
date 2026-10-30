@@ -39,15 +39,15 @@ public:
 };
 
 // ?rva001e7053@Rva001E7053@@QAEXIIMM@Z
-void Rva001E7053::rva001e7053(unsigned int a, unsigned int b, float c, float d)
+void Rva001E7053::rva001e7053(unsigned int a, unsigned int position, float c, float d)
 {
-	reinterpret_cast<Rva001E702E *>(this)->rva001E702E(reinterpret_cast<Thing *>(a), (int)b, 0);
-	reinterpret_cast<Rva001E46E1 *>(this)->rva001E6007(reinterpret_cast<Object *>(a), reinterpret_cast<const Coord3D *>(b), c, d);
+	reinterpret_cast<Rva001E702E *>(this)->rva001E702E(reinterpret_cast<Thing *>(a), (int)position, 0);
+	reinterpret_cast<Rva001E46E1 *>(this)->rva001E6007(reinterpret_cast<Object *>(a), reinterpret_cast<const Coord3D *>(position), c, d);
 }
 
-void Rva001E7C2B::rva001e7c2b(unsigned int a, unsigned int b, float c, float d)
+void Rva001E7C2B::rva001e7c2b(unsigned int a, unsigned int position, float c, float d)
 {
-	reinterpret_cast<Rva001E7053 *>(this)->rva001e7053(a, b, c, d);
+	reinterpret_cast<Rva001E7053 *>(this)->rva001e7053(a, position, c, d);
 }
 
 void Rva001E9045::rva001e9045(unsigned int a, unsigned int b, float c, float d)

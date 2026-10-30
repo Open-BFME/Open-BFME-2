@@ -39,9 +39,9 @@ private:
 };
 int Rva00238E1B::rva00238E1B()
 {
-	int t = m_counter;
-	m_counter = t + 1;
-	return t;
+	int id = m_counter;
+	m_counter = id + 1;
+	return id;
 }
 
 class GameClient

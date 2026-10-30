@@ -4210,3 +4210,6 @@ __ehhandler$?rva0004E5A2@W3DRadar@@QAEXHHHHH@Z,0x0075D490,"Renamed to __ehhandle
 ?rva005B909F@@YAMPAHH@Z,0x005B909F,"Renamed to ?getWinShare@@YAMPAHH@Z by tools/rename.py (inferred)"
 ?rva0052C119@Rva0052BFE1@@QAEPAVRva00564DF2NameView@@XZ,0x0052C119,"Renamed to ?getCurrentEntry@Rva0052BFE1@@QAEPAVRva00564DF2NameView@@XZ by tools/rename.py (inferred)"
 ?rva0052C72B@Rva0052BFE1@@QAE_NABVAsciiString@@@Z,0x0052C72B,"Renamed to ?hasEntryNamed@Rva0052BFE1@@QAE_NABVAsciiString@@@Z by tools/rename.py (inferred)"
+?rva00041D97@Win32GameEngine@@UAEPAXXZ,0x00041D97,"Renamed to ?createThingFactory@Win32GameEngine@@UAEPAXXZ by tools/rename.py (inferred)"
+?rva00042091@Win32GameEngine@@UAEPAXXZ,0x00042091,"Renamed to ?createModuleFactory@Win32GameEngine@@UAEPAXXZ by tools/rename.py (inferred)"
+?rva0004C709@Rva004C743@@UAEPAVWin32Mouse@@XZ,0x0004C709,"Renamed to ?createMouse@Rva004C743@@UAEPAVWin32Mouse@@XZ by tools/rename.py (inferred)"

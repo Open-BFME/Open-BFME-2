@@ -18,8 +18,8 @@ class Rva00265254
 {
 public:
 	Rva00265254(unsigned int a1, unsigned int a2, unsigned int a3, unsigned int a4);
-	Rva00265254(unsigned int a1, unsigned int a2, unsigned int a3, unsigned int a4, unsigned int a5, unsigned int a6, unsigned int a7, unsigned int a8, unsigned int a9);
-	Rva00265254(unsigned int a1, unsigned int a2, unsigned int a3, unsigned int a4, unsigned int a5, unsigned int a6, unsigned int a7, unsigned int a8, unsigned int a9, unsigned int a10, unsigned int a11, unsigned int a12);
+	Rva00265254(unsigned int a1, unsigned int unlockId, unsigned int a3, unsigned int a4, unsigned int a5, unsigned int a6, unsigned int a7, unsigned int a8, unsigned int a9);
+	Rva00265254(unsigned int a1, unsigned int a2, unsigned int a3, unsigned int a4, unsigned int a5, unsigned int a6, unsigned int a7, unsigned int a8, unsigned int a9, unsigned int unlockId, unsigned int a11, unsigned int a12);
 private:
 	unsigned int m_bits[19];
 };
@@ -32,10 +32,10 @@ Rva00265254::Rva00265254(unsigned int a1, unsigned int a2, unsigned int a3, unsi
 	m_bits[a4 >> 5] |= 1u << (a4 & 31);
 }
 
-Rva00265254::Rva00265254(unsigned int a1, unsigned int a2, unsigned int a3, unsigned int a4, unsigned int a5, unsigned int a6, unsigned int a7, unsigned int a8, unsigned int a9)
+Rva00265254::Rva00265254(unsigned int a1, unsigned int unlockId, unsigned int a3, unsigned int a4, unsigned int a5, unsigned int a6, unsigned int a7, unsigned int a8, unsigned int a9)
 {
 	memset(this, 0, 0x4c);
-	m_bits[a2 >> 5] |= 1u << (a2 & 31);
+	m_bits[unlockId >> 5] |= 1u << (unlockId & 31);
 	m_bits[a3 >> 5] |= 1u << (a3 & 31);
 	m_bits[a4 >> 5] |= 1u << (a4 & 31);
 	m_bits[a5 >> 5] |= 1u << (a5 & 31);
@@ -45,7 +45,7 @@ Rva00265254::Rva00265254(unsigned int a1, unsigned int a2, unsigned int a3, unsi
 	m_bits[a9 >> 5] |= 1u << (a9 & 31);
 }
 
-Rva00265254::Rva00265254(unsigned int a1, unsigned int a2, unsigned int a3, unsigned int a4, unsigned int a5, unsigned int a6, unsigned int a7, unsigned int a8, unsigned int a9, unsigned int a10, unsigned int a11, unsigned int a12)
+Rva00265254::Rva00265254(unsigned int a1, unsigned int a2, unsigned int a3, unsigned int a4, unsigned int a5, unsigned int a6, unsigned int a7, unsigned int a8, unsigned int a9, unsigned int unlockId, unsigned int a11, unsigned int a12)
 {
 	memset(this, 0, 0x4c);
 	m_bits[a2 >> 5] |= 1u << (a2 & 31);
@@ -56,7 +56,7 @@ Rva00265254::Rva00265254(unsigned int a1, unsigned int a2, unsigned int a3, unsi
 	m_bits[a7 >> 5] |= 1u << (a7 & 31);
 	m_bits[a8 >> 5] |= 1u << (a8 & 31);
 	m_bits[a9 >> 5] |= 1u << (a9 & 31);
-	m_bits[a10 >> 5] |= 1u << (a10 & 31);
+	m_bits[unlockId >> 5] |= 1u << (unlockId & 31);
 	m_bits[a11 >> 5] |= 1u << (a11 & 31);
 	m_bits[a12 >> 5] |= 1u << (a12 & 31);
 }

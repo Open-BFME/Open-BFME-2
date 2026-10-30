@@ -33,9 +33,9 @@ extern int BfmeLogicFramesPerSecond;
 int Rva002B4650::GetTimeRemainingForCurrentPhaseInFrames()
 {
 	if (rva002B2BAA()) {
-		int n = ((Rva002B3DB2 *)this)->GetTimeAllowedForCurrentPhaseInFrames();
-		if (n == 0)
-			return ++n;
+		int timeAllowed = ((Rva002B3DB2 *)this)->GetTimeAllowedForCurrentPhaseInFrames();
+		if (timeAllowed == 0)
+			return ++timeAllowed;
 	}
 	return 0;
 }

@@ -50,7 +50,7 @@ public:
 	virtual void rva0005C8BB(float volume, int flags);
 	virtual void rva0005CAE2();
 	virtual void rva0005CB39();
-	virtual void rva0005CB90(int a, float b);
+	virtual void rva0005CB90(int volumeType, float volume);
 private:
 	char m_pad00[0x128];
 	Rva0005C8BBElem m_arr[3];
@@ -97,9 +97,9 @@ void MilesAudioManager::rva0005CB39()
 	}
 }
 
-void MilesAudioManager::rva0005CB90(int a, float b)
+void MilesAudioManager::rva0005CB90(int volumeType, float volume)
 {
 	MilesMutexGuard guard(&m_mutex9D4, 0);
-	MilesAudioManager::GlobalVolumeData::setGlobalSystemVolume(a, b);
+	MilesAudioManager::GlobalVolumeData::setGlobalSystemVolume(volumeType, volume);
 	((Rva0005C892 *)this)->rva0005C892();
 }

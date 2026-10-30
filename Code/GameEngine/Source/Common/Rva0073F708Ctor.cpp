@@ -26,7 +26,7 @@ public:
 class Rva000A880F
 {
 public:
-	Rva000A880F(Rva0073F778 *p) : m_ptr(p) {}
+	Rva000A880F(Rva0073F778 *thread) : m_ptr(thread) {}
 	~Rva000A880F();
 	Rva0073F778 *get() const { return m_ptr; }
 private:
@@ -47,15 +47,15 @@ unsigned __stdcall Rva0073F6FCCb(void *arg);
 class Rva0073F708
 {
 public:
-	Rva0073F708(void *a1, int priority);
+	Rva0073F708(void *owner, int priority);
 private:
 	void *m_a1;
 	Rva000A880F m_thread;
 	Rva0040F9D m_event;
 };
 
-Rva0073F708::Rva0073F708(void *a1, int priority)
-	: m_a1(a1), m_thread(new Rva0073F778), m_event(1, 0, 0, 0)
+Rva0073F708::Rva0073F708(void *owner, int priority)
+	: m_a1(owner), m_thread(new Rva0073F778), m_event(1, 0, 0, 0)
 {
 	m_thread.get()->createThread(Rva0073F6FCCb, this, 1, 0, priority, 0);
 }
@@ -66,15 +66,15 @@ Rva0073F708::Rva0073F708(void *a1, int priority)
 class Rva000A8893Worker
 {
 public:
-	Rva000A8893Worker(void *a1, int priority);
+	Rva000A8893Worker(void *owner, int priority);
 private:
 	void *m_a1;
 	Rva000A880F m_thread;
 	Rva0040F9D m_event;
 };
 
-Rva000A8893Worker::Rva000A8893Worker(void *a1, int priority)
-	: m_a1(a1), m_thread(new Rva0073F778), m_event(1, 0, 0, 0)
+Rva000A8893Worker::Rva000A8893Worker(void *owner, int priority)
+	: m_a1(owner), m_thread(new Rva0073F778), m_event(1, 0, 0, 0)
 {
 	m_thread.get()->createThread(Rva0073F6FCCb, this, 1, 0, priority, 0);
 }

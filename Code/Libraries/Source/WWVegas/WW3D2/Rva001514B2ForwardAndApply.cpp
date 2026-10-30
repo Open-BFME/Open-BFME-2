@@ -7,8 +7,8 @@ class Rva0015326DTarget { void*owner; Rva0015326DRecord*start,*finish,*end; publ
 struct Rva001514B2Inner { unsigned words[2]; Rva0015326DTarget*target; };
 struct Rva001514B2Outer { unsigned words[5]; Rva001514B2Inner*inner; };
 class Rva001514B2 { public: Rva001514B2Outer*root; void*get(); void apply(unsigned,void*); };
-void Rva001514B2::apply(unsigned n,void*p) {
- if(root && root->inner && root->inner->target) root->inner->target->apply(n,p);
+void Rva001514B2::apply(unsigned selector,void*p) {
+ if(root && root->inner && root->inner->target) root->inner->target->apply(selector,p);
 }
 class DX8Wrapper { public: static void Apply_Render_State_Changes(); };
 class FXShaderSetup {
@@ -19,10 +19,10 @@ class FXShaderSetup {
  public: void apply(unsigned);
 };
 
-void FXShaderSetup::apply(unsigned n) {
+void FXShaderSetup::apply(unsigned selector) {
  if(handle.root && handle.get() && extra) {
   DX8Wrapper::Apply_Render_State_Changes();
-  handle.apply(n,extra);
+  handle.apply(selector,extra);
   void*p=handle.get();
   typedef void(__stdcall*Slot104)(void*);
   ((Slot104*)(*(void***)p))[65](p);
@@ -40,13 +40,13 @@ void FXShaderSetup::apply(unsigned n) {
 void Rva0015326DTarget::apply(unsigned selected,void*key) {
  int first=0;
  if(!owner) return;
- Rva0015326DRecord*r=start;
- for(;r!=finish;++r) if(r->key==key) break;
- if(r==finish) return;
+ Rva0015326DRecord*record=start;
+ for(;record!=finish;++record) if(record->key==key) break;
+ if(record==finish) return;
  int last=6;
  if(selected!=0xFFFF) {first=(int)selected;last=first+1;}
  for(;first<last;++first) {
-  Rva0015326DRange&range=r->ranges[first];
+  Rva0015326DRange&range=record->ranges[first];
   for(Rva0015326DItem*item=range.start;item!=range.finish;++item)
    item->function.invoke((int)owner,item->payload);
  }

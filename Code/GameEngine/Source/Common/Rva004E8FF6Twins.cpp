@@ -37,8 +37,8 @@ extern AI *TheAI;	// 0x009FF0F8, AI/ai.cpp's global
 class Rva004E8FF6
 {
 public:
-	void rva004E8FF6(void *arg);
-	void rva004E9040(void *arg);
+	void rva004E8FF6(void *player);
+	void rva004E9040(void *player);
 
 private:
 	void **m_00;
@@ -46,7 +46,7 @@ private:
 };
 
 // ?rva004E8FF6@Rva004E8FF6@@QAEXPAX@Z @0x004E8FF6 74B.
-void Rva004E8FF6::rva004E8FF6(void *arg)
+void Rva004E8FF6::rva004E8FF6(void *player)
 {
 	void **end = m_04;
 	for (void **p = m_00; p != end; ++p)
@@ -54,16 +54,16 @@ void Rva004E8FF6::rva004E8FF6(void *arg)
 		void *o = *p;
 		if (((GateOpenAndCloseBehavior *)o)->rva00498980())
 		{
-			int r = ((GateOpenAndCloseBehavior *)o)->getRelationship((const Player *)arg);
-			if (r == 0)
-				((GateOpenAndCloseBehavior *)o)->rva0049924B((bool)r);
+			int relationship = ((GateOpenAndCloseBehavior *)o)->getRelationship((const Player *)player);
+			if (relationship == 0)
+				((GateOpenAndCloseBehavior *)o)->rva0049924B((bool)relationship);
 		}
 	}
 	((Rva002E713FOwner *)*(void **)((char *)TheAI + 0x10))->rva002E713F();
 }
 
 // ?rva004E9040@Rva004E8FF6@@QAEXPAX@Z @0x004E9040 76B.
-void Rva004E8FF6::rva004E9040(void *arg)
+void Rva004E8FF6::rva004E9040(void *player)
 {
 	void **end = m_04;
 	for (void **p = m_00; p != end; ++p)
@@ -71,9 +71,9 @@ void Rva004E8FF6::rva004E9040(void *arg)
 		void *o = *p;
 		if (((GateOpenAndCloseBehavior *)o)->rva00498980())
 		{
-			int r = ((GateOpenAndCloseBehavior *)o)->getRelationship((const Player *)arg);
-			if (r == 0)
-				((GateOpenAndCloseBehavior *)o)->rva004992D5(true, (bool)r);
+			int relationship = ((GateOpenAndCloseBehavior *)o)->getRelationship((const Player *)player);
+			if (relationship == 0)
+				((GateOpenAndCloseBehavior *)o)->rva004992D5(true, (bool)relationship);
 		}
 	}
 	((Rva002E713FOwner *)*(void **)((char *)TheAI + 0x10))->rva002E713F();

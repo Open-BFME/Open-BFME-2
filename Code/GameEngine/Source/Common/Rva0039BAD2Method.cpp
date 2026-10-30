@@ -14,7 +14,7 @@ struct Rva0039BAD2Input
 class Rva0039BAD2
 {
 public:
-	void rva0039BAD2(Rva0039BAD2Input *a, int v);
+	void rva0039BAD2(Rva0039BAD2Input *a, int amount);
 
 private:
 	char m_pad00[0x14];
@@ -25,16 +25,16 @@ private:
 	int m_1E0;
 };
 
-void Rva0039BAD2::rva0039BAD2(Rva0039BAD2Input *a, int v)
+void Rva0039BAD2::rva0039BAD2(Rva0039BAD2Input *a, int amount)
 {
 	if (a != 0 && !(a->m_113 & 4))
 	{
 		if (a->m_108 & 0x80)
-			m_18 += v;
+			m_18 += amount;
 		else
-			m_14 += v;
+			m_14 += amount;
 	}
 	else
-		m_1C += v;
-	m_1E0 += v;
+		m_1C += amount;
+	m_1E0 += amount;
 }

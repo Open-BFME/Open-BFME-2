@@ -5,10 +5,10 @@ class Rva0055DBD3 {public:void rva0055DBD3(Coord3D*,const void*,float,float);cha
 // Native55DBD3..55DCBB/WB141C7E0: normalize endpoint difference; cross
 // up with direction, then direction with first basis; combine two scales.
 // ZH Vector3 cross implementation is the semantic guide; owner unnamed.
-void Rva0055DBD3::rva0055DBD3(Coord3D*out,const void*,float a,float b){
+void Rva0055DBD3::rva0055DBD3(Coord3D*out,const void*,float firstScale,float secondScale){
  Coord3D direction;direction.x=end.x-start.x;direction.y=end.y-start.y;direction.z=end.z-start.z;direction.normalize();
  Vector3 first,second,up(0,0,1);
  Vector3::Cross_Product(up,*(Vector3*)&direction,&first);
  Vector3::Cross_Product(*(Vector3*)&direction,first,&second);
- out->x=a*first.X+b*second.X;out->y=a*first.Y+b*second.Y;out->z=a*first.Z+b*second.Z;
+ out->x=firstScale*first.X+secondScale*second.X;out->y=firstScale*first.Y+secondScale*second.Y;out->z=firstScale*first.Z+secondScale*second.Z;
 }

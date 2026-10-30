@@ -81,7 +81,7 @@ public:
 	void rva000B330C(const Coord3D *pos, Real radius, const unsigned int *color);
 	void rva000B32EF(Int *color);
 	void rva000B32C2(const Coord3D *pos);
-	void rva000B32D7(Real v);
+	void rva000B32D7(Real angle);
 	void rva000B3198(const Coord3D &lhs, const Coord3D &rhs);
 private:
 	char m_pad00[0x08];
@@ -111,12 +111,12 @@ void Rva000B32EF::rva000B32C2(const Coord3D *pos)
 	m_decal218.setPosition(*pos);
 }
 
-void Rva000B32EF::rva000B32D7(Real v)
+void Rva000B32EF::rva000B32D7(Real angle)
 {
 	Shadow *shadow = m_decal218.m_shadow;
 	if (!shadow)
 		return;
-	shadow->m_angle = v;
+	shadow->m_angle = angle;
 }
 
 void Rva000B32EF::rva000B3198(const Coord3D &lhs, const Coord3D &rhs)

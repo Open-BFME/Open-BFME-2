@@ -75,8 +75,8 @@ class SiegeEngineContain : public TransportContain
 {
 public:
 	virtual float rva0047CADB();
-	virtual bool rva004631FA(int arg);
-	virtual void rva004624EB(Rva0046247DPair &p);
+	virtual bool rva004631FA(int objectId);
+	virtual void rva004624EB(Rva0046247DPair &pair);
 private:
 	void *m_11C; // +0x11C (list head)
 	int m_120; // +0x120
@@ -92,7 +92,7 @@ class HordeSiegeEngineContain : public HordeTransportContain
 {
 public:
 	virtual float rva0047CADB();
-	virtual void rva004624EB(Rva0046247DPair &p);
+	virtual void rva004624EB(Rva0046247DPair &pair);
 protected:
 	virtual bool isSpecificRiderFreeToExit(Object *obj);
 private:
@@ -108,25 +108,25 @@ float SiegeEngineContain::rva0047CADB()
 }
 
 // ?rva004624EB@SiegeEngineContain@@UAEXAAURva0046247DPair@@@Z @0x0047C018
-void SiegeEngineContain::rva004624EB(Rva0046247DPair &p)
+void SiegeEngineContain::rva004624EB(Rva0046247DPair &pair)
 {
-	p.m00 = this;
-	p.m04 = &m_11C;
+	pair.m00 = this;
+	pair.m04 = &m_11C;
 }
 
 // ?rva004631FA@SiegeEngineContain@@UAE_NH@Z @0x0047CDCE
-bool SiegeEngineContain::rva004631FA(int arg)
+bool SiegeEngineContain::rva004631FA(int objectId)
 {
-	Rva0046247DPair p;
-	rva004624EB(p);
-	void *end = *(void **)p.m04;
+	Rva0046247DPair pair;
+	rva004624EB(pair);
+	void *end = *(void **)pair.m04;
 	void *cur = *(void **)end;
 	for (; cur != end; cur = *(void **)cur)
 	{
-		if (*(int *)((char *)cur + 8) == arg)
+		if (*(int *)((char *)cur + 8) == objectId)
 			return true;
 	}
-	return SlaughterHordeContain::rva004631FA(arg);
+	return SlaughterHordeContain::rva004631FA(objectId);
 }
 
 // ?isSpecificRiderFreeToExit@HordeSiegeEngineContain@@MAE_NPAVObject@@@Z @0x0047CA1A
@@ -144,9 +144,9 @@ float HordeSiegeEngineContain::rva0047CADB()
 }
 
 // ?rva004624EB@HordeSiegeEngineContain@@UAEXAAURva0046247DPair@@@Z @0x0047D087
-void HordeSiegeEngineContain::rva004624EB(Rva0046247DPair &p)
+void HordeSiegeEngineContain::rva004624EB(Rva0046247DPair &pair)
 {
-	p.m00 = this;
-	p.m04 = &m_128;
+	pair.m00 = this;
+	pair.m04 = &m_128;
 }
 

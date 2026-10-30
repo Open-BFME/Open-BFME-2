@@ -66,10 +66,10 @@ int Rva005688D2::rva00568991()
             float scale = m_base->m_scale;
             float tmp[2];
             rva005688D2(tmp, i);
-            int a;
-            int b;
-            Rva005C80D1Cell((const Rva005C80D1Origin *)((char *)m_base + 0xE8), (const Rva005C80D1Point *)tmp, scale, &a, &b);
-            sum += a * b;
+            int cellX;
+            int cellY;
+            Rva005C80D1Cell((const Rva005C80D1Origin *)((char *)m_base + 0xE8), (const Rva005C80D1Point *)tmp, scale, &cellX, &cellY);
+            sum += cellX * cellY;
         }
     }
     return sum;

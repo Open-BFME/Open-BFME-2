@@ -50,21 +50,21 @@ typedef Rva002DFC30 *(__cdecl *Rva002DFC30FiveArg)(Rva002DFC30 *, Rva002DFC30 *,
 typedef Rva002DFC30 *(__cdecl *Rva002DFC30FourArg)(Rva002DFC30 *, Rva002DFC30 *, Rva002DFC30 *, void *);
 Rva002DFC30 *Rva00331B05Copy(Rva002DFC30 *first, Rva002DFC30 *last, Rva002DFC30 *result)
 {
-	Rva002DFC30FiveArg f = (Rva002DFC30FiveArg)Rva0033177ECopy;
+	Rva002DFC30FiveArg copyFn = (Rva002DFC30FiveArg)Rva0033177ECopy;
 	char tmp;
-	return f(first, last, result, &tmp, 0);
+	return copyFn(first, last, result, &tmp, 0);
 }
 Rva002DFC30 *Rva00331B8FCopy(Rva002DFC30 *first, Rva002DFC30 *last, Rva002DFC30 *result)
 {
-	Rva002DFC30FiveArg f = (Rva002DFC30FiveArg)Rva003319C9Copy;
+	Rva002DFC30FiveArg copyFn = (Rva002DFC30FiveArg)Rva003319C9Copy;
 	char tmp;
-	return f(first, last, result, &tmp, 0);
+	return copyFn(first, last, result, &tmp, 0);
 }
 // ?Rva00331E0DCopy@@YAPAVRva002DFC30@@PAV1@00@Z @0x00331E0D 27B: 4-arg forwarder
 // over the rowed backward forwarder at 0x331B05; sole caller is 0x32028.
 Rva002DFC30 *Rva00331E0DCopy(Rva002DFC30 *first, Rva002DFC30 *last, Rva002DFC30 *result)
 {
-	Rva002DFC30FourArg f = (Rva002DFC30FourArg)Rva00331B05Copy;
+	Rva002DFC30FourArg copyFn = (Rva002DFC30FourArg)Rva00331B05Copy;
 	char tmp;
-	return f(first, last, result, &tmp);
+	return copyFn(first, last, result, &tmp);
 }

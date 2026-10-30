@@ -85,14 +85,14 @@ private:
 
 void Rva002706A8::rva002706A8()
 {
-	Rva002706A8Holder *h = m_fc;
+	Rva002706A8Holder *holder = m_fc;
 	m_445 = 1;
 	bool flag = false;
-	Rva002706A8Elem **pp = h->m_244;
+	Rva002706A8Elem **pp = holder->m_244;
 	while (*pp)
 	{
-		Rva002706A8Elem *e = *pp;
-		Rva002706A8Ret *r = e->m_mid.slotA8();
+		Rva002706A8Elem *element = *pp;
+		Rva002706A8Ret *r = element->m_mid.slotA8();
 		if (r)
 			r->slot00(Rva00270689, &flag);
 		++pp;

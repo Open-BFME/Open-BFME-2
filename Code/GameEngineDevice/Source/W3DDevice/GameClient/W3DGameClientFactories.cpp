@@ -150,7 +150,7 @@ public:
 	void *rva0004C5C6();
 	void *rva0004C62D();
 	virtual void *rva0004C694();
-	virtual Win32Mouse *rva0004C709();
+	virtual Win32Mouse *createMouse();
 	void *rva0004C8DD();
 };
 
@@ -190,7 +190,7 @@ void *Rva004C743::rva0004C694()
 }
 
 // Zero Hour's createMouse.
-Win32Mouse *Rva004C743::rva0004C709()
+Win32Mouse *Rva004C743::createMouse()
 {
 	Win32Mouse *mouse = new W3DMouse;
 	TheWin32Mouse = mouse;	///< global cheat for the WndProc()

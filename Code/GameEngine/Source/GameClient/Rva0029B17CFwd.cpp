@@ -60,12 +60,12 @@ void Rva0029B1A1::rva0029B1A1()
 // same +0x7F4 subsystem as 0x0029B17C/0x0029B1A1; ret 8 matches 8B args.
 class Rva0029B187 {
 public:
-	void rva0029B187(Rva004E57E6Pair *p, float f);
+	void rva0029B187(Rva004E57E6Pair *pair, float f);
 private:
 	char m_pad[0x7F4];
 	Rva004E57E6 *m_7F4;
 };
-void Rva0029B187::rva0029B187(Rva004E57E6Pair *p, float f)
+void Rva0029B187::rva0029B187(Rva004E57E6Pair *pair, float f)
 {
-	m_7F4->rva004E57E6(p, f);
+	m_7F4->rva004E57E6(pair, f);
 }
