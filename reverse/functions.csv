@@ -24149,7 +24149,7 @@ uw_0076443a,,0x0076443A,8,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DD
 ?Rva002C531BWrap@@YAXPAPAX0P6A_NPAX1@Z@Z,,0x002C531B,25,Code/GameEngine/Source/Common/Rva002198ECAdjustHeap.cpp,matched,make_heap forwarder pushing two trailing zeros
 ?Rva002DBFAD@@YA?AVUnicodeString@@USYSTEMTIME@@@Z,,0x002DBFAD,212,Code/GameEngine/Source/Common/System/Rva002DBFADFormat.cpp,matched,Win32 date format via GetVersionEx GetDateFormat rowed UnicodeString
 ?rva004FDB57@Rva004FDB57@@QAEXVAsciiString@@@Z,,0x004FDB57,83,Code/GameEngine/Source/Common/Rva004FDB57Assign.cpp,matched,by-value AsciiString assign plus GameSpy slot 0x120 id via global 0x00A02320
-??$__unguarded_partition@PAHHP6A_NHH@Z@_STL@@YAPAHPAH0HP6A_NHH@Z@Z,,0x002C529D,67,Code/Libraries/Source/WWVegas/WWLib/stlport_unguarded_partition_int_funptr.cpp,matched,int partition with function-pointer comparator
+??$__unguarded_partition@PAHHP6A_NHH@Z@_STL@@YAPAHPAH0HP6A_NHH@Z@Z,,0x002C529D,67,Code/GameEngine/Source/GameClient/GUI/GameWindowManager.cpp,matched,int partition with function-pointer comparator
 ?rva00493BD4@Rva00493BD4@@QAEXPAV1@@Z,,0x00493BD4,134,Code/GameEngine/Source/GameLogic/Object/SpecialPower/Rva00493BD4.cpp,matched,calls friend_getFinalOverride at 0x00288609 plus virtual slots 0x18 and 0x0C caller 0x004ADCE8
 ?rva00535781@UserPreferences@@QAEXXZ,,0x00535781,159,Code/GameEngine/Source/Common/UserPreferences.cpp,matched,chain via 0x002DBFAD ProfileCreatedDate slot 0x30
 ?readDestroyPlayerMessage@NetPacket@@SAPAVNetCommandMsg@@PAEAAH@Z,,0x0058DE5B,106,Code/GameEngine/Source/GameNetwork/NetPacket.cpp,matched,readDestroyPlayer via new 0x20 memcpy setter

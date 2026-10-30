@@ -21918,7 +21918,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x002C2EDF,9094,code,Code/GameEngine/Source/GameClient/GUI/GameWindowManager.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/GUI/GameWindowManager.cpp N=Code/GameEngine/Source/GameClient/GUI/GameWindowManager.cpp,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerAssignDefaultGadgetLook.cpp
 0x002C5265,8,code,Code/GameEngine/Source/GameClient/GUI/GameWindowManager.cpp,approved,C,C=0x002C2EDF..0x002C526D,Code/GameEngine/Source/Common/VslotMemberForwarders.cpp
 0x002C526D,48,code,Code/GameEngine/Source/GameClient/GUI/GameWindowManager.cpp,approved,C,C=0x002C2EDF..0x002C529D,Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_o1.cpp
-0x002C529D,67,code,Code/GameEngine/Source/GameClient/GUI/GameWindowManager.cpp,approved,C,C=0x002C2EDF..0x002C52E0,Code/Libraries/Source/WWVegas/WWLib/stlport_unguarded_partition_int_funptr.cpp
+0x002C529D,67,code,Code/GameEngine/Source/GameClient/GUI/GameWindowManager.cpp,approved,C,C=0x002C2EDF..0x002C52E0,Code/GameEngine/Source/GameClient/GUI/GameWindowManager.cpp
 0x002C52E0,41,code,Code/GameEngine/Source/GameClient/GUI/GameWindowManager.cpp,approved,C,C=0x002C2EDF..0x002C5309,Code/GameEngine/Source/Common/Rva002198ECAdjustHeap.cpp
 0x002C5309,18,code-unledgered,Code/GameEngine/Source/GameClient/GUI/GameWindowManager.cpp,approved,C,C=0x002C2EDF..0x002C531B,
 0x002C531B,25,code,Code/GameEngine/Source/GameClient/GUI/GameWindowManager.cpp,approved,C,C=0x002C2EDF..0x002C5334,Code/GameEngine/Source/Common/Rva002198ECAdjustHeap.cpp

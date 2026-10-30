@@ -117,8 +117,10 @@ public:
 //#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
 
 
+
 #endif
 #include "PreRTS.h"
+#include <algorithm>
 
 // PUBLIC DATA ////////////////////////////////////////////////////////////////////////////////////
 GameWindowManager *TheWindowManager = NULL;
@@ -194,7 +196,13 @@ typedef unsigned int UnsignedInt;
 
 typedef unsigned int WindowMsgData;
 
+typedef bool (__cdecl *IntFunLess)(int a, int b);
+
+template int* _STL::__unguarded_partition(int*, int*, int, IntFunLess);
+
 // tu-skeleton: 0x002C08EF 137B ?processDestroyList@GameWindowManager@@IAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManager_processDestroyList.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowManager.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowManager.cpp
 
@@ -436,6 +444,19 @@ void GameWindowManager::addWindowToParent(GameWindow *window,GameWindow *parent)
  if(p) { w->prev=0; w->next=p->child; if(p->child) p->child->prev=w; p->child=w; w->parent=p; }
 }
 
+// ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowManager_winSetLoneWindow.cpp
+
+void GameWindowManager::winSetLoneWindow(GameWindow *window)
+{
+	enum { GGM_CLOSE = 0x4005 };
+	BfmeWindowManagerSendView *native = (BfmeWindowManagerSendView *)this;
+	if (native->m_loneWindow == window)
+		return;
+	if (native->m_loneWindow)
+		((BfmeWindowManagerSendView *)TheWindowManager)->winSendSystemMsg(native->m_loneWindow, GGM_CLOSE, 0, 0);
+	native->m_loneWindow = window;
+}
+
 // tu-skeleton: 0x002C0A0F 77B ?init@GameWindowManager@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManager_init.cpp (not merged yet)
 
 // tu-skeleton: 0x002C0A5C 24B ?reset@GameWindowManager@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerModal.cpp (not merged yet)
@@ -488,19 +509,6 @@ void GameWindowManager::addWindowToParent(GameWindow *window,GameWindow *parent)
 
 // tu-skeleton: 0x002C12A0 60B ?winUnsetModal@GameWindowManager@@UAEHPAVGameWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerModal.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowManager_winSetLoneWindow.cpp
-
-void GameWindowManager::winSetLoneWindow(GameWindow *window)
-{
-	enum { GGM_CLOSE = 0x4005 };
-	BfmeWindowManagerSendView *native = (BfmeWindowManagerSendView *)this;
-	if (native->m_loneWindow == window)
-		return;
-	if (native->m_loneWindow)
-		((BfmeWindowManagerSendView *)TheWindowManager)->winSendSystemMsg(native->m_loneWindow, GGM_CLOSE, 0, 0);
-	native->m_loneWindow = window;
-}
-
 // tu-skeleton: 0x002C1395 240B ?gogoGadgetListBox@GameWindowManager@@UAEPAVGameWindow@@PAVGadgetCreateView@@PAU_ListboxData@@PAVGameFont@@_N@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManager_gogoGadgetListBox.cpp (not merged yet)
 
 // tu-skeleton: 0x002C17EB 66B ?GadgetTextEntrySetText@@YAXPAVGameWindow@@VUnicodeString@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetTextEntrySetText.cpp (not merged yet)
@@ -531,7 +539,13 @@ void GameWindowManager::winSetLoneWindow(GameWindow *window)
 
 // tu-skeleton: 0x002C526D 48B ??$_M_insert_dispatch@U?$_List_iterator@HU?$_Const_traits@H@_STL@@@_STL@@@?$list@HV?$allocator@H@_STL@@@_STL@@QAEXU?$_List_iterator@HU?$_Nonconst_traits@H@_STL@@@1@U?$_List_iterator@HU?$_Const_traits@H@_STL@@@1@1ABU__false_type@1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_o1.cpp (not merged yet)
 
-// tu-skeleton: 0x002C529D 67B ??$__unguarded_partition@PAHHP6A_NHH@Z@_STL@@YAPAHPAH0HP6A_NHH@Z@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_unguarded_partition_int_funptr.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_unguarded_partition_int_funptr.cpp
+
+// ??$__unguarded_partition@PAHHP6A_NHH@Z@_STL@@YAPAHPAH0HP6A_NHH@Z@Z @0x002C529D 67B
+// Quicksort partition over 4-byte int keys with a function-pointer comparator
+// (indirect calls); scan up while comp(*first,pivot), scan down while
+// comp(pivot,*last), swap on cross, return the split. Callers 0x0021DDC5
+// 0x002C56E7 are the 123B introsort_loops.
 
 // tu-skeleton: 0x002C52E0 41B ?Rva002C52E0PopHeap@@YAXPAPAX00PAXP6A_N11@Z@Z -- matched in Code/GameEngine/Source/Common/Rva002198ECAdjustHeap.cpp (not merged yet)
 
