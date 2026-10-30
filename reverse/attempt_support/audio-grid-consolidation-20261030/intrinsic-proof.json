@@ -1,0 +1,118 @@
+{
+  "source": "Code/Libraries/Source/WWVegas/WWLib/LargeGroupAudioGridCell.cpp",
+  "reason": "keep required declaration before intrinsic pragma during supported composition",
+  "variants": {
+    "before": {
+      "source_sha256": "d63b6e0de134c870f3b7b3eae64eddc95fdbebbbd1d9cff29dfb10dbd62c68d1",
+      "object_sha256": "b919f9f3b4c6d956daa8731b2bdadf7232b635c0f1e98d6137d6edab742783b4",
+      "rows": [
+        {
+          "name": "?setOverlappedLocking@LargeGroupAudioGridCell@@QAEX_N@Z",
+          "rva": "0x005C87F8",
+          "size": "85",
+          "exact": true,
+          "unresolved": []
+        },
+        {
+          "name": "?initOverlappingCells@LargeGroupAudioGridCell@@QAEXPAPAV1@@Z",
+          "rva": "0x005C879E",
+          "size": "61",
+          "exact": true,
+          "unresolved": []
+        },
+        {
+          "name": "?subtractFromWeight@LargeGroupAudioGridCell@@QAEXG@Z",
+          "rva": "0x005C87DB",
+          "size": "29",
+          "exact": true,
+          "unresolved": []
+        }
+      ]
+    },
+    "grouped": {
+      "source_sha256": "536018c9266dc4d87a7dde3246aa89cfdf8380aafd58870e2fda6893e17e2278",
+      "object_sha256": "9c8d86412850e78f13b620eb9ef86d599828f7bfcfea3d76d8225392f1c40bee",
+      "rows": [
+        {
+          "name": "?setOverlappedLocking@LargeGroupAudioGridCell@@QAEX_N@Z",
+          "rva": "0x005C87F8",
+          "size": "85",
+          "exact": true,
+          "unresolved": []
+        },
+        {
+          "name": "?initOverlappingCells@LargeGroupAudioGridCell@@QAEXPAPAV1@@Z",
+          "rva": "0x005C879E",
+          "size": "61",
+          "exact": true,
+          "unresolved": []
+        },
+        {
+          "name": "?subtractFromWeight@LargeGroupAudioGridCell@@QAEXG@Z",
+          "rva": "0x005C87DB",
+          "size": "29",
+          "exact": true,
+          "unresolved": []
+        }
+      ]
+    },
+    "composed-before": {
+      "source_sha256": "6b90f79b2fe9f69287993c38a87bfe41c90795948dbc0a3da25e4a96153ea367",
+      "object_sha256": "9c03ac9190220535a8b14e07e44374fa68a6707e3c152aec1520cd926a2896b5",
+      "rows": [
+        {
+          "name": "?setOverlappedLocking@LargeGroupAudioGridCell@@QAEX_N@Z",
+          "rva": "0x005C87F8",
+          "size": "85",
+          "exact": false,
+          "unresolved": [
+            "__ReadWriteBarrier"
+          ]
+        },
+        {
+          "name": "?initOverlappingCells@LargeGroupAudioGridCell@@QAEXPAPAV1@@Z",
+          "rva": "0x005C879E",
+          "size": "61",
+          "exact": true,
+          "unresolved": []
+        },
+        {
+          "name": "?subtractFromWeight@LargeGroupAudioGridCell@@QAEXG@Z",
+          "rva": "0x005C87DB",
+          "size": "29",
+          "exact": true,
+          "unresolved": []
+        }
+      ]
+    },
+    "composed-grouped": {
+      "source_sha256": "e660ca5ce73dfe369eec18c9fdc4923df211ba324df8b8f30473714cb1e82b25",
+      "object_sha256": "1b9be641c8a385a27ca7813881bbbd7c54765b0c2f05b9601fdce2fb267652ce",
+      "rows": [
+        {
+          "name": "?setOverlappedLocking@LargeGroupAudioGridCell@@QAEX_N@Z",
+          "rva": "0x005C87F8",
+          "size": "85",
+          "exact": true,
+          "unresolved": []
+        },
+        {
+          "name": "?initOverlappingCells@LargeGroupAudioGridCell@@QAEXPAPAV1@@Z",
+          "rva": "0x005C879E",
+          "size": "61",
+          "exact": true,
+          "unresolved": []
+        },
+        {
+          "name": "?subtractFromWeight@LargeGroupAudioGridCell@@QAEXG@Z",
+          "rva": "0x005C87DB",
+          "size": "29",
+          "exact": true,
+          "unresolved": []
+        }
+      ]
+    }
+  },
+  "retained_all_three_complete_bodies_and_symbolic_relocations_identical": true,
+  "negative_control": "Original composition hoists intrinsic before declaration; only grouped declaration keeps native code."
+}

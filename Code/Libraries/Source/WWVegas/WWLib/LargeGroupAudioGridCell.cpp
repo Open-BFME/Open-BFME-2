@@ -6,8 +6,10 @@
 // passes literal 0 and clears neighbouring byte +0x46 after. The nibble add
 // compiles to the xor-and-xor size form. The barrier keeps the second *p
 // read (shape-lever guide: member read retail performs twice).
-extern "C" void _ReadWriteBarrier(void);
+extern "C" {
+void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
+}
 
 class LargeGroupAudioGridCell
 {
