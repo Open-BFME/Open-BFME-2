@@ -196,7 +196,6 @@ Code/GameEngine/Source/Common/Rva007EB310Destroy.cpp,-O2,1,1,region default lose
 Code/GameEngine/Source/Common/Rva007F00B0AllocatorInit.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/Common/Rva007F2C10RankSerialize.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/Common/Rva007F3980AttributeSerialize.cpp,,1,1,region default loses rows
-Code/GameEngine/Source/Common/Rva007F4B80Eq.cpp,-O2,1,1,region default loses rows
 Code/GameEngine/Source/Common/Rva007F63D0Set.cpp,-O2,1,1,region default loses rows
 Code/GameEngine/Source/Common/Rva007F70F0Get.cpp,-O2,1,1,region default loses rows
 Code/GameEngine/Source/Common/Rva007F7160Get.cpp,-O2,1,1,region default loses rows
@@ -338,7 +337,6 @@ Code/GameEngine/Source/GameNetwork/Rva007F3170RecordRequest.cpp,,1,1,region defa
 Code/GameEngine/Source/GameNetwork/Rva007F3C50ClubUpdate.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/Rva007F4440FeslClient.cpp,-O2,2,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/Rva007F45E0AriesAddressRemapping.cpp,-O2,1,1,region default loses rows
-Code/GameEngine/Source/GameNetwork/Rva007F49E0UdpPacketSend.cpp,-O2,2,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/Rva007F5720GameBrowserLogin.cpp,-O2,1,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/Rva007F5840QueueReply.cpp,-O2,1,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/Rva007F5920HostedGameReply.cpp,-O2,1,1,region default loses rows
@@ -536,6 +534,7 @@ Code/Libraries/Source/DirtySock/netgameutil.cpp,-Od,1,1,region default does not 
 Code/Libraries/Source/EA/Apt/AptString/EAStringCAssign.cpp,-O2,2,2,region default loses rows
 Code/Libraries/Source/EA/Apt/AptString/EAStringCMid.cpp,-O2,4,1,region default loses rows
 Code/Libraries/Source/EA/Apt/AptString/EAStringCRemoveRange.cpp,-O2,1,1,region default loses rows
+Code/Libraries/Source/Fesl/ariesudp.cpp,-O2,3,2,region default loses rows
 Code/Libraries/Source/Fesl/blobservice.cpp,,1,1,region default loses rows
 Code/Libraries/Source/Fesl/gamebrowser/gamebrowser.cpp,,8,6,region default loses rows
 Code/Libraries/Source/Fesl/gamebrowser/gamebrowserdemangler.cpp,,7,7,region default loses rows
