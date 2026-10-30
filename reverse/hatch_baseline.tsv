@@ -10951,7 +10951,6 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassDestructorBFME
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/FrustumCtorO1.cpp	"",on	2
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/FrustumCtorO1.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/FrustumCtorO1.cpp	"t",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/FrustumInitWrappers.cpp	"t",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/GridTextureMapperCalculate.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/GridTextureMapperCalculate.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/HAnimComboBFME1.cpp	"",on	3
@@ -11993,6 +11992,7 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WWMath/colmathplane.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWMath/cullsys.cpp	"",on	2
 pragma_optimize	Code/Libraries/Source/WWVegas/WWMath/cullsys.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWMath/cullsys.cpp	"s",on	1
+pragma_optimize	Code/Libraries/Source/WWVegas/WWMath/frustum.cpp	"t",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWMath/frustum_init.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWMath/frustum_init.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWMath/gridcull.cpp	"",on	3
