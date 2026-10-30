@@ -213,6 +213,37 @@ public:
 	~Rva004DDF3A();
 };
 
+enum
+{
+	RVA004DD843_UNSET = -666666
+};
+
+struct GoalTemplate{char pad[0x114];unsigned flags;};
+
+class GoalAIInterface{public:
+virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void slot4(); virtual void slot5(); virtual void slot6(); virtual void slot7();
+virtual void slot8(); virtual void slot9(); virtual void slot10(); virtual void slot11(); virtual void slot12(); virtual void slot13(); virtual void slot14(); virtual void slot15();
+virtual void slot16(); virtual void slot17(); virtual void slot18(); virtual void slot19(); virtual void slot20(); virtual void slot21(); virtual void slot22(); virtual void slot23();
+virtual void slot24(); virtual void slot25(); virtual void slot26(); virtual void slot27(); virtual void slot28(); virtual void slot29(); virtual void slot30(); virtual void slot31();
+virtual void slot32(); virtual void slot33(); virtual void slot34(); virtual void slot35(); virtual void slot36(); virtual void slot37(); virtual void slot38(); virtual void slot39();
+virtual void slot40(); virtual void slot41(); virtual void slot42(); virtual void slot43(); virtual void slot44(); virtual void slot45(); virtual void slot46(); virtual void slot47();
+virtual void slot48(); virtual void slot49(); virtual void slot50(); virtual void slot51(); virtual void slot52(); virtual void slot53(); virtual void slot54(); virtual void slot55();
+virtual void slot56(); virtual void slot57(); virtual void slot58(); virtual void slot59(); virtual void slot60(); virtual void slot61(); virtual void slot62(); virtual void slot63();
+virtual void slot64(); virtual void slot65(); virtual void slot66(); virtual void slot67(); virtual void slot68(); virtual void slot69(); virtual void slot70(); virtual void slot71();
+virtual void slot72(); virtual void slot73(); virtual void slot74(); virtual void slot75(); virtual void slot76(); virtual void slot77(); virtual void slot78(); virtual void slot79();
+virtual void slot80(); virtual void slot81(); virtual void slot82(); virtual void slot83(); virtual void slot84(); virtual void slot85(); virtual void slot86(); virtual void slot87();
+virtual void slot88(); virtual void slot89(); virtual void slot90(); virtual void slot91(); virtual void slot92(); virtual void slot93(); virtual void slot94(); virtual void slot95();
+virtual void slot96(); virtual void slot97(); virtual void slot98(); virtual void slot99(); virtual void slot100(); virtual void slot101(); virtual void slot102(); virtual void slot103();
+virtual void slot104(); virtual void slot105(); virtual void slot106(); virtual void slot107(); virtual void slot108(); virtual void slot109(); virtual void slot110(); virtual void slot111();
+virtual void slot112(); virtual void slot113(); virtual void slot114(); virtual void slot115(); virtual void slot116(); virtual void slot117(); virtual void slot118(); virtual void slot119();
+virtual void slot120(); virtual void slot121(); virtual void slot122(); virtual void slot123(); virtual void slot124(); virtual void slot125(); virtual void slot126(); virtual void slot127();
+virtual void slot128(); virtual void slot129(); virtual void slot130(); virtual void slot131(); virtual void slot132(); virtual void slot133(); virtual void slot134(); virtual void slot135();
+virtual void slot136();
+virtual bool slot137();
+};
+
+struct GoalOwner{char pad00[4];GoalTemplate*templ;char pad08[0x258-8];GoalAIInterface*ai;};
+
 // tu-skeleton: 0x004DD637 33B ?rva004DD637@PathfinderPosGoalManager@@QAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
 
 // tu-skeleton: 0x004DD658 90B ?rva004DD658@PathfinderPosGoalManager@@QAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderPosGoalManagerXferRva004DD658.cpp (not merged yet)
@@ -220,6 +251,8 @@ public:
 // tu-skeleton: 0x004DD6B2 29B ??0Rva004DD6B2@@QAE@HHH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE24.cpp (not merged yet)
 
 // tu-skeleton: 0x004DD6CF 83B ?Rva004DD6CFGet@@YAHM@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderPosGoalManager.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/PathfinderPosGoalManager.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/PathfinderPosGoalManager.cpp
 
@@ -332,6 +365,15 @@ int Rva004DD9E3::rva004DD9E3(int a1, int x, int y)
 	return 0;
 }
 
+// ---- from Code/GameEngine/Source/Common/Rva004DDF3ADtor.cpp
+
+Rva004DDF3A::~Rva004DDF3A()
+{
+	rva004DDD6E();
+	rva004DDD80();
+	rva004DDD92();
+}
+
 // tu-skeleton: 0x004DD7E3 39B ??0Rva004DD7E3@@QAE@H@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva004DD7E3Ctor.cpp (not merged yet)
 
 // tu-skeleton: 0x004DD80A 57B ?rva004DD80A@PathfinderPosGoalManager@@QAE_NPAUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
@@ -344,19 +386,24 @@ int Rva004DD9E3::rva004DD9E3(int a1, int x, int y)
 
 // tu-skeleton: 0x004DD8FA 233B ?RemoveObjPtr@PathfinderPosGoalManager@@QAEXPAURva004DD843Slot@@@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderPosGoalManager.cpp (not merged yet)
 
-// tu-skeleton: 0x004DDD6E 18B ?rva004DDD6E@PathfinderPosGoalManager@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Rva004DD843SlotFlushes.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Rva004DD843SlotFlushes.cpp
 
-// tu-skeleton: 0x004DDD80 18B ?rva004DDD80@PathfinderPosGoalManager@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Rva004DD843SlotFlushes.cpp (not merged yet)
-
-// tu-skeleton: 0x004DDD92 18B ?rva004DDD92@PathfinderPosGoalManager@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Rva004DD843SlotFlushes.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/Rva004DDF3ADtor.cpp
-
-Rva004DDF3A::~Rva004DDF3A()
+void PathfinderPosGoalManager::rva004DDD6E()
 {
-	rva004DDD6E();
-	rva004DDD80();
-	rva004DDD92();
+	if (m_slot1C.m_value != RVA004DD843_UNSET)
+		RemoveObjPtr(&m_slot1C);
+}
+
+void PathfinderPosGoalManager::rva004DDD80()
+{
+	if (m_slot34.m_value != RVA004DD843_UNSET)
+		RemoveObjPtr(&m_slot34);
+}
+
+void PathfinderPosGoalManager::rva004DDD92()
+{
+	if (m_slot04.m_value != RVA004DD843_UNSET)
+		RemoveObjPtr(&m_slot04);
 }
 
 // tu-skeleton: 0x004DDF51 440B ?AddObjPtr@PathfinderPosGoalManager@@QAEXPAURva004DD843Slot@@@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderPosGoalManager.cpp (not merged yet)
@@ -367,7 +414,12 @@ Rva004DDF3A::~Rva004DDF3A()
 
 // tu-skeleton: 0x004DE2ED 401B ?rva004DE2ED@PathfinderPosGoalManager@@QAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderPosGoalManager.cpp (not merged yet)
 
-// tu-skeleton: 0x004DE47E 100B ?LoadPostProcess@PathfinderPosGoalManager@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderPosGoalManagerLoadPostProcess.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/AI/PathfinderPosGoalManagerLoadPostProcess.cpp
+
+void PathfinderPosGoalManager::LoadPostProcess(){
+ if(m_slot04.m_value!=-666666){m_slot04.state=((GoalOwner *)m_object)->templ->flags&0x2000?4:3;AddObjPtr(&m_slot04);}
+ if(m_slot1C.m_value!=-666666){m_slot1C.state=((GoalOwner *)m_object)->ai->slot137()?0:2;AddObjPtr(&m_slot1C);}
+}
 
 // tu-skeleton: 0x0079171A 8B $L3631 -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderPosGoalManager.cpp (not merged yet)
 
