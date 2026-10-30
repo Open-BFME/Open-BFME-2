@@ -12,7 +12,13 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include <map>
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "Common/Snapshot.h"
-extern "C" __declspec(dllimport) long __cdecl time(long *);
+// Retail calls time through its import. Keep the other CRT headers on the
+// unit's existing direct-binding configuration.
+#pragma push_macro("_CRTIMP")
+#undef _CRTIMP
+#define _CRTIMP __declspec(dllimport)
+#include <time.h>
+#pragma pop_macro("_CRTIMP")
 class Rva004E06FBPtrChase32Field;
  class LivingWorldBattle;
  struct Rva004EF2ABArg;
@@ -256,7 +262,6 @@ typedef bool Bool;
 typedef int Int;
 typedef unsigned int UnsignedInt;
 typedef unsigned char UnsignedByte;
-extern "C" __declspec(dllimport) long __cdecl time(long *timer);
 struct TemplateCountKey;
 typedef _STL::vector<const ModuleData *, _STL::allocator<const ModuleData *> > Rva004EED02List;
 typedef _STL::vector<bool, _STL::allocator<bool> > Rva004EED02BoolList;
