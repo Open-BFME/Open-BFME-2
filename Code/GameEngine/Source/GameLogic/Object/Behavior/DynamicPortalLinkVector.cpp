@@ -1,4 +1,4 @@
-// cl: /O1 /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /O1 /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii
 // stlport
 // Target 0x4613EB destroys 12B Link elements through the clearer at
 // 0x003F29F8 (stride 0xC, per-element destruction through 0x0007FAB3),
@@ -54,14 +54,11 @@ void Rva0032E7E2::rva0032E7E2()
 // through a class whose destructor is pinned there), the wide strings at
 // +0x18 and +0x14 (rowed releaseBuffer 0x00036E70), then the rowed base
 // destructor 0x001E3624.
-template <typename T> class StringBase
-{
-public:
-	~StringBase() { releaseBuffer(); }
-private:
-	void releaseBuffer();
-	T *m_data;
-};
+// The canonical frozen StringBase replaces the private copy; its switch makes
+// the member dtor reachable and keeps the teardown an out-of-line call to the
+// rowed releaseBuffer (0x00036410 narrow, 0x00036E70 wide).
+#define BFME_STRINGBASE_PUBLIC_DTOR
+#include "string_base.h"
 
 class Overridable
 {
