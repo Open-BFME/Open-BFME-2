@@ -123,27 +123,26 @@ public:
 class Drawable
 {
 public:
-	void rva00271095();
-	void rva00271C38(int value);
+	virtual void rva00271095();
+	virtual void rva00271C38(int value);
 private:
-	unsigned char m_pad[0x14C];
-	void **m_drawModules;	// +0x14C
+	void **drawModules() { return *(void ***)((char *)this + 0x14C); }	// +0x14C
 };
 
-// ?rva00271095@Drawable@@QAEXXZ, retail 0x00271095, 25 bytes, slot 13:
+// ?rva00271095@Drawable@@UAEXXZ, retail 0x00271095, 25 bytes, slot 13:
 // every module's slot 7 (+0x1C).
 void Drawable::rva00271095()
 {
-	for (DrawModuleForRva271095 **p = (DrawModuleForRva271095 **)m_drawModules; *p; ++p)
+	for (DrawModuleForRva271095 **p = (DrawModuleForRva271095 **)drawModules(); *p; ++p)
 		(*p)->s1C();
 }
 
-// ?rva00271C38@Drawable@@QAEXH@Z, retail 0x00271C38, 48 bytes, slot 14:
+// ?rva00271C38@Drawable@@UAEXH@Z, retail 0x00271C38, 48 bytes, slot 14:
 // each module's slot 41 (+0xA4) interface, when it has one, gets the
 // argument through its slot 48 (+0xC0).
 void Drawable::rva00271C38(int value)
 {
-	for (DrawModuleForRva271C38 **p = (DrawModuleForRva271C38 **)m_drawModules; *p; ++p)
+	for (DrawModuleForRva271C38 **p = (DrawModuleForRva271C38 **)drawModules(); *p; ++p)
 	{
 		DrawModuleInterfaceForRva271C38 *di = (*p)->sA4();
 		if (di)

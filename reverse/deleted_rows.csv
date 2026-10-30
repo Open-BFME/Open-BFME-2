@@ -4252,3 +4252,5 @@ __ehhandler$?BuildDescriptionString@@YAXPAVUnicodeString@@PAVRva00220B04@@@Z,0x0
 ?rva002729CB@Drawable@@QAEXM@Z,0x002729CB,"Renamed to ?rva002729CB@Drawable@@UAEXM@Z by tools/rename.py (virtual: retail vtable slot)"
 ?rva002729E9@Drawable@@QAEXH@Z,0x002729E9,"Renamed to ?rva002729E9@Drawable@@UAEXH@Z by tools/rename.py (virtual: retail vtable slot)"
 ?createDeathDecal@Drawable@@QAEXHMH@Z,0x00272971,"Renamed to ?createDeathDecal@Drawable@@UAEXHMH@Z by tools/rename.py (virtual: retail vtable slot)"
+?rva00271095@Drawable@@QAEXXZ,0x00271095,"Renamed to ?rva00271095@Drawable@@UAEXXZ by tools/rename.py (virtual: retail vtable slot)"
+?rva00271C38@Drawable@@QAEXH@Z,0x00271C38,"Renamed to ?rva00271C38@Drawable@@UAEXH@Z by tools/rename.py (virtual: retail vtable slot)"

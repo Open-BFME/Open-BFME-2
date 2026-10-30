@@ -1140,7 +1140,7 @@ Rva00270025 *Rva00270BA8::rva00270BA8()
 
 // tu-skeleton: 0x00271058 61B ?setID@Drawable@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/Drawable_setID.cpp (not merged yet)
 
-// tu-skeleton: 0x00271095 25B ?rva00271095@Drawable@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00271095.cpp (not merged yet)
+// tu-skeleton: 0x00271095 25B ?rva00271095@Drawable@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00271095.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva002710AE.cpp
 
@@ -1313,7 +1313,7 @@ void Rva00271C1C::rva00271C1C()
 	m_384 = m_04->m_value + TheGameLogic->getFrame();
 }
 
-// tu-skeleton: 0x00271C38 48B ?rva00271C38@Drawable@@QAEXH@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00271095.cpp (not merged yet)
+// tu-skeleton: 0x00271C38 48B ?rva00271C38@Drawable@@UAEXH@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00271095.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva00271C68Setter.cpp
 
