@@ -1,4 +1,12 @@
-// cl: /Od /GZ /GS /MD /DNDEBUG
+// cl: /Od /GZ /GS /DNDEBUG
+// platformsdk
+/* TAPI 1.4: retail imports the unsuffixed lineGetDevCaps, lineGetID,
+ * lineMakeCall and lineOpen, as Tapi32ImportThunks.cpp documents. */
+#define TAPI_CURRENT_VERSION 0x00010004
+#include <windows.h>
+#include <tapi.h>
+#include <string.h>
+#include <mbstring.h>
 /* EA DirtySock -- a second /Od /GZ comm transport, distinguished from the ring
  * one in Y4CommRingIdle.c by its LOCK OFFSET: +0x1E8 here against +0x1EC
  * there.  Four bytes is a whole field, so these are different objects and
@@ -127,11 +135,6 @@ void Rva008143A0( struct Rva00814700Comm *comm, void *value )
 	comm->m_flags |= 2;
 }
 
-__declspec(dllimport) void __stdcall Sleep( int interval );
-__declspec(dllimport) int __stdcall SetCommMask( void *handle, unsigned int mask );
-__declspec(dllimport) int __stdcall PurgeComm( void *handle, unsigned int flags );
-__declspec(dllimport) int __stdcall CloseHandle( void *handle );
-
 struct Rva0081B830Transport
 {
 	char m_head[ 0x7c ];
@@ -229,7 +232,6 @@ int Rva00814040( struct Rva00814700Comm *comm, const void *payload,
 
 int Rva0081B9D0( void *transport );
 void Rva0081B9B0( void *transport );
-int __stdcall lineClose( unsigned int handle );
 
 int Rva00813F20( struct Rva00814700Comm *comm )
 {
@@ -425,26 +427,8 @@ struct Rva00813E50Comm
 	char m_host[ 1 ];                /* +0x98 */
 };
 
-char *strchr( const char *text, int value );
-char *_mbscpy( char *dest, const char *source );
-int strcmp( const char *left, const char *right );
-int _strcmpi( const char *left, const char *right );
-unsigned int strlen( const char *text );
-void *memset( void *dest, int value, unsigned int size );
-__declspec(dllimport) int __cdecl wsprintfA( char *dest, const char *format, ... );
 void __stdcall Rva00813100( int port, int kind, struct Rva00813E50Comm *comm,
 	int size, int a, int b );
-
-struct Rva008136C0ExtensionId
-{
-	int m_words[ 4 ];
-};
-
-int __stdcall lineNegotiateAPIVersion( int lineApplication, int deviceId,
-	int apiLowVersion, int apiHighVersion, int *apiVersion,
-	struct Rva008136C0ExtensionId *extensionId );
-int __stdcall lineGetDevCaps( int lineApplication, int deviceId,
-	int apiVersion, int extensionVersion, void *capabilities );
 
 int Rva00813E50( struct Rva00813E50Comm *comm, char *text )
 {
@@ -461,7 +445,8 @@ int Rva00813E50( struct Rva00813E50Comm *comm, char *text )
 	if ( text == 0 )
 		return -3;
 
-	_mbscpy( comm->m_host, text + 1 );
+	_mbscpy( (unsigned char *)comm->m_host,
+		(const unsigned char *)( text + 1 ) );
 	comm->m_state = 3;
 	Rva00813100( comm->m_port, 2, comm, 0x4000, 0, 0 );
 	return 0;
@@ -473,8 +458,8 @@ int Rva00813A50( struct Rva00813E50Comm *comm, const char *text,
 	char *name;
 	int iDevice;
 	int iResult;
-	int version;
-	struct Rva008136C0ExtensionId extend;
+	DWORD version;
+	LINEEXTENSIONID extend;
 	char caps[ 0x400 ];
 	char *initialOutput;
 
@@ -501,7 +486,7 @@ int Rva00813A50( struct Rva00813E50Comm *comm, const char *text,
 		memset( caps, 0, 0x400 );
 		*(int *)caps = 0x400;
 		iResult = lineGetDevCaps( *(int *)( (char *)comm + 0x84 ), iDevice,
-			version, 0, caps );
+			version, 0, (LINEDEVCAPS *)caps );
 		if ( *(int *)( caps + 0x7C ) == 0 )
 			continue;
 
@@ -517,7 +502,7 @@ int Rva00813A50( struct Rva00813E50Comm *comm, const char *text,
 				output++;
 				size--;
 			}
-			_mbscpy( output, name );
+			_mbscpy( (unsigned char *)output, (const unsigned char *)name );
 			output += strlen( name );
 			size -= strlen( name );
 		}
@@ -891,7 +876,6 @@ char Rva012C4B0C[44] = {
 	37, 100, 32, 98, 121, 116, 101, 115,
 	41, 10, 0, 0,
 };
-void *memcpy( void *dest, const void *source, unsigned int size );
 
 int Rva00814540( struct Rva00814540Comm *comm, const void *payload,
 	int length )
@@ -1128,7 +1112,6 @@ void Rva008143F0( void )
 
 /* The transport name copied into m_name: retail .data 0x009D9204, "TCP". */
 char Rva012C4AAC[] = "TCP";
-void *memset( void *dest, int value, unsigned int size );
 int Rva00814EA0( struct Rva00814700Comm *comm, void *buffer, int size,
 	unsigned int *when );
 int Rva00814F70( struct Rva00814700Comm *comm, void *buffer, int size,
@@ -1158,7 +1141,8 @@ struct Rva008140D0Comm *Rva008140D0( int payloadSize, int countA,
 	comm->m_ops[ 11 ] = (void *)Rva00814540;
 	comm->m_ops[ 12 ] = (void *)Rva00814EA0;
 	comm->m_ops[ 13 ] = (void *)Rva00814F70;
-	_mbscpy( comm->m_name, Rva012C4AAC );
+	_mbscpy( (unsigned char *)comm->m_name,
+		(const unsigned char *)Rva012C4AAC );
 	Rva007FEA20( comm->m_lock );
 
 	comm->m_recordSizeA = payloadSize + 8;
@@ -1198,16 +1182,9 @@ int Rva00814700( unsigned int socket, int flags, struct Rva00814700Comm *ref )
 	return 0;
 }
 
-/* 0x00813780 guards a one-argument import behind an INVALID-HANDLE CHECK,
- * returning 0x8000002B instead of calling when the handle is -1.  The high bit
- * makes that a negative value, so callers testing for failure see it without
- * knowing the code.
- *
- * The import is not named: its thunk lands in an IAT slot the ledger has no
- * name for, so the declaration below is address-derived and asserts nothing
- * about which API it is.  What the bytes do fix is the shape -- one argument,
- * nothing cleaned at the call site, so __stdcall -- and that its result is
- * returned unchanged.
+/* 0x00813780 guards lineClose behind an INVALID-HANDLE CHECK, returning
+ * LINEERR_INVALLINEHANDLE instead of calling when the handle is -1.  The
+ * import verifier names the thunk's IAT slot lineClose.
  */
 int Rva00813780( unsigned int handle )
 {
@@ -1216,7 +1193,7 @@ int Rva00813780( unsigned int handle )
 	if ( handle != 0xFFFFFFFF )
 		iResult = lineClose( handle );
 	else
-		iResult = 0x8000002B;
+		iResult = LINEERR_INVALLINEHANDLE;
 
 	return iResult;
 }
@@ -1282,10 +1259,6 @@ int Rva00814F70( struct Rva00814700Comm *comm, void *buffer, int size,
 	return iResult;
 }
 
-unsigned int strlen( const char *text );
-int __stdcall lineMakeCall( int line, int address, char *destination,
-	int countryCode, void *callParameters );
-
 int Rva00813890( int line, int address, const char *destination,
 	int countryCode )
 {
@@ -1299,11 +1272,12 @@ int Rva00813890( int line, int address, const char *destination,
 	*(int *)( dial + 0x18 ) = 1;
 	*(int *)( dial + 0x1C ) = 0;
 	*(int *)( dial + 0x3C ) = 0x70;
-	_mbscpy( (char *)dial + 0x70, destination );
+	_mbscpy( (unsigned char *)dial + 0x70,
+		(const unsigned char *)destination );
 	*(int *)( dial + 0x38 ) = strlen( (char *)dial + 0x70 );
 
 	return lineMakeCall( line, address, (char *)dial + 0x70,
-		countryCode, dial );
+		countryCode, (LINECALLPARAMS *)dial );
 }
 
 // Rva012C4A40: matched references place it at VA 0xdd9198; retail contents, sized to the
@@ -1318,8 +1292,6 @@ char Rva012C4A40[64] = {
 	116, 0, 0, 0, 37, 100, 37, 99,
 	0, 0, 0, 0, 0, 0, 0, 0,
 };
-int __stdcall lineGetID( int line, int requestMode, int extension,
-	int versionCount, void *capabilities, void *apiVersion );
 
 int Rva008137C0( int line )
 {
@@ -1329,7 +1301,7 @@ int Rva008137C0( int line )
 
 	memset( info, 0, sizeof( info ) );
 	*(int *)info = sizeof( info );
-	iResult = lineGetID( line, 0, 0, 1, info, Rva012C4A40 );
+	iResult = lineGetID( line, 0, 0, 1, (VARSTRING *)info, Rva012C4A40 );
 
 	if ( iResult != 0 )
 		iReturn = -1;
@@ -1339,16 +1311,12 @@ int Rva008137C0( int line )
 	return iReturn;
 }
 
-int __stdcall lineOpen( int lineApplication, int deviceId, void *line,
-	int apiVersion, int extensionVersion, int callbackInstance,
-	int privileges, int mediaModes, void *callParameters );
-
 int Rva008136C0( int lineApplication, int deviceId, void *line,
 	int callbackInstance, int privileges, int mediaModes )
 {
 	int iResult;
-	int version;
-	struct Rva008136C0ExtensionId extend;
+	DWORD version;
+	LINEEXTENSIONID extend;
 
 	version = 0;
 	iResult = lineNegotiateAPIVersion( lineApplication, deviceId, 0x10004, 0x20002,
@@ -1356,18 +1324,11 @@ int Rva008136C0( int lineApplication, int deviceId, void *line,
 	if ( iResult != 0 )
 		return iResult;
 
-	return lineOpen( lineApplication, deviceId, line, version, 0,
+	return lineOpen( lineApplication, deviceId, (HLINE *)line, version, 0,
 		callbackInstance, privileges, mediaModes, 0 );
 }
 
 void Rva0081ACD0( void *transport );
-void __stdcall lineShutdown( int lineApplication );
-__declspec(dllimport) int __stdcall PostThreadMessageA(
-	unsigned int workerId, unsigned int message, int first, int second );
-__declspec(dllimport) void __stdcall Sleep( int interval );
-__declspec(dllimport) void *__stdcall GetProcessHeap( void );
-__declspec(dllimport) int __stdcall HeapFree( void *heap,
-	unsigned int flags, void *block );
 
 void Rva008139A0( struct Rva00814700Comm *comm )
 {
@@ -1384,27 +1345,6 @@ void Rva008139A0( struct Rva00814700Comm *comm )
 	HeapFree( GetProcessHeap(), 0, comm );
 }
 
-struct Rva00812FD0Message
-{
-	int m_words[ 7 ];
-};
-
-/* Retail reaches the message-loop APIs through import thunks this repo
- * names Rva01359xx and Rva01358xx (PeekMessageA GetModuleHandleA GetMessageA
- * TranslateMessage DispatchMessageA, in IAT-slot order); the declarations
- * use the real names the import verifier maps each slot to. */
-__declspec(dllimport) int __stdcall PeekMessageA(
-	struct Rva00812FD0Message *message, int window, int first, int last,
-	int flags );
-__declspec(dllimport) void *__stdcall GetModuleHandleA( int module );
-__declspec(dllimport) int __stdcall GetMessageA(
-	struct Rva00812FD0Message *message, int window, int first, int last );
-__declspec(dllimport) int __stdcall TranslateMessage(
-	struct Rva00812FD0Message *message );
-__declspec(dllimport) int __stdcall DispatchMessageA(
-	struct Rva00812FD0Message *message );
-int __stdcall lineInitialize( void *lineApplication, void *module,
-	void *callback, int name, void *deviceCount );
 /* The TAPI line callback: BFME1 spells its own VA 0x00C13100 here, BFME2
  * retail passes 0x00A81A50, i.e. this same connection-setup entry. Declared
  * with void * for the comm struct this TU does not include. */
@@ -1413,15 +1353,15 @@ void __stdcall Rva00813100( int port, int kind, void *comm, int size,
 
 int Rva00812FD0( struct Rva00814700Comm *argument )
 {
-	struct Rva00812FD0Message msg;
+	MSG msg;
 	int iResult;
 	struct Rva00814700Comm *comm;
 
 	comm = argument;
 	PeekMessageA( &msg, 0, 0, 0, 0 );
-	iResult = lineInitialize( comm->m_endpoint + 4,
-		GetModuleHandleA( 0 ), Rva00813100, 0,
-		comm->m_endpoint );
+	iResult = lineInitialize( (HLINEAPP *)( comm->m_endpoint + 4 ),
+		GetModuleHandleA( 0 ), (LINECALLBACK)Rva00813100, 0,
+		(DWORD *)comm->m_endpoint );
 
 	if ( *(int *)comm->m_endpoint == 0 )
 	{
