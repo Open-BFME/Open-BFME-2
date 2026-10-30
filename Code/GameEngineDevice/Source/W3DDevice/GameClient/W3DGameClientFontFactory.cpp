@@ -43,8 +43,7 @@ class W3DFontLibrary : public FontLibrary
 {
 public:
 	W3DFontLibrary() {}
-public:
-	~W3DFontLibrary();
+	virtual ~W3DFontLibrary();
 };
 typedef char W3DFontLibrarySizeCheck[sizeof(W3DFontLibrary) == 0x2C ? 1 : -1];
 class W3DGameClient
