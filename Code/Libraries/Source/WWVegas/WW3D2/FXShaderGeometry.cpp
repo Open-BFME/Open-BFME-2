@@ -440,6 +440,19 @@ public:
 	Rva0018C4A9Result insert_unique(short *key);
 };
 
+// ?Rva0018C2E7Copy@@YAPAFPAURva0018C2E7Node@@0PAF0H@Z @ 0x0018C2E7 39B unlock: tree-to-short copy via rowed _M_increment. Caller 0x0018C3C9 passes 5 args.
+// The node base is only named here, never laid out; the _Rb_global and node
+// spellings are FXShaderGeometry.cpp's, the unit this body belongs to.
+namespace _STL { struct _Rb_tree_node_base; }
+
+short *__cdecl Rva0018C2E7Copy(Rva0018C2E7Node *first, Rva0018C2E7Node *last, short *result, void *tag1, int tag2);
+
+struct Rva0018C2E7Node;
+
+short *__cdecl Rva0018C3C9Copy(Rva0018C2E7Node*,Rva0018C2E7Node*,short*,const _STL::__false_type&);
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/FXShaderGeometry.cpp
+
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/FXShaderGeometry.cpp
 
 // Init 18C84E..18D16B support views. Field offsets come from Init's own accesses.
@@ -686,24 +699,6 @@ bool FXShaderGeometry::Init(MeshModelClass *mesh)
  return true;
 }
 
-// tu-skeleton: 0x0018C262 45B ?_M_erase@Rva0018C262@@QAEXPAURva0018C262Node@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0018C262.cpp (not merged yet)
-
-// tu-skeleton: 0x0018C28F 31B ?rva0018C28F@Rva0018C262@@QAEPAURva0018C262Node@@PBG@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0018C262.cpp (not merged yet)
-
-// tu-skeleton: 0x0018C2AE 57B ??$__advance@URva005E59FCKeyIterator@@I@_STL@@YAXAAURva005E59FCKeyIterator@@IABUbidirectional_iterator_tag@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportTreeKeyRangeVector.cpp (not merged yet)
-
-// tu-skeleton: 0x0018C2E7 39B ?Rva0018C2E7Copy@@YAPAFPAURva0018C2E7Node@@0PAFPAXH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0018C2E7Copy.cpp (not merged yet)
-
-// tu-skeleton: 0x0018C316 41B ?clear@Rva0018C262@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0018C262.cpp (not merged yet)
-
-// tu-skeleton: 0x0018C33F 138B ?rva0018C33F@Rva0018C262@@QAEAAPAURva0018C262Node@@AAPAU2@PAU2@1PBG1@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0018C262.cpp (not merged yet)
-
-// tu-skeleton: 0x0018C3E6 56B ??1Rva0018C262@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0018C262.cpp (not merged yet)
-
-// tu-skeleton: 0x0018C4A9 138B ?insert_unique@Rva0018C4A9@@QAE?AURva0018C4A9Result@@PAF@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0018C262.cpp (not merged yet)
-
-// tu-skeleton: 0x0018C533 27B ?Rva0018C533RangeForward@@YAPAURva0018C533Output@@PAURva0018C533Input@@0PAU1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0018C533RangeForward.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/Rva0018C54ECtor.cpp
 
 // ??0Rva0018C54E@@QAE@XZ 0x0018C54E 46B ctor with vector<BfmeE16> at +0x14 plus zeroed header/trailer; callee Vector_base row; caller 0x001735F9 new(0x28)
@@ -711,10 +706,6 @@ bool FXShaderGeometry::Init(MeshModelClass *mesh)
 Rva0018C54E::Rva0018C54E() : m_00(0), m_04(0), m_08(0), m_0c(0), m_10(0), m_14(), m_20(0), m_24(0)
 {
 }
-
-// tu-skeleton: 0x0018C57C 127B ??1Rva001732C6@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva001732C6Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0018C5FB 5B ?cleanup@Rva0018C5FBTreeCleanupForward@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0018C262.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva0018C6D5Loop.cpp
 
@@ -726,6 +717,51 @@ void Rva0018C6D5::rva0018C6D5(const unsigned short *first, const unsigned short 
 		((Rva0018C4A9 *)this)->insert_unique(&w);
 	}
 }
+
+// tu-skeleton: 0x0018C262 45B ?_M_erase@Rva0018C262@@QAEXPAURva0018C262Node@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0018C262.cpp (not merged yet)
+
+// tu-skeleton: 0x0018C28F 31B ?rva0018C28F@Rva0018C262@@QAEPAURva0018C262Node@@PBG@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0018C262.cpp (not merged yet)
+
+// tu-skeleton: 0x0018C2AE 57B ??$__advance@URva005E59FCKeyIterator@@I@_STL@@YAXAAURva005E59FCKeyIterator@@IABUbidirectional_iterator_tag@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportTreeKeyRangeVector.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva0018C2E7Copy.cpp
+
+short *__cdecl Rva0018C2E7Copy(Rva0018C2E7Node *first, Rva0018C2E7Node *last, short *result, void *tag1, int tag2)
+{
+	(void)tag1;
+	(void)tag2;
+	for (; first != last;) {
+		short v = first->value;
+		*result = v;
+		++result;
+		first = (Rva0018C2E7Node *)_STL::_Rb_global<bool>::_M_increment((_STL::_Rb_tree_node_base *)first);
+	}
+	return result;
+}
+
+// tu-skeleton: 0x0018C316 41B ?clear@Rva0018C262@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0018C262.cpp (not merged yet)
+
+// tu-skeleton: 0x0018C33F 138B ?rva0018C33F@Rva0018C262@@QAEAAPAURva0018C262Node@@AAPAU2@PAU2@1PBG1@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0018C262.cpp (not merged yet)
+
+// tu-skeleton: 0x0018C3E6 56B ??1Rva0018C262@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0018C262.cpp (not merged yet)
+
+// tu-skeleton: 0x0018C4A9 138B ?insert_unique@Rva0018C4A9@@QAE?AURva0018C4A9Result@@PAF@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0018C262.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva0018C533RangeForward.cpp
+
+// Native18C533..18C54E,27B. STLport copy category dispatch guide.
+// Four native argument channels are forwarded to owned18C3C9; its fourth
+// metadata argument is unused. Input nodes and destination are opaque at
+// this boundary; no application record or original template name is asserted.
+
+Rva0018C533Output *__cdecl Rva0018C533RangeForward(Rva0018C533Input *first,Rva0018C533Input *last,Rva0018C533Output *result) {
+ _STL::__false_type category;
+ return reinterpret_cast<Rva0018C533Output*>(Rva0018C3C9Copy(reinterpret_cast<Rva0018C2E7Node*>(first),reinterpret_cast<Rva0018C2E7Node*>(last),reinterpret_cast<short*>(result),category));
+}
+
+// tu-skeleton: 0x0018C57C 127B ??1Rva001732C6@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva001732C6Dtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0018C5FB 5B ?cleanup@Rva0018C5FBTreeCleanupForward@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0018C262.cpp (not merged yet)
 
 // tu-skeleton: 0x0018C737 5B ?j_0018c737@@YAXXZ -- matched in Code/gen_small/gthunks_000_admitted.cpp (not merged yet)
 
