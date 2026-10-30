@@ -15673,3 +15673,15 @@ Code/GameEngine/Source/Common/System/Rva0050F0AB.cpp|member|EconomyStats|m_14,75
 Code/GameEngine/Source/Common/System/Rva0050F0AB.cpp|member|StatCollector|m_0c,a4411746060568e3306b2e04,gpt-6.1-sol,w5-10300737-4,w-f0819d403c17,2026-10-30
 Code/GameEngine/Source/Common/System/Rva0050F0AB.cpp|local|Rva0050F0AB::rva0050F450|tmp,97fc87c951baa1ee9c19d109,gpt-6.1-sol,w5-10300737-4,w-f0819d403c17,2026-10-30
 Code/GameEngine/Source/Common/System/Rva0050F0AB.cpp|local|Rva0050F0AB::rva0050F450|v,f153cb225619a13cdc61baec,gpt-6.1-sol,w5-10300737-4,w-f0819d403c17,2026-10-30
+Code/GameEngine/Source/GameClient/Rva001F93A3Insert.cpp|function|0x001F93A3|rva001F93A3,eb3b7f1712a4ad0641c82b2f,drz-k7,drz-k7-90,w-4471b1f6edef,2026-10-29
+Code/GameEngine/Source/Common/Rva004E37CFNamedReplace.cpp|function|0x004E37CF|rva004E37CF,1a6b4ea941f699c6267e00b2,drz-k7,drz-k7-92,w-4471b1f6edef,2026-10-29
+Code/GameEngine/Source/Common/Rva0040334BLoop.cpp|member|Rva0040334BElem|m_04,1628653cd58307e1638dae72,drz-k7,drz-k7-93,w-4471b1f6edef,2026-10-29
+Code/GameEngine/Source/Common/Rva0040334BLoop.cpp|member|Rva0040334BElem|m_08,bfd11329d4e8f0af22459dea,drz-k7,drz-k7-93,w-4471b1f6edef,2026-10-29
+Code/GameEngine/Source/Common/GetMaxCommandPoints.cpp|member|Key003192B9|m_id54,db67c338491fdd0da3c3eafb,drz-k7,drz-k7-94,w-4471b1f6edef,2026-10-29
+Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003328EDChain.cpp|function|0x002628C3|rva002628C3,76511ff8db957a1c98324fb5,drz-k7,drz-k7-97,w-4471b1f6edef,2026-10-29
+Code/GameEngine/Source/GameClient/Rva0029D3FBClear.cpp|local|Rva0029D3FB::rva0029D3FB|q,5d47a7268502f9e7b9068c4a,drz-k7,drz-k7-100,w-4471b1f6edef,2026-10-29
+Code/GameEngine/Source/Common/CommandLineFile.cpp|function|0x003B9F56|Rva003B9F56Parse,0d7b917ef6dd2f6c13f606da,drz-k7,drz-k7-105,w-4471b1f6edef,2026-10-29
+Code/GameEngine/Source/Common/Rva005FED61Leaf.cpp|member|Rva005FED61Payload|m_idx5C4,dd6903bd98bef6cd83e4206c,drz-k7,drz-k7-106,w-4471b1f6edef,2026-10-30
+Code/GameEngine/Source/Common/Rva005FED61Leaf.cpp|function|0x005FED61|rva005FED61,a6ee0d0d7deb529a733712cd,drz-k7,drz-k7-106,w-4471b1f6edef,2026-10-30
+Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderMoveAlliesCallback.cpp|param|Rva002F3F7DInfo::cellCallback|x,29cdcef097de5e7b8ae4126f,drz-k7,drz-k7-110,w-4471b1f6edef,2026-10-30
+Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderMoveAlliesCallback.cpp|param|Rva002F3F7DInfo::cellCallback|y,d275b62d263b0e50cfce52e0,drz-k7,drz-k7-110,w-4471b1f6edef,2026-10-30
