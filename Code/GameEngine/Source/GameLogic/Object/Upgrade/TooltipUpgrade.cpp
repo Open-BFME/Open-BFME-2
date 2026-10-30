@@ -54,17 +54,8 @@ public:
 	TooltipUpgrade( Thing *thing, const ModuleData *moduleData );
 };
 
-class Thing
-{
-public:
-	class Drawable *getDrawable() const;
-};
 
-class Drawable
-{
-public:
-	void rva00274C88(AsciiString *src);
-};
+#include "../../../../Include/GameClient/DrawableBFME2.h"
 
 class Rva002793AF
 {
