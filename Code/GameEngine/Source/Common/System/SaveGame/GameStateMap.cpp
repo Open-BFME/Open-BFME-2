@@ -13,6 +13,28 @@
 typedef bool Bool;
 #include "subsystem_interface.h"
 #include "Common/Snapshot.h"
+#define BFME_SNAPSHOT_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	protected: \
+		virtual const char *GetSnapshotName() const; \
+	}; \
+	const char *NAME::GetSnapshotName() const \
+	{ \
+		return TEXT; \
+	}
+#define BFME_LITERAL_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	public: \
+		const char *name() const; \
+	}; \
+	const char *NAME::name() const \
+	{ \
+		return TEXT; \
+	}
+#include "../../../GameLogic/AI/WorkOrder.h"
+#include "../../../GameLogic/AI/TeamInQueue.h"
 
 class GameStateMap { public: void clearScratchPadMaps(); };
 
@@ -25,9 +47,26 @@ public:
     /* the rowed GameStateMap::clearScratchPadMaps */ __declspec(dllimport) __forceinline void rva0041B603() { ((GameStateMap *)this)->clearScratchPadMaps(); }
 };
 
+BFME_LITERAL_NAME_GETTER(Rva0041AC8ANamed, "GameStateMap")
+
 // tu-skeleton: 0x0041AC6A 32B ??0GameStateMap@@QAE@XZ -- matched in Code/GameEngine/Source/Common/GameStateMap.cpp (not merged yet)
 
-// tu-skeleton: 0x0041AC8A 6B ?name@Rva0041AC8ANamed@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/ModuleNameGetters.cpp
+
+// Module literal name getters: six-byte const members with one shape:
+//
+//     mov eax,<offset string literal> / ret
+//
+// Each body returns a pointer to a NUL-terminated Behavior/Update/Contain
+// class-name string in .rdata. Each body VA carries exactly one .rdata
+// reference from its module vtable (descriptor tail closed by the shared
+// 0x004B3FD0 pair -- the same family marker as the Subsystem getters).
+// Split from Code/GameEngine/Source/Common/SubsystemNameGetters.cpp into a
+// contributor-local unit to keep concurrent landings conflict-free; the
+// BFME_LITERAL_NAME_GETTER macro is verbatim, only the class names follow
+// this tree's address-derived convention (identity unrecoverable from 6
+// bytes, string carried in source where verify_string_refs re-reads it).
+// No // cl: line (defaults match the frameless 6-byte shape).
 
 // tu-skeleton: 0x0041AC90 8B ??_ERva0041B790@@WM@AEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB10.cpp (not merged yet)
 
@@ -94,6 +133,8 @@ public:
 // tu-skeleton: 0x00786A01 8B Unwind@00b86a01 -- matched in Code/GameEngine/Source/Common/Rva0041AD08Read.cpp (not merged yet)
 
 // tu-skeleton: 0x00786A09 10B __ehhandler$?clearScratchPadMaps@GameStateMap@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva0041AD08Read.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/System/SaveGame/GameStateMap.cpp
 
 // ---- from Code/GameEngine/Source/Common/System/Rva0041B790Dtor.cpp
 
