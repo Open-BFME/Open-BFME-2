@@ -18244,3 +18244,4 @@ Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowMapManagerUpda
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowMapManagerUpdateShadowMap.cpp|param|ShadowMin|b,69d96e10b7f565d55e872937,drz-k3,drz-k3-420,w-077d7aeb666b,2026-10-30
 Code/GameEngineDevice/Source/W3DDevice/GameClient/TileData.cpp|local|Rva001118ECResampleRgb555|y,d05b16aaff9135128c1a5a8b,drz-k3,drz-k3-423,w-077d7aeb666b,2026-10-30
 Code/GameEngineDevice/Source/W3DDevice/GameClient/TileData.cpp|local|Rva001118ECResampleRgb555|x,8a17d91820987c4c25f59154,drz-k3,drz-k3-423,w-077d7aeb666b,2026-10-30
+Code/GameEngine/Source/Common/Rva00532DF6.cpp|class||Rva00532DF6Node,abf80285697499e69298d671,drz-k7,drz-k7-518,w-4471b1f6edef,2026-10-30
