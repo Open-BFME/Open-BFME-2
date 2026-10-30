@@ -8,6 +8,7 @@ inline bool operator<(const BfmePod72 &x, const BfmePod72 &y) { return x.a[0] < 
 #include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
 #include <vector>
 #include "ascii_string.h"
+#include <stdlib.h>
 
 class __declspec(novtable) BFME2NativeNetwork
 {
@@ -58,19 +59,26 @@ public:
 
 template void _STL::_List_base<BfmeVectorRecord001B4A39, _STL::allocator<BfmeVectorRecord001B4A39> >::clear();
 
+class Rva001B4CD8
+{
+public:
+	void rva001B4CD8();
+
+private:
+	void *m_ptr; // +0 freed if non-null
+};
+
 // tu-skeleton: 0x001B49C4 117B ?rva001B49C4@SubsystemLegend@@QAEPAUIniLoadFileList@@VAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/StringVectorRecordCopyBFME2.cpp (not merged yet)
 
 // tu-skeleton: 0x001B4A39 147B ??0BfmeVectorRecord001B4A39@@QAE@ABU0@@Z -- matched in Code/GameEngine/Source/Common/StringVectorRecordCopyBFME2.cpp (not merged yet)
 
 // tu-skeleton: 0x001B4ACC 116B ??1BfmeVectorRecord001B4A39@@QAE@XZ -- matched in Code/GameEngine/Source/Common/StringVectorRecordCopyBFME2.cpp (not merged yet)
 
+// ---- from Code/GameEngine/Source/Common/SubsystemLegend.cpp
+
 // ---- from Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-10-1B4B40.cpp
 
 void BfmeVectorRecord001B4A39_Delete(BfmeVectorRecord001B4A39 *p) { delete p; }
-
-// tu-skeleton: 0x001B4B5C 45B ??$_Construct@UBfmeVectorRecord001B4A39@@U1@@_STL@@YAXPAUBfmeVectorRecord001B4A39@@ABU1@@Z -- matched in Code/GameEngine/Source/Common/StringVectorRecordCopyBFME2.cpp (not merged yet)
-
-// tu-skeleton: 0x001B4B89 9B ??$_Destroy@UBfmeVectorRecord001B4A39@@@_STL@@YAXPAUBfmeVectorRecord001B4A39@@@Z -- matched in Code/GameEngine/Source/Common/DestroyInstances.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva001B4B92.cpp
 
@@ -94,25 +102,16 @@ BfmeVectorRecord001B4A39::BfmeVectorRecord001B4A39()
     text1.clear();
 }
 
-// tu-skeleton: 0x001B4C58 34B ?_M_create_node@?$list@UBfmePod72@@V?$allocator@UBfmePod72@@@_STL@@@_STL@@IAEPAU?$_List_node@UBfmePod72@@@2@ABUBfmePod72@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_list_bodies.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_list_rva001b4c7a_clear.cpp
 
 // _List_base clear @0x001B4C7A, 49B.
 
-// tu-skeleton: 0x001B4CAB 37B ?insert@?$list@UBfmePod72@@V?$allocator@UBfmePod72@@@_STL@@@_STL@@QAE?AU?$_List_iterator@UBfmePod72@@U?$_Nonconst_traits@UBfmePod72@@@_STL@@@2@U32@ABUBfmePod72@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportListInsertFootprints.cpp (not merged yet)
 
-// tu-skeleton: 0x001B4CD0 8B ?rva001B4CD0@Rva001B4CD0Forwarder@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotMemberForwarders.cpp (not merged yet)
 
-// tu-skeleton: 0x001B4CD8 23B ?rva001B4CD8@Rva001B4CD8@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva001B4CD8.cpp (not merged yet)
 
-// tu-skeleton: 0x001B4CEF 26B ?push_back@?$list@UBfmePod72@@V?$allocator@UBfmePod72@@@_STL@@@_STL@@QAEXABUBfmePod72@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportListInsertFootprints.cpp (not merged yet)
 
-// tu-skeleton: 0x001B4D09 5B ?rva001B4D09@Rva001B4D09@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportListInsertFootprints.cpp (not merged yet)
 
-// tu-skeleton: 0x001B4D0E 8B ?append@Rva001B4D0E@@QAEXABUBfmePod72@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva001B4D0EAppend.cpp (not merged yet)
 
-// tu-skeleton: 0x001B4D16 77B ??1SubsystemLegend@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0022E0E5Dtor.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/SubsystemLegend.cpp
 
@@ -129,6 +128,42 @@ BfmeVectorRecord001B4A39::BfmeVectorRecord001B4A39()
 SubsystemLegend::SubsystemLegend()
 {
 }
+
+// tu-skeleton: 0x001B4B5C 45B ??$_Construct@UBfmeVectorRecord001B4A39@@U1@@_STL@@YAXPAUBfmeVectorRecord001B4A39@@ABU1@@Z -- matched in Code/GameEngine/Source/Common/StringVectorRecordCopyBFME2.cpp (not merged yet)
+
+// tu-skeleton: 0x001B4B89 9B ??$_Destroy@UBfmeVectorRecord001B4A39@@@_STL@@YAXPAUBfmeVectorRecord001B4A39@@@Z -- matched in Code/GameEngine/Source/Common/DestroyInstances.cpp (not merged yet)
+
+// tu-skeleton: 0x001B4C58 34B ?_M_create_node@?$list@UBfmePod72@@V?$allocator@UBfmePod72@@@_STL@@@_STL@@IAEPAU?$_List_node@UBfmePod72@@@2@ABUBfmePod72@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_list_bodies.cpp (not merged yet)
+
+// tu-skeleton: 0x001B4CAB 37B ?insert@?$list@UBfmePod72@@V?$allocator@UBfmePod72@@@_STL@@@_STL@@QAE?AU?$_List_iterator@UBfmePod72@@U?$_Nonconst_traits@UBfmePod72@@@_STL@@@2@U32@ABUBfmePod72@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportListInsertFootprints.cpp (not merged yet)
+
+// tu-skeleton: 0x001B4CD0 8B ?rva001B4CD0@Rva001B4CD0Forwarder@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotMemberForwarders.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva001B4CD8.cpp
+
+// ?rva001B4CD8@Rva001B4CD8@@QAEXXZ RVA 0x001B4CD8 23B
+// Evidence: leaf lane; calls pinned 0x001B4C7A Rva001B4C7ATarget::rva001B4C7A
+//   on this, then frees the pointer at +0 via rowed 0x00030830 free if non-null;
+//   callers 0x001B4D45 and jmp 0x001B4D09.
+
+// Retail calls free directly (the game allocator), not through the CRT
+// import: /D_CRTIMP= reads <stdlib.h> without dllimport.
+
+void Rva001B4CD8::rva001B4CD8()
+{
+	((_STL::_List_base<BfmeVectorRecord001B4A39, _STL::allocator<BfmeVectorRecord001B4A39> > *)this)->clear();
+	void *p = m_ptr;
+	if (p != 0)
+		free(p);
+}
+
+// tu-skeleton: 0x001B4CEF 26B ?push_back@?$list@UBfmePod72@@V?$allocator@UBfmePod72@@@_STL@@@_STL@@QAEXABUBfmePod72@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportListInsertFootprints.cpp (not merged yet)
+
+// tu-skeleton: 0x001B4D09 5B ?rva001B4D09@Rva001B4D09@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportListInsertFootprints.cpp (not merged yet)
+
+// tu-skeleton: 0x001B4D0E 8B ?append@Rva001B4D0E@@QAEXABUBfmePod72@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva001B4D0EAppend.cpp (not merged yet)
+
+// tu-skeleton: 0x001B4D16 77B ??1SubsystemLegend@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0022E0E5Dtor.cpp (not merged yet)
 
 // tu-skeleton: 0x007693D7 8B Unwind@00b693d7 -- matched in Code/GameEngine/Source/Common/StringVectorRecordCopyBFME2.cpp (not merged yet)
 
