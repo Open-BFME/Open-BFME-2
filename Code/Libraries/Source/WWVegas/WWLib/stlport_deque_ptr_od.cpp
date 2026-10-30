@@ -14,6 +14,9 @@ namespace _STL { template <> void deque<void *,_STL::allocator<void *> >::_M_pop
 namespace _STL { template <> void deque<void *,_STL::allocator<void *> >::_M_push_back_aux_v(void * const &); }
 namespace _STL { template <> void deque<void *,_STL::allocator<void *> >::_M_reserve_map_at_back(unsigned int); }
 namespace _STL { template <> void deque<void *,_STL::allocator<void *> >::push_back(void * const &); }
+// Retail's only map reallocation is the optimised body at 0x003B57E5 (pinned
+// for this name); this unit's /Od copy (487 bytes) is not it and wins link order.
+namespace _STL { template <> void deque<void *,_STL::allocator<void *> >::_M_reallocate_map(unsigned int, bool); }
 // bfme link decl-only end
 // bfme link decl-only begin
 namespace _STL { template <> void _Construct<void *, void *>(void **, void *const &); }
@@ -27,3 +30,6 @@ namespace _STL { template <> void deque<void *, allocator<void *> >::pop_front()
 namespace _STL { template <> unsigned int deque<void *, allocator<void *> >::size() const; }
 // bfme link decl-only end
 template class _STL::deque<void *, _STL::allocator<void *> >;
+// The map copy this unit owns (retail 0x00026FB0); the declared-only map
+// reallocation no longer instantiates it.
+namespace _STL { template void ***copy<void ***, void ***>(void ***, void ***, void ***); }

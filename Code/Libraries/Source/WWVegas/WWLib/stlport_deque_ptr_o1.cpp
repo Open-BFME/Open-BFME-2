@@ -16,11 +16,18 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 
 #include <deque>
-// Owned elsewhere: copy<void***> (stlport_deque_ptr_od.cpp) and the map
-// reallocation (retail's 0x003B57E5 body). Call them, emit no copies.
+// copy<void***> is owned by stlport_deque_ptr_od.cpp (0x00026FB0), but
+// retail's optimised map reallocation inlines it (and copy_backward) to the
+// __copy_trivial workers; import-inline both so this TU emits no copy.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+void ***copy<void ***, void ***>(void ***__first, void ***__last, void ***__result)
+{ return (void ***)__copy_trivial(__first, __last, __result); }
+template <> __declspec(dllimport) __forceinline
+void ***copy_backward<void ***, void ***>(void ***__first, void ***__last, void ***__result)
+{ return (void ***)__copy_trivial_backward(__first, __last, __result); }
+}
 // bfme link decl-only begin
-namespace _STL { template <> void deque<void *, allocator<void *> >::_M_reallocate_map(unsigned int, bool); }
-namespace _STL { template <> void ***copy<void ***, void ***>(void ***, void ***, void ***); }
 namespace _STL { template <> unsigned int deque<void *, allocator<void *> >::max_size() const; }
 // bfme link decl-only end
 
@@ -59,3 +66,6 @@ namespace _STL { template _Deque_iterator<void *, _Nonconst_traits<void *> > & _
 namespace _STL { template deque<void *, allocator<void *> >::~deque(); }
 namespace _STL { template void deque<void *, allocator<void *> >::push_back(void *const &); }
 namespace _STL { template unsigned int deque<void *, allocator<void *> >::size() const; }
+// Retail's map reallocation (0x003B57E5) is this optimised body; emit it here so
+// the kept copy is retail's, not stlport_deque_ptr_od.cpp's /Od one.
+namespace _STL { template void deque<void *, allocator<void *> >::_M_reallocate_map(unsigned int, bool); }
