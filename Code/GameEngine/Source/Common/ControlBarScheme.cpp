@@ -4,18 +4,11 @@
 // Evidence: deleting-dtor caller at 0x0032013C; offsets match the ControlBarScheme reset TU (Rva0031FAF0.cpp); callees rowed List_base 0x004EC395 vector-dtor 0x00629110 releaseBuffer 0x00036410.
 #include "ascii_string.h"
 
-namespace _STL
-{
-	template <class T> class allocator;
-	template <class T, class A> class _List_base
-	{
-	public:
-		~_List_base();
-	private:
-		void *m_header;
-	};
-	typedef _List_base<int, allocator<int> > ListBaseInt;
-}
+#include <list>
+
+// The list teardown stays the rowed STLport int-list body at 0x004EC395
+// (clear 0x0023DAA5 then free), so the member teardown is declared here.
+namespace _STL { template <> _List_base<int, allocator<int> >::~_List_base(); }
 
 class Rva00200667 : public _STL::_List_base<int, _STL::allocator<int> >
 {

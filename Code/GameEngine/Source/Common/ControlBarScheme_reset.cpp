@@ -19,16 +19,10 @@ public:
 	int m_8;
 };
 
-namespace _STL
-{
-	template <class T> class allocator;
-	template <class T, class A> class _List_base
-	{
-	public:
-		void clear();
-	};
-	typedef _List_base<int, allocator<int> > ListBaseInt;
-}
+#include <list>
+
+// The clear stays the rowed STLport int-list body at 0x0023DAA5.
+namespace _STL { template <> void _List_base<int, allocator<int> >::clear(); }
 
 struct NodeA
 {
@@ -113,7 +107,7 @@ void ControlBarScheme::reset()
 				delete obj;
 			cur = cur->m_next;
 		}
-		(( _STL::ListBaseInt *)listA)->clear();
+		(( _STL::_List_base<int, _STL::allocator<int> > *)listA)->clear();
 		++listA;
 		--n;
 	} while (n != 0);
@@ -129,7 +123,7 @@ void ControlBarScheme::reset()
 		}
 		curB = curB->m_next;
 	}
-	(( _STL::ListBaseInt *)&m_list170)->clear();
+	(( _STL::_List_base<int, _STL::allocator<int> > *)&m_list170)->clear();
 
 	m_s0.clear();
 	m_8 = 0;
