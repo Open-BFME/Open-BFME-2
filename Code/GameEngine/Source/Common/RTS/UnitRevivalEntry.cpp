@@ -56,10 +56,13 @@ class Player
 {
 public:
 	int getPlayerIndex() const { return m_playerIndex; }
+	int getLivingWorldPlayerID() const { return m_livingWorldPlayerID; }
 
 private:
 	unsigned char m_pad00[0x54];
 	int m_playerIndex; // +0x54
+	unsigned char m_pad58[0x3AC - 0x58];
+	int m_livingWorldPlayerID; // +0x3AC
 };
 
 class PlayerList
@@ -85,6 +88,7 @@ public:
 	Rva004E04FD() throw();
 };
 class Object;
+class Image;
 
 class UnitRevivalEntry
 {
@@ -97,6 +101,9 @@ public:
 	void *getThingTemplate();
 	void setThingTemplateName(const AsciiString &name);
 	void rva0037E473(Xfer *xfer);
+	int revivalEntryCalcTimeToBuild(const Player *player, Object *producer);
+	int revivalEntryCalcCostToBuild(const Player *player, Object *producer);
+	const Image *calcButtonImage(const Player *player);
 
 	int m_00;
 	int m_04;
@@ -137,6 +144,8 @@ UnitRevivalEntry *vector<UnitRevivalEntry, allocator<UnitRevivalEntry> >::erase(
 
 typedef _STL::vector<UnitRevivalEntry> UnitRevivalEntryVector;
 
+class ThingTemplate;
+
 // Retail table 0x00C18DF0 holds only xfer (0x0037F39E): no Snapshot base,
 // no virtual destructor.
 class UnitRevivalTracker
@@ -144,6 +153,7 @@ class UnitRevivalTracker
 public:
 	UnitRevivalTracker(Player *owner);
 	void rva0037F26D();
+	void removeBuildUnit(const ThingTemplate *tmpl);
 
 protected:
 	virtual void xfer(Xfer *xfer);
@@ -153,11 +163,21 @@ private:
 	Player *m_player; // +0x10
 };
 
+enum KindOfType
+{
+	KINDOF_90 = 90,
+	KINDOF_128 = 128
+};
+
 class ThingTemplate
 {
 public:
-    char unknown00[0x64];
-    AsciiString name;
+	__declspec(dllimport) __forceinline bool isKindOf(KindOfType t) const { return (m_kindOf[t >> 3] & (1 << (t & 7))) != 0; }
+
+	char unknown00[0x64];
+	AsciiString name; // +0x64
+	char unknown68[0x108 - 0x68];
+	unsigned char m_kindOf[0x20]; // +0x108
 };
 
 struct RevivalIndexEntry

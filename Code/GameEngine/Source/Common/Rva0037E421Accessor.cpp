@@ -6,9 +6,62 @@
 // Unlock lane; landing unblocks 11 functions. No donor; recipe follows
 // Rva00219B9EAccessor signed-idiv precedent with /O1 keeping idiv.
 // Honest-address name: owner unknown so Rva0037E421 class, void* return, int index.
-class Player; class Object; class Image;
-class UnitRevivalEntry { public: void *getThingTemplate(); int revivalEntryCalcTimeToBuild(const Player *player, Object *producer); int revivalEntryCalcCostToBuild(const Player *player, Object *producer); const Image *calcButtonImage(const Player *player); 
-char m_pad00[0x98]; int m_98; char m_pad9C[0xA4-0x9C]; int m_a4; char m_padA8[0xCC-0xA8]; float m_cc; char m_padD0[0xD8-0xD0];
+#include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
+#include "GameLogicObjectLookupView.h"
+extern GameLogic *TheGameLogic;
+class Player;
+class Xfer;
+class Rva001EAE6FHelper
+{
+	char m_data[0x80];
+public:
+	Rva001EAE6FHelper *clear80() throw();
+	// Keep the existing clear worker while constructing this member in order.
+	__forceinline Rva001EAE6FHelper() throw() { clear80(); }
+};
+class Rva004E04FD
+{
+	char m_data[0x18];
+public:
+	Rva004E04FD() throw();
+};
+class Object;
+class Image;
+
+class UnitRevivalEntry
+{
+public:
+	UnitRevivalEntry();
+	UnitRevivalEntry(Object *object);
+	UnitRevivalEntry(const UnitRevivalEntry &that);
+	~UnitRevivalEntry();
+	UnitRevivalEntry &operator=(const UnitRevivalEntry &that);
+	void *getThingTemplate();
+	void setThingTemplateName(const AsciiString &name);
+	void rva0037E473(Xfer *xfer);
+	int revivalEntryCalcTimeToBuild(const Player *player, Object *producer);
+	int revivalEntryCalcCostToBuild(const Player *player, Object *producer);
+	const Image *calcButtonImage(const Player *player);
+
+	int m_00;
+	int m_04;
+	float m_08;
+	int m_0C;
+	int m_10;
+	Rva001EAE6FHelper m_14;
+	int m_94;
+	int m_98;
+	unsigned int m_9C; // build time, from the template's float via _ftol
+	bool m_A0;
+	bool m_A1;
+	int m_A4;
+	int m_A8;
+	int m_AC;
+	Rva004E04FD m_B0;
+	int m_C8;
+	float m_CC;
+	int m_D0;
+	AsciiString m_str; // +0xD4
 };
 typedef UnitRevivalEntry Elem216;
 struct Vec216 { Elem216 *m_start; Elem216 *m_finish; Elem216 *m_end; };
@@ -49,21 +102,21 @@ unsigned char Rva0037E421::rva0037E7BC(int index)
     return ((Elem216 *)p)->m_98 == -1;
 }
 // ?rva0037E451@Rva0037E421@@QAEPAXH@Z @0x0037E451 34B
-// Linear search of the same 216-byte vector for element with m_a4 == key.
+// Linear search of the same 216-byte vector for element with m_A4 == key.
 // Proven by 4 callers and the +4/+8 vector with 0xD8 stride; same class and flags.
 void *Rva0037E421::rva0037E451(int key)
 {
     Elem216 *p = m_vec.m_start;
     Elem216 *end = m_vec.m_finish;
     for (; p != end; ++p) {
-        if (p->m_a4 == key)
+        if (p->m_A4 == key)
             return p;
     }
     return 0;
 }
 // ?productionSystemCancelUnitCreate@Rva0037E421@@QAEEH@Z @0x0037E7DA 59B
 // Chain of rva0037E451; if element missing or m_98 == -1 return 0 else set
-// m_98/m_a4 to -1 via or -1, m_cc to 1.0f via movss, return 1. Proven by caller
+// m_98/m_A4 to -1 via or -1, m_CC to 1.0f via movss, return 1. Proven by caller
 // at 0x0049DCE7 and the shared 1.0f literal at 0x00BBB8D8; same class, /arch:SSE for movss.
 unsigned char Rva0037E421::productionSystemCancelUnitCreate(int key)
 {
@@ -72,8 +125,8 @@ unsigned char Rva0037E421::productionSystemCancelUnitCreate(int key)
         return 0;
     if (e->m_98 != -1) {
         e->m_98 = -1;
-        e->m_a4 = -1;
-        e->m_cc = 1.0f;
+        e->m_A4 = -1;
+        e->m_CC = 1.0f;
         return 1;
     }
     return 0;
@@ -208,8 +261,6 @@ int Rva0037E6E8::rva0037E649(int index, Object *object)
     return ((UnitRevivalEntry *)entry)->revivalEntryCalcCostToBuild(m_10, object);
 }
 
-#include "GameLogicObjectLookupView.h"
-extern GameLogic *TheGameLogic;
 // Native37E898..37E915: unrecruited entries report cost and completed
 // progress; active entries use elapsed/start divided by revival time.
 float Rva0037E6E8::rva0037E898(int index, int *cost, Object *object) {

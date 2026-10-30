@@ -8,23 +8,20 @@
 // 0x004B8484 via the UnitRevivalTracker at Player+0x738; callees StringBase::compare
 // 0x000069D6 and Rva002E204D::rva002E204D 0x002E204D; neighbours 0x0037EDE0 and
 // 0x0037EEFC (ends exactly at next start).
-template<class _T> class StringBase
-{
-public:
-	char *m_text;
-	int compare(const StringBase &other) const;
-};
+#include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 class ThingTemplate
 {
-	char m_pad00[0x64];
 public:
-	StringBase<char> m_str64;
+	char unknown00[0x64];
+	AsciiString name; // +0x64
 };
 class Rva002E0D93
 {
 public:
-	char m_pad00[0xD4];
-	StringBase<char> m_strD4;
+	char m_pad00[0xA4];
+	int m_keyA4;
+	char m_padA8[0xD4 - 0xA8];
+	AsciiString m_strD4;
 };
 class Rva002E204D
 {
@@ -36,16 +33,18 @@ public:
 };
 class UnitRevivalTracker
 {
-	int m_unk00;
-	Rva002E204D m_vec04;
 public:
 	void removeBuildUnit(const ThingTemplate *tmpl);
+
+private:
+	int m_vtable00;
+	Rva002E204D m_entries;
 };
 void UnitRevivalTracker::removeBuildUnit(const ThingTemplate *thingTemplate)
 {
-	for (Rva002E0D93 *p = m_vec04.m_start00; p != m_vec04.m_finish04; ++p) {
-		if (p->m_strD4.compare(thingTemplate->m_str64) == 0) {
-			m_vec04.rva002E204D(p);
+	for (Rva002E0D93 *p = ((Rva002E204D *)&m_entries)->m_start00; p != ((Rva002E204D *)&m_entries)->m_finish04; ++p) {
+		if (p->m_strD4.compare(thingTemplate->name) == 0) {
+			((Rva002E204D *)&m_entries)->rva002E204D(p);
 			break;
 		}
 	}

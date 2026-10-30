@@ -6,12 +6,14 @@
 // 0x0037EF5D, neighbours Rva0037EB1DCopy.cpp and VTableInstalls.cpp.
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
+#include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 class Rva002E0D93
 {
 public:
 	char m_pad00[0xA4];
 	int m_keyA4;
-	char m_padA8[0xD8 - 0xA8];
+	char m_padA8[0xD4 - 0xA8];
+	AsciiString m_strD4;
 };
 class Rva002E204D
 {
