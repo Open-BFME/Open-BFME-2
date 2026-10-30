@@ -7,6 +7,7 @@
 // stlport
 #include <algorithm>
 #include <vector>
+#include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 
 namespace _STL {
 template <> __declspec(dllimport) __forceinline
@@ -31,25 +32,27 @@ struct Rva004E5D6EChild
 	unsigned int m_field18;
 };
 
-class IngameNoticeDisplay
+struct Rva004E61C8Inner;
+class IngameNoticeDisplay : public SubsystemInterface
 {
 public:
+	virtual ~IngameNoticeDisplay();
+	virtual void init();
 	virtual void reset();
 private:
-	unsigned char m_pad4[0x8];
-	Rva004E5D6EChild *m_p; // +0xc
+	Rva004E61C8Inner *m_c; // +0xc
 	_STL::vector<void *, _STL::allocator<void *> > m_vec; // +0x10
-	int m_a; // +0x1c
-	int m_b; // +0x20
-	int m_c; // +0x24
+	int m_1c;
+	int m_20;
+	int m_24;
 };
 void IngameNoticeDisplay::reset()
 {
-	m_a = 0;
-	m_b = 0;
-	m_c = 0;
+	m_1c = 0;
+	m_20 = 0;
+	m_24 = 0;
 	_STL::for_each((Rva004E5A78 **)m_vec.begin(), (Rva004E5A78 **)m_vec.end(), Rva004E5CB0Deleter());
 	_STL::vector<void *, _STL::allocator<void *> > *pv = &m_vec;
 	pv->erase(pv->begin(), pv->end());
-	m_p->m_field18 = 0xff000000;
+	((Rva004E5D6EChild *)m_c)->m_field18 = 0xff000000;
 }
