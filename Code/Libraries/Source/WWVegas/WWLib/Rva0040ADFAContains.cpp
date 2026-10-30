@@ -6,15 +6,16 @@
 // LINK BONUS none.
 #include "ascii_string.h"
 
-enum NameKeyType
-{
-    NAMEKEY_INVALID = 0
-};
+enum NameKeyType { NAMEKEY_INVALID=0 };
 
+class INI;
 class NameKeyGenerator
 {
 public:
-    NameKeyType nameToKey(const AsciiString &name);
+	const AsciiString &keyToName(NameKeyType);
+	NameKeyType nameToKey(const char *);
+	static void parseStringAsNameKeyType(INI *,void *,void *,const void *);
+	NameKeyType nameToKey(const AsciiString &name);
 };
 
 extern class NameKeyGenerator *TheNameKeyGenerator;
@@ -28,11 +29,11 @@ namespace _STL
 class Rva0040ADFA
 {
 public:
-    bool rva0040ADFA(const void *arg) const;
+	bool rva0040ADFA(const void *arg) const;
+	char m_pad00[0x4];
 private:
-    char m_pad[4];
-    int *m_first;
-    int *m_last;
+	int *m_first; // +0x04
+	int *m_last; // +0x08
 };
 
 bool Rva0040ADFA::rva0040ADFA(const void *arg) const
@@ -48,11 +49,11 @@ bool Rva0040ADFA::rva0040ADFA(const void *arg) const
 class Rva0040AE2C
 {
 public:
-    bool rva0040AE2C(const void *arg) const;
+	bool rva0040AE2C(const void *arg) const;
+	char m_pad00[0x10];
 private:
-    char m_pad[0x10];
-    int *m_first;
-    int *m_last;
+	int *m_first; // +0x10
+	int *m_last; // +0x14
 };
 
 bool Rva0040AE2C::rva0040AE2C(const void *arg) const

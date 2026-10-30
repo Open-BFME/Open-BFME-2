@@ -20,10 +20,7 @@
 typedef int Int;
 typedef unsigned int UnsignedInt;
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
+enum NameKeyType { NAMEKEY_INVALID=0 };
 
 class NameKeyGenerator
 {
@@ -36,22 +33,34 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 
 struct FieldParse;
 
+enum INILoadType
+{
+	INI_LOAD_INVALID = 0,
+	INI_LOAD_OVERWRITE = 1,
+	INI_LOAD_CREATE_OVERRIDES = 2
+};
+class Xfer;
 class INI
 {
 public:
-	void initFromINI(void *what, const FieldParse *parseTable);
-	static void parseAsciiString(INI *, void *, void *, const void *);
+	void initFromINI(void *,const FieldParse *);
+	static void parseUnsignedInt(INI *,void *,void *,const void *);
+	static void parseAsciiString(INI *,void *,void *,const void *);
+	INI();
+	~INI();
+	unsigned char loadFile(AsciiString filename, INILoadType loadType, Xfer *xfer); // 0x0002DC75 returns 1
 	static void parseBool(INI *, void *, void *, const void *);
+	char m_pad00[0x87C];
 };
 
 class INIException
 {
 public:
-	char *mFailureMessage;
-	int mErrorCode;
-	INIException(int argCount, const char *format, ...);
-	INIException(const INIException &that);
+	INIException(int,const char *,...);
+	INIException(const INIException &);
 	~INIException();
+	char *mFailureMessage; // +0x00
+	int mErrorCode; // +0x04
 };
 
 // The thing statistic (0x68 bytes): its name key at +0x00, the included and
@@ -101,7 +110,15 @@ extern ThingFactory *TheThingFactory;
 // terminator, between the trigger table 0x009C1DA8 and the object-award table
 // 0x009C1E88); every parser is rowed.
 typedef void (*ThingStatFieldParser)(INI *, void *, void *, const void *);
-struct FieldParse { const char *name; ThingStatFieldParser parse; const void *userData; unsigned offset; };
+typedef void (*AwardFieldParser)(INI *,void *,void *,const void *);
+struct FieldParse
+{
+public:
+	const char *name; // +0x00
+	AwardFieldParser parse; // +0x04
+	const void *userData; // +0x08
+	unsigned offset; // +0x0C
+};
 void Rva00149002Parse(INI *, void *, void *, const void *);
 void Rva002567EAParse(INI *, void *, void *, const void *);
 #define BFME_INI_PARSER(name) reinterpret_cast<ThingStatFieldParser>(&name)

@@ -7,16 +7,6 @@
 // overload keeps the inlined code and offers the link no second copy.
 // Preserve the visible STL loops and call the existing native placement-copy
 // provider for this same record view. The application identity remains unknown.
-class Rva0040AEE3;
-void Rva0040B14EConstruct(Rva0040AEE3 *, const Rva0040AEE3 &);
-namespace _STL {
-// ?_STL::_Construct absent-from-retail
-static __forceinline void _Construct(Rva0040AEE3 *destination,
-                                    const Rva0040AEE3 &source)
-{
-    Rva0040B14EConstruct(destination, source);
-}
-}
 
 #include <stl/_algobase.h>
 namespace _STL {
@@ -27,6 +17,16 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 
 #include <vector>
+class Rva0040AEE3;
+void Rva0040B14EConstruct(Rva0040AEE3 *, const Rva0040AEE3 &);
+namespace _STL {
+// ?_STL::_Construct absent-from-retail
+static __forceinline void _Construct(Rva0040AEE3 *destination,
+                                    const Rva0040AEE3 &source)
+{
+    Rva0040B14EConstruct(destination, source);
+}
+}
 
 enum ScienceType
 {

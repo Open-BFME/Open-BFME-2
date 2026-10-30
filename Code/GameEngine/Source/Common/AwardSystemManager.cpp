@@ -60,15 +60,37 @@ void rva00149002(int,int,Rva0014921EVector *,int);
 
 struct FieldParse;
 
-class INI {public:
- void initFromINI(void *,const FieldParse *);
- static void parseUnsignedInt(INI *,void *,void *,const void *);
- static void parseAsciiString(INI *,void *,void *,const void *);
+enum INILoadType
+{
+	INI_LOAD_INVALID = 0,
+	INI_LOAD_OVERWRITE = 1,
+	INI_LOAD_CREATE_OVERRIDES = 2
+};
+class AsciiString;
+class Xfer;
+class INI
+{
+public:
+	void initFromINI(void *,const FieldParse *);
+	static void parseUnsignedInt(INI *,void *,void *,const void *);
+	static void parseAsciiString(INI *,void *,void *,const void *);
+	INI();
+	~INI();
+	unsigned char loadFile(AsciiString filename, INILoadType loadType, Xfer *xfer); // 0x0002DC75 returns 1
+	static void parseBool(INI *, void *, void *, const void *);
+	char m_pad00[0x87C];
 };
 
 typedef void (*AwardFieldParser)(INI *,void *,void *,const void *);
 
-struct FieldParse {const char *name;AwardFieldParser parse;const void *userData;unsigned offset;};
+struct FieldParse
+{
+public:
+	const char *name; // +0x00
+	AwardFieldParser parse; // +0x04
+	const void *userData; // +0x08
+	unsigned offset; // +0x0C
+};
 
 extern const char BfmeAwardTriggerStatField[]="Stat";
 
@@ -80,19 +102,25 @@ extern const FieldParse BfmeAwardTriggerFields[3]={
  {0,0,0,0}
 };
 
-class NameKeyGenerator {public:
- const AsciiString &keyToName(NameKeyType);
- NameKeyType nameToKey(const char *);
- static void parseStringAsNameKeyType(INI *,void *,void *,const void *);
+class NameKeyGenerator
+{
+public:
+	const AsciiString &keyToName(NameKeyType);
+	NameKeyType nameToKey(const char *);
+	static void parseStringAsNameKeyType(INI *,void *,void *,const void *);
+	NameKeyType nameToKey(const AsciiString &name);
 };
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class INIException {public:
- char *mFailureMessage;int mErrorCode;
- INIException(int,const char *,...);
- INIException(const INIException &);
- ~INIException();
+class INIException
+{
+public:
+	INIException(int,const char *,...);
+	INIException(const INIException &);
+	~INIException();
+	char *mFailureMessage; // +0x00
+	int mErrorCode; // +0x04
 };
 
 class Rva0040A7D5 {public:int GetStatNameKey(int) const;};
@@ -381,12 +409,20 @@ class Rva0040ADFA
 {
 public:
 	bool rva0040ADFA(const void *arg) const;
+	char m_pad00[0x4];
+private:
+	int *m_first; // +0x04
+	int *m_last; // +0x08
 };
 
 class Rva0040AE2C
 {
 public:
 	bool rva0040AE2C(const void *arg) const;
+	char m_pad00[0x10];
+private:
+	int *m_first; // +0x10
+	int *m_last; // +0x14
 };
 
 struct Rva0040B0D0Arg

@@ -8,15 +8,16 @@
 #include <algorithm>
 #include "ascii_string.h"
 
-enum NameKeyType
-{
-    NAMEKEY_INVALID = 0
-};
+enum NameKeyType { NAMEKEY_INVALID=0 };
 
+class INI;
 class NameKeyGenerator
 {
 public:
-    const AsciiString &keyToName(NameKeyType key);
+	const AsciiString &keyToName(NameKeyType);
+	NameKeyType nameToKey(const char *);
+	static void parseStringAsNameKeyType(INI *,void *,void *,const void *);
+	NameKeyType nameToKey(const AsciiString &name);
 };
 extern NameKeyGenerator *TheNameKeyGenerator;
 

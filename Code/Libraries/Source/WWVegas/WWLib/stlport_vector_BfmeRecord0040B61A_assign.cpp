@@ -13,6 +13,10 @@
 // distance argument retail does not pass.
 // Preserve the visible STL loops and call the existing native placement-copy
 // provider for this same record view. The application identity remains unknown.
+
+#include <vector>
+
+#include "ascii_string.h"
 class Rva0040AEE3;
 void Rva0040B14EConstruct(Rva0040AEE3 *, const Rva0040AEE3 &);
 namespace _STL {
@@ -23,10 +27,6 @@ static __forceinline void _Construct(Rva0040AEE3 *destination,
     Rva0040B14EConstruct(destination, source);
 }
 }
-
-#include <vector>
-
-#include "ascii_string.h"
 // Suppress this TU's non-retail copy of ?_M_clear@?$vector@UBfmeRecord0040B61A@@V?$allocator@UBfmeRecord0040B61A@@@_STL@@@_STL@@IA:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 struct BfmeRecord0040B61A;
