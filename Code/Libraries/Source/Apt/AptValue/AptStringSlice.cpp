@@ -9,10 +9,25 @@ public:EAStringC();~EAStringC();EAStringC &operator=(const EAStringC &);EAString
 };
 extern EAStringC::StringDataC g_eaEmptyStringData;
 __declspec(noinline) inline EAStringC::EAStringC(){data=&g_eaEmptyStringData;++data->ref;}
-class AptValue {public:void toString(EAStringC &)const;};
+class AptValue
+{
+public:
+	void toString(EAStringC&)const;
+	void SetString(const char *);
+	unsigned int getRefCount()const;
+	virtual void AddRef();
+};
 class BfmeAptValue006DCD20 {public:int toInteger()const;};
-class AptBasePtrStack {public:BfmeAptValue006DCD20 *At(int);};
-struct AptActionInterpreter {AptBasePtrStack stack;};
+class AptBasePtrStack
+{
+public:
+	BfmeAptValue006DCD20 *At(int index);
+};
+struct AptActionInterpreter
+{
+public:
+	AptBasePtrStack stack; // +0x00
+};
 extern AptActionInterpreter g_aptDateInterpreter;
 extern AptValue *gpUndefinedValue;
 struct ScopedStringText {unsigned char prefix[8];EAStringC text;};

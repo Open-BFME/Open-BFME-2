@@ -41,12 +41,13 @@ public:
 class AptBasePtrStack
 {
 public:
-    BfmeAptValue006DCD20 *At(int nPos);
+	BfmeAptValue006DCD20 *At(int index);
 };
 
 struct AptActionInterpreter
 {
-    AptBasePtrStack stack;
+public:
+	AptBasePtrStack stack; // +0x00
 };
 
 // g_aptDateInterpreter: the interpreter global constructed at VA 0x00E182E0;

@@ -23,7 +23,10 @@ class Rva006DD6C0;
 class AptValue
 {
 public:
-	void toString(EAStringC &) const;
+	void toString(EAStringC&)const;
+	void SetString(const char *);
+	unsigned int getRefCount()const;
+	virtual void AddRef();
 };
 
 class AptString

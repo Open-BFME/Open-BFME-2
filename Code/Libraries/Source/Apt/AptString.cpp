@@ -51,9 +51,17 @@ extern EAStringC::StringDataC g_eaEmptyStringData;
 
 struct ScopedStringText {unsigned char prefix[8];EAStringC text;};
 
-class AptBasePtrStack { public: BfmeAptValue006DCD20 *At(int index); };
+class AptBasePtrStack
+{
+public:
+	BfmeAptValue006DCD20 *At(int index);
+};
 
-struct AptActionInterpreter { AptBasePtrStack stack; };
+struct AptActionInterpreter
+{
+public:
+	AptBasePtrStack stack; // +0x00
+};
 
 const char *rva006d4280(const char *text, int *codepoint);
 
@@ -134,7 +142,7 @@ public:
 class Rva006DB270
 {
 public:
-    void freeBlock(void *block, int blockSize);
+	void freeBlock(void *block, int blockSize);
 };
 
 class Rva006DB160
@@ -177,7 +185,14 @@ class Rva006D5E70String {void *data;public:void *rva006d5e70(int);};
 
 int rva006d3e40(const char *);
 
-class AptValue {public: virtual void AddRef(); void toString(EAStringC&)const; void SetString(const char *); unsigned int getRefCount()const;};
+class AptValue
+{
+public:
+	void toString(EAStringC&)const;
+	void SetString(const char *);
+	unsigned int getRefCount()const;
+	virtual void AddRef();
+};
 
 class AptString {public:
  static AptString *Create();

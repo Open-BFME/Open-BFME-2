@@ -24,7 +24,11 @@ public:
 	BfmeAptValue006DCD20 *At(int index);
 };
 
-struct AptActionInterpreter { AptBasePtrStack stack; };
+struct AptActionInterpreter
+{
+public:
+	AptBasePtrStack stack; // +0x00
+};
 extern AptActionInterpreter g_aptDateInterpreter;	// VA 0x00E182E0 (AptDate.cpp); its value stack is the first member
 
 class Rva006DCE50Opaque;
