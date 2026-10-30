@@ -1,4 +1,4 @@
-// cl: /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/moduledata
+// cl: /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/moduledata /Ireference/shims/bfme2_ascii
 // stlport
 // ??1BannerCarrierUpdateModuleData@@UAE@XZ retail 0x00497056 249B
 // Evidence: pin BannerCarrierUpdateModuleData dtor at 0x00497056; donor open-bfme-1 BannerCarrierUpdateModuleDataDestructors.cpp:97; ctor layout BannerCarrierUpdateModuleDataCtor.cpp size 0x44 vectors +0x18 +0x24 FX +0x30 +0x34 flags +0x38 +0x39 range +0x3C upgrade string +0x40; callees rowed element dtors 0x00496A63 0x00496F30 plus typed erase twins 0x0031BD55 plus releaseBuffer 0x00036410 plus free 0x00030830 plus operator delete 0x0002FD60
@@ -20,19 +20,12 @@ public:
 	~Rva00496F30();
 };
 
-template <typename T>
-class StringBase
-{
-public:
-	~StringBase() { releaseBuffer(); }
-private:
-	void releaseBuffer();
-	T *m_data;
-};
+// The canonical frozen StringBase replaces the private copy; its switch makes
+// the member dtor reachable and keeps the teardown an out-of-line call to the
+// rowed releaseBuffer (0x00036410 narrow, 0x00036E70 wide).
+#define BFME_STRINGBASE_PUBLIC_DTOR
+#include "string_base.h"
 
-// Existing public narrow teardown spelling resolves to the verified
-// 133-byte releaseBuffer worker at RVA 0x36410. Wide teardown is unchanged.
-template <> StringBase<char>::~StringBase();
 
 
 class BannerCarrierUpdateModuleData : public Snapshot
