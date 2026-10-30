@@ -8325,7 +8325,7 @@ Carry consumer preservation into the next census; no census gain is claimed.
 
 ### LINK-064: placeholder element names that hide the retail element of three STL families
 
-**Status: Open. Updated: 2026-10-26; inspected revision: d0d3b5054d, index d1f046749a.**
+**Status: Open. Updated: 2026-10-30; inspected revision: dd8a90d22f (earlier: d0d3b5054d, index d1f046749a).**
 
 - **Evidence / scope:** retail call chains name the element of three families
   differently from their rows. Read with `tools/retail_body.py` callers/disasm.
@@ -8401,6 +8401,30 @@ above (U1/C1/S1). No source trial repeated the documented `/Ob0` forwarder
 failure. Reconcile the three existing element identities and the assignment
 mis-pinned as a copy constructor before retrying. No source or row changed;
 [scoped handoff](../reverse/attempt_support/watchdog-donor-cleanup-20261027.md).
+
+**2026-10-30 claudec3 ProductionPrerequisite.cpp follow-up, inspected `dd8a90d22f`, census 2026-10-29 15:08 at `85f6b7f40c`:**
+`link_check` still reports `RTS/ProductionPrerequisite.cpp` (429 own bytes) as
+not linking: unresolved `AsciiString::freeBytes`/`set` and
+`__imp_` `__new_alloc::allocate`/`deallocate`, plus selected non-retail
+`_Construct`, copy ctor and `_M_insert_overflow<PrereqUnitRec>`. The unresolved
+symbols come from the `zh_ascii_outofline` shim and the ZH `PreRTS.h` chain.
+A trial that only swapped the shim to `bfme2_ascii` still byte-matched 6/6 rows,
+but it did not link and the `set` reference got worse, because `PreRTS.h` still
+pulls in ZH's AsciiString. The trial was reverted and the restored build passes.
+`reverse/tu_map.csv` already approves the 0x004EE1A9 PerTurnStats family
+(0x004EE1A9, 0x004EE1D0, 0x004EE1E2, 0x004EE20B, 0x004EE233, 0x004EE6D0,
+0x004EE9B1, 0x004EE9E9) into `Common/LivingWorldScoreKeeper.cpp`. Its rows still
+use three placeholder element spellings across five files: `PrereqUnitRec` in
+`ProductionPrerequisite.cpp` and `Rva004EE233AllocateCopy.cpp`,
+`Elem003AF8C0`/`PrereqRec` casts in `Rva004EE6D0Insert.cpp`, and `PerTurnStats`
+in `V3PolyCopyCtors.cpp`/`StlportConstructCopySiblings.cpp`. Three of those
+files link today (953 bytes).
+Next: give that family real `vector<LivingWorldScoreKeeper::PerTurnStats>`
+instantiations in the approved TU, preview them with the three linking files,
+then rewrite `ProductionPrerequisite.cpp` against a BFME 2 TU-local view like
+the linked `ProductionPrerequisiteIsSatisfied_...cpp` and
+`Thing/ProductionPrerequisiteAddUnitPrereq.cpp`. Do not use the ZH `PreRTS.h`.
+No source or row changed. No clearance is claimed.
 
 ### LINK-084: audio lookup emits an unrowed owner and an untyped tree-worker trampoline
 Status: Cleared in ordinary-preview scope; census confirmation pending. Updated: 2026-10-26; inspected revision: 896af216804e1f1e34de28bd318285fbbbfcc536.
