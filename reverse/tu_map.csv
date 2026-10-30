@@ -4457,7 +4457,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0007B6F3,14,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowMapManager.cpp,proposed,K,K=Rva0007DA23ResourceManager,Code/GameEngine/Source/Common/Rva0007B6F3Set.cpp
 0x0007B701,24,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/Rva004C7621Finish.cpp
 0x0007B719,11,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_list_int.cpp
-0x0007B724,16,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,proposed,K,K=Rva00087A93,Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00087A93DeletingDtor.cpp
+0x0007B724,16,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,proposed,K,K=Rva00087A93,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp
 0x0007B734,47,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/Rva0007B734Finish.cpp
 0x0007B763,19,code,,,-,,Code/GameEngine/Source/Common/Bfme/updateMinMax.cpp
 0x0007B776,19,code,,,-,,Code/GameEngine/Source/Common/Bfme/updateMinMax.cpp
@@ -4904,11 +4904,11 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00087A29,13,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x00087973..0x00087A36,Code/GameEngine/Source/Common/DispByteFieldSetters.cpp
 0x00087A36,14,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x00087973..0x00087A44,Code/GameEngine/Source/Common/Disp8DivMovDwordGetters.cpp
 0x00087A44,24,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x00087973..0x00087A5C,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_ptr_o1.cpp
-0x00087A5C,24,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x00087973..0x00087A74,Code/Libraries/Source/WWVegas/WWLib/Rva00087A5CCopy.cpp
-0x00087A74,31,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x00087973..0x00087A93,Code/GameEngine/Source/Common/Rva0073DAB0Set.cpp
-0x00087A93,38,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x00087973..0x00087AB9,Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00087A93DeletingDtor.cpp
+0x00087A5C,24,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x00087973..0x00087A74,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp
+0x00087A74,31,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x00087973..0x00087A93,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp
+0x00087A93,38,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x00087973..0x00087AB9,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp
 0x00087AB9,16,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x00087973..0x00087AC9,Code/GameEngine/Source/Common/Rva0027C36AAssign.cpp
-0x00087AC9,43,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x00087973..0x00087AF4,Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00087AC9Copy.cpp
+0x00087AC9,43,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x00087973..0x00087AF4,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp
 0x00087AF4,141,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,Z,Z=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp S=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView_MoveCameraOrLocatorAlongSplinePathInit.cpp
 0x00087B81,212,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,Z,Z=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp S=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView_MoveCameraOrLocatorAlongSplinePathInit.cpp
 0x00087C55,162,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,Z,Z=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp S=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView_MoveCameraOrLocatorAlongSplinePathInit.cpp
@@ -4928,8 +4928,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00089658,353,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,Z,Z=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp S=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp
 0x000897B9,15,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x00089658..0x000897C8,Code/GameEngine/Source/Common/T2IndexedArrayAccessors.cpp
 0x000897C8,90,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x00089658..0x00089822,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewCameraHandleGet.cpp
-0x00089822,35,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x00089658..0x00089845,Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00089822CopyCtor.cpp
-0x00089845,12,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x00089658..0x00089851,Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00087A93DeletingDtor.cpp
+0x00089822,35,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x00089658..0x00089845,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp
+0x00089845,12,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x00089658..0x00089851,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp
 0x00089851,67,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x00089658..0x00089894,Code/GameEngine/Source/GameLogic/Object/Behavior/FlightDeckBehaviorRunwayInfoDestructor.cpp
 0x00089894,28,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x00089658..0x000898B0,Code/GameEngine/Source/GameClient/Rva00089894ArrayElement.cpp
 0x000898B0,92,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x00089658..0x0008990C,Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva00564E0DAssign.cpp
@@ -4943,13 +4943,13 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00089ED4,529,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,S,S=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp W=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewMoveAlongSpline.cpp
 0x0008A0E5,142,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,Z,Z=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp S=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp
 0x0008A173,18,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x0008A0E5..0x0008A185,Code/GameEngine/Source/Common/Rva0008A173Copy.cpp
-0x0008A185,38,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x0008A0E5..0x0008A1AB,Code/GameEngine/Source/Common/Rva0008A185Copy.cpp
-0x0008A1AB,37,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x0008A0E5..0x0008A1D0,Code/GameEngine/Source/Common/Rva0008A1ABFill.cpp
+0x0008A185,38,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x0008A0E5..0x0008A1AB,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp
+0x0008A1AB,37,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x0008A0E5..0x0008A1D0,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp
 0x0008A1D0,45,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x0008A0E5..0x0008A1FD,Code/Libraries/Source/WWVegas/WWLib/Rva0008B5B5VectorReserve.cpp
-0x0008A1FD,27,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x0008A0E5..0x0008A218,Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00087A93DeletingDtor.cpp
+0x0008A1FD,27,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x0008A0E5..0x0008A218,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp
 0x0008A218,28,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x0008A0E5..0x0008A234,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtors.cpp
 0x0008A234,111,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x0008A0E5..0x0008A2A3,Code/GameEngine/Source/Rva0008A234Finish.cpp
-0x0008A2A3,76,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x0008A0E5..0x0008A2EF,Code/GameEngine/Source/Common/Rva0008A2A3Find.cpp
+0x0008A2A3,76,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x0008A0E5..0x0008A2EF,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp
 0x0008A2EF,631,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,S,S=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRva0008A2EF.cpp
 0x0008A566,172,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,S,S=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewSnapshotFactory.cpp
 0x0008A612,56,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x0008A566..0x0008A64A,Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp
@@ -4959,7 +4959,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0008AAD4,706,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,Z,Z=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp S=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRotateCamera.cpp
 0x0008AD96,84,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,S,S=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewSnapshotFactory.cpp
 0x0008ADEA,498,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,S,S=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRotateCamera.cpp
-0x0008AFDC,24,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x0008ADEA..0x0008AFF4,Code/GameEngine/Source/Common/Rva0008AFDCDestroy.cpp
+0x0008AFDC,24,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x0008ADEA..0x0008AFF4,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp
 0x0008AFF4,28,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,C,C=0x0008ADEA..0x0008B010,Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_record_bodies.cpp
 0x0008B010,469,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,Z,Z=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp S=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewUpdateCameraMovementsBfme.cpp
 0x0008B1E5,651,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,approved,Z,Z=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp S=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewPickDrawable.cpp

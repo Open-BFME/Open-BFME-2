@@ -1,75 +1,12 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/open-bfme-1/inputs/reference/shims/sweep /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main
+// cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/open-bfme-1/inputs/reference/shims/sweep /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc/stl /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Include /ICode/GameEngine/Source/Common /ICode/Libraries/Include/Lib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /I. /Ireference/shims/bfmealloc /ICode /Ireference/shims/bfmerendobj
 // stlport
-//
-// Bodies ported from Open-BFME-1's
-// GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp (donor revision
-// 6d9434269164392c5ba62aaa7c15a86b5b020d76, donor flags plus /O1). Compiled
-// that way each body below places uniquely on unclaimed game.dat .text by
-// masked whole-.text search, and ./build.sh reproduces it byte for byte:
-// W3DView::setViewFilterPos 0x00085F12 (26B),
-// ScreenMotionBlurFilter::setZoomToPos 0x0008553B (24B). Callee addresses are
-// read off retail's call sites (reverse/symbols.csv). Only the placed bodies
-// are carried; the donor's other definitions are omitted.
-//
-// The viewport setters (setHeight 0x00087AF4, setWidth 0x00087B81, setOrigin
-// 0x00087C55) are the donor bodies as written, placed by retail's W3DView
-// vftable: they sit 3, 5 and 1 slots before the View::getOrigin entry, and
-// their own calls reach setWidth and setHeight at slots 0x38 and 0x40.
-// Retail differs from the BFME 1 donor in two places: TheDisplay's getWidth and
-// getHeight are vtable slots 0x40 and 0x44, not 0x2C and 0x30, and the unit is
-// built /arch:SSE, which the int-to-float conversions in setHeight and
-// setWidth show (cvtsi2ss/divss) while the unsigned display sizes stay x87.
-//
-// setPitch (0x0008D1DD), screenToWorldAtZ (0x0008A0E5) and Add_Camera_Shake
-// (0x000875F2) were found by compiling the whole donor unit with these flags
-// and searching its bodies in game.dat: each places once, at a W3DView vftable
-// entry. Their callees setCameraTransform, getPickRay and
-// CameraShakeSystemClass::Add_Camera_Shake are pinned from those call sites.
+// TU Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp: generated by tools/tu_skeleton.py from tu_map.csv (approved rows, retail order)
 #define Matrix4x4 Matrix4  // BFME renamed it
-/*
-**	Command & Conquer Generals Zero Hour(tm)
-**	Copyright 2025 Electronic Arts Inc.
-**
-**	This program is free software: you can redistribute it and/or modify
-**	it under the terms of the GNU General Public License as published by
-**	the Free Software Foundation, either version 3 of the License, or
-**	(at your option) any later version.
-**
-**	This program is distributed in the hope that it will be useful,
-**	but WITHOUT ANY WARRANTY; without even the implied warranty of
-**	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-**	GNU General Public License for more details.
-**
-**	You should have received a copy of the GNU General Public License
-**	along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-////////////////////////////////////////////////////////////////////////////////
-//																																						//
-//  (c) 2001-2003 Electronic Arts Inc.																				//
-//																																						//
-////////////////////////////////////////////////////////////////////////////////
-
-// FILE: W3DView.cpp //////////////////////////////////////////////////////////////////////////////
-//
-// W3D implementation of the game view class.  This view allows us to have
-// a "window" into the game world that can change its width, height as 
-// well as camera positioning controls
-//
-// Author: Colin Day, April 2001
-//
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
-// SYSTEM INCLUDES ////////////////////////////////////////////////////////////////////////////////
-// The matched trig operations inline; keep surplus CRT float wrappers local.
 #define inline static inline
 #include <math.h>
 #undef inline
 #include <stdlib.h>
 #include <windows.h>
-
-// Headers used by the seven bodies still owned by this unit. The split camera
-// routines supply their own declarations when they are consolidated.
 #include "Common/GlobalData.h"
 #include "GameClient/ClientRandomValue.h"
 #include "W3DDevice/Common/W3DConvert.h"
@@ -77,6 +14,21 @@
 #include "W3DDevice/GameClient/W3DShaderManager.h"
 #include "WW3D2/Camera.h"
 #include "W3DDevice/GameClient/camerashakesystem.h"
+#define BFME_UNUSED_VIRTUALS_16(prefix) \
+	virtual void prefix##0(); virtual void prefix##1(); virtual void prefix##2(); virtual void prefix##3(); \
+	virtual void prefix##4(); virtual void prefix##5(); virtual void prefix##6(); virtual void prefix##7(); \
+	virtual void prefix##8(); virtual void prefix##9(); virtual void prefix##a(); virtual void prefix##b(); \
+	virtual void prefix##c(); virtual void prefix##d(); virtual void prefix##e(); virtual void prefix##f()
+#ifdef _INTERNAL
+// for occasional debugging...
+//#pragma optimize("", off)
+//#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
+
+#endif
+#define TERRAIN_SAMPLE_SIZE 40.0f
+#define MIN_CAPPED_ZOOM (0.5f) //WST 10.19.2002. JSC integrated 5/20/03.
+#define BFME_SHAKE_DATA ((const BfmeGlobalDataShakeFields *)TheGlobalData)
+#include <map>
 
 // BFME adds View and Display virtuals that the shared Zero Hour headers omit;
 // these scoped views preserve the witnessed slots and +0x104 camera offset.
@@ -192,12 +144,6 @@ struct BfmeGlobalDataCameraFields
 	Real m_debugCameraAngle;
 };
 
-#define BFME_UNUSED_VIRTUALS_16(prefix) \
-	virtual void prefix##0(); virtual void prefix##1(); virtual void prefix##2(); virtual void prefix##3(); \
-	virtual void prefix##4(); virtual void prefix##5(); virtual void prefix##6(); virtual void prefix##7(); \
-	virtual void prefix##8(); virtual void prefix##9(); virtual void prefix##a(); virtual void prefix##b(); \
-	virtual void prefix##c(); virtual void prefix##d(); virtual void prefix##e(); virtual void prefix##f()
-
 // BFME's terrain primary vtable places updateCenter at slot 0x21c, three
 // entries after the Zero Hour declaration included above.
 class BfmeTerrainCameraUpdateVtable
@@ -221,44 +167,50 @@ public:
 	virtual void updateCenter(CameraClass *camera, RefRenderObjListIterator *lights);
 };
 
-#undef BFME_UNUSED_VIRTUALS_16
-
-#ifdef _INTERNAL
-// for occasional debugging...
-//#pragma optimize("", off)
-//#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
-#endif
-
-
 // 30 fps
-extern Int TheW3DFrameLengthInMsec; // default is 33msec/frame == 30fps. but we may change it depending on sys config.
+extern Int TheW3DFrameLengthInMsec;
+
+ // default is 33msec/frame == 30fps. but we may change it depending on sys config.
 // Owned here: retail .data starts it at 0 (VA 0x009E204C); configured later.
 Int TheW3DFrameLengthInMsec = 0;
+
 // The camera an object follow saves and restores (W3DView vftable slots 116 and 119,
 // 0x0008ADEA and 0x00087642; 0x0008780A reads them too). Retail keeps them as internal
 // file statics in this unit's zero-filled data at RVA 0x009E2024..0x009E2067; the
 // original names are unknown, so the names are neutral (after the W3DView fields the
 // restore writes back) and the linkage external for the split consumer units.
-Real BfmeFollowSavedB0;	// 0x009E2024
-Real BfmeFollowSavedAC;	// 0x009E2028
-Real BfmeFollowSaved70;	// 0x009E202C
-Real BfmeFollowSaved28;	// 0x009E2030
-Real BfmeFollowSavedPitch;	// 0x009E2034
-Real BfmeFollowSavedAngle;	// 0x009E2038
-Real BfmeFollowSaved6C;	// 0x009E203C
-Coord3D BfmeFollowSavedPosition;	// 0x009E2050
-Coord3D BfmeFollowSavedOffset23E8;	// 0x009E205C
-static const Int MAX_REQUEST_CACHE_SIZE = 40;	// Any size larger than 10, or examine code below for changes. jkmcd.
+Real BfmeFollowSavedB0;
+
+	// 0x009E2024
+Real BfmeFollowSavedAC;
+
+	// 0x009E2028
+Real BfmeFollowSaved70;
+
+	// 0x009E202C
+Real BfmeFollowSaved28;
+
+	// 0x009E2030
+Real BfmeFollowSavedPitch;
+
+	// 0x009E2034
+Real BfmeFollowSavedAngle;
+
+	// 0x009E2038
+Real BfmeFollowSaved6C;
+
+	// 0x009E203C
+Coord3D BfmeFollowSavedPosition;
+
+	// 0x009E2050
+Coord3D BfmeFollowSavedOffset23E8;
+
+	// 0x009E205C
+static const Int MAX_REQUEST_CACHE_SIZE = 40;
+
+	// Any size larger than 10, or examine code below for changes. jkmcd.
 static const Real DRAWABLE_OVERSCAN = 75.0f;
 
-
-#define TERRAIN_SAMPLE_SIZE 40.0f
-
-
-//-------------------------------------------------------------------------------------------------
-/** @todo This is inefficient. We should construct the matrix directly using vectors. */
-//-------------------------------------------------------------------------------------------------
-#define MIN_CAPPED_ZOOM (0.5f) //WST 10.19.2002. JSC integrated 5/20/03.
 // Retail W3DView::buildCameraTransform (0x00741D30) is implemented in W3DViewBuildCameraTransformBfme.cpp.
 
 // Retail W3DView::calcCameraConstraints (0x00740CF0) is implemented in W3DViewCalcCameraConstraintsBfme.cpp.
@@ -291,23 +243,396 @@ public:
 	virtual Int getHeight(void) = 0;
 };
 
-
 #if defined(_DEBUG) || defined(_INTERNAL)
 
 
 void drawDrawableExtents( Drawable *draw, void *userData );
 
+
   // end drawDrawableExtents
 
 
 void drawAudioLocations( Drawable *draw, void *userData );
-
-
 #endif
 
+// BFME's CameraClass keeps ZFar (what Get_Depth returns) at +0xF0, where
+// CameraClass::Set_Clip_Planes (0x00133D00) stores it; the shared Zero Hour
+// header places it four bytes later.
+struct BfmeCameraDepthFields
+{
+	unsigned char m_padding0000[0xF0];
+	float m_zFar;
+};
 
+// BFME moved the shake state and the GlobalData shake tuning; retail reads
+// the angle pair and intensity at W3DView +0x120..+0x128 and the six
+// intensities, the intensity cap and the range at GlobalData +0xB74..+0xB90.
+struct BfmeW3DViewShakeFields
+{
+	unsigned char m_padding0000[0x120];
+	Real m_shakeAngleCos;
+	Real m_shakeAngleSin;
+	Real m_shakeIntensity;
+};
 
+struct BfmeGlobalDataShakeFields
+{
+	unsigned char m_padding0000[0xB74];
+	Real m_shakeSubtleIntensity;
+	Real m_shakeNormalIntensity;
+	Real m_shakeStrongIntensity;
+	Real m_shakeSevereIntensity;
+	Real m_shakeCineExtremeIntensity;
+	Real m_shakeCineInsaneIntensity;
+	Real m_maxShakeIntensity;
+	Real m_maxShakeRange;
+};
 
+// Retail 0x00089E2A..0x00089ED4; WB 0x009977A0 names this initializer
+// and corroborates both embedded spline paths and their control sequence.
+// BFME2's spline classes are absent from the ZH headers. These views retain
+// the retail offsets and unnamed virtual slots without assigning new names.
+struct Bfme89E2APathNode
+{
+	unsigned char m_unknown[0xB4];
+	unsigned int m_control;
+};
+
+class Rva00312C95
+{
+public:
+	virtual void slot0() = 0;
+	virtual void setWaypoint(Waypoint *) = 0;
+	virtual void initialize(int enabled, int duration, float easeIn, float easeOut, int extra, int flag) = 0;
+	void rva00312118();
+	unsigned char m_unknown04[0x2C - 4];
+	std::vector<Bfme89E2APathNode> m_nodes;
+};
+
+template <int N> class Bfme89E2AViewSlots : public Bfme89E2AViewSlots<N - 1>
+{
+public:
+	virtual void gap(char (*)[N]) = 0;
+};
+
+template <> class Bfme89E2AViewSlots<0> {};
+
+class Bfme89E2AViewVtable : public Bfme89E2AViewSlots<28>
+{
+public:
+	virtual void setControl(unsigned int value) = 0;
+};
+
+// ??_GRva00087A93@@QAEPAXI@Z @ 0x00087A93 (38B): null-guarded 4-byte
+// owning-reference deleting dtor; decrements pointee refcount at +4 and calls
+// slot 0 when it reaches zero then conditionally deletes. Evidence: callers
+// 0x0008984B and 0x0008A208 plus destroy loop 0x0008A1FD; shape matches
+// ??_GAsciiString at 0x00142D40 (41B add) with /O1 dec form per §4.1.
+
+class Rva00087A93 {
+	struct Data {
+		virtual void slot();
+		int ref;
+	};
+	Data *m_data;
+public:
+	~Rva00087A93()
+	{
+		Data *data = m_data;
+		if (data && --data->ref == 0)
+			data->slot();
+	}
+};
+
+struct Rva0073DAB0Blk
+{
+	int a;
+	int b;
+	int c;
+	char d;
+};
+
+// ?rva00087AC9@Rva00087AC9@@QAEXPAURva00087AC9Pair@@0@Z @ 0x00087AC9 (43B):
+// __thiscall copy of two 8-byte float-plus-int pairs from +0xC8/+0xD0 to two
+// out params. Evidence: callers 0x00087AF4/0x00087B81/0x00087C55 pass stack
+// locals; x87 fld/fstp plus integer mov matches /O1.
+
+struct Rva00087AC9Pair {
+	float f;
+	int i;
+};
+
+class Rva00087AC9 {
+	char m_pad[0xC8];
+	Rva00087AC9Pair m_a;
+	Rva00087AC9Pair m_b;
+public:
+	void rva00087AC9(Rva00087AC9Pair *o1, Rva00087AC9Pair *o2);
+};
+
+class Rva0073DAB0
+{
+	Rva0073DAB0Blk m;
+
+public:
+	Rva0073DAB0 &set(const Rva0073DAB0Blk *p);
+};
+
+class Rva00089822
+{
+public:
+	Rva00089822(const Rva00089822 &other);
+
+private:
+	int m_00;
+	int m_04;
+	Rva0073DAB0 m_rva;
+};
+
+void __cdecl Rva0008A173Copy(Rva00089822 *dst, const Rva00089822 &src);
+
+// _Rb_tree_iterator comparisons otherwise instantiate the base-class
+// operator!= COMDAT (one byte shape per TU flags); exact-match free
+// overloads take those calls instead so this TU emits no external copy.
+namespace _STL {
+template <class _RbVal, class _RbLeft, class _RbRight>
+static inline bool operator!=(const _Rb_tree_iterator<_RbVal, _RbLeft> &a,
+                              const _Rb_tree_iterator<_RbVal, _RbRight> &b)
+{ return a._M_node != b._M_node; }
+}
+
+class Rva0008A2A3Item
+{
+public:
+	virtual void v000() = 0;
+	virtual void v001() = 0;
+	virtual void v002() = 0;
+	virtual void v003() = 0;
+	virtual void v004() = 0;
+	virtual void v005() = 0;
+	virtual void v006() = 0;
+	virtual void v007() = 0;
+	virtual void v008() = 0;
+	virtual void v009() = 0;
+	virtual void v010() = 0;
+	virtual void v011() = 0;
+	virtual void v012() = 0;
+	virtual void v013() = 0;
+	virtual void v014() = 0;
+	virtual void v015() = 0;
+	virtual void v016() = 0;
+	virtual void v017() = 0;
+	virtual void v018() = 0;
+	virtual void v019() = 0;
+	virtual void v020() = 0;
+	virtual void v021() = 0;
+	virtual void v022() = 0;
+	virtual void v023() = 0;
+	virtual void v024() = 0;
+	virtual void v025() = 0;
+	virtual void v026() = 0;
+	virtual void v027() = 0;
+	virtual void v028() = 0;
+	virtual void v029() = 0;
+	virtual void v030() = 0;
+	virtual void v031() = 0;
+	virtual void v032() = 0;
+	virtual void v033() = 0;
+	virtual void v034() = 0;
+	virtual void v035() = 0;
+	virtual void v036() = 0;
+	virtual void v037() = 0;
+	virtual void v038() = 0;
+	virtual void v039() = 0;
+	virtual void v040() = 0;
+	virtual void v041() = 0;
+	virtual void v042() = 0;
+	virtual void v043() = 0;
+	virtual void v044() = 0;
+	virtual void v045() = 0;
+	virtual void v046() = 0;
+	virtual void v047() = 0;
+	virtual void v048() = 0;
+	virtual void v049() = 0;
+	virtual void v050() = 0;
+	virtual void v051() = 0;
+	virtual void v052() = 0;
+	virtual void v053() = 0;
+	virtual void v054() = 0;
+	virtual void v055() = 0;
+	virtual void v056() = 0;
+	virtual void v057() = 0;
+	virtual void v058() = 0;
+	virtual void v059() = 0;
+	virtual void v060() = 0;
+	virtual void v061() = 0;
+	virtual void v062() = 0;
+	virtual void v063() = 0;
+	virtual void v064() = 0;
+	virtual void v065() = 0;
+	virtual void v066() = 0;
+	virtual void v067() = 0;
+	virtual void v068() = 0;
+	virtual void v069() = 0;
+	virtual void v070() = 0;
+	virtual void v071() = 0;
+	virtual void v072() = 0;
+	virtual void v073() = 0;
+	virtual void v074() = 0;
+	virtual void v075() = 0;
+	virtual void v076() = 0;
+	virtual void v077() = 0;
+	virtual void v078() = 0;
+	virtual void v079() = 0;
+	virtual void v080() = 0;
+	virtual void v081() = 0;
+	virtual void v082() = 0;
+	virtual void v083() = 0;
+	virtual void v084() = 0;
+	virtual void v085() = 0;
+	virtual void v086() = 0;
+	virtual void v087() = 0;
+	virtual void v088() = 0;
+	virtual void v089() = 0;
+	virtual void v090() = 0;
+	virtual void v091() = 0;
+	virtual void v092() = 0;
+	virtual void v093() = 0;
+	virtual void v094() = 0;
+	virtual void v095() = 0;
+	virtual void v096() = 0;
+	virtual void v097() = 0;
+	virtual void v098() = 0;
+	virtual void v099() = 0;
+	virtual void v100() = 0;
+	virtual void v101() = 0;
+	virtual void v102() = 0;
+	virtual void v103() = 0;
+	virtual void v104() = 0;
+	virtual void v105() = 0;
+	virtual void v106() = 0;
+	virtual void v107() = 0;
+	virtual void v108() = 0;
+	virtual void v109() = 0;
+	virtual void v110() = 0;
+	virtual void v111() = 0;
+	virtual void v112() = 0;
+	virtual void v113() = 0;
+	virtual void v114() = 0;
+	virtual void v115() = 0;
+	virtual void v116() = 0;
+	virtual void v117() = 0;
+	virtual void v118() = 0;
+	virtual void v119() = 0;
+	virtual unsigned int mask() = 0;
+};
+
+typedef _STL::map<int, Rva0008A2A3Item *> Rva0008A2A3Map;
+
+//
+// ?Rva0008AFDCDestroy@@YAXPAX0@Z @0x0008AFDC 24B: two-arg range-destroy
+// forwarder in the Rva003B8E13DestroyRange shape (push ebp / mov ebp,esp /
+// push ecx / lea eax,[ebp-1] / push eax / push [ebp+0xC] / push [ebp+8] /
+// call aux / add esp,0xC / leave / ret). Forwards (first,last) plus a tag
+// temporary to the pinned 3-arg aux ?Rva0008A1FDDestroy@@YAXPAX0H@Z at
+// 0x0008A1FD (27B, Ghidra FUN_0048a1fd; re_log blocked 5457: needs push-0
+// deleting-dtor recipe for rowed ??_GRva00087A93 at 0x00087A93, so the aux
+// itself stays pinned-not-rowed and only this forwarder is verified).
+// Retail bytes at 0x8AFDC match the forwarder verbatim (E8 at +14 ->
+// 0x8A1FD). Element type is unclaimed (void* pass-through; stride lives in
+// the aux, not here). Caller is the sibling vector 0x0008B470 (63B, same
+// batch, separate TU to keep this callee declaration-only per the
+// fifth-pattern register-save rule).
+
+class Rva00087A93;
+
+// Rowed 0x0008A1FD takes the two range pointers; this caller also pushes the
+// tag slot, so it calls the rowed symbol through its three-argument view.
+void __cdecl Rva0008A1FDDestroy(Rva00087A93 *first, Rva00087A93 *last);
+
+typedef void (__cdecl *Rva0008A1FDDestroyRowed)(Rva00087A93 *, Rva00087A93 *);
+
+typedef void (__cdecl *Rva0008A1FDDestroyView)(void *, void *, int);
+
+// tu-skeleton: 0x00085B41 380B ?getAxisAlignedViewRegion@W3DView@@AAEXAAURegion3D@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewGetAxisAlignedViewRegion.cpp (not merged yet)
+
+// tu-skeleton: 0x00085CBD 522B ?rva00085CBD@W3DView@@QAEXAAURegion3D@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewFarRegion.cpp (not merged yet)
+
+// tu-skeleton: 0x00085EC7 62B ?setFadeParameters@W3DView@@UAEXHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewSetFadeParameters.cpp (not merged yet)
+
+// tu-skeleton: 0x00085F05 13B ?set@Rva00085F05ByteSlot@@QAEXE@Z -- matched in Code/GameEngine/Source/Common/DispByteFieldSetters.cpp (not merged yet)
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp
+
+//
+// Bodies ported from Open-BFME-1's
+// GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp (donor revision
+// 6d9434269164392c5ba62aaa7c15a86b5b020d76, donor flags plus /O1). Compiled
+// that way each body below places uniquely on unclaimed game.dat .text by
+// masked whole-.text search, and ./build.sh reproduces it byte for byte:
+// W3DView::setViewFilterPos 0x00085F12 (26B),
+// ScreenMotionBlurFilter::setZoomToPos 0x0008553B (24B). Callee addresses are
+// read off retail's call sites (reverse/symbols.csv). Only the placed bodies
+// are carried; the donor's other definitions are omitted.
+//
+// The viewport setters (setHeight 0x00087AF4, setWidth 0x00087B81, setOrigin
+// 0x00087C55) are the donor bodies as written, placed by retail's W3DView
+// vftable: they sit 3, 5 and 1 slots before the View::getOrigin entry, and
+// their own calls reach setWidth and setHeight at slots 0x38 and 0x40.
+// Retail differs from the BFME 1 donor in two places: TheDisplay's getWidth and
+// getHeight are vtable slots 0x40 and 0x44, not 0x2C and 0x30, and the unit is
+// built /arch:SSE, which the int-to-float conversions in setHeight and
+// setWidth show (cvtsi2ss/divss) while the unsigned display sizes stay x87.
+//
+// setPitch (0x0008D1DD), screenToWorldAtZ (0x0008A0E5) and Add_Camera_Shake
+// (0x000875F2) were found by compiling the whole donor unit with these flags
+// and searching its bodies in game.dat: each places once, at a W3DView vftable
+// entry. Their callees setCameraTransform, getPickRay and
+// CameraShakeSystemClass::Add_Camera_Shake are pinned from those call sites.
+
+/*
+**	Command & Conquer Generals Zero Hour(tm)
+**	Copyright 2025 Electronic Arts Inc.
+**
+**	This program is free software: you can redistribute it and/or modify
+**	it under the terms of the GNU General Public License as published by
+**	the Free Software Foundation, either version 3 of the License, or
+**	(at your option) any later version.
+**
+**	This program is distributed in the hope that it will be useful,
+**	but WITHOUT ANY WARRANTY; without even the implied warranty of
+**	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+**	GNU General Public License for more details.
+**
+**	You should have received a copy of the GNU General Public License
+**	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+////////////////////////////////////////////////////////////////////////////////
+//																																						//
+//  (c) 2001-2003 Electronic Arts Inc.																				//
+//																																						//
+////////////////////////////////////////////////////////////////////////////////
+
+// FILE: W3DView.cpp //////////////////////////////////////////////////////////////////////////////
+//
+// W3D implementation of the game view class.  This view allows us to have
+// a "window" into the game world that can change its width, height as 
+// well as camera positioning controls
+//
+// Author: Colin Day, April 2001
+//
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+// SYSTEM INCLUDES ////////////////////////////////////////////////////////////////////////////////
+// The matched trig operations inline; keep surplus CRT float wrappers local.
+
+// Headers used by the seven bodies still owned by this unit. The split camera
+// routines supply their own declarations when they are consolidated.
+
+//-------------------------------------------------------------------------------------------------
+/** @todo This is inefficient. We should construct the matrix directly using vectors. */
+//-------------------------------------------------------------------------------------------------
 
 //-------------------------------------------------------------------------------------------------
 /** Rotate the view around the horizontal (X) axis to the given angle. */
@@ -361,17 +686,6 @@ void W3DView::setViewFilterPos(const Coord3D *pos)
 	ScreenMotionBlurFilter::setZoomToPos(pos);
 }
 
-
-
-// BFME's CameraClass keeps ZFar (what Get_Depth returns) at +0xF0, where
-// CameraClass::Set_Clip_Planes (0x00133D00) stores it; the shared Zero Hour
-// header places it four bytes later.
-struct BfmeCameraDepthFields
-{
-	unsigned char m_padding0000[0xF0];
-	float m_zFar;
-};
-
 //-------------------------------------------------------------------------------------------------
 /** Returns a world-space ray originating at a given screen pixel position
 	and ending at the far clip plane for current camera. */
@@ -393,31 +707,6 @@ void W3DView::getPickRay(const ICoord2D *screen, Vector3 *rayStart, Vector3 *ray
 	*rayEnd += *rayStart;	//get point on far clip plane along ray from camera.
 }
 
-
-// BFME moved the shake state and the GlobalData shake tuning; retail reads
-// the angle pair and intensity at W3DView +0x120..+0x128 and the six
-// intensities, the intensity cap and the range at GlobalData +0xB74..+0xB90.
-struct BfmeW3DViewShakeFields
-{
-	unsigned char m_padding0000[0x120];
-	Real m_shakeAngleCos;
-	Real m_shakeAngleSin;
-	Real m_shakeIntensity;
-};
-
-struct BfmeGlobalDataShakeFields
-{
-	unsigned char m_padding0000[0xB74];
-	Real m_shakeSubtleIntensity;
-	Real m_shakeNormalIntensity;
-	Real m_shakeStrongIntensity;
-	Real m_shakeSevereIntensity;
-	Real m_shakeCineExtremeIntensity;
-	Real m_shakeCineInsaneIntensity;
-	Real m_maxShakeIntensity;
-	Real m_maxShakeRange;
-};
-
 // ------------------------------------------------------------------------------------------------
 /** Add an impulse force to shake the camera.
  * The camera shake is a simple simulation of an oscillating spring/damper.
@@ -425,7 +714,7 @@ struct BfmeGlobalDataShakeFields
  * impluse, after which the camera vibrates back to its rest position.
  * @todo This should be part of "View", not "W3DView". */
 // ------------------------------------------------------------------------------------------------
-#define BFME_SHAKE_DATA ((const BfmeGlobalDataShakeFields *)TheGlobalData)
+
 void W3DView::shake( const Coord3D *epicenter, CameraShakeType shakeType )
 {
 	BfmeW3DViewShakeFields *fields = (BfmeW3DViewShakeFields *)this;
@@ -482,38 +771,486 @@ void W3DView::shake( const Coord3D *epicenter, CameraShakeType shakeType )
 	if (fields->m_shakeIntensity > BFME_SHAKE_DATA->m_maxShakeIntensity)
 		fields->m_shakeIntensity = BFME_SHAKE_DATA->m_maxShakeIntensity;
 }
+
+// tu-skeleton: 0x00086065 46B ?rva00086065@W3DView@@UAEXH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRva0008DAE4.cpp (not merged yet)
+
+// tu-skeleton: 0x00086093 28B ?rva00086093@Rva000851B7@@QAEXHM@Z -- matched in Code/GameEngine/Source/Common/VtableSlotBodiesR3F.cpp (not merged yet)
+
+// tu-skeleton: 0x000860AF 172B ?rva000860AF@W3DView@@AAEXPAUCoord3D@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewConstrainPosition.cpp (not merged yet)
+
+// tu-skeleton: 0x0008615B 11B ?rva0008615B@Rva0008615BForwarder@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSizedForwarders.cpp (not merged yet)
+
+// tu-skeleton: 0x00086166 43B ?rva00086166@W3DView@@UAEMM@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRva0008DAE4.cpp (not merged yet)
+
+// tu-skeleton: 0x00086191 14B ?setFieldOfView@View@@UAEXM@Z -- matched in Code/GameEngine/Source/GameClient/View.cpp (not merged yet)
+
+// tu-skeleton: 0x0008619F 166B ?worldToScreenTriReturn@W3DView@@UAE?AW4WorldToScreenReturn@View@@PBUCoord3D@@PAUICoord2D@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewWorldToScreenBfme.cpp (not merged yet)
+
+// tu-skeleton: 0x00086245 567B ?iterateDrawablesInRegion@W3DView@@UAEHPAUIRegion2D@@P6AHPAVDrawable@@PAX@Z2@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewIterateDrawablesInRegion.cpp (not merged yet)
+
+// tu-skeleton: 0x0008647C 175B ?rotateCamera@W3DView@@UAEXMH_NMM@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRotateCamera.cpp (not merged yet)
+
+// tu-skeleton: 0x0008652B 176B ?rotateCameraTowardObject@W3DView@@UAEXW4ObjectID@@HHMMM@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRotateCamera.cpp (not merged yet)
+
+// tu-skeleton: 0x000865DB 295B ?cameraModFinalZoom@W3DView@@UAEXMMM@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewCameraModFinalZoomBfme.cpp (not merged yet)
+
+// tu-skeleton: 0x00086702 95B ?cameraModFreezeAngle@W3DView@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRotateCamera.cpp (not merged yet)
+
+// tu-skeleton: 0x00086761 177B ?rva00086761@Rva00086761CameraMove@@QAEXPAURva00089894Point@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00086761CameraMove.cpp (not merged yet)
+
+// tu-skeleton: 0x00086812 248B ?rva00086812@Rva00086761CameraMove@@QAEXH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00086761CameraMove.cpp (not merged yet)
+
+// tu-skeleton: 0x0008690A 21B ?rva0008690A@Rva00086761CameraMove@@QAEXH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00086761CameraMove.cpp (not merged yet)
+
+// tu-skeleton: 0x0008691F 176B ?cameraModFinalPitch@W3DView@@UAEXMMM@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewCameraModFinalPitchBfme.cpp (not merged yet)
+
+// tu-skeleton: 0x00086F56 1276B ?moveAlongWaypointPath@W3DView@@AAEXH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewMoveAlongWaypointPath.cpp (not merged yet)
+
+// tu-skeleton: 0x000875A2 44B ?rva000875A2@W3DView@@UAEXABV?$StringBase@D@@0@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRva0008DAE4.cpp (not merged yet)
+
+// tu-skeleton: 0x000875CE 8B ?disable@Rva000875CEByteZeroSetter@@QAEXXZ -- matched in Code/GameEngine/Source/Common/DispByteOneSetters.cpp (not merged yet)
+
+// tu-skeleton: 0x000875D6 28B ?rva000875D6@W3DView@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRva0008DAE4.cpp (not merged yet)
+
+// tu-skeleton: 0x00087642 456B ?rva00087642@W3DView@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRva00087642CameraRestore.cpp (not merged yet)
+
+// tu-skeleton: 0x0008780A 328B ?rva0008780A@W3DView@@QAEXH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRva00087642CameraRestore.cpp (not merged yet)
+
+// tu-skeleton: 0x00087952 33B ?bfmeSet@@YGX_N@Z -- matched in Code/GameEngine/Source/Common/Bfme5FiftySeven.cpp (not merged yet)
+
+// tu-skeleton: 0x00087973 54B ?rva00087973@W3DView@@QAEXH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00087973Notify.cpp (not merged yet)
+
+// tu-skeleton: 0x000879A9 61B ?rva000879A9@Rva00085947@@QAE_NH@Z -- matched in Code/GameEngine/Source/GameClient/Rva00085947Method.cpp (not merged yet)
+
+// tu-skeleton: 0x000879E6 7B ?get@Rva000879E6FloatField@@QBEMXZ -- matched in Code/GameEngine/Source/Common/Disp32FloatGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x000879ED 7B ?get@Rva000879EDFloatField@@QBEMXZ -- matched in Code/GameEngine/Source/Common/DispFloatFieldGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x000879F4 7B ?get@Rva000879F4FloatField@@QBEMXZ -- matched in Code/GameEngine/Source/Common/DispFloatFieldGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x000879FB 7B ?get@Rva000879FBByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/DispByteFieldGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00087A02 13B ?set@Rva00087A02ByteSlot@@QAEXE@Z -- matched in Code/GameEngine/Source/Common/DispByteFieldSetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00087A0F 13B ?set@Rva00087A0FByteSlot@@QAEXE@Z -- matched in Code/GameEngine/Source/Common/DispByteFieldSetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00087A1C 13B ?set@Rva00087A1CByteSlot@@QAEXE@Z -- matched in Code/GameEngine/Source/Common/DispByteFieldSetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00087A29 13B ?set@Rva00087A29ByteSlot@@QAEXE@Z -- matched in Code/GameEngine/Source/Common/DispByteFieldSetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00087A36 14B ?get@Rva00087A36DivMovField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8DivMovDwordGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00087A44 24B ??$fill@PAPAXPAX@_STL@@YAXPAPAX0ABQAX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_ptr_o1.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva00087A5CCopy.cpp
+
+// ?Rva00087A5CCopy@@YAXPAPAX0@Z @ 0x00087A5C (24B): null-guarded 4-byte
+// owning-reference placement copy; copies the pointer then increments the
+// pointee refcount at +4. Evidence: 25 callers including vector insert-overflow
+// trio 0x0007E2FA/0x00577CA0 plus 178B overflow bodies; shape matches
+// AsciiString _Construct at 0x00142CC0 (25B add) with /O1 inc form per §4.1.
+
+void __cdecl Rva00087A5CCopy(void **dst, void **src)
+{
+	if (!dst)
+		return;
+	void *v = *src;
+	*dst = v;
+	if (!v)
+		return;
+	++*(int *)((char *)v + 4);
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva0073DAB0Set.cpp
+
+Rva0073DAB0 &Rva0073DAB0::set(const Rva0073DAB0Blk *p)
+{
+	m.a = p->a;
+	m.b = p->b;
+	m.c = p->c;
+	m.d = p->d;
+	return *this;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00087A93DeletingDtor.cpp
+
+void Rva00087A93Delete(Rva00087A93 *p)
+{
+	delete p;
+}
+
+// ?Rva0008A1FDDestroy@@YAXPAVRva00087A93@@0@Z @ 0x0008A1FD (27B): the range
+// destroy loop over these references. MSVC calls each explicit destructor
+// through the scalar deleting destructor above with flags 0.
+void Rva0008A1FDDestroy(Rva00087A93 *first, Rva00087A93 *last)
+{
+	for (; first != last; ++first)
+		first->~Rva00087A93();
+}
+
+// ?Rva00089845Destroy@@YAXPAVRva00087A93@@@Z @ 0x00089845 (12B), unreferenced:
+// destroy one reference in place (STLport _Destroy's shape), again through
+// the scalar deleting destructor above with flags 0 (call site 0x0008984B).
+void Rva00089845Destroy(Rva00087A93 *p)
+{
+	p->~Rva00087A93();
+}
+
+// tu-skeleton: 0x00087AB9 16B ?rva00087AB9@Rva00087AB9@@QAEAAVRva0027C36A@@PAV2@@Z -- matched in Code/GameEngine/Source/Common/Rva0027C36AAssign.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00087AC9Copy.cpp
+
+void Rva00087AC9::rva00087AC9(Rva00087AC9Pair *o1, Rva00087AC9Pair *o2)
+{
+	Rva00087AC9Pair &d1 = *o1;
+	Rva00087AC9Pair &s1 = m_a;
+	d1.f = s1.f;
+	d1.i = s1.i;
+	Rva00087AC9Pair &d2 = *o2;
+	Rva00087AC9Pair &s2 = m_b;
+	d2.f = s2.f;
+	d2.i = s2.i;
+}
+
+// tu-skeleton: 0x00087AF4 141B ?setHeight@W3DView@@UAEXH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView_MoveCameraOrLocatorAlongSplinePathInit.cpp (not merged yet)
+
+// tu-skeleton: 0x00087B81 212B ?setWidth@W3DView@@UAEXH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView_MoveCameraOrLocatorAlongSplinePathInit.cpp (not merged yet)
+
+// tu-skeleton: 0x00087C55 162B ?setOrigin@W3DView@@UAEXHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView_MoveCameraOrLocatorAlongSplinePathInit.cpp (not merged yet)
+
+// tu-skeleton: 0x00087CF7 75B ?rva00087CF7@Rva00085947@@QAE_NPBURva00087CF7Vec3@@M@Z -- matched in Code/GameEngine/Source/GameClient/Rva00085947Method.cpp (not merged yet)
+
+// tu-skeleton: 0x00087D42 94B ?rva00087D42@Rva00085947@@QAEPAVVector3@@XZ -- matched in Code/GameEngine/Source/GameClient/Rva00085947Method.cpp (not merged yet)
+
+// tu-skeleton: 0x00087DA0 3941B ?draw@W3DView@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewDraw.cpp (not merged yet)
+
+// tu-skeleton: 0x00088D05 5B ?rva00088D05@Rva00088D05@@QAEPAMXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp (not merged yet)
+
+// tu-skeleton: 0x00088D0A 91B ?rva00088D0A@Rva000869CF@@QAEXMHM@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewCameraModFinalZoomBfme.cpp (not merged yet)
+
+// tu-skeleton: 0x00088D65 335B ?rotateCameraTowardPosition@W3DView@@UAEXPBUCoord3D@@HMM_N@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRotateCamera.cpp (not merged yet)
+
+// tu-skeleton: 0x00088EB4 132B ?rva00088EB4@Rva00086761CameraMove@@QAEXMHMM@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00086761CameraMove.cpp (not merged yet)
+
+// tu-skeleton: 0x00088F38 190B ?rva00088F38@Rva00086761CameraMove@@QAEXMHMM@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00086761CameraMove.cpp (not merged yet)
+
+// tu-skeleton: 0x00088FF6 132B ?zoomCamera@W3DView@@UAEXMHMM@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewZoomCamera.cpp (not merged yet)
+
+// tu-skeleton: 0x0008907A 132B ?pitchCamera@W3DView@@UAEXMHMM@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewZoomCamera.cpp (not merged yet)
+
+// tu-skeleton: 0x000890FE 498B ?cameraModLookToward@W3DView@@UAEXPAUCoord3D@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewCameraModLookTowardBfme.cpp (not merged yet)
+
+// tu-skeleton: 0x000892F0 544B ?cameraModFinalLookToward@W3DView@@UAEXPAUCoord3D@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewCameraModFinalLookTowardBfme.cpp (not merged yet)
+
+// tu-skeleton: 0x00089510 328B ?rva00089510@Rva00089510@@QAEX_NMH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/CameraPathAnglesBFME2.cpp (not merged yet)
+
+// tu-skeleton: 0x000897B9 15B ?elementAddressBits@Rva000897B9@@QBEII@Z -- matched in Code/GameEngine/Source/Common/T2IndexedArrayAccessors.cpp (not merged yet)
+
+// tu-skeleton: 0x000897C8 90B ?Rva000897C8@@YA?AURva0008B689Element@@PAVCameraClass@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewCameraHandleGet.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00089822CopyCtor.cpp
+
+Rva00089822::Rva00089822(const Rva00089822 &other)
+{
+	m_00 = other.m_00;
+	m_04 = other.m_04;
+	m_rva.set((const Rva0073DAB0Blk *)&other.m_rva);
+}
+
+// tu-skeleton: 0x00089851 67B ??1RunwayInfo@FlightDeckBehavior@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FlightDeckBehaviorRunwayInfoDestructor.cpp (not merged yet)
+
+// tu-skeleton: 0x00089894 28B ??0Rva00089894ArrayElement@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/Rva00089894ArrayElement.cpp (not merged yet)
+
+// tu-skeleton: 0x000898B0 92B ??4Rva00564E0D@@QAEAAV0@AAV0@@Z -- matched in Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva00564E0DAssign.cpp (not merged yet)
+
+// tu-skeleton: 0x0008990C 101B ??0Rva0089971@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/Rva0008990COwnerCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00089971 88B ??1Rva0089971@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/Rva00089971OwnerDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x000899C9 28B ??_GRva0089971@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/Rva0008990COwnerCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x000899E5 60B ??1Rva000899E5@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva000899E5Clear.cpp (not merged yet)
+
+// tu-skeleton: 0x00089A21 524B ?calcCameraConstraints@W3DView@@AAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewCalcCameraConstraintsBfme.cpp (not merged yet)
+
+// tu-skeleton: 0x00089C2D 509B ?rva00089C2D@W3DView@@QAEXH_NMM@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRva0008A2EF.cpp (not merged yet)
+
+// tu-skeleton: 0x00089E2A 170B ?moveCameraOrLocatorAlongSplinePathInit@W3DView@@QAEXPAVWaypoint@@HHMMM_N@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView_MoveCameraOrLocatorAlongSplinePathInit.cpp (not merged yet)
+
+// tu-skeleton: 0x00089ED4 529B ?moveCameraOrLocatorAlongSplinePath@W3DView@@AAEXH_N@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewMoveAlongSpline.cpp (not merged yet)
+
+// tu-skeleton: 0x0008A173 18B ?Rva0008A173Copy@@YAXPAVRva00089822@@ABV1@@Z -- matched in Code/GameEngine/Source/Common/Rva0008A173Copy.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva0008A185Copy.cpp
+
+Rva00089822 *__cdecl Rva0008A185Copy(Rva00089822 *first, Rva00089822 *last, Rva00089822 *dst)
+{
+	Rva00089822 *d = dst;
+	Rva00089822 *s = first;
+	while (s != last)
+	{
+		Rva0008A173Copy(d, *s);
+		++s;
+		++d;
+	}
+	return d;
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva0008A1ABFill.cpp
+
+Rva00089822 *__cdecl Rva0008A1ABFill(Rva00089822 *dst, unsigned int count, const Rva00089822 &value)
+{
+	Rva00089822 *p = dst;
+	while (count > 0)
+	{
+		Rva0008A173Copy(p, value);
+		++p;
+		--count;
+	}
+	return p;
+}
+
+// tu-skeleton: 0x0008A1D0 45B ??$_M_allocate_and_copy@PAURva0008B5B5Record@@@?$vector@URva0008B5B5Record@@V?$allocator@URva0008B5B5Record@@@_STL@@@_STL@@IAEPAURva0008B5B5Record@@IPAU2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0008B5B5VectorReserve.cpp (not merged yet)
+
+// tu-skeleton: 0x0008A218 28B ??_GRva0089851@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtors.cpp (not merged yet)
+
+// tu-skeleton: 0x0008A234 111B ??0Rva0008A234@@QAE@ABV?$StringBase@D@@PBUThreeInts@@MMMMMM@Z -- matched in Code/GameEngine/Source/Rva0008A234Finish.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva0008A2A3Find.cpp
+
+//
+// ?Rva0008A2A3Find@@YAPAVRva0008A2A3Item@@PAXI_N@Z
+// retail 0x0008A2A3, 76 bytes, cdecl.
+// Walks a map in key order (rowed tree increment 0x00024250) and returns the first value
+// whose virtual slot 120 (+0x1E0) mask matches: all bits of the given mask when the flag is
+// set, any bit otherwise; null when none matches. Evidence: target bytes and the rowed
+// increment; the map's key type and the item/slot names are neutral views.
+
+Rva0008A2A3Item *Rva0008A2A3Find(void *mapArg, unsigned int mask, bool all)
+{
+	Rva0008A2A3Map *items = (Rva0008A2A3Map *)mapArg;
+	for (Rva0008A2A3Map::iterator it = items->begin(); it != items->end(); ++it)
+	{
+		Rva0008A2A3Item *item = it->second;
+		if (all)
+		{
+			if ((item->mask() & mask) == mask)
+				return item;
+		}
+		else if (mask & item->mask())
+			return item;
+	}
+	return 0;
+}
+
+// tu-skeleton: 0x0008A2EF 631B ?rva0008A2EF@W3DView@@QAEXPBUV3@@PBUCameraGoalInfo@@H_NMM@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRva0008A2EF.cpp (not merged yet)
+
+// tu-skeleton: 0x0008A566 172B ?rva0008A566@W3DView@@QAEPAVRva0008A234@@ABV?$StringBase@D@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewSnapshotFactory.cpp (not merged yet)
+
+// tu-skeleton: 0x0008A612 56B ??1Rva0006F318@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x0008A64A 9B ??$_Destroy@URunwayInfo@FlightDeckBehavior@@@_STL@@YAXPAURunwayInfo@FlightDeckBehavior@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FlightDeckBehavior.cpp (not merged yet)
+
+// tu-skeleton: 0x0008A653 1148B ?buildCameraTransform@W3DView@@AAEXPAVMatrix3D@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewBuildCameraTransformBfme.cpp (not merged yet)
+
+// tu-skeleton: 0x0008AACF 5B ?rva0008AACF@Rva0008AACF@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x0008AAD4 706B ?rotateCameraOneFrame@W3DView@@AAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRotateCamera.cpp (not merged yet)
+
+// tu-skeleton: 0x0008AD96 84B ?rva0008AD96@W3DView@@QAEXABVAsciiString@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewSnapshotFactory.cpp (not merged yet)
+
+// tu-skeleton: 0x0008ADEA 498B ?rva0008ADEA@W3DView@@QAEXHW4ObjectID@@_N1@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRotateCamera.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva0008AFDCDestroy.cpp
+
+void __cdecl Rva0008AFDCDestroy(void *first, void *last)
+{
+	char tag;
+	((Rva0008A1FDDestroyView)(Rva0008A1FDDestroyRowed)&Rva0008A1FDDestroy)(first, last, (int)&tag);
+}
+
+// tu-skeleton: 0x0008AFF4 28B ??$__destroy_aux@PAUBfmeStringHeadRecord184@@@_STL@@YAXPAUBfmeStringHeadRecord184@@0ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_record_bodies.cpp (not merged yet)
+
+// tu-skeleton: 0x0008B010 469B ?updateCameraMovements@W3DView@@QAE_NXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewUpdateCameraMovementsBfme.cpp (not merged yet)
+
+// tu-skeleton: 0x0008B1E5 651B ?pickDrawable@W3DView@@UAEPAVDrawable@@PBUICoord2D@@_NH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewPickDrawable.cpp (not merged yet)
+
+// tu-skeleton: 0x0008B470 63B ??1Rva0008B470@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0008B470VectorDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0008B4AF 30B ?_M_clear@?$vector@URva0008B4AFElement@@V?$allocator@URva0008B4AFElement@@@_STL@@@_STL@@IAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorClearF6Family.cpp (not merged yet)
+
+// tu-skeleton: 0x0008B4CD 5B ?rva0008B4CD@Rva0008B4CD@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorClearF6Family.cpp (not merged yet)
+
+// tu-skeleton: 0x0008B4D2 38B ?erase@?$vector@UBfmeStringRecord000B9534@@V?$allocator@UBfmeStringRecord000B9534@@@_STL@@@_STL@@QAEPAUBfmeStringRecord000B9534@@PAU3@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseNoDestroyFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x0008B4F8 11B ?clear@?$vector@UBfmeStringRecord000B9534@@V?$allocator@UBfmeStringRecord000B9534@@@_STL@@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorClearNoDestroyFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x0008B503 178B ?_M_insert_overflow@?$vector@URva0008B689Element@@V?$allocator@URva0008B689Element@@@_STL@@@_STL@@IAEXPAURva0008B689Element@@ABU3@ABU__false_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorOverflow0008B503.cpp (not merged yet)
+
+// tu-skeleton: 0x0008B5B5 125B ?reserve@?$vector@URva0008DE1CElement@@V?$allocator@URva0008DE1CElement@@@_STL@@@_STL@@QAEXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorReserve0008B5B5.cpp (not merged yet)
+
+// tu-skeleton: 0x0008B632 24B ??$_Destroy@PAUBfmeStringHeadRecord184@@@_STL@@YAXPAUBfmeStringHeadRecord184@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_record_bodies.cpp (not merged yet)
+
+// tu-skeleton: 0x0008B64A 63B ??1?$vector@UBfmeStringHeadRecord184@@V?$allocator@UBfmeStringHeadRecord184@@@_STL@@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x0008B689 55B ?push_back@?$vector@URva0008B689Element@@V?$allocator@URva0008B689Element@@@_STL@@@_STL@@QAEXABURva0008B689Element@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorPushBackFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x0008B6C0 189B ?_M_insert_overflow@?$vector@URva0008DE1CElement@@V?$allocator@URva0008DE1CElement@@@_STL@@@_STL@@IAEXPAURva0008DE1CElement@@ABU3@ABU__false_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva000ab3e2_overflow.cpp (not merged yet)
+
+// tu-skeleton: 0x0008B77D 54B ??1Rva008B77D@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0008B77DDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0008B7B3 28B ??_GRva008B77D@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0008B77DDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0008B7CF 827B ??0W3DView@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewCtorBfme.cpp (not merged yet)
+
+// tu-skeleton: 0x0008BD59 5B ?rva0008BD59@W3DView@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRva0008DAE4.cpp (not merged yet)
+
+// tu-skeleton: 0x0008BD5E 269B ??1Rva008BD5E@@UAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewAggregateDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0008BE6B 953B ?setCameraTransform@W3DView@@AAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewSetCameraTransformBfme.cpp (not merged yet)
+
+// tu-skeleton: 0x0008C224 392B ?init@W3DView@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewInit.cpp (not merged yet)
+
+// tu-skeleton: 0x0008C3AC 2690B ?update@W3DView@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView_update.cpp (not merged yet)
+
+// tu-skeleton: 0x0008CE2E 774B ?rva0008CE2E@W3DView@@QAEIPAVCoord2D@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewScrollBy.cpp (not merged yet)
+
+// tu-skeleton: 0x0008D134 5B ?forceRedraw@W3DView@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewSetCameraTransformBfme.cpp (not merged yet)
+
+// tu-skeleton: 0x0008D139 164B ?setAngle@W3DView@@UAEXM@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewZoomCamera.cpp (not merged yet)
+
+// tu-skeleton: 0x0008D218 59B ?rva0008D218@W3DView@@UAEXM@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewCameraModFinalZoomBfme.cpp (not merged yet)
+
+// tu-skeleton: 0x0008D253 101B ?rva0008D253@Rva00085947@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/Rva00085947Method.cpp (not merged yet)
+
+// tu-skeleton: 0x0008D2B8 265B ?setHeightAboveGround@W3DView@@UAEXM@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewCameraModFinalZoomBfme.cpp (not merged yet)
+
+// tu-skeleton: 0x0008D3C1 182B ?setZoom@W3DView@@UAEXM@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewCameraModFinalZoomBfme.cpp (not merged yet)
+
+// tu-skeleton: 0x0008D477 230B ?setZoomToDefault@W3DView@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewCameraModFinalZoomBfme.cpp (not merged yet)
+
+// tu-skeleton: 0x0008D55D 682B ?lookAt@W3DView@@UAEXPBUCoord3D@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewCameraModFinalZoomBfme.cpp (not merged yet)
+
+// tu-skeleton: 0x0008D807 286B ?initHeightForMap@W3DView@@UAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorPushBackFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x0008D925 447B ?rva0008D925@W3DView@@QAEXPBUCoord3D@@HMM@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewCameraModFinalZoomBfme.cpp (not merged yet)
+
+// tu-skeleton: 0x0008DAE4 52B ?rva0008DAE4@W3DView@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRva0008DAE4.cpp (not merged yet)
+
+// tu-skeleton: 0x0008DB18 772B ?rva0008DB18@W3DView@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRva0008DB18.cpp (not merged yet)
+
+// tu-skeleton: 0x0008DE1C 55B ?push_back@?$vector@URva0008DE1CElement@@V?$allocator@URva0008DE1CElement@@@_STL@@@_STL@@QAEXABURva0008DE1CElement@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorPushBackFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x0008DE53 11B ?init@W3DView@@WLE@AEXXZ -- matched in Code/GameEngine/Source/Common/GapForwardersSeat8.cpp (not merged yet)
+
+// tu-skeleton: 0x0008DE5E 28B ??_GRva008BD5E@@UAEPAXI@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewAggregateDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0008DE7A 660B ?screenToTerrain@W3DView@@UAE_NPBUICoord2D@@PAUCoord3D@@_N@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewCameraModFinalZoomBfme.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FACD 19B ?rva0075FACD@@YAXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewGetAxisAlignedViewRegion.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FAE0 10B __ehhandler$?getAxisAlignedViewRegion@W3DView@@AAEXAAURegion3D@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewGetAxisAlignedViewRegion.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FAEA 8B $L455 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewCameraHandleGet.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FAF2 25B ?rva0075FAF2@@YAXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewCameraHandleGet.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FB0B 10B __ehhandler$?Rva000897C8@@YA?AURva0008B689Element@@PAVCameraClass@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewCameraHandleGet.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FB15 22B uw_0075fb15 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FlightDeckBehaviorRunwayInfoDestructor.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FB2B 10B __ehhandler$??1RunwayInfo@FlightDeckBehavior@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FlightDeckBehaviorRunwayInfoDestructor.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FB72 14B Unwind@00b5fb72 -- matched in Code/GameEngine/Source/Common/Rva000899E5Clear.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FB80 10B __ehhandler$??1Rva000899E5@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva000899E5Clear.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FBB0 11B uw_0075fbb0 -- matched in Code/gen_small/uw_gen_000.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FBBB 10B __ehhandler$?buildCameraTransform@W3DView@@AAEXPAVMatrix3D@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewBuildCameraTransformBfme.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FBC5 8B $L4824 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewPickDrawable.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FBCD 10B __ehhandler$?pickDrawable@W3DView@@UAEPAVDrawable@@PBUICoord2D@@_NH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewPickDrawable.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FBD7 8B Unwind@00b5fbd7 -- matched in Code/GameEngine/Source/Common/Rva0008B77DDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FBDF 10B __ehhandler$??1Rva008B77D@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0008B77DDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FBE9 8B uw_0075fbe9 -- matched in Code/gen_small/uw_gen_011.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FBF1 14B Unwind@00b5fbf1 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewCtorBfme.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FBFF 14B Unwind@00b5fbff -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewCtorBfme.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FC0D 14B uw_0075fc0d -- matched in Code/gen_small/uw_gen_010.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FC1B 14B uw_0075fc1b -- matched in Code/gen_small/uw_gen_010.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FC29 14B $L5705 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewCtorBfme.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FC37 14B Unwind@00b5fc37 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewCtorBfme.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FC45 14B Unwind@00b5fc45 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewCtorBfme.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FC53 14B uw_0075fc53 -- matched in Code/gen_small/uw_gen_010.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FC61 10B __ehhandler$??0W3DView@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewCtorBfme.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FC6B 8B $L6759 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewAggregateDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FC73 22B $L6760 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewAggregateDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FC89 14B Unwind@00b5fc89 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewAggregateDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FC97 14B Unwind@00b5fc97 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewAggregateDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FCA5 14B Unwind@00b5fca5 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewAggregateDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FCB3 14B $L6771 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewAggregateDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FCC1 14B Unwind@00b5fcc1 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewAggregateDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FCCF 14B Unwind@00b5fccf -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewAggregateDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FCDD 14B Unwind@00b5fcdd -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewAggregateDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FCEB 10B __ehhandler$??1Rva008BD5E@@UAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewAggregateDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FCF5 8B uw_0075fcf5 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewSetCameraTransformBfme.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FCFD 8B Unwind@00b5fcfd -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewSetCameraTransformBfme.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FD05 8B Unwind@00b5fd05 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewSetCameraTransformBfme.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FD0D 8B Unwind@00b5fd0d -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewSetCameraTransformBfme.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FD15 10B __ehhandler$?setCameraTransform@W3DView@@AAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewSetCameraTransformBfme.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FD1F 10B $L3263 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewInit.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FD29 10B $L3264 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewInit.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FD33 10B __ehhandler$?init@W3DView@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewInit.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FD3D 8B uw_0075fd3d -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView_update.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FD45 8B Unwind@00b5fd45 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView_update.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FD4D 8B Unwind@00b5fd4d -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView_update.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FD55 10B __ehhandler$?update@W3DView@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView_update.cpp (not merged yet)
+
+// tu-skeleton: 0x0077A47C 22B $L5450 -- matched in Code/GameEngine/Source/Common/Containers/Rva003A35A0Element.cpp (not merged yet)
+
+// tu-skeleton: 0x0077A492 14B $L5451 -- matched in Code/GameEngine/Source/Common/Containers/Rva003A35A0Element.cpp (not merged yet)
+
+// tu-skeleton: 0x0077A4A0 10B __ehhandler$??0Rva003A35A0Element@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Containers/Rva003A35A0Element.cpp (not merged yet)
+
+// tu-skeleton: 0x0077A4AA 14B $L5403 -- matched in Code/GameEngine/Source/Common/Containers/Rva003A35A0Element.cpp (not merged yet)
+
+// tu-skeleton: 0x0077A4B8 10B __ehhandler$??$_Construct@URva003A35A0Element@@U1@@_STL@@YAXPAURva003A35A0Element@@ABU1@@Z -- matched in Code/GameEngine/Source/Common/Containers/Rva003A35A0Element.cpp (not merged yet)
+
+#undef BFME_UNUSED_VIRTUALS_16
+
 #undef BFME_SHAKE_DATA
-
-// Retail 0x00089E2A..0x00089ED4; WB 0x009977A0 names this initializer
-// and corroborates both embedded spline paths and their control sequence.
-// BFME2's spline classes are absent from the ZH headers. These views retain
-// the retail offsets and unnamed virtual slots without assigning new names.
-struct Bfme89E2APathNode
-{
-	unsigned char m_unknown[0xB4];
-	unsigned int m_control;
-};
-
-class Rva00312C95
-{
-public:
-	virtual void slot0() = 0;
-	virtual void setWaypoint(Waypoint *) = 0;
-	virtual void initialize(int enabled, int duration, float easeIn, float easeOut, int extra, int flag) = 0;
-	void rva00312118();
-	unsigned char m_unknown04[0x2C - 4];
-	std::vector<Bfme89E2APathNode> m_nodes;
-};
-
-template <int N> class Bfme89E2AViewSlots : public Bfme89E2AViewSlots<N - 1>
-{
-public:
-	virtual void gap(char (*)[N]) = 0;
-};
-template <> class Bfme89E2AViewSlots<0> {};
-class Bfme89E2AViewVtable : public Bfme89E2AViewSlots<28>
-{
-public:
-	virtual void setControl(unsigned int value) = 0;
-};
-
