@@ -24,18 +24,16 @@ template<int N>class VSlots:public VSlots<N-1>{public:virtual void gap(char(*)[N
 class AudioManager:public VSlots<25>{public:virtual unsigned addAudioEvent(const BfmeAudioEventPrefix136*)=0;};extern AudioManager*TheAudio;
 template<class T>struct PtrVector{T*begin;T*end;T*storage;int size()const{return end-begin;}T&operator[](int i)const{return begin[i];}};
 struct InstantDeathBehaviorModuleData{char pad[0x38];PtrVector<const FXList*>fx;PtrVector<ObjectCreationList*>ocls;PtrVector<const WeaponTemplate*>weapons;PtrVector<Rva0036CA00Str>sounds;};
-class BehaviorModule{public:virtual~BehaviorModule();protected:const InstantDeathBehaviorModuleData*data;Object*object;int gap;};
-class DieModuleInterface{public:virtual void onDie(const DamageInfo*)=0;};
-class DieModule:public BehaviorModule,public DieModuleInterface{protected:bool isDieApplicable(const DamageInfo*)const;};
+#include "../../../../Include/GameLogic/Module/DieModule.h"
 class InstantDeathBehavior:public DieModule{public:virtual void onDie(const DamageInfo*);};
 void InstantDeathBehavior::onDie(const DamageInfo*damageInfo){
  if(!isDieApplicable(damageInfo))return;
- if(object->ai){if(object->ai->dead)return;object->ai->markAsDead();}
- const InstantDeathBehaviorModuleData*self=data;
+ if(m_object->ai){if(m_object->ai->dead)return;m_object->ai->markAsDead();}
+ const InstantDeathBehaviorModuleData*self=reinterpret_cast<const InstantDeathBehaviorModuleData*>(m_moduleData);
  char*file="C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Behavior\\InstantDeathBehavior.cpp";
- int count=self->fx.size();if(count>0){int n=GetGameLogicRandomValue(0,count-1,file,135);const FXList*fx=self->fx[n];Object*obj=object;FXList::doFXObj(fx,obj,0);}
- count=self->ocls.size();if(count>0){int n=GetGameLogicRandomValue(0,count-1,file,145);ObjectCreationList*ocl=self->ocls[n];Object*obj=object;if(ocl)ocl->create(obj,0,0);}
- count=self->weapons.size();if(count>0){int n=GetGameLogicRandomValue(0,count-1,file,155);const WeaponTemplate*weaponTemplate=self->weapons[n];if(weaponTemplate){Object*obj=object;const Coord3D*pos=(const Coord3D*)obj->position;TheWeaponStore->createAndFireTempWeapon(weaponTemplate,obj,pos);}}
- count=self->sounds.size();if(count>0){int n=GetGameLogicRandomValue(0,count-1,file,169);const Rva0036CA00Str*ss=self->sounds.begin;Rva0036CA00Str sound(ss[n]);if(sound.item && TheAudio){BfmeAudioEventPrefix136 event(*(const OpaqueRefElement4*)&sound,object->id);TheAudio->addAudioEvent(&event);}}
- TheGameLogic->destroyObject(object);
+ int count=self->fx.size();if(count>0){int n=GetGameLogicRandomValue(0,count-1,file,135);const FXList*fx=self->fx[n];Object*obj=m_object;FXList::doFXObj(fx,obj,0);}
+ count=self->ocls.size();if(count>0){int n=GetGameLogicRandomValue(0,count-1,file,145);ObjectCreationList*ocl=self->ocls[n];Object*obj=m_object;if(ocl)ocl->create(obj,0,0);}
+ count=self->weapons.size();if(count>0){int n=GetGameLogicRandomValue(0,count-1,file,155);const WeaponTemplate*weaponTemplate=self->weapons[n];if(weaponTemplate){Object*obj=m_object;const Coord3D*pos=(const Coord3D*)obj->position;TheWeaponStore->createAndFireTempWeapon(weaponTemplate,obj,pos);}}
+ count=self->sounds.size();if(count>0){int n=GetGameLogicRandomValue(0,count-1,file,169);const Rva0036CA00Str*ss=self->sounds.begin;Rva0036CA00Str sound(ss[n]);if(sound.item && TheAudio){BfmeAudioEventPrefix136 event(*(const OpaqueRefElement4*)&sound,m_object->id);TheAudio->addAudioEvent(&event);}}
+ TheGameLogic->destroyObject(m_object);
 }
