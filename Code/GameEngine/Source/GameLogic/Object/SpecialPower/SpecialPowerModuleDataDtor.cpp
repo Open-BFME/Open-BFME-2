@@ -3,6 +3,8 @@
 // intermediate base (0x7C bytes, ctor pinned at 0x004930A0): destroys strings
 // at +0x6C/+0x18 via 0x00036410, filters at +0x3C/+0x38/+0x24 via 0x00360D26,
 // releases ref at +0x14 via 0x00050ED3, restores Snapshot vtable 0x00BBB554.
+// EH cleanup at 0x0078CD5B destroys the +0x10 pair through 0x004C9F38;
+// the reference is the pair's second member, as in the constructor's view.
 // Called by 27 derived dtors including PlayerUpgrade 0x004C7DD4. Layout from
 // ctor 0x004930A0 and DominateEnemy/LevelGrant dtor precedents.
 
@@ -29,7 +31,18 @@ class RefHolder14
 public:
 	~RefHolder14() { if (m_ptr) m_ptr->Release_Ref(); }
 
+private:
 	OpaqueRefCounted *m_ptr;
+};
+
+class Rva004CEE6EMember
+{
+public:
+	Rva004CEE6EMember();
+
+private:
+	int m_first;
+	RefHolder14 m_ref14;
 };
 
 class __declspec(novtable) SpecialPowerModuleData : public Snapshot
@@ -39,8 +52,7 @@ public:
 
 private:
 	unsigned char m_pad04[12];
-	int m_science10;
-	RefHolder14 m_ref14;
+	Rva004CEE6EMember m_pair10;
 	AsciiString m_str18;
 	unsigned char m_pad1C[8];
 	Rva00360D26Member m_filter24;

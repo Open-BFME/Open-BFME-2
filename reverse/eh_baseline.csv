@@ -16,7 +16,6 @@ name,target_rva,verdict
 ??0Rva004147CF@@QAE@ABV0@@Z,0x004147CF,bytes_differ
 ??0GettingBuiltBehaviorModuleData@@QAE@XZ,0x0045324E,bytes_differ
 ??0ShareExperienceBehaviorModuleData@@QAE@XZ,0x0047FE90,bytes_differ
-??1SpecialPowerModuleData@@UAE@XZ,0x0049334F,bytes_differ
 ??0AODCrushCollideModuleData@@QAE@XZ,0x004BBF89,bytes_differ
 ?processWrapper@NetCommandWrapperList@@QAEXPAVNetCommandRef@@@Z,0x0058C11F,bytes_differ
 ?readWrapperMessage@NetPacket@@KAPAVNetCommandMsg@@PAEAAH@Z,0x0058E0E2,bytes_differ
