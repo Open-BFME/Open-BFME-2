@@ -77,11 +77,7 @@ public:
 	virtual BfmeObjectDrawFor270FAC *getObjectDrawInterface() = 0;
 };
 
-class Drawable
-{
-public:
-	void rva00270FAC(bool b);
-};
+#include "../../Include/GameClient/DrawableBFME2.h"
 
 void Drawable::rva00270FAC(bool b)
 {
