@@ -715,7 +715,7 @@ through `tools/progress.py`'s provenance and retail-byte functions.
 | `Code/GameEngine/Source/Common/Rva006DE1A0Finish.cpp` | 125 | 3 (U=3) | Open |
 | `Code/GameEngine/Source/Common/BfmeConv1950.cpp` | 118 | 4 (U=4) | 2026-10-27 at `2eea4ae57b`: resize consumer previews LINKS (0 -> 100 authored bytes); 3/3 rows and EH exact; one destructor identity key retired. Fill-insert provider retains element/overflow blockers (LINK-002); dependency closure and census confirmation pending. [Evidence](../reverse/attempt_support/resize-record-link-20261027-codex3.md). |
 | `Code/GameEngine/Source/Common/Thing/ThingFactory.cpp` | 85 | 13 (U=6, C=6, S=1) | Open |
-| `Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdate.cpp` | 117 | 6 (U=4, C=1, S=1) | Open |
+| `Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdate.cpp` | 117 | 6 (U=4, C=1, S=1) | 2026-10-30: erase vector prerequisite exact; ordinary two-unit preview retains 595 authored bytes at `85f6b7f40c`. Merge still blocked by frame-pointer codegen and other declarations (LINK-004); census pending. [Evidence](../reverse/attempt_support/flammable-camera-vector-20261030-codex3.md). |
 | `Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/SkirmishGameOptionsMenu.cpp` | 116 | 61 (U=49, C=6, S=6) | 2026-10-27 at `97c23353111e`: U49/L2/S2; shared GUI interfaces (LINK-005) |
 | `Code/Libraries/Source/WWVegas/WW3D2/dynamesh.cpp` | 113 | 28 (U=17, C=8, S=3) | Open |
 | `Code/GameEngine/Source/Common/PAVectorEraseRangeFamily003AF.cpp` | 112 | 4 (U=2, C=1, S=1) | Open |

@@ -3589,6 +3589,20 @@ contracts remain open. The first generated cleanup can now bind its destructor,
 but `007A354D` was already claimed by another worker and was left untouched.
 No registered-debt, ownership, census or runtime gain is claimed; see LINK-095.
 
+**FlammableUpdate CameraMarker vector prerequisite (2026-10-30; source
+commit `3a0b1fea7a`):** [The scoped repair and merger verdict](../reverse/attempt_support/flammable-camera-vector-20261030-codex3.md)
+replace the erase donor's raw pointer view with the already matched STLport
+vector base and remove its duplicate iterator tag. Its one 51-byte row stays
+exact, with identical COMDAT and external bindings; strict current-provider
+preparation passes. Ordinary previews preserve LINKS for erase and the seed,
+595 authored bytes against index `85f6b7f40c`; no census gain is claimed.
+The supported merge still refuses every donor: erase advances from a compile
+redefinition to a byte mismatch, with cached objects showing EBP-frame versus
+ESP-relative codegen and identical call bindings. A coherent TU-wide flag
+choice needs verification before another merge. The other eight declaration
+conflicts and seven mixed sources remain open; no paths, debt keys or coverage
+were removed. Existing duplicate audio-start/EH ownership also remains open.
+
 ### LINK-005: units blocked by several incompatible dependencies
 
 **Status: Open. Updated: 2026-10-28.**
