@@ -10,6 +10,35 @@ private:
 	unsigned char m_data[4];
 };
 #include "ascii_string.h"
+//
+// ?xfer@DamageFieldUpdate@@MAEXPAVXfer@@@Z, retail 0x0049157D, 56 bytes.
+// Slot 3 of the vftable 0x00C4D970 whose slot-2 name getter returns
+// "DamageFieldUpdate" (the rowed dtor 0x0049122C installs it). Version(1,1),
+// the ObjectID list at +0x2C (pinned xferSTLObjectIDList 0x00331F2D), then
+// the base FireWeaponUpdate::xfer (pinned at 0x0048BAA7). Member name not
+// recovered.
+
+class AsciiString;
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+class Thing;
+class ModuleData;
+class Object;
+#include "../../../../Include/Common/BfmeXfer.h"
 
 // ?getModuleNameKey@DamageFieldUpdate@@UBE?AW4NameKeyType@@XZ @0x491264
 // (69B): cached pool-name key for DamageFieldUpdate. The class
@@ -65,16 +94,6 @@ protected:
 	virtual void xfer(Xfer *xfer);
 
 	char m_unrecovered04[0x2C - 0x04];
-};
-
-class DamageFieldUpdate : public FireWeaponUpdate
-{
-public:
-	virtual NameKeyType getModuleNameKey() const;
-protected:
-	virtual void xfer(Xfer *xfer);
-private:
-	BridgeBehaviorObjectIDList m_2C;
 };
 
 //
@@ -170,6 +189,30 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
+class Xfer::Version
+{
+public:
+	Version(unsigned char current, unsigned char minimum)
+		: m_current(current), m_minimum(minimum) {}
+
+	unsigned char m_current;
+	unsigned char m_minimum;
+};
+
+Xfer *xferSTLObjectIDList(Xfer *xfer, BridgeBehaviorObjectIDList *list);
+
+class DamageFieldUpdate : public FireWeaponUpdate
+{
+public:
+	virtual NameKeyType getModuleNameKey() const;
+protected:
+	virtual void xfer(Xfer *xfer);
+private:
+	BridgeBehaviorObjectIDList m_2C;
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/DamageFieldUpdate.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/DamageFieldUpdateModuleDataParse.cpp
 
 // ?buildFieldParse@DamageFieldUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z @0x004910E7
@@ -212,7 +255,17 @@ NameKeyType DamageFieldUpdate::getModuleNameKey() const
 
 // tu-skeleton: 0x00491316 615B ?update@DamageFieldUpdate@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DamageFieldUpdateRva004911AE.cpp (not merged yet)
 
-// tu-skeleton: 0x0049157D 56B ?xfer@DamageFieldUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DamageFieldUpdateXfer.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/DamageFieldUpdateXfer.cpp
+
+// ?xfer@DamageFieldUpdate@@MAEXPAVXfer@@@Z @0x0049157D
+void DamageFieldUpdate::xfer(Xfer *xfer)
+{
+	Xfer::Version version(1, 1);
+	*xfer == version;
+
+	xferSTLObjectIDList(xfer, &m_2C);
+	FireWeaponUpdate::xfer(xfer);
+}
 
 // tu-skeleton: 0x0078CAA2 8B Unwind@00b8caa2 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DamageFieldUpdateBehaviorCtor.cpp (not merged yet)
 
