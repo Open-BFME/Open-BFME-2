@@ -59508,8 +59508,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0070DFF0,107,code,,,-,,Code/GameEngine/Source/Common/Rva0070DFF0Reg.cpp
 0x0070E060,148,code,,,-,,Code/GameEngine/Source/Common/Rva0070E060Cluster.cpp
 0x0070E100,284,code,Code/Libraries/Source/Apt/AptObject/AptObject.cpp,proposed,N,N=Code/Libraries/Source/Apt/AptObject/AptObject.cpp,Code/Libraries/Source/Apt/AptObject/AptObjectDoesImplement.cpp
-0x0070E220,101,code,Code/Libraries/Source/Apt/AptObject/AptGlobal.cpp,approved,N,N=Code/Libraries/Source/Apt/AptObject/AptGlobal.cpp W=Code/Libraries/Source/Apt/AptObject/AptGlobalObject.cpp provisional,Code/Libraries/Source/Apt/AptObject/AptGlobalObjectLookup.cpp
-0x0070E290,85,code,Code/Libraries/Source/Apt/AptObject/AptGlobal.cpp,approved,N,N=Code/Libraries/Source/Apt/AptObject/AptGlobal.cpp provisional,Code/Libraries/Source/Apt/AptObject/AptGlobalObjectLookup.cpp
+0x0070E220,101,code,Code/Libraries/Source/Apt/AptObject/AptGlobal.cpp,approved,N,N=Code/Libraries/Source/Apt/AptObject/AptGlobal.cpp W=Code/Libraries/Source/Apt/AptObject/AptGlobalObject.cpp provisional,Code/Libraries/Source/Apt/AptObject/AptGlobal.cpp
+0x0070E290,85,code,Code/Libraries/Source/Apt/AptObject/AptGlobal.cpp,approved,N,N=Code/Libraries/Source/Apt/AptObject/AptGlobal.cpp provisional,Code/Libraries/Source/Apt/AptObject/AptGlobal.cpp
 0x0070E2F0,63,code,,,-,,Code/GameEngine/Source/Common/S3FieldInitialisers.cpp
 0x0070E330,84,code,Code/Libraries/Source/Apt/AptRenderingContext.cpp,approved,F,F=Code/Libraries/Source/Apt/AptRenderingContext.cpp N=Code/Libraries/Source/Apt/AptRenderingContext.cpp,Code/Libraries/Source/Apt/AptRenderingContext.cpp
 0x0070E390,77,code,Code/Libraries/Source/Apt/AptRenderingContext.cpp,approved,F,F=Code/Libraries/Source/Apt/AptRenderingContext.cpp N=Code/Libraries/Source/Apt/AptRenderingContext.cpp,Code/Libraries/Source/Apt/AptRenderingContext.cpp
