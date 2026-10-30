@@ -1,16 +1,15 @@
-// cl: /DNDEBUG /MD /EHsc /Ireference/shims/moduledata
+// cl: /DNDEBUG /MD /EHsc /Ireference/shims/moduledata /Ireference/shims/bfme2_ascii
 // ??1RenderObjectDrawModuleInfo@FXParticleSystem@@UAE@XZ @0x003A9A8B 75B
 // Dtor releasing StringBase<char> at +0x10 +0x20 +0x30 via rowed releaseBuffer
 // 0x00036410 plus Snapshot base BBB554. Evidence: EH_prolog with 2/1/0 states
 // plus three releaseBuffer calls plus BBB554 store, layout from
 // RenderObjectDrawModuleInfoCopyCtorThunk, callers include template dtor.
-template <typename T> class StringBase {
-public: ~StringBase() { releaseBuffer(); }
-private: void releaseBuffer(); void *m_data; };
+// The canonical frozen StringBase replaces the private copy; its switch makes
+// the member dtor reachable and keeps the teardown an out-of-line call to the
+// rowed releaseBuffer (0x00036410 narrow, 0x00036E70 wide).
+#define BFME_STRINGBASE_PUBLIC_DTOR
+#include "string_base.h"
 
-// Existing public narrow teardown spelling resolves to the verified
-// 133-byte releaseBuffer worker at RVA 0x36410. Wide teardown is unchanged.
-template <> StringBase<char>::~StringBase();
 
 
 #include "Common/Snapshot.h"
