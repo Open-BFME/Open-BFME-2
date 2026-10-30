@@ -541,7 +541,9 @@ def donors(tu, sk):
         # homeless rows (and their unplaced companions) follow it the same way. A row the
         # map puts in another TU still makes it mixed (split it first).
         free = {r["name"] for r in own if where[id(r)] is None and homeless(r, unplaced)}
-        rider = {id(r) for r in own if where[id(r)] is None and (r["name"] in free or parent_of(r, dtors) in free)}
+        # a companion rides with a homeless parent only when its own evidence names no other TU
+        rider = {id(r) for r in own if where[id(r)] is None and (
+            r["name"] in free or parent_of(r, dtors) in free and not names_other_tu(r, unplaced, tu))}
         foreign = [r for r in own if where[id(r)] != tu.lower() and not fold_alias(r)
                    and not (where[id(r)] is None and (f == tu or id(r) in rider))]
         # what a donor moves must be approved here: the row itself when the map places it,
@@ -592,6 +594,17 @@ def homeless(r, unplaced):
     """Does ledger row `r` (with no TU) sit at a map row tu_map leaves homeless on purpose?"""
     m = unplaced.get(int(r["target_rva"], 16))
     return m is not None and tu_map.homeless(m, r["name"])
+
+
+def names_other_tu(r, unplaced, tu):
+    """Does the map row of ledger row `r` (with no TU) carry F/Z/S/L/W evidence naming a TU
+    other than `tu`?"""
+    m = unplaced.get(int(r["target_rva"], 16))
+    for token in ((m or {}).get("evidence") or "").split():
+        k, eq, v = token.partition("=")
+        if eq and k in tu_map.TU_EVIDENCE and v.lower() != tu.lower():
+            return True
+    return False
 
 
 def flags_of(text):

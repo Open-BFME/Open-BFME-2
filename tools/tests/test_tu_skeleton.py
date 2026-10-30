@@ -407,6 +407,21 @@ class DonorTests(unittest.TestCase):
         self.assertEqual(mixed, {"Code/B.cpp": 1})
         self.assertNotIn("Code/B.cpp", don)
 
+    def test_an_unplaced_companion_with_its_own_tu_evidence_never_rides(self):
+        # R2 S3: the deleting dtor of a homeless inline dtor carries W=Code/Other.cpp of its own;
+        # its parent's homeless status must not exempt it.
+        ledger = [("?t@@YAXXZ", 0x1000, self.TU), ("?b@@YAXXZ", 0x1020, "Code/B.cpp"),
+                  ("??1Foo@@UAE@XZ", 0x1300, "Code/B.cpp"), ("??_GFoo@@UAEPAXI@Z", 0x1310, "Code/B.cpp")]
+        don, mixed, refused = self.donors(ledger, {0x1000: self.TU, 0x1020: self.TU},
+                                          {0x1300: ("", "inline"), 0x1310: ("", "W=Code/Other.cpp")})
+        self.assertEqual(mixed, {"Code/B.cpp": 1})
+        self.assertNotIn("Code/B.cpp", don)
+        # the same companion with no evidence of its own still rides
+        don, mixed, _ = self.donors(ledger, {0x1000: self.TU, 0x1020: self.TU},
+                                    {0x1300: ("", "inline"), 0x1310: ("", "")})
+        self.assertEqual(mixed, {})
+        self.assertIn("Code/B.cpp", don)
+
     def test_tu_map_homeless(self):
         import tu_map
         row = lambda tu="", conf="", ev="", kind="code": {"tu": tu, "confidence": conf, "evidence": ev, "kind": kind}
