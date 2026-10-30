@@ -55,15 +55,15 @@ void Rva0020EE29Inner::rva0020F5B3()
 	vec->erase(range->begin, range->end);
 	for (unsigned int i = 0; i < m_2C.size(); ++i)
 	{
-		Rva0020F5B3Elem *e = m_2C[i];
-		((Rva005A0B4CList *)m_4C)->append((Rva002BA8F1Listener *)e->m_ptr198);
+		Rva0020F5B3Elem *entry = m_2C[i];
+		((Rva005A0B4CList *)m_4C)->append((Rva002BA8F1Listener *)entry->m_ptr198);
 	}
 	for (unsigned int j = 0; j < m_2C.size(); ++j)
 	{
-		Rva0020F5B3Elem *e = m_2C[j];
-		for (unsigned int k = 0; k < (unsigned int)(e->m_arrEnd - e->m_arrBegin); ++k)
+		Rva0020F5B3Elem *entry = m_2C[j];
+		for (unsigned int k = 0; k < (unsigned int)(entry->m_arrEnd - entry->m_arrBegin); ++k)
 		{
-			((Rva003EF7DF *)m_4C)->rva003EF7DF((Rva003EF7DFDest *)e->m_ptr198, e->m_arrBegin[k].value);
+			((Rva003EF7DF *)m_4C)->rva003EF7DF((Rva003EF7DFDest *)entry->m_ptr198, entry->m_arrBegin[k].value);
 		}
 	}
 }

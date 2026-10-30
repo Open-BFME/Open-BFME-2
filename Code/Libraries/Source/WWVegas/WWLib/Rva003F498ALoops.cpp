@@ -50,7 +50,7 @@ public:
     int GetRetreatedPlayerCount(int idx);
     int GetRetreatedPlayerID(int outerIdx, int innerIdx);
     int* rva003F46F2(int outerIdx, int innerIdx);
-    void rva003F470E(int outerIdx, int innerIdx, void *p);
+    void rva003F470E(int outerIdx, int innerIdx, void *m_scoreKeeper);
     int rva003F48FE(int outerIdx, int middleIdx, int innerIdx);
     int rva003F4921(int outerIdx, int middleIdx, int innerIdx);
     bool rva003F486C(int id);
@@ -84,9 +84,9 @@ public:
 void LivingWorldBattle::rva003F498A(Rva003F498ACallback* cb)
 {
     for (unsigned i = 0; i < m_outers.size(); ++i) {
-        Rva003F498AOuter& o = m_outers[i];
-        for (unsigned j = 0; j < o.inners.size(); ++j) {
-            Rva003F498AInner& in = o.inners[j];
+        Rva003F498AOuter& outer = m_outers[i];
+        for (unsigned j = 0; j < outer.inners.size(); ++j) {
+            Rva003F498AInner& in = outer.inners[j];
             for (unsigned k = 0; k < in.vals.size(); ++k) {
                 if (!cb->invoke(in.vals[k]))
                     return;
@@ -97,8 +97,8 @@ void LivingWorldBattle::rva003F498A(Rva003F498ACallback* cb)
 
 int LivingWorldBattle::GetRetreatedPlayerCount(int idx)
 {
-    Rva003F498AOuter& o = m_outers[idx];
-    return (int)o.ints.size();
+    Rva003F498AOuter& outer = m_outers[idx];
+    return (int)outer.ints.size();
 }
 
 int LivingWorldBattle::GetRetreatedPlayerID(int outerIdx, int innerIdx)
@@ -120,8 +120,8 @@ int LivingWorldBattle::rva003F48FE(int outerIdx, int middleIdx, int innerIdx)
 
 int LivingWorldBattle::rva003F4921(int outerIdx, int middleIdx, int innerIdx)
 {
-    Rva003F498AOuter &o = m_outers[outerIdx];
-    Rva003F498AInner &in = o.inners[middleIdx];
+    Rva003F498AOuter &outer = m_outers[outerIdx];
+    Rva003F498AInner &in = outer.inners[middleIdx];
     int base = *(int *)((char *)&in + 0x10);
     return base + innerIdx * 0x68;
 }
@@ -134,9 +134,9 @@ int LivingWorldBattle::rva003F4921(int outerIdx, int middleIdx, int innerIdx)
 bool LivingWorldBattle::rva003F486C(int id)
 {
     for (unsigned i = 0; i < m_outers.size(); ++i) {
-        Rva003F498AOuter &o = m_outers[i];
-        for (unsigned j = 0; j < o.inners.size(); ++j) {
-            Rva003F498AInner &in = o.inners[j];
+        Rva003F498AOuter &outer = m_outers[i];
+        for (unsigned j = 0; j < outer.inners.size(); ++j) {
+            Rva003F498AInner &in = outer.inners[j];
             void *obj = *(void **)&in;
             int cur = *(int *)((char *)obj + 0x14);
             if (cur == id)
@@ -167,9 +167,9 @@ int LivingWorldBattle::rva003F4752(void *p)
 // ?rva003F4798@LivingWorldBattle@@QAEHHH@Z @0x003F4798 78B unlock search one outer inners for unk0-obj id at +0x14 matching int arg returning index else -1; callers 0x003F4FB5 0x004EE0F6 0x004EE287; same file sizes flags as rva003F486C
 int LivingWorldBattle::rva003F4798(int outerIdx, int id)
 {
-    Rva003F498AOuter &o = m_outers[outerIdx];
-    for (unsigned i = 0; i < o.inners.size(); ++i) {
-        Rva003F498AInner &in = o.inners[i];
+    Rva003F498AOuter &outer = m_outers[outerIdx];
+    for (unsigned i = 0; i < outer.inners.size(); ++i) {
+        Rva003F498AInner &in = outer.inners[i];
         void *obj = *(void **)&in;
         if (*(int *)((char *)obj + 0x14) == id)
             return (int)i;
@@ -186,10 +186,10 @@ int LivingWorldBattle::rva003F4FAA(int outerIdx, void *p)
 // ?rva003F47E6@LivingWorldBattle@@QAEHH@Z @0x003F47E6 75B unlock count one outer inners where unk0-obj dword at +0x44 is zero; callers 0x002BB0E7 0x003F4859; same file sizes flags
 int LivingWorldBattle::rva003F47E6(int outerIdx)
 {
-    Rva003F498AOuter &o = m_outers[outerIdx];
+    Rva003F498AOuter &outer = m_outers[outerIdx];
     int n = 0;
-    for (unsigned i = 0; i < o.inners.size(); ++i) {
-        Rva003F498AInner &in = o.inners[i];
+    for (unsigned i = 0; i < outer.inners.size(); ++i) {
+        Rva003F498AInner &in = outer.inners[i];
         void *obj = *(void **)&in;
         if (*(int *)((char *)obj + 0x44) == 0)
             ++n;
@@ -203,10 +203,10 @@ int LivingWorldBattle::rva003F4831()
     int total = 0;
     int i = 0;
     if ((int)m_outers.size() > 0) {
-        int n = (int)m_outers.size();
+        int outerCount = (int)m_outers.size();
         do {
             total += rva003F47E6(i++);
-        } while (i < n);
+        } while (i < outerCount);
     }
     return total;
 }
@@ -224,8 +224,8 @@ Rva003F498AOuter *LivingWorldBattle::rva003F4634(void *p)
 // ?rva003F4DEE@LivingWorldBattle@@QAEPAXPAX@Z @0x003F4DEE 25B chain find outer via rowed 0x003F4634 then tail-jmp to rowed 0x003F4CC0; callers 0x003F4FC1 0x003F5082 0x003F5BF6; same file flags
 void *LivingWorldBattle::rva003F4DEE(void *p)
 {
-    Rva003F498AOuter *o = rva003F4634(p);
-    return o ? ((Rva003F4CC0 *)o)->rva003F4CC0((int)p) : 0;
+    Rva003F498AOuter *outer = rva003F4634(p);
+    return outer ? ((Rva003F4CC0 *)outer)->rva003F4CC0((int)p) : 0;
 }
 
 // ?rva003F4FBD@LivingWorldBattle@@QAEPAXPAX@Z @0x003F4FBD 23B chain via rowed 0x003F4DEE then rowed 0x003F44A9; callers 0x0020FC99 0x002410B5; same file flags
@@ -269,9 +269,9 @@ private:
 };
 
 // ?rva003F470E@LivingWorldBattle@@QAEXHHPAX@Z @0x003F470E 68B gap fill tail stats from ScoreKeeper total plus +0x74 +0xD4 plus 12345; callers 0x0023D9B7; same file sizes flags as rva003F46F2
-void LivingWorldBattle::rva003F470E(int outerIdx, int innerIdx, void *p)
+void LivingWorldBattle::rva003F470E(int outerIdx, int innerIdx, void *m_scoreKeeper)
 {
-    ScoreKeeper *sk = (ScoreKeeper *)p;
+    ScoreKeeper *sk = (ScoreKeeper *)m_scoreKeeper;
     int *tail = m_outers[outerIdx].inners[innerIdx].tail;
     tail[3] = sk->getTotalUnitsDestroyed();
     tail[2] = *(int *)((char *)sk + 0x74);

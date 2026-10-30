@@ -27,7 +27,7 @@ Rva00318F42View *Rva00318F42::rva00318B83() const {
  return holder ? &holder->view : 0;
 }
 bool Rva00318F42::rva00318F42() {
- if(rva00318B83()) { Rva00318F42View *v=rva00318B83(); return (unsigned int)(v->finish-v->first)>0; }
+ if(rva00318B83()) { Rva00318F42View *recordView=rva00318B83(); return (unsigned int)(recordView->finish-recordView->first)>0; }
  return false;
 }
 
@@ -37,10 +37,10 @@ bool Rva00318F42::rva00318F42() {
 // compiler vcall thunk is the existing5B slot10 provider at5CB26A;
 // listener slot declarations describe only the witnessed dispatch offsets.
 void Rva00318F42::rva0031986B(const Rva00538CEFPair *pair,int word){
- Rva00318F42View *v=rva00318B83();
- if(v){int *span=(int*)v;if((unsigned)((span[1]-span[0])>>4)>0){
-  ((Rva00538CEF*)v)->rva00538DC1(pair,word);
-  ((Rva00538CEF*)v)->rva00538D17((Rva00538CEFPair*)((char*)this+0x3c));
+ Rva00318F42View *recordView=rva00318B83();
+ if(recordView){int *span=(int*)recordView;if((unsigned)((span[1]-span[0])>>4)>0){
+  ((Rva00538CEF*)recordView)->rva00538DC1(pair,word);
+  ((Rva00538CEF*)recordView)->rva00538D17((Rva00538CEFPair*)((char*)this+0x3c));
   ((Rva003195C9Owner*)this)->rva003195C9();
   ((Rva003197EEList*)((char*)this+8))->forEach(&Rva003197EEListener::slot10,this);
  }}
@@ -53,9 +53,9 @@ void Rva00318F42::rva0031986B(const Rva00538CEFPair *pair,int word){
 // This declaration makes no register-return contract or original type claim.
 class Rva003190BBOwner {public:void rva003190BB(int *);};
 void Rva003190BBOwner::rva003190BB(int *out){
- Rva00318F42View *v=((Rva00318F42*)this)->rva00318B83();
- if(v){int *span=(int*)v;if((unsigned)((span[1]-span[0])>>4)>0){
-  ((Rva00538CEF*)v)->rva00538D17((Rva00538CEFPair*)out);return;
+ Rva00318F42View *recordView=((Rva00318F42*)this)->rva00318B83();
+ if(recordView){int *span=(int*)recordView;if((unsigned)((span[1]-span[0])>>4)>0){
+  ((Rva00538CEF*)recordView)->rva00538D17((Rva00538CEFPair*)out);return;
  }}
  out[0]=*(int*)((char*)this+0x44);out[1]=*(int*)((char*)this+0x48);
 }

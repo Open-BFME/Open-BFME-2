@@ -71,16 +71,16 @@ void Rva00573F03::rva00573F0E()
 // and the source return type remain unasserted.
 void Rva00573F03::rva00573F3A(Coord3DBase *out)
 {
-	float v[3];
+	float position[3];
 	float ax = m_30.x;
 	float bx = m_40.x;
 	float ay = m_30.y;
 	_ReadWriteBarrier();
-	v[0] = ax + bx;
-	float &y = v[1];
+	position[0] = ax + bx;
+	float &y = position[1];
 	y = m_40.y + ay;
-	float z = TheTerrainLogic->getGroundHeight(v[0], v[1], 0);
+	float z = TheTerrainLogic->getGroundHeight(position[0], position[1], 0);
 	out->z = z;
-	out->x = v[0];
-	out->y = v[1];
+	out->x = position[0];
+	out->y = position[1];
 }

@@ -59,24 +59,24 @@ public:
 };
 void *Rva00452EDD::rva00452EDD()
 {
-	const Rva00452EDDData *d = (const Rva00452EDDData *)m_moduleData;
-	if (!d)
+	const Rva00452EDDData *moduleData = (const Rva00452EDDData *)m_moduleData;
+	if (!moduleData)
 		return 0;
-	return (void *)TheThingFactory->findTemplate(*((const AsciiString *)&d->m_14));
+	return (void *)TheThingFactory->findTemplate(*((const AsciiString *)&moduleData->m_14));
 }
 void *Rva00452EDD::rva00452EF5()
 {
-	const Rva00452EDDData *d = (const Rva00452EDDData *)m_moduleData;
-	if (!d)
+	const Rva00452EDDData *moduleData = (const Rva00452EDDData *)m_moduleData;
+	if (!moduleData)
 		return 0;
-	return (void *)TheThingFactory->findTemplate(*((const AsciiString *)&d->m_18));
+	return (void *)TheThingFactory->findTemplate(*((const AsciiString *)&moduleData->m_18));
 }
 void *Rva00452EDD::rva00452F0D()
 {
-	const Rva00452EDDData *d = (const Rva00452EDDData *)m_moduleData;
-	if (!d)
+	const Rva00452EDDData *moduleData = (const Rva00452EDDData *)m_moduleData;
+	if (!moduleData)
 		return 0;
-	return (void *)TheThingFactory->findTemplate(*((const AsciiString *)&d->m_1C));
+	return (void *)TheThingFactory->findTemplate(*((const AsciiString *)&moduleData->m_1C));
 }
 
 // 0x0044F09F (interface at +0x20, beside WeaponFireSpecialAbilityUpdate's

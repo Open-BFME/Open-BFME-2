@@ -87,8 +87,8 @@ void Rva00572DE8::rva00572E0F(AITarget *dst, Player *player, int unused)
 		if (!player->rva002AB87D(upgradeTemplate)) {
 			Object *obj = TheGameLogic->getFirstObject();
 			while (obj) {
-				Rva00572E0FTemplate *t = (Rva00572E0FTemplate *)obj->m_04;
-				if ((t->m_120 & 0x82000) != 0) {
+				Rva00572E0FTemplate *thingTemplate = (Rva00572E0FTemplate *)obj->m_04;
+				if ((thingTemplate->m_120 & 0x82000) != 0) {
 					dst->setTarget(obj, *(float *)((char *)TheSkirmishAIManager + 0x884));
 					break;
 				}

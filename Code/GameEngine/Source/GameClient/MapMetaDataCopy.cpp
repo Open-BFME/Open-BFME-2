@@ -113,8 +113,8 @@ void Rva00534BDCParse(INI *ini, void *instance, void *, const void *)
 // MapMetaDataCopyDeferred.cpp. This anchor is not retail code.
 #pragma inline_depth(0)
 // ?bfmeEmitMapMetaDataCopy@@YAXPAVMapMetaData@@ABV1@PAVWaypointMap@@ABV2@@Z present-unmatched
-void bfmeEmitMapMetaDataCopy(MapMetaData *p, const MapMetaData &that, WaypointMap *w, const WaypointMap &thatW)
+void bfmeEmitMapMetaDataCopy(MapMetaData *dest, const MapMetaData &that, WaypointMap *destWaypoints, const WaypointMap &thatW)
 {
-	p->MapMetaData::~MapMetaData();
+	dest->MapMetaData::~MapMetaData();
 }
 #pragma inline_depth()

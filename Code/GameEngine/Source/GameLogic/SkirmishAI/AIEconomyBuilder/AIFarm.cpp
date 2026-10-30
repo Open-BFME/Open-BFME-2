@@ -167,7 +167,7 @@ struct Rva00596F18
 	virtual void s5();
 	virtual void s6();
 	virtual void s7(int arg);
-	void rva00596FF5(unsigned char v);
+	void rva00596FF5(unsigned char flag);
 	char _pad04[0x20];
 	int m_24;
 	char _pad28[0x3c];
@@ -222,10 +222,10 @@ void AIFarm::updatePriority()
 
 // ---- from Code/GameEngine/Source/Common/Rva00596FF5.cpp
 
-void Rva00596F18::rva00596FF5(unsigned char v)
+void Rva00596F18::rva00596FF5(unsigned char flag)
 {
-	m_64 = v;
-	if (v != 0)
+	m_64 = flag;
+	if (flag != 0)
 		return;
 	m_24 = 0;
 	m_68 = 0;

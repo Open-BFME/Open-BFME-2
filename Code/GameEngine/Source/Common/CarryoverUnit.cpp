@@ -58,9 +58,9 @@ public:
 
 // ---- from Code/GameEngine/Source/Common/Rva0037DC8AEqual.cpp
 
-Bool Rva0037DC8AEqual(const void *a, const void *b)
+Bool Rva0037DC8AEqual(const void *lhs, const void *rhs)
 {
-	return memcmp(a, b, 0x80) == 0;
+	return memcmp(lhs, rhs, 0x80) == 0;
 }
 
 // tu-skeleton: 0x0037DCA5 39B ?GetCommandPointSize@Rva0037DCA5@@QAEHXZ -- matched in Code/GameEngine/Source/Common/Rva0037DCA5Get.cpp (not merged yet)

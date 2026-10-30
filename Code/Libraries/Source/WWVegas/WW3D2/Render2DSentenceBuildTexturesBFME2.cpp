@@ -50,7 +50,7 @@ namespace _STL { class ios_base { friend class ::Rva00154FD0; protected: void _M
 // filter view only uses its measured one-int thiscall ABI, without a pin.
 class ShroudFilter : public _STL::ios_base {
 public:
- void Set_Mip_Mapping(int n) { _M_clear_nothrow(n); }
+ void Set_Mip_Mapping(int mipMode) { _M_clear_nothrow(mipMode); }
  int MinFilter,MagFilter,MipFilter,UAddrMode,VAddrMode;
 };
 class ShroudTexture { public: ShroudFilter *getFilter(); };
@@ -60,8 +60,8 @@ public:
  FontTextureOwner() {}
  // ?FontTextureOwnerLifetime present-unmatched
  ~FontTextureOwner() {}
- void Create(unsigned w,unsigned h,unsigned fmt,unsigned mips,int a,int b) {
-  reinterpret_cast<Rva00131DFC *>(this)->rva00131DFC((void*)w,(void*)h,(void*)fmt,(void*)mips,a,b);
+ void Create(unsigned width,unsigned height,unsigned fmt,unsigned mips,int a,int b) {
+  reinterpret_cast<Rva00131DFC *>(this)->rva00131DFC((void*)width,(void*)height,(void*)fmt,(void*)mips,a,b);
  }
  ShroudFilter *Get_Filter() { return reinterpret_cast<ShroudTexture *>(this)->getFilter(); }
  W3DRadarResetSurface Get_Surface_Level(){ return reinterpret_cast<CursorTextureSlot *>(this)->Get_Surface_Level(); }

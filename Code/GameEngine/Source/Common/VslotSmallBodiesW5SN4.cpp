@@ -151,27 +151,27 @@ void Rva005CB748::rva005CB748()
 	Int count = vec.m_end - vec.m_begin;
 	_ReadWriteBarrier();
 	if (count > 0) {
-		Rva005CB748Slot **p = vec.m_begin;
-		for (Int n = count; n > 0; --n, ++p) {
-			if ((*p)->m_20) ++enabled;
+		Rva005CB748Slot **slot = vec.m_begin;
+		for (Int remaining = count; remaining > 0; --remaining, ++slot) {
+			if ((*slot)->m_20) ++enabled;
 		}
 	}
 	ui->SetPageCounts(enabled, count);
 	{
 		Rva002B2B66 *logic = (Rva002B2B66 *)TheLivingWorldLogic;
 		Int total, available;
-		Rva003F287F *r = (Rva003F287F *)m_region;
+		Rva003F287F *logicRegion = (Rva003F287F *)m_region;
 		RegionUI *regionUI = m_ui;
 		Int playerId = logic->rva002B2B66();
-		TheLivingWorldLogic->GetNumUpgradeableTroopsInRegionForPlayer(r, playerId, &available, &total);
+		TheLivingWorldLogic->GetNumUpgradeableTroopsInRegionForPlayer(logicRegion, playerId, &available, &total);
 		regionUI->SetUpgradeCounts(total - available, total);
 	}
 	LivingWorldRegion *lwr = (LivingWorldRegion *)m_region;
 	Rva002E2903Player *player = *(Rva002E2903Player **)((char *)TheLivingWorldLogic + 0x98);
-	RegionUI *ui3 = m_ui;
+	RegionUI *regionUi = m_ui;
 	Int a = lwr->rva003EFD6F(player);
 	Int b = lwr->rva003F0189(player);
-	ui3->SetRegionValues(b, a);
+	regionUi->SetRegionValues(b, a);
 }
 class Rva005CB852
 {
@@ -212,14 +212,14 @@ public:
 class Rva005ED5BB
 {
 public:
-	void rva005ED5BB(Int a0, Int a1);
+	void rva005ED5BB(Int a0, Int image);
 private:
 	char m_pad00[0x04];
 	Rva005ED385 *m_04;
 };
-void Rva005ED5BB::rva005ED5BB(Int a0, Int a1)
+void Rva005ED5BB::rva005ED5BB(Int a0, Int image)
 {
-	m_04->rva005ED385(a0, (const Image *)a1);
+	m_04->rva005ED385(a0, (const Image *)image);
 }
 
 // 0x005ED6B9 is rowed on StrategicHUD::RegionAwardMovieClip::Impl.

@@ -64,15 +64,15 @@ void Rva005C3ACD::rva005C3ACD()
     if (!m_flag18)
         return;
     char *t = *(char **)(void *)&m_s08;
-    const char *s = t ? t + 8 : "";
-    Rva00524EF4AptCall((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), m_p04, s, "Hide");
+    const char *name = t ? t + 8 : "";
+    Rva00524EF4AptCall((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), m_p04, name, "Hide");
     do
     {
         --m_count1C;
-        Elem005C3ACD &e = m_arr20[m_count1C];
-        e.c08.clear();
-        e.b04.clear();
-        e.a00.clear();
+        Elem005C3ACD &entry = m_arr20[m_count1C];
+        entry.c08.clear();
+        entry.b04.clear();
+        entry.a00.clear();
     } while (m_count1C > 0);
     m_flag44 = 0;
     m_flag18 = 0;

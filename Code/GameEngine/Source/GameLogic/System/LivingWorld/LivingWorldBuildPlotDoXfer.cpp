@@ -155,15 +155,15 @@ void LivingWorldBuildPlot::DoXfer(Xfer *xfer)
 		if (buildingId != 0) {
 			AsciiString templateName;
 			(*xfer == templateName);
-			const Rva003F1BD3TemplateView *templ = (const Rva003F1BD3TemplateView *)
+			const Rva003F1BD3TemplateView *buildingTemplate = (const Rva003F1BD3TemplateView *)
 				((Rva0059E647Factory *)TheLivingWorldBuildingTemplateStore)->Lookup((int *)&templateName);
-			if (templ) {
-				m_building.rva00575674((Object *)new LivingWorldBuilding(m_region, m_position, templ, buildingId));
+			if (buildingTemplate) {
+				m_building.rva00575674((Object *)new LivingWorldBuilding(m_region, m_position, buildingTemplate, buildingId));
 				(*xfer == *reinterpret_cast<Snapshot *>(m_building.get()));
 			} else {
-				templ = (const Rva003F1BD3TemplateView *)
+				buildingTemplate = (const Rva003F1BD3TemplateView *)
 					((LivingWorldBuildingTemplateStore *)TheLivingWorldBuildingTemplateStore)->getEmergencyBackupTemplateForBadLoads();
-				m_building.rva00575674((Object *)new LivingWorldBuilding(m_region, m_position, templ, buildingId));
+				m_building.rva00575674((Object *)new LivingWorldBuilding(m_region, m_position, buildingTemplate, buildingId));
 				(*xfer == *reinterpret_cast<Snapshot *>(m_building.get()));
 				((Rva000AD6F4 *)&m_building)->clear();
 				m_buildFrames = 0;

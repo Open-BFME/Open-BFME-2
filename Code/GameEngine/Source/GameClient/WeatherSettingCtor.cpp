@@ -13,7 +13,7 @@
 #include "Lib/RGBColor.h"
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
-inline void setWeatherPair(Coord2D &v,float x,float y){v.x=x;v.y=y;}
+inline void setWeatherPair(Coord2D &pair,float x,float y){pair.x=x;pair.y=y;}
 
 class Overridable
 {

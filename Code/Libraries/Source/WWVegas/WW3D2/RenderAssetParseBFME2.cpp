@@ -150,7 +150,7 @@ class AssetReference{public:~AssetReference(){if(pointer)pointer->Release_Ref();
 AssetReference Rva009EBEC0(const AssetName &);
 class Rva0013BE70Host{public:void opaqueCall(const char *);};
 extern bool g_Va00DB6218;
-static float renderAssetAbs(float v){int b=*(int *)&v;b&=0x7fffffff;return *(float *)&b;}
+static float renderAssetAbs(float v){int bits=*(int *)&v;bits&=0x7fffffff;return *(float *)&bits;}
 // WB9B42B0 RenderAsset::CreateRenderObj renderasset.cpp614..620; native
 //13682B..136A21 supplies option bits and counted lifetime independently.
 RenderObjClass *RenderAsset::CreateRenderObj(const char *name,float scale,const Rva0013101E &options,Strings &textures,Strings &replacements,Strings &excluded)

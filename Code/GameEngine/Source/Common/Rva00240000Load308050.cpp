@@ -32,7 +32,7 @@ namespace _STL { template <> __declspec(dllimport) __forceinline void _STLP_allo
 
 namespace _STL {
 template <> __declspec(dllimport) __forceinline
-allocator<char> &__stl_alloc_rebind(allocator<char> &a, const char *) { return a; }
+allocator<char> &__stl_alloc_rebind(allocator<char> &alloc, const char *) { return alloc; }
 }
 namespace _STL {
 template <> __declspec(dllimport) __forceinline
@@ -63,7 +63,7 @@ public:
 	typedef allocator<char> allocator_type;
 	typedef unsigned int size_type;
 
-	explicit vector(const allocator_type &a = allocator_type()) : _Vector_base<char, allocator<char> >(a) {}
+	explicit vector(const allocator_type &alloc = allocator_type()) : _Vector_base<char, allocator<char> >(alloc) {}
 	explicit vector(size_type n);
 
 	char *begin() { return this->_M_start; }
@@ -82,11 +82,11 @@ protected:
 		_Destroy(this->_M_start, this->_M_finish);
 		this->_M_end_of_storage.deallocate(this->_M_start, this->_M_end_of_storage._M_data - this->_M_start);
 	}
-	void _M_set(char *s, char *f, char *e)
+	void _M_set(char *start, char *finish, char *endOfStorage)
 	{
-		this->_M_start = s;
-		this->_M_finish = f;
-		this->_M_end_of_storage._M_data = e;
+		this->_M_start = start;
+		this->_M_finish = finish;
+		this->_M_end_of_storage._M_data = endOfStorage;
 	}
 	void _M_insert_overflow(char *position, const char &value, const __true_type &, unsigned int fill_len, bool at_end = false)
 	{
@@ -115,11 +115,11 @@ public:
 		else
 			_M_fill_insert(end(), newSize - size(), x);
 	}
-	void swap(vector<char, allocator<char> > &x)
+	void swap(vector<char, allocator<char> > &other)
 	{
-		_STLP_STD::swap(this->_M_start, x._M_start);
-		_STLP_STD::swap(this->_M_finish, x._M_finish);
-		_STLP_STD::swap(this->_M_end_of_storage, x._M_end_of_storage);
+		_STLP_STD::swap(this->_M_start, other._M_start);
+		_STLP_STD::swap(this->_M_finish, other._M_finish);
+		_STLP_STD::swap(this->_M_end_of_storage, other._M_end_of_storage);
 	}
 };
 
@@ -186,10 +186,10 @@ struct Rva00240000ByteVector : public std::vector<char>
 };
 
 // Closes the file when the read scope ends, on every path.
-struct Rva00307EDCFileCloser
+struct FileCloser
 {
-	Rva00307EDCFileCloser(File *file) : m_file(file) {}
-	~Rva00307EDCFileCloser()
+	FileCloser(File *file) : m_file(file) {}
+	~FileCloser()
 	{
 		if (m_file != NULL)
 			m_file->close();
@@ -232,7 +232,7 @@ bool rva00307EDC(AsciiString *path, Rva00240000ByteVector *data)
 	int size;
 	char *buffer;
 	{
-		Rva00307EDCFileCloser file(TheFileSystem->openFile(path->str(), 0x141, 0));
+		FileCloser file(TheFileSystem->openFile(path->str(), 0x141, 0));
 		if (file.m_file == NULL)
 			return false;
 

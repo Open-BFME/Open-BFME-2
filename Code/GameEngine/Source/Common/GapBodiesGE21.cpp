@@ -59,35 +59,35 @@ extern void *__gameMemReallocatePtr;
 
 
 // --- 0x0002FCC0 (68B): strdup through the rowed allocator<char>::allocate.
-char *rva0002FCC0(const char *s)
+char *rva0002FCC0(const char *source)
 {
-	if (s)
+	if (source)
 	{
-		char *copy = _STL::allocator<char>::allocate(strlen(s) + 1, GAP_RTS_TAG);
+		char *copy = _STL::allocator<char>::allocate(strlen(source) + 1, GAP_RTS_TAG);
 		if (copy)
-			return strcpy(copy, s);
+			return strcpy(copy, source);
 	}
 	return 0;
 }
 
 // --- 0x0002FD10 (58B): wcsdup through the same allocator, msvcr71 wcslen
 // and wcscpy imports.
-wchar_t *rva0002FD10(const wchar_t *s)
+wchar_t *rva0002FD10(const wchar_t *source)
 {
-	if (s)
+	if (source)
 	{
-		wchar_t *copy = (wchar_t *)_STL::allocator<char>::allocate(wcslen(s) * 2 + 2, GAP_RTS_TAG);
+		wchar_t *copy = (wchar_t *)_STL::allocator<char>::allocate(wcslen(source) * 2 + 2, GAP_RTS_TAG);
 		if (copy)
-			return wcscpy(copy, s);
+			return wcscpy(copy, source);
 	}
 	return 0;
 }
 
 // --- 0x0002FD50 (6B): _mbsdup forwarder (tail jump through the import).
 
-unsigned char *rva0002FD50(const unsigned char *s)
+unsigned char *rva0002FD50(const unsigned char *source)
 {
-	return _mbsdup(s);
+	return _mbsdup(source);
 }
 
 // --- 0x0002FDC0 / 0x0002FE00 (22B each): the file/line operator new forms,

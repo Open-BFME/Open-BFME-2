@@ -122,7 +122,7 @@ class SubTitleWindow
 {
 public:
  ~SubTitleWindow();
-	SubTitleWindow(GameFont *font, float f2, float f3, int i4, int count, int i6, int i7);
+	SubTitleWindow(GameFont *font, float originX, float bottomY, int boxWidth, int count, int i6, int i7);
 private:
 	DisplayString *m_00;
 	GameFont *m_04;
@@ -152,14 +152,14 @@ private:
 };
 
 
-SubTitleWindow::SubTitleWindow(GameFont *font, float f2, float f3, int i4, int count, int i6, int i7)
+SubTitleWindow::SubTitleWindow(GameFont *font, float originX, float bottomY, int boxWidth, int count, int i6, int i7)
 	: m_00(0)
 	, m_04(font)
 	, m_vec()
 	, m_14(4)
 	, m_18(i6)
 	, m_1c(0)
-	, m_20(i4)
+	, m_20(boxWidth)
 	, m_24(count)
 	, m_28(0)
 	, m_2c(i7)
@@ -185,21 +185,21 @@ SubTitleWindow::SubTitleWindow(GameFont *font, float f2, float f3, int i4, int c
 		m_34[i] = TheDisplayStringManager->newDisplayString();
 		m_34[i]->setFont(m_04);
 	}
-	int w;
-	int h;
+	int textWidth;
+	int lineHeight;
 	{
 		m_34[0]->setText(UnicodeString((const unsigned short*)L" "));
-		m_34[0]->getSize(&w, &h);
-		m_30=h;
-        m_48=(float)h*(1.0f/15.0f);
-        m_4c=f2;
-        m_50=f3-(float)((m_24-1)*h);
-        m_54=(float)m_20+f2;
-        m_58=f3;
-        m_5c=(float)(h>>1)+f2;
-        m_60=(float)(h>>1)+m_50;
-        m_64=(float)m_20-(float)h+m_5c;
-        m_68=(float)((m_24-2)*h)+m_60;
+		m_34[0]->getSize(&textWidth, &lineHeight);
+		m_30=lineHeight;
+        m_48=(float)lineHeight*(1.0f/15.0f);
+        m_4c=originX;
+        m_50=bottomY-(float)((m_24-1)*lineHeight);
+        m_54=(float)m_20+originX;
+        m_58=bottomY;
+        m_5c=(float)(lineHeight>>1)+originX;
+        m_60=(float)(lineHeight>>1)+m_50;
+        m_64=(float)m_20-(float)lineHeight+m_5c;
+        m_68=(float)((m_24-2)*lineHeight)+m_60;
 	}
 	((_STL::vector<const ModuleData *>*)&g_bfmeBegKA)->push_back((const ModuleData *)this);
 	DisplayString *cur = TheDisplayStringManager->newDisplayString();

@@ -61,10 +61,10 @@ struct Rva0056AA54Arg
 	Rva0056AA54Holder m_holder;
 };
 
-bool __stdcall rva0056AA54(void *a, void *b)
+bool __stdcall rva0056AA54(void *owner, void *context)
 {
 	SpawnArmy local(0);
-	((Rva0056AA54Arg *)a)->m_holder.rvaMethod(b, &local);
+	((Rva0056AA54Arg *)owner)->m_holder.rvaMethod(context, &local);
 	bool ok = (local.m_48 == 1);
 	return ok;
 }

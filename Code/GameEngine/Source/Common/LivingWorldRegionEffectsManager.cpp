@@ -209,20 +209,20 @@ private:
 
 void LivingWorldRegionEffectsManager::SyncRegion(int argInt)
 {
-	Rva003EF08BArg *arg = (Rva003EF08BArg *)argInt;
+	Rva003EF08BArg *regionArg = (Rva003EF08BArg *)argInt;
 	int faction;
 	switch (m_44) {
 	case 0:
-		faction = arg->m_13C;
+		faction = regionArg->m_13C;
 		break;
 	case 1:
-		faction = arg->m_140;
+		faction = regionArg->m_140;
 		break;
 	default:
 		faction = -1;
 		break;
 	}
-	if (arg->m_1A2 && faction != -1) {
+	if (regionArg->m_1A2 && faction != -1) {
 		int tmp[3];
 		((Rva003EE7CA *)this)->rva003EE7CA((int)&tmp, argInt);
 		rva003EE84A(argInt, (int)&tmp);

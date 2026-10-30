@@ -83,7 +83,7 @@ void Rva003F7260::rva003F7260(int *input)
 
     if (((RegionOwnerView *)region)->owner != owner04) {
         // Compiler scheduling adapter: retain each native owner-field access
-        // rather than a common address temporary. Emits no instructions.
+        // rather than anchorIndex common address temporary. Emits no instructions.
         _ReadWriteBarrier();
         if (otherRegion18 > newCost)
             otherRegion18 = newCost;
@@ -96,18 +96,18 @@ void Rva003F7260::rva003F7260(int *input)
         }
     }
 
-    for (int p = 0; p < (int)((WorldLogicRegionView *)TheLivingWorldLogic)->players.size(); ++p) {
-        Rva002E2903Player *player = ((Rva002BA8F1Logic *)TheLivingWorldLogic)->GetPlayerAtIndex(p);
+    for (int playerIndex = 0; playerIndex < (int)((WorldLogicRegionView *)TheLivingWorldLogic)->players.size(); ++playerIndex) {
+        Rva002E2903Player *player = ((Rva002BA8F1Logic *)TheLivingWorldLogic)->GetPlayerAtIndex(playerIndex);
         WorldPlayerRegionView *view = (WorldPlayerRegionView *)player;
         const _STL::vector<RegionAnchorView *> &anchors = view->getAnchors();
-        for (unsigned a = 0; a < anchors.size(); ++a) {
-            if (((Rva00318C79Owner *)anchors[a])->rva00318C32() == (Rva00318C32Ret *)region) {
-                RegionAnchorView *anchor = anchors[a];
+        for (unsigned anchorIndex = 0; anchorIndex < anchors.size(); ++anchorIndex) {
+            if (((Rva00318C79Owner *)anchors[anchorIndex])->rva00318C32() == (Rva00318C32Ret *)region) {
+                RegionAnchorView *anchor = anchors[anchorIndex];
                 if (!anchor->name.isEmpty()) {
                     if (player == owner) {
                         if (ownNamed10 > newCost) {
                             ownNamed10 = newCost;
-                            ownNamed24 = anchors[a];
+                            ownNamed24 = anchors[anchorIndex];
                             if (ownAny14 > newCost)
                                 ownAny14 = newCost;
                         }
@@ -116,15 +116,15 @@ void Rva003F7260::rva003F7260(int *input)
                             otherNamed08 = newCost;
                             if (otherAny0c > newCost) {
                                 otherAny0c = newCost;
-                                otherAny20 = anchors[a];
-                                selected1c = anchors[a];
+                                otherAny20 = anchors[anchorIndex];
+                                selected1c = anchors[anchorIndex];
                             }
                         }
                     }
                 } else if (!anchor->flag74 && player == owner) {
                     if (ownAny14 > newCost) {
                         ownAny14 = newCost;
-                        selected1c = anchors[a];
+                        selected1c = anchors[anchorIndex];
                     }
                 }
             }

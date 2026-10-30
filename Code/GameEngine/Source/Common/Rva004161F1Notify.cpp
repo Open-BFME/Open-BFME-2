@@ -57,22 +57,22 @@ unsigned char g_Va00A03094;
 #define G_BuddyTime98 g_Va00A03098
 #define G_BuddyFlag94 g_Va00A03094
 
-void __cdecl Rva004161F1Notify(AsciiString a, UnicodeString u)
+void __cdecl Rva004161F1Notify(AsciiString playerName, UnicodeString message)
 {
 	if (TheBuddy00517048Owner != 0)
 	{
 		if (G_BuddyFlag8C != 0 && G_BuddyCount90 > 1)
 		{
-			u = TheGameText->fetch("Buddy:MultipleOnlineNotification", 0);
+			message = TheGameText->fetch("Buddy:MultipleOnlineNotification", 0);
 		}
-		if (!a.isEmpty())
+		if (!playerName.isEmpty())
 		{
-			u.format(&u, a.str());
+			message.format(&message, playerName.str());
 		}
 		unsigned long t = timeGetTime();
 		G_BuddyTime98 = (int)(t + 0xBB8);
 		G_BuddyFlag94 = 1;
-		TheBuddy00517048Owner->rva00517048(u);
+		TheBuddy00517048Owner->rva00517048(message);
 	}
 }
 
@@ -181,7 +181,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 extern PlayerList *ThePlayerList;
 extern InGameUI *TheInGameUI;
 
-void __cdecl Rva004162B7Notify(AsciiString a, UnicodeString u)
+void __cdecl Rva004162B7Notify(AsciiString a, UnicodeString message)
 {
 	int localSlot = TheGameInfo->getLocalSlot();
 	GameSlot *slot = TheGameInfo->getSlot(localSlot);
@@ -190,7 +190,7 @@ void __cdecl Rva004162B7Notify(AsciiString a, UnicodeString u)
 	Player *player = ThePlayerList->findPlayerWithNameKey(key);
 	if (player == 0)
 	{
-		TheInGameUI->slot4c(UnicodeString(L"%s"), u.str());
+		TheInGameUI->slot4c(UnicodeString(L"%s"), message.str());
 	}
 	else
 	{
@@ -202,7 +202,7 @@ void __cdecl Rva004162B7Notify(AsciiString a, UnicodeString u)
 			goto done;
 		RGBColor color;
 		color.setFromInt(player->m_color280);
-		TheInGameUI->slot44(&color, UnicodeString(L"%s"), u.str());
+		TheInGameUI->slot44(&color, UnicodeString(L"%s"), message.str());
 	done:;
 	}
 }
@@ -211,12 +211,12 @@ void __cdecl Rva004162B7Notify(AsciiString a, UnicodeString u)
 
 extern GameLogic *TheGameLogic;
 
-void __cdecl Rva004163E1Notify(AsciiString a, UnicodeString u)
+void __cdecl Rva004163E1Notify(AsciiString playerName, UnicodeString message)
 {
 	if (TheGameLogic->m_110 != 5)
-		Rva004161F1Notify(a, u);
+		Rva004161F1Notify(playerName, message);
 	else
-		Rva004162B7Notify(a, u);
+		Rva004162B7Notify(playerName, message);
 }
 
 // ?g_Va00A04904@@3PAURva00517048@@A: matched references place it at VA 0xe04904; also referenced as ?g_Va00E04904@@3HA.

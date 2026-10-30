@@ -23,7 +23,7 @@ class Object { public: Drawable *getDrawable() const; Player *getControllingPlay
 template<int N> class Rva00464830Slots:public Rva00464830Slots<N-1> { public: virtual void gap(char (*)[N]); };
 template<> class Rva00464830Slots<0> {};
 class Rva00464830OnContaining:public Rva00464830Slots<22> { public: virtual void onContaining(Object *,bool); };
-struct Rva00464830Object { char unknown00[0x74]; int id74; char unknown78[0x250-0x78]; Rva00464830OnContaining *contain250; char unknown254[0x274-0x254]; Object *containedBy274; };
+struct Rva00464830Object { char unknown00[0x74]; int id74; char unknown78[0x250-0x78]; Rva00464830OnContaining *m_contain; char unknown254[0x274-0x254]; Object *m_containedBy; };
 struct Rva00464830Mask { unsigned words[4]; bool test(int i) const { return (words[i/32]>>(i%32))&1; } };
 class Rva00464830Primary:public Rva00464830Slots<18> { public: virtual void redeploy(); virtual void gap19(); virtual void gap20(); virtual void loadSound(); virtual void gap22(); virtual void gap23(); virtual void world(Object *,int,int); };
 struct Rva00464830Data { char unknown00[0x88]; _STL::vector<AsciiString> bonuses; };
@@ -48,10 +48,10 @@ void OpenContain::addToContain(Object *rider)
     Drawable *draw = rider->getDrawable();
     bool selected = false;
     if (draw && draw->selected43C) selected = true;
-    if (reinterpret_cast<Rva00464830Object *>(rider)->containedBy274) return;
+    if (reinterpret_cast<Rva00464830Object *>(rider)->m_containedBy) return;
     addList(rider);
     playerMask58 = 1U << rider->getControllingPlayer()->index54;
-    Rva00464830OnContaining *contain = reinterpret_cast<Rva00464830Object *>(object())->contain250;
+    Rva00464830OnContaining *contain = reinterpret_cast<Rva00464830Object *>(object())->m_contain;
     if (contain) contain->onContaining(rider,selected);
     primary()->redeploy();
     rider->onContainedBy(object());

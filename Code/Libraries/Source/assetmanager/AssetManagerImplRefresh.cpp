@@ -206,16 +206,16 @@ void Q1Receiver0134FAAC::refresh()
 	known.m_set.get().insert(m_set1b8.m_tree.begin(), m_set1b8.m_tree.end());
 	known.m_one = true;
 
-	for (int q = 0; q < 7; ++q)
+	for (int queueIndex = 0; queueIndex < 7; ++queueIndex)
 	{
-		for (unsigned int i = 0; i < m_deques78[q].size(); ++i)
+		for (unsigned int i = 0; i < m_deques78[queueIndex].size(); ++i)
 		{
-			Rva009EF0D0Element *entry = (Rva009EF0D0Element *)m_deques78[q][i];
+			Rva009EF0D0Element *entry = (Rva009EF0D0Element *)m_deques78[queueIndex][i];
 			if ((known.m_set.get().find((Rva001408C0Key)entry->m_key08) !=
-					known.m_set.get().end()) == (q < 4))
+					known.m_set.get().end()) == (queueIndex < 4))
 				continue;
-			entry->m_bit25 = q > 3;
-			if (q == 3 && !entry->m_bit26)
+			entry->m_bit25 = queueIndex > 3;
+			if (queueIndex == 3 && !entry->m_bit26)
 			{
 				Q1ReceiverPendingPair value(entry->m_field10, Rva00620A00Record());
 				value.second.m_entry = entry;
@@ -225,21 +225,21 @@ void Q1Receiver0134FAAC::refresh()
 				q1ReceiverQueue.pop_back();
 				--i;
 			}
-			else if (q == 4)
+			else if (queueIndex == 4)
 			{
 				entry->m_queue = 3;
 				m_field20 += (unsigned int)entry->slot38();
-				Q1ReceiverQueue &q4 = m_deques78[4];
-				m_deques78[entry->m_queue].push_back(q4[i]);
-				q4[i] = q4[q4.size() - 1];
-				q4.pop_back();
+				Q1ReceiverQueue &queue4 = m_deques78[4];
+				m_deques78[entry->m_queue].push_back(queue4[i]);
+				queue4[i] = queue4[queue4.size() - 1];
+				queue4.pop_back();
 				--i;
 			}
-			else if (q == 0)
+			else if (queueIndex == 0)
 			{
 				entry->m_queue = 7;
-				m_deques78[q][i] = m_deques78[q][m_deques78[q].size() - 1];
-				m_deques78[q].pop_back();
+				m_deques78[queueIndex][i] = m_deques78[queueIndex][m_deques78[queueIndex].size() - 1];
+				m_deques78[queueIndex].pop_back();
 				--i;
 			}
 		}
@@ -260,9 +260,9 @@ void Q1Receiver0134FAAC::refresh()
 		m_deques78[3].push_back(*(const int *)&it->second.m_entry);
 
 	Q1ReceiverQueue *queues = m_deques78;
-	Q1ReceiverQueue &r1 = m_deques78[1];
-	Q1ReceiverQueue &r0 = m_deques78[0];
-	Q1ReceiverQueue &r2 = m_deques78[2];
+	Q1ReceiverQueue &queue1 = m_deques78[1];
+	Q1ReceiverQueue &queue0 = m_deques78[0];
+	Q1ReceiverQueue &queue2 = m_deques78[2];
 	for (int pass = 0; pass < 2; ++pass)
 	{
 		BfmeThingBVA keys;
@@ -295,9 +295,9 @@ void Q1Receiver0134FAAC::refresh()
 		}
 
 		if (pass == 0)
-			m_field1e0 = r0.size() + r1.size() + queues[2].size();
+			m_field1e0 = queue0.size() + queue1.size() + queues[2].size();
 		else
-			m_field1e4 = r0.size() + r1.size() + r2.size() - m_field1e0;
+			m_field1e4 = queue0.size() + queue1.size() + queue2.size() - m_field1e0;
 	}
 }
 

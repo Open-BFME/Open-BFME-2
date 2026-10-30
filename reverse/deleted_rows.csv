@@ -4213,3 +4213,7 @@ __ehhandler$?rva0004E5A2@W3DRadar@@QAEXHHHHH@Z,0x0075D490,"Renamed to __ehhandle
 ?rva00041D97@Win32GameEngine@@UAEPAXXZ,0x00041D97,"Renamed to ?createThingFactory@Win32GameEngine@@UAEPAXXZ by tools/rename.py (inferred)"
 ?rva00042091@Win32GameEngine@@UAEPAXXZ,0x00042091,"Renamed to ?createModuleFactory@Win32GameEngine@@UAEPAXXZ by tools/rename.py (inferred)"
 ?rva0004C709@Rva004C743@@UAEPAVWin32Mouse@@XZ,0x0004C709,"Renamed to ?createMouse@Rva004C743@@UAEPAVWin32Mouse@@XZ by tools/rename.py (inferred)"
+?rva0055A8E2@ScoredKillTracker@@QAEXI@Z,0x0055A8E2,"Renamed to ?setLifetime@ScoredKillTracker@@QAEXI@Z by tools/rename.py (inferred)"
+?rva0055A8F2@ScoredKillTracker@@QAEXABVRva00360D26Member@@@Z,0x0055A8F2,"Renamed to ?setFilter@ScoredKillTracker@@QAEXABVRva00360D26Member@@@Z by tools/rename.py (inferred)"
+?rva005F64C0@Rva005F64C0@@QAEXH@Z,0x005F64C0,"Renamed to ?setLeaderRank@Rva005F64C0@@QAEXH@Z by tools/rename.py (inferred)"
+??1Rva00307EDCFileCloser@@QAE@XZ,0x00306EF5,"Renamed to ??1FileCloser@@QAE@XZ by tools/rename.py (inferred)"

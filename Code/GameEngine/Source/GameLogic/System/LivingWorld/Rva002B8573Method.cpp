@@ -34,7 +34,7 @@ class Rva002B8573
 public:
 	virtual bool rva002B8573(Rva003190A5 *a);
  ~Rva002B8573() {}
- Rva002B8573(_STL::vector<Object*> *v, Rva002B8573Filter *f):m_vec04(v),m_flt08(f) {}
+ Rva002B8573(_STL::vector<Object*> *out, Rva002B8573Filter *filter):m_vec04(out),m_flt08(filter) {}
 private:
 	_STL::vector<Object *> *m_vec04;
 	Rva002B8573Filter *m_flt08;
@@ -67,7 +67,7 @@ class Rva002B85B1
 public:
 	virtual bool rva002B85B1(Rva003190A5 *a);
  ~Rva002B85B1() {}
- Rva002B85B1(_STL::vector<Object*> *v, int id):m_vec04(v),m_08(id) {}
+ Rva002B85B1(_STL::vector<Object*> *out, int id):m_vec04(out),m_08(id) {}
 private:
 	_STL::vector<Object *> *m_vec04;
 	int m_08;

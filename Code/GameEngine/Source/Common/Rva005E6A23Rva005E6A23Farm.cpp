@@ -61,7 +61,7 @@ class Rva005E6B3E {public:void updateTooltip();char unknown0[4];void*clip;char u
 struct TargetRef00217D4C {void*vtable;int count;};
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
 struct TreeHintRef00217D4C {
- TreeHintRef00217D4C(TargetRef00217D4C*p=0):m_ptr(p){if(p)++p->count;}
+ TreeHintRef00217D4C(TargetRef00217D4C*target=0):m_ptr(target){if(target)++target->count;}
  ~TreeHintRef00217D4C(){if(m_ptr)ReleaseTreeHintRef00217D4C(m_ptr);}
  TreeHintRef00217D4C&operator=(const TreeHintRef00217D4C&);
  TargetRef00217D4C*m_ptr;

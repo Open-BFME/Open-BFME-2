@@ -48,7 +48,7 @@ public:
 	int typeC;
 };
 
-__forceinline static int dec(int *p) { return --*p; }
+__forceinline static int dec(int *m_refCount) { return --*m_refCount; }
 
 class Rva006D07E0Key
 {
@@ -153,17 +153,17 @@ public:
 	__forceinline Rva006D0790 *operator->() const { return ptr; }
 	~Rva006D0790Ref()
 	{
-		Rva006D0790 *p = ptr;
-		if (p && dec(&p->count) == 0) {
-			Rva006D0280 *r = p->key.m_object;
-			if (r && dec(&r->m_useCount) == 0) {
-				Rva006D0280 *q = p->key.m_object;
+		Rva006D0790 *record = ptr;
+		if (record && dec(&record->count) == 0) {
+			Rva006D0280 *fileObject = record->key.m_object;
+			if (fileObject && dec(&fileObject->m_useCount) == 0) {
+				Rva006D0280 *q = record->key.m_object;
 				if (q) {
 					q->~Rva006D0280();
 					g_pChainBlockAllocator->freeBlock(q, 0x1c);
 				}
 			}
-			g_pChainBlockAllocator->freeBlock(p, 0x10);
+			g_pChainBlockAllocator->freeBlock(record, 0x10);
 		}
 	}
 	Rva006D0790 *ptr;
@@ -455,7 +455,7 @@ class Rva006D1D10 : public AptLinker
 public:
 	void update(Rva006D07E0Key first, Rva006D07E0Key second);
 private:
-	__forceinline void push_front(const Rva006D0790Ref &r) { ((Rva006D15B0Stack *)this)->push((int *const *)&r); }
+	__forceinline void push_front(const Rva006D0790Ref &link) { ((Rva006D15B0Stack *)this)->push((int *const *)&link); }
 };
 
 // WB 0x01752A20 shape: found = *find(first), it = findLink(target), end() test, erase only when found.

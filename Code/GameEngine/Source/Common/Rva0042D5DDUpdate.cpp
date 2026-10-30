@@ -38,9 +38,9 @@ private:
 
 void StrategicHUD::HUD::Show()
 {
-	int c = m_impl->m_08;
-	if (c != 0) {
-		if (c > 2 && c <= 4) {
+	int state = m_impl->m_08;
+	if (state != 0) {
+		if (state > 2 && state <= 4) {
 			Rva00516F21Invoke((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), m_impl->m_04, "SetState", "_fadeIn");
 			m_impl->m_08 = 2;
 		}

@@ -88,10 +88,10 @@ void MovieWindowPlayback::OpenMovie(const AsciiString &name,int value){
  if(!m_0C)return;
  if(m_0C->subtitles && m_0C->subtitles->font){
   float width=((BfmeSelectionState*)TheLivingWorldLogic)->isSelectionLocked()?MovieSubtitleLockedWidth:MovieSubtitleNormalWidth;
-  int y=(int)(TheDisplay->height()*MovieSubtitleYScale);
-  int w=(int)(TheDisplay->width()*width);
-  int x=(int)(TheDisplay->height()*MovieSubtitleXScale);
-  TheDisplay->drawSubtitle(m_0C->subtitles->font,(float)y,(float)w,x,MovieSubtitleDrawWord0,MovieSubtitleDrawWord1,MovieSubtitleDrawWord2);
+  int subtitleY=(int)(TheDisplay->height()*MovieSubtitleYScale);
+  int subtitleWidth=(int)(TheDisplay->width()*width);
+  int subtitleX=(int)(TheDisplay->height()*MovieSubtitleXScale);
+  TheDisplay->drawSubtitle(m_0C->subtitles->font,(float)subtitleY,(float)subtitleWidth,subtitleX,MovieSubtitleDrawWord0,MovieSubtitleDrawWord1,MovieSubtitleDrawWord2);
  }
  MovieStream *playing=m_0C;
  if(!playing->start(TheDisplay->buffer((value&0x40)!=0))){clear();return;}

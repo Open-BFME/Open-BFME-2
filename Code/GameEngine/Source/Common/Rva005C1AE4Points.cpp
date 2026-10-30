@@ -151,7 +151,7 @@ class Rva005DDED5:public BfmeStringRecord005DDD40 {public:Rva005DDED5(unsigned i
 class Rva005DD772:public BfmeStringRecord005DDD40 {public:Rva005DD772(const UnicodeString&,float);};
 class Rva005DDE01{public:void AddStat(unsigned int,unsigned int,const BfmeStringRecord005DDD40&,bool);};
 class GameStats{public:class Persistent{public:void CalculateTotalColumn(float);};};
-static __forceinline float ScaleCounts(int a,int b){float sum=(float)a;sum+=(float)b;return sum*100.0f;}
+static __forceinline float ScaleCounts(int first,int second){float sum=(float)first;sum+=(float)second;return sum*100.0f;}
 class Rva005C1BDEView {public:void call(Rva005DDE01*);};
 void Rva005C1BDEView::call(Rva005DDE01*table){
 float total=0;UserPreferences*prefs=(UserPreferences*)((char*)this+8);

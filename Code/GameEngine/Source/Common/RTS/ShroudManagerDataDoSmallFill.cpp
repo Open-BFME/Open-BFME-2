@@ -230,9 +230,9 @@ private:friend class ShroudManager::Data;
 };
 
 // Calls retain the existing provider owner spellings; no alias or new pin.
-__forceinline int updateFloor(float x){return smallFillInteger((float)floor((double)x));}
-__forceinline int updateCeil(float x){return smallFillInteger((float)ceil((double)x));}
-static __forceinline int updateDistance(Gen_008F7CD0 *grid,float w){return updateCeil(w*grid->scale);}
+__forceinline int updateFloor(float gridCoordinate){return smallFillInteger((float)floor((double)gridCoordinate));}
+__forceinline int updateCeil(float cellDistance){return smallFillInteger((float)ceil((double)cellDistance));}
+static __forceinline int updateDistance(Gen_008F7CD0 *grid,float distance){return updateCeil(distance*grid->scale);}
 void ShroudManager::Data::UpdateCellsTouched()
 {
  if(!object && !ghost)return;
@@ -281,5 +281,5 @@ void ShroudManager::Data::UpdateCellsTouched()
    cellX=x;cellY=y;((UpdateOwner*)object)->cellChanged();
   }
  }
- for(int p=0;p<20;++p)shroudedness[p]=0;
+ for(int playerIndex=0;playerIndex<20;++playerIndex)shroudedness[playerIndex]=0;
 }

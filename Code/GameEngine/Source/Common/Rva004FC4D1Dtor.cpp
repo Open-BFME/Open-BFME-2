@@ -98,14 +98,14 @@ void LivingWorldBuildPlot::BeginTurn(int a, int b)
 {
 	if (!a)
 	{
-		Rva005392C2 *p = (Rva005392C2 *)m_24.m_ptr;
-		if (p)
-			p->v08(m_20.m_ptr != 0, true);
+		Rva005392C2 *icon = (Rva005392C2 *)m_24.m_ptr;
+		if (icon)
+			icon->v08(m_20.m_ptr != 0, true);
 	}
 	if (!b)
 	{
-		Rva005392C2 *p = (Rva005392C2 *)m_24.m_ptr;
-		if (p)
-			p->rva005392C2();
+		Rva005392C2 *icon = (Rva005392C2 *)m_24.m_ptr;
+		if (icon)
+			icon->rva005392C2();
 	}
 }

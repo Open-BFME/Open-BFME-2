@@ -214,7 +214,7 @@ inline __declspec(noinline) float Coord3D::length() const
 void Rva003909FAObj::consume(void *forceArg, int source, int weapon)
 {
 	const Coord3D *force = (const Coord3D *)forceArg;
-	const Rva003909FAModuleData *d = m_moduleData;
+	const Rva003909FAModuleData *moduleData = m_moduleData;
 	Object *obj = m_object;
 	if (obj->m_holder274 && !(obj->m_holder274->m_template->m_flags115 & 0x20))
 	{
@@ -240,12 +240,12 @@ void Rva003909FAObj::consume(void *forceArg, int source, int weapon)
 	float sim = height;
 	int i;
 	for (i = 0; i < maxFrames && sim > 0.0f; ++i)
-		sim += d->m_factor * ((Rva003909FAGlobalDataView *)TheWritableGlobalData)->m_gravity * i;
+		sim += moduleData->m_factor * ((Rva003909FAGlobalDataView *)TheWritableGlobalData)->m_gravity * i;
 	float vz = force->z;
 	if (force->length() * 0.25f > vz && i < 2)
 		vz = force->length() * 0.25f;
 	unsigned duration = (unsigned)fabs(2.0f * vz /
-		(d->m_factor * ((Rva003909FAGlobalDataView *)TheWritableGlobalData)->m_gravity));
+		(moduleData->m_factor * ((Rva003909FAGlobalDataView *)TheWritableGlobalData)->m_gravity));
 	if (duration < 1)
 		duration = 1;
 	duration += i;

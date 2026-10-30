@@ -34,8 +34,8 @@ public:
  void *vptr; Rva004693D9Definition *definition;
  char opaque008[0x188-8]; _STL::vector<Rva004693D9Slot> slots;
 };
-static __forceinline Coord2D &rva4693Scale(Coord2D &v,float f) {v.x*=f;v.y*=f;return v;}
-static __forceinline Coord2D &rva4693Sub(Coord2D &v,const Coord2D &r) {v.x-=r.x;v.y-=r.y;return v;}
+static __forceinline Coord2D &rva4693Scale(Coord2D &vec,float f) {vec.x*=f;vec.y*=f;return vec;}
+static __forceinline Coord2D &rva4693Sub(Coord2D &vec,const Coord2D &other) {vec.x-=other.x;vec.y-=other.y;return vec;}
 void Rva004693D9::rva004693D9()
 {
  int preferred=-1;
@@ -50,13 +50,13 @@ void Rva004693D9::rva004693D9()
  float scale=0.0f;
  Coord2D center; center.x=0;center.y=0;
  int count=0,index=0;
- for(Rva004693D9Slot *p=slots.begin();p!=slots.end();++index,++p) {
-  center.x+=p->position.x;center.y+=p->position.y;++count;
-  if(index==preferred) {center=p->position;count=1;break;}
+ for(Rva004693D9Slot *slot=slots.begin();slot!=slots.end();++index,++slot) {
+  center.x+=slot->position.x;center.y+=slot->position.y;++count;
+  if(index==preferred) {center=slot->position;count=1;break;}
  }
  if(count) {scale=1.0f/count;rva4693Scale(center,scale);}
- for(Rva004693D9Slot *p=slots.begin();p!=slots.end();++p) {
-  rva4693Sub(p->position,center);
-  p->original=p->position;
+ for(Rva004693D9Slot *slot=slots.begin();slot!=slots.end();++slot) {
+  rva4693Sub(slot->position,center);
+  slot->original=slot->position;
  }
 }

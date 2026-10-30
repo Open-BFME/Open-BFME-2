@@ -57,15 +57,15 @@ class Rva0035DA01 : public Rva001DBAA4 { public: virtual ~Rva0035DA01(); };
 __declspec(noinline) inline Rva0035DA01::~Rva0035DA01() { m_C = 0; }
 
 // ?bfmeAnchorRva0035DA01Dtor absent-from-retail
-void bfmeAnchorRva0035DA01Dtor(Rva0035DA01 *p)
+void bfmeAnchorRva0035DA01Dtor(Rva0035DA01 *transition)
 {
-	p->Rva0035DA01::~Rva0035DA01();
+	transition->Rva0035DA01::~Rva0035DA01();
 }
-void famgenDelete(Rva0035DA01 *p) { delete p; }
+void famgenDelete(Rva0035DA01 *transition) { delete transition; }
 
 class Rva0035D74A : public Rva001DBAA4 { public: virtual ~Rva0035D74A(); int m_pad10[9]; int m_field34; };
 Rva0035D74A::~Rva0035D74A() { m_C = 0; m_field34 = 0; }
-void famgenDelete(Rva0035D74A *p) { delete p; }
+void famgenDelete(Rva0035D74A *transition) { delete transition; }
 
 class MainMenuMediumScaleUpTransition : public Rva001DBAA4
 {
@@ -149,7 +149,7 @@ private:
 	GameWindow *m_44;
 };
 Rva0035E00F::~Rva0035E00F() { m_C = 0; }
-void famgenDelete(Rva0035E00F *p) { delete p; }
+void famgenDelete(Rva0035E00F *transition) { delete transition; }
 
 void Rva0035E00F::update(int index)
 {
@@ -183,11 +183,11 @@ void Rva0035E00F::update(int index)
 
 class Rva0035E2E6 : public Rva001DBAA4 { public: virtual ~Rva0035E2E6(); };
 Rva0035E2E6::~Rva0035E2E6() { m_C = 0; }
-void famgenDelete(Rva0035E2E6 *p) { delete p; }
+void famgenDelete(Rva0035E2E6 *transition) { delete transition; }
 
 class Rva0035E60B : public Rva001DBAA4 { public: virtual ~Rva0035E60B(); };
 Rva0035E60B::~Rva0035E60B() { m_C = 0; }
-void famgenDelete(Rva0035E60B *p) { delete p; }
+void famgenDelete(Rva0035E60B *transition) { delete transition; }
 
 // ?init@ButtonFlashTransition@@UAEXPAVGameWindow@@@Z @ 0x0035E97E (135B):
 // slot 1 offset 0x4 of vtable 0x008165F0 (class of ??1Rva0035E60B@@UAE@XZ).
@@ -261,19 +261,19 @@ void ButtonFlashTransition::init(GameWindow *win)
 
 class Rva0035EE66 : public Rva001DBAA4 { public: virtual ~Rva0035EE66(); };
 Rva0035EE66::~Rva0035EE66() { m_C = 0; }
-void famgenDelete(Rva0035EE66 *p) { delete p; }
+void famgenDelete(Rva0035EE66 *transition) { delete transition; }
 
 class Rva0035F1D0 : public Rva001DBAA4 { public: virtual ~Rva0035F1D0(); };
 Rva0035F1D0::~Rva0035F1D0() { m_C = 0; }
-void famgenDelete(Rva0035F1D0 *p) { delete p; }
+void famgenDelete(Rva0035F1D0 *transition) { delete transition; }
 
 class Rva0035F4A6 : public Rva001DBAA4 { public: virtual ~Rva0035F4A6(); };
 Rva0035F4A6::~Rva0035F4A6() { m_C = 0; }
-void famgenDelete(Rva0035F4A6 *p) { delete p; }
+void famgenDelete(Rva0035F4A6 *transition) { delete transition; }
 
 class Rva0035FA2A : public Rva001DBAA4 { public: virtual ~Rva0035FA2A(); };
 Rva0035FA2A::~Rva0035FA2A() { m_C = 0; }
-void famgenDelete(Rva0035FA2A *p) { delete p; }
+void famgenDelete(Rva0035FA2A *transition) { delete transition; }
 
 // Same virtuals as Rva0035FF76Ctor.cpp's view, so both units emit one
 // ??_7Rva0035FF76@@6B@ (its slots resolve as in that unit).
@@ -290,7 +290,7 @@ public:
 	virtual int getFrameLength();
 };
 Rva0035FF76::~Rva0035FF76() { m_C = 0; }
-void famgenDelete(Rva0035FF76 *p) { delete p; }
+void famgenDelete(Rva0035FF76 *transition) { delete transition; }
 
 
 // Placeholder virtuals in this unit's vftables: in retail, every vftable that holds

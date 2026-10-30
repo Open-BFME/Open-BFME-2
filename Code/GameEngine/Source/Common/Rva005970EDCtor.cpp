@@ -35,7 +35,7 @@ class Xfer::Version
 public:
 	unsigned char m_major;
 	unsigned char m_minor;
-	Version(unsigned char a, unsigned char b) : m_major(a), m_minor(b) {}
+	Version(unsigned char major, unsigned char minor) : m_major(major), m_minor(minor) {}
 };
 
 

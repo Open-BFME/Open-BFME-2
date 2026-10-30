@@ -150,9 +150,9 @@ bool ScoredKillTracker::rva0055A892(const Object*object){
 
 // Native55A8E2/55A8F2/55A904 reject configuration changes while hooked.
 // Scalar/filter assignments and each RET4 independently prove these ABIs.
-void ScoredKillTracker::rva0055A8E2(unsigned value){if(!m_keeper)m_lifetime=value;}
+void ScoredKillTracker::setLifetime(unsigned value){if(!m_keeper)m_lifetime=value;}
 
-void ScoredKillTracker::rva0055A8F2(const Rva00360D26Member &filter){if(!m_keeper)m_filter=filter;}
+void ScoredKillTracker::setFilter(const Rva00360D26Member &filter){if(!m_keeper)m_filter=filter;}
 
 void ScoredKillTracker::rva0055A904(unsigned value){if(!m_keeper)m_value0c=value;}
 
@@ -172,8 +172,8 @@ void ScoredKillTracker::rva0055A904(unsigned value){if(!m_keeper)m_value0c=value
 
 void ScoredKillTracker::friend_addTrackedKill(const Coord3D *src)
 {
-	int tmp = TheGameLogic->m_val;
-	m_trackedKills.push_back(tmp);
+	int frame = TheGameLogic->m_val;
+	m_trackedKills.push_back(frame);
 	++m_trackedKillsCount;
 	m_position.value = *src;
 }

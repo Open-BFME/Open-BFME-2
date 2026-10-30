@@ -78,14 +78,14 @@ void StrategicHUD::HeroArmyDetailsMovieClip::Impl::rva005F63EC(int rank)
 class Rva005F64C0
 {
 public:
-	void rva005F64C0(int rank);
+	void setLeaderRank(int rank);
 	void rva005F64C8(float progress);
 private:
 	char m_pad00[8];
 	StrategicHUD::HeroArmyDetailsMovieClip::Impl *m_ptr08;
 };
 
-void Rva005F64C0::rva005F64C0(int rank)
+void Rva005F64C0::setLeaderRank(int rank)
 {
 	return m_ptr08->rva005F63EC(rank);
 }

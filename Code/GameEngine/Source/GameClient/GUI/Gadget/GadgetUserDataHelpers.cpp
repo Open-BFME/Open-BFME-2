@@ -158,7 +158,7 @@ struct _PushButtonData
 	char m_byte00;			// +0x00
 	int m_int04;			// +0x04
 	int m_int08;			// +0x08
-	char m_byte0C;			// +0x0C
+	char m_drawBorder;			// +0x0C
 	int m_int10;			// +0x10
 	int m_int14;			// +0x14
 	int m_int18;			// +0x18
@@ -178,7 +178,7 @@ _PushButtonData::_PushButtonData() throw()
 	m_byte00 = 0;
 	m_int04 = 0;
 	m_int08 = 0;
-	m_byte0C = 0;
+	m_drawBorder = 0;
 	m_int10 = 0;
 	m_int14 = 0;
 	m_int18 = 0;
@@ -265,7 +265,7 @@ struct Rva003284B9Data
 	int m_int08;			// +0x08
 };
 
-void Rva003284B9(GameWindow *window, int a, int b)
+void Rva003284B9(GameWindow *window, int percent, int color)
 {
 	if (window == 0)
 		return;
@@ -273,8 +273,8 @@ void Rva003284B9(GameWindow *window, int a, int b)
 		(Rva003284B9Data *)window->winGetUserData();
 	if (data == 0)
 		data = (Rva003284B9Data *)getNewPushButtonData();
-	data->m_int04 = a;
-	data->m_int08 = b;
+	data->m_int04 = percent;
+	data->m_int08 = color;
 	data->m_byte00 = 2;
 	window->winSetUserData(data);
 }
@@ -291,7 +291,7 @@ void GadgetButtonSetBorder(GameWindow *gameWindow, unsigned int color, bool draw
 	_PushButtonData *pData = (_PushButtonData *)gameWindow->winGetUserData();
 	if (pData == 0)
 		pData = getNewPushButtonData();
-	pData->m_byte0C = (char)drawBorder;
+	pData->m_drawBorder = (char)drawBorder;
 	pData->m_int10 = (int)color;
 	gameWindow->winSetUserData(pData);
 }

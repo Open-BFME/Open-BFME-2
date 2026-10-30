@@ -43,11 +43,11 @@ protected:
 };
 // BFME 2's StateMachine constructor (owner, name key, flag), rowed by address.
 // Zero Hour's Coord3D::zero(); an inlined call keeps its stores in source order.
-static __forceinline void zeroCoord3D(Coord3D &c)
+static __forceinline void zeroCoord3D(Coord3D &coord)
 {
-	c.x = 0.0f;
-	c.y = 0.0f;
-	c.z = 0.0f;
+	coord.x = 0.0f;
+	coord.y = 0.0f;
+	coord.z = 0.0f;
 }
 class Rva002C9400ByteField
 {

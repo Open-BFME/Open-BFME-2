@@ -31,9 +31,9 @@ void Rva005D1B01::rva005D1B01(){
  Rva0020E89C*region=manager->rva0020EAF6(region10->id);
  Coord2D xy;
  if(((LivingWorldRegionManager*)manager)->GetRegionCenterPoint(region,&xy)){
-  Coord3D p;p.x=xy.x;p.y=xy.y;p.z=0;
-  ((Rva002BF4F3*)position0C)->rva002BF5B0((const Vector3*)&xy,(Vector3*)&p);
-  position0C->rva002BF09E(&p);
+  Coord3D center;center.x=xy.x;center.y=xy.y;center.z=0;
+  ((Rva002BF4F3*)position0C)->rva002BF5B0((const Vector3*)&xy,(Vector3*)&center);
+  position0C->rva002BF09E(&center);
  }
  finish(region10);
 }

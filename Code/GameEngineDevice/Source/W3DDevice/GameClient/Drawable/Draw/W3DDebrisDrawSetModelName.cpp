@@ -38,7 +38,7 @@ public:
 	Real X;
 	Real Y;
 	Real Z;
-	W3DDebrisDrawPoint(Real x, Real y, Real z) { X = x; Y = y; Z = z; }
+	W3DDebrisDrawPoint(Real posX, Real posY, Real posZ) { X = posX; Y = posY; Z = posZ; }
 };
 
 class W3DDebrisDrawRow

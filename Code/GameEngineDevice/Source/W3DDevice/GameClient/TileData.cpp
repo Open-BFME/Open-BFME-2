@@ -96,23 +96,23 @@ TileData::~TileData()
 
 // ---- from Code/GameEngine/Source/Common/TileData_hasRGBDataForWidth.cpp
 
-bool TileData::hasRGBDataForWidth(int v)
+bool TileData::hasRGBDataForWidth(int width)
 {
 	bool r;
-	if (v == 0x40) {
+	if (width == 0x40) {
 		r = 1;
-	} else if (v == 0x20) {
+	} else if (width == 0x20) {
 		r = 1;
-	} else if (v == 0x10) {
+	} else if (width == 0x10) {
 		r = 1;
-	} else if (v == 8) {
+	} else if (width == 8) {
 		r = 1;
-	} else if (v == 4) {
+	} else if (width == 4) {
 		r = 1;
-	} else if (v == 2) {
+	} else if (width == 2) {
 		r = 1;
 	} else {
-		r = (v == 1);
+		r = (width == 1);
 	}
 	return r;
 }

@@ -117,8 +117,8 @@ Rva005EDE64::Rva005EDE64(RegionAwardOwner*owner,int level,const AsciiString&name
  m_commands.AddRegionAwardCommand(prefix+m_name+"_OnPlayerClicked",RegionAwardBinding(this,&Rva005EDE64::OnPlayerClicked));
  ((StrategicHUD::RegionAwardMovieClip::Impl*)this)->SetRegionNameString(UnicodeString::TheEmptyString);
  for(int i=0;i<6;++i)((StrategicHUD::RegionAwardMovieClip::Impl*)this)->SetRegionBonusTextString(i,UnicodeString::TheEmptyString);
- int n=m_players.size();
- for(int i=0;i<n;++i){
+ int m_playerCount=m_players.size();
+ for(int i=0;i<m_playerCount;++i){
  ((StrategicHUD::RegionAwardMovieClip::Impl*)this)->SetPlayerString(i,"PlayerName",UnicodeString::TheEmptyString);
  ((StrategicHUD::RegionAwardMovieClip::Impl*)this)->SetPlayerString(i,"NumRegions",UnicodeString::TheEmptyString);
  ((StrategicHUD::RegionAwardMovieClip::Impl*)this)->SetPlayerString(i,"NumUnits",UnicodeString::TheEmptyString);

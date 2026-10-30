@@ -73,7 +73,7 @@ public:
 	virtual void _D21(char *a, char *b, int n, int x1, int x2, int x3, int x4, int x5);
 	virtual void _D22();
 	virtual void _D23();
-	virtual void rva00074A52(int x, int y, const char *text);
+	virtual void rva00074A52(int posX, int posY, const char *text);
 
 private:
 	int m_14;
@@ -84,7 +84,7 @@ private:
 	DrawIface *m_28;
 };
 
-void Rva0007517F::rva00074A52(int x, int y, const char *text)
+void Rva0007517F::rva00074A52(int posX, int posY, const char *text)
 {
 	if (m_1c == 0)
 		return;
@@ -97,5 +97,5 @@ void Rva0007517F::rva00074A52(int x, int y, const char *text)
 	}
 	m_28->d1(w);
 	m_28->d10(-1, (int)0xff000000);
-	m_28->d14(m_20 * x, m_24 * y + 13, 1, 1);
+	m_28->d14(m_20 * posX, m_24 * posY + 13, 1, 1);
 }

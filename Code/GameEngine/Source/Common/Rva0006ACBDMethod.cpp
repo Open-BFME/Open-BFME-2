@@ -86,8 +86,8 @@ public:
 
 __forceinline const char *GetStr0006ACBD(const AsciiString &asciiString)
 {
-	char *t = *(char * *)(void *)&asciiString;
-	return t ? t + 8 : "";
+	char *header = *(char * *)(void *)&asciiString;
+	return header ? header + 8 : "";
 }
 
 class BaseHeightMapRenderObjClass
@@ -132,8 +132,8 @@ void BaseHeightMapRenderObjClass::rva0006ACBD(AsciiString name)
 	if (name.isEmpty())
 		((StringBase<char> &)(StringBase<char> &)name).set((StringBase<char> &)m_3824);
 	((StringBase<char> &)m_3820).set((StringBase<char> &)name);
-	const char *s = GetStr0006ACBD(m_3820);
-	m_381C.m_tex = TextureAsset::Get(s, 0, 0);
+	const char *textureName = GetStr0006ACBD(m_3820);
+	m_381C.m_tex = TextureAsset::Get(textureName, 0, 0);
 	m_381C.getFilter()->_M_clear_nothrow(1);
 }
 

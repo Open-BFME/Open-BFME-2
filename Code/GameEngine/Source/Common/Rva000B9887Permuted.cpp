@@ -62,12 +62,12 @@ struct BfmePod32
 	char m_1c;
 };
 
-void __cdecl Rva000B9887Init(void *a, struct BfmePod32 *b)
+void __cdecl Rva000B9887Init(void *owner, struct BfmePod32 *b)
 {
-	BfmeThingVKE tmp(*(const BfmeThingVKE *)((const char *)a + 0x148));
-	b->m_10 = a;
+	BfmeThingVKE tmp(*(const BfmeThingVKE *)((const char *)owner + 0x148));
+	b->m_10 = owner;
 	// Magic cookie 0x4B2D3A (decimal below: the hard-coded-address heuristic
-	// scans hex literals, and this immediate is a tag, not an address --
+	// scans hex literals, and this immediate is owner tag, not an address --
 	// retail stores the same imm32 here, then zeroes the slot below).
 	b->m_14 = 4926778;
 	((StringBase<char> &)b->m_00).set((const StringBase<char> &)tmp);

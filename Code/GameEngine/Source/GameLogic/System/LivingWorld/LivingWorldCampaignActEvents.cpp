@@ -166,9 +166,9 @@ class BfmeRectVNI:public BfmeBaseVNI {
 public:BfmeRectVNI(unsigned,char);Rva005045DBTree tree0C;int at18;
 };
 struct ClonePointRecord32 {
-int at00;unsigned value04;Coord3D point08;float angle14;unsigned scaled18;char flag1C;
+int at00;unsigned value04;Coord3D point08;float m_angle;unsigned scaled18;char flag1C;
 unsigned value()const{return value04;}const Coord3D*point()const{return &point08;}
-float angle()const{return angle14;}unsigned scaled()const{return scaled18;}char flag()const{return flag1C;}
+float angle()const{return m_angle;}unsigned scaled()const{return scaled18;}char flag()const{return flag1C;}
 };
 struct CloneTreeRecord24 {
 int at00;unsigned value04;char flag08;Rva005045DBTree tree0C; unsigned value()const{return value04;}char flag()const{return flag08;}
