@@ -475,15 +475,15 @@ class Engine:
         i = bisect.bisect_left(self._sites, site - 0x60)
         return self._sites[i:bisect.bisect_left(self._sites, site)]
 
-    def passes_new_pointer(self, start, site):
-        """The allocator's result (eax at `start`) reaches the call at `site` unchanged in ecx.
+    def new_pointer_regs(self, start, site):
+        """Registers holding the allocator's result (eax at `start`) unchanged at the call at `site`.
 
         `lea ecx, [eax+N]` constructs a member of the new object, not the object."""
         from capstone import x86
         held = {x86.X86_REG_EAX}
         for insn in self.md.disasm(self.image.read(start, site - start + 5), start):
             if insn.address == site:
-                return x86.X86_REG_ECX in held
+                return held
             ops = insn.operands
             if insn.mnemonic == "mov" and len(ops) == 2 and ops[0].type == ops[1].type == x86.X86_OP_REG:
                 if ops[1].reg in held:
@@ -496,7 +496,7 @@ class Engine:
             except Exception:
                 written = ()
             held -= set(written)
-        return False
+        return set()
 
     def caller_end(self, site):
         """End (exclusive) of the matched body containing `site`, else None."""
@@ -510,46 +510,73 @@ class Engine:
                 return start + size
         return None
 
-    def vptr_overwritten(self, site):
-        """A vftable is stored over the object after the constructor call at `site`.
+    def allocation_unresolved(self, site, held):
+        """Nothing proves the allocation still holds the constructed object after the call at `site`.
 
         An inlined derived constructor calls its base, then installs its own
-        table: the allocation then holds the derived object. The scan runs to
-        the end of the caller's basic block (the end of its body when the
-        ledger rows it), not a fixed window: a derived constructor may write
-        its fields first. A store through an operand the scan cannot place (an
-        indexed one) still counts: retail then does not resolve the dynamic
-        type."""
+        table: the allocation then holds the derived object. The site is
+        resolved only by a straight line from the call to the end of the
+        caller's matched body: no jmp, jcc or loop, no other call (it may
+        continue the derived construction), no ret before the end, no vftable
+        stored through any operand, and no copy or offset of the object
+        pointer into another register (an alias the scan does not follow).
+        `held` are the registers holding the object at the call; the callee
+        keeps the callee-saved ones and returns it in eax."""
         from capstone import x86
-        start = site + 5
-        end = self.caller_end(site) or start + 0x2000
-        end = min(end, max(b for _, b in self.image.code))
-        if end <= start:
-            return False
+        start, end = site + 5, self.caller_end(site)
+        if end is None or end <= start:
+            return True
         try:
             code = self.image.read(start, end - start)
         except ValueError:
             return True
+        obj = (set(held) & {x86.X86_REG_EBX, x86.X86_REG_ESI, x86.X86_REG_EDI, x86.X86_REG_EBP}) \
+            | {x86.X86_REG_EAX}
+        pos = start
         for insn in self.md.disasm(code, start):
-            mnemonic = insn.mnemonic
-            if mnemonic.startswith(("ret", "j", "loop")):
-                return False
-            ops = insn.operands
+            pos, mnemonic, ops = insn.address + insn.size, insn.mnemonic, insn.operands
+            if mnemonic.startswith("ret"):
+                return code[pos - start:].strip(b"\xcc\x90") != b""
+            if mnemonic.startswith(("j", "loop", "call")):
+                return True
             if mnemonic == "mov" and len(ops) == 2 and ops[0].type == x86.X86_OP_MEM \
-                    and ops[0].mem.disp == 0 and ops[1].type == x86.X86_OP_IMM \
-                    and ops[0].mem.base not in (x86.X86_REG_ESP, x86.X86_REG_EBP) \
+                    and ops[1].type == x86.X86_OP_IMM \
                     and self.kind((ops[1].imm & 0xFFFFFFFF) - IMAGE_BASE) == "vftable":
                 return True
-        return False
+            regs = [op.reg for op in ops if op.type == x86.X86_OP_REG]
+            if mnemonic == "lea":
+                if {ops[1].mem.base, ops[1].mem.index} & obj:
+                    return True
+                obj.discard(ops[0].reg)
+                continue
+            if mnemonic == "mov" and ops[0].type == x86.X86_OP_REG:
+                if ops[1].type == x86.X86_OP_REG and ops[1].reg in obj:
+                    if ops[0].reg not in obj:
+                        return True
+                else:
+                    obj.discard(ops[0].reg)
+                continue
+            if mnemonic == "xchg" and set(regs) & obj:
+                return True
+            try:
+                written = set(insn.regs_access()[1]) - {x86.X86_REG_ESP, x86.X86_REG_EFLAGS}
+            except Exception:
+                return True
+            if mnemonic == "pop" or (mnemonic == "xor" and len(regs) == 2 and regs[0] == regs[1]):
+                obj -= written
+            elif written & obj:
+                return True
+        return pos != end
 
     def allocation_sizes(self, ctor):
         """(sizes, sites, overwritten) of the `push SIZE; call operator new` sites feeding `ctor`.
 
         The size is the last push before the allocator call in the 0x60 bytes
         ahead of the constructor call site, with no other call in between.
-        `sites` maps a size to the sites where nothing stores another vftable
-        over the object after the call; `overwritten` counts the sites where
-        one does (an inlined derived constructor: an observation only)."""
+        `sites` maps a size to the sites `allocation_unresolved` resolves;
+        `overwritten` counts the rest (an inlined derived constructor may
+        overwrite the object: an observation only)."""
+        from capstone import x86
         allocs = self.ledger.allocators()
         found, sites, overwritten = collections.Counter(), {}, collections.Counter()
         for site in self.call_index().get(ctor, []):
@@ -564,10 +591,11 @@ class Engine:
             if best:
                 # Another direct call between the allocation and the constructor
                 # (a second object, a helper) would break the link: refuse it.
+                held = self.new_pointer_regs(best[1] + 5, site)
                 if any(best[1] < other < site for other in self.call_sites_near(site)) \
-                        or not self.passes_new_pointer(best[1] + 5, site):
+                        or x86.X86_REG_ECX not in held:
                     continue
-                if self.vptr_overwritten(site):
+                if self.allocation_unresolved(site, held):
                     overwritten[best[0]] += 1
                     continue
                 found[best[0]] += 1
@@ -584,9 +612,12 @@ class Engine:
         # a subobject retail cannot place (a member built inline by an inlined
         # base's constructor, a member built after the vptrs). A constructor
         # that stores no vptr at +0 has no installation point of its own: keep
-        # the earliest final store, past which no store is base-phase.
+        # the earliest final store, past which no store is base-phase. Nothing
+        # then shows which table is the class's own: every vptr store is an
+        # unknown subobject, never a vftable or a base.
         primary = final.get(0)
-        if primary is not None and primary[1] == "vptr":
+        anchored = primary is not None and primary[1] == "vptr"
+        if anchored:
             boundary = primary[2]
         else:
             boundary = min((i for _, kind, i in final.values() if kind == "vptr"), default=len(evs))
@@ -594,29 +625,17 @@ class Engine:
                  "member_calls": {}, "fields": {}, "boundary": boundary}
         # A vptr store at this+N proves a base only with base-phase evidence at
         # N (a store or a call there before the class installs its own tables)
-        # and only when the class itself installs a table there: it stores its
-        # own after the primary, or it stores a table over the one the
-        # constructor it called at N installs. A store that never replaces the
-        # callee's table is a member's (a re-store), never a base; ambiguous
-        # stores are subobjects.
+        # and independent evidence that the table is the class's own: it is
+        # stored after the primary. A store before the primary over the table
+        # of a constructor called at N proves nothing: an inlined base builds a
+        # derived member the same way. Such stores are subobjects.
         early = {ev[1] for ev in evs[:boundary] if ev[0] in ("vptr", "vbptr", "call")}
-        called_at = collections.defaultdict(list)
-        for i, ev in enumerate(evs):
-            if ev[0] == "call" and i < boundary:
-                called_at[ev[1]].append((i, ev[2]))
-        own = set()
-        for off, (table, kind, i) in final.items():
-            if kind != "vptr":
-                continue
-            if i > boundary and off in early:
-                own.add(off)
-            elif any(ci < i and self.call_installs(callee) not in (None, table)
-                     for ci, callee in called_at.get(off, ())):
-                own.add(off)
+        own = {off for off, (table, kind, i) in final.items()
+               if anchored and kind == "vptr" and i > boundary and off in early}
         for off, (table, kind, i) in sorted(final.items()):
             if kind == "vbptr":
                 facts["vbptrs"][off] = table
-            elif off in own or i == boundary:
+            elif off in own or (anchored and i == boundary):
                 facts["vptrs"][off] = table
             else:
                 facts["subobject_vptrs"][off] = table
@@ -751,11 +770,15 @@ class Engine:
             bases.append({"offset": off, "name": sorted(names)[0] if len(names) == 1 else sorted(names),
                           "rule": rule, "kind": "target" if rule in ("retail-ctor-call", "retail-inlined-base-vptr")
                           else "inference", "own_vftable": "%#x" % vptrs[off] if off in vptrs else None})
+        # A constructor call that may be a base or a member leaves the base
+        # clause unproven: what retail does show is kept as an inference only.
+        unproven = "_unproven" if unsure else ""
         if unsure:
             fact("base_or_member_ctor_calls", {"%#x" % o: n for o, n in sorted(unsure.items())},
                  "retail-ctor-call", [r for r, _ in ctors], "inference")
         if bases:
-            fact("bases", bases, "retail-ctor", [r for r, _ in ctors])
+            fact("bases" + unproven, bases, "retail-ctor", [r for r, _ in ctors],
+                 "inference" if unsure else "target")
         if vbases:
             vlist = []
             for off, (owner, table, k) in sorted(vbases.items()):
@@ -766,8 +789,8 @@ class Engine:
                 vlist.append({"offset": off, "via_vbptr": owner, "entry": k, "name": cls or "<virtual base>",
                               "own_vftable": "%#x" % vptrs[off] if off in vptrs else None,
                               "first_vftable": sorted("%#x" % t for t in firsts)})
-            fact("virtual_bases", vlist, "retail-vbtable", [r for r, _ in ctors],
-                 "target" if all(v["name"] != "<virtual base>" for v in vlist) else "inference")
+            fact("virtual_bases" + unproven, vlist, "retail-vbtable", [r for r, _ in ctors],
+                 "target" if not unsure and all(v["name"] != "<virtual base>" for v in vlist) else "inference")
 
         # sizeof from allocation sites.
         sizes, size_sites = collections.Counter(), {}
@@ -791,8 +814,8 @@ class Engine:
                 size_sites.setdefault(s, []).extend(w)
         if observed:
             # The allocation may hold a derived object: the constructor installs
-            # no primary table of its own, or a vftable lands over the object
-            # after the call. An observation, not sizeof.
+            # no primary table of its own, or the caller's straight-line tail
+            # does not prove the object survives the call. An observation, not sizeof.
             fact("allocation_observed", {"%#x" % s: n for s, n in observed.items()}, "retail-operator-new",
                  [], "inference")
         if len(sizes) > 1:
@@ -836,13 +859,6 @@ class Engine:
         """The constructor installs the class's own primary vftable at +0 (a table this class alone owns)."""
         table = facts["vptrs"].get(0)
         return table is not None and self.table_class(table)[0] == name
-
-    def call_installs(self, callee):
-        """The primary vftable the constructor at `callee` installs, else None."""
-        if not self.is_ctor(callee):
-            return None
-        got = self.final_vptrs(callee, self._size(callee)).get(0)
-        return got[0] if got and got[1] == "vptr" else None
 
     def is_ctor(self, rva):
         """The ledger names a constructor at `rva`, or its body stores a vftable at this+0."""

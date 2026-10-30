@@ -21,6 +21,12 @@ P_CTOR, M_CTOR, B2_CTOR, B2_SITE, C3_CTOR, C3_SITE, ARRAY_SITE, NEW_ARRAY = \
 P_VT, M_VT, X_VT, B2_VT, DD_VT = 0x2300, 0x2308, 0x2310, 0x2318, 0x2320
 NB_CTOR, ND_CTOR, S2_SITE, S6_SITE = 0x1A00, 0x1A40, 0x1A80, 0x1C00
 NB_VT, NM_VT, ND_VT0, S2_D_VT, S6_D_VT = 0x2400, 0x2410, 0x2420, 0x2430, 0x2440
+NE_CTOR, MB_CTOR, Q_CTOR, CONT = 0x1D00, 0x1D40, 0x1D80, 0x1DC0
+MB_VT, MD_VT, NE_VT, Q_VBT, Q_VT = 0x2450, 0x2458, 0x2460, 0x2470, 0x2478
+S_CTOR, S_VBT0, S_VBT8 = 0x1F00, 0x2480, 0x2488
+# R3 S6 allocation sites: (ledger name, rva, size) per reproduction.
+TAILS = {"jmp": ("?makeJ@@YAXXZ", 0x1E00, 0x17), "cont": ("?makeC@@YAXXZ", 0x1E40, 0x14),
+         "lea": ("?makeL@@YAXXZ", 0x1E80, 0x1b), "ebp": ("?makeE@@YAXXZ", 0x1EC0, 0x1a)}
 
 
 def imm(value):
@@ -96,6 +102,27 @@ def image(sites=("s2", "s6")):
     if "s6" in sites:
         b.code(S6_SITE, b"\x6a\x24", lambda at: call(at, NEW), b"\x8b\xc8", lambda at: call(at, B2_CTOR),
                b"\xc7\x04\x08" + imm(VA + S6_D_VT), b"\xc3")
+    # NE::NE() inlines NB::NB() building a derived member at +0x10 (MB::MB, then
+    # MD's table over it), then installs NE's own table at +0.
+    b.code(MB_CTOR, b"\xc7\x01" + imm(VA + MB_VT), b"\xc3")
+    b.code(NE_CTOR, b"\x8b\xf1", b"\xc7\x06" + imm(VA + NB_VT), b"\x8d\x4e\x10", lambda at: call(at, MB_CTOR),
+           b"\xc7\x46\x10" + imm(VA + MD_VT), b"\xc7\x06" + imm(VA + NE_VT), b"\xc3")
+    # Q::Q(): a vbptr at +0 and no table at +0; its member at +0x20, then its table at +0x10.
+    b.code(Q_CTOR, b"\x8b\xf1", b"\xc7\x06" + imm(VA + Q_VBT), b"\x8d\x4e\x20", lambda at: call(at, MB_CTOR),
+           b"\xc7\x46\x20" + imm(VA + MD_VT), b"\xc7\x46\x10" + imm(VA + Q_VT), b"\xc3")
+    b.code(CONT, b"\xc7\x01" + imm(VA + DD_VT), b"\xc3")
+    # S::S() (strstream's shape): a constructor call at +0, then vbptrs at +0 and +8, no vftable.
+    b.code(S_CTOR, b"\x8b\xf1", b"\x8b\xce", lambda at: call(at, B_CTOR), b"\xc7\x06" + imm(VA + S_VBT0),
+           b"\xc7\x46\x08" + imm(VA + S_VBT8), b"\xc3")
+    new_b2 = (b"\x6a\x24", lambda at: call(at, NEW), b"\x8b\xc8", lambda at: call(at, B2_CTOR))
+    new_b2_esi = (b"\x6a\x24", lambda at: call(at, NEW), b"\x8b\xf0", b"\x8b\xce", lambda at: call(at, B2_CTOR))
+    tails = {"jmp": new_b2 + (b"\xeb\x00", b"\xc7\x00" + imm(VA + S2_D_VT), b"\xc3"),
+             "cont": new_b2 + (lambda at: call(at, CONT), b"\xc3"),
+             "lea": new_b2_esi + (b"\x8d\x7e\xf0", b"\xc7\x47\x10" + imm(VA + S2_D_VT), b"\xc3"),
+             "ebp": new_b2_esi + (b"\x8b\xee", b"\xc7\x45\x00" + imm(VA + S2_D_VT), b"\xc3")}
+    for key, parts in tails.items():
+        if key in sites:
+            b.code(TAILS[key][1], *parts)
     t = VA + THUNK
     b.words(P_VT, t, 0, t, 0, t, 0, t, 0, t, 0)
     b.words(B_VT, t, t + 4)
@@ -109,6 +136,13 @@ def image(sites=("s2", "s6")):
     b.words(ND_VT0, t, t + 1)
     b.words(S2_D_VT, t, 0)
     b.words(S6_D_VT, t, 0)
+    b.words(MB_VT, t, 0)
+    b.words(MD_VT, t, 0)
+    b.words(NE_VT, t, 0)
+    b.words(Q_VBT, 0, 0x30)
+    b.words(Q_VT, t, 0)
+    b.words(S_VBT0, 0, 0x30)
+    b.words(S_VBT8, 0, 0x28)
     sections = [{"name": ".text", "rva": 0x1000, "size": 0x1000}, {"name": ".rdata", "rva": 0x2000, "size": 0x1000}]
     return rl.Image(lambda rva, size: bytes(b.mem[rva:rva + size]), sections)
 
@@ -121,7 +155,8 @@ def ledger(conflict=False):
             ("??0C3@@QAE@XZ", C3_CTOR, 7), ("?make3@@YAXXZ", C3_SITE, 0x0f), ("??_U@YAPAXI@Z", NEW_ARRAY, 1),
             ("?makeArray@@YAXXZ", ARRAY_SITE, 0x0f), ("??0NB@@QAE@XZ", NB_CTOR, 0x0f),
             ("??0ND@@QAE@XZ", ND_CTOR, 0x15), ("?makeS2@@YAXXZ", S2_SITE, 0xa1),
-            ("?makeS6@@YAXXZ", S6_SITE, 0x16)]
+            ("?makeS6@@YAXXZ", S6_SITE, 0x16), ("??0NE@@QAE@XZ", NE_CTOR, 0x1e), ("??0MB@@QAE@XZ", MB_CTOR, 7),
+            ("??0Q@@QAE@XZ", Q_CTOR, 0x1f), ("?cont@@YAXXZ", CONT, 7), ("??0S@@QAE@XZ", S_CTOR, 0x17)]
     if conflict:
         rows.append(("??0D@@QAE@H@Z", D_CTOR2, 7))
     return rl.Ledger([{"name": n, "target_rva": "%#x" % r, "target_size": str(s), "status": "matched"}
@@ -306,5 +341,46 @@ def test_an_indexed_derived_table_store_blocks_sizeof():
     # S6: the derived table is stored through an indexed operand, so retail
     # does not resolve the allocation's dynamic type.
     got = rl.Engine(image(("s6",)), without("?makeS2@@YAXXZ"), listed={}).contract("B2")["facts"]
+    assert "sizeof" not in got
+    assert got["allocation_observed"]["value"] == {"0x24": 2}
+
+
+def test_replacing_a_called_ctor_table_before_the_primary_proves_no_base(engine):
+    # R3 S5: NB inlined into NE builds a derived member: MB::MB at +0x10, MD's
+    # table over it, then NE's own table at +0. MB is NE's member, not a base.
+    got = engine.contract("NE")["facts"]
+    assert {b["offset"]: b["name"] for b in got["bases"]["value"]} == {0: "NB"}
+    assert got["vftables"]["value"] == {"0x0": "%#x" % NE_VT}
+    assert got["unknown_subobject_vptrs"]["value"] == {"0x10": ["%#x" % MD_VT]}
+    assert "0x10" in got["member_ctor_calls"]["value"]
+
+
+def test_without_a_primary_store_no_other_offset_store_becomes_a_base(engine):
+    # R3 S5: vbptr at +0, its member at +0x20 stored first, its table at +0x10.
+    got = engine.contract("Q")["facts"]
+    assert {b["offset"] for b in got.get("bases", {}).get("value", [])} <= {0}
+    assert "vftables" not in got
+    assert set(got["unknown_subobject_vptrs"]["value"]) == {"0x10", "0x20"}
+    assert "0x20" in got["member_ctor_calls"]["value"]
+
+
+def test_a_base_or_member_call_leaves_the_base_clause_unproven(engine):
+    # R4: with no vftable, the call at +0 may be a base or a member, so a
+    # clause of the vbptr owner at +8 plus the virtual bases would be false.
+    got = engine.contract("S")["facts"]
+    assert "bases" not in got and "virtual_bases" not in got
+    assert got["bases_unproven"]["kind"] == got["virtual_bases_unproven"]["kind"] == "inference"
+    assert set(got["base_or_member_ctor_calls"]["value"]) == {"0x0"}
+    assert contract.retail_bases("S", {"facts": got}, {}, {}) is None
+
+
+@pytest.mark.parametrize("tail", sorted(TAILS))
+def test_an_unresolved_allocation_tail_gives_no_sizeof(tail):
+    # R3 S6: B2(); jmp L; L: derived store / B2(); call continuation; ret /
+    # lea edi,[esi-0x10]; store via [edi+0x10] / mov ebp,esi; store via [ebp].
+    name, rva, size = TAILS[tail]
+    rows = without("?makeS2@@YAXXZ", "?makeS6@@YAXXZ").rows
+    rows.append({"name": name, "target_rva": "%#x" % rva, "target_size": str(size), "status": "matched"})
+    got = rl.Engine(image((tail,)), rl.Ledger(rows), listed={}).contract("B2")["facts"]
     assert "sizeof" not in got
     assert got["allocation_observed"]["value"] == {"0x24": 2}
