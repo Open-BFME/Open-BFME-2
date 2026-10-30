@@ -17,17 +17,54 @@ struct Rva0037E3D9Def
 	char m_pad4E0[0x5DA - 0x4E0];
 	unsigned short m_buildCost;
 };
-class UnitRevivalEntry {
-    char m_pad00[0x94];
-    int m_94;
-    char m_pad98[4];
-    unsigned int m_9C;
-    bool m_A0;
-    char m_padA1[0xD4 - 0xA1];
-    AsciiString m_str;
+class Rva001EAE6FHelper
+{
+	char m_data[0x80];
 public:
-    void *getThingTemplate();
-    void setThingTemplateName(const AsciiString &arg);
+	Rva001EAE6FHelper *clear80() throw();
+	// Keep the existing clear worker while constructing this member in order.
+	__forceinline Rva001EAE6FHelper() throw() { clear80(); }
+};
+class Rva004E04FD
+{
+	char m_data[0x18];
+public:
+	Rva004E04FD() throw();
+};
+class Object;
+class Xfer;
+
+class UnitRevivalEntry
+{
+public:
+	UnitRevivalEntry();
+	UnitRevivalEntry(Object *object);
+	UnitRevivalEntry(const UnitRevivalEntry &that);
+	~UnitRevivalEntry();
+	UnitRevivalEntry &operator=(const UnitRevivalEntry &that);
+	void *getThingTemplate();
+	void setThingTemplateName(const AsciiString &name);
+	void rva0037E473(Xfer *xfer);
+
+	int m_00;
+	int m_04;
+	float m_08;
+	int m_0C;
+	int m_10;
+	Rva001EAE6FHelper m_14;
+	int m_94;
+	int m_98;
+	unsigned int m_9C; // build time, from the template's float via _ftol
+	bool m_A0;
+	bool m_A1;
+	int m_A4;
+	int m_A8;
+	int m_AC;
+	Rva004E04FD m_B0;
+	int m_C8;
+	float m_CC;
+	int m_D0;
+	AsciiString m_str; // +0xD4
 };
 void *UnitRevivalEntry::getThingTemplate()
 {
