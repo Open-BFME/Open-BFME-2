@@ -1,5 +1,15 @@
 # Linking target checklist
 
+Wide monetary string follow-up (2026-10-30, LINK-163): two unused const narrow
+allocator copies are suppressed while preserving their native inline cleanup
+and throwing global free context. All 33 rows and both EH graphs are exact;
+95/88 retained external definitions and actual relocation destinations are
+unchanged. Both current units preview LINKS against `ccafe54d1d`, 0 -> 5,446
+authored bytes. No pin, row, alias, hatch or header changes. Full consumer
+selection/loss checks and scheduled census confirmation remain pending.
+[Parser](../reverse/attempt_support/money-char-deallocate-link-20261030/money-get.md)
+and [formatter](../reverse/attempt_support/money-char-deallocate-link-20261030/money-put.md).
+
 Wide-deallocator selection follow-up (2026-10-30, LINK-162): suppress only the
 Thai builder's debug-only non-retail allocator copy while retaining inline
 behavior. The next existing provider is complete native 20-byte exact; no pin,

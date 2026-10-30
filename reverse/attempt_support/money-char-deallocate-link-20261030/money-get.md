@@ -27,3 +27,8 @@ ordinary preview retains 2/2 LINKS, 0 -> 5,446 authored bytes: parser 2,830,
 formatter 2,616. This is a bounded preview, not a census or full-image link.
 Broader affected-consumer selection/loss checks and scheduled census
 confirmation remain separate.
+
+Ready-batch audit: INCONCLUSIVE because `ccafe54d1d` predates outgoing base
+`dc24521e86` and affected CreateAHeroManager lacks a current receipt. Preserve
+the removed-provider/consumer scope for the next scheduled census; no broader
+consumer selection/loss clearance is inferred.

@@ -1,0 +1,265 @@
+{
+  "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_wide_money_put_string.cpp",
+  "change": "suppress unused const char allocator COMDAT; preserve visible header operation and throwing free context",
+  "objects": {
+    "before": {
+      "source_sha256": "e598fc111f826cd13cafcb1bad17c057ad486038f3dac3f2b2ea365dbe8d61d7",
+      "object_sha256": "3d977a46ce71c5bf3d539a050333c859ecca2785fd5aa703d10260678b492ff0",
+      "rows": [
+        {
+          "name": "?do_put@?$money_put@GV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@@_STL@@MBE?AV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@2@V32@_NAAVios_base@2@GABV?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@2@@Z",
+          "rva": "0x0000DF20",
+          "size": "2610",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b5bb6b",
+          "rva": "0x0075BB6B",
+          "size": "31",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b5bb8a",
+          "rva": "0x0075BB8A",
+          "size": "31",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b5bbbf",
+          "rva": "0x0075BBBF",
+          "size": "31",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b5bbde",
+          "rva": "0x0075BBDE",
+          "size": "31",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b5bc08",
+          "rva": "0x0075BC08",
+          "size": "31",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b5bc27",
+          "rva": "0x0075BC27",
+          "size": "31",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b5bc46",
+          "rva": "0x0075BC46",
+          "size": "31",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b5bc65",
+          "rva": "0x0075BC65",
+          "size": "33",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?do_put@?$money_put@GV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@@_STL@@MBE?AV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@2@V32@_NAAVios_base@2@GABV?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@2@@Z",
+          "rva": "0x0075BCA7",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "$L15180",
+          "rva": "0x0075BC9C",
+          "size": "11",
+          "exact": true
+        },
+        {
+          "name": "$L15612",
+          "rva": "0x0075BC91",
+          "size": "11",
+          "exact": true
+        },
+        {
+          "name": "$L15175",
+          "rva": "0x0075BC86",
+          "size": "11",
+          "exact": true
+        },
+        {
+          "name": "$L15164",
+          "rva": "0x0075BBFD",
+          "size": "11",
+          "exact": true
+        },
+        {
+          "name": "$L15157",
+          "rva": "0x0075BBB4",
+          "size": "11",
+          "exact": true
+        },
+        {
+          "name": "$L15224",
+          "rva": "0x0075BBA9",
+          "size": "11",
+          "exact": true
+        },
+        {
+          "name": "$L15151",
+          "rva": "0x0075BB60",
+          "size": "11",
+          "exact": true
+        }
+      ],
+      "eh": [
+        {
+          "name": "?do_put@?$money_put@GV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@@_STL@@MBE?AV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@2@V32@_NAAVios_base@2@GABV?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@2@@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        }
+      ],
+      "all_emitted_handler_parents": []
+    },
+    "trial": {
+      "source_sha256": "fe1e6cc2eb9539a22201c64356a327e68e309450ea670306e51a5147189584b7",
+      "object_sha256": "ec5fce78be60aa2d8fd655fbc70a5c86129ee20ca3a3b85398ef0bd7d5081d34",
+      "rows": [
+        {
+          "name": "?do_put@?$money_put@GV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@@_STL@@MBE?AV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@2@V32@_NAAVios_base@2@GABV?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@2@@Z",
+          "rva": "0x0000DF20",
+          "size": "2610",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b5bb6b",
+          "rva": "0x0075BB6B",
+          "size": "31",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b5bb8a",
+          "rva": "0x0075BB8A",
+          "size": "31",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b5bbbf",
+          "rva": "0x0075BBBF",
+          "size": "31",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b5bbde",
+          "rva": "0x0075BBDE",
+          "size": "31",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b5bc08",
+          "rva": "0x0075BC08",
+          "size": "31",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b5bc27",
+          "rva": "0x0075BC27",
+          "size": "31",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b5bc46",
+          "rva": "0x0075BC46",
+          "size": "31",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b5bc65",
+          "rva": "0x0075BC65",
+          "size": "33",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?do_put@?$money_put@GV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@@_STL@@MBE?AV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@2@V32@_NAAVios_base@2@GABV?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@2@@Z",
+          "rva": "0x0075BCA7",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "$L15180",
+          "rva": "0x0075BC9C",
+          "size": "11",
+          "exact": true
+        },
+        {
+          "name": "$L15612",
+          "rva": "0x0075BC91",
+          "size": "11",
+          "exact": true
+        },
+        {
+          "name": "$L15175",
+          "rva": "0x0075BC86",
+          "size": "11",
+          "exact": true
+        },
+        {
+          "name": "$L15164",
+          "rva": "0x0075BBFD",
+          "size": "11",
+          "exact": true
+        },
+        {
+          "name": "$L15157",
+          "rva": "0x0075BBB4",
+          "size": "11",
+          "exact": true
+        },
+        {
+          "name": "$L15224",
+          "rva": "0x0075BBA9",
+          "size": "11",
+          "exact": true
+        },
+        {
+          "name": "$L15151",
+          "rva": "0x0075BB60",
+          "size": "11",
+          "exact": true
+        }
+      ],
+      "eh": [
+        {
+          "name": "?do_put@?$money_put@GV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@@_STL@@MBE?AV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@2@V32@_NAAVios_base@2@GABV?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@2@@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        }
+      ],
+      "all_emitted_handler_parents": []
+    }
+  },
+  "removed_definition": {
+    "name": "?deallocate@?$allocator@D@_STL@@QBEXPADI@Z",
+    "raw": "8b44240485c0740750e80000000059c20800",
+    "relocations": [
+      [
+        10,
+        20,
+        "?free@@YAXPAX@Z"
+      ]
+    ]
+  },
+  "before_incoming_relocations": [
+    {
+      "section": ".debug$F",
+      "offset": 0,
+      "type": 7
+    }
+  ],
+  "retained_external_code_definitions_identical": 88,
+  "unexpected_added_definitions": [],
+  "import_symbols_unchanged": [
+    "__imp__memmove"
+  ]
+}

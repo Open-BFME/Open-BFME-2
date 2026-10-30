@@ -15,6 +15,17 @@ bounded current-object scope only; full affected-consumer selection/loss and
 census confirmation remain pending.
 [Parser evidence](../reverse/attempt_support/money-char-deallocate-link-20261030/money-get.md).
 
+The formatter's separate verified repair retains all 17 rows and EH, with 88
+external code definitions and symbolic relocations unchanged. Its matching
+cleanup preserves the existing throwing free binding; no allocator import is
+introduced. Both actual strict objects reproduce their private candidates.
+[Formatter evidence](../reverse/attempt_support/money-char-deallocate-link-20261030/money-put.md).
+
+Outgoing audit: INCONCLUSIVE on older `ccafe54d1d` versus base `dc24521e86`
+and the missing current CreateAHeroManager consumer receipt. Carry both
+removed-provider scopes and affected consumers into the next scheduled census;
+the bounded preview does not clear the broader selected-copy/loss scope.
+
 ### LINK-162: Thai builder selects an unused non-retail wide deallocator (2026-10-30)
 
 Status: cleared for the six-source current-object preview; broader consumer

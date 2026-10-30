@@ -1,0 +1,19 @@
+{
+  "kind": "retain inline throwing cleanup; suppress only unused const-char deallocator copies",
+  "sources": {
+    "Code/Libraries/Source/WWVegas/WWLib/stlport_wide_money_get_string.cpp": {
+      "source_sha256": "8ce5444db4eca6d0811afc4a1a8287865f954521fd9afd8af693273c31fe1547",
+      "object_md5": "11c6fb1cfed9a1f22a3564af334c5722",
+      "strict_current": true,
+      "actual_vs_private_identical_code_definitions": 95,
+      "new_deallocate_import": false
+    },
+    "Code/Libraries/Source/WWVegas/WWLib/stlport_wide_money_put_string.cpp": {
+      "source_sha256": "fe1e6cc2eb9539a22201c64356a327e68e309450ea670306e51a5147189584b7",
+      "object_md5": "3dde8ad5a469c6007a834ec558bb8097",
+      "strict_current": true,
+      "actual_vs_private_identical_code_definitions": 88,
+      "new_deallocate_import": false
+    }
+  }
+}

@@ -99,6 +99,17 @@ void __malloc_alloc<0>::deallocate(void *__p, size_t) { free((char *)__p); } }
 // the inline expansions without emitting a differing copy ahead of it in link order.
 namespace _STL { template <> __declspec(dllimport) __forceinline void allocator<unsigned short>::deallocate(unsigned short *__p, size_t __n) const
 { if (__p != 0) __sgi_alloc::deallocate((void *)__p, __n * sizeof(unsigned short)); } }
+
+// Retain inline allocator cleanup without an unused non-retail external copy.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline void
+allocator<char>::deallocate(char *p, size_type n) const
+{
+    _STLP_ASSERT((p == 0) == (n == 0))
+    if (p != 0)
+        __sgi_alloc::deallocate((void *)p, n * sizeof(char));
+}
+}
 enum { _MONEY_LEAKS_CHECK = 0 };
 namespace _STL {
 struct _MoneyLeak { ~_MoneyLeak() { if (_MONEY_LEAKS_CHECK) free(0); } };
