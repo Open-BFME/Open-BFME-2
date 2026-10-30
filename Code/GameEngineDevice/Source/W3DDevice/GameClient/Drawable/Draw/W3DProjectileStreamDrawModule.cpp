@@ -1,4 +1,4 @@
-// cl: /MD /EHsc /DNDEBUG
+// cl: /DNDEBUG /MD /GX /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
@@ -30,6 +30,11 @@
 // RefCountPtr by reference: its body (0x0015E250 -> 0x001911E0) reads the
 // pointer through the argument and adds a reference.
 
+#include "BfmeDrawXferPrefix.h"
+#include "ascii_string.h"
+#include "Common/Snapshot.h"
+#include "../../../../../../GameEngine/Include/Common/ObjectModule.h"
+
 typedef int Int;
 typedef unsigned int UnsignedInt;
 typedef bool Bool;
@@ -37,13 +42,13 @@ typedef float Real;
 
 enum NameKeyType
 {
-	NAMEKEY_INVALID = 0
+	NK_UNKNOWN = 0
 };
 
 class NameKeyGenerator
 {
 public:
-	NameKeyType nameToKey( const char *name );
+	NameKeyType nameToKey(const char *name);
 };
 extern NameKeyGenerator *TheNameKeyGenerator;
 #define NAMEKEY(x) (TheNameKeyGenerator->nameToKey(x))
@@ -68,10 +73,25 @@ public:
 
 class TextureClass;
 
+class TextureBaseClass
+{
+public:
+	void Release_Ref();
+};
+
+class TextureClass : public TextureBaseClass
+{
+	int m_pad[2];
+};
+
 template <class T>
 class RefCountPtr
 {
 public:
+	RefCountPtr() : m_ptr(0) {}
+	const RefCountPtr &operator=(const RefCountPtr &other);
+	~RefCountPtr() { if (m_ptr) m_ptr->Release_Ref(); }
+
 	T *m_ptr;
 };
 
@@ -97,35 +117,46 @@ public:
 	};
 };
 
+class SegmentedLineClass;
+
+class SceneClass
+{
+public:
+	virtual void v00();
+	virtual void v01();
+	virtual void Add_Render_Object(SegmentedLineClass *line); // slot 2
+	virtual void Remove_Render_Object(SegmentedLineClass *line); // slot 3
+};
+
 class SegmentedLineClass
 {
 public:
 	SegmentedLineClass( void );
 	virtual void Delete_This( void );																					///< slot 0
-	virtual void v01();
-	virtual void v02();
-	virtual void v03();
-	virtual void v04();
-	virtual void v05();
-	virtual void v06();
-	virtual void v07();
-	virtual void v08();
-	virtual void v09();
-	virtual void v10();
-	virtual void v11();
-	virtual void v12();
-	virtual void v13();
-	virtual void v14();
-	virtual void v15();
-	virtual void v16();
-	virtual void v17();
-	virtual void *Peek_Scene( void );																					///< slot 18
-	void Set_Points( UnsignedInt num_points, Vector3 *locs );
+	virtual void slot01();
+	virtual void slot02();
+	virtual void slot03();
+	virtual void slot04();
+	virtual void slot05();
+	virtual void slot06();
+	virtual void slot07();
+	virtual void slot08();
+	virtual void slot09();
+	virtual void slot10();
+	virtual void slot11();
+	virtual void slot12();
+	virtual void slot13();
+	virtual void slot14();
+	virtual void slot15();
+	virtual void Remove();
+	virtual void slot17();
+	virtual SceneClass *Peek_Scene( void );																					///< slot 18
+	void Set_Points( unsigned int num_points, Vector3 *locs );
 	void Set_Texture( TextureClass *texture );
 	void Set_Shader( ShaderClass shader );
-	void Set_Width( Real width );
+	void Set_Width( float width );
 	void Set_Texture_Mapping_Mode( SegLineRendererClass::TextureMapMode mode );
-	void Set_Texture_Tile_Factor( Real factor );
+	void Set_Texture_Tile_Factor( float factor );
 	void Set_UV_Offset_Rate( const Vector2 &rate );
 	void Release_Ref( void ) { NumRefs--; if (NumRefs == 0) Delete_This(); }
 private:
@@ -135,13 +166,8 @@ private:
 
 #define REF_PTR_RELEASE(x) { if (x) x->Release_Ref(); x = 0; }
 
-class RTS3DScene
+class RTS3DScene : public SceneClass
 {
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual void Add_Render_Object( SegmentedLineClass *obj );								///< slot 2
-	virtual void Remove_Render_Object( SegmentedLineClass *obj );							///< slot 3
 };
 
 class W3DDisplay
@@ -175,14 +201,21 @@ private:
 	Object *m_object;																													///< 0xFC
 };
 
-class W3DProjectileStreamDrawModuleData
+class MultiIniFieldParse;
+
+class W3DProjectileStreamDrawModuleData : public Snapshot
 {
 public:
-	char m_unrecovered00[ 0x0C ];
-	Real m_width;																															///< 0x0C
-	Real m_tileFactor;																												///< 0x10
-	Real m_scrollRate;																												///< 0x14
-	Int m_maxSegments;																												///< 0x18
+	W3DProjectileStreamDrawModuleData();
+	virtual ~W3DProjectileStreamDrawModuleData();
+	static void buildFieldParse(MultiIniFieldParse &parse);
+
+	unsigned int m_unused04; // +0x04, following Snapshot's vptr
+	AsciiString m_texture; // +0x08
+	float m_width; // +0x0C
+	float m_tileFactor; // +0x10
+	float m_scrollRate; // +0x14
+	int m_maxSegments; // +0x18
 };
 
 enum { MAX_PROJECTILE_STREAM = 20 };
@@ -191,20 +224,34 @@ template <class T> inline const T &max( const T &lhs, const T &rhs ) { return lh
 
 class Matrix3D;
 
-class W3DProjectileStreamDraw
+class DrawModule : public ObjectModule
 {
 public:
-	virtual void doDrawModule( const Matrix3D *transformMtx );
+	DrawModule(Thing *thing, const ModuleData *moduleData);
+
 protected:
-	void makeOrUpdateLine( Vector3 *points, UnsignedInt pointCount, Int lineIndex );
-	Drawable *getDrawable( void ) const { return m_drawable; }
-	const W3DProjectileStreamDrawModuleData *getW3DProjectileStreamDrawModuleData( void ) const { return m_moduleData; }
+	virtual void xfer(Xfer *xfer);
+};
+
+class W3DProjectileStreamDraw : public DrawModule
+{
+public:
+	W3DProjectileStreamDraw(Thing *thing, const ModuleData *moduleData);
+	virtual ~W3DProjectileStreamDraw();
+	virtual NameKeyType getModuleNameKey() const;
+	virtual void setFullyObscuredByShroud(bool fullyObscured);
+	virtual void doDrawModule(const Matrix3D *transformMtx);
+
+protected:
+	virtual void xfer(Xfer *xfer);
+	void makeOrUpdateLine(Vector3 *points, unsigned int pointCount, int lineIndex);
+	Drawable *getDrawable() const { return (Drawable *)m_object; }
+	const W3DProjectileStreamDrawModuleData *getW3DProjectileStreamDrawModuleData() const { return (const W3DProjectileStreamDrawModuleData *)m_moduleData; }
+
 private:
-	const W3DProjectileStreamDrawModuleData *m_moduleData;										///< 0x04
-	Drawable *m_drawable;																											///< 0x08
-	RefCountPtr<TextureClass> m_texture;																			///< 0x0C
-	SegmentedLineClass *m_allLines[ MAX_PROJECTILE_STREAM ];									///< 0x10
-	Int m_linesValid;																													///< 0x60
+	RefCountPtr<TextureClass> m_texture; // +0x0C
+	SegmentedLineClass *m_allLines[0x14]; // +0x10
+	int m_linesValid; // +0x60
 };
 
 void W3DProjectileStreamDraw::doDrawModule(const Matrix3D* )

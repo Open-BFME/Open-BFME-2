@@ -40,14 +40,31 @@ class SceneClass
 public:
 	virtual void v00();
 	virtual void v01();
-	virtual void Add_Render_Object(SegmentedLineClass *line);
-	virtual void Remove_Render_Object(SegmentedLineClass *line);
+	virtual void Add_Render_Object(SegmentedLineClass *line); // slot 2
+	virtual void Remove_Render_Object(SegmentedLineClass *line); // slot 3
+};
+
+class TextureClass;
+class Vector2;
+class Vector3;
+class ShaderClass;
+
+class SegLineRendererClass
+{
+public:
+	enum TextureMapMode
+	{
+		UNIFORM_WIDTH_TEXTURE_MAP = 0,
+		UNIFORM_LENGTH_TEXTURE_MAP,
+		TILED_TEXTURE_MAP
+	};
 };
 
 class SegmentedLineClass
 {
 public:
-	virtual void slot00();
+	SegmentedLineClass( void );
+	virtual void Delete_This( void );																					///< slot 0
 	virtual void slot01();
 	virtual void slot02();
 	virtual void slot03();
@@ -65,7 +82,18 @@ public:
 	virtual void slot15();
 	virtual void Remove();
 	virtual void slot17();
-	virtual SceneClass *Peek_Scene();
+	virtual SceneClass *Peek_Scene( void );																					///< slot 18
+	void Set_Points( unsigned int num_points, Vector3 *locs );
+	void Set_Texture( TextureClass *texture );
+	void Set_Shader( ShaderClass shader );
+	void Set_Width( float width );
+	void Set_Texture_Mapping_Mode( SegLineRendererClass::TextureMapMode mode );
+	void Set_Texture_Tile_Factor( float factor );
+	void Set_UV_Offset_Rate( const Vector2 &rate );
+	void Release_Ref( void ) { NumRefs--; if (NumRefs == 0) Delete_This(); }
+private:
+	int NumRefs;																															///< 0x04
+	char m_unrecovered08[ 0x12C - 0x08 ];
 };
 
 // W3DDisplay::m_3DScene is an RTS3DScene (W3DLaserDrawDestructor.cpp defines it).
@@ -160,20 +188,51 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
+class Matrix3D;
+class Drawable;
+class W3DProjectileStreamDrawModuleData;
+
+class TextureBaseClass
+{
+public:
+	void Release_Ref();
+};
+
+class TextureClass : public TextureBaseClass
+{
+	int m_pad[2];
+};
+
+template <class T>
+class RefCountPtr
+{
+public:
+	RefCountPtr() : m_ptr(0) {}
+	const RefCountPtr &operator=(const RefCountPtr &other);
+	~RefCountPtr() { if (m_ptr) m_ptr->Release_Ref(); }
+
+	T *m_ptr;
+};
+
 class W3DProjectileStreamDraw : public DrawModule
 {
 public:
 	W3DProjectileStreamDraw(Thing *thing, const ModuleData *moduleData);
+	virtual ~W3DProjectileStreamDraw();
 	virtual NameKeyType getModuleNameKey() const;
 	virtual void setFullyObscuredByShroud(bool fullyObscured);
+	virtual void doDrawModule(const Matrix3D *transformMtx);
 
 protected:
 	virtual void xfer(Xfer *xfer);
+	void makeOrUpdateLine(Vector3 *points, unsigned int pointCount, int lineIndex);
+	Drawable *getDrawable() const { return (Drawable *)m_object; }
+	const W3DProjectileStreamDrawModuleData *getW3DProjectileStreamDrawModuleData() const { return (const W3DProjectileStreamDrawModuleData *)m_moduleData; }
 
 private:
-	void *m_pad0C;
-	SegmentedLineClass *m_allLines[0x14];
-	int m_linesValid;
+	RefCountPtr<TextureClass> m_texture; // +0x0C
+	SegmentedLineClass *m_allLines[0x14]; // +0x10
+	int m_linesValid; // +0x60
 };
 
 class W3DProjectileStreamDrawModuleData : public Snapshot
@@ -183,7 +242,6 @@ public:
 	virtual ~W3DProjectileStreamDrawModuleData();
 	static void buildFieldParse(MultiIniFieldParse &parse);
 
-private:
 	unsigned int m_unused04; // +0x04, following Snapshot's vptr
 	AsciiString m_texture; // +0x08
 	float m_width; // +0x0C
