@@ -7,11 +7,6 @@
 // byte for byte: bfmeGoEBL 0x0036173F (23B). Callee addresses are read off
 // retail's call sites (reverse/symbols.csv). Only the placed bodies are
 // carried; the donor's other definitions are omitted.
-// BfmeObjEBJ only ever receives the INI* receiver of INI::initFromINI, so the
-// call below goes through the real header rather than a stand-in member whose
-// name nothing defines.
-#include "Common/INI/INI.h"
-
 class BfmeObjEBJ;
 
 extern "C" unsigned char bfmeStrEBJ[];

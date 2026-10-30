@@ -1,4 +1,5 @@
 // cl: /MD /EHsc /DNDEBUG
+// stlport
 //
 // ??0Rva003623E5Member@@QAE@XZ at 0x003623E5 (82 bytes).
 // The ctor resets its 4-byte handle to -1, builds a 0x94-byte default record
@@ -10,10 +11,21 @@
 class BfmeFixedStorage0004543D
 {
 public:
-	BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &other);
+    BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &other) throw();
 
 private:
-	unsigned char m_bytes[28];
+    unsigned char m_data[0x1C];
+};
+
+#include <vector>
+#include "../../../../../reference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib/ascii_string.h"
+
+typedef unsigned int UnsignedInt;
+typedef _STL::vector<AsciiString> AsciiStringVector;
+
+struct BfmeAttributeBits
+{
+	UnsignedInt m_values[7];	// BitFlags<218>
 };
 
 class Rva00360F55
@@ -21,16 +33,19 @@ class Rva00360F55
 public:
 	Rva00360F55();
 	~Rva00360F55();
+	bool rva00360E64(const Rva00360F55 &other);
 
-	unsigned char m_vectors[0x48];
-	BfmeFixedStorage0004543D m_first;
-	BfmeFixedStorage0004543D m_second;
-	int m_value80;
-	int m_value84;
-	unsigned char m_flag88;
+	AsciiStringVector m_names;			// +0x00
+	AsciiStringVector m_values;			// +0x0C
+	AsciiStringVector m_lists[4];		// +0x18
+	BfmeAttributeBits m_firstPlain;		// +0x48
+	BfmeAttributeBits m_secondPlain;	// +0x64
+	UnsignedInt m_kind;					// +0x80
+	UnsignedInt m_relationship;			// +0x84
+	bool m_enabled;						// +0x88
 	unsigned char m_pad89[3];
-	int m_value8C;
-	int m_value90;
+	UnsignedInt m_useCount;				// +0x8C
+	UnsignedInt m_alignment;			// +0x90
 };
 
 void Rva00360CB0Release(int *indexHolder);
@@ -92,23 +107,23 @@ void Rva003623E5Member::initFromStorages(
 {
 	Rva00360CB0Release((int *)&m_record);
 	Rva00360F55 record;
-	record.m_flag88 = 0;
-	record.m_value80 = 1;
+	record.m_enabled = 0;
+	record.m_kind = 1;
 	for (unsigned int offset = 0; offset < 28; offset += 4)
 	{
-		*(unsigned int *)((unsigned char *)&record.m_first + offset) |=
+		*(unsigned int *)((unsigned char *)&record.m_firstPlain + offset) |=
 			*(unsigned int *)((unsigned char *)&first + offset);
 	}
 	for (unsigned int offset = 0; offset < 28; offset += 4)
 	{
-		*(unsigned int *)((unsigned char *)&record.m_second + offset) |=
+		*(unsigned int *)((unsigned char *)&record.m_secondPlain + offset) |=
 			*(unsigned int *)((unsigned char *)&second + offset);
 	}
 	for (unsigned int index = 0; index < 7; ++index)
 	{
 		if (((unsigned int *)&first)[index] != 0)
 		{
-			record.m_flag88 = 1;
+			record.m_enabled = 1;
 			break;
 		}
 	}
@@ -119,23 +134,23 @@ void Rva003623E5Member::rva00362192(Rva00045411BitSet first, BfmeFixedStorage000
 {
 	Rva00360CB0Release((int *)&m_record);
 	Rva00360F55 record;
-	record.m_flag88 = 0;
-	record.m_value80 = 2;
+	record.m_enabled = 0;
+	record.m_kind = 2;
 	for (unsigned int offset = 0; offset < 28; offset += 4)
 	{
-		*(unsigned int *)((unsigned char *)&record.m_first + offset) |=
+		*(unsigned int *)((unsigned char *)&record.m_firstPlain + offset) |=
 			*(unsigned int *)((unsigned char *)&first + offset);
 	}
 	for (unsigned int offset = 0; offset < 28; offset += 4)
 	{
-		*(unsigned int *)((unsigned char *)&record.m_second + offset) |=
+		*(unsigned int *)((unsigned char *)&record.m_secondPlain + offset) |=
 			*(unsigned int *)((unsigned char *)&second + offset);
 	}
 	for (unsigned int index = 0; index < 7; ++index)
 	{
 		if (((unsigned int *)&first)[index] != 0)
 		{
-			record.m_flag88 = 1;
+			record.m_enabled = 1;
 			m_record = Rva00361790(&record);
 			return;
 		}

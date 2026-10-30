@@ -47,6 +47,7 @@ class Rva00360F55
 public:
 	Rva00360F55();
 	~Rva00360F55();
+	bool rva00360E64(const Rva00360F55 &other);
 
 	AsciiStringVector m_names;			// +0x00
 	AsciiStringVector m_values;			// +0x0C

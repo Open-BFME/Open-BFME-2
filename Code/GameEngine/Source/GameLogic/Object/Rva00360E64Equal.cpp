@@ -24,41 +24,56 @@ struct AsciiRange002ADD75
 };
 int Rva00360C1FEqual(const void *a, const void *b);
 int Rva002ADD75Equal(const AsciiRange002ADD75 *a, const AsciiRange002ADD75 *b);
+#include <vector>
+#include "../../../../../reference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib/ascii_string.h"
+
+typedef unsigned int UnsignedInt;
+typedef _STL::vector<AsciiString> AsciiStringVector;
+
+struct BfmeAttributeBits
+{
+	UnsignedInt m_values[7];	// BitFlags<218>
+};
+
+namespace _STL
+{
+	template <> bool operator==(const vector<ScienceType, allocator<ScienceType> > &, const vector<ScienceType, allocator<ScienceType> > &);
+}
+
 class Rva00360F55
 {
 public:
+	Rva00360F55();
+	~Rva00360F55();
 	bool rva00360E64(const Rva00360F55 &other);
-private:
-	AsciiRange002ADD75 m_00;
-	AsciiRange002ADD75 m_0C;
-	char m_18[12];
-	char m_24[12];
-	char m_30[12];
-	char m_3C[12];
-	char m_48[28];
-	char m_64[28];
-	int m_80;
-	int m_84;
-	unsigned char m_88;
-	char m_pad89[3];
-	int m_8C;
-	int m_90;
+
+	AsciiStringVector m_names;			// +0x00
+	AsciiStringVector m_values;			// +0x0C
+	AsciiStringVector m_lists[4];		// +0x18
+	BfmeAttributeBits m_firstPlain;		// +0x48
+	BfmeAttributeBits m_secondPlain;	// +0x64
+	UnsignedInt m_kind;					// +0x80
+	UnsignedInt m_relationship;			// +0x84
+	bool m_enabled;						// +0x88
+	unsigned char m_pad89[3];
+	UnsignedInt m_useCount;				// +0x8C
+	UnsignedInt m_alignment;			// +0x90
 };
 bool Rva00360F55::rva00360E64(const Rva00360F55 &other)
 {
-	if (m_80 == other.m_80) {
-	if (m_90 == other.m_90) {
-	if (m_88 == other.m_88) {
-	if (m_84 == other.m_84) {
-	if ((unsigned char)Rva00360C1FEqual(&m_48, &other.m_48)) {
-	if ((unsigned char)Rva00360C1FEqual(&m_64, &other.m_64)) {
+	if (m_kind == other.m_kind) {
+	if (m_alignment == other.m_alignment) {
+	if (m_enabled == other.m_enabled) {
+	if (m_relationship == other.m_relationship) {
+	if ((unsigned char)Rva00360C1FEqual(&m_firstPlain, &other.m_firstPlain)) {
+	if ((unsigned char)Rva00360C1FEqual(&m_secondPlain, &other.m_secondPlain)) {
 	typedef _STL::vector<ScienceType, _STL::allocator<ScienceType> > SciVec;
-	if ((const SciVec &)m_30 == (const SciVec &)other.m_30) {
-	if ((const SciVec &)m_3C == (const SciVec &)other.m_3C) {
-	if ((const SciVec &)m_18 == (const SciVec &)other.m_18) {
-	if ((const SciVec &)m_24 == (const SciVec &)other.m_24) {
-	if ((unsigned char)Rva002ADD75Equal(&m_00, &other.m_00)) {
-	if ((unsigned char)Rva002ADD75Equal(&m_0C, &other.m_0C)) {
+	if ((const SciVec &)m_lists[2] == (const SciVec &)other.m_lists[2]) {
+	if ((const SciVec &)m_lists[3] == (const SciVec &)other.m_lists[3]) {
+	if ((const SciVec &)m_lists[0] == (const SciVec &)other.m_lists[0]) {
+	if ((const SciVec &)m_lists[1] == (const SciVec &)other.m_lists[1]) {
+	if ((unsigned char)Rva002ADD75Equal((const AsciiRange002ADD75 *)&m_names, (const AsciiRange002ADD75 *)&other.m_names)) {
+	if ((unsigned char)Rva002ADD75Equal((const AsciiRange002ADD75 *)&m_values, (const AsciiRange002ADD75 *)&other.m_values)) {
 		return true;
 	}
 	}

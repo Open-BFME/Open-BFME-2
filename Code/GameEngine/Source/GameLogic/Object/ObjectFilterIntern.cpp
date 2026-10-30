@@ -21,14 +21,34 @@ namespace _STL
 	template <> void vector<BfmePod148, allocator<BfmePod148> >::push_back(const BfmePod148 &value);
 }
 
+#include "../../../../../reference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib/ascii_string.h"
+
+typedef unsigned int UnsignedInt;
+typedef _STL::vector<AsciiString> AsciiStringVector;
+
+struct BfmeAttributeBits
+{
+	UnsignedInt m_values[7];	// BitFlags<218>
+};
+
 class Rva00360F55
 {
 public:
+	Rva00360F55();
+	~Rva00360F55();
 	bool rva00360E64(const Rva00360F55 &other);
 
-	char m_pad00[0x8C];
-	int m_useCount;
-	char m_pad90[0x94 - 0x90];
+	AsciiStringVector m_names;			// +0x00
+	AsciiStringVector m_values;			// +0x0C
+	AsciiStringVector m_lists[4];		// +0x18
+	BfmeAttributeBits m_firstPlain;		// +0x48
+	BfmeAttributeBits m_secondPlain;	// +0x64
+	UnsignedInt m_kind;					// +0x80
+	UnsignedInt m_relationship;			// +0x84
+	bool m_enabled;						// +0x88
+	unsigned char m_pad89[3];
+	UnsignedInt m_useCount;				// +0x8C
+	UnsignedInt m_alignment;			// +0x90
 };
 
 extern unsigned char *g_validityBegin;

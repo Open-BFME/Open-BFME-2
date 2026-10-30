@@ -11,12 +11,7 @@
 // value (U) but retail passes its address (const ref ABU, the true STLport
 // spelling); the TU declares the ABU twin which is pinned at the same RVA.
 
-namespace _STL
-{
-	struct random_access_iterator_tag
-	{
-	};
-}
+#include <iterator>
 
 class Rva0036105B;
 
@@ -25,7 +20,9 @@ Rva0036105B *Rva003614F4Copy(Rva0036105B *first, Rva0036105B *last, Rva0036105B 
 void Rva00361594Assign(Rva0036105B *first, Rva0036105B *last, Rva0036105B *dest, void *unused)
 {
 	const _STL::random_access_iterator_tag tag;
-	Rva003614F4Copy(first, last, dest, tag, (int *)0);
+	typedef Rva0036105B *(__cdecl *Copy)(Rva0036105B *, Rva0036105B *, Rva0036105B *, const _STL::random_access_iterator_tag &, int *);
+	Copy copy = Rva003614F4Copy;
+	copy(first, last, dest, tag, (int *)0);
 }
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
