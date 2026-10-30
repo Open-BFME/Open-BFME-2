@@ -63,6 +63,11 @@ private:
 
 class OathbreakersFadeAwayBehavior : public UpdateModule
 {
+public:
+	const char *name() const;
+	virtual NameKeyType getModuleNameKey() const;
+	void rva004B8B0F();
+
 protected:
 	virtual void xfer(Xfer *xfer);
 

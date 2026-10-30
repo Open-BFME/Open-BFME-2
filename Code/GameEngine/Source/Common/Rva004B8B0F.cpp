@@ -43,14 +43,38 @@ public:
 	AIUpdateInterface *getAIUpdateInterface();
 };
 
-class OathbreakersFadeAwayBehavior
+#include "../../Include/Common/ObjectModule.h"
+
+class BehaviorModuleInterface { public: virtual void behaviorSlot(); };
+class UpdateModuleInterface { public: virtual void updateSlot(); };
+
+class UpdateModule : public ObjectModule,
+	public BehaviorModuleInterface, public UpdateModuleInterface
 {
 public:
-	void rva004B8B0F();
+	UpdateModule(Thing *thing, const ModuleData *data);
+	virtual ~UpdateModule();
+	void xfer(Xfer *xfer);
 
 private:
-	char m_pad[8];
-	Object *m_object; // +8
+	unsigned int m_nextCallFrameAndPhase;
+	int m_indexInLogic;
+	int m_updateState;
+};
+
+class OathbreakersFadeAwayBehavior : public UpdateModule
+{
+public:
+	const char *name() const;
+	virtual NameKeyType getModuleNameKey() const;
+	void rva004B8B0F();
+
+protected:
+	virtual void xfer(Xfer *xfer);
+
+private:
+	bool m_20;
+	float m_24;
 };
 
 void OathbreakersFadeAwayBehavior::rva004B8B0F()
