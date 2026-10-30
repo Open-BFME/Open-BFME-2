@@ -43524,7 +43524,7 @@ _$E9,,0x007B7230,35,Code/Libraries/Source/WWVegas/WW3D2/meshmdl_sidehash.cpp,mat
 ?rva005391D3@Rva0053947D@@UAEXXZ,,0x005391D3,42,Code/GameEngine/Source/Common/Rva0053947DDtor.cpp,matched,vslot slot2 v13 count v15 entry callee 0x005C4C95
 ?rva005C8E2C@HostClass005C8E0A@@QAE?AVBfmePoolRef10@@XZ,,0x005C8E2C,135,Code/GameEngine/Source/Common/HostClass005C8E2C.cpp,matched,take pool ref at +8 via copy clear adjust and iterate caller 0x56A430
 ?rva00256499@Rva00256499@@QAEXPAVINI@@PAX@Z,,0x00256499,234,Code/GameEngine/Source/Common/System/Rva00256499Parse.cpp,matched,LINK BONUS KindOf driver via Veterancy donor with member Append homing
-??0W3DLightDraw@@QAE@PAVThing@@PBVModuleData@@@Z,,0x000CF91D,287,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DLightDrawConstructor.cpp,matched,LINK toss BFME1 donor W3DLightDrawConstructor same shape via DrawModule base
+??0W3DLightDraw@@QAE@PAVThing@@PBVModuleData@@@Z,,0x000CF91D,287,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DLightDraw.cpp,matched,LINK toss BFME1 donor W3DLightDrawConstructor same shape via DrawModule base
 ?rva0053EDD2@Rva0053ED1A@@UAEXXZ,,0x0053EDD2,34,Code/GameEngine/Source/Common/Rva0053ED1ACtor.cpp,matched,vslot slot5 findObjectByID reset rva005C65F1
 ?setLightPosition@W3DGameClientShadowShim@@QAEXHMMM@Z,,0x0009A587,198,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadow.cpp,matched,LINK 61B via pin plus rowed Inv_Sqrt 0x0004233A plus rowed rva0007D9CF 0x0007D9CF plus Vector3 at plus0xC plus shadow global 0x00DE1FF8
 ??1Rva004FBCBE@@UAE@XZ,,0x004FBCBE,96,Code/GameEngine/Source/Common/Rva004FBCBEDtor.cpp,matched,dtor with two wide strings plus flag gated pinned call via int global

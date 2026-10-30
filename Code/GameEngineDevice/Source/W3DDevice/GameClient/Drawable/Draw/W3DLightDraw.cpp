@@ -137,6 +137,7 @@ protected:
 };
 
 class Thing;
+
 class DrawModule : public DrawableModule
 {
 public:
@@ -188,6 +189,26 @@ struct LightColorRGB
 	float m_blue; // +0x08
 };
 
+class ModuleData;
+
+class WWMath
+{
+public:
+	static float Random_Float(void);
+};
+
+class RTS3DScene
+{
+public:
+	W3DDynamicLight *getADynamicLight(void);
+};
+
+class W3DDisplay
+{
+public:
+	static RTS3DScene *m_3DScene;
+};
+
 class W3DLightDrawModuleData : public ModuleData
 {
 public:
@@ -210,9 +231,34 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-// tu-skeleton: 0x000CF91D 287B ??0W3DLightDraw@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DLightDrawConstructor.cpp (not merged yet)
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DLightDrawConstructor.cpp
+
+W3DLightDraw::W3DLightDraw(Thing *thing, const ModuleData *moduleData)
+	: DrawModule(thing, moduleData)
+{
+	m_radius = 0.0f;
+	m_angle = 0.0f;
+	m_height = 0.0f;
+	m_phase = WWMath::Random_Float() * 30.0f;
+	m_light = W3DDisplay::m_3DScene->getADynamicLight();
+	if (m_light)
+	{
+		m_light->Add_Ref();
+		const W3DLightDrawModuleData *data =
+			(const W3DLightDrawModuleData *)moduleData;
+		m_light->setEnabled(true);
+		m_light->Set_Ambient(Vector3(data->m_ambientColor.m_red, data->m_ambientColor.m_green, data->m_ambientColor.m_blue));
+		m_light->Set_Diffuse(Vector3(data->m_diffuseColor.m_red, data->m_diffuseColor.m_green, data->m_diffuseColor.m_blue));
+		m_light->Set_Position(Vector3(0.0f, 0.0f, 0.0f));
+		m_light->setFrameFade(0, 0);
+		m_light->Set_Far_Attenuation_Range(1.0, data->m_radius);
+		m_light->setFarAttenuationEnabled();
+	}
+}
 
 // tu-skeleton: 0x000CFA3C 6B ?name@W3DLightDraw@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/W3DDrawNameGetters.cpp (not merged yet)
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DLightDraw.cpp
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DLightDrawDestructor.cpp
 
@@ -225,14 +271,6 @@ W3DLightDraw::~W3DLightDraw()
 		m_light = 0;
 	}
 }
-
-// tu-skeleton: 0x000CFA99 24B ?rva000CFA99@W3DLightDraw@@UAEX_N@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DLightDrawXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x000CFAB1 72B ?xfer@W3DLightDraw@@MAEXPAVXfer@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DLightDrawXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x000CFAF9 69B ?getModuleNameKey@W3DLightDraw@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DLightDrawPoolKey.cpp (not merged yet)
-
-// tu-skeleton: 0x000CFB3E 107B ??0W3DLightDrawModuleData@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DLightDrawModuleDataConstructor.cpp (not merged yet)
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DLightDrawModuleDataDtor.cpp
 
@@ -250,6 +288,14 @@ void W3DLightDrawModuleData::buildFieldParse(MultiIniFieldParse &parse)
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
+
+// tu-skeleton: 0x000CFA99 24B ?rva000CFA99@W3DLightDraw@@UAEX_N@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DLightDrawXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x000CFAB1 72B ?xfer@W3DLightDraw@@MAEXPAVXfer@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DLightDrawXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x000CFAF9 69B ?getModuleNameKey@W3DLightDraw@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DLightDrawPoolKey.cpp (not merged yet)
+
+// tu-skeleton: 0x000CFB3E 107B ??0W3DLightDrawModuleData@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DLightDrawModuleDataConstructor.cpp (not merged yet)
 
 // tu-skeleton: 0x000CFC0C 467B ?doDrawModule@W3DLightDraw@@UAEXPBVMatrix3D@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DLightDrawDoDrawModule.cpp (not merged yet)
 
