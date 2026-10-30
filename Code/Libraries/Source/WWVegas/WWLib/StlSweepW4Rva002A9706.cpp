@@ -27,7 +27,6 @@ namespace _STL { template <> void vector<void *, allocator<void *> >::_M_set(voi
 namespace _STL { template <> void ** allocator<void *>::allocate(unsigned int, void const *) const; }
 namespace _STL { template <> unsigned int vector<void *, allocator<void *> >::capacity() const; }
 namespace _STL { template <> allocator<void *> vector<void *, allocator<void *> >::get_allocator() const; }
-namespace _STL { template <> void vector<void *, allocator<void *> >::insert(void **, unsigned int, void *const &); }
 namespace _STL { template <> void vector<void *, allocator<void *> >::reserve(unsigned int); }
 namespace _STL { template <> void vector<void *, allocator<void *> >::swap(vector<void *, allocator<void *> > &); }
 // bfme link decl-only end
@@ -57,7 +56,17 @@ template <> bool less<unsigned>::operator()(const unsigned &a, const unsigned &b
 namespace _STL {
 template <> size_t vector<void*>::size() const;
 template <> void **vector<void*>::begin();
-template <> void **vector<void*>::end();
+// end() and the fill insert(pos, n, x) are taken inline, as retail's
+// hashtable::_M_initialize_buckets does (59 bytes: it reads _M_finish and
+// calls the rowed _M_fill_insert); dllimport + forceinline emits no copy.
+template <> __declspec(dllimport) __forceinline void **vector<void*>::end()
+{ return _M_finish; }
+template <> __declspec(dllimport) __forceinline void vector<void*>::insert(void **pos, size_t n, void *const &x)
+{ _M_fill_insert(pos, n, x); }
+// /Ob1 would leave __less<unsigned> out of line in _M_next_size; retail
+// expands it (48 bytes). Inline only, no external copy.
+template <> __declspec(dllimport) __forceinline less<unsigned int> __less(unsigned int *)
+{ return less<unsigned int>(); }
 }
 
 struct Rva002A9706Element { char bytes[1]; bool operator<(const Rva002A9706Element&)const; bool operator==(const Rva002A9706Element&)const; };

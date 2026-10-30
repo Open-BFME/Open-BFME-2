@@ -37,7 +37,6 @@ namespace _STL { template <> void vector<void *, allocator<void *> >::_M_insert_
 namespace _STL { template <> void vector<void *, allocator<void *> >::_M_set(void **, void **, void **); }
 namespace _STL { template <> void ** allocator<void *>::allocate(unsigned int, void const *) const; }
 namespace _STL { template <> unsigned int vector<void *, allocator<void *> >::capacity() const; }
-namespace _STL { template <> void vector<void *, allocator<void *> >::insert(void **, unsigned int, void *const &); }
 namespace _STL { template <> void vector<void *, allocator<void *> >::reserve(unsigned int); }
 // bfme link decl-only end
 // Suppress this TU's non-retail vector<void*> operator[] copy (family2-LK3 row 25):
@@ -49,7 +48,13 @@ template <> void *&_STL::vector<void*>::operator[](size_t);
 // the retail copies serve the link. Plain declaration-only form (no __imp_).
 namespace _STL {
 template <> void **vector<void*>::begin();
-template <> void **vector<void*>::end();
+// end() and the fill insert(pos, n, x) are taken inline, as retail's
+// hashtable::_M_initialize_buckets does (59 bytes: it reads _M_finish and
+// calls the rowed _M_fill_insert); dllimport + forceinline emits no copy.
+template <> __declspec(dllimport) __forceinline void **vector<void*>::end()
+{ return _M_finish; }
+template <> __declspec(dllimport) __forceinline void vector<void*>::insert(void **pos, size_t n, void *const &x)
+{ _M_fill_insert(pos, n, x); }
 }
 // Suppress this TU's non-retail vector<void*> size copy (family2-LK3 row 17):
 // the retail copy serves the link. Plain declaration-only form (no __imp_).

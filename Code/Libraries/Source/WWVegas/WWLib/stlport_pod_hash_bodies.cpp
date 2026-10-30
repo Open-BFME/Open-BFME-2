@@ -88,9 +88,16 @@ namespace _STL { template <> void vector<void *, allocator<void *> >::_M_insert_
 namespace _STL { template <> void vector<void *, allocator<void *> >::_M_set(void **, void **, void **); }
 namespace _STL { template <> void ** vector<void *, allocator<void *> >::begin(); }
 namespace _STL { template <> unsigned int vector<void *, allocator<void *> >::capacity() const; }
-namespace _STL { template <> void ** vector<void *, allocator<void *> >::end(); }
+namespace _STL {
+// end() and the fill insert(pos, n, x) are taken inline, as retail's
+// hashtable::_M_initialize_buckets does (59 bytes: it reads _M_finish and
+// calls the rowed _M_fill_insert); dllimport + forceinline emits no copy.
+template <> __declspec(dllimport) __forceinline void **vector<void*>::end()
+{ return _M_finish; }
+template <> __declspec(dllimport) __forceinline void vector<void*>::insert(void **pos, size_t n, void *const &x)
+{ _M_fill_insert(pos, n, x); }
+}
 namespace _STL { template <> allocator<void *> vector<void *, allocator<void *> >::get_allocator() const; }
-namespace _STL { template <> void vector<void *, allocator<void *> >::insert(void **, unsigned int, void *const &); }
 namespace _STL { template <> void vector<void *, allocator<void *> >::reserve(unsigned int); }
 // bfme link decl-only end
 template class _STL::hash_set<int, _STL::hash<int>, _STL::equal_to<int>, _STL::allocator<int> >;
