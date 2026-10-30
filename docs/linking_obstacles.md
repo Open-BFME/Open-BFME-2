@@ -1,5 +1,22 @@
 # Linking obstacle register
 
+### LINK-164: Downloader allocator copies need proxy-level inline cleanup (2026-10-30)
+
+The registry's fully specialized char allocator cannot accept another member
+specialization (C2910) or a late imported member redeclaration (C2761). A local
+specialization of the primary allocation proxy performs the existing null
+check and throwing namespace free directly. It preserves all 21 registry rows,
+six EH graphs, 45 retained external code definitions and actual relocation
+destinations. Exactly three debug-only allocator/proxy/rebind definitions
+disappear; no import, pin, row, alias, hatch or header changes. The selected
+proxy and rebind providers remain unchanged; both existing proxy providers
+are complete native 18-byte exact. With the separately checked URL builder,
+strict four-source preparation passes 38 rows and eight EH graphs. The
+`ccafe54d1d` preview retains 4/4 LINKS, 942 -> 3,717 authored bytes, including
+registry 0 -> 1,907. Full affected-consumer selection/loss checks and census
+confirmation remain pending; no official headline change is claimed.
+[Registry and provider evidence](../reverse/attempt_support/download-char-deallocate-link-20261030/registry.md).
+
 ### LINK-163: Monetary string units publish unused narrow deallocator copies (2026-10-30)
 
 The wide monetary parser emits an unused 18-byte const narrow-allocator copy
