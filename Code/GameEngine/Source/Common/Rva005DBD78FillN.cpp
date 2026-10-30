@@ -6,15 +6,14 @@ class Rva005DBCD1
 {
 public:
 	Rva005DBCD1(const Rva005DBCD1 &other);
+	Rva005DBCD1();
+	Rva005DBCD1 &operator=(const Rva005DBCD1 &);
 	virtual ~Rva005DBCD1();
-	short m_field04;
-	short m_field06;
+	short m_field04; // +0x04
+	short m_field06; // +0x06
 };
 
-inline void *__cdecl operator new(unsigned int, void *where)
-{
-	return where;
-}
+inline void *__cdecl operator new(unsigned int, void *p) { return p; }
 
 struct Tag
 {

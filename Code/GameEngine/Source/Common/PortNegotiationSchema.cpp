@@ -39,14 +39,16 @@ class Rva005DBCD1
 {
 public:
 	Rva005DBCD1(const Rva005DBCD1 &other);
+	Rva005DBCD1();
+	Rva005DBCD1 &operator=(const Rva005DBCD1 &);
 	virtual ~Rva005DBCD1();
-	short m_field04;
-	short m_field06;
+	short m_field04; // +0x04
+	short m_field06; // +0x06
 };
 
 namespace _STL
 {
-struct __false_type {};
+struct __false_type;
 }
 
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
@@ -124,12 +126,11 @@ class Rva005DBE6AList
 public:
 	void forEach(void (Rva005DBE6AListener::*notify)(void *, int, int), void *arg, int value, int extra);
 	void apply(const Rva005DBDF7Call &call);
-
 private:
-	Rva005DBE6AListener **m_begin;		// +0x00
-	Rva005DBE6AListener **m_end;		// +0x04
-	Rva005DBE6AListener **m_capacity;	// +0x08
-	unsigned int m_index;	// +0x0C
+	Rva005DBE6AListener **m_begin; // +0x00
+	Rva005DBE6AListener **m_end; // +0x04
+	Rva005DBE6AListener **m_capacity; // +0x08
+	unsigned int m_index; // +0x0C
 };
 
 // ---- from Code/GameEngine/Source/Common/PortNegotiationSchema.cpp
