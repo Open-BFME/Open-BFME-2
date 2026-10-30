@@ -17,7 +17,7 @@ public:
 private:
     char storage[0x148];
 };
-// Canonical global identity is established by WW3DEndRender.cpp at DEC3D4.
+// Canonical global identity is established by ww3d.cpp (WW3D::End_Render) at DEC3D4.
 class Vector3 { public: float X, Y, Z; };
 class CameraClass
 {

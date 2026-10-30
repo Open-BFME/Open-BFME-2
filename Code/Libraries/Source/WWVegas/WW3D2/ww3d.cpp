@@ -86,6 +86,7 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 												ShaderClass::DETAILCOLOR_DISABLE,\
 												ShaderClass::DETAILALPHA_DISABLE) )
 #include <string.h>
+#include <windows.h>
 
 const char* DAZZLE_INI_FILENAME="DAZZLE.INI";
 
@@ -163,7 +164,7 @@ bool														WW3D::IsTexturingEnabled=true;
 
 bool										WW3D::IsColoringEnabled=false;
 
-// 0x00DEC408: the render window handle, defined with WW3D::Init in WW3D_Init_Bfme.cpp.
+// 0x00DEC408: the render window handle, defined with WW3D::Init below.
 extern void *											g_WW3D_Hwnd;
 
 		// Not a member to hide windows from WW3D users
@@ -261,17 +262,64 @@ public:
 	~BFME2ScopedRenderEvent();
 };
 
+// Retail 0x0014D220 reads the two floats DX8Wrapper::Set_Projection_Transform_With_Z_Bias
+// stores (ZNear at 0x009EC4F0, ZFar at 0x009ED9F8); BFME 2 keeps no WW3D::PixelCenterX/Y.
+// DX8Wrapper declares both protected, so a TU-local derived view reads them.
+struct WW3DZRangeView : public DX8Wrapper
+{
+	static float Near() { return ZNear; }
+	static float Far() { return ZFar; }
+};
+
+extern DX8MeshRendererClass *TheDX8MeshRenderer;
+
+class Rva00DF6F94GapFillerContext
+{
+public:
+	void rva174ba6();
+};
+
+            // 0x00DF363C
+extern Rva00DF6F94GapFillerContext *TheMeshGapFillerContext;
+
+namespace Debug_Statistics
+{
+	void End_Statistics();
+}
+
+void Rva00129690();
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+class DX8MeshRendererClass
+{
+public:
+	void Invalidate( bool shutdown );
+public:
+	void Flush();
+};
+
+void *g_WW3D_Hwnd;
+
+unsigned char g_WW3D_Lite;
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp
+
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/WW3DActivateSnapshot.cpp
 
-// tu-skeleton: 0x00116E20 6B ?Rva00116E20Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstGlobalGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x00116E30 6B ?Rva00116E30Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstGlobalGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x00116E40 10B ?Rva00116E40Set@@YAXH@Z -- matched in Code/GameEngine/Source/Common/ColdGlobalDwordSetters.cpp (not merged yet)
 
-// tu-skeleton: 0x00116E50 31B ?Set_NPatches_Gap_Filling_Mode@WW3D@@SAXW4NPatchesGapFillingModeEnum@1@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/WW3D_SetNPatchesGapFillingModeThunk.cpp (not merged yet)
 
-// tu-skeleton: 0x00116E70 89B ?Set_NPatches_Level@WW3D@@SAXI@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/WW3D_SetNPatchesLevelThunk.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/Rva008FD0E0SetRenderDevice.cpp
 
@@ -280,10 +328,6 @@ bool Rva008FD0E0Wrapper::setRenderDeviceChecked(const char* name, int width, int
 	bool ok = Set_Render_Device(name, width, height, bits, windowed, resize);
 	return ok ? true : false;
 }
-
-// tu-skeleton: 0x00116F10 54B ?Set_Render_Device@WW3D@@SA_NHHHHH_N00@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/WW3D_Set_Render_Device.cpp (not merged yet)
-
-// tu-skeleton: 0x00116F70 6B ?Rva00116F70GetByte@@YAEXZ -- matched in Code/GameEngine/Source/Common/GlobalByteGetters.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp
 
@@ -375,10 +419,9 @@ bool Rva008FD0E0Wrapper::setRenderDeviceChecked(const char* name, int width, int
 **
 ***********************************************************************************/
 
-// WW3D::Set_NPatches_Gap_Filling_Mode: defined in
-// WW3D_SetNPatchesGapFillingModeThunk.cpp (its row's unit).
+// WW3D::Set_NPatches_Gap_Filling_Mode: BFME 2's body is defined below (0x00116E50).
 
-// WW3D::Set_NPatches_Level: defined in WW3D_SetNPatchesLevelThunk.cpp (its row's unit).
+// WW3D::Set_NPatches_Level: BFME 2's body is defined below (0x00116E70).
 
 /***********************************************************************************************
  * WW3D::Init -- Initialize the WW3D Library                                                   *
@@ -392,7 +435,7 @@ bool Rva008FD0E0Wrapper::setRenderDeviceChecked(const char* name, int width, int
  * HISTORY:                                                                                    *
  *   3/24/98    GTH : Created.                                                                 *
  *=============================================================================================*/
-// WW3D::Init: Zero Hour copy removed; BFME 2's body is rowed in WW3D_Init_Bfme.cpp (0x00118040).
+// WW3D::Init: Zero Hour copy removed; BFME 2's body is defined below (0x00118040).
 
 
 /***********************************************************************************************
@@ -1563,15 +1606,6 @@ WW3DErrorType WW3D::On_Activate_App(void)
 
 #pragma optimize("s", on)
 
-// Retail 0x0014D220 reads the two floats DX8Wrapper::Set_Projection_Transform_With_Z_Bias
-// stores (ZNear at 0x009EC4F0, ZFar at 0x009ED9F8); BFME 2 keeps no WW3D::PixelCenterX/Y.
-// DX8Wrapper declares both protected, so a TU-local derived view reads them.
-struct WW3DZRangeView : public DX8Wrapper
-{
-	static float Near() { return ZNear; }
-	static float Far() { return ZFar; }
-};
-
 void WW3D::Get_Pixel_Center(float &x, float &y)
 {
 	x = WW3DZRangeView::Near(); y = WW3DZRangeView::Far();
@@ -1628,7 +1662,7 @@ void WW3D::Render_And_Clear_Static_Sort_Lists(RenderInfoClass & rinfo)
 	AreStaticSortListsEnabled = old_enable;
 }
 
-// WW3D::Enable_Sorting: defined in WW3D_EnableSorting.cpp (its row's unit).
+// WW3D::Enable_Sorting: BFME 2's body is defined below (0x00117C90).
 
 void WW3D::Override_Current_Static_Sort_Lists(StaticSortListClass * sort_list)
 {
@@ -1660,10 +1694,6 @@ void WW3D::Get_Device_Resolution(int &width,int &height,int &bits,bool &windowed
 {
     DX8Wrapper::Get_Device_Resolution(width,height,bits,windowed);
 }
-
-// tu-skeleton: 0x00116FA0 5B ?Rva00116FA0Get@@YAHXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva00116FA0Forwarders.cpp (not merged yet)
-
-// tu-skeleton: 0x00116FC0 39B ?Set_Device_Resolution@WW3D@@SA_NHHHH_N@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/WW3D_Set_Device_Resolution.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/WW3D_RegistryDeviceWrappers.cpp
 
@@ -1697,24 +1727,6 @@ bool LoadRenderDeviceRegistry(const char *sub_key, bool resize_window)
 	return false;
 }
 
-// tu-skeleton: 0x001170A0 120B ?_Invalidate_Mesh_Cache@WW3D@@SAXXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/bfmedynamicvertexbuffer.cpp (not merged yet)
-
-// tu-skeleton: 0x00117120 131B ?rva00117120@@YAXXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva00117120Cluster.cpp (not merged yet)
-
-// tu-skeleton: 0x001171B0 199B ?_Invalidate_Textures@WW3D@@SAXXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva001171B0Cluster.cpp (not merged yet)
-
-// tu-skeleton: 0x001172B0 317B ?Prepare_Render_New_Frame@WW3D@@SA_NXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva007ACBC0Ww3dCmdExecute.cpp (not merged yet)
-
-// tu-skeleton: 0x001173F0 22B ?rva001173f0@@YAXI@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva001173F0Cluster.cpp (not merged yet)
-
-// tu-skeleton: 0x00117410 72B ?End_Render@WW3D@@SA_N_N@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/WW3DEndRender.cpp (not merged yet)
-
-// tu-skeleton: 0x001174C0 5B ?Rva001174C0Get@@YAHXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva00116FA0Forwarders.cpp (not merged yet)
-
-// tu-skeleton: 0x001174D0 5B ?Rva001174D0@@YAXH@Z -- matched in Code/GameEngine/Source/Common/TailJumpWrappers5B.cpp (not merged yet)
-
-// tu-skeleton: 0x001174E0 5B ?Rva001174E0Get@@YAHXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva00116FA0Forwarders.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/WW3DStopMovieCapture.cpp
 
 void WW3D::Stop_Movie_Capture()
@@ -1725,20 +1737,6 @@ void WW3D::Stop_Movie_Capture()
         Movie=0;
     }
 }
-
-// tu-skeleton: 0x00117AD0 219B ?Update_Movie_Capture@WW3D@@SAXXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/WW3DUpdateMovieCapture.cpp (not merged yet)
-
-// tu-skeleton: 0x00117BB0 32B ?Rva00117BB0SetOption@@YAXH@Z -- matched in Code/GameEngine/Source/Common/WW3DOptionSetter.cpp (not merged yet)
-
-// tu-skeleton: 0x00117C00 6B ?Rva00117C00Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/GlobalGetterSingles.cpp (not merged yet)
-
-// tu-skeleton: 0x00117C10 13B ?Rva00117C10Get@@YAXPAH@Z -- matched in Code/GameEngine/Source/Common/GlobalGetterSingles.cpp (not merged yet)
-
-// tu-skeleton: 0x00117C20 13B ?Rva00117C20Get@@YAXPAH@Z -- matched in Code/GameEngine/Source/Common/GlobalGetterSingles.cpp (not merged yet)
-
-// tu-skeleton: 0x00117C30 6B ?Rva00117C30Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstGlobalGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00117C90 23B ?Enable_Sorting@WW3D@@SAX_N@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/WW3D_EnableSorting.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/BFME2ScopedRenderEvent.cpp
 
@@ -1769,6 +1767,125 @@ BFME2ScopedRenderEvent::~BFME2ScopedRenderEvent()
 	bfmeRva0011F3C0();
 }
 
+// tu-skeleton: 0x00116E20 6B ?Rva00116E20Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstGlobalGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00116E30 6B ?Rva00116E30Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstGlobalGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00116E40 10B ?Rva00116E40Set@@YAXH@Z -- matched in Code/GameEngine/Source/Common/ColdGlobalDwordSetters.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/WW3D_SetNPatchesGapFillingModeThunk.cpp
+
+void WW3D::Set_NPatches_Gap_Filling_Mode( NPatchesGapFillingModeEnum mode )
+{
+	if( NPatchesGapFillingMode != mode ) {
+		NPatchesGapFillingMode = mode;
+		TheDX8MeshRenderer->Invalidate( false );
+	}
+}
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/WW3D_SetNPatchesLevelThunk.cpp
+
+void WW3D::Set_NPatches_Level( unsigned level )
+{
+	if( level > 8 ) level = 8;
+	if( level < 1 ) level = 1;
+	if( NPatchesLevel == 1 && level > 1 ) TheDX8MeshRenderer->Invalidate( false );
+	if( NPatchesLevel > 1 && level == 1 ) TheDX8MeshRenderer->Invalidate( false );
+	NPatchesLevel = level;
+}
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/WW3D_Set_Render_Device.cpp
+
+// ?Set_Render_Device@WW3D@@SA_NHHHHH_N00@Z
+bool WW3D::Set_Render_Device(int dev, int width, int height, int bits, int windowed, bool resize_window, bool reset_device, bool restore_assets)
+{
+	bool success = DX8Wrapper::Set_Render_Device(dev, width, height, bits, windowed, resize_window, reset_device, restore_assets);
+	if (success) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+// tu-skeleton: 0x00116F70 6B ?Rva00116F70GetByte@@YAEXZ -- matched in Code/GameEngine/Source/Common/GlobalByteGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00116FA0 5B ?Rva00116FA0Get@@YAHXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva00116FA0Forwarders.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/WW3D_Set_Device_Resolution.cpp
+
+// ?Set_Device_Resolution@WW3D@@SA_NHHHH_N@Z
+bool WW3D::Set_Device_Resolution(int width, int height, int bits, int windowed, bool resize_window)
+{
+	bool success = DX8Wrapper::Set_Device_Resolution(width, height, bits, windowed, resize_window);
+	if (success) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+// tu-skeleton: 0x001170A0 120B ?_Invalidate_Mesh_Cache@WW3D@@SAXXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/bfmedynamicvertexbuffer.cpp (not merged yet)
+
+// tu-skeleton: 0x00117120 131B ?rva00117120@@YAXXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva00117120Cluster.cpp (not merged yet)
+
+// tu-skeleton: 0x001171B0 199B ?_Invalidate_Textures@WW3D@@SAXXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva001171B0Cluster.cpp (not merged yet)
+
+// tu-skeleton: 0x001172B0 317B ?Prepare_Render_New_Frame@WW3D@@SA_NXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva007ACBC0Ww3dCmdExecute.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/Rva001173F0Cluster.cpp
+
+ // 0x00DF6F94
+
+void rva001173f0(unsigned int renderArgument)
+{
+	TheDX8MeshRenderer->Flush();
+	TheMeshGapFillerContext->rva174ba6();
+}
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/WW3DEndRender.cpp
+
+bool WW3D::End_Render(bool flip_frame)
+{
+	if (IsInitted) {
+		SortingRendererClass::Flush();
+		IsRendering = false;
+		DX8Wrapper::End_Scene(flip_frame);
+		FrameCount++;
+		if (flip_frame)
+			Debug_Statistics::End_Statistics();
+		Rva00129690();
+		Activate_Snapshot(false);
+		DX8Wrapper::Invalidate_Cached_Render_States();
+	}
+	return true;
+}
+
+// tu-skeleton: 0x001174C0 5B ?Rva001174C0Get@@YAHXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva00116FA0Forwarders.cpp (not merged yet)
+
+// tu-skeleton: 0x001174D0 5B ?Rva001174D0@@YAXH@Z -- matched in Code/GameEngine/Source/Common/TailJumpWrappers5B.cpp (not merged yet)
+
+// tu-skeleton: 0x001174E0 5B ?Rva001174E0Get@@YAHXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva00116FA0Forwarders.cpp (not merged yet)
+
+// tu-skeleton: 0x00117AD0 219B ?Update_Movie_Capture@WW3D@@SAXXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/WW3DUpdateMovieCapture.cpp (not merged yet)
+
+// tu-skeleton: 0x00117BB0 32B ?Rva00117BB0SetOption@@YAXH@Z -- matched in Code/GameEngine/Source/Common/WW3DOptionSetter.cpp (not merged yet)
+
+// tu-skeleton: 0x00117C00 6B ?Rva00117C00Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/GlobalGetterSingles.cpp (not merged yet)
+
+// tu-skeleton: 0x00117C10 13B ?Rva00117C10Get@@YAXPAH@Z -- matched in Code/GameEngine/Source/Common/GlobalGetterSingles.cpp (not merged yet)
+
+// tu-skeleton: 0x00117C20 13B ?Rva00117C20Get@@YAXPAH@Z -- matched in Code/GameEngine/Source/Common/GlobalGetterSingles.cpp (not merged yet)
+
+// tu-skeleton: 0x00117C30 6B ?Rva00117C30Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstGlobalGetters.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/WW3D_EnableSorting.cpp
+
+void WW3D::Enable_Sorting(bool enabled)
+{
+	IsSortingEnabled = enabled;
+	TheDX8MeshRenderer->Invalidate(false);
+}
+
 // tu-skeleton: 0x00117DB0 9B ??0Rva00117DB0@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp (not merged yet)
 
 // tu-skeleton: 0x00117DC0 330B ?Execute@Rva007ACBC0CmdInterface@@UAE_NAAVDebug@@PBDW4CommandMode@DebugCmdInterface@@IPBQBD@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva007ACBC0Ww3dCmdExecute.cpp (not merged yet)
@@ -1777,7 +1894,25 @@ BFME2ScopedRenderEvent::~BFME2ScopedRenderEvent()
 
 // tu-skeleton: 0x00117F30 23B ??$Bound@H@@YAHHHH@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp (not merged yet)
 
-// tu-skeleton: 0x00118040 158B ?Init@WW3D@@SA_NPAXPAD_N@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/WW3D_Init_Bfme.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/WW3D_Init_Bfme.cpp
+
+// platformsdk
+// Retail 0x008FD640: BFME WW3D initialisation stores the static sort-list pair.
+
+bool WW3D::Init(void *hwnd, char *, bool lite)
+{
+	g_WW3D_Hwnd = hwnd;
+	g_WW3D_Lite = lite;
+	if (!DX8Wrapper::Init(g_WW3D_Hwnd, lite))
+		return false;
+	timeBeginPeriod(1);
+	DefaultStaticSortListClass *list = new DefaultStaticSortListClass;
+	DefaultStaticSortLists = list;
+	CurrentStaticSortLists = list;
+	if (!lite)
+		IsInitted = true;
+	return true;
+}
 
 // tu-skeleton: 0x001180E0 134B ?shutdownRenderDevice@@YA_NXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/WW3DShutdownRenderDevice.cpp (not merged yet)
 
@@ -1806,10 +1941,6 @@ BFME2ScopedRenderEvent::~BFME2ScopedRenderEvent()
 // tu-skeleton: 0x00764BC0 8B uw_00764bc0 -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva001171B0Cluster.cpp (not merged yet)
 
 // tu-skeleton: 0x00764BC8 10B __ehhandler$?_Invalidate_Textures@WW3D@@SAXXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva001171B0Cluster.cpp (not merged yet)
-
-// tu-skeleton: 0x00764C00 11B uw_00764c00 -- matched in Code/Libraries/Source/WWVegas/WW3D2/WW3D_Init_Bfme.cpp (not merged yet)
-
-// tu-skeleton: 0x00764C0B 10B __ehhandler$?Init@WW3D@@SA_NPAXPAD_N@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/WW3D_Init_Bfme.cpp (not merged yet)
 
 // tu-skeleton: 0x00764C20 11B $L380 -- matched in Code/Libraries/Source/WWVegas/WW3D2/WW3DStartMovieCapture.cpp (not merged yet)
 

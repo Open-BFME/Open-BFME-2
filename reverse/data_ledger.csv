@@ -18283,10 +18283,10 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009EC402,2,.data,global,?stats@DX8Wrapper@@2VDX8_Stats@@A,,unowned,,0,1
 0x009EC404,1,.data,global,?IsCurrentlyRenderingShadowMap@WW3D@@0_NA,,unowned,,0,4
 0x009EC405,3,.data,global,?IsColoringEnabled@WW3D@@0_NA,Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp,owned,,1,3
-0x009EC408,4,.data,global,?g_WW3D_Hwnd@@3PAXA,Code/Libraries/Source/WWVegas/WW3D2/WW3D_Init_Bfme.cpp,owned,,1,5
+0x009EC408,4,.data,global,?g_WW3D_Hwnd@@3PAXA,Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp,owned,,1,5
 0x009EC40C,4,.data,global,?g_Va00DEC40C@@3HA,Code/GameEngine/Source/Common/GlobalGetterSingles.cpp,owned,,1,3
 0x009EC410,1,.data,global,?g_Va00DEC410@@3EA,Code/GameEngine/Source/Common/GlobalByteGetters.cpp,provisional,?g_0DEC410@@3EC;?g_Va00DEC410@@3EA,1,2
-0x009EC411,135,.data,global,?g_WW3D_Lite@@3EA,Code/Libraries/Source/WWVegas/WW3D2/WW3D_Init_Bfme.cpp,provisional,?Lite@WW3D@@2_NA;?g_WW3D_Lite@@3EA,1,2
+0x009EC411,135,.data,global,?g_WW3D_Lite@@3EA,Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp,provisional,?Lite@WW3D@@2_NA;?g_WW3D_Lite@@3EA,1,2
 0x009EC498,4,.data,global,_s_rva007ACBC0,Code/Libraries/Source/WWVegas/WW3D2/Rva007ACBC0Ww3dCmdGroup.cpp,owned,,1,1
 0x009EC49C,4,.data,global,_g_BfmeRender2DZ,,unowned,?g_Va00DEC49C@@3MA;_g_BfmeRender2DZ,1,17
 0x009EC4A0,4,.data,global,?G00DEC4A0@@3HA,,unowned,?G00DEC4A0@@3HA;?g_Va00DEC4A0@@3IA,1,7

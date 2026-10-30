@@ -14,7 +14,7 @@ class FrameGrabClass { public: virtual ~FrameGrabClass(); };
 class StaticSortListClass { public: virtual ~StaticSortListClass(); };
 class RvaWW3DDestroySlot0 { public: virtual void *release(int); };
 // ww3d.cpp defines WW3D's statics private (?IsCapturing@WW3D@@0_NA, ...); spell them so.
-// Lite lives in WW3D_Init_Bfme.cpp's g_WW3D_Lite (VA 0x00DEC411), which the init path writes;
+// Lite lives in ww3d.cpp's g_WW3D_Lite (VA 0x00DEC411), which the init path writes;
 // the default sort list is WW3D::DefaultStaticSortLists (0x00DEC3F0).
 class WW3D { friend bool shutdownRenderDevice(); static bool IsCapturing; static bool IsInitted;
     static StaticSortListClass *DefaultStaticSortLists;
