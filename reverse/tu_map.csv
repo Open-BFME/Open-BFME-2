@@ -57893,10 +57893,10 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x006C0630,221,code,,,-,,Code/GameEngine/Source/Common/Rva006C0630Cluster.cpp
 0x006C0710,127,code,,,-,,Code/GameEngine/Source/Common/Rva00880D10CircleBoxTest.cpp
 0x006C0790,61,code,,,-,,Code/GameEngine/Source/Common/Rva00880D90SphereOverlap.cpp
-0x006C07D0,30,code,,displaced,-,N=Code/GameEngine/Source/Common/System/TaintManagerImpl.cpp,Code/GameEngine/Source/Common/System/Rva006C08F0Siblings.cpp
+0x006C07D0,30,code,,displaced,-,N=Code/GameEngine/Source/Common/System/TaintManagerImpl.cpp,Code/GameEngine/Source/Common/BfmeTaintManager.cpp
 0x006C07F0,8,code,Code/GameEngine/Source/Common/BfmeTaintManager.cpp,approved,N,N=Code/GameEngine/Source/Common/BfmeTaintManager.cpp provisional,Code/GameEngine/Source/Common/Bfme5SeventySix.cpp
 0x006C0800,8,code,Code/GameEngine/Source/Common/BfmeTaintManager.cpp,approved,C,C=0x006C07F0..0x006C0810 provisional,Code/GameEngine/Source/Common/BfmeTaintManager.cpp
-0x006C0810,8,code,Code/GameEngine/Source/Common/BfmeTaintManager.cpp,approved,C,C=0x006C07F0..0x006C0820 provisional,Code/GameEngine/Source/Common/Rva006C0810.cpp
+0x006C0810,8,code,Code/GameEngine/Source/Common/BfmeTaintManager.cpp,approved,C,C=0x006C07F0..0x006C0820 provisional,Code/GameEngine/Source/Common/BfmeTaintManager.cpp
 0x006C0820,8,code,Code/GameEngine/Source/Common/BfmeTaintManager.cpp,approved,C,C=0x006C07F0..0x006C0830 provisional,Code/GameEngine/Source/Common/BfmeTaintManager.cpp
 0x006C0830,8,code,Code/GameEngine/Source/Common/BfmeTaintManager.cpp,approved,C,C=0x006C07F0..0x006C0840 provisional,Code/GameEngine/Source/Common/BfmeTaintManager.cpp
 0x006C0840,8,code,Code/GameEngine/Source/Common/BfmeTaintManager.cpp,approved,N,N=Code/GameEngine/Source/Common/BfmeTaintManager.cpp provisional,Code/GameEngine/Source/Common/Bfme5SeventySix.cpp
@@ -57904,14 +57904,14 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x006C0860,43,code,Code/GameEngine/Source/Common/BfmeTaintManager.cpp,approved,U,N=Code/GameEngine/Source/Common/TaintManagerImpl.cpp provisional,Code/GameEngine/Source/Common/BfmeTaintManager.cpp
 0x006C0890,44,code,Code/GameEngine/Source/Common/BfmeTaintManager.cpp,approved,U,N=Code/GameEngine/Source/Common/TaintManagerImpl.cpp provisional,Code/GameEngine/Source/Common/BfmeTaintManager.cpp
 0x006C08C0,41,code,Code/GameEngine/Source/Common/BfmeTaintManager.cpp,approved,U,N=Code/GameEngine/Source/Common/TaintManagerImpl.cpp provisional,Code/GameEngine/Source/Common/BfmeTaintManager.cpp
-0x006C08F0,143,code,Code/GameEngine/Source/Common/BfmeTaintManager.cpp,approved,U,N=Code/GameEngine/Source/Common/System/BfmeTaintManager.cpp provisional,Code/GameEngine/Source/Common/System/Rva006C08F0Siblings.cpp
-0x006C0980,8,code,Code/GameEngine/Source/Common/BfmeTaintManager.cpp,approved,U,N=Code/GameEngine/Source/Common/System/BfmeTaintManager.cpp provisional,Code/GameEngine/Source/Common/System/Rva006C08F0Siblings.cpp
+0x006C08F0,143,code,Code/GameEngine/Source/Common/BfmeTaintManager.cpp,approved,U,N=Code/GameEngine/Source/Common/System/BfmeTaintManager.cpp provisional,Code/GameEngine/Source/Common/BfmeTaintManager.cpp
+0x006C0980,8,code,Code/GameEngine/Source/Common/BfmeTaintManager.cpp,approved,U,N=Code/GameEngine/Source/Common/System/BfmeTaintManager.cpp provisional,Code/GameEngine/Source/Common/BfmeTaintManager.cpp
 0x006C0990,6,code,Code/GameEngine/Source/Common/BfmeTaintManager.cpp,approved,C,C=0x006C0980..0x006C09A0 provisional,Code/GameEngine/Source/Common/BfmeTaintManager.cpp
-0x006C09A0,115,code,Code/GameEngine/Source/Common/BfmeTaintManager.cpp,approved,U,N=Code/GameEngine/Source/Common/System/BfmeTaintManager.cpp provisional,Code/GameEngine/Source/Common/System/Rva006C08F0Siblings.cpp
+0x006C09A0,115,code,Code/GameEngine/Source/Common/BfmeTaintManager.cpp,approved,U,N=Code/GameEngine/Source/Common/System/BfmeTaintManager.cpp provisional,Code/GameEngine/Source/Common/BfmeTaintManager.cpp
 0x006C0A20,46,code,Code/GameEngine/Source/Common/BfmeTaintManager.cpp,approved,C,C=0x006C09A0..0x006C0A50 provisional,Code/GameEngine/Source/Common/Bfme5SeventySix.cpp
 0x006C0A50,82,code,Code/GameEngine/Source/Common/BfmeTaintManager.cpp,approved,N,N=Code/GameEngine/Source/Common/BfmeTaintManager.cpp provisional,Code/GameEngine/Source/Common/Bfme5SeventySix.cpp
 0x006C0AB0,170,code,Code/GameEngine/Source/Common/BfmeTaintManager.cpp,approved,N,N=Code/GameEngine/Source/Common/BfmeTaintManager.cpp provisional,Code/GameEngine/Source/Common/Bfme5SeventySix.cpp
-0x006C0B60,30,code,Code/GameEngine/Source/Common/BfmeTaintManager.cpp,approved,U,N=Code/GameEngine/Source/Common/System/BfmeTaintManager.cpp provisional,Code/GameEngine/Source/Common/System/Rva006C08F0Siblings.cpp
+0x006C0B60,30,code,Code/GameEngine/Source/Common/BfmeTaintManager.cpp,approved,U,N=Code/GameEngine/Source/Common/System/BfmeTaintManager.cpp provisional,Code/GameEngine/Source/Common/BfmeTaintManager.cpp
 0x006C0B80,32,code,Code/GameEngine/Source/Common/BfmeTaintManager.cpp,approved,U,N=Code/GameEngine/Source/Common/BfmeRangeUpdaterFC.cpp provisional,Code/GameEngine/Source/Common/BfmeTaintManager.cpp
 0x006C0BA0,20,code,Code/GameEngine/Source/Common/BfmeTaintManager.cpp,approved,U,N=Code/GameEngine/Source/Common/BfmeCellFC.cpp provisional,Code/GameEngine/Source/Common/BfmeTaintManager.cpp
 0x006C0BC0,15,code,Code/GameEngine/Source/Common/BfmeTaintManager.cpp,approved,U,N=Code/GameEngine/Source/Common/BfmeCellFC.cpp provisional,Code/GameEngine/Source/Common/BfmeTaintManager.cpp
@@ -57920,7 +57920,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x006C0CA0,125,code,Code/GameEngine/Source/Common/BfmeTaintManager.cpp,approved,U,N=Code/GameEngine/Source/Common/TaintManagerImpl.cpp provisional,Code/GameEngine/Source/Common/BfmeTaintManager.cpp
 0x006C0D20,77,code,Code/GameEngine/Source/Common/BfmeTaintManager.cpp,approved,U,N=Code/GameEngine/Source/Common/BfmeThingDMC.cpp provisional,Code/GameEngine/Source/Common/BfmeTaintManager.cpp
 0x006C0D70,39,code,Code/GameEngine/Source/Common/BfmeTaintManager.cpp,approved,U,N=Code/GameEngine/Source/Common/TaintManagerImpl.cpp provisional,Code/GameEngine/Source/Common/Bfme5SeventySix.cpp
-0x006C0DA0,76,code,Code/GameEngine/Source/Common/BfmeTaintManager.cpp,approved,U,N=Code/GameEngine/Source/Common/TaintManagerImpl.cpp provisional,Code/GameEngine/Source/Common/Rva006C0DA0.cpp
+0x006C0DA0,76,code,Code/GameEngine/Source/Common/BfmeTaintManager.cpp,approved,U,N=Code/GameEngine/Source/Common/TaintManagerImpl.cpp provisional,Code/GameEngine/Source/Common/BfmeTaintManager.cpp
 0x006C0DF0,69,code,Code/GameEngine/Source/Common/BfmeTaintManager.cpp,approved,U,N=Code/GameEngine/Source/Common/TaintManagerImpl.cpp provisional,Code/GameEngine/Source/Common/BfmeTaintManager.cpp
 0x006C0E40,40,code,Code/GameEngine/Source/Common/BfmeTaintManager.cpp,approved,U,N=Code/GameEngine/Source/Common/TaintManagerImpl.cpp provisional,Code/GameEngine/Source/Common/BfmeTaintManager.cpp
 0x006C0E70,63,code,Code/GameEngine/Source/Common/BfmeTaintManager.cpp,approved,U,N=Code/GameEngine/Source/Common/TaintManagerImpl.cpp provisional,Code/GameEngine/Source/Common/BfmeTaintManager.cpp
@@ -91407,13 +91407,13 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007A7BD3,10,code,,,-,,Code/Libraries/Source/Compression/LZHCompress/CompLibSource/Lz.cpp
 0x007A7BE0,8,code,,,-,,Code/Libraries/Source/Compression/LZHCompress/CompLibSource/Huff.cpp
 0x007A7BE8,10,code,,,-,,Code/Libraries/Source/Compression/LZHCompress/CompLibSource/Huff.cpp
-0x007A7C00,8,code,Code/GameEngine/Source/Common/BfmeTaintManager.cpp,approved,P,P=0x006C08F0@FuncInfo0x00961600 provisional,Code/GameEngine/Source/Common/System/Rva006C08F0Siblings.cpp
-0x007A7C08,11,code,Code/GameEngine/Source/Common/BfmeTaintManager.cpp,approved,P,P=0x006C08F0@FuncInfo0x00961600 provisional,Code/GameEngine/Source/Common/System/Rva006C08F0Siblings.cpp
-0x007A7C13,11,code,Code/GameEngine/Source/Common/BfmeTaintManager.cpp,approved,P,P=0x006C08F0@FuncInfo0x00961600 provisional,Code/GameEngine/Source/Common/System/Rva006C08F0Siblings.cpp
-0x007A7C1E,10,code,Code/GameEngine/Source/Common/BfmeTaintManager.cpp,approved,P,P=0x006C08F0@FuncInfo0x00961600 provisional,Code/GameEngine/Source/Common/System/Rva006C08F0Siblings.cpp
-0x007A7C30,8,code,Code/GameEngine/Source/Common/BfmeTaintManager.cpp,approved,P,P=0x006C09A0@FuncInfo0x0096162C provisional,Code/GameEngine/Source/Common/System/Rva006C08F0Siblings.cpp
-0x007A7C38,39,code,Code/GameEngine/Source/Common/BfmeTaintManager.cpp,approved,P,P=0x006C09A0@FuncInfo0x0096162C provisional,Code/GameEngine/Source/Common/System/Rva006C08F0Siblings.cpp
-0x007A7C5F,10,code,Code/GameEngine/Source/Common/BfmeTaintManager.cpp,approved,P,P=0x006C09A0@FuncInfo0x0096162C provisional,Code/GameEngine/Source/Common/System/Rva006C08F0Siblings.cpp
+0x007A7C00,8,code,Code/GameEngine/Source/Common/BfmeTaintManager.cpp,approved,P,P=0x006C08F0@FuncInfo0x00961600 provisional,Code/GameEngine/Source/Common/BfmeTaintManager.cpp
+0x007A7C08,11,code,Code/GameEngine/Source/Common/BfmeTaintManager.cpp,approved,P,P=0x006C08F0@FuncInfo0x00961600 provisional,Code/GameEngine/Source/Common/BfmeTaintManager.cpp
+0x007A7C13,11,code,Code/GameEngine/Source/Common/BfmeTaintManager.cpp,approved,P,P=0x006C08F0@FuncInfo0x00961600 provisional,Code/GameEngine/Source/Common/BfmeTaintManager.cpp
+0x007A7C1E,10,code,Code/GameEngine/Source/Common/BfmeTaintManager.cpp,approved,P,P=0x006C08F0@FuncInfo0x00961600 provisional,Code/GameEngine/Source/Common/BfmeTaintManager.cpp
+0x007A7C30,8,code,Code/GameEngine/Source/Common/BfmeTaintManager.cpp,approved,P,P=0x006C09A0@FuncInfo0x0096162C provisional,Code/GameEngine/Source/Common/BfmeTaintManager.cpp
+0x007A7C38,39,code,Code/GameEngine/Source/Common/BfmeTaintManager.cpp,approved,P,P=0x006C09A0@FuncInfo0x0096162C provisional,Code/GameEngine/Source/Common/BfmeTaintManager.cpp
+0x007A7C5F,10,code,Code/GameEngine/Source/Common/BfmeTaintManager.cpp,approved,P,P=0x006C09A0@FuncInfo0x0096162C provisional,Code/GameEngine/Source/Common/BfmeTaintManager.cpp
 0x007A7C70,11,code,Code/GameEngine/Source/Common/BfmeTaintManager.cpp,approved,P,P=0x006C0F50@FuncInfo0x00961650 provisional,Code/GameEngine/Source/Common/BfmeTaintManager.cpp
 0x007A7C7B,10,code,Code/GameEngine/Source/Common/BfmeTaintManager.cpp,approved,P,P=0x006C0F50@FuncInfo0x00961650 provisional,Code/GameEngine/Source/Common/BfmeTaintManager.cpp
 0x007A7C90,11,code,Code/GameEngine/Source/Common/BfmeTaintManager.cpp,approved,P,P=0x006C11E0@FuncInfo0x00961674 provisional,Code/GameEngine/Source/Common/BfmeTaintManager.cpp
