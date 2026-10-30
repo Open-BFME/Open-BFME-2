@@ -376,6 +376,22 @@ public:
 	void set(Rva0035F4A6 *obj);
 };
 #include <stdlib.h>
+#ifndef NULL
+#include <windows.h>
+#endif
+#ifndef FALSE
+#endif
+class WinInstanceData;
+class Rva00314046LeaField
+{
+public:
+	void *get() const;
+};
+#ifndef NULL
+#include <windows.h>
+#endif
+#ifndef FALSE
+#endif
 
 UnicodeString __cdecl GadgetStaticTextGetText(GameWindow *window);
 
@@ -555,6 +571,18 @@ class Rva0035D47B : public Rva001DBAA4
 public:
     Rva0035D47B();
     virtual ~Rva0035D47B();
+};
+
+struct SmallScaleDownInstanceData
+{
+	unsigned char m_pad[0x18c];
+	AsciiString m_decoratedNameString;
+};
+
+struct MediumScaleUpInstanceData
+{
+	unsigned char m_pad[0x18c];
+	AsciiString m_decoratedNameString;
 };
 
 // tu-skeleton: 0x0035D4E6 44B ?update@ReverseSoundTransition@@UAEXH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStylesO1.cpp (not merged yet)
@@ -1216,7 +1244,34 @@ void s4ParseFieldsRva005A01F0(INI *ini, Gen_00489270 *sink)
 
 // tu-skeleton: 0x0035DB86 28B ??_GRva0035DA01@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
 
-// tu-skeleton: 0x0035DBF3 262B ?init@MainMenuSmallScaleDownTransition@@UAEXPAVGameWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/MainMenuSmallScaleDownTransitionInit.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameClient/GUI/MainMenuSmallScaleDownTransitionInit.cpp
+
+void MainMenuSmallScaleDownTransition::init(GameWindow *win)
+{
+	if (win) {
+		m_win = win;
+		m_win->winGetSize(&m_size.x, &m_size.y);
+		m_win->winGetScreenPosition(&m_pos.x, &m_pos.y);
+	}
+	AsciiString growWinName;
+	growWinName = ((SmallScaleDownInstanceData *)((Rva00314046LeaField *)m_win)->get())->m_decoratedNameString;
+	((StringBase<char> &)growWinName).concat("Small");
+	m_growWin = TheWindowManager->winGetWindowFromId(NULL, TheNameKeyGenerator->nameToKey(growWinName));
+	if (!m_growWin)
+		return;
+
+	m_growWin->winGetSize(&m_growSize.x, &m_growSize.y);
+	m_growWin->winGetScreenPosition(&m_growPos.x, &m_growPos.y);
+
+	m_isForward = FALSE;
+	update(0);
+	m_isFinished = FALSE;
+	m_isForward = TRUE;
+	m_incrementSize.x = (m_growSize.x - m_size.x) / 6;
+	m_incrementSize.y = (m_growSize.y - m_size.y) / 6;
+	const Image *image = ((const SmallScaleDownWindowImages *)m_win)->m_enabledImage;
+	m_growWin->winSetEnabledImage(0, image);
+}
 
 // tu-skeleton: 0x0035DCF9 15B ??1MainMenuMediumScaleUpTransition@@UAE@XZ -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
 
@@ -1228,7 +1283,32 @@ void s4ParseFieldsRva005A01F0(INI *ini, Gen_00489270 *sink)
 
 // tu-skeleton: 0x0035DE55 80B ??0MainMenuMediumScaleUpTransition@@QAE@XZ -- matched in Code/GameEngine/Source/Common/MainMenuMediumScaleUpTransition.cpp (not merged yet)
 
-// tu-skeleton: 0x0035DF18 247B ?init@MainMenuMediumScaleUpTransition@@UAEXPAVGameWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/MainMenuMediumScaleUpTransitionInit.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameClient/GUI/MainMenuMediumScaleUpTransitionInit.cpp
+
+void MainMenuMediumScaleUpTransition::init(GameWindow *win)
+{
+	if (win) {
+		m_win = win;
+		m_win->winGetSize(&m_size.x, &m_size.y);
+		m_win->winGetScreenPosition(&m_pos.x, &m_pos.y);
+	}
+	AsciiString growWinName;
+	growWinName = ((MediumScaleUpInstanceData *)((Rva00314046LeaField *)m_win)->get())->m_decoratedNameString;
+	((StringBase<char> &)growWinName).concat("Medium");
+	m_growWin = TheWindowManager->winGetWindowFromId(NULL, TheNameKeyGenerator->nameToKey(growWinName));
+	if (!m_growWin)
+		return;
+
+	m_growWin->winGetSize(&m_growSize.x, &m_growSize.y);
+	m_growWin->winGetScreenPosition(&m_growPos.x, &m_growPos.y);
+
+	m_isForward = FALSE;
+	update(m_startFrame);
+	m_isFinished = FALSE;
+	m_isForward = TRUE;
+	m_incrementSize.x = (m_growSize.x - m_size.x) / m_endFrame;
+	m_incrementSize.y = (m_growSize.y - m_size.y) / m_endFrame;
+}
 
 // tu-skeleton: 0x0035E00F 15B ??1Rva0035E00F@@UAE@XZ -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
 
@@ -1326,14 +1406,6 @@ void s4ParseFieldsRva0059EE10(INI *ini, Gen_00489270 *sink)
 
 	sink->m((int)t);
 }
-
-// tu-skeleton: 0x0077DE75 8B Unwind@00b7de75 -- matched in Code/GameEngine/Source/GameClient/GUI/MainMenuSmallScaleDownTransitionInit.cpp (not merged yet)
-
-// tu-skeleton: 0x0077DE7D 10B __ehhandler$?init@MainMenuSmallScaleDownTransition@@UAEXPAVGameWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/MainMenuSmallScaleDownTransitionInit.cpp (not merged yet)
-
-// tu-skeleton: 0x0077DE9B 8B Unwind@00b7de9b -- matched in Code/GameEngine/Source/GameClient/GUI/MainMenuMediumScaleUpTransitionInit.cpp (not merged yet)
-
-// tu-skeleton: 0x0077DEA3 10B __ehhandler$?init@MainMenuMediumScaleUpTransition@@UAEXPAVGameWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/MainMenuMediumScaleUpTransitionInit.cpp (not merged yet)
 
 // tu-skeleton: 0x0077DEE9 8B Unwind@00b7dee9 -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
 
