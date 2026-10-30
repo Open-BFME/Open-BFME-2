@@ -454,3 +454,7 @@ Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowGeometryMesh.c
 Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptComponentView3DSetup.cpp|local|Rotate_Y|s,c94b9ea586bebdcc3e52d4a8,drz-k7,drz-k7-301,w-4471b1f6edef,2026-10-30,ba99b1c52d392e5b8703cfa1
 Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptComponentView3DSetup.cpp|local|Rotate_Z|c,4c73c7f5cd818599432c1782,drz-k7,drz-k7-301,w-4471b1f6edef,2026-10-30,ab2c9341836e7ed28521373b
 Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneGetADynamicLight.cpp|local|PeekLight|p,780b51a9e5a0470267cb8331,drz-k7,drz-k7-306,w-4471b1f6edef,2026-10-30,bd0b9db7fe8e53d15351c868
+Code/Libraries/Source/Apt/Rva006D6360Ctor.cpp|param|Rva006D6470Owner::Rva006D6470Owner|a0,1ad2616439239b87970544e8,drz-k3,drz-k3-405,w-077d7aeb666b,2026-10-30,6e931b64a92fad334dc76088
+Code/Libraries/Source/Apt/Rva006D6360Ctor.cpp|param|Rva006D6470Owner::Rva006D6470Owner|a1,ac2c6227121571419327c479,drz-k3,drz-k3-405,w-077d7aeb666b,2026-10-30,8ac067cf5921bc161a53a856
+Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AE7B8CopyCtor.cpp|param|Elem3AE7B8|o,aef4976127e4179d25d2b399,drz-k3,drz-k3-415,w-077d7aeb666b,2026-10-30,8de39aaf7770f6d48d61d391
+Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AE7B8CopyCtor.cpp|param|Triple3AE7B8|o,42aa150e46b2ec6792ce5930,drz-k3,drz-k3-415,w-077d7aeb666b,2026-10-30,b000d2187a544eeec1b68c04

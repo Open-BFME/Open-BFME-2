@@ -18175,3 +18175,13 @@ Code/GameEngine/Source/GameNetwork/Rva0080A280FeslHandler.cpp|class||Rva0080A280
 Code/GameEngine/Source/GameNetwork/Y4FeslGameListRequest.cpp|class||Rva007FC3B0Filter,e2e9201253659299d07452a4,gpt-6.1-sol,review-65334636c9fc4e3e,w-df5b3c5a1182,2026-10-30
 Code/GameEngine/Source/GameNetwork/Y4FeslPlayerEnter.cpp|class||Rva00809100Player,bb392e12090f5e17d0a92168,gpt-6.1-sol,review-65334636c9fc4e3e,w-df5b3c5a1182,2026-10-30
 Code/GameEngine/Source/GameNetwork/Rva0080A3C0FeslDispatcher.cpp|class||Rva0080A680Input,83af3197456757cf8eac27de,gpt-6.1-sol,review-f5633cae69a34206,w-df5b3c5a1182,2026-10-30
+Code/Libraries/Source/WWVegas/WW3D2/Rva00132B83Finish.cpp|member|TextureSurfaceInfo|m_mip44,81824efb00037438fe3604d3,drz-k3,drz-k3-403,w-077d7aeb666b,2026-10-30
+Code/Libraries/Source/WWVegas/WW3D2/Rva00132B83Finish.cpp|member|TextureSurfaceInfo|m_format4C,2f1f063592774a6bbc68d976,drz-k3,drz-k3-403,w-077d7aeb666b,2026-10-30
+Code/Libraries/Source/EA/Apt/Rva006EE1B0Cluster.cpp|function|0x006EE1B0|rva006ee1b0,5c9720719ccff1bb6f50933e,drz-k3,drz-k3-404,w-077d7aeb666b,2026-10-30
+Code/Libraries/Source/EA/Apt/Rva006EE1B0Cluster.cpp|function|0x006EE210|rva006ee210,2c7109b05ad2a8285b4ee9a6,drz-k3,drz-k3-404,w-077d7aeb666b,2026-10-30
+Code/Libraries/Source/EA/Apt/Rva006EE1B0Cluster.cpp|function|0x006EE270|rva006ee270,52bd36c13ba8d5c336969ca1,drz-k3,drz-k3-404,w-077d7aeb666b,2026-10-30
+Code/Libraries/Source/EA/Apt/Rva006EE1B0Cluster.cpp|function|0x006EE310|rva006ee310,c8dc087623fe9c145a360126,drz-k3,drz-k3-404,w-077d7aeb666b,2026-10-30
+Code/Libraries/Source/Apt/Rva006D6360Ctor.cpp|param|Rva006D6470Owner::Rva006D6470Owner|a0,1ad2616439239b87970544e8,drz-k3,drz-k3-405,w-077d7aeb666b,2026-10-30
+Code/Libraries/Source/Apt/Rva006D6360Ctor.cpp|param|Rva006D6470Owner::Rva006D6470Owner|a1,ac2c6227121571419327c479,drz-k3,drz-k3-405,w-077d7aeb666b,2026-10-30
+Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AE7B8CopyCtor.cpp|param|Elem3AE7B8|o,aef4976127e4179d25d2b399,drz-k3,drz-k3-415,w-077d7aeb666b,2026-10-30
+Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AE7B8CopyCtor.cpp|param|Triple3AE7B8|o,42aa150e46b2ec6792ce5930,drz-k3,drz-k3-415,w-077d7aeb666b,2026-10-30
