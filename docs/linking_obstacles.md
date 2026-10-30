@@ -5589,6 +5589,18 @@ separate strict receipt limitation encountered there.
 
 2026-10-30 module-header CRT cleanup, base `c9c0fea9be`, index `85f6b7f40c`: Rva0055C9A0Write.cpp replaces its local free declaration with stdlib.h and preserves the proven direct game-allocator call through the unit's `_CRTIMP=` setting. All four rows, EH and external object facts remain exact; paired previews retain LINKS and strict provider preparation passes. The staged-tree batch audit is INCONCLUSIVE on the older index and affected consumer Common/0CreateAHeroManager21FE49.cpp without a current receipt. Carry this scope into the next normal census; [verification and remaining work](../reverse/attempt_support/module-header-ms-headers-20261030-codexb5.md). No census gain claimed.
 
+2026-10-30 IngameNoticeDisplay reset composition, local base `bd28601b65`:
+the supported merge removes one source file and preserves 22 function rows,
+two data rows and two EXACT EH graphs. All 29 normalized COMDATs and external
+object facts equal the input union; both original census-linked units pass
+the merge guard. Ordinary preview retains the removed donor in index
+`85f6b7f40c` and reports a duplicate reset. The batch audit is INCONCLUSIVE on
+the older index and the missing current receipt for affected consumer
+Common/0CreateAHeroManager21FE49.cpp. Carry this consumer and provider/removal
+into the next scheduled census; no linking gain is claimed. The three mixed
+sources remain outside this merge.
+[Verification and path/register audit](../reverse/attempt_support/ingame-notice-consolidation-20261030-codexb.md).
+
 2026-10-29 Pathfinder neighbor CRT-header cleanup, base `385303a9af9`,
 index `840db2d676`: the three local CRT declarations are replaced with real
 headers and one Microsoft-header queue row retires. The complete 1,803-byte
