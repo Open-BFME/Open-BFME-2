@@ -14,11 +14,9 @@
 class Thing;
 class ModuleData;
 
-class Module
-{
-public:
-	virtual ~Module();
-};
+// Native Module table slot 2 returns the snapshot name, not a CRC transfer.
+#define BFME_SNAPSHOT_NAME_SLOT
+#include "../../../../Include/Common/Module.h"
 
 class PrimaryModuleBase
 {
@@ -31,9 +29,15 @@ class GateOpenAndCloseBehavior : public PrimaryModuleBase, public Module
 public:
 	GateOpenAndCloseBehavior(Thing *thing, const ModuleData *moduleData);
 	static Module *friend_newModuleInstance(Thing *thing, const ModuleData *moduleData);
+	virtual NameKeyType getModuleNameKey() const;
+
+protected:
+	virtual void loadPostProcess();
+	virtual const char *GetSnapshotName() const;
+	virtual void xfer(Xfer *xfer);
 
 private:
-	unsigned char m_pad[0x4C - 8];
+	unsigned char m_pad[0x4C - 0x0C];
 };
 
 // ?friend_newModuleInstance@GateOpenAndCloseBehavior@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z
