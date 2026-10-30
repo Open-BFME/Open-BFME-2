@@ -138,7 +138,7 @@ public:
 	}
 };
 
-float rva0007B851(const Rva0007B851Point *pointA, const Rva0007B851Point *pointB)
+float distance2D(const Rva0007B851Point *pointA, const Rva0007B851Point *pointB)
 {
 	float dx = pointA->x - pointB->x;
 	float dy = pointA->y - pointB->y;

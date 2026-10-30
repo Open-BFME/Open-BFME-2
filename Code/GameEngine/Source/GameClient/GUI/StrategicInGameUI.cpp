@@ -609,7 +609,7 @@ void Rva005E6A9DRun::run()
 
 // tu-skeleton: 0x005E6AD8 102B ?rva005E6AD8@Rva005E6AD8@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIHeroComparator.cpp (not merged yet)
 
-// tu-skeleton: 0x005E6B3E 81B ?rva005E6B3E@Rva005E6B3E@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIHeroComparator.cpp (not merged yet)
+// tu-skeleton: 0x005E6B3E 81B ?updateTooltip@Rva005E6B3E@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIHeroComparator.cpp (not merged yet)
 
 // tu-skeleton: 0x005E6B8F 20B ?rva005E6B8F@Rva005E6B8F@@UAEXXZ -- matched in Code/GameEngine/Source/Common/Rva0010BA61Wrappers.cpp (not merged yet)
 

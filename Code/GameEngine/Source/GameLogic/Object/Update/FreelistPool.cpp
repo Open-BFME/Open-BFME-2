@@ -177,7 +177,7 @@ void rva001EAF5E(Rva001EAF5EElement *first, Rva001EAF5EElement *last)
 
 // tu-skeleton: 0x001EAF9B 21B ?rva001EAF9B@@YAHABUGapRecordCursor@@0@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE51.cpp (not merged yet)
 
-// tu-skeleton: 0x001EAFB0 17B ?rva001EAFB0@@YAXAAUGapRecordCursor@@H@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE51.cpp (not merged yet)
+// tu-skeleton: 0x001EAFB0 17B ?advanceCursor@@YAXAAUGapRecordCursor@@H@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE51.cpp (not merged yet)
 
 // tu-skeleton: 0x001EAFC1 61B ??4Rva001EAFC1@@QAEAAV0@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Rva001EAFC1Assign.cpp (not merged yet)
 
@@ -261,7 +261,7 @@ bool Rva001EB0FB::rva001EB0FB(Rva00376A62 &val)
 
 // tu-skeleton: 0x001EB10C 12B ?get@Rva001EB10CImulAddField@@QBEHH@Z -- matched in Code/GameEngine/Source/Common/Disp8ImulAddDwordGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x001EB118 24B ?rva001EB118@Rva001EB118@@QAEXPAXI@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE51.cpp (not merged yet)
+// tu-skeleton: 0x001EB118 24B ?deallocate@Rva001EB118@@QAEXPAXI@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE51.cpp (not merged yet)
 
 // tu-skeleton: 0x001EB130 42B ?rva001EB130@Rva001EB130Holder@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva001EB130Clear.cpp (not merged yet)
 

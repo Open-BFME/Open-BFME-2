@@ -66,7 +66,7 @@ private:
 
 // tu-skeleton: 0x00525407 114B ?rva00525407@Holder00525D9A@@QAEXABUHeroCall@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/InGameHeroSelectDataRemoveHero.cpp (not merged yet)
 
-// tu-skeleton: 0x00525479 16B ?rva00525479@Rva00525479@@QAEHPAVRva00525119@@0@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE14.cpp (not merged yet)
+// tu-skeleton: 0x00525479 16B ?compareRecords@Rva00525479@@QAEHPAVRva00525119@@0@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE14.cpp (not merged yet)
 
 // tu-skeleton: 0x00525489 30B ??0Rva00525489@@QAE@ABUGapPair@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE14.cpp (not merged yet)
 

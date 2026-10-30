@@ -93,18 +93,18 @@ struct GapModelView
 class Rva00144340
 {
 public:
-	unsigned int *rva00144340(int index);
-	Vector2 *rva00144360(int index);
+	unsigned int *getColorArray(int index);
+	Vector2 *getUVArrayByIndex(int index);
 private:
 	GapModelView *m_model;
 };
 
-unsigned int *Rva00144340::rva00144340(int index)
+unsigned int *Rva00144340::getColorArray(int index)
 {
 	return m_model->colors(index);
 }
 
-Vector2 *Rva00144340::rva00144360(int index)
+Vector2 *Rva00144340::getUVArrayByIndex(int index)
 {
 	return m_model->uvs(index);
 }

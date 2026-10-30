@@ -168,7 +168,7 @@ public:
 	virtual void rva0009AFA5(float val);
 	virtual void v27();
 	virtual void rva0009AC4E(Vector3 *out);
-	virtual void rva0009AC77(Vector3 *out);
+	virtual void getPosition(Vector3 *out);
 	virtual void v30();
 	virtual void v31();
 	virtual void v32();
@@ -237,7 +237,7 @@ void Rva0009D55BProduct::rva0009AC4E(Vector3 *out)
 	out->Set(m_pos110.X, m_pos110.Y, m_pos110.Z);
 }
 
-void Rva0009D55BProduct::rva0009AC77(Vector3 *out)
+void Rva0009D55BProduct::getPosition(Vector3 *out)
 {
 	out->Set(m_posF8.X, m_posF8.Y, m_posF8.Z);
 }

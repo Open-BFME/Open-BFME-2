@@ -25,8 +25,8 @@ class GeneralAllocatorDebug
 {
 public:
 	void *rva006C20A0(void *block, unsigned length, unsigned short id, const void *data, unsigned dataLength);
-	static unsigned rva006C16D0(const void *chunk);
-	void rva006C1710(int allocationFunction, int freeFunction, int allocationContext);
+	static unsigned GetChunkUsableSize(const void *chunk);
+	void SetAllocationFunctions(int allocationFunction, int freeFunction, int allocationContext);
 	int rva006C1770(short option);
 	bool Init(void *coreMemory, unsigned int size, bool freeCore, void *trimCore, void *coreFreeFunction, void *coreFreeContext);
 };
@@ -78,7 +78,7 @@ void *GeneralAllocatorDebug::rva006C20A0(void *block, unsigned length, unsigned 
 // with only the offsets they touch (no layout is claimed):
 // 0x006C16D0 (26B, static): a chunk's usable size from its +4 header word,
 // masked to 0x7FFFFFF8, plus 4 unless the mapped bit (2) is set.
-unsigned GeneralAllocatorDebug::rva006C16D0(const void *chunk)
+unsigned GeneralAllocatorDebug::GetChunkUsableSize(const void *chunk)
 {
 	unsigned header = ((const unsigned *)chunk)[1];
 	if (!(header & 2))
@@ -87,7 +87,7 @@ unsigned GeneralAllocatorDebug::rva006C16D0(const void *chunk)
 }
 
 // 0x006C1710 (24B): stores three values at +0x14/+0x18/+0x1C.
-void GeneralAllocatorDebug::rva006C1710(int allocationFunction, int freeFunction, int allocationContext)
+void GeneralAllocatorDebug::SetAllocationFunctions(int allocationFunction, int freeFunction, int allocationContext)
 {
 	int *fields = (int *)((char *)this + 0x14);
 	fields[0] = allocationFunction;
@@ -111,14 +111,14 @@ int GeneralAllocatorDebug::rva006C1770(short option)
 class Rva006C1730
 {
 public:
-	unsigned int rva006C1730(unsigned int address) const;
+	unsigned int getBucketIndex(unsigned int address) const;
 private:
 	int m_00;
 	int m_04;
 	unsigned int m_bucketCount;
 };
 
-unsigned int Rva006C1730::rva006C1730(unsigned int address) const
+unsigned int Rva006C1730::getBucketIndex(unsigned int address) const
 {
 	return (address >> 3) % m_bucketCount;
 }

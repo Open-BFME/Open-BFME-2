@@ -32,7 +32,7 @@ static __declspec(noinline) Rva005E3967Template *Rva005E3967(const Rva005E4300En
 {
  return (Rva005E3967Template *)TheThingFactory->findTemplate(entry->name);
 }
-static __declspec(noinline) bool Rva005E3FE6(const Rva005E4300Entry *a,const Rva005E4300Entry *b,int keyA,int keyB)
+static __declspec(noinline) bool compareHeroEntries(const Rva005E4300Entry *a,const Rva005E4300Entry *b,int keyA,int keyB)
 {
  bool flagA=((Rva005E3967(a)->mask>>26)&1)!=0;
  bool flagB=((Rva005E3967(b)->mask>>26)&1)!=0;
@@ -69,7 +69,7 @@ char Rva005E4300Cmp::operator()(int keyA,int keyB) const
  if(b->name.compare(*selected)==0)goto no;
  {int ga=a->group,gb=b->group;
  if(ga!=gb) return compareGroups(ga,gb);
- return StrategicInGameUI::Rva005E3FE6(a,b,keyA,keyB);}
+ return StrategicInGameUI::compareHeroEntries(a,b,keyA,keyB);}
  no:return false;
 }
 
@@ -77,8 +77,8 @@ class Rva005E549E {public:virtual void rva005E549E();};
 class Rva005F6022ByteChaseField {public:unsigned char get()const;};
 namespace StrategicInGameUI {UnicodeString GetTooltipText(int);}
 struct RGBColor;class Mouse {public:void rva001EEA6D(UnicodeString,int,const RGBColor*,float);};extern Mouse*TheMouse;
-class Rva005E6B3E {public:void rva005E6B3E();char unknown0[4];void*clip;char unknown8[0x10];Rva005E4300Entry*entry;};
-void Rva005E6B3E::rva005E6B3E(){
+class Rva005E6B3E {public:void updateTooltip();char unknown0[4];void*clip;char unknown8[0x10];Rva005E4300Entry*entry;};
+void Rva005E6B3E::updateTooltip(){
  ((Rva005E549E*)((char*)clip+0xC))->Rva005E549E::rva005E549E();
  if(((Rva005F6022ByteChaseField*)clip)->get()){
   Rva005E3967Template*thingTemplate=StrategicInGameUI::Rva005E3967(entry);

@@ -33,7 +33,7 @@ static __declspec(noinline) Rva005E3967Template *Rva005E3967(const Rva005E4300En
 {
  return (Rva005E3967Template *)TheThingFactory->findTemplate(entry->name);
 }
-static __declspec(noinline) bool Rva005E3FE6(const Rva005E4300Entry *a,const Rva005E4300Entry *b,int keyA,int keyB)
+static __declspec(noinline) bool compareHeroEntries(const Rva005E4300Entry *a,const Rva005E4300Entry *b,int keyA,int keyB)
 {
  bool flagA=((Rva005E3967(a)->mask>>26)&1)!=0;
  bool flagB=((Rva005E3967(b)->mask>>26)&1)!=0;
@@ -57,7 +57,7 @@ class Rva005E549E {public:void rva005E549E();};
 class Rva005F6022ByteChaseField {public:unsigned char get()const;};
 namespace StrategicInGameUI {UnicodeString GetTooltipText(int);}
 struct RGBColor;class Mouse {public:void rva001EEA6D(UnicodeString,int,const RGBColor*,float);};extern Mouse*TheMouse;
-class Rva005E6B3E {public:void rva005E6B3E();char unknown0[4];void*clip;char unknown8[0x10];Rva005E4300Entry*entry;};
+class Rva005E6B3E {public:void updateTooltip();char unknown0[4];void*clip;char unknown8[0x10];Rva005E4300Entry*entry;};
 struct TargetRef00217D4C {void*vtable;int count;};
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
 struct TreeHintRef00217D4C {

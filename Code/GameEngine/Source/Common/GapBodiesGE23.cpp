@@ -58,7 +58,7 @@ int rva00030B00(GapChunk *chunk)
 }
 
 // --- 0x00030B20 (21B): set it.
-void rva00030B20(GapChunk *chunk)
+void SetChunkInUse(GapChunk *chunk)
 {
 	GAP_CHUNK_AT(chunk, GAP_CHUNK_SIZE(chunk))->m_size |= 1;
 }
@@ -82,14 +82,14 @@ void rva00030B60(GapChunk *chunk, unsigned int offset)
 }
 
 // --- 0x00030B70 (23B): store a size keeping the flag bits.
-void rva00030B70(GapChunk *chunk, unsigned int size)
+void SetChunkSize(GapChunk *chunk, unsigned int size)
 {
 	chunk->m_size = (chunk->m_size & 0x80000007) | size;
 }
 
 // --- 0x00030B90 (12B): write a chunk's size as the previous-size word of
 // the chunk that follows it.
-void rva00030B90(GapChunk *chunk, unsigned int size)
+void setChunkFooter(GapChunk *chunk, unsigned int size)
 {
 	GAP_CHUNK_AT(chunk, size)->m_prevSize = size;
 }
@@ -161,15 +161,15 @@ public:
 	unsigned int rva00030C80(int bin);
 	void rva00030CC0(bool on);
 	bool rva00030CE0() const;
-	void rva00030E90(int mallocFailureFunction, int mallocFailureContext);
-	void rva00030EB0(int traceFunction, int traceContext);
+	void SetMallocFailureFunction(int mallocFailureFunction, int mallocFailureContext);
+	void SetTraceFunction(int traceFunction, int traceContext);
 	void rva00030ED0(unsigned char fieldDelimiter, unsigned char recordDelimiter);
-	void rva00031060(GapChunk *chunk, unsigned int size);
+	void initializeFreeChunk(GapChunk *chunk, unsigned int size);
 	void rva000311B0(const GapBlockInfo *info, GapBlockReport *report);
 	void rva00031400(int value);
 	bool rva000315C0(const char *checkedAddress) const;
 	void rva00031610(int a, unsigned int b);
-	void rva00031640(GapCore *core, GapCore *before);
+	void insertCoreBefore(GapCore *core, GapCore *before);
 	void *rva00031710(unsigned int size, unsigned int *outSize);
 	int rva00031750(void *coreAddress, unsigned int size);
 	GapChunk *rva00030BF0(int bin);
@@ -234,13 +234,13 @@ bool Rva00030C50Heap::rva00030CE0() const
 }
 
 // --- 0x00030E90 / 0x00030EB0 / 0x00030ED0 (23B each): pair setters.
-void Rva00030C50Heap::rva00030E90(int mallocFailureFunction, int mallocFailureContext)
+void Rva00030C50Heap::SetMallocFailureFunction(int mallocFailureFunction, int mallocFailureContext)
 {
 	m_mallocFailureFunction = mallocFailureFunction;
 	m_mallocFailureContext = mallocFailureContext;
 }
 
-void Rva00030C50Heap::rva00030EB0(int traceFunction, int traceContext)
+void Rva00030C50Heap::SetTraceFunction(int traceFunction, int traceContext)
 {
 	m_traceFunction = traceFunction;
 	m_traceContext = traceContext;
@@ -254,7 +254,7 @@ void Rva00030C50Heap::rva00030ED0(unsigned char fieldDelimiter, unsigned char re
 
 // --- 0x00031060 (28B): a free chunk of size n linked to itself, with the
 // prev-in-use bit and the trailing size word.
-void Rva00030C50Heap::rva00031060(GapChunk *chunk, unsigned int size)
+void Rva00030C50Heap::initializeFreeChunk(GapChunk *chunk, unsigned int size)
 {
 	chunk->m_bk = chunk;
 	chunk->m_fd = chunk;
@@ -300,7 +300,7 @@ void Rva00030C50Heap::rva00031610(int a, unsigned int b)
 }
 
 // --- 0x00031640 (29B): insert a core ahead of another in the ring.
-void Rva00030C50Heap::rva00031640(GapCore *core, GapCore *before)
+void Rva00030C50Heap::insertCoreBefore(GapCore *core, GapCore *before)
 {
 	core->m_next = before;
 	core->m_prev = before->m_prev;
@@ -345,7 +345,7 @@ unsigned int rva00030A50(unsigned int size)
 }
 
 // --- 0x00030A60 (11B): fast-bin index of a chunk size (sixteen bytes is 0).
-unsigned int rva00030A60(unsigned int size)
+unsigned int getFastBinIndexFromChunkSize(unsigned int size)
 {
 	return (size >> 3) - 2;
 }

@@ -72,13 +72,13 @@ void parseCloudBreakEffectDefinition(INI *ini)
 class Rva00318A87
 {
 public:
-	void rva00318A87();
+	void loadSunbeamObject();
 private:
 	char m_pad[0x0C];
 	AsciiString m_sunbeamObject;
 };
 
-void Rva00318A87::rva00318A87()
+void Rva00318A87::loadSunbeamObject()
 {
 	m_sunbeamObject = sunbeamTarget();
 }

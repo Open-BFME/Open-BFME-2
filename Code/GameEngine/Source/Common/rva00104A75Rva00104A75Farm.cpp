@@ -1,4 +1,4 @@
-// ?rva00104A75@Rva0010461F@@QAEXXZ
+// ?drawRadarViewBox@Rva0010461F@@QAEXXZ
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata
 // ??0Rva0010461F@@QAE@XZ retail 0x0010461F..0x00104723 (260 bytes EH).
 // Constructor of the 0x88-byte object the factory 0x0008F32C creates and
@@ -94,7 +94,7 @@ public:
 	Rva0010461F();
 	virtual ~Rva0010461F();
 	void rva00104359();
-	void rva00104A75();
+	void drawRadarViewBox();
 
 private:
 	int m_14;
@@ -296,7 +296,7 @@ float __cdecl Rva0010416EFloat(float a, float b);
 inline float angleOf(const MathCoord2D &mathCoord2D) { return Rva0010414CGet((float *)&mathCoord2D); }
 
 
-void Rva0010461F::rva00104A75()
+void Rva0010461F::drawRadarViewBox()
 {
 	if (!m_edgeImage)
 		return;

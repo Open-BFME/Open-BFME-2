@@ -13,10 +13,10 @@
 class Rva00525479
 {
 public:
-	int rva00525479(Rva00525119 *a, Rva00525119 *b);
+	int compareRecords(Rva00525119 *a, Rva00525119 *b);
 };
 
-int Rva00525479::rva00525479(Rva00525119 *a, Rva00525119 *b)
+int Rva00525479::compareRecords(Rva00525119 *a, Rva00525119 *b)
 {
 	return a->rva00525119(b);
 }

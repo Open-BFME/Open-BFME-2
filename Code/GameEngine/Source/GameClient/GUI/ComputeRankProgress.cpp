@@ -35,7 +35,7 @@ static __declspec(noinline) Rva005E3967Template *Rva005E3967(const Rva005E4300En
 {
  return (Rva005E3967Template *)TheThingFactory->findTemplate(entry->name);
 }
-static __declspec(noinline) bool Rva005E3FE6(const Rva005E4300Entry *a,const Rva005E4300Entry *b,int keyA,int keyB)
+static __declspec(noinline) bool compareHeroEntries(const Rva005E4300Entry *a,const Rva005E4300Entry *b,int keyA,int keyB)
 {
  bool flagA=((Rva005E3967(a)->mask>>26)&1)!=0;
  bool flagB=((Rva005E3967(b)->mask>>26)&1)!=0;

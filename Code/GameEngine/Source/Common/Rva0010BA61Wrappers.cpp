@@ -265,7 +265,7 @@ void Rva005E6BB4::rva005E6BB4()
 class Rva005E6B3E
 {
 public:
-	void rva005E6B3E();
+	void updateTooltip();
 };
 
 // Retail 0x005E6B8F calls 0x005F604C, the rowed 5-byte forward to
@@ -287,7 +287,7 @@ private:
 
 void Rva005E6B8F::rva005E6B8F()
 {
-	m_14->rva005E6B3E();
+	m_14->updateTooltip();
 	((Rva005F604C *)((char *)this - 0x0C))->run();
 }
 

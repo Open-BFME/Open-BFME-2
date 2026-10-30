@@ -138,7 +138,7 @@ int rva001EAF9B(const GapRecordCursor &gapRecordCursor, const GapRecordCursor &e
 	return endCursor.m_at - gapRecordCursor.m_at;
 }
 
-void rva001EAFB0(GapRecordCursor &cursor, int elementOffset)
+void advanceCursor(GapRecordCursor &cursor, int elementOffset)
 {
 	cursor.m_at += elementOffset;
 }
@@ -180,11 +180,11 @@ extern FreelistPool g_freelistPool00DB8FEC;
 class Rva001EB118
 {
 public:
-	void rva001EB118(void *block, unsigned int elementCount);
-	void *rva001EB786(unsigned int requestedCount, const void *hint);
+	void deallocate(void *block, unsigned int elementCount);
+	void *allocate(unsigned int requestedCount, const void *hint);
 };
 
-void Rva001EB118::rva001EB118(void *block, unsigned int elementCount)
+void Rva001EB118::deallocate(void *block, unsigned int elementCount)
 {
 	if (block)
 	{
@@ -193,7 +193,7 @@ void Rva001EB118::rva001EB118(void *block, unsigned int elementCount)
 	}
 }
 
-void *Rva001EB118::rva001EB786(unsigned int requestedCount, const void *hint)
+void *Rva001EB118::allocate(unsigned int requestedCount, const void *hint)
 {
 	if (requestedCount > 1)
 		return 0;
