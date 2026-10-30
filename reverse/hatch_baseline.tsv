@@ -218,7 +218,6 @@ address_global	Code/GameEngine/Source/Common/Rva001E72B4Reload.cpp	g_Va00DFDC61	
 address_global	Code/GameEngine/Source/Common/Rva001F5300Finish.cpp	g_Va00BBB8D8	3
 address_global	Code/GameEngine/Source/Common/Rva002036B4GlobalCopiers.cpp	g_Va00DFE18C	4
 address_global	Code/GameEngine/Source/Common/Rva00210F96Body.cpp	g_Rva00E02E84	2
-address_global	Code/GameEngine/Source/Common/Rva0023E7D9Clear.cpp	g_Rva00A00958	3
 address_global	Code/GameEngine/Source/Common/Rva00262271Method.cpp	g_Va00BBB8E0	2
 address_global	Code/GameEngine/Source/Common/Rva0026228FMethod.cpp	g_Va00BBB8E0	2
 address_global	Code/GameEngine/Source/Common/Rva00285D34Cell.cpp	g_Va007C26F0	3
@@ -1112,6 +1111,7 @@ address_global	Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpe
 address_global	Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpellBookPowers/AISpellBookAssistBattle.cpp	g_Va00E06654	2
 address_global	Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp	g_Va00DFECC8	5
 address_global	Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp	g_Va00DFECC9	4
+address_global	Code/GameEngine/Source/GameLogic/System/GameLogic.cpp	g_Rva00A00958	3
 address_global	Code/GameEngine/Source/GameLogic/System/GameLogic.cpp	g_Va00A04908	2
 address_global	Code/GameEngine/Source/GameLogic/System/GameLogic.cpp	g_Va00E032E8	3
 address_global	Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp	g_Va00DFE840	2
@@ -1998,9 +1998,6 @@ alternatename	Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp	?xfer@Playe
 alternatename	Code/GameEngine/Source/Common/RTS/PlayerO1Shard.cpp	?iterateObjects@Player@@QBEXP6AXPAVObject@@PAX@Z1@Z	1
 alternatename	Code/GameEngine/Source/Common/RTS/PlayerTemplate.cpp	?_M_new_node@?$hashtable@U?$pair@$$CBHURva001FDC0FRecord@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHURva001FDC0FRecord@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHURva001FDC0FRecord@@@_STL@@@2@@_STL@@AAEPAU?$_Hashtable_node@U?$pair@$$CBHURva001FDC0FRecord@@@_STL@@@2@ABU?$pair@$$CBHURva001FDC0FRecord@@@2@@Z	1
 alternatename	Code/GameEngine/Source/Common/RTS/Player_Radar.cpp	?okToPlayRadarEdgeSound@Player@@QAE_NXZ	1
-alternatename	Code/GameEngine/Source/Common/RTS/Rva000D3FA0Destructor.cpp	?crc@Rva000D3FA0Map@@MAEXPAVXfer@@@Z	1
-alternatename	Code/GameEngine/Source/Common/RTS/Rva000D3FA0Destructor.cpp	?loadPostProcess@Rva000D3FA0Map@@MAEXXZ	1
-alternatename	Code/GameEngine/Source/Common/RTS/Rva000D3FA0Destructor.cpp	?xfer@Rva000D3FA0Map@@MAEXPAVXfer@@@Z	1
 alternatename	Code/GameEngine/Source/Common/RTS/Rva00263895Init.cpp	??0AICommandParmsTail@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/RTS/Rva00263895Init.cpp	?init@Rva00263895Member@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/RTS/Science.cpp	?lookupScience@ScienceStore@@QBE?AW4ScienceType@@PBD@Z	1
@@ -3335,7 +3332,10 @@ alternatename	Code/GameEngine/Source/GameLogic/System/CrateSystemLifetime.cpp	?e
 alternatename	Code/GameEngine/Source/GameLogic/System/CrateSystemLifetime.cpp	?erase@?$vector@PAVCrateTemplate@@V?$allocator@PAVCrateTemplate@@@_STL@@@_STL@@QAEPAPAVCrateTemplate@@PAPAV3@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp	?Rva00030830FreeAllocation@@YAXPAX@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp	?Rva00288A5CAssign@@YAPAVCameraMarker@@PAV1@00PAX@Z	1
+alternatename	Code/GameEngine/Source/GameLogic/System/GameLogic.cpp	?crc@Rva000D3FA0Map@@MAEXPAVXfer@@@Z	1
+alternatename	Code/GameEngine/Source/GameLogic/System/GameLogic.cpp	?loadPostProcess@Rva000D3FA0Map@@MAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/System/GameLogic.cpp	?rva00240D0F@Rva00240D0F@@QAEPAXPBX@Z	1
+alternatename	Code/GameEngine/Source/GameLogic/System/GameLogic.cpp	?xfer@Rva000D3FA0Map@@MAEXPAVXfer@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/System/GameLogicCRC_Rva00225A2D.cpp	?slot1@XferSave@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/System/GameLogicCRC_Rva00225A2D.cpp	?slot2@XferSave@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/System/GameLogicCRC_Rva00225A2D.cpp	?slot3@XferSave@@UAEXXZ	1
