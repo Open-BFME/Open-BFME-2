@@ -4713,3 +4713,5 @@ local,~Rva006D07E0Key::p,~Rva006D07E0Key::releasedFile,inferred,agree:nl-d6a2744
 global,?g_Rva012C3A18@@3PADA,?g_clientVersion@@3PADA,inferred,agree:nl-90353641dc18,Code/GameEngine/Source/GameNetwork/Rva007F4440FeslClient.cpp,0x009D8170
 function,?rva005E8183@Rva005E8044@@QAEXXZ,?clear@Rva005E8044@@QAEXXZ,inferred,agree:nl-920874d7edf3,Code/GameEngine/Source/Common/GapBodiesSeat5A.cpp,0x005E8183
 function,?rva006CFFB0@Rva008951B0Owner@@QAEXABVRva008951B0Handle@@@Z,?eraseAfter@Rva008951B0Owner@@QAEXABVRva008951B0Handle@@@Z,inferred,agree:nl-cb0b3d8612bc,Code/Libraries/Source/Apt/AptLoadCountedOwner.cpp,0x006CFFB0
+function,?rva0020461E@Rva0020461E@@UAE?AVAsciiString@@PAM00@Z,?getStats@Rva0020461E@@UAE?AVAsciiString@@PAM00@Z,inferred,agree:nl-4b825cd85daf,Code/GameEngine/Source/Common/GapBodiesGE18.cpp,0x0020461E
+function,?rva00542148@Rva005422CF@@QAEXXZ,?reset@Rva005422CF@@QAEXXZ,inferred,agree:nl-6b36d99d8aa3,Code/GameEngine/Source/Common/Rva00542148Reset.cpp,0x00542148

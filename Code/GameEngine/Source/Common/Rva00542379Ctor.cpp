@@ -46,7 +46,7 @@ class Rva005422CF
 {
 public:
 	Rva005422CF();
-	void rva00542148();
+	void reset();
 private:
 	Rva00330757Member m_head;
 	_STL::vector<BfmeE16> m_vec10;

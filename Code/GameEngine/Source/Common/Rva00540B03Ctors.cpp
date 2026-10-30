@@ -78,7 +78,7 @@ class Rva005422CF
 {
 public:
 	Rva005422CF();
-	void rva00542148();
+	void reset();
 private:
 	Rva00330757Member m_head;
 	_STL::vector<Rva0054103E> m_vec10;
@@ -89,5 +89,5 @@ Rva005422CF::Rva005422CF()
 	: m_head(), m_vec10()
 {
 	m_1C = 0;
-	rva00542148();
+	reset();
 }

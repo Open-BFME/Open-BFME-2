@@ -4121,3 +4121,6 @@ __ehhandler$?rva00104A75@Rva0010461F@@QAEXXZ,0x00764339,"Renamed to __ehhandler$
 ?rva005E8183@Rva005E8044@@QAEXXZ,0x005E8183,"Renamed to ?clear@Rva005E8044@@QAEXXZ by tools/rename.py (inferred)"
 ?rva006CFFB0@Rva008951B0Owner@@QAEXABVRva008951B0Handle@@@Z,0x006CFFB0,"Renamed to ?eraseAfter@Rva008951B0Owner@@QAEXABVRva008951B0Handle@@@Z by tools/rename.py (inferred)"
 ?deallocate@?$allocator@D@_STL@@QBEXPADI@Z,0x0046264A,Retired obsolete STLport 4.5.3 const deallocator instantiation during migration to 4.6. The native non-const QAE body and its free relocation are identical and admitted in the same source. See reverse/attempt_support/narrow-record-stlport46-20261030.md. No unique bytes removed.
+?rva0020461E@Rva0020461E@@UAE?AVAsciiString@@PAM00@Z,0x0020461E,"Renamed to ?getStats@Rva0020461E@@UAE?AVAsciiString@@PAM00@Z by tools/rename.py (inferred)"
+__ehhandler$?rva0020461E@Rva0020461E@@UAE?AVAsciiString@@PAM00@Z,0x0076C76A,"Renamed to __ehhandler$?getStats@Rva0020461E@@UAE?AVAsciiString@@PAM00@Z by tools/rename.py (inferred)"
+?rva00542148@Rva005422CF@@QAEXXZ,0x00542148,"Renamed to ?reset@Rva005422CF@@QAEXXZ by tools/rename.py (inferred)"

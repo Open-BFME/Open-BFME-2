@@ -65,13 +65,13 @@ struct Rva0054103EVec
 class Rva005422CF
 {
 public:
-	void rva00542148();
+	void reset();
 private:
 	char m_pad00[0x10];
 	Rva0054103EVec m_vec10;
 };
 
-void Rva005422CF::rva00542148()
+void Rva005422CF::reset()
 {
 	Rva0054103EVec *vec = &m_vec10;
 	while ((unsigned)(((char *)vec->m_end - (char *)vec->m_begin) / 20) > 1) {

@@ -72,10 +72,10 @@ void Rva001EB3D1::rva001EB3D1()
 class Rva0020461E
 {
 public:
-	virtual AsciiString rva0020461E(float *curTime, float *curFrameTime, float *totalTime);
+	virtual AsciiString getStats(float *curTime, float *curFrameTime, float *totalTime);
 };
 
-AsciiString Rva0020461E::rva0020461E(float *curTime, float *curFrameTime, float *totalTime)
+AsciiString Rva0020461E::getStats(float *curTime, float *curFrameTime, float *totalTime)
 {
 	*curTime = 0.0f;
 	*curFrameTime = 0.0f;
