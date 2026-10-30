@@ -1,7 +1,8 @@
+// cl: /MD
 // STLport 4.5.3 Win32 _Locale_time_destroy.
 // stlport46
 
-__declspec(dllimport) void __cdecl free(void *memory);
+#include <stdlib.h>
 
 typedef struct _Locale_time
 {
