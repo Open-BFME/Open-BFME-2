@@ -1,0 +1,816 @@
+{
+  "source": "Code/GameEngine/Source/GameClient/DrawableDestructor.cpp",
+  "scope": "canonical Module pointers with explicit slot0 scalar-deleting-destructor ABI projection: flags0 returns allocation for separate free; no new implementation or complete Module subclass identity claim",
+  "variants": {
+    "before": {
+      "source_sha256": "dc5ff492441104a20a9f47863e4e803641fa2ce64ffacc84f9db069f8b0a330a",
+      "rows": [
+        {
+          "name": "??1Drawable@@UAE@XZ",
+          "rva": "0x002793F0",
+          "size": "633",
+          "exact": true
+        },
+        {
+          "name": "$L6096",
+          "rva": "0x007735F7",
+          "size": "20",
+          "exact": true
+        },
+        {
+          "name": "$L6103",
+          "rva": "0x0077365F",
+          "size": "24",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$??1Drawable@@UAE@XZ",
+          "rva": "0x00773693",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b735ef",
+          "rva": "0x007735EF",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b7360b",
+          "rva": "0x0077360B",
+          "size": "14",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b73619",
+          "rva": "0x00773619",
+          "size": "14",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b73627",
+          "rva": "0x00773627",
+          "size": "14",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b73635",
+          "rva": "0x00773635",
+          "size": "14",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b73643",
+          "rva": "0x00773643",
+          "size": "14",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b73651",
+          "rva": "0x00773651",
+          "size": "14",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b73685",
+          "rva": "0x00773685",
+          "size": "14",
+          "exact": true
+        }
+      ],
+      "eh": [
+        {
+          "name": "??1Drawable@@UAE@XZ",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        }
+      ]
+    },
+    "trial": {
+      "source_sha256": "dfa08cd1bfdb3957d950cc46f8c293004559055764630f94afc02e399559183c",
+      "rows": [
+        {
+          "name": "??1Drawable@@UAE@XZ",
+          "rva": "0x002793F0",
+          "size": "633",
+          "exact": true
+        },
+        {
+          "name": "$L6096",
+          "rva": "0x007735F7",
+          "size": "20",
+          "exact": true
+        },
+        {
+          "name": "$L6103",
+          "rva": "0x0077365F",
+          "size": "24",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$??1Drawable@@UAE@XZ",
+          "rva": "0x00773693",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b735ef",
+          "rva": "0x007735EF",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b7360b",
+          "rva": "0x0077360B",
+          "size": "14",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b73619",
+          "rva": "0x00773619",
+          "size": "14",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b73627",
+          "rva": "0x00773627",
+          "size": "14",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b73635",
+          "rva": "0x00773635",
+          "size": "14",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b73643",
+          "rva": "0x00773643",
+          "size": "14",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b73651",
+          "rva": "0x00773651",
+          "size": "14",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b73685",
+          "rva": "0x00773685",
+          "size": "14",
+          "exact": true
+        }
+      ],
+      "eh": [
+        {
+          "name": "??1Drawable@@UAE@XZ",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        }
+      ]
+    }
+  },
+  "all_external_code_and_symbolic_relocations_identical": true,
+  "all_retained_external_code_and_symbolic_relocations_identical": true,
+  "runtime_invariant": {
+    "all_nondebug_sections_and_relocations_identical": true,
+    "coff_index_normalization": ".sxdata symbol-table indices resolved to SafeSEH handler names; indices are object metadata, not image addresses",
+    "all_loadable_definitions_identical": true,
+    "undefined_names_identical": true,
+    "new_vtables_or_thunks": false,
+    "definitions": {
+      "??1AsciiString@@QAE@XZ": {
+        "raw": "e900000000",
+        "relocations": [
+          [
+            1,
+            20,
+            "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+          ]
+        ]
+      },
+      "??1Snapshot@@UAE@XZ": {
+        "raw": "c70100000000c3",
+        "relocations": [
+          [
+            2,
+            6,
+            "??_7Snapshot@@6B@"
+          ]
+        ]
+      },
+      "??_7Snapshot@@6B@": {
+        "raw": "00000000000000000000000000000000",
+        "relocations": [
+          [
+            0,
+            6,
+            "??_ESnapshot@@UAEPAXI@Z"
+          ],
+          [
+            4,
+            6,
+            "__purecall"
+          ],
+          [
+            8,
+            6,
+            "__purecall"
+          ],
+          [
+            12,
+            6,
+            "__purecall"
+          ]
+        ]
+      },
+      "??_GSnapshot@@UAEPAXI@Z": {
+        "raw": "f644240401568bf1c70600000000740756e800000000598bc65ec20400",
+        "relocations": [
+          [
+            10,
+            6,
+            "??_7Snapshot@@6B@"
+          ],
+          [
+            18,
+            20,
+            "??3@YAXPAX@Z"
+          ]
+        ]
+      },
+      "??_H@YGXPAXIHP6EPAX0@Z@Z": {
+        "raw": "8b44240c487818568b742408578d78018bceff542418037424104f75f35f5ec21000",
+        "relocations": []
+      },
+      "??1Rva0010F149Handle@@QAE@XZ": {
+        "raw": "8b0985c97405e900000000c3",
+        "relocations": [
+          [
+            7,
+            20,
+            "?Release_Ref@OpaqueRefCounted@@QAEXXZ"
+          ]
+        ]
+      },
+      "??1DrawableRefSlot@@QAE@XZ": {
+        "raw": "8b0985c97405e900000000c3",
+        "relocations": [
+          [
+            7,
+            20,
+            "?Release_Ref@OpaqueRefCounted@@QAEXXZ"
+          ]
+        ]
+      },
+      "??1Rva002701F4@@QAE@XZ": {
+        "raw": "e900000000",
+        "relocations": [
+          [
+            1,
+            20,
+            "?bfmeGoDSF@BfmeThingDSF@@QAEXXZ"
+          ]
+        ]
+      },
+      "??$__copy_ptrs@PAPAXPAPAX@_STL@@YAPAPAXPAPAX00U__true_type@0@@Z": {
+        "raw": "ff74240cff74240cff74240ce80000000083c40cc3",
+        "relocations": [
+          [
+            13,
+            20,
+            "?__copy_trivial@_STL@@YAPAXPBX0PAX@Z"
+          ]
+        ]
+      },
+      "??$__destroy_aux@PAPAX@_STL@@YAXPAPAX0ABU__true_type@0@@Z": {
+        "raw": "c3",
+        "relocations": []
+      },
+      "??$__destroy_aux@PAPBVModuleData@@@_STL@@YAXPAPBVModuleData@@0ABU__true_type@0@@Z": {
+        "raw": "c3",
+        "relocations": []
+      },
+      "??$__destroy@PAPAXPAX@_STL@@YAXPAPAX00@Z": {
+        "raw": "c3",
+        "relocations": []
+      },
+      "??$__destroy@PAPBVModuleData@@PBV1@@_STL@@YAXPAPBVModuleData@@00@Z": {
+        "raw": "c3",
+        "relocations": []
+      },
+      "??$_Destroy@PAPAX@_STL@@YAXPAPAX0@Z": {
+        "raw": "c3",
+        "relocations": []
+      },
+      "??$_Destroy@PAPBVModuleData@@@_STL@@YAXPAPBVModuleData@@0@Z": {
+        "raw": "c3",
+        "relocations": []
+      },
+      "?erase@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEPAPAXPAPAX0@Z": {
+        "raw": "56ff7424088bf18b460450ff742414e80000000083c40c8946048b4424085ec20800",
+        "relocations": [
+          [
+            16,
+            20,
+            "?__copy_trivial@_STL@@YAPAXPBX0PAX@Z"
+          ]
+        ]
+      },
+      "??1?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@QAE@XZ": {
+        "raw": "8b0185c0740750e80000000059c3",
+        "relocations": [
+          [
+            8,
+            20,
+            "?Rva00030830GameFree@@YAXPAX@Z"
+          ]
+        ]
+      },
+      "??1Drawable@@UAE@XZ": {
+        "raw": "b800000000e80000000083ec0c53568bf1578975e8c70600000000c74660000000008d9e400300008b0333ff3bc7c745fc0a000000740e8b0d000000008b1150ff523c893b8d9e440300008b033bc7740e8b0d000000008b1150ff523c893b8d8e580100008b41048b115052e8000000008d9e4c010000c745ec030000008b033bc78945f07422eb038b45f08b083bcf74178b0157ff1050e8000000008b45f08345f00459893875e0ff33e800000000893b83c304ff4dec5975c38bcee8000000008bcee800000000578bcee8000000008b0d000000008b0156ff504c8b8e540300003bcf89befc00000074078b0157ff10eb0233c050e800000000598b4e643bcf89be5403000074078b0157ff10eb0233c050e800000000598b4e683bcf897e6474078b0157ff10eb0233c050e800000000598b8e8c0000003bcf897e6874078b0157ff10eb0233c050e800000000598b8e3c0100003bcf89be8c00000074078b0157ff10eb0233c050e800000000598b8e500400003bcf89be3c01000074078b0157ff10eb0233c050e800000000598b8e5c0400003bcf89be5004000074128b0157ff1050e8000000005989be5c0400008d8e58040000c645fc09e8000000008d8eac030000c645fc08e80000000068000000006a036a088d868c03000050c645fc07e8000000008b866c0300003bc7c645fc06740750e800000000598d8e4c030000c645fc05e8000000008d8e48030000c645fc04e8000000008b86580100003bc7c645fc03740750e800000000598b8e100100003bcfc645fc027405e8000000008b8e0c0100003bcfc645fc017405e800000000834dfcff8bcec7466000000000e8000000008b4df45f5e5b64890d00000000c9c3",
+        "relocations": [
+          [
+            1,
+            6,
+            "__ehhandler$??1Drawable@@UAE@XZ"
+          ],
+          [
+            6,
+            20,
+            "__EH_prolog"
+          ],
+          [
+            23,
+            6,
+            "??_7Drawable@@6BThing@@@"
+          ],
+          [
+            30,
+            6,
+            "??_7Drawable@@6BSnapshot@@@"
+          ],
+          [
+            57,
+            6,
+            "?TheDisplayStringManager@@3PAVDisplayStringManager@@A"
+          ],
+          [
+            83,
+            6,
+            "?TheDisplayStringManager@@3PAVDisplayStringManager@@A"
+          ],
+          [
+            109,
+            20,
+            "?erase@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEPAPAXPAPAX0@Z"
+          ],
+          [
+            153,
+            20,
+            "??3@YAXPAX@Z"
+          ],
+          [
+            172,
+            20,
+            "??_V@YAXPAX@Z"
+          ],
+          [
+            190,
+            20,
+            "?stopAmbientSound@Drawable@@QAEXXZ"
+          ],
+          [
+            197,
+            20,
+            "?rva002714CA@Rva002714CA@@QAEXXZ"
+          ],
+          [
+            205,
+            20,
+            "?rva00279354@Rva00279354Host@@QAEX_N@Z"
+          ],
+          [
+            211,
+            6,
+            "?TheGameClient@@3PAVGameClient@@A"
+          ],
+          [
+            248,
+            20,
+            "??3@YAXPAX@Z"
+          ],
+          [
+            277,
+            20,
+            "??3@YAXPAX@Z"
+          ],
+          [
+            303,
+            20,
+            "??3@YAXPAX@Z"
+          ],
+          [
+            332,
+            20,
+            "??3@YAXPAX@Z"
+          ],
+          [
+            364,
+            20,
+            "??3@YAXPAX@Z"
+          ],
+          [
+            396,
+            20,
+            "??3@YAXPAX@Z"
+          ],
+          [
+            424,
+            20,
+            "??3@YAXPAX@Z"
+          ],
+          [
+            446,
+            20,
+            "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+          ],
+          [
+            461,
+            20,
+            "?bfmeGoDSF@BfmeThingDSF@@QAEXXZ"
+          ],
+          [
+            466,
+            6,
+            "??1DrawableRefSlot@@QAE@XZ"
+          ],
+          [
+            486,
+            20,
+            "??_M@YGXPAXIHP6EX0@Z@Z"
+          ],
+          [
+            506,
+            20,
+            "?Rva00030830GameFree@@YAXPAX@Z"
+          ],
+          [
+            522,
+            20,
+            "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+          ],
+          [
+            537,
+            20,
+            "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+          ],
+          [
+            557,
+            20,
+            "?Rva00030830GameFree@@YAXPAX@Z"
+          ],
+          [
+            577,
+            20,
+            "?Release_Ref@OpaqueRefCounted@@QAEXXZ"
+          ],
+          [
+            596,
+            20,
+            "?Release_Ref@OpaqueRefCounted@@QAEXXZ"
+          ],
+          [
+            609,
+            6,
+            "??_7Snapshot@@6B@"
+          ],
+          [
+            614,
+            20,
+            "??1Thing@@MAE@XZ"
+          ],
+          [
+            627,
+            6,
+            "__except_list"
+          ]
+        ]
+      },
+      "??_7Drawable@@6BSnapshot@@@": {
+        "raw": "00000000000000000000000000000000",
+        "relocations": [
+          [
+            0,
+            6,
+            "??_EDrawable@@WGA@AEPAXI@Z"
+          ],
+          [
+            4,
+            6,
+            "?LoadPostProcess@Drawable@@UAEXXZ"
+          ],
+          [
+            8,
+            6,
+            "?GetSnapshotName@Drawable@@UBEPBDXZ"
+          ],
+          [
+            12,
+            6,
+            "?DoXfer@Drawable@@UAEXPAVXfer@@@Z"
+          ]
+        ]
+      },
+      "??_7Drawable@@6BThing@@@": {
+        "raw": "0000000000000000000000000000000000000000000000000000000000000000",
+        "relocations": [
+          [
+            0,
+            6,
+            "?calculateHeightAboveTerrain@Thing@@MBEMXZ"
+          ],
+          [
+            4,
+            6,
+            "?asObjectMeth@Thing@@MBEPBVObject@@XZ"
+          ],
+          [
+            8,
+            6,
+            "?asObjectMeth@Thing@@MAEPAVObject@@XZ"
+          ],
+          [
+            12,
+            6,
+            "?asDrawableMeth@Thing@@MBEPBVDrawable@@XZ"
+          ],
+          [
+            16,
+            6,
+            "?asDrawableMeth@Thing@@MAEPAVDrawable@@XZ"
+          ],
+          [
+            20,
+            6,
+            "__purecall"
+          ],
+          [
+            24,
+            6,
+            "?vslot6@Thing@@MAEXXZ"
+          ],
+          [
+            28,
+            6,
+            "??_EDrawable@@UAEPAXI@Z"
+          ]
+        ]
+      },
+      "?asObjectMeth@Thing@@MAEPAVObject@@XZ": {
+        "raw": "33c0c3",
+        "relocations": []
+      },
+      "?asDrawableMeth@Thing@@MAEPAVDrawable@@XZ": {
+        "raw": "33c0c3",
+        "relocations": []
+      },
+      "?asObjectMeth@Thing@@MBEPBVObject@@XZ": {
+        "raw": "33c0c3",
+        "relocations": []
+      },
+      "?asDrawableMeth@Thing@@MBEPBVDrawable@@XZ": {
+        "raw": "33c0c3",
+        "relocations": []
+      },
+      "?vslot6@Thing@@MAEXXZ": {
+        "raw": "c3",
+        "relocations": []
+      },
+      "??_EDrawable@@WGA@AEPAXI@Z": {
+        "raw": "83e960e900000000",
+        "relocations": [
+          [
+            4,
+            20,
+            "??_EDrawable@@UAEPAXI@Z"
+          ]
+        ]
+      },
+      "??_GDrawable@@UAEPAXI@Z": {
+        "raw": "568bf1e800000000f644240801740756e800000000598bc65ec20400",
+        "relocations": [
+          [
+            4,
+            20,
+            "??1Drawable@@UAE@XZ"
+          ],
+          [
+            17,
+            20,
+            "??3@YAXPAX@Z"
+          ]
+        ]
+      }
+    },
+    "undefined": [
+      "??1Thing@@MAE@XZ",
+      "??3@YAXPAX@Z",
+      "??_GDrawable@@UAEPAXI@Z",
+      "??_GSnapshot@@UAEPAXI@Z",
+      "??_M@YGXPAXIHP6EX0@Z@Z",
+      "??_V@YAXPAX@Z",
+      "?DoXfer@Drawable@@UAEXPAVXfer@@@Z",
+      "?GetSnapshotName@Drawable@@UBEPBDXZ",
+      "?LoadPostProcess@Drawable@@UAEXXZ",
+      "?Release_Ref@OpaqueRefCounted@@QAEXXZ",
+      "?Rva00030830GameFree@@YAXPAX@Z",
+      "?TheDisplayStringManager@@3PAVDisplayStringManager@@A",
+      "?TheGameClient@@3PAVGameClient@@A",
+      "?__copy_trivial@_STL@@YAPAXPBX0PAX@Z",
+      "?bfmeGoDSF@BfmeThingDSF@@QAEXXZ",
+      "?calculateHeightAboveTerrain@Thing@@MBEMXZ",
+      "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+      "?rva002714CA@Rva002714CA@@QAEXXZ",
+      "?rva00279354@Rva00279354Host@@QAEX_N@Z",
+      "?stopAmbientSound@Drawable@@QAEXXZ",
+      "__EH_prolog",
+      "___CxxFrameHandler",
+      "__except_list",
+      "__purecall"
+    ],
+    "nondebug_section_sha256": "0b1c02b1a34cdfb8e5108fd979c5f91009bfb1ac447727e3be8b07db97fefcc4"
+  },
+  "actual": {
+    "source_sha256": "dfa08cd1bfdb3957d950cc46f8c293004559055764630f94afc02e399559183c",
+    "object_sha256": "1bd2674a364b7a061da0409d7c52b50082b9828c28fe961f3ed0551c2feca35d",
+    "strict_current": true,
+    "external_code_definitions_and_relocations_identical": 24
+  },
+  "external_definition_sha256": {
+    "??$_Destroy@PAPAX@_STL@@YAXPAPAX0@Z": "ffe5828fe1551511fbc82ba70cf3db8881e826d3041020aaceba08e976b48190",
+    "??$_Destroy@PAPBVModuleData@@@_STL@@YAXPAPBVModuleData@@0@Z": "ffe5828fe1551511fbc82ba70cf3db8881e826d3041020aaceba08e976b48190",
+    "??$__copy_ptrs@PAPAXPAPAX@_STL@@YAPAPAXPAPAX00U__true_type@0@@Z": "7df464edd4cf587ff34053b7a922c62e666ab4ee7ea9ec352b92cedece47e8eb",
+    "??$__destroy@PAPAXPAX@_STL@@YAXPAPAX00@Z": "ffe5828fe1551511fbc82ba70cf3db8881e826d3041020aaceba08e976b48190",
+    "??$__destroy@PAPBVModuleData@@PBV1@@_STL@@YAXPAPBVModuleData@@00@Z": "ffe5828fe1551511fbc82ba70cf3db8881e826d3041020aaceba08e976b48190",
+    "??$__destroy_aux@PAPAX@_STL@@YAXPAPAX0ABU__true_type@0@@Z": "ffe5828fe1551511fbc82ba70cf3db8881e826d3041020aaceba08e976b48190",
+    "??$__destroy_aux@PAPBVModuleData@@@_STL@@YAXPAPBVModuleData@@0ABU__true_type@0@@Z": "ffe5828fe1551511fbc82ba70cf3db8881e826d3041020aaceba08e976b48190",
+    "??1?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@QAE@XZ": "24c6a7e4a833c2f597a34de6a667c55b4b3d41c45b714511beefd4e8cd834444",
+    "??1AsciiString@@QAE@XZ": "815f3a6781bf2eba8e6e1b895564b6e3dc016ae58637181fbd815a1e3cfe433e",
+    "??1Drawable@@UAE@XZ": "2420b162344d63363627797b7f92622b66142faa67eed27f21d0b4e6551dba80",
+    "??1DrawableRefSlot@@QAE@XZ": "9b9ab131975ad2852e24d861e0a57e375d40a03a00a2868ef97900b3a478a712",
+    "??1Rva0010F149Handle@@QAE@XZ": "9b9ab131975ad2852e24d861e0a57e375d40a03a00a2868ef97900b3a478a712",
+    "??1Rva002701F4@@QAE@XZ": "b388c17b3856e378043d67256e4133c35216b767fb449bd19d1b545e056b7e98",
+    "??1Snapshot@@UAE@XZ": "e090920c571e52df4bbba2fd89ebb62a46d307988d36d1f82084924323abbf1d",
+    "??_EDrawable@@WGA@AEPAXI@Z": "191f434f2080f344fb7b59de9cd8ef24a9adff3c814386a3632963dc14702914",
+    "??_GDrawable@@UAEPAXI@Z": "e2b409f50415af79e34ec5b6891dcec087619abcf89e77e4dcb1e15713185640",
+    "??_GSnapshot@@UAEPAXI@Z": "c17c1ef4f480c2e04bc9099052e57ca26498028abd2e1f496b4697f02b9c7110",
+    "??_H@YGXPAXIHP6EPAX0@Z@Z": "c2cdf51983b44d4d89b753e69bc937f51139cdba5f0dea5537c8a8ee8ccde065",
+    "?asDrawableMeth@Thing@@MAEPAVDrawable@@XZ": "57a677be643a1a03c87f8347475e012e657c1ddeca0649f3764026e0a5ae95ee",
+    "?asDrawableMeth@Thing@@MBEPBVDrawable@@XZ": "57a677be643a1a03c87f8347475e012e657c1ddeca0649f3764026e0a5ae95ee",
+    "?asObjectMeth@Thing@@MAEPAVObject@@XZ": "57a677be643a1a03c87f8347475e012e657c1ddeca0649f3764026e0a5ae95ee",
+    "?asObjectMeth@Thing@@MBEPBVObject@@XZ": "57a677be643a1a03c87f8347475e012e657c1ddeca0649f3764026e0a5ae95ee",
+    "?erase@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEPAPAXPAPAX0@Z": "9c36dbe1f2dc1e32513ff10b2347ae2ec6e706e51b5800e618326cbcbc327184",
+    "?vslot6@Thing@@MAEXXZ": "ffe5828fe1551511fbc82ba70cf3db8881e826d3041020aaceba08e976b48190"
+  },
+  "native_helpers": [
+    {
+      "rva": "0x4a10fd",
+      "size": 28,
+      "raw": "568bf1e877a3fffff644240801740756e84eecb8ff598bc65ec20400",
+      "instructions": [
+        {
+          "rva": "0x4a10fd",
+          "mnemonic": "push",
+          "operands": "esi"
+        },
+        {
+          "rva": "0x4a10fe",
+          "mnemonic": "mov",
+          "operands": "esi, ecx"
+        },
+        {
+          "rva": "0x4a1100",
+          "mnemonic": "call",
+          "operands": "0x49b47c"
+        },
+        {
+          "rva": "0x4a1105",
+          "mnemonic": "test",
+          "operands": "byte ptr [esp + 8], 1"
+        },
+        {
+          "rva": "0x4a110a",
+          "mnemonic": "je",
+          "operands": "0x4a1113"
+        },
+        {
+          "rva": "0x4a110c",
+          "mnemonic": "push",
+          "operands": "esi"
+        },
+        {
+          "rva": "0x4a110d",
+          "mnemonic": "call",
+          "operands": "0x2fd60"
+        },
+        {
+          "rva": "0x4a1112",
+          "mnemonic": "pop",
+          "operands": "ecx"
+        },
+        {
+          "rva": "0x4a1113",
+          "mnemonic": "mov",
+          "operands": "eax, esi"
+        },
+        {
+          "rva": "0x4a1115",
+          "mnemonic": "pop",
+          "operands": "esi"
+        },
+        {
+          "rva": "0x4a1116",
+          "mnemonic": "ret",
+          "operands": "4"
+        }
+      ]
+    }
+  ],
+  "native_caller_access": [
+    {
+      "rva": "0x27947e",
+      "raw": "3bcf",
+      "mnemonic": "cmp",
+      "operands": "ecx, edi"
+    },
+    {
+      "rva": "0x279480",
+      "raw": "7417",
+      "mnemonic": "je",
+      "operands": "0x279499"
+    },
+    {
+      "rva": "0x279482",
+      "raw": "8b01",
+      "mnemonic": "mov",
+      "operands": "eax, dword ptr [ecx]"
+    },
+    {
+      "rva": "0x279484",
+      "raw": "57",
+      "mnemonic": "push",
+      "operands": "edi"
+    },
+    {
+      "rva": "0x279485",
+      "raw": "ff10",
+      "mnemonic": "call",
+      "operands": "dword ptr [eax]"
+    },
+    {
+      "rva": "0x279487",
+      "raw": "50",
+      "mnemonic": "push",
+      "operands": "eax"
+    },
+    {
+      "rva": "0x279488",
+      "raw": "e8d368dbff",
+      "mnemonic": "call",
+      "operands": "0x2fd60"
+    },
+    {
+      "rva": "0x27948d",
+      "raw": "8b45f0",
+      "mnemonic": "mov",
+      "operands": "eax, dword ptr [ebp - 0x10]"
+    },
+    {
+      "rva": "0x279490",
+      "raw": "8345f004",
+      "mnemonic": "add",
+      "operands": "dword ptr [ebp - 0x10], 4"
+    }
+  ],
+  "native_zero_flags_and_module_array": [
+    {
+      "rva": "0x27941a",
+      "raw": "33ff",
+      "mnemonic": "xor",
+      "operands": "edi, edi"
+    },
+    {
+      "rva": "0x279461",
+      "raw": "8d9e4c010000",
+      "mnemonic": "lea",
+      "operands": "ebx, [esi + 0x14c]"
+    }
+  ],
+  "flag_zero_proof": "only EDI write before native slot0 call is xor edi,edi; native module-array load and return-to-free call are recorded"
+}

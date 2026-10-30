@@ -93,19 +93,16 @@ enum NameKeyType { NAMEKEY_INVALID = 0 };
 
 // Retail slot order (docs/linking_obstacles.md, "Module base chain"):
 // Snapshot's three slots, then getModuleNameKey and the four empty hooks.
-class Module
+#include "../../Include/Common/Module.h"
+
+// MSVC's native slot0 returns the allocation after destruction with flags0.
+// This declaration-only ABI projection preserves the separate free below.
+class Rva002793F0ModuleDeleteView
 {
 public:
-	virtual void *deleteInstance(int arg);
-	virtual void loadPostProcess() = 0;
-	virtual const char *GetSnapshotName() const = 0;
-	virtual void xfer(Xfer *xfer) = 0;
-	virtual NameKeyType getModuleNameKey() const = 0;
-	virtual void onObjectCreated() {}
-	virtual void onDrawableBoundToObject() {}
-	virtual void preloadAssets() {}
-	virtual void onDelete() {}
+    virtual void *deleteInstance(int flags);
 };
+
 
 class ModuleFactory
 {
@@ -406,7 +403,7 @@ Drawable::~Drawable()
 	{
 		for (Module **module = m_modules[i]; module && *module; ++module)
 		{
-			::operator delete((*module)->deleteInstance(0));
+			::operator delete(((Rva002793F0ModuleDeleteView *)(*module))->deleteInstance(0));
 			*module = 0;
 		}
 		delete[] m_modules[i];
