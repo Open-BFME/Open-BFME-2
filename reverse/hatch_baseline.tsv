@@ -1015,7 +1015,6 @@ address_global	Code/GameEngine/Source/GameClient/GUI/Rva0052B634ArmyActionPrime.
 address_global	Code/GameEngine/Source/GameClient/GUI/Rva0052B634ArmyActionPrime.cpp	g_Va00E065BC	2
 address_global	Code/GameEngine/Source/GameClient/GUI/Rva0056D983Ensure.cpp	g_Va00E0333C	3
 address_global	Code/GameEngine/Source/GameClient/GUI/Rva005BA593Dtor.cpp	g_Va00E06550	3
-address_global	Code/GameEngine/Source/GameClient/GUI/Rva00785FD0AptFlush_Rva000aa5e1.cpp	g_Va00DE6194	2
 address_global	Code/GameEngine/Source/GameClient/GUI/Rva007B4874Registrations.cpp	g_Va00C63398	2
 address_global	Code/GameEngine/Source/GameClient/GUI/Rva007B4874Registrations.cpp	g_Va00C745A0	2
 address_global	Code/GameEngine/Source/GameClient/GUI/Rva007B4874Registrations.cpp	g_Va00C74698	2
@@ -1284,6 +1283,7 @@ address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawAdjustTransformMtx.cpp	g_Va00DEAF14	3
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawXfer.cpp	g_Rva0107301CEmptyString	5
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Rva000BE027FindAnim.cpp	g_Rva0107301CEmptyString	2
+address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/AptShapeContainer.cpp	g_Va00DE6194	2
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptAux.cpp	g_Va00DB5FB0	1
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptAux.cpp	g_Va00DB5FC8	1
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptAux.cpp	g_Va00DE6194	2
