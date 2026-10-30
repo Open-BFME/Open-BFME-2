@@ -193,6 +193,12 @@ struct RGBAColorInt
 	{ \
 		return TEXT; \
 	}
+#define _OPERATOR_NEW_DEFINED_ // <new> supplies the placement allocation overloads.
+#include "reference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath/matrix3d.h"
+#include "Code/Libraries/Include/Lib/Coord3D.h"
+#include "string_base.h"
+#define BFME_STRINGBASE_PUBLIC_DTOR
+#pragma comment(linker, "/alternatename:?rva000E5EE5@Rva000E5EE5@@QAEXPBVRva0055A88BDwordField@@VAsciiString@@@Z=?rva000E5EE5@Rva000E5EE5@@QAEXPBVRva0055A88BDwordField@@V?$StringBase@D@@@Z")
 
 class Xfer::Version
 {
@@ -569,34 +575,7 @@ typedef unsigned int UnsignedInt;
 
 struct Coord3D;
 
-class WWMath {
-public:
-    static Real __fastcall Inv_Sqrt(Real value);
-};
-
 extern "C" long __ftol2(double value);
-
-class Vector3 {
-public:
-    Real X;
-    Real Y;
-    Real Z;
-
-    Vector3() {}
-    Vector3(Real x, Real y, Real z) : X(x), Y(y), Z(z) {}
-
-    __forceinline void Normalize(void)
-    {
-        Real lengthSquared = X * X + Y * Y + Z * Z;
-
-        if (lengthSquared != 0.0f) {
-            Real inverseLength = WWMath::Inv_Sqrt(lengthSquared);
-            X *= inverseLength;
-            Y *= inverseLength;
-            Z *= inverseLength;
-        }
-    }
-};
 
 ;
 
@@ -771,8 +750,11 @@ public:
 // 0x000E56AF result into *arg3, with that result divided by 3 added at +0x48.
 
 struct FloorVertex;
+
 class Matrix3D;
+
 struct FloorMeshAccess;
+
 class Rva006F8700Owner
 {
 public:
@@ -924,6 +906,49 @@ class W3DTerrainLogic
 protected:
 	virtual const char *GetSnapshotName() const;
 };
+
+struct BfmeLighting36;
+
+struct FloorGlobalLightAccess { char pad[0x134];int time;char gap[8];BfmeLighting36 *unused; };
+
+class Drawable
+{
+public:
+	const Matrix3D *getTransformMatrix() const;
+	float rva00272C9E(int);
+};
+
+class VertexMaterialClass { public: void Get_Emissive(Vector3*) const; };
+
+class MeshMatDescClass { public: Vector2 *Get_UV_Array_By_Index(int,bool); unsigned int *Get_Color_Array(int,bool); };
+
+struct FloorVertexBufferAccess { char pad[12];Vector3 *vertices; };
+
+struct FloorGeometryAccess { char pad[0x28];int count;char gap[4];FloorVertexBufferAccess *vertices;char tail[0x60];MeshMatDescClass *materials; __forceinline int vertexCount() const {return count;} __forceinline Vector3 *vertexArray() {return vertices->vertices;} __forceinline Vector2 *uvArray(int i) {return materials->Get_UV_Array_By_Index(i,false);} __forceinline unsigned int *colorArray(int i) {return materials->Get_Color_Array(i,false);} };
+
+struct FloorMaterialInfoAccess { virtual void destroy();int refs;int unused;VertexMaterialClass **materials;char gap[8];int count; };
+
+struct FloorMeshAccess { virtual void slot00();virtual void slot01();virtual void slot02();virtual void slot03();virtual void slot04();virtual void slot05();virtual void slot06();virtual void slot07();virtual void slot08();virtual void slot09();virtual void slot10();virtual void slot11();virtual void slot12();virtual void slot13();virtual void slot14();virtual void slot15();virtual void slot16();virtual void slot17();virtual void slot18();virtual void slot19();virtual void slot20();virtual void slot21();virtual void slot22();virtual void slot23();virtual void slot24();virtual void slot25();virtual void slot26();virtual void slot27();virtual void slot28();virtual void slot29();virtual void slot30();virtual void slot31();virtual void slot32();virtual void slot33();virtual void slot34();virtual void slot35();virtual void slot36();virtual void slot37();virtual void slot38();virtual void slot39();virtual void slot40();virtual void slot41();virtual void slot42();virtual void slot43();virtual void slot44();virtual void slot45();virtual void slot46();virtual void slot47();virtual void slot48();virtual void slot49();virtual void slot50();virtual void slot51();virtual void slot52();virtual void slot53();virtual void slot54();virtual void slot55();virtual void slot56();virtual void slot57();virtual void slot58();virtual void slot59();virtual void slot60();virtual void slot61();virtual void slot62();virtual void slot63();virtual void slot64();virtual void slot65();virtual void slot66();virtual void slot67();virtual void slot68();virtual void slot69();virtual void slot70();virtual void slot71();virtual void slot72();virtual void slot73();virtual void slot74();virtual void slot75();virtual void slot76();virtual void slot77();virtual void slot78();virtual void slot79();virtual void slot80();virtual void slot81();virtual void slot82();virtual void slot83();virtual void slot84(); virtual FloorMaterialInfoAccess *materials();char pad[0xC0];FloorGeometryAccess *geometry; __forceinline FloorGeometryAccess *model() {return geometry;} };
+
+struct FloorVertex { float x,y,z,nx,ny,nz;unsigned int color;float u,v; };
+
+struct Rva000E5EE5Node
+{
+	Rva000E5EE5Node *m_next;
+	void *m_prev;
+	Rva000E5EC1 *m_item;
+};
+
+class Rva000E5EE5
+{
+public:
+	void rva000E5EE5(const Rva0055A88BDwordField *idSrc, StringBase<char> name);
+private:
+	char m_pad[0x18];
+	Rva000E5EE5Node *m_head;
+};
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorBuffer.cpp
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorBuffer.cpp
 
@@ -1420,28 +1445,6 @@ void Rva000E6135::rva000E6135(const Rva0055A88BDwordField *idSrc, const StringBa
 	} while (cur != m_head);
 }
 
-// tu-skeleton: 0x000E4886 9B ?rva000E4886@Rva000E4886@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VtableSlotBodiesR3.cpp (not merged yet)
-
-// tu-skeleton: 0x000E48BC 252B ?rva000E48BC@Rva000E48BC@@QAE_NPAVRva000E488F@@@Z -- matched in Code/GameEngine/Source/Common/Rva000E48BC.cpp (not merged yet)
-
-// tu-skeleton: 0x000E49B8 541B ?rva000E49B8@Rva000E48BC@@QAEHH@Z -- matched in Code/GameEngine/Source/Common/Rva000E48BC.cpp (not merged yet)
-
-// tu-skeleton: 0x000E4F20 275B ??0Gen_uw_000e5033@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorElementDestructor.cpp (not merged yet)
-
-// tu-skeleton: 0x000E5033 104B ??1Gen_uw_000e5033@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorElementDestructor.cpp (not merged yet)
-
-// tu-skeleton: 0x000E509B 875B ?load@Gen_uw_000e5033@@QAE_NXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorElementDestructor.cpp (not merged yet)
-
-// tu-skeleton: 0x000E5406 660B ?rva006F83F0@Rva006F8700Owner@@QAEHPAUFloorVertex@@HPBVMatrix3D@@PAUFloorMeshAccess@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva006F8700.cpp (not merged yet)
-
-// tu-skeleton: 0x000E569A 21B ?rva006F8700@Rva006F8700Owner@@QAEHPAXH00@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva006F8700.cpp (not merged yet)
-
-// tu-skeleton: 0x000E583E 28B ??_GRva000E5033@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB01.cpp (not merged yet)
-
-// tu-skeleton: 0x000E585A 5B ?rva000E585A@Rva000E585A@@QAEXPAVRva000E488F@@@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB01.cpp (not merged yet)
-
-// tu-skeleton: 0x000E59D3 82B ??1Rva000E59D3@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva000E59D3Dtor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/W3DDrawNameGetters.cpp
 
 // W3D draw/buffer literal name getters: six-byte const members with one shape
@@ -1454,13 +1457,127 @@ void Rva000E6135::rva000E6135(const Rva0055A88BDwordField *idSrc, const StringBa
 // reference behind a C3 predecessor; verify_string_refs re-reads the string.
 // No // cl: line (defaults match the frameless 6-byte shape).
 
+// tu-skeleton: 0x000E4886 9B ?rva000E4886@Rva000E4886@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VtableSlotBodiesR3.cpp (not merged yet)
+
+// tu-skeleton: 0x000E48BC 252B ?rva000E48BC@Rva000E48BC@@QAE_NPAVRva000E488F@@@Z -- matched in Code/GameEngine/Source/Common/Rva000E48BC.cpp (not merged yet)
+
+// tu-skeleton: 0x000E49B8 541B ?rva000E49B8@Rva000E48BC@@QAEHH@Z -- matched in Code/GameEngine/Source/Common/Rva000E48BC.cpp (not merged yet)
+
+// tu-skeleton: 0x000E4F20 275B ??0Gen_uw_000e5033@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorElementDestructor.cpp (not merged yet)
+
+// tu-skeleton: 0x000E5033 104B ??1Gen_uw_000e5033@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorElementDestructor.cpp (not merged yet)
+
+// tu-skeleton: 0x000E509B 875B ?load@Gen_uw_000e5033@@QAE_NXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorElementDestructor.cpp (not merged yet)
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva006F8700.cpp
+
+// Retail 0x006F8700. Four-argument thiscall: if the last pointer is null,
+// return 0; otherwise tail-jump to the 660-byte helper at 0x006E5406.
+// Same unused-this / pMesh-null prologue as Rva006F8720MeshBuffer::getModelIndices.
+//
+// Retail 0x000E5406 (660 B, RET 0x10) is that helper: WorldBuilder 0x882AE0,
+// W3DFloor::getModelVertices (W3DFloorBuffer.cpp), fills FloorVertex records
+// from the floor mesh: opacity from the drawable (else +0x84), clamped and
+// scaled to alpha; lights from TheWritableGlobalData's time-of-day slot; the
+// first material's emissive; per vertex the UVs, the matrix-transformed
+// position plus the floor position (+0x30, Vector3::operator+= as WB asserts),
+// and the lit color from 0x000E4BD5 called thiscall on the floor receiver.
+// Class and method names stay address-derived; the views below are this
+// unit's, typed by the retail accesses.
+
+int Rva006F8700Owner::rva006F8700(void *a, int b, void *c, void *p)
+{
+	if (p == 0)
+		return (0);
+	return rva006F83F0((FloorVertex *)a, b, (const Matrix3D *)c, (FloorMeshAccess *)p);
+}
+
+int Rva006F8700Owner::rva006F83F0(FloorVertex *floorVertex,int b,const Matrix3D *matrix3D,FloorMeshAccess *mesh) {
+ if(!mesh)return 0;
+ float opacity;
+ if(m_drawable2c && ((Drawable*)m_drawable2c)->rva00272C9E(0)!=1.0f) opacity=((Drawable*)m_drawable2c)->rva00272C9E(0);
+ else opacity=m_opacity84;
+ opacity=opacity<0.0f?0.0f:(opacity>1.0f?1.0f:opacity);
+ unsigned int alpha=(unsigned int)(opacity*255.0);
+ const BfmeLighting36 *lights=(const BfmeLighting36*)((char*)TheWritableGlobalData+0x140+((FloorGlobalLightAccess*)TheWritableGlobalData)->time*0x6C);
+ int count=mesh->geometry->vertexCount();Vector3 *vertices=mesh->geometry->vertexArray();
+ if(b+count+2>=15000)return 0;
+ Vector3 emissive;emissive.Set(0,0,0);
+ FloorMaterialInfoAccess *info=mesh->materials();
+ if(info) { VertexMaterialClass *material=info->count>0?info->materials[0]:0;if(material)material->Get_Emissive(&emissive);if(--info->refs==0)info->destroy(); }
+ Vector2 *uv=mesh->geometry->uvArray(0);
+ FloorVertex *destination=floorVertex+b;
+ FloorGeometryAccess *model=mesh->geometry; unsigned int *colors=model->colorArray(0);
+ for(int i=0;i<count;++i) {
+  destination->u=uv[i].X;destination->v=uv[i].Y;
+  Vector3 position;Matrix3D::Transform_Vector(*matrix3D,vertices[i],&position);
+  position+=m_position30;
+  destination->x=position.X;destination->y=position.Y;destination->z=position.Z;
+  unsigned int color;if(colors)color=colors[i];else color=0xFFFFFFFF;
+  destination->color=((Rva000E4BD5Lighting*)this)->doLighting(lights,(const Coord3D*)&emissive,color,1.0f,alpha);
+  destination->nx=0;destination->ny=0;destination->nz=1;
+  ++destination;
+ }
+ return count;
+}
+
+// tu-skeleton: 0x000E583E 28B ??_GRva000E5033@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB01.cpp (not merged yet)
+
+// tu-skeleton: 0x000E585A 5B ?rva000E585A@Rva000E585A@@QAEXPAVRva000E488F@@@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB01.cpp (not merged yet)
+
+// tu-skeleton: 0x000E59D3 82B ??1Rva000E59D3@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva000E59D3Dtor.cpp (not merged yet)
+
 // tu-skeleton: 0x000E5A2B 28B ??_GRva000E59D3@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva000E59D3Dtor.cpp (not merged yet)
 
 // tu-skeleton: 0x000E5A47 102B ??0Rva000E59D3@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva000E59D3Ctor.cpp (not merged yet)
 
-// tu-skeleton: 0x000E5EC1 36B ?rva000E5EC1@Rva000E5EC1@@QBE_NHABV?$StringBase@D@@@Z -- matched in Code/GameEngine/Source/Common/Rva000E5EC1.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva000E5EC1.cpp
 
-// tu-skeleton: 0x000E5EE5 123B ?rva000E5EE5@Rva000E5EE5@@QAEXPBVRva0055A88BDwordField@@V?$StringBase@D@@@Z -- matched in Code/GameEngine/Source/Common/Rva000E5EE5Method.cpp (not merged yet)
+// ?rva000E5EC1@Rva000E5EC1@@QBE_NHABV?$StringBase@D@@@Z @0x000E5EC1 36B
+// Target facts: 36B matcher called by 0x000E5EE5/0x000E5F60/0x000E6135; reads int at +0x4C
+// and StringBase<char> at +0x8C, calls rowed ?compare@?$StringBase@D@@QBEHABV1@@Z (0x000069D6).
+// Not established: owning class identity; address-derived honest name and layout.
+// The canonical frozen StringBase replaces the private copy; compare stays
+// declared, bound to the rowed provider.
+
+bool Rva000E5EC1::rva000E5EC1(int id, const StringBase<char> &name) const
+{
+	return id == m_id && m_name.compare(name) == 0;
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva000E5EE5Method.cpp
+
+// ?rva000E5EE5@Rva000E5EE5@@QAEXPBVRva0055A88BDwordField@@V?$StringBase@D@@@Z @0x000E5EE5 123B
+// Target facts: 123B thiscall ret 8 (field ptr + by-value StringBase<char>),
+// list at +0x18 (head->next, item at +0x08) like Rva000E5F60Lookup, null check
+// on first arg, id via rowed get 0x0055A88B, matcher rowed rva000E5EC1
+// 0x000E5EC1, on match clears dword at item+0x2C and sets byte at +0x9C.
+// Donor: Code/GameEngine/Source/Common/Rva000E5F60Lookup.cpp (loop shape,
+// by-value temp with __forceinline dtor) + Rva000E6135Method.cpp (get+matcher).
+// The canonical frozen StringBase replaces the private copy; its switch
+// declares the narrow teardown out of line, rowed at 0x00036410
+// (StringBaseWideReleaseBuffer.cpp).
+
+void Rva000E5EE5::rva000E5EE5(const Rva0055A88BDwordField *idSrc, StringBase<char> name)
+{
+	if (idSrc == 0)
+		return;
+	Rva000E5EE5Node *cur = m_head->m_next;
+	while (cur != m_head)
+	{
+		if (cur->m_item->rva000E5EC1(idSrc->get(), name))
+		{
+			Rva000E5EC1 *item = cur->m_item;
+			item->m_2c = 0;
+			item->m_9c = true;
+			return;
+		}
+		cur = cur->m_next;
+	}
+}
+
+// Callers elsewhere reach bodies in this unit through other spellings; retail's
+// call sites in their matched rows land on these addresses (same ABI). Bind them.
 
 // tu-skeleton: 0x0076330E 11B $L5271 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorElementDestructor.cpp (not merged yet)
 
