@@ -1,33 +1,34 @@
 // cl: -DNDEBUG -MD -EHsc /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
-// Open-BFME: ??0Rva003C2F40Owner@@QAE@XZ at retail 0x003C2F40; the row was
-// repointed off the ?d_003c2f40 dump name and the header marker never followed.
-// The body is the EH-framed construction of the red-black header embedded at
-// +0x0c.  Its vtable and the two preceding scalar members are established by
-// the surrounding VNI construction path; this constructor only runs the tree
-// member's initialization.
+// Open-BFME: ??0Rva003C2F40Owner@@QAE@XZ at retail 0x002BAE57.
+// The native constructor installs the vtable at 0x007FE408, whose name slot
+// returns "DelayedSplineCameraEventModule", then constructs the map at +0x0c.
+// The placeholder base/owner hierarchy below still needs native vtable and
+// destructor reconciliation; its historical VNI label was unsupported.
 
 // stlport
 #define _STLP_USE_STATIC_LIB 1
 #include <memory>
 
-struct Rva003C2F40Node
+// The native call at 0x002BAE75 reaches the existing 25-byte map constructor
+// at 0x005011C1. Several int-keyed maps share that body. Use its rowed
+// provider spelling and twelve-byte storage, without asserting that this
+// event's mapped values are BfmePod24.
+struct BfmePod24;
+namespace _STL
 {
-	char m_color;
-	int *m_parent;
-	Rva003C2F40Node *m_left;
-	Rva003C2F40Node *m_right;
-};
-struct Rva003C2F40Tree
+template <class T> struct less;
+template <class T> class allocator;
+template <class A, class B> struct pair;
+template <class K, class V, class C, class A> class map
 {
-	Rva003C2F40Node *m_header;
-	int m_count;
-
-	Rva003C2F40Tree();
+public:
+	map();
+private:
+	char m_storage[12];
 };
-
-// ??0Rva003C2F40Tree@@QAE@XZ is called OUT OF LINE from the owner ctor -- its
-// REL32 at 0x002BAE75 lands on 0x005011C1 -- so it must not be inlined here.
-// The definition itself is not placed in this TU.
+}
+typedef _STL::map<int, BfmePod24, _STL::less<int>,
+	_STL::allocator<_STL::pair<const int, BfmePod24> > > Rva003C2F40Tree;
 
 class Rva003C2F40Base
 {

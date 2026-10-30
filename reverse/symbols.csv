@@ -1559,7 +1559,6 @@ name,address,notes
 ??0Rva003BA5F0Tree@@QAE@XZ,0x005011C1,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ??0Rva003BAE20Record@@QAE@XZ,0x004E364F,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ??0Rva003BB730Record@@QAE@XZ,0x004E3C8F,callee of ?SplineEffectParseINIBlock@@YAXPAVINI@@PAX1PBD@Z at retail 0x004E3F48 read from its REL32 displacement; donor record-alloc ctor name for the body already rowed at this address as ??0Rva004E3CD0@@QAE@XZ (ICF alias)
-??0Rva003C2F40Tree@@QAE@XZ,0x005011C1,callee of ??0Rva003C2F40Owner@@QAE@XZ at retail 0x002BAE57 read from its REL32 displacement; body unrowed
 ??0Rva003F61C6Record@@QAE@ABU0@@Z,0x003F54DC,Native258Bfill3F61C6 directcall or fullgenericdispatch provider; separatelyrowed fullbody; scoped48Bnontrivial vector element ABI no originalapplicationtypename claimed
 ??0Rva003F64B2Element@@QAE@H@Z,0x003F55D6,Native124B outerctor consumed scopedABI; fullprovider113B independentlyverified; caller196B3F6D35 proves record28 and temporaryownership; applicationnames unproved
 ??0Rva003F64B2Element@@QAE@HPBX@Z,0x003F5970,Native127B constructor consumed call3F657D; full142Bprovider separatelyverified; opaque payload pointer forwarded unchanged; originalpayloadidentity unproved
