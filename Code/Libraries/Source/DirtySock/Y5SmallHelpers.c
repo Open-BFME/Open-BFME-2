@@ -1,11 +1,9 @@
-// cl: /Od /GZ /GS /MD /DNDEBUG
-
-void *memcpy(void *dest, const void *src, unsigned int count);
-void *memset(void *dest, int value, unsigned int count);
-int memcmp(const void *first, const void *second, unsigned int count);
-int sprintf(char *buffer, const char *format, ...);
-unsigned int strlen(const char *text);
-char *_mbscpy(char *dest, const char *src);
+// cl: /Od /GZ /GS /DNDEBUG
+/* Built without /MD: retail calls the msvcrt import stubs with a direct e8,
+ * as a library compiled against the static CRT headers does. */
+#include <string.h>
+#include <stdio.h>
+#include <mbstring.h>
 
 int Rva008118D0(void)
 {
@@ -674,8 +672,6 @@ unsigned char *Rva0080C6F0(unsigned char *object)
 	return packet;
 }
 
-char *strchr(const char *text, int character);
-char *strstr(const char *text, const char *find);
 void *Rva00812320(int entries);
 int Rva00811CE0(const char *first, const char *second);
 int Rva007FD920(void *socket, const char *buffer, int length, int flags,
