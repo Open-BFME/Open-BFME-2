@@ -68,6 +68,67 @@ namespace _STL {
 template<> void _Construct(Coord3D*,const Coord3D&);
 }
 
+// Retail's resize takes Coord3D by value, unlike the vendored generic
+// vector declaration. Keep this evidenced three-pointer specialization shared
+// with the fill-insertion view. The inline helpers retain the vendored bodies.
+namespace _STL {
+template <> class vector<Coord3D, allocator<Coord3D> > {
+public:
+    typedef unsigned int size_type;
+    typedef Coord3D *iterator;
+    typedef Coord3D *pointer;
+    size_type size() const { return size_type(this->_M_finish - this->_M_start); }
+    void resize(size_type n, Coord3D value);
+    void resize(size_type n);
+protected:
+    typedef __false_type _IsPODType;
+    typedef __false_type _TrivialAss;
+  // handles insertions on overflow
+  void _M_insert_overflow(pointer __position, const Coord3D& __x, const __false_type&, 
+			  size_type __fill_len, bool __atend = false) {
+    const size_type __old_size = size();
+    const size_type __len = __old_size + (max)(__old_size, __fill_len);
+    
+    pointer __new_start = this->_M_end_of_storage.allocate(__len);
+    pointer __new_finish = __new_start;
+    _STLP_TRY {
+      __new_finish = __uninitialized_copy(this->_M_start, __position, __new_start, __false_type());
+      // handle insertion
+      if (__fill_len == 1) {
+        _Construct(__new_finish, __x);
+        ++__new_finish;
+      } else
+        __new_finish = __uninitialized_fill_n(__new_finish, __fill_len, __x, __false_type());
+      if (!__atend)
+        // copy remainder
+        __new_finish = __uninitialized_copy(__position, this->_M_finish, __new_finish, __false_type());
+    }
+    _STLP_UNWIND((_Destroy(__new_start,__new_finish), 
+                  this->_M_end_of_storage.deallocate(__new_start,__len)));
+    _M_clear();
+    _M_set(__new_start, __new_finish, __new_start + __len);
+  }
+
+  void _M_clear() {
+    //    if (this->_M_start) {
+    _Destroy(this->_M_start, this->_M_finish);
+    this->_M_end_of_storage.deallocate(this->_M_start, this->_M_end_of_storage._M_data - this->_M_start);
+    //    }
+  }
+
+  void _M_set(pointer __s, pointer __f, pointer __e) {
+    this->_M_start = __s;
+    this->_M_finish = __f;
+    this->_M_end_of_storage._M_data = __e;
+  }
+
+
+    Coord3D *_M_start;
+    Coord3D *_M_finish;
+    _STLP_alloc_proxy<Coord3D*, Coord3D, allocator<Coord3D> > _M_end_of_storage;
+};
+}
+
 class Rva000CA1EEVector : public _STL::vector<Coord3D> {
 public:
  void fillInsert(Coord3D*,unsigned int,const Coord3D&);
