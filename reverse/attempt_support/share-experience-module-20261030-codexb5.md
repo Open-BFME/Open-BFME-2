@@ -68,3 +68,24 @@ literals, 6,425 named imports, DIR32 identities, pin consistency, the module
 registry, source claims, all 2,246 data rows and the no-op patch. This full
 gate also covers the retained Microsoft-header queue conflict resolution
 and the complete pending batch at this checkout.
+
+## Publication rebase follow-up
+
+The first commit passed its normal hook, then runner publication rebased the
+batch onto `9aaf6f9384`. The refreshed FXShaderRenderer Microsoft-header queue
+entry conflicted with upstream's newly appended XferSaveAsText entry. Both
+entries were retained, alongside the earlier W3DTankDraw entry. No queue key
+was retired by that resolution. `check_csv.py` passes with 99,014 function
+rows, 9,393 symbols and 2,246 data rows. AGENTS.md did not change.
+
+The source-path consumer audit was repeated immediately before publication
+on the rebased batch. Its 18 hits are the previous 16 provenance/history
+references plus two references in this handoff; none is an active consumer.
+No tooling compatibility change is required.
+
+The new `./build.sh` full gate exits 0: every check green, 99,014/99,014
+function rows across 20,175 source files, all 2,246 data rows, all reference
+and structural checks, and the no-op patch. The eight-file source-count
+reduction between full gates belongs to upstream consolidation. This run
+covers the second queue-conflict resolution and the whole rebased batch.
+Its log is `build/share-experience-module-20261030-codexb5/full-gate-rebased.log`.
