@@ -2,58 +2,412 @@
 //
 // ??0PickupStuffUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x00491E98, 50 bytes.
 // PickupStuffUpdate behavior ctor over the rowed UpdateModule base
-// (0x253390): zeroes +0x24, re-stores the primary vtable slot and the
-// +0x0C/+0x10 secondary slots, then zeroes the byte at +0x20 (address-of
-// TU-local dummies, DIR32-masked). The rowed pool key at 0x491DF2 and
-// ModuleData triple (proc 0x491E87 plus ctor 0x491E37 plus factory 0x24D95B)
-// prove the class; the rowed instance factory 0x24D923 is the sole caller.
-// Row supersedes the ctor pin.
-
-class ModuleData;
-class Thing;
-
-extern "C" void _ReadWriteBarrier(void);
-#pragma intrinsic(_ReadWriteBarrier)
-
-static int s_vtable;
-static int s_secondary0C;
-static int s_secondary10;
-
-// Opaque UpdateModule base; ctor resolves to its row. The explicit m_vtable
-// member stands in for the inherited vptr so body order is source order.
-class UpdateModule
+// (0x253390), spelled over PickupStuffUpdate.cpp's class views: the compiler
+// stores the three vptrs (+0, +0x0C, +0x10) and the body zeroes the scan
+// frame (+0x24) and the found-stuff flag (+0x20). The rowed pool key at
+// 0x491DF2 and ModuleData triple (proc 0x491E87 plus ctor 0x491E37 plus
+// factory 0x24D95B) prove the class; the rowed instance factory 0x24D923 is
+// the sole caller.
+#include <string.h>
+class Object;
+class Player;
+class Rva000421C8
 {
 public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
+	Rva000421C8() : m_next(0) {}
+	virtual ~Rva000421C8() {}
+	virtual bool allow(Object *obj) = 0;
+	virtual int getPlayerMask();
+	Rva000421C8 *link(Rva000421C8 *next);	// 0x00625790
+	Rva000421C8 *m_next;
+};
+// vftable 0x00BFAD10, allow 0x0026119D: not effectively dead (status bit 0),
+// ZH's PartitionFilterAlive.
+class Rva0026119DFilter : public Rva000421C8
+{
+public:
+	virtual bool allow(Object *obj);
+};
+// vftable 0x00BCECF0, allow 0x002614EC: +0x08 what to compare, +0x0C a
+// player, +0x10 whether a hit allows.
+class Rva002614ECFilter : public Rva000421C8
+{
+public:
+	Rva002614ECFilter(const void *what, Player *player, bool match)
+		: m_what(what), m_player(player), m_match(match) {}
+	virtual bool allow(Object *obj);
+	const void *m_what;
+	Player *m_player;
+	bool m_match;
+};
+// An ObjectStatusMaskType view: 128 bits, zeroed then set bit by bit.
+struct Rva00491FA6Mask
+{
+	Rva00491FA6Mask() { memset(this, 0, sizeof(*this)); }
+	void set(int bit) { m_bits[bit >> 5] |= 1u << (bit & 31); }
+	unsigned int m_bits[4];
+};
+class BfmeObject872Header
+{
+	char m_bytes[16];
+public:
+	BfmeObject872Header(const BfmeObject872Header &other);
+};
+// vftable 0x00C17968 (ctor 0x003685CF): two status masks.
+class Rva003685CF : public Rva000421C8
+{
+public:
+	Rva003685CF(const BfmeObject872Header &a, const BfmeObject872Header &b);
+	virtual bool allow(Object *obj);
+	BfmeObject872Header m_8;
+	BfmeObject872Header m_18;
+};
+#include "../../../../../Libraries/Include/Lib/Coord3D.h"
+//
+// ??1PickupStuffUpdateModuleData@@UAE@XZ retail 0x00491F76 48B.
+// Dtor lane: ctor rowed at 0x00491E37 in PickupStuffUpdateModuleDataCtor.cpp vtable
+// 0x00C4DDE0 with slot0 ??_G at 0x00491F5A. Destroys filter at +0x10 through
+// pinned 0x360D26 then restores Snapshot base vtable 0x00BBB554. Layout follows
+// ctor TU (+0 vtable +4 unused +8 bool +0xC float +0x10 filter 4B +0x14 float
+// size 0x18 matching factory 0x24D95B news 0x18). Shape follows AttachUpdateModuleDataDtor
+// (TU-local Snapshot with inline BBB554 restore empty derived body novtable
+// suppresses entry derived store retail lacks). Single tracked member gives
+// and-state-0 exactly as retail. Caller is ??_G at 0x00491F5D.
 
-protected:
-	const void *m_vtable;
-	Thing *m_owner;
-	int m_pad08;
-	const void *m_p0C;
-	const void *m_p10;
-	unsigned char m_pad[0x20 - 0x14];
+
+class Xfer;
+class Thing;
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
+enum UpdateSleepTime
+{
+	UPDATE_SLEEP_NONE = 1,
+	UPDATE_SLEEP_FOREVER = 0x3fffffff
+};
+enum CommandSourceType
+{
+	CMD_FROM_PLAYER = 0,
+	CMD_FROM_AI = 1,
+	CMD_FROM_PLAYER2 = 2
+};
+class AICommandInterface
+{
+public:
+	void aiMoveToObject(Object *obj, CommandSourceType src);	// 0x00352ECA
+};
+#include "../../../Common/PartitionRangeQueryCallView.h"
+//
+// ?xfer@PickupStuffUpdate@@MAEXPAVXfer@@@Z, retail 0x00491F18, 66 bytes. Virtual
+// slot 3 (offset 0x0C) of vtable 0x0084DDA8 (class of rowed dtor
+// ??1PickupStuffUpdate@@UAE@XZ in Rva0024A797Derived.cpp): base UpdateModule xfer
+// via rowed 0x44DF9F first, then Version(1,1) via Xfer slot 0x28 reusing the
+// dead argument slot, then bool at +0x20 via Xfer slot 0x90, then uint at
+// +0x24 via Xfer slot 0x78. Layout is UpdateModule base 0x20 plus bool plus
+// uint. Identity is slot 3 plus the UpdateModule base call; class name
+// stays honest Rva address name.
+
+class AsciiString;
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+#include "../../../../Include/Common/BfmeXfer.h"
+#include "../../../Common/GameLogicObjectLookupView.h"
+
+extern PartitionManager *ThePartitionManager;
+
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
 };
 
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const char *name);
+};
+
+extern NameKeyGenerator *TheNameKeyGenerator;
+
+class Rva00360D26Member
+{
+public:
+	~Rva00360D26Member();
+
+private:
+	unsigned char m_data[4];
+};
+
+class ModuleData;
+
+class AIUpdateInterface;
+
+class UpdateModuleInterface
+{
+public:
+	virtual UpdateSleepTime update() = 0;
+};
+
+class Xfer::Version
+{
+public:
+	Version(unsigned char current, unsigned char minimum)
+		: m_current(current), m_minimum(minimum) {}
+
+	unsigned char m_current;
+	unsigned char m_minimum;
+};
+
+class BehaviorModuleBase
+{
+public:
+	virtual void unused();
+	Thing *m_thing;
+	Object *m_object;
+};
+
+class BehaviorModuleOther
+{
+public:
+	virtual void unused();
+};
+
+// The Object's AI as these units use it: slot 110 (+0x1B8) answers whether
+// it is busy, the command interface sits at +0x20 and +0x34 is tested before
+// 0x0026331C.
+class AIUpdateInterface
+{
+public:
+	virtual void v00();
+	virtual void v01();
+	virtual void v02();
+	virtual void v03();
+	virtual void v04();
+	virtual void v05();
+	virtual void v06();
+	virtual void v07();
+	virtual void v08();
+	virtual void v09();
+	virtual void v10();
+	virtual void v11();
+	virtual void v12();
+	virtual void v13();
+	virtual void v14();
+	virtual void v15();
+	virtual void v16();
+	virtual void v17();
+	virtual void v18();
+	virtual void v19();
+	virtual void v20();
+	virtual void v21();
+	virtual void v22();
+	virtual void v23();
+	virtual void v24();
+	virtual void v25();
+	virtual void v26();
+	virtual void v27();
+	virtual void v28();
+	virtual void v29();
+	virtual void v30();
+	virtual void v31();
+	virtual void v32();
+	virtual void v33();
+	virtual void v34();
+	virtual void v35();
+	virtual void v36();
+	virtual void v37();
+	virtual void v38();
+	virtual void v39();
+	virtual void v40();
+	virtual void v41();
+	virtual void v42();
+	virtual void v43();
+	virtual void v44();
+	virtual void v45();
+	virtual void v46();
+	virtual void v47();
+	virtual void v48();
+	virtual void v49();
+	virtual void v50();
+	virtual void v51();
+	virtual void v52();
+	virtual void v53();
+	virtual void v54();
+	virtual void v55();
+	virtual void v56();
+	virtual void v57();
+	virtual void v58();
+	virtual void v59();
+	virtual void v60();
+	virtual void v61();
+	virtual void v62();
+	virtual void v63();
+	virtual void v64();
+	virtual void v65();
+	virtual void v66();
+	virtual void v67();
+	virtual void v68();
+	virtual void v69();
+	virtual void v70();
+	virtual void v71();
+	virtual void v72();
+	virtual void v73();
+	virtual void v74();
+	virtual void v75();
+	virtual void v76();
+	virtual void v77();
+	virtual void v78();
+	virtual void v79();
+	virtual void v80();
+	virtual void v81();
+	virtual void v82();
+	virtual void v83();
+	virtual void v84();
+	virtual void v85();
+	virtual void v86();
+	virtual void v87();
+	virtual void v88();
+	virtual void v89();
+	virtual void v90();
+	virtual void v91();
+	virtual void v92();
+	virtual void v93();
+	virtual void v94();
+	virtual void v95();
+	virtual void v96();
+	virtual void v97();
+	virtual void v98();
+	virtual void v99();
+	virtual void v100();
+	virtual void v101();
+	virtual void v102();
+	virtual void v103();
+	virtual void v104();
+	virtual void v105();
+	virtual void v106();
+	virtual void v107();
+	virtual void v108();
+	virtual void v109();
+	virtual bool IsActive();
+	void BeginTemporaryStateMachine();	// 0x002632EE
+	void rva0026331C();			// 0x0026331C
+
+	char m_pad04[0x1C];
+	AICommandInterface m_cmd;	// +0x20
+	char m_pad21[0xF];
+	void *m_30;			// +0x30
+	void *m_34;			// +0x34
+};
+
+extern GameLogic *TheGameLogic;
+
+extern int BfmeLogicFramesPerSecond;
+
+struct PickupStuffAI
+{
+	unsigned char m_pad00[0x34];
+	int m_34;
+};
+
+class Object
+{
+public:
+	Player *getControllingPlayer() const;	// 0x0028AFA9
+	const Coord3D *getPosition() const { return &m_pos; }
+	AIUpdateInterface *getAI() const { return m_ai; }
+	char m_pad000[0x38];
+	Coord3D m_pos;		// +0x38
+	char m_pad044[0x258 - 0x44];
+	AIUpdateInterface *m_ai;	// +0x258
+};
+
+struct Rva002A8AB1Record;
+
+class Rva002A8F24
+{
+public:
+	Rva002A8AB1Record *rva002A8AB1(void *owner);
+};
+
+extern Rva002A8F24 *TheSkirmishAIManager;
+
+class __declspec(novtable) PickupStuffUpdateModuleData : public Snapshot
+{
+public:
+	virtual ~PickupStuffUpdateModuleData();
+
+	int m_unused04; // +4
+	bool m_skirmishAIOnly; // +8
+	float m_scanRange; // +0xC
+	Rva00360D26Member m_stuffToPickUp; // +0x10
+	float m_scanIntervalSeconds; // +0x14
+};
+
+class ModuleBase
+{
+public:
+	virtual ~ModuleBase();
+protected:
+	const ModuleData *m_moduleData;	// +0x04
+	Object *m_object;		// +0x08
+};
+
+class UpdateModule : public BehaviorModule, public UpdateModuleInterface
+{
+public:
+	UpdateModule(Thing *thing, const ModuleData *moduleData);	// 0x00253390
+	virtual ~UpdateModule();
+	void xfer(Xfer *xfer);						// 0x0044DF9F
+
+private:
+	unsigned int m_nextCallFrameAndPhase;	// +0x14
+	int m_indexInLogic;			// +0x18
+	int m_updateState;			// +0x1C
+};
+
+// +0x20 is set once moveToStuff sends the AI after a find and cleared by
+// 0x00491EE6 when the AI is idle again; +0x24 is the frame of the last scan.
 class PickupStuffUpdate : public UpdateModule
 {
 public:
 	PickupStuffUpdate(Thing *thing, const ModuleData *moduleData);
+	virtual ~PickupStuffUpdate();
+	virtual NameKeyType getModuleNameKey() const;
+	virtual UpdateSleepTime update();
+	void rva00491EE6();
+	Object *rva00491FA6();
+	void moveToStuff(void *obj);
+	void updateInactive();
+
+protected:
+	virtual void xfer(Xfer *xfer);
 
 private:
-	unsigned char m_20;
-	unsigned char m_pad21[3];
-	int m_24;
+	const PickupStuffUpdateModuleData *getPickupStuffUpdateModuleData() const
+	{
+		return (const PickupStuffUpdateModuleData *)getModuleData();
+	}
+
+	bool m_20;			// +0x20
+	unsigned int m_lastScanFrame;	// +0x24
 };
+
 
 // ??0PickupStuffUpdate@@QAE@PAVThing@@PBVModuleData@@@Z @0x491E98
 PickupStuffUpdate::PickupStuffUpdate(Thing *thing, const ModuleData *moduleData)
 	: UpdateModule(thing, moduleData)
 {
-	m_24 = 0;
-	_ReadWriteBarrier();
-	m_vtable = &s_vtable;
-	m_p0C = &s_secondary0C;
-	m_p10 = &s_secondary10;
-	m_20 = 0;
+	m_lastScanFrame = 0;
+	m_20 = false;
 }
