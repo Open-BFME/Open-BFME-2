@@ -1046,11 +1046,7 @@ struct RetailTeamRelationMap
 
 // ?rva0039D889@Team@@QAEX_N@Z 0x0039D889 49 Team flag setter between 0x0039D84A and 0x0039D8BA
 // Retail sets [esi+0x112]=1 when byte arg true else cleans list at esi+4 via rowed 0x0055B01F when [esi+0x113] nonzero then stores arg to [esi+0x113]. Callers at 0x004F16A2 0x004F170A 0x004F27A3 0x004F30F0. Neighbour TeamRva0039D8BA.cpp shares flags.
-class Rva0055B0CC
-{
-public:
-	void rva0055B01F();
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 // ?rva0039D8BA@Team@@QAEXPAVObject@@@Z @0x0039D8BA (18B).
 // Team::rva0039D8BA(Object*): sets Team+0x5c entered flag then refreshes the
@@ -1415,155 +1411,6 @@ public:
  
  
  
-class Team
-{
-public:
-	Player *getControllingPlayer() const;
-public:
-	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
-public:
-	void deleteTeam(bool ignoreDead);
-public:
-	void evacuateTeam(bool flag);
-public:
-	unsigned char m_pad00[0x30];
-public:
-	TeamPrototype *m_proto;
-public:
-	unsigned int m_id;
-public:
-	Object *m_dlinkhead_TeamMemberList;
-public:
-	Team *m_dlink_TeamInstanceList_prev;
-public:
-	Team *m_dlink_TeamInstanceList_next;
-public:
-	unsigned char m_pad44[0x5C - 0x44];
-public:
-	bool m_enteredOrExited;
-public:
-	bool m_active;
-public:
-	bool m_created;
-public:
-	unsigned char m_pad5F[0x64 - 0x5F];
-public:
-	int m_destroyThreshold;
-public:
-	int m_curUnits;
-public:
-	unsigned char m_pad6C[0x70 - 0x6C];
-public:
-	bool m_shouldAttemptGenericScript[32];
-public:
-	unsigned char m_pad90[0x110 - 0x90];
-public:
-	bool m_isRecruitablitySet;
-public:
-	bool m_isRecruitable;
-public:
-	bool m_112;
-public:
-	bool m_113;
-public:
-	ObjectID m_commonAttackTarget;
-public:
-	TeamRelationMap *m_teamRelations;
-public:
-	PlayerRelationMap *m_playerRelations;
-public:
-	float m_120;
-public:
-	int m_deadline;
-public:
-	bool m_128;
-public:
-	unsigned char m_pad129[0x13C - 0x129];
-public:
-	Team(TeamPrototype *proto, int id);
-public:
-	void setActive()
-	{
-		if (!m_active)
-		{
-			m_created = true;
-			m_active = true;
-		}
-	}
-public:
-	void rva003A2CEB(int key, Object *val);
-public:
-	void rva003A2D53(int key, Object *val);
-public:
-	bool enableGenericScript(const AsciiString &scriptName, const AsciiString &groupName, bool enable);
-public:
-	int getTargetableCount() const;
-public:
-	int countBuildings() const;
-public:
-	bool rva0039DAF4() const;
-public:
-	Object *rva0039E8EB();
-public:
-	Object *rva0039E968(int bit);
-public:
-	bool rva0039E8FF(int val);
-public:
-	void setAttackPriorityName(AsciiString name);
-public:
-	Bool dlink_isInList_TeamInstanceList(Team *const *pListHead) const;
-public:
-	void dlink_prependTo_TeamInstanceList(Team **pListHead);
-public:
-	Coord3D *rva0039DA2A(Coord3D *out) const;
-public:
-	Coord3D *rva0039E9A1(Coord3D *out) const;
-public:
-	bool rva0039F0D2();
-public:
-	bool rva0039F824();
-public:
-	bool rva003A10C0(int id) const;
-public:
-	bool rva003A10DF(int id) const;
-public:
-	void dlink_removeFrom_TeamInstanceList(Team **pListHead);
-public:
-	void rva0039D889(bool flag);
-public:
-	void rva0039D8BA(Object *obj);
-public:
-	void rva0039D8D3(unsigned int ms);
-public:
-	void rva0039DB31(const void *arg);
-public:
-	void healAllObjects();
-public:
-	int rva0039DD12(TeamPredicate pred, void *userData) const;
-public:
-	bool rva0039DD4B(bool flag);
-public:
-	bool rva0039DDC2(Rva0039DDC2Filter kindOfFilter, bool flag);
-public:
-	bool rva0039DE46(BfmeTab1026 *tab, bool flag);
-public:
-	bool isIdle() const;
-public:
-	float rva0039E84B(Object *obj);
-public:
-	void transferUnitsTo(Team *other);
-public:
-	void disband();
-public:
-	const AsciiString &getName() const
-	{
-		 
-		 
-		return m_proto == 0 ? AsciiString::TheEmptyString : ((const TeamPrototypeDoneView *)m_proto)->m_name;
-	}
-public:
-	Object *getTeamTargetObject(void);
-};
 
 class PlayerList
 {
@@ -2632,7 +2479,7 @@ void Team::rva0039D8BA(Object *obj)
 
 void Team::rva0039D8D3(unsigned int ms)
 {
-	m_deadline = (ms / 1000) * LogicFramesPerSecond + TheGameLogic->getFrame();
+	m_124 = (ms / 1000) * LogicFramesPerSecond + TheGameLogic->getFrame();
 }
 
 // tu-skeleton: 0x0039D91F 11B ?set@Rva0039D91FStringField@@QAEXABVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/AsciiStringFieldSetters.cpp (not merged yet)
@@ -3302,7 +3149,7 @@ void TeamFactory::markTeamDoneForTacticalAI(Team *team)
 {
 	if (!team->getControllingPlayer())
 		return;
-	int teamKey = TheNameKeyGenerator->nameToKey(team->getName());
+	int teamKey = TheNameKeyGenerator->nameToKey(!team->m_proto ? AsciiString::TheEmptyString : ((const TeamPrototypeDoneView *)team->m_proto)->m_name);
 	int playerKey = TheNameKeyGenerator->nameToKey(team->getControllingPlayer()->getPlayerNameStr());
 	Rva0039D8FBKey key;
 	key.m_first = playerKey;
@@ -3417,7 +3264,7 @@ Object *Team::getTeamTargetObject(void)
 	if (m_commonAttackTarget == INVALID_OBJECT_ID) {
 		return NULL;
 	}
-	Object *target = TheGameLogic->findObjectByID(m_commonAttackTarget);
+	Object *target = TheGameLogic->findObjectByID((ObjectID)m_commonAttackTarget);
 	if (target) {
 		if( target->rva002943B2( getControllingPlayer() ) )
 		{
