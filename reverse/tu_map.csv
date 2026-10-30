@@ -45985,7 +45985,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00556306,29,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlportElementCtor00556306.cpp
 0x00556323,41,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlportOwnedRecord1432Destroy.cpp
 0x0055634C,41,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlportOwnedRecord1408Destroy.cpp
-0x00556375,219,code,Code/Libraries/Source/WWVegas/WWLib/BfmeOpaqueOwnedRecord1432.cpp,proposed,N,N=Code/Libraries/Source/WWVegas/WWLib/BfmeOpaqueOwnedRecord1432.cpp,Code/Libraries/Source/WWVegas/WWLib/StlportOwnedRecord1432CopyCtor.cpp
+0x00556375,219,code,Code/Libraries/Source/WWVegas/WWLib/BfmeOpaqueOwnedRecord1432.cpp,proposed,N,N=Code/Libraries/Source/WWVegas/WWLib/BfmeOpaqueOwnedRecord1432.cpp,Code/Libraries/Source/WWVegas/WWLib/BfmeOpaqueOwnedRecord1432.cpp
 0x00556450,155,code,Code/Libraries/Source/WWVegas/WWLib/BfmeOpaqueOwnedRecord1408.cpp,proposed,N,N=Code/Libraries/Source/WWVegas/WWLib/BfmeOpaqueOwnedRecord1408.cpp,Code/Libraries/Source/WWVegas/WWLib/StlportOwnedRecord1408CopyCtor.cpp
 0x005564EB,29,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlportElementCopyCtorsW3G15.cpp
 0x00556508,27,code,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PSPlayerAllStats.cpp,proposed,N,N=Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PSPlayerAllStats.cpp noncontiguous,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PersistentStorageThread.cpp
@@ -85327,11 +85327,11 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00798F64,14,code,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PSPlayerAllStats.cpp,approved,P,P=0x0055621F@FuncInfo0x0094D59C p-group provisional,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PersistentStorageThread.cpp
 0x00798F72,10,code,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PSPlayerAllStats.cpp,approved,P,P=0x0055621F@FuncInfo0x0094D59C p-group provisional,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PersistentStorageThread.cpp
 0x00798F7C,11,code,Code/Libraries/Source/WWVegas/WWLib/BfmeOpaqueOwnedRecord1432.cpp,approved,P,P=0x00556375@FuncInfo0x0094D5E0 p-group provisional,Code/gen_small/uw_gen_011.cpp
-0x00798F87,14,code,Code/Libraries/Source/WWVegas/WWLib/BfmeOpaqueOwnedRecord1432.cpp,approved,P,P=0x00556375@FuncInfo0x0094D5E0 p-group provisional,Code/Libraries/Source/WWVegas/WWLib/StlportOwnedRecord1432CopyCtor.cpp
-0x00798F95,14,code,Code/Libraries/Source/WWVegas/WWLib/BfmeOpaqueOwnedRecord1432.cpp,approved,P,P=0x00556375@FuncInfo0x0094D5E0 p-group provisional,Code/Libraries/Source/WWVegas/WWLib/StlportOwnedRecord1432CopyCtor.cpp
-0x00798FA3,14,code,Code/Libraries/Source/WWVegas/WWLib/BfmeOpaqueOwnedRecord1432.cpp,approved,P,P=0x00556375@FuncInfo0x0094D5E0 p-group provisional,Code/Libraries/Source/WWVegas/WWLib/StlportOwnedRecord1432CopyCtor.cpp
-0x00798FB1,14,code,Code/Libraries/Source/WWVegas/WWLib/BfmeOpaqueOwnedRecord1432.cpp,approved,P,P=0x00556375@FuncInfo0x0094D5E0 p-group provisional,Code/Libraries/Source/WWVegas/WWLib/StlportOwnedRecord1432CopyCtor.cpp
-0x00798FBF,10,code,Code/Libraries/Source/WWVegas/WWLib/BfmeOpaqueOwnedRecord1432.cpp,approved,P,P=0x00556375@FuncInfo0x0094D5E0 p-group provisional,Code/Libraries/Source/WWVegas/WWLib/StlportOwnedRecord1432CopyCtor.cpp
+0x00798F87,14,code,Code/Libraries/Source/WWVegas/WWLib/BfmeOpaqueOwnedRecord1432.cpp,approved,P,P=0x00556375@FuncInfo0x0094D5E0 p-group provisional,Code/Libraries/Source/WWVegas/WWLib/BfmeOpaqueOwnedRecord1432.cpp
+0x00798F95,14,code,Code/Libraries/Source/WWVegas/WWLib/BfmeOpaqueOwnedRecord1432.cpp,approved,P,P=0x00556375@FuncInfo0x0094D5E0 p-group provisional,Code/Libraries/Source/WWVegas/WWLib/BfmeOpaqueOwnedRecord1432.cpp
+0x00798FA3,14,code,Code/Libraries/Source/WWVegas/WWLib/BfmeOpaqueOwnedRecord1432.cpp,approved,P,P=0x00556375@FuncInfo0x0094D5E0 p-group provisional,Code/Libraries/Source/WWVegas/WWLib/BfmeOpaqueOwnedRecord1432.cpp
+0x00798FB1,14,code,Code/Libraries/Source/WWVegas/WWLib/BfmeOpaqueOwnedRecord1432.cpp,approved,P,P=0x00556375@FuncInfo0x0094D5E0 p-group provisional,Code/Libraries/Source/WWVegas/WWLib/BfmeOpaqueOwnedRecord1432.cpp
+0x00798FBF,10,code,Code/Libraries/Source/WWVegas/WWLib/BfmeOpaqueOwnedRecord1432.cpp,approved,P,P=0x00556375@FuncInfo0x0094D5E0 p-group provisional,Code/Libraries/Source/WWVegas/WWLib/BfmeOpaqueOwnedRecord1432.cpp
 0x00798FC9,11,code,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PersistentStorageThread.cpp,proposed,P,P=0x00556523@FuncInfo0x0094D62C,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PersistentStorageThread.cpp
 0x00798FD4,14,code,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PersistentStorageThread.cpp,proposed,P,P=0x00556523@FuncInfo0x0094D62C,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PersistentStorageThread.cpp
 0x00798FE2,14,code,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PersistentStorageThread.cpp,proposed,P,P=0x00556523@FuncInfo0x0094D62C,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PersistentStorageThread.cpp
