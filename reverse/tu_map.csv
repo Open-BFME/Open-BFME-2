@@ -1216,7 +1216,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0001D1D0,11,code,,,-,,Code/GameEngine/Source/Common/GapBodiesGE21.cpp
 0x0001D1E0,61,code,Code/Libraries/Source/WWVegas/WWLib/_SgI.cpp,approved,N,N=Code/Libraries/Source/WWVegas/WWLib/_SgI.cpp provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_filebuf_open.cpp
 0x0001D220,23,code,Code/Libraries/Source/WWVegas/WWLib/_SgI.cpp,approved,N,N=Code/Libraries/Source/WWVegas/WWLib/_SgI.cpp provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_filebuf_open.cpp
-0x0001D240,50,code,Code/Libraries/Source/WWVegas/WWLib/_SgI.cpp,approved,C,C=0x0001D220..0x0001D280 provisional,Code/stlport/FileSizeHelper.cpp
+0x0001D240,50,code,Code/Libraries/Source/WWVegas/WWLib/_SgI.cpp,approved,C,C=0x0001D220..0x0001D280 provisional,Code/Libraries/Source/WWVegas/WWLib/_SgI.cpp
 0x0001D280,120,code,Code/Libraries/Source/WWVegas/WWLib/_SgI.cpp,approved,N,N=Code/Libraries/Source/WWVegas/WWLib/_SgI.cpp provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_filebuf_open.cpp
 0x0001D300,82,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_filebuf_base.cpp
 0x0001D360,48,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_filebuf_base.cpp
