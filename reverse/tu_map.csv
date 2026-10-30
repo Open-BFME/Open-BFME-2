@@ -13232,7 +13232,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x001EA507,34,code,Code/GameEngine/Source/GameClient/GlobalLanguage.cpp,approved,C,C=0x001EA478..0x001EA529,Code/Libraries/Source/WWVegas/WWLib/stlport_list_create_nodes.cpp
 0x001EA529,49,code,Code/GameEngine/Source/GameClient/GlobalLanguage.cpp,approved,C,C=0x001EA478..0x001EA55A,Code/Libraries/Source/WWVegas/WWLib/stlport_list_rva001EA443_clear.cpp
 0x001EA55A,549,code,Code/GameEngine/Source/GameClient/GlobalLanguage.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/GlobalLanguage.cpp S=Code/GameEngine/Source/GameClient/GlobalLanguage.cpp N=Code/GameEngine/Source/GameClient/GlobalLanguage.cpp,Code/GameEngine/Source/GameClient/GlobalLanguage.cpp
-0x001EA77F,473,code,Code/GameEngine/Source/GameClient/GlobalLanguage.cpp,approved,S,S=Code/GameEngine/Source/GameClient/GlobalLanguage.cpp N=Code/GameEngine/Source/GameClient/GlobalLanguage.cpp,Code/GameEngine/Source/GameClient/GlobalLanguageOnGameEngineExit.cpp
+0x001EA77F,473,code,Code/GameEngine/Source/GameClient/GlobalLanguage.cpp,approved,S,S=Code/GameEngine/Source/GameClient/GlobalLanguage.cpp N=Code/GameEngine/Source/GameClient/GlobalLanguage.cpp,Code/GameEngine/Source/GameClient/GlobalLanguage.cpp
 0x001EA958,37,code,Code/GameEngine/Source/GameClient/GlobalLanguage.cpp,approved,C,C=0x001EA77F..0x001EA97D,Code/Libraries/Source/WWVegas/WWLib/stlport_list_001ea478_insert.cpp
 0x001EA97D,23,code,Code/GameEngine/Source/GameClient/GlobalLanguage.cpp,approved,C,C=0x001EA77F..0x001EA994,Code/Libraries/Source/WWVegas/WWLib/stlport_list_rva001EA443_clear.cpp
 0x001EA994,28,code,Code/GameEngine/Source/GameClient/GlobalLanguage.cpp,approved,C,C=0x001EA77F..0x001EA9B0,Code/Libraries/Source/WWVegas/WWLib/stlport_list_001ea478_insert.cpp
@@ -66518,10 +66518,10 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0076A18A,10,code,Code/GameEngine/Source/GameClient/GlobalLanguage.cpp,approved,P,P=0x001EA4D1@FuncInfo0x0090F5D8,Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp
 0x0076A194,11,code,Code/GameEngine/Source/GameClient/GlobalLanguage.cpp,approved,P,P=0x001EA55A@FuncInfo0x0090F5FC,Code/GameEngine/Source/GameClient/GlobalLanguage.cpp
 0x0076A19F,10,code,Code/GameEngine/Source/GameClient/GlobalLanguage.cpp,approved,P,P=0x001EA55A@FuncInfo0x0090F5FC,Code/GameEngine/Source/GameClient/GlobalLanguage.cpp
-0x0076A1A9,8,code,Code/GameEngine/Source/GameClient/GlobalLanguage.cpp,approved,P,P=0x001EA77F@FuncInfo0x0090F630,Code/GameEngine/Source/GameClient/GlobalLanguageOnGameEngineExit.cpp
-0x0076A1B1,8,code,Code/GameEngine/Source/GameClient/GlobalLanguage.cpp,approved,P,P=0x001EA77F@FuncInfo0x0090F630,Code/GameEngine/Source/GameClient/GlobalLanguageOnGameEngineExit.cpp
-0x0076A1B9,8,code,Code/GameEngine/Source/GameClient/GlobalLanguage.cpp,approved,P,P=0x001EA77F@FuncInfo0x0090F630,Code/GameEngine/Source/GameClient/GlobalLanguageOnGameEngineExit.cpp
-0x0076A1C1,10,code,Code/GameEngine/Source/GameClient/GlobalLanguage.cpp,approved,P,P=0x001EA77F@FuncInfo0x0090F630,Code/GameEngine/Source/GameClient/GlobalLanguageOnGameEngineExit.cpp
+0x0076A1A9,8,code,Code/GameEngine/Source/GameClient/GlobalLanguage.cpp,approved,P,P=0x001EA77F@FuncInfo0x0090F630,Code/GameEngine/Source/GameClient/GlobalLanguage.cpp
+0x0076A1B1,8,code,Code/GameEngine/Source/GameClient/GlobalLanguage.cpp,approved,P,P=0x001EA77F@FuncInfo0x0090F630,Code/GameEngine/Source/GameClient/GlobalLanguage.cpp
+0x0076A1B9,8,code,Code/GameEngine/Source/GameClient/GlobalLanguage.cpp,approved,P,P=0x001EA77F@FuncInfo0x0090F630,Code/GameEngine/Source/GameClient/GlobalLanguage.cpp
+0x0076A1C1,10,code,Code/GameEngine/Source/GameClient/GlobalLanguage.cpp,approved,P,P=0x001EA77F@FuncInfo0x0090F630,Code/GameEngine/Source/GameClient/GlobalLanguage.cpp
 0x0076A1CB,8,code,Code/GameEngine/Source/GameClient/GlobalLanguage.cpp,approved,P,P=0x001EA9B5@FuncInfo0x0090F73C,Code/GameEngine/Source/GameClient/GlobalLanguage.cpp
 0x0076A1D3,11,code,Code/GameEngine/Source/GameClient/GlobalLanguage.cpp,approved,P,P=0x001EA9B5@FuncInfo0x0090F73C,Code/GameEngine/Source/GameClient/GlobalLanguage.cpp
 0x0076A1DE,11,code,Code/GameEngine/Source/GameClient/GlobalLanguage.cpp,approved,P,P=0x001EA9B5@FuncInfo0x0090F73C,Code/GameEngine/Source/GameClient/GlobalLanguage.cpp
