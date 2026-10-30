@@ -3,6 +3,39 @@
 #include <windows.h>
 #include "FireWeaponWhenDamagedView.h"
 #pragma comment(linker, "/alternatename:??1Rva00482A4DRecord@@QAE@XZ=??1FireWeaponWhenDamagedBehavior@@UAE@XZ")
+#define BFME_DISP8_BYTECHASE_GETTER(NAME, DISP1, DISP2) \
+	class NAME \
+	{ \
+	public: \
+		unsigned char get() const; \
+		char m_lead[DISP1]; \
+		void *m_ptr; \
+	}; \
+	unsigned char NAME::get() const \
+	{ \
+		return *(unsigned char *)((char *)m_ptr + DISP2); \
+	}
+#define BFME_DISP8_BYTECHASE_BEFORE_GETTER(NAME, BACK, INNER) \
+	class Inner##NAME \
+	{ \
+	public: \
+		char m_lead[INNER]; \
+		unsigned char m_value; \
+	}; \
+	class Sub##NAME \
+	{ \
+	public: \
+		Inner##NAME *m_holder; \
+	}; \
+	class NAME \
+	{ \
+	public: \
+		unsigned char get() const; \
+	}; \
+	unsigned char NAME::get() const \
+	{ \
+		return ((const Sub##NAME *)((const char *)this - (BACK)))->m_holder->m_value; \
+	}
 
 static const int UPDATE_SLEEP_NONE = 1;
 
@@ -24,6 +57,25 @@ struct Rva00482A4DRecord
 	~Rva00482A4DRecord();
 	char bytes[1];
 };
+
+// 0x0039ADAF is ExperienceTracker::isTrainable (pinned under that name from
+// VeterancyCrateCollide::isValidToExecute; ZH's isTrainable reads the
+// template's trainable flag): the byte at +0x5E7 of the +0x04 template.
+class ExperienceTracker
+{
+public:
+	bool isTrainable() const;
+	char m_lead[0x4];
+	void *m_template;
+};
+
+// 0x00460A98 and 0x00460AA2 are UpgradeModule's UpgradeMux slots 13 and 14:
+// Code/GameEngine/Source/Common/VslotSmallBodiesU.cpp.
+BFME_DISP8_BYTECHASE_BEFORE_GETTER(Rva004827EFByteChase32Field, 0x1C, 0x114)
+
+BFME_DISP8_BYTECHASE_BEFORE_GETTER(Rva004827F9ByteChase32Field, 0x1C, 0x115)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDamagedBehavior.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDamagedBehaviorDtor.cpp
 
@@ -68,16 +120,6 @@ FireWeaponWhenDamagedBehavior::~FireWeaponWhenDamagedBehavior()
 		::operator delete(m_continuousWeaponRubble->deleteInstance(0));
 	}
 }
-
-// tu-skeleton: 0x0048263B 6B ?name@FireWeaponWhenDamagedBehavior@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00482641 361B ?xfer@Rva00482641@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/Rva00482641Xfer.cpp (not merged yet)
-
-// tu-skeleton: 0x004827AA 69B ?getModuleNameKey@FireWeaponWhenDamagedBehavior@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDamagedBehaviorPoolKey.cpp (not merged yet)
-
-// tu-skeleton: 0x004827EF 10B ?get@Rva004827EFByteChase32Field@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x004827F9 10B ?get@Rva004827F9ByteChase32Field@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDamagedBehavior.cpp
 
@@ -205,6 +247,30 @@ void Rva00482A4DRecord_Delete(Rva00482A4DRecord *p)
 
 // This caller's native REL32 already names the kept provider at 0x00482551.
 // Compatible calling convention and argument/return ABI; binding is address-proven.
+
+// tu-skeleton: 0x0048263B 6B ?name@FireWeaponWhenDamagedBehavior@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00482641 361B ?xfer@Rva00482641@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/Rva00482641Xfer.cpp (not merged yet)
+
+// tu-skeleton: 0x004827AA 69B ?getModuleNameKey@FireWeaponWhenDamagedBehavior@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDamagedBehaviorPoolKey.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp
+
+// Disp8 byte-chase getters: seven-byte __thiscall members with one shape:
+//
+//     mov eax,[ecx+<DISP1>] / mov al,[eax+<DISP2>] / ret
+//
+// A pointer is read at a fixed displacement from `this`, then a byte is read
+// at a second displacement from that pointer and returned in `al` (only the
+// low byte is defined; the caller uses `al`). MSVC 7.1 emits the disp8 loads
+// `8B 41 XX` + `8A 40 XX`, plus `ret`, for seven bytes total.
+// Identity is not recovered: every name is derived from its address.
+// No // cl: line (defaults match the frameless seven-byte shape).
+
+// Backward variant: the holder sits at a NEGATIVE displacement from `this`
+// (a sub-object `this` pointing into a larger object). Spelled as an explicit
+// backward cast, which MSVC folds to `mov eax,[ecx-BACK]`; same shape and
+// reading as BFME1's ChainedFieldGetters.
 
 // tu-skeleton: 0x00482A69 187B ?onDamage@FireWeaponWhenDamagedBehavior@@UAEXPAVDamageInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDamagedBehaviorUpdate.cpp (not merged yet)
 
