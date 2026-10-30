@@ -27598,7 +27598,7 @@ _$E4,,0x007ACD20,26,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsRecordTex
 ?rva005F69B2@Rva005F69B2@@QAEXXZ,,0x005F69B2,18,Code/GameEngine/Source/Common/Rva005F69B2Method.cpp,matched,leaf conditional virtual slot 0x14 on member +4 with outer this plus caller 0x005F6AA8
 ?rva005F6A30@Rva005F6A30@@QAEXXZ,,0x005F6A30,20,Code/GameEngine/Source/Common/Rva005F6A30Method.cpp,matched,leaf conditional virtual slot 0x08 on member +4 with outer this plus caller 0x005F6A90
 ??1Rva003AEEB3@@UAE@XZ,,0x003A5817,39,Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003A5817Dtor.cpp,matched,derived dtor two guarded vptr stores plus tail-jmp to head base
-?Rva003A5572@Rva003AED3E@@UAEXXZ,,0x003A5572,485,Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003A5572Update.cpp,matched,vslot1 wind update via BFME1 donor with extern float globals
+?Rva003A5572@Rva003AED3E@@UAEXXZ,,0x003A5572,485,Code/GameEngine/Source/GameClient/System/FXParticleSystem/fxpswindmodule.cpp,matched,vslot1 wind update via BFME1 donor with extern float globals
 ?tryNextFrame@Anim2D@@IAEXXZ,,0x002D6E26,203,Code/GameEngine/Source/GameClient/System/Anim2D.cpp,matched,ZH body; frame read through the TU-local 0x00DFE77C holder slot 0x7C as setCurrentFrame; /G7 TU
 ?Rva001F9006Write@@YAXAAV?$basic_ostream@DV?$char_traits@D@_STL@@@_STL@@IPBDABUTreeHintPayload001F8ACB@@@Z,,0x001F9006,31,Code/Libraries/Source/WWVegas/WWLib/Rva001F9006Write.cpp,matched,guarded forward to rowed Rva001F8BA1Write
 ?rva001F9465@Rva001F9465@@QAEXH@Z,,0x001F9465,34,Code/GameEngine/Source/Common/Thing/Rva001F9465.cpp,matched,null-checked slot3 plus rowed Rva001F8E23 on this plus 4

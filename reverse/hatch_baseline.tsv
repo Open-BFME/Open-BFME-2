@@ -1054,9 +1054,9 @@ address_global	Code/GameEngine/Source/GameClient/Rva0052A295BannerSteps.cpp	g_Va
 address_global	Code/GameEngine/Source/GameClient/Rva006042B6.cpp	g_Rva0107301CEmptyString	2
 address_global	Code/GameEngine/Source/GameClient/Rva00BCF670CameraSettings.cpp	g_Va00E00944	6
 address_global	Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleSystemInfoCtor.cpp	g_Va00BBB8D8	2
-address_global	Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003A5572Update.cpp	g_Va007C26F0	3
 address_global	Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AFB2A.cpp	g_Va007C26F0	4
 address_global	Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AFB2A.cpp	g_Va00BBB8D8	4
+address_global	Code/GameEngine/Source/GameClient/System/FXParticleSystem/fxpswindmodule.cpp	g_Va007C26F0	3
 address_global	Code/GameEngine/Source/GameClient/VideoPlayer.cpp	g_Va00CE4918	3
 address_global	Code/GameEngine/Source/GameClient/VideoPlayer.cpp	g_Va00E0ABB0	1
 address_global	Code/GameEngine/Source/GameClient/VideoPlayerRva009111BOpen.cpp	g_Va00DE2098	3
