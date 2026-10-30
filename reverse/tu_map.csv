@@ -39540,7 +39540,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x004B872B,7,code,,,-,,Code/GameEngine/Source/Common/Disp32ByteGetters.cpp
 0x004B8732,32,code,Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnUnitBehavior.cpp,proposed,K,K=Rva004B8732,Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp
 0x004B8752,69,code,Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnUnitBehavior.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnUnitBehavior.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnUnitBehavior.cpp
-0x004B8797,6,code,Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnUnitBehavior.cpp,approved,C,C=0x004B8752..0x004B879D provisional,Code/GameEngine/Source/Common/ModuleNameGetters.cpp
+0x004B8797,6,code,Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnUnitBehavior.cpp,approved,C,C=0x004B8752..0x004B879D provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnUnitBehavior.cpp
 0x004B879D,6,code,Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnUnitBehavior.cpp,approved,C,C=0x004B8752..0x004B87A3 provisional,Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp
 0x004B87A3,64,code,Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnUnitBehavior.cpp,approved,C,C=0x004B8752..0x004B87E3 provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnUnitBehavior.cpp
 0x004B87E3,65,code,Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnUnitBehavior.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnUnitBehavior.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnUnitBehaviorConstructor.cpp

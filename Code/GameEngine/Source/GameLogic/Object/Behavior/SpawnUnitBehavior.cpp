@@ -31,7 +31,6 @@ class Thing;
 class ModuleData;
 class Object;
 #include "../../../../Include/Common/BfmeXfer.h"
-
 // ?getModuleNameKey@SpawnUnitBehavior@@UBE?AW4NameKeyType@@XZ @0x004B8752
 // (69B): cached pool-name key for SpawnUnitBehavior. The class
 // identity comes from the pool-name string the body pushes
@@ -46,21 +45,17 @@ enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
-
 class NameKeyGenerator
 {
 public:
 	NameKeyType nameToKey(const char *name);
 };
-
 extern NameKeyGenerator *TheNameKeyGenerator;
-
 class SpawnUnitBehavior
 {
 public:
 	virtual NameKeyType getModuleNameKey() const;
 };
-
 class Xfer::Version
 {
 public:
@@ -70,8 +65,29 @@ public:
 	unsigned char m_current;
 	unsigned char m_minimum;
 };
-
 #include "../../../../Include/Common/ObjectModule.h"
+#define BFME_SNAPSHOT_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	protected: \
+		virtual const char *GetSnapshotName() const; \
+	}; \
+	const char *NAME::GetSnapshotName() const \
+	{ \
+		return TEXT; \
+	}
+#define BFME_LITERAL_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	public: \
+		const char *name() const; \
+	}; \
+	const char *NAME::name() const \
+	{ \
+		return TEXT; \
+	}
+#include "../../AI/WorkOrder.h"
+#include "../../AI/TeamInQueue.h"
 
 class BehaviorModuleInterface { public: virtual void behaviorSlot(); };
 
@@ -106,6 +122,10 @@ private:
 	bool m_24;
 };
 
+BFME_LITERAL_NAME_GETTER(Rva004B8797Named, "SpawnUnitBehavior")
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnUnitBehavior.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnUnitBehaviorPoolKey.cpp
 
 // ?getModuleNameKey@SpawnUnitBehavior@@UBE?AW4NameKeyType@@XZ
@@ -115,10 +135,6 @@ NameKeyType SpawnUnitBehavior::getModuleNameKey() const
 		TheNameKeyGenerator->nameToKey("SpawnUnitBehavior");
 	return TheSpawnUnitBehaviorPoolKey;
 }
-
-// tu-skeleton: 0x004B8797 6B ?name@Rva004B8797Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x004B879D 6B ?Rva004B879DGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva004B8732Xfer.cpp
 
@@ -131,5 +147,24 @@ void Rva004B8732::xfer(Xfer *xfer)
 	}
 	*xfer == m_24;
 }
+
+// ---- from Code/GameEngine/Source/Common/ModuleNameGetters.cpp
+
+// Module literal name getters: six-byte const members with one shape:
+//
+//     mov eax,<offset string literal> / ret
+//
+// Each body returns a pointer to a NUL-terminated Behavior/Update/Contain
+// class-name string in .rdata. Each body VA carries exactly one .rdata
+// reference from its module vtable (descriptor tail closed by the shared
+// 0x004B3FD0 pair -- the same family marker as the Subsystem getters).
+// Split from Code/GameEngine/Source/Common/SubsystemNameGetters.cpp into a
+// contributor-local unit to keep concurrent landings conflict-free; the
+// BFME_LITERAL_NAME_GETTER macro is verbatim, only the class names follow
+// this tree's address-derived convention (identity unrecoverable from 6
+// bytes, string carried in source where verify_string_refs re-reads it).
+// No // cl: line (defaults match the frameless 6-byte shape).
+
+// tu-skeleton: 0x004B879D 6B ?Rva004B879DGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp (not merged yet)
 
 // tu-skeleton: 0x004B87E3 65B ??0SpawnUnitBehavior@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnUnitBehaviorConstructor.cpp (not merged yet)
