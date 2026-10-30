@@ -23789,7 +23789,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x002FDB93,49,code,Code/GameEngine/Source/GameLogic/AI/ai.cpp,approved,C,C=0x002FDB44..0x002FDBC4,Code/GameEngine/Source/GameLogic/AI/AIBestAttackPriorityCallback.cpp
 0x002FDBC4,214,code,Code/GameEngine/Source/GameLogic/AI/ai.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/ai.cpp S=Code/GameEngine/Source/GameLogic/AI/ai.cpp N=Code/GameEngine/Source/GameLogic/AI/AI.cpp,Code/GameEngine/Source/GameLogic/AI/AIClosestObjectQueries.cpp
 0x002FDC9A,112,code,Code/GameEngine/Source/GameLogic/AI/ai.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/ai.cpp S=Code/GameEngine/Source/GameLogic/AI/ai.cpp N=Code/GameEngine/Source/GameLogic/AI/AI.cpp,Code/GameEngine/Source/GameLogic/AI/AIClosestObjectQueries.cpp
-0x002FDD0A,138,code,Code/GameEngine/Source/GameLogic/AI/ai.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/ai.cpp S=Code/GameEngine/Source/GameLogic/AI/ai.cpp N=Code/GameEngine/Source/GameLogic/AI/AI.cpp,Code/GameEngine/Source/GameLogic/AI/AIGetAdjustedVisionRange.cpp
+0x002FDD0A,138,code,Code/GameEngine/Source/GameLogic/AI/ai.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/ai.cpp S=Code/GameEngine/Source/GameLogic/AI/ai.cpp N=Code/GameEngine/Source/GameLogic/AI/AI.cpp,Code/GameEngine/Source/GameLogic/AI/ai.cpp
 0x002FDD94,349,code,Code/GameEngine/Source/GameLogic/AI/ai.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/ai.cpp S=Code/GameEngine/Source/GameLogic/AI/ai.cpp N=Code/GameEngine/Source/GameLogic/AI/TAiData.cpp,Code/GameEngine/Source/GameLogic/AI/TAiDataXfer.cpp
 0x002FDEF1,32,code,Code/GameEngine/Source/GameLogic/AI/ai.cpp,approved,C,C=0x002FDD94..0x002FDF11,Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp
 0x002FDF11,11,code,Code/GameEngine/Source/GameLogic/AI/ai.cpp,approved,C,C=0x002FDD94..0x002FDF1C,Code/GameEngine/Source/GameLogic/AI/TAiDataXfer.cpp
@@ -23804,7 +23804,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x002FE108,53,code,Code/GameEngine/Source/GameLogic/AI/ai.cpp,approved,C,C=0x002FE0F1..0x002FE13D,Code/GameEngine/Source/Common/Rva002FE13DHandler.cpp
 0x002FE13D,86,code,Code/GameEngine/Source/GameLogic/AI/ai.cpp,approved,C,C=0x002FE0F1..0x002FE193,Code/GameEngine/Source/Common/Rva002FE13DHandler.cpp
 0x002FE193,478,code,Code/GameEngine/Source/GameLogic/AI/ai.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/AI/ai.cpp N=Code/GameEngine/Source/GameLogic/AI/AI.cpp,Code/GameEngine/Source/GameLogic/AI/AIObjectTargetPredicate.cpp
-0x002FE371,17,code,Code/GameEngine/Source/GameLogic/AI/ai.cpp,approved,C,C=0x002FE193..0x002FE382,Code/GameEngine/Source/Common/Rva002FE371Forward.cpp
+0x002FE371,17,code,Code/GameEngine/Source/GameLogic/AI/ai.cpp,approved,C,C=0x002FE193..0x002FE382,Code/GameEngine/Source/GameLogic/AI/ai.cpp
 0x002FE382,670,code,Code/GameEngine/Source/GameLogic/AI/ai.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/ai.cpp S=Code/GameEngine/Source/GameLogic/AI/ai.cpp N=Code/GameEngine/Source/GameLogic/AI/TAiData.cpp,Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp
 0x002FE620,123,code,Code/GameEngine/Source/GameLogic/AI/ai.cpp,approved,C,C=0x002FE382..0x002FE69B,Code/GameEngine/Source/Common/Rva002FE620Ctor.cpp
 0x002FE69B,28,code,Code/GameEngine/Source/GameLogic/AI/ai.cpp,approved,C,C=0x002FE382..0x002FE6B7,Code/GameEngine/Source/Common/Rva002FE620Ctor.cpp
