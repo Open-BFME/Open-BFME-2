@@ -78,6 +78,7 @@ class RGBAColorReal;
 class RGBAColorInt;
 class Snapshot;
 #include "../../../../Include/Common/BfmeXfer.h"
+
 class Xfer::Version
 {
 public:
@@ -199,6 +200,8 @@ enum NameKeyType;
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdate.cpp
 
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdate.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdatePoolKey.cpp
 
 // ?getModuleNameKey@RadiateFearUpdate@@UBE?AW4NameKeyType@@XZ
@@ -230,20 +233,6 @@ RadiateFearUpdateModuleData::RadiateFearUpdateModuleData()
 		BfmeFixedStorage0004543D(*reinterpret_cast<const BfmeFixedStorage0004543D *>(&KINDOFMASK_NONE)));
 }
 
-// tu-skeleton: 0x0049C022 39B ?getUpgradeActivationMasks@RadiateFearUpdate@@MBEXAAUUpgradeMaskType@@0@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpgradeMuxSlotOverrides.cpp (not merged yet)
-
-// tu-skeleton: 0x0049C049 15B ?performUpgradeFX@RadiateFearUpdate@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpgradeMuxSlotOverrides.cpp (not merged yet)
-
-// tu-skeleton: 0x0049C058 10B ?get@Rva0049C058ByteChase32Field@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0049C062 10B ?get@Rva0049C062ByteChase32Field@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0049C0E4 34B ?buildFieldParse@RadiateFearUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp (not merged yet)
-
-// tu-skeleton: 0x0049C106 115B ??0RadiateFearUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdateCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0049C179 28B ??_GRva0049BFB7@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdateXfer.cpp
 
 void RadiateFearUpdate::xfer(Xfer *xfer)
@@ -256,13 +245,35 @@ void RadiateFearUpdate::xfer(Xfer *xfer)
 	UpgradeMux::upgradeMuxXfer(xfer);
 }
 
+// tu-skeleton: 0x0049C022 39B ?getUpgradeActivationMasks@RadiateFearUpdate@@MBEXAAUUpgradeMaskType@@0@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpgradeMuxSlotOverrides.cpp (not merged yet)
+
+// tu-skeleton: 0x0049C049 15B ?performUpgradeFX@RadiateFearUpdate@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpgradeMuxSlotOverrides.cpp (not merged yet)
+
+// tu-skeleton: 0x0049C058 10B ?get@Rva0049C058ByteChase32Field@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0049C062 10B ?get@Rva0049C062ByteChase32Field@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0049C0E4 34B ?buildFieldParse@RadiateFearUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdateCtor.cpp
+
+// ??0RadiateFearUpdate@@QAE@PAVThing@@PBVModuleData@@@Z @0x0049C106
+RadiateFearUpdate::RadiateFearUpdate(Thing *thing, const ModuleData *moduleData)
+	: UpdateModule(thing, moduleData), UpgradeMux()
+{
+	setWakeFrame(m_object, UPDATE_SLEEP_NONE);
+	const RadiateFearUpdateModuleData *data = (const RadiateFearUpdateModuleData *)m_moduleData;
+	if (data->m_initiallyActive)
+		giveSelfUpgrade();
+}
+
+// tu-skeleton: 0x0049C179 28B ??_GRva0049BFB7@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp (not merged yet)
+
 // tu-skeleton: 0x0049C1EE 48B ??1RadiateFearUpdateModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdateModuleDataDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0049C21E 342B ?update@RadiateFearUpdate@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdateUpdate.cpp (not merged yet)
 
 // tu-skeleton: 0x0078D7E3 8B uw_0078d7e3 -- matched in Code/gen_small/uw_gen_011.cpp (not merged yet)
-
-// tu-skeleton: 0x0078D7EB 10B __ehhandler$??0RadiateFearUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdateCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0078D7F5 8B Unwind@00b8d7f5 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdateModuleDataDtor.cpp (not merged yet)
 
