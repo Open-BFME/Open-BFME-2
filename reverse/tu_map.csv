@@ -15816,7 +15816,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00222DBF,45,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp
 0x00222DEC,28,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00222C5A.cpp
 0x00222E08,33,code,Code/GameEngine/Source/Common/BfmeStringRecord00222E08.cpp,proposed,N,N=Code/GameEngine/Source/Common/BfmeStringRecord00222E08.cpp,Code/GameEngine/Source/Common/StringRecordInlineCopyBFME2.cpp
-0x00222E29,225,code,Code/GameEngine/Source/Common/AptPlayer.cpp,proposed,N,N=Code/GameEngine/Source/Common/AptPlayer.cpp W=Code/GameEngine/Source/GameClient/GUI/AptPlayer.cpp,Code/GameEngine/Source/Common/AptPlayer_LoadLevel.cpp
+0x00222E29,225,code,Code/GameEngine/Source/Common/AptPlayer.cpp,proposed,N,N=Code/GameEngine/Source/Common/AptPlayer.cpp W=Code/GameEngine/Source/GameClient/GUI/AptPlayer.cpp,Code/GameEngine/Source/Common/AptPlayer.cpp
 0x00222F0A,75,code,,,-,,Code/GameEngine/Source/Common/Rva00222F0AFinder.cpp
 0x00222F55,186,code,Code/GameEngine/Source/GameClient/GUI/AptPlayer.cpp,proposed,K,W=Code/GameEngine/Source/GameClient/GUI/AptPlayer.cpp K=Rva00222A8BTarget,Code/Libraries/Source/WWVegas/WWLib/Rva00222F55Background.cpp
 0x0022300F,59,code,Code/GameEngine/Source/GameClient/GUI/AptPlayer.cpp,proposed,C,C=0x00222F55..0x0022304A,Code/GameEngine/Source/GameClient/Rva0022300FDtor.cpp
@@ -68421,9 +68421,9 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0076F24F,10,code,,,-,,Code/GameEngine/Source/Common/Rva00222CCBLeaf.cpp
 0x0076F259,14,code,,,-,,Code/GameEngine/Source/Common/StringRecordInlineCopyBFME2.cpp
 0x0076F267,10,code,,,-,,Code/GameEngine/Source/Common/StringRecordInlineCopyBFME2.cpp
-0x0076F271,8,code,Code/GameEngine/Source/Common/AptPlayer.cpp,approved,P,P=0x00222E29@FuncInfo0x0091556C p-group provisional,Code/GameEngine/Source/Common/AptPlayer_LoadLevel.cpp
-0x0076F279,8,code,Code/GameEngine/Source/Common/AptPlayer.cpp,approved,P,P=0x00222E29@FuncInfo0x0091556C p-group provisional,Code/GameEngine/Source/Common/AptPlayer_LoadLevel.cpp
-0x0076F281,10,code,Code/GameEngine/Source/Common/AptPlayer.cpp,approved,P,P=0x00222E29@FuncInfo0x0091556C p-group provisional,Code/GameEngine/Source/Common/AptPlayer_LoadLevel.cpp
+0x0076F271,8,code,Code/GameEngine/Source/Common/AptPlayer.cpp,approved,P,P=0x00222E29@FuncInfo0x0091556C p-group provisional,Code/GameEngine/Source/Common/AptPlayer.cpp
+0x0076F279,8,code,Code/GameEngine/Source/Common/AptPlayer.cpp,approved,P,P=0x00222E29@FuncInfo0x0091556C p-group provisional,Code/GameEngine/Source/Common/AptPlayer.cpp
+0x0076F281,10,code,Code/GameEngine/Source/Common/AptPlayer.cpp,approved,P,P=0x00222E29@FuncInfo0x0091556C p-group provisional,Code/GameEngine/Source/Common/AptPlayer.cpp
 0x0076F28B,8,code,,,-,,Code/GameEngine/Source/GameClient/Rva0022300FCopy.cpp
 0x0076F293,10,code,,,-,,Code/GameEngine/Source/GameClient/Rva0022300FDtor.cpp
 0x0076F29D,8,code,Code/GameEngine/Source/GameClient/GUI/AptPlayer.cpp,approved,P,P=0x002231E7@FuncInfo0x009155BC p-group,Code/GameEngine/Source/GameClient/Rva0022300FCtor.cpp
