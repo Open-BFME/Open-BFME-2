@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
 // ??1Rva004D6134@@MAE@XZ, retail 0x004D6151, 54 bytes. Protected virtual
 // dtor for Rva004D6134 (vtable 0x860474, base NetCommandMsg vtable 0x860130):
 // stores derived vptr, destroys wide-string member at +0x1C via the rowed
@@ -15,14 +15,11 @@ typedef bool Bool;
 
 class AsciiString;
 
-template <class T> class StringBase
-{
-public:
-	~StringBase() { releaseBuffer(); }
-private:
-	void releaseBuffer();
-	T *m_data;
-};
+// The canonical frozen StringBase replaces the private copy; its switch makes
+// the member dtor reachable, so the wide teardown stays a call to the rowed
+// releaseBuffer at 0x00036E70.
+#define BFME_STRINGBASE_PUBLIC_DTOR
+#include "string_base.h"
 
 // Retail vtable 0x860130: deleting dtor, getSortNumber, the bool slot and
 // getContentsAsAsciiString (see NetCommandMsgCtor.cpp).
