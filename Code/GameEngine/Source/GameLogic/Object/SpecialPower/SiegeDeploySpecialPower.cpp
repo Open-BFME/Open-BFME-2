@@ -27,10 +27,12 @@
 typedef int Int;
 typedef bool Bool;
 typedef unsigned int UnsignedInt;
+enum ObjectStatusTypes { BFME_STATUS_40 = 0x40 };
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 enum CommandSourceType { CMD_FROM_PLAYER = 0, CMD_FROM_SCRIPT, CMD_FROM_AI };
-enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
+enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1, UPDATE_SLEEP_FOREVER = 0x3fffffff };
 #include "Lib/Coord3D.h"
+#include "Lib/Coord3DBase.h"
 #include "GameLogicObjectLookupView.h"
 #include "PartitionRangeQueryCallView.h"
 class SpecialPowerTemplate;
@@ -77,13 +79,16 @@ public:
 	NameKeyType nameToKey(const char *name);
 };
 extern NameKeyGenerator *TheNameKeyGenerator;
+struct Coord3D;
 struct Rva004598F2Point
 {
+public:
 	Rva004598F2Point() {}
 	Rva004598F2Point(const Rva004598F2Point &other) : x(other.x), y(other.y), z(other.z) {}
-	float x;
-	float y;
-	float z;
+	Rva004598F2Point(const Coord3D &o) : x(o.x), y(o.y), z(o.z) {}
+	float x; // +0x00
+	float y; // +0x04
+	float z; // +0x08
 };
 class SiegeDockingIface
 {
@@ -96,15 +101,22 @@ public:
 class SiegeDockingBehavior
 {
 public:
-	unsigned char m_pad00[0x20];
-	SiegeDockingIface m_iface;
+	Rva004598F2Point rva004598F2(int index);
+	Rva004598F2Point rva0045992F(int index);
+	char m_pad00[0x20];
+	SiegeDockingIface m_iface; // +0x20
 };
 class AICommandInterface
 {
 public:
 	void aiIdle(CommandSourceType cmdSource);
 	void aiMoveToPosition(const Coord3D *pos, CommandSourceType cmdSource);
+	void aiEvacuate(bool,CommandSourceType);
+	void aiExit(Object*,CommandSourceType);
+	void rva0045003E(int arg, CommandSourceType cmdSource);
+	void aiFacePosition(const Coord3D *pos, int cmdSource);
 };
+enum AttitudeType { ATTITUDE_ZERO=0 };
 class AIUpdateInterfaceHead
 {
 	unsigned char m_pad00[0x20];
@@ -112,42 +124,108 @@ class AIUpdateInterfaceHead
 class AIUpdateInterface : public AIUpdateInterfaceHead, public AICommandInterface
 {
 public:
-	void ignoreObstacle(const Object *obj);
+    void ignoreObstacle(const Object *obj);
+    AttitudeType getAttitude() const;
+    void rva0026DE3B(int);
 };
-class UpdateModule
+#include "../../../../Include/Common/ObjectModule.h"
+
+class SpecialPowerTemplate;
+class Waypoint;
+struct BehaviorModuleInterface { virtual void f0C(); };
+struct UpdateModuleInterface
+{
+    virtual void f10();
+    virtual void u1();
+    virtual void u2();
+    virtual void u3();
+    virtual void u4();
+    virtual void u5();
+    virtual void u6();
+    virtual void u7();
+    virtual void u8();
+    virtual UpdateSleepTime update() = 0;
+};
+class UpdateModule : public ObjectModule, public BehaviorModuleInterface, public UpdateModuleInterface
 {
 protected:
-	virtual ~UpdateModule();
-	void setWakeFrame(Object *obj, UpdateSleepTime wakeDelay);
-	const void *m_moduleData;												// +0x04
-	Object *m_object;														// +0x08
-	unsigned char m_pad0C[0x20 - 0x0C];
+    virtual ~UpdateModule();
+    void setWakeFrame(Object *obj, UpdateSleepTime wakeDelay);
+    unsigned int m_14;
+    int m_18;
+    int m_1C;
 };
 class SpecialPowerUpdateInterface
 {
 public:
-	virtual void initiateIntentToDoSpecialPower(const SpecialPowerTemplate *specialPowerTemplate,
-		const Object *targetObj, const Coord3D *targetPos, UnsignedInt commandOptions, const Waypoint *way) = 0;
-	virtual void gap1();
-	virtual bool rva004C575F();
+    virtual void initiateIntentToDoSpecialPower(const SpecialPowerTemplate *specialPowerTemplate,
+        const Object *targetObj, const Coord3D *targetPos, UnsignedInt commandOptions, const Waypoint *way) = 0;
+    virtual void gap1();
+    virtual bool rva004C575F();
 };
 class SpecialPowerStopInterface
 {
 public:
-	virtual void gap0();
+    virtual void gap0() = 0;
+    virtual bool rva004C5751() = 0;
+    virtual void gap2() = 0;
+    virtual void gap3() = 0;
+    virtual void gap4() = 0;
+    virtual void gap5() = 0;
+    virtual void gap6() = 0;
+    virtual void gap7() = 0;
+    virtual void gap8() = 0;
+    virtual void gap9() = 0;
+    virtual void gap10() = 0;
+    virtual void gap11() = 0;
+    virtual void gap12() = 0;
+    virtual void gap13() = 0;
+    virtual void gap14() = 0;
+    virtual void gap15() = 0;
+    virtual void gap16() = 0;
+    virtual void stopSpecialPower() = 0;
+};
+class WeaponModeSpecialPowerUpdateBase : public UpdateModule,
+    public SpecialPowerUpdateInterface, public SpecialPowerStopInterface
+{
+public:
+    WeaponModeSpecialPowerUpdateBase(Thing *thing, const ModuleData *moduleData);
+protected:
+    unsigned int m_28;
+    int m_2C;
+    unsigned int m_30;
+    float m_34;
 };
 struct SiegeDeployModuleDataView
 {
-	unsigned char m_pad00[0x24];
-	float m_searchRadius;											// +0x24
-	float m_pushDistance;											// +0x28
+public:
+	char m_pad00[0x18];
+    unsigned int m_delay; // +0x18
+    unsigned int m_disabledDuration; // +0x1C
+    bool m_evacuate; // +0x20
+    bool m_exit; // +0x21
+	bool m_noAdjust; // +0x22
+	char m_pad23[0x1];
+	float m_searchRadius; // +0x24 +0x24
+	float m_pushDistance; // +0x28 +0x28
+	float m_approachScale; // +0x2C
 };
-#include "../../../../Include/Common/Module.h"
 
+
+enum DisabledType { DISABLED_ZERO=0 };
+struct Rva0028AC4EEntry;
+class SiegePhaseContain;
+class AIUpdateInterface;
+struct SiegePhaseConditions {unsigned words[19];__forceinline unsigned test(int i)const{return words[i>>5]&(1u<<(i&31));}__forceinline void set(int i){words[i>>5]|=1u<<(i&31);}__forceinline void clear(int i){words[i>>5]&=~(1u<<(i&31));}};
 class Object
 {
 	friend class SiegeDeploySpecialPower;
 public:
+	void setStatus(ObjectStatusTypes bit, bool flag);
+    void setDisabledUntil(DisabledType, unsigned);
+    void rva0028AE6D();
+    const Rva0028AC4EEntry *rva0028AC4E() const;
+	const Rva004598F2Point *getPosition() const { return &m_position; }
 	ObjectID getID() const { return m_id; }
 	unsigned char m_pad00[0x08];
 	float m_xAxis;
@@ -159,7 +237,11 @@ public:
 	Rva004598F2Point m_position;
 	unsigned char m_pad44[0x74 - 0x44];
 	ObjectID m_id;
-	unsigned char m_pad78[0x258 - 0x78];
+	unsigned char m_pad78[0x10C - 0x78];
+    SiegePhaseConditions conditions; // +0x10C
+    unsigned char m_pad158[0x250 - 0x158];
+    SiegePhaseContain *contain; // +0x250
+    unsigned char m_pad254[4];
 	AIUpdateInterface *m_ai;
 protected:
 	Module *findModule(NameKeyType key) const;	// 0x0028B6D6
@@ -171,46 +253,48 @@ class DynamicPortalBehaviour
 public:
 	static Module *rva004608E0(Object *obj);
 	void rva0046094C();
+	void createWaypoints();
+	bool IsEndPortalAboveWall(Coord3D *pos);
 };
 
+class ModuleData;
 class BehaviorModule
 {
 public:
-	virtual void anchor();
-	unsigned int m_04;
-	Object *m_object;
+	virtual ~BehaviorModule();
+protected:
+	const ModuleData *m_moduleData; // +0x04 +0x04
+	Object *m_object; // +0x08 +0x08
 };
 
-class SiegeDeploySpecialPower : public UpdateModule, public SpecialPowerUpdateInterface, public SpecialPowerStopInterface
+class SiegeDeploySpecialPower : public WeaponModeSpecialPowerUpdateBase
 {
 public:
-	virtual NameKeyType getModuleNameKey() const;
-	virtual void initiateIntentToDoSpecialPower(const SpecialPowerTemplate *specialPowerTemplate,
-		const Object *targetObj, const Coord3D *targetPos, UnsignedInt commandOptions, const Waypoint *way);
-public:
-	Rva004598F2Point computeApproachPoint(Object *target, Rva004598F2Point *dockPosition, bool *docked) throw();
-public:
-	void rva004C5E62();
+    SiegeDeploySpecialPower(Thing *thing, const ModuleData *moduleData);
+    virtual ~SiegeDeploySpecialPower();
+    virtual NameKeyType getModuleNameKey() const;
+    virtual void initiateIntentToDoSpecialPower(const SpecialPowerTemplate *specialPowerTemplate,
+        const Object *targetObj, const Coord3D *targetPos, UnsignedInt commandOptions, const Waypoint *way);
+    virtual bool rva004C575F();
+    virtual bool rva004C5751();
+    virtual void stopSpecialPower();
+    virtual UpdateSleepTime update();
+    Rva004598F2Point computeApproachPoint(Object *target, Rva004598F2Point *dockPosition, bool *docked) throw();
+    void rva004C5E62();
+    void rva004C573C();
 private:
-	void setPhase(int state);
-private:
-	const SiegeDeployModuleDataView *data() const { return (const SiegeDeployModuleDataView *)m_moduleData; }
-private:
-	unsigned char m_pad28[0x40 - 0x28];
-private:
-	ObjectID m_dockID;
-private:
-	unsigned char m_pad44[0x54 - 0x44];
-private:
-	Rva004598F2Point m_approachPoint;
-private:
-	bool m_docked;
-private:
-	unsigned char m_pad61[3];
-private:
-	Rva004598F2Point m_dockPosition;
-public:
-	void rva004C573C();
+    void setPhase(int state);
+    const SiegeDeployModuleDataView *data() const { return (const SiegeDeployModuleDataView *)m_moduleData; }
+    int m_phase; // +0x38
+    unsigned int m_frame; // +0x3C
+    ObjectID m_dockID; // +0x40
+    ObjectID m_44; // +0x44
+    Coord3DBase m_48; // +0x48
+    Rva004598F2Point m_approachPoint; // +0x54
+    bool m_docked; // +0x60
+    unsigned char m_pad61[3];
+    Rva004598F2Point m_dockPosition; // +0x64
+    bool m_stop; // +0x70
 };
 
 // Counts anything past the first two states as interesting.
