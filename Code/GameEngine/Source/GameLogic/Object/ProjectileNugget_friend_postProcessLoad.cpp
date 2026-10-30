@@ -46,16 +46,16 @@ public:
 	virtual void friend_postProcessLoad();
 
 private:
-	const WeaponTemplate *m_128;
-	void *m_12C;
-	AsciiString m_130;
-	AsciiString m_134;
+	const WeaponTemplate *m_detonationWeapon; // +0x128
+	const ThingTemplate *m_projectileTemplate; // +0x12C
+	AsciiString m_warheadTemplateName; // +0x130
+	AsciiString m_projectileTemplateName; // +0x134
 };
 
 void ProjectileNugget::friend_postProcessLoad()
 {
 	Rva00507823::rva00507877();
-	m_128 = TheWeaponStore->findWeaponTemplate(m_130);
-	if (!m_134.isEmpty())
-		m_12C = (void *)TheThingFactory->findTemplate(m_134);
+	m_detonationWeapon = TheWeaponStore->findWeaponTemplate(m_warheadTemplateName);
+	if (!m_projectileTemplateName.isEmpty())
+		m_projectileTemplate = TheThingFactory->findTemplate(m_projectileTemplateName);
 }

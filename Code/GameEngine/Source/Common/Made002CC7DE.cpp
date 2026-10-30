@@ -6,11 +6,16 @@
 #include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
 #define NAMEKEY(x) TheNameKeyGenerator->nameToKey(x)
 
+class Object;
+class Rva002CA9CA;
+
 class Rva00507823
 {
 public:
 	Rva00507823();
 	virtual ~Rva00507823();
+	virtual void rva00507877();		// slot 8 of 0x00864010, 0x00507877
+	unsigned char rva005075D6(const void *obj, Object *arg);		// 0x005075D6
 private:
 	unsigned char m_pad[0x128 - 4];
 };
@@ -19,8 +24,9 @@ class Made002CC7DE : public Rva00507823
 {
 public:
 	Made002CC7DE();
+	void rva00509753(int a, int b);
 private:
-	const void *m_128; // +0x128
+	Rva002CA9CA *m_128; // +0x128
 	AsciiString m_12C; // +0x12C
 };
 
@@ -111,6 +117,13 @@ typedef int Int;
 
 typedef float Real;
 
+class Rva002CA9CA
+{
+public:
+	Bool rva002CAA59(Int arg, const void *obj);		// 0x002CAA59
+	void rva002CAC6E(int a, int b);		// 0x002CAC6E
+};
+
 enum WeaponSlotType
 {
 	PRIMARY_WEAPON = 0
@@ -135,7 +148,11 @@ public:
 
 class Team;
 
-class ThingTemplate;
+class ThingTemplate
+{
+public:
+	void GetAssetList(int a, int b);		// 0x0033CF34
+};
 
 class WeaponTemplate;
 
@@ -263,6 +280,7 @@ enum ObjectID;
 {
 public:
 	Object *newObject(const ThingTemplate *tmpl, Team *team, const CreateMask *mask, ObjectID b);
+	const ThingTemplate *findTemplate(const AsciiString &key);
 };
 
 extern ThingFactory *TheThingFactory;
@@ -294,16 +312,21 @@ struct ProjectileNuggetFireInfo
  ObjectID getStreamOwnerID() const { return m_streamOwnerID; }
 };
 
-class ProjectileNugget
+// Members at +0x130..+0x14C are the FieldParse table's offsets above.
+class ProjectileNugget : public Rva00507823
 {
 public:
+	Bool canAffectObject(const Object *obj, Int arg);
+	virtual void friend_postProcessLoad();
 	virtual void doEffectObject(const ProjectileNuggetFireInfo *info, Object *victim);
-	
+	virtual void rva00509A3C(const ProjectileNuggetFireInfo *info, const Coord3D *pos);
+
 private:
-	unsigned char m_pad004[0x128 - 0x04];
 	const WeaponTemplate *m_detonationWeapon; // +0x128
 	const ThingTemplate *m_projectileTemplate; // +0x12C
-	unsigned char m_pad130[0x13C - 0x130];
+	AsciiString m_warheadTemplateName; // +0x130
+	AsciiString m_projectileTemplateName; // +0x134
+	AsciiString m_projectileStreamName; // +0x138
 	Int m_weaponSlotOverride; // +0x13C
 	Coord3D m_launchOffset; // +0x140
 	Bool m_useLaunchOffset; // +0x14C
