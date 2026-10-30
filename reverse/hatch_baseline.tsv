@@ -4051,6 +4051,7 @@ alternatename	Code/Libraries/Source/WWVegas/WWLib/DX8SkinFVFCategoryContainer_Ad
 alternatename	Code/Libraries/Source/WWVegas/WWLib/FamilyDeletingDtorsO2.cpp	??1Gen_008AC620@@QAE@XZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/FormationAssistant.cpp	??0Rva00423A4A@@QAE@ABU0@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/HordeMeleeAmoeba.cpp	??1Rva00587752Record@@QAE@XZ	1
+alternatename	Code/Libraries/Source/WWVegas/WWLib/HordeMeleeAmoeba.cpp	?_M_fill_insert@?$vector@UBfmePod60@@V?$allocator@UBfmePod60@@@_STL@@@_STL@@QAEXPAUBfmePod60@@IABU3@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/LivingWorldRegionManager_SetRegionReinforcements.cpp	?rva003F1AB9@Rva003F1AB9@@QAEXHHHHHH@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/LocomotorPairVectorOverflow.cpp	?Rva004C734DConstruct@@YAXPAURva004C77C4Pair@@ABU1@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/LocomotorPairVectorOverflow.cpp	?Rva004C737ACopy@@YAPAURva004C77C4Pair@@PAU1@00ABURva004C77C4Tag@@@Z	1
@@ -4354,7 +4355,6 @@ alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_string.cpp	?rva
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_string.cpp	?rva0082C6E0CopyValues@@YAPAURva0082C6E0Value@@PAU1@00@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_string_assign_dispatch.cpp	?bfmeInitV37@BfmeStrV37@@QAEXPAD00@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_string_push_back.cpp	?bfmeDoOU@BfmeThingOU@@QAEXE@Z	1
-alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_pod60_vector_resize_value.cpp	?_M_fill_insert@?$vector@UBfmePod60@@V?$allocator@UBfmePod60@@@_STL@@@_STL@@QAEXPAUBfmePod60@@IABU3@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_pod_hash_bodies.cpp	?eraseSlot@ObjectLookupMap@@QAEXPAH@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_pop_heap_rva004f7e61.cpp	??4Rva004F6966@@QAEAAU0@ABU0@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_push_heap_rva00422ca8.cpp	??$__make_heap@PAHVRva00422CA8@@@_STL@@YAXPAH0VRva00422CA8@@00@Z	1

@@ -5,6 +5,7 @@
 #include "../../../Include/Lib/BfmeE16.h"
 #include <algorithm>
 #pragma comment(linker, "/alternatename:??1Rva00587752Record@@QAE@XZ=?apply@Rva00468A3FDwordImmSetter@@QAEXXZ")
+#pragma comment(linker, "/alternatename:?_M_fill_insert@?$vector@UBfmePod60@@V?$allocator@UBfmePod60@@@_STL@@@_STL@@QAEXPAUBfmePod60@@IABU3@@Z=?_M_fill_insert@?$vector@URva00587375@@V?$allocator@URva00587375@@@_STL@@@_STL@@QAEXPAURva00587375@@IABU3@@Z")
 
 // bfme link decl-only BfmeE16
 namespace _STL { template <> vector<BfmeE16, allocator<BfmeE16> >::~vector(); }
@@ -125,9 +126,39 @@ struct Rva00587752Record
 	char bytes[1];
 };
 
+namespace _STL {
+template <class T> class allocator;
+template <class T, class A> class vector;
+template <class A> class vector<BfmePod60, A> {
+public:
+    typedef unsigned int size_type;
+    typedef BfmePod60 *iterator;
+    iterator erase(iterator first, iterator last);
+    void _M_fill_insert(iterator position, size_type count, const BfmePod60 &value);
+    void resize(size_type newSize, BfmePod60 value);
+private:
+    iterator begin() { return m_start; }
+    iterator end() { return m_finish; }
+    size_type size() const { return (size_type)(m_finish - m_start); }
+    BfmePod60 *m_start;
+    BfmePod60 *m_finish;
+    BfmePod60 *m_endOfStorage;
+};
+template <class A>
+void vector<BfmePod60,A>::resize(size_type newSize, BfmePod60 value) {
+    if (newSize < size())
+        erase(begin() + newSize, end());
+    else
+        _M_fill_insert(end(), newSize - size(), value);
+}
+template void vector<BfmePod60,allocator<BfmePod60> >::resize(unsigned int,BfmePod60);
+}
+
 // tu-skeleton: 0x00587548 52B ?setUnitNeedsNewAttackPos@HordeMeleeAmoeba@@UAEXPAXH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/HordeMeleeAmoeba_setUnitNeedsNewAttackPos.cpp (not merged yet)
 
 // tu-skeleton: 0x0058757C 29B ??$__copy_ptrs@PAUBfmePod60@@PAU1@@_STL@@YAPAUBfmePod60@@PAU1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_erase_bodies.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/HordeMeleeAmoeba.cpp
 
 // ---- from Code/GameEngine/Source/Common/Rva00587599Copy.cpp
 
@@ -159,12 +190,6 @@ void __cdecl Rva005875DCFill(Rva00587375 *dest, unsigned int count, const Rva005
 	Rva00587422Fill(dest, count, src, &dummy);
 }
 
-// tu-skeleton: 0x005875F7 57B ??$__median@URva00588195Elem@@U?$less@URva00588195Elem@@@_STL@@@_STL@@YAABURva00588195Elem@@ABU1@00U?$less@URva00588195Elem@@@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_rva00588195.cpp (not merged yet)
-
-// tu-skeleton: 0x00587630 45B ??$__unguarded_insertion_sort_aux@PAURva00588195Elem@@U1@U?$less@URva00588195Elem@@@_STL@@@_STL@@YAXPAURva00588195Elem@@00U?$less@URva00588195Elem@@@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_rva00588195.cpp (not merged yet)
-
-// tu-skeleton: 0x0058765D 120B ??$__adjust_heap@PAURva00588195Elem@@HU1@U?$less@URva00588195Elem@@@_STL@@@_STL@@YAXPAURva00588195Elem@@HHU1@U?$less@URva00588195Elem@@@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_rva00588195.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva005876D5Ctor.cpp
 
 Rva005876D5::Rva005876D5()
@@ -192,6 +217,49 @@ void Rva00587752Record_Delete(Rva00587752Record *p)
 
 // This caller's native REL32 already names the kept provider at 0x00468A3F.
 // Compatible calling convention and argument/return ABI; binding is address-proven.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva00587D9CCtor.cpp
+
+//
+// ??0HordeMeleeAmoeba@@QAE@PAX0@Z, retail 0x00587D9C 49B.
+// Derived ctor: base Rva005D6FCC (vptr + held void* at +4, rowed 0x005D6FCC)
+// then vector<BfmeE16> at +8 via rowed Vector_base 0x00211E58, bool at +0x14
+// set, void* at +0x18 stored. Caller 0x00587F39; vtable 0x00C6FF38.
+// Same recipe as rowed ??0HordeMeleeFormation 0x00586D8E with flag true.
+
+HordeMeleeAmoeba::HordeMeleeAmoeba(void *held, void *other)
+	: Rva005D6FCC(held), m_vec(_STL::allocator<BfmeE16>())
+{
+	m_other = other;
+	m_flag = true;
+}
+
+Rva005D6FCC *Rva00587F11Factory::rva00587F11(void *held)
+{
+	return new HordeMeleeAmoeba(held, this);
+}
+
+// tu-skeleton: 0x005875F7 57B ??$__median@URva00588195Elem@@U?$less@URva00588195Elem@@@_STL@@@_STL@@YAABURva00588195Elem@@ABU1@00U?$less@URva00588195Elem@@@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_rva00588195.cpp (not merged yet)
+
+// tu-skeleton: 0x00587630 45B ??$__unguarded_insertion_sort_aux@PAURva00588195Elem@@U1@U?$less@URva00588195Elem@@@_STL@@@_STL@@YAXPAURva00588195Elem@@00U?$less@URva00588195Elem@@@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_rva00588195.cpp (not merged yet)
+
+// tu-skeleton: 0x0058765D 120B ??$__adjust_heap@PAURva00588195Elem@@HU1@U?$less@URva00588195Elem@@@_STL@@@_STL@@YAXPAURva00588195Elem@@HHU1@U?$less@URva00588195Elem@@@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_rva00588195.cpp (not merged yet)
 
 // tu-skeleton: 0x0058776E 65B ?rva0058776E@HordeMeleeAmoeba@@UAE_NHPAUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain/HordeMeleeAmoeba.cpp (not merged yet)
 
@@ -225,27 +293,6 @@ void Rva00587752Record_Delete(Rva00587752Record *p)
 
 // tu-skeleton: 0x00587D3C 96B ??$__partial_sort@PAURva00588195Elem@@U1@U?$less@URva00588195Elem@@@_STL@@@_STL@@YAXPAURva00588195Elem@@000U?$less@URva00588195Elem@@@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_rva00588195.cpp (not merged yet)
 
-// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva00587D9CCtor.cpp
-
-//
-// ??0HordeMeleeAmoeba@@QAE@PAX0@Z, retail 0x00587D9C 49B.
-// Derived ctor: base Rva005D6FCC (vptr + held void* at +4, rowed 0x005D6FCC)
-// then vector<BfmeE16> at +8 via rowed Vector_base 0x00211E58, bool at +0x14
-// set, void* at +0x18 stored. Caller 0x00587F39; vtable 0x00C6FF38.
-// Same recipe as rowed ??0HordeMeleeFormation 0x00586D8E with flag true.
-
-HordeMeleeAmoeba::HordeMeleeAmoeba(void *held, void *other)
-	: Rva005D6FCC(held), m_vec(_STL::allocator<BfmeE16>())
-{
-	m_other = other;
-	m_flag = true;
-}
-
-Rva005D6FCC *Rva00587F11Factory::rva00587F11(void *held)
-{
-	return new HordeMeleeAmoeba(held, this);
-}
-
 // tu-skeleton: 0x00587DCD 226B ?_M_fill_insert@?$vector@URva00587375@@V?$allocator@URva00587375@@@_STL@@@_STL@@QAEXPAURva00587375@@IABU3@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0039C415.cpp (not merged yet)
 
 // tu-skeleton: 0x00587EAF 71B ??$__final_insertion_sort@PAURva00588195Elem@@U?$less@URva00588195Elem@@@_STL@@@_STL@@YAXPAURva00588195Elem@@0U?$less@URva00588195Elem@@@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_rva00588195.cpp (not merged yet)
@@ -262,7 +309,11 @@ Rva005D6FCC *Rva00587F11Factory::rva00587F11(void *held)
 
 // tu-skeleton: 0x005880BD 143B ??$__introsort_loop@PAURva00588195Elem@@U1@HU?$less@URva00588195Elem@@@_STL@@@_STL@@YAXPAURva00588195Elem@@00HU?$less@URva00588195Elem@@@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_rva00588195.cpp (not merged yet)
 
-// tu-skeleton: 0x0058814C 73B ?resize@?$vector@UBfmePod60@@V?$allocator@UBfmePod60@@@_STL@@@_STL@@QAEXIUBfmePod60@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod60_vector_resize_value.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_pod60_vector_resize_value.cpp
+
+// The retail call in this body reads 0x00587DCD, an address the ledger already
+// carries as ?_M_fill_insert@?$vector@URva00587375@@V?$allocator@URva00587375@@@_STL@@@_STL@@QAEXPAURva00587375@@IABU3@@Z. Bind the donor spelling to that rowed owner so one
+// address keeps one definition and the unit links.
 
 // tu-skeleton: 0x00588195 70B ??$sort@PAURva00588195Elem@@@_STL@@YAXPAURva00588195Elem@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_rva00588195.cpp (not merged yet)
 
