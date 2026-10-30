@@ -15,8 +15,6 @@
 #include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 #include <stdarg.h>
 
-#define NULL 0
-
 extern "C" __declspec(dllimport) int __cdecl _vsnprintf(char *buffer, unsigned int size, const char *format, va_list args);
 
 template <typename T>
@@ -40,7 +38,7 @@ struct FprintfTarget
 // _fprintf
 extern "C" void fprintf(FprintfTarget *target, const char *format, ...)
 {
-	if (format == NULL)
+	if (format == 0)
 		return;
 	char buffer[1000];
 	va_list args;

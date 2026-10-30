@@ -6,6 +6,8 @@
 // The target wrapper forwards owning texture assignment and returns this.
 // Fog processing and two read_v3_materials call sites use it on four-byte
 // handles. The original wrapper type name is unknown.
+#include <new>
+
 class TextureClass;
 
 template<class T>
@@ -37,7 +39,6 @@ inline BfmeTextureHandle &BfmeTextureHandle::operator=(const BfmeTextureHandle &
 // proven RefCountPtr<TextureClass> destructor17098D, both as scalar call and
 // the array callback to the native vector destructor iterator629110.
 // The original spelling of this wrapper is not asserted by the donor name.
-void operator delete[](void *);
 // ?DeleteTextureHandleArray absent-from-retail
 void DeleteTextureHandleArray(RefCountPtr<TextureClass> *p)
 { delete[] p; }
