@@ -497,15 +497,19 @@ def donors(tu, sk):
 
     A candidate is the file of an approved row, or the TU path itself. It may be
     absorbed only when every matched row it owns is assigned to this TU (any
-    confidence); anything else would move a row the map does not put here. A
-    donor other than the TU path is refused when deleting it is not mechanical
-    (see refusal()).
+    confidence) or is homeless (tu_map.homeless: a displaced or header-inline
+    COMDAT, a template instantiation, a compiler-generated COMDAT, which the map
+    leaves without a TU on purpose and which follows its file); a row the map puts
+    in another TU, or leaves without one for want of evidence, would move a row the
+    map does not put here. A donor other than the TU path is refused when deleting
+    it is not mechanical (see refusal()).
     """
     rows = ledger_rows()
     if "assigned" not in _CACHE:
         _CACHE["assigned"] = {int(r["rva"], 16): r["tu"].lower() for r in map_rows()
                               if r["kind"].startswith("code") and r["tu"]}
-    assigned = _CACHE["assigned"]
+        _CACHE["unplaced"] = {int(r["rva"], 16): r for r in map_rows() if r["kind"].startswith("code") and not r["tu"]}
+    assigned, unplaced = _CACHE["assigned"], _CACHE["unplaced"]
     if "by_file" not in _CACHE:
         _CACHE["by_file"] = collections.defaultdict(list)
         for r in rows:
@@ -527,10 +531,12 @@ def donors(tu, sk):
         where = {id(r): home[p] if (p := parent_of(r, dtors)) and p in home
                  else assigned.get(int(r["target_rva"], 16)) for r in own}
         # The TU file itself may keep rows the map has not placed anywhere: the merge
-        # seeds from it, moves none of them, and verifies they still match. A row the
-        # map puts in another TU still makes it mixed (split it first).
+        # seeds from it, moves none of them, and verifies they still match. Any file's
+        # homeless rows (and their companions) follow it the same way. A row the map
+        # puts in another TU still makes it mixed (split it first).
+        free = {r["name"] for r in own if where[id(r)] is None and homeless(r, unplaced)}
         foreign = [r for r in own if where[id(r)] != tu.lower() and not fold_alias(r)
-                   and not (f == tu and where[id(r)] is None)]
+                   and not (where[id(r)] is None and (f == tu or r["name"] in free or parent_of(r, dtors) in free))]
         if foreign:
             mixed[f] = len(foreign)
         elif own:
@@ -540,6 +546,12 @@ def donors(tu, sk):
             else:
                 out[f] = own
     return out, mixed, refused
+
+
+def homeless(r, unplaced):
+    """Does ledger row `r` (with no TU) sit at a map row tu_map leaves homeless on purpose?"""
+    m = unplaced.get(int(r["target_rva"], 16))
+    return m is not None and tu_map.homeless(m, r["name"])
 
 
 def flags_of(text):

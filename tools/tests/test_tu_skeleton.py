@@ -253,13 +253,18 @@ class HeaderQueueTests(unittest.TestCase):
 class DonorTests(unittest.TestCase):
     TU = "Code/T.cpp"
 
-    def donors(self, ledger, placed):
-        """donors() over `ledger` [(name, rva, source)] with `placed` {rva: tu} approved."""
+    def donors(self, ledger, placed, unplaced=None):
+        """donors() over `ledger` [(name, rva, source)] with `placed` {rva: tu} approved and
+        `unplaced` {rva: (confidence, evidence)} map rows with no TU."""
         T._CACHE.clear()
         T._CACHE["ledger"] = [{"name": n, "export_rva": "", "target_rva": f"0x{rva:08X}", "target_size": "8",
-                               "source": s, "status": "matched", "notes": ""} for n, rva, s in ledger]
+                               "source": s, "status": "matched",
+                               "notes": "gen-funclet;parent=?h@@YAXXZ" if n.startswith("$L") else ""}
+                              for n, rva, s in ledger]
         T._CACHE["map"] = [{"rva": f"0x{rva:08X}", "size": "8", "kind": "code", "tu": tu, "confidence": "approved",
                             "by": "-", "evidence": "", "source": ""} for rva, tu in placed.items()]
+        T._CACHE["map"] += [{"rva": f"0x{rva:08X}", "size": "8", "kind": "code", "tu": "", "confidence": conf,
+                             "by": "-", "evidence": ev, "source": ""} for rva, (conf, ev) in (unplaced or {}).items()]
         T._CACHE["stale"] = False
         try:
             with patch.object(T, "refusal", return_value=None):
@@ -308,6 +313,53 @@ class DonorTests(unittest.TestCase):
                   ("?a@@YAXXZ", 0x1010, "Code/A.cpp"), ("??1B@@QAE@XZ", 0x2000, "Code/B.cpp")]
         don, mixed, _ = self.donors(ledger, {0x1000: self.TU, 0x1010: self.TU, 0x2000: "Code/W.cpp"})
         self.assertEqual(mixed, {"Code/A.cpp": 1})
+
+
+    def test_homeless_comdats_follow_their_donor_into_the_merge(self):
+        # A displaced COMDAT, a header inline (the map's `inline` token), a template
+        # instantiation and a deleting destructor the map leaves without a TU on purpose
+        # do not make the donor mixed; they move with it.
+        ledger = [("?t@@YAXXZ", 0x1000, self.TU), ("?b@@YAXXZ", 0x1020, "Code/B.cpp"),
+                  ("?Get@Foo@@QBEHXZ", 0x1300, "Code/B.cpp"), ("?Inl@Bar@@QAEXXZ", 0x1310, "Code/B.cpp"),
+                  ("??$max@H@std@@YAABHABH0@Z", 0x1320, "Code/B.cpp"), ("??_GBaz@@UAEPAXI@Z", 0x1330, "Code/B.cpp")]
+        unplaced = {0x1300: ("displaced", "N=Code/Foo.cpp"), 0x1310: ("", "inline"),
+                    0x1320: ("", ""), 0x1330: ("", "")}
+        don, mixed, _ = self.donors(ledger, {0x1000: self.TU, 0x1020: self.TU}, unplaced)
+        self.assertEqual(mixed, {})
+        self.assertEqual(sorted(don), ["Code/B.cpp", self.TU])
+        self.assertEqual(len(don["Code/B.cpp"]), 5)
+
+    def test_a_homeless_rows_funclet_follows_it(self):
+        ledger = [("?t@@YAXXZ", 0x1000, self.TU), ("?b@@YAXXZ", 0x1020, "Code/B.cpp"),
+                  ("?h@@YAXXZ", 0x1300, "Code/B.cpp"), ("$L1", 0x1400, "Code/B.cpp")]
+        don, mixed, _ = self.donors(ledger, {0x1000: self.TU, 0x1020: self.TU},
+                                    {0x1300: ("", "inline"), 0x1400: ("", "")})
+        self.assertEqual(mixed, {})
+        self.assertEqual(len(don["Code/B.cpp"]), 3)
+
+    def test_homeless_rows_never_excuse_a_row_of_another_tu_or_one_with_no_evidence(self):
+        ledger = [("?t@@YAXXZ", 0x1000, self.TU), ("?b@@YAXXZ", 0x1020, "Code/B.cpp"),
+                  ("??_GBaz@@UAEPAXI@Z", 0x1330, "Code/B.cpp"), ("?o@@YAXXZ", 0x1200, "Code/B.cpp")]
+        don, mixed, _ = self.donors(ledger, {0x1000: self.TU, 0x1020: self.TU, 0x1200: "Code/Other.cpp"},
+                                    {0x1330: ("", "")})
+        self.assertEqual(mixed, {"Code/B.cpp": 1})                  # the other TU's row still blocks
+        ledger[-1] = ("?plain@@YAXXZ", 0x1340, "Code/B.cpp")         # unplaced for want of evidence
+        don, mixed, _ = self.donors(ledger, {0x1000: self.TU, 0x1020: self.TU}, {0x1330: ("", ""), 0x1340: ("", "")})
+        self.assertEqual(mixed, {"Code/B.cpp": 1})
+        self.assertNotIn("Code/B.cpp", don)
+
+    def test_tu_map_homeless(self):
+        import tu_map
+        row = lambda tu="", conf="", ev="", kind="code": {"tu": tu, "confidence": conf, "evidence": ev, "kind": kind}
+        self.assertTrue(tu_map.homeless(row(conf="displaced")))
+        self.assertTrue(tu_map.homeless(row(ev="inline")))
+        self.assertTrue(tu_map.homeless(row(), "?begin@?$vector@H@_STL@@QAEPAHXZ"))
+        self.assertTrue(tu_map.homeless(row(), "??_EFoo@@UAEPAXI@Z"))
+        self.assertFalse(tu_map.homeless(row(), "?plain@@YAXXZ"))
+        self.assertFalse(tu_map.homeless(row(), "Rva00401000Get"))
+        self.assertFalse(tu_map.homeless(row(tu="Code/A.cpp", conf="proposed"), "??_GFoo@@UAEPAXI@Z"))
+        self.assertFalse(tu_map.homeless(row(ev="inlined"), "?f@@YAXXZ"))     # a whole token only
+        self.assertFalse(tu_map.homeless(row(kind="data:.rdata", ev="inline")))
 
 
 class FoldAliasSplitTests(unittest.TestCase):

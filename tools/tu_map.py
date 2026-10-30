@@ -956,6 +956,7 @@ def evidence_rows(layout, ledger=None):
                                                                              z_anchors, z_rvas):
             inline = False
         inline = inline or r["implicit"]
+        r["inline"] = inline
         r["S"] = zsite.get(cls) if cls and not COMDAT.match(r["name"]) and not inline else None
         base = re.sub(r"ModuleData$", "", cls or "")
         r["N"] = (os.path.dirname(r["source"]) + "/" + base + ".cpp") if base and r["source"] \
@@ -1138,6 +1139,8 @@ def build(layout, ledger=None):
             ev.append("contradicted")
         if r.get("prov") and r["conf"] == "approved":
             ev.append(PROV_TOKEN)
+        if r.get("inline") and not r["A"]:
+            ev.append(INLINE_TOKEN)
         out.append({"rva": f"0x{r['rva']:08X}", "size": r["size"], "kind": r["kind"],
                     "tu": r["A"] or "", "confidence": r["conf"], "by": r["by"] or "-",
                     "evidence": " ".join(ev), "source": r["source"]})
@@ -1147,6 +1150,22 @@ def build(layout, ledger=None):
 
 
 ISLAND = 2
+INLINE_TOKEN = "inline"   # a header-inline or implicit member left without a TU (homeless())
+TEMPLATE = re.compile(r"\?\$")
+
+
+def homeless(row, name=""):
+    """Is `row` (a map code row) left without a TU on purpose? A displaced COMDAT (its naming
+    hint's TU is elsewhere), a header-inline or implicit member (INLINE_TOKEN), a template
+    instantiation (`?$` in `name`, its ledger name) or a compiler-generated COMDAT (COMDAT) is
+    emitted in whichever object needs it, so its body may follow its file into a merge. A row
+    with a TU, or one left without a TU for want of evidence, never is."""
+    if row.get("tu") or not row.get("kind", "code").startswith("code"):
+        return False
+    return (row.get("confidence") == "displaced" or INLINE_TOKEN in (row.get("evidence") or "").split()
+            or bool(name) and bool(TEMPLATE.search(name) or COMDAT.match(name)))
+
+
 PROVISIONAL = True    # approve unanchored TUs under a provisional name (provisional())
 PROV_MIN = 2          # approvable (N/U) rows a provisional TU needs
 PROV_TOKEN = "provisional"

@@ -42,7 +42,11 @@ regenerated `tu_map.csv` from this lane.
    donors that compile together without losing a row.
 2. **Read the plan.** `--plan TU` lists every approved row in retail order and what
    happens to it: `pull` (a clean donor), `mixed` (its file also holds rows of
-   another TU), `refused` (deleting the file is not mechanical: vendored,
+   another TU, or rows the map leaves without a TU for want of evidence; a row it
+   leaves homeless on purpose, `tu_map.homeless`, does not count: a displaced or
+   header-inline COMDAT (evidence token `inline`), a template instantiation or a
+   compiler-generated COMDAT follows its file into the TU, and the byte check
+   verifies it there), `refused` (deleting the file is not mechanical: vendored,
    `#include`d by another file, or expanding `__FILE__`, even when it is also
    register-keyed, an approved TU path or recorded canonical), or
    a placeholder comment (unmatched; it compiles to nothing and is never credited).
