@@ -4,18 +4,14 @@
 // Evidence: calls rowed _M_find 0x00357180 at +8; flag at +0x1c calls pin 0x001711A6; scales at +0x20/+0x24; floats at node+0x14-0x20; callers 0x000EB40F 0x000E7B3F.
 #include <map>
 // map<unsigned> internals otherwise instantiate the less<unsigned>::operator()
-// COMDAT (one byte shape per TU flags); an explicit specialization declaration
-// suppresses this TU's copy so callers bind retail's instead.
+// COMDAT (one byte shape per TU flags) and call it out of line. Retail's
+// GlyphRect-map _M_find (0x00357180, 56B) compares inline; an explicit
+// dllimport+forceinline specialization takes those calls inline so this TU's
+// _M_find copy is retail's body and no external less copy is emitted.
 namespace _STL {
-template <> bool less<unsigned int>::operator()(const unsigned int &a, const unsigned int &b) const;
-}
-
-// map/set<unsigned> internals otherwise instantiate the less<unsigned>::operator()
-// COMDAT (one byte shape per TU flags); a declaration-only specialization
-// stops this TU emitting its copy so callers bind the kept copy.
-// Plain (non-dllimport) form: no __imp_ reference is emitted.
-namespace _STL {
-template <> bool less<unsigned>::operator()(const unsigned &a, const unsigned &b) const;
+template <> __declspec(dllimport) __forceinline
+bool less<unsigned int>::operator()(const unsigned int &a, const unsigned int &b) const
+{ return a < b; }
 }
 
 struct Vec2
