@@ -11109,8 +11109,6 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/ParticleEmitterDefClassSaveW
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/ParticleEmitterDefClassSaveW3DBool.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/PointGroupClassDestructor.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/PointGroupClassDestructor.cpp	"gsy",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/PointGroupClassDiffuseFill.cpp	"",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/PointGroupClassDiffuseFill.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/PointGroupClassInit.cpp	"",on	2
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/PointGroupClassInit.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/PointGroupClassInit.cpp	"s",on	1
@@ -11378,8 +11376,8 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_save_rotati
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_save_rotation_keyframes.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/pivot.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/pivot.cpp	"gsy",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp	"",on	3
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp	"gsy",on	1
+pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp	"",on	4
+pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp	"gsy",on	2
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp	"s",on	2
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/pot.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/pot.cpp	"gsy",on	1

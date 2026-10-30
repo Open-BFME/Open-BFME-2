@@ -10972,8 +10972,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00179130,4,code,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp S=Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp N=Code/Libraries/Source/WWVegas/WW3D2/PointGroupClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp
 0x00179140,22,code,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp S=Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp N=Code/Libraries/Source/WWVegas/WW3D2/PointGroupClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp
 0x00179160,31,code,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp S=Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp N=Code/Libraries/Source/WWVegas/WW3D2/PointGroupClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp
-0x00179180,108,code,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp,approved,S,S=Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp N=Code/Libraries/Source/WWVegas/WW3D2/PointGroupClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/PointGroupClassPrepareShader.cpp
-0x001791F0,71,code,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp,approved,C,C=0x00179180..0x00179240,Code/Libraries/Source/WWVegas/WWLib/vector.cpp
+0x00179180,108,code,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp,approved,S,S=Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp N=Code/Libraries/Source/WWVegas/WW3D2/PointGroupClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp
+0x001791F0,71,code,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp,approved,C,C=0x00179180..0x00179240,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp
 0x00179240,165,code,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp,approved,C,C=0x00179180..0x001792F0,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp
 0x001792F0,173,code,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp,approved,C,C=0x00179180..0x001793A0,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp
 0x001793A0,550,code,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp,approved,C,C=0x00179180..0x001795D0,Code/Libraries/Source/WWVegas/WWLib/Vector2Resize.cpp
@@ -10991,10 +10991,10 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00179B50,3377,code,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp,approved,S,S=Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp N=Code/Libraries/Source/WWVegas/WW3D2/PointGroupClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp
 0x0017A890,12000,code,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp,approved,S,S=Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp N=Code/Libraries/Source/WWVegas/WW3D2/PointGroupClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/PointGroupClassRva0017A890.cpp
 0x0017D770,1583,code,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp,approved,S,S=Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp N=Code/Libraries/Source/WWVegas/WW3D2/PointGroupClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp
-0x0017DDA0,1135,code,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp,approved,S,S=Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp N=Code/Libraries/Source/WWVegas/WW3D2/PointGroupClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/PointGroupClassDiffuseFill.cpp
+0x0017DDA0,1135,code,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp,approved,S,S=Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp N=Code/Libraries/Source/WWVegas/WW3D2/PointGroupClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp
 0x0017E210,1798,code,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp,approved,C,C=0x0017DDA0..0x0017E920,Code/Libraries/Source/WWVegas/WW3D2/PointGroupClassInit.cpp
 0x0017E920,364,code,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp,approved,C,C=0x0017DDA0..0x0017EA90,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp
-0x0017EA90,45,code,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp,approved,C,C=0x0017DDA0..0x0017EAC0,Code/Libraries/Source/WWVegas/WWLib/vector.cpp
+0x0017EA90,45,code,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp,approved,C,C=0x0017DDA0..0x0017EAC0,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp
 0x0017EAC0,67,code,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp,approved,C,C=0x0017DDA0..0x0017EB10,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp
 0x0017EB10,43,code,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp,approved,C,C=0x0017DDA0..0x0017EB40,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp
 0x0017EB40,21,code,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp,approved,C,C=0x0017DDA0..0x0017EB60,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp
@@ -11014,7 +11014,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0017F100,71,code,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp,approved,C,C=0x0017DDA0..0x0017F150,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp
 0x0017F150,86,code,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp,approved,C,C=0x0017DDA0..0x0017F1B0,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp
 0x0017F1B0,488,code,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp,approved,S,S=Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp N=Code/Libraries/Source/WWVegas/WW3D2/PointGroupClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp
-0x0017F3A0,85,code,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp,approved,S,S=Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp N=Code/Libraries/Source/WWVegas/WW3D2/PointGroupClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/PointGroupClassUpdateArrays00917B10.cpp
+0x0017F3A0,85,code,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp,approved,S,S=Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp N=Code/Libraries/Source/WWVegas/WW3D2/PointGroupClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp
 0x0017F400,725,code,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp S=Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp N=Code/Libraries/Source/WWVegas/WW3D2/PointGroupClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp
 0x0017F6E0,1023,code,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp S=Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp N=Code/Libraries/Source/WWVegas/WW3D2/PointGroupClass.cpp W=Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp
 0x0017FADF,28,code,,displaced,-,N=Code/GameEngine/Source/Common/HTreeClass.cpp,Code/GameEngine/Source/Common/Rva0017FB94Dtor.cpp
