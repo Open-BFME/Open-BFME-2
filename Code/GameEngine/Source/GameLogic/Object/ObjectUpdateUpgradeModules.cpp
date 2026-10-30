@@ -89,10 +89,13 @@ class BehaviorModule : public BfmeObjectModule, public BehaviorModuleInterface
 {
 };
 
-class Module
+#include "../../../Include/Common/Module.h"
+
+// Partial lookup-result view; the native upgrade caller reads ObjectID at +0x14.
+class Rva00292EEAModuleView : public Module
 {
 public:
-	char m_pad00[0x14];
+    char m_pad08[0x14 - 0x08];
 	ObjectID m_castleID;
 };
 
@@ -241,7 +244,7 @@ void Object::updateUpgradeModules()
 	const BfmeFixedStorage128 *playerMask = &player->m_mask13c;
 	Module *member = CastleBehavior::rva000395708(this);
 	if (member != 0)
-		castle = TheGameLogic->findObjectByID(member->m_castleID);
+		castle = TheGameLogic->findObjectByID(((Rva00292EEAModuleView *)member)->m_castleID);
 	for (BehaviorModule **behaviorModule = m_modules; *behaviorModule; ++behaviorModule)
 	{
 		BehaviorModuleInterface *beh = (BehaviorModuleInterface *)((char *)*behaviorModule + 0x0c);
