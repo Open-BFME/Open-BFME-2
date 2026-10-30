@@ -102,6 +102,26 @@ class Snapshot;
 class Thing;
 class ModuleData;
 #include "../../../../Include/Common/ObjectModule.h"
+#define BFME_SNAPSHOT_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	protected: \
+		virtual const char *GetSnapshotName() const; \
+	}; \
+	const char *NAME::GetSnapshotName() const \
+	{ \
+		return TEXT; \
+	}
+#define BFME_LITERAL_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	public: \
+		const char *name() const; \
+	}; \
+	const char *NAME::name() const \
+	{ \
+		return TEXT; \
+	}
 
 class Xfer::Version
 {
@@ -378,9 +398,39 @@ public:
 	virtual Rva002390CB rva0044E2F7() const = 0;
 };
 
+BFME_LITERAL_NAME_GETTER(Rva0044E000Named, "BloodthirstyUpdate")
+
+class DozerActionState
+{
+public:
+	virtual const char *GetSnapshotName() const;
+};
+
+class BoneFXDamage
+{
+protected:
+	virtual const char *GetSnapshotName() const;
+};
+
 // tu-skeleton: 0x0044DFE0 32B ??1BloodthirstyUpdate@@MAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BloodthirstyUpdateDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x0044E000 6B ?name@Rva0044E000Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/ModuleNameGetters3.cpp
+
+// Module literal name getters (cold slice): six-byte const members with one
+// shape:
+//
+//     mov eax,<offset string literal> / ret
+//
+// Each body returns a pointer to a NUL-terminated class-name string in
+// .rdata. Contributor-local unit split from ModuleNameGetters2.cpp to keep
+// concurrent landings conflict-free; the BFME_LITERAL_NAME_GETTER macro is
+// verbatim, only the class names follow this tree's address-derived
+// convention (identity unrecoverable from 6 bytes, string carried in source
+// where verify_string_refs re-reads it).
+// No // cl: line (defaults match the frameless 6-byte shape, same as the
+// ModuleNameGetters.cpp precedent).
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/BloodthirstyUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/BloodthirstyUpdateXfer.cpp
 
@@ -568,6 +618,13 @@ void BloodthirstyUpdate::addSacrifice(Object *victim)
 		cancelSacrifice();
 }
 
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/BloodthirstyUpdateRva0044E2F7.cpp
+
+Rva002390CB BloodthirstyUpdate::rva0044E2F7() const
+{
+	return m_moduleData->m_initiateVoice;
+}
+
 // tu-skeleton: 0x0044E099 17B ?buildFieldParse@BloodthirstyUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
 
 // tu-skeleton: 0x0044E0AA 105B ??0BloodthirstyUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BloodthirstyUpdateCtor.cpp (not merged yet)
@@ -575,13 +632,6 @@ void BloodthirstyUpdate::addSacrifice(Object *victim)
 // tu-skeleton: 0x0044E113 28B ??_GBloodthirstyUpdate@@MAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BloodthirstyUpdateDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0044E2AC 75B ??0BloodthirstyUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BloodthirstyUpdateModuleDataCtor.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/GameLogic/Object/Update/BloodthirstyUpdateRva0044E2F7.cpp
-
-Rva002390CB BloodthirstyUpdate::rva0044E2F7() const
-{
-	return m_moduleData->m_initiateVoice;
-}
 
 // tu-skeleton: 0x0044E331 67B ??1BloodthirstyUpdateModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BloodthirstyUpdateModuleDataDtor.cpp (not merged yet)
 
