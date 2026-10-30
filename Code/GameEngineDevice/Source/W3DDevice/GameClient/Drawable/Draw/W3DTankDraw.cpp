@@ -113,7 +113,9 @@ class RenderObjClass : public RefCountClass
 #include "../../../../../../../reference/shims/wwmath/Vector2.h"
 #include <stdlib.h>
 #include <math.h>
+
 typedef float Real;
+
 typedef int Int;
 
 struct Material_Override
@@ -150,30 +152,6 @@ public:
 	virtual void f2();
 };
 
-class W3DModelDrawModuleData
-{
-public:
-	W3DModelDrawModuleData();
-	virtual ~W3DModelDrawModuleData();
-};
-
-class W3DTankDrawModuleData : public W3DModelDrawModuleData
-{
-public:
-	W3DTankDrawModuleData();
-	virtual ~W3DTankDrawModuleData();
-
-private:
-	// Base (shared vptr at +0x00) occupies +0x00..+0x03; its real members
-	// fill +0x04..+0x187 through the pinned base ctor/dtor.
-	unsigned char m_basePad[0x188 - 4]; // +0x04
-	AsciiString m_treadDebrisLeft; // +0x188
-	AsciiString m_treadDebrisRight; // +0x18C
-	float m_treadAnimationRate; // +0x190
-	float m_treadPivotSpeedFraction; // +0x194
-	float m_treadDriveSpeedFraction; // +0x198
-};
-
 enum TreadType { TREAD_LEFT = 0, TREAD_RIGHT = 1, TREAD_MIDDLE = 2 };
 
 class W3DTankDraw : public W3DScriptedModelDraw
@@ -202,9 +180,124 @@ protected:
 	void updateTreadPositions(float uvDelta);
 };
 
-// tu-skeleton: 0x000CDF96 27B ?buildFieldParse@W3DTankDrawModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawModuleDataBuildFieldParseChained.cpp (not merged yet)
+//
+// Chained W3D draw ModuleData::buildFieldParse procs: each calls its
+// base-class buildFieldParse, then registers its own FieldParse table with
+// MultiIniFieldParse::add (rowed at 0x2BC6E). The base
+// (W3DModelDrawModuleData::buildFieldParse, rowed at 0xC9240) is declared
+// here but defined in W3DModelDrawModuleDataBuildFieldParse.cpp, so the base
+// call stays an out-of-line E8 exactly like retail. Bodies:
+// ?buildFieldParse@W3DSupplyDrawModuleData@@SAXAAVMultiIniFieldParse@@@Z
+// retail 0x000CAE28, 27 bytes (field SupplyBonePrefix at 0x188; donor
+// reference: BFME1 W3DSupplyDraw.cpp keeps the same single-field table).
+// ?buildFieldParse@W3DTruckDrawModuleData@@SAXAAVMultiIniFieldParse@@@Z
+// retail 0x000CB133, 27 bytes (table 0xBCC358: Dust, DirtSpray,
+// PowerslideSpray plus tire/cab/trailer bones through CabRotationMultiplier
+// at 0x1DC; donor reference: BFME1 W3DTruckDrawModuleData_buildFieldParse.cpp
+// describes the same table).
+
+class MultiIniFieldParse;
+
+class INI;
+
+typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
+
+struct FieldParse
+{
+	const char *token;
+	INIFieldParseProc parse;
+	const void *userData;
+	int offset;
+};
+
+class INI
+{
+public:
+	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
+	static void parseReal(INI *ini, void *instance, void *store, const void *userData);
+	static void parseVelocityReal(INI *ini, void *instance, void *store, const void *userData);
+};
+
+// Retail VA 0x00BCCAD0 (.rdata): 5 field records and a zero sentinel.
+extern const FieldParse g_00BCCAD0[] = {
+	{ "TreadDebrisLeft", &INI::parseAsciiString, 0, 0x188 },
+	{ "TreadDebrisRight", &INI::parseAsciiString, 0, 0x18C },
+	{ "TreadAnimationRate", &INI::parseVelocityReal, 0, 0x190 },
+	{ "TreadPivotSpeedFraction", &INI::parseReal, 0, 0x194 },
+	{ "TreadDriveSpeedFraction", &INI::parseReal, 0, 0x198 },
+	{ 0, 0, 0, 0 }
+};
+
+class MultiIniFieldParse
+{
+public:
+	void add(const FieldParse *parse, unsigned int extraOffset);
+};
+
+class W3DModelDrawModuleData
+{
+public:
+	W3DModelDrawModuleData();
+public:
+	virtual ~W3DModelDrawModuleData();
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class W3DSupplyDrawModuleData : public W3DModelDrawModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class W3DTruckDrawModuleData : public W3DModelDrawModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class W3DTankDrawModuleData : public W3DModelDrawModuleData
+{
+public:
+	W3DTankDrawModuleData();
+public:
+	virtual ~W3DTankDrawModuleData();
+private:
+	unsigned char m_basePad[0x188 - 4];
+private:
+	AsciiString m_treadDebrisLeft;
+private:
+	AsciiString m_treadDebrisRight;
+private:
+	float m_treadAnimationRate;
+private:
+	float m_treadPivotSpeedFraction;
+private:
+	float m_treadDriveSpeedFraction;
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class W3DQuadrupedDrawModuleData : public W3DModelDrawModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawModuleDataBuildFieldParseChained.cpp
+
+void W3DTankDrawModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	W3DModelDrawModuleData::buildFieldParse(parse);
+	parse.add(g_00BCCAD0, 0);
+}
+
+// Callers elsewhere reach bodies in this unit through other spellings; retail's
+// call sites in their matched rows land on these addresses (same ABI). Bind them.
 
 // tu-skeleton: 0x000CDFB1 23B ??0TreadObjectInfo@W3DTankTruckDraw@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankTruckDraw.cpp (not merged yet)
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankDraw.cpp
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankTruckDrawUpdateTreadPositions.cpp
 
@@ -233,22 +326,6 @@ void W3DTankDraw::updateTreadPositions(Real uvDelta)
 		pTread++;
 	}
 }
-
-// tu-skeleton: 0x000CE03C 44B ?xfer@W3DTankDraw@@MAEXPAVXfer@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankDrawXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x000CE09E 76B ?rva000CE09E@W3DTankDraw@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/Rva000CE09E.cpp (not merged yet)
-
-// tu-skeleton: 0x000CE0EA 63B ?rva000CE0EA@W3DTankDraw@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/Rva000CE0EA.cpp (not merged yet)
-
-// tu-skeleton: 0x000CE129 30B ?setHidden@W3DTankDraw@@UAEX_N@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankDrawSetHidden.cpp (not merged yet)
-
-// tu-skeleton: 0x000CE147 35B ?setFullyObscuredByShroud@W3DTankDraw@@UAEX_N@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankDraw_setFullyObscuredByShroud.cpp (not merged yet)
-
-// tu-skeleton: 0x000CE16A 628B ?updateTreadObjects@W3DTankDraw@@IAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankDrawUpdateTreadObjects.cpp (not merged yet)
-
-// tu-skeleton: 0x000CE3DE 5B ?onRenderObjRecreated@W3DTankDraw@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankDrawUpdateTreadObjects.cpp (not merged yet)
-
-// tu-skeleton: 0x000CE3E3 771B ?doDrawModule@W3DTankDraw@@UAEXPBVMatrix3D@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankDrawDoDrawModule.cpp (not merged yet)
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankDraw.cpp
 
@@ -342,6 +419,22 @@ W3DTankDraw::W3DTankDraw(Thing *thing, const ModuleData *moduleData)
 // Placeholder virtuals this unit's vftables hold.  In retail each such slot
 // holds a rowed function; the vftable's address is proven by the vptr stores in
 // the matched destructors, so bind the placeholder to that row's name.
+
+// tu-skeleton: 0x000CE03C 44B ?xfer@W3DTankDraw@@MAEXPAVXfer@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankDrawXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x000CE09E 76B ?rva000CE09E@W3DTankDraw@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/Rva000CE09E.cpp (not merged yet)
+
+// tu-skeleton: 0x000CE0EA 63B ?rva000CE0EA@W3DTankDraw@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/Rva000CE0EA.cpp (not merged yet)
+
+// tu-skeleton: 0x000CE129 30B ?setHidden@W3DTankDraw@@UAEX_N@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankDrawSetHidden.cpp (not merged yet)
+
+// tu-skeleton: 0x000CE147 35B ?setFullyObscuredByShroud@W3DTankDraw@@UAEX_N@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankDraw_setFullyObscuredByShroud.cpp (not merged yet)
+
+// tu-skeleton: 0x000CE16A 628B ?updateTreadObjects@W3DTankDraw@@IAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankDrawUpdateTreadObjects.cpp (not merged yet)
+
+// tu-skeleton: 0x000CE3DE 5B ?onRenderObjRecreated@W3DTankDraw@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankDrawUpdateTreadObjects.cpp (not merged yet)
+
+// tu-skeleton: 0x000CE3E3 771B ?doDrawModule@W3DTankDraw@@UAEXPBVMatrix3D@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankDrawDoDrawModule.cpp (not merged yet)
 
 // tu-skeleton: 0x000CE7B4 131B ?tossEmitters@W3DTankDraw@@IAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankDrawTossEmitters.cpp (not merged yet)
 

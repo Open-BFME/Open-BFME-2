@@ -153,9 +153,103 @@ void vector<Coord3D>::resize(size_type n, Coord3D value) {
 }
 }
 
-// tu-skeleton: 0x000CA089 27B ?buildFieldParse@W3DQuadrupedDrawModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawModuleDataBuildFieldParseChained.cpp (not merged yet)
+//
+// Chained W3D draw ModuleData::buildFieldParse procs: each calls its
+// base-class buildFieldParse, then registers its own FieldParse table with
+// MultiIniFieldParse::add (rowed at 0x2BC6E). The base
+// (W3DModelDrawModuleData::buildFieldParse, rowed at 0xC9240) is declared
+// here but defined in W3DModelDrawModuleDataBuildFieldParse.cpp, so the base
+// call stays an out-of-line E8 exactly like retail. Bodies:
+// ?buildFieldParse@W3DSupplyDrawModuleData@@SAXAAVMultiIniFieldParse@@@Z
+// retail 0x000CAE28, 27 bytes (field SupplyBonePrefix at 0x188; donor
+// reference: BFME1 W3DSupplyDraw.cpp keeps the same single-field table).
+// ?buildFieldParse@W3DTruckDrawModuleData@@SAXAAVMultiIniFieldParse@@@Z
+// retail 0x000CB133, 27 bytes (table 0xBCC358: Dust, DirtSpray,
+// PowerslideSpray plus tire/cab/trailer bones through CabRotationMultiplier
+// at 0x1DC; donor reference: BFME1 W3DTruckDrawModuleData_buildFieldParse.cpp
+// describes the same table).
+
+class MultiIniFieldParse;
+
+class INI;
+
+typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
+
+struct FieldParse
+{
+	const char *token;
+	INIFieldParseProc parse;
+	const void *userData;
+	int offset;
+};
+
+class INI
+{
+public:
+	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
+	static void parseReal(INI *ini, void *instance, void *store, const void *userData);
+	static void parseVelocityReal(INI *ini, void *instance, void *store, const void *userData);
+};
+
+// Retail VA 0x00BCBB28 (.rdata): 4 field records and a zero sentinel.
+extern const FieldParse g_00BCBB28[] = {
+	{ "LeftFrontFootBone", &INI::parseAsciiString, 0, 0x188 },
+	{ "RightFrontFootBone", &INI::parseAsciiString, 0, 0x18C },
+	{ "LeftRearFootBone", &INI::parseAsciiString, 0, 0x190 },
+	{ "RightRearFootBone", &INI::parseAsciiString, 0, 0x194 },
+	{ 0, 0, 0, 0 }
+};
+
+class MultiIniFieldParse
+{
+public:
+	void add(const FieldParse *parse, unsigned int extraOffset);
+};
+
+class W3DModelDrawModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class W3DSupplyDrawModuleData : public W3DModelDrawModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class W3DTruckDrawModuleData : public W3DModelDrawModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class W3DTankDrawModuleData : public W3DModelDrawModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class W3DQuadrupedDrawModuleData : public W3DModelDrawModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawModuleDataBuildFieldParseChained.cpp
+
+void W3DQuadrupedDrawModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	W3DModelDrawModuleData::buildFieldParse(parse);
+	parse.add(g_00BCBB28, 0);
+}
+
+// Callers elsewhere reach bodies in this unit through other spellings; retail's
+// call sites in their matched rows land on these addresses (same ABI). Bind them.
 
 // tu-skeleton: 0x000CA0A4 42B ??0W3DQuadrupedDraw@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DQuadrupedDrawCtor.cpp (not merged yet)
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DQuadrupedDraw.cpp
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DQuadrupedDraw.cpp
 
@@ -242,6 +336,17 @@ void Rva000CA1EEVector::insertFill(
 	fillInsert(position, count, value);
 }
 
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Coord3DVectorResizeValue.cpp
+
+// Retail evidence: 0x000CA2F3 is the 73-byte vector<Coord3D> two-argument
+// resize body. Its identity is supported by the rowed one-argument forwarder
+// at 0x000CA33C and the direct DockUpdate call. The body calls rowed 12-byte
+// range erase 0x002A133B and the rowed fill insertion at 0x000CA1EE decoded
+// from its REL32; both are called by their row names (the Coord3D erase name
+// rows the distinct body at 0x00081A24). Coord3D uses the existing three-float
+// codegen view; the body proves stride and calls, not the target's complete
+// source layout.
+
 // tu-skeleton: 0x000CA113 6B ?name@Rva000CA113Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/W3DDrawNameGetters.cpp (not merged yet)
 
 // tu-skeleton: 0x000CA119 25B ??1Rva000CA119@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva000C79C9Derived.cpp (not merged yet)
@@ -257,17 +362,6 @@ void Rva000CA1EEVector::insertFill(
 // tu-skeleton: 0x000CA187 48B ??$__copy_backward@PAUBfmeE12@@PAU1@H@_STL@@YAPAUBfmeE12@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_e12_o1.cpp (not merged yet)
 
 // tu-skeleton: 0x000CA1B7 28B ??_GRva000CA119@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva000C79C9Derived.cpp (not merged yet)
-
-// ---- from Code/Libraries/Source/WWVegas/WWLib/Coord3DVectorResizeValue.cpp
-
-// Retail evidence: 0x000CA2F3 is the 73-byte vector<Coord3D> two-argument
-// resize body. Its identity is supported by the rowed one-argument forwarder
-// at 0x000CA33C and the direct DockUpdate call. The body calls rowed 12-byte
-// range erase 0x002A133B and the rowed fill insertion at 0x000CA1EE decoded
-// from its REL32; both are called by their row names (the Coord3D erase name
-// rows the distinct body at 0x00081A24). Coord3D uses the existing three-float
-// codegen view; the body proves stride and calls, not the target's complete
-// source layout.
 
 // tu-skeleton: 0x000CA33C 22B ?resize@?$vector@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@QAEXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Coord3DVectorDefaultResizeThunk.cpp (not merged yet)
 

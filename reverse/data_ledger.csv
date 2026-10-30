@@ -1805,13 +1805,13 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x007CB960,124,.rdata,vtable,??_7W3DLaserDrawModuleData@@6B@,,literal,,0,2
 0x007CB9DC,4,.rdata,vtable,??_7W3DLaserDraw@@6BLaserDrawInterface@@@,,literal,,0,2
 0x007CB9E0,328,.rdata,vtable,??_7W3DLaserDraw@@6BDrawModule@@@,,literal,,0,2
-0x007CBB28,80,.rdata,global,?g_00BCBB28@@3QBUFieldParse@@B,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawModuleDataBuildFieldParseChained.cpp,owned,,1,1
+0x007CBB28,80,.rdata,global,?g_00BCBB28@@3QBUFieldParse@@B,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DQuadrupedDraw.cpp,owned,,1,1
 0x007CBB78,200,.rdata,vtable,??_7Rva000CA119@@6BMiBase1@@@,,literal,??_7Rva000CA119@@6BMiBase1@@@;_vtbl_00BCBB78,0,2
 0x007CBC40,272,.rdata,vtable,??_7Rva000CA119@@6BRva000C79C9@@@,,literal,??_7Rva000CA119@@6BRva000C79C9@@@;_vtbl_00BCBC40,0,2
 0x007CBD50,16,.rdata,vtable,??_7W3DRopeDraw@@6BRopeDrawInterface@@@,,literal,,0,2
 0x007CBD60,248,.rdata,vtable,??_7W3DRopeDraw@@6BDrawModule@@@,,literal,,0,2
 0x007CBE58,128,.rdata,string,??_C@_0GL@DJEMKKFA@C?3?2projects?2bfme2patch103?2bfme2?2@,,literal,,0,1
-0x007CBED8,32,.rdata,global,?g_00BCBED8@@3QBUFieldParse@@B,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawModuleDataBuildFieldParseChained.cpp,owned,,1,1
+0x007CBED8,32,.rdata,global,?g_00BCBED8@@3QBUFieldParse@@B,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DSupplyDraw.cpp,owned,,1,1
 0x007CBEF8,200,.rdata,vtable,??_7Rva000CAEC6@@6BMiBase1@@@,,literal,??_7Rva000CAEC6@@6BMiBase1@@@;_vtbl_00BCBEF8,0,2
 0x007CBFC0,272,.rdata,vtable,??_7Rva000CAEC6@@6BRva000C79C9@@@,,literal,??_7Rva000CAEC6@@6BRva000C79C9@@@;_vtbl_00BCBFC0,0,2
 0x007CC0D0,648,.rdata,vtable,??_7W3DSupplyDrawModuleData@@6B@,,literal,??_7W3DSupplyDrawModuleData@@6B@;_vtbl_00BCC0D0,0,2
@@ -1834,7 +1834,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x007CC9D0,44,.rdata,string,??_C@_0CM@CPDFBIKJ@Missing?5rear?9left?5tire?5bone?5?$CFs?5i@,,literal,,0,3
 0x007CC9FC,48,.rdata,string,??_C@_0CO@JBFILECG@Missing?5front?9right?5tire?5bone?5?$CFs@,,literal,,0,1
 0x007CCA2C,164,.rdata,string,??_C@_0CN@OOOLKMCE@Missing?5front?9left?5tire?5bone?5?$CFs?5@,,literal,,0,1
-0x007CCAD0,96,.rdata,global,?g_00BCCAD0@@3QBUFieldParse@@B,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawModuleDataBuildFieldParseChained.cpp,owned,,1,1
+0x007CCAD0,96,.rdata,global,?g_00BCCAD0@@3QBUFieldParse@@B,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankDraw.cpp,owned,,1,1
 0x007CCB30,4,.rdata,float,__real@ba83126f,,literal,,0,5
 0x007CCB34,8,.rdata,string,??_C@_06KBPBIHDD@TREADS?$AA@,,literal,,0,1
 0x007CCB3C,4,.rdata,float,__real@3e99999a,,literal,,0,10

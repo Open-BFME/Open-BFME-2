@@ -62,24 +62,6 @@ enum NameKeyType
 
 extern "C" const void *const __identifier("??_7W3DSupplyDrawModuleData@@6B@")[];
 
-class W3DModelDrawModuleData
-{
-public:
-	W3DModelDrawModuleData();
-};
-
-class W3DSupplyDrawModuleData : public W3DModelDrawModuleData
-{
-public:
-	W3DSupplyDrawModuleData();
-
-private:
-	const void *m_vtable; // +0x00
-	// Base occupies +0x04..+0x187 (0x188 bytes); the base ctor fills it.
-	unsigned char m_basePad[0x188 - 4]; // +0x04
-	AsciiString m_supplyBonePrefix; // +0x188
-};
-
 class Xfer::Version
 {
 public:
@@ -125,7 +107,108 @@ private:
 	int m_2EC;
 };
 
-// tu-skeleton: 0x000CAE28 27B ?buildFieldParse@W3DSupplyDrawModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawModuleDataBuildFieldParseChained.cpp (not merged yet)
+//
+// Chained W3D draw ModuleData::buildFieldParse procs: each calls its
+// base-class buildFieldParse, then registers its own FieldParse table with
+// MultiIniFieldParse::add (rowed at 0x2BC6E). The base
+// (W3DModelDrawModuleData::buildFieldParse, rowed at 0xC9240) is declared
+// here but defined in W3DModelDrawModuleDataBuildFieldParse.cpp, so the base
+// call stays an out-of-line E8 exactly like retail. Bodies:
+// ?buildFieldParse@W3DSupplyDrawModuleData@@SAXAAVMultiIniFieldParse@@@Z
+// retail 0x000CAE28, 27 bytes (field SupplyBonePrefix at 0x188; donor
+// reference: BFME1 W3DSupplyDraw.cpp keeps the same single-field table).
+// ?buildFieldParse@W3DTruckDrawModuleData@@SAXAAVMultiIniFieldParse@@@Z
+// retail 0x000CB133, 27 bytes (table 0xBCC358: Dust, DirtSpray,
+// PowerslideSpray plus tire/cab/trailer bones through CabRotationMultiplier
+// at 0x1DC; donor reference: BFME1 W3DTruckDrawModuleData_buildFieldParse.cpp
+// describes the same table).
+
+class MultiIniFieldParse;
+
+class INI;
+
+typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
+
+struct FieldParse
+{
+	const char *token;
+	INIFieldParseProc parse;
+	const void *userData;
+	int offset;
+};
+
+class INI
+{
+public:
+	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
+	static void parseReal(INI *ini, void *instance, void *store, const void *userData);
+	static void parseVelocityReal(INI *ini, void *instance, void *store, const void *userData);
+};
+
+// Retail VA 0x00BCBED8 (.rdata): 1 field records and a zero sentinel.
+extern const FieldParse g_00BCBED8[] = {
+	{ "SupplyBonePrefix", &INI::parseAsciiString, 0, 0x188 },
+	{ 0, 0, 0, 0 }
+};
+
+class MultiIniFieldParse
+{
+public:
+	void add(const FieldParse *parse, unsigned int extraOffset);
+};
+
+class W3DModelDrawModuleData
+{
+public:
+	W3DModelDrawModuleData();
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class W3DSupplyDrawModuleData : public W3DModelDrawModuleData
+{
+public:
+	W3DSupplyDrawModuleData();
+private:
+	const void *m_vtable;
+private:
+	unsigned char m_basePad[0x188 - 4];
+private:
+	AsciiString m_supplyBonePrefix;
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class W3DTruckDrawModuleData : public W3DModelDrawModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class W3DTankDrawModuleData : public W3DModelDrawModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class W3DQuadrupedDrawModuleData : public W3DModelDrawModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawModuleDataBuildFieldParseChained.cpp
+
+void W3DSupplyDrawModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	W3DModelDrawModuleData::buildFieldParse(parse);
+	parse.add(g_00BCBED8, 0);
+}
+
+// Callers elsewhere reach bodies in this unit through other spellings; retail's
+// call sites in their matched rows land on these addresses (same ABI). Bind them.
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DSupplyDraw.cpp
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DSupplyDraw.cpp
 

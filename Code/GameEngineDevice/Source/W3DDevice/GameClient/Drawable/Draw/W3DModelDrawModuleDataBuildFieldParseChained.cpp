@@ -35,31 +35,6 @@ public:
 	static void parseVelocityReal(INI *ini, void *instance, void *store, const void *userData);
 };
 
-// Retail VA 0x00BCBED8 (.rdata): 1 field records and a zero sentinel.
-extern const FieldParse g_00BCBED8[] = {
-	{ "SupplyBonePrefix", &INI::parseAsciiString, 0, 0x188 },
-	{ 0, 0, 0, 0 }
-};
-
-// Retail VA 0x00BCCAD0 (.rdata): 5 field records and a zero sentinel.
-extern const FieldParse g_00BCCAD0[] = {
-	{ "TreadDebrisLeft", &INI::parseAsciiString, 0, 0x188 },
-	{ "TreadDebrisRight", &INI::parseAsciiString, 0, 0x18C },
-	{ "TreadAnimationRate", &INI::parseVelocityReal, 0, 0x190 },
-	{ "TreadPivotSpeedFraction", &INI::parseReal, 0, 0x194 },
-	{ "TreadDriveSpeedFraction", &INI::parseReal, 0, 0x198 },
-	{ 0, 0, 0, 0 }
-};
-
-// Retail VA 0x00BCBB28 (.rdata): 4 field records and a zero sentinel.
-extern const FieldParse g_00BCBB28[] = {
-	{ "LeftFrontFootBone", &INI::parseAsciiString, 0, 0x188 },
-	{ "RightFrontFootBone", &INI::parseAsciiString, 0, 0x18C },
-	{ "LeftRearFootBone", &INI::parseAsciiString, 0, 0x190 },
-	{ "RightRearFootBone", &INI::parseAsciiString, 0, 0x194 },
-	{ 0, 0, 0, 0 }
-};
-
 // Retail VA 0x00BCC358 (.rdata): 26 field records and a zero sentinel.
 extern const FieldParse g_00BCC358[] = {
 	{ "Dust", &INI::parseAsciiString, 0, 0x188 },
@@ -109,12 +84,6 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-void W3DSupplyDrawModuleData::buildFieldParse(MultiIniFieldParse &parse)
-{
-	W3DModelDrawModuleData::buildFieldParse(parse);
-	parse.add(g_00BCBED8, 0);
-}
-
 class W3DTruckDrawModuleData : public W3DModelDrawModuleData
 {
 public:
@@ -133,23 +102,11 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-void W3DTankDrawModuleData::buildFieldParse(MultiIniFieldParse &parse)
-{
-	W3DModelDrawModuleData::buildFieldParse(parse);
-	parse.add(g_00BCCAD0, 0);
-}
-
 class W3DQuadrupedDrawModuleData : public W3DModelDrawModuleData
 {
 public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
-
-void W3DQuadrupedDrawModuleData::buildFieldParse(MultiIniFieldParse &parse)
-{
-	W3DModelDrawModuleData::buildFieldParse(parse);
-	parse.add(g_00BCBB28, 0);
-}
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
