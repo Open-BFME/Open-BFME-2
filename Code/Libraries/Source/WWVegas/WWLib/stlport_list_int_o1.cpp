@@ -68,3 +68,7 @@ template _STL::list<HeaderTemplate *>::_Node *_STL::list<HeaderTemplate *>::_M_c
 // insert; AnimateWindowManager.cpp declares node creation only.
 class AnimateWindow;
 template _STL::list<AnimateWindow *>::_Node *_STL::list<AnimateWindow *>::_M_create_node(AnimateWindow *const &);
+
+// ShellMenuSchemeManager::newShellMenuScheme's push_back reaches the same insert.
+class ShellMenuScheme;
+template _STL::list<ShellMenuScheme *>::_Node *_STL::list<ShellMenuScheme *>::_M_create_node(ShellMenuScheme *const &);

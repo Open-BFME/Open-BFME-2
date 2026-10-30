@@ -45,3 +45,10 @@ namespace _STL {
 template <> list<AnimateWindow *>::_Node *list<AnimateWindow *>::_M_create_node(AnimateWindow *const &);
 template list<AnimateWindow *>::iterator list<AnimateWindow *>::insert(list<AnimateWindow *>::iterator, AnimateWindow *const &);
 }
+
+// list<ShellMenuScheme *>::insert for ShellMenuSchemeManager::newShellMenuScheme.
+class ShellMenuScheme;
+namespace _STL {
+template <> list<ShellMenuScheme *>::_Node *list<ShellMenuScheme *>::_M_create_node(ShellMenuScheme *const &);
+template list<ShellMenuScheme *>::iterator list<ShellMenuScheme *>::insert(list<ShellMenuScheme *>::iterator, ShellMenuScheme *const &);
+}
