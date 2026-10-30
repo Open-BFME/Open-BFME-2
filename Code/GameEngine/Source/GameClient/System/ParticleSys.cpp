@@ -42,6 +42,42 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include <string>
 #include <cstddef>
 #pragma comment(linker, "/alternatename:?accept@T1Sink_005C8D40@@QAEPAXPAX0@Z=?rva001F8A38@Rva001F8A38@@QBEXAAV?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@PAX@Z")
+//
+// ?rva001F45F4@ParticleSystem@@QAEX_N@Z @0x001F45F4 56B.
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
+#pragma intrinsic(_ReadWriteBarrier)
+#include "../../../../Libraries/Include/Lib/Coord2D.h"
+class AsciiString;
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+class Thing;
+class ModuleData;
+class Object;
+#include "../../../Include/Common/BfmeXfer.h"
+struct Coord3DBase
+{
+public:
+	float x; // +0x00
+	float y; // +0x04
+	float z; // +0x08
+};
+float __cdecl ACos(float);
+class Rva001F37C4 {public:void rva001F37C4(Xfer*);};
 
 struct Rva003AFA0BVector
 {
@@ -919,6 +955,7 @@ struct BfmeParticleDestroyView
 };
 
 struct Rva001F5BBEArg;
+
 class Rva001F58D4
 {
 public:
@@ -1621,6 +1658,99 @@ public:
 	void rva001FC42D(void *a, void *b);
 };
 
+class Rva001F3D03Slot {
+public:
+    void set(float a, float b);
+    char m_lead[0x14];
+    GameClientRandomVariable m_var;
+};
+
+struct Rva001F55A8Info;
+
+struct Coord3D;
+
+extern ParticleSystem *Make001FCBD7(void);
+
+struct SlaveHandleFAA { void*system;void*prev,*next;operator bool()const{return system!=0;}ParticleSystem*operator->()const{if(!system)return Make001FCBD7();return (ParticleSystem*)system;} };
+
+void XferParticleSystemID(Xfer*,int*);
+
+// Unnamed completion predicate: retail 1F4E2D..1F4E82, WB B0D730.
+// Its whole-particle receiver, bool result and zero arguments are established
+// by this caller and WB. The original method name remains unknown.
+class Rva001F4E2D
+{
+public:
+    bool rva001F4E2D();
+};
+
+// Declaration-only view; this unit creates no vtable. Retail and WB both call
+// +24 with one float. The earlier slots are outside this body's evidence.
+class ParticleAngleModuleView
+{
+public:
+    virtual void slot00();
+    virtual void slot04();
+    virtual void slot08();
+    virtual void slot0C();
+    virtual void slot10();
+    virtual void slot14();
+    virtual void slot18();
+    virtual void slot1C();
+    virtual void slot20();
+    virtual void setAngle(float angle);
+};
+
+namespace FXParticleSystem
+{
+// Identity: WB B0D4B0 explicitly names FXParticleSystem::CPUParticle::update
+// and asserts m_lifetimeLeft at FXParticleSystem.cpp:918. Target 1FA971..1FAA8D
+// establishes the consumed prefix below, including position/previous-position
+// pairs and module fields. Unused bytes and original member names stay unknown.
+class CPUParticle
+{
+public:
+    bool update();
+    void rva001FAA8D(Xfer*);
+
+private:
+    char unknown00[0x1C];
+    float x, y, z;
+    float previousX, previousY, previousZ;
+    char unknown34[4];
+    bool orientWithMovement;
+    char unknown39[0x1B];
+    unsigned lifetimeLeft;
+    unsigned createdFrame;
+    char unknown5C[0x1C];
+    SlaveHandleFAA slave;
+    unsigned value84,particleID;
+    char unknown8C[8];
+    void *modules[2];
+    ParticleAngleModuleView *angleModule;
+};
+
+// CPUParticle::update is provided by FXParticleSystem.cpp.
+// Keep this split unit for the independently recovered transfer below.
+
+// Native 1FAA8D..1FAB1E (145B), WB B0D800: light-CRC early return,
+// base/module transfers, particle state at88/48/54/58, slave handle78 ID+A8.
+// Method name is unknown; transfer offsets and scalar/Coord slots are target facts.
+void CPUParticle::rva001FAA8D(Xfer *xfer)
+{
+ if(xfer->IsLightCRC())return;
+ xfer->Version1();
+ ((Rva001F37C4*)this)->rva001F37C4(xfer);
+ ((Rva001FA7AC*)&modules)->rva001FA7AC((int)xfer);
+ *xfer==*(unsigned*)((char*)this+0x88);
+ *xfer==*(Coord3DBase*)((char*)this+0x48);
+ *xfer==lifetimeLeft;
+ *xfer==*(unsigned*)((char*)this+0x58);
+ int id=slave?slave->getSystemID():0;
+ XferParticleSystemID(xfer,&id);
+}
+}
+
 // tu-skeleton: 0x001F392E 247B ?rotateLocalTransformX@ParticleSystem@@QAEXM@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemRotateLocalTransform.cpp (not merged yet)
 
 // tu-skeleton: 0x001F3A25 247B ?rotateLocalTransformY@ParticleSystem@@QAEXM@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemRotateLocalTransform.cpp (not merged yet)
@@ -1628,6 +1758,8 @@ public:
 // tu-skeleton: 0x001F3B1C 247B ?rotateLocalTransformZ@ParticleSystem@@QAEXM@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemRotateLocalTransform.cpp (not merged yet)
 
 // tu-skeleton: 0x001F3C13 13B ?set@Rva001F3C13ByteSlot@@QAEXE@Z -- matched in Code/GameEngine/Source/Common/DispByteFieldSetters.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/System/ParticleSys.cpp
 
 // ---- from Code/GameEngine/Source/Common/Rva001F3C20Slots.cpp
 
@@ -1652,8 +1784,6 @@ void Rva001F3C60Slot::set(const AsciiString &other)
     ((StringBase<char> *)&m_value)->set(*(const StringBase<char> *)&other);
 }
 
-// tu-skeleton: 0x001F3C6B 47B ?rva001F3C6B@ParticleSystem@@QAEIXZ -- matched in Code/GameEngine/Source/GameClient/System/FXParticleSystem/FXPSStorageModuleRva003B0869.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva001F3C9ACheck.cpp
 
 bool Rva001F3C9A::rva001F3C9A()
@@ -1673,12 +1803,6 @@ bool Rva001F3C9A::rva001F3C9A()
 	return false;
 }
 
-// tu-skeleton: 0x001F3D03 30B ?set@Rva001F3D03Slot@@QAEXMM@Z -- matched in Code/GameEngine/Source/Common/Rva001F3D03Set.cpp (not merged yet)
-
-// tu-skeleton: 0x001F3D21 13B ?set@Rva001F3D21DwordSlot@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp (not merged yet)
-
-// tu-skeleton: 0x001F3D2E 674B ?parse@ParticleSystemTemplate@FXParticleSystem@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameClient/ParticleSystemTemplate.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva001F3FD0Set.cpp
 
 // ?set@Rva001F3FD0Slot@@QAEXABVAsciiString@@@Z @0x001F3FD0 26B.
@@ -1692,8 +1816,6 @@ void Rva001F3FD0Slot::set(const AsciiString &other)
     m_str = other;
     m_a0 = 0;
 }
-
-// tu-skeleton: 0x001F3FEA 24B ?init@Rva001F3FEA@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/System/FXParticleSystem/FXParticleSystemStaticInitModules.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleSystemManagerGetShaderSetup.cpp
 
@@ -1801,95 +1923,44 @@ void Rva001F45EFCleanupForward::cleanup()
     reinterpret_cast<Rva001F4206*>(this)->rva001F4206();
 }
 
-// tu-skeleton: 0x001F421B 25B ??0?$CategoryModuleTemplateBase@$0A@@FXParticleSystem@@QAE@ABV01@@Z -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
-
-// tu-skeleton: 0x001F4234 12B ?forward@Rva001F4234@@QAEXXZ -- matched in Code/GameEngine/Source/Common/S2NullCheckedTailDispatch.cpp (not merged yet)
-
-// tu-skeleton: 0x001F4240 14B ?forward@Rva001F4240@@QAEXII@Z -- matched in Code/GameEngine/Source/Common/S2NullCheckedTailDispatch.cpp (not merged yet)
-
-// tu-skeleton: 0x001F424E 14B ?forward@Rva001F424E@@QAEXI@Z -- matched in Code/GameEngine/Source/Common/S2NullCheckedTailDispatch.cpp (not merged yet)
-
-// tu-skeleton: 0x001F425C 26B ?call@Rva001F425C@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
-
-// tu-skeleton: 0x001F4276 36B ?call@Rva001F4276@@QAEXHH@Z -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
-
-// tu-skeleton: 0x001F429A 32B ?call@Rva001F429A@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
-
-// tu-skeleton: 0x001F42BA 32B ?call@Rva001F42BA@@QAEXH@Z -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
-
-// tu-skeleton: 0x001F42DA 48B ?flush@?$basic_ostream@DV?$char_traits@D@_STL@@@_STL@@QAEAAV12@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_ostream_put_num.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/Rva001F430A.cpp
 
 bool rva001F430A(const Rva001F430APointerCell *p) {return !p->word;}
 
-// tu-skeleton: 0x001F4316 15B ??$use_facet@V?$num_put@DV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@_STL@@@_STL@@YAABV?$num_put@DV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@0@ABVlocale@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0055C0E1.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW6Rva001F4325.cpp
 
-// tu-skeleton: 0x001F4335 6B ?getFirst@?$CategoryModuleClass@$0A@@FXParticleSystem@@SAPBV12@XZ -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
 
-// tu-skeleton: 0x001F433B 6B ?getDefault@?$CategoryModuleClassBase@$0A@$00@FXParticleSystem@@SAABV?$CategoryModuleClass@$0A@@2@XZ -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
 
-// tu-skeleton: 0x001F4341 22B ??0?$CategoryModuleClassBase@$0A@$00@FXParticleSystem@@IAE@ABV?$CategoryModuleClass@$0A@@1@_N@Z -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
 
-// tu-skeleton: 0x001F4357 6B ?getFirst@?$CategoryModuleClass@$00@FXParticleSystem@@SAPBV12@XZ -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
 
-// tu-skeleton: 0x001F435D 6B ?getDefault@?$CategoryModuleClassBase@$00$00@FXParticleSystem@@SAABV?$CategoryModuleClass@$00@2@XZ -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
 
-// tu-skeleton: 0x001F4363 22B ??0?$CategoryModuleClassBase@$00$00@FXParticleSystem@@IAE@ABV?$CategoryModuleClass@$00@1@_N@Z -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
 
-// tu-skeleton: 0x001F4379 6B ?getFirst@?$CategoryModuleClass@$01@FXParticleSystem@@SAPBV12@XZ -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
 
-// tu-skeleton: 0x001F437F 6B ?getDefault@?$CategoryModuleClassBase@$01$00@FXParticleSystem@@SAABV?$CategoryModuleClass@$01@2@XZ -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
 
-// tu-skeleton: 0x001F4385 22B ??0?$CategoryModuleClassBase@$01$00@FXParticleSystem@@IAE@ABV?$CategoryModuleClass@$01@1@_N@Z -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
 
-// tu-skeleton: 0x001F439B 6B ?getFirst@?$CategoryModuleClass@$02@FXParticleSystem@@SAPBV12@XZ -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
 
-// tu-skeleton: 0x001F43A1 6B ?getDefault@?$CategoryModuleClassBase@$02$00@FXParticleSystem@@SAABV?$CategoryModuleClass@$02@2@XZ -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
 
-// tu-skeleton: 0x001F43A7 22B ??0?$CategoryModuleClassBase@$02$00@FXParticleSystem@@IAE@ABV?$CategoryModuleClass@$02@1@_N@Z -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
 
-// tu-skeleton: 0x001F43BD 33B ?rva001F43BD@Rva001F43BD@@QAEXPAX@Z -- matched in Code/GameEngine/Source/GameClient/Rva001F43BDSet.cpp (not merged yet)
 
-// tu-skeleton: 0x001F43DE 6B ?getFirst@?$CategoryModuleClass@$03@FXParticleSystem@@SAPBV12@XZ -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
 
-// tu-skeleton: 0x001F43E4 6B ?getDefault@?$CategoryModuleClassBase@$03$00@FXParticleSystem@@SAABV?$CategoryModuleClass@$03@2@XZ -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
 
-// tu-skeleton: 0x001F43EA 22B ??0?$CategoryModuleClassBase@$03$00@FXParticleSystem@@IAE@ABV?$CategoryModuleClass@$03@1@_N@Z -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
 
-// tu-skeleton: 0x001F4400 6B ?getFirst@?$CategoryModuleClass@$04@FXParticleSystem@@SAPBV12@XZ -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
 
-// tu-skeleton: 0x001F4406 6B ?getDefault@?$CategoryModuleClassBase@$04$00@FXParticleSystem@@SAABV?$CategoryModuleClass@$04@2@XZ -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
 
-// tu-skeleton: 0x001F440C 22B ??0?$CategoryModuleClassBase@$04$00@FXParticleSystem@@IAE@ABV?$CategoryModuleClass@$04@1@_N@Z -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
 
-// tu-skeleton: 0x001F4422 6B ?getFirst@?$CategoryModuleClass@$05@FXParticleSystem@@SAPBV12@XZ -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
 
-// tu-skeleton: 0x001F4428 6B ?getDefault@?$CategoryModuleClassBase@$05$00@FXParticleSystem@@SAABV?$CategoryModuleClass@$05@2@XZ -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
 
-// tu-skeleton: 0x001F442E 22B ??0?$CategoryModuleClassBase@$05$00@FXParticleSystem@@IAE@ABV?$CategoryModuleClass@$05@1@_N@Z -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
 
-// tu-skeleton: 0x001F4444 6B ?getFirst@?$CategoryModuleClass@$06@FXParticleSystem@@SAPBV12@XZ -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
 
-// tu-skeleton: 0x001F444A 6B ?getDefault@?$CategoryModuleClassBase@$06$00@FXParticleSystem@@SAABV?$CategoryModuleClass@$06@2@XZ -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
 
-// tu-skeleton: 0x001F4450 22B ??0?$CategoryModuleClassBase@$06$00@FXParticleSystem@@IAE@ABV?$CategoryModuleClass@$06@1@_N@Z -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
 
-// tu-skeleton: 0x001F4466 6B ?getFirst@?$CategoryModuleClass@$07@FXParticleSystem@@SAPBV12@XZ -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
 
-// tu-skeleton: 0x001F446C 5B ??0?$CategoryModuleClassBase@$07$0A@@FXParticleSystem@@QAE@ABV?$CategoryModuleClass@$07@1@_N@Z -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
 
-// tu-skeleton: 0x001F4471 28B ??_G?$CategoryModuleTemplateBase@$05@FXParticleSystem@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/System/FXParticleSystem/ButterflyDrawModuleTemplateCtorThunk.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameClient/System/FXParticleSystem/CategoryWindModuleTemplateCtor.cpp
 
-// tu-skeleton: 0x001F44E4 64B ??0?$CategoryModuleTemplate@$06@FXParticleSystem@@QAE@ABV01@@Z -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
 
-// tu-skeleton: 0x001F4524 28B ??_GPointEmissionVolumeModuleTemplate@FXParticleSystem@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
 
-// tu-skeleton: 0x001F4540 75B ??_ERva001F4540Vec@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/VectorDeletingDtorsV02_Unresolved.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva001F458BWrite.cpp
 
@@ -1898,14 +1969,6 @@ File& Rva001F458BWrite(File& file, const Rva001F458BText& text)
     file.write(text.m_start, (int)(text.m_finish - text.m_start));
     return file;
 }
-
-// tu-skeleton: 0x001F45A8 9B ??0Rva001F45A8@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp (not merged yet)
-
-// tu-skeleton: 0x001F45B1 9B ??0Rva001F45B1@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp (not merged yet)
-
-// tu-skeleton: 0x001F45BA 9B ??0Rva001F45BA@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp (not merged yet)
-
-// tu-skeleton: 0x001F45C3 28B ??_GRva000E14BD@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB08.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva001F45DFGet.cpp
 
@@ -1916,8 +1979,6 @@ int Rva001F45DFSlot::get() const
         p = (Rva001F45DFInner *)Make001FCBD7();
     return p->m_value;
 }
-
-// tu-skeleton: 0x001F45F4 56B ?rva001F45F4@ParticleSystem@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemRva001F45F4.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameClient/System/ParticleSystem_destroy.cpp
 
@@ -1931,12 +1992,6 @@ void ParticleSystem::destroy(void)
 		self->m_slaveSystem->destroy();  // If we don't it will leak forever.  We are solely responsible for it.
 	}
 }
-
-// tu-skeleton: 0x001F465E 56B ?rva001F465E@ParticleSystem@@QAEXPAX@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemRva001F465E.cpp (not merged yet)
-
-// tu-skeleton: 0x001F4696 354B ?rva001F4696@ParticleSystem@@QAEXPAX0_N0@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemRva001F4696.cpp (not merged yet)
-
-// tu-skeleton: 0x001F54C5 122B ?rva001F54C5@ParticleSystem@@QAE?AURva003AFA0BVector@@PBU2@@Z -- matched in Code/GameEngine/Source/Common/ParticleSystemManagerFindByID.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva001F553F.cpp
 
@@ -2121,14 +2176,6 @@ void Rva001F58D4::rva001F58D4()
 	m60 = 0.0f;
 }
 
-// tu-skeleton: 0x001F5923 327B ?rva001F5923@Rva001F5923@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/System/rva001F5923Rva001F5923Farm.cpp (not merged yet)
-
-// tu-skeleton: 0x001F5A6A 58B ?createParticleSystem@ParticleSystemManager@@QAE?AVBfmeParticleSystemHandle@@PBVParticleSystemTemplate@@_N@Z -- matched in Code/GameEngine/Source/Common/ParticleSystemManagerFindByID.cpp (not merged yet)
-
-// tu-skeleton: 0x001F5AA4 102B ?rva001F5AA4@ParticleSystemManager@@QAEHPBVParticleSystemTemplate@@PBVObject@@_N@Z -- matched in Code/GameEngine/Source/Common/ParticleSystemManagerFindByID.cpp (not merged yet)
-
-// tu-skeleton: 0x001F5B0A 111B ?findParticleSystemByID@ParticleSystemManager@@AAE?AVBfmeParticleSystemHandle@@W4ParticleSystemID@@@Z -- matched in Code/GameEngine/Source/Common/ParticleSystemManagerFindByID.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/ParticleSystemManagerDestroyByID.cpp
 
 // ------------------------------------------------------------------------------------------------
@@ -2139,8 +2186,6 @@ void ParticleSystemManager::destroyParticleSystemByID(ParticleSystemID id)
 	if (system)
 		system->destroy();
 }
-
-// tu-skeleton: 0x001F5BBE 123B ?rva001F5BBE@Rva001F58D4@@QAEXPAURva001F5BBEArg@@@Z -- matched in Code/GameEngine/Source/Common/Rva001F5BBE.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva001F5C39.cpp
 
@@ -2163,8 +2208,6 @@ void Rva001F5C60::rva001F5C60(void *arg1, Holder001F5C60 *arg2)
 	else
 		m_ptr = 0;
 }
-
-// tu-skeleton: 0x001F5C87 34B ?_M_create_node@?$list@VRvaSmartPtr12@@V?$allocator@VRvaSmartPtr12@@@_STL@@@_STL@@IAEPAU?$_List_node@VRvaSmartPtr12@@@2@ABVRvaSmartPtr12@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_create_nodes.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva001F5CA9.cpp
 
@@ -2217,8 +2260,6 @@ void Rva001F5D38::rva001F5D38()
         p->tick();
     m_next.call();
 }
-
-// tu-skeleton: 0x001F5D4F 34B ?rva001F5D4F@Rva001F5D4F@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/Rva001F5D4F.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva001F5D71.cpp
 
@@ -2311,63 +2352,11 @@ void* Rva001F5E24Slot::get(void* arg)
     return 0;
 }
 
-// tu-skeleton: 0x001F5E38 25B ??0sentry@?$basic_ostream@DV?$char_traits@D@_STL@@@_STL@@QAE@AAV12@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_ostream_put_num.cpp (not merged yet)
-
-// tu-skeleton: 0x001F5E51 276B ?_M_put_char@?$basic_ostream@DV?$char_traits@D@_STL@@@_STL@@QAEXD@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_ostream_put_num.cpp (not merged yet)
-
-// tu-skeleton: 0x001F5F65 286B ?_M_put_nowiden@?$basic_ostream@DV?$char_traits@D@_STL@@@_STL@@QAEXPBD@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_ostream_put_num.cpp (not merged yet)
-
-// tu-skeleton: 0x001F609F 11B ?rva001F609F@Rva001F609FOwner@@QAEXPAX@Z -- matched in Code/GameEngine/Source/GameClient/Rva001F43BDSet.cpp (not merged yet)
-
-// tu-skeleton: 0x001F60AA 210B ??$_M_put_num@DV?$char_traits@D@_STL@@K@_STL@@YAAAV?$basic_ostream@DV?$char_traits@D@_STL@@@0@AAV10@K@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_ostream_put_num.cpp (not merged yet)
-
-// tu-skeleton: 0x001F617C 11B ?set@Rva001F617CSlot@@QAEXPAX@Z -- matched in Code/GameEngine/Source/GameClient/Rva001F43BDSet.cpp (not merged yet)
-
-// tu-skeleton: 0x001F6187 11B ?set@Rva001F6187Slot@@QAEXPAX@Z -- matched in Code/GameEngine/Source/GameClient/Rva001F43BDSet.cpp (not merged yet)
-
-// tu-skeleton: 0x001F6192 11B ?set@Rva001F6192Slot@@QAEXPAX@Z -- matched in Code/GameEngine/Source/GameClient/Rva001F43BDSet.cpp (not merged yet)
-
-// tu-skeleton: 0x001F619D 11B ?set@Rva001F619DSlot@@QAEXPAX@Z -- matched in Code/GameEngine/Source/GameClient/Rva001F43BDSet.cpp (not merged yet)
-
-// tu-skeleton: 0x001F61A8 11B ?set@Rva001F61A8Slot@@QAEXPAX@Z -- matched in Code/GameEngine/Source/GameClient/Rva001F43BDSet.cpp (not merged yet)
-
-// tu-skeleton: 0x001F61B3 11B ?set@Rva001F61B3Slot@@QAEXPAX@Z -- matched in Code/GameEngine/Source/GameClient/Rva001F43BDSet.cpp (not merged yet)
-
-// tu-skeleton: 0x001F61BE 11B ?set@Rva001F61BESlot@@QAEXPAX@Z -- matched in Code/GameEngine/Source/GameClient/Rva001F43BDSet.cpp (not merged yet)
-
-// tu-skeleton: 0x001F61C9 28B ??_GRva001F4C67@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva001F4C67Finish.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva001F4D22Dtor.cpp
 
 Rva001F4D22::~Rva001F4D22()
 {
 }
-
-// tu-skeleton: 0x001F6201 142B ?LoadPostProcess@CPUParticle@FXParticleSystem@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/System/FXParticleSystem/CPUParticleLoadPostProcess.cpp (not merged yet)
-
-// tu-skeleton: 0x001F628F 221B ?loadPostProcess@ParticleSystem@@MAEXXZ -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemLoadPostProcessBfme2.cpp (not merged yet)
-
-// tu-skeleton: 0x001F90DA 43B ?findTemplate@ParticleSystemManager@@QBEPAVParticleSystemTemplate@@ABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemManagerFindTemplate.cpp (not merged yet)
-
-// tu-skeleton: 0x001F9105 568B ?rva001F9105@Rva001F9105Snapshot@@QAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemManagerFindTemplate.cpp (not merged yet)
-
-// tu-skeleton: 0x001F933E 5B ??1?$map@VAsciiString@@UTreeHintPayload001F8ACB@@U?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@_STL@@@4@@_STL@@QAE@XZ -- matched in Code/GameEngine/Source/Common/System/SaveGame/CreateAHeroDataCopy.cpp (not merged yet)
-
-// tu-skeleton: 0x001F9343 12B ?rva001F9343@ParticleSystemManager@@QBEPAVParticleSystemTemplate@@ABVAsciiString@@H@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAA.cpp (not merged yet)
-
-// tu-skeleton: 0x001F9EAF 89B ?bfmeStopCW@ParticleSystemManager@@QAEXABVBFMERetailAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemManagerMappedTextureUVs.cpp (not merged yet)
-
-// tu-skeleton: 0x001F9F08 94B ?findParentTemplate@ParticleSystemManager@@QBEPAVParticleSystemTemplate@@ABVAsciiString@@H@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemManagerMappedTextureUVs.cpp (not merged yet)
-
-// tu-skeleton: 0x001F9F66 229B ?rva001F9F66@ParticleSystemManager@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemManagerMappedTextureUVs.cpp (not merged yet)
-
-// tu-skeleton: 0x001FA04B 1013B ?ParticleSystemDebugDisplay@@YAXPAVDebugDisplayInterface@@PAXPAU_iobuf@@@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemDebugDisplayBody.cpp (not merged yet)
-
-// tu-skeleton: 0x001FA440 31B ??0Rva001FA440@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Thing/Rva001FA440Ctor.cpp (not merged yet)
-
-// tu-skeleton: 0x001FA45F 20B ?rva001FA45F@Rva001FA45F@@QAE?AUInsertRet001F8F2A@@PBX@Z -- matched in Code/GameEngine/Source/GameClient/Rva001F93A3Insert.cpp (not merged yet)
-
-// tu-skeleton: 0x001FA473 26B ?str@?$basic_ostringstream@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QBE?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_ostringstream_dtor.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Thing/Rva001FA48D.cpp
 
@@ -2388,8 +2377,6 @@ void Rva001FA4A4::rva001FA4A4(int x)
 		p->slot3(x);
 	m_next.rva001F9402(x);
 }
-
-// tu-skeleton: 0x001FA4C6 42B ?rva001FA4C6@Rva001FA4C6@@QAEXHH@Z -- matched in Code/GameEngine/Source/Common/Rva001F6492Chain.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Thing/Rva001FA4F0.cpp
 
@@ -2441,25 +2428,15 @@ void Rva001FA54D::rva001FA54D(void *a, void *b)
 // carries as ?rva001F8A38@Rva001F8A38@@QBEXAAV?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@PAX@Z. Bind the donor spelling to that rowed owner so one
 // address keeps one definition and the unit links.
 
-// tu-skeleton: 0x001FA574 16B ?Rva001FA574Append@@YAXPADPAURva002BA8F1Listener@@@Z -- matched in Code/GameEngine/Source/Common/Rva005A0B4CListAppend.cpp (not merged yet)
 
-// tu-skeleton: 0x001FA584 19B ??0Rva001FA584@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Rva001FA584Ctor.cpp (not merged yet)
 
-// tu-skeleton: 0x001FA597 14B ??1Sub005CD540Inner@@QAE@XZ -- matched in Code/GameEngine/Source/Common/BigChainBaseDtors.cpp (not merged yet)
 
-// tu-skeleton: 0x001FA5A5 22B ??0Rva001FA5A5@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Rva001FA5A5Ctor.cpp (not merged yet)
 
-// tu-skeleton: 0x001FA5BB 59B ??1Rva001FA5BB@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva001F8BE8DtorChain.cpp (not merged yet)
 
-// tu-skeleton: 0x001FA5F6 59B ??1Rva001FA5F6@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva001F8BE8DtorChain.cpp (not merged yet)
 
-// tu-skeleton: 0x001FA631 69B ??0Rva001FA631@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Thing/Rva001F9C73CopyChain.cpp (not merged yet)
 
-// tu-skeleton: 0x001FA676 41B ??4Rva001FA676@@QAEAAV0@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Rva001F9CCAAssignChain.cpp (not merged yet)
 
-// tu-skeleton: 0x001FA69F 218B ??0Rva001F9D98@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleSystemManagerDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x001FA779 28B ??_GRva001F9D98@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleSystemManagerDtor.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Thing/Rva001FA795.cpp
 
@@ -2481,8 +2458,6 @@ void Rva001FA7AC::rva001FA7AC(int x)
 	m_next.rva001FA4A4(x);
 }
 
-// tu-skeleton: 0x001FA7CE 42B ?rva001FA7CE@Rva001FA7CE@@QAEXHH@Z -- matched in Code/GameEngine/Source/Common/Rva001F6492Chain.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Thing/Rva001FA7F8.cpp
 
 void Rva001FA7F8::rva001FA7F8()
@@ -2502,8 +2477,6 @@ void Rva001FA80F::rva001FA80F(int x)
 		p->slot3(x);
 	m_next.rva001FA507(x);
 }
-
-// tu-skeleton: 0x001FA831 5B ?rva001FA831@Rva001FA831@@QAEXPAX0@Z -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Thing/Rva001FA836ForwardChain.cpp
 
@@ -2549,38 +2522,6 @@ void Rva001FC451::rva001FC451(void *a, void *b)
 	m_04.rva001FC357(a, b);
 }
 
-// tu-skeleton: 0x001FA85C 129B ??0?$basic_ostringstream@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@H@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_ostringstream_ctor.cpp (not merged yet)
-
-// tu-skeleton: 0x001FA8DD 110B ?Rva001FA8DDParse@@YAXPAVINI@@PAX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Rva001FA8DDParse.cpp (not merged yet)
-
-// tu-skeleton: 0x001FA94B 15B ??0Rva001FA94B@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Rva001FA584Ctor.cpp (not merged yet)
-
-// tu-skeleton: 0x001FA95A 23B ??1Sub005CD540Outer@@QAE@XZ -- matched in Code/GameEngine/Source/Common/BigChainBaseDtors.cpp (not merged yet)
-
-// tu-skeleton: 0x001FA971 284B ?update@CPUParticle@FXParticleSystem@@QAE_NXZ -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
-
-// tu-skeleton: 0x001FAA8D 145B ?rva001FAA8D@CPUParticle@FXParticleSystem@@QAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameClient/System/FXParticleSystem/CPUParticleUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x001FAB1E 59B ??1Rva001FAB1E@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva001F8BE8DtorChain.cpp (not merged yet)
-
-// tu-skeleton: 0x001FAB59 1704B ?update@ParticleSystem@@UAE_NH@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x001FB201 535B ?DoXfer@Rva001FB201@FXParticleSystem@@UAEXAAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/Rva001FB201DoXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x001FB418 1041B ?writeINI@ParticleSystemTemplate@FXParticleSystem@@QBEXAAVFile@@I@Z -- matched in Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleSystemTemplateWriteINI.cpp (not merged yet)
-
-// tu-skeleton: 0x001FB829 59B ??1Rva001FB829@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva001F8BE8DtorChain.cpp (not merged yet)
-
-// tu-skeleton: 0x001FB864 69B ??0Rva001FB864@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Thing/Rva001F9C73CopyChain.cpp (not merged yet)
-
-// tu-skeleton: 0x001FB8A9 18B ??0Rva001FB8A9@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Rva001FA5A5Ctor.cpp (not merged yet)
-
-// tu-skeleton: 0x001FB8BB 41B ??4Rva001FB8BB@@QAEAAV0@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Rva001F9CCAAssignChain.cpp (not merged yet)
-
-// tu-skeleton: 0x001FB912 43B ?Rva001FB912Init@@YAXPAX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Rva001FB912Init.cpp (not merged yet)
-
-// tu-skeleton: 0x001FB93D 18B ??0Rva001FB93D@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Rva001FA584Ctor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Rva001FB94FDtor.cpp
 
 inline Rva001FB94FFirst::~Rva001FB94FFirst()
@@ -2623,30 +2564,6 @@ Rva001FC0F1::~Rva001FC0F1()
     }
 }
 
-// tu-skeleton: 0x001FB98A 59B ??1Rva001FB98A@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva001F8BE8DtorChain.cpp (not merged yet)
-
-// tu-skeleton: 0x001FB9C5 59B ??1Rva001FB9C5@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva001F8BE8DtorChain.cpp (not merged yet)
-
-// tu-skeleton: 0x001FBA00 69B ??0Rva001FBA00@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Thing/Rva001F9C73CopyChain.cpp (not merged yet)
-
-// tu-skeleton: 0x001FBA45 22B ??0Rva001FBA45@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Rva001FA5A5Ctor.cpp (not merged yet)
-
-// tu-skeleton: 0x001FBA5B 41B ??4Rva001FBA5B@@QAEAAV0@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Rva001F9CCAAssignChain.cpp (not merged yet)
-
-// tu-skeleton: 0x001FBAB2 38B ?Rva001FBAB2Init@@YAXPAX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Rva001FB912Init.cpp (not merged yet)
-
-// tu-skeleton: 0x001FBAD8 22B ??0Rva001FBAD8@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Rva001FA584Ctor.cpp (not merged yet)
-
-// tu-skeleton: 0x001FBB29 59B ??1Rva001FBB29@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva001F8BE8DtorChain.cpp (not merged yet)
-
-// tu-skeleton: 0x001FBB64 59B ??1Rva001FBB64@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva001F8BE8DtorChain.cpp (not merged yet)
-
-// tu-skeleton: 0x001FBB9F 69B ??0Rva001FBB9F@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Thing/Rva001F9C73CopyChain.cpp (not merged yet)
-
-// tu-skeleton: 0x001FBBE4 18B ??0Rva001FBBE4@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Rva001FA5A5Ctor.cpp (not merged yet)
-
-// tu-skeleton: 0x001FBBF6 41B ??4Rva001FBBF6@@QAEAAV0@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Rva001F9CCAAssignChain.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Rva001FBC1FForward.cpp
 
 void Rva001FBC1F::rva001FBC1F(void *a, void *b)
@@ -2654,22 +2571,6 @@ void Rva001FBC1F::rva001FBC1F(void *a, void *b)
 	((Rva001F5CD0 *)this)->rva001F5CD0(a, (Holder001F5CD0 *)b);
 	((Rva001FA529 *)((char *)this + 12))->rva001FA529(a, b);
 }
-
-// tu-skeleton: 0x001FBC69 38B ?Rva001FBC69Init@@YAXPAX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Rva001FB912Init.cpp (not merged yet)
-
-// tu-skeleton: 0x001FBC8F 18B ??0Rva001FBC8F@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Rva001FA584Ctor.cpp (not merged yet)
-
-// tu-skeleton: 0x001FBCDC 59B ??1Rva001FBCDC@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva001F8BE8DtorChain.cpp (not merged yet)
-
-// tu-skeleton: 0x001FBD17 410B ??1ParticleSystem@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemDestructor.cpp (not merged yet)
-
-// tu-skeleton: 0x001FBEB1 6B ?name@Rva001FBEB1Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x001FBEB7 59B ??1ParticleSystemTemplateTail@FXParticleSystem@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva001F8BE8DtorChain.cpp (not merged yet)
-
-// tu-skeleton: 0x001FBEF2 69B ??0Rva001FBEF2@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Thing/Rva001F9C73CopyChain.cpp (not merged yet)
-
-// tu-skeleton: 0x001FBF37 22B ??0ParticleSystemTemplateTail@FXParticleSystem@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Rva001FA5A5Ctor.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleSystemTemplateCopyCtor.cpp
 
@@ -2699,7 +2600,6 @@ void Rva001FBC1F::rva001FBC1F(void *a, void *b)
 // INFERENCE (guidance only): tail type/symbol names are opaque BFME2-local
 // shims sized by 0xD4-0xa4; pins map them to the retail call targets above.
 
-// tu-skeleton: 0x001FBF9D 41B ??4Rva001FBF9D@@QAEAAV0@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Rva001F9CCAAssignChain.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Rva001FBFC6Forward.cpp
 
@@ -2708,6 +2608,337 @@ void Rva001FBFC6::rva001FBFC6(void *a, void *b)
 	((Rva001F5CA9 *)this)->rva001F5CA9(a, (Holder001F5CA9 *)b);
 	((Rva001FBC1F *)((char *)this + 4))->rva001FBC1F(a, b);
 }
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Rva001FC333Forward.cpp
+
+void Rva001FC333::rva001FC333(void *a, void *b)
+{
+	((Rva001F5C60 *)this)->rva001F5C60(a, (Holder001F5C60 *)b);
+	((Rva001FBFC6 *)((char *)this + 4))->rva001FBFC6(a, b);
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Rva001FC42DForward.cpp
+
+void Rva001FC42D::rva001FC42D(void *a, void *b)
+{
+	((Rva001F5C39 *)this)->rva001F5C39(a, (Holder001F5C39 *)b);
+	((Rva001FC333 *)((char *)this + 4))->rva001FC333(a, b);
+}
+
+// tu-skeleton: 0x001F3C6B 47B ?rva001F3C6B@ParticleSystem@@QAEIXZ -- matched in Code/GameEngine/Source/GameClient/System/FXParticleSystem/FXPSStorageModuleRva003B0869.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva001F3D03Set.cpp
+
+void Rva001F3D03Slot::set(float a, float b)
+{
+    m_var.setRange(a, b, GameClientRandomVariable::UNIFORM);
+}
+
+// tu-skeleton: 0x001F3D21 13B ?set@Rva001F3D21DwordSlot@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp (not merged yet)
+
+// tu-skeleton: 0x001F3D2E 674B ?parse@ParticleSystemTemplate@FXParticleSystem@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameClient/ParticleSystemTemplate.cpp (not merged yet)
+
+// tu-skeleton: 0x001F3FEA 24B ?init@Rva001F3FEA@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/System/FXParticleSystem/FXParticleSystemStaticInitModules.cpp (not merged yet)
+
+// tu-skeleton: 0x001F421B 25B ??0?$CategoryModuleTemplateBase@$0A@@FXParticleSystem@@QAE@ABV01@@Z -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
+
+// tu-skeleton: 0x001F4234 12B ?forward@Rva001F4234@@QAEXXZ -- matched in Code/GameEngine/Source/Common/S2NullCheckedTailDispatch.cpp (not merged yet)
+
+// tu-skeleton: 0x001F4240 14B ?forward@Rva001F4240@@QAEXII@Z -- matched in Code/GameEngine/Source/Common/S2NullCheckedTailDispatch.cpp (not merged yet)
+
+// tu-skeleton: 0x001F424E 14B ?forward@Rva001F424E@@QAEXI@Z -- matched in Code/GameEngine/Source/Common/S2NullCheckedTailDispatch.cpp (not merged yet)
+
+// tu-skeleton: 0x001F425C 26B ?call@Rva001F425C@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
+
+// tu-skeleton: 0x001F4276 36B ?call@Rva001F4276@@QAEXHH@Z -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
+
+// tu-skeleton: 0x001F429A 32B ?call@Rva001F429A@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
+
+// tu-skeleton: 0x001F42BA 32B ?call@Rva001F42BA@@QAEXH@Z -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
+
+// tu-skeleton: 0x001F42DA 48B ?flush@?$basic_ostream@DV?$char_traits@D@_STL@@@_STL@@QAEAAV12@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_ostream_put_num.cpp (not merged yet)
+
+// tu-skeleton: 0x001F4316 15B ??$use_facet@V?$num_put@DV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@_STL@@@_STL@@YAABV?$num_put@DV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@0@ABVlocale@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0055C0E1.cpp (not merged yet)
+
+// tu-skeleton: 0x001F4335 6B ?getFirst@?$CategoryModuleClass@$0A@@FXParticleSystem@@SAPBV12@XZ -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
+
+// tu-skeleton: 0x001F433B 6B ?getDefault@?$CategoryModuleClassBase@$0A@$00@FXParticleSystem@@SAABV?$CategoryModuleClass@$0A@@2@XZ -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
+
+// tu-skeleton: 0x001F4341 22B ??0?$CategoryModuleClassBase@$0A@$00@FXParticleSystem@@IAE@ABV?$CategoryModuleClass@$0A@@1@_N@Z -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
+
+// tu-skeleton: 0x001F4357 6B ?getFirst@?$CategoryModuleClass@$00@FXParticleSystem@@SAPBV12@XZ -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
+
+// tu-skeleton: 0x001F435D 6B ?getDefault@?$CategoryModuleClassBase@$00$00@FXParticleSystem@@SAABV?$CategoryModuleClass@$00@2@XZ -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
+
+// tu-skeleton: 0x001F4363 22B ??0?$CategoryModuleClassBase@$00$00@FXParticleSystem@@IAE@ABV?$CategoryModuleClass@$00@1@_N@Z -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
+
+// tu-skeleton: 0x001F4379 6B ?getFirst@?$CategoryModuleClass@$01@FXParticleSystem@@SAPBV12@XZ -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
+
+// tu-skeleton: 0x001F437F 6B ?getDefault@?$CategoryModuleClassBase@$01$00@FXParticleSystem@@SAABV?$CategoryModuleClass@$01@2@XZ -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
+
+// tu-skeleton: 0x001F4385 22B ??0?$CategoryModuleClassBase@$01$00@FXParticleSystem@@IAE@ABV?$CategoryModuleClass@$01@1@_N@Z -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
+
+// tu-skeleton: 0x001F439B 6B ?getFirst@?$CategoryModuleClass@$02@FXParticleSystem@@SAPBV12@XZ -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
+
+// tu-skeleton: 0x001F43A1 6B ?getDefault@?$CategoryModuleClassBase@$02$00@FXParticleSystem@@SAABV?$CategoryModuleClass@$02@2@XZ -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
+
+// tu-skeleton: 0x001F43A7 22B ??0?$CategoryModuleClassBase@$02$00@FXParticleSystem@@IAE@ABV?$CategoryModuleClass@$02@1@_N@Z -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
+
+// tu-skeleton: 0x001F43BD 33B ?rva001F43BD@Rva001F43BD@@QAEXPAX@Z -- matched in Code/GameEngine/Source/GameClient/Rva001F43BDSet.cpp (not merged yet)
+
+// tu-skeleton: 0x001F43DE 6B ?getFirst@?$CategoryModuleClass@$03@FXParticleSystem@@SAPBV12@XZ -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
+
+// tu-skeleton: 0x001F43E4 6B ?getDefault@?$CategoryModuleClassBase@$03$00@FXParticleSystem@@SAABV?$CategoryModuleClass@$03@2@XZ -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
+
+// tu-skeleton: 0x001F43EA 22B ??0?$CategoryModuleClassBase@$03$00@FXParticleSystem@@IAE@ABV?$CategoryModuleClass@$03@1@_N@Z -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
+
+// tu-skeleton: 0x001F4400 6B ?getFirst@?$CategoryModuleClass@$04@FXParticleSystem@@SAPBV12@XZ -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
+
+// tu-skeleton: 0x001F4406 6B ?getDefault@?$CategoryModuleClassBase@$04$00@FXParticleSystem@@SAABV?$CategoryModuleClass@$04@2@XZ -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
+
+// tu-skeleton: 0x001F440C 22B ??0?$CategoryModuleClassBase@$04$00@FXParticleSystem@@IAE@ABV?$CategoryModuleClass@$04@1@_N@Z -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
+
+// tu-skeleton: 0x001F4422 6B ?getFirst@?$CategoryModuleClass@$05@FXParticleSystem@@SAPBV12@XZ -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
+
+// tu-skeleton: 0x001F4428 6B ?getDefault@?$CategoryModuleClassBase@$05$00@FXParticleSystem@@SAABV?$CategoryModuleClass@$05@2@XZ -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
+
+// tu-skeleton: 0x001F442E 22B ??0?$CategoryModuleClassBase@$05$00@FXParticleSystem@@IAE@ABV?$CategoryModuleClass@$05@1@_N@Z -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
+
+// tu-skeleton: 0x001F4444 6B ?getFirst@?$CategoryModuleClass@$06@FXParticleSystem@@SAPBV12@XZ -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
+
+// tu-skeleton: 0x001F444A 6B ?getDefault@?$CategoryModuleClassBase@$06$00@FXParticleSystem@@SAABV?$CategoryModuleClass@$06@2@XZ -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
+
+// tu-skeleton: 0x001F4450 22B ??0?$CategoryModuleClassBase@$06$00@FXParticleSystem@@IAE@ABV?$CategoryModuleClass@$06@1@_N@Z -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
+
+// tu-skeleton: 0x001F4466 6B ?getFirst@?$CategoryModuleClass@$07@FXParticleSystem@@SAPBV12@XZ -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
+
+// tu-skeleton: 0x001F446C 5B ??0?$CategoryModuleClassBase@$07$0A@@FXParticleSystem@@QAE@ABV?$CategoryModuleClass@$07@1@_N@Z -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
+
+// tu-skeleton: 0x001F4471 28B ??_G?$CategoryModuleTemplateBase@$05@FXParticleSystem@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/System/FXParticleSystem/ButterflyDrawModuleTemplateCtorThunk.cpp (not merged yet)
+
+// tu-skeleton: 0x001F44E4 64B ??0?$CategoryModuleTemplate@$06@FXParticleSystem@@QAE@ABV01@@Z -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
+
+// tu-skeleton: 0x001F4524 28B ??_GPointEmissionVolumeModuleTemplate@FXParticleSystem@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
+
+// tu-skeleton: 0x001F4540 75B ??_ERva001F4540Vec@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/VectorDeletingDtorsV02_Unresolved.cpp (not merged yet)
+
+// tu-skeleton: 0x001F45A8 9B ??0Rva001F45A8@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x001F45B1 9B ??0Rva001F45B1@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x001F45BA 9B ??0Rva001F45BA@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x001F45C3 28B ??_GRva000E14BD@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB08.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/System/ParticleSystemRva001F45F4.cpp
+
+void ParticleSystem::rva001F45F4(bool flag)
+{
+	m_flag1A6 = flag;
+	if (m_next15C == 0)
+		return;
+	ParticleSystem *cur = this;
+	ParticleSystem *nxt;
+	do
+	{
+		nxt = cur->m_next15C;
+		if (nxt == 0)
+			nxt = Make001FCBD7();
+		nxt->m_flag1A6 = flag;
+		_ReadWriteBarrier();
+		cur = nxt;
+	} while (nxt->m_next15C != 0);
+}
+
+// ---- from Code/GameEngine/Source/GameClient/System/ParticleSystemRva001F465E.cpp
+
+void ParticleSystem::rva001F465E(void *val)
+{
+	m_val98 = val;
+	if (m_next15C == 0)
+		return;
+	ParticleSystem *cur = this;
+	ParticleSystem *nxt;
+	do
+	{
+		nxt = cur->m_next15C;
+		if (nxt == 0)
+			nxt = Make001FCBD7();
+		nxt->m_val98 = val;
+		_ReadWriteBarrier();
+		cur = nxt;
+	} while (nxt->m_next15C != 0);
+}
+
+// tu-skeleton: 0x001F4696 354B ?rva001F4696@ParticleSystem@@QAEXPAX0_N0@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemRva001F4696.cpp (not merged yet)
+
+// tu-skeleton: 0x001F54C5 122B ?rva001F54C5@ParticleSystem@@QAE?AURva003AFA0BVector@@PBU2@@Z -- matched in Code/GameEngine/Source/Common/ParticleSystemManagerFindByID.cpp (not merged yet)
+
+// tu-skeleton: 0x001F5923 327B ?rva001F5923@Rva001F5923@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/System/rva001F5923Rva001F5923Farm.cpp (not merged yet)
+
+// tu-skeleton: 0x001F5A6A 58B ?createParticleSystem@ParticleSystemManager@@QAE?AVBfmeParticleSystemHandle@@PBVParticleSystemTemplate@@_N@Z -- matched in Code/GameEngine/Source/Common/ParticleSystemManagerFindByID.cpp (not merged yet)
+
+// tu-skeleton: 0x001F5AA4 102B ?rva001F5AA4@ParticleSystemManager@@QAEHPBVParticleSystemTemplate@@PBVObject@@_N@Z -- matched in Code/GameEngine/Source/Common/ParticleSystemManagerFindByID.cpp (not merged yet)
+
+// tu-skeleton: 0x001F5B0A 111B ?findParticleSystemByID@ParticleSystemManager@@AAE?AVBfmeParticleSystemHandle@@W4ParticleSystemID@@@Z -- matched in Code/GameEngine/Source/Common/ParticleSystemManagerFindByID.cpp (not merged yet)
+
+// tu-skeleton: 0x001F5BBE 123B ?rva001F5BBE@Rva001F58D4@@QAEXPAURva001F5BBEArg@@@Z -- matched in Code/GameEngine/Source/Common/Rva001F5BBE.cpp (not merged yet)
+
+// tu-skeleton: 0x001F5C87 34B ?_M_create_node@?$list@VRvaSmartPtr12@@V?$allocator@VRvaSmartPtr12@@@_STL@@@_STL@@IAEPAU?$_List_node@VRvaSmartPtr12@@@2@ABVRvaSmartPtr12@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_create_nodes.cpp (not merged yet)
+
+// tu-skeleton: 0x001F5D4F 34B ?rva001F5D4F@Rva001F5D4F@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/Rva001F5D4F.cpp (not merged yet)
+
+// tu-skeleton: 0x001F5E38 25B ??0sentry@?$basic_ostream@DV?$char_traits@D@_STL@@@_STL@@QAE@AAV12@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_ostream_put_num.cpp (not merged yet)
+
+// tu-skeleton: 0x001F5E51 276B ?_M_put_char@?$basic_ostream@DV?$char_traits@D@_STL@@@_STL@@QAEXD@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_ostream_put_num.cpp (not merged yet)
+
+// tu-skeleton: 0x001F5F65 286B ?_M_put_nowiden@?$basic_ostream@DV?$char_traits@D@_STL@@@_STL@@QAEXPBD@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_ostream_put_num.cpp (not merged yet)
+
+// tu-skeleton: 0x001F609F 11B ?rva001F609F@Rva001F609FOwner@@QAEXPAX@Z -- matched in Code/GameEngine/Source/GameClient/Rva001F43BDSet.cpp (not merged yet)
+
+// tu-skeleton: 0x001F60AA 210B ??$_M_put_num@DV?$char_traits@D@_STL@@K@_STL@@YAAAV?$basic_ostream@DV?$char_traits@D@_STL@@@0@AAV10@K@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_ostream_put_num.cpp (not merged yet)
+
+// tu-skeleton: 0x001F617C 11B ?set@Rva001F617CSlot@@QAEXPAX@Z -- matched in Code/GameEngine/Source/GameClient/Rva001F43BDSet.cpp (not merged yet)
+
+// tu-skeleton: 0x001F6187 11B ?set@Rva001F6187Slot@@QAEXPAX@Z -- matched in Code/GameEngine/Source/GameClient/Rva001F43BDSet.cpp (not merged yet)
+
+// tu-skeleton: 0x001F6192 11B ?set@Rva001F6192Slot@@QAEXPAX@Z -- matched in Code/GameEngine/Source/GameClient/Rva001F43BDSet.cpp (not merged yet)
+
+// tu-skeleton: 0x001F619D 11B ?set@Rva001F619DSlot@@QAEXPAX@Z -- matched in Code/GameEngine/Source/GameClient/Rva001F43BDSet.cpp (not merged yet)
+
+// tu-skeleton: 0x001F61A8 11B ?set@Rva001F61A8Slot@@QAEXPAX@Z -- matched in Code/GameEngine/Source/GameClient/Rva001F43BDSet.cpp (not merged yet)
+
+// tu-skeleton: 0x001F61B3 11B ?set@Rva001F61B3Slot@@QAEXPAX@Z -- matched in Code/GameEngine/Source/GameClient/Rva001F43BDSet.cpp (not merged yet)
+
+// tu-skeleton: 0x001F61BE 11B ?set@Rva001F61BESlot@@QAEXPAX@Z -- matched in Code/GameEngine/Source/GameClient/Rva001F43BDSet.cpp (not merged yet)
+
+// tu-skeleton: 0x001F61C9 28B ??_GRva001F4C67@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva001F4C67Finish.cpp (not merged yet)
+
+// tu-skeleton: 0x001F6201 142B ?LoadPostProcess@CPUParticle@FXParticleSystem@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/System/FXParticleSystem/CPUParticleLoadPostProcess.cpp (not merged yet)
+
+// tu-skeleton: 0x001F628F 221B ?loadPostProcess@ParticleSystem@@MAEXXZ -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemLoadPostProcessBfme2.cpp (not merged yet)
+
+// tu-skeleton: 0x001F90DA 43B ?findTemplate@ParticleSystemManager@@QBEPAVParticleSystemTemplate@@ABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemManagerFindTemplate.cpp (not merged yet)
+
+// tu-skeleton: 0x001F9105 568B ?rva001F9105@Rva001F9105Snapshot@@QAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemManagerFindTemplate.cpp (not merged yet)
+
+// tu-skeleton: 0x001F933E 5B ??1?$map@VAsciiString@@UTreeHintPayload001F8ACB@@U?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@_STL@@@4@@_STL@@QAE@XZ -- matched in Code/GameEngine/Source/Common/System/SaveGame/CreateAHeroDataCopy.cpp (not merged yet)
+
+// tu-skeleton: 0x001F9343 12B ?rva001F9343@ParticleSystemManager@@QBEPAVParticleSystemTemplate@@ABVAsciiString@@H@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAA.cpp (not merged yet)
+
+// tu-skeleton: 0x001F9EAF 89B ?bfmeStopCW@ParticleSystemManager@@QAEXABVBFMERetailAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemManagerMappedTextureUVs.cpp (not merged yet)
+
+// tu-skeleton: 0x001F9F08 94B ?findParentTemplate@ParticleSystemManager@@QBEPAVParticleSystemTemplate@@ABVAsciiString@@H@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemManagerMappedTextureUVs.cpp (not merged yet)
+
+// tu-skeleton: 0x001F9F66 229B ?rva001F9F66@ParticleSystemManager@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemManagerMappedTextureUVs.cpp (not merged yet)
+
+// tu-skeleton: 0x001FA04B 1013B ?ParticleSystemDebugDisplay@@YAXPAVDebugDisplayInterface@@PAXPAU_iobuf@@@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemDebugDisplayBody.cpp (not merged yet)
+
+// tu-skeleton: 0x001FA440 31B ??0Rva001FA440@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Thing/Rva001FA440Ctor.cpp (not merged yet)
+
+// tu-skeleton: 0x001FA45F 20B ?rva001FA45F@Rva001FA45F@@QAE?AUInsertRet001F8F2A@@PBX@Z -- matched in Code/GameEngine/Source/GameClient/Rva001F93A3Insert.cpp (not merged yet)
+
+// tu-skeleton: 0x001FA473 26B ?str@?$basic_ostringstream@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QBE?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_ostringstream_dtor.cpp (not merged yet)
+
+// tu-skeleton: 0x001FA4C6 42B ?rva001FA4C6@Rva001FA4C6@@QAEXHH@Z -- matched in Code/GameEngine/Source/Common/Rva001F6492Chain.cpp (not merged yet)
+
+// tu-skeleton: 0x001FA574 16B ?Rva001FA574Append@@YAXPADPAURva002BA8F1Listener@@@Z -- matched in Code/GameEngine/Source/Common/Rva005A0B4CListAppend.cpp (not merged yet)
+
+// tu-skeleton: 0x001FA584 19B ??0Rva001FA584@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Rva001FA584Ctor.cpp (not merged yet)
+
+// tu-skeleton: 0x001FA597 14B ??1Sub005CD540Inner@@QAE@XZ -- matched in Code/GameEngine/Source/Common/BigChainBaseDtors.cpp (not merged yet)
+
+// tu-skeleton: 0x001FA5A5 22B ??0Rva001FA5A5@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Rva001FA5A5Ctor.cpp (not merged yet)
+
+// tu-skeleton: 0x001FA5BB 59B ??1Rva001FA5BB@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva001F8BE8DtorChain.cpp (not merged yet)
+
+// tu-skeleton: 0x001FA5F6 59B ??1Rva001FA5F6@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva001F8BE8DtorChain.cpp (not merged yet)
+
+// tu-skeleton: 0x001FA631 69B ??0Rva001FA631@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Thing/Rva001F9C73CopyChain.cpp (not merged yet)
+
+// tu-skeleton: 0x001FA676 41B ??4Rva001FA676@@QAEAAV0@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Rva001F9CCAAssignChain.cpp (not merged yet)
+
+// tu-skeleton: 0x001FA69F 218B ??0Rva001F9D98@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleSystemManagerDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x001FA779 28B ??_GRva001F9D98@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleSystemManagerDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x001FA7CE 42B ?rva001FA7CE@Rva001FA7CE@@QAEXHH@Z -- matched in Code/GameEngine/Source/Common/Rva001F6492Chain.cpp (not merged yet)
+
+// tu-skeleton: 0x001FA831 5B ?rva001FA831@Rva001FA831@@QAEXPAX0@Z -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
+
+// tu-skeleton: 0x001FA85C 129B ??0?$basic_ostringstream@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@H@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_ostringstream_ctor.cpp (not merged yet)
+
+// tu-skeleton: 0x001FA8DD 110B ?Rva001FA8DDParse@@YAXPAVINI@@PAX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Rva001FA8DDParse.cpp (not merged yet)
+
+// tu-skeleton: 0x001FA94B 15B ??0Rva001FA94B@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Rva001FA584Ctor.cpp (not merged yet)
+
+// tu-skeleton: 0x001FA95A 23B ??1Sub005CD540Outer@@QAE@XZ -- matched in Code/GameEngine/Source/Common/BigChainBaseDtors.cpp (not merged yet)
+
+// tu-skeleton: 0x001FA971 284B ?update@CPUParticle@FXParticleSystem@@QAE_NXZ -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/System/FXParticleSystem/CPUParticleUpdate.cpp
+
+// tu-skeleton: 0x001FAB1E 59B ??1Rva001FAB1E@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva001F8BE8DtorChain.cpp (not merged yet)
+
+// tu-skeleton: 0x001FAB59 1704B ?update@ParticleSystem@@UAE_NH@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x001FB201 535B ?DoXfer@Rva001FB201@FXParticleSystem@@UAEXAAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/Rva001FB201DoXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x001FB418 1041B ?writeINI@ParticleSystemTemplate@FXParticleSystem@@QBEXAAVFile@@I@Z -- matched in Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleSystemTemplateWriteINI.cpp (not merged yet)
+
+// tu-skeleton: 0x001FB829 59B ??1Rva001FB829@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva001F8BE8DtorChain.cpp (not merged yet)
+
+// tu-skeleton: 0x001FB864 69B ??0Rva001FB864@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Thing/Rva001F9C73CopyChain.cpp (not merged yet)
+
+// tu-skeleton: 0x001FB8A9 18B ??0Rva001FB8A9@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Rva001FA5A5Ctor.cpp (not merged yet)
+
+// tu-skeleton: 0x001FB8BB 41B ??4Rva001FB8BB@@QAEAAV0@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Rva001F9CCAAssignChain.cpp (not merged yet)
+
+// tu-skeleton: 0x001FB912 43B ?Rva001FB912Init@@YAXPAX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Rva001FB912Init.cpp (not merged yet)
+
+// tu-skeleton: 0x001FB93D 18B ??0Rva001FB93D@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Rva001FA584Ctor.cpp (not merged yet)
+
+// tu-skeleton: 0x001FB98A 59B ??1Rva001FB98A@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva001F8BE8DtorChain.cpp (not merged yet)
+
+// tu-skeleton: 0x001FB9C5 59B ??1Rva001FB9C5@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva001F8BE8DtorChain.cpp (not merged yet)
+
+// tu-skeleton: 0x001FBA00 69B ??0Rva001FBA00@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Thing/Rva001F9C73CopyChain.cpp (not merged yet)
+
+// tu-skeleton: 0x001FBA45 22B ??0Rva001FBA45@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Rva001FA5A5Ctor.cpp (not merged yet)
+
+// tu-skeleton: 0x001FBA5B 41B ??4Rva001FBA5B@@QAEAAV0@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Rva001F9CCAAssignChain.cpp (not merged yet)
+
+// tu-skeleton: 0x001FBAB2 38B ?Rva001FBAB2Init@@YAXPAX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Rva001FB912Init.cpp (not merged yet)
+
+// tu-skeleton: 0x001FBAD8 22B ??0Rva001FBAD8@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Rva001FA584Ctor.cpp (not merged yet)
+
+// tu-skeleton: 0x001FBB29 59B ??1Rva001FBB29@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva001F8BE8DtorChain.cpp (not merged yet)
+
+// tu-skeleton: 0x001FBB64 59B ??1Rva001FBB64@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva001F8BE8DtorChain.cpp (not merged yet)
+
+// tu-skeleton: 0x001FBB9F 69B ??0Rva001FBB9F@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Thing/Rva001F9C73CopyChain.cpp (not merged yet)
+
+// tu-skeleton: 0x001FBBE4 18B ??0Rva001FBBE4@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Rva001FA5A5Ctor.cpp (not merged yet)
+
+// tu-skeleton: 0x001FBBF6 41B ??4Rva001FBBF6@@QAEAAV0@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Rva001F9CCAAssignChain.cpp (not merged yet)
+
+// tu-skeleton: 0x001FBC69 38B ?Rva001FBC69Init@@YAXPAX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Rva001FB912Init.cpp (not merged yet)
+
+// tu-skeleton: 0x001FBC8F 18B ??0Rva001FBC8F@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Rva001FA584Ctor.cpp (not merged yet)
+
+// tu-skeleton: 0x001FBCDC 59B ??1Rva001FBCDC@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva001F8BE8DtorChain.cpp (not merged yet)
+
+// tu-skeleton: 0x001FBD17 410B ??1ParticleSystem@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemDestructor.cpp (not merged yet)
+
+// tu-skeleton: 0x001FBEB1 6B ?name@Rva001FBEB1Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x001FBEB7 59B ??1ParticleSystemTemplateTail@FXParticleSystem@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva001F8BE8DtorChain.cpp (not merged yet)
+
+// tu-skeleton: 0x001FBEF2 69B ??0Rva001FBEF2@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Thing/Rva001F9C73CopyChain.cpp (not merged yet)
+
+// tu-skeleton: 0x001FBF37 22B ??0ParticleSystemTemplateTail@FXParticleSystem@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Rva001FA5A5Ctor.cpp (not merged yet)
+
+// tu-skeleton: 0x001FBF9D 41B ??4Rva001FBF9D@@QAEAAV0@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Rva001F9CCAAssignChain.cpp (not merged yet)
 
 // tu-skeleton: 0x001FC010 38B ?Rva001FC010Init@@YAXPAX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Rva001FB912Init.cpp (not merged yet)
 
@@ -2725,27 +2956,11 @@ void Rva001FBFC6::rva001FBFC6(void *a, void *b)
 
 // tu-skeleton: 0x001FC25A 217B ?newTemplate@ParticleSystemManager@@QAEPAVParticleSystemTemplate@@ABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemManagerNewTemplate.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/GameLogic/Object/Rva001FC333Forward.cpp
-
-void Rva001FC333::rva001FC333(void *a, void *b)
-{
-	((Rva001F5C60 *)this)->rva001F5C60(a, (Holder001F5C60 *)b);
-	((Rva001FBFC6 *)((char *)this + 4))->rva001FBFC6(a, b);
-}
-
 // tu-skeleton: 0x001FC37D 38B ?Rva001FC37DInit@@YAXPAX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Rva001FB912Init.cpp (not merged yet)
 
 // tu-skeleton: 0x001FC3BF 69B ??0ParticleSystemTemplateTail@FXParticleSystem@@QAE@ABV01@@Z -- matched in Code/GameEngine/Source/Common/Thing/Rva001F9C73CopyChain.cpp (not merged yet)
 
 // tu-skeleton: 0x001FC404 41B ??4ParticleSystemTemplateTail@FXParticleSystem@@QAEAAV01@ABV01@@Z -- matched in Code/GameEngine/Source/Common/Rva001F9CCAAssignChain.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/GameLogic/Object/Rva001FC42DForward.cpp
-
-void Rva001FC42D::rva001FC42D(void *a, void *b)
-{
-	((Rva001F5C39 *)this)->rva001F5C39(a, (Holder001F5C39 *)b);
-	((Rva001FC333 *)((char *)this + 4))->rva001FC333(a, b);
-}
 
 // tu-skeleton: 0x001FC477 38B ?Rva001FC477Init@@YAXPAX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Rva001FB912Init.cpp (not merged yet)
 
@@ -2758,6 +2973,10 @@ void Rva001FC42D::rva001FC42D(void *a, void *b)
 // tu-skeleton: 0x001FCC73 504B ?createParticle@ParticleSystem@FXParticleSystem@@QAE_NPBVRva001F376E@@HPBVParticleSystemTemplate@@_N@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemCreateParticle.cpp (not merged yet)
 
 // tu-skeleton: 0x001FCF11 261B ?rva001FCF11@ParticleSystemManager@@QAEXABVAsciiString@@PAVParticleSystemTemplate@FXParticleSystem@@@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemManagerRva001FCF11.cpp (not merged yet)
+
+// tu-skeleton: 0x0076B3BC 10B uw_0076b3bc -- matched in Code/GameEngine/Source/Common/ParticleSystemManagerFindByID.cpp (not merged yet)
+
+// tu-skeleton: 0x0076B3C6 10B __ehhandler$?rva001F50BC@@YA?AVBfmeParticleSystemHandle@@PBVParticleSystemTemplate@@W4ParticleSystemID@@_N@Z -- matched in Code/GameEngine/Source/Common/ParticleSystemManagerFindByID.cpp (not merged yet)
 
 // tu-skeleton: 0x0076B3D0 8B Unwind@00b6b3d0 -- matched in Code/GameEngine/Source/GameClient/System/rva001F5923Rva001F5923Farm.cpp (not merged yet)
 
@@ -2774,6 +2993,24 @@ void Rva001FC42D::rva001FC42D(void *a, void *b)
 // tu-skeleton: 0x0076B5FF 8B $L1437 -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemManagerFindTemplate.cpp (not merged yet)
 
 // tu-skeleton: 0x0076B607 10B __ehhandler$?rva001F9105@Rva001F9105Snapshot@@QAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemManagerFindTemplate.cpp (not merged yet)
+
+// tu-skeleton: 0x0076B663 8B Unwind@00b6b663 -- matched in Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleSystemManagerDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0076B66B 20B ?rva0076B66B@@YAXXZ -- matched in Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleSystemManagerDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0076B67F 11B $L1620 -- matched in Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleSystemManagerDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0076B68A 11B $L1621 -- matched in Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleSystemManagerDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0076B695 14B $L1622 -- matched in Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleSystemManagerDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0076B6A3 14B uw_0076b6a3 -- matched in Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleSystemManagerDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0076B6B1 14B $L1624 -- matched in Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleSystemManagerDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0076B6BF 8B $L1625 -- matched in Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleSystemManagerDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0076B6C7 10B __ehhandler$??1Rva001F9D98@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleSystemManagerDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0076B6D1 8B $L1462 -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemManagerMappedTextureUVs.cpp (not merged yet)
 
