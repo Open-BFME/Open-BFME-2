@@ -13264,8 +13264,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	g
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	getDistanceSquared@PartitionManager@@	2
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	getGoalDistanceSquared@PartitionManager@@	2
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	getGroundOrStructureHeight@PartitionManager@@	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	getMostValuableLocation@PartitionManager@@	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	getNearestGroupWithValue@PartitionManager@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	getPMStats@PartitionManager@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	getPropShroudStatusForPlayer@PartitionManager@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	getShroudStatusForPlayer@PartitionCell@@	1
@@ -13279,7 +13277,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	i
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	isClearLineOfSightTerrain@PartitionManager@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	isColliding@PartitionManager@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	isInvalid@SightingInfo@@	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	iterateAllObjects@PartitionManager@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	iterateCellsAlongLine@PartitionManager@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	iterateCellsBreadthFirst@PartitionManager@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	iterateObjectsInRange@PartitionManager@@	2
@@ -13311,7 +13308,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	r
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	shroudMapForPlayer@PartitionManager@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	shutdown@PartitionManager@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	storeFoggedCells@PartitionManager@@	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	tryPosition@PartitionManager@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	unRegisterGhostObject@PartitionManager@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	unRegisterObject@PartitionManager@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	undoShroudCover@PartitionManager@@	1

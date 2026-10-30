@@ -1,0 +1,717 @@
+{
+  "source": "Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp",
+  "scope": "remove four unused legacy query entry bodies and markers; preserve declarations and all retained users; no retail-dead-strip or native owner claim",
+  "variants": {
+    "before": {
+      "source_sha256": "435ae996bb05c2ed4ee7d8537b6968a24b4c6fb0f8a9320195ca2d1982d71dee",
+      "rows": [
+        {
+          "name": "??_ECellAndObjectIntersection@@QAEPAXI@Z",
+          "rva": "0x0073A370",
+          "size": "77",
+          "exact": true
+        },
+        {
+          "name": "?allocate@?$allocator@E@_STL@@QBEPAEIPBX@Z",
+          "rva": "0x000073E0",
+          "size": "27",
+          "exact": true
+        },
+        {
+          "name": "?friend_setPartitionData@Object@@QAEXPAVPartitionData@@@Z",
+          "rva": "0x00322167",
+          "size": "13",
+          "exact": true
+        },
+        {
+          "name": "?allow@PartitionFilterIsFlying@@UAE_NPAVObject@@@Z",
+          "rva": "0x00260E01",
+          "size": "12",
+          "exact": true
+        }
+      ],
+      "eh": []
+    },
+    "trial": {
+      "source_sha256": "78c2eb9a7a297afcfeeea52896ce9f9488c4ed2b1ea66dab12ff248156efd137",
+      "rows": [
+        {
+          "name": "??_ECellAndObjectIntersection@@QAEPAXI@Z",
+          "rva": "0x0073A370",
+          "size": "77",
+          "exact": true
+        },
+        {
+          "name": "?allocate@?$allocator@E@_STL@@QBEPAEIPBX@Z",
+          "rva": "0x000073E0",
+          "size": "27",
+          "exact": true
+        },
+        {
+          "name": "?friend_setPartitionData@Object@@QAEXPAVPartitionData@@@Z",
+          "rva": "0x00322167",
+          "size": "13",
+          "exact": true
+        },
+        {
+          "name": "?allow@PartitionFilterIsFlying@@UAE_NPAVObject@@@Z",
+          "rva": "0x00260E01",
+          "size": "12",
+          "exact": true
+        }
+      ],
+      "eh": []
+    }
+  },
+  "removed_parent_associated_helpers": [
+    {
+      "name": "??1GeometryInfo@@QAE@XZ",
+      "parent": "?tryPosition@PartitionManager@@IAE_NPBUCoord3D@@MMPBUFindPositionOptions@@PAU2@@Z",
+      "parent_section": 1560,
+      "associated_sections": [
+        {
+          "index": 1561,
+          "name": ".text$x",
+          "assoc": 1560
+        },
+        {
+          "index": 1563,
+          "name": ".xdata$x",
+          "assoc": 1560
+        }
+      ],
+      "raw": "e900000000",
+      "relocations": [
+        [
+          1,
+          20,
+          "??1Snapshot@@QAE@XZ"
+        ]
+      ],
+      "incoming_refs": [
+        {
+          "section": ".debug$F",
+          "section_index": 674,
+          "offset": 0,
+          "kind": 7
+        },
+        {
+          "section": ".text$x",
+          "section_index": 1561,
+          "offset": 4,
+          "kind": 20
+        }
+      ]
+    }
+  ],
+  "removed_debug_only_definitions": [
+    {
+      "name": "?iterateAllObjects@PartitionManager@@QAEPAVSimpleObjectIterator@@PAPAVPartitionFilter@@@Z",
+      "raw": "6aff680000000064a100000000506489250000000083ec085333db568bf1895c240c895c2418e8000000006a10e80000000083c404894424083bc3c644241801740d8bc8e80000000089442408eb04895c24088b4424088944240c8b460c3bc3885c2418744155578b78043bfb8b680c742d8b7424283bf3741a8d9b000000008b0e3bcb740e8b1157ff1284c0741083c60475ec8b4c24105357e8000000003beb8bc575c35f5d53e8000000008b4c24148b44240c83c4045e5b64890d0000000083c414c20400",
+      "relocations": [
+        [
+          3,
+          6,
+          "__ehhandler$?iterateAllObjects@PartitionManager@@QAEPAVSimpleObjectIterator@@PAPAVPartitionFilter@@@Z"
+        ],
+        [
+          9,
+          6,
+          "__except_list"
+        ],
+        [
+          17,
+          6,
+          "__except_list"
+        ],
+        [
+          39,
+          20,
+          "?getClassMemoryPool@SimpleObjectIterator@@CAPAVMemoryPool@@XZ"
+        ],
+        [
+          46,
+          20,
+          "??2@YAPAXI@Z"
+        ],
+        [
+          69,
+          20,
+          "??0SimpleObjectIterator@@QAE@XZ"
+        ],
+        [
+          155,
+          20,
+          "?insert@SimpleObjectIterator@@QAEXPAVObject@@M@Z"
+        ],
+        [
+          169,
+          20,
+          "??3@YAXPAX@Z"
+        ],
+        [
+          189,
+          6,
+          "__except_list"
+        ]
+      ],
+      "incoming_refs": [
+        {
+          "section": ".debug$F",
+          "offset": 0,
+          "kind": 7
+        }
+      ]
+    },
+    {
+      "name": "?tryPosition@PartitionManager@@IAE_NPBUCoord3D@@MMPBUFindPositionOptions@@PAU2@@Z",
+      "raw": "6aff680000000064a100000000506489250000000083ec2c53558b6c244c565755e800000000d84c24548b5c245055d803d95c2418e800000000d84c24588b7c24608a078b0d00000000d8430483c40884c0be01000000d95c24146a007953f30f1005000000008d44241450f30f11442420e8000000008b0d000000008b116a018bf08b4424186a0056508b44242050ff5218d95c241883fe017429f30f10442418f30f580500000000f30f11442418eb138b4424188b11508b44241850ff5214d95c2418d9442418d86308d9e1d94710d9c9dff1ddd80f87260300008b4424148b0d000000008b11508b44241450ff524484c0740983fe010f8404030000f30f10442410f30f100d00000000f30f59c1f30f114424508b442450ba0000008085c27408f30f5c0500000000f30f114424508b4c2450c1e917b8000080ff33db80e97f0f42c3d3f821442450f30f10442450f30f11442450d9442450db5c244cf30f10442414f30f59c1f30f11442450855424507408f30f5c0500000000f30f114424508b4c2450c1e917b8000080ff33db80e97f0f42c3d3f821442450f30f10442450f30f11442450d9442450db5c24548b5424548b44244c8b0d000000008b4910525056e80000000033db3bc30f842e0200008a4006240f3c060f84210200008b0ff6c50174083ac30f8512020000f6c101753c8b4424148b0d000000008b115353508b44241c50ff52408b0ff6c10274113ac30f84e701000083fe010f85de0100003c01750983fe010f84d1010000f6c1040f8541010000680000a040680000a040680000a0406a01538d4c2430e8000000006a01558d4c2424518b0d000000008d54241c52895c2454e8000000008be8896c24508b45008bcdc644244401ff50088bf03bf30f84c7000000903b77140f84ab0000008b4f1c3bcb0f8497000000f60708742856e80000000085c0741e6a088bcee80000000084c00f85800000006a098bcee80000000084c07573f60710741a8b4f1c56e80000000085c0740d6a078bcee80000000084c07554f6072074278b4f1c56e80000000085c0751a6a088bcee80000000084c075356a098bcee80000000084c07528f60740741a8b4f1c56e80000000085c0750d6a078bcee80000000084c075093b77180f85990000008b55008bcdff520c8bf03bf30f853affffff8b5500538bcd885c2448ff1250e80000000083c4048d4c241cc7442444ffffffffe8000000008b7f183bfb742b8b879c0100003bc374218b0d000000008b49108d5424105283c7385705b001000050e80000000084c074558b4c24108b44245c8b54241489088b4c24185f5e8950045d894808b0015b8b4c242c64890d0000000083c438c214008b4500538bcd885c2448ff1050e80000000083c4048d4c241cc7442444ffffffffe8000000008b4c243c5f5e5d32c05b64890d0000000083c438c21400",
+      "relocations": [
+        [
+          3,
+          6,
+          "__ehhandler$?tryPosition@PartitionManager@@IAE_NPBUCoord3D@@MMPBUFindPositionOptions@@PAU2@@Z"
+        ],
+        [
+          9,
+          6,
+          "__except_list"
+        ],
+        [
+          17,
+          6,
+          "__except_list"
+        ],
+        [
+          34,
+          20,
+          "?Cos@@YAMM@Z"
+        ],
+        [
+          54,
+          20,
+          "?Sin@@YAMM@Z"
+        ],
+        [
+          70,
+          6,
+          "?TheTerrainLogic@@3PAVTerrainLogic@@A"
+        ],
+        [
+          99,
+          6,
+          "__real@47c34f80"
+        ],
+        [
+          115,
+          20,
+          "?getHighestLayerForDestination@TerrainLogic@@QAE?AW4PathfindLayerEnum@@PBUCoord3D@@_N@Z"
+        ],
+        [
+          121,
+          6,
+          "?TheTerrainLogic@@3PAVTerrainLogic@@A"
+        ],
+        [
+          166,
+          6,
+          "__real@3f800000"
+        ],
+        [
+          227,
+          6,
+          "?TheTerrainLogic@@3PAVTerrainLogic@@A"
+        ],
+        [
+          265,
+          6,
+          "__real@3dcccccd"
+        ],
+        [
+          296,
+          6,
+          "?almost1@?1??fast_float_floor@@YAMM@Z@4IA"
+        ],
+        [
+          378,
+          6,
+          "?almost1@?1??fast_float_floor@@YAMM@Z@4IA"
+        ],
+        [
+          444,
+          6,
+          "?TheAI@@3PAVAI@@A"
+        ],
+        [
+          455,
+          20,
+          "?getCell@Pathfinder@@QAEPAVPathfindCell@@W4PathfindLayerEnum@@HH@Z"
+        ],
+        [
+          508,
+          6,
+          "?TheTerrainLogic@@3PAVTerrainLogic@@A"
+        ],
+        [
+          594,
+          20,
+          "??0GeometryInfo@@QAE@W4GeometryType@@_NMMM@Z"
+        ],
+        [
+          608,
+          6,
+          "?ThePartitionManager@@3PAVPartitionManager@@A"
+        ],
+        [
+          622,
+          20,
+          "?iteratePotentialCollisions@PartitionManager@@QAEPAVSimpleObjectIterator@@PBUCoord3D@@ABVGeometryInfo@@M_N@Z"
+        ],
+        [
+          683,
+          20,
+          "?getRelationship@Object@@QBE?AW4Relationship@@PBV1@@Z"
+        ],
+        [
+          696,
+          20,
+          "?isKindOf@Thing@@QBE_NW4KindOfType@@@Z"
+        ],
+        [
+          713,
+          20,
+          "?isKindOf@Thing@@QBE_NW4KindOfType@@@Z"
+        ],
+        [
+          731,
+          20,
+          "?getRelationship@Object@@QBE?AW4Relationship@@PBV1@@Z"
+        ],
+        [
+          744,
+          20,
+          "?isKindOf@Thing@@QBE_NW4KindOfType@@@Z"
+        ],
+        [
+          762,
+          20,
+          "?getRelationship@Object@@QBE?AW4Relationship@@PBV1@@Z"
+        ],
+        [
+          775,
+          20,
+          "?isKindOf@Thing@@QBE_NW4KindOfType@@@Z"
+        ],
+        [
+          788,
+          20,
+          "?isKindOf@Thing@@QBE_NW4KindOfType@@@Z"
+        ],
+        [
+          806,
+          20,
+          "?getRelationship@Object@@QBE?AW4Relationship@@PBV1@@Z"
+        ],
+        [
+          819,
+          20,
+          "?isKindOf@Thing@@QBE_NW4KindOfType@@@Z"
+        ],
+        [
+          868,
+          20,
+          "??3@YAXPAX@Z"
+        ],
+        [
+          888,
+          20,
+          "??1Snapshot@@QAE@XZ"
+        ],
+        [
+          911,
+          6,
+          "?TheAI@@3PAVAI@@A"
+        ],
+        [
+          934,
+          20,
+          "?clientSafeQuickDoesPathExist@Pathfinder@@QAE_NABVLocomotorSet@@PBUCoord3D@@1@Z"
+        ],
+        [
+          979,
+          6,
+          "__except_list"
+        ],
+        [
+          1003,
+          20,
+          "??3@YAXPAX@Z"
+        ],
+        [
+          1023,
+          20,
+          "??1Snapshot@@QAE@XZ"
+        ],
+        [
+          1040,
+          6,
+          "__except_list"
+        ]
+      ],
+      "incoming_refs": [
+        {
+          "section": ".debug$F",
+          "offset": 0,
+          "kind": 7
+        }
+      ]
+    },
+    {
+      "name": "?getMostValuableLocation@PartitionManager@@QAEXHIW4ValueOrThreat@@PAUCoord3D@@@Z",
+      "raw": "8b44241083ec2c535633f63bc68bd90f84700200008b44243c8b4c243850518b0d00000000e800000000663bc68944243c0f844e020000a10000000033d289542416558b6b340faf6b308954241e89542422895424268954242a578b781085ff8954243289542436896c2418668974241c668954243a7e2ceb068d9b000000008b0d0000000056e80000000085c0740f8b4824ba01000000d3e2668954741c463bf77cdc83c8ff85ed8944241489442410c7442440000000000f8ec40100008b7c2448ba1400000033f633c08d6424008b6c244433c9668b4c441c23cd6685c9743383ff01751585c07c2683f8107d218b6b3c8d0c028b4c8d40eb1785c07c1183f8107d0c8b6b3c8d0c028b4c8d00eb0233c903f18b6c244433c9668b4c441e23cd6685c9743683ff018d4801751585c97c2683f9107d218b6b3c8d0c028b4c8d44eb1785c97c1183f9107d0c8b6b3c8d0c028b4c8d04eb0233c903f18b6c244433c9668b4c442023cd6685c9743683ff018d4802751585c97c2683f9107d218b6b3c8d0c028b4c8d48eb1785c97c1183f9107d0c8b6b3c8d0c028b4c8d08eb0233c903f18b6c244433c9668b4c442223cd6685c9743683ff018d4803751585c97c2683f9107d218b6b3c8d0c028b4c8d4ceb1785c97c1183f9107d0c8b6b3c8d0c028b4c8d0ceb0233c903f183c00483f8100f8cd7feffff8b4c24103bf17e108b4424408bce894c241089442414eb048b4424148b7424408b6c24184683c2363bf5897424400f8c9bfeffff83f8ff745183f9ff744c8b533c69c0d80000008b0d0000000003c20fbf90d40000000fbf80d2000000f30f2ac88b44244cf30f5989a4010000f30f2ac2f30f5981a4010000f30f1140040f57c0f30f1108f30f1140085f5d5e5b83c42cc21000",
+      "relocations": [
+        [
+          33,
+          6,
+          "?ThePlayerList@@3PAVPlayerList@@A"
+        ],
+        [
+          38,
+          20,
+          "?getPlayersWithRelationship@PlayerList@@QAEGHI@Z"
+        ],
+        [
+          56,
+          6,
+          "?ThePlayerList@@3PAVPlayerList@@A"
+        ],
+        [
+          130,
+          6,
+          "?ThePlayerList@@3PAVPlayerList@@A"
+        ],
+        [
+          136,
+          20,
+          "?getNthPlayer@PlayerList@@QAEPAVPlayer@@H@Z"
+        ],
+        [
+          578,
+          6,
+          "?TheWritableGlobalData@@3PAVGlobalData@@A"
+        ]
+      ],
+      "incoming_refs": [
+        {
+          "section": ".debug$F",
+          "offset": 0,
+          "kind": 7
+        }
+      ]
+    },
+    {
+      "name": "?getNearestGroupWithValue@PartitionManager@@QAEXHIW4ValueOrThreat@@PBUCoord3D@@H_NPAU3@@Z",
+      "raw": "8b44241083ec50535633f63bc68bd90f845f010000397424740f84550100008b4424608b4c245c5550518b0d00000000e8000000008be8663bee0f8433010000a10000000033d28954240e89542412895424168954241a8954241e578b781085ff895424268954242a6689742410668954242e7e2feb098da424000000008bff8b0d0000000056e80000000085c0740f8b4824ba01000000d3e26689547410463bf77cdc8b4424748b4c246c8b542410894c24388b4c241885c089442430894c24448b4c24240f95c08954243c8b54241c884424348b442414894c2450895424488b542428894424408b4424208d4c243051895424588b542474894424508b4424306800000000528bcb66896c246889442464e80000000083f8ff5f74558b4b3c69c0d80000000fbf9401d20000008b0d00000000f30f2ac2f30f5981a40100008b4c2478f30f11018b533c0fbf8402d40000008b1500000000f30f2ac0f30f5982a4010000f30f1141040f57c0f30f1141085d5e5b83c450c21c00",
+      "relocations": [
+        [
+          44,
+          6,
+          "?ThePlayerList@@3PAVPlayerList@@A"
+        ],
+        [
+          49,
+          20,
+          "?getPlayersWithRelationship@PlayerList@@QAEGHI@Z"
+        ],
+        [
+          65,
+          6,
+          "?ThePlayerList@@3PAVPlayerList@@A"
+        ],
+        [
+          130,
+          6,
+          "?ThePlayerList@@3PAVPlayerList@@A"
+        ],
+        [
+          136,
+          20,
+          "?getNthPlayer@PlayerList@@QAEPAVPlayer@@H@Z"
+        ],
+        [
+          259,
+          6,
+          "?cellValueProc@@YAHPAVPartitionCell@@PAX@Z"
+        ],
+        [
+          276,
+          20,
+          "?iterateCellsBreadthFirst@PartitionManager@@IAEHPBUCoord3D@@P6AHPAVPartitionCell@@PAX@Z2@Z"
+        ],
+        [
+          305,
+          6,
+          "?TheWritableGlobalData@@3PAVGlobalData@@A"
+        ],
+        [
+          342,
+          6,
+          "?TheWritableGlobalData@@3PAVGlobalData@@A"
+        ]
+      ],
+      "incoming_refs": [
+        {
+          "section": ".debug$F",
+          "offset": 0,
+          "kind": 7
+        }
+      ]
+    },
+    {
+      "name": "?set@Coord3D@@QAEXMMM@Z",
+      "raw": "f30f10442404f30f1101f30f10442408f30f114104f30f1044240cf30f114108c20c00",
+      "relocations": [],
+      "incoming_refs": [
+        {
+          "section": ".debug$F",
+          "offset": 0,
+          "kind": 7
+        }
+      ]
+    },
+    {
+      "name": "?getAIUpdateInterface@Object@@QBEPBVAIUpdateInterface@@XZ",
+      "raw": "8b819c010000c3",
+      "relocations": [],
+      "incoming_refs": [
+        {
+          "section": ".debug$F",
+          "offset": 0,
+          "kind": 7
+        }
+      ]
+    },
+    {
+      "name": "?getType@PathfindCell@@QBE?AW4CellType@1@XZ",
+      "raw": "33c08a410683e00fc3",
+      "relocations": [],
+      "incoming_refs": [
+        {
+          "section": ".debug$F",
+          "offset": 0,
+          "kind": 7
+        }
+      ]
+    },
+    {
+      "name": "?getLocomotorSet@AIUpdateInterface@@QBEABVLocomotorSet@@XZ",
+      "raw": "8d81b0010000c3",
+      "relocations": [],
+      "incoming_refs": [
+        {
+          "section": ".debug$F",
+          "offset": 0,
+          "kind": 7
+        }
+      ]
+    }
+  ],
+  "all_external_code_and_symbolic_relocations_identical": false,
+  "all_retained_external_code_and_symbolic_relocations_identical": true,
+  "removal_invariant": {
+    "query_entries": [
+      "?iterateAllObjects@PartitionManager@@QAEPAVSimpleObjectIterator@@PAPAVPartitionFilter@@@Z",
+      "?tryPosition@PartitionManager@@IAE_NPBUCoord3D@@MMPBUFindPositionOptions@@PAU2@@Z",
+      "?getMostValuableLocation@PartitionManager@@QAEXHIW4ValueOrThreat@@PAUCoord3D@@@Z",
+      "?getNearestGroupWithValue@PartitionManager@@QAEXHIW4ValueOrThreat@@PBUCoord3D@@H_NPAU3@@Z"
+    ],
+    "associated_eh_sections": {
+      "?iterateAllObjects@PartitionManager@@QAEPAVSimpleObjectIterator@@PAPAVPartitionFilter@@@Z": [
+        {
+          "index": 1398,
+          "name": ".text$x",
+          "assoc": 1397,
+          "raw": "8d4df0e9000000006a008b45ec50e80000000083c408c3b800000000e900000000"
+        },
+        {
+          "index": 1399,
+          "name": ".xdata$x",
+          "assoc": 1397,
+          "raw": "ffffffff00000000000000000000000020059319020000000000000000000000000000000000000000000000"
+        }
+      ],
+      "?tryPosition@PartitionManager@@IAE_NPBUCoord3D@@MMPBUFindPositionOptions@@PAU2@@Z": [
+        {
+          "index": 1561,
+          "name": ".text$x",
+          "assoc": 1560,
+          "raw": "8d4dd4e9000000008d4d08e900000000b800000000e900000000"
+        },
+        {
+          "index": 1563,
+          "name": ".xdata$x",
+          "assoc": 1560,
+          "raw": "ffffffff00000000000000000000000020059319020000000000000000000000000000000000000000000000"
+        }
+      ],
+      "?getMostValuableLocation@PartitionManager@@QAEXHIW4ValueOrThreat@@PAUCoord3D@@@Z": [],
+      "?getNearestGroupWithValue@PartitionManager@@QAEXHIW4ValueOrThreat@@PBUCoord3D@@H_NPAU3@@Z": []
+    },
+    "removed_safe_seh_handlers": [
+      "__ehhandler$?iterateAllObjects@PartitionManager@@QAEPAVSimpleObjectIterator@@PAPAVPartitionFilter@@@Z",
+      "__ehhandler$?tryPosition@PartitionManager@@IAE_NPBUCoord3D@@MMPBUFindPositionOptions@@PAU2@@Z"
+    ],
+    "literal": {
+      "name": "__real@47c34f80",
+      "value": 99999.0,
+      "incoming": [
+        {
+          "section": 1560,
+          "offset": 99,
+          "kind": 6,
+          "target": "__real@47c34f80"
+        }
+      ]
+    },
+    "removed_private_callback": {
+      "name": "?cellValueProc@@YAHPAVPartitionCell@@PAX@Z",
+      "size": 306,
+      "incoming": [
+        {
+          "section": 1044,
+          "name": ".debug$F",
+          "offset": 0,
+          "kind": 7
+        },
+        {
+          "section": 1795,
+          "name": ".text",
+          "offset": 259,
+          "kind": 6
+        }
+      ]
+    },
+    "removed_code_definitions": [
+      "??1GeometryInfo@@QAE@XZ",
+      "?getAIUpdateInterface@Object@@QBEPBVAIUpdateInterface@@XZ",
+      "?getLocomotorSet@AIUpdateInterface@@QBEABVLocomotorSet@@XZ",
+      "?getMostValuableLocation@PartitionManager@@QAEXHIW4ValueOrThreat@@PAUCoord3D@@@Z",
+      "?getNearestGroupWithValue@PartitionManager@@QAEXHIW4ValueOrThreat@@PBUCoord3D@@H_NPAU3@@Z",
+      "?getType@PathfindCell@@QBE?AW4CellType@1@XZ",
+      "?iterateAllObjects@PartitionManager@@QAEPAVSimpleObjectIterator@@PAPAVPartitionFilter@@@Z",
+      "?set@Coord3D@@QAEXMMM@Z",
+      "?tryPosition@PartitionManager@@IAE_NPBUCoord3D@@MMPBUFindPositionOptions@@PAU2@@Z"
+    ],
+    "removed_undefined_names": [
+      "??0GeometryInfo@@QAE@W4GeometryType@@_NMMM@Z",
+      "?clientSafeQuickDoesPathExist@Pathfinder@@QAE_NABVLocomotorSet@@PBUCoord3D@@1@Z",
+      "?getCell@Pathfinder@@QAEPAVPathfindCell@@W4PathfindLayerEnum@@HH@Z",
+      "?getHighestLayerForDestination@TerrainLogic@@QAE?AW4PathfindLayerEnum@@PBUCoord3D@@_N@Z",
+      "?getPlayersWithRelationship@PlayerList@@QAEGHI@Z"
+    ],
+    "all_remaining_loadable_definitions_and_relocations_identical": true,
+    "all_remaining_nondebug_sections_equal_as_multiset": true,
+    "retained_code_definitions": 549,
+    "retained_parent_eh_graphs_identical": 31,
+    "retained_parent_eh_graph_sha256": "4da13733e2e2c37547dbdd6839d1b94fdcf45a022f487227b48d3830fec65fee"
+  },
+  "actual": {
+    "source_sha256": "78c2eb9a7a297afcfeeea52896ce9f9488c4ed2b1ea66dab12ff248156efd137",
+    "object_sha256": "3a4734349966f3fbc90b6264ba1f1588edf31f443b20a46159e90f5fa82ac9c3",
+    "strict_current": true,
+    "matches_private_runtime_and_eh_graphs": true
+  },
+  "current_provider_controls": [
+    {
+      "source": "Code/Libraries/Source/WWVegas/WWMath/coord3d.cpp",
+      "name": "?set@Coord3D@@QAEXMMM@Z",
+      "raw": "f30f10442404f30f1101f30f10442408f30f114104f30f1044240cf30f114108c20c00",
+      "relocations": [],
+      "references": [
+        {
+          "section": ".debug$F",
+          "offset": 0
+        },
+        {
+          "section": ".text",
+          "offset": 70
+        }
+      ],
+      "normal_dependency_current": true,
+      "strict_current": true,
+      "object_sha256": "b90952d42777af8282bc04cf16a5a9cacc193e9fd68dbf4c41a6854f7e9ba625"
+    },
+    {
+      "source": "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate.cpp",
+      "name": "?getLocomotorSet@AIUpdateInterface@@QBEABVLocomotorSet@@XZ",
+      "raw": "8d81b0010000c3",
+      "relocations": [],
+      "references": [
+        {
+          "section": ".debug$F",
+          "offset": 0
+        }
+      ],
+      "normal_dependency_current": true,
+      "strict_current": false,
+      "object_sha256": "52473bebe00213531127e3d84ea251308c95ad5d1766ca3734b4d02f1d4f4338"
+    },
+    {
+      "source": "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderRva002E9EA7.cpp",
+      "name": "?getType@PathfindCell@@QBE?AW4CellType@1@XZ",
+      "raw": "8b410c83e00fc3",
+      "relocations": [],
+      "references": [
+        {
+          "section": ".debug$F",
+          "offset": 0
+        }
+      ],
+      "normal_dependency_current": true,
+      "strict_current": true,
+      "object_sha256": "3c4690d76ee343ccf3f779f770db5f10cb8051b85600f6e9b8df0108a0658809"
+    },
+    {
+      "source": "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderRva002F83F5Neighbors.cpp",
+      "name": "?getType@PathfindCell@@QBE?AW4CellType@1@XZ",
+      "raw": "8b410c83e00fc3",
+      "relocations": [],
+      "references": [
+        {
+          "section": ".debug$F",
+          "offset": 0
+        }
+      ],
+      "normal_dependency_current": true,
+      "strict_current": true,
+      "object_sha256": "9436896e01f74921a045c023d98e1fabece3b8b50216f67fd65fad771e0d4df1"
+    }
+  ],
+  "coordinate_owner": {
+    "rva": "0x000036AE",
+    "size": "35",
+    "native_exact": true,
+    "index_position": 49,
+    "partition_position": 93,
+    "selection_changes": false
+  },
+  "enum_getter_limit": "first remaining getter reads dword+C rather than removed byte+6; both current remaining objects have only debug references; no native identity or equivalence claim",
+  "bounded_preview": {
+    "cleared": {
+      "Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp": [
+        "unresolved  ?clientSafeQuickDoesPathExist@Pathfinder@@QAE_NABVLocomotorSet@@PBUCoord3D@@1@Z",
+        "unresolved  ?getPlayersWithRelationship@PlayerList@@QAEGHI@Z"
+      ],
+      "Code/Libraries/Source/WWVegas/WWMath/coord3d.cpp": [],
+      "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate.cpp": [],
+      "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderRva002E9EA7.cpp": [],
+      "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderRva002F83F5Neighbors.cpp": []
+    },
+    "all_other_blockers_identical": true,
+    "partition_unresolved_before": 8,
+    "partition_unresolved_after": 6,
+    "linked_authored_bytes_before": 4593,
+    "linked_authored_bytes_after": 4593,
+    "census_gain_claimed": false
+  }
+}

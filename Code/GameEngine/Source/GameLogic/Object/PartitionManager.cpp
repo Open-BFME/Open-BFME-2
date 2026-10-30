@@ -271,16 +271,9 @@ struct CollideInfo
 	CollideInfo(const Coord3D* p, const GeometryInfo& geometryInfo, Real a) : position(*p), geom(geometryInfo), angle(a) { }
 };
 
-struct CellValueProcParms
-{
-	Int valueRequired;
-	Bool greaterThan;
-	ValueOrThreat valueType;
-	PlayerMaskType allPlayersMask[MAX_PLAYER_COUNT];
-	PlayerMaskType allowedPlayersMasks;
-};
 
-static int cellValueProc(PartitionCell* cell, void* userData);
+
+
 
 /*
 	Notes:
@@ -3664,196 +3657,11 @@ Bool PartitionManager::isColliding( const Object *lhs, const Object *rhs ) const
 }
 
 //-----------------------------------------------------------------------------
-// ?iterateAllObjects@PartitionManager@@ present-unmatched
-SimpleObjectIterator *PartitionManager::iterateAllObjects(PartitionFilter **filters)
-{
-	MemoryPoolObjectHolder iterHolder;
-	SimpleObjectIterator *iter = newInstance(SimpleObjectIterator);
-	iterHolder.hold(iter);
 
-	// no distance constraints; we're gonna have to process 'em all anyway,
-	// so go thru in the fastest way we know how.
-	PartitionData *mod, *nextMod;
-	for( mod = m_moduleList; mod; mod = nextMod )
-	{
-		nextMod = mod->getNext();
-		Object *obj = mod->getObject();
-		if (obj && filtersAllow(filters, obj))
-		{
-			iter->insert( obj );
-		}
-	}
-
-	iterHolder.release();
-	return iter;
-}
 
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
-// ?tryPosition@PartitionManager@@ present-unmatched
-Bool PartitionManager::tryPosition( const Coord3D *center,
-																		Real dist,
-																		Real angle,
-																		const FindPositionOptions *options,
-																		Coord3D *result )
-{
-
-	// compute the spot on the terrain we've picked
-	Coord3D pos;
-	pos.x = dist * Cos( angle ) + center->x;
-	pos.y = dist * Sin( angle ) + center->y;
-
-	PathfindLayerEnum layer = LAYER_GROUND;
-	if ((options->flags & FPF_USE_HIGHEST_LAYER) != 0)
-	{
-		pos.z = 99999.0f;
-		layer = TheTerrainLogic->getHighestLayerForDestination(&pos);
-		pos.z = TheTerrainLogic->getLayerHeight(pos.x, pos.y, layer);
-		// ensure we are slightly above the bridge, to account for fudge & sloppy art
-		if (layer != LAYER_GROUND)
-			pos.z += 1.0f;
-	}
-	else
-	{
-		pos.z = TheTerrainLogic->getGroundHeight( pos.x, pos.y );
-	}
-
-	if (fabs(pos.z - center->z) > options->maxZDelta)
-		return FALSE;
-
-	//
-	// we don't usually find positions on cliffs.
-	// someday, add bit options for this, like for water.
-	//
-	if (TheTerrainLogic->isCliffCell(pos.x, pos.y) && layer == LAYER_GROUND)
-		return FALSE;
-
-	//
-	// srj sez:
-	// we don't usually find positions on impassable areas.
-	// someday, add bit options for this, like for water.
-	//
-	{
-		Int cellX = REAL_TO_INT_FLOOR(pos.x / PATHFIND_CELL_SIZE);
-		Int cellY = REAL_TO_INT_FLOOR(pos.y / PATHFIND_CELL_SIZE);
-		PathfindCell* cell = TheAI->pathfinder()->getCell(layer, cellX, cellY);
-		if (!cell || cell->getType() == PathfindCell::CELL_IMPASSABLE)
-		{
-			return FALSE;
-		}
-		if( BitTest(options->flags, FPF_CLEAR_CELLS_ONLY) && cell->getType() != PathfindCell::CELL_CLEAR )
-			return FALSE;
-
-	}
-
-	//
-	// we don't usually find positions in the water unless we explicitly say that's OK,
-	// or if the option is set we can only pick position underwater
-	//
-	if( BitTest( options->flags, FPF_IGNORE_WATER ) == FALSE )
-	{
-		Bool isUnderwater = TheTerrainLogic->isUnderwater( pos.x, pos.y );
-
-		//
-		// if we want water spots only and this is underwater it's no good, otherwise we want
-		// the default behavior where underwater spots are invalid
-		//
-		if( BitTest( options->flags, FPF_WATER_ONLY ) && (isUnderwater == FALSE || layer != LAYER_GROUND) )
-			return FALSE;
-		else if( isUnderwater == TRUE && layer == LAYER_GROUND )
-			return FALSE;
-
-	}  // end if
-
-	// object checks
-	if( BitTest( options->flags, FPF_IGNORE_ALL_OBJECTS ) == FALSE )
-	{
-
-		//
-		// iterate the potential collisions at this location using a 
-		// very small sphere geometry around the point
-		//
-		GeometryInfo geometry( GEOMETRY_SPHERE, TRUE, 5.0f, 5.0f, 5.0f );
-		ObjectIterator *iter = ThePartitionManager->iteratePotentialCollisions( &pos, geometry, angle, true );
-		MemoryPoolObjectHolder hold( iter );
-//	Bool overlap = FALSE;
-
-		for( Object *them = iter->first(); them; them = iter->next() )
-		{
-
-			// if this is the ignore object, ignore it
-			if( them == options->ignoreObject )
-				continue;  // continue in the object iterator for loop
-
-			// relationship checks
-			if( options->relationshipObject )
-			{
-
-				// if this is an ally/neutral unit and we ignore those, do so
-				if( BitTest( options->flags, FPF_IGNORE_ALLY_OR_NEUTRAL_UNITS ) == TRUE &&
-						options->relationshipObject->getRelationship( them ) != ENEMIES &&
-						(them->isKindOf( KINDOF_INFANTRY ) || them->isKindOf( KINDOF_VEHICLE )) )
-					continue;
-
-				// if this is an ally/neutral structure and we ignore those, do so
-				if( BitTest( options->flags, FPF_IGNORE_ALLY_OR_NEUTRAL_STRUCTURES ) == TRUE &&
-						options->relationshipObject->getRelationship( them ) != ENEMIES &&
-						them->isKindOf( KINDOF_STRUCTURE ) )
-					continue;
-
-				// if this is an enemy unit and we ignore those, do so
-				if( BitTest( options->flags, FPF_IGNORE_ENEMY_UNITS ) == TRUE &&
-						options->relationshipObject->getRelationship( them ) == ENEMIES &&
-						(them->isKindOf( KINDOF_INFANTRY ) || them->isKindOf( KINDOF_VEHICLE )) )
-					continue;
-
-				// if this is an enemy structure and we ignore those, do so
-				if( BitTest( options->flags, FPF_IGNORE_ENEMY_STRUCTURES ) == TRUE &&
-						options->relationshipObject->getRelationship( them ) == ENEMIES &&
-						them->isKindOf( KINDOF_STRUCTURE ) )
-					continue;
-
-			}  // end if, relationship checks
-
-			//
-			// if we have a source that must path to the destination we will ignore that too
-			// NOTE: If needed, we can reorganize the meaning of this method to be
-			// more explicit on when to pay attention to any 'source' objects and when not too
-			// but for now we're keeping the API very simple for the kinds of queries
-			// that we're likely to do for an RTS (CBD)
-			//
-			if( them == options->sourceToPathToDest )
-				continue;  // continue in the object iterator for loop
-
-			// oops, we have overlapped something
-			return FALSE;
-
-		}  // end for, them
-
-	}  // end if
-
-	//
-	// finally ... if sourceToPathDest is valid ... the source object must be able to
-	// find a path the the position we have selected.  We want to do this last because
-	// a pathfind can sometimes be an relatively expensive operation
-	//
-	if( options->sourceToPathToDest )
-	{
-		const AIUpdateInterface *ai = options->sourceToPathToDest->getAIUpdateInterface();
-
-		// check for path existence
-		if( ai && TheAI->pathfinder()->clientSafeQuickDoesPathExist( ai->getLocomotorSet(),
-																									options->sourceToPathToDest->getPosition(),
-																									&pos ) == FALSE )
-				return FALSE;
-
-	}  // end if
-
-	// save result and return TRUE for position found
-	*result = pos;
-	return TRUE;
-
-}  // end tryPosition
+  // end tryPosition
 
 //
 // the following determines how fast we expand our concentric ring search for the
@@ -4665,105 +4473,10 @@ Real PartitionManager::getGroundOrStructureHeight(Real posx, Real posy)
 }
 
 //-------------------------------------------------------------------------------------------------
-// ?getMostValuableLocation@PartitionManager@@ present-unmatched
-void PartitionManager::getMostValuableLocation( Int playerIndex, UnsignedInt whichPlayerTypes, ValueOrThreat valType, Coord3D *outLocation )
-{
-	if (!outLocation)
-		return;
 
-	PlayerMaskType playerMask = ThePlayerList->getPlayersWithRelationship(playerIndex, whichPlayerTypes);
-	if (playerMask == 0)
-		return;
-
-	Int cellCount = m_cellCountX * m_cellCountY;
-	
-	PlayerMaskType allPlayerMasks[MAX_PLAYER_COUNT] = { 0 };
-	Int totalPlayerCount = ThePlayerList->getPlayerCount();
-	
-	Int i;
-	for (i = 0; i < totalPlayerCount; ++i) {
-		Player *player = ThePlayerList->getNthPlayer(i);
-		if (!player) {
-			continue;
-		}
-
-		allPlayerMasks[i] = player->getPlayerMask();
-	}
-
-	Int greatestValueCell = -1;
-	Int maxCellValue = -1;
-	for (i = 0; i < cellCount; ++i) {
-		Int cellValue = 0;
-
-		for (Int player = 0; player < MAX_PLAYER_COUNT; ++player) {
-			if (BitTest(allPlayerMasks[player], playerMask)) {
-				if (valType == VOT_CashValue) {
-					cellValue += m_cells[i].getCashValue(player);
-				} else {
-					cellValue += m_cells[i].getThreatValue(player);
-				}
-			}
-		}
-
-		if (cellValue > maxCellValue) {
-			maxCellValue = cellValue;
-			greatestValueCell = i;
-		}
-	}
-
-	if (greatestValueCell == -1 || maxCellValue == -1) {
-		DEBUG_CRASH(("PartitionManager::getMostValuableLocation: jkmcd"));
-		return;
-	}
-
-	outLocation->set(m_cells[greatestValueCell].getCellX() * TheGlobalData->m_partitionCellSize,
-									 m_cells[greatestValueCell].getCellY() * TheGlobalData->m_partitionCellSize,
-									 0
-									);
-}
 
 //-------------------------------------------------------------------------------------------------
-// ?getNearestGroupWithValue@PartitionManager@@ present-unmatched
-void PartitionManager::getNearestGroupWithValue( Int playerIndex, UnsignedInt whichPlayerTypes, ValueOrThreat valType,
-															 const Coord3D *sourceLocation, Int valueRequired, Bool greaterThan, Coord3D *outLocation )
-{
-	if (!(sourceLocation && outLocation))
-		return;
 
-	PlayerMaskType playerMask = ThePlayerList->getPlayersWithRelationship(playerIndex, whichPlayerTypes);
-	if (playerMask == 0)
-		return;
-	
-	PlayerMaskType allPlayerMasks[MAX_PLAYER_COUNT] = { 0 };
-	Int totalPlayerCount = ThePlayerList->getPlayerCount();
-	
-	Int i;
-	for (i = 0; i < totalPlayerCount; ++i) {
-		Player *player = ThePlayerList->getNthPlayer(i);
-		if (!player) {
-			continue;
-		}
-
-		allPlayerMasks[i] = player->getPlayerMask();
-	}
-
-	CellValueProcParms parms;
-	parms.valueRequired = valueRequired;
-	parms.greaterThan = valueRequired;
-	parms.valueType = valType;
-	parms.allowedPlayersMasks = playerMask;
-	for (i = 0; i < MAX_PLAYER_COUNT; ++i) 
-		parms.allPlayersMask[i] = allPlayerMasks[i];
-	
-	Int nearestGreat = iterateCellsBreadthFirst(sourceLocation, cellValueProc, &parms);
-	if (nearestGreat != -1) {
-		(*outLocation).x = m_cells[nearestGreat].getCellX() * TheGlobalData->m_partitionCellSize;
-		(*outLocation).y = m_cells[nearestGreat].getCellY() * TheGlobalData->m_partitionCellSize;
-		(*outLocation).z = 0;
-	}
-
-	// all done
-}
 
 //-------------------------------------------------------------------------------------------------
 // ?storeFoggedCells@PartitionManager@@ present-unmatched
@@ -5376,28 +5089,7 @@ Bool PartitionFilterStealthedAndUndetected::allow( Object *objOther )
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-static int cellValueProc(PartitionCell* cell, void* userData)
-{
-	CellValueProcParms *parms = (CellValueProcParms*) userData;
 
-	UnsignedInt val = 0;
-	for (Int i = 0; i < MAX_PLAYER_COUNT; ++i) {
-		if (BitTest(parms->allowedPlayersMasks, parms->allPlayersMask[i])) {
-			if (parms->valueType == VOT_CashValue) {
-				val += cell->getCashValue(i);
-			} else {
-				val += cell->getThreatValue(i);
-			}
-		}
-	}
-
-	if ((val > parms->valueRequired && parms->greaterThan) || 
-			(val < parms->valueRequired && !parms->greaterThan)) {
-		return 1;
-	}
-
-	return 0;
-}
 
 // -----------------------------------------------------------------------------
 static void hLineAddLooker(Int startX, Int endX, Int y, void *playerIndexVoid)
