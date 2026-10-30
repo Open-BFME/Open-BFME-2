@@ -1,7 +1,9 @@
-"""build.wine_path: path conversion through `winepath -w` under Wine."""
+"""build's Wine launches leave nothing holding a caller's pipes: wine_path
+(`winepath -w`) and the compile in try_compile_source."""
 import os
 import subprocess
 import sys
+import threading
 from pathlib import Path
 
 import pytest
@@ -49,3 +51,38 @@ def test_a_failing_winepath_still_reports_its_error(tmp_path, monkeypatch):
     with pytest.raises(subprocess.CalledProcessError) as failure:
         build.wine_path("/nowhere/unit.cpp")
     assert failure.value.returncode == 3 and "no drive" in failure.value.stderr
+
+
+# A stand-in for `wine cl.exe ... -showIncludes` that, like a compile booting
+# Wine's services, leaves a long-lived process holding its stdout and stderr.
+FAKE_CL = """\
+import subprocess, sys
+subprocess.Popen([sys.executable, "-c", "import time; time.sleep(60)"])
+print("Note: including file: Z:/sdk/windows.h")
+print("unit.cpp")
+"""
+
+
+@pytest.mark.skipif(os.name == "nt", reason="the compile runs cl through Wine only off Windows")
+def test_a_compile_returns_while_a_process_it_started_holds_its_stdio(tmp_path, monkeypatch):
+    sys.path.insert(0, str(TOOLS))
+    import build
+    fake_cl = tmp_path / "cl.py"
+    fake_cl.write_text(FAKE_CL)
+    seen = []
+    monkeypatch.setattr(build, "compiler_command", lambda source, output: ([sys.executable, str(fake_cl)],
+                                                                          dict(os.environ)))
+    monkeypatch.setattr(build, "_cmd_fingerprint", lambda command, env: "fingerprint")
+    monkeypatch.setattr(build, "_restore_object", lambda source, output, fingerprint: False)
+    monkeypatch.setattr(build, "_write_deps_sidecar", lambda source, output, fingerprint, stdout, *rest:
+                        seen.append(stdout))
+    monkeypatch.setattr(build, "_store_object", lambda source, output, fingerprint: None)
+    result = []
+    worker = threading.Thread(target=lambda: result.append(
+        build.try_compile_source(tmp_path / "unit.cpp", tmp_path / "out" / "unit.obj")), daemon=True)
+    worker.start()
+    worker.join(20)
+    assert result, "the compile was still waiting on its output after 20 s"
+    assert result[0] == (True, "unit.cpp", 0)
+    # the dependency list still comes from the full output (-showIncludes notes included)
+    assert seen == ["Note: including file: Z:/sdk/windows.h\nunit.cpp\n"]

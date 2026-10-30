@@ -12,6 +12,7 @@ import shutil
 import struct
 import subprocess
 import sys
+import tempfile
 import threading
 import time
 from pathlib import Path
@@ -775,7 +776,6 @@ def wine_path(path):
         # stdio, and under a persistent wineserver (`wineserver -p`) they
         # outlive this process: a pipe they hold never reaches EOF, so whatever
         # waits on this process's output never returns. Files, never pipes.
-        import tempfile
         with tempfile.TemporaryFile("w+") as out, tempfile.TemporaryFile("w+") as err:
             code = subprocess.run([winepath, "-w", key], stdin=subprocess.DEVNULL, stdout=out,
                                   stderr=err).returncode
@@ -2404,15 +2404,19 @@ def try_compile_source(source, output, *, input_proof=None, inventory=False):
     for attempt in range(4):  # one more than before, for that recompile
         before = (input_proof.before(source, output, command, env)
                   if input_proof and proof_retry else None)
-        result = subprocess.run(
-            command + (["-showIncludes"] if is_cl else []),
-            cwd=ROOT,
-            env=env,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT,
-            text=True,
-        )
-        stdout = result.stdout or ""
+        # cl's output goes to a file, never a pipe: Wine services booted
+        # during a compile inherit its stdio and may outlive it (wine_path)
+        with tempfile.TemporaryFile("w+") as log:
+            result = subprocess.run(
+                command + (["-showIncludes"] if is_cl else []),
+                cwd=ROOT,
+                env=env,
+                stdin=subprocess.DEVNULL,
+                stdout=log,
+                stderr=subprocess.STDOUT,
+            )
+            log.seek(0)
+            stdout = log.read()
         filtered = "\n".join(l for l in stdout.splitlines() if not l.startswith("Note: including file:"))
         code = result.returncode
         if code == 0:
