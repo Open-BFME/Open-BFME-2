@@ -251,6 +251,75 @@ def chunks(text):
 COMMENT = re.compile(r'"(?:\\.|[^"\\\n])*"|\'(?:\\.|[^\'\\\n])*\'|//[^\n]*|/\*.*?\*/', re.S)
 
 
+BLOCK = re.compile(r'^(?:namespace(?:\s+([A-Za-z_]\w*))?|extern\s*"C")\s*\{')
+LINKAGE_DEF = re.compile(r'^extern\s*"C"(?!\s*\{)')
+
+
+def open_brace(c):
+    """Offset of the first `{` in `c` outside comments and literals, else -1."""
+    i, n = 0, len(c)
+    while i < n:
+        if c.startswith("//", i):
+            j = c.find("\n", i)
+            i = n if j < 0 else j
+            continue
+        if c.startswith("/*", i):
+            j = c.find("*/", i + 2)
+            i = n if j < 0 else j + 2
+            continue
+        ch = c[i]
+        if ch in "\"'":
+            j = i + 1
+            while j < n and c[j] != ch:
+                j += 2 if c[j] == "\\" else 1
+            i = j + 1
+            continue
+        if ch == "{":
+            return i
+        i += 1
+    return -1
+
+
+def flat_chunks(text, base=0, scope=(), blocks=None):
+    """chunks(text) as (kind, text, offset, scope), descending into `namespace X {}`
+    and `extern "C" {}` blocks: their items come out in place of the block, at
+    their offsets in `text`, with the enclosing scopes outermost first (a name,
+    '' for an anonymous namespace, None for extern "C"). `blocks`, when given,
+    collects (open, close, scope) of every block seen. A one-declaration
+    `extern "C" T f(...) { ... }` is a 'def', like any other function body."""
+    out, pos = [], 0
+    for kind, c in chunks(text):
+        at = text.find(c, pos)
+        if at < 0:
+            continue
+        pos = at + len(c)
+        s = norm(c)
+        m = BLOCK.match(s) if kind == "decl" else None
+        if m and c.rstrip().endswith("}"):
+            ob, cb = open_brace(c), len(c.rstrip()) - 1
+            name = None if s.startswith("extern") else (m.group(1) or "")
+            if blocks is not None:
+                blocks.append((base + at + ob, base + at + cb + 1, scope + (name,)))
+            out.extend(flat_chunks(c[ob + 1:cb], base + at + ob + 1, scope + (name,), blocks))
+            continue
+        if kind == "decl" and LINKAGE_DEF.match(s) and s.endswith("}") \
+                and re.search(r"\)\s*(?:const\s*)?\{", s) and not initialised(s.split("{")[0]):
+            kind = "def"
+        out.append((kind, c, base + at, scope))
+    return out
+
+
+def span_scopes(text, spans):
+    """The enclosing block scopes (flat_chunks' spelling) of each span, () at file scope."""
+    blocks = []
+    flat_chunks(text, blocks=blocks)
+    out = []
+    for a, _, _, _ in spans:
+        inside = [b for b in blocks if b[0] <= a < b[1]]
+        out.append(max(inside, key=lambda b: len(b[2]))[2] if inside else ())
+    return out
+
+
 def strip(t):
     return COMMENT.sub(lambda m: m.group(0) if m.group(0)[0] in "\"'" else " ", t)
 
@@ -1869,11 +1938,17 @@ def head_names(body):
     return m.group(1), meth
 
 
-def identify(rows, spans):
+def identify(rows, spans, scopes=None):
     """{row rva: [indices of candidate spans]} -- a definition that spells the
     row's name, else a macro invocation naming its class (or its method, for a
-    free function) among the arguments; [] = unidentified."""
+    free function) among the arguments; [] = unidentified. `scopes`
+    (span_scopes) qualifies a free function inside `namespace X {}` as `X::f`,
+    the way its mangled name (`?f@X@@`) spells it."""
     heads = [head_names(c) if k == "def" else None for _, _, c, k in spans]
+    for i, h in enumerate(heads):
+        q = scopes[i][-1] if scopes and scopes[i] else None
+        if h and h[0] is None and q:
+            heads[i] = (q, h[1])
     def macro_args(span):     # the invocation is the span's last line; comment lines above it travel with it
         m = MACRO_LINE.match(span.rstrip("\n").splitlines()[-1])
         return set(re.findall(r"[A-Za-z_]\w*", m.group(2))) if m else set()
@@ -1955,7 +2030,9 @@ def def_spans(text):
     initialised datum ('data') and macro invocation ('macro'), in file order,
     none overlapping: a macro line the chunker glued onto the head of a
     definition is split off it, and a macro line takes the comment lines
-    directly above it (a row's evidence or marker) with it."""
+    directly above it (a row's evidence or marker) with it. Definitions inside
+    a `namespace {}` / `extern "C" {}` block are spans of their own (the block
+    itself is not one), so a carve cuts them out of the block it leaves intact."""
     floor = header_end(text)
     macros = []
     for a, b, l in macro_spans(text):
@@ -1968,15 +2045,11 @@ def def_spans(text):
             else:
                 break
         macros.append((a, b, text[a:b]))
-    out, pos = [], 0
-    for kind, c in chunks(text):
+    out = []
+    for kind, c, at, _ in flat_chunks(text):
         if kind != "def":
             continue
-        at = text.find(c, pos)
-        if at < 0:
-            raise ValueError("definition text not found in its own file")
         end = at + len(c)
-        pos = end
         at = max(at, floor)
         inside = [m for m in macros if at <= m[0] < end]
         if inside:
@@ -1984,8 +2057,7 @@ def def_spans(text):
             rest = norm(text[at:end])
             if not rest or (AGGREGATE.match(rest)
                             and not re.search(r"\)\s*(const)?\s*$", rest.split("{")[0].strip())):
-                pos = end          # what the glue hid was an aggregate: a declaration, not a body
-                continue
+                continue           # what the glue hid was an aggregate: a declaration, not a body
         body = text[at:end]
         if is_data_head(body.split("{")[0]):
             m = re.match(r"\s*;", text[end:])          # the datum's own `;` after the `}`
@@ -2008,13 +2080,11 @@ def data_decls(text):
     among the `;`-terminated chunks (`int g = 0;`, `static int s;`, `Foo *p;`):
     a definition, so it may live in one file only. An initialized `extern`
     is also a definition. Prototypes, uninitialized externs, typedefs and
-    type declarations are declarations and may be repeated."""
-    out, pos = [], 0
-    for kind, c in chunks(text):
-        at = text.find(c, pos)
-        if at < 0:
-            continue
-        pos = at + len(c)
+    type declarations are declarations and may be repeated. Objects inside
+    `namespace {}` / `extern "C" {}` blocks count, at their own offsets; one in
+    an anonymous namespace is internal."""
+    out = []
+    for kind, c, at, scope in flat_chunks(text):
         if kind != "decl":
             continue
         s = re.sub(r"__declspec\s*\([^)]*\)", " ", norm(c)).strip()
@@ -2041,33 +2111,16 @@ def data_decls(text):
         if not m or m.group(1) in ("return", "goto", "break", "continue"):
             continue
         tokens = declarator.split()
-        internal = not external and (tokens[0] == "static" or
-                                     ("const" in tokens[:-1] and "*" not in declarator and "&" not in declarator))
+        internal = "" in scope or not external and (tokens[0] == "static" or
+                                                    ("const" in tokens[:-1] and "*" not in declarator and "&" not in declarator))
         out.append((at, at + len(c), c, m.group(1), internal))
     return out
 
 
-def brace_blocks(text):
-    """[(start, end, text)] of `namespace X { ... }` / `extern "C" { ... }` blocks
-    that define a function or an object inside: a carve cannot place those."""
-    out, pos = [], 0
-    for kind, c in chunks(text):
-        at = text.find(c, pos)
-        if at < 0:
-            continue
-        pos = at + len(c)
-        s = norm(c)
-        if kind == "decl" and re.match(r"^(namespace\b|extern\s*\"C\")", s) and "{" in s:
-            inner = s[s.index("{") + 1:s.rindex("}")]
-            flat, depth = [], 0
-            for ch in inner:          # inner text with nested braces blanked
-                depth += ch == "{"
-                flat.append(ch if depth == 0 else " ")
-                depth -= ch == "}"
-            flat = "".join(flat)
-            if re.search(r"\)\s*(?:const\s*)?\{", inner) or re.search(r"(?<![=!<>])=(?!=)", flat):
-                out.append((at, at + len(c), c))
-    return out
+# a definition inside a block that the compiler emits only where used (COMDAT) or
+# not at all: an inline body, a primary template, a dllimport inline
+DUPLICABLE = re.compile(r"(?:^|\s)(?:inline|__forceinline|__inline)\b|^template\s*<\s*[^>\s]"
+                        r"|__declspec\s*\(\s*dllimport")
 
 
 def code_only(text):
@@ -2121,30 +2174,35 @@ def carve(text, take, rowed=frozenset(), data_rowed=frozenset()):
         used on both sides is duplicated when it is `const` and no data row
         (`data_rowed`: identifiers data_rows.csv binds to this file) owns it,
         and otherwise refuses the carve (two objects where retail has one);
-      * a `namespace {}` / `extern "C" {}` block defining anything refuses it."""
+      * inside a `namespace {}` / `extern "C" {}` block the same rules hold per
+        definition: both texts keep the block, the donor around the bodies that
+        leave, the residual around the rest. A definition there that is not a
+        row and that the compiler emits only where used (inline, a primary
+        template, dllimport) stays on both sides, as the whole block used to; a
+        helper in an anonymous namespace has internal linkage."""
     spans = def_spans(text)
+    scopes = span_scopes(text, spans)
     take = set(take)
     stay_all = set(range(len(spans))) - take
-    carved_text = "\n".join(spans[i][2] for i in sorted(take) if spans[i][3] != "data")
+    shell = {i for i in stay_all if spans[i][3] == "def" and i not in rowed and scopes[i]
+             and DUPLICABLE.search(norm(spans[i][2].split("{")[0]))}
+    carved_text = "\n".join(spans[i][2] for i in sorted(take | shell) if spans[i][3] != "data")
     copies = set()
     changed = True
     while changed:
         changed = False
-        for i in sorted(stay_all - copies):
+        for i in sorted(stay_all - copies - shell):
             start, end, body, kind = spans[i]
             if kind != "def" or i in rowed:
                 continue
             hn = head_names(body)
-            if hn and INTERNAL.search(norm(body.split("{")[0])) \
+            if hn and (INTERNAL.search(norm(body.split("{")[0])) or "" in scopes[i]) \
                     and re.search(r"(?<![\w.>])%s\s*\(" % re.escape(hn[1]), code_only(carved_text)):
                 copies.add(i)
                 carved_text += "\n" + body
                 changed = True
-    leaving = take | copies
+    leaving = take | copies | shell
     stay_text = "\n".join(spans[i][2] for i in sorted(stay_all) if spans[i][3] != "data")   # copies stay too
-    blocks = brace_blocks(text)
-    if blocks:
-        return Carve(refused="a namespace/extern \"C\" block defines something: carve not supported")
     donor_cuts = [(a, b) for i, (a, b, _, _) in enumerate(spans) if i not in leaving]
     residual_cuts = [(a, b) for i, (a, b, _, _) in enumerate(spans) if i in take]
     data_moved, externs, extern_lines = [], [], []
@@ -2155,7 +2213,8 @@ def carve(text, take, rowed=frozenset(), data_rowed=frozenset()):
             m = re.search(r"([A-Za-z_]\w*)\s*(?:\[[^\]]*\]\s*)*$", head.strip())
             if m:
                 toks = head.split()
-                datums.append((a, b, c, m.group(1), toks[0] == "static" or ("const" in toks[:-1] and "*" not in head)))
+                datums.append((a, b, c, m.group(1), toks[0] == "static" or ("const" in toks[:-1] and "*" not in head)
+                               or "" in scopes[i]))
     donor_cuts = [x for x in donor_cuts if not any(x == (a, b) for a, b, _, k in spans if k == "data")]
     for a, b, c, ident, internal in datums:
         used_out = names_used(ident, carved_text)
@@ -2334,7 +2393,7 @@ def split(path, tu, dry_run=False, claim=True):
         return report
     text = text0
     spans = def_spans(text)
-    all_ids = identify(rows, spans)                       # every row of the file, not just this TU's
+    all_ids = identify(rows, spans, span_scopes(text, spans))   # every row of the file, not just this TU's
     rowed = {i for v in all_ids.values() for i in v}
     by_span = collections.defaultdict(list)                # span -> rows of the file it defines
     for r in rows:

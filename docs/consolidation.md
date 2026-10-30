@@ -259,8 +259,12 @@ What it does, in order, writing nothing until the last step:
    never does. A file-scope object definition goes where it is used: with the
    carved bodies when only they use it (its data row is repointed), else it
    stays; an external one used on both sides stays and the donor declares it
-   `extern`; an internal one used on both sides refuses the carve, as does a
-   `namespace {}` / `extern "C" {}` block that defines anything. Quoted includes
+   `extern`; an internal one used on both sides refuses the carve. Definitions
+   inside a `namespace {}` / `extern "C" {}` block follow the same rules one by
+   one: both texts keep the block, the TU around the bodies that leave, the
+   residual around the rest; a free function there is identified by its
+   namespace (`?f@Ns@@`); an unrowed inline body or primary template there stays
+   on both sides; an anonymous-namespace helper is internal. Quoted includes
    that resolve beside the mixed file are rewritten to resolve beside the TU
    (the compiler searches the including file's directory first).
 3. Verifies the residual under its own path and the flags the build will give its

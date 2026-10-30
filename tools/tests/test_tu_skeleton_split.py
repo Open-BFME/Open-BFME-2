@@ -285,11 +285,16 @@ class DataPlacementTests(unittest.TestCase):
         self.assertIn("table", cv2.refused or "")                    # unless a data row owns it
         self.assertNotIn("static __forceinline int helper", cv.donor)   # not called by b()
 
-    def test_a_namespace_block_that_defines_anything_refuses(self):
+    def test_a_namespace_block_that_defines_something_no_longer_refuses(self):
         text = DATA + "namespace Helpers { void bump() { g_counter++; } }\n"
         sp = T.def_spans(text)
         i = next(i for i, (_, _, c, k) in enumerate(sp) if "A::a" in c)
-        self.assertIn("namespace", T.carve(text, {i}).refused)
+        cv = T.carve(text, {i})
+        self.assertIsNone(cv.refused)
+        self.assertIn("namespace Helpers {", cv.donor)              # the block stays on both sides
+        self.assertIn("namespace Helpers {", cv.residual)
+        self.assertNotIn("void bump()", cv.donor)                   # its external body stays behind
+        self.assertIn("void bump()", cv.residual)
         decls = T.data_decls(DATA)
         self.assertEqual([d[3] for d in decls], ["g_counter", "s_calls", "TheFoo", "kLimit", "table", "g_hook"])
         self.assertEqual([d[4] for d in decls], [False, True, False, True, True, False])
@@ -301,6 +306,122 @@ class DataPlacementTests(unittest.TestCase):
         self.assertEqual(sp[0][0], len("// cl: /MD\n"))
         self.assertTrue(sp[1][2].startswith("// ?get@Rva1ByteField"))
         self.assertEqual(sp[1][3], "macro")
+
+
+BLOCKS = """// cl: /MD
+#include "x.h"
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b) { return a < b ? b : a; }
+template <class T> class box { public: T *get() { return m_p; } T *m_p; };
+template <class T> T *first(box<T> &b) { return b.get(); }
+}
+namespace Audio {
+int g_volume = 3;
+static int s_mixes;
+void setVolume(int v) { g_volume = v; }
+int volume() { return g_volume; }
+}
+namespace {
+int clampIt(int x) { return x < 0 ? 0 : x; }
+}
+extern "C" {
+int __cdecl cmix(int a) { return clampIt(a); }
+int __cdecl cpeek(void) { return Audio::s_mixes; }
+}
+extern "C" void __cdecl lone(void) { }
+void Mixer::mix() { Audio::setVolume(1); }
+"""
+
+
+def balanced(text):
+    code = T.code_only(text)
+    return code.count("{") == code.count("}")
+
+
+class BlockCarveTests(unittest.TestCase):
+    """Definitions inside `namespace {}` / `extern "C" {}` blocks carve like file-scope ones."""
+
+    def spans(self):
+        sp = T.def_spans(BLOCKS)
+        ix = {T.head_names(c)[1]: i for i, (_, _, c, k) in enumerate(sp) if k == "def" and T.head_names(c)}
+        rowed = {ix[n] for n in ("setVolume", "volume", "cmix", "cpeek", "lone", "mix")}
+        return sp, ix, rowed
+
+    def test_definitions_inside_blocks_are_spans_with_their_scopes(self):
+        sp, ix, _ = self.spans()
+        self.assertEqual(sorted(ix), ["clampIt", "cmix", "cpeek", "first", "lone", "max", "mix", "setVolume", "volume"])
+        self.assertFalse(any("class box" in c for _, _, c, _ in sp))       # a class stays a declaration
+        sc = T.span_scopes(BLOCKS, sp)
+        self.assertEqual(sc[ix["max"]], ("_STL",))
+        self.assertEqual(sc[ix["setVolume"]], ("Audio",))
+        self.assertEqual(sc[ix["clampIt"]], ("",))
+        self.assertEqual(sc[ix["cmix"]], (None,))
+        self.assertEqual(sc[ix["lone"]], ())                                 # a one-line extern "C" body
+        self.assertEqual(sc[ix["mix"]], ())
+        data = {d[3]: d[4] for d in T.data_decls(BLOCKS)}
+        self.assertEqual(data, {"g_volume": False, "s_mixes": True})
+        anon = T.data_decls("namespace { int s_hidden = 1; }\nnamespace N { int g_x; }\n")
+        self.assertEqual([(d[3], d[4]) for d in anon], [("s_hidden", True), ("g_x", False)])
+
+    def test_identify_spells_a_free_function_with_its_namespace(self):
+        sp, ix, _ = self.spans()
+        rs = rows(("?setVolume@Audio@@YAXH@Z", "0x1"), ("_cmix", "0x2"), ("?mix@Mixer@@QAEXXZ", "0x3"))
+        got = T.identify(rs, sp, T.span_scopes(BLOCKS, sp))
+        self.assertEqual(got, {"0x1": [ix["setVolume"]], "0x2": [ix["cmix"]], "0x3": [ix["mix"]]})
+        self.assertEqual(T.identify(rs, sp)["0x1"], [])                      # unqualified, `?f@Audio@@` is unspelled
+
+    def test_a_row_inside_a_namespace_leaves_with_the_block_reopened_around_it(self):
+        sp, ix, rowed = self.spans()
+        cv = T.carve(BLOCKS, {ix["setVolume"]}, rowed=rowed)
+        self.assertIsNone(cv.refused)
+        don, res = cv.donor, cv.residual
+        self.assertTrue(balanced(don) and balanced(res))
+        self.assertLess(don.index("namespace Audio {"), don.index("void setVolume"))
+        self.assertNotIn("int volume()", don)
+        self.assertIn("int volume()", res)
+        self.assertNotIn("void setVolume", res)
+        self.assertIn("namespace Audio {", res)
+        # used by setVolume() and volume(): it stays, and the donor declares it extern inside the block
+        self.assertEqual(cv.externs, ["g_volume"])
+        self.assertLess(don.index("namespace Audio {"), don.index("extern int g_volume;"))
+        self.assertLess(don.index("extern int g_volume;"), don.index("void setVolume"))
+        self.assertIn("int g_volume = 3;", res)
+        self.assertNotIn("static int s_mixes;", don)                          # only cpeek() uses it
+        # inline bodies and templates in a block are emitted only where used: both sides keep them
+        for text in (don, res):
+            self.assertIn("static inline const unsigned int &max", text)
+            self.assertIn("T *first(box<T> &b)", text)
+            self.assertIn("template <class T> class box", text)
+
+    def test_an_anonymous_namespace_helper_is_internal_and_travels_as_a_copy(self):
+        sp, ix, rowed = self.spans()
+        cv = T.carve(BLOCKS, {ix["cmix"]}, rowed=rowed)
+        self.assertIsNone(cv.refused)
+        self.assertEqual(cv.copies, [ix["clampIt"]])
+        self.assertIn("int clampIt", cv.donor)
+        self.assertIn("int clampIt", cv.residual)
+        self.assertLess(cv.donor.index('extern "C" {'), cv.donor.index("int __cdecl cmix"))
+        self.assertNotIn("cpeek", cv.donor)
+        self.assertIn("cpeek", cv.residual)
+        self.assertNotIn("int __cdecl cmix", cv.residual)
+        self.assertTrue(balanced(cv.donor) and balanced(cv.residual))
+
+    def test_a_one_line_extern_c_body_is_a_definition_not_a_declaration(self):
+        sp, ix, rowed = self.spans()
+        cv = T.carve(BLOCKS, {ix["mix"]}, rowed=rowed)
+        self.assertIsNone(cv.refused)
+        self.assertNotIn("lone", cv.donor)                                    # it used to be kept on both sides
+        self.assertIn('extern "C" void __cdecl lone(void) { }', cv.residual)
+        self.assertNotIn("int clampIt", cv.donor)                             # not called: not copied
+        self.assertNotIn("void setVolume", cv.donor)
+        self.assertIn("void Mixer::mix()", cv.donor)
+
+    def test_an_internal_datum_in_a_block_used_on_both_sides_still_refuses(self):
+        text = BLOCKS.replace("void setVolume(int v) { g_volume = v; }", "void setVolume(int v) { g_volume = v; s_mixes++; }")
+        sp = T.def_spans(text)
+        ix = {T.head_names(c)[1]: i for i, (_, _, c, k) in enumerate(sp) if k == "def" and T.head_names(c)}
+        cv = T.carve(text, {ix["setVolume"]}, rowed={ix["setVolume"], ix["cpeek"]})
+        self.assertIn("s_mixes", cv.refused or "")
 
 
 class CompanionTests(unittest.TestCase):
