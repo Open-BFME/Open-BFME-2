@@ -157,48 +157,7 @@ public:
 
 enum { MAX_GENERIC_SCRIPTS = 32 };
 
-class Team : public Snapshot, public TeamLinkedBase
-{
-public:
-	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
-
-protected:
-	virtual void crc(Xfer *xfer);
-	virtual void xfer(Xfer *xfer);
-	virtual void loadPostProcess();
-
-private:
-	unsigned char m_pad08[0x34 - 0x08];
-	unsigned int m_id; // +0x34
-	unsigned char m_pad38[0x44 - 0x38];
-	AsciiString m_state; // +0x44
-	unsigned char m_pad48[0x5C - 0x48];
-	bool m_enteredOrExited; // +0x5C
-	bool m_active; // +0x5D
-	bool m_created; // +0x5E
-	bool m_checkEnemySighted; // +0x5F
-	bool m_seeEnemy; // +0x60
-	bool m_prevSeeEnemy; // +0x61
-	bool m_wasIdle; // +0x62
-	bool m_flag63; // +0x63
-	int m_destroyThreshold; // +0x64
-	int m_curUnits; // +0x68
-	Waypoint *m_currentWaypoint; // +0x6C
-	bool m_shouldAttemptGenericScript[MAX_GENERIC_SCRIPTS]; // +0x70
-	unsigned int m_genericScriptValue[MAX_GENERIC_SCRIPTS]; // +0x90
-	bool m_isRecruitablitySet; // +0x110
-	bool m_isRecruitable; // +0x111
-	bool m_flag112; // +0x112
-	bool m_flag113; // +0x113
-	ObjectID m_commonAttackTarget; // +0x114
-	TeamRelationMap *m_teamRelations; // +0x118
-	TeamRelationMap *m_playerRelations; // +0x11C
-	float m_real120; // +0x120
-	unsigned int m_value124; // +0x124
-	bool m_flag128; // +0x128
-	_STL::list<int, _STL::allocator<int> > m_xferMemberIDList; // +0x12C
-	_STL::set<int, _STL::less<int>, _STL::allocator<int> > m_set130; // +0x130
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 void Team::xfer(Xfer *xfer)
 {
@@ -234,23 +193,23 @@ void Team::xfer(Xfer *xfer)
 		for (unsigned short i = 0; i < memberCount; ++i)
 		{
 			XferObjectID(xfer, (ObjectID *)&memberID);
-			m_xferMemberIDList.push_back(memberID);
+			((_STL::list<int, _STL::allocator<int> > *)m_opaque12C)->push_back(memberID);
 		}
 	}
 
-	*xfer == m_state;
+	*xfer == *(AsciiString *)m_opaque44;
 	*xfer == m_enteredOrExited;
 	*xfer == m_active;
 	*xfer == m_created;
+	*xfer == m_5F;
 	*xfer == m_checkEnemySighted;
 	*xfer == m_seeEnemy;
 	*xfer == m_prevSeeEnemy;
 	*xfer == m_wasIdle;
-	*xfer == m_flag63;
 	*xfer == m_destroyThreshold;
 	*xfer == m_curUnits;
 
-	unsigned int currentWaypointID = m_currentWaypoint ? m_currentWaypoint->getID() : 0;
+	unsigned int currentWaypointID = m_currentWaypoint ? ((Waypoint *)m_currentWaypoint)->getID() : 0;
 	*xfer == currentWaypointID;
 	if (xfer->IsLoading())
 		m_currentWaypoint = TheTerrainLogic->getWaypointByID(currentWaypointID);
@@ -262,18 +221,18 @@ void Team::xfer(Xfer *xfer)
 	for (int i = 0; i < shouldAttemptGenericScriptCount; ++i)
 	{
 		*xfer == m_shouldAttemptGenericScript[i];
-		*xfer == m_genericScriptValue[i];
+		*xfer == *(unsigned int *)&m_90[i];
 	}
 
 	*xfer == m_isRecruitablitySet;
 	*xfer == m_isRecruitable;
-	*xfer == m_flag112;
-	*xfer == m_flag113;
-	XferObjectID(xfer, &m_commonAttackTarget);
+	*xfer == m_112;
+	*xfer == m_113;
+	XferObjectID(xfer, (ObjectID *)&m_commonAttackTarget);
 	*xfer == *m_teamRelations;
-	*xfer == *m_playerRelations;
-	*xfer == m_real120;
-	*xfer == m_value124;
-	Rva002F1CDDXfer(xfer, &m_set130);
-	*xfer == m_flag128;
+	*xfer == *(TeamRelationMap *)m_playerRelations;
+	*xfer == m_120;
+	*xfer == *(unsigned int *)&m_124;
+	Rva002F1CDDXfer(xfer, (_STL::set<int, _STL::less<int>, _STL::allocator<int> > *)m_opaque130);
+	*xfer == m_128;
 }
