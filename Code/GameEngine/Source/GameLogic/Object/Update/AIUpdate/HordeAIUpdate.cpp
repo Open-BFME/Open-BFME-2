@@ -1,4 +1,21 @@
 // cl: /DNDEBUG /MD
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
+enum UpdateSleepTime
+{
+	UPDATE_SLEEP_NONE = 1,
+	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
+};
+
+enum CommandSourceType
+{
+	CMD_FROM_PLAYER = 0,
+	CMD_FROM_AI = 2
+};
+
 //
 // ?getEnterPosition@HordeAIUpdate@@UAEXHPAUCoord3D@@@Z @0x0049A8FA 65B.
 // Target evidence: the only reference to this body is slot 5 of the vtable
@@ -15,6 +32,8 @@
 // parameter whose meaning is not asserted). Structural inference: the int is
 // declared at function scope, which gives it its own frame slot as retail
 // (declared in the if block it reuses the dead out-pointer argument slot).
+#include "../../../../../Include/GameLogic/Module/BehaviorModule.h"
+
 class Thing;
 class ModuleData;
 #include "../../../../../../Libraries/Include/Lib/Coord3D.h"
@@ -70,17 +89,170 @@ public:
 	virtual void s30();
 	virtual Rva0049A8FAProvider *rva7C() = 0; // +0x7C
 };
+enum ObjectStatusTypes
+{
+	OBJECT_STATUS_3 = 3,
+	OBJECT_STATUS_5A = 0x5A
+};
+
+class ContainModuleInterface;
+class AIUpdateInterface;
+class Rva0049A8FAContain;
+
 class Object
 {
 public:
-	unsigned char m_pad000[0x250];
-	Rva0049A8FAContain *m_250;
+	void *rva0028C197() const;
+	ContainModuleInterface *getContain() const { return reinterpret_cast<ContainModuleInterface *>(m_250); }
+	AIUpdateInterface *getAI() const { return m_ai; }
+	bool testStatus(ObjectStatusTypes bit) const;
+	void setStatus(ObjectStatusTypes bit, bool set);
+	int rva0028AF76() const;
+	char m_pad00[0x250];
+	Rva0049A8FAContain *m_250; // +0x250
+	char m_pad254[0x4];
+private:
+	AIUpdateInterface *m_ai; // +0x258
 };
-struct B00 { virtual void f00(); const ModuleData *m_moduleData; Object *m_object; };
-struct B0C { virtual void f0C(); };
-struct B10 { virtual void f10(); unsigned char m_pad[12]; };
-struct B20 { virtual void f20(); };
-struct B24 { virtual void f24(); unsigned char m_pad[0x3E4 - 0x28]; };
+class UpdateModuleInterface
+{
+public:
+	virtual UpdateSleepTime update();
+};
+
+class UpdateModule : public BehaviorModule, public UpdateModuleInterface
+{
+protected:
+	unsigned m_nextCallFrameAndPhase;
+	int m_indexInLogic;
+	int m_bfmeReserved;
+};
+
+class AICommandInterface
+{
+public:
+	virtual void aiCommandInterfaceAnchor();
+	void aiMoveToPosition(const Coord3D *pos, CommandSourceType cmdSource);
+};
+
+struct B24
+{
+	virtual void f24();
+	unsigned char m_pad[0x3E4 - 0x28];
+};
+
+class AIUpdateInterface : public UpdateModule, public AICommandInterface, public B24
+{
+public:
+	AIUpdateInterface(Thing *thing, const ModuleData *moduleData);
+	virtual UpdateSleepTime update();
+	virtual void a011();
+	virtual void a012();
+	virtual void a013();
+	virtual void a014();
+	virtual void a015();
+	virtual void a016();
+	virtual void a017();
+	virtual void a018();
+	virtual void a019();
+	virtual void a020();
+	virtual void a021();
+protected:
+	virtual void bfmePrivateCommand42(Object *, CommandSourceType);
+public:
+	virtual void a023();
+	virtual void a024();
+	virtual void a025();
+	virtual void a026();
+	virtual void a027();
+	virtual void a028();
+	virtual void a029();
+	virtual void a030();
+	virtual void a031();
+	virtual void a032();
+	virtual void a033();
+	virtual void a034();
+	virtual void a035();
+	virtual void a036();
+	virtual void a037();
+	virtual void a038();
+	virtual void a039();
+	virtual void a040();
+	virtual void a041();
+	virtual void a042();
+	virtual void a043();
+	virtual void a044();
+	virtual void a045();
+	virtual void a046();
+	virtual void a047();
+	virtual void a048();
+	virtual void a049();
+	virtual void a050();
+	virtual void a051();
+	virtual void a052();
+	virtual void a053();
+	virtual void a054();
+	virtual void a055();
+	virtual void a056();
+	virtual void a057();
+	virtual void a058();
+	virtual void a059();
+	virtual void a060();
+	virtual void a061();
+	virtual void a062();
+	virtual void a063();
+	virtual void a064();
+	virtual void a065();
+	virtual void a066();
+	virtual void a067();
+	virtual void a068();
+	virtual void a069();
+	virtual void a070();
+	virtual void a071();
+	virtual void a072();
+	virtual void a073();
+	virtual void a074();
+	virtual void a075();
+	virtual void a076();
+	virtual void a077();
+	virtual void a078();
+	virtual void a079();
+	virtual void a080();
+	virtual void a081();
+	virtual void a082();
+	virtual void a083();
+	virtual void a084();
+	virtual void a085();
+	virtual void a086();
+	virtual void a087();
+	virtual void a088();
+	virtual void a089();
+	virtual void a090();
+	virtual void a091();
+	virtual void a092();
+	virtual void a093();
+	virtual void a094();
+	virtual void a095();
+	virtual void a096();
+	virtual void a097();
+	virtual void a098();
+	virtual void a099();
+	virtual void a100();
+	virtual void a101();
+	virtual void a102();
+	virtual void a103();
+	virtual void a104();
+	virtual void a105();
+	virtual void a106();
+	virtual void a107();
+	virtual void a108();
+	virtual bool isIdle() const; // primary slot 110
+	bool isMoving() const;
+protected:
+	virtual ~AIUpdateInterface();
+	Object *getObject() const { return m_object; } // native module owner at +8
+};
+
 class Iface3E4
 {
 public:
@@ -91,13 +263,20 @@ public:
 	virtual void s04();
 	virtual void getEnterPosition(int a, Coord3D *out) = 0;
 };
-class HordeAIUpdate : public B00, public B0C, public B10, public B20, public B24, public Iface3E4
+class HordeAIUpdate : public AIUpdateInterface, public Iface3E4
 {
 public:
+	HordeAIUpdate(Thing *thing, const ModuleData *moduleData);
+	virtual ~HordeAIUpdate();
+	virtual NameKeyType getModuleNameKey() const;
+	virtual UpdateSleepTime update();
 	virtual bool isClearToApproach(int docker);
 	virtual bool reserveApproachPosition(int a, Coord3D *pos, int *out);
 	virtual void getEnterPosition(int docker, Coord3D *out);
+protected:
+	virtual void bfmePrivateCommand42(Object *, CommandSourceType);
 };
+
 void HordeAIUpdate::getEnterPosition(int docker, Coord3D *out)
 {
 	int extra;
