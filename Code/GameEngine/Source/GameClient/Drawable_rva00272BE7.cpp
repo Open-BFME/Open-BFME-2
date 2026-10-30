@@ -51,29 +51,19 @@ public:
     virtual void slot40() = 0; virtual void slot44() = 0;
     virtual void slot48() = 0;
 };
-class Drawable
-{
-public:
-    void rva00272BE7();
-    int rva0027272B();
-private:
-    char m_pad[0x14C];
-    DrawModule **m_drawModules;
-    char m_pad14C[0x154 - 0x150];
-    ClientItem **m_client;
-};
+#include "../../Include/GameClient/DrawableBFME2.h"
 void Drawable::rva00272BE7()
 {
-    for (DrawModule **p = m_drawModules; *p; ++p)
+    for (DrawModule **p = ((DrawModule **)m_modules[0]); *p; ++p)
         (*p)->slot70();
-    for (ClientItem **q = m_client; q && *q; ++q)
+    for (ClientItem **q = ((ClientItem **)m_modules[2]); q && *q; ++q)
         (*q)->slot48();
 }
 // @0x0027272B (34B): module scan returning first nonzero slotD0 value else 0.
 // Caller 0x004087F7.
 int Drawable::rva0027272B()
 {
-    for (DrawModule **p = m_drawModules; *p; ++p)
+    for (DrawModule **p = ((DrawModule **)m_modules[0]); *p; ++p)
     {
         int v = (*p)->slotD0();
         if (v != 0)
