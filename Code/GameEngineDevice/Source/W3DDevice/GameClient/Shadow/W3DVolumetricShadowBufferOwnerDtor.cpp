@@ -35,18 +35,36 @@ struct BfmeShadowBufferEntry
 	unsigned int unreconstructed14;
 };
 
+class RenderObjClass;
+class MeshClass;
+class Rva00107E76Elem;
+namespace _STL {
+template <class T> class allocator;
+template <class T, class Allocator> class vector;
+}
 class W3DVolumetricShadowV2 : public BfmeShadowBufferOwnerBase
 {
-	unsigned char m_unreconstructed_058[ 0x10 ];
+public:
+	void UpdateAndRenderZfail();
+	void UpdateAndRender();
+	W3DVolumetricShadowV2(W3DVolumetricShadowV2 **prevLink, RenderObjClass *resource);
+	void SetShadowAngleLimit(float angle) throw();
+	void rva001080B4(_STL::vector<MeshClass *, _STL::allocator<MeshClass *> > *meshes, RenderObjClass *resource);
+	virtual ~W3DVolumetricShadowV2();
+
+private:
+	unsigned char m_unreconstructed_058[0x10];
 	W3DVolumetricShadowV2 **m_prevLink;
 	W3DVolumetricShadowV2 *m_next;
 	unsigned int m_unreconstructed_070;
 	BfmeShadowRefCount *m_resource;
-	int m_entryCount;
-	BfmeShadowBufferEntry *m_entries;
-
 public:
-	virtual ~W3DVolumetricShadowV2();
+	int m_78;
+	Rva00107E76Elem *m_7C;
+	char m_pad80[0x8C - 0x80];
+	float m_extraExtrusionPadding;
+	char m_90[0x9C - 0x90];
+	unsigned char m_9C;
 };
 
 W3DVolumetricShadowV2::~W3DVolumetricShadowV2()
@@ -58,13 +76,13 @@ W3DVolumetricShadowV2::~W3DVolumetricShadowV2()
 	if (m_resource != 0)
 		m_resource->Release_Ref();
 
-	for (int i = 0; i < m_entryCount; ++i)
+	for (int i = 0; i < m_78; ++i)
 	{
-		m_entries[i].resource->Release_Ref();
-		::operator delete[](m_entries[i].allocation0);
-		::operator delete[](m_entries[i].allocation1);
-		::operator delete[](m_entries[i].allocation2);
+		reinterpret_cast<BfmeShadowBufferEntry *>(m_7C)[i].resource->Release_Ref();
+		::operator delete[](reinterpret_cast<BfmeShadowBufferEntry *>(m_7C)[i].allocation0);
+		::operator delete[](reinterpret_cast<BfmeShadowBufferEntry *>(m_7C)[i].allocation1);
+		::operator delete[](reinterpret_cast<BfmeShadowBufferEntry *>(m_7C)[i].allocation2);
 	}
 
-	::operator delete[](m_entries);
+	::operator delete[](m_7C);
 }

@@ -1,4 +1,7 @@
 // cl: /DNDEBUG /MD /O1 /GX /G7 /arch:SSE /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+#pragma inline_depth(0)
+#include "BfmeShadowPrefix.h"
+#pragma inline_depth(255)
 // stlport
 // BFME1 34f59164 BfmeShadowBufferManagerCreate.cpp is the semantic lead.
 // Native 0x10837F..0x108430 returns a 0xA0-byte owner with RET12.
@@ -69,16 +72,36 @@ public:
         float m_sizeX;
     };
 };
-class W3DVolumetricShadowV2 {
+class Rva00107E76Elem;
+class MeshClass;
+namespace _STL {
+template <class T> class allocator;
+template <class T, class Allocator> class vector;
+}
+class BfmeShadowRefCount;
+class W3DVolumetricShadowV2 : public BfmeShadowBufferOwnerBase
+{
 public:
-    W3DVolumetricShadowV2(W3DVolumetricShadowV2 **prevLink, RenderObjClass *resource);
-    // The matched 35-byte setter only calls the CRT tan routine; retail's
-    // factory retains its allocation unwind state across this nonthrowing call.
-    void SetShadowAngleLimit(float angle) throw();
-    void rva001080B4(_STL::vector<MeshClass *> *meshes, RenderObjClass *resource);
-    char opaque00[0x8C];
-    float m_extraExtrusionPadding;
-    char opaque90[0x10];
+	void UpdateAndRenderZfail();
+	void UpdateAndRender();
+	W3DVolumetricShadowV2(W3DVolumetricShadowV2 **prevLink, RenderObjClass *resource);
+	void SetShadowAngleLimit(float angle) throw();
+	void rva001080B4(_STL::vector<MeshClass *, _STL::allocator<MeshClass *> > *meshes, RenderObjClass *resource);
+	virtual ~W3DVolumetricShadowV2();
+
+private:
+	unsigned char m_unreconstructed_058[0x10];
+	W3DVolumetricShadowV2 **m_prevLink;
+	W3DVolumetricShadowV2 *m_next;
+	unsigned int m_unreconstructed_070;
+	BfmeShadowRefCount *m_resource;
+public:
+	int m_78;
+	Rva00107E76Elem *m_7C;
+	char m_pad80[0x8C - 0x80];
+	float m_extraExtrusionPadding;
+	char m_90[0x9C - 0x90];
+	unsigned char m_9C;
 };
 class DX8Wrapper {
 public:
@@ -98,12 +121,14 @@ struct DrawableKindView {
     void *opaque00;
     DrawableKindBits *m_bits;
 };
-class W3DVolumetricShadowManagerV2 {
+class W3DVolumetricShadowManagerV2
+{
 public:
-    W3DVolumetricShadowV2 *rva0010837F(RenderObjClass *, Shadow::ShadowTypeInfo *, Drawable *);
+	void drawAndRelease(int flag);
+	W3DVolumetricShadowV2 *rva0010837F(RenderObjClass *, Shadow::ShadowTypeInfo *, Drawable *);
 private:
-    char opaque00[8];
-    W3DVolumetricShadowV2 *m_firstShadow;
+	char opaque00[8];
+	W3DVolumetricShadowV2 *m_firstShadow;
 };
 W3DVolumetricShadowV2 *W3DVolumetricShadowManagerV2::rva0010837F(
     RenderObjClass *resource, Shadow::ShadowTypeInfo *shadowInfo, Drawable *draw)

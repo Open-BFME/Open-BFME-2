@@ -1,14 +1,31 @@
 // cl: /DNDEBUG /MD /EHsc /O1 /G7 /arch:SSE
+#pragma inline_depth(0)
+#include "BfmeShadowPrefix.h"
+#pragma inline_depth(255)
 // ?UpdateAndRenderZfail@W3DVolumetricShadowV2@@QAEXXZ @0x00107E76 277B: walk the 0x18-byte shadow
 // entries from the back; an entry flagged, or whose vslot 0x190 reports true while
 // the manager flag at +0x9C is set, gets its update sequence. Projected budget at
 // the global's +0x14/+0x18 is charged by the 0x18-entry size.
 class W3DProjectedShadowManager;
 class Vector3;
+class W3DVolumetricShadowV2;
+class RenderObjClass;
+class Drawable;
+class Shadow {
+public:
+    struct ShadowTypeInfo {
+        char opaque00[0x1C];
+        float m_sizeX;
+    };
+};
 class W3DVolumetricShadowManagerV2
 {
 public:
 	void drawAndRelease(int flag);
+	W3DVolumetricShadowV2 *rva0010837F(RenderObjClass *, Shadow::ShadowTypeInfo *, Drawable *);
+private:
+	char opaque00[8];
+	W3DVolumetricShadowV2 *m_firstShadow;
 };
 
 class Rva00106CF0
@@ -175,16 +192,34 @@ public:
 // WB VA 0x008E0C00 (callsite lead, score 1) and UpdateAndRenderZfail WB VA
 // 0x008E0ED0 (callgraph lead, score 5). The caller renderShadows 0x00107F8B's
 // unit walks W3DVolumetricShadowV2 lists into both.
-class W3DVolumetricShadowV2
+class Rva00107E76Elem;
+class MeshClass;
+namespace _STL {
+template <class T> class allocator;
+template <class T, class Allocator> class vector;
+}
+class BfmeShadowRefCount;
+class W3DVolumetricShadowV2 : public BfmeShadowBufferOwnerBase
 {
 public:
 	void UpdateAndRenderZfail();
 	void UpdateAndRender();
+	W3DVolumetricShadowV2(W3DVolumetricShadowV2 **prevLink, RenderObjClass *resource);
+	void SetShadowAngleLimit(float angle) throw();
+	void rva001080B4(_STL::vector<MeshClass *, _STL::allocator<MeshClass *> > *meshes, RenderObjClass *resource);
+	virtual ~W3DVolumetricShadowV2();
 
-	char m_pad00[0x78];
+private:
+	unsigned char m_unreconstructed_058[0x10];
+	W3DVolumetricShadowV2 **m_prevLink;
+	W3DVolumetricShadowV2 *m_next;
+	unsigned int m_unreconstructed_070;
+	BfmeShadowRefCount *m_resource;
+public:
 	int m_78;
 	Rva00107E76Elem *m_7C;
-	char m_pad80[0x90 - 0x80];
+	char m_pad80[0x8C - 0x80];
+	float m_extraExtrusionPadding;
 	char m_90[0x9C - 0x90];
 	unsigned char m_9C;
 };
