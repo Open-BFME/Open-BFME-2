@@ -22,13 +22,14 @@ class BfmeParticleSystemHandle;
 class ParticleSystemManager
 {
 public:
+	virtual void rva001F9F66();
 	ParticleSystemTemplate *findTemplate(const AsciiString &name) const;
 	ParticleSystemTemplate *newTemplate(const AsciiString &name);
 	BfmeParticleSystemHandle createParticleSystem(const ParticleSystemTemplate*,bool);
 
 private:
-	char m_pad[0x88];
-	char m_templateMap[1];	// +0x88 (Rva00056F61 bucket table; address only here)
+	char m_pad[0x84];
+	char m_templateMap[0x14];	// +0x88 (Rva00056F61 bucket table; address only here)
 };
 
 namespace FXParticleSystem {

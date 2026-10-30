@@ -31,18 +31,19 @@ class BfmeParticleSystemHandle;
 class ParticleSystemManager
 {
 public:
+	virtual void rva001F9F66();
 	ParticleSystemTemplate *findTemplate(const AsciiString &name) const;
 	BfmeParticleSystemHandle createParticleSystem(const ParticleSystemTemplate*,bool);
 
 private:
-	char m_pad[0x88];
-	Rva00056F61 m_templateMap;	// +0x88
+	char m_pad[0x84];
+	char m_templateMap[0x14];	// +0x88
 };
 
 ParticleSystemTemplate *ParticleSystemManager::findTemplate(const AsciiString &name) const
 {
 	ParticleSystemTemplate *sysTemplate = 0;
-	Rva0041534BIter find = const_cast<Rva00056F61 &>(m_templateMap).rva0041534B(&name);
+	Rva0041534BIter find = ((Rva00056F61 *)m_templateMap)->rva0041534B(&name);
 	if (find.m_node != 0)
 		sysTemplate = *(ParticleSystemTemplate **)((char *)find.m_node + 8);
 	return sysTemplate;

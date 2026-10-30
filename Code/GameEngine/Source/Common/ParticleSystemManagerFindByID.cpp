@@ -225,13 +225,14 @@ BfmeParticleSystemHandle __cdecl rva001F50BC(const ParticleSystemTemplate *sysTe
 class ParticleSystemManager
 {
 public:
+	virtual void rva001F9F66();
 	int rva001F5AA4(const ParticleSystemTemplate *sysTemplate, const Object *object, bool createSlaves);
 	BfmeParticleSystemHandle createParticleSystem(const ParticleSystemTemplate *sysTemplate,
 		bool createSlaves);
 private:
 	BfmeParticleSystemHandle findParticleSystemByID(ParticleSystemID id);
 
-	unsigned char m_unmodelled_000[0x48];
+	unsigned char m_unmodelled_000[0x44];
 	ParticleSystemID m_uniqueSystemID;
 	BfmeParticleSystemList m_systems;
 };
