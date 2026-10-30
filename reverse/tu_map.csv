@@ -20651,7 +20651,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x002A7677,30,code,Code/GameEngine/Source/Common/Command.cpp,approved,C,C=0x002A7611..0x002A7695 provisional,Code/GameEngine/Source/GameLogic/Object/Rva002A73B8Dtor.cpp
 0x002A7695,11,code,Code/GameEngine/Source/Common/Command.cpp,approved,C,C=0x002A7611..0x002A76A0 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_malloc_bodies.cpp
 0x002A76A0,193,code,Code/GameEngine/Source/Common/Command.cpp,approved,C,C=0x002A7611..0x002A7761 provisional,Code/GameEngine/Source/Common/Command.cpp
-0x002A7761,44,code,Code/GameEngine/Source/Common/Command.cpp,approved,C,C=0x002A7611..0x002A778D provisional,Code/GameEngine/Source/GameLogic/Object/Rva002A7761Clear.cpp
+0x002A7761,44,code,Code/GameEngine/Source/Common/Command.cpp,approved,C,C=0x002A7611..0x002A778D provisional,Code/GameEngine/Source/Common/Command.cpp
 0x002A778D,52,code,Code/GameEngine/Source/Common/Command.cpp,approved,C,C=0x002A7611..0x002A77C1 provisional,Code/GameEngine/Source/Common/Command.cpp
 0x002A77C1,87,code,Code/GameEngine/Source/Common/Command.cpp,approved,N,N=Code/GameEngine/Source/Common/Command.cpp W=Code/GameEngine/Source/Common/RTS/Command.cpp provisional,Code/GameEngine/Source/Common/Command_AddUpgradableCommandPointsToBonus.cpp
 0x002A7818,393,code,Code/GameEngine/Source/Common/RTS/Player.cpp,proposed,K,K=Rva002AE5EB,Code/GameEngine/Source/Common/Rva002AE5EBXfer.cpp

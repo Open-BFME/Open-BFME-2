@@ -18,6 +18,19 @@ struct Rva002A76A0Element {
 	Rva00360D26Member m_filter;
 };
 #include <vector>
+//
+// ?rva002A7761@Rva002A7761@@QAEXXZ, retail 0x002A7761 44 bytes.
+// Reset method: zeroes +8/+0xc, sets +4 to 100, zeroes +0x18/+0x1c,
+// clears the BfmePod12 vector at +0x20 via the rowed range erase at
+// 0x002A7644, then clears the byte flag at +0x2c. Evidence: leaf lane,
+// single caller at 0x002AFBF2, callee row in StlportVectorEraseRangeFamily.cpp.
+
+struct BfmePod12
+{
+	int m_a;
+	int m_b;
+	int m_c;
+};
 
 //
 // ?RemoveUpgradableCommandPointsFromBonus@Command@@QAEXHW4ObjectID@@@Z @0x002A7611 51B
@@ -67,6 +80,32 @@ template void _STL::vector<Rva002A76A0Element>::_M_insert_overflow(
 template void _STL::vector<Rva002A76A0Element>::push_back(
 	const Rva002A76A0Element &);
 
+namespace _STL
+{
+// Bind the range erase to the rowed 0x002A7644 worker.
+template <> BfmePod12 *vector<BfmePod12, allocator<BfmePod12> >::erase(BfmePod12 *first, BfmePod12 *last);
+}
+
+class Rva002A7761
+{
+public:
+	void rva002A7761();
+
+private:
+	int m_pad0; // +0x00
+	int m_field4; // +0x04
+	int m_field8; // +0x08
+	int m_fieldC; // +0x0c
+	int m_pad10; // +0x10
+	int m_pad14; // +0x14
+	int m_field18; // +0x18
+	int m_field1C; // +0x1c
+	_STL::vector<BfmePod12> m_vec20; // +0x20
+	bool m_flag2C; // +0x2c
+};
+
+// ---- from Code/GameEngine/Source/Common/Command.cpp
+
 // ---- from Code/GameEngine/Source/Common/Command_RemoveUpgradableCommandPointsFromBonus.cpp
 
 void Command::RemoveUpgradableCommandPointsFromBonus(int value, ObjectID id)
@@ -81,12 +120,6 @@ void Command::RemoveUpgradableCommandPointsFromBonus(int value, ObjectID id)
 	}
 }
 
-// tu-skeleton: 0x002A7644 51B ?erase@?$vector@UBfmePod12@@V?$allocator@UBfmePod12@@@_STL@@@_STL@@QAEPAUBfmePod12@@PAU3@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeDeferred.cpp (not merged yet)
-
-// tu-skeleton: 0x002A7677 30B ?rva002A7677@Rva002A7677@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Rva002A73B8Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x002A7695 11B ?clear@?$vector@UBfmePod12@@V?$allocator@UBfmePod12@@@_STL@@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_malloc_bodies.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva002a76a0_overflow.cpp
 
 //
@@ -94,7 +127,25 @@ void Command::RemoveUpgradableCommandPointsFromBonus(int value, ObjectID id)
 //   _M_insert_overflow retail 0x002A76A0, 193B (already matched)
 //   push_back          retail 0x002A778D, 52B (masked twin of AutoPickUp @0x004964BB)
 
-// tu-skeleton: 0x002A7761 44B ?rva002A7761@Rva002A7761@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Rva002A7761Clear.cpp (not merged yet)
+// tu-skeleton: 0x002A7644 51B ?erase@?$vector@UBfmePod12@@V?$allocator@UBfmePod12@@@_STL@@@_STL@@QAEPAUBfmePod12@@PAU3@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeDeferred.cpp (not merged yet)
+
+// tu-skeleton: 0x002A7677 30B ?rva002A7677@Rva002A7677@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Rva002A73B8Dtor.cpp (not merged yet)
+
+// tu-skeleton: 0x002A7695 11B ?clear@?$vector@UBfmePod12@@V?$allocator@UBfmePod12@@@_STL@@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_malloc_bodies.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Rva002A7761Clear.cpp
+
+void Rva002A7761::rva002A7761()
+{
+	_STL::vector<BfmePod12> *pv = &m_vec20;
+	m_field8 = 0;
+	m_fieldC = 0;
+	m_field4 = 100;
+	m_field18 = 0;
+	m_field1C = 0;
+	pv->erase(pv->begin(), pv->end());
+	m_flag2C = false;
+}
 
 // tu-skeleton: 0x002A77C1 87B ?AddUpgradableCommandPointsToBonus@Command@@QAEXHW4ObjectID@@PBX@Z -- matched in Code/GameEngine/Source/Common/Command_AddUpgradableCommandPointsToBonus.cpp (not merged yet)
 
