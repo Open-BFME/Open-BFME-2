@@ -59,6 +59,7 @@ public:
 	virtual void notify04(void *);
 	virtual void notify08(void *);
 	virtual void notify0C(void *);
+	virtual void notify10(void *);
 };
 
 struct Rva003196A7Call
@@ -194,6 +195,7 @@ int GetMaxCommandPoints(void *key);
 class Rva003193EC
 {
 public:
+	void rva00319904(Rva003193EC *other);
 	bool rva003193EC(int x);
 	bool rva00319413(Rva0037DCA5 *p);
 	void rva003190E7(bool flag);
@@ -301,19 +303,28 @@ public:
 
 struct Rva00538CEFPair;
 
-class Rva00538CEF {
+class Rva00538CEF
+{
 public:
 	Rva0020E89C *rva00538CEF();
-public:
 	bool rva00538D17(Rva00538CEFPair *out);
+	void rva00538DC1(const Rva00538CEFPair *,int);
 };
 
-class Rva003195C9Owner
+class Rva003195C9Owner : public Drawable
 {
 public:
 	void rva003195C9();
+	void rva00319831(void *arg);
+	void rva00319E7C();
+	void rva00319AA0(const int *arg);
 private:
-	unsigned char m_pad[0x90];
+	unsigned char m_pad[0x3C];
+	int m_3c;
+	int m_40;
+	int m_44;
+	int m_48;
+	unsigned char m_pad4C[0x44];
 	LivingWorldArmyLine m_90;
 };
 
@@ -349,9 +360,10 @@ struct BfmeVectorRecord00319C84
 
 class Rva00318B5C
 {
-	char _m[16];
 public:
 	Rva00318B5C(const Rva00318B5C &that);
+private:
+	char _m[16]; // +0x00
 };
 
 namespace _STL
@@ -404,7 +416,7 @@ public:
 class Rva002BA8F1Logic
 {
 public:
-	Rva002E2903Player *find(int index, unsigned int *out);	// 0x002B51F8
+	Rva002E2903Player *find(int index, unsigned int *out); // 0x002B51F8
 };
 
 class Rva00318EC0Target
@@ -422,15 +434,16 @@ struct Rva00318EC0Colors
 	int m_color28;	// +0x28
 };
 
-class Rva00318C79Owner {
+class Rva00318C79Owner
+{
 public:
-    Rva00318C32Ret* rva00318C32();
-    int rva00318C79();
-    int rva00318F8B();
+	Rva00318C32Ret* rva00318C32();
+	int rva00318C79();
+	int rva00318F8B();
+	char m_pad00[0x2C];
 private:
-    char m_pad00[0x2C];
-    int m_2c;
-    int m_30;
+	int m_2c; // +0x2C
+	int m_30; // +0x30
 };
 
 class Rva00318FBE
@@ -645,7 +658,7 @@ void Rva003195C9Owner::rva003195C9()
 		{
 			__int64 localStorage;
 			((Rva003190BBOwner *)this)->rva003190BB((int *)&localStorage);
-			m_90.rva00538F6B(&m_pad[0x44], (void *)currentRegion, (void *)&localStorage, (void *)destinationRegion);
+			m_90.rva00538F6B(&m_44, (void *)currentRegion, (void *)&localStorage, (void *)destinationRegion);
 		}
 	}
 }

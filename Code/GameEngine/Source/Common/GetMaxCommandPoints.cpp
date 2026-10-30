@@ -17,14 +17,20 @@ class Rva002E2903Player;
 class Rva002BA8F1Logic
 {
 public:
-	Rva002E2903Player *find(int id, unsigned int *index);
+	Rva002E2903Player *find(int index, unsigned int *out); // 0x002B51F8
 };
 
 class Rva00318C32Ret;
 class Rva00318C79Owner
 {
 public:
-	Rva00318C32Ret *rva00318C32();
+	Rva00318C32Ret* rva00318C32();
+	int rva00318C79();
+	int rva00318F8B();
+	char m_pad00[0x2C];
+private:
+	int m_2c; // +0x2C
+	int m_30; // +0x30
 };
 
 class LivingWorldRegion

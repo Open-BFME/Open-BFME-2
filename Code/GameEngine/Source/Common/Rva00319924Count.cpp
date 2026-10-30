@@ -22,11 +22,12 @@ struct Rva0040DB0ERecord
 	Rva0040DB0EEntry *m_entry;
 };
 
-class Rva0040CB2CIndexedField {
+class Rva0040CB2CIndexedField
+{
 public:
- int get(int index) const;
- char prefix[0x40];
- _STL::vector<Rva0040DB0ERecord> records;
+	int get(int index) const;
+	char prefix[0x40]; // +0x00
+	_STL::vector<Rva0040DB0ERecord> records; // +0x40
 };
 class Rva00319924 {
 public:

@@ -18,9 +18,13 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 #include "ascii_string.h"
 
-class Rva0040CB2CIndexedField {
+struct Rva0040DB0ERecord;
+class Rva0040CB2CIndexedField
+{
 public:
-    int get(int index) const;
+	int get(int index) const;
+	char prefix[0x40]; // +0x00
+	_STL::vector<Rva0040DB0ERecord> records; // +0x40
 };
 
 class Rva00319A12Helper {

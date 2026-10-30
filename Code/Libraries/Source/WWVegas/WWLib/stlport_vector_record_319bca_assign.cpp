@@ -16,9 +16,10 @@ struct BfmeVectorRecord00319C84
 };
 class Rva00318B5C
 {
-	char _m[0x10];
 public:
 	Rva00318B5C(const Rva00318B5C &that);
+private:
+	char _m[16]; // +0x00
 };
 namespace _STL
 {

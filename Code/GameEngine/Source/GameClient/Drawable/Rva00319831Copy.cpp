@@ -43,22 +43,46 @@ public:
 	virtual void notify10(void *);
 };
 
+struct Rva003196A7Call
+{
+	void (Rva003197EEListener::*notify)(void *);
+	void *arg;
+};
+
 class Rva003197EEList
 {
 public:
 	void forEach(void (Rva003197EEListener::*notify)(void *), void *arg);
+	void apply(const Rva003196A7Call &call);
+
+private:
+	Rva003197EEListener **m_begin;		// +0x00
+	Rva003197EEListener **m_end;		// +0x04
+	Rva003197EEListener **m_capacity;	// +0x08
+	unsigned int m_index;	// +0x0C
+};
+
+class LivingWorldArmyLine
+{
+public:
+	void rva00538F6B(void *a, void *b, void *c, void *d);
 };
 
 class Rva003195C9Owner : public Drawable
 {
 public:
+	void rva003195C9();
 	void rva00319831(void *arg);
+	void rva00319E7C();
+	void rva00319AA0(const int *arg);
 private:
-	unsigned char m_pad[0x3c];
+	unsigned char m_pad[0x3C];
 	int m_3c;
 	int m_40;
 	int m_44;
 	int m_48;
+	unsigned char m_pad4C[0x44];
+	LivingWorldArmyLine m_90;
 };
 
 void Rva003195C9Owner::rva00319831(void *arg)
