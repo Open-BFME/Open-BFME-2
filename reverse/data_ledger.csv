@@ -5685,7 +5685,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x0080D6CC,40,.rdata,string,??_C@_0CA@OPCPAEBN@ControlBar?4wnd?3ExpBarForeground?$AA@,,literal,,0,1
 0x0080D6F4,12,.rdata,string,??_C@_08JBPJIKEO@Observer?$AA@,,literal,,0,2
 0x0080D700,32,.rdata,string,??_C@_0BL@JAFHMCHB@NonCommand_BriefingHistory?$AA@,,literal,,0,1
-0x0080D720,104,.rdata,global,?g_0080D720@@3QBUFieldParse@@B,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva00320158.cpp,provisional,?g_0080D720@@3QBUFieldParse@@B;?g_0080D720@@3UFieldParse@@B,1,2
+0x0080D720,104,.rdata,global,?g_0080D720@@3QBUFieldParse@@B,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarScheme.cpp,provisional,?g_0080D720@@3QBUFieldParse@@B;?g_0080D720@@3UFieldParse@@B,1,2
 0x0080D788,96,.rdata,global,?g_0080D788@@3QBUFieldParse@@B,,unowned,,0,1
 0x0080D7E8,32,.rdata,string,??_C@_0BO@BOPNFCLO@Data?2INI?2ControlBarScheme?4ini?$AA@,,literal,,0,1
 0x0080D808,40,.rdata,string,??_C@_0CG@JFFMFCGB@Data?2INI?2Default?2ControlBarSchem@,,literal,,0,1

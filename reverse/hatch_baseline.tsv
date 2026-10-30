@@ -2743,7 +2743,7 @@ alternatename	Code/GameEngine/Source/GameClient/GUI/BfmeAptScreenBaseConstructor
 alternatename	Code/GameEngine/Source/GameClient/GUI/BfmeAptWindowManagerSetText.cpp	?Rva00222CCBBuild@@YA?AVRva00222719Temp@@PAPAVRva00222CCB@@0V1@@Z	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/BfmeQuickMatchScreenBaseConstructor.cpp	?bfmeSlot0@BfmeQuickMatchScreenBase@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/BfmeQuickMatchScreenBaseConstructor.cpp	?bfmeSlot1@BfmeQuickMatchScreenBase@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva00320158.cpp	?g_0080D720@@3UFieldParse@@B	1
+alternatename	Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarScheme.cpp	?g_0080D720@@3UFieldParse@@B	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_Rva0035B03E.cpp	?isValidRelationshipTarget@CommandButton@@QBE_NW4Relationship@@@Z	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/DisconnectMenu/DisconnectMenu.cpp	?g_Va007C9260@@3QBGB	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHeroCtor.cpp	?DoXfer@CreateAHeroData@@UAEXAAVXfer@@@Z	1

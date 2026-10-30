@@ -47,7 +47,6 @@ struct LookupListRec { const char* name; int value; };
 class ControlBarScheme;
 #include "../../../../../Libraries/Include/Lib/Coord2D.h"
 #include "ControlBarSchemeManagerView.h"
-#include "ascii_string.h"
 #include "../../../../../Libraries/Include/Lib/ICoord2D.h"
 class PlayerTemplate
 {
@@ -129,7 +128,6 @@ public:
 struct Bfme939Helper : public RecorderClass
 {
 };
-class RecorderClass;
  extern RecorderClass *TheRecorder;
 class Player
 {
@@ -155,6 +153,53 @@ template <typename T> struct BfmeStringData
 #include <new>
 #define _STLP_NO_EXCEPTIONS 1
 #define _STLP_USE_STATIC_LIB 1
+// platformsdk
+// ?init@ControlBarScheme@@QAEXXZ
+// Native boundary: Ghidra FUN_0071ed2c, 0x0031ED2C..0x0031F743 (ret at F742).
+// Donor: Open-BFME-1 6583b3c1ff21db4a561285717028fdafc780b7db,
+// game/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarScheme.cpp.
+// Identity: the complete donor image/window setup sequence, the ten window
+// names and their native nameToKey / window-manager calls, the creation
+// resolution at +4/+8, and the image/rectangle accesses agree independently.
+// Member labels and the repeated positioning algorithm follow the donor.
+// Target layout: fifth border color at +2C; images and rectangles at the
+// offsets below; ControlBar border/arrow slots are +22C/+26C here.
+// The called helper names retain the existing ledger's address-derived types
+// where its current recovered declarations do not establish an original name.
+// Only the virtual slots observed by this body are declared in the call views.
+typedef int Int;
+typedef int Color;
+#define INT_TO_REAL(x) ((float)(x))
+#include <windows.h>
+//
+// ?Rva00320158Parse@@YAXPAVINI@@PAVRva003200BC@@@Z, retail 0x00320158, 81 bytes.
+// ControlBar factory (chain: calls 0x0031F7AB now ready). Evidence: news 0x1C
+// via rowed ??2@YAPAXI@Z then rowed ??0Rva0031F7AB@@QAE@XZ; rowed
+// ?initFromINI@INI@@QAEXPAXPBUFieldParse@@@Z with table 0x0080D720; rowed
+// ?addImage@Rva003200BC@@QAEXH@Z with new object; prev/next
+// ControlBarList003200A2/ControlBarScheme share class and flags. Honest
+// free-function name (no proven class): Rva00320158 + Parse.
+
+class INI;
+typedef void (*INIFieldParseProc)(INI *, void *, void *, const void *);
+struct FieldParse
+{
+public:
+	const char *token; // +0x00
+	INIFieldParseProc parse; // +0x04
+	const void *userData; // +0x08
+	int offset; // +0x0C
+};
+#pragma comment(linker, "/alternatename:?g_0080D720@@3UFieldParse@@B=?g_0080D720@@3QBUFieldParse@@B")
+//
+// ?Rva003201A9Parse@@YAXPAVINI@@PAX@Z, retail 0x003201A9, 92 bytes. ControlBar
+// factory sibling of 0x00320158 (chain: calls 0x0031F7EB now ready).
+// Evidence: news 0x24 via rowed ??2@YAPAXI@Z then rowed ??0Rva0031F7EB@@QAE@XZ;
+// rowed ?initFromINI@INI@@QAEXPAXPBUFieldParse@@@Z with table 0x0080D788;
+// rowed ?addAnimation@Rva003200A2@@QAEXH@Z with new object then rowed
+// ?addImage@Rva003200BC@@QAEXH@Z with [esi+8]; prev 0x00320158 shares flags.
+
+typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
 
 // Target extent: 0x005F8376..0x005F8387, bounded by Ghidra functions
 // [0x005F835A,0x005F8376) and [0x005F8388,...). The body copies the two
@@ -279,11 +324,6 @@ class Rva002004FD { public: ~Rva002004FD(); };
 // Evidence: retail push esi mov esi ecx call test flag delete ret 4 shape; QAE non-virtual so QAEPAXI; chain from 0x0031F831 landing.
 class Rva0031F831 { public: ~Rva0031F831(); };
 
-// ?rva0031F89E@Rva0031F89E@@QAEXMMHH@Z @0x0031F89E 209B unlock: draw three lists via TheDisplay float draw
-// Evidence: triple list at +0x158 plus entry ints at +4 plus Image at +0x14 via rowed W3DDisplay draw 0x4D6B3 plus TheDisplay 0xDFE9D8; caller 0x31FABC; prev deleting dtor /O1 /MD next Rva0031FA40Create.
-
-class Display;
-
 class W3DDisplay
 {
 public:
@@ -377,11 +417,391 @@ void _STLP_alloc_proxy<_List_node<ControlBarScheme *> *, _List_node<ControlBarSc
 }
 }
 
-// tu-skeleton: 0x0031ED2C 2583B ?init@ControlBarScheme@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSchemeInit.cpp (not merged yet)
+class ModuleData;
+
+class Rva0031410CDwordSlot { public: void set(int); };
+
+class Rva0031BE07 { public: void rva0031BE58(const ModuleData *); };
+
+struct BfmeControlBarSchemeInitBar {
+ unsigned char pad0[0x22c]; Color m_commandBarBorderColor;
+ unsigned char pad230[0x26c-0x230]; const Image *m_genArrow;
+};
+
+class GameWindow {
+public:
+ GameWindow *winGetParent();
+ int winGetScreenPosition(int *,int *);
+ int winSetPosition(int,int);
+ int winSetSize(int,int);
+ int winSetEnabledImage(int,const Image *);
+ int winSetDisabledImage(int,const Image *);
+};
+
+void GadgetButtonSetEnabledImage_Rva002C0433(GameWindow *, const Image *);
+
+void GadgetButtonSetHiliteImage_Rva002C04DB(GameWindow *, const Image *);
+
+void GadgetButtonSetHiliteImage123_Rva002C0505(GameWindow *, const Image *);
+
+void GadgetButtonSetDisabledImage_Rva002C0487(GameWindow *, const Image *);
+
+enum { COMMAND_BAR_SIZE_OFFSET=0 };
+
+struct BfmeControlBarSchemeInitView
+{
+	AsciiString m_name;
+	ICoord2D m_ScreenCreationRes;
+	AsciiString m_side;
+	Image *m_buttonQueueImage;
+	Image *m_rightHUDImage;					///< +0x14
+	Color m_buildUpClockColor;				///< +0x18
+	Color m_borderBuildColor;				///< +0x1c
+	Color m_borderActionColor;
+	Color m_borderUpgradeColor;
+	Color m_borderSystemColor;
+	Color m_bfmeBorderFifthColor;			///< +0x2c
+	Color m_commandBarBorderColor;			///< +0x30
+	Image *m_optionsButtonEnable;			///< +0x34
+	Image *m_optionsButtonHightlited;
+	Image *m_optionsButtonPushed;
+	Image *m_optionsButtonDisabled;
+	Image *m_idleWorkerButtonEnable;		///< +0x44
+	Image *m_idleWorkerButtonHightlited;
+	Image *m_idleWorkerButtonPushed;
+	Image *m_idleWorkerButtonDisabled;
+	Image *m_buddyButtonEnable;				///< +0x54
+	Image *m_buddyButtonHightlited;
+	Image *m_buddyButtonPushed;
+	Image *m_buddyButtonDisabled;
+	Image *m_beaconButtonEnable;			///< +0x64
+	Image *m_beaconButtonHightlited;
+	Image *m_beaconButtonPushed;
+	Image *m_beaconButtonDisabled;
+	Image *m_genBarButtonIn;				///< +0x74
+	Image *m_genBarButtonOn;
+	Image *m_toggleButtonUpIn;				///< +0x7c
+	Image *m_toggleButtonUpOn;
+	Image *m_toggleButtonUpPushed;
+	Image *m_toggleButtonDownIn;
+	Image *m_toggleButtonDownOn;
+	Image *m_toggleButtonDownPushed;
+	Image *m_generalButtonEnable;			///< +0x94
+	Image *m_generalButtonHightlited;
+	Image *m_generalButtonPushed;
+	Image *m_generalButtonDisabled;
+	Image *m_uAttackButtonEnable;			///< +0xa4
+	Image *m_uAttackButtonHightlited;
+	Image *m_uAttackButtonPushed;
+	Image *m_minMaxButtonEnable;			///< +0xb0
+	Image *m_minMaxButtonHightlited;
+	Image *m_minMaxButtonPushed;
+	Image *m_genArrow;						///< +0xbc
+	ICoord2D m_moneyUL;						///< +0xc0
+	ICoord2D m_moneyLR;
+	ICoord2D m_minMaxUL;
+	ICoord2D m_minMaxLR;
+	ICoord2D m_generalUL;
+	ICoord2D m_generalLR;
+	ICoord2D m_uAttackUL;					///< +0xf0
+	ICoord2D m_uAttackLR;
+	ICoord2D m_optionsUL;
+	ICoord2D m_optionsLR;
+	ICoord2D m_workerUL;
+	ICoord2D m_workerLR;
+	ICoord2D m_chatUL;						///< +0x120
+	ICoord2D m_chatLR;
+	ICoord2D m_beaconUL;
+	ICoord2D m_beaconLR;
+	ICoord2D m_powerBarUL;
+	ICoord2D m_powerBarLR;
+	Image *m_expBarForeground;				///< +0x150
+	Image *m_commandMarkerImage;			///< +0x154
+};
+
+// Matched consumers place this table at VA 0x00C0D720 (.rdata). Retail has
+// four records and a zero sentinel; the next token, "FinalPos", begins at
+// VA 0x00C0D770. The callbacks are rowed INI parsers and the offsets fit the
+// 0x1C-byte Rva0031F7AB object.
+extern const FieldParse g_0080D720[] = {
+	{ "Position", &INI::parseICoord2D, 0, 0x04 },
+	{ "Size", &INI::parseICoord2D, 0, 0x0C },
+	{ "ImageName", &INI::parseMappedImage, 0, 0x14 },
+	{ "Layer", &INI::parseInt, 0, 0x18 },
+	{ 0, 0, 0, 0 }
+};
+
+// The retail lookup list at RVA 0x0080D1D8 (1 names and the null terminator).
+extern const LookupListRec AnimTypeNames[2] = { { "SLIDE_RIGHT", 0 }, { 0, 0 } };
+
+extern "C" {
+void __identifier("?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z")();
+void __identifier("?parseLookupList@INI@@SAXPAV1@PAX1PBX@Z")();
+void __identifier("?parseDurationUnsignedInt@INI@@SAXPAV1@PAX1PBX@Z")();
+void __identifier("?parseICoord2D@INI@@SAXPAV1@PAX1PBX@Z")();
+void __identifier("?Rva0031FA40Create@@YAXPAVINI@@PAURva0031FA40Out@@@Z")();
+}
+
+// The retail table at 0x0080D788: 5 entries and the null terminator; every parser is a rowed code owner.
+extern const FieldParse g_0080D788[6] = {
+	{ "Name", (FieldParseProc)&__identifier("?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x0 },
+	{ "Animation", (FieldParseProc)&__identifier("?parseLookupList@INI@@SAXPAV1@PAX1PBX@Z"), AnimTypeNames, 0x4 },
+	{ "Duration", (FieldParseProc)&__identifier("?parseDurationUnsignedInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0xC },
+	{ "FinalPos", (FieldParseProc)&__identifier("?parseICoord2D@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x10 },
+	{ "ImagePart", (FieldParseProc)&__identifier("?Rva0031FA40Create@@YAXPAVINI@@PAURva0031FA40Out@@@Z"), 0, 0x0 },
+	{ 0, 0, 0, 0 }
+};
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSchemeInit.cpp
+
+void ControlBarScheme::init(void)
+{
+	BfmeControlBarSchemeInitView *self = (BfmeControlBarSchemeInitView *)this;
+	if(TheControlBar)
+	{
+		TheControlBar->switchControlBarStage(CONTROL_BAR_STAGE_DEFAULT);
+		TheControlBar->updateRightHUDImage(self->m_rightHUDImage);
+		((Rva0031410CDwordSlot *)TheControlBar)->set( self->m_buildUpClockColor );
+		TheControlBar->rva0031AD14(self->m_borderBuildColor, self->m_borderActionColor, self->m_borderUpgradeColor, self->m_borderSystemColor, self->m_bfmeBorderFifthColor);
+		((BfmeControlBarSchemeInitBar *)TheControlBar)->m_commandBarBorderColor = self->m_commandBarBorderColor;
+		((Rva0031BE07 *)TheControlBar)->rva0031BE58((const ModuleData *)self->m_commandMarkerImage);
+		TheControlBar->rva0031B1BC(self->m_toggleButtonUpIn, self->m_toggleButtonUpOn, self->m_toggleButtonUpPushed, self->m_toggleButtonDownIn, self->m_toggleButtonDownOn, self->m_toggleButtonDownPushed, self->m_generalButtonEnable, self->m_generalButtonHightlited);
+		((BfmeControlBarSchemeInitBar *)TheControlBar)->m_genArrow = self->m_genArrow;
+	}
+	GameWindow *win = NULL;
+	Coord2D resMultiplier;
+	resMultiplier.x = TheDisplay->getWidth()/INT_TO_REAL(self->m_ScreenCreationRes.x) ;
+	resMultiplier.y = TheDisplay->getHeight()/INT_TO_REAL(self->m_ScreenCreationRes.y);
+
+	win= TheWindowManager->winGetWindowFromId( NULL, TheNameKeyGenerator->nameToKey( "ControlBar.wnd:PopupCommunicator" ) );
+	if(win)
+	{
+		GadgetButtonSetEnabledImage_Rva002C0433(win, self->m_buddyButtonEnable);
+		GadgetButtonSetHiliteImage_Rva002C04DB(win, self->m_buddyButtonHightlited);
+		GadgetButtonSetHiliteImage123_Rva002C0505(win, self->m_buddyButtonPushed);
+		GadgetButtonSetDisabledImage_Rva002C0487(win, self->m_buddyButtonDisabled);
+
+		Int x, y;
+		GameWindow* parent =win->winGetParent();
+		if(parent)
+		{
+			Int parX, parY;
+			parent->winGetScreenPosition(&parX, &parY);
+			x = self->m_chatUL.x * resMultiplier.x - parX;
+			y = self->m_chatUL.y * resMultiplier.y - parY;
+		}
+		else
+		{
+			x = self->m_chatUL.x * resMultiplier.x;
+			y = self->m_chatUL.y * resMultiplier.y;
+		}
+		win->winSetPosition(x,y );
+		win->winSetSize((self->m_chatLR.x - self->m_chatUL.x)*resMultiplier.x + COMMAND_BAR_SIZE_OFFSET,(self->m_chatLR.y - self->m_chatUL.y)*resMultiplier.y+ COMMAND_BAR_SIZE_OFFSET);
+	}
+	win= TheWindowManager->winGetWindowFromId( NULL, TheNameKeyGenerator->nameToKey( "ControlBar.wnd:ButtonIdleWorker" ) );
+	if(win)
+	{
+		GadgetButtonSetEnabledImage_Rva002C0433(win, self->m_idleWorkerButtonEnable);
+		GadgetButtonSetHiliteImage_Rva002C04DB(win, self->m_idleWorkerButtonHightlited);
+		GadgetButtonSetHiliteImage123_Rva002C0505(win, self->m_idleWorkerButtonPushed);
+		GadgetButtonSetDisabledImage_Rva002C0487(win, self->m_idleWorkerButtonDisabled);
+
+		Int x, y;
+		GameWindow* parent =win->winGetParent();
+		if(parent)
+		{
+			Int parX, parY;
+			parent->winGetScreenPosition(&parX, &parY);
+			x = self->m_workerUL.x * resMultiplier.x - parX;
+			y = self->m_workerUL.y * resMultiplier.y - parY;
+		}
+		else
+		{
+			x = self->m_workerUL.x * resMultiplier.x;
+			y = self->m_workerUL.y * resMultiplier.y;
+		}
+		win->winSetPosition(x,y );
+
+		win->winSetSize((self->m_workerLR.x - self->m_workerUL.x)*resMultiplier.x+ COMMAND_BAR_SIZE_OFFSET,(self->m_workerLR.y - self->m_workerUL.y)*resMultiplier.y+ COMMAND_BAR_SIZE_OFFSET);
+
+	}
+	win= TheWindowManager->winGetWindowFromId( NULL, TheNameKeyGenerator->nameToKey( "ControlBar.wnd:ExpBarForeground" ) );
+	if(win)
+	{
+		win->winSetEnabledImage(0, self->m_expBarForeground);
+	}
+	win= TheWindowManager->winGetWindowFromId( NULL, TheNameKeyGenerator->nameToKey( "ControlBar.wnd:ButtonOptions" ) );
+	if(win)
+	{
+		GadgetButtonSetEnabledImage_Rva002C0433(win, self->m_optionsButtonEnable);
+		GadgetButtonSetHiliteImage_Rva002C04DB(win, self->m_optionsButtonHightlited);
+		GadgetButtonSetHiliteImage123_Rva002C0505(win, self->m_optionsButtonPushed);
+		GadgetButtonSetDisabledImage_Rva002C0487(win, self->m_optionsButtonDisabled);
+		Int x, y;
+		GameWindow* parent =win->winGetParent();
+		if(parent)
+		{
+			Int parX, parY;
+			parent->winGetScreenPosition(&parX, &parY);
+			x = self->m_optionsUL.x * resMultiplier.x - parX;
+			y = self->m_optionsUL.y * resMultiplier.y - parY;
+		}
+		else
+		{
+			x = self->m_optionsUL.x * resMultiplier.x;
+			y = self->m_optionsUL.y * resMultiplier.y;
+		}
+		win->winSetPosition(x,y );
+		win->winSetSize((self->m_optionsLR.x - self->m_optionsUL.x)*resMultiplier.x+ COMMAND_BAR_SIZE_OFFSET,(self->m_optionsLR.y - self->m_optionsUL.y)*resMultiplier.y+ COMMAND_BAR_SIZE_OFFSET);
+	}
+	win= TheWindowManager->winGetWindowFromId( NULL, TheNameKeyGenerator->nameToKey( "ControlBar.wnd:ButtonPlaceBeacon" ) );
+	if(win)
+	{
+		GadgetButtonSetEnabledImage_Rva002C0433(win, self->m_beaconButtonEnable);
+		GadgetButtonSetHiliteImage_Rva002C04DB(win, self->m_beaconButtonHightlited);
+		GadgetButtonSetHiliteImage123_Rva002C0505(win, self->m_beaconButtonPushed);
+		GadgetButtonSetDisabledImage_Rva002C0487(win, self->m_beaconButtonDisabled);
+
+		Int x, y;
+		GameWindow* parent =win->winGetParent();
+		if(parent)
+		{
+			Int parX, parY;
+			parent->winGetScreenPosition(&parX, &parY);
+			x = self->m_beaconUL.x * resMultiplier.x - parX;
+			y = self->m_beaconUL.y * resMultiplier.y - parY;
+		}
+		else
+		{
+			x = self->m_beaconUL.x * resMultiplier.x;
+			y = self->m_beaconUL.y * resMultiplier.y;
+		}
+		win->winSetPosition(x,y );
+		win->winSetSize((self->m_beaconLR.x - self->m_beaconUL.x)*resMultiplier.x+ COMMAND_BAR_SIZE_OFFSET,(self->m_beaconLR.y - self->m_beaconUL.y)*resMultiplier.y+ COMMAND_BAR_SIZE_OFFSET);
+	}
+
+	win= TheWindowManager->winGetWindowFromId( NULL, TheNameKeyGenerator->nameToKey( "ControlBar.wnd:MoneyDisplay" ) );
+	if(win)
+	{
+
+		Int x, y;
+		GameWindow* parent =win->winGetParent();
+		if(parent)
+		{
+			Int parX, parY;
+			parent->winGetScreenPosition(&parX, &parY);
+			x = self->m_moneyUL.x * resMultiplier.x - parX;
+			y = self->m_moneyUL.y * resMultiplier.y - parY;
+		}
+		else
+		{
+			x = self->m_moneyUL.x * resMultiplier.x;
+			y = self->m_moneyUL.y * resMultiplier.y;
+		}
+		win->winSetPosition(x,y );
+		win->winSetSize((self->m_moneyLR.x - self->m_moneyUL.x)*resMultiplier.x+ COMMAND_BAR_SIZE_OFFSET,(self->m_moneyLR.y - self->m_moneyUL.y)*resMultiplier.y+ COMMAND_BAR_SIZE_OFFSET);
+	}
+
+	win= TheWindowManager->winGetWindowFromId( NULL, TheNameKeyGenerator->nameToKey( "ControlBar.wnd:PowerWindow" ) );
+	if(win)
+	{
+
+		Int x, y;
+		GameWindow* parent =win->winGetParent();
+		if(parent)
+		{
+			Int parX, parY;
+			parent->winGetScreenPosition(&parX, &parY);
+			x = self->m_powerBarUL.x * resMultiplier.x - parX;
+			y = self->m_powerBarUL.y * resMultiplier.y - parY;
+		}
+		else
+		{
+			x = self->m_powerBarUL.x * resMultiplier.x;
+			y = self->m_powerBarUL.y * resMultiplier.y;
+		}
+		win->winSetPosition(x,y );
+		win->winSetSize((self->m_powerBarLR.x - self->m_powerBarUL.x)*resMultiplier.x+ COMMAND_BAR_SIZE_OFFSET,(self->m_powerBarLR.y - self->m_powerBarUL.y)*resMultiplier.y+ COMMAND_BAR_SIZE_OFFSET);
+	}
+
+	win= TheWindowManager->winGetWindowFromId( NULL, TheNameKeyGenerator->nameToKey( "ControlBar.wnd:ButtonGeneral" ) );
+	if(win)
+	{
+
+		GadgetButtonSetEnabledImage_Rva002C0433(win, self->m_generalButtonEnable);
+		GadgetButtonSetHiliteImage_Rva002C04DB(win, self->m_generalButtonHightlited);
+		GadgetButtonSetHiliteImage123_Rva002C0505(win, self->m_generalButtonPushed);
+		GadgetButtonSetDisabledImage_Rva002C0487(win, self->m_generalButtonDisabled);
+
+		Int x, y;
+		GameWindow* parent =win->winGetParent();
+		if(parent)
+		{
+			Int parX, parY;
+			parent->winGetScreenPosition(&parX, &parY);
+			x = self->m_generalUL.x * resMultiplier.x - parX;
+			y = self->m_generalUL.y * resMultiplier.y - parY;
+		}
+		else
+		{
+			x = self->m_generalUL.x * resMultiplier.x;
+			y = self->m_generalUL.y * resMultiplier.y;
+		}
+		win->winSetPosition(x,y );
+		win->winSetSize((self->m_generalLR.x - self->m_generalUL.x)*resMultiplier.x+ COMMAND_BAR_SIZE_OFFSET,(self->m_generalLR.y - self->m_generalUL.y)*resMultiplier.y+ COMMAND_BAR_SIZE_OFFSET);
+	}
+
+	win= TheWindowManager->winGetWindowFromId( NULL, TheNameKeyGenerator->nameToKey( "ControlBar.wnd:ButtonLarge" ) );
+	if(win)
+	{
+		Int x, y;
+		GameWindow* parent =win->winGetParent();
+		if(parent)
+		{
+			Int parX, parY;
+			parent->winGetScreenPosition(&parX, &parY);
+			x = self->m_minMaxUL.x * resMultiplier.x - parX;
+			y = self->m_minMaxUL.y * resMultiplier.y - parY;
+		}
+		else
+		{
+			x = self->m_minMaxUL.x * resMultiplier.x;
+			y = self->m_minMaxUL.y * resMultiplier.y;
+		}
+		win->winSetPosition(x,y );
+		win->winSetSize((self->m_minMaxLR.x - self->m_minMaxUL.x)*resMultiplier.x + COMMAND_BAR_SIZE_OFFSET,(self->m_minMaxLR.y - self->m_minMaxUL.y)*resMultiplier.y + COMMAND_BAR_SIZE_OFFSET);
+	}
+
+	win= TheWindowManager->winGetWindowFromId( NULL, TheNameKeyGenerator->nameToKey( "ControlBar.wnd:WinUAttack" ) );
+	if(win)
+	{
+		win->winSetEnabledImage(0,self->m_uAttackButtonEnable);
+		win->winSetDisabledImage(0,self->m_uAttackButtonHightlited);
+
+		Int x, y;
+		GameWindow* parent =win->winGetParent();
+		if(parent)
+		{
+			Int parX, parY;
+			parent->winGetScreenPosition(&parX, &parY);
+			x = self->m_uAttackUL.x * resMultiplier.x - parX;
+			y = self->m_uAttackUL.y * resMultiplier.y - parY;
+		}
+		else
+		{
+			x = self->m_uAttackUL.x * resMultiplier.x;
+			y = self->m_uAttackUL.y * resMultiplier.y;
+		}
+		win->winSetPosition(x,y );
+		win->winSetSize((self->m_uAttackLR.x - self->m_uAttackUL.x)*resMultiplier.x+ COMMAND_BAR_SIZE_OFFSET,(self->m_uAttackLR.y - self->m_uAttackUL.y)*resMultiplier.y+ COMMAND_BAR_SIZE_OFFSET);
+	}
+}
 
 // tu-skeleton: 0x0031F743 86B ?animSlideRight@@YAXPAVControlBarSchemeAnimation@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarScheme_animSlideRight.cpp (not merged yet)
 
 // tu-skeleton: 0x0031F799 18B ?updateAnim@ControlBarScheme@@QAEXPAVControlBarSchemeAnimation@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarScheme_trolBarScheme_QAEXPAVControlBarSchemeAnimation_Z.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarScheme.cpp
 
 // ---- from Code/GameEngine/Source/Common/Rva0031F7ABCtor.cpp
 
@@ -422,8 +842,6 @@ Rva0031F7EB::Rva0031F7EB()
 	m_h = 0;
 }
 
-// tu-skeleton: 0x0031F831 9B ??1Rva0031F831@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0031F831Dtor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-14-2004FD.cpp
 
 // ?famgenDelete002004FD@@YAXPAVRva002004FD@@@Z present-unmatched
@@ -433,8 +851,6 @@ void famgenDelete002004FD(Rva002004FD *p) { delete p; }
 
 // ?famgenDelete0031F831@@YAXPAVRva0031F831@@@Z present-unmatched
 void famgenDelete0031F831(Rva0031F831 *p) { delete p; }
-
-// tu-skeleton: 0x0031F872 44B ?update@ControlBarScheme@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarScheme_ControlBarScheme_update.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva0031F89E.cpp
 
@@ -505,12 +921,6 @@ void Rva0031FA8E::rva0031FA8E()
 	if (m_scheme)
 		m_scheme->update();
 }
-
-// tu-skeleton: 0x0031FA9A 43B ?drawForeground@ControlBarSchemeManager@@QAEXUICoord2D@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarScheme_drawLayers.cpp (not merged yet)
-
-// tu-skeleton: 0x0031FAC5 43B ?drawBackground@ControlBarSchemeManager@@QAEXUICoord2D@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarScheme_drawLayers.cpp (not merged yet)
-
-// tu-skeleton: 0x0031FAF0 280B ?reset@ControlBarScheme@@QAEXXZ -- matched in Code/GameEngine/Source/Common/ControlBarScheme_reset.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/ControlBarSchemeManager_findControlBarScheme.cpp
 
@@ -664,10 +1074,6 @@ void ControlBarSchemeManager::setControlBarSchemeByPlayer(Player *player)
 		m_currentScheme->init();
 }
 
-// tu-skeleton: 0x0032002C 105B ??1ControlBarScheme@@QAE@XZ -- matched in Code/GameEngine/Source/Common/ControlBarScheme.cpp (not merged yet)
-
-// tu-skeleton: 0x00320095 13B ??_F?$list@HV?$allocator@H@_STL@@@_STL@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/Rva004CEB76ListSort.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarList003200A2.cpp
 
 // ?addAnimation@Rva003200A2@@QAEXH@Z @0x003200A2 26B.
@@ -714,12 +1120,6 @@ ControlBarSchemeManager::ControlBarSchemeManager()
 	m_multiplyer.x = m_multiplyer.y = 1.0f;
 }
 
-// tu-skeleton: 0x0032013C 28B ??_GControlBarScheme@@QAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSchemeManagerDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00320158 81B ?Rva00320158Parse@@YAXPAVINI@@PAVRva003200BC@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva00320158.cpp (not merged yet)
-
-// tu-skeleton: 0x003201A9 92B ?Rva003201A9Parse@@YAXPAVINI@@PAX@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva003201A9.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarScheme.cpp
 
 //
@@ -763,6 +1163,44 @@ void Rva0031ED01::rva0031ED01(Rva0031ED01Words words)
     word1C = words.second;
 }
 
+// tu-skeleton: 0x0031F831 9B ??1Rva0031F831@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0031F831Dtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0031F872 44B ?update@ControlBarScheme@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarScheme_ControlBarScheme_update.cpp (not merged yet)
+
+// tu-skeleton: 0x0031FA9A 43B ?drawForeground@ControlBarSchemeManager@@QAEXUICoord2D@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarScheme_drawLayers.cpp (not merged yet)
+
+// tu-skeleton: 0x0031FAC5 43B ?drawBackground@ControlBarSchemeManager@@QAEXUICoord2D@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarScheme_drawLayers.cpp (not merged yet)
+
+// tu-skeleton: 0x0031FAF0 280B ?reset@ControlBarScheme@@QAEXXZ -- matched in Code/GameEngine/Source/Common/ControlBarScheme_reset.cpp (not merged yet)
+
+// tu-skeleton: 0x0032002C 105B ??1ControlBarScheme@@QAE@XZ -- matched in Code/GameEngine/Source/Common/ControlBarScheme.cpp (not merged yet)
+
+// tu-skeleton: 0x00320095 13B ??_F?$list@HV?$allocator@H@_STL@@@_STL@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/Rva004CEB76ListSort.cpp (not merged yet)
+
+// tu-skeleton: 0x0032013C 28B ??_GControlBarScheme@@QAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSchemeManagerDtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva00320158.cpp
+
+// Rva0031FA40Create declared the same target as one FieldParse, producing a
+// different COFF decoration. Bind that spelling to the single array above.
+
+void Rva00320158Parse(INI *ini, Rva003200BC *holder)
+{
+	Rva0031F7AB *obj = new Rva0031F7AB;
+	ini->initFromINI(obj, g_0080D720);
+	holder->addImage((int)obj);
+}
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva003201A9.cpp
+
+void Rva003201A9Parse(INI *ini, void *holder)
+{
+	Rva0031F7EB *obj = new Rva0031F7EB;
+	ini->initFromINI(obj, g_0080D788);
+	((Rva003200A2 *)holder)->addAnimation((int)obj);
+	((Rva003200BC *)holder)->addImage(obj->m_b);
+}
+
 // tu-skeleton: 0x00320291 584B ??0ControlBarScheme@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarScheme_ControlBarScheme_Ctor.cpp (not merged yet)
 
 // tu-skeleton: 0x003204D9 101B ??1ControlBarSchemeManager@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSchemeManagerDtor.cpp (not merged yet)
@@ -785,7 +1223,7 @@ void Rva0031ED01::rva0031ED01(Rva0031ED01Words words)
 
 // tu-skeleton: 0x0077AF8B 24B uw_0077af8b -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarScheme_ControlBarScheme_Ctor.cpp (not merged yet)
 
-// tu-skeleton: 0x0077AFA3 14B uw_0077afa3 -- matched in Code/gen_small/uw_gen_011.cpp (not merged yet)
+// tu-skeleton: 0x0077AFA3 14B $L51437 -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarScheme_ControlBarScheme_Ctor.cpp (not merged yet)
 
 // tu-skeleton: 0x0077AFB1 10B __ehhandler$??0ControlBarScheme@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarScheme_ControlBarScheme_Ctor.cpp (not merged yet)
 
