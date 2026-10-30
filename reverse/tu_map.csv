@@ -4321,7 +4321,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00078929,7,code,,,-,,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp
 0x00078930,17,code,,,-,,Code/GameEngine/Source/Common/GapBodiesGE31.cpp
 0x00078941,13,code,,,-,,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp
-0x0007894E,61,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,N,N=Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp provisional,Code/GameEngine/Source/Common/Rva0007894EGet.cpp
+0x0007894E,61,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,N,N=Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp provisional,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp
 0x0007898B,21,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,C,C=0x0007894E..0x000789A0 provisional,Code/GameEngine/Source/Common/Rva000789A0Update.cpp
 0x000789A0,67,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,N,N=Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp provisional,Code/GameEngine/Source/Common/Rva000789A0Update.cpp
 0x000789E3,159,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,U,N=Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DHordeModelDraw.cpp provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DHordeModelDrawModuleDataCtor.cpp
@@ -4333,12 +4333,12 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00078B2B,13,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,C,C=0x00078A82..0x00078B38 provisional,Code/GameEngine/Source/Common/DispByteFieldSetters.cpp
 0x00078B38,69,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,U,N=Code/GameEngine/Source/Common/W3DHordeModelDraw.cpp provisional,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp
 0x00078B7D,6,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,C,C=0x00078B38..0x00078B83 provisional,Code/GameEngine/Source/Common/SubsystemNameGetters.cpp
-0x00078B83,56,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,C,C=0x00078B38..0x00078BBB provisional,Code/GameEngine/Source/Common/Rva00078B83Dtor.cpp
+0x00078B83,56,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,C,C=0x00078B38..0x00078BBB provisional,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp
 0x00078BBB,51,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,U,N=Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DHordeModelDraw.cpp provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawBfmeXfers.cpp
 0x00078BEE,6,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,C,C=0x00078BBB..0x00078BF4 provisional,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp
 0x00078BF4,6,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,C,C=0x00078BBB..0x00078BFA provisional,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp
 0x00078BFA,22,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,C,C=0x00078BBB..0x00078C10 provisional,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp
-0x00078C10,114,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,C,C=0x00078BBB..0x00078C82 provisional,Code/GameEngine/Source/Common/Rva00078C10Method.cpp
+0x00078C10,114,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,C,C=0x00078BBB..0x00078C82 provisional,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp
 0x00078C82,26,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,C,C=0x00078BBB..0x00078C9C provisional,Code/gen_small/U3_leaf_helpers_Rva0007C680Clamp.cpp
 0x00078C9C,17,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,C,C=0x00078BBB..0x00078CAD provisional,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp
 0x00078CAD,51,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,C,C=0x00078BBB..0x00078CE0 provisional,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp

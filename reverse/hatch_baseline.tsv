@@ -2050,7 +2050,6 @@ alternatename	Code/GameEngine/Source/Common/Rva000518E0Thunk.cpp	?handle@Gen0003
 alternatename	Code/GameEngine/Source/Common/Rva00072A08Ctor.cpp	??1RenderingMethodDelegate@FXShader@@MAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/Rva00072A08Ctor.cpp	?rva00072A08@RenderingMethodDelegate@FXShader@@UAE_NHH@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva00072A94Assign.cpp	?Rva000E1860Copy@@YAPAVRva00072A94@@PAV1@00PAXH@Z	1
-alternatename	Code/GameEngine/Source/Common/Rva00078B83Dtor.cpp	?f2@Rva0078B83_B2@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva00082E1DInitFamily.cpp	?Init@Rva00082E1DBase@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva00082E1DInitFamily.cpp	?Init@Rva000BB3D7Part@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva00082E1DInitFamily.cpp	?Init@Rva004FFE72Part@@QAEXXZ	1
@@ -2740,6 +2739,7 @@ alternatename	Code/GameEngine/Source/Common/VptrCleanupDeletingDestructors.cpp	?
 alternatename	Code/GameEngine/Source/Common/VptrZeroPrefixCtors.cpp	?vptrZeroAnchor@VptrZeroHead@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/VtableVirtualForwarders.cpp	?rva001FF3A9@Rva001FF3A9@@QAEXABUTreeHintRef00217D4C@@@Z	1
 alternatename	Code/GameEngine/Source/Common/VtableVirtualForwarders.cpp	?rva005CC208@Rva005CC208@@UAE_NXZ	1
+alternatename	Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp	?f2@Rva0078B83_B2@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp	?insert_unique@?$_Rb_tree@HU?$pair@$$CBHURva00079ED4Record@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva00079ED4Record@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva00079ED4Record@@@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHURva00079ED4Record@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHURva00079ED4Record@@@_STL@@@2@@2@U32@ABU?$pair@$$CBHURva00079ED4Record@@@2@@Z	1
 alternatename	Code/GameEngine/Source/Common/W3DTerrainVisual_update.cpp	?rva0009A338@Gen0003AC38@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Win32BIGFileSystem.cpp	??1Rva00602635VTableInstall@@UAE@XZ	1
@@ -12406,7 +12406,6 @@ present_unmatched	Code/GameEngine/Source/Common/Rva00068119Bodies.cpp	Rva00078AE
 present_unmatched	Code/GameEngine/Source/Common/Rva00068119Bodies.cpp	Rva0007B851Math::Sqrt	1
 present_unmatched	Code/GameEngine/Source/Common/Rva0006ED36Call.cpp	RTS2DScene::doRender	1
 present_unmatched	Code/GameEngine/Source/Common/Rva0006ED36Call.cpp	RTS3DScene::doRender	1
-present_unmatched	Code/GameEngine/Source/Common/Rva00078B83Dtor.cpp	rva0007898BClear@W3DHordeModelDrawManager@@QAEXPAVRva000789A0Outer@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/Rva000AAD26FamilyDtors.cpp	Rva000BC93DCBase::~Rva000BC93DCBase	1
 present_unmatched	Code/GameEngine/Source/Common/Rva000AF917Finish.cpp	GDIFileStream::read	1
 present_unmatched	Code/GameEngine/Source/Common/Rva000AF917Finish.cpp	WorldHeightMap::readTexClass	1
@@ -12739,6 +12738,7 @@ present_unmatched	Code/GameEngine/Source/Common/TimedOperationNodeBFME2.h	TreeHi
 present_unmatched	Code/GameEngine/Source/Common/TimedOperationNodeBFME2.h	TreeHintRef00217D4C::~TreeHintRef00217D4C	1
 present_unmatched	Code/GameEngine/Source/Common/VectorPod88CopyConstructor.cpp	vector<Pod88Vector>::_M_insert_overflow	1
 present_unmatched	Code/GameEngine/Source/Common/W3DAptComponentView3D.cpp	1Rva0074011F@@QAE@XZ	1
+present_unmatched	Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp	rva0007898BClear@W3DHordeModelDrawManager@@QAEXPAVRva000789A0Outer@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/W3SmallValueInitializers.cpp	copyTo@Rva000643F0Value@@	1
 present_unmatched	Code/GameEngine/Source/Common/bezier_segment.cpp	BezierSegment::BezierSegment	5
 present_unmatched	Code/GameEngine/Source/Common/bezier_segment.cpp	BezierSegment::evaluateBezSegmentAtT	1
