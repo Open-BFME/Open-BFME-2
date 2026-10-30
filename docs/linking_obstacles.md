@@ -7260,6 +7260,24 @@ const-first instantiation that `_M_allocate_and_copy<const T *>` uses, so the re
 (fold-proof, not a hand pin). The same shape now applies to the 104-byte `vector<ArmySummary>` family
 (LINK-002, 0x003F53DA), whose element is established by the real-named `swap<ArmySummary>` row.
 
+**Header-selection prerequisite (2026-10-30, codex5, base `31de1b9659`):**
+LinearCampaignManager.cpp already selected the 4.6 environment through merged
+donor markers but explicitly searched BFME 1's older STLport headers first.
+Removing that include, and using the repository's 4.5.3 headers for
+Rva001EBCD8Erase.cpp, gives both providers strict reusable receipts. All
+33 rows, one data row, three strings and five parent EH graphs remain exact;
+all 70 external provider fingerprints and reference sets are unchanged.
+Ordinary preview reports both LINKS (1,753 authored bytes); no census gain is
+claimed. This resolves the two providers' include-inventory obstacle, including
+the seed receipt limitation recorded by later outgoing audits. It does not
+resolve consumer selection or LINK-040's element identity. The initial merge
+probe accepted no donors; incompatible private views/STL helper declarations
+and four merged byte failures remain. Refresh the supported probe after this
+repair. The staged audit remains INCONCLUSIVE on the older index and missing
+current Common/0CreateAHeroManager21FE49.cpp receipt; carry the two providers
+and their consumers into the next scheduled census.
+[Evidence and remaining prerequisites](../reverse/attempt_support/linear-campaign-header-selection-20261030-codex5.md).
+
 ### LINK-041: 23 units lost `TheSkirmishGameInfo` after their declarations were respelled `GameInfo *`
 
 **Status: Repair landed, awaiting census. Updated: 2026-10-26; inspected revision: 35efd22768.**
