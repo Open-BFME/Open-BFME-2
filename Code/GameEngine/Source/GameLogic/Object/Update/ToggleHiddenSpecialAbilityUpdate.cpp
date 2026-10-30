@@ -39,6 +39,30 @@ public:
 };
 extern NameKeyGenerator *TheNameKeyGenerator;
 #include "../../../Common/GameLogicObjectLookupView.h"
+// ?xfer@ToggleHiddenSpecialAbilityUpdate@@MAEXPAVXfer@@@Z @0x004AE25C 42B slot 3.
+// Retail runs Xfer::Version1, xfers uint at +0x88 via Xfer reverse-overload
+// slot 0x78, then base SpecialAbilityUpdate::xfer. Evidence: vslot lane
+// slot 3 of 0x008552D8; donor ToggleHiddenSpecialAbilityUpdate.cpp m_hidden;
+// base size 0x88 from SpecialAbilityUpdateXfer TU and ctor TU m_88.
+
+class AsciiString;
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+#include "../../../../Include/Common/BfmeXfer.h"
 
 extern GameLogic *TheGameLogic;
 
@@ -161,10 +185,12 @@ public:
 };
 
 class Xfer;
+
 enum UpdateSleepTime
 {
 	UPDATE_SLEEP_NONE = 1
 };
+
 // Table 0x00C552D8 slots 0-22 precede turnOff/turnOn (23/24); xfer is slot 3
 // and getModuleNameKey slot 4. No ctor here, so no vftable is emitted and the
 // ordinal placeholders never need bodies.
@@ -186,22 +212,26 @@ protected:
 	const ModuleData *m_moduleData; // +0x04
 	Object *m_object; // +0x08
 };
+
 class BehaviorModuleInterface
 {
 public:
 	virtual void b00() = 0;
 };
+
 // +0x10 table 0x00C552C8: slot 0 is update.
 class UpdateModuleInterface
 {
 public:
 	virtual UpdateSleepTime update() = 0;
 };
+
 class UpdateModuleView : public ModuleView, public BehaviorModuleInterface, public UpdateModuleInterface
 {
 protected:
 	unsigned char m_pad14[0x20 - 0x14];
 };
+
 class SpecialAbilityUpdate : public UpdateModuleView, public SpecialPowerUpdateInterface
 {
 public:
@@ -210,6 +240,7 @@ protected:
 	virtual void xfer(Xfer *xfer);
 	unsigned char m_pad24[0x88 - 0x24];
 };
+
 class ToggleHiddenSpecialAbilityUpdate : public SpecialAbilityUpdate
 {
 public:
@@ -223,6 +254,21 @@ private:
 	unsigned int m_88; // +0x88
 };
 
+class ModuleBase
+{
+public:
+	virtual ~ModuleBase();
+	virtual void p01(); virtual void p02(); virtual void p03(); virtual void p04();
+	virtual void p05(); virtual void p06(); virtual void p07(); virtual void p08();
+	virtual void p09(); virtual void p10(); virtual void p11(); virtual void p12();
+	virtual void p13(); virtual void p14(); virtual void p15(); virtual void p16();
+	virtual void p17(); virtual void p18(); virtual void p19(); virtual void p20();
+	virtual void p21(); virtual void p22();
+protected:
+	const ModuleData *m_moduleData;	// +0x04
+	Object *m_object;		// +0x08
+};
+
 // tu-skeleton: 0x004AE155 25B ??0ToggleHiddenSpecialAbilityUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ToggleHiddenSpecialAbilityUpdateModuleDataCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x004AE16E 56B ??0ToggleHiddenSpecialAbilityUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ToggleHiddenSpecialAbilityUpdateCtor.cpp (not merged yet)
@@ -231,15 +277,51 @@ private:
 
 // tu-skeleton: 0x004AE1AC 32B ??1Rva004AE1AC@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00451F45Derived.cpp (not merged yet)
 
-// tu-skeleton: 0x004AE1CC 69B ?getModuleNameKey@ToggleHiddenSpecialAbilityUpdate@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ToggleHiddenSpecialAbilityUpdatePoolKey.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/ToggleHiddenSpecialAbilityUpdatePoolKey.cpp
+
+// ?getModuleNameKey@ToggleHiddenSpecialAbilityUpdate@@UBE?AW4NameKeyType@@XZ
+NameKeyType ToggleHiddenSpecialAbilityUpdate::getModuleNameKey() const
+{
+	static NameKeyType TheToggleHiddenSpecialAbilityUpdatePoolKey =
+		TheNameKeyGenerator->nameToKey("ToggleHiddenSpecialAbilityUpdate");
+	return TheToggleHiddenSpecialAbilityUpdatePoolKey;
+}
 
 // tu-skeleton: 0x004AE211 28B ??_GRva004AE1AC@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva00451F45Derived.cpp (not merged yet)
 
 // tu-skeleton: 0x004AE22D 47B ?triggerAbilityEffect@ToggleHiddenSpecialAbilityUpdate@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ToggleSpecialAbilityUpdateSlot17.cpp (not merged yet)
 
-// tu-skeleton: 0x004AE25C 42B ?xfer@ToggleHiddenSpecialAbilityUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ToggleHiddenSpecialAbilityUpdateXfer.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/ToggleHiddenSpecialAbilityUpdateXfer.cpp
 
-// tu-skeleton: 0x004AE286 74B ?update@ToggleHiddenSpecialAbilityUpdate@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ToggleHiddenSpecialAbilityUpdateUpdate.cpp (not merged yet)
+void ToggleHiddenSpecialAbilityUpdate::xfer(Xfer *xfer)
+{
+	xfer->Version1();
+	*xfer == m_88;
+	SpecialAbilityUpdate::xfer(xfer);
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/ToggleHiddenSpecialAbilityUpdateUpdate.cpp
+
+UpdateSleepTime ToggleHiddenSpecialAbilityUpdate::update()
+{
+	UpdateSleepTime sleep = SpecialAbilityUpdate::update();
+	const ToggleHiddenSpecialAbilityUpdateModuleData *data =
+		(const ToggleHiddenSpecialAbilityUpdateModuleData *)m_moduleData;
+	if (data)
+	{
+		unsigned int delay = data->m_delay;
+		if (delay && m_object->testStatus((ObjectStatusTypes)0x10))
+		{
+			if (TheGameLogic->getFrame() >= m_88 + delay)
+				turnOff();
+			else
+				sleep = (UpdateSleepTime)delay;
+		}
+	}
+	return sleep;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/ToggleHiddenSpecialAbilityUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/ToggleHiddenSpecialAbilityUpdateSlots23And24.cpp
 
@@ -303,7 +385,3 @@ void ToggleHiddenSpecialAbilityUpdate::turnOn()
 	if (invisibility)
 		invisibility->rva004A39D0(true);
 }
-
-// tu-skeleton: 0x0078E58E 13B $L310 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ToggleHiddenSpecialAbilityUpdatePoolKey.cpp (not merged yet)
-
-// tu-skeleton: 0x0078E59B 10B __ehhandler$?getModuleNameKey@ToggleHiddenSpecialAbilityUpdate@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ToggleHiddenSpecialAbilityUpdatePoolKey.cpp (not merged yet)

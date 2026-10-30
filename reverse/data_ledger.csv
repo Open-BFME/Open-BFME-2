@@ -20347,8 +20347,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A03D2C,4,.data,global,?$S1@?1??getModuleNameKey@ToggleMountedSpecialAbilityUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/ToggleMountedSpecialAbilityUpdate.cpp,owned,,1,4
 0x00A03D34,4,.data,global,?g_Va00E03D34@@3IA,Code/GameEngine/Source/Common/GlobalFlagClearers_E03Dxx.cpp,owned,,1,2
 0x00A03D38,4,.data,global,_s_rva007B1D70,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
-0x00A03D3C,4,.data,global,?TheToggleHiddenSpecialAbilityUpdatePoolKey@?1??getModuleNameKey@ToggleHiddenSpecialAbilityUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/ToggleHiddenSpecialAbilityUpdatePoolKey.cpp,owned,,1,2
-0x00A03D40,4,.data,global,?$S1@?1??getModuleNameKey@ToggleHiddenSpecialAbilityUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/ToggleHiddenSpecialAbilityUpdatePoolKey.cpp,owned,,1,4
+0x00A03D3C,4,.data,global,?TheToggleHiddenSpecialAbilityUpdatePoolKey@?1??getModuleNameKey@ToggleHiddenSpecialAbilityUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/ToggleHiddenSpecialAbilityUpdate.cpp,owned,,1,2
+0x00A03D40,4,.data,global,?$S1@?1??getModuleNameKey@ToggleHiddenSpecialAbilityUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/ToggleHiddenSpecialAbilityUpdate.cpp,owned,,1,4
 0x00A03D44,4,.data,global,?key_InvisibilityUpdate@?8??turnOff@ToggleHiddenSpecialAbilityUpdate@@UAEXXZ@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/Object/Update/ToggleHiddenSpecialAbilityUpdate.cpp,owned,,1,2
 0x00A03D48,4,.data,global,?$S1@?8??turnOff@ToggleHiddenSpecialAbilityUpdate@@UAEXXZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/ToggleHiddenSpecialAbilityUpdate.cpp,owned,,1,2
 0x00A03D4C,4,.data,global,?key_InvisibilityUpdate@?P@??turnOn@ToggleHiddenSpecialAbilityUpdate@@UAEXXZ@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/Object/Update/ToggleHiddenSpecialAbilityUpdate.cpp,owned,,1,2
