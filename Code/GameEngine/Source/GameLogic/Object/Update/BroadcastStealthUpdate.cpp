@@ -92,6 +92,35 @@ public:
 };
 extern PartitionManager *ThePartitionManager;
 #include "../../../Common/GameLogicObjectLookupView.h"
+//
+// ?xfer@BroadcastStealthUpdate@@MAEXPAVXfer@@@Z, retail 0x004A3752, 202 bytes.
+// Slot 3 of ??_7BroadcastStealthUpdate 0x00C52364 (slot-2 name getter
+// returns "BroadcastStealthUpdate"; the rowed dtor 0x004A3555 installs it).
+// The rowed UpdateModule::xfer 0x0044DF9F first, then the light-CRC out,
+// Version(1,2), from version 2 the upgrade mux on the +0x20 subobject (rowed
+// upgradeMuxXfer 0x004CE397), then the object-ID list at +0x28: count and
+// ids when storing, count then XferObjectID plus the rowed list push_back
+// 0x002A1B6F when loading (BridgeBehaviorXfer's list view).
+
+class AsciiString;
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+class Thing;
+#include "../../../../Include/Common/BfmeXfer.h"
 
 // The stealth helper Object::rva0028F4BC returns: +0x04 its data, whose
 // +0x0C holds the flags.
@@ -139,6 +168,7 @@ extern GameLogic *TheGameLogic;
 
 // A list<ObjectID>: STLport nodes (+0 next, +8 the ID) behind the header node.
 typedef unsigned int UnsignedInt;
+
 struct BridgeBehaviorObjectIDNode
 {
 	BridgeBehaviorObjectIDNode *m_next;
@@ -167,10 +197,12 @@ public:
 };
 
 class Xfer;
+
 enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
+
 enum UpdateSleepTime
 {
 	UPDATE_SLEEP_NONE = 1
@@ -199,13 +231,6 @@ public:
 	virtual UpdateSleepTime update() = 0;
 };
 
-class UpdateModule : public BehaviorModule, public BehaviorModuleInterface, public UpdateModuleInterface
-{
-public:
-	void xfer(Xfer *xfer);	// 0x0044DF9F
-protected:
-	char m_pad14[0x20 - 0x14];
-};
 // +0x20: vptr and the executed flag; xfer runs its upgradeMuxXfer 0x004CE397.
 class UpgradeMux
 {
@@ -223,6 +248,34 @@ struct BroadcastStealthUpdateModuleData
 	UpdateSleepTime m_28;		// +0x28 the delay
 	unsigned char m_pad2C[0x140 - 0x2C];
 	unsigned m_140;			// +0x140 the flags to keep
+};
+
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const char *name);
+};
+
+extern NameKeyGenerator *TheNameKeyGenerator;
+
+class Xfer::Version
+{
+public:
+	Version(unsigned char current, unsigned char minimum)
+		: m_current(current), m_minimum(minimum) {}
+
+	unsigned char m_current;
+	unsigned char m_minimum;
+};
+
+void XferObjectID(Xfer *xfer, ObjectID *id);
+
+class UpdateModule : public BehaviorModule, public BehaviorModuleInterface, public UpdateModuleInterface
+{
+public:
+	void xfer(Xfer *xfer);	// 0x0044DF9F
+protected:
+	char m_pad14[0x20 - 0x14];
 };
 
 class BroadcastStealthUpdate : public UpdateModule, public UpgradeMux
@@ -245,7 +298,15 @@ private:
 
 // tu-skeleton: 0x004A34C0 6B ?Rva004A34C0Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
-// tu-skeleton: 0x004A34C6 69B ?getModuleNameKey@BroadcastStealthUpdate@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BroadcastStealthUpdatePoolKey.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/BroadcastStealthUpdatePoolKey.cpp
+
+// ?getModuleNameKey@BroadcastStealthUpdate@@UBE?AW4NameKeyType@@XZ
+NameKeyType BroadcastStealthUpdate::getModuleNameKey() const
+{
+	static NameKeyType TheBroadcastStealthUpdatePoolKey =
+		TheNameKeyGenerator->nameToKey("BroadcastStealthUpdate");
+	return TheBroadcastStealthUpdatePoolKey;
+}
 
 // tu-skeleton: 0x004A350B 39B ?getUpgradeActivationMasks@BroadcastStealthUpdate@@MBEXAAUUpgradeMaskType@@0@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpgradeMuxSlotOverrides.cpp (not merged yet)
 
@@ -258,6 +319,8 @@ private:
 // tu-skeleton: 0x004A3555 88B ??1BroadcastStealthUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BroadcastStealthUpdateDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x004A35AD 28B ??_GBroadcastStealthUpdate@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BroadcastStealthUpdateDtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/BroadcastStealthUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/BroadcastStealthUpdateUpdate.cpp
 
@@ -294,8 +357,41 @@ UpdateSleepTime BroadcastStealthUpdate::update()
 	return getBroadcastStealthUpdateModuleData()->m_28;
 }
 
-// tu-skeleton: 0x004A3752 202B ?xfer@BroadcastStealthUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BroadcastStealthUpdateXfer.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/BroadcastStealthUpdateXfer.cpp
 
-// tu-skeleton: 0x0078DC4C 13B $L310 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BroadcastStealthUpdatePoolKey.cpp (not merged yet)
+// ?xfer@BroadcastStealthUpdate@@MAEXPAVXfer@@@Z @0x004A3752
+void BroadcastStealthUpdate::xfer(Xfer *xfer)
+{
+	UpdateModule::xfer(xfer);
 
-// tu-skeleton: 0x0078DC59 10B __ehhandler$?getModuleNameKey@BroadcastStealthUpdate@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BroadcastStealthUpdatePoolKey.cpp (not merged yet)
+	if (xfer->IsLightCRC())
+		return;
+
+	Xfer::Version version(1, 2);
+	*xfer == version;
+
+	if (version.m_minimum >= 2)
+		UpgradeMux::upgradeMuxXfer(xfer);
+
+	ObjectID id;
+	if (xfer->IsStoring())
+	{
+		UnsignedInt count = m_28.size();
+		*xfer == count;
+		for (BridgeBehaviorObjectIDNode *it = m_28.m_node->m_next; it != m_28.m_node; it = it->m_next)
+		{
+			id = it->m_value;
+			XferObjectID(xfer, &id);
+		}
+	}
+	else
+	{
+		UnsignedInt count;
+		*xfer == count;
+		for (UnsignedInt i = 0; i < count; ++i)
+		{
+			XferObjectID(xfer, &id);
+			reinterpret_cast<Rva002A1B6FNativeList *>(&m_28)->append(reinterpret_cast<void *const &>(id));
+		}
+	}
+}

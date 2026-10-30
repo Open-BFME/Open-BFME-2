@@ -20262,8 +20262,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A03BC4,8,.data,global,?$S1@?1??getModuleNameKey@StealthDetectorUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/StealthDetectorUpdate.cpp,owned,,1,2
 0x00A03BCC,4,.data,global,?g_Va00E03BCC@@3IA,Code/GameEngine/Source/Common/GlobalFlagClearers_E03Bxx.cpp,owned,,1,2
 0x00A03BD0,4,.data,global,_s_rva007B1A52,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
-0x00A03BD4,4,.data,global,?TheBroadcastStealthUpdatePoolKey@?1??getModuleNameKey@BroadcastStealthUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/BroadcastStealthUpdatePoolKey.cpp,owned,,1,2
-0x00A03BD8,4,.data,global,?$S1@?1??getModuleNameKey@BroadcastStealthUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/BroadcastStealthUpdatePoolKey.cpp,owned,,1,4
+0x00A03BD4,4,.data,global,?TheBroadcastStealthUpdatePoolKey@?1??getModuleNameKey@BroadcastStealthUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/BroadcastStealthUpdate.cpp,owned,,1,2
+0x00A03BD8,4,.data,global,?$S1@?1??getModuleNameKey@BroadcastStealthUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/BroadcastStealthUpdate.cpp,owned,,1,4
 0x00A03BDC,4,.data,global,_s_rva007B1A7C,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A03BE0,4,.data,global,?TheInvisibilityUpdateSlotKey@?1??getModuleNameKey@InvisibilityUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/InvisibilityUpdate.cpp,owned,,1,2
 0x00A03BE4,4,.data,global,?$S2@?1??getModuleNameKey@InvisibilityUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/InvisibilityUpdate.cpp,owned,,1,4
