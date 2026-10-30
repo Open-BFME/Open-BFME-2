@@ -6,14 +6,10 @@ struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
 #pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #pragma optimize("", on)
-// Bind the shared retail clear before KindOf.h instantiates its inline helpers.
-// GameMemory supplies array placement new; select the same guard as PreRTS
-// before the early STL headers so the CRT does not define it a second time.
 #define __PLACEMENT_VEC_NEW_INLINE
 #include "Lib/Basetype.h"
 #include "Common/BitFlags.h"
 template <> void BitFlags<116>::clear();
-
 #line 9
 #include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
 #include <list>
@@ -45,7 +41,20 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 //#pragma optimize("", off)
 //#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
 
+
 #endif
+#define BFME_DISP_BYTE_GETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		unsigned char get() const; \
+		char m_lead[DISP]; \
+		unsigned char m_value; \
+	}; \
+	unsigned char NAME::get() const \
+	{ \
+		return m_value; \
+	}
 
 // bfme link decl-only begin
 namespace _STL { template <> unsigned long _Base_bitset<4>::_S_maskbit(unsigned int); }
@@ -102,6 +111,30 @@ public:
 	void rva002C8754(INI *ini, void *extra);
 };
 
+class MilesAudioManager
+{
+public:
+    virtual unsigned char rva000515A4() const;
+    virtual unsigned char rva00051896() const;
+    char m_lead[0x6A3 - sizeof(void *)];
+    unsigned char m_6A3;
+    char m_pad6A4[2];
+    unsigned char m_6A6;
+};
+
+BFME_DISP_BYTE_GETTER(Rva002C74B2ByteField, 0x35D)
+
+BFME_DISP_BYTE_GETTER(Rva002C74B9ByteField, 0x364)
+
+// BF1 9cbfb551fe Common/Rva005BD470ZeroTest.cpp is the clean semantic donor.
+// Full native leaf 001F350B..001F3513 ends at its own RET boundary.
+// Target evidence: receiver0C dword equals two; result in AL.
+// Original owner unresolved; the address-owned type is independent of nearby classes.
+class Rva001F350BFields {
+public: unsigned char isTwo() const;
+private: char unknown[0x0C]; unsigned int value;
+};
+
 // tu-skeleton: 0x002C726C 51B ?parseWeapon@WeaponTemplateSet@@CAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponTemplateSetParse.cpp (not merged yet)
 
 // tu-skeleton: 0x002C729F 54B ?parseAutoChoose@WeaponTemplateSet@@CAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponTemplateSetParse.cpp (not merged yet)
@@ -130,9 +163,25 @@ public:
 
 // tu-skeleton: 0x002C74AB 7B ?get@Rva002C74ABByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp32ByteGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x002C74B2 7B ?get@Rva002C74B2ByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/DispByteFieldGetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/DispByteFieldGetters.cpp
 
-// tu-skeleton: 0x002C74B9 7B ?get@Rva002C74B9ByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/DispByteFieldGetters.cpp (not merged yet)
+// Disp32 byte getters: seven-byte __thiscall members with one shape:
+//
+//     mov al,[ecx+<DISP>] / ret
+//
+// One BYTE is read at a fixed displacement from `this` and left in al. The
+// return type is spelled `unsigned char` because only al is written and the
+// upper bytes of eax are left holding whatever the caller had; the bytes
+// cannot distinguish it from `signed char`, `bool` or a one-byte enum.
+//
+// Every displacement here is a disp32 (MSVC 7.1 uses disp8 whenever the
+// offset fits, so every offset is at least 0x80), which is why this family
+// is separable from the far larger disp8 one. Members before the accessed
+// one are spelled as a lead array because their types are not witnessed
+// here, only their total size. Identity is not recovered: every name is
+// derived from its address (BFME1 pioneered the same family in
+// reference/open-bfme-1/Code/GameEngine/Source/Common/DispByteFieldGetters.cpp).
+// No // cl: line (defaults match the frameless 7-byte shape).
 
 // tu-skeleton: 0x002C74C0 11B ?rva002C74C0@Rva002C74C0@@QBEHH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
 
@@ -184,16 +233,18 @@ public:
 
 // tu-skeleton: 0x002C8B9B 107B ?releaseWeaponLock@WeaponSet@@QAEXW4WeaponLockType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponSetSetWeaponLock.cpp (not merged yet)
 
+// ---- from Code/GameEngine/Source/GameLogic/Object/WeaponSet.cpp
+
+// Bind the shared retail clear before KindOf.h instantiates its inline helpers.
+// GameMemory supplies array placement new; select the same guard as PreRTS
+// before the early STL headers so the CRT does not define it a second time.
+
 // ---- from Code/GameEngine/Source/Common/INI/INIThinFieldParsers.cpp
 
 void Rva002C8C06Parse(INI *ini, void *, void *store, const void *)
 {
 	((Rva002C8754 *)store)->rva002C8754(ini, 0);
 }
-
-// tu-skeleton: 0x002C8C16 49B ?parsePreferredAgainst@WeaponTemplateSet@@CAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponTemplateSetParse.cpp (not merged yet)
-
-// tu-skeleton: 0x002C8C47 52B ?rva002C8C47@WeaponTemplateSet@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponTemplateSetParse.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/WeaponSet.cpp
 
@@ -872,6 +923,10 @@ Bool WeaponSet::isSharedReloadTime() const
 		return m_curWeaponTemplateSet->isSharedReloadTime();
 	return false;
 }
+
+// tu-skeleton: 0x002C8C16 49B ?parsePreferredAgainst@WeaponTemplateSet@@CAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponTemplateSetParse.cpp (not merged yet)
+
+// tu-skeleton: 0x002C8C47 52B ?rva002C8C47@WeaponTemplateSet@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponTemplateSetParse.cpp (not merged yet)
 
 // tu-skeleton: 0x002C8C97 418B ?updateWeaponSet@WeaponSet@@QAEXPBVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponSetSetWeaponLock.cpp (not merged yet)
 
