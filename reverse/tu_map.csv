@@ -12625,12 +12625,12 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x001D9A4F,18,code,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp,approved,C,C=0x001D99E7..0x001D9A61,Code/Libraries/Source/WWVegas/WWLib/stlport_construct_tailrecord156.cpp
 0x001D9A61,38,code,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp,approved,C,C=0x001D99E7..0x001D9A87,Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp
 0x001D9A87,37,code,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp,approved,C,C=0x001D99E7..0x001D9AAC,Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp
-0x001D9AAC,45,code,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp,approved,C,C=0x001D99E7..0x001D9AD9,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_tailrecord156_allocate_copy.cpp
+0x001D9AAC,45,code,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp,approved,C,C=0x001D99E7..0x001D9AD9,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp
 0x001D9AD9,45,code,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp,approved,C,C=0x001D99E7..0x001D9B06,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_e8_allocate_copy.cpp
 0x001D9B06,9,code,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp,approved,C,C=0x001D99E7..0x001D9B0F,Code/GameEngine/Source/Common/DestroyInstances.cpp
 0x001D9B0F,45,code,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp,approved,C,C=0x001D99E7..0x001D9B3C,Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp
 0x001D9B3C,38,code,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp,approved,C,C=0x001D99E7..0x001D9B62,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp
-0x001D9B62,37,code,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp,approved,C,C=0x001D99E7..0x001D9B87,Code/Libraries/Source/WWVegas/WWLib/StlSweepW6Rva001D9B62.cpp
+0x001D9B62,37,code,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp,approved,C,C=0x001D99E7..0x001D9B87,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp
 0x001D9B87,29,code,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp,approved,C,C=0x001D99E7..0x001D9BA4,Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeDeferred.cpp
 0x001D9BA4,47,code,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp,approved,C,C=0x001D99E7..0x001D9BD3,Code/GameEngine/Source/Common/Rva000A8CAEAssign.cpp
 0x001D9BD3,27,code,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp,approved,C,C=0x001D99E7..0x001D9BEE,Code/Libraries/Source/WWVegas/WWLib/StlportCopyWrapperPairsFamily.cpp
@@ -12641,7 +12641,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x001D9D24,51,code,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp,approved,C,C=0x001D99E7..0x001D9D57,Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeDeferred.cpp
 0x001D9D57,30,code,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp,approved,C,C=0x001D99E7..0x001D9D75,Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorChains.cpp
 0x001D9D75,180,code,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp,approved,C,C=0x001D99E7..0x001D9E29,Code/Libraries/Source/WWVegas/WWLib/StlportVectorAssignFamily.cpp
-0x001D9E29,104,code,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp,approved,C,C=0x001D99E7..0x001D9E91,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_tailrecord156_allocate_copy.cpp
+0x001D9E29,104,code,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp,approved,C,C=0x001D99E7..0x001D9E91,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp
 0x001D9E91,209,code,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp,approved,S,S=Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp N=Code/GameEngine/Source/Common/INI/AudioEventInfo.cpp,Code/GameEngine/Source/Common/INI/AudioEventInfoParseVolumeSliderMultiplier.cpp
 0x001D9F62,63,code,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp,approved,C,C=0x001D9E91..0x001D9FA1,Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorFamily.cpp
 0x001D9FA1,11,code,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp,approved,C,C=0x001D9E91..0x001D9FAC,Code/GameEngine/Source/Common/VectorClearInstances.cpp
