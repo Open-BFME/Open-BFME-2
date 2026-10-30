@@ -4,6 +4,9 @@
 #pragma intrinsic(__debugbreak)
 #pragma intrinsic(__debugbreak, _ReadWriteBarrier)
 #pragma intrinsic(__debugbreak)
+#pragma intrinsic(__debugbreak)
+#pragma intrinsic(__debugbreak, _ReadWriteBarrier)
+#pragma intrinsic(__debugbreak)
 
 // APT0.19.03 Xbox final PDB/MAP supplies AptCIH method spellings.
 // Target caller6EE6C0 asserts pContext->isCIH(), obtains its CIH at6EE713,
@@ -38,7 +41,7 @@ void __debugbreak();
 struct AptNativeHash { unsigned char unaccessed[16]; int eventFlags; };
 
 class AptCIH;
-class EAStringC;
+
 class AptValue
 {
 public:
@@ -238,6 +241,7 @@ public:
 };
 
 class Rva006E1C40Holder;
+
 class BfmeAptValue006DCD20
 {
 public:
@@ -334,6 +338,92 @@ public:
 	virtual void vf1(); // slot 1  (vtable +4)
 	virtual void vf2(); // slot 2  (vtable +8)
 };
+
+struct AptNativeHash;
+
+class Rva006F7AC0
+{
+public:
+	bool rva006F7AC0() const;
+};
+
+class Rva006E24E0Field4C
+{
+public:
+	char m_pad[0x24];
+	Rva006F7AC0 *m_24;
+};
+
+class AptActionQueueC
+{
+public:
+	void RemoveActionFor(AptValue *pArg);
+};
+
+struct AptMatrix;
+
+class AptAnimationPoolData
+{
+public:
+	void rva006F7720Sub(void *ctx, int arg); // 0x006F7720
+	void appendButtonToBIL(class AptCIH *cih, struct AptMatrix *matrix); // 0x006E35E0
+	void removeFromBIL(AptCIH *);
+	void removeTimerFunctions(AptCIH *);
+};
+
+class BfmeObj4310;
+
+class BfmeTracker4310
+{
+public:
+	void bfmeDrop(BfmeObj4310 *obj);
+};
+
+extern class AptLinker *g_bfmeAptLinkerAtE176F8;
+
+	// retail RVA 0x00A176F8 (.data, 4 bytes), defined here: nothing else owns it
+unsigned char g_00E18348;
+
+class BfmeNode1279 : public AptValue
+{
+public:
+	void bfmeFinish1279();
+private:
+	char _pad04[0x50 - 0x4];
+	void *m_50;
+	void *m_54;
+	char _pad58[0x5C - 0x58];
+	int m_5C;
+};
+
+class BfmeNode1279;
+
+class AptActionQueueC;
+
+class Rva006E0DE0 {public:int rva006E0DE0(AptValue *);char data[8];};
+
+class Rva006E34D0
+{
+public:
+	AptCIH **array; // +0x00
+	int count; // +0x04
+	Rva006E0DE0 s8; // +0x08
+	char m_pad10[0x8];
+	Rva006E0DE0 s18; // +0x18
+	Rva006E0DE0 s20; // +0x20
+	Rva006E0DE0 s28; // +0x28
+	char m_pad30[0x30];
+	AptValue *v60; // +0x60
+	AptValue *v64; // +0x64
+	char m_pad68[0x4];
+	BfmeNode1279 *m_6c; // +0x6C
+	char m_pad70[0x30];
+	AptActionQueueC *m_queue; // +0xA0
+};
+
+extern Rva006E34D0 *g_bfmeAptPtrAtE176D0;
+
+// ---- from Code/Libraries/Source/Apt/AptCIH.cpp
 
 // ---- from Code/Libraries/Source/Apt/AptCIH_DestroyGCPointers.cpp
 
@@ -720,11 +810,43 @@ void AptCIH::rva006E1DD0(void *pRect)
 
 // tu-skeleton: 0x006E1E30 197B ?rva006E1E30@Rva006E1E30@@QAEXPAURva006F9FC0Rect@@@Z -- matched in Code/Libraries/Source/Apt/Rva006E1E30Cluster.cpp (not merged yet)
 
-// tu-skeleton: 0x006E1F90 115B ?rva006E1F90@AptCIH@@QAEHH@Z -- matched in Code/Libraries/Source/Apt/Rva006E1F90Finish.cpp (not merged yet)
+// ---- from Code/Libraries/Source/Apt/Rva006E1F90Finish.cpp
+
+int AptCIH::rva006E1F90(int flag)
+{
+	if (!rva006CFCD0()) {
+		g_bfmeAptAssertAtE17734("isSpriteInstBase()", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h", 0x7D);
+		if (g_bfmeAptBreakOnAssertAtDDC01C) __debugbreak();
+	}
+	int bits = *(int *)(*(int *)((char *)this + 0x4C) + 0x1C);
+	bits = (bits << 8) >> 8;
+	return (flag & bits) ||
+		(*(int *)((char *)(*(AptCIH **)((char *)GetNativeHashVirtual() + 8))->GetNativeHashVirtual() + 0x10) & flag) ||
+		(*(int *)((char *)GetNativeHashVirtual() + 0x10) & flag);
+}
 
 // tu-skeleton: 0x006E2010 1090B ?queueClipEvents@AptCIH@@QAE_NHHH@Z -- matched in Code/Libraries/Source/Apt/AptCIHQueueClipEvents.cpp (not merged yet)
 
-// tu-skeleton: 0x006E24E0 116B ?rva006E24E0@AptCIH@@QBE_NXZ -- matched in Code/Libraries/Source/Apt/Rva006E24E0Cluster.cpp (not merged yet)
+// ---- from Code/Libraries/Source/Apt/Rva006E24E0Cluster.cpp
+
+bool AptCIH::rva006E24E0() const
+{
+	const BfmeAptValue006DCD20 *self = (const BfmeAptValue006DCD20 *)this;
+	if (rva006CFCD0()) {
+		if (!rva006CFCD0()) {
+			g_bfmeAptAssertAtE17734("isSpriteInstBase()", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h", 0x7D);
+			if (g_bfmeAptBreakOnAssertAtDDC01C)
+				__debugbreak();
+		}
+		return ((Rva006E24E0Field4C *)m_4C)->m_24->rva006F7AC0();
+	}
+	if ((unsigned char)self->rva006E0260()
+		|| (unsigned char)self->rva006E02B0()
+		|| (unsigned char)self->rva006E0300()
+		|| (unsigned char)self->rva006DCC60(false))
+		return true;
+	return false;
+}
 
 // tu-skeleton: 0x006E2560 224B ?rva006E2560@AptCIH@@QAEXH@Z -- matched in Code/Libraries/Source/Apt/AptCIHMCInfo006E2560.cpp (not merged yet)
 
@@ -732,7 +854,35 @@ void AptCIH::rva006E1DD0(void *pRect)
 
 // tu-skeleton: 0x006E2690 867B ?ClearCIH@AptCIH@@QAEXH@Z -- matched in Code/Libraries/Source/Apt/AptCIHMCInfo006E2560.cpp (not merged yet)
 
-// tu-skeleton: 0x006E2B40 193B ?bfmeFinish1279@BfmeNode1279@@QAEXXZ -- matched in Code/Libraries/Source/Apt/BfmeNode1279Finish.cpp (not merged yet)
+// ---- from Code/Libraries/Source/Apt/BfmeNode1279Finish.cpp
+
+void BfmeNode1279::bfmeFinish1279()
+{
+	(*(BfmeTracker4310 **)&g_bfmeAptLinkerAtE176F8)->bfmeDrop((BfmeObj4310 *)this);
+	if (g_bfmeAptPtrAtE176D0->m_6c == this) {
+		g_bfmeAptPtrAtE176D0->m_6c->Release();
+		g_bfmeAptPtrAtE176D0->m_6c = 0;
+	}
+	if (g_00E18348)
+		((AptCIH *)this)->ClearCIH(0);
+	else
+		((AptCIH *)this)->ClearCIH(1);
+	g_bfmeAptPtrAtE176D0->m_queue->RemoveActionFor(this);
+	((AptAnimationPoolData *)g_bfmeAptPtrAtE176D0)->removeFromBIL((AptCIH *)this);
+	if (getRefCount() > 1) {
+		if (m_54 != 0 || m_50 != 0) {
+			g_bfmeAptAssertAtE17734(
+				"pNext == NULL && pPrev == NULL && \"This should already be done!\"",
+				"C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptCIH.cpp", 0xB6);
+			if (g_bfmeAptBreakOnAssertAtDDC01C)
+				__debugbreak();
+		}
+		bfmeUnlinkNestedBE((BfmeNestedBE *)this);
+		if ((m_5C & 0xC0000) == 0)
+			setIsDefined(false);
+	}
+	Release();
+}
 
 // tu-skeleton: 0x006E2C10 335B ?jumpToFrame@AptCIH@@QAEXH@Z -- matched in Code/Libraries/Source/Apt/AptCIHJumpToFrame.cpp (not merged yet)
 
