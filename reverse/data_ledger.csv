@@ -21493,7 +21493,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A0ABA4,4,.data,global,?g_00E0ABA4@@3DA,Code/Libraries/Source/DirtySock/Rva0081B010CommWorker.cpp,owned,,1,1
 0x00A0ABA8,4,.data,global,?TheVideoPlayer@@3PAVVideoPlayerInterface@@A,Code/GameEngine/Source/GameClient/SubtitleEntry.cpp,provisional,?TheVideoPlayer@@3PAVVideoPlayer@@A;?TheVideoPlayer@@3PAVVideoPlayerInterface@@A,1,19
 0x00A0ABAC,4,.data,global,_s_videoPlayerInitialised,Code/GameEngine/Source/GameClient/VideoPlayerInit.cpp,owned,,1,2
-0x00A0ABB0,4,.data,global,_g_bfmeHeadEQB,,unowned,?g_Va00E0ABB0@@3HA;?g_bfmeThingUCHead@@3PAVBfmeNodeUC@@A;_g_bfmeHeadEQB,1,4
+0x00A0ABB0,4,.data,global,_g_bfmeHeadEQB,Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp,owned,,1,4
 0x00A0ABB4,16,.data,global,?g_bfmeVideoTableStorage@@3UBfmeVideoTableStorage@@A,Code/GameEngine/Source/GameClient/VideoPlayerGetVideo.cpp,provisional,?g_Va00E0ABB4@@3IA;?g_bfmeVideoTableStorage@@3UBfmeVideoTableStorage@@A,2,30
 0x00A0ABC4,4,.data,global,_ZERO,Code/Libraries/Source/Compression/EAC/huffdecode.cpp,owned,,1,10
 0x00A0ABC8,24,.data,global,_local_ip_list,Code/GameEngine/Source/GameNetwork/GameSpy/qr2/qr2.c,owned,,1,3

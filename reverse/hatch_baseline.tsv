@@ -36,7 +36,6 @@ address_global	Code/GameEngine/Source/Common/BfmeOwnerCDECount.cpp	g_Va00BBB8D8	
 address_global	Code/GameEngine/Source/Common/BfmeThingBFGTail.cpp	g_Va00BBB8D8	2
 address_global	Code/GameEngine/Source/Common/BfmeThingBFGTail.cpp	g_Va00BC74F0	2
 address_global	Code/GameEngine/Source/Common/BfmeThingRE.cpp	g_Rva0130A50CTxn	3
-address_global	Code/GameEngine/Source/Common/BfmeThreeHundredFiftyFour.cpp	g_Va00E0ABB0	1
 address_global	Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp	g_Va00A04450	2
 address_global	Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp	g_Va00A046B4	2
 address_global	Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp	g_Va00A04904	2
@@ -58,7 +57,6 @@ address_global	Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp	g_Va00E0
 address_global	Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp	g_Va00E06544	2
 address_global	Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp	g_Va00E06548	2
 address_global	Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp	g_Va00E06550	2
-address_global	Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp	g_Va00E0ABB0	3
 address_global	Code/GameEngine/Source/Common/ColdGlobalDwordSetters.cpp	g_Va00E17724	3
 address_global	Code/GameEngine/Source/Common/ColdGlobalDwordSetters.cpp	g_Va00E177EC	4
 address_global	Code/GameEngine/Source/Common/CommandLineRva003B9E0F.cpp	g_Va00DB6218	2
@@ -1035,7 +1033,6 @@ address_global	Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003A
 address_global	Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AFB2A.cpp	g_Va00BBB8D8	4
 address_global	Code/GameEngine/Source/GameClient/System/FXParticleSystem/fxpswindmodule.cpp	g_Va007C26F0	3
 address_global	Code/GameEngine/Source/GameClient/VideoPlayer.cpp	g_Va00CE4918	3
-address_global	Code/GameEngine/Source/GameClient/VideoPlayer.cpp	g_Va00E0ABB0	1
 address_global	Code/GameEngine/Source/GameClient/VideoPlayerRva009111BOpen.cpp	g_Va00DE2098	3
 address_global	Code/GameEngine/Source/GameClient/VideoPlayerRva009111BOpen.cpp	g_Va00DE2498	3
 address_global	Code/GameEngine/Source/GameClient/VideoPlayerRva009111BOpen.cpp	g_Va00DE2898	3
@@ -1766,7 +1763,6 @@ alternatename	Code/GameEngine/Source/Common/BfmeThingSVA.cpp	?bfmeFwdOneSVA@Bfme
 alternatename	Code/GameEngine/Source/Common/BfmeThingSVA.cpp	?bfmeInsertV17@BfmeVecV17@@QAEXPAHI0@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeThreeHundredEightyFour.cpp	?bfmeHitAEA@BfmeEntryAEA@@QAE_NPAUBfmeKeyAEA@@PAX@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeThreeHundredFiftyFour.cpp	?bfmeDropVIH@BfmeSubVIH@@QAEXPAVBfmeThingVIH@@@Z	1
-alternatename	Code/GameEngine/Source/Common/BfmeThreeHundredFiftyFour.cpp	?g_bfmeThingUCHead@@3PAVBfmeNodeUC@@A	1
 alternatename	Code/GameEngine/Source/Common/BfmeThreeHundredFiftyThree.cpp	??1Rva0061ED80@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/BfmeThreeHundredFiftyThree.cpp	??1Rva009EB810TailBase@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/BfmeThreeHundredThirtyEight_Rva001320d0.cpp	?handle@BfmeThingSJ@@UAEXXZ	1
@@ -2880,7 +2876,6 @@ alternatename	Code/GameEngine/Source/GameClient/System/Rva00204316.cpp	?slot08@R
 alternatename	Code/GameEngine/Source/GameClient/System/Rva00204316.cpp	?slot0C@Rva00203EFD@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameClient/System/Rva00204316.cpp	?slot10@Rva00203EFD@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameClient/VideoPlayer.cpp	?g_Va00CE4918@@3DA	1
-alternatename	Code/GameEngine/Source/GameClient/VideoPlayer.cpp	_g_bfmeHeadEQB	1
 alternatename	Code/GameEngine/Source/GameClient/VideoPlayerAddVideo.cpp	??1Video@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameClient/VideoPlayerRemoveVideo.cpp	??1Video@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameClient/View.cpp	?setDesiredSpeed@AIUpdateInterface@@QAEXM@Z	1

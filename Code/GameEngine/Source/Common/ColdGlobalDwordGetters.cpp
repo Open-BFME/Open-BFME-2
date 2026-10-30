@@ -364,14 +364,15 @@ int Rva005BA33EGet(void)
 	return g_Va00E06550;
 }
 
-extern int g_Va00E0ABB0;
+struct BfmeNodeEQB;
+extern "C" BfmeNodeEQB *g_bfmeHeadEQB;
 
 // ?Rva006891A0Get@@YAHXZ @ 0x006891a0 (6B) over 0x00E0ABB0.
 // Follows padding (prev CC), no .rdata vtable slot, no direct callers,
 // no branch sources. Opaque address-derived name.
 int Rva006891A0Get(void)
 {
-	return g_Va00E0ABB0;
+	return (int)g_bfmeHeadEQB;
 }
 
 class AptValue; extern AptValue *gpUndefinedValue;
@@ -408,8 +409,9 @@ int Rva0050E9CDGet(void)
 	return (int)g_Va00A046B4;
 }
 
-// ?g_Va00E0ABB0@@3HA: matched references place it at VA 0xe0abb0; also referenced as ?g_bfmeThingUCHead@@3PAVBfmeNodeUC@@A.
-int g_Va00E0ABB0;
+// _g_bfmeHeadEQB: the list head at VA 0xe0abb0 (the data ledger's name; VideoPlayer.cpp
+// and BfmeThreeHundredFiftyFour.cpp declare it).
+extern "C" { BfmeNodeEQB *g_bfmeHeadEQB; }
 // AptMessenger::s_instance owns the native messenger pointer at VA 0x00E046B8.
 AptMessenger *AptMessenger::s_instance;
 // ?g_Va00E06398@@3HA: matched references place it at VA 0xe06398 (the open file transfer popup).

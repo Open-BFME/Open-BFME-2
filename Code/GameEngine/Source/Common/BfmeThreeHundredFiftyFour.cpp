@@ -46,7 +46,9 @@ public:
 	BfmeNodeUC *m_bfmeNext;
 };
 
-extern BfmeNodeUC *g_bfmeThingUCHead; // 0x0130B198
+// The list head at 0x00E0ABB0 (ColdGlobalDwordGetters.cpp), read through this unit's view.
+struct BfmeNodeEQB;
+extern "C" BfmeNodeEQB *g_bfmeHeadEQB;
 
 void BfmeThingUC::bfmeResetUC()
 {
@@ -69,7 +71,7 @@ void BfmeSubUC::bfmeDropUC(BfmeThingUC *who)
 				if (previous != 0)
 					previous->m_bfmeNext = at->m_bfmeNext;
 				else
-					g_bfmeThingUCHead = at->m_bfmeNext;
+					g_bfmeHeadEQB = (BfmeNodeEQB *)at->m_bfmeNext;
 			}
 			break;
 		}
@@ -77,8 +79,6 @@ void BfmeSubUC::bfmeDropUC(BfmeThingUC *who)
 		at = at->bfmeNextUC();
 	}
 }
-// ?g_bfmeThingUCHead@@3PAVBfmeNodeUC@@A: the global at VA 0xe0abb0 is ?g_Va00E0ABB0@@3HA.
-#pragma comment(linker, "/alternatename:?g_bfmeThingUCHead@@3PAVBfmeNodeUC@@A=?g_Va00E0ABB0@@3HA")
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
