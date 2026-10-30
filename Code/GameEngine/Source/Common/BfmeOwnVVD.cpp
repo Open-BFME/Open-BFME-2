@@ -8,7 +8,12 @@
 
 struct LookAtRegion {Coord2D lo,hi;};
 
-struct Rva001EDD80Pair { int x, y; };
+struct Rva001EDD80Pair
+{
+public:
+	int x; // +0x00
+	int y; // +0x04
+};
 
 class GameMessage;
 
@@ -353,9 +358,13 @@ union GameMessageArgumentType {
  unsigned int timestamp; unsigned short wChar;
 };
 
-class GameMessage { public:
- const GameMessageArgumentType *getArgument(int) const;
- char pad00[0x10]; int m_type;
+class GameMessage
+{
+public:
+	const GameMessageArgumentType *getArgument(int) const;
+	int getType() const { return m_type; }
+	char m_pad00[0x10];
+	int m_type; // +0x10
 };
 
 class Display {public:
@@ -381,13 +390,24 @@ virtual unsigned int d17();
 
 extern Display *TheDisplay;
 
-class GlobalData {public: char pad00[0x2c]; bool m_windowed;};
+class GlobalData
+{
+public:
+	char m_pad00[0x2C];
+	bool m_windowed; // +0x2C
+};
 
 // Reference GlobalData.h exposes TheGlobalData as this const provider view.
 // Native DIR32 sites bind the same provider at VA 0x00DFE758.
 extern GlobalData *TheWritableGlobalData;
 
-class Shell {public: char pad00[0x5c]; bool m_active;};
+class Shell
+{
+public:
+	bool isShellActive() const { return m_active; }
+	char m_pad00[0x5C];
+	bool m_active; // +0x5C
+};
 
 extern Shell *TheShell;
 

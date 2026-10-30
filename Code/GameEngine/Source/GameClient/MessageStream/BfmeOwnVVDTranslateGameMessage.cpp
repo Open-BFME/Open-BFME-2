@@ -37,10 +37,8 @@ union GameMessageArgumentType
 class GameMessage
 {
 public:
+	const GameMessageArgumentType *getArgument(int) const;
 	int getType() const { return m_type; }
-	const GameMessageArgumentType *getArgument(int argIndex) const;
-
-private:
 	char m_pad00[0x10];
 	int m_type; // +0x10
 };
@@ -157,8 +155,9 @@ public:
 
 struct Rva001EDD80Pair
 {
-	int x;
-	int y;
+public:
+	int x; // +0x00
+	int y; // +0x04
 };
 
 class GlobalData
@@ -171,10 +170,9 @@ public:
 class Shell
 {
 public:
-	bool isShellActive() const { return m_isShellActive; }
-
+	bool isShellActive() const { return m_active; }
 	char m_pad00[0x5C];
-	bool m_isShellActive; // +0x5C
+	bool m_active; // +0x5C
 };
 
 class BfmeOwnVVD
