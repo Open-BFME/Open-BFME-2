@@ -259,7 +259,7 @@ Rva008312E0String &Rva008312E0String::bfmeReplaceAliasedRange(char *first, char 
 
 // STLport 4.5.3 basic_string::insert(iterator, _ForwardIter, _ForwardIter, forward_iterator_tag)
 // without exceptions; assign and _Destroy(char *, char *) stay calls as in retail.
-void Rva008312E0String::insertRange(char *__position, char *__first, char *__last, const Rva008312E0Tag &)
+__declspec(noinline) inline void Rva008312E0String::insertRange(char *__position, char *__first, char *__last, const Rva008312E0Tag &)
 {
 	if (__first != __last)
 	{

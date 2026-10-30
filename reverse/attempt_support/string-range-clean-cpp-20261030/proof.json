@@ -1,0 +1,110 @@
+{
+  "rows": {
+    "?bfmeReplaceAliasedRange@Rva008312E0String@@QAEAAV1@PAD000ABURva008312E0Tag@@@Z": {
+      "source": "Code/Libraries/Source/STLport/Rva008312E0StringReplace.cpp",
+      "rva": "0x0002AE50",
+      "size": 511,
+      "raw_bytes_identical": true
+    },
+    "?insertRange@Rva008312E0String@@QAEXPAD00ABURva008312E0Tag@@@Z": {
+      "source": "Code/Libraries/Source/STLport/Rva008312E0StringReplace.cpp",
+      "rva": "0x000284D0",
+      "size": 848,
+      "raw_bytes_identical": true
+    },
+    "?bfmeInsertRangeV43@@YGXHPAVBfmeStrV43@@HH@Z": {
+      "source": "Code/GameEngine/Source/Common/BfmeS1155.cpp",
+      "rva": "0x0002AA30",
+      "size": 261,
+      "raw_bytes_identical": true
+    },
+    "?bfmeInsertV23@BfmeStrV23@@QAEPAV1@IPAV1@@Z": {
+      "source": "Code/GameEngine/Source/Common/BfmeS1155.cpp",
+      "rva": "0x0002A970",
+      "size": 185,
+      "raw_bytes_identical": true
+    },
+    "?bfmeFwdVMR@BfmeStrVMR@@QAEXHHH@Z": {
+      "source": "Code/GameEngine/Source/Common/BfmeS1155.cpp",
+      "rva": "0x0002A560",
+      "size": 47,
+      "raw_bytes_identical": true
+    },
+    "?bfmeAppendRangeV36@@YGXPAVBfmeStrV36@@HH@Z": {
+      "source": "Code/GameEngine/Source/Common/BfmeS1155.cpp",
+      "rva": "0x0002A870",
+      "size": 136,
+      "raw_bytes_identical": true
+    },
+    "?bfmeFind1155@BfmeS1155@@QAEIPBDII@Z": {
+      "source": "Code/GameEngine/Source/Common/BfmeS1155.cpp",
+      "rva": "0x0002A3A0",
+      "size": 120,
+      "raw_bytes_identical": true
+    },
+    "?bfmeFwdVMT@BfmeStrVMT@@QAEXHH@Z": {
+      "source": "Code/GameEngine/Source/Common/BfmeS1155.cpp",
+      "rva": "0x0002A900",
+      "size": 43,
+      "raw_bytes_identical": true
+    },
+    "?bfmeSetOU@BfmeThingOU@@QAEPAV1@E@Z": {
+      "source": "Code/GameEngine/Source/Common/BfmeS1155.cpp",
+      "rva": "0x0002A850",
+      "size": 30,
+      "raw_bytes_identical": true
+    },
+    "?bfmeReplaceRangeV44@@YGXPAD000H@Z": {
+      "source": "Code/GameEngine/Source/Common/BfmeS1155.cpp",
+      "rva": "0x0002A730",
+      "size": 285,
+      "raw_bytes_identical": true
+    },
+    "?bfmeReplaceV24@BfmeStrV24@@QAEPAV1@PAD000H@Z": {
+      "source": "Code/GameEngine/Source/Common/BfmeS1155.cpp",
+      "rva": "0x0002A610",
+      "size": 279,
+      "raw_bytes_identical": true
+    },
+    "?bfmeFwdVMS@BfmeStrVMS@@QAEXHHH@Z": {
+      "source": "Code/GameEngine/Source/Common/BfmeS1155.cpp",
+      "rva": "0x0002A520",
+      "size": 53,
+      "raw_bytes_identical": true
+    },
+    "?bfmeGoPI@BfmeThingPI@@QAEIPBUBfmeRangePI@@I@Z": {
+      "source": "Code/GameEngine/Source/Common/BfmeS1155.cpp",
+      "rva": "0x0002AC90",
+      "size": 43,
+      "raw_bytes_identical": true
+    },
+    "?append@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAEAAV12@PBD@Z": {
+      "source": "Code/GameEngine/Source/Common/BfmeS1155.cpp",
+      "rva": "0x0002A930",
+      "size": 58,
+      "raw_bytes_identical": true
+    }
+  },
+  "changed_relocations": [
+    {
+      "name": "?bfmeReplaceV24@BfmeStrV24@@QAEPAV1@PAD000H@Z",
+      "old": [
+        123,
+        20,
+        "?bfmeEraseV24@BfmeStrV24@@QAEXPAD0@Z"
+      ],
+      "new": [
+        123,
+        20,
+        "?erase@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAEPADPAD0@Z"
+      ]
+    }
+  ],
+  "insert_selection": {
+    "range-before": 0,
+    "range-after": 2,
+    "owner-before": null,
+    "owner-after": 2
+  },
+  "scope": "14 existing code rows; raw bytes and relocation identities except deliberate erase binding; range insert definition becomes ANY; new owner copy is ANY; no census credit"
+}

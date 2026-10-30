@@ -17,13 +17,143 @@ typedef char *(__cdecl *BfmeSearch1155Fn)(char *first, char *last,
 	const char *setFirst, const char *setLast);
 
 // basic_string<char>::insert<char*>(pos, first, last, forward tag), rowed at 0x000284D0.
-struct Rva008312E0Tag;
+// Preserve the declined inline-copy analysis of the retail /Ob1 range helper.
+struct StringRangeCopy {
+    static inline void *copy(const void *first, const void *last, void *result) {
+        size_t count = (const char *)last - (const char *)first;
+        return count ? (char *)memmove(result, first, count) + count : result;
+    }
+    template <class Input, class Output>
+    static __forceinline Output pointers(Input first, Input last, Output result, _STL::__true_type) {
+        return (Output)copy(first, last, result);
+    }
+    template <class Input, class Output>
+    static __forceinline Output auxiliary(Input first, Input last, Output result, _STL::__true_type) {
+        return pointers(first, last, result, _STL::_IsOKToMemCpy((char *)0, (char *)0)._Ret());
+    }
+    template <class Input, class Output>
+    static __forceinline Output uninitialized(Input first, Input last, Output result, const _STL::__true_type &) {
+        return auxiliary(first, last, result, _STL::_BothPtrType<Input, Output>::_Ret());
+    }
+};
+namespace _STL {
+template <class Input, class Output> inline Output Rva000179B0UninitializedCopy(Input first, Input last, Output result) { return StringRangeCopy::uninitialized(first, last, result, __true_type()); }
+void Rva0069E440Destroy(char *, char *);
+}
+void bfmeCopyChV24(char *, char *);
 
-class Rva008312E0String
+struct Rva008312E0InputTag
+{
+};
+
+struct Rva008312E0Tag : public Rva008312E0InputTag
+{
+};
+
+struct Rva008312E0FalseType
+{
+};
+
+template <class _RandomAccessIterator>
+inline int __distance(const _RandomAccessIterator &__first,
+	const _RandomAccessIterator &__last, const Rva008312E0Tag &)
+{
+	return __last - __first;
+}
+
+template <class _InputIterator>
+inline int distance(const _InputIterator &__first, const _InputIterator &__last)
+{
+	return __distance(__first, __last, Rva008312E0Tag());
+}
+
+template <class _RandomAccessIterator, class _Distance>
+inline void __advance(_RandomAccessIterator &__i, _Distance __n, const Rva008312E0Tag &)
+{
+	__i += __n;
+}
+
+template <class _InputIterator, class _Distance>
+inline void advance(_InputIterator &__i, _Distance __n)
+{
+	__advance(__i, __n, Rva008312E0Tag());
+}
+
+class Rva008312E0String : public _STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> >
 {
 public:
-	void insertRange(char *pos, char *first, char *last, const Rva008312E0Tag &tag);
+	// Forward-iterator insert at retail 0x000284D0 (BFME 1 0x008300B0).
+	void insertRange(char *position, char *first, char *last, const Rva008312E0Tag &tag);
+
+	static char *move(char *destination, const char *source, size_t length) { return length == 0 ? destination : (char *)memmove(destination, source, length); }
+	void copyRange(char *first, char *last, char *result)
+	{
+		for ( ; first != last; ++first, ++result)
+			bfmeCopyChV24(result, first);
+	}
+	void insertDispatch(char *position, char *first, char *last, const Rva008312E0FalseType &)
+	{
+		insertRange(position, first, last, Rva008312E0Tag());
+	}
+	void insert(char *position, char *first, char *last)
+	{
+		insertDispatch(position, first, last, Rva008312E0FalseType());
+	}
+	size_t size() const { return _M_finish - _M_start; }
+	char *allocate(size_t n) const { return n != 0 ? _STL::allocator<char>::allocate(n, 0) : 0; }
+	void deallocate(char *p, size_t) const { if (p != 0) free(p); }
+	void deallocateBlock() { deallocate(_M_start, _M_end_of_storage._M_data - _M_start); }
+	void constructNullAux(char *p, const _STL::__true_type &) { *p = 0; }
+	void constructNull(char *p) { constructNullAux(p, _STL::__true_type()); }
 };
+
+inline void Rva008312E0String::insertRange(char *__position, char *__first, char *__last, const Rva008312E0Tag &)
+{
+	if (__first != __last)
+	{
+		int __n = distance(__first, __last);
+		if (_M_end_of_storage._M_data - _M_finish >= __n + 1)
+		{
+			const int __elems_after = _M_finish - __position;
+			char *__old_finish = _M_finish;
+			if (__elems_after >= __n)
+			{
+				_STL::Rva000179B0UninitializedCopy((_M_finish - __n) + 1, _M_finish + 1, _M_finish + 1);
+				_M_finish += __n;
+				move(__position + __n, __position, (__elems_after - __n) + 1);
+				copyRange(__first, __last, __position);
+			}
+			else
+			{
+				char *__mid = __first;
+				advance(__mid, __elems_after + 1);
+				_STL::Rva000179B0UninitializedCopy(__mid, __last, _M_finish + 1);
+				_M_finish += __n - __elems_after;
+				_STL::Rva000179B0UninitializedCopy(__position, __old_finish + 1, _M_finish);
+				_M_finish += __elems_after;
+				copyRange(__first, __mid, __position);
+			}
+		}
+		else
+		{
+			const size_t __old_size = size();
+			const size_t __len = __old_size + (_STL::max)(__old_size, (size_t)__n) + 1;
+			char *__new_start = allocate(__len);
+			char *__new_finish = __new_start;
+			__new_finish = _STL::Rva000179B0UninitializedCopy(_M_start, __position, __new_start);
+			__new_finish = _STL::Rva000179B0UninitializedCopy(__first, __last, __new_finish);
+			__new_finish = _STL::Rva000179B0UninitializedCopy(__position, _M_finish, __new_finish);
+			constructNull(__new_finish);
+			_STL::Rva0069E440Destroy(_M_start, _M_finish + 1);
+			deallocateBlock();
+			_M_start = __new_start;
+			_M_finish = __new_finish;
+			_M_end_of_storage._M_data = __new_start + __len;
+		}
+	}
+}
+
+
 
 struct BfmePad56VMS
 {
@@ -69,14 +199,10 @@ public:
 
 void bfmeCopyChV24(char *a, char *b);
 
-class BfmeStrV24
+class BfmeStrV24 : public Rva008312E0String
 {
 public:
 	BfmeStrV24 *bfmeReplaceV24(char *first, char *last, char *sf, char *sl, int extra);
-	void bfmeEraseV24(char *first, char *last);
-
-	char *b;
-	char *e;
 };
 
 class Rva008314E0String
@@ -282,104 +408,18 @@ void BfmeStrVMR::bfmeFwdVMR(int a, int b, int c)
 
 BfmeStrV24 *BfmeStrV24::bfmeReplaceV24(char *first, char *last, char *sf, char *sl, int extra)
 {
-	char pad[208];
-
-	__asm
-	{
-		mov eax, dword ptr sl
-		sub eax, dword ptr sf
-		mov dword ptr [ebp-8], eax
-		mov ecx, dword ptr last
-		sub ecx, dword ptr first
-		mov dword ptr [ebp-4], ecx
-		mov edx, dword ptr [ebp-4]
-		cmp edx, dword ptr [ebp-8]
-		jl grow_path
-		mov eax, dword ptr first
-		mov dword ptr [ebp-0x14], eax
-		mov ecx, dword ptr sl
-		mov dword ptr [ebp-0x18], ecx
-		mov edx, dword ptr sf
-		mov dword ptr [ebp-0x1C], edx
-		jmp cmp1
-	inc1:
-		mov eax, dword ptr [ebp-0x1C]
-		add eax, 1
-		mov dword ptr [ebp-0x1C], eax
-		mov ecx, dword ptr [ebp-0x14]
-		add ecx, 1
-		mov dword ptr [ebp-0x14], ecx
-	cmp1:
-		mov edx, dword ptr [ebp-0x1C]
-		cmp edx, dword ptr [ebp-0x18]
-		je done1
-		mov eax, dword ptr [ebp-0x1C]
-		push eax
-		mov ecx, dword ptr [ebp-0x14]
-		push ecx
-		call bfmeCopyChV24
-		add esp, 8
-		jmp inc1
-	done1:
-		mov edx, dword ptr last
-		push edx
-		mov eax, dword ptr first
-		add eax, dword ptr [ebp-8]
-		push eax
-		mov ecx, this
-		call bfmeEraseV24
-		jmp done
-	grow_path:
-		mov ecx, dword ptr sf
-		mov dword ptr [ebp-0x0C], ecx
-		mov edx, dword ptr [ebp-0x0C]
-		add edx, dword ptr [ebp-4]
-		mov dword ptr [ebp-0x0C], edx
-		mov eax, dword ptr first
-		mov dword ptr [ebp-0x2C], eax
-		mov ecx, dword ptr [ebp-0x0C]
-		mov dword ptr [ebp-0x30], ecx
-		mov edx, dword ptr sf
-		mov dword ptr [ebp-0x34], edx
-		jmp cmp2
-	inc2:
-		mov eax, dword ptr [ebp-0x34]
-		add eax, 1
-		mov dword ptr [ebp-0x34], eax
-		mov ecx, dword ptr [ebp-0x2C]
-		add ecx, 1
-		mov dword ptr [ebp-0x2C], ecx
-	cmp2:
-		mov edx, dword ptr [ebp-0x34]
-		cmp edx, dword ptr [ebp-0x30]
-		je done2
-		mov eax, dword ptr [ebp-0x34]
-		push eax
-		mov ecx, dword ptr [ebp-0x2C]
-		push ecx
-		call bfmeCopyChV24
-		add esp, 8
-		jmp inc2
-	done2:
-		mov edx, dword ptr sl
-		mov dword ptr [ebp-0xCC], edx
-		mov eax, dword ptr [ebp-0x0C]
-		mov dword ptr [ebp-0xD0], eax
-		xor ecx, ecx
-		mov byte ptr [ebp-0x35], cl
-		lea edx, [ebp-0x36]
-		push edx
-		mov eax, dword ptr [ebp-0xCC]
-		push eax
-		mov ecx, dword ptr [ebp-0xD0]
-		push ecx
-		mov edx, dword ptr last
-		push edx
-		mov ecx, this
-		call Rva008312E0String::insertRange
-	done:
-		mov eax, this
-	}
+    int __n = distance(sf, sl);
+    const int __len = last - first;
+    if (__len >= __n) {
+        copyRange(sf, sl, first);
+        erase(first + __n, last);
+    } else {
+        char *__m = sf;
+        advance(__m, __len);
+        copyRange(sf, __m, first);
+        insert(last, __m, sl);
+    }
+    return this;
 }
 
 // ---- from Code/GameEngine/Source/Common/BfmeConv1486.cpp
