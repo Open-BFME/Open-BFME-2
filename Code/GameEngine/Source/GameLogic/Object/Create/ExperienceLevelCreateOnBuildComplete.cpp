@@ -12,6 +12,10 @@
 // (+0x24) through the tracker's 0x0039B4EC (pinned by address; LevelUpUpgrade
 // 0x004B3E15 calls it too, with a level count and 1).
 typedef bool Bool;
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
 class ModuleData;
 class ExperienceTracker
 {
@@ -40,11 +44,18 @@ class BfmeGlob939D : public GameLogic
 public:
 	char bfmeCall939D();
 };
-struct ExperienceLevelCreateModuleData
+class ExperienceLevelCreateModuleData
 {
-	unsigned char m_pad00[0x08];
-	int m_level;			// +0x08
-	Bool m_0C;			// +0x0C
+public:
+	ExperienceLevelCreateModuleData();
+
+private:
+	void *m_vtable;
+	unsigned int m_unused04;
+
+public:
+	int m_levelToGrant;		// +0x08
+	unsigned char m_mpOnly;		// +0x0C
 };
 class ModuleBase
 {
@@ -71,6 +82,7 @@ class CreateModule : public ModuleBase, public BehaviorModuleInterface, public C
 class ExperienceLevelCreate : public CreateModule
 {
 public:
+	virtual NameKeyType getModuleNameKey() const;
 	virtual void onBuildComplete();
 	void rva004B9201();
 	const ExperienceLevelCreateModuleData *getData() const
@@ -81,10 +93,10 @@ public:
 void ExperienceLevelCreate::rva004B9201()
 {
 	ExperienceTracker *tracker = m_object->getExperienceTracker();
-	tracker->rva0039B4EC(getData()->m_level - tracker->m_level, false, false);
+	tracker->rva0039B4EC(getData()->m_levelToGrant - tracker->m_level, false, false);
 }
 void ExperienceLevelCreate::onBuildComplete()
 {
-	if (!getData()->m_0C || ((BfmeGlob939D *)TheGameLogic)->bfmeCall939D())
+	if (!getData()->m_mpOnly || ((BfmeGlob939D *)TheGameLogic)->bfmeCall939D())
 		rva004B9201();
 }

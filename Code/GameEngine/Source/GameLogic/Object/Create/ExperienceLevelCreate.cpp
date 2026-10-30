@@ -24,12 +24,6 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class ExperienceLevelCreate
-{
-public:
-	virtual NameKeyType getModuleNameKey() const;
-};
-
 char g_00C595E8;
 
 //
@@ -47,8 +41,51 @@ public:
 private:
 	void *m_vtable;
 	unsigned int m_unused04;
-	int m_levelToGrant;
-	unsigned char m_mpOnly;
+
+public:
+	int m_levelToGrant;		// +0x08
+	unsigned char m_mpOnly;		// +0x0C
+};
+
+class ModuleData;
+class Object;
+
+class ModuleBase
+{
+public:
+	virtual ~ModuleBase();
+protected:
+	const ModuleData *m_moduleData;	// +0x04
+	Object *m_object;		// +0x08
+};
+
+class BehaviorModuleInterface
+{
+public:
+	virtual void b00() = 0;
+};
+
+class CreateModuleInterface
+{
+public:
+	virtual void c00() = 0;
+	virtual void onBuildComplete() = 0;
+};
+
+class CreateModule : public ModuleBase, public BehaviorModuleInterface, public CreateModuleInterface
+{
+};
+
+class ExperienceLevelCreate : public CreateModule
+{
+public:
+	virtual NameKeyType getModuleNameKey() const;
+	virtual void onBuildComplete();
+	void rva004B9201();
+	const ExperienceLevelCreateModuleData *getData() const
+	{
+		return (const ExperienceLevelCreateModuleData *)m_moduleData;
+	}
 };
 
 // tu-skeleton: 0x004B917B 42B ??0ExperienceLevelCreate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Create/ExperienceLevelCreateCtorThunk.cpp (not merged yet)
