@@ -11,23 +11,6 @@ public:
 	void rva002BF6A7(int owner);
 };
 
-// Retail 0x002BF687 / 0x002BF697, 16B each: the same pass for the +0x48 and
-// +0x28 sub-objects.
-void Rva002BF6A7::rva002BF687(int owner)
-{
-	rva002BF61B(owner + 0x48);
-}
-
-void Rva002BF6A7::rva002BF697(int owner)
-{
-	rva002BF61B(owner + 0x28);
-}
-
-void Rva002BF6A7::rva002BF6A7(int owner)
-{
-	rva002BF61B(owner + 0x44);
-}
-
 // Retail 0x005F83A9, 16B: pass the 8-byte element count of the range at
 // +0x20/+0x24 to member 0x00578513 on the same object.
 struct Rva005F83A9Element
@@ -67,11 +50,6 @@ class LivingWorldLogic;extern LivingWorldLogic *TheLivingWorldLogic;
 struct Rva002BF652LogicView{char pad[0xB0];Rva0020F27EHost*regions;};
 struct RegionView{char pad[0x12C];int id;};
 class Rva002BF652{public:void rva002BF652(void*);};
-void Rva002BF652::rva002BF652(void*value){
- int point[2];
- ((Rva002BF652LogicView*)TheLivingWorldLogic)->regions->rva0020F27E(((RegionView*)value)->id,(int)point);
- ((Rva002BF6A7*)this)->rva002BF61B((int)point);
-}
 
 // Native5CD284..5CD2A3 RET0, WB15C5010: empty folded hook, owned
 // 8B child-forwarder then region placement(value20->18, receiver10).
