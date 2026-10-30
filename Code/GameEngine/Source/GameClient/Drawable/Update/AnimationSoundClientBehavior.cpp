@@ -70,7 +70,8 @@ struct AnimationSoundTreeNode { int color; AnimationSoundTreeNode *parent,*left,
 class AnimationSoundTree {
 public:
 	AnimationSoundTree();
-	AnimationSoundTree *rva004CA13D(const void*,const void*) throw();
+	~AnimationSoundTree();
+	AnimationSoundTree *rva004CA13D(const void*,const void*);
 	AnimationSoundTreeNode *rva004C9FE0(const void*);
 public:
 	AnimationSoundTreeNode*header;
@@ -322,10 +323,26 @@ public:
 	void add(const FieldParse *parse, unsigned int extraOffset);
 };
 
-class AnimationSoundClientBehaviorModuleData
+class AnimationSoundClientBehaviorModuleDataBase
 {
 public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
+    virtual ~AnimationSoundClientBehaviorModuleDataBase();
+
+private:
+    unsigned int m_unmodelled04;
+};
+
+class AnimationSoundClientBehaviorModuleData
+    : public AnimationSoundClientBehaviorModuleDataBase
+{
+public:
+    static void buildFieldParse(MultiIniFieldParse &parse);
+    AnimationSoundClientBehaviorModuleData();
+    virtual ~AnimationSoundClientBehaviorModuleData();
+
+private:
+    AnimationSoundTree m_tree08;
+    float m_value14;
 };
 
 // Three bodies from the 0x005E97B0..0x0060D680 slice whose whole content is a

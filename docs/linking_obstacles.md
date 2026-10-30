@@ -2910,6 +2910,16 @@ separate verified prerequisites before another supported merge.
 Census confirmation remains pending.
 [Evidence](../reverse/attempt_support/animation-sound-consolidation-20261028-codexb4.md).
 
+2026-10-30 module-data prerequisite, base `de459f73ab`: reconcile the seed
+and constructor donor's existing module-data/tree declarations, preserving the
+0x18 module-data layout and float at +0x14. Remove the tree initializer's
+unsupported `throw()` guarantee to agree with its matched provider: composition
+otherwise shrinks the constructor from 63 to 34 bytes by dropping EH cleanup.
+Both standalone objects keep all external COMDAT/reference facts; all 21 rows
+and three EH graphs verify. The eight-donor probe still requires the other
+manager/client, entry and STL prerequisites above; no census gain is claimed.
+[Current evidence](../reverse/attempt_support/animation-sound-moduledata-consolidation-20261030-codexb.md).
+
 ### AptArray bounded composition (2026-10-28)
 
 Status: verified composition; consumer coverage and census confirmation pending.

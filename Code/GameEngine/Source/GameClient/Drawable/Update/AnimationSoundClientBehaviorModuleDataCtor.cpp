@@ -2,23 +2,30 @@
 // stlport
 //
 // AnimationSoundClientBehaviorModuleData constructor.
-// Retail 0x4CA70D (63B) builds the 0x18-byte ModuleData: vtable C5EED0, an
-// 8-byte tree at +0x08 (ctor pinned at 0x4CA6DA), and a float at +0x14
+// Retail 0x4CA70D (63B) builds the 0x18-byte ModuleData: vtable C5EED0,
+// a 12-byte tree at +0x08 (ctor rowed at 0x4CA6DA), and a float at +0x14
 // loaded from FLT_MAX (0xBBB8E0) via SSE. The factory at 0x252BC2 (rowed)
 // news 0x18 and calls this ctor as its sole caller (pin note). The tree's
-// key/value identities are unknown; it is modelled as an opaque header
-// pointer plus count to preserve the 8-byte layout. The narrow allocator
+// key/value identities are unknown; its header, count and comparator storage
+// follow the owning TU's existing tree view. The narrow allocator
 // shim is unused here but kept for the forthcoming tree-helper bodies.
 
-class AnimationSoundTree
-{
-public:
-    AnimationSoundTree();
-    ~AnimationSoundTree();
+struct AnimationSoundTreeNode;
 
-private:
-    void *m_header;
-    unsigned int m_count;
+class AnimationSoundTree {
+public:
+	AnimationSoundTree();
+	~AnimationSoundTree();
+	AnimationSoundTree *rva004CA13D(const void*,const void*);
+	AnimationSoundTreeNode *rva004C9FE0(const void*);
+public:
+	AnimationSoundTreeNode*header;
+public:
+	unsigned int count;
+public:
+	char comparator;
+public:
+	AnimationSoundTreeNode**rva004CA68B(AnimationSoundTreeNode**,const void*);
 };
 
 class AnimationSoundClientBehaviorModuleDataBase
@@ -30,16 +37,18 @@ private:
     unsigned int m_unmodelled04;
 };
 
+class MultiIniFieldParse;
+
 class AnimationSoundClientBehaviorModuleData
     : public AnimationSoundClientBehaviorModuleDataBase
 {
 public:
+    static void buildFieldParse(MultiIniFieldParse &parse);
     AnimationSoundClientBehaviorModuleData();
     virtual ~AnimationSoundClientBehaviorModuleData();
 
 private:
     AnimationSoundTree m_tree08;
-    unsigned int m_unmodelled10;
     float m_value14;
 };
 
