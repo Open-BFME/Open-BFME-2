@@ -20406,8 +20406,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A03E20,4,.data,global,_s_rva007B1FFA,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A03E24,4,.data,global,?TheStatusBitsUpgradePoolKey@?1??getModuleNameKey@StatusBitsUpgrade@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Upgrade/StatusBitsUpgrade.cpp,owned,,1,2
 0x00A03E28,4,.data,global,?$S1@?1??getModuleNameKey@StatusBitsUpgrade@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Upgrade/StatusBitsUpgrade.cpp,owned,,1,4
-0x00A03E2C,4,.data,global,?TheStatusBitsUpgradeIfEldestKindofPoolKey@?1??getModuleNameKey@StatusBitsUpgradeIfEldestKindof@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/Common/System/StatusBitsUpgradeIfEldestKindofPoolKey.cpp,owned,,1,2
-0x00A03E30,4,.data,global,?$S1@?1??getModuleNameKey@StatusBitsUpgradeIfEldestKindof@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/Common/System/StatusBitsUpgradeIfEldestKindofPoolKey.cpp,owned,,1,4
+0x00A03E2C,4,.data,global,?TheStatusBitsUpgradeIfEldestKindofPoolKey@?1??getModuleNameKey@StatusBitsUpgradeIfEldestKindof@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Upgrade/StatusBitsUpgradeIfEldestKindof.cpp,owned,,1,2
+0x00A03E30,4,.data,global,?$S1@?1??getModuleNameKey@StatusBitsUpgradeIfEldestKindof@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Upgrade/StatusBitsUpgradeIfEldestKindof.cpp,owned,,1,4
 0x00A03E34,4,.data,global,?TheStatusBitsUpgradeIfEldestKindofKey@?1??rva004CE2B0@StatusBitsUpgradeIfEldestKindof@@UAE_NPAVRva00406F9C@@@Z@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/Object/Upgrade/StatusBitsUpgradeIfEldestKindofSlot2.cpp,owned,,1,2
 0x00A03E38,4,.data,global,?$S1@?1??rva004CE2B0@StatusBitsUpgradeIfEldestKindof@@UAE_NPAVRva00406F9C@@@Z@4IA,Code/GameEngine/Source/GameLogic/Object/Upgrade/StatusBitsUpgradeIfEldestKindofSlot2.cpp,owned,,1,4
 0x00A03E3C,4,.data,global,_s_rva007B2024,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
