@@ -212,6 +212,9 @@ the missing current Common/0CreateAHeroManager21FE49.cpp consumer receipt;
 carry the four sources and their inline providers into the next scheduled
 census. Full affected-consumer verification remains open. The pre-adoption
 merge trial was interrupted without a final verdict; no files have moved.
+Post-rebase checks retain all 81 rows and object comparisons. The hook also
+reports two unchanged clear/AsciiString bindings in shadow; these remain open
+for identity review, with exact row names in the handoff.
 [Scope and verification](../reverse/attempt_support/scriptactions-consolidation-20261030-codex/README.md).
 
 ### AssaultTransportAIUpdate composition prerequisite (2026-10-30)

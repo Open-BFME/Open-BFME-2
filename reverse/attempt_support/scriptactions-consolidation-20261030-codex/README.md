@@ -39,7 +39,7 @@ not a census measurement.
 
 ## Native inline integer getters
 
-After canonical-declaration commit `267e9ad32e`, the read-only class-view
+After the canonical-declaration change, the read-only class-view
 planner found a declaration mismatch among the 32 Parameter-bearing donors.
 ScriptActionsCounters.cpp, ScriptActions_livingWorldRegion.cpp and
 ScriptActions_doStandGround.cpp mark their defined, forced-inline `getInt`
@@ -95,6 +95,30 @@ ModelConditionFlags member declaration respectively); these diagnostics do
 not establish incompatible retail layouts. The separate Thing adoption and
 mixed-source prerequisites remain open.
 
-BFME 1: official upstream was fetched at `85ff94681faf00d093304e48f8e3069b88252399`.
-The reference is held by another worker. The verified `e5127cf32f0ea4bb6e31934782783817f719b651`
-gitlink from `7859458f65` is retained; no freshness stamp is advanced.
+At selection time, official BFME 1 upstream was fetched at
+`85ff94681faf00d093304e48f8e3069b88252399`. Another worker held the reference;
+this pass retained the verified `e5127cf32f0ea4bb6e31934782783817f719b651`
+gitlink from `7859458f65` and did not advance the freshness stamp.
+
+## Publication rebase and shadow findings
+
+Runner publication rebased these changes onto `8c0120e29c`. Upstream did not
+change the four edited source files. Both obstacle-register entries are kept
+when resolving the documentation conflict. The runner synchronized BFME 1 to
+the upstream gitlink `1d5131d3f193cdf01a99da66ccd6828639585650`.
+On the rebased result, `check_csv.py`, all 81 function rows, literal/import
+checks, all four frozen-file checks and both object comparisons pass again.
+The source commits were handed to the fleet publisher as `e63de4f443` and
+`62d8d8d190`; transport may rebase these hashes again.
+
+The integer-getter commit hook also reports two new shadow findings in
+ScriptActions_livingWorldRegion.cpp. Both name `?clear@AsciiString@@QAEXXZ`
+with retail target `0x00036410`, class `wrong`, from these rows:
+
+- `?doLivingWorldSetRegionRefToAdjacentRegion@ScriptActions@@IAEXABVAsciiString@@0_N1@Z`
+- `?rva003C3943@ScriptActions@@IAEXABVAsciiString@@0@Z`
+
+These retained external bindings are unchanged in the before/after object
+comparison; the annotation cleanup neither introduces nor fixes them. The
+identity register remains in shadow mode. Their interpretation and any repair
+remain open; no baseline entry is added and no false-reject verdict is claimed.
