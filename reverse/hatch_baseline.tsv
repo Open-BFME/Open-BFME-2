@@ -3564,6 +3564,7 @@ alternatename	Code/Libraries/Source/ATL/atlimage.cpp	??1Bitmap@Gdiplus@@UAE@XZ	1
 alternatename	Code/Libraries/Source/ATL/atlimage.cpp	?GdiplusShutdown@Gdiplus@@YGXK@Z	1
 alternatename	Code/Libraries/Source/ATL/atlimage.cpp	?GdiplusStartup@Gdiplus@@YG?AW4Status@1@PAKPBUGdiplusStartupInput@1@PAUGdiplusStartupOutput@1@@Z	1
 alternatename	Code/Libraries/Source/Apt/Apt.cpp	?AptPushStaticData@@YAPAXXZ	1
+alternatename	Code/Libraries/Source/Apt/AptActionInterpreter.cpp	?Push@AptBasePtrStack@@QAEXPAVAptValue@@@Z	1
 alternatename	Code/Libraries/Source/Apt/AptActionInterpreter.cpp	?rva006291C0@@YAKPBDPAXH@Z	1
 alternatename	Code/Libraries/Source/Apt/AptActionInterpreter.cpp	?rva00629B6E@@YAHH@Z	1
 alternatename	Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp	??0AptPrototype@@QAE@XZ	1
@@ -3624,7 +3625,6 @@ alternatename	Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers_Unr
 alternatename	Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers_Unresolved__FunctionAptActionCloneSprite.cpp	?isCIH@AptValue@@QBE_N_N@Z	1
 alternatename	Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers_Unresolved__FunctionAptActionCloneSprite.cpp	?isString@AptValue@@QBE_NXZ	1
 alternatename	Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers_Unresolved__FunctionAptActionCloneSprite.cpp	?toInteger@AptValue@@QBEHXZ	1
-alternatename	Code/Libraries/Source/Apt/AptActionInterpreterDefineFunctions.cpp	?Push@AptBasePtrStack@@QAEXPAVAptValue@@@Z	1
 alternatename	Code/Libraries/Source/Apt/AptActionInterpreterScopeHandlers.cpp	?bfmeFind1024@BfmeTab1024@@QAEHH@Z	1
 alternatename	Code/Libraries/Source/Apt/AptActionInterpreterScopeHandlers.cpp	?c_string@AptValue@@QBEPAVAptString@@XZ	1
 alternatename	Code/Libraries/Source/Apt/AptActionInterpreterScopeHandlers.cpp	?isUndefined@AptValue@@QBE_NXZ	1
