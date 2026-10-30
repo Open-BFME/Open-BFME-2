@@ -60933,7 +60933,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00758220,8,code,,,-,,Code/GameEngine/Source/Common/Rva00758210Thunks.cpp
 0x00758230,8,code,,,-,,Code/GameEngine/Source/Common/Rva00758210Thunks.cpp
 0x00758240,8,code,,,-,,Code/GameEngine/Source/Common/Rva00758210Thunks.cpp
-0x00758250,146,code,Code/GameEngine/Source/Common/System/CollisionManager.cpp,proposed,N,N=Code/GameEngine/Source/Common/System/CollisionManager.cpp,Code/GameEngine/Source/Common/System/CollisionManagerConstructor.cpp
+0x00758250,146,code,Code/GameEngine/Source/Common/System/CollisionManager.cpp,proposed,N,N=Code/GameEngine/Source/Common/System/CollisionManager.cpp,Code/GameEngine/Source/Common/System/CollisionManager.cpp
 0x007582F0,8,code,Code/GameEngine/Source/GameClient/Open2Store9A2680.cpp,approved,N,N=Code/GameEngine/Source/GameClient/Open2Store9A2680.cpp provisional,Code/GameEngine/Source/GameClient/Open2Twins006.cpp
 0x00758300,6,code,Code/GameEngine/Source/GameClient/Open2Store9A2680.cpp,approved,C,C=0x007582F0..0x00758310 provisional,Code/GameEngine/Source/GameClient/Open2Store9A2680.cpp
 0x00758310,115,code,Code/GameEngine/Source/GameClient/Open2Store9A2680.cpp,approved,N,N=Code/GameEngine/Source/GameClient/Open2Store9A2680.cpp provisional,Code/GameEngine/Source/GameClient/Open2Twins006.cpp
@@ -92598,10 +92598,10 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007AB6B6,10,code,Code/Libraries/Source/WWVegas/WW3D2/streakRender.cpp,approved,P,P=0x00743700@FuncInfo0x00965014 p-group provisional,Code/Libraries/Source/WWVegas/WW3D2/StreakRendererRenderStreak.cpp
 0x007AB6C0,8,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/streakRender.cpp
 0x007AB6C8,10,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/streakRender.cpp
-0x007AB6E0,8,code,Code/GameEngine/Source/Common/System/CollisionManager.cpp,approved,P,P=0x00758250@FuncInfo0x0096506C p-group provisional,Code/GameEngine/Source/Common/System/CollisionManagerConstructor.cpp
-0x007AB6E8,11,code,Code/GameEngine/Source/Common/System/CollisionManager.cpp,approved,P,P=0x00758250@FuncInfo0x0096506C p-group provisional,Code/GameEngine/Source/Common/System/CollisionManagerConstructor.cpp
-0x007AB6F3,11,code,Code/GameEngine/Source/Common/System/CollisionManager.cpp,approved,P,P=0x00758250@FuncInfo0x0096506C p-group provisional,Code/GameEngine/Source/Common/System/CollisionManagerConstructor.cpp
-0x007AB6FE,10,code,Code/GameEngine/Source/Common/System/CollisionManager.cpp,approved,P,P=0x00758250@FuncInfo0x0096506C p-group provisional,Code/GameEngine/Source/Common/System/CollisionManagerConstructor.cpp
+0x007AB6E0,8,code,Code/GameEngine/Source/Common/System/CollisionManager.cpp,approved,P,P=0x00758250@FuncInfo0x0096506C p-group provisional,Code/GameEngine/Source/Common/System/CollisionManager.cpp
+0x007AB6E8,11,code,Code/GameEngine/Source/Common/System/CollisionManager.cpp,approved,P,P=0x00758250@FuncInfo0x0096506C p-group provisional,Code/GameEngine/Source/Common/System/CollisionManager.cpp
+0x007AB6F3,11,code,Code/GameEngine/Source/Common/System/CollisionManager.cpp,approved,P,P=0x00758250@FuncInfo0x0096506C p-group provisional,Code/GameEngine/Source/Common/System/CollisionManager.cpp
+0x007AB6FE,10,code,Code/GameEngine/Source/Common/System/CollisionManager.cpp,approved,P,P=0x00758250@FuncInfo0x0096506C p-group provisional,Code/GameEngine/Source/Common/System/CollisionManager.cpp
 0x007AB710,8,code,Code/GameEngine/Source/GameClient/Open2Store9A2680.cpp,approved,P,P=0x00758310@FuncInfo0x00965098 provisional,Code/GameEngine/Source/GameClient/Open2Twins006.cpp
 0x007AB718,39,code,Code/GameEngine/Source/GameClient/Open2Store9A2680.cpp,approved,P,P=0x00758310@FuncInfo0x00965098 provisional,Code/GameEngine/Source/GameClient/Open2Twins006.cpp
 0x007AB73F,10,code,Code/GameEngine/Source/GameClient/Open2Store9A2680.cpp,approved,P,P=0x00758310@FuncInfo0x00965098 provisional,Code/GameEngine/Source/GameClient/Open2Twins006.cpp
