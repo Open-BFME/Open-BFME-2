@@ -18,7 +18,7 @@
 // 0x00626D90 -> dtor 0x00625800
 // 0x00663410 -> dtor 0x0066C730
 // 0x0073AAC0 -> dtor 0x0073A900
-// 0x007581C0 -> dtor 0x0075A080
+// 0x007581C0 -> dtor 0x0075A080 (non-virtual; see Rva009A4620CollisionData below)
 
 class Rva006C5930Dtor
 {
@@ -145,12 +145,14 @@ __declspec(noinline) Rva0073A900Dtor::~Rva0073A900Dtor()
 {
 }
 
-class Rva0075A080Dtor
+// 0x007581C0 is likewise non-virtual (no DIR32 holds its address): it is the
+// scalar deleting destructor of the collision data record whose destructor
+// 0x0075A080 is rowed in CollisionManagerImpl.cpp.
+class Rva009A4620CollisionData
 {
 public:
-	virtual ~Rva0075A080Dtor();
+	~Rva009A4620CollisionData();
 };
 
-__declspec(noinline) Rva0075A080Dtor::~Rva0075A080Dtor()
-{
-}
+// ?forceRva009A4620CollisionDataDelete@@YAXPAVRva009A4620CollisionData@@@Z absent-from-retail
+void forceRva009A4620CollisionDataDelete(Rva009A4620CollisionData *object) { delete object; }

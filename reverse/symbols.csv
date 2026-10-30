@@ -3274,7 +3274,6 @@ name,address,notes
 ??1Rva0070A840@@QAE@XZ,0x0070A840,opaque member dtor called from LadderPreferences dtor at 0x006D6470; identity unproven
 ??1Rva0072892@@UAE@XZ,0x0072892,opaque trivial dtor (7B vptr reinstall); called by scalar-deleting-dtor at 0x728C6; identity unproven, address-derived name
 ??1Rva0073A900Dtor@@UAE@XZ,0x0073A900,address-derived class dtor called by the 30B scalar deleting destructor at 0x0073AAC0; address read from that body REL32; class identity unproven so the model is named for the call target
-??1Rva0075A080Dtor@@UAE@XZ,0x0075A080,address-derived class dtor called by the 30B scalar deleting destructor at 0x007581C0; address read from that body REL32; class identity unproven so the model is named for the call target
 ??1Rva00789600Pair@@QAE@XZ,0x0074011F,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ??1Rva00789740View@@UAE@XZ,0x007401F6,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ??1Rva007E86B0Base@@UAE@XZ,0x00655780
