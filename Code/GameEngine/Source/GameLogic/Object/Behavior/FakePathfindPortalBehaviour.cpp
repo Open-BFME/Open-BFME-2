@@ -198,20 +198,25 @@ enum { INVALID_WAYPOINT_ID = 0x7fffffff };
 
 void XferWaypointID(Xfer *xfer, int *id);
 
+struct Coord3D;
+
 class Waypoint
 {
 public:
+	virtual ~Waypoint();
+	void addLink(Waypoint *link);
 	int getID() const { return m_id; }
 private:
-	void *m_unknown00;
-	int m_id;
+	int m_id;	// +0x04
 };
 
 class TerrainLogic
 {
 public:
 	virtual void s00(); virtual void s01(); virtual void s02(); virtual void s03();
-	virtual void s04(); virtual void s05(); virtual void s06(); virtual void s07();
+	virtual void s04(); virtual void s05();
+	virtual float getGroundHeight(float x, float y, Coord3D *normal);
+	virtual void s07();
 	virtual void s08(); virtual void s09(); virtual void s10(); virtual void s11();
 	virtual void s12(); virtual void s13(); virtual void s14(); virtual void s15();
 	virtual void s16(); virtual void s17(); virtual void s18(); virtual void s19();
@@ -229,6 +234,8 @@ extern TerrainLogic *TheTerrainLogic;
 // vtables, 0x00C1C780 and 0x00C4EF80, the inlined base ctors store first).
 // The 0x00C42B50 interface's slot 0 is rva0046190A, entered with this at
 // +0x20. novtable: the ctor writes those stores explicitly.
+struct FakePortalOwnerView;
+
 class UpdateModule
 {
 public:
@@ -237,8 +244,8 @@ public:
 	void xfer(Xfer *xfer);
 
 protected:
-	Thing *m_owner;		// +0x04
-	int m_pad08;
+	const void *m_moduleData;	// +0x04
+	FakePortalOwnerView *m_owner;	// +0x08
 	const void *m_p0C;	// +0x0C
 	const void *m_p10;	// +0x10
 	unsigned char m_pad[0x20 - 0x14];
@@ -259,16 +266,6 @@ public:
 
 extern class AI *TheAI;
 
-class FakePathfindPortalBehaviourBase
-{
-public:
-	virtual ~FakePathfindPortalBehaviourBase();
-protected:
-	const ModuleData *m_moduleData;	// +0x04
-	Object *m_object;		// +0x08
-	unsigned char m_pad0C[0x20 - 0x0C];
-};
-
 class __declspec(novtable) Rva00C42B50Iface
 {
 public:
@@ -283,6 +280,8 @@ public:
 	virtual NameKeyType getModuleNameKey() const;
 	virtual void rva0046190A(void *arg);
 	void rva0046183B();
+	void rva004618D4();
+	Waypoint *rva00461A46(const Coord3D *point);
 	void rva00461C1F();
 
 protected:
