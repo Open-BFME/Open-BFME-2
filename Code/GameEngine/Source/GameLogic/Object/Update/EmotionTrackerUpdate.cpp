@@ -5,6 +5,7 @@
 #include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
 #include "Code/Libraries/Include/Lib/Coord3D.h"
 #include <vector>
+#include <set>
 template <int N> class BitFlags;
 extern BitFlags<116> KINDOFMASK_NONE;
 extern "C" const void *const __identifier("??_7EmotionTrackerUpdateModuleData@@6B@")[];
@@ -50,14 +51,29 @@ class ThingTemplate { public: char pad[0x10b]; unsigned char flags10b; };
 
 class ExperienceTracker { public: char pad[0x24]; int level; };
 
-class Object {
+enum ObjectStatusTypes;
+enum Relationship { ENEMIES = 0 };
+class Object
+{
 public:
-    Player *getControllingPlayer() const;
-    int rva0028B511() const;
-    char pad0[4]; ThingTemplate *m_template;
-    char pad8[0x38-8]; Coord3D pos;
-    char pad44[0x94-0x44]; unsigned int status94;
-    char pad98[0x264-0x98]; ExperienceTracker *m_tracker;
+	Player *getControllingPlayer() const;
+	int rva0028B511() const;
+	bool testStatus(ObjectStatusTypes status) const;
+	Relationship getRelationship(const Object *other) const;
+	bool rva00294471(void *key, int arg);
+	char m_pad00[0x4];
+	ThingTemplate *m_template; // +0x04
+	char m_pad08[0x30];
+	Coord3D pos; // +0x38
+	char m_pad44[0x50];
+	unsigned int status94; // +0x94
+	char m_pad98[0x1CC];
+	ExperienceTracker *m_tracker; // +0x264
+	char m_pad268[0xC];
+	int m_274; // +0x274
+	char m_pad278[0x1C0];
+	unsigned char m_438; // +0x438
+	char m_pad439[0x3];
 };
 
 struct EmotionUpdateData { char pad[0x2c]; unsigned char flag2c; char pad2d[3]; int level30; };
@@ -66,24 +82,17 @@ struct EmotionEntry { char pad[4]; int kind; char pad8[4]; int duration; };
 
 struct Rva004DD018Arg;
 
-class EmotionNugget {
+class EmotionNugget
+{
 public:
-    bool CanBeActivatedFor(int,int,Rva004DD018Arg *);
-    void OnDeactivation();
-    char pad[4]; EmotionEntry *entry;
+	bool CanBeActivatedFor(int,int,Rva004DD018Arg *);
+	void OnDeactivation();
+	char m_pad00[0x4];
+	EmotionEntry *entry; // +0x04
 };
 
-class EmotionModuleBase {
-public:
-    virtual ~EmotionModuleBase();
-    Object *getObject() const { return m_object; }
-    EmotionUpdateData *m_data;
-    Object *m_object;
-};
 
-class EmotionBehaviorInterface { public: virtual void behaviorSlot0(); };
 
-class EmotionUpdateInterface { public: virtual UpdateSleepTime update()=0; };
 
 class PlayerList { public: int getPlayersWithRelationship(int,unsigned int,bool); };
 
@@ -218,20 +227,92 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class EmotionTrackerUpdate : public EmotionModuleBase, public EmotionBehaviorInterface, public EmotionUpdateInterface {
+class Thing;
+class ModuleData;
+class Xfer;
+enum NameKeyType;
+#include "Code/GameEngine/Include/Common/ObjectModule.h"
+
+class BehaviorModuleInterface
+{
 public:
+    virtual void getBody();
+};
+
+class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
+{
+};
+
+class UpdateModuleInterface
+{
+public:
+    virtual UpdateSleepTime update() = 0;
+};
+
+class UpdateModule : public BehaviorModule, public UpdateModuleInterface
+{
+public:
+    UpdateModule(Thing *thing, const ModuleData *moduleData);
+    virtual ~UpdateModule();
+    void xfer(Xfer *xfer);
+protected:
+    virtual void loadPostProcess();
+private:
+    unsigned int m_nextCallFrameAndPhase; // +0x14
+    int m_indexInLogic; // +0x18
+    int m_reserved1C; // +0x1C
+};
+
+class EmotionTrackerUpdateSecondaryBase
+{
+public:
+    virtual void rva004B15E6() = 0;
+};
+
+// The ObjectID set at +0xA4; its ctor is the 25-byte STLport set ctor
+// 0x000D3A71, its dtor the one the rowed dtor runs.
+class Rva002EE9B7
+{
+public:
+    Rva002EE9B7();
+    ~Rva002EE9B7();
+private:
+    void *m_header;
+    int m_count;
+    int m_compare;
+};
+
+class EmotionTrackerUpdate : public UpdateModule, public EmotionTrackerUpdateSecondaryBase
+{
+public:
+    class TauntPointFilter;
+    EmotionTrackerUpdate(Thing *thing, const ModuleData *moduleData);
+    virtual ~EmotionTrackerUpdate();
     virtual UpdateSleepTime update();
     virtual NameKeyType getModuleNameKey() const;
+    virtual void rva004B15E6();
     EmotionNugget *rva004B13D8();
-    char pad14[0x24-0x14];
-    bool flags[12];
-    unsigned int expiry[12];
-    ObjectID targetID[12];
-    std::vector<EmotionNugget *> nuggets;
-    EmotionNugget *active;
-    int countdown;
-    char pada4[0xb0-0xa4];
-    int forcedKind,forcedFrames;
+    bool rva004B0EBC();
+    void rva004B0D4C(int index, void *p);
+    void PulseEmotion(int index, void *p, int delay);
+    void ForceEmotion(int index, float value, int arg);
+protected:
+    virtual void loadPostProcess();
+    virtual void xfer(Xfer *xfer);
+private:
+    enum { SLOT_COUNT = 12 };
+    bool flags[SLOT_COUNT]; // +0x24
+    unsigned int expiry[SLOT_COUNT]; // +0x30
+    ObjectID targetID[SLOT_COUNT]; // +0x60
+    std::vector<EmotionNugget *> nuggets; // +0x90
+    EmotionNugget *active; // +0x9C
+    int countdown; // +0xA0
+    std::set<int> m_emotionTargets; // +0xA4
+    int forcedKind, forcedFrames; // +0xB0, +0xB4
+    ObjectID m_B8; // +0xB8
+    unsigned int m_BC; // +0xBC
+    bool m_enabled; // +0xC0
+    int m_C4; // +0xC4
 };
 
 // tu-skeleton: 0x004B0D4C 36B ?rva004B0D4C@EmotionTrackerUpdate@@QAEXHPAX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateRva004B0EBC.cpp (not merged yet)
@@ -431,7 +512,7 @@ EmotionNugget *EmotionTrackerUpdate::rva004B13D8()
 			continue;
 		}
 
-		EmotionUpdateData *data = m_data;
+		const EmotionUpdateData *data = (const EmotionUpdateData *)m_moduleData;
 		if (!flag)
 		{
 			if (data->flag2c == (unsigned char)flag && level >= data->level30)

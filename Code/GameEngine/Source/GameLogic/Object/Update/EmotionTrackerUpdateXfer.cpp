@@ -97,7 +97,7 @@ public:
 
 enum ObjectID
 {
-	INVALID_ID = 0
+	INVALID_OBJECT_ID = 0
 };
 
 void XferObjectID(Xfer *xfer, ObjectID *id);
@@ -108,35 +108,104 @@ public:
 	virtual void xfer(Xfer *xfer);
 };
 
-class UpdateModule
+enum UpdateSleepTime { UPDATE_SLEEP_NONE=1, UPDATE_SLEEP_FOREVER=0x3fffffff };
+class Thing;
+class ModuleData;
+class Xfer;
+enum NameKeyType;
+#include "../../../../Include/Common/ObjectModule.h"
+
+class BehaviorModuleInterface
 {
 public:
-	virtual ~UpdateModule();
-	void xfer(Xfer *xfer);
-private:
-	char m_unrecovered04[0x24 - 0x04];
+    virtual void getBody();
 };
 
-class EmotionTrackerUpdate : public UpdateModule
+class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
 {
-protected:
-	virtual void xfer(Xfer *xfer);
+};
 
+class UpdateModuleInterface
+{
+public:
+    virtual UpdateSleepTime update() = 0;
+};
+
+class UpdateModule : public BehaviorModule, public UpdateModuleInterface
+{
+public:
+    UpdateModule(Thing *thing, const ModuleData *moduleData);
+    virtual ~UpdateModule();
+    void xfer(Xfer *xfer);
+protected:
+    virtual void loadPostProcess();
 private:
-	enum { SLOT_COUNT = 12 };
-	bool m_24[SLOT_COUNT];
-	unsigned int m_30[SLOT_COUNT];
-	ObjectID m_60[SLOT_COUNT];
-	_STL::vector<Rva004DD489 *> m_90;
-	Rva004DD489 *m_9C;
-	int m_A0;
-	_STL::set<int> m_A4;
-	int m_B0;
-	int m_B4;
-	ObjectID m_B8;
-	unsigned int m_BC;
-	bool m_C0;
-	int m_C4;
+    unsigned int m_nextCallFrameAndPhase; // +0x14
+    int m_indexInLogic; // +0x18
+    int m_reserved1C; // +0x1C
+};
+
+class EmotionTrackerUpdateSecondaryBase
+{
+public:
+    virtual void rva004B15E6() = 0;
+};
+
+// The ObjectID set at +0xA4; its ctor is the 25-byte STLport set ctor
+// 0x000D3A71, its dtor the one the rowed dtor runs.
+class Rva002EE9B7
+{
+public:
+    Rva002EE9B7();
+    ~Rva002EE9B7();
+private:
+    void *m_header;
+    int m_count;
+    int m_compare;
+};
+
+
+struct EmotionEntry;
+struct Rva004DD018Arg;
+class EmotionNugget
+{
+public:
+	bool CanBeActivatedFor(int,int,Rva004DD018Arg *);
+	void OnDeactivation();
+	char m_pad00[0x4];
+	EmotionEntry *entry; // +0x04
+};
+class EmotionTrackerUpdate : public UpdateModule, public EmotionTrackerUpdateSecondaryBase
+{
+public:
+    class TauntPointFilter;
+    EmotionTrackerUpdate(Thing *thing, const ModuleData *moduleData);
+    virtual ~EmotionTrackerUpdate();
+    virtual UpdateSleepTime update();
+    virtual NameKeyType getModuleNameKey() const;
+    virtual void rva004B15E6();
+    EmotionNugget *rva004B13D8();
+    bool rva004B0EBC();
+    void rva004B0D4C(int index, void *p);
+    void PulseEmotion(int index, void *p, int delay);
+    void ForceEmotion(int index, float value, int arg);
+protected:
+    virtual void loadPostProcess();
+    virtual void xfer(Xfer *xfer);
+private:
+    enum { SLOT_COUNT = 12 };
+    bool flags[SLOT_COUNT]; // +0x24
+    unsigned int expiry[SLOT_COUNT]; // +0x30
+    ObjectID targetID[SLOT_COUNT]; // +0x60
+    std::vector<EmotionNugget *> nuggets; // +0x90
+    EmotionNugget *active; // +0x9C
+    int countdown; // +0xA0
+    std::set<int> m_emotionTargets; // +0xA4
+    int forcedKind, forcedFrames; // +0xB0, +0xB4
+    ObjectID m_B8; // +0xB8
+    unsigned int m_BC; // +0xBC
+    bool m_enabled; // +0xC0
+    int m_C4; // +0xC4
 };
 
 // ?xfer@EmotionTrackerUpdate@@MAEXPAVXfer@@@Z @0x004B1ECB
@@ -149,40 +218,40 @@ void EmotionTrackerUpdate::xfer(Xfer *xfer)
 
 	for (int i = 0; i < SLOT_COUNT; ++i)
 	{
-		*xfer == m_24[i];
-		*xfer == m_30[i];
-		XferObjectID(xfer, &m_60[i]);
+		*xfer == flags[i];
+		*xfer == expiry[i];
+		XferObjectID(xfer, &targetID[i]);
 	}
 
 	m_C4 = -1;
-	int count = m_90.size();
+	int count = nuggets.size();
 	for (int j = 0; j < count; ++j)
 	{
-		Rva004DD489 *entry = m_90[j];
-		if (xfer->IsStoring() && entry == m_9C)
+		Rva004DD489 *entry = reinterpret_cast<Rva004DD489 *>(nuggets[j]);
+		if (xfer->IsStoring() && entry == reinterpret_cast<Rva004DD489 *>(active))
 			m_C4 = j;
 		entry->Rva004DD489::xfer(xfer);
 	}
 
 	*xfer == m_C4;
-	*xfer == m_A0;
+	*xfer == countdown;
 
 	if (version.m_minimum < 2)
 	{
-		int size = m_A4.size();
+		int size = m_emotionTargets.size();
 		*xfer == size;
 		if (xfer->IsLoading())
 		{
-			ObjectID id = INVALID_ID;
+			ObjectID id = INVALID_OBJECT_ID;
 			for (int k = 0; k < size; ++k)
 			{
 				XferObjectID(xfer, &id);
-				m_A4.insert(reinterpret_cast<const int &>(id));
+				m_emotionTargets.insert(reinterpret_cast<const int &>(id));
 			}
 		}
 		else
 		{
-			for (_STL::set<int>::iterator it = m_A4.begin(); it != m_A4.end(); ++it)
+			for (_STL::set<int>::iterator it = m_emotionTargets.begin(); it != m_emotionTargets.end(); ++it)
 			{
 				ObjectID id = (ObjectID)*it;
 				XferObjectID(xfer, &id);
@@ -190,13 +259,13 @@ void EmotionTrackerUpdate::xfer(Xfer *xfer)
 		}
 	}
 
-	xfer->XferRawBytes(&m_B0, sizeof(m_B0));
-	*xfer == m_B4;
+	xfer->XferRawBytes(&forcedKind, sizeof(forcedKind));
+	*xfer == forcedFrames;
 	XferObjectID(xfer, &m_B8);
 
 	if (version.m_minimum >= 2)
 	{
 		*xfer == m_BC;
-		*xfer == m_C0;
+		*xfer == m_enabled;
 	}
 }
