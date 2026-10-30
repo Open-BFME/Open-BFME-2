@@ -2828,7 +2828,7 @@ alternatename	Code/GameEngine/Source/GameClient/Rva005E2237PageCtor.cpp	??0Rva00
 alternatename	Code/GameEngine/Source/GameClient/Rva005E2237PageCtor.cpp	??1Rva0022167C@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/GameClient/ScreenFilterRva000F8348Ctor.cpp	?init@Rva000F8348@@UAEHXZ	1
 alternatename	Code/GameEngine/Source/GameClient/ScreenFilterRva000F9C3CCtor.cpp	?slot0@Rva000F9C3C@@UAEHXZ	1
-alternatename	Code/GameEngine/Source/GameClient/Shadow_setOpacity.cpp	?SetTexture@Rva00330995@@QAEXPAX@Z	1
+alternatename	Code/GameEngine/Source/GameClient/Shadow.cpp	?SetTexture@Rva00330995@@QAEXPAX@Z	1
 alternatename	Code/GameEngine/Source/GameClient/SubtitleEntry.cpp	?Rva0081D7C0FieldParseTable@@3QBUFieldParse@@B	1
 alternatename	Code/GameEngine/Source/GameClient/System/FXParticleSystem/ButterflyDrawModuleTemplateCopyCtorThunk.cpp	_ButterflyDrawModuleTemplate_cvtbl0	1
 alternatename	Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleTemplate01InlineCopyCtors.cpp	_Rva003AEA42_v14a	1

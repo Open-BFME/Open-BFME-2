@@ -6755,7 +6755,7 @@ _Rva008118C0,,0x0067D7C0,5,Code/Libraries/Source/DirtySock/Y5SmallHelpers.c,matc
 ?setOpacity@RadiusDecal@@QAEXM@Z,,0x00330DDB,34,Code/GameEngine/Source/GameClient/RadiusDecal.cpp,matched,BFME1 RadiusDecal verbatim plus Shadow pin 0x3308F6 and 255.0f const
 ??0RadiusDecal@@QAE@XZ,,0x00330DA4,22,Code/GameEngine/Source/GameClient/RadiusDecal.cpp,matched,BFME1 RadiusDecal ctor verbatim plus SSE extra-zero at +0x0C
 ?closeDataChunk@DataChunkOutput@@QAEXXZ,,0x00306C88,119,Code/GameEngine/Source/GameLogic/ScriptEngine/ConditionWriteDataChunk.cpp,matched,ZH DataChunk.cpp port; bare ::delete tail with flag-0 dtor plus separate free
-?setOpacity@Shadow@@QAEXH@Z,,0x003308F6,159,Code/GameEngine/Source/GameClient/Shadow_setOpacity.cpp,matched,BFME1 ShadowSetOpacity verbatim plus /O1 /Oy- for frame and 16-bit test encoding
+?setOpacity@Shadow@@QAEXH@Z,,0x003308F6,159,Code/GameEngine/Source/GameClient/Shadow.cpp,matched,BFME1 ShadowSetOpacity verbatim plus /O1 /Oy- for frame and 16-bit test encoding
 ?Rva00330E15@RadiusDecal@@QAEXABUCoord3D@@@Z,,0x00330E15,24,Code/GameEngine/Source/GameClient/RadiusDecal.cpp,matched,Opaque RadiusDecal Coord setter to shadow+0x14 via twin caller 0xB3198 with setPosition
 ?set@Rva006573B0Holder@@QAEXPBD00@Z,,0x006573B0,99,Code/GameEngine/Source/GameNetwork/Y2FeslSafeStrCopy.cpp,matched,FESL bulk string setter; first source assumed non-null and other two fall back to empty
 ?DisconnectFromServer@Cftp@@QAEJXZ,,0x006CA490,12,Code/Libraries/Source/WWVegas/WWDownload/FTP.CPP,matched,
@@ -28734,7 +28734,7 @@ _FilterBlock_C,,0x001B8560,993,Code/Libraries/Source/VP6/FilterBlockC.cpp,matche
 ?Rva00229A9CPick@@YAXPAH0@Z,,0x00229A9C,44,Code/GameEngine/Source/GameClient/GUI/Gadget/Rva0056EDBAPick.cpp,matched,esp pair pick over its own int[4] tables VA 0xdba36c/0xdba35c; bytes equal the rowed esp picker except the two table operands
 ??4Rva00564E0D@@QAEAAV0@AAV0@@Z,,0x000898B0,92,Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva00564E0DAssign.cpp,matched,copyassign via rowed getter set releaseBuffer movsd
 ??0Rva00089822@@QAE@ABV0@@Z,,0x00089822,35,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,matched,copyctor via rowed set mov head unblocks 0x0008A173
-?setColor@Shadow@@QAEXH@Z,,0x00330995,162,Code/GameEngine/Source/GameClient/Shadow_setOpacity.cpp,matched,Shadow color setter sibling of setOpacity same TU offsets Float-ref
+?setColor@Shadow@@QAEXH@Z,,0x00330995,162,Code/GameEngine/Source/GameClient/Shadow.cpp,matched,Shadow color setter sibling of setOpacity same TU offsets Float-ref
 ?rva0029A94F@Rva0029A94F@@QAEXXZ,,0x0029A94F,101,Code/GameEngine/Source/Common/Rva0029A94FClear.cpp,matched,loop over GlobalData count clearing slots via g_00DFF080 and TheGameClient then tail
 ?rva0025FB9B@Rva0025FB9B@@QAEXXZ,,0x0025FB9B,33,Code/GameEngine/Source/GameClient/Rva0025FB9BClear.cpp,matched,conditional clears with copy caller 0x00260BBF
 ?rva0029A469@Rva0029A469@@QAEXM@Z,,0x0029A469,33,Code/GameEngine/Source/GameClient/Rva0029A469.cpp,matched,null-checked Shadow scaled float via g_00BC2900 caller 0x002A4769
