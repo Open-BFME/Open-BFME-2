@@ -1,16 +1,9 @@
-// cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ivendor/stlport
+// cl: /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // The registration-named ModuleFactory entry allocates the 0x18-byte BFME
 // EvacuateDamage and reaches this constructor through ILT 0x0003BD40.
 
 #include <list>
-// Keep __node_alloc<true,0>::deallocate inline-only: every call here is inlined,
-// and this TU's /O1 COMDAT copy differs from the copy the link keeps.
-namespace _STL {
-template <> __declspec(dllimport) __forceinline
-void _STLP_CALL __node_alloc<true, 0>::deallocate(void *__p, size_t __n)
-{ if (__n > (size_t)_MAX_BYTES) __stl_delete(__p); else _M_deallocate(__p, __n); }
-}
 
 class Thing;
 class ModuleData;

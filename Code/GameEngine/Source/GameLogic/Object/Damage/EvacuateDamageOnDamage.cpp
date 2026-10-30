@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ivendor/stlport
+// cl: /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
 // ?rva004BAF2D@EvacuateDamage@@QAEXPAX@Z @ 0x004BAF2D 40B
@@ -10,9 +10,6 @@
 // 0x0023DAA5 ICF alias.
 
 #include <list>
-// bfme link decl-only begin
-namespace _STL { template <> void __node_alloc<1,0>::deallocate(void *,unsigned int); }
-// bfme link decl-only end
 
 enum CommandSourceType
 {
@@ -57,8 +54,6 @@ private:
 	std::list<EvacuationRecord> m_pendingEvacuations;
 };
 
-// Declared, not defined here: the link keeps the rowed retail copy (this unit's own copy differs).
-namespace _STL { template <> void allocator<_List_node<EvacuationRecord> >::deallocate(_List_node<EvacuationRecord> *,unsigned int)const; }
 void EvacuateDamage::rva004BAF2D(void *obj)
 {
 	Holder *holder = m_object->m_holder;
