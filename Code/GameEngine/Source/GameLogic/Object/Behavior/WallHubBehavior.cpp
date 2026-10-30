@@ -10,7 +10,6 @@ class Xfer;
 // returning true (0x0050B5C6); teardown restores
 // Snapshot's table 0x00BBB554 (as in Rva004ABFD9Dtor.cpp).
 inline ModuleData::~ModuleData() { reinterpret_cast<Snapshot *>(this)->Snapshot::~Snapshot(); }
-
 // ?getModuleNameKey@WallHubBehavior@@UBE?AW4NameKeyType@@XZ @0x452DA3
 // (69B): cached pool-name key for WallHubBehavior. The class
 // identity comes from the pool-name string the body pushes
@@ -25,26 +24,101 @@ enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
-
 class NameKeyGenerator
 {
 public:
 	NameKeyType nameToKey(const char *name);
 };
-
 extern NameKeyGenerator *TheNameKeyGenerator;
-
 typedef float Real;
 typedef int Int;
 typedef unsigned int UnsignedInt;
-
 enum UpdateSleepTime
 {
 	UPDATE_SLEEP_NONE = 1,
 	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
 };
-
 #include "../../../../Include/Common/ObjectModule.h"
+//
+// ??0WallHubBehavior@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x00452E27,
+// 154 bytes. BFME 2 module without a ZH counterpart. Target evidence: the
+// body runs the rowed UpdateModule ctor 0x00253390, then the implicit ctor
+// of an abstract interface at +0x20 (vtable 0x008633C0, every slot
+// _purecall 0x0003B810), and stores the class vtables: 0x0083FDBC primary
+// (slot 2 the rowed WallHubBehavior name getter 0x00452D72, slot 3 the
+// rowed WallHubBehavior::xfer 0x00452F25, slot 4 the rowed pool key
+// 0x00452DA3), 0x0084B1E0 for UpdateModuleInterface and 0x0083FD80 for
+// the interface. It wakes at once, then, given module data, registers the
+// interface with its object under the data's +0x34 key through the rowed
+// insert-if-absent 0x00295927 (the map at Object +0x268) and copies the
+// data's +0x2C float to +0x24, taking the object's +0xB8 float instead when
+// the data holds the 9.876 sentinel (constant 0x0083FD78).
+class Thing;
+class ModuleData;
+class Image;
+class Object
+{
+public:
+	float getBfmeB8() const { return m_bfmeB8; }
+private:
+	unsigned char m_pad00[0xB8];
+	float m_bfmeB8; // +0xB8
+};
+// Object's keyed-interface map insert at 0x00295927, rowed under an
+// address name.
+class Rva00295927
+{
+public:
+	void rva00295927(unsigned int key, Image *value);
+};
+//
+// ?xfer@WallHubBehavior@@MAEXPAVXfer@@@Z, retail 0x00452F25, 44 bytes.
+// Virtual slot 3 (offset 0x0C) of vtable 0x0083FDBC (VA 0x00C3FDBC, class of
+// rowed dtor ??1Rva00452D52@@UAE@XZ in Rva0024A797Grandchildren.cpp): slot 2
+// name getter at 0x00452D72 returns WallHubBehavior, slot 4 pool key at
+// 0x00452DA3 is WallHubBehavior pool key, slot 0 deleting dtor at 0x00452EC1.
+// Version(1,1) via Xfer slot 0x28 then base UpdateModule xfer via rowed
+// 0x0044DF9F. No members and no IsLightCRC early-out in retail. Layout is
+// UpdateModule base 0x20. Recipe is the Rva0045B134Xfer Version-first slot-3
+// pattern with protected xfer.
+
+class AsciiString;
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+class Object;
+#include "../../../../Include/Common/BfmeXfer.h"
+class Xfer::Version
+{
+public:
+	Version(unsigned char current, unsigned char minimum)
+		: m_current(current), m_minimum(minimum) {}
+
+	unsigned char m_current;
+	unsigned char m_minimum;
+};
+// A declaration-only specialization stops this TU emitting its own
+// vector<AsciiString> dtor COMDAT, so the call binds the kept copy.
+namespace _STL {
+template <> vector<AsciiString, allocator<AsciiString> >::~vector();
+template <> _Vector_base<AsciiString, allocator<AsciiString> >::~_Vector_base();
+template <> void _STLP_alloc_proxy<AsciiString*, AsciiString, allocator<AsciiString> >::deallocate(AsciiString*, size_t);
+template <> void allocator<AsciiString>::deallocate(AsciiString*, size_t) const;
+template <> AsciiString *vector<AsciiString, allocator<AsciiString> >::erase(AsciiString*, AsciiString*);
+}
 
 class BehaviorModuleInterface
 {
@@ -169,6 +243,8 @@ private:
 
 typedef char AsciiExtent[sizeof(AsciiString) == 4 ? 1 : -1];
 
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/WallHubBehavior.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/WallHubBehaviorPoolKey.cpp
 
 // ?getModuleNameKey@WallHubBehavior@@UBE?AW4NameKeyType@@XZ
@@ -178,24 +254,6 @@ NameKeyType WallHubBehavior::getModuleNameKey() const
 		TheNameKeyGenerator->nameToKey("WallHubBehavior");
 	return TheWallHubBehaviorPoolKey;
 }
-
-// tu-skeleton: 0x00452DE8 7B ?get@Rva00452DE8PtrChaseField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00452DEF 17B ?buildFieldParse@WallHubBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BehaviorModuleDataBuildFieldParse.cpp (not merged yet)
-
-// tu-skeleton: 0x00452E00 39B ?getValue@Rva00452E00@@UAEHPAM@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesSseA.cpp (not merged yet)
-
-// tu-skeleton: 0x00452E27 154B ??0WallHubBehavior@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/WallHubBehaviorCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00452EC1 28B ??_GRva00452D52@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp (not merged yet)
-
-// tu-skeleton: 0x00452EDD 24B ?rva00452EDD@Rva00452EDD@@UAEPAXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesU.cpp (not merged yet)
-
-// tu-skeleton: 0x00452EF5 24B ?rva00452EF5@Rva00452EDD@@UAEPAXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesU.cpp (not merged yet)
-
-// tu-skeleton: 0x00452F0D 24B ?rva00452F0D@Rva00452EDD@@UAEPAXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesU.cpp (not merged yet)
-
-// tu-skeleton: 0x00452F25 44B ?xfer@WallHubBehavior@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/WallHubBehaviorXfer.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00452F51NameRing.cpp
 
@@ -233,26 +291,76 @@ WallHubBehaviorModuleData::~WallHubBehaviorModuleData()
 {
 }
 
-// tu-skeleton: 0x00453020 148B ??0WallHubBehaviorModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/WallHubBehaviorModuleDataCtor.cpp (not merged yet)
+// tu-skeleton: 0x00452DE8 7B ?get@Rva00452DE8PtrChaseField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x00789CA5 8B $L489 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/WallHubBehaviorCtor.cpp (not merged yet)
+// tu-skeleton: 0x00452DEF 17B ?buildFieldParse@WallHubBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BehaviorModuleDataBuildFieldParse.cpp (not merged yet)
 
-// tu-skeleton: 0x00789CAD 10B __ehhandler$??0WallHubBehavior@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/WallHubBehaviorCtor.cpp (not merged yet)
+// tu-skeleton: 0x00452E00 39B ?getValue@Rva00452E00@@UAEHPAM@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesSseA.cpp (not merged yet)
 
-// tu-skeleton: 0x00789D0B 8B Unwind@00b89d0b -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/WallHubBehaviorModuleDataCtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/WallHubBehaviorCtor.cpp
 
-// tu-skeleton: 0x00789D13 11B Unwind@00b89d13 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/WallHubBehaviorModuleDataCtor.cpp (not merged yet)
+WallHubBehavior::WallHubBehavior(Thing *thing, const ModuleData *moduleData)
+	: UpdateModule(thing, moduleData)
+{
+	setWakeFrame(getObject(), UPDATE_SLEEP_NONE);
+	const WallHubBehaviorModuleData *data = getWallHubBehaviorModuleData();
+	if (data)
+	{
+		((Rva00295927 *)getObject())->rva00295927(data->m_options, (Image *)static_cast<WallHubInterface *>(this));
+		m_24 = data->m_builderRadius;
+		if (m_24 == 9.876f)
+			m_24 = getObject()->getBfmeB8();
+	}
+}
 
-// tu-skeleton: 0x00789D1E 11B Unwind@00b89d1e -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/WallHubBehaviorModuleDataCtor.cpp (not merged yet)
+// tu-skeleton: 0x00452EC1 28B ??_GRva00452D52@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp (not merged yet)
 
-// tu-skeleton: 0x00789D29 11B Unwind@00b89d29 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/WallHubBehaviorModuleDataCtor.cpp (not merged yet)
+// tu-skeleton: 0x00452EDD 24B ?rva00452EDD@Rva00452EDD@@UAEPAXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesU.cpp (not merged yet)
 
-// tu-skeleton: 0x00789D34 11B Unwind@00b89d34 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/WallHubBehaviorModuleDataCtor.cpp (not merged yet)
+// tu-skeleton: 0x00452EF5 24B ?rva00452EF5@Rva00452EDD@@UAEPAXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesU.cpp (not merged yet)
 
-// tu-skeleton: 0x00789D3F 11B Unwind@00b89d3f -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/WallHubBehaviorModuleDataCtor.cpp (not merged yet)
+// tu-skeleton: 0x00452F0D 24B ?rva00452F0D@Rva00452EDD@@UAEPAXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesU.cpp (not merged yet)
 
-// tu-skeleton: 0x00789D4A 11B Unwind@00b89d4a -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/WallHubBehaviorModuleDataCtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/WallHubBehaviorXfer.cpp
 
-// tu-skeleton: 0x00789D55 11B Unwind@00b89d55 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/WallHubBehaviorModuleDataCtor.cpp (not merged yet)
+void WallHubBehavior::xfer(Xfer *xfer)
+{
+	Xfer::Version version(1, 1);
+	*xfer == version;
+	UpdateModule::xfer(xfer);
+}
 
-// tu-skeleton: 0x00789D60 10B __ehhandler$??0WallHubBehaviorModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/WallHubBehaviorModuleDataCtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/WallHubBehaviorModuleDataCtor.cpp
+
+//
+// ??0WallHubBehaviorModuleData@@QAE@XZ, retail 0x00453020, 148 bytes.
+// ModuleData-side ctor in the WallHub file-unit: the segment template name
+// vector at +8 builds through the AsciiString Vector_base alias (0x211E58)
+// and is cleared, the six template-name strings at +14/+18/+1C/+20/+24/+28
+// zero-init inline with declared clear/dtor folding to 0x36410 (only
+// +14/+18 call clear in the body; all six plus the base plus the vector
+// drive the EH states to the retail state-7 before the erase), BuilderRadius
+// at +2C defaults to the 9.876 pool float, MaxBuildoutDistance at +30 to the
+// 54321.0 pool float, Options at +34 is 0, StaggeredBuildFactor at +38 is 5.
+// Table 0xC3FED8 carries all eleven fields at these offsets; factory
+// 0x24A94C news 0x3C with this ctor as sole caller (pinned).
+// The ModuleData base and typed members drive the EH frame. Body stores
+// clear names first, then set the radius, options, factor and distance.
+
+// 0x24A94C news 0x3C with this ctor as sole caller (pinned). Shape follows
+// PassiveAreaEffect (empty UpdateModuleData base with declared-only dtor
+// driving the EH frame, explicit vtable first member, implicit member init
+// in decl order, body in retail order: clears first, then the radius,
+// options, factor and distance stores).
+
+// ??0WallHubBehaviorModuleData@@QAE@XZ @0x453020
+WallHubBehaviorModuleData::WallHubBehaviorModuleData()
+{
+	m_segmentTemplateNames.clear();
+	m_hubCapTemplateName.clear();
+	m_defaultSegmentTemplateName.clear();
+	m_builderRadius = 9.876f;
+	m_options = 0;
+	m_staggeredBuildFactor = 5;
+	m_maxBuildoutDistance = 54321.0f;
+}
