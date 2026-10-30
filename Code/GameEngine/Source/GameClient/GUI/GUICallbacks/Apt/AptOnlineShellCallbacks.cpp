@@ -18,9 +18,10 @@ void Rva00516E92Enable();
 extern int g_009C0758;
 extern int g_009C075C;
 
-// ColdGlobalDwordGetters.cpp's g_Va00E04904 (set while a buddy invite
+// Rva004161F1Notify.cpp's buddy-invite owner (set while a buddy invite
 // is pending).
-extern int g_Va00E04904;
+struct Rva00517048;
+extern Rva00517048 *g_Va00A04904;
 
 // Rva00516F3FClear.cpp's record, reset by its rowed 0x00516F3F.
 struct Rva00516F3F
@@ -84,7 +85,7 @@ void AptOnline::ShellExit(const char *unused)
 // invite while one is flagged.
 void AptOnline::rva005170B4()
 {
-	if (g_Va00E04904)
+	if (g_Va00A04904)
 	{
 		AptOnlineInvite *invite = &m_invite;
 		invite->m_18 = 0;

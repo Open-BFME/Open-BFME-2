@@ -108,14 +108,15 @@ int Rva0027C220Get(void)
 	return g_Va00DBB708;
 }
 
-extern int g_Va00E04450;
+struct GlobalA04450;
+extern GlobalA04450 *g_Va00A04450;
 
 // ?Rva0029A26FGet@@YAHXZ @ 0x0029a26f (6B) over 0x00E04450.
 // Follows a ret (prev C3), no .rdata vtable slot, no direct callers,
 // no branch sources. Opaque address-derived name.
 int Rva0029A26FGet(void)
 {
-	return g_Va00E04450;
+	return (int)g_Va00A04450;
 }
 
 // g_Va00E04478: matched references place it at VA 0xe04478 (zero-filled .bss).
@@ -220,14 +221,15 @@ int Rva0040596CGet(void)
 {
 	return (int)TheDisconnectMenu;
 }
-extern int g_Va00E04904;
+struct Rva00517048;
+extern Rva00517048 *g_Va00A04904;
 
 // ?Rva00415E8AGet@@YAHXZ @ 0x00415e8a (6B) over 0x00E04904.
 // Follows a ret-with-pop (prev C2), no .rdata vtable slot, no direct callers,
 // no branch sources. Opaque address-derived name.
 int Rva00415E8AGet(void)
 {
-	return g_Va00E04904;
+	return (int)g_Va00A04904;
 }
 
 // g_Va00E0330C: matched references place it at VA 0xe0330c (zero-filled .bss).
@@ -394,7 +396,8 @@ int Rva00415E90Get(void)
 	return (int)g_bfmeObjELB;
 }
 
-extern int g_Va00E046B4;
+struct GlobalA046B4;
+extern GlobalA046B4 *g_Va00A046B4;
 
 // ?Rva0050E9CDGet@@YAHXZ @ 0x0050e9cd (6B) over 0x00E046B4.
 // Follows a ret-with-pop (prev C2 0C 00); next is a frameless fn start;
@@ -402,7 +405,7 @@ extern int g_Va00E046B4;
 // Opaque address-derived name.
 int Rva0050E9CDGet(void)
 {
-	return g_Va00E046B4;
+	return (int)g_Va00A046B4;
 }
 
 // ?g_Va00E0ABB0@@3HA: matched references place it at VA 0xe0abb0; also referenced as ?g_bfmeThingUCHead@@3PAVBfmeNodeUC@@A.
@@ -411,12 +414,6 @@ int g_Va00E0ABB0;
 AptMessenger *AptMessenger::s_instance;
 // ?g_Va00E06398@@3HA: matched references place it at VA 0xe06398 (the open file transfer popup).
 int g_Va00E06398;
-// ?g_Va00E04450@@3HA: the global at VA 0xe04450 is ?g_Va00A04450@@3PAUGlobalA04450@@A.
-#pragma comment(linker, "/alternatename:?g_Va00E04450@@3HA=?g_Va00A04450@@3PAUGlobalA04450@@A")
-// ?g_Va00E04904@@3HA: the global at VA 0xe04904 is ?g_Va00A04904@@3PAURva00517048@@A.
-#pragma comment(linker, "/alternatename:?g_Va00E04904@@3HA=?g_Va00A04904@@3PAURva00517048@@A")
-// ?g_Va00E046B4@@3HA: the global at VA 0xe046b4 is ?g_Va00A046B4@@3PAUGlobalA046B4@@A.
-#pragma comment(linker, "/alternatename:?g_Va00E046B4@@3HA=?g_Va00A046B4@@3PAUGlobalA046B4@@A")
 // ?g_Va00E18078@@3HA: the global at VA 0xe18078 is ?g_aptUndefinedAtE18078@@3PAVBfmeAptValue006DCD20@@A.
 
 // Clean BF1 9cbfb551fe Common/Rva000CBC30Get.cpp semantic donor, normal O1/SSE/G7.

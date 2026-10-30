@@ -169,7 +169,8 @@ virtual void slot92()=0;
 virtual void slot93()=0;
 virtual void slot94(int)=0;
 };
-extern int g_Va00E03314;
+struct GlobalA03314;
+extern GlobalA03314 *g_Va00A03314;
 
 class AptSpellStore:public _bfme_AptGameWindow {
 public:virtual ~AptSpellStore();
@@ -200,7 +201,7 @@ AptSpellStore::~AptSpellStore() {
   for(int i=0;i<count;++i){void*entry=entries27C[i];if(entry)TheControlBar->processCommandUI((const CommandButton*)entry,true,false);}
   entries27C.clear();
  }
- g_Va00E03314=0;
+ g_Va00A03314=0;
 }
 #pragma comment(linker,"/alternatename:?Rva00030830FreeAllocation@@YAXPAX@Z=_free")
 
