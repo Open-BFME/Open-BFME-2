@@ -8595,6 +8595,33 @@ TU, or rehome the bitset row to a unit that already emits an identical copy, the
 retire the port. No source edit, clearance or census gain is retained.
 Clearance: pending. Census confirmation: not claimed.
 
+**2026-10-30 dd-63 target-grouping pilot (base `92cfd28721`):** Grouped the 961
+current `Code/gen_small` funclets by their retail relocation target: 329 targets,
+of which 383 blocked rows name a missing callee, 90 resolve to a different body
+and 101 lack a same-source parent EH location. Five targets were investigated on
+boat with the supported tools. None of the five could land a proven identity.
+`0x0007BB16` (15 rows, one name, one parent) is the near miss: the parent's
+`??1FXParameter@?A0x4437e226@@QAE@XZ` compiles to a 5-byte tail jump to
+`??1Rva0007BB16Record@@QAE@XZ`, which the object does not define, while retail's
+0x0007BB16 body is the 53-byte record teardown. The pin was admitted only
+because the owner name is an address placeholder, and the repoint byte gate
+passed with the thunk in place; the check that catches it is the compiled
+callee's body length, which the fold proof does not run for a placeholder-owned
+address. The pin and all 15 repoints were reverted after that check.
+The other four are source-shape blockers, not missing pins: `0x0010F149`'s
+`??1ThingRef@@QAE@XZ` compiles to 37 B against retail's 12 B and the fold proof
+refused the pin; `0x000AD6F4`'s parent dtor calls an out-of-line `clear()`, so
+it compiles to a wrapper; `0x0049B47C` is a per-class vtable-store fold whose
+DIR32 differs by owner; `0x0007FAB3`'s
+`vector<PlayerAITypeEntry>::~vector` is declared out-of-line in both parents, so
+no object defines the name. `0x0048BA39` was left alone (claimed by
+yasinschroeder-claudec3). An anonymous-namespace callee also moves: the older
+evidence names `?A0xa2308712` where the current object emits `?A0x4437e226`, so
+recompile the parent before spending a pin on one. Next: for a target whose
+compiled callee is a thunk, make the callee's body visible or inline in the
+parent so the emitted body is retail's, then pin with `fold-proof=` and repoint.
+No row was moved and no census gain is claimed.
+
 ### LINK-052: dispatch-shaped wrappers were misidentified as uninitialized fill
 
 Status: Cleared (the three units were retired as duplicate claims; ordinary preview). Updated: 2026-10-27; inspected revision: d16a31e4dc; preview index 73061d9452. The 2026-10-26 text below is history.
