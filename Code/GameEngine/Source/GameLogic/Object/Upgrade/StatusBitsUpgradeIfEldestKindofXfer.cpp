@@ -48,23 +48,55 @@ private:
 	unsigned int m_00;
 };
 
-class StatusBitsUpgrade
+class Xfer;
+
+class __declspec(novtable) StatusBitsUpgrade
 {
+public:
+	StatusBitsUpgrade(Thing *thing, const ModuleData *moduleData);
+	virtual ~StatusBitsUpgrade();
+
 protected:
-	virtual void v00();
 	virtual void v01();
 	virtual void v02();
 	virtual void xfer(Xfer *xfer);
-	char m_unrecovered04[0x1C - 0x04];
+
+	unsigned char m_pad04[0x08];
+	const void *m_secondary0C;
+	const void *m_secondary10;
+	unsigned char m_pad14[0x04];
+	const void *m_slot18;
 };
 
-class StatusBitsUpgradeIfEldestKindof : public StatusBitsUpgrade
+enum NameKeyType
 {
+	NK_UNKNOWN = 0
+};
+
+struct Rva00485C19Data;
+
+struct StatusBitsEldestFrame
+{
+public:
+	StatusBitsEldestFrame *cacheGameLogicFrame(void);
+	bool rva00485C19(Object *obj, const Rva00485C19Data *data, const NameKeyType *key);
+private:
+	int m_cachedFrame; // +0x00
+};
+
+class __declspec(novtable) StatusBitsUpgradeIfEldestKindof : public StatusBitsUpgrade
+{
+public:
+	StatusBitsUpgradeIfEldestKindof(Thing *thing, const ModuleData *moduleData);
+
+	virtual ~StatusBitsUpgradeIfEldestKindof();
+	virtual NameKeyType getModuleNameKey() const;
+
 protected:
 	virtual void xfer(Xfer *xfer);
 
 private:
-	Rva00485BB8 m_1C;
+	StatusBitsEldestFrame m_eldestFrame;
 };
 
 // 0x004B8710 is rowed as ArmorUpgrade::xfer (27B; ICF-shared with the
@@ -83,5 +115,5 @@ void StatusBitsUpgradeIfEldestKindof::xfer(Xfer *xfer)
 {
 	xfer->Version1();
 	((ArmorUpgrade *)this)->ArmorUpgrade::xfer(xfer);
-	m_1C.xfer(xfer);
+	((Rva00485BB8 *)&m_eldestFrame)->xfer(xfer);
 }

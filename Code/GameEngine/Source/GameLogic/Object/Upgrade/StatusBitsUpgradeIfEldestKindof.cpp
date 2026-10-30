@@ -196,6 +196,8 @@ class Thing;
 
 class ModuleData;
 
+class Xfer;
+
 class __declspec(novtable) StatusBitsUpgrade
 {
 public:
@@ -203,6 +205,10 @@ public:
 	virtual ~StatusBitsUpgrade();
 
 protected:
+	virtual void v01();
+	virtual void v02();
+	virtual void xfer(Xfer *xfer);
+
 	unsigned char m_pad04[0x08];
 	const void *m_secondary0C;
 	const void *m_secondary10;
@@ -210,18 +216,31 @@ protected:
 	const void *m_slot18;
 };
 
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+class Object;
+struct Rva00485C19Data;
 struct StatusBitsEldestFrame
 {
+public:
 	StatusBitsEldestFrame *cacheGameLogicFrame(void);
-
+	bool rva00485C19(Object *obj, const Rva00485C19Data *data, const NameKeyType *key);
 private:
-	int m_cachedFrame;
+	int m_cachedFrame; // +0x00
 };
 
 class __declspec(novtable) StatusBitsUpgradeIfEldestKindof : public StatusBitsUpgrade
 {
 public:
 	StatusBitsUpgradeIfEldestKindof(Thing *thing, const ModuleData *moduleData);
+
+	virtual ~StatusBitsUpgradeIfEldestKindof();
+	virtual NameKeyType getModuleNameKey() const;
+
+protected:
+	virtual void xfer(Xfer *xfer);
 
 private:
 	StatusBitsEldestFrame m_eldestFrame;
