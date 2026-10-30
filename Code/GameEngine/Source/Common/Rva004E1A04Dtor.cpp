@@ -1,22 +1,15 @@
-// cl: /MD /EHsc
+// cl: /MD /EHsc /Ireference/shims/bfme2_ascii
 // ??1Rva004E1A04@@QAE@XZ, RVA 0x004E1A04, 47B. Unlock lane: non-virtual dtor
 // releasing two narrow StringBase members twice through rowed narrow
 // releaseBuffer at 0x00036410, first call under EH state 0 then state -1.
 // Callers at 0x004E1A87/0x0052BBBE/0x0052CEE6 plus jmps. Owner unproven so
 // honest address-derived name.
-template <typename T>
-class StringBase
-{
-public:
-	~StringBase() { releaseBuffer(); }
-private:
-	void releaseBuffer();
-	void *m_data;
-};
+// The canonical frozen StringBase replaces the private copy; its switch makes
+// the member dtor reachable and keeps the teardown an out-of-line call to the
+// rowed releaseBuffer (0x00036410 narrow, 0x00036E70 wide).
+#define BFME_STRINGBASE_PUBLIC_DTOR
+#include "string_base.h"
 
-// Existing public narrow teardown spelling resolves to the verified
-// 133-byte releaseBuffer worker at RVA 0x36410. Wide teardown is unchanged.
-template <> StringBase<char>::~StringBase();
 
 
 class Rva004E1A04
