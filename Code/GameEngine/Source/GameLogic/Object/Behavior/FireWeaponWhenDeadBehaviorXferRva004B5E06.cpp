@@ -29,10 +29,36 @@ class Xfer::Version
 		unsigned char m_minimum;
 	};
 
-class UpgradeModule
+class Object;
+struct SpellRechargeModifierUpgradeModuleData;
+
+class BehaviorModule
+{
+public:
+	virtual ~BehaviorModule();
+protected:
+	const SpellRechargeModifierUpgradeModuleData *m_moduleData; // +0x04
+	Object *m_object; // +0x08
+};
+
+struct BehaviorModuleInterface { virtual void f0C(); };
+
+class UpgradeMux
+{
+public:
+	virtual bool slot0() = 0;
+	virtual void gap1() = 0; virtual void gap2() = 0; virtual void gap3() = 0; virtual void gap4() = 0;
+	virtual void gap5() = 0; virtual void gap6() = 0; virtual void gap7() = 0;
+	virtual void upgradeRemovalImplementation() = 0;
+	virtual void slot9(int a1) = 0;
+	virtual void upgradeImplementation() = 0;
+};
+
+class UpgradeModule : public BehaviorModule, public BehaviorModuleInterface, public UpgradeMux
 {
 protected:
 	virtual void xfer(Xfer *xfer);
+	int m_14;
 };
 
 class Rva004B5E06 : public UpgradeModule

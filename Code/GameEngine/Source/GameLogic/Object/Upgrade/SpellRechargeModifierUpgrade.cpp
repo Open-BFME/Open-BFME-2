@@ -5,6 +5,7 @@
 #include <vector>
 
 class Player;
+class Xfer;
 
 class Rva002AA0BFDwordCounter { public: void inc(); };
 
@@ -54,6 +55,7 @@ struct UpgradeIface18 { virtual void f18(); };
 class UpgradeModule : public BehaviorModule, public BehaviorModuleInterface, public UpgradeMux
 {
 protected:
+	virtual void xfer(Xfer *xfer);
 	int m_14;
 };
 
