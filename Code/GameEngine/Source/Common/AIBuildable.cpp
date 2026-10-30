@@ -199,6 +199,8 @@ private:
 
 // ---- from Code/GameEngine/Source/Common/AIBuildable.cpp
 
+// ---- from Code/GameEngine/Source/Common/AIBuildable.cpp
+
 // ---- from Code/GameEngine/Source/Common/Rva0055ADBAWrapper.cpp
 
 void Rva00506FE9Hit::unRegisterWithBuilder(void *x)
@@ -335,7 +337,20 @@ bool AIBuildable::doBuild(Player *player)
 
 // tu-skeleton: 0x0055AED6 205B ?Rva0055AED6@Rva0055B0CC@@UAEXPAVXfer@@PAX@Z -- matched in Code/GameEngine/Source/Common/Rva0055AED6Xfer.cpp (not merged yet)
 
-// tu-skeleton: 0x0055B01F 41B ?rva0055B01F@Rva0055B0CC@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva0055B01FCleanup.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva0055B01FCleanup.cpp
+
+// ?rva0055B01F@Rva0055B0CC@@QAEXXZ @ 0x0055B01F, 41 bytes.
+// Walks the list at +0x1C, asks each peer to remove this object from its
+// +0x14 list via 0x0055AFBF, then clears the list. The receiver layout is
+// shared with the destructor at 0x0055B0CC; the peer method is address-named.
+
+void Rva0055B0CC::rva0055B01F()
+{
+	for (_STL::list<int, _STL::allocator<int> >::iterator it = m_1C.begin(); it._M_node != m_1C.end()._M_node; ++it) {
+		((Rva0055AFBF *)*it)->rva0055AFBF((int)this);
+	}
+	m_1C.clear();
+}
 
 // tu-skeleton: 0x0055B0B9 19B ?rva0055B0B9@Rva0055B0B9@@QBEMXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesSseA.cpp (not merged yet)
 
