@@ -1328,11 +1328,9 @@ address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3D
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DRoadBuffer.cpp	g_Va00BBB8D8	2
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSceneUpdateFixedLightEnvironments.cpp	g_Va00DEDA28	2
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSceneUpdateFixedLightEnvironments.cpp	g_Va00DEDA2C	2
-address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShaderManager.cpp	g_Va001FDE58	28
-address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShaderManager.cpp	g_Va009E1F6C	3
-address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShaderManagerRequirements.cpp	g_Va001FDE58	2
+address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShaderManager.cpp	g_Va001FDE58	29
+address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShaderManager.cpp	g_Va009E1F6C	4
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShaderManagerShutdown.cpp	g_Va009E1F6C	2
-address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShaderManagerStartRenderToTexture.cpp	g_Va009E1F6C	2
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSnow.cpp	g_Va00BBB8D8	2
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewBuildCameraTransformBfme.cpp	g_Va00DB457C	2
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewBuildCameraTransformBfme.cpp	g_Va00DE2020	2

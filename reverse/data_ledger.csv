@@ -17964,9 +17964,9 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009E1F70,4,.data,global,?rva012F9D10@@3PAUShaderComResourceRef@@A,,unowned,,0,2
 0x009E1F74,4,.data,global,?m_dwGlowPixelShader@W3DShaderManager@@1KA,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShaderManager.cpp,provisional,?m_dwGlowPixelShader@W3DShaderManager@@1KA;?m_resource012F9D14@W3DShaderManager@@1PAUShaderComResourceRef@@A,1,6
 0x009E1F78,4,.data,global,?m_dwGlowVertexShader@W3DShaderManager@@1KA,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShaderManager.cpp,provisional,?m_dwGlowVertexShader@W3DShaderManager@@1KA;?m_resource012F9D18@W3DShaderManager@@1PAUShaderComResourceRef@@A,1,6
-0x009E1F7C,4,.data,global,?g_vb@@3PAVVertexBufferClass@@A,Code/GameEngine/Source/Common/Rva00075A23Draw.cpp,provisional,?g_vb@@3PAVVertexBufferClass@@A;?m_vertexBuffer012F9D1C@W3DShaderManager@@1PAVShaderVertexBuffer@@A;?rva012F9D1C@@3PAVShaderVertexBufferRef@@A,1,10
-0x009E1F80,4,.data,global,?g_quadIndex@@3HA,Code/GameEngine/Source/Common/Rva00075A23Draw.cpp,provisional,?g_quadIndex@@3HA;?rva012F9D20@@3IA,1,11
-0x009E1F84,4,.data,global,?g_fvfShader@@3IA,Code/GameEngine/Source/Common/Rva00075A23Draw.cpp,provisional,?g_fvfShader@@3IA;?m_resource012F9D24@W3DShaderManager@@1PAUShaderComResourceRef@@A,1,8
+0x009E1F7C,4,.data,global,?g_vb@@3PAVVertexBufferClass@@A,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShaderManager.cpp,provisional,?g_vb@@3PAVVertexBufferClass@@A;?m_vertexBuffer012F9D1C@W3DShaderManager@@1PAVShaderVertexBuffer@@A;?rva012F9D1C@@3PAVShaderVertexBufferRef@@A,1,10
+0x009E1F80,4,.data,global,?g_quadIndex@@3HA,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShaderManager.cpp,provisional,?g_quadIndex@@3HA;?rva012F9D20@@3IA,1,11
+0x009E1F84,4,.data,global,?g_fvfShader@@3IA,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShaderManager.cpp,provisional,?g_fvfShader@@3IA;?m_resource012F9D24@W3DShaderManager@@1PAUShaderComResourceRef@@A,1,8
 0x009E1F88,4,.data,global,_s_rva007ABF6B,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x009E1F8C,32,.data,global,?m_Textures@Rva00075655@@2PAV?$RefCountPtr@VTextureClass@@@@A,,unowned,?g_Va00DE1F8C@@3PAVAssetReference@@A;?g_bfmeTableDU@@3PAVBfmeHandleCX@@A;?m_Textures@Rva00075655@@2PAV?$RefCountPtr@VTextureClass@@@@A,0,4
 0x009E1FAC,4,.data,global,?TheW3DFileSystem@@3PAVW3DFileSystem@@A,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFileSystem.cpp,provisional,?TheW3DFileSystem@@3PAVW3DFileSystem@@A;?g_009E1FAC@@3HA,1,4
