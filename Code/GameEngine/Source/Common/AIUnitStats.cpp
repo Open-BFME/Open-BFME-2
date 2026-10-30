@@ -55,8 +55,9 @@ struct Rva003ECB52Arg;
 class Rva003ECA69Element
 {
 public:
-	Rva003ECA69Element *rva003ECB52(Rva003ECB52Arg *arg);
- Rva003ECA69Element *rva003ECB94(Rva003ECB52Arg *arg);
+	void clear();
+	class Rva003ECA69Element *rva003ECB52(struct Rva003ECB52Arg *arg);
+	Rva003ECA69Element *rva003ECB94(Rva003ECB52Arg *arg);
 };
 
 class AIStatBase {public:bool removeObject(void*);};

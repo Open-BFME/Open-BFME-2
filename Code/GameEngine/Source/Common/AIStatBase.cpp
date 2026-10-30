@@ -46,6 +46,7 @@ class Rva003ECA69Element
 public:
 	void clear();
 	class Rva003ECA69Element *rva003ECB52(struct Rva003ECB52Arg *arg);
+	Rva003ECA69Element *rva003ECB94(Rva003ECB52Arg *arg);
 };
 
 struct Rva003ECB52Inner
