@@ -889,6 +889,20 @@ def test_crtimp_and_placement_new_guards_are_config_inputs():
     assert mha.check(["Code/A.cpp"], read_new=lambda p: text, read_old=lambda p: None, index=index) == []
 
 
+def test_winsock_linkage_is_a_config_input():
+    # WinSock2.h's #ifndef WINSOCK_API_LINKAGE guards only its own default,
+    # so guard_inputs() misses it; an empty definition before the header
+    # selects thunk calls over dllimport, as _CRTIMP does for the CRT
+    index = index_from("#ifndef WINSOCK_API_LINKAGE\n#ifdef DECLSPEC_IMPORT\n"
+                       "#define WINSOCK_API_LINKAGE DECLSPEC_IMPORT\n#else\n"
+                       "#define WINSOCK_API_LINKAGE\n#endif\n#endif\n", label="Vc7/PlatformSDK/Include/WinSock2.h")
+    text = "// platformsdk\n#define WINSOCK_API_LINKAGE\n#include <winsock2.h>\n"
+    res = mha.scan_text("Code/A.c", text, index)
+    assert {o[1]: o[3] for o in res["occ"]} == {"WINSOCK_API_LINKAGE": "config"}
+    assert mha.classify("Code/A.c", res, index)[0] is None
+    assert mha.check(["Code/A.c"], read_new=lambda p: text, read_old=lambda p: None, index=index) == []
+
+
 def test_guard_inputs_are_selectors_not_guards():
     toks = mha.tokenize("#ifndef _INC_X\n#define _INC_X\n#ifndef MYSEL\nint a;\n#else\nint b;\n#endif\n"
                         "#ifndef _SIZE_T_DEFINED\ntypedef unsigned size_t;\n#define _SIZE_T_DEFINED\n#endif\n"

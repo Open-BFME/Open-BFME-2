@@ -2213,8 +2213,11 @@ CONFIG_MACROS = {
     "NOIME", "NOIMAGE", "NOTAPE", "NORPC", "NOPROXYSTUB", "NOMDI", "NOSYSPARAMSINFO",
     # defaults a unit overrides before the headers: _CRTIMP (dllimport or not,
     # TerrainResourceManagerGridRva0035A2DC.cpp restores it over /D_CRTIMP=),
-    # the placement new/delete guards <new> tests
+    # the placement new/delete guards <new> tests; WinSock2.h's linkage
+    # (Ws2_32ImportThunks.cpp and the DirtySock units empty it: retail calls
+    # Winsock through import thunks, not dllimport slots)
     "_CRTIMP", "_CRTIMP2", "__PLACEMENT_NEW_INLINE", "__PLACEMENT_VEC_NEW_INLINE", "DECLSPEC_IMPORT",
+    "WINSOCK_API_LINKAGE",
 }
 
 
