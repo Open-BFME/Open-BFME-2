@@ -42,11 +42,64 @@ AssaultTransportAIUpdate layout remain open. No sizeof claim is made.
   receipt. Full consumer loss/selection checks remain unverified. Carry the
   removed header providers and their consumers into the next scheduled
   census. No census gain or debt retirement is claimed.
-- No seed/pool-key entries occur in the gate, code-identity, data-check,
-  header or ms-header registers, hatch register, or data ledgers inspected.
-  No protected register, shared header, canonical class or pin is changed.
+- No seed/pool-key debt keys occur in the gate, code-identity, data-check,
+  header, ms-header or hatch registers. The donor does own two static-data
+  rows in reverse/data_ledger.csv (0x00A03974 and 0x00A03978); the prerequisite
+  leaves them in place. No protected register, shared header, canonical class
+  or pin is changed by the prerequisite.
 
 The supported merge probe must be refreshed against this seed. The remaining
 donors still require reconciliation of their private views and declarations;
 the mixed-source donors require their own supported splits. The prior blocked
 merge record is retained as history, not treated as a new matching regression.
+
+## Supported consolidation after a78570e9d7
+
+The refreshed planner under Object/Update (`build/consolidation/assault`) passes
+its input/output currency check. Its packet has one destination alternative
+for the pool-key method and its two EH rows. Its stale-map evidence is a lead;
+the merge tool rebuilds the current map in memory and approves all three rows
+for AIUpdate/AssaultTransportAIUpdate.cpp. No regenerated map is committed:
+the three existing map rows change their source column only.
+
+`tu_skeleton.py --merge ... --dry-run` now accepts the seed and pool-key donor;
+the subsequent supported apply repeats byte/link guards and removes only
+AssaultTransportAIUpdatePoolKey.cpp. It transfers the two data-ledger owners,
+repoints the three function/map source cells and refreshes the header queues.
+No header/ms-header queue changes result. Register totals, static symbols,
+addresses and names remain unchanged. The tool's protected-register transfer
+trailer accompanies the consolidation commit.
+
+The normal build passes 5/5 rows; the string reference matches; the renumbered
+funclet $L410 remains proven at native 0x0078C897 by its parent EH data.
+The standalone EH verifier reports the parent graph EXACT. All five external
+COMDATs equal the two input objects' union, with no added, removed or changed
+fingerprints. Frozen-file and staged TU-ownership checks pass; check_csv
+retains 99,015 function rows. The change removes one source file, moving three
+rows to their approved TU without claiming new byte-matched or census bytes.
+
+Final strict preparation passes 5/5 rows. After the supported tool deletes
+the donor, ordinary preview reports one LINKS unit for 154 authored bytes,
+equal to the original paired total. The staged consolidation audit is again
+INCONCLUSIVE on the older index and missing current
+Common/0CreateAHeroManager21FE49.cpp receipt. The prerequisite's broader
+consumer and scheduled-census follow-up therefore remains open; the per-file
+75 -> 154 preview change is composition, not new linked coverage.
+
+The outgoing path audit covers the prerequisite and this consolidation, plus
+the earlier outgoing BitFlags caller declarations (which move no paths).
+Searches of tools, hooks, workflows, sources, configuration/registries and
+documentation find no active consumer of the retired basename/path. The
+remaining old-path references are the generated provenance comment, historical
+attempt evidence, the historical deleted-row explanation and the scheduled
+census's link_status row. These remain historical; no active fold proof or
+debt key names the retired owner. The directory itself stays in place, so
+directory scans and globs continue to apply.
+
+The eight rejected donors retain their own matching sources. Helper, check,
+finish and dispatch need member/base reconciliation; the constructor needs its
+explicit table stores reconciled with the seed's bases; passenger and command
+helpers need consistent Object and AssaultTransportAIUpdate declarations;
+xfer needs its declaration and layout integrated. Four mixed-source donors
+also remain outside this merge. Their private-view reconciliation and the
+complete primary/secondary interface inventory remain subsequent work.

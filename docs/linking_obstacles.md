@@ -191,6 +191,17 @@ selection/loss checks remain open. The full base contract, remaining donor
 views and mixed-source splits are still prerequisites. No census gain or debt
 retirement is claimed. [Target evidence and verification](../reverse/attempt_support/assault-transport-composition-20261030-codex5.md).
 
+After prerequisite `a78570e9d7`, the supported merge absorbs the pool-key
+donor into its approved TU and transfers both static-data owners. One source
+file is removed. All five rows remain exact, the parent EH graph is EXACT,
+and all five external COMDATs equal the input union. Strict preparation
+passes 5/5; the final ordinary preview LINKS for 154 authored bytes (the
+original paired total). Eight private-view donors and four mixed-source
+donors remain. The path-consumer audit finds only provenance, historical
+evidence and the scheduled census's old link_status path; active ledgers
+are repointed. The broader consumer and scheduled-census follow-up above
+remains required; the preview's per-file increase reflects composition.
+
 ### BaseHeightMap alternate query cleanup and missing census seed (2026-10-30)
 
 At base b657c77a8b81, the seed's unreferenced 242-byte alternate height query

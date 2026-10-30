@@ -20135,8 +20135,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A03968,4,.data,global,?TheDeployStyleAIUpdatePoolKey@?1??getModuleNameKey@DeployStyleAIUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DeployStyleAIUpdate.cpp,owned,,1,2
 0x00A0396C,4,.data,global,?$S1@?1??getModuleNameKey@DeployStyleAIUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DeployStyleAIUpdate.cpp,owned,,1,4
 0x00A03970,4,.data,global,_s_rva007B1534,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
-0x00A03974,4,.data,global,?TheAssaultTransportAIUpdatePoolKey@?1??getModuleNameKey@AssaultTransportAIUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/AssaultTransportAIUpdatePoolKey.cpp,owned,,1,2
-0x00A03978,4,.data,global,?$S1@?1??getModuleNameKey@AssaultTransportAIUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/AssaultTransportAIUpdatePoolKey.cpp,owned,,1,2
+0x00A03974,4,.data,global,?TheAssaultTransportAIUpdatePoolKey@?1??getModuleNameKey@AssaultTransportAIUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AssaultTransportAIUpdate.cpp,owned,,1,2
+0x00A03978,4,.data,global,?$S1@?1??getModuleNameKey@AssaultTransportAIUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AssaultTransportAIUpdate.cpp,owned,,1,2
 0x00A0397C,4,.data,global,_s_rva007B155E,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A03980,4,.data,global,?TheHeightDieUpdatePoolKey@?1??getModuleNameKey@HeightDieUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/HeightDieUpdate.cpp,owned,,1,2
 0x00A03984,4,.data,global,?$S1@?1??getModuleNameKey@HeightDieUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/HeightDieUpdate.cpp,owned,,1,4
