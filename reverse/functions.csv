@@ -18071,7 +18071,7 @@ _duck_mem_set_allocator,,0x001B6380,10,Code/Libraries/Source/VP6/DuckMem.cpp,mat
 ?Rva007810B4ClearFlag@@YAIXZ,,0x007810B4,13,Code/GameEngine/Source/Common/GlobalFlagClearers_E028xx.cpp,matched,B2-native scattered clearer with rdata table slot under /G7 narrowing
 ?set@Rva002D94FEDwordSlot@@QAEXH@Z,,0x002D94FE,10,Code/GameEngine/Source/Common/Disp8DwordFieldSetters.cpp,matched,Disp8 dword arg setter; Ghidra bounds agree; live callers
 ?set@Rva0033F15DDwordSlot@@QAEXH@Z,,0x0033F15D,10,Code/GameEngine/Source/Common/Disp8DwordFieldSetters.cpp,matched,Disp8 dword arg setter; Ghidra bounds agree; live callers
-?set@Rva003FF0E7DwordSlot@@QAEXH@Z,,0x003FF0E7,10,Code/GameEngine/Source/Common/Disp8DwordFieldSetters.cpp,matched,Disp8 dword arg setter; Ghidra bounds agree; live callers
+?set@Rva003FF0E7DwordSlot@@QAEXH@Z,,0x003FF0E7,10,Code/GameEngine/Source/GameNetwork/GameInfo.cpp,matched,Disp8 dword arg setter; Ghidra bounds agree; live callers
 ?set@Rva00318D14ByteSlot@@QAEXE@Z,,0x00318D14,10,Code/GameEngine/Source/Common/Disp8ByteFieldSetters.cpp,matched,Disp8 byte arg setter; Ghidra bounds agree; live callers
 ??0LoadFailure@DllHandle@@QAE@XZ,,0x00203EA8,18,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_DllHandleLoadFailure.cpp,matched,Thrown on LoadLibrary failure per DllHandle TU; base-constructs via rowed FunctorNotSet 0x2035E2 with shared vtable 0x00BD3B54
 ?set@Rva004D576CByteSlot@@QAEXE@Z,,0x004D576C,10,Code/GameEngine/Source/Common/Disp8ByteFieldSetters.cpp,matched,Disp8 byte arg setter; Ghidra bounds agree; live callers

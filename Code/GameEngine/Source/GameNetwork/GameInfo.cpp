@@ -8,6 +8,19 @@
 #include <stdlib.h>
 #include "ascii_string.h"
 #include "unicode_string.h"
+#define BFME_DISP8_DWORD_SETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		void set(int value); \
+		char m_lead[DISP]; \
+		int m_value; \
+	}; \
+	void NAME::set(int value) \
+	{ \
+		m_value = value; \
+	}
+
 template <typename T> struct BfmeStringData
 {
 	int refCount;
@@ -15,7 +28,9 @@ template <typename T> struct BfmeStringData
 	unsigned short capacity;
 	T text[1];
 };
+
 bool operator<(const AsciiString &left, const AsciiString &right);
+
 namespace _STL
 {
 template <> struct less<AsciiString>
@@ -26,6 +41,7 @@ template <> struct less<AsciiString>
 	}
 };
 }
+
 class MapMetaData
 {
 public:
@@ -37,6 +53,7 @@ public:
 	unsigned int m_CRC;
 	char m_rest[0x100 - 0x30];
 };
+
 class MapCache : public _STL::map<AsciiString, MapMetaData>
 {
 public:
@@ -248,6 +265,38 @@ struct Rva00401FAF
 	void rva00401FAF(const TreeHintOpaque0043671B *p);
 };
 
+BFME_DISP8_DWORD_SETTER(Rva003FF0E7DwordSlot, 0x5C)
+
+// Object virtual-base table BFC27C references adjustment stubs299CA0 and
+// 299CB2. Each ends with an unconditional jump to a separate leaf below:
+// 299CA8..299CB2 stores one stack word at receiver-16 and returns RET4;
+// 299CBA..299CBE reads the same word and returns RET0. The following LEA
+// getter starts299CBE and is already independently owned. The Object
+// destructor proves the virtual base and its adjustment word; field purpose
+// and historical method names remain unknown. A shared view keeps the
+// independently demonstrated getter/setter pairing in one source.
+class Rva00299CA8DwordSlot
+{
+public:
+    void set(int value);
+    int get() const;
+};
+
+// BF1 9cb WWDownload/CDownloadDownloadFile.cpp RestartFrom supplies the
+// store-and-zero-return expression only. Complete native6C9630..6C963C
+// lies between INT3 padding: raw32 argument to receiver2C then EAX0 RET4.
+// Original receiver, field purpose and return type remain unknown.
+class Rva006C9630DwordSlot
+{
+public:
+    unsigned int store(unsigned int value);
+private:
+    char unknown00[0x2C];
+    unsigned int value2C;
+};
+
+// ---- from Code/GameEngine/Source/GameNetwork/GameInfo.cpp
+
 // ---- from Code/GameEngine/Source/GameNetwork/GameInfo.cpp
 
 // ---- from Code/GameEngine/Source/GameNetwork/GameInfo.cpp
@@ -393,32 +442,6 @@ void GameInfo::clearSlotList()
 	}
 }
 
-// tu-skeleton: 0x003FF0E7 10B ?set@Rva003FF0E7DwordSlot@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/Disp8DwordFieldSetters.cpp (not merged yet)
-
-// tu-skeleton: 0x003FF0FB 44B ?isOccupied@GameSlot@@QBE_NXZ -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
-
-// tu-skeleton: 0x003FF127 30B ?isAI@GameSlot@@QBE_NXZ -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
-
-// tu-skeleton: 0x003FF145 32B ?isPlayer@GameSlot@@QBEHPBUBfmeNetAddress@@@Z -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
-
-// tu-skeleton: 0x003FF165 10B ?isObserver@GameSlot@@QBE_NXZ -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
-
-// tu-skeleton: 0x003FF16F 56B ?encodeHero@GameSlot@@QBEEXZ -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
-
-// tu-skeleton: 0x003FF1A7 27B ?rva003FF1A7@GameInfo@@QAEXH@Z -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
-
-// tu-skeleton: 0x003FF218 37B ?getNumPlayers@GameInfo@@QBEHXZ -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
-
-// tu-skeleton: 0x003FF23D 43B ?getNumNonObserverPlayers@GameInfo@@QBEHXZ -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
-
-// tu-skeleton: 0x003FF271 37B ?rva003FF271@Rva003FF271@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesR.cpp (not merged yet)
-
-// tu-skeleton: 0x003FF29F 31B ?getSlot@GameInfo@@QAEPAVGameSlot@@H@Z -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
-
-// tu-skeleton: 0x003FF2BE 24B ?getConstSlot@GameInfo@@QBEPBVGameSlot@@H@Z -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
-
-// tu-skeleton: 0x003FF2D6 60B ?getLocalSlotNum@GameInfo@@UBEHXZ -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
-
 // GameInfo::amIHost, vtable 0x008193C8 slot 12 (+0x30) beside
 // getLocalSlotNum. ZH GameInfo.cpp verbatim (assert compiled out);
 // getConstSlot(0) reads the slot array directly here.
@@ -429,24 +452,6 @@ Bool GameInfo::amIHost() const
 
 	return m_slot[0]->isPlayer(&m_localIP);
 }
-
-// tu-skeleton: 0x003FF328 10B ?setSeed@GameInfo@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/GameEngineInitFolded.cpp (not merged yet)
-
-// tu-skeleton: 0x003FF332 24B ?setSlotPointer@GameInfo@@QAEXHPAVGameSlot@@@Z -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
-
-// tu-skeleton: 0x003FF34A 42B ?isColorTaken@GameInfo@@QBE_NHH@Z -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
-
-// tu-skeleton: 0x003FF374 42B ?isStartPositionTaken@GameInfo@@QBE_NHH@Z -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
-
-// tu-skeleton: 0x003FF39E 23B ?resetStartSpots@GameInfo@@UAEXXZ -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
-
-// tu-skeleton: 0x003FF3B5 46B ?isMultiPlayer@GameInfo@@UAE_NXZ -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
-
-// tu-skeleton: 0x003FF3E3 116B ?isSandbox@GameInfo@@UAE_NXZ -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
-
-// tu-skeleton: 0x003FF457 63B ?rva003FF457@GameInfo@@QBE_NXZ -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
-
-// tu-skeleton: 0x003FF496 62B ?isHeroDataReadyForSlot@GameInfo@@QBE_NG@Z -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameNetwork/GameInfoGrabHexInt3.cpp
 
@@ -466,38 +471,6 @@ int __cdecl callGrabHexInt3(const char *text)
 {
 	return grabHexInt3(text);
 }
-
-// tu-skeleton: 0x003FF50C 230B ?reset@GameSlot@@UAEXXZ -- matched in Code/GameEngine/Source/GameNetwork/GameSlotCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x003FF616 384B ?xfer@GameSlot@@UAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/System/XferEnumHelpers.cpp (not merged yet)
-
-// tu-skeleton: 0x003FF796 33B ?getSlotIndex@@YAHPBVGameSlot@@@Z -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
-
-// tu-skeleton: 0x003FF7B7 92B ?isSlotLocalAlly@@YA_NPBVGameSlot@@@Z -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
-
-// tu-skeleton: 0x003FF813 37B ?getApparentPlayerTemplate@GameSlot@@QBEHXZ -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
-
-// tu-skeleton: 0x003FF838 56B ?getApparentColor@GameSlot@@QBEHXZ -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
-
-// tu-skeleton: 0x003FF870 37B ?getApparentStartPos@GameSlot@@QBEHXZ -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
-
-// tu-skeleton: 0x003FF895 11B ?unAccept@GameSlot@@QAEXXZ -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
-
-// tu-skeleton: 0x003FF8A0 16B ?setMapAvailability@GameSlot@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
-
-// tu-skeleton: 0x003FF8B0 215B ?decodeHero@GameSlot@@QAE_NE@Z -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
-
-// tu-skeleton: 0x003FF987 45B ?getNumOpenOrOccupiedSlots@GameInfo@@QBEHXZ -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
-
-// tu-skeleton: 0x003FF9B4 46B ?resetAccepted@GameInfo@@UAEXXZ -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
-
-// tu-skeleton: 0x003FF9E2 90B ?isSkirmish@GameInfo@@UAE_NXZ -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
-
-// tu-skeleton: 0x003FFA3C 272B ?xfer@SkirmishGameInfo@@UAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameNetwork/SkirmishGameInfoXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x003FFB4C 104B ??0GameSlot@@QAE@XZ -- matched in Code/GameEngine/Source/GameNetwork/GameSlotCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x003FFBB4 116B ?getApparentPlayerTemplateDisplayName@GameSlot@@QBE?AVUnicodeString@@XZ -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameNetwork/GameSlotSetState.cpp
 
@@ -625,10 +598,6 @@ Bool GameSlot::isPlayer(AsciiString userName) const
 	return result;
 }
 
-// tu-skeleton: 0x003FFF62 45B ?isPlayer@GameSlot@@QBE_NVUnicodeString@@@Z -- matched in Code/GameEngine/Source/GameNetwork/GameSlotIsPlayer.cpp (not merged yet)
-
-// tu-skeleton: 0x003FFF8F 267B ?reset@GameInfo@@UAEXXZ -- matched in Code/GameEngine/Source/GameNetwork/GameInfoReset.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameNetwork/GameInfoGetSlotNum.cpp
 
 // ?getSlotNum@GameInfo@@QBEHVAsciiString@@@Z
@@ -647,10 +616,6 @@ Int GameInfo::getSlotNum(AsciiString userName) const
 	}
 	return -1;
 }
-
-// tu-skeleton: 0x00400126 1030B ?setMap@GameInfo@@QAEXVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameNetwork/GameInfoSetMap.cpp (not merged yet)
-
-// tu-skeleton: 0x0040052C 599B ?adjustSlotsForMap@GameInfo@@UAEXXZ -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/System/SaveGame/Rva00400783PortableMapPath.cpp
 
@@ -730,14 +695,6 @@ AsciiString _Rva00621350GameInfoMapPath(const AsciiString &input, Bool option)
 	return actualpath;
 }
 
-// tu-skeleton: 0x00400A07 120B ??0GameInfo@@QAE@XZ -- matched in Code/GameEngine/Source/GameNetwork/GameInfoReset.cpp (not merged yet)
-
-// tu-skeleton: 0x00400A7F 121B ??1GameInfo@@UAE@XZ -- matched in Code/GameEngine/Source/GameNetwork/GameInfoDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00400AF8 827B ?GameInfoToAsciiString@@YA?AVAsciiString@@PBVGameInfo@@_N@Z -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
-
-// tu-skeleton: 0x00400E9F 187B ?setMapCRC@GameInfo@@QAEXI@Z -- matched in Code/GameEngine/Source/GameNetwork/GameInfoSetMapCRC.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameNetwork/GameInfoSetMapSize.cpp
 
 // ?setMapSize@GameInfo@@QAEXI@Z @0x00400F5A (187B):
@@ -790,12 +747,6 @@ void GameInfo::setMapSize(UnsignedInt mapSize)
 	}
 }
 
-// tu-skeleton: 0x00401015 342B ?rva00401015@GameInfo@@UAEPBVImage@@H@Z -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
-
-// tu-skeleton: 0x0040116B 3595B ?ParseAsciiStringToGameInfo@@YA_NPAVGameInfo@@VAsciiString@@_N@Z -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
-
-// tu-skeleton: 0x00401F76 57B ??4TreeHintOpaque0043671B@@QAEAAU0@ABU0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_treehintopaque_00436e3b.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameNetwork/Rva00401FAFSet.cpp
 
 void Rva00401FAF::rva00401FAF(const TreeHintOpaque0043671B *p)
@@ -812,11 +763,121 @@ void Rva00401FAF::rva00401FAF(const TreeHintOpaque0043671B *p)
 	}
 }
 
+// ---- from Code/GameEngine/Source/Common/Disp8DwordFieldSetters.cpp
+
+// Disp8 dword setters: ten-byte __thiscall members with one shape:
+//
+//     mov eax,[esp+4] / mov [ecx+<DISP>],eax / ret 4
+//
+// One dword is taken from the stack argument slot and stored at a fixed
+// displacement from `this`. Same macro as DispDwordFieldSetters.cpp; every
+// displacement here fits disp8 (MSVC 7.1 uses disp8 whenever the offset
+// fits, so every offset is below 0x80).
+// Identity is not recovered: every name is derived from its address,
+// following DispDwordFieldSetters.cpp.
+// No // cl: line (defaults match the frameless ten-byte shape).
+
+// tu-skeleton: 0x003FF0FB 44B ?isOccupied@GameSlot@@QBE_NXZ -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
+
+// tu-skeleton: 0x003FF127 30B ?isAI@GameSlot@@QBE_NXZ -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
+
+// tu-skeleton: 0x003FF145 32B ?isPlayer@GameSlot@@QBE_NPBUBfmeNetAddress@@@Z -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
+
+// tu-skeleton: 0x003FF165 10B ?isObserver@GameSlot@@QBE_NXZ -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
+
+// tu-skeleton: 0x003FF16F 56B ?encodeHero@GameSlot@@QBEEXZ -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
+
+// tu-skeleton: 0x003FF1A7 27B ?rva003FF1A7@GameInfo@@QAEXH@Z -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
+
+// tu-skeleton: 0x003FF218 37B ?getNumPlayers@GameInfo@@QBEHXZ -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
+
+// tu-skeleton: 0x003FF23D 43B ?getNumNonObserverPlayers@GameInfo@@QBEHXZ -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
+
+// tu-skeleton: 0x003FF271 37B ?rva003FF271@Rva003FF271@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesR.cpp (not merged yet)
+
+// tu-skeleton: 0x003FF29F 31B ?getSlot@GameInfo@@QAEPAVGameSlot@@H@Z -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
+
+// tu-skeleton: 0x003FF2BE 24B ?getConstSlot@GameInfo@@QBEPBVGameSlot@@H@Z -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
+
+// tu-skeleton: 0x003FF2D6 60B ?getLocalSlotNum@GameInfo@@UBEHXZ -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
+
+// tu-skeleton: 0x003FF328 10B ?setSeed@GameInfo@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/GameEngineInitFolded.cpp (not merged yet)
+
+// tu-skeleton: 0x003FF332 24B ?setSlotPointer@GameInfo@@QAEXHPAVGameSlot@@@Z -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
+
+// tu-skeleton: 0x003FF34A 42B ?isColorTaken@GameInfo@@QBE_NHH@Z -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
+
+// tu-skeleton: 0x003FF374 42B ?isStartPositionTaken@GameInfo@@QBE_NHH@Z -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
+
+// tu-skeleton: 0x003FF39E 23B ?resetStartSpots@GameInfo@@UAEXXZ -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
+
+// tu-skeleton: 0x003FF3B5 46B ?isMultiPlayer@GameInfo@@UAE_NXZ -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
+
+// tu-skeleton: 0x003FF3E3 116B ?isSandbox@GameInfo@@UAE_NXZ -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
+
+// tu-skeleton: 0x003FF457 63B ?rva003FF457@GameInfo@@QBE_NXZ -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
+
+// tu-skeleton: 0x003FF496 62B ?isHeroDataReadyForSlot@GameInfo@@QBE_NG@Z -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
+
+// tu-skeleton: 0x003FF50C 230B ?reset@GameSlot@@UAEXXZ -- matched in Code/GameEngine/Source/GameNetwork/GameSlotCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x003FF616 384B ?xfer@GameSlot@@UAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/System/XferEnumHelpers.cpp (not merged yet)
+
+// tu-skeleton: 0x003FF796 33B ?getSlotIndex@@YAHPBVGameSlot@@@Z -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
+
+// tu-skeleton: 0x003FF7B7 92B ?isSlotLocalAlly@@YA_NPBVGameSlot@@@Z -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
+
+// tu-skeleton: 0x003FF813 37B ?getApparentPlayerTemplate@GameSlot@@QBEHXZ -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
+
+// tu-skeleton: 0x003FF838 56B ?getApparentColor@GameSlot@@QBEHXZ -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
+
+// tu-skeleton: 0x003FF870 37B ?getApparentStartPos@GameSlot@@QBEHXZ -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
+
+// tu-skeleton: 0x003FF895 11B ?unAccept@GameSlot@@QAEXXZ -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
+
+// tu-skeleton: 0x003FF8A0 16B ?setMapAvailability@GameSlot@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
+
+// tu-skeleton: 0x003FF8B0 215B ?decodeHero@GameSlot@@QAE_NE@Z -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
+
+// tu-skeleton: 0x003FF987 45B ?getNumOpenOrOccupiedSlots@GameInfo@@QBEHXZ -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
+
+// tu-skeleton: 0x003FF9B4 46B ?resetAccepted@GameInfo@@UAEXXZ -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
+
+// tu-skeleton: 0x003FF9E2 90B ?isSkirmish@GameInfo@@UAE_NXZ -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
+
+// tu-skeleton: 0x003FFA3C 272B ?xfer@SkirmishGameInfo@@UAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameNetwork/SkirmishGameInfoXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x003FFB4C 104B ??0GameSlot@@QAE@XZ -- matched in Code/GameEngine/Source/GameNetwork/GameSlotCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x003FFBB4 116B ?getApparentPlayerTemplateDisplayName@GameSlot@@QBE?AVUnicodeString@@XZ -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
+
+// tu-skeleton: 0x003FFF62 45B ?isPlayer@GameSlot@@QBE_NVUnicodeString@@@Z -- matched in Code/GameEngine/Source/GameNetwork/GameSlotIsPlayer.cpp (not merged yet)
+
+// tu-skeleton: 0x003FFF8F 267B ?reset@GameInfo@@UAEXXZ -- matched in Code/GameEngine/Source/GameNetwork/GameInfoReset.cpp (not merged yet)
+
+// tu-skeleton: 0x00400126 1030B ?setMap@GameInfo@@QAEXVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameNetwork/GameInfoSetMap.cpp (not merged yet)
+
+// tu-skeleton: 0x0040052C 599B ?adjustSlotsForMap@GameInfo@@UAEXXZ -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
+
+// tu-skeleton: 0x00400A07 120B ??0GameInfo@@QAE@XZ -- matched in Code/GameEngine/Source/GameNetwork/GameInfoReset.cpp (not merged yet)
+
+// tu-skeleton: 0x00400A7F 121B ??1GameInfo@@UAE@XZ -- matched in Code/GameEngine/Source/GameNetwork/GameInfoDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00400AF8 827B ?GameInfoToAsciiString@@YA?AVAsciiString@@PBVGameInfo@@_N@Z -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
+
+// tu-skeleton: 0x00400E9F 187B ?setMapCRC@GameInfo@@QAEXI@Z -- matched in Code/GameEngine/Source/GameNetwork/GameInfoSetMapCRC.cpp (not merged yet)
+
+// tu-skeleton: 0x00401015 342B ?rva00401015@GameInfo@@UAEPBVImage@@H@Z -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
+
+// tu-skeleton: 0x0040116B 3595B ?ParseAsciiStringToGameInfo@@YA_NPAVGameInfo@@VAsciiString@@_N@Z -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
+
+// tu-skeleton: 0x00401F76 57B ??4TreeHintOpaque0043671B@@QAEAAU0@ABU0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_treehintopaque_00436e3b.cpp (not merged yet)
+
 // tu-skeleton: 0x007847EA 11B Unwind@00b847ea -- matched in Code/GameEngine/Source/GameNetwork/GameSlotCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x007847F5 10B __ehhandler$?reset@GameSlot@@UAEXXZ -- matched in Code/GameEngine/Source/GameNetwork/GameSlotCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x007847FF 8B uw_007847ff -- matched in Code/gen_small/uw_gen_013.cpp (not merged yet)
+// tu-skeleton: 0x007847FF 8B $L1627 -- matched in Code/GameEngine/Source/GameNetwork/GameSlotCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00784807 11B Unwind@00b84807 -- matched in Code/GameEngine/Source/GameNetwork/GameSlotCtor.cpp (not merged yet)
 
@@ -827,8 +888,6 @@ void Rva00401FAF::rva00401FAF(const TreeHintOpaque0043671B *p)
 // tu-skeleton: 0x00784828 14B Unwind@00b84828 -- matched in Code/GameEngine/Source/GameNetwork/GameSlotCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00784836 10B __ehhandler$??0GameSlot@@QAE@XZ -- matched in Code/GameEngine/Source/GameNetwork/GameSlotCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00784882 8B uw_00784882 -- matched in Code/gen_small/uw_gen_006.cpp (not merged yet)
 
 // tu-skeleton: 0x007848C3 8B Unwind@00b848c3 -- matched in Code/GameEngine/Source/GameNetwork/GameInfoSetMap.cpp (not merged yet)
 

@@ -32710,7 +32710,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x003FF0CC,4,code,,,-,,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp
 0x003FF0D0,4,code,,,-,,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp
 0x003FF0D4,19,code,Code/GameEngine/Source/GameNetwork/GameInfo.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/GameInfo.cpp S=Code/GameEngine/Source/GameNetwork/GameInfo.cpp N=Code/GameEngine/Source/GameNetwork/GameSlot.cpp,Code/GameEngine/Source/GameNetwork/GameInfo.cpp
-0x003FF0E7,10,code,Code/GameEngine/Source/GameNetwork/GameInfo.cpp,approved,C,C=0x003FF0D4..0x003FF0F1,Code/GameEngine/Source/Common/Disp8DwordFieldSetters.cpp
+0x003FF0E7,10,code,Code/GameEngine/Source/GameNetwork/GameInfo.cpp,approved,C,C=0x003FF0D4..0x003FF0F1,Code/GameEngine/Source/GameNetwork/GameInfo.cpp
 0x003FF0F1,10,code,Code/GameEngine/Source/GameNetwork/GameInfo.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/GameInfo.cpp S=Code/GameEngine/Source/GameNetwork/GameInfo.cpp N=Code/GameEngine/Source/GameNetwork/GameSlot.cpp,Code/GameEngine/Source/GameNetwork/GameInfo.cpp
 0x003FF0FB,44,code,Code/GameEngine/Source/GameNetwork/GameInfo.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/GameInfo.cpp S=Code/GameEngine/Source/GameNetwork/GameInfo.cpp N=Code/GameEngine/Source/GameNetwork/GameSlot.cpp,Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp
 0x003FF127,30,code,Code/GameEngine/Source/GameNetwork/GameInfo.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/GameInfo.cpp S=Code/GameEngine/Source/GameNetwork/GameInfo.cpp N=Code/GameEngine/Source/GameNetwork/GameSlot.cpp,Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp
