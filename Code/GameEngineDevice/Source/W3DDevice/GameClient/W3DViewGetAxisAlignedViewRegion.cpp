@@ -12,24 +12,13 @@
 typedef float Real;
 typedef int Int;
 
-struct Coord3DData
-{
-	Real x;
-	Real y;
-	Real z;
-};
-
 #define COORD3D_VIEW_EXTERN_CTOR
 #define COORD3D_VIEW_EXTERN_DTOR
 #include "../../../../Libraries/Include/Lib/Coord3DCtorView.h"
 
 #include "../../../../Libraries/Include/Lib/Coord2D.h"
 
-struct Region3D
-{
-	Coord3DData lo;
-	Coord3DData hi;
-};
+#include "../../../../Libraries/Include/Lib/Region3D.h"
 
 struct Rva003FD060TerrainLogic
 {
@@ -93,8 +82,8 @@ void W3DView::getAxisAlignedViewRegion(Region3D &axisAlignedRegion)
 	// take those 4 corners projected into the world and create an axis aligned bounding
 	// box, we will use this box to iterate the drawables in 3D space
 	//
-	axisAlignedRegion.lo = *(Coord3DData *)&box[ 0 ];
-	axisAlignedRegion.hi = *(Coord3DData *)&box[ 0 ];
+	axisAlignedRegion.lo = box[ 0 ];
+	axisAlignedRegion.hi = box[ 0 ];
 	for( Int i = 0; i < 4; i++ )
 	{
 
@@ -110,7 +99,10 @@ void W3DView::getAxisAlignedViewRegion(Region3D &axisAlignedRegion)
 	}  // end for i
 
 	// low and high regions will be based of the extent of the map
-	Region3D mapExtent;
+	// Retail passes six uninitialized floats to getExtent, without constructing
+	// or destroying Coord3D members as it does for the corner array above.
+	Real mapExtentStorage[ sizeof(Region3D) / sizeof(Real) ];
+	Region3D &mapExtent = *reinterpret_cast<Region3D *>(mapExtentStorage);
 	Real safeValue = 999999;
 	localTerrainLogic()->getExtent( &mapExtent );
 	axisAlignedRegion.lo.z = mapExtent.lo.z - safeValue;
