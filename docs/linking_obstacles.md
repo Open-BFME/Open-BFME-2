@@ -10532,6 +10532,13 @@ address-named g_00C1B6D8), AODCrush (0xDCD4D0/0xDCD550), s_transportAi (0xDBB4C4
 (0xDBE6F0) need a real-named, data-rowed list first. TheWeaponSlotTypeNames (0xDBC284) is owned but
 s_modelDraw also needs 0xDB960C.
 
+Update (2026-10-30, seat claudec3): s_animSound (AnimationSound -> rowed 0x004CA798, MaxUpdateRangeCap ->
+parsePositiveNonZeroReal) and s_hordeModelDraw (LodOptions -> W3DModelDrawModuleData::parseLodOptions) are now
+typed with data rows; both consumers spell `extern const FieldParse`. link_check at index 85f6b7f40c:
+AnimationSoundClientBehavior.cpp LINKS 1,882 -> 1,958 B, W3DHordeModelDrawModuleDataParse.cpp LINKS 21 B;
+ConstIntGettersAddr.cpp addresses 260 -> 254. Census confirmation pending. Still open: s_modelDraw,
+s_fxpsSizeAngle, AODCrush, s_transportAi, s_radiusDecal (userData lists need real-named data rows) and the getters.
+
 ### MissileUpdate composition (2026-10-29, seat yasinschroeder-claudeb2)
 
 - Landed: 2a7a171df8 merged 4 files into `MissileUpdate.cpp` (13 rows).

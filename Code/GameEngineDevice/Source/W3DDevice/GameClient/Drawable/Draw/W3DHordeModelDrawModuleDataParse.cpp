@@ -10,9 +10,9 @@
 // "W3DHordeModelDraw". Row supersedes the parse pin.
 
 class MultiIniFieldParse;
-struct FieldParse;
+struct FieldParse { const char *token; void (*parse)(class INI *, void *, void *, const void *); const void *userData; int offset; };
 
-extern const int s_hordeModelDrawFieldTable[];
+extern const FieldParse s_hordeModelDrawFieldTable[];
 class MultiIniFieldParse
 {
 public:
@@ -34,6 +34,6 @@ public:
 // ?buildFieldParse@W3DHordeModelDrawModuleData@@SAXAAVMultiIniFieldParse@@@Z @0x000793E5
 void W3DHordeModelDrawModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
-	parse.add(reinterpret_cast<const FieldParse *>(s_hordeModelDrawFieldTable), 0);
+	parse.add(s_hordeModelDrawFieldTable, 0);
 	W3DModelDrawModuleData::buildFieldParse(parse);
 }

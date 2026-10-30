@@ -312,9 +312,9 @@ public:
 
 class MultiIniFieldParse;
 
-struct FieldParse;
+struct FieldParse { const char *token; void (*parse)(class INI *, void *, void *, const void *); const void *userData; int offset; };
 
-extern const int s_animSoundFieldTable[];
+extern const FieldParse s_animSoundFieldTable[];
 
 class MultiIniFieldParse
 {
@@ -626,7 +626,7 @@ void Rva004CA798Parse(INI *ini,void *data,void*)
 
 void AnimationSoundClientBehaviorModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
-	parse.add(reinterpret_cast<const FieldParse *>(s_animSoundFieldTable), 0);
+	parse.add(s_animSoundFieldTable, 0);
 }
 
 // ---- from Code/GameEngine/Source/Common/U4GlobalGuardedNotifies_Rva004ca223.cpp

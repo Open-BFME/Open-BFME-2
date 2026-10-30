@@ -77,6 +77,9 @@ void __identifier("?parseWayPoint@DynamicPortalBehaviourData@@SAXPAVINI@@PAX1PBX
 void __identifier("?parseWeaponTemplate@INI@@SAXPAV1@PAX1PBX@Z")();
 void __identifier("?rva00467DE6@@YAXPAVINI@@PAX1PBX@Z")();
 void __identifier("?parseInitialCrew@SiegeEngineContainModuleData@@SAXPAVINI@@PAX1PBX@Z")();
+void __identifier("?Rva004CA798Parse@@YAXPAVINI@@PAX1@Z")();
+void __identifier("?parsePositiveNonZeroReal@INI@@SAXPAV1@PAX1PBX@Z")();
+void __identifier("?parseLodOptions@W3DModelDrawModuleData@@SAXPAVINI@@PAX1PBX@Z")();
 }
 
 extern const char *TheLocomotorSetNames[];
@@ -416,10 +419,10 @@ extern const FieldParse s_lightDrawFieldTable[10] = {
 };
 
 // Retail VA 0x00c5f064: 2 entries + terminator (48B).
-extern const int s_animSoundFieldTable[12] = {
-    0x00C5F054, 0x008CA798, 0x00000000, 0x00000000,
-    0x00C5F040, 0x0042EFDC, 0x00000000, 0x00000014,
-    0x00000000, 0x00000000, 0x00000000, 0x00000000,
+extern const FieldParse s_animSoundFieldTable[3] = {
+    { "AnimationSound", (FieldParseProc)&__identifier("?Rva004CA798Parse@@YAXPAVINI@@PAX1@Z"), 0, 0x0 },
+    { "MaxUpdateRangeCap", (FieldParseProc)&__identifier("?parsePositiveNonZeroReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x14 },
+    { 0, 0, 0, 0 },
 };
 
 // Retail VA 0x00c5a7a8: 11 entries + terminator (192B).
@@ -751,9 +754,9 @@ extern const FieldParse s_hordeSiegeEngineFieldTable[6] = {
 };
 
 // Retail VA 0x00bc6b80: 1 entries + terminator (32B).
-extern const int s_hordeModelDrawFieldTable[8] = {
-    0x00BC6B74, 0x00479305, 0x00000000, 0x00000000,
-    0x00000000, 0x00000000, 0x00000000, 0x00000000,
+extern const FieldParse s_hordeModelDrawFieldTable[2] = {
+    { "LodOptions", (FieldParseProc)&__identifier("?parseLodOptions@W3DModelDrawModuleData@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x0 },
+    { 0, 0, 0, 0 },
 };
 
 // Retail VA 0x00c3a304: 2 entries + terminator (48B).
