@@ -1,4 +1,5 @@
-// cl: /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX- /D_STLP_USE_STATIC_LIB
+// stlport
 // Rva004E8EFF_ParseDisabledSlots (retail 0x004E8EFF, 56 bytes). Reads a
 // whitespace list: first token through the rowed getNextToken at 0x002DF97,
 // each token scanned through the rowed scanInt at 0x002ECCF into a stack
@@ -13,17 +14,12 @@ class ModuleData
 {
 };
 
+#include <vector>
+
 namespace _STL
 {
-template <class T> class allocator
-{
-};
-
-template <class T, typename A = allocator<T> > class vector
-{
-public:
-	void push_back(const T &value);
-};
+// Bind the append to the rowed worker.
+template <> void vector<const ModuleData *, allocator<const ModuleData *> >::push_back(const ModuleData *const &value);
 }
 
 class INI

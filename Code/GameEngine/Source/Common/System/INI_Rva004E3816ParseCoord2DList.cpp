@@ -1,4 +1,5 @@
-// cl: /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX- /D_STLP_USE_STATIC_LIB
+// stlport
 // ?Rva004E3816Parse@INI@@SAXPAV1@PAX1PBX@Z @0x004E3816 39B: INI list-parse
 // twin of INI_Rva002F592ParseArmyPlacementPos (0x002F592, 40B) in the same
 // dir with identical flags and callees (rowed parseCoord2D at 0x002F558,
@@ -13,17 +14,12 @@ struct BfmeE8
 	float y;
 };
 
+#include <vector>
+
 namespace _STL
 {
-template <class T> class allocator
-{
-};
-
-template <class T, typename A = allocator<T> > class vector
-{
-public:
-	void push_back(const T &value);
-};
+// Bind the append to the rowed worker.
+template <> void vector<BfmeE8, allocator<BfmeE8> >::push_back(const BfmeE8 &value);
 }
 
 class INI

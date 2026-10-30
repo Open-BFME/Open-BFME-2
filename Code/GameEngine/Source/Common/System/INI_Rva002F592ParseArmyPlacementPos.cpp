@@ -1,4 +1,5 @@
-// cl: /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX- /D_STLP_USE_STATIC_LIB
+// stlport
 // Rva002F592_ParseArmyPlacementPos (retail 0x002F592, 40 bytes). Parses a
 // Coord2D through the rowed parseCoord2D at 0x002F558 into a stack temp
 // (instance and userData forwarded), then pushes it through the rowed
@@ -16,17 +17,12 @@ struct BfmeE8
 	float y;
 };
 
+#include <vector>
+
 namespace _STL
 {
-template <class T> class allocator
-{
-};
-
-template <class T, typename A = allocator<T> > class vector
-{
-public:
-	void push_back(const T &value);
-};
+// Bind the append to the rowed worker.
+template <> void vector<BfmeE8, allocator<BfmeE8> >::push_back(const BfmeE8 &value);
 }
 
 class INI
