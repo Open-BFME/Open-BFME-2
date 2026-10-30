@@ -23,6 +23,26 @@ class ModuleData;
 class Object;
 #include "../../../../Include/Common/Module.h"
 #include "../../../../Include/Common/ObjectModule.h"
+#define BFME_SNAPSHOT_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	protected: \
+		virtual const char *GetSnapshotName() const; \
+	}; \
+	const char *NAME::GetSnapshotName() const \
+	{ \
+		return TEXT; \
+	}
+#define BFME_LITERAL_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	public: \
+		const char *name() const; \
+	}; \
+	const char *NAME::name() const \
+	{ \
+		return TEXT; \
+	}
 
 class BehaviorModuleInterface
 {
@@ -118,6 +138,22 @@ public:
 	virtual NameKeyType getModuleNameKey() const;
 };
 
+BFME_LITERAL_NAME_GETTER(Rva00488288Named, "DelayedWeaponSetUpgradeUpdate")
+
+class DozerActionState
+{
+public:
+	virtual const char *GetSnapshotName() const;
+};
+
+class BoneFXDamage
+{
+protected:
+	virtual const char *GetSnapshotName() const;
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/DelayedWeaponSetUpgradeUpdate.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/DelayedWeaponSetUpgradeUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/DelayedWeaponSetUpgradeUpdateDtor.cpp
@@ -153,8 +189,6 @@ DelayedWeaponSetUpgradeUpdate::DelayedWeaponSetUpgradeUpdate(
 {
 }
 
-// tu-skeleton: 0x00488288 6B ?name@Rva00488288Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/DelayedWeaponSetUpgradeUpdatePoolKey.cpp
 
 // ?getModuleNameKey@DelayedWeaponSetUpgradeUpdate@@UBE?AW4NameKeyType@@XZ
@@ -164,3 +198,19 @@ NameKeyType DelayedWeaponSetUpgradeUpdate::getModuleNameKey() const
 		TheNameKeyGenerator->nameToKey("DelayedWeaponSetUpgradeUpdate");
 	return TheDelayedWeaponSetUpgradeUpdatePoolKey;
 }
+
+// ---- from Code/GameEngine/Source/Common/ModuleNameGetters3.cpp
+
+// Module literal name getters (cold slice): six-byte const members with one
+// shape:
+//
+//     mov eax,<offset string literal> / ret
+//
+// Each body returns a pointer to a NUL-terminated class-name string in
+// .rdata. Contributor-local unit split from ModuleNameGetters2.cpp to keep
+// concurrent landings conflict-free; the BFME_LITERAL_NAME_GETTER macro is
+// verbatim, only the class names follow this tree's address-derived
+// convention (identity unrecoverable from 6 bytes, string carried in source
+// where verify_string_refs re-reads it).
+// No // cl: line (defaults match the frameless 6-byte shape, same as the
+// ModuleNameGetters.cpp precedent).

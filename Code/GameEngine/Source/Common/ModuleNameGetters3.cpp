@@ -55,7 +55,6 @@ BFME_LITERAL_NAME_GETTER(Rva00486592Named, "FXListDie")
 BFME_LITERAL_NAME_GETTER(Rva00486A15Named, "SpecialPowerCompletionDie")
 BFME_LITERAL_NAME_GETTER(Rva00486B6FNamed, "UpgradeDie")
 BFME_LITERAL_NAME_GETTER(Rva00487F5ANamed, "DefaultProductionExitUpdate")
-BFME_LITERAL_NAME_GETTER(Rva00488288Named, "DelayedWeaponSetUpgradeUpdate")
 BFME_SNAPSHOT_NAME_GETTER(DeletionUpdate, "DeletionUpdate")
 class DozerActionState
 {
