@@ -5,6 +5,28 @@
 #include <map>
 #pragma comment(linker, "/alternatename:?rva0043B30F@Rva0043B2E2@@QAEPAXPBX@Z=?Rva0043B30FNewNode@@YGPAXPBX@Z")
 #pragma comment(linker, "/alternatename:?rva0043B3A1Hidden@Rva0043B2E2@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHPAX@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@PAURva0043B2E2Node@@0PBH0@Z=?rva0043B3A1@Rva0043B2E2@@QAEXAAPAURva0043B2E2Node@@PAU2@1PBH1@Z")
+#define BFME_SNAPSHOT_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	protected: \
+		virtual const char *GetSnapshotName() const; \
+	}; \
+	const char *NAME::GetSnapshotName() const \
+	{ \
+		return TEXT; \
+	}
+#define BFME_LITERAL_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	public: \
+		const char *name() const; \
+	}; \
+	const char *NAME::name() const \
+	{ \
+		return TEXT; \
+	}
+#include "../GameLogic/AI/WorkOrder.h"
+#include "../GameLogic/AI/TeamInQueue.h"
 
 class Object;
 
@@ -117,6 +139,10 @@ public:
 	void rva0043B2A4Clear(ObjectID id, int value);
 };
 
+BFME_LITERAL_NAME_GETTER(Rva0043B696Named, "DOTManager")
+
+// ---- from Code/GameEngine/Source/Common/DOTManager.cpp
+
 // ---- from Code/GameEngine/Source/Common/Rva0043B2A4Clear.cpp
 
 // ?rva0043B2A4Clear@DOTManager@@QAEXW4ObjectID@@H@Z @0x0043B2A4 44B
@@ -134,14 +160,6 @@ void DOTManager::rva0043B2A4Clear(ObjectID id, int value)
 		return;
 	drawable->rva00271C79(value);
 }
-
-// tu-skeleton: 0x0043B2D0 18B ?Rva0043B2D0Construct@@YAXPAVRva0043B23E@@ABV1@@Z -- matched in Code/GameEngine/Source/Common/Rva0043B23EPairCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0043B2E2 45B ?rva0043B2E2@Rva0043B2E2@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x0043B30F 37B ?Rva0043B30FNewNode@@YGPAXPBX@Z -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x0043B334 41B ?rva0043B334@Rva0043B2E2@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/Rva0043B35DErase.cpp
 
@@ -311,21 +329,13 @@ void Rva0043B2E2::clear()
 // Bind the member-twin call above to the rowed free body: same 0x9C node,
 // free body ignores the dead this in ecx per Rva004152E6NewNode precedent.
 
-// tu-skeleton: 0x0043B4B4 56B ??1Rva0043B2E2@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
 
-// tu-skeleton: 0x0043B65B 5B ?j_0043b65b@@YAXXZ -- matched in Code/gen_small/gthunks_000_admitted.cpp (not merged yet)
 
-// tu-skeleton: 0x0043B660 54B ??1Rva0043B660@@UAE@XZ -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB10.cpp (not merged yet)
 
-// tu-skeleton: 0x0043B696 6B ?name@Rva0043B696Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x0043B69C 25B ??0?$set@URva0043B69CElement@@U?$less@URva0043B69CElement@@@_STL@@V?$allocator@URva0043B69CElement@@@3@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva0043B69C.cpp (not merged yet)
 
-// tu-skeleton: 0x0043B6B5 5B ?j_0043b6b5@@YAXXZ -- matched in Code/gen_small/gthunks_000_admitted.cpp (not merged yet)
 
-// tu-skeleton: 0x0043B6D7 50B ??0Rva0043B660@@QAE@XZ -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB10.cpp (not merged yet)
 
-// tu-skeleton: 0x0043B709 28B ??_GRva0043B660@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB10.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva0043B725Clear.cpp
 
@@ -338,6 +348,45 @@ unsigned int DOTManager::rva0043B72D(int x)
 {
 	return m_tree.rva0043B4EC(x);
 }
+
+// tu-skeleton: 0x0043B2D0 18B ?Rva0043B2D0Construct@@YAXPAVRva0043B23E@@ABV1@@Z -- matched in Code/GameEngine/Source/Common/Rva0043B23EPairCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0043B2E2 45B ?rva0043B2E2@Rva0043B2E2@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x0043B30F 37B ?Rva0043B30FNewNode@@YGPAXPBX@Z -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x0043B334 41B ?rva0043B334@Rva0043B2E2@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x0043B4B4 56B ??1Rva0043B2E2@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x0043B65B 5B ?j_0043b65b@@YAXXZ -- matched in Code/gen_small/gthunks_000_admitted.cpp (not merged yet)
+
+// tu-skeleton: 0x0043B660 54B ??1Rva0043B660@@UAE@XZ -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB10.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/ModuleNameGetters.cpp
+
+// Module literal name getters: six-byte const members with one shape:
+//
+//     mov eax,<offset string literal> / ret
+//
+// Each body returns a pointer to a NUL-terminated Behavior/Update/Contain
+// class-name string in .rdata. Each body VA carries exactly one .rdata
+// reference from its module vtable (descriptor tail closed by the shared
+// 0x004B3FD0 pair -- the same family marker as the Subsystem getters).
+// Split from Code/GameEngine/Source/Common/SubsystemNameGetters.cpp into a
+// contributor-local unit to keep concurrent landings conflict-free; the
+// BFME_LITERAL_NAME_GETTER macro is verbatim, only the class names follow
+// this tree's address-derived convention (identity unrecoverable from 6
+// bytes, string carried in source where verify_string_refs re-reads it).
+// No // cl: line (defaults match the frameless 6-byte shape).
+
+// tu-skeleton: 0x0043B69C 25B ??0?$set@URva0043B69CElement@@U?$less@URva0043B69CElement@@@_STL@@V?$allocator@URva0043B69CElement@@@3@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva0043B69C.cpp (not merged yet)
+
+// tu-skeleton: 0x0043B6B5 5B ?j_0043b6b5@@YAXXZ -- matched in Code/gen_small/gthunks_000_admitted.cpp (not merged yet)
+
+// tu-skeleton: 0x0043B6D7 50B ??0Rva0043B660@@QAE@XZ -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB10.cpp (not merged yet)
+
+// tu-skeleton: 0x0043B709 28B ??_GRva0043B660@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB10.cpp (not merged yet)
 
 // tu-skeleton: 0x0078841A 8B $L3602 -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
 
