@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/moduledata
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/moduledata /Ireference/shims/bfme2_ascii
 // stlport
 // ?rva000E9D18@W3DShrubBuffer@@QAEXPBUCoord3D@@ABVGeometryInfo@@M@Z @0x000E9D18 228B
 // Shrub counterpart of W3DPropBuffer::removePropsForConstruction (W3DPropBufferRemovePropsForConstruction.cpp,
@@ -50,15 +50,11 @@ enum GeometryType
 	GEOMETRY_BOX
 };
 
-template <typename T>
-class StringBase
-{
-public:
-	~StringBase();
-
-private:
-	void *m_data;
-};
+// The canonical frozen StringBase replaces the private copy; its switch makes
+// the member dtor reachable and keeps the teardown an out-of-line call to the
+// rowed releaseBuffer (0x00036410 narrow, 0x00036E70 wide).
+#define BFME_STRINGBASE_PUBLIC_DTOR
+#include "string_base.h"
 
 struct GeometryShape
 {
