@@ -1,5 +1,7 @@
+#if defined(_MSC_VER)
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
+#endif
 // cl: /O1 /MD
 // ??0Rva0035DA01@@QAE@XZ @0x0035DB3F 71B
 // Native [35DB3F,35DB86) independently confirms the full constructor.
@@ -10,16 +12,22 @@ extern "C" void _ReadWriteBarrier();
 // 0x35DB86 in FamilyTailDtors1DBAC3.cpp). Evidence: vtable 0x00816554 at
 // [this] via gate; rowed base ctor 0x1DBAA4 first; member inits +0x10..+0x3c
 // with -1 at +0x20 via OR under /O1; base overwrites +0xC=0 +0x4=6 +0x9=1.
+typedef int Int;
+
+class GameWindow;
+
 class Rva001DBAA4
 {
 public:
-    virtual ~Rva001DBAA4();
-    Rva001DBAA4();
-    int m_4;
-    bool m_8;
-    bool m_9;
-    bool m_A;
-    int m_C;
+	virtual ~Rva001DBAA4();
+	Rva001DBAA4();
+
+	Int m_frameLength;		// +0x04
+	bool m_isFinished;		// +0x08
+	bool m_isForward;		// +0x09
+	bool m_isReversed;		// +0x0a
+	unsigned char m_pad0B;		// +0x0b
+	GameWindow *m_win;		// +0x0c
 };
 
 struct Rva0035DB3FFields {
@@ -38,4 +46,4 @@ struct Rva0035DB3FFields {
 __forceinline Rva0035DB3FFields() {m_10=0;m_14=0;m_18=0;m_1c=0;_ReadWriteBarrier();m_20=-1;m_24=0;m_28=0;m_2c=0;m_30=0;m_34=0;m_38=0;m_3c=0;}
 };
 class Rva0035DA01 : public Rva001DBAA4 { public:~Rva0035DA01();Rva0035DA01();private:Rva0035DB3FFields fields;};
-Rva0035DA01::Rva0035DA01() {m_C=0;m_4=6;m_9=true;}
+Rva0035DA01::Rva0035DA01() {m_win=0;m_frameLength=6;m_isForward=true;}
