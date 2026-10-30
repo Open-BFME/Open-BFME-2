@@ -170,6 +170,14 @@ public:
 
 extern MapCache *TheMapCache;
 
+// The 8-byte local network address GameInfo keeps at +0x38 (ZH's
+// UnsignedInt m_localIP, widened in BFME by a port).
+struct BfmeNetAddress
+{
+	UnsignedInt m_ip;
+	unsigned short m_port;
+};
+
 class GameInfo
 {
 public:
@@ -186,7 +194,7 @@ public:
 	virtual void slot24() = 0;
 	virtual void slot28() = 0;
 	virtual void slot2c() = 0;
-	virtual void slot30() = 0;
+	virtual Bool amIHost() const;
 	virtual Int getLocalSlotNum() const = 0;
 	virtual void slot38() = 0;
 	virtual void slot3c() = 0;
@@ -215,7 +223,7 @@ private:
 	Bool m_inProgress;
 	char m_pad12[6];
 	GameSlot *m_slot[MAX_SLOTS];
-	char m_pad38[0x08];
+	BfmeNetAddress m_localIP;
 	AsciiString m_mapName;
 	UnsignedInt m_mapCRC;
 	UnsignedInt m_mapSize;
@@ -411,7 +419,16 @@ void GameInfo::clearSlotList()
 
 // tu-skeleton: 0x003FF2D6 60B ?getLocalSlotNum@GameInfo@@UBEHXZ -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
 
-// tu-skeleton: 0x003FF312 22B ?rva003FF312@Rva003FF312@@QAE_NXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAG_Rva00131CF2.cpp (not merged yet)
+// GameInfo::amIHost, vtable 0x008193C8 slot 12 (+0x30) beside
+// getLocalSlotNum. ZH GameInfo.cpp verbatim (assert compiled out);
+// getConstSlot(0) reads the slot array directly here.
+Bool GameInfo::amIHost() const
+{
+	if (!m_inGame)
+		return false;
+
+	return m_slot[0]->isPlayer(&m_localIP);
+}
 
 // tu-skeleton: 0x003FF328 10B ?setSeed@GameInfo@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/GameEngineInitFolded.cpp (not merged yet)
 

@@ -213,7 +213,7 @@ public:
 	bool isHuman() const { return m_state == SLOT_PLAYER; }
 	bool isOccupied() const;
 	bool isAI() const;
-	Int isPlayer(const BfmeNetAddress *other) const;
+	bool isPlayer(const BfmeNetAddress *other) const;
 	bool isObserver() const;
 	unsigned char encodeHero() const;
 	bool decodeHero(unsigned char v);
@@ -648,8 +648,7 @@ Bool GameInfo::isMultiPlayer()
 // GameInfo slot 13 (+0x34) of vtable 0x008193C8. BFME1 GameInfo.cpp donor
 // GameInfo::getLocalSlotNum verbatim shape: if not in game (+0x10) return -1,
 // else scan 8 slots via rowed getConstSlot and return the first whose
-// rowed GameSlot::isPlayer matches the local address at +0x38. Retail
-// tests only AL of that Int result, so the call is narrowed to byte.
+// rowed GameSlot::isPlayer matches the local address at +0x38.
 Int GameInfo::getLocalSlotNum() const
 {
     if (!m_inGame)
@@ -659,7 +658,7 @@ Int GameInfo::getLocalSlotNum() const
         const GameSlot *slot = getConstSlot(i);
         if (slot == 0)
             continue;
-        if ((unsigned char)slot->isPlayer(&m_localAddr))
+        if (slot->isPlayer(&m_localAddr))
             return i;
     }
     return -1;
@@ -726,11 +725,9 @@ bool GameSlot::isAI() const
 		|| m_state == SLOT_BRUTAL_AI || m_state == SLOT_AI_5;
 }
 
-Int GameSlot::isPlayer(const BfmeNetAddress *other) const
+bool GameSlot::isPlayer(const BfmeNetAddress *other) const
 {
-	if (m_state == SLOT_PLAYER && m_addr38.Rva00248CBF(other))
-		return 1;
-	return 0;
+	return m_state == SLOT_PLAYER && m_addr38.Rva00248CBF(other);
 }
 
 // ?isObserver@GameSlot@@QBE_NXZ

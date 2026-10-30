@@ -6272,7 +6272,6 @@ name,address,notes
 ?rva003F6636Destroy@@YAXPAURva003F6975Record@@0@Z,0x003F6636,native range erase call3F6994; full25B28-byte stride destroy verified with rowed60B3F60C8 destructor
 ?rva003FCCC9@Rva003FB65C@@QAEXE@Z,0x003FCCC9,Rva003FB65C method called by Rva005C4B56::rva005C4B96
 ?rva003FE342@Rva003FE402Host@@QAEXXZ,0x003FE342,"member vtable slot 0x003FE402 calls first; opaque address name"
-?rva003FF145@Rva003FF145@@QBE_NPBUBfmeNetAddress@@@Z,0x003FF145,alias pin: same body already rowed as ?isPlayer@GameSlot@@QBEHPBUBfmeNetAddress@@@Z; it answers 0/1 in eax and the matched slot 0x003FF312 returns its al as bool; bool spelling binds the same bytes; no new identity inferred
 ?rva004074CF@Rva0021937DTarget@@QAEXXZ,0x004074CF,final call of the 0x0021937D triple forward: REL32 read there; address already pins a CreateAHeroData file writer name which is not adopted here; owner identity unproven
 ?rva0040CBD7@Rva0040CBD7Vec@@QAEXPAPAXH@Z,0x0040CBD7,thiscall lookup-or-null on +0x78 vector via rowed 0x40CB3A find and rowed 0x4F6093 copy ctor; out replaces pointer on hit and nulls on miss; Ghidra FUN_0080cbd7 55B
 ?rva00410997@Rva000427195@@QAEPAXPBX@Z,0x00410997,ICF twin of free NewNode 0x00410997 for table insert call with this; same 12B node and pair copy

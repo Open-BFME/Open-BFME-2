@@ -73,33 +73,6 @@ Int Rva0057B97C::rva0057B97C()
 	return 0;
 }
 
-// 0x003FF312: false while +0x10 is clear, else the rowed GameSlot
-// 0x003FF145 of the +0x18 slot for the +0x38 address.
-struct BfmeNetAddress;
-class Rva003FF145
-{
-public:
-	bool rva003FF145(const BfmeNetAddress *address) const;
-};
-class Rva003FF312
-{
-public:
-	bool rva003FF312();
-private:
-	char m_pad00[0x10];
-	bool m_10;
-	char m_pad11[0x07];
-	Rva003FF145 *m_18;
-	char m_pad1C[0x1C];
-	Int m_38;
-};
-bool Rva003FF312::rva003FF312()
-{
-	if (!m_10)
-		return false;
-	return m_18->rva003FF145((const BfmeNetAddress *)&m_38);
-}
-
 // 0x0023DAF7: the rowed 0x0023C7F5 with both arguments on the +0x08
 // member.
 class Rva0023C7F5

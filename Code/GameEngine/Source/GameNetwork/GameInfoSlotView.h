@@ -8,6 +8,7 @@
 #include "unicode_string.h"
 
 class Xfer;
+struct BfmeNetAddress;
 
 enum SlotState
 {
@@ -68,6 +69,7 @@ public:
 	bool isAI() const;
 	bool isPlayer(AsciiString userName) const;
 	bool isPlayer(UnicodeString userName) const;
+	bool isPlayer(const BfmeNetAddress *other) const;
 	void saveOffOriginalInfo();
 	void setPlayerTemplate(int playerTemplate);
 	void setState(SlotState state, UnicodeString name, const GameSlotConnectInfo *connectInfo);
