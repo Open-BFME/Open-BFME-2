@@ -4643,6 +4643,20 @@ Whole-unit clearance and census confirmation remain pending.
   worker. Reconcile the interior pointer and complete ownership before retrying
   the merge; declaration/STL/byte prerequisites remain. The temporary row was
   removed. No source move, census gain or debt retirement is claimed.
+- **Science recursive-cleanup composition prerequisite (2026-10-30):**
+  [Compiler-context and placement evidence](../reverse/attempt_support/science-inline-cleanup-consolidation-20261030-codexb.md)
+  isolates the list donor's byte loss to `001FF6AE`: visible recursive cleanup
+  lets MSVC keep the caller receiver in EDX instead of retail's saved ESI.
+  Declaring that cleanup inline restores all 22 composed rows; the standalone
+  seed's 20 rows and complete external COMDAT/symbol/reference facts remain
+  unchanged. The earlier pool-ownership refusal is cleared upstream by the
+  complete matched AIPathfind pool row and removal of its overlapping interior
+  pointer. Parser declarations, two STL byte mismatches and eleven mixed donors
+  remain. The three served provisional placement rows remain unapproved; the
+  report distinguishes their behavior from unsupported names/TU inference.
+  The staged consumer audit is INCONCLUSIVE on older index `e1f7c1dd18` and a
+  missing current receipt for `Common/0CreateAHeroManager21FE49.cpp`; carry that
+  consumer into the next census. No census gain or debt retirement is claimed.
 - **Keyboard declaration prerequisites (2026-10-26):**
   [the shared receiver repair](../reverse/attempt_support/consolidation-keyboard-resync-prerequisite-20261026-codex.md)
   first made the seed and 166-byte resync donor compose (13 existing rows).

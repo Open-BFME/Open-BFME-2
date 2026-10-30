@@ -213,7 +213,8 @@ class Rva001FF6D7
 public:
 	void rva001FF6AE();
 	void rva001FF6D7();
-	void rva001FF55F(Rva001FF6D7Node *head);
+	// Keep the recursive cleanup eligible for inline expansion when its body joins this TU.
+	inline void rva001FF55F(Rva001FF6D7Node *head);
 
 private:
 	Rva001FF6D7Head *m_head; // +0
