@@ -13189,3 +13189,17 @@ names removed on master since census 2c21184e84 against current objects finds no
 other unprovided reference except yasinschroeder's in-flight STLport 4.6 string
 chain, whose helpers (`find_if`, `find_end`, `__find_first_of`) are provided by
 units outside this preview (inconclusive, not a confirmed loss).
+2026-10-30 (halilkkaya-rn1): `rename.py function --virtual` now respells a row
+non-virtual -> virtual on retail vtable evidence (docs/naming.md). It does not
+clear the remaining LINK-160 rows: each slot is real, but it belongs to another
+class than the row's (`--virtual --dry-run`: 0x00454DF9's table 0x00C40434 is
+GettingBuiltBehavior's, not GettingBuiltBehaviorUpdateReceiver's; 0x00483645 ->
+0x00C49A68 RebuildHoleBehavior; 0x004B327F -> 0x00C56D50 AISpecialPowerUpdate;
+0x00482BB9 -> 0x00C496E8 FireWeaponWhenDeadBehavior; 0x004A6563 is a free
+function), and the placeholders also return `int` where the table wants
+`UpdateSleepTime`. Remaining prerequisite: class identity (merge each placeholder
+or receiver class into the module class) plus the return type, then the
+two-line view fix above. MultiplayerSettings (re_attempts 97401) passes the
+evidence gate (??_G in slot 0 of 0x00C191B8, installed by its ctor; ??1 called by
+it) but its files are held by a TU merge; its Dtor view keeps SubsystemInterface
+as a +0 member, so a bare `virtual` would add a vptr and fail bytes.
