@@ -11,10 +11,6 @@ struct VirtBase
 {
 	virtual void vf(void *a, int b, int c, int d, int e);
 };
-// The final override's fields are a special power template's: +0x10 is
-// the AsciiString slot 5 returns, +0x20 the divisor of slot 2's percent
-// ready and +0x59 the flag that switches every timer to the player's
-// shared one. Names follow ZH's SpecialPowerTemplate (donor).
 #include "ascii_string.h"
 class Overridable
 {
@@ -77,6 +73,8 @@ class ModuleData;
 class Object;
 #include "../../../../Include/Common/BfmeXfer.h"
 #include "../../../../Include/Common/ObjectModule.h"
+class GameLogic;
+#include "GameLogicObjectLookupView.h"
 
 extern GameLogic *TheGameLogic;
 
@@ -158,6 +156,105 @@ private:
 public:
 	bool rva00589297();
 };
+
+struct Rva005892F6Target
+{
+	char m_pad00[8];
+	Overridable *m_8;
+};
+
+class Rva005892F6
+{
+public:
+	float rva005892F6();
+	virtual void slot0();
+	virtual bool slot1();
+	virtual void slot2();
+	virtual void slot3();
+	virtual void slot4();
+	virtual void slot5();
+	virtual const SpecialPowerTemplate *slot6();
+private:
+	int m_4;
+	int m_8;
+	int m_0c;
+	float m_10;
+};
+
+class Rva002390CB
+{
+public:
+	Rva002390CB(const Rva002390CB &other);
+	~Rva002390CB();
+private:
+	void *m_data;
+};
+
+struct Rva00494A97ModuleData
+{
+	unsigned char m_pad00[8];
+	const Overridable *m_08;
+	Rva002390CB m_0C;
+};
+
+struct B00 { virtual void f00(); const Rva00494A97ModuleData *m_moduleData; Object *m_object; };
+
+struct B0C { virtual void f0C(); };
+
+struct B10 { virtual void f10(); unsigned char m_pad[12]; };
+
+struct B20 { virtual void f20(); };
+
+class Iface24
+{
+public:
+	virtual void s00();
+	virtual void s01();
+	virtual void s02();
+	virtual void s03();
+	virtual void s04();
+	virtual AsciiString rva00589414() const = 0;
+	virtual void t00();
+	virtual void t01();
+	virtual void t02();
+	virtual void t03();
+	virtual void t04();
+	virtual void t05();
+	virtual void t06();
+	virtual void t07();
+	virtual void t08();
+	virtual void t09();
+	virtual Rva002390CB rva00589560() const = 0;
+};
+
+class Rva00494A97 : public B00, public B0C, public B10, public B20, public Iface24
+{
+public:
+	virtual AsciiString rva00589414() const;
+	virtual Rva002390CB rva00589560() const;
+};
+
+class Rva002AA0B1FloatField {public:float get() const;};
+
+struct RechargeTemplateView {char prefix[0x20];unsigned int duration;char pad[0x59-0x24];bool shared;};
+
+struct RechargeModuleDataView {char prefix[8];const SpecialPowerTemplate *power;};
+
+class Rva005890A6 {
+public:
+ virtual void v00(); virtual void v01(); virtual float progress() const;
+ virtual void v03(); virtual void v04(); virtual void v05();
+ virtual const SpecialPowerTemplate *powerTemplate() const;
+ void rva0058943A(float percent);
+private:unsigned int availableOnFrame;
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/WeaponModeSpecialPowerUpdateBase.cpp
+
+// The final override's fields are a special power template's: +0x10 is
+// the AsciiString slot 5 returns, +0x20 the divisor of slot 2's percent
+// ready and +0x59 the flag that switches every timer to the player's
+// shared one. Names follow ZH's SpecialPowerTemplate (donor).
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/WeaponModeSpecialPowerUpdateBase.cpp
 
@@ -277,13 +374,92 @@ bool WeaponModeSpecialPowerUpdateBase::rva00589297()
 	return m_08 == 0 && (unsigned int)TheGameLogic->getFrame() >= (unsigned int)m_04;
 }
 
-// tu-skeleton: 0x005892F6 183B ?rva005892F6@Rva005892F6@@QAEMXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/Rva005892F6.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/Rva005892F6.cpp
 
-// tu-skeleton: 0x00589414 38B ?rva00589414@Rva00494A97@@UBE?AVAsciiString@@XZ -- matched in Code/GameEngine/Source/Common/Rva00494A97Getters.cpp (not merged yet)
+float Rva005892F6::rva005892F6()
+{
+	if (slot1())
+		return 1.0f;
+	if (m_8 > 0)
+		return m_10;
+	char *self = reinterpret_cast<char *>(this);
+	Rva005892F6Target *target = *reinterpret_cast<Rva005892F6Target **>(self - 0x20);
+	if (target->m_8 == 0)
+		return 0.0f;
+	Object *obj = *reinterpret_cast<Object **>(self - 0x1c);
+	int frame = m_4;
+	if (obj != 0)
+	{
+		Player *player = obj->getControllingPlayer();
+		if (player != 0)
+		{
+			if (target->m_8->friend_getFinalOverride()->m_sharedNSync != 0)
+			{
+				const SpecialPowerTemplate *specialPowerTemplate = slot6();
+				frame = (int)reinterpret_cast<Rva002AC6B1PlayerTimers *>(player)->getOrStart(specialPowerTemplate);
+			}
+		}
+	}
+	GameLogic *gl = TheGameLogic;
+	const float numer = (float)(unsigned int)(frame - gl->getFrame());
+	const float denom = (float)(unsigned int)target->m_8->friend_getFinalOverride()->m_reloadTime;
+	return 1.0f - numer / denom;
+}
 
-// tu-skeleton: 0x0058943A 294B ?rva0058943A@Rva005890A6@@QAEXM@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerUpdateRecharge.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva00494A97Getters.cpp
 
-// tu-skeleton: 0x00589560 30B ?rva00589560@Rva00494A97@@UBE?AVRva002390CB@@XZ -- matched in Code/GameEngine/Source/Common/Rva00494A97Getters.cpp (not merged yet)
+//
+// ?rva00589414@Rva00494A97@@UBE?AVAsciiString@@XZ and ?rva00589560@Rva00494A97@@UBE?AVRva002390CB@@XZ @0x00589414 38B.
+// Target evidence: the only reference to this body is slot 5 of the
+// vtable 0x00C4E900 that the matched Rva00494A97 dtor 0x00494A97 installs at +0x24, the
+// +0x24 interface base of the class; the slot's name is not established,
+// hence the address name. cl 7.1 compiles an override of a non-primary base's
+// virtual with the base subobject's this and folds the adjustment into the
+// member accesses, which is why retail reads the module data pointer (+4) as
+// [ecx-0x20]. Slot 5 (38B) returns by value the AsciiString at +0x10 of the final override (rowed Overridable::friend_getFinalOverride 0x00288609) of the pointer at +8 of the module data; slot 16 (0x00589560, 30B) returns by value the Rva002390CB at +0x0C of the module data.
+
+AsciiString Rva00494A97::rva00589414() const
+{
+	return m_moduleData->m_08->friend_getFinalOverride()->m_name;
+}
+
+Rva002390CB Rva00494A97::rva00589560() const
+{
+	return m_moduleData->m_0C;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerUpdateRecharge.cpp
+
+// BFME1 9cbfb551 SpecialPowerModule_startPowerRecharge.cpp supplies the
+// template/object/player guards and shared timer semantics. WB1488100 names
+// SpecialPowerUpdateModule::startPowerRecharge and native58943A proves this
+// adjusted interface receiver, percent ABI, target offsets and attribute path.
+// Keep neutral owner pending full class/receiver reconciliation.
+
+void Rva005890A6::rva0058943A(float percent) {
+ const RechargeModuleDataView *data=*(const RechargeModuleDataView **)((char *)this-0x20);
+ if(!data->power)return;
+ Object *obj=*(Object **)((char *)this-0x1C);
+ if(!obj)return;
+ Player *player=obj->getControllingPlayer();
+ if(!player)return;
+ const SpecialPowerTemplate *original=data->power;
+ if(((const RechargeTemplateView *)((const Overridable *)original)->friend_getFinalOverride())->shared) {
+  ((Rva002AC6B1PlayerTimers *)player)->resetOrStart(original);
+ } else {
+  float modifier=1.0f;
+  obj->rva0028C15E(12,&modifier,0,1);
+  float factor=1.0f+((const Rva002AA0B1FloatField *)player)->get();
+  unsigned int duration=(unsigned int)(((const RechargeTemplateView *)((const Overridable *)powerTemplate())->friend_getFinalOverride())->duration*factor*modifier);
+  if(percent<1.0f) {
+   float current=progress();
+   if(current==0.0f)return;
+   current-=percent;
+   if(current<0.0f)current=0.0f;
+   availableOnFrame=TheGameLogic->getFrame()+(unsigned int)((1.0f-current)*duration);
+  } else availableOnFrame=TheGameLogic->getFrame()+duration;
+ }
+}
 
 // tu-skeleton: 0x0058959A 181B ??0WeaponModeSpecialPowerUpdateBase@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/WeaponModeSpecialPowerUpdateBaseCtor.cpp (not merged yet)
 
