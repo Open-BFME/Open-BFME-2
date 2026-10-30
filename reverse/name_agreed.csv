@@ -10156,3 +10156,15 @@ nl-724cd53eddee,param,n,count,,w-4471b1f6edef@drz-k7,Code/GameEngine/Source/Comm
 nl-18a4dd7f153d,local,y,row,,w-4471b1f6edef@drz-k7,Code/GameEngine/Source/Common/CellGrid.cpp|local|Rva0056C3EA::rva0056C3EA|y,agreed,single-worker scoped approval: w-4471b1f6edef@drz-k7
 nl-b28b4eba2f04,local,x,column,,w-4471b1f6edef@drz-k7,Code/GameEngine/Source/Common/CellGrid.cpp|local|Rva0056C3EA::rva0056C3EA|x,agreed,single-worker scoped approval: w-4471b1f6edef@drz-k7
 nl-2cc8d4de2117,param,p,block,,w-4471b1f6edef@drz-k7,Code/GameEngine/Source/Common/GapBodiesGE27.cpp|param|Rva00032AC0::rva00032AC0|p,agreed,single-worker scoped approval: w-4471b1f6edef@drz-k7
+nl-280e7da8898c,local,h,bucket,,w-ded32b2e2c5e@drz-k2,Code/GameEngine/Source/Common/Rva006C21C0.cpp|local|Rva006C17B0::rva006C21C0|h,agreed,single-worker scoped approval: w-ded32b2e2c5e@drz-k2
+nl-c37bcf117e8c,param,p,block,,w-ded32b2e2c5e@drz-k2,Code/GameEngine/Source/Common/Rva006C21C0.cpp|param|GeneralAllocatorDebug::rva006C2240|p,agreed,single-worker scoped approval: w-ded32b2e2c5e@drz-k2
+nl-7f98cf1ab039,param,b,color2,,w-ded32b2e2c5e@drz-k2,Code/GameEngine/Source/Common/System/Radar_radarToWorld.cpp|param|Radar::internalCreateEvent|b,agreed,single-worker scoped approval: w-ded32b2e2c5e@drz-k2
+nl-d56495cf85a5,local,tmp,radarLoc,,w-ded32b2e2c5e@drz-k2,Code/GameEngine/Source/Common/System/Radar_radarToWorld.cpp|local|Radar::internalCreateEvent|tmp,agreed,single-worker scoped approval: w-ded32b2e2c5e@drz-k2
+nl-666ff49cd74e,local,v,effectsLod,,w-ded32b2e2c5e@drz-k2,Code/GameEngine/Source/Common/Rva00202058.cpp|local|Rva00202058::rva00202058|v,agreed,single-worker scoped approval: w-ded32b2e2c5e@drz-k2
+nl-5eb34864d153,local,u,m_terrainLOD,,w-ded32b2e2c5e@drz-k2,Code/GameEngine/Source/Common/Rva00202058.cpp|local|Rva00202058::rva00202058|u,agreed,single-worker scoped approval: w-ded32b2e2c5e@drz-k2
+nl-1a6f90043160,local,d2,terrainDef,,w-ded32b2e2c5e@drz-k2,Code/GameEngine/Source/Common/Rva00202058.cpp|local|Rva00202058::rva00202058|d2,agreed,single-worker scoped approval: w-ded32b2e2c5e@drz-k2
+nl-c6bda5c20150,local,p,dispute,,w-ded32b2e2c5e@drz-k2,Code/GameEngine/Source/Common/Rva002B9CFCFinish.cpp|local|Rva002B9CFC::rva002B9CFC|p,agreed,single-worker scoped approval: w-ded32b2e2c5e@drz-k2
+nl-6d0567f07809,param,b,bit,,w-ded32b2e2c5e@drz-k2,Code/GameEngine/Source/GameLogic/Object/Contain/HorseHordeContainRva00476D77.cpp|param|clear|b,agreed,single-worker scoped approval: w-ded32b2e2c5e@drz-k2
+nl-31a5ff1d616f,param,p,position,,w-ded32b2e2c5e@drz-k2,Code/GameEngine/Source/GameLogic/Object/Contain/HorseHordeContainRva00476D77.cpp|param|nextPosition|p,agreed,single-worker scoped approval: w-ded32b2e2c5e@drz-k2
+nl-737356ca4369,param,a,target,,w-ded32b2e2c5e@drz-k2,Code/GameEngine/Source/Common/Rva005E9137Check.cpp|param|Rva005E9137Check|a,agreed,single-worker scoped approval: w-ded32b2e2c5e@drz-k2
+nl-7cd414e1d028,local,p,ref,,w-ded32b2e2c5e@drz-k2,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowManager.cpp|local|W3DProjectedShadowManager::~W3DProjectedShadowManager|p,agreed,single-worker scoped approval: w-ded32b2e2c5e@drz-k2
