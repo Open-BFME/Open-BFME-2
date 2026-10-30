@@ -5,7 +5,28 @@
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 class FXList;
 #include "../../../Common/GameLogicObjectLookupView.h"
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+class Thing;
+class ModuleData;
+#include "../../../../Include/Common/BfmeXfer.h"
+
 class Player;
+
 class Rva000421C8
 {
 public:
@@ -16,12 +37,14 @@ public:
 	Rva000421C8 *link(Rva000421C8 *next);	// 0x00625790
 	Rva000421C8 *m_next;
 };
+
 // vftable 0x00BFAD10, allow 0x0026119D: not effectively dead.
 class Rva0026119DFilter : public Rva000421C8
 {
 public:
 	virtual bool allow(Object *obj);
 };
+
 // vftable 0x00BF91BC, allow 0x002611BF.
 class Rva002611BFFilter : public Rva000421C8
 {
@@ -30,6 +53,7 @@ public:
 	virtual bool allow(Object *obj);
 	const Object *m_obj;
 };
+
 // vftable 0x00BFBC90, allow 0x00260EB1: +0x08 the object, +0x0C flags,
 // +0x10 whether a hit allows.
 class Rva00260EB1Filter : public Rva000421C8
@@ -43,12 +67,14 @@ public:
 	int m_flags;
 	bool m_match;
 };
+
 // The 224-bit KindOf mask; the (unused, bit) constructor is 0x00045411.
 struct Rva00045411BitSet
 {
 	unsigned m_bits[7];
 	Rva00045411BitSet(int unused, int bit);	// 0x00045411
 };
+
 class BfmeFixedStorage0004543D
 {
 public:
@@ -56,6 +82,7 @@ public:
 private:
 	unsigned char m_bytes[28];
 };
+
 // vftable 0x00BC2908, allow 0x002610DE: accept what has every kind of the
 // first mask and none of the second.
 class Rva0004584D : public Rva000421C8
@@ -66,20 +93,25 @@ public:
 	BfmeFixedStorage0004543D m_08;
 	BfmeFixedStorage0004543D m_24;
 };
+
 template <int N> class BitFlags;
+
 extern BitFlags<116> KINDOFMASK_NONE;
+
 struct BfmeWideResult
 {
 	Object *next() throw();	// 0x00045623
 	~BfmeWideResult();	// 0x0004AA28
 	void *m_value;
 };
+
 class PartitionManager
 {
 public:
 	BfmeWideResult iterateObjectsInRange(const Coord3D *pos, float radius, int distCalc,
 		Rva000421C8 *filters, int order);	// 0x00625610
 };
+
 extern PartitionManager *ThePartitionManager;
 
 class AsciiString;
@@ -350,7 +382,75 @@ public:
 	static void doFXObj(const FXList *fx, const Object *primary, const Object *secondary);	// 0x000B2235
 };
 
-// tu-skeleton: 0x00481842 216B ?xfer@PropagandaTowerBehavior@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehaviorXfer.cpp (not merged yet)
+typedef unsigned char UnsignedByte;
+
+typedef unsigned short UnsignedShort;
+
+// Retail ThrowInfo identifies the 8-byte XferException class and its
+// established constructor, copy constructor and destructor providers.
+class XferException
+{
+public:
+	XferException(int tag, const char *format, ...);
+	XferException(const XferException &that);
+	~XferException();
+
+	char *text;
+	int tag;
+};
+
+void XferObjectID(Xfer *xfer, ObjectID *objectID);
+
+// Only the direct base call is needed here. The serialization row and seed
+// both use the primary receiver; its base subobject starts at offset zero.
+class UpdateModule
+{
+public:
+	void xfer(Xfer *xfer);
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehaviorXfer.cpp
+
+// ?xfer@PropagandaTowerBehavior@@MAEXPAVXfer@@@Z @0x00481842
+void PropagandaTowerBehavior::xfer(Xfer *xfer)
+{
+	xfer->Version1();
+	reinterpret_cast<UpdateModule *>(this)->UpdateModule::xfer(xfer);
+	*xfer == m_lastScanFrame;
+
+	UnsignedShort insideCount = 0;
+	for (ObjectTracker *tracker = m_insideList;
+		tracker != 0; tracker = tracker->next)
+		++insideCount;
+	*xfer == insideCount;
+
+	if (xfer->IsStoring())
+	{
+		ObjectTracker *tracker = m_insideList;
+		while (tracker != 0)
+		{
+			XferObjectID(xfer, &tracker->objectID);
+			tracker = tracker->next;
+		}
+	}
+	else
+	{
+		if (m_insideList != 0)
+		{
+			throw XferException(5, 0);
+		}
+
+		for (UnsignedShort i = 0; i < insideCount; ++i)
+		{
+			ObjectTracker *tracker = new ObjectTracker;
+			tracker->next = m_insideList;
+			m_insideList = tracker;
+			XferObjectID(xfer, &tracker->objectID);
+		}
+	}
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehavior.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehavior.cpp
 
@@ -468,26 +568,6 @@ void PropagandaTowerBehavior::removeAllInfluence()
 	}
 }
 
-// tu-skeleton: 0x0048195F 29B ??_GRva0048195F@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/InlineDtorDeletingDtors1.cpp (not merged yet)
-
-// tu-skeleton: 0x0048197C 66B ??0PropagandaTowerBehaviorModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehaviorModuleDataCtor2.cpp (not merged yet)
-
-// tu-skeleton: 0x004819CF 105B ??0PropagandaTowerBehavior@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehaviorConstructor.cpp (not merged yet)
-
-// tu-skeleton: 0x00481A38 28B ??_GRva0048180C@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp (not merged yet)
-
-// tu-skeleton: 0x00481A6E 48B ?rva00481A6E@Rva00481A6E@@UAEXHPAX@Z -- matched in Code/GameEngine/Source/Common/GapBodiesS3C.cpp (not merged yet)
-
-// tu-skeleton: 0x00481B7F 44B ??0?$BitFlags@$0L@@@QAE@W4BogusInitType@0@H@Z -- matched in Code/GameEngine/Source/Common/System/BitFlags11DisabilityCtors.cpp (not merged yet)
-
-// tu-skeleton: 0x00481BAB 7B ?Rva00481BABInvert@@YAXPAI@Z -- matched in Code/GameEngine/Source/Common/GapBodiesS9A.cpp (not merged yet)
-
-// tu-skeleton: 0x00481BB2 28B ??_GPropagandaTowerBehaviorModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BehaviorModuleDeletingDtors.cpp (not merged yet)
-
-// tu-skeleton: 0x00481BFE 14B ?Rva00481BFE@@YA_NPBXABV?$BitFlags@$0L@@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE22.cpp (not merged yet)
-
-// tu-skeleton: 0x00481C0C 320B ?update@PropagandaTowerBehavior@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehaviorUpdate.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehaviorDoScan.cpp
 
 void PropagandaTowerBehavior::doScan()
@@ -546,6 +626,26 @@ void PropagandaTowerBehavior::doScan()
 	}
 	m_insideList = newInsideList;
 }
+
+// tu-skeleton: 0x0048195F 29B ??_GRva0048195F@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/InlineDtorDeletingDtors1.cpp (not merged yet)
+
+// tu-skeleton: 0x0048197C 66B ??0PropagandaTowerBehaviorModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehaviorModuleDataCtor2.cpp (not merged yet)
+
+// tu-skeleton: 0x004819CF 105B ??0PropagandaTowerBehavior@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehaviorConstructor.cpp (not merged yet)
+
+// tu-skeleton: 0x00481A38 28B ??_GRva0048180C@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp (not merged yet)
+
+// tu-skeleton: 0x00481A6E 48B ?rva00481A6E@Rva00481A6E@@UAEXHPAX@Z -- matched in Code/GameEngine/Source/Common/GapBodiesS3C.cpp (not merged yet)
+
+// tu-skeleton: 0x00481B7F 44B ??0?$BitFlags@$0L@@@QAE@W4BogusInitType@0@H@Z -- matched in Code/GameEngine/Source/Common/System/BitFlags11DisabilityCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x00481BAB 7B ?Rva00481BABInvert@@YAXPAI@Z -- matched in Code/GameEngine/Source/Common/GapBodiesS9A.cpp (not merged yet)
+
+// tu-skeleton: 0x00481BB2 28B ??_GPropagandaTowerBehaviorModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BehaviorModuleDeletingDtors.cpp (not merged yet)
+
+// tu-skeleton: 0x00481BFE 14B ?Rva00481BFE@@YA_NPBXABV?$BitFlags@$0L@@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE22.cpp (not merged yet)
+
+// tu-skeleton: 0x00481C0C 320B ?update@PropagandaTowerBehavior@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehaviorUpdate.cpp (not merged yet)
 
 // tu-skeleton: 0x0078BB08 8B Unwind@00b8bb08 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehaviorConstructor.cpp (not merged yet)
 

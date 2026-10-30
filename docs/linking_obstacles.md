@@ -425,6 +425,17 @@ remain prerequisites.
 
 ### PropagandaTowerBehavior scan consolidation (2026-10-30)
 
+Serialization merge follow-up (codexb5): tu_skeleton absorbs Xfer into the
+approved seed, removing one source and repointing its one function row.
+All 18 rows, three EXACT EH graphs and 49 distinct COMDAT fingerprints retain
+the input union; external and data bindings are unchanged. Strict preparation
+passes and ordinary preview retains LINKS for 1,173 authored bytes. No census
+gain is claimed. The complete outgoing path audit covers this donor and the
+earlier FXShaderRenderer erase donor; only historical/provenance mentions
+remain. The broader affected-consumer and scheduled-census prerequisites
+below remain open. [Merge and audit](../reverse/attempt_support/propaganda-tower-xfer-20261030-codexb5.md).
+
+
 Serialization prerequisite (codexb5): seed and Xfer donor now share the existing
 partial primary-receiver view, exposing the +0x24 scan frame and slot-3 xfer.
 All 18 rows, three EXACT EH graphs, 52 COMDAT fingerprints and all external
