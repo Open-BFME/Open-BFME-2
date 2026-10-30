@@ -42,7 +42,15 @@ public:
 };
 // The virtual layout below is MissileUpdateDtor.cpp's, slot for slot: both
 // units emit the MissileUpdate vftable COMDATs and the copies must agree.
-class Rva004A76DEBase0 { public: virtual ~Rva004A76DEBase0(); const ModuleData *m_moduleData; Object *m_object; };
+class Xfer;
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+// xfer and getModuleNameKey are the +0 table's slots 3 and 4 (0xC5362C);
+// only the two MissileUpdate overrides are declared, so every emitted slot
+// still names a body this unit defines.
+class Rva004A76DEBase0 { public: virtual ~Rva004A76DEBase0(); virtual NameKeyType getModuleNameKey() const; protected: virtual void xfer(Xfer *xfer); public: const ModuleData *m_moduleData; Object *m_object; };
 class Rva004A76DEBase1 { public: virtual ~Rva004A76DEBase1(); };
 class Rva004A76DEBase2 { public: virtual ~Rva004A76DEBase2(); unsigned char m_pad[12]; };
 // Native +0x20/C53548 and +0x24/C53530 are six-slot projectile
@@ -165,6 +173,9 @@ public:
 	void rva0045C026();
 
 protected:
+	virtual void xfer(Xfer *xfer);
+
+protected:
 	unsigned char m_pad28[0x40 - 0x28]; // +0x28..+0x3F
 	int m_40; // +0x40 (rva004A7767 destroys the object when it is nonzero)
 	unsigned char m_pad44[0x88 - 0x44]; // +0x44..+0x87
@@ -182,8 +193,10 @@ public:
  virtual void rva0045B4E2(int);
  virtual bool rva0047A699_2(); virtual bool rva0047A699_3();
  virtual bool rva0047A699_4(); virtual bool rva0047A699_5();
+	virtual NameKeyType getModuleNameKey() const;
 protected:
 	virtual ~MissileUpdate();
+	virtual void xfer(Xfer *xfer);
 public:
 	virtual void projectileFireAtObjectOrPosition(Object *victim, const Coord3D *victimPos);
 	void Rva004A7512Clear();
