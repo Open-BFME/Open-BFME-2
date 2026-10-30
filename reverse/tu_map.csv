@@ -8264,12 +8264,12 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x001103A5,49,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/Rva001103A5Setter.cpp
 0x001103D6,118,code,,,-,,Code/GameEngine/Source/Common/Rva00785FD0RendererReset.cpp
 0x0011044C,453,code,,,-,W=Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptRenderer.cpp,Code/GameEngine/Source/Common/Rva00785FD0RendererReset.cpp
-0x00110611,1773,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeHub982.cpp,approved,N,N=Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeHub982.cpp provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DAptRendererRva00111319.cpp
+0x00110611,1773,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeHub982.cpp,approved,N,N=Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeHub982.cpp provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeHub982.cpp
 0x00110CFE,705,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeHub982.cpp,approved,U,N=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DAptRenderer.cpp provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DAptRendererBeginTriangleList.cpp
 0x00110FBF,613,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeHub982.cpp,approved,C,C=0x00110CFE..0x00111224 provisional,Code/GameEngine/Source/Common/Rva00785FD0RendererReset.cpp
 0x00111224,238,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeHub982.cpp,approved,U,N=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DAptRenderer.cpp W=Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptRenderer.cpp provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DAptRendererBeginTriangleList.cpp
 0x00111312,7,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeHub982.cpp,approved,U,N=Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/BfmeHub982.cpp provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptAux.cpp
-0x00111319,969,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeHub982.cpp,approved,N,N=Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeHub982.cpp provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DAptRendererRva00111319.cpp
+0x00111319,969,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeHub982.cpp,approved,N,N=Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeHub982.cpp provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeHub982.cpp
 0x001116E2,5,code,Code/GameEngine/Source/Common/BfmeHub982.cpp,proposed,N,N=Code/GameEngine/Source/Common/BfmeHub982.cpp,Code/GameEngine/Source/Common/TailJumpWrappers5B.cpp
 0x001116E7,67,code,,,-,,Code/GameEngine/Source/Common/GapBodiesGE39.cpp
 0x0011172A,72,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/TileData.cpp,approved,S,S=Code/GameEngineDevice/Source/W3DDevice/GameClient/TileData.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameClient/TileData.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/TileData.cpp
