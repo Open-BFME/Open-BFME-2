@@ -36,6 +36,7 @@
 	{ \
 		return ((const Sub##NAME *)((const char *)this - (BACK)))->m_holder->m_value; \
 	}
+#include <cstring>
 
 extern "C" const void *const __identifier("??_7?$basic_streambuf@DV?$char_traits@D@_STL@@@_STL@@6B@")[];
 
@@ -165,6 +166,74 @@ public:
  unsigned int *m_ptr;
 };
 
+namespace _STL
+{
+
+template <class T>
+static inline const T &(min)(const T &a, const T &b)
+{
+	return a < b ? a : b;
+}
+
+int basic_streambuf<char, char_traits<char> >::xsgetn(char_type *s, int n)
+{
+	int result = 0;
+	const int eofv = -1;
+
+	while (result < n)
+	{
+		BfmeFileBuf *get = _M_get;
+		int cnt = get->_cnt;
+		if (cnt > 0)
+		{
+			size_t chunk = (min)((size_t)(n - result), (size_t)cnt);
+			if (chunk != 0)
+				memcpy(s, get->_ptr, chunk);
+			result += (int)chunk;
+			s += chunk;
+			get = _M_get;
+			get->_ptr += chunk;
+			get->_cnt -= (int)chunk;
+		}
+		else
+		{
+			int_type c = uflow();
+			if (c == eofv)
+				break;
+			*s = (char_type)c;
+			++result;
+			++s;
+		}
+	}
+	return result;
+}
+
+}
+
+namespace _STL
+{
+
+int basic_streambuf<char, char_traits<char> >::_M_snextc_aux()
+{
+	const int_type eofv = -1;
+	if (_FILE_I_avail(_M_get) == 0)
+	{
+		int_type c = uflow();
+		if (c == eofv)
+			return c;
+		return sgetc();
+	}
+	else
+	{
+		setg(eback(), egptr(), egptr());
+		return underflow();
+	}
+}
+
+}
+
+// ---- from Code/GameEngine/Source/Common/StdioStreambufBase.cpp
+
 // ---- from Code/GameEngine/Source/Common/StdioStreambufBase.cpp
 
 // ---- from Code/GameEngine/Source/Common/BfmeThreeHundredFiftyOne.cpp
@@ -234,6 +303,27 @@ _STL::basic_streambuf<char, _STL::char_traits<char> >::pubimbue(const _STL::loca
 	return previous;
 }
 
+// ---- from Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp
+
+// Disp8 pointer-chase dword getters: seven-byte __thiscall members with one shape:
+//
+//     mov eax,[ecx+<DISP1>] / mov eax,[eax+<DISP2>] / ret
+//
+// A pointer is read at a fixed displacement from `this`, then a dword is read
+// at a second displacement from that pointer and returned. MSVC 7.1 emits the
+// disp8 loads `8B 41 XX` + `8B 40 XX`, plus `ret`, for seven bytes total.
+// Identity is not recovered: every name is derived from its address.
+// No // cl: line (defaults match the frameless seven-byte shape).
+
+// Backward variant: the holder sits at a NEGATIVE displacement from `this`
+// (a sub-object `this` pointing into a larger object). Spelled as an explicit
+// backward cast, which MSVC folds to `mov eax,[ecx-BACK]`; same shape and
+// reading as BFME1's ChainedFieldGetters.
+
+unsigned int Rva0001CD70Word::get() const { return *m_ptr; }
+
+unsigned int Rva0001CDA0Word::get() const { return *m_ptr; }
+
 // tu-skeleton: 0x0001C7F0 18B ??0?$fpos@H@_STL@@QAE@J@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf.cpp (not merged yet)
 
 // tu-skeleton: 0x0001C810 13B ?gbump@?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@IAEXH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf.cpp (not merged yet)
@@ -260,7 +350,14 @@ _STL::basic_streambuf<char, _STL::char_traits<char> >::pubimbue(const _STL::loca
 
 // tu-skeleton: 0x0001C970 20B ?seekoff@?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@MAE?AV?$fpos@H@2@JHH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf.cpp (not merged yet)
 
-// tu-skeleton: 0x0001C990 166B ?xsgetn@?$basic_streambuf@DV?$char_traits@D@_STL@@@_STL@@MAEHPADH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_streambuf_xs.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_streambuf_xs.cpp
+
+// stlport46
+
+// Open-BFME5: _STL::basic_streambuf<char> xsgetn @ 0x00840050 (166B)
+// and xsputn @ 0x00840150 (172B). FILE*-specialized streambuf.
+
+ // namespace _STL
 
 // tu-skeleton: 0x0001CA40 35B ?uflow@?$basic_streambuf@DV?$char_traits@D@_STL@@@_STL@@MAEHXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_streambuf_uflow.cpp (not merged yet)
 
@@ -270,7 +367,14 @@ _STL::basic_streambuf<char, _STL::char_traits<char> >::pubimbue(const _STL::loca
 
 // tu-skeleton: 0x0001CB30 178B ?_M_xsputnc@?$basic_streambuf@DV?$char_traits@D@_STL@@@_STL@@MAEHDH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_streambuf_xsputnc_vendor.cpp (not merged yet)
 
-// tu-skeleton: 0x0001CBF0 94B ?_M_snextc_aux@?$basic_streambuf@DV?$char_traits@D@_STL@@@_STL@@AAEHXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_streambuf_snextc_aux.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_streambuf_snextc_aux.cpp
+
+// stlport46
+
+// Open-BFME5: _STL::basic_streambuf<char>::_M_snextc_aux @ 0x008402D0 (94B)
+// FILE*-specialized streambuf (STLport 4.5.3): _M_get at +4.
+
+ // namespace _STL
 
 // tu-skeleton: 0x0001CC50 40B ?sputbackc@?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@QAEGG@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf.cpp (not merged yet)
 
@@ -281,26 +385,5 @@ _STL::basic_streambuf<char, _STL::char_traits<char> >::pubimbue(const _STL::loca
 // tu-skeleton: 0x0001CCC0 63B ?_M_snextc_aux@?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@AAEGXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf.cpp (not merged yet)
 
 // tu-skeleton: 0x0001CD00 81B ?snextc@?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@QAEGXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp
-
-// Disp8 pointer-chase dword getters: seven-byte __thiscall members with one shape:
-//
-//     mov eax,[ecx+<DISP1>] / mov eax,[eax+<DISP2>] / ret
-//
-// A pointer is read at a fixed displacement from `this`, then a dword is read
-// at a second displacement from that pointer and returned. MSVC 7.1 emits the
-// disp8 loads `8B 41 XX` + `8B 40 XX`, plus `ret`, for seven bytes total.
-// Identity is not recovered: every name is derived from its address.
-// No // cl: line (defaults match the frameless seven-byte shape).
-
-// Backward variant: the holder sits at a NEGATIVE displacement from `this`
-// (a sub-object `this` pointing into a larger object). Spelled as an explicit
-// backward cast, which MSVC folds to `mov eax,[ecx-BACK]`; same shape and
-// reading as BFME1's ChainedFieldGetters.
-
-unsigned int Rva0001CD70Word::get() const { return *m_ptr; }
-
-unsigned int Rva0001CDA0Word::get() const { return *m_ptr; }
 
 // tu-skeleton: 0x0001CD80 15B ?_M_gbump@?$basic_streambuf@DV?$char_traits@D@_STL@@@_STL@@QAEXH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_istream.cpp (not merged yet)

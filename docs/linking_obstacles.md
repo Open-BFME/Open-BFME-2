@@ -447,6 +447,15 @@ selection/loss checks remain pending; carry the scoped providers and wider
 consumers into the next scheduled census. No census or ownership gain is
 claimed. [Evidence and remaining scope](../reverse/attempt_support/stdio-streambuf-views-20261030-codex4.md).
 
+Follow-up at `5fc2f7fd56`: the supported merger absorbed both reconciled
+donors, removing two source files and preserving all 12 rows, the EXACT EH
+graph and all 18 external COMDAT fingerprints and reference edges. Strict
+preparation and the combined TU's 555-byte link preview pass. The updated
+batch audit remains INCONCLUSIVE on the older index and 16 sources without
+current receipts (first `GameClient/Rva0055FB37Write.cpp`); the full consumer
+check remains for the scheduled census. The vendor-header and mixed-file
+prerequisites remain. [Composition and path-consumer audit](../reverse/attempt_support/stdio-streambuf-merge-20261030-codex4.md).
+
 ### Chat PlayerInfo donor views and consolidation flags (2026-10-30)
 
 At base `1d0f5dab00`, the two clean map donors now share addChat's existing

@@ -1,0 +1,21 @@
+{
+  "before_objects": [
+    "build/stdio-consolidation-before/StdioStreambufBase.obj",
+    "build/stdio-consolidation-before/stlport_narrow_streambuf_xs.obj",
+    "build/stdio-consolidation-before/stlport_narrow_streambuf_snextc_aux.obj"
+  ],
+  "after_object": "/work4/Open-BFME-2/build/match/^code_^game^engine_^source_^common_^stdio^streambuf^base.obj",
+  "comdat_copies_before": 18,
+  "comdat_copies_after": 18,
+  "distinct_comdats_before": 18,
+  "distinct_comdats_after": 18,
+  "comdat_changes": {},
+  "defined_equal": true,
+  "referenced_equal": true,
+  "unresolved_equal": true,
+  "weak_equal": true,
+  "aliases_equal": true,
+  "includes_equal": true,
+  "roots_equal": true,
+  "edges_equal": true
+}
