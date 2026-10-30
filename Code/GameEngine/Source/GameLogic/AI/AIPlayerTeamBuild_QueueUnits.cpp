@@ -918,39 +918,7 @@ public:
 	void rva0055B156(int val);
 };
 
-class Team : public TeamPoolView, public Rva0055B156
-{
-public:
-	virtual ~Team();
-	Rva0055B156 *getSnapshotView() { return this; }	// +0x04
-	char m_pad008[0x30 - 0x08];
-	TeamPrototype *m_proto;			// +0x30
-	unsigned int m_id;			// +0x34
-	Object *m_firstMember;			// +0x38
-	char m_pad03C[0x5D - 0x3C];
-	Bool m_active;				// +0x5D
-	Bool m_created;				// +0x5E
-	char m_pad05F[0x110 - 0x5F];
-	Bool m_bfme110;				// +0x110
-	Bool m_bfme111;				// +0x111
-
-	Team *dlink_next_TeamInstanceList() const;
-	Bool hasAnyUnits();
-	void countObjectsByThingTemplate(Int numTmplates, const ThingTemplate *const *things, Bool ignoreDead, Int *counts, Bool ignoreUnderConstruction) const;
-	Object *getFirstItemIn_TeamMemberList() const { return m_firstMember; }
-	void rva0039D889(Bool flag);
-	void disband();
-	Object *tryToRecruit(const ThingTemplate *thing, const Coord3D *pos, Real maxDist, Int a, Int b, Int c);
-	Bool isIdle() const;
-	Bool hasAnyObjects(Bool ignoreBuilding);
-	void setActive() { if (!m_active) { m_created = true; m_active = true; } }
-	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
-	const AsciiString &getOwnerName() const { return m_proto == 0 ? AsciiString::TheEmptyString : m_proto->getOwnerName(); }
-	const AsciiString &getName() const { return m_proto == 0 ? AsciiString::TheEmptyString : m_proto->getName(); }
-	TeamPrototype *getPrototype() const { return m_proto; }
-	Coord3D *rva0039DA2A(Coord3D *center) const;
-	__forceinline void deleteInstance() { ::delete this; }
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 inline DLINK_ITERATOR<Team> TeamPrototype::iterate_TeamInstanceList() const
 {
@@ -1161,7 +1129,10 @@ void AIPlayer::queueUnits()
 				}
 			}
 			if (order->isWaitingToBuild() && !order->m_bfmeFlag29)
-				startTraining(order, team->m_priorityBuild, team->m_team->getName());
+			{
+				const Team *owner = team->m_team;
+				startTraining(order, team->m_priorityBuild, owner->m_proto == 0 ? AsciiString::TheEmptyString : owner->m_proto->getName());
+			}
 			else if (!TheSkirmishAIManager->rva002A8AB1(m_player))
 				order->validateFactory(m_player);
 		}
