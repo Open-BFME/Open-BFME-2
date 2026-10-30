@@ -65,10 +65,38 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
+typedef bool Bool;
+enum UpdateSleepTime
+{
+	UPDATE_SLEEP_NONE = 1,
+	UPDATE_SLEEP_FOREVER = 0x3fffffff
+};
+enum WeaponLockType
+{
+	WEAPON_LOCK_BFME_2 = 2
+};
+enum WeaponSetType
+{
+	WEAPONSET_NONE = 0,
+	WEAPONSET_COUNT = 0x68
+};
+#include "ascii_string.h"
+
+template <int N> class BitFlags
+{
+public:
+	__forceinline Bool test(unsigned int i) const { return (m_bits[i >> 5] & (1 << (i & 0x1f))) != 0; }
+private:
+	unsigned int m_bits[(N + 31) / 32];
+};
 class WeaponModeSpecialPowerUpdateModuleData
 {
 public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
+	unsigned char m_pad00[0x18];
+	AsciiString m_name;			// +0x18
+	unsigned char m_pad1C[0x24 - 0x1C];
+	BitFlags<WEAPONSET_COUNT> m_weaponSetFlags;	// +0x24
 };
 
 struct Rva0025A3F0Inner
@@ -112,17 +140,11 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class WeaponModeSpecialPowerUpdate
-{
-public:
-	virtual NameKeyType getModuleNameKey() const;
-};
-
 #include "../../../../Include/Common/ObjectModule.h"
 
 class BehaviorModuleInterface { public: virtual void behaviorSlot(); };
 
-class UpdateModuleInterface { public: virtual void updateSlot(); };
+class UpdateModuleInterface { public: virtual UpdateSleepTime update(); };
 
 class UpdateModule : public ObjectModule,
 	public BehaviorModuleInterface, public UpdateModuleInterface
@@ -148,6 +170,10 @@ class Rva00589079_E2
 {
 public:
 	virtual void fe();
+	virtual void m01(); virtual void m02(); virtual void m03();
+	virtual void m04(); virtual void m05(); virtual void m06(); virtual void m07();
+	virtual void m08();
+	virtual void setUpgradeExecuted(Bool executed);
 };
 
 class Rva00589079 : public UpdateModule, public Rva00589079_E1, public Rva00589079_E2
@@ -169,6 +195,20 @@ protected:
 
 private:
 	bool m_38;
+};
+
+class WeaponModeSpecialPowerUpdate : public Rva00589079
+{
+public:
+	virtual NameKeyType getModuleNameKey() const;
+	virtual UpdateSleepTime update();
+	const WeaponModeSpecialPowerUpdateModuleData *getData() const
+	{
+		return (const WeaponModeSpecialPowerUpdateModuleData *)m_moduleData;
+	}
+
+private:
+	Bool m_38;
 };
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/WeaponModeSpecialPowerUpdateModuleDataParse.cpp
