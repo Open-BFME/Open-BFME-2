@@ -1673,7 +1673,6 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ?Get_Z_Rotation@Matrix3D@@QBEMXZ,,0x00712020,8,Code/Libraries/Source/WWVegas/WWMath/matrix3d.cpp,matched,placed
 ?Export@AABTreeBuilderClass@@QAEXAAVChunkSaveClass@@@Z,,0x00199680,398,Code/Libraries/Source/WWVegas/WW3D2/aabtreebuilder.cpp,matched,placed
 ?CopyIndexed@VectorProcessorClass@@SAXPAM0PBIH@Z,,0x0071D950,155,Code/Libraries/Source/WWVegas/WWMath/vp.cpp,matched,placed
-??_G?$VectorClass@UFileOffsetStruct@@@@UAEPAXI@Z,,0x00197410,93,Code/Libraries/Source/WWVegas/WWLib/mixfile.cpp,matched,placed
 ?Set_Opacity_Keyframes@ParticleEmitterDefClass@@UAEXAAU?$ParticlePropertyStruct@M@@@Z,,0x001B1D00,85,Code/Libraries/Source/WWVegas/WW3D2/part_ldr.cpp,matched,placed
 ??_GCullNodeStruct@AABTreeBuilderClass@@QAEPAXI@Z,,0x00198B20,69,Code/Libraries/Source/WWVegas/WW3D2/aabtreebuilder.cpp,matched,placed
 ??1?$VectorClass@UWeightInfoStruct@NamedPivotMapClass@@@@UAE@XZ,,0x001971B0,67,Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp,matched,placed

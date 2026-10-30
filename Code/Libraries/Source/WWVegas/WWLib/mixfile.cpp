@@ -93,14 +93,6 @@ public:
 	};
 };
 
-struct FileOffsetStruct {
-		bool operator== (const FileOffsetStruct &src)	{ return false; }
-		bool operator!= (const FileOffsetStruct &src)	{ return true; }
-
-		StringClass	Filename;
-		unsigned long Offset;
-};
-
 // The native base resize at 0x00155690 is already owned by this vector
 // instantiation. Both views carry an eight-byte element with a reference-
 // counted surface at +4; keep the qualified base call bound to that owner.
@@ -136,7 +128,6 @@ DynamicVectorClass<MixFileFactoryClass::AddInfoStruct>::Resize(
 // MixFileCreator member exists). Only the template members below are
 // rowed here, so they are instantiated directly.
 template class DynamicVectorClass<MixFileFactoryClass::AddInfoStruct>;
-template class DynamicVectorClass<FileOffsetStruct>;
 
 SimpleFileFactoryClass _SimpleFileFactory;
 

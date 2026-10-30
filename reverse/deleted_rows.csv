@@ -4218,3 +4218,4 @@ __ehhandler$?rva0004E5A2@W3DRadar@@QAEXHHHHH@Z,0x0075D490,"Renamed to __ehhandle
 ?rva005F64C0@Rva005F64C0@@QAEXH@Z,0x005F64C0,"Renamed to ?setLeaderRank@Rva005F64C0@@QAEXH@Z by tools/rename.py (inferred)"
 ??1Rva00307EDCFileCloser@@QAE@XZ,0x00306EF5,"Renamed to ??1FileCloser@@QAE@XZ by tools/rename.py (inferred)"
 ?rva002E7F3E@Rva002E7F1E@@QBE_NXZ,0x002E7F3E,"Renamed to ?isNotEmpty@Rva002E7F1E@@QBE_NXZ by tools/rename.py (inferred)"
+??_G?$VectorClass@UFileOffsetStruct@@@@UAEPAXI@Z,0x00197410,"Misidentified element: retail vtable 0x007D5EC4 holds 0x00197410 in slot 0 beside the VectorClass<NamedPivotMapClass::WeightInfoStruct> ==/Resize/Clear/ID rows (0x00197230/0x00197270/0x00196840/0x00197200), and its __ehvec_dtor callback 0x00042FF8 is ~WeightInfoStruct; readmitted as ??_G?$VectorClass@UWeightInfoStruct@NamedPivotMapClass@@@@UAEPAXI@Z from hanim.cpp (tu_map approved TU)"
