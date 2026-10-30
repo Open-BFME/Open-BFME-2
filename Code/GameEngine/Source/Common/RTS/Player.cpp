@@ -55,6 +55,16 @@
 //
 //-----------------------------------------------------------------------------
 
+// Declare the kept retail clear before KindOf's inline users instantiate it.
+// Match PreRTS's placement-new guard and preserve diagnostic line arguments.
+#define __PLACEMENT_VEC_NEW_INLINE
+// Keep PreRTS's Windows-before-BaseType TRUE/FALSE types and bool codegen.
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+#include "Lib/Basetype.h"
+#include "Common/BitFlags.h"
+template <> void BitFlags<116>::clear();
+#line 58
 #include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
 
 // _List_iterator comparisons otherwise instantiate the base-class

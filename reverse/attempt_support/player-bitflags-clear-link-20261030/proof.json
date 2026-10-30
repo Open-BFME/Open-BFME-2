@@ -1,0 +1,814 @@
+{
+  "scope": "bounded current four-provider overlay, not census or complete consumer clearance",
+  "private_Player": {
+    "source": "Code/GameEngine/Source/Common/RTS/Player.cpp",
+    "original_PreRTS_line": 58,
+    "change": "declaration-only existing retail clear before first instantiation; preserve all existing test specializations",
+    "comparison": {
+      "removed": [
+        "?clear@?$BitFlags@$0HE@@@QAEXXZ",
+        "?reset@?$bitset@$0HE@@_STL@@QAEAAV12@XZ"
+      ],
+      "added": [],
+      "changed": [
+        "??0ClosestKindOfData@@QAE@XZ",
+        "?xfer@?$BitFlags@$0HE@@@QAEXPAVXfer@@@Z"
+      ],
+      "changed_definitions": {
+        "??0ClosestKindOfData@@QAE@XZ": {
+          "before": {
+            "raw": "56578bf1e8000000008d7e108bcfe8000000008bcee8000000008bcfe800000000f30f10050000000083662000836624005ff30f1146288bc65ec3",
+            "relocations": [
+              [
+                5,
+                20,
+                "??0?$_Base_bitset@$03@_STL@@QAE@XZ"
+              ],
+              [
+                15,
+                20,
+                "??0?$_Base_bitset@$03@_STL@@QAE@XZ"
+              ],
+              [
+                22,
+                20,
+                "?reset@?$bitset@$0HE@@_STL@@QAEAAV12@XZ"
+              ],
+              [
+                29,
+                20,
+                "?reset@?$bitset@$0HE@@_STL@@QAEAAV12@XZ"
+              ],
+              [
+                37,
+                6,
+                "__real@7f7fffff"
+              ]
+            ]
+          },
+          "trial": {
+            "raw": "56578bf1e8000000008d7e108bcfe8000000008bcee8000000008bcfe800000000f30f10050000000083662000836624005ff30f1146288bc65ec3",
+            "relocations": [
+              [
+                5,
+                20,
+                "??0?$_Base_bitset@$03@_STL@@QAE@XZ"
+              ],
+              [
+                15,
+                20,
+                "??0?$_Base_bitset@$03@_STL@@QAE@XZ"
+              ],
+              [
+                22,
+                20,
+                "?clear@?$BitFlags@$0HE@@@QAEXXZ"
+              ],
+              [
+                29,
+                20,
+                "?clear@?$BitFlags@$0HE@@@QAEXXZ"
+              ],
+              [
+                37,
+                6,
+                "__real@7f7fffff"
+              ]
+            ]
+          }
+        },
+        "?xfer@?$BitFlags@$0HE@@@QAEXPAVXfer@@@Z": {
+          "before": {
+            "raw": "b800000000e80000000083ec0c53568b75088b065733db8bf943538d4df3518bce885df3ff502c8b068bceff50043bc3755e8bcfe8000000008d4dec8945ec8b06518bceff503c33db538bcfe80000000085c07424508d4d08e8000000008b068365fc008d4d08518bceff5058834dfcff8d4d08e8000000004383fb747cca8b4df45f5e5b64890d00000000c9c204008b068bceff500483f80275658bcfe8000000008b068d4dec518bceff503c83650800895dfc33db395dec7e2e8b068d4d08518bceff50588b450885c0740583c008eb05b800000000508bcfe80000000084c07414433b5dec7cd2834dfcff8d4d08e800000000eb87c745e806000000eb258b068bceff500483f80375128b066a04578bceff90b8000000e960ffffffc745e80800000068000000008d45e850e800000000cc",
+            "relocations": [
+              [
+                1,
+                6,
+                "__ehhandler$?xfer@?$BitFlags@$0HE@@@QAEXPAVXfer@@@Z"
+              ],
+              [
+                6,
+                20,
+                "__EH_prolog"
+              ],
+              [
+                53,
+                20,
+                "?_M_do_count@?$_Base_bitset@$03@_STL@@QBEIXZ"
+              ],
+              [
+                77,
+                20,
+                "?getBitNameIfSet@?$BitFlags@$0HE@@@QBEPBDH@Z"
+              ],
+              [
+                90,
+                20,
+                "??0?$StringBase@D@@AAE@PBD@Z"
+              ],
+              [
+                117,
+                20,
+                "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+              ],
+              [
+                136,
+                6,
+                "__except_list"
+              ],
+              [
+                159,
+                20,
+                "?reset@?$bitset@$0HE@@_STL@@QAEAAV12@XZ"
+              ],
+              [
+                212,
+                6,
+                "??_C@_00CNPNBAHC@?$AA@"
+              ],
+              [
+                220,
+                20,
+                "?setBitByName@?$BitFlags@$0HE@@@QAE_NPBD@Z"
+              ],
+              [
+                242,
+                20,
+                "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+              ],
+              [
+                295,
+                6,
+                "__TI1?AW4XferStatus@@"
+              ],
+              [
+                304,
+                20,
+                "__CxxThrowException@8"
+              ]
+            ]
+          },
+          "trial": {
+            "raw": "b800000000e80000000083ec0c53568b75088b065733db8bf943538d4df3518bce885df3ff502c8b068bceff50043bc3755e8bcfe8000000008d4dec8945ec8b06518bceff503c33db538bcfe80000000085c07424508d4d08e8000000008b068365fc008d4d08518bceff5058834dfcff8d4d08e8000000004383fb747cca8b4df45f5e5b64890d00000000c9c204008b068bceff500483f80275658bcfe8000000008b068d4dec518bceff503c83650800895dfc33db395dec7e2e8b068d4d08518bceff50588b450885c0740583c008eb05b800000000508bcfe80000000084c07414433b5dec7cd2834dfcff8d4d08e800000000eb87c745e806000000eb258b068bceff500483f80375128b066a04578bceff90b8000000e960ffffffc745e80800000068000000008d45e850e800000000cc",
+            "relocations": [
+              [
+                1,
+                6,
+                "__ehhandler$?xfer@?$BitFlags@$0HE@@@QAEXPAVXfer@@@Z"
+              ],
+              [
+                6,
+                20,
+                "__EH_prolog"
+              ],
+              [
+                53,
+                20,
+                "?_M_do_count@?$_Base_bitset@$03@_STL@@QBEIXZ"
+              ],
+              [
+                77,
+                20,
+                "?getBitNameIfSet@?$BitFlags@$0HE@@@QBEPBDH@Z"
+              ],
+              [
+                90,
+                20,
+                "??0?$StringBase@D@@AAE@PBD@Z"
+              ],
+              [
+                117,
+                20,
+                "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+              ],
+              [
+                136,
+                6,
+                "__except_list"
+              ],
+              [
+                159,
+                20,
+                "?clear@?$BitFlags@$0HE@@@QAEXXZ"
+              ],
+              [
+                212,
+                6,
+                "??_C@_00CNPNBAHC@?$AA@"
+              ],
+              [
+                220,
+                20,
+                "?setBitByName@?$BitFlags@$0HE@@@QAE_NPBD@Z"
+              ],
+              [
+                242,
+                20,
+                "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+              ],
+              [
+                295,
+                6,
+                "__TI1?AW4XferStatus@@"
+              ],
+              [
+                304,
+                20,
+                "__CxxThrowException@8"
+              ]
+            ]
+          }
+        }
+      },
+      "removed_definitions": {
+        "?clear@?$BitFlags@$0HE@@@QAEXXZ": {
+          "raw": "e900000000",
+          "relocations": [
+            [
+              1,
+              20,
+              "?reset@?$bitset@$0HE@@_STL@@QAEAAV12@XZ"
+            ]
+          ]
+        },
+        "?reset@?$bitset@$0HE@@_STL@@QAEAAV12@XZ": {
+          "raw": "566a108bf16a0056e80000000083c40c8bc65ec3",
+          "relocations": [
+            [
+              9,
+              20,
+              "_memset"
+            ]
+          ]
+        }
+      }
+    },
+    "include_order_control": {
+      "name": "?isPlayableSide@Player@@QBE_NXZ",
+      "before": {
+        "raw": "8b410485c074080fb680b9000000c333c0c3",
+        "relocations": []
+      },
+      "windows_late": {
+        "raw": "8b410485c074078a80b9000000c332c0c3",
+        "relocations": []
+      },
+      "final": {
+        "raw": "8b410485c074080fb680b9000000c333c0c3",
+        "relocations": []
+      },
+      "cause": "Windows defines integer TRUE/FALSE before BaseType; reverse order uses bool constants and changes codegen"
+    },
+    "variants": {
+      "before": {
+        "source_sha256": "710c1906f5b00c81e04a8a667e902ba7fa7689fa78cb9606cf1892975a336926",
+        "rows": [
+          {
+            "name": "?getDefaultTeam@Player@@QAEPAVTeam@@XZ",
+            "rva": "0x0046F7E4",
+            "size": "7",
+            "exact": true
+          },
+          {
+            "name": "?getTeam@Object@@QAEPAVTeam@@XZ",
+            "rva": "0x0043A09D",
+            "size": "7",
+            "exact": true
+          },
+          {
+            "name": "?dlink_next_TeamMemberList@Object@@QBEPAV1@XZ",
+            "rva": "0x0046F7F8",
+            "size": "7",
+            "exact": true
+          },
+          {
+            "name": "?getAcademyStats@Player@@QAEPAVAcademyStats@@XZ",
+            "rva": "0x000B6464",
+            "size": "7",
+            "exact": true
+          },
+          {
+            "name": "?getNumSkirmishSides@SidesList@@QAEHXZ",
+            "rva": "0x0016809F",
+            "size": "7",
+            "exact": true
+          },
+          {
+            "name": "?getNumSkirmishTeams@SidesList@@QAEHXZ",
+            "rva": "0x00313840",
+            "size": "7",
+            "exact": true
+          },
+          {
+            "name": "?isPlayerDead@Player@@QBE_NXZ",
+            "rva": "0x0028A7D8",
+            "size": "7",
+            "exact": true
+          },
+          {
+            "name": "?setAIDifficulty@AIPlayer@@QAEXW4GameDifficulty@@@Z",
+            "rva": "0x00210C87",
+            "size": "10",
+            "exact": true
+          },
+          {
+            "name": "?onStructureUndone@Player@@QAEXPAVObject@@@Z",
+            "rva": "0x0047A69C",
+            "size": "3",
+            "exact": true
+          },
+          {
+            "name": "?isPlayerObserver@Player@@QBE_NXZ",
+            "rva": "0x002AA223",
+            "size": "7",
+            "exact": true
+          },
+          {
+            "name": "?loadPostProcess@PlayerRelationMap@@MAEXXZ",
+            "rva": "0x000B3FD0",
+            "size": "1",
+            "exact": true
+          }
+        ],
+        "eh": [],
+        "external_definitions": 414
+      },
+      "windows-late": {
+        "source_sha256": "ca336ed94e55a08a19a9d8e890f7c2847433b3cfffc5f752d54a2d3b6991ff39",
+        "rows": [
+          {
+            "name": "?getDefaultTeam@Player@@QAEPAVTeam@@XZ",
+            "rva": "0x0046F7E4",
+            "size": "7",
+            "exact": true
+          },
+          {
+            "name": "?getTeam@Object@@QAEPAVTeam@@XZ",
+            "rva": "0x0043A09D",
+            "size": "7",
+            "exact": true
+          },
+          {
+            "name": "?dlink_next_TeamMemberList@Object@@QBEPAV1@XZ",
+            "rva": "0x0046F7F8",
+            "size": "7",
+            "exact": true
+          },
+          {
+            "name": "?getAcademyStats@Player@@QAEPAVAcademyStats@@XZ",
+            "rva": "0x000B6464",
+            "size": "7",
+            "exact": true
+          },
+          {
+            "name": "?getNumSkirmishSides@SidesList@@QAEHXZ",
+            "rva": "0x0016809F",
+            "size": "7",
+            "exact": true
+          },
+          {
+            "name": "?getNumSkirmishTeams@SidesList@@QAEHXZ",
+            "rva": "0x00313840",
+            "size": "7",
+            "exact": true
+          },
+          {
+            "name": "?isPlayerDead@Player@@QBE_NXZ",
+            "rva": "0x0028A7D8",
+            "size": "7",
+            "exact": true
+          },
+          {
+            "name": "?setAIDifficulty@AIPlayer@@QAEXW4GameDifficulty@@@Z",
+            "rva": "0x00210C87",
+            "size": "10",
+            "exact": true
+          },
+          {
+            "name": "?onStructureUndone@Player@@QAEXPAVObject@@@Z",
+            "rva": "0x0047A69C",
+            "size": "3",
+            "exact": true
+          },
+          {
+            "name": "?isPlayerObserver@Player@@QBE_NXZ",
+            "rva": "0x002AA223",
+            "size": "7",
+            "exact": true
+          },
+          {
+            "name": "?loadPostProcess@PlayerRelationMap@@MAEXXZ",
+            "rva": "0x000B3FD0",
+            "size": "1",
+            "exact": true
+          }
+        ],
+        "eh": [],
+        "external_definitions": 412
+      },
+      "trial": {
+        "source_sha256": "fda48be2eaeea1187b7e9eddae8ebbbcf783a909f8da70cad4f7ace90f27c5b2",
+        "rows": [
+          {
+            "name": "?getDefaultTeam@Player@@QAEPAVTeam@@XZ",
+            "rva": "0x0046F7E4",
+            "size": "7",
+            "exact": true
+          },
+          {
+            "name": "?getTeam@Object@@QAEPAVTeam@@XZ",
+            "rva": "0x0043A09D",
+            "size": "7",
+            "exact": true
+          },
+          {
+            "name": "?dlink_next_TeamMemberList@Object@@QBEPAV1@XZ",
+            "rva": "0x0046F7F8",
+            "size": "7",
+            "exact": true
+          },
+          {
+            "name": "?getAcademyStats@Player@@QAEPAVAcademyStats@@XZ",
+            "rva": "0x000B6464",
+            "size": "7",
+            "exact": true
+          },
+          {
+            "name": "?getNumSkirmishSides@SidesList@@QAEHXZ",
+            "rva": "0x0016809F",
+            "size": "7",
+            "exact": true
+          },
+          {
+            "name": "?getNumSkirmishTeams@SidesList@@QAEHXZ",
+            "rva": "0x00313840",
+            "size": "7",
+            "exact": true
+          },
+          {
+            "name": "?isPlayerDead@Player@@QBE_NXZ",
+            "rva": "0x0028A7D8",
+            "size": "7",
+            "exact": true
+          },
+          {
+            "name": "?setAIDifficulty@AIPlayer@@QAEXW4GameDifficulty@@@Z",
+            "rva": "0x00210C87",
+            "size": "10",
+            "exact": true
+          },
+          {
+            "name": "?onStructureUndone@Player@@QAEXPAVObject@@@Z",
+            "rva": "0x0047A69C",
+            "size": "3",
+            "exact": true
+          },
+          {
+            "name": "?isPlayerObserver@Player@@QBE_NXZ",
+            "rva": "0x002AA223",
+            "size": "7",
+            "exact": true
+          },
+          {
+            "name": "?loadPostProcess@PlayerRelationMap@@MAEXXZ",
+            "rva": "0x000B3FD0",
+            "size": "1",
+            "exact": true
+          }
+        ],
+        "eh": [],
+        "external_definitions": 412
+      }
+    }
+  },
+  "cohort": [
+    {
+      "source": "Code/GameEngine/Source/Common/RTS/Player.cpp",
+      "source_sha256": "fda48be2eaeea1187b7e9eddae8ebbbcf783a909f8da70cad4f7ace90f27c5b2",
+      "object_sha256": "231066a2b7d079252647f472a0f7a595977c928a4244a38d4dfe6453a8ef1bc8",
+      "currency": "strict current shared object; owned source",
+      "rows": [
+        {
+          "name": "?getDefaultTeam@Player@@QAEPAVTeam@@XZ",
+          "rva": "0x0046F7E4",
+          "size": "7",
+          "exact": true
+        },
+        {
+          "name": "?getTeam@Object@@QAEPAVTeam@@XZ",
+          "rva": "0x0043A09D",
+          "size": "7",
+          "exact": true
+        },
+        {
+          "name": "?dlink_next_TeamMemberList@Object@@QBEPAV1@XZ",
+          "rva": "0x0046F7F8",
+          "size": "7",
+          "exact": true
+        },
+        {
+          "name": "?getAcademyStats@Player@@QAEPAVAcademyStats@@XZ",
+          "rva": "0x000B6464",
+          "size": "7",
+          "exact": true
+        },
+        {
+          "name": "?getNumSkirmishSides@SidesList@@QAEHXZ",
+          "rva": "0x0016809F",
+          "size": "7",
+          "exact": true
+        },
+        {
+          "name": "?getNumSkirmishTeams@SidesList@@QAEHXZ",
+          "rva": "0x00313840",
+          "size": "7",
+          "exact": true
+        },
+        {
+          "name": "?isPlayerDead@Player@@QBE_NXZ",
+          "rva": "0x0028A7D8",
+          "size": "7",
+          "exact": true
+        },
+        {
+          "name": "?setAIDifficulty@AIPlayer@@QAEXW4GameDifficulty@@@Z",
+          "rva": "0x00210C87",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "?onStructureUndone@Player@@QAEXPAVObject@@@Z",
+          "rva": "0x0047A69C",
+          "size": "3",
+          "exact": true
+        },
+        {
+          "name": "?isPlayerObserver@Player@@QBE_NXZ",
+          "rva": "0x002AA223",
+          "size": "7",
+          "exact": true
+        },
+        {
+          "name": "?loadPostProcess@PlayerRelationMap@@MAEXXZ",
+          "rva": "0x000B3FD0",
+          "size": "1",
+          "exact": true
+        }
+      ],
+      "eh": []
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/System/BitFlagsClear.cpp",
+      "source_sha256": "cac6430c0518a81c6232760cf9d8b1c97a7c62008bc62cab3d8339afde73662f",
+      "object_sha256": "19bf1c95d96d37fd9685f04aae9d3579f6f792852d12abf2f0a3730e09ae403d",
+      "currency": "strict current shared object; owned source",
+      "rows": [
+        {
+          "name": "?clear@?$BitFlags@$0HE@@@QAEXXZ",
+          "rva": "0x00666E80",
+          "size": "14",
+          "exact": true
+        }
+      ],
+      "eh": []
+    },
+    {
+      "source": "Code/GameEngine/Source/GameLogic/Object/Behavior/DumbProjectileBehavior.cpp",
+      "source_sha256": "e300edc1b8a8ddcb68a4f5069992b89c1f3eaab35ba483929dfe49bb5b596330",
+      "object_sha256": "1ffe26540a30052db7381f130d76bfb41e1634426056f8f7032b9a68a4483dc5",
+      "currency": "fresh private compile of unchanged held source; no shared-cache mutation",
+      "rows": [
+        {
+          "name": "??$sqr@M@@YAMM@Z",
+          "rva": "0x00005781",
+          "size": "9",
+          "exact": true
+        },
+        {
+          "name": "?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ",
+          "rva": "0x0022C4CB",
+          "size": "4",
+          "exact": true
+        }
+      ],
+      "eh": []
+    },
+    {
+      "source": "Code/GameEngine/Source/GameLogic/Object/WeaponSet.cpp",
+      "source_sha256": "95f0b9bd8ef339fc5cabfe6144a479af98fe60e7043c883f639a42e12d3b87a8",
+      "object_sha256": "3b37b428386f555975dbc46f20f13d0fe27c82eacc79a63231a7174b39325cd7",
+      "currency": "fresh private compile of unchanged held source; no shared-cache mutation",
+      "rows": [
+        {
+          "name": "?parseWeaponTemplateSet@WeaponTemplateSet@@QAEXPAVINI@@PBVThingTemplate@@@Z",
+          "rva": "0x002C8C7B",
+          "size": "28",
+          "exact": true
+        },
+        {
+          "name": "?get@Rva002C74B2ByteField@@QBEEXZ",
+          "rva": "0x002C74B2",
+          "size": "7",
+          "exact": true
+        },
+        {
+          "name": "?get@Rva002C74B9ByteField@@QBEEXZ",
+          "rva": "0x002C74B9",
+          "size": "7",
+          "exact": true
+        },
+        {
+          "name": "?Rva002C8C06Parse@@YAXPAVINI@@PAX1PBX@Z",
+          "rva": "0x002C8C06",
+          "size": "16",
+          "exact": true
+        }
+      ],
+      "eh": []
+    }
+  ],
+  "actual_Player_comparison": {
+    "removed": [
+      "?clear@?$BitFlags@$0HE@@@QAEXXZ",
+      "?reset@?$bitset@$0HE@@_STL@@QAEAAV12@XZ"
+    ],
+    "added": [],
+    "changed_only_expected_relocations": [
+      "??0ClosestKindOfData@@QAE@XZ",
+      "?xfer@?$BitFlags@$0HE@@@QAEXPAVXfer@@@Z"
+    ],
+    "all_retained_raw_code_identical": true,
+    "retained_external_definitions": 412,
+    "actual_vs_private_COMDAT_fingerprints_identical": true
+  },
+  "native_clear": {
+    "rva": "0x00666E80",
+    "raw": "33c0890189410489410889410cc3",
+    "size": 14,
+    "complete_exact": true
+  },
+  "overlays": {
+    "before": {
+      "units": {
+        "Code/GameEngine/Source/Common/RTS/Player.cpp": {
+          "linked": false,
+          "counts": {
+            "unresolved": 33,
+            "duplicates": 0,
+            "comdat": 5,
+            "addresses": 0,
+            "selected": 3
+          },
+          "clear_reset_blockers": {
+            "comdat": [],
+            "selected": [
+              "?clear@?$BitFlags@$0HE@@@QAEXXZ"
+            ],
+            "unresolved": []
+          }
+        },
+        "Code/GameEngine/Source/Common/System/BitFlagsClear.cpp": {
+          "linked": false,
+          "counts": {
+            "unresolved": 0,
+            "duplicates": 0,
+            "comdat": 1,
+            "addresses": 0,
+            "selected": 1
+          },
+          "clear_reset_blockers": {
+            "comdat": [
+              [
+                "?reset@?$bitset@$0HE@@_STL@@QAEAAV12@XZ",
+                "first",
+                null
+              ]
+            ],
+            "selected": [
+              "?clear@?$BitFlags@$0HE@@@QAEXXZ"
+            ],
+            "unresolved": []
+          }
+        },
+        "Code/GameEngine/Source/GameLogic/Object/Behavior/DumbProjectileBehavior.cpp": {
+          "linked": false,
+          "counts": {
+            "unresolved": 12,
+            "duplicates": 0,
+            "comdat": 5,
+            "addresses": 0,
+            "selected": 3
+          },
+          "clear_reset_blockers": {
+            "comdat": [],
+            "selected": [
+              "?clear@?$BitFlags@$0HE@@@QAEXXZ"
+            ],
+            "unresolved": []
+          }
+        },
+        "Code/GameEngine/Source/GameLogic/Object/WeaponSet.cpp": {
+          "linked": false,
+          "counts": {
+            "unresolved": 4,
+            "duplicates": 2,
+            "comdat": 1,
+            "addresses": 0,
+            "selected": 2
+          },
+          "clear_reset_blockers": {
+            "comdat": [],
+            "selected": [
+              "?clear@?$BitFlags@$0HE@@@QAEXXZ"
+            ],
+            "unresolved": []
+          }
+        }
+      },
+      "selection": {
+        "?clear@?$BitFlags@$0HE@@@QAEXXZ": [
+          "^code_^game^engine_^source_^common_^r^t^s_^player.obj",
+          "wrong"
+        ],
+        "?reset@?$bitset@$0HE@@_STL@@QAEAAV12@XZ": [
+          "^code_^game^engine_^source_^common_^r^t^s_^player.obj",
+          "unknown"
+        ]
+      }
+    },
+    "after": {
+      "units": {
+        "Code/GameEngine/Source/Common/RTS/Player.cpp": {
+          "linked": false,
+          "counts": {
+            "unresolved": 33,
+            "duplicates": 0,
+            "comdat": 5,
+            "addresses": 0,
+            "selected": 2
+          },
+          "clear_reset_blockers": {
+            "comdat": [],
+            "selected": [],
+            "unresolved": []
+          }
+        },
+        "Code/GameEngine/Source/Common/System/BitFlagsClear.cpp": {
+          "linked": true,
+          "counts": {
+            "unresolved": 0,
+            "duplicates": 0,
+            "comdat": 0,
+            "addresses": 0,
+            "selected": 0
+          },
+          "clear_reset_blockers": {
+            "comdat": [],
+            "selected": [],
+            "unresolved": []
+          }
+        },
+        "Code/GameEngine/Source/GameLogic/Object/Behavior/DumbProjectileBehavior.cpp": {
+          "linked": false,
+          "counts": {
+            "unresolved": 12,
+            "duplicates": 0,
+            "comdat": 5,
+            "addresses": 0,
+            "selected": 2
+          },
+          "clear_reset_blockers": {
+            "comdat": [],
+            "selected": [],
+            "unresolved": []
+          }
+        },
+        "Code/GameEngine/Source/GameLogic/Object/WeaponSet.cpp": {
+          "linked": false,
+          "counts": {
+            "unresolved": 4,
+            "duplicates": 2,
+            "comdat": 1,
+            "addresses": 0,
+            "selected": 1
+          },
+          "clear_reset_blockers": {
+            "comdat": [],
+            "selected": [],
+            "unresolved": []
+          }
+        }
+      },
+      "selection": {
+        "?clear@?$BitFlags@$0HE@@@QAEXXZ": [
+          "^code_^game^engine_^source_^common_^system_^bit^flags^clear.obj",
+          "ok"
+        ],
+        "?reset@?$bitset@$0HE@@_STL@@QAEAAV12@XZ": [
+          "^code_^game^engine_^source_^common_^system_^bit^flags^clear.obj",
+          null
+        ]
+      }
+    }
+  }
+}

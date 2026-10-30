@@ -7946,7 +7946,8 @@ Census confirmation: not claimed.
 
 ### LINK-030: ZH-header units emit a wrong `BitFlags<116>::clear` ahead of the rowed copy
 
-Status: Open. Updated: 2026-10-26; inspected revision: 9f93879fe9 (index 47e030bafc).
+Status: provider repair verified / awaiting census. Updated: 2026-10-30;
+original open inspection: 9f93879fe9 (2026-10-26, index 47e030bafc), retained below.
 Evidence / affected units: `BitFlagsClear.cpp` (14 B, row 0x00666E80) fails `selected` on
 `?clear@?$BitFlags@$0HE@@@QAEXXZ`. The index has four copies: `DumbProjectileBehavior.cpp`,
 `Player.cpp` and `WeaponSet.cpp` (all `wrong`, first in link order) and `BitFlagsClear.cpp`
@@ -7983,6 +7984,25 @@ checks and scheduled-census confirmation remain open. Carry both edited
 objects, Player, the clear owner and affected consumers into the next census.
 No clearance, debt retirement or census gain is claimed.
 [Object comparison and remaining work](../reverse/attempt_support/bitflags-clear-declarations-20261030-codex5.md).
+
+**2026-10-30 final provider repair (Player scope now available):** Player
+declares the kept clear before first instantiation. Preserve the original
+Windows-before-BaseType TRUE/FALSE types, array-placement guard, PreRTS line58
+and existing bitset test specializations. A negative include-order control
+changes isPlayableSide's bool code; the final ordering restores it exactly.
+All eleven Player rows pass; its 412 retained external raw bodies are
+identical. Only three reset-to-clear relocations change; the wrong 5-byte
+clear and 20-byte reset definitions disappear with no new definition.
+The unchanged held DumbProjectileBehavior/WeaponSet sources are verified in
+fresh private objects, without editing their sources or shared caches.
+All18 cohort rows pass and both clear/reset blockers disappear from all four
+units. The 14-byte clear owner newly predicts LINKS (0 -> 14 B); the other
+three clients retain their independent obstacles. This clears the stated
+provider scope only, awaiting census; no headline gain is claimed.
+The broader audit remains qualified by the old index and missing consumer
+receipts. CreateAHero's23 rows now prepare successfully; the latest prior
+audit stops at AIBuildable instead. Evidence:
+`reverse/attempt_support/player-bitflags-clear-link-20261030/`.
 
 ### LINK-031: `TransportContain.cpp` predicts a duplicate module-data ctor after its merge
 
