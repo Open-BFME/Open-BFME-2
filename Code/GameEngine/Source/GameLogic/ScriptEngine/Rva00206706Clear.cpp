@@ -35,7 +35,7 @@ private:
 	int m_count; // +0x04
 };
 
-void __cdecl free(void *block);
+#include <stdlib.h>
 
 void Rva00206706::rva00206706(Rva00206706Node *node)
 {

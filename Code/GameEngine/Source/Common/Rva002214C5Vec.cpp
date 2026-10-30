@@ -52,7 +52,7 @@ void __cdecl Rva0022104EParse(INI *ini, void *instance, void *store, const void 
 }
 
 extern _STL::map<int, void *, _STL::less<int>, _STL::allocator<_STL::pair<const int, void *> > > *Rva002213D9Get();
-void __cdecl free(void *);
+#include <stdlib.h>
 
 void Rva002214C5Get(_STL::vector<BfmeE16, _STL::allocator<BfmeE16> > *out)
 {

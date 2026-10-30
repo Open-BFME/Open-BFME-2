@@ -24,7 +24,7 @@ struct MallocPtr
 	void *m_ptr;
 	~MallocPtr() { if (m_ptr) free(m_ptr); }
 };
-void __cdecl free(void *p);
+#include <stdlib.h>
 
 class Rva00360D26Member
 {

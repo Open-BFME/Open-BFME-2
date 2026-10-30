@@ -12,7 +12,7 @@
 // Bind the narrow-string destructor to its verified free-bodied provider.
 namespace _STL { template <> basic_string<char, char_traits<char>, allocator<char> >::~basic_string(); }
 
-void __cdecl free(void *);
+#include <stdlib.h>
 #include "BfmeNarrowRecord0041A617.h"
 #include <cstddef>
 // bfme link decl-only begin

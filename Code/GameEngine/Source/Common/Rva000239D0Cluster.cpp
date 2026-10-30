@@ -5,7 +5,7 @@
 // the same raw byte allocator pinned at 0x000307F0, and the free calls reach
 // 0x00030830. Names are address-derived because no caller names them.
 
-void free(void *p);
+#include <stdlib.h>
 
 namespace _STL
 {

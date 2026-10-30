@@ -14,7 +14,7 @@
 //   the rowed Rva004BA341DestroyRange (0x2C-stride Rva004BA1C8 records).
 #include <vector>
 
-void __cdecl free(void *block);
+#include <stdlib.h>
 
 template <class T> class OpaqueVector
 {
