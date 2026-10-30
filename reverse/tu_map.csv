@@ -33351,7 +33351,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0040F454,67,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_sort_rva0040cb11entry.cpp
 0x0040F497,846,code,Code/GameEngine/Source/GameLogic/System/ArmySummary.cpp,proposed,N,N=Code/GameEngine/Source/GameLogic/System/ArmySummary.cpp W=Code/GameEngine/Source/GameLogic/System/ArmySummary.cpp,Code/GameEngine/Source/GameLogic/System/ArmySummaryLoad.cpp
 0x0040F7E5,24,code,Code/GameEngine/Source/Common/BfmeY1038.cpp,proposed,N,N=Code/GameEngine/Source/Common/BfmeY1038.cpp,Code/GameEngine/Source/Common/Rva0040F7E5Advance.cpp
-0x0040F7FD,129,code,Code/GameEngine/Source/Common/BfmeY1038.cpp,proposed,N,N=Code/GameEngine/Source/Common/BfmeY1038.cpp,Code/GameEngine/Source/Common/Rva0040F7FDAutoSummon.cpp
+0x0040F7FD,129,code,Code/GameEngine/Source/Common/BfmeY1038.cpp,proposed,N,N=Code/GameEngine/Source/Common/BfmeY1038.cpp,Code/GameEngine/Source/Common/BfmeY1038.cpp
 0x0040F87E,640,code,Code/GameEngine/Source/GameLogic/System/ArmySummarySystem.cpp,proposed,N,N=Code/GameEngine/Source/GameLogic/System/ArmySummarySystem.cpp W=Code/GameEngine/Source/GameLogic/System/ArmySummary.cpp,Code/GameEngine/Source/GameLogic/System/ArmySummarySystemLoad.cpp
 0x0040FAFE,23,code,Code/GameEngine/Source/Common/ArmySummarySystem.cpp,proposed,N,N=Code/GameEngine/Source/Common/ArmySummarySystem.cpp W=Code/GameEngine/Source/GameLogic/System/ArmySummary.cpp,Code/GameEngine/Source/Common/Rva0040F7E5Advance.cpp
 0x0040FB15,5,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StringBaseWideCopySet.cpp
@@ -77420,8 +77420,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00785A1F,10,code,Code/GameEngine/Source/GameLogic/System/ArmySummary.cpp,approved,P,P=0x0040F497@FuncInfo0x009324D0 p-group provisional,Code/GameEngine/Source/GameLogic/System/ArmySummaryLoad.cpp
 0x00785A29,8,code,Code/GameEngine/Source/GameLogic/System/ArmySummary.cpp,approved,P,P=0x0040F497@FuncInfo0x009324D0 p-group provisional,Code/GameEngine/Source/GameLogic/System/ArmySummaryLoad.cpp
 0x00785A31,10,code,Code/GameEngine/Source/GameLogic/System/ArmySummary.cpp,approved,P,P=0x0040F497@FuncInfo0x009324D0 p-group provisional,Code/GameEngine/Source/GameLogic/System/ArmySummaryLoad.cpp
-0x00785A3B,8,code,Code/GameEngine/Source/Common/BfmeY1038.cpp,approved,P,P=0x0040F7FD@FuncInfo0x009324F4 p-group provisional,Code/GameEngine/Source/Common/Rva0040F7FDAutoSummon.cpp
-0x00785A43,10,code,Code/GameEngine/Source/Common/BfmeY1038.cpp,approved,P,P=0x0040F7FD@FuncInfo0x009324F4 p-group provisional,Code/GameEngine/Source/Common/Rva0040F7FDAutoSummon.cpp
+0x00785A3B,8,code,Code/GameEngine/Source/Common/BfmeY1038.cpp,approved,P,P=0x0040F7FD@FuncInfo0x009324F4 p-group provisional,Code/GameEngine/Source/Common/BfmeY1038.cpp
+0x00785A43,10,code,Code/GameEngine/Source/Common/BfmeY1038.cpp,approved,P,P=0x0040F7FD@FuncInfo0x009324F4 p-group provisional,Code/GameEngine/Source/Common/BfmeY1038.cpp
 0x00785A4D,8,code,Code/GameEngine/Source/GameClient/GUI/AptWindowLayout.cpp,approved,P,P=0x0040FB4A@FuncInfo0x00932518 p-group provisional,Code/GameEngine/Source/GameClient/GUI/AptWindowLayout.cpp
 0x00785A55,10,code,Code/GameEngine/Source/GameClient/GUI/AptWindowLayout.cpp,approved,P,P=0x0040FB4A@FuncInfo0x00932518 p-group provisional,Code/GameEngine/Source/GameClient/GUI/AptWindowLayout.cpp
 0x00785A5F,11,code,,,-,,Code/GameEngine/Source/GameClient/GUI/BfmeQuickMatchScreenBaseConstructor.cpp
