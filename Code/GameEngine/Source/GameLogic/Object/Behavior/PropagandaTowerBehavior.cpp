@@ -177,9 +177,28 @@ public:
 	virtual float f6();
 };
 
+enum ObjectStatusTypes { STATUS_BUILDING = 2, STATUS_SOLD = 19 };
+
+template <int N> class BitFlags
+{
+public:
+	enum BogusInitType { kInit = 0 };
+	BitFlags(BogusInitType, int);
+	bool any() const;
+	bool test(const void *) const;
+	unsigned words[1];
+};
+
+struct ObjectTemplate
+{
+	char pad[0x10c];
+	unsigned kind;
+};
+
 class Object
 {
 public:
+	bool testStatus(ObjectStatusTypes) const;
 	Player *getControllingPlayer() const;
 	bool hasUpgrade(const UpgradeTemplate *upgrade) const;
 	const Coord3D *getPosition() const { return &m_pos; }
@@ -201,15 +220,23 @@ public:
 		m_flags380 |= (1 << (bit + 8));
 	}
 
-	char m_pad00[0x38];
+	char p00[4];
+	ObjectTemplate *tmpl; // +0x04
+	char m_pad08[0x38 - 0x08];
 	Coord3D m_pos; // +0x38
 	char m_pad044[0x74 - 0x44];
 	ObjectID m_id; // +0x74
-	char m_pad078[0x254 - 0x78];
+	char m_pad078[0x1c8 - 0x78];
+	BitFlags<11> disabled; // +0x1C8
+	char m_pad1cc[0x254 - 0x1cc];
 	BodyModule *m_body; // +0x254
-	char m_pad258[0x380 - 0x258];
+	char m_pad258[0x274 - 0x258];
+	Object *containedBy; // +0x274
+	char m_pad278[0x380 - 0x278];
 	UnsignedInt m_flags380; // +0x380
-	char m_pad384[0x100];
+	char m_pad384[0x438 - 0x384];
+	unsigned char dead; // +0x438
+	char m_pad439[0x484 - 0x439];
 };
 
 struct Rva00481A9EInfo
@@ -333,36 +360,60 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 
 class Xfer;
 
-class PropagandaTowerBehavior
+enum UpdateSleepTime
+{
+	UPDATE_SLEEP_NONE = 1,
+	UPDATE_SLEEP_FOREVER = 0x3fffffff
+};
+
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
+
+enum SleepyUpdatePhase { PHASE_NORMAL = 2 };
+
+class UpdateModuleInterface
 {
 public:
-	virtual void slot00();
-	virtual void slot01();
-	virtual void slot02();
+	virtual UpdateSleepTime update() = 0;
+};
+
+// The serialization row uses the primary receiver; its base subobject starts at offset zero.
+class UpdateModule : public BehaviorModule, public UpdateModuleInterface
+{
+public:
+	UpdateModule(Thing *, const ModuleData *);
+	virtual ~UpdateModule();
+	void xfer(Xfer *xfer);
+protected:
+	void setWakeFrame(Object *, UpdateSleepTime);
+	virtual SleepyUpdatePhase getUpdatePhase() const;
+private:
+	unsigned int m_f14;
+	int m_f18;
+	int m_f1c;
+};
+
+class PropagandaTowerBehaviorIface
+{
+public:
+	virtual void slot();
+};
+
+class PropagandaTowerBehavior : public UpdateModule, public PropagandaTowerBehaviorIface
+{
+public:
+	PropagandaTowerBehavior(Thing *, const ModuleData *);
+	virtual ~PropagandaTowerBehavior();
+	virtual UpdateSleepTime update();
 protected:
 	virtual void xfer(Xfer *xfer);
-public:
-	virtual void slot04();
-	virtual void slot05();
-	virtual void slot06();
-	virtual void slot07();
-	virtual void slot08();
-	virtual void slot09();
-	virtual void slot10();
-	virtual void slot11();
-	virtual void slot12();
-protected:
 	virtual void removeAllInfluence();
 	virtual void doScan();
 	virtual void effectLogic(Object *obj, bool giving, const PropagandaTowerBehaviorModuleData *modData);
 private:
 	const PropagandaTowerBehaviorModuleData *getPropagandaTowerBehaviorModuleData() const
 	{
-		return m_moduleData;
+		return (const PropagandaTowerBehaviorModuleData *)m_moduleData;
 	}
-	const PropagandaTowerBehaviorModuleData *m_moduleData;	// +0x04
-	Object *m_object;		// +0x08
-	unsigned char m_pad0C[0x24 - 0x0C];
 	unsigned int m_lastScanFrame; // +0x24
 	ObjectTracker *m_insideList;	// +0x28
 	const UpgradeTemplate *m_upgradeRequired;	// +0x2C
@@ -401,21 +452,13 @@ public:
 
 void XferObjectID(Xfer *xfer, ObjectID *objectID);
 
-// Only the direct base call is needed here. The serialization row and seed
-// both use the primary receiver; its base subobject starts at offset zero.
-class UpdateModule
-{
-public:
-	void xfer(Xfer *xfer);
-};
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehaviorXfer.cpp
 
 // ?xfer@PropagandaTowerBehavior@@MAEXPAVXfer@@@Z @0x00481842
 void PropagandaTowerBehavior::xfer(Xfer *xfer)
 {
 	xfer->Version1();
-	reinterpret_cast<UpdateModule *>(this)->UpdateModule::xfer(xfer);
+	UpdateModule::xfer(xfer);
 	*xfer == m_lastScanFrame;
 
 	UnsignedShort insideCount = 0;
@@ -558,7 +601,7 @@ void PropagandaTowerBehavior::removeAllInfluence()
 	{
 		Object *obj = TheGameLogic->findObjectByID(cur->objectID);
 		if (obj)
-			effectLogic(obj, false, m_moduleData);
+			effectLogic(obj, false, getPropagandaTowerBehaviorModuleData());
 	}
 	while (m_insideList)
 	{
