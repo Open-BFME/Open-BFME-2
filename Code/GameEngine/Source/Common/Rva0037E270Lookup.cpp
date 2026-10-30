@@ -21,7 +21,7 @@ class UnitRevivalEntry {
     char m_pad00[0x94];
     int m_94;
     char m_pad98[4];
-    int m_9C;
+    unsigned int m_9C;
     bool m_A0;
     char m_padA1[0xD4 - 0xA1];
     AsciiString m_str;
@@ -45,5 +45,5 @@ void UnitRevivalEntry::setThingTemplateName(const AsciiString &asciiString)
     if (!def)
         return;
     m_94 = ((Rva0037E3D9Def *)def)->m_buildCost;
-    m_9C = (int)((Rva0037E3D9Def *)def)->m_buildTime;
+    m_9C = (unsigned int)((Rva0037E3D9Def *)def)->m_buildTime;
 }

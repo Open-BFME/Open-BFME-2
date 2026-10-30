@@ -171,7 +171,6 @@ Code/GameEngine/Source/Common/Rva0015A390OwnerCtor_Rva00548FAC.cpp,-Os,1,1,regio
 Code/GameEngine/Source/Common/Rva00170999.cpp,-O1,9,8,region default loses rows
 Code/GameEngine/Source/Common/Rva0024D60.cpp,-Od,1,1,region default loses rows
 Code/GameEngine/Source/Common/Rva0033A68AWrapper.cpp,-O1,1,1,region default loses rows
-Code/GameEngine/Source/Common/Rva0037E270Lookup.cpp,-O1,2,1,region default loses rows
 Code/GameEngine/Source/Common/Rva0039BF0BFinish.cpp,-O1,1,1,region default loses rows
 Code/GameEngine/Source/Common/Rva0054C805Timer.cpp,-O1 -G6,1,1,region default loses rows
 Code/GameEngine/Source/Common/Rva005745D8.cpp,-O1,1,1,region default loses rows
