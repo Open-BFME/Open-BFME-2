@@ -8486,6 +8486,13 @@ shape outside the module tree, is recorded under LINK-065.)
     lose as "not retail's body". Those rows need an honest element type and
     home before the nugget can go. The `setProducer(const Object *)` U
     blocker is the unfinished ZH-spelling pass from 83a5361fc7 (29 files).
+    Rechecked 2026-10-30 (census at 12b9e7a7c0, no source change): down to
+    two unresolved (`?scanInt@INI@@SAHPBD@Z`, `?setProducer@Object@@QAEXPBV1@@Z`;
+    28 caller units and the 0x0028AFD2 row spell `Object *`, so the ZH const
+    spelling is this unit's alone) plus the two Payload `_Construct`/`_Destroy`
+    losers and two first-copy COMDAT differences
+    (`??1RadiusDecalTemplate@@QAE@XZ`, `??_7ObjectCreationNugget@@6B@`).
+    The Payload row identity/home is still the first prerequisite.
   - `DieModule.cpp` (13 B): its unrowed ZH `crc`/`xfer`/`loadPostProcess`
     and `DieMuxData::getFieldParse` are the only providers of names that
     linked units reference (DieModule vftables in CreateObjectDie,
