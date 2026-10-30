@@ -18240,3 +18240,7 @@ Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptComponentColorPicker
 Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptComponentColorPicker.cpp|param|ColorSurfaceLock|y1,b45fbd3c64c4d9d82e376b6a,drz-k8,drz-k8-400,w-87ae7cdc64ef,2026-10-30
 Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptComponentColorPicker.cpp|local|colorName|p,fac6a94223ff033c1dd8c959,drz-k8,drz-k8-400,w-87ae7cdc64ef,2026-10-30
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0004D47DParticleRender.cpp|member|Rva0004D47D|m_5c,81e362769fcc21f85a461410,drz-k8,drz-k8-ptcl,w-0bfb01cf5d54,2026-10-30
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowMapManagerUpdateShadowMap.cpp|param|ShadowMin|a,9b9e09ba865197b5d90ad23f,drz-k3,drz-k3-420,w-077d7aeb666b,2026-10-30
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowMapManagerUpdateShadowMap.cpp|param|ShadowMin|b,69d96e10b7f565d55e872937,drz-k3,drz-k3-420,w-077d7aeb666b,2026-10-30
+Code/GameEngineDevice/Source/W3DDevice/GameClient/TileData.cpp|local|Rva001118ECResampleRgb555|y,d05b16aaff9135128c1a5a8b,drz-k3,drz-k3-423,w-077d7aeb666b,2026-10-30
+Code/GameEngineDevice/Source/W3DDevice/GameClient/TileData.cpp|local|Rva001118ECResampleRgb555|x,8a17d91820987c4c25f59154,drz-k3,drz-k3-423,w-077d7aeb666b,2026-10-30
