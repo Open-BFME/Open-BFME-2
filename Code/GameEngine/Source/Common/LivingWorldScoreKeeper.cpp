@@ -24,6 +24,7 @@ class Rva004E06FBPtrChase32Field;
  struct Rva004EF2ABArg;
  class LivingWorldLogic;
  class CountInputPrefix;
+ class ScoreKeeper;
 class LivingWorldPhaseObserver {public: ~LivingWorldPhaseObserver(){} virtual void event0_0(int,int){} virtual void event0_1(int,int){} };
 #include "../../Include/Common/LivingWorldObservers.h"
 class LivingWorldAutoResolveEventObserver {public: ~LivingWorldAutoResolveEventObserver(){} virtual void event2_0(int,int,int){} virtual void event2_1(int,int,int){} virtual void OnLivingWorldAutoResolveBattleCompleted(int,LivingWorldBattle*,void*){} };
@@ -65,6 +66,7 @@ public:
 	virtual ~LivingWorldScoreKeeper();
 	void rva004EE5D2();
 	void rva004EE78A();
+	void rva004EE950(ScoreKeeper *rtsScoreKeeper);
 	void collectEndOfTurnStats(int turn);
  virtual void event0_1(int,int);
 virtual void event1_0(Rva004E06FBPtrChase32Field*);virtual void event1_3(const Rva004E06FBPtrChase32Field*,int);

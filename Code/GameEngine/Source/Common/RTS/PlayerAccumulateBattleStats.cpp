@@ -34,11 +34,11 @@ public:
 
 private:
 	unsigned char m_pad000[0x74];
-	unsigned int m_scoreTotal; // +0x74, incremented by 0x0039B718
+	int m_74; // +0x74, incremented by 0x0039B718
 	unsigned char m_pad078[0x3C];
-	ObjectCountMap m_primaryMap;   // +0xB4
-	ObjectCountMap m_secondaryMap; // +0xC0
-	ObjectCountMap m_indexedMap;   // +0xCC, receives twenty source maps
+	ObjectCountMap m_B4; // +0xB4
+	ObjectCountMap m_C0; // +0xC0
+	ObjectCountMap m_CC; // +0xCC, receives twenty source maps
 };
 
 class Rva002E2903Player
@@ -118,11 +118,11 @@ void Player::accumulateRTSBattleStatsIntoLivingWorldScoreKeeper()
 // address-derived at 0x004EE8B8.
 void LivingWorldScoreKeeper::rva004EE950(ScoreKeeper *rtsScoreKeeper)
 {
-	m_scoreTotal += ((Rva0039B709 *)rtsScoreKeeper)->rva0039B718();
-	rva004EE8B8(&m_primaryMap, (ObjectCountMap *)((char *)rtsScoreKeeper + 0x1F0));
-	rva004EE8B8(&m_secondaryMap, (ObjectCountMap *)((char *)rtsScoreKeeper + 0x2EC));
+	m_74 += ((Rva0039B709 *)rtsScoreKeeper)->rva0039B718();
+	rva004EE8B8((ObjectCountMap *)&m_B4, (ObjectCountMap *)((char *)rtsScoreKeeper + 0x1F0));
+	rva004EE8B8((ObjectCountMap *)&m_C0, (ObjectCountMap *)((char *)rtsScoreKeeper + 0x2EC));
 	for (int i = 0; i < 20; ++i)
-		rva004EE8B8(&m_indexedMap, reinterpret_cast<ObjectCountMap *>(rtsScoreKeeper->getObjectsDestroyedMap(i)));
+		rva004EE8B8((ObjectCountMap *)&m_CC, reinterpret_cast<ObjectCountMap *>(rtsScoreKeeper->getObjectsDestroyedMap(i)));
 }
 
 class ThingTemplate;
