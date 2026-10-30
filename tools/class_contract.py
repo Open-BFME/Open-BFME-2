@@ -415,6 +415,15 @@ def retail_bases(name, retail, good, every):
         for offset, real in nonvirtual:
             if isinstance(real, str) and not engine.placeholder(real):
                 spelled[at[offset]] = real
+        # Virtual bases have no offset in a view: pair them in declaration order.
+        slots = [i for i, b in enumerate(spelled) if b.startswith("virtual ")]
+        for i, real in zip(slots, virtual):
+            if engine.placeholder(real) or spelled[i] == "virtual " + real:
+                continue
+            queue.append({"class": name, "attribute": "virtual-base", "candidates": {real: "retail",
+                                                                                      spelled[i]: "views"},
+                          "why": "the views that agree with the retail base layout name another virtual base"})
+            spelled[i] = "virtual " + real
         return spelled, "retail-ctor", queue
     bases = []
     for offset, real in nonvirtual:

@@ -16,6 +16,9 @@ EH_PROLOG, B_CTOR, I_CTOR, NEW, MAKE, D_CTOR, D_CTOR2 = 0x1000, 0x1200, 0x1240, 
 W_CTOR, V_CTOR, THUNK = 0x1500, 0x1560, 0x1400
 B_VT, I_VT, D_VT0, D_VT10 = 0x2000, 0x2008, 0x2010, 0x2020
 VBT, W_VT, W_VT_V, V_VT = 0x2100, 0x2110, 0x2118, 0x2120
+P_CTOR, M_CTOR, B2_CTOR, B2_SITE, C3_CTOR, C3_SITE, ARRAY_SITE, NEW_ARRAY = \
+    0x1700, 0x1780, 0x1800, 0x1840, 0x1880, 0x18C0, 0x1900, 0x1290
+P_VT, M_VT, X_VT, B2_VT, DD_VT = 0x2300, 0x2308, 0x2310, 0x2318, 0x2320
 
 
 def imm(value):
@@ -62,7 +65,23 @@ def image():
     vbase_store = b"\x8b\x46\x04\x8b\x40\x04\xc7\x44\x30\x04"
     b.code(W_CTOR, b"\x8b\xf1", b"\xc7\x46\x04" + imm(VA + VBT), vbase_store + imm(VA + V_VT),
            b"\xc7\x06" + imm(VA + W_VT), vbase_store + imm(VA + W_VT_V), b"\xc3")
+    # P::P(): its own table, then a member at +0x10 (ctor call, then a store) and a bare store at +0x20.
+    b.code(P_CTOR, b"\x8b\xf1", b"\xc7\x06" + imm(VA + P_VT), b"\x8d\x4e\x10", lambda at: call(at, M_CTOR),
+           b"\xc7\x46\x10" + imm(VA + M_VT), b"\xc7\x46\x20" + imm(VA + X_VT), b"\xc3")
+    b.code(M_CTOR, b"\xc7\x01" + imm(VA + M_VT), b"\xc3")
+    # new(0x24), B2::B2, then a derived table over it: an inlined derived constructor.
+    b.code(B2_CTOR, b"\xc7\x01" + imm(VA + B2_VT), b"\xc3")
+    b.code(B2_SITE, b"\x6a\x24", lambda at: call(at, NEW), b"\x8b\xc8", lambda at: call(at, B2_CTOR),
+           b"\xc7\x00" + imm(VA + DD_VT), b"\xc3")
+    # C3::C3 installs B's table, not one of its own: not a complete-object constructor.
+    b.code(C3_CTOR, b"\xc7\x01" + imm(VA + B_VT), b"\xc3")
+    b.code(C3_SITE, b"\x6a\x30", lambda at: call(at, NEW), b"\x8b\xc8", lambda at: call(at, C3_CTOR), b"\xc3")
+    # operator new[](0x40) feeding D::D: count and cookie unresolved.
+    b.code(NEW_ARRAY, b"\xc3")
+    b.code(ARRAY_SITE, b"\x6a\x40", lambda at: call(at, NEW_ARRAY), b"\x8b\xc8", lambda at: call(at, D_CTOR),
+           b"\xc3")
     t = VA + THUNK
+    b.words(P_VT, t, 0, t, 0, t, 0, t, 0, t, 0)
     b.words(B_VT, t, t + 4)
     b.words(I_VT, t, t + 8)
     b.words(D_VT0, t, t + 1, t + 2, t + 3)
@@ -76,7 +95,10 @@ def image():
 def ledger(conflict=False):
     rows = [("__EH_prolog", EH_PROLOG, 1), ("??0B@@QAE@XZ", B_CTOR, 7), ("??0I@@QAE@XZ", I_CTOR, 7),
             ("??0D@@QAE@XZ", D_CTOR, 0x2e), ("??2@YAPAXI@Z", NEW, 1), ("?make@@YAPAVD@@XZ", MAKE, 15),
-            ("??0W@@QAE@XZ", W_CTOR, 0x2d), ("??0V@@QAE@XZ", V_CTOR, 7)]
+            ("??0W@@QAE@XZ", W_CTOR, 0x2d), ("??0V@@QAE@XZ", V_CTOR, 7), ("??0P@@QAE@XZ", P_CTOR, 0x1f),
+            ("??0M@@QAE@XZ", M_CTOR, 7), ("??0B2@@QAE@XZ", B2_CTOR, 7), ("?make2@@YAXXZ", B2_SITE, 0x15),
+            ("??0C3@@QAE@XZ", C3_CTOR, 7), ("?make3@@YAXXZ", C3_SITE, 0x0f), ("??_U@YAPAXI@Z", NEW_ARRAY, 1),
+            ("?makeArray@@YAXXZ", ARRAY_SITE, 0x0f)]
     if conflict:
         rows.append(("??0D@@QAE@H@Z", D_CTOR2, 7))
     return rl.Ledger([{"name": n, "target_rva": "%#x" % r, "target_size": str(s), "status": "matched"}
@@ -194,3 +216,39 @@ def test_decide_takes_sizeof_and_bases_from_retail(monkeypatch):
 
 def test_without_a_retail_constructor_the_old_rules_decide(monkeypatch):
     assert contract.retail_layout("X", [], None) == {}
+
+
+def test_tables_stored_after_the_own_vptr_are_unknown_subobjects_not_bases(engine):
+    # S1 (Player +0x90/+0x1BC): a member's table stored after the class installs its own.
+    got = engine.contract("P")
+    assert "bases" not in got["facts"]
+    assert got["facts"]["vftables"]["value"] == {"0x0": "%#x" % P_VT}
+    assert set(got["facts"]["unknown_subobject_vptrs"]["value"]) == {"0x10", "0x20"}
+    assert got["facts"]["unknown_subobject_vptrs"]["kind"] == "inference"
+    assert "0x10" in got["facts"]["member_ctor_calls"]["value"]
+
+
+def test_base_ctor_inside_an_inlined_derived_ctor_gets_no_sizeof(engine):
+    # S2: new(0x24); B2::B2; then the derived table over the same object.
+    assert "sizeof" not in engine.contract("B2")["facts"]
+
+
+def test_ctor_that_installs_no_table_of_its_own_only_observes_the_allocation(engine):
+    # S2: C3::C3 stores B's table, so the allocation may hold a derived object.
+    got = engine.contract("C3")["facts"]
+    assert "sizeof" not in got and got["allocation_observed"]["value"] == {"0x30": 1}
+
+
+def test_array_new_is_no_sizeof_evidence(engine):
+    # S3: operator new[](0x40) feeds D::D too; only the scalar site counts.
+    got = engine.contract("D")
+    assert got["facts"]["sizeof"]["value"] == 0x18 and len(got["facts"]["sizeof"]["sites"]) == 1
+    assert NEW_ARRAY not in engine.ledger.allocators()
+
+
+def test_agreeing_view_cannot_rename_a_retail_virtual_base():
+    # S4: the view's base shape agrees with retail, but it names the virtual base Wrong.
+    good = {"a.cpp": view([("Thing", 0), ("virtual Wrong", -1)])}
+    bases, rule, queue = contract.retail_bases("X", retail([(0, "Thing")], ["V"]), good, {"a.cpp": {"Thing": POLY}})
+    assert bases == ["Thing", "virtual V"] and rule == "retail-ctor"
+    assert [q["attribute"] for q in queue] == ["virtual-base"]

@@ -53,7 +53,9 @@ IMAGE_BASE = 0x400000
 MAX_SLOTS = 1024
 CTOR = re.compile(r"^\?\?0(.+?)@@[AIQ]AE")
 DTOR = re.compile(r"^\?\?1(.+?)@@[AIQU]AE")
-ALLOCATOR = re.compile(r"^\?\?(2|_U)")
+# Scalar operator new only: `??_U` (operator new[]) allocates count * sizeof
+# plus a cookie, which the allocation site does not resolve.
+ALLOCATOR = re.compile(r"^\?\?2")
 
 
 def demangle_scope(scope):
@@ -496,6 +498,23 @@ class Engine:
             held -= set(written)
         return False
 
+    def vptr_overwritten(self, site):
+        """A vftable stored at [reg] in the 16 instructions after the constructor call at `site`.
+
+        An inlined derived constructor calls its base, then installs its own
+        table: the allocation then holds the derived object."""
+        from capstone import x86
+        for n, insn in enumerate(self.md.disasm(self.image.read(site + 5, 0x60), site + 5)):
+            if n >= 16 or insn.mnemonic.startswith("ret"):
+                return False
+            ops = insn.operands
+            if insn.mnemonic == "mov" and len(ops) == 2 and ops[0].type == x86.X86_OP_MEM \
+                    and ops[0].mem.disp == 0 and ops[0].mem.index == 0 and ops[1].type == x86.X86_OP_IMM \
+                    and ops[0].mem.base not in (x86.X86_REG_ESP, x86.X86_REG_EBP) \
+                    and self.kind((ops[1].imm & 0xFFFFFFFF) - IMAGE_BASE) == "vftable":
+                return True
+        return False
+
     def allocation_sizes(self, ctor):
         """Counter of the `push SIZE; call operator new` sizes that reach a call to `ctor`.
 
@@ -517,7 +536,7 @@ class Engine:
                 # Another direct call between the allocation and the constructor
                 # (a second object, a helper) would break the link: refuse it.
                 if any(best[1] < other < site for other in self.call_sites_near(site)) \
-                        or not self.passes_new_pointer(best[1] + 5, site):
+                        or not self.passes_new_pointer(best[1] + 5, site) or self.vptr_overwritten(site):
                     continue
                 found[best[0]] += 1
                 sites.setdefault(best[0], []).append(site)
@@ -530,13 +549,25 @@ class Engine:
         # The vbptrs are set first, in the most-derived block, before any base
         # runs: only the class's own vftable stores mark the end of the bases.
         boundary = min((i for _, kind, i in final.values() if kind == "vptr"), default=len(evs))
-        facts = {"vptrs": {}, "vbptrs": {}, "inlined_bases": {}, "base_calls": {}, "member_calls": {},
-                 "fields": {}, "boundary": boundary}
-        for off, (table, kind, _) in sorted(final.items()):
-            (facts["vbptrs"] if kind == "vbptr" else facts["vptrs"])[off] = table
+        facts = {"vptrs": {}, "vbptrs": {}, "subobject_vptrs": {}, "inlined_bases": {}, "base_calls": {},
+                 "member_calls": {}, "fields": {}, "boundary": boundary}
+        # A vptr store at this+N proves a base only with base-phase evidence at N:
+        # a store or a call there before the class installs its own tables. The
+        # store that opens the installation is the class's own primary table.
+        # A table stored at N only afterwards belongs to a subobject retail
+        # cannot place: a member constructed after the vptrs, or a base whose
+        # inlined constructor left no store. Recorded, never a base.
+        early = {ev[1] for ev in evs[:boundary] if ev[0] in ("vptr", "vbptr", "call")}
+        for off, (table, kind, i) in sorted(final.items()):
+            if kind == "vbptr":
+                facts["vbptrs"][off] = table
+            elif off in early or i == boundary:
+                facts["vptrs"][off] = table
+            else:
+                facts["subobject_vptrs"][off] = table
         for i, ev in enumerate(evs):
             tag, off = ev[0], ev[1]
-            if tag == "vptr" and final.get(off, (None,))[0] != ev[2]:
+            if tag == "vptr" and i < boundary and final.get(off, (None,))[0] != ev[2]:
                 facts["inlined_bases"].setdefault(off, ev[2])
             elif tag == "call":
                 (facts["base_calls"] if i < boundary else facts["member_calls"]).setdefault(off, ev[2] - 0)
@@ -585,6 +616,13 @@ class Engine:
             for e in first:
                 if e[0] == "vptr":
                     vptrs.setdefault(e[1], e[2])
+        subobjects = {}
+        for f in per.values():
+            for o, t in f["subobject_vptrs"].items():
+                subobjects.setdefault(o, set()).add("%#x" % t)
+        if subobjects:
+            fact("unknown_subobject_vptrs", {"%#x" % o: sorted(t) for o, t in sorted(subobjects.items())},
+                 "retail-ctor-vptr-after-own", [r for r, _ in ctors], "inference")
         if vptrs:
             fact("vftables", {"%#x" % o: "%#x" % t for o, t in sorted(vptrs.items())},
                  "retail-ctor-vptr" if ctors else "retail-dtor-vptr", [r for r, _ in ctors or dtors])
@@ -676,6 +714,7 @@ class Engine:
         # sizeof from allocation sites.
         sizes, size_sites = collections.Counter(), {}
         shared = [rva for rva, _ in ctors if len(self.ledger.ctor_classes(rva)) > 1]
+        observed = collections.Counter()
         if shared:
             # An ICF-folded constructor is called for every class that folded
             # into it: its allocation sites prove no one class's sizeof.
@@ -685,9 +724,17 @@ class Engine:
             if rva in shared:
                 continue
             got, where = self.allocation_sizes(rva)
+            if not self.complete_ctor(name, per[rva]):
+                observed.update(got)
+                continue
             sizes.update(got)
             for s, w in where.items():
                 size_sites.setdefault(s, []).extend(w)
+        if observed:
+            # The constructor does not install its own class's primary table, so
+            # the allocation may hold a derived object: an observation, not sizeof.
+            fact("allocation_observed", {"%#x" % s: n for s, n in observed.items()}, "retail-operator-new",
+                 [], "inference")
         if len(sizes) > 1:
             conflicts.append({"fact": "sizeof", "candidates": {"%#x" % s: n for s, n in sizes.items()}})
         elif sizes:
@@ -724,6 +771,11 @@ class Engine:
                  "retail-ctor-call", [r for r, _ in ctors])
         out["confidence"] = self.confidence(facts, conflicts)
         return out
+
+    def complete_ctor(self, name, facts):
+        """The constructor installs the class's own primary vftable at +0 (a table this class alone owns)."""
+        table = facts["vptrs"].get(0)
+        return table is not None and self.table_class(table)[0] == name
 
     def is_ctor(self, rva):
         """The ledger names a constructor at `rva`, or its body stores a vftable at this+0."""
