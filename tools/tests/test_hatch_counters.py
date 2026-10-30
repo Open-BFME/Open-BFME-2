@@ -731,6 +731,23 @@ def test_register_growth_rebinds_a_ledger_alias_to_its_owner_only(monkeypatch):
     assert hc.register_growth({k("A", "g_Va00E09FA4"): 1}, {k("A", "g_Va00DEAD00"): 1}) != []     # not its owner
 
 
+def test_a_data_row_names_the_owner_a_ledger_alias_respells_to(monkeypatch):
+    # data_check reads the cached ledger with data_rows ownership applied; rule 10 grants the same
+    rows = ("name,address,address_kind,size,section,source,status,evidence,model\n"
+            "?g_Va00E09FA8@@3IA,0x00A09FA4,rva,4,.data,Code/y.cpp,matched,e,m\n")
+    blobs = {"HEAD:" + hc.DATA_LEDGER: LEDGER, "HEAD:" + hc.DATA_ROWS: rows}
+    monkeypatch.setattr(hc, "read_blobs", lambda specs: {s: blobs.get(s) for s in specs})
+    monkeypatch.setitem(hc.STATE, "ledger_respell", None)
+    got = hc.ledger_respellings()
+    assert got == {"g_Va00E09FA8": frozenset({"g_Va0130A588", "g_Va00E09FA4"})}
+    monkeypatch.setitem(hc.STATE, "ledger_respell", None)
+    blobs["HEAD:" + hc.DATA_ROWS] = rows.replace("0x00A09FA4,rva", "0x00E09FA4,va")
+    assert hc.ledger_respellings() == got                                   # a VA-keyed row
+    monkeypatch.setitem(hc.STATE, "ledger_respell", None)
+    del blobs["HEAD:" + hc.DATA_ROWS]
+    assert hc.ledger_respellings() == {"g_Va0130A588": frozenset({"g_Va00E09FA4"})}
+
+
 def test_a_ledger_alias_rebound_to_its_owner_passes_and_nothing_else_does(repo):
     src, ledger = repo.lay["src"], repo.lay["rev"] + "/data_ledger.csv"
     alias = SOURCE.replace("g_Va00A1B2C3", "g_Va00E09FA4")

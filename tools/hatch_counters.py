@@ -82,7 +82,8 @@ RULES (the commit gate, --staged):
      `extern T *g_Va0130A588`, the fix data_check's wrong-name finding asks
      for), is a respelling: each alias occurrence explains one owner
      occurrence, once, and never the other way round. Any other new
-     address-named token still needs an admission.
+     address-named token still needs an admission. A data_rows.csv row
+     (DATA_ROWS) names the owner at its address, as data_check reads it.
 
 Usage:
   python3 tools/hatch_counters.py --staged              the commit gate
@@ -133,6 +134,7 @@ if (ROOT / "targets" / "game" / "reverse").is_dir():      # Open-BFME-1
     INVENTORY_DIR = "targets/game/reverse/retail_inventory/"
     CODE_IDENTITY = "targets/game/reverse/code_identity_baseline.tsv"
     DATA_LEDGER = "targets/game/reverse/data_ledger.csv"
+    DATA_ROWS = "targets/game/reverse/data_rows.csv"
 else:                                                       # Open-BFME-2
     BASELINE = "reverse/hatch_baseline.tsv"
     SOURCE_ROOTS = ("Code/", "reference/shims/")
@@ -141,6 +143,7 @@ else:                                                       # Open-BFME-2
     INVENTORY_DIR = "reverse/retail_inventory/"
     CODE_IDENTITY = "reverse/code_identity_baseline.tsv"
     DATA_LEDGER = "reverse/data_ledger.csv"
+    DATA_ROWS = "reverse/data_rows.csv"
 
 CODE_EXT = (".cpp", ".c", ".cc", ".cxx", ".h", ".hpp", ".inl")
 FREEZE_WINDOW = 24 * 3600
@@ -355,30 +358,48 @@ def _ledger_ident(name):
     return name
 
 
+def _csv_dicts(text):
+    rows = csv.reader(io.StringIO(text or ""))
+    head = next(rows, None) or []
+    return [dict(zip(head, cells)) for cells in rows if len(cells) == len(head)]
+
+
 def ledger_respellings():
     """Rule 10: {owner: {alias, ...}} for the address-named globals of the data ledger at
-    STATE["ledger_spec"] (HEAD's, so a commit cannot widen its own grant). A consumer that
+    STATE["ledger_spec"] (HEAD's, so a commit cannot widen its own grant), with a data_rows.csv
+    row's name replacing the cached ledger name at its address, as data_check reads the ledger
+    (data_ledger.with_verified_owners; mirrored import-free for the hook). A consumer that
     rebinds an alias spelling the ledger records at an address (`extern int g_Va00E09FA4`) to
     that address's owner (`extern T *g_Va0130A588`) adds no global and keeps its file's
     occurrences: an alias occurrence in the same file explains one owner occurrence, and
     never the other way round. Read once per run, only when an address_global key grew."""
     if STATE["ledger_respell"] is None:
-        spec = STATE["ledger_spec"] + DATA_LEDGER
-        text = read_blobs([spec])[spec] or ""
-        out = collections.defaultdict(set)
-        rows = csv.reader(io.StringIO(text))
-        head = next(rows, None) or []
-        try:
-            iname, inames = head.index("name"), head.index("names")
-        except ValueError:
-            iname = inames = None
-        for cells in rows if iname is not None else ():
-            if len(cells) <= max(iname, inames):
+        specs = [STATE["ledger_spec"] + DATA_LEDGER, STATE["ledger_spec"] + DATA_ROWS]
+        texts = read_blobs(specs)
+        at = {}                                    # address -> [owner, {names}]
+        for row in _csv_dicts(texts[specs[0]]):
+            try:
+                address = int(row.get("address", ""), 16)
+            except ValueError:
                 continue
-            owner = _ledger_ident(cells[iname])
+            names = {n for n in row.get("names", "").split(";") if n.strip()} | {row.get("name", "")}
+            at[address] = [row.get("name", ""), names]
+        for row in _csv_dicts(texts[specs[1]]):
+            try:
+                address = int(row.get("address", ""), 16)
+            except ValueError:
+                continue
+            if row.get("address_kind") == "va":
+                address -= 0x400000
+            entry = at.setdefault(address, ["", set()])
+            entry[1].add(row.get("name", ""))
+            entry[0] = row.get("name", "")
+        out = collections.defaultdict(set)
+        for owner_name, names in at.values():
+            owner = _ledger_ident(owner_name)
             if not ADDR_GLOBAL.fullmatch(owner):
                 continue
-            for alias in {_ledger_ident(n) for n in cells[inames].split(";") if n.strip()}:
+            for alias in {_ledger_ident(n) for n in names if n.strip()}:
                 if alias != owner and ADDR_GLOBAL.fullmatch(alias):
                     out[owner].add(alias)
         STATE["ledger_respell"] = {k: frozenset(v) for k, v in out.items()}
