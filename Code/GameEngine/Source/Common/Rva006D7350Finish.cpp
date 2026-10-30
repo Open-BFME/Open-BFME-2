@@ -33,13 +33,7 @@ extern AptActionInterpreter g_aptDateInterpreter;	// VA 0x00E182E0 (AptDate.cpp)
 
 class Rva006DCE50Opaque;
 
-class Rva006D5E70String
-{
-public:
-	void *rva006d5e70(int count);
-private:
-	char *m_pData;
-};
+class Rva006D5E70String {void *data;public:void *rva006d5e70(int);};
 
 class EAStringC
 {
@@ -56,9 +50,9 @@ class AptString
 {
 public:
 	static AptString *Create();
-	char m_pad[8];
-	EAStringC m_str;
 };
+
+struct ScopedStringText {unsigned char prefix[8];EAStringC text;};
 
 class AptValue;
 extern AptValue *gpUndefinedValue;	// 0x00E18078, the rowed AptBuiltinValues.cpp global
@@ -78,7 +72,7 @@ void *rva006D7350(Rva006DCE50Opaque *source)
 			EAStringC temp;
 			temp.rva006D5FE0(looked, 1);
 			AptString *result = AptString::Create();
-			result->m_str = temp;
+			reinterpret_cast<ScopedStringText *>(result)->text = temp;
 			return result;
 		}
 	}

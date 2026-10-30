@@ -82,9 +82,9 @@ class AptString
 {
 public:
 	static AptString *Create();
-	unsigned char m_pad[8];
-	EAStringC m_str;
 };
+
+struct ScopedStringText {unsigned char prefix[8];EAStringC text;};
 
 // The declared symbol carries three arguments (ptr, int, int). Retail's `ret`
 // is a plain cdecl return and the body reads only the first two -- the value
@@ -117,6 +117,6 @@ AptString *rva006d7b60(BfmeAptValue006DCD20 *value, int count, int unused)
 	}
 	value->rva006DD6C0(text);
 	AptString *result = AptString::Create();
-	result->m_str = text.rva006d5f30(start, end - start);
+	reinterpret_cast<ScopedStringText *>(result)->text = text.rva006d5f30(start, end - start);
 	return result;
 }

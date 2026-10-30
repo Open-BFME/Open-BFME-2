@@ -44,6 +44,10 @@ public:
  bool IsEmpty() const;
  int Find(const char *,int);
  EAStringC &Append(const char *const,unsigned int);
+ EAStringC rva006d5f30(int,int) const;
+ EAStringC &rva006D5FE0(void *,int);
+ EAStringC &rva006D6100();
+ EAStringC &rva006D6170();
 private:StringDataC *data;
 };
 
@@ -153,15 +157,29 @@ public:
 
 extern Rva006DB270 *g_pChainBlockAllocator;
 
-class Rva006D6D20
+class BfmeAptValue006DCD20
+{
+    unsigned int m_flags;
+    void setTypeAt006DBBC0(int type);
+public:
+    BfmeAptValue006DCD20(int type);
+    virtual ~BfmeAptValue006DCD20();
+    void setGCRootCount(unsigned int);
+    int isInteger() const;
+    int isFloat() const;
+    int toInteger() const;
+    BfmeAptValue006DCD20 *checkedString();
+    void rva006DD6C0(EAStringC &out);
+};
+
+class Rva006D6D20 : public BfmeAptValue006DCD20
 {
 public:
-    void *m_vtbl;
-    int m_04;
     EAStringC m_str;
     Rva006D6D20 *m_next;
     Rva006D6D20(const char *s);
     Rva006D6D20();
+    virtual ~Rva006D6D20();
     static void *operator new(unsigned int size)
     {
         return ((Rva006DB160 *)g_pChainBlockAllocator)->allocBlock((int)size);
@@ -174,8 +192,6 @@ public:
 
 // Retail initializes the free-list data head to zero.
 Rva006D6D20 *g_AptStringFreeList = 0;
-
-class BfmeAptValue006DCD20 {public:void setGCRootCount(unsigned int);int isInteger()const;int isFloat()const;int toInteger()const;BfmeAptValue006DCD20 *checkedString();unsigned char prefix[8];EAStringC text;};
 
 extern AptValue *gpUndefinedValue;
 
@@ -313,15 +329,6 @@ void rva006D7010(Rva006D7010Owner *owner, const char *fmt, ...)
 // ---- from Code/Libraries/Source/Apt/AptString.cpp
 
 // ---- from Code/Libraries/Source/Apt/AptStringCodepointCallback.cpp
-
-// Native callers invoke this 16-byte constructor at 0x006D2F90, folded with
-// clear; it roots the string at the empty singleton (RVA 0x009DC020 / VA
-// 0x00DDC020) and takes one reference. Keep the native call boundary.
-__declspec(noinline) inline EAStringC::EAStringC()
-{
- data = &g_eaEmptyStringData;
- ++data->m_uRefCount;
-}
 
 AptValue *rva006D75A0(void *self,int argc) {
  EAStringC result(2*argc);
@@ -470,7 +477,7 @@ AptValue *AptString::sMethod_charCodeAt(AptValue *self,int)
 {
  int index=g_aptDateInterpreter.stack.At(0)->toInteger();
  BfmeAptValue006DCD20 *string=reinterpret_cast<BfmeAptValue006DCD20 *>(self)->checkedString();
- EAStringC *local=&string->text;
+ EAStringC *local=&static_cast<Rva006D6D20 *>(string)->m_str;
  if(index<0)return gpUndefinedValue;
  else
  {

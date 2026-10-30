@@ -59,10 +59,9 @@ class AptString
 {
 public:
     static AptString *Create();
-    int m_unk00;
-    int m_unk04;
-    EAStringC m_string;
 };
+
+struct ScopedStringText {unsigned char prefix[8];EAStringC text;};
 
 AptString *rva006d7c80(BfmeAptValue006DCD20 *value)
 {
@@ -70,7 +69,7 @@ AptString *rva006d7c80(BfmeAptValue006DCD20 *value)
     value->rva006DD6C0(tmp);
     tmp.rva006D6100();
     AptString *result = AptString::Create();
-    result->m_string = tmp;
+    reinterpret_cast<ScopedStringText *>(result)->text = tmp;
     return result;
 }
 
@@ -85,6 +84,6 @@ AptString *rva006d74e0(BfmeAptValue006DCD20 *value, int count)
         result.Rva006D4F00Append(item);
     }
     AptString *out = AptString::Create();
-    out->m_string = result;
+    reinterpret_cast<ScopedStringText *>(out)->text = result;
     return out;
 }

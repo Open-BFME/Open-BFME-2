@@ -33,9 +33,9 @@ class AptString
 {
 public:
 	static AptString *Create();
-	char m_pad[8];
-	EAStringC m_str;
 };
+
+struct ScopedStringText {unsigned char prefix[8];EAStringC text;};
 
 AptString *rva006D7D00(Rva006DD6C0 *source)
 {
@@ -43,6 +43,6 @@ AptString *rva006D7D00(Rva006DD6C0 *source)
 	((const AptValue *)source)->toString(temp);
 	temp.rva006D6170();
 	AptString *result = AptString::Create();
-	result->m_str = temp;
+	reinterpret_cast<ScopedStringText *>(result)->text = temp;
 	return result;
 }

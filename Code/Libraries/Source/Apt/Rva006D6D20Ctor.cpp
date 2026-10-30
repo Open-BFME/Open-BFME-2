@@ -26,19 +26,20 @@ public:
     BfmeAptValue006DCD20(int type);
     virtual ~BfmeAptValue006DCD20();
 };
-struct Rva006D6D20 : public BfmeAptValue006DCD20
+class Rva006D6D20 : public BfmeAptValue006DCD20
 {
+public:
     EAStringC m_str;
-    int m_0C;
-    Rva006D6D20();
+    Rva006D6D20 *m_next;
     Rva006D6D20(const char *s);
+    Rva006D6D20();
     virtual ~Rva006D6D20();
     static void operator delete(void*p,unsigned int size){g_pChainBlockAllocator->freeBlock(p,size);}
 
 };
-Rva006D6D20::Rva006D6D20() : BfmeAptValue006DCD20(1), m_0C(0)
+Rva006D6D20::Rva006D6D20() : BfmeAptValue006DCD20(1), m_next(0)
 {
 }
-Rva006D6D20::Rva006D6D20(const char *s) : BfmeAptValue006DCD20(1), m_str(s), m_0C(0)
+Rva006D6D20::Rva006D6D20(const char *s) : BfmeAptValue006DCD20(1), m_str(s), m_next(0)
 {
 }

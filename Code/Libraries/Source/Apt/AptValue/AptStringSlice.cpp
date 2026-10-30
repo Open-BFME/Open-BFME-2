@@ -3,12 +3,11 @@
 // receiver converted to a string, negative indices wrap by length, result boxed as a new AptString.
 // Original method spelling follows the BFME2 sMethod_ naming used by the AptDate callbacks.
 class EAStringC {
-public:class StringDataC {public:unsigned short ref,size,maxSize,hash;};
+public:class StringDataC {public:unsigned short m_uRefCount;unsigned short m_uSize;unsigned short m_uMaxSize;unsigned short m_uHash;};
 private:StringDataC *data;
-public:EAStringC();~EAStringC();EAStringC &operator=(const EAStringC &);EAStringC rva006d5f30(int,int)const;int rva006D5EC0();
+public:__declspec(noinline) EAStringC();~EAStringC();EAStringC &operator=(const EAStringC &);EAStringC rva006d5f30(int,int)const;int rva006D5EC0();
 };
 extern EAStringC::StringDataC g_eaEmptyStringData;
-__declspec(noinline) inline EAStringC::EAStringC(){data=&g_eaEmptyStringData;++data->ref;}
 class AptValue
 {
 public:
