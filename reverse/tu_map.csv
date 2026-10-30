@@ -21986,7 +21986,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x002C67DC,105,code,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp,approved,U,N=Code/GameEngine/Source/Common/SkirmishAI.cpp,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp
 0x002C6845,52,code,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp,approved,C,C=0x002C67DC..0x002C6879,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp
 0x002C6879,85,code,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp W=Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp
-0x002C68CE,109,code,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp,approved,U,N=Code/GameEngine/Source/Common/SkirmishAI.cpp,Code/GameEngine/Source/Common/SkirmishAI_resetMaster.cpp
+0x002C68CE,109,code,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp,approved,U,N=Code/GameEngine/Source/Common/SkirmishAI.cpp,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp
 0x002C693B,258,code,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp,approved,U,N=Code/GameEngine/Source/Common/SkirmishAI.cpp,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp
 0x002C6A3D,17,code,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp,approved,C,W=Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp C=0x002C693B..0x002C6A4E,Code/GameEngine/Source/Common/Rva004EC30EAddOwnedObject.cpp
 0x002C6A4E,17,code,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp,approved,C,W=Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp C=0x002C693B..0x002C6A5F,Code/GameEngine/Source/Common/Rva004EC30EAddOwnedObject.cpp
@@ -21995,7 +21995,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x002C6A8D,27,code,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp
 0x002C6AA8,27,code,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp
 0x002C6AC3,8,code,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp,approved,C,C=0x002C6AA8..0x002C6ACB,Code/GameEngine/Source/Common/EmbeddedMemberForwarders.cpp
-0x002C6ACB,47,code,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp,approved,C,W=Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp C=0x002C6AA8..0x002C6AFA,Code/GameEngine/Source/GameLogic/SkirmishAI/Rva002A8AB1RecordGet.cpp
+0x002C6ACB,47,code,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp,approved,C,W=Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp C=0x002C6AA8..0x002C6AFA,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp
 0x002C6AFA,152,code,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp
 0x002C6B92,79,code,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp
 0x002C6BE1,30,code,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp
@@ -22003,7 +22003,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x002C6C8E,5,code,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp,approved,C,C=0x002C6BFF..0x002C6C93,Code/Libraries/Source/WWVegas/WWLib/StlportMapForwardersSeat8.cpp
 0x002C6C93,443,code,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp,approved,C,C=0x002C6BFF..0x002C6E4E,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_002c6c93.cpp
 0x002C6E4E,86,code,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp,approved,C,C=0x002C6BFF..0x002C6EA4,Code/GameEngine/Source/Common/Rva002C6E4EDtor.cpp
-0x002C6EA4,31,code,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp,approved,C,C=0x002C6BFF..0x002C6EC3,Code/GameEngine/Source/Common/Rva002C6EA4Method.cpp
+0x002C6EA4,31,code,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp,approved,C,C=0x002C6BFF..0x002C6EC3,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp
 0x002C6EC3,29,code,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp,approved,C,C=0x002C6BFF..0x002C6EE0,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_002c6c93.cpp
 0x002C6EE0,172,code,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp W=Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp
 0x002C6F8C,124,code,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp,approved,C,C=0x002C6EE0..0x002C7008,Code/Libraries/Source/WWVegas/WWLib/StlportMapSubscriptFamily.cpp

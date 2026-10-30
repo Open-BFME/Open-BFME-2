@@ -7720,7 +7720,6 @@ pin	reverse/symbols.csv	0x003FD199	1
 pin	reverse/symbols.csv	0x003FDC46	1
 pin	reverse/symbols.csv	0x003FE342	1
 pin	reverse/symbols.csv	0x003FED32	1
-pin	reverse/symbols.csv	0x003FF145	1
 pin	reverse/symbols.csv	0x003FF268	1
 pin	reverse/symbols.csv	0x003FF332	1
 pin	reverse/symbols.csv	0x00400A7F	1
@@ -10626,8 +10625,6 @@ pragma_optimize	Code/GameEngine/Source/Common/Rva0025D489Ctor.cpp	"gsy",on	1
 pragma_optimize	Code/GameEngine/Source/Common/Rva002AC340Xfer.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/Common/Rva002AC340Xfer.cpp	"s",off	1
 pragma_optimize	Code/GameEngine/Source/Common/Rva002AC340Xfer.cpp	"t",on	1
-pragma_optimize	Code/GameEngine/Source/Common/Rva002C6EA4Method.cpp	"",on	1
-pragma_optimize	Code/GameEngine/Source/Common/Rva002C6EA4Method.cpp	"t",on	1
 pragma_optimize	Code/GameEngine/Source/Common/Rva0039C1C3Insert.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/Common/Rva0039C1C3Insert.cpp	"y",on	1
 pragma_optimize	Code/GameEngine/Source/Common/Rva003F9004.cpp	"",on	1
@@ -10833,6 +10830,8 @@ pragma_optimize	Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp	"y",o
 pragma_optimize	Code/GameEngine/Source/GameLogic/ScriptEngine/Rva0054840AXfer.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/ScriptEngine/Rva0054840AXfer.cpp	"s",off	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/ScriptEngine/Rva0054840AXfer.cpp	"t",on	1
+pragma_optimize	Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp	"",on	1
+pragma_optimize	Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp	"t",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/System/ArmyPlacer.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/System/ArmyPlacer.cpp	"y",off	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/System/PlayerAITypeSet.cpp	"",on	1

@@ -36,6 +36,8 @@ class RGBAColorInt;
 class Snapshot;
 #include "../../../Include/Common/BfmeXfer.h"
 #pragma pointers_to_members(full_generality, multiple_inheritance)
+#pragma optimize("t", on)
+#pragma optimize("", on)
 
 class Xfer::Version
 {
@@ -136,6 +138,7 @@ private:
 };
 
 class Rva002C5FD9;
+
 class Player : public Rva002AA22AByteField
 {
 private:
@@ -249,37 +252,6 @@ private:
  unsigned char m_storage[0x2C];
 };
 
-class SkirmishAI : public AIBuilder
-{
-public:
-	SkirmishAI(Player *player, void *master, bool first);
-	void Register(Team *team);
-	void UnRegister(Team *team);
-	void onUnitCreated(Object *object, Object *other);
-	void onHordeCreated(Object *object, Object *other);
-	__declspec(noinline) void doSpecialSlaveAIDying();
-	__declspec(noinline) void doSpecialMasterAIDying();
-	void transferUnitsToPlayer(Player *player);		// 0x002C6AFA
-	Int resetMaster();					// 0x002C68CE
-	void doSpecialSlaveAIUpdate();				// 0x002C6879
-	void update();
-	void updatePhase();
-	bool isAPartialBrain();
-	void DoXfer(Xfer *xfer);
-
-private:
-	Player *m_player;					// +0x15C
-	void *m_specialMaster160; // native constructor stores second argument
-	TacticalAI *m_tacticalAI;			// +0x164
-	bool m_disabled168;					// +0x168, set: creations are ignored
-	unsigned char m_pad169[3];
-	Int m_difficulty16C;
-	float m_time170;
-	unsigned int m_frame174;
-	Int m_masterPlayerIndex;				// +0x178
-	Map001F8ACB m_values17C;				// +0x17C (size at +0x180)
-};
-
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva002C6845@Rva002C6845@@QAEXXZ @0x002C6845 52B
 // Leaf with pinned name; skips when flag at +0x168 set, otherwise refreshes via rowed 0x004EBF93, runs rowed 0x002C5F65 on object at +0x164, then sets byte at +4 of that object when global +0x85D flag set.
@@ -334,6 +306,81 @@ struct Rva002C67DC15C
 	char m_pad[0x54];
 	int m_54;
 };
+
+class SkirmishAI;
+
+struct ListNode;
+
+struct Rva002C68CE15C
+{
+	char m_pad[0x54];
+	int m_54;
+};
+
+class SkirmishAI : public AIBuilder
+{
+public:
+	SkirmishAI(Player *player, void *master, bool first);
+	void Register(Team *team);
+	void UnRegister(Team *team);
+	void onUnitCreated(Object *object, Object *other);
+	void onHordeCreated(Object *object, Object *other);
+	__declspec(noinline) void doSpecialSlaveAIDying();
+	__declspec(noinline) void doSpecialMasterAIDying();
+	void transferUnitsToPlayer(Player *player);		// 0x002C6AFA
+	Int resetMaster();					// 0x002C68CE
+	void doSpecialSlaveAIUpdate();				// 0x002C6879
+	void update();
+	void updatePhase();
+	bool isAPartialBrain();
+	void DoXfer(Xfer *xfer);
+
+private:
+	Player *m_player;					// +0x15C
+	void *m_specialMaster160; // native constructor stores second argument
+	TacticalAI *m_tacticalAI;			// +0x164
+	bool m_disabled168;					// +0x168, set: creations are ignored
+	unsigned char m_pad169[3];
+	Int m_difficulty16C;
+	float m_time170;
+	unsigned int m_frame174;
+	Int m_masterPlayerIndex;				// +0x178
+	Map001F8ACB m_values17C;				// +0x17C (size at +0x180)
+};
+
+// ?rva002C6ACB@Rva002A8AB1Record@@QAEPAXXZ @0x002C6ACB 47B
+// Evidence: pin Rva002A8AB1Record; callers in Rva005A9ACDTactic and Rva005AD6F5Finish; callees rowed 0x002A8B24 and 0x004E93E8 plus pinned 0x002A8AB1 plus rowed tail 0x002C5FD9; global TheSkirmishAIManager; member plus 0x15C.
+class Rva003A2BD4M08;
+
+class Player;
+
+class Rva002C5FD9
+{
+public:
+	Player *rva002C5FD9();
+};
+
+class AIGameTeam
+{
+public:
+	void *getMasterPlayer();
+};
+
+class Rva004E9600 : public AIGameTeam
+{
+};
+
+class Rva002C6EA4
+{
+public:
+	bool rva002C6EA4(const AsciiString &key);
+
+private:
+	char m_pad[0x17C];
+	_STL::map<AsciiString, AsciiString> m_map;
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp
 
 // ---- from Code/GameEngine/Source/Common/SkirmishAI_isAPartialBrain.cpp
 
@@ -656,7 +703,28 @@ void SkirmishAI::updatePhase()
 	}
 }
 
-// tu-skeleton: 0x002C68CE 109B ?resetMaster@SkirmishAI@@QAEHXZ -- matched in Code/GameEngine/Source/Common/SkirmishAI_resetMaster.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/SkirmishAI_resetMaster.cpp
+
+int SkirmishAI::resetMaster()
+{
+	int target = m_player->m_54;
+	int result = -1;
+	for (int i = 0; i < ThePlayerList->m_count14; i++) {
+		Player *player = ThePlayerList->getNthPlayer(i);
+		Rva002A8AB1Record *rec = TheSkirmishAIManager->rva002A8AB1(player);
+		if (!rec)
+			continue;
+		if (rec->m_178 != target)
+			continue;
+		if (result == -1) {
+			result = player->m_54;
+			rec->m_178 = -1;
+		} else {
+			rec->m_178 = result;
+		}
+	}
+	return result;
+}
 
 // tu-skeleton: 0x002C6A3D 17B ?rva002C6A3D@Rva002A8AB1Record@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/Common/Rva004EC30EAddOwnedObject.cpp (not merged yet)
 
@@ -664,7 +732,16 @@ void SkirmishAI::updatePhase()
 
 // tu-skeleton: 0x002C6AC3 8B ?rva002C6AC3@Rva002C6AC3Owner@@QAEXPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/Common/EmbeddedMemberForwarders.cpp (not merged yet)
 
-// tu-skeleton: 0x002C6ACB 47B ?rva002C6ACB@Rva002A8AB1Record@@QAEPAXXZ -- matched in Code/GameEngine/Source/GameLogic/SkirmishAI/Rva002A8AB1RecordGet.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/Rva002A8AB1RecordGet.cpp
+
+// ?rva002C6ACB@Rva002A8AB1Record@@QAEPAXXZ
+void *Rva002A8AB1Record::rva002C6ACB()
+{
+	Rva004E9600 *mid = TheSkirmishAIManager->rva002A8B24(m_15c);
+	void *found = mid->getMasterPlayer();
+	Player *player = (Player *)TheSkirmishAIManager->rva002A8AB1(found);
+	return player->m_164->rva002C5FD9();
+}
 
 // tu-skeleton: 0x002C6C8E 5B ?clear@?$map@VAsciiString@@UTreeHintPayload001F8ACB@@U?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@_STL@@@4@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportMapForwardersSeat8.cpp (not merged yet)
 
@@ -672,7 +749,19 @@ void SkirmishAI::updatePhase()
 
 // tu-skeleton: 0x002C6E4E 86B ??1Rva002C6E4E@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva002C6E4EDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x002C6EA4 31B ?rva002C6EA4@Rva002C6EA4@@QAE_NABVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/Rva002C6EA4Method.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva002C6EA4Method.cpp
+
+//
+// ?rva002C6EA4@Rva002C6EA4@@QAE_NABVAsciiString@@@Z @0x002C6EA4 31B
+// Evidence: unlock lane prev stlport rb_tree next stlport map caller
+// 0x002C7196 callee Rb_tree AsciiString pair _M_find row offsets 0x17c map
+// member plus 0x17c header ret 4 one AsciiString arg returning bool.
+// Identity: honest-address thiscall method with one const AsciiString arg.
+
+bool Rva002C6EA4::rva002C6EA4(const AsciiString &key)
+{
+	return m_map.find(key) != m_map.end();
+}
 
 // tu-skeleton: 0x002C6EC3 29B ?insert@?$map@VAsciiString@@UTreeHintPayload001F8ACB@@U?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@_STL@@@4@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@_STL@@@2@@2@U32@ABU?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_002c6c93.cpp (not merged yet)
 
