@@ -158,7 +158,22 @@ struct WaterMapView {char unknown00[0x124];TrackCollection *tracks;};
 
 extern void *W3DGCData00DE2000;
 
-struct FeNode {unsigned char m_pad0[0x30];int m_30;unsigned char m_pad1[0x3c-0x34];unsigned char m_flag3c;unsigned char m_pad2[0x58-0x3d];float m_58;float m_5c;float m_60;float m_64;unsigned char m_pad3[0xb0-0x68];FeNode *m_next;FeNode *m_prev;};
+struct FeNode
+{
+public:
+	char m_pad00[0x30];
+	int m_30; // +0x30
+	char m_pad34[0x8];
+	unsigned char m_flag3c; // +0x3C
+	char m_pad3D[0x1B];
+	float m_58; // +0x58
+	float m_5c; // +0x5C
+	float m_60; // +0x60
+	float m_64; // +0x64
+	char m_pad68[0x48];
+	FeNode *m_next; // +0xB0
+	FeNode *m_prev; // +0xB4
+};
 
 enum waveType {WaveTypePond,WaveTypeOcean};
 
@@ -243,17 +258,15 @@ class RenderInfoClass;
 
 struct FeNode;
 
-class BfmeThingSH {
+class BfmeThingSH
+{
 public:
 	BfmeThingSH() throw();
-public:
-	unsigned char unknown00[0xb0];
-public:
-	BfmeThingSH *next,*prev;
-public:
 	void bfmeResetSH();
-public:
 	~BfmeThingSH() { bfmeResetSH(); }
+	char m_pad00[0xB0];
+	BfmeThingSH *next; // +0xB0
+	BfmeThingSH *prev; // +0xB4
 };
 
 class WaterTracksRenderSystem {
@@ -265,6 +278,8 @@ public:
 	void shutdown();
 public:
 	void releaseTrack(FeNode *);
+public:
+	void rva000FE8FC(FeNode *);
 public:
 	void init();
 public:

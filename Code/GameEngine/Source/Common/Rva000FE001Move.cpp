@@ -42,21 +42,7 @@ public:
 class IndexBufferClass
 {
 public:
-	class WriteLockClass
-	{
-		IndexBufferClass *m_indexBuffer;
-		UnsignedShort *m_indices;
-        unsigned char m_deviceGuardStorage[4];
-
-	public:
-		WriteLockClass(IndexBufferClass *indexBuffer, int flags = 0);
-		~WriteLockClass(void);
-
-		UnsignedShort *Get_Index_Array(void)
-		{
-			return m_indices;
-		}
-	};
+	class WriteLockClass { IndexBufferClass *m_indexBuffer; unsigned short *m_indices; unsigned char m_deviceGuardStorage[4]; public: WriteLockClass(IndexBufferClass *indexBuffer, int flags = 0); ~WriteLockClass(void); unsigned short *Get_Index_Array(void) { return m_indices; } };
 };
 
 class DX8IndexBufferClass : public RefCountedResource
@@ -99,30 +85,78 @@ enum
 
 struct FeNode
 {
-	unsigned char m_pad0[0x3c];
-	unsigned char m_flag3c;
-	unsigned char m_pad1[0xb0 - 0x3d];
-	FeNode *m_next;
-	FeNode *m_prev;
+public:
+	char m_pad00[0x30];
+	int m_30; // +0x30
+	char m_pad34[0x8];
+	unsigned char m_flag3c; // +0x3C
+	char m_pad3D[0x1B];
+	float m_58; // +0x58
+	float m_5c; // +0x5C
+	float m_60; // +0x60
+	float m_64; // +0x64
+	char m_pad68[0x48];
+	FeNode *m_next; // +0xB0
+	FeNode *m_prev; // +0xB4
 };
 
-class WaterTracksRenderSystem
-{
-public:
-	void releaseTrack(FeNode *other);
-	void rva000FE8FC(FeNode *other);
-	void rva000FE188();
-	void ReAcquireResources();
+#include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
-private:
-	BfmeDynamicNativeVB *m_vertexBuffer;
-	DX8IndexBufferClass *m_indexBuffer;
-	unsigned char m_pad08[8];
-	FeNode *m_tail10;
-	FeNode *m_head14;
-	int m_stripSizeX;
-	int m_stripSizeY;
-	int m_batchStart;
+class ShaderClass {
+public:
+ ShaderClass() : bits(0x10441b) {}
+ static ShaderClass _PresetAlphaShader;
+ unsigned int bits;
+ enum CullMode { CULL_MODE_DISABLE=0 };
+ void Set_Cull_Mode(CullMode) {bits &= 0xffefffff;}
+};
+
+
+class VertexMaterialClass;
+class WaterTracksObj;
+class DX8VertexBufferClass;
+class RenderInfoClass;
+enum waveType {WaveTypePond,WaveTypeOcean};
+
+class WaterTracksRenderSystem {
+public:
+	WaterTracksRenderSystem();
+public:
+	~WaterTracksRenderSystem();
+public:
+	void shutdown();
+public:
+	void releaseTrack(FeNode *);
+public:
+	void rva000FE8FC(FeNode *);
+public:
+	void init();
+public:
+	void ReAcquireResources();
+public:
+	WaterTracksObj *bindTrack(waveType);
+public:
+	void rva000FE188();
+public:
+	__declspec(noinline) FeNode *findTrack(const float *,const float *,int);
+public:
+	void *vertexBuffer,*indexBuffer;
+public:
+	VertexMaterialClass *material;
+public:
+	ShaderClass shader;
+public:
+	FeNode *m_tail10,*m_head14;
+public:
+	int stripX,stripY,batch;
+public:
+	float level;
+public:
+	AsciiString filename;
+public:
+	void rva000FE1AC();
+public:
+	void flush(RenderInfoClass &);
 };
 
 void WaterTracksRenderSystem::releaseTrack(FeNode *other)
@@ -169,46 +203,46 @@ void WaterTracksRenderSystem::ReAcquireResources(void)
 {
 	int i, j, k;
 
-	if (m_indexBuffer)
+	if (indexBuffer)
 	{
-		m_indexBuffer->Release_Ref();
-		*(DX8IndexBufferClass * volatile *)&m_indexBuffer = 0;
+		reinterpret_cast<DX8IndexBufferClass *>(indexBuffer)->Release_Ref();
+		*(DX8IndexBufferClass * volatile *)&indexBuffer = 0;
 	}
-	if (m_vertexBuffer)
+	if (vertexBuffer)
 	{
-		m_vertexBuffer->Release_Ref();
-		*(BfmeDynamicNativeVB * volatile *)&m_vertexBuffer = 0;
+		reinterpret_cast<BfmeDynamicNativeVB *>(vertexBuffer)->Release_Ref();
+		*(BfmeDynamicNativeVB * volatile *)&vertexBuffer = 0;
 	}
 
-	int idxCount = (m_stripSizeY - 1) * (m_stripSizeX * 2 + 2) - 2;
+	int idxCount = (stripY - 1) * (stripX * 2 + 2) - 2;
 
-	m_indexBuffer = new DX8IndexBufferClass(idxCount);
+	indexBuffer = new DX8IndexBufferClass(idxCount);
 
 	{
-		DX8IndexBufferClass::WriteLockClass lockIdxBuffer((IndexBufferClass *)m_indexBuffer);
+		DX8IndexBufferClass::WriteLockClass lockIdxBuffer((IndexBufferClass *)indexBuffer);
 		unsigned short *ib = lockIdxBuffer.Get_Index_Array();
 
 		for (i = 0, j = 0, k = 0; i < idxCount; j++)
 		{
-			for (; k < (m_stripSizeX * (j + 1)); k++, i += 2)
+			for (; k < (stripX * (j + 1)); k++, i += 2)
 			{
-				ib[i] = (unsigned short)k + m_stripSizeX;
+				ib[i] = (unsigned short)k + stripX;
 				ib[i + 1] = (unsigned short)k;
 			}
 			if (i < idxCount)
 			{
 				ib[i] = k - 1;
-				ib[i + 1] = k + m_stripSizeX;
+				ib[i + 1] = k + stripX;
 				i += 2;
 			}
 		}
 	}
 
-	m_vertexBuffer = new BfmeDynamicNativeVB(
+	vertexBuffer = new BfmeDynamicNativeVB(
 		DX8_FVF_XYZDUV1,
-		(UnsignedShort)(m_stripSizeX * m_stripSizeY * WATER_VB_PAGES),
+		(UnsignedShort)(stripX * stripY * WATER_VB_PAGES),
 		BfmeDynamicNativeVB::USAGE_DYNAMIC, 0);
-	m_batchStart = 0;
+	batch = 0;
 }
 
 typedef char AssertIndexSize[(sizeof(DX8IndexBufferClass)==24)?1:-1];
