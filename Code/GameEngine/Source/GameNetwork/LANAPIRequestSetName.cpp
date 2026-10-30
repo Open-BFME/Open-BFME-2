@@ -21,8 +21,10 @@ typedef bool Bool;
 
 struct BfmeNetAddress
 {
-	UnsignedInt ip;
-	UnsignedShort port;
+	Bool Rva00248CBF( const BfmeNetAddress *other ) const;
+
+	UnsignedInt m_ip;
+	UnsignedShort m_port;
 };
 
 class LANPlayer
@@ -30,9 +32,14 @@ class LANPlayer
 public:
 	LANPlayer() : m_lastHeard(0), m_next(0)
 	{
-		m_address.ip = 0;
-		m_address.port = 0;
+		m_address.m_ip = 0;
+		m_address.m_port = 0;
 	}
+
+	const UnicodeString &getName(void) const { return m_name; }
+	LANPlayer *getNext(void) const { return m_next; }
+	void setNext(LANPlayer *next) { m_next = next; }
+	UnsignedInt getIP(void) const { return m_address.m_ip; }
 
 	UnicodeString m_name;
 	UnicodeString m_login;
@@ -44,7 +51,7 @@ public:
 
 struct LANMessage
 {
-	UnsignedInt type;
+	UnsignedInt LANMessageType;
 	UnsignedByte m_remainder[0x1D8 - sizeof(UnsignedInt)];
 };
 
@@ -154,7 +161,7 @@ void LANAPI::RequestSetName(UnicodeString newName)
 
 		LANMessage message;
 		fillInLANMessage(&message);
-		message.type = 2;
+		message.LANMessageType = 2;
 		Rva004495A2(&message, 0);
 
 		LANPlayer *player = LookupPlayer(getLocalAddress());

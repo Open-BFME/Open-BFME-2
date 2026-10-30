@@ -13,15 +13,32 @@ typedef unsigned char UnsignedByte;
 
 struct BfmeNetAddress
 {
-	UnsignedInt ip;
-	UnsignedShort port;
 	Bool Rva00248CBF( const BfmeNetAddress *other ) const;
+
+	UnsignedInt m_ip;
+	UnsignedShort m_port;
 };
+
+#include "../../../../reference/shims/bfme2_ascii/unicode_string.h"
 
 class LANPlayer
 {
 public:
-	UnsignedByte m_prefix[0x10];
+	LANPlayer() : m_lastHeard(0), m_next(0)
+	{
+		m_address.m_ip = 0;
+		m_address.m_port = 0;
+	}
+
+	const UnicodeString &getName(void) const { return m_name; }
+	LANPlayer *getNext(void) const { return m_next; }
+	void setNext(LANPlayer *next) { m_next = next; }
+	UnsignedInt getIP(void) const { return m_address.m_ip; }
+
+	UnicodeString m_name;
+	UnicodeString m_login;
+	UnicodeString m_host;
+	UnsignedInt m_lastHeard;
 	LANPlayer *m_next;
 	BfmeNetAddress m_address;
 };
@@ -107,7 +124,7 @@ LANPlayer *LANAPI::LookupPlayer( const BfmeNetAddress *address )
 		do
 		{
 			if( player->m_address.Rva00248CBF( address ) ||
-				( address->port == 0 && address->ip == player->m_address.ip ) )
+				( address->m_port == 0 && address->m_ip == player->m_address.m_ip ) )
 				break;
 			player = player->m_next;
 		} while( player );

@@ -12,22 +12,38 @@ typedef unsigned char UnsignedByte;
 
 #include "unicode_string.h"
 
+typedef bool Bool;
+
+struct BfmeNetAddress
+{
+	Bool Rva00248CBF( const BfmeNetAddress *other ) const;
+
+	UnsignedInt m_ip;
+	UnsignedShort m_port;
+};
+
+
 
 class LANPlayer
 {
 public:
+	LANPlayer() : m_lastHeard(0), m_next(0)
+	{
+		m_address.m_ip = 0;
+		m_address.m_port = 0;
+	}
+
 	const UnicodeString &getName(void) const { return m_name; }
 	LANPlayer *getNext(void) const { return m_next; }
 	void setNext(LANPlayer *next) { m_next = next; }
-	UnsignedInt getIP(void) const { return m_ip; }
+	UnsignedInt getIP(void) const { return m_address.m_ip; }
 
-private:
-	UnicodeString m_name;		// +0x00
-	UnsignedByte m_padding04[0x10 - 0x04];
-	LANPlayer *m_next;		// +0x10
-	UnsignedInt m_ip;		// +0x14
-	UnsignedShort m_port;		// +0x18
-	UnsignedShort m_padding1A;
+	UnicodeString m_name;
+	UnicodeString m_login;
+	UnicodeString m_host;
+	UnsignedInt m_lastHeard;
+	LANPlayer *m_next;
+	BfmeNetAddress m_address;
 };
 
 class LANAPI

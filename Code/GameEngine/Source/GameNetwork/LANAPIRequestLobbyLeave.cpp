@@ -13,7 +13,7 @@ typedef unsigned int UnsignedInt;
 
 struct LANMessage
 {
-	Int type;
+	Int LANMessageType;
 	unsigned char bytes[0x1D4];
 };
 
@@ -91,7 +91,7 @@ protected:
 void LANAPI::RequestLobbyLeave( Bool forced )
 {
 	LANMessage message;
-	message.type = 7;
+	message.LANMessageType = 7;
 	fillInLANMessage( &message );
 	Rva004495A2( &message, 0 );
 
