@@ -44,19 +44,20 @@ struct AsciiComparator
 class PlayerInfo
 {
 public:
-	AsciiString m_at00;
-	AsciiString m_at04;
-	AsciiString m_at08;
-	int m_at0c;
-	int m_at10;
-	int m_at14;
-	int m_at18;
-	int m_at1c;
-	int m_at20;
-	int m_at24;
-	int m_at28;
-	int m_at2c;
-	int m_at30;
+	~PlayerInfo();
+	AsciiString m_00;
+	AsciiString m_name;									// +0x04
+	AsciiString m_08;
+	int m_0C;
+	int m_10;
+	int m_profileID;									// +0x14
+	unsigned int m_flags;								// +0x18
+	int m_1C;
+	int m_20;
+	int m_24;
+	int m_28;
+	int m_2C;
+	int m_30;
 };
 
 typedef _STL::map<AsciiString, PlayerInfo, AsciiComparator> PlayerInfoMap;

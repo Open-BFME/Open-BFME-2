@@ -1,0 +1,184 @@
+{
+  "base": "1d0f5dab00d6dabc36987fb491c20eea15b45ea1",
+  "index": "12b9e7a7c0",
+  "comparison": {
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Chat.cpp": {
+      "before_comdats": 620,
+      "after_comdats": 620,
+      "removed": [],
+      "added": [],
+      "changed": [],
+      "strong_removed": [],
+      "strong_added": [],
+      "undefined_removed": [],
+      "undefined_added": [],
+      "weak_equal": true,
+      "reference_roots_equal": true,
+      "removed_edges": {},
+      "added_edges": {},
+      "changed_edges": {},
+      "before_sections": 622,
+      "after_sections": 622,
+      "removed_sections": 0,
+      "added_sections": 0,
+      "removed_external_bindings": [],
+      "added_external_bindings": [],
+      "directives_identical": true,
+      "section_deltas": [],
+      "source_sha256": "bbe463d2d83bdf3b009f150ddfca1eae5b63fbc83256ecc2405742a593ebde0b",
+      "object_before_sha256": "78e2e95ce49ec6a6deac98727334140171d7ed90921717551efa4a1199d92a57",
+      "object_after_sha256": "a6051ba545083a9e98ee40c3854bc537e213d1d6a5fc1ad354a1d1c0a74e7ddd"
+    },
+    "Code/GameEngine/Source/Common/Open2Rec4F1120MapFind.cpp": {
+      "before_comdats": 13,
+      "after_comdats": 13,
+      "removed": [],
+      "added": [],
+      "changed": [],
+      "strong_removed": [],
+      "strong_added": [],
+      "undefined_removed": [],
+      "undefined_added": [],
+      "weak_equal": true,
+      "reference_roots_equal": true,
+      "removed_edges": {},
+      "added_edges": {},
+      "changed_edges": {},
+      "before_sections": 16,
+      "after_sections": 16,
+      "removed_sections": 0,
+      "added_sections": 0,
+      "removed_external_bindings": [],
+      "added_external_bindings": [],
+      "directives_identical": true,
+      "section_deltas": [],
+      "source_sha256": "a91f756d1c72d0e2e3f2d25b1fecba0b4a44e1c6cd610ada96216c06d5984020",
+      "object_before_sha256": "18523df8c8bec5b6a3fc5ff5c462c296f88ae7bc7c083fbcfe46a9a70eb8861d",
+      "object_after_sha256": "574cc6358d2cbd638f97d20c3335a79d989ccd0e29a0a89248370baa83c76817"
+    },
+    "Code/GameEngine/Source/Common/Open2RecChain146.cpp": {
+      "before_comdats": 23,
+      "after_comdats": 22,
+      "removed": [
+        "??1PlayerInfo@@QAE@XZ"
+      ],
+      "added": [],
+      "changed": [],
+      "strong_removed": [],
+      "strong_added": [],
+      "undefined_removed": [],
+      "undefined_added": [],
+      "weak_equal": true,
+      "reference_roots_equal": true,
+      "removed_edges": {
+        "??1PlayerInfo@@QAE@XZ": [
+          "??1AsciiString@@QAE@XZ",
+          "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+          "__EH_prolog",
+          "___CxxFrameHandler",
+          "__except_list"
+        ]
+      },
+      "added_edges": {},
+      "changed_edges": {},
+      "before_sections": 33,
+      "after_sections": 30,
+      "removed_sections": 4,
+      "added_sections": 1,
+      "removed_external_bindings": [
+        [
+          "??1PlayerInfo@@QAE@XZ",
+          2,
+          true,
+          0
+        ]
+      ],
+      "added_external_bindings": [],
+      "directives_identical": true,
+      "section_deltas": [
+        {
+          "kind": "removed",
+          "name": ".text$x",
+          "size": 29
+        },
+        {
+          "kind": "removed",
+          "name": ".xdata$x",
+          "size": 44
+        },
+        {
+          "kind": "removed",
+          "name": ".sxdata",
+          "size": 16
+        },
+        {
+          "kind": "removed",
+          "name": ".text",
+          "size": 68
+        },
+        {
+          "kind": "added",
+          "name": ".sxdata",
+          "size": 12
+        }
+      ],
+      "source_sha256": "0270c284927a4683b05dfd15a7a7e330f11af0eef3daf8745f0bc014a815e6b3",
+      "object_before_sha256": "342b5dcd4ffcc9aaa52bdfb9ae3cd5d53bf6fcf5e6e8b27a37d21333f3dac56d",
+      "object_after_sha256": "6edd59301e4f3aa31f3882cc907008ca86783b4a385a0b52c7086182081f8191"
+    },
+    "Code/GameEngine/Source/Common/Rva001EF552Chat.cpp": {
+      "before_comdats": 5,
+      "after_comdats": 5,
+      "removed": [],
+      "added": [],
+      "changed": [],
+      "strong_removed": [],
+      "strong_added": [],
+      "undefined_removed": [],
+      "undefined_added": [],
+      "weak_equal": true,
+      "reference_roots_equal": true,
+      "removed_edges": {},
+      "added_edges": {},
+      "changed_edges": {},
+      "before_sections": 8,
+      "after_sections": 8,
+      "removed_sections": 0,
+      "added_sections": 0,
+      "removed_external_bindings": [],
+      "added_external_bindings": [],
+      "directives_identical": true,
+      "section_deltas": [],
+      "source_sha256": "98749e45e91b4f26c70da2378f74826e8bb9f538e9550e99bc6be251f22a25dd",
+      "object_before_sha256": "eea79fd367d6f2074881029405d9e64859a4baebed7b248dbb419ad4c7677142",
+      "object_after_sha256": "12fedfc4d03132443f28fd7016fed0cd820c845be99a846710e88469ccba3721"
+    },
+    "Code/GameEngine/Source/GameNetwork/GameSpy/GameSpyInfoAddChat.cpp": {
+      "before_comdats": 27,
+      "after_comdats": 27,
+      "removed": [],
+      "added": [],
+      "changed": [],
+      "strong_removed": [],
+      "strong_added": [],
+      "undefined_removed": [],
+      "undefined_added": [],
+      "weak_equal": true,
+      "reference_roots_equal": true,
+      "removed_edges": {},
+      "added_edges": {},
+      "changed_edges": {},
+      "before_sections": 31,
+      "after_sections": 31,
+      "removed_sections": 0,
+      "added_sections": 0,
+      "removed_external_bindings": [],
+      "added_external_bindings": [],
+      "directives_identical": true,
+      "section_deltas": [],
+      "source_sha256": "60b22077bab60b5e4956b77617c1ebc71f3de9a0bede7aa5f43921704291e04c",
+      "object_before_sha256": "6f57d810530dc1474460aac6b91e574ab16f4477c7138552afad8dcd6b7a98a8",
+      "object_after_sha256": "f78b1651deac34bb6449f71bef41276e2436eb44a030f52f1649a9aa998bf0a5"
+    }
+  }
+}

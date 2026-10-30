@@ -72,16 +72,16 @@ public:
 	AsciiString m_00;
 	AsciiString m_name;									// +0x04
 	AsciiString m_08;
-	Int m_0C;
-	Int m_10;
-	Int m_profileID;									// +0x14
+	int m_0C;
+	int m_10;
+	int m_profileID;									// +0x14
 	unsigned int m_flags;								// +0x18
-	Int m_1C;
-	Int m_20;
-	Int m_24;
-	Int m_28;
-	Int m_2C;
-	Int m_30;
+	int m_1C;
+	int m_20;
+	int m_24;
+	int m_28;
+	int m_2C;
+	int m_30;
 };
 
 typedef _STL::map<Int, Int> BuddyInfoMap;
