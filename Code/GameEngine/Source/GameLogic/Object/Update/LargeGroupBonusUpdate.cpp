@@ -71,6 +71,46 @@ private:
 	AsciiString m_attributeModifier; // +0x2C
 };
 
+// The legacy row name comes from a masked Zero Hour inline placement; it
+// does not establish the retail class or method name. Retail 0x0049001F
+// reads bytes +9 and +8 from an interface subobject and returns their AND.
+// The approved home is LargeGroupBonusUpdate.cpp (reverse/tu_map.csv).
+// Keep the existing row spelling until its identity is reconciled there.
+//
+// This bounded view retains the imported interface offset and field order.
+// An ordinary out-of-line override emits the body without instantiating the
+// unrelated Zero Hour module, parser, update loop or drawable callbacks.
+
+class UpdateModule
+{
+public:
+    virtual ~UpdateModule();
+private:
+    unsigned char m_storage[0x20 - sizeof(void *)];
+};
+
+class HordeUpdateInterface
+{
+public:
+    virtual bool isInHorde() const = 0;
+    virtual bool hasFlag() const = 0;
+    virtual bool isTrueHordeMember() const = 0;
+    virtual bool isAllowedNationalism() const = 0;
+};
+
+class HordeUpdate : public UpdateModule, public HordeUpdateInterface
+{
+public:
+    virtual bool isTrueHordeMember() const;
+private:
+    unsigned int m_lastHordeRefreshFrame;
+    bool m_inHorde;
+    bool m_trueHordeMember;
+    bool m_hasFlag;
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupBonusUpdate.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupBonusUpdatePoolKey.cpp
 
 // ?getModuleNameKey@LargeGroupBonusUpdate@@UBE?AW4NameKeyType@@XZ
@@ -80,30 +120,6 @@ NameKeyType LargeGroupBonusUpdate::getModuleNameKey() const
 		TheNameKeyGenerator->nameToKey("LargeGroupBonusUpdate");
 	return TheLargeGroupBonusUpdatePoolKey;
 }
-
-// tu-skeleton: 0x00490019 6B ?name@Rva00490019Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0049001F 14B ?isTrueHordeMember@HordeUpdate@@UBE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/HordeUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x0049002D 4B ?get@Rva0049002DByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00490031 111B ?xfer@LargeGroupBonusUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupBonusUpdateXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x004900A0 17B ?buildFieldParse@LargeGroupBonusUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
-
-// tu-skeleton: 0x004900B1 143B ??0LargeGroupBonusUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupBonusUpdateCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00490140 28B ??_GRva0048FFB4@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp (not merged yet)
-
-// tu-skeleton: 0x0049015C 89B ?notify@LargeGroupBonusUpdate@@QAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupBonusUpdateUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x004901B5 8B ?rva004901B5@LargeGroupBonusUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupBonusUpdateUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x004901BD 104B ??0LargeGroupBonusUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupBonusUpdateModuleDataCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00490225 589B ?update@LargeGroupBonusUpdate@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupBonusUpdateUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x00490472 28B ??_GLargeGroupBonusUpdateModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupBonusUpdateModuleDataCtor.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupBonusUpdateModuleDataDtor.cpp
 
@@ -126,6 +142,35 @@ NameKeyType LargeGroupBonusUpdate::getModuleNameKey() const
 LargeGroupBonusUpdateModuleData::~LargeGroupBonusUpdateModuleData()
 {
 }
+
+// tu-skeleton: 0x00490019 6B ?name@Rva00490019Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/HordeUpdate.cpp
+
+bool HordeUpdate::isTrueHordeMember() const
+{
+    return m_trueHordeMember && m_inHorde;
+}
+
+// tu-skeleton: 0x0049002D 4B ?get@Rva0049002DByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00490031 111B ?xfer@LargeGroupBonusUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupBonusUpdateXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x004900A0 17B ?buildFieldParse@LargeGroupBonusUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
+
+// tu-skeleton: 0x004900B1 143B ??0LargeGroupBonusUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupBonusUpdateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00490140 28B ??_GRva0048FFB4@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp (not merged yet)
+
+// tu-skeleton: 0x0049015C 89B ?notify@LargeGroupBonusUpdate@@QAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupBonusUpdateUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x004901B5 8B ?rva004901B5@LargeGroupBonusUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupBonusUpdateUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x004901BD 104B ??0LargeGroupBonusUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupBonusUpdateModuleDataCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00490225 589B ?update@LargeGroupBonusUpdate@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupBonusUpdateUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x00490472 28B ??_GLargeGroupBonusUpdateModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupBonusUpdateModuleDataCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0078C8F9 8B uw_0078c8f9 -- matched in Code/gen_small/uw_gen_011.cpp (not merged yet)
 
