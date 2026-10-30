@@ -21,12 +21,6 @@ private:
 	char m_pad08[0x10];
 	Real m_18;
 };
-Real Rva0055B0B9::rva0055B0B9() const
-{
-	if (m_18 > m_04)
-		return m_18;
-	return m_04;
-}
 
 // 0x00597372 (beside xfer 0x005974CC): zeroes the three Reals out.
 struct Rva00597372Triple
