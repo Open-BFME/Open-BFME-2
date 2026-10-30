@@ -3233,6 +3233,15 @@ removed-provider scope in the next census. The batch audit remains inconclusive.
   registered: reconcile its StringClass layout with the native raw-array
   lifetime contract and all emitted copies before retirement. No new
   census-linked-byte or ownership gain is claimed.
+- **mixfile FileOffsetStruct key cleared (2026-10-30, `233a0d44fb`):** the
+  0x00197410 deleting destructor was never FileOffsetStruct's. Retail vtable
+  0x007D5EC4 holds it in slot 0 beside the rowed
+  VectorClass<NamedPivotMapClass::WeightInfoStruct> ==/Resize/Clear/ID, and
+  its __ehvec_dtor callback 0x00042FF8 is ~WeightInfoStruct. The row was
+  retracted from mixfile.cpp (`136686e15f`, tombstoned) and readmitted from
+  hanim.cpp, the approved unit (29/29 rows, EH EXACT). The mixfile.cpp
+  FileOffsetStruct view and instantiation are gone (8/8 rows). Scope: this
+  one key. Census confirmation is pending; no linked-byte gain is claimed.
 - **Consolidation outgoing-batch audit (2026-10-26, `a590d451c6`):** the
   outgoing source diff contains 42 paths. `tools/link_batch_audit.py --base
   origin/master --tip HEAD` is inconclusive: its provider index is at
