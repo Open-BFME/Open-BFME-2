@@ -1,0 +1,108 @@
+{
+  "scope": "already-canonical math layout; direct Vector4 include and two owning-tool header retirements",
+  "source": "Code/GameEngine/Source/GameClient/DrawableDestructor.cpp",
+  "before_source_sha256": "dfa08cd1bfdb3957d950cc46f8c293004559055764630f94afc02e399559183c",
+  "source_sha256": "228b57adf591b058bc3868db288da95512e65c008ca810f753752a5af88a1a10",
+  "object_sha256": "cc682fabae38a66034f6aac3a46dd9fc6249cc1ba9c8f14ec8254e881c3824ad",
+  "strict_current": true,
+  "all_nondebug_sections_definitions_relocations_undefined_names_identical": true,
+  "runtime_sha256": "3a2665cadb4caf16359f8bfac31b364590f4ac64bcf3d47392f74d68cd6a9479",
+  "code_definitions": 24,
+  "retired_header_keys": [
+    "Matrix3D",
+    "Vector4"
+  ],
+  "rows": [
+    {
+      "name": "??1Drawable@@UAE@XZ",
+      "rva": "0x002793F0",
+      "size": "633",
+      "exact": true,
+      "eh": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "name": "$L6096",
+      "rva": "0x007735F7",
+      "size": "20",
+      "exact": true,
+      "eh": null
+    },
+    {
+      "name": "$L6103",
+      "rva": "0x0077365F",
+      "size": "24",
+      "exact": true,
+      "eh": null
+    },
+    {
+      "name": "__ehhandler$??1Drawable@@UAE@XZ",
+      "rva": "0x00773693",
+      "size": "10",
+      "exact": true,
+      "eh": null
+    },
+    {
+      "name": "Unwind@00b735ef",
+      "rva": "0x007735EF",
+      "size": "8",
+      "exact": true,
+      "eh": null
+    },
+    {
+      "name": "Unwind@00b7360b",
+      "rva": "0x0077360B",
+      "size": "14",
+      "exact": true,
+      "eh": null
+    },
+    {
+      "name": "Unwind@00b73619",
+      "rva": "0x00773619",
+      "size": "14",
+      "exact": true,
+      "eh": null
+    },
+    {
+      "name": "Unwind@00b73627",
+      "rva": "0x00773627",
+      "size": "14",
+      "exact": true,
+      "eh": null
+    },
+    {
+      "name": "Unwind@00b73635",
+      "rva": "0x00773635",
+      "size": "14",
+      "exact": true,
+      "eh": null
+    },
+    {
+      "name": "Unwind@00b73643",
+      "rva": "0x00773643",
+      "size": "14",
+      "exact": true,
+      "eh": null
+    },
+    {
+      "name": "Unwind@00b73651",
+      "rva": "0x00773651",
+      "size": "14",
+      "exact": true,
+      "eh": null
+    },
+    {
+      "name": "Unwind@00b73685",
+      "rva": "0x00773685",
+      "size": "14",
+      "exact": true,
+      "eh": null
+    }
+  ],
+  "header_sha256": {
+    "Code/Libraries/Source/WWVegas/WWMath/Matrix3DData.h": "14067a4a65c62742c97c3d894f0fc7c15a3986cc32c65ad8eee444633322887a",
+    "Code/Libraries/Source/WWVegas/WWMath/Vector4Data.h": "d018c7ae782335d106bed497ccf6c44033b52a0978b6265a5a14498a98900d74"
+  }
+}
