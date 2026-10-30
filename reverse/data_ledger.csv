@@ -20543,8 +20543,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A04050,4,.data,global,?$S1@?1??getModuleNameKey@HealCrateCollide@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/HealCrateCollide.cpp,owned,,1,4
 0x00A04054,4,.data,global,?TheMoneyCrateCollidePoolKey@?1??getModuleNameKey@MoneyCrateCollide@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/MoneyCrateCollide.cpp,owned,,1,2
 0x00A04058,4,.data,global,?$S1@?1??getModuleNameKey@MoneyCrateCollide@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/MoneyCrateCollide.cpp,owned,,1,2
-0x00A0405C,4,.data,global,?TheShroudCrateCollidePoolKey@?1??getModuleNameKey@ShroudCrateCollide@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/ShroudCrateCollidePoolKey.cpp,owned,,1,2
-0x00A04060,4,.data,global,?$S1@?1??getModuleNameKey@ShroudCrateCollide@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/ShroudCrateCollidePoolKey.cpp,owned,,1,4
+0x00A0405C,4,.data,global,?TheShroudCrateCollidePoolKey@?1??getModuleNameKey@ShroudCrateCollide@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/ShroudCrateCollide.cpp,owned,,1,2
+0x00A04060,4,.data,global,?$S1@?1??getModuleNameKey@ShroudCrateCollide@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/ShroudCrateCollide.cpp,owned,,1,4
 0x00A04064,4,.data,global,?TheUnitCrateCollidePoolKey@?1??getModuleNameKey@UnitCrateCollide@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/UnitCrateCollide.cpp,owned,,1,2
 0x00A04068,4,.data,global,?$S1@?1??getModuleNameKey@UnitCrateCollide@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/UnitCrateCollide.cpp,owned,,1,4
 0x00A0406C,4,.data,global,_s_rva007B26EC,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1

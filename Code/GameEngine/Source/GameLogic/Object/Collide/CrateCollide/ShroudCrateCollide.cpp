@@ -161,6 +161,14 @@ enum NameKeyType
 	NK_UNKNOWN = 0
 };
 
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const char *name);
+};
+
+extern NameKeyGenerator *TheNameKeyGenerator;
+
 class ShroudCrateCollide : public CrateCollide
 {
 public:
@@ -174,6 +182,8 @@ protected:
 // tu-skeleton: 0x004BCB07 6B ?Rva004BCB07Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
 // tu-skeleton: 0x004BCB0D 25B ??1Rva004BCB0D@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva004BC4FCDerived.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/ShroudCrateCollide.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/HealCrateCollideExecute.cpp
 
@@ -195,8 +205,12 @@ bool ShroudCrateCollide::executeCrateBehavior(Object *other)
     return true;
 }
 
-// tu-skeleton: 0x004BCBB2 69B ?getModuleNameKey@ShroudCrateCollide@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/ShroudCrateCollidePoolKey.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/ShroudCrateCollidePoolKey.cpp
 
-// tu-skeleton: 0x0078F78B 13B $L310 -- matched in Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/ShroudCrateCollidePoolKey.cpp (not merged yet)
-
-// tu-skeleton: 0x0078F798 10B __ehhandler$?getModuleNameKey@ShroudCrateCollide@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/ShroudCrateCollidePoolKey.cpp (not merged yet)
+// ?getModuleNameKey@ShroudCrateCollide@@UBE?AW4NameKeyType@@XZ
+NameKeyType ShroudCrateCollide::getModuleNameKey() const
+{
+	static NameKeyType TheShroudCrateCollidePoolKey =
+		TheNameKeyGenerator->nameToKey("ShroudCrateCollide");
+	return TheShroudCrateCollidePoolKey;
+}
