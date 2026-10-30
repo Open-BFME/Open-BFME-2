@@ -7,13 +7,7 @@ typedef bool Bool;
 
 class Object;
 
-class Team
-{
-public:
-	void rva003A2CEB(int key, Object *val);
-	char m_pad[0x34];
-	int m_key34;
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
@@ -32,5 +26,5 @@ void ScriptActions::doTeamSetOverrideRelationToTeam(const AsciiString &asciiStri
 		return;
 	if (team2 == 0)
 		return;
-	team1->rva003A2CEB(team2->m_key34, val);
+	team1->rva003A2CEB(team2->getID(), val);
 }

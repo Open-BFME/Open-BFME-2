@@ -47,18 +47,7 @@ public:
 	Rva003C01E2Container *m_container;	// +0x274
 };
 
-class Team
-{
-public:
-	Player *getControllingPlayer() const;	// 0x0039D7CF
-	void setControllingPlayer(Player *player);	// 0x0039D97E
-	Object *rva0039E8EB();
-	void deleteTeam(bool flag);	// 0x003A10FE
-	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;	// 0x00263864
-	char m_pad[0x5D];
-	unsigned char m_active;	// +0x5D
-	unsigned char m_justCreated;	// +0x5E
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
@@ -108,7 +97,7 @@ void ScriptActions::doMergeTeamIntoTeam(const AsciiString &teamSrcName, const As
 	} while (--tries > 0);
 
 	if (!teamDest->m_active) {
-		teamDest->m_justCreated = 1;
+		teamDest->m_created = 1;
 		teamDest->m_active = 1;
 	}
 }

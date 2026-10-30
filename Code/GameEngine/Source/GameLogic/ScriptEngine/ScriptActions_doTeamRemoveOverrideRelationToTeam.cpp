@@ -10,12 +10,7 @@ enum NameKeyType
 	NAMEKEY_INVALID = 0
 };
 
-class Team
-{
-public:
-	char m_pad[0x34];
-	int m_key34;
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
@@ -40,5 +35,5 @@ void ScriptActions::doTeamRemoveOverrideRelationToTeam(const AsciiString &asciiS
 		return;
 	if (team2 == 0)
 		return;
-	((Rva003A2897 *)team1)->rva003A2897((NameKeyType)team2->m_key34);
+	((Rva003A2897 *)team1)->rva003A2897((NameKeyType)team2->getID());
 }

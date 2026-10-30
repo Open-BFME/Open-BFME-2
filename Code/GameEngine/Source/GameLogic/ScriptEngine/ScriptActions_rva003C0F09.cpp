@@ -10,13 +10,7 @@
 #include "ascii_string.h"
 typedef bool Bool;
 
-class Team
-{
-public:
-    char m_pad[0x110];
-    bool m_unk110;
-    bool m_unk111;
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
@@ -32,6 +26,6 @@ void ScriptActions::rva003C0F09(const AsciiString &teamName, int value)
     Team *team = TheScriptEngine->getTeamNamed((AsciiString &)teamName, false);
     if (!team)
         return;
-    team->m_unk110 = true;
-    team->m_unk111 = (value != 0);
+    team->m_isRecruitablitySet = true;
+    team->m_isRecruitable = (value != 0);
 }
