@@ -28,6 +28,15 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 typedef unsigned short wchar_t;
 #include <vector>
 #include <list>
+// The opaque overflow view needs iterator comparisons, but the generic base
+// operator emits a competing out-of-line copy under this unit's flags.
+// Keep the same node comparison local, as in the overflow provider.
+namespace _STL {
+template <class _IterTp, class _LeftTraits, class _RightTraits>
+static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
+                              const _List_iterator<_IterTp, _RightTraits> &b)
+{ return a._M_node != b._M_node; }
+}
 struct BfmeStringRecord005DDD40 {
     UnicodeString text;
     unsigned int word;
