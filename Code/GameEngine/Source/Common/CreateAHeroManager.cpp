@@ -64,9 +64,13 @@ extern const char *g_CreateAHeroFilenameExtension;
 class CreateAHeroData
 {
 public:
+	CreateAHeroData(int, int, int, const UnicodeString &, int, int, int);
 	virtual ~CreateAHeroData();
-private:
-	char m_storage04[0x13c];
+	bool rva00408A55();
+	bool rva004099CA(AsciiString *filename, bool mode);
+	char m_storage04[0x130];
+	unsigned int m_crc;
+	unsigned char m_pad138[8];
 };
 
 struct BfmePod216 { int a[54]; };
@@ -96,6 +100,7 @@ public:
 	bool m_flag;
 	unsigned int size() const { return m_end - m_begin; }
 	CreateAHeroData *rva0040A32F(int index);
+	CreateAHeroData *rva0040A5CF(const AsciiString &name);
 };
 
 class Rva0040A530 : public Rva0040A3F9
@@ -140,6 +145,8 @@ public:
 	// ?update@CreateAHeroManager present-unmatched
 	virtual void update() {}
 	CreateAHeroClass *rva0022020C(CreateAHeroClass &entry);
+	void LoadMyHeroList();
+	void rva0021F5F8();
 private:
 	CreateAHeroData m_hero0C;
 	_STL::vector<CreateAHeroClass> m_vector14C;
@@ -153,11 +160,13 @@ private:
 	AsciiString m_text1C4, m_text1C8, m_text1CC;
 	int m_1D0;
 	unsigned int m_maxAwards1D4;
-	int m_1D8;
+	bool m_1D8;
+	unsigned char m_pad1D9[3];
 	AsciiString m_text1DC;
 	int m_state1E0;
 	int m_1E4;
 	AsciiString m_text1E8, m_text1EC;
+	unsigned int m_systemHeroCRC;
 };
 
 template <> _STL::vector<CreateAHeroManager::CreateAHeroClass>::~vector();

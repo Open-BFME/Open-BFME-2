@@ -18,6 +18,7 @@
 #include "ascii_string.h"
 #include "unicode_string.h"
 #include <vector>
+#include <stdlib.h>
 #include <map>
 #include <algorithm>
 
@@ -25,11 +26,13 @@ typedef int Int;
 typedef unsigned int UnsignedInt;
 typedef bool Bool;
 
+class AsciiString;
 class CreateAHeroHero
 {
 public:
-	Int GetBlingCount(Int blingKey) const;			// 0x004079F4
-	Int GetBlingId(Int blingKey, UnsignedInt index) const;	// 0x00407A29
+	int GetBlingCount(int blingKey) const; // 0x004079F4
+	int GetBlingId(int blingKey, unsigned int index) const; // 0x00407A29
+	bool rva004098BE(const AsciiString &file, bool system);
 };
 
 // A bling entry starts with its name and description string tags.
@@ -46,7 +49,7 @@ struct CreateAHeroBling
 struct CreateAHeroBlingEntry
 {
 	unsigned char m_pad00[0xc];
-	Int m_blingId;						// +0x0C
+	int m_blingId;						// +0x0C
 };
 
 CreateAHeroBlingEntry *rva0021D120(CreateAHeroBlingEntry *first, CreateAHeroBlingEntry *last, const AsciiString &upgradeName);	// 0x0021D120
@@ -56,7 +59,7 @@ class CommandButton;
 class CommandSet
 {
 public:
-	const CommandButton *getCommandButton(Int i) const;	// 0x00409EE8
+	const CommandButton *getCommandButton(int i) const;	// 0x00409EE8
 };
 
 class ControlBar
@@ -98,7 +101,7 @@ private:
 class GameInfo
 {
 public:
-	GameSlot *getSlot(Int index);				// 0x003FF29F
+	GameSlot *getSlot(int index);				// 0x003FF29F
 };
 
 extern GameInfo *TheGameInfo;
@@ -120,17 +123,7 @@ private:
 	unsigned char m_data[0x87c];
 };
 
-class SubsystemInterfaceList
-{
-public:
-	Xfer *getXfer() const { return m_xfer; }
 
-private:
-	unsigned char m_pad00[0x24];
-	Xfer *m_xfer;						// +0x24
-};
-
-extern SubsystemInterfaceList *TheSubsystemList;
 
 // The dword at VA 0x00DFE348 (ColdGlobalDwordGetters.cpp) gates init's load.
 extern int g_Va00DFE348;
@@ -149,23 +142,25 @@ private:
 class CreateAHeroData
 {
 public:
-    CreateAHeroData(int, int, int, const UnicodeString &, int, int, int);
-    virtual ~CreateAHeroData();
-    bool rva00408A55();
-    bool rva004099CA(AsciiString *filename, bool mode);
-    unsigned char m_pad04[0x134-4];
-    unsigned int m_crc;
-    unsigned char m_pad138[8];
+	CreateAHeroData(int, int, int, const UnicodeString &, int, int, int);
+	virtual ~CreateAHeroData();
+	bool rva00408A55();
+	bool rva004099CA(AsciiString *filename, bool mode);
+	char m_storage04[0x130];
+	unsigned int m_crc;
+	unsigned char m_pad138[8];
 };
 class Rva0040A3F9
 {
 public:
-    CreateAHeroData **m_begin;
-    CreateAHeroData **m_end;
-    CreateAHeroData **m_capacity;
-    bool m_flag;
-    unsigned int size() const { return m_end - m_begin; }
-    CreateAHeroData *rva0040A32F(int index);
+	__forceinline ~Rva0040A3F9() { if (m_begin) free(m_begin); }
+	CreateAHeroData **m_begin;
+	CreateAHeroData **m_end;
+	CreateAHeroData **m_capacity;
+	bool m_flag;
+	unsigned int size() const { return m_end - m_begin; }
+	CreateAHeroData *rva0040A32F(int index);
+	CreateAHeroData *rva0040A5CF(const AsciiString &name);
 };
 class ModuleData;
 class Rva00423A68
@@ -186,68 +181,72 @@ struct Rva0021DB35
     CreateAHeroFileEntry *m_end;
     CreateAHeroFileEntry *m_capacity;
 };
-class CreateAHeroManager
+struct BfmePod216 { int a[54]; };
+
+struct Rva0021DA18
+{
+	~Rva0021DA18();
+	char m_storage[12];
+};
+
+struct Rva0021DA57
+{
+	~Rva0021DA57();
+	char m_storage[12];
+};
+
+class Rva0040A530 : public Rva0040A3F9
 {
 public:
-	class CreateAHeroSubClass
-	{
-	public:
-		Int rva0021BC2C(Int blingKey) const;		// 0x0021BC2C, bling count
-		Int GetDefaultBlingId(Int blingKey) const; // 0x0021BC53
-    private:
-        // WB lookup and retail node+14/+18 prove the vector mapped value.
-        // Retail map headers are at +24 and +48.
-        unsigned char m_pad00[0x24];
-        std::map<int, std::vector<int> > m_blingIds;
-        unsigned char m_pad30[0x48-0x30];
-        std::map<int, int> m_defaultBlingIds;
-	};
+	Rva0040A530(bool flag);
+	__declspec(noinline) ~Rva0040A530();
+};
 
+#include "../../../../reference/shims/subsystem_bfme2/subsystem_interface.h"
+
+class CreateAHeroManager : public SubsystemInterface
+{
+public:
+	// The named, independently rowed 00219C1F accessor views the same 32B class
+	// record and its 216B subclass range. Keep the existing container spelling.
 	class CreateAHeroClass
 	{
 	public:
-		Int GetBlingCount(Int blingKey, UnsignedInt subClassIndex) const;
-		Int GetSubClassDefaultBlingId(Int blingKey, UnsignedInt subClassIndex) const;
-
-	private:
-		const CreateAHeroSubClass *rva00219B9E(UnsignedInt subClassIndex) const;	// 0x00219B9E
-
-		unsigned char m_data[0x20];
+		int GetAwardCount(unsigned int subClassIndex);
+		CreateAHeroClass(const CreateAHeroClass &);
+		~CreateAHeroClass();
+		AsciiString m_strings[5];
+		_STL::vector<BfmePod216> m_subclasses;
 	};
 
-
-	// SubsystemInterface slots 0 and 1 (vtable 0x007E648C).
 	virtual ~CreateAHeroManager();
 	virtual void init();
-
-	Int GetBlingCount(Int blingKey, const CreateAHeroHero *hero) const;
-	Int rva0021BEE0(Int blingKey, UnsignedInt classIndex, UnsignedInt subClassIndex) const;
-	Int GetSubClassDefaultBlingId(Int blingKey, UnsignedInt classIndex, UnsignedInt subClassIndex) const;
-	const AsciiString &GetBlingNameTag(Int blingKey, const CreateAHeroHero *hero, UnsignedInt index);
-	const AsciiString &GetBlingDescTag(Int blingKey, const CreateAHeroHero *hero, UnsignedInt index);
-	const AsciiString &GetBlingUpgradeName(Int blingKey, const CreateAHeroHero *hero, UnsignedInt index);
+	virtual Bool loadIniFilesFromLegend();
+	virtual void reset();
+	virtual void update();
+	CreateAHeroClass *rva0022020C(CreateAHeroClass &entry);
 	void LoadMyHeroList();
-	Bool FindBlingByUpgradeName(const AsciiString &upgradeName, Int *index, Int *blingId);
-	void *GetBling(UnsignedInt blingId);			// 0x00219D85
-	const CreateAHeroHero *GetHeroForPlayer(const Player *player);
-
+	void rva0021F5F8();
 private:
-	Int rva00219309() const;				// 0x00219309, required-button count
-
-	unsigned char m_pad04[0xc - 0x4];
-	CreateAHeroHero m_localHero;				// +0x0C, used without a game
-	unsigned char m_pad0D[0x14c - 0xd];
-	std::vector<CreateAHeroClass> m_classes;		// +0x14C
-	int m_numSystemHeroes;
-	std::vector<CreateAHeroBlingEntry> m_blings;		// +0x15C
-	unsigned char m_pad168[0xc];
-    Rva0040A3F9 m_myHeroList; // +174
-    unsigned char m_pad184[0x1d8-0x184];
-    bool m_refreshList;
-    unsigned char m_pad1D9[3];
-	AsciiString m_commandSetName;				// +0x1DC
-    unsigned char m_pad1E0[0x10];
-    unsigned int m_systemHeroCRC;
+	CreateAHeroData m_hero0C;
+	_STL::vector<CreateAHeroClass> m_vector14C;
+	int m_158;
+	Rva0021DA18 m_vector15C;
+	Rva0021DA57 m_vector168;
+	Rva0040A530 m_tree174;
+	char m_pad180[4]; // +184; the pointer-vector view includes its +180 flag.
+	AsciiString m_text188, m_text18C, m_text190;
+	char m_pad194[0x30];
+	AsciiString m_text1C4, m_text1C8, m_text1CC;
+	int m_1D0;
+	unsigned int m_maxAwards1D4;
+	bool m_1D8;
+	unsigned char m_pad1D9[3];
+	AsciiString m_text1DC;
+	int m_state1E0;
+	int m_1E4;
+	AsciiString m_text1E8, m_text1EC;
+	unsigned int m_systemHeroCRC;
 };
 
 // The manager's global: GameEngine::init registers the subsystem under the
@@ -259,25 +258,25 @@ extern CreateAHeroManager *TheCreateAHeroManager;
 
 void CreateAHeroManager::LoadMyHeroList()
 {
-    if (m_myHeroList.size()) {
-        if (m_refreshList) {
-            for (unsigned int i = 0; i < m_myHeroList.size(); ++i) {
-                CreateAHeroData *hero = m_myHeroList.rva0040A32F(i);
+    if (m_tree174.size()) {
+        if (m_1D8) {
+            for (unsigned int i = 0; i < m_tree174.size(); ++i) {
+                CreateAHeroData *hero = m_tree174.rva0040A32F(i);
                 if (hero) hero->rva00408A55();
             }
-            m_refreshList = false;
+            m_1D8 = false;
         }
     } else {
         Rva0021DB35 files;
         unsigned int crc = 0;
-        m_numSystemHeroes = 0;
+        m_158 = 0;
         for (CreateAHeroFileEntry *it = files.m_begin; it != files.m_end; ++it) {
             CreateAHeroData *hero = new CreateAHeroData(0,0,0,UnicodeString::TheEmptyString,-1,0xff707070,-1);
             bool system = it->system;
             if (hero->rva004099CA(&it->filename, system)) {
-                ((Rva00423A68 *)&m_myHeroList)->rva00423A68((const ModuleData *)hero);
+                ((Rva00423A68 *)&m_tree174)->rva00423A68((const ModuleData *)hero);
                 if (system && !m_systemHeroCRC) {
-                    ++m_numSystemHeroes;
+                    ++m_158;
                     crc += hero->m_crc;
                     crc = (crc << 1) | (crc >> 31);
                 }
