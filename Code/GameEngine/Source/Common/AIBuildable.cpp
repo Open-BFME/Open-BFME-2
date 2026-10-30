@@ -189,6 +189,7 @@ public:
 	virtual void v13();
 	virtual void v14();
 	virtual bool v15(Player *p);
+	virtual int v16(Player *p);
 	bool doBuild(Player *player);
 private:
 	char m_pad04[0x21 - 4];

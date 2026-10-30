@@ -42,28 +42,40 @@ struct MapRes
 class AIBuildable
 {
 public:
-    virtual void f00(); virtual void f01(); virtual void f02(); virtual void f03();
-    virtual void f04(); virtual void f05(); virtual void f06(); virtual void f07();
-    virtual void f08(); virtual void f09(); virtual void f10(); virtual void f11();
-    virtual void f12(); virtual void f13(); virtual void f14(); virtual void f15();
-    virtual int virt16(Player *p);
-    int doCanMake(Player *player);
+	virtual void v00();
+	virtual void v01();
+	virtual void v02();
+	virtual void v03();
+	virtual void v04();
+	virtual void v05();
+	virtual void v06();
+	virtual void v07();
+	virtual void v08();
+	virtual float v09(Player *p);
+	virtual void v10();
+	virtual void v11();
+	virtual void v12();
+	virtual void v13();
+	virtual void v14();
+	virtual bool v15(Player *p);
+	virtual int v16(Player *p);
+	int doCanMake(Player *player);
 private:
-    char m_pad[0x1D];
-    unsigned char m_21;
+	char m_pad04[0x21 - 4];
+	bool m_flag21;
 };
 
 int AIBuildable::doCanMake(Player *player)
 {
     MapRes *res = (MapRes *)TheSkirmishAIManager->rva002A8F24(player);
     int virtRes = 0;
-    if (m_21)
+    if (m_flag21)
     {
         int amount = res->m_0C->m_14;
         ((PlayerFull *)player)->m_money.rva003B0D7C(amount, 0, false);
     }
-    virtRes = virt16(player);
-    if (m_21)
+    virtRes = v16(player);
+    if (m_flag21)
     {
         int amount = res->m_0C->m_14;
         ((PlayerFull *)player)->m_money.withdraw((unsigned int)amount, 0, false);
