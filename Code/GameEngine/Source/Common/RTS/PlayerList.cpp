@@ -59,8 +59,8 @@ class BfmeThingRV
 {
 public:
 	BfmeMemberRV *bfmePickRV();
-	unsigned char m_bfmeHead[0x10];	// BFME1 0xc
-	BfmeMemberRV *m_bfmeMine;
+	unsigned char m_bfmeHead[0x10]; // +0x00 BFME1 0xc
+	BfmeMemberRV *m_bfmeMine; // +0x10
 };
 
 // Negated ask wrapper at retail 0x002A7DD0 (14 bytes), appended here: the
@@ -75,10 +75,9 @@ class Rva002A7DD0
 {
 public:
 	bool rva002A7DD0();
-
 private:
-	char m_lead[0x10];
-	BfmeMemberRV *m_ptr10; // +0x10
+	char m_lead[0x10]; // +0x00
+	BfmeMemberRV *m_ptr10; // +0x10 +0x10
 };
 
 // Retail 0x002A7DDE (54 bytes): thiscall, one pointer argument, ret 4. Reads
@@ -115,8 +114,11 @@ class Rva007397D0 { public: void rva007397D0(); };
 class ControlBar
 {
 public:
-    void rva0031BAC3(Player *);
-    void setControlBarSchemeByPlayer(Player *);
+	void rva0031BAC3(Player *);
+	void setControlBarSchemeByPlayer(Player *);
+	void setObservedPlayer(Player *player) { m_observedPlayer = player; }
+	char m_pad00[0x210];
+	Player *m_observedPlayer; // +0x210
 };
 
 extern ControlBar *TheControlBar;

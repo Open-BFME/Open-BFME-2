@@ -63,11 +63,14 @@ private:
 };
 extern SidesList *TheSidesList;
 
+class Team;
 class TeamFactory
 {
 public:
 	void clear();
 	void initFromSides(SidesList *sides);
+	Team *findTeam(const AsciiString &name);
+	Team *findTeam(const AsciiString &owner, const AsciiString &name);
 };
 extern TeamFactory *TheTeamFactory;
 
@@ -102,7 +105,6 @@ public:
 	Int m_18; // +0x18 (Player+0x78)
 	Int m_1C; // +0x1C (Player+0x7C)
 };
-class Team;
 typedef int PlayerMaskType;
 enum
 {
@@ -449,12 +451,17 @@ class BfmeThingRV
 {
 public:
 	BfmeMemberRV *bfmePickRV();
+	unsigned char m_bfmeHead[0x10]; // +0x00 BFME1 0xc
+	BfmeMemberRV *m_bfmeMine; // +0x10
 };
 
 class Rva002A7DD0
 {
 public:
 	bool rva002A7DD0();
+private:
+	char m_lead[0x10]; // +0x00
+	BfmeMemberRV *m_ptr10; // +0x10 +0x10
 };
 
 class Rva002A7E42
@@ -468,9 +475,11 @@ extern GameLogic *TheGameLogic;
 class ControlBar
 {
 public:
+	void rva0031BAC3(Player *);
+	void setControlBarSchemeByPlayer(Player *);
 	void setObservedPlayer(Player *player) { m_observedPlayer = player; }
-	char pad000[0x210];
-	Player *m_observedPlayer;
+	char m_pad00[0x210];
+	Player *m_observedPlayer; // +0x210
 };
 extern ControlBar *TheControlBar;
 
