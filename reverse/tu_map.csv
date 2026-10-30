@@ -44116,8 +44116,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0052780C,27,code,,,-,,Code/GameEngine/Source/Common/Bfme/Rva0052780CPair.cpp
 0x00527827,87,code,,,-,,Code/GameEngine/Source/Common/Bfme/Rva00527827Message.cpp
 0x0052787E,18,code,,,-,,Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp
-0x00527890,77,code,Code/GameEngine/Source/Common/Bfme/InGameHelpBoxMovieClip.cpp,approved,N,N=Code/GameEngine/Source/Common/Bfme/InGameHelpBoxMovieClip.cpp W=Code/GameEngine/Source/GameClient/GUI/InGame/InGameHelpBoxMovieClip.cpp provisional,Code/GameEngine/Source/Common/Bfme/Rva00527890Move.cpp
-0x005278DD,72,code,Code/GameEngine/Source/Common/Bfme/InGameHelpBoxMovieClip.cpp,approved,N,N=Code/GameEngine/Source/Common/Bfme/InGameHelpBoxMovieClip.cpp provisional,Code/GameEngine/Source/Common/Bfme/Rva00527890Move.cpp
+0x00527890,77,code,Code/GameEngine/Source/Common/Bfme/InGameHelpBoxMovieClip.cpp,approved,N,N=Code/GameEngine/Source/Common/Bfme/InGameHelpBoxMovieClip.cpp W=Code/GameEngine/Source/GameClient/GUI/InGame/InGameHelpBoxMovieClip.cpp provisional,Code/GameEngine/Source/Common/Bfme/InGameHelpBoxMovieClip.cpp
+0x005278DD,72,code,Code/GameEngine/Source/Common/Bfme/InGameHelpBoxMovieClip.cpp,approved,N,N=Code/GameEngine/Source/Common/Bfme/InGameHelpBoxMovieClip.cpp provisional,Code/GameEngine/Source/Common/Bfme/InGameHelpBoxMovieClip.cpp
 0x00527925,106,code,,,-,,Code/GameEngine/Source/Common/Rva00527925Fire.cpp
 0x0052798F,56,code,,,-,,Code/GameEngine/Source/Common/Rva0052798FConcat.cpp
 0x005279C7,22,code,,,-,,Code/GameEngine/Source/Common/GapBodiesGE28.cpp
