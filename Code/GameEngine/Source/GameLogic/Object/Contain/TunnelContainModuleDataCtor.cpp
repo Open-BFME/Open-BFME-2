@@ -5,7 +5,7 @@
 // (its dtor 0x00257A05 is state 0 of retail's unwind map): set the float at
 // +0xD4 to 1.0, then reset the inherited +0x40 filter through 0x00362192
 // with BitSet(0, 8) and a copy of the default storage at 0x00DFEFA4, as in
-// GarrisonContainModuleDataCtor.cpp.
+// GarrisonContainModuleData's constructor in GarrisonContain.cpp.
 class BfmeFixedStorage0004543D
 {
 public:

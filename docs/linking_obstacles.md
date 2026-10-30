@@ -13613,8 +13613,21 @@ Strict seed/pool-key preparation passes 5/5 rows; ordinary preview retains
 The outgoing consumer audit remains INCONCLUSIVE on the older index and missing
 current Common/0CreateAHeroManager21FE49.cpp receipt. Carry the removed header
 providers and consumers into the next scheduled census; no measured linking or
-ownership gain is claimed. Supported consolidation, the remaining native class
-contracts and mixed-source splits remain open.
+ownership gain is claimed.
+
+The supported merge now absorbs the pool-key, Rva004783F4 team helpers and
+module-data constructor into the approved GarrisonContain.cpp (11 rows,
+three fewer source files). Byte verification and strict paired preparation
+pass 14/14 rows including the Tunnel constructor's updated source pointer;
+both Garrison EH graphs are EXACT. All 17 external COMDAT fingerprints survive
+unchanged; four selected holders move to the merged object with unchanged
+verdicts. Both scoped current units preview LINKS, and data checks are clean.
+This clears the accepted subset's composition obstacle, including Team::m_id.
+
+The whole outgoing audit remains INCONCLUSIVE on the older index and missing
+SlaughterHordeContainAddHordeMember.cpp receipt. Carry that consumer and the
+earlier Common receipt gap into the next scheduled census. The remaining native
+class contracts, canonical-class adoption and mixed-source splits remain open.
 [Scoped evidence](../reverse/attempt_support/garrison-composition-20261030-codex5.md).
 
 ### LINK-155: ParticleSystem's base clause and FXParticleSystem's nested views block ParticleSys.cpp (2026-10-30)
