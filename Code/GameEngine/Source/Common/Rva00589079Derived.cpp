@@ -266,7 +266,6 @@ void FireWeaponWhenDeadBehavior::xfer(Xfer *xfer)
 // stores). Bind them to the rows at those functions.
 #pragma comment(linker, "/alternatename:?f4@Rva00481F82_S4@@UAEXXZ=??1Coord2D@@QAE@XZ")
 #pragma comment(linker, "/alternatename:?f3@Rva00482E96_S3@@UAEXXZ=?Is_Valid@RegistryClass@@QAE_NXZ")
-#pragma comment(linker, "/alternatename:?s02@FireWeaponWhenDeadBehavior@@UAEXXZ=?Rva00482E4BGet@@YAHXZ")
 
 // Placeholder virtuals this unit's vftables hold.  In retail each such slot
 // holds a rowed function; the vftable's address is proven by the vptr stores in

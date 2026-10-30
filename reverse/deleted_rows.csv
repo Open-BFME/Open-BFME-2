@@ -4486,3 +4486,4 @@ __ehhandler$?update@LivingWorldLogic@@QAEXXZ,0x0077699F,"Renamed to __ehhandler$
 ?rva007AC9C6@Rva007AC9B0FilterInits@@SAXXZ,0x007AC9C6,"Renamed to ?initDot3Filter@Rva007AC9B0FilterInits@@SAXXZ by tools/rename.py (inferred)"
 ?rva00082D2A@Rva00082C98Host@@QAEXI@Z,0x00082D2A,"Renamed to ?resize@Rva00082C98Host@@QAEXI@Z by tools/rename.py (inferred)"
 ?rva00563F34@Rva00563F34@@QAEXXZ,0x00563F34,"Renamed to ?rva00563F34@FXGate@@QAEXXZ by tools/rename.py (inferred)"
+?Rva00482E4BGet@@YAHXZ,0x00482E4B,Retracted free-function placeholder for the native FireWeaponWhenDeadBehavior Snapshot slot-2 member getter; constructor vptr 0x008497B4 and exact six-byte const member body independently verified. Readmit GetSnapshotName through add_match in the next commit; evidence reverse/attempt_support/fireweapon-primary-link-20261030/readme.md.

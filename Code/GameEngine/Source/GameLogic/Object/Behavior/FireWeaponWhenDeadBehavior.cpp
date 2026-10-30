@@ -270,14 +270,6 @@ FireWeaponWhenDeadBehavior::FireWeaponWhenDeadBehavior(Thing *thing, const Modul
 
 // ---- from Code/GameEngine/Source/Common/ConstIntGetters4.cpp
 
-// ?Rva00482E4BGet@@YAHXZ @ 0x00482e4b (6B): returns 0x00bf58a8.
-// Follows a ret-8 (prev C2-08-00), carried by 1 .rdata vtable slot,
-// no direct callers, no branch sources. Opaque address-derived name.
-int Rva00482E4BGet(void)
-{
-	return (int)"FireWeaponWhenDeadBehavior";
-}
-
 // tu-skeleton: 0x00482E51 69B ?getModuleNameKey@FireWeaponWhenDeadBehavior@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorPoolKey.cpp (not merged yet)
 
 // tu-skeleton: 0x00482E96 39B ??1FireWeaponWhenDeadBehavior@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00589079Derived.cpp (not merged yet)
