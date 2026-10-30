@@ -11024,7 +11024,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0017FB8E,6,code,,,-,,Code/GameEngine/Source/Common/ConstIntGetters4.cpp
 0x0017FB94,89,code,,,-,,Code/GameEngine/Source/Common/Rva0017FB94Dtor.cpp
 0x0017FBED,49,code,Code/Libraries/Source/WWVegas/WW3D2/HTreePrototypeOwner.cpp,proposed,N,N=Code/Libraries/Source/WWVegas/WW3D2/HTreePrototypeOwner.cpp,Code/Libraries/Source/WWVegas/WW3D2/HTreePrototypeOwnerCtor.cpp
-0x0017FC1E,94,code,Code/Libraries/Source/WWVegas/WW3D2/HierarchyAsset.cpp,proposed,N,N=Code/Libraries/Source/WWVegas/WW3D2/HierarchyAsset.cpp W=Code/Libraries/Source/WWVegas/WW3D2/hierarchyasset.cpp,Code/Libraries/Source/WWVegas/WW3D2/Rva0017FC1EFactory.cpp
+0x0017FC1E,94,code,Code/Libraries/Source/WWVegas/WW3D2/HierarchyAsset.cpp,proposed,N,N=Code/Libraries/Source/WWVegas/WW3D2/HierarchyAsset.cpp W=Code/Libraries/Source/WWVegas/WW3D2/hierarchyasset.cpp,Code/Libraries/Source/WWVegas/WW3D2/HierarchyAsset.cpp
 0x0017FC7C,179,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/GetHTree.cpp
 0x0017FD2F,92,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/Register_HTree_Prototype.cpp
 0x0017FD8B,28,code,,,-,,Code/GameEngine/Source/Common/Rva0017FB94Dtor.cpp
@@ -65780,9 +65780,9 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007680EB,10,code,,,-,,Code/GameEngine/Source/Common/Rva0017FB94Dtor.cpp
 0x007680F5,8,code,Code/Libraries/Source/WWVegas/WW3D2/HTreePrototypeOwner.cpp,approved,P,P=0x0017FBED@FuncInfo0x0090CCF8 p-group provisional,Code/gen_small/uw_gen_011.cpp
 0x007680FD,10,code,Code/Libraries/Source/WWVegas/WW3D2/HTreePrototypeOwner.cpp,approved,P,P=0x0017FBED@FuncInfo0x0090CCF8 p-group provisional,Code/Libraries/Source/WWVegas/WW3D2/HTreePrototypeOwnerCtor.cpp
-0x00768107,25,code,Code/Libraries/Source/WWVegas/WW3D2/HierarchyAsset.cpp,approved,P,P=0x0017FC1E@FuncInfo0x0090CD24 p-group provisional,Code/Libraries/Source/WWVegas/WW3D2/Rva0017FC1EFactory.cpp
-0x00768120,8,code,Code/Libraries/Source/WWVegas/WW3D2/HierarchyAsset.cpp,approved,P,P=0x0017FC1E@FuncInfo0x0090CD24 p-group provisional,Code/Libraries/Source/WWVegas/WW3D2/Rva0017FC1EFactory.cpp
-0x00768128,10,code,Code/Libraries/Source/WWVegas/WW3D2/HierarchyAsset.cpp,approved,P,P=0x0017FC1E@FuncInfo0x0090CD24 p-group provisional,Code/Libraries/Source/WWVegas/WW3D2/Rva0017FC1EFactory.cpp
+0x00768107,25,code,Code/Libraries/Source/WWVegas/WW3D2/HierarchyAsset.cpp,approved,P,P=0x0017FC1E@FuncInfo0x0090CD24 p-group provisional,Code/Libraries/Source/WWVegas/WW3D2/HierarchyAsset.cpp
+0x00768120,8,code,Code/Libraries/Source/WWVegas/WW3D2/HierarchyAsset.cpp,approved,P,P=0x0017FC1E@FuncInfo0x0090CD24 p-group provisional,Code/Libraries/Source/WWVegas/WW3D2/HierarchyAsset.cpp
+0x00768128,10,code,Code/Libraries/Source/WWVegas/WW3D2/HierarchyAsset.cpp,approved,P,P=0x0017FC1E@FuncInfo0x0090CD24 p-group provisional,Code/Libraries/Source/WWVegas/WW3D2/HierarchyAsset.cpp
 0x00768132,8,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/GetHTree.cpp
 0x0076813A,8,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/GetHTree.cpp
 0x00768142,10,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/GetHTree.cpp
