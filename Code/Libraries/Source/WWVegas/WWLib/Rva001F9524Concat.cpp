@@ -34,7 +34,9 @@ void _STLP_alloc_proxy<char*, char, allocator<char> >::deallocate(char *__p, siz
 // Suppress this TU's non-retail proxy<char> allocate copy (family2-LK3 row 30):
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL {
-template <> char *_STLP_alloc_proxy<char*, char, allocator<char> >::allocate(size_t);
+template <> __declspec(dllimport) __forceinline
+char *_STLP_alloc_proxy<char*, char, allocator<char> >::allocate(size_t __n)
+{ return __n != 0 ? allocator<char>::allocate(__n * sizeof(char), 0) : 0; }
 }
 
 // Retail boundary 001F9524 160B; caller 001FB46F appends the template name.

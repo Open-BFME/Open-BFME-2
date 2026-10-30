@@ -23,7 +23,9 @@ namespace _STL { template <> basic_string<char, char_traits<char>, allocator<cha
 // bfme link decl-only end
 // Suppress this TU's non-retail copy of ?allocate@?$_STLP_alloc_proxy@PADDV?$allocator@D@_STL@@@_STL@@QAEPADI@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-namespace _STL { template <> char * _STL::_STLP_alloc_proxy<char *,char,_STL::allocator<char> >::allocate(unsigned int); }
+namespace _STL { template <> __declspec(dllimport) __forceinline
+char *_STL::_STLP_alloc_proxy<char*, char, allocator<char> >::allocate(size_t __n)
+{ return __n != 0 ? allocator<char>::allocate(__n * sizeof(char), 0) : 0; } }
 // Keep _STLP_alloc_proxy<char*>::deallocate inline-only: this TU never calls it
 // out of line, and its COMDAT copy (unit flags) differs from retail's 0x006892B0 body.
 namespace _STL {
