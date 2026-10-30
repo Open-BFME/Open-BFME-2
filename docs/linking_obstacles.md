@@ -524,6 +524,19 @@ Two concrete hand reconciles, both verified and both still short of a merge:
   deliberately declares only the destructor so its emitted vftable stays the
   ctor unit's COMDAT (retail 0x00C3D50C has six slots). Unblocking needs the
   full six-slot spelling in all three files, judged by the link guard.
+- **PickupStuffUpdate**: base-clause CONFLICT cleared for five donors
+  (2026-10-30, `bca81dd8bc` plus the merge after it). The seed now includes
+  `Include/GameLogic/Module/BehaviorModule.h` and spells the full
+  `UpdateModule : BehaviorModule, UpdateModuleInterface` chain, a
+  `Snapshot`-based module data class with named fields, and an `Object` view
+  with `m_ai` at +0x258. The donors were renamed onto the seed's names
+  (`m_lastScanFrame`, `m_scanIntervalSeconds`, `m_ai`, `Thing` -> `Object`).
+  `tu_skeleton.py --merge` absorbed the Xfer, Rva00491DD3, Scan, Update and
+  moveToStuff donors (TU 16/16 matched). Two donors are still refused:
+  `PickupStuffUpdateCtor.cpp` (hand vptr store, `m_vtable` and `s_*` dummies)
+  and `PickupStuffUpdateModuleDataCtor.cpp` (C2600, an `EmptyBase` and
+  vtable-as-data spelling). Both need a real-ctor rewrite that emits the
+  class vftables, and the link guard should judge that rewrite.
 
 Reproduce: `python3 tools/tu_views.py <TU> --dry-run`, then
 `python3 tools/tu_skeleton.py --merge <TU> --dry-run`.
