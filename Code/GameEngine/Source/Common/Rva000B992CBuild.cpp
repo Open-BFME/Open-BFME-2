@@ -3,11 +3,16 @@
 // Evidence: unlock lane; AsciiString locals via friend StringBase ctor copy release rows; isEmpty set concat via StringBase casts; sprintf IAT "%d"; empty-string extern; callers 0x000BE027 0x000BF7E8 unclaimed.
 
 #include "ascii_string.h"
+// sprintf stays a DLL import; the AsciiString code needs /D_CRTIMP=.
+#undef _CRTIMP
+#define _CRTIMP __declspec(dllimport)
+#include <stdio.h>
+#undef _CRTIMP
+#define _CRTIMP
 
 // Matched DIR32 references place this empty string at VA 0x00BBAC1C; its
 // retail byte is 0x00. This TU already uses the string in AsciiString code.
 extern const char g_Rva0107301CEmptyString[] = { 0 };
-extern "C" __declspec(dllimport) int __cdecl sprintf(char *buf, const char *fmt, ...);
 
 AsciiString Rva000B992CBuild(const AsciiString &asciiString, const AsciiString &a2, int dummy, bool flag, int num)
 {
