@@ -135,6 +135,7 @@ public:
     class PlanningPhaseArmySelection
     {
     public:
+        class DetailsPanelFactoryFactory;
         class Impl
         {
         public:
@@ -184,7 +185,11 @@ public:
 
 class Rva0057C394;
 
-class Rva000AD6F4 {public:void clear();};
+class Rva000AD6F4
+{
+public:
+	void clear();
+};
 
 class Rva005F23B2 {public: ~Rva005F23B2();};
 
@@ -277,11 +282,23 @@ private:
 // identity remains unresolved. BF1 FileSystem destructor supplies the
 // member-then-base algorithm only; its tree member / class name are refuted.
 // Donor revision9cbfb551fe20dae985f91f2319d8997287b6a705.
-class Rva005E67FE {public:virtual ~Rva005E67FE();void *m_field04;};
+class Rva005E67FE
+{
+public:
+	Rva005E67FE(void *held);
+	virtual ~Rva005E67FE();
+	void *m_field04; // +0x04
+};
 
 class Rva005E6253 {public:void clear();};
 
-class Rva005E663C : public Rva005E67FE {public:virtual ~Rva005E663C();private:void *owned;};
+class Rva005E663C : public Rva005E67FE
+{
+public:
+	Rva005E663C(void *a0, int a1, int a2, int a3, int a4, int a5, int a6);
+	virtual ~Rva005E663C();
+	void *owned; // +0x08
+};
 
 //
 // ?releaseAndEmptyHook@Rva005E6894@@QAEXXZ, retail 0x005e6894, 19 bytes. Banked partial (score 0.5789473684) closed by tools/permute.py;
@@ -301,9 +318,12 @@ struct Rva005E509FCallView {
     void *m_pointer10;
 };
 
-class Rva005E508F {
+class Rva005E508F
+{
 public:
-    void rva005E509F();
+	void rva005E509F();
+	void rva005E508F(int);
+	void rva005E5097(int);
 };
 
 class PathfindLayer {

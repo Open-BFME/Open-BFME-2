@@ -65,13 +65,18 @@ private:
     void *data4;
     void *owned8;
 };
+class Rva005E6F9D;
+class Rva005E6D0D;
 class Rva005E6D90
 {
-public:
-    ~Rva005E6D90() { clear(); }
-    void clear();
 private:
-    void *value;
+	friend class Rva005E6F9D;
+public:
+	~Rva005E6D90() { clear(); }
+	void clear();
+	Rva005E6D90(Rva005E6D0D *p);
+private:
+	void *value; // +0x00
 };
 class Rva005E6F9D : public Rva005F64F5, public Rva005E4F6D
 {
@@ -99,7 +104,13 @@ class Rva005E54F7:public Rva005E54AE,public Rva005E4F6D {public:Rva005E54F7(int,
 class Rva000425C4PtrChaseField { public: int get() const; };
 class Rva0040CB2CIndexedField { public: int get(int) const; };
 class Rva0040CC0EIndexedField { public: int get(int) const; };
-class Rva005E508F { public: void rva005E508F(int); };
+class Rva005E508F
+{
+public:
+	void rva005E509F();
+	void rva005E508F(int);
+	void rva005E5097(int);
+};
 struct GarrisonSummarySlot { int id; void *entry; };
 struct GarrisonSummary { char prefix[0x40]; GarrisonSummarySlot *begin; GarrisonSummarySlot *end; };
 struct GarrisonArmy { char prefix[0x78]; GarrisonSummary *summary; };

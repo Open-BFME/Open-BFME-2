@@ -58,7 +58,7 @@ private:
 // pointer at20 is independently cleared in the native102-byte teardown.
 class AsciiString;
 namespace StrategicHUD {
-class ArmyDetailsMovieClip { public:
+class ArmyDetailsMovieClip {public:
     ArmyDetailsMovieClip(int,const AsciiString &,int,bool);
     virtual ~ArmyDetailsMovieClip();
     virtual void notifyBackButtonClicked();
@@ -78,16 +78,31 @@ class Rva005E6D0D {
 public: Rva005E6D0D(void *,HeroDetailsInput *);
 private: char storage[0x20];
 };
-class Rva005E68C0 { public: void rva005E68C0(); };
+class Rva005F6037ByteChaseField;
+struct Rva005E68C0Owner;
+class Rva005E68C0
+{
+public:
+	void rva005E68C0();
+	void rva005E69AC();
+	char m_pad00[0x4];
+private:
+	Rva005F6037ByteChaseField *guard; // +0x04
+	char m_pad08[0x4];
+	Rva005E68C0Owner *owner; // +0x0C
+	char m_pad10[0x4];
+	int selected; // +0x14
+};
 class Rva005E6D90
 {
-    friend class Rva005E6F9D;
-public:
-    Rva005E6D90(Rva005E6D0D *p);
-    ~Rva005E6D90();
-    void clear();
 private:
-    void *value;
+	friend class Rva005E6F9D;
+public:
+	~Rva005E6D90() { clear(); }
+	void clear();
+	Rva005E6D90(Rva005E6D0D *p);
+private:
+	void *value; // +0x00
 };
 class Rva005E6F9D : public Rva005F64F5, public Rva005E4F6D
 {

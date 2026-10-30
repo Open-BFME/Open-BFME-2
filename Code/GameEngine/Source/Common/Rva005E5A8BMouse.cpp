@@ -18,7 +18,11 @@ class Rva00574815 { public:void rva005CBB4A(int,int,int); };
 class Rva005CBB4A { public:void rva005CBB4A(void*,int,int); }; // rowed 0x005CBB4A
 class Callback { public:virtual void s00();virtual void s01();virtual void s02();virtual void s03();virtual void s04(); };
 struct Context { char pad[0x1c];int value; };
-class Rva000AD6F4 { public:void clear(); };
+class Rva000AD6F4
+{
+public:
+	void clear();
+};
 class Rva005E5A8B { public:int OnMouseLeftClick(const IRegion2D&,int);int OnMouseMove(const ICoord2D&,int);int handleMessage(GameMessage*); private:
  char pad[8];int viewer;Context*context;char pad10[0x20];void*enabled;char pad34[4];Callback*callback;bool dirty;char pad3d[3];int blocked;
 };

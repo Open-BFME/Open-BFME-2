@@ -8,17 +8,16 @@
 class Rva005E67FE
 {
 public:
-	// The canonical V3 holder owns the inherited vptr and the held word +4.
-	// Its constructor67FE and destructor6810 prove this eight-byte prefix.
-	void *m_field04;
 	Rva005E67FE(void *held);
 	virtual ~Rva005E67FE();
+	void *m_field04; // +0x04
 };
 
 class Rva005CB84A;
-namespace StrategicInGameUI {
+class StrategicInGameUI {
+public:
 class PlanningPhaseArmySelection {public:class DetailsPanelFactoryFactory;};
-}
+};
 class Rva005E62F1
 {
 public:
@@ -31,16 +30,15 @@ private:
 class Rva005E663C : public Rva005E67FE
 {
 public:
-	Rva005E62F1 *m08;
+	Rva005E663C(void *a0, int a1, int a2, int a3, int a4, int a5, int a6);
 	virtual ~Rva005E663C();
-	Rva005E663C(void *a0, int a1, int a2, int a3, int a4, int a5,
-		int a6);
+	void *owned; // +0x08
 };
 
 Rva005E663C::Rva005E663C(void *a0, int a1, int a2, int a3, int a4, int a5,
 	int a6)
 	: Rva005E67FE(a0)
 {
-	m08 = new Rva005E62F1(this, a1, a2, (void *)a3, (Rva005CB84A *)a4, (void *)a5,
+	owned = new Rva005E62F1(this, a1, a2, (void *)a3, (Rva005CB84A *)a4, (void *)a5,
 		(StrategicInGameUI::PlanningPhaseArmySelection::DetailsPanelFactoryFactory *)a6);
 }
