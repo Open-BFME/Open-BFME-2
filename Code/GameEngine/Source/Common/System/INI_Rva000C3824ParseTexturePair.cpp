@@ -1,4 +1,5 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
+// stlport
 // Rva000C3824_ParseTexturePair (retail 0x000C3824, 98 bytes). Reads two
 // consecutive strings through the rowed parseAsciiString at 0x002F11E into
 // the halves of a local 8-byte BfmeStringRecord000B94D2 (two AsciiStrings,
@@ -17,17 +18,12 @@ struct BfmeStringRecord000B94D2
 	~BfmeStringRecord000B94D2();
 };
 
+#include <vector>
+
 namespace _STL
 {
-template <class T> class allocator
-{
-};
-
-template <class T, typename A = allocator<T> > class vector
-{
-public:
-	void push_back(const T &value);
-};
+// Bind the append to the rowed record-vector worker.
+template <> void vector<BfmeStringRecord000B94D2, allocator<BfmeStringRecord000B94D2> >::push_back(const BfmeStringRecord000B94D2 &value);
 }
 
 class INI

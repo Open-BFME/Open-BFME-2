@@ -1,4 +1,5 @@
-// cl: /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX- /D_STLP_USE_STATIC_LIB
+// stlport
 // Rva001FDD33_ParseResourceModifierValues (retail 0x001FDD33, 46 bytes).
 // Reads a whitespace list where even the first token is optional: init and
 // increment both go through the rowed getNextTokenOrNull at 0x002DEED
@@ -14,17 +15,12 @@ class ModuleData
 {
 };
 
+#include <vector>
+
 namespace _STL
 {
-template <class T> class allocator
-{
-};
-
-template <class T, typename A = allocator<T> > class vector
-{
-public:
-	void push_back(const T &value);
-};
+// Bind the append to the rowed pointer-vector worker.
+template <> void vector<const ModuleData *, allocator<const ModuleData *> >::push_back(const ModuleData *const &value);
 }
 
 class INI

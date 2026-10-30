@@ -1,4 +1,5 @@
-// cl: /Ireference/shims/bfme2_ascii
+// cl: /Ireference/shims/bfme2_ascii /D_STLP_USE_STATIC_LIB
+// stlport
 //
 // ?rva00357D52@ScriptEngine@@QAEXABVAsciiString@@@Z, retail 0x00357D52, 52 bytes.
 // Removes the BfmeStringRecord00204A30 entry whose word0 equals the CRC of the name.
@@ -19,21 +20,12 @@ struct BfmeStringRecord00204A30
     unsigned int word2;
 };
 
+#include <vector>
+
 namespace _STL
 {
-template <class T> class allocator
-{
-};
-
-template <class T, class A = allocator<T> > class vector
-{
-public:
-    T *erase(T *pos);
-
-    T *m_start;
-    T *m_finish;
-    T *m_end;
-};
+// Bind the element erase to the rowed record-vector worker.
+template <> BfmeStringRecord00204A30 *vector<BfmeStringRecord00204A30, allocator<BfmeStringRecord00204A30> >::erase(BfmeStringRecord00204A30 *pos);
 }
 
 class ScriptEngine
@@ -49,7 +41,7 @@ void ScriptEngine::rva00357D52(const AsciiString &name)
 {
     unsigned long crc = Rva003ECA13Get(name);
     _STL::vector<BfmeStringRecord00204A30> &vec = m_vec1A49C;
-    for (BfmeStringRecord00204A30 *it = vec.m_start; it != m_vec1A49C.m_finish; ++it) {
+    for (BfmeStringRecord00204A30 *it = vec.begin(); it != m_vec1A49C.end(); ++it) {
         if (it->word0 == crc) {
             vec.erase(it);
             break;
