@@ -83,7 +83,7 @@ public:
 };
 
 class BfmeLexEAN;
-class __declspec(novtable) LuaScriptEngine
+class LuaScriptEngine
 {
 public:
 	void LoadXML(const char *filename, Bool keepOpen);

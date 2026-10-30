@@ -30,19 +30,19 @@ extern "C"
 
 struct Rva00334133Template
 {
-	char m_unmodelled00[ 0x64 ];
+	char m_pad00[ 0x64 ];
 	const char *m_nameText;
 };
 
 struct Rva00334133Source
 {
-	char m_unmodelled00[ 4 ];
+	char m_pad00[ 4 ];
 	Rva00334133Template *m_template;
 };
 
 struct Rva00334133Context
 {
-	char m_unmodelled00[ 0xC ];
+	char m_pad00[ 0xC ];
 	Rva00334133Source *m_source;
 };
 
@@ -51,9 +51,9 @@ class LuaScriptEngine
 public:
 	AsciiString rva00334133( const char *buffer, unsigned long size, Rva00334133Context *context );
 private:
-	char m_unmodelled00[ 0x10 ];
+	char m_pad00[ 0x10 ];
 	lua_State *m_L;
-	char m_unmodelled14[ 0x88 ];
+	char m_pad14[ 0x88 ];
 	Rva00334133Context *m_context9C;
 };
 

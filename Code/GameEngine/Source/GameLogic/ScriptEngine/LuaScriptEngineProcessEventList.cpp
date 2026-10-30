@@ -121,7 +121,7 @@ template <> void vector<Rva003371B1, allocator<Rva003371B1> >::push_back(const R
 
 struct Rva00336283Element;
 
-class __declspec(novtable) LuaScriptEngine
+class LuaScriptEngine
 {
 public:
 	void ProcessEventList(BfmeLexEAN *parser);

@@ -49,7 +49,7 @@ public:
 };
 
 // InternalEvent dispatch uses the established event-flag host ABI at the same this.
-class __declspec(novtable) LuaScriptEngine
+class LuaScriptEngine
 {
 public:
 	void ProcessEventsElement(BfmeLexEAN *parser);

@@ -49,7 +49,7 @@ public:
 	int m_bfmeStackEAN[0x61]; // +0x2C
 };
 
-class __declspec(novtable) LuaScriptEngine
+class LuaScriptEngine
 {
 public:
 	void ProcessSageElement(BfmeLexEAN *parser);
