@@ -1,0 +1,65 @@
+{
+  "bfme2_base": "8e99791e22a61ecbb5bd6ee2bd48efe03acdea6a",
+  "reference": "1d5131d3f193cdf01a99da66ccd6828639585650",
+  "native": "??$_Destroy@PAURvaPair00257544@@@_STL@@YAXPAURvaPair00257544@@0@Z",
+  "existing_owner": "?Rva0032C0CADestroyPairs@@YAXPAURvaPair0032C0CA@@0@Z",
+  "target_rva": "0x0032C0CA",
+  "size": 25,
+  "resolved_hex": "568b742408eb0a8bcee861f9150083c6083b74240c75f05ec3",
+  "retail_hex": "568b742408eb0a8bcee861f9150083c6083b74240c75f05ec3",
+  "unresolved": [],
+  "masked": false,
+  "raw_body_twin": true,
+  "symbolic_relocation_twin": true,
+  "relocations": [
+    [
+      10,
+      20,
+      "?clear@?$StringBase@D@@QAEXXZ"
+    ]
+  ],
+  "retained_comdats": {
+    "count": 674,
+    "changed": [],
+    "removed": [],
+    "added": [
+      "??$_Destroy@PAURvaPair00257544@@@_STL@@YAXPAURvaPair00257544@@0@Z"
+    ]
+  },
+  "receipts": [
+    {
+      "source": "Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorDeferred.cpp",
+      "strict_current": true,
+      "object_md5": "f0bda0ea1d7ead8a3bb5603174d1e1bc",
+      "receipt_object_md5": "f0bda0ea1d7ead8a3bb5603174d1e1bc"
+    },
+    {
+      "source": "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp",
+      "strict_current": true,
+      "object_md5": "b0798882648b2955dc932f59f1042891",
+      "receipt_object_md5": "b0798882648b2955dc932f59f1042891"
+    },
+    {
+      "source": "Code/GameEngine/Source/GameLogic/Object/Update/StructureToppleUpdateModuleDataDtor.cpp",
+      "strict_current": true,
+      "object_md5": "fe3c93852cb897ca792952f5441270ab",
+      "receipt_object_md5": "fe3c93852cb897ca792952f5441270ab"
+    },
+    {
+      "source": "Code/gen_small/uw_gen_011.cpp",
+      "strict_current": true,
+      "object_md5": "ca71f867eb5664b1d79c8adc2a497976",
+      "receipt_object_md5": "ca71f867eb5664b1d79c8adc2a497976"
+    }
+  ],
+  "identical_bounded_preview": true,
+  "preview_native_units_link": 3,
+  "preview_native_bytes_preserved": 2330,
+  "generated_unwind_unit": "pre-existing unresolved names unchanged",
+  "whole_current_ledger_preview": "refused: 11957 other objects lack strict current receipts; not a full-image result",
+  "function_rows_verified": 269,
+  "eh_exact": 17,
+  "ledger_rows_added": 0,
+  "pins_added": 0,
+  "alternatename_retired": 1
+}

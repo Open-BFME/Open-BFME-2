@@ -5674,6 +5674,18 @@ Census confirmation pending.
 
 ### LINK-016: folded bodies whose consumers declare them decl-only, with no provider
 
+**2026-10-30 native range cleanup (base `8e99791e22`):** SidesList provides the
+existing pinned `_Destroy<RvaPair00257544 *>` operation at 0x0032C0CA directly;
+the last Deferred alias and its one counter key are retired. The actual kept
+25-byte definition certifies as retail and is a complete byte/relocation twin
+of the existing owner. No new row or pin is added. All 269 cohort rows and
+17 EH graphs pass; bounded paired previews preserve three native units and
+2,330 authored bytes. This is hatch retirement, not new census linking.
+The generated unwind unit's existing unresolved names are unchanged. A larger
+current-ledger preview lacks strict receipts for 11,957 other objects, so full
+closure is unmeasured; the scheduled census and outgoing batch audit retain
+that scope. [Evidence](../reverse/attempt_support/pair-range-provider-20261030/readme.md).
+
 **Status: Repair landed / awaiting verification. Updated: 2026-10-26; inspected revision: 856b8bc032.**
 
 - **Evidence / scope:** in the census at 763dc8759f, several units were

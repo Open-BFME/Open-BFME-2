@@ -3301,3 +3301,16 @@ Rva0032DD66Output* __cdecl Rva0032DD66RangeForward(Rva0032DD66Input*first,Rva003
 // tu-skeleton: 0x0077BE26 8B $L5692 -- matched in Code/GameEngine/Source/GameLogic/Map/SidesListPrepareSkirmish.cpp (not merged yet)
 
 // tu-skeleton: 0x0077BE2E 10B __ehhandler$?rva0032FF91@SidesList@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Map/SidesListPrepareSkirmish.cpp (not merged yet)
+
+// Native specialization of the existing eight-byte string-key cleanup fold.
+// The consumer's element identity remains opaque; only the operation is shared.
+struct RvaPair00257544;
+namespace _STL {
+template <> void _Destroy<RvaPair00257544 *>(RvaPair00257544 *first, RvaPair00257544 *last)
+{
+    RvaPair0032C0CA *current = reinterpret_cast<RvaPair0032C0CA *>(first);
+    RvaPair0032C0CA *finish = reinterpret_cast<RvaPair0032C0CA *>(last);
+    for (; current != finish; ++current)
+        ((StringBase<char> *)&current->m_key)->clear();
+}
+}
