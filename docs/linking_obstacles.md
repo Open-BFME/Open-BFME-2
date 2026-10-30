@@ -95,6 +95,15 @@ receipt below; carry the composed seed and affected consumers into the census.
 [Merge, queue and path-consumer audit](../reverse/attempt_support/propaganda-tower-merge-20261030-codex4.md).
 
 
+
+The module-data constructor's seed-layout trial failed on extra base/string
+initialization and was restored; its existing 66-byte row still verifies.
+The attempted-cleanup handoff records the construction-policy prerequisite. Existing
+shadow ownership findings for BfmeWideResult/PartitionManager transfer with
+the scan definitions; canonical-header adoption is still open.
+[Rejected constructor trial and remaining prerequisites](../reverse/attempt_support/propaganda-tower-moduledata-ctor-20261030-codex4.md).
+
+
 At base `53504ff703`, shared helper and seed/scan views preserve all 23 rows
 across the six scoped providers. Four EH graphs are EXACT; 67 retained COMDAT
 fingerprints and external bindings are unchanged. The scan's private getter
