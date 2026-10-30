@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /O2 /DNDEBUG /MD /D_CRTIMP=
 
 // FESL bounded string copy at 0x00655700 (98B) plus the string/int setter at
 // 0x006557F0 (33B) that uses it. Both live in the GameSpy zone (16 and 3
@@ -8,12 +8,10 @@
 // Retail litters the body with the util.h path and the two assert texts
 // ("src" at line 33, "strlen(src) < dstSize" at line 34); the copy itself
 // rides the pre-existing _strncpy thunk pin at 0x0062983E, so no new pins.
-// Spell it plain `strncpy`: C decoration turns that into `_strncpy` (the pin),
-// while a manual `_strncpy` decl decorates to `__strncpy` and never resolves.
+// Use string.h's declaration with _CRTIMP empty to preserve retail's direct
+// call to the _strncpy thunk rather than an indirect call through the IAT.
 
 #include <string.h>
-
-extern "C" char *strncpy(char *dst, const char *src, unsigned n);
 
 struct Rva007EB810Diag
 {
