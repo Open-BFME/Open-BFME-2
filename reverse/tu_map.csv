@@ -29452,8 +29452,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x003A3700,9,code,Code/GameEngine/Source/Common/RTS/Team.cpp,approved,C,C=0x003A354F..0x003A3709,Code/GameEngine/Source/Common/VtableSlotBodiesR3F.cpp
 0x003A3709,6,code,Code/GameEngine/Source/Common/RTS/Team.cpp,approved,S,S=Code/GameEngine/Source/Common/RTS/Team.cpp N=Code/GameEngine/Source/Common/RTS/Team.cpp,Code/GameEngine/Source/Common/RTS/TeamDtor.cpp
 0x003A370F,8,code,Code/GameEngine/Source/Common/RTS/Team.cpp,approved,N,N=Code/GameEngine/Source/Common/RTS/Team.cpp,Code/GameEngine/Source/Common/RTS/TeamDeleter.cpp
-0x003A3717,31,code,Code/GameEngine/Source/Common/RTS/Team.cpp,approved,S,S=Code/GameEngine/Source/Common/RTS/Team.cpp N=Code/GameEngine/Source/Common/RTS/Team.cpp,Code/GameEngine/Source/Common/RTS/TeamRva003A3717.cpp
-0x003A3736,45,code,Code/GameEngine/Source/Common/RTS/Team.cpp,approved,S,S=Code/GameEngine/Source/Common/RTS/Team.cpp N=Code/GameEngine/Source/Common/RTS/Team.cpp,Code/GameEngine/Source/Common/RTS/TeamRva003A3717.cpp
+0x003A3717,31,code,Code/GameEngine/Source/Common/RTS/Team.cpp,approved,S,S=Code/GameEngine/Source/Common/RTS/Team.cpp N=Code/GameEngine/Source/Common/RTS/Team.cpp,Code/GameEngine/Source/Common/RTS/Team.cpp
+0x003A3736,45,code,Code/GameEngine/Source/Common/RTS/Team.cpp,approved,S,S=Code/GameEngine/Source/Common/RTS/Team.cpp N=Code/GameEngine/Source/Common/RTS/Team.cpp,Code/GameEngine/Source/Common/RTS/Team.cpp
 0x003A3763,121,code,Code/GameEngine/Source/Common/RTS/Team.cpp,approved,C,C=0x003A3736..0x003A37DC,Code/Libraries/Source/WWVegas/WWLib/AsciiStringTableSubscripts.cpp
 0x003A37DC,30,code,Code/GameEngine/Source/Common/RTS/Team.cpp,approved,C,C=0x003A3736..0x003A37FA,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarVideoMapErase.cpp
 0x003A37FA,64,code,Code/GameEngine/Source/Common/RTS/Team.cpp,approved,C,C=0x003A3736..0x003A383A,Code/GameEngine/Source/Common/RTS/Team.cpp
@@ -29462,7 +29462,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x003A389E,19,code,Code/GameEngine/Source/Common/RTS/Team.cpp,approved,Z,Z=Code/GameEngine/Source/Common/RTS/Team.cpp S=Code/GameEngine/Source/Common/RTS/Team.cpp N=Code/GameEngine/Source/Common/RTS/TeamFactory.cpp,Code/GameEngine/Source/Common/RTS/TeamFactoryDtor.cpp
 0x003A38B1,28,code,,displaced,-,N=Code/GameEngine/Source/Common/RTS/TeamPrototype.cpp,Code/GameEngine/Source/Common/RTS/TeamPrototypeDeleter.cpp
 0x003A38CD,28,code,Code/GameEngine/Source/Common/RTS/Team.cpp,approved,N,N=Code/GameEngine/Source/Common/RTS/Team.cpp,Code/GameEngine/Source/Common/RTS/TeamDeleter.cpp
-0x003A38E9,81,code,Code/GameEngine/Source/Common/RTS/Team.cpp,approved,S,S=Code/GameEngine/Source/Common/RTS/Team.cpp N=Code/GameEngine/Source/Common/RTS/Team.cpp,Code/GameEngine/Source/Common/RTS/TeamRva003A38E9.cpp
+0x003A38E9,81,code,Code/GameEngine/Source/Common/RTS/Team.cpp,approved,S,S=Code/GameEngine/Source/Common/RTS/Team.cpp N=Code/GameEngine/Source/Common/RTS/Team.cpp,Code/GameEngine/Source/Common/RTS/Team.cpp
 0x003A393A,31,code,Code/GameEngine/Source/Common/RTS/Team.cpp,approved,C,C=0x003A38E9..0x003A3959,Code/GameEngine/Source/Common/RTS/ArmorHashMapCtor003A393A.cpp
 0x003A3959,50,code,Code/GameEngine/Source/Common/RTS/Team.cpp,approved,Z,Z=Code/GameEngine/Source/Common/RTS/Team.cpp S=Code/GameEngine/Source/Common/RTS/Team.cpp N=Code/GameEngine/Source/Common/RTS/TeamRelationMap.cpp,Code/GameEngine/Source/Common/RTS/TeamRelationMap.cpp
 0x003A398B,28,code,,displaced,-,N=Code/GameEngine/Source/Common/RTS/TeamFactory.cpp,Code/GameEngine/Source/Common/RTS/TeamFactoryDtor.cpp
