@@ -71,15 +71,7 @@ public:
 	bool isSelectable() const;
 };
 
-class Drawable
-{
-public:
-	void setSelectable(bool selectable);
-	int rva00271745() const;
-private:
-	char m_pad0[0xFC];
-	Object *m_obj;
-};
+#include "../../Include/GameClient/DrawableBFME2.h"
 
 void Drawable::setSelectable(bool selectable)
 {
@@ -95,8 +87,8 @@ void Drawable::setSelectable(bool selectable)
 
 int Drawable::rva00271745() const
 {
-	if (m_obj != 0) {
-		if (m_obj->isSelectable() != 0)
+	if (m_object != 0) {
+		if (m_object->isSelectable() != 0)
 			return 1;
 	}
 	return 0;
