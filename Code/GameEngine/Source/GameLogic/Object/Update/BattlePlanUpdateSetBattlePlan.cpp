@@ -11,7 +11,11 @@ typedef bool Bool;
 enum BattlePlanStatus {PLANSTATUS_NONE,PLANSTATUS_BOMBARDMENT,PLANSTATUS_HOLDTHELINE,PLANSTATUS_SEARCHANDDESTROY};
 enum MaxHealthChangeType { MAX_HEALTH_TYPE_DUMMY=0 };
 enum NameKeyType { NAMEKEY_INVALID=0 };
-class NameKeyGenerator { public: NameKeyType nameToKey(const char *); };
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const char *name);
+};
 extern NameKeyGenerator *TheNameKeyGenerator;
 class Module;
 class Object;
