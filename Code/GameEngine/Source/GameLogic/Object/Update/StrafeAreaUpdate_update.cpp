@@ -14,6 +14,12 @@
 // operates on the secondary interface at10 (vtableC1B158 slot0).
 // BFME strafe module has no clean BF1/ZH source counterpart; recovered
 // initializer and WB/native control flow supply the structural guide.
+// Keep the MSVC float math wrappers local, preserving their inline code. This
+// must come before the first header that pulls in <math.h>, or the external
+// sin(float) copy loses to retail's intrinsic one at link time.
+#define inline static inline
+#include <math.h>
+#undef inline
 #include "Code/Libraries/Include/Lib/Coord3D.h"
 #include "ascii_string.h"
 #include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
@@ -108,10 +114,6 @@ class StrafeAreaUpdate:public UpdateModule {public:
 class WeaponTemplate;
 class WeaponStore {public:const WeaponTemplate *findWeaponTemplate(const AsciiString &) const;void createAndFireTempWeapon(const WeaponTemplate *,const Object *,const Coord3D *);};extern WeaponStore *TheWeaponStore;
 class TerrainLogic {public:virtual void s0()=0;virtual void s1()=0;virtual void s2()=0;virtual void s3()=0;virtual void s4()=0;virtual void s5()=0;virtual float getGroundHeight(float,float,Coord3D *normal=0)=0;virtual void s7()=0;virtual void s8()=0;virtual void s9()=0;virtual void s10()=0;virtual void s11()=0;virtual void s12()=0;virtual void rvaSlot13(Coord3D *,const Coord3D *)=0;};extern TerrainLogic *TheTerrainLogic;
-// Keep the MSVC float math wrappers local, preserving their inline code.
-#define inline static inline
-#include <math.h>
-#undef inline
 inline __declspec(noinline) float Coord3D::length() const
 {
     return (float)sqrt(x * x + y * y + z * z);
