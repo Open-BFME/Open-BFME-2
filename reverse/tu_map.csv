@@ -44787,9 +44787,9 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x005382A6,16,code,,,-,,Code/GameEngine/Source/Common/Rva005382A6Getter.cpp
 0x005382B6,28,code,,,-,,Code/GameEngine/Source/Common/Rva005382B6Setter.cpp
 0x005382D2,34,code,,,-,,Code/GameEngine/Source/Common/Rva005382D2Setter.cpp
-0x005382F4,143,code,Code/GameEngine/Source/Common/QuadStrip2D.cpp,approved,N,N=Code/GameEngine/Source/Common/QuadStrip2D.cpp provisional,Code/GameEngine/Source/Common/Rva005388C2Assign.cpp
-0x00538383,153,code,Code/GameEngine/Source/Common/QuadStrip2D.cpp,approved,N,N=Code/GameEngine/Source/Common/QuadStrip2D.cpp provisional,Code/GameEngine/Source/Common/Rva005388C2Assign.cpp
-0x0053841C,239,code,Code/GameEngine/Source/Common/QuadStrip2D.cpp,approved,N,N=Code/GameEngine/Source/Common/QuadStrip2D.cpp provisional,Code/GameEngine/Source/Common/Rva0053841CTransform.cpp
+0x005382F4,143,code,Code/GameEngine/Source/Common/QuadStrip2D.cpp,approved,N,N=Code/GameEngine/Source/Common/QuadStrip2D.cpp provisional,Code/GameEngine/Source/Common/QuadStrip2D.cpp
+0x00538383,153,code,Code/GameEngine/Source/Common/QuadStrip2D.cpp,approved,N,N=Code/GameEngine/Source/Common/QuadStrip2D.cpp provisional,Code/GameEngine/Source/Common/QuadStrip2D.cpp
+0x0053841C,239,code,Code/GameEngine/Source/Common/QuadStrip2D.cpp,approved,N,N=Code/GameEngine/Source/Common/QuadStrip2D.cpp provisional,Code/GameEngine/Source/Common/QuadStrip2D.cpp
 0x0053850B,100,code,Code/GameEngine/Source/Common/QuadStrip2D.cpp,approved,C,C=0x0053841C..0x0053856F provisional,Code/GameEngine/Source/Common/QuadStrip2D.cpp
 0x0053856F,132,code,Code/GameEngine/Source/Common/QuadStrip2D.cpp,approved,C,C=0x0053841C..0x005385F3 provisional,Code/GameEngine/Source/Common/RvaAdjustCallEchoFamily.cpp
 0x005385F3,38,code,Code/GameEngine/Source/Common/QuadStrip2D.cpp,approved,C,C=0x0053841C..0x00538619 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_float4_469c61.cpp
@@ -44800,18 +44800,18 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x005386B7,62,code,Code/GameEngine/Source/Common/QuadStrip2D.cpp,approved,C,C=0x0053841C..0x005386F5 provisional,Code/GameEngine/Source/Common/QuadStrip2D.cpp
 0x005386F5,68,code,Code/GameEngine/Source/Common/QuadStrip2D.cpp,approved,C,C=0x0053841C..0x00538739 provisional,Code/GameEngine/Source/Common/Rva005386F5Copy.cpp
 0x00538739,47,code,Code/GameEngine/Source/Common/QuadStrip2D.cpp,approved,C,C=0x0053841C..0x00538768 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_malloc_bodies.cpp
-0x00538768,26,code,Code/GameEngine/Source/Common/QuadStrip2D.cpp,approved,N,N=Code/GameEngine/Source/Common/QuadStrip2D.cpp provisional,Code/GameEngine/Source/Common/Rva005388C2Assign.cpp
+0x00538768,26,code,Code/GameEngine/Source/Common/QuadStrip2D.cpp,approved,N,N=Code/GameEngine/Source/Common/QuadStrip2D.cpp provisional,Code/GameEngine/Source/Common/QuadStrip2D.cpp
 0x00538782,183,code,Code/GameEngine/Source/Common/QuadStrip2D.cpp,approved,C,C=0x00538768..0x00538839 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_pod_malloc_deferred_copies.cpp
 0x00538839,114,code,Code/GameEngine/Source/Common/QuadStrip2D.cpp,approved,C,C=0x00538768..0x005388AB provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_float4_469c61.cpp
 0x005388AB,23,code,Code/GameEngine/Source/Common/QuadStrip2D.cpp,approved,C,C=0x00538768..0x005388C2 provisional,Code/GameEngine/Source/Common/QuadStrip2D.cpp
 0x005388C2,53,code,Code/GameEngine/Source/Common/QuadStrip2D.cpp,approved,N,N=Code/GameEngine/Source/Common/QuadStrip2D.cpp provisional,Code/GameEngine/Source/Common/QuadStrip2D.cpp
-0x005388F7,53,code,Code/GameEngine/Source/Common/QuadStrip2D.cpp,approved,N,N=Code/GameEngine/Source/Common/QuadStrip2D.cpp provisional,Code/GameEngine/Source/Common/Rva005388C2Assign.cpp
-0x0053892C,5,code,Code/GameEngine/Source/Common/QuadStrip2D.cpp,approved,N,N=Code/GameEngine/Source/Common/QuadStrip2D.cpp W=Code/GameEngine/Source/GameLogic/Map/RiverArea.cpp provisional,Code/GameEngine/Source/Common/Rva005388C2Assign.cpp
-0x00538931,19,code,Code/GameEngine/Source/Common/QuadStrip2D.cpp,approved,N,N=Code/GameEngine/Source/Common/QuadStrip2D.cpp provisional,Code/GameEngine/Source/Common/Rva005388C2Assign.cpp
+0x005388F7,53,code,Code/GameEngine/Source/Common/QuadStrip2D.cpp,approved,N,N=Code/GameEngine/Source/Common/QuadStrip2D.cpp provisional,Code/GameEngine/Source/Common/QuadStrip2D.cpp
+0x0053892C,5,code,Code/GameEngine/Source/Common/QuadStrip2D.cpp,approved,N,N=Code/GameEngine/Source/Common/QuadStrip2D.cpp W=Code/GameEngine/Source/GameLogic/Map/RiverArea.cpp provisional,Code/GameEngine/Source/Common/QuadStrip2D.cpp
+0x00538931,19,code,Code/GameEngine/Source/Common/QuadStrip2D.cpp,approved,N,N=Code/GameEngine/Source/Common/QuadStrip2D.cpp provisional,Code/GameEngine/Source/Common/QuadStrip2D.cpp
 0x00538944,149,code,Code/GameEngine/Source/Common/QuadStrip2D.cpp,approved,C,C=0x00538931..0x005389D9 provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DAnimationInfoVectorInsert.cpp
-0x005389D9,20,code,Code/GameEngine/Source/Common/QuadStrip2D.cpp,approved,N,N=Code/GameEngine/Source/Common/QuadStrip2D.cpp provisional,Code/GameEngine/Source/Common/Rva005388C2Assign.cpp
-0x005389ED,30,code,Code/GameEngine/Source/Common/QuadStrip2D.cpp,approved,N,N=Code/GameEngine/Source/Common/QuadStrip2D.cpp provisional,Code/GameEngine/Source/Common/Rva005388C2Assign.cpp
-0x00538A0B,165,code,Code/GameEngine/Source/Common/QuadStrip2D.cpp,approved,N,N=Code/GameEngine/Source/Common/QuadStrip2D.cpp provisional,Code/GameEngine/Source/Common/QuadStrip2D_parse.cpp
+0x005389D9,20,code,Code/GameEngine/Source/Common/QuadStrip2D.cpp,approved,N,N=Code/GameEngine/Source/Common/QuadStrip2D.cpp provisional,Code/GameEngine/Source/Common/QuadStrip2D.cpp
+0x005389ED,30,code,Code/GameEngine/Source/Common/QuadStrip2D.cpp,approved,N,N=Code/GameEngine/Source/Common/QuadStrip2D.cpp provisional,Code/GameEngine/Source/Common/QuadStrip2D.cpp
+0x00538A0B,165,code,Code/GameEngine/Source/Common/QuadStrip2D.cpp,approved,N,N=Code/GameEngine/Source/Common/QuadStrip2D.cpp provisional,Code/GameEngine/Source/Common/QuadStrip2D.cpp
 0x00538AB0,44,code,Code/GameEngine/Source/GameClient/GUI/WindowLayout.cpp,approved,U,N=Code/GameEngine/Source/GameClient/GUI/BfmeQuickMatchScreenBase.cpp,Code/GameEngine/Source/GameClient/GUI/WindowLayout.cpp
 0x00538ADC,43,code,Code/GameEngine/Source/GameClient/GUI/WindowLayout.cpp,approved,U,N=Code/GameEngine/Source/GameClient/GUI/BfmeQuickMatchScreenBase.cpp,Code/GameEngine/Source/GameClient/GUI/WindowLayout.cpp
 0x00538B07,40,code,Code/GameEngine/Source/GameClient/GUI/WindowLayout.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/GUI/WindowLayout.cpp S=Code/GameEngine/Source/GameClient/GUI/WindowLayout.cpp N=Code/GameEngine/Source/GameClient/GUI/WindowLayout.cpp,Code/GameEngine/Source/GameClient/GUI/window_layout.cpp
@@ -84744,8 +84744,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00797892,11,code,,,-,,Code/GameEngine/Source/Common/Rva0053805DBaseDtor.cpp
 0x0079789D,11,code,,,-,,Code/GameEngine/Source/Common/Rva0053805DBaseDtor.cpp
 0x007978A8,10,code,,,-,,Code/GameEngine/Source/Common/Rva0053805DBaseDtor.cpp
-0x007978B2,8,code,Code/GameEngine/Source/Common/QuadStrip2D.cpp,approved,P,P=0x00538A0B@FuncInfo0x0094B800 provisional,Code/GameEngine/Source/Common/QuadStrip2D_parse.cpp
-0x007978BA,10,code,Code/GameEngine/Source/Common/QuadStrip2D.cpp,approved,P,P=0x00538A0B@FuncInfo0x0094B800 provisional,Code/GameEngine/Source/Common/QuadStrip2D_parse.cpp
+0x007978B2,8,code,Code/GameEngine/Source/Common/QuadStrip2D.cpp,approved,P,P=0x00538A0B@FuncInfo0x0094B800 provisional,Code/GameEngine/Source/Common/QuadStrip2D.cpp
+0x007978BA,10,code,Code/GameEngine/Source/Common/QuadStrip2D.cpp,approved,P,P=0x00538A0B@FuncInfo0x0094B800 provisional,Code/GameEngine/Source/Common/QuadStrip2D.cpp
 0x007978C4,11,code,Code/GameEngine/Source/GameClient/GUI/WindowLayout.cpp,approved,P,P=0x00538C0E@FuncInfo0x0094B824,Code/GameEngine/Source/GameClient/GUI/BfmeQuickMatchScreenBaseDefaultCtor.cpp
 0x007978CF,10,code,Code/GameEngine/Source/GameClient/GUI/WindowLayout.cpp,approved,P,P=0x00538C0E@FuncInfo0x0094B824,Code/GameEngine/Source/GameClient/GUI/BfmeQuickMatchScreenBaseDefaultCtor.cpp
 0x007978D9,8,code,,,-,,Code/GameEngine/Source/Common/Rva00538E22Ctor.cpp
