@@ -8,7 +8,7 @@
 // recompiled /Os). Only the placed body is defined here; the donor's other
 // definitions (addCounter and subCounter) are omitted.
 //
-// cl: -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/inputs/reference/shims/stringinline -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/ScriptEngine
+// cl: -DNDEBUG -MD -EHsc -Ireference/shims/bfme2_ascii -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/ScriptEngine
 // The three script-action entry points that write a named flag or counter:
 //
 //   0x00345CA0  addCounter  71 bytes
@@ -27,7 +27,7 @@
 // ScriptAction is the array-of-pointers spelling that setTimer and adjustTimer
 // pinned by reaching indices 1 and 2; these three use indices 0 and 1 and agree.
 
-#include "StringInline.h"
+#include "ascii_string.h"
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Scripts.h
 class Parameter
@@ -80,15 +80,7 @@ public:
 
 typedef bool *(BFMEScriptEngineFlagLookup::*FindFlagFunction)(AsciiString);
 
-class ScriptEngine
-{
-public:
-	void *rva0020881A(AsciiString name);
-protected:
-	ScriptCounter *bfmeCounter(AsciiString name);
-	bool *bfmeFlagForWrite(AsciiString name);
-	void setFlag(ScriptAction *action, bool copyFromFlag);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 void ScriptEngine::setFlag(ScriptAction *action, bool copyFromFlag)
 {
