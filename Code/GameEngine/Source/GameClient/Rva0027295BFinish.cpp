@@ -37,18 +37,11 @@ public:
 	virtual void s26(void *arg);
 };
 
-class Drawable
-{
-public:
-	void rva0027295B(void *arg);
-private:
-	char m_pad[0x14C];
-	Rva00272835Elem **m_list;
-};
+#include "../../Include/GameClient/DrawableBFME2.h"
 
 void Drawable::rva0027295B(void *arg)
 {
-	Rva00272835Elem **p = m_list;
+	Rva00272835Elem **p = ((Rva00272835Elem **)m_modules[0]);
 	if (*p != 0)
 		(*p)->s26(arg);
 }
