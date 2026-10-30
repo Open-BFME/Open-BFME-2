@@ -24,14 +24,43 @@ class RGBAColorInt;
 struct XferUnknown11;
 #include "../../../../Include/Common/BfmeXfer.h"
 
+#include "../../../../../Libraries/Include/Lib/Coord3D.h"
+
+class Object;
+class ReplaceObjectUpdateModuleData;
+class Rva004B2A9D;
+
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
 class SpecialAbilityUpdate
 {
+public:
+	virtual void triggerAbilityEffect();	// slot 17 (0x0045108D)
+	Object *getObject() const { return m_object; }
 protected:
 	virtual void xfer(Xfer *xfer);
+	const void *m_moduleData;	// +0x04
+	Object *m_object;		// +0x08
 };
 
 class ReplaceObjectUpdate : public SpecialAbilityUpdate
 {
+public:
+	virtual void triggerAbilityEffect();
+	void rva004B2C00(Object *obj, Rva004B2A9D *entry);	// 0x004B2C00
+	void rva004B2A60(Object *obj);
+private:
+	const ReplaceObjectUpdateModuleData *getReplaceObjectData() const
+	{
+		return (const ReplaceObjectUpdateModuleData *)m_moduleData;
+	}
+	char m_pad0C[0x44 - 0x0C];
+	Coord3D m_44;		// +0x44
+public:
+	virtual NameKeyType getModuleNameKey() const;
 protected:
 	virtual void xfer(Xfer *xfer);
 };

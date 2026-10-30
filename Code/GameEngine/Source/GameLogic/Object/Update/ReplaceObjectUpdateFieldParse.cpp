@@ -18,6 +18,7 @@
 
 #include "ascii_string.h"
 #include <windows.h>
+#include <vector>
 
 struct FieldParse;
 
@@ -62,17 +63,25 @@ private:
 	unsigned char m_unreconstructed_08[0x18 - 0x08];
 };
 
-class ModuleData
+class ModuleData;
+
+class Rva00360D26Member
 {
+public:
+	Rva00360D26Member();
+	~Rva00360D26Member();
+private:
+	unsigned m_unknown;
 };
 
-class Rva004B2B2F : public ModuleData
+class Rva004B2B2F
 {
 public:
 	Rva004B2B2F();
 	~Rva004B2B2F();
 private:
-	unsigned char m_unreconstructed_00[0x10];
+	Rva00360D26Member m_filter; // +0
+	_STL::vector<AsciiString> m_vec; // +4
 };
 
 void iniParseObjectFilter(INI *ini, void *instance, void *store, const void *userData);
@@ -91,7 +100,6 @@ const FieldParse g_00C56D20[] =
 	{ 0, 0, 0, 0 }
 };
 
-#include <vector>
 
 namespace _STL
 {
@@ -130,5 +138,5 @@ void INI::Rva004B2B64_ParseReplaceObject(INI *ini, void *instance, void *, const
 	parseTables.add(g_00C56D20, 0);
 	entry = new Rva004B2B2F;
 	ini->initFromINIMulti(entry, parseTables);
-	((Rva004B2B64Owner *)instance)->m_entries.push_back(entry);
+	((Rva004B2B64Owner *)instance)->m_entries.push_back(reinterpret_cast<const ModuleData *>(entry));
 }

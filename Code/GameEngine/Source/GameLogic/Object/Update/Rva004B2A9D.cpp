@@ -10,11 +10,11 @@ int GetGameLogicRandomValue(int lo, int hi, char *file, int line);
 class Rva004B2A9D
 {
 public:
-	int *rva004B2A9D();
+	int *rva004B2A9D(); // 0x004B2A9D, picks one of its template names at random
+	char m_pad00[0x4];
 private:
-	unsigned char m_pad00[4];
-	char *m_start; // +4
-	char *m_finish; // +8
+	char *m_start; // +0x04 +4
+	char *m_finish; // +0x08 +8
 };
 
 int *Rva004B2A9D::rva004B2A9D()

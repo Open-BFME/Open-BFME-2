@@ -173,7 +173,11 @@ extern PartitionManager *ThePartitionManager;
 class Rva004B2A9D
 {
 public:
-	int *rva004B2A9D();	// 0x004B2A9D, picks one of its template names at random
+	int *rva004B2A9D(); // 0x004B2A9D, picks one of its template names at random
+	char m_pad00[0x4];
+private:
+	char *m_start; // +0x04 +4
+	char *m_finish; // +0x08 +8
 };
 
 class ReplaceObjectUpdateModuleData
@@ -188,12 +192,15 @@ public:
 	bool m_DC;		// +0xDC
 };
 
+class Xfer;
+
 class SpecialAbilityUpdate
 {
 public:
 	virtual void triggerAbilityEffect();	// slot 17 (0x0045108D)
 	Object *getObject() const { return m_object; }
 protected:
+	virtual void xfer(Xfer *xfer);
 	const void *m_moduleData;	// +0x04
 	Object *m_object;		// +0x08
 };
@@ -427,6 +434,8 @@ private:
 	Coord3D m_44;		// +0x44
 public:
 	virtual NameKeyType getModuleNameKey() const;
+protected:
+	virtual void xfer(Xfer *xfer);
 };
 
 // tu-skeleton: 0x004B2987 49B ??0ReplaceObjectUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ReplaceObjectUpdateCtor.cpp (not merged yet)
