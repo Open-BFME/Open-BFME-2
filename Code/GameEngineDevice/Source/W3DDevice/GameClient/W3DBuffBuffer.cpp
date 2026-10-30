@@ -122,6 +122,8 @@ private:
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBuffBuffer.cpp
 
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBuffBuffer.cpp
+
 // Identity: WB 0x00836A90 names W3DBuffBuffer::addBuffType at W3DBuffBuffer.cpp
 // lines 872..882; the native 0x000D21B5..0x000D2294 body has the same calls,
 // branches and ten 12-byte entries at +0x18, with count at +0x90.
@@ -146,16 +148,6 @@ int W3DBuffBuffer::addBuffType(const AsciiString &model, const BuffInfoView *inf
     return count - 1;
 }
 
-// tu-skeleton: 0x000D2294 41B ?rva000D2294@Rva000D20A9@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x000D22BD 68B ?rva000D22BD@Rva000D20A9@@QAEXU?$_Rb_tree_iterator@U?$pair@$$CBHPAX@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/RvaTreeEraseRangeFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x000D2301 1529B ?rva000D2301@W3DBuffBuffer@@QAEXPAVMeshClass@@PAVRenderObjClass@@HPAU?$_Rb_tree_iterator@PAVTBuff@@U?$_Const_traits@PAVTBuff@@@_STL@@@_STL@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBuffBufferFill.cpp (not merged yet)
-
-// tu-skeleton: 0x000D28FA 4166B ?rva000D28FA@W3DBuffBuffer@@QAEXAAVRenderInfoClass@@_N@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBuffBufferFill.cpp (not merged yet)
-
-// tu-skeleton: 0x000D3940 5B ?rva000D3940@Rva000D3940@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/Rva000D20A9TreeDtor.cpp
 
 // Native D3945..D397D is 56B; the old 76B Ghidra span includes the
@@ -171,12 +163,6 @@ int W3DBuffBuffer::addBuffType(const AsciiString &model, const BuffInfoView *inf
 // preserving retail's unwind states.
 
 Rva000D20A9::~Rva000D20A9() { rva000D2294(); }
-
-// tu-skeleton: 0x000D397D 20B ?upper_bound@?$_Rb_tree@HU?$pair@$$CBHPAX@_STL@@U?$_Select1st@U?$pair@$$CBHPAX@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHPAX@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAX@_STL@@@2@@2@ABH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva004ABFB2Method.cpp (not merged yet)
-
-// tu-skeleton: 0x000D3991 5B ??1Rva000D3A8AElemB@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000D3A17Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x000D3996 129B ??1Rva000D3A17@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000D3A17Dtor.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva000D3A17.cpp
 
@@ -210,11 +196,65 @@ void Rva000D3A17::rva000D3A17()
 	m_90 = 0;
 }
 
+// tu-skeleton: 0x000D2294 41B ?rva000D2294@Rva000D20A9@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x000D22BD 68B ?rva000D22BD@Rva000D20A9@@QAEXU?$_Rb_tree_iterator@U?$pair@$$CBHPAX@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/RvaTreeEraseRangeFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x000D2301 1529B ?rva000D2301@W3DBuffBuffer@@QAEXPAVMeshClass@@PAVRenderObjClass@@HPAU?$_Rb_tree_iterator@PAVTBuff@@U?$_Const_traits@PAVTBuff@@@_STL@@@_STL@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBuffBufferFill.cpp (not merged yet)
+
+// tu-skeleton: 0x000D28FA 4166B ?rva000D28FA@W3DBuffBuffer@@QAEXAAVRenderInfoClass@@_N@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBuffBufferFill.cpp (not merged yet)
+
+// tu-skeleton: 0x000D3940 5B ?rva000D3940@Rva000D3940@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x000D397D 20B ?upper_bound@?$_Rb_tree@HU?$pair@$$CBHPAX@_STL@@U?$_Select1st@U?$pair@$$CBHPAX@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHPAX@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAX@_STL@@@2@@2@ABH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva004ABFB2Method.cpp (not merged yet)
+
+// tu-skeleton: 0x000D3991 5B ??1Rva000D3A8AElemB@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000D3A17Dtor.cpp (not merged yet)
+
+// tu-skeleton: 0x000D3996 129B ??1Rva000D3A17@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000D3A17Dtor.cpp (not merged yet)
+
 // tu-skeleton: 0x000D3A71 25B ??0?$set@VAsciiString@@U?$less@VAsciiString@@@_STL@@V?$allocator@VAsciiString@@@3@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_set_base.cpp (not merged yet)
 
 // tu-skeleton: 0x000D3A8A 157B ??0Rva000D3A17@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva000D3A8ACtor.cpp (not merged yet)
 
-// tu-skeleton: 0x000D3B27 214B ?addBuff@W3DBuffBuffer@@QAEPAVTBuff@@PAVDrawable@@PBUBuffInfoView@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBuffBuffer_AddBuff.cpp (not merged yet)
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBuffBuffer_AddBuff.cpp
+
+// Split from W3DBuffBuffer.cpp: these definitions reference a callee with no matched body yet,
+// so they are kept apart from the unit's bodies that already link.
+// Identity: WB 0x00836A90 names W3DBuffBuffer::addBuffType at W3DBuffBuffer.cpp
+// lines 872..882; the native 0x000D21B5..0x000D2294 body has the same calls,
+// branches and ten 12-byte entries at +0x18, with count at +0x90.
+// The view names below describe only consumed storage and virtual slots.
+// Target uses Display slot +0x88 (WB +0x8C), render class IDs 25/0 at +0x0C,
+// The caller passes info's AsciiString +8 by reference as the model argument.
+// info's AsciiString +8 and byte +C, and direct StringBase cleanup 0x36410.
+// No clean BFME1 or ZH W3DBuffBuffer donor was found at BFME1 9cbfb551fe.
+// This is retail/WB reconstruction; the original info type is unidentified.
+
+// Frame note: leaving out the named `pointer` local lets cl reuse both dead
+// parameter slots like retail ([ebp+0xC] for the new-expression temporary,
+// [ebp+8] for the insert argument); with the named local it takes a fresh slot.
+// WB 0x836DA0 names addBuff; retail D3B27..D3BFD uses 0x58-byte TBuff,
+// descriptors +18 and pointer sets +94 (12 bytes each), gate byte +10C.
+// The pointer set view reuses the existing rowed 80691 insert instantiation:
+// all consumed values are pointers and no target-object fields are accessed.
+TBuff *W3DBuffBuffer::addBuff(Drawable *drawable, const BuffInfoView *info) {
+    if (!drawable) return 0;
+    if (!enabled) return 0;
+    int index = -1;
+    for (int i = 0; i < count; ++i) {
+        if (types[i].name.compareNoCase(info->name) == 0) {
+            index = i;
+            break;
+        }
+    }
+    if (index < 0) index = addBuffType(info->name, info);
+    if (index < 0) return 0;
+    BuffPointerSetView *set = &buffs[index];
+    if (set->size() >= 1000) return 0;
+    TBuff *buff = new TBuff((const TBuffSource *)drawable, index);
+    set->insert(reinterpret_cast<Rva001408C0Target *>(buff));
+    return buff;
+}
 
 // tu-skeleton: 0x00762AB9 8B $L8405 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBuffBufferFill.cpp (not merged yet)
 
