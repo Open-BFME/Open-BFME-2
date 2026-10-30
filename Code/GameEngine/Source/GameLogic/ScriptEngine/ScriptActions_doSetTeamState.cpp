@@ -16,12 +16,7 @@ typedef bool Bool;
 #include "ascii_string.h"
 
 
-class Team
-{
-public:
-    char m_pad[0x44];
-    AsciiString m_state;
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
@@ -36,6 +31,7 @@ void ScriptActions::doSetTeamState(const AsciiString &team, const AsciiString &s
 {
     Team *theTeam = TheScriptEngine->getTeamNamed(team, false);
     if (theTeam != 0) {
-        theTeam->m_state = state;
+        // The header keeps Team+0x44 (AsciiString m_state) opaque.
+        *(AsciiString *)theTeam->m_opaque44 = state;
     }
 }

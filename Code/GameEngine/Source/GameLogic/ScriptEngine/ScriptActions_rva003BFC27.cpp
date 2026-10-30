@@ -34,12 +34,7 @@ private:
 	char m_pad220[0x224 - 0x220];
 	int m_delta224;
 };
-class Team
-{
-public:
-	char m_pad00[0x30];
-	TeamPrototype *m_proto30;
-};
+#include "../../../Include/Common/TeamBFME2.h"
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
@@ -48,7 +43,7 @@ void ScriptActions::Rva003BFC27Do(const AsciiString &teamName)
 	Team *team = TheScriptEngine->getTeamNamed((AsciiString &)teamName, false);
 	if (team == 0)
 		return;
-	TeamPrototype *proto = team->m_proto30;
+	TeamPrototype *proto = team->m_proto;
 	if (proto == 0)
 		return;
 	proto->decreaseAIPriorityForFailure();
@@ -62,7 +57,7 @@ void ScriptActions::Rva003BFAF4Do(const AsciiString &teamName)
 	Team *team = TheScriptEngine->getTeamNamed((AsciiString &)teamName, false);
 	if (team == 0)
 		return;
-	TeamPrototype *proto = team->m_proto30;
+	TeamPrototype *proto = team->m_proto;
 	if (proto == 0)
 		return;
 	proto->increaseAIPriorityForSuccess();
