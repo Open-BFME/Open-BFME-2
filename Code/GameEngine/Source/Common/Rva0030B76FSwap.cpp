@@ -4,17 +4,13 @@
 // Swap holder via rowed vector swap 0x00567ECD plus rowed Region2D swap 0x0030B31A plus float and byte swaps.
 // Evidence: chain from 0x0030B31A; caller 0x0030B81B; prev copy-backward next reserve both vector e8 /O1 /EHsc.
 struct BfmeE12 { float x, y, z; };
+#include <vector>
+// Bind the holder swap to the rowed vector<BfmeE12>::swap 0x00567ECD instead
+// of emitting this unit's own copy of the header's inline definition.
 namespace _STL
 {
-template <class T> class allocator;
-template <class T, class A> class vector
-{
-public:
-	void *m_start;
-	void *m_finish;
-	void *m_end;
-	void swap(vector &);
-};
+template <class T, class A> class vector;
+template <> void vector<BfmeE12, allocator<BfmeE12> >::swap(vector<BfmeE12, allocator<BfmeE12> > &);
 }
 #include "../../../Libraries/Include/Lib/Region2D.h"
 void __cdecl Rva0030B31ASwap(Region2D *a, Region2D *b);

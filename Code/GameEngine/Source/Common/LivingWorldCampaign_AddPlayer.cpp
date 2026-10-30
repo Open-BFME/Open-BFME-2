@@ -1,4 +1,4 @@
-// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii
 // stlport
 // ?AddPlayer@LivingWorldCampaign@@QAEXABVRva002E0A0A@@@Z 0x0052D394 93B evidence: chain via 0x0052D31E just landed; dedup via StringBase compare 0x000069D6 plus push_back 0x0052D31E; stride 0x28 idiv; caller 0x002E1DD4; v4 no-G7 for regalloc edi-ebx flip; same C++ as overflow-file attempt which was 93-vs-93 regs-only.
 // vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
@@ -23,7 +23,7 @@ namespace _STL {
 template <> void _Construct<Rva002E0A0A, Rva002E0A0A>(
     Rva002E0A0A *, const Rva002E0A0A &);
 }
-template <typename T> class StringBase { public: int compare(const StringBase &o) const; };
+#include "string_base.h"
 class LivingWorldCampaign {
     char _m00[0x24];
 public:

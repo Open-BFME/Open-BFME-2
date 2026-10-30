@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?PushDynamicSetStack@FXShaderParameterBinder@@QAEXW4ScienceType@@@Z, retail 0x0015354E 23B.
 // Null-checked Science push: if the +0x10 store exists, push the ScienceType
@@ -13,21 +13,13 @@ enum ScienceType
 	SCIENCE_INVALID = 0
 };
 
+#include <vector>
+
+// Bind the append to the rowed vector<ScienceType>::push_back 0x002E01C6
+// instead of emitting this unit's own copy of the header's inline path.
 namespace _STL
 {
-
-template <class T>
-class allocator
-{
-};
-
-template <class T, class A = allocator<T> >
-class vector
-{
-public:
-	void push_back(const T &x);
-};
-
+template <> void vector<ScienceType, allocator<ScienceType> >::push_back(const ScienceType &);
 }
 
 struct Rva0015354EStore
