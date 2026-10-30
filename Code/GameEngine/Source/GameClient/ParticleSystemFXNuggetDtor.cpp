@@ -1,4 +1,4 @@
-// cl: /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii
 // ??1ParticleSystemFXNugget@@UAE@XZ 104B @0x001E10EA: virtual dtor.
 // Installs no derived vptr (novtable view like Helix 0x001E116E and
 // FXListAtBonePos 0x001E1096 siblings). Destroys four AsciiString/
@@ -9,15 +9,11 @@
 // (Name@0x148 AttachToBone@0x190 CreateBoneOverride@0x198
 // TargetBoneOverride@0x19C); news 0x1BC.
 
-template <typename T>
-class StringBase
-{
-    void *m_data;
-    void releaseBuffer();
-
-protected:
-    ~StringBase() { releaseBuffer(); }
-};
+// The canonical frozen StringBase replaces the private copy; its switch makes
+// the member dtor reachable and keeps the teardown an out-of-line call to the
+// rowed releaseBuffer (0x00036410 narrow, 0x00036E70 wide).
+#define BFME_STRINGBASE_PUBLIC_DTOR
+#include "string_base.h"
 
 class BfmeOwnedString4 : private StringBase<char>
 {
