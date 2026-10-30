@@ -16,7 +16,7 @@
 // data flag at +0x138 (rowed giveSelfUpgrade 0x45230C). Row supersedes the
 // ctor pin.
 
-extern "C" const void *const __identifier("??_7AttributeModifierAuraUpdate@@6BModule@@@")[];  // vftable 0x00C50D2C
+extern "C" const void *const __identifier("??_7AttributeModifierAuraUpdate@@6BObjectModule@@@")[];  // vftable 0x00C50D2C, as the dtor unit names it after its canonical ObjectModule base
 
 extern "C" const void *const __identifier("??_7AttributeModifierAuraUpdate@@6BUpdateModuleInterface@@@")[];  // vftable 0x00C50D20
 
@@ -83,7 +83,7 @@ private:
 AttributeModifierAuraUpdate::AttributeModifierAuraUpdate(Thing *thing, const ModuleData *moduleData)
 	: UpdateModule(thing, moduleData), m_20()
 {
-	m_vtable = (const void *)((unsigned int)__identifier("??_7AttributeModifierAuraUpdate@@6BModule@@@"));
+	m_vtable = (const void *)((unsigned int)__identifier("??_7AttributeModifierAuraUpdate@@6BObjectModule@@@"));
 	m_secondary0C = (const void *)((unsigned int)__identifier("??_7AttributeModifierAuraUpdate@@6BBehaviorModuleInterface@@@"));
 	m_secondary10 = (const void *)((unsigned int)__identifier("??_7AttributeModifierAuraUpdate@@6BUpdateModuleInterface@@@"));
 	*(void **)&m_20 = (void *)((unsigned int)__identifier("??_7AttributeModifierAuraUpdate@@6B@"));
