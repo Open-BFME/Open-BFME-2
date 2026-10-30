@@ -29,4 +29,20 @@ struct Rva00500EFARecord
 {
     _STL::vector<BfmePod88> m_values;
 };
+
+// Retail reserve calls the existing outer-vector clear at 0x00500EDC.
+// This identifies the cleanup helper, not the opaque record's application type.
+namespace _STL {
+template <> void vector<vector<BfmePod88> >::_M_clear();
+}
+struct Rva00500EFAClearOwner : _STL::vector<_STL::vector<BfmePod88> >
+{
+    using _STL::vector<_STL::vector<BfmePod88> >::_M_clear;
+};
+namespace _STL {
+template <> __declspec(dllimport) __forceinline void vector<Rva00500EFARecord>::_M_clear()
+{
+    reinterpret_cast<Rva00500EFAClearOwner *>(this)->_M_clear();
+}
+}
 template void _STL::vector<Rva00500EFARecord>::reserve(unsigned int);
