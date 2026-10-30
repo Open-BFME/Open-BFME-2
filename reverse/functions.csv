@@ -22556,8 +22556,8 @@ uw_0076443a,,0x0076443A,8,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DD
 ?rva0073BBE0@Rva0073BBE0@@QAEDHHH@Z,,0x0073BBE0,117,Code/GameEngine/Source/Common/RTS/Rva0073BBE0.cpp,matched,adjust sibling of 0x73BAA0 via 008FC1F0 callers 0x73C820
 ?Rva0073C7C0Fill@@YADHHHHVRva0073BB40@@@Z,,0x0073C7C0,83,Code/GameEngine/Source/Common/RTS/Rva0073C7C0Fill.cpp,matched,rect fill via rowed 0x73BB40 caller 0x73CE84
 ??0CarryoverUnit@@QAE@XZ,,0x0037DF2C,97,Code/GameEngine/Source/Common/Rva0037DF2CCtor.cpp,matched,vtable plus empty-string plus float plus clear80 plus zeroing ctor
-?rva0035516C@Rva0035516C@@QBEPBVArmorTemplate@@W4NameKeyType@@@Z,,0x0035516C,23,Code/GameEngine/Source/GameLogic/Object/Rva0035516CArmorFind.cpp,matched,unlock ready body via Armor hashtable find at plus24
-?rva003551B5@Rva0035516C@@QBE_NW4NameKeyType@@@Z,,0x003551B5,30,Code/GameEngine/Source/GameLogic/Object/Rva0035516CArmorFind.cpp,matched,chain wrapper over rva0035516C checks plus8 nonzero
+?rva0035516C@Rva0035516C@@QBEPBVArmorTemplate@@W4NameKeyType@@@Z,,0x0035516C,23,Code/GameEngine/Source/Common/AiOrdersManager.cpp,matched,unlock ready body via Armor hashtable find at plus24
+?rva003551B5@Rva0035516C@@QBE_NW4NameKeyType@@@Z,,0x003551B5,30,Code/GameEngine/Source/Common/AiOrdersManager.cpp,matched,chain wrapper over rva0035516C checks plus8 nonzero
 ??1Rva005D4EC6@@QAE@XZ,,0x005D4EC6,72,Code/GameEngine/Source/Common/Rva005D4EC6Dtor.cpp,matched,chain lane member dtor via rowed Holder 0x5F4AD7 plus direct Release plus base 0x57C3B6
 ?getMultiLogicalBonePosition@Object@@QBEHPBDHPAUCoord3D@@PAVMatrix3D@@_NH@Z,,0x0028BF81,120,Code/GameEngine/Source/GameLogic/Object/ObjectGetSingleLogicalBonePosition.cpp,matched,BFME1 Object.cpp getMultiLogicalBonePosition 6-arg with BFME2 extra param
 ?rva00625840@Rva00625840@@QAEXXZ,,0x00625840,40,Code/GameEngine/Source/Common/Rva00625840Init.cpp,matched,twin of Rva009A2350 init with head at +0x120 and Object+0x4c8 callers
@@ -23853,7 +23853,7 @@ uw_0076443a,,0x0076443A,8,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DD
 ?rva002CED26@Rva002CEC0A@@QAEXPAVXfer@@@Z,,0x002CED26,51,Code/GameEngine/Source/Common/Rva002CEC34Clear.cpp,matched,Rva002CEC0A xfer via Ascii vector plus CRC check
 ??1Rva002CEE1B@@UAE@XZ,,0x002CEE1B,72,Code/GameEngine/Source/Common/Rva002CEE1BDtor.cpp,matched,Rva002CEE1B dtor via vtable plus ehvec plus base
 ??_GRva002CEE1B@@UAEPAXI@Z,,0x002CEEE6,28,Code/GameEngine/Source/Common/Rva002CEE1BDtor.cpp,matched,Rva002CEE1B deleting dtor via base delete
-?rva003551EA@Rva0035516C@@QBEXW4NameKeyType@@@Z,,0x003551EA,23,Code/GameEngine/Source/GameLogic/Object/Rva0035516CArmorFind.cpp,matched,chain via rowed find plus rowed pop same this caller proves
+?rva003551EA@Rva0035516C@@QBEXW4NameKeyType@@@Z,,0x003551EA,23,Code/GameEngine/Source/Common/AiOrdersManager.cpp,matched,chain via rowed find plus rowed pop same this caller proves
 ??0Made002CCC2D@@QAE@XZ,,0x0050BB0E,88,Code/GameEngine/Source/GameLogic/Object/Made002CCC2D.cpp,matched,Made002CCC2D ctor base member floats via pin
 ??_GBfmeVectorRecord001B4A39@@QAEPAXI@Z,,0x001B4B40,28,Code/GameEngine/Source/Common/SubsystemLegend.cpp,matched,scalar deleting dtor calls rowed dtor 0x001B4ACC
 ?Rva005D5DA5Guarded@@YAXPAVRva005D5A7E@@0V1@H@Z,,0x005D5DA5,75,Code/GameEngine/Source/Common/Rva005D5A7EComparator.cpp,matched,guarded linear insert via rowed comparator copy_backward unguarded

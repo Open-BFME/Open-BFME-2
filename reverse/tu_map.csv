@@ -26951,12 +26951,12 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00355138,9,code,,,-,,Code/GameEngine/Source/Common/GapBodiesS9A.cpp
 0x00355141,20,code,Code/GameEngine/Source/GameLogic/Object/AiOrdersManager.cpp,proposed,K,K=Rva00355B61,Code/GameEngine/Source/GameLogic/Object/Rva00355141Clear.cpp
 0x00355155,23,code,Code/GameEngine/Source/GameLogic/Object/AiOrdersManager.cpp,proposed,K,K=Rva00355B61,Code/GameEngine/Source/GameLogic/Object/Rva00355155Find.cpp
-0x0035516C,23,code,Code/GameEngine/Source/Common/AiOrdersManager.cpp,proposed,K,K=Rva0035516C,Code/GameEngine/Source/GameLogic/Object/Rva0035516CArmorFind.cpp
+0x0035516C,23,code,Code/GameEngine/Source/Common/AiOrdersManager.cpp,proposed,K,K=Rva0035516C,Code/GameEngine/Source/Common/AiOrdersManager.cpp
 0x00355183,27,code,Code/GameEngine/Source/Common/AiOrdersManager.cpp,approved,N,N=Code/GameEngine/Source/Common/AiOrdersManager.cpp provisional,Code/GameEngine/Source/Common/RvaFindThenRunFamily.cpp
 0x0035519E,23,code,Code/GameEngine/Source/Common/AiOrdersManager.cpp,approved,N,N=Code/GameEngine/Source/Common/AiOrdersManager.cpp provisional,Code/GameEngine/Source/Common/RvaFindThenRunFamily.cpp
-0x003551B5,30,code,Code/GameEngine/Source/Common/AiOrdersManager.cpp,approved,C,C=0x0035519E..0x003551D3 provisional,Code/GameEngine/Source/GameLogic/Object/Rva0035516CArmorFind.cpp
+0x003551B5,30,code,Code/GameEngine/Source/Common/AiOrdersManager.cpp,approved,C,C=0x0035519E..0x003551D3 provisional,Code/GameEngine/Source/Common/AiOrdersManager.cpp
 0x003551D3,23,code,Code/GameEngine/Source/Common/AiOrdersManager.cpp,approved,N,N=Code/GameEngine/Source/Common/AiOrdersManager.cpp provisional,Code/GameEngine/Source/Common/RvaFindThenRunFamily.cpp
-0x003551EA,23,code,Code/GameEngine/Source/Common/AiOrdersManager.cpp,proposed,K,K=Rva0035516C,Code/GameEngine/Source/GameLogic/Object/Rva0035516CArmorFind.cpp
+0x003551EA,23,code,Code/GameEngine/Source/Common/AiOrdersManager.cpp,proposed,K,K=Rva0035516C,Code/GameEngine/Source/Common/AiOrdersManager.cpp
 0x00355201,86,code,Code/GameEngine/Source/GameLogic/Object/AiOrdersManager.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/AiOrdersManager.cpp provisional,Code/GameEngine/Source/GameLogic/Object/AiOrdersManager.cpp
 0x00355257,57,code-unledgered,Code/GameEngine/Source/GameLogic/Object/AiOrdersManager.cpp,approved,C,C=0x00355201..0x003552BD provisional,
 0x00355290,45,code,,displaced,-,S=Code/GameEngine/Source/GameLogic/Object/Armor.cpp N=Code/GameEngine/Source/GameLogic/Object/ArmorTemplate.cpp,Code/GameEngine/Source/GameLogic/Object/Rva00355290Check.cpp
