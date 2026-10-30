@@ -9173,7 +9173,7 @@ _next,,0x007537E0,76,Code/Libraries/Source/Lua/lparser.c,matched,BFME1 byte-iden
 ?bfmeDrop@BfmeTracker4310@@QAEXPAVBfmeObj4310@@@Z,,0x006D2580,52,Code/GameEngine/Source/Common/BfmeRva008C4310Release.cpp,matched,BFME1 byte-identical donor; b1 0x00896FF0
 ?resetPlayerTimeout@DisconnectManager@@IAEXH@Z,,0x004D3A06,21,Code/GameEngine/Source/GameNetwork/DisconnectManager.cpp,matched,BFME1 byte-identical donor; b1 0x0066B400
 ?_M_set_node@?$_Deque_iterator_base@VGameResultsRequest@@@_STL@@QAEXPAPAVGameResultsRequest@@@Z,,0x00419D9C,21,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GameResultsThread.cpp,matched,BFME1 byte-identical donor; b1 0x0063FFE0
-?bfmeGoDWH@BfmeThingDWH@@QAEXXZ,,0x00050E6E,19,Code/GameEngine/Source/Common/BfmeConv792.cpp,matched,BFME1 byte-identical donor; b1 0x00694BF0
+?bfmeGoDWH@BfmeThingDWH@@QAEXXZ,,0x00050E6E,19,Code/GameEngine/Source/Common/BfmeThingDWH.cpp,matched,BFME1 byte-identical donor; b1 0x00694BF0
 ?clear@Rva00802BB0Owner@@QAEXXZ,,0x0066ECE0,21,Code/GameEngine/Source/GameNetwork/Y2FeslBrowserSmallMembers.cpp,matched,BFME1 byte-identical donor; b1 0x00802BB0; callee is rowed Rva00802A10 clear
 ?isDisconnectedAfterGameStart@GameSpyInfo@@UBE_NPAH@Z,,0x00386104,19,Code/GameEngine/Source/GameNetwork/GameSpy/PeerDefs.cpp,matched,BFME1 byte-identical donor; b1 0x006371D0
 ??1Debug@@UAE@XZ,,0x00038710,66,Code/Libraries/Source/WWVegas/WWDebug/DebugDestructorThunk.cpp,matched,BFME1 byte-identical donor; b1 0x00889620
@@ -34974,7 +34974,7 @@ _Rva00669500@8,,0x00669500,13,Code/GameEngine/Source/Common/RvaSmallLeafTransfer
 ?rva007B850D@@YAXXZ,,0x007B850D,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
 ?rva007B8517@@YAXXZ,,0x007B8517,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
 ?readNestedUserData@Rva000A2128@@QAEPAXXZ,,0x000A2128,15,Code/GameEngine/Source/Common/BfmeConv812.cpp,matched,BFME1 5cc75ddd full BfmeConv433 source lead; two native5C4ACD calls use existing pointer-return accessor ABI; original wrapper owner/prototype unknown
-?rva00050E62@BfmeThingDWH@@QAEXXZ,,0x00050E62,12,Code/GameEngine/Source/Common/BfmeConv792.cpp,matched,BFME1 5cc75ddd whole BfmeConv829 lead; native named mss32 AIL_unlock_mutex import replaces false donor freeStr identity; existing byte-guard ABI view
+?rva00050E62@BfmeThingDWH@@QAEXXZ,,0x00050E62,12,Code/GameEngine/Source/Common/BfmeThingDWH.cpp,matched,BFME1 5cc75ddd whole BfmeConv829 lead; native named mss32 AIL_unlock_mutex import replaces false donor freeStr identity; existing byte-guard ABI view
 ??0Rva000A4916@@QAE@PAX@Z,,0x000A4916,24,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/Gadget/Rva000A4916Ctor.cpp,matched,Gadget ctor via Host base plus vtable 0x00BC9204
 ??0Rva000A4969@@QAE@PAX@Z,,0x000A4969,24,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/Gadget/Rva000A4969Ctor.cpp,matched,Gadget ctor via Rva000A4916 base plus vtable 0x00BC9230
 ?rva002AA00C@Player@@QAEEPAVThingTemplate@@H@Z,,0x002AA00C,37,Code/GameEngine/Source/Common/PlayerRva002AA00C.cpp,matched,unlock lane caller 0x003BCF2F Player method via ThingTemplate pin
