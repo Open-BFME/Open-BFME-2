@@ -625,28 +625,7 @@ const char * WW3D::Get_Render_Device_Name(int device_index)
 	return DX8Wrapper::Get_Render_Device_Name(device_index);
 }
 
-/***********************************************************************************************
- * WW3D::Set_Device_Resolution -- set the current resolution and bitdepth                      *
- *                                                                                             *
- * INPUT:                                                                                      *
- *                                                                                             *
- * OUTPUT:                                                                                     *
- *                                                                                             *
- * WARNINGS:                                                                                   *
- *                                                                                             *
- * HISTORY:                                                                                    *
- *   3/24/98    GTH : Created.                                                                 *
- *=============================================================================================*/
-WW3DErrorType WW3D::Set_Device_Resolution(int width,int height,int bits,int windowed, bool resize_window)
-{
-	bool success = DX8Wrapper::Set_Device_Resolution(width,height,bits,windowed,resize_window);
-
-	if (success) {
-		return WW3D_ERROR_OK;
-	} else {
-		return WW3D_ERROR_INITIALIZATION_FAILED;
-	}
-}
+// WW3D::Set_Device_Resolution: Zero Hour copy removed; retail's bool version is rowed at 0x00116FC0.
 
 /***********************************************************************************************
  * WW3D::Get_Render_Target_Resolution -- get the resolution and bitdepth of the current target *

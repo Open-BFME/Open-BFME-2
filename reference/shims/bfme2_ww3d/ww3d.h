@@ -1,6 +1,7 @@
 // Zero Hour's WW3D2/ww3d.h, verbatim but for one friend declaration that lets
 // tools/data_rows.py size WW3D's private statics (as wwstring_teardown's
-// wwstring.h does for StringClass). Copied from
+// wwstring.h does for StringClass) and BFME 2's signatures where retail's
+// mangled names differ (marked "BFME 2:"). Copied from
 // reference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/ww3d.h
 /*
 **	Command & Conquer Generals Zero Hour(tm)
@@ -111,7 +112,7 @@ public:
 	};
 
 
-	static WW3DErrorType		Init(void * hwnd, char *defaultpal = NULL, bool lite = false);
+	static bool					Init(void * hwnd, char *defaultpal = NULL, bool lite = false);	// BFME 2: bool
 	static WW3DErrorType		Shutdown(void);
 	static bool					Is_Initted(void)								{ return IsInitted; }
 
@@ -120,7 +121,7 @@ public:
 	static const RenderDeviceDescClass &								Get_Render_Device_Desc(int device = -1);
 
 	static int					Get_Render_Device(void);
-	static WW3DErrorType		Set_Render_Device( int dev=-1, int resx=-1, int resy=-1, int bits=-1, int windowed=-1, bool resize_window = false, bool reset_device=false, bool restore_assets=true);
+	static bool					Set_Render_Device( int dev=-1, int resx=-1, int resy=-1, int bits=-1, int windowed=-1, bool resize_window = false, bool reset_device=false, bool restore_assets=true);	// BFME 2: bool
 	static WW3DErrorType		Set_Render_Device( const char *dev_name, int resx=-1, int resy=-1, int bits=-1, int windowed=-1, bool resize_window = false  );
 	static bool				Set_Next_Render_Device(void);	// BFME 2: bool (retail setne)
 	static bool				Set_Any_Render_Device( void );	// BFME 2: bool (retail setne)
@@ -128,7 +129,7 @@ public:
 	static void					Get_Pixel_Center(float &x, float &y);
 	static void					Get_Render_Target_Resolution(int & set_w,int & set_h,int & get_bits,bool & get_windowed);
 	static void					Get_Device_Resolution(int & set_w,int & set_h,int & get_bits,bool & get_windowed);
-	static WW3DErrorType		Set_Device_Resolution(int w=-1,int h=-1,int bits=-1,int windowed=-1, bool resize_window=false );
+	static bool					Set_Device_Resolution(int w=-1,int h=-1,int bits=-1,int windowed=-1, bool resize_window=false );	// BFME 2: bool
 
 	static bool					Is_Windowed( void );
 	static WW3DErrorType		Toggle_Windowed ( void );
@@ -154,14 +155,14 @@ public:
 	** special cases like generating a shadow texture for an object.  Basically this function will have the
 	** entire scene rendering overhead.
 	*/
-	static WW3DErrorType		Begin_Render(bool clear = false,bool clearz = true,const Vector3 & color = Vector3(0,0,0), float dest_alpha=0.0f, void(*network_callback)(void) = NULL);
+	static bool					Begin_Render(bool clear = false,bool clearz = true,const Vector3 & color = Vector3(0,0,0), float dest_alpha=0.0f);	// BFME 2: bool, no network callback
 	static WW3DErrorType		Render(const LayerListClass & layerlist);
 	static WW3DErrorType		Render(const LayerClass & layer);
 	static WW3DErrorType		Render(SceneClass * scene,CameraClass * cam,bool clear = false,bool clearz = false,const Vector3 & color = Vector3(0,0,0));
 	static WW3DErrorType		Render(RenderObjClass & obj,RenderInfoClass & rinfo);
 	static void					Flush(RenderInfoClass & rinfo);	// NOTE: "normal" usage should *NEVER* require the user to call this function
 
-	static WW3DErrorType		End_Render(bool flip_frame = true);
+	static bool					End_Render(bool flip_frame = true);	// BFME 2: bool
 
 	static bool					Is_Rendering( void ) { return( IsRendering ); }
 
