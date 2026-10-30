@@ -24,6 +24,7 @@ template <> __declspec(dllimport) __forceinline const int &NativeIntTree::_S_key
 
 #include "ascii_string.h"
 #include "../GameLogicObjectLookupView.h"
+#include "../../../Include/Common/TeamBFME2.h"
 
 // vector<int> fill/insert otherwise instantiates the _Construct<int,int>
 // COMDAT (one byte shape per TU flags); a file-static overload takes those
@@ -86,25 +87,18 @@ public:
 	void changeWantOpenCount(int delta);
 };
 
-class Team
-{
-public:
-	void rva003A23A5(int id, bool add);
-private:
-	char m_00[0x130];
-	_STL::set<int> m_130;			// +0x130
-};
-
 void Team::rva003A23A5(int id, bool add)
 {
-	_STL::set<int>::iterator it = m_130.find(id);
-	if (add == (it != m_130.end()))
+	// The header's opaque +0x130 member, a set of ObjectIDs.
+	_STL::set<int> &members = *(_STL::set<int> *)m_opaque130;
+	_STL::set<int>::iterator it = members.find(id);
+	if (add == (it != members.end()))
 		return;
 
 	if (add)
-		m_130.insert(id);
+		members.insert(id);
 	else
-		m_130.erase(it);
+		members.erase(it);
 
 	Object *obj = TheGameLogic->findObjectByID((ObjectID)id);
 	if (!obj)
