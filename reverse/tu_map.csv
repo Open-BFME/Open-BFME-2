@@ -44440,13 +44440,13 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0052DB11,60,code,,,-,,Code/GameEngine/Source/Common/Rva0052DB11.cpp
 0x0052DB4D,38,code,,,-,,Code/GameEngine/Source/Common/Rva0052DB4D.cpp
 0x0052DB73,38,code,,,-,,Code/GameEngine/Source/Common/Rva0052DB73.cpp
-0x0052DB99,11,code,Code/GameEngine/Source/Common/MixFileInfoBuffer.cpp,approved,N,N=Code/GameEngine/Source/Common/MixFileInfoBuffer.cpp provisional,Code/GameEngine/Source/Common/MixFileInfoBuffer_releaseInto.cpp
-0x0052DBA4,41,code,Code/GameEngine/Source/Common/MixFileInfoBuffer.cpp,approved,N,N=Code/GameEngine/Source/Common/MixFileInfoBuffer.cpp provisional,Code/GameEngine/Source/Common/MixFileInfoBuffer_releaseInto.cpp
-0x0052DBCD,92,code,Code/GameEngine/Source/Common/MixFileInfoBuffer.cpp,approved,C,C=0x0052DBA4..0x0052DD41 provisional,Code/GameEngine/Source/Common/MixFileInfoBuffer_releaseInto.cpp
+0x0052DB99,11,code,Code/GameEngine/Source/Common/MixFileInfoBuffer.cpp,approved,N,N=Code/GameEngine/Source/Common/MixFileInfoBuffer.cpp provisional,Code/GameEngine/Source/Common/MixFileInfoBuffer.cpp
+0x0052DBA4,41,code,Code/GameEngine/Source/Common/MixFileInfoBuffer.cpp,approved,N,N=Code/GameEngine/Source/Common/MixFileInfoBuffer.cpp provisional,Code/GameEngine/Source/Common/MixFileInfoBuffer.cpp
+0x0052DBCD,92,code,Code/GameEngine/Source/Common/MixFileInfoBuffer.cpp,approved,C,C=0x0052DBA4..0x0052DD41 provisional,Code/GameEngine/Source/Common/MixFileInfoBuffer.cpp
 0x0052DC29,22,code,,displaced,-,S=Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp N=Code/GameEngine/Source/Common/PathfindCell.cpp,Code/GameEngine/Source/Common/Rva0052DE5BState.cpp
 0x0052DC3F,88,code,,displaced,-,S=Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp N=Code/GameEngine/Source/Common/PathfindCell.cpp,Code/GameEngine/Source/Common/Rva0052DC3F.cpp
 0x0052DC97,170,code,,displaced,-,S=Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp N=Code/GameEngine/Source/Common/PathfindCell.cpp,Code/GameEngine/Source/Common/PathfindCell_CalcCostSoFar.cpp
-0x0052DD41,35,code,Code/GameEngine/Source/Common/MixFileInfoBuffer.cpp,approved,N,N=Code/GameEngine/Source/Common/MixFileInfoBuffer.cpp provisional,Code/GameEngine/Source/Common/MixFileInfoBuffer_releaseInto.cpp
+0x0052DD41,35,code,Code/GameEngine/Source/Common/MixFileInfoBuffer.cpp,approved,N,N=Code/GameEngine/Source/Common/MixFileInfoBuffer.cpp provisional,Code/GameEngine/Source/Common/MixFileInfoBuffer.cpp
 0x0052DD64,17,code,,displaced,-,Z=Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp S=Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp N=Code/GameEngine/Source/GameLogic/Pathfinder/PathfindCell.cpp,Code/GameEngine/Source/GameLogic/Pathfinder/PathfindCellDtor.cpp
 0x0052DD75,230,code,,displaced,-,S=Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp N=Code/GameEngine/Source/GameLogic/Pathfinder/PathfindCell.cpp,Code/GameEngine/Source/GameLogic/Pathfinder/PathfindCellRva0052DD75Facing.cpp
 0x0052DE5B,64,code,,displaced,-,S=Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp N=Code/GameEngine/Source/Common/PathfindCell.cpp,Code/GameEngine/Source/Common/Rva0052DE5BState.cpp
@@ -84613,8 +84613,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007972D6,14,code,Code/GameEngine/Source/Common/Glo012F1024Item.cpp,approved,P,P=0x0052D555@FuncInfo0x0094B0C8 p-group provisional,Code/GameEngine/Source/Common/Glo012F1024Item.cpp
 0x007972E4,14,code,Code/GameEngine/Source/Common/Glo012F1024Item.cpp,approved,P,P=0x0052D555@FuncInfo0x0094B0C8 p-group provisional,Code/GameEngine/Source/Common/Glo012F1024Item.cpp
 0x007972F2,10,code,Code/GameEngine/Source/Common/Glo012F1024Item.cpp,approved,P,P=0x0052D555@FuncInfo0x0094B0C8 p-group provisional,Code/GameEngine/Source/Common/Glo012F1024Item.cpp
-0x007972FC,10,code,Code/GameEngine/Source/Common/MixFileInfoBuffer.cpp,approved,P,P=0x0052DBCD@FuncInfo0x0094B110 provisional,Code/GameEngine/Source/Common/MixFileInfoBuffer_releaseInto.cpp
-0x00797306,10,code,Code/GameEngine/Source/Common/MixFileInfoBuffer.cpp,approved,P,P=0x0052DBCD@FuncInfo0x0094B110 provisional,Code/GameEngine/Source/Common/MixFileInfoBuffer_releaseInto.cpp
+0x007972FC,10,code,Code/GameEngine/Source/Common/MixFileInfoBuffer.cpp,approved,P,P=0x0052DBCD@FuncInfo0x0094B110 provisional,Code/GameEngine/Source/Common/MixFileInfoBuffer.cpp
+0x00797306,10,code,Code/GameEngine/Source/Common/MixFileInfoBuffer.cpp,approved,P,P=0x0052DBCD@FuncInfo0x0094B110 provisional,Code/GameEngine/Source/Common/MixFileInfoBuffer.cpp
 0x00797310,10,code,,,-,,Code/GameEngine/Source/GameLogic/AI/PathfinderClassifyWall.cpp
 0x0079731A,10,code,,,-,,Code/GameEngine/Source/GameLogic/AI/PathfinderClassifyWall.cpp
 0x00797324,10,code,,,-,,Code/GameEngine/Source/GameLogic/AI/PathfinderClassifyWall.cpp

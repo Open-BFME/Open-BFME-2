@@ -20895,7 +20895,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A049B4,20,.data,global,?g_Va00E049B4@@3IA,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,provisional,?g_Va00E049B4@@3IA;?registry@?1??rva0052B84F@@YAPAVRva0052B7F8Owner@@XZ@4V?$hash_map@HURva0052B81CElement@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHURva0052B81CElement@@@_STL@@@3@@_STL@@A@Code/GameEngine/Source/Common/RvaCountNoteRunFamily.cpp,2,3
 0x00A049C8,8,.data,global,?$S1@?1??rva0052B84F@@YAPAVRva0052B7F8Owner@@XZ@4IA,Code/GameEngine/Source/Common/RvaCountNoteRunFamily.cpp,owned,,1,2
 0x00A049D0,4,.data,global,?TheMixFileInfoPool@@3HA,Code/GameEngine/Source/Common/Rva0052DE5BState.cpp,provisional,?TheMixFileInfoPool@@3HA;?g_00A049D0@@3PAVMixFileInfoBuffer@@A,1,17
-0x00A049D4,4,.data,global,?TheMixFileInfoCount@@3HA,Code/GameEngine/Source/Common/MixFileInfoBuffer_releaseInto.cpp,owned,,1,2
+0x00A049D4,4,.data,global,?TheMixFileInfoCount@@3HA,Code/GameEngine/Source/Common/MixFileInfoBuffer.cpp,owned,,1,2
 0x00A049D8,20,.data,global,?g_Va00E049D8@@3IA,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,provisional,?g_00E049D8@@3VRva004DD73B@@A;?g_Va00E049D8@@3IA,1,3
 0x00A049EC,12,.data,global,?$S1@?BM@??classifyMapCell@Pathfinder@@SAXHHPAVPathfindCell@@@Z@4IA,Code/GameEngine/Source/GameLogic/AI/PathfinderClassifyMapCell.cpp,owned,,1,2
 0x00A049F8,8,.data,global,_s_rva007B3A2E,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
