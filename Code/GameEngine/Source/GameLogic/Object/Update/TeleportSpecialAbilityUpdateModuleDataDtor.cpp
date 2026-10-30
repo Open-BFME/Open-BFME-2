@@ -1,4 +1,4 @@
-// cl: /GX /MD /DNDEBUG
+// cl: /GX /MD /DNDEBUG /Ireference/shims/bfme2_ascii
 // Rva0044ECCE is an address-derived base stand-in; its target class name is unproven.
 //
 // ??1TeleportSpecialAbilityUpdateModuleData@@UAE@XZ retail 0x00492F19 74B.
@@ -9,14 +9,11 @@
 // then base Rva0044ECCE through pinned 0x44ECCE state -1.
 // Shape follows GiveOrRestoreUpgradeSpecialPowerModuleDataDtor 0x4CD2E8
 // 74B precedent novtable derived plus virtual base.
-template<typename T> class StringBase
-{
-public:
-	~StringBase();
-
-private:
-	void *m_data;
-};
+// The canonical frozen StringBase replaces the private copy; its switch makes
+// the member dtor reachable and keeps the teardown an out-of-line call to the
+// rowed releaseBuffer (0x00036410 narrow, 0x00036E70 wide).
+#define BFME_STRINGBASE_PUBLIC_DTOR
+#include "string_base.h"
 
 class Rva0044ECCE
 {
