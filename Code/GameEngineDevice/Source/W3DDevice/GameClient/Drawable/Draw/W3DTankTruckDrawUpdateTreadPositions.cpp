@@ -22,9 +22,11 @@ struct Material_Override
 
 enum TreadType { TREAD_LEFT = 0, TREAD_RIGHT = 1, TREAD_MIDDLE = 2 };
 
+class RenderObjClass;
+
 struct TreadObjectInfo
 {
-	void *m_robj;
+	RenderObjClass *m_robj;
 	int m_type;
 	Material_Override m_materialSettings;
 };
