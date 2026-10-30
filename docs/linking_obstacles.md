@@ -5080,6 +5080,8 @@ closure is claimed. [Evidence](../reverse/attempt_support/fx-postload-alias-clea
 - **Clean C++ and insert-provider prerequisite (2026-10-30, base `574175bb6d1d`):** `BfmeS1155.cpp` now recovers the existing 279-byte forward replacement as clean C++, retaining its name, address and all twelve rows. The bank's real copy-length local restores the native 0xd4 frame in the merged header context. The insert owner uses `noinline inline`, preserving both row bodies while replacing its strong non-COMDAT definition with SELECT_ANY; the clean owner's copy is also ANY. The previous strong insert-definition conflict is cleared. Independent COFF comparison preserves all fourteen raw row bodies with only the deliberate binding to the existing real erase owner. Strict preparation passes 18/18 rows across both providers and four other direct callers. The six-source preview retains 5/6 LINKS and 2,070 authored bytes against `85f6b7f40c`; the range owner's separate replaceBase finding and grouping/identity prerequisite remain open. No census or unique-byte gain claimed. [Exact scope and proof](../reverse/attempt_support/string-range-clean-cpp-20261030/readme.md). The outgoing audit exits 2 (INCONCLUSIVE): the index is older than the base and Common/0CreateAHeroManager21FE49.cpp lacks a current affected-consumer receipt. Carry the changed providers and wider consumer scope into the next scheduled census.
 
 
+- **String lead selection review (2026-10-30, inspected `46af8b351c90`):** The default picker again served `Rva008312E0StringReplace.cpp`. The clean-C++ owner and insert-provider repair above are present; the remaining replaceBase selection/grouping prerequisite still stands, and neither range row has an approved TU. No string source edit or repeated compile trial was made. Body and file claims released; no clearance or census gain. [Selection scope and independent header cleanup](../reverse/attempt_support/partition-allocator-release-20261030-codexb5.md).
+
 **Waypoint-tree binding check (2026-10-26, inspected `2a45addda1806342ac5c52757f63be902dcd428e`):** `MapMetaDataCopyDeferred.cpp` remains L3/S3 against `d1f046749a` with the current `stlport_rb_tree_hint_00301883.cpp` provider. The emitted 165-byte tree copy constructor at 0x003025A5, 115-byte `_M_copy` at 0x00301F9B and 30-byte clone at 0x00301BBF have zero non-relocation byte differences. Their binding failures are concrete: the Coord3D clone pin names 0x00413E55 (also considered as 0x00013E55), whereas `_M_copy` calls 0x00301BBF; the node-creation pin names 0x0016D760, whereas the clone calls 0x003012CE; the header-base constructor pin names 0x0016D590, whereas the copy constructor calls 0x0030087C. The native clone and create operations already have the opaque-payload owners above. No pin, real type, row or shared header changed. Reconcile the typed owners and existing pins together; suppressing the only Coord3D-name definitions leaves no same-name provider. Raw byte/relocation diagnostics: `build/c136-gui-w2/map-native-targets.log`; all 21 assigned rows pass `final-assigned-build.log`. Clearance and census confirmation remain pending.
 
 **Waypoint-tree selection recheck (2026-10-28, base `73a4520034`, index `41c28839bf`):** the current ordinary preview still reports the same three COMDAT and three selected-copy blockers, with 0 of the unit's 856 authored bytes linking. The typed node-creation and base-constructor names are already matched at 0x0016D760 and 0x0016D590 in `MapUtil.cpp`; the corresponding 0x003012CE and 0x0030087C targets belong to different existing owners. The clone pin still points to 0x00413E55. No source or ledger identity change was attempted: reconciling the distinct retail bodies and their consumers remains the prerequisite. No clearance or census gain is claimed. [Selection handoff](../reverse/attempt_support/waypoint-tree-selection-20261028.md).
@@ -13073,6 +13075,15 @@ The seven-source outgoing audit remains INCONCLUSIVE: its index predates base
 first AptPlayerStatusDtor.cpp. Full consumer selection/loss verification and
 census confirmation remain open; no linked-byte gain is claimed.
 [Target facts and remaining header debt](../reverse/attempt_support/partition-math-headers-20261030-codexb4.md).
+
+2026-10-30 allocator follow-up (`46af8b351c90`): replace PartitionManager's
+remaining `free` macro with explicit vector allocator specializations. All 13
+rows and strict preparation pass; all 93 external COMDAT bodies, relocation
+fingerprints and external symbols are unchanged. The owning header auditor
+retires the file's last queued finding. Three unresolved include inventory
+notes remain. The paired preview retains 2,620 and 441 authored bytes against
+`12b9e7a7c0`; wider consumer verification and census confirmation remain open.
+[Scope and checks](../reverse/attempt_support/partition-allocator-release-20261030-codexb5.md).
 
 ### SkirmishAI phase donor composition (2026-10-29)
 

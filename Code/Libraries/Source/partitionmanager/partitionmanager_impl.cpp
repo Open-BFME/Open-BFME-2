@@ -12,7 +12,11 @@
 #pragma pop_macro("inline")
 #pragma pop_macro("_CRTIMP")
 namespace _STL { void __cdecl free(void *); }
-#define free _STL::free
+// Bind before STLport imports ::free into the same namespace.
+static __forceinline void releasePartitionStorage(void *storage)
+{
+    _STL::free(storage);
+}
 // The target calls the ordinary STLport copy dispatch rather than force-inlining
 // the BFME allocator shim's by-value copy dispatch into vector assignment.
 #include "reference/open-bfme-1/inputs/vendor/stlport/stl/_algobase.h"
@@ -30,7 +34,6 @@ pair<int, int> *vector<pair<int, int> >::_M_allocate_and_copy<const pair<int, in
 }
 
 #include <algorithm>
-#undef free
 
 // BFME1 9cbfb551 SetTreeDepth donor (reviewed at575ba2b04) supplies
 // the quadtree-count algorithm and representation-compatible vector transfer.
@@ -44,6 +47,20 @@ enum ObjectID;
 typedef _STL::pair<ObjectID,unsigned int> PartitionRawPair;
 typedef _STL::pair<int,int> PartitionAssignPair;
 
+// These native vector releases call GameMemory's wrapper at 0x00030830.
+// Keep that binding explicit without redirecting the CRT name in headers.
+namespace _STL {
+template<> inline void allocator<PartitionRawPair>::deallocate(
+    PartitionRawPair *__p, size_type) const
+{
+    if (__p != 0) releasePartitionStorage((void *)__p);
+}
+template<> inline void allocator<PartitionAssignPair>::deallocate(
+    PartitionAssignPair *__p, size_type) const
+{
+    if (__p != 0) releasePartitionStorage((void *)__p);
+}
+}
 
 // PartitionManagerImpl::_ClearNumObjBelow and RemoveAllObjects.
 // Target identity: WB167FEC0/WB1680940 name both methods and this source.
@@ -219,6 +236,14 @@ struct Rva009F56C0Element
 	int m_size;
 };
 
+namespace _STL {
+template<> inline void allocator<Rva009F56C0Element>::deallocate(
+    Rva009F56C0Element *__p, size_type) const
+{
+    if (__p != 0) releasePartitionStorage((void *)__p);
+}
+}
+
 class BfmeHostER
 {
 public:
@@ -309,7 +334,7 @@ namespace _STL {
 template<> inline void allocator<FlightDeckBehavior::FlightDeckInfo>::deallocate(
     FlightDeckBehavior::FlightDeckInfo *p, unsigned int) const
 {
-    if (p) _STL::free(p);
+    if (p) releasePartitionStorage(p);
 }
 }
 class ClosestFlightVector : public _STL::vector<FlightDeckBehavior::FlightDeckInfo> {
