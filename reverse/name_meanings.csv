@@ -418,3 +418,15 @@ Code/Libraries/Source/WWVegas/WWLib/Rva00080221Ctor.cpp|local|Rva002D45C9::Rva00
 Code/Libraries/Source/WWVegas/WWLib/Rva00080221Ctor.cpp|local|Rva002D45FE::Rva002D45FE|p,dbf763d84f1164f197707e02,drz-k3,drz-k3-318,w-077d7aeb666b,2026-10-30,8b3d414c121bdc5bfb6dd071
 Code/Libraries/Source/WWVegas/WWLib/Rva00079AB9Worker.cpp|param|Rva00079D14Iter|p,fafa7cebafa3ecf50f824e7d,drz-k3,drz-k3-320,w-077d7aeb666b,2026-10-30,18a7c0eaeb89d37b3967c6e8
 Code/Libraries/Source/WWVegas/WWLib/Rva00079AB9Worker.cpp|local|Rva00079D14Tree::rva00079AB9|z,354a955c6d44db9c9ff8dd08,drz-k3,drz-k3-320,w-077d7aeb666b,2026-10-30,aa42eda9761c1fcbdd5db6d0
+Code/GameEngine/Source/Common/Rva007E3C20Vp6StreamDtor.cpp|local|Rva007E3C20Vp6Stream::renderAlpha|y0,a6aae2e1032554cfc356942c,drz-k5,drz-k5-308,w-526a51702f64,2026-10-30,cb08859a2d531bb7dc9f0769
+Code/GameEngine/Source/Common/Rva007E3C20Vp6StreamDtor.cpp|local|Rva007E3C20Vp6Stream::renderAlpha|y1,62d04cca721118b1e9315c65,drz-k5,drz-k5-308,w-526a51702f64,2026-10-30,9e84c3ff47f4ec4fa972d8c1
+Code/GameEngine/Source/Common/Rva007E3C20Vp6StreamDtor.cpp|local|Rva007E3C20Vp6Stream::renderAlpha|u,186e25f2480df54bc07486c8,drz-k5,drz-k5-308,w-526a51702f64,2026-10-30,0813929574e915e41fd2a82d
+Code/GameEngine/Source/Common/Rva007E3C20Vp6StreamDtor.cpp|local|Rva007E3C20Vp6Stream::renderAlpha|v,d89e898b737ddcd146334070,drz-k5,drz-k5-308,w-526a51702f64,2026-10-30,2f5b88e4a1cd6e065773592e
+Code/GameEngine/Source/Common/Rva007E3C20Vp6StreamDtor.cpp|local|Rva007E3C20Vp6Stream::renderAlpha|a0,100c0319c1777e9738af9073,drz-k5,drz-k5-308,w-526a51702f64,2026-10-30,f501da7cffbc2859f27d55d7
+Code/GameEngine/Source/Common/Rva007E3C20Vp6StreamDtor.cpp|local|Rva007E3C20Vp6Stream::renderAlpha|a1,2f516187fc1b97d41d48ae7c,drz-k5,drz-k5-308,w-526a51702f64,2026-10-30,4ecd584d93d81f9b14b64dd4
+Code/GameEngine/Source/Common/Rva007E3C20Vp6StreamDtor.cpp|local|Rva007E3C20Vp6Stream::renderAlpha|temp,ba705d99b21b433d2f57f022,drz-k5,drz-k5-308,w-526a51702f64,2026-10-30,7525957243408623d05fa9d7
+Code/GameEngine/Source/Common/Rva007E3C20Vp6StreamDtor.cpp|local|Rva007E3C20Vp6Stream::renderOpaque|y0,bccf67d6d5dd33d208f59c37,drz-k5,drz-k5-308,w-526a51702f64,2026-10-30,102a014b67f3146693ed9bf9
+Code/GameEngine/Source/Common/Rva007E3C20Vp6StreamDtor.cpp|local|Rva007E3C20Vp6Stream::renderOpaque|y1,1c3d86afeeb71ab3b7d3e531,drz-k5,drz-k5-308,w-526a51702f64,2026-10-30,4af403b9cc39d3d206efebfd
+Code/GameEngine/Source/Common/Rva007E3C20Vp6StreamDtor.cpp|local|Rva007E3C20Vp6Stream::renderOpaque|u,87512f3a4c67edbd75834d9b,drz-k5,drz-k5-308,w-526a51702f64,2026-10-30,398174124b8a5fdccaac7f20
+Code/GameEngine/Source/Common/Rva007E3C20Vp6StreamDtor.cpp|local|Rva007E3C20Vp6Stream::renderOpaque|v,bc27013c4dd4077f15c2ae7d,drz-k5,drz-k5-308,w-526a51702f64,2026-10-30,7f00510fe141d05e0c8a681d
+Code/GameEngine/Source/Common/Rva007E3C20Vp6StreamDtor.cpp|local|Rva007E3C20Vp6Stream::renderOpaque|temp,fbd3447da261d97ff338237e,drz-k5,drz-k5-308,w-526a51702f64,2026-10-30,c70eaa4fb8ede8a4afa7f27b
