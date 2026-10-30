@@ -20,18 +20,20 @@ class Rva004E02D7Owner
 public:
 	void rva004E02D7(CreateAHeroData *value);
 	void rva004E00D9();
+
 private:
-	int m_pad00;
-	_STL::vector<void *, _STL::allocator<void *> > m_heroes;
+	char unknown00[4];
+	_STL::vector<void *> records;
+	_STL::vector<void *> holders;
 };
 
 void Rva004E02D7Owner::rva004E02D7(CreateAHeroData *value)
 {
-	CreateAHeroData **end = (CreateAHeroData **)m_heroes.end();
+	CreateAHeroData **end = (CreateAHeroData **)records.end();
 	// Retail pushes the start pointer straight from the member ([edi]); begin() would load it first.
-	CreateAHeroData **found = _STL::find(*(CreateAHeroData ***)&m_heroes, end, value);
+	CreateAHeroData **found = _STL::find(*(CreateAHeroData ***)&records, end, value);
 	if (found != end) {
-		m_heroes.erase((void **)found);
+		records.erase((void **)found);
 		rva004E00D9();
 	}
 }

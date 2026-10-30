@@ -386,9 +386,12 @@ class Rva00281A06 { public: ~Rva00281A06(); };
 
 class Rva00281A76;
 
+class CreateAHeroData;
+
 class Rva004E02D7Owner
 {
 public:
+	void rva004E02D7(CreateAHeroData *value);
 	void rva004E00D9();
 
 private:
