@@ -1,4 +1,5 @@
-// cl: /MD
+// cl: /MD /D_STLP_USE_STATIC_LIB
+// stlport
 // ?rva004E02D7@Rva004E02D7Owner@@QAEXPAVCreateAHeroData@@@Z @0x004E02D7 52B: thiscall, one
 // reference argument, ret 4. Finds the argument in the pointer vector at +4 (start +4, finish +8)
 // with the rowed find 0x0020E873; when found, erases that element through the rowed vector erase
@@ -6,18 +7,13 @@
 // Names are address-derived views; no field meaning is claimed beyond the bytes.
 class CreateAHeroData;
 
-namespace _STL
-{
-template <class T> class allocator {};
-template <class T, class A> class vector
-{
-public:
-	T *_M_start;
-	T *_M_finish;
-	T *erase(T *pos);
-};
-template <class I, class T> I find(I first, I last, const T &value);
-}
+#include <vector>
+#include <algorithm>
+// Retail calls the rowed find 0x0020E873 and erase 0x001FF51F out of line.
+// bfme link decl-only begin
+namespace _STL { template <> CreateAHeroData **find(CreateAHeroData **, CreateAHeroData **, CreateAHeroData * const &); }
+namespace _STL { template <> void **vector<void *, allocator<void *> >::erase(void **); }
+// bfme link decl-only end
 
 class Rva004E02D7Owner
 {
@@ -31,8 +27,9 @@ private:
 
 void Rva004E02D7Owner::rva004E02D7(CreateAHeroData *value)
 {
-	CreateAHeroData **end = (CreateAHeroData **)m_heroes._M_finish;
-	CreateAHeroData **found = _STL::find((CreateAHeroData **)m_heroes._M_start, end, value);
+	CreateAHeroData **end = (CreateAHeroData **)m_heroes.end();
+	// Retail pushes the start pointer straight from the member ([edi]); begin() would load it first.
+	CreateAHeroData **found = _STL::find(*(CreateAHeroData ***)&m_heroes, end, value);
 	if (found != end) {
 		m_heroes.erase((void **)found);
 		rva004E00D9();
