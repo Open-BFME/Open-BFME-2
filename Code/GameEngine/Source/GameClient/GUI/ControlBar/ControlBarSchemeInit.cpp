@@ -23,12 +23,18 @@ typedef int Color;
 class Image;
 class ModuleData;
 enum ControlBarStages { CONTROL_BAR_STAGE_DEFAULT=0 };
-class ControlBar {
+class CommandButton;
+class AsciiString;
+class GameWindow;
+class ControlBar
+{
 public:
- void switchControlBarStage(ControlBarStages);
- void updateRightHUDImage(const Image *);
- void rva0031AD14(int,int,int,int,int);
- void rva0031B1BC(const Image *,const Image *,const Image *,const Image *,const Image *,const Image *,const Image *,const Image *);
+	const CommandButton *findCommandButton(const AsciiString &name);
+	void setControlCommand(GameWindow *window, const CommandButton *button);
+	void switchControlBarStage(ControlBarStages);
+	void updateRightHUDImage(const Image *);
+	void rva0031AD14(int,int,int,int,int);
+	void rva0031B1BC(const Image *,const Image *,const Image *,const Image *,const Image *,const Image *,const Image *,const Image *);
 };
 class Rva0031410CDwordSlot { public: void set(int); };
 class Rva0031BE07 { public: void rva0031BE58(const ModuleData *); };
@@ -38,7 +44,11 @@ struct BfmeControlBarSchemeInitBar {
 };
 extern ControlBar *TheControlBar;
 enum NameKeyType { NAMEKEY_INVALID=0 };
-class NameKeyGenerator { public: NameKeyType nameToKey(const char *); };
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const char *name);
+};
 extern NameKeyGenerator *TheNameKeyGenerator;
 class GameWindow {
 public:

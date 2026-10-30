@@ -8,21 +8,61 @@
 // ?addImage@Rva003200BC@@QAEXH@Z with [esi+8]; prev 0x00320158 shares flags.
 
 typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
-struct FieldParse { const char *token; FieldParseProc parse; const void *userData; int offset; };
-
-class INI
+typedef void (*INIFieldParseProc)(INI *, void *, void *, const void *);
+struct FieldParse
 {
 public:
-	void initFromINI(void *what, const FieldParse *parseTable);
+	const char *token; // +0x00
+	INIFieldParseProc parse; // +0x04
+	const void *userData; // +0x08
+	int offset; // +0x0C
 };
 
+class Xfer;
+class AsciiString;
+enum INILoadType { INI_LOAD_INVALID = 0, INI_LOAD_OVERWRITE = 1, INI_LOAD_CREATE_OVERRIDES = 2 };
+class INI {
+public:
+	INI();
+	~INI();
+	void load(AsciiString filename, int loadType, int reload, void* xfer);
+	unsigned char loadFile(AsciiString filename, INILoadType loadType, Xfer* xfer);
+	bool loadDirectory(AsciiString dirpath, bool recursive, INILoadType loadType, Xfer* xfer, int extra);
+	static bool loadSubsystemFiles(const char* subsystem, void* xfer);
+	const char* getNextToken(const char* seps = 0);
+	void initFromINI(void* what, const struct FieldParse* parseTable);
+	const char* getNextTokenOrNull(const char* seps = 0);
+	static float scanReal(const char* token);
+	static int scanInt(const char* token);
+	static int scanBool(const char* token);
+	static int scanIndexList(const char* token, const char* const* names);
+	static void parseAsciiString(INI* ini, void* instance, void* store, const void* userData);
+	static void parseAsciiStringVectorAppend(INI* ini, void* instance, void* store, const void* userData);
+	static void parseLookupList(INI* ini, void* instance, void* store, const void* userData);
+	static void parseICoord2D(INI *ini, void *instance, void *store, const void *userData);
+	static void parseMappedImage(INI *ini, void *instance, void *store, const void *userData);
+	static void parseInt(INI *ini, void *instance, void *store, const void *userData);
+private:
+	char m_unported[0x87C];
+};
+
+#include "../../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 class Rva0031F7EB
 {
 public:
 	Rva0031F7EB();
-	char m_pad0[8];
-	int m_08; // +0x08 (pushed for second call)
-	char m_pad1[0x24 - 0x0C];
+private:
+	AsciiString m_str; // +0x00
+	int m_a; // +0x04
+public:
+	int m_b; // +0x08
+private:
+	int m_c; // +0x0C
+	int m_d; // +0x10
+	int m_e; // +0x14
+	int m_f; // +0x18
+	int m_g; // +0x1C
+	int m_h; // +0x20
 };
 
 class Rva003200A2
@@ -62,5 +102,5 @@ void Rva003201A9Parse(INI *ini, void *holder)
 	Rva0031F7EB *obj = new Rva0031F7EB;
 	ini->initFromINI(obj, g_0080D788);
 	((Rva003200A2 *)holder)->addAnimation((int)obj);
-	((Rva003200BC *)holder)->addImage(obj->m_08);
+	((Rva003200BC *)holder)->addImage(obj->m_b);
 }
