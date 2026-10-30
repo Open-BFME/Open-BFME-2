@@ -1,8 +1,5 @@
 # source	check	symbol	address -- shrink-only; written by tools/data_check.py
 Code/GameEngine/Source/Common/BfmeThreeHundredFiftyFour.cpp	wrong-name	?g_bfmeThingUCHead@@3PAVBfmeNodeUC@@A	0x00A0ABB0
-Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp	wrong-name	?g_Va00E04450@@3HA	0x00A04450
-Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp	wrong-name	?g_Va00E046B4@@3HA	0x00A046B4
-Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp	wrong-name	?g_Va00E04904@@3HA	0x00A04904
 Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp	wrong-name	?g_Va00E0ABB0@@3HA	0x00A0ABB0
 Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenu.cpp	wrong-name	?$S1@?1??goodCampaignRva00515921@@YAHM_N@Z@4IA	0x00A04900
 Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenu.cpp	wrong-name	?campaign@?1??goodCampaignRva00515921@@YAHM_N@Z@4VAsciiString@@A	0x00A048FC
@@ -12,12 +9,10 @@ Code/GameEngine/Source/Common/Rva00E08D3CString.cpp	duplicate-def	?g_rva00E08D3C
 Code/GameEngine/Source/Common/Rva00E08D3CString.cpp	wrong-name	?g_rva00E08D3CString@@3VStringClass@@A	0x00A08D3C
 Code/GameEngine/Source/Common/StaticInit/Rva00C6E31EInitializers.cpp	wrong-name	?g_rva0134FB38@@3URva0134FB38Storage@@A	0x00A09E50
 Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_setControlBarSchemeByPlayerTemplate.cpp	wrong-name	?$S1@?3??setControlBarSchemeByPlayerTemplate@ControlBar@@QAEXPBVPlayerTemplate@@@Z@4IA	0x00A01D34
-Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellCallbacks.cpp	wrong-name	?g_Va00E04904@@3HA	0x00A04904
 Code/GameEngine/Source/GameClient/GUI/Palantir/BfmeObserverDispatchYU_Rva002d4f2d.cpp	wrong-name	?$S1@?4??bfmeApplyYU@@YGXH@Z@4IA	0x009FF064
 Code/GameEngine/Source/GameClient/GUI/Palantir/BfmeObserverDispatchYU_Rva002d4f2d.cpp	wrong-name	?s_bfmeObjectivesYU@?4??bfmeApplyYU@@YGXH@Z@4VAsciiStringYU@@A	0x009FF060
 Code/GameEngine/Source/GameClient/GUI/Palantir/BfmeObserverDispatchYU_Rva002d4f2d.cpp	wrong-name	?s_bfmeOtherYU@?6??bfmeApplyYU@@YGXH@Z@4VAsciiStringYU@@A	0x009FF05C
 Code/GameEngine/Source/GameClient/GUI/Rva00427157Ctor.cpp	wrong-name	?g_00DC85C4@@3PAPBDA	0x009C85C4
-Code/GameEngine/Source/GameClient/GUI/Rva0043D1C9Destructor.cpp	wrong-name	?g_Va00E03314@@3HA	0x00A03314
 Code/GameEngine/Source/GameClient/GUI/parseSpellIndex_Thunk.cpp	wrong-name	?g_Va009FEDF0@@3HA	0x009FEDF0
 Code/GameEngine/Source/GameClient/MapUtil.cpp	duplicate-def	_m_supplyPositions	0x009FF144
 Code/GameEngine/Source/GameClient/MapUtil.cpp	duplicate-def	_m_techPositions	0x009FF148
