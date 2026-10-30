@@ -15,11 +15,11 @@ class BfmeThingEFC
 {
 public:
 	void rva0039B1F9(void);
-
-private:
+	void bfmeUpdate(int);
 	char m_pad00[0x4];
 	BfmeEFCSource *m_src04;
 	float m_f8;
+	int level;
 };
 
 void BfmeThingEFC::rva0039B1F9(void)

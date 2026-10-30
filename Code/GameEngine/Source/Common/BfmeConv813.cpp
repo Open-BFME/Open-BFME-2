@@ -6,18 +6,22 @@
 
 float __stdcall bfmeCalcEFC(int val);
 
-struct BfmeThingEFC
+struct BfmeEFCSource;
+class BfmeThingEFC
 {
-	unsigned char m_pad[0x8];
+public:
+	void rva0039B1F9(void);
+	void bfmeUpdate(int);
+	char m_pad00[0x4];
+	BfmeEFCSource *m_src04;
 	float m_f8;
-	int m_valC;
-	void bfmeUpdate(int val);
+	int level;
 };
 
 // ?bfmeUpdate@BfmeThingEFC@@QAEXH@Z
 void BfmeThingEFC::bfmeUpdate(int val)
 {
-	m_valC = val;
+	level = val;
 	m_f8 = bfmeCalcEFC(val);
 }
 

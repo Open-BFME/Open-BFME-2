@@ -57,6 +57,7 @@ class NameKeyGenerator
 {
 public:
 	NameKeyType nameToKey(const AsciiString &nameString);
+	const AsciiString &keyToName(NameKeyType key);
 };
 
 extern NameKeyGenerator *TheNameKeyGenerator;
@@ -135,8 +136,8 @@ extern ExperienceLevelSystem *TheExperienceLevelSystem;
 class Rva0028951F
 {
 public:
-	const Overridable *rva002897A8(void *list, int level);	// 0x002897A8
-	const Overridable *rva0028951F(int key);	// 0x0028951F, level by name key
+	const Overridable *rva002897A8(void *list, int level); // 0x002897A8
+	const Overridable *rva0028951F(int key); // 0x0028951F, level by name key
 };
 
 class Rva0039AF76
@@ -189,12 +190,14 @@ private:
 	int m_18;
 };
 
+struct ExperienceLevelHandle;
 class ExperienceLevelStore
 {
 public:
 	ExperienceLevelList *FindExperienceLevelList(const ExperienceTracker *tracker) const;
-public:
 	int rva00289BE0(const ExperienceTracker *tracker, int *out);
+	ExperienceLevelHandle FindCurrentLevel( const ExperienceTracker *tracker ) const; // 0x00288D2F
+	int rva00288CA6( const ExperienceTracker *tracker, int rank, int *pastEnd ) const; // 0x00288CA6
 };
 
 class Overridable
@@ -289,22 +292,24 @@ private:
 	unsigned char m_kindOf[0x10];			// +0x100
 };
 
+enum ObjectStatusTypes
+{
+	OBJECT_STATUS_3E = 0x3E
+};
 class Object
 {
 public:
 	const ThingTemplate *getTemplate() const { return m_template; }
-public:
 	ExperienceTracker *getExperienceTracker() const { return m_experienceTracker; }
-private:
-	void *m_vtbl;
-private:
-	const ThingTemplate *m_template;
-private:
-	unsigned char m_pad08[0x264 - 8];
-private:
-	ExperienceTracker *m_experienceTracker;
-public:
 	Relationship getRelationship(Object const *that) const;
+	bool testStatus( ObjectStatusTypes bit ) const; // 0x0004E536
+	// Thing's raw template pointer at +0x04 (no override walk).
+	const ThingTemplate *rawTemplate() const { return m_template; }
+private:
+	void *m_vtbl; // +0x00
+	const ThingTemplate *m_template; // +0x04
+	char m_pad08[0x25C];
+	ExperienceTracker *m_experienceTracker; // +0x264
 };
 
 class ExperienceTracker {
@@ -344,40 +349,45 @@ public:
 	void rva0039B315(float amount, bool a, bool b, bool c, bool d);
 };
 
-class BfmeThingEFC {
+struct BfmeEFCSource;
+class BfmeThingEFC
+{
 public:
-    void rva0039B1F9(void);
-    void bfmeUpdate(int);
-    char pad[0x0C]; int level;
+	void rva0039B1F9(void);
+	void bfmeUpdate(int);
+	char m_pad00[0x4];
+	BfmeEFCSource *m_src04;
+	float m_f8;
+	int level;
 };
 
 struct ExperienceParentView { char pad[0x5E7]; bool trainable; };
 
-class Rva003BD306Target {
-public:
-	char pad0[4];
-public:
-	ExperienceParentView *parent;
-public:
-	char pad08[4];
-public:
-	int m_level;
-public:
-	float experience;
-public:
-	char pad14[0x2C-0x14];
-public:
-	BfmeThingEFC *handle;
-public:
-	char pad30[8];
-public:
-	ObjectID sink;
-public:
-	bool enable;
+class Rva003BD306Target
+{
 public:
 	void rva0039B3D1(float value,bool feedback);
-public:
 	void rva0039B28F(bool v);
+	void rva0039B548();
+	void rva0039B2C7(int count, bool value);
+	char m_pad00[0x4];
+	ExperienceParentView *parent; // +0x04
+private:
+	AsciiString m_str08; // +0x08
+public:
+	int m_level; // +0x0C
+	float experience; // +0x10
+	char m_pad14[0x8];
+private:
+	float m_1C; // +0x1C
+	unsigned char m_20; // +0x20
+	char m_pad21[0xB];
+public:
+	BfmeThingEFC *handle; // +0x2C
+	char m_pad30[0x8];
+	ObjectID sink; // +0x38
+	bool enable; // +0x3C
+	char m_pad3D[0x3];
 };
 
 struct ObjectExperienceView { char pad[0x264]; Rva003BD306Target *tracker; };
