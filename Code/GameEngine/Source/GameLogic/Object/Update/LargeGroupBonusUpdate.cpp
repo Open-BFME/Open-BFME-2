@@ -15,7 +15,6 @@ void __malloc_alloc<0>::deallocate(void *__p, size_t)
 { free((char *)__p); }
 }
 #include "ascii_string.h"
-
 // ?getModuleNameKey@LargeGroupBonusUpdate@@UBE?AW4NameKeyType@@XZ @0x48ffd4
 // (69B): cached pool-name key for LargeGroupBonusUpdate. The class
 // identity comes from the pool-name string the body pushes
@@ -30,15 +29,12 @@ enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
-
 class NameKeyGenerator
 {
 public:
 	NameKeyType nameToKey(const char *name);
 };
-
 extern NameKeyGenerator *TheNameKeyGenerator;
-
 class Rva00360D26Member
 {
 public:
@@ -47,7 +43,6 @@ public:
 private:
 	unsigned char m_data[4];
 };
-
 class __declspec(novtable) LargeGroupBonusUpdateModuleData : public Snapshot
 {
 public:
@@ -64,7 +59,6 @@ private:
 	_STL::vector<AsciiString> m_flagSubObjectNames; // +0x20
 	AsciiString m_attributeModifier; // +0x2C
 };
-
 // The legacy row name comes from a masked Zero Hour inline placement; it
 // does not establish the retail class or method name. Retail 0x0049001F
 // reads bytes +9 and +8 from an interface subobject and returns their AND.
@@ -93,9 +87,7 @@ class RGBAColorInt;
 class Thing;
 class ModuleData;
 class Object;
-
 #include "../../../../Include/Common/BfmeXfer.h"
-
 class Xfer::Version
 {
 public:
@@ -105,10 +97,24 @@ public:
 	unsigned char m_current;
 	unsigned char m_minimum;
 };
-
 #include "../../../../Include/Common/ObjectModule.h"
+//
+// ?xfer@LargeGroupBonusUpdate@@MAEXPAVXfer@@@Z, retail 0x00490031, 111 bytes.
+// Slot 3 (offset 0x0C) of vtable 0x0084D124 (class of rowed dtor
+// ??1Rva0048FFB4@@UAE@XZ and rowed ctor ??0LargeGroupBonusUpdate@@QAE@PAVThing@@PBVModuleData@@@Z
+// at 0x004900B1). Base UpdateModule xfer via rowed 0x0044DF9F, IsLightCRC
+// early-out via Xfer slot 0x10, Version(1,2) via Xfer slot 0x28, bools at
+// +0x28/+0x2A/+0x29 via Xfer slot 0x90, then version-gated uint at +0x24 via
+// Xfer slot 0x78. Layout is the rowed 0x2C-byte class (UpdateModule base 0x20
+// plus trailing vptr at +0x20 plus m_24/m_28/m_29/m_2A) from
+// LargeGroupBonusUpdateCtor.cpp. Recipe is
+// the InvisibilityUpdateXfer slot-3 pattern with IsLightCRC guard.
+
+class AsciiString;
+class Snapshot;
 
 class BehaviorModuleInterface { public: virtual void behaviorSlot(); };
+
 class UpdateModuleInterface { public: virtual void updateSlot(); };
 
 class UpdateModule : public ObjectModule,
@@ -164,6 +170,8 @@ private:
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupBonusUpdate.cpp
 
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupBonusUpdate.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupBonusUpdatePoolKey.cpp
 
 // ?getModuleNameKey@LargeGroupBonusUpdate@@UBE?AW4NameKeyType@@XZ
@@ -196,8 +204,6 @@ LargeGroupBonusUpdateModuleData::~LargeGroupBonusUpdateModuleData()
 {
 }
 
-// tu-skeleton: 0x00490019 6B ?name@Rva00490019Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/HordeUpdate.cpp
 
 bool HordeUpdate::isTrueHordeMember() const
@@ -205,9 +211,26 @@ bool HordeUpdate::isTrueHordeMember() const
     return m_trueHordeMember && m_inHorde;
 }
 
+// tu-skeleton: 0x00490019 6B ?name@Rva00490019Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+
 // tu-skeleton: 0x0049002D 4B ?get@Rva0049002DByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x00490031 111B ?xfer@LargeGroupBonusUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupBonusUpdateXfer.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupBonusUpdateXfer.cpp
+
+void LargeGroupBonusUpdate::xfer(Xfer *xfer)
+{
+	UpdateModule::xfer(xfer);
+	if (xfer->IsLightCRC())
+		return;
+	Xfer::Version version(1, 2);
+	*xfer == version;
+	*xfer == m_28;
+	*xfer == m_2A;
+	*xfer == m_29;
+	if (version.m_minimum >= 2) {
+		*xfer == m_24;
+	}
+}
 
 // tu-skeleton: 0x004900A0 17B ?buildFieldParse@LargeGroupBonusUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
 
