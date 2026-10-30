@@ -1,4 +1,5 @@
-// cl: /DNDEBUG /MD /GX /Od /GZ /GS
+// cl: /DNDEBUG /GX /Od /GZ /GS
+// platformsdk
 // Another module in the 0x00806480..0x00806B10 span, carrying the same /Od /GZ
 // signature as the rest of this directory -- a frame pointer for code with no
 // register pressure and `cmp ebp,esp` into the stack-check helper at 0x009F7502.
@@ -7,17 +8,21 @@
 // nothing.  What the bodies DO show is that they share one record layout, which
 // is why they share a file.
 
+/* WINSOCK_API_LINKAGE empty (WinSock2.h's own guard), as
+ * Ws2_32ImportThunks.cpp includes it: retail reaches WSAStartup and WSACleanup
+ * by a direct rel32 to their import thunks, not through dllimport slots.
+ * Built without /MD for the same reason the CRT calls are direct. */
+#define WINSOCK_API_LINKAGE
+#include <winsock2.h>
+#include <stdlib.h>
+#include <string.h>
+
 // 0x0080B070, the teardown all three destructors here hand the record's first
 // pointer to; address-derived and pinned.
 void Rva0080B070Destroy( void *object );
 
 // 0x007F0030, the one-argument release the rest of this directory uses.
 void Rva007F0030Free( void *block );
-
-// wsock32's WSACleanup, reached through its import thunk at 0x006556AC.
-extern "C" int __stdcall WSACleanup( void );
-
-extern "C" __declspec(dllimport) void __stdcall Sleep( unsigned int ms );
 
 // The two byte swaps in Y4DirtySock's range and the reset at 0x0080DFC0.
 unsigned short Rva007FFA60Swap16( unsigned short value );   // 0x007FFA60
@@ -26,9 +31,6 @@ unsigned int   Rva007FFAD0( unsigned int value );           // 0x007FFAD0
 // 0x20-byte Secret it just derived, and 0x00806A90 passes null.
 extern "C" void Rva0080DFC0( void *object, const void *secret );        // 0x0080DFC0
 extern "C" int  Rva0080DF70( const char *key, char *secret, char *ticket ); // 0x0080DF70
-extern "C" char *strncpy( char *dest, const char *src, unsigned int count );
-extern "C" void *memcpy( void *dest, const void *src, unsigned int count );
-extern "C" void *memset( void *dest, int value, unsigned int count );
 void *Rva007F0000Alloc( int size );                         // 0x007F0000
 int Rva007FF990Swap16( unsigned short value );   // 0x007FF990
 unsigned int   Rva007FF9F0Swap32( unsigned int value );     // 0x007FF9F0
@@ -38,7 +40,6 @@ extern "C" int   Rva0080B460( void *object, int mode );                // 0x0080
 extern "C" int Rva0080ADE0( void *object, int releaseState );
 extern "C" void *Rva007FD2D0( int family, int type, int protocol );
 extern "C" int Rva007FF790( char *address, const char *text );  // 0x0066BC60
-extern "C" int atoi( const char *text );
 void *Rva007FDFF0Connect( const char *host, int timeout );
 struct Rva00806580Record;
 struct Rva0080B1B0Comm;
@@ -65,7 +66,6 @@ extern "C" int   Rva0080E300( void *crypto, int length );
 int   Rva00807520( Rva00806580Record *record, int length, int limit ); // 0x00807520
 extern "C" void  Rva0080E350( void *crypto, char *packet, int length );  // 0x0080E350
 extern "C" void  Rva0080E410( void *crypto, char *packet, int length );  // 0x0080E410
-extern "C" unsigned int strlen( const char *text );
 
 // The empty string this module hands back for a block with no payload.
 // g_Rva0130ACE0Empty: matched references place it at VA 0xe0a6f8; zero-filled at retail, sized to the
@@ -85,24 +85,6 @@ char g_Rva00E0A710Prefix[ 11 ] = {
 extern unsigned int g_Rva0130ACDCEpoch;
 // g_Rva0130ACDCEpoch: matched references place it at VA 0xe0a6f4 (zero-filled .bss).
 unsigned int g_Rva0130ACDCEpoch;
-
-// Declared here rather than included: retail reaches WSAStartup by a direct
-// rel32 to the stub at 0x0081BDF6, which a <winsock2.h> declaration's dllimport
-// would not produce.  Only the first field is ever read, but the SIZE is
-// load-bearing -- 0x190 is what the frame is built around.
-struct Rva008064A0WsaData
-{
-	unsigned short wVersion;
-	unsigned short wHighVersion;
-	char szDescription[ 257 ];
-	char szSystemStatus[ 129 ];
-	unsigned short iMaxSockets;
-	unsigned short iMaxUdpDg;
-	char *lpVendorInfo;
-};
-
-extern "C" int __stdcall WSAStartup( unsigned short versionRequested,
-		Rva008064A0WsaData *data );
 
 // Only the five offsets these bodies touch are evidence.  +0x00 is a sub-object
 // with its own teardown, +0x70 and +0x7C are plain blocks, +0x5C takes a state
@@ -225,8 +207,6 @@ extern "C" void Rva00810020( void *context );
 extern "C" void Rva00810060( void *context, const unsigned char *data,
 	int length );
 extern "C" void Rva00810FF0( void *context, char *out, int outSize );
-extern "C" int memcmp( const void *first, const void *second,
-	unsigned int count );
 
 static const unsigned char g_Rva0080B4B0ClientPrefix[ 3 ] = { 1, 0, 0x80 };
 
@@ -769,7 +749,7 @@ void Rva00806A90( Rva00806580Record *record, const void *key, int length )
 Rva00806580Record *Rva008064A0( void )
 {
 	Rva00806580Record *record;
-	Rva008064A0WsaData wsadata;
+	WSADATA wsadata;
 
 	if( WSAStartup( 2, &wsadata ) != 0 )
 		return 0;
