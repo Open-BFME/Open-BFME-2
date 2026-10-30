@@ -20269,8 +20269,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A03BE4,4,.data,global,?$S2@?1??getModuleNameKey@InvisibilityUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/InvisibilityUpdate.cpp,owned,,1,4
 0x00A03BE8,4,.data,global,?TheInvisibilityUpdatePoolKey@?1??rva0004A393C@InvisibilityUpdate@@SA?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/InvisibilityUpdate.cpp,owned,,1,2
 0x00A03BEC,4,.data,global,?$S1@?1??rva0004A393C@InvisibilityUpdate@@SA?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/InvisibilityUpdate.cpp,owned,,1,4
-0x00A03BF0,4,.data,global,?TheSpawnPointProductionExitUpdatePoolKey@?1??getModuleNameKey@SpawnPointProductionExitUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/SpawnPointProductionExitUpdatePoolKey.cpp,owned,,1,2
-0x00A03BF4,4,.data,global,?$S1@?1??getModuleNameKey@SpawnPointProductionExitUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/SpawnPointProductionExitUpdatePoolKey.cpp,owned,,1,4
+0x00A03BF0,4,.data,global,?TheSpawnPointProductionExitUpdatePoolKey@?1??getModuleNameKey@SpawnPointProductionExitUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/SpawnPointProductionExitUpdate.cpp,owned,,1,2
+0x00A03BF4,4,.data,global,?$S1@?1??getModuleNameKey@SpawnPointProductionExitUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/SpawnPointProductionExitUpdate.cpp,owned,,1,4
 0x00A03BF8,4,.data,global,_s_rva007B1AA6,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A03BFC,4,.data,global,?TheHijackerUpdatePoolKey@?1??rva0004A4010@HijackerUpdate@@SA?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/HijackerUpdatePoolKey.cpp,owned,,1,2
 0x00A03C00,4,.data,global,?$S1@?1??rva0004A4010@HijackerUpdate@@SA?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/HijackerUpdatePoolKey.cpp,owned,,1,4
