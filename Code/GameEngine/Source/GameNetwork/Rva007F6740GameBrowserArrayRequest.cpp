@@ -42,7 +42,7 @@ void __cdecl Rva007F6730Callback( Rva007E8810Message *message,
 	((Rva007F66B0Browser *)browser)->onLobbyCounts( message );
 }
 
-class Rva007F6740RequestService
+class GameBrowserRequestService
 {
 public:
 	virtual void slot00() = 0;
@@ -58,7 +58,7 @@ public:
 		const char *stringText ) throw() = 0;
 };
 
-class Rva007F6740AsyncService
+class GameBrowserAsyncService
 {
 public:
 	virtual void slot00() = 0;
@@ -79,8 +79,8 @@ public:
 
 private:
 	char m_pad00[ 0x10 ];
-	Rva007F6740RequestService *m_requestService;
-	Rva007F6740AsyncService *m_asyncService;
+	GameBrowserRequestService *m_requestService;
+	GameBrowserAsyncService *m_asyncService;
 	char m_pad18[ 0x2C4 ];
 	char m_messageBuffer[ 0x400 ];
 	int m_transaction;

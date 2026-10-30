@@ -29,7 +29,7 @@ void __cdecl Rva007F7AD0Callback(Rva007E8810Message *message,
 	browser->onLobbyCount(message);
 }
 
-class Rva007F7AE0RequestService
+class LobbyListRequestService
 {
 public:
 	virtual void v00() = 0;
@@ -42,7 +42,7 @@ public:
 		int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8,
 		const char *ids, const char *strings) = 0;
 };
-class Rva007F7AE0AsyncService
+class LobbyListAsyncService
 {
 public:
 	virtual void v00() = 0;
@@ -78,8 +78,8 @@ public:
 		const __int64 *ids, unsigned idCount,
 		const char **strings, unsigned stringCount);
 	char m_pad04[0x0c];
-	Rva007F7AE0RequestService *m_request;
-	Rva007F7AE0AsyncService *m_async;
+	LobbyListRequestService *m_request;
+	LobbyListAsyncService *m_async;
 	char m_pad18[0x2c4];
 	char m_buffer[0x400];
 	int m_transaction;

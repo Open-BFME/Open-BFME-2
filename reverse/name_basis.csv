@@ -5684,3 +5684,10 @@ local,Rva007E8D30::p,Rva007E8D30::outputCursor,inferred,agree:nl-4457ae3dd59b-md
 global,?g_bfmeFeslFieldClassTable@@3QBEB,?g_feslFieldClassTable@@3QBEB,inferred,agree:nl-2db7b264e459,Code/GameEngine/Source/GameNetwork/Rva007E8D30FeslSetField.cpp,0x008E0E20
 global,?g_bfmeFeslFieldSeparator@@3DA,?g_feslFieldSeparator@@3DA,inferred,agree:nl-5e15c772745a,Code/GameEngine/Source/GameNetwork/Rva007E8D30FeslSetField.cpp,0x009D7F45
 class,Rva0023D201Status,PlayerQuitStatus,inferred,agree:nl-2d56dcb6fa26,Code/GameEngine/Source/GameNetwork/Rva0025E5F4RelayCommands.cpp,
+function,?Rva007E8D30Name@@YAPADPAD0PBD@Z,?writeFieldNamePrefix@@YAPADPAD0PBD@Z,inferred,agree:nr-16739f568d1651164ae3d90a,Code/GameEngine/Source/GameNetwork/Rva007E8D30FeslSetField.cpp,0x00655B70
+function,?Rva007E8B00@@YAHPAEHPBD@Z,?setRecordField@@YAHPAEHPBD@Z,inferred,agree:nr-eb82efeb8da3460cbc7f7b30,Code/GameEngine/Source/GameNetwork/Rva007E8D30FeslSetField.cpp,0x00655B90
+carry,Rva007E8B00::recordCursor,setRecordField::recordCursor,inferred,scope renamed by Rename Rva007E8B00 to setRecordField (inferred),Code/GameEngine/Source/GameNetwork/Rva007E8D30FeslSetField.cpp,0x00655B90
+class,Rva007F6740AsyncService,GameBrowserAsyncService,inferred,agree:nr-2acdf4593c7c1a3033dd87cc,Code/GameEngine/Source/GameNetwork/Rva007F6740GameBrowserArrayRequest.cpp,
+class,Rva007F6740RequestService,GameBrowserRequestService,inferred,agree:nr-c72916bcadab0671ec62c76d,Code/GameEngine/Source/GameNetwork/Rva007F6740GameBrowserArrayRequest.cpp,
+class,Rva007F7AE0AsyncService,LobbyListAsyncService,inferred,agree:nr-9ecbc2319d7548f99499e2cc,Code/GameEngine/Source/GameNetwork/Rva007F7AE0LobbyListRequest.cpp,
+class,Rva007F7AE0RequestService,LobbyListRequestService,inferred,agree:nr-524f8775b6b987553482bb5f,Code/GameEngine/Source/GameNetwork/Rva007F7AE0LobbyListRequest.cpp,

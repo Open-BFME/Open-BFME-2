@@ -21,7 +21,7 @@ int Rva007EC030( char *text, const char *tag );
 
 // Retail 0x00655B90: replaces or appends a record field. The placeholder
 // spelling is inherited from the independently matched DirtySock donor.
-int Rva007E8B00( unsigned char *buffer, int size, const char *field );
+int setRecordField( unsigned char *buffer, int size, const char *field );
 
 // g_Rva011293A0HexFirst: matched references place it at VA 0xce0c10; retail contents, sized to the
 // 0x108-byte gap before the next known global there.
@@ -119,7 +119,7 @@ char g_feslFieldSeparator = '\n';
 // Complete 549-byte FESL copy of the DirtySock Y4TextToValue.c donor.
 // Keep the final equivalent clear paths and the volatile separator read;
 // see reverse/attempt_support/fesl-655b90-recovery-20261022/readme.md.
-int Rva007E8B00( unsigned char *buffer, int size, const char *field )
+int setRecordField( unsigned char *buffer, int size, const char *field )
 {
 	int i;
 	int iDelta;
@@ -289,7 +289,7 @@ clearDone:
 
 // The record's "name=" prefix, as the DirtySock copy's Rva007EC730 writes it:
 // a null name empties the record instead.
-static char *Rva007E8D30Name( char *empty, char *dest, const char *src )
+static char *writeFieldNamePrefix( char *empty, char *dest, const char *src )
 {
 	if( src == 0 )
 	{
@@ -329,7 +329,7 @@ static int Rva007E8D30( const char *name, const char *value, char *record, int s
 		return 0;
 	}
 
-	outputCursor = Rva007E8D30Name( record, item, name );
+	outputCursor = writeFieldNamePrefix( record, item, name );
 
 	// Retail starts the unsigned budget at 4 (add esi,4): sizeof the item
 	// POINTER, so it wraps and never limits the 0x32200-byte block.
@@ -385,7 +385,7 @@ static int Rva007E8D30( const char *name, const char *value, char *record, int s
 
 	*outputCursor = 0;
 
-	iResult = Rva007E8B00( (unsigned char *)record, size, item );
+	iResult = setRecordField( (unsigned char *)record, size, item );
 	( ( Rva007EFFC0Allocator * )((void *)Gen007EFFC0()) )->release( item, 0 );
 	return iResult;
 }
