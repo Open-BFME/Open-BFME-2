@@ -71,13 +71,13 @@ public:
 	Real Get_Z_Rotation() const;
 };
 
-class Module
+#include "../../../../Include/Common/Module.h"
+
+// Access view for the native module-data load at +4; no extra state or methods.
+class Rva0045569DModuleDataAccess : public Module
 {
 public:
-	virtual void m00();
-	const ModuleData *getModuleData() const { return m_moduleData; }
-private:
-	const ModuleData *m_moduleData; // +0x04
+    using Module::getModuleData;
 };
 
 // The CastleMemberBehavior module: keep and castle ids.
@@ -473,7 +473,7 @@ Object *FoundationAIUpdate::construct(const ThingTemplate *what, const Coord3D *
 				{
 					Module *castleModule = castle->findModule(CastleBehavior::rva0003955DA());
 					if (castleModule)
-						noOrient = ((const CastleBehaviorModuleData *)castleModule->getModuleData())->m_flag74;
+						noOrient = ((const CastleBehaviorModuleData *)((Rva0045569DModuleDataAccess *)castleModule)->getModuleData())->m_flag74;
 				}
 				if (!noOrient)
 				{

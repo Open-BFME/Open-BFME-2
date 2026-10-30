@@ -1,0 +1,358 @@
+{
+  "source": "Code/GameEngine/Source/GameLogic/Object/Update/FoundationAIUpdateConstruct.cpp",
+  "scope": "canonical Module base and data getter access view; preserve existing BfmeItemE63 partial storage +14/+18 and the separate CastleBehaviorModuleData +74 view",
+  "variants": {
+    "before": {
+      "source_sha256": "03dc2f123ee9d048997f6f674bf1b42117f9fa94207016d10ffd708bb77f1d50",
+      "rows": [
+        {
+          "name": "?construct@FoundationAIUpdate@@UAEPAVObject@@PBVThingTemplate@@PBUCoord3D@@MPAVPlayer@@H_N@Z",
+          "rva": "0x0045569D",
+          "size": "1174",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?construct@FoundationAIUpdate@@UAEPAVObject@@PBVThingTemplate@@PBUCoord3D@@MPAVPlayer@@H_N@Z",
+          "rva": "0x00789F64",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "$L1373",
+          "rva": "0x00789F59",
+          "size": "11",
+          "exact": true
+        },
+        {
+          "name": "$L1372",
+          "rva": "0x00789F4C",
+          "size": "13",
+          "exact": true
+        },
+        {
+          "name": "$L1371",
+          "rva": "0x00789F3F",
+          "size": "13",
+          "exact": true
+        }
+      ],
+      "eh": [
+        {
+          "name": "?construct@FoundationAIUpdate@@UAEPAVObject@@PBVThingTemplate@@PBUCoord3D@@MPAVPlayer@@H_N@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        }
+      ]
+    },
+    "trial": {
+      "source_sha256": "23eea6853632d7951d9529c7910400dd11dfc928908d6fe7a221ddf9bde69330",
+      "rows": [
+        {
+          "name": "?construct@FoundationAIUpdate@@UAEPAVObject@@PBVThingTemplate@@PBUCoord3D@@MPAVPlayer@@H_N@Z",
+          "rva": "0x0045569D",
+          "size": "1174",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?construct@FoundationAIUpdate@@UAEPAVObject@@PBVThingTemplate@@PBUCoord3D@@MPAVPlayer@@H_N@Z",
+          "rva": "0x00789F64",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "$L1373",
+          "rva": "0x00789F59",
+          "size": "11",
+          "exact": true
+        },
+        {
+          "name": "$L1372",
+          "rva": "0x00789F4C",
+          "size": "13",
+          "exact": true
+        },
+        {
+          "name": "$L1371",
+          "rva": "0x00789F3F",
+          "size": "13",
+          "exact": true
+        }
+      ],
+      "eh": [
+        {
+          "name": "?construct@FoundationAIUpdate@@UAEPAVObject@@PBVThingTemplate@@PBUCoord3D@@MPAVPlayer@@H_N@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        }
+      ]
+    }
+  },
+  "symbol_identity_changes": {
+    "?getModuleData@Module@@QBEPBVModuleData@@XZ": "?getModuleData@Module@@IBEPBVModuleData@@XZ"
+  },
+  "all_external_code_and_symbolic_relocations_identical": true,
+  "actual": {
+    "source_sha256": "685cdd1ab40779fa586a414475e630835569129e2649d144a5fdfa9f7bc1c1a2",
+    "object_sha256": "a79b4a38d630ab173a710f581f5a179f59bf21eaac142d9ac36b5c671c8116d5",
+    "strict_current": true,
+    "external_code_definitions_and_relocations_identical": 26
+  },
+  "external_definition_sha256": {
+    "??0Coord3D@@QAE@ABU0@@Z": "84afcb324cc34b0719e7ce978a6fa432c42350a50c616399af2a17827cad78a7",
+    "??AL7LookupBuckets@@QBEABQAUL7LookupNode@@I@Z": "e0674213f67ac7c158d71375a076d1db13431eccccf6fa81619b03b3cba49917",
+    "??ZCoord3D@@QAEAAU0@ABU0@@Z": "413e08db5c330dc99ced15278cb57e4745ebd28fb8e92f9f9410564ad708cb41",
+    "?clear@ModelConditionFlags@@QAEXH@Z": "d4e2146e07fbfec2c52848faedd5bbe6b6da257b068acacc26fd6107f91dc0af",
+    "?clearModelConditionState@Object@@QAEXH@Z": "a956be6ec694625f391e3cd218667c5ea2f55756e2648548fdf09e0e6c3c9a86",
+    "?construct@FoundationAIUpdate@@UAEPAVObject@@PBVThingTemplate@@PBUCoord3D@@MPAVPlayer@@H_N@Z": "8aa9c6ed79fb5eb7a54ee8ad06df5a52cd47736019a6c1e40b930df50248d03e",
+    "?find@ObjectIdMap@@QAEPAUObjectIdNode@@ABW4ObjectID@@@Z": "3c209f8e686d971a158619c03936ec281da82dbaaccf663fefceb702fbe8c3d4",
+    "?findObjectByID@GameLogic@@QAEPAVObject@@W4ObjectID@@@Z": "045623e44480ab1f8d18030f70c6e18933a49080dcc1694afd45ff0a7dab514e",
+    "?getDefaultTeam@Player@@QBEPAVTeam@@XZ": "a747056a4e21fb337320e8d362c515a33809b3bb1622fba334a38cd5a820cba3",
+    "?getFoundationAIUpdateModuleData@FoundationAIUpdate@@QBEPBVFoundationAIUpdateModuleData@@XZ": "50ec2995c3ef0d616ddbe247f0c0e4bea2bca9396923d38b6adc97efe1a58f1c",
+    "?getModuleData@Module@@IBEPBVModuleData@@XZ": "50ec2995c3ef0d616ddbe247f0c0e4bea2bca9396923d38b6adc97efe1a58f1c",
+    "?getMoney@Player@@QAEPAVRva003B0D7C@@XZ": "411bf35d118907b21bfe0452ab9860e02237a73f25911744742ca37c470d62c8",
+    "?getObject@BehaviorModule@@QBEPAVObject@@XZ": "36bb3a0b070115c40fdb482013eb6105f5574eea78f1b213c17da35151bfdde5",
+    "?getPlacementAngle@ThingTemplate@@QBEMXZ": "81a082e1c81fd6c05429c705ffd45fc51076aed39b8e4179dd1f446b9de13f97",
+    "?getPosition@Thing@@QBEPBUCoord3D@@XZ": "53e5d760532d69479022c0851b6fccb67b6c6f27267650a718901c839511d4fb",
+    "?getStats@Player@@QAEPAVRva0039B795@@XZ": "fbf04c6910dae94d680b17c1bbbcbb44e37e1e70c495f503b18488a4c21ac9e5",
+    "?getTemplate@Thing@@QBEPBVThingTemplate@@XZ": "50ec2995c3ef0d616ddbe247f0c0e4bea2bca9396923d38b6adc97efe1a58f1c",
+    "?getTransformMatrix@Thing@@QBEPBVMatrix3D@@XZ": "49648203423009ca2c6090ef0b993389c79fc9e0ef25193a873a70611c8c962e",
+    "?isFoundationLocked@Object@@QBE_NXZ": "6d676e4bc9267b53c388b6977db53866731ddf4f876a1785c83c421609ea0c90",
+    "?isKindOf@ThingTemplate@@QBEIH@Z": "9e73681d77a53b88025130b39750604df02747479a9d983f850b56e9033c3923",
+    "?pathfinder@AI@@QAEPAVPathfinder@@XZ": "374194b4575e5b0d97f57a2e42835a27e284508ac2b3ad325fa863eb63e259eb",
+    "?set@ModelConditionFlags@@QAEXH@Z": "67b4722e3db943801f5d93616d3522bbb88be3dfa608e9ca25bf3937402e17bc",
+    "?setModelConditionState@Object@@QAEXH@Z": "5b3574bedbb83ae54b0b2dbfd884773abe021af01123f771cc70e0407a2dcf0d",
+    "?size@L7LookupBuckets@@QBEIXZ": "d48880756a6792e641f9f4c90531b1f44600891b8d3b68cd6bedc28f831bed8b",
+    "?test@ModelConditionFlags@@QBEIH@Z": "93f01e442d52ba6584edb591e708f3b0364625430974f051ddf8dd887938fefb",
+    "_atan2f": "89a1087d08b169a26436dd2a481ccc3d0113c969246ced033967c3c70f814393"
+  },
+  "native_helpers": [
+    {
+      "rva": "0x28b6d6",
+      "size": 43,
+      "raw": "568bb1440200005733ffeb0e8b01ff50103b44240c740b83c6048b0e85c975eceb028b3e8bc75f5ec20400",
+      "instructions": [
+        {
+          "rva": "0x28b6d6",
+          "mnemonic": "push",
+          "operands": "esi"
+        },
+        {
+          "rva": "0x28b6d7",
+          "mnemonic": "mov",
+          "operands": "esi, dword ptr [ecx + 0x244]"
+        },
+        {
+          "rva": "0x28b6dd",
+          "mnemonic": "push",
+          "operands": "edi"
+        },
+        {
+          "rva": "0x28b6de",
+          "mnemonic": "xor",
+          "operands": "edi, edi"
+        },
+        {
+          "rva": "0x28b6e0",
+          "mnemonic": "jmp",
+          "operands": "0x28b6f0"
+        },
+        {
+          "rva": "0x28b6e2",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [ecx]"
+        },
+        {
+          "rva": "0x28b6e4",
+          "mnemonic": "call",
+          "operands": "dword ptr [eax + 0x10]"
+        },
+        {
+          "rva": "0x28b6e7",
+          "mnemonic": "cmp",
+          "operands": "eax, dword ptr [esp + 0xc]"
+        },
+        {
+          "rva": "0x28b6eb",
+          "mnemonic": "je",
+          "operands": "0x28b6f8"
+        },
+        {
+          "rva": "0x28b6ed",
+          "mnemonic": "add",
+          "operands": "esi, 4"
+        },
+        {
+          "rva": "0x28b6f0",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [esi]"
+        },
+        {
+          "rva": "0x28b6f2",
+          "mnemonic": "test",
+          "operands": "ecx, ecx"
+        },
+        {
+          "rva": "0x28b6f4",
+          "mnemonic": "jne",
+          "operands": "0x28b6e2"
+        },
+        {
+          "rva": "0x28b6f6",
+          "mnemonic": "jmp",
+          "operands": "0x28b6fa"
+        },
+        {
+          "rva": "0x28b6f8",
+          "mnemonic": "mov",
+          "operands": "edi, dword ptr [esi]"
+        },
+        {
+          "rva": "0x28b6fa",
+          "mnemonic": "mov",
+          "operands": "eax, edi"
+        },
+        {
+          "rva": "0x28b6fc",
+          "mnemonic": "pop",
+          "operands": "edi"
+        },
+        {
+          "rva": "0x28b6fd",
+          "mnemonic": "pop",
+          "operands": "esi"
+        },
+        {
+          "rva": "0x28b6fe",
+          "mnemonic": "ret",
+          "operands": "4"
+        }
+      ]
+    }
+  ],
+  "native_caller_access": [
+    {
+      "rva": "0x455817",
+      "raw": "8b4004",
+      "mnemonic": "mov",
+      "operands": "eax, dword ptr [eax + 4]"
+    },
+    {
+      "rva": "0x45581a",
+      "raw": "80787400",
+      "mnemonic": "cmp",
+      "operands": "byte ptr [eax + 0x74], 0"
+    },
+    {
+      "rva": "0x455a78",
+      "raw": "8b4814",
+      "mnemonic": "mov",
+      "operands": "ecx, dword ptr [eax + 0x14]"
+    },
+    {
+      "rva": "0x455a7b",
+      "raw": "894b14",
+      "mnemonic": "mov",
+      "operands": "dword ptr [ebx + 0x14], ecx"
+    },
+    {
+      "rva": "0x455a7e",
+      "raw": "8b4018",
+      "mnemonic": "mov",
+      "operands": "eax, dword ptr [eax + 0x18]"
+    },
+    {
+      "rva": "0x455a81",
+      "raw": "894318",
+      "mnemonic": "mov",
+      "operands": "dword ptr [ebx + 0x18], eax"
+    }
+  ],
+  "getter_provider_scope": {
+    "index_meta": {
+      "date": "2026-10-30 15:43",
+      "commit": "ccafe54d1d",
+      "clean_tree": true,
+      "census_date": "2026-10-30 14:18",
+      "census_commit": "e1f7c1dd18"
+    },
+    "indexed_public_incoming_executable_edges": [],
+    "providers": [
+      {
+        "source": "Code/GameEngine/Source/GameClient/Drawable_xferDrawableModules.cpp",
+        "symbol": "?getModuleData@Module@@QBEPBVModuleData@@XZ",
+        "raw": "8b4104c3",
+        "relocations": [],
+        "source_command_dependency_hashes_current": true,
+        "object_hash_matches_receipt": true,
+        "strict_inventory_receipt_current": false,
+        "source_sha256": "12c299c89c738fe67943b074f9bccba5c4a610da76cf9a8e4f91b39eb8d3ae8f",
+        "object_sha256": "5780822a9cee3b2c79d3d67d487602c633341e3b0e8811e64bf6378544a26e7c",
+        "incoming_refs": [
+          {
+            "section": ".debug$F",
+            "offset": 0,
+            "kind": 7
+          }
+        ]
+      },
+      {
+        "source": "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateCtor.cpp",
+        "symbol": "?getModuleData@Module@@IBEPBVModuleData@@XZ",
+        "raw": "8b4104c3",
+        "relocations": [],
+        "source_command_dependency_hashes_current": true,
+        "object_hash_matches_receipt": true,
+        "strict_inventory_receipt_current": true,
+        "source_sha256": "c04c7b1a67cb24689258b23b9e6ff8970d5bf44510f8c6d8f80a29bcdd6d0376",
+        "object_sha256": "58d2949db7482f597cad680b76920793cfda4c92c9676991ff0dc86a17c82765",
+        "incoming_refs": [
+          {
+            "section": ".debug$F",
+            "offset": 0,
+            "kind": 7
+          }
+        ]
+      },
+      {
+        "source": "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIGiantBirdAttackStateOnEnter.cpp",
+        "symbol": "?getModuleData@Module@@IBEPBVModuleData@@XZ",
+        "raw": "8b4104c3",
+        "relocations": [],
+        "source_command_dependency_hashes_current": true,
+        "object_hash_matches_receipt": true,
+        "strict_inventory_receipt_current": true,
+        "source_sha256": "6743b49cfa3161c23f4b204c1fb6a3ee0994b27cedcb88280bd7e016617c8d25",
+        "object_sha256": "e5361f51088c14f99d598afacf33d5c844b94e593612d6ec27a9078af1f138d2",
+        "incoming_refs": [
+          {
+            "section": ".debug$F",
+            "offset": 0,
+            "kind": 7
+          }
+        ]
+      },
+      {
+        "source": "Code/GameEngine/Source/GameLogic/Object/Update/FoundationAIUpdateConstruct.cpp",
+        "symbol": "?getModuleData@Module@@IBEPBVModuleData@@XZ",
+        "raw": "8b4104c3",
+        "relocations": [],
+        "source_command_dependency_hashes_current": true,
+        "object_hash_matches_receipt": true,
+        "strict_inventory_receipt_current": false,
+        "source_sha256": "685cdd1ab40779fa586a414475e630835569129e2649d144a5fdfa9f7bc1c1a2",
+        "object_sha256": "a79b4a38d630ab173a710f581f5a179f59bf21eaac142d9ac36b5c671c8116d5",
+        "incoming_refs": [
+          {
+            "section": ".debug$F",
+            "offset": 0,
+            "kind": 7
+          }
+        ]
+      }
+    ]
+  }
+}

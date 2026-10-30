@@ -12879,6 +12879,18 @@ is AptOnlineCustomMatch_PopulateLobbyComboBox.cpp.
 Census confirmation: not claimed.
 [Evidence and provenance](../reverse/attempt_support/gamespy-color-table-20261029.md).
 
+### Foundation canonical Module data access (2026-10-30)
+
+Cleared for the Module key in `FoundationAIUpdateConstruct.cpp`: expose the
+canonical protected getter through an abstract access view, preserving the
+native module+4/data+0x74 access and the existing item IDs at +0x14/+0x18.
+Five rows/EH and all 26 code definitions/relocations are conserved after the
+one getter access-spelling correction. Current other public/protected copies
+retain that identical four-byte provider. The owning acceptance tool retires
+one key; preview retains LINKS/1,182 bytes against `ccafe54d1d`. No census gain
+is claimed. The separate Thing/Matrix3D keys below remain blocked.
+[Native fields and provider scope](../reverse/attempt_support/module-foundation-data-access-20261030/README.md).
+
 ### Foundation Thing/Matrix3D ownership prerequisite (2026-10-30)
 
 Blocked for the two remaining Foundation header keys. A private combined view
@@ -12914,7 +12926,7 @@ Cleared for `AIGiantBirdAttackStateOnEnter.cpp`: use the registered Module and
 an access view exposing its existing protected data getter. Native module+4
 and subsequent data+0x3C accesses are preserved. The emitted getter changes
 only its public/protected access spelling; both four-byte bodies are identical,
-no indexed executable caller references the public name, and other public and
+the index's admitted-reference graph has no incoming public-name edge, and other public and
 protected providers remain. Six rows and EH stay exact; all 30 external code
 definitions/relocations are conserved under that one identity normalization.
 The owning acceptance tool retires one Module key; preview preserves
