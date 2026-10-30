@@ -134,9 +134,8 @@ class BfmeVecERE
 {
 public:
 	void bfmeResizeERE(unsigned int count, BfmeItemERE value);
-
-	BfmeItemERE *m_bfmeFirstERE;
-	BfmeItemERE *m_bfmeLastERE;
+	BfmeItemERE *m_bfmeFirstERE; // +0x00
+	BfmeItemERE *m_bfmeLastERE; // +0x04
 };
 
 // ---- from Code/GameEngine/Source/GameLogic/System/PlayerAITypeSet.cpp
