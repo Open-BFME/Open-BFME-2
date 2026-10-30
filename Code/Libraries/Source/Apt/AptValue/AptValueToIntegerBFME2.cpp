@@ -7,8 +7,10 @@
 // resolver; default values compare with the target undefined singleton. The
 // donor's separate BFME1 flag layout and indirect-string behavior are not
 // claimed as target layout facts.
-extern "C" int __cdecl atoi(const char *text);
-extern "C" long __cdecl strtol(const char *text, char **end, int base);
+// Retail calls the atoi and strtol import thunks directly (RVAs 0x629838
+// and 0x629ABA). Use the header's _CRTIMP guard to retain those direct calls.
+#define _CRTIMP
+#include <stdlib.h>
 
 class EAStringC
 {
