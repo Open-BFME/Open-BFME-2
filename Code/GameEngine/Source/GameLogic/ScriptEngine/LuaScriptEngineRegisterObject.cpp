@@ -9,14 +9,13 @@
 //
 // Retail keeps the EH frame (and the final state -1 store) around the RVO
 // AsciiString name but never stores state 0: every call in the name's
-// lifetime is nothrow (the lapi.c C functions plus the two throw() C++
-// helpers below) and a dead `if (0) throw 0;` inside that lifetime keeps the
+// lifetime is nothrow (the lapi.c C functions plus the throw() C++ helper
+// below) and a dead `if (0) throw 0;` inside that lifetime keeps the
 // frame /EHsc would otherwise drop.
 #include "ascii_string.h"
 
 struct lua_State;
 struct Rva00990030Range;
-struct BfmeStateUPC;
 struct Rva00333374IdOwner;
 
 extern "C" void __cdecl lua_settop(lua_State *L, int idx);
@@ -25,8 +24,8 @@ extern "C" void __cdecl lua_getglobal(lua_State *L, const char *name);
 extern "C" void __cdecl lua_setglobal(lua_State *L, const char *name);
 extern "C" int __cdecl lua_type(lua_State *L, int idx);
 extern "C" void __cdecl lua_pushnil(lua_State *L);
+extern "C" void __cdecl bfmeGoUPC(lua_State *L, int n);			// 0x007478E0
 unsigned int Rva00990030Lookup(Rva00990030Range *L, int idx) throw();	// 0x00747190
-void bfmeGoUPC(BfmeStateUPC *L, int value) throw();			// 0x007478E0
 AsciiString Rva00333374Get(const Rva00333374IdOwner *obj);	// 0x00333374
 
 enum { LUA_TNIL = 1 };
@@ -92,7 +91,7 @@ void LuaDrawableState::rva00333E5B(Object *obj)
 	else
 	{
 		lua_settop(m_lua, -2);
-		bfmeGoUPC((BfmeStateUPC *)m_lua, id);
+		bfmeGoUPC(m_lua, id);
 		lua_setglobal(m_lua, name.str());
 	}
 }

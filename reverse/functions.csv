@@ -9034,7 +9034,7 @@ _luaK_jump,,0x00752690,166,Code/Libraries/Source/Lua/lcode.c,matched,vendored=lu
 ?get@Rva006E3C40WordIntField@@QBEHXZ,,0x006E3C40,5,Code/GameEngine/Source/Common/DispWordIntGetters.cpp,matched,Disp8 word-int getter movzx shape
 ?getSortNumber@NetCommandMsg@@UAEHXZ,,0x004CEEA1,5,Code/GameEngine/Source/GameNetwork/NetCommandMsgCtor.cpp,matched,NetCommandMsg::getSortNumber returns m_id; slot 1 of base vtable 0x860130 and derived vtables (ZH identity)
 ?LogoffFromServer@Cftp@@QAEJXZ,,0x006CAA70,183,Code/Libraries/Source/WWVegas/WWDownload/FTP.CPP,matched,BFME1 near-miss donor; b1 0x00885F60; immediate-only drift (data global -> OutputDebugStringA pair); ZeroStuff public per matched QAE row
-?bfmeGoUPC@@YAXPAUBfmeStateUPC@@H@Z,,0x007478E0,59,Code/GameEngine/Source/Common/BfmeConv1339.cpp,matched,BFME1 byte-identical donor; b1 0x00990780
+_bfmeGoUPC,,0x007478E0,59,Code/Libraries/Source/Lua/lapi.c,matched,identity-correction=reverse/identity_evidence/007478e0-lua-sized-newtable.md; EA sized lua_newtable between lua_getref and lua_setglobal; b1 0x00990780
 ??$__find_if@PBDU?$_Not_within_traits@V?$char_traits@D@_STL@@@_STL@@@_STL@@YAPBDPBD0U?$_Not_within_traits@V?$char_traits@D@_STL@@@0@ABUrandom_access_iterator_tag@0@@Z,,0x00027FE0,534,Code/GameEngine/Source/Common/BfmeTwoHundredFiftySeven_DoOV.cpp,matched,stlport-4.6 _algobase.c:136 random-access __find_if<const char*;_Not_within_traits>; was placeholder ?bfmeDoOV@@YAPAXPAX000PAE@Z
 ??0Rva006853A0@@QAE@XZ,,0x00447A42,26,Code/GameEngine/Source/Common/R3ScalarFieldConstructors2.cpp,matched,BFME1 byte-identical donor; b1 0x006853A0
 ?get@Rva00314046LeaField@@QBEPAXXZ,,0x00314046,4,Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp,matched,Disp8 LEA getter; address-derived opaque holder

@@ -2,8 +2,8 @@
 //
 // BFME1 byte-identical donor (reference/open-bfme-1
 // Code/GameEngine/Source/Common/BfmeConv1339.cpp); trimmed to the single T2
-// body the sweep places. Lives in its own TU because BfmeConv1339.cpp is
-// already occupied by the landed GoUPC body.
+// body the sweep places. The donor's other body, GoUPC, is Lua's sized
+// lua_newtable and lives in Code/Libraries/Source/Lua/lapi.c.
 
 
 void *bfmeFindUPB(void *table, void *a);
