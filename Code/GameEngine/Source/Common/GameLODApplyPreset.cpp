@@ -260,8 +260,8 @@ class LODPostSlots {public:
 class Shell {public: bool showShellMap(bool,bool);};extern Shell *TheShell;
 extern int LODTextureReduction;
 extern unsigned char LODMeshCacheSetting;
-void Rva00117BB0SetOption(int);void rva00117120();
-class WW3D {public:static void _Invalidate_Mesh_Cache();};
+void rva00117120();
+class WW3D {public:static void Set_Texture_Reduction(int);static void _Invalidate_Mesh_Cache();};
 void Rva0012641FClear();
 class SimpleStreakRendererClass {public:static void Init(bool);};
 void BFME_DX8_Thread_Lock();bool BFME_DX8_Thread_Assert();
@@ -279,7 +279,7 @@ void Rva00DFE144Globals::rva002022E9(int level)
  if(GD->m_useShadowMapping){GD->m_useShadowVolumes=0;GD->m_useShadowDecals=0;}
  int option=info.option;
  if(!usePresetOption)option=presets[0].option;
- Rva00117BB0SetOption(option);
+ WW3D::Set_Texture_Reduction(option);
  if(LODTextureReduction!=info.textureReduction){LODTextureReduction=info.textureReduction;if(TheGameClient)rva00117120();}
  if(LODMeshCacheSetting!=info.meshSetting){LODMeshCacheSetting=info.meshSetting;if(!TheGameClient)goto after_client;WW3D::_Invalidate_Mesh_Cache();}
  if(TheGameClient){

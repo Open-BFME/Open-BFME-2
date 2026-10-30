@@ -133,6 +133,9 @@ void Rva00149570Set(int value)
 // private ?NPatchesGapFillingMode@WW3D@@0W4NPatchesGapFillingModeEnum@1@A.
 class WW3D
 {
+public:
+	static int Get_Texture_Reduction(void);	// 0x00117C00
+private:
 	friend int Rva00171660Get(void);
 	enum NPatchesGapFillingModeEnum {};
 	static NPatchesGapFillingModeEnum NPatchesGapFillingMode;
@@ -244,13 +247,13 @@ int Rva0051E2B7Get(void)
 	return g_Va00E048DC;
 }
 
-// ?Rva00117C00Get@@YAHXZ @ 0x00117C00 (6B) over 0x00DEC40C.
+// ?Get_Texture_Reduction@WW3D@@SAHXZ @ 0x00117C00 (6B) over 0x00DEC40C.
 
 extern int g_Va00DEC40C;
 // g_Va00DEC40C: matched references place it at VA 0xdec40c (zero-filled .bss).
 int g_Va00DEC40C;
 
-int Rva00117C00Get(void)
+int WW3D::Get_Texture_Reduction(void)
 {
 	return g_Va00DEC40C;
 }

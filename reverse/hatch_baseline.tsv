@@ -3921,8 +3921,6 @@ alternatename	Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescTextureHandles.cpp	
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescTextureSetters.cpp	?Set_Single_Texture@MeshMatDescClass@@QAEXABVBfmeHandleCX@@HH@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescTextureSetters.cpp	?Set_Texture@MeshMatDescClass@@QAEXHABVBfmeHandleCX@@HH@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadTextures.cpp	?bfmeDoBJE@BfmeSubBJE@@QAE_NPAX@Z	1
-alternatename	Code/Libraries/Source/WWVegas/WW3D2/Rva001171B0Cluster.cpp	?Rva001171B0@@YAXXZ	1
-alternatename	Code/Libraries/Source/WWVegas/WW3D2/Rva001171B0Cluster.cpp	?rva001171B0Notify@@YAXXZ	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/Rva00118B50State.cpp	_g_BfmeRender2DZ	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/Rva00122190Delete.cpp	??1Gen_uw_001212f0@@QAE@XZ	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/Rva001263B7Finish.cpp	?g_007BB8D8@@3MA	1
@@ -5335,7 +5333,6 @@ pin	reverse/symbols.csv	0x001165D0	1
 pin	reverse/symbols.csv	0x00116600	1
 pin	reverse/symbols.csv	0x00116F10	1
 pin	reverse/symbols.csv	0x00116F60	1
-pin	reverse/symbols.csv	0x001171B0	2
 pin	reverse/symbols.csv	0x001173F0	1
 pin	reverse/symbols.csv	0x00117DA0	1
 pin	reverse/symbols.csv	0x00118800	2
@@ -15288,7 +15285,6 @@ present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp	Get_Movie_Capture
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp	Get_Render_Device_Count@WW3D@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp	Get_Texture_Bitdepth@WW3D@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp	Get_Texture_Min_Dimension@WW3D@@	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp	Get_Texture_Reduction@WW3D@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp	Is_Large_Texture_Extra_Reduction_Enabled@WW3D@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp	Is_Windowed@WW3D@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp	On_Activate_App@WW3D@@	1

@@ -5,7 +5,7 @@
 // camera.IsBound assert); the ZH updateCenter is the semantic guide.
 // Target facts: up to three culling cameras each set a status (+0x00..+0x08,
 // Cull_Box slot +0x208 against the bounds at +0x0C: culled 2, visible 1,
-// unused 0); the global getter 0x00117C00 forces 1x; the first camera comes
+// unused 0); the global getter 0x00117C00 (WW3D::Get_Texture_Reduction) forces 1x; the first camera comes
 // from the 41-byte group helper 0x00112230; the 2x distance is
 // sqr(170s + 25 + 260s) with s = TheDisplay slot +0x40 / 1024 clamped to
 // [0.5, 2.5]; the nearest corner distance goes to +0x64; TheGlobalData
@@ -108,7 +108,11 @@ private:
 	RefCountPtr<CameraClass> *m_end;
 };
 
-int Rva00117C00Get();
+class WW3D
+{
+public:
+	static int Get_Texture_Reduction(void);
+};
 
 class Display
 {
@@ -196,7 +200,7 @@ void W3DTerrainBackground::updateCenter(const Rva00112230CameraGroup &cameraGrou
 		m_texMultiplier = 1;
 		return;
 	}
-	if (Rva00117C00Get() > 0) {
+	if (WW3D::Get_Texture_Reduction() > 0) {
 		m_texMultiplier = 1;
 		return;
 	}

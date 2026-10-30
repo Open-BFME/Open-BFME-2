@@ -3904,7 +3904,6 @@ name,address,notes
 ?Rva000BDCEFDestroy32@@YAXPAVRva000C24EA@@0@Z,0x000BDCEF,Call-only record32 cleanup ABI; full25B provider walks stride32 and calls full15B storage release at4; no pair payload name asserted
 ?Rva000C4795Copy4@@YAPAVRva000C24EA@@PBV1@0PAV1@PBX@Z,0x000C4795,Native erases push four cdecl arguments; full29B rowed copy wrapper reads only first three and ignores the unused tag pointer
 ?Rva000E1860Copy@@YAPAVRva00072A94@@PAV1@00PAXH@Z,0x000E1860,5-arg ICF twin of rowed 3-arg 47B body extra tag plus 0 dead caller 0x000E1D51 pushes 5 same as Rva00219947Forward
-?Rva001171B0@@YAXXZ,0x001171B0,opaque: Win9x-branch texture worker called from Reset_D3D_Device 0x00431E0 (SEH body with Lock and Release_Ref calls); address proven by REL32, semantic identity unproven
 ?Rva00142E20@@YAXXZ,0x00142E20,address-derived call alias for 0x007B661B to the rowed vector constructor; no separate semantic claim
 ?Rva001534B6Copy@@YAPAURva00153252@@PAU1@00ABUTag@@@Z,0x001534B6,"auto-pin (permute --pins): REL32 call target read from retail in 0x001537d8, whose banked body is byte-exact once this call resolves"
 ?Rva00194810@@YA?AURva0019B780Key@@ABVAsciiString@@@Z,0x0032ABDA,callee of ?lookup@Rva0019C520Member@@QAEHPAVAsciiString@@H@Z at retail 0x0032D0B5 read from its REL32 displacement; body unrowed
@@ -6089,7 +6088,6 @@ name,address,notes
 ?rva0010713A@W3DProjectedShadowManager@@QAEXPAX@Z,0x0010713A,"W3DProjectedShadowManager member taking an owner, called from vtable slot 0x001074C8; opaque address name"
 ?rva001091A8@Rva00108660ResourceManager@@QAEXPAX@Z,0x001091A8,"Rva00108660ResourceManager member taking an owner, called from vtable slot 0x00109DA6; opaque address name"
 ?rva0010B9E5@Rva00108660ResourceManager@@QAEXPAX@Z,0x0010B9E5,"Rva00108660ResourceManager member taking an owner, called from vtable slot 0x0010BB04; opaque address name"
-?rva001171B0Notify@@YAXXZ,0x001171B0,sole tail-notify target of dword option setter at 0x00117BB0 (guard byte + store + jmp); SEH body calls 0x51F520 + 0xA1F110; identity unproven address-derived pin
 ?rva00118A90@Rva0008FF12Host@@QAEXXZ,0x00118A90,"member vtable slot 0x0008FF12 calls first; opaque address name"
 ?rva00119F00@Rva00119F00Target@@QAEXXZ,0x00119F00,"method a vtable-slot forwarder tail-jumps to (ret 0); opaque address name"
 ?rva0011A040@Rva0011A040Target@@QAEXXZ,0x0011A040,callee of ?rva000448C4@Rva000448C4Forwarder@@QAEXXZ at retail 0x000448C4 read from its REL32 displacement; argument count from the callee's ret

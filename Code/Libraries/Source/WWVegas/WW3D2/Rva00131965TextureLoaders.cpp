@@ -87,7 +87,7 @@ void Rva0013107A::loadVolumeSlices() {
 
 struct TextureImageInfo {unsigned width,height,depth,mips;int format,type,imageMode;};
 extern "C" long __stdcall D3DXGetImageInfoFromFileInMemory(const void*,unsigned,TextureImageInfo*);
-int Rva00117C00Get();
+class WW3D {public:static int Get_Texture_Reduction();};
 class BfmeResetTextureBackend {public:void CreateTexture(int,int,int,int,int,int,int);};
 class SurfaceResource {public:virtual void slot0();virtual void slot1();virtual unsigned long __stdcall Release();};
 class SurfaceClass {public:void DrawPixel(unsigned,unsigned,unsigned);};
@@ -124,7 +124,7 @@ void Rva0013107A::PostLoad(const char*name) {
      slices=true;m_type=1;m_depth=m_width/m_height;m_originalDepth=m_depth;m_width=m_height;m_sliceWidth=m_width;m_mipLevels=1;
     }
    }
-   int reduction=Rva00117C00Get();
+   int reduction=WW3D::Get_Texture_Reduction();
    if(m_preference>=2)reduction=0;
    else {
     if(m_preference>=1){if(m_width<=512&&m_height<=512)reduction=0;else --reduction;}

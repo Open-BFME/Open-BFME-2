@@ -1432,24 +1432,6 @@ void WW3D::Enable_Coloring(unsigned int color)
 }
 
 /***********************************************************************************************
- * WW3D::Get_Texture_Reduction -- gets the (hacky) texture reduction factor                    *
- *                                                                                             *
- * INPUT:                                                                                      *
- *                                                                                             *
- * OUTPUT:                                                                                     *
- *                                                                                             *
- * WARNINGS:                                                                                   *
- *                                                                                             *
- * HISTORY:                                                                                    *
- *   11/25/99    TSS : Created.                                                                 *
- *=============================================================================================*/
-// ?Get_Texture_Reduction@WW3D@@ present-unmatched
-int	WW3D::Get_Texture_Reduction( void )
-{
-	return _TextureReduction;
-}
-
-/***********************************************************************************************
  * WW3D::Get_Texture_Min_Mip_Levels -- gets the minimum number of mip levels permitted		   *
  *                                                                                             *
  * INPUT:                                                                                      *
@@ -1868,9 +1850,9 @@ bool WW3D::End_Render(bool flip_frame)
 
 // tu-skeleton: 0x00117AD0 219B ?Update_Movie_Capture@WW3D@@SAXXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/WW3DUpdateMovieCapture.cpp (not merged yet)
 
-// tu-skeleton: 0x00117BB0 32B ?Rva00117BB0SetOption@@YAXH@Z -- matched in Code/GameEngine/Source/Common/WW3DOptionSetter.cpp (not merged yet)
+// tu-skeleton: 0x00117BB0 32B ?Set_Texture_Reduction@WW3D@@SAXH@Z -- matched in Code/GameEngine/Source/Common/WW3DOptionSetter.cpp (not merged yet)
 
-// tu-skeleton: 0x00117C00 6B ?Rva00117C00Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/GlobalGetterSingles.cpp (not merged yet)
+// tu-skeleton: 0x00117C00 6B ?Get_Texture_Reduction@WW3D@@SAHXZ -- matched in Code/GameEngine/Source/Common/GlobalGetterSingles.cpp (not merged yet)
 
 // tu-skeleton: 0x00117C10 13B ?Rva00117C10Get@@YAXPAH@Z -- matched in Code/GameEngine/Source/Common/GlobalGetterSingles.cpp (not merged yet)
 

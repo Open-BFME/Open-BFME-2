@@ -6,7 +6,7 @@
 // doTesselatedUpdate (0x001149EB) call it at the points where Zero Hour's
 // W3DTerrainBackground calls m_map->getFlatTexture(m_xOrigin, m_yOrigin,
 // m_width, pixelsPerCell). The body scales pixelsPerCell by the texture
-// reduction getter 0x00117C00, rounds the texture width up to a power of two,
+// reduction getter 0x00117C00 (WW3D::Get_Texture_Reduction), rounds the texture width up to a power of two,
 // builds the one-word holder 0x000EF902 and fills it through updateFlat
 // (0x000EF2C1, format 0x19) or updateFlatDXT1 (0x000EF4A3, 'DXT1'), else
 // reports "Unsupported format for terrain texture". The sixth argument is
@@ -51,7 +51,11 @@ public:
 		int cellWidth, int pixelsPerCell, int tileKind);
 };
 
-int Rva00117C00Get();
+class WW3D
+{
+public:
+	static int Get_Texture_Reduction(void);
+};
 
 class BfmeAwakenLog
 {
@@ -99,8 +103,8 @@ public:
 RefCountPtr<TextureClass> WorldHeightMap::getFlatTexture(int xCell, int yCell,
 	int cellWidth, int pixelsPerCell, int format, int tileKind)
 {
-	if (Rva00117C00Get() > 0) {
-		if (Rva00117C00Get() > 1)
+	if (WW3D::Get_Texture_Reduction() > 0) {
+		if (WW3D::Get_Texture_Reduction() > 1)
 			pixelsPerCell /= 4;
 		else
 			pixelsPerCell /= 2;

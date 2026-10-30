@@ -9,14 +9,13 @@
 // Display vtable carries getWidth/getHeight/getBitDepth/getWindowed at
 // +0x40/+0x44/+0x4C/+0x54; getBitDepth is byte-wide (movzx at both call sites);
 // restore_assets passed explicitly (8-arg Set call, add esp,0x20).
-// Human-readable names; the Win9x texture worker (0x1171B0) keeps an opaque
-// address-derived pin (target proven by REL32, semantic identity unproven).
+// Human-readable names; the Win9x branch reloads textures through
+// WW3D::_Invalidate_Textures (0x1171B0), as in ZH.
 
 #include <windows.h>
 
 void __cdecl BFME_DX8_Thread_Lock(void);
 bool __cdecl BFME_DX8_Thread_Assert(void);
-void __cdecl Rva001171B0(void);
 void __cdecl clipCursorToClient(void);
 
 class BFMEDX8DeviceLock
@@ -79,6 +78,7 @@ class WW3D
 public:
 	static bool Is_Initted(void) { return IsInitted; }
 	static int Get_Render_Device(void);
+	static void _Invalidate_Textures(void);
 	// BFME2 returns a plain success flag (row 0x00116F10, ww3d.cpp).
 	static bool Set_Render_Device(int dev = -1, int resx = -1, int resy = -1, int bits = -1, int windowed = -1, bool resize_window = false, bool reset_device = false, bool restore_assets = true);
 
@@ -106,7 +106,7 @@ void Reset_D3D_Device(bool active)
 					// that requires reloading all textures.
 					if (osvi.dwPlatformId == VER_PLATFORM_WIN32_WINDOWS)
 					{
-						Rva001171B0();
+						WW3D::_Invalidate_Textures();
 					}
 				}
 
