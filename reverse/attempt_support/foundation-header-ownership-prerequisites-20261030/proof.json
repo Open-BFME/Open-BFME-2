@@ -1,0 +1,192 @@
+{
+  "source": "Code/GameEngine/Source/GameLogic/Object/Update/FoundationAIUpdateConstruct.cpp",
+  "scope": "private combined Module/Thing/Matrix3D adoption with proposed canonical Get_Z_Rotation declaration and preserved foundation offsets",
+  "variants": {
+    "before": {
+      "source_sha256": "03dc2f123ee9d048997f6f674bf1b42117f9fa94207016d10ffd708bb77f1d50",
+      "rows": [
+        {
+          "name": "?construct@FoundationAIUpdate@@UAEPAVObject@@PBVThingTemplate@@PBUCoord3D@@MPAVPlayer@@H_N@Z",
+          "rva": "0x0045569D",
+          "size": "1174",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?construct@FoundationAIUpdate@@UAEPAVObject@@PBVThingTemplate@@PBUCoord3D@@MPAVPlayer@@H_N@Z",
+          "rva": "0x00789F64",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "$L1373",
+          "rva": "0x00789F59",
+          "size": "11",
+          "exact": true
+        },
+        {
+          "name": "$L1372",
+          "rva": "0x00789F4C",
+          "size": "13",
+          "exact": true
+        },
+        {
+          "name": "$L1371",
+          "rva": "0x00789F3F",
+          "size": "13",
+          "exact": true
+        }
+      ],
+      "eh": [
+        {
+          "name": "?construct@FoundationAIUpdate@@UAEPAVObject@@PBVThingTemplate@@PBUCoord3D@@MPAVPlayer@@H_N@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        }
+      ]
+    },
+    "trial": {
+      "source_sha256": "232fddd084a64ff53448721b613fb55ba533de9ffeec7a39b2e67a7f15c113b7",
+      "rows": [
+        {
+          "name": "?construct@FoundationAIUpdate@@UAEPAVObject@@PBVThingTemplate@@PBUCoord3D@@MPAVPlayer@@H_N@Z",
+          "rva": "0x0045569D",
+          "size": "1174",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?construct@FoundationAIUpdate@@UAEPAVObject@@PBVThingTemplate@@PBUCoord3D@@MPAVPlayer@@H_N@Z",
+          "rva": "0x00789F64",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "$L1373",
+          "rva": "0x00789F59",
+          "size": "11",
+          "exact": true
+        },
+        {
+          "name": "$L1372",
+          "rva": "0x00789F4C",
+          "size": "13",
+          "exact": true
+        },
+        {
+          "name": "$L1371",
+          "rva": "0x00789F3F",
+          "size": "13",
+          "exact": true
+        }
+      ],
+      "eh": [
+        {
+          "name": "?construct@FoundationAIUpdate@@UAEPAVObject@@PBVThingTemplate@@PBUCoord3D@@MPAVPlayer@@H_N@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        }
+      ]
+    }
+  },
+  "symbol_identity_changes": {
+    "?getModuleData@Module@@QBEPBVModuleData@@XZ": "?getModuleData@Module@@IBEPBVModuleData@@XZ"
+  },
+  "new_native_compiler_definitions": [
+    {
+      "name": "??_H@YGXPAXIHP6EPAX0@Z@Z",
+      "rva": "0x00001423",
+      "size": "34",
+      "existing_owner": "Code/Libraries/Source/ATL/atl_vector_constructor_iterator.cpp",
+      "raw": "8b44240c487818568b742408578d78018bceff542418037424104f75f35f5ec21000",
+      "exact": true
+    }
+  ],
+  "all_external_code_and_symbolic_relocations_identical": false,
+  "all_retained_external_code_and_symbolic_relocations_identical": true,
+  "external_definition_sha256": {
+    "??_H@YGXPAXIHP6EPAX0@Z@Z": "c2cdf51983b44d4d89b753e69bc937f51139cdba5f0dea5537c8a8ee8ccde065",
+    "_atan2f": "89a1087d08b169a26436dd2a481ccc3d0113c969246ced033967c3c70f814393",
+    "??0Coord3D@@QAE@ABU0@@Z": "84afcb324cc34b0719e7ce978a6fa432c42350a50c616399af2a17827cad78a7",
+    "??ZCoord3D@@QAEAAU0@ABU0@@Z": "413e08db5c330dc99ced15278cb57e4745ebd28fb8e92f9f9410564ad708cb41",
+    "?getModuleData@Module@@IBEPBVModuleData@@XZ": "50ec2995c3ef0d616ddbe247f0c0e4bea2bca9396923d38b6adc97efe1a58f1c",
+    "?isKindOf@ThingTemplate@@QBEIH@Z": "9e73681d77a53b88025130b39750604df02747479a9d983f850b56e9033c3923",
+    "?getPlacementAngle@ThingTemplate@@QBEMXZ": "81a082e1c81fd6c05429c705ffd45fc51076aed39b8e4179dd1f446b9de13f97",
+    "?test@ModelConditionFlags@@QBEIH@Z": "93f01e442d52ba6584edb591e708f3b0364625430974f051ddf8dd887938fefb",
+    "?set@ModelConditionFlags@@QAEXH@Z": "67b4722e3db943801f5d93616d3522bbb88be3dfa608e9ca25bf3937402e17bc",
+    "?clear@ModelConditionFlags@@QAEXH@Z": "d4e2146e07fbfec2c52848faedd5bbe6b6da257b068acacc26fd6107f91dc0af",
+    "?getPosition@Thing@@QBEPBUCoord3D@@XZ": "53e5d760532d69479022c0851b6fccb67b6c6f27267650a718901c839511d4fb",
+    "?getTransformMatrix@Thing@@QBEPBVMatrix3D@@XZ": "49648203423009ca2c6090ef0b993389c79fc9e0ef25193a873a70611c8c962e",
+    "?getTemplate@Thing@@QBEPBVThingTemplate@@XZ": "50ec2995c3ef0d616ddbe247f0c0e4bea2bca9396923d38b6adc97efe1a58f1c",
+    "?isFoundationLocked@Object@@QBE_NXZ": "6d676e4bc9267b53c388b6977db53866731ddf4f876a1785c83c421609ea0c90",
+    "?setModelConditionState@Object@@QAEXH@Z": "5b3574bedbb83ae54b0b2dbfd884773abe021af01123f771cc70e0407a2dcf0d",
+    "?clearModelConditionState@Object@@QAEXH@Z": "a956be6ec694625f391e3cd218667c5ea2f55756e2648548fdf09e0e6c3c9a86",
+    "?getMoney@Player@@QAEPAVRva003B0D7C@@XZ": "411bf35d118907b21bfe0452ab9860e02237a73f25911744742ca37c470d62c8",
+    "?getDefaultTeam@Player@@QBEPAVTeam@@XZ": "a747056a4e21fb337320e8d362c515a33809b3bb1622fba334a38cd5a820cba3",
+    "?getStats@Player@@QAEPAVRva0039B795@@XZ": "fbf04c6910dae94d680b17c1bbbcbb44e37e1e70c495f503b18488a4c21ac9e5",
+    "?pathfinder@AI@@QAEPAVPathfinder@@XZ": "374194b4575e5b0d97f57a2e42835a27e284508ac2b3ad325fa863eb63e259eb",
+    "?size@L7LookupBuckets@@QBEIXZ": "d48880756a6792e641f9f4c90531b1f44600891b8d3b68cd6bedc28f831bed8b",
+    "??AL7LookupBuckets@@QBEABQAUL7LookupNode@@I@Z": "e0674213f67ac7c158d71375a076d1db13431eccccf6fa81619b03b3cba49917",
+    "?find@ObjectIdMap@@QAEPAUObjectIdNode@@ABW4ObjectID@@@Z": "3c209f8e686d971a158619c03936ec281da82dbaaccf663fefceb702fbe8c3d4",
+    "?findObjectByID@GameLogic@@QAEPAVObject@@W4ObjectID@@@Z": "045623e44480ab1f8d18030f70c6e18933a49080dcc1694afd45ff0a7dab514e",
+    "?getObject@BehaviorModule@@QBEPAVObject@@XZ": "36bb3a0b070115c40fdb482013eb6105f5574eea78f1b213c17da35151bfdde5",
+    "?getFoundationAIUpdateModuleData@FoundationAIUpdate@@QBEPBVFoundationAIUpdateModuleData@@XZ": "50ec2995c3ef0d616ddbe247f0c0e4bea2bca9396923d38b6adc97efe1a58f1c",
+    "?construct@FoundationAIUpdate@@UAEPAVObject@@PBVThingTemplate@@PBUCoord3D@@MPAVPlayer@@H_N@Z": "8aa9c6ed79fb5eb7a54ee8ad06df5a52cd47736019a6c1e40b930df50248d03e"
+  },
+  "unrowed_getter": {
+    "name": "?getTemplate@Thing@@QBEPBVThingTemplate@@XZ",
+    "raw": "8b4104c3",
+    "relocations": [],
+    "native_rva_proven": false,
+    "provider_witnesses": [
+      {
+        "source": "Code/GameEngine/Source/Common/Thing/Thing.cpp",
+        "raw": "8b4104c3",
+        "source_command_dependencies_current": true,
+        "object_hash_matches_receipt": true,
+        "source_sha256": "f1a2146ec1bf4e11769e95673e7d3189138d45ee20c290377f0cdb96a9244aa0",
+        "object_sha256": "590edacb68d94f4db242110fb7b1ea8342f07200abcb1ea4cf225ff2034e2dde"
+      },
+      {
+        "source": "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateCtor.cpp",
+        "raw": "8b4104c3",
+        "source_command_dependencies_current": true,
+        "object_hash_matches_receipt": true,
+        "source_sha256": "c04c7b1a67cb24689258b23b9e6ff8970d5bf44510f8c6d8f80a29bcdd6d0376",
+        "object_sha256": "58d2949db7482f597cad680b76920793cfda4c92c9676991ff0dc86a17c82765"
+      },
+      {
+        "source": "Code/GameEngine/Source/Common/System/BuildAssistant.cpp",
+        "raw": "8b4104c3",
+        "source_command_dependencies_current": true,
+        "object_hash_matches_receipt": true,
+        "source_sha256": "d1258068f03904de6f70c538607fb83778f2ba134b969c36681de8ecf8c725af",
+        "object_sha256": "684aaf12a8fb272536e995b25ee3bcf4da0af5afbc2de59df12ff00ea2f75636"
+      }
+    ]
+  },
+  "native_rotation_getter": {
+    "name": "?Get_Z_Rotation@Matrix3D@@QBEMXZ",
+    "rva": "0x00712020",
+    "size": 8,
+    "existing_owner": "Code/Libraries/Source/WWVegas/WWMath/matrix3d.cpp",
+    "raw": "d94110d901d9f3c3",
+    "declaration": "float Get_Z_Rotation() const;"
+  },
+  "blocked_gate": {
+    "tool": "tools/find_declared_unmatched.py --fail",
+    "row_owning_source": "Code/GameEngine/Source/GameLogic/Object/Update/FoundationAIUpdateConstruct.cpp",
+    "diagnostic": "Thing::getTemplate",
+    "exit_code": 1,
+    "explicit_correct_getter_annotation": true,
+    "production_source_restored": true,
+    "shared_header_edited": false
+  },
+  "rejected_direct_fields": {
+    "native_size": 1174,
+    "candidate_size": 1172,
+    "cause": "seven getTemplate calls replaced by public m_template accesses; repeated kind-69/68 tests combine into one word load and AH tests"
+  }
+}

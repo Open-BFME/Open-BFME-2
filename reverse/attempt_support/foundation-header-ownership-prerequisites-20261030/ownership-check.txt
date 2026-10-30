@@ -1,0 +1,1 @@
+Code\GameEngine\Source\GameLogic\Object\Update\FoundationAIUpdateConstruct.cpp: Thing::getTemplate
