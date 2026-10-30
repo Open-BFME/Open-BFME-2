@@ -43,17 +43,7 @@ public:
     virtual void slotD0(); virtual void slotD4(); virtual void slotD8(); virtual void slotDC();
     virtual void slotE0();
 };
-class Drawable
-{
-public:
-    void rva00275545();
-    void rva00272BE7();
-    void rva00272BAB(int a, int b);
-    void rva002754E3();
-private:
-    char m_pad[0xFC];
-    Object *m_object;
-};
+#include "../../Include/GameClient/DrawableBFME2.h"
 void Drawable::rva00275545()
 {
     Object *obj = m_object;
