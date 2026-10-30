@@ -47,6 +47,55 @@ void bfmeGlobalCGD();
 #pragma intrinsic(memcpy)
 #pragma intrinsic(memcpy)
 #pragma comment(linker, "/alternatename:?bfmeGlobalCGD@@YAXXZ=?UpdateSort@CollisionManagerImpl@@QAEXXZ")
+// collisionmanager_impl.cpp -- CollisionManagerImpl::UpdateSort, retail
+// 0x00759600 (1244 bytes). WorldBuilder names the function and its file (WB
+// 0x01804B90, collisionmanager_impl.cpp:467..607); BFME 1 has the same body at
+// b1 0x009A3AD0 (EA evidence name, chain+direct), whose banked donor draft
+// (reference/open-bfme-1 targets/game/reverse/attempts/0x009a3ad0.cpp) this
+// starts from. Each dirty data refreshes its coordinates; a moved one leaves
+// its three sorted axis lists (two 20-byte end points per axis from +0x24) and
+// is re-inserted by value, opening overlap pairs with every data whose
+// interval it crosses, or pushed to the list fronts while a rebuild is
+// pending. A small total move re-sorts the lists by insertion, adding and
+// removing overlap pairs as end points cross; otherwise every pair is dropped
+// and the lists are merge-sorted (0x007586F0) and swept again. Layout and
+// call targets are retail's (the rowed collision-family views); member names
+// are structural.
+
+typedef float Real;
+#include "../../Include/Lib/Coord3DCtorView.h"
+class Object;
+// Structural view of the collision interface. Object's table at VA BFC290
+// independently establishes slot 0C as a zero-argument primary-object getter
+// (299C78, RET), and slots 20/24 as three-argument callbacks (RET 12).
+// The location and normal belong to the OUTER callback, not to the getter.
+// Method spellings below describe roles; original interface names are unknown.
+struct CollisionContactSource
+{
+	virtual void slot00() = 0;
+	virtual void slot04() = 0;
+	virtual void slot08() = 0;
+	virtual Object *primaryObject() const = 0;
+	virtual void slot10() = 0;
+	virtual void slot14() = 0;
+	virtual void slot18() = 0;
+	virtual void slot1C() = 0;
+	virtual bool test(const Object *, const Coord3D &, const Coord3D &) const = 0;
+	virtual void respond(Object *, const Coord3D &, const Coord3D &) = 0;
+};
+// Keep the reversed normal alive through the complete callback expression.
+// Copying before negation reproduces the native member-wise copy and FCHS.
+struct CollisionReverseNormal
+{
+	Coord3D value;
+	CollisionReverseNormal(const Coord3D &normal) : value(normal)
+	{
+		value.x = -value.x;
+		value.y = -value.y;
+		value.z = -value.z;
+	}
+	operator const Coord3D &() const { return value; }
+};
 
 typedef _STL::map<Rva009A2FE0Sub *, unsigned int> Rva0075A1A0Counts;
 
@@ -67,6 +116,7 @@ public:
 };
 
 class Rva009A45A0CollisionData;
+
 struct CollisionContactSource;
 
 struct Rva009A3AD0Endpoint
@@ -514,9 +564,8 @@ private:
 	RetailCollisionTail m_tail;
 };
 
-struct Rva009A2FE0Node;
-class Rva009A36F0Param;
 class Rva009A36F0Thing;
+
 struct Rva009A3540OpaqueOwner;
 
 class CollisionManagerImpl
@@ -648,11 +697,346 @@ public:
 	}
 };
 
-// tu-skeleton: 0x007586F0 460B ?rva007586F0@CollisionManagerImpl@@QAEXXZ -- matched in Code/Libraries/Source/collisionmanager/collisionmanager_impl.cpp (not merged yet)
+namespace CollisionManager
+{
+	class Data
+	{
+	public:
+		int UpdateCoord(bool removeAndReInsert);
+	};
+}
+
+struct CollisionContactNode
+{
+	Rva009A45A0CollisionData *first;
+	Rva009A45A0CollisionData *second;
+	unsigned int key0, key1, state;
+	Coord3D point, normal;
+	CollisionContactNode **back;
+	CollisionContactNode *next;
+};
+
+class BfmeLinkXX
+{
+public:
+	void bfmeDropXX();
+};
+
+struct Rva007589F0Node;
+
+struct Rva00758B20Node;
+
+// Bottom-up axis-list merge sort at 0x007586F0 (460 bytes). The UpdateSort
+// caller and identical WorldBuilder body at 0x01802EC0 establish its purpose
+// and layout; the original method name is unknown. The two left-run count
+// reads use a volatile-qualified accessor to reproduce VC7.1 register costs,
+// preserving the same reads and merge operations. This is a codegen choice,
+// not evidence that the original field was declared volatile.
+struct SortList
+{
+	Rva009A3AD0Endpoint *head;
+	Rva009A3AD0Endpoint *tail;
+	unsigned int count;
+	unsigned int getCount() const volatile { return count; }
+};
+
+typedef Rva009A3AD0Endpoint Endpoint;
+
+struct BfmeNodeVMN
+{
+	char m_bfmePad00[0x30];
+	BfmeNodeVMN *m_bfme30;
+};
+
+struct BfmeNodeVDB
+{
+	char m_bfmePad[0x30];
+	BfmeNodeVDB *m_bfmeNext;
+};
+
+// ---- from Code/Libraries/Source/collisionmanager/collisionmanager_impl.cpp
+
+void CollisionManagerImpl::UpdateSort()
+{
+	unsigned int totalScore = 0;
+	Rva009A45A0CollisionData *node = m_dirty;
+	while (node != 0)
+	{
+		unsigned int score = ((CollisionManager::Data *)node)->UpdateCoord(true);
+		if (score == 0)
+		{
+			node = node->m_dirtyNext;
+			continue;
+		}
+		totalScore += score;
+		unlinkChain((Rva009A36F0Thing *)node);
+		Rva009A45A0CollisionData *next = node->m_dirtyNext;
+		if (node->m_source != 0)
+		{
+			if (node->m_endpoints[0].m_prev != 0)
+			{
+				unsigned int index = 0;
+				do
+				{
+					Rva009A3AD0Endpoint *endpoint = &node->m_endpoints[index];
+					if (endpoint->m_prev != 0)
+						endpoint->m_prev->m_next = endpoint->m_next;
+					else
+						m_axisHeads[index >> 1] = endpoint->m_next;
+					if (endpoint->m_next != 0)
+						endpoint->m_next->m_prev = endpoint->m_prev;
+					endpoint->m_prev = 0;
+					endpoint->m_next = 0;
+					++index;
+				}
+				while (index < 6);
+			}
+
+			unsigned int k = 0;
+			do
+			{
+				if (k < m_axisCount && !m_rebuild)
+					insertSorted(node, &node->m_intervals[k], &m_axisHeads[k]);
+				else
+				{
+					pushFront(&node->m_intervals[k].m_min, &m_axisHeads[k]);
+					pushFront(&node->m_intervals[k].m_max, &m_axisHeads[k]);
+				}
+				++k;
+			}
+			while (k < 3);
+
+			((BfmeLinkXX *)node)->bfmeDropXX();
+		}
+		else
+		{
+			delete node;
+		}
+		node = next;
+	}
+
+	while (m_dirty != 0)
+	{
+		totalScore += ((CollisionManager::Data *)m_dirty)->UpdateCoord(false);
+		((BfmeLinkXX *)m_dirty)->bfmeDropXX();
+	}
+
+	if (m_bfmeFirst == 0)
+		return;
+
+	if (totalScore * 100 <= m_nodeCount * 100 && !m_rebuild)
+	{
+		for (unsigned int k = 0; k < m_axisCount; ++k)
+		{
+			Rva009A3AD0Endpoint **head = &m_axisHeads[k];
+			Rva009A3AD0Endpoint *cur = (*head)->m_next;
+			while (cur != 0)
+			{
+				if (cur->m_prev->m_value <= cur->m_value)
+				{
+					cur = cur->m_next;
+					continue;
+				}
+				Rva009A3AD0Endpoint *pos = cur;
+				while (pos->m_prev != 0 && pos->m_prev->m_value > cur->m_value)
+				{
+					Rva009A3AD0Endpoint *before = pos->m_prev;
+					if (before->m_isMax && cur->isMin())
+						rva00759490((Rva009A3540OpaqueOwner *)before->m_node, (Rva009A3540OpaqueOwner *)cur->m_node);
+					else if (before->isMin() && cur->m_isMax)
+						_RemoveOverlap(
+							(Rva009A3540OpaqueOwner *)before->m_node,
+							(Rva009A3540OpaqueOwner *)cur->m_node);
+					pos = pos->m_prev;
+				}
+
+				Rva009A3AD0Endpoint *next = cur->m_next;
+				if (cur->m_prev != 0)
+					cur->m_prev->m_next = cur->m_next;
+				else
+					*head = cur->m_next;
+				if (cur->m_next != 0)
+					cur->m_next->m_prev = cur->m_prev;
+				cur->m_prev = 0;
+				cur->m_next = 0;
+
+				cur->m_prev = pos->m_prev;
+				cur->m_next = pos;
+				pos->m_prev = cur;
+				if (cur->m_prev != 0)
+					cur->m_prev->m_next = cur;
+				else
+					*head = cur;
+				cur = next;
+			}
+		}
+		return;
+	}
+
+	m_rebuild = false;
+	((Rva007589F0 *)((char *)this + 0x18))->collectAll();
+	((Rva00758B20 *)((char *)this + 0xAE10))->collectAll();
+	for (Rva009A45A0CollisionData *root = (Rva009A45A0CollisionData *)m_bfmeFirst; root != 0; root = root->m_rootNext)
+		root->m_rva009A3AD0_020 = 0;
+	rva007586F0();
+
+	for (unsigned int k = 0; k < m_axisCount; ++k)
+	{
+		Rva009A45A0CollisionData *open = 0;
+		for (Rva009A3AD0Endpoint *cur = m_axisHeads[k]; cur != 0; cur = cur->m_next)
+		{
+			if (cur->isMin())
+			{
+				for (Rva009A45A0CollisionData *other = open; other != 0; other = other->m_openNext)
+					rva00759490((Rva009A3540OpaqueOwner *)other, (Rva009A3540OpaqueOwner *)cur->m_node);
+				cur->m_node->m_openPrev = &open;
+				cur->m_node->m_openNext = open;
+				if (cur->m_node->m_openNext != 0)
+					cur->m_node->m_openNext->m_openPrev = &cur->m_node->m_openNext;
+				open = cur->m_node;
+			}
+			else
+			{
+				if (cur->m_node->m_openNext != 0)
+					cur->m_node->m_openNext->m_openPrev = cur->m_node->m_openPrev;
+				*cur->m_node->m_openPrev = cur->m_node->m_openNext;
+				cur->m_node->m_openPrev = 0;
+			}
+		}
+	}
+}
+
+// Native 758DE0..758F2D (333 bytes), called by Update at 75A4AB.
+// Save the contact before advancing the shared cursor: callbacks can unregister
+// an object and alter that cursor or clear either data's source pointer.
+// State zero requests a test; state two skips responses. Recheck both sources
+// before the reverse response and negate only its normal.
+// Evidence: reverse/attempt_support/cgd-abi-758de0-20261023/README.md.
+void CollisionManagerImpl::bfmeTwoCGD()
+{
+	m_index = 0;
+	m_cur = m_buckets[0];
+	for (;;)
+	{
+		while (m_cur == 0)
+		{
+			int i = m_index + 1;
+			if (i == 0x493)
+				return;
+			m_index = i;
+			m_cur = m_buckets[i];
+		}
+		CollisionContactNode *node = (CollisionContactNode *)m_cur;
+		m_cur = (Rva009A2FE0Node *)((CollisionContactNode *)m_cur)->next;
+		if (node == 0)
+			return;
+		if (node->first->m_source == 0 || node->second->m_source == 0)
+			continue;
+		if (node->state == 0)
+			node->state = node->first->m_source->test(
+				node->second->m_source->primaryObject(), node->point, node->normal) ? 1 : 2;
+		if (node->state == 2)
+			continue;
+		node->first->m_source->respond(
+			node->second->m_source->primaryObject(), node->point, node->normal);
+		if (node->first->m_source == 0 || node->second->m_source == 0)
+			continue;
+		node->second->m_source->respond(node->first->m_source->primaryObject(),
+			node->point, CollisionReverseNormal(node->normal));
+	}
+}
+
+void CollisionManagerImpl::rva007586F0()
+{
+	for (unsigned int k = 0; k < m_axisCount; k++)
+	{
+		SortList lists[4];
+		lists[1].count = 0;
+		lists[0].count = 0;
+		lists[0].head = 0;
+		int i = 0;
+		Endpoint *cur = m_axisHeads[k];
+		while (cur)
+		{
+			Endpoint *next = cur->m_next;
+			cur->m_next = lists[i].head;
+			lists[i].head = cur;
+			lists[i].count++;
+			i ^= 1;
+			cur = next;
+		}
+		int src = 0;
+		unsigned int runLen = 1;
+		while (lists[src + 1].count != 0)
+		{
+			SortList *leftList = &lists[src];
+			SortList *rightList = &lists[src + 1];
+
+			int out = src ^ 2;
+			lists[out + 1].count = 0;
+			lists[out].count = 0;
+			while (leftList->getCount() != 0)
+			{
+				unsigned int rightRemaining = runLen;
+				unsigned int leftRemaining = runLen;
+				SortList *o = &lists[out];
+				for (;;)
+				{
+					SortList *from;
+					if (leftRemaining != 0 && leftList->getCount() != 0)
+					{
+						if (rightRemaining != 0 && rightList->count != 0 && leftList->head->m_value > rightList->head->m_value)
+						{
+							from = rightList;
+							rightRemaining--;
+						}
+						else
+						{
+							from = leftList;
+							leftRemaining--;
+						}
+					}
+					else if (rightRemaining != 0 && rightList->count != 0)
+					{
+						from = rightList;
+						rightRemaining--;
+					}
+					else
+						break;
+					from->count--;
+					Endpoint *e = from->head;
+					from->head = e->m_next;
+					if (o->count == 0)
+					{
+						o->head = e;
+						o->tail = e;
+					}
+					else
+					{
+						o->tail->m_next = e;
+						o->tail = e;
+					}
+					o->count++;
+				}
+				out ^= 1;
+			}
+			runLen <<= 1;
+			src ^= 2;
+		}
+		if (lists[src].count > 1)
+			lists[src].tail->m_next = 0;
+		m_axisHeads[k] = lists[src].head;
+		m_axisHeads[k]->m_prev = 0;
+		for (Endpoint *currentEndpoint = m_axisHeads[k]; currentEndpoint->m_next != 0; currentEndpoint = currentEndpoint->m_next)
+			currentEndpoint->m_next->m_prev = currentEndpoint;
+	}
+}
 
 // tu-skeleton: 0x007588C0 30B ??_GRva009A45A0CollisionData@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyDeletingDtors5.cpp (not merged yet)
 
 // tu-skeleton: 0x007588E0 28B ?set@Rva007588E0@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/RvaSmallLeafTransfers.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp
 
 // ---- from Code/GameEngine/Source/Common/Bfme/Rva009A2960MarkState.cpp
 
@@ -874,16 +1258,6 @@ void __stdcall Rva00758C20Owner::Rva00758C20Walk(void *head)
 	}
 }
 
-// tu-skeleton: 0x00758C50 19B ??R?$less@I@_STL@@QBE_NABI0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int.cpp (not merged yet)
-
-// tu-skeleton: 0x00758C70 22B ??0?$pair@PBDPAD@_STL@@QAE@ABQBDABQAD@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rope_char.cpp (not merged yet)
-
-// tu-skeleton: 0x00758C90 9B ?notBit0@Rva00758C90@@QBEIXZ -- matched in Code/GameEngine/Source/Common/RvaSmallLeafTransfers.cpp (not merged yet)
-
-// tu-skeleton: 0x00758CA0 13B ?bit0@Rva00758CA0@@QBEHXZ -- matched in Code/GameEngine/Source/Common/RvaSmallLeafTransfers.cpp (not merged yet)
-
-// tu-skeleton: 0x00758CB0 11B ?nonzero@Rva00758CB0@@QBEIXZ -- matched in Code/GameEngine/Source/Common/RvaSmallLeafTransfers.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva00758CC0Equals.cpp
 
 unsigned char Rva00758CC0::method(const Rva00758CC0 *other)
@@ -974,10 +1348,6 @@ void CollisionManagerImpl::bfmeOneCGD()
 		}
 	}
 }
-
-// tu-skeleton: 0x00758DE0 333B ?bfmeTwoCGD@CollisionManagerImpl@@QAEXXZ -- matched in Code/Libraries/Source/collisionmanager/collisionmanager_impl.cpp (not merged yet)
-
-// tu-skeleton: 0x00758F30 75B ??1Rva009A4620VMNView@@QAE@XZ -- matched in Code/GameEngine/Source/Common/BfmeConv1447.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/SmallGaps/Rva009A3250HashFind.cpp
 
@@ -1151,10 +1521,6 @@ void CollisionManagerImpl::_RemoveOverlap(Rva009A3540OpaqueOwner *lhs,
     ((BfmeListZT *)((char *)this + 0x18))->bfmeFreeZT((BfmeNodeZT *)node);
 }
 
-// tu-skeleton: 0x00759220 190B ?unlinkChain@CollisionManagerImpl@@QAEXPAVRva009A36F0Thing@@@Z -- matched in Code/GameEngine/Source/Common/CollisionManagerImpl.cpp (not merged yet)
-
-// tu-skeleton: 0x007592E0 117B ?UnRegisterObject@CollisionManagerImpl@@QAEXPAVRva009A36F0Param@@@Z -- matched in Code/GameEngine/Source/Common/CollisionManagerImpl.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/System/Rva009A3770HashChainInsert.cpp
 
 // Ported from BFME1; the body is independently byte-verified in BFME2 at
@@ -1185,12 +1551,6 @@ Rva009A3770Node *Rva009A3770HashTable::insert(Rva009A3770Node *src)
 	*slot = node;
 	return node;
 }
-
-// tu-skeleton: 0x007593D0 14B ?begin@?$_Rb_tree@HU?$pair@$$CBHH@_STL@@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHH@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHH@_STL@@@2@@2@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_int.cpp (not merged yet)
-
-// tu-skeleton: 0x007593E0 11B ?rend@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE?AV?$reverse_iterator@PAD@2@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_string.cpp (not merged yet)
-
-// tu-skeleton: 0x00759460 35B ?_M_create_node@?$_Rb_tree@GU?$pair@$$CBGVAsciiString@@@_STL@@U?$_Select1st@U?$pair@$$CBGVAsciiString@@@_STL@@@2@U?$less@G@2@V?$allocator@U?$pair@$$CBGVAsciiString@@@_STL@@@2@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBGVAsciiString@@@_STL@@@2@ABU?$pair@$$CBGVAsciiString@@@2@@Z -- matched in Code/GameEngine/Source/GameNetwork/ConnectionManager.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameNetwork/rva00759490Rva00759490Farm.cpp
 
@@ -1281,24 +1641,6 @@ void CollisionManagerImpl::rva00759490(Rva009A3540OpaqueOwner *lhs, Rva009A3540O
     ((Rva009A3770HashTable *)((char *)this + 0xae10))->insert((Rva009A3770Node *)buf);
 }
 
-// tu-skeleton: 0x00759600 1244B ?UpdateSort@CollisionManagerImpl@@QAEXXZ -- matched in Code/Libraries/Source/collisionmanager/collisionmanager_impl.cpp (not merged yet)
-
-// tu-skeleton: 0x00759B20 22B ?find@?$map@W4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@U?$less@W4LocomotorSetType@@@3@V?$allocator@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@@3@@_STL@@QBE?AU?$_Rb_tree_iterator@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@U?$_Const_traits@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@@2@@2@ABW4LocomotorSetType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x00759B40 122B ??1?$_Rb_tree@HU?$pair@$$CBHURva00759B40Record@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva00759B40Record@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva00759B40Record@@@_STL@@@2@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00759B40.cpp (not merged yet)
-
-// tu-skeleton: 0x00759BC0 180B ?_M_insert@?$_Rb_tree@PBVThingTemplate@@U?$pair@QBVThingTemplate@@H@_STL@@U?$_Select1st@U?$pair@QBVThingTemplate@@H@_STL@@@3@U?$less@PBVThingTemplate@@@3@V?$allocator@U?$pair@QBVThingTemplate@@H@_STL@@@3@@_STL@@AAE?AU?$_Rb_tree_iterator@U?$pair@QBVThingTemplate@@H@_STL@@U?$_Nonconst_traits@U?$pair@QBVThingTemplate@@H@_STL@@@2@@2@PAU_Rb_tree_node_base@2@0ABU?$pair@QBVThingTemplate@@H@2@0@Z -- matched in Code/GameEngine/Source/Common/RTS/ScoreKeeper_insert_unique.cpp (not merged yet)
-
-// tu-skeleton: 0x00759C80 145B ?insert_unique@?$_Rb_tree@PBVThingTemplate@@U?$pair@QBVThingTemplate@@H@_STL@@U?$_Select1st@U?$pair@QBVThingTemplate@@H@_STL@@@3@U?$less@PBVThingTemplate@@@3@V?$allocator@U?$pair@QBVThingTemplate@@H@_STL@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@QBVThingTemplate@@H@_STL@@U?$_Nonconst_traits@U?$pair@QBVThingTemplate@@H@_STL@@@2@@_STL@@_N@2@ABU?$pair@QBVThingTemplate@@H@2@@Z -- matched in Code/GameEngine/Source/Common/RTS/ScoreKeeper_insert_unique.cpp (not merged yet)
-
-// tu-skeleton: 0x00759D20 5B ?release@Rva00759D20TreeRelease@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00759B40.cpp (not merged yet)
-
-// tu-skeleton: 0x00759D30 75B ??1Rva009A4620VDBView@@QAE@XZ -- matched in Code/GameEngine/Source/Common/BfmeConv1350.cpp (not merged yet)
-
-// tu-skeleton: 0x00759D80 44B ?lower_bound@?$_Rb_tree@IU?$pair@$$CBI_N@_STL@@U?$_Select1st@U?$pair@$$CBI_N@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBI_N@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBI_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBI_N@_STL@@@2@@2@ABI@Z -- matched in Code/GameEngine/Source/Common/System/FileSystem.cpp (not merged yet)
-
-// tu-skeleton: 0x00759DB0 592B ?insert_unique@?$_Rb_tree@PBVThingTemplate@@U?$pair@QBVThingTemplate@@H@_STL@@U?$_Select1st@U?$pair@QBVThingTemplate@@H@_STL@@@3@U?$less@PBVThingTemplate@@@3@V?$allocator@U?$pair@QBVThingTemplate@@H@_STL@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@QBVThingTemplate@@H@_STL@@U?$_Nonconst_traits@U?$pair@QBVThingTemplate@@H@_STL@@@2@@2@U32@ABU?$pair@QBVThingTemplate@@H@2@@Z -- matched in Code/GameEngine/Source/Common/RTS/ScoreKeeper_insert_unique.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/RTS/RetailCollisionManagerData.cpp
 
 // ??0RetailCollisionManagerData@@QAE@XZ
@@ -1332,10 +1674,6 @@ Rva009A4620CollisionData::~Rva009A4620CollisionData()
 			delete root;
 	}
 }
-
-// tu-skeleton: 0x0075A100 31B ?insert@?$map@PBVThingTemplate@@HU?$less@PBVThingTemplate@@@_STL@@V?$allocator@U?$pair@QBVThingTemplate@@H@_STL@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@QBVThingTemplate@@H@_STL@@U?$_Nonconst_traits@U?$pair@QBVThingTemplate@@H@_STL@@@2@@2@U32@ABU?$pair@QBVThingTemplate@@H@2@@Z -- matched in Code/GameEngine/Source/Common/RTS/ScoreKeeper.cpp (not merged yet)
-
-// tu-skeleton: 0x0075A120 115B ??A?$map@PBVThingTemplate@@HU?$less@PBVThingTemplate@@@_STL@@V?$allocator@U?$pair@QBVThingTemplate@@H@_STL@@@3@@_STL@@QAEAAHABQBVThingTemplate@@@Z -- matched in Code/GameEngine/Source/Common/RTS/ScoreKeeper.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/RTS/BfmeThingCGDRva0075A1A0.cpp
 
@@ -1458,6 +1796,100 @@ void CollisionManagerImpl::Update()
 // Retail calls UpdateSort without loading ECX (whole-program register reuse),
 // so the call is spelled as a free function and bound to that row
 // (tools/allowed_symbols.py --alternatenames).
+
+// tu-skeleton: 0x00758C50 19B ??R?$less@I@_STL@@QBE_NABI0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int.cpp (not merged yet)
+
+// tu-skeleton: 0x00758C70 22B ??0?$pair@PBDPAD@_STL@@QAE@ABQBDABQAD@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rope_char.cpp (not merged yet)
+
+// tu-skeleton: 0x00758C90 9B ?notBit0@Rva00758C90@@QBEIXZ -- matched in Code/GameEngine/Source/Common/RvaSmallLeafTransfers.cpp (not merged yet)
+
+// tu-skeleton: 0x00758CA0 13B ?bit0@Rva00758CA0@@QBEHXZ -- matched in Code/GameEngine/Source/Common/RvaSmallLeafTransfers.cpp (not merged yet)
+
+// tu-skeleton: 0x00758CB0 11B ?nonzero@Rva00758CB0@@QBEIXZ -- matched in Code/GameEngine/Source/Common/RvaSmallLeafTransfers.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/BfmeConv1447.cpp
+
+// Retail embedded-table destructor; parent lifetime proof: 0x0075A080 and
+// unwind entries 0x007AB790/0x007AB79B call the same whole cleanup body.
+
+Rva009A4620VMNView::~Rva009A4620VMNView() throw()
+{
+	unsigned i;
+	BfmeNodeVMN *p;
+
+	for (i = 0; i < 0x2b7b; ++i)
+	{
+		p = m_bfme00[i];
+		while (p != 0)
+		{
+			BfmeNodeVMN *n = p->m_bfme30;
+
+			::operator delete(p);
+			p = n;
+		}
+	}
+
+	p = m_bfmeadec;
+	while (p != 0)
+	{
+		BfmeNodeVMN *n = p->m_bfme30;
+
+		::operator delete(p);
+		p = n;
+	}
+}
+
+// tu-skeleton: 0x00759220 190B ?unlinkChain@CollisionManagerImpl@@QAEXPAVRva009A36F0Thing@@@Z -- matched in Code/GameEngine/Source/Common/CollisionManagerImpl.cpp (not merged yet)
+
+// tu-skeleton: 0x007592E0 117B ?UnRegisterObject@CollisionManagerImpl@@QAEXPAVRva009A36F0Param@@@Z -- matched in Code/GameEngine/Source/Common/CollisionManagerImpl.cpp (not merged yet)
+
+// tu-skeleton: 0x007593D0 14B ?begin@?$_Rb_tree@HU?$pair@$$CBHH@_STL@@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHH@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHH@_STL@@@2@@2@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_int.cpp (not merged yet)
+
+// tu-skeleton: 0x007593E0 11B ?rend@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE?AV?$reverse_iterator@PAD@2@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_string.cpp (not merged yet)
+
+// tu-skeleton: 0x00759460 35B ?_M_create_node@?$_Rb_tree@GU?$pair@$$CBGVAsciiString@@@_STL@@U?$_Select1st@U?$pair@$$CBGVAsciiString@@@_STL@@@2@U?$less@G@2@V?$allocator@U?$pair@$$CBGVAsciiString@@@_STL@@@2@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBGVAsciiString@@@_STL@@@2@ABU?$pair@$$CBGVAsciiString@@@2@@Z -- matched in Code/GameEngine/Source/GameNetwork/ConnectionManager.cpp (not merged yet)
+
+// tu-skeleton: 0x00759B20 22B ?find@?$map@W4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@U?$less@W4LocomotorSetType@@@3@V?$allocator@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@@3@@_STL@@QBE?AU?$_Rb_tree_iterator@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@U?$_Const_traits@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@@2@@2@ABW4LocomotorSetType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x00759B40 122B ??1?$_Rb_tree@HU?$pair@$$CBHURva00759B40Record@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva00759B40Record@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva00759B40Record@@@_STL@@@2@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00759B40.cpp (not merged yet)
+
+// tu-skeleton: 0x00759BC0 180B ?_M_insert@?$_Rb_tree@PBVThingTemplate@@U?$pair@QBVThingTemplate@@H@_STL@@U?$_Select1st@U?$pair@QBVThingTemplate@@H@_STL@@@3@U?$less@PBVThingTemplate@@@3@V?$allocator@U?$pair@QBVThingTemplate@@H@_STL@@@3@@_STL@@AAE?AU?$_Rb_tree_iterator@U?$pair@QBVThingTemplate@@H@_STL@@U?$_Nonconst_traits@U?$pair@QBVThingTemplate@@H@_STL@@@2@@2@PAU_Rb_tree_node_base@2@0ABU?$pair@QBVThingTemplate@@H@2@0@Z -- matched in Code/GameEngine/Source/Common/RTS/ScoreKeeper_insert_unique.cpp (not merged yet)
+
+// tu-skeleton: 0x00759C80 145B ?insert_unique@?$_Rb_tree@PBVThingTemplate@@U?$pair@QBVThingTemplate@@H@_STL@@U?$_Select1st@U?$pair@QBVThingTemplate@@H@_STL@@@3@U?$less@PBVThingTemplate@@@3@V?$allocator@U?$pair@QBVThingTemplate@@H@_STL@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@QBVThingTemplate@@H@_STL@@U?$_Nonconst_traits@U?$pair@QBVThingTemplate@@H@_STL@@@2@@_STL@@_N@2@ABU?$pair@QBVThingTemplate@@H@2@@Z -- matched in Code/GameEngine/Source/Common/RTS/ScoreKeeper_insert_unique.cpp (not merged yet)
+
+// tu-skeleton: 0x00759D20 5B ?release@Rva00759D20TreeRelease@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00759B40.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/BfmeConv1350.cpp
+
+// Retail embedded-table destructor; parent lifetime proof: 0x0075A080 and
+// unwind entries 0x007AB790/0x007AB79B call the same whole cleanup body.
+// Node-deletion loop retained from the existing BFME 1 donor.
+
+Rva009A4620VDBView::~Rva009A4620VDBView() throw()
+{
+	for (unsigned i = 0; i < 0x493; ++i) {
+		BfmeNodeVDB *p = m_bfmeTable[i];
+		while (p) {
+			BfmeNodeVDB *next = p->m_bfmeNext;
+			operator delete(p);
+			p = next;
+		}
+	}
+	BfmeNodeVDB *p = m_bfmeExtra;
+	while (p) {
+		BfmeNodeVDB *next = p->m_bfmeNext;
+		operator delete(p);
+		p = next;
+	}
+}
+
+// tu-skeleton: 0x00759D80 44B ?lower_bound@?$_Rb_tree@IU?$pair@$$CBI_N@_STL@@U?$_Select1st@U?$pair@$$CBI_N@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBI_N@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBI_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBI_N@_STL@@@2@@2@ABI@Z -- matched in Code/GameEngine/Source/Common/System/FileSystem.cpp (not merged yet)
+
+// tu-skeleton: 0x00759DB0 592B ?insert_unique@?$_Rb_tree@PBVThingTemplate@@U?$pair@QBVThingTemplate@@H@_STL@@U?$_Select1st@U?$pair@QBVThingTemplate@@H@_STL@@@3@U?$less@PBVThingTemplate@@@3@V?$allocator@U?$pair@QBVThingTemplate@@H@_STL@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@QBVThingTemplate@@H@_STL@@U?$_Nonconst_traits@U?$pair@QBVThingTemplate@@H@_STL@@@2@@2@U32@ABU?$pair@QBVThingTemplate@@H@2@@Z -- matched in Code/GameEngine/Source/Common/RTS/ScoreKeeper_insert_unique.cpp (not merged yet)
+
+// tu-skeleton: 0x0075A100 31B ?insert@?$map@PBVThingTemplate@@HU?$less@PBVThingTemplate@@@_STL@@V?$allocator@U?$pair@QBVThingTemplate@@H@_STL@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@QBVThingTemplate@@H@_STL@@U?$_Nonconst_traits@U?$pair@QBVThingTemplate@@H@_STL@@@2@@2@U32@ABU?$pair@QBVThingTemplate@@H@2@@Z -- matched in Code/GameEngine/Source/Common/RTS/ScoreKeeper.cpp (not merged yet)
+
+// tu-skeleton: 0x0075A120 115B ??A?$map@PBVThingTemplate@@HU?$less@PBVThingTemplate@@@_STL@@V?$allocator@U?$pair@QBVThingTemplate@@H@_STL@@@3@@_STL@@QAEAAHABQBVThingTemplate@@@Z -- matched in Code/GameEngine/Source/Common/RTS/ScoreKeeper.cpp (not merged yet)
 
 // tu-skeleton: 0x007AB770 8B $L4343 -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00759B40.cpp (not merged yet)
 
