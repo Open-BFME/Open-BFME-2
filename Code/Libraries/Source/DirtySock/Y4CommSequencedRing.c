@@ -1,4 +1,7 @@
 // cl: /Od /GZ /GS /MD /DNDEBUG
+// platformsdk
+#include <windows.h>
+#include <string.h>
 /* EA DirtySock -- a fourth /Od /GZ comm object, past the range the three
  * already converted occupy.  Its ring sits at +0xD4..+0xE0, where the others
  * are at +0x98, +0xB0 and +0xB8, so it is a distinct object again; nothing
@@ -28,7 +31,7 @@ struct Rva0081BD40Comm
 	char m_streamOverlapped[ 0x10 ]; /* +0xA8 */
 	void *m_event;                  /* +0xB8 */
 	char m_head2d[ 0x08 ];
-	unsigned int m_streamWritten;   /* +0xC4 */
+	DWORD m_streamWritten;          /* +0xC4 */
 	char m_head2c[ 0x04 ];
 	/* A STATE.  0x0081B790 and 0x0081B910 both require it to be 1 before
 	 * doing anything, and both convert a 5 into their own result -- 3 and 2
@@ -69,7 +72,7 @@ struct Rva0081BD40Comm
 	 * busy flag below starts exactly 0x18 bytes later -- which is sizeof
 	 * CRITICAL_SECTION on x86.  The import names never reach the bytes, so
 	 * the declarations below are address-derived. */
-	char m_lock[ 0x18 ];            /* +0x1920 */
+	CRITICAL_SECTION m_lock;        /* +0x1920 */
 	/* A RE-ENTRANCY DEPTH, and the two bodies that touch it say different
 	 * halves of the story.  0x0081AB40 raises it across the copy and the user
 	 * callback and lowers it after; 0x0081BC80 SPINS WHILE IT IS NON-ZERO.  So
@@ -78,20 +81,6 @@ struct Rva0081BD40Comm
 	int m_depth;                    /* +0x1938 */
 	int m_flags;                    /* +0x193C */
 };
-
-/* The one-argument stdcall import the socket unit already reaches with a 50
- * for a poll interval; here it is called with zero, which is a yield rather
- * than a wait.  The name is address-derived: an IAT call site is a DIR32 and
- * the gate fills it from retail, so nothing here asserts which API it is. */
-__declspec(dllimport) void __stdcall Sleep( int interval );
-__declspec(dllimport) unsigned int __stdcall GetTickCount( void );
-__declspec(dllimport) int __stdcall SetCommMask( void *handle,
-	unsigned int mask );
-__declspec(dllimport) unsigned int __stdcall WaitForSingleObject( void *handle,
-	unsigned int timeout );
-__declspec(dllimport) int __stdcall WriteFile( void *handle,
-	const void *buffer, unsigned int length, unsigned int *written,
-	void *overlapped );
 
 /* A QUEUED RECORD.  Length at +0x00, tick at +0x04, payload at +0x10 -- the
  * same header the third transport uses, and again with no header byte inside
@@ -155,9 +144,6 @@ int Rva0081BD40( struct Rva0081BD40Comm *comm, void *buffer, int size,
 	return iResult;
 }
 
-void *__cdecl memcpy( void *destination, const void *source,
-	unsigned int count );
-
 /* 0x0081BC80 DEQUEUES ONE RECORD, and it is the only one of these four that
  * BLOCKS.
  *
@@ -205,9 +191,6 @@ int Rva0081BC80( struct Rva0081BD40Comm *comm, void *buffer, int size,
 	return record->m_length;
 }
 
-__declspec(dllimport) void __stdcall EnterCriticalSection( void *lock );
-__declspec(dllimport) void __stdcall LeaveCriticalSection( void *lock );
-
 int Rva0081B010( struct Rva0081BD40Comm *comm, void *argument );
 
 /* 0x0081B790 and 0x0081B910 ARE THE SAME BODY BUT FOR ONE CONSTANT: both
@@ -235,14 +218,14 @@ int Rva0081B790( struct Rva0081BD40Comm *comm, void *argument )
 	if ( argument == 0 || comm->m_state != 1 )
 		return -2;
 
-	EnterCriticalSection( comm->m_lock );
+	EnterCriticalSection( &comm->m_lock );
 
 	iResult = Rva0081B010( comm, argument );
 
 	if ( comm->m_state == 5 )
 		comm->m_state = 3;
 
-	LeaveCriticalSection( comm->m_lock );
+	LeaveCriticalSection( &comm->m_lock );
 	return iResult;
 }
 
@@ -253,14 +236,14 @@ int Rva0081B910( struct Rva0081BD40Comm *comm, void *argument )
 	if ( argument == 0 || comm->m_state != 1 )
 		return -2;
 
-	EnterCriticalSection( comm->m_lock );
+	EnterCriticalSection( &comm->m_lock );
 
 	iResult = Rva0081B010( comm, argument );
 
 	if ( comm->m_state == 5 )
 		comm->m_state = 2;
 
-	LeaveCriticalSection( comm->m_lock );
+	LeaveCriticalSection( &comm->m_lock );
 	return iResult;
 }
 
@@ -633,9 +616,9 @@ int Rva0081BA60( struct Rva0081BD40Comm *comm, const void *payload,
 	comm->m_sendWriteOffset = ( comm->m_sendWriteOffset
 		+ comm->m_sendRecordSize ) % comm->m_sendBufferSize;
 
-	EnterCriticalSection( comm->m_lock );
+	EnterCriticalSection( &comm->m_lock );
 	Rva0081A8C0( comm );
-	LeaveCriticalSection( comm->m_lock );
+	LeaveCriticalSection( &comm->m_lock );
 
 	iCount = ( ( comm->m_sendWriteOffset + comm->m_sendBufferSize
 		- comm->m_sendReadOffset ) % comm->m_sendBufferSize )
