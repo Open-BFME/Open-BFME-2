@@ -54,4 +54,3 @@ LINKS for 874 authored bytes. The older-index batch audit lacks a current
 Common/0CreateAHeroManager21FE49.cpp receipt; carry the snapshot and consumer
 into the next scheduled census. No census gain is claimed.
 [Evidence and exception-contract proof](snapshot-msheaders-20261029-codexb4.md).
-
