@@ -18344,7 +18344,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x002602C1,25,code,Code/GameEngine/Source/GameClient/BfmeItemKA.cpp,approved,C,C=0x002600DC..0x002602DA provisional,Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp
 0x002602DA,247,code,Code/GameEngine/Source/GameClient/BfmeItemKA.cpp,approved,N,N=Code/GameEngine/Source/GameClient/BfmeItemKA.cpp W=Code/GameEngine/Source/GameClient/GameSubTitles.cpp provisional,Code/GameEngine/Source/GameClient/BfmeItemKA.cpp
 0x002603D1,233,code,Code/GameEngine/Source/GameClient/BfmeItemKA.cpp,approved,U,N=Code/GameEngine/Source/GameClient/GameSubTitle.cpp W=Code/GameEngine/Source/GameClient/GameSubTitles.cpp provisional,Code/GameEngine/Source/GameClient/BfmeItemKA.cpp
-0x002604BA,22,code,Code/GameEngine/Source/GameClient/BfmeItemKA.cpp,approved,C,C=0x002603D1..0x002604D0 provisional,Code/GameEngine/Source/GameClient/GUI/HeaderTemplate_Rva002604ba.cpp
+0x002604BA,22,code,Code/GameEngine/Source/GameClient/BfmeItemKA.cpp,approved,C,C=0x002603D1..0x002604D0 provisional,Code/GameEngine/Source/GameClient/BfmeItemKA.cpp
 0x002604D0,135,code,Code/GameEngine/Source/GameClient/BfmeItemKA.cpp,approved,C,C=0x002603D1..0x00260557 provisional,Code/GameEngine/Source/GameClient/BfmeItemKA.cpp
 0x00260557,120,code,Code/GameEngine/Source/GameClient/BfmeItemKA.cpp,approved,C,C=0x002603D1..0x002605EB provisional,Code/GameEngine/Source/GameClient/BfmeItemKA.cpp
 0x002605CF,28,code,,displaced,-,N=Code/GameEngine/Source/Common/UnicodeString.cpp,Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks.cpp
@@ -18353,7 +18353,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00260647,29,code,Code/GameEngine/Source/GameClient/BfmeItemKA.cpp,approved,C,C=0x002603D1..0x00260664 provisional,Code/GameEngine/Source/Common/StringRecordInlineCopyBFME2.cpp
 0x00260664,38,code,Code/GameEngine/Source/GameClient/BfmeItemKA.cpp,approved,C,C=0x002603D1..0x0026068A provisional,Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva00260664.cpp
 0x0026068A,37,code,Code/GameEngine/Source/GameClient/BfmeItemKA.cpp,approved,C,C=0x002603D1..0x002606AF provisional,Code/Libraries/Source/WWVegas/WWLib/StlSweepW6Rva0026068A.cpp
-0x002606AF,55,code,Code/GameEngine/Source/GameClient/BfmeItemKA.cpp,approved,C,C=0x002603D1..0x002606E6 provisional,Code/GameEngine/Source/Common/Rva002606AFErase.cpp
+0x002606AF,55,code,Code/GameEngine/Source/GameClient/BfmeItemKA.cpp,approved,C,C=0x002603D1..0x002606E6 provisional,Code/GameEngine/Source/GameClient/BfmeItemKA.cpp
 0x002606E6,161,code,Code/GameEngine/Source/GameClient/BfmeItemKA.cpp,approved,N,N=Code/GameEngine/Source/GameClient/BfmeItemKA.cpp provisional,Code/GameEngine/Source/GameClient/BfmeItemKA.cpp
 0x00260787,126,code,Code/GameEngine/Source/Common/BfmeItemKA.cpp,proposed,N,N=Code/GameEngine/Source/Common/BfmeItemKA.cpp,Code/GameEngine/Source/Common/BfmeConv902.cpp
 0x00260805,33,code,,,-,,Code/GameEngine/Source/Common/BfmeConv902_BfmeGoKA.cpp

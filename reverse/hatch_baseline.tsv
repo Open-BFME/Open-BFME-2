@@ -2182,8 +2182,6 @@ alternatename	Code/GameEngine/Source/Common/Rva0025D489Ctor.cpp	?v30@Display@@UA
 alternatename	Code/GameEngine/Source/Common/Rva0025D489Ctor.cpp	?v35@Display@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva0025D489Ctor.cpp	?v36@Display@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva0025D489Ctor.cpp	?v68@Display@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/Common/Rva002606AFErase.cpp	??$__copy_ptrs@PBURva002606AFElem@@PAU1@@_STL@@YAPAURva002606AFElem@@PBU1@0PAU1@ABU__false_type@0@@Z	1
-alternatename	Code/GameEngine/Source/Common/Rva002606AFErase.cpp	??1Rva002606AFDtor@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/Rva00261D2EFilter.cpp	?allow@Rva00391667@@UAE_NPAVObject@@@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva00263653Ctor.cpp	_kF7C	1
 alternatename	Code/GameEngine/Source/Common/Rva0026E836Derived.cpp	?f1@Rva0026E836_M1@@UAEXXZ	1
@@ -2740,6 +2738,9 @@ alternatename	Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp	?insert
 alternatename	Code/GameEngine/Source/Common/W3DTerrainVisual_update.cpp	?rva0009A338@Gen0003AC38@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Win32BIGFileSystem.cpp	??1Rva00602635VTableInstall@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/Win32BIGFileSystem.cpp	??1Win32BIGFileSystem@@UAE@XZ	1
+alternatename	Code/GameEngine/Source/GameClient/BfmeItemKA.cpp	??$__copy_ptrs@PBURva002606AFElem@@PAU1@@_STL@@YAPAURva002606AFElem@@PBU1@0PAU1@ABU__false_type@0@@Z	1
+alternatename	Code/GameEngine/Source/GameClient/BfmeItemKA.cpp	??1Rva002606AFDtor@@QAE@XZ	1
+alternatename	Code/GameEngine/Source/GameClient/BfmeItemKA.cpp	?HeaderTemplateGetRegistryLanguage@@YA?AVHeaderTemplateString@@XZ	1
 alternatename	Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehavior.cpp	??1VoiceSlot@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehaviorModuleDataCtor.cpp	??1AnimationSoundClientBehaviorModuleDataBase@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/GameClient/Drawable_rva002724FD.cpp	?rva002724FD@Drawable@@QAEXABVAsciiString@@EHMM@Z	1
@@ -2797,7 +2798,6 @@ alternatename	Code/GameEngine/Source/GameClient/GUI/GameWindow_winGetUserData.cp
 alternatename	Code/GameEngine/Source/GameClient/GUI/GameWindow_winGetUserData.cpp	?bfmeGetEBN@BfmeObjEBN@@QAEPAUBfmeSubEBN@@XZ	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/GameWindow_winGetUserData.cpp	?bfmeGetENK@BfmeObjENK@@QAEPAUBfmeSubENK@@XZ	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/GameWindow_winSetText.cpp	?winSetText@GameWindow@@QAEHVUnicodeString@@@Z	1
-alternatename	Code/GameEngine/Source/GameClient/GUI/HeaderTemplate_Rva002604ba.cpp	?HeaderTemplateGetRegistryLanguage@@YA?AVHeaderTemplateString@@XZ	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/InGame/AptRadialMenu_PositionButton.cpp	?Move@ButtonShell@Impl@AptRadialMenu@@QAEXVCoord2D@@0@Z	2
 alternatename	Code/GameEngine/Source/GameClient/GUI/InGame/InGameSimpleHelp.cpp	??1InGameSimpleHelp@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/InGame/InGameSimpleHelp.cpp	??1Rva005398CDRefCounted@@UAE@XZ	1
