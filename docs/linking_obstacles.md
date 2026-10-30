@@ -15,6 +15,19 @@ current `Common/0CreateAHeroManager21FE49.cpp` consumer receipt. Carry this
 unit and its wider consumers into the next scheduled census; full consumer
 selection/loss verification and census confirmation remain pending.
 
+### Browser and shader-manager stale header queue entries (2026-10-30)
+
+At base `c647a75e55`, the browser's comdef declaration repair and the shader
+manager's heap/debug declaration repair are already present in source.
+The owning auditor's scoped refresh removes their two stale local queue
+records (five declarations). Strict preparation verifies 31/31 function rows
+and six data rows; ordinary paired preview retains 2/2 LINKS and 4,566
+authored bytes against `12b9e7a7c0` (2026-10-30 10:11 UTC). No source or
+provider changes, new census gain or full SDK closure are claimed. The
+shader manager's shared Windows/multimedia shim and d3d9 include findings
+remain prerequisites.
+[Historical repairs, scan scope and checks](../reverse/attempt_support/browser-shader-stale-msheaders-20261030-codexb4.md).
+
 ### BaseHeightMap alternate query cleanup and missing census seed (2026-10-30)
 
 At base b657c77a8b81, the seed's unreferenced 242-byte alternate height query
@@ -5657,6 +5670,13 @@ confirmation remain pending.
 - **Teardown and table audit (2026-10-26, inspected `896af21680`, index `d1f046749a`):** `build/link-report.md` and `build/link-worker-20261026/` records two reverted `Rva007B73C0.cpp` trials. An extern-template destructor replaces the 59-byte teardown with an unresolved destructor jump; an inline-only imported specialization also changes the teardown and leaves the losing deleting destructor. Final byte verification restores the original 59-byte body and the original single COMDAT finding. The proposed vtable-ownership route has an additional prerequisite: the six native table slots at `0x007CEFAC` point to RVAs `0x000F1CF7`, `0x000F1C16`, `0x000F0BF1`, `0x000F0CD4`, `0x000F0DC5`, `0x000F0E20`. The current Vector3 table instead names its pointer-ID owner at `0x001298B0`, while native slot 5 is the 27-byte TCB-class pointer-ID row at `0x000F0E20`. A data row cannot simply assert that these bindings agree. Next check: reconcile the native class/fold identities and every table slot before admitting a full table owner. The constructor and resize providers still preview LINKS; the two teardown units remain blocked. Census confirmation remains pending.
 
 **Assigned collection recheck (2026-10-27, inspected `97c23353111e60304b56434c02d20bee3465d83f`, index `5ce093a71a`):** current `collect.cpp` remains U14/L4 and all six rows remain exact, including the Clone unwind row and the ProxyClass-vector assignment. Its remaining losing copies are RenderObjClass::Is_Visible, Set_Collision_Type and both Get_Bone_Transform overloads; the unresolved ProxyClass-vector and persistence interfaces remain separate from the earlier Vector3 deleting-destructor repair. The current camera, height-map, vector and native row providers are included in the paired preview. Reconcile the shared RenderObjClass and ProxyClass interfaces before removing collection implementations that emit the retained rows. No source edit, new fold admission or additional clearance is claimed; census confirmation remains pending.
+
+**Collection recheck (2026-10-30, base `c647a75e55`, index `12b9e7a7c0`,
+2026-10-30 10:11 UTC):** the current five-row unit retains U14/L4 and
+LINKED 0 -> 0 (148 authored bytes). The same RenderObjClass and ProxyClass
+prerequisites above remain. No source trial or clearance is claimed; the
+claim was released and the pass moved to independent stale header debt.
+[Scope and verification](../reverse/attempt_support/browser-shader-stale-msheaders-20261030-codexb4.md).
 
 **Inline-depth trial (2026-10-27, inspected `87e6100d33`, index `bf3dd31211`):** a trailing `#pragma inline_depth` in `Rva007B7280Siblings.cpp` (not a counted hatch) applies to the whole unit, teardowns included, not only to the compiler-generated `??_G` emitted at its end. `inline_depth(1)` stops the teardowns inlining the destructor (`./build.sh` 0/6); `inline_depth(2)` keeps 6/6 but the `??_G` still inlines `Clear` (same `wrong` digest `ac2be0dc8c7c`). Reverted; do not repeat. The vtable-owner or TU prerequisite above stands (0x007B7280/0x007B7400 have no approved TU in `reverse/tu_map.csv`).
 
