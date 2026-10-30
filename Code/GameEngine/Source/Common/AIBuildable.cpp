@@ -112,34 +112,25 @@ class Rva0055B0CC
 {
 public:
 	Rva0055B0CC();
-public:
-	virtual ~Rva0055B0CC();
-public:
 	void rva0055B01F();
-private:
-	float m_04;
-private:
-	int m_08;
-private:
-	AsciiStringMember m_0C;
-private:
-	unsigned int m_10;
-private:
-	_STL::list<int, _STL::allocator<int> > m_14;
-private:
-	float m_18;
-private:
-	_STL::list<int, _STL::allocator<int> > m_1C;
-private:
-	bool m_20;
-private:
-	bool m_21;
-private:
-	int m_24;
-private:
-	bool m_28;
-public:
 	void rva0055AFA3();
+	virtual ~Rva0055B0CC();
+private:
+	float m_04; // +0x04
+	int m_08; // +0x08
+	AsciiStringMember m_0C; // +0x0C
+	unsigned int m_10; // +0x10
+	_STL::list<int, _STL::allocator<int> > m_14; // +0x14
+	float m_18; // +0x18
+public:
+	_STL::list<int, _STL::allocator<int> > m_1C; // +0x1C
+private:
+	bool m_20; // +0x20
+	bool m_21; // +0x21
+	char m_pad22[0x2];
+	int m_24; // +0x24
+	bool m_28; // +0x28
+	char m_pad29[0x3];
 };
 
 // ?rva0055B156@Rva0055B156@@QAEXH@Z @0x0055B156 16B

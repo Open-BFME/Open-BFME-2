@@ -25,18 +25,43 @@ public:
 	_STL::list<int, _STL::allocator<int> > m_list; // +0x14
 };
 
+class AsciiStringMember
+{
+public:
+	AsciiStringMember() : m_data(0) {}
+	~AsciiStringMember();
+	void *m_data;
+};
+
 class Rva0055B0CC
 {
 public:
+	Rva0055B0CC();
 	void rva0055B01F();
-	char m_pad[0x1C];
-	_STL::list<int, _STL::allocator<int> > m_list;
+	void rva0055AFA3();
+	virtual ~Rva0055B0CC();
+private:
+	float m_04; // +0x04
+	int m_08; // +0x08
+	AsciiStringMember m_0C; // +0x0C
+	unsigned int m_10; // +0x10
+	_STL::list<int, _STL::allocator<int> > m_14; // +0x14
+	float m_18; // +0x18
+public:
+	_STL::list<int, _STL::allocator<int> > m_1C; // +0x1C
+private:
+	bool m_20; // +0x20
+	bool m_21; // +0x21
+	char m_pad22[0x2];
+	int m_24; // +0x24
+	bool m_28; // +0x28
+	char m_pad29[0x3];
 };
 
 void Rva0055B0CC::rva0055B01F()
 {
-	for (_STL::list<int, _STL::allocator<int> >::iterator it = m_list.begin(); it._M_node != m_list.end()._M_node; ++it) {
+	for (_STL::list<int, _STL::allocator<int> >::iterator it = m_1C.begin(); it._M_node != m_1C.end()._M_node; ++it) {
 		((Rva0055AFBF *)*it)->rva0055AFBF((int)this);
 	}
-	m_list.clear();
+	m_1C.clear();
 }
