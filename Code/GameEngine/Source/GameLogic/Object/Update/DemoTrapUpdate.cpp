@@ -40,7 +40,6 @@ class RGBAColorReal;
 class RGBAColorInt;
 class Snapshot;
 #include "../../../../Include/Common/BfmeXfer.h"
-
 // ??0DemoTrapUpdateModuleData@@QAE@XZ at retail 0x0049597A (55 bytes).
 // The module-data half of DemoTrapUpdate: vtable immediate 0x00C4ED70 modelled
 // as an explicit first member (OCLUpdateModuleDataCtor precedent, so no vtable
@@ -57,7 +56,6 @@ class Snapshot;
 // ProximityModeWeaponSlot, ManualModeWeaponSlot, TriggerDetonationRange,
 // DetonateWhenKilled). Body order is load-bearing and follows retail.
 extern "C" const void *const __identifier("??_7ObjectHelperModuleData@@6B@")[];
-
 // The module classes spell the DemoTrapUpdate.cpp TU's union view. Vptrs at
 // +0x00, +0x0C and +0x10 (the constructor's three stores). Retail's primary
 // vftable (0x00C4ED3C) holds the scalar deleting dtor (0x004959E3), the
@@ -67,27 +65,40 @@ extern "C" const void *const __identifier("??_7ObjectHelperModuleData@@6B@")[];
 // with loadPostProcess (0x0058B03E) and GetSnapshotName (0x002533CD). The
 // +0x10 one (0x00C4ED30) opens with update (0x00495ABA).
 class Thing;
-
 class ModuleData;
-
 class Object;
-
 class Xfer;
-
 class DemoTrapUpdateModuleData;
-
 enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
-
 enum UpdateSleepTime
 {
 	UPDATE_SLEEP_NONE = 1,
 	UPDATE_SLEEP_FOREVER = 0x3fffffff
 };
-
 #include "../../../../Include/Common/ObjectModule.h"
+#define BFME_SNAPSHOT_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	protected: \
+		virtual const char *GetSnapshotName() const; \
+	}; \
+	const char *NAME::GetSnapshotName() const \
+	{ \
+		return TEXT; \
+	}
+#define BFME_LITERAL_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	public: \
+		const char *name() const; \
+	}; \
+	const char *NAME::name() const \
+	{ \
+		return TEXT; \
+	}
 
 class BehaviorInterface
 {
@@ -176,9 +187,39 @@ public:
 	unsigned char m_minimum;
 };
 
+class DozerActionState
+{
+public:
+	virtual const char *GetSnapshotName() const;
+};
+
+BFME_LITERAL_NAME_GETTER(Rva0049592FNamed, "DemoTrapUpdate")
+
+class BoneFXDamage
+{
+protected:
+	virtual const char *GetSnapshotName() const;
+};
+
 // tu-skeleton: 0x00495916 25B ??1DemoTrapUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
 
-// tu-skeleton: 0x0049592F 6B ?name@Rva0049592FNamed@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/ModuleNameGetters3.cpp
+
+// Module literal name getters (cold slice): six-byte const members with one
+// shape:
+//
+//     mov eax,<offset string literal> / ret
+//
+// Each body returns a pointer to a NUL-terminated class-name string in
+// .rdata. Contributor-local unit split from ModuleNameGetters2.cpp to keep
+// concurrent landings conflict-free; the BFME_LITERAL_NAME_GETTER macro is
+// verbatim, only the class names follow this tree's address-derived
+// convention (identity unrecoverable from 6 bytes, string carried in source
+// where verify_string_refs re-reads it).
+// No // cl: line (defaults match the frameless 6-byte shape, same as the
+// ModuleNameGetters.cpp precedent).
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/DemoTrapUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/DemoTrapUpdatePoolKey.cpp
 
@@ -292,8 +333,6 @@ DemoTrapUpdate::DemoTrapUpdate( Thing *thing, const ModuleData *moduleData )
 	m_detonated = false;
 }
 
-// tu-skeleton: 0x004959FF 44B ?onObjectCreated@DemoTrapUpdate@@UAEXXZ -- matched in Code/GameEngine/Source/Common/DemoTrapUpdate_onObjectCreated.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/Rva00495A2B.cpp
 
 //
@@ -324,5 +363,7 @@ void DemoTrapUpdate::xfer(Xfer *xfer)
 	*xfer == m_nextScanFrames;
 	*xfer == m_detonated;
 }
+
+// tu-skeleton: 0x004959FF 44B ?onObjectCreated@DemoTrapUpdate@@UAEXXZ -- matched in Code/GameEngine/Source/Common/DemoTrapUpdate_onObjectCreated.cpp (not merged yet)
 
 // tu-skeleton: 0x00495AA9 17B ?buildFieldParse@DemoTrapUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
