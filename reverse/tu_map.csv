@@ -4133,8 +4133,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0007274B,11,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBuffer.cpp,approved,C,C=0x000726B0..0x00072756,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBuffer.cpp
 0x00072756,10,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBuffer.cpp,approved,C,C=0x000726B0..0x00072760,Code/GameEngine/Source/Common/Disp8MaskedChaseDwordGetters.cpp
 0x00072760,170,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBuffer.cpp,approved,Z,Z=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBuffer.cpp S=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBuffer.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBuffer.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBufferAllocate.cpp
-0x0007280A,92,code,Code/GameEngine/Source/Common/BfmeOwnerCC.cpp,approved,N,N=Code/GameEngine/Source/Common/BfmeOwnerCC.cpp provisional,Code/GameEngine/Source/Common/BfmeOwnerDtorCC.cpp
-0x00072866,28,code,Code/GameEngine/Source/Common/BfmeOwnerCC.cpp,approved,N,N=Code/GameEngine/Source/Common/BfmeOwnerCC.cpp provisional,Code/GameEngine/Source/Common/BfmeOwnerDtorCC.cpp
+0x0007280A,92,code,Code/GameEngine/Source/Common/BfmeOwnerCC.cpp,approved,N,N=Code/GameEngine/Source/Common/BfmeOwnerCC.cpp provisional,Code/GameEngine/Source/Common/BfmeOwnerCC.cpp
+0x00072866,28,code,Code/GameEngine/Source/Common/BfmeOwnerCC.cpp,approved,N,N=Code/GameEngine/Source/Common/BfmeOwnerCC.cpp provisional,Code/GameEngine/Source/Common/BfmeOwnerCC.cpp
 0x00072882,16,code,,,-,,Code/GameEngine/Source/Common/GapBodiesGE31.cpp
 0x00072892,7,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp
 0x00072899,29,code,,displaced,-,N=Code/GameEngine/Source/Common/RefCountClass.cpp,Code/GameEngine/Source/Common/InlineDtorDeletingDtorsC01.cpp
