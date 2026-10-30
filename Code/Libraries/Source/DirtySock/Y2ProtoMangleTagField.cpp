@@ -1,19 +1,15 @@
-// cl: /DNDEBUG /MD /GX /Od /GZ /GS
+// cl: /DNDEBUG /GX /Od /GZ /GS
+/* Built without /MD: retail calls the msvcrt import stubs with a direct e8,
+ * as a library compiled against the static CRT headers does. */
+#include <string.h>
 // EA's DirtySock ProtoMangle -- the tag-field reader its response parsing runs
 // on.  See Y2ProtoMangleHelpers.cpp for why this directory and this compiler
 // line; every body here carries the same /Od /GZ signature.
 //
-// WHY THIS IS A SEPARATE TRANSLATION UNIT, and it is not a preference.  These
-// bodies call strstr and strchr with a DIRECT rel32 to the import stubs at
-// 0x009F709C and 0x009F6DFA.  MSVC 7.1's <string.h> declares exactly those two
-// _CRTIMP -- unlike memcpy, memset, strcpy and strlen, which it declares plain
-// on x86 -- so a TU that includes that header calls them through
-// __imp__strstr instead and cannot reproduce these bytes.  Y2ProtoMangleHelpers
-// does include <string.h>, so these bodies cannot live there.  Declaring them
-// here is what reproduces retail, and it is the same move that file already
-// makes for sprintf.
-extern "C" char *strstr( const char *text, const char *find );
-extern "C" char *strchr( const char *text, int c );
+// These bodies call strstr and strchr with a DIRECT rel32 to the import stubs
+// at 0x009F709C and 0x009F6DFA.  MSVC 7.1's <string.h> declares exactly those
+// two _CRTIMP, which under /MD would route them through __imp__strstr; built
+// without /MD the header's declarations are plain and reproduce retail.
 
 // 0x00805710 READS ONE NAMED FIELD out of a text blob, and the two characters
 // it searches for are what say so: it finds the tag, then finds the '=' after
@@ -104,11 +100,6 @@ const char *Rva00805830SkipNewlines( const char *text, const char *find )
 	}
 	return text;
 }
-
-// strncmp is _CRTIMP in <string.h> too; strlen is not, but declaring both here
-// keeps this TU free of that header for the same reason the two above are.
-extern "C" int strncmp( const char *left, const char *right, unsigned int count );
-extern "C" unsigned int strlen( const char *text );
 
 // The three status words, read out of retail's .rdata at 0x012C3D28,
 // 0x012C3D30 and 0x012C3D38 with the pointer table indexing them at

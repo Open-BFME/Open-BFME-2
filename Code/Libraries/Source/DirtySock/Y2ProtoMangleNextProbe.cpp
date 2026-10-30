@@ -1,4 +1,8 @@
-// cl: /DNDEBUG /MD /GX /Od /GZ /GS
+// cl: /DNDEBUG /GX /Od /GZ /GS
+/* Built without /MD: retail calls the msvcrt import stubs with a direct e8,
+ * as a library compiled against the static CRT headers does. */
+#include <string.h>
+#include <stdlib.h>
 // DirtySock ProtoMangle probe parser, RVA 0x00805A70, 484 bytes through RET.
 // The matched Rva00805960 caller passes Probe*, ProtoMangleRef*, text as cdecl
 // arguments and cleans 12 bytes. That proves the former NAT no-argument method
@@ -7,10 +11,6 @@
 // DirtySock uses MSVC /Od /GZ /GS here. The RTC descriptor immediately AFTER
 // the 484-byte body describes strParm at ebp-0x4c with size 64. Its name is
 // retained, and descriptor bytes are not counted as executable function bytes.
-// CRT declarations omit dllimport because retail calls their direct stubs.
-
-extern "C" char *strncpy(char *, const char *, unsigned);
-extern "C" int atoi(const char *);
 
 struct Rva00804150ProtoMangleRef;
 struct Rva00805960Probe {
