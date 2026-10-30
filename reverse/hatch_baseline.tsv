@@ -12368,8 +12368,6 @@ present_unmatched	Code/GameEngine/Source/Common/Rva00328E96WaterRecord.cpp	Rva00
 present_unmatched	Code/GameEngine/Source/Common/Rva0033D142Permuted.cpp	BitFlags::BitFlags	1
 present_unmatched	Code/GameEngine/Source/Common/Rva0033D142Permuted.cpp	MapHelper::operator()	1
 present_unmatched	Code/GameEngine/Source/Common/Rva0033D142Permuted.cpp	allocator::allocate	1
-present_unmatched	Code/GameEngine/Source/Common/Rva00359D42.cpp	TheGameLogic@@3PAVGameLogic@@A	1
-present_unmatched	Code/GameEngine/Source/Common/Rva0035A18DVectorDeletingDtor.cpp	Rva0035A18DDeleteArray@@YAXPAVRva0035A18D@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/Rva00381F04Assign.cpp	1Rva00381F04@@UAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/Rva004075E0.cpp	0Rva004075E0Iter@@QAE@PAURva004075E0Node@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/Rva004075E0.cpp	0Rva004075E0Pair@@QAE@PAURva004075E0Node@@_N@Z	1
@@ -13925,6 +13923,8 @@ present_unmatched	Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorl
 present_unmatched	Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva004EEE38CollectTurnStats.cpp	PerTurnStats::loadPostProcess	1
 present_unmatched	Code/GameEngine/Source/GameLogic/System/PlayerAITypeSet.cpp	$__copy_ptrs@PAUBfmeVectorRecord0002154F3@@PAU1@@_STL@@YAPAUBfmeVectorRecord0002154F3@@PAU1@00ABU__false_type@0@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp	Rva003598D3::slot00	1
+present_unmatched	Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp	Rva0035A18DDeleteArray@@YAXPAVRva0035A18D@@@Z	1
+present_unmatched	Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp	TheGameLogic@@3PAVGameLogic@@A	1
 present_unmatched	Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp	hence	1
 present_unmatched	Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp	slot00@Rva0035A97EVisitor@@UAEXHH@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/System/TerrainResourceManagerClaimRva00359E93.cpp	Rva0035A238Argument::getKey	1
