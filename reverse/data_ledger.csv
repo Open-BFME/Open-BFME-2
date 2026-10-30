@@ -20006,8 +20006,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A03760,4,.data,global,?$S1@?1??getModuleNameKey@ShareExperienceBehavior@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp,owned,,1,4
 0x00A03764,4,.data,global,?TheSlaughterHordeContainPoolKey@?1??getModuleNameKey@SlaughterHordeContain@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Contain/SlaughterHordeContainPoolKey.cpp,owned,,1,2
 0x00A03768,4,.data,global,?$S1@?1??getModuleNameKey@SlaughterHordeContain@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Contain/SlaughterHordeContainPoolKey.cpp,owned,,1,4
-0x00A0376C,4,.data,global,?TheCitadelSlaughterHordeContainPoolKey@?1??getModuleNameKey@CitadelSlaughterHordeContain@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Contain/CitadelSlaughterHordeContainPoolKey.cpp,owned,,1,2
-0x00A03770,4,.data,global,?$S1@?1??getModuleNameKey@CitadelSlaughterHordeContain@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Contain/CitadelSlaughterHordeContainPoolKey.cpp,owned,,1,4
+0x00A0376C,4,.data,global,?TheCitadelSlaughterHordeContainPoolKey@?1??getModuleNameKey@CitadelSlaughterHordeContain@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Contain/CitadelSlaughterHordeContain.cpp,owned,,1,2
+0x00A03770,4,.data,global,?$S1@?1??getModuleNameKey@CitadelSlaughterHordeContain@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Contain/CitadelSlaughterHordeContain.cpp,owned,,1,4
 0x00A03774,4,.data,global,_s_rva007B0FFC,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A03778,4,.data,global,?TheProductionQueueHordeContainPoolKey@?1??getModuleNameKey@ProductionQueueHordeContain@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Contain/ProductionQueueHordeContainPoolKey.cpp,owned,,1,2
 0x00A0377C,4,.data,global,?$S1@?1??getModuleNameKey@ProductionQueueHordeContain@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Contain/ProductionQueueHordeContainPoolKey.cpp,owned,,1,4

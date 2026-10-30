@@ -9,7 +9,6 @@ template<> bitset<128> &bitset<128>::reset();
 }
 #include "ascii_string.h"
 #include "../../../../Include/GameLogic/ContainmentListView.h"
-
 // A declaration-only specialization stops this TU emitting its own
 // vector<AsciiString> dtor COMDAT, so the call binds the kept copy.
 namespace _STL {
@@ -18,11 +17,8 @@ template <> _Vector_base<AsciiString, allocator<AsciiString> >::~_Vector_base();
 template <> void _STLP_alloc_proxy<AsciiString*, AsciiString, allocator<AsciiString> >::deallocate(AsciiString*, size_t);
 template <> void allocator<AsciiString>::deallocate(AsciiString*, size_t) const;
 }
-
 template <int N> class BitFlags;
-
 extern BitFlags<116> KINDOFMASK_NONE;
-
 class BfmeFixedStorage0004543D
 {
 public:
@@ -31,7 +27,6 @@ public:
 private:
 	unsigned char m_bytes[28];
 };
-
 class Rva003623E5Member
 {
 public:
@@ -42,7 +37,6 @@ public:
 private:
 	int m_x;
 };
-
 // Inline wrapper ctor plus cast-reset for an init-phase bitset reset: it
 // emits the bare reset call with zero construction overhead, sequenced in
 // decl order among the member init calls (fleet Stealth lever).
@@ -51,23 +45,17 @@ struct StatusForRingEntryBits
 	StatusForRingEntryBits() { ((_STL::bitset<128> *)m_words)->reset(); }
 	unsigned long m_words[4]; // +0xEC, StatusForRingEntry bitset<128>
 };
-
 // bfme link decl-only begin
 namespace _STL { template <> _List_base<Rva0036ADF9Element,_STL::allocator<Rva0036ADF9Element> >::_List_base(_STL::allocator<Rva0036ADF9Element> const &); }
-
 namespace _STL { template <> _STL::_List_node<Rva0036ADF9Element> * allocator<_STL::_List_node<Rva0036ADF9Element> >::allocate(unsigned int,void const *) const; }
-
 // bfme link decl-only end
 namespace _STL {
 template<class T,class Traits> static inline bool operator!=(const _List_iterator<T,Traits>&a,const _List_iterator<T,Traits>&b)
 { return a._M_node!=b._M_node; }
 template<> _List_base<Rva0036ADF9Element,allocator<Rva0036ADF9Element> >::~_List_base();
 }
-
 class DamageInfo;
-
 class Object;
-
 class UnicodeString;
 class PooledString;
 struct XferUnknown11;
@@ -84,8 +72,19 @@ class RGBColor;
 class RGBAColorReal;
 class RGBAColorInt;
 class Snapshot;
-
 #include "../../../../Include/Common/BfmeXfer.h"
+//
+// ?xfer@CitadelSlaughterHordeContain@@MAEXPAVXfer@@@Z, retail 0x0048030D, 65 bytes.
+// Slot 3 of ??_7CitadelSlaughterHordeContain 0x00C48CC0 (slot 0 the rowed
+// ??_G 0x004806FC, slot 4 the rowed pool-name key 0x00480600). Version(1,2)
+// through Xfer slot 0x28, then the rowed SlaughterHordeContain::xfer
+// 0x0048029A, then from version 2 the ObjectID at +0x9EC (the factory
+// 0x0024C0C5 news 0x9F0, four bytes past SlaughterHordeContain's 0x9EC)
+// through the rowed XferObjectID. Member name not recovered.
+
+class AsciiString;
+class Thing;
+class ModuleData;
 
 class Xfer::Version
 {
@@ -168,44 +167,6 @@ public:
  virtual Rva0036AE51ListView slot70()=0;
 };
 
-// Primary table 0x00C48CC0: slot 0 the rowed ??_G 0x004806FC, slot 3 xfer,
-// slot 4 the pool-name key. The rowed base dtor is 0x004803FB and the rowed
-// base xfer 0x0048029A.
-class SlaughterHordeContain
-{
-public:
-	virtual ~SlaughterHordeContain();
-
-protected:
-	virtual void v01();
-	virtual void v02();
-	virtual void xfer(Xfer *xfer);
-
-public:
-	virtual NameKeyType getModuleNameKey() const;
-
-protected:
-	char m_unrecovered04[0x9EC - 0x04];
-};
-
-// Retail stores no vptr in the 5-byte dtor (novtable). onDie is the die
-// interface's slot 0 (the ctor installs table 0x00C48910 at +28); its body
-// only offsets this.
-class __declspec(novtable) CitadelSlaughterHordeContain : public SlaughterHordeContain
-{
-public:
-	virtual ~CitadelSlaughterHordeContain();
-	virtual NameKeyType getModuleNameKey() const;
-	virtual void onDie(const DamageInfo*);
-	CitadelContainDieView *contain() { return reinterpret_cast<CitadelContainDieView*>(reinterpret_cast<char*>(this)-8); }
-
-protected:
-	virtual void xfer(Xfer *xfer);
-
-private:
-	ObjectID m_9EC; // +0x9EC, factory 0x0024C0C5 news 0x9F0
-};
-
 //
 // CitadelSlaughterHordeContainModuleData parse-unit.
 //
@@ -262,6 +223,46 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
+// Primary table 0x00C48CC0: slot 0 the rowed ??_G 0x004806FC, slot 3 xfer,
+// slot 4 the pool-name key. The rowed base dtor is 0x004803FB and the rowed
+// base xfer 0x0048029A.
+class SlaughterHordeContain
+{
+public:
+	virtual ~SlaughterHordeContain();
+
+protected:
+	virtual void v01();
+	virtual void v02();
+	virtual void xfer(Xfer *xfer);
+
+public:
+	virtual NameKeyType getModuleNameKey() const;
+
+protected:
+	char m_unrecovered04[0x9EC - 0x04];
+};
+
+// Retail stores no vptr in the 5-byte dtor (novtable). onDie is the die
+// interface's slot 0 (the ctor installs table 0x00C48910 at +28); its body
+// only offsets this.
+class __declspec(novtable) CitadelSlaughterHordeContain : public SlaughterHordeContain
+{
+public:
+	virtual ~CitadelSlaughterHordeContain();
+	virtual NameKeyType getModuleNameKey() const;
+	virtual void onDie(const DamageInfo*);
+	CitadelContainDieView *contain() { return reinterpret_cast<CitadelContainDieView*>(reinterpret_cast<char*>(this)-8); }
+
+protected:
+	virtual void xfer(Xfer *xfer);
+
+private:
+	ObjectID m_9EC; // +0x9EC, factory 0x0024C0C5 news 0x9F0
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/CitadelSlaughterHordeContain.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/CitadelSlaughterHordeContainModuleDataParse.cpp
 
 // ?buildFieldParse@CitadelSlaughterHordeContainModuleData@@SAXAAVMultiIniFieldParse@@@Z @0x004802F2
@@ -270,24 +271,6 @@ void CitadelSlaughterHordeContainModuleData::buildFieldParse(MultiIniFieldParse 
 	SlaughterHordeContainModuleData::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(s_citadelSlaughterFieldTable), 0);
 }
-
-// tu-skeleton: 0x0048030D 65B ?xfer@CitadelSlaughterHordeContain@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/CitadelSlaughterHordeContainXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x004803B0 6B ?Rva004803B0Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
-// tu-skeleton: 0x0048059F 91B ??0CitadelSlaughterHordeContain@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/CitadelSlaughterHordeContainCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004805FA 6B ?Rva004805FAGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
-// tu-skeleton: 0x00480600 69B ?getModuleNameKey@CitadelSlaughterHordeContain@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/CitadelSlaughterHordeContainPoolKey.cpp (not merged yet)
-
-// tu-skeleton: 0x004806FC 28B ??_GCitadelSlaughterHordeContain@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/ContainModuleDeletingDtors.cpp (not merged yet)
-
-// tu-skeleton: 0x00480718 5B ??1CitadelSlaughterHordeContain@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/CitadelSlaughterHordeContainDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0048071D 170B ?isValidContainerFor@CitadelSlaughterHordeContain@@UAE_NPAVObject@@_N1@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/CitadelSlaughterHordeContainIsValidContainerFor.cpp (not merged yet)
-
-// tu-skeleton: 0x004807C7 90B ?rva004807C7@CitadelSlaughterHordeContain@@UAE_NPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/CitadelSlaughterHordeContainRva004807C7.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/CitadelSlaughterHordeContainOnDie.cpp
 
@@ -317,14 +300,6 @@ void CitadelSlaughterHordeContain::onDie(const DamageInfo*)
   }
  }
 }
-
-// tu-skeleton: 0x00480DF4 52B ?rva00480DF4@@YAXPAVObject@@PAX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SlaughterHordeContainUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x00480E28 74B ?rva00480E28@@YAXPAVObject@@PAX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SlaughterHordeContainUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x00480E9A 328B ?rva00480E9A@CitadelSlaughterHordeContain@@UAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/CitadelSlaughterHordeContainRva00480E9A.cpp (not merged yet)
-
-// tu-skeleton: 0x00480FE2 107B ?update@CitadelSlaughterHordeContain@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SlaughterHordeContainUpdate.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/CitadelSlaughterHordeContainModuleDataCtor.cpp
 
@@ -359,13 +334,59 @@ CitadelSlaughterHordeContainModuleData::CitadelSlaughterHordeContainModuleData()
 		BfmeFixedStorage0004543D(*reinterpret_cast<const BfmeFixedStorage0004543D *>(&KINDOFMASK_NONE)));
 }
 
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/CitadelSlaughterHordeContainXfer.cpp
+
+// ?xfer@CitadelSlaughterHordeContain@@MAEXPAVXfer@@@Z @0x0048030D
+void CitadelSlaughterHordeContain::xfer(Xfer *xfer)
+{
+	Xfer::Version version(1, 2);
+	*xfer == version;
+
+	SlaughterHordeContain::xfer(xfer);
+
+	if (version.m_minimum >= 2)
+		XferObjectID(xfer, &m_9EC);
+}
+
+// tu-skeleton: 0x004803B0 6B ?Rva004803B0Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x0048059F 91B ??0CitadelSlaughterHordeContain@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/CitadelSlaughterHordeContainCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004805FA 6B ?Rva004805FAGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/CitadelSlaughterHordeContainPoolKey.cpp
+
+// ?getModuleNameKey@CitadelSlaughterHordeContain@@UBE?AW4NameKeyType@@XZ
+NameKeyType CitadelSlaughterHordeContain::getModuleNameKey() const
+{
+	static NameKeyType TheCitadelSlaughterHordeContainPoolKey =
+		TheNameKeyGenerator->nameToKey("CitadelSlaughterHordeContain");
+	return TheCitadelSlaughterHordeContainPoolKey;
+}
+
+// tu-skeleton: 0x004806FC 28B ??_GCitadelSlaughterHordeContain@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/ContainModuleDeletingDtors.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/CitadelSlaughterHordeContainDtor.cpp
+
+CitadelSlaughterHordeContain::~CitadelSlaughterHordeContain()
+{
+}
+
+// tu-skeleton: 0x0048071D 170B ?isValidContainerFor@CitadelSlaughterHordeContain@@UAE_NPAVObject@@_N1@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/CitadelSlaughterHordeContainIsValidContainerFor.cpp (not merged yet)
+
+// tu-skeleton: 0x004807C7 90B ?rva004807C7@CitadelSlaughterHordeContain@@UAE_NPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/CitadelSlaughterHordeContainRva004807C7.cpp (not merged yet)
+
+// tu-skeleton: 0x00480DF4 52B ?rva00480DF4@@YAXPAVObject@@PAX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SlaughterHordeContainUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x00480E28 74B ?rva00480E28@@YAXPAVObject@@PAX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SlaughterHordeContainUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x00480E9A 328B ?rva00480E9A@CitadelSlaughterHordeContain@@UAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/CitadelSlaughterHordeContainRva00480E9A.cpp (not merged yet)
+
+// tu-skeleton: 0x00480FE2 107B ?update@CitadelSlaughterHordeContain@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SlaughterHordeContainUpdate.cpp (not merged yet)
+
 // tu-skeleton: 0x004811CA 28B ??_GCitadelSlaughterHordeContainModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/ContainModuleDeletingDtors.cpp (not merged yet)
 
 // tu-skeleton: 0x004811E6 74B ??1CitadelSlaughterHordeContainModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/CitadelSlaughterHordeContainModuleDataDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078B99A 13B $L310 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/CitadelSlaughterHordeContainPoolKey.cpp (not merged yet)
-
-// tu-skeleton: 0x0078B9A7 10B __ehhandler$?getModuleNameKey@CitadelSlaughterHordeContain@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/CitadelSlaughterHordeContainPoolKey.cpp (not merged yet)
 
 // tu-skeleton: 0x0078B9E8 8B Unwind@00b8b9e8 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/CitadelSlaughterHordeContainRva00480E9A.cpp (not merged yet)
 
