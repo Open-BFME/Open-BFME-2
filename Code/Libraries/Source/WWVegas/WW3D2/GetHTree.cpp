@@ -14,8 +14,13 @@
 #pragma comment(linker, "/alternatename:?Release_Ref@HierarchyPrototype@@QAEXXZ=?Release_Ref@TextureBaseClass@@QAEXXZ")
 #pragma comment(linker, "/alternatename:?Rva0061F230_GetPrototype@@YA?AVHierarchyPrototypeRef@@PBD@Z=?Rva009EBCE0_GetPrototype@@YA?AVRva009EBCE0AssetReference@@PBD@Z")
 
-extern "C" char *_mbscpy(char *destination, const char *source);
-extern "C" __declspec(dllimport) char *__cdecl _strlwr(char *string);
+#include <string.h>
+// Retail imports _strlwr, but calls the MBCS copy thunk directly.
+#pragma push_macro("_CRTIMP")
+#undef _CRTIMP
+#define _CRTIMP
+#include <mbstring.h>
+#pragma pop_macro("_CRTIMP")
 
 class HTreeClass;
 
@@ -85,8 +90,8 @@ HTreeClass *Get_HTree(const char *name)
 		return 0;
 
 	char lookup[512];
-	_mbscpy(lookup, "h*");
-	_mbscpy(lookup + 2, name);
+	_mbscpy((unsigned char *)lookup, (const unsigned char *)"h*");
+	_mbscpy((unsigned char *)lookup + 2, (const unsigned char *)name);
 	_strlwr(lookup);
 
 	HTreePrototypeOwner owner(Rva0061F230_GetPrototype(lookup));
