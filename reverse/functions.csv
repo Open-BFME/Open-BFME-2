@@ -10125,7 +10125,7 @@ _read_word,,0x0074A700,184,Code/Libraries/Source/Lua/liolib_bfme1.c,matched,stri
 ?name@AIUpdateInterface@@QBEPBDXZ,,0x0026E982,6,Code/GameEngine/Source/Common/SubsystemNameGetters2.cpp,matched,literal name getter returning AIUpdateInterface; vtable ref in .rdata; address-derived placeholder name
 ?name@Upgrade@@QBEPBDXZ,,0x0026EDF9,6,Code/GameEngine/Source/Common/SubsystemNameGetters2.cpp,matched,literal name getter returning Upgrade; vtable ref in .rdata; address-derived placeholder name
 ?name@GhostObject@@QBEPBDXZ,,0x00305B30,6,Code/GameEngine/Source/Common/SubsystemNameGetters2.cpp,matched,literal name getter returning GhostObject; vtable ref in .rdata; address-derived placeholder name
-?name@Rva003067C4Named@@QBEPBDXZ,,0x003067C4,6,Code/GameEngine/Source/Common/SubsystemNameGetters2.cpp,matched,literal name getter returning BuffLogic; vtable ref in .rdata; address-derived placeholder name
+?name@Rva003067C4Named@@QBEPBDXZ,,0x003067C4,6,Code/GameEngine/Source/Common/GODupBase.cpp,matched,literal name getter returning BuffLogic; vtable ref in .rdata; address-derived placeholder name
 ?set@Rva0031417CDwordSlot@@QAEXH@Z,,0x0031417C,13,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp,matched,Disp32 dword setter
 ?name@Rva00306A48Named@@QBEPBDXZ,,0x00306A48,6,Code/GameEngine/Source/Common/SubsystemNameGetters2.cpp,matched,literal name getter returning Module; vtable ref in .rdata; address-derived placeholder name
 ?name@Rva0028CB23Named@@QBEPBDXZ,,0x0028CB23,6,Code/GameEngine/Source/Common/SubsystemNameGetters.cpp,matched,literal name getter returning ObjectRepulsorHelper; vtable ref in .rdata; address-derived placeholder name

@@ -7,6 +7,26 @@ public:
 	virtual ~BfmeSnapshotBase() { reinterpret_cast<Snapshot *>(this)->Snapshot::~Snapshot(); }
 };
 #include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
+#define BFME_SNAPSHOT_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	protected: \
+		virtual const char *GetSnapshotName() const; \
+	}; \
+	const char *NAME::GetSnapshotName() const \
+	{ \
+		return TEXT; \
+	}
+#define BFME_LITERAL_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	public: \
+		const char *name() const; \
+	}; \
+	const char *NAME::name() const \
+	{ \
+		return TEXT; \
+	}
 
 class GODupBase : public BfmeSnapshotBase, public SubsystemInterface
 {
@@ -14,6 +34,75 @@ public:
 	GODupBase();
 	virtual ~GODupBase();
 };
+
+class UpdateModule
+{
+protected:
+	virtual const char *GetSnapshotName() const;
+};
+
+BFME_LITERAL_NAME_GETTER(Rva003067C4Named, "BuffLogic")
+
+class BuildListInfo
+{
+public:
+	virtual const char *GetSnapshotName() const;
+};
+
+// The constructor installs Snapshot table VA 0x00C0DA88 at +0x0C.
+// Its name slot holds this getter.
+class SidesList
+{
+public:
+	virtual const char *GetSnapshotName() const;
+};
+
+class LuaScriptEngine
+{
+public:
+	virtual const char *GetSnapshotName() const;
+};
+
+// Drawable's Snapshot sub-vtable 0x00BFB0A4 (installed by ~Drawable
+// 0x002793F0 at this+0x60) holds 0x00279669 in slot 2, the canonical
+// Snapshot GetSnapshotName slot; the body returns the unique "Drawable"
+// literal. Same six-byte body, real owner, as TerrainLogic below.
+class Drawable
+{
+public:
+	virtual const char *GetSnapshotName() const;
+};
+
+// Native TerrainLogic ctor283FAA installs BFB2C8; its slot2 is28417C,
+// returning the unique TerrainLogic literal. The canonical Snapshot header
+// names that slot GetSnapshotName. Replace the placeholder owner directly;
+// retain the same six-byte body and the existing source unit.
+class TerrainLogic
+{
+protected:
+	virtual const char *GetSnapshotName() const;
+};
+
+class LivingWorldRegionManager { public: virtual const char *GetSnapshotName() const; };
+
+class LivingWorldLogic { public: virtual const char *GetSnapshotName() const; };
+
+// Slot 2 of native RadarObject table VA C035D0 returns this literal.
+// The canonical BFME2 Snapshot interface names this slot GetSnapshotName;
+// WB 1107320 and the adjacent RadarObject constructor establish its owner.
+class RadarObject
+{
+protected:
+	virtual const char *GetSnapshotName() const;
+};
+
+class TAiData
+{
+public:
+	virtual const char *GetSnapshotName() const;
+};
+
+// ---- from Code/GameEngine/Source/Common/GODupBase.cpp
 
 // ---- from Code/GameEngine/Source/Common/GODupBaseConstructor.cpp
 
@@ -48,6 +137,12 @@ GODupBase::~GODupBase()
 {
 }
 
-// tu-skeleton: 0x003067C4 6B ?name@Rva003067C4Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters2.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/SubsystemNameGetters2.cpp
+
+// Subsystem literal name getters, second unit: six-byte const members with one
+// shape (mov eax,<offset string literal> / ret). Split from
+// Code/GameEngine/Source/Common/SubsystemNameGetters.cpp to keep concurrent
+// contributors conflict-free; the BFME_LITERAL_NAME_GETTER macro is verbatim.
+// No // cl: line (defaults match the frameless 6-byte shape).
 
 // tu-skeleton: 0x003067CA 8B ??_EGODupBase@@W3AEPAXI@Z -- matched in Code/GameEngine/Source/Common/GapForwardersSeat8.cpp (not merged yet)
