@@ -24,12 +24,11 @@ public:
 	bool rva000ABD19(int x, int y);
 	bool rva000AE37E(int x, int y);
 	bool rva000AF841(int x, int y);
-
-	unsigned char m_pad00[8];
-	int m_width;                    // +0x08
-	unsigned char m_pad0C[0x20 - 0x0C];
-	int m_dataSize;                 // +0x20
-	unsigned short *m_data;         // +0x24
+	char m_pad00[0x8];
+	int m_width; // +0x08 +0x08
+	char m_pad0C[0x14];
+	int m_dataSize; // +0x20 +0x20
+	unsigned short *m_data; // +0x24 +0x24
 };
 
 bool Rva000ABD19::rva000AF841(int x, int y)

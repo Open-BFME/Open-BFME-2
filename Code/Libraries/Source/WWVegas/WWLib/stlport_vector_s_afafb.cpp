@@ -26,10 +26,9 @@ class Rva000AF183
 {
 public:
 	Rva000AF183(unsigned int n, const _STL::allocator<int> &a);
-protected:
-	short *m_start;
-	short *m_finish;
-	_STL::_STLP_alloc_proxy<unsigned int, int, _STL::allocator<int> > m_end;
+	short *m_start; // +0x00
+	short *m_finish; // +0x04
+	_STL::_STLP_alloc_proxy<unsigned int, int, _STL::allocator<int> > m_end; // +0x08
 };
 
 class Rva000AFAFB : public Rva000AF183

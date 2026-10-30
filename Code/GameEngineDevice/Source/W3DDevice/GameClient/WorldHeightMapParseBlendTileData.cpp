@@ -18,7 +18,27 @@
 #include "ascii_string.h"
 enum ErrorCode { ERROR_CORRUPT_FILE_FORMAT=0xDEAD0005 };
 #include <new>
-class DataChunkInput { public: int readInt(); unsigned char readByte(); float readReal(); AsciiString readAsciiString(); void readArrayOfBytes(char *,int); };
+class Dict;
+struct DataChunkInfo;
+class UserParser;
+class ChunkInputStream;
+class DataChunkInput
+{
+public:
+	typedef bool (*Parser)(DataChunkInput &file, DataChunkInfo *info, void *userData);
+	Dict readDict();
+	float readReal();
+	unsigned char readByte();
+	AsciiString readAsciiString();
+	UserParser *registerParser(const AsciiString &label, const AsciiString &parentLabel, Parser parser, void *userData);
+	bool parse(void *userData);
+	DataChunkInput(ChunkInputStream *stream);
+	~DataChunkInput();
+	int readInt();
+	void readArrayOfBytes(char *, int);
+private:
+	unsigned char m_data[0x28]; // +0x00
+};
 struct DataChunkInfo { AsciiString label,parent; unsigned short version; };
 class GlobalData { public: char opaque[0x44]; int use3WayTerrainBlends; };
 extern GlobalData *TheWritableGlobalData;
@@ -30,7 +50,17 @@ struct BlendTileRecord { int blendIndex; unsigned char horiz,vert,rightDiagonal,
 class BfmeE16Vector : public _STL::vector<BlendTileRecord> { public: void resize(unsigned); };
 struct BfmePod36 { float f[8]; unsigned char b0,b1; unsigned short w; };
 class BfmePod36Vector : public _STL::vector<BfmePod36> { public: void resize(unsigned); };
-struct TXTextureClass { int globalTextureClass,firstTile,numTiles,width,isBlendEdgeTile; AsciiString name; char unknown18[16]; };
+struct TXTextureClass
+{
+public:
+	int globalTextureClass; // +0x00
+	int firstTile; // +0x04
+	int numTiles; // +0x08
+	int width; // +0x0C
+	int isBlendEdgeTile; // +0x10
+	AsciiString name; // +0x14
+	char m_pad18[0x10];
+};
 class TileData;
 class WorldHeightMap {
     char opaque00[8]; int m_width,m_height; char opaque10[16]; int m_dataSize; char opaque24[4];

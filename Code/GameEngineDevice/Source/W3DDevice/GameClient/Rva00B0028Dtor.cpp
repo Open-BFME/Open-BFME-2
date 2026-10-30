@@ -23,12 +23,13 @@ void __cdecl Rva00030830GameFree(void *);
 class RefCountClass
 {
 public:
-	virtual void Delete_This();
 	void Release_Ref() { if (--m_refs == 0) Delete_This(); }
+	RefCountClass() : m_refs(1) {}
+	virtual void Delete_This();
 protected:
 	virtual ~RefCountClass() {}
 private:
-	int m_refs;
+	int m_refs; // +0x04
 };
 
 class TileData : public RefCountClass
@@ -40,7 +41,11 @@ class TileData : public RefCountClass
 class TextureClass
 {
 public:
+	void Add_Ref() { ++m_numRefs; }
 	void Release_Ref();
+	char m_pad00[0x4];
+private:
+	unsigned short m_numRefs; // +0x04
 };
 
 template <class T> class RefCountPtr

@@ -11,8 +11,9 @@
 
 struct Rva00111B25Record
 {
+public:
 	~Rva00111B25Record();
-	unsigned char m_bytes[0x1C];
+	unsigned char m_bytes[0x1C]; // +0x00
 };
 
 template void _STL::__destroy_aux<Rva00111B25Record *>(Rva00111B25Record *, Rva00111B25Record *, const _STL::__false_type &);

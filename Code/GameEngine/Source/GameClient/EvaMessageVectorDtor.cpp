@@ -7,7 +7,12 @@
 // retail 0x000AFF52 (25B): it walks [first,last) in 0x1C-byte steps and calls
 // 0x00111B25, the rowed ??1Rva00111B25Record, on each element. So the element
 // is 0x1C bytes and that is its destructor.
-class Rva00111B25Record { public: ~Rva00111B25Record(); };
+struct Rva00111B25Record
+{
+public:
+	~Rva00111B25Record();
+	unsigned char m_bytes[0x1C]; // +0x00
+};
 struct EvaMessageInfo
 {
 	// Destruction is the rowed ??1Rva00111B25Record, reached by a qualified call.

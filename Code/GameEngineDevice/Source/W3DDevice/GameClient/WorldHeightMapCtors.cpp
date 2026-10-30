@@ -44,12 +44,13 @@ namespace _STL { template <> vector<BfmeE16, allocator<BfmeE16> >::~vector(); }
 class RefCountClass
 {
 public:
+	void Release_Ref() { if (--m_refs == 0) Delete_This(); }
 	RefCountClass() : m_refs(1) {}
 	virtual void Delete_This();
 protected:
 	virtual ~RefCountClass() {}
 private:
-	int m_refs;
+	int m_refs; // +0x04
 };
 
 class TileData;
@@ -76,13 +77,26 @@ struct Rva000AF215
 
 class ChunkInputStream;
 
+class Dict;
+class AsciiString;
+struct DataChunkInfo;
+class UserParser;
 class DataChunkInput
 {
 public:
+	typedef bool (*Parser)(DataChunkInput &file, DataChunkInfo *info, void *userData);
+	Dict readDict();
+	float readReal();
+	unsigned char readByte();
+	AsciiString readAsciiString();
+	UserParser *registerParser(const AsciiString &label, const AsciiString &parentLabel, Parser parser, void *userData);
+	bool parse(void *userData);
 	DataChunkInput(ChunkInputStream *stream);
 	~DataChunkInput();
+	int readInt();
+	void readArrayOfBytes(char *, int);
 private:
-	unsigned char m_data[0x28];
+	unsigned char m_data[0x28]; // +0x00
 };
 
 class Rva000B08F7

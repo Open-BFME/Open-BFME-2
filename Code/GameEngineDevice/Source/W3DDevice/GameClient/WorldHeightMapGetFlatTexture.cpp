@@ -20,9 +20,9 @@ class TextureClass
 public:
 	void Add_Ref() { ++m_numRefs; }
 	void Release_Ref();
+	char m_pad00[0x4];
 private:
-	char unknown00[4];
-	unsigned short m_numRefs;
+	unsigned short m_numRefs; // +0x04
 };
 
 template<class T> class RefCountPtr
@@ -42,13 +42,13 @@ public:
 
 class WorldHeightMap;
 
+class TileData;
 class TerrainTextureClass
 {
 public:
-	int updateFlat(WorldHeightMap *htMap, int xCell, int yCell,
-		int cellWidth, int pixelsPerCell, int tileKind);
-	int updateFlatDXT1(WorldHeightMap *htMap, int xCell, int yCell,
-		int cellWidth, int pixelsPerCell, int tileKind);
+	int updateFlat(WorldHeightMap *htMap, int xCell, int yCell, int cellWidth, int pixelsPerCell, int tileKind);
+	int updateFlatDXT1(WorldHeightMap *htMap, int xCell, int yCell, int cellWidth, int pixelsPerCell, int tileKind);
+	int updateCliff(TileData**,int,int,int,int);
 };
 
 class WW3D

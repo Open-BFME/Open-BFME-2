@@ -12,7 +12,28 @@
 #include "ascii_string.h"
 enum ErrorCode { ERROR_CORRUPT_FILE_FORMAT = 0xDEAD0005 };
 #include <new>
-class DataChunkInput { public: int readInt(); void readArrayOfBytes(char *, int); };
+class Dict;
+class AsciiString;
+struct DataChunkInfo;
+class UserParser;
+class ChunkInputStream;
+class DataChunkInput
+{
+public:
+	typedef bool (*Parser)(DataChunkInput &file, DataChunkInfo *info, void *userData);
+	Dict readDict();
+	float readReal();
+	unsigned char readByte();
+	AsciiString readAsciiString();
+	UserParser *registerParser(const AsciiString &label, const AsciiString &parentLabel, Parser parser, void *userData);
+	bool parse(void *userData);
+	DataChunkInput(ChunkInputStream *stream);
+	~DataChunkInput();
+	int readInt();
+	void readArrayOfBytes(char *, int);
+private:
+	unsigned char m_data[0x28]; // +0x00
+};
 struct DataChunkInfo { AsciiString label, parent; unsigned short version; };
 struct BfmePod8 { int a[2]; };
 class BfmePod8Vector : public _STL::vector<BfmePod8, _STL::allocator<BfmePod8> > {

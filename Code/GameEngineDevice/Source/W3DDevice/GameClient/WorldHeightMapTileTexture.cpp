@@ -13,7 +13,15 @@
 // owning one-word holder; native local cleanup proves the inherited ABI view.
 // updateCliff is independently recovered atEF63F in TerrainTex.cpp.
 #include <vector>
-class TextureClass {public:void Release_Ref();};
+class TextureClass
+{
+public:
+	void Add_Ref() { ++m_numRefs; }
+	void Release_Ref();
+	char m_pad00[0x4];
+private:
+	unsigned short m_numRefs; // +0x04
+};
 // Native owning conversion uses the existing MaterialInfoTextureHandles constructor at 424BB.
 // Its one-pointer representation and WORD refcount at +4 are established there;
 // the distinct ordinary RefCountPtr copy at1494F0 must retain its own identity.
@@ -27,9 +35,20 @@ template<class T>class RefCountPtr {public:
  bool isValid()const{return m_ptr!=0;}
 private:T*m_ptr;
 };
-class Rva000EF902 : public RefCountPtr<TextureClass> {public:Rva000EF902(int,int,int);};
+class Rva000EF902 : public RefCountPtr<TextureClass>
+{
+public:
+	Rva000EF902(int width, int height, int format);
+};
 class TileData;
-class TerrainTextureClass {public:int updateCliff(TileData**,int,int,int,int);};
+class WorldHeightMap;
+class TerrainTextureClass
+{
+public:
+	int updateFlat(WorldHeightMap *htMap, int xCell, int yCell, int cellWidth, int pixelsPerCell, int tileKind);
+	int updateFlatDXT1(WorldHeightMap *htMap, int xCell, int yCell, int cellWidth, int pixelsPerCell, int tileKind);
+	int updateCliff(TileData**,int,int,int,int);
+};
 class GlobalData {public:char unknown00[0x49];bool m_flag49;};extern GlobalData *TheWritableGlobalData;
 struct IndexRecord36 {char unknown00[0x22];short indexWord;};
 struct TerrainTextureGridView {int unknown00,start,count,width;char unknown10[0x18];};

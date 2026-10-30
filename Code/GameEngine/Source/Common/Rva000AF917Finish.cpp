@@ -68,9 +68,16 @@ public:
 // distinct from TheGameLogic at 0x00DFE78C. The +0x49 access is unchanged.
 class GlobalData { public: char unknown00[0x49]; bool normalMaps49; };
 extern GlobalData *TheWritableGlobalData;
-struct TXTextureClass {
-    int globalTextureClass,firstTile,numTiles,width,isBlendEdgeTile;
-    AsciiString name;
+struct TXTextureClass
+{
+public:
+	int globalTextureClass; // +0x00
+	int firstTile; // +0x04
+	int numTiles; // +0x08
+	int width; // +0x0C
+	int isBlendEdgeTile; // +0x10
+	AsciiString name; // +0x14
+	char m_pad18[0x10];
 };
 class TileData;
 class WorldHeightMap {
