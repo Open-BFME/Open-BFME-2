@@ -9756,9 +9756,9 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00835B80,12,.rdata,string,??_C@_0L@BLHCJCGA@ringheroes?$AA@,,literal,,0,1
 0x00835B8C,68,.rdata,string,??_C@_0DP@PLDPJOFK@ScriptConditions?3?3evaluateNamedU@,,literal,,0,1
 0x00835BD0,1072,.rdata,global,?Rva00835BD0Crc32Table@@3PAKA,Code/Libraries/Source/WWVegas/WWLib/realcrc_one_arg.cpp,owned,,1,4
-0x00836000,16,.rdata,vtable,??_7ThreatFinderUpdate@@6B@,,literal,??_7ThreatFinderUpdate@@6B@;_s_secondary10@Code/GameEngine/Source/GameLogic/Object/Update/ThreatFinderUpdateCtor.cpp,1,2
-0x00836010,188,.rdata,vtable,??_7ThreatFinderUpdate@@6BMiBase1@@@,,literal,??_7ThreatFinderUpdate@@6BMiBase1@@@;_s_secondary0C@Code/GameEngine/Source/GameLogic/Object/Update/ThreatFinderUpdateCtor.cpp,1,2
-0x008360CC,52,.rdata,vtable,??_7ThreatFinderUpdate@@6BRva0049B47C@@@,,literal,??_7ThreatFinderUpdate@@6BRva0049B47C@@@;_s_vtable@Code/GameEngine/Source/GameLogic/Object/Update/ThreatFinderUpdateCtor.cpp,1,2
+0x00836000,16,.rdata,vtable,??_7ThreatFinderUpdate@@6B@,,literal,??_7ThreatFinderUpdate@@6B@;_s_secondary10@Code/GameEngine/Source/GameLogic/Object/Update/ThreatFinderUpdate.cpp,1,2
+0x00836010,188,.rdata,vtable,??_7ThreatFinderUpdate@@6BMiBase1@@@,,literal,??_7ThreatFinderUpdate@@6BMiBase1@@@;_s_secondary0C@Code/GameEngine/Source/GameLogic/Object/Update/ThreatFinderUpdate.cpp,1,2
+0x008360CC,52,.rdata,vtable,??_7ThreatFinderUpdate@@6BRva0049B47C@@@,,literal,??_7ThreatFinderUpdate@@6BRva0049B47C@@@;_s_vtable@Code/GameEngine/Source/GameLogic/Object/Update/ThreatFinderUpdate.cpp,1,2
 0x00836100,60,.rdata,vtable,??_7Rva0022BE0FSubsystem@@6B@,,literal,??_7Rva0022BE0FSubsystem@@6B@;??_7Rva003ED1FC@@6B@,0,2
 0x0083613C,4,.rdata,vtable,??_7LargeGroupAudioAudioMap@@6B@,,literal,,0,2
 0x00836140,16,.rdata,string,??_C@_0N@DPALFOOH@SoundKeyPair?$AA@,,literal,,0,3
