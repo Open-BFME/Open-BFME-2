@@ -40496,7 +40496,7 @@ _$E5,,0x007ACE60,12,Code/Libraries/Source/WWVegas/WW3D2/meshmdl_sidehash.cpp,mat
 ?rva004C38D0@Rva004C38D0@@QAEXPAVXfer@@@Z,,0x004C38D0,5,Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp,matched,vtable slot; single tail jump to Rva00493009::xfer (rowed/pinned); no Ghidra entry
 ?rva0050B928@Rva0050B928@@QAEXXZ,,0x0050B928,5,Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp,matched,vtable slot; single tail jump to Rva00507823::rva00507877 (rowed/pinned); no Ghidra entry
 ?rva00521111@Rva00521111@@QAEHHII@Z,,0x00521111,5,Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp,matched,vtable slot; single tail jump to Rva005126F5::rva0051274F (rowed/pinned); no Ghidra entry
-?rva00524AE2@Rva00524AE2@@QAEXXZ,,0x00524AE2,5,Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp,matched,vtable slot; single tail jump to MovieWindowPlayback::clear (rowed/pinned); no Ghidra entry
+?rva00524AE2@Rva00524AE2@@QAEXXZ,,0x00524AE2,5,Code/GameEngine/Source/Common/MovieWindowPlayback.cpp,matched,vtable slot; single tail jump to MovieWindowPlayback::clear (rowed/pinned); no Ghidra entry
 ?rva0052B48D@Rva0052B48D@@QAEXXZ,,0x0052B48D,5,Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp,matched,vtable slot; single tail jump to XferSave::endBlock (rowed/pinned); no Ghidra entry
 ?rva00545CAA@Rva00545CAA@@QAEXW4StateExitType@@@Z,,0x00545CAA,5,Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp,matched,vtable slot; single tail jump to AIEnterState::onExit (rowed/pinned); no Ghidra entry
 ?rva0057BC20@Rva0057BC20@@QAEXXZ,,0x0057BC20,5,Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp,matched,vtable slot; single tail jump to SelectionDetailsUIImpl::rva0057BA90 (rowed/pinned); no Ghidra entry

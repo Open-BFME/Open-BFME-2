@@ -1037,10 +1037,6 @@ class Rva00524AE2 : public MovieWindowPlayback
 public:
 	void rva00524AE2();
 };
-void Rva00524AE2::rva00524AE2()
-{
-	MovieWindowPlayback::clear();
-}
 
 // 0x0052B48D: tail jump to XferSave::endBlock.
 class Rva0052B48D : public XferSave
