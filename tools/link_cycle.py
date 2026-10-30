@@ -2938,4 +2938,9 @@ def remeasure(args):
 
 
 if __name__ == "__main__":
+    if "--exit-link" in sys.argv:
+        # The production entry point for the exit-link measurement mode
+        # (tools/exit_link.py): a separate tool with no other caller.
+        import exit_link
+        sys.exit(exit_link.main([argument for argument in sys.argv[1:] if argument != "--exit-link"]))
     sys.exit(main())

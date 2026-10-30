@@ -1,6 +1,5 @@
 """The exit-link mode: the 17 placement-only objects are proved dead, and the
 link itself carries no /FORCE, stub, alias or filler (tools/exit_link.py)."""
-import argparse
 import struct
 import sys
 from pathlib import Path
@@ -132,6 +131,13 @@ def test_a_parent_that_does_not_name_the_funclet_is_unproven(tmp_path):
     assert not proved and "does not name" in why
 
 
+def neutral_funclet_proof(monkeypatch, locations=None):
+    """Skip the retail image: structural proof true, every RVA covered."""
+    monkeypatch.setattr(E, "funclet_parent_emits", lambda path, name: (True, ""))
+    monkeypatch.setattr(E, "kept_funclet_locations",
+                        lambda *args, **kwargs: {0x1000: []} if locations is None else locations)
+
+
 def test_omission_proof_finds_an_outside_referrer(tmp_path, monkeypatch):
     omitted = coff(tmp_path / "omitted.obj", [(".text", b"\x90" * 4, [], 0, 0)],
                    definitions=[("?u", 1, EXTERNAL)])
@@ -142,9 +148,11 @@ def test_omission_proof_finds_an_outside_referrer(tmp_path, monkeypatch):
                for index, name in enumerate(sorted(E.PLACEMENT_BASENAMES))}
     objects[f"{E.PLACEMENT_DIR}/{sorted(E.PLACEMENT_BASENAMES)[0]}"] = omitted
     monkeypatch.setattr(E.build, "row_object", lambda row: objects[row["source"]])
-    proof = E.omission_proof(rows, [omitted, kept])
+    neutral_funclet_proof(monkeypatch)
+    proof = E.omission_proof(rows, [omitted, kept], [omitted, kept])
     assert proof["outside_referrers"] == {"?u": ["kept.obj"]}
     assert "?u" in proof["exclusive_names"]
+    assert proof["inspection_failures"] == []
 
 
 def test_omission_proof_is_clean_when_nothing_outside_references_the_definitions(tmp_path, monkeypatch):
@@ -157,11 +165,64 @@ def test_omission_proof_is_clean_when_nothing_outside_references_the_definitions
                for index, name in enumerate(sorted(E.PLACEMENT_BASENAMES))}
     objects[f"{E.PLACEMENT_DIR}/{sorted(E.PLACEMENT_BASENAMES)[0]}"] = omitted
     monkeypatch.setattr(E.build, "row_object", lambda row: objects[row["source"]])
-    proof = E.omission_proof(rows, [omitted, kept])
+    neutral_funclet_proof(monkeypatch)
+    proof = E.omission_proof(rows, [omitted, kept], [omitted, kept])
     assert proof["outside_referrers"] == {}
     assert proof["exclusive_names"] == ["?u"]
     assert proof["missing_objects"] == sorted(path.name for path in objects.values()
                                               if path != omitted and not path.exists())
+
+
+def test_an_omitted_funclet_no_kept_parent_emits_is_uncovered(tmp_path, monkeypatch):
+    omitted = coff(tmp_path / "omitted.obj", [(".text", b"\x90" * 4, [], 0, 0)],
+                   definitions=[("?u", 1, EXTERNAL)])
+    rows = placement_rows()
+    objects = {f"{E.PLACEMENT_DIR}/{name}": tmp_path / f"omit_{index}.obj"
+               for index, name in enumerate(sorted(E.PLACEMENT_BASENAMES))}
+    objects[f"{E.PLACEMENT_DIR}/{sorted(E.PLACEMENT_BASENAMES)[0]}"] = omitted
+    monkeypatch.setattr(E.build, "row_object", lambda row: objects[row["source"]])
+    neutral_funclet_proof(monkeypatch, locations={})
+    proof = E.omission_proof(rows, [omitted], [omitted])
+    assert proof["funclet_covered"] == 0
+    assert len(proof["uncovered_funclets"]) == 15       # the 15 uw_gen funclet rows
+    assert all(entry["target_rva"] == "0x1000" for entry in proof["uncovered_funclets"])
+
+
+def test_a_missing_kept_object_fails_the_proof(tmp_path, monkeypatch):
+    omitted = coff(tmp_path / "omitted.obj", [(".text", b"\x90" * 4, [], 0, 0)],
+                   definitions=[("?u", 1, EXTERNAL)])
+    missing = tmp_path / "missing.obj"
+    rows = placement_rows()
+    objects = {f"{E.PLACEMENT_DIR}/{name}": tmp_path / f"omit_{index}.obj"
+               for index, name in enumerate(sorted(E.PLACEMENT_BASENAMES))}
+    objects[f"{E.PLACEMENT_DIR}/{sorted(E.PLACEMENT_BASENAMES)[0]}"] = omitted
+    monkeypatch.setattr(E.build, "row_object", lambda row: objects[row["source"]])
+    neutral_funclet_proof(monkeypatch)
+    proof = E.omission_proof(rows, [omitted], [omitted, missing])
+    assert proof["inspection_failures"] == [{"object": "missing.obj", "why": "missing object"}]
+
+
+def test_an_unreadable_kept_object_fails_the_proof(tmp_path, monkeypatch):
+    omitted = coff(tmp_path / "omitted.obj", [(".text", b"\x90" * 4, [], 0, 0)],
+                   definitions=[("?u", 1, EXTERNAL)])
+    broken = tmp_path / "broken.obj"
+    broken.write_bytes(b"not a coff object")
+    rows = placement_rows()
+    objects = {f"{E.PLACEMENT_DIR}/{name}": tmp_path / f"omit_{index}.obj"
+               for index, name in enumerate(sorted(E.PLACEMENT_BASENAMES))}
+    objects[f"{E.PLACEMENT_DIR}/{sorted(E.PLACEMENT_BASENAMES)[0]}"] = omitted
+    monkeypatch.setattr(E.build, "row_object", lambda row: objects[row["source"]])
+    neutral_funclet_proof(monkeypatch)
+    proof = E.omission_proof(rows, [omitted], [omitted, broken])
+    assert len(proof["inspection_failures"]) == 1
+    assert "unreadable object" in proof["inspection_failures"][0]["why"]
+
+
+def test_drectve_includes_are_case_insensitive_and_quoted(tmp_path):
+    path = coff(tmp_path / "d.obj", [(".drectve", b'/include:?u /INCLUDE:"?v"', [], 0, 0)],
+                references=["?w"])
+    references = E.coff_references(path, path.read_bytes())
+    assert {"?u", "?v", "?w"} <= references
 
 
 def test_index_proof_counts_only_omitted_definitions_and_finds_outside_touches():
@@ -227,7 +288,23 @@ def test_parse_errors_keeps_every_line_and_its_referrer():
 def test_link_refuses_on_windows(monkeypatch):
     monkeypatch.setattr(E.sys, "platform", "win32")
     with pytest.raises(SystemExit, match="boat sandbox"):
-        E.run_link([], argparse.Namespace(build=False, allow_missing=False, skip_eh_proof=False))
+        E.run_link([])
+
+
+@pytest.mark.parametrize("flag", ["--allow-missing", "--skip-eh-proof", "--build", "--prepare"])
+def test_the_escape_flags_are_gone(flag):
+    with pytest.raises(SystemExit):
+        E.main(["--link", flag])
+
+
+def test_expected_objects_dedupe_a_shared_code_and_data_provider(tmp_path, monkeypatch):
+    shared = tmp_path / "shared.obj"
+    monkeypatch.setattr(E.build, "row_object", lambda row: shared)
+    monkeypatch.setattr(E.build, "obj_path", lambda source: shared)
+    monkeypatch.setattr(E.census, "data_sources", lambda: [Path("Code/Shared.cpp")])
+    rows = [{"source": "Code/Shared.cpp", "name": "?f", "target_rva": "0x1000",
+             "status": "matched", "notes": ""}]
+    assert E.expected_objects(rows) == [shared]
 
 
 def test_outputs_are_not_the_census_outputs():

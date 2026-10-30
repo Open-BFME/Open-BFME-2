@@ -16,13 +16,17 @@ retail RVAs; at a non-retail base each kept parent emits its own funclets, and
 the omitted definitions have no consumer. Omitting them is proved, not assumed:
 
   * every omitted external definition has no referrer in any kept object
-    (undefined externals, weak externals and `.drectve` /INCLUDE entries);
+    (undefined externals, weak externals and `.drectve` /INCLUDE entries,
+    parsed as the census parses them: case-insensitive and quote-aware);
   * every omitted `gen-funclet` row is an associative `.text$x` COMDAT whose
     parent section lives in the same object and whose parent EH data names it
-    (the parent emits it, so dropping the object drops the parent too);
-  * `eh_verify --all` on fresh objects reports no row outside
-    `reverse/eh_baseline.csv`, so every kept parent's EH data (funclets
-    included) is retail's.
+    (a structural check, not the proof: that synthetic parent is omitted too);
+  * each omitted funclet RVA appears in the verified associative funclet
+    locations of a KEPT parent (`eh_verify.verified_funclet_locations` on an
+    EXACT parent), so a kept object really emits the funclet the omission
+    removes. Uncovered funclets refuse the omission. `eh_verify --all` is
+    reported as a global check, but its baselined failures are not accepted as
+    this proof.
 
 Link setup is the census's own inputs, without the scaffolds: every matched
 row's object (code and data), import libraries generated from retail's import
@@ -30,19 +34,26 @@ table for the `__imp_` names the objects reference, the /MD runtime libraries,
 and the CRT's own absolute `__except_list` (exsup.asm defines it 0; it is not a
 stub). No `/FORCE`, no `stubs.obj`, no `alias.obj`, no filler objects.
 
-Objects are the tree's matched objects. `--link --build` restores the
-published census's objects from the object store (`link_check --fetch-index`)
-and compiles only what the store does not hold; every object is then re-checked
-with `build.compile_is_current` (source and every recorded header), and
-result.json records that rule and the index's date and commit.
+Objects must be prepared OUTSIDE this tool. `python3 tools/link_census.py
+--build` (or `./build.sh`) writes `build/match`; the published census's objects
+can be restored first with `python3 tools/link_check.py --fetch-index` and then
+`link_census.py --build`. `--link`, `--plan --objects` and `--eh-proof` consume
+those objects READ-ONLY and require the full expected population; they never
+compile, extract a library member, generate a shim or write outside
+`build/exit_link/`. A missing or stale object refuses with the command to run.
+Every object is checked with `build.compile_is_current` (source and every
+recorded header), and result.json records that rule and the index's date and
+commit.
 
   python3 tools/exit_link.py --plan              # dry run: population + proof, no link
   python3 tools/exit_link.py --plan --objects    # also prove omission from build/match objects
   python3 tools/exit_link.py --plan --index      # also cross-check the published census index
   python3 tools/exit_link.py --eh-proof          # eh_verify --all on the current objects
-  python3 tools/exit_link.py --link --build      # BOAT ONLY: compile stale objects, prove, link
+  python3 tools/exit_link.py --link              # BOAT ONLY: read-only proof + exit link
   python3 tools/exit_link.py --report            # summarise the last run
 
+The production entry point is `python3 tools/link_cycle.py --exit-link ...`,
+which delegates here (AGENTS.md: a new tools file is called by another tool).
 Outputs live in `build/exit_link/`: result.json, errors.tsv, link.log (the raw
 linker output), exit.rsp and the generated import libraries. Nothing here is
 authoritative for LINKING or recovery credit; only the census records those.
@@ -53,8 +64,8 @@ import csv
 import functools
 import hashlib
 import json
-import os
 import re
+import struct
 import subprocess
 import sys
 import time
@@ -129,15 +140,16 @@ def coff_view(path):
     return sections, symbols, data
 
 
-def coff_references(symbols, sections, data):
-    """Names an object references: undefined/weak externals and .drectve /INCLUDE."""
-    names = {symbol.name for symbol in symbols.values()
-             if symbol.sec == 0 and symbol.cls in (link_cycle.EXTERNAL, link_cycle.WEAK)}
-    for section in sections:
-        if section.name == ".drectve" and section.size:
-            text = data[section.ptr:section.ptr + section.size].decode("latin-1", errors="replace")
-            names |= set(re.findall(r"/INCLUDE:(\S+)", text))
-    return names
+def coff_references(path, data):
+    """Names an object references, through the census's own directive reader.
+
+    `census.object_symbols` matches `.drectve` /INCLUDE case-insensitively and
+    strips quotes (`/include:?u`, `/INCLUDE:"?u"`), so a directive spelling
+    cannot hide a kept consumer. It also supplies the undefined externals and
+    weak externals.
+    """
+    _defined, referenced, weak, _alternates, includes = census.object_symbols(Path(path), data)
+    return referenced | {name for name, _default in weak} | includes
 
 
 def external_definitions(symbols):
@@ -163,7 +175,7 @@ def funclet_parent_emits(path, name):
     """
     try:
         obj = parsed_funclet_object(str(path))
-    except OSError as exc:
+    except (OSError, struct.error) as exc:
         return False, f"unreadable object: {exc}"
     symbol = obj.by_name.get(name)
     if symbol is None or not symbol["section"]:
@@ -193,12 +205,52 @@ def funclet_parent_emits(path, name):
     return True, "associative .text$x funclet of a parent in the same object"
 
 
-def omission_proof(rows, present=None):
+def kept_funclet_locations(rows, omitted_sources, image=None):
+    """{retail RVA: [(object, parent, label)]} from EXACT kept parents' funclets.
+
+    `eh_verify.verified_funclet_locations` returns a parent's `$L` funclet
+    locations only when its EH data is EXACT; a baselined failure is debt, not
+    proof. One object parse per kept TU, then one verdict per row.
+    """
+    import eh_verify
+    image = image or eh_verify.Image()
+    groups = collections.defaultdict(list)
+    for row in rows:
+        if row["source"] in omitted_sources or row["source"].lower().endswith(build.LIB_SUFFIX):
+            continue
+        groups[build.row_object(row)].append(row)
+    found = collections.defaultdict(list)
+    for path, group in groups.items():
+        try:
+            obj = eh_verify.Obj(path)
+        except (OSError, ValueError, IndexError, struct.error):
+            continue
+        for row in group:
+            name = build.ledger_object_symbol(row)
+            if build.is_funclet_row(row, name):
+                continue
+            rva = int(row["target_rva"], 16)
+            if eh_verify.verify_row(image, obj, name, rva) != ("EXACT", ""):
+                continue
+            for label, location in eh_verify.verified_funclet_locations(image, obj, name, rva).items():
+                found[location].append((path.name, name, label))
+    return found
+
+
+def uncovered_funclets(rows, locations):
+    """The omitted funclet rows whose RVA no EXACT kept parent emits."""
+    return [{"name": row["name"], "target_rva": row["target_rva"], "source": row["source"]}
+            for row in rows if int(row["target_rva"], 16) not in locations]
+
+
+def omission_proof(rows, present=None, expected=None):
     """Prove the 17 placement-only objects can be left out.
 
-    `present` is the link's object list; without it only the ledger population
-    is reported. A missing object is not a proof failure here (plan mode has no
-    objects); `--link` requires the full set separately.
+    `present`/`expected` are the prepared object inventory. Without them only
+    the ledger population is reported. With them, EVERY kept object must exist
+    and parse, or the proof fails: an uninspected consumer cannot leave a clean
+    proof. The required funclet proof is `kept_funclet_locations`: each omitted
+    funclet RVA must be a verified location of an EXACT kept parent.
     """
     sources = placement_sources(rows)
     problem = check_population(sources)
@@ -210,7 +262,11 @@ def omission_proof(rows, present=None):
         "rows": len(placement_rows(rows)),
         "funclet_rows": 0,
         "funclet_proven": 0,
+        "funclet_covered": 0,
+        "uncovered_funclets": [],
+        "kept_funclet_locations": 0,
         "unproven": [],
+        "inspection_failures": [],
         "missing_objects": [],
         "outside_referrers": {},
         "exclusive_count": 0,
@@ -226,8 +282,9 @@ def omission_proof(rows, present=None):
     result["funclet_rows"] = len(funclets)
     if present is None:
         return result
+    expected = list(present) if expected is None else list(expected)
     omitted_paths = set(omitted)
-    kept = [path for path in present if path not in omitted_paths]
+    kept = [path for path in expected if path not in omitted_paths]
     defined = {}
     for path in omitted_paths:
         if not path.exists():
@@ -235,8 +292,8 @@ def omission_proof(rows, present=None):
             defined[path] = set()
             continue
         try:
-            sections, symbols, data = coff_view(path)
-        except (OSError, ValueError, IndexError) as exc:
+            _sections, symbols, _data = coff_view(path)
+        except (OSError, ValueError, IndexError, struct.error) as exc:
             result["unproven"].append({"object": path.name, "source": omitted[path],
                                        "symbol": "", "why": f"unreadable object: {exc}"})
             defined[path] = set()
@@ -249,12 +306,16 @@ def omission_proof(rows, present=None):
     kept_definitions = set()
     outside = collections.defaultdict(set)
     for path in kept:
+        if not path.exists():
+            result["inspection_failures"].append({"object": path.name, "why": "missing object"})
+            continue
         try:
-            sections, symbols, data = coff_view(path)
-        except (OSError, ValueError, IndexError):
+            _sections, symbols, data = coff_view(path)
+        except (OSError, ValueError, IndexError, struct.error) as exc:
+            result["inspection_failures"].append({"object": path.name, "why": f"unreadable object: {exc}"})
             continue
         kept_definitions |= external_definitions(symbols)
-        for name in coff_references(symbols, sections, data) & by_name.keys():
+        for name in coff_references(path, data) & by_name.keys():
             outside[name].add(path.name)
     result["outside_referrers"] = {name: sorted(objects) for name, objects in sorted(outside.items())}
     exclusive = sorted(name for name in by_name if name not in kept_definitions)
@@ -270,7 +331,12 @@ def omission_proof(rows, present=None):
         else:
             result["unproven"].append({"object": path.name, "source": row["source"],
                                        "symbol": name, "why": why})
+    locations = kept_funclet_locations(rows, set(sources))
+    result["kept_funclet_locations"] = len(locations)
+    result["uncovered_funclets"] = uncovered_funclets(funclets, locations)
+    result["funclet_covered"] = len(funclets) - len(result["uncovered_funclets"])
     result["missing_objects"] = sorted(result["missing_objects"])
+    result["inspection_failures"] = sorted(result["inspection_failures"], key=lambda item: item["object"])
     return result
 
 
@@ -474,6 +540,32 @@ def link_setup(rows, present):
     return inputs + libs + [absolute], metadata
 
 
+def expected_objects(rows):
+    """Every object the link needs, deduplicated by resolved object path.
+
+    A TU can own both code rows and data rows; keying code providers by their
+    relative source and data providers by an absolute one listed such a TU
+    twice (1,044 duplicate paths on the 2026-10-30 tree). The object path is
+    the identity. No extraction or write happens here.
+    """
+    found = {}
+    for row in rows:
+        path = build.row_object(row)
+        found.setdefault(path.resolve(), path)
+    for source in census.data_sources():
+        path = build.obj_path(source)
+        found.setdefault(path.resolve(), path)
+    return sorted(found.values(), key=lambda path: path.as_posix())
+
+
+def object_inventory(rows):
+    """(expected, present, missing) for every object; existence only, no writes."""
+    expected = expected_objects(rows)
+    present = [path for path in expected if path.exists()]
+    missing = [path for path in expected if not path.exists()]
+    return expected, present, missing
+
+
 def stale_objects(present, sources):
     """Objects not current by build.compile_is_current (source + recorded headers).
 
@@ -484,8 +576,13 @@ def stale_objects(present, sources):
     return [obj for obj in present if obj in sources and not build.compile_is_current(sources[obj], obj)]
 
 
-def verify_data_objects():
-    """The data byte gate, then non-strict currency for the data objects."""
+def check_data_rows():
+    """The data ledger's format and the data objects' currency; no byte probes.
+
+    `data_rows.verify` compiles sizeof probes under build/data_rows; the exit
+    mode is read-only, and the data byte gate belongs to the preparation step
+    (the census or the build that produced these objects).
+    """
     import data_rows
     problems = []
     if data_rows.DATA_ROWS.exists():
@@ -496,58 +593,42 @@ def verify_data_objects():
     stale = stale_objects(list(sources), sources)
     if stale:
         raise SystemExit(f"exit_link: {len(stale):,} data provider object(s) are missing or stale, "
-                         f"e.g. {stale[0].relative_to(ROOT)}; rerun with --build")
-    data_rows.verify(compile=False)
+                         f"e.g. {stale[0].relative_to(ROOT)}; prepare with python3 tools/link_census.py --build (or ./build.sh)")
 
 
-def compile_rows(rows):
-    """Make every object current, restoring the published census's where held.
-
-    `build.compile_rows` with the dep cache restores an object the published
-    census compiled for this exact tree (`link_check --fetch-index` imports
-    them, verifying each source hash and compile command) and compiles only
-    what the store does not hold. `stale_objects` below re-checks every result.
-    """
-    os.environ.setdefault("BUILD_POOL", str(max(1, (os.cpu_count() or 2) - 2)))
-    os.environ.pop("BUILD_RECOMPILE_ONLY", None)
-    build.ensure_case_shims()
-    build.ensure_reference_current()
-    started = time.time()
-    build.compile_rows(rows, census.compile_sources(rows))
-    census._INPUT_RECEIPTS = None
-    print(f"exit_link: compile {time.time() - started:.0f}s", flush=True)
-
-
-def run_link(rows, args):
+def run_link(rows):
     if sys.platform.startswith("win"):
         raise SystemExit("exit_link: --link runs on the boat sandbox only (Wine + MSVC 7.1); "
                          "use --plan on Windows")
     OUT.mkdir(parents=True, exist_ok=True)
-    if args.build:
-        compile_rows(rows)
-    verify_data_objects()
-    present, missing = census.objects(rows)
-    if missing and not args.allow_missing:
-        raise SystemExit(f"exit_link: {len(missing):,} objects are missing, e.g. "
-                         f"{missing[0].relative_to(ROOT)}; the measurement would be dishonest. "
-                         "Run --build, or pass --allow-missing to record them")
+    expected, present, missing = object_inventory(rows)
+    if missing:
+        raise SystemExit(f"exit_link: {len(missing):,} object(s) are missing, e.g. "
+                         f"{missing[0].relative_to(ROOT)}; the measurement needs the full population. "
+                         "Prepare with python3 tools/link_census.py --build (or ./build.sh) first")
+    check_data_rows()
     sources = census._object_sources(rows)
     stale = stale_objects(present, sources)
     if stale:
         raise SystemExit(f"exit_link: {len(stale):,} objects are not current, e.g. "
-                         f"{stale[0].name}; run --build")
-    proof = omission_proof(rows, present)
+                         f"{stale[0].name}; prepare with python3 tools/link_census.py --build (or ./build.sh)")
+    proof = omission_proof(rows, present, expected)
     if proof["population_problem"]:
         raise SystemExit(f"exit_link: {proof['population_problem']}")
+    if proof["inspection_failures"]:
+        raise SystemExit(f"exit_link: {len(proof['inspection_failures'])} kept object(s) could not be "
+                         f"inspected, e.g. {proof['inspection_failures'][0]['object']}; nothing linked")
+    if proof["uncovered_funclets"]:
+        names = ", ".join(entry["name"] for entry in proof["uncovered_funclets"][:8])
+        raise SystemExit(f"exit_link: {len(proof['uncovered_funclets'])} omitted funclet(s) are not "
+                         f"emitted by any EXACT kept parent ({names}); the omission is not proved")
     if proof["unproven"] or proof["outside_referrers"]:
         raise SystemExit(f"exit_link: omission is not proved ({len(proof['unproven'])} unproven funclet(s), "
                          f"{len(proof['outside_referrers'])} name(s) referenced outside); nothing linked")
-    eh = None
-    if not args.skip_eh_proof:
-        eh = eh_proof(rows)
-        if eh["unproven"] or eh["missing_objects"]:
-            raise SystemExit(f"exit_link: EH proof failed ({len(eh['unproven'])} row(s) not exact and not "
-                             f"baselined, {eh['missing_objects']} without an object); nothing linked")
+    eh = eh_proof(rows)
+    if eh["unproven"] or eh["missing_objects"]:
+        raise SystemExit(f"exit_link: EH proof failed ({len(eh['unproven'])} row(s) not exact and not "
+                         f"baselined, {eh['missing_objects']} without an object); nothing linked")
     inputs, setup = link_setup(rows, present)
     image = OUT / "exit.exe"
     command, rsp = link_command(inputs, image, OUT)
@@ -630,6 +711,8 @@ def run_link(rows, args):
                              entry["object"], entry["source"], entry["text"]])
     print(f"exit_link: base 0x{BASE:X}, {record['objects']['linked']:,} objects "
           f"({len(omitted)} placement-only left out), exit {code}")
+    print(f"exit_link: omission {proof['funclet_covered']:,}/{proof['funclet_rows']:,} funclets "
+          f"covered by an EXACT kept parent; {len(proof['uncovered_funclets'])} uncovered")
     print(f"exit_link: {len(detail):,} unresolved name(s), {len(duplicates):,} duplicate name(s), "
           f"{len(errors):,} error/warning line(s); {len(still_wanted)} name(s) still wanted from an "
           "omitted object")
@@ -647,18 +730,24 @@ def plan(rows, args):
         print(f"  omit {entry['source']} ({entry['rows']} row(s)) -> {entry['object']}")
     if proof["population_problem"]:
         print(f"exit_link plan: POPULATION PROBLEM: {proof['population_problem']}")
-    present = None
+    expected = present = None
+    missing = []
     if args.objects:
-        present, missing = census.objects(rows)
-        proof = omission_proof(rows, present)
-        print(f"exit_link plan: omission proof over {len(present):,} object(s) "
+        expected, present, missing = object_inventory(rows)
+        proof = omission_proof(rows, present, expected)
+        print(f"exit_link plan: omission proof over {len(present):,} of {len(expected):,} object(s) "
               f"({len(missing):,} missing)")
-        print(f"  funclets proved emitted by a parent in the same object: "
-              f"{proof['funclet_proven']:,}/{proof['funclet_rows']:,}")
-        print(f"  unproven funclets: {len(proof['unproven'])}; outside referrers: "
-              f"{len(proof['outside_referrers'])}")
+        print(f"  structural parent check: {proof['funclet_proven']:,}/{proof['funclet_rows']:,}; "
+              f"EXACT kept-parent coverage: {proof['funclet_covered']:,}/{proof['funclet_rows']:,}")
+        print(f"  uncovered funclets: {len(proof['uncovered_funclets'])}; unproven: "
+              f"{len(proof['unproven'])}; inspection failures: {len(proof['inspection_failures'])}; "
+              f"outside referrers: {len(proof['outside_referrers'])}")
+        for entry in proof["uncovered_funclets"][:20]:
+            print(f"    UNCOVERED {entry['name']} {entry['target_rva']} ({entry['source']})")
         for entry in proof["unproven"][:20]:
             print(f"    UNPROVEN {entry['symbol']} in {entry['object']}: {entry['why']}")
+        for entry in proof["inspection_failures"][:20]:
+            print(f"    UNINSPECTED {entry['object']}: {entry['why']}")
         for name, referrers in sorted(proof["outside_referrers"].items())[:20]:
             print(f"    REFERENCED {name} by {', '.join(referrers)}")
     measurement = None
@@ -681,8 +770,9 @@ def plan(rows, args):
     print(f"exit_link plan: {OUT.relative_to(ROOT).as_posix()}/plan.json")
     failed = bool(proof["population_problem"])
     if present is not None:
-        failed = failed or bool(proof["unproven"] or proof["outside_referrers"]
-                                or proof["missing_objects"])
+        failed = failed or bool(missing or proof["unproven"] or proof["outside_referrers"]
+                                or proof["missing_objects"] or proof["inspection_failures"]
+                                or proof["uncovered_funclets"])
     return 1 if failed else 0
 
 
@@ -702,6 +792,13 @@ def report():
           f"{errors['duplicates']:,} duplicate name(s), {errors['total']:,} error/warning line(s)")
     print(f"exit_link: {len(errors['unresolved_exclusive_to_omitted'])} name(s) still wanted from an "
           "omitted object")
+    proof = record.get("omission_proof") or {}
+    if proof:
+        print(f"exit_link: omission {proof.get('funclet_covered', 0):,}/{proof.get('funclet_rows', 0):,} "
+              f"funclets covered by an EXACT kept parent; "
+              f"{len(proof.get('uncovered_funclets') or ())} uncovered, "
+              f"{len(proof.get('inspection_failures') or ())} uninspected, "
+              f"{len(proof.get('outside_referrers') or ())} outside referrer(s)")
     eh = record.get("eh_proof")
     if eh:
         print(f"exit_link: EH proof {eh['rows_with_eh']:,} row(s), {eh['not_exact']:,} not exact "
@@ -715,22 +812,15 @@ def main(argv=None):
     mode.add_argument("--plan", action="store_true",
                       help="dry run: the omitted population, its proof and the index's prediction; no link")
     mode.add_argument("--eh-proof", action="store_true", help="run eh_verify --all and report")
-    mode.add_argument("--link", action="store_true", help="BOAT ONLY: prove and run the exit link")
+    mode.add_argument("--link", action="store_true", help="BOAT ONLY: read-only proof and exit link")
     mode.add_argument("--report", action="store_true", help="summarise build/exit_link/result.json")
     parser.add_argument("--objects", action="store_true",
                         help="with --plan: prove the omission from build/match objects")
     parser.add_argument("--index", action="store_true",
                         help="with --plan: cross-check the published census index (--fetch-index first)")
-    parser.add_argument("--build", action="store_true", help="with --link: compile stale objects first")
-    parser.add_argument("--skip-eh-proof", action="store_true",
-                        help="with --link: do not run the whole-ledger EH proof (iteration only)")
-    parser.add_argument("--allow-missing", action="store_true",
-                        help="with --link: link and record even when objects are missing")
     args = parser.parse_args(argv)
     if (args.objects or args.index) and not args.plan:
         parser.error("--objects and --index go with --plan")
-    if (args.build or args.skip_eh_proof or args.allow_missing) and not args.link:
-        parser.error("--build, --skip-eh-proof and --allow-missing go with --link")
     if args.report:
         return report()
     rows = census.ledger()
@@ -746,7 +836,7 @@ def main(argv=None):
             print(f"  FAIL {entry['name']} {entry['target_rva']} ({entry['source']}): "
                   f"{entry['verdict']} -- {entry['detail']}")
         return 1 if result["unproven"] or result["missing_objects"] else 0
-    return run_link(rows, args)
+    return run_link(rows)
 
 
 if __name__ == "__main__":
