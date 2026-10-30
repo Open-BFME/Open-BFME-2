@@ -38,6 +38,8 @@ public:
 };
 extern NameKeyGenerator *TheNameKeyGenerator;
 // Match the transfer unit's native primary base and +0x20 UpgradeMux
+// base. Module supplies getModuleNameKey's slot 4; the transfer at
+// 0x0049C195 calls UpdateModule::xfer and the base at +0x20.
 // member. Module supplies getModuleNameKey's slot 4; the transfer at
 // 0x0049C195 calls UpdateModule::xfer and the member at +0x20.
 class Thing;
@@ -49,13 +51,15 @@ class Object;
 // Virtual slot 3 (offset 0x0C) of vtable RVA 0x00850FBC (VA 0x00C50FBC
 // installed by rowed ctor 0x0049C106 in RadiateFearUpdateCtor.cpp): base
 // UpdateModule xfer via rowed 0x44DF9F then IsLightCRC early-out via Xfer
-// slot 0x10 then Version(1,1) via Xfer slot 0x28 then UpgradeMux member at
+// slot 0x10 then Version(1,1) via Xfer slot 0x28 then UpgradeMux base at
 // +0x20 via rowed 0x004CE397. Layout is UpdateModule base 0x20 plus
-// UpgradeMux m_20 (news 0x28 per rowed factory 0x24E6B0). Address cluster
+// UpgradeMux base (news 0x28 per rowed factory 0x24E6B0). Address cluster
 // 0x49C106 ctor / 0x49C179 deleting-dtor / 0x49C195 xfer / 0x49C1D2 module
 // data deleting-dtor proves the RadiateFearUpdate identity; no donor (BFME2
 // only).
 
+// slot 0x10 then Version(1,1) via Xfer slot 0x28 then UpgradeMux member at
+// UpgradeMux m_20 (news 0x28 per rowed factory 0x24E6B0). Address cluster
 class AsciiString;
 class UnicodeString;
 class PooledString;
@@ -84,6 +88,8 @@ public:
 	unsigned char m_minimum;
 };
 
+enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1, UPDATE_SLEEP_FOREVER = 0x3FFFFFFF };
+
 class BehaviorModuleInterface { public: virtual void behaviorSlot(); };
 
 class UpdateModuleInterface { public: virtual void updateSlot(); };
@@ -96,6 +102,9 @@ public:
 	virtual ~UpdateModule();
 	void xfer(Xfer *xfer);
 
+protected:
+	void setWakeFrame(Object *object, UpdateSleepTime frame);
+
 private:
 	unsigned int m_nextCallFrameAndPhase;
 	int m_indexInLogic;
@@ -107,6 +116,9 @@ class RadiateFearUpdate;
 class UpgradeMux
 {
 	friend class RadiateFearUpdate;
+public:
+	UpgradeMux();
+	void giveSelfUpgrade();
 protected:
 	virtual void upgradeMuxXfer(Xfer *xfer);
 
@@ -114,16 +126,14 @@ private:
 	bool m_upgradeExecuted;
 };
 
-class RadiateFearUpdate : public UpdateModule
+class RadiateFearUpdate : public UpdateModule, public UpgradeMux
 {
 public:
+	RadiateFearUpdate(Thing *thing, const ModuleData *moduleData);
 	virtual NameKeyType getModuleNameKey() const;
 
 protected:
 	virtual void xfer(Xfer *xfer);
-
-private:
-	UpgradeMux m_20;
 };
 
 template <int N> class BitFlags;
@@ -145,9 +155,8 @@ public:
 	Rva003623E5Filter();
 	~Rva003623E5Filter();
 	void applyFilter(BfmeFixedStorage0004543D storage);
-
 private:
-	int m_filterData;
+	int m_filterData; // +0x00
 };
 
 class Rva0025342CMember
@@ -165,6 +174,7 @@ public:
 
 class RadiateFearUpdateModuleData : public UpdateModuleData
 {
+	friend class RadiateFearUpdate;
 public:
 	RadiateFearUpdateModuleData();
 
@@ -243,7 +253,7 @@ void RadiateFearUpdate::xfer(Xfer *xfer)
 		return;
 	Xfer::Version version(1, 1);
 	*xfer == version;
-	m_20.UpgradeMux::upgradeMuxXfer(xfer);
+	UpgradeMux::upgradeMuxXfer(xfer);
 }
 
 // tu-skeleton: 0x0049C1EE 48B ??1RadiateFearUpdateModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdateModuleDataDtor.cpp (not merged yet)
