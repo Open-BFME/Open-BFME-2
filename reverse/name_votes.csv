@@ -17996,3 +17996,5 @@ Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIChecklis
 Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIChecklist.cpp|class||Rva005CCC74Record,24b63c10da018079c16270f4,claude-opus-5-5,nm1-r1,w-f9b8ad33520e,2026-10-30
 Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUITurnPhaseFactory.cpp|class||Rva0042C23APointee,6e6b934791a1d0da46a2f7f0,claude-opus-5-5,nm1-r1,w-f9b8ad33520e,2026-10-30
 Code/GameEngine/Source/GameClient/GUI/GameWindowManager_dumpWindow.cpp|member|Rva0047EDE0CreateInfo|m_field30,24e1096c0d9021e792a2c1d0,claude-opus-5-5,nm1-g1,w-f9b8ad33520e,2026-10-30
+Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceClassRva00156540.cpp|function|0x00156540|rva00156540,0e1590567101c4f7312dbc68,claude-opus-5-5,nm1-w1,w-f9b8ad33520e,2026-10-30
+Code/Libraries/Source/WWVegas/WW3D2/Rva000456C9.cpp|function|0x000456C9|rva000456C9,b2c333657fbcb5b71c5f178f,claude-opus-5-5,nm1-w1,w-f9b8ad33520e,2026-10-30

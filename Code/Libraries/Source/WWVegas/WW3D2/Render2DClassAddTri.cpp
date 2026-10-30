@@ -254,7 +254,7 @@ static BFME2ParticleTextureHandle Rva000470D5GetTexture(const Rva000470D5Source 
 	}
 }
 
-class Rva000456C9{public:void rva000456C9(const RefCountPtr<TextureClass>*);};
+class Rva000456C9{public:void Set_Texture(const RefCountPtr<TextureClass>*);};
 class W3DDisplay{public:virtual void Rva000471AD(const Image*,float,float,float,float,float,unsigned long);virtual void Rva0004776F(const Image*,float,float,float,float,unsigned long,int);char gap04[0x164];Render2DClass*render;IRegion2D m_clipRegion;bool m_isClippedEnabled;};
 inline float clockPi(){return 3.14159265358979323846f;}
 void W3DDisplay::Rva000471AD(const Image*image,float left,float top,float right,float bottom,float percent,unsigned long color)
@@ -270,7 +270,7 @@ void W3DDisplay::Rva000471AD(const Image*image,float left,float top,float right,
  if(angle>twoPi)angle=twoPi;
  render->set00(2);
  render->set48(true);
- ((Rva000456C9*)render)->rva000456C9((const RefCountPtr<TextureClass>*)&Rva000470D5GetTexture((const Rva000470D5Source*)image));
+ ((Rva000456C9*)render)->Set_Texture((const RefCountPtr<TextureClass>*)&Rva000470D5GetTexture((const Rva000470D5Source*)image));
  float height=bottom-top;
  float halfHeight=height*0.5f;
  float width=right-left;
@@ -426,7 +426,7 @@ void W3DDisplay::Rva0004776F( const Image *image, float startX, float startY,
 	}
 
 	// if we have raw texture data we will use it, otherwise we are referencing filenames
-	((Rva000456C9*)render)->rva000456C9((const RefCountPtr<TextureClass>*)&Rva000470D5GetTexture((const Rva000470D5Source*)image));
+	((Rva000456C9*)render)->Set_Texture((const RefCountPtr<TextureClass>*)&Rva000470D5GetTexture((const Rva000470D5Source*)image));
 
 	RectClass screen_rect(startX,startY,endX,endY);
 	RectClass uv_rect(uv->Left,uv->Top,uv->Right,uv->Bottom);

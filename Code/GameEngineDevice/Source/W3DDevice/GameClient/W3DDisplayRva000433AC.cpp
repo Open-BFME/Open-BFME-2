@@ -49,7 +49,7 @@ public:
 class Rva000456C9
 {
 public:
-	void rva000456C9(const RefCountPtr<TextureClass> *tex);
+	void Set_Texture(const RefCountPtr<TextureClass> *tex);
 };
 
 class Render2DClass
@@ -125,7 +125,7 @@ void W3DDisplay::queueImage(Rva000465CEBuffer *buffer, float startX, float start
 {
 	float inset = (1.0f / (float)buffer->m_textureHeight18) * 0.5f;
 	m_render2D->m_texturing48 = true;
-	((Rva000456C9 *)m_render2D)->rva000456C9(buffer->texture());
+	((Rva000456C9 *)m_render2D)->Set_Texture(buffer->texture());
 	float maxV = buffer->rva00042605() - inset;
 	RectClass uv;
 	uv.X = inset;

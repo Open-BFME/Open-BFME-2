@@ -126,7 +126,7 @@ void Rva001049C7AddTriangle(Render2DClass *renderer,
 class Rva000456C9
 {
 public:
-	void rva000456C9(const RefCountPtr<TextureClass> *texture);
+	void Set_Texture(const RefCountPtr<TextureClass> *texture);
 };
 
 // The UV rectangle the source carries at +0x14.
@@ -306,7 +306,7 @@ void Rva0010461F::drawRadarViewBox()
 	if (((Rva00104195 *)this)->rva00104195())
 		rva00104359();
 	renderer->m_48 = true;
-	((Rva000456C9 *)renderer)->rva000456C9((const RefCountPtr<TextureClass> *)&m_edgeTexture);
+	((Rva000456C9 *)renderer)->Set_Texture((const RefCountPtr<TextureClass> *)&m_edgeTexture);
 	Rva00104A75StateHold hold(renderer, 1);
 	const Rva00104A75Rect *uv = &((const Rva00104A75Source *)m_edgeImage)->m_uv;
 	for (int i = 0; i < 4; i++) {

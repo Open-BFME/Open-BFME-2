@@ -51,10 +51,10 @@ public:
 	char m_pad[0x40];
 	RefCountPtr<TextureClass> m_tex40;
 	int m_44;
-	void rva000456C9(RefCountPtr<TextureClass> const *arg);
+	void Set_Texture(RefCountPtr<TextureClass> const *arg);
 };
 
-void Rva000456C9::rva000456C9(RefCountPtr<TextureClass> const *arg)
+void Rva000456C9::Set_Texture(RefCountPtr<TextureClass> const *arg)
 {
 	RefCountPtr<TextureClass> *t = &m_tex40;
 	if (*arg != *t)
@@ -95,7 +95,7 @@ private:
 
 void W3DDisplay::rva00046734()
 {
-	m_168->rva000456C9(&RefCountPtr<TextureClass>(0));
+	m_168->Set_Texture(&RefCountPtr<TextureClass>(0));
 	((Render2DClass *)m_168)->Reset();
 	for (Rva00046791Item **it = m_2a4; it != m_2a8; ++it)
 		(*it)->rva00046779Slot();
