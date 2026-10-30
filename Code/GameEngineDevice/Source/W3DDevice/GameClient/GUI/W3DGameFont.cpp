@@ -33,7 +33,11 @@ protected:
 	int ActiveCount;
 };
 
-struct BfmePod4 { char m_data[4]; };
+struct BfmePod4
+{
+public:
+	int a[1]; // +0x00
+};
 
 template <> class SimpleDynVecClass<BfmePod4>
 {

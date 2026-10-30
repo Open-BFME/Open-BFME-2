@@ -15,7 +15,11 @@ public:
 	int NumRefs;
 };
 
-struct BfmePod4 { int a[1]; };
+struct BfmePod4
+{
+public:
+	int a[1]; // +0x00
+};
 
 template <class T> class SimpleVecClass
 {
