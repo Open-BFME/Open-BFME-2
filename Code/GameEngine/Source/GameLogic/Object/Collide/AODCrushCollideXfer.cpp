@@ -1,4 +1,68 @@
-// cl: /DNDEBUG /MD
+// cl: /DNDEBUG /MD /Ireference/shims/moduledata
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
+enum UpdateSleepTime
+{
+	UPDATE_SLEEP_NONE = 1,
+	UPDATE_SLEEP_FOREVER = 0x3fffffff
+};
+
+enum ObjectID;
+
+class Thing;
+class ModuleData;
+class Xfer;
+class Object;
+struct Coord3D;
+
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
+
+class UpdateModuleInterface
+{
+public:
+	virtual UpdateSleepTime update() = 0;
+};
+
+class UpdateModule : public BehaviorModule, public UpdateModuleInterface
+{
+public:
+	UpdateModule(Thing *thing, const ModuleData *moduleData);
+	virtual ~UpdateModule();
+	void xfer(Xfer *xfer);
+
+private:
+	unsigned int m_nextCallFrameAndPhase;
+	int m_indexInLogic;
+	int m_updateState;
+};
+
+class CollideModuleInterface
+{
+public:
+	virtual void onCollide(Object *, const Coord3D *, const Coord3D *) = 0;
+};
+
+class AODCrushCollide : public UpdateModule, public CollideModuleInterface
+{
+public:
+	AODCrushCollide(Thing *thing, const ModuleData *moduleData);
+	virtual ~AODCrushCollide();
+	virtual NameKeyType getModuleNameKey() const;
+	virtual UpdateSleepTime update();
+	virtual void onCollide(Object *, const Coord3D *, const Coord3D *);
+
+protected:
+	virtual void xfer(Xfer *xfer);
+
+private:
+	unsigned int m_24;
+	ObjectID m_28;
+	bool m_2C;
+};
+
 //
 // ?xfer@AODCrushCollide@@MAEXPAVXfer@@@Z, retail 0x004BBF03, 65 bytes.
 // Slot 3 (offset 0x0C) of vtable 0x0085A31C (class of rowed dtor
@@ -35,44 +99,9 @@ class Object;
 
 #include "../../../../Include/Common/BfmeXfer.h"
 
-enum ObjectID
-{
-	INVALID_ID = 0
-};
-
 void XferObjectID(Xfer *xfer, ObjectID *objectID);
 
 #include "../../../../Include/Common/ObjectModule.h"
-
-class BehaviorModuleInterface { public: virtual void behaviorSlot(); };
-class UpdateModuleInterface { public: virtual void updateSlot(); };
-
-class UpdateModule : public ObjectModule,
-	public BehaviorModuleInterface, public UpdateModuleInterface
-{
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~UpdateModule();
-	void xfer(Xfer *xfer);
-
-private:
-	unsigned int m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_updateState;
-};
-
-class CrushTrailing { public: virtual void trailingSlot(); };
-
-class AODCrushCollide : public UpdateModule, public CrushTrailing
-{
-protected:
-	virtual void xfer(Xfer *xfer);
-
-private:
-	unsigned int m_24;
-	ObjectID m_28;
-	bool m_2C;
-};
 
 void AODCrushCollide::xfer(Xfer *xfer)
 {

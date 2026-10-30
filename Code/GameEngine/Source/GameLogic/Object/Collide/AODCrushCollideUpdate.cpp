@@ -1,4 +1,68 @@
-// cl: /DNDEBUG /MD
+// cl: /DNDEBUG /MD /Ireference/shims/moduledata
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
+enum UpdateSleepTime
+{
+	UPDATE_SLEEP_NONE = 1,
+	UPDATE_SLEEP_FOREVER = 0x3fffffff
+};
+
+enum ObjectID;
+
+class Thing;
+class ModuleData;
+class Xfer;
+class Object;
+struct Coord3D;
+
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
+
+class UpdateModuleInterface
+{
+public:
+	virtual UpdateSleepTime update() = 0;
+};
+
+class UpdateModule : public BehaviorModule, public UpdateModuleInterface
+{
+public:
+	UpdateModule(Thing *thing, const ModuleData *moduleData);
+	virtual ~UpdateModule();
+	void xfer(Xfer *xfer);
+
+private:
+	unsigned int m_nextCallFrameAndPhase;
+	int m_indexInLogic;
+	int m_updateState;
+};
+
+class CollideModuleInterface
+{
+public:
+	virtual void onCollide(Object *, const Coord3D *, const Coord3D *) = 0;
+};
+
+class AODCrushCollide : public UpdateModule, public CollideModuleInterface
+{
+public:
+	AODCrushCollide(Thing *thing, const ModuleData *moduleData);
+	virtual ~AODCrushCollide();
+	virtual NameKeyType getModuleNameKey() const;
+	virtual UpdateSleepTime update();
+	virtual void onCollide(Object *, const Coord3D *, const Coord3D *);
+
+protected:
+	virtual void xfer(Xfer *xfer);
+
+private:
+	unsigned int m_24;
+	ObjectID m_28;
+	bool m_2C;
+};
+
 // Retail 0x004BC2E6 (63 bytes): ?update@AODCrushCollide@@UAE?AW4UpdateSleepTime@@XZ.
 // Identity: slot 0 of the vtable 0x00C5A254 that the matched AODCrushCollide
 // dtor 0x004BBEDD installs at +0x10, the UpdateModuleInterface base of an
@@ -102,53 +166,10 @@ static __forceinline void clearModelConditionBit(Object *object, int bit)
 }
 class Thing;
 class ModuleData;
-class BehaviorModule
-{
-public:
-	virtual ~BehaviorModule();
-protected:
-	const ModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
-};
-class BehaviorModuleInterface
-{
-public:
-	virtual void behaviorModuleInterfaceAnchor();
-};
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1,
-	UPDATE_SLEEP_FOREVER = 0x3fffffff
-};
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-};
-class UpdateModule : public BehaviorModule, public BehaviorModuleInterface, public UpdateModuleInterface
-{
-protected:
-	unsigned int m_14;
-	int m_18;
-	int m_1C;
-};
+
 #include "../../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
-class AODCrushCollideIface20
-{
-public:
-	virtual void onCollide(Object *,const Coord3D *,const Coord3D *);
-};
-class AODCrushCollide : public UpdateModule, public AODCrushCollideIface20
-{
-public:
-	virtual UpdateSleepTime update();
- virtual void onCollide(Object *,const Coord3D *,const Coord3D *);
-private:
-	unsigned int m_24;
-	int m_28;
-	bool m_2C;
-};
+
 UpdateSleepTime AODCrushCollide::update()
 {
 	if (m_2C)
@@ -327,7 +348,7 @@ void AODCrushCollide::onCollide(Object *other,const Coord3D *,const Coord3D *)
  damage.sourceID=rawField<unsigned int>(self,0x74);
  damage.amount=amount;
  other->attemptDamage((DamageInfo *)&damage);
- m_28=rawField<int>(other,0x74);
+ m_28=(ObjectID)rawField<int>(other,0x74);
  if(selected) {
   Rva00263895Member selfDamage;
   selfDamage.kind=rawField<int>(data,0x3c);
