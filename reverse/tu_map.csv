@@ -37919,7 +37919,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0049227B,90,code,Code/GameEngine/Source/GameLogic/Object/Update/HeroModeSpecialAbilityUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/HeroModeSpecialAbilityUpdate.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Update/HeroModeSpecialAbilityUpdate.cpp
 0x004922D5,28,code,Code/GameEngine/Source/GameLogic/Object/Update/HeroModeSpecialAbilityUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/HeroModeSpecialAbilityUpdate.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Update/HeroModeSpecialAbilityUpdate.cpp
 0x004922F1,56,code,Code/GameEngine/Source/GameLogic/Object/Update/HeroModeSpecialAbilityUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/HeroModeSpecialAbilityUpdate.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Update/HeroModeSpecialAbilityUpdateModuleDataDtor.cpp
-0x00492329,185,code,Code/GameEngine/Source/GameLogic/Object/Update/HeroModeSpecialAbilityUpdate.cpp,proposed,K,K=Rva00492179,Code/GameEngine/Source/GameLogic/Object/Update/Rva00492329TriggerAbilityEffect.cpp
+0x00492329,185,code,Code/GameEngine/Source/GameLogic/Object/Update/HeroModeSpecialAbilityUpdate.cpp,proposed,K,K=Rva00492179,Code/GameEngine/Source/GameLogic/Object/Update/HeroModeSpecialAbilityUpdate.cpp
 0x004923E2,32,code,,displaced,-,N=Code/GameEngine/Source/GameLogic/Object/Update/WeaponSetSpecialAbilityUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/WeaponSetSpecialAbilityUpdateModuleDataCtor.cpp
 0x00492402,49,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Update/Rva00492402Ctor.cpp
 0x00492433,6,code,,,-,,Code/GameEngine/Source/Common/ConstIntGetters4.cpp
@@ -80360,8 +80360,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0078CC2E,10,code,Code/GameEngine/Source/GameLogic/Object/Update/HeroModeSpecialAbilityUpdate.cpp,approved,P,P=0x0049227B@FuncInfo0x0093C7A0 provisional,Code/GameEngine/Source/GameLogic/Object/Update/HeroModeSpecialAbilityUpdate.cpp
 0x0078CC38,8,code,Code/GameEngine/Source/GameLogic/Object/Update/HeroModeSpecialAbilityUpdate.cpp,approved,P,P=0x004922F1@FuncInfo0x0093C7C4 provisional,Code/GameEngine/Source/GameLogic/Object/Update/HeroModeSpecialAbilityUpdateModuleDataDtor.cpp
 0x0078CC40,10,code,Code/GameEngine/Source/GameLogic/Object/Update/HeroModeSpecialAbilityUpdate.cpp,approved,P,P=0x004922F1@FuncInfo0x0093C7C4 provisional,Code/GameEngine/Source/GameLogic/Object/Update/HeroModeSpecialAbilityUpdateModuleDataDtor.cpp
-0x0078CC4A,8,code,Code/GameEngine/Source/GameLogic/Object/Update/HeroModeSpecialAbilityUpdate.cpp,approved,P,P=0x00492329@FuncInfo0x0093C7E8 p-group provisional,Code/GameEngine/Source/GameLogic/Object/Update/Rva00492329TriggerAbilityEffect.cpp
-0x0078CC52,10,code,Code/GameEngine/Source/GameLogic/Object/Update/HeroModeSpecialAbilityUpdate.cpp,approved,P,P=0x00492329@FuncInfo0x0093C7E8 p-group provisional,Code/GameEngine/Source/GameLogic/Object/Update/Rva00492329TriggerAbilityEffect.cpp
+0x0078CC4A,8,code,Code/GameEngine/Source/GameLogic/Object/Update/HeroModeSpecialAbilityUpdate.cpp,approved,P,P=0x00492329@FuncInfo0x0093C7E8 p-group provisional,Code/GameEngine/Source/GameLogic/Object/Update/HeroModeSpecialAbilityUpdate.cpp
+0x0078CC52,10,code,Code/GameEngine/Source/GameLogic/Object/Update/HeroModeSpecialAbilityUpdate.cpp,approved,P,P=0x00492329@FuncInfo0x0093C7E8 p-group provisional,Code/GameEngine/Source/GameLogic/Object/Update/HeroModeSpecialAbilityUpdate.cpp
 0x0078CC5C,13,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Update/WeaponSetSpecialAbilityUpdatePoolKey.cpp
 0x0078CC69,10,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Update/WeaponSetSpecialAbilityUpdatePoolKey.cpp
 0x0078CC73,8,code,Code/GameEngine/Source/GameLogic/Object/Update/WeaponFireSpecialAbilityUpdate.cpp,approved,P,P=0x0049256B@FuncInfo0x0093C830 provisional,Code/GameEngine/Source/GameLogic/Object/Update/WeaponFireSpecialAbilityUpdate.cpp
