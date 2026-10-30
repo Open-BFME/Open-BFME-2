@@ -35,7 +35,6 @@ class Thing;
 class ModuleData;
 class Object;
 #include "../../../../Include/Common/BfmeXfer.h"
-
 //
 // WeaponModeSpecialPowerUpdateModuleData parse-unit.
 //
@@ -48,23 +47,18 @@ class Object;
 // "WeaponModeSpecialPowerUpdate". Row supersedes the parse pin.
 
 class MultiIniFieldParse;
-
 struct FieldParse { const char *token; void (*parse)(class INI *, void *, void *, const void *); const void *userData; int offset; };
-
 extern const FieldParse s_weaponModeFieldTable[];
-
 class MultiIniFieldParse
 {
 public:
 	void add(const FieldParse *parseTable, unsigned int extraOffset);
 };
-
 class Rva005890EDBase
 {
 public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
-
 typedef bool Bool;
 enum UpdateSleepTime
 {
@@ -81,7 +75,6 @@ enum WeaponSetType
 	WEAPONSET_COUNT = 0x68
 };
 #include "ascii_string.h"
-
 template <int N> class BitFlags
 {
 public:
@@ -98,25 +91,21 @@ public:
 	unsigned char m_pad1C[0x24 - 0x1C];
 	BitFlags<WEAPONSET_COUNT> m_weaponSetFlags;	// +0x24
 };
-
 struct Rva0025A3F0Inner
 {
 	int m_00;
 	int m_04;
 	int m_08;
 };
-
 struct Rva0025A3F0Sub
 {
 	Rva0025A3F0Inner *m_holder;
 };
-
 class Rva0025A3F0
 {
 public:
 	bool eq(int a) const;
 };
-
 // ?getModuleNameKey@WeaponModeSpecialPowerUpdate@@UBE?AW4NameKeyType@@XZ @0x494af3
 // (69B): cached pool-name key for WeaponModeSpecialPowerUpdate. The class
 // identity comes from the pool-name string the body pushes
@@ -131,16 +120,21 @@ enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
-
 class NameKeyGenerator
 {
 public:
 	NameKeyType nameToKey(const char *name);
 };
-
 extern NameKeyGenerator *TheNameKeyGenerator;
-
 #include "../../../../Include/Common/ObjectModule.h"
+class Xfer;
+class Object
+{
+public:
+	void releaseWeaponLock(WeaponLockType type);
+	void clearWeaponSetFlag(WeaponSetType type);
+	void removeAttributeModifierFromPool(const AsciiString &name);
+};
 
 class BehaviorModuleInterface { public: virtual void behaviorSlot(); };
 
@@ -211,6 +205,8 @@ private:
 	Bool m_38;
 };
 
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/WeaponModeSpecialPowerUpdate.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/WeaponModeSpecialPowerUpdateModuleDataParse.cpp
 
 // ?buildFieldParse@WeaponModeSpecialPowerUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z @0x00494A7C
@@ -219,14 +215,6 @@ void WeaponModeSpecialPowerUpdateModuleData::buildFieldParse(MultiIniFieldParse 
 	Rva005890EDBase::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(s_weaponModeFieldTable), 0);
 }
-
-// tu-skeleton: 0x00494A97 39B ??1Rva00494A97@@UAE@XZ -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtors.cpp (not merged yet)
-
-// tu-skeleton: 0x00494ABE 8B ?rva00494ABE@Rva00494ABE@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAI.cpp (not merged yet)
-
-// tu-skeleton: 0x00494AC6 19B ?rva00494AC6@Rva00494AC6@@UAEXM@Z -- matched in Code/GameEngine/Source/Common/GapBodiesS3B.cpp (not merged yet)
-
-// tu-skeleton: 0x00494AD9 6B ?Rva00494AD9Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva0025A3F0Eq.cpp
 
@@ -245,10 +233,6 @@ NameKeyType WeaponModeSpecialPowerUpdate::getModuleNameKey() const
 	return TheWeaponModeSpecialPowerUpdatePoolKey;
 }
 
-// tu-skeleton: 0x00494B38 102B ??0WeaponModeSpecialPowerUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/WeaponModeSpecialPowerUpdateCtorThunk.cpp (not merged yet)
-
-// tu-skeleton: 0x00494B9E 28B ??_GRva00494A97@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtors.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva00494A97Xfer.cpp
 
 void Rva00494A97::xfer(Xfer *xfer)
@@ -258,7 +242,47 @@ void Rva00494A97::xfer(Xfer *xfer)
 	*xfer == m_38;
 }
 
-// tu-skeleton: 0x00494C18 105B ?update@WeaponModeSpecialPowerUpdate@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/WeaponModeSpecialPowerUpdateUpdate.cpp (not merged yet)
+// tu-skeleton: 0x00494A97 39B ??1Rva00494A97@@UAE@XZ -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtors.cpp (not merged yet)
+
+// tu-skeleton: 0x00494ABE 8B ?rva00494ABE@Rva00494ABE@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAI.cpp (not merged yet)
+
+// tu-skeleton: 0x00494AC6 19B ?rva00494AC6@Rva00494AC6@@UAEXM@Z -- matched in Code/GameEngine/Source/Common/GapBodiesS3B.cpp (not merged yet)
+
+// tu-skeleton: 0x00494AD9 6B ?Rva00494AD9Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x00494B38 102B ??0WeaponModeSpecialPowerUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/WeaponModeSpecialPowerUpdateCtorThunk.cpp (not merged yet)
+
+// tu-skeleton: 0x00494B9E 28B ??_GRva00494A97@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtors.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/WeaponModeSpecialPowerUpdateUpdate.cpp
+
+// WeaponModeSpecialPowerUpdate::update, retail 0x00494C18 (105 bytes): slot
+// 0 of the class's +0x10 update-module interface table 0x00C4E988, so `this`
+// is that subobject (module data at -0x0C, Object at -0x08). Ends the weapon
+// mode: weapon lock 2 released, every weapon-set flag the module data lists
+// at +0x24 (0x68 of them) cleared on the Object, the data's +0x18 name, when
+// set, handed to Object 0x0028EB42 (the pinned removal twin of
+// rva0028EA91), the active byte (+0x38) cleared and the executed flag of the
+// upgrade mux at +0x24 cleared (its slot 9); then the module sleeps forever.
+// Codegen: the module data pointer is a named local (not a reference to the
+// name and not getData() twice), which keeps the Object pointer in EDI and the
+// weapon-set index in EBX as retail does.
+UpdateSleepTime WeaponModeSpecialPowerUpdate::update()
+{
+	Object *obj = m_object;
+	obj->releaseWeaponLock(WEAPON_LOCK_BFME_2);
+	for (int i = 0; i < WEAPONSET_COUNT; ++i)
+	{
+		if (getData()->m_weaponSetFlags.test(i))
+			obj->clearWeaponSetFlag((WeaponSetType)i);
+	}
+	const WeaponModeSpecialPowerUpdateModuleData *data = getData();
+	if (!data->m_name.isEmpty())
+		obj->removeAttributeModifierFromPool(data->m_name);
+	m_38 = false;
+	setUpgradeExecuted(false);
+	return UPDATE_SLEEP_FOREVER;
+}
 
 // tu-skeleton: 0x0078CECC 8B uw_0078cecc -- matched in Code/gen_small/uw_gen_014.cpp (not merged yet)
 
