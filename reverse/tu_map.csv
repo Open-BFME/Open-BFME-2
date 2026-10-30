@@ -42549,7 +42549,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x004FA5F4,4,code,,,-,,Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp
 0x004FA5F8,32,code,Code/GameEngine/Source/Common/LivingWorldBuildingNuggetSpawnArmy.cpp,approved,N,N=Code/GameEngine/Source/Common/LivingWorldBuildingNuggetSpawnArmy.cpp provisional,Code/GameEngine/Source/Common/LivingWorldBuildingNuggetSpawnArmy.cpp
 0x004FA618,5,code,Code/GameEngine/Source/Common/LivingWorldBuildingNuggetSpawnArmy.cpp,approved,N,N=Code/GameEngine/Source/Common/LivingWorldBuildingNuggetSpawnArmy.cpp provisional,Code/GameEngine/Source/Common/LivingWorldBuildingNuggetSpawnArmy.cpp
-0x004FA61D,6,code,Code/GameEngine/Source/Common/LivingWorldBuildingNuggetSpawnArmy.cpp,approved,C,C=0x004FA618..0x004FA623 provisional,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp
+0x004FA61D,6,code,Code/GameEngine/Source/Common/LivingWorldBuildingNuggetSpawnArmy.cpp,approved,C,C=0x004FA618..0x004FA623 provisional,Code/GameEngine/Source/Common/LivingWorldBuildingNuggetSpawnArmy.cpp
 0x004FA623,24,code,Code/GameEngine/Source/Common/LivingWorldBuildingNuggetSpawnArmy.cpp,approved,C,C=0x004FA618..0x004FA63B provisional,Code/GameEngine/Source/Common/LivingWorldBuildingNuggetSpawnArmy.cpp
 0x004FA63B,9,code,Code/GameEngine/Source/Common/LivingWorldBuildingNuggetSpawnArmy.cpp,approved,C,C=0x004FA618..0x004FA644 provisional,Code/GameEngine/Source/Common/System/XferScienceTypeVector.cpp
 0x004FA644,21,code,Code/GameEngine/Source/Common/LivingWorldBuildingNuggetSpawnArmy.cpp,approved,C,C=0x004FA618..0x004FA659 provisional,Code/GameEngine/Source/Common/GapBodiesGE26.cpp
