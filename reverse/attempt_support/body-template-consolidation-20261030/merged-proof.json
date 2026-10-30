@@ -1,0 +1,75 @@
+{
+  "source": "Code/Libraries/Source/WWVegas/WWLib/LivingWorldAutoResolveBodyTemplate.cpp",
+  "source_sha256": "916aae1e78b9588c8fbd76638c21bd35159d70330d6637b74dbfbbfdad134006",
+  "object_md5": "d83efc9e461d4c41a0037c8c9fd9cad9",
+  "strict_current": true,
+  "before_controls": [
+    {
+      "source": "Code/Libraries/Source/WWVegas/WWLib/LivingWorldAutoResolveBodyTemplate.cpp",
+      "source_sha256": "dfa3489ac4c1299adb709292fbaf47c3f7c222cb11f38cd6663d7f50b4e80366",
+      "external_code_definitions": 20
+    },
+    {
+      "source": "Code/Libraries/Source/WWVegas/WWLib/LivingWorldAutoResolveBodyTemplate_getRegenRateForLevel.cpp",
+      "source_sha256": "41709fac9b7e4b1a1adb6e9d73385fa60b9ecd8d423d92280b18b9f59a52c34f",
+      "external_code_definitions": 20
+    }
+  ],
+  "control_compile_profile": "unchanged common seed flags; source flags agree in supported merge",
+  "all_external_code_and_symbolic_relocations_identical": true,
+  "external_definition_count": 21,
+  "rows": [
+    {
+      "name": "?getHitpointsForLevel@LivingWorldAutoResolveBodyTemplate@@QAEMH@Z",
+      "rva": "0x00418573",
+      "actual_code_size": 55,
+      "raw": "568d442408508bf1e8000000008b0e3bc15e74098b50103b5424047e143b41087508d90500000000eb0a50e80000000059d94014c20400",
+      "resolved": "568d442408508bf1e812a5f6ff8b0e3bc15e74098b50103b5424047e143b41087508d905d8b8bb00eb0a50e81dbdc0ff59d94014c20400",
+      "native": "568d442408508bf1e812a5f6ff8b0e3bc15e74098b50103b5424047e143b41087508d905d8b8bb00eb0a50e81dbdc0ff59d94014c20400",
+      "relocations": [
+        [
+          9,
+          20,
+          "?_M_lower_bound@?$_Rb_tree@HU?$pair@$$CBHM@_STL@@U?$_Select1st@U?$pair@$$CBHM@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHM@_STL@@@2@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBHM@_STL@@@2@ABH@Z"
+        ],
+        [
+          36,
+          6,
+          "?g_Va00BBB8D8@@3MA"
+        ],
+        [
+          44,
+          20,
+          "?_M_decrement@?$_Rb_global@_N@_STL@@SAPAU_Rb_tree_node_base@2@PAU32@@Z"
+        ]
+      ],
+      "exact": true
+    },
+    {
+      "name": "?getRegenRateForLevel@LivingWorldAutoResolveBodyTemplate@@QAEMH@Z",
+      "rva": "0x004185AA",
+      "actual_code_size": 58,
+      "raw": "568d710c8d442408508bcee8000000008b363bc674098b48103b4c24087e143b46087508d90500000000eb0a50e80000000059d940145ec20400",
+      "resolved": "568d710c8d442408508bcee8d8a4f6ff8b363bc674098b48103b4c24087e143b46087508d905acaebb00eb0a50e8e4bcc0ff59d940145ec20400",
+      "native": "568d710c8d442408508bcee8d8a4f6ff8b363bc674098b48103b4c24087e143b46087508d905acaebb00eb0a50e8e4bcc0ff59d940145ec20400",
+      "relocations": [
+        [
+          12,
+          20,
+          "?_M_lower_bound@?$_Rb_tree@HU?$pair@$$CBHM@_STL@@U?$_Select1st@U?$pair@$$CBHM@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHM@_STL@@@2@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBHM@_STL@@@2@ABH@Z"
+        ],
+        [
+          38,
+          6,
+          "?BfmeZeroRange@@3MB"
+        ],
+        [
+          46,
+          20,
+          "?_M_decrement@?$_Rb_global@_N@_STL@@SAPAU_Rb_tree_node_base@2@PAU32@@Z"
+        ]
+      ],
+      "exact": true
+    }
+  ]
+}

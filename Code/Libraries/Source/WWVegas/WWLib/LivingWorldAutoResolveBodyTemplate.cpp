@@ -13,14 +13,21 @@ bool less<int>::operator()(const int &left, const int &right) const
 
 extern float g_Va00BBB8D8;
 
+extern const float BfmeZeroRange;
+
 class LivingWorldAutoResolveBodyTemplate
 {
 public:
 	float getHitpointsForLevel(int key);
 private:
 	_STL::map<int, float> m_map;
+private:
 	_STL::map<int, float> m_map0C;
+public:
+	float getRegenRateForLevel(int key);
 };
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/LivingWorldAutoResolveBodyTemplate.cpp
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/Rva00418573Lookup.cpp
 
@@ -38,4 +45,18 @@ float LivingWorldAutoResolveBodyTemplate::getHitpointsForLevel(int key)
 	return it->second;
 }
 
-// tu-skeleton: 0x004185AA 58B ?getRegenRateForLevel@LivingWorldAutoResolveBodyTemplate@@QAEMH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/LivingWorldAutoResolveBodyTemplate_getRegenRateForLevel.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/LivingWorldAutoResolveBodyTemplate_getRegenRateForLevel.cpp
+
+// LivingWorldAutoResolveBodyTemplate::getRegenRateForLevel (WorldBuilder name, LivingWorldAutoResolveBody.cpp line 88: lower_bound in the +0x0C map).
+// was ?rva004185AA@Rva004185AA@@QAEMH@Z @0x004185AA 58B floor lookup over map<int,float> at +0xc via rowed lower_bound 0x00382A92 and rowed decrement 0x000242C0 default BfmeZeroRange caller 0x0059AF30
+
+float LivingWorldAutoResolveBodyTemplate::getRegenRateForLevel(int key)
+{
+	_STL::map<int, float>::iterator it = m_map0C.lower_bound(key);
+	if (it == m_map0C.end() || it->first > key) {
+		if (it == m_map0C.begin())
+			return BfmeZeroRange;
+		--it;
+	}
+	return it->second;
+}

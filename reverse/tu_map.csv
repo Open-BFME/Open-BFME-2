@@ -33737,7 +33737,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0041848D,115,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_int_copy_0041848D.cpp
 0x00418500,115,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/Rva00418500Finish.cpp
 0x00418573,55,code,Code/Libraries/Source/WWVegas/WWLib/LivingWorldAutoResolveBodyTemplate.cpp,approved,N,N=Code/Libraries/Source/WWVegas/WWLib/LivingWorldAutoResolveBodyTemplate.cpp provisional,Code/Libraries/Source/WWVegas/WWLib/LivingWorldAutoResolveBodyTemplate.cpp
-0x004185AA,58,code,Code/Libraries/Source/WWVegas/WWLib/LivingWorldAutoResolveBodyTemplate.cpp,approved,N,N=Code/Libraries/Source/WWVegas/WWLib/LivingWorldAutoResolveBodyTemplate.cpp provisional,Code/Libraries/Source/WWVegas/WWLib/LivingWorldAutoResolveBodyTemplate_getRegenRateForLevel.cpp
+0x004185AA,58,code,Code/Libraries/Source/WWVegas/WWLib/LivingWorldAutoResolveBodyTemplate.cpp,approved,N,N=Code/Libraries/Source/WWVegas/WWLib/LivingWorldAutoResolveBodyTemplate.cpp provisional,Code/Libraries/Source/WWVegas/WWLib/LivingWorldAutoResolveBodyTemplate.cpp
 0x004185E4,123,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/Rva004185E4HitpointsAtLevel.cpp
 0x0041865F,123,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/Rva0041865FRegenerateAtLevel.cpp
 0x004186DA,6,code,,,-,,Code/GameEngine/Source/Common/ConstIntGetters5.cpp
