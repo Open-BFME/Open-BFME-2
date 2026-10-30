@@ -1,48 +1,18 @@
 // cl: /O1
+// platformsdk
 // CopyProtection.cpp: the CopyProtect statics retail links from this TU (tu_map
 // approved), folded from six split units with these exact flags. Each unit had
 // been split so a caller could not inline it; within this TU the only internal
 // call (rva00232D38's tail call to validate) precedes its callee, so it stays a
 // call. Bodies are in retail order otherwise.
 
-typedef void *HANDLE;
-typedef unsigned long DWORD;
-#define WINAPI __stdcall
-#define ERROR_ALREADY_EXISTS 183
-extern "C" __declspec(dllimport) HANDLE WINAPI CreateMutexA(void *attrs, int owned, const char *name);
-extern "C" __declspec(dllimport) DWORD WINAPI GetLastError(void);
-extern "C" __declspec(dllimport) int WINAPI CloseHandle(HANDLE obj);
+#include <windows.h>
+#include <mmsystem.h>
+#include <string.h>
+
 const char *GetRegistryG1(void);
-typedef unsigned int UINT;
-typedef long LPARAM;
-typedef unsigned int WPARAM;
-#define WM_USER 0x0400
-#define PM_NOREMOVE 0
-#define PM_REMOVE 1
-#define EVENT_MODIFY_STATE 2
-#define FILE_MAP_ALL_ACCESS 0xF001F
-struct MSG
-{
-	HANDLE hwnd;
-	UINT message;
-	WPARAM wParam;
-	LPARAM lParam;
-	DWORD time;
-	long ptX;
-	long ptY;
-};
-extern "C" __declspec(dllimport) int WINAPI PeekMessageA(MSG *msg, HANDLE hwnd, UINT min, UINT max, UINT remove);
-extern "C" __declspec(dllimport) DWORD WINAPI timeGetTime(void);
-extern "C" __declspec(dllimport) HANDLE WINAPI OpenEventA(DWORD access, int inherit, const char *name);
-extern "C" __declspec(dllimport) void WINAPI Sleep(DWORD ms);
-extern "C" __declspec(dllimport) int WINAPI SetEvent(HANDLE event);
-extern "C" __declspec(dllimport) void *WINAPI MapViewOfFileEx(HANDLE mapping, DWORD access,
-	DWORD high, DWORD low, DWORD bytes, void *base);
 const char *GetRegistryG3(void);
-typedef int BOOL;
-extern "C" int __cdecl strcmp(const char *a, const char *b);
 const char *GetRegistryG4(void);
-extern "C" __declspec(dllimport) BOOL WINAPI UnmapViewOfFile(void *lpBaseAddress);
 
 class CopyProtect
 {
