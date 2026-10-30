@@ -107,6 +107,10 @@ _Vector_base<Coord3D, allocator<Coord3D> >::~_Vector_base() {
     if (_M_start !=0)
     _M_end_of_storage.deallocate(_M_start, _M_end_of_storage._M_data - _M_start);
 }
+// The vector destructor itself is called out of line (retail 0x0007FAB3, 14B,
+// a direct _free call); this unit's copy would inline __imp__free (15B) and,
+// first in link order, displace every retail-equal copy. Declare it only.
+template <> vector<Coord3D, allocator<Coord3D> >::~vector();
 }
 
 #ifdef _INTERNAL
