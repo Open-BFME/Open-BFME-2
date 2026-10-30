@@ -7,6 +7,11 @@
 #include "ascii_string.h"
 #define TheGlobalDataView ((GlobalData2 *)TheWritableGlobalData)
 #pragma pointers_to_members(full_generality, multiple_inheritance)
+#define _CRTIMP
+#include <mbstring.h>
+#undef _CRTIMP
+#define _CRTIMP __declspec(dllimport)
+#define TheGlobalDataView ((DestructorGlobalData *)TheWritableGlobalData)
 
 class GameWindow
 {
@@ -344,25 +349,227 @@ public:
 	int copyToBuffer(unsigned short *dst);
 };
 
-// tu-skeleton: 0x005139B0 151B ?OnShowScreen@AptCreateAHero@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroCallbacks.cpp (not merged yet)
+extern class GlobalData *TheWritableGlobalData;
 
-// tu-skeleton: 0x00513A47 10B ?PrepareToTakePicture@AptCreateAHero@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroCallbacks.cpp (not merged yet)
+struct AptCreateAHeroGlobalData
+{
+	unsigned char m_pad000[0x9D1];
+	bool m_9d1; // +0x9D1
+	unsigned char m_pad9d2[0xAC0 - 0x9D2];
+	AsciiString m_mapName; // +0xAC0
+};
 
-// tu-skeleton: 0x00513A51 19B ?OnTakePicture@AptCreateAHero@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroCallbacks.cpp (not merged yet)
+// OpenScreen's collaborators: the shell (rowed Shell::push), the message
+// stream's vslot 18 append, and the logic random seed.
+class Shell
+{
+public:
+	void push(AsciiString filename, bool shutdownImmediate);
+};
 
-// tu-skeleton: 0x00513A64 9B ?RenderPictureGuard@AptCreateAHero@@QAEXPBX0PAX1@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroCallbacks.cpp (not merged yet)
+extern Shell *TheShell;
 
-// tu-skeleton: 0x00513A6D 59B ?CreateAHeroDemo@AptCreateAHero@@QAEXHPAD_N@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroCallbacks.cpp (not merged yet)
+class GameMessage
+{
+public:
+	void appendIntegerArgument(int arg);
+};
 
-// tu-skeleton: 0x00513AA8 19B ?RotateLeft@AptCreateAHero@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroCallbacks.cpp (not merged yet)
+class MessageStream
+{
+public:
+	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
+	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
+	virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
+	virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
+	virtual void v16(); virtual void v17();
+	virtual GameMessage *appendMessage(int type);
+};
 
-// tu-skeleton: 0x00513ABB 19B ?RotateRight@AptCreateAHero@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroCallbacks.cpp (not merged yet)
+extern MessageStream *TheMessageStream;
 
-// tu-skeleton: 0x00513ACE 19B ?ZoomIn@AptCreateAHero@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroCallbacks.cpp (not merged yet)
+void InitGameLogicRandom(unsigned int seed);
 
-// tu-skeleton: 0x00513AE1 19B ?ZoomOut@AptCreateAHero@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroCallbacks.cpp (not merged yet)
+// A create-a-hero sub-screen: vslot 3 shows it, vslot 4 hides it.
+class AptCreateAHeroPage
+{
+public:
+	virtual void v00(); virtual void v01(); virtual void v02();
+	virtual void show();
+	virtual void hide();
+	virtual void v05(); virtual void v06();
+	virtual void v07(const char *value);
+};
 
-// tu-skeleton: 0x00513AF4 23B ?rva00513AF4@AptCreateAHero@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroCallbacks.cpp (not merged yet)
+// Rowed 0x005B23D7 in Code/GameEngine/Source/Common/AptHeroPowerText.cpp.
+void __cdecl Rva005B23D7HeroPowersDescription(void *power, const AsciiString &unused, const AsciiString &fallback);
+
+class Rva005B6B93;
+
+class Rva005B2575;
+
+class CreateAHeroPage
+{
+public:
+	virtual ~CreateAHeroPage();
+};
+
+class GameWindowTransitionsHandler
+{
+public:
+#define V(n) virtual void slot##n();
+	V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7) V(8)
+#undef V
+	virtual void slot9();
+};
+
+extern GameWindowTransitionsHandler *TheTransitionHandler;
+
+class Rva002246B1
+{
+public:
+	int RemoveCustomRender(const AsciiString *name);
+};
+
+class AptPlayer;
+
+struct DestructorGlobalData
+{
+	unsigned char m_pad000[0x68];
+	bool m_enableBehindBuildingMarkers;
+	unsigned char m_pad069[0x9A5 - 0x69];
+	bool m_showSelectedUnitMarker;
+	unsigned char m_pad9a6[0x9BD - 0x9A6];
+	bool m_showObjectHealth;
+	unsigned char m_pad9be[0xD45 - 0x9BE];
+	bool m_D45;
+};
+
+extern bool skipCinematicSubsystemExclusions;
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroCallbacks.cpp
+
+//
+// BFME2's create-a-hero screen Apt callbacks, 0x00513A47 onward, bound by
+// these names ("AptCreateAHero::PrepareToTakePicture" ...) as member
+// pointers by the screen's registration; that binding is their only
+// reference. The class is named for the strings' prefix. The rotate and
+// zoom buttons pass "true" while held: only the first character is tested.
+
+// Retail calls _mbscpy through the import thunk at 0x00629176.
+
+// Retail 0x00513A47, 10 bytes: "AptCreateAHero::PrepareToTakePicture".
+void AptCreateAHero::PrepareToTakePicture(const char *unused)
+{
+	m_pictureFrames = 0;
+}
+
+// Retail 0x00513A51, 19 bytes: "AptCreateAHero::OnTakePicture", once two
+// frames have passed.
+void AptCreateAHero::OnTakePicture(const char *unused)
+{
+	if (m_pictureFrames >= 2)
+		m_takePicture = true;
+}
+
+// Retail 0x00513A64, 9 bytes: "CreateAHero::RenderPictureGuard" counts the
+// frames drawn since PrepareToTakePicture.
+void AptCreateAHero::RenderPictureGuard(const void *origin, const void *extent, void *unused3, void *unused4)
+{
+	++m_pictureFrames;
+}
+
+// Retail 0x00513A6D, 59 bytes: "CreateAHeroDemo", an Apt query answering
+// "0" when TheGlobalData's +0x9D1 is set, else "1".
+void AptCreateAHero::CreateAHeroDemo(int query, char *result, bool skip)
+{
+	if (result && query == 0 && !skip)
+		_mbscpy(reinterpret_cast<unsigned char *>(result), reinterpret_cast<const unsigned char *>(((AptCreateAHeroGlobalData *)TheWritableGlobalData)->m_9d1 ? "0" : "1"));
+}
+
+// Retail 0x00513AF4, 23 bytes: bound as "CreateAHero"; hands the value to
+// the current page's vslot 7 (a tail jump).
+void AptCreateAHero::rva00513AF4(const char *value)
+{
+	if (m_page)
+		reinterpret_cast<AptCreateAHeroPage *>(m_page)->v07(value);
+}
+
+// Retail 0x00513AA8, 19 bytes: "AptCreateAHero::RotateLeft".
+void AptCreateAHero::RotateLeft(const char *pressed)
+{
+	m_rotateLeft = *pressed == 't';
+}
+
+// Retail 0x00513ABB, 19 bytes: "AptCreateAHero::RotateRight".
+void AptCreateAHero::RotateRight(const char *pressed)
+{
+	m_rotateRight = *pressed == 't';
+}
+
+// Retail 0x00513ACE, 19 bytes: "AptCreateAHero::ZoomIn".
+void AptCreateAHero::ZoomIn(const char *pressed)
+{
+	m_zoomIn = *pressed == 't';
+}
+
+// Retail 0x00513AE1, 19 bytes: "AptCreateAHero::ZoomOut".
+void AptCreateAHero::ZoomOut(const char *pressed)
+{
+	m_zoomOut = *pressed == 't';
+}
+
+// Retail 0x005139B0, 151 bytes: "AptCreateAHero::OnShowScreen" switches to
+// the page the value's first letter names (A, B, C, M or P), hiding the
+// old one and showing the new.
+void AptCreateAHero::OnShowScreen(const char *screen)
+{
+	AptCreateAHeroPage *previous = reinterpret_cast<AptCreateAHeroPage *>(m_page);
+	switch (*screen)
+	{
+	case 'A':
+		m_page = m_pageA;
+		break;
+	case 'B':
+		m_page = m_pageB;
+		break;
+	case 'C':
+		m_page = m_pageC;
+		break;
+	case 'M':
+		m_page = m_pageM;
+		break;
+	case 'P':
+		m_page = m_pageP;
+		break;
+	}
+	if (previous != m_page)
+	{
+		m_previousPage = previous;
+		if (previous)
+			previous->hide();
+		if (m_page)
+			reinterpret_cast<AptCreateAHeroPage *>(m_page)->show();
+		m_myHero.rva005B1288();
+		Rva005B23D7HeroPowersDescription((void *)0, AsciiString::TheEmptyString, AsciiString::TheEmptyString);
+	}
+}
+
+// Retail 0x00513CDF, 118 bytes: AptCreateAHero::OpenScreen (WorldBuilder,
+// AptCreateAHero.cpp line 202; wb-name-unverified). Pushes CreateAHero.apt,
+// loads the create-a-hero map and starts it, then hands the mode to the
+// open screen.
+void AptCreateAHero::OpenScreen(int mode)
+{
+	TheShell->push(AsciiString("CreateAHero.apt"), false);
+	TheMessageStream->appendMessage(0x1D);
+	((AptCreateAHeroGlobalData *)TheWritableGlobalData)->m_mapName.set("Maps\\CreateAHero\\CreateAHero.map");
+	InitGameLogicRandom(0);
+	GameMessage *msg = TheMessageStream->appendMessage(0x1E);
+	msg->appendIntegerArgument(7);
+	if (s_instance)
+		s_instance->m_mode = mode;
+}
 
 // tu-skeleton: 0x00513B0B 28B ??0?$pair@$$CBVAsciiString@@W4BuildableStatus@@@_STL@@QAE@ABVAsciiString@@ABW4BuildableStatus@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicSetBuildableStatusOverride.cpp (not merged yet)
 
@@ -372,7 +579,42 @@ public:
 
 // tu-skeleton: 0x00513B94 23B ?length@Rva002226E5TextPlusString@@QBEHXZ -- matched in Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp (not merged yet)
 
-// tu-skeleton: 0x00513BAB 297B ??1AptCreateAHero@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroScreenDestructor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroScreenDestructor.cpp
+
+// The297B destructor, WB AptCreateAHero callgraph, constructor5142B0
+// and both retail vptrs C65D20/C65D1C establish the owner. Exact native
+// accesses establish the consumed member layout; the constructor proves
+// the trailing flags and full438B storage extent used here.
+// Use the constructor-owned s_instance datum (RVA A048D4 / VA E048D4).
+// The old separate address-named declaration is removed. Original names
+// of saved preview flags and the remaining manager method stay unresolved.
+
+AptCreateAHero::~AptCreateAHero()
+{
+	TheTransitionHandler->slot9();
+	if (s_instance == this)
+	{
+		for (int i = 0; i < 5; ++i)
+		{
+			::delete (*reinterpret_cast<CreateAHeroPage *(*)[5]>(&m_pageM))[i];
+			(*reinterpret_cast<CreateAHeroPage *(*)[5]>(&m_pageM))[i] = 0;
+		}
+		{
+			AsciiString name("CreateAHero::DrawMapComponent");
+			((Rva002246B1 *)reinterpret_cast<AptPlayer *>(g_bfmeAptWindowManager))->RemoveCustomRender(&name);
+		}
+		TheGlobalDataView->m_enableBehindBuildingMarkers = m_42e;
+		TheGlobalDataView->m_showSelectedUnitMarker = true;
+		TheGlobalDataView->m_showObjectHealth = m_42c;
+		TheGlobalDataView->m_D45 = m_42d;
+		skipCinematicSubsystemExclusions = m_42d;
+		TheCreateAHeroManager->rva0021F5F8();
+		TheCreateAHeroManager->m_184 = false;
+		s_instance = 0;
+	}
+}
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroConstructor.cpp
 
@@ -453,10 +695,6 @@ AptCreateAHero::AptCreateAHero(void *context)
 	}
 }
 
-// tu-skeleton: 0x00513CDF 118B ?OpenScreen@AptCreateAHero@@SAXH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroCallbacks.cpp (not merged yet)
-
-// tu-skeleton: 0x00513D55 58B ??0?$_Vector_base@GV?$allocator@G@_STL@@@_STL@@QAE@IABV?$allocator@G@1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_word_o1.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/System/Rva00513D8F.cpp
 
 int Rva00513D8F::copyToBuffer(unsigned short *dst)
@@ -480,12 +718,6 @@ int Rva00513E4A::copyToBuffer(unsigned short *dst)
 	return first + second;
 }
 
-// tu-skeleton: 0x00513DB4 28B ??_GAptCreateAHero@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroScreenDestructor.cpp (not merged yet)
-
-// tu-skeleton: 0x00513DD0 51B ??0?$vector@GV?$allocator@G@_STL@@@_STL@@QAE@I@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_word_o1.cpp (not merged yet)
-
-// tu-skeleton: 0x00513E03 34B ?length@Rva00513E03@@QBEHXZ -- matched in Code/GameEngine/Source/Common/System/Rva00513E03Length.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/System/Rva00513E6F.cpp
 
 // Complete exact native parent and associative EH graph establish
@@ -499,17 +731,15 @@ UnicodeString Rva00513E6F::rva00513E6F()
 	return tmp;
 }
 
+// tu-skeleton: 0x00513D55 58B ??0?$_Vector_base@GV?$allocator@G@_STL@@@_STL@@QAE@IABV?$allocator@G@1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_word_o1.cpp (not merged yet)
+
+// tu-skeleton: 0x00513DD0 51B ??0?$vector@GV?$allocator@G@_STL@@@_STL@@QAE@I@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_word_o1.cpp (not merged yet)
+
+// tu-skeleton: 0x00513E03 34B ?length@Rva00513E03@@QBEHXZ -- matched in Code/GameEngine/Source/Common/System/Rva00513E03Length.cpp (not merged yet)
+
 // tu-skeleton: 0x00513ED1 415B ?Rva00513ED1@@YA?AVUnicodeString@@ABV1@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroDrawMapComponent.cpp (not merged yet)
 
 // tu-skeleton: 0x00514070 576B ?DrawMapComponent@AptCreateAHero@@QAEXPBVCoord2D@@0PAX1@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroDrawMapComponent.cpp (not merged yet)
-
-// tu-skeleton: 0x0079501C 8B $L1344 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroScreenDestructor.cpp (not merged yet)
-
-// tu-skeleton: 0x00795024 14B $L1345 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroScreenDestructor.cpp (not merged yet)
-
-// tu-skeleton: 0x00795032 8B uw_00795032 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroScreenDestructor.cpp (not merged yet)
-
-// tu-skeleton: 0x0079503A 10B __ehhandler$??1AptCreateAHero@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroScreenDestructor.cpp (not merged yet)
 
 // tu-skeleton: 0x0079506F 8B Unwind@00b9506f -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroDrawMapComponent.cpp (not merged yet)
 
