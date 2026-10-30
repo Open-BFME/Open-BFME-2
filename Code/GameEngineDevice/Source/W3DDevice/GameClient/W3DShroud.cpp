@@ -67,6 +67,15 @@ class ShroudManager;
 extern class PartitionManager *TheShroudManager;
 #define TheShroudManager (*(ShroudManager * *)&TheShroudManager)
 #include <d3d9.h>
+//
+// ?rva000731AE@Rva000731AE@@QAEXXZ @0x000731AE 70B via tail clear plus three array deletes
+// Evidence: calls rowed delete[] 0x0002FD80 three times plus rowed clear 0x00072FE6; callers 0x00066700 0x000668AB 0x0006D668
+// Retail frees +0x18 +0x38 +0x3C via delete[] then zeroes then sets +0x35 to 1 then tail-jmps to clear of embedded map at +0x4C
+struct Rva00072FE6 {
+  void rva00072FE6();
+  unsigned char _pad[0x18];
+};
+#include <new>
 
 struct IDirect3DDevice8;
 
@@ -117,39 +126,6 @@ class BaseHeightMapRenderObjClass { public:
 };
 
 extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
-
-class W3DShroud
-{
-public:
-	Bool ReAcquireResources();
- void rva00073628(void *unused);
-	void init(WorldHeightMap *map, Real worldCellSizeX,
-		Real worldCellSizeY);
-
-protected:
-	void interpolateFogLevels(RECT *rect);
-
-private:
-	int m_numCellsX;
-	int m_numCellsY;
-	int m_numMaxVisibleCellsX;
-	int m_numMaxVisibleCellsY;
-	Real m_cellWidth;
-	Real m_cellHeight;
-	unsigned short *m_shroudData;
-	ShroudTextureHandle m_dstTexture;
-	int m_dstTextureWidth;
-	int m_dstTextureHeight;
-	int m_shroudFilter;
-	Real m_drawOriginX;
-	Real m_drawOriginY;
-	unsigned char m_drawFogOfWar;
-	unsigned char m_clearDstTexture;
-	unsigned char m_borderShroudLevel;
-	unsigned char m_pad37;
-	unsigned char *m_finalFogData;
-	unsigned char *m_currentFogData;
-};
 
 // ?rva000729CC@Rva000729CC@@QAEX_N@Z, RVA 0x000729CC, 14B. Two-byte flag setter:
 // [ecx+0x36]=arg byte then [ecx+0x35]=1, ret 4. Evidence: adjacent to 0x000729DA,
@@ -214,9 +190,90 @@ private:
 	Rva00072A94 m_value;	// +8
 };
 
-// tu-skeleton: 0x000728F0 152B ?ReAcquireResources@W3DShroud@@QAE_NXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudReAcquire.cpp (not merged yet)
+struct IDirect3DBaseTexture8;
+
+class TextureBaseClass { public: IDirect3DBaseTexture8 *Peek_D3D_Base_Texture() const; };
+
+class BfmeResetTextureRef { public: void clear(); };
+
+class Rva00131DFC { public: void rva00131DFC(void *, void *, void *, void *, int, int); };
+
+class W3DShroud
+{
+public:
+	Bool ReAcquireResources();
+ void rva00073628(void *unused);
+	void init(WorldHeightMap *map, Real worldCellSizeX,
+		Real worldCellSizeY);
+
+protected:
+	void interpolateFogLevels(RECT *rect);
+
+private:
+	int m_numCellsX;
+	int m_numCellsY;
+	int m_numMaxVisibleCellsX;
+	int m_numMaxVisibleCellsY;
+	Real m_cellWidth;
+	Real m_cellHeight;
+	unsigned short *m_shroudData;
+	ShroudTextureHandle m_dstTexture;
+	int m_dstTextureWidth;
+	int m_dstTextureHeight;
+	int m_shroudFilter;
+	Real m_drawOriginX;
+	Real m_drawOriginY;
+	unsigned char m_drawFogOfWar;
+	unsigned char m_clearDstTexture;
+	unsigned char m_borderShroudLevel;
+	unsigned char m_pad37;
+	unsigned char *m_finalFogData;
+	unsigned char *m_currentFogData;
+};
+
+struct Rva000731AE {
+  unsigned char _00[0x18];
+  char *p18;
+  unsigned char _1C[0x19];
+  bool b35;
+  unsigned char _36[2];
+  char *p38;
+  char *p3C;
+  unsigned char _40[0x0C];
+  Rva00072FE6 map4C;
+  void rva000731AE();
+};
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudReAcquire.cpp
+
+// ?ReAcquireResources@W3DShroud@@QAE_NXZ
+bool W3DShroud::ReAcquireResources()
+{
+	if (!m_dstTextureWidth)
+		return true;
+
+	BFMEDX8DeviceLock lock;
+	reinterpret_cast<Rva00131DFC *>(&m_dstTexture)->rva00131DFC(
+		(void *)m_dstTextureWidth, (void *)m_dstTextureHeight,
+		(void *)0x1a, (void *)1, 1, 0);
+
+	if (!reinterpret_cast<TextureBaseClass *>(&m_dstTexture)->Peek_D3D_Base_Texture())
+	{
+		reinterpret_cast<BfmeResetTextureRef *>(&m_dstTexture)->clear();
+		m_dstTextureWidth = 0;
+		m_dstTextureHeight = 0;
+		return false;
+	}
+	reinterpret_cast<ShroudTexture *>(&m_dstTexture)->getFilter()->u = 1;
+	reinterpret_cast<ShroudTexture *>(&m_dstTexture)->getFilter()->v = 1;
+	reinterpret_cast<ShroudTexture *>(&m_dstTexture)->getFilter()->SetMip(0);
+	m_clearDstTexture = 1;
+	return true;
+}
 
 // tu-skeleton: 0x00072988 68B ?getShroudLevel@W3DShroud@@QAEEHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualXfer.cpp (not merged yet)
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp
 
@@ -384,6 +441,13 @@ void W3DShroud::rva00073628(void *cam)
 	}
 }
 
+// ---- from Code/GameEngine/Source/Common/Rva00072A51HolderSet.cpp
+
+void Rva00072A51::rva00072A51(Rva00072A94 value)
+{
+	m_value = value;
+}
+
 // tu-skeleton: 0x000729EB 9B ?UnInstall_Materials@W3DShroudMaterialPassClass@@UBEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudMaterialPass.cpp (not merged yet)
 
 // tu-skeleton: 0x00072D5D 179B ?Rva00072D5DShroudPixel@@YAGE@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudMaterialPass.cpp (not merged yet)
@@ -420,7 +484,21 @@ void W3DShroud::rva00073628(void *cam)
 
 // tu-skeleton: 0x0007311B 147B ??1Rva0007311B@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/Rva0007311BDestructor.cpp (not merged yet)
 
-// tu-skeleton: 0x000731AE 70B ?rva000731AE@Rva000731AE@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva000731AEClear.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva000731AEClear.cpp
+
+void Rva000731AE::rva000731AE() {
+  if (p18)
+    operator delete[](p18);
+  p18 = 0;
+  if (p38)
+    operator delete[](p38);
+  p38 = 0;
+  if (p3C)
+    operator delete[](p3C);
+  p3C = 0;
+  b35 = true;
+  return map4C.rva00072FE6();
+}
 
 // tu-skeleton: 0x000731F4 184B ?setShroudLevel@W3DShroud@@QAEXHHE_N@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudCtor.cpp (not merged yet)
 
@@ -435,19 +513,6 @@ void W3DShroud::rva00073628(void *cam)
 // tu-skeleton: 0x00073421 5B ?rva00073421@Rva00073421@@QAEIABH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE31.cpp (not merged yet)
 
 // tu-skeleton: 0x00073426 514B ?interpolateFogLevels@W3DShroud@@IAEXPAUtagRECT@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudInterpolate.cpp (not merged yet)
-
-// tu-skeleton: 0x0075ED8B 8B uw_0075ed8b -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudReAcquire.cpp (not merged yet)
-
-// tu-skeleton: 0x0075ED93 10B __ehhandler$?ReAcquireResources@W3DShroud@@QAE_NXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudReAcquire.cpp (not merged yet)
-
-// tu-skeleton: 0x0075ED9D 8B uw_0075ed9d -- matched in Code/gen_small/uw_gen_006.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/Rva00072A51HolderSet.cpp
-
-void Rva00072A51::rva00072A51(Rva00072A94 value)
-{
-	m_value = value;
-}
 
 // tu-skeleton: 0x0075EDAF 8B $L403 -- matched in Code/GameEngine/Source/Common/Rva00072AEDDtor.cpp (not merged yet)
 
