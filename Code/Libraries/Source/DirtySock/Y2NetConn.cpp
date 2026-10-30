@@ -1,10 +1,19 @@
-// cl: /DNDEBUG /MD /GX /Od /GZ /GS
+// cl: /DNDEBUG /GX /Od /GZ /GS
+// platformsdk
 // EA's DirtySock netconn.  THE MODULE NAMES ITSELF AND SO DOES THE FUNCTION:
 // the body here logs "netconn: warning - calling NetConnStatus() while module
 // is not initialized", which gives both the source file this belongs to and
 // what this body is called.  The /Od /GZ signature is the same one the rest of
 // this directory carries.
 //
+//
+// Built without /MD: retail calls _mbscpy directly, not through its import
+// slot.  <windows.h> brings <nb30.h>, whose Netbios is reached through the
+// netapi32 import thunk.
+#include <windows.h>
+#include <string.h>
+#include <mbstring.h>
+
 // The three module words it reports are address-derived; nothing names them but
 // the selectors they answer.
 extern int g_Rva0130A590State;   // 'open'
@@ -23,7 +32,6 @@ unsigned int Rva007EB520NetConnMAC( void *adapter );   // 0x007EB520
 extern "C" void Rva007FD080( int priority );                     // 0x007FD080
 extern "C" void Rva007FD270( void );                             // 0x007FD270
 void Rva007F8D30( void );                             // 0x007F8D30
-extern "C" __declspec(dllimport) void __stdcall Sleep( unsigned int ms );
 
 // The idle-handler table 0x007F8D30 sweeps: sixteen slots of a function and a
 // ref, indexed with an eight-byte stride.  Sixteen is the loop's own bound.
@@ -69,7 +77,6 @@ extern const char g_Rva0112B918HexDigits[ 16 ] = {
 // g_Rva0130A59CDefault: matched references place it at VA 0xe09fb8; zero-filled at retail, sized to the
 // 0x4-byte gap before the next known global there.
 char g_Rva0130A59CDefault[4];
-extern "C" void *memcpy( void *dest, const void *src, unsigned int count );
 
 // FIVE SELECTORS, and the first one is answered BEFORE the initialisation
 // guard: 'open' reports the module's own state word, so a caller can ask
@@ -126,34 +133,6 @@ int Rva007EB410NetConnStatus( int selector, void *buffer, int bufferSize )
 	return -1;
 }
 
-// The NCB Win32's netbios API takes.  Its field offsets are not a guess: the
-// body below writes the command at +0x00, reads the return code at +0x01, sets
-// the buffer at +0x04 and the length at +0x08, copies a name to +0x0A and
-// steps the LANA number at +0x30 -- which is the documented layout, and 0x40 is
-// the size it memsets.
-struct NCB
-{
-	unsigned char  ncb_command;      // +0x00
-	unsigned char  ncb_retcode;      // +0x01
-	unsigned char  ncb_lsn;
-	unsigned char  ncb_num;
-	void          *ncb_buffer;       // +0x04
-	unsigned short ncb_length;       // +0x08
-	char           ncb_callname[ 16 ];  // +0x0A
-	char           ncb_name[ 16 ];   // +0x1A
-	unsigned char  ncb_rto;
-	unsigned char  ncb_sto;
-	void         (*ncb_post)( void );
-	unsigned char  ncb_lana_num;     // +0x30
-	unsigned char  ncb_cmd_cplt;
-	char           ncb_reserve[ 10 ];
-	void          *ncb_event;
-};
-
-extern "C" unsigned char __stdcall Netbios( NCB *ncb );
-extern "C" char *_mbscpy( char *dest, const char *src );
-extern "C" void *memset( void *dest, int value, unsigned int count );
-
 // 0x007EB520 IS NetConnMAC and it says so twice, in "NetConnMAC: The NCBRESET
 // return code is: 0x%x" and "NetConnMAC: Could not find any valid network
 // addapters!" -- retail's spelling of `adapters` included.  The first of those
@@ -181,15 +160,15 @@ unsigned int Rva007EB520NetConnMAC( void *adapter )
 	int result;
 	int lana;
 
-	memset( &ncb, 0, 0x40 );
-	ncb.ncb_command = 0x32;
+	memset( &ncb, 0, sizeof( ncb ) );
+	ncb.ncb_command = NCBRESET;
 
 	for( ncb.ncb_lana_num = 0; ncb.ncb_lana_num < 10; ncb.ncb_lana_num++ )
 	{
 		result = Netbios( &ncb );
 		if( result != 0 )
 		{
-			if( result != 0x23 )
+			if( result != NRC_BRIDGE )
 				Rva007FE780Printf(
 						"NetConnMAC: The NCBRESET return code is: 0x%x \n",
 						ncb.ncb_retcode );
@@ -203,11 +182,11 @@ unsigned int Rva007EB520NetConnMAC( void *adapter )
 	if( ncb.ncb_lana_num < 10 )
 	{
 		lana = ncb.ncb_lana_num;
-		memset( &ncb, 0, 0x40 );
-		ncb.ncb_command = 0x33;
+		memset( &ncb, 0, sizeof( ncb ) );
+		ncb.ncb_command = NCBASTAT;
 		ncb.ncb_lana_num = (unsigned char)lana;
-		_mbscpy( ncb.ncb_callname, "*               " );
-		ncb.ncb_buffer = adapter;
+		_mbscpy( ncb.ncb_callname, (const unsigned char *)"*               " );
+		ncb.ncb_buffer = (unsigned char *)adapter;
 		ncb.ncb_length = 0xF0;
 
 		if( Netbios( &ncb ) == 0 )
