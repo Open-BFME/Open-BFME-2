@@ -46,17 +46,60 @@ struct BfmeCrateCollideModuleData {
 	char m_pad43;
 	int m_pickupScience;
 };
-class CrateCollide {
+class Object;
+class ModuleData;
+class Xfer;
+struct Coord3D;
+struct BfmeCrateCollideModuleData;
+
+class BehaviorModule
+{
 public:
-	virtual ~CrateCollide();
+	BehaviorModule( Thing *thing, const ModuleData *moduleData );
+	virtual void behaviorModuleAnchor();
 protected:
+	const ModuleData *m_moduleData; // +0x04
+	Object *m_object; // +0x08
+};
+
+class InlineCollideModuleInterface
+{
+public:
+	virtual void collideModuleInterfaceAnchor();
+};
+
+class ModuleInterface
+{
+public:
+	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal) = 0;
+};
+
+class CollideModule : public BehaviorModule, public InlineCollideModuleInterface, public ModuleInterface
+{
+public:
+	// LINK: declaration-only base ctor (no body in this TU). CrateCollide's
+	// base-init below E8-calls it; with no local body the call binds the kept
+	// (retail) copy instead of this TU's loser copy, and the call bytes are
+	// unchanged (same reloc name). No flags touched.
+	CollideModule( Thing *thing, const ModuleData *moduleData );
+	void xfer(Xfer *xfer);
+};
+
+class CrateCollide : public CollideModule
+{
+public:
+	CrateCollide( Thing *thing, const ModuleData *moduleData );
+
+	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal);
+
+protected:
+	virtual void xfer(Xfer *xfer);
 	virtual bool isValidToExecute(const Object *other) const;
-	const BfmeCrateCollideModuleData *getCrateCollideModuleData() const { return *(const BfmeCrateCollideModuleData *const *)((const char *)this + 0x04); }
-	Object *getObject() const { return *(Object *const *)((const char *)this + 0x08); }
-	const void *m_moduleData;
-	Object *m_object;
-	char m_pad0C[0x14 - 0x0C];
-	bool m_everExecuted;
+	const BfmeCrateCollideModuleData *getCrateCollideModuleData() const { return reinterpret_cast<const BfmeCrateCollideModuleData *>(m_moduleData); }
+	Object *getObject() const { return m_object; }
+
+private:
+	bool m_everExecuted;			// +0x14, right after the three module bases
 };
 bool CrateCollide::isValidToExecute(const Object *other) const
 {

@@ -28,6 +28,8 @@ class RGBAColorInt;
 class Snapshot;
 class Thing;
 #include "ascii_string.h"
+#include "../../../../Common/GameLogicObjectLookupView.h"
+#include "../../../../../../Libraries/Include/Lib/Coord3D.h"
 class ModuleData;
 
 #include "../../../../../Include/Common/BfmeXfer.h"
@@ -42,15 +44,19 @@ public:
 	unsigned char m_minimum;
 };
 
+class Object;
+class Xfer;
+struct Coord3D;
+struct BfmeCrateCollideModuleData;
+
 class BehaviorModule
 {
 public:
-	BehaviorModule(Thing *thing, const ModuleData *moduleData);
-
+	BehaviorModule( Thing *thing, const ModuleData *moduleData );
 	virtual void behaviorModuleAnchor();
-
-private:
-	unsigned char m_data[8];
+protected:
+	const ModuleData *m_moduleData; // +0x04
+	Object *m_object; // +0x08
 };
 
 class InlineCollideModuleInterface
@@ -59,8 +65,6 @@ public:
 	virtual void collideModuleInterfaceAnchor();
 };
 
-class Object;
-struct Coord3D;
 
 // The collide interface at +0x10 (vftable 0x00C5A600): onCollide is slot 0.
 class ModuleInterface
@@ -69,12 +73,14 @@ public:
 	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal) = 0;
 };
 
-class CollideModule : public BehaviorModule,
-	public InlineCollideModuleInterface,
-	public ModuleInterface
+class CollideModule : public BehaviorModule, public InlineCollideModuleInterface, public ModuleInterface
 {
 public:
-	CollideModule(Thing *thing, const ModuleData *moduleData);
+	// LINK: declaration-only base ctor (no body in this TU). CrateCollide's
+	// base-init below E8-calls it; with no local body the call binds the kept
+	// (retail) copy instead of this TU's loser copy, and the call bytes are
+	// unchanged (same reloc name). No flags touched.
+	CollideModule( Thing *thing, const ModuleData *moduleData );
 	void xfer(Xfer *xfer);
 };
 
@@ -87,15 +93,18 @@ public:
 class CrateCollide : public CollideModule
 {
 public:
-	CrateCollide(Thing *thing, const ModuleData *moduleData);
+	CrateCollide( Thing *thing, const ModuleData *moduleData );
 
 	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal);
 
 protected:
 	virtual void xfer(Xfer *xfer);
+	virtual bool isValidToExecute(const Object *other) const;
+	const BfmeCrateCollideModuleData *getCrateCollideModuleData() const { return reinterpret_cast<const BfmeCrateCollideModuleData *>(m_moduleData); }
+	Object *getObject() const { return m_object; }
 
 private:
-	bool m_everExecuted;
+	bool m_everExecuted;			// +0x14, right after the three module bases
 };
 
 void CrateCollide::xfer(Xfer *xfer)
@@ -115,15 +124,46 @@ void CrateCollide::xfer(Xfer *xfer)
 // primary-table slots +0x34/+0x30; module data +0x48 execute FX, +0x4C pickup
 // animation name, +0x50/+0x54 its display time and z rise. The animation
 // lookup is the address-named 0x002D752D on TheAnim2DCollection.
-struct CrateCollideModuleData
+class Rva0024C7B3Member
 {
-	unsigned char m_pad00[0x48];
-	const class FXList *m_executeFX;		// +0x48
-	AsciiString m_pickupAnimation;			// +0x4C
-	float m_pickupAnimDisplayTimeInSeconds;		// +0x50
-	float m_pickupAnimZRise;			// +0x54
+public:
+	Rva0024C7B3Member();
+
+private:
+	unsigned char m_data[0x1C];
 };
-struct CrateCollideModuleFields { void *m_vptr; const CrateCollideModuleData *m_moduleData; Object *m_object; };
+
+class UpdateModuleData
+{
+public:
+	__declspec(dllimport) __forceinline UpdateModuleData() {}
+	~UpdateModuleData();
+
+private:
+};
+
+class FXList;
+class CrateCollideModuleData : public UpdateModuleData
+{
+public:
+	CrateCollideModuleData();
+	friend class CrateCollide;
+
+private:
+	const void *m_vtable;				// +0x00
+	unsigned int m_unused04;			// +0x04
+	Rva0024C7B3Member m_requiredKindOf;		// +0x08
+	Rva0024C7B3Member m_forbiddenKindOf;		// +0x24
+	bool m_forbidOwnerPlayer;			// +0x40
+	bool m_buildingPickup;				// +0x41
+	bool m_humanOnly;				// +0x42
+	int m_pickupScience;				// +0x44
+	const FXList *m_executeFX;				// +0x48
+	AsciiString m_executeAnimation;			// +0x4C
+	float m_executeAnimationTime;			// +0x50
+	float m_executeAnimationZRise;			// +0x54
+	bool m_executeAnimationFades;			// +0x58
+};
 struct CrateCollideSlots
 {
 #define SLOT(N) virtual void slot##N();
@@ -133,7 +173,6 @@ struct CrateCollideSlots
 	virtual bool isValidToExecute(const Object *other) const;	// +0x34
 };
 class FXList { public: static void doFXObj(const FXList *fx, const Object *primary, const Object *secondary); };
-#include "../../../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 struct GameLogicDrawIconUIView { unsigned char m_pad00[0x9A]; bool m_drawIconUI; };
 struct Rva002D752DNode;
@@ -142,14 +181,13 @@ class Anim2DCollection;
 extern Anim2DCollection *TheAnim2DCollection;
 class Anim2DTemplate;
 enum WorldAnimationOptions { WORLD_ANIM_FADE_ON_EXPIRE = 1 };
-#include "../../../../../../Libraries/Include/Lib/Coord3D.h"
 struct ObjectPositionView { unsigned char m_pad00[0x38]; Coord3D m_pos; };
 class InGameUI { public: void addWorldAnimation(Anim2DTemplate *anim, const Coord3D *pos, WorldAnimationOptions options, float durationInSeconds, float zRisePerSecond); };
 extern InGameUI *TheInGameUI;
 
 void CrateCollide::onCollide(Object *other, const Coord3D *loc, const Coord3D *normal)
 {
-	const CrateCollideModuleData *modData = reinterpret_cast<CrateCollideModuleFields *>(this)->m_moduleData;
+	const CrateCollideModuleData *modData = reinterpret_cast<const CrateCollideModuleData *>(m_moduleData);
 	CrateCollideSlots *crate = reinterpret_cast<CrateCollideSlots *>(this);
 
 	// If the crate can be picked up, perform the game logic and destroy the crate.
@@ -160,20 +198,20 @@ void CrateCollide::onCollide(Object *other, const Coord3D *loc, const Coord3D *n
 			if( modData->m_executeFX != 0 )
 				FXList::doFXObj( modData->m_executeFX, other, 0 );
 			m_everExecuted = true;
-			TheGameLogic->destroyObject( reinterpret_cast<CrateCollideModuleFields *>(this)->m_object );
+			TheGameLogic->destroyObject( m_object );
 		}
 
 		// play animation in the world at this spot if there is one
-		if( TheAnim2DCollection && modData->m_pickupAnimation.isEmpty() == false &&
+		if( TheAnim2DCollection && modData->m_executeAnimation.isEmpty() == false &&
 			reinterpret_cast<GameLogicDrawIconUIView *>(TheGameLogic)->m_drawIconUI )
 		{
 			Anim2DTemplate *animTemplate = reinterpret_cast<Anim2DTemplate *>(
-				reinterpret_cast<Rva002D752D *>(TheAnim2DCollection)->rva002D752D( *reinterpret_cast<const StringBase<char> *>(&modData->m_pickupAnimation) ));
+				reinterpret_cast<Rva002D752D *>(TheAnim2DCollection)->rva002D752D( *reinterpret_cast<const StringBase<char> *>(&modData->m_executeAnimation) ));
 			TheInGameUI->addWorldAnimation( animTemplate,
-				&reinterpret_cast<ObjectPositionView *>(reinterpret_cast<CrateCollideModuleFields *>(this)->m_object)->m_pos,
+				&reinterpret_cast<ObjectPositionView *>(m_object)->m_pos,
 				WORLD_ANIM_FADE_ON_EXPIRE,
-				modData->m_pickupAnimDisplayTimeInSeconds,
-				modData->m_pickupAnimZRise );
+				modData->m_executeAnimationTime,
+				modData->m_executeAnimationZRise );
 		}
 	}
 }

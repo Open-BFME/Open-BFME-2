@@ -17,15 +17,19 @@ class Thing;
 class ModuleData;
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h
+class Object;
+class Xfer;
+struct Coord3D;
+struct BfmeCrateCollideModuleData;
+
 class BehaviorModule
 {
 public:
 	BehaviorModule( Thing *thing, const ModuleData *moduleData );
-
 	virtual void behaviorModuleAnchor();
-
-private:
-	unsigned char m_data[8];
+protected:
+	const ModuleData *m_moduleData; // +0x04
+	Object *m_object; // +0x08
 };
 
 class InlineCollideModuleInterface
@@ -34,16 +38,15 @@ public:
 	virtual void collideModuleInterfaceAnchor();
 };
 
+
 class ModuleInterface
 {
 public:
-	virtual void moduleInterfaceAnchor();
+	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal) = 0;
 };
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/CollideModule.h
-class CollideModule : public BehaviorModule,
-	public InlineCollideModuleInterface,
-	public ModuleInterface
+class CollideModule : public BehaviorModule, public InlineCollideModuleInterface, public ModuleInterface
 {
 public:
 	// LINK: declaration-only base ctor (no body in this TU). CrateCollide's
@@ -51,6 +54,7 @@ public:
 	// (retail) copy instead of this TU's loser copy, and the call bytes are
 	// unchanged (same reloc name). No flags touched.
 	CollideModule( Thing *thing, const ModuleData *moduleData );
+	void xfer(Xfer *xfer);
 };
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/CrateCollide.h
@@ -58,6 +62,14 @@ class CrateCollide : public CollideModule
 {
 public:
 	CrateCollide( Thing *thing, const ModuleData *moduleData );
+
+	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal);
+
+protected:
+	virtual void xfer(Xfer *xfer);
+	virtual bool isValidToExecute(const Object *other) const;
+	const BfmeCrateCollideModuleData *getCrateCollideModuleData() const { return reinterpret_cast<const BfmeCrateCollideModuleData *>(m_moduleData); }
+	Object *getObject() const { return m_object; }
 
 private:
 	bool m_everExecuted;			// +0x14, right after the three module bases
@@ -151,10 +163,12 @@ public:
 private:
 };
 
+class FXList;
 class CrateCollideModuleData : public UpdateModuleData
 {
 public:
 	CrateCollideModuleData();
+	friend class CrateCollide;
 
 private:
 	const void *m_vtable;				// +0x00
@@ -165,7 +179,7 @@ private:
 	bool m_buildingPickup;				// +0x41
 	bool m_humanOnly;				// +0x42
 	int m_pickupScience;				// +0x44
-	void *m_executeFX;				// +0x48
+	const FXList *m_executeFX;				// +0x48
 	AsciiString m_executeAnimation;			// +0x4C
 	float m_executeAnimationTime;			// +0x50
 	float m_executeAnimationZRise;			// +0x54
