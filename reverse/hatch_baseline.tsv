@@ -918,11 +918,11 @@ address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptGuiFXCa
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptInGameChat.cpp	g_Va00E04478	9
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLoadScreen.cpp	g_Va00E0330C	2
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLoadScreenCtor.cpp	g_Va00E0330C	2
+address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenu.cpp	g_Va00E048DC	3
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuCallbacks.cpp	g_Va00DD1538	2
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuCallbacks.cpp	g_Va00E048DC	4
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuCallbacks_ExitGame.cpp	g_Va00DD1538	1
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuCallbacks_ExitGame.cpp	g_Va00E048DC	1
-address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuConstructor.cpp	g_Va00E048DC	3
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessageBoxMovieClip.cpp	g_Va00E032C8	3
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerCallbacks.cpp	g_Va00DD13D8	4
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerCallbacks.cpp	g_Va00E046BC	7
@@ -12494,9 +12494,6 @@ present_unmatched	Code/GameEngine/Source/Common/Rva004F6352Swap.cpp	1Rva004F6352
 present_unmatched	Code/GameEngine/Source/Common/Rva004F6352Swap.cpp	1TreeHintRef00217D4C@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/Rva004F9378Dtor.cpp	1Rva004F9378Base@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/Rva00500804TreeDtor.cpp	1Rva00500804Header@@QAE@XZ	1
-present_unmatched	Code/GameEngine/Source/Common/Rva00514E20Restart.cpp	1ThreadRestartObj@@UAE@XZ	1
-present_unmatched	Code/GameEngine/Source/Common/Rva00514E20Restart.cpp	stop@ThreadRestartObj@@UAEPAXH@Z	1
-present_unmatched	Code/GameEngine/Source/Common/Rva00514E20Restart.cpp	unused0@ThreadRestartObj@@UAEPAXXZ	1
 present_unmatched	Code/GameEngine/Source/Common/Rva00517345Ctor.cpp	rva00517345slot@Rva00517345@@UAEXXZ	1
 present_unmatched	Code/GameEngine/Source/Common/Rva0052634FPermuted.cpp	releaseBuffer@?$StringBase@D@@AAEXXZ	1
 present_unmatched	Code/GameEngine/Source/Common/Rva00542425Skip.cpp	Rva00542425Caller@@YAPADPAD@Z	1
@@ -12821,6 +12818,9 @@ present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCrea
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroManagerConstructor.cpp	Rva005B6B93::OnSortName	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroManagerConstructor.cpp	Rva005B6B93::OnSortType	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroManagerConstructor.cpp	Rva005B6B93::~Rva005B6B93	1
+present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenu.cpp	1ThreadRestartObj@@UAE@XZ	1
+present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenu.cpp	stop@ThreadRestartObj@@UAEPAXH@Z	1
+present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenu.cpp	unused0@ThreadRestartObj@@UAEPAXXZ	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessageBoxMovieClip.cpp	TreeHintRef00217D4C::TreeHintRef00217D4C	2
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessageBoxMovieClip.cpp	TreeHintRef00217D4C::~TreeHintRef00217D4C	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessageBoxMovieClip.cpp	text)	1
