@@ -277,6 +277,11 @@ void calcRandomForce(Real minMag, Real maxMag, Real minPitch, Real maxPitch, Coo
 
 
 #line 624 "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\ObjectCreationList.cpp"
+// Forward declaration: skeleton composition emits declarations ahead of
+// bodies, so the class-inline callers below need this before the def.
+void calcRandomForce(Real minMag, Real maxMag, Real minPitch, Real maxPitch, Coord3D* force);
+static void adjustVector(Coord3D *vec, const Matrix3D* mtx);
+
 //-------------------------------------------------------------------------------------------------
 class ApplyRandomForceNugget : public ObjectCreationNugget
 {
