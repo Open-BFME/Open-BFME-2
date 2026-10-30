@@ -58878,7 +58878,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x006E6CF0,82,code,Code/Libraries/Source/Apt/AptValue/AptValueVector.cpp,approved,N,N=Code/Libraries/Source/Apt/AptValue/AptValueVector.cpp W=Code/Libraries/Source/Apt/AptValue/AptValueVector.cpp,Code/Libraries/Source/Apt/AptValue/AptValueVector.cpp
 0x006E6D50,64,code,Code/Libraries/Source/Apt/AptValue/AptValueVector.cpp,approved,F,F=Code/Libraries/Source/Apt/AptValue/AptValueVector.cpp N=Code/Libraries/Source/Apt/AptValue/AptValueVector.cpp W=Code/Libraries/Source/Apt/AptValue/AptValueVector.cpp,Code/Libraries/Source/Apt/AptValue/AptValueVector.cpp
 0x006E6D90,134,code,Code/Libraries/Source/Apt/AptValue/AptValueVector.cpp,approved,F,F=Code/Libraries/Source/Apt/AptValue/AptValueVector.cpp N=Code/Libraries/Source/Apt/AptValue/AptValueVector.cpp,Code/Libraries/Source/Apt/AptValue/AptValueVector.cpp
-0x006E6E20,346,code,Code/Libraries/Source/Apt/AptGC.cpp,approved,F,F=Code/Libraries/Source/Apt/AptGC.cpp W=Code/Libraries/Source/Apt/AptGC.cpp,Code/Libraries/Source/Apt/AptGCRva006E6E20.cpp
+0x006E6E20,346,code,Code/Libraries/Source/Apt/AptGC.cpp,approved,F,F=Code/Libraries/Source/Apt/AptGC.cpp W=Code/Libraries/Source/Apt/AptGC.cpp,Code/Libraries/Source/Apt/AptGC.cpp
 0x006E6F80,201,code,Code/GameEngine/Source/Common/AptGC.cpp,proposed,N,N=Code/GameEngine/Source/Common/AptGC.cpp,Code/GameEngine/Source/Common/AptGC_CleanAll.cpp
 0x006E7050,1536,code,,,-,,Code/GameEngine/Source/Common/BfmeConv1229.cpp
 0x006E7650,99,code,,,-,,Code/GameEngine/Source/Common/BfmeConv1229.cpp
