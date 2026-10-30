@@ -4125,3 +4125,4 @@ __ehhandler$?rva00104A75@Rva0010461F@@QAEXXZ,0x00764339,"Renamed to __ehhandler$
 __ehhandler$?rva0020461E@Rva0020461E@@UAE?AVAsciiString@@PAM00@Z,0x0076C76A,"Renamed to __ehhandler$?getStats@Rva0020461E@@UAE?AVAsciiString@@PAM00@Z by tools/rename.py (inferred)"
 ?rva00542148@Rva005422CF@@QAEXXZ,0x00542148,"Renamed to ?reset@Rva005422CF@@QAEXXZ by tools/rename.py (inferred)"
 ?rva0041580E@Rva0041580E@@QAEXPAURva0041580ENode@@@Z,0x0041580E,"Renamed to ?eraseSubtree@Rva0041580E@@QAEXPAURva0041580ENode@@@Z by tools/rename.py (inferred)"
+$L310,0x0078E722,"Renamed to $L2927: tu_skeleton merge into SpecialDisguiseUpdate.cpp renumbered the parent's cleanup label; the merged TU's EXACT parent EH data places $L2927 at 0x0078E722"

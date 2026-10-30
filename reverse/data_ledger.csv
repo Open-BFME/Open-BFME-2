@@ -20361,8 +20361,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A03D68,4,.data,global,?TheRespawnUpdatePoolKey@?1??getModuleNameKey@RespawnUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,owned,,1,2
 0x00A03D6C,4,.data,global,?$S1@?1??getModuleNameKey@RespawnUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,owned,,1,4
 0x00A03D70,4,.data,global,_s_rva007B1DF8,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
-0x00A03D74,4,.data,global,?TheSpecialDisguiseUpdatePoolKey@?1??getModuleNameKey@SpecialDisguiseUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/SpecialDisguiseUpdatePoolKey.cpp,owned,,1,2
-0x00A03D78,4,.data,global,?$S1@?1??getModuleNameKey@SpecialDisguiseUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/SpecialDisguiseUpdatePoolKey.cpp,owned,,1,4
+0x00A03D74,4,.data,global,?TheSpecialDisguiseUpdatePoolKey@?1??getModuleNameKey@SpecialDisguiseUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/SpecialDisguiseUpdate.cpp,owned,,1,2
+0x00A03D78,4,.data,global,?$S1@?1??getModuleNameKey@SpecialDisguiseUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/SpecialDisguiseUpdate.cpp,owned,,1,4
 0x00A03D7C,4,.data,global,_s_rva007B1E22,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A03D80,4,.data,global,?Rva00A03D80@@3HA,Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateXfer.cpp,owned,,1,2
 0x00A03D84,4,.data,global,?TheAIGateUpdatePoolKey@?1??getModuleNameKey@AIGateUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdatePoolKey.cpp,owned,,1,2

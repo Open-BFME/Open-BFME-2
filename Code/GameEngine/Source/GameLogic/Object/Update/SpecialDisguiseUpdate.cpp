@@ -5,9 +5,7 @@
 #include "../../../Common/GameLogicObjectLookupView.h"
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 #define SLOT08(a,b,c,d,e,f,g,h) virtual void a(); virtual void b(); virtual void c(); virtual void d(); virtual void e(); virtual void f(); virtual void g(); virtual void h();
-
 enum ArmorSetType { ARMORSET_NONE = 0 };
-
 class AIUpdateInterface
 {
 public:
@@ -34,7 +32,6 @@ public:
 	virtual void s8B(); virtual void s8C(); virtual void s8D();
 	virtual void rva004B04B2Slot142(int value); // slot 142 (+0x238)
 };
-
 class ContainModuleInterface
 {
 public:
@@ -52,7 +49,6 @@ public:
 	virtual void s44();
 	virtual unsigned int rva69(int which); // slot 69
 };
-
 class Rva0036CA00Str
 {
 public:
@@ -60,7 +56,6 @@ public:
 	~Rva0036CA00Str() { if (m_ref) m_ref->Release_Ref(); }
 	OpaqueRefCounted *m_ref;
 };
-
 class Rva002390CB
 {
 public:
@@ -69,14 +64,12 @@ public:
 	int m_0;
 	Rva0036CA00Str m_4;
 };
-
 class Thing
 {
 public:
 	void setOrientation(float angle); // 0x0030AB9D
 	unsigned char m_thingPad[0xB0];
 };
-
 class Drawable : public Thing
 {
 public:
@@ -91,20 +84,15 @@ public:
 	unsigned char m_pad43D[0x44C - 0x43D];
 	int m_44C; // +0x44C
 };
-
 class ThingTemplate;
-
 class ThingFactory
 {
 public:
 	void *newDrawable(void *tmplate, int a, int b); // 0x002CF21B
 	const ThingTemplate *findTemplate(const AsciiString &key);
 };
-
 extern ThingFactory *TheThingFactory;
-
 extern GameLogic *TheGameLogic;
-
 class GameClient
 {
 public:
@@ -114,9 +102,7 @@ public:
 	virtual void s18(); virtual void s19(); virtual void s1A(); virtual void s1B(); virtual void s1C();
 	virtual void destroyDrawable(Drawable *draw); // slot 29 (+0x74)
 };
-
 extern GameClient *TheGameClient;
-
 class InGameUI
 {
 public:
@@ -131,35 +117,28 @@ public:
 	virtual void s40(); virtual void s41();
 	virtual void selectDrawable(Drawable *draw); // slot 66 (+0x108)
 };
-
 extern InGameUI *TheInGameUI;
-
 class WeaponTemplateSetHead
 {
 public:
 	WeaponTemplateSetHead(const WeaponTemplateSetHead &other); // 0x00045455
 	unsigned char m_data[0x4C];
 };
-
 class Rva001E42F2
 {
 public:
 	void rva001E42F2(const int *block);
 };
-
 class Rva001E431E
 {
 public:
 	void rva001E431E(const int *block);
 };
-
 enum WeaponSetType
 {
 	WEAPONSET_NONE = 0
 };
-
 class Player;
-
 class PlayerList
 {
 public:
@@ -168,9 +147,7 @@ private:
 	unsigned char m_pad00[0x10];
 	Player *m_local; // +0x10
 };
-
 extern PlayerList *ThePlayerList;
-
 class ModelConditionFlags
 {
 public:
@@ -193,9 +170,7 @@ public:
 private:
 	unsigned int m_words[19];
 };
-
 enum KindOfType { KINDOF_RVA_0 = 0 };
-
 class Object
 {
 public:
@@ -245,31 +220,25 @@ public:
 	unsigned char m_pad254[0x258 - 0x254];
 	AIUpdateInterface *m_ai; // +0x258
 };
-
 class Rva002D9531
 {
 public:
 	void rva002D9531(int objectID); // AudioEventRTS::setObjectID
 };
-
 template <int N> class DisguiseAudioSlots : public DisguiseAudioSlots<N - 1>
 {
 public:
 	virtual void gap(char (*)[N]);
 };
-
 template <> class DisguiseAudioSlots<0>
 {
 };
-
 class AudioManager : public DisguiseAudioSlots<25>
 {
 public:
 	virtual int addAudioEvent(const BfmeAudioEventPrefix136 *event); // slot 25
 };
-
 extern AudioManager *TheAudio;
-
 typedef unsigned char UnsignedByte;
 class Snapshot;
 class UnicodeString;
@@ -288,6 +257,7 @@ class RGBAColorReal;
 class RGBAColorInt;
 struct XferUnknown11;
 #include "../../../../Include/Common/BfmeXfer.h"
+class AsciiString;
 
 class Xfer::Version
 {
@@ -373,7 +343,40 @@ private:
 	int m_90; // +0x90, xfer'd as a bool
 };
 
-// tu-skeleton: 0x004B018E 69B ?getModuleNameKey@SpecialDisguiseUpdate@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/SpecialDisguiseUpdatePoolKey.cpp (not merged yet)
+struct Rva004B0333Inner
+{
+	char m_pad[0xD4];
+	AsciiString m_key;
+};
+
+class Rva004B0333
+{
+public:
+	void *rva004B0333();
+private:
+	char m_pad0[4];
+	Rva004B0333Inner *m_ptr;
+};
+
+class SpecialDisguiseUpdate;
+
+class Matrix3D;
+
+class FXList
+{
+public:
+	static void doFXPos(const FXList *fx, const Coord3D *primary, const Matrix3D *mtx, float speed, const Coord3D *secondary);
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/SpecialDisguiseUpdatePoolKey.cpp
+
+// ?getModuleNameKey@SpecialDisguiseUpdate@@UBE?AW4NameKeyType@@XZ
+NameKeyType SpecialDisguiseUpdate::getModuleNameKey() const
+{
+	static NameKeyType TheSpecialDisguiseUpdatePoolKey =
+		TheNameKeyGenerator->nameToKey("SpecialDisguiseUpdate");
+	return TheSpecialDisguiseUpdatePoolKey;
+}
 
 // tu-skeleton: 0x004B01D3 6B ?name@Rva004B01D3Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
 
@@ -381,7 +384,20 @@ private:
 
 // tu-skeleton: 0x004B01E6 14B ?rva004B01E6@Rva004B01E6Owner@@QAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/RailedTransportDockUpdate.cpp (not merged yet)
 
-// tu-skeleton: 0x004B01F4 97B ?xfer@SpecialDisguiseUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/SpecialDisguiseUpdateXfer.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/SpecialDisguiseUpdateXfer.cpp
+
+void SpecialDisguiseUpdate::xfer(Xfer *xfer)
+{
+	UpdateModule::xfer(xfer);
+	if (xfer->IsLightCRC())
+		return;
+	Xfer::Version version(1, 2);
+	xfer->operator==(version);
+	xfer->operator==(reinterpret_cast<bool &>(m_90));
+	xfer->operator==(reinterpret_cast<float &>(m_8C));
+	if (version.m_version >= 2)
+		SpecialAbilityUpdate::xfer(xfer);
+}
 
 // tu-skeleton: 0x004B0255 61B ??0SpecialDisguiseUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/SpecialDisguiseUpdateModuleDataCtor.cpp (not merged yet)
 
@@ -391,15 +407,51 @@ private:
 
 // tu-skeleton: 0x004B0303 27B ?rva004B0303@Rva004B0303@@UAEXXZ -- matched in Code/GameEngine/Source/Common/GapBodiesS3C.cpp (not merged yet)
 
-// tu-skeleton: 0x004B031E 21B ?rva004B031E@SpecialDisguiseUpdate@@QAEPAXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/Rva004B031EGet.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/Rva004B031EGet.cpp
 
-// tu-skeleton: 0x004B0333 21B ?rva004B0333@Rva004B0333@@QAEPAXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/Rva004B0333Get.cpp (not merged yet)
+// ?rva004B031E@SpecialDisguiseUpdate@@QAEPAXXZ, retail 0x004B031E, 21 bytes.
+// Honest-address thiscall with no stack args returning void*: loads
+// AsciiString at [this+4]+0xD0 and looks it up through global g_009FF000
+// slot rva002D06CA. Evidence: rowed callee 0x002D06CA, extern name in use
+// g_009FF000 (?g_009FF000@@3PAVRva002D06CA@@A), callers 0x004B052E/0x004B0570
+// test eax (non-void return), neighbours ModuleUpdateDtors / SpecialDisguise.
+
+void *SpecialDisguiseUpdate::rva004B031E()
+{
+	const SpecialDisguiseUpdateModuleData *data = (const SpecialDisguiseUpdateModuleData *)m_moduleData;
+	return (void *)TheThingFactory->findTemplate(data->m_disguiseAsTemplate);
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/Rva004B0333Get.cpp
+
+// ?rva004B0333@Rva004B0333@@QAEPAXXZ, retail 0x004B0333, 21 bytes.
+// Honest-address thiscall with no stack args returning void*: loads
+// AsciiString at [this+4]+0xD4 and looks it up through global g_009FF000
+// slot rva002D06CA. Evidence: rowed callee 0x002D06CA, extern name in use
+// g_009FF000 (?g_009FF000@@3PAVRva002D06CA@@A), sibling 0x004B031E same
+// recipe at +0xD0, caller 0x00291242, neighbours SpecialDisguiseUpdate's 0x004B031E / SpecialDisguise.
+
+void *Rva004B0333::rva004B0333()
+{
+	AsciiString *key = &m_ptr->m_key;
+	return (void *)TheThingFactory->findTemplate(*key);
+}
 
 // tu-skeleton: 0x004B0348 204B ?handlePackingProcessing@Rva004B0164@@QAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Rva004ADB1BLerp.cpp (not merged yet)
 
-// tu-skeleton: 0x004B0414 56B ?onExit@SpecialDisguiseUpdate@@MAEX_N0@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/SpecialDisguiseUpdateOnExit.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/SpecialDisguiseUpdateOnExit.cpp
+
+// ?onExit@SpecialDisguiseUpdate@@MAEX_N0@Z @0x004B0414
+void SpecialDisguiseUpdate::onExit(bool a, bool b)
+{
+	SpecialAbilityUpdate::onExit(a, b);
+	if (m_object->getDrawable())
+		m_object->getDrawable()->m_B0 = 1.0f;
+}
 
 // tu-skeleton: 0x004B0468 74B ??1SpecialDisguiseUpdateModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/SpecialDisguiseUpdateModuleDataDtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/SpecialDisguiseUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/SpecialDisguiseUpdateTriggerAbilityEffect.cpp
 
@@ -514,11 +566,36 @@ void SpecialDisguiseUpdate::rva004B04B2(bool value)
 	}
 }
 
-// tu-skeleton: 0x004B05F5 94B ?rva004B05F5@SpecialDisguiseUpdate@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/SpecialDisguiseUpdateRva004B05F5.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/SpecialDisguiseUpdateRva004B05F5.cpp
 
-// tu-skeleton: 0x0078E722 13B $L310 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/SpecialDisguiseUpdatePoolKey.cpp (not merged yet)
+//
+// ?rva004B05F5@SpecialDisguiseUpdate@@QAEX_N@Z, retail 0x004B05F5, 94 bytes.
+// Original name unknown. Caller: SpecialPowerModule 0x0049402B passes false
+// on the module it found under NAMEKEY "SpecialDisguiseUpdate", so the class
+// is target evidence. Shape from the WorldBuilder debug body (0x01105FA0,
+// unnamed; callgraph lead): when the owner (+0x08) has model condition 300
+// set it clears it inline (Object.h clearModelConditionState: words at
+// Object+0x10C, rowed notifier 0x0028AE6D); unless the argument is true it
+// then calls the pinned 0x004B04B2 with true and plays the module data's
+// +0xD8 FXList at the owner position (+0x38) through the rowed static
+// FXList::doFXPos 0x00094C29, which carries the null guard. The +0xD8 member
+// is an FXList pointer by that call; the bool argument meaning is inferred.
 
-// tu-skeleton: 0x0078E72F 10B __ehhandler$?getModuleNameKey@SpecialDisguiseUpdate@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/SpecialDisguiseUpdatePoolKey.cpp (not merged yet)
+// ?rva004B05F5@SpecialDisguiseUpdate@@QAEX_N@Z @0x004B05F5
+void SpecialDisguiseUpdate::rva004B05F5(bool keep)
+{
+	Object *obj = m_object;
+	if (obj->testModelConditionState(300))
+	{
+		obj->clearModelConditionState(300);
+		if (!keep)
+		{
+			rva004B04B2(true);
+			FXList::doFXPos(((const SpecialDisguiseUpdateModuleData *)m_moduleData)->m_disguiseFX,
+				obj->getPosition(), 0, 0.0f, 0);
+		}
+	}
+}
 
 // tu-skeleton: 0x0078E739 8B Unwind@00b8e739 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/SpecialDisguiseUpdateModuleDataDtor.cpp (not merged yet)
 
