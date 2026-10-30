@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /D_STLP_USE_STATIC_LIB -Ireference/open-bfme-1/game/GameEngine/Include/Precompiled -Ireference/open-bfme-1/game/GameEngine/Source/Common/System -Ireference/open-bfme-1/game/GameEngine/Source/Common -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /Ivendor
 //
 // ?getSciencePurchaseCost@ScienceStore@@QBEHW4ScienceType@@@Z @0x1FF3DC (86B):
 // findScienceInfo (matched 0x1FF3AD) plus the BFME2 online-mode gate: the
@@ -7,16 +7,7 @@
 // replay) select the alt purchase cost at +0x2C over +0x28. The conditional
 // mode load is what keeps retail's `mov esi,[esi+0x110]` coalescing and the
 // load below the isInMultiplayerGame branch.
-enum ScienceType { SCIENCE_INVALID = -1 };
-
-class ScienceInfo
-{
-	char m_pad[0x28];
-public:
-	int m_sciencePurchasePointCost;
-	int m_sciencePurchasePointCostMP;
-};
-
+#include "ScienceStoreQueryView.h"
 #include "../GameLogicObjectLookupView.h"
 
 class RecorderClass
@@ -26,14 +17,7 @@ public:
 };
 
 extern GameLogic *TheGameLogic;
-class RecorderClass; extern RecorderClass *TheRecorder;
-
-class ScienceStore
-{
-	const ScienceInfo *findScienceInfo(ScienceType st) const;
-public:
-	int getSciencePurchaseCost(ScienceType st) const;
-};
+extern RecorderClass *TheRecorder;
 
 // ?getSciencePurchaseCost@ScienceStore@@QBEHW4ScienceType@@@Z
 int ScienceStore::getSciencePurchaseCost(ScienceType st) const

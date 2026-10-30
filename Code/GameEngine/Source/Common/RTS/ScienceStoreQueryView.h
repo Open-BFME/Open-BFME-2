@@ -3,7 +3,7 @@
 
 #include "unicode_string.h"
 
-// Shared declarations for the three query consumers, preserving their target
+// Shared declarations for the query and purchase-cost consumers, preserving their target
 // accesses. The opaque bytes do not assert a complete ScienceInfo layout.
 enum ScienceType { SCIENCE_INVALID = -1 };
 class AsciiString;
@@ -26,8 +26,10 @@ public:
     UnicodeString m_name; // +0x14
     UnicodeString m_description; // +0x18
 private:
-    char m_opaque1c[0x30 - 0x1c];
+    char m_opaque1c[0x28 - 0x1c];
 public:
+    int m_sciencePurchasePointCost; // +0x28
+    int m_sciencePurchasePointCostMP; // +0x2c
     bool m_grantable; // +0x30
 };
 
