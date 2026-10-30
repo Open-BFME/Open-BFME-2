@@ -1,4 +1,8 @@
-// cl: /Od /GZ /GS /MD /DNDEBUG
+// cl: /Od /GZ /GS /DNDEBUG
+/* Built without /MD: retail calls the msvcrt import stubs with a direct e8,
+ * as a library compiled against the static CRT headers does. */
+#include <string.h>
+#include <mbstring.h>
 /* EA DirtySock -- the construct/destroy pair for a THIRD comm transport,
  * distinct again from the two in Y4CommRingIdle.c and Y4CommTickIdle.c.  Its
  * lock sits at +0x1F4 where theirs are at +0x1EC and +0x1E8, and its object is
@@ -22,10 +26,6 @@ void *Rva007F0000Alloc( int size );
 void Rva007F0030( void *object );
 int Rva007FE780( const char *format, ... );
 unsigned int Rva007FEA00( void );
-void *__cdecl memset( void *destination, int value, unsigned int count );
-void *__cdecl memcpy( void *destination, const void *source,
-	unsigned int count );
-char *__cdecl _mbscpy( char *destination, const char *source );
 
 // g_Rva012C4DF4: matched references place it at VA 0xdd954c (retail .data initial value 0x20000000u).
 unsigned int g_Rva012C4DF4 = 0x20000000u;
@@ -696,7 +696,6 @@ int Rva00818BF0( struct Rva00816BF0Comm *comm, void *buffer, int size,
 	return record->m_length;
 }
 
-char *__cdecl strchr( const char *text, int ch );
 
 /* 0x00818FF0 computes the SESSION HASH from a connection string.
  *

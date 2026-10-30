@@ -1,4 +1,8 @@
-// cl: /Od /GZ /GS /MD /DNDEBUG
+// cl: /Od /GZ /GS /DNDEBUG
+/* Built without /MD: retail calls the msvcrt import stubs with a direct e8,
+ * as a library compiled against the static CRT headers does. */
+#include <string.h>
+#include <mbstring.h>
 /* EA DirtySock -- the comm layer's entry table and its lookup, /Od with /GZ.
  * Placement is by address neighbourhood within the 0x00810000 group.
  */
@@ -160,8 +164,6 @@ struct Rva007FD4E0Socket;
  * allocation and the split is only in how each function names it. */
 int Rva007FD920( struct Rva007FD4E0Socket *socket, const char *buffer,
 	int length, int flags, void *to, int toLength );
-void * __cdecl memset( void *dest, int c, unsigned int count );
-void * __cdecl memcpy( void *dest, const void *src, unsigned int count );
 
 /* "gEA\0" repeated.  THE TAG IS READ ONE CHARACTER AT A TIME FROM THREE
  * DIFFERENT OFFSETS -- 0, 5 and 10 -- which land on the 'g' of the first copy,
@@ -426,9 +428,6 @@ void Rva00812CD0( void *object )
 	Rva007F0030( *( void ** )( ( char * )object + 0x28 ) );
 	Rva007F0030( object );}
 
-unsigned int __cdecl strlen( const char *text );
-char * __cdecl _mbscpy( char *dest, const char *src );
-char * __cdecl strstr( const char *haystack, const char *needle );
 
 /* 0x00811E20 FORMATS MATCHING ENTRIES INTO A TEXT LISTING, one line per
  * template, and returns how many lines it wrote.  Retail's own names for the
@@ -683,8 +682,6 @@ int Rva007FDA50( struct Rva007FD4E0Socket *socket, char *buffer, int length,
 int Rva007FE310( void *host, int hostLength, const void *inet, int inetLength );
 unsigned int Rva007FEA00( void );
 char *Rva007FF860( const unsigned char *address, char *destination, int size );
-int __cdecl memcmp( const void *left, const void *right, unsigned int count );
-char * __cdecl strcpy( char *dest, const char *src );
 
 /* ProtoAdvt's socket callback, BFME2 RVA 0x0067E590, 1507 code bytes
  * plus 81 bytes of matching compiler stack-check descriptors and names.
