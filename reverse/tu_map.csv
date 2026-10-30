@@ -49832,7 +49832,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x005C9E5F,49,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/WOLLoginMenu.cpp,approved,C,C=0x005C9DA8..0x005C9E90,Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_set_base.cpp
 0x005C9E90,67,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/WOLLoginMenu.cpp,approved,C,C=0x005C9DA8..0x005C9ED3,Code/Libraries/Source/WWVegas/WWLib/stlport_list_asciistring_remove.cpp
 0x005C9ED3,53,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/WOLLoginMenu.cpp,approved,C,C=0x005C9DA8..0x005C9F08,Code/GameEngine/Source/Common/GameSpyLoginPreferences.cpp
-0x005C9F08,57,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/WOLLoginMenu.cpp,approved,C,C=0x005C9DA8..0x005C9F41,Code/Libraries/Source/WWVegas/WWLib/stlport_string_list_pair_construct.cpp
+0x005C9F08,57,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/WOLLoginMenu.cpp,approved,C,C=0x005C9DA8..0x005C9F41,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/WOLLoginMenu.cpp
 0x005C9F41,42,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/WOLLoginMenu.cpp,approved,C,C=0x005C9DA8..0x005C9F6B,Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_set_base.cpp
 0x005C9F6B,28,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/WOLLoginMenu.cpp,approved,C,C=0x005C9DA8..0x005C9F87,Code/GameEngine/Source/Common/GameSpyLoginPreferences.cpp
 0x005C9F87,61,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/WOLLoginMenu.cpp,approved,C,C=0x005C9DA8..0x005C9FC4,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_005ca999.cpp
@@ -49863,7 +49863,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x005CABC0,29,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/WOLLoginMenu.cpp,approved,C,C=0x005CAB59..0x005CABF9,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_005ca999.cpp
 0x005CABDD,28,code,,displaced,-,N=Code/GameEngine/Source/Common/GameSpyLoginPreferences.cpp,Code/GameEngine/Source/Common/GameSpyLoginPreferences.cpp
 0x005CABF9,80,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/WOLLoginMenu.cpp,approved,S,S=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/WOLLoginMenu.cpp N=Code/GameEngine/Source/Common/GameSpyLoginPreferences.cpp,Code/GameEngine/Source/Common/GameSpyLoginPreferences.cpp
-0x005CAC49,149,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/WOLLoginMenu.cpp,approved,C,C=0x005CABF9..0x005CACDE,Code/Libraries/Source/WWVegas/WWLib/stlport_string_list_pair_construct.cpp
+0x005CAC49,149,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/WOLLoginMenu.cpp,approved,C,C=0x005CABF9..0x005CACDE,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/WOLLoginMenu.cpp
 0x005CACDE,245,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/WOLLoginMenu.cpp,approved,S,S=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/WOLLoginMenu.cpp N=Code/GameEngine/Source/Common/GameSpyLoginPreferences.cpp,Code/GameEngine/Source/Common/GameSpyLoginPreferences.cpp
 0x005CADD3,49,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/WOLLoginMenu.cpp,approved,S,S=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/WOLLoginMenu.cpp N=Code/GameEngine/Source/Common/GameSpyLoginPreferences.cpp,Code/GameEngine/Source/Common/GameSpyLoginPreferences.cpp
 0x005CAE04,110,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/WOLLoginMenu.cpp,approved,S,S=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/WOLLoginMenu.cpp N=Code/GameEngine/Source/Common/GameSpyLoginPreferences.cpp,Code/GameEngine/Source/Common/GameSpyLoginPreferences.cpp
@@ -88768,9 +88768,9 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007A1130,10,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/WOLLoginMenu.cpp,approved,P,P=0x005CAB59@FuncInfo0x00958480,Code/GameEngine/Source/Common/GameSpyLoginPreferences.cpp
 0x007A113A,8,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/WOLLoginMenu.cpp,approved,P,P=0x005CABF9@FuncInfo0x009584A4,Code/GameEngine/Source/Common/GameSpyLoginPreferences.cpp
 0x007A1142,10,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/WOLLoginMenu.cpp,approved,P,P=0x005CABF9@FuncInfo0x009584A4,Code/GameEngine/Source/Common/GameSpyLoginPreferences.cpp
-0x007A114C,8,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/WOLLoginMenu.cpp,approved,P,P=0x005CAC49@FuncInfo0x009584D0,Code/Libraries/Source/WWVegas/WWLib/stlport_string_list_pair_construct.cpp
-0x007A1154,8,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/WOLLoginMenu.cpp,approved,P,P=0x005CAC49@FuncInfo0x009584D0,Code/Libraries/Source/WWVegas/WWLib/stlport_string_list_pair_construct.cpp
-0x007A115C,10,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/WOLLoginMenu.cpp,approved,P,P=0x005CAC49@FuncInfo0x009584D0,Code/Libraries/Source/WWVegas/WWLib/stlport_string_list_pair_construct.cpp
+0x007A114C,8,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/WOLLoginMenu.cpp,approved,P,P=0x005CAC49@FuncInfo0x009584D0,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/WOLLoginMenu.cpp
+0x007A1154,8,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/WOLLoginMenu.cpp,approved,P,P=0x005CAC49@FuncInfo0x009584D0,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/WOLLoginMenu.cpp
+0x007A115C,10,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/WOLLoginMenu.cpp,approved,P,P=0x005CAC49@FuncInfo0x009584D0,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/WOLLoginMenu.cpp
 0x007A1166,8,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/WOLLoginMenu.cpp,approved,P,P=0x005CACDE@FuncInfo0x0095850C,Code/GameEngine/Source/Common/GameSpyLoginPreferences.cpp
 0x007A116E,8,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/WOLLoginMenu.cpp,approved,P,P=0x005CACDE@FuncInfo0x0095850C,Code/GameEngine/Source/Common/GameSpyLoginPreferences.cpp
 0x007A1176,8,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/WOLLoginMenu.cpp,approved,P,P=0x005CACDE@FuncInfo0x0095850C,Code/GameEngine/Source/Common/GameSpyLoginPreferences.cpp

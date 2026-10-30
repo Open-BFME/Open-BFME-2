@@ -13,6 +13,16 @@
 #ifndef BFME_ASCII_DTOR_DECL
 #define BFME_ASCII_DTOR_DECL
 #endif
+#undef _STLP_DEFAULT_CONSTRUCTED
+#define _STLP_DEFAULT_CONSTRUCTED(T) T()
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class LeftTraits, class RightTraits>
+static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
+                              const _List_iterator<T, RightTraits>& b)
+{ return a._M_node != b._M_node; }
+}
+#include <new>
 
 extern "C" char *__cdecl _mbscpy(char *dst, const char *src);
 
@@ -186,6 +196,26 @@ template StringListTree::~_Rb_tree();
 
 template ListPairTree::~_Rb_tree();
 
+// bfme link decl-only begin
+namespace _STL { template <> _List_node<AsciiString> * list<AsciiString, allocator<AsciiString> >::_M_create_node(AsciiString const &); }
+
+typedef _STL::map<AsciiString, AsciiStringList, _STL::less<AsciiString>, _STL::allocator<ListPair> > ListMap;
+
+// Use the canonical list-map node and insertion providers. Their generic
+// copies here differ from the retail specializations in the tree unit.
+typedef _STL::_Rb_tree<AsciiString, ListPair, _STL::_Select1st<ListPair>, _STL::less<AsciiString>, _STL::allocator<ListPair> > ListTree;
+
+namespace _STL {
+template <> ListTree::_Link_type ListTree::_M_create_node(const ListPair &);
+template <> pair<ListTree::iterator, bool> ListTree::insert_unique(const ListPair &);
+}
+
+// Retail 0x005CAC49: the list-map subscript used by the nick/clan load
+// helper 0x5CAEA3. Misses lower-bound through 0x221B8D, builds the
+// key-plus-default-list temporary through the pair ctor above, then
+// hint-inserts through the shared wrapper at 0x5CABC0.
+template AsciiStringList &ListMap::operator[](const AsciiString &);
+
 // tu-skeleton: 0x005C9DA8 183B ?Write_Rva005C9DA8@GameSpyLoginPreferences@@QAEXAAV?$map@VAsciiString@@V?$list@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@V?$list@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@@_STL@@@3@@_STL@@PBDPAU_iobuf@@@Z -- matched in Code/GameEngine/Source/Common/GameSpyLoginPreferences.cpp (not merged yet)
 
 // tu-skeleton: 0x005C9E5F 49B ?_M_upper_bound@?$_Rb_tree@VAsciiString@@V1@U?$_Identity@VAsciiString@@@_STL@@U?$less@VAsciiString@@@3@V?$allocator@VAsciiString@@@3@@_STL@@ABEPAU?$_Rb_tree_node@VAsciiString@@@2@ABVAsciiString@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_set_base.cpp (not merged yet)
@@ -194,7 +224,23 @@ template ListPairTree::~_Rb_tree();
 
 // tu-skeleton: 0x005C9ED3 53B ??1?$pair@$$CBVAsciiString@@V?$list@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@@_STL@@QAE@XZ -- matched in Code/GameEngine/Source/Common/GameSpyLoginPreferences.cpp (not merged yet)
 
-// tu-skeleton: 0x005C9F08 57B ??0?$pair@$$CBVAsciiString@@V?$list@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@@_STL@@QAE@ABVAsciiString@@ABV?$list@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_string_list_pair_construct.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_string_list_pair_construct.cpp
+
+// List-valued string-map insertion support for GameSpyLoginPreferences'
+// nick and clan maps (+0x2c/+0x38). Retail's list-map operator[] 0x5CAC49
+// builds a temporary pair from the key and a default list through the
+// pair two-value constructor 0x5C9F08 below, then hint-inserts it. The
+// pair holds the AsciiString key at +0x00 (copied through the pinned copy
+// at 0x365F0) and the list value at +0x04 (copied through the landed list
+// copy at 0x54D800). The key destructor stays declared-only so the pair
+// keeps retail's out-of-line key-teardown call.
+
+// Anchor: emits the pair two-value constructor COMDAT (retail 0x005C9F08)
+// via placement new; the anchor itself never shipped.
+void listPairTwoValueAnchor(ListPair *at, const AsciiString &key, const AsciiStringList &value)
+{
+	new (at) ListPair(key, value);
+}
 
 // tu-skeleton: 0x005C9F41 42B ?equal_range@?$_Rb_tree@VAsciiString@@V1@U?$_Identity@VAsciiString@@@_STL@@U?$less@VAsciiString@@@3@V?$allocator@VAsciiString@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@VAsciiString@@U?$_Nonconst_traits@VAsciiString@@@_STL@@@_STL@@U12@@2@ABVAsciiString@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_set_base.cpp (not merged yet)
 
@@ -215,6 +261,8 @@ template ListPairTree::~_Rb_tree();
 // tu-skeleton: 0x005CA201 16B ?rva005CA201@GameSpyLoginPreferences@@QAEABV?$list@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@ABVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/GameSpyLoginPreferences.cpp (not merged yet)
 
 // tu-skeleton: 0x005CA211 16B ?rva005CA211@GameSpyLoginPreferences@@QAEABV?$list@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@ABVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/GameSpyLoginPreferences.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/WOLLoginMenu.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/WOLLoginMenu.cpp
 
@@ -321,8 +369,6 @@ void GameSpyLoginPreferences::rva005CA53E(const AsciiString &email)
 
 // tu-skeleton: 0x005CABF9 80B ?rva005CABF9@GameSpyLoginPreferences@@QAEXVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/GameSpyLoginPreferences.cpp (not merged yet)
 
-// tu-skeleton: 0x005CAC49 149B ??A?$map@VAsciiString@@V?$list@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@V?$list@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@@_STL@@@3@@_STL@@QAEAAV?$list@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@1@ABVAsciiString@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_string_list_pair_construct.cpp (not merged yet)
-
 // tu-skeleton: 0x005CACDE 245B ?rva005CACDE@GameSpyLoginPreferences@@QAEXVAsciiString@@000@Z -- matched in Code/GameEngine/Source/Common/GameSpyLoginPreferences.cpp (not merged yet)
 
 // tu-skeleton: 0x005CADD3 49B ?deleteNick@GameSpyLoginPreferences@@QAEXABVAsciiString@@0@Z -- matched in Code/GameEngine/Source/Common/GameSpyLoginPreferences.cpp (not merged yet)
@@ -406,12 +452,6 @@ void GameSpyLoginPreferences::rva005CA53E(const AsciiString &email)
 // tu-skeleton: 0x007A113A 8B $L10902 -- matched in Code/GameEngine/Source/Common/GameSpyLoginPreferences.cpp (not merged yet)
 
 // tu-skeleton: 0x007A1142 10B __ehhandler$?rva005CABF9@GameSpyLoginPreferences@@QAEXVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/GameSpyLoginPreferences.cpp (not merged yet)
-
-// tu-skeleton: 0x007A114C 8B $L6969 -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_string_list_pair_construct.cpp (not merged yet)
-
-// tu-skeleton: 0x007A1154 8B Unwind@00ba1154 -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_string_list_pair_construct.cpp (not merged yet)
-
-// tu-skeleton: 0x007A115C 10B __ehhandler$??A?$map@VAsciiString@@V?$list@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@V?$list@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@@_STL@@@3@@_STL@@QAEAAV?$list@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@1@ABVAsciiString@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_string_list_pair_construct.cpp (not merged yet)
 
 // tu-skeleton: 0x007A1166 8B $L8652 -- matched in Code/GameEngine/Source/Common/GameSpyLoginPreferences.cpp (not merged yet)
 
