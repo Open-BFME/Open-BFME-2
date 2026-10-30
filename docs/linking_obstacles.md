@@ -15,6 +15,7 @@ current `Common/0CreateAHeroManager21FE49.cpp` consumer receipt. Carry this
 unit and its wider consumers into the next scheduled census; full consumer
 selection/loss verification and census confirmation remain pending.
 
+
 ### Apt numeric-string predicate CRT header (2026-10-30)
 
 At base `4c4e488578`, Rva006FC370.cpp replaces its local `strtol`
@@ -79,6 +80,25 @@ provider changes, new census gain or full SDK closure are claimed. The
 shader manager's shared Windows/multimedia shim and d3d9 include findings
 remain prerequisites.
 [Historical repairs, scan scope and checks](../reverse/attempt_support/browser-shader-stale-msheaders-20261030-codexb4.md).
+
+### PropagandaTowerBehavior scan consolidation prerequisite (2026-10-30)
+
+At base `53504ff703`, shared helper and seed/scan views preserve all 23 rows
+across the six scoped providers. Four EH graphs are EXACT; 67 retained COMDAT
+fingerprints and external bindings are unchanged. The scan's private getter
+changes only its struct/class return-type decoration, with identical bytes and
+no other indexed consumer. The supported merge probe now accepts DoScan (17
+combined rows); constructor, module-data constructor, Update and Xfer class
+reconciliation remains open. No source move in the prerequisite commit.
+
+All six bounded previews retain LINKS for 1,674 bytes. The staged-tree batch
+audit is INCONCLUSIVE on the older `12b9e7a7c0` index and missing current
+`Common/0CreateAHeroManager21FE49.cpp` consumer receipt. Carry the scoped
+providers and affected consumers into the next scheduled census; full consumer
+selection/loss verification remains pending. No census gain is claimed.
+[Evidence and reference freshness boundary](../reverse/attempt_support/propaganda-tower-views-20261030-codex4.md).
+
+
 ### GetHTree CRT headers and missing ownership-provider census object (2026-10-30)
 
 At base `c647a75e55`, GetHTree.cpp replaces its local `_mbscpy` and

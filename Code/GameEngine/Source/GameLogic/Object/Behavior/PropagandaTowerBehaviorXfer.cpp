@@ -97,9 +97,8 @@ class ObjectTracker
 public:
 	ObjectTracker() : objectID(INVALID_OBJECT_ID), next(0) {}
 	virtual ~ObjectTracker() {}
-
-	ObjectID objectID;
-	ObjectTracker *next;
+	ObjectID objectID; // +0x04
+	ObjectTracker *next; // +0x08
 };
 
 class PropagandaTowerBehavior : public UpdateModule,

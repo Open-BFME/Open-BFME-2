@@ -1,4 +1,4 @@
-// cl: /MD /GX
+// cl: /MD /GX /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata
 //
 // ?doScan@PropagandaTowerBehavior@@MAEXXZ, retail 0x00481DA4: slot 14 (+0x38)
 // of PropagandaTowerBehavior's vftable 0x00C49248 (removeAllInfluence
@@ -14,6 +14,10 @@
 
 class Object;
 class Player;
+
+typedef unsigned int UnsignedInt;
+#include "Common/Snapshot.h"
+#include "ascii_string.h"
 
 class Rva000421C8
 {
@@ -107,8 +111,10 @@ extern PartitionManager *ThePartitionManager;
 class UpgradeTemplate
 {
 public:
-	char m_pad00[0x04];
-	int m_type;	// +0x04 (0 player, 1 object)
+	char m_pad00[0x4];
+	int m_type; // +0x04 (0 player, 1 object)
+	char m_pad08[0x30];
+	int m_bitIndex; // +0x38
 };
 
 class Player
@@ -123,17 +129,51 @@ public:
 	static void doFXObj(const FXList *fx, const Object *primary, const Object *secondary);	// 0x000B2235
 };
 
+class BodyModule
+{
+public:
+	virtual void f0();
+	virtual void f1();
+	virtual void f2();
+	virtual void f3();
+	virtual void f4();
+	virtual void f5();
+	virtual float f6();
+};
+
 class Object
 {
 public:
-	Player *getControllingPlayer() const;	// 0x0028AFA9
-	bool hasUpgrade(const UpgradeTemplate *upgrade) const;	// 0x00290D2B
+	Player *getControllingPlayer() const;
+	bool hasUpgrade(const UpgradeTemplate *upgrade) const;
 	const Coord3D *getPosition() const { return &m_pos; }
 	ObjectID getID() const { return m_id; }
-	char m_pad000[0x38];
-	Coord3D m_pos;		// +0x38
+	bool attemptHealingFromSoleBenefactor(float amount, const Object *source, UnsignedInt extra);
+	// Retail keeps the whole 32-bit flag word live in eax across the test and the
+	// set: `mov eax,[esi+0x380]` / `mov ecx,eax` / `shr ecx,8` / `test cl,1` /
+	// `jne skip` / `or ah,0x1` / `mov [esi+0x380],eax`. Two facts pin the source:
+	// the read-modify-write is on the WORD (a byte-view accessor collapses the
+	// block to 195-216B because it drops the shared reload), and the OR is a 2-byte
+	// in-place or on `ah` (an `int` shift of the word materialises
+	// `or eax,0x100`, 5B, twice in this body).
+	bool testWeaponBonusCondition(int bit) const
+	{
+		return (m_flags380 & (1 << (bit + 8))) != 0;
+	}
+	void setWeaponBonusCondition(int bit)
+	{
+		m_flags380 |= (1 << (bit + 8));
+	}
+
+	char m_pad00[0x38];
+	Coord3D m_pos; // +0x38
 	char m_pad044[0x74 - 0x44];
-	ObjectID m_id;		// +0x74
+	ObjectID m_id; // +0x74
+	char m_pad078[0x254 - 0x78];
+	BodyModule *m_body; // +0x254
+	char m_pad258[0x380 - 0x258];
+	UnsignedInt m_flags380; // +0x380
+	char m_pad384[0x100];
 };
 
 extern GameLogic *TheGameLogic;
@@ -143,19 +183,31 @@ class ObjectTracker
 {
 public:
 	ObjectTracker() : objectID(INVALID_OBJECT_ID), next(0) {}
-	virtual ~ObjectTracker() {} // inline-empty in retail: its ??_G (0x0048195F) only resets the vptr
-	ObjectID objectID;
-	ObjectTracker *next;
+	virtual ~ObjectTracker() {}
+	ObjectID objectID; // +0x04
+	ObjectTracker *next; // +0x08
 };
 
-struct PropagandaTowerBehaviorModuleData
+class MultiIniFieldParse;
+
+class __declspec(novtable) PropagandaTowerBehaviorModuleData : public Snapshot
 {
-	char m_pad00[0x08];
-	float m_scanRadius;		// +0x08
-	char m_pad0C[0x14 - 0x0C];
-	const FXList *m_pulseFX;	// +0x14
-	char m_pad18[0x20 - 0x18];
-	const FXList *m_upgradedPulseFX;	// +0x20
+public:
+	virtual ~PropagandaTowerBehaviorModuleData();
+	int m_unused04;
+	float m_radius;
+	int m_delayBetweenUpdates;
+	float m_healPercentEachSecond;
+	const FXList *m_pulseFX;
+	AsciiString m_upgradeRequired;
+	float m_upgradedHealPercentEachSecond;
+	const FXList *m_upgradedPulseFX;
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
 };
 
 class PropagandaTowerBehavior
@@ -188,6 +240,8 @@ private:
 	unsigned char m_pad0C[0x28 - 0x0C];
 	ObjectTracker *m_insideList;	// +0x28
 	const UpgradeTemplate *m_upgradeRequired;	// +0x2C
+public:
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 void PropagandaTowerBehavior::doScan()
@@ -213,7 +267,7 @@ void PropagandaTowerBehavior::doScan()
 	else
 		FXList::doFXObj(modData->m_pulseFX, us, 0);
 
-	BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(us->getPosition(), modData->m_scanRadius, 0,
+	BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(us->getPosition(), modData->m_radius, 0,
 		Rva00260EB1Filter(us, 4, false).link(Rva0026119DFilter().link(Rva002611BFFilter(us).link(
 			&Rva0004584D(*(const BfmeFixedStorage0004543D *)&KINDOFMASK_NONE,
 				(const BfmeFixedStorage0004543D &)Rva00045411BitSet(0, 7))))), 0);

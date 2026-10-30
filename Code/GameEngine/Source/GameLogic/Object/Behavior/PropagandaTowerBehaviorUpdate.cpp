@@ -18,7 +18,14 @@ template<int N>class BitFlags {public:enum BogusInitType{kInit=0};BitFlags(Bogus
 struct ObjectTemplate {char pad[0x10c];unsigned kind;};
 class Object {public:bool testStatus(ObjectStatusTypes)const;char p00[4];ObjectTemplate *tmpl;char p08[0x1c8-8];BitFlags<11>disabled;char p1cc[0x274-0x1cc];Object*containedBy;char p278[0x438-0x278];unsigned char dead;};
 class PropagandaTowerBehaviorModuleData {public:char pad[0xc];unsigned scanDelay;};
-class ObjectTracker {public:virtual ~ObjectTracker();ObjectID objectID;ObjectTracker*next;};
+class ObjectTracker
+{
+public:
+	ObjectTracker() : objectID(INVALID_OBJECT_ID), next(0) {}
+	virtual ~ObjectTracker() {}
+	ObjectID objectID; // +0x04
+	ObjectTracker *next; // +0x08
+};
 class Rva00481C0CPrimary {public:
 virtual void s00();virtual void s04();virtual void s08();virtual void s0C();virtual void s10();virtual void s14();virtual void s18();virtual void s1C();virtual void s20();virtual void s24();virtual void s28();virtual void s2C();virtual void s30();virtual void removeAllInfluence();virtual void doScan();virtual void effectLogic(Object*,bool,const PropagandaTowerBehaviorModuleData*);
 };
