@@ -1,39 +1,9 @@
-// cl: /Od
-
-struct BfmeItVMV
-{
-	BfmeItVMV() {}
-	int m;
-};
-
-char **__cdecl bfmeRFindNotChV32(char **a, char *b, char *c, char d);
-BfmeItVMV bfmeFwdVMV(BfmeItVMV a, BfmeItVMV b, char c);
-
-BfmeItVMV bfmeFwdVMV(BfmeItVMV a, BfmeItVMV b, char c)
-{
-	char n;
-	char z0[55];
-
-	__asm
-	{
-		lea eax, n
-		push eax
-		mov cl, byte ptr c
-		push ecx
-		push ecx
-		mov dword ptr [ebp-0x10], esp
-		mov edx, dword ptr [ebp-0x10]
-		mov eax, dword ptr b
-		mov dword ptr [edx], eax
-		push ecx
-		mov dword ptr [ebp-0x14], esp
-		mov ecx, dword ptr [ebp-0x14]
-		mov edx, dword ptr a
-		mov dword ptr [ecx], edx
-		mov eax, dword ptr [ebp+8]
-		push eax
-		call bfmeRFindNotChV32
-		add esp, 0x14
-		mov eax, dword ptr [ebp+8]
-	}
+// cl: /DNDEBUG /MD /EHsc /Od /Ob2 /D_STLP_USE_STATIC_LIB
+// stlport46
+// Retail 0x00026F70 (57B) is STLport 4.6's find_if (_algobase.c:193) over
+// reverse_iterator<const char *> with _Neq_char_bound, dispatching to the
+// random-access __find_if at 0x000260A0 (BfmeConv1472.cpp).
+#include <string>
+namespace _STL {
+template reverse_iterator<const char *> find_if(reverse_iterator<const char *>, reverse_iterator<const char *>, _Neq_char_bound<char_traits<char> >);
 }
