@@ -25,7 +25,11 @@
 //#pragma optimize("", off)
 //#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
 
+
 #endif
+#include <windows.h>
+#include "unicode_string.h"
+#include "ascii_string.h"
 
 extern "C" void _ReadWriteBarrier(void);
 
@@ -239,6 +243,83 @@ private:
 	unsigned m_word1;
 };
 
+void HideToolTip();
+
+class Rva001EEC4B
+{
+	char m_pad0[0x12F8];
+	UnicodeString m_12F8;
+	UnicodeString m_12FC;
+	UnicodeString m_1300;
+	char m_pad1[0x1308 - 0x1304];
+	unsigned char m_1308;
+	char m_pad2[0x4FD8 - 0x1309];
+	DWORD m_4FD8;
+public:
+	void rva001EEC4B();
+};
+
+// g_00DB9058: VA 0x00DB9058 (.data); retail's 56 string pointers are bounded
+// by the lookup's 0..0x37 loop. compareNoCase observes text, not literal addresses.
+const char *g_00DB9058[] = {
+	"None",
+	"Normal",
+	"Arrow",
+	"Scroll",
+	"Target",
+	"Move",
+	"AttackMove",
+	"AttackObj",
+	"ForceAttackObj",
+	"ForceAttackGround",
+	"Build",
+	"InvalidBuild",
+	"GenericInvalid",
+	"Select",
+	"EnterFriendly",
+	"EnterAggressive",
+	"SetRallyPoint",
+	"GetRepaired",
+	"GetHealed",
+	"DoRepair",
+	"ResumeConstruction",
+	"CaptureBuilding",
+	"SnipeVehicle",
+	"LaserGuidedMissiles",
+	"TankHunterTNTAttack",
+	"StabAttack",
+	"PlaceRemoteCharge",
+	"PlaceTimedCharge",
+	"Defector",
+	"Dock",
+	"FireFlame",
+	"FireBomb",
+	"PlaceBeacon",
+	"DisguiseAsVehicle",
+	"Waypoint",
+	"OutRange",
+	"StabAttackInvalid",
+	"PlaceChargeInvalid",
+	"Hack",
+	"ParticleUplinkCannon",
+	"LivingWorldZoom",
+	"JoinHorde",
+	"WeaponUpgrade",
+	"ArmorUpgrade",
+	"Beam",
+	"Bombard",
+	"Axe",
+	"EvilAbilityObj",
+	"PickUp",
+	"WallInsufficientFunds",
+	"WallInvalidTerrain",
+	"WallExceedsDistance",
+	"WallBlockedByObstacle",
+	"SendToDeath",
+	"DeliverRing",
+	"Patrol"
+};
+
 // tu-skeleton: 0x001EDC41 112B ?moveMouse@Mouse@@IAEXHHH@Z -- matched in Code/GameEngine/Source/GameClient/Input/MouseProcessEvents.cpp (not merged yet)
 
 // tu-skeleton: 0x001EDCB1 107B ?updateMouseData@Mouse@@IAEXXZ -- matched in Code/GameEngine/Source/GameClient/Input/MouseProcessEvents.cpp (not merged yet)
@@ -248,6 +329,8 @@ private:
 // tu-skeleton: 0x001EDD80 59B ?rva001EDD80@Mouse@@QAE_NPBURva001EDD80Pair@@0@Z -- matched in Code/GameEngine/Source/Common/Rva001EDD80Range.cpp (not merged yet)
 
 // tu-skeleton: 0x001EDDBB 11B ?rva001EDDBB@Rva001EDDBBForwarder@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSizedForwarders.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/Input/Mouse.cpp
 
 // ---- from Code/GameEngine/Source/Common/Rva001EDDC6Store.cpp
 
@@ -261,12 +344,6 @@ void Rva001EDDC6::rva001EDDC6(unsigned char v)
 	m_4F9D = v;
 	m_4FA1 = 1;
 }
-
-// tu-skeleton: 0x001EDDFF 39B ?commitPendingCursor@Mouse@@AAEXXZ -- matched in Code/GameEngine/Source/GameClient/MouseSetEngineVisibility.cpp (not merged yet)
-
-// tu-skeleton: 0x001EDE26 20B ?rva001EDE26@Mouse@@QBE_NXZ -- matched in Code/GameEngine/Source/GameClient/MouseRva001EDE26.cpp (not merged yet)
-
-// tu-skeleton: 0x001EDE3A 11B ?update@Mouse@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/Input/MouseProcessEvents.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameClient/Rva001EDE45Getter.cpp
 
@@ -674,14 +751,6 @@ void INI::parseMouseDefinition( INI* ini )
 	}
 }
 
-// tu-skeleton: 0x001EDE9C 59B ?rva001EDE9C@Mouse@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/MouseRva001EDE9C.cpp (not merged yet)
-
-// tu-skeleton: 0x001EDFCB 30B ?getCursorName@Rva001EDFCB@@QBEPBDH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE51.cpp (not merged yet)
-
-// tu-skeleton: 0x001EDFE9 14B ?rva001EDFE9@Mouse@@QBEPAXXZ -- matched in Code/GameEngine/Source/GameClient/MouseRva001EDFE9.cpp (not merged yet)
-
-// tu-skeleton: 0x001EDFF7 62B ?rva001EDFF7@Mouse@@QBEXPAM@Z -- matched in Code/GameEngine/Source/GameClient/MouseRva001EDFF7.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Bfme/Rva005A4660Copy.cpp
 
 void Rva005A4660::copy(unsigned *first, unsigned *second) const
@@ -689,6 +758,20 @@ void Rva005A4660::copy(unsigned *first, unsigned *second) const
 	*first = m_word0;
 	*second = m_word1;
 }
+
+// tu-skeleton: 0x001EDDFF 39B ?commitPendingCursor@Mouse@@AAEXXZ -- matched in Code/GameEngine/Source/GameClient/MouseSetEngineVisibility.cpp (not merged yet)
+
+// tu-skeleton: 0x001EDE26 20B ?rva001EDE26@Mouse@@QBE_NXZ -- matched in Code/GameEngine/Source/GameClient/MouseRva001EDE26.cpp (not merged yet)
+
+// tu-skeleton: 0x001EDE3A 11B ?update@Mouse@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/Input/MouseProcessEvents.cpp (not merged yet)
+
+// tu-skeleton: 0x001EDE9C 59B ?rva001EDE9C@Mouse@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/MouseRva001EDE9C.cpp (not merged yet)
+
+// tu-skeleton: 0x001EDFCB 30B ?getCursorName@Rva001EDFCB@@QBEPBDH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE51.cpp (not merged yet)
+
+// tu-skeleton: 0x001EDFE9 14B ?rva001EDFE9@Mouse@@QBEPAXXZ -- matched in Code/GameEngine/Source/GameClient/MouseRva001EDFE9.cpp (not merged yet)
+
+// tu-skeleton: 0x001EDFF7 62B ?rva001EDFF7@Mouse@@QBEXPAM@Z -- matched in Code/GameEngine/Source/GameClient/MouseRva001EDFF7.cpp (not merged yet)
 
 // tu-skeleton: 0x001EE069 608B ?processMouseEvent@Mouse@@AAEXH@Z -- matched in Code/GameEngine/Source/GameClient/Input/MouseProcessEvents.cpp (not merged yet)
 
@@ -710,7 +793,28 @@ void Rva005A4660::copy(unsigned *first, unsigned *second) const
 
 // tu-skeleton: 0x001EEBD5 118B ?setMouseText@Mouse@@QAEXVUnicodeString@@PBURGBAColorInt@@1@Z -- matched in Code/GameEngine/Source/GameClient/Mouse_setMouseText.cpp (not merged yet)
 
-// tu-skeleton: 0x001EEC4B 76B ?rva001EEC4B@Rva001EEC4B@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/MouseRva001EEC4B_muse-f8cb.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameClient/MouseRva001EEC4B_muse-f8cb.cpp
+
+// platformsdk
+// ?rva001EEC4B@Rva001EEC4B@@QAEXXZ @ 0x001EEC4B (76B): Mouse tooltip reset with Hide.
+// Retail calls timeGetTime and stores to +0x4FD8 then clears +0x1308. If tooltip string
+// at +0x12F8 is not empty it fires HideToolTip via HideToolTip (landed 60B) and clears
+// +0x12F8. Then clears +0x12FC and tail-jmps to clear +0x1300 through StringBase wide
+// releaseBuffer (row 0x36E70) plus isEmpty (row 0x35740). Callers 0x0029F27E. Prev
+// Mouse::setVisibility proves Mouse area but owner uses honest-address Rva class per packet.
+
+void Rva001EEC4B::rva001EEC4B()
+{
+	m_4FD8 = timeGetTime();
+	m_1308 = 0;
+	if (!m_12F8.isEmpty())
+	{
+		HideToolTip();
+		m_12F8.clear();
+	}
+	m_12FC.clear();
+	m_1300.clear();
+}
 
 // tu-skeleton: 0x001EEC97 799B ??0Mouse@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/Input/Rva001EE3DEDtor.cpp (not merged yet)
 
@@ -722,4 +826,27 @@ void Rva005A4660::copy(unsigned *first, unsigned *second) const
 
 // tu-skeleton: 0x001EF06F 546B ?drawTooltip@Mouse@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/MouseDrawTooltip.cpp (not merged yet)
 
-// tu-skeleton: 0x001EF291 58B ?getCursorIndex@Mouse@@QAEHABVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/Rva001EF291Find.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva001EF291Find.cpp
+
+//
+// Retail 0x001EF291 58B:
+// ?getCursorIndex@Mouse@@QAEHABVAsciiString@@@Z
+// Empty check via rowed isEmpty 0x00001E2F returns -1. Loop 0x38 over
+// retail pointer table at 0x00DB9058 via rowed compareNoCase 0x00037980
+// returns index or -1. Callers at 0x002A344F 0x004023A6 0x0042AB2B.
+//
+
+int Mouse::getCursorIndex(const AsciiString &name)
+{
+	if (name.isEmpty())
+		return -1;
+	for (int i = 0; i < 0x38; ++i) {
+		if (((const StringBase<char> &)name).compareNoCase(g_00DB9058[i]) == 0)
+			return i;
+	}
+	return -1;
+}
+
+// tu-skeleton: 0x0076ACC1 11B Unwind@00b6acc1 -- matched in Code/GameEngine/Source/GameClient/GUI/FontLibraryInit.cpp (not merged yet)
+
+// tu-skeleton: 0x0076ACCC 10B __ehhandler$?parseIni@Mouse@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/FontLibraryInit.cpp (not merged yet)
