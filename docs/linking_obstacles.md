@@ -13599,6 +13599,24 @@ approved TU, the two obsolete lifetime views are removed, and their claims
 are released. The earlier dry-run view above is retained as history; the
 native constructor-table and complete EH evidence are in its existing handoff.
 
+### GarrisonContain source-recovery prerequisites (2026-10-30, codex5)
+
+The seed's broad Zero Hour header stack blocked composition with native-layout
+donors (the existing 2026-10-25 attempt records retain that history). The seed
+now uses canonical Thing/Coord3D, an accessed Object prefix and a partial native
+primary-vtable declaration. Both existing rows byte-match; all seven retained
+COMDAT fingerprints are unchanged. All 545 removed header providers have other
+index providers, and a scoped overlay changes no selected provider or verdict.
+Strict seed/pool-key preparation passes 5/5 rows; ordinary preview retains
+2/2 LINKS and 350 -> 350 credited bytes against `12b9e7a7c0`.
+
+The outgoing consumer audit remains INCONCLUSIVE on the older index and missing
+current Common/0CreateAHeroManager21FE49.cpp receipt. Carry the removed header
+providers and consumers into the next scheduled census; no measured linking or
+ownership gain is claimed. Supported consolidation, the remaining native class
+contracts and mixed-source splits remain open.
+[Scoped evidence](../reverse/attempt_support/garrison-composition-20261030-codex5.md).
+
 ### LINK-155: ParticleSystem's base clause and FXParticleSystem's nested views block ParticleSys.cpp (2026-10-30)
 
 Packet 15 (ParticleSystem) reached its first step only. 441f51de64 gives
