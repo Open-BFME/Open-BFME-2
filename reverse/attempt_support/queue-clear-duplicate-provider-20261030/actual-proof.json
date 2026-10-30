@@ -1,0 +1,30 @@
+{
+  "verification_checkout": "isolated worktree; ordinary strict source preparation",
+  "caller": "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIBuildQueueUnitQueued.cpp",
+  "provider": "Code/GameEngine/Source/Common/GapBodiesSeat5A.cpp",
+  "new_pin_or_row": false,
+  "objects": {
+    "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIBuildQueueUnitQueued.cpp": {
+      "object_md5": "eff4fa93031c7e0b41984bd4d2544434",
+      "source_sha256": "42ad9117cb977a526a8a4658668b2a9fd6c73051104e05f85021632ca816b6ba",
+      "strict_current": true,
+      "defines_clear": false,
+      "clear_import_symbols": []
+    },
+    "Code/GameEngine/Source/Common/GapBodiesSeat5A.cpp": {
+      "object_md5": "5989bdd6c07fa7bc883c0c63ed284750",
+      "source_sha256": "8e9f48803697b37980ce1203891efb496bea73a4fc386cdacd42b8713e99d72b",
+      "strict_current": true,
+      "defines_clear": true,
+      "clear_import_symbols": []
+    }
+  },
+  "strong_owner": {
+    "name": "?clear@Rva005E8044@@QAEXXZ",
+    "rva": "0x005E8183",
+    "size": 11,
+    "native_exact": true,
+    "resolved": "ff7104ff31e8b7feffffc3",
+    "native": "ff7104ff31e8b7feffffc3"
+  }
+}

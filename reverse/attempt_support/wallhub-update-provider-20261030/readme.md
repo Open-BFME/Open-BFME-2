@@ -43,3 +43,11 @@ These checks clear the bounded missing-provider scope only. Broader consumer
 selection and the next scheduled census remain separate. No official linking
 percentage or unique-byte increase is claimed; the other LINK-160 units retain
 their recorded identity or claim prerequisites.
+
+The actual outgoing pre-push audit is INCONCLUSIVE on its older
+`e1f7c1dd18` index versus base `575807ffef` and the missing current receipt for
+affected `Common/0CreateAHeroManager21FE49.cpp`. The normal scoped byte,
+DIR32, EH and converged-data checks pass; the publisher waits on another
+account's full-gate landing window. A subsequent combined isolated-checkout
+audit with the ready clear-provider repair reaches the same broader consumer
+prerequisite. This records a verification limit, not a clean full-image verdict.

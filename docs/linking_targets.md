@@ -1,5 +1,13 @@
 # Linking target checklist
 
+Build-queue clear duplicate-provider follow-up (2026-10-30, LINK-161): preserve
+the observer's native inline instructions while suppressing its extra emitted
+clear definition. The existing strong 11-byte owner is unchanged. Strict
+two-source preparation passes 36/36 rows and EXACT 3 EH graphs; ordinary preview
+against `e1f7c1dd18` retains 2/2 LINKS, 0 -> 1,449 authored bytes. No pin, row,
+alias or import reference is added. Full consumer and census confirmation remain
+pending. [Evidence](../reverse/attempt_support/queue-clear-duplicate-provider-20261030/readme.md).
+
 WallHub update-provider follow-up (2026-10-30, LINK-160): a clean inline native
 sleep-forever override replaces the constructor view's unresolved base-interface
 slot without adding a pin, row or alias. Strict three-provider preparation

@@ -1,0 +1,261 @@
+{
+  "source": "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIBuildQueueUnitQueued.cpp",
+  "change": "suppress only duplicate emitted clear; keep native caller inlining",
+  "objects": {
+    "before": {
+      "source_sha256": "06eb174402bef87ec5d98231da5d139daf451fa7d82bd6243489aaf6ed6dbeec",
+      "object_sha256": "ea4daf2404e6070e391b903d1325bc8391af8c7432cea4628286a547e1a1e469",
+      "rows": [
+        {
+          "name": "??4Rva005E71C6Ref@@QAEAAU0@ABU0@@Z",
+          "rva": "0x005E7198",
+          "size": "46",
+          "exact": true
+        },
+        {
+          "name": "?__copy_backward_ptrs@_STL@@YAPAURva005E71C6Ref@@PAU2@00ABU__false_type@1@@Z",
+          "rva": "0x005E7470",
+          "size": "29",
+          "exact": true
+        },
+        {
+          "name": "??_GRva005E71C6Ref@@QAEPAXI@Z",
+          "rva": "0x005E74AA",
+          "size": "37",
+          "exact": true
+        },
+        {
+          "name": "?insert@?$vector@URva005E71C6Ref@@V?$allocator@URva005E71C6Ref@@@_STL@@@_STL@@QAEPAURva005E71C6Ref@@PAU3@ABU3@@Z",
+          "rva": "0x005E8293",
+          "size": "189",
+          "exact": true
+        },
+        {
+          "name": "?onLivingWorldBuildingNuggetSpawnArmyUnitQueued@Impl@BuildQueueDetailsPanel@StrategicInGameUI@@UAEXAAVRva005E72B4Queue@@H@Z",
+          "rva": "0x005E868F",
+          "size": "337",
+          "exact": true
+        },
+        {
+          "name": "?onLivingWorldBuildingNuggetSpawnArmyUnitDequeued@Impl@BuildQueueDetailsPanel@StrategicInGameUI@@UAEXAAVRva005E72B4Queue@@H@Z",
+          "rva": "0x005E8519",
+          "size": "374",
+          "exact": true
+        },
+        {
+          "name": "$L4957",
+          "rva": "0x007A3EA2",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?onLivingWorldBuildingNuggetSpawnArmyUnitDequeued@Impl@BuildQueueDetailsPanel@StrategicInGameUI@@UAEXAAVRva005E72B4Queue@@H@Z",
+          "rva": "0x007A3EAA",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "$L4956",
+          "rva": "0x007A3E98",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "$L4882",
+          "rva": "0x007A3EC8",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?onLivingWorldBuildingNuggetSpawnArmyUnitQueued@Impl@BuildQueueDetailsPanel@StrategicInGameUI@@UAEXAAVRva005E72B4Queue@@H@Z",
+          "rva": "0x007A3ED0",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "$L4880",
+          "rva": "0x007A3EB4",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "$L4881",
+          "rva": "0x007A3EBE",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "uw_007a3e24",
+          "rva": "0x007A3E24",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?insert@?$vector@URva005E71C6Ref@@V?$allocator@URva005E71C6Ref@@@_STL@@@_STL@@QAEPAURva005E71C6Ref@@PAU3@ABU3@@Z",
+          "rva": "0x007A3E2C",
+          "size": "10",
+          "exact": true
+        }
+      ],
+      "eh": [
+        {
+          "name": "?insert@?$vector@URva005E71C6Ref@@V?$allocator@URva005E71C6Ref@@@_STL@@@_STL@@QAEPAURva005E71C6Ref@@PAU3@ABU3@@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        },
+        {
+          "name": "?onLivingWorldBuildingNuggetSpawnArmyUnitQueued@Impl@BuildQueueDetailsPanel@StrategicInGameUI@@UAEXAAVRva005E72B4Queue@@H@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        },
+        {
+          "name": "?onLivingWorldBuildingNuggetSpawnArmyUnitDequeued@Impl@BuildQueueDetailsPanel@StrategicInGameUI@@UAEXAAVRva005E72B4Queue@@H@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        }
+      ],
+      "all_emitted_handler_parents": []
+    },
+    "trial": {
+      "source_sha256": "42ad9117cb977a526a8a4658668b2a9fd6c73051104e05f85021632ca816b6ba",
+      "object_sha256": "8349b2f37cafa0489efa5648620c390346896674c74ffd8edaae55c58ede03f0",
+      "rows": [
+        {
+          "name": "??4Rva005E71C6Ref@@QAEAAU0@ABU0@@Z",
+          "rva": "0x005E7198",
+          "size": "46",
+          "exact": true
+        },
+        {
+          "name": "?__copy_backward_ptrs@_STL@@YAPAURva005E71C6Ref@@PAU2@00ABU__false_type@1@@Z",
+          "rva": "0x005E7470",
+          "size": "29",
+          "exact": true
+        },
+        {
+          "name": "??_GRva005E71C6Ref@@QAEPAXI@Z",
+          "rva": "0x005E74AA",
+          "size": "37",
+          "exact": true
+        },
+        {
+          "name": "?insert@?$vector@URva005E71C6Ref@@V?$allocator@URva005E71C6Ref@@@_STL@@@_STL@@QAEPAURva005E71C6Ref@@PAU3@ABU3@@Z",
+          "rva": "0x005E8293",
+          "size": "189",
+          "exact": true
+        },
+        {
+          "name": "?onLivingWorldBuildingNuggetSpawnArmyUnitQueued@Impl@BuildQueueDetailsPanel@StrategicInGameUI@@UAEXAAVRva005E72B4Queue@@H@Z",
+          "rva": "0x005E868F",
+          "size": "337",
+          "exact": true
+        },
+        {
+          "name": "?onLivingWorldBuildingNuggetSpawnArmyUnitDequeued@Impl@BuildQueueDetailsPanel@StrategicInGameUI@@UAEXAAVRva005E72B4Queue@@H@Z",
+          "rva": "0x005E8519",
+          "size": "374",
+          "exact": true
+        },
+        {
+          "name": "$L4957",
+          "rva": "0x007A3EA2",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?onLivingWorldBuildingNuggetSpawnArmyUnitDequeued@Impl@BuildQueueDetailsPanel@StrategicInGameUI@@UAEXAAVRva005E72B4Queue@@H@Z",
+          "rva": "0x007A3EAA",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "$L4956",
+          "rva": "0x007A3E98",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "$L4882",
+          "rva": "0x007A3EC8",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?onLivingWorldBuildingNuggetSpawnArmyUnitQueued@Impl@BuildQueueDetailsPanel@StrategicInGameUI@@UAEXAAVRva005E72B4Queue@@H@Z",
+          "rva": "0x007A3ED0",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "$L4880",
+          "rva": "0x007A3EB4",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "$L4881",
+          "rva": "0x007A3EBE",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "uw_007a3e24",
+          "rva": "0x007A3E24",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?insert@?$vector@URva005E71C6Ref@@V?$allocator@URva005E71C6Ref@@@_STL@@@_STL@@QAEPAURva005E71C6Ref@@PAU3@ABU3@@Z",
+          "rva": "0x007A3E2C",
+          "size": "10",
+          "exact": true
+        }
+      ],
+      "eh": [
+        {
+          "name": "?insert@?$vector@URva005E71C6Ref@@V?$allocator@URva005E71C6Ref@@@_STL@@@_STL@@QAEPAURva005E71C6Ref@@PAU3@ABU3@@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        },
+        {
+          "name": "?onLivingWorldBuildingNuggetSpawnArmyUnitQueued@Impl@BuildQueueDetailsPanel@StrategicInGameUI@@UAEXAAVRva005E72B4Queue@@H@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        },
+        {
+          "name": "?onLivingWorldBuildingNuggetSpawnArmyUnitDequeued@Impl@BuildQueueDetailsPanel@StrategicInGameUI@@UAEXAAVRva005E72B4Queue@@H@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        }
+      ],
+      "all_emitted_handler_parents": []
+    }
+  },
+  "removed_definition": {
+    "name": "?clear@Rva005E8044@@QAEXXZ",
+    "raw": "ff7104ff31e800000000c3",
+    "relocations": [
+      [
+        6,
+        20,
+        "?rva005E8044@Rva005E8044@@QAEPAXPAX0@Z"
+      ]
+    ]
+  },
+  "retained_external_code_definitions_identical": 31,
+  "compiler_local_labels": "renumbered; all emitted handler parents independently EXACT against retail",
+  "unexpected_added_definitions": [],
+  "clear_import_symbols": []
+}

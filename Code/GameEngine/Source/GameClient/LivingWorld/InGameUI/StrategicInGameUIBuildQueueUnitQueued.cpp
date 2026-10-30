@@ -222,7 +222,7 @@ class Rva005E8044
 {
 public:
 	void *rva005E8044(void *first, void *last);
-	void clear() { rva005E8044(m_start, m_finish); }
+	__declspec(dllimport) __forceinline void clear() { rva005E8044(m_start, m_finish); }
 private:
 	void *m_start;
 	void *m_finish;
