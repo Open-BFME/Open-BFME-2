@@ -19623,8 +19623,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A02E10,4,.data,global,?$S1@?4??rva003E3EC3@ScriptConditions@@IAE_NPAVParameter@@@Z@4IA,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateNamedUnit.cpp,owned,,1,4
 0x00A02E14,4,.data,global,?gateKey@?3??rva003E4921@ScriptConditions@@QAE_NPAVParameter@@@Z@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003E4921Finish.cpp,owned,,1,2
 0x00A02E18,4,.data,global,?$S1@?3??rva003E4921@ScriptConditions@@QAE_NPAVParameter@@@Z@4IA,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003E4921Finish.cpp,owned,,1,4
-0x00A02E1C,4,.data,global,?siegeKey@?3??Rva003E4B83Get@@YG_NPAVParameter@@@Z@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003E4B83Siege.cpp,owned,,1,2
-0x00A02E20,4,.data,global,?$S1@?3??Rva003E4B83Get@@YG_NPAVParameter@@@Z@4IA,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003E4B83Siege.cpp,owned,,1,4
+0x00A02E1C,4,.data,global,?siegeKey@?3??Rva003E4B83Get@@YG_NPAVParameter@@@Z@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions.cpp,owned,,1,2
+0x00A02E20,4,.data,global,?$S1@?3??Rva003E4B83Get@@YG_NPAVParameter@@@Z@4IA,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions.cpp,owned,,1,4
 0x00A02E24,4,.data,global,?key_StancesBehavior@?3??rva003E5267@ScriptConditions@@IAE_NPAVParameter@@0@Z@4W4NameKeyType@@B,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp,owned,,1,2
 0x00A02E28,4,.data,global,?$S1@?3??rva003E5267@ScriptConditions@@IAE_NPAVParameter@@0@Z@4IA,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp,owned,,1,2
 0x00A02E2C,4,.data,global,?keyFound@?BI@??evaluateCanBuildAtBase@ScriptConditions@@IAE_NPAVParameter@@0@Z@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp,owned,,1,2
