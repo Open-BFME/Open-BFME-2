@@ -41,10 +41,16 @@ public:
 	BehaviorModule(Thing *thing, const ModuleData *moduleData);
 };
 
+enum UpdateSleepTime
+{
+	UPDATE_SLEEP_NONE = 1
+};
+
+// Retail table 0x00C40434 (+0x10) slot 0 is the rowed override 0x00454DF9.
 class UpdateModuleInterface
 {
 public:
-	virtual void update();
+	virtual UpdateSleepTime update() = 0;
 };
 
 class UpdateModule : public BehaviorModule, public UpdateModuleInterface
@@ -111,6 +117,7 @@ class GettingBuiltBehavior : public UpdateModule, public GettingBuiltBehaviorSec
 public:
 	GettingBuiltBehavior(Thing *thing, const ModuleData *moduleData);
 	virtual ~GettingBuiltBehavior();
+	virtual UpdateSleepTime update();
 	void rva0045427E();
 private:
 	unsigned int m_audio24;
