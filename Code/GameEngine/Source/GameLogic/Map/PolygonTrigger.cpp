@@ -19,10 +19,17 @@ struct FloatRect0073CE30
 
 // PolygonTrigger's shape member at +0x08; its region getter is the rowed
 // Rva0030B719Shape::rva0030B6E3 0x0030B6E3.
+struct Region2D;
+struct Rva0030B72CPoint;
+class Coord2D;
 class Rva0030B719Shape
 {
 public:
 	Region2D rva0030B6E3();
+	Rva0030B72CPoint rva0030B72C(void) const;
+	Coord2D *begin;
+	Coord2D *end;
+	char m_pad08[0x20];
 };
 
 // Match the existing holder global's struct pointer declaration.
@@ -36,8 +43,14 @@ public:
 // owner's type.
 extern struct Rva002E373CHolder *g_Va00DBD0F4;
 
+class Coord2D;
+struct Coord3D;
+struct ICoord3D;
 class PolygonTrigger
 {
+private:
+	friend void Rva002E373CClear();
+	static int s_currentID; // VA 0x00DBD0F0 (retail .data initial value 1)
 public:
 	static void addPolygonTrigger(PolygonTrigger *pTrigger);
 	PolygonTrigger *getNext() { return m_nextPolygonTrigger; }
@@ -45,20 +58,34 @@ public:
 	void getBounds(FloatRect0073CE30 *rect);
 	void getBounds(IRegion2D *out);
 	void rva002E36B7(int);
-
+	Rva0030B72CPoint getCenterPoint2D(void) const;
+	void getCenterPoint(Coord3D *pOutCoord) const;
+	void rva002E38AF(const Coord3D *offset);
+	bool pointInTrigger(const ICoord3D &point);
+	bool rva002E3A39(const Coord3D &);
+	bool rva002E3AA8(const Coord3D *, const Coord3D *, Coord3D *, bool);
+	virtual void slot00();
+	virtual void slot04();
+	virtual void slot08();
+	virtual void slot0C();
+	virtual void slot10();
+	virtual void slot14();
+	virtual void slot18(int height);
+	virtual void slot1C();
+	virtual void slot20(const Coord2D *offset);
+	char m_pad04[0x4];
 private:
-	static int s_currentID;		// VA 0x00DBD0F0 (retail .data initial value 1)
-
-	unsigned char m_pad00[0x08];
-	Rva0030B719Shape m_shape;	// +0x08
-	unsigned char m_pad09[0x3c - 0x09];
-	PolygonTrigger *m_nextPolygonTrigger;	// +0x3C
- char opaque40[8];
- bool flag48;
- char opaque49[7];
- bool flag50;
- char opaque51[3];
- int field54,field58;
+	Rva0030B719Shape m_shape; // +0x08
+	int m_defaultHeight; // +0x30
+	char m_pad34[0x8];
+	PolygonTrigger *m_nextPolygonTrigger; // +0x3C
+	char opaque40[8]; // +0x40
+	bool flag48; // +0x48
+	char opaque49[7]; // +0x49
+	bool flag50; // +0x50
+	char opaque51[3]; // +0x51
+	int field54; // +0x54
+	int field58; // +0x58
 };
 
 // ZH PolygonTrigger.cpp: `Int PolygonTrigger::s_currentID = 1;`.
@@ -202,11 +229,12 @@ struct Rva002E3A8DPair
 	int m_y;
 };
 
-struct Rva002E3A8DHolder
+class Rva002E3A8DHolder
 {
-	unsigned char m_pad[8];
-	Rva002E3A8DPair *m_array;
+public:
 	Rva002E3A8DPair *get(Rva002E3A8DPair *out, int index);
+	char m_pad00[0x8];
+	Rva002E3A8DPair *m_array; // +0x08
 };
 
 //
