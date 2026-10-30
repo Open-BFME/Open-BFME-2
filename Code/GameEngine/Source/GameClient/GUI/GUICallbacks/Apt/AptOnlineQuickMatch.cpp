@@ -441,18 +441,6 @@ private:
 	unsigned char m_unmodelled[0x10];
 };
 
-class QuickMatchPreferences : public UserPreferences
-{
-public:
-	QuickMatchPreferences();
-	virtual ~QuickMatchPreferences();
-	void setLastLadder(const AsciiString &address, unsigned short port);
-	void setNumPlayers(int value);
-	void setMaxPing(int value);
-	void setSide(int value);
-	void setColor(int value);
-};
-
 void GadgetComboBoxGetSelectedPos(GameWindow *combo, int *selected);
 
 void *GadgetComboBoxGetItemData(GameWindow *combo, int selected);
@@ -551,6 +539,38 @@ private:
 	char pad00[0x78];
 	unsigned char m_78;
 };
+
+class AsciiString;
+
+void GadgetComboBoxReset(GameWindow *comboBox);
+
+int GadgetComboBoxAddEntry(GameWindow *comboBox, UnicodeString text, int color);
+
+void GadgetComboBoxSetSelectedPos(GameWindow *comboBox, int selectedIndex, bool dontHide);
+
+extern int GameSpyColor[];
+
+class QuickMatchPreferences : public UserPreferences
+{
+public:
+	QuickMatchPreferences();
+public:
+	virtual ~QuickMatchPreferences();
+public:
+	void setLastLadder(const AsciiString &address, unsigned short port);
+public:
+	void setNumPlayers(int value);
+public:
+	void setMaxPing(int value);
+public:
+	void setSide(int value);
+public:
+	void setColor(int value);
+public:
+	int getNumPlayers();
+};
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatch.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchOptions.cpp
 
@@ -722,12 +742,6 @@ void AptOnlineQuickMatch::rva005BBDAC(BfmeOpaqueOwnedRecord492 &request){
  for(_STL::vector<MapMetaData*>::iterator mapMetaData=metadata.begin();mapMetaData!=metadata.end();++mapMetaData){MapMetaData *md=*mapMetaData;if(md->players==players)result.push_back(true);}
 }
 
-// tu-skeleton: 0x005BA3AD 19B ?rva005BA3AD@Rva005BA3AD@@QAE_NXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchReady.cpp (not merged yet)
-
-// tu-skeleton: 0x005BA3C0 53B ??1LadderPref@@QAE@XZ -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/OnlinePreferences.cpp (not merged yet)
-
-// tu-skeleton: 0x005BA3F5 75B ??0LadderPref@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/LadderPrefCopy.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva005BA440SaveOptions.cpp
 
 //
@@ -787,22 +801,6 @@ void Rva005BA440::rva005BA440()
 	pref.write();
 }
 
-// tu-skeleton: 0x005BA587 12B ?rva005ba587@@YGXIVUnicodeString@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/UnicodeStringEmptyCleanup.cpp (not merged yet)
-
-// tu-skeleton: 0x005BA593 142B ??1OnlineQuickMatch@AptOnline@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/Rva005BA593Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x005BA621 5B ?rva005BA621@Rva005BA621@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp (not merged yet)
-
-// tu-skeleton: 0x005BA626 200B ?rva005BA626@Rva005BA626@@QAE_NXZ -- matched in Code/GameEngine/Source/Common/Rva005BA626Populate.cpp (not merged yet)
-
-// tu-skeleton: 0x005BA6EE 277B ?rva005BA6EE@Rva005BA6EE@@QAE_NXZ -- matched in Code/GameEngine/Source/Common/Rva005BA6EEPopulate.cpp (not merged yet)
-
-// tu-skeleton: 0x005BA803 299B ?rva005BA803@OnlineQuickMatch@AptOnline@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchCallbacks.cpp (not merged yet)
-
-// tu-skeleton: 0x005BA92E 28B ??_GOnlineQuickMatch@AptOnline@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/GUI/Rva005BA593Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x005BA94A 225B ?InitGadgets@OnlineQuickMatch@AptOnline@@QAEXPBDPAXPAVGameWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchCallbacks.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchRequests.cpp
 
 // Retail 0x005BAA2B, 88 bytes: "AptOnline::OnlineQuickMatch::WidenSearch"
@@ -856,16 +854,6 @@ int AptOnline::OnlineQuickMatch::rva005BAECA(int window, int msg, unsigned char 
 	return 0;
 }
 
-// tu-skeleton: 0x005BAA83 32B ?Rva005BAA83Find@@YA?AU?$_List_iterator@VAsciiString@@U?$_Const_traits@VAsciiString@@@_STL@@@_STL@@U12@0ABVAsciiString@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_find_list_asciistring_rva001fd9c5.cpp (not merged yet)
-
-// tu-skeleton: 0x005BAB0B 115B ??4?$list@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_asciistring_insert.cpp (not merged yet)
-
-// tu-skeleton: 0x005BAB7E 844B ??0OnlineQuickMatch@AptOnline@@QAE@PAV1@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchConstructor.cpp (not merged yet)
-
-// tu-skeleton: 0x005BAF35 1132B ?OnMatched@AptOnlineQuickMatch@@QAEXAAVPeerResponse@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchOptions_OnMatched.cpp (not merged yet)
-
-// tu-skeleton: 0x005BB3A1 557B ?rva005BB3A1@Rva005BB3A1@@QAE_NXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/QuickMatchPopulateSideComboBoxRva005BB3A1.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/Rva005BB5CEGate.cpp
 
 bool Rva005BB5CEOwner::rva005BB5CE()
@@ -880,6 +868,65 @@ bool Rva005BB5CEOwner::rva005BB5CE()
 	return r;
 }
 
+// tu-skeleton: 0x005BA3AD 19B ?rva005BA3AD@Rva005BA3AD@@QAE_NXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchReady.cpp (not merged yet)
+
+// tu-skeleton: 0x005BA3C0 53B ??1LadderPref@@QAE@XZ -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/OnlinePreferences.cpp (not merged yet)
+
+// tu-skeleton: 0x005BA3F5 75B ??0LadderPref@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/LadderPrefCopy.cpp (not merged yet)
+
+// tu-skeleton: 0x005BA587 12B ?rva005ba587@@YGXIVUnicodeString@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/UnicodeStringEmptyCleanup.cpp (not merged yet)
+
+// tu-skeleton: 0x005BA593 142B ??1OnlineQuickMatch@AptOnline@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/Rva005BA593Dtor.cpp (not merged yet)
+
+// tu-skeleton: 0x005BA621 5B ?rva005BA621@Rva005BA621@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva005BA626Populate.cpp
+
+// ?rva005BA626@Rva005BA626@@QAE_NXZ, retail 0x005BA626, 200 bytes.
+// Sibling donor Code/GameEngine/Source/Common/Rva005BA6EEPopulate.cpp
+// (BFME1 game/GameEngine/Source/GameClient/GUI/OnlineQuickMatchPopulateMaxPing.cpp).
+// Retail resets combo at +0x84, loops i=1..2 formatting "GUI:PlayersVersusPlayers"
+// with (i,i) via TheGameText slot 0x44, adds entries with color g_00DB9198,
+// then selects max(0,getNumPlayers) from prefs at +0x64. Caller 0x005BB5CE chains
+// into 0x005BA6EE and 0x005BB3A1 with flag at +0x78, same this.
+
+bool Rva005BA626::rva005BA626()
+{
+	if (*(GameWindow **)((char *)this + 0x84) == 0)
+		return false;
+	int color = GameSpyColor[0];
+	GadgetComboBoxReset(*(GameWindow **)((char *)this + 0x84));
+	UnicodeString text;
+	for (int i = 1; i <= 2; ++i)
+	{
+		text.format(TheGameText->fetchFormat("GUI:PlayersVersusPlayers", 0), i, i);
+		GadgetComboBoxAddEntry(*(GameWindow **)((char *)this + 0x84), text, color);
+	}
+	int num = ((QuickMatchPreferences *)((char *)this + 0x64))->getNumPlayers();
+	int zero = 0;
+	int *pSel = num < 0 ? &zero : &num;
+	GadgetComboBoxSetSelectedPos(*(GameWindow **)((char *)this + 0x84), *pSel, false);
+	return true;
+}
+
+// tu-skeleton: 0x005BA6EE 277B ?rva005BA6EE@Rva005BA6EE@@QAE_NXZ -- matched in Code/GameEngine/Source/Common/Rva005BA6EEPopulate.cpp (not merged yet)
+
+// tu-skeleton: 0x005BA803 299B ?rva005BA803@OnlineQuickMatch@AptOnline@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchCallbacks.cpp (not merged yet)
+
+// tu-skeleton: 0x005BA92E 28B ??_GOnlineQuickMatch@AptOnline@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/GUI/Rva005BA593Dtor.cpp (not merged yet)
+
+// tu-skeleton: 0x005BA94A 225B ?InitGadgets@OnlineQuickMatch@AptOnline@@QAEXPBDPAXPAVGameWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchCallbacks.cpp (not merged yet)
+
+// tu-skeleton: 0x005BAA83 32B ?Rva005BAA83Find@@YA?AU?$_List_iterator@VAsciiString@@U?$_Const_traits@VAsciiString@@@_STL@@@_STL@@U12@0ABVAsciiString@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_find_list_asciistring_rva001fd9c5.cpp (not merged yet)
+
+// tu-skeleton: 0x005BAB0B 115B ??4?$list@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_asciistring_insert.cpp (not merged yet)
+
+// tu-skeleton: 0x005BAB7E 844B ??0OnlineQuickMatch@AptOnline@@QAE@PAV1@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchConstructor.cpp (not merged yet)
+
+// tu-skeleton: 0x005BAF35 1132B ?OnMatched@AptOnlineQuickMatch@@QAEXAAVPeerResponse@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchOptions_OnMatched.cpp (not merged yet)
+
+// tu-skeleton: 0x005BB3A1 557B ?rva005BB3A1@Rva005BB3A1@@QAE_NXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/QuickMatchPopulateSideComboBoxRva005BB3A1.cpp (not merged yet)
+
 // tu-skeleton: 0x005BB5F6 1974B ?rva005BB5F6@AptOnlineQuickMatch@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchOptions_OnMatched.cpp (not merged yet)
 
 // tu-skeleton: 0x0079FB45 8B $L1271 -- matched in Code/GameEngine/Source/GameClient/GUI/Rva005BA593Dtor.cpp (not merged yet)
@@ -891,10 +938,6 @@ bool Rva005BB5CEOwner::rva005BB5CE()
 // tu-skeleton: 0x0079FB66 8B Unwind@00b9fb66 -- matched in Code/GameEngine/Source/GameClient/GUI/Rva005BA593Dtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0079FB6E 10B __ehhandler$??1OnlineQuickMatch@AptOnline@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/Rva005BA593Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0079FB78 8B $L819 -- matched in Code/GameEngine/Source/Common/Rva005BA626Populate.cpp (not merged yet)
-
-// tu-skeleton: 0x0079FB80 10B __ehhandler$?rva005BA626@Rva005BA626@@QAE_NXZ -- matched in Code/GameEngine/Source/Common/Rva005BA626Populate.cpp (not merged yet)
 
 // tu-skeleton: 0x0079FB8A 8B $L843 -- matched in Code/GameEngine/Source/Common/Rva005BA6EEPopulate.cpp (not merged yet)
 

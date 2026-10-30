@@ -49365,7 +49365,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x005BA587,12,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatch.cpp,approved,C,C=0x005BA3F5..0x005BA593,Code/Libraries/Source/WWVegas/WWLib/UnicodeStringEmptyCleanup.cpp
 0x005BA593,142,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatch.cpp,approved,C,W=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatch.cpp C=0x005BA3F5..0x005BA621,Code/GameEngine/Source/GameClient/GUI/Rva005BA593Dtor.cpp
 0x005BA621,5,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatch.cpp,approved,C,C=0x005BA3F5..0x005BA626,Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp
-0x005BA626,200,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatch.cpp,approved,C,C=0x005BA3F5..0x005BA6EE,Code/GameEngine/Source/Common/Rva005BA626Populate.cpp
+0x005BA626,200,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatch.cpp,approved,C,C=0x005BA3F5..0x005BA6EE,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatch.cpp
 0x005BA6EE,277,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatch.cpp,approved,C,C=0x005BA3F5..0x005BA803,Code/GameEngine/Source/Common/Rva005BA6EEPopulate.cpp
 0x005BA803,299,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatch.cpp,approved,C,C=0x005BA3F5..0x005BA92E,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchCallbacks.cpp
 0x005BA92E,28,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatch.cpp,approved,C,C=0x005BA3F5..0x005BA94A,Code/GameEngine/Source/GameClient/GUI/Rva005BA593Dtor.cpp
@@ -88187,8 +88187,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0079FB58,14,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatch.cpp,approved,P,P=0x005BA593@FuncInfo0x00956940,Code/GameEngine/Source/GameClient/GUI/Rva005BA593Dtor.cpp
 0x0079FB66,8,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatch.cpp,approved,P,P=0x005BA593@FuncInfo0x00956940,Code/GameEngine/Source/GameClient/GUI/Rva005BA593Dtor.cpp
 0x0079FB6E,10,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatch.cpp,approved,P,P=0x005BA593@FuncInfo0x00956940,Code/GameEngine/Source/GameClient/GUI/Rva005BA593Dtor.cpp
-0x0079FB78,8,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatch.cpp,approved,P,P=0x005BA626@FuncInfo0x00956964,Code/GameEngine/Source/Common/Rva005BA626Populate.cpp
-0x0079FB80,10,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatch.cpp,approved,P,P=0x005BA626@FuncInfo0x00956964,Code/GameEngine/Source/Common/Rva005BA626Populate.cpp
+0x0079FB78,8,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatch.cpp,approved,P,P=0x005BA626@FuncInfo0x00956964,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatch.cpp
+0x0079FB80,10,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatch.cpp,approved,P,P=0x005BA626@FuncInfo0x00956964,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatch.cpp
 0x0079FB8A,8,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatch.cpp,approved,P,P=0x005BA6EE@FuncInfo0x00956988,Code/GameEngine/Source/Common/Rva005BA6EEPopulate.cpp
 0x0079FB92,10,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatch.cpp,approved,P,P=0x005BA6EE@FuncInfo0x00956988,Code/GameEngine/Source/Common/Rva005BA6EEPopulate.cpp
 0x0079FB9C,13,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatch.cpp,approved,P,P=0x005BA803@FuncInfo0x009569B4,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchCallbacks.cpp
