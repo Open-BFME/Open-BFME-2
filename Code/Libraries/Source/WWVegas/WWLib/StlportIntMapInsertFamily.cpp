@@ -18,12 +18,14 @@
 //
 //   insert_unique  _M_insert   _M_create_node
 //   0x001FF875     0x001FF791  0x001FF703
-//   0x0032EB87     0x0032EAD6  0x0032EA7F
 //   0x00439AAA     0x00439A22  0x00439943
 //   0x004F90FF     0x004F9077  0x004F8CE0
 //   0x00502861     0x005027D9  0x00502645
 //   0x00502BCD     0x00502B45  0x005028E7
 //   0x00559076     0x00558FEE  0x00558E9C
+//
+// The 0x0032EB87/0x0032EAD6/0x0032EA7F tree is map<int, vector<vector<BfmeE8> > >,
+// rowed under that spelling in SidesListCastleBuildLists.cpp.
 
 #define _STLP_BFME_RB_MINMAX_IMPORT  // inline _Rb_tree_node_base::_S_minimum/_S_maximum without a COMDAT copy (vendor/stlport/stl/_tree.h)
 #include <map>
@@ -77,7 +79,6 @@ template <> ScienceMemoTree::_Link_type ScienceMemoTree::_M_create_node(const Sc
 }
 
 
-struct Rva0032EB87Mapped { int a; };
 // The matched _M_create_node target allocates a 0x24-byte tree node. With a
 // 0x10-byte node header and the int key this leaves 0x10 bytes for this mapped
 // record. Its meaning and field layout remain unknown.
@@ -195,7 +196,6 @@ Rva00559076Tree::_Link_type Rva00559076Tree::_M_create_node(const Rva00559076Tre
 }
 
 template class _STL::_Rb_tree<ScienceType, _STL::pair<const ScienceType, bool>, _STL::_Select1st<_STL::pair<const ScienceType, bool> >, _STL::less<ScienceType>, _STL::allocator<_STL::pair<const ScienceType, bool> > >;
-template class _STL::_Rb_tree<int, _STL::pair<const int, Rva0032EB87Mapped>, _STL::_Select1st<_STL::pair<const int, Rva0032EB87Mapped> >, _STL::less<int>, _STL::allocator<_STL::pair<const int, Rva0032EB87Mapped> > >;
 template class _STL::_Rb_tree<int, _STL::pair<const int, Rva00439AAAMapped>, _STL::_Select1st<_STL::pair<const int, Rva00439AAAMapped> >, _STL::less<int>, _STL::allocator<_STL::pair<const int, Rva00439AAAMapped> > >;
 template class _STL::_Rb_tree<int, _STL::pair<const int, Rva004F90FFMapped>, _STL::_Select1st<_STL::pair<const int, Rva004F90FFMapped> >, _STL::less<int>, _STL::allocator<_STL::pair<const int, Rva004F90FFMapped> > >;
 template class _STL::_Rb_tree<int, _STL::pair<const int, Rva00501776>, _STL::_Select1st<_STL::pair<const int, Rva00501776> >, _STL::less<int>, _STL::allocator<_STL::pair<const int, Rva00501776> > >;
