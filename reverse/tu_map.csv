@@ -47511,7 +47511,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0057A8F9,52,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,proposed,C,W=Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDChecklistUIImpl.cpp C=0x0057A685..0x0057A92D,Code/GameEngine/Source/Common/Rva0057A8F9Apt.cpp
 0x0057A92D,52,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,proposed,C,W=Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDChecklistUIImpl.cpp C=0x0057A685..0x0057A961,Code/GameEngine/Source/Common/Rva0057A92DApt.cpp
 0x0057A961,86,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,proposed,C,C=0x0057A685..0x0057A9B7,Code/GameEngine/Source/Common/Rva0057A961Apt.cpp
-0x0057A9B7,104,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,proposed,C,C=0x0057A685..0x0057AA1F,Code/GameEngine/Source/Common/Rva0057A9B7Fire.cpp
+0x0057A9B7,104,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,proposed,C,C=0x0057A685..0x0057AA1F,Code/GameEngine/Source/Common/StrategicHUD.cpp
 0x0057AA1F,30,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,proposed,C,C=0x0057A685..0x0057AA3D,Code/GameEngine/Source/Common/Rva005CE259Ctor.cpp
 0x0057AA3D,8,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,proposed,C,C=0x0057A685..0x0057AA45,Code/GameEngine/Source/Common/VslotSmallBodiesAP.cpp
 0x0057AA45,144,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,proposed,K,K=Rva0057A4E7,Code/GameEngine/Source/Common/Rva0057A4E7Ctor.cpp
@@ -86499,8 +86499,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0079BD47,8,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x0057A748@FuncInfo0x009513C4 p-group provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDChecklistUIImpl.cpp
 0x0079BD4F,11,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x0057A748@FuncInfo0x009513C4 p-group provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDChecklistUIImpl.cpp
 0x0079BD5A,10,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x0057A748@FuncInfo0x009513C4 p-group provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDChecklistUIImpl.cpp
-0x0079BD64,8,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x0057A9B7@FuncInfo0x009513E8 p-group provisional,Code/GameEngine/Source/Common/Rva0057A9B7Fire.cpp
-0x0079BD6C,10,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x0057A9B7@FuncInfo0x009513E8 p-group provisional,Code/GameEngine/Source/Common/Rva0057A9B7Fire.cpp
+0x0079BD64,8,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x0057A9B7@FuncInfo0x009513E8 p-group provisional,Code/GameEngine/Source/Common/StrategicHUD.cpp
+0x0079BD6C,10,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x0057A9B7@FuncInfo0x009513E8 p-group provisional,Code/GameEngine/Source/Common/StrategicHUD.cpp
 0x0079BD76,8,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x0057AA45@FuncInfo0x00951424 p-group provisional,Code/GameEngine/Source/Common/Rva0057A4E7Ctor.cpp
 0x0079BD7E,8,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x0057AA45@FuncInfo0x00951424 p-group provisional,Code/GameEngine/Source/Common/Rva0057A4E7Ctor.cpp
 0x0079BD86,11,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x0057AA45@FuncInfo0x00951424 p-group provisional,Code/GameEngine/Source/Common/Rva0057A4E7Ctor.cpp
