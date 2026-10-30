@@ -21,6 +21,10 @@ class Rva005E1158
 {
 public:
 	void rva005E1158(const Image *image);
+	virtual ~Rva005E1158();
+private:
+	int m_04; // +0x04
+	void *m_08; // +0x08
 };
 
 class Rva005E92F7Base
@@ -69,7 +73,7 @@ Rva005E92F7::~Rva005E92F7()
 class ImageCollection
 {
 public:
-    const Image *findImageByName(const AsciiString &name);
+	const Image *findImageByName(const AsciiString &name);
 };
 extern ImageCollection *TheMappedImageCollection;
 const Image *__cdecl Rva005E936AGet(const void *p)

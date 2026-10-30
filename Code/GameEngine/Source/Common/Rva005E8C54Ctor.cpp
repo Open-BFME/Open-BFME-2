@@ -65,9 +65,9 @@ struct Rva005F888CRef
 class Rva005F8427
 {
 public:
+	void rva005F88CE(const Rva005F888CRef &ref);
 	int rva005F8408() const;
 	void rva005F841F();
-	void rva005F88CE(const Rva005F888CRef &ref);
 };
 
 // The three-word value the record copies; its constructor is rowed at

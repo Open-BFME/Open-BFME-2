@@ -21,8 +21,8 @@ public:
 	void rva005E1158(const Image *image);
 	virtual ~Rva005E1158();
 private:
-	int m_04;
-	void *m_08;
+	int m_04; // +0x04
+	void *m_08; // +0x08
 };
 
 class Rva005E12D1 : public Rva005E1158
@@ -37,10 +37,11 @@ private:
 
 class Rva005E16B9
 {
-	char m_pad[8];
-	AsciiString m_8;
 public:
 	const Image *GetImage();
+	char m_pad00[0x8];
+private:
+	AsciiString m_8; // +0x08
 };
 
 class Rva005E8DB5

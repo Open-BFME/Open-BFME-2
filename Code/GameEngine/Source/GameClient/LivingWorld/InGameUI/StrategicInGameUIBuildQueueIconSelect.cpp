@@ -85,11 +85,13 @@ public:
  }
  void reset(Rva005E7D72 *);
 };
-class Rva005F830A {
+class Rva005F830A
+{
 public:
- Rva005F830A(void *,void *,void *,void *);
- virtual ~Rva005F830A();
-private: void *m_heap;
+	Rva005F830A(void *,void *,void *,void *);
+	virtual ~Rva005F830A();
+private:
+	void *m_heap; // +0x04
 };
 #include "../../../../Include/Common/Rva0057605DSecond.h"
 #define BFME_BASE0C_80FD_INLINE_CTOR
@@ -576,7 +578,11 @@ class Rva004E0625 { public: int rva004E0625() const; };
 struct Rva002BA8F1Listener;
 class Rva005A0B4CList { public: void append(Rva002BA8F1Listener *); };
 class CreateAHeroData;
-class Rva002B7250 { public: void rva002B7250(CreateAHeroData *); };
+class Rva002B7250
+{
+public:
+	void rva002B7250(CreateAHeroData *data);
+};
 class Rva005E8095 { public: void rva005E8095(unsigned); };
 struct Rva005E8350Building { char unknown0[0x28]; Rva002DF9E9 *label; };
 // Field offsets are native evidence; this accessor name is reconstructed.

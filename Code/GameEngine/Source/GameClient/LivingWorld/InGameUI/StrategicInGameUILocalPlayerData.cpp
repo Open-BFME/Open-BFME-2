@@ -83,9 +83,10 @@ public:
     int words[6];
 };
 class Image;
-class ImageCollection {
+class ImageCollection
+{
 public:
-    const Image *findImageByName(const AsciiString &);
+	const Image *findImageByName(const AsciiString &name);
 };
 extern ImageCollection *TheMappedImageCollection;
 struct FactionView { char prefix[0x20]; AsciiString icon; };

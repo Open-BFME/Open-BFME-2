@@ -46,9 +46,13 @@ public:
 };
 
 
-class Rva005F830A {
-public: virtual ~Rva005F830A();
-private: void *m_heap;
+class Rva005F830A
+{
+public:
+	Rva005F830A(void *,void *,void *,void *);
+	virtual ~Rva005F830A();
+private:
+	void *m_heap; // +0x04
 };
 #include "../../../../Include/Common/Rva0057605DSecond.h"
 #include "../../../../Include/Common/Base0C_80FD.h"
