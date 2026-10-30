@@ -16,6 +16,8 @@ unsigned Rva0017368ACompare(const Rva0017368ATask &lhs, const Rva0017368ATask &r
     return lhs.mesh->key < rhs.mesh->key;
 }
 
+unsigned Rva0017368ACompare(const Rva0017368ATask &lhs, const Rva0017368ATask &rhs);
+
 // Native001736A7..001736D6 follows the comparator above and returns the
 // same full EAX zero/one value. Software-skinning flush001748E8 passes
 // this address to the same sort. Equal meshC4 words select mesh310;
