@@ -17,6 +17,7 @@
 #define _STLP_USE_NEWALLOC 1
 #define _STLP_NO_EXCEPTIONS 1
 #include <list>
+#include "../../../../Include/GameLogic/ContainmentListView.h"
 
 typedef bool Bool;
 typedef int Int;
@@ -31,7 +32,23 @@ enum TimeOfDay
 class Team;
 class Player;
 class Drawable;
+enum ObjectStatusTypes
+{
+	OBJECT_STATUS_UNDER_CONSTRUCTION = 2
+};
+enum DisabledType
+{
+	DISABLED_HELD = 3
+};
 class Object;
+class DamageInfo;
+class BfmeTab1026;
+class BodyModuleInterfaceView;
+class BehaviorModule;
+class Rva0010CBits;
+class Drawable;
+struct Coord3D;
+enum NameKeyType;
 
 struct BfmeContainedNode
 {
@@ -61,10 +78,13 @@ public:
 	{
 		return m_playerColor;
 	}
-
 	Color getPlayerNightColor() const
 	{
 		return m_playerNightColor;
+	}
+	Team *getDefaultTeam() const
+	{
+		return m_defaultTeam;
 	}
 	// LINK: same-body helpers under TU-unique names (identical inlined
 	// bytes). This TU's copies lose (first-copy); both calls below inline
@@ -74,41 +94,39 @@ public:
 	{
 		return m_playerColor;
 	}
-
 	Color bfme_player_night_color() const
 	{
 		return m_playerNightColor;
 	}
-
-	Team *getDefaultTeam() const
-	{
-		return m_defaultTeam;
-	}
-
+	char m_pad00[0x280];
 private:
-	unsigned char m_pad0[0x280];
-	Color m_playerColor;
-	Color m_playerNightColor;
-	unsigned char m_pad1[0x2EC - 0x288];
-	Team *m_defaultTeam;
+	Color m_playerColor; // +0x280
+	Color m_playerNightColor; // +0x284
+	char m_pad288[0x64];
+	Team *m_defaultTeam; // +0x2EC
 };
 
-class Object
+#include "../../../Common/Thing/thing.h"
+class Object : public Thing
 {
 public:
-	virtual void slot00() = 0;
-	virtual void slot04() = 0;
-	virtual void slot08() = 0;
-	virtual void slot0C() = 0;
-	virtual void slot10() = 0;
-	virtual void slot14() = 0;
-	virtual void slot18() = 0;
-	virtual void slot1C() = 0;
-	virtual void slot20() = 0;
-	virtual void slot24() = 0;
+	void setDisabled(DisabledType type);
+	void rva0028FB6F(void *owner);
+	Bool testStatus(ObjectStatusTypes status) const;
+	BodyModuleInterfaceView *bodyModule() const
+	{
+		return *reinterpret_cast<BodyModuleInterfaceView *const *>(
+			reinterpret_cast<const char *>(this) + 0x250);
+	}
 	Drawable *getDrawable() const;
-
 	Player *getControllingPlayer() const;
+	Bool clearDisabled( DisabledType type );
+	void rva0028DCC4();
+	void defect( Team *team, UnsignedInt detectionTime );
+	const Coord3D *getPosition() const { return reinterpret_cast<const Coord3D *>(reinterpret_cast<const char *>(this) + 0x38); }
+	BehaviorModule **getBehaviorModules() const { return *reinterpret_cast<BehaviorModule **const *>(reinterpret_cast<const char *>(this) + 0x244); }
+	Rva0010CBits &getConditionBits() { return *reinterpret_cast<Rva0010CBits *>(reinterpret_cast<char *>(this) + 0x10C); }
+	void rva0028AE6D();
 
 	Team *getTeam() const
 	{
@@ -120,6 +138,7 @@ class Drawable
 {
 public:
 	void setIndicatorColor(Color color);
+	void setDrawableHidden(bool hidden);
 };
 
 class PlayerList
@@ -163,20 +182,24 @@ static inline CaveContainGlobalDataView *caveContainGlobalData()
 // Retail CaveContain uses OpenContain's genuine multiple-inheritance layout.
 // The primary module base contains the module-data and owning-Object pointers;
 // the ContainModuleInterface base begins at complete-object +0x20.
-class OpenContainPrimaryBase
+#include "../../../../Include/Common/ObjectModule.h"
+
+class OpenContainPrimaryBase : public ObjectModule
 {
 public:
-	virtual void primaryAnchor() = 0;
-
-protected:
-	Object *getObject() const
-	{
-		return m_object;
-	}
-
-private:
-	UnsignedInt m_moduleData;
-	Object *m_object;
+	virtual void primarySlot0A() = 0;
+	virtual void primarySlot0B() = 0;
+	virtual void primarySlot0C() = 0;
+	virtual void primarySlot0D() = 0;
+	virtual void primarySlot0E() = 0;
+	virtual void primarySlot0F() = 0;
+	virtual void primarySlot10() = 0;
+	virtual void primarySlot11() = 0;
+	virtual void primarySlot12() = 0;
+	virtual void primarySlot13() = 0;
+	virtual void primarySlot14() = 0;
+	virtual void primarySlot15() = 0;
+	virtual void doUnloadSound() = 0;
 };
 
 class OpenContainBehaviorInterface
@@ -227,7 +250,7 @@ public:
 	virtual void pad54() = 0;
 	virtual void pad58() = 0;
 	virtual void pad5C() = 0;
-	virtual void pad60() = 0;
+	virtual int getContainMax() const = 0;
 	virtual void pad64() = 0;
 	virtual void pad68() = 0;
 	virtual void pad6C() = 0;
@@ -237,11 +260,11 @@ public:
 	virtual void pad7C() = 0;
 	virtual void pad80() = 0;
 	virtual void pad84() = 0;
-	virtual void pad88() = 0;
+	virtual Bool isValidContainerFor(Object *, Bool, Bool) = 0;
 	virtual void pad8C() = 0;
-	virtual void pad90() = 0;
-	virtual void pad94() = 0;
-	virtual void pad98() = 0;
+	virtual void addToContainList(Object *) = 0;
+	virtual void removeFromContain(Object *, Bool) = 0;
+	virtual void removeAllContained(Bool) = 0;
 	virtual void pad9C() = 0;
 	virtual void padA0() = 0;
 	virtual void padA4() = 0;
@@ -267,9 +290,9 @@ public:
 	virtual void padF4() = 0;
 	virtual void padF8() = 0;
 	virtual void padFC() = 0;
-	virtual void targetPad110() = 0;
-	virtual UnsignedInt getContainCount(Bool countRiders) const = 0;
-	virtual BfmeContainedRange getContainedItemsList() const = 0;
+	virtual void iterateContained(void (*)(Object *, void *), void *, unsigned int) = 0;
+	virtual int rva00466504(BfmeTab1026 *) = 0;
+	virtual Rva0036AE51ListView rva00466534() = 0;
 };
 
 template <int Offset>
@@ -277,6 +300,23 @@ class OpenContainAuxiliaryInterface
 {
 public:
 	virtual void auxiliaryAnchor() = 0;
+};
+
+template <>
+class OpenContainAuxiliaryInterface<0x28>
+{
+public:
+	virtual void onDie(const DamageInfo *) = 0;
+};
+
+template <>
+class OpenContainAuxiliaryInterface<0x34>
+{
+public:
+	virtual void onCreate() = 0;
+	virtual void onBuildComplete() = 0;
+	virtual void rva004B3FD0() = 0;
+	virtual Bool shouldDoOnBuildComplete() = 0;
 };
 
 class __declspec(novtable) OpenContain
@@ -291,19 +331,22 @@ class __declspec(novtable) OpenContain
 	  public OpenContainAuxiliaryInterface<0x34>
 {
 public:
+	OpenContain(Thing *thing, const ModuleData *moduleData);
+	virtual ~OpenContain();
 	virtual const Player *getApparentControllingPlayer(const Player *) const;
-	virtual void recalcApparentControllingPlayer();
-	virtual UnsignedInt getContainCount(Bool countRiders) const;
-	virtual BfmeContainedRange getContainedItemsList() const;
+	virtual void onRemoving(Object *obj);
+	virtual void onContaining(Object *, Bool);
 
 protected:
+	virtual void doUnloadSound();
+	virtual void xfer(Xfer *xfer);
 	using OpenContainPrimaryBase::getObject;
 
 private:
-	unsigned char m_openContainData[0x9C];
+	unsigned char m_openContainData[0xC4];
 };
 
-typedef char OpenContainSizeMustBeD4[(sizeof(OpenContain) == 0xD4) ? 1 : -1];
+typedef char OpenContainSizeMustBeFC[(sizeof(OpenContain) == 0xFC) ? 1 : -1];
 
 class CaveInterface
 {
@@ -312,21 +355,41 @@ public:
 	virtual void setOriginalTeam(Team *oldTeam) = 0;
 };
 
-class __declspec(novtable) CaveContain : public OpenContain, public CaveInterface
+class CaveContain : public OpenContain, public CaveInterface
 {
 public:
+	CaveContain(Thing *thing, const ModuleData *moduleData);
+	virtual void onRemoving(Object *obj);
 	virtual void recalcApparentControllingPlayer();
-	virtual UnsignedInt getContainCount(Bool countRiders) const;
-	virtual BfmeContainedRange getContainedItemsList() const;
-
 	void rva00466848(Team *, Bool);
+	virtual void onContaining(Object *, Bool);
+	virtual void removeFromContain(Object *obj, Bool exposeStealthUnits);
+	virtual void removeAllContained(Bool exposeStealthUnits);
+	virtual void iterateContained(void (*callback)(Object*,void*), void *data, unsigned int flags);
+	// Implemented for the CaveInterface subobject at complete-object +0xFC.
+	virtual void tryToSetCaveIndex(int newIndex);
+	// Implemented for the one-entry die interface at complete-object +0x28.
+	virtual void onDie(const DamageInfo *damageInfo);
+	virtual void addToContainList(Object *obj);
+	virtual Bool isValidContainerFor(Object *obj, Bool checkCapacity, Bool testPath);
+	virtual int rva00466504(BfmeTab1026 *tab);
+	virtual int getContainMax() const;
+	virtual Rva0036AE51ListView rva00466534();
+	// Lifecycle interface at complete-object +0x34.
+	virtual void onCreate();
+	virtual void onBuildComplete();
+
+protected:
+	virtual ~CaveContain();
+	virtual void xfer(Xfer *xfer);
 
 private:
-	unsigned char m_bfme2CaveFieldPrefix[0x28];
-	Bool m_needToRunOnBuildComplete;
+	Bool m_needToRunOnBuildComplete; // +0x100
 	unsigned char m_fieldAlignment[3];
-	Int m_caveIndex;
-	Team *m_originalTeam;
+	Int m_caveIndex; // +0x104
+	Team *m_originalTeam; // +0x108
+public:
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 typedef char CaveContainSizeMustBe10C[(sizeof(CaveContain) == 0x10C) ? 1 : -1];
@@ -340,14 +403,14 @@ void CaveContain::recalcApparentControllingPlayer()
 	if (getObject()->getTeam() == 0)
 		m_originalTeam = 0;
 
-	if (getContainCount(false) == 1)
+	if (rva00466504(0) == 1)
 	{
-		Object *rider = getContainedItemsList().m_list->m_head->m_next->m_object;
+		Object *rider = reinterpret_cast<Object *>(containmentFirstWord(*rva00466534().b->begin()));
 		if (rider->getControllingPlayer() != 0)
 			rva00466848(
 				rider->getControllingPlayer()->getDefaultTeam(), true);
 	}
-	else if (getContainCount(false) == 0)
+	else if (rva00466504(0) == 0)
 	{
 		rva00466848(m_originalTeam, false);
 	}

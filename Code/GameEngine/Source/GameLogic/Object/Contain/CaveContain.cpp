@@ -33,6 +33,7 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
 // vtable placement, rowed callees, and body bytes establish this identity/ABI.
 
 typedef bool Bool;
+typedef int Int;
 
 typedef unsigned int UnsignedInt;
 
@@ -41,10 +42,7 @@ enum DisabledType
 	DISABLED_HELD = 3
 };
 
-enum ObjectID
-{
-	OBJECTID_NONE = 0
-};
+#include "../../../Common/GameLogicObjectLookupView.h"
 
 enum ObjectStatusTypes
 {
@@ -52,6 +50,13 @@ enum ObjectStatusTypes
 };
 
 class DamageInfo;
+class Team;
+class Player;
+class BehaviorModule;
+class Rva0010CBits;
+class Drawable;
+struct Coord3D;
+#include "../../../Common/Thing/thing.h"
 
 class Object;
 
@@ -86,7 +91,7 @@ public:
 
 // The owner's BodyModule pointer is at Object +0x250; 0x0028FB6F is rowed
 // under its address-derived name.
-class Object
+class Object : public Thing
 {
 public:
 	void setDisabled(DisabledType type);
@@ -96,6 +101,20 @@ public:
 	{
 		return *reinterpret_cast<BodyModuleInterfaceView *const *>(
 			reinterpret_cast<const char *>(this) + 0x250);
+	}
+	Drawable *getDrawable() const;
+	Player *getControllingPlayer() const;
+	Bool clearDisabled( DisabledType type );
+	void rva0028DCC4();
+	void defect( Team *team, UnsignedInt detectionTime );
+	const Coord3D *getPosition() const { return reinterpret_cast<const Coord3D *>(reinterpret_cast<const char *>(this) + 0x38); }
+	BehaviorModule **getBehaviorModules() const { return *reinterpret_cast<BehaviorModule **const *>(reinterpret_cast<const char *>(this) + 0x244); }
+	Rva0010CBits &getConditionBits() { return *reinterpret_cast<Rva0010CBits *>(reinterpret_cast<char *>(this) + 0x10C); }
+	void rva0028AE6D();
+
+	Team *getTeam() const
+	{
+		return *reinterpret_cast<Team *const *>(reinterpret_cast<const char *>(this) + 0x304);
 	}
 };
 
@@ -122,6 +141,9 @@ public:
 	void addToContainList(Object *obj);
 	Bool isValidContainerFor(Object *obj, Bool checkCapacity);
 	int getContainMax() const;
+	const _STL::list<ObjectID> *getContainerList() const { return &m_containerList; }
+	unsigned char m_pad00[0x08];
+	_STL::list<ObjectID> m_containerList;
 };
 
 class CaveSystem
@@ -129,7 +151,7 @@ class CaveSystem
 public:
 	TunnelTracker *getTunnelTrackerForCaveIndex(UnsignedInt index);
 	void registerNewCave(int index);
-	void unregisterCave(int index);	// folded into 0x0047A69C
+	void unregisterCave(int index); // folded into 0x0047A69C
 };
 
 // Existing target row at 0x0042755D; its address-derived spelling is kept.
@@ -165,50 +187,170 @@ public:
 // Cave-system singleton at retail RVA 0x00A031F4.
 extern CaveSystem *TheCaveSystem;
 
-class OpenContain
+#include "../../../../Include/Common/ObjectModule.h"
+
+class OpenContainPrimaryBase : public ObjectModule
 {
 public:
-	virtual void slot00() = 0;
-	virtual void slot01() = 0;
-	virtual void slot02() = 0;
-	virtual void slot03() = 0;
-	virtual void slot04() = 0;
-	virtual void slot05() = 0;
-	virtual void slot06() = 0;
-	virtual void slot07() = 0;
-	virtual void slot08() = 0;
-	virtual void slot09() = 0;
-	virtual void slot10() = 0;
-	virtual void slot11() = 0;
-	virtual void slot12() = 0;
-	virtual void slot13() = 0;
-	virtual void slot14() = 0;
-	virtual void slot15() = 0;
-	virtual void slot16() = 0;
-	virtual void slot17() = 0;
-	virtual void slot18() = 0;
-	virtual void slot19() = 0;
+	virtual void primarySlot0A() = 0;
+	virtual void primarySlot0B() = 0;
+	virtual void primarySlot0C() = 0;
+	virtual void primarySlot0D() = 0;
+	virtual void primarySlot0E() = 0;
+	virtual void primarySlot0F() = 0;
+	virtual void primarySlot10() = 0;
+	virtual void primarySlot11() = 0;
+	virtual void primarySlot12() = 0;
+	virtual void primarySlot13() = 0;
+	virtual void primarySlot14() = 0;
+	virtual void primarySlot15() = 0;
+	virtual void doUnloadSound() = 0;
+};
+class OpenContainBehaviorInterface
+{
+public:
+	virtual void behaviorAnchor() = 0;
+};
+class OpenContainUpdateInterface
+{
+public:
+	virtual void updateAnchor() = 0;
+
+private:
+	UnsignedInt m_nextCallFrameAndPhase;
+	Int m_indexInLogic;
+	UnsignedInt m_unreconstructed1C;
+};
+class ContainModuleInterface
+{
+public:
+	virtual void pad00() = 0;
+	virtual void pad04() = 0;
+	virtual void pad08() = 0;
+	virtual void pad0C() = 0;
+	virtual void pad10() = 0;
+	virtual void pad14() = 0;
+	virtual void pad18() = 0;
+	virtual void pad1C() = 0;
+	virtual void pad20() = 0;
+	virtual void pad24() = 0;
+	virtual void pad28() = 0;
+	virtual void pad2C() = 0;
+	virtual void pad30() = 0;
+	virtual void pad34() = 0;
+	virtual void pad38() = 0;
+	virtual void targetPad3C() = 0;
+	virtual void targetPad40() = 0;
+	virtual void targetPad44() = 0;
+	virtual void targetPad48() = 0;
+	virtual const Player *getApparentControllingPlayer(const Player *) const = 0;
 	virtual void recalcApparentControllingPlayer() = 0;
-	virtual void slot21() = 0;
+	virtual void targetPad54() = 0;
+	virtual void onContaining(Object *, Bool) = 0;
+	virtual void onRemoving(Object *) = 0;
+	virtual void pad50() = 0;
+	virtual void pad54() = 0;
+	virtual void pad58() = 0;
+	virtual void pad5C() = 0;
+	virtual int getContainMax() const = 0;
+	virtual void pad64() = 0;
+	virtual void pad68() = 0;
+	virtual void pad6C() = 0;
+	virtual void pad70() = 0;
+	virtual void pad74() = 0;
+	virtual void pad78() = 0;
+	virtual void pad7C() = 0;
+	virtual void pad80() = 0;
+	virtual void pad84() = 0;
+	virtual Bool isValidContainerFor(Object *, Bool, Bool) = 0;
+	virtual void pad8C() = 0;
+	virtual void addToContainList(Object *) = 0;
+	virtual void removeFromContain(Object *, Bool) = 0;
+	virtual void removeAllContained(Bool) = 0;
+	virtual void pad9C() = 0;
+	virtual void padA0() = 0;
+	virtual void padA4() = 0;
+	virtual void padA8() = 0;
+	virtual void padAC() = 0;
+	virtual void padB0() = 0;
+	virtual void padB4() = 0;
+	virtual void padB8() = 0;
+	virtual void padBC() = 0;
+	virtual void padC0() = 0;
+	virtual void padC4() = 0;
+	virtual void padC8() = 0;
+	virtual void padCC() = 0;
+	virtual void padD0() = 0;
+	virtual void padD4() = 0;
+	virtual void padD8() = 0;
+	virtual void padDC() = 0;
+	virtual void padE0() = 0;
+	virtual void padE4() = 0;
+	virtual void padE8() = 0;
+	virtual void padEC() = 0;
+	virtual void padF0() = 0;
+	virtual void padF4() = 0;
+	virtual void padF8() = 0;
+	virtual void padFC() = 0;
+	virtual void iterateContained(void (*)(Object *, void *), void *, unsigned int) = 0;
+	virtual int rva00466504(BfmeTab1026 *) = 0;
+	virtual Rva0036AE51ListView rva00466534() = 0;
+};
+template <int Offset>
+class OpenContainAuxiliaryInterface
+{
+public:
+	virtual void auxiliaryAnchor() = 0;
+};
+
+template <>
+class OpenContainAuxiliaryInterface<0x28>
+{
+public:
+	virtual void onDie(const DamageInfo *) = 0;
+};
+
+template <>
+class OpenContainAuxiliaryInterface<0x34>
+{
+public:
+	virtual void onCreate() = 0;
+	virtual void onBuildComplete() = 0;
+	virtual void rva004B3FD0() = 0;
+	virtual Bool shouldDoOnBuildComplete() = 0;
+};
+
+class __declspec(novtable) OpenContain
+	: public OpenContainPrimaryBase,
+	  public OpenContainBehaviorInterface,
+	  public OpenContainUpdateInterface,
+	  public ContainModuleInterface,
+	  public OpenContainAuxiliaryInterface<0x24>,
+	  public OpenContainAuxiliaryInterface<0x28>,
+	  public OpenContainAuxiliaryInterface<0x2C>,
+	  public OpenContainAuxiliaryInterface<0x30>,
+	  public OpenContainAuxiliaryInterface<0x34>
+{
+public:
+	OpenContain(Thing *thing, const ModuleData *moduleData);
+	virtual ~OpenContain();
+	virtual const Player *getApparentControllingPlayer(const Player *) const;
+	virtual void onRemoving(Object *obj);
 	virtual void onContaining(Object *, Bool);
-	virtual void slot23() = 0;
-	virtual void slot24() = 0;
-	virtual void slot25() = 0;
-	virtual void slot26() = 0;
-	virtual void slot27() = 0;
-	virtual void slot28() = 0;
-	virtual void slot29() = 0;
-	virtual void slot30() = 0;
-	virtual void slot31() = 0;
-	virtual void slot32() = 0;
-	virtual void slot33() = 0;
-	virtual void slot34() = 0;
-	virtual void slot35() = 0;
-	virtual void slot36() = 0;
-	virtual void slot37() = 0;
-	virtual void slot38() = 0;
-	virtual void slot39() = 0;
-	virtual void slot40() = 0;
+
+protected:
+	virtual void doUnloadSound();
+	virtual void xfer(Xfer *xfer);
+	using OpenContainPrimaryBase::getObject;
+
+private:
+	unsigned char m_openContainData[0xC4];
+};
+class CaveInterface
+{
+public:
+	virtual void tryToSetCaveIndex(Int newIndex) = 0;
+	virtual void setOriginalTeam(Team *oldTeam) = 0;
 };
 
 // This interface view preserves the target secondary vtable slot order and
@@ -266,6 +408,8 @@ class TunnelTracker;
 class CaveContainBuildCompleteView
 {
 public:
+	// Implemented for the lifecycle interface at complete-object +0x34.
+	// Their bodies use that interface's explicit receiver view.
 	virtual void onCreate();
 	virtual void onBuildComplete();
 	virtual void rva004B3FD0();
@@ -286,9 +430,13 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class CaveContain : public OpenContain
+class CaveContain : public OpenContain, public CaveInterface
 {
 public:
+	CaveContain(Thing *thing, const ModuleData *moduleData);
+	virtual void onRemoving(Object *obj);
+	virtual void recalcApparentControllingPlayer();
+	void rva00466848(Team *, Bool);
 	virtual void onContaining(Object *, Bool);
 	virtual void removeFromContain(Object *obj, Bool exposeStealthUnits);
 	virtual void removeAllContained(Bool exposeStealthUnits);
@@ -302,25 +450,19 @@ public:
 	virtual int rva00466504(BfmeTab1026 *tab);
 	virtual int getContainMax() const;
 	virtual Rva0036AE51ListView rva00466534();
-	// Implemented for the lifecycle interface at complete-object +0x34.
-	// Their bodies use that interface's explicit receiver view.
+	// Lifecycle interface at complete-object +0x34.
 	virtual void onCreate();
 	virtual void onBuildComplete();
 
-	Object *getObject() const
-	{
-		return *reinterpret_cast<Object *const *>(
-			reinterpret_cast<const char *>(this) - 0x18);
-	}
-	Object *getDieObject() const
-	{
-		return *reinterpret_cast<Object *const *>(
-			reinterpret_cast<const char *>(this) - 0x20);
-	}
+protected:
+	virtual ~CaveContain();
+	virtual void xfer(Xfer *xfer);
 
 private:
-	unsigned char m_pad[0xE0];
-	int m_caveIndex;
+	Bool m_needToRunOnBuildComplete; // +0x100
+	unsigned char m_fieldAlignment[3];
+	Int m_caveIndex; // +0x104
+	Team *m_originalTeam; // +0x108
 public:
 	virtual NameKeyType getModuleNameKey() const;
 };
@@ -412,25 +554,23 @@ void CaveContain::tryToSetCaveIndex(int newIndex)
 {
 	// This vtable entry receives the CaveInterface subobject pointer at +0xFC,
 	// unlike the +0x20 ContainModuleInterface view used by sibling methods.
-	char *interfaceThis = reinterpret_cast<char *>(this);
-	int *caveIndex = reinterpret_cast<int *>(interfaceThis + 8);
 	if (reinterpret_cast<Rva0042755D *>(TheCaveSystem)->rva0042755D(
-		static_cast<UnsignedInt>(*caveIndex), static_cast<UnsignedInt>(newIndex)))
+		static_cast<UnsignedInt>(m_caveIndex), static_cast<UnsignedInt>(newIndex)))
 	{
 		TunnelTracker *oldTracker =
 			TheCaveSystem->getTunnelTrackerForCaveIndex(
-				static_cast<UnsignedInt>(*caveIndex));
-		TheCaveSystem->unregisterCave(*caveIndex);
+				static_cast<UnsignedInt>(m_caveIndex));
+		TheCaveSystem->unregisterCave(m_caveIndex);
 		reinterpret_cast<Rva004F56FC *>(oldTracker)->rva004F571B(
-			*reinterpret_cast<Object **>(interfaceThis - 0xF4));
+			getObject());
 
-		*caveIndex = newIndex;
-		TheCaveSystem->registerNewCave(*caveIndex);
+		m_caveIndex = newIndex;
+		TheCaveSystem->registerNewCave(m_caveIndex);
 		TunnelTracker *newTracker =
 			TheCaveSystem->getTunnelTrackerForCaveIndex(
-				static_cast<UnsignedInt>(*caveIndex));
+				static_cast<UnsignedInt>(m_caveIndex));
 		reinterpret_cast<Rva004F56FC *>(newTracker)->rva004F56FC(
-			*reinterpret_cast<Object **>(interfaceThis - 0xF4));
+			getObject());
 	}
 }
 
@@ -444,18 +584,16 @@ void CaveContain::tryToSetCaveIndex(int newIndex)
 // ?onDie@CaveContain@@UAEXPBVDamageInfo@@@Z
 void CaveContain::onDie(const DamageInfo *damageInfo)
 {
-	char *interfaceThis = reinterpret_cast<char *>(this);
-	CaveContainModuleDataView *moduleData =
-		*reinterpret_cast<CaveContainModuleDataView **>(interfaceThis - 0x24);
-	if (!moduleData->m_dieMuxData.isDieApplicable(getDieObject(), damageInfo))
+	const CaveContainModuleDataView *moduleData =
+		reinterpret_cast<const CaveContainModuleDataView *>(m_moduleData);
+	if (!moduleData->m_dieMuxData.isDieApplicable(getObject(), damageInfo))
 		return;
-	if (getDieObject()->testStatus(OBJECT_STATUS_UNDER_CONSTRUCTION))
+	if (getObject()->testStatus(OBJECT_STATUS_UNDER_CONSTRUCTION))
 		return;
-	int *caveIndex = reinterpret_cast<int *>(interfaceThis + 0xDC);
 	TunnelTracker *myTracker = TheCaveSystem->getTunnelTrackerForCaveIndex(
-		static_cast<UnsignedInt>(*caveIndex));
-	TheCaveSystem->unregisterCave(*caveIndex);
-	reinterpret_cast<Rva004F56FC *>(myTracker)->rva004F571B(getDieObject());
+		static_cast<UnsignedInt>(m_caveIndex));
+	TheCaveSystem->unregisterCave(m_caveIndex);
+	reinterpret_cast<Rva004F56FC *>(myTracker)->rva004F571B(getObject());
 }
 
 // Native466486..4664BB full53 RET12. The CaveContain wrapper extends
@@ -520,25 +658,20 @@ int Rva00466557Anchor(Rva00466557Object *object)
 // ?onCreate@CaveContain@@UAEXXZ
 void CaveContain::onCreate()
 {
-	CaveContainBuildCompleteModuleDataView *moduleData =
-		*reinterpret_cast<CaveContainBuildCompleteModuleDataView **>(
-			reinterpret_cast<char *>(this) - 0x30);
-	CaveContainBuildCompleteView *view =
-		reinterpret_cast<CaveContainBuildCompleteView *>(this);
-	view->m_caveIndex = moduleData->m_caveIndexData;
+	const CaveContainBuildCompleteModuleDataView *moduleData =
+		reinterpret_cast<const CaveContainBuildCompleteModuleDataView *>(m_moduleData);
+	m_caveIndex = moduleData->m_caveIndexData;
 }
 
 void CaveContain::onBuildComplete()
 {
-	CaveContainBuildCompleteView *view =
-		reinterpret_cast<CaveContainBuildCompleteView *>(this);
-	if (!view->shouldDoOnBuildComplete())
+	if (!shouldDoOnBuildComplete())
 		return;
 
-	view->m_needToRunOnBuildComplete = 0;
-	TheCaveSystem->registerNewCave(view->m_caveIndex);
-	Rva004F56FC *myTracker = (Rva004F56FC *)TheCaveSystem->getTunnelTrackerForCaveIndex((unsigned int)view->m_caveIndex);
-	myTracker->rva004F56FC(*reinterpret_cast<Object **>((char *)this - 0x2C));
+	m_needToRunOnBuildComplete = 0;
+	TheCaveSystem->registerNewCave(m_caveIndex);
+	Rva004F56FC *myTracker = (Rva004F56FC *)TheCaveSystem->getTunnelTrackerForCaveIndex((unsigned int)m_caveIndex);
+	myTracker->rva004F56FC(getObject());
 }
 
 // tu-skeleton: 0x00466577 185B ?xfer@CaveContain@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/CaveContainXfer.cpp (not merged yet)
