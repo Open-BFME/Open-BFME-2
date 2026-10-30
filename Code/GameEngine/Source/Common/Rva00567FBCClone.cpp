@@ -1,4 +1,4 @@
-// stlport
+// stlport46
 // cl: /O1 /G7 /arch:SSE /MD /EHsc /D_STLP_USE_STATIC_LIB
 #include <memory>
 

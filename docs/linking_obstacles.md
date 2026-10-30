@@ -12192,3 +12192,12 @@ specialization, which is C2995 under 4.6 because the proxy only inherits it.
 file byte-verifies, 328 rows in all. Any 4.5.3 consumer of the renamed QBE
 spellings was not checked one by one; read the pre-push batch audit and carry
 these units into the next census. No census gain is claimed.
+
+The two remaining owning-return clone units, `Rva00406CD3Clone.cpp` and
+`Rva00567FBCClone.cpp`, follow `Rva004E74A0Clone.cpp`. Each clone and its
+`__ehhandler$` take 4.6's class-key spelling `?AV?$auto_ptr@...`, and the old
+`?AU` keys are tombstoned. The funclet rows keep their `$L` keys and their
+`parent=` follows the new spelling; the gate verifies them past the renumbered
+labels. 5/5 and 4/4 rows byte-verify. No unit outside the two files names the
+clone symbols: the vtables in `Rva00406BB0Ctor.cpp` and `Rva00567847Copy.cpp`
+declare neither clone nor any auto_ptr. Carry both units into the next census.
