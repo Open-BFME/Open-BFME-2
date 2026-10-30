@@ -86,3 +86,25 @@ def test_a_compile_returns_while_a_process_it_started_holds_its_stdio(tmp_path, 
     assert result[0] == (True, "unit.cpp", 0)
     # the dependency list still comes from the full output (-showIncludes notes included)
     assert seen == ["Note: including file: Z:/sdk/windows.h\nunit.cpp\n"]
+
+
+# cl prints in its ANSI code page; 0x81 is undefined in cp1252 and invalid UTF-8.
+FAKE_CL_ANSI = r"""
+import sys
+sys.stdout.buffer.write(b"Z:\\code\\caf\x81.cpp(2) : error C2059: syntax error : ';'\r\n")
+sys.exit(2)
+"""
+
+
+def test_a_compile_whose_output_the_host_cannot_decode_still_reports_it(tmp_path, monkeypatch):
+    sys.path.insert(0, str(TOOLS))
+    import build
+    fake_cl = tmp_path / "cl.py"
+    fake_cl.write_text(FAKE_CL_ANSI)
+    monkeypatch.setattr(build, "compiler_command", lambda source, output: ([sys.executable, str(fake_cl)],
+                                                                          dict(os.environ)))
+    monkeypatch.setattr(build, "_cmd_fingerprint", lambda command, env: "fingerprint")
+    monkeypatch.setattr(build, "_restore_object", lambda source, output, fingerprint: False)
+    ok, text, code = build.try_compile_source(tmp_path / "unit.cpp", tmp_path / "out" / "unit.obj")
+    assert (ok, code) == (False, 2)
+    assert "error C2059: syntax error" in text and "\ufffd" in text

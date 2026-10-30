@@ -2405,8 +2405,11 @@ def try_compile_source(source, output, *, input_proof=None, inventory=False):
         before = (input_proof.before(source, output, command, env)
                   if input_proof and proof_retry else None)
         # cl's output goes to a file, never a pipe: Wine services booted
-        # during a compile inherit its stdio and may outlive it (wine_path)
-        with tempfile.TemporaryFile("w+") as log:
+        # during a compile inherit its stdio and may outlive it (wine_path).
+        # cl writes its ANSI code page (a non-ASCII path or quoted source
+        # line), not the host's: a byte the host encoding cannot decode is
+        # replaced, so it never aborts the compile or loses the message
+        with tempfile.TemporaryFile("w+", errors="replace") as log:
             result = subprocess.run(
                 command + (["-showIncludes"] if is_cl else []),
                 cwd=ROOT,
