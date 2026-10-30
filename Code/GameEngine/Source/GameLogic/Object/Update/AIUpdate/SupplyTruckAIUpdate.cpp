@@ -235,11 +235,6 @@ public:
 	int getActionDelayForDock(Object *obj);
 };
 
-class SupplyTruckAIUpdate
-{
-public:
-	virtual NameKeyType getModuleNameKey() const;
-};
 
 // ?loseOneBox@Rva004A6EHolder@@QAE_NXZ 0x004A6E8E 56B and ?gainOneBox@Rva004A6EHolder@@QAE_NH@Z 0x004A6EC6 68B
 // Two bool helpers sharing the rowed broadcast ?Rva0027164EBroadcast (0x0027164E) via BuildListInfo::getDesiredGatherers.
@@ -302,10 +297,52 @@ public:
 	virtual Bool isForcedIntoBusyState() const; // +0x38
 };
 
+enum UpdateSleepTime
+{
+	USLEEP_MIN = 0
+};
+
+class AsciiString;
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+
+#include "../../../../../Include/Common/BfmeXfer.h"
+
+enum ObjectID
+{
+	INVALID_ID = 0
+};
+
+void XferObjectID(Xfer *xfer, ObjectID *id);
+
+class Coord3DBase
+{
+public:
+	float x;
+	float y;
+	float z;
+};
+
+class Xfer;
+
 class AIUpdateInterface
 {
 public:
-	virtual void v000(); virtual void v001(); virtual void v002(); virtual void v003();
+	virtual UpdateSleepTime update(); virtual void v001(); virtual void v002(); virtual void xfer(Xfer *xfer);
 	virtual void v004(); virtual void v005(); virtual void v006(); virtual void v007();
 	virtual void v008(); virtual void v009(); virtual void v010(); virtual void v011();
 	virtual void v012(); virtual void v013(); virtual void v014(); virtual void v015();
@@ -339,6 +376,23 @@ public:
 
 	char m_pad04[0x20 - 0x04];
 	AICommandInterface m_commands; // +0x20
+	char m_pad21[0x3E8 - 0x21];
+};
+
+class SupplyTruckAIUpdate : public AIUpdateInterface
+{
+public:
+	virtual NameKeyType getModuleNameKey() const;
+protected:
+	virtual void xfer( Xfer *xfer );
+private:
+	Snapshot *m_supplyTruckStateMachine;																			///< 0x3E8
+	ObjectID m_preferredDock;																									///< 0x3EC
+	Coord3DBase m_bfmeCoord3F0;																								///< 0x3F0
+	Bool m_bfmeFlag3FC;																												///< 0x3FC
+	Int m_numberBoxes;																												///< 0x400
+	Bool m_forcePending;																											///< 0x404
+	Bool m_forcedBusyPending;																												///< 0x405
 };
 
 enum { AI_DOCK = 14 };
