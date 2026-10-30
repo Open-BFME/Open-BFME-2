@@ -204,7 +204,7 @@ int __cdecl Rva002E8C4DCall(int a1, unsigned char a2, Rva002E8C23Pair *a3, int a
 bool Rva002EBBFBIsOdd(void *);
 struct ICoord2D;
 ICoord2D *Rva002E7875WorldToCell(ICoord2D *,bool,const Coord3D *);
-extern "C" double __cdecl fabs(double);
+#include <math.h>
 struct PathfinderCostCellInfo { Int x,y; };
 struct PathfinderGroundInfo { PathfinderCostCellInfo position;Int parent;Waypoint *parentWaypoint;unsigned short totalCost,costSoFar;char pad14[0x28-0x14];ObjectID obstacleID;unsigned int flags; };
 struct In002E6BA1 { Int x,y; };
@@ -306,7 +306,6 @@ unsigned int g_00DBD33C[16] = {
 	0x00000000, 0x00000001, 0x00000000, 0xFFFFFFFF
 };
 
-extern "C" __declspec(dllimport) double __cdecl floor(double);
 float Sin(float x);
 float Cos(float x);
 
@@ -665,8 +664,13 @@ union PathfinderCheckCoordinates {
     Coord3D point;
     struct IntegerLayout { int reserved; ICoord2DBase position,size; } cells;
 };
-struct PathfinderLogFile;
-extern "C" int __cdecl fprintf(PathfinderLogFile *,const char *,...);
+// Retail logging calls the direct CRT fprintf thunk. Keep math and other
+// headers on their existing imported-binding configuration.
+#pragma push_macro("_CRTIMP")
+#undef _CRTIMP
+#define _CRTIMP
+#include <stdio.h>
+#pragma pop_macro("_CRTIMP")
 extern unsigned char g_00E03745;
 extern "C" void *theLogicRandomLogFile;
 
@@ -1556,21 +1560,21 @@ Bool Pathfinder::CheckDestination(Object *obj,Int cellX,Int cellY,PathfindLayerE
 {
     PathfinderCheckCoordinates coordinates;
     if (g_00E03745 && theLogicRandomLogFile) {
-        fprintf((PathfinderLogFile *)theLogicRandomLogFile,
+        fprintf((FILE *)theLogicRandomLogFile,
             "          Pathfinder::CheckDestination called with: obj=%s(%d), cell=%d,%d, layer=%d, iRadius=%d, centerInCell=%s",
             obj->getTemplate()->name(), obj->getID(), cellX,cellY,layer,radius,center?"TRUE":"FALSE");
     }
     if (obj->m_template->hasKind(109)) {
-        if (g_00E03745 && theLogicRandomLogFile) fprintf((PathfinderLogFile *)theLogicRandomLogFile,"          horde");
+        if (g_00E03745 && theLogicRandomLogFile) fprintf((FILE *)theLogicRandomLogFile,"          horde");
         if (layer==PATHFIND_LAYER_GROUND && !flag) {
-            if (g_00E03745 && theLogicRandomLogFile) fprintf((PathfinderLogFile *)theLogicRandomLogFile,"          layer is LAYER_GROUND");
+            if (g_00E03745 && theLogicRandomLogFile) fprintf((FILE *)theLogicRandomLogFile,"          layer is LAYER_GROUND");
             rva002E79A8((int)&coordinates.point,1,cellX,cellY,1);
             if (((TerrainLogicCheckDestination *)TheTerrainLogic)->slotC8(&coordinates.point)) {
-                if (g_00E03745 && theLogicRandomLogFile) fprintf((PathfinderLogFile *)theLogicRandomLogFile,"          narrow passage area");
+                if (g_00E03745 && theLogicRandomLogFile) fprintf((FILE *)theLogicRandomLogFile,"          narrow passage area");
                 radius=1; center=true;
             }
         } else {
-            if (g_00E03745 && theLogicRandomLogFile) fprintf((PathfinderLogFile *)theLogicRandomLogFile,"          layer != LAYER_GROUND, layer=%d",layer);
+            if (g_00E03745 && theLogicRandomLogFile) fprintf((FILE *)theLogicRandomLogFile,"          layer != LAYER_GROUND, layer=%d",layer);
             radius=1; center=true;
         }
     }
@@ -1580,9 +1584,9 @@ Bool Pathfinder::CheckDestination(Object *obj,Int cellX,Int cellY,PathfindLayerE
     Int upper=radius;
     if (center) ++upper;
     if (obj->rva0028AFBB()) {
-        if (g_00E03745 && theLogicRandomLogFile) fprintf((PathfinderLogFile *)theLogicRandomLogFile,"          human controlled");
+        if (g_00E03745 && theLogicRandomLogFile) fprintf((FILE *)theLogicRandomLogFile,"          human controlled");
         if (cellX-radius<m_extentLowX || cellX+upper>m_extentHighX || cellY-radius<m_extentLowY || cellY+upper>m_extentHighY) {
-            if (g_00E03745 && theLogicRandomLogFile) fprintf((PathfinderLogFile *)theLogicRandomLogFile,"            returning false");
+            if (g_00E03745 && theLogicRandomLogFile) fprintf((FILE *)theLogicRandomLogFile,"            returning false");
             return false;
         }
     }
@@ -1590,7 +1594,7 @@ Bool Pathfinder::CheckDestination(Object *obj,Int cellX,Int cellY,PathfindLayerE
     Int ignored=0, objectId=0;
     const LocomotorSet *locomotors=0;
     if (obj->getAI()) {
-        if (g_00E03745 && theLogicRandomLogFile) fprintf((PathfinderLogFile *)theLogicRandomLogFile,"          I have an AI");
+        if (g_00E03745 && theLogicRandomLogFile) fprintf((FILE *)theLogicRandomLogFile,"          I have an AI");
         ignored=((const Rva0006E009DwordField *)obj->getAI())->get();
         aircraft=obj->getAI()->isAircraftThatAdjustsDestination();
         objectId=obj->getID();
@@ -1619,19 +1623,19 @@ Bool Pathfinder::CheckDestination(Object *obj,Int cellX,Int cellY,PathfindLayerE
         return !IterateCellsInRectangle(&position,&size,obj->GetGoalAngle(),layer,(Rva002E9D09 *)&info);
     }
     if (g_00E03745 && theLogicRandomLogFile) {
-        fprintf((PathfinderLogFile *)theLogicRandomLogFile,"          BEGIN cell iteration (deep innards), i from %d to %d, j from %d to %d",
+        fprintf((FILE *)theLogicRandomLogFile,"          BEGIN cell iteration (deep innards), i from %d to %d, j from %d to %d",
             cellX-radius,cellX+upper,cellY-radius,cellY+upper);
     }
     for (Int i=cellX-radius;i<cellX+upper;++i) {
         for (Int j=cellY-radius;j<cellY+upper;++j) {
             PathfindCell *cell=getCell(layer,i,j);
             if (!cell) {
-                if (g_00E03745 && theLogicRandomLogFile) fprintf((PathfinderLogFile *)theLogicRandomLogFile,"          OFF THE MAP, return false: i=%d, j=%d",i,j);
+                if (g_00E03745 && theLogicRandomLogFile) fprintf((FILE *)theLogicRandomLogFile,"          OFF THE MAP, return false: i=%d, j=%d",i,j);
                 return false;
             }
             if (aircraft) {
                 if (((Rva0052DB4D *)cell)->rva0052DB4D(objectId)) {
-                    if (g_00E03745 && theLogicRandomLogFile) fprintf((PathfinderLogFile *)theLogicRandomLogFile,"          checkForAircraft=TRUE, return false: i=%d, j=%d",i,j);
+                    if (g_00E03745 && theLogicRandomLogFile) fprintf((FILE *)theLogicRandomLogFile,"          checkForAircraft=TRUE, return false: i=%d, j=%d",i,j);
                     return false;
                 }
             } else if (((Rva002E9D09 *)&info)->rva002E9D09((Object *)cell,0,0)) return false;
@@ -1695,7 +1699,7 @@ Bool Pathfinder::rva002F92BC(const ICoord2D *scanCenterCell, Int remainingCellBu
 {
 	if (g_00E03745 && theLogicRandomLogFile)
 	{
-		fprintf((PathfinderLogFile *)theLogicRandomLogFile,
+		fprintf((FILE *)theLogicRandomLogFile,
 			"\t\tIterateCircular1 called with center=%d,%d, maxCells=%d",
 			scanCenterCell->x, scanCenterCell->y, remainingCellBudget);
 	}
@@ -1704,13 +1708,13 @@ Bool Pathfinder::rva002F92BC(const ICoord2D *scanCenterCell, Int remainingCellBu
 	if (targetSearch->rva002F70E5(scanCenterCell->x, scanCenterCell->y))
 	{
 		if (g_00E03745 && theLogicRandomLogFile)
-			fprintf((PathfinderLogFile *)theLogicRandomLogFile, "\t\tfunc succeeded found=%d,%d", scanCenterCell->x, scanCenterCell->y);
+			fprintf((FILE *)theLogicRandomLogFile, "\t\tfunc succeeded found=%d,%d", scanCenterCell->x, scanCenterCell->y);
 		foundCell->x=scanCenterCell->x;
 		foundCell->y=scanCenterCell->y;
 		return true;
 	}
 	if (g_00E03745 && theLogicRandomLogFile)
-		fprintf((PathfinderLogFile *)theLogicRandomLogFile, "\t\tfunc failed");
+		fprintf((FILE *)theLogicRandomLogFile, "\t\tfunc failed");
 
 	Int bestOffsetDistanceSquared = 0;
 	Int ringExtent = 1;
@@ -1787,13 +1791,13 @@ Bool Pathfinder::rva002F92BC(const ICoord2D *scanCenterCell, Int remainingCellBu
 		else
 		{
 			if (g_00E03745 && theLogicRandomLogFile)
-				fprintf((PathfinderLogFile *)theLogicRandomLogFile, "\t\tbest return true. found=%d,%d", foundCell->x, foundCell->y);
+				fprintf((FILE *)theLogicRandomLogFile, "\t\tbest return true. found=%d,%d", foundCell->x, foundCell->y);
 			return true;
 		}
 	}
 
 	if (g_00E03745 && theLogicRandomLogFile)
-		fprintf((PathfinderLogFile *)theLogicRandomLogFile, "\t\ttotal failure. found");
+		fprintf((FILE *)theLogicRandomLogFile, "\t\ttotal failure. found");
 	return false;
 }
 
@@ -1803,7 +1807,7 @@ Bool Pathfinder::rva002F8E2D(const ICoord2D *scanCenterCell, Int remainingCellBu
 {
 	if (g_00E03745 && theLogicRandomLogFile)
 	{
-		fprintf((PathfinderLogFile *)theLogicRandomLogFile,
+		fprintf((FILE *)theLogicRandomLogFile,
 			"\t\tIterateCircular1 called with center=%d,%d, maxCells=%d",
 			scanCenterCell->x, scanCenterCell->y, remainingCellBudget);
 	}
@@ -1812,13 +1816,13 @@ Bool Pathfinder::rva002F8E2D(const ICoord2D *scanCenterCell, Int remainingCellBu
 	if (targetSearch->rva002F6F90(scanCenterCell->x, scanCenterCell->y))
 	{
 		if (g_00E03745 && theLogicRandomLogFile)
-			fprintf((PathfinderLogFile *)theLogicRandomLogFile, "\t\tfunc succeeded found=%d,%d", scanCenterCell->x, scanCenterCell->y);
+			fprintf((FILE *)theLogicRandomLogFile, "\t\tfunc succeeded found=%d,%d", scanCenterCell->x, scanCenterCell->y);
 		foundCell->x=scanCenterCell->x;
 		foundCell->y=scanCenterCell->y;
 		return true;
 	}
 	if (g_00E03745 && theLogicRandomLogFile)
-		fprintf((PathfinderLogFile *)theLogicRandomLogFile, "\t\tfunc failed");
+		fprintf((FILE *)theLogicRandomLogFile, "\t\tfunc failed");
 
 	Int bestOffsetDistanceSquared = 0;
 	Int ringExtent = 1;
@@ -1895,13 +1899,13 @@ Bool Pathfinder::rva002F8E2D(const ICoord2D *scanCenterCell, Int remainingCellBu
 		else
 		{
 			if (g_00E03745 && theLogicRandomLogFile)
-				fprintf((PathfinderLogFile *)theLogicRandomLogFile, "\t\tbest return true. found=%d,%d", foundCell->x, foundCell->y);
+				fprintf((FILE *)theLogicRandomLogFile, "\t\tbest return true. found=%d,%d", foundCell->x, foundCell->y);
 			return true;
 		}
 	}
 
 	if (g_00E03745 && theLogicRandomLogFile)
-		fprintf((PathfinderLogFile *)theLogicRandomLogFile, "\t\ttotal failure. found");
+		fprintf((FILE *)theLogicRandomLogFile, "\t\ttotal failure. found");
 	return false;
 }
 
@@ -1911,7 +1915,7 @@ Bool Pathfinder::rva002F90E9(ICoord2D *scanCenterCell, Int remainingCellBudget, 
 {
 	if (g_00E03745 && theLogicRandomLogFile)
 	{
-		fprintf((PathfinderLogFile *)theLogicRandomLogFile,
+		fprintf((FILE *)theLogicRandomLogFile,
 			"\t\tIterateCircular2 called with center=%d,%d, maxCells=%d",
 			scanCenterCell->x, scanCenterCell->y, remainingCellBudget);
 	}
@@ -2000,7 +2004,7 @@ Bool Pathfinder::rva002EAE5F(const ICoord2D *scanCenterCell, Int remainingCellBu
 {
 	if (g_00E03745 && theLogicRandomLogFile)
 	{
-		fprintf((PathfinderLogFile *)theLogicRandomLogFile,
+		fprintf((FILE *)theLogicRandomLogFile,
 			"\t\tIterateCircular1 called with center=%d,%d, maxCells=%d",
 			scanCenterCell->x, scanCenterCell->y, remainingCellBudget);
 	}
@@ -2009,13 +2013,13 @@ Bool Pathfinder::rva002EAE5F(const ICoord2D *scanCenterCell, Int remainingCellBu
 	if ((unsigned char)targetSearch->rva002E7414(scanCenterCell->x, scanCenterCell->y))
 	{
 		if (g_00E03745 && theLogicRandomLogFile)
-			fprintf((PathfinderLogFile *)theLogicRandomLogFile, "\t\tfunc succeeded found=%d,%d", scanCenterCell->x, scanCenterCell->y);
+			fprintf((FILE *)theLogicRandomLogFile, "\t\tfunc succeeded found=%d,%d", scanCenterCell->x, scanCenterCell->y);
 		foundCell->x=scanCenterCell->x;
 		foundCell->y=scanCenterCell->y;
 		return true;
 	}
 	if (g_00E03745 && theLogicRandomLogFile)
-		fprintf((PathfinderLogFile *)theLogicRandomLogFile, "\t\tfunc failed");
+		fprintf((FILE *)theLogicRandomLogFile, "\t\tfunc failed");
 
 	Int bestOffsetDistanceSquared = 0;
 	Int ringExtent = 1;
@@ -2092,13 +2096,13 @@ Bool Pathfinder::rva002EAE5F(const ICoord2D *scanCenterCell, Int remainingCellBu
 		else
 		{
 			if (g_00E03745 && theLogicRandomLogFile)
-				fprintf((PathfinderLogFile *)theLogicRandomLogFile, "\t\tbest return true. found=%d,%d", foundCell->x, foundCell->y);
+				fprintf((FILE *)theLogicRandomLogFile, "\t\tbest return true. found=%d,%d", foundCell->x, foundCell->y);
 			return true;
 		}
 	}
 
 	if (g_00E03745 && theLogicRandomLogFile)
-		fprintf((PathfinderLogFile *)theLogicRandomLogFile, "\t\ttotal failure. found");
+		fprintf((FILE *)theLogicRandomLogFile, "\t\ttotal failure. found");
 	return false;
 }
 
@@ -2109,7 +2113,7 @@ Bool Pathfinder::rva002EB11B(const ICoord2D *scanCenterCell, Int remainingCellBu
 {
 	if (g_00E03745 && theLogicRandomLogFile)
 	{
-		fprintf((PathfinderLogFile *)theLogicRandomLogFile,
+		fprintf((FILE *)theLogicRandomLogFile,
 			"\t\tIterateCircular1 called with center=%d,%d, maxCells=%d",
 			scanCenterCell->x, scanCenterCell->y, remainingCellBudget);
 	}
@@ -2118,13 +2122,13 @@ Bool Pathfinder::rva002EB11B(const ICoord2D *scanCenterCell, Int remainingCellBu
 	if (targetSearch->rva002E7440(scanCenterCell->x, scanCenterCell->y))
 	{
 		if (g_00E03745 && theLogicRandomLogFile)
-			fprintf((PathfinderLogFile *)theLogicRandomLogFile, "\t\tfunc succeeded found=%d,%d", scanCenterCell->x, scanCenterCell->y);
+			fprintf((FILE *)theLogicRandomLogFile, "\t\tfunc succeeded found=%d,%d", scanCenterCell->x, scanCenterCell->y);
 		foundCell->x=scanCenterCell->x;
 		foundCell->y=scanCenterCell->y;
 		return true;
 	}
 	if (g_00E03745 && theLogicRandomLogFile)
-		fprintf((PathfinderLogFile *)theLogicRandomLogFile, "\t\tfunc failed");
+		fprintf((FILE *)theLogicRandomLogFile, "\t\tfunc failed");
 
 	Int bestOffsetDistanceSquared = 0;
 	Int ringExtent = 1;
@@ -2201,13 +2205,13 @@ Bool Pathfinder::rva002EB11B(const ICoord2D *scanCenterCell, Int remainingCellBu
 		else
 		{
 			if (g_00E03745 && theLogicRandomLogFile)
-				fprintf((PathfinderLogFile *)theLogicRandomLogFile, "\t\tbest return true. found=%d,%d", foundCell->x, foundCell->y);
+				fprintf((FILE *)theLogicRandomLogFile, "\t\tbest return true. found=%d,%d", foundCell->x, foundCell->y);
 			return true;
 		}
 	}
 
 	if (g_00E03745 && theLogicRandomLogFile)
-		fprintf((PathfinderLogFile *)theLogicRandomLogFile, "\t\ttotal failure. found");
+		fprintf((FILE *)theLogicRandomLogFile, "\t\ttotal failure. found");
 	return false;
 }
 
@@ -2218,7 +2222,7 @@ Bool Pathfinder::rva002F379E(ICoord2D *scanCenterCell, Int remainingCellBudget, 
 {
 	if (g_00E03745 && theLogicRandomLogFile)
 	{
-		fprintf((PathfinderLogFile *)theLogicRandomLogFile,
+		fprintf((FILE *)theLogicRandomLogFile,
 			"\t\tIterateCircular2 called with center=%d,%d, maxCells=%d",
 			scanCenterCell->x, scanCenterCell->y, remainingCellBudget);
 	}
@@ -2370,7 +2374,6 @@ Int Pathfinder::CheckPathCost(Object *obj,const LocomotorSet &locomotorSet,const
 // helpers (0x002E8B7A, 0x002E6BA1) and the ICoord2D equality body in this
 // unit: with the bodies visible the cell indices passed to them are not
 // escaped, so startCellNdx/goalCellNdx/newCellCoord share retail's frame slots.
-extern "C" void *__cdecl memset(void *, int, unsigned int);
 #pragma intrinsic(memset)
 extern int TheMixFileInfoCount;
 
@@ -2571,21 +2574,21 @@ static __forceinline Coord3D adjustCellCenter(bool center,Rva002E8C23Pair *cell,
 static __forceinline Bool findAdjustedCell(Pathfinder *finder,ICoord2D *cell,Bool center,Coord3D *dest,Pathfinder_IsCheckForAdjust *info) {
 	ICoord2D found={0,0};
 	if(!finder->rva002F8E2D(cell,((const PathfinderSearchRadiusView *)TheWritableGlobalData)->searchRadius,&found,info))return false;
-	if(g_00E03745 && theLogicRandomLogFile)fprintf((PathfinderLogFile *)theLogicRandomLogFile,"  got %d,%d",found.x,found.y);
+	if(g_00E03745 && theLogicRandomLogFile)fprintf((FILE *)theLogicRandomLogFile,"  got %d,%d",found.x,found.y);
 	*dest=adjustCellCenter(center,(Rva002E8C23Pair *)&found,info->m_layer);return true;
 }
 Bool Pathfinder::AdjustDestination(Object *obj,const LocomotorSet &locomotorSet,Coord3D *dest,const Coord3D *groupDest)
 {
 	if(g_00E03745 && theLogicRandomLogFile)
-		fprintf((PathfinderLogFile *)theLogicRandomLogFile,"  Pathfinder::AdjustDestination() onEnter dest=%g,%g,%g",dest->x,dest->y,dest->z);
+		fprintf((FILE *)theLogicRandomLogFile,"  Pathfinder::AdjustDestination() onEnter dest=%g,%g,%g",dest->x,dest->y,dest->z);
 	if(obj->m_template->hasKind(25)) {
-		if(g_00E03745 && theLogicRandomLogFile)fprintf((PathfinderLogFile *)theLogicRandomLogFile,"  projectile return TRUE");
+		if(g_00E03745 && theLogicRandomLogFile)fprintf((FILE *)theLogicRandomLogFile,"  projectile return TRUE");
 		return true;
 	}
 	Bool center=Rva002EBBFBIsOdd(obj);
 	ICoord2D cell;Rva002E7875WorldToCell(&cell,center,dest);
 	if(g_00E03745 && theLogicRandomLogFile)
-		fprintf((PathfinderLogFile *)theLogicRandomLogFile,"  AdjDest obj=%i, dest=%g,%g,%g, center=%i",obj->getID(),dest->x,dest->y,dest->z,center?1:0);
+		fprintf((FILE *)theLogicRandomLogFile,"  AdjDest obj=%i, dest=%g,%g,%g, center=%i",obj->getID(),dest->x,dest->y,dest->z,center?1:0);
 	PathfindLayerEnum layer=TheTerrainLogic->getLayerForDestination(obj,dest);
 	float height=0.0f;
 	if(groupDest)height=groupDest->z;
@@ -2595,7 +2598,7 @@ Bool Pathfinder::AdjustDestination(Object *obj,const LocomotorSet &locomotorSet,
 	if(findAdjustedCell(this,&cell,center,dest,&info)) {
 		Bool badGroup=false;
 		if(groupDest) {
-			if(g_00E03745 && theLogicRandomLogFile)fprintf((PathfinderLogFile *)theLogicRandomLogFile,"        groupDest tighten path case...");
+			if(g_00E03745 && theLogicRandomLogFile)fprintf((FILE *)theLogicRandomLogFile,"        groupDest tighten path case...");
 			TightenPath(obj,locomotorSet,dest,groupDest);
 			Int cost=CheckPathCost(obj,locomotorSet,groupDest,dest);
 			Int dx=(Int)fabs(groupDest->x-dest->x);
@@ -2603,20 +2606,20 @@ Bool Pathfinder::AdjustDestination(Object *obj,const LocomotorSet &locomotorSet,
 			Int distance=dx+dy;
 			if(distance*1.4f<cost) {
 				badGroup=true;
-				if(g_00E03745 && theLogicRandomLogFile)fprintf((PathfinderLogFile *)theLogicRandomLogFile,"        badGroup = true in tighten case");
+				if(g_00E03745 && theLogicRandomLogFile)fprintf((FILE *)theLogicRandomLogFile,"        badGroup = true in tighten case");
 			}
 		}
 		if(!badGroup)return true;
 	}
 	if(info.m_28) {
-		if(g_00E03745 && theLogicRandomLogFile)fprintf((PathfinderLogFile *)theLogicRandomLogFile,"  got with allies %d,%d",info.fallback.x,info.fallback.y);
+		if(g_00E03745 && theLogicRandomLogFile)fprintf((FILE *)theLogicRandomLogFile,"  got with allies %d,%d",info.fallback.x,info.fallback.y);
 		*dest=adjustCellCenter(center,&info.fallback,info.m_layer);return true;
 	}
 	if(groupDest) {
-		if(g_00E03745 && theLogicRandomLogFile)fprintf((PathfinderLogFile *)theLogicRandomLogFile,"  IterateCircular with groupDest");
+		if(g_00E03745 && theLogicRandomLogFile)fprintf((FILE *)theLogicRandomLogFile,"  IterateCircular with groupDest");
 		return rva002F90E9(&cell,((const PathfinderSearchRadiusView *)TheWritableGlobalData)->searchRadius,&Pathfinder_IsCheckForAdjust(this,obj,(void *)&locomotorSet,*dest,0,dest->z,info.m_2C));
 	}
-	if(g_00E03745 && theLogicRandomLogFile)fprintf((PathfinderLogFile *)theLogicRandomLogFile,"  got NOTHING");
+	if(g_00E03745 && theLogicRandomLogFile)fprintf((FILE *)theLogicRandomLogFile,"  got NOTHING");
 	return false;
 }
 
@@ -3024,7 +3027,7 @@ Bool Pathfinder::CheckForAdjust(Object *obj, const LocomotorSet &loco,
  Int *options, Int onlyIfLayer)
 {
  if (g_00E03745 && theLogicRandomLogFile)
-  fprintf((PathfinderLogFile *)theLogicRandomLogFile,
+  fprintf((FILE *)theLogicRandomLogFile,
    "\t\t  Pathfinder::CheckForAdjust called with: obj=%s(%d), loco=%s, isHuman=%s, cell=%d,%d, layer=%d, iRadius=%d, center=%s, groupDest=%g,%g,%g, originalZ=%g, onlyIfLayer=%d",
    ((const AsciiString *)((const char *)obj->m_template+0x64))->str(),obj->getID(),
    ((const AsciiString *)((const char *)&loco+0x18))->str(),isHuman?"TRUE":"FALSE",
@@ -3033,31 +3036,31 @@ Bool Pathfinder::CheckForAdjust(Object *obj, const LocomotorSet &loco,
    originalZ,onlyIfLayer);
  PathfindCell *cell=getCell(layer,cellX,cellY);
  if (!cell) {
-  if(g_00E03745 && theLogicRandomLogFile) fprintf((PathfinderLogFile *)theLogicRandomLogFile,"        cellP is NULL, return FALSE.");
+  if(g_00E03745 && theLogicRandomLogFile) fprintf((FILE *)theLogicRandomLogFile,"        cellP is NULL, return FALSE.");
   return false;
  }
  if(cell->getType()==2) {
-  if(g_00E03745 && theLogicRandomLogFile) fprintf((PathfinderLogFile *)theLogicRandomLogFile,"        cellP is CLIFF, return FALSE.");
+  if(g_00E03745 && theLogicRandomLogFile) fprintf((FILE *)theLogicRandomLogFile,"        cellP is CLIFF, return FALSE.");
   return false;
  }
  if(isHuman) {
-  if(g_00E03745 && theLogicRandomLogFile) fprintf((PathfinderLogFile *)theLogicRandomLogFile,"        isHuman is TRUE");
+  if(g_00E03745 && theLogicRandomLogFile) fprintf((FILE *)theLogicRandomLogFile,"        isHuman is TRUE");
   if(cellX<m_extentLowX || cellY<m_extentLowY || cellX>m_extentHighX || cellY>m_extentHighY) {
-   if(g_00E03745 && theLogicRandomLogFile) fprintf((PathfinderLogFile *)theLogicRandomLogFile,"        cell %d,%d is outside m_logicalExtent lo:%d,%d hi:%d,%d",cellX,cellY,m_extentLowX,m_extentLowY,m_extentHighX,m_extentHighY);
+   if(g_00E03745 && theLogicRandomLogFile) fprintf((FILE *)theLogicRandomLogFile,"        cell %d,%d is outside m_logicalExtent lo:%d,%d hi:%d,%d",cellX,cellY,m_extentLowX,m_extentLowY,m_extentHighX,m_extentHighY);
    return false;
   }
  }
  if(!CheckDestination(obj,cellX,cellY,layer,radius,center,options,false)) {
-  if(g_00E03745 && theLogicRandomLogFile) fprintf((PathfinderLogFile *)theLogicRandomLogFile,"        CheckDestination failed, return false");
+  if(g_00E03745 && theLogicRandomLogFile) fprintf((FILE *)theLogicRandomLogFile,"        CheckDestination failed, return false");
   return false;
  }
- if(g_00E03745 && theLogicRandomLogFile) fprintf((PathfinderLogFile *)theLogicRandomLogFile,"        CheckDestination passed");
+ if(g_00E03745 && theLogicRandomLogFile) fprintf((FILE *)theLogicRandomLogFile,"        CheckDestination passed");
  Coord3D temporary;
  Coord3D adjustDest=*(Coord3D *)rva002EBC59(&temporary,obj,cellX,cellY,cell->getLayer());
  if(!obj->m_template->hasKind(12)) {
-  if(g_00E03745 && theLogicRandomLogFile) fprintf((PathfinderLogFile *)theLogicRandomLogFile,"        object is not kindof aircraft");
+  if(g_00E03745 && theLogicRandomLogFile) fprintf((FILE *)theLogicRandomLogFile,"        object is not kindof aircraft");
   if(onlyIfLayer) {
-   if(g_00E03745 && theLogicRandomLogFile) fprintf((PathfinderLogFile *)theLogicRandomLogFile,"        onlyIfLayer=%d",onlyIfLayer);
+   if(g_00E03745 && theLogicRandomLogFile) fprintf((FILE *)theLogicRandomLogFile,"        onlyIfLayer=%d",onlyIfLayer);
    Int extraRadius=radius;
    if(center)extraRadius=radius+1;
    for(Int i=cellX-radius;i<cellX+extraRadius;++i) {
@@ -3066,9 +3069,9 @@ Bool Pathfinder::CheckForAdjust(Object *obj, const LocomotorSet &loco,
      if(!ground || ground->getLayer()!=onlyIfLayer) {
       if(g_00E03745) {
        if(ground) {
-        if(theLogicRandomLogFile)fprintf((PathfinderLogFile *)theLogicRandomLogFile,"        ground unit failed iteration: i=%d, j=%d, cell=VALID, cellLayer=%d, onlyIfLayer",i,j,ground->getLayer(),onlyIfLayer);
+        if(theLogicRandomLogFile)fprintf((FILE *)theLogicRandomLogFile,"        ground unit failed iteration: i=%d, j=%d, cell=VALID, cellLayer=%d, onlyIfLayer",i,j,ground->getLayer(),onlyIfLayer);
        } else {
-        if(theLogicRandomLogFile)fprintf((PathfinderLogFile *)theLogicRandomLogFile,"        ground unit failed iteration: i=%d, j=%d, cell=NULL, onlyIfLayer",i,j,onlyIfLayer);
+        if(theLogicRandomLogFile)fprintf((FILE *)theLogicRandomLogFile,"        ground unit failed iteration: i=%d, j=%d, cell=NULL, onlyIfLayer",i,j,onlyIfLayer);
        }
       }
       return false;
@@ -3077,26 +3080,26 @@ Bool Pathfinder::CheckForAdjust(Object *obj, const LocomotorSet &loco,
    }
   }
   if(originalZ>0.0f && fabs(adjustDest.z-originalZ)>50.0f) {
-   if(g_00E03745 && theLogicRandomLogFile)fprintf((PathfinderLogFile *)theLogicRandomLogFile,"        MinasTirith check failed, return FALSE: originalZ=%g, adjustDest.z=%g",originalZ,adjustDest.z);
+   if(g_00E03745 && theLogicRandomLogFile)fprintf((FILE *)theLogicRandomLogFile,"        MinasTirith check failed, return FALSE: originalZ=%g, adjustDest.z=%g",originalZ,adjustDest.z);
    return false;
   }
   Bool adjustedPathExists=QuickDoesPathExist(obj,(const Coord3D *)obj->position,&adjustDest,0);
-  if(g_00E03745 && theLogicRandomLogFile)fprintf((PathfinderLogFile *)theLogicRandomLogFile,"        adjustedPathExists=%s",adjustedPathExists?"TRUE":"FALSE");
+  if(g_00E03745 && theLogicRandomLogFile)fprintf((FILE *)theLogicRandomLogFile,"        adjustedPathExists=%s",adjustedPathExists?"TRUE":"FALSE");
   if(!QuickDoesPathExist(obj,(const Coord3D *)obj->position,dest,0)) {
-   if(g_00E03745 && theLogicRandomLogFile)fprintf((PathfinderLogFile *)theLogicRandomLogFile,"        QuickDoesPathExist1 fails. Try adjusted destination");
+   if(g_00E03745 && theLogicRandomLogFile)fprintf((FILE *)theLogicRandomLogFile,"        QuickDoesPathExist1 fails. Try adjusted destination");
    if(QuickDoesPathExist(obj,dest,&adjustDest,0)) {
-    if(g_00E03745 && theLogicRandomLogFile)fprintf((PathfinderLogFile *)theLogicRandomLogFile,"        QuickDoesPathExist2 succeeds. adjustedPathExists");
+    if(g_00E03745 && theLogicRandomLogFile)fprintf((FILE *)theLogicRandomLogFile,"        QuickDoesPathExist2 succeeds. adjustedPathExists");
     adjustedPathExists=true;
    }
   } else {
-   if(g_00E03745 && theLogicRandomLogFile)fprintf((PathfinderLogFile *)theLogicRandomLogFile,"        QuickDoesPathExist1 succeeds");
+   if(g_00E03745 && theLogicRandomLogFile)fprintf((FILE *)theLogicRandomLogFile,"        QuickDoesPathExist1 succeeds");
   }
   if(!adjustedPathExists) {
-   if(g_00E03745 && theLogicRandomLogFile)fprintf((PathfinderLogFile *)theLogicRandomLogFile,"        returning false because adjustedPathExists is false");
+   if(g_00E03745 && theLogicRandomLogFile)fprintf((FILE *)theLogicRandomLogFile,"        returning false because adjustedPathExists is false");
    return false;
   }
  }
- if(g_00E03745 && theLogicRandomLogFile)fprintf((PathfinderLogFile *)theLogicRandomLogFile,"        dest calculated to be %g,%g,%g and returning true",adjustDest.x,adjustDest.y,adjustDest.z);
+ if(g_00E03745 && theLogicRandomLogFile)fprintf((FILE *)theLogicRandomLogFile,"        dest calculated to be %g,%g,%g and returning true",adjustDest.x,adjustDest.y,adjustDest.z);
  *dest=adjustDest;
  return true;
 }
@@ -3186,7 +3189,7 @@ static __forceinline Coord3D *cellPointArg(const PathfinderCellPoint &pathfinder
 // A Bool argument travels as its whole stack dword (push dword ptr [bool]).
 static __forceinline void *boolArg(const Bool &value) { return *(void *const *)&value; }
 static __forceinline Bool pathfinderLogOn() { return g_00E03745 && theLogicRandomLogFile; }
-static __forceinline void pathfinderLog(const char *text) { fprintf((PathfinderLogFile *)theLogicRandomLogFile,text); }
+static __forceinline void pathfinderLog(const char *text) { fprintf((FILE *)theLogicRandomLogFile,text); }
 // Coord2D::Rotate(float) inlined: the CRT pair runs, then fsincos replaces it.
 static __forceinline void rotateOffset(float &x, float &y, float angle)
 {
@@ -4488,7 +4491,7 @@ Path *Pathfinder::InternalFindPath(Object *obj, const LocomotorSet &locomotorSet
 		rva002F40E7();
 		goalCell->ReleaseInfo();
 		if (pathfinderLogOn())
-			fprintf((PathfinderLogFile *)theLogicRandomLogFile, "CritterDesync:    Pathfinder::InternalFindPath() 12 return %s", path ? "VALID" : "NULL");
+			fprintf((FILE *)theLogicRandomLogFile, "CritterDesync:    Pathfinder::InternalFindPath() 12 return %s", path ? "VALID" : "NULL");
 		return path;
 	}
 
@@ -4504,7 +4507,7 @@ Path *Pathfinder::InternalFindPath(Object *obj, const LocomotorSet &locomotorSet
 		zone1 = zones->rva00531FD4(&moverInfo, (unsigned short)zone1);
 		zone1 = zones->rva0053241F(&moverInfo, (unsigned short)zone1);
 		if (g_00E03745 && theLogicRandomLogFile)
-			fprintf((PathfinderLogFile *)theLogicRandomLogFile, "CritterDesync:    Pathfinder::InternalFindPath() 13");
+			fprintf((FILE *)theLogicRandomLogFile, "CritterDesync:    Pathfinder::InternalFindPath() 13");
 	}
 	if (zone1 != zone2) {
 		if (pathfinderLogOn())
@@ -4564,7 +4567,7 @@ Path *Pathfinder::InternalFindPath(Object *obj, const LocomotorSet &locomotorSet
 			rva002F40E7();
 			parentCell->ReleaseInfo();
 			if (pathfinderLogOn())
-				fprintf((PathfinderLogFile *)theLogicRandomLogFile, "CritterDesync:    Pathfinder::InternalFindPath() 19 return %s", path ? "VALID" : "NULL");
+				fprintf((FILE *)theLogicRandomLogFile, "CritterDesync:    Pathfinder::InternalFindPath() 19 return %s", path ? "VALID" : "NULL");
 			return path;
 		}
 
@@ -4788,7 +4791,7 @@ Bool Pathfinder::rva002EEA8A(const ICoord2D *searchCenterCell, Int maxCells,
 
 	if (g_00E03745 && theLogicRandomLogFile)
 	{
-		fprintf((PathfinderLogFile *)theLogicRandomLogFile,
+		fprintf((FILE *)theLogicRandomLogFile,
 			"\t\tIterateCircular3 called with center=%d,%d, maxCells=%d",
 			searchCenterCell->x, searchCenterCell->y, maxCells);
 	}
@@ -5017,11 +5020,11 @@ static __forceinline bool snapDestination(Pathfinder *pathfinder,Object *obj,int
 }
 void Pathfinder::SnapClosestGoalPosition(Object *obj,Coord3D *pos)
 {
- if(g_00E03745 && theLogicRandomLogFile) fprintf((PathfinderLogFile *)theLogicRandomLogFile,"CritterDesync: Pathfinder::SnapClosestGoalPosition() called with pos=%g,%g,%g",pos->x,pos->y,pos->z);
+ if(g_00E03745 && theLogicRandomLogFile) fprintf((FILE *)theLogicRandomLogFile,"CritterDesync: Pathfinder::SnapClosestGoalPosition() called with pos=%g,%g,%g",pos->x,pos->y,pos->z);
  Int iRadius;
  bool center;
  Rva002EBCA7Split(obj,&iRadius,reinterpret_cast<unsigned char *>(&center));
- if(g_00E03745 && theLogicRandomLogFile) fprintf((PathfinderLogFile *)theLogicRandomLogFile,"CritterDesync: Pathfinder::SnapClosestGoalPosition() iRadius=%d, center=%s",iRadius,center?"TRUE":"FALSE");
+ if(g_00E03745 && theLogicRandomLogFile) fprintf((FILE *)theLogicRandomLogFile,"CritterDesync: Pathfinder::SnapClosestGoalPosition() iRadius=%d, center=%s",iRadius,center?"TRUE":"FALSE");
  ICoord2D cell;
  Rva002E7875WorldToCell(&cell,center,pos);
  PathfindLayerEnum layer=TheTerrainLogic->getLayerForDestination(obj,pos);
@@ -5029,18 +5032,18 @@ void Pathfinder::SnapClosestGoalPosition(Object *obj,Coord3D *pos)
   PathfinderCellPoint adjusted;
   *pos=*(Coord3D *)Rva002E8C4DCall((int)&adjusted,center,(Rva002E8C23Pair *)&cell,1);
  }
- if(g_00E03745 && theLogicRandomLogFile) fprintf((PathfinderLogFile *)theLogicRandomLogFile,"CritterDesync: Pathfinder::SnapClosestGoalPosition() CheckDestination about to get called with cell=%d,%d, layer=%d, iRadius=%d, center=%s, pos=%g%g%g",cell.x,cell.y,layer,iRadius,center?"TRUE":"FALSE",pos->x,pos->y,pos->z);
+ if(g_00E03745 && theLogicRandomLogFile) fprintf((FILE *)theLogicRandomLogFile,"CritterDesync: Pathfinder::SnapClosestGoalPosition() CheckDestination about to get called with cell=%d,%d, layer=%d, iRadius=%d, center=%s, pos=%g%g%g",cell.x,cell.y,layer,iRadius,center?"TRUE":"FALSE",pos->x,pos->y,pos->z);
  if(snapDestination(this,obj,cell.x,cell.y,layer,iRadius,center)) {
-  if(g_00E03745 && theLogicRandomLogFile) fprintf((PathfinderLogFile *)theLogicRandomLogFile,"CritterDesync: Pathfinder::SnapClosestGoalPosition() CheckDestination succeeds, returning...");
+  if(g_00E03745 && theLogicRandomLogFile) fprintf((FILE *)theLogicRandomLogFile,"CritterDesync: Pathfinder::SnapClosestGoalPosition() CheckDestination succeeds, returning...");
   return;
  }
- if(g_00E03745 && theLogicRandomLogFile) fprintf((PathfinderLogFile *)theLogicRandomLogFile,"CritterDesync: Pathfinder::SnapClosestGoalPosition() CheckDestination fails, continuing...");
+ if(g_00E03745 && theLogicRandomLogFile) fprintf((FILE *)theLogicRandomLogFile,"CritterDesync: Pathfinder::SnapClosestGoalPosition() CheckDestination fails, continuing...");
  Int i,j;
  for(i=cell.x-1;i<cell.x+2;i++) {
   for(j=cell.y-1;j<cell.y+2;j++) {
    if(snapDestination(this,obj,i,j,layer,iRadius,center)) {
     *pos=rva002E79A8(center,i,j,layer);
-    if(g_00E03745 && theLogicRandomLogFile) fprintf((PathfinderLogFile *)theLogicRandomLogFile,"CritterDesync: Pathfinder::SnapClosestGoalPosition() CheckDestination2 succeeds with cell=%d,%d, layer=%d, iRadius=%d, center=%s, pos=%g%g%g",cell.x,cell.y,layer,iRadius,center?"TRUE":"FALSE",pos->x,pos->y,pos->z);
+    if(g_00E03745 && theLogicRandomLogFile) fprintf((FILE *)theLogicRandomLogFile,"CritterDesync: Pathfinder::SnapClosestGoalPosition() CheckDestination2 succeeds with cell=%d,%d, layer=%d, iRadius=%d, center=%s, pos=%g%g%g",cell.x,cell.y,layer,iRadius,center?"TRUE":"FALSE",pos->x,pos->y,pos->z);
     return;
    }
   }
@@ -5051,7 +5054,7 @@ void Pathfinder::SnapClosestGoalPosition(Object *obj,Coord3D *pos)
     PathfindCell *newCell=getCell(layer,i,j);
     if(newCell && ((Rva0052DB73 *)newCell)->rva0052DB73(obj->getID())) {
      *pos=rva002E79A8(center,i,j,layer);
-     if(g_00E03745 && theLogicRandomLogFile) fprintf((PathfinderLogFile *)theLogicRandomLogFile,"CritterDesync: Pathfinder::SnapClosestGoalPosition() CheckDestination3 succeeds with cell=%d,%d, layer=%d, iRadius=%d, center=%s, pos=%g%g%g",cell.x,cell.y,layer,0,center?"TRUE":"FALSE",pos->x,pos->y,pos->z);
+     if(g_00E03745 && theLogicRandomLogFile) fprintf((FILE *)theLogicRandomLogFile,"CritterDesync: Pathfinder::SnapClosestGoalPosition() CheckDestination3 succeeds with cell=%d,%d, layer=%d, iRadius=%d, center=%s, pos=%g%g%g",cell.x,cell.y,layer,0,center?"TRUE":"FALSE",pos->x,pos->y,pos->z);
      return;
     }
    }
@@ -5061,13 +5064,13 @@ void Pathfinder::SnapClosestGoalPosition(Object *obj,Coord3D *pos)
     PathfindCell *newCell=getCell(layer,i,j);
     if(newCell && !((Rva0052DB11 *)newCell)->rva0052DB11(obj->getID())) {
      *pos=rva002E79A8(center,i,j,layer);
-     if(g_00E03745 && theLogicRandomLogFile) fprintf((PathfinderLogFile *)theLogicRandomLogFile,"CritterDesync: Pathfinder::SnapClosestGoalPosition() CheckDestination4 succeeds with cell=%d,%d, layer=%d, iRadius=%d, center=%s, pos=%g%g%g",cell.x,cell.y,layer,0,center?"TRUE":"FALSE",pos->x,pos->y,pos->z);
+     if(g_00E03745 && theLogicRandomLogFile) fprintf((FILE *)theLogicRandomLogFile,"CritterDesync: Pathfinder::SnapClosestGoalPosition() CheckDestination4 succeeds with cell=%d,%d, layer=%d, iRadius=%d, center=%s, pos=%g%g%g",cell.x,cell.y,layer,0,center?"TRUE":"FALSE",pos->x,pos->y,pos->z);
      return;
     }
    }
   }
  }
- if(g_00E03745 && theLogicRandomLogFile) fprintf((PathfinderLogFile *)theLogicRandomLogFile,"CritterDesync: Pathfinder::SnapClosestGoalPosition() iRadius=%d>0 do nothing case, pos=%g%g%g",iRadius,pos->x,pos->y,pos->z);
+ if(g_00E03745 && theLogicRandomLogFile) fprintf((FILE *)theLogicRandomLogFile,"CritterDesync: Pathfinder::SnapClosestGoalPosition() iRadius=%d>0 do nothing case, pos=%g%g%g",iRadius,pos->x,pos->y,pos->z);
 }
 
 // WB D36700 names AdjustMeleeOffset. Native 002E8C6E..002E8D74 RET12.
@@ -6894,13 +6897,13 @@ Path *Pathfinder::FindPath(Object *obj, const LocomotorSet &locos, const Coord3D
 	const Coord3D *rawTo, Bool *destinationAdjusted)
 {
 	if (g_00E03745) {
-		if (theLogicRandomLogFile) fprintf((PathfinderLogFile *)theLogicRandomLogFile, "CritterDesync:    Pathfinder::FindPath() called");
-		if (theLogicRandomLogFile) fprintf((PathfinderLogFile *)theLogicRandomLogFile,"    obj=%s, locomotorSet=%s, from=%g,%g,%g, to=%g,%g,%g",obj->getTemplate()->name(),locos.name(),from->x,from->y,from->z,rawTo->x,rawTo->y,rawTo->z);
+		if (theLogicRandomLogFile) fprintf((FILE *)theLogicRandomLogFile, "CritterDesync:    Pathfinder::FindPath() called");
+		if (theLogicRandomLogFile) fprintf((FILE *)theLogicRandomLogFile,"    obj=%s, locomotorSet=%s, from=%g,%g,%g, to=%g,%g,%g",obj->getTemplate()->name(),locos.name(),from->x,from->y,from->z,rawTo->x,rawTo->y,rawTo->z);
 	}
 	*destinationAdjusted = false;
 	Bool human = true;
 	if (obj->getControllingPlayer() && obj->getControllingPlayer()->m_playerType == 1) {
-		if (g_00E03745 && theLogicRandomLogFile) fprintf((PathfinderLogFile *)theLogicRandomLogFile, "CritterDesync:    isHuman set to FALSE");
+		if (g_00E03745 && theLogicRandomLogFile) fprintf((FILE *)theLogicRandomLogFile, "CritterDesync:    isHuman set to FALSE");
 		human = false;
 	}
 	Coord3D adjusted; copyCoord3D(&adjusted, rawTo);
@@ -6927,7 +6930,7 @@ Path *Pathfinder::FindPath(Object *obj, const LocomotorSet &locos, const Coord3D
 	Coord3D destination; copyCoord3D(&destination, &adjusted);
 	PathfinderSearchHandle hierarchical((HierarchicalPath *)FindClosestHierarchicalPath(human, locos, obj, from, &adjusted, false, &destination));
 	if (!hierarchical.path) {
-		if (g_00E03745 && theLogicRandomLogFile) fprintf((PathfinderLogFile *)theLogicRandomLogFile, "CritterDesync:    FindHierarchicalPath fails");
+		if (g_00E03745 && theLogicRandomLogFile) fprintf((FILE *)theLogicRandomLogFile, "CritterDesync:    FindHierarchicalPath fails");
 		m_zoneManager.rva00531300();
 	} else if (destination.x != adjusted.x || destination.y != adjusted.y) *destinationAdjusted = true;
 	return InternalFindPath(obj, locos, from, &destination, hierarchical.path, destinationAdjusted);
