@@ -10168,3 +10168,12 @@ nl-6d0567f07809,param,b,bit,,w-ded32b2e2c5e@drz-k2,Code/GameEngine/Source/GameLo
 nl-31a5ff1d616f,param,p,position,,w-ded32b2e2c5e@drz-k2,Code/GameEngine/Source/GameLogic/Object/Contain/HorseHordeContainRva00476D77.cpp|param|nextPosition|p,agreed,single-worker scoped approval: w-ded32b2e2c5e@drz-k2
 nl-737356ca4369,param,a,target,,w-ded32b2e2c5e@drz-k2,Code/GameEngine/Source/Common/Rva005E9137Check.cpp|param|Rva005E9137Check|a,agreed,single-worker scoped approval: w-ded32b2e2c5e@drz-k2
 nl-7cd414e1d028,local,p,ref,,w-ded32b2e2c5e@drz-k2,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowManager.cpp|local|W3DProjectedShadowManager::~W3DProjectedShadowManager|p,agreed,single-worker scoped approval: w-ded32b2e2c5e@drz-k2
+nl-80ad247201bd,local,h2,appName,,w-d29055ee9848@drz-k1,Code/GameEngine/Source/Common/Rva00690CB0Init.cpp|local|Rva00690CB0Owner::init|h2,agreed,single-worker scoped approval: w-d29055ee9848@drz-k1
+nl-819e3bac04c4,local,h,processImageFileName,,w-d29055ee9848@drz-k1,Code/GameEngine/Source/Common/Rva00690CB0Init.cpp|local|Rva00690CB0Owner::init|h,agreed,single-worker scoped approval: w-d29055ee9848@drz-k1
+nl-df89a74c3879,param,a1,path,,w-d29055ee9848@drz-k1,Code/GameEngine/Source/Common/Rva00600676Get.cpp|param|FileSystem::rva00600676|a1,agreed,single-worker scoped approval: w-d29055ee9848@drz-k1
+nl-364022e3bf06,local,p,archiveFileSystem,,w-d29055ee9848@drz-k1,Code/GameEngine/Source/Common/Rva00600676Get.cpp|local|FileSystem::rva00600676|p,agreed,single-worker scoped approval: w-d29055ee9848@drz-k1
+nl-9119d4ce9a26,param,a1,path,,w-d29055ee9848@drz-k1,Code/GameEngine/Source/Common/Rva00600676Get.cpp|param|FileSystem::rva006006A9|a1,agreed,single-worker scoped approval: w-d29055ee9848@drz-k1
+nl-a8ecabe8631a,local,p,archiveFileSystem,,w-d29055ee9848@drz-k1,Code/GameEngine/Source/Common/Rva00600676Get.cpp|local|FileSystem::rva006006A9|p,agreed,single-worker scoped approval: w-d29055ee9848@drz-k1
+nl-16eec910bbc8,param,a1,path,,w-d29055ee9848@drz-k1,Code/GameEngine/Source/Common/Rva00600676Get.cpp|param|Rva00600695Get|a1,agreed,single-worker scoped approval: w-d29055ee9848@drz-k1
+nl-e96dc9fb46a9,local,p,archiveFileSystem,,w-d29055ee9848@drz-k1,Code/GameEngine/Source/Common/Rva00600676Get.cpp|local|Rva00600695Get|p,agreed,single-worker scoped approval: w-d29055ee9848@drz-k1
+nl-86d74206f7ad,param,v,enabled,,w-d29055ee9848@drz-k1,Code/GameEngine/Source/Common/Palantir_SetPlanningModeEnabled.cpp|param|Palantir::SetPlanningModeEnabled|v,agreed,single-worker scoped approval: w-d29055ee9848@drz-k1

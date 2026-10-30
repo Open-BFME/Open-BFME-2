@@ -15992,3 +15992,12 @@ Code/GameEngine/Source/Common/Rva005E9137Check.cpp|param|Rva005E9137Check|a,7373
 Code/GameEngine/Source/Common/GapBodiesGE15.cpp|function|0x004E4E2A|rva004E4E2A,389b6b067af37ea306447249,drz-k2,drz-k2-125,w-ded32b2e2c5e,2026-10-30
 Code/GameEngine/Source/Common/EmbeddedMemberForwarders.cpp|function|0x0057A313|rva0057A313,7127b6fdaf612c7209c26cf9,drz-k2,drz-k2-126,w-ded32b2e2c5e,2026-10-30
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowManager.cpp|local|W3DProjectedShadowManager::~W3DProjectedShadowManager|p,7cd414e1d02830a52c9fa33d,drz-k2,drz-k2-128,w-ded32b2e2c5e,2026-10-30
+Code/GameEngine/Source/Common/Rva00690CB0Init.cpp|local|Rva00690CB0Owner::init|h2,1920d0610f26b4b6e0e978fe,drz-k1,drz-k1-119,w-d29055ee9848,2026-10-30
+Code/GameEngine/Source/Common/Rva00690CB0Init.cpp|local|Rva00690CB0Owner::init|h,9c51729820fe0a6cf5d1d922,drz-k1,drz-k1-119,w-d29055ee9848,2026-10-30
+Code/GameEngine/Source/Common/Rva00600676Get.cpp|param|FileSystem::rva00600676|a1,df89a74c3879834386ff87d1,drz-k1,drz-k1-120,w-d29055ee9848,2026-10-30
+Code/GameEngine/Source/Common/Rva00600676Get.cpp|local|FileSystem::rva00600676|p,06cdbe501579fe3d4874936b,drz-k1,drz-k1-120,w-d29055ee9848,2026-10-30
+Code/GameEngine/Source/Common/Rva00600676Get.cpp|param|FileSystem::rva006006A9|a1,9119d4ce9a26ff5c4311d80e,drz-k1,drz-k1-120,w-d29055ee9848,2026-10-30
+Code/GameEngine/Source/Common/Rva00600676Get.cpp|local|FileSystem::rva006006A9|p,21c821903bcb45753fcc365f,drz-k1,drz-k1-120,w-d29055ee9848,2026-10-30
+Code/GameEngine/Source/Common/Rva00600676Get.cpp|param|Rva00600695Get|a1,16eec910bbc8f30d277c0d5f,drz-k1,drz-k1-120,w-d29055ee9848,2026-10-30
+Code/GameEngine/Source/Common/Rva00600676Get.cpp|local|Rva00600695Get|p,080a187241ede88d89954c7e,drz-k1,drz-k1-120,w-d29055ee9848,2026-10-30
+Code/GameEngine/Source/Common/Palantir_SetPlanningModeEnabled.cpp|param|Palantir::SetPlanningModeEnabled|v,86d74206f7ad4aa709bb93ab,drz-k1,drz-k1-124,w-d29055ee9848,2026-10-30
