@@ -18234,3 +18234,9 @@ Code/GameEngine/Source/Common/Rva005421AAClone.cpp|param|Rva0053FC99|h,3cc00532d
 Code/GameEngine/Source/Common/Rva00540A88Clone.cpp|function|0x00540A88|rva00540A88,63730a9f106a51fbdd1d6907,drz-k4,drz-k4-416,w-855a0f400af4,2026-10-30
 Code/GameEngine/Source/Common/Rva00540A88Clone.cpp|param|Rva0053FC81|p,ec64a1829efbcc37cbb49f3c,drz-k4,drz-k4-416,w-855a0f400af4,2026-10-30
 Code/GameEngine/Source/Common/Rva00540A88Clone.cpp|param|Rva0053FC99|h,a7165a0ae4591cdc6e3b8a6b,drz-k4,drz-k4-416,w-855a0f400af4,2026-10-30
+Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptComponentColorPicker.cpp|param|ColorSurfaceLock|x0,08000fd58f842380fd577892,drz-k8,drz-k8-400,w-87ae7cdc64ef,2026-10-30
+Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptComponentColorPicker.cpp|param|ColorSurfaceLock|y0,5cf8f94eba9eb8234d473d0b,drz-k8,drz-k8-400,w-87ae7cdc64ef,2026-10-30
+Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptComponentColorPicker.cpp|param|ColorSurfaceLock|x1,f60ea4eb304fb51edeb57cfb,drz-k8,drz-k8-400,w-87ae7cdc64ef,2026-10-30
+Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptComponentColorPicker.cpp|param|ColorSurfaceLock|y1,b45fbd3c64c4d9d82e376b6a,drz-k8,drz-k8-400,w-87ae7cdc64ef,2026-10-30
+Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptComponentColorPicker.cpp|local|colorName|p,fac6a94223ff033c1dd8c959,drz-k8,drz-k8-400,w-87ae7cdc64ef,2026-10-30
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0004D47DParticleRender.cpp|member|Rva0004D47D|m_5c,81e362769fcc21f85a461410,drz-k8,drz-k8-ptcl,w-0bfb01cf5d54,2026-10-30
