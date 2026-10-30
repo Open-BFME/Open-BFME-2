@@ -16099,3 +16099,16 @@ Code/Libraries/Source/WWVegas/WWLib/Rva0006F373Set.cpp|param|Rva0006F373::rva000
 Code/Libraries/Source/WWVegas/WWLib/Rva0006F373Set.cpp|param|Rva0006F373::rva0006F373|e,4df225846e8d3552951046c0,drz-k1,drz-k1-178,w-d29055ee9848,2026-10-30
 Code/Libraries/Source/WWVegas/WWLib/Rva0006F373Set.cpp|param|Rva0006F373::Rva0006F373|d,ecea7b8a7b65eb876d066c65,drz-k1,drz-k1-178,w-d29055ee9848,2026-10-30
 Code/Libraries/Source/WWVegas/WWLib/Rva0006F373Set.cpp|param|Rva0006F373::Rva0006F373|e,e0e121234f6ed7afc0d20ad5,drz-k1,drz-k1-178,w-d29055ee9848,2026-10-30
+Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceClassRva00156540.cpp|member|Rva00156540Param|field2c,b204042803a09911fd5b58e3,drz-k3,drz-k3-163,w-077d7aeb666b,2026-10-30
+Code/GameEngine/Source/GameClient/Rva00276952.cpp|local|tornadoQuickDistance|tmp,00a12f167c82e9b70bc9c446,drz-k3,drz-k3-165,w-077d7aeb666b,2026-10-30
+Code/GameEngine/Source/GameClient/Rva00276952.cpp|param|Rva002768AC::rva00276952|p,19fec0ac53b9a9996b872beb,drz-k3,drz-k3-165,w-077d7aeb666b,2026-10-30
+Code/GameEngine/Source/GameClient/GUI/Rva005FB770SetHealth.cpp|local|StrategicHUD::DynamicAutoResolvePlayerPanelMovieClip::Impl::PlayHitAnim|p,c9e9fe836399f1e58baab90e,drz-k3,drz-k3-166,w-077d7aeb666b,2026-10-30
+Code/GameEngine/Source/GameClient/GUI/Rva005FB770SetHealth.cpp|local|StrategicHUD::DynamicAutoResolvePlayerPanelMovieClip::Impl::PlayReinforceAnim|p,0f212b2364c190e2ee3524e0,drz-k3,drz-k3-166,w-077d7aeb666b,2026-10-30
+Code/GameEngine/Source/Common/S3GuardedGlobalTriples.cpp|function|0x000F0AD7|h00040601,f619460ca2f47b23df14ccff,drz-k3,drz-k3-168,w-077d7aeb666b,2026-10-30
+Code/GameEngine/Source/Common/S3GuardedGlobalTriples.cpp|function|0x000F0AE7|h000053B7,8f43f0fc17533e8649a13eaf,drz-k3,drz-k3-168,w-077d7aeb666b,2026-10-30
+Code/Libraries/Source/Apt/AptAnimationPoolDataCtor.cpp|param|Rva006E6060Root::Rva006E6060Root|p,2e84b4898f0820595689a0f4,drz-k3,drz-k3-169,w-077d7aeb666b,2026-10-30
+Code/GameEngine/Source/Common/ComputeFrameState.cpp|local|ComputeFrameState|p,80866c2dee3b47ffbeb4dfc0,drz-k3,drz-k3-170,w-077d7aeb666b,2026-10-30
+Code/GameEngine/Source/GameLogic/Map/TerrainLogicLoadAmbientLightmap.cpp|local|TerrainLogic::LoadAmbientLightmap|temp,6ca286c252dbe3da954447d4,drz-k3,drz-k3-171,w-077d7aeb666b,2026-10-30
+Code/Libraries/Source/WWVegas/WWLib/Rva003F35E3VectorFillInsert.cpp|function|0x003F3744|rva003F3744,1c93b0ea36b9d0a303c32a95,drz-k3,drz-k3-172,w-077d7aeb666b,2026-10-30
+Code/GameEngineDevice/Source/W3DDevice/GameClient/ScreenFilterRva007DCA80PostRender.cpp|global||g_Va00DEC0DC,f8dd9556e7780dcffe7611fb,drz-k3,drz-k3-173,w-077d7aeb666b,2026-10-30
+Code/GameEngineDevice/Source/W3DDevice/GameClient/ScreenFilterRva007DCA80PostRender.cpp|global||g_Va00DB5B08,2944acdd0dcab79cd091f3b0,drz-k3,drz-k3-173,w-077d7aeb666b,2026-10-30
