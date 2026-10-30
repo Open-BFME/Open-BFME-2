@@ -48,20 +48,20 @@ class SubObjectsUpgradeModuleData : public Snapshot
 {
 public:
 	virtual ~SubObjectsUpgradeModuleData();
-
-private:
-	unsigned char m_moduleData[0x118 - 4];	// ModuleData fields up to the upgrade's own
-	_STL::vector<AsciiString> m_showSubObjectNames;
-	_STL::vector<AsciiString> m_hideSubObjectNames;
-	_STL::vector<AsciiString> m_upgradeSubObjectNames;
-	_STL::vector<Rva00B6CF1> m_replacementModels;
-	unsigned int m_defaultConditionState;
-	unsigned int m_defaultAnimationState;
-	unsigned char m_showOnlySelected;
-	unsigned char m_hideOnlySelected;
+	unsigned char m_pad[0x118 - 4];
+	_STL::vector<AsciiString> m_showSubObjects;
+	_STL::vector<AsciiString> m_hideSubObjects;
+	_STL::vector<AsciiString> m_excludeSubobjects;
+	_STL::vector<Rva00B6CF1> m_textureSwaps;
+	float m_fadeTime;
+	float m_waitBeforeFade;
+	unsigned char m_flag150;
+	unsigned char m_flag151;
+	unsigned char m_flag152;
+	unsigned char m_flag153;
 };
 
 SubObjectsUpgradeModuleData::~SubObjectsUpgradeModuleData()
 {
-	m_replacementModels.clear();
+	m_textureSwaps.clear();
 }
