@@ -84,7 +84,7 @@ protected:
 
 private:
 	bool m_20; // +0x20
-	unsigned int m_24; // +0x24
+	unsigned int m_lastScanFrame; // +0x24
 };
 
 void PickupStuffUpdate::xfer(Xfer *xfer)
@@ -93,5 +93,5 @@ void PickupStuffUpdate::xfer(Xfer *xfer)
 	Xfer::Version version(1, 1);
 	*xfer == version;
 	*xfer == m_20;
-	*xfer == m_24;
+	*xfer == m_lastScanFrame;
 }

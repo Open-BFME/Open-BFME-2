@@ -27,7 +27,7 @@ public:
 	AICommandInterface m_cmd;
 };
 
-class Thing
+class Object
 {
 public:
 	char m_pad[0x258];
@@ -38,12 +38,12 @@ class PickupStuffUpdate
 {
 public:
 	char m_pad[8];
-	Thing *m_thing;
+	Object *m_object;
 	void moveToStuff(void *arg);
 };
 
 void PickupStuffUpdate::moveToStuff(void *arg)
 {
-	m_thing->m_ai->BeginTemporaryStateMachine();
-	m_thing->m_ai->m_cmd.aiMoveToObject((Object *)arg, CMD_FROM_PLAYER2);
+	m_object->m_ai->BeginTemporaryStateMachine();
+	m_object->m_ai->m_cmd.aiMoveToObject((Object *)arg, CMD_FROM_PLAYER2);
 }

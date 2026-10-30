@@ -68,27 +68,170 @@ public:
 
 
 class Xfer;
-#include "../../../../reference/shims/moduledata/Common/Snapshot.h"
+class Thing;
+#include "../../Include/GameLogic/Module/BehaviorModule.h"
+
+enum UpdateSleepTime
+{
+	UPDATE_SLEEP_NONE = 1,
+	UPDATE_SLEEP_FOREVER = 0x3fffffff
+};
+
+enum CommandSourceType
+{
+	CMD_FROM_PLAYER = 0,
+	CMD_FROM_AI = 1,
+	CMD_FROM_PLAYER2 = 2
+};
+
+class AICommandInterface
+{
+public:
+	void aiMoveToObject(Object *obj, CommandSourceType src);	// 0x00352ECA
+};
+
+// The Object's AI as these units use it: slot 110 (+0x1B8) answers whether
+// it is busy, the command interface sits at +0x20 and +0x34 is tested before
+// 0x0026331C.
+class AIUpdateInterface
+{
+public:
+	virtual void v00();
+	virtual void v01();
+	virtual void v02();
+	virtual void v03();
+	virtual void v04();
+	virtual void v05();
+	virtual void v06();
+	virtual void v07();
+	virtual void v08();
+	virtual void v09();
+	virtual void v10();
+	virtual void v11();
+	virtual void v12();
+	virtual void v13();
+	virtual void v14();
+	virtual void v15();
+	virtual void v16();
+	virtual void v17();
+	virtual void v18();
+	virtual void v19();
+	virtual void v20();
+	virtual void v21();
+	virtual void v22();
+	virtual void v23();
+	virtual void v24();
+	virtual void v25();
+	virtual void v26();
+	virtual void v27();
+	virtual void v28();
+	virtual void v29();
+	virtual void v30();
+	virtual void v31();
+	virtual void v32();
+	virtual void v33();
+	virtual void v34();
+	virtual void v35();
+	virtual void v36();
+	virtual void v37();
+	virtual void v38();
+	virtual void v39();
+	virtual void v40();
+	virtual void v41();
+	virtual void v42();
+	virtual void v43();
+	virtual void v44();
+	virtual void v45();
+	virtual void v46();
+	virtual void v47();
+	virtual void v48();
+	virtual void v49();
+	virtual void v50();
+	virtual void v51();
+	virtual void v52();
+	virtual void v53();
+	virtual void v54();
+	virtual void v55();
+	virtual void v56();
+	virtual void v57();
+	virtual void v58();
+	virtual void v59();
+	virtual void v60();
+	virtual void v61();
+	virtual void v62();
+	virtual void v63();
+	virtual void v64();
+	virtual void v65();
+	virtual void v66();
+	virtual void v67();
+	virtual void v68();
+	virtual void v69();
+	virtual void v70();
+	virtual void v71();
+	virtual void v72();
+	virtual void v73();
+	virtual void v74();
+	virtual void v75();
+	virtual void v76();
+	virtual void v77();
+	virtual void v78();
+	virtual void v79();
+	virtual void v80();
+	virtual void v81();
+	virtual void v82();
+	virtual void v83();
+	virtual void v84();
+	virtual void v85();
+	virtual void v86();
+	virtual void v87();
+	virtual void v88();
+	virtual void v89();
+	virtual void v90();
+	virtual void v91();
+	virtual void v92();
+	virtual void v93();
+	virtual void v94();
+	virtual void v95();
+	virtual void v96();
+	virtual void v97();
+	virtual void v98();
+	virtual void v99();
+	virtual void v100();
+	virtual void v101();
+	virtual void v102();
+	virtual void v103();
+	virtual void v104();
+	virtual void v105();
+	virtual void v106();
+	virtual void v107();
+	virtual void v108();
+	virtual void v109();
+	virtual bool IsActive();
+	void BeginTemporaryStateMachine();	// 0x002632EE
+	void rva0026331C();			// 0x0026331C
+
+	char m_pad04[0x1C];
+	AICommandInterface m_cmd;	// +0x20
+	char m_pad21[0xF];
+	void *m_30;			// +0x30
+	void *m_34;			// +0x34
+};
 
 class Object
 {
 public:
 	Player *getControllingPlayer() const;	// 0x0028AFA9
 	const Coord3D *getPosition() const { return &m_pos; }
+	AIUpdateInterface *getAI() const { return m_ai; }
 	char m_pad000[0x38];
 	Coord3D m_pos;		// +0x38
+	char m_pad044[0x258 - 0x44];
+	AIUpdateInterface *m_ai;	// +0x258
 };
 
 #include "PartitionRangeQueryCallView.h"
 
 extern PartitionManager *ThePartitionManager;
-
-struct Rva00491FA6ModuleData
-{
-	char m_pad00[0x0C];
-	float m_range;		// +0x0C
-	char m_10[4];		// +0x10
-};
 
 enum NameKeyType
 {
@@ -102,17 +245,6 @@ public:
 };
 
 extern NameKeyGenerator *TheNameKeyGenerator;
-
-class PickupStuffUpdate
-{
-public:
-	virtual NameKeyType getModuleNameKey() const;
-	Object *rva00491FA6();
-	Object *getObject() const { return m_object; }
-private:
-	const Rva00491FA6ModuleData *m_moduleData;	// +0x04
-	Object *m_object;				// +0x08
-};
 
 class Rva00360D26Member
 {
@@ -128,12 +260,57 @@ class __declspec(novtable) PickupStuffUpdateModuleData : public Snapshot
 public:
 	virtual ~PickupStuffUpdateModuleData();
 
-private:
 	int m_unused04; // +4
 	bool m_skirmishAIOnly; // +8
 	float m_scanRange; // +0xC
 	Rva00360D26Member m_stuffToPickUp; // +0x10
 	float m_scanIntervalSeconds; // +0x14
+};
+
+class UpdateModuleInterface
+{
+public:
+	virtual UpdateSleepTime update() = 0;
+};
+
+class UpdateModule : public BehaviorModule, public UpdateModuleInterface
+{
+public:
+	UpdateModule(Thing *thing, const ModuleData *moduleData);	// 0x00253390
+	virtual ~UpdateModule();
+	void xfer(Xfer *xfer);						// 0x0044DF9F
+
+private:
+	unsigned int m_nextCallFrameAndPhase;	// +0x14
+	int m_indexInLogic;			// +0x18
+	int m_updateState;			// +0x1C
+};
+
+// +0x20 is set once moveToStuff sends the AI after a find and cleared by
+// 0x00491EE6 when the AI is idle again; +0x24 is the frame of the last scan.
+class PickupStuffUpdate : public UpdateModule
+{
+public:
+	PickupStuffUpdate(Thing *thing, const ModuleData *moduleData);
+	virtual ~PickupStuffUpdate();
+	virtual NameKeyType getModuleNameKey() const;
+	virtual UpdateSleepTime update();
+	void rva00491EE6();
+	Object *rva00491FA6();
+	void moveToStuff(void *obj);
+	void updateInactive();
+
+protected:
+	virtual void xfer(Xfer *xfer);
+
+private:
+	const PickupStuffUpdateModuleData *getPickupStuffUpdateModuleData() const
+	{
+		return (const PickupStuffUpdateModuleData *)getModuleData();
+	}
+
+	bool m_20;			// +0x20
+	unsigned int m_lastScanFrame;	// +0x24
 };
 
 // tu-skeleton: 0x00491DD3 25B ??1PickupStuffUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
@@ -189,12 +366,12 @@ PickupStuffUpdateModuleData::~PickupStuffUpdateModuleData()
 
 Object *PickupStuffUpdate::rva00491FA6()
 {
-	const Rva00491FA6ModuleData *md = m_moduleData;
+	const PickupStuffUpdateModuleData *md = getPickupStuffUpdateModuleData();
 	Rva00491FA6Mask mustBeSet;
 	Rva00491FA6Mask mustBeClear;
 	mustBeClear.set(98);
-	BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(getObject()->getPosition(), md->m_range, 0,
-		Rva0026119DFilter().link(Rva002614ECFilter(md->m_10, getObject()->getControllingPlayer(), true)
+	BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(getObject()->getPosition(), md->m_scanRange, 0,
+		Rva0026119DFilter().link(Rva002614ECFilter(&md->m_stuffToPickUp, getObject()->getControllingPlayer(), true)
 			.link(&Rva003685CF(*(BfmeObject872Header *)&mustBeSet, *(BfmeObject872Header *)&mustBeClear))), 1);
 	return hits.next();
 }

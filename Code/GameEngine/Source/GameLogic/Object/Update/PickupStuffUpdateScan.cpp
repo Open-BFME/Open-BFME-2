@@ -23,12 +23,12 @@ class Object
 {
 public:
 	unsigned char m_pad000[0x258];
-	PickupStuffAI *m_258;		// +0x258
+	PickupStuffAI *m_ai;		// +0x258
 };
 struct PickupStuffUpdateModuleData
 {
 	unsigned char m_pad00[0x14];
-	float m_scanDelay;		// +0x14
+	float m_scanIntervalSeconds;	// +0x14
 };
 class PickupStuffUpdate
 {
@@ -37,6 +37,7 @@ public:
 	void updateInactive();
 	Object *rva00491FA6();	// the nearest-candidate scan
 private:
+	const PickupStuffUpdateModuleData *getPickupStuffUpdateModuleData() const { return m_moduleData; }
 	void *m_vptr;
 	const PickupStuffUpdateModuleData *m_moduleData;	// +0x04
 	Object *m_object;		// +0x08
@@ -46,8 +47,8 @@ private:
 };
 void PickupStuffUpdate::updateInactive()
 {
-	if ((float)TheGameLogic->getFrame() > (float)BfmeLogicFramesPerSecond * m_moduleData->m_scanDelay + (float)m_lastScanFrame) {
-		if (m_object->m_258->m_34 == 0) {
+	if ((float)TheGameLogic->getFrame() > (float)BfmeLogicFramesPerSecond * getPickupStuffUpdateModuleData()->m_scanIntervalSeconds + (float)m_lastScanFrame) {
+		if (m_object->m_ai->m_34 == 0) {
 			Object *found = rva00491FA6();
 			if (found) {
 				moveToStuff(found);

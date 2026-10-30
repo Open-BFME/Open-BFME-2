@@ -138,7 +138,7 @@ class Object
 {
 public:
 	char m_pad00[0x258];
-	AIUpdateInterface *m_258;
+	AIUpdateInterface *m_ai;
 };
 
 class BehaviorModuleBase
@@ -186,16 +186,16 @@ public:
 
 private:
 	bool m_20;
-	unsigned int m_24;
+	unsigned int m_lastScanFrame;
 };
 
 void PickupStuffUpdate::rva00491EE6()
 {
 	Object *obj = m_object;
-	AIUpdateInterface *ai = obj->m_258;
+	AIUpdateInterface *ai = obj->m_ai;
 	if (!ai->IsActive())
 		return;
-	ai = m_object->m_258;
+	ai = m_object->m_ai;
 	if (ai->m_34 != 0)
 		ai->rva0026331C();
 	m_20 = false;
