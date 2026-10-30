@@ -514,6 +514,41 @@ def test_imported_matching_operator_still_reports_abi_conflict():
                      read_old=lambda p: "", index=index)
 
 
+GUIDDEF_OPERATORS = """\
+typedef struct _GUID { unsigned long Data1; unsigned short Data2; unsigned short Data3; unsigned char Data4[8]; } GUID;
+#define REFGUID const GUID &
+__inline int operator==(REFGUID guidOne, REFGUID guidOther) { return 1; }
+__inline int operator!=(REFGUID guidOne, REFGUID guidOther) { return 0; }
+"""
+
+
+def test_operator_definition_body_is_no_brace_initializer():
+    # The tokenizer splits operator== into operator, =, =. That = named the
+    # function, yet the parser read its body as an initializer and ran on to
+    # the next declaration's ';': the real Guiddef.h operator== swallowed
+    # operator!=, and a game's operator== followed by a typedef became a
+    # "typedef operator==" queued against Guiddef.h
+    # (stlport_list_unicodestring_add_if_missing_00433C18.cpp).
+    decls, _, _ = mha.parse_text(GUIDDEF_OPERATORS, "cpp")
+    kinds = {d.name: d.kind for d in decls}
+    assert kinds.get("operator==") == "function" and kinds.get("operator!=") == "function"
+    index = index_from(GUIDDEF_OPERATORS, label="Vc7/PlatformSDK/Include/Guiddef.h")
+    for operator in ("==", "!=", "<=", "+=", "="):
+        text = ("struct U { int w; };\n"
+                f"inline bool operator{operator}(const U &a, const U &b)\n{{\n\treturn a.w == b.w;\n}}\n"
+                "typedef U UList;\n")
+        decls, _, _ = mha.parse_text(text, "cpp")
+        assert {d.name: d.kind for d in decls}.get(f"operator{operator}") == "function", operator
+        assert "UList" in {d.name for d in decls}, operator
+        occ = mha.scan_text("Code/Fixture.cpp", text, index)["occ"]
+        assert not any(o[1].startswith("operator") for o in occ), (operator, occ)
+
+
+def test_brace_initializers_still_end_at_their_semicolon():
+    decls, _, _ = mha.parse_text("struct V { int a; };\nV v = { 1 };\nint x = 2;\n", "cpp")
+    assert {"v", "x"} <= {d.name for d in decls}
+
+
 def test_imported_named_function_and_allocator_conflicts_remain():
     for name in ("free", "operator new"):
         index = index_from(f"void *{name}(unsigned int size);\n", label="Vc7/include/new")

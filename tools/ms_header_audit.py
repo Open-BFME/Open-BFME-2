@@ -70,7 +70,7 @@ import warnings
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-TOOL_VERSION = 14
+TOOL_VERSION = 15
 CACHE_DIR = ROOT / "build" / "ms_header_audit"
 QUEUE = ROOT / "reverse" / "ms_header_queue.tsv"
 OCCURRENCES = CACHE_DIR / "occurrences.tsv"
@@ -722,6 +722,19 @@ def _is_ident(s):
     return bool(s) and (s[0].isalpha() or s[0] in "_$") and s not in KEYWORDS
 
 
+_OPERATOR_PUNCT = frozenset("+-*/%^&|~!=<>,")
+
+
+def _in_operator_name(head):
+    """True when `head` ends inside an operator-function-id: the tokenizer
+    splits `operator==` (`!=`, `<=`, `+=`, `=` ...) into single characters, and
+    that `=` names the function, it starts no initializer."""
+    if "operator" not in head:
+        return False
+    k = len(head) - 1 - head[::-1].index("operator")
+    return all(t in _OPERATOR_PUNCT for t in head[k + 1:])
+
+
 def find_declarator(seq):
     """(name, type tokens without the name, function?, params, after) for one
     declaration's tokens with attributes already stripped. name is None for an
@@ -991,7 +1004,7 @@ class Parser:
                 head.extend(S[i:j + 1])
                 i = j + 1
                 continue
-            if s == "=":
+            if s == "=" and not _in_operator_name(head):
                 seen_eq = True
             head.append(s)
             i += 1
