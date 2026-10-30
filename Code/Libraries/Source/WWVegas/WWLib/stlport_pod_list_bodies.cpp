@@ -89,14 +89,18 @@ class Gen_005e9a20;
 class Rva004E5012;
 struct BfmeVectorRecord001B4A39;
 class Rva00263895Member;
+struct BfmeStringRecord000B75AE;
 namespace _STL {
+template <> void _Construct<BfmeStringRecord000B75AE, BfmeStringRecord000B75AE>(BfmeStringRecord000B75AE *, const BfmeStringRecord000B75AE &);
 template <> void _Construct<Gen_005e9a20, Gen_005e9a20>(Gen_005e9a20 *, const Gen_005e9a20 &);
 template <> void _Construct<Rva004E5012, Rva004E5012>(Rva004E5012 *, const Rva004E5012 &);
 template <> void _Construct<BfmeVectorRecord001B4A39, BfmeVectorRecord001B4A39>(BfmeVectorRecord001B4A39 *, const BfmeVectorRecord001B4A39 &);
 template <> void _Construct<Rva00263895Member, Rva00263895Member>(Rva00263895Member *, const Rva00263895Member &);
-// 0x00421D16
+// 0x000B9478: list<BfmePod32>'s only node creator is retail's 0x000BB6CC
+// (list<BfmeStringRecord000B75AE>::_M_create_node), which copies through the
+// rowed _Construct<BfmeStringRecord000B75AE>, not 0x00421D16.
 template <> __declspec(dllimport) __forceinline void _Construct<BfmePod32, BfmePod32>(BfmePod32 *p, const BfmePod32 &v)
-{ _Construct((Gen_005e9a20 *)p, (const Gen_005e9a20 &)v); }
+{ _Construct((BfmeStringRecord000B75AE *)p, (const BfmeStringRecord000B75AE &)v); }
 // 0x004E52FB
 template <> __declspec(dllimport) __forceinline void _Construct<BfmePod60, BfmePod60>(BfmePod60 *p, const BfmePod60 &v)
 { _Construct((Rva004E5012 *)p, (const Rva004E5012 &)v); }
