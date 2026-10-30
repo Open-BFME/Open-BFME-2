@@ -49,18 +49,11 @@ public:
 	virtual void *s41();
 };
 
-class Drawable
-{
-public:
-	bool rva00272835(int a, int b);
-private:
-	char m_pad[0x14C];
-	Rva00272835Elem **m_list;
-};
+#include "../../Include/GameClient/DrawableBFME2.h"
 
 bool Drawable::rva00272835(int a, int b)
 {
-	Rva00272835Elem **cur = m_list;
+	Rva00272835Elem **cur = ((Rva00272835Elem **)m_modules[0]);
 	while (*cur != 0) {
 		Rva00272835Elem *e = *cur;
 		void *p = e->s41();
