@@ -1,4 +1,5 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
+// stlport
 // ?notifyOfAcquiredScience@ScriptEngine@@QAEXHW4ScienceType@@@Z @0x00357F43 27B
 // ScriptEngine::notifyOfAcquiredScience: m_acquiredSciences[playerIndex].push_back(science).
 // Donor: ZH ScriptEngine::notifyOfAcquiredScience (ScriptEngine.cpp:7258) one-liner.
@@ -7,6 +8,8 @@
 // vector<ScienceType> 0x002E01C6, layout +0x1A3A8 stride 0xC from matched dtor
 // m_playerVectors[20].
 
+#include <vector>
+
 enum ScienceType
 {
 	SCIENCE_INVALID = -1
@@ -14,21 +17,17 @@ enum ScienceType
 
 namespace _STL
 {
-	template <class T>
-	class allocator
-	{
-	};
-
-	template <class T, class A>
-	class vector
+	// Bind vector<ScienceType>::push_back to the rowed worker at 0x002E01C6.
+	// Declaration only: the definition lives in the row owner.
+	template <class T, class A> class vector;
+	template <> class vector<ScienceType, allocator<ScienceType> >
 	{
 	public:
-		void push_back(const T &v);
-
+		void push_back(const ScienceType &v);
 	private:
-		void *m_start;
-		void *m_finish;
-		void *m_endOfStorage;
+		ScienceType *m_start;
+		ScienceType *m_finish;
+		ScienceType *m_endOfStorage;
 	};
 }
 
