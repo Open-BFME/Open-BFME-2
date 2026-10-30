@@ -13,6 +13,8 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include <vector>
 #include "../../../Libraries/Include/Lib/Region2D.h"
 #include <stl/_algobase.h>
+#define _OPERATOR_NEW_DEFINED_
+#include "matrix3d.h"
 
 struct BfmeE8 {
     float x, y;
@@ -197,11 +199,90 @@ struct Rva0030BA8C
 // this unit's /EH copy of its _M_allocate_and_copy is not retail's body.
 namespace _STL { template <> void vector<BfmeE8, allocator<BfmeE8> >::reserve(unsigned int); }
 
-// tu-skeleton: 0x0030B135 114B ?rva0030B135@AreaPolygonBase@@QAEXPBUBfmePod8@@@Z -- matched in Code/GameEngine/Source/Common/Rva0030B135Finish.cpp (not merged yet)
+// bfme link decl-only begin
+namespace _STL { template <> BfmePod8 * vector<BfmePod8,_STL::allocator<BfmePod8> >::erase(BfmePod8 *); }
 
-// tu-skeleton: 0x0030B1A7 139B ?rva0030B1A7@AreaPolygonBase@@QAEXM@Z -- matched in Code/GameEngine/Source/Common/Rva0030B1A7Scale.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva0030B135Finish.cpp
 
-// tu-skeleton: 0x0030B232 132B ?rva0030B232@AreaPolygonBase@@QAEXABVMatrix3D@@@Z -- matched in Code/GameEngine/Source/Common/Rva0030B232Transform.cpp (not merged yet)
+// ?rva0030B135@AreaPolygonBase@@QAEXPBUBfmePod8@@@Z
+//
+// ?rva0030B135@AreaPolygonBase@@QAEXPBUBfmePod8@@@Z @0x0030B135 114B
+// Two halves: a step-8 vector accumulate over [_STL::vector<BfmePod8>] at +0
+// with addss from the argument pair, then a flag-gated (byte +0x24) accumulate
+// of the same argument pair into the four mid floats at +0x0C..+0x18, in the
+// order x,y,x,y. Evidence: calls [ecx]/[ecx+4] step 8, flag +0x24, mids
+// +0x0C..+0x18, caller 0x00330B75, same layout as the matched 0x0030B92C
+// operator= and 0x0030B1A7 scale siblings in this directory.
+//
+// The mid accumulate goes through a float lvalue (`pm[0] = pm[0] + pa[0]`)
+// instead of field-named `m_0c += a->x`. With either `+=` or `m_0c = m_0c +
+// a->x`, MSVC emits the *argument* as the movss source and the member as the
+// addss memory operand for the first two adds, while retail loads the member
+// first (`movss xmm0,[ecx+0xc]; addss xmm0,[edx]`). The lvalue array spelling
+// pins the load/operand association so all four come out member-first.
+
+void AreaPolygonBase::rva0030B135(const BfmePod8 *a)
+{
+	for (BfmeE8 *p = m_points.begin(), *e = m_points.end(); p != e; ++p) {
+		p->x += a->x;
+		p->y += a->y;
+	}
+	if (m_dirty != 0)
+		return;
+	float *pm = m_bounds.v;
+	const float *pa = &a->x;
+	pm[0] = pm[0] + pa[0];
+	pm[1] = pm[1] + pa[1];
+	pm[2] = pm[2] + pa[0];
+	pm[3] = pm[3] + pa[1];
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva0030B1A7Scale.cpp
+
+// ?rva0030B1A7@AreaPolygonBase@@QAEXM@Z @0x0030B1A7 139B
+// Scale vector points and 6 mid floats by arg then flag-gated.
+// Evidence: loop [ecx]/[ecx+4] step8 mulss xmm0; flag 0x24; mid 0x0C-0x20 six mulss; caller 0x00330B93; same layout as 0x0030B92C.
+
+void AreaPolygonBase::rva0030B1A7(float f)
+{
+	BfmeE8 *e = m_points.end();
+	for (BfmeE8 *p = m_points.begin(); p != e; ++p) {
+		p->x *= f;
+		p->y *= f;
+	}
+	if (m_dirty != 0)
+		return;
+	m_bounds.v[0] *= f;
+	m_bounds.v[1] *= f;
+	m_bounds.v[2] *= f;
+	m_bounds.v[3] *= f;
+	m_1c *= f;
+	m_20 *= f;
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva0030B232Transform.cpp
+
+// ?rva0030B232@AreaPolygonBase@@QAEXABVMatrix3D@@@Z @0x0030B232 132B
+// Transform every 2D point of the polygon by a 3x4 matrix (z = 0) and mark it dirty.
+// Target facts: AreaPolygonBase layout as the rowed siblings 0x0030B1A7 (scale) and
+// 0x0030B92C (assign); one pointer argument, the dirty byte at +0x24; caller 0x00330BAD.
+// WorldBuilder twin 0x00BF6660 shows a Vector3 (x, y, 0) per point run through WWMath's
+// Matrix3D::Transform_Vector with in == out (its aliasing copy); the BFME 1 reference
+// matrix3d.h supplies that inline. The original method name is unknown.
+
+void AreaPolygonBase::rva0030B232(const Matrix3D &matrix)
+{
+	BfmeE8 *e = m_points.end();
+	for (BfmeE8 *p = m_points.begin(); p != e; ++p) {
+		Vector3 v(p->x, p->y, 0.0f);
+		Matrix3D::Transform_Vector(matrix, v, &v);
+		p->x = v.X;
+		p->y = v.Y;
+	}
+	m_dirty = 1;
+}
+
+// ---- from Code/GameEngine/Source/Common/AreaPolygonBase.cpp
 
 // ---- from Code/GameEngine/Source/Common/AreaPolygonBase.cpp
 
@@ -366,6 +447,19 @@ void Rva0030BA8C::rva0030BA8C(const BfmeE8 &val)
 	m_flag = true;
 }
 
+// ---- from Code/GameEngine/Source/Common/AreaPolygonBase_reserve.cpp
+
+// ?reserve@AreaPolygonBase@@QAEXH@Z, retail 0x0030B96B, 21 bytes.
+// Holder ensure via rowed vector E8 reserve 0x0030B876 with clamp to 2.
+// Evidence: caller 0x0030B9B4 with ecx this plus int arg; prev reserve same flags next clear same flags.
+
+void AreaPolygonBase::reserve(int n)
+{
+	if (n < 2)
+		n = 2;
+	m_points.reserve(n);
+}
+
 // tu-skeleton: 0x0030B343 53B ?Rva0030B343Swap@@YAXAAURva0030D111Point@@0@Z -- matched in Code/GameEngine/Source/Common/Rva0030D111ContainsPoint.cpp (not merged yet)
 
 // tu-skeleton: 0x0030B3D1 478B ?rva0030B3D1@AreaPolygonBase@@QAEXXZ -- matched in Code/GameEngine/Source/Common/AreaPolygonUpdateBounds.cpp (not merged yet)
@@ -386,30 +480,43 @@ void Rva0030BA8C::rva0030BA8C(const BfmeE8 &val)
 
 // tu-skeleton: 0x0030B7C2 80B ?rva0030B7C2@@YA_NPBURva0030B7C2Point@@PAVRva0030B719Shape@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/Rva0030B7C2PointQuery.cpp (not merged yet)
 
-// tu-skeleton: 0x0030B85A 28B ?deletePoint@AreaPolygonBase@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/AreaPolygonBase_deletePoint.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/AreaPolygonBase_deletePoint.cpp
+
+// ?deletePoint@AreaPolygonBase@@QAEXH@Z @0x0030B85A 28B
+// Erase vector element by index via rowed Pod8 erase then set flag 1.
+// Evidence: lea [eax+ecx*8] then rowed erase 0x00054B3F; flag 0x24=1; caller 0x00330B1E; same layout as 0x0030B92C.
+
+// bfme link decl-only end
+void AreaPolygonBase::deletePoint(int i)
+{
+	((_STL::vector<BfmePod8, _STL::allocator<BfmePod8> > *)&m_points)->erase(
+		((_STL::vector<BfmePod8, _STL::allocator<BfmePod8> > *)&m_points)->begin() + i);
+	m_dirty = 1;
+}
 
 // tu-skeleton: 0x0030B876 110B ?reserve@?$vector@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@QAEXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_e8_o1.cpp (not merged yet)
 
 // tu-skeleton: 0x0030B92C 63B ??4AreaPolygonBase@@QAEAAU0@ABU0@@Z -- matched in Code/GameEngine/Source/Common/Rva0030B92COpAssign.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/AreaPolygonBase_reserve.cpp
-
-// ?reserve@AreaPolygonBase@@QAEXH@Z, retail 0x0030B96B, 21 bytes.
-// Holder ensure via rowed vector E8 reserve 0x0030B876 with clamp to 2.
-// Evidence: caller 0x0030B9B4 with ecx this plus int arg; prev reserve same flags next clear same flags.
-
-void AreaPolygonBase::reserve(int n)
-{
-	if (n < 2)
-		n = 2;
-	m_points.reserve(n);
-}
-
 // tu-skeleton: 0x0030B980 74B ??0Rva0030B980@@QAE@H@Z -- matched in Code/GameEngine/Source/Common/Rva0030B980Constructors.cpp (not merged yet)
 
 // tu-skeleton: 0x0030B9DD 22B ??0Rva0030B9DD@@QAE@H@Z -- matched in Code/GameEngine/Source/Common/Rva0030B980Constructors.cpp (not merged yet)
 
-// tu-skeleton: 0x0030BAA0 56B ?setPoint@AreaPolygonBase@@QAEXHABUBfmeE8@@@Z -- matched in Code/GameEngine/Source/Common/AreaPolygonBase_setPoint.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/AreaPolygonBase_setPoint.cpp
+
+// ?setPoint@AreaPolygonBase@@QAEXHABUBfmeE8@@@Z, retail 0x0030BAA0, 56 bytes.
+// Holder set via size check then rowed push 0x0030BA8C for append else direct 8B copy plus flag at +0x24.
+// Evidence: chain from 0x0030BA8C; caller 0x00330AE6; prev push same flags next Disp8Lea no-flags.
+
+void AreaPolygonBase::setPoint(int i, const BfmeE8 &val)
+{
+	if (i == (int)m_points.size()) {
+		((Rva0030BA8C *)this)->rva0030BA8C(val);
+		return;
+	}
+	m_points[i] = val;
+	m_dirty = true;
+}
 
 // tu-skeleton: 0x0030BAF8 143B ?parse@AreaPolygonBase@@QAEXAAVDataChunkInput@@H@Z -- matched in Code/GameEngine/Source/Common/AreaPolygonBase_parse.cpp (not merged yet)
 
