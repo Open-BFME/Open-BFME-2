@@ -52,3 +52,14 @@ namespace _STL {
 template <> list<ShellMenuScheme *>::_Node *list<ShellMenuScheme *>::_M_create_node(ShellMenuScheme *const &);
 template list<ShellMenuScheme *>::iterator list<ShellMenuScheme *>::insert(list<ShellMenuScheme *>::iterator, ShellMenuScheme *const &);
 }
+
+// list<ControlBarScheme *> and list<AIGroup *> insert for
+// ControlBarSchemeManager::newControlBarScheme and AI::createGroup.
+class ControlBarScheme;
+class AIGroup;
+namespace _STL {
+template <> list<ControlBarScheme *>::_Node *list<ControlBarScheme *>::_M_create_node(ControlBarScheme *const &);
+template list<ControlBarScheme *>::iterator list<ControlBarScheme *>::insert(list<ControlBarScheme *>::iterator, ControlBarScheme *const &);
+template <> list<AIGroup *>::_Node *list<AIGroup *>::_M_create_node(AIGroup *const &);
+template list<AIGroup *>::iterator list<AIGroup *>::insert(list<AIGroup *>::iterator, AIGroup *const &);
+}

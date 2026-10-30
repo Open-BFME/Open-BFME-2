@@ -72,3 +72,10 @@ template _STL::list<AnimateWindow *>::_Node *_STL::list<AnimateWindow *>::_M_cre
 // ShellMenuSchemeManager::newShellMenuScheme's push_back reaches the same insert.
 class ShellMenuScheme;
 template _STL::list<ShellMenuScheme *>::_Node *_STL::list<ShellMenuScheme *>::_M_create_node(ShellMenuScheme *const &);
+
+// ControlBarSchemeManager::newControlBarScheme and AI::createGroup push_back
+// through the same insert.
+class ControlBarScheme;
+class AIGroup;
+template _STL::list<ControlBarScheme *>::_Node *_STL::list<ControlBarScheme *>::_M_create_node(ControlBarScheme *const &);
+template _STL::list<AIGroup *>::_Node *_STL::list<AIGroup *>::_M_create_node(AIGroup *const &);
