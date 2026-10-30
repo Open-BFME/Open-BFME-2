@@ -23,10 +23,8 @@ class PB_DeepBase
 public:
 	PB_DeepBase(Thing *, const ModuleData *);
 	virtual ~PB_DeepBase();
-
-protected:
-	const ModuleData *m_moduleData;
-	Object *m_object;
+	const ModuleData *m_moduleData; // +0x04
+	Object *m_object; // +0x08
 };
 
 class BodyModuleInterface;
@@ -39,7 +37,11 @@ class BehaviorModuleInterface
 public:
 	virtual BodyModuleInterface *getBody() { return 0; }
 };
-class UpdateModuleInterface { public: virtual UpdateSleepTime update() = 0; };
+class UpdateModuleInterface
+{
+public:
+	virtual UpdateSleepTime update() = 0;
+};
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/UpdateModule.h
 class UpdateModule : public PB_DeepBase, public BehaviorModuleInterface,

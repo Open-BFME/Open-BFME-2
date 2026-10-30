@@ -134,17 +134,26 @@ public:
 class PB_DeepBase
 {
 public:
+	PB_DeepBase(Thing *, const ModuleData *);
 	virtual ~PB_DeepBase();
-	const ModuleData *m_moduleData;
-	Object *m_object;
+	const ModuleData *m_moduleData; // +0x04
+	Object *m_object; // +0x08
 };
 
-class BehaviorModuleInterface { public: virtual void slot(); };
+class BodyModuleInterface;
+
+// The constructor installs the shared 0x007EFF90 table at +0x0C. Its
+// first entry is the null-returning getBody used by this same base view.
+class BehaviorModuleInterface
+{
+public:
+	virtual BodyModuleInterface *getBody() { return 0; }
+};
 
 class UpdateModuleInterface
 {
 public:
-	virtual UpdateSleepTime update();
+	virtual UpdateSleepTime update() = 0;
 };
 
 class UpdateModule : public PB_DeepBase, public BehaviorModuleInterface, public UpdateModuleInterface
