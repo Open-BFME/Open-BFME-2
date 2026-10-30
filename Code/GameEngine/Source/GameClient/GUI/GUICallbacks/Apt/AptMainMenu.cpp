@@ -153,8 +153,6 @@ public:
 	void rva002239FA(const AsciiString &window, const AsciiString &image);
 };
 
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
-
 class GameTextInterface
 {
 public:
@@ -725,10 +723,16 @@ int rva0051E280PreParchmentMapFadeStartNew(int, bool start)
 // ?goodCampaignRva00515921@@YAHM_N@Z, retail 0x00515921, 95 bytes. Banked partial (score 0.98) closed by tools/permute.py;
 // the body is the banked one up to statement/operand order and local types.
 
+// The static's atexit cleanup (_$E2, 0x007B91A8) tail-jumps to the out-of-line
+// ~AsciiString (0x0048BA39): cl compiles a function's static cleanups with the
+// inline depth in force at its closing brace, so that brace sits under
+// inline_depth(0).
 int goodCampaignRva00515921(float time,bool start) {
  static AsciiString campaign("GOOD_CAMPAIGN");
  return AptMainMenu::LinearCampaignStart(campaign,time,start);
+#pragma inline_depth(0)
 }
+#pragma inline_depth()
 
 // ?evilCampaignRva005158C2@@YAHM_N@Z, retail 0x005158C2, 95 bytes: the
 // EVIL_CAMPAIGN twin of the body above (local-static guard 0x00E048F8,
@@ -737,7 +741,9 @@ int goodCampaignRva00515921(float time,bool start) {
 int evilCampaignRva005158C2(float time,bool start) {
  static AsciiString campaign("EVIL_CAMPAIGN");
  return AptMainMenu::LinearCampaignStart(campaign,time,start);
+#pragma inline_depth(0)
 }
+#pragma inline_depth()
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuConstructor.cpp
 
@@ -779,7 +785,7 @@ AptMainMenu::AptMainMenu(void *context)
 	{
 		AsciiString image("LogoWithShadow");
 		AsciiString window("Image");
-		TheRva00222A8BTarget->rva002239FA(window, image);
+		((Rva00222A8BTarget *)g_bfmeAptWindowManager)->rva002239FA(window, image);
 	}
 #define BIND_COMMAND(handler, label) \
 	{ \
