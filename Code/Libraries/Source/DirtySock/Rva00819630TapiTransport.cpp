@@ -1,7 +1,13 @@
-// cl: /Od /GZ /GS /MD /DNDEBUG
+// cl: /Od /GZ /GS /DNDEBUG
+// platformsdk
 // Retail 0x00819630: DirtySock TAPI transport allocation called by
 // Rva00812DD0.  The address-derived entry keeps the raw cdecl ABI proved by
 // that caller; the object view is local because no shared layout is justified.
+// Built without /MD: retail calls the msvcrt _mbscpy import stub with a direct
+// e8, as a library compiled against the static CRT headers does.
+#include <windows.h>
+#include <string.h>
+#include <mbstring.h>
 
 struct CommSerialRef
 {
@@ -50,17 +56,6 @@ struct CommSerialRef
 
 extern "C"
 {
-	void *memset( void *destination, int value, unsigned int count );
-	extern "C" char *_mbscpy( char *destination, const char *source );
-	int __cdecl strcmp( const char *left, const char *right );
-	unsigned int __cdecl strlen( const char *text );
-	__declspec( dllimport ) int __cdecl wsprintfA( char *output,
-		const char *format, ... );
-	__declspec( dllimport ) void *__stdcall CreateFileA(
-		const char *name, unsigned int desiredAccess, unsigned int shareMode,
-		void *security, unsigned int creation, unsigned int flags,
-		void *templateHandle );
-
 	void Rva0081ACD0( void *comm );
 	int Rva0081B790( void *comm, void *argument );
 	int Rva0081B830( void *comm );
@@ -68,18 +63,6 @@ extern "C"
 	int Rva0081BA60( void *comm, const void *payload, int length );
 	int Rva0081BC80( void *comm, void *buffer, int size, unsigned int *when );
 	int Rva0081BD40( void *comm, void *buffer, int size, unsigned int *when );
-
-	__declspec( dllimport ) void __stdcall InitializeCriticalSection( void *lock );
-	__declspec( dllimport ) unsigned long __stdcall GetCurrentThreadId( void );
-	__declspec( dllimport ) void *__stdcall CreateThread(
-		void *security, unsigned long stackSize,
-		unsigned long (__stdcall *start)( void * ), void *parameter,
-		unsigned long flags, unsigned long *identifier );
-	__declspec( dllimport ) int __stdcall SetThreadPriority(
-		void *thread, int priority );
-	__declspec( dllimport ) int __stdcall CloseHandle( void *thread );
-	__declspec( dllimport ) void *__stdcall CreateEventA(
-		void *security, int manualReset, int initialState, const char *name );
 }
 
 // Retail installs this typed five-argument cdecl callback in operation-table
@@ -171,8 +154,8 @@ extern "C" void *CommSerialConstruct( int first, int second, int third )
 	comm->m_ops[ 11 ] = (void *)Rva0081BA60;
 	comm->m_ops[ 12 ] = (void *)Rva0081BC80;
 	comm->m_ops[ 13 ] = (void *)Rva0081BD40;
-	_mbscpy( comm->m_name, "SERIAL" );
-	InitializeCriticalSection( comm->m_lock );
+	_mbscpy( (unsigned char *)comm->m_name, (const unsigned char *)"SERIAL" );
+	InitializeCriticalSection( (CRITICAL_SECTION *)comm->m_lock );
 
 	comm->m_recvRecordSize = first + 0x10;
 	comm->m_recvBufferSize = comm->m_recvRecordSize * second;
