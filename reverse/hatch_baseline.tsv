@@ -10910,8 +10910,6 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassDestructorBFME
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/FrustumCtorO1.cpp	"",on	2
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/FrustumCtorO1.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/FrustumCtorO1.cpp	"t",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/GridTextureMapperCalculate.cpp	"",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/GridTextureMapperCalculate.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/HAnimComboBFME1.cpp	"",on	3
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/HAnimComboBFME1.cpp	"gsy",on	2
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/HAnimComboBFME1.cpp	"s",on	1
@@ -11244,8 +11242,8 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/lightenvironment.cpp	"s",on	
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/lightenvironment.cpp	"t",off	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/linegrp.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/linegrp.cpp	"gsy",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/mapper.cpp	"",on	2
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/mapper.cpp	"gsy",on	1
+pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/mapper.cpp	"",on	3
+pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/mapper.cpp	"gsy",on	2
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/mapper.cpp	"s",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/matinfo.cpp	"",on	2
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/matinfo.cpp	"gsy",on	1

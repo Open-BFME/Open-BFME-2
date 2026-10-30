@@ -40,10 +40,35 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // emits a copy that loses to retail's owners (0x0004D649, 0x006D8A30).
 extern "C" { static float __cdecl floorf(float); }
 #include "../../../../../reference/shims/bfme_matrix4_rows_link/matrix4_bfme1_rows_link.h"
+#pragma inline_depth(0)
+#pragma inline_depth()
+#define inline static inline
+#undef inline
+#pragma inline_depth(0)
+#pragma inline_depth()
+#pragma inline_depth(0)
+#pragma inline_depth()
+#pragma optimize("gsy", on)
+#pragma optimize("", on)
+#include "../../../../../reference/shims/bfme_grid_mapper_link/mapper.h"
 
 Random4Class rand4;
 
 extern Random4Class rand4;
+
+class Matrix4;
+
+struct GridTextureMapperInitializeAccess : GridTextureMapperClass
+{
+	using GridTextureMapperClass::initialize;
+};
+
+struct GridTextureMapperTemporalAccess : GridTextureMapperClass
+{
+	using GridTextureMapperClass::update_temporal_state;
+};
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/mapper.cpp
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/mapper.cpp
 
@@ -695,12 +720,6 @@ void GridWSEnvMapperClass::Calculate_Texture_Matrix(Matrix4x4 &tex_matrix)
 	tex_matrix = md * mv;
 }
 
-// tu-skeleton: 0x001820A0 6B ?Rva001820A0Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x001820B0 6B ?Rva001820B0Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00182150 5B ?_bfme_mapper_v8@TextureMapperClass@@UAE_NH@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/TextureMapperSlot8.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/ScaleTextureMapperCalculate.cpp
 
 // ?Calculate_Texture_Matrix@ScaleTextureMapperClass@@UAEXAAVMatrix4@@@Z 0x00182270 108B
@@ -767,16 +786,6 @@ void LinearOffsetTextureMapperClass::Calculate_Texture_Matrix(Matrix4 &tex_matri
 	LastUsedSyncTime = WW3D::Get_Sync_Time();
 }
 
-// tu-skeleton: 0x00182440 51B ?Reset@GridTextureMapperClass@@UAEXXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/GridTextureMapperClassCopyCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00182480 261B ?initialize@GridTextureMapperClass@@IAEXMI@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/GridTextureMapperClassInitialize.cpp (not merged yet)
-
-// tu-skeleton: 0x00182590 69B ?update_temporal_state@GridTextureMapperClass@@IAEXXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/GridTextureMapperClassUpdateTemporalState.cpp (not merged yet)
-
-// tu-skeleton: 0x001826B0 6B ?Rva001826B0Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
-// tu-skeleton: 0x001826C0 3B ?do_always_noconv@?$codecvt@DDH@_STL@@MBE_NXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_codecvt_virtuals.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/RotateTextureMapperCalculate.cpp
 
 // ?Calculate_Texture_Matrix@RotateTextureMapperClass@@UAEXAAVMatrix4@@@Z 0x00182800 416B
@@ -810,8 +819,6 @@ void RotateTextureMapperClass::Calculate_Texture_Matrix(Matrix4 &tex_matrix)
 	tex_matrix[1].Set(Scale.Y * s, Scale.Y * c, -Scale.Y * (s * Center.U + c * Center.V - Center.V), 0.0f);
 }
 
-// tu-skeleton: 0x00182A20 6B ?Rva00182A20Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/SineLinearOffsetTextureMapperCalculate.cpp
 
 // ?Calculate_Texture_Matrix@SineLinearOffsetTextureMapperClass@@UAEXAAVMatrix4@@@Z 0x00182BA0 226B
@@ -842,8 +849,6 @@ void SineLinearOffsetTextureMapperClass::Calculate_Texture_Matrix(Matrix4 &tex_m
 	tex_matrix[1].Z = offset_v;
 	tex_matrix[1].Y = Scale.Y;
 }
-
-// tu-skeleton: 0x00182D20 6B ?Rva00182D20Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/StepLinearOffsetTextureMapperCalculate.cpp
 
@@ -899,8 +904,6 @@ void StepLinearOffsetTextureMapperClass::Calculate_Texture_Matrix(Matrix4 &tex_m
 	tex_matrix[1].Z = CurrentStep.V;
 	tex_matrix[1].Y = Scale.Y;
 }
-
-// tu-skeleton: 0x001830C0 6B ?Rva001830C0Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/ZigZagLinearOffsetTextureMapperCalculate.cpp
 
@@ -996,8 +999,6 @@ void EnvironmentMapperClass::Calculate_Texture_Matrix(Matrix4 &tex_matrix)
 	tex_matrix[3].W = 1.0f;
 }
 
-// tu-skeleton: 0x00183400 6B ?Rva00183400Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/EdgeTextureMapperCalculate.cpp
 
 // ?Calculate_Texture_Matrix@EdgeMapperClass@@UAEXAAVMatrix4@@@Z 0x00183540 214B
@@ -1037,8 +1038,6 @@ void EdgeMapperClass::Calculate_Texture_Matrix(Matrix4 &tex_matrix)
 	tex_matrix[3].Z = 0.0f;
 	tex_matrix[3].W = 1.0f;
 }
-
-// tu-skeleton: 0x00183740 260B ?Calculate_Texture_Matrix@GridClassicEnvironmentMapperClass@@UAEXAAVMatrix4@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/GridTextureMapperCalculate.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/RandomTextureMapperCalculate.cpp
 
@@ -1092,22 +1091,6 @@ void RandomTextureMapperClass::Calculate_Texture_Matrix(Matrix4 &tex_matrix)
 	tex_matrix[1].Z = voff;
 }
 
-// tu-skeleton: 0x00183F50 18B ?dup_00183f50@@YAXXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/dx8renderer.cpp (not merged yet)
-
-// tu-skeleton: 0x00184420 127B ??0GridTextureMapperClass@@QAE@ABV0@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/GridTextureMapperClassCopyCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x001844A0 1269B ?Apply@ScaleTextureMapperClass@@UAEXH@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/TextureMapperApply.cpp (not merged yet)
-
-// tu-skeleton: 0x001849A0 267B ?Calculate_Texture_Matrix@GridTextureMapperClass@@UAEXAAVMatrix4@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/GridTextureMapperCalculate.cpp (not merged yet)
-
-// tu-skeleton: 0x00184AD0 1266B ?Apply@GridWSClassicEnvironmentMapperClass@@UAEXH@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/TextureMapperApply.cpp (not merged yet)
-
-// tu-skeleton: 0x00184FD0 1288B ?Apply@EdgeMapperClass@@UAEXH@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/TextureMapperApply.cpp (not merged yet)
-
-// tu-skeleton: 0x00185980 1266B ?Apply@GridWSEnvironmentMapperClass@@UAEXH@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/TextureMapperApply.cpp (not merged yet)
-
-// tu-skeleton: 0x00185E80 1269B ?Apply@ScreenMapperClass@@UAEXH@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/TextureMapperApply.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/ScreenMapperCalculate.cpp
 
 // Preserve the inline floorf operation without emitting another public Floor copy.
@@ -1151,6 +1134,140 @@ void ScreenMapperClass::Calculate_Texture_Matrix(Matrix4x4 &tex_matrix)
 	CurrentUVOffset.Y = offset_v;
 	LastUsedSyncTime = WW3D::Get_Sync_Time();
 }
+
+// tu-skeleton: 0x00182150 5B ?_bfme_mapper_v8@TextureMapperClass@@UAE_NH@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/TextureMapperSlot8.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/GridTextureMapperClassCopyCtor.cpp
+
+// The copy constructor is a header inline in mapper.cpp. This anchor retains
+// its matched row body here, but the anchor is not retail code.
+
+// ?_bfmeGridTextureMapperInlineAnchor@@YAXPAVGridTextureMapperClass@@@Z absent-from-retail
+void _bfmeGridTextureMapperInlineAnchor(GridTextureMapperClass *mapper)
+{
+	mapper->GridTextureMapperClass::GridTextureMapperClass(*mapper);
+	mapper->GridTextureMapperClass::Reset();
+}
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/GridTextureMapperClassInitialize.cpp
+
+//
+// GridTextureMapperClass::initialize, retail 0x00182480, 261 bytes.
+// Dedicated TU so mapper.cpp keeps its matched bodies.
+// Extra BFME dword at +0xC is the fps value stored by movss.
+
+// Keep MSVC's float overloads local; the inlined fabs operations remain exact.
+
+// ?bfmeAnchorGridTextureMapperInitialize absent-from-retail
+void bfmeAnchorGridTextureMapperInitialize(GridTextureMapperClass *gridTextureMapper, float fps, unsigned int gridwidth_log2)
+{
+	reinterpret_cast<GridTextureMapperInitializeAccess *>(gridTextureMapper)->initialize(fps, gridwidth_log2);
+}
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/GridTextureMapperClassUpdateTemporalState.cpp
+
+// This method is a header inline in the copier unit; the anchor is not retail code.
+
+// ?_bfmeGridTextureMapperUpdateTemporalStateInlineAnchor@@YAXPAVGridTextureMapperClass@@@Z absent-from-retail
+void _bfmeGridTextureMapperUpdateTemporalStateInlineAnchor(GridTextureMapperClass *mapper)
+{
+	reinterpret_cast<GridTextureMapperTemporalAccess *>(mapper)->update_temporal_state();
+}
+
+// tu-skeleton: 0x001826B0 6B ?Rva001826B0Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x001826C0 3B ?_AptValidate@@YA_NXZ -- matched in Code/Libraries/Source/Apt/Apt.cpp (not merged yet)
+
+// tu-skeleton: 0x00182A20 6B ?Rva00182A20Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00182D20 6B ?Rva00182D20Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x001830C0 6B ?Rva001830C0Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00183400 6B ?Rva00183400Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/GridTextureMapperCalculate.cpp
+
+// Reference: GeneralsMD WW3D2/mapper.cpp Calculate_Texture_Matrix;
+// BFME2 already matched update_temporal_state (0x182590) and
+// calculate_uv_offset (0x1825E0) are visible inline, as in the retail body.
+// Identity: matched GridTextureMapper constructors install table 0x7D57B4;
+// its slot +0x24 points to retail RVA 0x1849A0, 267 bytes (boundary batch12).
+// Constructor identity comes from existing donor matches. Retail separately
+// establishes the frame timing arithmetic, UV offsets and identity matrix.
+// GridClassicEnvironmentMapperClass matrix: RVA 0x183740, 260 bytes.
+// Matched constructor 0x13D2F0 installs table 0x7D32A8; slot+0x24 reaches
+// this body. The Environment variant shares it and is not counted twice.
+// The local initMatrix preserves the donor scalar-argument evaluation order;
+// expanding its call into direct assignments prematurely rounds UV products.
+// The bfmemapper shim supplies the constructor-verified +4 grid layout shift.
+
+void GridTextureMapperClass::Calculate_Texture_Matrix(Matrix4x4 &tex_matrix)
+{
+	update_temporal_state();
+
+	float u_offset, v_offset;
+	calculate_uv_offset(&u_offset, &v_offset);
+
+	// Set up the offset matrix
+	tex_matrix.Make_Identity();
+	
+	// According to the docs this should work since its 2D
+	// otherwise change to translate
+	tex_matrix[0].Z = u_offset;
+	tex_matrix[1].Z = v_offset;
+}
+
+static __forceinline void initMatrix(Matrix4 &matrix4, float m0, float m1, float m2, float m3, float m4, float m5, float m6, float m7, float m8, float m9, float m10, float m11, float m12, float m13, float m14, float m15) {
+    matrix4[0].Set(m0, m1, m2, m3);
+    matrix4[1].Set(m4, m5, m6, m7);
+    matrix4[2].Set(m8, m9, m10, m11);
+    matrix4[3].Set(m12, m13, m14, m15);
+}
+
+void GridClassicEnvironmentMapperClass::Calculate_Texture_Matrix(Matrix4x4 &tex_matrix)
+{
+	update_temporal_state();
+
+	float u_offset, v_offset;
+	calculate_uv_offset(&u_offset, &v_offset);
+
+	float del = 0.5f * OOGridWidth;	
+	// Set up the offset matrix		
+	initMatrix(tex_matrix, 	del,	0.0f,	0.0f,	u_offset + del,
+							0.0f,	del,	0.0f,	v_offset + del,
+							0.0f,	0.0f,	1.0f,	0.0f,
+							0.0f, 0.0f, 0.0f, 1.0f );		
+}
+
+// GridEnvironmentMapperClass table 0x007D3260 slot +0x24 (0x007D3284) also holds 0x00183740: the ZH
+// donor body is the GridClassic one verbatim, and the linker folded the two identical COMDATs.
+void GridEnvironmentMapperClass::Calculate_Texture_Matrix(Matrix4x4 &tex_matrix)
+{
+	update_temporal_state();
+
+	float u_offset, v_offset;
+	calculate_uv_offset(&u_offset, &v_offset);
+
+	float del = 0.5f * OOGridWidth;
+	// Set up the offset matrix
+	initMatrix(tex_matrix, 	del,	0.0f,	0.0f,	u_offset + del,
+							0.0f,	del,	0.0f,	v_offset + del,
+							0.0f,	0.0f,	1.0f,	0.0f,
+							0.0f, 0.0f, 0.0f, 1.0f );
+}
+
+// tu-skeleton: 0x00183F50 18B ?dup_00183f50@@YAXXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/dx8renderer.cpp (not merged yet)
+
+// tu-skeleton: 0x001844A0 1269B ?Apply@ScaleTextureMapperClass@@UAEXH@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/TextureMapperApply.cpp (not merged yet)
+
+// tu-skeleton: 0x00184AD0 1266B ?Apply@GridWSClassicEnvironmentMapperClass@@UAEXH@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/TextureMapperApply.cpp (not merged yet)
+
+// tu-skeleton: 0x00184FD0 1288B ?Apply@EdgeMapperClass@@UAEXH@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/TextureMapperApply.cpp (not merged yet)
+
+// tu-skeleton: 0x00185980 1266B ?Apply@GridWSEnvironmentMapperClass@@UAEXH@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/TextureMapperApply.cpp (not merged yet)
+
+// tu-skeleton: 0x00185E80 1269B ?Apply@ScreenMapperClass@@UAEXH@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/TextureMapperApply.cpp (not merged yet)
 
 // tu-skeleton: 0x00186790 6B ?Rva00186790Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters.cpp (not merged yet)
 
