@@ -50645,7 +50645,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x005D735C,18,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpellBookPowers/AISpellBookCitadel.cpp,proposed,K,K=Rva005D736E,Code/GameEngine/Source/Common/Rva005EE30CDerived.cpp
 0x005D736E,11,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpellBookPowers/AISpellBookCitadel.cpp,proposed,K,K=Rva005D736E,Code/GameEngine/Source/Common/Rva005EE30CDerived.cpp
 0x005D7379,28,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpellBookPowers/AISpellBookCitadel.cpp,proposed,K,K=Rva005D736E,Code/GameEngine/Source/Common/Rva005EE30CDerived.cpp
-0x005D7395,394,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpellBookPowers/AISpellBookCitadel.cpp,approved,F,F=Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpellBookPowers/AISpellBookCitadel.cpp,Code/GameEngine/Source/Common/Rva005D7395CitadelPick.cpp
+0x005D7395,394,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpellBookPowers/AISpellBookCitadel.cpp,approved,F,F=Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpellBookPowers/AISpellBookCitadel.cpp,Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpellBookPowers/AISpellBookCitadel.cpp
 0x005D751F,18,code,,,-,,Code/GameEngine/Source/Common/Rva005D7D88Derived.cpp
 0x005D7531,11,code,,,-,,Code/GameEngine/Source/Common/Rva005D7D88Derived.cpp
 0x005D753C,28,code,,,-,,Code/GameEngine/Source/Common/Rva005D7D88Derived.cpp
