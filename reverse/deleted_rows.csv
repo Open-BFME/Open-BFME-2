@@ -4117,3 +4117,6 @@ __ehhandler$?rva00104A75@Rva0010461F@@QAEXXZ,0x00764339,"Renamed to __ehhandler$
 ?rva005FBB4D@Rva005FBB68@@QAEXH@Z,0x005FBB4D,"Renamed to ?setPlayerColor@Rva005FBB68@@QAEXH@Z by tools/rename.py (inferred)"
 ?rva005FBBFC@Rva005FBBFC@@QAEXABVUnicodeString@@@Z,0x005FBBFC,"Renamed to ?setPlayerName@Rva005FBBFC@@QAEXABVUnicodeString@@@Z by tools/rename.py (inferred)"
 ?Rva006017C9@@YAHH@Z,0x006017C9,"Renamed to ?getCharacterClass@@YAHH@Z by tools/rename.py (inferred)"
+?g_Rva012C3A18@@3PADA,0x009D8170,"Renamed to ?g_clientVersion@@3PADA by tools/rename.py (inferred)"
+?rva005E8183@Rva005E8044@@QAEXXZ,0x005E8183,"Renamed to ?clear@Rva005E8044@@QAEXXZ by tools/rename.py (inferred)"
+?rva006CFFB0@Rva008951B0Owner@@QAEXABVRva008951B0Handle@@@Z,0x006CFFB0,"Renamed to ?eraseAfter@Rva008951B0Owner@@QAEXABVRva008951B0Handle@@@Z by tools/rename.py (inferred)"

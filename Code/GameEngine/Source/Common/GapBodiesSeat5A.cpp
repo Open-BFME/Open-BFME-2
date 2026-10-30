@@ -110,14 +110,14 @@ struct Rva00574479Slot
 class Rva00574479 : public Rva00221635
 {
 public:
-	Rva00574479(int arg);
+	Rva00574479(int name);
 	virtual void _pure() = 0;
 private:
 	Rva00574479Slot m_08;
 	Rva00574479Slot m_0C;
 };
 
-Rva00574479::Rva00574479(int arg) : Rva00221635(arg)
+Rva00574479::Rva00574479(int name) : Rva00221635(name)
 {
 }
 
@@ -126,12 +126,12 @@ Rva00574479::Rva00574479(int arg) : Rva00221635(arg)
 class Rva00580154
 {
 public:
-	int rva00580154(bool a, bool b) const;
+	int rva00580154(bool left, bool right) const;
 };
 
-int Rva00580154::rva00580154(bool a, bool b) const
+int Rva00580154::rva00580154(bool left, bool right) const
 {
-	return a != b ? (a ? 1 : -1) : 0;
+	return left != right ? (left ? 1 : -1) : 0;
 }
 
 // --- 0x005F5FD9 (24B): Apt callback shape of the rowed
@@ -402,13 +402,13 @@ class Rva005E8044
 {
 public:
 	void *rva005E8044(void *first, void *last);				// 0x005E8044
-	void rva005E8183();
+	void clear();
 private:
 	void *m_start;
 	void *m_finish;
 };
 
-void Rva005E8044::rva005E8183()
+void Rva005E8044::clear()
 {
 	rva005E8044(m_start, m_finish);
 }

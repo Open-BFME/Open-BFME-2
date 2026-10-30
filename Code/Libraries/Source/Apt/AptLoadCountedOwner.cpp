@@ -14,11 +14,11 @@ __forceinline static int dec(int*p){return --*p;}
 class Rva006D07E0Key{public:Rva006D0280*m_object;
  Rva006D07E0Key(Rva006D0280*p=0):m_object(p){if(p)++p->m_useCount;}
  Rva006D07E0Key(const Rva006D07E0Key&o):m_object(o.m_object){if(m_object)++m_object->m_useCount;}
- ~Rva006D07E0Key(){Rva006D0280*p=m_object;if(p&&dec(&p->m_useCount)==0){p->Rva006D0280::~Rva006D0280();g_pChainBlockAllocator->freeBlock(p,0x1c);}}
+ ~Rva006D07E0Key(){Rva006D0280*releasedFile=m_object;if(releasedFile&&dec(&releasedFile->m_useCount)==0){releasedFile->Rva006D0280::~Rva006D0280();g_pChainBlockAllocator->freeBlock(releasedFile,0x1c);}}
 };
 class Rva008951B0Node{public:Rva006D0280*entry;Rva008951B0Node*next;};
 class Rva008951B0Handle{public:Rva008951B0Node*node;};
-class Rva008951B0Owner{public:Rva008951B0Node*head;void rva006CFFB0(const Rva008951B0Handle&);void rva006CFFE0(const Rva008951B0Handle&);void rva006D25C0(Rva006D07E0Key,void*,void*,void*);};
+class Rva008951B0Owner{public:Rva008951B0Node*head;void eraseAfter(const Rva008951B0Handle&);void rva006CFFE0(const Rva008951B0Handle&);void rva006D25C0(Rva006D07E0Key,void*,void*,void*);};
 class Rva006D1D10{public:void update(Rva006D07E0Key,Rva006D07E0Key);};
 class AptLinker;extern AptLinker*g_bfmeAptLinkerAtE176F8;
 class Rva006E58D0{public:void rva006E58D0Body(void*,void*,void*);};
@@ -78,7 +78,7 @@ void Rva008951B0Owner::rva006D25C0(Rva006D07E0Key key,void*data,void*constant,vo
 // back to the chain-block pool, freed even when null). The receiver is not
 // read. Retail re-reads the link through the handle (mov edx,ecx then
 // [edx+4]); naming the victim for the unlink loses that copy. Address name.
-void Rva008951B0Owner::rva006CFFB0(const Rva008951B0Handle &h)
+void Rva008951B0Owner::eraseAfter(const Rva008951B0Handle &h)
 {
 	Rva008951B0Node *victim = h.node->next;
 	if (h.node->next)

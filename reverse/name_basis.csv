@@ -4706,3 +4706,10 @@ function,?rva005FBB4D@Rva005FBB68@@QAEXH@Z,?setPlayerColor@Rva005FBB68@@QAEXH@Z,
 function,?rva005FBBFC@Rva005FBBFC@@QAEXABVUnicodeString@@@Z,?setPlayerName@Rva005FBBFC@@QAEXABVUnicodeString@@@Z,inferred,agree:nl-f5cec39e9340,Code/GameEngine/Source/GameClient/GUI/AptPlayerNameSet.cpp,0x005FBBFC
 function,?Rva006017C9@@YAHH@Z,?getCharacterClass@@YAHH@Z,inferred,agree:nl-0d688b343319,Code/Libraries/Source/file/TextFile.cpp,0x006017C9
 carry,Rva006017C9::character,getCharacterClass::character,inferred,scope renamed by Rename Rva006017C9 to getCharacterClass (inferred),Code/Libraries/Source/file/TextFile.cpp,0x006017C9
+param,Rva00574479::Rva00574479::arg,Rva00574479::Rva00574479::name,inferred,agree:nl-d8fa30ca8915,Code/GameEngine/Source/Common/GapBodiesSeat5A.cpp,0x00574479
+param,Rva00580154::rva00580154::a,Rva00580154::rva00580154::left,inferred,agree:nl-0ec0d86defd8,Code/GameEngine/Source/Common/GapBodiesSeat5A.cpp,0x00580154
+param,Rva00580154::rva00580154::b,Rva00580154::rva00580154::right,inferred,agree:nl-326b1309f385,Code/GameEngine/Source/Common/GapBodiesSeat5A.cpp,0x00580154
+local,~Rva006D07E0Key::p,~Rva006D07E0Key::releasedFile,inferred,agree:nl-d6a2744b6a15,Code/Libraries/Source/Apt/AptLoadCountedOwner.cpp,
+global,?g_Rva012C3A18@@3PADA,?g_clientVersion@@3PADA,inferred,agree:nl-90353641dc18,Code/GameEngine/Source/GameNetwork/Rva007F4440FeslClient.cpp,0x009D8170
+function,?rva005E8183@Rva005E8044@@QAEXXZ,?clear@Rva005E8044@@QAEXXZ,inferred,agree:nl-920874d7edf3,Code/GameEngine/Source/Common/GapBodiesSeat5A.cpp,0x005E8183
+function,?rva006CFFB0@Rva008951B0Owner@@QAEXABVRva008951B0Handle@@@Z,?eraseAfter@Rva008951B0Owner@@QAEXABVRva008951B0Handle@@@Z,inferred,agree:nl-cb0b3d8612bc,Code/Libraries/Source/Apt/AptLoadCountedOwner.cpp,0x006CFFB0

@@ -83,10 +83,10 @@ public:
 	virtual void run( int, int, int );
 };
 
-extern char *g_Rva012C3A18;
+extern char *g_clientVersion;
 // Defined here: nothing else in the tree did. Retail .data RVA 0x009D8170
 // holds VA 0x00CE2A60, the literal "1.4" (the client version string).
-char *g_Rva012C3A18 = (char *)"1.4";
+char *g_clientVersion = (char *)"1.4";
 class Rva007E8810Message;
 class Rva007F45E0Aries
 {
@@ -117,7 +117,7 @@ void Rva007F4440Runner::run( int mode, int, int )
 		( (Rva007EA690FieldAddress *)owner )->get(),
 		( (Rva007EA6A0FieldAddress *)owner )->get(),
 		( char * )( (Rva007EA6B0Accessor *)owner )->getAt80(),
-		g_Rva012C3A18,
+		g_clientVersion,
 		( (Gen_007ea670 *)owner )->getPlatform(),
 		clientType );
 	// BFME2 retail passes 0x00A60FD0 here (BFME1 0x00BF4520 drifted).
