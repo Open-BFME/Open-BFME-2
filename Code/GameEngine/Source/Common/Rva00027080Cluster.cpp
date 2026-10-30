@@ -1,28 +1,13 @@
-// cl: /Od
-//
-// Byte-search predicate over a two-word char range, sitting between
-// bfmeFindFirstOfVMD (0x00026E40) and the basic_string constructors. The range
-// layout matches the rowed BfmeS1155 (0x0002A3A0) and BfmeRangePI spellings:
-// begin at +0, end at +4. The body is /Od (frame pointer, unoptimised), calls
-// the pinned bfmeFindByteInRange at 0x00026C60, and reports whether the search
-// reached the end. Class and method names are this image's addresses.
+// cl: /DNDEBUG /MD /EHsc /Od /Ob1 /D_STLP_USE_STATIC_LIB
+// stlport46
+// STLport 4.6 _string.h:97 _Not_within_traits<char_traits<char> >::operator(),
+// the find_first_not_of / find_last_not_of predicate: find_if over
+// [_M_first, _M_last) with _Eq_char_bound(__x), true when the search reaches
+// _M_last. Native 0x00027080/65B is its out-of-line copy; the find_if it calls
+// is 0x00026C60.
 
-char *bfmeFindByteInRange(char *rangeFirst, char *rangeLast, char wanted);
+#include <string>
 
-class Rva00027080Thing
-{
-public:
-	int Rva00027080(const char *p);
-
-	char *m_begin;		// +0x00
-	char *m_end;		// +0x04
-};
-
-// ?Rva00027080@Rva00027080Thing@@QAEHPBD@Z @ 0x00027080 (65B)
-int Rva00027080Thing::Rva00027080(const char *p)
-{
-	char wanted = *p;
-	char value = wanted;	// the extra /Od copy is what retail's frame shows
-
-	return bfmeFindByteInRange(m_begin, m_end, value) == m_end;
+namespace _STL {
+template bool _Not_within_traits<char_traits<char> >::operator()(const char &) const;
 }

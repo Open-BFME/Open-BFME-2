@@ -9,9 +9,10 @@
 
 // Open-BFME5 conversions.
 
-// Matched bfmeGoOV forwards to bfmeDoOV's find-first-not-in-set helper; the
-// caller consumes that pointer from EAX despite bfmeGoOV's void C++ signature.
-extern void __cdecl bfmeGoOV(void *first, void *last, void *setFirst, void *setLast);
+// find_first_not_of's search is find_if<const char *, _Not_within_traits> at
+// 0x00029EB0; the call passes the predicate's two pointers as two arguments.
+typedef const char *(__cdecl *FindIfNotWithin1155Fn)(const char *first, const char *last,
+	_STL::_Not_within_traits<_STL::char_traits<char> > pred);
 
 typedef char *(__cdecl *BfmeSearch1155Fn)(char *first, char *last,
 	const char *setFirst, const char *setLast);
@@ -344,7 +345,7 @@ unsigned int BfmeS1155::bfmeFind1155(const char *s, unsigned int pos, unsigned i
 
 	n2 = s;
 	n3 = s + n;
-	n1 = reinterpret_cast<BfmeSearch1155Fn>(&bfmeGoOV)(m_bfme00 + pos, m_bfme04, n2, n3);
+	n1 = reinterpret_cast<BfmeSearch1155Fn>(static_cast<FindIfNotWithin1155Fn>(&_STL::find_if))(m_bfme00 + pos, m_bfme04, n2, n3);
 	return (n1 != m_bfme04) ? (unsigned int)(n1 - m_bfme00) : 0xffffffff;
 }
 

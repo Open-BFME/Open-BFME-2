@@ -1,4 +1,5 @@
 // cl: /Od /Gy
+// stlport46
 // Open-BFME5 conversions.
 // ?bfmeOneSUA@BfmeThingSUA@@QAEXD@Z, retail 0x00028BF0 (27B) and
 // ?bfmeTwoSUA@BfmeThingSUA@@QAEXD@Z, retail 0x0002A090 (27B). Ported from
@@ -10,7 +11,18 @@
 // bfmeAssignV16 at 0x00029490 (same B1 body 0x0082FB10), spelled with its
 // rowed BfmeStrV16 name; zero bytes differ either way.
 
-char *bfmeFindByteInRange(char *rangeFirst, char *rangeLast, char wanted);
+// The byte search is STLport 4.6 find_if<const char *, _Eq_char_bound> at
+// 0x00026C60; the predicate is passed as its single char.
+#include <string>
+
+// Its body lives in BfmeTwoHundredFiftySeven_FindByte.cpp; do not instantiate
+// a second /Od copy here.
+extern template const char *_STL::find_if(const char *, const char *,
+	_STL::_Eq_char_bound<_STL::char_traits<char> >);
+
+typedef const char *(__cdecl *FindIfEqChar1301Fn)(const char *first, const char *last,
+	_STL::_Eq_char_bound<_STL::char_traits<char> > pred);
+typedef char *(__cdecl *FindByte1301Fn)(char *first, char *last, char wanted);
 
 class BfmeThingSUA
 {
@@ -55,6 +67,7 @@ int BfmeThingSUA::bfmeFwdOneSUA(char a, int b)
 	if ((unsigned int)b >= (unsigned int)(m_end - m_begin))
 		return -1;
 	char ch = a;
-	char *found = bfmeFindByteInRange(m_begin + b, m_end, ch);
+	char *found = reinterpret_cast<FindByte1301Fn>(static_cast<FindIfEqChar1301Fn>(
+		&_STL::find_if))(m_begin + b, m_end, ch);
 	return (found != m_end) ? (int)(found - m_begin) : -1;
 }
