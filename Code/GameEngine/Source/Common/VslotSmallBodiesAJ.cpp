@@ -951,10 +951,6 @@ class Rva00494E48 : public SpecialAbilityUpdate
 public:
 	void rva00494E48();
 };
-void Rva00494E48::rva00494E48()
-{
-	SpecialAbilityUpdate::startUnpacking();
-}
 
 // 0x00494E4D: tail jump to SpecialAbilityUpdate::onExit.
 class Rva00494E4D : public SpecialAbilityUpdate
@@ -970,10 +966,6 @@ class Rva00494E52 : public SpecialAbilityUpdate
 public:
 	UpdateSleepTime rva00494E52();
 };
-UpdateSleepTime Rva00494E52::rva00494E52()
-{
-	return SpecialAbilityUpdate::update();
-}
 
 // 0x00498CAC: tail jump to GateOpenAndCloseBehavior::xfer.
 class Rva00498CAC : public GateOpenAndCloseBehavior
