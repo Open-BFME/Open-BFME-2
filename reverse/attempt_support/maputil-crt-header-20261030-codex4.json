@@ -1,0 +1,14 @@
+{
+  "source": "Code/GameEngine/Source/GameClient/MapUtil_unk_YA_NAAVDataChunkInput_PAUDataChunkInfo_PAX_Z.cpp",
+  "nondebug_sections_equal": true,
+  "nondebug_section_count": 592,
+  "external_symbols_equal": true,
+  "external_symbol_count": 591,
+  "comdats_before": 578,
+  "comdats_after": 578,
+  "comdats_removed": [],
+  "comdats_added": [],
+  "comdats_changed": [],
+  "bindings_equal": true,
+  "reference_graph_equal": true
+}
