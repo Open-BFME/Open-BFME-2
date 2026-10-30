@@ -9,22 +9,16 @@
 
 #include <cstddef>
 
-// vector<void*> begin/end otherwise instantiate per-TU COMDATs (one byte
-// shape per TU flags); explicit dllimport+forceinline specializations take
-// those calls inline so this TU emits no external copies.
 namespace _STL {
-template <> __declspec(dllimport) __forceinline
-void **vector<void*>::begin()
-{ return _M_start; }
-template <> __declspec(dllimport) __forceinline
-void **vector<void*>::end()
-{ return _M_finish; }
-template <> __declspec(dllimport) __forceinline
-size_t vector<void*>::size() const
-{ return size_t(this->_M_finish - this->_M_start); }
-template <> __declspec(dllimport) __forceinline
-void *&vector<void*>::operator[](size_t __n)
-{ return *(begin() + __n); }
+template <> __declspec(dllimport) __forceinline void **vector<void *>::begin() { return this->_M_start; }
+template <> __declspec(dllimport) __forceinline size_t vector<void *>::size() const { return size_t(this->_M_finish - this->_M_start); }
+template <> __declspec(dllimport) __forceinline void * &vector<void *>::operator[](size_t n) { return *(this->_M_start + n); }
+}
+// The bucket initializer (0x00148DDF) reads the vector end field and calls
+// the canonical reserve/fill-insert providers, as in SelectionIDMap.cpp.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline void **vector<void *>::end() { return this->_M_finish; }
+template <> __declspec(dllimport) __forceinline void vector<void *, allocator<void *> >::insert(void **pos, unsigned int n, void *const &x) { _M_fill_insert(pos, n, x); }
 }
 class Xfer {
 public:
