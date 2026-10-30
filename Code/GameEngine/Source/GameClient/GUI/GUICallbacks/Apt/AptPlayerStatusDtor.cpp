@@ -15,8 +15,6 @@
 #include "ascii_string.h"
 #include "unicode_string.h"
 
-extern "C" void *__cdecl memset(void *destination, int value, unsigned int count);
-
 class GameWindow
 {
 protected:
@@ -196,8 +194,6 @@ private:
 	GameWindow *m_mute[8]; // +0x28C
 	signed char m_slot[8]; // +0x2AC
 };
-
-extern "C" __declspec(dllimport) int __cdecl sprintf(char *buffer, const char *format, ...);
 
 // The game mode at +0x110 (2 skirmish, 6 the one where the UI's +0x16
 // flag decides whether input is enabled) is GameLogic::m_110.

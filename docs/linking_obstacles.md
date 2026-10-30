@@ -11235,6 +11235,43 @@ Preview: ThingTemplateConstructor.cpp 0 -> 1,881 B, Rva0033DDA1Dtor.cpp 0 -> 770
 ThingTemplate.cpp itself still does not link (unresolved AudioEventRTS, INI and
 Player names from its ZH view; several wrong STL COMDATs), unchanged.
 
+**2026-10-30 recheck, base `3134afceb4`, index `85f6b7f40c`:** the default
+picker served the destructor from the historical unlinked census. Its normal
+build verifies all 51 rows, including 44 EH funclets. A joint current-source
+preview again reports LINKS for the destructor (770 authored bytes) and
+constructor (1,881 bytes). ThingTemplate.cpp still reports ten unresolved
+names and its existing conflicting STL copies. No source repair was needed;
+the scoped fix above remains pending the next scheduled census.
+
+### AptPlayerStatus destructor unused CRT declarations (2026-10-30, codexb4)
+
+At base `3134afceb4`, removing unused `memset` and imported `sprintf`
+prototypes from AptPlayerStatusDtor.cpp retires its two Microsoft-header
+findings through the owning scoped scanner. All six function rows, the
+string reference and the parent EH graph remain exact. All 19 external
+COMDAT fingerprints and definition/reference sets are unchanged. Strict
+preparation passes; ordinary preview retains LINKS, 263 -> 263 authored
+bytes, against index `85f6b7f40c`. [Evidence](../reverse/attempt_support/apt-player-status-crt-20261030-codexb4/README.md).
+
+The outgoing audit remains INCONCLUSIVE: the index predates the batch base
+and the earlier LinearCampaignManager.cpp provider lacks a current strict
+receipt. Carry that provider and affected consumers into the next scheduled
+census. No census-linking or image-ownership gain is claimed.
+
+### Microsoft-header candidate deferrals (2026-10-30, codexb4)
+
+The computePath Microsoft-header candidate is deferred: its
+`_fprintf` names the game format-and-append helper at `0x002CEC42`, not a CRT
+stream operation. Its unchanged source verifies 2/2 rows and retains the
+queue finding. Resolve logger identity across provider and consumers before
+replacing its declaration. [Evidence and remaining scope](../reverse/attempt_support/compute-path-logger-header-20261030-codexb4.md).
+
+WallUpgradeUpdate's analogous `memset` header attempt is also restored: the
+header lacks the local `throw()` promise and changes the parent's EH state
+and register allocation. Annotating the inline mask constructor does not
+recover the bytes. Its 15 original rows verify and its queue row remains.
+[Attempt and prerequisite](../reverse/attempt_support/wall-upgrade-string-header-20261030-codexb4.md).
+
 ### LINK-147: ProductionPrerequisiteAssign.cpp emitted its own BfmeStringRecord002CF5B1 assignment (2026-10-29, seat b1)
 
 Status: repaired, pending census confirmation. The 85f6b7f40c census lists
