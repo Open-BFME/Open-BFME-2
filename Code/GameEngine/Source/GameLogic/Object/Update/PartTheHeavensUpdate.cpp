@@ -8,7 +8,6 @@
 // copy (Rva0056616BCopy.cpp, 0x0052D1CD) is the one the link keeps.
 namespace _STL { template <> vector<BfmeE16, allocator<BfmeE16> >::~vector(); }
 #include "ascii_string.h"
-
 //
 // ??1PartTheHeavensUpdate@@UAE@XZ, retail 0x004AC8EF, 77 bytes.
 // PartTheHeavensUpdate dtor: reinstalls the three MI vtable slots (+0
@@ -40,11 +39,8 @@ class Snapshot;
 class Thing;
 class ModuleData;
 class Object;
-
 #include "../../../../Include/Common/BfmeXfer.h"
-
 #include "../../../../Include/Common/ObjectModule.h"
-
 #include "../../../Common/GameLogicObjectLookupView.h"
 
 extern GameLogic *TheGameLogic;
@@ -157,6 +153,8 @@ private:
 	Rva002BF807 m_angle;
 };
 
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/PartTheHeavensUpdate.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/PartTheHeavensUpdateDtor.cpp
 
 PartTheHeavensUpdate::~PartTheHeavensUpdate()
@@ -169,23 +167,14 @@ PartTheHeavensUpdate::~PartTheHeavensUpdate()
 // each one has the same function in that slot (vftable addresses from matched vptr
 // stores). Bind them to the rows at those functions.
 
-// tu-skeleton: 0x004AC93C 6B ?name@Rva004AC93CNamed@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x004AC942 69B ?getModuleNameKey@PartTheHeavensUpdate@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/PartTheHeavensUpdatePoolKey.cpp (not merged yet)
 
-// tu-skeleton: 0x004AC987 17B ?buildFieldParse@PartTheHeavensUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
 
-// tu-skeleton: 0x004AC998 70B ??0PartTheHeavensUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/PartTheHeavensUpdateCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x004AC9FA 176B ?rva004AC9FA@PartTheHeavensUpdate@@AAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/PartTheHeavensUpdateRva004AC9FA.cpp (not merged yet)
 
-// tu-skeleton: 0x004ACAAA 48B ?xfer@PartTheHeavensUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/PartTheHeavensUpdateXfer.cpp (not merged yet)
 
-// tu-skeleton: 0x004ACADA 217B ?rva004ACADA@PartTheHeavensUpdate@@AAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/PartTheHeavensUpdateRebuild.cpp (not merged yet)
 
-// tu-skeleton: 0x004ACBB3 53B ?update@PartTheHeavensUpdate@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/PartTheHeavensUpdateUpdate.cpp (not merged yet)
 
-// tu-skeleton: 0x004ACBE8 16B ?loadPostProcess@PartTheHeavensUpdate@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/PartTheHeavensUpdateLoadPostProcess.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/PartTheHeavensUpdateModuleDataCtor.cpp
 
@@ -211,6 +200,51 @@ PartTheHeavensUpdateModuleData::PartTheHeavensUpdateModuleData()
 	m_radius.set(0.0f, 0.0f, 0.0f, 0.0f);
 	m_opacity.set(0.0f, 1.0f, 0.0f, 0.0f);
 	m_angle.set(0.0f, 0.0f, 0.0f, 0.0f);
+}
+
+// tu-skeleton: 0x004AC93C 6B ?name@Rva004AC93CNamed@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x004AC942 69B ?getModuleNameKey@PartTheHeavensUpdate@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/PartTheHeavensUpdatePoolKey.cpp (not merged yet)
+
+// tu-skeleton: 0x004AC987 17B ?buildFieldParse@PartTheHeavensUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
+
+// tu-skeleton: 0x004AC998 70B ??0PartTheHeavensUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/PartTheHeavensUpdateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004AC9FA 176B ?rva004AC9FA@PartTheHeavensUpdate@@AAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/PartTheHeavensUpdateRva004AC9FA.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/PartTheHeavensUpdateXfer.cpp
+
+void PartTheHeavensUpdate::xfer(Xfer *xfer)
+{
+	UpdateModule::xfer(xfer);
+	if (xfer->IsLightCRC())
+		return;
+	xfer->Version1();
+	*xfer == m_startFrame;
+}
+
+// tu-skeleton: 0x004ACADA 217B ?rva004ACADA@PartTheHeavensUpdate@@AAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/PartTheHeavensUpdateRebuild.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/PartTheHeavensUpdateUpdate.cpp
+
+UpdateSleepTime PartTheHeavensUpdate::update()
+{
+	if (m_moduleData == 0)
+		return UPDATE_SLEEP_FOREVER;
+	int elapsed = TheGameLogic->getFrame() - m_startFrame;
+	if (elapsed == 0)
+		rva004ACADA();
+	rva004AC9FA(elapsed);
+	return UPDATE_SLEEP_NONE;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/PartTheHeavensUpdateLoadPostProcess.cpp
+
+// ?loadPostProcess@PartTheHeavensUpdate@@MAEXXZ @0x004ACBE8
+void PartTheHeavensUpdate::loadPostProcess()
+{
+	UpdateModule::loadPostProcess();
+	rva004ACADA();
 }
 
 // tu-skeleton: 0x004ACCCD 105B ??1PartTheHeavensUpdateModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/PartTheHeavensUpdateModuleDataDtor.cpp (not merged yet)
