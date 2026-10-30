@@ -1636,6 +1636,7 @@ def view_hint(report, tu, don):
     if not viewish:
         shared = [c for c in shared if any(re.search(r"\b" + re.escape(c) + r"\b", e) for e in errors)]
     if shared:
+        report["reconcile_classes"] = shared     # all of them: merge_all charges each to the donors whose errors name it
         report["reconcile"] = (f"python3 tools/tu_views.py {tu} --dry-run, then without --dry-run: the donors "
                                f"declare their own views of {', '.join(shared[:4])}{', ...' if len(shared) > 4 else ''}"
                                " (docs/consolidation.md, \"Workflow per TU\", step 4)")

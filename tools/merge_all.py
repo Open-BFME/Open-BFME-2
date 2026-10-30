@@ -86,6 +86,7 @@ KIND_ORDER = ("split", "compile-error", "link-regression", "blocked-by-classes",
 HEADER_QUEUE_LINK = "python3 tools/next_work.py --tier header; python3 tools/header_adopt_lane.py order --merges"
 MANGLED = re.compile(r"\?[A-Za-z0-9_?@$]+")
 DIAGNOSTIC = re.compile(r"error [A-Z]+\d+[^|]*")
+QUOTED = re.compile(r"'([^']+)'")
 FAILURE_KINDS = ("compile-error", "blocked-by-classes", "link-regression", "row-loss", "baseline", "flags",
                  "refused", "split", "hook", "other")
 
@@ -158,16 +159,33 @@ def waves(jobs, width):
 
 # ---------------------------------------------------------------- decisions
 
-def class_blockers(tu, donor, payload, header_queue, reconcile=""):
+def named_by(reason, classes):
+    """The `classes` that `reason`'s own diagnostics name, in the order its errors first name
+    them. Only quoted names count, so a source path or an English word is never a hit."""
+    hits = {}
+    for n, diag in enumerate(DIAGNOSTIC.findall(reason or "")):
+        quoted = " ".join(QUOTED.findall(diag))
+        for c in classes:
+            found = c not in hits and re.search(r"(?<![\w:])" + re.escape(c) + r"\b", quoted)
+            if found:
+                hits[c] = (n, found.start())
+    return sorted(hits, key=hits.get)
+
+
+def class_blockers(tu, donor, payload, header_queue, reconcile="", why="", shared=None):
     """Classes that block `donor` in `tu`: blocking views from the header lane's merge ranking,
-    registered classes it still copies (header_queue.tsv) and the tu_views hint's classes."""
+    registered classes it still copies (header_queue.tsv) and those of the TU's shared private
+    views (`shared`, else the tu_views hint's list) that the donor's own errors (`why`) name.
+    The hint is per TU, so charging all of it to every rejected donor would rank whatever sorts
+    first (AI, AIUpdateInterface, ...) above what the compiler actually said."""
     classes = set(header_queue.get(donor, ()))
     for name, d in ((payload or {}).get("classes") or {}).items():
         if tu in d.get("tus", ()) and donor in d.get("files", ()):
             classes.add(name)
-    if reconcile and "views of" in reconcile:
+    if shared is None and reconcile and "views of" in reconcile:
         named = reconcile.split("views of", 1)[1].split("(", 1)[0]
-        classes.update(c.strip(" .") for c in named.split(",") if c.strip(" .") and c.strip(" .") != "...")
+        shared = [c.strip(" .") for c in named.split(",") if c.strip(" .") and c.strip(" .") != "..."]
+    classes.update(named_by(why, shared or ()))
     return sorted(classes)
 
 
@@ -232,9 +250,12 @@ def classify(job, report, payload, header_queue, breakdown):
         if why.startswith("link:"):
             out.append(item("link-regression", tu, f, 1, rows, why, symbols=sorted(set(MANGLED.findall(why)))[:20]))
         elif why.startswith("compile"):
-            classes = class_blockers(tu, f, payload, adopt, report.get("reconcile", ""))
+            classes = class_blockers(tu, f, payload, adopt, report.get("reconcile", ""), why,
+                                     report.get("reconcile_classes"))
             if classes:
+                # first: the class the donor's first error names (None: that error names none of them)
                 out.append(item("blocked-by-classes", tu, f, 1, rows, why, classes=classes,
+                                first=(named_by(first_diagnostic(why), classes) or [None])[0],
                                 diagnostic=first_diagnostic(why), header_queue=HEADER_QUEUE_LINK))
             else:
                 out.append(item("compile-error", tu, f, 1, rows, why, diagnostic=first_diagnostic(why)))

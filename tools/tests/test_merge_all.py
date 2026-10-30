@@ -285,8 +285,9 @@ def test_classify_records_the_reason_and_evidence_of_every_kind():
     payload = {"classes": {"UpdateModule": {"tus": ["Code/T1.cpp"], "files": ["Code/A.cpp"]}}}
     got = {i["file"]: i for i in M.classify(job, report, payload, {}, lambda f: {"Code/T1.cpp": [1, 2], "": [3]})}
     assert got["Code/A.cpp"]["kind"] == "blocked-by-classes"
-    assert got["Code/A.cpp"]["classes"] == ["Team", "UpdateModule"] and "--tier header" in got["Code/A.cpp"]["header_queue"]
-    assert got["Code/B.cpp"]["kind"] == "blocked-by-classes"          # the tu_views hint names Team for the TU
+    assert got["Code/A.cpp"]["classes"] == ["UpdateModule"] and "--tier header" in got["Code/A.cpp"]["header_queue"]
+    assert got["Code/A.cpp"]["first"] == "UpdateModule"
+    assert got["Code/B.cpp"]["kind"] == "compile-error"     # the hint names Team for the TU, B's error does not
     assert got["Code/C.cpp"]["kind"] == "link-regression" and got["Code/C.cpp"]["symbols"] == ["?f@G@@QAEXXZ"]
     assert got["Code/D.cpp"]["kind"] == "row-loss" and got["Code/E.cpp"]["kind"] == "baseline"
     split = got["Code/Mixed.cpp"]
@@ -299,6 +300,37 @@ def test_classify_records_the_reason_and_evidence_of_every_kind():
     blocked = M.classify(dict(job, mixed={}, refused={}), {"blocked": "link guard: no census index; census-linked: "
                          "Code/T1.cpp"}, {}, {}, lambda f: {})
     assert blocked == [dict(blocked[0], kind="link-regression", file="Code/T1.cpp", frees=4)]
+
+
+def test_a_tus_view_hint_is_charged_only_to_the_donors_whose_errors_name_the_class():
+    """The 2026-10-30 bulk pass charged the hint's first four classes (alphabetical: AI, ...) to
+    every compile-rejected donor of a TU and so ranked class:AI first for 673 files when 9 donors'
+    errors named it."""
+    job = {"tu": "Code/GameLogic/AI/ai.cpp", "removes": 4, "rows": 4, "files": [], "held": [], "mixed": {},
+           "refused": {}, "donors": {"Code/GameLogic/AI/ai.cpp": 1, "Code/W.cpp": 1, "Code/X.cpp": 1, "Code/Y.cpp": 1,
+                                     "Code/Z.cpp": 1}}
+    shared = ["AI", "AICommandInterface", "AIGroup", "AIUpdateInterface", "Object"]
+    report = {"reconcile": "python3 tools/tu_views.py Code/GameLogic/AI/ai.cpp --dry-run, then without --dry-run: "
+                           "the donors declare their own views of AI, AICommandInterface, AIGroup, AIUpdateInterface, "
+                           "... (docs/consolidation.md)",
+              "reconcile_classes": shared,
+              "rejected": {
+                  "Code/X.cpp": "compile: Code\\GameLogic\\AI\\.ai.1.tu_skeleton.cpp(9) : error C2039: 'm_x' : is not "
+                                "a member of 'Object'",
+                  "Code/Y.cpp": "compile: Code\\GameLogic\\AI\\.ai.2.tu_skeleton.cpp(3) : error C2011: 'AsciiString' : "
+                                "'class' type redefinition",
+                  "Code/Z.cpp": "compile: z.cpp(5) : error C2039: 'getAiData' : is not a member of 'AIGroup' | z.cpp(7)"
+                                " : error C2039: 'm_10' : is not a member of 'AI'",
+                  "Code/W.cpp": "compile: w.cpp(2) : error C2011: 'Coord3D' : 'struct' type redefinition | w.cpp(8)"
+                                " : error C2039: 'm_10' : is not a member of 'AI'"}}
+    got = {i["file"]: i for i in M.classify(job, report, {}, {}, lambda f: {})}
+    assert got["Code/X.cpp"]["classes"] == ["Object"] and got["Code/X.cpp"]["first"] == "Object"
+    assert got["Code/Y.cpp"]["kind"] == "compile-error"      # the GameLogic\AI path is no hit
+    assert got["Code/Z.cpp"]["classes"] == ["AI", "AIGroup"] and got["Code/Z.cpp"]["first"] == "AIGroup"
+    assert got["Code/W.cpp"]["classes"] == ["AI"] and got["Code/W.cpp"]["first"] is None    # its first error is Coord3D's
+    del report["reconcile_classes"]                          # an older report: the hint's own list
+    got = {i["file"]: i for i in M.classify(job, report, {}, {}, lambda f: {})}
+    assert got["Code/X.cpp"]["kind"] == "compile-error" and got["Code/Z.cpp"]["first"] == "AIGroup"
 
 
 def test_decisions_are_ranked_by_files_freed_and_served_to_the_picker(tmp_path, monkeypatch):
