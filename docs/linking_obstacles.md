@@ -12390,6 +12390,25 @@ Update 2026-10-30 (Rva00395C80Check Module header debt):
   original function/derived data class names remain unrecovered. Broader
   audit results retain their published-index/current-receipt limitations.
 
+Update 2026-10-30 (Rva004AC7C9FindModuleObject Module header debt):
+
+- Native helper 4AC5F5 reads Object's module array at +244, adjusts each
+  receiver by +0C, and calls secondary-interface slot +7C. Adopt canonical
+  Module with a separately evidenced four-byte gap and the existing interface
+  member at +0C. The derived/interface identities and slot spelling are not
+  recovered or renamed. Existing helper/caller bodies keep their internal
+  EAX convention; no public convention substitution or getter is introduced.
+- All eight private row checks and the parent's EH graph are exact; all eight
+  emitted external code definitions and symbolic relocations are unchanged.
+  Normal Module header acceptance retires this source's one queued key.
+  Evidence: `reverse/attempt_support/find-module-interface-header-20261030/`.
+  Current-source build verifies all eight rows and the bounded preview
+  conserves 410 linked bytes; no census gain is claimed, and the broader
+  audit remains qualified.
+- This closes the former bare-swap failure's missing `m_interface` storage.
+  The file's other partial views and original placeholder identities remain
+  separate work; this does not establish a complete derived layout.
+
 Update 2026-10-29 (DieModule and BehaviorModuleInterface, d8d766afec7 / 7f9ddce7413):
 
 - **BehaviorModuleInterface (target facts).** ??0BehaviorModule (0x00253330)

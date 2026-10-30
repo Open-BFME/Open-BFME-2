@@ -76,10 +76,15 @@ public:
 	virtual int slot31();	// +0x7C
 };
 
-struct Module
+#include "../../../Include/Common/Module.h"
+
+// Partial storage view: native 4AC5FE adjusts the receiver by +0x0C.
+// The actual derived identity and the interface's original name are unknown.
+class Rva004AC5F5ModuleView : public Module
 {
-	char m_pad[0xC];
-	ModuleInterface m_interface;	// +0x0C secondary interface
+public:
+    char m_pad08[0x0C - 0x08];
+    ModuleInterface m_interface; // +0x0C secondary interface
 };
 
 class Object
@@ -95,7 +100,7 @@ static __declspec(noinline) int Rva004AC5F5(Object *object)
 {
 	for (Module **m = object->m_modules; *m; ++m)
 	{
-		int r = (*m)->m_interface.slot31();
+		int r = ((Rva004AC5F5ModuleView *)*m)->m_interface.slot31();
 		if (r)
 			return r;
 	}

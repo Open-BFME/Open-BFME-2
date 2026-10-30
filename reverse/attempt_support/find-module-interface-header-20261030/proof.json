@@ -1,0 +1,410 @@
+{
+  "source": "Code/GameEngine/Source/GameLogic/Object/Rva004AC7C9FindModuleObject.cpp",
+  "scope": "canonical Module and existing interface observed at +0C; no derived/interface identity recovery",
+  "objects": {
+    "before": {
+      "source_sha256": "4650a50e7cb6e0488bab17872a22a6072b6ac8c025804ca69f7b17ad8878a413",
+      "rows": [
+        {
+          "name": "?Rva004AC5F5@@YAHPAVObject@@@Z",
+          "rva": "0x004AC5F5",
+          "size": "32",
+          "exact": true
+        },
+        {
+          "name": "?Rva004AC707@@YAHW4ObjectID@@@Z",
+          "rva": "0x004AC707",
+          "size": "27",
+          "exact": true
+        },
+        {
+          "name": "?Rva004AC7C9@@YAPAVObject@@XZ",
+          "rva": "0x004AC7C9",
+          "size": "130",
+          "exact": true
+        },
+        {
+          "name": "?rva004AC722@DestroyEnvironmentUpdate@@QAEXXZ",
+          "rva": "0x004AC722",
+          "size": "69",
+          "exact": true
+        },
+        {
+          "name": "?update@DestroyEnvironmentUpdate@@UAE?AW4UpdateSleepTime@@XZ",
+          "rva": "0x004AC84B",
+          "size": "142",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?Rva004AC7C9@@YAPAVObject@@XZ",
+          "rva": "0x0078E370",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "uw_0078e368",
+          "rva": "0x0078E368",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "$L1730",
+          "rva": "0x0078E360",
+          "size": "8",
+          "exact": true
+        }
+      ],
+      "eh": [
+        {
+          "name": "?Rva004AC7C9@@YAPAVObject@@XZ",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        }
+      ]
+    },
+    "trial": {
+      "source_sha256": "5382d0d92d233fe908c0f6dc75e9efe709f7a961214137dffadd7a8dbb41397f",
+      "rows": [
+        {
+          "name": "?Rva004AC5F5@@YAHPAVObject@@@Z",
+          "rva": "0x004AC5F5",
+          "size": "32",
+          "exact": true
+        },
+        {
+          "name": "?Rva004AC707@@YAHW4ObjectID@@@Z",
+          "rva": "0x004AC707",
+          "size": "27",
+          "exact": true
+        },
+        {
+          "name": "?Rva004AC7C9@@YAPAVObject@@XZ",
+          "rva": "0x004AC7C9",
+          "size": "130",
+          "exact": true
+        },
+        {
+          "name": "?rva004AC722@DestroyEnvironmentUpdate@@QAEXXZ",
+          "rva": "0x004AC722",
+          "size": "69",
+          "exact": true
+        },
+        {
+          "name": "?update@DestroyEnvironmentUpdate@@UAE?AW4UpdateSleepTime@@XZ",
+          "rva": "0x004AC84B",
+          "size": "142",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?Rva004AC7C9@@YAPAVObject@@XZ",
+          "rva": "0x0078E370",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "uw_0078e368",
+          "rva": "0x0078E368",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "$L1730",
+          "rva": "0x0078E360",
+          "size": "8",
+          "exact": true
+        }
+      ],
+      "eh": [
+        {
+          "name": "?Rva004AC7C9@@YAPAVObject@@XZ",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        }
+      ]
+    }
+  },
+  "all_external_code_and_symbolic_relocations_identical": true,
+  "external_definitions": {
+    "?getFrame@GameLogic@@QBEIXZ": {
+      "raw": "8b4140c3",
+      "relocations": []
+    },
+    "??1Rva000421C8@@UAE@XZ": {
+      "raw": "c70100000000c3",
+      "relocations": [
+        [
+          2,
+          6,
+          "??_7Rva000421C8@@6B@"
+        ]
+      ]
+    },
+    "??_GRva000421C8@@UAEPAXI@Z": {
+      "raw": "f644240401568bf1c70600000000740756e800000000598bc65ec20400",
+      "relocations": [
+        [
+          10,
+          6,
+          "??_7Rva000421C8@@6B@"
+        ],
+        [
+          18,
+          20,
+          "??3@YAXPAX@Z"
+        ]
+      ]
+    },
+    "??1Rva0004584D@@UAE@XZ": {
+      "raw": "c70100000000c3",
+      "relocations": [
+        [
+          2,
+          6,
+          "??_7Rva000421C8@@6B@"
+        ]
+      ]
+    },
+    "?Rva004AC707@@YAHW4ObjectID@@@Z": {
+      "raw": "ff7424048b0d00000000e80000000085c07405e90000000033c0c3",
+      "relocations": [
+        [
+          6,
+          6,
+          "?TheGameLogic@@3PAVGameLogic@@A"
+        ],
+        [
+          11,
+          20,
+          "?findObjectByID@GameLogic@@QAEPAVObject@@W4ObjectID@@@Z"
+        ],
+        [
+          20,
+          20,
+          "?Rva004AC5F5@@YAHPAVObject@@@Z"
+        ]
+      ]
+    },
+    "?rva004AC722@DestroyEnvironmentUpdate@@QAEXXZ": {
+      "raw": "578bf98b472485c074398b0d000000005650e8000000008bf085f67421e80000000085c074188b10d9ee51d91c248bc8ff128b0d0000000056e800000000836724005e5fc3",
+      "relocations": [
+        [
+          12,
+          6,
+          "?TheGameLogic@@3PAVGameLogic@@A"
+        ],
+        [
+          19,
+          20,
+          "?findObjectByID@GameLogic@@QAEPAVObject@@W4ObjectID@@@Z"
+        ],
+        [
+          30,
+          20,
+          "?Rva004AC5F5@@YAHPAVObject@@@Z"
+        ],
+        [
+          52,
+          6,
+          "?TheGameLogic@@3PAVGameLogic@@A"
+        ],
+        [
+          58,
+          20,
+          "?destroyObject@GameLogic@@QAEXPAVObject@@@Z"
+        ]
+      ]
+    },
+    "?Rva004AC7C9@@YAPAVObject@@XZ": {
+      "raw": "b800000000e80000000083ec605668000000006a656a008d4dd4e800000000508d4d94e8000000008b0d000000008365fc00508d45f050e800000000c645fc02c7459400000000eb0b8bc6e80000000085c075298d4df0e8000000008bf085f675e7834dfcff8d4df0e8000000008b4df48bc65e64890d00000000c9c38b7674ebe0",
+      "relocations": [
+        [
+          1,
+          6,
+          "__ehhandler$?Rva004AC7C9@@YAPAVObject@@XZ"
+        ],
+        [
+          6,
+          20,
+          "__EH_prolog"
+        ],
+        [
+          15,
+          6,
+          "?KINDOFMASK_NONE@@3V?$BitFlags@$0HE@@@A"
+        ],
+        [
+          27,
+          20,
+          "??0Rva00045411BitSet@@QAE@HH@Z"
+        ],
+        [
+          36,
+          20,
+          "??0Rva0004584D@@QAE@ABVBfmeFixedStorage0004543D@@0@Z"
+        ],
+        [
+          42,
+          6,
+          "?ThePartitionManager@@3PAVPartitionManager@@A"
+        ],
+        [
+          56,
+          20,
+          "?bfmeForwardResultB@BfmeResultForwardB@@QAE?AUBfmeResultA@@H@Z"
+        ],
+        [
+          67,
+          6,
+          "??_7Rva000421C8@@6B@"
+        ],
+        [
+          76,
+          20,
+          "?Rva004AC5F5@@YAHPAVObject@@@Z"
+        ],
+        [
+          88,
+          20,
+          "?next@BfmeWideResult@@QAEPAVObject@@XZ"
+        ],
+        [
+          106,
+          20,
+          "??1BfmeResultA@@QAE@XZ"
+        ],
+        [
+          119,
+          6,
+          "__except_list"
+        ]
+      ]
+    },
+    "?update@DestroyEnvironmentUpdate@@UAE?AW4UpdateSleepTime@@XZ": {
+      "raw": "51568bf1578b7ef485ff7507b8ffffff3feb77837e1400750ce80000000085c089461474e78b0d000000008b51402b56108b47083bd073042bc2eb4e2bd03b570c720a8d4ef0e800000000eb3aff7614e80000000085c07407e800000000eb0233c085c074218b4f0cdb470c85c98b107d06d80500000000d83d00000000518bc8d91c24ff520433c0405f5e59c3",
+      "relocations": [
+        [
+          26,
+          20,
+          "?Rva004AC7C9@@YAPAVObject@@XZ"
+        ],
+        [
+          39,
+          6,
+          "?TheGameLogic@@3PAVGameLogic@@A"
+        ],
+        [
+          71,
+          20,
+          "?rva004AC722@DestroyEnvironmentUpdate@@QAEXXZ"
+        ],
+        [
+          81,
+          20,
+          "?findObjectByID@GameLogic@@QAEPAVObject@@W4ObjectID@@@Z"
+        ],
+        [
+          90,
+          20,
+          "?Rva004AC5F5@@YAHPAVObject@@@Z"
+        ],
+        [
+          116,
+          6,
+          "__real@4f800000"
+        ],
+        [
+          122,
+          6,
+          "__real@bf800000"
+        ]
+      ]
+    }
+  },
+  "actual": {
+    "strict_current": true,
+    "source_sha256": "5382d0d92d233fe908c0f6dc75e9efe709f7a961214137dffadd7a8dbb41397f",
+    "object_sha256": "02e7797ca189d028f8a2a0186c65c48045589aa0d88ecdfa0f5415047132b92c",
+    "all_external_definitions_and_relocations_identical": 8
+  },
+  "native_helper": {
+    "rva": "0x004AC5F5",
+    "size": 32,
+    "raw": "568bb044020000eb0f8d480c8b01ff507c85c0750983c6048b0685c075eb5ec3",
+    "instructions": [
+      {
+        "rva": "0x4ac5f5",
+        "mnemonic": "push",
+        "operands": "esi"
+      },
+      {
+        "rva": "0x4ac5f6",
+        "mnemonic": "mov",
+        "operands": "esi, dword ptr [eax + 0x244]"
+      },
+      {
+        "rva": "0x4ac5fc",
+        "mnemonic": "jmp",
+        "operands": "0x4ac60d"
+      },
+      {
+        "rva": "0x4ac5fe",
+        "mnemonic": "lea",
+        "operands": "ecx, [eax + 0xc]"
+      },
+      {
+        "rva": "0x4ac601",
+        "mnemonic": "mov",
+        "operands": "eax, dword ptr [ecx]"
+      },
+      {
+        "rva": "0x4ac603",
+        "mnemonic": "call",
+        "operands": "dword ptr [eax + 0x7c]"
+      },
+      {
+        "rva": "0x4ac606",
+        "mnemonic": "test",
+        "operands": "eax, eax"
+      },
+      {
+        "rva": "0x4ac608",
+        "mnemonic": "jne",
+        "operands": "0x4ac613"
+      },
+      {
+        "rva": "0x4ac60a",
+        "mnemonic": "add",
+        "operands": "esi, 4"
+      },
+      {
+        "rva": "0x4ac60d",
+        "mnemonic": "mov",
+        "operands": "eax, dword ptr [esi]"
+      },
+      {
+        "rva": "0x4ac60f",
+        "mnemonic": "test",
+        "operands": "eax, eax"
+      },
+      {
+        "rva": "0x4ac611",
+        "mnemonic": "jne",
+        "operands": "0x4ac5fe"
+      },
+      {
+        "rva": "0x4ac613",
+        "mnemonic": "pop",
+        "operands": "esi"
+      },
+      {
+        "rva": "0x4ac614",
+        "mnemonic": "ret",
+        "operands": ""
+      }
+    ]
+  }
+}
