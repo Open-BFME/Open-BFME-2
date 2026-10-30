@@ -11,7 +11,9 @@ enum NameKeyType
 class NameKeyGenerator
 {
 public:
-	NameKeyType nameToKey(const AsciiString &s);
+	NameKeyType nameToKey(const AsciiString &nameString);
+	const AsciiString &keyToName(NameKeyType);
+	NameKeyType nameToKey(const char *name);
 };
 extern NameKeyGenerator *TheNameKeyGenerator;
 

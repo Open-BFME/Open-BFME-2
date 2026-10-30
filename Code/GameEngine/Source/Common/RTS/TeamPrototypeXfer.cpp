@@ -35,13 +35,45 @@ public:
 
 #include "../../../Include/Common/MemoryPoolObject.h"
 
+enum Relationship
+{
+	ENEMIES = 0,
+	NEUTRAL = 1,
+	ALLIES = 2
+};
+class Team;
+class TeamPrototype;
+class Object;
+class PlayerTemplate;
+struct RetailPlayerRelationMap;
 class Player
 {
 public:
+	Team *getDefaultTeam() const { return m_defaultTeam; }
+	const AsciiString &getPlayerNameStr() const { return m_playerName; }
+	bool rva002AA245()const;
 	int getPlayerIndex() const { return m_playerIndex; }
+	void addTeamToList(TeamPrototype *team);
+	Relationship getRelationship(const Player *that) const;
+	Relationship getRelationship(const Team *that) const;
+	Relationship getRelationship(const Object *that) const;
+	void removeTeamFromList(TeamPrototype *team);
+	__declspec(dllimport) __forceinline const PlayerTemplate *getPlayerTemplate() const { return m_playerTemplate; }
+	char m_pad00[0x34];
 private:
-	char m_pad00[0x54];
-	int m_playerIndex;
+	const PlayerTemplate *m_playerTemplate; // +0x34 +0x34
+	char m_pad38[0x14];
+public:
+	AsciiString m_playerName; // +0x4C
+	char m_pad50[0x4];
+	int m_playerIndex; // +0x54
+	char m_pad58[0x4];
+	int m_playerType; // +0x5C +0x5C
+	char m_pad60[0x28C];
+	Team *m_defaultTeam; // +0x2EC
+	char m_pad2F0[0x40];
+	RetailPlayerRelationMap *m_playerRelations; // +0x330 +0x330
+	RetailPlayerRelationMap *m_teamRelations; // +0x334 +0x334
 };
 
 class PlayerList
@@ -86,7 +118,6 @@ private:
 };
 
 class TeamFactory;
-class TeamPrototype;
 class TeamFactory
 {
 public:

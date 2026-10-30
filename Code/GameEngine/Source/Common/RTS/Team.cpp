@@ -269,12 +269,13 @@ struct Rva0039D8FBKey
 int __cdecl Rva0039D8FBLess(const Rva0039D8FBKey &a, const Rva0039D8FBKey &b);
 struct Rva0039EA4ENode
 {
-    int m_color00;
-    Rva0039EA4ENode *m_parent04;
-    Rva0039EA4ENode *m_left08;
-    Rva0039EA4ENode *m_right0C;
-    Rva0039D8FBKey m_key10;
-    TeamPrototype *m_value18;
+public:
+	int m_color00; // +0x00
+	Rva0039EA4ENode *m_parent04; // +0x04
+	Rva0039EA4ENode *m_left08; // +0x08
+	Rva0039EA4ENode *m_right0C; // +0x0C
+	Rva0039D8FBKey m_key10; // +0x10
+	TeamPrototype *m_value18; // +0x18
 };
 struct Rva0039F5C8Iterator
 {
@@ -354,14 +355,12 @@ class Rva0039D769
 {
 public:
 	Rva0039D769 &operator=(const Rva0039D769 &rhs);
-
-private:
-	int m00; // +0x00
-	int m04; // +0x04
-	int m08; // +0x08
-	AsciiString m0C; // +0x0C
-	AsciiString m10; // +0x10
-	int m14; // +0x14
+	int m00; // +0x00 +0x00
+	int m04; // +0x04 +0x04
+	int m08; // +0x08 +0x08
+	AsciiString m0C; // +0x0C +0x0C
+	AsciiString m10; // +0x10 +0x10
+	int m14; // +0x14 +0x14
 };
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
@@ -502,10 +501,10 @@ struct ArmorMapHolder
 class Rva003A2897
 {
 public:
-    bool rva003A2897(NameKeyType key);
+	bool rva003A2897(NameKeyType key);
+	char m_pad00[0x118];
 private:
-    char m_pad[0x118];
-    ArmorMapHolder *m_holder;
+	ArmorMapHolder *m_holder; // +0x118
 };
 class Rva003A28ED
 {
@@ -599,6 +598,8 @@ class NameKeyGenerator
 {
 public:
 	NameKeyType nameToKey(const AsciiString &nameString);
+	const AsciiString &keyToName(NameKeyType);
+	NameKeyType nameToKey(const char *name);
 };
 extern NameKeyGenerator *TheNameKeyGenerator;
 extern PlayerList *ThePlayerList;
@@ -688,16 +689,43 @@ class Script
 public:
 	Script *duplicate() const;
 	void *getAction() const { return m_action; }
-
+	bool isEasy() const { return m_easy; }
+	bool isNormal() const { return m_normal; }
+	bool isHard() const { return m_hard; }
+	int getDelayEvalSeconds() const { return m_delayEvaluationSeconds; }
+	unsigned int getFrameToEvaluate() const { return m_frameToEvaluate; }
+	void setFrameToEvaluate(unsigned int frame) { m_frameToEvaluate = frame; }
+	bool isSequential() const { return m_sequential; }
+	int getLoopCount() const { return m_loopCount; }
+	int getDelayEvaluationSeconds() const { return m_delayEvaluationSeconds; }
+	bool isOneShot() const { return m_oneShot; }
+	bool isActiveRV() const { return m_isActive; }
+	virtual void *deleteInstance(int flags);
+	char m_pad04[0xC];
 private:
-	unsigned char m_pad00[0x34];
-	void *m_action; // +0x34
+	bool m_sequential; // +0x10 +0x10
+	char m_pad11[0x3];
+	int m_loopCount; // +0x14 +0x14
+	char m_pad18[0x8];
+	int m_delayEvaluationSeconds; // +0x20 +0x20
+	char m_pad24[0x5];
+	bool m_oneShot; // +0x29 +0x29
+	char m_pad2A[0x1];
+	bool m_easy; // +0x2B +0x2B
+	bool m_normal; // +0x2C +0x2C
+	bool m_hard; // +0x2D +0x2D
+	char m_pad2E[0x6];
+	void *m_action; // +0x34 +0x34
+	char m_pad38[0x4];
+	unsigned int m_frameToEvaluate; // +0x3C +0x3C
+	bool m_isActive; // +0x40 +0x40
+	char m_pad41[0x3];
 };
 class BfmeRoomZC;
 class Rva003573C4Owner
 {
 public:
-	void *rva003573C4(const AsciiString &owner, const BfmeRoomZC &name, void *outName);	// rowed 0x003573C4
+	void *rva003573C4(const AsciiString &owner, const BfmeRoomZC &name, void *outName); // rowed 0x003573C4
 };
 class Rva0020D451Engine
 {
@@ -848,7 +876,11 @@ struct TeamMapInner
 };
 class Rva004EC05A { public: void rva004EC05A(void *); };
 struct Rva002A8AB1Record;
-class Rva002A8F24 { public: Rva002A8AB1Record *rva002A8AB1(void *); };
+class Rva002A8F24
+{
+public:
+	Rva002A8AB1Record *rva002A8AB1(void *);
+};
 extern Rva002A8F24 *TheSkirmishAIManager;
 // One unit record and the template's record array and count (+0x130 and
 // +0x1D8 of the prototype), spelled as the Team.cpp seed's Rva0039EA9C and
@@ -952,7 +984,8 @@ struct ThingTemplate
 class BfmeFixedStorage0004543D
 {
 public:
-	unsigned int w[7];
+	BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &other) throw();
+	unsigned int w[7]; // +0x00
 };
 
 typedef BfmeFixedStorage0004543D Rva0039DDC2Filter;
@@ -1129,14 +1162,13 @@ struct Rva0039Owner
 class Rva0039EA4E
 {
 public:
-    Rva0039EA4ENode *rva0039EA4E(const Rva0039D8FBKey &key);
-    Rva0039F5C8Iterator rva0039F5C8(const Rva0039D8FBKey &key);
-    Rva0039EA4ENode *rva0039F597(const Rva0039D8FBKey &key);
-    Rva0039F5C8Iterator rva0039FB73(const Rva0039D8FBKey &key);
-    unsigned int size() const { return m_nodeCount04; }
-
-    Rva0039EA4ENode *m_header00;
-    unsigned int m_nodeCount04; // TeamFactory::xfer checks it against the saved count
+	Rva0039EA4ENode *rva0039EA4E(const Rva0039D8FBKey &key);
+	Rva0039F5C8Iterator rva0039F5C8(const Rva0039D8FBKey &key);
+	Rva0039EA4ENode *rva0039F597(const Rva0039D8FBKey &key);
+	Rva0039F5C8Iterator rva0039FB73(const Rva0039D8FBKey &key);
+	unsigned int size() const { return m_nodeCount04; }
+	Rva0039EA4ENode *m_header00; // +0x00
+	unsigned int m_nodeCount04; // +0x04 TeamFactory::xfer checks it against the saved count
 };
 
 // The prototype read through its name and the +0x31E byte only.
@@ -1148,28 +1180,36 @@ struct TeamPrototypeDoneView
 	bool m_tacticalAIFlag31E; // +0x31E, cleared here; donor name unknown
 };
 
+class PlayerTemplate;
+struct RetailPlayerRelationMap;
 class Player
 {
 public:
 	Team *getDefaultTeam() const { return m_defaultTeam; }
-private:
-	unsigned char m_pad00[0x4C];
-public:
-	AsciiString m_playerName;
-private:
-	unsigned char m_pad50[0x54 - 0x50];
-public:
-	int m_playerIndex;
-private:
-	unsigned char m_pad58[0x2EC - 0x58];
-private:
-	Team *m_defaultTeam;
-public:
 	const AsciiString &getPlayerNameStr() const { return m_playerName; }
-public:
 	bool rva002AA245()const;
-public:
 	int getPlayerIndex() const { return m_playerIndex; }
+	void addTeamToList(TeamPrototype *team);
+	Relationship getRelationship(const Player *that) const;
+	Relationship getRelationship(const Team *that) const;
+	Relationship getRelationship(const Object *that) const;
+	void removeTeamFromList(TeamPrototype *team);
+	__declspec(dllimport) __forceinline const PlayerTemplate *getPlayerTemplate() const { return m_playerTemplate; }
+	char m_pad00[0x34];
+private:
+	const PlayerTemplate *m_playerTemplate; // +0x34 +0x34
+	char m_pad38[0x14];
+public:
+	AsciiString m_playerName; // +0x4C
+	char m_pad50[0x4];
+	int m_playerIndex; // +0x54
+	char m_pad58[0x4];
+	int m_playerType; // +0x5C +0x5C
+	char m_pad60[0x28C];
+	Team *m_defaultTeam; // +0x2EC
+	char m_pad2F0[0x40];
+	RetailPlayerRelationMap *m_playerRelations; // +0x330 +0x330
+	RetailPlayerRelationMap *m_teamRelations; // +0x334 +0x334
 };
 
 struct Rva003A0CD1

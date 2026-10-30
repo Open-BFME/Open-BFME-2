@@ -26,8 +26,19 @@ inline Coord3D::Coord3D(float xv,float yv,float zv) { x=xv;y=yv;z=zv; }
 class Player;
 struct Rva002C5FBAResult { char pad[12]; Coord3D location; };
 class Rva002C5FBA { public: void *rva002C5FBA(int); };
-struct Rva002A8AB1Record { char pad[0x164]; Rva002C5FBA *target; };
-class Rva002A8F24 { public: Rva002A8AB1Record *rva002A8AB1(void *); };
+class TeamPrototype;
+struct Rva002A8AB1Record
+{
+public:
+	void rva004EC07D(TeamPrototype *proto);
+	char m_pad00[0x164];
+	Rva002C5FBA *target; // +0x164
+};
+class Rva002A8F24
+{
+public:
+	Rva002A8AB1Record *rva002A8AB1(void *);
+};
 extern Rva002A8F24 *TheSkirmishAIManager;
 struct Prototype { char pad[0x2c4]; int targetId; };
 Coord3D Team::getLocation() const

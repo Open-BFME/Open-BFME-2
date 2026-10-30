@@ -24,7 +24,8 @@ public:
 class BfmeFixedStorage0004543D
 {
 public:
-	unsigned int w[7];
+	BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &other) throw();
+	unsigned int w[7]; // +0x00
 };
 typedef BfmeFixedStorage0004543D Rva0039DF1CFilter;
 

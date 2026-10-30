@@ -11,12 +11,12 @@ class Rva0039D769
 {
 public:
 	Rva0039D769 &operator=(const Rva0039D769 &rhs);
-	int m00;
-	int m04;
-	int m08;
-	AsciiString m0C;
-	AsciiString m10;
-	int m14;
+	int m00; // +0x00 +0x00
+	int m04; // +0x04 +0x04
+	int m08; // +0x08 +0x08
+	AsciiString m0C; // +0x0C +0x0C
+	AsciiString m10; // +0x10 +0x10
+	int m14; // +0x14 +0x14
 };
 
 class Rva0039D5A9

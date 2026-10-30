@@ -325,25 +325,35 @@ public:
 };
 
 class TeamPrototype;
+class PlayerTemplate;
 class Player
 {
 public:
+	Team *getDefaultTeam() const { return m_defaultTeam; }
+	const AsciiString &getPlayerNameStr() const { return m_playerName; }
+	bool rva002AA245()const;
 	int getPlayerIndex() const { return m_playerIndex; }
+	void addTeamToList(TeamPrototype *team);
 	Relationship getRelationship(const Player *that) const;
 	Relationship getRelationship(const Team *that) const;
 	Relationship getRelationship(const Object *that) const;
 	void removeTeamFromList(TeamPrototype *team);
-	Team *getDefaultTeam() const { return m_defaultTeam; }
-
-	char m_pad00[0x54];
+	__declspec(dllimport) __forceinline const PlayerTemplate *getPlayerTemplate() const { return m_playerTemplate; }
+	char m_pad00[0x34];
+private:
+	const PlayerTemplate *m_playerTemplate; // +0x34 +0x34
+	char m_pad38[0x14];
+public:
+	AsciiString m_playerName; // +0x4C
+	char m_pad50[0x4];
 	int m_playerIndex; // +0x54
-	char m_pad58[0x5c - 0x58];
-	int m_playerType; // +0x5C
-	char m_pad60[0x2EC - 0x60];
+	char m_pad58[0x4];
+	int m_playerType; // +0x5C +0x5C
+	char m_pad60[0x28C];
 	Team *m_defaultTeam; // +0x2EC
-	char m_pad2F0[0x330 - 0x2F0];
-	RetailPlayerRelationMap *m_playerRelations; // +0x330
-	RetailPlayerRelationMap *m_teamRelations; // +0x334
+	char m_pad2F0[0x40];
+	RetailPlayerRelationMap *m_playerRelations; // +0x330 +0x330
+	RetailPlayerRelationMap *m_teamRelations; // +0x334 +0x334
 };
 
 class MemoryPoolObject
@@ -483,14 +493,18 @@ extern TeamFactory *TheTeamFactory;
 
 enum { TEAM_SINGLETON = 0x01 };
 
+class Rva002C5FBA;
 struct Rva002A8AB1Record
 {
+public:
 	void rva004EC07D(TeamPrototype *proto);
+	char m_pad00[0x164];
+	Rva002C5FBA *target; // +0x164
 };
 class Rva002A8F24
 {
 public:
-	Rva002A8AB1Record *rva002A8AB1(void *owner);
+	Rva002A8AB1Record *rva002A8AB1(void *);
 };
 extern Rva002A8F24 *TheSkirmishAIManager;
 
@@ -498,22 +512,38 @@ class Script
 {
 public:
 	Script *duplicate() const;
-	Bool isEasy() const { return m_easy; }
-	Bool isNormal() const { return m_normal; }
-	Bool isHard() const { return m_hard; }
+	void *getAction() const { return m_action; }
+	bool isEasy() const { return m_easy; }
+	bool isNormal() const { return m_normal; }
+	bool isHard() const { return m_hard; }
 	int getDelayEvalSeconds() const { return m_delayEvaluationSeconds; }
 	unsigned int getFrameToEvaluate() const { return m_frameToEvaluate; }
 	void setFrameToEvaluate(unsigned int frame) { m_frameToEvaluate = frame; }
-
+	bool isSequential() const { return m_sequential; }
+	int getLoopCount() const { return m_loopCount; }
+	int getDelayEvaluationSeconds() const { return m_delayEvaluationSeconds; }
+	bool isOneShot() const { return m_oneShot; }
+	bool isActiveRV() const { return m_isActive; }
+	virtual void *deleteInstance(int flags);
+	char m_pad04[0xC];
 private:
-	unsigned char m_pad00[0x20];
-	int m_delayEvaluationSeconds; // +0x20
-	unsigned char m_pad24[0x2B - 0x24];
-	Bool m_easy; // +0x2B
-	Bool m_normal; // +0x2C
-	Bool m_hard; // +0x2D
-	unsigned char m_pad2E[0x3C - 0x2E];
-	unsigned int m_frameToEvaluate; // +0x3C
+	bool m_sequential; // +0x10 +0x10
+	char m_pad11[0x3];
+	int m_loopCount; // +0x14 +0x14
+	char m_pad18[0x8];
+	int m_delayEvaluationSeconds; // +0x20 +0x20
+	char m_pad24[0x5];
+	bool m_oneShot; // +0x29 +0x29
+	char m_pad2A[0x1];
+	bool m_easy; // +0x2B +0x2B
+	bool m_normal; // +0x2C +0x2C
+	bool m_hard; // +0x2D +0x2D
+	char m_pad2E[0x6];
+	void *m_action; // +0x34 +0x34
+	char m_pad38[0x4];
+	unsigned int m_frameToEvaluate; // +0x3C +0x3C
+	bool m_isActive; // +0x40 +0x40
+	char m_pad41[0x3];
 };
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
@@ -523,17 +553,21 @@ extern ScriptEngine *TheScriptEngine;
 // Team::removeOverrideTeamRelationship and ScriptEngine's script lookup are
 // rowed under these views (0x003A2897, 0x003573C4): call them by their row names.
 enum NameKeyType { NAMEKEY_INVALID = 0 };
+struct ArmorMapHolder;
 class Rva003A2897
 {
 public:
 	bool rva003A2897(NameKeyType key);
+	char m_pad00[0x118];
+private:
+	ArmorMapHolder *m_holder; // +0x118
 };
 
 class BfmeRoomZC;
 class Rva003573C4Owner
 {
 public:
-	void *rva003573C4(const AsciiString &scope, const BfmeRoomZC &name, void *arg);
+	void *rva003573C4(const AsciiString &owner, const BfmeRoomZC &name, void *outName); // rowed 0x003573C4
 };
 extern int BfmeLogicFramesPerSecond;	// logic frames per second
 extern unsigned g_Va00E028C4;	// static AsciiString "<!TRUE!>"

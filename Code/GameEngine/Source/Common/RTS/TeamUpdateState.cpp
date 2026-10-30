@@ -84,8 +84,7 @@ class BfmeFixedStorage0004543D
 {
 public:
 	BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &other) throw();
-private:
-	unsigned char m_bytes[28];
+	unsigned int w[7]; // +0x00
 };
 // Rowed 66-byte two-bit constructor at 0x0006EE7A; same 28-byte mask.
 struct Rva0006EE7A
