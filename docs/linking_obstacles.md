@@ -243,7 +243,11 @@ are unchanged, and the destination stays clean in both header queues. Current
 joint preview retains 2/2 LINKS and 237 authored bytes (205 merged + 32
 constructor); the absorbed 34 bytes are no census gain. The path-consumer
 audit finds only historical old-path mentions. Remaining inheritance, mixed
-file and unwind prerequisites above still apply.
+file and unwind prerequisites above still apply. The complete outgoing staged
+audit remains INCONCLUSIVE on the older index and 33 objects without current
+receipts, first Common/Rva003A5DA0Write.cpp. Carry the merged provider, retired
+donor and affected consumers into the next scheduled census/current-receipt
+audit; full consumer selection/loss verification remains open.
 [Target facts and scope](../reverse/attempt_support/w3dbuffdraw-consolidation-20261030-codexb4.md).
 
 ### Narrow ostringstream constructor STLport 4.6 migration (2026-10-30)

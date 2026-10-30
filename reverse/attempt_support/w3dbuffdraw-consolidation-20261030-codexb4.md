@@ -106,3 +106,13 @@ are not reused as moved-source proof: destination strict preparation is fresh.
 The draw constructor still fails the supported merge on the seed's missing
 constructor/base contract. Its inheritance/interface recovery, the mixed name
 getter and generated unwind owner remain separate work.
+
+The merge-only staged-tree link audit is INCONCLUSIVE on the older index and
+the missing current Common/0CreateAHeroManager21FE49.cpp consumer receipt.
+The final complete outgoing staged-tree audit from origin/master is likewise
+INCONCLUSIVE: 33 source objects lack current receipts, first
+Code/GameEngine/Source/Common/Rva003A5DA0Write.cpp. This includes the already
+handed-over queue/STLport changes; it does not establish a new merge loss.
+Carry the merged destination, retired donor and affected consumers into the
+next scheduled census/current-receipt audit. Full consumer selection/loss
+verification remains open; no census gain is claimed.
