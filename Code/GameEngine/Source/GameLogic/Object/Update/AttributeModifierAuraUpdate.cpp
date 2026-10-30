@@ -97,6 +97,39 @@ public:
 extern PartitionManager *ThePartitionManager;
 #include "../../../Common/GameLogicObjectLookupView.h"
 #include "string_base.h"
+#define BFME_DISP8_BYTECHASE_GETTER(NAME, DISP1, DISP2) \
+	class NAME \
+	{ \
+	public: \
+		unsigned char get() const; \
+		char m_lead[DISP1]; \
+		void *m_ptr; \
+	}; \
+	unsigned char NAME::get() const \
+	{ \
+		return *(unsigned char *)((char *)m_ptr + DISP2); \
+	}
+#define BFME_DISP8_BYTECHASE_BEFORE_GETTER(NAME, BACK, INNER) \
+	class Inner##NAME \
+	{ \
+	public: \
+		char m_lead[INNER]; \
+		unsigned char m_value; \
+	}; \
+	class Sub##NAME \
+	{ \
+	public: \
+		Inner##NAME *m_holder; \
+	}; \
+	class NAME \
+	{ \
+	public: \
+		unsigned char get() const; \
+	}; \
+	unsigned char NAME::get() const \
+	{ \
+		return ((const Sub##NAME *)((const char *)this - (BACK)))->m_holder->m_value; \
+	}
 
 extern GameLogic *TheGameLogic;
 
@@ -357,6 +390,10 @@ public:
 	void parse(INI *ini, void *extra);
 };
 
+BFME_DISP8_BYTECHASE_BEFORE_GETTER(Rva0049B657ByteChase32Field, 0x1C, 0x134)
+
+BFME_DISP8_BYTECHASE_BEFORE_GETTER(Rva0049B661ByteChase32Field, 0x1C, 0x135)
+
 // tu-skeleton: 0x0049B560 118B ??0AttributeModifierAuraUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierAuraUpdateCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0049B5D6 6B ?Rva0049B5D6Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
@@ -367,11 +404,27 @@ public:
 
 // tu-skeleton: 0x0049B648 15B ?performUpgradeFX@AttributeModifierAuraUpdate@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpgradeMuxSlotOverrides.cpp (not merged yet)
 
-// tu-skeleton: 0x0049B657 10B ?get@Rva0049B657ByteChase32Field@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp
 
-// tu-skeleton: 0x0049B661 10B ?get@Rva0049B661ByteChase32Field@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp (not merged yet)
+// Disp8 byte-chase getters: seven-byte __thiscall members with one shape:
+//
+//     mov eax,[ecx+<DISP1>] / mov al,[eax+<DISP2>] / ret
+//
+// A pointer is read at a fixed displacement from `this`, then a byte is read
+// at a second displacement from that pointer and returned in `al` (only the
+// low byte is defined; the caller uses `al`). MSVC 7.1 emits the disp8 loads
+// `8B 41 XX` + `8A 40 XX`, plus `ret`, for seven bytes total.
+// Identity is not recovered: every name is derived from its address.
+// No // cl: line (defaults match the frameless seven-byte shape).
+
+// Backward variant: the holder sits at a NEGATIVE displacement from `this`
+// (a sub-object `this` pointing into a larger object). Spelled as an explicit
+// backward cast, which MSVC folds to `mov eax,[ecx-BACK]`; same shape and
+// reading as BFME1's ChainedFieldGetters.
 
 // tu-skeleton: 0x0049B66B 67B ?xfer@AttributeModifierAuraUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierAuraUpdateXfer.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierAuraUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierAuraUpdate.cpp
 
@@ -561,12 +614,6 @@ UpdateSleepTime AttributeModifierAuraUpdate::update()
 	return (UpdateSleepTime)(object->getID() % 5 + data->m_refreshDelay);
 }
 
-// tu-skeleton: 0x0049B6DD 115B ??1AttributeModifierAuraUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierAuraUpdateDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0049B750 308B ?rva0049B750@Rva0049B750@@QAE_NPBDPA_N1@Z -- matched in Code/GameEngine/Source/Common/System/INI_VeterancyLevelToken.cpp (not merged yet)
-
-// tu-skeleton: 0x0049B884 28B ??_GAttributeModifierAuraUpdate@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierAuraUpdateDtor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/UpdateModuleDeletingDtors.cpp
 
 // The deleting destructors formerly scaffolded here are emitted by their
@@ -609,6 +656,12 @@ void Rva0049B8A0::parse(INI *ini, void *extra)
 		}
 	}
 }
+
+// tu-skeleton: 0x0049B6DD 115B ??1AttributeModifierAuraUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierAuraUpdateDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0049B750 308B ?rva0049B750@Rva0049B750@@QAE_NPBDPA_N1@Z -- matched in Code/GameEngine/Source/Common/System/INI_VeterancyLevelToken.cpp (not merged yet)
+
+// tu-skeleton: 0x0049B884 28B ??_GAttributeModifierAuraUpdate@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierAuraUpdateDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0049BBA3 16B ?parseFromINI@Rva0049B8A0@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/Common/System/INIParseFromINIForwarders.cpp (not merged yet)
 
