@@ -1,4 +1,5 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /ICode/Libraries/Include/Lib
+// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /ICode/Libraries/Include/Lib
+// stlport
 // Target boundary: 0x000CA352..0x000CA72E; complete 988 bytes RET 8.
 // WB 0x00916F60 names W3DQuadrupedDraw::getFootLocations; target slot 47
 // and the W3DQuadrupedDraw factory/constructor family independently agree.
@@ -19,20 +20,14 @@ typedef int Int;
 typedef bool Bool;
 typedef float Real;
 
+#include <vector>
+
+// Bind the default resize to the rowed vector<Coord3D>::resize(unsigned int)
+// at 0x000B7D10 (Coord3DVectorDefaultResizeThunk.cpp) instead of emitting this
+// unit's own copy.
 namespace _STL
 {
-template <class T> class allocator
-{
-};
-template <class T, class A> class vector
-{
-public:
-	void resize(unsigned int n);
-	T &operator[](unsigned int n) { return *(_M_start + n); }
-	T *_M_start;
-	T *_M_finish;
-	T *_M_end_of_storage;
-};
+template <> void vector<Coord3D, allocator<Coord3D> >::resize(unsigned int);
 }
 typedef _STL::vector<Coord3D, _STL::allocator<Coord3D> > Coord3DVector;
 

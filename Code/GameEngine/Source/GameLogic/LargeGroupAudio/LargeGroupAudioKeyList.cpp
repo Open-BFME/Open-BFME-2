@@ -44,20 +44,6 @@ static inline bool operator!=(const _Rb_tree_iterator<_RbVal, _RbLeft> &a,
 { return a._M_node != b._M_node; }
 }
 
-namespace _STL
-{
-
-template <class Type, class Allocator>
-class vector
-{
-protected:
-	Type *m_wordsBegin;
-	Type *m_wordsEnd;
-	Type *m_wordsCapacity;
-};
-
-}
-
 struct BfmeStringNoCaseLess
 {
 	bool operator()(const AsciiString &left, const AsciiString &right) const;

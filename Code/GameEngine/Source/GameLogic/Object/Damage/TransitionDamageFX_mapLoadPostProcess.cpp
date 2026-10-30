@@ -5,7 +5,8 @@
 // partial score=0.9582139148494289 date=2026-10-13
 // ?mapLoadPostProcess@TransitionDamageFX@@UAEXPBVDict@@@Z
 // partial score=0.9582139148494289 date=2026-10-10
-// cl: /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /ICode/Libraries/Include /ICode/GameEngine/Source /Oa
+// cl: /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /ICode/Libraries/Include /ICode/GameEngine/Source /Oa /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// stlport
 // NEW native4BA9E4..4BAB25 RET4. Owned ctor4BA3EA installs Behavior interface+0C
 // table whose slot 45 is this rubble-neighbor initialization callback.
 // Named mapLoadPostProcess: slot 45 of the +0x0C table 0x00C59A30, as in the
@@ -17,8 +18,12 @@
 #include "ascii_string.h"
 #include "Common/PartitionRangeQueryCallView.h"
 #include <string.h>
+#include <vector>
 class Matrix3D;class ObjectCreationList;class Dict;
-namespace _STL {template<class T>class allocator{};template<class T,class A>class vector{public:T*begin;T*end;T*cap;const T*getBegin()const{return begin;}const T*getEnd()const{return end;}bool empty()const{return begin==end;}~vector();void push_back(const T&);};}
+// Bind the append to the rowed vector<Rva004BA1D0>::push_back instead of
+// emitting this unit's own copy of the header's inline growth path.
+class Rva004BA1D0;
+namespace _STL {template <> void vector<Rva004BA1D0, allocator<Rva004BA1D0> >::push_back(const Rva004BA1D0 &);}
 class Thing {public:void convertBonePosToWorldPos(const Coord3D*,const Matrix3D*,Coord3D*,Matrix3D*)const;};
 class Object:public Thing {public:unsigned getID()const{return *(const unsigned*)((const char*)this+0x74);}};
 class Rva004BA1D0 {public:
@@ -85,7 +90,7 @@ void TransitionDamageFX::mapLoadPostProcess(const Dict *)
  const TransitionDamageFXModuleDataView*data=getTransitionDamageFXModuleData();
  if(!data)return;
  BfmeFixedStorage0004543D mask;memset(&mask,0,28);mask.words[0]|=1U<<7;mask.words[1]|=1U<<28;
- for(const Rva004BA1D0*it=data->neighbors.getBegin();it!=data->neighbors.getEnd();++it) {
+ for(const Rva004BA1D0*it=data->neighbors.begin();it!=data->neighbors.end();++it) {
   if(it->names.empty()||!it->ocl)continue;
   const Coord3D&offset=it->neighborOffset;Coord3D pos;pos.x=offset.x;pos.y=offset.y;pos.z=offset.z;
   Object*owner=m_object;
