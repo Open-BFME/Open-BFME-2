@@ -194,13 +194,19 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #pragma optimize("", on)
 #include <set>
 #define _STLP_BFME_RB_MINMAX_IMPORT  // inline _Rb_tree_node_base::_S_minimum/_S_maximum without a COMDAT copy (vendor/stlport/stl/_tree.h)
-#pragma optimize("s", off)
-#pragma optimize("t", on)
-#pragma optimize("", on)
 #pragma comment(linker, "/alternatename:?insert_unique@?$_Rb_tree@HU?$pair@$$CBHURva002F3093Record@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva002F3093Record@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva002F3093Record@@@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHURva002F3093Record@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHURva002F3093Record@@@_STL@@@2@@2@U32@ABU?$pair@$$CBHURva002F3093Record@@@2@@Z=?rva002F1DDC@Rva002F1DDCTree@@QAE?AURva002F1DDCIter@@U2@ABVRva002F1DDCValue@@@Z")
-#pragma optimize("s", off)
-#pragma optimize("t", on)
-#pragma optimize("", on)
+#define BFME_DISP8_WORD_SETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		void set(unsigned short value); \
+		char m_lead[DISP]; \
+		unsigned short m_value; \
+	}; \
+	void NAME::set(unsigned short value) \
+	{ \
+		m_value = value; \
+	}
 
 // ?IsObstaclePresent@PathfindCell@@QBE_NW4ObjectID@@@Z, retail 0x002E6C23 (42 bytes, ret 4). WorldBuilder
 // PathfindCell::IsObstaclePresent (callgraph lead): whether this obstacle cell's info (+0x00) names the
@@ -308,6 +314,7 @@ public:
 
 // 0x00366B77 is rowed as PathfindLayer::ClassifyWallCells.
 class Xfer;
+
 class PathfindLayer
 {
 public:
@@ -747,6 +754,7 @@ void Rva0052DBCDInit(void);
 extern int TheMixFileInfoPool;
 
 class Rva002E6BA1;
+
 class MixFileInfoBuffer
 {
 private:
@@ -1268,6 +1276,42 @@ struct Rva002F3759Compare { bool operator()(unsigned int a,unsigned int b)const{
 // Instantiate the recovered member; retain only its required template dependencies.
 template unsigned int & _STL::map<unsigned int, unsigned int, Rva002F3759Compare, _STL::allocator<_STL::pair<unsigned int const, unsigned int> > >::operator[](unsigned int const &);
 
+// Clean BF1 f98983a7 Rva003D4CD0SetWord.cpp and Rva003D4CF0SetWord.cpp
+// are whole source leads. Their address-owned identities are donor facts.
+// Each native member below follows a complete RET and has its own RET4:
+// 2E6C94..2E6CA2 and 2E6CA2..2E6CB0. It reads the receiver's word0
+// pointer and stores the low 16 bits of one stack argument at +12 or +10.
+// All eight native sections contain zero direct call/address witnesses.
+// Signedness and original owner/full object and pointee sizes are unknown;
+// these independent accessed-prefix views reproduce raw word stores only.
+class Rva002E6C94WordChase {
+public:
+    void set(unsigned short value);
+private:
+    void *pointee;
+};
+
+class Rva002E6CA2WordChase {
+public:
+    void set(unsigned short value);
+private:
+    void *pointee;
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp
+
+#pragma optimize("s", off)
+
+#pragma optimize("t", on)
+
+#pragma optimize("", on)
+
+#pragma optimize("s", off)
+
+#pragma optimize("t", on)
+
+#pragma optimize("", on)
+
 // ---- from Code/GameEngine/Source/Common/PathfindCell_IsObstaclePresent.cpp
 
 bool PathfindCell::IsObstaclePresent(ObjectID id) const
@@ -1286,10 +1330,6 @@ int Rva002E6C4D::rva002E6C4D()
 	return 0;
 }
 
-// tu-skeleton: 0x002E6C60 18B ?rva002E6C60@Rva002E6B19@@QBEIXZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
-
-// tu-skeleton: 0x002E6C72 7B ?rva002E6C72@Rva002E6C72@@QBEIXZ -- matched in Code/GameEngine/Source/Common/GapLeavesSeat8.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva002E6C79Get.cpp
 
 int Rva002E6C79::rva002E6C79()
@@ -1301,32 +1341,6 @@ int Rva002E6C79::rva002E6C79()
 	}
 	return 0;
 }
-
-// tu-skeleton: 0x002E6C8D 7B ?clear@Rva002E6C8DWordChase@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Disp8DwordClearers.cpp (not merged yet)
-
-// tu-skeleton: 0x002E6C94 14B ?set@Rva002E6C94WordChase@@QAEXG@Z -- matched in Code/GameEngine/Source/Common/Disp8WordFieldSetters.cpp (not merged yet)
-
-// tu-skeleton: 0x002E6CA2 14B ?set@Rva002E6CA2WordChase@@QAEXG@Z -- matched in Code/GameEngine/Source/Common/Disp8WordFieldSetters.cpp (not merged yet)
-
-// tu-skeleton: 0x002E6CB0 7B ?getBits@Rva002E6CB0PointeeValue@@QBEIXZ -- matched in Code/GameEngine/Source/Common/Disp8WordChaseGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x002E6CB7 7B ?getBits@Rva002E6CB7PointeeValue@@QBEIXZ -- matched in Code/GameEngine/Source/Common/Disp8WordChaseGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x002E6CBE 26B ??0Rva002E6CBE@@QAE@H@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
-
-// tu-skeleton: 0x002E6CD8 38B ?rva002E6CD8@Rva002E6CD8Owner@@QAEAAV1@HEHEE@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp (not merged yet)
-
-// tu-skeleton: 0x002E6CFE 49B ?rva002E6CFE@Rva002E6CFE@@QAEXHHH@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp (not merged yet)
-
-// tu-skeleton: 0x002E6D2F 19B ?rva002E6D2F@Rva002E6CFE@@QAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp (not merged yet)
-
-// tu-skeleton: 0x002E6D42 18B ?rva002E6D42@@YAHHH@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp (not merged yet)
-
-// tu-skeleton: 0x002E6D54 14B ?rva002E6D54@@YAHHH@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp (not merged yet)
-
-// tu-skeleton: 0x002E6D62 86B ?getCell@Pathfinder@@QAEPAVPathfindCell@@W4PathfindLayerEnum@@HH@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp (not merged yet)
-
-// tu-skeleton: 0x002E7133 12B ?ForceMapRecalculation@Pathfinder@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva002E713FGuard.cpp
 
@@ -1413,8 +1427,6 @@ second:
 
 Rva002E7243::Rva002E7243(int first, int second) : m_00(first), m_04(second), m_08(-1) {}
 
-// tu-skeleton: 0x002E7205 62B ?SetBridgeStateRepaired@Pathfinder@@QAEXH_N@Z -- matched in Code/GameEngine/Source/Common/Pathfinder_SetBridgeStateRepaired.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Rva002E7261.cpp
 
 int Rva002E7261Info::cellCallback(PathfindCell *previous, PathfindCell *current, int a, int b)
@@ -1430,12 +1442,6 @@ int Rva002E7261Info::cellCallback(PathfindCell *previous, PathfindCell *current,
 	}
 	return 0;
 }
-
-// tu-skeleton: 0x002E7296 158B ?IsValidMovementTerrain@Pathfinder@@QAE_NW4PathfindLayerEnum@@PBVLocomotor@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
-
-// tu-skeleton: 0x002E7334 26B ??0Rva002E7334@@QAE@HABUGapPair@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE15.cpp (not merged yet)
-
-// tu-skeleton: 0x002E734E 58B ?rva002E734E@Rva002E7334@@QAEHPAURva002E734ECell@@0HH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE15.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva002E7388Set.cpp
 
@@ -1469,12 +1475,6 @@ Rva002E73D4::Rva002E73D4(int a, int b, int c)
 {
 }
 
-// tu-skeleton: 0x002E73FB 25B ?rva002E73FB@Rva002E734E@@QAEHHPBURva002E734ECell@@HH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
-
-// tu-skeleton: 0x002E7414 44B ?rva002E7414@Rva002E7414@@QAEHHH@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
-
-// tu-skeleton: 0x002E7440 66B ?rva002E7440@Rva002E7440@@QAE_NHH@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Rva002E7482.cpp
 
 float Rva002E7482::rva002E7482(int index)
@@ -1483,12 +1483,6 @@ float Rva002E7482::rva002E7482(int index)
 		return 0.0f;
 	return (float)m_items[index].m_val;
 }
-
-// tu-skeleton: 0x002E74AC 9B ?rva002E74AC@Rva002E74ACFlags@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapThunksSeat8.cpp (not merged yet)
-
-// tu-skeleton: 0x002E74B5 17B ?SetDebugPathPosition@Pathfinder@@QAEXPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Pathfinder_SetDebugPathPosition.cpp (not merged yet)
-
-// tu-skeleton: 0x002E74C6 124B ?ChooseBestLocomotorForPosition@Pathfinder@@QAEXW4PathfindLayerEnum@@PAVRva001E48E8@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Pathfinder_ChooseBestLocomotorForPosition.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Rva002E7542Finish.cpp
 
@@ -1508,24 +1502,6 @@ void *Rva002E7542::rva002E7542(int a1, const Coord3D *a2, int a3)
 	m_10 = *(int*)&a2->z;
 	return this;
 }
-
-// tu-skeleton: 0x002E7569 20B ?IS_IMPASSABLE@@YA_NW4CellType@PathfindCell@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellObjectQuery.cpp (not merged yet)
-
-// tu-skeleton: 0x002E757D 38B ?IsPointOnRamp@Pathfinder@@QAE_NPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Pathfinder_IsPointOnRamp.cpp (not merged yet)
-
-// tu-skeleton: 0x002E75A3 304B ?clip@Pathfinder@@QAEXPAUCoord3D@@0@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
-
-// tu-skeleton: 0x002E76D3 118B ?rva002E76D3@@YA_NPAVPathfindCell@@I_N@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderClearCellForDiameter.cpp (not merged yet)
-
-// tu-skeleton: 0x002E7749 300B ?rva002E7749@Pathfinder@@QAEHPAXHHHH_N@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderClearCellForDiameter.cpp (not merged yet)
-
-// tu-skeleton: 0x002E7875 162B ?Rva002E7875WorldToCell@@YAPAUICoord2D@@PAU1@_NPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
-
-// tu-skeleton: 0x002E7917 77B ?Rva002E7917@Pathfinder@@QAE?AUPathfinderCellIndex@@_NPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
-
-// tu-skeleton: 0x002E7964 68B ?rva002E7964@Rva002E7964@@QAEXPAUICoord2D@@EPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
-
-// tu-skeleton: 0x002E79A8 186B ?rva002E79A8@@YA?AUPathfinderCellPoint@@_NHHW4PathfindLayerEnum@@@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderRadialOffset.cpp
 
@@ -1627,8 +1603,6 @@ Rva002E7B02::Rva002E7B02(int a, int b, const _Rva002E7B02Cell &cell)
 {
 }
 
-// tu-skeleton: 0x002E7B29 143B ?cellCallback@Rva002E7B29Info@@QAEHPAVPathfindCell@@0HH@Z -- matched in Code/GameEngine/Source/Common/Rva002E7ED6InfoCellCallback.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Rva002E7BB8.cpp
 
 float __cdecl Rva002E7BB8Get()
@@ -1643,8 +1617,6 @@ float __cdecl Rva002E7BB8Get()
 	return g_00DFF0D0;
 }
 
-// tu-skeleton: 0x002E7BF0 169B ?rva002E7BF0@Rva002EC3CEProbes@@QAE_NHH_NHHHPAX0@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/Rva002E7BF0Probe.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Rva002E7C99.cpp
 
 void *Rva002E7C99::rva002E7C99(int a, int b, int c, unsigned char d, int e, unsigned char f, int g)
@@ -1658,10 +1630,6 @@ void *Rva002E7C99::rva002E7C99(int a, int b, int c, unsigned char d, int e, unsi
 	m_18 = g;
 	return this;
 }
-
-// tu-skeleton: 0x002E7CCB 93B ??6@YAAAVDebug@@AAV0@ABVPath@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathDebugOutput.cpp (not merged yet)
-
-// tu-skeleton: 0x002E7D28 23B ?parsePathfinderDefinition@@YAXPAVBfmeSub939E@@@Z -- matched in Code/GameEngine/Source/Common/BfmeConv939.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva002E7D3FContextInit.cpp
 
@@ -1680,8 +1648,6 @@ Rva002E7D6DInfo *Rva002E7D6DInfo::rva002E7D3F(Rva002E6DC4 *provider,
  return this;
 }
 
-// tu-skeleton: 0x002E7D6D 136B ?cellCallback@Rva002E7D6DInfo@@QAEHPAVPathfindCell@@0HH@Z -- matched in Code/GameEngine/Source/Common/Rva002E7ED6InfoCellCallback.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Rva002E7DF5.cpp
 
 // Select-any: pathfinder.cpp keeps a visible noinline inline copy.
@@ -1699,16 +1665,6 @@ __declspec(noinline) inline Rva002E7DF5::Rva002E7DF5(int a, const _Rva002E7DF5Ce
 // The anchor keeps the rowed body emitted.
 // ?bfmeAnchorRva002E7DF5@@YAXXZ absent-from-retail
 void bfmeAnchorRva002E7DF5() { _Rva002E7DF5Cell c = { 0, 0, 0 }; Rva002E7DF5 r(0, c); }
-
-// tu-skeleton: 0x002E7E26 176B ?rva002E7E26@Rva002E7E26@@QAEHPAVObject@@HH@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
-
-// tu-skeleton: 0x002E7ED6 72B ?cellCallback@Rva002E7ED6Info@@QAEHPAVPathfindCell@@0HH@Z -- matched in Code/GameEngine/Source/Common/Rva002E7ED6InfoCellCallback.cpp (not merged yet)
-
-// tu-skeleton: 0x002E7F1E 17B ??0Rva002E7F1E@@QAE@XZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE06.cpp (not merged yet)
-
-// tu-skeleton: 0x002E7F2F 15B ?clear@Rva002E7F1E@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE06.cpp (not merged yet)
-
-// tu-skeleton: 0x002E7F3E 20B ?isNotEmpty@Rva002E7F1E@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE06.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/System/SaveGame/LatchRestoreIntDtor.cpp
 
@@ -1733,12 +1689,6 @@ Rva002E7F80Fields *Rva002E7F80Fields::decrement()
     return this;
 }
 
-// tu-skeleton: 0x002E7FAB 28B ??_GRva0053476A@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyDeletingDtors11.cpp (not merged yet)
-
-// tu-skeleton: 0x002E7FC7 19B ?Rva002E7FC7@@YAHH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
-
-// tu-skeleton: 0x002E7FDA 19B ??4IRegion2D@@QAEAAU0@ABU0@@Z -- matched in Code/Libraries/Source/WWVegas/WWMath/region.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/Rva002E7FEDGet.cpp
 
 Rva002E7FED *__cdecl Rva002E7FEDGet(Rva002E7FED *obj, int *vals)
@@ -1757,16 +1707,6 @@ Rva002E7FED *__cdecl Rva002E7FEDGet(Rva002E7FED *obj, int *vals)
 	} while (--n != 0);
 	return obj;
 }
-
-// tu-skeleton: 0x002E8045 256B ?iterateCellsAlongLine@Pathfinder@@AAEHPBUICoord2D@@0W4PathfindLayerEnum@@PAURva002E7261Info@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp (not merged yet)
-
-// tu-skeleton: 0x002E8145 268B ?rva002E8145@Pathfinder@@AAEHPBUICoord2D@@0W4PathfindLayerEnum@@PAURva002E8145Info@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp (not merged yet)
-
-// tu-skeleton: 0x002E8251 247B ?rva002E8251@Pathfinder@@AAEHPBUICoord2D@@0W4PathfindLayerEnum@@PAURva002E7ED6Info@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp (not merged yet)
-
-// tu-skeleton: 0x002E8348 256B ?iterateCellsAlongLine@Pathfinder@@AAEHPBUICoord2D@@0W4PathfindLayerEnum@@PAURva002E6F92Info@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp (not merged yet)
-
-// tu-skeleton: 0x002E8448 256B ?iterateCellsAlongLine@Pathfinder@@AAEHPBUICoord2D@@0W4PathfindLayerEnum@@PAURva002E7B29Info@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/Rva002E8548Pool.cpp
 
@@ -1788,24 +1728,12 @@ void *__stdcall rva002EF25B(const Pair &value)
     return node;
 }
 
-// tu-skeleton: 0x002E85AD 454B ?iterateCellsAlongLine@Pathfinder@@AAEHPBUICoord2D@@0W4PathfindLayerEnum@@PAURva002E85ADInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp (not merged yet)
-
-// tu-skeleton: 0x002E8773 724B ?ProcessConvexPoly@Pathfinder@@QAEHPAH0HHPAVRva002E7E26@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp (not merged yet)
-
-// tu-skeleton: 0x002E8A47 256B ?iterateCellsAlongLine@Pathfinder@@AAEHPBUICoord2D@@0W4PathfindLayerEnum@@PAURva002E7ED6Info@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/AI/Rva002E8B47Compare.cpp
 
 int Rva002E8B47::rva002E8B47(Rva002E8B47Record **const *lhs, Rva002E8B47Record **const *rhs) const
 {
 	return (**lhs)->m_10 > (**rhs)->m_10;
 }
-
-// tu-skeleton: 0x002E8B66 10B ?get@Rva002E8B66ByteChase32Field@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x002E8B70 10B ?get@Rva002E8B70PtrChase32Field@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x002E8B7A 33B ?Rva002E8B7AInit@@YAPAVMixFileInfoBuffer@@PAPAV1@HPAUIn002E6BA1@@@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva002E8B9B.cpp
 
@@ -1820,20 +1748,6 @@ MixFileInfoBuffer *Rva002E8B9B::rva002E8B9B(In002E6BA1 *in)
 	*(int *)((char *)node + 0x0C) &= 0;
 	return node;
 }
-
-// tu-skeleton: 0x002E8BCF 41B ??0Rva002E8BCF@@QAE@PBURva002E8BCFSrc@@_NH1@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
-
-// tu-skeleton: 0x002E8BF8 43B ?rva002E8BF8@Pathfinder@@QAEPAVPathfindCell@@W4PathfindLayerEnum@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
-
-// tu-skeleton: 0x002E8C23 42B ?Rva002E8C23Call@@YA?AUPathfinderCellPoint@@_NPAVPathfindCell@@@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
-
-// tu-skeleton: 0x002E8C4D 33B ?Rva002E8C4DCall@@YAHHEPAURva002E8C23Pair@@H@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
-
-// tu-skeleton: 0x002E8C6E 262B ?AdjustMeleeOffset@Pathfinder@@QAEXPAVObject@@0PAUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
-
-// tu-skeleton: 0x002E8D74 54B ?rva002E8D74@Rva002E8D74@@QAEMHH@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
-
-// tu-skeleton: 0x002E8DAA 571B ?NewMap@Pathfinder@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderNewMap.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva002E9042.cpp
 
@@ -1870,38 +1784,6 @@ void Rva002E9042::AddPortal(void *p)
 	}
 	arg->m_48 = 1;
 }
-
-// tu-skeleton: 0x002E909F 203B ?IsValidMovementPositionForObject@Pathfinder@@QAE_NPBUCoord3D@@HHPBVObject@@@Z -- matched in Code/GameEngine/Source/Common/Pathfinder_IsValidMovementPositionForObject.cpp (not merged yet)
-
-// tu-skeleton: 0x002E916A 437B ?rva002E916A@Rva002E7388Owner@@QAE_NHH@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/Rva002E916AFootprintCheck.cpp (not merged yet)
-
-// tu-skeleton: 0x002E931F 136B ?init@Rva002ED01EInfo@@QAEPAU1@PAX00@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderLineContexts.cpp (not merged yet)
-
-// tu-skeleton: 0x002E93A7 104B ?cellCallback@Rva002E93A7Info@@QAEHPAVPathfindCell@@0HH@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp (not merged yet)
-
-// tu-skeleton: 0x002E940F 51B ?IsPointOnWall@Pathfinder@@QAE_NH_N@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellQueryPredicates.cpp (not merged yet)
-
-// tu-skeleton: 0x002E9442 1071B ?rva002E9442@Pathfinder@@QAE_NABVVector3@@0PAV2@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderRva002E9442.cpp (not merged yet)
-
-// tu-skeleton: 0x002E9871 38B ?GetGroundLayer@Pathfinder@@QAEHPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellQueryPredicates.cpp (not merged yet)
-
-// tu-skeleton: 0x002E9897 47B ?IsWaterCell@Pathfinder@@QAE_NHH@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellQueryPredicates.cpp (not merged yet)
-
-// tu-skeleton: 0x002E98C6 36B ?IsCliffCell@Pathfinder@@QAE_NHH@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellQueryPredicates.cpp (not merged yet)
-
-// tu-skeleton: 0x002E98EA 47B ?isBlockedGateObstacleCell@Pathfinder@@QAEHHH@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellQueryPredicates.cpp (not merged yet)
-
-// tu-skeleton: 0x002E9919 47B ?IsNonPinchedCliffCell@Pathfinder@@QAEHHH@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellQueryPredicates.cpp (not merged yet)
-
-// tu-skeleton: 0x002E9948 38B ?IsImpassableCell@Pathfinder@@QAE_NHH@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellQueryPredicates.cpp (not merged yet)
-
-// tu-skeleton: 0x002E996E 79B ?IsBuildRestrictedCell@Pathfinder@@QAE_NPBUCoord3D@@_N1H@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellQueryPredicates.cpp (not merged yet)
-
-// tu-skeleton: 0x002E99BD 60B ?GetCellType@Pathfinder@@QAEXHPAX00H@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellQueryPredicates.cpp (not merged yet)
-
-// tu-skeleton: 0x002E99F9 211B ?FindBrokenBridge@Pathfinder@@QAEHPAURva002E99F9Arg1@@RBUCoord3D@@PBU3@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderRva002E99F9.cpp (not merged yet)
-
-// tu-skeleton: 0x002E9ACC 101B ??0Rva002E9ACC@@QAE@PAXPAVObject@@PBURva002E8BCFSrc@@EE@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellQueryPredicates.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva002E9B31Finish.cpp
 
@@ -1956,16 +1838,6 @@ int __cdecl Rva002E9B31Get(void *p)
 	return n;
 }
 
-// tu-skeleton: 0x002E9D09 414B ?rva002E9D09@Rva002E9D09@@QAEHPAVObject@@HH@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellObjectQuery.cpp (not merged yet)
-
-// tu-skeleton: 0x002E9EA7 531B ?rva002E9EA7@Pathfinder@@QAE_NPAVObject@@HHW4PathfindLayerEnum@@HEPAH@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderRva002E9EA7.cpp (not merged yet)
-
-// tu-skeleton: 0x002EA0BA 656B ?rva002EA0BA@Pathfinder@@QAE_NPAVObject@@PAVPathfindCell@@AAUTCheckMovementInfo@@PAW4ObjectID@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCheckForMovement.cpp (not merged yet)
-
-// tu-skeleton: 0x002EA34A 782B ?checkForMovement@Pathfinder@@QAE_NPAVObject@@AAUTCheckMovementInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
-
-// tu-skeleton: 0x002EA658 1001B ?rva002EA658@Pathfinder@@QAE_NPAVObject@@AAUTCheckMovementInfo@@PBUICoord2D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderCheckMovementOverlap.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/AI/PathfinderRva002EADE1.cpp
 
 // ?rva002EADE1@Pathfinder@@QAEHPBUCoord3D@@0W4PathfindLayerEnum@@PAURva002E7ED6Info@@@Z @0x002EADE1 63B.
@@ -1975,14 +1847,6 @@ int Pathfinder::rva002EADE1(const Coord3D *startPos, const Coord3D *destinationP
 	ICoord2D m_startCell;
 	return rva002E8251(Rva002E7875WorldToCell(&m_startCell, true, startPos), Rva002E7875WorldToCell(&destinationCell, true, destinationPos), layer, info);
 }
-
-// tu-skeleton: 0x002EAE20 63B ?rva002EAE20@Pathfinder@@QAEHPBUCoord3D@@0W4PathfindLayerEnum@@PAURva002E6F92Info@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderRva002F95B7.cpp (not merged yet)
-
-// tu-skeleton: 0x002EAE5F 700B ?rva002EAE5F@Pathfinder@@QAE_NPBUICoord2D@@HPAU2@PAX@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
-
-// tu-skeleton: 0x002EB11B 700B ?rva002EB11B@Pathfinder@@QAE_NPBUICoord2D@@HPAU2@PAX@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
-
-// tu-skeleton: 0x002EB3D7 63B ?rva002EB3D7@Pathfinder@@QAEHPBUCoord3D@@0W4PathfindLayerEnum@@PAURva002E7B29Info@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderRva002EB3D7.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/Rva002EB416Release.cpp
 
@@ -2039,16 +1903,6 @@ void Rva002EB46E::rva002EB46E(_Rva002EB46ENode *p)
     } while (p);
 }
 
-// tu-skeleton: 0x002EB4A0 63B ?rva002EB4A0@Pathfinder@@QAEHPBUCoord3D@@0W4PathfindLayerEnum@@PAX@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
-
-// tu-skeleton: 0x002EB4DF 406B ?IterateCellsInRectangle@Pathfinder@@QAEHPBUICoord2DBase@@0MHPAVRva002E7E26@@@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
-
-// tu-skeleton: 0x002EB675 63B ?rva002EB675@Pathfinder@@QAEHPBUCoord3D@@0W4PathfindLayerEnum@@PAURva002E7ED6Info@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderRva002EB675.cpp (not merged yet)
-
-// tu-skeleton: 0x002EB6B4 256B ?iterateCellsAlongLine@Pathfinder@@AAEHPBUICoord2D@@0W4PathfindLayerEnum@@PAURva002E93A7Info@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp (not merged yet)
-
-// tu-skeleton: 0x002EB7B4 724B ?ProcessConvexPoly@Pathfinder@@QAEHPAH0HHPAVRva002E9D09@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/AI/Rva002EBA88.cpp
 
 // ?rva002EBA88@Rva002EBA88@@QAEPAV1@HHHHHH@Z @0x002EBA88 67B.
@@ -2063,8 +1917,6 @@ Rva002EBA88 *Rva002EBA88::rva002EBA88(int nodesPerBlock, int arena, int size, in
 	((Rva001FF36A *)this)->rva001FF36A(nodesPerBlock, arena, size, allocFunc, freeFunc, context);
 	return this;
 }
-
-// tu-skeleton: 0x002EBACB 136B ?_M_insert@?$_Rb_tree@HHU?$_Identity@H@_STL@@U?$less@H@2@V?$allocator@H@2@@_STL@@AAE?AU?$_Rb_tree_iterator@HU?$_Nonconst_traits@H@_STL@@@2@PAU_Rb_tree_node_base@2@0ABH0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_horde_rank_set.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/Rva002EBB53SiftUp.cpp
 
@@ -2089,8 +1941,6 @@ bool __cdecl Rva002EBBFBIsOdd(void *p)
 	int v = Rva002E9B31Get(p) % 2;
 	return v == 1;
 }
-
-// tu-skeleton: 0x002EBC14 32B ?Rva002EBC14Cell@@YAPAUICoord2D@@PAU1@PAXPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/AI/Rva002EBC34.cpp
 
@@ -2131,6 +1981,419 @@ __declspec(noinline) inline void *rva002EBC7F(void *a1, void *a2, Rva002EBC7FPai
 // Select-any: pathfinder.cpp compiles an identical copy; the anchor keeps the rowed body emitted.
 // ?bfmeAnchorRva002EBC7F absent-from-retail
 void *bfmeAnchorRva002EBC7F(void *a1, void *a2, Rva002EBC7FPair *a3, int a4) { return rva002EBC7F(a1, a2, a3, a4); }
+
+// ---- from Code/GameEngine/Source/Common/Rva002E8C23.cpp
+
+// 0x002E8C23 (Rva002E8C23Call) now lives in GameLogic/Pathfinder/pathfinder.cpp.
+
+// @0x002EDE5B 80B dump lane range 13. Terrain cell resolve: IsOdd flag,
+// TerrainLogic layer for (a, pos), WorldToCell into a cell temp, rowed 8C4D
+// query, 12B cell written back over pos. Identity unproven.
+// Note: retail keeps the IsOdd byte in a dword slot and pushes the whole
+// slot for the bool center arg; *(bool *)&flag reproduces that raw push
+// (a plain unsigned char arg would emit a normalizing cmp/setne).
+int __cdecl Rva002EDE5B(void *a, Coord3D *pos)
+{
+	unsigned char flag = Rva002EBBFBIsOdd(a);
+	ICoord2D cellPos;
+	Coord3D worldPos;
+	int cell = Rva002E8C4DCall((int)&worldPos, flag, (Rva002E8C23Pair *)Rva002E7875WorldToCell(&cellPos, *(bool *)&flag, pos), TheTerrainLogic->getLayerForDestination((Object *)a, pos));
+	Coord3D *src = (Coord3D *)cell;
+	*pos = *src;
+	return cell;
+}
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva002EE9B7Reset.cpp
+
+void Rva002EE9B7::rva002EE9B7()
+{
+	if (m_flag == 0)
+		return;
+	((Rva002EADB4 *)this)->rva002EADB4((_Rva002EADB4Node *)m_head->_m_unk4);
+	m_head->_m_next = m_head;
+	m_head->_m_unk4 = 0;
+	m_head->_m_child = m_head;
+	m_flag = 0;
+}
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva002EF25BCreateNode.cpp
+
+// ?rva002EF25B@Rva002F0DD6Tree@@QAEPAXABVRva002F0DD6Value@@@Z @ 0x002EF25B 34B.
+// Target evidence: 0x002F0DD6 calls this with the tree as this and consumes the returned node.
+// The pool and two-dword copy targets are pinned from retail; type names remain address-derived.
+// Leaf _M_create_node: alloc node via rowed pool 0x002EB448 at g_Va00DBD4C8,
+// construct pair<const int,int> value at +0x10 via rowed 0x0060C9D9, return node.
+// Evidence: callers 0x002F0DFE 0x002F0E17 in Rva002F0DD6Worker.cpp pass value ref;
+// node layout +0x10 matches _Rb_tree_node value field; pin spells thiscall void*.
+
+void *Rva002F0DD6Tree::rva002EF25B(const Rva002F0DD6Value &value)
+{
+	void *node = g_Va00DBD4C8.rva002EB448();
+	_STL::_Construct((_STL::pair<const int, int> *)((char *)node + 0x10), (const _STL::pair<const int, int> &)value);
+	return node;
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva002EF3D9Forwards.cpp
+
+int Rva002EF3D9Host::rva002EF3D9(char *record, int arg)
+{
+	return reinterpret_cast<Pathfinder *>(this)->_GetOverlapUnits(
+        reinterpret_cast<Object *>(record),reinterpret_cast<const Coord3D *>(record+0x38),reinterpret_cast<int *>(arg));
+}
+
+int Rva002F2865Host::rva002F2865(char *record, int arg)
+{
+	return reinterpret_cast<Pathfinder *>(this)->_GetAdjacentUnits(
+        reinterpret_cast<Object *>(record),reinterpret_cast<const Coord3D *>(record+0x38),reinterpret_cast<int *>(arg));
+}
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva002F0B8A.cpp
+
+// STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
+// Element identity and unconstrained fields remain address-derived structural inference.
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva002F0BB5.cpp
+
+// STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
+// Element identity and unconstrained fields remain address-derived structural inference.
+
+
+
+
+
+
+
+
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva002F0D35.cpp
+
+// STLport 4.5.3 reference instantiation. Target boundary and byte comparison prove operation shape.
+// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Define it for speed, then restore this unit's flags for its own bodies.
+
+// push_heap over the pathfinder priority queue of _Rva002EBB53Wrap pointers:
+// retail 0x002F0D35 calls the rowed __push_heap_aux<_Rva002EBB53Wrap **,
+// Rva002EBB53Compare> 0x002EF216 (Rva002EF216Push.cpp), whose view this repeats.
+
+
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva002F0E5EUniqueSearch.cpp
+
+//
+// ?rva002F0E5E@Rva002F1DDCTree@@QAE?AURva002F1DDCOut@@ABVRva002F1DDCValue@@@Z @0x002F0E5E 134B.
+// This target-inventory body is the STLport insert_unique(value) sibling of
+// Rva0043B2E2::rva0043B429 at 0x0043B429. The caller at 0x002F1DDC reaches it
+// when the hint cannot prove a neighboring slot. It compares the first
+// unsigned dword, returns an 8-byte iterator/flag record, and inserts through
+// the rowed worker at 0x002F0DD6. The owning container and full value layout
+// remain unknown; names are address-derived. The keys compare with a plain
+// unsigned <: an instantiated less<unsigned> would emit this unit's /O1 copy,
+// which is not retail's (0x00758C50) and loses at link time.
+
+Rva002F1DDCOut Rva002F1DDCTree::rva002F0E5E(
+	const Rva002F1DDCValue &value)
+{
+	Rva002F1DDCNode *y = m_header;
+	Rva002F1DDCNode *x = m_header->_parent;
+	bool comp = true;
+	while (x != 0) {
+		y = x;
+		comp = *(const unsigned int *)&value < x->_key;
+		x = comp ? x->_left : x->_right;
+	}
+	Rva002F1DDCIter j;
+	j._M_node = (::_STL::_Rb_tree_node_base *)y;
+	if (comp && y == m_header->_left)
+		return Rva002F1DDCOut(rva002F0DD6(y, y, value, 0), true);
+	if (comp)
+		--j;
+	if (((Rva002F1DDCNode *)j._M_node)->_key < *(const unsigned int *)&value)
+		return Rva002F1DDCOut(rva002F0DD6(x, y, value, 0), true);
+	return Rva002F1DDCOut(j, false);
+}
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva002F0EE4Finish.cpp
+
+// STLport 4.5.3 __pop_heap_aux over the pathfinder priority queue of
+// _Rva002EBB53Wrap pointers, retail 0x002F0EE4, 30 bytes. Called by pop_heap
+// 0x002F1F02 (call at 0x002F1F10); forwards (first, last - 1, last - 1,
+// *(last - 1), comp, 0) to __pop_heap 0x002EF27D (StlSweepW4Rva002EF27D.cpp).
+
+
+
+
+
+
+
+
+
+
+
+
+// ---- from Code/GameEngine/Source/GameLogic/AI/Pathfinder_d_003e6e90.cpp
+
+// ?bfmeWrapE6E90@Pathfinder@@QAEEPAX00000@Z
+Bool Pathfinder::bfmeWrapE6E90(void *a1, void *a2, void *a3, void *a4, void *a5,
+	void *a6)
+{
+	if (!CheckDestination((class Object *)a1, (int)a2, (int)a3, (enum PathfindLayerEnum)(int)a4, (int)a5, *(bool *)&a6, (int *)&a6, false))
+		return 0;
+	int result = 0;
+	void *p = a6;
+	return (Bool)(result + (p == 0));
+}
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva002F3039.cpp
+
+// STLport 4.5.3 reference instantiation. Target boundary and byte comparison prove operation shape.
+// Element spelling/layout is donor inference; opaque records have address-derived identity.
+
+
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva002F307A.cpp
+
+// STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
+// Element identity and unconstrained fields remain address-derived structural inference.
+// STLport 4.5.3 reference instantiation. Target boundary and byte comparison prove operation shape.
+// Element spelling/layout is donor inference; opaque records have address-derived identity.
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva002F3093.cpp
+
+// STLport 4.5.3 reference instantiation. Target boundary and byte comparison prove operation shape.
+// Element spelling/layout is donor inference; opaque records have address-derived identity.
+// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Define it for speed, then restore this unit's flags for its own bodies.
+
+// The declared helper binds to that row (tools/allowed_symbols.py --alternatenames).
+
+
+
+
+// ---- from Code/GameEngine/Source/GameLogic/AI/Rva002F336ATargetCallback.cpp
+
+bool Rva002F336AOwner::rva002F336A(int x,int y) {
+ typedef bool(Pathfinder::*Query)(void *,int,int,Rva002CB35CObj *,void *,void *,void *,unsigned char,Coord3D *);
+ return (pf->*reinterpret_cast<Query>(&Pathfinder::CheckForTarget))(object,x,y,weapon,target,targetPosition,radius,mode,out);
+}
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva002F3759.cpp
+
+// STLport 4.5.3 reference instantiation. Target boundary and byte comparison prove operation shape.
+// Element spelling/layout is donor inference; opaque records have address-derived identity.
+// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Define it for speed, then restore this unit's flags for its own bodies.
+
+// tu-skeleton: 0x002E6C60 18B ?rva002E6C60@Rva002E6B19@@QBEIXZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
+
+// tu-skeleton: 0x002E6C72 7B ?rva002E6C72@Rva002E6C72@@QBEIXZ -- matched in Code/GameEngine/Source/Common/GapLeavesSeat8.cpp (not merged yet)
+
+// tu-skeleton: 0x002E6C8D 7B ?clear@Rva002E6C8DWordChase@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Disp8DwordClearers.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Disp8WordFieldSetters.cpp
+
+// Disp8 word setters: twelve-byte __thiscall members with one shape:
+//
+//     mov ax,[esp+4] / mov [ecx+<DISP>],ax / ret 4
+//
+// One word is taken from the stack argument slot and stored at a fixed
+// displacement from `this`. Same macro as Disp8ByteFieldSetters.cpp; every
+// displacement here fits disp8 (MSVC 7.1 uses disp8 whenever the offset
+// fits, so every offset is below 0x80).
+// Identity is not recovered: every name is derived from its address,
+// following Disp8ByteFieldSetters.cpp.
+// No // cl: line (defaults match the frameless twelve-byte shape).
+
+void Rva002E6C94WordChase::set(unsigned short value) {
+    *(unsigned short *)((char *)pointee + 0x12) = value;
+}
+
+void Rva002E6CA2WordChase::set(unsigned short value) {
+    *(unsigned short *)((char *)pointee + 0x10) = value;
+}
+
+// tu-skeleton: 0x002E6CB0 7B ?getBits@Rva002E6CB0PointeeValue@@QBEIXZ -- matched in Code/GameEngine/Source/Common/Disp8WordChaseGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x002E6CB7 7B ?getBits@Rva002E6CB7PointeeValue@@QBEIXZ -- matched in Code/GameEngine/Source/Common/Disp8WordChaseGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x002E6CBE 26B ??0Rva002E6CBE@@QAE@H@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
+
+// tu-skeleton: 0x002E6CD8 38B ?rva002E6CD8@Rva002E6CD8Owner@@QAEAAV1@HEHEE@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp (not merged yet)
+
+// tu-skeleton: 0x002E6CFE 49B ?rva002E6CFE@Rva002E6CFE@@QAEXHHH@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp (not merged yet)
+
+// tu-skeleton: 0x002E6D2F 19B ?rva002E6D2F@Rva002E6CFE@@QAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp (not merged yet)
+
+// tu-skeleton: 0x002E6D42 18B ?rva002E6D42@@YAHHH@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp (not merged yet)
+
+// tu-skeleton: 0x002E6D54 14B ?rva002E6D54@@YAHHH@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp (not merged yet)
+
+// tu-skeleton: 0x002E6D62 86B ?getCell@Pathfinder@@QAEPAVPathfindCell@@W4PathfindLayerEnum@@HH@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp (not merged yet)
+
+// tu-skeleton: 0x002E7133 12B ?ForceMapRecalculation@Pathfinder@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
+
+// tu-skeleton: 0x002E7205 62B ?SetBridgeStateRepaired@Pathfinder@@QAEXH_N@Z -- matched in Code/GameEngine/Source/Common/Pathfinder_SetBridgeStateRepaired.cpp (not merged yet)
+
+// tu-skeleton: 0x002E7296 158B ?IsValidMovementTerrain@Pathfinder@@QAE_NW4PathfindLayerEnum@@PBVLocomotor@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
+
+// tu-skeleton: 0x002E7334 26B ??0Rva002E7334@@QAE@HABUGapPair@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE15.cpp (not merged yet)
+
+// tu-skeleton: 0x002E734E 58B ?rva002E734E@Rva002E7334@@QAEHPAURva002E734ECell@@0HH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE15.cpp (not merged yet)
+
+// tu-skeleton: 0x002E73FB 25B ?rva002E73FB@Rva002E734E@@QAEHHPBURva002E734ECell@@HH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
+
+// tu-skeleton: 0x002E7414 44B ?rva002E7414@Rva002E7414@@QAEHHH@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
+
+// tu-skeleton: 0x002E7440 66B ?rva002E7440@Rva002E7440@@QAE_NHH@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
+
+// tu-skeleton: 0x002E74AC 9B ?rva002E74AC@Rva002E74ACFlags@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapThunksSeat8.cpp (not merged yet)
+
+// tu-skeleton: 0x002E74B5 17B ?SetDebugPathPosition@Pathfinder@@QAEXPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Pathfinder_SetDebugPathPosition.cpp (not merged yet)
+
+// tu-skeleton: 0x002E74C6 124B ?ChooseBestLocomotorForPosition@Pathfinder@@QAEXW4PathfindLayerEnum@@PAVRva001E48E8@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Pathfinder_ChooseBestLocomotorForPosition.cpp (not merged yet)
+
+// tu-skeleton: 0x002E7569 20B ?IS_IMPASSABLE@@YA_NW4CellType@PathfindCell@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellObjectQuery.cpp (not merged yet)
+
+// tu-skeleton: 0x002E757D 38B ?IsPointOnRamp@Pathfinder@@QAE_NPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Pathfinder_IsPointOnRamp.cpp (not merged yet)
+
+// tu-skeleton: 0x002E75A3 304B ?clip@Pathfinder@@QAEXPAUCoord3D@@0@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
+
+// tu-skeleton: 0x002E76D3 118B ?rva002E76D3@@YA_NPAVPathfindCell@@I_N@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderClearCellForDiameter.cpp (not merged yet)
+
+// tu-skeleton: 0x002E7749 300B ?rva002E7749@Pathfinder@@QAEHPAXHHHH_N@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderClearCellForDiameter.cpp (not merged yet)
+
+// tu-skeleton: 0x002E7875 162B ?Rva002E7875WorldToCell@@YAPAUICoord2D@@PAU1@_NPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
+
+// tu-skeleton: 0x002E7917 77B ?Rva002E7917@Pathfinder@@QAE?AUPathfinderCellIndex@@_NPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
+
+// tu-skeleton: 0x002E7964 68B ?rva002E7964@Rva002E7964@@QAEXPAUICoord2D@@EPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
+
+// tu-skeleton: 0x002E79A8 186B ?rva002E79A8@@YA?AUPathfinderCellPoint@@_NHHW4PathfindLayerEnum@@@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
+
+// tu-skeleton: 0x002E7B29 143B ?cellCallback@Rva002E7B29Info@@QAEHPAVPathfindCell@@0HH@Z -- matched in Code/GameEngine/Source/Common/Rva002E7ED6InfoCellCallback.cpp (not merged yet)
+
+// tu-skeleton: 0x002E7BF0 169B ?rva002E7BF0@Rva002EC3CEProbes@@QAE_NHH_NHHHPAX0@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/Rva002E7BF0Probe.cpp (not merged yet)
+
+// tu-skeleton: 0x002E7CCB 93B ??6@YAAAVDebug@@AAV0@ABVPath@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathDebugOutput.cpp (not merged yet)
+
+// tu-skeleton: 0x002E7D28 23B ?parsePathfinderDefinition@@YAXPAVBfmeSub939E@@@Z -- matched in Code/GameEngine/Source/Common/BfmeConv939.cpp (not merged yet)
+
+// tu-skeleton: 0x002E7D6D 136B ?cellCallback@Rva002E7D6DInfo@@QAEHPAVPathfindCell@@0HH@Z -- matched in Code/GameEngine/Source/Common/Rva002E7ED6InfoCellCallback.cpp (not merged yet)
+
+// tu-skeleton: 0x002E7E26 176B ?rva002E7E26@Rva002E7E26@@QAEHPAVObject@@HH@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
+
+// tu-skeleton: 0x002E7ED6 72B ?cellCallback@Rva002E7ED6Info@@QAEHPAVPathfindCell@@0HH@Z -- matched in Code/GameEngine/Source/Common/Rva002E7ED6InfoCellCallback.cpp (not merged yet)
+
+// tu-skeleton: 0x002E7F1E 17B ??0Rva002E7F1E@@QAE@XZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE06.cpp (not merged yet)
+
+// tu-skeleton: 0x002E7F2F 15B ?clear@Rva002E7F1E@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE06.cpp (not merged yet)
+
+// tu-skeleton: 0x002E7F3E 20B ?isNotEmpty@Rva002E7F1E@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE06.cpp (not merged yet)
+
+// tu-skeleton: 0x002E7FAB 28B ??_GRva0053476A@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyDeletingDtors11.cpp (not merged yet)
+
+// tu-skeleton: 0x002E7FC7 19B ?Rva002E7FC7@@YAHH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
+
+// tu-skeleton: 0x002E7FDA 19B ??4IRegion2D@@QAEAAU0@ABU0@@Z -- matched in Code/Libraries/Source/WWVegas/WWMath/region.cpp (not merged yet)
+
+// tu-skeleton: 0x002E8045 256B ?iterateCellsAlongLine@Pathfinder@@AAEHPBUICoord2D@@0W4PathfindLayerEnum@@PAURva002E7261Info@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp (not merged yet)
+
+// tu-skeleton: 0x002E8145 268B ?rva002E8145@Pathfinder@@AAEHPBUICoord2D@@0W4PathfindLayerEnum@@PAURva002E8145Info@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp (not merged yet)
+
+// tu-skeleton: 0x002E8251 247B ?rva002E8251@Pathfinder@@AAEHPBUICoord2D@@0W4PathfindLayerEnum@@PAURva002E7ED6Info@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp (not merged yet)
+
+// tu-skeleton: 0x002E8348 256B ?iterateCellsAlongLine@Pathfinder@@AAEHPBUICoord2D@@0W4PathfindLayerEnum@@PAURva002E6F92Info@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp (not merged yet)
+
+// tu-skeleton: 0x002E8448 256B ?iterateCellsAlongLine@Pathfinder@@AAEHPBUICoord2D@@0W4PathfindLayerEnum@@PAURva002E7B29Info@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp (not merged yet)
+
+// tu-skeleton: 0x002E85AD 454B ?iterateCellsAlongLine@Pathfinder@@AAEHPBUICoord2D@@0W4PathfindLayerEnum@@PAURva002E85ADInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp (not merged yet)
+
+// tu-skeleton: 0x002E8773 724B ?ProcessConvexPoly@Pathfinder@@QAEHPAH0HHPAVRva002E7E26@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp (not merged yet)
+
+// tu-skeleton: 0x002E8A47 256B ?iterateCellsAlongLine@Pathfinder@@AAEHPBUICoord2D@@0W4PathfindLayerEnum@@PAURva002E7ED6Info@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp (not merged yet)
+
+// tu-skeleton: 0x002E8B66 10B ?get@Rva002E8B66ByteChase32Field@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x002E8B70 10B ?get@Rva002E8B70PtrChase32Field@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x002E8B7A 33B ?Rva002E8B7AInit@@YAPAVMixFileInfoBuffer@@PAPAV1@HPAUIn002E6BA1@@@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
+
+// tu-skeleton: 0x002E8BCF 41B ??0Rva002E8BCF@@QAE@PBURva002E8BCFSrc@@_NH1@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
+
+// tu-skeleton: 0x002E8BF8 43B ?rva002E8BF8@Pathfinder@@QAEPAVPathfindCell@@W4PathfindLayerEnum@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
+
+// tu-skeleton: 0x002E8C23 42B ?Rva002E8C23Call@@YA?AUPathfinderCellPoint@@_NPAVPathfindCell@@@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
+
+// tu-skeleton: 0x002E8C4D 33B ?Rva002E8C4DCall@@YAHHEPAURva002E8C23Pair@@H@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
+
+// tu-skeleton: 0x002E8C6E 262B ?AdjustMeleeOffset@Pathfinder@@QAEXPAVObject@@0PAUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
+
+// tu-skeleton: 0x002E8D74 54B ?rva002E8D74@Rva002E8D74@@QAEMHH@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
+
+// tu-skeleton: 0x002E8DAA 571B ?NewMap@Pathfinder@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderNewMap.cpp (not merged yet)
+
+// tu-skeleton: 0x002E909F 203B ?IsValidMovementPositionForObject@Pathfinder@@QAE_NPBUCoord3D@@HHPBVObject@@@Z -- matched in Code/GameEngine/Source/Common/Pathfinder_IsValidMovementPositionForObject.cpp (not merged yet)
+
+// tu-skeleton: 0x002E916A 437B ?rva002E916A@Rva002E7388Owner@@QAE_NHH@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/Rva002E916AFootprintCheck.cpp (not merged yet)
+
+// tu-skeleton: 0x002E931F 136B ?init@Rva002ED01EInfo@@QAEPAU1@PAX00@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderLineContexts.cpp (not merged yet)
+
+// tu-skeleton: 0x002E93A7 104B ?cellCallback@Rva002E93A7Info@@QAEHPAVPathfindCell@@0HH@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp (not merged yet)
+
+// tu-skeleton: 0x002E940F 51B ?IsPointOnWall@Pathfinder@@QAE_NH_N@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellQueryPredicates.cpp (not merged yet)
+
+// tu-skeleton: 0x002E9442 1071B ?rva002E9442@Pathfinder@@QAE_NABVVector3@@0PAV2@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderRva002E9442.cpp (not merged yet)
+
+// tu-skeleton: 0x002E9871 38B ?GetGroundLayer@Pathfinder@@QAEHPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellQueryPredicates.cpp (not merged yet)
+
+// tu-skeleton: 0x002E9897 47B ?IsWaterCell@Pathfinder@@QAE_NHH@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellQueryPredicates.cpp (not merged yet)
+
+// tu-skeleton: 0x002E98C6 36B ?IsCliffCell@Pathfinder@@QAE_NHH@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellQueryPredicates.cpp (not merged yet)
+
+// tu-skeleton: 0x002E98EA 47B ?isBlockedGateObstacleCell@Pathfinder@@QAEHHH@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellQueryPredicates.cpp (not merged yet)
+
+// tu-skeleton: 0x002E9919 47B ?IsNonPinchedCliffCell@Pathfinder@@QAEHHH@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellQueryPredicates.cpp (not merged yet)
+
+// tu-skeleton: 0x002E9948 38B ?IsImpassableCell@Pathfinder@@QAE_NHH@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellQueryPredicates.cpp (not merged yet)
+
+// tu-skeleton: 0x002E996E 79B ?IsBuildRestrictedCell@Pathfinder@@QAE_NPBUCoord3D@@_N1H@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellQueryPredicates.cpp (not merged yet)
+
+// tu-skeleton: 0x002E99BD 60B ?GetCellType@Pathfinder@@QAEXHPAX00H@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellQueryPredicates.cpp (not merged yet)
+
+// tu-skeleton: 0x002E99F9 211B ?FindBrokenBridge@Pathfinder@@QAEHPAURva002E99F9Arg1@@RBUCoord3D@@PBU3@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderRva002E99F9.cpp (not merged yet)
+
+// tu-skeleton: 0x002E9ACC 101B ??0Rva002E9ACC@@QAE@PAXPAVObject@@PBURva002E8BCFSrc@@EE@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellQueryPredicates.cpp (not merged yet)
+
+// tu-skeleton: 0x002E9D09 414B ?rva002E9D09@Rva002E9D09@@QAEHPAVObject@@HH@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellObjectQuery.cpp (not merged yet)
+
+// tu-skeleton: 0x002E9EA7 531B ?rva002E9EA7@Pathfinder@@QAE_NPAVObject@@HHW4PathfindLayerEnum@@HEPAH@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderRva002E9EA7.cpp (not merged yet)
+
+// tu-skeleton: 0x002EA0BA 656B ?rva002EA0BA@Pathfinder@@QAE_NPAVObject@@PAVPathfindCell@@AAUTCheckMovementInfo@@PAW4ObjectID@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCheckForMovement.cpp (not merged yet)
+
+// tu-skeleton: 0x002EA34A 782B ?checkForMovement@Pathfinder@@QAE_NPAVObject@@AAUTCheckMovementInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
+
+// tu-skeleton: 0x002EA658 1001B ?rva002EA658@Pathfinder@@QAE_NPAVObject@@AAUTCheckMovementInfo@@PBUICoord2D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderCheckMovementOverlap.cpp (not merged yet)
+
+// tu-skeleton: 0x002EAE20 63B ?rva002EAE20@Pathfinder@@QAEHPBUCoord3D@@0W4PathfindLayerEnum@@PAURva002E6F92Info@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderRva002F95B7.cpp (not merged yet)
+
+// tu-skeleton: 0x002EAE5F 700B ?rva002EAE5F@Pathfinder@@QAE_NPBUICoord2D@@HPAU2@PAX@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
+
+// tu-skeleton: 0x002EB11B 700B ?rva002EB11B@Pathfinder@@QAE_NPBUICoord2D@@HPAU2@PAX@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
+
+// tu-skeleton: 0x002EB3D7 63B ?rva002EB3D7@Pathfinder@@QAEHPBUCoord3D@@0W4PathfindLayerEnum@@PAURva002E7B29Info@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderRva002EB3D7.cpp (not merged yet)
+
+// tu-skeleton: 0x002EB4A0 63B ?rva002EB4A0@Pathfinder@@QAEHPBUCoord3D@@0W4PathfindLayerEnum@@PAX@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
+
+// tu-skeleton: 0x002EB4DF 406B ?IterateCellsInRectangle@Pathfinder@@QAEHPBUICoord2DBase@@0MHPAVRva002E7E26@@@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
+
+// tu-skeleton: 0x002EB675 63B ?rva002EB675@Pathfinder@@QAEHPBUCoord3D@@0W4PathfindLayerEnum@@PAURva002E7ED6Info@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderRva002EB675.cpp (not merged yet)
+
+// tu-skeleton: 0x002EB6B4 256B ?iterateCellsAlongLine@Pathfinder@@AAEHPBUICoord2D@@0W4PathfindLayerEnum@@PAURva002E93A7Info@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp (not merged yet)
+
+// tu-skeleton: 0x002EB7B4 724B ?ProcessConvexPoly@Pathfinder@@QAEHPAH0HHPAVRva002E9D09@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp (not merged yet)
+
+// tu-skeleton: 0x002EBACB 136B ?_M_insert@?$_Rb_tree@HHU?$_Identity@H@_STL@@U?$less@H@2@V?$allocator@H@2@@_STL@@AAE?AU?$_Rb_tree_iterator@HU?$_Nonconst_traits@H@_STL@@@2@PAU_Rb_tree_node_base@2@0ABH0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_horde_rank_set.cpp (not merged yet)
+
+// tu-skeleton: 0x002EBC14 32B ?Rva002EBC14Cell@@YAPAUICoord2D@@PAU1@PAXPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
 
 // tu-skeleton: 0x002EBCA7 47B ?Rva002EBCA7Split@@YAXPAXPAHPAE@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
 
@@ -2184,27 +2447,6 @@ void *bfmeAnchorRva002EBC7F(void *a1, void *a2, Rva002EBC7FPair *a3, int a4) { r
 
 // tu-skeleton: 0x002EDDA9 178B ?AdjustToNearestValidCell@Pathfinder@@QAE_NPAUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/Rva002E8C23.cpp
-
-// 0x002E8C23 (Rva002E8C23Call) now lives in GameLogic/Pathfinder/pathfinder.cpp.
-
-// @0x002EDE5B 80B dump lane range 13. Terrain cell resolve: IsOdd flag,
-// TerrainLogic layer for (a, pos), WorldToCell into a cell temp, rowed 8C4D
-// query, 12B cell written back over pos. Identity unproven.
-// Note: retail keeps the IsOdd byte in a dword slot and pushes the whole
-// slot for the bool center arg; *(bool *)&flag reproduces that raw push
-// (a plain unsigned char arg would emit a normalizing cmp/setne).
-int __cdecl Rva002EDE5B(void *a, Coord3D *pos)
-{
-	unsigned char flag = Rva002EBBFBIsOdd(a);
-	ICoord2D cellPos;
-	Coord3D worldPos;
-	int cell = Rva002E8C4DCall((int)&worldPos, flag, (Rva002E8C23Pair *)Rva002E7875WorldToCell(&cellPos, *(bool *)&flag, pos), TheTerrainLogic->getLayerForDestination((Object *)a, pos));
-	Coord3D *src = (Coord3D *)cell;
-	*pos = *src;
-	return cell;
-}
-
 // tu-skeleton: 0x002EDEAB 153B ?SetDebugPath@Pathfinder@@QAEXPAURva002EDEABArg@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/Pathfinder_SetDebugPath.cpp (not merged yet)
 
 // tu-skeleton: 0x002EDF44 56B ?Rva002EDF44@Pathfinder@@QAEPAVPathfindCell@@PAUObjWithPos@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderRva002EDF44.cpp (not merged yet)
@@ -2228,19 +2470,6 @@ int __cdecl Rva002EDE5B(void *a, Coord3D *pos)
 // tu-skeleton: 0x002EE96B 53B ?rva002EE96B@Pathfinder@@QAEHPAUCoord3D@@PBU2@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderRva002EE96B.cpp (not merged yet)
 
 // tu-skeleton: 0x002EE9A0 23B ?pop_front@?$deque@PAXV?$allocator@PAX@_STL@@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_ptr_o1.cpp (not merged yet)
-
-// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva002EE9B7Reset.cpp
-
-void Rva002EE9B7::rva002EE9B7()
-{
-	if (m_flag == 0)
-		return;
-	((Rva002EADB4 *)this)->rva002EADB4((_Rva002EADB4Node *)m_head->_m_unk4);
-	m_head->_m_next = m_head;
-	m_head->_m_unk4 = 0;
-	m_head->_m_child = m_head;
-	m_flag = 0;
-}
 
 // tu-skeleton: 0x002EE9E0 41B ?clear@?$_Rb_tree@HU?$pair@$$CBHURva002F0B8AElement@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva002F0B8AElement@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva002F0B8AElement@@@_STL@@@2@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva002EE9E0Reset.cpp (not merged yet)
 
@@ -2270,40 +2499,9 @@ void Rva002EE9B7::rva002EE9B7()
 
 // tu-skeleton: 0x002EF239 34B ?_M_create_node@?$_Rb_tree@HU?$pair@$$CBHURva002F1DA1Mapped@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva002F1DA1Mapped@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva002F1DA1Mapped@@@_STL@@@2@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBHURva002F1DA1Mapped@@@_STL@@@2@ABU?$pair@$$CBHURva002F1DA1Mapped@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva002EF239CreateNode.cpp (not merged yet)
 
-// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva002EF25BCreateNode.cpp
-
-// ?rva002EF25B@Rva002F0DD6Tree@@QAEPAXABVRva002F0DD6Value@@@Z @ 0x002EF25B 34B.
-// Target evidence: 0x002F0DD6 calls this with the tree as this and consumes the returned node.
-// The pool and two-dword copy targets are pinned from retail; type names remain address-derived.
-// Leaf _M_create_node: alloc node via rowed pool 0x002EB448 at g_Va00DBD4C8,
-// construct pair<const int,int> value at +0x10 via rowed 0x0060C9D9, return node.
-// Evidence: callers 0x002F0DFE 0x002F0E17 in Rva002F0DD6Worker.cpp pass value ref;
-// node layout +0x10 matches _Rb_tree_node value field; pin spells thiscall void*.
-
-void *Rva002F0DD6Tree::rva002EF25B(const Rva002F0DD6Value &value)
-{
-	void *node = g_Va00DBD4C8.rva002EB448();
-	_STL::_Construct((_STL::pair<const int, int> *)((char *)node + 0x10), (const _STL::pair<const int, int> &)value);
-	return node;
-}
-
 // tu-skeleton: 0x002EF27D 41B ??$__pop_heap@PAPAU_Rva002EBB53Wrap@@PAU1@URva002EBB53Compare@@H@_STL@@YAXPAPAU_Rva002EBB53Wrap@@00PAU1@URva002EBB53Compare@@PAH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva002EF27D.cpp (not merged yet)
 
 // tu-skeleton: 0x002EF2A6 307B ?AdjustLayer@Pathfinder@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderAdjustLayer.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/Rva002EF3D9Forwards.cpp
-
-int Rva002EF3D9Host::rva002EF3D9(char *record, int arg)
-{
-	return reinterpret_cast<Pathfinder *>(this)->_GetOverlapUnits(
-        reinterpret_cast<Object *>(record),reinterpret_cast<const Coord3D *>(record+0x38),reinterpret_cast<int *>(arg));
-}
-
-int Rva002F2865Host::rva002F2865(char *record, int arg)
-{
-	return reinterpret_cast<Pathfinder *>(this)->_GetAdjacentUnits(
-        reinterpret_cast<Object *>(record),reinterpret_cast<const Coord3D *>(record+0x38),reinterpret_cast<int *>(arg));
-}
 
 // tu-skeleton: 0x002EF3EE 629B ?rva002EF3EE@Pathfinder@@QAE_NPAVObject@@PAUCoord3D@@0_N@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
 
@@ -2331,16 +2529,6 @@ int Rva002F2865Host::rva002F2865(char *record, int arg)
 
 // tu-skeleton: 0x002F0B52 56B ??1Rva002EE9B7@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
 
-// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva002F0B8A.cpp
-
-// STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
-// Element identity and unconstrained fields remain address-derived structural inference.
-
-// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva002F0BB5.cpp
-
-// STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
-// Element identity and unconstrained fields remain address-derived structural inference.
-
 // tu-skeleton: 0x002F0BE0 20B ??0?$deque@UBfmeWordValue4@@V?$allocator@UBfmeWordValue4@@@_STL@@@_STL@@QAE@ABV?$allocator@UBfmeWordValue4@@@1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportNestedWordDeque.cpp (not merged yet)
 
 // tu-skeleton: 0x002F0BF4 42B ??0?$_Rb_tree@VAsciiString@@V1@U?$_Identity@VAsciiString@@@_STL@@U?$less@VAsciiString@@@3@V?$allocator@VAsciiString@@@3@@_STL@@QAE@ABU?$less@VAsciiString@@@1@ABV?$allocator@VAsciiString@@@1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_set_base.cpp (not merged yet)
@@ -2357,61 +2545,9 @@ int Rva002F2865Host::rva002F2865(char *record, int arg)
 
 // tu-skeleton: 0x002F0CF6 63B ?iterateCellsAlongLine@Pathfinder@@QAEHPBUCoord3D@@0W4PathfindLayerEnum@@PAURva002ED15AInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCoordLineWalk.cpp (not merged yet)
 
-// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva002F0D35.cpp
-
-// STLport 4.5.3 reference instantiation. Target boundary and byte comparison prove operation shape.
-// The emitted unsigned max copy must match retail RVA 0x00013740.
-// Define it for speed, then restore this unit's flags for its own bodies.
-
-// push_heap over the pathfinder priority queue of _Rva002EBB53Wrap pointers:
-// retail 0x002F0D35 calls the rowed __push_heap_aux<_Rva002EBB53Wrap **,
-// Rva002EBB53Compare> 0x002EF216 (Rva002EF216Push.cpp), whose view this repeats.
-
 // tu-skeleton: 0x002F0D4E 136B ?_M_insert@?$_Rb_tree@HU?$pair@$$CBHURva002F1DA1Mapped@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva002F1DA1Mapped@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva002F1DA1Mapped@@@_STL@@@2@@_STL@@AAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHURva002F1DA1Mapped@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHURva002F1DA1Mapped@@@_STL@@@2@@2@PAU_Rb_tree_node_base@2@0ABU?$pair@$$CBHURva002F1DA1Mapped@@@2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportIntMapInsertFamily.cpp (not merged yet)
 
 // tu-skeleton: 0x002F0DD6 136B ?rva002F0DD6@Rva002F1DDCTree@@QAE?AURva002F1DDCIter@@PAURva002F1DDCNode@@0ABVRva002F1DDCValue@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva002F0DD6Worker.cpp (not merged yet)
-
-// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva002F0E5EUniqueSearch.cpp
-
-//
-// ?rva002F0E5E@Rva002F1DDCTree@@QAE?AURva002F1DDCOut@@ABVRva002F1DDCValue@@@Z @0x002F0E5E 134B.
-// This target-inventory body is the STLport insert_unique(value) sibling of
-// Rva0043B2E2::rva0043B429 at 0x0043B429. The caller at 0x002F1DDC reaches it
-// when the hint cannot prove a neighboring slot. It compares the first
-// unsigned dword, returns an 8-byte iterator/flag record, and inserts through
-// the rowed worker at 0x002F0DD6. The owning container and full value layout
-// remain unknown; names are address-derived. The keys compare with a plain
-// unsigned <: an instantiated less<unsigned> would emit this unit's /O1 copy,
-// which is not retail's (0x00758C50) and loses at link time.
-
-Rva002F1DDCOut Rva002F1DDCTree::rva002F0E5E(
-	const Rva002F1DDCValue &value)
-{
-	Rva002F1DDCNode *y = m_header;
-	Rva002F1DDCNode *x = m_header->_parent;
-	bool comp = true;
-	while (x != 0) {
-		y = x;
-		comp = *(const unsigned int *)&value < x->_key;
-		x = comp ? x->_left : x->_right;
-	}
-	Rva002F1DDCIter j;
-	j._M_node = (::_STL::_Rb_tree_node_base *)y;
-	if (comp && y == m_header->_left)
-		return Rva002F1DDCOut(rva002F0DD6(y, y, value, 0), true);
-	if (comp)
-		--j;
-	if (((Rva002F1DDCNode *)j._M_node)->_key < *(const unsigned int *)&value)
-		return Rva002F1DDCOut(rva002F0DD6(x, y, value, 0), true);
-	return Rva002F1DDCOut(j, false);
-}
-
-// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva002F0EE4Finish.cpp
-
-// STLport 4.5.3 __pop_heap_aux over the pathfinder priority queue of
-// _Rva002EBB53Wrap pointers, retail 0x002F0EE4, 30 bytes. Called by pop_heap
-// 0x002F1F02 (call at 0x002F1F10); forwards (first, last - 1, last - 1,
-// *(last - 1), comp, 0) to __pop_heap 0x002EF27D (StlSweepW4Rva002EF27D.cpp).
 
 // tu-skeleton: 0x002F0F02 5B ?rva002F0F02@Rva002F0F02@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
 
@@ -2434,19 +2570,6 @@ Rva002F1DDCOut Rva002F1DDCTree::rva002F0E5E(
 // tu-skeleton: 0x002F1BA2 51B ?IsHordeMeleeLinePassable@Pathfinder@@QAE_NPAX0W4PathfindLayerEnum@@PBUCoord3D@@2@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCoordLineWalk.cpp (not merged yet)
 
 // tu-skeleton: 0x002F1BD5 80B ?cellCallback@Rva002F1BD5Info@@QAEHPAVPathfindCell@@0HH@Z -- matched in Code/GameEngine/Source/Common/System/Rva002F1BD5Finish.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/GameLogic/AI/Pathfinder_d_003e6e90.cpp
-
-// ?bfmeWrapE6E90@Pathfinder@@QAEEPAX00000@Z
-Bool Pathfinder::bfmeWrapE6E90(void *a1, void *a2, void *a3, void *a4, void *a5,
-	void *a6)
-{
-	if (!CheckDestination((class Object *)a1, (int)a2, (int)a3, (enum PathfindLayerEnum)(int)a4, (int)a5, *(bool *)&a6, (int *)&a6, false))
-		return 0;
-	int result = 0;
-	void *p = a6;
-	return (Bool)(result + (p == 0));
-}
 
 // tu-skeleton: 0x002F1C55 5B ??1Rva002F1C55@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportMapForwardersSeat8.cpp (not merged yet)
 
@@ -2488,43 +2611,15 @@ Bool Pathfinder::bfmeWrapE6E90(void *a1, void *a2, void *a3, void *a4, void *a5,
 
 // tu-skeleton: 0x002F301F 26B ?pop@?$priority_queue@PAU_Rva002EBB53Wrap@@V?$vector@PAU_Rva002EBB53Wrap@@V?$allocator@PAU_Rva002EBB53Wrap@@@_STL@@@_STL@@URva002EBB53Compare@@@_STL@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva002F301FRva002F301F.cpp (not merged yet)
 
-// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva002F3039.cpp
-
-// STLport 4.5.3 reference instantiation. Target boundary and byte comparison prove operation shape.
-// Element spelling/layout is donor inference; opaque records have address-derived identity.
-
 // tu-skeleton: 0x002F3052 20B ?insert@?$multimap@HURva002F1DA1Mapped@@U?$less@H@_STL@@V?$allocator@U?$pair@$$CBHURva002F1DA1Mapped@@@_STL@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHURva002F1DA1Mapped@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHURva002F1DA1Mapped@@@_STL@@@2@@2@ABU?$pair@$$CBHURva002F1DA1Mapped@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportIntMapInsertFamily.cpp (not merged yet)
 
 // tu-skeleton: 0x002F3066 20B ?equal_range@?$map@HHU?$less@H@_STL@@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBHH@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHH@_STL@@@2@@_STL@@U12@@2@ABH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_int_create_node.cpp (not merged yet)
-
-// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva002F307A.cpp
-
-// STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
-// Element identity and unconstrained fields remain address-derived structural inference.
-// STLport 4.5.3 reference instantiation. Target boundary and byte comparison prove operation shape.
-// Element spelling/layout is donor inference; opaque records have address-derived identity.
-
-// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva002F3093.cpp
-
-// STLport 4.5.3 reference instantiation. Target boundary and byte comparison prove operation shape.
-// Element spelling/layout is donor inference; opaque records have address-derived identity.
-// The emitted unsigned max copy must match retail RVA 0x00013740.
-// Define it for speed, then restore this unit's flags for its own bodies.
-
-// The declared helper binds to that row (tools/allowed_symbols.py --alternatenames).
 
 // tu-skeleton: 0x002F30B0 63B ?iterateCellsAlongLine@Pathfinder@@QAEHPBUCoord3D@@0W4PathfindLayerEnum@@PAURva002F18D4Info@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCoordLineWalk.cpp (not merged yet)
 
 // tu-skeleton: 0x002F30EF 63B ?iterateCellsAlongLine@Pathfinder@@QAEHPBUCoord3D@@0W4PathfindLayerEnum@@PAURva002F1BD5Info@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCoordLineWalk.cpp (not merged yet)
 
 // tu-skeleton: 0x002F314A 544B ?isAttackViewBlockedByObstacle@Pathfinder@@QAE_NPBVObject@@ABUCoord3D@@01@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderAttackView.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/GameLogic/AI/Rva002F336ATargetCallback.cpp
-
-bool Rva002F336AOwner::rva002F336A(int x,int y) {
- typedef bool(Pathfinder::*Query)(void *,int,int,Rva002CB35CObj *,void *,void *,void *,unsigned char,Coord3D *);
- return (pf->*reinterpret_cast<Query>(&Pathfinder::CheckForTarget))(object,x,y,weapon,target,targetPosition,radius,mode,out);
-}
 
 // tu-skeleton: 0x002F35AF 310B ?MakeHierarchicalPathPassable@Pathfinder@@QAEPAVRva005348AD@@PAXPAVRva002E6C79@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
 
@@ -2533,13 +2628,6 @@ bool Rva002F336AOwner::rva002F336A(int x,int y) {
 // tu-skeleton: 0x002F370D 43B ?rva002F370D@Pathfinder@@QAEHXZ -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderRva002F36E5.cpp (not merged yet)
 
 // tu-skeleton: 0x002F3738 33B ?rva002F3738@Rva002F3738@@QAEXPAPAX@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderRva002F3738Heap.cpp (not merged yet)
-
-// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva002F3759.cpp
-
-// STLport 4.5.3 reference instantiation. Target boundary and byte comparison prove operation shape.
-// Element spelling/layout is donor inference; opaque records have address-derived identity.
-// The emitted unsigned max copy must match retail RVA 0x00013740.
-// Define it for speed, then restore this unit's flags for its own bodies.
 
 // tu-skeleton: 0x002F379E 467B ?rva002F379E@Pathfinder@@QAE_NPAUICoord2D@@HPAX@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
 
@@ -2748,3 +2836,7 @@ bool Rva002F336AOwner::rva002F336A(int x,int y) {
 // tu-skeleton: 0x00778FE5 8B uw_00778fe5 -- matched in Code/gen_small/uw_gen_006.cpp (not merged yet)
 
 // tu-skeleton: 0x00778FED 10B __ehhandler$?FindPath@Pathfinder@@QAEPAVPath@@PAVObject@@ABVLocomotorSet@@PBUCoord3D@@2PA_N@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
+
+// tu-skeleton: 0x00797450 8B uw_00797450 -- matched in Code/GameEngine/Source/Common/FamilyDeletingDtors11.cpp (not merged yet)
+
+// tu-skeleton: 0x00797458 10B __ehhandler$??1Rva0053476A@@QAE@XZ -- matched in Code/GameEngine/Source/Common/FamilyDeletingDtors11.cpp (not merged yet)

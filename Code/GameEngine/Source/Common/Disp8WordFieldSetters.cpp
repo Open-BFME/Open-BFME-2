@@ -39,15 +39,9 @@ public:
 private:
     void *pointee;
 };
-void Rva002E6C94WordChase::set(unsigned short value) {
-    *(unsigned short *)((char *)pointee + 0x12) = value;
-}
 class Rva002E6CA2WordChase {
 public:
     void set(unsigned short value);
 private:
     void *pointee;
 };
-void Rva002E6CA2WordChase::set(unsigned short value) {
-    *(unsigned short *)((char *)pointee + 0x10) = value;
-}
