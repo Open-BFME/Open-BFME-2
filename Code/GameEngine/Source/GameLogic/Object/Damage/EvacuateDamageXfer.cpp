@@ -1,4 +1,6 @@
 // cl: /MD
+// stlport
+#include <list>
 //
 // ?xfer@EvacuateDamage@@MAEXPAVXfer@@@Z, retail 0x004BAC83, 44 bytes.
 // Virtual slot 3 (offset 0x0C) of vtable 0x00859E2C (VA 0x00C59E2C, class of
@@ -41,6 +43,28 @@ public:
 	unsigned char m_minimum;
 };
 
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
+#include "../../../../Include/Common/ObjectModule.h"
+
+class PB_Iface1 { public: virtual void slot(); };
+
+class EvacuateDamageInterface { public: virtual void slot() = 0; };
+
+// The target's three-vptr base is only address-identified at 0x004B96CC.
+class Rva004B96CC : public ObjectModule,
+                     public PB_Iface1,
+                     public EvacuateDamageInterface
+{
+public:
+	virtual ~Rva004B96CC();
+};
+
+typedef Rva004B96CC DamageModule;
+
 class Rva004CE56D
 {
 public:
@@ -48,15 +72,25 @@ public:
 	void xfer(Xfer *xfer);
 };
 
-class EvacuateDamage : public Rva004CE56D
+class EvacuateDamage : public DamageModule
 {
+public:
+	virtual NameKeyType getModuleNameKey() const;
+
 protected:
 	virtual void xfer(Xfer *xfer);
+	virtual ~EvacuateDamage();
+
+private:
+	// Retail calls the ICF-canonical List_base<int> destructor at 0x004EC395.
+	// EvacuationRecord is two POD dwords; the list object and teardown are
+	// storage-identical here, and the typed pin for this dtor points elsewhere.
+	std::list<int> m_pendingEvacuations;
 };
 
 void EvacuateDamage::xfer(Xfer *xfer)
 {
 	Xfer::Version version(1, 2);
 	*xfer == version;
-	Rva004CE56D::xfer(xfer);
+	reinterpret_cast<Rva004CE56D *>(this)->Rva004CE56D::xfer(xfer);
 }

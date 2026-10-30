@@ -68,7 +68,8 @@ typedef Rva004B96CC DamageModule;
 
 struct EvacuationRecord
 {
-	unsigned int m_data[2];
+	float m_amount;
+	int m_frame;
 };
 
 class EvacuateDamage : public DamageModule
@@ -77,6 +78,7 @@ public:
 	virtual NameKeyType getModuleNameKey() const;
 
 protected:
+	virtual void xfer(Xfer *xfer);
 	virtual ~EvacuateDamage();
 
 private:
