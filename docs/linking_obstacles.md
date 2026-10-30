@@ -11367,6 +11367,22 @@ Clearance: byte/EH verification and seven destructor bindings only; full rendere
 
 ### LINK-131: BezierProjectile composition awaits a census destination object
 
+2026-10-30 follow-up (`6bfd053837`, index `12b9e7a7c0`): the current census now
+contains the destination and all nine remaining whole-file donors as linked;
+the cost accessor is already in the destination. The old missing-destination
+prerequisite above no longer blocks this scope. The cached-key donor at
+0x0045BFD9 needs its existing virtual/const declaration in the destination.
+That declaration preserves all 23 destination external COMDATs and the
+external definition/dependency/reference sets; paired builds pass 12/12 rows
+and two EXACT EH graphs. The supported merge preview now accepts the cached-key
+donor (12 rows total). Eight other whole-file donors still fail on private
+views or missing declarations, and all five mixed sources remain untouched.
+Ordinary preview preserves LINKS for both units (673 authored bytes). The
+outgoing consumer audit remains INCONCLUSIVE: the index predates the base and
+`Common/0CreateAHeroManager21FE49.cpp` lacks a current receipt. Carry that
+consumer into the next normal census; no census or runtime gain is claimed.
+[Current evidence](../reverse/attempt_support/bezier-cached-key-consolidation-20261030-codexb.md).
+
 Status: Blocked; verified declaration prerequisite published. Updated: 2026-10-28; inspected revision: `f37de6bb3b`; latest fetched index: `54b83e4f69`.
 
 Evidence / affected units: BezierProjectileBehavior.cpp and its existing cost accessor in Common/Bfme5FortyThree.cpp. The current supported merge plan has 47 approved rows and ten whole-file donors. [Scoped evidence and remaining private views](../reverse/attempt_support/bezier-projectile-consolidation-20261028-codexb4.md).

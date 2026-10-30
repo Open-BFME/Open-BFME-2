@@ -189,9 +189,17 @@ private:
 	BfmeNodeDI *m_bfmeList;					// +0x7C
 };
 
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
 class BezierProjectileBehavior
 {
 public:
+	// Preserve the cached-key member's virtual/const ABI. This partial view
+	// never constructs the class or calls a virtual slot.
+	virtual NameKeyType getModuleNameKey() const;
 	void rva0045C026();
 	int bfmeCost(void) const;
 private:
@@ -200,7 +208,6 @@ private:
 		return m_bfmeFinish - m_bfmeStart;
 	}
 
-	void *m_vtable;
 	const BezierProjectileBehaviorModuleData *m_moduleData;	// +0x04
 	Object *m_object;		// +0x08
 	char m_pad0C[0x28 - 0x0C];
