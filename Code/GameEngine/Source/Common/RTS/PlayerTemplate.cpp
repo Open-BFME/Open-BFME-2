@@ -187,12 +187,13 @@ struct Rva001FD404
 	int m_8;
 	int m_c;
 };
-// ?rva001FD42B@Rva001FD42B@@QAEXPAURva001FD42BNode@@@Z @0x001FD42B 45B.
-// Tree erase: recurse right via +0xC, free the node via rowed _free 0x00030830,
-// walk left via +0x8, ret 4. Same 45B shape as Rva002CF32FErase precedent.
-// Caller at 0x001FD63E unblocks 0x001FD630.
 #include <stdlib.h>
 #include "PlayerTemplateTreeView.h"
+#define BFME_SB_CLEAR_DECL
+#include "string_base.h"
+#define _CRTIMP
+#undef _CRTIMP
+
 // ?rva001FD8DF@Rva001FD42B@@QAEPAU1@ABU1@@Z @0x001FD8DF 115B.
 // Tree assign for the Rva001FD42B node family: self-check, clear via rowed
 // rva001FD630, reset count, copy non-empty trees via rowed rva001FD751,
@@ -207,6 +208,7 @@ struct Rva001FD751Node
 	Rva001FD751Node *m_right;
 	unsigned char m_value[8];
 };
+
 struct Rva001FD751
 {
 	Rva001FD751Node *rva001FD751(Rva001FD751Node *x, Rva001FD751Node *p);
@@ -340,6 +342,25 @@ template void hashtable<pair<const int,Rva001FDC0FRecord>,int,hash<int>,_Select1
 
 // Retail's _M_new_node is the row at 0x00056E53; suppress this TU's own copy (which would call the element copy constructor, defined nowhere) and bind the template name to that row.
 namespace _STL { template <> _Hashtable_node<pair<const int,Rva001FDC0FRecord> > * hashtable<pair<const int,Rva001FDC0FRecord>,int,hash<int>,_Select1st<pair<const int,Rva001FDC0FRecord> >,equal_to<int>,allocator<pair<const int,Rva001FDC0FRecord> > >::_M_new_node(const pair<const int,Rva001FDC0FRecord> &); }
+
+struct Rva001FD9EFNode
+{
+	char m_pad[4];
+	StringBase<char> m_key;
+};
+
+class Rva001FD9EF
+{
+public:
+	void rva001FD9EF(void *node);
+};
+
+// ---- from Code/GameEngine/Source/Common/RTS/PlayerTemplate.cpp
+
+// ?rva001FD42B@Rva001FD42B@@QAEXPAURva001FD42BNode@@@Z @0x001FD42B 45B.
+// Tree erase: recurse right via +0xC, free the node via rowed _free 0x00030830,
+// walk left via +0x8, ret 4. Same 45B shape as Rva002CF32FErase precedent.
+// Caller at 0x001FD63E unblocks 0x001FD630.
 
 // ---- from Code/GameEngine/Source/Common/RTS/PlayerTemplate.cpp
 
@@ -618,6 +639,36 @@ Rva001FD458 *Rva001FD458::rva001FD952(const Rva001FD458 &other)
 
 #pragma optimize("", on)
 
+// ---- from Code/GameEngine/Source/Common/Rva001FD42BAssign.cpp
+
+Rva001FD42B *Rva001FD42B::rva001FD8DF(const Rva001FD42B &other)
+{
+	if (this != &other) {
+		rva001FD630();
+		m_count = 0;
+		Rva001FD42BNode *otherRoot = other.m_handle.m_header->m_parent;
+		if (otherRoot == 0) {
+			m_handle.m_header->m_parent = 0;
+			m_handle.m_header->m_left = m_handle.m_header;
+			m_handle.m_header->m_right = m_handle.m_header;
+		} else {
+			Rva001FD751 *self = (Rva001FD751 *)this;
+			Rva001FD42BNode *hdr = m_handle.m_header;
+			hdr->m_parent = (Rva001FD42BNode *)self->rva001FD751((Rva001FD751Node *)otherRoot, (Rva001FD751Node *)hdr);
+			Rva001FD42BNode *x = m_handle.m_header->m_parent;
+			while (x->m_left != 0)
+				x = x->m_left;
+			m_handle.m_header->m_left = x;
+			x = m_handle.m_header->m_parent;
+			while (x->m_right != 0)
+				x = x->m_right;
+			m_handle.m_header->m_right = x;
+			m_count = other.m_count;
+		}
+	}
+	return this;
+}
+
 // tu-skeleton: 0x001FD1E8 19B ?getHeadWaterMarkImage@Rva001FD1E8@@QAEPBVImage@@XZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE51.cpp (not merged yet)
 
 // tu-skeleton: 0x001FD1FB 19B ?getFlagWaterMarkImage@PlayerTemplate@@QBEPBVImage@@XZ -- matched in Code/GameEngine/Source/Common/PlayerTemplateImageGetters.cpp (not merged yet)
@@ -674,39 +725,28 @@ Rva001FD458 *Rva001FD458::rva001FD952(const Rva001FD458 &other)
 
 // tu-skeleton: 0x001FD8C1 30B ?_M_clear@?$vector@UBfmeObject476@@V?$allocator@UBfmeObject476@@@_STL@@@_STL@@IAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportObject476Vector.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/Rva001FD42BAssign.cpp
-
-Rva001FD42B *Rva001FD42B::rva001FD8DF(const Rva001FD42B &other)
-{
-	if (this != &other) {
-		rva001FD630();
-		m_count = 0;
-		Rva001FD42BNode *otherRoot = other.m_handle.m_header->m_parent;
-		if (otherRoot == 0) {
-			m_handle.m_header->m_parent = 0;
-			m_handle.m_header->m_left = m_handle.m_header;
-			m_handle.m_header->m_right = m_handle.m_header;
-		} else {
-			Rva001FD751 *self = (Rva001FD751 *)this;
-			Rva001FD42BNode *hdr = m_handle.m_header;
-			hdr->m_parent = (Rva001FD42BNode *)self->rva001FD751((Rva001FD751Node *)otherRoot, (Rva001FD751Node *)hdr);
-			Rva001FD42BNode *x = m_handle.m_header->m_parent;
-			while (x->m_left != 0)
-				x = x->m_left;
-			m_handle.m_header->m_left = x;
-			x = m_handle.m_header->m_parent;
-			while (x->m_right != 0)
-				x = x->m_right;
-			m_handle.m_header->m_right = x;
-			m_count = other.m_count;
-		}
-	}
-	return this;
-}
-
 // tu-skeleton: 0x001FD9C5 42B ??$find@U?$_List_iterator@VAsciiString@@U?$_Nonconst_traits@VAsciiString@@@_STL@@@_STL@@VAsciiString@@@_STL@@YA?AU?$_List_iterator@VAsciiString@@U?$_Nonconst_traits@VAsciiString@@@_STL@@@0@U10@0ABVAsciiString@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_find_list_asciistring_rva001fd9c5.cpp (not merged yet)
 
-// tu-skeleton: 0x001FD9EF 28B ?rva001FD9EF@Rva001FD9EF@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/Rva001FD9EFFree.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva001FD9EFFree.cpp
+
+// ?rva001FD9EF@Rva001FD9EF@@QAEXPAX@Z @0x001FD9EF 28B
+// Hash-node free: clears the AsciiString key at +0x04 via rowed StringBase clear
+// at 0x0048BA39 then frees the node via rowed _free at 0x00030830 with a null guard.
+// Callers pass their table this in ecx and the node on the stack (0x0022346D/0x002234A6
+// 0x002ADD24 0x003A2A62); the body ignores this. thiscall with one stack arg gives ret 4.
+// The canonical frozen StringBase replaces the private copy; BFME_SB_CLEAR_DECL
+// declares clear() so the call binds to the rowed 0x0048BA39 worker.
+
+// Retail calls free directly (the game allocator), not through the CRT
+// import: read <stdlib.h> without dllimport.
+
+void Rva001FD9EF::rva001FD9EF(void *node)
+{
+	Rva001FD9EFNode *p = static_cast<Rva001FD9EFNode *>(node);
+	p->m_key.clear();
+	if (p)
+		free(p);
+}
 
 // tu-skeleton: 0x001FDA0B 165B ??0?$_Rb_tree@HU?$pair@$$CBHPAX@_STL@@U?$_Select1st@U?$pair@$$CBHPAX@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@QAE@ABV01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_ptr_tree_copy.cpp (not merged yet)
 

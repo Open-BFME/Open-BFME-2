@@ -14119,7 +14119,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x001FD8DF,115,code,Code/GameEngine/Source/Common/RTS/PlayerTemplate.cpp,approved,C,C=0x001FD5B2..0x001FD952,Code/GameEngine/Source/Common/RTS/PlayerTemplate.cpp
 0x001FD952,115,code,Code/GameEngine/Source/Common/RTS/PlayerTemplate.cpp,approved,C,C=0x001FD5B2..0x001FD9C5,Code/GameEngine/Source/Common/RTS/PlayerTemplate.cpp
 0x001FD9C5,42,code,Code/GameEngine/Source/Common/RTS/PlayerTemplate.cpp,approved,C,C=0x001FD5B2..0x001FD9EF,Code/Libraries/Source/WWVegas/WWLib/stlport_find_list_asciistring_rva001fd9c5.cpp
-0x001FD9EF,28,code,Code/GameEngine/Source/Common/RTS/PlayerTemplate.cpp,approved,C,C=0x001FD5B2..0x001FDA0B,Code/GameEngine/Source/Common/Rva001FD9EFFree.cpp
+0x001FD9EF,28,code,Code/GameEngine/Source/Common/RTS/PlayerTemplate.cpp,approved,C,C=0x001FD5B2..0x001FDA0B,Code/GameEngine/Source/Common/RTS/PlayerTemplate.cpp
 0x001FDA0B,165,code,Code/GameEngine/Source/Common/RTS/PlayerTemplate.cpp,approved,C,C=0x001FD5B2..0x001FDAB0,Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_ptr_tree_copy.cpp
 0x001FDAB0,165,code,Code/GameEngine/Source/Common/RTS/PlayerTemplate.cpp,approved,C,C=0x001FD5B2..0x001FDB55,Code/GameEngine/Source/Common/RTS/PlayerTemplate.cpp
 0x001FDB55,76,code,Code/GameEngine/Source/Common/RTS/PlayerTemplate.cpp,approved,Z,Z=Code/GameEngine/Source/Common/RTS/PlayerTemplate.cpp S=Code/GameEngine/Source/Common/RTS/PlayerTemplate.cpp N=Code/GameEngine/Source/Common/PlayerTemplateStore.cpp,Code/GameEngine/Source/Common/Rva001FDB55Ctor.cpp

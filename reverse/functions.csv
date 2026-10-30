@@ -21905,7 +21905,7 @@ _FilterBlockBil_8_wmt,,0x001D7C80,204,Code/Libraries/Source/VP6/FilterBlockBil8W
 ?getFlagWaterMarkImage@PlayerTemplate@@QBEPBVImage@@XZ,,0x001FD1FB,19,Code/GameEngine/Source/Common/PlayerTemplateImageGetters.cpp,matched,PlayerTemplate image getter at plus0x170 via TheMappedImageCollection
 ?getEnabledImage@PlayerTemplate@@QBEPBVImage@@XZ,,0x001FD221,19,Code/GameEngine/Source/Common/PlayerTemplateImageGetters.cpp,matched,PlayerTemplate image getter at plus0x174 via TheMappedImageCollection
 ?rva001FD23F@PlayerTemplate@@QBEPBVImage@@XZ,,0x001FD23F,19,Code/GameEngine/Source/Common/PlayerTemplateImageGetters.cpp,matched,PlayerTemplate image getter at plus0x1D8 via TheMappedImageCollection
-?rva001FD9EF@Rva001FD9EF@@QAEXPAX@Z,,0x001FD9EF,28,Code/GameEngine/Source/Common/Rva001FD9EFFree.cpp,matched,Hash node free clears key at plus4 then frees via rowed callees
+?rva001FD9EF@Rva001FD9EF@@QAEXPAX@Z,,0x001FD9EF,28,Code/GameEngine/Source/Common/RTS/PlayerTemplate.cpp,matched,Hash node free clears key at plus4 then frees via rowed callees
 ?Rva001FD048Init@@YAXPAX@Z,,0x001FD048,38,Code/GameEngine/Source/GameLogic/Object/Rva001FB912Init.cpp,matched,FX init chain category 1 parse 0x001F84BD calls 0x001FD022
 ?Rva001FD06EInit@@YAXPAX@Z,,0x001FD06E,37,Code/GameEngine/Source/GameLogic/Object/Rva001FB912Init.cpp,matched,FX init chain category 0 parse 0x001F83C9 calls 0x001FD048
 ?rva001FD404@Rva001FD404@@QAEPAU1@ABU1@@Z,,0x001FD404,39,Code/GameEngine/Source/Common/RTS/PlayerTemplate.cpp,matched,0x10 byte assign AsciiString plus three dwords returns this
