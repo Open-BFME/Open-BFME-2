@@ -19,6 +19,9 @@ public:
 };
 
 inline Rva006888D0Owned **copyOwned(Rva006888D0Owned **destination,
+    Rva006888D0Owned **first, Rva006888D0Owned **last);
+
+inline Rva006888D0Owned **copyOwned(Rva006888D0Owned **destination,
     Rva006888D0Owned **first, Rva006888D0Owned **last)
 {
     if (first == last)
@@ -39,14 +42,15 @@ struct Rva006888D0Vector
 class Rva00688980
 {
 public:
-    ~Rva00688980();
-    void rva006888D0();
+	~Rva00688980();
+	void rva006888D0();
+	void rva006889F0(const char *path);
 private:
-    unsigned char m_pad[8];
-    AsciiString m_nameA;
-    AsciiString m_nameB;
-    int m_count;
-    Rva006888D0Vector m_vector;
+	char prefix[8]; // +0x00
+	AsciiString m_nameA; // +0x08
+	AsciiString m_nameB; // +0x0C
+	int m_count; // +0x10
+	Rva006888D0Vector m_vector; // +0x14
 };
 
 void Rva00688980::rva006888D0()

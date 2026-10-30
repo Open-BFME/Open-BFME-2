@@ -22,27 +22,71 @@ static __forceinline AsciiString &AssignCString(AsciiString &s, const char *text
 }
 class Xfer;
 enum INILoadType {INI_LOAD_INVALID,INI_LOAD_OVERWRITE};
-class INI {
+struct FieldParse;
+class INI
+{
 public:
-    INI();
-    ~INI();
-    void load(AsciiString,INILoadType,Xfer*,void(*)(INI*));
-    static void parseVideoDefinition(INI*);
+	INI();
+	~INI();
+	const char *getNextToken( const char *separators = 0 );
+	void initFromINI( void *instance, const FieldParse *parseTable );
+	int getLineNum( void ) const;
+	AsciiString getFilename( void ) const;
+	void load(AsciiString, INILoadType, Xfer *, void (*)(INI *));
+	static void parseVideoDefinition(INI *);
+
 private:
-    char storage[0x87C];
+	char m_prefix[4];
+	AsciiString m_filename;
+	char storage[0x874];
 };
-class Rva00688980 {
+namespace _STL { void __cdecl free(void *); }
+
+class Rva006888D0Owned
+{
 public:
-    void rva006888D0();
-    void rva006889F0(const char *path);
-private:
-    char prefix[8];
-    AsciiString name;
+    virtual ~Rva006888D0Owned();
 };
+
+inline Rva006888D0Owned **copyOwned(Rva006888D0Owned **destination,
+    Rva006888D0Owned **first, Rva006888D0Owned **last);
+
+inline Rva006888D0Owned **copyOwned(Rva006888D0Owned **destination,
+    Rva006888D0Owned **first, Rva006888D0Owned **last)
+{
+    if (first == last)
+        return destination;
+    int bytes = (char *)last - (char *)first;
+    return (Rva006888D0Owned **)((char *)memmove(destination, first, bytes) + bytes);
+}
+
+struct Rva006888D0Vector
+{
+    ~Rva006888D0Vector() { if (begin != 0) _STL::free(begin); }
+    Rva006888D0Owned **begin;
+    Rva006888D0Owned **end;
+    Rva006888D0Owned **capacity;
+    void clear() { end = copyOwned(begin, end, end); }
+};
+
+class Rva00688980
+{
+public:
+	~Rva00688980();
+	void rva006888D0();
+	void rva006889F0(const char *path);
+private:
+	char prefix[8]; // +0x00
+	AsciiString m_nameA; // +0x08
+	AsciiString m_nameB; // +0x0C
+	int m_count; // +0x10
+	Rva006888D0Vector m_vector; // +0x14
+};
+
 void Rva00688980::rva006889F0(const char *path)
 {
     rva006888D0();
-    AssignCString(name, path);
+    AssignCString(m_nameA, path);
     INI ini;
     ini.load(path,INI_LOAD_OVERWRITE,0,INI::parseVideoDefinition);
 }

@@ -45,18 +45,25 @@ private:
 
 struct FieldParse;
 
+class Xfer;
+enum INILoadType {INI_LOAD_INVALID,INI_LOAD_OVERWRITE};
+
 class INI
 {
 public:
+	INI();
+	~INI();
 	const char *getNextToken( const char *separators = 0 );
 	void initFromINI( void *instance, const FieldParse *parseTable );
 	int getLineNum( void ) const;
-
 	AsciiString getFilename( void ) const;
+	void load(AsciiString, INILoadType, Xfer *, void (*)(INI *));
+	static void parseVideoDefinition(INI *);
 
 private:
-	char m_prefix[ 4 ];
+	char m_prefix[4];
 	AsciiString m_filename;
+	char storage[0x874];
 };
 
 class VideoPlayerInterface
