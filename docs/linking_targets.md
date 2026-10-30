@@ -855,7 +855,7 @@ through `tools/progress.py`'s provenance and retail-byte functions.
 | `Code/GameEngine/Source/Common/PAVectorEraseRangeFamily003AF.cpp` | 112 | 4 (U=2, C=1, S=1) | Open |
 | `Code/GameEngine/Source/Common/Rva00196D90MemberConstructor_Rva0032bde7.cpp` | 112 | 6 (C=3, S=3) | Open |
 | `Code/GameEngine/Source/Common/R5VectorDtorEHFramedPolymorphic_Rva005de870.cpp` | 111 | 7 (U=2, C=2, S=3) | Open |
-| `Code/GameEngine/Source/Common/Rva005BA1FDCtor.cpp` | 108 | 7 (U=7) | Open |
+| `Code/GameEngine/Source/Common/Rva005BA1FDCtor.cpp` | 108 | 7 (U=7) | 2026-10-30: 2/2 rows exact, current preview U7; native lifetime pairs and existing secondary-thunk owners confirmed. Complete inherited hierarchy across three emitters remains prerequisite; [handoff](../reverse/attempt_support/online-screen-constructor-hierarchy-20261030-codex3.md). No source change or census gain. |
 | `Code/GameEngineDevice/Source/W3DDevice/GameClient/HeightMap.cpp` | 107 | 30 (U=28, C=1, S=1) | 2026-10-29, base `722e87427f`: two redundant optimization pragmas removed; 6/6 rows, 230 COMDATs and external bindings unchanged. Strict preparation passes; preview remains blocked by 35 unresolved port-context references at index `85f6b7f40c`. Terrain/header/provider contracts and consumer/census confirmation remain open. [Evidence](../reverse/attempt_support/heightmap-optimize-20261029-codex.md). |
 | `Code/GameEngine/Source/Common/RTS/Rva000D3FA0Destructor.cpp` | 103 | 4 (C=2, S=2) | Scoped tree binding repair previews LINKS (2026-10-30); consumer/census confirmation and identity-register retirement pending |
 | `Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankTruckDraw.cpp` | 103 | 16 (U=12, C=3, S=1) | Open |
