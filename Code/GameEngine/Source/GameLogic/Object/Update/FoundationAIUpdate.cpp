@@ -4,7 +4,11 @@
 enum NameKeyType { NK_UNKNOWN=0 };
 enum UpdateSleepTime { UPDATE_SLEEP_NONE=1 };
 class Module;
-class NameKeyGenerator { public: NameKeyType nameToKey(const char *); };
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const char *);
+};
 extern NameKeyGenerator *TheNameKeyGenerator;
 class Matrix3D { public: float Get_Z_Rotation() const; };
 class ModuleData;
@@ -35,6 +39,7 @@ public:
 	void setSelectable(bool selectable);
 	void fadeOut(unsigned int frames);
 	void fadeIn(unsigned int frames);
+	void rva00274176(bool value);
 };
 class ThingTemplate
 {
@@ -145,14 +150,40 @@ public:
 	virtual void slot67(Drawable *draw) = 0;
 };
 extern InGameUI *TheInGameUI;
+class Rva0039B795;
+struct Rva0039BAD2Input;
+
+class Rva0039BAD2
+{
+public:
+	void rva0039BAD2(Rva0039BAD2Input *what, int cost);
+};
+
+class Rva0039B795 : public Rva0039BAD2
+{
+};
+
+class Rva003B0D7C
+{
+public:
+	unsigned int withdraw(unsigned int amount, Rva0039B795 *stats, bool flag);
+};
+
 class Player
 {
 public:
 	Relationship getRelationship(const Team *) const;
- Team *getDefaultTeam() const { return m_defaultTeam; }
+	Rva003B0D7C *getMoney() { return &m_money; }
+	Team *getDefaultTeam() const { return m_defaultTeam; }
+	Rva0039B795 *getStats() { return &m_stats; }
+	void onStructureCreated(Object *builder, Object *structure);
 private:
-	unsigned char m_pad000[0x2EC];
+	unsigned char m_pad000[0x90];
+	Rva003B0D7C m_money; // +0x90
+	unsigned char m_pad091[0x2EC - 0x91];
 	Team *m_defaultTeam; // +0x2EC
+	unsigned char m_pad2F0[0x3BC - 0x2F0];
+	Rva0039B795 m_stats; // +0x3BC
 };
 #define _GAME_TYPE_H_
 #include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
@@ -204,6 +235,7 @@ public:
 class BehaviorModule
 {
 public:
+	Object *getObject() const { return m_object; }
 	virtual ~BehaviorModule();
 	virtual void gap1();
 	virtual void gap2();
@@ -214,15 +246,15 @@ public:
 	virtual void gap7();
 	virtual void gap8();
 	virtual void rva00455B67(Player *oldOwner, Player *newOwner) = 0;
- virtual void gap10();
- virtual void gap11();
- virtual void gap12();
- virtual void gap13();
- virtual void gap14();
- virtual void gap15();
+	virtual void gap10();
+	virtual void gap11();
+	virtual void gap12();
+	virtual void gap13();
+	virtual void gap14();
+	virtual void gap15();
 protected:
-	const ModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
+	const ModuleData *m_moduleData; // +0x04 +0x04
+	Object *m_object; // +0x08 +0x08
 };
 class BehaviorModuleInterface : public Rva00455B42Slots<46>
 {
@@ -233,9 +265,9 @@ struct UpdateModuleInterface { virtual UpdateSleepTime update()=0; };
 class UpdateModule : public BehaviorModule, public BehaviorModuleInterface, public UpdateModuleInterface
 {
 protected:
-	unsigned int m_14;
-	int m_18;
-	int m_1C;
+	unsigned int m_nextCallFrameAndPhase;
+	int m_indexInLogic;
+	int m_reserved1C;
 };
 class Rva00C1A690Iface
 {
@@ -254,6 +286,7 @@ public:
 class FoundationAIUpdate : public UpdateModule, public Rva00C1A690Iface
 {
 public:
+	void rva0004550DE();
 	virtual void rva00455B67(Player *oldOwner, Player *newOwner);
  bool isRemovableForConstruction(Object *obj);
  virtual void rva0045537F();
@@ -452,7 +485,13 @@ float GetGameLogicRandomValueReal(float, float, char *, int);
 // Native550B update; BFME1 donor 0d78ce459f supplied availability/setter
 // semantics. Offsets and separate UI paths come from BFME2 and WB1170FB0.
 // See reverse/identity_evidence/00455477-foundation-update.md.
-class CastleBehavior { public: static NameKeyType rva0003955DA(); char m_pad[0x38]; ObjectID m_38; };
+class CastleBehavior
+{
+public:
+	static NameKeyType rva0003955DA();
+	char m_pad00[0x38];
+	ObjectID m_38; // +0x38
+};
 
 struct BfmeItemE63 { bool checkValid(); };
 
