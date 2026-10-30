@@ -35,8 +35,23 @@ struct EconomyFarmView { unsigned char unknown0[0x10]; unsigned int kind; unsign
 #include "GameLogicObjectLookupView.h"
 #include "ascii_string.h"
 struct Rva002A8AB1Record;
-class Rva002A8F24 { public: Rva002A8AB1Record *rva002A8AB1(void *); };
 #include <algorithm>
+#include <new>
+namespace _STL {
+// Bind the range erase to the rowed void-pointer worker.
+template <> void **vector<void *, allocator<void *> >::erase(void **first, void **last);
+}
+class EconomyFarmDestroyView { public: virtual void *destroy(int); };
+class Player;
+class CreateAHeroData;
+class Rva002A8F24 {
+public:
+	Rva002A8AB1Record *rva002A8AB1(void *);
+public:
+	void *rva002A8F24(Player *);
+};
+class Rva004DFB55 { public: void rva004DFB55(CreateAHeroData *); };
+
 // vector<void*> begin/end otherwise instantiate per-TU COMDATs (one byte
 // shape per TU flags); explicit dllimport+forceinline specializations take
 // those calls inline so this TU emits no external copies.
@@ -48,12 +63,14 @@ template <> __declspec(dllimport) __forceinline
 void **vector<void*>::end()
 { return _M_finish; }
 }
+
 enum ObjectStatusTypes
 {
 	STATUS_0 = 0,
 	STATUS_1 = 1,
 	STATUS_2 = 2
 };
+
 class Object
 {
 public:
@@ -65,16 +82,19 @@ public:
 	char m_pad78[0x208];
 	float m_280;
 };
+
 class Rva004E9378
 {
 public:
 	bool rva004E9378();
 };
+
 class Rva00506FE9Hit
 {
 public:
 	void unRegisterWithBuilder(void *x);
 };
+
 class CreateAHeroData
 {
 public:
@@ -160,6 +180,8 @@ private:
 	_STL::vector<int> m_items24;			// +0x24
 };
 
+// ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AIEconomyBuilder/AIEconomyBuilder.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AIEconomyBuilder/AIEconomyBuilderNeedMoreFarms.cpp
 
 // WB1381C20 names needMoreFarms and asserts myAI/army definition at135/141.
@@ -208,8 +230,6 @@ void *__cdecl Rva004EA124Find(void *key)
 	}
 	return 0;
 }
-
-// tu-skeleton: 0x004EA149 45B ?rva004EA149@Rva004EA149@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/AIEconomyBuilder_getFarmTemplateName.cpp
 
@@ -271,20 +291,6 @@ void Rva004EA1A5::rva004EA1A5(void *x)
 	}
 }
 
-// tu-skeleton: 0x004EA264 41B ?rva004EA264@Rva004EA149@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x004EA28D 56B ??1Rva004EA149@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x004EA2C5 55B ?Rva004EA2C5Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/Rva004EA2C5.cpp (not merged yet)
-
-// tu-skeleton: 0x004EA2FC 5B ?rva004EA2FC@Rva004EA2FC@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x004EA301 57B ?insert_equal@?$_Rb_tree@MU?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@U?$_Select1st@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@U?$less@M@2@V?$allocator@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@@2@ABU?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_float_00372ff4.cpp (not merged yet)
-
-// tu-skeleton: 0x004EA33A 106B ?rva004EA33A@Rva004EA3B8@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/SkirmishAI/AIEconomyBuilder/AIEconomyBuilderShutdown.cpp (not merged yet)
-
-// tu-skeleton: 0x004EA3A4 20B ?insert@?$multimap@MUTreeOpaqueMapped00372FF4@@U?$less@M@_STL@@V?$allocator@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@@2@ABU?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@2@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneRva00072109.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva004EA3B8Dtor.cpp
 
 //
@@ -313,14 +319,6 @@ Rva004EA3B8::~Rva004EA3B8()
 {
 	rva004EA33A();
 }
-
-// tu-skeleton: 0x004EA418 8B ??_ERva004EA3B8@@WM@AEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB11.cpp (not merged yet)
-
-// tu-skeleton: 0x004EA420 197B ?rva004EA420@Rva004EA3B8@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva004EA420Init.cpp (not merged yet)
-
-// tu-skeleton: 0x004EA4E5 790B ?findAvailableFarm@AIEconomyBuilder@@QAEPAVRva004EA4E5Farm@@XZ -- matched in Code/GameEngine/Source/GameLogic/SkirmishAI/AIEconomyBuilder/AIEconomyBuilderFindAvailableFarm.cpp (not merged yet)
-
-// tu-skeleton: 0x004EA7FB 324B ?update@AIEconomyBuilder@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/AI/AIEconomyBuilderUpdate.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AIEconomyBuilder/AIEconomyBuilder.cpp
 
@@ -366,6 +364,54 @@ void AIEconomyBuilder::DoXfer(Xfer *xfer) {
   }
  }
 }
+
+// tu-skeleton: 0x004EA149 45B ?rva004EA149@Rva004EA149@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x004EA264 41B ?rva004EA264@Rva004EA149@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x004EA28D 56B ??1Rva004EA149@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x004EA2C5 55B ?Rva004EA2C5Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/Rva004EA2C5.cpp (not merged yet)
+
+// tu-skeleton: 0x004EA2FC 5B ?rva004EA2FC@Rva004EA2FC@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x004EA301 57B ?insert_equal@?$_Rb_tree@MU?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@U?$_Select1st@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@U?$less@M@2@V?$allocator@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@@2@ABU?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_float_00372ff4.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AIEconomyBuilder/AIEconomyBuilderShutdown.cpp
+
+// WB13816D0 names AIEconomyBuilder::shutdown. Native4EA33A..4EA3A4
+// RET0 proves deletion of the farm library and unregistering this owner.
+// Keep the existing neutral owner and pin used by the matched destructor.
+// Its two-base hierarchy makes this override receive the +0C subobject;
+// compiler adjustment supplies the primary owner for the final callback.
+void Rva004EA3B8::rva004EA33A()
+{
+ if (AIEconomyBuilder::m_farmList.first != AIEconomyBuilder::m_farmList.finish) {
+  Rva00596F18 **it = AIEconomyBuilder::m_farmList.first;
+  Rva00596F18 **end = AIEconomyBuilder::m_farmList.finish;
+  for (; it != end; ++it) {
+   EconomyFarmDestroyView *farm = reinterpret_cast<EconomyFarmDestroyView *>(*it);
+   void *allocation = farm ? farm->destroy(0) : 0;
+   ::operator delete(allocation);
+  }
+  reinterpret_cast<_STL::vector<void *> &>(AIEconomyBuilder::m_farmList).erase(
+   reinterpret_cast<void **>(AIEconomyBuilder::m_farmList.first),
+   reinterpret_cast<void **>(AIEconomyBuilder::m_farmList.finish));
+ }
+ m_18 = 0;
+ void *stats = TheSkirmishAIManager->rva002A8F24(static_cast<Player *>(m_owner14));
+ reinterpret_cast<Rva004DFB55 *>(stats)->rva004DFB55(reinterpret_cast<CreateAHeroData *>(this));
+}
+
+// tu-skeleton: 0x004EA3A4 20B ?insert@?$multimap@MUTreeOpaqueMapped00372FF4@@U?$less@M@_STL@@V?$allocator@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@@2@ABU?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@2@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneRva00072109.cpp (not merged yet)
+
+// tu-skeleton: 0x004EA418 8B ??_ERva004EA3B8@@WM@AEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB11.cpp (not merged yet)
+
+// tu-skeleton: 0x004EA420 197B ?rva004EA420@Rva004EA3B8@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva004EA420Init.cpp (not merged yet)
+
+// tu-skeleton: 0x004EA4E5 790B ?findAvailableFarm@AIEconomyBuilder@@QAEPAVRva004EA4E5Farm@@XZ -- matched in Code/GameEngine/Source/GameLogic/SkirmishAI/AIEconomyBuilder/AIEconomyBuilderFindAvailableFarm.cpp (not merged yet)
+
+// tu-skeleton: 0x004EA7FB 324B ?update@AIEconomyBuilder@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/AI/AIEconomyBuilderUpdate.cpp (not merged yet)
 
 // tu-skeleton: 0x004EAA4B 168B ?DoXferFarmLibrary@AIEconomyBuilder@@SAXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/SkirmishAI/AIEconomyBuilder/AIEconomyBuilderDoXferFarmLibrary.cpp (not merged yet)
 
