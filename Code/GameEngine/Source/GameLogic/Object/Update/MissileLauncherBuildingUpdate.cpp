@@ -85,20 +85,12 @@ extern PartitionManager *ThePartitionManager;
 #include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
 #include "../../../GameClient/BuffManager.h"
 
+// stlport
+#include <vector>
+
 namespace _STL {
-template <class T> class allocator;
-template <class T, class A> class vector
-{
-public:
-	T *begin() { return _M_start; }
-	T *end() { return _M_finish; }
-	void clear() { erase(begin(), end()); }
-	T *erase(T *first, T *last);	// 0x00532803
-	void push_back(const T &x);	// 0x002E01C6
-	T *_M_start;
-	T *_M_finish;
-	T *_M_end_of_storage;
-};
+template <> ObjectID *vector<ObjectID, allocator<ObjectID> >::erase(ObjectID *first, ObjectID *last);	// 0x00532803
+template <> void vector<ObjectID, allocator<ObjectID> >::push_back(const ObjectID &value);	// 0x002E01C6
 }
 
 class ThingTemplate
@@ -140,23 +132,100 @@ public:
 	virtual const SpecialPowerTemplate *getSpecialPowerTemplate() const;
 };
 
-class StoreObjectsSpecialPowerModuleData
+class SpecialAbilityUpdateModuleData
 {
 public:
-	char m_pad00[0xC8];
+	SpecialAbilityUpdateModuleData();
+	virtual ~SpecialAbilityUpdateModuleData();
+
+protected:
+	unsigned char m_pad[0xC8 - 4];
+};
+
+class StoreObjectsSpecialPowerModuleData : public SpecialAbilityUpdateModuleData
+{
+public:
+	StoreObjectsSpecialPowerModuleData();
+	virtual ~StoreObjectsSpecialPowerModuleData();
 	float m_C8;	// +0xC8 the radius
 };
 
-class Rva0044E633 {public:void*rva0044E633();};
+class Rva0044E633 {public:void*rva0044E633();};	// 0x0044E633
 
-class SpecialAbilityUpdate
+class Thing;
+class ModuleData;
+
+class Object;
+
+// Four-vptr module hierarchy (+0 +0x0C +0x10 +0x20), as in the matched
+// GiveOrRestoreUpgradeSpecialPowerDtor.cpp; the dtor's vptr restores are
+// compiler-generated, which puts them ahead of the EH state store.
+class BehaviorModuleBase
 {
 public:
-	virtual void triggerAbilityEffect();	// slot 17 (0x0045108D)
-		// 0x0044E633
-protected:
-	const void *m_moduleData;	// +0x04
+	virtual void behaviorModuleBaseAnchor();
+	const ModuleData *m_moduleData;	// +0x04
 	Object *m_object;		// +0x08
+};
+
+class BehaviorModuleOther
+{
+public:
+	virtual void behaviorModuleOtherAnchor();
+};
+
+class BehaviorModule : public BehaviorModuleBase, public BehaviorModuleOther
+{
+public:
+	BehaviorModule(Thing *thing, const ModuleData *moduleData);
+};
+
+enum UpdateSleepTime { UPDATE_SLEEP_NONE = 0 };
+
+class UpdateModuleInterface
+{
+public:
+	virtual UpdateSleepTime update();
+};
+
+// Opaque UpdateModule-derived intermediate.
+class Rva0044EF5E : public BehaviorModule, public UpdateModuleInterface
+{
+public:
+	Rva0044EF5E(Thing *thing, const ModuleData *moduleData);
+	virtual ~Rva0044EF5E();
+
+protected:
+	unsigned m_nextCallFrameAndPhase;
+	int m_indexInLogic;
+	int m_bfmeReserved;
+};
+
+class SpecialPowerTemplate;
+class Waypoint;
+struct Coord3D;
+
+class SpecialPowerUpdateInterface
+{
+public:
+	virtual void initiateIntentToDoSpecialPower(const SpecialPowerTemplate *specialPowerTemplate,
+		const Object *targetObj, const Coord3D *targetPos, unsigned int commandOptions,
+		const Waypoint *way);
+};
+
+// The dtor tail-calls the rowed ??1SpecialAbilityUpdate (0x00451F45), and
+// retail's +0x10 and +0x20 tables (0x0084DEE8, 0x008552A4) keep
+// SpecialAbilityUpdate::update (0x00451FA2) and
+// SpecialAbilityUpdate::initiateIntentToDoSpecialPower (0x004500A3) in slot 0.
+class SpecialAbilityUpdate : public Rva0044EF5E, public SpecialPowerUpdateInterface
+{
+public:
+	virtual ~SpecialAbilityUpdate();
+	virtual void triggerAbilityEffect();	// slot 17 (0x0045108D)
+	virtual UpdateSleepTime update();
+	virtual void initiateIntentToDoSpecialPower(const SpecialPowerTemplate *specialPowerTemplate,
+		const Object *targetObj, const Coord3D *targetPos, unsigned int commandOptions,
+		const Waypoint *way);
 };
 
 enum NameKeyType
@@ -293,7 +362,7 @@ private:
 	{
 		return (const StoreObjectsSpecialPowerModuleData *)m_moduleData;
 	}
-	char m_pad0C[0x44 - 0x0C];
+	char m_pad24[0x44 - 0x24];
 	Coord3D m_44;		// +0x44
 	char m_pad50[0x88 - 0x50];
 	_STL::vector<ObjectID, _STL::allocator<ObjectID> > m_88;	// +0x88

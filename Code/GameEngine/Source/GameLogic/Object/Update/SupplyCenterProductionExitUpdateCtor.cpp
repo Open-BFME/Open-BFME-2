@@ -21,15 +21,13 @@ class StoreObjectsSpecialPowerModuleData : public SpecialAbilityUpdateModuleData
 public:
 	StoreObjectsSpecialPowerModuleData();
 	virtual ~StoreObjectsSpecialPowerModuleData();
-
-private:
-	float m_fC8;
+	float m_C8;	// +0xC8 the radius
 };
 
 StoreObjectsSpecialPowerModuleData::StoreObjectsSpecialPowerModuleData()
 	: SpecialAbilityUpdateModuleData()
 {
-	m_fC8 = 0.0f;
+	m_C8 = 0.0f;
 }
 
 // ??1StoreObjectsSpecialPowerModuleData@@ present-unmatched

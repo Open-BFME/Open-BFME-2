@@ -87,6 +87,7 @@ class SpecialAbilityUpdate : public Rva0044EF5E, public SpecialPowerUpdateInterf
 {
 public:
 	virtual ~SpecialAbilityUpdate();
+	virtual void triggerAbilityEffect();	// slot 17 (0x0045108D)
 	virtual UpdateSleepTime update();
 	virtual void initiateIntentToDoSpecialPower(const SpecialPowerTemplate *specialPowerTemplate,
 		const Object *targetObj, const Coord3D *targetPos, unsigned int commandOptions,
