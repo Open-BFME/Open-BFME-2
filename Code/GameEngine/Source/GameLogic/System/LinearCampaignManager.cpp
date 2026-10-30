@@ -115,6 +115,7 @@ class Rva001ED338 { public: void rva001ED338(void *ini); };
 enum INILoadType { INI_LOAD_INVALID, INI_LOAD_OVERWRITE };
 
 struct FieldParse;
+
 class INI
 {
 public:
@@ -258,6 +259,42 @@ private:
 	Rva001ED0DE *m_04;
 };
 
+struct Rva001ECF03Entry { int words[9]; };
+
+class Rva0023D607Holder
+{
+public:
+    void rva001ECF03(int index, int argument);
+private:
+    char unknown00[0x10];
+    Rva001EBAEA *current;
+    _STL::vector<Rva001ECF03Entry> entries;
+};
+
+// ?rva001ED338@Rva001ED338@@QAEXPAX@Z @0x001ED338 18B.
+// Forwards to rowed INI::initFromINI 0x0002DE78 with the class FieldParse table.
+// Evidence: callee rowed 0x0002DE78; table g_00BDF1D8; caller 0x001ED61C in 0x001ED580.
+typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
+
+struct FieldParse { const char *token; FieldParseProc parse; const void *userData; int offset; };
+
+extern "C" {
+void __identifier("?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z")();
+void __identifier("?parseAsciiStringVectorAppend@INI@@SAXPAV1@PAX1PBX@Z")();
+void __identifier("?Rva001ED2C5Parse@@YAXPAVINI@@PAXPAV?$vector@UBfmeRecord001ECAF9@@V?$allocator@UBfmeRecord001ECAF9@@@_STL@@@_STL@@@Z")();
+}
+
+// The retail table at 0x007DF1D8: 4 entries and the null terminator; every parser is a rowed code owner.
+extern const FieldParse g_00BDF1D8[5] = {
+	{ "CampaignDisplayNameLabel", (FieldParseProc)&__identifier("?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x4 },
+	{ "OverallCampaignIntroMovie", (FieldParseProc)&__identifier("?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x8 },
+	{ "CarryoverUnit", (FieldParseProc)&__identifier("?parseAsciiStringVectorAppend@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0xC },
+	{ "Mission", (FieldParseProc)&__identifier("?Rva001ED2C5Parse@@YAXPAVINI@@PAXPAV?$vector@UBfmeRecord001ECAF9@@V?$allocator@UBfmeRecord001ECAF9@@@_STL@@@_STL@@@Z"), 0, 0x18 },
+	{ 0, 0, 0, 0 }
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp
 
 // WB AF93C0 names LinearCampaignManager::DoXfer (assert1365).
@@ -321,22 +358,6 @@ void LinearCampaignManager::parseLinearCampaignIniBlock(INI *ini) {
  }
 }
 
-// tu-skeleton: 0x001EBCC6 18B ??0?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE@ABV?$allocator@PAVObject@@@1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_objectptr_insert.cpp (not merged yet)
-
-// tu-skeleton: 0x001EBCD8 62B ?rva001EBCD8@Rva001EBCD8@@QAEPAXPAX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001EBCD8Erase.cpp (not merged yet)
-
-// tu-skeleton: 0x001EBD16 37B ?insert@?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVObject@@U?$_Nonconst_traits@PAVObject@@@_STL@@@2@U32@ABQAVObject@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_objectptr_insert.cpp (not merged yet)
-
-// tu-skeleton: 0x001EBD3B 191B ?_M_insert_overflow@?$vector@UBfmePod172@@V?$allocator@UBfmePod172@@@_STL@@@_STL@@IAEXPAUBfmePod172@@ABU3@ABU__false_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001EBD3BFinish.cpp (not merged yet)
-
-// tu-skeleton: 0x001EBDFA 51B ?erase@?$vector@UBfmeAssignRecord172@@V?$allocator@UBfmeAssignRecord172@@@_STL@@@_STL@@QAEPAUBfmeAssignRecord172@@PAU3@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_bfmeassignrecord172_erase.cpp (not merged yet)
-
-// tu-skeleton: 0x001EBE2D 126B ?reserve@?$vector@UBfmeAssignRecord172@@V?$allocator@UBfmeAssignRecord172@@@_STL@@@_STL@@QAEXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_record_deferred.cpp (not merged yet)
-
-// tu-skeleton: 0x001EBEAB 286B ?_M_fill_insert@?$vector@URva001EBEABElement@@V?$allocator@URva001EBEABElement@@@_STL@@@_STL@@QAEXPAURva001EBEABElement@@IABU3@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva001EBEAB.cpp (not merged yet)
-
-// tu-skeleton: 0x001EBFC9 28B ??_GRva001EBFE5@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva001EBFE5.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/Rva001EBFE5Dtor.cpp
 
 //
@@ -350,22 +371,6 @@ void LinearCampaignManager::parseLinearCampaignIniBlock(INI *ini) {
 Rva001EBFE5::~Rva001EBFE5()
 {
 }
-
-// tu-skeleton: 0x001EC03C 26B ?push_back@?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAEXABQAVObject@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_objectptr_insert.cpp (not merged yet)
-
-// tu-skeleton: 0x001EC056 58B ?push_back@?$vector@UBfmePod172@@V?$allocator@UBfmePod172@@@_STL@@@_STL@@QAEXABUBfmePod172@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp (not merged yet)
-
-// tu-skeleton: 0x001EC090 11B ?clear@?$vector@UBfmeAssignRecord172@@V?$allocator@UBfmeAssignRecord172@@@_STL@@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorClearForwarders.cpp (not merged yet)
-
-// tu-skeleton: 0x001EC09B 5B ?insert@?$vector@URva001EBEABElement@@V?$allocator@URva001EBEABElement@@@_STL@@@_STL@@QAEXPAURva001EBEABElement@@IABU3@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorClearForwarders.cpp (not merged yet)
-
-// tu-skeleton: 0x001EC0A0 276B ?Rva001EC0A0Xfer@@YAPAVXfer@@PAV1@PAV?$vector@VCarryoverUnit@@V?$allocator@VCarryoverUnit@@@_STL@@@_STL@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBattle.cpp (not merged yet)
-
-// tu-skeleton: 0x001EC1B4 349B ?rva001EC1B4@Rva001EC1B4@@QAEXPAUBfmeAssignRecord172@@00PAD@Z -- matched in Code/GameEngine/Source/GameLogic/System/LinearCampaign/LinearCampaignCarryoverInsert.cpp (not merged yet)
-
-// tu-skeleton: 0x001EC311 56B ??0Rva001EC311@@QAE@ABV?$StringBase@D@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001EC311Ctor.cpp (not merged yet)
-
-// tu-skeleton: 0x001EC349 108B ??1Rva001EC349@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001EC349Dtor.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/System/LinearCampaign/LinearCampaignOnMissionWon.cpp
 
@@ -424,6 +429,98 @@ void LinearCampaign::onCurrentMissionWon(){
  }
 }
 
+// ---- from Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva001EC349.cpp
+
+void famgenDelete(Rva001EC349 *p) { delete p; }
+
+// ---- from Code/GameEngine/Source/Common/Rva001ED01EClear.cpp
+
+// stlport46
+// ?rva001ED01E@Rva001ED01E@@QAEXXZ @0x001ED01E 30B.
+// Manual destroy-plus-free of Rva001EC349 range at +0..+4 via rowed 0x001ECFC6 plus rowed free 0x00030830.
+// Evidence: callees rowed 0x001ECFC6 0x00030830; caller 0x001ED1D3 in 0x001ED13A.
+
+void Rva001ED01E::rva001ED01E()
+{
+	_STL::_Destroy(m_00, m_04);
+	Rva001EC349 *p = m_00;
+	if (p != 0)
+		free(p);
+}
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva001ec349_destroy.cpp
+
+// ??$_Destroy@PAVRva001EC349@@@_STL@@YAXPAVRva001EC349@@0@Z @0x001ECFC6 25B.
+// Range destroy over 0x24-byte Rva001EC349 via rowed dtor 0x001EC349 stride 0x24.
+// Evidence: callee rowed 0x001EC349; callers 0x001ECFF9 0x001ED026; same 25B loop as rowed 0x0015209B.
+
+
+
+
+
+
+
+
+
+// ---- from Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva001ED0DE.cpp
+
+void famgenDelete(Rva001ED0DE *p) { delete p; }
+
+// ---- from Code/GameEngine/Source/Common/Rva001ED41BDtor.cpp
+
+// stlport46
+// ??1Rva001ED41B@@UAE@XZ @0x001ED41B 91B: MI dtor with vector plus clear plus SubsystemInterface plus final g_00BBB554. Evidence: pin plus caller 0x001ED530 deleting dtor plus prev 0x001ED413 plus next 0x001ED476 plus callees 0x001ED363 0x000AD6F4 0x001B4E74.
+
+Rva001ED41B::~Rva001ED41B()
+{
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva001ED3A2Clear.cpp
+
+// ?rva001ED3A2@Rva001ED3A2@@QAEXXZ @0x001ED3A2 30B.
+// Manual destroy-plus-free of Rva001ED0DE range at +0..+4 via rowed 0x001ED34A plus rowed free 0x00030830.
+// Evidence: callees rowed 0x001ED34A 0x00030830; caller 0x001ED50F in 0x001ED476; same 30B shape as rowed 0x001ED01E.
+
+void Rva001ED3A2::rva001ED3A2()
+{
+	_STL::_Destroy(m_00, m_04);
+	Rva001ED0DE *p = m_00;
+	if (p != 0)
+		free(p);
+}
+
+// tu-skeleton: 0x001EBCC6 18B ??0?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE@ABV?$allocator@PAVObject@@@1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_objectptr_insert.cpp (not merged yet)
+
+// tu-skeleton: 0x001EBCD8 62B ?rva001EBCD8@Rva001EBCD8@@QAEPAXPAX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001EBCD8Erase.cpp (not merged yet)
+
+// tu-skeleton: 0x001EBD16 37B ?insert@?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVObject@@U?$_Nonconst_traits@PAVObject@@@_STL@@@2@U32@ABQAVObject@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_objectptr_insert.cpp (not merged yet)
+
+// tu-skeleton: 0x001EBD3B 191B ?_M_insert_overflow@?$vector@UBfmePod172@@V?$allocator@UBfmePod172@@@_STL@@@_STL@@IAEXPAUBfmePod172@@ABU3@ABU__false_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001EBD3BFinish.cpp (not merged yet)
+
+// tu-skeleton: 0x001EBDFA 51B ?erase@?$vector@UBfmeAssignRecord172@@V?$allocator@UBfmeAssignRecord172@@@_STL@@@_STL@@QAEPAUBfmeAssignRecord172@@PAU3@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_bfmeassignrecord172_erase.cpp (not merged yet)
+
+// tu-skeleton: 0x001EBE2D 126B ?reserve@?$vector@UBfmeAssignRecord172@@V?$allocator@UBfmeAssignRecord172@@@_STL@@@_STL@@QAEXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_record_deferred.cpp (not merged yet)
+
+// tu-skeleton: 0x001EBEAB 286B ?_M_fill_insert@?$vector@URva001EBEABElement@@V?$allocator@URva001EBEABElement@@@_STL@@@_STL@@QAEXPAURva001EBEABElement@@IABU3@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva001EBEAB.cpp (not merged yet)
+
+// tu-skeleton: 0x001EBFC9 28B ??_GRva001EBFE5@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva001EBFE5.cpp (not merged yet)
+
+// tu-skeleton: 0x001EC03C 26B ?push_back@?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAEXABQAVObject@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_objectptr_insert.cpp (not merged yet)
+
+// tu-skeleton: 0x001EC056 58B ?push_back@?$vector@UBfmePod172@@V?$allocator@UBfmePod172@@@_STL@@@_STL@@QAEXABUBfmePod172@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp (not merged yet)
+
+// tu-skeleton: 0x001EC090 11B ?clear@?$vector@UBfmeAssignRecord172@@V?$allocator@UBfmeAssignRecord172@@@_STL@@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorClearForwarders.cpp (not merged yet)
+
+// tu-skeleton: 0x001EC09B 5B ?insert@?$vector@URva001EBEABElement@@V?$allocator@URva001EBEABElement@@@_STL@@@_STL@@QAEXPAURva001EBEABElement@@IABU3@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorClearForwarders.cpp (not merged yet)
+
+// tu-skeleton: 0x001EC0A0 276B ?Rva001EC0A0Xfer@@YAPAVXfer@@PAV1@PAV?$vector@VCarryoverUnit@@V?$allocator@VCarryoverUnit@@@_STL@@@_STL@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBattle.cpp (not merged yet)
+
+// tu-skeleton: 0x001EC1B4 349B ?rva001EC1B4@Rva001EC1B4@@QAEXPAUBfmeAssignRecord172@@00PAD@Z -- matched in Code/GameEngine/Source/GameLogic/System/LinearCampaign/LinearCampaignCarryoverInsert.cpp (not merged yet)
+
+// tu-skeleton: 0x001EC311 56B ??0Rva001EC311@@QAE@ABV?$StringBase@D@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001EC311Ctor.cpp (not merged yet)
+
+// tu-skeleton: 0x001EC349 108B ??1Rva001EC349@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001EC349Dtor.cpp (not merged yet)
+
 // tu-skeleton: 0x001EC63D 540B ?addCarryoverStuffToMap@LinearCampaign@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/System/LinearCampaign/LinearCampaignAddCarryover.cpp (not merged yet)
 
 // tu-skeleton: 0x001EC859 103B ?rva001EC859@Rva001EC859@@QAEPAXHH@Z -- matched in Code/GameEngine/Source/Common/Rva001EC859CarryoverSpawn.cpp (not merged yet)
@@ -444,10 +541,6 @@ void LinearCampaign::onCurrentMissionWon(){
 
 // tu-skeleton: 0x001ECB78 25B ?rva001ECB78@Rva001ECB78@@QAEXPAUBfmeAssignRecord172@@00H@Z -- matched in Code/GameEngine/Source/Common/RvaTopByteFwds.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva001EC349.cpp
-
-void famgenDelete(Rva001EC349 *p) { delete p; }
-
 // tu-skeleton: 0x001ECBAD 326B ?xfer@Rva001EBAEA@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/System/SnapshotXfersBfme.cpp (not merged yet)
 
 // tu-skeleton: 0x001ECCF3 38B ?resize@Rva001EC9BDVector@@QAEXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001EC9BDResize.cpp (not merged yet)
@@ -460,36 +553,28 @@ void famgenDelete(Rva001EC349 *p) { delete p; }
 
 // tu-skeleton: 0x001ECD84 38B ??$__uninitialized_copy@PAUBfmeRecord001ECAF9@@PAU1@@_STL@@YAPAUBfmeRecord001ECAF9@@PAU1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/Rva001ED01EClear.cpp
-
-// stlport46
-// ?rva001ED01E@Rva001ED01E@@QAEXXZ @0x001ED01E 30B.
-// Manual destroy-plus-free of Rva001EC349 range at +0..+4 via rowed 0x001ECFC6 plus rowed free 0x00030830.
-// Evidence: callees rowed 0x001ECFC6 0x00030830; caller 0x001ED1D3 in 0x001ED13A.
-
-void Rva001ED01E::rva001ED01E()
-{
-	_STL::_Destroy(m_00, m_04);
-	Rva001EC349 *p = m_00;
-	if (p != 0)
-		free(p);
-}
-
 // tu-skeleton: 0x001ECDB3 229B ?beginCampaign@LinearCampaign@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/System/LinearCampaign/LinearCampaignBegin.cpp (not merged yet)
 
 // tu-skeleton: 0x001ECE98 94B ?restartCurrentCampaignMission@LinearCampaign@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/System/LinearCampaign/LinearCampaignRestart.cpp (not merged yet)
 
 // tu-skeleton: 0x001ECEF6 13B ?rva001ECEF6@Rva0023D607Holder@@QAEXXZ -- matched in Code/GameEngine/Source/Common/PinnedForwarders1830.cpp (not merged yet)
 
-// tu-skeleton: 0x001ECF03 99B ?rva001ECF03@Rva0023D607Holder@@QAEXHH@Z -- matched in Code/GameEngine/Source/Common/Rva001ECF03.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva001ECF03.cpp
+
+// ?rva001ECF03@Rva0023D607Holder@@QAEXHH@Z
+
+void Rva0023D607Holder::rva001ECF03(int index, int argument)
+{
+    reinterpret_cast<Rva000AD6F4 *>(&current)->clear();
+    if (index >= 0 && static_cast<unsigned int>(index) < entries.size())
+    {
+        Rva001EBAEA *state = new Rva001EBAEA(reinterpret_cast<int>(&entries[index]), argument);
+        reinterpret_cast<Rva00575674 *>(&current)->rva00575674(reinterpret_cast<Object *>(state));
+        reinterpret_cast<LinearCampaign *>(current)->beginCampaign();
+    }
+}
 
 // tu-skeleton: 0x001ECF66 96B ??0Rva001ECF66@@QAE@ABV0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001ECF66Finish.cpp (not merged yet)
-
-// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva001ec349_destroy.cpp
-
-// ??$_Destroy@PAVRva001EC349@@@_STL@@YAXPAVRva001EC349@@0@Z @0x001ECFC6 25B.
-// Range destroy over 0x24-byte Rva001EC349 via rowed dtor 0x001EC349 stride 0x24.
-// Evidence: callee rowed 0x001EC349; callers 0x001ECFF9 0x001ED026; same 25B loop as rowed 0x0015209B.
 
 // tu-skeleton: 0x001ECFDF 63B ??1?$vector@VRva001EC349@@V?$allocator@VRva001EC349@@@_STL@@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorFamily.cpp (not merged yet)
 
@@ -507,42 +592,20 @@ void Rva001ED01E::rva001ED01E()
 
 // tu-skeleton: 0x001ED244 37B ??$__uninitialized_fill_n@PAVRva001ED03C@@IV1@@_STL@@YAPAVRva001ED03C@@PAV1@IABV1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_fill_n_rva001ED03C.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva001ED0DE.cpp
-
-void famgenDelete(Rva001ED0DE *p) { delete p; }
-
 // tu-skeleton: 0x001ED285 55B ?push_back@?$vector@UBfmeRecord001ECAF9@@V?$allocator@UBfmeRecord001ECAF9@@@_STL@@@_STL@@QAEXABUBfmeRecord001ECAF9@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorPushBackSiblings.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/Rva001ED41BDtor.cpp
-
-// stlport46
-// ??1Rva001ED41B@@UAE@XZ @0x001ED41B 91B: MI dtor with vector plus clear plus SubsystemInterface plus final g_00BBB554. Evidence: pin plus caller 0x001ED530 deleting dtor plus prev 0x001ED413 plus next 0x001ED476 plus callees 0x001ED363 0x000AD6F4 0x001B4E74.
-
-Rva001ED41B::~Rva001ED41B()
-{
-}
 
 // tu-skeleton: 0x001ED2C5 115B ?Rva001ED2C5Parse@@YAXPAVINI@@PAXPAV?$vector@UBfmeRecord001ECAF9@@V?$allocator@UBfmeRecord001ECAF9@@@_STL@@@_STL@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001ED2C5Parse.cpp (not merged yet)
 
-// tu-skeleton: 0x001ED338 18B ?rva001ED338@Rva001ED338@@QAEXPAX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001ED338Init.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva001ED338Init.cpp
+
+void Rva001ED338::rva001ED338(void *ini)
+{
+	((INI *)ini)->initFromINI(this, g_00BDF1D8);
+}
 
 // tu-skeleton: 0x001ED34A 25B ??$_Destroy@PAVRva001ED0DE@@@_STL@@YAXPAVRva001ED0DE@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva001ed0de_destroy.cpp (not merged yet)
 
 // tu-skeleton: 0x001ED363 63B ??1?$vector@VRva001ED0DE@@V?$allocator@VRva001ED0DE@@@_STL@@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorFamily.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/Rva001ED3A2Clear.cpp
-
-// ?rva001ED3A2@Rva001ED3A2@@QAEXXZ @0x001ED3A2 30B.
-// Manual destroy-plus-free of Rva001ED0DE range at +0..+4 via rowed 0x001ED34A plus rowed free 0x00030830.
-// Evidence: callees rowed 0x001ED34A 0x00030830; caller 0x001ED50F in 0x001ED476; same 30B shape as rowed 0x001ED01E.
-
-void Rva001ED3A2::rva001ED3A2()
-{
-	_STL::_Destroy(m_00, m_04);
-	Rva001ED0DE *p = m_00;
-	if (p != 0)
-		free(p);
-}
 
 // tu-skeleton: 0x001ED3C0 83B ??0Rva001ED41B@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva001ED41BConstructor.cpp (not merged yet)
 
