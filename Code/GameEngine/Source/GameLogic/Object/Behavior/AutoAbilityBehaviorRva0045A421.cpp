@@ -20,9 +20,13 @@ enum UpdateSleepTime
 
 class UpdateModule
 {
-	friend class AutoAbilityBehavior;
 protected:
+	Object *getObject() const { return m_object; }
 	void setWakeFrame(Object *obj, UpdateSleepTime delay);
+
+	unsigned char m_pad00[8];
+	Object *m_object; // +0x08
+	unsigned char m_pad0C[0x20 - 0x0C];
 };
 
 struct Rva0045A421Src
@@ -31,22 +35,19 @@ struct Rva0045A421Src
 	AsciiString m_str10;
 };
 
-class AutoAbilityBehavior
+class AutoAbilityBehavior : public UpdateModule
 {
 public:
 	void rva0045A421(void *src);
 
 private:
-	unsigned char m_pad[8];
-	Object *m_obj8;
-	unsigned char m_mid[0x20 - 0xC];
-	AsciiString m_str20;
+	AsciiString m_str20; // +0x20
 };
 
 void AutoAbilityBehavior::rva0045A421(void *src)
 {
-	Object *obj = m_obj8;
+	Object *obj = getObject();
 	Rva0045A421Src *s = (Rva0045A421Src *)src;
 	m_str20 = s->m_str10;
-	((UpdateModule *)this)->setWakeFrame(obj, UPDATE_SLEEP_NONE);
+	setWakeFrame(obj, UPDATE_SLEEP_NONE);
 }

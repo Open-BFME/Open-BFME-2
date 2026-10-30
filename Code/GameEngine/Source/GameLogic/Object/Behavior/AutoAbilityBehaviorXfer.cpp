@@ -75,8 +75,8 @@ protected:
 	virtual void xfer(Xfer *xfer);
 
 private:
-	AsciiString m_20;
-	Coord3DBase m_24;
+	AsciiString m_str20;
+	Coord3DBase m_state;
 	bool m_30;
 };
 
@@ -85,9 +85,9 @@ void AutoAbilityBehavior::xfer(Xfer *xfer)
 	Xfer::Version version(1, 2);
 	*xfer == version;
 	UpdateModule::xfer(xfer);
-	*xfer == m_20;
+	*xfer == m_str20;
 	if (version.m_minimum >= 2) {
 		*xfer == m_30;
-		*xfer == m_24;
+		*xfer == m_state;
 	}
 }

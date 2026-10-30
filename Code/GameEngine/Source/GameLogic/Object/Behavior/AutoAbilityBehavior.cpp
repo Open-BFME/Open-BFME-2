@@ -7,8 +7,43 @@ typedef int Int;
 typedef unsigned int UnsignedInt;
 class Thing;
 class ModuleData;
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+struct Coord3DBase
+{
+	float x;
+	float y;
+	float z;
+};
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+
+#include "../../../../Include/Common/BfmeXfer.h"
+
+class Xfer::Version
+{
+public:
+	Version(unsigned char current, unsigned char minimum)
+		: m_current(current), m_minimum(minimum) {}
+
+	unsigned char m_current;
+	unsigned char m_minimum;
+};
+
 enum UpdateSleepTime
 {
+	UPDATE_SLEEP_NONE = 1,
 	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
 };
 enum
@@ -106,6 +141,7 @@ class UpdateModule : public BehaviorModule, public UpdateModuleInterface
 public:
 	virtual ~UpdateModule();
 	UpdateModule(Thing *thing, const ModuleData *moduleData);
+	void xfer(Xfer *xfer);
 protected:
 	Object *getObject() const { return m_object; }
 	void setWakeFrame(Object *obj, UpdateSleepTime wakeDelay);
@@ -129,9 +165,8 @@ public:
 
 // Three target-observed float fields at +0x24/+0x28/+0x2C, grouped only
 // to keep their constructor stores together; no original vector type is claimed.
-struct AbilityStateVector
+struct AbilityStateVector : public Coord3DBase
 {
-    float x, y, z;
     AbilityStateVector() { x = 0.0f; y = 0.0f; z = 0.0f; }
 };
 
@@ -180,8 +215,16 @@ public:
 	virtual ~AutoAbilityBehavior();
 	AutoAbilityBehavior(Thing *thing, const ModuleData *moduleData);
 	void rva0045A413();
+	void rva0045A421(void *src);
 	void rva0045A6FE(void *button);
 	int isAutoAbilityCommand(const Rva0045A6D3Arg *commandButton);
+
+	// Retail vftable 0x00C4175C keeps xfer (slot 3) ahead of
+	// getModuleNameKey (slot 4).
+protected:
+	virtual void xfer(Xfer *xfer);
+public:
+	virtual NameKeyType getModuleNameKey() const;
 
 private:
 	const AutoAbilityBehaviorModuleData *getAutoAbilityBehaviorModuleData() const { return (const AutoAbilityBehaviorModuleData *)m_moduleData; }
