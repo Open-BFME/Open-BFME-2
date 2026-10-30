@@ -58,8 +58,6 @@ Code/Libraries/Source/WWVegas/WW3D2/sortingrenderer.cpp	wrong-name	_clean_list	0
 Code/Libraries/Source/WWVegas/WW3D2/sortingrenderer.cpp	wrong-name	_sorted_list	0x009B6200
 Code/Libraries/Source/WWVegas/WWDebug/Debug_CrashDone.cpp	duplicate-def	_g_debugAssertDialogAnswered	0x009E089D
 Code/Libraries/Source/WWVegas/WWDebug/Debug_CrashDone.cpp	wrong-name	_g_debugAssertDialogAnswered	0x009E089D
-Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp	wrong-name	?obj@?1??Rva00035C90Get@@YAPAVRva00041004@@XZ@4V2@A	0x009E0828
-Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp	wrong-name	?obj@?1??Rva00035DF0Get@@YAPAVRva00041004@@XZ@4V2@A	0x009E0850
 Code/Libraries/Source/WWVegas/WWLib/stlport_classic_locale.cpp	duplicate-def	__Null_messages	0x009DEB24
 Code/Libraries/Source/WWVegas/WWLib/stlport_classic_locale.cpp	wrong-name	__Null_messages	0x009DEB24
 Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_ptr_init_002213D9.cpp	wrong-name	?s_map@?1??Rva002213D9Get@@YAPAV?$map@HPAXU?$less@H@_STL@@V?$allocator@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@XZ@4V23@A	0x009FE4AC
