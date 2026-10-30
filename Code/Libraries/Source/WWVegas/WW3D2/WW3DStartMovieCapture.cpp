@@ -1,8 +1,9 @@
 // cl: /DNDEBUG /MD /EHsc /O2 /arch:SSE /G7
 // platformsdk
-// ?Rva00118530Start@@YAXPBDMH_N@Z @ 0x00118530 213B. Retail Start_Movie_Capture shape.
-// Evidence: ZH ww3d.cpp Start_Movie_Capture donor; callers: 0x00118635 forwards 4 args;
-// callees Stop_Movie_Capture GetWindowRect operator-new BfmeThingTXA-ctor; globals IsCapturing PauseRecord Movie g_WW3D_Hwnd.
+// ?Start_Movie_Capture@WW3D@@SAXPBDMH_N@Z @ 0x00118530 213B.
+// Evidence: ZH ww3d.cpp Start_Movie_Capture (stop a running capture, set IsCapturing,
+// size the movie from the window rect, allocate Movie); BFME 2 adds the frame count and
+// compression flag, forwarded by Toggle_Movie_Capture (0x00118610).
 
 #include <windows.h>
 
@@ -27,21 +28,19 @@ public:
 // ww3d.cpp defines WW3D's statics private (?IsCapturing@WW3D@@0_NA, ...); spell them so.
 class WW3D
 {
-	friend void Rva00118530Start(const char *, float, int, bool);
-	static bool IsCapturing;
-	static FrameGrabClass *Movie;
 public:
+	static void Start_Movie_Capture(const char *filename_base, float frame_rate, int count, bool compressed);
 	static void Stop_Movie_Capture();
 private:
+	static bool IsCapturing;
 	static bool PauseRecord;
-public:
-	static void SetPauseRecord(bool v) { PauseRecord = v; }
+	static FrameGrabClass *Movie;
 };
-void Rva00118530Start(const char *filename_base, float frame_rate, int count, bool compressed)
+void WW3D::Start_Movie_Capture(const char *filename_base, float frame_rate, int count, bool compressed)
 {
-	if (WW3D::IsCapturing)
-		WW3D::Stop_Movie_Capture();
-	WW3D::IsCapturing = true;
+	if (IsCapturing)
+		Stop_Movie_Capture();
+	IsCapturing = true;
 	RECT bounds;
 	GetWindowRect((HWND)g_WW3D_Hwnd, &bounds);
 	int height = bounds.bottom - bounds.top;
@@ -49,11 +48,11 @@ void Rva00118530Start(const char *filename_base, float frame_rate, int count, bo
 	if (frame_rate == 0.0f)
 	{
 		frame_rate = 1.0f;
-		WW3D::SetPauseRecord(true);
+		PauseRecord = true;
 	}
 	else
 	{
-		WW3D::SetPauseRecord(false);
+		PauseRecord = false;
 	}
-	WW3D::Movie = new BfmeThingTXA(filename_base, width, height, 24, frame_rate, count, compressed);
+	Movie = new BfmeThingTXA(filename_base, width, height, 24, frame_rate, count, compressed);
 }

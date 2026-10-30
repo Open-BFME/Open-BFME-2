@@ -123,15 +123,3 @@ unsigned int rva0011F620()
 	return id;
 }
 
-// --- 0x00118610 (48B): toggle movie capture: stop it (rowed
-// WW3D::Stop_Movie_Capture) when WW3D::IsCapturing, else start it through the
-// rowed Rva00118530Start.
-class WW3D
-{
-public:
-	static bool IsCapturing;
-	static void Stop_Movie_Capture();
-};
-
-void Rva00118530Start(const char *name, float rate, int a, bool b);
-

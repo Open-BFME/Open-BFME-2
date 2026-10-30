@@ -186,9 +186,9 @@ public:
 	** These functions allow you to create screenshots and movies.
 	*/
 	static void					Make_Screen_Shot( const char * filename = "ScreenShot", const float gamma = 1.3f, const ScreenShotFormatEnum format = TGA);
-	static void					Start_Movie_Capture( const char * filename_base = "Movie", float frame_rate = 15);
+	static void					Start_Movie_Capture( const char * filename_base, float frame_rate, int count, bool compressed);	// BFME 2: count, compressed
 	static void					Stop_Movie_Capture( void);
-	static void					Toggle_Movie_Capture( const char * filename_base = "Movie", float frame_rate = 15);
+	static bool					Toggle_Movie_Capture( const char * filename_base, float frame_rate, int count, bool compressed);	// BFME 2: bool; count, compressed
 	static void					Start_Single_Frame_Movie_Capture(const char *filename_base = "Frames");
 	static void					Capture_Next_Movie_Frame();
 	static void					Update_Movie_Capture( void);

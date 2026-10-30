@@ -1224,7 +1224,7 @@ void WW3D::Make_Screen_Shot( const char * filename_base , const float gamma, con
  *   5/19/99    GTH : Created.                                                                 *
  *   2/26/2001  hy : updated to dx8                                                            *
  *=============================================================================================*/
-// WW3D::Start_Movie_Capture (retail 0x00118530): Zero Hour copy removed; it is not retail's body.
+// WW3D::Start_Movie_Capture (retail 0x00118530): Zero Hour copy removed; retail's version takes a frame count and a compression flag.
 
 
 /***********************************************************************************************
@@ -1254,7 +1254,7 @@ void WW3D::Make_Screen_Shot( const char * filename_base , const float gamma, con
  * HISTORY:                                                                                    *
  *   5/19/99    GTH : Created.                                                                 *
  *=============================================================================================*/
-// WW3D::Toggle_Movie_Capture: Zero Hour copy removed; it is not retail's body.
+// WW3D::Toggle_Movie_Capture (retail 0x00118610): Zero Hour copy removed; retail's version returns bool and forwards two more arguments.
 
 
 /***********************************************************************************************
@@ -1922,9 +1922,9 @@ bool WW3D::Init(void *hwnd, char *, bool lite)
 
 // tu-skeleton: 0x00118430 156B ?Render@WW3D@@SA_NAAVRenderObjClass@@AAVRenderInfoClass@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/WW3DRenderObjRender.cpp (not merged yet)
 
-// tu-skeleton: 0x00118530 213B ?Rva00118530Start@@YAXPBDMH_N@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/WW3DStartMovieCapture.cpp (not merged yet)
+// tu-skeleton: 0x00118530 213B ?Start_Movie_Capture@WW3D@@SAXPBDMH_N@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/WW3DStartMovieCapture.cpp (not merged yet)
 
-// tu-skeleton: 0x00118610 48B ?rva00118610@@YA_NPBDMH_N@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE41_Rva00118610.cpp (not merged yet)
+// tu-skeleton: 0x00118610 48B ?Toggle_Movie_Capture@WW3D@@SA_NPBDMH_N@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE41_Rva00118610.cpp (not merged yet)
 
 // tu-skeleton: 0x00118640 30B ??_GRva006C5930Dtor@@UAEPAXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00170C0Siblings.cpp (not merged yet)
 
@@ -1944,7 +1944,7 @@ bool WW3D::Init(void *hwnd, char *, bool lite)
 
 // tu-skeleton: 0x00764C20 11B $L380 -- matched in Code/Libraries/Source/WWVegas/WW3D2/WW3DStartMovieCapture.cpp (not merged yet)
 
-// tu-skeleton: 0x00764C2B 10B __ehhandler$?Rva00118530Start@@YAXPBDMH_N@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/WW3DStartMovieCapture.cpp (not merged yet)
+// tu-skeleton: 0x00764C2B 10B __ehhandler$?Start_Movie_Capture@WW3D@@SAXPBDMH_N@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/WW3DStartMovieCapture.cpp (not merged yet)
 
 // tu-skeleton: 0x00764C40 11B $L440 -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva00118660Render.cpp (not merged yet)
 

@@ -110,26 +110,26 @@ extern volatile int bfmeDX8DeviceRecursion;
 unsigned int rva0011F620();
 
 
-// --- 0x00118610 (48B): toggle movie capture: stop it (rowed
-// WW3D::Stop_Movie_Capture) when WW3D::IsCapturing, else start it through the
-// rowed Rva00118530Start.
+// --- 0x00118610 (48B): WW3D::Toggle_Movie_Capture (ZH ww3d.cpp): stop a
+// running capture, else start one; BFME 2 forwards a frame count and a
+// compression flag and returns whether it started.
 class WW3D
 {
-	friend bool rva00118610(const char *name, float rate, int a, bool b);
-	static bool IsCapturing;
 public:
+	static bool Toggle_Movie_Capture(const char *filename_base, float frame_rate, int count, bool compressed);
+	static void Start_Movie_Capture(const char *filename_base, float frame_rate, int count, bool compressed);
 	static void Stop_Movie_Capture();
+private:
+	static bool IsCapturing;
 };
 
-void Rva00118530Start(const char *name, float rate, int a, bool b);
-
-bool rva00118610(const char *name, float rate, int a, bool b)
+bool WW3D::Toggle_Movie_Capture(const char *filename_base, float frame_rate, int count, bool compressed)
 {
-	if (WW3D::IsCapturing)
+	if (IsCapturing)
 	{
-		WW3D::Stop_Movie_Capture();
+		Stop_Movie_Capture();
 		return false;
 	}
-	Rva00118530Start(name, rate, a, b);
+	Start_Movie_Capture(filename_base, frame_rate, count, compressed);
 	return true;
 }
