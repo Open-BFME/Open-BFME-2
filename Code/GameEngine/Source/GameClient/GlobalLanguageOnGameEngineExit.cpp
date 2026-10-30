@@ -2,7 +2,7 @@
 // platformsdk
 // stlport
 // ?onGameEngineExit@GlobalLanguage@@QAEXXZ retail 0x001EA77F 473 bytes.
-// GlobalLanguage local-font and temp-dir cleanup: counts m_localFonts at
+// GlobalLanguage local-font and temp-dir cleanup: counts localFonts at
 // +0x138 via size then LoadLibraryA GDI32 plus GetProcAddress
 // RemoveFontResourceExA to unhook each non-empty second string at node+0xC
 // then assigns TheEmptyString at 0x009E0878 then clear via rowed 0x001EA529
@@ -40,10 +40,11 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
 }
 
 
-typedef int Bool;
+typedef bool Bool;
 
 #include <windows.h>
 #include "ascii_string.h"
+#include "../../../../reference/shims/subsystem_bfme2/subsystem_interface.h"
 extern const char *BfmeFontExtractionDirectory;
 
 struct BfmeStringView
@@ -64,26 +65,70 @@ struct Rva001EA443
 inline bool operator==(const Rva001EA443 &x, const Rva001EA443 &y) { return false; }
 inline bool operator<(const Rva001EA443 &x, const Rva001EA443 &y) { return false; }
 
-class GlobalLanguage
+struct FontDesc
 {
 public:
+	FontDesc();
+	AsciiString name; // +0x00
+	int size; // +0x04
+	bool bold; // +0x08
+	char m_pad09[0x3];
+};
+
+class GlobalLanguage : public SubsystemInterface
+{
+public:
+	GlobalLanguage();
+	virtual ~GlobalLanguage();
+	virtual void init();
+	int adjustFontSize(int theFontSize);
 	void onGameEngineExit();
+	static void parseFontDesc(class INI *ini, void *instance, void *store, const void *userData);
+
 private:
-	typedef _STL::list<Rva001EA443, _STL::allocator<Rva001EA443> > StringList;
-	typedef StringList::iterator StringListIt;
-	unsigned char m_unmodelled00[0x138];
-	StringList m_localFonts;
+	AsciiString m_s00C;
+	AsciiString m_s010;
+	AsciiString m_s014;
+	AsciiString m_s018;
+	AsciiString m_s01C;
+	AsciiString m_language;
+	bool m_useHardWrap;
+	int m_militaryCaptionSpeed;
+	FontDesc m_f02C;
+	FontDesc m_f038;
+	FontDesc m_f044;
+	FontDesc m_f050;
+	FontDesc m_f05C;
+	FontDesc m_f068;
+	FontDesc m_f074;
+	FontDesc m_f080;
+	FontDesc m_f08C;
+	FontDesc m_f098;
+	FontDesc m_f0A4;
+	FontDesc m_f0B0;
+	FontDesc m_f0BC;
+	FontDesc m_f0C8;
+	FontDesc m_f0D4;
+	FontDesc m_f0E0;
+	FontDesc m_f0EC;
+	FontDesc m_f0F8;
+	FontDesc m_f104;
+	FontDesc m_f110;
+	FontDesc m_f11C;
+	FontDesc m_f128;
+	float m_res134;
+	_STL::list<Rva001EA443> localFonts;
 };
 
 void GlobalLanguage::onGameEngineExit()
 {
-	if (m_localFonts.size()) {
+	if (localFonts.size()) {
 		HMODULE library = LoadLibraryA("GDI32.DLL");
 		if (library) {
-			typedef Bool(__stdcall *RemoveFontResourceExProc)(LPCSTR, DWORD, void *);
+			typedef BOOL(__stdcall *RemoveFontResourceExProc)(LPCSTR, DWORD, void *);
 			RemoveFontResourceExProc removeFontResourceEx = (RemoveFontResourceExProc)GetProcAddress(library, "RemoveFontResourceExA");
 			if (removeFontResourceEx) {
-				for (StringListIt it = m_localFonts.begin(); it != m_localFonts.end(); ++it) {
+				for (_STL::list<Rva001EA443>::iterator it = localFonts.begin(); it != localFonts.end(); ++it) {
 					AsciiString &val = (*it).m_text1;
 					if (!val.isEmpty()) {
 						removeFontResourceEx(val.str(), 0x30, NULL);
@@ -93,7 +138,7 @@ void GlobalLanguage::onGameEngineExit()
 			}
 			FreeLibrary(library);
 		}
-		m_localFonts.clear();
+		localFonts.clear();
 	}
 	char tempPath[MAX_PATH];
 	if (GetTempPathA(MAX_PATH, tempPath)) {
