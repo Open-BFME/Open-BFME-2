@@ -314,18 +314,6 @@ private:
 	bool m_flag48;
 };
 
-int *Rva00072740::rva00072740()
-{
-	m_flag48 = true;
-	return &m_block40[2];
-}
-
-int *Rva00072740::rva0007274B()
-{
-	m_flag48 = true;
-	return &m_block40[3];
-}
-
 // 0x00086A82: whether the word at +0x23CC equals its argument.
 class Rva00086A82
 {
