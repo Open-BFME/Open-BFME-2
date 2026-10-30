@@ -735,6 +735,37 @@ Two concrete hand reconciles, both verified and both still short of a merge:
   too (TU 17/17). Still refused: `PickupStuffUpdateModuleDataCtor.cpp`
   (C2600, an `EmptyBase` and vtable-as-data spelling, plus a `novtable` seed
   view of the module data class).
+- **MonitorConditionUpdate** (2026-10-30, `77de164a30` plus the merge after
+  it). The same ctor recipe works. Over the seed's views, plus a declared ctor
+  and an out-of-line `virtual ~MonitorConditionUpdate()`, the body
+  `: UpdateModule(thing, moduleData) {}` byte-matches 1/1 and LINKS 45 -> 45.
+  Without the dtor declaration, the ctor unit emits a COMDAT `??1` that is not
+  retail's. The Dtor donor is merged (TU 11/11, LINKS 152 -> 289), and its
+  unreferenced `/alternatename` was dropped. The ctor donor still waits:
+  the link guard refuses it ("a file without a census object would place the
+  merged unit earlier") until a census taken after the 09:52 Xfer merge
+  places the seed at 0x4915C6. Also refused:
+  `ModelConditionSpecialAbilityUpdateModuleDataCtor.cpp` (C2600, the seed's
+  module data view declares no ctor) and `MonitorConditionUpdateUpdate.cpp`
+  (bytes).
+- **PillageModule** (2026-10-30, `b6945d1b9b`, `e6b5903f49`). The Xfer donor is
+  merged. `PillageModuleCtor.cpp` calls base `??0Rva00588FFA` while xfer
+  calls `Rva00589051::xfer`, which are two placeholder names for one base class.
+  Unifying them is naming-lane work and has to come before that donor can
+  merge. `PillageModuleRva00484FE2.cpp` compiles `/O1 /G7 /arch:SSE` against a
+  flat +0x10 subobject view.
+- **GiantBirdSlowDeathBehavior** (2026-10-30, not committed). The rewritten
+  ctor byte-matches 1/1 over the seed's views, plus declared `SlowDeathBehavior`
+  and `GiantBirdSlowDeathBehavior` ctors. It does not link: the seed's placeholder
+  slots `?dieSlot@DieModuleInterface` and
+  `?unknownBehaviorSlot@BehaviorInterface` are unresolved, and an implicit
+  `??1UpdateModule` COMDAT is emitted. The data ledger owns the class's
+  vftables (0x842E64/0x842DA8/0x842D98/0x842D88) as
+  `??_7Rva00461EEB@@6B...`, and `Rva0045D39EDerived.cpp`'s dtor 0x461EEB
+  installs the same set. `Rva00461EEB` therefore looks like
+  GiantBirdSlowDeathBehavior (and `Rva0045D39E` like SlowDeathBehavior), but
+  that is vtable evidence, a hint only. `rename.py class` refuses folding it
+  into the existing name. The class identity has to land first.
 
 Reproduce: `python3 tools/tu_views.py <TU> --dry-run`, then
 `python3 tools/tu_skeleton.py --merge <TU> --dry-run`.
