@@ -1,4 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+#include "ascii_string.h"
 // ?rva00565106@LivingWorldCampaignAct@@QAEXXZ, retail 0x00565106 (66 bytes). Same class as the rowed
 // MoveArmies (Rva00565085.cpp, 0x00565085): the second record vector, 20-byte spawn requests at
 // +0x38/+0x3C, each handed to LivingWorldLogic::spawnBuilding (0x002B99F8, rowed). WorldBuilder's twin
@@ -27,13 +28,58 @@ struct Rva00565106Vector
 	Rva002B99F8Request *storage;
 };
 
+typedef unsigned int UnsignedInt;
+
+class LivingWorldCampaignActEntry;
+
+template <class T> class ActVectorView
+{
+public:
+	UnsignedInt size() const { return UnsignedInt(m_finish - m_start); }
+	T &operator[](UnsignedInt i) { T *base=m_start; return *(base+i); }
+private:
+	T *m_start;
+	T *m_finish;
+	T *m_endOfStorage;
+};
+
+
+struct Rec00564C08;
+
+struct Rva00565085Record
+{
+    int unknown;
+    AsciiString ownerName;
+    AsciiString regionName;
+};
+
+struct Rva00565085Vector
+{
+    // ?Rva00565085Vector::size absent-from-retail
+    unsigned size() const { return end - begin; }
+    // ?Rva00565085Vector::operator[] absent-from-retail
+    Rva00565085Record &operator[](unsigned index) const { return begin[index]; }
+    Rva00565085Record *begin;
+    Rva00565085Record *end;
+    Rva00565085Record *storage;
+};
+
 class LivingWorldCampaignAct
 {
 public:
+	void rva00564EC0();
+	void SetPlayerControlOfArmies();
+	void MoveArmies();
 	void rva00565106();
 private:
-	unsigned char prefix[0x38];
+	unsigned char m_pad00[0x14];
+	ActVectorView<LivingWorldCampaignActEntry> m_entries;
+	unsigned char m_pad20[0xC];
+	Rva00565085Vector records;
 	Rva00565106Vector requests;
+	unsigned char m_pad44[0x64];
+	Rec00564C08 *m_beginA8;
+	Rec00564C08 *m_endAC;
 };
 
 void LivingWorldCampaignAct::rva00565106()

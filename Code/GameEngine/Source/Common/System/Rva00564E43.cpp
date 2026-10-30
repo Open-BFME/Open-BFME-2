@@ -3,7 +3,7 @@
 
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
-#include "PreRTS.h"
+#include "ascii_string.h"
 // ?rva00564E43@Rva00564E43@@QAEXXZ @0x00564E43 125B: unlock loops 8B array at +8/+0xc setting local AsciiString from +4 then calling m_b0 ActivateRegion with 1. Evidence: calls rowed set releaseBuffer ActivateRegion EH_prolog; g_009FEF10; single caller call at 0x00566972; prev CDManager next GloItem.
 class Rva002104C7
 {
@@ -17,8 +17,11 @@ public:
 	Rva002104C7 *m_b0;
 };
 
-extern "C" void _ReadWriteBarrier(void);
+extern "C"
+{
+void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
+}
 struct Rva00564E43Item
 {
 	int m_0;

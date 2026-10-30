@@ -48,13 +48,57 @@ struct Rva00565085Vector
     Rva00565085Record *storage;
 };
 
+typedef unsigned int UnsignedInt;
+
+class LivingWorldCampaignActEntry;
+
+template <class T> class ActVectorView
+{
+public:
+	UnsignedInt size() const { return UnsignedInt(m_finish - m_start); }
+	T &operator[](UnsignedInt i) { T *base=m_start; return *(base+i); }
+private:
+	T *m_start;
+	T *m_finish;
+	T *m_endOfStorage;
+};
+
+
+struct Rec00564C08;
+
+struct Rva002B99F8Request
+{
+	void *m_vtbl;
+	unsigned char m_player[4];
+	int m_templateToken;
+	unsigned char m_region[4];
+	bool m_captured;
+};
+
+struct Rva00565106Vector
+{
+	unsigned size() const { return end - begin; }
+	Rva002B99F8Request *begin;
+	Rva002B99F8Request *end;
+	Rva002B99F8Request *storage;
+};
+
 class LivingWorldCampaignAct
 {
 public:
-    void MoveArmies();
+	void rva00564EC0();
+	void SetPlayerControlOfArmies();
+	void MoveArmies();
+	void rva00565106();
 private:
-    unsigned char prefix[0x2C];
-    Rva00565085Vector records;
+	unsigned char m_pad00[0x14];
+	ActVectorView<LivingWorldCampaignActEntry> m_entries;
+	unsigned char m_pad20[0xC];
+	Rva00565085Vector records;
+	Rva00565106Vector requests;
+	unsigned char m_pad44[0x64];
+	Rec00564C08 *m_beginA8;
+	Rec00564C08 *m_endAC;
 };
 
 // ?MoveArmies@LivingWorldCampaignAct@@QAEXXZ
