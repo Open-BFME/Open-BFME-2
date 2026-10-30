@@ -1,4 +1,4 @@
-// cl: /O1 /Ob2 /EHsc /DNDEBUG /MD
+// cl: /O1 /Ob2 /EHsc /DNDEBUG /MD /Ireference/shims/bfme2_ascii
 // Target74104C is the79B destructor called by the existing28B deleting
 // wrapper7410D0. Native stores primaryCF1648 and secondaryCF1644 vptrs;
 // destroys StringBase<char> at64 through full133B36410 and its secondary
@@ -25,7 +25,11 @@ class __declspec(novtable) Rva005248D0 {
 public: Rva005248D0(); virtual ~Rva005248D0();
 private: unsigned char opaque[0x54];
 };
-template<class T> class StringBase {public: ~StringBase();private: void* data;};
+// The canonical frozen StringBase replaces the private copy; the switches make
+// its default ctor and dtor reachable and declare the narrow dtor out of line.
+#define BFME_STRINGBASE_PUBLIC_DEFAULT_CTOR
+#define BFME_STRINGBASE_PUBLIC_DTOR
+#include "string_base.h"
 class Rva0074104C : public Rva0074104CBase, public Rva005248D0 {
 public: Rva0074104C(); Rva0074104C(EmitVtableTag*); virtual ~Rva0074104C();
 private:
