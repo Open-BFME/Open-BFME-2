@@ -48,7 +48,6 @@ name,address,notes
 ??$_Construct@UGen_t_008fb570_p8pod@@U1@@_STL@@YAXPAUGen_t_008fb570_p8pod@@ABU1@@Z,0x0060C9D9,retail REL32 from deque<Gen_t_008fb570_p8pod>::_M_push_back_aux_v at 0x0073E2E0; BFME1 deque construct helper
 ??$_Construct@UICoord2D@@U1@@_STL@@YAXPAUICoord2D@@ABU1@@Z,0x0060C9D9,23B typed two-int copy independently byte-equals matched pair<int const int> provider; callee of witnessed node creator
 ??$_Construct@UMade002CC5E1DamageScalar@@U1@@_STL@@YAXPAUMade002CC5E1DamageScalar@@ABU1@@Z,0x0060C9D9,two-dword copy construct fold; REL32 read from push_back 0x0050882B and insert overflow 0x005085B6
-??$_Construct@UPayload@DeliverPayloadNugget@@U12@@_STL@@YAXPAUPayload@DeliverPayloadNugget@@ABU12@@Z,0x004F6A52
 ??$_Construct@UPrereqUnitRec@ProductionPrerequisite@@U12@@_STL@@YAXPAUPrereqUnitRec@ProductionPrerequisite@@ABU12@@Z,0x002CF99D,callee of push_back (0x004F5243) at the site its BFME1 donor calls it; may be an ICF alias
 ??$_Construct@UQuantityModifier@@U1@@_STL@@YAXPAUQuantityModifier@@ABU1@@Z,0x0049DD0B,QuantityModifier Construct via AsciiString-plus-int copy ctor; retail REL32 target of placed overflow 0x0049F729 and push_back 0x0049FDC2; fold-proof=Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQuantityModifierParse.cpp
 ??$_Construct@URva0004B22EElement@@U1@@_STL@@YAXPAURva0004B22EElement@@ABU1@@Z,0x00049D44,target overflow 0x4B22E and target copy/fill helpers 0x49D71/0x49D97 call this two-pointer construction wrapper; it forwards to matched 0x48139; Rva0004B22EElement claims only the 92-byte nontrivial emitter view
@@ -155,7 +154,6 @@ name,address,notes
 ??$_Destroy@PAUGen00141A00@@@_STL@@YAXPAUGen00141A00@@0@Z,0x002CF891,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
 ??$_Destroy@PAUGeometryShape@@@_STL@@YAXPAUGeometryShape@@0@Z,0x005EAA83,STLport callee for this element view: REL32 read at 0x005EB2D1 in the byte-verified STLport helper 0x005EB2C9; ledger spelling there: ??$__destroy_aux@PAUBfmeVectorRecord002AF478@@@_STL@@YAXPAUBfmeVectorRecord002AF478@@0ABU__false_type@0@@Z
 ??$_Destroy@PAUMade002CC5E1DamageScalar@@@_STL@@YAXPAUMade002CC5E1DamageScalar@@0@Z,0x00507BB7,range destroy loop fold (element dtor 0x00495C43) read from the REL32 at 0x00507C17 in clear 0x00507C0F and 0x00507BEA in the vector dtor 0x00507BD0
-??$_Destroy@PAUPayload@DeliverPayloadNugget@@@_STL@@YAXPAUPayload@DeliverPayloadNugget@@0@Z,0x005F85C8,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
 ??$_Destroy@PAUQuantityModifier@@@_STL@@YAXPAUQuantityModifier@@0@Z,0x0032C0CA,TU _Destroy resolves the vector-dtor call at 0x49E274; retail 25B 8-byte-pair loop via key dtor 0x48BA39 (rowed Rva0032C0CADestroyPairs, stride-identical fold)
 ??$_Destroy@PAURva00079EA1Element@@@_STL@@YAXPAURva00079EA1Element@@0@Z,0x00405337,STLport _Destroy for this element view: REL32 read at 0x00079EC0 in the byte-verified range erase 0x00079EA1; ledger spelling there: ?Rva00405337Clear@@YAXPAX0@Z
 ??$_Destroy@PAURva0008B4AFElement@@@_STL@@YAXPAURva0008B4AFElement@@0@Z,0x0008AFDC,address-derived STLport _Destroy for this element view; RETAIL REL32 in vector clear 0x0008B4AF targets this 24B Ghidra body; identity unproven
@@ -617,7 +615,6 @@ name,address,notes
 ??$__uninitialized_copy@PAUBfmeVectorRecord00319C84@@PAU1@@_STL@@YAPAUBfmeVectorRecord00319C84@@PAU1@00ABU__false_type@0@@Z,0x00318D75,uninitialized_copy worker for _M_allocate_and_copy<vector<BfmeVectorRecord00319C84>> at 0x00319304: retail REL32 at +0x1E targets this address; matched 38B row
 ??$__uninitialized_copy@PAUCoord3D@@PAU1@@_STL@@YAPAUCoord3D@@PAU1@00ABU__false_type@0@@Z,0x000766F5,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
 ??$__uninitialized_copy@PAUEvaMessageInfo@@PAU1@@_STL@@YAPAUEvaMessageInfo@@PAU1@00ABU__false_type@0@@Z,0x003F62F5,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
-??$__uninitialized_copy@PAUPayload@DeliverPayloadNugget@@PAU12@@_STL@@YAPAUPayload@DeliverPayloadNugget@@PAU12@00ABU__false_type@0@@Z,0x004F6A88
 ??$__uninitialized_copy@PAUPrereqUnitRec@@PAU1@@_STL@@YAPAUPrereqUnitRec@@PAU1@00ABU__false_type@0@@Z,0x000766F5
 ??$__uninitialized_copy@PAUPrereqUnitRec@ProductionPrerequisite@@PAU12@@_STL@@YAPAUPrereqUnitRec@ProductionPrerequisite@@PAU12@00ABU__false_type@0@@Z,0x004F5097,overflow 0x004F5165 prefix-suffix copy; 38B byte-exact twin of rowed PBU BfmeStringRecord worker via _Construct 0x002CF99D
 ??$__uninitialized_copy@PAURva0004B22EElement@@PAU1@@_STL@@YAPAURva0004B22EElement@@PAU1@00ABU__false_type@0@@Z,0x00049D71,target overflow 0x4B22E calls this for prefix/suffix ranges; boundary 0x49D71/38 loops by 0x5C and calls construction wrapper 0x49D44; mutable-pointer spelling is the STLport emitter signature not a target constness claim
@@ -765,7 +762,6 @@ name,address,notes
 ??$__uninitialized_fill_n@PAUFileInfoStruct@MixFileCreator@@IU12@@_STL@@YAPAUFileInfoStruct@MixFileCreator@@PAU12@IABU12@ABU__false_type@0@@Z,0x0050477B
 ??$__uninitialized_fill_n@PAUGen003AA0D0@@IU1@@_STL@@YAPAUGen003AA0D0@@PAU1@IABU1@ABU__false_type@0@@Z,0x005DE7A3,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
 ??$__uninitialized_fill_n@PAUMade002CC5E1DamageScalar@@IU1@@_STL@@YAPAUMade002CC5E1DamageScalar@@PAU1@IABU1@ABU__false_type@0@@Z,0x00507958,8-byte fill fold; REL32 read from insert overflow 0x005085B6
-??$__uninitialized_fill_n@PAUPayload@DeliverPayloadNugget@@IU12@@_STL@@YAPAUPayload@DeliverPayloadNugget@@PAU12@IABU12@ABU__false_type@0@@Z,0x004F6AAE
 ??$__uninitialized_fill_n@PAUPrereqUnitRec@@IU1@@_STL@@YAPAUPrereqUnitRec@@PAU1@IABU1@ABU__false_type@0@@Z,0x002A73C0
 ??$__uninitialized_fill_n@PAUPrereqUnitRec@ProductionPrerequisite@@IU12@@_STL@@YAPAUPrereqUnitRec@ProductionPrerequisite@@PAU12@IABU12@ABU__false_type@0@@Z,0x004F50BD,overflow 0x004F5165 fill path; 37B byte-exact twin of rowed PAU BfmeStringRecord worker via _Construct 0x002CF99D
 ??$__uninitialized_fill_n@PAURva0004B22EElement@@IU1@@_STL@@YAPAURva0004B22EElement@@PAU1@IABU1@ABU__false_type@0@@Z,0x00049D97,target overflow 0x4B22E calls this when fill count is not one; boundary 0x49D97/37 advances by 0x5C and calls construction wrapper 0x49D44; emitter type makes no application-field claim
@@ -2961,7 +2957,6 @@ name,address,notes
 ??1Overridable@@MAE@XZ,0x00548948,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ??1PB_DeepBase@@UAE@XZ,0x0002CCC3,address read from the REL32 displacement at a placed body
 ??1ParticleSystemTemplateTail@FXParticleSystem@@QAE@XZ,0x001FBEB7,"seat-14 dtor tail call target: retail 0x1FBF4D leas ecx=[esi+0xa4] and calls here; unproven Ghidra boundary (gap); opaque BFME2-local tail name, no donor"
-??1Payload@DeliverPayloadNugget@@QAE@XZ,0x00495C43,callee REL32 read by locate.py from a unique masked-byte placement emitted by ObjectCreationList.cpp
 ??1PeerRequest@@QAE@XZ,0x001EF723,Player-left callback38C788 destroys the same492B request through independently verified259B owning cleanup1EF723
 ??1PingRequest@@QAE@XZ,0x0007FAB3,callee REL32 read by locate.py from a unique masked-byte placement emitted by PingThread_Pinger_getRequest.cpp
 ??1PlayerInfo@@QAE@XZ,0x001EF50E,alias of rowed Rva001EF50E dtor at 0x001EF50E; called by pair<const AsciiString PlayerInfo>::~pair at 0x00382899
@@ -4515,7 +4510,6 @@ name,address,notes
 ?allocate@?$allocator@UFileInfoStruct@MixFileCreator@@@_STL@@QBEPAUFileInfoStruct@MixFileCreator@@IPBX@Z,0x002226BE,typed FileInfoStruct vector allocator; candidate 0x64432 calls the 16-byte allocator and its worker is proven by the FileInfoStruct copy constructor chain
 ?allocate@?$allocator@UGeometryShape@@@_STL@@QBEPAUGeometryShape@@IPBX@Z,0x005DFB2C,identical-code twin for GeometryShape Vector_base 0x10E5A2 via REL32 and imul 0x24 stride
 ?allocate@?$allocator@UMade002CC5E1DamageScalar@@@_STL@@QBEPAUMade002CC5E1DamageScalar@@IPBX@Z,0x00523D6C,8-byte raw allocator fold; REL32 read from insert overflow 0x005085B6
-?allocate@?$allocator@UPayload@DeliverPayloadNugget@@@_STL@@QBEPAUPayload@DeliverPayloadNugget@@IPBX@Z,0x00523D6C
 ?allocate@?$allocator@UPrereqUnitRec@@@_STL@@QBEPAUPrereqUnitRec@@IPBX@Z,0x00395928,PrereqUnitRec allocator allocate fold; TU spelling for the count-taking Vector_base at 0x005C8C37
 ?allocate@?$allocator@UPrereqUnitRec@ProductionPrerequisite@@@_STL@@QBEPAUPrereqUnitRec@ProductionPrerequisite@@IPBX@Z,0x00395928,allocator PrereqUnitRec nested allocate fold; TU spelling for overflow at 0x004F5165; ICF twin of rowed BfmeE12 allocate
 ?allocate@?$allocator@UQuantityModifier@@@_STL@@QBEPAUQuantityModifier@@IPBX@Z,0x00523D6C,ICF 8-byte allocate twin of BfmeE8 row at this address; retail REL32 target of placed QuantityModifier overflow 0x0049F729
@@ -9395,3 +9389,6 @@ _atan2f,0x000422A0,math.h x86 inline atan2f (float)atan2((double)y(double)x): 0x
 ?allocate@?$allocator@URva0056644EElement@@@_STL@@QAEPAURva0056644EElement@@IPBX@Z,0x002226BE,STLport 4.6 non-const twin of ?allocate@?$allocator@URva0056644EElement@@@_STL@@QBEPAURva0056644EElement@@IPBX@Z; caller Code/GameEngine/Source/Common/Rva0056644EOverflow.cpp; fold-proof=Code/GameEngine/Source/Common/Rva0056644EOverflow.cpp
 ??1?$vector@URva002BC339Value@@V?$allocator@URva002BC339Value@@@_STL@@@_STL@@QAE@XZ,0x002BBB57,Nested-vector cleanup; 20-byte record with vector at +8; fold-proof=Code/GameEngine/Source/Common/Rva0019D850NestedVectorRelease_Rva002bc339.cpp
 ??0?$_Rb_tree_base@URva004DA329Element@@V?$allocator@URva004DA329Element@@@_STL@@@_STL@@QAE@ABV?$allocator@URva004DA329Element@@@1@@Z,0x004D9A8B,Complete emitted36B storage constructor equals existing native owner including both resolved calls;56B header allocation and comparator representation verified as operations only; fold-proof=Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva004DA329.cpp
+?allocate@?$allocator@URva005F8447@@@_STL@@QBEPAURva005F8447@@IPBX@Z,0x00523D6C,Native two-handle vector helper; whole 28-byte body and relocations proven in current source; fold-proof=Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp
+??$__uninitialized_copy@PAURva005F8447@@PAU1@@_STL@@YAPAURva005F8447@@PAU1@00ABU__false_type@0@@Z,0x004F6A88,Native two-handle vector helper; whole 38-byte body and relocations proven in current source; fold-proof=Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp
+??$__uninitialized_fill_n@PAURva005F8447@@IU1@@_STL@@YAPAURva005F8447@@PAU1@IABU1@ABU__false_type@0@@Z,0x004F6AAE,Native two-handle vector helper; whole 37-byte body and relocations proven in current source; fold-proof=Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp

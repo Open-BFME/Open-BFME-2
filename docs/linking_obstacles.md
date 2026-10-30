@@ -12928,3 +12928,21 @@ repairs and LINK-156), before LINK-157/158. Checked and left, with the cause:
   CarryoverUnit 0x001EB79E/0x0037DEE4, `StlSweepW4Rva003F53DA.cpp` on ArmySummary
   0x0040E96D/0x0040E499), and `??1AudioEventRTS@@UAE@XZ` (0x004EC395, a folded
   `_List_base` dtor row) in ten units. Most of these units also hold other blockers.
+
+### ObjectCreationList native two-handle vector correction (2026-10-30)
+
+LINK-006 follow-up at `7497c3becc`: the applied source removes the Zero Hour-only
+DeliverPayload nugget and obsolete donor callback table, retaining retail's
+existing five callbacks. Native `005F8653/005F8752/005F8855` use the existing
+two-handle `Rva005F8447` lifetime and `Rva004F6A52Assign`, contradicting the old
+AsciiString/integer Payload attribution. The three wrong admissions are withdrawn
+with tombstones in a reviewable commit, then readmitted through the normal tool
+in the same publication batch. Do not publish the temporary 263-byte withdrawal.
+Six obsolete pins are removed and three whole-body native folds tool-admitted.
+All 23 retained rows verify with strict receipts, four EH graphs are EXACT, and
+the normal withdrawal preview LINKS for 1,164 authored bytes. None of 117 removed
+code definitions is an indexed external consumer's sole provider. Original
+element/application identity and TU approval remain unproven; no paths move.
+Final readmission, debt retirement and outgoing-consumer scope are recorded in
+[the verification handoff](../reverse/attempt_support/ocl-native-handles-20261030/readme.md).
+Census confirmation remains pending; no unique matched-byte gain is claimed.
