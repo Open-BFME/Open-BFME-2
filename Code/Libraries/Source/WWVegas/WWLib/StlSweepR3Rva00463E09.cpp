@@ -21,9 +21,9 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 // operator!= COMDAT (one byte shape per TU flags); exact-match free
 // overloads take those calls instead so this TU emits no external copy.
 namespace _STL {
-template <class _RbVal, class _RbLeft, class _RbRight>
-static inline bool operator!=(const _Rb_tree_iterator<_RbVal, _RbLeft> &a,
-                              const _Rb_tree_iterator<_RbVal, _RbRight> &b)
+template <class T, class LeftTraits, class RightTraits>
+static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
+                              const _Rb_tree_iterator<T, RightTraits>& b)
 { return a._M_node != b._M_node; }
 }
 
