@@ -74,20 +74,6 @@ struct T2NarrowCtype
 	const char *narrowRange(const char *low, const char *high, char dflt, char *to) const;
 };
 
-const char *T2NarrowCtype::widenRange(const char *low, const char *high, char *to) const
-{
-	if (high != low)
-		memmove(to, low, (unsigned int)(high - low));
-	return high;
-}
-
-const char *T2NarrowCtype::narrowRange(const char *low, const char *high, char, char *to) const
-{
-	if (high != low)
-		memmove(to, low, (unsigned int)(high - low));
-	return high;
-}
-
 struct T2WideCtype
 {
 	const T2WChar *isRange(const T2WChar *low, const T2WChar *high, unsigned int *vec) const;

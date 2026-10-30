@@ -844,9 +844,9 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00016BB0,35,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_ctype_virtuals.cpp
 0x00016BE0,35,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_ctype_virtuals.cpp
 0x00016C10,7,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_ctype_virtuals.cpp
-0x00016C20,39,code,Code/GameEngine/Source/Common/T2NarrowCtype.cpp,approved,N,N=Code/GameEngine/Source/Common/T2NarrowCtype.cpp provisional,Code/GameEngine/Source/Common/T2CtypeTableFacets.cpp
+0x00016C20,39,code,Code/GameEngine/Source/Common/T2NarrowCtype.cpp,approved,N,N=Code/GameEngine/Source/Common/T2NarrowCtype.cpp provisional,Code/GameEngine/Source/Common/T2NarrowCtype.cpp
 0x00016C50,7,code,Code/GameEngine/Source/Common/T2NarrowCtype.cpp,approved,C,C=0x00016C20..0x00016C60 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_ctype_virtuals.cpp
-0x00016C60,39,code,Code/GameEngine/Source/Common/T2NarrowCtype.cpp,approved,N,N=Code/GameEngine/Source/Common/T2NarrowCtype.cpp provisional,Code/GameEngine/Source/Common/T2CtypeTableFacets.cpp
+0x00016C60,39,code,Code/GameEngine/Source/Common/T2NarrowCtype.cpp,approved,N,N=Code/GameEngine/Source/Common/T2NarrowCtype.cpp provisional,Code/GameEngine/Source/Common/T2NarrowCtype.cpp
 0x00016C90,37,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_ctype_wchar_scan_not.cpp
 0x00016CC0,11,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_locale_facet_subclass_dtors.cpp
 0x00016CD0,40,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_ctype_virtuals.cpp

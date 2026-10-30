@@ -8986,8 +8986,8 @@ _luaK_jump,,0x00752690,166,Code/Libraries/Source/Lua/lcode.c,matched,vendored=lu
 ?_M_push_back_aux_v@?$deque@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@IAEXABUBfmeE8@@@Z,,0x0054B456,101,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_e8_pushback_aux.cpp,matched,stlport 4.5.3; dedicated TU with int-float element for movss copy and /Oy- ebp frame; a-then-b assignment order
 ?isRange@T2WideCtype@@QBEPBGPBG0PAI@Z,,0x00016D00,57,Code/GameEngine/Source/Common/T2CtypeTableFacets.cpp,matched,BFME1 byte-identical donor; b1 0x00840940
 ?narrowRange@T2WideCtype@@QBEPBGPBG0DPAD@Z,,0x00016E60,57,Code/GameEngine/Source/Common/T2CtypeTableFacets.cpp,matched,BFME1 byte-identical donor; b1 0x00840AA0
-?narrowRange@T2NarrowCtype@@QBEPBDPBD0DPAD@Z,,0x00016C60,39,Code/GameEngine/Source/Common/T2CtypeTableFacets.cpp,matched,BFME1 byte-identical donor; b1 0x00840880
-?widenRange@T2NarrowCtype@@QBEPBDPBD0PAD@Z,,0x00016C20,39,Code/GameEngine/Source/Common/T2CtypeTableFacets.cpp,matched,BFME1 byte-identical donor; b1 0x00840840
+?narrowRange@T2NarrowCtype@@QBEPBDPBD0DPAD@Z,,0x00016C60,39,Code/GameEngine/Source/Common/T2NarrowCtype.cpp,matched,BFME1 byte-identical donor; b1 0x00840880
+?widenRange@T2NarrowCtype@@QBEPBDPBD0PAD@Z,,0x00016C20,39,Code/GameEngine/Source/Common/T2NarrowCtype.cpp,matched,BFME1 byte-identical donor; b1 0x00840840
 ?widenRange@T2WideCtype@@QBEPBDPBD0PAG@Z,,0x00016E10,36,Code/GameEngine/Source/Common/T2CtypeTableFacets.cpp,matched,BFME1 byte-identical donor; b1 0x00840A50
 ??0Rva0040C1F0@@QAE@XZ,,0x005B72BE,41,Code/GameEngine/Source/Common/R3ScalarFieldConstructors3.cpp,matched,BFME1 byte-identical donor; b1 0x0040C1F0
 ??0Rva00704980@@QAE@XZ,,0x000B6D26,37,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawEventUpdate.cpp,matched,BFME1 byte-identical donor; b1 0x00704980; provider rehomed for C48DB EDX lifetime
