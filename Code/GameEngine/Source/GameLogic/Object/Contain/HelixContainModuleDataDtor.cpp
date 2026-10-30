@@ -1,4 +1,4 @@
-// cl: /O1 /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /O1 /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii
 // ??1CursorParticleSystemFXNugget@@UAE@XZ, retail 0x001E116E (56 bytes).
 // Identity: the CursorParticleSystemFXNugget ctor 0x001E0C90 installs vtable
 // 0x007DD91C (??_7CursorParticleSystemFXNugget in the data ledger), whose
@@ -10,15 +10,11 @@
 // template name) releases a string buffer before the shared FXNugget base
 // dtor 0x001DFA48 runs.
 
-template <typename T>
-class StringBase
-{
-    void *m_data;
-    void releaseBuffer();
-
-protected:
-    ~StringBase() { releaseBuffer(); }
-};
+// The canonical frozen StringBase replaces the private copy; its switch makes
+// the member dtor reachable and keeps the teardown an out-of-line call to the
+// rowed releaseBuffer (0x00036410 narrow, 0x00036E70 wide).
+#define BFME_STRINGBASE_PUBLIC_DTOR
+#include "string_base.h"
 
 class BfmeOwnedString4 : private StringBase<char>
 {
