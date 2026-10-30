@@ -1,0 +1,495 @@
+{
+  "production_source_changed": false,
+  "native_getter_rva": "0x002C8ECF",
+  "native_getter_size": 14,
+  "native_getter_raw": "8b4424048b8481a4000000c20400",
+  "native_meshmodel_getter_rva": "0x000D1AC1",
+  "native_meshmodel_getter_size": 20,
+  "native_meshmodel_getter_raw": "8b81940000008b4c24048b8488a8000000c20400",
+  "hypotheses": {
+    "forceinline": {
+      "removed": [],
+      "added": [],
+      "changed": [],
+      "matched_rows": {
+        "before": [
+          {
+            "name": "?Scale@Matrix3D@@QAEXM@Z",
+            "rva": "0x00074643",
+            "size": "133",
+            "exact": true
+          }
+        ],
+        "trial": [
+          {
+            "name": "?Scale@Matrix3D@@QAEXM@Z",
+            "rva": "0x00074643",
+            "size": "133",
+            "exact": true
+          }
+        ]
+      },
+      "retained_code_data_definitions": 223,
+      "out_of_line_getter_before": {
+        "section": ".text",
+        "raw": "8b4424048b8481a8000000c20400",
+        "relocations": []
+      },
+      "incoming_references_to_out_of_line_getter": [
+        {
+          "section": ".debug$F",
+          "offset": 0,
+          "kind": 7
+        }
+      ],
+      "changed_definitions": {}
+    },
+    "external": {
+      "removed": [
+        "?Peek_Single_Material@MeshMatDescClass@@QBEPAVVertexMaterialClass@@H@Z"
+      ],
+      "added": [],
+      "changed": [
+        "?Peek_Single_Material@MeshModelClass@@QBEPAVVertexMaterialClass@@H@Z",
+        "?Process_Clip_Pools@ShatterSystem@@KAXABVMatrix3D@@PAVMeshClass@@AAVMeshMtlParamsClass@@@Z"
+      ],
+      "matched_rows": {
+        "before": [
+          {
+            "name": "?Scale@Matrix3D@@QAEXM@Z",
+            "rva": "0x00074643",
+            "size": "133",
+            "exact": true
+          }
+        ],
+        "trial": [
+          {
+            "name": "?Scale@Matrix3D@@QAEXM@Z",
+            "rva": "0x00074643",
+            "size": "133",
+            "exact": true
+          }
+        ]
+      },
+      "retained_code_data_definitions": 222,
+      "out_of_line_getter_before": {
+        "section": ".text",
+        "raw": "8b4424048b8481a8000000c20400",
+        "relocations": []
+      },
+      "incoming_references_to_out_of_line_getter": [
+        {
+          "section": ".debug$F",
+          "offset": 0,
+          "kind": 7
+        }
+      ],
+      "changed_definitions": {
+        "?Peek_Single_Material@MeshModelClass@@QBEPAVVertexMaterialClass@@H@Z": {
+          "before_bytes": 20,
+          "after_bytes": 11,
+          "before_sha256": "10189c2c7f347f23f27070dc1860f72c64de3b745e8e240387b5d305050077e4",
+          "after_sha256": "fc0bf55d428555f7ee3b5be6ec9de4142cc5e119abfd16f21785a6d002c26e06",
+          "before_relocations": [],
+          "after_relocations": [
+            [
+              7,
+              20,
+              "?Peek_Single_Material@MeshMatDescClass@@QBEPAVVertexMaterialClass@@H@Z"
+            ]
+          ]
+        },
+        "?Process_Clip_Pools@ShatterSystem@@KAXABVMatrix3D@@PAVMeshClass@@AAVMeshMtlParamsClass@@@Z": {
+          "before_bytes": 1946,
+          "after_bytes": 1946,
+          "before_sha256": "521d3ede27c70a6a5c76f1c1503d3005f9aa4787f4cc9675bdbe37f31bba990f",
+          "after_sha256": "61fa8051140c40dc6586b9f637c3fc7dfbb6d9eb1b72c8c5999051c147be6c64",
+          "before_relocations": [
+            [
+              1,
+              6,
+              "__ehhandler$?Process_Clip_Pools@ShatterSystem@@KAXABVMatrix3D@@PAVMeshClass@@AAVMeshMtlParamsClass@@@Z"
+            ],
+            [
+              6,
+              20,
+              "__EH_prolog"
+            ],
+            [
+              20,
+              20,
+              "?Release_Fragments@ShatterSystem@@SAXXZ"
+            ],
+            [
+              28,
+              20,
+              "?Get_Model@MeshClass@@QAEPAVMeshModelClass@@XZ"
+            ],
+            [
+              40,
+              6,
+              "_ClipPools"
+            ],
+            [
+              101,
+              20,
+              "??2@YAPAXI@Z"
+            ],
+            [
+              122,
+              20,
+              "??0DynamicMeshClass@@QAE@HH@Z"
+            ],
+            [
+              150,
+              20,
+              "??2@YAPAXI@Z"
+            ],
+            [
+              174,
+              20,
+              "??0MaterialInfoClass@@QAE@XZ"
+            ],
+            [
+              269,
+              20,
+              "?Add_Vertex_Material@MaterialInfoClass@@QAEHPAVVertexMaterialClass@@@Z"
+            ],
+            [
+              298,
+              20,
+              "?Add_Texture@MaterialInfoClass@@QAEHPAVTextureClass@@@Z"
+            ],
+            [
+              392,
+              20,
+              "?Set_Vertex_Material@DynamicMeshClass@@QAEHPAVVertexMaterialClass@@_NH@Z"
+            ],
+            [
+              418,
+              20,
+              "?Set_Shader@DynamicMeshClass@@QAEHABVShaderClass@@H@Z"
+            ],
+            [
+              465,
+              20,
+              "?Set_Single_Texture@MeshMatDescClass@@QAEXPAVTextureClass@@HH@Z"
+            ],
+            [
+              563,
+              20,
+              "?Begin_Tri_Fan@DynamicMeshClass@@QAEXXZ"
+            ],
+            [
+              850,
+              20,
+              "?Location_Inline@DynamicMeshClass@@QAEXAAVVector3@@@Z"
+            ],
+            [
+              864,
+              20,
+              "?Normal@DynamicMeshClass@@QAEXAAVVector3@@@Z"
+            ],
+            [
+              937,
+              6,
+              "__real@3b808081"
+            ],
+            [
+              958,
+              6,
+              "__real@4f800000"
+            ],
+            [
+              991,
+              6,
+              "__real@4f800000"
+            ],
+            [
+              1019,
+              6,
+              "__real@4f800000"
+            ],
+            [
+              1042,
+              6,
+              "__real@4f800000"
+            ],
+            [
+              1072,
+              6,
+              "__real@4f800000"
+            ],
+            [
+              1103,
+              6,
+              "__real@4f800000"
+            ],
+            [
+              1129,
+              6,
+              "__real@4f800000"
+            ],
+            [
+              1206,
+              6,
+              "__real@437f0000"
+            ],
+            [
+              1374,
+              20,
+              "?Color@DynamicMeshClass@@QAEXIH@Z"
+            ],
+            [
+              1408,
+              20,
+              "?UV@DynamicMeshClass@@QAEXAAVVector2@@H@Z"
+            ],
+            [
+              1476,
+              20,
+              "?End_Vertex@DynamicMeshClass@@QAE_NXZ"
+            ],
+            [
+              1639,
+              20,
+              "?Translate_Vertices@DynamicMeshClass@@QAEXABVVector3@@@Z"
+            ],
+            [
+              1650,
+              6,
+              "__real@3f800000"
+            ],
+            [
+              1832,
+              20,
+              "?Multiply@Matrix3D@@SAXABV1@0PAV1@@Z"
+            ],
+            [
+              1890,
+              6,
+              "_MeshFragments"
+            ],
+            [
+              1895,
+              20,
+              "?Add@?$SimpleDynVecClass@PAVDynamicMeshClass@@@@QAE_NABQAVDynamicMeshClass@@H@Z"
+            ],
+            [
+              1906,
+              6,
+              "_ClipPools"
+            ],
+            [
+              1940,
+              6,
+              "__except_list"
+            ]
+          ],
+          "after_relocations": [
+            [
+              1,
+              6,
+              "__ehhandler$?Process_Clip_Pools@ShatterSystem@@KAXABVMatrix3D@@PAVMeshClass@@AAVMeshMtlParamsClass@@@Z"
+            ],
+            [
+              6,
+              20,
+              "__EH_prolog"
+            ],
+            [
+              20,
+              20,
+              "?Release_Fragments@ShatterSystem@@SAXXZ"
+            ],
+            [
+              28,
+              20,
+              "?Get_Model@MeshClass@@QAEPAVMeshModelClass@@XZ"
+            ],
+            [
+              40,
+              6,
+              "_ClipPools"
+            ],
+            [
+              101,
+              20,
+              "??2@YAPAXI@Z"
+            ],
+            [
+              122,
+              20,
+              "??0DynamicMeshClass@@QAE@HH@Z"
+            ],
+            [
+              150,
+              20,
+              "??2@YAPAXI@Z"
+            ],
+            [
+              174,
+              20,
+              "??0MaterialInfoClass@@QAE@XZ"
+            ],
+            [
+              251,
+              20,
+              "?Peek_Single_Material@MeshMatDescClass@@QBEPAVVertexMaterialClass@@H@Z"
+            ],
+            [
+              269,
+              20,
+              "?Peek_Single_Material@MeshMatDescClass@@QBEPAVVertexMaterialClass@@H@Z"
+            ],
+            [
+              278,
+              20,
+              "?Add_Vertex_Material@MaterialInfoClass@@QAEHPAVVertexMaterialClass@@@Z"
+            ],
+            [
+              307,
+              20,
+              "?Add_Texture@MaterialInfoClass@@QAEHPAVTextureClass@@@Z"
+            ],
+            [
+              389,
+              20,
+              "?Peek_Single_Material@MeshMatDescClass@@QBEPAVVertexMaterialClass@@H@Z"
+            ],
+            [
+              397,
+              20,
+              "?Set_Vertex_Material@DynamicMeshClass@@QAEHPAVVertexMaterialClass@@_NH@Z"
+            ],
+            [
+              424,
+              20,
+              "?Set_Shader@DynamicMeshClass@@QAEHABVShaderClass@@H@Z"
+            ],
+            [
+              469,
+              20,
+              "?Set_Single_Texture@MeshMatDescClass@@QAEXPAVTextureClass@@HH@Z"
+            ],
+            [
+              563,
+              20,
+              "?Begin_Tri_Fan@DynamicMeshClass@@QAEXXZ"
+            ],
+            [
+              850,
+              20,
+              "?Location_Inline@DynamicMeshClass@@QAEXAAVVector3@@@Z"
+            ],
+            [
+              864,
+              20,
+              "?Normal@DynamicMeshClass@@QAEXAAVVector3@@@Z"
+            ],
+            [
+              937,
+              6,
+              "__real@3b808081"
+            ],
+            [
+              958,
+              6,
+              "__real@4f800000"
+            ],
+            [
+              991,
+              6,
+              "__real@4f800000"
+            ],
+            [
+              1019,
+              6,
+              "__real@4f800000"
+            ],
+            [
+              1042,
+              6,
+              "__real@4f800000"
+            ],
+            [
+              1072,
+              6,
+              "__real@4f800000"
+            ],
+            [
+              1103,
+              6,
+              "__real@4f800000"
+            ],
+            [
+              1129,
+              6,
+              "__real@4f800000"
+            ],
+            [
+              1206,
+              6,
+              "__real@437f0000"
+            ],
+            [
+              1374,
+              20,
+              "?Color@DynamicMeshClass@@QAEXIH@Z"
+            ],
+            [
+              1408,
+              20,
+              "?UV@DynamicMeshClass@@QAEXAAVVector2@@H@Z"
+            ],
+            [
+              1476,
+              20,
+              "?End_Vertex@DynamicMeshClass@@QAE_NXZ"
+            ],
+            [
+              1639,
+              20,
+              "?Translate_Vertices@DynamicMeshClass@@QAEXABVVector3@@@Z"
+            ],
+            [
+              1650,
+              6,
+              "__real@3f800000"
+            ],
+            [
+              1832,
+              20,
+              "?Multiply@Matrix3D@@SAXABV1@0PAV1@@Z"
+            ],
+            [
+              1890,
+              6,
+              "_MeshFragments"
+            ],
+            [
+              1895,
+              20,
+              "?Add@?$SimpleDynVecClass@PAVDynamicMeshClass@@@@QAE_NABQAVDynamicMeshClass@@H@Z"
+            ],
+            [
+              1906,
+              6,
+              "_ClipPools"
+            ],
+            [
+              1940,
+              6,
+              "__except_list"
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "input_sha256": {
+    "Code/Libraries/Source/WWVegas/WW3D2/shattersystem.cpp": "1cbe47aad8de80d92155e9111521d7538feedf01cf8e4efbb9c0b3107ab83bc8",
+    "Code/Libraries/Source/WWVegas/WW3D2/dynamesh.cpp": "e27184c21af120ca8618d46cd1c33115a63f8a8cfd606c657a87111979bbf1c1",
+    "reference/shims/meshmatdesclayout/meshmatdesc.h": "deb8ba8b118a3b26b29275aaa3fdf742fcf9ebeaa2be8f20b93a6e644fe3cbb4"
+  }
+}

@@ -6609,6 +6609,18 @@ Updated: 2026-10-25; inspected revision: `4f111811802`.**
 
 ### LINK-012: shattersystem.cpp's Zero Hour WW3D2 views emit divergent shared COMDATs
 
+**2026-10-30 bounded getter probe:** the native MeshMatDesc getter at
+0x002C8ECF reads +0xA4; shatter's current copy reads +0xA8. The copy's incoming
+relocations are debug-only, but its body is also inlined into two other methods.
+Force-inline (definition only or declaration plus definition) keeps the wrong
+copy. A declaration-only private shim probe removes it while changing both
+MeshModelClass::Peek_Single_Material and ShatterSystem::Process_Clip_Pools,
+so the proposed narrow suppression is not accepted. Scale's 133 bytes remain
+exact in all probes; no production edit, retirement or link gain is retained.
+Next reconcile the native layout and caller bodies with their existing owners;
+the Add_Vertex_Material provider and broader dependencies remain open.
+[Rejected hypotheses and native facts](../reverse/attempt_support/shatter-material-getter-prerequisites-20261030/README.md).
+
 **Status: Open (partial repair landed). Updated: 2026-10-25; inspected revision: 70d32d864.**
 
 - **Evidence / scope:** `Code/Libraries/Source/WWVegas/WW3D2/shattersystem.cpp` compiles
