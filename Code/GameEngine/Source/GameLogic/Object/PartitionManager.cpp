@@ -4868,29 +4868,6 @@ Bool PartitionFilterFreeOfFog::allow( Object *other )
 
 //-----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------
-// ?allow@PartitionFilterInsignificantBuildings@@ present-unmatched
-Bool PartitionFilterInsignificantBuildings::allow( Object *other )
-{
-	if (other->isStructure()) {
-		if (other->isNonFactionStructure() && !m_allowInsignificant) {
-			ContainModuleInterface *cmi = getRetailContain(other);
-			if (cmi) {
-				if (!cmi->isGarrisonable() || cmi->getContainCount() == 0) {
-					return false;
-				}
-			}
-		}
-		return true;
-		
-	} else {
-		if (m_allowNonBuildings) {
-			return true;
-		}
-	}
-
-	return false;
-}
-
 //-----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------
@@ -4951,16 +4928,6 @@ Bool PartitionFilterRepulsor::allow( Object *other )
 // PartitionFilterIrregularArea::allow is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/PartitionFilters_allow_Thunk.cpp (0x0026170A).
 
 //-----------------------------------------------------------------------------
-// ?allow@PartitionFilterPolygonTrigger@@ present-unmatched
-Bool PartitionFilterPolygonTrigger::allow( Object *other )
-{
-	ICoord3D iPos;
-	iPos.x = other->getPosition()->x;
-	iPos.y = other->getPosition()->y;
-	iPos.z = 0; // Trigger areas compare on xy only.
-	return m_trigger->pointInTrigger(iPos);
-}
-
 //-----------------------------------------------------------------------------
 
 // PartitionFilterPlayer::allow is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/PartitionFilters_allow_Thunk.cpp (0x0026137E).
@@ -5032,12 +4999,6 @@ Bool PartitionFilterUnmannedObject::allow( Object *other )
 }
 
 //-----------------------------------------------------------------------------
-// ?allow@PartitionFilterValidCommandButtonTarget@@ present-unmatched
-Bool PartitionFilterValidCommandButtonTarget::allow( Object *other )
-{
-	return (m_commandButton->isValidToUseOn(m_source, other, NULL, m_commandSource) == m_match);
-}
-
 //-----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------

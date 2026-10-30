@@ -1,0 +1,180 @@
+{
+  "source": "Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp",
+  "scope": "remove three obsolete debug-only donor allow bodies and existing unmatched markers; retain header declarations and all externally referenced filters",
+  "variants": {
+    "before": {
+      "source_sha256": "fe1a8cf63a8b1a0f9741d2a07ed35e90561fb2554ed3ce712691c6ed6c211cc0",
+      "rows": [
+        {
+          "name": "??_ECellAndObjectIntersection@@QAEPAXI@Z",
+          "rva": "0x0073A370",
+          "size": "77",
+          "exact": true
+        },
+        {
+          "name": "?allocate@?$allocator@E@_STL@@QBEPAEIPBX@Z",
+          "rva": "0x000073E0",
+          "size": "27",
+          "exact": true
+        },
+        {
+          "name": "?friend_setPartitionData@Object@@QAEXPAVPartitionData@@@Z",
+          "rva": "0x00322167",
+          "size": "13",
+          "exact": true
+        },
+        {
+          "name": "?allow@PartitionFilterIsFlying@@UAE_NPAVObject@@@Z",
+          "rva": "0x00260E01",
+          "size": "12",
+          "exact": true
+        }
+      ],
+      "eh": []
+    },
+    "trial": {
+      "source_sha256": "435ae996bb05c2ed4ee7d8537b6968a24b4c6fb0f8a9320195ca2d1982d71dee",
+      "rows": [
+        {
+          "name": "??_ECellAndObjectIntersection@@QAEPAXI@Z",
+          "rva": "0x0073A370",
+          "size": "77",
+          "exact": true
+        },
+        {
+          "name": "?allocate@?$allocator@E@_STL@@QBEPAEIPBX@Z",
+          "rva": "0x000073E0",
+          "size": "27",
+          "exact": true
+        },
+        {
+          "name": "?friend_setPartitionData@Object@@QAEXPAVPartitionData@@@Z",
+          "rva": "0x00322167",
+          "size": "13",
+          "exact": true
+        },
+        {
+          "name": "?allow@PartitionFilterIsFlying@@UAE_NPAVObject@@@Z",
+          "rva": "0x00260E01",
+          "size": "12",
+          "exact": true
+        }
+      ],
+      "eh": []
+    }
+  },
+  "removed_debug_only_definitions": [
+    {
+      "name": "?allow@PartitionFilterInsignificantBuildings@@MAE_NPAVObject@@@Z",
+      "raw": "568b742408578bf98bcee80000000084c074438bcee80000000084c074318a470584c0752a8bb65002000085f674208b068bceff500884c0740e8b168bceff92a400000085c075075f32c05ec204005fb0015ec204008a470484c05f0f95c05ec20400",
+      "relocations": [
+        [
+          11,
+          20,
+          "?isStructure@Object@@QBE_NXZ"
+        ],
+        [
+          22,
+          20,
+          "?isNonFactionStructure@Object@@QBE_NXZ"
+        ]
+      ],
+      "incoming_refs": [
+        {
+          "section": ".debug$F",
+          "offset": 0,
+          "kind": 7
+        }
+      ]
+    },
+    {
+      "name": "?allow@PartitionFilterPolygonTrigger@@MAE_NPAVObject@@@Z",
+      "raw": "83ec0c8b442410f30f2c5038f30f2c403c8b49048914248d14245289442408c744240c00000000e80000000083c40cc20400",
+      "relocations": [
+        [
+          40,
+          20,
+          "?pointInTrigger@PolygonTrigger@@QBE_NAAUICoord3D@@@Z"
+        ]
+      ],
+      "incoming_refs": [
+        {
+          "section": ".debug$F",
+          "offset": 0,
+          "kind": 7
+        }
+      ]
+    },
+    {
+      "name": "?allow@PartitionFilterValidCommandButtonTarget@@MAE_NPAVObject@@@Z",
+      "raw": "568bf18b46108b4c24088b5604506a00518b4e0852e8000000002a460cf6d85e1bc040c20400",
+      "relocations": [
+        [
+          22,
+          20,
+          "?isValidToUseOn@CommandButton@@QBE_NPBVObject@@0PBUCoord3D@@W4CommandSourceType@@@Z"
+        ]
+      ],
+      "incoming_refs": [
+        {
+          "section": ".debug$F",
+          "offset": 0,
+          "kind": 7
+        }
+      ]
+    }
+  ],
+  "all_external_code_and_symbolic_relocations_identical": false,
+  "all_retained_external_code_and_symbolic_relocations_identical": true,
+  "runtime_invariant": {
+    "removed_debug_only_definitions": [
+      "?allow@PartitionFilterInsignificantBuildings@@MAE_NPAVObject@@@Z",
+      "?allow@PartitionFilterPolygonTrigger@@MAE_NPAVObject@@@Z",
+      "?allow@PartitionFilterValidCommandButtonTarget@@MAE_NPAVObject@@@Z"
+    ],
+    "remaining_code_definitions": 558,
+    "all_remaining_loadable_definitions_and_symbolic_relocations_identical": true,
+    "all_remaining_nondebug_sections_equal_as_multiset": true,
+    "undefined_removed": [
+      "?isNonFactionStructure@Object@@QBE_NXZ",
+      "?isStructure@Object@@QBE_NXZ",
+      "?isValidToUseOn@CommandButton@@QBE_NPBVObject@@0PBUCoord3D@@W4CommandSourceType@@@Z",
+      "?pointInTrigger@PolygonTrigger@@QBE_NAAUICoord3D@@@Z"
+    ],
+    "undefined_added": [],
+    "remaining_nondebug_sha256": "fa33583e5a612e997075054d13be957cd8a7b35a8b9981186bb8bd53ab620a29"
+  },
+  "actual": {
+    "source_sha256": "435ae996bb05c2ed4ee7d8537b6968a24b4c6fb0f8a9320195ca2d1982d71dee",
+    "object_sha256": "ac2cd7a876d415a00bfa95660012cb973bb52fbca79bdd7d371ba5a2504501d5",
+    "strict_current": true
+  },
+  "indexed_touches": {
+    "?allow@PartitionFilterInsignificantBuildings@@MAE_NPAVObject@@@Z": [
+      "^code_^game^engine_^source_^game^logic_^object_^partition^manager.obj"
+    ],
+    "?allow@PartitionFilterPolygonTrigger@@MAE_NPAVObject@@@Z": [
+      "^code_^game^engine_^source_^game^logic_^object_^partition^manager.obj"
+    ],
+    "?allow@PartitionFilterValidCommandButtonTarget@@MAE_NPAVObject@@@Z": [
+      "^code_^game^engine_^source_^game^logic_^object_^partition^manager.obj"
+    ]
+  },
+  "retired_hatches": [
+    "present_unmatched PartitionManager.cpp allow@PartitionFilterInsignificantBuildings@@",
+    "present_unmatched PartitionManager.cpp allow@PartitionFilterPolygonTrigger@@",
+    "present_unmatched PartitionManager.cpp allow@PartitionFilterValidCommandButtonTarget@@"
+  ],
+  "scope_limit": "remove unused legacy donor bodies only, no native-body recovery, no retail-dead-strip claim, no census gain",
+  "bounded_preview": {
+    "unresolved_before": 11,
+    "unresolved_after": 8,
+    "cleared": [
+      "unresolved  ?isNonFactionStructure@Object@@QBE_NXZ",
+      "unresolved  ?isValidToUseOn@CommandButton@@QBE_NPBVObject@@0PBUCoord3D@@W4CommandSourceType@@@Z",
+      "unresolved  ?pointInTrigger@PolygonTrigger@@QBE_NAAUICoord3D@@@Z"
+    ],
+    "all_other_blockers_identical": true,
+    "census_gain_claimed": false
+  }
+}

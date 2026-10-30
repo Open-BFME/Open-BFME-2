@@ -13215,12 +13215,10 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	a
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	allow@PartitionFilterFreeOfFog@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	allow@PartitionFilterGarrisonable@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	allow@PartitionFilterGarrisonableByPlayer@@	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	allow@PartitionFilterInsignificantBuildings@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	allow@PartitionFilterLastAttackedBy@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	allow@PartitionFilterLineOfSight@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	allow@PartitionFilterOnMap@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	allow@PartitionFilterPlayerAffiliation@@	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	allow@PartitionFilterPolygonTrigger@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	allow@PartitionFilterPossibleToEnter@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	allow@PartitionFilterPossibleToHijack@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	allow@PartitionFilterRejectBehind@@	1
@@ -13231,7 +13229,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	a
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	allow@PartitionFilterStealthedAndUndetected@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	allow@PartitionFilterThing@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	allow@PartitionFilterUnmannedObject@@	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	allow@PartitionFilterValidCommandButtonTarget@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	attachToGhostObject@PartitionData@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	attachToObject@PartitionData@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	calcMaxCoiForObject@PartitionData@@	1
