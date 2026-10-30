@@ -48334,11 +48334,11 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00596635,72,code,Code/GameEngine/Source/Common/AIStructureStats.cpp,approved,N,N=Code/GameEngine/Source/Common/AIStructureStats.cpp provisional,Code/GameEngine/Source/Common/Rva0025C061Push.cpp
 0x0059667D,9,code,,,-,,Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp
 0x00596686,7,code,,,-,,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp
-0x0059668D,51,code,Code/GameEngine/Source/Common/FadeInTextRender.cpp,approved,N,N=Code/GameEngine/Source/Common/FadeInTextRender.cpp provisional,Code/GameEngine/Source/Common/Bfme5SeventyOne.cpp
+0x0059668D,51,code,Code/GameEngine/Source/Common/FadeInTextRender.cpp,approved,N,N=Code/GameEngine/Source/Common/FadeInTextRender.cpp provisional,Code/GameEngine/Source/Common/FadeInTextRender.cpp
 0x005966C0,29,code,Code/GameEngine/Source/Common/FadeInTextRender.cpp,approved,C,C=0x0059668D..0x005966DD provisional,Code/GameEngine/Source/Common/Rva0059675ADtor.cpp
 0x005966DD,125,code,Code/GameEngine/Source/Common/FadeInTextRender.cpp,approved,N,N=Code/GameEngine/Source/Common/FadeInTextRender.cpp provisional,Code/GameEngine/Source/Common/FadeInTextRender.cpp
 0x0059675A,89,code,Code/GameEngine/Source/Common/FadeInTextRender.cpp,approved,N,N=Code/GameEngine/Source/Common/FadeInTextRender.cpp provisional,Code/GameEngine/Source/Common/Rva0059675ADtor.cpp
-0x005967B3,341,code,Code/GameEngine/Source/Common/FadeInTextRender.cpp,approved,N,N=Code/GameEngine/Source/Common/FadeInTextRender.cpp W=Code/GameEngine/Source/GameClient/GUI/FadeInTextRender.cpp provisional,Code/GameEngine/Source/Common/FadeInTextRender_LoadAssets.cpp
+0x005967B3,341,code,Code/GameEngine/Source/Common/FadeInTextRender.cpp,approved,N,N=Code/GameEngine/Source/Common/FadeInTextRender.cpp W=Code/GameEngine/Source/GameClient/GUI/FadeInTextRender.cpp provisional,Code/GameEngine/Source/Common/FadeInTextRender.cpp
 0x00596908,481,code,Code/GameEngine/Source/Common/FadeInTextRender.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/SkirmishAI/AIEconomyBuilder/FadeInTextRender.cpp W=Code/GameEngine/Source/GameClient/GUI/FadeInTextRender.cpp provisional,Code/GameEngine/Source/GameLogic/SkirmishAI/AIEconomyBuilder/rva00596908Rva00596908Farm.cpp
 0x00596AE9,28,code,Code/GameEngine/Source/Common/FadeInTextRender.cpp,approved,N,N=Code/GameEngine/Source/Common/FadeInTextRender.cpp provisional,Code/GameEngine/Source/Common/Rva0059675ADtor.cpp
 0x00596B05,11,code,,,-,,Code/GameEngine/Source/Common/Rva0055B0CCDerived.cpp
@@ -87072,9 +87072,9 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0079D303,8,code,Code/GameEngine/Source/Common/FadeInTextRender.cpp,approved,P,P=0x0059675A@FuncInfo0x00953174 provisional,Code/GameEngine/Source/Common/Rva0059675ADtor.cpp
 0x0079D30B,11,code,Code/GameEngine/Source/Common/FadeInTextRender.cpp,approved,P,P=0x0059675A@FuncInfo0x00953174 provisional,Code/GameEngine/Source/Common/Rva0059675ADtor.cpp
 0x0079D316,10,code,Code/GameEngine/Source/Common/FadeInTextRender.cpp,approved,P,P=0x0059675A@FuncInfo0x00953174 provisional,Code/GameEngine/Source/Common/Rva0059675ADtor.cpp
-0x0079D320,10,code,Code/GameEngine/Source/Common/FadeInTextRender.cpp,approved,P,P=0x005967B3@FuncInfo0x009531A8 provisional,Code/GameEngine/Source/Common/FadeInTextRender_LoadAssets.cpp
-0x0079D32A,25,code,Code/GameEngine/Source/Common/FadeInTextRender.cpp,approved,P,P=0x005967B3@FuncInfo0x009531A8 provisional,Code/GameEngine/Source/Common/FadeInTextRender_LoadAssets.cpp
-0x0079D343,10,code,Code/GameEngine/Source/Common/FadeInTextRender.cpp,approved,P,P=0x005967B3@FuncInfo0x009531A8 provisional,Code/GameEngine/Source/Common/FadeInTextRender_LoadAssets.cpp
+0x0079D320,10,code,Code/GameEngine/Source/Common/FadeInTextRender.cpp,approved,P,P=0x005967B3@FuncInfo0x009531A8 provisional,Code/GameEngine/Source/Common/FadeInTextRender.cpp
+0x0079D32A,25,code,Code/GameEngine/Source/Common/FadeInTextRender.cpp,approved,P,P=0x005967B3@FuncInfo0x009531A8 provisional,Code/GameEngine/Source/Common/FadeInTextRender.cpp
+0x0079D343,10,code,Code/GameEngine/Source/Common/FadeInTextRender.cpp,approved,P,P=0x005967B3@FuncInfo0x009531A8 provisional,Code/GameEngine/Source/Common/FadeInTextRender.cpp
 0x0079D34D,8,code,Code/GameEngine/Source/Common/FadeInTextRender.cpp,approved,P,P=0x00596908@FuncInfo0x009531CC provisional,Code/GameEngine/Source/GameLogic/SkirmishAI/AIEconomyBuilder/rva00596908Rva00596908Farm.cpp
 0x0079D355,10,code,Code/GameEngine/Source/Common/FadeInTextRender.cpp,approved,P,P=0x00596908@FuncInfo0x009531CC provisional,Code/GameEngine/Source/GameLogic/SkirmishAI/AIEconomyBuilder/rva00596908Rva00596908Farm.cpp
 0x0079D35F,8,code,,,-,,Code/GameEngine/Source/Common/Rva00596B05Ctor.cpp
