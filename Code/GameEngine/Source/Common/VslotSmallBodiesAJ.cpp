@@ -493,10 +493,6 @@ class Rva00099109 : public Rva00041A06
 public:
 	void rva00099109();
 };
-void Rva00099109::rva00099109()
-{
-	Rva00041A06::rva00041A06();
-}
 
 // 0x00041E65: tail jump to Win32GameEngine::rva0005E959.
 class Rva00041E65 : public Win32GameEngine
