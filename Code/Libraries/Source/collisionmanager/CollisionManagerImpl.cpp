@@ -66,28 +66,69 @@ public:
 	void *m_child;
 };
 
+class Rva009A45A0CollisionData;
+struct CollisionContactSource;
+
+struct Rva009A3AD0Endpoint
+{
+	Rva009A3AD0Endpoint *m_prev;	// +0x00
+	Rva009A3AD0Endpoint *m_next;	// +0x04
+	Rva009A45A0CollisionData *m_node;	// +0x08
+	unsigned int m_isMax : 1;	// +0x0c
+	float m_value;	// +0x10
+
+	bool isMin() const { return !m_isMax; }
+};
+
+struct Rva009A3AD0Interval
+{
+	Rva009A3AD0Endpoint m_min;
+	Rva009A3AD0Endpoint m_max;
+};
+
 class Rva009A45A0CollisionData
 {
 public:
 	~Rva009A45A0CollisionData();
+
+	void *m_owner;	// +0x00
+	CollisionContactSource *m_source;	// +0x04
+	void *m_rootPrev;	// +0x08
+	Rva009A45A0CollisionData *m_rootNext;	// +0x0c
+	void *m_dirtyPrev;	// +0x10
+	Rva009A45A0CollisionData *m_dirtyNext;	// +0x14
+	Rva009A45A0CollisionData **m_openPrev;	// +0x18
+	Rva009A45A0CollisionData *m_openNext;	// +0x1c
+	int m_rva009A3AD0_020;	// +0x20
+	union
+	{
+		Rva009A3AD0Endpoint m_endpoints[6];	// +0x24
+		Rva009A3AD0Interval m_intervals[3];
+	};
 };
 
 // Retail normal cleanup and both unwind entries call the same full table
 // destructors at 0x00758F30 and 0x00759D30, respectively.
+struct BfmeNodeVMN;
+
 class Rva009A4620VMNView
 {
 public:
 	~Rva009A4620VMNView() throw();
-private:
-	unsigned char m_storage[0xADF8];
+	BfmeNodeVMN *m_bfme00[0x2b7b];
+	BfmeNodeVMN *m_bfmeadec;
+	unsigned char m_tail[8];
 };
+
+struct BfmeNodeVDB;
 
 class Rva009A4620VDBView
 {
 public:
 	~Rva009A4620VDBView() throw();
-private:
-	unsigned char m_storage[0x1258];
+	BfmeNodeVDB *m_bfmeTable[0x493];
+	BfmeNodeVDB *m_bfmeExtra;
+	unsigned char m_tail[8];
 };
 
 class Rva009A4620CollisionData
@@ -377,12 +418,12 @@ class Rva009A3300HashTable
 {
 public:
 	void remove(Rva009A3300Node *entry);
-
+	__forceinline void removeKey(unsigned a, unsigned b) { Rva009A3300Node key; key.m_key0=a; key.m_key1=b; remove(&key); }
 private:
-	Rva009A3300Node *m_buckets[0x493];
-	Rva009A3300Node *m_freeHead;
-	void *m_spare;
-	Rva009A3300Node *m_cursor;
+	Rva009A3300Node *m_buckets[0x493]; // +0x00
+	Rva009A3300Node *m_freeHead; // +0x124C
+	void *m_spare; // +0x1250
+	Rva009A3300Node *m_cursor; // +0x1254
 };
 
 struct BfmeHolderZT;
@@ -473,6 +514,11 @@ private:
 	RetailCollisionTail m_tail;
 };
 
+struct Rva009A2FE0Node;
+class Rva009A36F0Param;
+class Rva009A36F0Thing;
+struct Rva009A3540OpaqueOwner;
+
 class CollisionManagerImpl
 {
 public:
@@ -490,7 +536,9 @@ public:
 public:
 	void *m_bfmeFirst;
 public:
-	unsigned char m_bfmeGap[0x18 - 4];
+	unsigned int m_nodeCount;
+	Rva009A45A0CollisionData *m_dirty;
+	Rva009A3AD0Endpoint *m_axisHeads[3];
 public:
 	Rva009A2FE0Node *m_buckets2[0x2b7b];
 public:
@@ -508,7 +556,8 @@ public:
 public:
 	Rva009A2FE0Node *m_cur;
 public:
-	unsigned char m_bfmeGap1[0xc06d - 0xc068];
+	unsigned int m_axisCount;
+	bool m_rebuild;
 public:
 	bool m_bfmeBusy;
 public:
@@ -517,6 +566,86 @@ public:
 	void _RemoveOverlap(Rva009A3540OpaqueOwner *lhs, Rva009A3540OpaqueOwner *rhs);
 public:
 	void rva00759490(Rva009A3540OpaqueOwner *lhs, Rva009A3540OpaqueOwner *rhs);
+	void UpdateSort();
+	void unlinkChain(Rva009A36F0Thing *thing);
+	void rva007586F0();
+
+	__forceinline void insertSorted(Rva009A45A0CollisionData *node, Rva009A3AD0Interval *axis, Rva009A3AD0Endpoint **head)
+	{
+		Rva009A3AD0Endpoint *cur = *head;
+		Rva009A3AD0Endpoint *prev = 0;
+		Rva009A45A0CollisionData *open = 0;
+		float value = axis->m_max.m_value;
+		while (cur != 0 && !(cur->m_value > value))
+		{
+			if (cur->isMin())
+			{
+				cur->m_node->m_openPrev = &open;
+				cur->m_node->m_openNext = open;
+				if (cur->m_node->m_openNext != 0)
+					cur->m_node->m_openNext->m_openPrev = &cur->m_node->m_openNext;
+				open = cur->m_node;
+			}
+			else
+			{
+				if (cur->m_node->m_openNext != 0)
+					cur->m_node->m_openNext->m_openPrev = cur->m_node->m_openPrev;
+				*cur->m_node->m_openPrev = cur->m_node->m_openNext;
+				cur->m_node->m_openPrev = 0;
+			}
+			prev = cur;
+			cur = cur->m_next;
+		}
+
+		axis->m_max.m_prev = prev;
+		axis->m_max.m_next = cur;
+		if (prev != 0)
+			prev->m_next = &axis->m_max;
+		else
+			*head = &axis->m_max;
+		if (cur != 0)
+			axis->m_max.m_next->m_prev = &axis->m_max;
+		prev = &axis->m_max;
+
+		if (cur != 0)
+		{
+			while (open != 0)
+			{
+				rva00759490((Rva009A3540OpaqueOwner *)open, (Rva009A3540OpaqueOwner *)node);
+				Rva009A45A0CollisionData *closed = open;
+				if (closed->m_openNext != 0)
+					closed->m_openNext->m_openPrev = closed->m_openPrev;
+				*closed->m_openPrev = closed->m_openNext;
+				closed->m_openPrev = 0;
+			}
+			value = axis->m_min.m_value;
+			do
+			{
+				if (!(cur->m_value < value))
+					break;
+				if (cur->isMin())
+					rva00759490((Rva009A3540OpaqueOwner *)cur->m_node, (Rva009A3540OpaqueOwner *)node);
+				prev = cur;
+				cur = cur->m_next;
+			}
+			while (cur != 0);
+		}
+
+		axis->m_min.m_prev = prev;
+		axis->m_min.m_next = cur;
+		prev->m_next = &axis->m_min;
+		if (cur != 0)
+			axis->m_min.m_next->m_prev = &axis->m_min;
+	}
+
+	__forceinline void pushFront(Rva009A3AD0Endpoint *endpoint, Rva009A3AD0Endpoint **head)
+	{
+		endpoint->m_prev = 0;
+		endpoint->m_next = *head;
+		if (endpoint->m_next != 0)
+			endpoint->m_next->m_prev = endpoint;
+		*head = endpoint;
+	}
 };
 
 // tu-skeleton: 0x007586F0 460B ?rva007586F0@CollisionManagerImpl@@QAEXXZ -- matched in Code/Libraries/Source/collisionmanager/collisionmanager_impl.cpp (not merged yet)

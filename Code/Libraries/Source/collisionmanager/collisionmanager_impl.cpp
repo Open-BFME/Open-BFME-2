@@ -74,7 +74,7 @@ struct Rva009A3AD0Endpoint
 	Rva009A3AD0Endpoint *m_next;	// +0x04
 	Rva009A45A0CollisionData *m_node;	// +0x08
 	unsigned int m_isMax : 1;	// +0x0c
-	Real m_value;	// +0x10
+	float m_value;	// +0x10
 
 	bool isMin() const { return !m_isMax; }
 };
@@ -122,46 +122,86 @@ public:
 	void bfmeDropXX();
 };
 
+struct Rva007589F0Node;
 class Rva007589F0
 {
 public:
 	void collectAll();
+	Rva007589F0Node *m_buckets[0x2B7B]; // +0x00
+	Rva007589F0Node *m_head; // +0xADEC
 };
 
+struct Rva00758B20Node;
 class Rva00758B20
 {
 public:
 	void collectAll();
+	Rva00758B20Node *m_buckets[0x493]; // +0x00
+	Rva00758B20Node *m_head; // +0x124C
 };
+
+struct Rva009A2FE0Node;
+class Rva009A36F0Param;
+class Rva009A36F0Thing;
+struct Rva009A3540OpaqueOwner;
 
 class CollisionManagerImpl
 {
 public:
-	void UpdateSort();
-	void rva00759490(Rva009A3540OpaqueOwner *a, Rva009A3540OpaqueOwner *b);	// 0x00759490, WB _AddOverlap
-	void unlinkChain(Rva009A36F0Thing *thing);
-	void _RemoveOverlap(Rva009A3540OpaqueOwner *a, Rva009A3540OpaqueOwner *b);
-	void rva007586F0();
+	void bfmeOneCGD();
+public:
 	void bfmeTwoCGD();
-
-	Rva009A45A0CollisionData *m_root;	// +0x00
-	unsigned int m_nodeCount;	// +0x04
-	Rva009A45A0CollisionData *m_dirty;	// +0x08
-	Rva009A3AD0Endpoint *m_axisHeads[3];	// +0x0c
-	unsigned char m_table[0xAE10 - 0x18];
-	CollisionContactNode *m_contactBuckets[0x493]; // +0xae10
-	CollisionContactNode *m_contactActive; // +0xc05c
-	int m_contactIndex; // +0xc060
-	CollisionContactNode *m_contactCurrent; // +0xc064
-	unsigned int m_axisCount;	// +0xc068
-	bool m_rebuild;	// +0xc06c
+public:
+	void Update();
+public:
+	void rva0075A1A0();
+public:
+	Rva009A2FE0Node *nextNode();
+public:
+	Rva009A2FE0Node *nextNode2();
+public:
+	void *m_bfmeFirst;
+public:
+	unsigned int m_nodeCount;
+	Rva009A45A0CollisionData *m_dirty;
+	Rva009A3AD0Endpoint *m_axisHeads[3];
+public:
+	Rva009A2FE0Node *m_buckets2[0x2b7b];
+public:
+	Rva009A2FE0Node *m_active2;
+public:
+	int m_index2;
+public:
+	Rva009A2FE0Node *m_cur2;
+public:
+	Rva009A2FE0Node *m_buckets[0x493];
+public:
+	Rva009A2FE0Node *m_active;
+public:
+	int m_index;
+public:
+	Rva009A2FE0Node *m_cur;
+public:
+	unsigned int m_axisCount;
+	bool m_rebuild;
+public:
+	bool m_bfmeBusy;
+public:
+	void UnRegisterObject(Rva009A36F0Param *param);
+public:
+	void _RemoveOverlap(Rva009A3540OpaqueOwner *lhs, Rva009A3540OpaqueOwner *rhs);
+public:
+	void rva00759490(Rva009A3540OpaqueOwner *lhs, Rva009A3540OpaqueOwner *rhs);
+	void UpdateSort();
+	void unlinkChain(Rva009A36F0Thing *thing);
+	void rva007586F0();
 
 	__forceinline void insertSorted(Rva009A45A0CollisionData *node, Rva009A3AD0Interval *axis, Rva009A3AD0Endpoint **head)
 	{
 		Rva009A3AD0Endpoint *cur = *head;
 		Rva009A3AD0Endpoint *prev = 0;
 		Rva009A45A0CollisionData *open = 0;
-		Real value = axis->m_max.m_value;
+		float value = axis->m_max.m_value;
 		while (cur != 0 && !(cur->m_value > value))
 		{
 			if (cur->isMin())
@@ -299,7 +339,7 @@ void CollisionManagerImpl::UpdateSort()
 		((BfmeLinkXX *)m_dirty)->bfmeDropXX();
 	}
 
-	if (m_root == 0)
+	if (m_bfmeFirst == 0)
 		return;
 
 	if (totalScore * 100 <= m_nodeCount * 100 && !m_rebuild)
@@ -354,7 +394,7 @@ void CollisionManagerImpl::UpdateSort()
 	m_rebuild = false;
 	((Rva007589F0 *)((char *)this + 0x18))->collectAll();
 	((Rva00758B20 *)((char *)this + 0xAE10))->collectAll();
-	for (Rva009A45A0CollisionData *root = m_root; root != 0; root = root->m_rootNext)
+	for (Rva009A45A0CollisionData *root = (Rva009A45A0CollisionData *)m_bfmeFirst; root != 0; root = root->m_rootNext)
 		root->m_rva009A3AD0_020 = 0;
 	rva007586F0();
 
@@ -392,20 +432,20 @@ void CollisionManagerImpl::UpdateSort()
 // Evidence: reverse/attempt_support/cgd-abi-758de0-20261023/README.md.
 void CollisionManagerImpl::bfmeTwoCGD()
 {
-	m_contactIndex = 0;
-	m_contactCurrent = m_contactBuckets[0];
+	m_index = 0;
+	m_cur = m_buckets[0];
 	for (;;)
 	{
-		while (m_contactCurrent == 0)
+		while (m_cur == 0)
 		{
-			int i = m_contactIndex + 1;
+			int i = m_index + 1;
 			if (i == 0x493)
 				return;
-			m_contactIndex = i;
-			m_contactCurrent = m_contactBuckets[i];
+			m_index = i;
+			m_cur = m_buckets[i];
 		}
-		CollisionContactNode *node = m_contactCurrent;
-		m_contactCurrent = m_contactCurrent->next;
+		CollisionContactNode *node = (CollisionContactNode *)m_cur;
+		m_cur = (Rva009A2FE0Node *)((CollisionContactNode *)m_cur)->next;
 		if (node == 0)
 			return;
 		if (node->first->m_source == 0 || node->second->m_source == 0)
