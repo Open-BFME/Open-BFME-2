@@ -1,0 +1,252 @@
+{
+  "scope": "changed non-VP6 donor metadata and retail bytes only",
+  "donor_revision": "1b227de2b4fba1e79a69a9e16d3b6e5c4fbb831e",
+  "source_paths": [
+    "game/GameEngine/Source/Common/Bfme/Rva00C6C790StaticInit.cpp",
+    "game/GameEngine/Source/Common/R1GuardedPointerTailCalls.cpp",
+    "game/GameEngine/Source/Common/Rva0015A960FormationProcess.cpp",
+    "game/GameEngine/Source/GameClient/GUI/SkirmishScreenRefresh.cpp",
+    "game/GameEngine/Source/GameLogic/Object/SpecialPower/Rva00261CC0BuildPairs.cpp",
+    "game/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerGetMusicTrackName.cpp",
+    "game/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva0069F540.cpp",
+    "game/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/Rva0076CB10RenderFlags.cpp",
+    "game/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva006EE0C0.cpp",
+    "game/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouse.cpp",
+    "game/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseLoadD3DCursorTexturesThunk.cpp"
+  ],
+  "donor_source_text_read": false,
+  "full_sweep_run": false,
+  "global_control_floor_claimed": false,
+  "source_transfer_or_identity_claimed": false,
+  "target_head": "cf3cb470f7aa46c241e5daefdb746bc4e1fb9c9d",
+  "donor_retail_sha256": "c1a907c44b84df129c1f18dc7365ea25ba438f9b8f39a374b86ed852936ff0a9",
+  "target_retail_sha256": "f008b587570bad693981dc7218588c81d192a1e064b0f7f861539c51156a7640",
+  "selected_ledger_rows": 50,
+  "inspected_native_bodies": 28,
+  "records": [
+    {
+      "donor_name": "?Rva00382980@@YAXXZ",
+      "donor_source": "game/GameEngine/Source/Common/R1GuardedPointerTailCalls.cpp",
+      "donor_rva": "0x382980",
+      "size": 16,
+      "placements": [],
+      "verdict": "no-discriminating-needle"
+    },
+    {
+      "donor_name": "?Rva0050D3B0@@YAXXZ",
+      "donor_source": "game/GameEngine/Source/Common/R1GuardedPointerTailCalls.cpp",
+      "donor_rva": "0x50d3b0",
+      "size": 16,
+      "placements": [],
+      "verdict": "no-discriminating-needle"
+    },
+    {
+      "donor_name": "?Rva00514D60@@YAXXZ",
+      "donor_source": "game/GameEngine/Source/Common/R1GuardedPointerTailCalls.cpp",
+      "donor_rva": "0x514d60",
+      "size": 16,
+      "placements": [],
+      "verdict": "no-discriminating-needle"
+    },
+    {
+      "donor_name": "?Rva00514D80@@YAXXZ",
+      "donor_source": "game/GameEngine/Source/Common/R1GuardedPointerTailCalls.cpp",
+      "donor_rva": "0x514d80",
+      "size": 16,
+      "placements": [],
+      "verdict": "no-discriminating-needle"
+    },
+    {
+      "donor_name": "?Rva00730FE0@@YAXXZ",
+      "donor_source": "game/GameEngine/Source/Common/R1GuardedPointerTailCalls.cpp",
+      "donor_rva": "0x730fe0",
+      "size": 16,
+      "placements": [],
+      "verdict": "no-discriminating-needle"
+    },
+    {
+      "donor_name": "?Rva00754A10@@YAXXZ",
+      "donor_source": "game/GameEngine/Source/Common/R1GuardedPointerTailCalls.cpp",
+      "donor_rva": "0x754a10",
+      "size": 16,
+      "placements": [],
+      "verdict": "no-discriminating-needle"
+    },
+    {
+      "donor_name": "?Rva00C6C790Init@@YAXXZ",
+      "donor_source": "game/GameEngine/Source/Common/Bfme/Rva00C6C790StaticInit.cpp",
+      "donor_rva": "0xc6c790",
+      "size": 22,
+      "placements": [],
+      "verdict": "no-discriminating-needle"
+    },
+    {
+      "donor_name": "?draw@W3DMouse@@UAEXXZ",
+      "donor_source": "game/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouse.cpp",
+      "donor_rva": "0x700a40",
+      "size": 1629,
+      "placements": [],
+      "verdict": "no-exact-placement"
+    },
+    {
+      "donor_name": "?freeW3DAssets@W3DMouse@@AAEXXZ",
+      "donor_source": "game/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouse.cpp",
+      "donor_rva": "0x700710",
+      "size": 132,
+      "placements": [],
+      "verdict": "no-exact-placement"
+    },
+    {
+      "donor_name": "?go@Rva001BF380@@QAEXXZ",
+      "donor_source": "game/GameEngine/Source/Common/R1GuardedPointerTailCalls.cpp",
+      "donor_rva": "0x1bf380",
+      "size": 16,
+      "placements": [],
+      "verdict": "no-exact-placement"
+    },
+    {
+      "donor_name": "?go@Rva0060D5E0@@QAEXXZ",
+      "donor_source": "game/GameEngine/Source/Common/R1GuardedPointerTailCalls.cpp",
+      "donor_rva": "0x60d5e0",
+      "size": 16,
+      "placements": [],
+      "verdict": "no-exact-placement"
+    },
+    {
+      "donor_name": "?go@Rva0060D620@@QAEXXZ",
+      "donor_source": "game/GameEngine/Source/Common/R1GuardedPointerTailCalls.cpp",
+      "donor_rva": "0x60d620",
+      "size": 16,
+      "placements": [],
+      "verdict": "no-exact-placement"
+    },
+    {
+      "donor_name": "?go@Rva006C8BE0@@QAEXXZ",
+      "donor_source": "game/GameEngine/Source/Common/R1GuardedPointerTailCalls.cpp",
+      "donor_rva": "0x6c8be0",
+      "size": 16,
+      "placements": [],
+      "verdict": "no-exact-placement"
+    },
+    {
+      "donor_name": "?init@W3DMouse@@UAEXXZ",
+      "donor_source": "game/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouse.cpp",
+      "donor_rva": "0x7007c0",
+      "size": 57,
+      "placements": [],
+      "verdict": "no-exact-placement"
+    },
+    {
+      "donor_name": "?initD3DAssets@W3DMouse@@AAEXXZ",
+      "donor_source": "game/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouse.cpp",
+      "donor_rva": "0x7005f0",
+      "size": 72,
+      "placements": [],
+      "verdict": "no-exact-placement"
+    },
+    {
+      "donor_name": "?initPolygonAssets@W3DMouse@@AAEXXZ",
+      "donor_source": "game/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouse.cpp",
+      "donor_rva": "0x700950",
+      "size": 184,
+      "placements": [],
+      "verdict": "no-exact-placement"
+    },
+    {
+      "donor_name": "?initW3DAssets@W3DMouse@@AAEXXZ",
+      "donor_source": "game/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouse.cpp",
+      "donor_rva": "0x7015f0",
+      "size": 550,
+      "placements": [],
+      "verdict": "no-exact-placement"
+    },
+    {
+      "donor_name": "?setCursor@W3DMouse@@UAEXW4MouseCursor@Mouse@@@Z",
+      "donor_source": "game/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouse.cpp",
+      "donor_rva": "0x7018a0",
+      "size": 681,
+      "placements": [],
+      "verdict": "no-exact-placement"
+    },
+    {
+      "donor_name": "?setCursorDirection@W3DMouse@@AAEXW4MouseCursor@Mouse@@@Z",
+      "donor_source": "game/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouse.cpp",
+      "donor_rva": "0x700820",
+      "size": 233,
+      "placements": [],
+      "verdict": "no-exact-placement"
+    },
+    {
+      "donor_name": "?getMusicTrackName@MilesAudioManager@@UBE?AVAsciiString@@XZ",
+      "donor_source": "game/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerGetMusicTrackName.cpp",
+      "donor_rva": "0x69d920",
+      "size": 277,
+      "placements": [],
+      "verdict": "no-exact-placement"
+    },
+    {
+      "donor_name": "?rva0069F540@MilesAudioManager@@UAEXPAX@Z",
+      "donor_source": "game/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva0069F540.cpp",
+      "donor_rva": "0x69f540",
+      "size": 106,
+      "placements": [],
+      "verdict": "no-exact-placement"
+    },
+    {
+      "donor_name": "?rva006EE0C0@W3DDisplay@@UAEXH@Z",
+      "donor_source": "game/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva006EE0C0.cpp",
+      "donor_rva": "0x6ee0c0",
+      "size": 641,
+      "placements": [],
+      "verdict": "no-exact-placement"
+    },
+    {
+      "donor_name": "?_bfme_refresh@BfmeAptScreenSkirmish@@QAE_NXZ",
+      "donor_source": "game/GameEngine/Source/GameClient/GUI/SkirmishScreenRefresh.cpp",
+      "donor_rva": "0x5792a0",
+      "size": 58,
+      "placements": [],
+      "verdict": "no-exact-placement"
+    },
+    {
+      "donor_name": "?_M_insert_overflow@?$vector@URva00261CC0DistancePair@@V?$allocator@URva00261CC0DistancePair@@@_STL@@@_STL@@IAEXPAURva00261CC0DistancePair@@ABU3@ABU__false_type@2@I_N@Z",
+      "donor_source": "game/GameEngine/Source/GameLogic/Object/SpecialPower/Rva00261CC0BuildPairs.cpp",
+      "donor_rva": "0x261750",
+      "size": 305,
+      "placements": [],
+      "verdict": "no-exact-placement"
+    },
+    {
+      "donor_name": "?buildPairsAt00261CC0@Rva00261F40Owner@@QAEXPAV?$vector@URva00261CC0InputEntry@@V?$allocator@URva00261CC0InputEntry@@@_STL@@@_STL@@PAVRva00261F40Subject@@PAV?$vector@URva00261CC0DistancePair@@V?$allocator@URva00261CC0DistancePair@@@_STL@@@3@@Z",
+      "donor_source": "game/GameEngine/Source/GameLogic/Object/SpecialPower/Rva00261CC0BuildPairs.cpp",
+      "donor_rva": "0x261cc0",
+      "size": 298,
+      "placements": [],
+      "verdict": "no-exact-placement"
+    },
+    {
+      "donor_name": "?run@Rva0076CB10Owner@@QAEXXZ",
+      "donor_source": "game/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/Rva0076CB10RenderFlags.cpp",
+      "donor_rva": "0x76cb10",
+      "size": 554,
+      "placements": [],
+      "verdict": "no-exact-placement"
+    },
+    {
+      "donor_name": "?process@Rva0015A960BucketOwner@@QAEXPBUCoord2D@@H@Z",
+      "donor_source": "game/GameEngine/Source/Common/Rva0015A960FormationProcess.cpp",
+      "donor_rva": "0x15a960",
+      "size": 278,
+      "placements": [],
+      "verdict": "no-exact-placement"
+    },
+    {
+      "donor_name": "?loadD3DCursorTextures@W3DMouse@@AAE_NW4MouseCursor@Mouse@@@Z",
+      "donor_source": "game/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouse.cpp",
+      "donor_rva": "0x701330",
+      "size": 559,
+      "placements": [],
+      "verdict": "no-exact-placement"
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+Full verification
+Baseline: OK 2 file(s) (bfme2.workshop-vanilla-1.06)
+Lib members: 11 extracted from 1 archive(s)
+Compile: 6688 of 20550 TU(s) (deps-cache: 13862 current)
+Object store: 3713 of 6688 stale TU(s) restored
+waiting for build lock (another full build shares this compiler scope)...

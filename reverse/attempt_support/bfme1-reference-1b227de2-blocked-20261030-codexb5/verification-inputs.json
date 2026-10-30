@@ -1,0 +1,16 @@
+{
+  "bfme2_revision": "cf3cb470f7aa46c241e5daefdb746bc4e1fb9c9d",
+  "code_tree": "fabf009c4104d9ea8de1db1d040dbe9330b6fa0b",
+  "old_verified_pointer_commit": "c07ab1f491af1c70ae366285815d3e4fb2646912",
+  "old_pointer": "efb2b2a27078c6e96538a8c587438b72b675d6df",
+  "upstream_snapshot": "1b227de2b4fba1e79a69a9e16d3b6e5c4fbb831e",
+  "official_remote": "https://github.com/Open-BFME/Open-BFME-1.git",
+  "build_pool": 16,
+  "sha256": {
+    "reverse/functions.csv": "6d63513da6224abd17f4634211fe361e488bcaca14a5071889ad034aee35203d",
+    "reverse/symbols.csv": "b40289e4304a4e6fb3611a6370a169bd1dfb2c21d31316a26142e3148e7a24e7",
+    "reverse/data_rows.csv": "1a21849c8ad7f13e437a4151656ed45ae29020129208615e1017ab73c07bd65d",
+    "tools/build.py": "564ffade5685ed1d1fe6ffcbe85289a6ac7bde67868badee321a7b6c0741a150",
+    "build.sh": "62e525441e94d1f73a893ca2ec39b5886906b54fc856fbb057504c610b1af0b9"
+  }
+}

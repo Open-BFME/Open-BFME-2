@@ -1,0 +1,12 @@
+{
+  "status": "blocked",
+  "reason": "shared full-build compiler lock remained occupied for more than twenty minutes after object restoration",
+  "stopped_at": "2026-10-30T02:41:58.228368+00:00",
+  "pid": 19784,
+  "state_before_stop": "locks_lock_inode_wait",
+  "full_gate_complete": false,
+  "new_reference_checked_out": false,
+  "freshness_success_recorded": false,
+  "retained_pointer": "efb2b2a27078c6e96538a8c587438b72b675d6df",
+  "old_full_exit": 143
+}

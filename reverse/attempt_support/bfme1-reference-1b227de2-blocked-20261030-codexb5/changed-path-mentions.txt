@@ -1,0 +1,7 @@
+Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp:510:// The mouse-thread flag (retail 0x009E4B30, .bss). W3DMouse.cpp keeps its own copy
+Code/GameEngineDevice/Source/W3DDevice/GameClient/MouseThreadCtor.cpp:3:// Evidence: calls rowed ThreadClass 1-arg ctor 0x00610430 with null; installs vtable 0x007C86CC; next row is dtor 0x00098D9E; donor BFME1 W3DMouse.cpp.
+Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouse.cpp:32:// FILE: W3DMouse.cpp /////////////////////////////////////////////////////////////////////////////
+Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouse.cpp:172:// byte-exact reconstruction: Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseLoadD3DCursorTexturesThunk.cpp
+Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp:54:// W3DMouse's file-scope CriticalSectionClass (Zero Hour W3DMouse.cpp `mutex`); the split
+Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp:71:// W3DMouse's file-scope MutexClass (Zero Hour W3DMouse.cpp `threadMutex`); the split
+reference/shims/mouselayout/GameClient/Mouse.h:221:		// cursorImages[NUM_MOUSE_CURSORS] in W3DMouse.cpp ends 0xC8 bytes past
