@@ -19,6 +19,8 @@ template <> vector<int, allocator<int> >::~vector();
 template <> _Vector_base<int, allocator<int> >::~_Vector_base();
 }
 
+#include "SiegeDockingBehaviorView.h"
+
 class Thing;
 
 class ModuleData;
@@ -32,69 +34,6 @@ public:
 
 private:
 	const void *m_moduleData;
-};
-
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h
-class BehaviorModuleInterface
-{
-public:
-	virtual void getBehaviorModuleInterface() = 0;
-};
-
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/UpdateModule.h
-class UpdateModuleInterface
-{
-public:
-	virtual void updateModuleInterface() = 0;
-};
-
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Module.h
-#include "../../../../Include/Common/ObjectModule.h"
-
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h
-class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
-{
-public:
-	BehaviorModule(Thing *thing, const ModuleData *data) : ObjectModule(thing, data) {}
-	virtual ~BehaviorModule() {}
-};
-
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/UpdateModule.h
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-public:
-	// Defined once, out of line, in UpdateModuleCtor.cpp (retail 0x00253390): derived
-	// ctors call it, and a copy here would offer the link a second, non-retail body.
-	UpdateModule(Thing *thing, const ModuleData *data);
-	virtual ~UpdateModule();
- 
-	void setWakeFrame(Object *object, unsigned int frame);
-
-protected:
-
-private:
-	unsigned int m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	unsigned int m_updateState;
-};
-
-// Retail installs this base's vtable 0x00C4EF80 first (ctor store at +0x20);
-// every slot there is __purecall (0x0003B810), so the slot is pure.
-class SiegeDockingBehaviorSecondaryBase
-{
-public:
-	virtual void slot() = 0;
-};
-
-class SiegeDockingBehavior : public UpdateModule, public SiegeDockingBehaviorSecondaryBase
-{
-public:
-	SiegeDockingBehavior(Thing *thing, const ModuleData *data);
-	virtual ~SiegeDockingBehavior();
-
-private:
-	_STL::vector<int> m_vector;
-	bool m_enabled;
 };
 
 // tu-skeleton: 0x004598F2 61B ?rva004598F2@SiegeDockingBehavior@@QAE?AURva004598F2Point@@H@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SiegeDockingBehaviorDockPoints.cpp (not merged yet)

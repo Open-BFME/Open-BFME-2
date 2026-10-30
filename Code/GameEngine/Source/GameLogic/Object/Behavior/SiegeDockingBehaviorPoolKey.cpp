@@ -1,4 +1,5 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /ICode/GameEngine/Source/Common /ICode/Libraries/Include /ICode/GameEngine/Source
+// stlport
 // ?getModuleNameKey@SiegeDockingBehavior@@UBE?AW4NameKeyType@@XZ @0x4599E5
 // (69B): cached pool-name key for SiegeDockingBehavior. The class
 // identity comes from the pool-name string the body pushes
@@ -9,24 +10,9 @@
 // static-guard EH prologue; globals are TU-local externs (DIR32 slots patch
 // from retail, no pins; nameToKey resolves via its matched row).
 
-enum NameKeyType
-{
-	NK_UNKNOWN = 0
-};
-
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "SiegeDockingBehaviorView.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
-
-class SiegeDockingBehavior
-{
-public:
-	virtual NameKeyType getModuleNameKey() const;
-};
 
 // ?getModuleNameKey@SiegeDockingBehavior@@UBE?AW4NameKeyType@@XZ
 NameKeyType SiegeDockingBehavior::getModuleNameKey() const
