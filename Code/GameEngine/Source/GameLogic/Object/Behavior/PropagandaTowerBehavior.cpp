@@ -24,9 +24,7 @@ class Snapshot;
 class Thing;
 class ModuleData;
 #include "../../../../Include/Common/BfmeXfer.h"
-
 class Player;
-
 class Rva000421C8
 {
 public:
@@ -37,14 +35,12 @@ public:
 	Rva000421C8 *link(Rva000421C8 *next);	// 0x00625790
 	Rva000421C8 *m_next;
 };
-
 // vftable 0x00BFAD10, allow 0x0026119D: not effectively dead.
 class Rva0026119DFilter : public Rva000421C8
 {
 public:
 	virtual bool allow(Object *obj);
 };
-
 // vftable 0x00BF91BC, allow 0x002611BF.
 class Rva002611BFFilter : public Rva000421C8
 {
@@ -53,7 +49,6 @@ public:
 	virtual bool allow(Object *obj);
 	const Object *m_obj;
 };
-
 // vftable 0x00BFBC90, allow 0x00260EB1: +0x08 the object, +0x0C flags,
 // +0x10 whether a hit allows.
 class Rva00260EB1Filter : public Rva000421C8
@@ -67,14 +62,12 @@ public:
 	int m_flags;
 	bool m_match;
 };
-
 // The 224-bit KindOf mask; the (unused, bit) constructor is 0x00045411.
 struct Rva00045411BitSet
 {
 	unsigned m_bits[7];
 	Rva00045411BitSet(int unused, int bit);	// 0x00045411
 };
-
 class BfmeFixedStorage0004543D
 {
 public:
@@ -82,7 +75,6 @@ public:
 private:
 	unsigned char m_bytes[28];
 };
-
 // vftable 0x00BC2908, allow 0x002610DE: accept what has every kind of the
 // first mask and none of the second.
 class Rva0004584D : public Rva000421C8
@@ -93,39 +85,29 @@ public:
 	BfmeFixedStorage0004543D m_08;
 	BfmeFixedStorage0004543D m_24;
 };
-
 template <int N> class BitFlags;
-
 extern BitFlags<116> KINDOFMASK_NONE;
-
 struct BfmeWideResult
 {
 	Object *next() throw();	// 0x00045623
 	~BfmeWideResult();	// 0x0004AA28
 	void *m_value;
 };
-
 class PartitionManager
 {
 public:
 	BfmeWideResult iterateObjectsInRange(const Coord3D *pos, float radius, int distCalc,
 		Rva000421C8 *filters, int order);	// 0x00625610
 };
-
 extern PartitionManager *ThePartitionManager;
-
 class AsciiString;
-
 class UpgradeTemplate;
-
 class UpgradeCenter
 {
 public:
 	const UpgradeTemplate *findUpgrade(const AsciiString &name) const;
 };
-
 extern UpgradeCenter *TheUpgradeCenter;
-
 class BfmeThingBMD
 {
 public:
@@ -135,7 +117,6 @@ public:
 	unsigned char m_bfmeGap[0x24];
 	void *m_bfmeGot;
 };
-
 //
 // ?rva00481A9E@Rva0048180C@@QAEXPAVObject@@_NPAURva00481A9EInfo@@@Z @0x00481A9E (225B).
 // Chain from 0x0028FEA7 you landed: healing-benefactor forward plus body
@@ -147,9 +128,7 @@ public:
 // BitFlags 0x00481B7F share /O1.
 
 typedef unsigned int UnsignedInt;
-
 class Object;
-
 class UpgradeTemplate
 {
 public:
@@ -158,13 +137,11 @@ public:
 	char m_pad08[0x30];
 	int m_bitIndex; // +0x38
 };
-
 class Rva0028ADECmpBoolField
 {
 public:
 	bool get() const;
 };
-
 class BodyModule
 {
 public:
@@ -176,9 +153,7 @@ public:
 	virtual void f5();
 	virtual float f6();
 };
-
 enum ObjectStatusTypes { STATUS_BUILDING = 2, STATUS_SOLD = 19 };
-
 template <int N> class BitFlags
 {
 public:
@@ -188,13 +163,11 @@ public:
 	bool test(const void *) const;
 	unsigned words[1];
 };
-
 struct ObjectTemplate
 {
 	char pad[0x10c];
 	unsigned kind;
 };
-
 class Object
 {
 public:
@@ -238,7 +211,6 @@ public:
 	unsigned char dead; // +0x438
 	char m_pad439[0x484 - 0x439];
 };
-
 struct Rva00481A9EInfo
 {
 	char m_pad00[0x0c];
@@ -247,9 +219,7 @@ struct Rva00481A9EInfo
 	char m_pad14[0x08];
 	float m_upgradedAutoHealPercentPerSecond; // +0x1c
 };
-
 extern int BfmeLogicFramesPerSecond;
-
  // ?BfmeLogicFramesPerSecond@@3HA
 
 class Rva0048180C
@@ -263,11 +233,8 @@ private:
 	char m_pad0C[0x2c - 0x0c];
 	const UpgradeTemplate *m_tmpl; // +0x2c
 };
-
 class PropagandaTowerBehaviorModuleData;
-
 extern GameLogic *TheGameLogic;
-
 class ObjectTracker
 {
 public:
@@ -276,12 +243,10 @@ public:
 	ObjectID objectID; // +0x04
 	ObjectTracker *next; // +0x08
 };
-
 enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
-
 //
 // PropagandaTowerBehaviorModuleData file-unit (parse first; the ctor
 // remains pinned for a follow-up). Distinct TU name because
@@ -294,11 +259,8 @@ enum NameKeyType
 // parse pin.
 
 class MultiIniFieldParse;
-
 class INI;
-
 typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
-
 struct FieldParse
 {
 	const char *token;
@@ -306,7 +268,6 @@ struct FieldParse
 	const void *userData;
 	int offset;
 };
-
 class INI
 {
 public:
@@ -316,7 +277,6 @@ public:
 	static void parsePercentToReal(INI *ini, void *instance, void *store, const void *userData);
 	static void parseReal(INI *ini, void *instance, void *store, const void *userData);
 };
-
 // Retail VA 0x00C49368 (.rdata): 7 field records and a zero sentinel.
 extern const FieldParse g_00C49368[] = {
 	{ "Radius", &INI::parseReal, 0, 0x8 },
@@ -328,13 +288,11 @@ extern const FieldParse g_00C49368[] = {
 	{ "UpgradedPulseFX", &INI::parseFXList, 0, 0x20 },
 	{ 0, 0, 0, 0 }
 };
-
 class MultiIniFieldParse
 {
 public:
 	void add(const FieldParse *parseTable, unsigned int extraOffset);
 };
-
 class __declspec(novtable) PropagandaTowerBehaviorModuleData : public Snapshot
 {
 public:
@@ -349,24 +307,21 @@ public:
 	const FXList *m_upgradedPulseFX;
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
-
 class NameKeyGenerator
 {
 public:
 	NameKeyType nameToKey(const char *name);
 };
-
 extern NameKeyGenerator *TheNameKeyGenerator;
-
 class Xfer;
-
 enum UpdateSleepTime
 {
 	UPDATE_SLEEP_NONE = 1,
 	UPDATE_SLEEP_FOREVER = 0x3fffffff
 };
-
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
+class Rva0028ADECmpBoolField;
+class BodyModule;
 
 enum SleepyUpdatePhase { PHASE_NORMAL = 2 };
 
@@ -451,6 +406,8 @@ public:
 };
 
 void XferObjectID(Xfer *xfer, ObjectID *objectID);
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehavior.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehaviorXfer.cpp
 
@@ -688,7 +645,66 @@ void PropagandaTowerBehavior::doScan()
 
 // tu-skeleton: 0x00481BFE 14B ?Rva00481BFE@@YA_NPBXABV?$BitFlags@$0L@@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE22.cpp (not merged yet)
 
-// tu-skeleton: 0x00481C0C 320B ?update@PropagandaTowerBehavior@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehaviorUpdate.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehaviorUpdate.cpp
+
+// ?update@PropagandaTowerBehavior@@UAE?AW4UpdateSleepTime@@XZ
+// Retail 0x00481C0C..0x00481D4C, 320 bytes. Reference: Zero Hour
+// GeneralsMD PropagandaTowerBehavior.cpp update, BFME1 revision 575ba2b04.
+// Target vtable/neighbour class evidence: pool key, ctor and slot13
+// removeAllInfluence / slot14 doScan. Native entry is the +0x10 update
+// interface: module data at this-0x0C, owner at this-8, frame at this+0x14,
+// tracker list at this+0x18; its primary vtable starts at this-0x10.
+// Target Object disability+0x1C8, containment+0x274, dead byte+0x438,
+// and template kind word+0x10C are established by this body's accesses.
+// Kind bit meanings are kept unspecified. Splitting its four-bit mask
+// into low-byte and high-byte groups reproduces retail's test cl/test ch.
+
+UpdateSleepTime PropagandaTowerBehavior::update()
+{
+	const PropagandaTowerBehaviorModuleData *modData = getPropagandaTowerBehaviorModuleData();
+	Object *self = m_object;
+	if (self->testStatus(STATUS_BUILDING))
+		return UPDATE_SLEEP_NONE;
+	if (self->testStatus(STATUS_SOLD)) {
+		removeAllInfluence();
+		return UPDATE_SLEEP_FOREVER;
+	}
+	if (self->dead & 1)
+		return UPDATE_SLEEP_FOREVER;
+	if (self->disabled.any()) {
+		BitFlags<11> allButHeld(BitFlags<11>::kInit, 3);
+		allButHeld.words[0] = ~allButHeld.words[0];
+		if (allButHeld.test(&self->disabled)) {
+			removeAllInfluence();
+			return UPDATE_SLEEP_NONE;
+		}
+	}
+	if (self->containedBy && self->containedBy->containedBy) {
+		removeAllInfluence();
+		return UPDATE_SLEEP_NONE;
+	}
+	unsigned currentFrame = TheGameLogic->getFrame();
+	if (currentFrame - m_lastScanFrame >= modData->m_delayBetweenUpdates) {
+		doScan();
+		m_lastScanFrame = currentFrame;
+	}
+	ObjectTracker *prev = 0;
+	for (ObjectTracker *curr = m_insideList, *next; curr; curr = next) {
+		next = curr->next;
+		Object *obj = TheGameLogic->findObjectByID(curr->objectID);
+		if (obj && ((obj->tmpl->kind & 0xa0) || (obj->tmpl->kind & 0x300))) {
+			effectLogic(obj, true, getPropagandaTowerBehaviorModuleData());
+			prev = curr;
+		} else {
+			if (prev)
+				prev->next = next;
+			else
+				m_insideList = next;
+			::delete curr;
+		}
+	}
+	return UPDATE_SLEEP_NONE;
+}
 
 // tu-skeleton: 0x0078BB08 8B Unwind@00b8bb08 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehaviorConstructor.cpp (not merged yet)
 
