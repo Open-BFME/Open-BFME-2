@@ -96,20 +96,7 @@ private:
 	TeamTemplateInfo m_teamTemplate; // +0x12C
 };
 
-class Team
-{
-public:
-	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
-	const AsciiString &getPrototypeName() const
-	{
-		return m_proto == 0 ? AsciiString::TheEmptyString : m_proto->bfme_proto_name();
-	}
-	void notifyTeamOfObjectDeath(Object *obj);
-
-private:
-	char m_pad[0x30];
-	TeamPrototype *m_proto; // +0x30
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 void Team::notifyTeamOfObjectDeath(Object *obj)
 {
@@ -135,5 +122,5 @@ runScripts:
 	if (((const StringBase<char> *)&pInfo->m_scriptOnUnitDestroyed)->isEmpty())
 		return;
 
-	TheScriptEngine->rva0020C140(getPrototypeName(), pInfo->m_scriptOnUnitDestroyed, this);
+	TheScriptEngine->rva0020C140(m_proto == 0 ? AsciiString::TheEmptyString : m_proto->bfme_proto_name(), pInfo->m_scriptOnUnitDestroyed, this);
 }
