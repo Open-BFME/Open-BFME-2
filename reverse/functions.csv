@@ -7366,7 +7366,7 @@ _GetProcessorFlags,,0x001C4390,169,Code/Libraries/Source/VP6/GetProcessorFlags.c
 ?get@Rva00466467ByteField@@QBEEXZ,,0x00466467,7,Code/GameEngine/Source/Common/DispByteFieldGetters.cpp,matched,Disp32 byte getter
 ?get@Rva0046F82AByteField@@QBEEXZ,,0x0046F82A,7,Code/GameEngine/Source/Common/DispByteFieldGetters.cpp,matched,Disp32 byte getter
 ?get@Rva0046F845ByteField@@QBEEXZ,,0x0046F845,7,Code/GameEngine/Source/Common/DispByteFieldGetters.cpp,matched,Disp32 byte getter
-?get@Rva0047DB8EByteField@@QBEEXZ,,0x0047DB8E,7,Code/GameEngine/Source/Common/DispByteFieldGetters.cpp,matched,Disp32 byte getter
+?get@Rva0047DB8EByteField@@QBEEXZ,,0x0047DB8E,7,Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContain.cpp,matched,Disp32 byte getter
 ?get@Rva0047FDF7ByteField@@QBEEXZ,,0x0047FDF7,7,Code/GameEngine/Source/Common/DispByteFieldGetters.cpp,matched,Disp32 byte getter
 ?get@Rva004A768AByteField@@QBEEXZ,,0x004A768A,7,Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdate.cpp,matched,Disp32 byte getter
 ?get@Rva004A9B7EByteField@@QBEEXZ,,0x004A9B7E,7,Code/GameEngine/Source/Common/DispByteFieldGetters.cpp,matched,Disp32 byte getter

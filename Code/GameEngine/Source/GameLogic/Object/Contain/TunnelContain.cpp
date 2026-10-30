@@ -5,6 +5,18 @@
 #pragma comment(linker, "/alternatename:?bfmeSetBPC@BfmeThingBPC@@QAEXH@Z=?setDisabled@Object@@QAEXW4DisabledType@@@Z")
 #pragma comment(linker, "/alternatename:?bfmeDoBPC@@YGXPAVBfmeThingBPC@@PAX@Z=?onContaining@GarrisonContain@@UAEXPAVObject@@_N@Z")
 #include "TunnelContainXferPrefix.h"
+#define BFME_DISP_BYTE_GETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		unsigned char get() const; \
+		char m_lead[DISP]; \
+		unsigned char m_value; \
+	}; \
+	unsigned char NAME::get() const \
+	{ \
+		return m_value; \
+	}
 
 // ?update@TunnelContain@@UAE?AW4UpdateSleepTime@@XZ, retail 0x0047E017, 183 bytes:
 // slot 0 of the update interface at +0x10. Zero Hour's TunnelContain::update
@@ -38,7 +50,31 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
+class MilesAudioManager
+{
+public:
+    virtual unsigned char rva000515A4() const;
+    virtual unsigned char rva00051896() const;
+    char m_lead[0x6A3 - sizeof(void *)];
+    unsigned char m_6A3;
+    char m_pad6A4[2];
+    unsigned char m_6A6;
+};
+
+BFME_DISP_BYTE_GETTER(Rva0047DB8EByteField, 0x9B0)
+
+// BF1 9cbfb551fe Common/Rva005BD470ZeroTest.cpp is the clean semantic donor.
+// Full native leaf 001F350B..001F3513 ends at its own RET boundary.
+// Target evidence: receiver0C dword equals two; result in AL.
+// Original owner unresolved; the address-owned type is independent of nearby classes.
+class Rva001F350BFields {
+public: unsigned char isTwo() const;
+private: char unknown[0x0C]; unsigned int value;
+};
+
 // tu-skeleton: 0x0047DB00 67B ??1TunnelContain@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainDtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContain.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainPoolKey.cpp
 
@@ -49,10 +85,6 @@ NameKeyType TunnelContain::getModuleNameKey() const
 		TheNameKeyGenerator->nameToKey("TunnelContain");
 	return TheTunnelContainPoolKey;
 }
-
-// tu-skeleton: 0x0047DB88 6B ?name@TunnelContain@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0047DB8E 7B ?get@Rva0047DB8EByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/DispByteFieldGetters.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContain.cpp
 
@@ -323,6 +355,28 @@ Rva0036AE51ListView TunnelContain::rva0047DD0F()
 	Player *owningPlayer = m_object->getControllingPlayer();
 	return ((Rva00466398 *)owningPlayer->m_2E8)->rva00466398();
 }
+
+// tu-skeleton: 0x0047DB88 6B ?name@TunnelContain@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/DispByteFieldGetters.cpp
+
+// Disp32 byte getters: seven-byte __thiscall members with one shape:
+//
+//     mov al,[ecx+<DISP>] / ret
+//
+// One BYTE is read at a fixed displacement from `this` and left in al. The
+// return type is spelled `unsigned char` because only al is written and the
+// upper bytes of eax are left holding whatever the caller had; the bytes
+// cannot distinguish it from `signed char`, `bool` or a one-byte enum.
+//
+// Every displacement here is a disp32 (MSVC 7.1 uses disp8 whenever the
+// offset fits, so every offset is at least 0x80), which is why this family
+// is separable from the far larger disp8 one. Members before the accessed
+// one are spelled as a lead array because their types are not witnessed
+// here, only their total size. Identity is not recovered: every name is
+// derived from its address (BFME1 pioneered the same family in
+// reference/open-bfme-1/Code/GameEngine/Source/Common/DispByteFieldGetters.cpp).
+// No // cl: line (defaults match the frameless 7-byte shape).
 
 // tu-skeleton: 0x0047DBF7 98B ??0TunnelContain@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainCtor.cpp (not merged yet)
 
