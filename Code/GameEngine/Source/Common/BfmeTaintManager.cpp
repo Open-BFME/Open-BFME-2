@@ -102,7 +102,7 @@ class BfmeCellFC
 public:
 	BfmeCellFC();
 	~BfmeCellFC();
- __declspec(noinline) void rva006C1680(GridXferView*);
+	__declspec(noinline) void rva006C1680(GridXferView*);
 	int rva006C0BC0(int *extra) const;
 
 	unsigned char m_bfmeKind;				// +0x00
@@ -128,7 +128,9 @@ class TaintManagerImpl
 {
 public:
 	TaintManagerImpl();
- void rva006C0F50(GridXferView*);
+	~TaintManagerImpl();
+	void SetExtents(const Region3D *region, Real cellSize);
+	void rva006C0F50(GridXferView*);
 	void rva006C0DA0();
 	void _ReallocCells(Region3D region, Real cellSize);
 	void bfmeGetCellRange(BfmeCellFC **first, BfmeCellFC **last,
@@ -145,6 +147,7 @@ public:
 	int rva006C08C0(Real distance) const;
 
 	friend class BfmeRangeUpdaterFC;
+	friend class BfmeTaintManager;
 
 private:
 	Region3D m_bfmeRegion;					// +0x00
