@@ -30,7 +30,7 @@ Rva002B7250 g_00E044F0;
 class BfmeSelectionState
 {
 public:
-	bool isSelectionLocked() const;
+	bool isSelectionLocked()const;
 };
 
 #include <time.h>

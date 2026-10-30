@@ -10,13 +10,15 @@ extern LivingWorldLogic *TheLivingWorldLogic;
 extern int BfmeLogicFramesPerSecond;
 
 #define LogicFramesPerSecond (*(const unsigned *)&BfmeLogicFramesPerSecond)
+struct Rva004EE79ESub;
 class Rva004E06FBPtrChase32Field
 {
 public:
-	int get() const;
-	char m_pad[0x20];
-	int m_20;
-	void *m_ptr;
+	int get()const;
+	char m_pad00[0x20];
+	int m_20; // +0x20
+	void *m_ptr; // +0x24
+	Rva004EE79ESub *m_28; // +0x28
 };
 class Rva00DFEF10
 {

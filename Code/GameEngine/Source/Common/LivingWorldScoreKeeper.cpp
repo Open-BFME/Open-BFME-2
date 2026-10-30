@@ -90,10 +90,22 @@ typedef char ScoreKeeperSize[sizeof(LivingWorldScoreKeeper)==0xFC?1:-1];
 void LivingWorldScoreKeeper::event0_1(int phase,int ignored) { collectEndOfTurnStats(phase); }
 class ModuleData;
 struct Rva004EE79ESub {char pad[0x2c]; int m_2C;};
-class Rva004E06FBPtrChase32Field {public:int get()const;char pad[0x20];int m_20;int pad24;Rva004EE79ESub *m_28;};
+class Rva004E06FBPtrChase32Field
+{
+public:
+	int get()const;
+	char m_pad00[0x20];
+	int m_20; // +0x20
+	void *m_ptr; // +0x24
+	Rva004EE79ESub *m_28; // +0x28
+};
 class LivingWorldBattle {public:bool rva003F486C(int);int rva003F4798(int,int);};
 class LivingWorldLogic {public:char pad[0xfc];const ModuleData *m_FC;};
-class BfmeSelectionState {public:bool isSelectionLocked()const;};
+class BfmeSelectionState
+{
+public:
+	bool isSelectionLocked()const;
+};
 struct Rva004EF2ABArg {char pad[0x14];int m_14;};
 void LivingWorldScoreKeeper::event1_3(const Rva004E06FBPtrChase32Field*a,int b) {
  if(a->m_20==-1)return;

@@ -9,13 +9,7 @@
 class ProductionPrerequisite
 {
 public:
-	struct PrereqUnitRec
-	{
-		char m_pad[0xC];
-
-		PrereqUnitRec(const PrereqUnitRec &that);
-		~PrereqUnitRec();
-	};
+	struct PrereqUnitRec { char m_pad[0xC]; PrereqUnitRec(const PrereqUnitRec &that); ~PrereqUnitRec(); };
 };
 
 namespace _STL

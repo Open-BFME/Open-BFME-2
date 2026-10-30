@@ -37,11 +37,7 @@ public:
 class ProductionPrerequisite
 {
 public:
-	struct PrereqUnitRec
-	{
-		PrereqUnitRec(const PrereqUnitRec &other);
-		char m_pad[0xC];
-	};
+	struct PrereqUnitRec { char m_pad[0xC]; PrereqUnitRec(const PrereqUnitRec &that); ~PrereqUnitRec(); };
 };
 
 namespace _STL
@@ -60,12 +56,16 @@ inline void *__cdecl operator new(unsigned int, void *p) { return p; }
 
 typedef ProductionPrerequisite::PrereqUnitRec PrereqRec;
 
+struct Rva0052BFB5Elem;
+
 class Rva004EE540
 {
 public:
 	void rva004EE540();
-	Elem003AF8C0 *m_00;
-	Elem003AF8C0 *m_04;
+
+private:
+	Rva0052BFB5Elem *m_start;
+	Rva0052BFB5Elem *m_finish;
 };
 
 class Rva004EE6D0

@@ -1,4 +1,5 @@
 // cl: /MD
+// stlport
 // Native online reporter5C062E constructs the rowed seven-word224-bit
 // mask before these calls. Reconcile the argument view with its constructor;
 // the legacy filter helper ABI is retained through layout-preserving casts.
@@ -17,21 +18,8 @@ private:
 
 struct Rva00045411BitSet { unsigned m_words[7]; };
 
-namespace _STL
-{
-struct _Rb_tree_node_base
-{
-	bool _M_color;
-	_Rb_tree_node_base *_M_parent;
-	_Rb_tree_node_base *_M_left;
-	_Rb_tree_node_base *_M_right;
-};
-template <class D> class _Rb_global
-{
-public:
-	static _Rb_tree_node_base *__cdecl _M_increment(_Rb_tree_node_base *);
-};
-}
+#define _STLP_USE_STATIC_LIB
+#include <map>
 
 struct Rva004EE3ABObj
 {
