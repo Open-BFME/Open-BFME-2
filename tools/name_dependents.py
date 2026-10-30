@@ -47,6 +47,7 @@ target can be lost and functions.csv is not read.
 import argparse
 from concurrent.futures import ThreadPoolExecutor
 import csv
+import hashlib
 import io
 import json
 import re
@@ -121,6 +122,15 @@ def data_targets(rows, data_rows):
             continue
         targets.setdefault(row["name"], set()).add(("data", address))
     return targets
+
+
+def merged(*maps):
+    """The union of name -> set maps (data_targets' row and data-row parts)."""
+    out = {}
+    for one in maps:
+        for name, homes in one.items():
+            out.setdefault(name, set()).update(homes)
+    return out
 
 
 def lost_names(old_targets, new_targets):
@@ -315,6 +325,53 @@ def ledgers_differ(args, root=ROOT):
     return bool(changed_ledgers(args, root))
 
 
+def blob_ids(state, paths, root=ROOT):
+    """{path: blob id} at `state` ("REV:" or ":" for the index) for the paths there."""
+    if state == ":":
+        out = subprocess.run(["git", "-C", str(root), "ls-files", "-s", "-z", "--", *paths],
+                             capture_output=True)
+        if out.returncode:
+            return {}
+        found = {}
+        for entry in out.stdout.split(b"\0"):
+            if b"\t" in entry:
+                meta, path = entry.split(b"\t", 1)
+                found[path.decode("utf-8")] = meta.split()[1].decode("ascii")
+        return found
+    import ledger_cache
+    try:
+        return ledger_cache.object_ids(state[:-1], list(paths))
+    except RuntimeError:
+        return {}
+
+
+def target_maps(state, root=ROOT):
+    """(call_targets, data_targets of the function rows) at `state`, memoised
+    (tools/ledger_cache.py) under the functions.csv and symbols.csv blobs and the
+    content of the gate baseline whose alias-row lines _admitted reads: the maps
+    are a pure function of those three and this code, and master's are then
+    computed once per clone instead of by every push."""
+    import build
+    import ledger_cache
+
+    def compute():
+        rows, pins = ledger_dicts(state + LEDGER, root), ledger_dicts(state + PINS, root)
+        return call_targets(rows, pins), data_targets(rows, ())
+    if root != ROOT:
+        return compute()
+    gate_baseline = getattr(build, "GATE_BASELINE", None)
+    if gate_baseline is None:
+        return compute()     # what _admitted reads is unknown here: no key covers it
+    ids = blob_ids(state, (LEDGER, PINS), root)
+    try:
+        baseline = hashlib.sha256(gate_baseline.read_bytes()).hexdigest()
+    except OSError:
+        baseline = "absent"
+    key = f"{ids[LEDGER]}:{ids[PINS]}:{baseline}" if LEDGER in ids and PINS in ids else ""
+    code = ledger_cache.code_hash(__file__, ROOT / "tools" / "build.py", ROOT / "tools" / "data_rows.py")
+    return ledger_cache.memo("name_dependents.targets", key, compute, code)
+
+
 def states(args, root=ROOT):
     if args.staged:
         old, new = "HEAD:", ":"
@@ -356,21 +413,28 @@ def working_copy(args, root=ROOT):
 
 def dependent_sources(old_rows, old_pins, new_rows, new_pins, *, admitted=_admitted,
                       objects_of=_row_objects, root=ROOT, report=None, working=None,
-                      old_data=(), new_data=(), data_objects_of=_data_row_objects):
+                      old_data=(), new_data=(), data_objects_of=_data_row_objects, maps=None):
     """Sources to re-verify. old_data/new_data are data rows or zero-argument
     loaders of them; old_data None means data_rows.csv did not change, and its
-    rows (tagged apart from a function row's) then lose nothing."""
+    rows (tagged apart from a function row's) then lose nothing. `maps`, when
+    given, is (old_maps, new_maps) from target_maps; the rows are then read
+    (new_rows may be a zero-argument loader) only when something was lost."""
     def load(data):
         return data() if callable(data) else data
-    lost = lost_names(call_targets(old_rows, old_pins, admitted),
-                      call_targets(new_rows, new_pins, admitted))
+    if maps is None:
+        maps = ((call_targets(old_rows, old_pins, admitted), data_targets(old_rows, ())),
+                (call_targets(new_rows, new_pins, admitted), data_targets(new_rows, ())))
+    (old_calls, old_homes), (new_calls, new_homes) = maps
+    lost = lost_names(old_calls, new_calls)
     if old_data is None:
-        lost_data = lost_names(data_targets(old_rows, ()), data_targets(new_rows, ()))
+        lost_data = lost_names(old_homes, new_homes)
     else:
         old_data, new_data = load(old_data), load(new_data)
-        lost_data = lost_names(data_targets(old_rows, old_data), data_targets(new_rows, new_data))
+        lost_data = lost_names(merged(old_homes, data_targets((), old_data)),
+                               merged(new_homes, data_targets((), new_data)))
     if not lost and not lost_data:
         return set()
+    new_rows = load(new_rows)
     new_data = load(new_data)
     started = time.monotonic()
     data_objects = data_objects_of(new_data)
@@ -405,15 +469,17 @@ def main():
     changed = changed_ledgers(args)
     if not changed:
         return
+    old, new = ("HEAD:", ":") if args.staged else (f"{args.range[0]}:", f"{args.range[1]}:")
     if changed - {DATA_ROWS}:
-        (old_rows, old_pins), (new_rows, new_pins) = states(args)
+        maps = (target_maps(old), target_maps(new))
+        new_rows = lambda: ledger_dicts(new + LEDGER)
     else:
         # only data rows moved: no call target and no function row's home can be lost
-        old_rows, old_pins, new_rows, new_pins = [], [], [], []
+        maps, new_rows = (({}, {}), ({}, {})), []
     old_data, new_data = data_loaders(args, changed)
-    found = dependent_sources(old_rows, old_pins, new_rows, new_pins, report=sys.stderr,
+    found = dependent_sources([], [], new_rows, [], report=sys.stderr,
                               working=lambda: working_copy(args),
-                              old_data=old_data, new_data=new_data)
+                              old_data=old_data, new_data=new_data, maps=maps)
     sys.stdout.reconfigure(newline="\n")
     for source in sorted(found):
         print(source)
