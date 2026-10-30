@@ -23,6 +23,7 @@ state="$PUSH_TEST_STATE"
 n=$(cat "$state/hook-count" 2>/dev/null || echo 0)
 echo $((n + 1)) > "$state/hook-count"
 echo "previous=${BFME_PUSH_PREVIOUS:-}" >> "$state/hook-env"
+echo "lost_race=${BFME_PUSH_LOST_RACE:-}" >> "$state/hook-lost"
 if [ -f "$state/race" ] && [ "$n" -lt "$(cat "$state/race")" ]; then
     # another seat lands while this hook runs: git then rejects this push
     ( unset GIT_CONFIG_PARAMETERS GIT_CONFIG_COUNT GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE
@@ -131,6 +132,50 @@ def test_a_lost_race_is_retried_at_once_and_lands(seat, capsys):
     assert env[0] == "previous=" and env[1].startswith("previous=") and env[1] != "previous="
     assert env[1] == f"previous={tip}"
     assert time.time() - started < 60
+
+
+def test_only_the_retry_after_a_lost_race_is_flagged_as_one(seat, capsys, monkeypatch):
+    # master moved before the first attempt, so its rebase changes HEAD and it
+    # already carries the receipt hint BFME_PUSH_PREVIOUS; only the retry after
+    # the lost race carries BFME_PUSH_LOST_RACE, which the hook's retry window
+    # keys on (a first attempt must not take the window).
+    monkeypatch.delenv("BFME_PUSH_LOST_RACE", raising=False)
+    path, other, origin, state = seat
+    work(path)
+    (other / "early.txt").write_text("early\n")
+    git(other, "add", "early.txt")
+    git(other, "commit", "-qm", "other seat early")
+    git(other, "push", "-q", "origin", "HEAD:master")
+    (state / "race").write_text("1")              # and another lands during the first hook
+    code, out = run(capsys)
+    assert code == 0, out
+    assert "attempt 1: lost the race" in out and "attempt 2: landed" in out
+    env = (state / "hook-env").read_text().splitlines()
+    assert env[0] != "previous=", "the first rebase moved HEAD: a receipt hint"
+    assert (state / "hook-lost").read_text().splitlines() == ["lost_race=", "lost_race=1"]
+
+
+def test_an_exported_lost_race_flag_never_marks_a_first_attempt(seat, capsys, monkeypatch):
+    # a shell that once exported BFME_PUSH_LOST_RACE=1 must not make a later,
+    # unrelated first attempt look like a retry (it would take the landing window)
+    monkeypatch.setenv("BFME_PUSH_LOST_RACE", "1")
+    path, other, origin, state = seat
+    work(path)
+    code, out = run(capsys)
+    assert code == 0, out
+    assert (state / "hook-lost").read_text().splitlines() == ["lost_race="]
+
+
+def test_after_lost_race_marks_a_drivers_own_retry(seat, capsys, monkeypatch):
+    # a driver that runs its own retries (push.py --tries 1 in a loop) says so per
+    # invocation; the flag reaches the hook on that run's first attempt
+    monkeypatch.delenv("BFME_PUSH_LOST_RACE", raising=False)
+    path, other, origin, state = seat
+    work(path)
+    code = push.main(["--tries", "1", "--after-lost-race", "--email", EMAIL])
+    out = capsys.readouterr().out
+    assert code == 0, out
+    assert (state / "hook-lost").read_text().splitlines() == ["lost_race=1"]
 
 
 def test_a_real_refusal_stops_without_retrying(seat, capsys):

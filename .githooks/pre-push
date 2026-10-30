@@ -112,7 +112,11 @@ join_jobs() {
 # fast_forward_or_fail REV: the full gate only pays off if REV still fast-forwards
 # origin/master; an unreachable origin is left for the push itself to report.
 fast_forward_or_fail() {
-    git fetch -q origin master 2>/dev/null || return 0
+    # Negotiate from origin/master alone: claims' ~2,000 mirror refs as tips made
+    # this fetch ask for ~3.4 GB.
+    local tip=()
+    git rev-parse -q --verify refs/remotes/origin/master >/dev/null && tip=(--negotiation-tip=refs/remotes/origin/master)
+    git fetch -q "${tip[@]}" origin master 2>/dev/null || return 0
     git merge-base --is-ancestor FETCH_HEAD "$1"         || fail "origin/master moved past this push's base; pull --rebase before running the full gate"
 }
 # scope_from FROM: the sources a change from FROM to the pushed commit can affect,
@@ -765,6 +769,31 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
         receipt_proof
         stage "receipts (${#verify[@]} of ${#scope_units[@]} left to verify)"
     fi
+    # A retry after a lost race (BFME_PUSH_LOST_RACE=1, set by tools/push.py after
+    # one of its attempts lost or when told --after-lost-race; not
+    # BFME_PUSH_PREVIOUS, a receipt hint a first attempt carries too once its
+    # rebase moved HEAD) that
+    # still has BFME_LANDING_RETRY_UNITS (default 100) or more sources to verify
+    # holds the landing window while it verifies them: other pushes to master
+    # wait at the end of their hooks, so master cannot move under a second long
+    # verify. A 404-source scoped push (thing.h, 2026-10-29) verified for 13-18
+    # minutes five times and lost the race each time: each retry re-verified
+    # everything (a verifier change or a BFME 1 pointer move since the previous
+    # attempt leaves its receipt nothing to carry) while other seats landed.
+    # A first attempt holds no window, so no seat waits on a gate that may not
+    # need a retry. The window is taken after the receipts, so a retry they
+    # mostly cover holds nothing; once taken, a master that moved while this
+    # waited for it fails at once (a lost race: push.py rebases and retries).
+    retry_window=0
+    if [ -z "$carried" ] && [ "${BFME_PUSH_LOST_RACE:-}" = 1 ] \
+            && [ "${#verify[@]}" -ge "${BFME_LANDING_RETRY_UNITS:-100}" ]; then
+        take_landing_window "$local_sha"
+        if [ -n "$LANDING_TOKEN" ]; then
+            retry_window=1
+            fast_forward_or_fail "$local_sha"
+        fi
+        stage "landing window (a retry with ${#verify[@]} sources to verify)"
+    fi
     # The pushed commit, not HEAD: a push of an older commit builds what it pushes.
     check_worktree_chunks "$local_sha" "${verify[@]}"
     stage "source binding"
@@ -935,8 +964,8 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
         disown 2>/dev/null || true
     fi
     stage "receipt record"
-    # Any other push waits while another seat lands a carried push.
-    if [ -z "$carried" ]; then
+    # Any other push waits while another seat lands a carried push or a long retry.
+    if [ -z "$carried" ] && [ "$retry_window" -eq 0 ]; then
         wait_landing_window
         stage "landing window wait"
     fi

@@ -320,6 +320,33 @@ def test_only_a_carried_retry_holds_the_landing_window(repo):
     assert (path / 'lease-calls.txt').read_text().split() == ['wait', 'acquire']
 
 
+@pytest.mark.parametrize('previous,lost_race,units,expected', [
+    (False, False, '1', ['wait']),       # a first attempt holds no window
+    (True, False, '1', ['wait']),        # nor does one whose rebase moved HEAD (a receipt hint)
+    (True, True, '1', ['acquire']),      # a retry after a lost race with sources left holds it
+    (True, True, '100000', ['wait'])],   # a retry with few sources left only waits its turn
+    ids=['first-attempt', 'first-attempt-rebased', 'long-retry', 'short-retry'])
+def test_a_long_retry_holds_the_landing_window_while_it_verifies(repo, previous, lost_race, units, expected):
+    # The thing.h push (404 sources, 2026-10-29) verified for 13-18 minutes five
+    # times and lost the race to master each time; its retries take the window
+    # before verifying, so other pushes wait instead of landing under them.
+    path, sources, base, _ = repo
+    hooks.write(path, 'tools/push_lease.py', RECORD_LEASE)
+    hooks.git(path, 'add', '--', 'tools/push_lease.py')
+    hooks.git(path, 'commit', '-qm', 'landing window log fixture')
+    pushed = hooks.git(path, 'rev-parse', 'HEAD')
+    env = {'BFME_LANDING_RETRY_UNITS': units, 'BFME_LANDING_WATCH_SECONDS': '0'}
+    if previous:
+        env['BFME_PUSH_PREVIOUS'] = base
+    if lost_race:
+        env['BFME_PUSH_LOST_RACE'] = '1'
+    done = run_hook((path, sources, base, pushed), sources[:5], **env)
+    assert done.returncode == 0, done.stderr
+    lease = [c for c in (path / 'lease-calls.txt').read_text().split() if c != 'release-landed']
+    assert lease == expected
+    assert ('holding the landing window' in done.stdout) == (expected == ['acquire'])
+
+
 def unbounded_headers(fixture):
     path, sources, base, _ = fixture
     hooks.write(path, 'tools/header_dependents.py', 'raise SystemExit(2)\n')

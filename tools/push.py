@@ -150,10 +150,20 @@ def check_identity(email):
     return len([line for line in out if line])
 
 
-def push_once(previous, dry_run):
+def push_once(previous, dry_run, lost_race=False):
+    """One git push through the hooks. `previous` is the receipt hint (the tip
+    before a rebase); `lost_race` tells the hook this attempt retries one that
+    lost the race to master (BFME_PUSH_LOST_RACE=1, which the hook's retry
+    window keys on). The flag comes from this invocation alone -- an earlier
+    attempt of land() that lost, or --after-lost-race from a driver that runs
+    its own retries -- never from the environment: a shell that once exported
+    it would mark every later first attempt as a retry."""
     env = dict(os.environ)
+    env.pop("BFME_PUSH_LOST_RACE", None)
     if previous:
         env["BFME_PUSH_PREVIOUS"] = previous
+    if lost_race:
+        env["BFME_PUSH_LOST_RACE"] = "1"
     args = ["-c", "core.hooksPath=.githooks", "-c", "submodule.recurse=false", "push"]
     if dry_run:
         args.append("--dry-run")
@@ -167,9 +177,12 @@ def push_once(previous, dry_run):
     return proc.wait(), "".join(lines)
 
 
-def land(tries=20, email=None, dry_run=False, say=print):
+def land(tries=20, email=None, dry_run=False, say=print, after_lost_race=False):
+    """`after_lost_race`: this run retries a push that lost the race to master
+    (a driver that runs its own retries says so with --after-lost-race)."""
     name, email = push_identity(email)
     previous = None
+    lost_race = after_lost_race
     for attempt in range(1, tries + 1):
         wait_for_spacing(say)
         started = time.time()
@@ -183,7 +196,7 @@ def land(tries=20, email=None, dry_run=False, say=print):
             return 0
         wait_for_spacing(say)            # a seat of this account may have landed during the rebase
         rebased = time.time()
-        status, output = push_once(previous, dry_run)
+        status, output = push_once(previous, dry_run, lost_race)
         took = time.time() - started
         if status == 0:
             if not dry_run:
@@ -196,6 +209,7 @@ def land(tries=20, email=None, dry_run=False, say=print):
             return 1
         say(f"push: attempt {attempt}: lost the race to master after {took:.1f} s; rebasing and retrying")
         previous = tip
+        lost_race = True
     say(f"push: still racing after {tries} attempts; run it again")
     return 1
 
@@ -205,9 +219,13 @@ def main(argv=None):
     ap.add_argument("--tries", type=int, default=20)
     ap.add_argument("--email", help="the push identity (default: git config bfme.pushEmail, else user.email)")
     ap.add_argument("--dry-run", action="store_true", help="git push --dry-run (still runs the hooks)")
+    ap.add_argument("--after-lost-race", action="store_true",
+                    help="this run retries a push that lost the race to master (a driver that runs its own "
+                         "retries, e.g. --tries 1 in a loop, passes it on each retry; the hook's landing "
+                         "window for a long retry keys on it)")
     args = ap.parse_args(argv)
     try:
-        return land(args.tries, args.email, args.dry_run)
+        return land(args.tries, args.email, args.dry_run, after_lost_race=args.after_lost_race)
     except Refused as why:
         print(f"push: {why}", file=sys.stderr)
         return 1
