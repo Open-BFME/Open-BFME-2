@@ -21,6 +21,7 @@
 // and forces that spill; passing `obj` directly lets the optimiser drop the frame, and the body
 // comes out 9 bytes short in a different register allocation.
 #include "ascii_string.h"
+#include "../../../../Include/GameLogic/Module/DieModule.h"
 
 class UpgradeTemplate
 {
@@ -66,16 +67,6 @@ public:
 	void create(void *a1, void *a2, void *a3);
 };
 
-class DieModule
-{
-	friend class CreateObjectDie;
-protected:
-	bool isDieApplicable(const DamageInfo *damageInfo) const;
-public:
-	void *m_type;
-	Object *m_08;
-};
-
 struct CreateObjectDieModuleDataView
 {
 	char m_pad00[0x38];
@@ -85,9 +76,9 @@ struct CreateObjectDieModuleDataView
 	AsciiString *m_requiredUpgradesEnd;
 };
 
-// `this` is the DieModuleInterface subobject at +0x10 (slot 0 of the die-module table
-// 0x00C4A7DC), hence the explicit -0x10 / -0x0C / -8 member offsets below.
-class CreateObjectDie
+// MSVC enters this override through DieModuleInterface at +0x10, slot 0 of
+// 0x00C4A7DC. The canonical base supplies the helper and owner/data offsets.
+class CreateObjectDie : public DieModule
 {
 public:
 	virtual void onDie(const DamageInfo *damageInfo);
@@ -96,10 +87,10 @@ public:
 // ?onDie@CreateObjectDie@@UAEXPBVDamageInfo@@@Z
 void CreateObjectDie::onDie(const DamageInfo *damageInfo)
 {
-	if (!((DieModule *)((char *)this - 0x10))->isDieApplicable(damageInfo))
+	if (!isDieApplicable(damageInfo))
 		return;
-	Object *obj = *(Object **)((char *)this - 8);
-	CreateObjectDieModuleDataView *data = *(CreateObjectDieModuleDataView **)((char *)this - 0x0C);
+	Object *obj = m_object;
+	const CreateObjectDieModuleDataView *data = (const CreateObjectDieModuleDataView *)m_moduleData;
 	AsciiString *cur = data->m_requiredUpgradesBegin;
 	while (cur != data->m_requiredUpgradesEnd)
 	{
@@ -119,6 +110,6 @@ void CreateObjectDie::onDie(const DamageInfo *damageInfo)
 	ObjectCreationList *ocl = data->m_ocl;
 	if (ocl == 0)
 		return;
-	ocl->create(*(Object **)((char *)this - 8),
+	ocl->create(*(Object **)((char *)this + 8),
 		TheGameLogic->findObjectByID(damageInfo->m_sourceID08), (void *)0);
 }

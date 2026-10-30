@@ -5,6 +5,8 @@
 // virtual slot +0x10 key compare plus null-terminated scan, caller pushes
 // an Object and tests the result for null.
 
+#include "../../../../Include/GameLogic/Module/DieModule.h"
+
 enum NameKeyType
 {
 	NK_UNKNOWN = 0
@@ -17,16 +19,6 @@ public:
 };
 
 extern NameKeyGenerator *TheNameKeyGenerator;
-
-class DieModule
-{
-public:
-	virtual void f0();
-	virtual void f1();
-	virtual void f2();
-	virtual void f3();
-	virtual NameKeyType getKey();
-};
 
 class Owner244
 {
@@ -41,7 +33,7 @@ void *Rva00486687Find(void *obj)
 	DieModule **pp = static_cast<Owner244 *>(obj)->m_list;
 	for (; *pp != 0; ++pp)
 	{
-		if ((*pp)->getKey() == key)
+		if ((*pp)->getModuleNameKey() == key)
 			return *pp;
 	}
 	return 0;

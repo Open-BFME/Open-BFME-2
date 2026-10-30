@@ -1,0 +1,58 @@
+{
+  "base": "04e74d7e4d21acebc204ca6f10a03bafd4942081",
+  "sources": {
+    "Code/GameEngine/Source/GameLogic/Object/Die/RebuildHoleExposeDieFind.cpp": {
+      "identical_object_facts": true,
+      "identical_reference_graph": true,
+      "comdats": [
+        [
+          "??_C@_0BF@LFAMFKPH@RebuildHoleExposeDie?$AA@",
+          "d1bc450a80c5",
+          21
+        ],
+        [
+          "?Rva00486687Find@@YAPAXPAX@Z",
+          "7e88cf391c9e",
+          108
+        ]
+      ],
+      "strong_definitions": [
+        "?Rva00486687Find@@YAPAXPAX@Z"
+      ],
+      "undefined_externals": [
+        "?TheNameKeyGenerator@@3PAVNameKeyGenerator@@A",
+        "?nameToKey@NameKeyGenerator@@QAE?AW4NameKeyType@@PBD@Z",
+        "__EH_prolog",
+        "___CxxFrameHandler",
+        "__except_list"
+      ],
+      "weak_externals": []
+    },
+    "Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDie_onDie.cpp": {
+      "identical_object_facts": true,
+      "identical_reference_graph": true,
+      "comdats": [
+        [
+          "?onDie@CreateObjectDie@@UAEXPBVDamageInfo@@@Z",
+          "c820f13de2c1",
+          139
+        ]
+      ],
+      "strong_definitions": [
+        "?onDie@CreateObjectDie@@UAEXPBVDamageInfo@@@Z"
+      ],
+      "undefined_externals": [
+        "?TheGameLogic@@3PAVGameLogic@@A",
+        "?TheUpgradeCenter@@3PAVUpgradeCenter@@A",
+        "?create@ObjectCreationList@@QAEXPAX00@Z",
+        "?findObjectByID@GameLogic@@QAEPAVObject@@W4ObjectID@@@Z",
+        "?findUpgrade@UpgradeCenter@@QBEPBVUpgradeTemplate@@ABVAsciiString@@@Z",
+        "?getControllingPlayer@Object@@QBEPAVPlayer@@XZ",
+        "?hasUpgrade@Object@@QBE_NPBVUpgradeTemplate@@@Z",
+        "?isDieApplicable@DieModule@@IBE_NPBVDamageInfo@@@Z",
+        "?rva002AB87D@Player@@QBE_NPBVUpgradeTemplate@@@Z"
+      ],
+      "weak_externals": []
+    }
+  }
+}
