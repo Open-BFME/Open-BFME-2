@@ -2277,6 +2277,21 @@ def split_rows(path, tu):
     return None, tu, tu_rows
 
 
+def placed_elsewhere(tu, own, assigned):
+    """{basename: count} of the TU file's own rows that the map assigns to another TU.
+
+    The rule donors() applies to the TU path in a merge: a row the map places nowhere
+    stays in the seed, is moved by nothing and is re-verified, so only a row assigned
+    to a different TU calls for a split first. A companion row lives where its parent lives."""
+    home = {r["name"]: assigned.get(int(r["target_rva"], 16)) for r in own}
+    dtors = {m.group(1): r["name"] for r in own if (m := re.match(r"^\?\?1((?:\?\$)?[A-Za-z_]\w*@)", r["name"]))}
+
+    def placed(r):
+        p = parent_of(r, dtors)
+        return home[p] if p and p in home else assigned.get(int(r["target_rva"], 16))
+    return collections.Counter(placed(r).split("/")[-1] for r in own if placed(r) not in (tu.lower(), None))
+
+
 def split(path, tu, dry_run=False, claim=True):
     report = {"file": path, "tu": tu}
     rows = file_rows(path)
@@ -2410,17 +2425,9 @@ def split(path, tu, dry_run=False, claim=True):
     don = {path: carved}
     own = file_rows(tu) if (ROOT / tu).exists() else []
     if own:
-        assigned = _CACHE["assigned"]
-        own_home = {r["name"]: assigned.get(int(r["target_rva"], 16)) for r in own}
-        own_dtors = {m.group(1): r["name"] for r in own if (m := re.match(r"^\?\?1((?:\?\$)?[A-Za-z_]\w*@)", r["name"]))}
-
-        def placed(r):   # a companion row lives where its parent lives
-            p = parent_of(r, own_dtors)
-            return own_home[p] if p and p in own_home else assigned.get(int(r["target_rva"], 16))
-        elsewhere = collections.Counter((placed(r) or "(unplaced)").split("/")[-1]
-                                        for r in own if placed(r) != tu.lower())
+        elsewhere = placed_elsewhere(tu, own, _CACHE["assigned"])
         if elsewhere:
-            report["blocked"] = ("TU path exists and holds rows the map does not place there (split it first): "
+            report["blocked"] = ("TU path exists and holds rows the map places in another TU (split it first): "
                                  + ", ".join(f"{k} {n}" for k, n in elsewhere.most_common()))
             return report
         don[tu] = own

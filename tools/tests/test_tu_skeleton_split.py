@@ -333,6 +333,17 @@ class FuncletDonorTests(unittest.TestCase):
         self.assertEqual(mixed, {})                      # the unplaced funclet does not make the file mixed
         self.assertEqual(sorted(don), ["Code/X.cpp"]) if "Code/X.cpp" in don else self.assertIn("Code/X.cpp", refused)
 
+    def test_the_tu_file_may_keep_unplaced_rows_but_not_another_tus(self):
+        # donors()' rule for the TU path in a merge: a row the map places nowhere (a
+        # displaced header-inline COMDAT) stays in the seed; only another TU's row blocks.
+        own = rows(("?setViewFilterPos@W3DView@@UAEXPBUCoord3D@@@Z", "0x00085F12"),
+                   ("?setZoomToPos@ScreenMotionBlurFilter@@SAXPBUCoord3D@@@Z", "0x0008553B"),
+                   ("__ehhandler$?setViewFilterPos@W3DView@@UAEXPBUCoord3D@@@Z", "0x0077E000"))
+        assigned = {0x85F12: "code/w3dview.cpp"}
+        self.assertEqual(T.placed_elsewhere("Code/W3DView.cpp", own, assigned), {})
+        assigned[0x8553B] = "code/w3dshadermanager.cpp"
+        self.assertEqual(T.placed_elsewhere("Code/W3DView.cpp", own, assigned), {"w3dshadermanager.cpp": 1})
+
 
 HEADER = "name,export_rva,target_rva,target_size,source,status,notes\n"
 
