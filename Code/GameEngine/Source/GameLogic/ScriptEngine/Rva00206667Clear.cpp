@@ -1,14 +1,10 @@
-// cl: /EHsc
+// cl: /Ireference/shims/bfme2_ascii /EHsc
 // ?rva00206667@Rva00206667@@QAEXPAURva00206667Node@@@Z @0x00206667 53B thiscall recursive clear over child +0x0C with iteration over next +0x08 clearing value +0x10 via rowed StringBase clear 0x0048BA39 then free 0x00030830.
 // Evidence: unlock lane every callee rowed; same 53B shape as 0x00206706; self-call plus caller 0x00206F79.
 #include <stdlib.h>
 
-template <typename T>
-class StringBase
-{
-public:
-	void clear();
-};
+#define BFME_SB_CLEAR_DECL
+#include "ascii_string.h"
 
 struct Rva00206667Node
 {
