@@ -164,7 +164,6 @@ Code/GameEngine/Source/Common/Rva00028C70Forward.cpp,-Od,1,1,region default lose
 Code/GameEngine/Source/Common/Rva00029F80Cluster.cpp,-Od,2,2,region default loses rows
 Code/GameEngine/Source/Common/Rva0002ACC0Cluster.cpp,-Od,2,2,region default loses rows
 Code/GameEngine/Source/Common/Rva000B3A68.cpp,-O2 -G7,1,1,region default loses rows
-Code/GameEngine/Source/Common/Rva0010953EFinish.cpp,-Os -arch:SSE,1,1,region default loses rows
 Code/GameEngine/Source/Common/Rva0011653FCluster.cpp,-O1 -G7,1,1,region default loses rows
 Code/GameEngine/Source/Common/Rva0013101ECopy.cpp,-O1,1,1,region default loses rows
 Code/GameEngine/Source/Common/Rva0013107ACtor.cpp,-O1,2,2,region default loses rows
@@ -439,6 +438,7 @@ Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/AptDisplayStringAllocation
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Render_Obj_Exists_Impl.cpp,-O2,1,1,region default loses rows
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva009EBDC0.cpp,,4,2,region default loses rows
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva009EBEC0.cpp,,1,1,region default loses rows
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp,-Os -arch:SSE,1,1,region default loses rows
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DScene.cpp,-G7 -arch:SSE,8,2,region default loses rows
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualXfer.cpp,-O1 -G7,1,1,region default loses rows
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBuffer.cpp,,1,1,region default loses rows
