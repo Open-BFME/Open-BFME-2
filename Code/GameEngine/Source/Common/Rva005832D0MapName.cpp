@@ -16,9 +16,11 @@ template <typename T> struct BfmeStringData
 #include "ascii_string.h"
 
 
+class UnicodeString;
 class BfmeAptWindowManager
 {
 public:
+	void bfmeSetText(const AsciiString &, const UnicodeString &, bool);
 	void rva00225375(const AsciiString &, const AsciiString &, bool);
 };
 
@@ -32,6 +34,7 @@ BfmeAptWindowManager *g_bfmeAptWindowManager = 0;
 class AptFileTransferPopup
 {
 public:
+	void rva00583202(int totalSeconds);
 	void rva005832D0(const AsciiString &path);
 };
 

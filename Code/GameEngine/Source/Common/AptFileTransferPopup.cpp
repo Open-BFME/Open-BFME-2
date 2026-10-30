@@ -21,6 +21,7 @@ class BfmeAptWindowManager
 {
 public:
 	void bfmeSetText(const AsciiString &, const UnicodeString &, bool);
+	void rva00225375(const AsciiString &, const AsciiString &, bool);
 };
 
 class GameTextInterface
@@ -54,7 +55,8 @@ extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 class AptFileTransferPopup
 {
 public:
-    void rva00583202(int totalSeconds);
+	void rva00583202(int totalSeconds);
+	void rva005832D0(const AsciiString &path);
 };
 
 // tu-skeleton: 0x00583121 225B ?ProcessProgress@AptFileTransferPopup@@QAEXHHVUnicodeString@@@Z -- matched in Code/GameEngine/Source/Common/AptHeroPowerText.cpp (not merged yet)
