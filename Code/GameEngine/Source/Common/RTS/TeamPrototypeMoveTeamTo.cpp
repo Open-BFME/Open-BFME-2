@@ -1,4 +1,4 @@
-// cl: /O1 /Ireference/shims/moduledata /DNDEBUG /MD /EHsc /arch:SSE /Oy-
+// cl: /O1 /Ireference/shims/moduledata /DNDEBUG /MD /EHsc /arch:SSE
 // Donor fact: Open-BFME-1 Team.cpp names TeamPrototype::moveTeamTo(Coord3D)
 // and forwards the copied coordinate to each Team in the prototype's list.
 // Target evidence: 0x0039F03A reads the team head at +0x334, advances through
