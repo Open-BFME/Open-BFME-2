@@ -70,6 +70,28 @@ class RGBAColorReal;
 class RGBAColorInt;
 class Snapshot;
 #include "../../../../Include/Common/BfmeXfer.h"
+#define BFME_SNAPSHOT_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	protected: \
+		virtual const char *GetSnapshotName() const; \
+	}; \
+	const char *NAME::GetSnapshotName() const \
+	{ \
+		return TEXT; \
+	}
+#define BFME_LITERAL_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	public: \
+		const char *name() const; \
+	}; \
+	const char *NAME::name() const \
+	{ \
+		return TEXT; \
+	}
+#include "../../AI/WorkOrder.h"
+#include "../../AI/TeamInQueue.h"
 
 //
 // ??1PoisonedBehavior@@MAE@XZ, retail 0x00482ED9, 32 bytes. Behavior-side
@@ -253,6 +275,10 @@ public:
 
 void XferDeathType(Xfer *xfer, int *value);
 
+BFME_LITERAL_NAME_GETTER(Rva00482EF9Named, "PoisonedBehavior")
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/PoisonedBehavior.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/PoisonedBehavior.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/PoisonedBehaviorDtor.cpp
@@ -298,8 +324,6 @@ void PoisonedBehavior::rva00483083()
 		((Rva00270619 *)v)->Rva00270619Clear(4);
 }
 
-// tu-skeleton: 0x00482EF9 6B ?name@Rva00482EF9Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/PoisonedBehaviorPoolKey.cpp
 
 // ?getModuleNameKey@PoisonedBehavior@@UBE?AW4NameKeyType@@XZ
@@ -309,8 +333,6 @@ NameKeyType PoisonedBehavior::getModuleNameKey() const
 		TheNameKeyGenerator->nameToKey("PoisonedBehavior");
 	return ThePoisonedBehaviorPoolKey;
 }
-
-// tu-skeleton: 0x00482F6C 17B ?buildFieldParse@PoisonedBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/PoisonedBehaviorUpdate.cpp
 
@@ -403,3 +425,22 @@ void PoisonedBehavior::xfer(Xfer *xfer)
 	*xfer == m_poisonDamageAmount;
 	XferDeathType(xfer, &m_deathType);
 }
+
+// ---- from Code/GameEngine/Source/Common/ModuleNameGetters.cpp
+
+// Module literal name getters: six-byte const members with one shape:
+//
+//     mov eax,<offset string literal> / ret
+//
+// Each body returns a pointer to a NUL-terminated Behavior/Update/Contain
+// class-name string in .rdata. Each body VA carries exactly one .rdata
+// reference from its module vtable (descriptor tail closed by the shared
+// 0x004B3FD0 pair -- the same family marker as the Subsystem getters).
+// Split from Code/GameEngine/Source/Common/SubsystemNameGetters.cpp into a
+// contributor-local unit to keep concurrent landings conflict-free; the
+// BFME_LITERAL_NAME_GETTER macro is verbatim, only the class names follow
+// this tree's address-derived convention (identity unrecoverable from 6
+// bytes, string carried in source where verify_string_refs re-reads it).
+// No // cl: line (defaults match the frameless 6-byte shape).
+
+// tu-skeleton: 0x00482F6C 17B ?buildFieldParse@PoisonedBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
