@@ -19897,8 +19897,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A034B4,4,.data,global,?TheAimWeaponBehaviorPoolKey@?1??getModuleNameKey@AimWeaponBehavior@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Behavior/AimWeaponBehavior.cpp,owned,,1,2
 0x00A034B8,4,.data,global,?$S1@?1??getModuleNameKey@AimWeaponBehavior@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/AimWeaponBehavior.cpp,owned,,1,4
 0x00A034BC,4,.data,global,_s_rva007B0B12,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
-0x00A034C0,4,.data,global,?TheBezierProjectileBehaviorPoolKey@?1??getModuleNameKey@BezierProjectileBehavior@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehaviorPoolKey.cpp,owned,,1,2
-0x00A034C4,4,.data,global,?$S1@?1??getModuleNameKey@BezierProjectileBehavior@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehaviorPoolKey.cpp,owned,,1,4
+0x00A034C0,4,.data,global,?TheBezierProjectileBehaviorPoolKey@?1??getModuleNameKey@BezierProjectileBehavior@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehavior.cpp,owned,,1,2
+0x00A034C4,4,.data,global,?$S1@?1??getModuleNameKey@BezierProjectileBehavior@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehavior.cpp,owned,,1,4
 0x00A034C8,4,.data,global,_s_rva007B0B3C,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A034CC,4,.data,global,?TheInstantDeathBehaviorPoolKey@?1??rva00045CF10@InstantDeathBehavior@@SA?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehaviorPoolKey.cpp,owned,,1,2
 0x00A034D0,4,.data,global,?$S1@?1??rva00045CF10@InstantDeathBehavior@@SA?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehaviorPoolKey.cpp,owned,,1,4

@@ -52,3 +52,59 @@ Apply only the supported cached-key merge after committing the prerequisite;
 repoint the donor's two owned static-local data records with the merge tool.
 Reconcile the other eight donors separately before attempting further moves.
 Do not split the five mixed files as part of this merge.
+
+## Composition after prerequisite 5910301b5f
+
+The runner handed the prerequisite and earlier pending work to the fleet
+publisher. Its rebase changed unrelated upstream inputs but neither scoped
+source. `check_csv.py` passes after that rebase. The supported applying merge
+rebuilds approval in memory and accepts only the seed and cached-key donor;
+eight rejected whole-file donors and five mixed files remain unchanged.
+It removes one source, repoints three function rows and three TU-map source
+columns, and carries the two owned data records at 0x00A034C0/0x00A034C4.
+No TU-map assignment, approval or generated map is committed.
+
+- `./build.sh` and strict receipt preparation pass 12/12 rows, including
+  five renumbered funclet labels placed by exact parent EH data. Both EH
+  graphs are EXACT. Frozen-file and staged TU-ownership checks pass.
+- COFF comparison against the two pre-merge objects retains all 25 external
+  definitions with identical COMDAT fingerprints and sizes; the strong,
+  undefined and weak bindings and reference roots/edges equal their union.
+  The two static-local data records change only source ownership.
+- Ordinary preview: the surviving unit LINKS for 673 authored bytes, combining
+  the former 594-byte seed and 79-byte donor. No census gain is claimed.
+- Data checks have zero findings, including zero second names and unjudged
+  rows for converged data. CSV integrity passes (99,013 functions, 9,391 pins,
+  2,246 data rows). The changed counts since the prerequisite are upstream
+  changes brought in by the runner, not progress from this merge.
+- The merge tool refreshes header and Microsoft-header queues; neither changes.
+  Neither scoped source has a data/identity debt or flag-override key. The
+  seed's three existing address-global hatches remain unchanged. Its global
+  hatch refresh also removed an unrelated stale marker entry for
+  `Common/RTS/Rva0073DFD0Finish.cpp`; that out-of-scope register-only deletion
+  is restored to HEAD and excluded. No hatch or debt gain is claimed.
+- The Behavior evidence planner is regenerated after composition and its
+  currency check passes. Its surveyed source count falls 493 -> 492. Private
+  views and placement hints remain investigation leads, not new TU approvals.
+
+### Pending path-consumer audit
+
+Audited origin/master `be3a127ff1` through prerequisite `5910301b5f` plus this
+staged merge, including the already handed-over INIMultiplayerSettings.cpp
+absorption and StlSweepR3Rva001FDEBC.cpp deletion. Combined basename/full-path
+searches cover tools, hooks, workflows, source/header includes, root build and
+configuration files, active ledgers/registers/queues and documentation.
+No active consumer requires a path change. Remaining mentions are generated
+source provenance, historical census status, tombstone prose and prior evidence.
+Active ownership columns, data owners and fold proofs contain none of the
+removed paths. Both absorptions stay in their seed directories, so relative
+includes keep resolving. No `.cpp` include consumes a removed source; source
+discovery retains its existing directory traversal.
+
+The protected-register trailer records the two data-owner transfers. It does
+not retire debt. Full selected-consumer closure still requires the next normal
+census, especially `Common/0CreateAHeroManager21FE49.cpp`.
+
+The final scoped `link_batch_audit.py` also returns INCONCLUSIVE against
+pre-merge HEAD: index `12b9e7a7c0` predates that base and the same affected
+consumer lacks a current receipt. This is not full outgoing consumer clearance.

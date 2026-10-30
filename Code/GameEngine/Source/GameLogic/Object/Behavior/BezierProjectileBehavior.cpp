@@ -194,6 +194,14 @@ enum NameKeyType
 	NK_UNKNOWN = 0
 };
 
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const char *name);
+};
+
+extern NameKeyGenerator *TheNameKeyGenerator;
+
 class BezierProjectileBehavior
 {
 public:
@@ -231,6 +239,8 @@ private:
 // tu-skeleton: 0x0045B5E3 17B ?buildFieldParse@BezierProjectileBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
 
 // tu-skeleton: 0x0045B5F4 813B ?calcFlightPath@BezierProjectileBehavior@@AAE_N_N@Z -- matched in Code/GameEngine/Source/Common/Rva0055A246Ctor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehavior.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehavior.cpp
 
@@ -309,10 +319,6 @@ void BezierProjectileBehavior::rva0045C026()
 	obj->setStatus(OBJECT_STATUS_RVA0045C026_4, true);
 }
 
-// tu-skeleton: 0x0045B936 197B ?projectileLaunchAtObjectOrPosition@BezierProjectileBehavior@@UAEXPAVObject@@PBUCoord3D@@0HHPBURva0045B936Arg@@PAVRva002CBA7C@@PBVMatrix3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehaviorSlots.cpp (not merged yet)
-
-// tu-skeleton: 0x0045B9FB 336B ?rva0045B9FB@BezierProjectileBehavior@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehaviorSlots.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Bfme5FortyThree.cpp
 
 // Two constants either way, so the answer comes out as a borrow masked with
@@ -323,6 +329,10 @@ int BezierProjectileBehavior::bfmeCost(void) const
 	return bfmeSize() > 0 ? 1 : 0x3FFFFFFF;
 }
 
+// tu-skeleton: 0x0045B936 197B ?projectileLaunchAtObjectOrPosition@BezierProjectileBehavior@@UAEXPAVObject@@PBUCoord3D@@0HHPBURva0045B936Arg@@PAVRva002CBA7C@@PBVMatrix3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehaviorSlots.cpp (not merged yet)
+
+// tu-skeleton: 0x0045B9FB 336B ?rva0045B9FB@BezierProjectileBehavior@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehaviorSlots.cpp (not merged yet)
+
 // tu-skeleton: 0x0045BB8A 892B ?projectileFireAtObjectOrPosition@BezierProjectileBehavior@@UAEXPAVObject@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehaviorFire.cpp (not merged yet)
 
 // tu-skeleton: 0x0045BF06 104B ?rva0045BF06@BezierProjectileBehavior@@UAE_NPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehaviorSlots.cpp (not merged yet)
@@ -331,7 +341,15 @@ int BezierProjectileBehavior::bfmeCost(void) const
 
 // tu-skeleton: 0x0045BFD3 6B ?name@BezierProjectileBehavior@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x0045BFD9 69B ?getModuleNameKey@BezierProjectileBehavior@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehaviorPoolKey.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehaviorPoolKey.cpp
+
+// ?getModuleNameKey@BezierProjectileBehavior@@UBE?AW4NameKeyType@@XZ
+NameKeyType BezierProjectileBehavior::getModuleNameKey() const
+{
+	static NameKeyType TheBezierProjectileBehaviorPoolKey =
+		TheNameKeyGenerator->nameToKey("BezierProjectileBehavior");
+	return TheBezierProjectileBehaviorPoolKey;
+}
 
 // tu-skeleton: 0x0045C01E 8B ?rva0045BF06@BezierProjectileBehavior@@W3AE_NPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehaviorDtor.cpp (not merged yet)
 
@@ -360,10 +378,6 @@ int BezierProjectileBehavior::bfmeCost(void) const
 // tu-skeleton: 0x0078A488 8B Unwind@00b8a488 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehaviorDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0078A490 10B __ehhandler$??1BezierProjectileBehavior@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehaviorDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078A49A 13B $L310 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehaviorPoolKey.cpp (not merged yet)
-
-// tu-skeleton: 0x0078A4A7 10B __ehhandler$?getModuleNameKey@BezierProjectileBehavior@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehaviorPoolKey.cpp (not merged yet)
 
 // tu-skeleton: 0x0078A4DB 8B Unwind@00b8a4db -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehaviorUpdate.cpp (not merged yet)
 

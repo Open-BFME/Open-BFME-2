@@ -11383,6 +11383,16 @@ outgoing consumer audit remains INCONCLUSIVE: the index predates the base and
 consumer into the next normal census; no census or runtime gain is claimed.
 [Current evidence](../reverse/attempt_support/bezier-cached-key-consolidation-20261030-codexb.md).
 
+Composition after prerequisite `5910301b5f`: the supported merge absorbs the
+cached-key donor, removes one source and repoints its three code rows and two
+static-local data records. All 12 rows and both EH graphs pass; all 25 external
+definitions and the union of symbol/reference bindings are unchanged. The
+surviving unit's ordinary LINKS preview is 673 authored bytes, preserving the
+prior pair's total. Header/MS-header refresh, data and path-consumer checks
+pass. Eight donors and five mixed sources remain outside this merge. The
+broader consumer limitation above remains; no census, runtime, debt or ownership
+gain is claimed.
+
 Status: Blocked; verified declaration prerequisite published. Updated: 2026-10-28; inspected revision: `f37de6bb3b`; latest fetched index: `54b83e4f69`.
 
 Evidence / affected units: BezierProjectileBehavior.cpp and its existing cost accessor in Common/Bfme5FortyThree.cpp. The current supported merge plan has 47 approved rows and ten whole-file donors. [Scoped evidence and remaining private views](../reverse/attempt_support/bezier-projectile-consolidation-20261028-codexb4.md).
