@@ -1,4 +1,4 @@
-// cl: /MD /EHsc
+// cl: /MD /EHsc -Ireference/open-bfme-1/game/GameEngine/Source/Common /Ireference/shims/bfme2_ascii /Ireference/open-bfme-1/inputs/reference/shims/stringbaseunicode /Ireference/open-bfme-1/inputs/reference/shims/stringbaseascii /Ireference/open-bfme-1/inputs/reference/shims/asciistringsetoutofline /Ireference/open-bfme-1/inputs/reference/shims/fullfade /Ireference/open-bfme-1/inputs/reference/shims/sweep /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
 // ??1Rva0035FD0A@@UAE@XZ @0x0035FD0A (105B): virtual dtor storing vtable 0x008166BC.
 // Zeroes +0xC, frees DisplayString at +0x34 via TheDisplayStringManager slot 0x3C,
 // zeroes +0x34, destroys wide StringBase at +0x30/+0x2C via rowed releaseBuffer
@@ -29,22 +29,20 @@ public:
 
 extern DisplayStringManager *TheDisplayStringManager;
 
-template <typename T> class StringBase {
-public: StringBase() : m_data(0) {}
-	~StringBase() { releaseBuffer(); }
-private: void releaseBuffer();
-	T *m_data; };
+#include "unicode_string.h"
 
+class GameWindow;
 class Rva001DBAA4
 {
 public:
 	Rva001DBAA4();
 	virtual ~Rva001DBAA4();
-	int m_frameLength;
-	bool m_isFinished;
-	bool m_isForward;
-	bool m_isReversed;
-	int m_C;
+	int m_frameLength; // +0x04 +0x04
+	bool m_isFinished; // +0x08 +0x08
+	bool m_isForward; // +0x09 +0x09
+	bool m_isReversed; // +0x0A +0x0a
+	char m_pad0B[0x1];
+	GameWindow *m_win; // +0x0C +0x0c
 };
 
 class Rva0035FD0A : public Rva001DBAA4
@@ -56,8 +54,8 @@ public:
 	int m_endFrame;
 	char m_pad18[0x10];
 	int m_drawState;
-	StringBase<unsigned short> m_2C;
-	StringBase<unsigned short> m_30;
+	UnicodeString m_2C;
+	UnicodeString m_30;
 	DisplayString *m_34;
 };
 
@@ -73,14 +71,14 @@ Rva0035FD0A::Rva0035FD0A()
 	m_endFrame = 30;
 	m_frameLength = 30;
 	m_startFrame = 0;
-	m_C = 0;
+	m_win = 0;
 	m_isForward = true;
 	m_34 = 0;
 }
 
 Rva0035FD0A::~Rva0035FD0A()
 {
-	m_C = 0;
+	m_win = 0;
 	if (m_34 != 0)
 		TheDisplayStringManager->freeDisplayString(m_34);
 	m_34 = 0;
@@ -105,6 +103,7 @@ class INI
 {
 public:
 	void initFromINI(void *what, const FieldParse *table);
+	static void parseInt(INI *ini, void *instance, void *store, const void *userData);
 };
 
 extern const FieldParse CountUpTransitionFields[];

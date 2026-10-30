@@ -22,16 +22,18 @@ extern "C" const void *const vtbl_00C16594[];  // ??_7Rva0035E00F@@6B@
 
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
+class GameWindow;
 class Rva001DBAA4
 {
 public:
-	virtual ~Rva001DBAA4();
 	Rva001DBAA4();
-	int m_4;
-	bool m_8;
-	bool m_9;
-	bool m_A;
-	int m_C;
+	virtual ~Rva001DBAA4();
+	int m_frameLength; // +0x04 +0x04
+	bool m_isFinished; // +0x08 +0x08
+	bool m_isForward; // +0x09 +0x09
+	bool m_isReversed; // +0x0A +0x0a
+	char m_pad0B[0x1];
+	GameWindow *m_win; // +0x0C +0x0c
 };
 class __declspec(novtable) Rva0035E00F : public Rva001DBAA4
 {
@@ -76,8 +78,8 @@ Rva0035E00F::Rva0035E00F()
 	m_40 = 0;
 	m_44 = 0;
 	m_48 = 0;
-	m_4 = *p14;
+	m_frameLength = *p14;
 	m_4C = 0;
-	m_C = 0;
-	m_9 = true;
+	m_win = 0;
+	m_isForward = true;
 }

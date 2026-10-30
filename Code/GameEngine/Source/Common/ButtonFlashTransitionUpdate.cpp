@@ -85,22 +85,27 @@ public:
 class GameWindow
 {
 public:
-	Int winHide(bool);
+	int winGetSize(int *width, int *height);
+	int winSetEnabledImage(int index, const Image *image);
+	int winGetScreenPosition(int *x, int *y);
+	int winHide(bool hide);
+	bool winIsHidden(void);
 	WinInstanceData *winGetInstanceData(void);
-	Int winGetScreenPosition(Int *x, Int *y);
-	Int winGetSize(Int *width, Int *height);
-
-	const Image *winGetEnabledImage(Int index)
+	const Image *winGetEnabledImage(int index)
 	{
 		return m_instData.m_enabledDrawData[index].image;
 	}
-
 private:
-	unsigned char m_unreconstructed_00[0x30];
-	WinInstanceData m_instData; // retail this+0x30
+	unsigned char m_unreconstructed_00[0x30]; // +0x00
+	WinInstanceData m_instData; // +0x30 retail this+0x30
 };
 
-class W3DDisplay { public: void rva0004D6B3(Image *,float,float,float,float,int,int); void rva0008EEF0(float,float,float,float,float,int); };
+class W3DDisplay
+{
+public:
+	void rva0004D6B3(Image *image, float x0, float y0, float x1, float y1, int color, int mode);
+	void rva0008EEF0(float x0, float y0, float x1, float y1, float w, int color);
+};
 class Display { public:
 virtual void unused00();
 virtual void unused01();
@@ -166,10 +171,10 @@ inline const Image *GadgetButtonGetRightEnabledImage(GameWindow *window)
 	return window->winGetEnabledImage(6);
 }
 
-inline Color GameMakeColor(unsigned char red, unsigned char green,
-	unsigned char blue, unsigned char alpha)
+inline Int GameMakeColor(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha)
 {
-	return (alpha << 24) | (red << 16) | (green << 8) | (blue);
+	return ((unsigned int)alpha << 24) | ((unsigned int)red << 16) |
+		((unsigned int)green << 8) | blue;
 }
 
 class ButtonFlashTransition
@@ -493,7 +498,11 @@ void ButtonFlashTransition::update(Int frame)
 		}
 	}
 
-class Rva0004263F { public: void rva0004263F(float,float,float,float,int); };
+class Rva0004263F
+{
+public:
+	void rva0004263F(float a, float b, float c, float d, int color);
+};
 void ButtonFlashTransition::draw()
 {
     switch (m_drawState) {
