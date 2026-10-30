@@ -59,9 +59,12 @@ struct StrafeDirection {float x,y,z;
  __forceinline void sub(const Coord3D &v){x-=v.x;y-=v.y;z-=v.z;}
 };
 
+enum NameKeyType {NK_UNKNOWN=0};
+
 class StrafeAreaUpdate {public:
+ virtual NameKeyType getModuleNameKey() const;
  bool rva003A4F21(const Coord3D *,const Coord3D *);
- char pad00[4];const StrafeAreaUpdateModuleData *data;Object *object;char pad0C[0x14];Coord3D target,start;unsigned word38,state;bool started;
+ const StrafeAreaUpdateModuleData *data;Object *object;char pad0C[0x14];Coord3D target,start;unsigned word38,state;bool started;
 };
 
 class Xfer::Version
