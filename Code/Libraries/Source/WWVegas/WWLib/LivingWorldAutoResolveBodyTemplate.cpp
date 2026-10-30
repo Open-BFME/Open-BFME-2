@@ -19,6 +19,7 @@ public:
 	float getHitpointsForLevel(int key);
 private:
 	_STL::map<int, float> m_map;
+	_STL::map<int, float> m_map0C;
 };
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/Rva00418573Lookup.cpp

@@ -19,15 +19,15 @@ class LivingWorldAutoResolveBodyTemplate
 public:
 	float getRegenRateForLevel(int key);
 private:
-	char m_pad[12];
 	_STL::map<int, float> m_map;
+	_STL::map<int, float> m_map0C;
 };
 
 float LivingWorldAutoResolveBodyTemplate::getRegenRateForLevel(int key)
 {
-	_STL::map<int, float>::iterator it = m_map.lower_bound(key);
-	if (it == m_map.end() || it->first > key) {
-		if (it == m_map.begin())
+	_STL::map<int, float>::iterator it = m_map0C.lower_bound(key);
+	if (it == m_map0C.end() || it->first > key) {
+		if (it == m_map0C.begin())
 			return BfmeZeroRange;
 		--it;
 	}

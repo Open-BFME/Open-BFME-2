@@ -1,5 +1,17 @@
 # Linking obstacle register
 
+### Living World body-template partial-map consolidation (2026-10-30)
+
+The hitpoint and regeneration lookups have complementary map views at +0/+0xC.
+Their verified prerequisite exposes both fields in one common partial view,
+keeping the seed's name and the donor's original subobject address. Both complete
+55/58-byte bodies pass strict preparation and retain 2/2 LINKS/113 authored bytes
+against `ccafe54d1d`. No row, pin or hatch is added; the seed's existing two
+address-global occurrences remain. The supported current plan approves two rows
+in the existing provisional N unit, with no mixed or refused source and no
+original-filename proof. Next: fresh planner, supported dry run/merge, provider
+and path-consumer checks. [Proof and scope](../reverse/attempt_support/body-template-consolidation-20261030/readme.md).
+
 ### Shader-reference callback-view consolidation (2026-10-30)
 
 The two 34-byte shader-reference release/recreate bodies use the same record

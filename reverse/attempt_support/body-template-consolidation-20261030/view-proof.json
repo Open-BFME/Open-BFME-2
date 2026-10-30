@@ -1,0 +1,287 @@
+{
+  "kind": "common partial two-map view; not a complete class-layout or filename recovery",
+  "approval": "fresh supported plan: provisional N, two approved rows",
+  "rows": [
+    {
+      "source": "Code/Libraries/Source/WWVegas/WWLib/LivingWorldAutoResolveBodyTemplate.cpp",
+      "name": "?getHitpointsForLevel@LivingWorldAutoResolveBodyTemplate@@QAEMH@Z",
+      "rva": "0x418573",
+      "actual_code_size": 55,
+      "map_offset": 0,
+      "source_sha256": "dfa3489ac4c1299adb709292fbaf47c3f7c222cb11f38cd6663d7f50b4e80366",
+      "object_md5": "8fd61d4530542e3934c4238dc7e7bba3",
+      "strict_current": true,
+      "raw": "568d442408508bf1e8000000008b0e3bc15e74098b50103b5424047e143b41087508d90500000000eb0a50e80000000059d94014c20400",
+      "resolved": "568d442408508bf1e812a5f6ff8b0e3bc15e74098b50103b5424047e143b41087508d905d8b8bb00eb0a50e81dbdc0ff59d94014c20400",
+      "native": "568d442408508bf1e812a5f6ff8b0e3bc15e74098b50103b5424047e143b41087508d905d8b8bb00eb0a50e81dbdc0ff59d94014c20400",
+      "relocations": [
+        [
+          9,
+          20,
+          "?_M_lower_bound@?$_Rb_tree@HU?$pair@$$CBHM@_STL@@U?$_Select1st@U?$pair@$$CBHM@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHM@_STL@@@2@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBHM@_STL@@@2@ABH@Z"
+        ],
+        [
+          36,
+          6,
+          "?g_Va00BBB8D8@@3MA"
+        ],
+        [
+          44,
+          20,
+          "?_M_decrement@?$_Rb_global@_N@_STL@@SAPAU_Rb_tree_node_base@2@PAU32@@Z"
+        ]
+      ],
+      "exact": true,
+      "native_instructions": [
+        {
+          "rva": "0x418573",
+          "mnemonic": "push",
+          "operands": "esi"
+        },
+        {
+          "rva": "0x418574",
+          "mnemonic": "lea",
+          "operands": "eax, [esp + 8]"
+        },
+        {
+          "rva": "0x418578",
+          "mnemonic": "push",
+          "operands": "eax"
+        },
+        {
+          "rva": "0x418579",
+          "mnemonic": "mov",
+          "operands": "esi, ecx"
+        },
+        {
+          "rva": "0x41857b",
+          "mnemonic": "call",
+          "operands": "0x382a92"
+        },
+        {
+          "rva": "0x418580",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [esi]"
+        },
+        {
+          "rva": "0x418582",
+          "mnemonic": "cmp",
+          "operands": "eax, ecx"
+        },
+        {
+          "rva": "0x418584",
+          "mnemonic": "pop",
+          "operands": "esi"
+        },
+        {
+          "rva": "0x418585",
+          "mnemonic": "je",
+          "operands": "0x418590"
+        },
+        {
+          "rva": "0x418587",
+          "mnemonic": "mov",
+          "operands": "edx, dword ptr [eax + 0x10]"
+        },
+        {
+          "rva": "0x41858a",
+          "mnemonic": "cmp",
+          "operands": "edx, dword ptr [esp + 4]"
+        },
+        {
+          "rva": "0x41858e",
+          "mnemonic": "jle",
+          "operands": "0x4185a4"
+        },
+        {
+          "rva": "0x418590",
+          "mnemonic": "cmp",
+          "operands": "eax, dword ptr [ecx + 8]"
+        },
+        {
+          "rva": "0x418593",
+          "mnemonic": "jne",
+          "operands": "0x41859d"
+        },
+        {
+          "rva": "0x418595",
+          "mnemonic": "fld",
+          "operands": "dword ptr [0xbbb8d8]"
+        },
+        {
+          "rva": "0x41859b",
+          "mnemonic": "jmp",
+          "operands": "0x4185a7"
+        },
+        {
+          "rva": "0x41859d",
+          "mnemonic": "push",
+          "operands": "eax"
+        },
+        {
+          "rva": "0x41859e",
+          "mnemonic": "call",
+          "operands": "0x242c0"
+        },
+        {
+          "rva": "0x4185a3",
+          "mnemonic": "pop",
+          "operands": "ecx"
+        },
+        {
+          "rva": "0x4185a4",
+          "mnemonic": "fld",
+          "operands": "dword ptr [eax + 0x14]"
+        },
+        {
+          "rva": "0x4185a7",
+          "mnemonic": "ret",
+          "operands": "4"
+        }
+      ]
+    },
+    {
+      "source": "Code/Libraries/Source/WWVegas/WWLib/LivingWorldAutoResolveBodyTemplate_getRegenRateForLevel.cpp",
+      "name": "?getRegenRateForLevel@LivingWorldAutoResolveBodyTemplate@@QAEMH@Z",
+      "rva": "0x4185aa",
+      "actual_code_size": 58,
+      "map_offset": 12,
+      "source_sha256": "41709fac9b7e4b1a1adb6e9d73385fa60b9ecd8d423d92280b18b9f59a52c34f",
+      "object_md5": "63f99a8b8c0cb0c528941d9969d55052",
+      "strict_current": true,
+      "raw": "568d710c8d442408508bcee8000000008b363bc674098b48103b4c24087e143b46087508d90500000000eb0a50e80000000059d940145ec20400",
+      "resolved": "568d710c8d442408508bcee8d8a4f6ff8b363bc674098b48103b4c24087e143b46087508d905acaebb00eb0a50e8e4bcc0ff59d940145ec20400",
+      "native": "568d710c8d442408508bcee8d8a4f6ff8b363bc674098b48103b4c24087e143b46087508d905acaebb00eb0a50e8e4bcc0ff59d940145ec20400",
+      "relocations": [
+        [
+          12,
+          20,
+          "?_M_lower_bound@?$_Rb_tree@HU?$pair@$$CBHM@_STL@@U?$_Select1st@U?$pair@$$CBHM@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHM@_STL@@@2@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBHM@_STL@@@2@ABH@Z"
+        ],
+        [
+          38,
+          6,
+          "?BfmeZeroRange@@3MB"
+        ],
+        [
+          46,
+          20,
+          "?_M_decrement@?$_Rb_global@_N@_STL@@SAPAU_Rb_tree_node_base@2@PAU32@@Z"
+        ]
+      ],
+      "exact": true,
+      "native_instructions": [
+        {
+          "rva": "0x4185aa",
+          "mnemonic": "push",
+          "operands": "esi"
+        },
+        {
+          "rva": "0x4185ab",
+          "mnemonic": "lea",
+          "operands": "esi, [ecx + 0xc]"
+        },
+        {
+          "rva": "0x4185ae",
+          "mnemonic": "lea",
+          "operands": "eax, [esp + 8]"
+        },
+        {
+          "rva": "0x4185b2",
+          "mnemonic": "push",
+          "operands": "eax"
+        },
+        {
+          "rva": "0x4185b3",
+          "mnemonic": "mov",
+          "operands": "ecx, esi"
+        },
+        {
+          "rva": "0x4185b5",
+          "mnemonic": "call",
+          "operands": "0x382a92"
+        },
+        {
+          "rva": "0x4185ba",
+          "mnemonic": "mov",
+          "operands": "esi, dword ptr [esi]"
+        },
+        {
+          "rva": "0x4185bc",
+          "mnemonic": "cmp",
+          "operands": "eax, esi"
+        },
+        {
+          "rva": "0x4185be",
+          "mnemonic": "je",
+          "operands": "0x4185c9"
+        },
+        {
+          "rva": "0x4185c0",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [eax + 0x10]"
+        },
+        {
+          "rva": "0x4185c3",
+          "mnemonic": "cmp",
+          "operands": "ecx, dword ptr [esp + 8]"
+        },
+        {
+          "rva": "0x4185c7",
+          "mnemonic": "jle",
+          "operands": "0x4185dd"
+        },
+        {
+          "rva": "0x4185c9",
+          "mnemonic": "cmp",
+          "operands": "eax, dword ptr [esi + 8]"
+        },
+        {
+          "rva": "0x4185cc",
+          "mnemonic": "jne",
+          "operands": "0x4185d6"
+        },
+        {
+          "rva": "0x4185ce",
+          "mnemonic": "fld",
+          "operands": "dword ptr [0xbbaeac]"
+        },
+        {
+          "rva": "0x4185d4",
+          "mnemonic": "jmp",
+          "operands": "0x4185e0"
+        },
+        {
+          "rva": "0x4185d6",
+          "mnemonic": "push",
+          "operands": "eax"
+        },
+        {
+          "rva": "0x4185d7",
+          "mnemonic": "call",
+          "operands": "0x242c0"
+        },
+        {
+          "rva": "0x4185dc",
+          "mnemonic": "pop",
+          "operands": "ecx"
+        },
+        {
+          "rva": "0x4185dd",
+          "mnemonic": "fld",
+          "operands": "dword ptr [eax + 0x14]"
+        },
+        {
+          "rva": "0x4185e0",
+          "mnemonic": "pop",
+          "operands": "esi"
+        },
+        {
+          "rva": "0x4185e1",
+          "mnemonic": "ret",
+          "operands": "4"
+        }
+      ]
+    }
+  ]
+}
