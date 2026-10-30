@@ -1,6 +1,10 @@
 // cl: /DNDEBUG /MD
+// platformsdk
 // Upstream: GameSpy Peer SDK peerMain.c, 2007 release.
 
+#include <windows.h>
+#include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
 
 typedef void *PEER;
@@ -217,17 +221,8 @@ int piNewAutoMatchOperation(PEER peer, unsigned int socket,
 	unsigned short port, void *statusCallback, void *rateCallback, void *param,
 	int opID);
 void piAddAutoMatchStatusCallback(PEER peer);
-__declspec(dllimport) void __cdecl free(void *memory);
-__declspec(dllimport) void *__cdecl malloc(unsigned int size);
 void piSendChannelUTM(PEER peer, const char *channel, const char *command,
 	const char *parameters, int authenticate);
-typedef struct in_addr
-{
-	unsigned int s_addr;
-} in_addr;
-char *__stdcall inet_ntoa(in_addr address);
-__declspec(dllimport) int __cdecl sprintf(char *buffer,
-	const char *format, ...);
 void peerMessageRoomA(PEER peer, int roomType, const char *message,
 	int messageType);
 void piSetLocalFlags(PEER peer);
@@ -246,8 +241,6 @@ void piAddListGroupRoomsCallback(PEER peer, int success, int groupID,
 	const char *name, int maxWaiting, int numWaiting, int numGames,
 	int numPlaying, int numRooms, void *callback, void *param, int opID);
 void peerShutdown(PEER peer);
-__declspec(dllimport) char *__cdecl strncpy(char *destination,
-	const char *source, unsigned int count);
 
 static int piCheckBlockingID(PEER peer, int opID)
 {
@@ -1290,7 +1283,7 @@ void peerStartGameA(PEER peer, const char *message, int reportingOptions)
 {
 	piConnection *connection = (piConnection *)peer;
 	char buffer[32];
-	in_addr address;
+	struct in_addr address;
 
 	if (!connection->title[0])
 		return;
