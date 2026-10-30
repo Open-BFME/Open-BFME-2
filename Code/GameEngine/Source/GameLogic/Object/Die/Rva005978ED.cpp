@@ -1,4 +1,5 @@
-// cl: /O1 /GX- /arch:SSE2
+// cl: /O1 /GX- /arch:SSE2 /D_STLP_USE_STATIC_LIB
+// stlport
 // ?rva005978ED@Rva005978ED@@QAEPAVRva005970ED@@XZ @0x005978ED 150B
 // Banked attempt reverse/attempts/0x005978ed.cpp, re-verified exact against the current ledger
 // (its callees have since been rowed or pinned); landed unchanged by the
@@ -24,22 +25,7 @@ public:
 
 extern GameLogic *TheGameLogic;
 
-namespace _STL
-{
-
-template <class _Tp> class allocator
-{
-};
-
-template <class _Tp, class _Alloc> class vector
-{
-public:
-	_Tp *m_start;
-	_Tp *m_finish;
-	_Tp *m_end;
-};
-
-}
+#include <vector>
 
 class Rva005970ED
 {
@@ -65,8 +51,8 @@ private:
 
 Rva005970ED *Rva005978ED::rva005978ED()
 {
-	Rva005970ED **it = (Rva005970ED **)m_vec24.m_start;
-	Rva005970ED **finish = (Rva005970ED **)m_vec24.m_finish;
+	Rva005970ED **it = (Rva005970ED **)m_vec24.begin();
+	Rva005970ED **finish = (Rva005970ED **)m_vec24.end();
 	while (it != finish)
 	{
 		Rva005970ED *e = *it;
@@ -79,7 +65,7 @@ Rva005970ED *Rva005978ED::rva005978ED()
 		}
 		++it;
 	}
-	it = (Rva005970ED **)m_vec24.m_start;
+	it = (Rva005970ED **)m_vec24.begin();
 	while (it != finish)
 	{
 		Rva005970ED *e = *it;
