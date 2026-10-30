@@ -90,14 +90,17 @@ public:
 class EnumeratedIP
 {
 public:
-	AsciiString getIPstring(void);
+	// Retail's +0 string getter is ICF-folded with
+	// MultiplayerColorDefinition::getTooltipName at 0x002E4336. Keep its
+	// native inline provider with this caller; the pin's fold-proof verifies
+	// the complete body and relocation without relying on OptionsMenu.cpp.
+	AsciiString getIPstring(void) { return m_IPstring; }
 	UnsignedInt getIP(void) { return m_IP; }
 	EnumeratedIP *getNext(void) { return m_next; }
-
 private:
-	AsciiString m_IPstring;
-	UnsignedInt m_IP;
-	EnumeratedIP *m_next;
+	AsciiString m_IPstring; // +0x00
+	UnsignedInt m_IP; // +0x04
+	EnumeratedIP *m_next; // +0x08
 };
 
 class IPEnumeration

@@ -50,9 +50,10 @@ template <> AsciiString &map<AsciiString, AsciiString, less<AsciiString>,
 typedef _STL::map<AsciiString, AsciiString> PreferenceMap;
 struct BfmeEnumTableEntry
 {
-    const char *m_key;
-    const void *m_subtable;
-    int m_count;
+public:
+	const char *m_key; // +0x00
+	const void *m_subtable; // +0x04
+	int m_count; // +0x08
 };
 extern BfmeEnumTableEntry BfmeEnumTable[];
 

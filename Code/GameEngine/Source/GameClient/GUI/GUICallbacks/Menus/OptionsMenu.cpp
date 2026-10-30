@@ -89,9 +89,10 @@ typedef _STL::map<AsciiString, AsciiString> AsciiPreferenceMap;
 
 struct BfmeEnumTableEntry
 {
-	const char *m_key;
-	const void *m_subtable;
-	Int m_count;
+public:
+	const char *m_key; // +0x00
+	const void *m_subtable; // +0x04
+	int m_count; // +0x08
 };
 
 // Retail enum-dispatch table at 0xDBD120. COMMON merges across TUs; the
@@ -118,11 +119,10 @@ public:
 	AsciiString getIPstring(void) { return m_IPstring; }
 	UnsignedInt getIP(void) { return m_IP; }
 	EnumeratedIP *getNext(void) { return m_next; }
-
 private:
-	AsciiString m_IPstring;
-	UnsignedInt m_IP;
-	EnumeratedIP *m_next;
+	AsciiString m_IPstring; // +0x00
+	UnsignedInt m_IP; // +0x04
+	EnumeratedIP *m_next; // +0x08
 };
 
 class IPEnumeration
