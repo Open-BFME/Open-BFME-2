@@ -175,28 +175,36 @@ private:
 	int m_layers[2];
 };
 
+struct Rva004DD843Slot
+{
+public:
+	int m_value;
+	char m_pad04[4];
+	int m_x24;
+	char m_pad0C[4];
+	int state;
+	int auxiliary;
+};
+
 class PathfinderPosGoalManager
 {
 public:
 	float rva004DD843();
-public:
 	void SetGoal(int first, float value, int last);
-public:
 	void rva004DE511(int first, int last);
-public:
 	void rva004DE4E2(int arg);
+	void rva004DDD6E();
+	void rva004DDD80();
+	void rva004DDD92();
+	void RemoveObjPtr(Rva004DD843Slot *slot);
+	void LoadPostProcess();
+	void AddObjPtr(Rva004DD843Slot *slot);
+
 private:
 	Object *m_object;
-private:
-	unsigned char m_pad04[0x20];
-private:
-	int m_x24;
-public:
-	void rva004DDD6E();
-public:
-	void rva004DDD80();
-public:
-	void rva004DDD92();
+	Rva004DD843Slot m_slot04;
+	Rva004DD843Slot m_slot1C;
+	Rva004DD843Slot m_slot34;
 };
 
 class Rva004DDF3A : public PathfinderPosGoalManager
@@ -226,18 +234,18 @@ __declspec(noinline) float __cdecl Rva004DD722Get(int value)
 
 float PathfinderPosGoalManager::rva004DD843()
 {
-	return Rva004DD722Get(m_x24);
+	return Rva004DD722Get(m_slot1C.m_x24);
 }
 
 void PathfinderPosGoalManager::rva004DE511(int first, int last)
 {
-	SetGoal(first, Rva004DD722Get(m_x24), last);
+	SetGoal(first, Rva004DD722Get(m_slot1C.m_x24), last);
 }
 
 void PathfinderPosGoalManager::rva004DE4E2(int arg)
 {
 	PathfindLayerEnum layer = TheTerrainLogic->getLayerForDestination(m_object, (const Coord3D *)arg);
-	SetGoal(arg, Rva004DD722Get(m_x24), layer);
+	SetGoal(arg, Rva004DD722Get(m_slot1C.m_x24), layer);
 }
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/Rva004DD73BObjectPoolAllocate.cpp

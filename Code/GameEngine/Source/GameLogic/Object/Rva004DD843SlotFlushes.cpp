@@ -15,20 +15,33 @@ enum
 
 struct Rva004DD843Slot
 {
-	Int m_value;
-	unsigned char m_pad04[0x18 - 0x04];
+public:
+	int m_value;
+	char m_pad04[4];
+	int m_x24;
+	char m_pad0C[4];
+	int state;
+	int auxiliary;
 };
+
+class Object;
 
 class PathfinderPosGoalManager
 {
 public:
+	float rva004DD843();
+	void SetGoal(int first, float value, int last);
+	void rva004DE511(int first, int last);
+	void rva004DE4E2(int arg);
 	void rva004DDD6E();
 	void rva004DDD80();
 	void rva004DDD92();
 	void RemoveObjPtr(Rva004DD843Slot *slot);
+	void LoadPostProcess();
+	void AddObjPtr(Rva004DD843Slot *slot);
 
 private:
-	void *m_vtable;
+	Object *m_object;
 	Rva004DD843Slot m_slot04;
 	Rva004DD843Slot m_slot1C;
 	Rva004DD843Slot m_slot34;

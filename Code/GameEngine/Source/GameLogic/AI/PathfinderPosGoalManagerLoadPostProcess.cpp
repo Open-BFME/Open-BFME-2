@@ -4,7 +4,16 @@
 // forwarders and the three18B slot flushes own PathfinderPosGoalManager and its
 // three24B slots. Retail reads owner0/template4/flags114/AI258;
 // AI virtual224 returns AL. Original predicate and slot state names unknown.
-struct Rva004DD843Slot{int value;char pad04[12];int state;int auxiliary;};
+struct Rva004DD843Slot
+{
+public:
+	int m_value;
+	char m_pad04[4];
+	int m_x24;
+	char m_pad0C[4];
+	int state;
+	int auxiliary;
+};
 struct GoalTemplate{char pad[0x114];unsigned flags;};
 class GoalAIInterface{public:
 virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void slot4(); virtual void slot5(); virtual void slot6(); virtual void slot7();
@@ -28,8 +37,29 @@ virtual void slot136();
 virtual bool slot137();
 };
 struct GoalOwner{char pad00[4];GoalTemplate*templ;char pad08[0x258-8];GoalAIInterface*ai;};
-class PathfinderPosGoalManager{public:void LoadPostProcess();void AddObjPtr(Rva004DD843Slot*);GoalOwner*owner;Rva004DD843Slot slot04,slot1C,slot34;};
+class Object;
+
+class PathfinderPosGoalManager
+{
+public:
+	float rva004DD843();
+	void SetGoal(int first, float value, int last);
+	void rva004DE511(int first, int last);
+	void rva004DE4E2(int arg);
+	void rva004DDD6E();
+	void rva004DDD80();
+	void rva004DDD92();
+	void RemoveObjPtr(Rva004DD843Slot *slot);
+	void LoadPostProcess();
+	void AddObjPtr(Rva004DD843Slot *slot);
+
+private:
+	Object *m_object;
+	Rva004DD843Slot m_slot04;
+	Rva004DD843Slot m_slot1C;
+	Rva004DD843Slot m_slot34;
+};
 void PathfinderPosGoalManager::LoadPostProcess(){
- if(slot04.value!=-666666){slot04.state=owner->templ->flags&0x2000?4:3;AddObjPtr(&slot04);}
- if(slot1C.value!=-666666){slot1C.state=owner->ai->slot137()?0:2;AddObjPtr(&slot1C);}
+ if(m_slot04.m_value!=-666666){m_slot04.state=((GoalOwner *)m_object)->templ->flags&0x2000?4:3;AddObjPtr(&m_slot04);}
+ if(m_slot1C.m_value!=-666666){m_slot1C.state=((GoalOwner *)m_object)->ai->slot137()?0:2;AddObjPtr(&m_slot1C);}
 }
