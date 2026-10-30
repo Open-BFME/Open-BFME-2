@@ -13,7 +13,7 @@
 // 0x00156840 -> dtor 0x00155330
 // 0x00157110 -> dtor 0x00156750
 // 0x00157E60 -> dtor 0x00157C20
-// 0x00188320 -> dtor 0x001880D0
+// 0x00188320 -> dtor 0x001880D0 (non-virtual; see Rva001880D0Dtor below)
 // 0x00616490 -> dtor 0x006162B0
 // 0x00626D90 -> dtor 0x00625800
 // 0x00663410 -> dtor 0x0066C730
@@ -80,15 +80,30 @@ __declspec(noinline) Rva00157C20Dtor::~Rva00157C20Dtor()
 {
 }
 
+// 0x00188320 is not a virtual deleting destructor: no vtable in the image
+// holds its address, so it is the non-virtual scalar form a delete
+// expression emits. Its destructor (0x001880D0, 5 bytes) is a bare tail
+// jump to StringClass::Free_String (0x00610A40): the class's only member is
+// a StringClass at +0 and the destructor is that member's inline teardown.
+class StringClass
+{
+	friend class Rva001880D0Dtor;
+
+private:
+	void Free_String(void);
+};
+
 class Rva001880D0Dtor
 {
 public:
-	virtual ~Rva001880D0Dtor();
+	__declspec(noinline) ~Rva001880D0Dtor() { m_string.Free_String(); }
+
+private:
+	StringClass m_string;
 };
 
-__declspec(noinline) Rva001880D0Dtor::~Rva001880D0Dtor()
-{
-}
+// ?forceRva001880D0Delete@@YAXPAVRva001880D0Dtor@@@Z absent-from-retail
+void forceRva001880D0Delete(Rva001880D0Dtor *object) { delete object; }
 
 class Rva006162B0Dtor
 {

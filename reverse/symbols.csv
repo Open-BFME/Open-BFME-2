@@ -2993,7 +2993,6 @@ name,address,notes
 ??1Rva00157C20Dtor@@UAE@XZ,0x00157C20,address-derived class dtor called by the 30B scalar deleting destructor at 0x00157E60; address read from that body REL32; class identity unproven so the model is named for the call target
 ??1Rva001709F8@@QAE@XZ,0x0017098D,ICF twin of RefCountPtr TextureClass dtor proved by exact align_diff
 ??1Rva0017480CRecord@@QAE@XZ,0x0017330A,"auto-pin (permute --pins): REL32 call target read from retail in 0x0017480c, whose banked body is byte-exact once this call resolves"
-??1Rva001880D0Dtor@@UAE@XZ,0x001880D0,address-derived class dtor called by the 30B scalar deleting destructor at 0x00188320; address read from that body REL32; class identity unproven so the model is named for the call target
 ??1Rva0019B780Key@@QAE@XZ,0x0002C0C0,callee of ?lookup@Rva0019C520Member@@QAEHPAVAsciiString@@H@Z at retail 0x0032D0B5 read from its REL32 displacement; ICF alias onto the matched ??1?$pair@VAsciiString@@V1@@_STL@@QAE@XZ
 ??1Rva001A47D8@@UAE@XZ,0x001A47D8,"destructor the scalar deleting destructor 0x001A47BC calls (REL32 at 0x001A47BF; vtable 0x00BD6CD0#1); opaque address name"
 ??1Rva001D28F0Element@@QAE@XZ,0x00689500,retail REL32 destroy-loop thiscall in vector<Rva001D28F0Element>::_M_insert_overflow at 0x00689F52; element dtor SEH body
