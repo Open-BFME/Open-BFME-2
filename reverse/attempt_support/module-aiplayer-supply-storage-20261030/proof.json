@@ -1,0 +1,560 @@
+{
+  "source": "Code/GameEngine/Source/GameLogic/AI/AIPlayer.cpp",
+  "scope": "replace empty Module placeholder with canonical8B base; shorten existing derived padding by8 to preserve supply box count at88 and keep pointer-only module queries unchanged",
+  "variants": {
+    "before": {
+      "source_sha256": "240c96262c476a9ff279fc3ef5f90aacdc035355b2ffa99c74990cbd446dede4",
+      "rows": [
+        {
+          "name": "?getDesiredGatherers@BuildListInfo@@QAEHXZ",
+          "rva": "0x005508E2",
+          "size": "7",
+          "exact": true
+        },
+        {
+          "name": "?checkForSupplyCenter@AIPlayer@@IAEXPAVBuildListInfo@@PAVObject@@@Z",
+          "rva": "0x004F29E9",
+          "size": "211",
+          "exact": true
+        },
+        {
+          "name": "?findSupplyCenter@AIPlayer@@IAEPAVObject@@H@Z",
+          "rva": "0x004F21D5",
+          "size": "655",
+          "exact": true
+        },
+        {
+          "name": "?rva004F2BEE@AIPlayer@@IAE_NH@Z",
+          "rva": "0x004F2BEE",
+          "size": "38",
+          "exact": true
+        },
+        {
+          "name": "?buildUpgrade@AIPlayer@@QAEXABVAsciiString@@@Z",
+          "rva": "0x004F2C14",
+          "size": "850",
+          "exact": true
+        },
+        {
+          "name": "?computeSuperweaponTarget@AIPlayer@@UAEXPBVSpecialPowerTemplate@@PAUCoord3D@@HM@Z",
+          "rva": "0x004F1D38",
+          "size": "811",
+          "exact": true
+        },
+        {
+          "name": "?getPlayerStructureBounds@AIPlayer@@SAXPAURegion2D@@H@Z",
+          "rva": "0x004F1B8C",
+          "size": "400",
+          "exact": true
+        },
+        {
+          "name": "?guardSupplyCenter@AIPlayer@@QAEXPAVTeam@@H@Z",
+          "rva": "0x004F2ABC",
+          "size": "306",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?findSupplyCenter@AIPlayer@@IAEPAVObject@@H@Z",
+          "rva": "0x00792D01",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?checkForSupplyCenter@AIPlayer@@IAEXPAVBuildListInfo@@PAVObject@@@Z",
+          "rva": "0x00792D5A",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?buildUpgrade@AIPlayer@@QAEXABVAsciiString@@@Z",
+          "rva": "0x00792D9C",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "?setSupplyBuilding@BuildListInfo@@QAEX_N@Z",
+          "rva": "0x004F04E7",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "?getPlayerSuperweaponValue@AIPlayer@@KAHPAUCoord3D@@HM@Z",
+          "rva": "0x004F1256",
+          "size": "386",
+          "exact": true
+        },
+        {
+          "name": "?isSupplySourceAttacked@AIPlayer@@QAE_NXZ",
+          "rva": "0x004F1138",
+          "size": "286",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b92cee",
+          "rva": "0x00792CEE",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b92cf6",
+          "rva": "0x00792CF6",
+          "size": "11",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b92d64",
+          "rva": "0x00792D64",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b92d6c",
+          "rva": "0x00792D6C",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b92d74",
+          "rva": "0x00792D74",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b92d7c",
+          "rva": "0x00792D7C",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b92d84",
+          "rva": "0x00792D84",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b92d8c",
+          "rva": "0x00792D8C",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b92d94",
+          "rva": "0x00792D94",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "$L4315",
+          "rva": "0x00792CE6",
+          "size": "8",
+          "exact": true
+        }
+      ],
+      "eh": [
+        {
+          "name": "?checkForSupplyCenter@AIPlayer@@IAEXPAVBuildListInfo@@PAVObject@@@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        },
+        {
+          "name": "?findSupplyCenter@AIPlayer@@IAEPAVObject@@H@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        },
+        {
+          "name": "?buildUpgrade@AIPlayer@@QAEXABVAsciiString@@@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        }
+      ]
+    },
+    "trial": {
+      "source_sha256": "83240c983fb6567634845294ff57bf49d255b5d3d10dad42aab2b8fe7cb06f24",
+      "rows": [
+        {
+          "name": "?getDesiredGatherers@BuildListInfo@@QAEHXZ",
+          "rva": "0x005508E2",
+          "size": "7",
+          "exact": true
+        },
+        {
+          "name": "?checkForSupplyCenter@AIPlayer@@IAEXPAVBuildListInfo@@PAVObject@@@Z",
+          "rva": "0x004F29E9",
+          "size": "211",
+          "exact": true
+        },
+        {
+          "name": "?findSupplyCenter@AIPlayer@@IAEPAVObject@@H@Z",
+          "rva": "0x004F21D5",
+          "size": "655",
+          "exact": true
+        },
+        {
+          "name": "?rva004F2BEE@AIPlayer@@IAE_NH@Z",
+          "rva": "0x004F2BEE",
+          "size": "38",
+          "exact": true
+        },
+        {
+          "name": "?buildUpgrade@AIPlayer@@QAEXABVAsciiString@@@Z",
+          "rva": "0x004F2C14",
+          "size": "850",
+          "exact": true
+        },
+        {
+          "name": "?computeSuperweaponTarget@AIPlayer@@UAEXPBVSpecialPowerTemplate@@PAUCoord3D@@HM@Z",
+          "rva": "0x004F1D38",
+          "size": "811",
+          "exact": true
+        },
+        {
+          "name": "?getPlayerStructureBounds@AIPlayer@@SAXPAURegion2D@@H@Z",
+          "rva": "0x004F1B8C",
+          "size": "400",
+          "exact": true
+        },
+        {
+          "name": "?guardSupplyCenter@AIPlayer@@QAEXPAVTeam@@H@Z",
+          "rva": "0x004F2ABC",
+          "size": "306",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?findSupplyCenter@AIPlayer@@IAEPAVObject@@H@Z",
+          "rva": "0x00792D01",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?checkForSupplyCenter@AIPlayer@@IAEXPAVBuildListInfo@@PAVObject@@@Z",
+          "rva": "0x00792D5A",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?buildUpgrade@AIPlayer@@QAEXABVAsciiString@@@Z",
+          "rva": "0x00792D9C",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "?setSupplyBuilding@BuildListInfo@@QAEX_N@Z",
+          "rva": "0x004F04E7",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "?getPlayerSuperweaponValue@AIPlayer@@KAHPAUCoord3D@@HM@Z",
+          "rva": "0x004F1256",
+          "size": "386",
+          "exact": true
+        },
+        {
+          "name": "?isSupplySourceAttacked@AIPlayer@@QAE_NXZ",
+          "rva": "0x004F1138",
+          "size": "286",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b92cee",
+          "rva": "0x00792CEE",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b92cf6",
+          "rva": "0x00792CF6",
+          "size": "11",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b92d64",
+          "rva": "0x00792D64",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b92d6c",
+          "rva": "0x00792D6C",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b92d74",
+          "rva": "0x00792D74",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b92d7c",
+          "rva": "0x00792D7C",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b92d84",
+          "rva": "0x00792D84",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b92d8c",
+          "rva": "0x00792D8C",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b92d94",
+          "rva": "0x00792D94",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "$L4315",
+          "rva": "0x00792CE6",
+          "size": "8",
+          "exact": true
+        }
+      ],
+      "eh": [
+        {
+          "name": "?checkForSupplyCenter@AIPlayer@@IAEXPAVBuildListInfo@@PAVObject@@@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        },
+        {
+          "name": "?findSupplyCenter@AIPlayer@@IAEPAVObject@@H@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        },
+        {
+          "name": "?buildUpgrade@AIPlayer@@QAEXABVAsciiString@@@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        }
+      ]
+    }
+  },
+  "all_external_code_and_symbolic_relocations_identical": true,
+  "all_retained_external_code_and_symbolic_relocations_identical": true,
+  "actual": {
+    "source_sha256": "b92a83c0ed05f6724bfdf7a1c0447d208d8c52611bb0c7c90fc34f412f32c26b",
+    "object_sha256": "61d75c738959c420cbabbf85e5c8a67a6c61673408a7da10cffc1ff79a7be551",
+    "strict_current": true,
+    "external_code_definitions_and_relocations_identical": 82
+  },
+  "external_definition_sha256": {
+    "??0?$DLINK_ITERATOR@VObject@@@@QAE@PAVObject@@P81@BEPAV1@XZ@Z": "fa83c9886008900adc9fa915eb84c1b11e54b83746aafdc5386f96a8c18b805a",
+    "??0?$DLINK_ITERATOR@VTeam@@@@QAE@PAVTeam@@P81@BEPAV1@XZ@Z": "3e7230db58459b67b4ba98561b519a055337ab4993d2c73652cc42729968ff53",
+    "??0AsciiString@@QAE@ABV0@@Z": "7abc6b25d9559a0c68a9304c17eab654043a1fd7bc1de6ac063d369b5469b6b4",
+    "??0AsciiString@@QAE@PBD@Z": "59040a0cd1b71d7436c9407fe338f4582312037d9c6c4662a6ec15191c48f704",
+    "??0Coord3D@@QAE@ABU0@@Z": "84afcb324cc34b0719e7ce978a6fa432c42350a50c616399af2a17827cad78a7",
+    "??0Coord3D@@QAE@XZ": "1e2293943ba011d2894320aac3383e6e8db762f75bf449fc121266d8458f7b3e",
+    "??0FindPositionOptions@@QAE@XZ": "a3b4b605af461ef5eb76b9293b4ef5736d9ac4e559fd72f790d51eb34c5ef333",
+    "??0Region2D@@QAE@XZ": "1e2293943ba011d2894320aac3383e6e8db762f75bf449fc121266d8458f7b3e",
+    "??0Rva000421C8@@QAE@XZ": "6ea0048bc65cfe6cf33ee147f1c8a60930dc53989860a206285cb028d901e33f",
+    "??0Rva002611DDFilter@@QAE@XZ": "73099572ccb7d2f16145782efd401373c1642ca49a0153a9b188ac680a36de03",
+    "??0Rva0026137EFilter@@QAE@PAVPlayer@@_N@Z": "7d4e1883aaa5f5c00e61243287b351b30d7073873b053c41b34be36a2ee3d297",
+    "??0const_iterator@PlayerTeamList@Player@@QAE@PAUPlayerTeamNode@@@Z": "83f17d904484444f3320847b3384fdb7e8027ccaed7dccdc74a39c84d51485d5",
+    "??0const_iterator@PlayerTeamList@Player@@QAE@XZ": "1e2293943ba011d2894320aac3383e6e8db762f75bf449fc121266d8458f7b3e",
+    "??1AsciiString@@QAE@XZ": "815f3a6781bf2eba8e6e1b895564b6e3dc016ae58637181fbd815a1e3cfe433e",
+    "??1Region2D@@QAE@XZ": "ffe5828fe1551511fbc82ba70cf3db8881e826d3041020aaceba08e976b48190",
+    "??1Rva000421C8@@UAE@XZ": "15523b1945ef719b74cbe5030156fdec2844ffb3cc1df34d789346b7e6c8c9e1",
+    "??1Rva0004584D@@UAE@XZ": "15523b1945ef719b74cbe5030156fdec2844ffb3cc1df34d789346b7e6c8c9e1",
+    "??1Rva002611DDFilter@@UAE@XZ": "15523b1945ef719b74cbe5030156fdec2844ffb3cc1df34d789346b7e6c8c9e1",
+    "??1Rva0026137EFilter@@UAE@XZ": "15523b1945ef719b74cbe5030156fdec2844ffb3cc1df34d789346b7e6c8c9e1",
+    "??8@YA_NABVAsciiString@@0@Z": "8ac83cfaf22d6d3192ccfbba3788366caf374d3ac5f06df3a8a31b7e7d676ef3",
+    "??9const_iterator@PlayerTeamList@Player@@QBE_NABV012@@Z": "44ee16d80d0809bcd4199bce5e69eff0574ee7885f71b02d134e960bb97c8e55",
+    "??Dconst_iterator@PlayerTeamList@Player@@QBEPAVTeamPrototype@@XZ": "263a937619a2ff68aaa5d4e0a06aed9d66b3e7dd32c38b9888d5ed72c8a2787b",
+    "??Econst_iterator@PlayerTeamList@Player@@QAEAAV012@XZ": "c594e90468c34b1e11f88ab6ad0d1ff456f2942aea1f50a8d4c91fe8b2acb653",
+    "??_GRva000421C8@@UAEPAXI@Z": "9e0d42f12622f304abccb398ea0a14992eaf6461d1e8a5c7f28f1712af2f89d2",
+    "??_GRva002611DDFilter@@UAEPAXI@Z": "88b627040af4f11d40772cf036e1af2ff33d12841a9f80c9dcd7ebbae4377a5c",
+    "??_GRva0026137EFilter@@UAEPAXI@Z": "b2fd42a71fbf847318138d96ea550d1df9ddaab2980573524d540029050fe268",
+    "?advance@?$DLINK_ITERATOR@VObject@@@@QAEXXZ": "ae4c14da4b8c82a03a6a4c5bb2fa4e9007e926dec6bb60139e00dfcf9ae19564",
+    "?advance@?$DLINK_ITERATOR@VTeam@@@@QAEXXZ": "5a7cf3873ff79d52f028746532add498eecd9656e3c72be82c51c928c304769b",
+    "?begin@PlayerTeamList@Player@@QBE?AVconst_iterator@12@XZ": "43c3467948fc2ec5afc3668c7b363eec474a0c0bae597ff00aafd41802b434cf",
+    "?buildUpgrade@AIPlayer@@QAEXABVAsciiString@@@Z": "d1d7c753d9054b1cac849856d00474908a01f4dbc191f09f175722ced108b265",
+    "?ceil@@YAMM@Z": "9e75d52f0367a35ff29a0d443201e70d83fbda7b2873b0583e81064ed48cee93",
+    "?checkForSupplyCenter@AIPlayer@@IAEXPAVBuildListInfo@@PAVObject@@@Z": "6838fb183c6d7c5b8809d10a41d62b44f5fdffc9abdfb48df76fa30dc80adda9",
+    "?computeSuperweaponTarget@AIPlayer@@UAEXPBVSpecialPowerTemplate@@PAUCoord3D@@HM@Z": "ab5e33ea4717b63e739613e5346b96a1a2d443227d2e030dac37971a4d795b1b",
+    "?cur@?$DLINK_ITERATOR@VObject@@@@QBEPAVObject@@XZ": "59d4b16870ea0c361d7e7e556f000ebc4aa8a4be9ff90acfe1f5b9fbd1f9025f",
+    "?cur@?$DLINK_ITERATOR@VTeam@@@@QBEPAVTeam@@XZ": "59d4b16870ea0c361d7e7e556f000ebc4aa8a4be9ff90acfe1f5b9fbd1f9025f",
+    "?done@?$DLINK_ITERATOR@VObject@@@@QBE_NXZ": "420f5a000446c66efa853877c0f5959e0202b149c155a90c0d0db587c523e9bd",
+    "?done@?$DLINK_ITERATOR@VTeam@@@@QBE_NXZ": "420f5a000446c66efa853877c0f5959e0202b149c155a90c0d0db587c523e9bd",
+    "?end@PlayerTeamList@Player@@QBE?AVconst_iterator@12@XZ": "a1d3445d557ad8dd455bd8a07171a4b13c3335b13cb2026fb9c426daab70e856",
+    "?fast_float2long_round@@YAJM@Z": "719463c5085b15f1d3c19f6bd00d9ee53e46d8ae9f849ecfd7198d1d20283e8c",
+    "?findCommandSet@ControlBar@@QAEPBVCommandSet@@PBVAsciiString@@@Z": "59ef91c30d2178cda77cf56af8c2f5eff64e2d37f667ac06dbda5b84e2e8435e",
+    "?findSupplyCenter@AIPlayer@@IAEPAVObject@@H@Z": "1da4fe0b9cc59382eaf2da7dfeacfd446e10a1a0253c8d49e5c41040c95b0050",
+    "?getAiData@AI@@QBEPAUTAiData@@XZ": "bd610bab444272d54910f85420277722c4e700c4cf3a3b582193988efebbda83",
+    "?getAttackedFrame@Player@@QBEIXZ": "81c18521af07e58cb1e15d50ebe0a519729df50aad80ef4a0aeaab3603a8733d",
+    "?getBodyModule@Object@@QBEPAVBodyModuleInterface@@XZ": "69c2d96206db4897163b8c338750ed96f4c2bafd9e6ede19eb00f60681e0ab39",
+    "?getBoundingCircleRadius@Object@@QBEMXZ": "9d232a35012c59afc6c7d8f529142dc7f1e2b32936e3cd9d46b5e4649158f7e3",
+    "?getDesiredGatherers@BuildListInfo@@QAEHXZ": "13489ba279b8d124f0d776c15c615dd41b7b895a7af13d16fa81a9c1be21dac4",
+    "?getFrame@GameLogic@@QBEIXZ": "92283a576862f0822126a490dc007ce1b7d3014d1c212af57fa08a9da9215fea",
+    "?getID@Object@@QBE?AW4ObjectID@@XZ": "7e0389c95a000a6fe91b7286c66f1bd472f413d7453036d1431bd10f5531291d",
+    "?getName@CommandButton@@QBEABVAsciiString@@XZ": "dd30e1c33fe08619de05dcca24333414004b173ef6a7f38fe5f18d7070458f30",
+    "?getName@ThingTemplate@@QBEABVAsciiString@@XZ": "263be2d5e3372eca743e3ebe8b52e4563cc9492098d5370bbe84507145c900c2",
+    "?getNextObject@Object@@QBEPAV1@XZ": "d12ed8dd2217fa8b77d067c7eaa5dd623a4e5e7773135a91702b9b4e07f38561",
+    "?getPlayerIndex@Player@@QBEHXZ": "f662cc34315f518ba2d10f578d955c02908fe9dfad5d8f507b186b143b655440",
+    "?getPlayerNameKey@Player@@QBE?AW4NameKeyType@@XZ": "872890fce3054b34bfeaa282da18d5d842d2dd6c33833648cee6d8d3137f662b",
+    "?getPlayerStructureBounds@AIPlayer@@SAXPAURegion2D@@H@Z": "453f4f288c3484a22a76d84956170f7f0e18507f0315305ae78ea611863f2ac0",
+    "?getPlayerSuperweaponValue@AIPlayer@@KAHPAUCoord3D@@HM@Z": "62af13a76990738eb89ccd9edc5000af93f968f239db6f8b4edf63fc0eb0f0e7",
+    "?getPlayerTeams@Player@@QBEPBVPlayerTeamList@1@XZ": "d011c1f12979ecd079b9f1cbb02d148648ee6470128c47f860bb5ce44138c8c4",
+    "?getPosition@Object@@QBEPBUCoord3D@@XZ": "53e5d760532d69479022c0851b6fccb67b6c6f27267650a718901c839511d4fb",
+    "?getProductionUpdateInterface@Object@@QAEPAVProductionUpdateInterface@@XZ": "deddd5e5e789d123c34ce951ab4c3b4980d3a10271f618a92ed2121236a47d86",
+    "?getSpecialPowerType@SpecialPowerTemplate@@QBEHXZ": "fa3f4bd8ce41afd0d12242f0d1be9c5cbcb4af98d4fc61bc80b12dd95ea042b6",
+    "?getTeam@Object@@QBEPAVTeam@@XZ": "aa8f2ac418cad594788e601f7d9252560d857bdc296031d5c8f2faaa9d56ac7a",
+    "?getTemplate@Object@@QBEPBVThingTemplate@@XZ": "50ec2995c3ef0d616ddbe247f0c0e4bea2bca9396923d38b6adc97efe1a58f1c",
+    "?getUpgradeName@UpgradeTemplate@@QBEABVAsciiString@@XZ": "49648203423009ca2c6090ef0b993389c79fc9e0ef25193a873a70611c8c962e",
+    "?getUpgradeTemplate@CommandButton@@QBEPBVUpgradeTemplate@@XZ": "08a352611fd26b2bdf5f0ad1ff98149adaabd27f2f3c35c233ce8538765660d8",
+    "?getUpgradeType@UpgradeTemplate@@QBEHXZ": "50ec2995c3ef0d616ddbe247f0c0e4bea2bca9396923d38b6adc97efe1a58f1c",
+    "?guardSupplyCenter@AIPlayer@@QAEXPAVTeam@@H@Z": "e76fa2711f5dd1802ebbf46fe80bc51d31fd9c3e6aeb6a11f46e38a1eb1591ba",
+    "?isKindOf@Object@@QBEIH@Z": "b9adf5ccaf6ef9bb08dd13f9562d99a9db664f0cc9f59945bdfd361bb13dc332",
+    "?isKindOfStructure@Object@@QBE_NXZ": "c992900770963a4594a9e0a0db24b8536a1a89e2939b08e17e818bb53498c0f6",
+    "?isKindOfSupplySource@Object@@QBE_NXZ": "d07135231c6c221c13db33ec3def392a95ac1f03d043f47cfbf97e5ce54a9379",
+    "?isSupplySourceAttacked@AIPlayer@@QAE_NXZ": "38d43149a97ae967eda3b8d7fcf6f1dc62ead81bcaa7509f3f4e5cf9f1b877db",
+    "?iterate_TeamInstanceList@TeamPrototype@@QBE?AV?$DLINK_ITERATOR@VTeam@@@@XZ": "f4c3fbb1b2bea37cc49d3e4aca29e5ffd64d8a96cf878291e0d3411d7d312dd6",
+    "?iterate_TeamMemberList@Team@@QBE?AV?$DLINK_ITERATOR@VObject@@@@XZ": "10a23ad790e62eb282ac1697f486ae40662b16ae0f904f7a4ebb5656a5b5c7c7",
+    "?regionHeight@@YAMABURegion2D@@@Z": "0690f2f9ff8c9b60e1bb01a7b853c32484031b5cf3c15521cde8a84b2353718f",
+    "?regionWidth@@YAMABURegion2D@@@Z": "327f9ce98a2d6687ae326de710d757f6ea2479ead47444d661d0341423661bdf",
+    "?rva004F2BEE@AIPlayer@@IAE_NH@Z": "d1dac715795bd0509877e21f64e8b36ded55303ffa0778306ba9685586f93faf",
+    "?set@Coord3D@@QAEXMMM@Z": "bf8a1d8d2143fafcf2385d168a213e9171d67a23b5d4ef9ddaace12ca4532a69",
+    "?setCurrentGatherers@BuildListInfo@@QAEXH@Z": "19c5daea92e620290a59493efccd9f521a2562f82552301eed84aa617f817bc3",
+    "?setDesiredGatherers@BuildListInfo@@QAEXH@Z": "3ed935ae095c1ae64b6ec4890ddd05c6bac14538b06be3bf2ab345a5715a7d1a",
+    "?setSupplyBuilding@BuildListInfo@@QAEX_N@Z": "4da4827a12d9387c264c08142da1907f1efa081ae249cb2a1be8ea51b42ee0ba",
+    "?sqrt@@YAMM@Z": "f44947338d8bdf525f8fa7b997418ae8f0d1cea1c9544616780217600289ba0a",
+    "?zero@Coord3D@@QAEXXZ": "7383f3aaa6132935602dbb81f887812ea96ac8891482244a4c7487c40556969c",
+    "_ceilf": "9e75d52f0367a35ff29a0d443201e70d83fbda7b2873b0583e81064ed48cee93",
+    "_sqrtf": "f44947338d8bdf525f8fa7b997418ae8f0d1cea1c9544616780217600289ba0a"
+  },
+  "native_helpers": [
+    {
+      "rva": "0x28b6d6",
+      "size": 43,
+      "raw": "568bb1440200005733ffeb0e8b01ff50103b44240c740b83c6048b0e85c975eceb028b3e8bc75f5ec20400",
+      "instructions": [
+        {
+          "rva": "0x28b6d6",
+          "mnemonic": "push",
+          "operands": "esi"
+        },
+        {
+          "rva": "0x28b6d7",
+          "mnemonic": "mov",
+          "operands": "esi, dword ptr [ecx + 0x244]"
+        },
+        {
+          "rva": "0x28b6dd",
+          "mnemonic": "push",
+          "operands": "edi"
+        },
+        {
+          "rva": "0x28b6de",
+          "mnemonic": "xor",
+          "operands": "edi, edi"
+        },
+        {
+          "rva": "0x28b6e0",
+          "mnemonic": "jmp",
+          "operands": "0x28b6f0"
+        },
+        {
+          "rva": "0x28b6e2",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [ecx]"
+        },
+        {
+          "rva": "0x28b6e4",
+          "mnemonic": "call",
+          "operands": "dword ptr [eax + 0x10]"
+        },
+        {
+          "rva": "0x28b6e7",
+          "mnemonic": "cmp",
+          "operands": "eax, dword ptr [esp + 0xc]"
+        },
+        {
+          "rva": "0x28b6eb",
+          "mnemonic": "je",
+          "operands": "0x28b6f8"
+        },
+        {
+          "rva": "0x28b6ed",
+          "mnemonic": "add",
+          "operands": "esi, 4"
+        },
+        {
+          "rva": "0x28b6f0",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [esi]"
+        },
+        {
+          "rva": "0x28b6f2",
+          "mnemonic": "test",
+          "operands": "ecx, ecx"
+        },
+        {
+          "rva": "0x28b6f4",
+          "mnemonic": "jne",
+          "operands": "0x28b6e2"
+        },
+        {
+          "rva": "0x28b6f6",
+          "mnemonic": "jmp",
+          "operands": "0x28b6fa"
+        },
+        {
+          "rva": "0x28b6f8",
+          "mnemonic": "mov",
+          "operands": "edi, dword ptr [esi]"
+        },
+        {
+          "rva": "0x28b6fa",
+          "mnemonic": "mov",
+          "operands": "eax, edi"
+        },
+        {
+          "rva": "0x28b6fc",
+          "mnemonic": "pop",
+          "operands": "edi"
+        },
+        {
+          "rva": "0x28b6fd",
+          "mnemonic": "pop",
+          "operands": "esi"
+        },
+        {
+          "rva": "0x28b6fe",
+          "mnemonic": "ret",
+          "operands": "4"
+        }
+      ]
+    }
+  ],
+  "native_caller_access": [
+    {
+      "rva": "0x4f22b4",
+      "raw": "e81d94d9ff",
+      "mnemonic": "call",
+      "operands": "0x28b6d6"
+    },
+    {
+      "rva": "0x4f22c1",
+      "raw": "8b8888000000",
+      "mnemonic": "mov",
+      "operands": "ecx, dword ptr [eax + 0x88]"
+    }
+  ]
+}

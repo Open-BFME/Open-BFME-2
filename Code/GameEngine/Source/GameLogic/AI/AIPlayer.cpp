@@ -98,9 +98,7 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class Module
-{
-};
+#include "../../../Include/Common/Module.h"
 
 class Team;
 class Player;
@@ -258,7 +256,7 @@ class SupplyWarehouseDockUpdate : public Module
 public:
 	__declspec(dllimport) __forceinline Int getBoxesStored() const { return m_boxesStored; }
 private:
-	unsigned char m_pad[0x88];
+	unsigned char m_pad[0x88 - 0x08];
 	Int m_boxesStored;			// +0x88
 };
 
