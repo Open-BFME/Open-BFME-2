@@ -9,17 +9,10 @@ public:
 	virtual void s10(); virtual void s11(); virtual void s12(); virtual void s13();
 	virtual void s14();
 };
-class Drawable
-{
-public:
-	void rva00272A51();
-private:
-	unsigned char m_pad[0x14C];
-	Elem **m_arr;
-};
+#include "../../Include/GameClient/DrawableBFME2.h"
 
 void Drawable::rva00272A51()
 {
-	for (Elem **pp = m_arr; *pp != 0; ++pp)
+	for (Elem **pp = ((Elem **)m_modules[0]); *pp != 0; ++pp)
 		(*pp)->s14();
 }

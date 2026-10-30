@@ -16,8 +16,7 @@
 #include "matrix3d.h"
 enum WhichTurretType {TURRET_PRIMARY=0};
 enum WeaponSlotType {PRIMARY_WEAPON=0};
-class Drawable {public:bool getProjectileLaunchOffset(WeaponSlotType,int,Matrix3D*,WhichTurretType,Coord3D*,Coord3D*)const;int getPristineBonePositions(const char*,int,Coord3D*,Matrix3D*,int,int)const;};
-class Thing {public:void convertBonePosToWorldPos(const Coord3D*,const Matrix3D*,Coord3D*,Matrix3D*)const;};
+#include "../../../Include/GameClient/DrawableBFME2.h"
 class AIUpdateInterface {public:bool getTurretRotAndPitch(WhichTurretType,float*,float*)const;};
 class Object {public:
  char pad00[0x84];Drawable*draw;char pad88[0x258-0x88];AIUpdateInterface*ai;

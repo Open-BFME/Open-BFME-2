@@ -32,8 +32,7 @@ class HelpHealth { public:
  virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3();
  virtual void slot4(); virtual void slot5(); virtual float maxHealth();
 };
-class Drawable { public: bool rva00274C62(AsciiString *); bool rva00274CB2(AsciiString *); };
-class Thing { public: Drawable *getDrawable() const; };
+#include "../../../../Include/GameClient/DrawableBFME2.h"
 
 
 struct ExperienceLevelNode;

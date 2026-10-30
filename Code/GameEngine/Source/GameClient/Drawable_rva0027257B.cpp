@@ -30,18 +30,11 @@ public:
 	virtual void t40(); virtual void t41();
 	virtual Elem2 *t42();
 };
-class Drawable
-{
-public:
-	int rva0027257B(int a);
-private:
-	unsigned char m_pad[0x14C];
-	Elem **m_arr;
-};
+#include "../../Include/GameClient/DrawableBFME2.h"
 
 int Drawable::rva0027257B(int a)
 {
-	Elem **pp = m_arr;
+	Elem **pp = ((Elem **)m_modules[0]);
 	while (*pp != 0) {
 		Elem2 *elem2 = (*pp)->t42();
 		if (elem2 != 0) {

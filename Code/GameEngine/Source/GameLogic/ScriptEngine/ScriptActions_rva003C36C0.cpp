@@ -5,16 +5,7 @@
 #include "ascii_string.h"
 
 class Object;
-class Drawable
-{
-public:
-	void rva00270FAC(bool flag);
-};
-class Thing
-{
-public:
-	Drawable *getDrawable() const;
-};
+#include "../../../Include/GameClient/DrawableBFME2.h"
 class Parameter
 {
 public:

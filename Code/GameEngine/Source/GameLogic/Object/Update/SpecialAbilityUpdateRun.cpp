@@ -57,8 +57,7 @@ enum Relationship{ENEMIES,NEUTRAL,ALLIES};
 #include "../../../../../Libraries/Include/Lib/RGBColor.h"
 enum NameKeyType{NAMEKEY_INVALID=0};class ClientUpdateModule;
 class NameKeyGenerator {public:NameKeyType nameToKey(const char*);};extern NameKeyGenerator *TheNameKeyGenerator;
-class Drawable {public:ClientUpdateModule *findClientUpdateModule(NameKeyType);void saturateRGB(RGBColor&,float);void rva00278C7C(int);};
-class Thing {public:Drawable *getDrawable() const;};
+#include "../../../../Include/GameClient/DrawableBFME2.h"
 class Matrix3D;
 struct Rva0087DC00Vec{int x,y,z;};class Rva0087DC00{public:void get(Rva0087DC00Vec*);};
 class GeometryInfo {public:bool CollidesWith(const Coord3D&,float,const GeometryInfo&,const Coord3D&,float) const;};

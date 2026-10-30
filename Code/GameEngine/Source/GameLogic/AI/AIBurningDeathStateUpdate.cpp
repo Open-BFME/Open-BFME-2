@@ -43,8 +43,7 @@ public:
 enum DisabledType { DISABLED_NATIVE_1 = 1 };
 class Rva00346BC0 { public: unsigned int words[4]; };
 extern unsigned g_Va00E01E08;
-class Drawable { public: void rva00272BE7(); };
-class Thing { public: Drawable *getDrawable() const; };
+#include "../../../Include/GameClient/DrawableBFME2.h"
 class Rva262FF8PtrChaseField { public: int get() const; };
 template<int N> class BurningNativeSlots : public BurningNativeSlots<N-1> { public: virtual void gap(char (*)[N])=0; };
 template<> class BurningNativeSlots<0> {};

@@ -62,24 +62,13 @@ public:
 
 class Object;
 
-class Drawable
-{
-public:
-	void rva002724C4(int arg);
-	int rva00272545(int arg);
-
-private:
-	unsigned char m_pad000[0xFC];
-	Object *m_object;	// +0xFC
-	unsigned char m_pad100[0x14C - 0x100];
-	BfmeDrawModuleForRva2724C4 **m_drawModules;	// +0x14C
-};
+#include "../../Include/GameClient/DrawableBFME2.h"
 
 void Drawable::rva002724C4(int arg)
 {
 	if (m_object == 0)
 		return;
-	for (BfmeDrawModuleForRva2724C4 **dm = m_drawModules; *dm; ++dm) {
+	for (BfmeDrawModuleForRva2724C4 **dm = ((BfmeDrawModuleForRva2724C4 **)m_modules[0]); *dm; ++dm) {
 		BfmeObjectDrawForRva2724C4 *di = (*dm)->getObjectDrawInterface();
 		if (di)
 			di->rva002724C4Target(arg);
@@ -88,7 +77,7 @@ void Drawable::rva002724C4(int arg)
 
 int Drawable::rva00272545(int arg)
 {
-	for (BfmeDrawModuleForRva2724C4 **dm = m_drawModules; *dm; ++dm) {
+	for (BfmeDrawModuleForRva2724C4 **dm = ((BfmeDrawModuleForRva2724C4 **)m_modules[0]); *dm; ++dm) {
 		BfmeObjectDrawForRva2724C4 *di = (*dm)->getObjectDrawInterface();
 		if (di) {
 			int result = di->rva00272545Target(arg);

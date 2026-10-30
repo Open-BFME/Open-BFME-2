@@ -17,18 +17,11 @@ public:
 	virtual void s50(); virtual void s51(); virtual void s52(); virtual void s53(); virtual void s54();
 	virtual bool s55();
 };
-class Drawable
-{
-public:
-	bool rva00272C1E();
-private:
-	unsigned char m_pad[0x14C];
-	Elem **m_arr;
-};
+#include "../../Include/GameClient/DrawableBFME2.h"
 
 bool Drawable::rva00272C1E()
 {
-	Elem **pp = m_arr;
+	Elem **pp = ((Elem **)m_modules[0]);
 	bool acc = false;
 	while (*pp != 0) {
 		acc |= (*pp)->s55();

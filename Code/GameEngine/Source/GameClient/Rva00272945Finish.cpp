@@ -23,19 +23,12 @@ public:
 	virtual void slot60(int a) = 0;
 };
 
-class Drawable
-{
-public:
-	void rva00272945(int a);
-private:
-	char m_pad[0x14C];
-	DrawModule **m_drawModules;
-};
+#include "../../Include/GameClient/DrawableBFME2.h"
 
 // ?rva00272945@Drawable@@QAEXH@Z
 void Drawable::rva00272945(int a)
 {
-	DrawModule **drawModule = m_drawModules;
+	DrawModule **drawModule = ((DrawModule **)m_modules[0]);
 	if (*drawModule)
 		(*drawModule)->slot60(a);
 }

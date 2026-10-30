@@ -14,13 +14,7 @@ public:
 };
 extern NameKeyGenerator *TheNameKeyGenerator;
 extern GameLogic *TheGameLogic;
-class Drawable
-{
-public:
-	void rva00274176(bool);
-	void fadeIn(unsigned);
-};
-class Thing {public:Drawable *getDrawable() const;};
+#include "../../../../Include/GameClient/DrawableBFME2.h"
 class Module;
 enum Relationship { ENEMIES, NEUTRAL, ALLIES };
 enum ObjectStatusTypes { OBJECT_STATUS_5=5, OBJECT_STATUS_79=79 };

@@ -20,17 +20,10 @@ public:
 	virtual void slotC0(); virtual void slotC4(); virtual void slotC8();
 	virtual int slotCC();
 };
-class Drawable
-{
-public:
-	int rva00272709();
-private:
-	char m_pad[0x14C];
-	DrawModule **m_drawModules;
-};
+#include "../../Include/GameClient/DrawableBFME2.h"
 int Drawable::rva00272709()
 {
-	for (DrawModule **drawModule = m_drawModules; *drawModule; ++drawModule)
+	for (DrawModule **drawModule = ((DrawModule **)m_modules[0]); *drawModule; ++drawModule)
 	{
 		int v = (*drawModule)->slotCC();
 		if (v != 0)

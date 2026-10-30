@@ -24,19 +24,12 @@ public:
 	virtual void rva0027292F(const Coord3D *position, const Coord3D *normal) = 0;
 };
 
-class Drawable
-{
-public:
-	void rva0027292F(const Coord3D *position, const Coord3D *normal);
-private:
-	char m_pad[0x14C];
-	DrawableDecalPositionModule **m_drawModules;
-};
+#include "../../Include/GameClient/DrawableBFME2.h"
 
 // ?rva0027292F@Drawable@@QAEXPBUCoord3D@@0@Z
 void Drawable::rva0027292F(const Coord3D *position, const Coord3D *normal)
 {
-	DrawableDecalPositionModule **drawableDecalPositionModule = m_drawModules;
+	DrawableDecalPositionModule **drawableDecalPositionModule = ((DrawableDecalPositionModule **)m_modules[0]);
 	if (*drawableDecalPositionModule)
 		(*drawableDecalPositionModule)->rva0027292F(position, normal);
 }

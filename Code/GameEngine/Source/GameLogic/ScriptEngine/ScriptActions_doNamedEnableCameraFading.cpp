@@ -9,14 +9,7 @@
 // Layout from callers plus sibling doNamedEnableStealth; ret 8 stdcall with
 // Parameter plus void. Global g_Va009FE16C used by 14 TUs.
 class Parameter;
-class Drawable {
-public:
-    void rva00273686(bool arg);
-};
-class Thing {
-public:
-    Drawable *getDrawable() const;
-};
+#include "../../../Include/GameClient/DrawableBFME2.h"
 class Object : public Thing {
 };
 #include "../../../Include/GameLogic/ScriptEngine.h"

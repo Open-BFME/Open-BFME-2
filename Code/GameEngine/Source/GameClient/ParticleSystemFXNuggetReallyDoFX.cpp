@@ -96,8 +96,7 @@ private:
 	Coord3D m_targetOffset; // +0x1B0
 };
 
-class Drawable { public: bool rva00272835(int, int); };
-class Thing { public: Drawable *getDrawable() const; };
+#include "../../Include/GameClient/DrawableBFME2.h"
 class Object { public: int rva0028B511() const; };
 float GetGameClientRandomValueReal(float, float, char *, int);
 struct Rva001F3899Arg; struct Rva001F38C1Arg; struct Rva001F3C43Arg;
