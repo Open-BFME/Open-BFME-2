@@ -9,6 +9,7 @@ address_global	Code/GameEngine/Source/Common/AptHeroPowerText.cpp	g_Va007C9260	1
 address_global	Code/GameEngine/Source/Common/AptHeroPowerText.cpp	g_Va00E06398	2
 address_global	Code/GameEngine/Source/Common/AptHeroPowerText_Rva0043C8E4.cpp	g_Va007C9260	2
 address_global	Code/GameEngine/Source/Common/AptHeroPowerText_Rva0043C8E4.cpp	g_Va00E06398	1
+address_global	Code/GameEngine/Source/Common/AptMessageBox.cpp	g_Va00E032FC	2
 address_global	Code/GameEngine/Source/Common/AptMpGameSetup.cpp	g_Va00E0333C	2
 address_global	Code/GameEngine/Source/Common/AptMpGameSetup.cpp	g_Va00E03340	2
 address_global	Code/GameEngine/Source/Common/AptOnlineHome.cpp	g_Va00E06484	1
@@ -922,7 +923,6 @@ address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMen
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuCallbacks_ExitGame.cpp	g_Va00DD1538	1
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuCallbacks_ExitGame.cpp	g_Va00E048DC	1
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuConstructor.cpp	g_Va00E048DC	3
-address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessageBox.cpp	g_Va00E032FC	2
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessageBoxMovieClip.cpp	g_Va00E032C8	3
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerCallbacks.cpp	g_Va00DD13D8	4
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerCallbacks.cpp	g_Va00E046BC	7
