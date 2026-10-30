@@ -54,11 +54,7 @@ public:
 	ModuleData *m_moduleData;
 };
 
-class Drawable
-{
-public:
-	bool rva00278689(const AsciiString &name, bool a2, bool a3);
-};
+#include "../../Include/GameClient/DrawableBFME2.h"
 
 bool Drawable::rva00278689(const AsciiString &name, bool a2, bool a3)
 {
