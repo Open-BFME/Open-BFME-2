@@ -1,0 +1,219 @@
+{
+  "source": "Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDieFindEldest.cpp",
+  "change": "adopt canonical8B Module base and retain observed derived interface at0C; no full derived-class identity claim",
+  "objects": {
+    "before": {
+      "source_sha256": "17b8a3c6a051e9d006a1ebdced1aed8633bf340e575eeb5f2884807cc698f1de",
+      "object_sha256": "eb0e02f772a1d7b5ad3384064b2bccf4a171b8263a3a0e69edabb40228845beb",
+      "rows": [
+        {
+          "name": "?func@findEldest@@SAHPAVObject@@PAX@Z",
+          "rva": "0x004859A2",
+          "size": "72",
+          "exact": true
+        }
+      ]
+    },
+    "trial": {
+      "source_sha256": "2042edbe690f2f5cd5de05af7cd6459c08e6727facbe7f66dbb9724a728178cf",
+      "object_sha256": "e42e36a16a0b1026c20a3b14c2d593fc9c9ecdfca87fa94da867e0a750f50c84",
+      "rows": [
+        {
+          "name": "?func@findEldest@@SAHPAVObject@@PAX@Z",
+          "rva": "0x004859A2",
+          "size": "72",
+          "exact": true
+        }
+      ]
+    }
+  },
+  "removed_unused_getter": {
+    "name": "?getInterface@Module@@QAEPAVModuleInterfaceAt0C@@XZ",
+    "raw": "8d410cc3",
+    "relocations": [],
+    "incoming": [
+      {
+        "section": ".debug$F",
+        "offset": 0,
+        "type": 7
+      }
+    ],
+    "globally_referenced_in_published_index": false
+  },
+  "external_definitions": {
+    "?func@findEldest@@SAHPAVObject@@PAX@Z": {
+      "raw": "568b74240c8b4e08578b7c240c6a0057e80000000084c07429ff760c8bcfe80000000085c0741b8d480c8b01ff90a000000085c0740c8b003b46047305894604893e33c05f405ec3",
+      "relocations": [
+        [
+          17,
+          20,
+          "?accepts@Rva2225E0Filter@@QAE_NPAVObject@@PAVPlayer@@@Z"
+        ],
+        [
+          31,
+          20,
+          "?findModule@Object@@IBEPAVModule@@W4NameKeyType@@@Z"
+        ]
+      ]
+    }
+  },
+  "native_instructions": [
+    {
+      "at": "0x4859a2",
+      "mnemonic": "push",
+      "operands": "esi"
+    },
+    {
+      "at": "0x4859a3",
+      "mnemonic": "mov",
+      "operands": "esi, dword ptr [esp + 0xc]"
+    },
+    {
+      "at": "0x4859a7",
+      "mnemonic": "mov",
+      "operands": "ecx, dword ptr [esi + 8]"
+    },
+    {
+      "at": "0x4859aa",
+      "mnemonic": "push",
+      "operands": "edi"
+    },
+    {
+      "at": "0x4859ab",
+      "mnemonic": "mov",
+      "operands": "edi, dword ptr [esp + 0xc]"
+    },
+    {
+      "at": "0x4859af",
+      "mnemonic": "push",
+      "operands": "0"
+    },
+    {
+      "at": "0x4859b1",
+      "mnemonic": "push",
+      "operands": "edi"
+    },
+    {
+      "at": "0x4859b2",
+      "mnemonic": "call",
+      "operands": "0x362437"
+    },
+    {
+      "at": "0x4859b7",
+      "mnemonic": "test",
+      "operands": "al, al"
+    },
+    {
+      "at": "0x4859b9",
+      "mnemonic": "je",
+      "operands": "0x4859e4"
+    },
+    {
+      "at": "0x4859bb",
+      "mnemonic": "push",
+      "operands": "dword ptr [esi + 0xc]"
+    },
+    {
+      "at": "0x4859be",
+      "mnemonic": "mov",
+      "operands": "ecx, edi"
+    },
+    {
+      "at": "0x4859c0",
+      "mnemonic": "call",
+      "operands": "0x28b6d6"
+    },
+    {
+      "at": "0x4859c5",
+      "mnemonic": "test",
+      "operands": "eax, eax"
+    },
+    {
+      "at": "0x4859c7",
+      "mnemonic": "je",
+      "operands": "0x4859e4"
+    },
+    {
+      "at": "0x4859c9",
+      "mnemonic": "lea",
+      "operands": "ecx, [eax + 0xc]"
+    },
+    {
+      "at": "0x4859cc",
+      "mnemonic": "mov",
+      "operands": "eax, dword ptr [ecx]"
+    },
+    {
+      "at": "0x4859ce",
+      "mnemonic": "call",
+      "operands": "dword ptr [eax + 0xa0]"
+    },
+    {
+      "at": "0x4859d4",
+      "mnemonic": "test",
+      "operands": "eax, eax"
+    },
+    {
+      "at": "0x4859d6",
+      "mnemonic": "je",
+      "operands": "0x4859e4"
+    },
+    {
+      "at": "0x4859d8",
+      "mnemonic": "mov",
+      "operands": "eax, dword ptr [eax]"
+    },
+    {
+      "at": "0x4859da",
+      "mnemonic": "cmp",
+      "operands": "eax, dword ptr [esi + 4]"
+    },
+    {
+      "at": "0x4859dd",
+      "mnemonic": "jae",
+      "operands": "0x4859e4"
+    },
+    {
+      "at": "0x4859df",
+      "mnemonic": "mov",
+      "operands": "dword ptr [esi + 4], eax"
+    },
+    {
+      "at": "0x4859e2",
+      "mnemonic": "mov",
+      "operands": "dword ptr [esi], edi"
+    },
+    {
+      "at": "0x4859e4",
+      "mnemonic": "xor",
+      "operands": "eax, eax"
+    },
+    {
+      "at": "0x4859e6",
+      "mnemonic": "pop",
+      "operands": "edi"
+    },
+    {
+      "at": "0x4859e7",
+      "mnemonic": "inc",
+      "operands": "eax"
+    },
+    {
+      "at": "0x4859e8",
+      "mnemonic": "pop",
+      "operands": "esi"
+    },
+    {
+      "at": "0x4859e9",
+      "mnemonic": "ret",
+      "operands": ""
+    }
+  ],
+  "all_retained_external_code_and_symbolic_relocations_identical": true,
+  "actual_object": {
+    "strict_current": true,
+    "object_md5": "b186aae855cf0214e28f2e44ea8b35d1",
+    "source_sha256": "2042edbe690f2f5cd5de05af7cd6459c08e6727facbe7f66dbb9724a728178cf",
+    "all_external_code_matches_private_candidate": true
+  }
+}

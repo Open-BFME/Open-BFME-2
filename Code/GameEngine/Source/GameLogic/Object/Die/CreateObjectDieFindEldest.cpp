@@ -46,13 +46,13 @@ public:
 	virtual EldestKindofRecord *getEldestKindofRecord(); // slot 0xA0
 };
 
-class Module
+#include "../../../../Include/Common/Module.h"
+
+// The base is canonical; only the observed derived interface at +0x0C is viewed.
+class Rva004859A2ModuleView : public Module
 {
 public:
-	ModuleInterfaceAt0C *getInterface() { return &m_interface; }
-
-private:
-	unsigned char m_pad00[0x0C];
+	unsigned char m_pad08[4];
 	ModuleInterfaceAt0C m_interface; // +0x0C
 };
 
@@ -84,7 +84,7 @@ int findEldest::func(Object *obj, void *userData)
 		Module *module = obj->findModule(data->m_moduleKey);
 		if (module)
 		{
-			EldestKindofRecord *record = module->getInterface()->getEldestKindofRecord();
+			EldestKindofRecord *record = ((Rva004859A2ModuleView *)module)->m_interface.getEldestKindofRecord();
 			if (record && record->m_value < data->m_lowest)
 			{
 				data->m_lowest = record->m_value;
