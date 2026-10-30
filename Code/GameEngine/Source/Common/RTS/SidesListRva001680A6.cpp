@@ -22,11 +22,11 @@ void Rva001680A6::rva001680A6(int index, void *src, float f)
 	if ((unsigned int)index < (unsigned int)m_d0)
 	{
 		char *dst = (char *)m_c8 + index * 12;
-		int *d = (int *)dst;
-		int *s = (int *)src;
-		d[0] = s[0];
-		d[1] = s[1];
-		d[2] = s[2];
+		int *destination = (int *)dst;
+		int *source = (int *)src;
+		destination[0] = source[0];
+		destination[1] = source[1];
+		destination[2] = source[2];
 		m_d8[index] = f;
 	}
 	m_12 &= (unsigned char)0xFD;
@@ -36,18 +36,18 @@ void Rva001680A6::rva001680ED(int index, void *dst, float *out)
 	if ((unsigned int)index < (unsigned int)m_d0)
 	{
 		float *src = (float *)((char *)m_c8 + index * 12);
-		float *d = (float *)dst;
-		d[0] = src[0];
-		((int *)d)[1] = ((int *)src)[1];
-		((int *)d)[2] = ((int *)src)[2];
+		float *destination = (float *)dst;
+		destination[0] = src[0];
+		((int *)destination)[1] = ((int *)src)[1];
+		((int *)destination)[2] = ((int *)src)[2];
 		*out = m_d8[index];
 	}
 	else
 	{
-		float *d = (float *)dst;
-		d[0] = 0.0f;
-		d[1] = 0.0f;
-		d[2] = 0.0f;
+		float *destination = (float *)dst;
+		destination[0] = 0.0f;
+		destination[1] = 0.0f;
+		destination[2] = 0.0f;
 		*out = 0.0f;
 	}
 }

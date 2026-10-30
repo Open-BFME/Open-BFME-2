@@ -113,12 +113,12 @@ void *Rva006DAE50ArrayAlloc(unsigned int nSize)
     return g_bfmeAptAllocAtE17728(nSize);
 }
 
-void Rva006DAE80ArrayFree(void *p)
+void Rva006DAE80ArrayFree(void *block)
 {
     g_bfmeAptAssertAtE17734("false && \"Garbage collected Objects should never be created in Arrays!!!\"", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\DogmaAllocator.cpp", 0x63);
     if (g_bfmeAptBreakOnAssertAtDDC01C)
         __debugbreak();
-    g_aptFreeCallback(p);
+    g_aptFreeCallback(block);
 }
 
 // Native6DB120..6DB13F RET4: the request rounding allocBlock (0x006DB160)

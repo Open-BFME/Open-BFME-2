@@ -183,10 +183,10 @@ void *GateOpenBehaviorList::rva004E90B1(const Coord3D *pos, const Player *player
 		vals[0] = pos->x;
 		vals[1] = pos->y;
 		vals[2] = pos->z;
-		const float *q = (const float *)((Rva004989EEAddDwordField *)obj)->get();
-		float dx = vals[0] - q[0];
-		float dy = vals[1] - q[1];
-		float dz = vals[2] - q[2];
+		const float *objPos = (const float *)((Rva004989EEAddDwordField *)obj)->get();
+		float dx = vals[0] - objPos[0];
+		float dy = vals[1] - objPos[1];
+		float dz = vals[2] - objPos[2];
 		float distSq = dx * dx + dy * dy + dz * dz;
 		if (best == 0 || bestDist > distSq)
 		{
@@ -213,10 +213,10 @@ void *GateOpenBehaviorList::rva004E9179(const Coord3D *pos, const Player *player
 		vals[0] = pos->x;
 		vals[1] = pos->y;
 		vals[2] = pos->z;
-		const float *q = (const float *)((Rva004989EEAddDwordField *)obj)->get();
-		float dx = vals[0] - q[0];
-		float dy = vals[1] - q[1];
-		float dz = vals[2] - q[2];
+		const float *objPos = (const float *)((Rva004989EEAddDwordField *)obj)->get();
+		float dx = vals[0] - objPos[0];
+		float dy = vals[1] - objPos[1];
+		float dz = vals[2] - objPos[2];
 		float distSq = dx * dx + dy * dy + dz * dz;
 		if (best == 0 || bestDist > distSq)
 		{
@@ -271,9 +271,9 @@ bool GateOpenBehaviorList::rva004E923E(Object *obj)
 void Rva004E9337::rva004E9337()
 {
     m_vec.erase(m_vec.begin(), m_vec.end());
-    void **b = m_vec.begin();
-    if (b)
-        free(b);
+    void **buffer = m_vec.begin();
+    if (buffer)
+        free(buffer);
 }
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorCtor.cpp

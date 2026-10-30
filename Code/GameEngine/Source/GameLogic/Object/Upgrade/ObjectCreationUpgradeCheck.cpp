@@ -60,22 +60,22 @@ private:
 
 bool Rva004B4130::rva004B4130(Rva00406F9C *mask)
 {
-	Rva00406F9C buf100;
-	Rva00406F9C buf80;
-	((Rva001EAE6FHelper *)&buf80)->clear80();
-	((Rva001EAE6FHelper *)&buf100)->clear80();
-	v11(&buf80, &buf100);
+	Rva00406F9C blockingMask;
+	Rva00406F9C m_upgradeMask;
+	((Rva001EAE6FHelper *)&m_upgradeMask)->clear80();
+	((Rva001EAE6FHelper *)&blockingMask)->clear80();
+	v11(&m_upgradeMask, &blockingMask);
 	for (unsigned i = 0; i < 32; ++i) {
-		if (buf80.m_data[i] != 0)
+		if (m_upgradeMask.m_data[i] != 0)
 			goto haveBits;
 	}
 	return false;
 haveBits:
-	if (buf100.rva00406F9C(mask))
+	if (blockingMask.rva00406F9C(mask))
 		return false;
 	if (v13())
-		return ((Rva002AA292 *)mask)->rva002AA292((const int *)&buf80);
-	return mask->rva00406F9C(&buf80);
+		return ((Rva002AA292 *)mask)->rva002AA292((const int *)&m_upgradeMask);
+	return mask->rva00406F9C(&m_upgradeMask);
 }
 
 // Native4B41A9..4B4204 reads owner10/executed2C and calls vslots2/8.

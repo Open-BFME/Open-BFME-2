@@ -52,9 +52,9 @@ typedef LivingWorldRegionConnection *(__cdecl *Rva003F29D2CopyTagFn)(LivingWorld
 // _M_allocate_and_copy is protected; reach the rowed 0x003F2CD6 member through a derived view.
 struct Rva003F318CAllocate : _STL::vector<BfmeStringRecord000B9534, _STL::allocator<BfmeStringRecord000B9534> >
 {
-	BfmeStringRecord000B9534 *call(unsigned int n, LivingWorldRegionConnection *first, LivingWorldRegionConnection *last)
+	BfmeStringRecord000B9534 *call(unsigned int count, LivingWorldRegionConnection *first, LivingWorldRegionConnection *last)
 	{
-		return _M_allocate_and_copy(n, first, last);
+		return _M_allocate_and_copy(count, first, last);
 	}
 };
 

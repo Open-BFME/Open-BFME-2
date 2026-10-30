@@ -158,7 +158,7 @@ void Rva006FBA70Holder::set(Rva006FBA20Ref *value)
 struct Rva006D0350Iterator
 {
 	void **position, **begin, **end;
-	Rva006D0350Iterator(void **current, void **b, void **e) : position(current), begin(b), end(e) {}
+	Rva006D0350Iterator(void **current, void **rangeBegin, void **rangeEnd) : position(current), begin(rangeBegin), end(rangeEnd) {}
 	Rva006D0350Iterator advance(int n) const;
 };
 
@@ -313,7 +313,7 @@ inline void rva006D0410Check(bool, const char *) {}
 class Rva006D0410Iterator {
  Rva006D0410Entry *cur, *first, *last;
 public:
- Rva006D0410Iterator(Rva006D0410Entry *c, Rva006D0410Entry *f, Rva006D0410Entry *l) : cur(c), first(f), last(l) {}
+ Rva006D0410Iterator(Rva006D0410Entry *current, Rva006D0410Entry *rangeFirst, Rva006D0410Entry *rangeLast) : cur(current), first(rangeFirst), last(rangeLast) {}
  Rva006D0410Iterator &operator++() { ++cur; return *this; }
  Rva006D0410Entry &operator*() { rva006D0410Check(cur >= first && cur < last, "Trying to dereference an invalid iterator"); return *cur; }
  bool operator!=(const Rva006D0410Iterator &other) { rva006D0410Check(first == other.first && last == other.last, "Iterators are not in same range"); return cur != other.cur; }
@@ -321,7 +321,7 @@ public:
 class Rva006D0410Range {
  Rva006D0410Entry *first, *last;
 public:
- Rva006D0410Range(Rva006D0410Entry *f, Rva006D0410Entry *l) : first(f), last(l) {}
+ Rva006D0410Range(Rva006D0410Entry *rangeFirst, Rva006D0410Entry *rangeLast) : first(rangeFirst), last(rangeLast) {}
  Rva006D0410Iterator begin() { return Rva006D0410Iterator(first, first, last); }
  Rva006D0410Iterator end() { return Rva006D0410Iterator(last, first, last); }
 };
@@ -330,9 +330,9 @@ public:
  int size, capacity; Rva006D0410Entry *items;
  Rva006D0410Iterator begin() { return Rva006D0410Range(items, items + size).begin(); }
  Rva006D0410Iterator end() { return Rva006D0410Range(items, items + size).end(); }
- __forceinline bool readyFor(int a, int b) {
+ __forceinline bool readyFor(int firstKind, int secondKind) {
   for (Rva006D0410Iterator it = begin(); it != end(); ++it)
-   if ((*it).m_kind != a && (*it).m_kind != b) return false;
+   if ((*it).m_kind != firstKind && (*it).m_kind != secondKind) return false;
   return true;
  }
  bool rva006D0410();

@@ -38,10 +38,10 @@ private:
 
 void Rva005E197E::rva005E197E()
 {
-	void *v = m_1C.m_ptr;
-	if (v == 0)
+	void *lockHandle = m_1C.m_ptr;
+	if (lockHandle == 0)
 		return;
-	if (((Rva005CB265 *)m_10->m_ptr08)->Rva005CB265::rva005CB265() == (int)v)
+	if (((Rva005CB265 *)m_10->m_ptr08)->Rva005CB265::rva005CB265() == (int)lockHandle)
 		((Rva005CB260 *)m_10->m_ptr08)->rva005CB260();
 	m_1C.clear();
 }

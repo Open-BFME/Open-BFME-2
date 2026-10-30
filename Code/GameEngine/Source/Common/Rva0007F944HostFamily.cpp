@@ -26,9 +26,9 @@ struct Rva0007F944Vec
 class Rva0007F944Item
 {
 public:
-    static int isLeft(const Rva0007F944Vec *a, const Rva0007F944Vec *b, const Rva0007F944Vec *p)
+    static int isLeft(const Rva0007F944Vec *a, const Rva0007F944Vec *b, const Rva0007F944Vec *point)
     {
-        return (int)((b->x - a->x) * (p->y - a->y) - (p->x - a->x) * (b->y - a->y));
+        return (int)((b->x - a->x) * (point->y - a->y) - (point->x - a->x) * (b->y - a->y));
     }
 
     bool rva0007ECA3(const Rva0007F944Vec *pt);
@@ -104,9 +104,9 @@ float Rva0007F944Host::rva0007F944(float x, float y)
     _STL::vector<Rva0007F944ItemRef>::iterator end = m_items.end();
     for (_STL::vector<Rva0007F944ItemRef>::iterator it = m_items.begin(); it != end; ++it) {
         Rva0007F944Item *item = it->m_item;
-        float h = item->m_points[0].z;
-        if (h > best && item->rva0007ECA3(&pt))
-            best = h;
+        float height = item->m_points[0].z;
+        if (height > best && item->rva0007ECA3(&pt))
+            best = height;
     }
     return best;
 }
@@ -122,9 +122,9 @@ Rva0007F944Item *Rva0007F944Host::rva0007F9AD(float x, float y)
     for (_STL::vector<Rva0007F944ItemRef>::iterator it = m_items.begin(); it != m_items.end(); ++it) {
         Rva0007F944ItemRef item = *it;
         if (item->rva0007ECA3(&pt)) {
-            float h = item->m_points[0].z;
-            if (h >= best) {
-                best = h;
+            float height = item->m_points[0].z;
+            if (height >= best) {
+                best = height;
                 result = item.m_item;
             }
         }
@@ -143,10 +143,10 @@ int Rva0007F944Host::rva0007FA2B(float x, float y)
     for (_STL::vector<Rva0007F944ItemRef>::iterator it = m_items.begin(); it != m_items.end(); ++it) {
         Rva0007F944ItemRef item = *it;
         if (item->rva0007ECA3(&pt)) {
-            float h = item->m_points[0].z;
-            if (h >= best) {
+            float height = item->m_points[0].z;
+            if (height >= best) {
                 result = item->m_id;
-                best = h;
+                best = height;
             }
         }
     }

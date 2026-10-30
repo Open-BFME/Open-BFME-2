@@ -98,14 +98,14 @@ void AptCIH::rva006E1C40(AptRenderingContext *ctx, int arg2)
 		return;
 	}
 	if (((Rva006DBB30SarDwordField *)this)->get() == 0x0e && !isUndefined()) {
-		char *p = (char *)rva006E1090();
-		((AptDisplayList *)(p + 0x1c))->rva006F79B0(ctx, (void *)arg2);
+		char *subObject = (char *)rva006E1090();
+		((AptDisplayList *)(subObject + 0x1c))->rva006F79B0(ctx, (void *)arg2);
 		ctx->popVertexMatrix();
 		return;
 	}
 	if ((char)rva006E02B0()) {
-		char *p = (char *)rva006E0F40();
-		((BfmeThingXS *)ctx)->bfmeApplyXS((void *)arg2, p + 0x50);
+		char *subObject = (char *)rva006E0F40();
+		((BfmeThingXS *)ctx)->bfmeApplyXS((void *)arg2, subObject + 0x50);
 		ctx->popVertexMatrix();
 		return;
 	}

@@ -222,9 +222,9 @@ void Rva004EE55EVector::reserve(unsigned int n)
 class Rva00532844Vector { Rva005334A4Element *start,*finish,*end; public: void reserve(unsigned int); };
 void Rva00532844Vector::reserve(unsigned int n) {
  if((unsigned int)(end-start)<n) {
-  unsigned int oldSize=finish-start; Rva005334A4Element *tmp;
-  if(start) {tmp=reinterpret_cast<ReserveAccess<Rva005334A4Element> *>(this)->copy(n,start,finish); if(start) _STL::free(start);}
-  else tmp=reinterpret_cast<_STL::allocator<Rva005334A4Element> *>(&end)->allocate(n,0);
-  finish=tmp+oldSize; start=tmp; end=tmp+n;
+  unsigned int oldSize=finish-start; Rva005334A4Element *element;
+  if(start) {element=reinterpret_cast<ReserveAccess<Rva005334A4Element> *>(this)->copy(n,start,finish); if(start) _STL::free(start);}
+  else element=reinterpret_cast<_STL::allocator<Rva005334A4Element> *>(&end)->allocate(n,0);
+  finish=element+oldSize; start=element; end=element+n;
  }
 }

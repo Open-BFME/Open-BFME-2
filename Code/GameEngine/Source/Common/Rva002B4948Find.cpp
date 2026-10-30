@@ -27,18 +27,18 @@ struct Rva002B4948Container
 class LivingWorldLogic
 {
 public:
-    void *rva002B4948(void *a1, void *a2, void *a3);
+    void *rva002B4948(void *container, void *a2, void *a3);
 };
 
-void *LivingWorldLogic::rva002B4948(void *a1, void *a2, void *a3)
+void *LivingWorldLogic::rva002B4948(void *container, void *a2, void *a3)
 {
-	Rva002B4948Container *c = (Rva002B4948Container *)a1;
+	Rva002B4948Container *c = (Rva002B4948Container *)container;
 	Rva00318C32Ret *key = (Rva00318C32Ret *)a2;
 	Rva00318C79Owner *exclude = (Rva00318C79Owner *)a3;
-	Rva00318C79Owner **b;
-	Rva00318C79Owner **e;
-	for (unsigned int i = 0; (b = c->m_begin1B8, e = c->m_end1BC, i < (unsigned)(e - b)); ++i) {
-		Rva00318C79Owner *cur = b[i];
+	Rva00318C79Owner **begin;
+	Rva00318C79Owner **end;
+	for (unsigned int i = 0; (begin = c->m_begin1B8, end = c->m_end1BC, i < (unsigned)(end - begin)); ++i) {
+		Rva00318C79Owner *cur = begin[i];
 		if (cur == exclude)
 			continue;
 		if (((const StringBase<char> *)&cur->m_str18)->isEmpty()) {

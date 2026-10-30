@@ -171,8 +171,8 @@ bool Rva001EAF7B::rva001EAF7B()
 
 void rva001EAF5E(Rva001EAF5EElement *first, Rva001EAF5EElement *last)
 {
-	for (Rva001EAF5EElement *p = first; p != last; ++p)
-		p->rva001EAF5ESlot0(0);
+	for (Rva001EAF5EElement *element = first; element != last; ++element)
+		element->rva001EAF5ESlot0(0);
 }
 
 // tu-skeleton: 0x001EAF9B 21B ?rva001EAF9B@@YAHABUGapRecordCursor@@0@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE51.cpp (not merged yet)

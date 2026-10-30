@@ -60,23 +60,23 @@ TAiData::~TAiData()
 	while (curF4 != 0) {
 		NodeF4 *del = curF4;
 		curF4 = curF4->m_next;
-		void *tmp = del->deldtor(0);
-		::operator delete(tmp);
+		void *block = del->deldtor(0);
+		::operator delete(block);
 	}
 	NodeFC *curFC = m_FC;
 	m_FC = 0;
 	while (curFC != 0) {
 		NodeFC *del = curFC;
 		curFC = curFC->m_next;
-		void *tmp = del->deldtor(0);
-		::operator delete(tmp);
+		void *block = del->deldtor(0);
+		::operator delete(block);
 	}
 	NodeF8 *curF8 = m_F8;
 	m_F8 = 0;
 	while (curF8 != 0) {
 		NodeF8 *del = curF8;
 		curF8 = curF8->m_next;
-		void *tmp = del->deldtor(0);
-		::operator delete(tmp);
+		void *block = del->deldtor(0);
+		::operator delete(block);
 	}
 }

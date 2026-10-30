@@ -99,7 +99,7 @@ class Rva00388EAE
 public:
 	void rva00389129();
 	void rva003891E8(IntPtrTree::iterator first, IntPtrTree::iterator last);
-	unsigned int rva00389913(const int &x);
+	unsigned int rva00389913(const int &key);
 };
 
 // 0x003891E8 68B: erase(first, last) over rva00389129
@@ -114,12 +114,12 @@ void Rva00388EAE::rva003891E8(IntPtrTree::iterator first, IntPtrTree::iterator l
 }
 
 // 0x00389913 73B: erase(const int &) over rva003891E8 and map<int, int>'s equal_range
-unsigned int Rva00388EAE::rva00389913(const int &x)
+unsigned int Rva00388EAE::rva00389913(const int &key)
 {
-	_STL::pair<IntIntTree::iterator, IntIntTree::iterator> q = reinterpret_cast<IntIntTree *>(this)->equal_range(x);
-	unsigned int n = _STL::distance(reinterpret_cast<IntPtrTree::iterator &>(q.first), reinterpret_cast<IntPtrTree::iterator &>(q.second));
+	_STL::pair<IntIntTree::iterator, IntIntTree::iterator> q = reinterpret_cast<IntIntTree *>(this)->equal_range(key);
+	unsigned int count = _STL::distance(reinterpret_cast<IntPtrTree::iterator &>(q.first), reinterpret_cast<IntPtrTree::iterator &>(q.second));
 	rva003891E8(reinterpret_cast<IntPtrTree::iterator &>(q.first), reinterpret_cast<IntPtrTree::iterator &>(q.second));
-	return n;
+	return count;
 }
 
 class Rva002EE9B7
@@ -127,7 +127,7 @@ class Rva002EE9B7
 public:
 	void rva002EE9B7();
 	void rva0046A967(IntPtrTree::iterator first, IntPtrTree::iterator last);
-	unsigned int rva0046EDEF(const int &x);
+	unsigned int rva0046EDEF(const int &key);
 };
 
 // 0x0046A967 68B: erase(first, last) over rva002EE9B7
@@ -142,12 +142,12 @@ void Rva002EE9B7::rva0046A967(IntPtrTree::iterator first, IntPtrTree::iterator l
 }
 
 // 0x0046EDEF 73B: erase(const int &) over rva0046A967 and map<int, int>'s equal_range
-unsigned int Rva002EE9B7::rva0046EDEF(const int &x)
+unsigned int Rva002EE9B7::rva0046EDEF(const int &key)
 {
-	_STL::pair<IntIntTree::iterator, IntIntTree::iterator> q = reinterpret_cast<IntIntTree *>(this)->equal_range(x);
-	unsigned int n = _STL::distance(reinterpret_cast<IntPtrTree::iterator &>(q.first), reinterpret_cast<IntPtrTree::iterator &>(q.second));
+	_STL::pair<IntIntTree::iterator, IntIntTree::iterator> q = reinterpret_cast<IntIntTree *>(this)->equal_range(key);
+	unsigned int count = _STL::distance(reinterpret_cast<IntPtrTree::iterator &>(q.first), reinterpret_cast<IntPtrTree::iterator &>(q.second));
 	rva0046A967(reinterpret_cast<IntPtrTree::iterator &>(q.first), reinterpret_cast<IntPtrTree::iterator &>(q.second));
-	return n;
+	return count;
 }
 
 class Rva004E7B13
@@ -155,7 +155,7 @@ class Rva004E7B13
 public:
 	void rva004E7BAF();
 	void rva004E7BD8(IntPtrTree::iterator first, IntPtrTree::iterator last);
-	unsigned int rva004E7D29(const int &x);
+	unsigned int rva004E7D29(const int &key);
 };
 
 // 0x004E7BD8 68B: erase(first, last) over rva004E7BAF
@@ -170,12 +170,12 @@ void Rva004E7B13::rva004E7BD8(IntPtrTree::iterator first, IntPtrTree::iterator l
 }
 
 // 0x004E7D29 73B: erase(const int &) over rva004E7BD8 and map<int, int>'s equal_range
-unsigned int Rva004E7B13::rva004E7D29(const int &x)
+unsigned int Rva004E7B13::rva004E7D29(const int &key)
 {
-	_STL::pair<IntIntTree::iterator, IntIntTree::iterator> q = reinterpret_cast<IntIntTree *>(this)->equal_range(x);
-	unsigned int n = _STL::distance(reinterpret_cast<IntPtrTree::iterator &>(q.first), reinterpret_cast<IntPtrTree::iterator &>(q.second));
+	_STL::pair<IntIntTree::iterator, IntIntTree::iterator> q = reinterpret_cast<IntIntTree *>(this)->equal_range(key);
+	unsigned int count = _STL::distance(reinterpret_cast<IntPtrTree::iterator &>(q.first), reinterpret_cast<IntPtrTree::iterator &>(q.second));
 	rva004E7BD8(reinterpret_cast<IntPtrTree::iterator &>(q.first), reinterpret_cast<IntPtrTree::iterator &>(q.second));
-	return n;
+	return count;
 }
 
 class Rva001E6731
@@ -183,7 +183,7 @@ class Rva001E6731
 public:
 	void rva001E6731();
 	void rva001E675A(IntPtrTree::iterator first, IntPtrTree::iterator last);
-	unsigned int rva001E71FA(const int &x);
+	unsigned int rva001E71FA(const int &key);
 };
 
 // 0x001E675A 68B: erase(first, last) over rva001E6731
@@ -198,12 +198,12 @@ void Rva001E6731::rva001E675A(IntPtrTree::iterator first, IntPtrTree::iterator l
 }
 
 // 0x001E71FA 73B: erase(const int &) over rva001E675A and map<int, int>'s equal_range
-unsigned int Rva001E6731::rva001E71FA(const int &x)
+unsigned int Rva001E6731::rva001E71FA(const int &key)
 {
-	_STL::pair<IntIntTree::iterator, IntIntTree::iterator> q = reinterpret_cast<IntIntTree *>(this)->equal_range(x);
-	unsigned int n = _STL::distance(reinterpret_cast<IntPtrTree::iterator &>(q.first), reinterpret_cast<IntPtrTree::iterator &>(q.second));
+	_STL::pair<IntIntTree::iterator, IntIntTree::iterator> q = reinterpret_cast<IntIntTree *>(this)->equal_range(key);
+	unsigned int count = _STL::distance(reinterpret_cast<IntPtrTree::iterator &>(q.first), reinterpret_cast<IntPtrTree::iterator &>(q.second));
 	rva001E675A(reinterpret_cast<IntPtrTree::iterator &>(q.first), reinterpret_cast<IntPtrTree::iterator &>(q.second));
-	return n;
+	return count;
 }
 
 class Rva00362AB5
@@ -247,12 +247,12 @@ public:
 class Rva001E7E78
 {
 public:
-	unsigned int rva001E7E78(const int &x);
+	unsigned int rva001E7E78(const int &key);
 };
 
-unsigned int Rva001E7E78::rva001E7E78(const int &x)
+unsigned int Rva001E7E78::rva001E7E78(const int &key)
 {
-	return reinterpret_cast<Rva001E6731 *>(this)->rva001E71FA(x);
+	return reinterpret_cast<Rva001E6731 *>(this)->rva001E71FA(key);
 }
 
 class Rva00362C9A
@@ -265,32 +265,32 @@ public:
 class Rva003899C4
 {
 public:
-	unsigned int rva003899C4(const int &x);
+	unsigned int rva003899C4(const int &key);
 };
 
-unsigned int Rva003899C4::rva003899C4(const int &x)
+unsigned int Rva003899C4::rva003899C4(const int &key)
 {
-	return reinterpret_cast<Rva00388EAE *>(this)->rva00389913(x);
+	return reinterpret_cast<Rva00388EAE *>(this)->rva00389913(key);
 }
 
 class Rva0047003C
 {
 public:
-	unsigned int rva0047003C(const int &x);
+	unsigned int rva0047003C(const int &key);
 };
 
-unsigned int Rva0047003C::rva0047003C(const int &x)
+unsigned int Rva0047003C::rva0047003C(const int &key)
 {
-	return reinterpret_cast<Rva002EE9B7 *>(this)->rva0046EDEF(x);
+	return reinterpret_cast<Rva002EE9B7 *>(this)->rva0046EDEF(key);
 }
 
 class Rva004E7E19
 {
 public:
-	unsigned int rva004E7E19(const int &x);
+	unsigned int rva004E7E19(const int &key);
 };
 
-unsigned int Rva004E7E19::rva004E7E19(const int &x)
+unsigned int Rva004E7E19::rva004E7E19(const int &key)
 {
-	return reinterpret_cast<Rva004E7B13 *>(this)->rva004E7D29(x);
+	return reinterpret_cast<Rva004E7B13 *>(this)->rva004E7D29(key);
 }

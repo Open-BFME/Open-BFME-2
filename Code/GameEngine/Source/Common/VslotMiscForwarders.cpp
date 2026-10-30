@@ -182,14 +182,14 @@ class Rva0025ED90Math
 public:
 	float rva0025ED90(float v);		// vtable 0x00BC7568 slot 133
 	float rva0025EDA1(float v);		// slot 134
-	float rva0025EDB2(float v);		// slot 135
-	float rva0025EDC3(float v);		// slot 136
+	float rva0025EDB2(float focalLength);		// slot 135
+	float rva0025EDC3(float focalLength);		// slot 136
 };
 
 float Rva0025ED90Math::rva0025ED90(float v) { return Rva004D6B9D(v); }
 float Rva0025ED90Math::rva0025EDA1(float v) { return Rva004D6B3A(v); }
-float Rva0025ED90Math::rva0025EDB2(float v) { return focalLengthToFovDegrees(v); }
-float Rva0025ED90Math::rva0025EDC3(float v) { return focalLengthToFov(v); }
+float Rva0025ED90Math::rva0025EDB2(float focalLength) { return focalLengthToFovDegrees(focalLength); }
+float Rva0025ED90Math::rva0025EDC3(float focalLength) { return focalLengthToFov(focalLength); }
 
 // --- Two members of `this` in a row, the second as a tail jump.
 #define BFME_TWO_CALLS(HOST, SLOT, FIRST, SECOND) \

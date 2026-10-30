@@ -33,10 +33,10 @@ public:
 
 void *Rva00223547::rva00223547(const void *obj)
 {
-	Rva00223547Node *n = (Rva00223547Node *)_STL::allocator<char>().allocate(12, 0);
-	n->_M_next = 0;
-	Rva00223168Construct(&n->_M_val, (const _STL::pair<const AsciiString, TreeHintRef00217D4C> *)obj);
-	return n;
+	Rva00223547Node *node = (Rva00223547Node *)_STL::allocator<char>().allocate(12, 0);
+	node->_M_next = 0;
+	Rva00223168Construct(&node->_M_val, (const _STL::pair<const AsciiString, TreeHintRef00217D4C> *)obj);
+	return node;
 }
 
 // ?rva0022356C@Rva0022356C@@QAEPAXPBX@Z @0x0022356C 37B
@@ -72,8 +72,8 @@ public:
 
 void *Rva0022356C::rva0022356C(const void *obj)
 {
-	Rva0022356CNode *n = (Rva0022356CNode *)_STL::allocator<char>().allocate(16, 0);
-	n->_M_next = 0;
-	_STL::_Construct(&n->_M_val, *(const BfmeStringRecord00222E08 *)obj);
-	return n;
+	Rva0022356CNode *node = (Rva0022356CNode *)_STL::allocator<char>().allocate(16, 0);
+	node->_M_next = 0;
+	_STL::_Construct(&node->_M_val, *(const BfmeStringRecord00222E08 *)obj);
+	return node;
 }

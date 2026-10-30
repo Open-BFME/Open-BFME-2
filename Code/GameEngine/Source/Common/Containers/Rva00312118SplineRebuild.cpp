@@ -25,9 +25,9 @@ extern "C" Rva00312118Point * __stdcall rva0062AFC8D3DXVec3CatmullRom(Rva0031211
 struct Rva00312118Vector {
  float x,y,z;
  Rva00312118Vector() {}
- Rva00312118Vector(const Rva00312118Point &v):x(v.x),y(v.y),z(v.z){}
+ Rva00312118Vector(const Rva00312118Point &point):x(point.x),y(point.y),z(point.z){}
  Rva00312118Vector(float a,float b,float c):x(a),y(b),z(c){}
- Rva00312118Vector(const Rva00312118Vector &v):x(v.x),y(v.y),z(v.z){}
+ Rva00312118Vector(const Rva00312118Vector &other):x(other.x),y(other.y),z(other.z){}
  __forceinline float length2() const { float squared=x*x; squared+=z*z; squared+=y*y; return squared; }
  __forceinline float length() const { return rva00312118Sqrt(length2()); }
 };
@@ -38,14 +38,14 @@ __forceinline Rva00312118Vector operator*(const Rva00312118Vector &a,float k) {r
 __forceinline Rva00312118Vector operator*(float k,const Rva00312118Vector &a) {return Rva00312118Vector(a.x*k,a.y*k,a.z*k);}
 __forceinline Rva00312118Point *rva00312118Interpolate(Rva00312118Point *out,const Rva00312118Point *pa,const Rva00312118Point *pb,const Rva00312118Point *pc,const Rva00312118Point *pd,float t,bool imported) {
  if(imported) return rva0062AFC8D3DXVec3CatmullRom(out,pa,pb,pc,pd,t);
- float t2=t*t;
- float t3=t*t2;
+ float tSquared=t*t;
+ float tCubed=t*tSquared;
  Rva00312118Vector a=*pa,b=*pb,c=*pc,d=*pd;
- Rva00312118Vector q0=2.0f*b;
- Rva00312118Vector q1=(c-a)*t;
- Rva00312118Vector q2=(2.0f*a-5.0f*b+4.0f*c-d)*t2;
- Rva00312118Vector q3=(3.0f*b-a-3.0f*c+d)*t3;
- Rva00312118Vector v=(q0+q1+q2+q3)*0.5f;
+ Rva00312118Vector term0=2.0f*b;
+ Rva00312118Vector term1=(c-a)*t;
+ Rva00312118Vector term2=(2.0f*a-5.0f*b+4.0f*c-d)*tSquared;
+ Rva00312118Vector term3=(3.0f*b-a-3.0f*c+d)*tCubed;
+ Rva00312118Vector v=(term0+term1+term2+term3)*0.5f;
  out->x=v.x; out->y=v.y; out->z=v.z;
  return out;
 }

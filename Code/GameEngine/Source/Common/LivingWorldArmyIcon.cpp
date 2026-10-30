@@ -472,12 +472,12 @@ float LivingWorldArmyIcon::rva003FE13E()
 {
 	float dist;
 	{
-		Coord2D d;
-		d.x = m_50;
-		d.y = m_54;
-		d.x -= m_18;
-		d.y -= m_1C;
-		dist = d.length();
+		Coord2D delta;
+		delta.x = m_50;
+		delta.y = m_54;
+		delta.x -= m_18;
+		delta.y -= m_1C;
+		dist = delta.length();
 	}
 	float cap = m_58;
 	if ((*(Rva0025CEEFHost **)&TheKeyboard)->isShift()) {

@@ -89,9 +89,9 @@ static __forceinline void poolAssert(const char *test, int line) {
   }
 }
 static __forceinline int poolStringSize(StringNode0070D9F0 *node) {
-  unsigned int a = (node->m_str.rva006D3750() + 12) & ~3;
-  unsigned int b = (node->m_str.rva006D3750() + 10) & ~3;
-  return a - b + 8;
+  unsigned int allocLength = (node->m_str.rva006D3750() + 12) & ~3;
+  unsigned int m_savedLength = (node->m_str.rva006D3750() + 10) & ~3;
+  return allocLength - m_savedLength + 8;
 }
 static __forceinline int poolSavedSize(StringNode0070D9F0 *node) {
   return ((node->m_str.rva006D3750() + 10) & ~3) + 8;

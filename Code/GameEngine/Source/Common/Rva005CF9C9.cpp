@@ -122,10 +122,10 @@ private:
 	Rva005CF9C9Mid *m_04;
 };
 
-void StrategicInGameUI::BattleResolver::Impl::PromptStateHandler::SendResolutionMethodMessage(int arg)
+void StrategicInGameUI::BattleResolver::Impl::PromptStateHandler::SendResolutionMethodMessage(int resolutionMethod)
 {
 	GameMessage *msg = TheMessageStream->CreateMessage(0x6a7);
-	msg->appendIntegerArgument(arg);
+	msg->appendIntegerArgument(resolutionMethod);
 	msg->appendIntegerArgument(m_04->m_14->m_30);
 }
 

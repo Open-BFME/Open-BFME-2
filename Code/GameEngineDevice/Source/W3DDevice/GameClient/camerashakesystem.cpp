@@ -171,8 +171,8 @@ MultiListObjectClass *Rva000658C5::rva000658CF()
 
 bool Rva00065E21::rva00065E21()
 {
-	for (Rva00065E21Node *p = m_head04.m_next04; p != &m_head04; p = p->m_next04) {
-		if (p->m_flag0C != 0)
+	for (Rva00065E21Node *node = m_head04.m_next04; node != &m_head04; node = node->m_next04) {
+		if (node->m_flag0C != 0)
 			return true;
 	}
 	return false;

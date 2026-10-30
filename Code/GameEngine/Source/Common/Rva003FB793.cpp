@@ -69,7 +69,7 @@ private:
 
 class LivingWorldEyeTower
 {
-    void rva003F936E(Rva003F936EHost *o, float *f);
+    void rva003F936E(Rva003F936EHost *host, float *f);
 };
 
 // BFME1 1399ad37 BfmeConv1318.cpp supplies the snapshot-before-write
@@ -93,13 +93,13 @@ void Rva003F936EHost::rva003FB793(Vec3 *out)
 	out->z = z;
 }
 
-void LivingWorldEyeTower::rva003F936E(Rva003F936EHost *o, float *f)
+void LivingWorldEyeTower::rva003F936E(Rva003F936EHost *host, float *f)
 {
-	if (o == 0)
+	if (host == 0)
 		return;
-	Vec3 tmp;
-	o->rva003FB793(&tmp);
-	tmp.x = f[0];
-	tmp.y = f[1];
-	o->vfunc7(&tmp);
+	Vec3 position;
+	host->rva003FB793(&position);
+	position.x = f[0];
+	position.y = f[1];
+	host->vfunc7(&position);
 }

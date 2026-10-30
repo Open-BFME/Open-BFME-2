@@ -106,9 +106,9 @@ class AptInteger {public:static AptValue *Create(int);};
 // ?AptValueGC::AptValueGC present-unmatched
 inline AptValueGC::AptValueGC(AptVirtualFunctionTable_Indices type):AptValue(type){}
 // ?AptValueWithHash::AptValueWithHash present-unmatched
-inline AptValueWithHash::AptValueWithHash(AptVirtualFunctionTable_Indices type,int n):AptValueGC(type),mNativeHash(n){}
+inline AptValueWithHash::AptValueWithHash(AptVirtualFunctionTable_Indices type,int nativeHash):AptValueGC(type),mNativeHash(nativeHash){}
 // ?AptObject::AptObject present-unmatched
-inline AptObject::AptObject(AptVirtualFunctionTable_Indices type,int n):AptValueWithHash(type,n){mnImplementedObjects=0;mbHasClass=0;mbIsInMainInst=0;}
+inline AptObject::AptObject(AptVirtualFunctionTable_Indices type,int nativeHash):AptValueWithHash(type,nativeHash){mnImplementedObjects=0;mbHasClass=0;mbIsInMainInst=0;}
 // The tag carries the pooled block size: retail's unwind funclet frees the
 // block with 0x20 through the sized pool free at 0x6F12F0.
 enum KeyObjectAllocation {keyObjectAllocation=sizeof(AptObject)};

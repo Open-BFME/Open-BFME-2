@@ -48,10 +48,10 @@ static bool __fastcall Rva005D8571Check(int dummy, Rva005D839BParam *player)
 	}
 	if (found == 0)
 	{
-		BfmeE8 tmp;
-		tmp.a = (unsigned int)player->m_54;
-		tmp.b = TheGameLogic->getFrame();
-		list.push_back(tmp);
+		BfmeE8 entry;
+		entry.a = (unsigned int)player->m_54;
+		entry.b = TheGameLogic->getFrame();
+		list.push_back(entry);
 		found = &list[list.size() - 1];
 	}
 	if (found->b <= TheGameLogic->getFrame())

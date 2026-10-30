@@ -144,10 +144,10 @@ class W3DDisplay
 {
 public:
 	void rva00044FD5(Bool on);
-	void rva00044FF2(Int x, Int y, Int setting);
+	void rva00044FF2(Int cellX, Int cellY, Int setting);
 	void rva00045086(Bool on);
-	void rva000450A3(Int a, Int b, Int c);
-	void rva000450CE(Int x, Int y);
+	void rva000450A3(Int cellX, Int cellY, Int level);
+	void rva000450CE(Int worldX, Int worldY);
 	void rva000453AC();
 	Bool rva000466FA();
 	void rva000466B9();
@@ -172,20 +172,20 @@ void W3DDisplay::rva00044FD5(Bool on)
 // native 44FF2..45086 RET12, W3DDisplay vtable 0x00BC3C80 slot body. ZH W3DDisplay::setShroudLevel
 // is the semantic guide (alpha selected by setting 2/1/else, terrain shroud
 // updated, render object notified); the target adds a taint-cell refresh.
-void W3DDisplay::rva00044FF2(Int x, Int y, Int setting)
+void W3DDisplay::rva00044FF2(Int cellX, Int cellY, Int setting)
 {
 	if (TheTerrainRenderObject && TheTerrainRenderObject->m_3878)
 	{
 		if (setting == 2)
-			((W3DShroud *)TheTerrainRenderObject->m_3878)->setShroudLevel(x, y, TheWritableGlobalData->m_shroudAlpha, false);
+			((W3DShroud *)TheTerrainRenderObject->m_3878)->setShroudLevel(cellX, cellY, TheWritableGlobalData->m_shroudAlpha, false);
 		else if (setting == 1)
-			((W3DShroud *)TheTerrainRenderObject->m_3878)->setShroudLevel(x, y, TheWritableGlobalData->m_fogAlpha, false);
+			((W3DShroud *)TheTerrainRenderObject->m_3878)->setShroudLevel(cellX, cellY, TheWritableGlobalData->m_fogAlpha, false);
 		else
-			((W3DShroud *)TheTerrainRenderObject->m_3878)->setShroudLevel(x, y, TheWritableGlobalData->m_clearAlpha, false);
+			((W3DShroud *)TheTerrainRenderObject->m_3878)->setShroudLevel(cellX, cellY, TheWritableGlobalData->m_clearAlpha, false);
 		((Rva000683DC *)TheTerrainRenderObject)->rva000683DC();
 		Rva000729CC *helper = TheTerrainRenderObject->m_387c;
 		if (helper && TheTaintManager)
-			helper->rva00073CC0(x, y, TheTaintManager->rva006C0840(x, y), true);
+			helper->rva00073CC0(cellX, cellY, TheTaintManager->rva006C0840(cellX, cellY), true);
 	}
 }
 
@@ -197,19 +197,19 @@ void W3DDisplay::rva00045086(Bool on)
 }
 
 // vtable 0x00BC3C80#79
-void W3DDisplay::rva000450A3(Int a, Int b, Int c)
+void W3DDisplay::rva000450A3(Int cellX, Int cellY, Int level)
 {
 	if (TheTerrainRenderObject && TheTerrainRenderObject->m_387c)
-		TheTerrainRenderObject->m_387c->rva00073CC0(a, b, c, 0);
+		TheTerrainRenderObject->m_387c->rva00073CC0(cellX, cellY, level, 0);
 }
 
 // vtable 0x00BC3C80#82
-void W3DDisplay::rva000450CE(Int x, Int y)
+void W3DDisplay::rva000450CE(Int worldX, Int worldY)
 {
 	if (TheTerrainRenderObject && TheTerrainRenderObject->m_387c && TheTaintManager)
 	{
-		Int cx = (Int)((float)x / TheTerrainRenderObject->m_387c->m_10);
-		Int cy = (Int)((float)y / TheTerrainRenderObject->m_387c->m_14);
+		Int cx = (Int)((float)worldX / TheTerrainRenderObject->m_387c->m_10);
+		Int cy = (Int)((float)worldY / TheTerrainRenderObject->m_387c->m_14);
 		Rva000729CC *p = TheTerrainRenderObject->m_387c;
 		p->rva00073CC0(cx, cy, TheTaintManager->rva006C0840(cx, cy), true);
 	}

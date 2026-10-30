@@ -54,9 +54,9 @@ struct Rva00422377Out { int x,y; };
 
 void Rva00422377Get(Rva00422377Out *out,Rva00422377In *in) {
  if(!in) { out->x=0; out->y=0; return; }
- float f=1.0f+2.0f*in->m_geometry.m_boundingCircleRadius;
+ float extent=1.0f+2.0f*in->m_geometry.m_boundingCircleRadius;
  Rva00422377Flag *flag=in->m_template;
- int y=(int)f;
+ int y=(int)extent;
  int x=y;
  if((flag->m_11F&4)!=0) {
   GeometryShape shape;

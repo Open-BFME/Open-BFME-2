@@ -68,8 +68,8 @@ bool MapCache::loadUserMaps(){
  filenamepattern.format("*.%s",getMapExtension().str());
  TheFileSystem->getFileListInDirectory(toplevelPattern,filenamepattern,filenameList,true);
  iter=filenameList.begin();while(iter!=filenameList.end()){
-  FileInfo fileInfo;AsciiString tempfilename;tempfilename=*iter;((StringBase<char> &)(tempfilename)).toLower();
-  const char*s=tempfilename.reverseFind('\\');
+  FileInfo fileInfo;AsciiString mapFileName;mapFileName=*iter;((StringBase<char> &)(mapFileName)).toLower();
+  const char*s=mapFileName.reverseFind('\\');
   if(s){
    AsciiString endingStr;AsciiString fname=s+1;
    for(unsigned i=0;i<strlen(".map");++i)fname.removeLastChar();
@@ -77,17 +77,17 @@ bool MapCache::loadUserMaps(){
    bool skipMap=false;
    if(TheWritableGlobalData->buildMapCache){_STL::set<AsciiString>::const_iterator sit=m_allowedMaps.find(fname);if(m_allowedMaps.size()!=0&&sit==m_allowedMaps.end())skipMap=true;}
    if(!skipMap){
-    if(!tempfilename.endsWithNoCase(endingStr.str())){
+    if(!mapFileName.endsWithNoCase(endingStr.str())){
      if(bfmeRva000387C0()){
       _bfme_debugRecordCallsite(1);((RvaLoadUserDebug*)theDebug)->beginReport();
-      const char*badname=tempfilename.str();const char*expected=fname.str();
+      const char*badname=mapFileName.str();const char*expected=fname.str();
       RvaLoadUserReport*out=((RvaLoadUserDebug*)theDebug)->getReport(0,0,0);
       (*out<<Debug::Format("Found map '%s' in wrong spot (%s)",expected,badname)).show(2);
      }
-    }else if(TheFileSystem->getFileInfo(tempfilename,&fileInfo)){
-     char funk[260];strcpy(funk,tempfilename.str());char*filenameptr=funk;char*cursor=funk;
+    }else if(TheFileSystem->getFileInfo(mapFileName,&fileInfo)){
+     char funk[260];strcpy(funk,mapFileName.str());char*filenameptr=funk;char*cursor=funk;
      while(*cursor!=0){if(*cursor=='\\'||*cursor=='/')filenameptr=cursor+1;++cursor;}
-     if(strlen(filenameptr)<0x50){m_seen[tempfilename].value=1;parsedAMap|=addMap(mapDir,*iter,&fileInfo,TheWritableGlobalData->buildMapCache);}
+     if(strlen(filenameptr)<0x50){m_seen[mapFileName].value=1;parsedAMap|=addMap(mapDir,*iter,&fileInfo,TheWritableGlobalData->buildMapCache);}
     }
    }
   }

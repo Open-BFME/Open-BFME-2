@@ -50,7 +50,7 @@ public:
 	bool rva002C95F0() const;
 	void rva002C95DE(int offset);
 	void rva002C959E();
-	bool rva002C969D(const void *a, int b);
+	bool rva002C969D(const void *target, int b);
 	bool rva002C9586();
 	bool rva002C96D8();
 
@@ -117,12 +117,12 @@ void Weapon::rva002C95DE(int offset)
 int __cdecl GetGameLogicRandomValue(int lo, int hi, char *file, int line);
 void Weapon::rva002C959E()
 {
-	int v;
+	int randomValue;
 	if (m_template->m_preAttackRandomAmount)
-		v = GetGameLogicRandomValue(0, m_template->m_preAttackRandomAmount, (char *)"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Weapon.cpp", 3644);
+		randomValue = GetGameLogicRandomValue(0, m_template->m_preAttackRandomAmount, (char *)"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Weapon.cpp", 3644);
 	else
-		v = 0;
-	m_58 = v;
+		randomValue = 0;
+	m_58 = randomValue;
 }
 
 // ?rva002C969D@Weapon@@QAE_NPBXH@Z, retail 0x002C969D, 59 bytes.
@@ -142,13 +142,13 @@ public:
     virtual void v32(); virtual void v33(); virtual void v34(); virtual void v35();
     virtual void v36(); virtual void v37(); virtual bool v38(const void *a, int b, int c);
 };
-bool Weapon::rva002C969D(const void *a, int b)
+bool Weapon::rva002C969D(const void *target, int b)
 {
     if (!m_template->m_157)
         return false;
     if (!b)
         return false;
-    const Rva002C969DTarget *t = (const Rva002C969DTarget *)a;
+    const Rva002C969DTarget *t = (const Rva002C969DTarget *)target;
     if (!t)
         return false;
     Rva002C969DVtab *v = *(Rva002C969DVtab *const *)((const char *)t + 0x250);

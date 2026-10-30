@@ -12,7 +12,7 @@ class Rva0007E02A { public:void *rva0007E02A(void *); };
 class Rva0030D111Shape { public:virtual int count(); virtual void pointLookup(); virtual int planeHeight(); };
 struct Rva0030D111Point : Coord2D {
  Rva0030D111Point() {}
- Rva0030D111Point(const Rva0030D111Point &r) { x=r.x;y=r.y; }
+ Rva0030D111Point(const Rva0030D111Point &source) { x=source.x;y=source.y; }
 };
 __declspec(noinline) void Rva0030B343Swap(Rva0030D111Point &a,Rva0030D111Point &b) {
  Rva0030D111Point t(a);a=b;b=t;

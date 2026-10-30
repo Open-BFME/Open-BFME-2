@@ -46,36 +46,36 @@ void Rva003F3F03::rva003F2F24()
 	{
 		_STL::vector<BfmeE8> &points = i == 0 ? m_e4 : m_f0;
 		int count = points.size();
-		float d = ((Rva003F2F24ManagerView *)TheLivingWorldManager)->m_f4 * 0.707f;
+		float offset = ((Rva003F2F24ManagerView *)TheLivingWorldManager)->m_f4 * 0.707f;
 		for (int pass = 0; pass < 5; ++pass)
 		{
 			for (int j = 0; j < count; ++j)
 			{
 				const Rva003F2F24Point *src = (const Rva003F2F24Point *)&points[j];
 				{
-					Rva003F2F24Point p;
-					p.x = src->x;
-					p.y = src->y;
+					Rva003F2F24Point point;
+					point.x = src->x;
+					point.y = src->y;
 					switch (pass % 4)
 					{
 					case 0:
-						p.x += d;
-						p.y -= d;
+						point.x += offset;
+						point.y -= offset;
 						break;
 					case 1:
-						p.x -= d;
-						p.y -= d;
+						point.x -= offset;
+						point.y -= offset;
 						break;
 					case 2:
-						p.x += d;
-						p.y += d;
+						point.x += offset;
+						point.y += offset;
 						break;
 					case 3:
-						p.x -= d;
-						p.y += d;
+						point.x -= offset;
+						point.y += offset;
 						break;
 					}
-					points.push_back(*(BfmeE8 *)&p);
+					points.push_back(*(BfmeE8 *)&point);
 				}
 			}
 		}

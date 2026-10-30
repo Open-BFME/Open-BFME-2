@@ -82,14 +82,14 @@ class Rva0051847B
 {
 public:
 	void rva0051847B(Int a);
-	Int rva00518557(Int msg, unsigned char b, Int c);
+	Int rva00518557(Int msg, unsigned char b, Int flags);
 private:
 	char m_pad00[0x274];
 	void *m_274;
 	char m_pad278[0x04];
 	Int m_27C;
 };
-Int Rva0051847B::rva00518557(Int msg, unsigned char b, Int c)
+Int Rva0051847B::rva00518557(Int msg, unsigned char b, Int flags)
 {
 	if (msg != 0x15)
 		return 0;
@@ -100,7 +100,7 @@ Int Rva0051847B::rva00518557(Int msg, unsigned char b, Int c)
 	default:
 		return 0;
 	}
-	if (c & 1)
+	if (flags & 1)
 	{
 		switch (m_27C)
 		{

@@ -19,7 +19,7 @@ struct Rva000443BALight {
  char pad[0xd4]; Rva000443BAVec ambient,diffuse,specular;
  void setAmbient(const Rva000443BAVec &v) { ambient=v; }
  void setDiffuse(const Rva000443BAVec &v) { diffuse=v; }
- void setDiffuse(float r,float g,float b){diffuse.x=r;diffuse.y=g;diffuse.z=b;}
+ void setDiffuse(float red,float green,float blue){diffuse.x=red;diffuse.y=green;diffuse.z=blue;}
  void setSpecular(const Rva000443BAVec &v) { specular=v; }
 };
 struct Rva000443BARow { float ambient[3],diffuse[3],position[3]; };

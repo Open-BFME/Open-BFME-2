@@ -91,27 +91,27 @@ class Rva0052936C
 void Rva0052936C::rva005294FC(int index)
 
 {
- Elem14 *e = &m_64[index];
- e->m_0C.clear();
- e->m_10 = 0;
- if (!e->m_00)
+ Elem14 *slot = &m_64[index];
+ slot->m_0C.clear();
+ slot->m_10 = 0;
+ if (!slot->m_00)
  return;
  BfmeWorldRV *world = ((BfmeWorldRV *)TheControlBar);
  GameWindow *win = world->m_windows[index];
  if (!win)
  return;
  void *data = GadgetButtonGetData(win);
- e->m_10 = data;
+ slot->m_10 = data;
  if (!data)
  return;
  DataBody *dataBody = (DataBody *)data;
  if (dataBody->m_102 == 0)
  return;
- TargetRef00217D4C *tmp;
- if (dataBody->m_14 == 0x39 && e->m_04 != 0 && e->m_08 != 0)
- tmp = new Rva005685EE(((&(e->m_00)) ? (e->m_00) : (e->m_00)), win, m_30);
+ TargetRef00217D4C *targetRef;
+ if (dataBody->m_14 == 0x39 && slot->m_04 != 0 && slot->m_08 != 0)
+ targetRef = new Rva005685EE(((&(slot->m_00)) ? (slot->m_00) : (slot->m_00)), win, m_30);
  else
- tmp = new Rva005C3549(((&(e->m_00)) ? (e->m_00) : (e->m_00)), win, m_30);
- e->m_0C.set(tmp);
+ targetRef = new Rva005C3549(((&(slot->m_00)) ? (slot->m_00) : (slot->m_00)), win, m_30);
+ slot->m_0C.set(targetRef);
  
 }

@@ -30,7 +30,7 @@ template <class T1, class T2> struct pair
 class Rva002BF75A
 {
 public:
-	void rva002BF75A(void *p);
+	void rva002BF75A(void *node);
 	void rva002BF7BE();
 private:
 	void *m_unused00;
@@ -40,12 +40,12 @@ private:
 	unsigned int m_numElements;
 };
 
-void Rva002BF75A::rva002BF75A(void *p)
+void Rva002BF75A::rva002BF75A(void *node)
 {
 	typedef _STL::pair<const AsciiString, TreeHintRef002BF0D6> Pair;
-	((Pair *)((char *)p + 4))->~Pair();
-	if (p)
-		free(p);
+	((Pair *)((char *)node + 4))->~Pair();
+	if (node)
+		free(node);
 }
 
 // ?rva002BF7BE@Rva002BF75A@@QAEXXZ @0x002BF7BE 73B chain clear via rowed 0x002BF75A plus callers 0x002BFA62 0x002BFD81 plus same shape as rowed Rva00223591 clear.
@@ -69,7 +69,7 @@ void Rva002BF75A::rva002BF7BE()
 // @0x002BF388 9B: mov ecx [esp+4] then tail jmp to the rowed pair dtor
 // 0x002BF0D6; _Destroy-shaped (same shape as the rowed 0x0022D27E thunks).
 // The STLport identity is inferred from the shape; the name stays address-derived.
-void Rva002BF388Destroy(_STL::pair<const AsciiString, TreeHintRef002BF0D6> *p)
+void Rva002BF388Destroy(_STL::pair<const AsciiString, TreeHintRef002BF0D6> *entry)
 {
-	p->~pair();
+	entry->~pair();
 }

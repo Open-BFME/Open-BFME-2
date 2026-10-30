@@ -78,7 +78,7 @@ void Rva00542225::rva00542067()
 		int key = *(int *)((char *)vec->m_begin + 28);
 		((Rva00541579 *)this)->rva00541883(key);
 	}
-	Rva00540FCB tmp;
-	tmp.m_00 = 0;
-	((_STL::vector<Rva00541021, _STL::allocator<Rva00541021> > *)&m_vec10)->push_back(reinterpret_cast<const Rva00541021 &>(tmp));
+	Rva00540FCB defaultEntry;
+	defaultEntry.m_00 = 0;
+	((_STL::vector<Rva00541021, _STL::allocator<Rva00541021> > *)&m_vec10)->push_back(reinterpret_cast<const Rva00541021 &>(defaultEntry));
 }

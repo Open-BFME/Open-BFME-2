@@ -23,15 +23,15 @@ bool StrategicHUD::GetBonusTypeFromParam(const char *params, int *out)
 {
 	if (params == 0)
 		return false;
-	AsciiString tmp;
-	if (!Rva004128F0GetParam(params, "index", tmp))
+	AsciiString indexText;
+	if (!Rva004128F0GetParam(params, "index", indexText))
 		return false;
-	char *buffer = *(char * *)(void *)&tmp;
+	char *buffer = *(char * *)(void *)&indexText;
 	if (buffer == 0 || *(unsigned short *)(buffer + 4) == 0)
 		return false;
 	if (!isdigit(buffer[8]))
 		return false;
-	int v = atoi(GetStr005F1A5F(tmp));
+	int v = atoi(GetStr005F1A5F(indexText));
 	if (v < 0 || v >= 6)
 		return false;
 	*out = v;

@@ -248,7 +248,7 @@ public:
 	virtual void v06();	// slot 6 (unrecovered; declared only)
 	virtual bool v07(int p);	// slot 7: gate on the int param (name unrecovered; declared only)
 		void rva004FA9B1(int index);
-	bool rva004FAEAA(ScienceType p);
+	bool rva004FAEAA(ScienceType science);
 	bool rva004FA5E4(const Rva004FA5D4Source *source);	// slot 6
 	bool rva004FA5D4(const Rva004FA5D4Source *source);	// slot 8
 
@@ -419,24 +419,24 @@ struct Rva004FAEAASeen
 	unsigned int count;	// +0x14 reserve count seen through *(this-4)
 };
 
-bool Rva004FA992Owner::rva004FAEAA(ScienceType p)
+bool Rva004FA992Owner::rva004FAEAA(ScienceType science)
 {
 	Rva004FA953Notify notify = reinterpret_cast<Rva004FA953Notify>(&Rva0042C0DBDelegate::invokeMessage);
-	if (!v07(p))
+	if (!v07(science))
 		return false;
 	_STL::vector<ObjectID> *ids = &m_ids;
 	if (ids->empty())
 		m_20 &= 0;
 	Rva004FAEAASeen *seen = *(Rva004FAEAASeen **)((char *)this - 4);
 	((_STL::vector<ScienceType> *)ids)->reserve(seen->count);
-	((_STL::vector<ScienceType> *)ids)->push_back(p);
+	((_STL::vector<ScienceType> *)ids)->push_back(science);
 	((LivingWorldBuildingNuggetSpawnArmy *)((char *)this - 12))->rva004FA659();
 	((Rva004FA992 *)this)->rva004FA992(notify, ((char *)this - 12) ? this : 0, m_ids.size() - 1);
 	Rva002E2903Player *player = ((LivingWorldBuildingNuggetSpawnArmy *)((char *)this - 12))->getOwningPlayer();
 	if (player)
 	{
 		SpawnArmy tmp(0);
-		if (checkId((ObjectID)p, &tmp))
+		if (checkId((ObjectID)science, &tmp))
 			((Rva002E074E *)player)->rva002E074E((SpawnArmy *)&tmp);
 	}
 	return true;

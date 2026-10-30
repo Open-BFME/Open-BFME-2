@@ -170,12 +170,12 @@ public:
 // in each arm (cl merges them after the flag split's null test).
 void Rva0047A040Base9E0::rva00588BA8(Object *obj, bool flag)
 {
-	if (Rva00270260 *d = (Rva00270260 *)obj->getDrawable()) {
+	if (Rva00270260 *drawable = (Rva00270260 *)obj->getDrawable()) {
 		if (!flag) {
-			if (d->rva00270260() == true && obj->m_454 == 0)
+			if (drawable->rva00270260() == true && obj->m_454 == 0)
 				obj->rva0028DCC4();
 		} else {
-			if (!d->rva00270260() && obj->m_454 != 0)
+			if (!drawable->rva00270260() && obj->m_454 != 0)
 				obj->rva0028BAC0();
 		}
 	}
@@ -231,20 +231,20 @@ Object *Rva0047A040Base9E0::rva00588C4E(void *contain, const Coord3D *pos)
 
 void Rva0047A040Base9E0::rva00588E44(void *contain)
 {
-	Rva00588E44Contain *c = (Rva00588E44Contain *)((char *)contain + 0x20);
-	IntList items = c->slot118().rva0036AE51();
+	Rva00588E44Contain *containInterface = (Rva00588E44Contain *)((char *)contain + 0x20);
+	IntList items = containInterface->slot118().rva0036AE51();
 	for (IntList::iterator it = items.begin(); it != items.end(); ++it) {
 		Rva00588E44Contain *member = (Rva00588E44Contain *)rva00588B8A((void *)containmentFirstWord(*it));
 		if (member != 0) {
 			IntList inner = member->slot108().rva0036AE51();
 			for (IntList::iterator jt = inner.begin(); jt != inner.end(); ++jt) {
-				c->slotA4((Object *)containmentFirstWord(*jt), false);
+				containInterface->slotA4((Object *)containmentFirstWord(*jt), false);
 				((Object *)containmentFirstWord(*jt))->rva0029004B();
 				((Object *)containmentFirstWord(*jt))->kill(DAMAGE_TYPE_8, DEATH_TYPE_0);
 				((Object *)containmentFirstWord(*jt))->getDrawable()->setDrawableHidden(true);
 			}
 		} else {
-			c->slotA4((Object *)containmentFirstWord(*it), false);
+			containInterface->slotA4((Object *)containmentFirstWord(*it), false);
 			((Object *)containmentFirstWord(*it))->rva0029004B();
 			((Object *)containmentFirstWord(*it))->kill(DAMAGE_TYPE_8, DEATH_TYPE_0);
 			((Object *)containmentFirstWord(*it))->getDrawable()->setDrawableHidden(true);

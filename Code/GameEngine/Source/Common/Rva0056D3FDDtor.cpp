@@ -49,7 +49,7 @@ class Rva0056D3FD : public Rva00539926Base
 {
 public:
 	Rva0056D3FD(const UnicodeString &a, const UnicodeString &b,
-		const UnicodeString &c, const UnicodeString &d, const AsciiString &e);
+		const UnicodeString &c, const UnicodeString &d, const AsciiString &imageSuffix);
 	virtual ~Rva0056D3FD();
 
 private:
@@ -68,7 +68,7 @@ Rva0056D3FD::~Rva0056D3FD()
 // The former all-narrow prototype was a4B consumed view; callers now use
 // the proper wide types. The opaque outer owner name is retained.
 Rva0056D3FD::Rva0056D3FD(const UnicodeString &a, const UnicodeString &b,
-	const UnicodeString &c, const UnicodeString &d, const AsciiString &e)
-	: Rva00539926Base((Rva00539926Base::BfmeNoInitHelp())), m_08(new InGameCommandButtonHelp::Impl(this, a, b, c, d, e))
+	const UnicodeString &c, const UnicodeString &d, const AsciiString &imageSuffix)
+	: Rva00539926Base((Rva00539926Base::BfmeNoInitHelp())), m_08(new InGameCommandButtonHelp::Impl(this, a, b, c, d, imageSuffix))
 {
 }

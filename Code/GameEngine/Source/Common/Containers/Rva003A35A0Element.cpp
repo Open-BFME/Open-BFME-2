@@ -44,7 +44,7 @@ struct Rva00311FE2Words {
     // ?Rva00311FE2Words::Rva00311FE2Words absent-from-retail
     Rva00311FE2Words() {}
     // ?Rva00311FE2Words::Rva00311FE2Words present-unmatched
-    Rva00311FE2Words(const Rva00311FE2Words& s) {word00=s.word00;word04=s.word04;word08=s.word08;}
+    Rva00311FE2Words(const Rva00311FE2Words& source) {word00=source.word00;word04=source.word04;word08=source.word08;}
 };
 struct Rva00311431Arg;
 struct Rva003A35A0Element {
@@ -60,9 +60,9 @@ struct Rva003A35A0Element {
 };
 // Emit the compiler-generated memberwise copy; this anchor has no retail row.
 // ?emitRva00311FE2Copy present-unmatched
-void emitRva00311FE2Copy(Rva003A35A0Element* p,const Rva003A35A0Element* s)
+void emitRva00311FE2Copy(Rva003A35A0Element* destination,const Rva003A35A0Element* source)
 {
-    new(p) Rva003A35A0Element(*s);
+    new(destination) Rva003A35A0Element(*source);
 }
 // Emit the independently verified compiler-generated memberwise assignment.
 Rva003A35A0Element& (Rva003A35A0Element::*emitRva00311537Assign)(const Rva003A35A0Element&)=&Rva003A35A0Element::operator=;

@@ -22,9 +22,9 @@ public:
 	virtual ~DamageNugget();
 	virtual bool v1(void *a, void *b);
 	virtual bool rva00507943(const void *a, int b);
-	virtual void rva0050797D(void *a, void *b);
+	virtual void rva0050797D(void *source, void *target);
 	virtual void v4(void *a, void *b);
-	virtual void rva00507991(void *a, void *b);
+	virtual void rva00507991(void *source, void *target);
 	virtual void v6(void *a, void *b);
 	virtual void pad07();
 	virtual void pad08();
@@ -40,15 +40,15 @@ private:
 	float m_130;
 };
 
-void DamageNugget::rva00507991(void *a, void *b)
+void DamageNugget::rva00507991(void *source, void *target)
 {
 	if (m_130 == 0.0f) {
-		if (v1(a, b)) {
-			v14(a, b, 0);
+		if (v1(source, target)) {
+			v14(source, target, 0);
 		}
 	}
 	if (m_130 > 0.0f) {
-		v6(a, (char *)b + 0x38);
+		v6(source, (char *)target + 0x38);
 	}
 }
 
@@ -61,7 +61,7 @@ bool DamageNugget::rva00507943(const void *a, int b)
 
 // Slot 3 (0x0050797D; also 0x00864C44 and 0x008650C4): slot 4 on the
 // second argument's +0x38, the same hand-off rva00507991 makes to slot 6.
-void DamageNugget::rva0050797D(void *a, void *b)
+void DamageNugget::rva0050797D(void *source, void *target)
 {
-	v4(a, (char *)b + 0x38);
+	v4(source, (char *)target + 0x38);
 }

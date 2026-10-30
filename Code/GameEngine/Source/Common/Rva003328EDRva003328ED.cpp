@@ -64,7 +64,7 @@ public:
 class Rva003328ED
 {
 public:
-	void rva003328ED(void *x, int k1, int k2);
+	void rva003328ED(void *x, int nameKey1, int nameKey2);
 
 private:
 	void *m_unk0;
@@ -83,26 +83,26 @@ namespace _STL { template <> void vector<Rva003328B6Element,_STL::allocator<Rva0
 namespace _STL { template <> void vector<Rva003328B6Element,_STL::allocator<Rva003328B6Element> >::_M_insert_overflow(Rva003328B6Element *,Rva003328B6Element const &,_STL::__false_type const &,unsigned int,bool); }
 namespace _STL { template <> void vector<Rva003328B6Element,_STL::allocator<Rva003328B6Element> >::push_back(Rva003328B6Element const &); }
 // bfme link decl-only end
-void Rva003328ED::rva003328ED(void *x, int k1, int k2)
+void Rva003328ED::rva003328ED(void *x, int nameKey1, int nameKey2)
 {
-	Rva003328B6Element *p = m_vec.begin();
+	Rva003328B6Element *element = m_vec.begin();
 	bool found = false;
 	do
 	{
-		if (p == m_vec.end())
+		if (element == m_vec.end())
 			break;
-		if (p->m_key1 == k1 && p->m_key2 == k2)
+		if (element->m_key1 == nameKey1 && element->m_key2 == nameKey2)
 		{
-			((Rva003320C7ListOwner *)p)->appendIfAbsent(x);
+			((Rva003320C7ListOwner *)element)->appendIfAbsent(x);
 			found = true;
 		}
-		++p;
+		++element;
 	} while (!found);
 	// Codegen: this barrier fixes the native statement/schedule order (found by a per-statement barrier sweep).
 	_ReadWriteBarrier();
 	if (found != false)
 		return;
-	Rva00331EAD tmp(k1, k2);
+	Rva00331EAD tmp(nameKey1, nameKey2);
 	m_vec.push_back(*(Rva003328B6Element *)&tmp);
 	Rva003328B6Element *plast = m_vec.end();
 	--plast;

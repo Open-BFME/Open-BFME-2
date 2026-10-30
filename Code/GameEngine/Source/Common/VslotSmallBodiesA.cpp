@@ -196,9 +196,9 @@ void Rva0008BB5C::rva0008BB5C(Real value) { m_50 = value; }
 class Rva003F7133
 {
 public:
-	Bool rva003F7133(Int a, Int b);
+	Bool rva003F7133(Int lhs, Int rhs);
 };
-Bool Rva003F7133::rva003F7133(Int a, Int b) { return a == b ? true : false; }
+Bool Rva003F7133::rva003F7133(Int lhs, Int rhs) { return lhs == rhs ? true : false; }
 
 // vtable 0x00BF6040#32 and #33: set or clear the byte at +0x12134 of the
 // object at +0xC, if any.

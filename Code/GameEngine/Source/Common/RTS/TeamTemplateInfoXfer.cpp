@@ -98,17 +98,17 @@ void TeamTemplateInfo::xfer(Xfer *xfer)
 	if ((int)m_1ac != -1)
 	{
 		*xfer == m_numUnits;
-		int n = 0;
-		n &= 0;
+		int unitIndex = 0;
+		unitIndex &= 0;
 		if ((unsigned int)m_numUnits > 0)
 		{
 			Rva0039D533 *elem = m_units;
 			do
 			{
 				elem->rva0039D533((Rva0039D533Src *)xfer);
-				++n;
+				++unitIndex;
 				elem = (Rva0039D533 *)((char *)elem + 0x18);
-			} while ((unsigned int)n < (unsigned int)m_numUnits);
+			} while ((unsigned int)unitIndex < (unsigned int)m_numUnits);
 		}
 	}
 	if (version.m_minimum >= 3)

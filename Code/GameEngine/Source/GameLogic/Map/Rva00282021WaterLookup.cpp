@@ -23,7 +23,7 @@ struct Rva00282021Slot {
 struct Rva00282021Store;
 struct Rva00282021Cursor {
     Rva00282021Cursor(Rva00282021Store *s, int i) : store(s), index(i) {}
-    Rva00282021Cursor(const Rva00282021Cursor &x) : store(x.store), index(x.index) {}
+    Rva00282021Cursor(const Rva00282021Cursor &other) : store(other.store), index(other.index) {}
     Rva00282021Store *store;
     int index;
 };

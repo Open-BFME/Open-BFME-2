@@ -47,15 +47,15 @@ void Rva002D7FAEOwner::rva002D7FAE(Object *obj)
 	Player *player = obj->getControllingPlayer();
 	if (player == 0)
 		return;
-	Rva002D7FAENode *n = m_14;
-	while (n != 0) {
-		if (n->m_04 == obj)
+	Rva002D7FAENode *node = m_14;
+	while (node != 0) {
+		if (node->m_04 == obj)
 			goto FOUND;
-		n = n->m_08;
+		node = node->m_08;
 	}
 	return;
 FOUND:
-	n->m_0c = rva002D7BFD(player->m_280);
+	node->m_0c = rva002D7BFD(player->m_280);
 }
 
 
@@ -79,9 +79,9 @@ RGB_To_HSV(vectors.hsv,vectors.rgb);
 vectors.hsv.Y*=1.6f;
 if(vectors.hsv.Y>1.0f)vectors.hsv.Y=1.0f;
 HSV_To_RGB(vectors.rgb,vectors.hsv);
-unsigned char a=(unsigned char)(alpha*255.0f);
-unsigned char r=(unsigned char)(vectors.rgb.X*255.0f);
-unsigned char g=(unsigned char)(vectors.rgb.Y*255.0f);
-unsigned char b=(unsigned char)(vectors.rgb.Z*255.0f);
-return (a<<24)|(r<<16)|(g<<8)|b;
+unsigned char alphaByte=(unsigned char)(alpha*255.0f);
+unsigned char redByte=(unsigned char)(vectors.rgb.X*255.0f);
+unsigned char greenByte=(unsigned char)(vectors.rgb.Y*255.0f);
+unsigned char blueByte=(unsigned char)(vectors.rgb.Z*255.0f);
+return (alphaByte<<24)|(redByte<<16)|(greenByte<<8)|blueByte;
 }

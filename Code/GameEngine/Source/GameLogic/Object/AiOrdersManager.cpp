@@ -171,9 +171,9 @@ bool Rva00355B61::rva003552C2(NameKeyType key)
 		return false;
 	ArmorListNode *head = ((ArmorTemplate *)armorTemplate)->m_head;
 	ArmorListNode *first = head->m_next;
-	const ArmorTemplate *t2 = rva00355155((NameKeyType)first->m_8);
-	if (t2) {
-		((ArmorTemplate *)t2)->vslot10(key);
+	const ArmorTemplate *otherArmorTemplate = rva00355155((NameKeyType)first->m_8);
+	if (otherArmorTemplate) {
+		((ArmorTemplate *)otherArmorTemplate)->vslot10(key);
 		return true;
 	}
 	return false;
