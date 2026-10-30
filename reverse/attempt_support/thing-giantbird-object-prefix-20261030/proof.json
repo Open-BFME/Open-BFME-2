@@ -1,0 +1,278 @@
+{
+  "source": "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIGiantBirdAttackStateOnEnter.cpp",
+  "scope": "adopt canonical Thing 0x60-byte base, remove overlapping Object position at38/padding, preserve transform8 and ID74 and every later field",
+  "variants": {
+    "before": {
+      "source_sha256": "904ccd59cc3acdec8ab658147f10d8396c4d85663342eecc7a4e5baf0adf716b",
+      "rows": [
+        {
+          "name": "?onEnter@AIGiantBirdAttackState@@UAE?AW4StateReturnType@@XZ",
+          "rva": "0x003699CA",
+          "size": "1059",
+          "exact": true
+        },
+        {
+          "name": "?onExit@AIGiantBirdAttackState@@UAEXW4StateExitType@@@Z",
+          "rva": "0x0036939B",
+          "size": "111",
+          "exact": true
+        },
+        {
+          "name": "?update@AIGiantBirdAttackState@@UAE?AW4StateReturnType@@XZ",
+          "rva": "0x00369DED",
+          "size": "182",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?onEnter@AIGiantBirdAttackState@@UAE?AW4StateReturnType@@XZ",
+          "rva": "0x0077E499",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "$L3279",
+          "rva": "0x0077E48C",
+          "size": "13",
+          "exact": true
+        },
+        {
+          "name": "$L3278",
+          "rva": "0x0077E484",
+          "size": "8",
+          "exact": true
+        }
+      ],
+      "eh": [
+        {
+          "name": "?onEnter@AIGiantBirdAttackState@@UAE?AW4StateReturnType@@XZ",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        }
+      ]
+    },
+    "trial": {
+      "source_sha256": "d1f4ad0167c435ce93962cbab0bb7f4223717fc582c243cede920ae369cc1ca8",
+      "rows": [
+        {
+          "name": "?onEnter@AIGiantBirdAttackState@@UAE?AW4StateReturnType@@XZ",
+          "rva": "0x003699CA",
+          "size": "1059",
+          "exact": true
+        },
+        {
+          "name": "?onExit@AIGiantBirdAttackState@@UAEXW4StateExitType@@@Z",
+          "rva": "0x0036939B",
+          "size": "111",
+          "exact": true
+        },
+        {
+          "name": "?update@AIGiantBirdAttackState@@UAE?AW4StateReturnType@@XZ",
+          "rva": "0x00369DED",
+          "size": "182",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?onEnter@AIGiantBirdAttackState@@UAE?AW4StateReturnType@@XZ",
+          "rva": "0x0077E499",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "$L3279",
+          "rva": "0x0077E48C",
+          "size": "13",
+          "exact": true
+        },
+        {
+          "name": "$L3278",
+          "rva": "0x0077E484",
+          "size": "8",
+          "exact": true
+        }
+      ],
+      "eh": [
+        {
+          "name": "?onEnter@AIGiantBirdAttackState@@UAE?AW4StateReturnType@@XZ",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        }
+      ]
+    }
+  },
+  "new_native_compiler_definitions": [
+    {
+      "name": "??_H@YGXPAXIHP6EPAX0@Z@Z",
+      "rva": "0x00001423",
+      "size": "34",
+      "existing_owner": "Code/Libraries/Source/ATL/atl_vector_constructor_iterator.cpp",
+      "raw": "8b44240c487818568b742408578d78018bceff542418037424104f75f35f5ec21000",
+      "exact": true
+    }
+  ],
+  "all_external_code_and_symbolic_relocations_identical": false,
+  "all_retained_external_code_and_symbolic_relocations_identical": true,
+  "actual": {
+    "source_sha256": "6743b49cfa3161c23f4b204c1fb6a3ee0994b27cedcb88280bd7e016617c8d25",
+    "object_sha256": "e5361f51088c14f99d598afacf33d5c844b94e593612d6ec27a9078af1f138d2",
+    "strict_current": true,
+    "external_code_definitions_and_relocations_identical": 31
+  },
+  "external_definition_sha256": {
+    "??0AsciiString@@QAE@PBD@Z": "59040a0cd1b71d7436c9407fe338f4582312037d9c6c4662a6ec15191c48f704",
+    "??1AsciiString@@QAE@XZ": "815f3a6781bf2eba8e6e1b895564b6e3dc016ae58637181fbd815a1e3cfe433e",
+    "??4AsciiString@@QAEAAV0@ABV0@@Z": "3324be277c169fb49209814b96f061157d574c7d2d214a98777dce1631418560",
+    "??_H@YGXPAXIHP6EPAX0@Z@Z": "c2cdf51983b44d4d89b753e69bc937f51139cdba5f0dea5537c8a8ee8ccde065",
+    "?bfme_weapon_speed@WeaponTemplate@@QBEMXZ": "2f9bd134528af923ec564bb8501f876c191e158f0dab5138576c75c5b929dfdc",
+    "?clear@GiantBirdAttackConditionBits@@QAEXH@Z": "d4e2146e07fbfec2c52848faedd5bbe6b6da257b068acacc26fd6107f91dc0af",
+    "?clearModelConditionBit@Object@@QAEXH@Z": "a956be6ec694625f391e3cd218667c5ea2f55756e2648548fdf09e0e6c3c9a86",
+    "?getAI@Object@@QBEPAVAIUpdateInterface@@XZ": "41a7e463f41183bc43d6da575193443daa84ba19703acb970f7f838a757fa92a",
+    "?getContain@Object@@QBEPAVContainModuleInterface@@XZ": "68be8eac0b5b20741e4b4c85fe4c85b485a68e907dd8118abc7578deaf8820fb",
+    "?getContainedBy@Object@@QBEPAV1@XZ": "da20066b1df5819d10c42c651e3addd016c886e2f5774a249f642aacab141bf2",
+    "?getDistanceSquared@Object@@QBEMPBUCoord3D@@@Z": "46c7fbe3a91781443b2ff6e3facc9f67da14c3b43909f9b1107e245ddefa0553",
+    "?getFireFX@WeaponTemplate@@QBEPBVFXList@@XZ": "24337fbe51d3c8204bfa594964caf357fb4c9626f95a81df7df7af9cf759008c",
+    "?getFlag157@WeaponTemplate@@QBE_NXZ": "79168fc6d07035114767d2501dded40e7e2742498e9a0ef5f204766c44cbc90a",
+    "?getID@Object@@QBE?AW4ObjectID@@XZ": "7e0389c95a000a6fe91b7286c66f1bd472f413d7453036d1431bd10f5531291d",
+    "?getMachineOwner@State@@IBEPAVObject@@XZ": "c97bff89dcf7810d82432827a41d614d342c0e963117d344322ceb2f8e1a084a",
+    "?getModuleData@Module@@IBEPBVModuleData@@XZ": "50ec2995c3ef0d616ddbe247f0c0e4bea2bca9396923d38b6adc97efe1a58f1c",
+    "?getObjectName3C@ModuleData@@QBEABVAsciiString@@XZ": "477c35e818d4ae2c07370443e1e6d4ed82955e3bb1b161e9b7b18efcfe2bbe38",
+    "?getOwner@StateMachine@@QBEPAVObject@@XZ": "a1d37bf083edab671292373b1bb9200ad1f32553775737d274e44cf82ea19266",
+    "?getPosition@Object@@QBEPBUCoord3D@@XZ": "53e5d760532d69479022c0851b6fccb67b6c6f27267650a718901c839511d4fb",
+    "?getSwoopRadius@AIUpdateInterface@@QBEMXZ": "57938b8a61b180dc19611f0fb4b7a8d9a0f1b95f7ec8e31afed4ad7656aeb5f0",
+    "?getTeam@Object@@QBEPAVTeam@@XZ": "aa8f2ac418cad594788e601f7d9252560d857bdc296031d5c8f2faaa9d56ac7a",
+    "?getTemplate@Weapon@@QBEPBVWeaponTemplate@@XZ": "50ec2995c3ef0d616ddbe247f0c0e4bea2bca9396923d38b6adc97efe1a58f1c",
+    "?getTransformMatrix@Thing@@QBEPBVMatrix3D@@XZ": "49648203423009ca2c6090ef0b993389c79fc9e0ef25193a873a70611c8c962e",
+    "?isDead@Object@@QBE_NXZ": "603b32aaa3568be78c11c9c2f203ec557575af93de77f6086074af3a1863d13d",
+    "?onEnter@AIGiantBirdAttackState@@UAE?AW4StateReturnType@@XZ": "e4629b4ed568d5eaa5c0067fcc7be93391c8391da3ad0521cb5049a8ed366361",
+    "?onExit@AIGiantBirdAttackState@@UAEXW4StateExitType@@@Z": "e16fcfca3efdfc2c99f66d8c6ea1aec5bd99af703ce519734671345a96e246f4",
+    "?set@GiantBirdAttackConditionBits@@QAEXH@Z": "67b4722e3db943801f5d93616d3522bbb88be3dfa608e9ca25bf3937402e17bc",
+    "?setModelConditionBit@Object@@QAEXH@Z": "5b3574bedbb83ae54b0b2dbfd884773abe021af01123f771cc70e0407a2dcf0d",
+    "?test@GiantBirdAttackConditionBits@@QBEIH@Z": "93f01e442d52ba6584edb591e708f3b0364625430974f051ddf8dd887938fefb",
+    "?testFlag@AIUpdateInterface@@QBE_NH@Z": "6f729e596d02306feff4eab742f23621342a99b662bc3d2ebf215677b2844749",
+    "?update@AIGiantBirdAttackState@@UAE?AW4StateReturnType@@XZ": "3eb1d06970a662bd166524df34f240126e7499c8f3fe705ee1dd782c0f2baace"
+  },
+  "native_helpers": [
+    {
+      "rva": "0x1423",
+      "size": 34,
+      "raw": "8b44240c487818568b742408578d78018bceff542418037424104f75f35f5ec21000",
+      "instructions": [
+        {
+          "rva": "0x1423",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [esp + 0xc]"
+        },
+        {
+          "rva": "0x1427",
+          "mnemonic": "dec",
+          "operands": "eax"
+        },
+        {
+          "rva": "0x1428",
+          "mnemonic": "js",
+          "operands": "0x1442"
+        },
+        {
+          "rva": "0x142a",
+          "mnemonic": "push",
+          "operands": "esi"
+        },
+        {
+          "rva": "0x142b",
+          "mnemonic": "mov",
+          "operands": "esi, dword ptr [esp + 8]"
+        },
+        {
+          "rva": "0x142f",
+          "mnemonic": "push",
+          "operands": "edi"
+        },
+        {
+          "rva": "0x1430",
+          "mnemonic": "lea",
+          "operands": "edi, [eax + 1]"
+        },
+        {
+          "rva": "0x1433",
+          "mnemonic": "mov",
+          "operands": "ecx, esi"
+        },
+        {
+          "rva": "0x1435",
+          "mnemonic": "call",
+          "operands": "dword ptr [esp + 0x18]"
+        },
+        {
+          "rva": "0x1439",
+          "mnemonic": "add",
+          "operands": "esi, dword ptr [esp + 0x10]"
+        },
+        {
+          "rva": "0x143d",
+          "mnemonic": "dec",
+          "operands": "edi"
+        },
+        {
+          "rva": "0x143e",
+          "mnemonic": "jne",
+          "operands": "0x1433"
+        },
+        {
+          "rva": "0x1440",
+          "mnemonic": "pop",
+          "operands": "edi"
+        },
+        {
+          "rva": "0x1441",
+          "mnemonic": "pop",
+          "operands": "esi"
+        },
+        {
+          "rva": "0x1442",
+          "mnemonic": "ret",
+          "operands": "0x10"
+        }
+      ]
+    },
+    {
+      "rva": "0x5508e2",
+      "size": 7,
+      "raw": "8b8184000000c3",
+      "instructions": [
+        {
+          "rva": "0x5508e2",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [ecx + 0x84]"
+        },
+        {
+          "rva": "0x5508e8",
+          "mnemonic": "ret",
+          "operands": ""
+        }
+      ]
+    }
+  ],
+  "native_caller_access": [
+    {
+      "rva": "0x369a25",
+      "raw": "8d4738",
+      "mnemonic": "lea",
+      "operands": "eax, [edi + 0x38]"
+    },
+    {
+      "rva": "0x369b7a",
+      "raw": "8b4674",
+      "mnemonic": "mov",
+      "operands": "eax, dword ptr [esi + 0x74]"
+    },
+    {
+      "rva": "0x369c26",
+      "raw": "ff7674",
+      "mnemonic": "push",
+      "operands": "dword ptr [esi + 0x74]"
+    }
+  ]
+}

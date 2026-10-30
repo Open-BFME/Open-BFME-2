@@ -300,17 +300,7 @@ private:
 	UnsignedInt m_words[19];
 };
 
-class Thing
-{
-public:
-	const Matrix3D *getTransformMatrix() const { return (const Matrix3D *)m_transform; }
-	Drawable *getDrawable() const;
-	void setTransformMatrix(const Matrix3D *mx);
-private:
-	void *m_vtbl;
-	const ThingTemplate *m_template; // +4
-	unsigned char m_transform[0x30]; // +8
-};
+#include "../../../../Common/Thing/thing.h"
 
 class Object : public Thing
 {
@@ -320,7 +310,7 @@ public:
 	AIUpdateInterface *getAI() const { return m_ai; }
 	Object *getContainedBy() const { return m_containedBy; }
 	ContainModuleInterface *getContain() const { return m_contain; }
-	const Coord3D *getPosition() const { return &m_position; }
+	const Coord3D *getPosition() const { return &m_cachedPos; }
 	Team *getTeam() const { return m_team; }
 	Real getDistanceSquared(const Coord3D *pos) const
 	{
@@ -358,8 +348,7 @@ protected:
 	friend class AIGiantBirdAttackState;
 
 private:
-	Coord3D m_position; // +0x38
-	unsigned char m_pad044[0x74 - 0x44];
+	unsigned char m_pad060[0x74 - 0x60];
 	ObjectID m_id; // +0x74
 	unsigned char m_pad078[0x10C - 0x78];
 	GiantBirdAttackConditionBits m_conditionBits; // +0x10C
