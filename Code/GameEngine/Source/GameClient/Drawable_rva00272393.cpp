@@ -60,12 +60,7 @@ public:
 	virtual BfmeObjectDrawForRva272393 *getObjectDrawInterface() = 0;
 };
 
-class Drawable
-{
-public:
-	void setAnimationLoopDuration(unsigned int numFrames);
-	void rva002723C0(int arg);
-};
+#include "../../Include/GameClient/DrawableBFME2.h"
 
 void Drawable::setAnimationLoopDuration(unsigned int numFrames)
 {
