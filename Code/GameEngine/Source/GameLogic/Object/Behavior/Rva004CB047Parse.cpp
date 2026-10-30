@@ -4,6 +4,8 @@
 // Stored as the SoundState FieldParse callback at 0x00C5F154. The callback
 // reads a BfmeObject544 through INI and appends it to the target's +8 vector.
 
+#include <vector>
+
 struct FieldParse;
 
 class INI;
@@ -48,18 +50,10 @@ public:
 	void initFromINIMulti(void *object, const MultiIniFieldParse &parse);
 };
 
-namespace _STL
-{
-template <class T>
-class allocator;
-
-template <class T, class Allocator>
-class vector
-{
-public:
-	void push_back(const T &value);
-};
-}
+// bfme link decl-only begin
+// The append is the rowed push_back 0x004CB00D (StlportObject544Vector.cpp).
+namespace _STL { template <> void vector<BfmeObject544, allocator<BfmeObject544> >::push_back(const BfmeObject544 &); }
+// bfme link decl-only end
 
 struct Rva004CB047Target
 {
