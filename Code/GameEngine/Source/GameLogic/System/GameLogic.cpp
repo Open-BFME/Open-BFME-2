@@ -161,13 +161,8 @@ public:
 	float m_orient4D0;
 	void GetAssetList(int a, int b);
 };
-class Team
-{
-public:
-	char m_pad[0x5D];
-	unsigned char m_5d;
-	unsigned char m_5e;
-};
+#include "../../../Include/Common/TeamBFME2.h"
+
 class LocomotorSet
 {
 public:
@@ -247,9 +242,9 @@ static Object *placeObjectAtPosition(int slot, AsciiString name, const Coord3D *
 	Team *t = player->m_team;
 	((Rva0028CBFD *)obj)->rva0028CBFD();
 	if (t != 0) {
-		if (t->m_5d == 0) {
-			t->m_5e = 1;
-			t->m_5d = 1;
+		if (t->m_active == 0) {
+			t->m_created = 1;
+			t->m_active = 1;
 		}
 	}
 	TheAI->m_pf->AddObjectToPathfindMap(obj);
