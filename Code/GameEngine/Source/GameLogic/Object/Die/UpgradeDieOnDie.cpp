@@ -76,46 +76,16 @@ struct UpgradeDieModuleData
 	AsciiString m_upgradeName;	// +0x38
 };
 
-class ModuleBase
-{
-public:
-	virtual ~ModuleBase();
-
-protected:
-	const ModuleData *m_moduleData;	// +0x04
-	Object *m_object;		// +0x08
-};
-
-class BehaviorModuleInterface
-{
-public:
-	virtual void b00() = 0;
-};
-
-class DieModuleInterface
-{
-public:
-	virtual void onDie(const DamageInfo *damageInfo) = 0;
-};
-
-class DieModule : public ModuleBase,
-	public BehaviorModuleInterface,
-	public DieModuleInterface
-{
-protected:
-	bool isDieApplicable(const DamageInfo *damageInfo) const;
-public:
-	Object *getObject() { return m_object; }
-	const UpgradeDieModuleData *getUpgradeDieModuleData() const
-	{
-		return (const UpgradeDieModuleData *)m_moduleData;
-	}
-};
+#include "../../../../Include/GameLogic/Module/DieModule.h"
 
 class UpgradeDie : public DieModule
 {
 public:
 	virtual void onDie(const DamageInfo *damageInfo);
+	const UpgradeDieModuleData *getUpgradeDieModuleData() const
+	{
+		return reinterpret_cast<const UpgradeDieModuleData *>(m_moduleData);
+	}
 };
 
 // ?onDie@UpgradeDie@@UAEXPBVDamageInfo@@@Z
