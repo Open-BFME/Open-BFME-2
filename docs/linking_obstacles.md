@@ -505,6 +505,14 @@ restored; no path moved. Reconcile the complete native virtual interface and
 destructor provider before retrying composition, then check the affected
 consumers and the next census. No census gain is claimed.
 
+Rechecked at `1f26b04a7b` on 2026-10-30: the supported merge dry run
+still accepts no donors. Build and cost fail on the undeclared seed
+constructor; transfer fails on the duplicate destructor and changed vtable
+COMDAT. `tu_views.py --dry-run` also reports incompatible AIUpgrade base
+clauses. No reconciliation or path move was retained. Details and the
+reference-freshness limitation are in
+`reverse/attempt_support/ai-upgrade-merge-recheck-20261030-codexb5.md`.
+
 ### Create-a-hero map callback CRT declaration (2026-10-29)
 
 The callback now includes the Microsoft string header for `memcpy`; all 23
