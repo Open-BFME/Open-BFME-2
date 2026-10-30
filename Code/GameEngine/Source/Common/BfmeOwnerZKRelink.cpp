@@ -1,5 +1,5 @@
 // cl: /O1 /G7 /arch:SSE /GX /MD /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
-// stlport
+// stlport46
 #include <stl/_algobase.h>
 // Keep the shared out-of-line max provider; the inlined operation is unchanged.
 namespace _STL {

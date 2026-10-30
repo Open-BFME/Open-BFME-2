@@ -1,0 +1,15 @@
+link batch audit: INCONCLUSIVE baseline: index at 85f6b7f40c, outgoing base HEAD; findings below are provisional since-index changes
+link batch audit: INCONCLUSIVE: 11 source object(s) lack current receipts; first: Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003B573ERva003B7F46.cpp
+
+Affected sources lacking current receipts:
+Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003B573ERva003B7F46.cpp
+Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003B573ERva003B81C5.cpp
+Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptFixupNames.cpp
+Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListRva003B6911.cpp
+Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListSetCopy.cpp
+Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListSubrecordAddRva003B7E39.cpp
+Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListSubrecordAddRva003B7EC2.cpp
+Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListSubrecordAddRva003B80B8.cpp
+Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListSubrecordAddRva003B8141.cpp
+Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptList_deleteGroupRef.cpp
+Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptList_deleteScriptRef.cpp

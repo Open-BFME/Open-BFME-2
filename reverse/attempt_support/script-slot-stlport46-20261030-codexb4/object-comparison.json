@@ -1,0 +1,51 @@
+{
+  "control_commit": "c16862543a",
+  "normalization": "Allocator allocate/deallocate constness and TU-local relocation labels; external referents and content-named bytes retained",
+  "removed_unrowed_helpers_in_each_object": [
+    "??$__stl_alloc_rebind@PAUBfmeScriptSlotAddress@@PAU1@@_STL@@YAAAV?$allocator@PAUBfmeScriptSlotAddress@@@0@AAV10@PBQAUBfmeScriptSlotAddress@@@Z",
+    "??$__stl_alloc_rebind@UBfmeScriptSlotAddress@@U1@@_STL@@YAAAV?$allocator@UBfmeScriptSlotAddress@@@0@AAV10@PBUBfmeScriptSlotAddress@@@Z",
+    "?allocate@?$_STLP_alloc_proxy@IUBfmeScriptSlotAddress@@V?$allocator@UBfmeScriptSlotAddress@@@_STL@@@_STL@@QAEPAUBfmeScriptSlotAddress@@I@Z",
+    "?allocate@?$_STLP_alloc_proxy@PAPAUBfmeScriptSlotAddress@@PAU1@V?$allocator@PAUBfmeScriptSlotAddress@@@_STL@@@_STL@@QAEPAPAUBfmeScriptSlotAddress@@I@Z",
+    "?deallocate@?$_STLP_alloc_proxy@IUBfmeScriptSlotAddress@@V?$allocator@UBfmeScriptSlotAddress@@@_STL@@@_STL@@QAEXPAUBfmeScriptSlotAddress@@I@Z",
+    "?deallocate@?$_STLP_alloc_proxy@PAPAUBfmeScriptSlotAddress@@PAU1@V?$allocator@PAUBfmeScriptSlotAddress@@@_STL@@@_STL@@QAEXPAPAUBfmeScriptSlotAddress@@I@Z"
+  ],
+  "objects": [
+    {
+      "source": "Code/GameEngine/Source/Common/BfmeOwnerZKRelink.cpp",
+      "control_object_sha256": "bd11dea53ee3f4503068eced05875003a8741f7d374cc66894e67f84daac0f5b",
+      "current_object_sha256": "bd3f4796a2fc7452122faa7a5762c6cf731171004703a9f4234a5c78e8dd1c64",
+      "control_comdats": 64,
+      "current_comdats": 58,
+      "different_common_comdats": [],
+      "added_comdats": []
+    },
+    {
+      "source": "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListSubrecordRemove.cpp",
+      "control_object_sha256": "29cd4c3bbc5b47a05b4de8148e016c5fb32815abc5f8c7fa8675a91dbebf6f6f",
+      "current_object_sha256": "eb21f4d431a75419ed0b1ecbf0b346a5afdd5e540d12eb3f9b9a06e1140ffb3f",
+      "control_comdats": 77,
+      "current_comdats": 71,
+      "different_common_comdats": [],
+      "added_comdats": []
+    },
+    {
+      "source": "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListTakeGroups.cpp",
+      "control_object_sha256": "b4a4f417ec2d4c84179e8205b4bc88d69f363bb29630ff09b76728b6f7f2021d",
+      "current_object_sha256": "7f4dab9a852c89e0c341346669272e16fd0dfc1ce6fbb3886b16ee08401e7055",
+      "control_comdats": 62,
+      "current_comdats": 56,
+      "different_common_comdats": [],
+      "added_comdats": []
+    },
+    {
+      "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/MapObject_fastAssignAllUniqueIDs.cpp",
+      "control_object_sha256": "f1a194f88d9d7dce450fbbd0b8ea17cff4c95678ec512ad3a4721688c55ebdaf",
+      "current_object_sha256": "00b34213d56429b129dd5900055d58550ed3ad740122b36b0b7c825012cb4825",
+      "control_comdats": 76,
+      "current_comdats": 70,
+      "different_common_comdats": [],
+      "added_comdats": []
+    }
+  ],
+  "total_equal_retained_external_comdats": 255
+}
