@@ -4480,6 +4480,16 @@ separates this blocked family from the independent header cleanup.
 
 **Assigned constructor/lifetime audit (2026-10-26, inspected `2a45addda1806342ac5c52757f63be902dcd428e`; index `d1f046749a`):** current paired providers preserve the earlier PlayerCtorBFME2 hashtable repair. The unit still lacks its declared virtual UnitRevivalTracker destructor and three Rva002B0F3CEnergy virtuals. The existing UnitRevivalTrackerCtorBFME2 view has a single xfer slot and a nonvirtual vector lifetime; the constructor's energy table instead reaches the existing Energy::xfer at 0x004DF290, name getter at 0x002AA3AF and empty slot at 0x000B3FD0. Correcting those declarations requires the complete lifetime/table contract, not a new destructor match inferred from the unresolved name. `Rva006CBF40Deferred.cpp` retains its seven nonretail complete-destructor emitters: the native deleting rows reach 0x006D1090, 0x006D6340, 0x006D63C0, 0x006E96D0, 0x006EB6A0 and 0x006FE460 under other existing owners. Neither source was edited. Raw evidence: `build/link-worker-w6/row-reference-witnesses.log`, `vtable-witnesses.log` and `paired-after.log`. Next check: reconcile the actual bases/member lifetimes with those row owners; no new fold pin has been proven. Clearance and census confirmation remain pending for these units.
 
+**Player constructor checkpoint (2026-10-30, revision `50472e739d`, index
+`12b9e7a7c0`):** ordinary preview retains the four unresolved names above.
+The native 14-byte funclet at 0x00775E39 adjusts to Player +0x738 and calls
+existing cleanup owner 0x002B0B8E. That eight-byte wrapper adds four and
+tail-calls the existing vector destructor at 0x002B0B32; it does not perform
+virtual destruction. This independently confirms the lifetime prerequisite,
+without proving a second destructor body or an ICF alias. No source, ledger
+identity or pin changed. Tracker cleanup identity and the three energy-table
+bindings remain open; no clearance or census gain is claimed.
+
 **Assigned FX and curve check (2026-10-27, inspected `97c23353111e60304b56434c02d20bee3465d83f`, index `5ce093a71a`):** `FXList.cpp` still has U2/L3/S2 with its current particle and hashtable providers. The earlier StringBase/list and one-string FXList-copy identity prerequisites remain; declaration-only list suppression was not retried. `curve.cpp` still has U3/L1/S1, and `find_declared_unmatched.py --fail` also refuses its unrowed curve implementations. Its three matched DynamicVectorClass lifetime rows remain exact. Removing the curve donor implementations would remove interfaces used by the currently linking `vehiclecurve.cpp` and `lookuptable.cpp`; no such removal was attempted. Reconcile the native curve/key and persistence interfaces before editing this frozen unit. No source change, clearance or census confirmation is claimed for either unit.
 
 ### LINK-007: incomplete data ownership beyond clean symbol resolution
@@ -6731,6 +6741,14 @@ and constructor establish the structural relationship, but that lead is not an
 accepted canonical naming basis. No source changes or clearance are claimed;
 resolve the identity through the supported evidence/reconciliation path, then
 verify both vtables and affected consumers against a current index.
+
+Current checkpoint (2026-10-30, revision `50472e739d`, index `12b9e7a7c0`):
+ordinary preview still reports the same four unresolved private virtual names
+and 0 linked bytes for `Rva004E0D67Dtor.cpp`. The current Snapshot header
+already provides selectable named slots, and the constructor uses the existing
+`RegionTurnObserverView`; neither resolves the placeholder class identity.
+No source or rename trial was repeated. Class/observer reconciliation remains
+the prerequisite; no clearance or census gain is claimed.
 
 ### LINK-025: `StlSweepR3Rva0002CCC3.cpp`'s opaque hashtable record needs the macro table's real type
 Status: Blocked (identity prerequisite). Updated: 2026-10-26; inspected revision: 308a442bae.
