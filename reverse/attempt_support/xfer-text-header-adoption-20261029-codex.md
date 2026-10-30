@@ -104,3 +104,22 @@ Local raw logs are `build/recovery-push-dry-run.log`,
 `build/recovery-publish.log`, `build/recovery-debt-publisher-env.log` and
 `build/recovery-link-publisher-env.log`. These establish local verification
 and the recorded publication refusal, not its root cause.
+
+## Queue retirement retry (2026-10-30)
+
+At `5ac57bb2d0d287eb2c67c9e54104c09d08e4d10f`, the supported
+`header_adopt_lane.py accept --class Xfer` command passes for
+`Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp` and removes
+exactly its restored queue row. This retry changes no source, shared header,
+ledger, pin or provider binding. The earlier publication refusal remains
+recorded above; the current owning-tool verdict is passing.
+
+Normal `./build.sh` verifies all 36 function rows, the renumbered parent-EH
+label, 42 literals, two empty-string references and one named import.
+`find_declared_unmatched.py` reports no unrowed definitions. Strict
+`link_check.py --prepare-current` passes for the explicit source; the ordinary
+preview retains LINKS for 2,447 bytes against `85f6b7f40c` (2026-10-29 15:08).
+This retires one header-debt row only. It does not repeat or close the earlier
+642-source header/consumer audit, establish the publication refusal's cause,
+or claim a census gain. The other four Xfer queue entries retain their
+constructor-emission, concrete-reader and stream prerequisites.

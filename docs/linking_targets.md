@@ -172,6 +172,13 @@ source adoption and retain the queue row until publication-side acceptance is
 available. This batch retires no header debt. The evidence handoff records the
 checks and preserved recovery backup.
 
+Retry at `5ac57bb2d0` (2026-10-30): the owning acceptance command passes
+and retires the restored text-saver queue row without a source/header change.
+All 36 rows verify; strict preparation and the unchanged 2,447-byte LINKS
+preview pass. This clears one header-debt entry. The earlier full consumer
+audit and census confirmation remain pending, and the publication refusal's
+cause remains unproven. [Current checks](../reverse/attempt_support/xfer-text-header-adoption-20261029-codex.md#queue-retirement-retry-2026-10-30).
+
 Player dictionary CRT cleanup (2026-10-29, base `656dc5717d`): remove
 one redundant memcmp declaration while retaining 31/31 matched rows and the
 4,707-byte LINKS preview. The remaining free/memset removals reproduce the
