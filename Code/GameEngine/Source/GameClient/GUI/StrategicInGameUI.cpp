@@ -16,6 +16,11 @@ extern LivingWorldLogic *TheLivingWorldLogic;
 #include <vector>
 #include <map>
 #include <set>
+#include "../../../../Libraries/Include/Lib/ICoord2D.h"
+#include "../../../../Libraries/Include/Lib/IRegion2D.h"
+#include "../../../Include/Common/Rva0007DF07.h"
+#pragma comment(linker, "/alternatename:?slot0@Rva005E4F6D@@UAEXXZ=?step@Rva005E5554@@UAEXXZ")
+#pragma comment(linker, "/alternatename:?slot1@Rva005E4F6D@@UAEXXZ=?rva005E415F@Rva005E69D0@@QAEHXZ")
 
 struct Rva005E59FCKeyIterator {
  typedef _STL::bidirectional_iterator_tag iterator_category;
@@ -393,6 +398,236 @@ private:
 	Rva002BED91 m_1C;
 };
 
+union GameMessageArgumentType { int integer;ICoord2D point;IRegion2D region; };
+
+class GameMessage { public: const GameMessageArgumentType*getArgument(int)const;char prefix[0x10];int type; };
+
+class Rva0005CB9F3DwordImmSetter { public:void apply(); };
+
+class Rva005E5A38 { public:Rva005E5A38(int);__forceinline ~Rva005E5A38(){((Rva0005CB9F3DwordImmSetter*)this)->apply();} private:unsigned storage[3]; };
+
+class Rva00574815 { public:void rva005CBB4A(int,int,int); };
+
+class Rva005CBB4A { public:void rva005CBB4A(void*,int,int); };
+
+ // rowed 0x005CBB4A
+class Callback { public:virtual void s00();virtual void s01();virtual void s02();virtual void s03();virtual void s04(); };
+
+struct Context { char pad[0x1c];int value; };
+
+class Rva005E5A8B { public:int OnMouseLeftClick(const IRegion2D&,int);int OnMouseMove(const ICoord2D&,int);int handleMessage(GameMessage*); private:
+ char pad[8];int viewer;Context*context;char pad10[0x20];void*enabled;char pad34[4];Callback*callback;bool dirty;char pad3d[3];int blocked;
+};
+
+class Rva005CC5E5 : public virtual Rva0007DF07
+{
+public:
+    __declspec(nothrow) Rva005CC5E5();
+    virtual void slot0();
+    virtual ~Rva005CC5E5() {}
+};
+
+class Rva005E3AE1 : public virtual Rva0007DF07
+{
+public:
+    Rva005E3AE1();
+    virtual void slot0() = 0;
+    virtual ~Rva005E3AE1();
+};
+
+struct _Rva005E4AE2In;
+
+class Rva005E4AE2
+{
+public:
+    Rva005E4AE2(void *, _Rva005E4AE2In *, int);
+private:
+    char storage[0x30];
+};
+
+class Rva005E4B9D
+{
+public:
+    Rva005E4B9D(Rva005E4AE2 *v) : value(v) {}
+    ~Rva005E4B9D() { clear(); }
+    void clear();
+    Rva005E4AE2 *value;
+};
+
+class Rva005E4F6D : public Rva005CC5E5, public Rva005E3AE1
+{
+public:
+    Rva005E4F6D(_Rva005E4AE2In *, int);
+    virtual ~Rva005E4F6D();
+    virtual void slot0();
+    virtual void slot1();
+private:
+    Rva005E4B9D child;
+};
+
+class Rva005E6F9D;
+
+class Rva005E6D0D;
+
+class Rva005E6D90
+{
+private:
+	friend class Rva005E6F9D;
+public:
+	~Rva005E6D90() { clear(); }
+	void clear();
+	Rva005E6D90(Rva005E6D0D *p);
+private:
+	void *value; // +0x00
+};
+
+class AsciiString;
+
+namespace StrategicHUD {
+class ArmyDetailsMovieClip {public:
+    ArmyDetailsMovieClip(int,const AsciiString &,int,bool);
+    virtual ~ArmyDetailsMovieClip();
+    virtual void notifyBackButtonClicked();
+    virtual void notifyIconListBackgroundClicked();
+private: class Impl *m_impl;
+}; }
+
+class Rva005E54AE:public StrategicHUD::ArmyDetailsMovieClip {public:Rva005E54AE(int,const AsciiString &,bool);virtual ~Rva005E54AE();};
+
+class Rva005E54F7:public Rva005E54AE,public Rva005E4F6D {public:Rva005E54F7(int,const AsciiString &,void*);virtual ~Rva005E54F7();};
+
+class Rva000425C4PtrChaseField { public: int get() const; };
+
+class Rva0040CB2CIndexedField { public: int get(int) const; };
+
+struct GarrisonSummarySlot { int id; void *entry; };
+
+struct GarrisonSummary { char prefix[0x40]; GarrisonSummarySlot *begin; GarrisonSummarySlot *end; };
+
+struct GarrisonArmy { char prefix[0x78]; GarrisonSummary *summary; };
+
+struct GarrisonEntry { char prefix[0xB8]; int fieldB8; };
+
+struct Rva005CD9C0Link { char prefix[0xC]; void *owner; };
+
+struct GarrisonPhase { char prefix[0x10]; Rva005CD9C0Link *link; };
+
+class Rva005CD9C0 : public Rva005E54F7 {
+public:
+    Rva005CD9C0(int, const AsciiString &, void *);
+    virtual ~Rva005CD9C0();
+private: Rva005CD9C0Link *link1C;
+};
+
+class Rva005F64F5 : public StrategicHUD::ArmyDetailsMovieClip
+{
+public:
+    Rva005F64F5(int,const AsciiString &,bool);
+    virtual ~Rva005F64F5();
+private:
+    void *owned8;
+};
+
+struct HeroDetailsInput { void *owner,*details,*container; bool backButton; };
+
+class Rva005E6D0D {
+public: Rva005E6D0D(void *,HeroDetailsInput *);
+private: char storage[0x20];
+};
+
+class Rva005F6037ByteChaseField;
+
+struct Rva005E68C0Owner;
+
+class Rva005E68C0
+{
+public:
+	void rva005E68C0();
+	void rva005E69AC();
+	char m_pad00[0x4];
+private:
+	Rva005F6037ByteChaseField *guard; // +0x04
+	char m_pad08[0x4];
+	Rva005E68C0Owner *owner; // +0x0C
+	char m_pad10[0x4];
+	int selected; // +0x14
+};
+
+class Rva005E6F9D : public Rva005F64F5, public Rva005E4F6D
+{
+public:
+    Rva005E6F9D(int,const AsciiString &,HeroDetailsInput *);
+    virtual ~Rva005E6F9D();
+    void rva005E69C8();
+private:
+    Rva005E6D90 child20;
+};
+
+class Rva005CDCEE;
+
+struct Rva005CDCEELink {
+    char pad00[0x20];
+    void *owner;
+};
+
+struct PlanningHeroDetailsInput : HeroDetailsInput {
+    Rva005CDCEELink *planningOwner;
+};
+
+class Rva005E687F { public: unsigned char get() const; };
+
+class Rva005CDCEE : public Rva005E6F9D {
+public:
+    Rva005CDCEE(int,const AsciiString &,PlanningHeroDetailsInput *);
+    virtual ~Rva005CDCEE();
+private:
+    Rva005CDCEELink *link24;
+};
+
+class Rva005CB84A;
+
+class Rva005E62F1
+{
+public:
+	Rva005E62F1(void *parent, int a1, int a2, void *a3, Rva005CB84A *a4, void *a5,
+		StrategicInGameUI::PlanningPhaseArmySelection::DetailsPanelFactoryFactory *a6);
+private:
+	char m_pad[0x44];
+};
+
+// Native5E68C0..5E6938 complete120B: complement of roster clear5E6938.
+// Same observed fields and existing calls; original class identity unresolved.
+class Rva005F6037ByteChaseField {public:unsigned char get()const;};
+
+class Rva005F62FE {public:void rva005F62FE(bool);};
+
+class Rva005E3B1A {public:bool IsSelected(int)const;};
+
+struct Rva005E68C0Entry {int first,second;};
+
+class Rva0040CC0EIndexedField {public:int get(int)const;char pad0[0x40];Rva005E68C0Entry *first,*last;};
+
+struct Rva005E68C0Owner {char pad0[0x78];Rva0040CC0EIndexedField *catalog;};
+
+struct Rva005E6938Owner;
+
+class Rva005E6938
+{
+public:
+	void rva005E6938();
+	char m_pad00[0x4];
+private:
+	Rva005F6037ByteChaseField *guard; // +0x04
+	char m_pad08[0x4];
+	Rva005E6938Owner *owner; // +0x0C
+	char m_pad10[0x4];
+	int selected; // +0x14
+};
+
+struct Rva005E6938Entry {int first,second;};
+
+struct Rva005E6938Owner {char pad0[0x78];Rva0040CC0EIndexedField *catalog;};
+
 // tu-skeleton: 0x005E5DF5 133B ?SendSwapArmyMembersMessage@StrategicInGameUI@@YAXHPBURva005FSelectionView@@HABU2@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/StrategicUiArmyDragDrop.cpp (not merged yet)
 
 // tu-skeleton: 0x005E5E7A 67B ?clone@Rva005E5E7A@@QBE?AURvaF1Handle@@XZ -- matched in Code/GameEngine/Source/Common/RvaFamily1Clones.cpp (not merged yet)
@@ -404,6 +639,8 @@ private:
 // tu-skeleton: 0x005E5F43 79B ??$_M_range_initialize@URva005E59FCKeyIterator@@@?$vector@HV?$allocator@H@_STL@@@_STL@@IAEXURva005E59FCKeyIterator@@0ABUforward_iterator_tag@1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportTreeKeyRangeVector.cpp (not merged yet)
 
 // tu-skeleton: 0x005E5F92 22B ??$_M_initialize_aux@URva005E59FCKeyIterator@@@?$vector@HV?$allocator@H@_STL@@@_STL@@QAEXURva005E59FCKeyIterator@@0ABU__false_type@1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportTreeKeyRangeVector.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp
 
 // ---- from Code/GameEngine/Source/Common/Rva005E626DCtor.cpp
 
@@ -440,11 +677,8 @@ void Rva005E626D::rva005E586B(){reinterpret_cast<Rva000AD6F4*>((char*)m_owner0C+
 // concrete provider directly and removes the legacy wrong-name pin; it
 // does not establish28 as the original complete class size.
 
-// tu-skeleton: 0x005E5FFB 186B ??1Rva005E5FFB@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva005E5FFBDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x005E60B5 28B ??_GRva005E5FFB@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva005E5FFBDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x005E60D1 63B ??$?0URva005E59FCKeyIterator@@@?$vector@HV?$allocator@H@_STL@@@_STL@@QAE@URva005E59FCKeyIterator@@0ABV?$allocator@H@1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportTreeKeyRangeVector.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIPlanningPhaseArmySelection.cpp
 
@@ -554,17 +788,52 @@ void Rva005E56FC::rva005E66DF()
         ((Rva005E652E *)m_04)->rva005E652E((Rva005FArmyView *)result);
 }
 
+// ---- from Code/GameEngine/Source/Common/Rva005E66A4Dtor.cpp
+
+Rva005E663C::~Rva005E663C() { ((Rva005E6253*)&owned)->clear(); }
+
+// ---- from Code/GameEngine/Source/Common/Rva005E6894Rva005E6894.cpp
+
+void Rva005E6894::releaseAndEmptyHook() {
+    ((Rva005E508F *)&m_member0C)->rva005E509F();
+    ((PathfindLayer *)this)->rva000B3FD0();
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva005E6A9DRun.cpp
+
+void Rva005E6A9DRun::run()
+{
+	int cached = m_1C.m_ptr;
+	if (cached)
+	{
+		if (((Rva005CB265 *)m_08)->Rva005CB265::rva005CB265() == cached)
+			m_08->rva005CB260();
+		m_1C.clear();
+	}
+	((Rva005E3B25 *)((char *)m_04 + 0xC))->rva005E3B25(m_14);
+}
+
+// tu-skeleton: 0x005E5FFB 186B ??1Rva005E5FFB@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva005E5FFBDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x005E60B5 28B ??_GRva005E5FFB@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva005E5FFBDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x005E60D1 63B ??$?0URva005E59FCKeyIterator@@@?$vector@HV?$allocator@H@_STL@@@_STL@@QAE@URva005E59FCKeyIterator@@0ABV?$allocator@H@1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportTreeKeyRangeVector.cpp (not merged yet)
+
 // tu-skeleton: 0x005E6253 26B ?clear@Rva005E6253@@QAEXXZ -- matched in Code/GameEngine/Source/Common/OwnedPointerResets.cpp (not merged yet)
 
 // tu-skeleton: 0x005E62F1 573B ??0Rva005E62F1@@QAE@PAXHH0PAVRva005CB84A@@0PAVDetailsPanelFactoryFactory@PlanningPhaseArmySelection@StrategicInGameUI@@@Z -- matched in Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/Rva005E62F1Constructor.cpp (not merged yet)
 
 // tu-skeleton: 0x005E652E 270B ?rva005E652E@Rva005E652E@@QAEXPAVRva005FArmyView@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/StrategicUiArmyDragDrop.cpp (not merged yet)
 
-// tu-skeleton: 0x005E663C 104B ??0Rva005E663C@@QAE@PAXHHHHHH@Z -- matched in Code/GameEngine/Source/Common/Rva005E663CConstructor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva005E663CConstructor.cpp
 
-// ---- from Code/GameEngine/Source/Common/Rva005E66A4Dtor.cpp
-
-Rva005E663C::~Rva005E663C() { ((Rva005E6253*)&owned)->clear(); }
+Rva005E663C::Rva005E663C(void *a0, int a1, int a2, int a3, int a4, int a5,
+	int a6)
+	: Rva005E67FE(a0)
+{
+	owned = new Rva005E62F1(this, a1, a2, (void *)a3, (Rva005CB84A *)a4, (void *)a5,
+		(StrategicInGameUI::PlanningPhaseArmySelection::DetailsPanelFactoryFactory *)a6);
+}
 
 // tu-skeleton: 0x005E67FE 18B ??0Rva005E67FE@@QAE@PAX@Z -- matched in Code/GameEngine/Source/Common/V3PolyCopyCtors.cpp (not merged yet)
 
@@ -590,20 +859,42 @@ Rva005E663C::~Rva005E663C() { ((Rva005E6253*)&owned)->clear(); }
 
 // tu-skeleton: 0x005E6884 16B ?rva005E6884@Rva005E6884@@QAEXXZ -- matched in Code/GameEngine/Source/Common/TailJumpWrappers5B.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/Rva005E6894Rva005E6894.cpp
-
-void Rva005E6894::releaseAndEmptyHook() {
-    ((Rva005E508F *)&m_member0C)->rva005E509F();
-    ((PathfindLayer *)this)->rva000B3FD0();
-}
-
 // tu-skeleton: 0x005E68A7 25B ??4Rva005E68A7@@QAEAAV0@ABURva005E68A7Pair@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE40.cpp (not merged yet)
 
-// tu-skeleton: 0x005E68C0 120B ?rva005E68C0@Rva005E68C0@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva005E68C0.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva005E68C0.cpp
 
-// tu-skeleton: 0x005E6938 116B ?rva005E6938@Rva005E6938@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva005E6938.cpp (not merged yet)
+void Rva005E68C0::rva005E68C0(){
+ Rva005F6037ByteChaseField *view=guard;
+ if(view->get())return;
+ Rva0040CC0EIndexedField *catalog=owner->catalog;
+ int count=catalog->last-catalog->first;
+ for(int index=0;index<count;++index){
+  int item=catalog->get(index);
+  if(item!=selected && !((Rva005E3B1A*)((char*)guard+0xC))->IsSelected(item))
+   ((Rva005E508F*)((char*)guard+0xC))->rva005E508F(item);
+ }
+ ((Rva005F62FE*)view)->rva005F62FE(true);
+}
 
-// tu-skeleton: 0x005E69AC 28B ?rva005E69AC@Rva005E68C0@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva005E68C0.cpp (not merged yet)
+void Rva005E68C0::rva005E69AC(){
+ if(guard->get())((Rva005E6938*)this)->rva005E6938();
+ else rva005E68C0();
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva005E6938.cpp
+
+void Rva005E6938::rva005E6938(){
+ Rva005F6037ByteChaseField *view=guard;
+ if(!view->get())return;
+ ((Rva005F62FE*)view)->rva005F62FE(false);
+ Rva0040CC0EIndexedField *catalog=owner->catalog;
+ int count=catalog->last-catalog->first;
+ for(int index=0;index<count;++index){
+  int item=catalog->get(index);
+  if(item!=selected && ((Rva005E3B1A*)((char*)guard+0xC))->IsSelected(item))
+   ((Rva005E508F*)((char*)guard+0xC))->rva005E5097(item);
+ }
+}
 
 // tu-skeleton: 0x005E69C8 8B ?rva005E69C8@Rva005E6F9D@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva005E4F6DConstructor.cpp (not merged yet)
 
@@ -612,20 +903,6 @@ void Rva005E6894::releaseAndEmptyHook() {
 // tu-skeleton: 0x005E6A00 17B ?rva005E6A00@Rva005E6A00@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaHelperThenMemberForwarders.cpp (not merged yet)
 
 // tu-skeleton: 0x005E6A11 18B ?Rva000DFB80@@YAPAVR1DwordPair@@PAV1@HH@Z -- matched in Code/GameEngine/Source/Common/R1SmallFieldInitialisersOs.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/Rva005E6A9DRun.cpp
-
-void Rva005E6A9DRun::run()
-{
-	int cached = m_1C.m_ptr;
-	if (cached)
-	{
-		if (((Rva005CB265 *)m_08)->Rva005CB265::rva005CB265() == cached)
-			m_08->rva005CB260();
-		m_1C.clear();
-	}
-	((Rva005E3B25 *)((char *)m_04 + 0xC))->rva005E3B25(m_14);
-}
 
 // tu-skeleton: 0x005E6AD8 102B ?rva005E6AD8@Rva005E6AD8@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIHeroComparator.cpp (not merged yet)
 
@@ -638,6 +915,112 @@ void Rva005E6A9DRun::run()
 // tu-skeleton: 0x005E6BB4 17B ?rva005E6BB4@Rva005E6BB4@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva0010BA61Wrappers.cpp (not merged yet)
 
 // tu-skeleton: 0x005E6BC5 220B ?ComputeRankProgress@StrategicInGameUI@@YAMPBURva005E4300Entry@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ComputeRankProgress.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIPlanningPhaseGarrisonSelectionCtor.cpp
+
+// The complete native parents and associative EH code/data graphs prove
+// the naturally emitted handlers recorded with this unit. Each has one
+// primary owner and its full 10-byte extent.
+// Retail 5CDA63..5CDB43: complete 224B constructor, RET16 including the
+// compiler virtual-base flag. WorldBuilder 15BFB20 independently names
+// PlanningPhaseGarrisonSelection::DetailsPanel::DetailsPanel and records
+// this source file at assertions 110..125. Native C75028 slot0 points to
+// scalar 5CDB6C / complete destructor 5CD9C0, whose established neutral
+// owner and exact shared virtual-base graph are retained here.
+// Target observations: owner link from input+10 stored at this+1C; link+C
+// points back to this; army+78 holds summary; summary slots40/44 have stride8;
+// skip entries with nonzero B8, then add entry ID through the second interface.
+// Remaining opaque field and interface names are layout observations rather
+// than recovered declarations from the original source.
+
+Rva005CD9C0::Rva005CD9C0(int level, const AsciiString &name, void *phase)
+    : Rva005E54F7(level, name, phase), link1C(static_cast<GarrisonPhase *>(phase)->link)
+{
+    link1C->owner = this;
+    GarrisonArmy *army = reinterpret_cast<GarrisonArmy *>(reinterpret_cast<Rva000425C4PtrChaseField *>(link1C)->get());
+    GarrisonSummary *summary = army->summary;
+    if (summary) {
+        int count = summary->end - summary->begin;
+        for (int i = 0; i < count; ++i) {
+            GarrisonEntry *entry = reinterpret_cast<GarrisonEntry *>(reinterpret_cast<Rva0040CB2CIndexedField *>(summary)->get(i));
+            if (entry->fieldB8 == 0) {
+                int id = reinterpret_cast<Rva0040CC0EIndexedField *>(summary)->get(i);
+                reinterpret_cast<Rva005E508F *>(static_cast<Rva005CC5E5 *>(this))->rva005E508F(id);
+            }
+        }
+    }
+}
+
+// Placeholder virtuals this unit's vftables hold.  In retail each such slot
+// holds a rowed function; the vftable's address is proven by the vptr stores in
+// the matched destructors, so bind the placeholder to that row's name.
+
+// tu-skeleton: 0x007A15D9 10B $L1111 -- matched in Code/GameEngine/Source/Common/Rva005F4C8EFactory.cpp (not merged yet)
+
+// tu-skeleton: 0x007A15E3 10B __ehhandler$?rva005CDBAE@Rva005CDB8F@@UAE?AV?$Rva005F4C8ERef@VRva005CD9C0Iface@@@@HH@Z -- matched in Code/GameEngine/Source/Common/Rva005F4C8EFactory.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva005CDCEEConstructor.cpp
+
+// Native005CDE89..005CDF2D,164B RET16, includes hidden virtual-base flag.
+// Calls published191B root5E6ED6 with the same level/name/input contract.
+// Retail stores primary/secondary vtables at0/C/14 and shared Count at28;
+// link24 comes from input+10 and registers this at owner+20. The byte
+// getter5E687F controls a call to published wrapper5E69C8. Native layout
+// and callees are target facts. WB15C0550 corroborates initialization and
+// PlanningPhase DetailsPanel identity, but that name remains a lead.
+// Native vtableC750A0 slot0 is the existing35B scalar destructor5CDF49,
+// which calls rowed50B Rva005CDCEE destructor5CDCEE. This independently
+// establishes the existing owner; do not introduce a second panel class.
+// Keep providers out of this TU: retail calls the8B wrapper out of line.
+
+Rva005CDCEE::Rva005CDCEE(int level,const AsciiString &name,PlanningHeroDetailsInput *input)
+    : Rva005E6F9D(level,name,input),link24(input->planningOwner)
+{
+    link24->owner=this;
+    if (!((const Rva005E687F *)this)->get()) rva005E69C8();
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva005E5A8BMouse.cpp
+
+// Target 5E5A8B149B / 5E5B2098B / 5E5B82117B are complete entries;
+// old false-boundary notes are contradicted by their real prologues and RETs.
+// Native dispatcher5E5B82 and WB15FF760 parse GameMessage3 point and1B region.
+// Existing PlanRetreats OnMouseLeftClick131B is a clean source shape guide
+// for the same 12-byte picker RAII and point copy. Here target accesses prove
+// viewer8 contextC selector-enabled30 held38 dirty3C blocked40.
+// Owned selector ctor5E5A38 and reset7B5CB9F3 plus existing checked picker
+// pin5CBB4A establish the lifetime and calls. Original UI owner/method names
+// remain unresolved; callback and field labels are structural descriptions.
+
+int Rva005E5A8B::OnMouseLeftClick(const IRegion2D&region2D,int modifiers){
+ if(region2D.hi.x-region2D.lo.x<=0 && region2D.hi.y-region2D.lo.y<=0 && enabled){
+ Rva005E5A38 selector((int)this);
+ ICoord2D point;point.x=region2D.lo.x;point.y=region2D.lo.y;
+ ((Rva005CBB4A*)&selector)->rva005CBB4A((void*)viewer,(int)&point,context->value);
+ Callback* picked=callback;
+ if(picked){picked->s04();return 1;}
+ }return 0;
+}
+
+int Rva005E5A8B::OnMouseMove(const ICoord2D&point,int modifiers){
+ dirty=true;
+ if(enabled){Rva005E5A38 selector((int)this);((Rva005CBB4A*)&selector)->rva005CBB4A((void*)viewer,(int)&point,context->value);}
+ else ((Rva000AD6F4*)&callback)->clear();
+ return 0;
+}
+
+int Rva005E5A8B::handleMessage(GameMessage*msg){
+ if(blocked)return 0;
+ switch(msg->type){
+ case 3:{ICoord2D point=msg->getArgument(0)->point;return OnMouseMove(point,msg->getArgument(1)->integer);}
+ case 0x1b:return OnMouseLeftClick(msg->getArgument(0)->region,msg->getArgument(1)->integer);
+ default:return 0;
+ }
+}
+
+// tu-skeleton: 0x007A3A31 25B ?rva007A3A31@@YAXXZ -- matched in Code/GameEngine/Source/Common/RvaPayloadValueFactories.cpp (not merged yet)
+
+// tu-skeleton: 0x007A3A4A 10B __ehhandler$?CreatePanelFactory@DetailsPanelFactoryFactory@PlanningPhaseArmySelection@StrategicInGameUI@@QAE?AVPanelFactoryResultView@@PAX@Z -- matched in Code/GameEngine/Source/Common/RvaPayloadValueFactories.cpp (not merged yet)
 
 // tu-skeleton: 0x007A3A8E 8B $L493 -- matched in Code/GameEngine/Source/Common/Rva005E5FFBDtor.cpp (not merged yet)
 
@@ -682,12 +1065,6 @@ void Rva005E6A9DRun::run()
 // tu-skeleton: 0x007A3B63 10B $L854 -- matched in Code/GameEngine/Source/GameClient/GUI/StrategicUiArmyDragDrop.cpp (not merged yet)
 
 // tu-skeleton: 0x007A3B6D 10B __ehhandler$?rva005E652E@Rva005E652E@@QAEXPAVRva005FArmyView@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/StrategicUiArmyDragDrop.cpp (not merged yet)
-
-// tu-skeleton: 0x007A3B77 8B $L364 -- matched in Code/GameEngine/Source/Common/Rva005E663CConstructor.cpp (not merged yet)
-
-// tu-skeleton: 0x007A3B7F 10B uw_007a3b7f -- matched in Code/GameEngine/Source/Common/Rva005E663CConstructor.cpp (not merged yet)
-
-// tu-skeleton: 0x007A3B89 10B __ehhandler$??0Rva005E663C@@QAE@PAXHHHHHH@Z -- matched in Code/GameEngine/Source/Common/Rva005E663CConstructor.cpp (not merged yet)
 
 // tu-skeleton: 0x007A3BCB 8B uw_007a3bcb -- matched in Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIHeroComparator.cpp (not merged yet)
 
