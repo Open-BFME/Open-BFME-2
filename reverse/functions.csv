@@ -36610,7 +36610,7 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?Rva0054703E@AttackObjectGroupOrder@@UAE_NH@Z,,0x0054703E,50,Code/GameEngine/Source/GameLogic/AI/AttackObjectGroupOrder.cpp,matched,vslot5 of 0x86A420 via slot8 TU plus findObjectByID rowed plus Object 0x438 bit0
 ??0GroupOrder@@QAE@PAVRva0036E346@@@Z,,0x00548A25,157,Code/GameEngine/Source/GameLogic/AI/GroupOrderHolderCtor.cpp,matched,GroupOrder holder ctor with Science vector via count reserve pushback
 ?rva00547099@AttackObjectGroupOrder@@UAE_NPAHPAX@Z,,0x00547099,95,Code/GameEngine/Source/GameLogic/AI/AttackObjectGroupOrder.cpp,matched,vslot 11 via donor file GameLogic
-?xfer@GroupOrder@@UAEXPAVXfer@@@Z,,0x00548AC2,70,Code/GameEngine/Source/GameLogic/AI/GroupOrderXfer.cpp,matched,slot 3 of 0x0086A520 calls rowed Rva00398280Xfer vector plus 2 uints
+?xfer@GroupOrder@@UAEXPAVXfer@@@Z,,0x00548AC2,70,Code/GameEngine/Source/GameLogic/AI/GroupOrder.cpp,matched,slot 3 of 0x0086A520 calls rowed Rva00398280Xfer vector plus 2 uints
 ?xfer@ChangeStanceGroupOrder@@UAEXPAVXfer@@@Z,,0x00546B91,54,Code/GameEngine/Source/GameLogic/AI/ChangeStanceGroupOrderXfer.cpp,matched,slot 3 base plus version plus stances for 0x18
 ?xfer@GarrisonObjectGroupOrder@@UAEXPAVXfer@@@Z,,0x00546D15,65,Code/GameEngine/Source/GameLogic/AI/GarrisonObjectGroupOrderXfer.cpp,matched,slot 3 base plus version plus ObjectID plus slot60
 ?xfer@AttackObjectGroupOrder@@UAEXPAVXfer@@@Z,,0x00546FC9,79,Code/GameEngine/Source/GameLogic/AI/AttackObjectGroupOrderXfer.cpp,matched,slot 3 base plus version plus ObjectID plus slot90 plus slot60

@@ -17,6 +17,27 @@ template <> __forceinline void allocator<::ScienceType >::deallocate(::ScienceTy
 #include "Common/Snapshot.h"
 #pragma inline_depth(0)
 #pragma inline_depth()
+typedef unsigned char UnsignedByte;
+typedef unsigned int UnsignedInt;
+typedef bool Bool;
+class Snapshot;
+class AsciiString;
+class UnicodeString;
+class PooledString;
+struct Coord3DBase;
+struct ICoord3D;
+struct Region3D;
+class IRegion3D;
+class Coord2D;
+struct ICoord2D;
+struct Region2D;
+struct IRegion2D;
+class RealRange;
+struct RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+struct XferUnknown11;
+#include "../../../Include/Common/BfmeXfer.h"
 
 // Native scalar-vector cleanup uses the rowed game-memory free wrapper.
 // Keep the first compatible ScienceType destructor's allocator identity.
@@ -41,9 +62,20 @@ private:
 	unsigned int m_14; // +0x14
 };
 
+class Xfer::Version
+{
+public:
+	UnsignedByte m_version;
+	UnsignedByte m_currentVersion;
+};
+
+extern Xfer *Rva00398280Xfer(Xfer *xfer, ScienceTypeVector *vec);
+
 // tu-skeleton: 0x005488C5 36B ??0GroupOrder@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/GroupOrderCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x005488E9 95B ??0GroupOrder@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/GroupOrderCopyCtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/AI/GroupOrder.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/AI/GroupOrderDtor.cpp
 
@@ -72,7 +104,21 @@ void _bfmeGroupOrderDtorInlineAnchor()
 
 // tu-skeleton: 0x00548A25 157B ??0GroupOrder@@QAE@PAVRva0036E346@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/GroupOrderHolderCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x00548AC2 70B ?xfer@GroupOrder@@UAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/GroupOrderXfer.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/AI/GroupOrderXfer.cpp
+
+// ?xfer@GroupOrder@@UAEXPAVXfer@@@Z @0x00548AC2 70B evidence: vtable slot 3 offset 0xC of 0x0086A520 class of GroupOrder ctor; calls rowed Rva00398280Xfer 0x00398280 with this+4 vector; xferVersion 1-1 then xferUnsignedInt this+0x10 this+0x14; unblocks 0x00546FC9 etc.; callers 0x00546A48 etc.
+// Proven method keeps real name xfer (slot 3 recipe).
+
+void GroupOrder::xfer(Xfer *xfer)
+{
+	Xfer::Version version;
+	version.m_version = 1;
+	version.m_currentVersion = 1;
+	*xfer == version;
+	Rva00398280Xfer(xfer, &m_list);
+	*xfer == m_10;
+	*xfer == m_14;
+}
 
 // tu-skeleton: 0x0079815A 8B uw_0079815a -- matched in Code/gen_small/uw_gen_013.cpp (not merged yet)
 
