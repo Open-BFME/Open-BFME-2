@@ -19,6 +19,9 @@ typedef float Real;
 #include "../../../../../../../reference/shims/bfme2_ascii/unicode_string.h"
 #pragma const_seg(".data")
 #pragma const_seg()
+#include "unicode_string.h"
+typedef unsigned short UnsignedShort;
+#include <stdio.h>
 
 // Retail's tree frees nodes through a direct _free; the dllimport+forceinline
 // specialization takes __malloc_alloc<0>::deallocate inline so this TU emits
@@ -137,13 +140,6 @@ public:
 private:
 	EnumeratedIP *m_IPlist;
 	bool m_isWinsockInitialized;
-};
-
-class GlobalData
-{
-public:
-	unsigned char m_unreconstructed_000[ 0xA48 ];
-	UnsignedInt m_defaultIP;
 };
 
 extern class GlobalData *TheWritableGlobalData;
@@ -324,6 +320,14 @@ public:
 // OptionPreferences_enumDispatch.cpp; this TU only references it.
 extern BfmeEnumTableEntry BfmeEnumTable[];
 
+class MultiplayerColorDefinition
+{
+public:
+	AsciiString getTooltipName() const throw();
+};
+
+extern GlobalData *TheWritableGlobalData;
+
 class UserPreferences : public PreferenceMap
 {
 public:
@@ -351,24 +355,38 @@ protected:
 	UnicodeString m_filename;
 };
 
-class OptionPreferences : public AsciiPreferenceMap
+int strcmp(const char *a, const char *b);
+
+class GlobalData
+{
+public:
+	unsigned char m_unreconstructed_000[ 0x30 ];
+	Int m_xResolution;
+	Int m_yResolution;
+	unsigned char m_unreconstructed_038[ 0x24 ];
+	Bool m_alternateMouseSetup;
+	unsigned char m_unreconstructed_05D[ 0x9EB ];
+	UnsignedInt m_defaultIP;
+	Int m_firewallBehavior;
+	Bool m_firewallSendDelay;
+	unsigned char m_unreconstructed_051[ 3 ];
+	unsigned short m_firewallPortOverride;
+	short m_firewallPortAllocationDelta;
+	unsigned char m_unreconstructed_05A[ 0xA2 ];
+	Real m_keyboardDefaultScrollFactor;
+	unsigned char m_unreconstructed_B00[ 0x68 ];
+	Bool m_languageFilter;
+	Bool m_turnOffMessengerInGame;
+	Bool m_doubleClickGuard;
+	unsigned char m_unreconstructed_B6B[ 1 ];
+	Bool m_refreshNet;
+	Bool m_displayForeignLanguage;
+};
+
+class OptionPreferences : public UserPreferences
 {
 public:
 	virtual ~OptionPreferences();
-public:
-	virtual void RvaPad01();
-public:
-	virtual void RvaPad02();
-public:
-	virtual void RvaPad03();
-public:
-	virtual void RvaPad04();
-public:
-	virtual void RvaPad05();
-public:
-	virtual void RvaPad06();
-public:
-	virtual Int GetEnumValue(const char *key, const void *table, Int count, Int defaultValue);
 public:
 	Int Rva002E42AFDispatch(Int index);
 public:
@@ -431,15 +449,31 @@ public:
 	void rva002E54EA();
 public:
 	UnsignedInt getOnlineIPAddress(void);
-};
-
-class MultiplayerColorDefinition
-{
 public:
-	AsciiString getTooltipName() const throw();
+	Real getScrollFactor();
+	Bool getSendDelay();
+	Bool getTurnOffMessengerInGame();
+	void getResolution(Int *xres, Int *yres);
+	Bool getLanguageFilter();
+	Bool getDoubleClickGuard();
+	Bool getAlternateMouseSetup();
+	Bool getRefreshNet();
+	Bool getDisplayForeignLanguage();
+	Int getFirewallBehavior();
+	unsigned short getFirewallPortOverride();
+	short getFirewallPortAllocationDelta();
+	Bool getFirewallNeedToRefresh();
+	void setLANIPAddress(AsciiString IP);
+	void setLANIPAddress(unsigned int ip);
+	void setOnlineIPAddress(AsciiString IP);
+	void setOnlineIPAddress(unsigned int ip);
+	void setSetting(int setting, int value);
+	void rva002E43A6(Int val);
+	void rva002E43EE(short val);
+	void rva002E4438(unsigned short val);
 };
 
-extern GlobalData *TheWritableGlobalData;
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionsMenu.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionsMenu.cpp
 
@@ -462,14 +496,14 @@ extern GlobalData *TheWritableGlobalData;
 // ?getIdealStaticGameDetail@OptionPreferences@@QAEHXZ
 Int OptionPreferences::getIdealStaticGameDetail(void)
 {
-	return GetEnumValue("IdealStaticGameLOD", rva00202B6CNames, 6, -1);
+	return getEnumIndex("IdealStaticGameLOD", rva00202B6CNames, 6, -1);
 }
 
 // ?getStaticGameDetail@OptionPreferences@@QAEHXZ
 Int OptionPreferences::getStaticGameDetail(void)
 {
 	Int level = (*(Rva00DFE144Globals **)&TheGameLODManager)->m_staticLODLevel;
-	return GetEnumValue("StaticGameLOD", rva00202B6CNames, 6, level);
+	return getEnumIndex("StaticGameLOD", rva00202B6CNames, 6, level);
 }
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_enumDispatch.cpp
@@ -490,7 +524,7 @@ Int OptionPreferences::getStaticGameDetail(void)
 // ?Rva002E42AFDispatch@OptionPreferences@@QAEHH@Z
 Int OptionPreferences::Rva002E42AFDispatch(Int index)
 {
-	return GetEnumValue(BfmeEnumTable[index].m_key, BfmeEnumTable[index].m_subtable, BfmeEnumTable[index].m_count, 0);
+	return getEnumIndex(BfmeEnumTable[index].m_key, (const char **)BfmeEnumTable[index].m_subtable, BfmeEnumTable[index].m_count, 0);
 }
 
 // ?getModelLOD@OptionPreferences@@QAEHXZ
@@ -1006,62 +1040,6 @@ void GadgetSliderGetMinMax(GameWindow *window, int *min, int *max)
     *min = slider->minVal;
 }
 
-// tu-skeleton: 0x002E42D2 28B ??_GRva002E4272@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva003B1F65Derived.cpp (not merged yet)
-
-// tu-skeleton: 0x002E434E 88B ??0OptionPreferences@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_ctor.cpp (not merged yet)
-
-// tu-skeleton: 0x002E43A6 72B ?rva002E43A6@OptionPreferences@@QAEXH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_rva002E43A6.cpp (not merged yet)
-
-// tu-skeleton: 0x002E43EE 74B ?rva002E43EE@OptionPreferences@@QAEXF@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_rva002E43A6.cpp (not merged yet)
-
-// tu-skeleton: 0x002E4438 74B ?rva002E4438@OptionPreferences@@QAEXG@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_rva002E43A6.cpp (not merged yet)
-
-// tu-skeleton: 0x002E4482 59B ?erase@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@QAEXU?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@V1@@_STL@@@2@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_string_pair_cleanup.cpp (not merged yet)
-
-// tu-skeleton: 0x002E44BD 53B ?_M_erase@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@AAEXPAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@V1@@_STL@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_string_pair_cleanup.cpp (not merged yet)
-
-// tu-skeleton: 0x002E44F2 41B ?clear@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_string_pair_cleanup.cpp (not merged yet)
-
-// tu-skeleton: 0x002E451B 20B ?upper_bound@?$_Rb_tree@VAsciiString@@V1@U?$_Identity@VAsciiString@@@_STL@@U?$less@VAsciiString@@@3@V?$allocator@VAsciiString@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@VAsciiString@@U?$_Nonconst_traits@VAsciiString@@@_STL@@@2@ABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/PeerDefs.cpp (not merged yet)
-
-// tu-skeleton: 0x002E452F 68B ?erase@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@QAEXU?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@V1@@_STL@@@2@@2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_string_pair_cleanup.cpp (not merged yet)
-
-// tu-skeleton: 0x002E4573 103B ?getCampaignDifficulty@OptionPreferences@@QAEHXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_mapFind.cpp (not merged yet)
-
-// tu-skeleton: 0x002E45DA 121B ?getScrollFactor@OptionPreferences@@QAEMXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getScrollFactor.cpp (not merged yet)
-
-// tu-skeleton: 0x002E47B0 101B ?getSendDelay@OptionPreferences@@QAE_NXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getSendDelay.cpp (not merged yet)
-
-// tu-skeleton: 0x002E4815 95B ?getFirewallBehavior@OptionPreferences@@QAEHXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getFirewallBehavior.cpp (not merged yet)
-
-// tu-skeleton: 0x002E4874 90B ?getFirewallPortAllocationDelta@OptionPreferences@@QAEFXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getFirewallPortAllocationDelta.cpp (not merged yet)
-
-// tu-skeleton: 0x002E48CE 90B ?getFirewallPortOverride@OptionPreferences@@QAEGXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getFirewallPortOverride.cpp (not merged yet)
-
-// tu-skeleton: 0x002E4928 103B ?getFirewallNeedToRefresh@OptionPreferences@@QAE_NXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getFirewallNeedToRefresh.cpp (not merged yet)
-
-// tu-skeleton: 0x002E4AA1 140B ?getResolution@OptionPreferences@@QAEXPAH0@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getResolution.cpp (not merged yet)
-
-// tu-skeleton: 0x002E4BC7 100B ?getLanguageFilter@OptionPreferences@@QAE_NXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getLanguageFilter.cpp (not merged yet)
-
-// tu-skeleton: 0x002E4C2B 100B ?getTurnOffMessengerInGame@OptionPreferences@@QAE_NXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getTurnOffMessengerInGame.cpp (not merged yet)
-
-// tu-skeleton: 0x002E4C8F 100B ?getDoubleClickGuard@OptionPreferences@@QAE_NXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getDoubleClickGuard.cpp (not merged yet)
-
-// tu-skeleton: 0x002E4D4E 96B ?getAlternateMouseSetup@OptionPreferences@@QAE_NXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getAlternateMouseSetup.cpp (not merged yet)
-
-// tu-skeleton: 0x002E4DAE 100B ?getRefreshNet@OptionPreferences@@QAE_NXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getRefreshNet.cpp (not merged yet)
-
-// tu-skeleton: 0x002E4E12 100B ?getDisplayForeignLanguage@OptionPreferences@@QAE_NXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getDisplayForeignLanguage.cpp (not merged yet)
-
-// tu-skeleton: 0x002E4ED1 73B ?erase@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@QAEIABVAsciiString@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_string_pair_cleanup.cpp (not merged yet)
-
-// tu-skeleton: 0x002E4F1A 5B ?erase@?$map@VAsciiString@@V1@U?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@QAEIABVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/GameSpyLoginPreferences.cpp (not merged yet)
-
-// tu-skeleton: 0x002E505A 97B ?setLANIPAddress@OptionPreferences@@QAEXVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_setLANIPAddress.cpp (not merged yet)
-
-// tu-skeleton: 0x002E50BB 143B ?setLANIPAddress@OptionPreferences@@QAEXI@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_setLANIPAddress.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getGameSpyIPAddress.cpp
 
 //
@@ -1095,17 +1073,433 @@ UnsignedInt OptionPreferences::getOnlineIPAddress(void)
 	return TheWritableGlobalData->m_defaultIP;
 }
 
-// tu-skeleton: 0x002E520C 97B ?setOnlineIPAddress@OptionPreferences@@QAEXVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_setLANIPAddress.cpp (not merged yet)
+// tu-skeleton: 0x002E42D2 28B ??_GRva002E4272@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva003B1F65Derived.cpp (not merged yet)
 
-// tu-skeleton: 0x002E526D 143B ?setOnlineIPAddress@OptionPreferences@@QAEXI@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_setLANIPAddress.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_ctor.cpp
+
+/*
+**	Command & Conquer Generals Zero Hour(tm)
+**	Copyright 2025 Electronic Arts Inc.
+**
+**	This program is free software: you can redistribute it and/or modify
+**	it under the terms of the GNU General Public License as published by
+**	the Free Software Foundation, either version 3 of the License, or
+**	(at your option) any later version.
+**
+**	This program is distributed in the hope that it will be useful,
+**	but WITHOUT ANY WARRANTY; without even the implied warranty of
+**	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+**	GNU General Public License for more details.
+**
+**	You should have received a copy of the GNU General Public License
+**	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+// OptionPreferences::OptionPreferences, retail 0x002E434E (88 bytes). Zero
+// Hour's constructor: build the UserPreferences base, then load the
+// Options.ini leaf (a direct call, as virtual dispatch resolves statically
+// inside a constructor). The UserPreferences model is the one recovered in
+// Code/GameEngine/Source/Common/UserPreferences.cpp:
+// Retail tells: the vtable at 0x00C1EF0C lists thirteen slots -- the
+// deleting destructor, load(UnicodeString), load(AsciiString), write, the
+// four typed getters plus a name-table lookup, getAsciiString, three typed
+// setters and setAsciiString -- so BFME 2 made every accessor virtual and
+// passes keys by const reference. The file name is a UnicodeString at +0x10
+// (the map occupies +4..+0xF); load(AsciiString) widens its leaf name and
+// forwards to the wide overload.
+
+// ??0OptionPreferences@@QAE@XZ @0x2E434E
+OptionPreferences::OptionPreferences( void )
+{
+	load("Options.ini");
+}
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_rva002E43A6.cpp
+
+// ?rva002E43A6@OptionPreferences@@QAEXH@Z 0x002E43A6 72B
+// Evidence: hardcoded FirewallBehavior key (string 0x7EB734) via rowed
+// StringBase ctor 0x00037BA0; virtual setInt slot 0x2c (UserPreferences
+// vtable: 13 slots, setInt is index 11); temp teardown via releaseBuffer
+// 0x00036410; neighbors OptionPreferences ctor/siblings; caller 0x005194F6.
+
+void OptionPreferences::rva002E43A6(Int val)
+{
+	setInt(AsciiString("FirewallBehavior"), val);
+}
+
+// ?rva002E43EE@OptionPreferences@@QAEXF@Z 0x002E43EE 74B
+// Evidence: FirewallPortAllocationDelta key (string 0x7EB700) via rowed
+// StringBase ctor 0x00037BA0; virtual setInt slot 0x2c with movsx word arg;
+// temp teardown via releaseBuffer 0x00036410; twin of rva002E43A6 above.
+void OptionPreferences::rva002E43EE(short val)
+{
+	setInt(AsciiString("FirewallPortAllocationDelta"), val);
+}
+
+// ?rva002E4438@OptionPreferences@@QAEXG@Z 0x002E4438 74B
+// Evidence: FirewallPortOverride key (string 0x7EB71C) via rowed StringBase
+// ctor 0x00037BA0; virtual setInt slot 0x2c with movzx word arg; temp
+// teardown via releaseBuffer 0x00036410; third sibling above.
+void OptionPreferences::rva002E4438(unsigned short val)
+{
+	setInt(AsciiString("FirewallPortOverride"), val);
+}
+
+// tu-skeleton: 0x002E4482 59B ?erase@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@QAEXU?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@V1@@_STL@@@2@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_string_pair_cleanup.cpp (not merged yet)
+
+// tu-skeleton: 0x002E44BD 53B ?_M_erase@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@AAEXPAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@V1@@_STL@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_string_pair_cleanup.cpp (not merged yet)
+
+// tu-skeleton: 0x002E44F2 41B ?clear@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_string_pair_cleanup.cpp (not merged yet)
+
+// tu-skeleton: 0x002E451B 20B ?upper_bound@?$_Rb_tree@VAsciiString@@V1@U?$_Identity@VAsciiString@@@_STL@@U?$less@VAsciiString@@@3@V?$allocator@VAsciiString@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@VAsciiString@@U?$_Nonconst_traits@VAsciiString@@@_STL@@@2@ABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/PeerDefs.cpp (not merged yet)
+
+// tu-skeleton: 0x002E452F 68B ?erase@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@QAEXU?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@V1@@_STL@@@2@@2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_string_pair_cleanup.cpp (not merged yet)
+
+// tu-skeleton: 0x002E4573 103B ?getCampaignDifficulty@OptionPreferences@@QAEHXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_mapFind.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getScrollFactor.cpp
+
+//
+// ?getScrollFactor@OptionPreferences@@QAEMXZ, retail 0x002E45DA,
+// 121 bytes. Dedicated TU.
+//
+// ZH OptionPreferences::getScrollFactor with three retail-measured
+// deviations (miss default is TheGlobalData's keyboard scroll factor float
+// at +0xAFC; negatives clamp to 1, not 0; tail multiplies by float-verified
+// 0.02f, not /100.0f). Same string plumbing as its siblings.
+
+// ?getScrollFactor@OptionPreferences@@QAEMXZ
+Real OptionPreferences::getScrollFactor(void)
+{
+	OptionPreferences::const_iterator it = find("ScrollFactor");
+	if (it == end())
+		return TheWritableGlobalData->m_keyboardDefaultScrollFactor;
+
+	Int factor = atoi(it->second.str());
+	if (factor < 0)
+		factor = 1;
+	if (factor > 100)
+		factor = 100;
+
+	return factor * 0.02f;
+}
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getSendDelay.cpp
+
+//
+// ?getSendDelay@OptionPreferences@@QAE_NXZ, retail 0x002E47B0,
+// 101 bytes. Dedicated TU.
+//
+// ZH OptionPreferences::getSendDelay verbatim
+// (GeneralsMD/.../GUICallbacks/Menus/OptionsMenu.cpp:427). Same string
+// plumbing as its siblings; the miss default is TheGlobalData's firewall
+// send-delay byte (retail-measured at +0xA50).
+
+// ?getSendDelay@OptionPreferences@@QAE_NXZ
+Bool OptionPreferences::getSendDelay(void)
+{
+	OptionPreferences::const_iterator it = find("SendDelay");
+	if (it == end())
+		return TheWritableGlobalData->m_firewallSendDelay;
+
+	if (_strcmpi(it->second.str(), "yes") == 0) {
+		return true;
+	}
+	return false;
+}
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getFirewallBehavior.cpp
+
+//
+// ?getFirewallBehavior@OptionPreferences@@QAEHXZ, retail 0x002E4815,
+// 95 bytes. Dedicated TU.
+//
+// ZH OptionPreferences::getSendDelay verbatim
+// (GeneralsMD/.../GUICallbacks/Menus/OptionsMenu.cpp:427). Same string
+// plumbing as its siblings; the miss default is TheGlobalData's firewall
+// send-delay byte (retail-measured at +0xA50).
+
+// ?getFirewallBehavior@OptionPreferences@@QAEHXZ
+Int OptionPreferences::getFirewallBehavior()
+{
+	OptionPreferences::const_iterator it = find("FirewallBehavior");
+	if (it == end())
+		return TheWritableGlobalData->m_firewallBehavior;
+
+	Int behavior = atoi(it->second.str());
+	if (behavior < 0)
+	{
+		behavior = 0;
+	}
+	return behavior;
+}
+
+// tu-skeleton: 0x002E4874 90B ?getFirewallPortAllocationDelta@OptionPreferences@@QAEFXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getFirewallPortAllocationDelta.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getFirewallPortOverride.cpp
+
+//
+// ?getFirewallPortOverride@OptionPreferences@@QAEGXZ, retail 0x002E48CE,
+// 90 bytes. Dedicated TU.
+//
+// ZH OptionPreferences::getSendDelay verbatim
+// (GeneralsMD/.../GUICallbacks/Menus/OptionsMenu.cpp:427). Same string
+// plumbing as its siblings; the miss default is TheGlobalData's firewall
+// send-delay byte (retail-measured at +0xA50).
+
+// ?getFirewallPortOverride@OptionPreferences@@QAEGXZ
+UnsignedShort OptionPreferences::getFirewallPortOverride()
+{
+	OptionPreferences::const_iterator it = find("FirewallPortOverride");
+	if (it == end()) {
+		return TheWritableGlobalData->m_firewallPortOverride;
+	}
+
+	return atoi(it->second.str());
+}
+
+// tu-skeleton: 0x002E4928 103B ?getFirewallNeedToRefresh@OptionPreferences@@QAE_NXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getFirewallNeedToRefresh.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getResolution.cpp
+
+//
+// ?getResolution@OptionPreferences@@QAEXPAH0@Z, retail 0x002E4AA1,
+// 140 bytes. Dedicated TU.
+//
+// ZH OptionPreferences::getScrollFactor with three retail-measured
+// deviations (miss default is TheGlobalData's keyboard scroll factor float
+// at +0xAFC; negatives clamp to 1, not 0; tail multiplies by float-verified
+// 0.02f, not /100.0f). Same string plumbing as its siblings.
+
+// ?getResolution@OptionPreferences@@QAEXPAH0@Z
+void OptionPreferences::getResolution(Int *xres, Int *yres)
+{
+	*xres = TheWritableGlobalData->m_xResolution;
+	*yres = TheWritableGlobalData->m_yResolution;
+
+	OptionPreferences::const_iterator it = find("Resolution");
+	if (it == end())
+		return;
+
+	Int selectedXRes,selectedYRes;
+	if (sscanf(it->second.str(),"%d%d", &selectedXRes, &selectedYRes) != 2)
+		return;
+
+	*xres=selectedXRes;
+	*yres=selectedYRes;
+}
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getLanguageFilter.cpp
+
+//
+// ?getLanguageFilter@OptionPreferences@@QAE_NXZ, retail 0x002E4BC7,
+// 100 bytes. Dedicated TU.
+//
+// ZH OptionPreferences::getSendDelay verbatim
+// (GeneralsMD/.../GUICallbacks/Menus/OptionsMenu.cpp:427). Same string
+// plumbing as its siblings; the miss default is TheGlobalData's firewall
+// send-delay byte (retail-measured at +0xA50).
+
+// ?getLanguageFilter@OptionPreferences@@QAE_NXZ
+Bool OptionPreferences::getLanguageFilter(void)
+{
+	OptionPreferences::const_iterator it = find("LanguageFilter");
+	if (it == end())
+		return TheWritableGlobalData->m_languageFilter;
+
+	if (strcmp(it->second.str(), "yes") == 0) {
+		return true;
+	}
+	return false;
+}
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getTurnOffMessengerInGame.cpp
+
+//
+// ?getTurnOffMessengerInGame@OptionPreferences@@QAE_NXZ, retail 0x002E4C2B,
+// 100 bytes. Dedicated TU.
+//
+// ZH OptionPreferences getter shape (GeneralsMD/.../GUICallbacks/Menus/
+// OptionsMenu.cpp) via the getSendDelay twin (same plumbing; the miss default
+// is TheGlobalData's byte retail-measured at +0xB69).
+
+// ?getTurnOffMessengerInGame@OptionPreferences@@QAE_NXZ
+Bool OptionPreferences::getTurnOffMessengerInGame(void)
+{
+	OptionPreferences::const_iterator it = find("TurnOffMessengerInGame");
+	if (it == end())
+		return TheWritableGlobalData->m_turnOffMessengerInGame;
+
+	if (strcmp(it->second.str(), "yes") == 0) {
+		return true;
+	}
+	return false;
+}
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getDoubleClickGuard.cpp
+
+//
+// ?getDoubleClickGuard@OptionPreferences@@QAE_NXZ, retail 0x002E4C8F,
+// 100 bytes. Dedicated TU.
+//
+// ZH OptionPreferences getter shape (GeneralsMD/.../GUICallbacks/Menus/
+// OptionsMenu.cpp) via the getTurnOffMessengerInGame twin (same plumbing;
+// the miss default is TheGlobalData's byte retail-measured at +0xB6A;
+// the yes/no test calls strcmp through the CRT thunk at 0x006291C6).
+
+// ?getDoubleClickGuard@OptionPreferences@@QAE_NXZ
+Bool OptionPreferences::getDoubleClickGuard(void)
+{
+	OptionPreferences::const_iterator it = find("DoubleClickGuard");
+	if (it == end())
+		return TheWritableGlobalData->m_doubleClickGuard;
+
+	if (strcmp(it->second.str(), "yes") == 0) {
+		return true;
+	}
+	return false;
+}
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getAlternateMouseSetup.cpp
+
+//
+// ?getAlternateMouseSetup@OptionPreferences@@QAE_NXZ, retail 0x002E4D4E,
+// 96 bytes. Dedicated TU.
+//
+// ZH OptionPreferences getter shape (GeneralsMD/.../GUICallbacks/Menus/
+// OptionsMenu.cpp) via the getTurnOffMessengerInGame twin (same plumbing;
+// the miss default is TheGlobalData's byte retail-measured at +0x5C; the
+// yes/no test is inverted (`!= 0`, test/setne) calling strcmp through the
+// CRT thunk at 0x006291C6, as in BFME1's getAlternateMouseSetup).
+
+// ?getAlternateMouseSetup@OptionPreferences@@QAE_NXZ
+Bool OptionPreferences::getAlternateMouseSetup(void)
+{
+	OptionPreferences::const_iterator it = find("AlternateMouseSetup");
+	if (it == end())
+		return TheWritableGlobalData->m_alternateMouseSetup;
+
+	if (strcmp(it->second.str(), "yes") != 0) {
+		return true;
+	}
+	return false;
+}
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getRefreshNet.cpp
+
+//
+// ?getRefreshNet@OptionPreferences@@QAE_NXZ, retail 0x002E4DAE,
+// 100 bytes. Dedicated TU.
+//
+// ZH OptionPreferences getter shape (GeneralsMD/.../GUICallbacks/Menus/
+// OptionsMenu.cpp) via the getTurnOffMessengerInGame twin (same plumbing;
+// the miss default is TheGlobalData's byte retail-measured at +0xB6C;
+// the yes/no test calls strcmp through the CRT thunk at 0x006291C6).
+
+// ?getRefreshNet@OptionPreferences@@QAE_NXZ
+Bool OptionPreferences::getRefreshNet(void)
+{
+	OptionPreferences::const_iterator it = find("RefreshNet");
+	if (it == end())
+		return TheWritableGlobalData->m_refreshNet;
+
+	if (strcmp(it->second.str(), "yes") == 0) {
+		return true;
+	}
+	return false;
+}
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getDisplayForeignLanguage.cpp
+
+//
+// ?getDisplayForeignLanguage@OptionPreferences@@QAE_NXZ, retail 0x002E4E12,
+// 100 bytes. Dedicated TU.
+//
+// ZH OptionPreferences getter shape (GeneralsMD/.../GUICallbacks/Menus/
+// OptionsMenu.cpp) via the getTurnOffMessengerInGame twin (same plumbing;
+// the miss default is TheGlobalData's byte retail-measured at +0xB6D;
+// the yes/no test calls strcmp through the CRT thunk at 0x006291C6).
+
+// ?getDisplayForeignLanguage@OptionPreferences@@QAE_NXZ
+Bool OptionPreferences::getDisplayForeignLanguage(void)
+{
+	OptionPreferences::const_iterator it = find("DisplayForeignLanguage");
+	if (it == end())
+		return TheWritableGlobalData->m_displayForeignLanguage;
+
+	if (strcmp(it->second.str(), "yes") == 0) {
+		return true;
+	}
+	return false;
+}
+
+// tu-skeleton: 0x002E4ED1 73B ?erase@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@QAEIABVAsciiString@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_string_pair_cleanup.cpp (not merged yet)
+
+// tu-skeleton: 0x002E4F1A 5B ?erase@?$map@VAsciiString@@V1@U?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@QAEIABVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/GameSpyLoginPreferences.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_setLANIPAddress.cpp
+
+//
+// ?setLANIPAddress@OptionPreferences@@QAEXI@Z, retail 0x002E50BB,
+// 143 bytes. Dedicated TU.
+//
+// ZH/BFME1 OptionPreferences::setLANIPAddress shape verbatim (four-octet
+// "%d.%d.%d.%d" format plus named key plus named slot split assigning through
+// the prefs map). Same push-sink recipe as the landed setCampaignDifficulty
+// sibling. Same string plumbing with pinned operator[]/assign/ctor/release/
+// format callees. Retail keeps default EH.
+
+// ?setLANIPAddress@OptionPreferences@@QAEXVAsciiString@@@Z, retail
+// 0x002E505A (97 bytes), directly before the unsigned overload: ZH's
+// string overload, verbatim.
+// Select-any like the OptionsMenu.cpp copy (this retail body comes first in
+// link order, so it is the copy the link keeps); the anchor keeps the noinline
+// body emitted.
+inline __declspec(noinline) void OptionPreferences::setLANIPAddress(AsciiString IP)
+{
+	(*this)["IPAddress"] = IP;
+}
+
+// Retain the inline bodies' ledger emission without changing their callers.
+// ?bfmeEmitOptionPreferencesSetIP@@YAXPAVOptionPreferences@@@Z absent-from-retail
+void bfmeEmitOptionPreferencesSetIP(OptionPreferences *optionPreferences)
+{
+	AsciiString empty;
+	optionPreferences->OptionPreferences::setLANIPAddress(empty);
+	optionPreferences->OptionPreferences::setOnlineIPAddress(empty);
+}
+
+// ?setLANIPAddress@OptionPreferences@@QAEXI@Z
+void OptionPreferences::setLANIPAddress(unsigned int ip)
+{
+	AsciiString text;
+	text.format("%d.%d.%d.%d", ip >> 24,
+		((ip & 0xff0000) >> 16), ((ip & 0xff00) >> 8), (ip & 0xff));
+	AsciiString key("IPAddress");
+	AsciiString &slot = (*this)[key];
+	slot = text;
+}
+
+// ?setOnlineIPAddress@OptionPreferences@@QAEXVAsciiString@@@Z, retail
+// 0x002E520C (97 bytes), directly before the unsigned overload: ZH's
+// string overload, verbatim.
+// Select-any, as setLANIPAddress above.
+inline __declspec(noinline) void OptionPreferences::setOnlineIPAddress(AsciiString IP)
+{
+	(*this)["GameSpyIPAddress"] = IP;
+}
+
+// ?setOnlineIPAddress@OptionPreferences@@QAEXI@Z
+void OptionPreferences::setOnlineIPAddress(unsigned int ip)
+{
+	AsciiString text;
+	text.format("%d.%d.%d.%d", ip >> 24,
+		((ip & 0xff0000) >> 16), ((ip & 0xff00) >> 8), (ip & 0xff));
+	AsciiString key("GameSpyIPAddress");
+	AsciiString &slot = (*this)[key];
+	slot = text;
+}
 
 // tu-skeleton: 0x002E553D 155B ?setSetting@OptionPreferences@@QAEXHH@Z -- matched in Code/GameEngine/Source/Common/OptionPreferences.cpp (not merged yet)
-
-// tu-skeleton: 0x00778BE5 8B Unwind@00b78be5 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_ctor.cpp (not merged yet)
-
-// tu-skeleton: 0x00778BED 8B Unwind@00b78bed -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_ctor.cpp (not merged yet)
-
-// tu-skeleton: 0x00778BF5 10B __ehhandler$??0OptionPreferences@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_ctor.cpp (not merged yet)
 
 // tu-skeleton: 0x00778C9B 8B Unwind@00b78c9b -- matched in Code/GameEngine/Source/Common/OptionPreferences.cpp (not merged yet)
 
