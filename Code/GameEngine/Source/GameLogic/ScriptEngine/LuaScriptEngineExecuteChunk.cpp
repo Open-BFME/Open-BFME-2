@@ -61,6 +61,7 @@ class FileSystem
 {
 public:
 	class File *openFile(const char *filename, int access, int unk);
+	bool doesFileExist(const char *filename) const;
 };
 
 extern FileSystem *TheFileSystem;

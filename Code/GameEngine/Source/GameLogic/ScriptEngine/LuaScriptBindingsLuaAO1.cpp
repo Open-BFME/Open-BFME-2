@@ -213,6 +213,7 @@ class NameKeyGenerator
 {
 public:
 	NameKeyType nameToKey( const char *name );
+	NameKeyType nameToKey(const AsciiString &name);
 };
 
 extern NameKeyGenerator *TheNameKeyGenerator;
@@ -256,6 +257,7 @@ class Rva00332E60
 {
 public:
 	void *rva00333918( int key );
+	void *rva0033321B(int key); // 0x0033321B
 };
 
 // DispatchEvent's second argument is an Object pointer here.  Retail's

@@ -22,28 +22,31 @@ typedef bool Bool;
 class XmlNameSlotList
 {
 public:
-	Int finish();
+	int count();
+	int finish();
+	const char *tagAt(int);
+	const char *nameAt(int);
 };
 
 class BfmeLexEAN
 {
 public:
-	BfmeLexEAN(char *text, char *buffer, Int limit);
+	char *getTailEAN();
+	BfmeLexEAN(char *text, char *buffer, int limit);
 	~BfmeLexEAN();
-	char *getTailEAN();	// 0x0030F2C7, the shared this+0x1C dword getter
-
-	char *m_bfmePosEAN;
-	char *m_bfmeLineEAN;
-	char *m_bfmeSourceEAN;
-	Int m_bfmeLineNumberEAN;
-	Int m_bfmeTagEAN;
-	char *m_bfmeBufEAN;
-	Int m_bfmeLimitEAN;
-	char *m_bfmeTailEAN;
-	Int m_bfmeDepthEAN;
-	unsigned char m_bfmeSeenEAN;
-	Int m_bfmeMarkEAN;
-	Int m_bfmeStackEAN[0x61];
+	char *m_bfmePosEAN; // +0x00
+	char *m_bfmeLineEAN; // +0x04
+	char *m_bfmeSourceEAN; // +0x08
+	int m_bfmeLineNumberEAN; // +0x0C
+	int m_bfmeTagEAN; // +0x10
+	char *m_bfmeBufEAN; // +0x14
+	int m_bfmeLimitEAN; // +0x18
+	char *m_tail; // +0x1C
+	int m_bfmeDepthEAN; // +0x20
+	unsigned char m_bfmeSeenEAN; // +0x24
+	char m_pad25[0x3];
+	int m_bfmeMarkEAN; // +0x28
+	int m_bfmeStackEAN[0x61]; // +0x2C
 };
 
 class __declspec(novtable) LuaScriptEngine

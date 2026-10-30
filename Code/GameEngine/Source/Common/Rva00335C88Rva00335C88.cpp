@@ -25,10 +25,10 @@ OutputIter __copy_ptrs(InputIter first, InputIter last, OutputIter result, const
 class Rva00335C88
 {
 public:
-	void *rva00335C88(void *a, void *b);
+	void *rva00335C88(void *,void *);
+	char m_pad00[0x4];
 private:
-	char m_pad00[4];
-	BfmeStringRecord00063BE4 *m_04;
+	BfmeStringRecord00063BE4 *m_04; // +0x04
 };
 
 // Retail passes the tag at &a + 3; a __false_type() temporary lands in b's

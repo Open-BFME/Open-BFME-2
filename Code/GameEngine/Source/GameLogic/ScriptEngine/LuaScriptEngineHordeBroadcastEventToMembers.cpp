@@ -24,10 +24,12 @@ extern GameLogic *TheGameLogic;
 
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 
+class AsciiString;
 class NameKeyGenerator
 {
 public:
-	NameKeyType nameToKey(const char *name);	// 0x00148E1A
+	NameKeyType nameToKey( const char *name );
+	NameKeyType nameToKey(const AsciiString &name);
 };
 extern NameKeyGenerator *TheNameKeyGenerator;
 
@@ -52,7 +54,8 @@ struct DelayedLuaEventList
 class Rva00332E60
 {
 public:
-	void *rva00333918(int key);	// 0x00333918
+	void *rva00333918( int key );
+	void *rva0033321B(int key); // 0x0033321B
 };
 
 class LuaScriptEngine

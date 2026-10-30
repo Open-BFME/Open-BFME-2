@@ -55,7 +55,22 @@ private:
 	ObjectStatusMask m_objectStatus;
 };
 
-class ScriptAction { public: Parameter *getParameter(int index); };
+class ScriptAction
+{
+public:
+	enum ScriptActionType { NUM_ITEMS = 0x257 };
+	Parameter *getParameter(int index);
+	ScriptAction(ScriptActionType type);
+	int getNumParameters() const { return m_numParms; }
+	virtual ~ScriptAction();
+	ScriptActionType m_actionType; // +0x04
+	int m_numParms; // +0x08
+	Parameter *m_parms[12]; // +0x0C
+	ScriptAction *m_nextAction; // +0x3C
+	bool m_hasWarnings; // +0x40
+	char m_pad41[0x3];
+	int m_bfmeActionTail; // +0x44
+};
 
 class Condition
 {

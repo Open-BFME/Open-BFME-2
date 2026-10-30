@@ -7,7 +7,14 @@
 #include <vector>
 #include <string.h>
 #pragma function(strcmp)
-class XmlNameSlotList {public:int count();int finish();const char *tagAt(int);const char *nameAt(int);};
+class XmlNameSlotList
+{
+public:
+	int count();
+	int finish();
+	const char *tagAt(int);
+	const char *nameAt(int);
+};
 struct Rva00336BE4Key {
  unsigned key;
  __declspec(noinline) Rva00336BE4Key();	// Rva00336BE4KeyCtor.cpp (0x00326BE6)

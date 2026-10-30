@@ -37,6 +37,7 @@ enum NameKeyType
 class NameKeyGenerator
 {
 public:
+	NameKeyType nameToKey( const char *name );
 	NameKeyType nameToKey(const AsciiString &name);
 };
 
@@ -46,19 +47,30 @@ class XmlNameSlotList
 {
 public:
 	int count();
-	const char *tagAt(int index);
-	const char *nameAt(int index);
 	int finish();
+	const char *tagAt(int);
+	const char *nameAt(int);
 };
 
 class BfmeLexEAN
 {
 public:
 	char *getTailEAN();
-
-private:
-	char m_pad00[0x1C];
-	char *m_tail;
+	BfmeLexEAN(char *text, char *buffer, int limit);
+	~BfmeLexEAN();
+	char *m_bfmePosEAN; // +0x00
+	char *m_bfmeLineEAN; // +0x04
+	char *m_bfmeSourceEAN; // +0x08
+	int m_bfmeLineNumberEAN; // +0x0C
+	int m_bfmeTagEAN; // +0x10
+	char *m_bfmeBufEAN; // +0x14
+	int m_bfmeLimitEAN; // +0x18
+	char *m_tail; // +0x1C
+	int m_bfmeDepthEAN; // +0x20
+	unsigned char m_bfmeSeenEAN; // +0x24
+	char m_pad25[0x3];
+	int m_bfmeMarkEAN; // +0x28
+	int m_bfmeStackEAN[0x61]; // +0x2C
 };
 
 // One event handler: key / Lua function name / single-step flag (12 bytes).

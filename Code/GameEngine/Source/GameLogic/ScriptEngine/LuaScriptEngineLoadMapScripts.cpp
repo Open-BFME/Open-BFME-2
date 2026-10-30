@@ -28,9 +28,11 @@ public:
 	bool rva002DC7C1(const UnicodeString &path) const;
 };
 
+class File;
 class FileSystem
 {
 public:
+	class File *openFile(const char *filename, int access, int unk);
 	bool doesFileExist(const char *filename) const;
 };
 

@@ -180,7 +180,15 @@ template<> Rva003371B1 *vector<Rva003371B1>::erase(Rva003371B1 *,Rva003371B1 *);
 template<> BfmeOpaqueRecord156 *vector<BfmeOpaqueRecord156>::erase(BfmeOpaqueRecord156 *,BfmeOpaqueRecord156 *);
 }
 
-class Rva00335C88 {public:void *rva00335C88(void *,void *);};
+struct BfmeStringRecord00063BE4;
+class Rva00335C88
+{
+public:
+	void *rva00335C88(void *,void *);
+	char m_pad00[0x4];
+private:
+	BfmeStringRecord00063BE4 *m_04; // +0x04
+};
 
 struct Rva00337RangeView { void *start,*finish,*limit; };
 
@@ -220,7 +228,18 @@ struct Rva00990030Range;
 
 unsigned int Rva00990030Lookup(Rva00990030Range*,int);
 
-class AIUpdateInterface {public: int getCurrentStateID() const;};
+class AIUpdateInterface
+{
+public:
+	int getCurrentStateID() const;
+	void processSpies(int key, void *argument2, void *argument3);
+	int rva002632C7( void ) const;
+	void rva002632E1( void );
+	unsigned char rva002632C7Bool( void ) const { return (unsigned char)rva002632C7(); }
+	char m_pad00[0x20];
+	char m_commandInterface[0x3C4 - 0x20]; // +0x20 +0x20, this of the command helpers
+	bool m_flag3C4; // +0x3C4 +0x3C4, set from Fear's third argument
+};
 
 int GetGameLogicRandomValue(int,int,char*,int);
 

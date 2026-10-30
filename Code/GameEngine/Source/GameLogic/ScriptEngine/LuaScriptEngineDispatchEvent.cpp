@@ -46,7 +46,14 @@ extern GameLogic *TheGameLogic;
 class AIUpdateInterface
 {
 public:
+	int getCurrentStateID() const;
 	void processSpies(int key, void *argument2, void *argument3);
+	int rva002632C7( void ) const;
+	void rva002632E1( void );
+	unsigned char rva002632C7Bool( void ) const { return (unsigned char)rva002632C7(); }
+	char m_pad00[0x20];
+	char m_commandInterface[0x3C4 - 0x20]; // +0x20 +0x20, this of the command helpers
+	bool m_flag3C4; // +0x3C4 +0x3C4, set from Fear's third argument
 };
 
 // The AI's event table (+0x220): key -> Lua function name.

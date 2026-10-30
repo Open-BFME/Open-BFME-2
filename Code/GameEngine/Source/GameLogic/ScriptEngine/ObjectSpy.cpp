@@ -56,18 +56,20 @@ enum NameKeyType
 {
 	NAMEKEY_UNKNOWN = 0
 };
+class AsciiString;
 class NameKeyGenerator
 {
 public:
-	NameKeyType nameToKey(const char *name);	// 0x00148E1A
+	NameKeyType nameToKey( const char *name );
+	NameKeyType nameToKey(const AsciiString &name);
 };
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 class Rva00332E60
 {
 public:
-	void *rva00333918(int key);	// 0x00333918
-	void *rva0033321B(int key);	// 0x0033321B
+	void *rva00333918( int key );
+	void *rva0033321B(int key); // 0x0033321B
 };
 struct LuaDrawableState
 {

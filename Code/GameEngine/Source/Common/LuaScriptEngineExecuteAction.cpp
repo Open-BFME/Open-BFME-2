@@ -58,20 +58,17 @@ class ScriptAction
 {
 public:
 	enum ScriptActionType { NUM_ITEMS = 0x257 };
-
-	ScriptAction(ScriptActionType type);
-	virtual ~ScriptAction();
-
-	int getNumParameters() const { return m_numParms; }
 	Parameter *getParameter(int index);
-
-	ScriptActionType m_actionType;
-	int m_numParms;
-	Parameter *m_parms[12];
-	ScriptAction *m_nextAction;
-	bool m_hasWarnings;
-	int m_bfmeActionTail;
-	
+	ScriptAction(ScriptActionType type);
+	int getNumParameters() const { return m_numParms; }
+	virtual ~ScriptAction();
+	ScriptActionType m_actionType; // +0x04
+	int m_numParms; // +0x08
+	Parameter *m_parms[12]; // +0x0C
+	ScriptAction *m_nextAction; // +0x3C
+	bool m_hasWarnings; // +0x40
+	char m_pad41[0x3];
+	int m_bfmeActionTail; // +0x44
 };
 
 class ActionTemplate

@@ -37,7 +37,8 @@ public:
 class FileSystem
 {
 public:
-	File *openFile(const char *filename, int a, int b);
+	class File *openFile(const char *filename, int access, int unk);
+	bool doesFileExist(const char *filename) const;
 };
 extern FileSystem *TheFileSystem;
 
@@ -75,7 +76,10 @@ struct ParserWrap : Rva00542806
 class XmlNameSlotList
 {
 public:
-	Int finish();
+	int count();
+	int finish();
+	const char *tagAt(int);
+	const char *nameAt(int);
 };
 
 class BfmeLexEAN;
