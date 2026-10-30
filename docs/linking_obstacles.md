@@ -430,6 +430,23 @@ unverified; carry them into the next scheduled census/current-receipt audit.
 No census gain is claimed.
 [Repair history and scoped checks](../reverse/attempt_support/holder-stale-msheaders-20261030-codexb4.md).
 
+### Narrow streambuf private-view composition (2026-10-30)
+
+At base `e5675822a4`, the seed and two private-view donors now share one
+TU-scoped partial streambuf declaration. All 12 rows, two funclet bindings
+and the EXACT parent EH graph pass. All 18 external COMDAT fingerprints,
+external symbols and reference graphs remain identical. Strict preparation
+passes; ordinary combined preview retains 3/3 LINKS and 555 authored bytes
+against index `12b9e7a7c0` (2026-10-30 10:11). The supported merge preview
+accepts both donors. The uflow/xsputnc vendor-header declarations and five
+mixed files remain composition prerequisites; no source moves in this repair.
+
+The staged audit is INCONCLUSIVE on that older index and missing current
+`Common/0CreateAHeroManager21FE49.cpp` consumer receipt. Full affected-consumer
+selection/loss checks remain pending; carry the scoped providers and wider
+consumers into the next scheduled census. No census or ownership gain is
+claimed. [Evidence and remaining scope](../reverse/attempt_support/stdio-streambuf-views-20261030-codex4.md).
+
 ### Chat PlayerInfo donor views and consolidation flags (2026-10-30)
 
 At base `1d0f5dab00`, the two clean map donors now share addChat's existing

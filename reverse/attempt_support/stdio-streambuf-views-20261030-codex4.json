@@ -1,0 +1,23 @@
+{
+  "Code/GameEngine/Source/Common/StdioStreambufBase.cpp": {
+    "comdat_before": 7,
+    "comdat_after": 7,
+    "comdat_changes": {},
+    "external_symbols_equal": true,
+    "reference_graph_equal": true
+  },
+  "Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_streambuf_xs.cpp": {
+    "comdat_before": 1,
+    "comdat_after": 1,
+    "comdat_changes": {},
+    "external_symbols_equal": true,
+    "reference_graph_equal": true
+  },
+  "Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_streambuf_snextc_aux.cpp": {
+    "comdat_before": 10,
+    "comdat_after": 10,
+    "comdat_changes": {},
+    "external_symbols_equal": true,
+    "reference_graph_equal": true
+  }
+}
