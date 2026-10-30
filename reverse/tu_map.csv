@@ -60235,7 +60235,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0073D030,46,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/QueueDefaultCtorAnchors.cpp
 0x0073D060,46,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_e8_o2.cpp
 0x0073D090,939,code,Code/GameEngine/Source/Common/BfmeOwnerCDE.cpp,proposed,N,N=Code/GameEngine/Source/Common/BfmeOwnerCDE.cpp,Code/GameEngine/Source/Common/BfmeOwnerCDECount.cpp
-0x0073D440,170,code,Code/GameEngine/Source/Common/BfmeOwnerCDE.cpp,proposed,N,N=Code/GameEngine/Source/Common/BfmeOwnerCDE.cpp W=Code/Libraries/Source/shroudmanager/shroudmanager_impl.cpp,Code/GameEngine/Source/Common/BfmeOwnerCDECreate.cpp
+0x0073D440,170,code,Code/GameEngine/Source/Common/BfmeOwnerCDE.cpp,proposed,N,N=Code/GameEngine/Source/Common/BfmeOwnerCDE.cpp W=Code/Libraries/Source/shroudmanager/shroudmanager_impl.cpp,Code/GameEngine/Source/Common/BfmeOwnerCDE.cpp
 0x0073D4F0,144,code,Code/GameEngine/Source/Common/RTS/ShroudManagerImpl.cpp,proposed,N,N=Code/GameEngine/Source/Common/RTS/ShroudManagerImpl.cpp noncontiguous,Code/GameEngine/Source/Common/RTS/ShroudManagerImpl_processPending.cpp
 0x0073D580,46,code,Code/GameEngine/Source/Common/RTS/ShroudManagerImpl.cpp,proposed,C,C=0x0073D4F0..0x0073D5B0 noncontiguous,Code/GameEngine/Source/Common/RTS/ShroudManagerImpl008FBA40CtorDrain.cpp
 0x0073D5B0,46,code,Code/GameEngine/Source/Common/RTS/ShroudManagerImpl.cpp,proposed,C,C=0x0073D4F0..0x0073D5E0 noncontiguous,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_e8_o2.cpp
@@ -92482,8 +92482,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007AB18A,25,code,Code/GameEngine/Source/Common/BfmeOwnerCDE.cpp,approved,P,P=0x0073D090@FuncInfo0x00964998 p-group provisional,Code/GameEngine/Source/Common/BfmeOwnerCDECount.cpp
 0x007AB1A3,25,code,Code/GameEngine/Source/Common/BfmeOwnerCDE.cpp,approved,P,P=0x0073D090@FuncInfo0x00964998 p-group provisional,Code/GameEngine/Source/Common/BfmeOwnerCDECount.cpp
 0x007AB1BC,10,code,Code/GameEngine/Source/Common/BfmeOwnerCDE.cpp,approved,P,P=0x0073D090@FuncInfo0x00964998 p-group provisional,Code/GameEngine/Source/Common/BfmeOwnerCDECount.cpp
-0x007AB1D0,11,code,Code/GameEngine/Source/Common/BfmeOwnerCDE.cpp,approved,P,P=0x0073D440@FuncInfo0x009649BC p-group provisional,Code/GameEngine/Source/Common/BfmeOwnerCDECreate.cpp
-0x007AB1DB,10,code,Code/GameEngine/Source/Common/BfmeOwnerCDE.cpp,approved,P,P=0x0073D440@FuncInfo0x009649BC p-group provisional,Code/GameEngine/Source/Common/BfmeOwnerCDECreate.cpp
+0x007AB1D0,11,code,Code/GameEngine/Source/Common/BfmeOwnerCDE.cpp,approved,P,P=0x0073D440@FuncInfo0x009649BC p-group provisional,Code/GameEngine/Source/Common/BfmeOwnerCDE.cpp
+0x007AB1DB,10,code,Code/GameEngine/Source/Common/BfmeOwnerCDE.cpp,approved,P,P=0x0073D440@FuncInfo0x009649BC p-group provisional,Code/GameEngine/Source/Common/BfmeOwnerCDE.cpp
 0x007AB1F0,11,code,Code/GameEngine/Source/Common/RTS/ShroudManagerImpl.cpp,approved,P,P=0x0073D8B0@FuncInfo0x009649E0 p-group provisional,Code/GameEngine/Source/Common/RTS/ShroudManagerImpl008FBA40.cpp
 0x007AB1FB,10,code,Code/GameEngine/Source/Common/RTS/ShroudManagerImpl.cpp,approved,P,P=0x0073D8B0@FuncInfo0x009649E0 p-group provisional,Code/GameEngine/Source/Common/RTS/ShroudManagerImpl008FBA40.cpp
 0x007AB210,11,code,Code/GameEngine/Source/Common/RTS/ShroudManagerImpl.cpp,approved,P,P=0x0073DBF0@FuncInfo0x00964A04 p-group provisional,Code/GameEngine/Source/Common/RTS/ShroudManagerImpl008FBA40.cpp
