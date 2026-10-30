@@ -27,7 +27,7 @@ This tool makes the whole edit, verifies it, and records why:
            canonical), a new name that collides or is itself a placeholder,
            an `inferred` basis replacing a real name, a generated source, a
            name a shrink-only baseline is keyed on, and a mangled-name change
-           beyond the identifier;
+           beyond the identifier (one exception: `function --virtual`, below);
   claim    every affected RVA, a `file:` scope for every Code/ or shim file
            written and `class:` for a class or member (tools/claims.py); claims
            this run newly took are KEPT for the lander, who releases them
@@ -195,6 +195,17 @@ teaching it to read `restored` rows is a Verifier-Change follow-up), the
 landed name is tombstoned in turn, and the name_basis.csv row is append-only:
 rename.py honours it if a union merge brings a lifted tombstone back, and
 `check` reports that line.
+
+`function --virtual` respells one row's decoration from non-virtual to
+virtual (QAE->UAE, IAE->MAE, AAE->EAE; a destructor with its deleting
+destructors), identifier, parameters and return type kept, and only when a
+table retail code installs has a slot holding the row's address and that
+table is the row's class's or a class's that a view derives from it (see
+plan_virtual's section). It adds `virtual` to the class views that declare the
+method, respells ledger rows, funclets, notes tokens, pins and spelled mangled
+names, tombstones the old rows, carries a name_basis.csv record (the name's
+basis is unchanged), and is byte-gated like any rename: a caller whose call
+now goes through the vtable fails ./build.sh and everything is restored.
 
 Kinds in this build: function, global, file, class, member, param, local;
 plus `check`, `recover` and `revert`. Vendored and SDK sources (vendored= or .lib
@@ -1003,6 +1014,7 @@ class Plan:
     owner_rows: list = field(default_factory=list)    # body_owners.csv (name, rva) renamed with their row
     carried: list = field(default_factory=list)       # name_basis.csv records carried to a new spelling
     spellings: list = field(default_factory=list)     # carry: (old spelling, new spelling, occurrences)
+    virtual: bool = False                             # function --virtual: the decoration, not the name
 
     def edit(self, ctx, rel, data):
         if rel not in self.before:
@@ -1015,6 +1027,8 @@ class Plan:
         return set(self.after) | {new for _old, new in self.moves}
 
     def subject(self):
+        if self.virtual:
+            return f"Respell {self.old} as virtual {self.new} (retail vtable slot)"
         if self.kind == "carry":
             return f"Carry {len(self.spellings)} renamed spelling(s) into ledger notes"
         if self.kind in ("member", "param", "local"):
@@ -1030,6 +1044,8 @@ class Plan:
         else:
             lines = [f"rename: {self.kind} {self.old} -> {self.new}{where} ({self.basis})",
                      f"  owner source: {self.source}"]
+            if self.virtual:
+                lines.append(f"  evidence: {self.evidence}")
         for old, new in self.moves:
             lines.append(f"  git mv {old} {new}")
         for rel, count in sorted(self.path_rows.items()):
@@ -2588,8 +2604,15 @@ def rewrite_units(ctx, plan, old_word, new_word, old_name, new_name, owner_sourc
     return verify
 
 
-def plan_function(ctx, rva, new, basis, evidence, *, old=None, max_files=25):
-    """Plan respelling one RVA's function identifier everywhere it is named."""
+def plan_function(ctx, rva, new=None, basis=None, evidence="", *, old=None, max_files=25, virtual=False):
+    """Plan respelling one RVA's function identifier everywhere it is named;
+    with `virtual`, its decoration from non-virtual to virtual instead
+    (plan_virtual: no new identifier, no basis, retail evidence)."""
+    if virtual:
+        if new or basis:
+            raise Refusal("--virtual keeps the identifier and takes its evidence from retail: "
+                          "pass neither a new name nor a basis")
+        return plan_virtual(ctx, rva, evidence=evidence, old=old, max_files=max_files)
     rows = [r for r in ctx.rows() if _rva(r.get("target_rva")) == rva]
     if not rows:
         raise Refusal(f"no functions.csv row at 0x{rva:08X}")
@@ -2742,6 +2765,543 @@ def plan_function(ctx, rva, new, basis, evidence, *, old=None, max_files=25):
     plan.mentions = sorted(set(ctx.grep_files(old_name, roots=("docs", "reverse"))) - edited) + \
         sorted(set(ctx.grep_files(old_word, word=True, roots=("docs",))) - edited
                - set(ctx.grep_files(old_name, roots=("docs",))))
+    return plan
+
+
+# ---------------------------------------------------------------- virtual respell
+#
+# A row spelled non-virtual (`?f@C@@QAEXH@Z`) whose function retail reaches
+# through a vtable slot is `?f@C@@UAEXH@Z`: the identifier, scope, parameters
+# and return type stay, one character of the decoration changes. `function`
+# refuses that (a signature change) and no hand rename may make it over a real
+# name, so `function --virtual` makes exactly that change, and only on retail
+# evidence: a table that retail code installs (`mov dword ptr [reg+disp],
+# imm32`, the store tools/vftable_map.py reads, here with a displacement too
+# so a secondary table of a multiply-derived class counts) has a slot holding
+# the row's address, and that table belongs to the row's class -- a ctor, dtor
+# or deleting dtor of the class installs it, or the data ledger names it
+# `??_7Class@@6B..@` -- or to a class that a view (the installer's unit and
+# its headers) derives from the row's class. An address other rows or pins
+# share (an ICF fold) proves only that some folded function is virtual, so it
+# is refused. A destructor is virtual exactly when its deleting destructors
+# are: `??1C`, `??_GC` and `??_EC` are respelled together, the deleting
+# destructor on its slot and the destructor because that deleting
+# destructor's retail body calls it. Every class body of C that declares the
+# method (or `~C`) gains `virtual`, every spelled mangled name (comments,
+# linker pragmas, __identifier strings) and every ledger, pin and notes token
+# takes the new decoration, and ./build.sh decides: a caller whose call now
+# goes through the vtable, or a view whose layout gains a vptr, changes bytes
+# and the whole edit is restored.
+
+NONVIRTUAL_ACCESS = {"A": "E", "I": "M", "Q": "U"}   # private / protected / public near member
+VIRTUAL_ACCESS = frozenset("EFMNUV")
+# A shared body: the row notes record an ICF fold or an alias.
+FOLD_NOTES = re.compile(r"fold-proof=|icf-owner=|dup-of=|\bICF\b", re.I)
+VIRTUAL_MEMBER = re.compile(r"\?([A-Za-z_]\w*)@((?:[A-Za-z_]\w*@)+)@")
+VIRTUAL_DTOR = re.compile(r"\?\?(1|_G|_E)((?:[A-Za-z_]\w*@)+)@")
+INSTALLER_CLASS = re.compile(r"\?\?(?:0|1|_G|_E)([A-Za-z_]\w*)@")
+VTABLE_NAME = re.compile(r"\?\?_7([A-Za-z_]\w*)@")
+DECLSPEC = re.compile(r"__declspec\s*\([^()]*\)")
+
+
+def member_function_header(mangled):
+    """(index of the access code, class, enclosing scopes, role) of a member
+    function's decorated name; role is `method` (?f@C@@), `dtor` (??1C@@) or
+    `deleting` (??_GC@@, ??_EC@@). Anything else -- a free function, a
+    constructor, an operator, a template, a funclet -- is refused."""
+    role = "method"
+    match = VIRTUAL_MEMBER.match(mangled)
+    if not match:
+        match = VIRTUAL_DTOR.match(mangled)
+        if not match:
+            raise Refusal(f"{mangled} is not a method, destructor or deleting destructor this mode can "
+                          "respell (constructors, operators, templates and funclets are not)")
+        role = "dtor" if match.group(1) == "1" else "deleting"
+    scopes = match.group(2).rstrip("@").split("@")
+    at = match.end()
+    try:
+        end = _parse_header(mangled, at, _Out())
+    except (IndexError, ValueError) as error:
+        raise Refusal(f"{mangled}: cannot read its decoration ({error})") from None
+    if end != len(mangled):
+        raise Refusal(f"{mangled}: trailing {mangled[end:]!r} after its decoration")
+    return at, scopes[0], scopes[1:], role
+
+
+def virtual_symbol(mangled):
+    """`mangled` with its access code respelled virtual (QAE -> UAE, IAE ->
+    MAE, AAE -> EAE); identifier, scope, cv, convention, return type and
+    parameters are kept byte for byte."""
+    at, _cls, _scopes, _role = member_function_header(mangled)
+    code = mangled[at]
+    if code in VIRTUAL_ACCESS:
+        raise Refusal(f"{mangled} is already spelled virtual")
+    if code not in NONVIRTUAL_ACCESS:
+        raise Refusal(f"{mangled} is not a non-static member function (access code {code!r}): only a member "
+                      "function can be virtual")
+    return mangled[:at] + NONVIRTUAL_ACCESS[code] + mangled[at + 1:]
+
+
+def retail_vtables(ctx):
+    """{table rva: (slot targets, {store rva: this offset})} for every table
+    retail code installs with `mov dword ptr [reg], imm32` or `[reg+disp]`
+    (tools/vftable_map.py's reading, with the displacement forms a secondary
+    table's install takes): the immediate is an .rdata address whose run of
+    .text pointers is the table, cut where the next installed table starts.
+    Read from the md5-verified retail image (build.exe_image)."""
+    key = "_retail_vtables"
+    if key in ctx._cache:
+        return ctx._cache[key]
+    import struct
+    import build
+    image, sections = build.exe_image()
+    named = {s["name"]: s for s in sections}
+    text, rdata = named[".text"], named[".rdata"]
+    t_lo, t_hi = text["rva"], text["rva"] + text["size"]
+    r_lo, r_hi = rdata["rva"], rdata["rva"] + rdata["size"]
+
+    def read(rva, size):
+        try:
+            offset = build.rva_to_file_offset(sections, rva)
+        except ValueError:
+            return None
+        chunk = image[offset:offset + size]
+        return chunk if len(chunk) == size else None
+
+    code = image[build.rva_to_file_offset(sections, t_lo):][:min(text["size"], text["raw_size"])]
+    installs = collections.defaultdict(dict)
+    for match in re.finditer(rb"\xC7", code):
+        i = match.start()
+        if i + 11 > len(code):
+            break
+        modrm = code[i + 1]
+        mod, reg, rm = modrm >> 6, (modrm >> 3) & 7, modrm & 7
+        if reg or mod == 3 or rm == 4 or (mod == 0 and rm == 5):
+            continue                      # C7 /0 through a base register, no SIB, no absolute address
+        disp = 0 if mod == 0 else struct.unpack_from("<b" if mod == 1 else "<i", code, i + 2)[0]
+        table = struct.unpack_from("<I", code, i + 2 + (0, 1, 4)[mod])[0] - IMAGE_BASE
+        if not r_lo <= table < r_hi:
+            continue
+        first = read(table, 4)
+        if first is None or not t_lo <= struct.unpack("<I", first)[0] - IMAGE_BASE < t_hi:
+            continue
+        installs[table][t_lo + i] = disp
+    tables = {}
+    ordered = sorted(installs)
+    for at, table in enumerate(ordered):
+        limit = (ordered[at + 1] - table) // 4 if at + 1 < len(ordered) else 512
+        slots = []
+        while len(slots) < min(limit, 512):
+            word = read(table + 4 * len(slots), 4)
+            if word is None or not t_lo <= struct.unpack("<I", word)[0] - IMAGE_BASE < t_hi:
+                break
+            slots.append(struct.unpack("<I", word)[0] - IMAGE_BASE)
+        tables[table] = (slots, installs[table])
+    ctx._cache[key] = tables
+    return tables
+
+
+def retail_calls(ctx, rva, size):
+    """The targets of every `call rel32` in retail's bytes [rva, rva+size)."""
+    import struct
+    import build
+    image, sections = build.exe_image()
+    try:
+        offset = build.rva_to_file_offset(sections, rva)
+    except ValueError:
+        return set()
+    body = image[offset:offset + size]
+    return {(rva + i + 5 + struct.unpack_from("<i", body, i + 1)[0]) & 0xFFFFFFFF
+            for i in range(len(body) - 4) if body[i] == 0xE8}
+
+
+def _row_spans(ctx):
+    key = "_row_spans"
+    if key not in ctx._cache:
+        spans = []
+        for row in ctx.rows():
+            if row["name"].startswith(FUNCLET_PREFIXES + ("$L",)) or "parent=" in row.get("notes", ""):
+                continue
+            start = _rva(row.get("target_rva"))
+            try:
+                size = int(row.get("target_size") or 0)
+            except ValueError:
+                size = 0
+            if start is not None and size > 0:
+                spans.append((start, start + size, row))
+        spans.sort(key=lambda s: s[0])
+        ctx._cache[key] = ([s[0] for s in spans], spans)
+    return ctx._cache[key]
+
+
+def row_at(ctx, address):
+    """The functions.csv owner row whose body holds `address`, or None."""
+    import bisect
+    starts, spans = _row_spans(ctx)
+    k = bisect.bisect_right(starts, address) - 1
+    while k >= 0 and address - spans[k][0] < 0x20000:
+        if spans[k][0] <= address < spans[k][1]:
+            return spans[k][2]
+        k -= 1
+    return None
+
+
+def table_classes(ctx, table, stores, tables):
+    """{class: how} that own retail table `table`: the class of a ctor, dtor
+    or deleting dtor row that installs it (at a displacement only when that
+    row also installs a table at +0: a polymorphic object's primary vptr, not
+    a member object's), and a data_rows.csv `??_7Class@@6B..@` at its
+    address."""
+    primary = ctx._cache.get("_primary_stores")
+    if primary is None:
+        primary = sorted(store for _slots, installs in tables.values() for store, disp in installs.items()
+                         if disp == 0)
+        ctx._cache["_primary_stores"] = primary
+    import bisect
+    out = {}
+    for store, disp in sorted(stores.items()):
+        row = row_at(ctx, store)
+        match = INSTALLER_CLASS.match(row["name"]) if row else None
+        if not match:
+            continue
+        start = _rva(row["target_rva"])
+        end = start + int(row["target_size"])
+        k = bisect.bisect_left(primary, start)
+        if disp and not (k < len(primary) and primary[k] < end):
+            continue
+        out.setdefault(match.group(1), (f"installed at +0x{disp:X} by 0x{start:08X} {row['name']}",
+                                        row.get("source", "")))
+    for data in ctx.dicts(DATA_ROWS):
+        match = VTABLE_NAME.match(data.get("name", ""))
+        if match and data_rva(data) == table:
+            out.setdefault(match.group(1), (f"data_rows.csv names it {data['name']}", data.get("source", "")))
+    return out
+
+
+def virtual_slots(ctx, rva, cls, sources):
+    """([(table, slot, how)] proving `rva` a virtual of `cls`, [why each other
+    slot holding `rva` does not]). A table proves it when it is `cls`'s own
+    or belongs to a class that a view derives from `cls` (class_base_map over
+    the installer's unit, `sources` and their headers)."""
+    found, rejected = [], []
+    tables = retail_vtables(ctx)
+    for table, (slots, stores) in sorted(tables.items()):
+        for index, target in enumerate(slots):
+            if target != rva:
+                continue
+            where = f"retail table 0x{table + IMAGE_BASE:08X} slot {index}"
+            classes = table_classes(ctx, table, stores, tables)
+            if cls in classes:
+                found.append((table, index, f"{where}, {cls}'s table ({classes[cls][0]})"))
+                continue
+            proof = None
+            for other, (how, source) in sorted(classes.items()):
+                for rel in sorted({source, *sources} - {""}):
+                    if cls in class_chain(class_base_map(ctx, rel), other)[0]:
+                        proof = f"{where}, the table of {other} ({how}), which {rel} derives from {cls}"
+                        break
+                if proof:
+                    break
+            if proof:
+                found.append((table, index, proof))
+            else:
+                owners = ", ".join(sorted(classes)) or "no class the ledger names"
+                rejected.append(f"{where} belongs to {owners}, not {cls} nor a class a view derives from it")
+    return found, rejected
+
+
+def _brace_depth(code, start, at):
+    return code.count("{", start, at) - code.count("}", start, at)
+
+
+def _statement_start(code, start, at):
+    """Where the member declaration holding offset `at` starts inside the class
+    body that opens at `start`: after the last `;`, `{`, `}` or access
+    specifier, past blanks and preprocessor lines."""
+    cut = start
+    for match in re.finditer(r"[;{}]", code[start:at]):
+        cut = start + match.end()
+    for match in ACCESS.finditer(code, start, at):
+        cut = max(cut, match.end())
+    while True:
+        while cut < at and code[cut].isspace():
+            cut += 1
+        if cut < at and code[cut] == "#":
+            newline = code.find("\n", cut)
+            cut = at if newline < 0 or newline > at else newline + 1
+            continue
+        return cut
+
+
+def virtual_declarations(code, cls, word=None):
+    """[(offset, already virtual)] of each in-class declaration of member
+    function `word` (or of `~cls` when `word` is None) directly in a body of
+    class `cls` in stripped `code`. A call, initializer or friend declaration
+    is not one; a static or template member, or two declarations in one body
+    (an overload set: which one retail made virtual is not read here), is
+    refused."""
+    target = re.compile(r"~\s*%s\s*\(" % re.escape(cls) if word is None
+                        else r"(?<![\w~:.>])%s\s*\(" % re.escape(word))
+    shown = f"~{cls}" if word is None else word
+    out = []
+    for start, end in class_bodies(code, cls):
+        found = []
+        for match in target.finditer(code, start, end):
+            if _brace_depth(code, start, match.start()):
+                continue
+            begin = _statement_start(code, start, match.start())
+            bare = DECLSPEC.sub(" ", code[begin:match.start()])
+            if re.search(r"[(){}=,?;]|(?<!:):(?!:)", bare) or re.search(r"\b(?:friend|typedef)\b", bare):
+                continue
+            if re.search(r"\b(?:static|template)\b", bare):
+                raise Refusal(f"class {cls} declares {shown} static or as a template")
+            found.append((begin, bool(re.search(r"\bvirtual\b", bare))))
+        if len(found) > 1:
+            raise Refusal(f"class {cls} declares {shown} {len(found)} times in one body (an overload set): "
+                          "which one retail made virtual is not read here")
+        out += found
+    return out
+
+
+def respell_virtual_text(text, cls, word, pairs):
+    """(new text, declarations made virtual, mangled spellings respelled) for
+    one file: `virtual` before each in-class declaration of `word` (`~cls`
+    when None) in class `cls`, then every whole old mangled name of `pairs`
+    respelled. A plain string literal spelling an old name is retail-locked
+    text: refused."""
+    for match in SEGMENT.finditer(text):
+        seg = match.group(0)
+        if seg.startswith(("//", "/*", "'")):
+            continue
+        line_start = text.rfind("\n", 0, match.start()) + 1
+        if PRAGMA_LINKER.match(text, line_start) or identifier_string(text, match.start()):
+            continue
+        for old, _new in pairs:
+            if mangled_re(old).search(seg):
+                raise Refusal(f"{old} is spelled inside a string literal: {seg[:80]} (retail-locked text)")
+    code = name_metric.strip(text)
+    made = 0
+    for begin, already in sorted(virtual_declarations(code, cls, word), reverse=True):
+        if not already:
+            text = text[:begin] + "virtual " + text[begin:]
+            made += 1
+    respelled = 0
+    for old, new in pairs:
+        text, count = mangled_re(old).subn(lambda _m, n=new: n, text)
+        respelled += count
+    return text, made, respelled
+
+
+def object_confirms(ctx, rel, symbols):
+    """True when a current object of `rel` (compiled from its present text, by
+    the build's sidecar) names one of `symbols` in its symbol table."""
+    import build
+    import name_dependents
+    objects = name_dependents._row_objects([r for r in ctx.rows() if r.get("source") == rel]).get(rel, [])
+    digest = build._hash_file(str(ctx.path(rel))) if ctx.path(rel).exists() else None
+    for path in objects:
+        if not path.exists():
+            continue
+        if not rel.lower().endswith(build.LIB_SUFFIX) and not name_dependents.compiled_from(path, digest):
+            continue
+        if name_dependents.coff_symbol_names(path.read_bytes(), include_local=False) & set(symbols):
+            return True
+    return False
+
+
+def plan_virtual(ctx, rva, *, evidence="", old=None, max_files=25):
+    """Plan respelling one row (and, for a destructor, its deleting
+    destructors, or the reverse) from non-virtual to virtual on retail vtable
+    evidence; see the section comment. Raises Refusal; writes nothing."""
+    owners = [r for r in ctx.rows() if _rva(r.get("target_rva")) == rva
+              and not r["name"].startswith(FUNCLET_PREFIXES + ("$L",)) and "parent=" not in r.get("notes", "")]
+    if old:
+        owners = [r for r in owners if r["name"] == old]
+        if not owners:
+            raise Refusal(f"{old} has no row at 0x{rva:08X}")
+    names = sorted({r["name"] for r in owners})
+    if len(names) != 1:
+        raise Refusal(f"0x{rva:08X} carries {len(names)} function names ({', '.join(names) or 'none'}); "
+                      "pass --old to choose one")
+    first = owners[0]
+    _at, cls, scopes, role = member_function_header(first["name"])
+    virtual_symbol(first["name"])
+
+    # The group: the row, and for the destructor family every non-virtual
+    # ??1 / ??_G / ??_E row of the same class, each on its own evidence.
+    scope_text = "@".join([cls] + scopes) + "@@"
+    if role == "method":
+        family = [first]
+    else:
+        spelled = re.compile(r"\?\?(?:1|_G|_E)%s[AIQ]" % re.escape(scope_text))
+        family = [r for r in ctx.rows() if spelled.match(r["name"]) and r.get("status") == "matched"]
+        if first not in family:
+            family.append(first)
+    evidence_of, problems = {}, []
+    sources = {r["source"] for r in family}
+    for row in family:
+        if member_function_header(row["name"])[3] == "dtor":
+            continue
+        found, rejected = virtual_slots(ctx, _rva(row["target_rva"]), cls, sources)
+        if found:
+            evidence_of[row["name"]] = found[0][2]
+        else:
+            problems.append(f"{row['name']} at 0x{_rva(row['target_rva']):08X}: no retail vtable slot of {cls} "
+                            "or of a class a view derives from it holds it" +
+                            (f" ({'; '.join(rejected[:3])})" if rejected else ""))
+    for row in family:
+        if member_function_header(row["name"])[3] != "dtor":
+            continue
+        at = _rva(row["target_rva"])
+        callers = [d for d in family if d["name"] in evidence_of and
+                   at in retail_calls(ctx, _rva(d["target_rva"]), int(d["target_size"]))]
+        if callers:
+            evidence_of[row["name"]] = (f"called by {callers[0]['name']} at 0x{_rva(callers[0]['target_rva']):08X}"
+                                        f" ({evidence_of[callers[0]['name']]})")
+        else:
+            problems.append(f"{row['name']} at 0x{at:08X}: no deleting destructor of {cls} on a retail vtable "
+                            "slot calls it")
+    if problems:
+        raise Refusal("no retail evidence for a virtual respell: " + "; ".join(problems))
+
+    pairs, rvas = [], set()
+    tombstoned = _tombstones(ctx)
+    records = current_records(ctx)
+    for row in family:
+        name, at = row["name"], _rva(row["target_rva"])
+        new_name = virtual_symbol(name)
+        if is_generated(row["source"]):
+            raise Refusal(f"{name} lives in generated source {row['source']}; recover it as real C++ first")
+        # The identifier is kept: a method is judged by its word as `function`
+        # judges it; a destructor's class token is not renamed, so only the
+        # decorated name itself (an export, vendored, evidence-tier, canonical).
+        reason = is_protected(ctx, "function", name, rva=at,
+                              identifier=scope_of(name).rsplit("::", 1)[-1] if role == "method" else name)
+        if reason:
+            raise Refusal(f"canonical name: {reason}")
+        refuse_vendored(ctx, [row["source"]], f"respelling {name}")
+        if any(r["name"] == new_name for r in ctx.rows()) or any(p.get("name") == new_name for p in ctx.pins()):
+            raise Refusal(f"{new_name} already names a row or pin")
+        if (new_name, at) in tombstoned:
+            raise Refusal(f"({new_name}, 0x{at:08X}) is tombstoned in deleted_rows.csv: "
+                          f"{tombstoned[(new_name, at)][:120]}")
+        shared = sorted({r["name"] for r in ctx.rows() if _rva(r.get("target_rva")) == at and r["name"] != name
+                         and not r["name"].startswith(FUNCLET_PREFIXES + ("$L",))
+                         and "parent=" not in r.get("notes", "")} |
+                        {p.get("name", "") for p in ctx.pins() if _rva(p.get("address")) == at
+                         and p.get("name") != name})
+        if shared or FOLD_NOTES.search(row.get("notes", "")):
+            raise Refusal(f"0x{at:08X} is a shared body ({', '.join(shared[:3]) or 'its notes record a fold'}): "
+                          "a slot there proves only that some folded function is virtual")
+        old_re = mangled_re(name)
+        if any(old_re.search(d.get("name", "")) for d in ctx.dicts(DATA_ROWS)):
+            raise Refusal(f"a data row (a local static) embeds {name}; rename the static first")
+        frozen = frozen_mentions(ctx, name)
+        if frozen:
+            raise Refusal(f"{name} is a key in {', '.join(frozen)} (frozen, shrink-only)")
+        pairs.append((name, new_name))
+        rvas.add(at)
+
+    plan = Plan("function", first["name"], virtual_symbol(first["name"]), "virtual",
+                " ".join((evidence or "").split()), first["source"], rva, virtual=True)
+    plan.evidence = "; ".join(f"{old} -> {new}: {evidence_of[old]}" for old, new in pairs) + \
+        (f"; {plan.evidence}" if plan.evidence else "")
+
+    # Ledgers: rows, funclet rows and notes tokens, pins, audited owners.
+    raw = ctx.read(FUNCTIONS)
+    for name, new_name in pairs:
+        raw, changed = rewrite_records(raw, "functions.csv", mangled_re(name), new_name)
+        for before, after in changed:
+            if before[0] != after[0]:
+                plan.renamed_rows.append((before[0], after[0], _rva(before[2])))
+            else:
+                plan.notes_rows.append((before[0], _rva(before[2])))
+    plan.edit(ctx, FUNCTIONS, raw)
+    raw = ctx.read(SYMBOLS)
+    if raw is not None:
+        edited = False
+        for name, new_name in pairs:
+            raw, changed = rewrite_records(raw, "symbols.csv", mangled_re(name), new_name)
+            plan.renamed_pins += [(before[0], after[0], before[1]) for before, after in changed]
+            edited = edited or bool(changed)
+        if edited:
+            plan.edit(ctx, SYMBOLS, raw)
+    for name, new_name in pairs:
+        for before, _after in rewrite_ledger(ctx, plan, BODY_OWNERS, "body_owners.csv", mangled_re(name),
+                                             new_name):
+            plan.owner_rows.append((before[1], _rva(before[0])))
+    reason_text = "Renamed to {new} by tools/rename.py (virtual: retail vtable slot)"
+    lines = [tombstone_line(old_row, at, reason_text.format(new=new_row))
+             for old_row, new_row, at in plan.renamed_rows if (old_row, at) not in tombstoned]
+    if lines:
+        plan.edit(ctx, DELETED, appended(ctx.read(DELETED), lines, header="name,target_rva,reason"))
+    # name_basis.csv: a record of the old spelling moves with it (a carry row,
+    # as for a method of a renamed class); the name's basis is unchanged. A
+    # name with no record keeps none (docs/naming.md, "Renaming by hand").
+    carried = []
+    for name, new_name in pairs:
+        record = records.get(name)
+        if record:
+            plan.carried.append((name, new_name, record.get("basis", "")))
+            carried.append(csv_line(["carry", name, new_name, record.get("basis", ""),
+                                     f"virtual respell by tools/rename.py: {evidence_of[name]}",
+                                     record.get("source", ""), record.get("rva", "")]))
+        else:
+            plan.warnings.append(f"{name} has no name_basis.csv record to carry: its tier is unchanged")
+    if carried:
+        plan.edit(ctx, NAME_BASIS, appended(ctx.read(NAME_BASIS), carried, header=NAME_BASIS_HEADER))
+
+    # Sources: every file spelling an old name, every file declaring the
+    # method in a body of the class, every unit whose object references one.
+    word = scope_of(first["name"]).rsplit("::", 1)[-1] if role == "method" else None
+    olds = [name for name, _new in pairs]
+    candidates = set()
+    for name in olds:
+        candidates |= set(ctx.grep_files(name))
+    declarers = set(ctx.grep_files(cls, word=True))
+    candidates |= declarers & set(ctx.grep_files(word, word=True)) if word else declarers
+    by_object = object_referencers(ctx, set(olds))
+    candidates |= by_object | sources
+    headers, rewritten = [], set()
+    for rel in sorted(candidates):
+        data = ctx.read(rel)
+        if data is None:
+            raise Refusal(f"{rel} is listed but missing")
+        text = data.decode("utf-8", errors="surrogateescape")
+        new_text, made, respelled = respell_virtual_text(text, cls, word, pairs)
+        if new_text == text:
+            # object_referencers widens to a text match where no current object
+            # exists; only a current object naming an old symbol is a consumer
+            # this rewrite would miss (name_dependents still builds the rest).
+            if rel in by_object and object_confirms(ctx, rel, set(olds)):
+                raise Refusal(f"{rel}'s object references {', '.join(olds)} but no body of class {cls} there "
+                              f"declares {word or '~' + cls} to make virtual, nor does its text spell the name "
+                              "(an implicit member or a base's declaration: reconcile the view first)")
+            continue
+        if is_generated(rel):
+            raise Refusal(f"generated source {rel} declares or spells {first['name']}; it is never edited")
+        refuse_vendored(ctx, [rel], f"respelling {first['name']}")
+        rewritten.add(rel)
+        plan.source_counts[rel] = {"virtual": made, "mangled": respelled}
+        plan.edit(ctx, rel, new_text.encode("utf-8", errors="surrogateescape"))
+        if not rel.endswith(SOURCE_SUFFIXES) or rel not in ctx.ledger_sources():
+            headers.append(rel)
+    if len(rewritten) > max_files:
+        raise Refusal(f"{len(rewritten)} files to rewrite (over --max-files {max_files})")
+    verify = {rel for rel in rewritten if rel in ctx.ledger_sources()} | sources
+    if headers:
+        verify |= includers(ctx, headers, max_files)
+    renamed = {o for o, _, _ in plan.renamed_rows}
+    verify |= {r["source"] for r in ctx.rows() if r["name"] in renamed}
+    verify |= {r["source"] for r in ctx.rows() if (r["name"], _rva(r.get("target_rva"))) in set(plan.notes_rows)}
+    plan.verify = sorted(v for v in verify if not is_generated(v))
+    if len(plan.verify) > max_files:
+        raise Refusal(f"{len(plan.verify)} sources to verify (over --max-files {max_files})")
+    plan.claims = sorted({at for _, _, at in plan.renamed_rows} | {at for _, at in plan.notes_rows} | rvas) + \
+        sorted(f"file:{rel}" for rel in sources)
+    written = set(plan.after) | {"reverse/re_attempts.log"}
+    plan.mentions = sorted({rel for name in olds for rel in ctx.grep_files(name, roots=("docs", "reverse"))}
+                           - written)
     return plan
 
 
@@ -6137,10 +6697,11 @@ def main(argv=None):
                                      formatter_class=argparse.RawDescriptionHelpFormatter,
                                      epilog=__doc__.split("\n\n", 1)[1])
     common = argparse.ArgumentParser(add_help=False)
-    common.add_argument("--basis", required=True, help="'inferred' or 'canonical:<evidence-kind>' "
-                        f"({', '.join(sorted(CANONICAL_KINDS))})")
-    common.add_argument("--evidence", required=True,
-                        help="canonical: the evidence; inferred: the naming approval record")
+    common.add_argument("--basis", help="'inferred' or 'canonical:<evidence-kind>' "
+                        f"({', '.join(sorted(CANONICAL_KINDS))}); required except for function --virtual")
+    common.add_argument("--evidence",
+                        help="canonical: the evidence; inferred: the naming approval record; function --virtual: "
+                             "an optional note beside the retail evidence the tool records itself")
     common.add_argument("--dry-run", action="store_true", help="print the full plan, write nothing")
     common.add_argument("--no-claim", action="store_true", help="skip tools/claims.py (tests)")
     common.add_argument("--no-object-scan", action="store_true",
@@ -6187,9 +6748,14 @@ def main(argv=None):
     function = kinds.add_parser("function", parents=[common],
                                 help="respell one RVA's function identifier")
     function.add_argument("--rva", required=True, help="the function's target RVA (hex)")
-    function.add_argument("--new", required=True,
-                          help="new identifier, or the full mangled name (identifier change only)")
+    function.add_argument("--new",
+                          help="new identifier, or the full mangled name (identifier change only); "
+                               "required unless --virtual")
     function.add_argument("--old", help="the current mangled name, when several share the RVA")
+    function.add_argument("--virtual", action="store_true",
+                          help="respell the row non-virtual -> virtual (QAE->UAE, IAE->MAE, AAE->EAE), keeping "
+                               "identifier, parameters and return type; refused unless a retail vtable slot of "
+                               "the row's class (or of a class a view derives from it) holds the address")
     data = kinds.add_parser("global", parents=[common],
                             help="respell one reverse/data_rows.csv global and every consumer")
     data.add_argument("--name", required=True, help="the global's mangled name, or its bare identifier")
@@ -6281,8 +6847,18 @@ def main(argv=None):
                       "carried by: python3 tools/rename.py carry " + ("--all" if args.all else f"--range {args.span}"),
                       file=sys.stderr)
         return 1 if problems else 0
+    virtual = args.kind == "function" and args.virtual
+    if virtual and (args.new or args.basis):
+        parser.error("function --virtual keeps the identifier and takes its evidence from retail: "
+                     "pass neither --new nor --basis")
+    if not virtual and (args.basis is None or args.evidence is None or args.new is None):
+        parser.error("the following arguments are required: " +
+                     ", ".join(f for f, v in (("--new", args.new), ("--basis", args.basis),
+                                              ("--evidence", args.evidence)) if v is None))
     ctx = Context(args.root, object_scan=not args.no_object_scan, sweep_dirs=args.sweep_dir or ("build",))
     kwargs = dict(new=args.new, basis=args.basis, evidence=args.evidence, max_files=args.max_files)
+    if virtual:
+        kwargs = dict(virtual=True, evidence=args.evidence or "", max_files=args.max_files)
     if args.kind == "function":
         try:
             kwargs.update(rva=int(args.rva, 16), old=args.old)

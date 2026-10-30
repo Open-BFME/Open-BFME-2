@@ -227,7 +227,7 @@ It refuses, among other things, the following:
 - a protected name, as listed above;
 - a new name that collides with an existing one or is itself a placeholder;
 - a mangled-name change beyond the identifier (signature changes such as `int` to `bool` cost
-  bytes);
+  bytes), except the one evidence-gated respell below (`function --virtual`);
 - a name keyed in a shrink-only baseline or whitelist;
 - a file keyed in `flag_overrides.csv`, `hatch_baseline.tsv` or another protected path-keyed register,
   a file that expands `__FILE__`, a file another file `#include`s, and an approved retail
@@ -236,6 +236,67 @@ It refuses, among other things, the following:
 - a class registered in `reverse/canonical_classes.csv`. Rename that class in a
   class-reconciliation commit instead;
 - a blast radius over `--max-files` (25).
+
+### `rename.py function --virtual`: a row retail calls through a vtable
+
+A row spelled non-virtual (`?f@C@@QAEXH@Z`, `IAE`, `AAE`) whose address sits
+in a retail vtable slot is really virtual (`UAE`, `MAE`, `EAE`). That is a
+one-character change of the decoration; the identifier, scope, constness,
+calling convention, return type and parameters stay. The plain function kind
+refuses it and no hand rename may make it over a real name, so this mode does
+exactly that change and nothing else:
+
+    python3 tools/rename.py function --rva 0x00433025 --virtual --dry-run
+    python3 tools/rename.py function --rva 0x00433025 --virtual [--evidence 'optional note']
+
+It takes no `--new` and no `--basis`: the evidence is retail's, and the tool
+reads it itself. It refuses unless all of these hold:
+
+- a table that retail code installs (`mov dword ptr [reg], imm32` or
+  `[reg+disp]`, the store `tools/vftable_map.py` reads, with the displacement
+  forms a multiply-derived class's secondary table takes) has a slot holding the
+  row's address;
+- that table belongs to the row's class, or to a class that a view derives from
+  it: a constructor, destructor or deleting destructor row of that class
+  installs it (at a displacement only when the same row also installs a table
+  at +0, so a member object's table does not count), or `data_rows.csv` names it
+  `??_7Class@@6B..@`; a derived class counts when its installer's unit (or the
+  row's own unit), with the headers it includes, declares the derivation;
+- the address is not a shared body: no other row or pin there and no fold in
+  the notes (`fold-proof=`, `icf-owner=`, `dup-of=`, `ICF`), since a slot on a
+  folded body proves only that some folded function is virtual;
+- the new decorated name names no row or pin and is not tombstoned at the
+  address, no local static embeds the old name, no frozen register keys it, and
+  the name is not protected (above; a destructor is judged by its decorated
+  name, since its class token is not renamed).
+
+A destructor is virtual exactly when its deleting destructors are, so `??1C`,
+`??_GC` and `??_EC` rows spelled non-virtual are respelled together whichever
+one is named: a deleting destructor on its own slot, the destructor because a
+slotted deleting destructor's retail body calls it.
+
+It rewrites the row, its `__ehhandler$`/`__unwindfunclet$` rows and every notes
+token (`parent=`, prose), pins in place, `body_owners.csv`, every spelled
+mangled name in comments, linker pragmas and `__identifier` strings (a plain
+string literal spelling it is refused), and adds `virtual` to each in-class
+declaration of the method (or of `~C`) in every body of the class that declares
+it (callers' and includers' views alike; an out-of-line definition is left as
+it is; an overload set, a static or a template member is refused). A unit
+whose current object references the old name but whose text declares nothing
+to rewrite (an implicit member, a base's declaration) is refused: reconcile
+that view first. It tombstones each renamed `(name, rva)` with `Renamed to
+<new> by tools/rename.py (virtual: retail vtable slot)`. The name's basis does
+not change: a `name_basis.csv` record of the old spelling moves to the new one
+in a `carry` row whose evidence cites the slot (so an inferred landing stays
+revertible), and a name with no record gets none, as for a hand rename.
+
+The byte gates decide, as for any rename: one `./build.sh` over every touched
+source, owner and includer, then the commit checks. Declaring a method
+`virtual` can change code: a caller whose call now goes through the vtable, or
+a view that gains a vptr and shifts every field. Any such byte change fails the
+build and every file is restored. Run `tools/link_check.py` over the touched
+units before and after: a view that emits the class's vtable now carries the
+new slot, and every view emitting that table must agree.
 
 A function rename also respells a base class's declaration of the same virtual
 function, but only when the unit itself proves the pair: the renamed class
@@ -667,7 +728,9 @@ Hundreds of `Name ...`/`Rename ...` commits came before these tools, each
 citing ZH, vtable-slot, WorldBuilder or caller evidence. Prefer `rename.py`
 now, because it writes the tombstone and the record that most hand renames forgot. Only 9 of 240 such commits
 tombstoned the old row. When `rename.py` cannot express a rename (an operator, a
-signature change, a cross-directory move), a hand rename must still:
+signature change, a cross-directory move), a hand rename must still (a
+non-virtual decoration that retail's vtable contradicts is no hand rename: use
+`function --virtual` above):
 
 - replace only a placeholder, and only with a name whose evidence would pass the
   canonical table above. Never hand-land an inferred name, because those need the
