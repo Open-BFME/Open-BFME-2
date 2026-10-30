@@ -14,6 +14,7 @@ enum ScienceType
 };
 
 #include <vector>
+#include "../../../Include/Lib/BfmeE16.h"
 
 // Bind the append to the rowed vector<ScienceType>::push_back 0x002E01C6
 // instead of emitting this unit's own copy of the header's inline path.
@@ -28,19 +29,24 @@ struct Rva0015354EStore
 	_STL::vector<ScienceType> m_sciences04; // +4
 };
 
+struct Rva001531E6Target;
+
 class FXShaderParameterBinder
 {
 public:
-	void PushDynamicSetStack(ScienceType value);
-
-private:
-	unsigned char m_pad00[0x10];
-	Rva0015354EStore *m_store10; // +0x10
+    void PopDynamicSetStack();
+    void PushDynamicSetStack(const char *name);
+    void PushDynamicSetStack(ScienceType value);
+    FXShaderParameterBinder(void *surface);
+    void Init(struct ID3DXEffect *surface);
+    void *m_ptr;
+    _STL::vector<BfmeE16> m_vec;
+    Rva001531E6Target *m_ParsingData;
 };
 
 void FXShaderParameterBinder::PushDynamicSetStack(ScienceType value)
 {
-	Rva0015354EStore *store = m_store10;
+	Rva0015354EStore *store = (Rva0015354EStore *)m_ParsingData;
 	if (store == 0)
 		return;
 	store->m_sciences04.push_back(value);

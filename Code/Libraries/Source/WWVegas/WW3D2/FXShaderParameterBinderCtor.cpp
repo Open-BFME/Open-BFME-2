@@ -19,24 +19,28 @@
 // bfme link decl-only BfmeE16
 namespace _STL { template <> vector<BfmeE16, allocator<BfmeE16> >::~vector(); }
 
+enum ScienceType
+{
+    SCIENCE_INVALID = 0
+};
+
+struct Rva001531E6Target;
+
 class FXShaderParameterBinder
 {
 public:
-	FXShaderParameterBinder(void *surface);
-
-	// 0x00153F08 is rowed as FXShaderParameterBinder::Init(ID3DXEffect*)
-	// (336B); same shape, so this resolves to the rowed body instead of
-	// the unrowed void* spelling (sole U on this unit).
-	void Init(struct ID3DXEffect *surface);
-
-private:
-	void *m_ptr;                 // +0
-	_STL::vector<BfmeE16> m_vec; // +4
-	void *m_extra;               // +0x10
+    void PopDynamicSetStack();
+    void PushDynamicSetStack(const char *name);
+    void PushDynamicSetStack(ScienceType value);
+    FXShaderParameterBinder(void *surface);
+    void Init(struct ID3DXEffect *surface);
+    void *m_ptr;
+    _STL::vector<BfmeE16> m_vec;
+    Rva001531E6Target *m_ParsingData;
 };
 
 FXShaderParameterBinder::FXShaderParameterBinder(void *surface)
-	: m_ptr(0), m_vec(_STL::allocator<BfmeE16>()), m_extra(0)
+	: m_ptr(0), m_vec(_STL::allocator<BfmeE16>()), m_ParsingData(0)
 {
 	if (surface)
 		Init((struct ID3DXEffect *)surface);
