@@ -40,6 +40,7 @@ struct BfmeResetTextureRef : public Rva00180649Base
 {
 	void clear();
 	BfmeResetTextureRef &rva001805AE(const BfmeResetAnyRef &rhs);
+	BfmeResetTextureRef &rva00180815(const BfmeResetAnyRef &rhs);
 	BfmeResetTextureRef(const BfmeResetAnyRef &rhs);
 };
 

@@ -5,11 +5,18 @@
 // StringClass from (name false) via rowed 0x000F0ED1, +0x1C/+0x20 from
 // second/third args. Unlocks 0x001806D8. Flags and base from donor
 // Rva001803D3Ctor.cpp.
+class Gen_dtor_00972460;
+
 class StringClass
 {
+private:
+	friend class Gen_dtor_00972460;
+	void Free_String();
 public:
+	~StringClass() { Free_String(); }
 	StringClass(const char *name, bool flag);
-	~StringClass();
+private:
+	char *m_buffer; // +0x00
 };
 
 class GenBase009EB7D0

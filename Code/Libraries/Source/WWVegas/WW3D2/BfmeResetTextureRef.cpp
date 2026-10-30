@@ -22,9 +22,14 @@ bool __cdecl Render_Obj_Exists(const char *name);
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib/wwstring.h
 class StringClass
 {
-	void Free_String();
+private:
 	friend class Gen_dtor_00972460;
-	char *m_buffer;
+	void Free_String();
+public:
+	~StringClass() { Free_String(); }
+	StringClass(const char *name, bool flag);
+private:
+	char *m_buffer; // +0x00
 };
 
 class Rva009EB810TailBase
@@ -83,12 +88,20 @@ struct BfmeResetAnyRef
 	BfmeResetTagged *pointer;
 };
 
-struct BfmeResetTextureRef
+class Rva00180649Base
 {
+public:
 	void *pointer;
+	Rva00180649Base() : pointer(0) {}
+	~Rva00180649Base();
+};
+
+struct BfmeResetTextureRef : public Rva00180649Base
+{
 	void clear();
 	BfmeResetTextureRef &rva001805AE(const BfmeResetAnyRef &rhs);
 	BfmeResetTextureRef &rva00180815(const BfmeResetAnyRef &rhs);
+	BfmeResetTextureRef(const BfmeResetAnyRef &rhs);
 };
 
 class Gen_dtor_00972460 : public Rva009EB810TailBase
@@ -151,7 +164,6 @@ void __cdecl Rva001806D8Create(const char *name, int a, int b)
 Gen_dtor_00972460::~Gen_dtor_00972460()
 {
 	operator delete(m_ptr);
-	m_name.Free_String();
 }
 
 // Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
