@@ -72,10 +72,12 @@ class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
 {
 };
 
+enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
+
 class UpdateModuleInterface
 {
 public:
-	virtual void update();
+	virtual UpdateSleepTime update() = 0;
 };
 
 class UpdateModule : public BehaviorModule, public UpdateModuleInterface
@@ -169,6 +171,7 @@ class GiantBirdAIUpdate : public AIUpdateInterface
 public:
 	GiantBirdAIUpdate(Thing *thing, const ModuleData *moduleData);
 	virtual void rva0036B6B9();
+	virtual UpdateSleepTime update();
 	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal);
 protected:
 	virtual ~GiantBirdAIUpdate();
