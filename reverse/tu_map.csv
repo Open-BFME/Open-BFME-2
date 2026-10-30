@@ -15114,11 +15114,11 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00215696,47,code,Code/GameEngine/Source/GameLogic/System/PlayerAITypeSet.cpp,approved,C,C=0x00215580..0x002156C5 provisional,Code/GameEngine/Source/GameLogic/System/PlayerAITypeSet.cpp
 0x002156C5,9,code,Code/GameEngine/Source/GameLogic/System/PlayerAITypeSet.cpp,approved,C,C=0x00215580..0x002156CE provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_record_2154f3_allocate_copy.cpp
 0x002156CE,63,code,Code/GameEngine/Source/GameLogic/System/PlayerAITypeSet.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/System/LibraryMap.cpp provisional,Code/GameEngine/Source/GameLogic/System/PlayerAITypeSet.cpp
-0x0021570D,29,code,Code/GameEngine/Source/GameLogic/System/PlayerAITypeSet.cpp,approved,C,C=0x002156CE..0x0021572A provisional,Code/Libraries/Source/WWVegas/WWLib/Rva0021570DCopy.cpp
+0x0021570D,29,code,Code/GameEngine/Source/GameLogic/System/PlayerAITypeSet.cpp,approved,C,C=0x002156CE..0x0021572A provisional,Code/GameEngine/Source/GameLogic/System/PlayerAITypeSet.cpp
 0x0021572A,89,code,Code/GameEngine/Source/GameLogic/System/PlayerAITypeSet.cpp,approved,C,C=0x002156CE..0x00215783 provisional,Code/GameEngine/Source/GameLogic/System/PlayerAITypeSet.cpp
 0x00215783,25,code,Code/GameEngine/Source/GameLogic/System/PlayerAITypeSet.cpp,approved,C,C=0x002156CE..0x0021579C provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_record_2154f3_allocate_copy.cpp
 0x0021579C,63,code,Code/GameEngine/Source/GameLogic/System/PlayerAITypeSet.cpp,approved,C,C=0x002156CE..0x002157DB provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_record_2154f3_allocate_copy.cpp
-0x002157DB,51,code,Code/GameEngine/Source/GameLogic/System/PlayerAITypeSet.cpp,approved,C,C=0x002156CE..0x0021580E provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_record_2154f3_erase.cpp
+0x002157DB,51,code,Code/GameEngine/Source/GameLogic/System/PlayerAITypeSet.cpp,approved,C,C=0x002156CE..0x0021580E provisional,Code/GameEngine/Source/GameLogic/System/PlayerAITypeSet.cpp
 0x0021580E,30,code,Code/GameEngine/Source/GameLogic/System/PlayerAITypeSet.cpp,approved,C,C=0x002156CE..0x0021582C provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_record_2154f3_allocate_copy.cpp
 0x0021582C,105,code,Code/GameEngine/Source/GameLogic/System/PlayerAITypeSet.cpp,approved,C,C=0x002156CE..0x00215895 provisional,Code/GameEngine/Source/GameLogic/System/PlayerAITypeSet.cpp
 0x00215895,180,code,Code/GameEngine/Source/GameLogic/System/PlayerAITypeSet.cpp,approved,C,C=0x002156CE..0x00215949 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_record_2154f3_allocate_copy.cpp

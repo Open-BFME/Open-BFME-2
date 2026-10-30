@@ -13993,6 +13993,7 @@ present_unmatched	Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorl
 present_unmatched	Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegion.cpp	LivingWorldRegion::rva003F0588	1
 present_unmatched	Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegion.cpp	LivingWorldRegion::rva003F1053	1
 present_unmatched	Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva004EEE38CollectTurnStats.cpp	PerTurnStats::loadPostProcess	1
+present_unmatched	Code/GameEngine/Source/GameLogic/System/PlayerAITypeSet.cpp	$__copy_ptrs@PAUBfmeVectorRecord0002154F3@@PAU1@@_STL@@YAPAUBfmeVectorRecord0002154F3@@PAU1@00ABU__false_type@0@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp	Rva003598D3::slot00	1
 present_unmatched	Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp	hence	1
 present_unmatched	Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp	slot00@Rva0035A97EVisitor@@UAEXHH@Z	1
@@ -15548,7 +15549,6 @@ present_unmatched	Code/Libraries/Source/WWVegas/WWLib/stlport_uninitialized_copy
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_bfmee8_allocate_copy.cpp	0Tag@@QAE@XZ	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_e12_allocate_copy.cpp	bfmeEmitstlport_vector_e12_copy_ptrs@@YAXPAUBfmeE12@@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_opaque_mclear.cpp	1OpaqueRefElement4@@QAE@XZ	1
-present_unmatched	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_record_2154f3_erase.cpp	$__copy_ptrs@PAUBfmeVectorRecord0002154F3@@PAU1@@_STL@@YAPAUBfmeVectorRecord0002154F3@@PAU1@00ABU__false_type@0@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva000b435f_erase.cpp	$__copy_ptrs@PAURva000B435F@@PAU1@@_STL@@YAPAURva000B435F@@PAU1@00ABU__false_type@0@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva00b6cf1_erase.cpp	$__copy_ptrs@PAURva00B6CF1@@PAU1@@_STL@@YAPAURva00B6CF1@@PAU1@00ABU__false_type@0@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_stringrecord_2cf4c6_allocate_copy.cpp	bfmeEmitstlport_vector_2cf4c6_copy_backward@@YAXPAUBfmeStringRecord002CF4C6@@@Z	1
