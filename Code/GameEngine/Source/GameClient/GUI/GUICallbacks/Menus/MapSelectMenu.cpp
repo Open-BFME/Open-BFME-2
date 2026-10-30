@@ -190,9 +190,9 @@ extern void __cdecl bfmeCommitYH( AsciiString label );
 // (0x009DE008) but inside its virtual size, so retail's image holds zero until
 // the combo box writes it. The object is not file-private: the split-out
 // MapSelectMenu_Rva0050CF3C.cpp rowed body reads the same one, so the
-// definition is external and that unit declares it rather than inventing a
-// second, always-zero copy (the data ledger binds this address to the
-// address-derived spelling ?g_Va00E045C8@@3IA and to this name alike).
+// definition is external and that unit declares it. The explicit data row
+// owns all four loader-zero bytes under this existing signed Int spelling;
+// the old address-derived name in the heuristic ledger is not another global.
 Int mapSelectHeadlessCount = 0;
   // end MapSelectMenuSystem
 

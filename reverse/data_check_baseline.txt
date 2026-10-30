@@ -15,7 +15,6 @@ Code/GameEngine/Source/Common/Rva00E08D3CString.cpp	wrong-name	?g_rva00E08D3CStr
 Code/GameEngine/Source/Common/StaticInit/Rva00C6E31EInitializers.cpp	wrong-name	?g_rva0134FB38@@3URva0134FB38Storage@@A	0x00A09E50
 Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_setControlBarSchemeByPlayerTemplate.cpp	wrong-name	?$S1@?3??setControlBarSchemeByPlayerTemplate@ControlBar@@QAEXPBVPlayerTemplate@@@Z@4IA	0x00A01D34
 Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellCallbacks.cpp	wrong-name	?g_Va00E04904@@3HA	0x00A04904
-Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/MapSelectMenu.cpp	duplicate-def	_isShuttingDown	0x00A045C4
 Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantirCallbacks.cpp	wrong-name	?$S1@?1??OnBttnSpellStore@AptPalantir@@QAEXPBD@Z@4IA	0x009FF038
 Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantirCallbacks.cpp	wrong-name	?$S2@?4??rva002D4DD0@AptPalantir@@QAEXPBD@Z@4IA	0x009FF04C
 Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantirCallbacks.cpp	wrong-name	?$S5@?4??rva002D4E71@AptPalantir@@QAEXPBD@Z@4IA	0x009FF058
