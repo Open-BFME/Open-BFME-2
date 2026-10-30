@@ -547,20 +547,6 @@ struct Rva0031BEF1
 {
 	void *rva0031BEF1(Bef1Pair const &src);
 };
-class Rva000427195
-{
-public:
-	void rva00212858(unsigned int n);
-	int bucketIndex(const AsciiString *name);
-	void *rva0031C7D6(const Bef1Pair &x);
-	void **rva0031DB83(const AsciiString &name);
-
-	void *m_unused00;
-	void **m_beginBuckets;
-	void **m_endBuckets;
-	void **m_storageEnd;
-	unsigned int m_numElements;
-};
 // Native 31DB83..31DBFC and WB C318E0; ControlBar command-set map +30.
 // The iterator provider only hashes and compares existing string bytes.
 // End its nonthrowing lookup scope before constructing the conditional pair.
@@ -757,7 +743,6 @@ extern PlayerList *ThePlayerList;
 #include <string.h>
 #include "unicode_string.h"
 typedef void (*GameWinTooltipFunc)(GameWindow *,WinInstanceData *,unsigned int);
-class GadgetCreateView;
 class CommandButton
 {
 public:
@@ -849,6 +834,54 @@ public:
 };
 extern View *TheTacticalView;
 typedef void (*GameWinTooltipFunc)(GameWindow *, WinInstanceData *, unsigned int);
+#include "../../../../Include/GameLogic/ScriptEngine.h"
+void GadgetButtonSetEnabledImage_Rva002C0433(GameWindow *win, const Image *image);
+struct MoneyInner
+{
+	char m_pad00[0x24];
+	int m_money;
+};
+#include "../../../Common/GameLogicObjectLookupView.h"
+extern GameLogic *TheGameLogic;
+extern int BfmeLogicFramesPerSecond;
+void GadgetButtonSetHiliteImage_Rva002C04DB(GameWindow *win, const Image *image);
+void GadgetButtonSetHiliteImage123_Rva002C0505(GameWindow *win, const Image *image);
+class Rva0031AB7F { public: Rva0031AB7F &operator=(const Rva0031AB7F &); };
+extern unsigned char g_00E01EA8;
+struct ShortcutCommandButtonView
+{
+    char unknown00[0x1C];
+    unsigned int options;
+};
+class BfmeMemberRV { public: bool bfmeAskRV(); };
+class PlayerList;
+struct ShortcutPlayerListView
+{
+    char unknown00[0x10];
+    Player *localPlayer;
+    Player *getLocalPlayer() { return localPlayer; }
+};
+struct ShortcutAnimateManagerView
+{
+    char unknown00[0x14];
+    bool finished;
+    bool isFinished() const { return finished; }
+};
+class Rva0031AF54
+{
+public:
+	void rva0031AF54(bool flag);
+	char m_pad00[0x14];
+	AnimateWindowManager *m_manager; // +0x14
+	char m_pad18[0x90];
+	GameWindow *m_list[10]; // +0xA8
+	int m_count; // +0xD0
+	char m_padD4[0x4];
+	GameWindow *m_window; // +0xD8
+};
+void *GadgetButtonGetData(GameWindow *);
+void GadgetButtonSetDisallowed(GameWindow *,int);
+void Rva003284B9(GameWindow *,int,int);
 class Player {
 public:
 	char pad00[0x34];
@@ -862,8 +895,156 @@ public:
 	bool hasScience(ScienceType) const;
 public:
 	bool isPlayerActive() const;
+public:
+	Object *findNaturalCommandCenter();
+public:
+	bool isLocalPlayer() const;
 };
-#include "../../../../Include/GameLogic/ScriptEngine.h"
+class GameWindowTransitionsHandler;
+extern GameWindowTransitionsHandler *TheTransitionHandler;
+class GameWindowTransitionsHandler
+{
+public:
+	void setGroup(AsciiString groupName, bool immediate);
+	void remove(AsciiString groupName, bool skipPending);
+};
+#include "Lib/Coord3D.h"
+class Drawable
+{
+public:
+	void setPosition(const Coord3D *loc);
+	void setIndicatorColor(int color);
+	char m_pad00[0xFC];
+	Object *m_object; // +0xFC +0xFC
+};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
+#include "../../../Common/Thing/thing.h"
+class ThingTemplate;
+class Rva0055A88BDwordField
+{
+public:
+	int get() const;
+};
+typedef unsigned int DrawableID;
+class RallyGameClientDispatchView
+{
+public:
+	virtual void slot00(); virtual void slot01(); virtual void slot02(); virtual void slot03();
+	virtual void slot04(); virtual void slot05(); virtual void slot06(); virtual void slot07();
+	virtual void slot08(); virtual void slot09(); virtual void slot0A(); virtual void slot0B();
+	virtual void slot0C(); virtual void slot0D(); virtual void slot0E(); virtual void slot0F();
+	virtual Drawable *findDrawableByID(DrawableID id);
+	virtual void slot11(); virtual void slot12(); virtual void slot13(); virtual void slot14();
+	virtual void slot15(); virtual void slot16(); virtual void slot17(); virtual void slot18();
+	virtual void slot19(); virtual void slot1A(); virtual void slot1B(); virtual void slot1C();
+	virtual void destroyDrawable(Drawable *draw);
+};
+class GameClient;
+extern GameClient *TheGameClient;
+struct RallyGlobalDataView
+{
+	char m_pad00[0x94];
+	float m_downwindAngle;
+	char m_pad98[0x134 - 0x98];
+	int m_timeOfDay;
+};
+class GlobalData;
+extern GlobalData *TheWritableGlobalData;
+struct PlayerColors
+{
+	char m_pad00[0x280];
+	int m_playerColor;
+	int m_playerNightColor;
+};
+struct RallyPlayerListView
+{
+	char m_pad00[0x10];
+	PlayerColors *m_local;
+};
+struct DrawableWithStatus
+{
+	char m_pad00[0x114];
+	unsigned int m_status;
+};
+class ScriptEngine;
+extern ScriptEngine *TheScriptEngine;
+struct ShortcutTimerView
+{
+    char unknown00[0x1A104];
+    int endGameTimer;
+    bool isGameEnding() const { return endGameTimer >= 0; }
+};
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
+class RadarWindowOverrideSource
+{
+public:
+	void rva002D370A();
+};
+extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
+// Command-set/button node for the +0x2C list: next link at +0x18 and the
+// reset-cleared word at +0xF8. Reached as Overridable only for the
+// deleteOverrides call, which needs no this-adjustment.
+struct BfmeResetNode
+{
+	unsigned char m_pad00[0x18];
+	BfmeResetNode *m_next;			///< +0x18
+	unsigned char m_pad1C[0xF8 - 0x1C];
+	int m_resetCleared;			///< +0xF8
+};
+// Retail restores both iterator homes before next(). Volatile homes and the
+// compiler barrier preserve those stores across the captured pair values.
+struct VolIter
+{
+	volatile void *m_current;
+	volatile void *m_owner;
+};
+class Rva000411084
+{
+public:
+	void *next();
+	void *m_current; // +0x00
+	void *m_owner; // +0x04
+};
+// An explicit copy constructor makes the by-value erase argument reserve
+// its stack space and copy its two words through the argument address.
+struct VideoPair
+{
+	struct
+	{
+		void *first;
+		void *second;
+	} s;
+	inline VideoPair(void *a, void *b) { s.first = a; s.second = b; }
+	inline VideoPair(const VideoPair &other) { s.first = other.s.first; s.second = other.s.second; }
+};
+#include <hash_map>
+class Rva000427195
+{
+public:
+	void rva00212858(unsigned int n);
+public:
+	int bucketIndex(const AsciiString *name);
+public:
+	void *rva0031C7D6(const Bef1Pair &x);
+public:
+	void **rva0031DB83(const AsciiString &name);
+public:
+	void *m_unused00;
+public:
+	void **m_beginBuckets;
+public:
+	void **m_endBuckets;
+public:
+	void **m_storageEnd;
+public:
+	unsigned int m_numElements;
+public:
+	void *first(Rva000411084 *iter);
+public:
+	void rva003A37DC(VideoPair p);
+};
+
 // The canonical ScriptEngine keeps +0x10..+0x1A4E0 opaque; this unit reads
 // the int at +0x1A104 through its own view.
 struct ScriptEngineView
@@ -873,7 +1054,9 @@ struct ScriptEngineView
 	unsigned char m_pad00000[0x1A104];
 	int m_value1A104; // +0x1A104
 };
+
 void finishShowPurchaseScience();
+
 struct Rva0031ADAEPlayerView
 {
     char unknown00[0x34];
@@ -947,8 +1130,6 @@ class Object;
 struct Coord3D;
 
 struct Rva0031DBFCElement;
-
-class Drawable;
 
 struct PlayerAITypeEntry;
 
@@ -1179,7 +1360,34 @@ class vector;
 // This address is in the PE .data zero-fill tail, so retail starts it null.
 extern class ControlBar *TheControlBar;
 
-// tu-skeleton: 0x0031AA86 152B ?rva0031AA86@ControlBar@@QAEHXZ -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031AA86.cpp (not merged yet)
+void Rva00328518(GameWindow *w, int x);
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031AA86.cpp
+
+int ControlBar::rva0031AA86()
+{
+	int money = ((MoneyInner *)ThePlayerList->local)->m_money;
+	if (m_lastFlashedAtPointValue <= money && money > 0)
+		m_lastFlashedAtPointValue = money;
+	else
+		m_genStarFlash = 0;
+	GameWindow *win = TheWindowManager->winGetWindowFromId(0, TheNameKeyGenerator->nameToKey("ControlBar.wnd:ButtonGeneral"));
+	if (win == 0)
+		return 0;
+	if (m_genStarFlash == 0) {
+		GadgetButtonSetEnabledImage_Rva002C0433(win, m_p0270);
+		return 0;
+	}
+	unsigned int frame = TheGameLogic->getFrame();
+	int period = BfmeLogicFramesPerSecond;
+	if (frame % (unsigned int)period > (unsigned int)(period / 2))
+		GadgetButtonSetEnabledImage_Rva002C0433(win, m_p0274);
+	else
+		GadgetButtonSetEnabledImage_Rva002C0433(win, m_p0270);
+	return 0;
+}
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp
 
@@ -2028,18 +2236,6 @@ void ControlBar::rva0031BAB1()
 		switchControlBarStage(CONTROL_BAR_STAGE_DEFAULT);
 }
 
-// tu-skeleton: 0x0031AB77 8B ?rva0031AB77SetFlag@ControlBar@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp (not merged yet)
-
-// tu-skeleton: 0x0031AB7F 80B ??4Rva0031AB7F@@QAEAAV0@ABV0@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/Rva0031AB7FCopy.cpp (not merged yet)
-
-// tu-skeleton: 0x0031ABCF 5B ?processContextSensitiveButtonClick@ControlBar@@QAE?AW4CBCommandStatus@@PAVGameWindow@@W4GadgetGameMessage@@@Z -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
-
-// tu-skeleton: 0x0031ABD4 5B ?processContextSensitiveButtonTransition@ControlBar@@QAE?AW4CBCommandStatus@@PAVGameWindow@@W4GadgetGameMessage@@@Z -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
-
-// tu-skeleton: 0x0031AC39 22B ?postProcessCommands@ControlBar@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_postProcessCommands.cpp (not merged yet)
-
-// tu-skeleton: 0x0031ACF5 31B ?updateRightHUDImage@ControlBar@@QAEXPBVImage@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateRightHUDImage.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarShowPurchaseScience.cpp
 
 void ControlBar::showPurchaseScience()
@@ -2067,14 +2263,6 @@ void ControlBar::rva0031ADAE()
             ->playerTemplate, true);
 }
 
-// tu-skeleton: 0x0031AE13 128B ?rva0031AE13@ControlBar@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031AE13.cpp (not merged yet)
-
-// tu-skeleton: 0x0031AF54 120B ?rva0031AF54@Rva0031AF54@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031AF54.cpp (not merged yet)
-
-// tu-skeleton: 0x0031B031 42B ??$__copy@PBW4ScienceType@@PAW41@H@_STL@@YAPAW4ScienceType@@PBW41@0PAW41@ABUrandom_access_iterator_tag@0@PAH@Z -- matched in Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp (not merged yet)
-
-// tu-skeleton: 0x0031B05B 115B ?rva0031B05B@ControlBar@@QAEPAVCommandSet@@PAV2@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarNewCommandSetOverride.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSetLowControlBarConfig.cpp
 
 void ControlBar::setLowControlBarConfig(void)
@@ -2101,14 +2289,6 @@ void ControlBar::setDefaultControlBarConfig(void)
  m_contextParent[0]->winHide(false);
  rva0031AE13();
 }
-
-// tu-skeleton: 0x0031B210 664B ?rva0031B210@ControlBar@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateSpecialPowerShortcut.cpp (not merged yet)
-
-// tu-skeleton: 0x0031B4A8 18B ??$_Construct@VRva002390CB@@V1@@_STL@@YAXPAVRva002390CB@@ABV1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_throw_spec.cpp (not merged yet)
-
-// tu-skeleton: 0x0031B4BA 28B ??_GRva002390CB@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/AnimationSoundTreeFree.cpp (not merged yet)
-
-// tu-skeleton: 0x0031B5A3 106B ?rva0031B5A3@ControlBar@@QAEXPBVPlayer@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031B5A3.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSetCommandWindow.cpp
 
@@ -2163,7 +2343,209 @@ void ControlBar::setControlCommand(GameWindow *button,const CommandButton *comma
     ((Rva0031417CDwordSlot *)button)->set((int)Rva00328700);
 }
 
-// tu-skeleton: 0x0031B892 264B ?showRallyPoint@ControlBar@@QAEXPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarShowRallyPoint.cpp (not merged yet)
+// tu-skeleton: 0x0031AB77 8B ?rva0031AB77SetFlag@ControlBar@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp (not merged yet)
+
+// tu-skeleton: 0x0031AB7F 80B ??4Rva0031AB7F@@QAEAAV0@ABV0@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/Rva0031AB7FCopy.cpp (not merged yet)
+
+// tu-skeleton: 0x0031ABCF 5B ?processContextSensitiveButtonClick@ControlBar@@QAE?AW4CBCommandStatus@@PAVGameWindow@@W4GadgetGameMessage@@@Z -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
+
+// tu-skeleton: 0x0031ABD4 5B ?processContextSensitiveButtonTransition@ControlBar@@QAE?AW4CBCommandStatus@@PAVGameWindow@@W4GadgetGameMessage@@@Z -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
+
+// tu-skeleton: 0x0031AC39 22B ?postProcessCommands@ControlBar@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_postProcessCommands.cpp (not merged yet)
+
+// tu-skeleton: 0x0031ACF5 31B ?updateRightHUDImage@ControlBar@@QAEXPBVImage@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateRightHUDImage.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031AE13.cpp
+
+void ControlBar::rva0031AE13()
+{
+	GameWindow *win = TheWindowManager->winGetWindowFromId(0, TheNameKeyGenerator->nameToKey("ControlBar.wnd:ButtonLarge"));
+	if (win == 0)
+		return;
+	if (m_currentControlBarStage == 2) {
+		GadgetButtonSetEnabledImage_Rva002C0433(win, m_p0254);
+		GadgetButtonSetHiliteImage_Rva002C04DB(win, m_p0250);
+		GadgetButtonSetHiliteImage123_Rva002C0505(win, m_p0258);
+	} else {
+		GadgetButtonSetEnabledImage_Rva002C0433(win, m_p0260);
+		GadgetButtonSetHiliteImage_Rva002C04DB(win, m_p025C);
+		GadgetButtonSetHiliteImage123_Rva002C0505(win, m_p0264);
+	}
+}
+
+// tu-skeleton: 0x0031AF54 120B ?rva0031AF54@Rva0031AF54@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031AF54.cpp (not merged yet)
+
+// tu-skeleton: 0x0031B031 42B ??$__copy@PBW4ScienceType@@PAW41@H@_STL@@YAPAW4ScienceType@@PBW41@0PAW41@ABUrandom_access_iterator_tag@0@PAH@Z -- matched in Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarNewCommandSetOverride.cpp
+
+// BFME1 ba7ddda7 CommandSetLifetime.cpp supplies the override algorithm.
+// Native 0x0031B05B..0x0031B0CE and WB 0x00C2DAD0 establish the target's
+// constructor mode 0, named +0x10 string, override-copy guard, +0x08 byte,
+// and original's +0x04 link. Reuse actual ctor/copy/base owners.
+
+CommandSet *ControlBar::rva0031B05B(CommandSet *original)
+{
+    if(!original) return 0;
+    CommandSet *set=new CommandSet(original->getName(),0);
+    g_00E01EA8=1;
+    *((Rva0031AB7F *)set)=*((const Rva0031AB7F *)original);
+    g_00E01EA8=0;
+    set->markAsOverride();
+    original->setNextOverride(set);
+    return set;
+}
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateSpecialPowerShortcut.cpp
+
+void ControlBar::rva0031B210()
+{
+    if (!m_specialPowerShortcutParent || !m_specialPowerShortcutButtons || !ThePlayerList
+        || !((ShortcutPlayerListView *)ThePlayerList)->getLocalPlayer())
+        return;
+    if (((ShortcutPlayerListView *)ThePlayerList)->getLocalPlayer()->findNaturalCommandCenter()
+        && m_specialPowerShortcutParent->winIsHidden()
+        && m_contextParent[0] && !m_contextParent[0]->winIsHidden())
+    {
+        showSpecialPowerShortcut();
+        ((Rva0031AF54 *)this)->rva0031AF54(true);
+    }
+    else if (!((ShortcutPlayerListView *)ThePlayerList)->getLocalPlayer()->findNaturalCommandCenter()
+        && !m_specialPowerShortcutParent->winIsHidden() && !((ShortcutAnimateManagerView *)m_animateWindowManagerForGenShortcuts)->isFinished())
+        ((Rva0031AF54 *)this)->rva0031AF54(false);
+    if (m_specialPowerShortcutParent->winIsHidden()) return;
+    if (!((BfmeMemberRV *)((ShortcutPlayerListView *)ThePlayerList)->getLocalPlayer())->bfmeAskRV())
+    {
+        hideSpecialPowerShortcut();
+        return;
+    }
+    if (m_contextParent[0] && !m_contextParent[0]->winIsHidden() && m_specialPowerShortcutParent->winIsHidden())
+        showSpecialPowerShortcut();
+    for (int i=0; i<m_currentlyUsedSpecialPowersButtons; ++i)
+    {
+        GameWindow *win=m_specialPowerShortcutButtons[i];
+        if (win->winIsHidden()==true) continue;
+        const CommandButton *command=(const CommandButton *)GadgetButtonGetData(win);
+        if (!command) continue;
+        win->winClearStatus(0x00400000);
+        win->winClearStatus(0x01000000);
+        win->winClearStatus(0x40000000);
+        win->winClearStatus(0x80000000);
+        GadgetButtonSetDisallowed(win,false);
+        int availability=0;
+        float percent=0.0f;
+        if (((ShortcutPlayerListView *)ThePlayerList)->getLocalPlayer()->findNaturalCommandCenter())
+            availability=getCommandAvailability(command,win,
+                ((ShortcutPlayerListView *)ThePlayerList)->getLocalPlayer()->findNaturalCommandCenter(),
+                &percent,false);
+        if (availability==0 || availability==7 || availability==4)
+            if (((const ShortcutCommandButtonView *)command)->options & 0x00400000) availability=3;
+        int color=0;
+        switch (availability)
+        {
+        case 3:
+            win->winHide(true);
+            break;
+        case 0:
+        case 4:
+        case 8:
+            win->winEnable(false);
+            win->winSetStatus(0x80000000);
+            if (availability==4) GadgetButtonSetDisallowed(win,true);
+            if (availability==8) win->winSetStatus(0x01000000);
+            break;
+        case 5:
+            color=buildUpClockColor;
+            win->winEnable(false);
+            win->winSetStatus(0x00400000);
+            break;
+        case 6:
+        case 7:
+            win->winEnable(false);
+            win->winSetStatus(0x01000000);
+            break;
+        case 1:
+        case 2:
+        default:
+            win->winEnable(true);
+            break;
+        }
+        if (percent<1.0f) Rva003284B9(win,(int)(percent*100.0f),color);
+    }
+}
+
+// tu-skeleton: 0x0031B4A8 18B ??$_Construct@VRva002390CB@@V1@@_STL@@YAXPAVRva002390CB@@ABV1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_throw_spec.cpp (not merged yet)
+
+// tu-skeleton: 0x0031B4BA 28B ??_GRva002390CB@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/AnimationSoundTreeFree.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031B5A3.cpp
+
+void ControlBar::rva0031B5A3(const Player *player)
+{
+	if (!player->isLocalPlayer())
+		return;
+	{
+		int money = ((MoneyInner *)ThePlayerList->local)->m_money;
+		if (m_lastFlashedAtPointValue > money)
+			goto done;
+	}
+	if (TheTransitionHandler == 0)
+		goto done;
+	if (TheInGameUI->m_15 == 0)
+		goto done;
+	if (TheInGameUI->m_16 == 0)
+		goto done;
+	TheTransitionHandler->setGroup(AsciiString("ControlBarArrow"), 0);
+done:
+	m_genStarFlash = 1;
+	m_UIDirty = 1;
+}
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarShowRallyPoint.cpp
+
+void ControlBar::showRallyPoint(const Coord3D *loc)
+{
+	if (loc == 0)
+	{
+		if (m_rallyPointDrawableID != 0)
+		{
+			((RallyGameClientDispatchView *)TheGameClient)->destroyDrawable(((RallyGameClientDispatchView *)TheGameClient)->findDrawableByID(m_rallyPointDrawableID));
+			m_rallyPointDrawableID = 0;
+		}
+	}
+	else
+	{
+		Drawable *marker = 0;
+		if (m_rallyPointDrawableID == 0)
+		{
+			const void *ttn;
+			{
+				AsciiString markerName("RallyPointMarker");
+				ttn = (const void *)TheThingFactory->findTemplate(markerName);
+			}
+			marker = (Drawable *)TheThingFactory->newDrawable((void *)ttn, 0, -1);
+			if (marker)
+			{
+				((DrawableWithStatus *)marker)->m_status |= 0x10;
+				m_rallyPointDrawableID = ((Rva0055A88BDwordField *)marker)->get();
+			}
+		}
+		else
+		{
+			marker = ((RallyGameClientDispatchView *)TheGameClient)->findDrawableByID(m_rallyPointDrawableID);
+		}
+		if (marker)
+		{
+			marker->setPosition(loc);
+			((Thing *)marker)->setOrientation(((RallyGlobalDataView *)TheWritableGlobalData)->m_downwindAngle);
+			PlayerColors *player = ((RallyPlayerListView *)ThePlayerList)->m_local;
+			if (((RallyGlobalDataView *)TheWritableGlobalData)->m_timeOfDay == 4)
+				marker->setIndicatorColor(player->m_playerNightColor);
+			else
+				marker->setIndicatorColor(player->m_playerColor);
+		}
+	}
+}
 
 // tu-skeleton: 0x0031B99A 81B ?switchControlBarStage@ControlBar@@QAEXW4ControlBarStages@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_Rva0031B99A.cpp (not merged yet)
 
@@ -2205,7 +2587,29 @@ void ControlBar::setControlCommand(GameWindow *button,const CommandButton *comma
 
 // tu-skeleton: 0x0031D85D 667B ?populateSpecialPowerShortcut@ControlBar@@IAEXPAVPlayer@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp (not merged yet)
 
-// tu-skeleton: 0x0031DAF8 139B ?showSpecialPowerShortcut@ControlBar@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarShowSpecialPowerShortcut.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarShowSpecialPowerShortcut.cpp
+
+void ControlBar::showSpecialPowerShortcut()
+{
+    if (((const ShortcutTimerView *)TheScriptEngine)->isGameEnding()
+        || !m_specialPowerShortcutParent || !m_specialPowerShortcutButtons || !ThePlayerList
+        || !((ShortcutPlayerListView *)ThePlayerList)->getLocalPlayer())
+        return;
+    bool dontAnimate=true;
+    for (int i=0; i<m_currentlyUsedSpecialPowersButtons; ++i)
+    {
+        if (m_specialPowerShortcutButtons[i]->winGetUserData())
+        {
+            dontAnimate=false;
+            break;
+        }
+    }
+    if (dontAnimate
+        || !((ShortcutPlayerListView *)ThePlayerList)->getLocalPlayer()->findNaturalCommandCenter())
+        return;
+    m_specialPowerShortcutParent->winHide(false);
+    populateSpecialPowerShortcut(((ShortcutPlayerListView *)ThePlayerList)->getLocalPlayer());
+}
 
 // tu-skeleton: 0x0031DBFC 64B ??0?$hashtable@U?$pair@$$CBHURva0031DBFCElement@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHURva0031DBFCElement@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHURva0031DBFCElement@@@_STL@@@2@@_STL@@QAE@IABU?$hash@H@1@ABU?$equal_to@H@1@ABV?$allocator@U?$pair@$$CBHURva0031DBFCElement@@@_STL@@@1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0031DBFC.cpp (not merged yet)
 
@@ -2213,7 +2617,117 @@ void ControlBar::setControlCommand(GameWindow *button,const CommandButton *comma
 
 // tu-skeleton: 0x0031DCF0 665B ??1Rva0031DCF0@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/Rva0031DCF0ControlBarDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x0031E09E 448B ?reset@ControlBar@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReset.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReset.cpp
+
+// The +0x30 map as ControlBar's constructor spells it (its rowed hash_map
+// constructor 0x0031E92D); begin and erase above are folded bodies reached
+// through the Rva000427195 view.
+
+void ControlBar::reset()
+{
+	hideSpecialPowerShortcut();
+	// do not destroy the rally drawable, it will get destroyed with everything else during a reset
+	if ((m_rallyPointDrawableID = 0, m_radarAttackGlowWindow) != 0)
+		m_radarAttackGlowWindow->winEnable(true);
+
+	m_0290 = false;
+	m_0294 = 0;
+
+	m_displayedConstructPercent = -1.0f;
+	m_displayedOCLTimerSeconds = 0;
+
+	m_isObserverCommandBar = false; // reset us to use a normal command bar
+	m_observerLookAtPlayer = 0;
+	m_showBuildToolTipLayout = false;
+
+	m_buildToolTipLayout.clear();
+
+	if (theRadarWindowOverrideSource != 0)
+		theRadarWindowOverrideSource->rva002D370A();
+
+	if (m_animateWindowManager)
+		m_animateWindowManager->reset();
+	if (m_animateWindowManagerForGenShortcuts)
+		m_animateWindowManagerForGenShortcuts->reset();
+	if (m_generalsScreenAnimate)
+		m_generalsScreenAnimate->reset();
+	if (m_videoManager)
+		m_videoManager->reset();
+
+	// go back to default context
+	switchToContext(0, 0);
+	GameWindow **ppAnimateDown = &m_animateDownWindow;
+	GameWindow *animateDown = *ppAnimateDown;
+	if ((m_sideSelectAnimateDown = false, animateDown) != 0)
+	{
+		TheWindowManager->winDestroy(animateDown);
+		*ppAnimateDown = 0;
+	}
+
+	// Teardown of the window/video map at +0x30.
+	VolIter iter;
+	((Rva000427195 *)&m_videoMap)->first((Rva000411084 *)&iter);
+	void *first = (void *)iter.m_current;
+	if (first != 0) {
+		void *second = (void *)iter.m_owner;
+		do {
+			_ReadWriteBarrier();
+			iter.m_current = first;
+			iter.m_owner = second;
+			((Rva000411084 *)&iter)->next();
+			Overridable *overrides = *(Overridable **)((char *)first + 8);
+			if (overrides->deleteOverrides() == 0) {
+				((Rva000427195 *)&m_videoMap)->rva003A37DC(VideoPair(first, second));
+			}
+			first = (void *)iter.m_current;
+			second = (void *)iter.m_owner;
+		} while (first != 0);
+	}
+
+	// Remove any overridden sets.
+	BfmeResetNode *set = (BfmeResetNode *)m_commandButtons;
+	while (set != 0) {
+		volatile bool possibleAdjustment = false;
+		BfmeResetNode *nextSet = set->m_next;
+		if (set == (BfmeResetNode *)m_commandButtons) {
+			possibleAdjustment = true;
+		}
+
+		Overridable *stillValid = ((Overridable *)set)->deleteOverrides();
+		if (stillValid == 0 && possibleAdjustment) {
+			*(BfmeResetNode **)&m_commandButtons = nextSet;
+		}
+
+		set = nextSet;
+	}
+
+	// Remove any overridden command buttons.
+	BfmeResetNode *button = (BfmeResetNode *)m_commandButtons;
+	{
+		while (button != 0) {
+			button->m_resetCleared = 0;
+			button = button->m_next;
+		}
+	}
+
+	// Clear the disjoint windows.
+	GameWindow **slot = m_commandWindows;
+	int remaining = 0x20;
+	do {
+		if (*slot != 0)
+			Rva00328518(*slot, 0);
+		slot++;
+		--remaining;
+		_ReadWriteBarrier();
+	} while (remaining != 0);
+
+	if (TheTransitionHandler != 0)
+		TheTransitionHandler->remove(AsciiString("ControlBarArrow"), 0);
+	m_genArrow = 0;
+
+	m_lastFlashedAtPointValue |= -1;
+	m_genStarFlash = true;
+}
 
 // tu-skeleton: 0x0031E25E 604B ?update@ControlBar@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp (not merged yet)
 
@@ -2221,7 +2735,20 @@ void ControlBar::setControlCommand(GameWindow *button,const CommandButton *comma
 
 // tu-skeleton: 0x0031E879 92B ?forgetStaleCommandSet@ControlBar@@QAEXABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp (not merged yet)
 
-// tu-skeleton: 0x0031E8D5 88B ?rva0031E8D5@ControlBar@@QAEPAVCommandSet@@ABVAsciiString@@H@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarNewCommandSet.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarNewCommandSet.cpp
+
+// Native 0x0031E8D5..0x0031E92D and WB 0x00C2DA30: allocate a 0x9C-byte
+// command set, construct from name and mode, put it in the +0x30 name map.
+// BFME1 ba7ddda7 CommandSetLifetime.cpp guides the creation algorithm.
+// The map replaces the donor's list, and layout comes from matched ctor
+// 0x00409FFA and its rowed sibling methods rather than the donor.
+
+CommandSet *ControlBar::rva0031E8D5(const AsciiString &name,int mode)
+{
+    CommandSet *set=new CommandSet(name,mode);
+    *((Rva000427195 *)((char *)this+0x30))->rva0031DB83(name)=set;
+    return set;
+}
 
 // tu-skeleton: 0x0031E92D 31B ??0?$hash_map@HURva0031DBFCElement@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHURva0031DBFCElement@@@_STL@@@3@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva0031E92D.cpp (not merged yet)
 
