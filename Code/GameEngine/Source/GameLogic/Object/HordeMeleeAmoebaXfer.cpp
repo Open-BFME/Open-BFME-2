@@ -1,19 +1,13 @@
 // cl: /O1 /G7 /arch:SSE /MD /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /ICode/Libraries/Include/Lib /ICode/GameEngine/Source/Common /Ireference/shims/moduledata
 // stlport
-// HordeMeleeAmoeba slot 3, native 00588ABB..00588B8A (207B, RET4).
+// HordeMeleeAmoeba slot 15, native 00588ABB..00588B8A (207B, RET4).
 // WB 01470F20 paired by the ctor's vtable; the class name is independently
 // owned by 00587D9C. BFME1 Xfer/version conventions guide the transfer;
 // the 60B record, version bytes, field offsets and chained calls are target facts.
 #include <vector>
 #include "Coord3DBase.h"
-#include "Common/Snapshot.h"
 class Object;
-struct BfmePod60 {
- BfmePod60();
- Coord3DBase position;
- bool needsPosition;char opaque0d[3];int index;
- int values[8];int opaque34;unsigned char opaque38;bool loaded39;char opaque3a[2];
-};
+#include "../../../Include/GameLogic/HordeMeleeAmoeba.h"
 namespace _STL {template<> void vector<BfmePod60>::resize(size_type);}
 struct HmaTransferVersion {unsigned char minimum,current; HmaTransferVersion(unsigned char c,unsigned char m):minimum(m),current(c) {}};
 class HmaTransferView {
@@ -33,14 +27,6 @@ public:
 };
 class Rva0058731DHost;
 Rva0058731DHost *Rva0058731DCheck(Rva0058731DHost*,int);
-class Rva005D6FCC : public Snapshot {public:virtual ~Rva005D6FCC();void *held;};
-class HordeMeleeAmoeba : public Rva005D6FCC {
-public:
- virtual void xfer(Xfer *);
- bool rva005879C8(Object*);
- _STL::vector<BfmePod60> slots;
- bool flag14;void *other;
-};
 void HordeMeleeAmoeba::xfer(Xfer *xfer)
 {
  HmaTransferView *view=(HmaTransferView*)xfer;

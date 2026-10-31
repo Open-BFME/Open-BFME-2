@@ -160,3 +160,4 @@ AITNGuardInnerState,Code/GameEngine/Include/GameLogic/AITNGuard.h,"Native4D73FC 
 Player,Code/GameEngine/Include/Common/Player.h,hand-reviewed: retail ctor 2B0F3C three bases at 0/4/8; size 758 from 2A7F80 allocation; 8 primary slots; initial 9/9 rows in two AI delegate/query consumers; lifetime units remain adoption debt
 GameWindowManager,Code/GameEngine/Include/GameClient/GameWindowManager.h,Manual bounded target ABI; 0x40 factory/ctor witnesses; typed admitted slots only; reverse/attempt_support/gamewindowmanager-canonical-qc10-20261031
 PolygonTrigger,Code/GameEngine/Include/GameLogic/PolygonTrigger.h,Shared target virtual-inheritance view; native2E3FAB/330C50 and seven vtordisp thunks; reverse/attempt_support/polygontrigger-canonical-qc10-20261031
+HordeMeleeAmoeba,Code/GameEngine/Include/GameLogic/HordeMeleeAmoeba.h,"Native ctor587D9C/base5D6FCC/factory587F11 and C6FF38 slots0..15; xfer at15, no Snapshot base; bounded consumed projection"

@@ -1,0 +1,13 @@
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Code/Libraries/Source/WWVegas/WWLib/FamilyDeletingDtors_Rva00587F69.cpp: does not link  LINKED 28 -> 0 bytes (census 2026-10-31 18:37 at 7300bffea9; file's own bytes 28)
+  unresolved  ?_bfme_slot10@HordeMeleeAmoeba@@EAEXXZ
+  unresolved  ?_bfme_slot11@HordeMeleeAmoeba@@EAEXXZ
+  unresolved  ?_bfme_slot14@HordeMeleeAmoeba@@EAEXXZ
+  unresolved  ?_bfme_slot1@HordeMeleeAmoeba@@EAEXXZ
+  unresolved  ?_bfme_slot2@HordeMeleeAmoeba@@EAEXXZ
+  unresolved  ?_bfme_slot4@HordeMeleeAmoeba@@EAEXXZ
+  unresolved  ?_bfme_slot7@HordeMeleeAmoeba@@EAEXXZ
+  unresolved  ?_bfme_slot8@HordeMeleeAmoeba@@EAEXXZ
+  unresolved  ?_bfme_slot9@HordeMeleeAmoeba@@EAEXXZ
+  comdat      ??_7HordeMeleeAmoeba@@6B@  (first: differs from the first copy in link order (no retail address))
+link_check: 0 of 1 link cleanly; LINKED 28 -> 0 bytes (3.3s)

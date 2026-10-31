@@ -1,0 +1,80 @@
+RVA 00587D9C size 49
+987d9c: push ebp
+987d9d: mov ebp, esp
+987d9f: push esi
+987da0: push dword ptr [ebp + 8]
+987da3: mov esi, ecx
+987da5: call 0x9d6fcc
+987daa: lea eax, [ebp + 0xb]
+987dad: push eax
+987dae: lea ecx, [esi + 8]
+987db1: mov dword ptr [esi], 0xc6ff38
+987db7: call 0x611e58
+987dbc: mov eax, dword ptr [ebp + 0xc]
+987dbf: mov dword ptr [esi + 0x18], eax
+987dc2: mov byte ptr [esi + 0x14], 1
+987dc6: mov eax, esi
+987dc8: pop esi
+987dc9: pop ebp
+987dca: ret 8
+
+RVA 005D6FCC size 18
+9d6fcc: mov eax, ecx
+9d6fce: mov ecx, dword ptr [esp + 4]
+9d6fd2: mov dword ptr [eax], 0xc75c38
+9d6fd8: mov dword ptr [eax + 4], ecx
+9d6fdb: ret 4
+
+RVA 00587F11 size 60
+987f11: mov eax, 0xb9cba3
+987f16: call 0xa29188
+987f1b: push ecx
+987f1c: push esi
+987f1d: push 0x1c
+987f1f: mov esi, ecx
+987f21: call 0x42fda0
+987f26: pop ecx
+987f27: mov ecx, eax
+987f29: mov dword ptr [ebp - 0x10], ecx
+987f2c: xor eax, eax
+987f2e: cmp ecx, eax
+987f30: mov dword ptr [ebp - 4], eax
+987f33: je 0x987f3e
+987f35: push esi
+987f36: push dword ptr [ebp + 8]
+987f39: call 0x987d9c
+987f3e: mov ecx, dword ptr [ebp - 0xc]
+987f41: pop esi
+987f42: mov dword ptr fs:[0], ecx
+987f49: leave 
+987f4a: ret 4
+
+RVA 00587F4D size 28
+987f4d: push esi
+987f4e: mov esi, ecx
+987f50: call 0x987f69
+987f55: test byte ptr [esp + 8], 1
+987f5a: je 0x987f63
+987f5c: push esi
+987f5d: call 0x42fd60
+987f62: pop ecx
+987f63: mov eax, esi
+987f65: pop esi
+987f66: ret 4
+
+RVA 00588A95 size 38
+988a95: add ecx, 8
+988a98: jmp 0x988a72
+988a9d: mov eax, dword ptr [ecx + 0xc]
+988aa0: add ecx, 8
+988aa3: sub eax, dword ptr [ecx]
+988aa5: push esi
+988aa6: push 0x3c
+988aa8: cdq 
+988aa9: pop esi
+988aaa: idiv esi
+988aac: pop esi
+988aad: cmp eax, dword ptr [esp + 4]
+988ab1: jae 0x988ab8
+988ab3: jmp 0x988a72
+988ab8: ret 4

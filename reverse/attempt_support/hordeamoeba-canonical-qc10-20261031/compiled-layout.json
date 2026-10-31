@@ -1,0 +1,191 @@
+{
+  "HordeMeleeAmoeba": {
+    "fwd": false,
+    "key": "class",
+    "size": 28,
+    "bases": [
+      [
+        "Rva005D6FCC",
+        0
+      ]
+    ],
+    "fields": [
+      [
+        8,
+        "slots",
+        "_STL::vector<BfmePod60,_STL::allocator<BfmePod60> >",
+        12
+      ],
+      [
+        20,
+        "flag14",
+        "bool",
+        1
+      ],
+      [
+        24,
+        "other",
+        "void*",
+        4
+      ]
+    ],
+    "statics": [],
+    "methods": [
+      "AttackUnit",
+      "HordeMeleeAmoeba",
+      "__vecDelDtor",
+      "_bfme_slot1",
+      "_bfme_slot10",
+      "_bfme_slot11",
+      "_bfme_slot14",
+      "_bfme_slot2",
+      "_bfme_slot4",
+      "_bfme_slot7",
+      "_bfme_slot8",
+      "_bfme_slot9",
+      "notifyOfMemberDeath",
+      "rva0058776E",
+      "rva005879C8",
+      "setUnitNeedsNewAttackPos",
+      "startMeleeAttack",
+      "updateMeleeAttack",
+      "xfer",
+      "~HordeMeleeAmoeba"
+    ],
+    "virtual": [
+      "__vecDelDtor",
+      "_bfme_slot1",
+      "_bfme_slot10",
+      "_bfme_slot11",
+      "_bfme_slot14",
+      "_bfme_slot2",
+      "_bfme_slot4",
+      "_bfme_slot7",
+      "_bfme_slot8",
+      "_bfme_slot9",
+      "notifyOfMemberDeath",
+      "rva0058776E",
+      "setUnitNeedsNewAttackPos",
+      "startMeleeAttack",
+      "updateMeleeAttack",
+      "xfer",
+      "~HordeMeleeAmoeba"
+    ],
+    "vslots": {
+      "0": "__vecDelDtor(uint)",
+      "1": "_bfme_slot1()",
+      "2": "_bfme_slot2()",
+      "3": "startMeleeAttack(Object*)",
+      "4": "_bfme_slot4()",
+      "5": "updateMeleeAttack(Object*)",
+      "6": "notifyOfMemberDeath(Object*)",
+      "7": "_bfme_slot7()",
+      "8": "_bfme_slot8()",
+      "9": "_bfme_slot9()",
+      "10": "_bfme_slot10()",
+      "11": "_bfme_slot11()",
+      "12": "setUnitNeedsNewAttackPos(void*,int)",
+      "13": "rva0058776E(int,Coord3D*)",
+      "14": "_bfme_slot14()",
+      "15": "xfer(Xfer*)"
+    },
+    "vfptr": false
+  },
+  "Rva005D6FCC": {
+    "fwd": false,
+    "key": "class",
+    "size": 8,
+    "bases": [],
+    "fields": [
+      [
+        4,
+        "held",
+        "void*",
+        4
+      ]
+    ],
+    "statics": [],
+    "methods": [
+      "Rva005D6FCC",
+      "__vecDelDtor",
+      "~Rva005D6FCC"
+    ],
+    "virtual": [
+      "__vecDelDtor",
+      "~Rva005D6FCC"
+    ],
+    "vslots": {
+      "0": "__vecDelDtor(uint)"
+    },
+    "vfptr": true
+  },
+  "BfmePod60": {
+    "fwd": false,
+    "key": "struct",
+    "size": 60,
+    "bases": [],
+    "fields": [
+      [
+        0,
+        "position",
+        "Coord3DBase",
+        12
+      ],
+      [
+        12,
+        "needsPosition",
+        "bool",
+        1
+      ],
+      [
+        13,
+        "opaque0d",
+        "char[3]",
+        3
+      ],
+      [
+        16,
+        "index",
+        "int",
+        4
+      ],
+      [
+        20,
+        "values",
+        "int[32]",
+        32
+      ],
+      [
+        52,
+        "opaque34",
+        "int",
+        4
+      ],
+      [
+        56,
+        "opaque38",
+        "uchar",
+        1
+      ],
+      [
+        57,
+        "loaded39",
+        "bool",
+        1
+      ],
+      [
+        58,
+        "opaque3a",
+        "char[2]",
+        2
+      ]
+    ],
+    "statics": [],
+    "methods": [
+      "BfmePod60"
+    ],
+    "virtual": [],
+    "vslots": {},
+    "vfptr": false
+  }
+}
