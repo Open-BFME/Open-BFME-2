@@ -71,3 +71,10 @@ existing linker directive/alternatename; no alias is added or bypassed. The
 first before/after graph files remain the exact graph for this second state,
 so only the second verdict is repeated here. Header accept and normal commit
 hooks must pass before this consumer is bundled.
+
+GameFont normal hooks PASS28/28 and4EH EXACT. The code-identity shadow check
+reports6new-to-check definition findings (4divergent STL byte/ushort copy
+helpers and2duplicate tiny helpers). ALL SIX are pre-existing: complete code
+bytes and every relocation in retained baseline COFF and adopted COFF compare
+identically; gamefont-shadow-proof.json records each before/after body. No
+baseline is edited and no existing shadow defect is claimed repaired.

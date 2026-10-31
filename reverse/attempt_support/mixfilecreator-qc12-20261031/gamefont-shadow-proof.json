@@ -1,0 +1,98 @@
+[
+  {
+    "name": "??$__copy_backward_aux@PADPAD@_STL@@YAPADPAD00ABU__true_type@0@@Z",
+    "before_bytes": "ff74240cff74240cff74240ce80000000083c40cc3",
+    "after_bytes": "ff74240cff74240cff74240ce80000000083c40cc3",
+    "before_relocs": [
+      [
+        13,
+        20,
+        "?__copy_trivial_backward@_STL@@YAPAXPBX0PAX@Z"
+      ]
+    ],
+    "after_relocs": [
+      [
+        13,
+        20,
+        "?__copy_trivial_backward@_STL@@YAPAXPBX0PAX@Z"
+      ]
+    ],
+    "unchanged": true
+  },
+  {
+    "name": "??$__copy_backward_aux@PAGPAG@_STL@@YAPAGPAG00ABU__true_type@0@@Z",
+    "before_bytes": "ff74240cff74240cff74240ce80000000083c40cc3",
+    "after_bytes": "ff74240cff74240cff74240ce80000000083c40cc3",
+    "before_relocs": [
+      [
+        13,
+        20,
+        "?__copy_trivial_backward@_STL@@YAPAXPBX0PAX@Z"
+      ]
+    ],
+    "after_relocs": [
+      [
+        13,
+        20,
+        "?__copy_trivial_backward@_STL@@YAPAXPBX0PAX@Z"
+      ]
+    ],
+    "unchanged": true
+  },
+  {
+    "name": "??$copy_backward@PADPAD@_STL@@YAPADPAD00@Z",
+    "before_bytes": "e900000000",
+    "after_bytes": "e900000000",
+    "before_relocs": [
+      [
+        1,
+        20,
+        "?__copy_trivial_backward@_STL@@YAPAXPBX0PAX@Z"
+      ]
+    ],
+    "after_relocs": [
+      [
+        1,
+        20,
+        "?__copy_trivial_backward@_STL@@YAPAXPBX0PAX@Z"
+      ]
+    ],
+    "unchanged": true
+  },
+  {
+    "name": "??$copy_backward@PAGPAG@_STL@@YAPAGPAG00@Z",
+    "before_bytes": "e900000000",
+    "after_bytes": "e900000000",
+    "before_relocs": [
+      [
+        1,
+        20,
+        "?__copy_trivial_backward@_STL@@YAPAXPBX0PAX@Z"
+      ]
+    ],
+    "after_relocs": [
+      [
+        1,
+        20,
+        "?__copy_trivial_backward@_STL@@YAPAXPBX0PAX@Z"
+      ]
+    ],
+    "unchanged": true
+  },
+  {
+    "name": "?Rva000696C0Distance@@YAHABURva000696C0Iterator@@0@Z",
+    "before_bytes": "8b4424088b008b4c24042b01c1f804c3",
+    "after_bytes": "8b4424088b008b4c24042b01c1f804c3",
+    "before_relocs": [],
+    "after_relocs": [],
+    "unchanged": true
+  },
+  {
+    "name": "?clear@Rva002175C7Fields@@QAEPAU1@XZ",
+    "before_bytes": "8bc183600c00c3",
+    "after_bytes": "8bc183600c00c3",
+    "before_relocs": [],
+    "after_relocs": [],
+    "unchanged": true
+  }
+]
