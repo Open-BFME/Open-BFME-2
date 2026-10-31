@@ -546,10 +546,6 @@ public:
 	void rva0025EF01(int a, int b, int c, int d, int e, int f, int g);
 };
 
-void Rva001F01E8::rva001F01E8(int, int, int, int)
-{
-}
-
 void Rva001F01E8::rva0025EF07(int, int, int, int, int, int)
 {
 }
