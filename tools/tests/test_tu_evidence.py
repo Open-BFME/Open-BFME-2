@@ -113,6 +113,182 @@ def structures(tree, out=None):
     return te.Structures(layout, out or map_rows(), img)
 
 
+def replace_rva(blob, rva, value):
+    """Change one synthetic image field without guessing its raw file offset."""
+    for _, start, size, raw in te.Retail(blob).secs:
+        if start <= rva and rva + len(value) <= start + size:
+            blob[raw + rva - start:raw + rva - start + len(value)] = value
+            return
+    raise AssertionError(f"unmapped test address {rva:#x}")
+
+
+def shared_image():
+    blob = bytearray(image())
+    replace_rva(blob, UNWIND + 8 + 4, va(FUNCLET))  # A1 and A2 share the first action
+    return blob
+
+
+def shared_structures(tree, out=None, blob=None):
+    return te.Structures(tree[0], out or map_rows(), te.Retail(blob or shared_image()))
+
+
+def test_shared_p_requires_all_explicit_approved_parents_and_records_every_witness(tree):
+    out = map_rows()
+    st = shared_structures(tree, out)
+    assert FUNCLET not in st.parent  # the ordered-layout unique-parent view is unchanged
+    assert st.shared_parents[FUNCLET] == frozenset(((0x1000, FUNCINFO), (0x1100, FUNCINFO + 0x20)))
+    expected = ("code/a.cpp", "P=parents(0x00001000@FuncInfo0x00004100,0x00001100@FuncInfo0x00004120)")
+    assert te.gather(out, st, {"P"})[FUNCLET]["P"] == expected
+    got = {r["rva"]: r for r in te.apply(tree[0], out, {"P"}, st)}
+    assert (got[f"0x{FUNCLET:08X}"]["tu"], got[f"0x{FUNCLET:08X}"]["confidence"]) == ("Code/A.cpp", "approved")
+    assert te.P_GROUP_TOKEN not in got[f"0x{FUNCLET:08X}"]["evidence"].split()
+    reverse = list(reversed(out))
+    assert te.gather(reverse, shared_structures(tree, reverse), {"P"})[FUNCLET]["P"] == expected
+
+
+@pytest.mark.parametrize("tu,confidence", [
+    ("Code/B.cpp", "approved"), ("Code/A.cpp", "proposed"),
+    ("Code/A.cpp", "displaced"), ("", ""), ("", "approved"),
+])
+def test_shared_p_vetoes_conflicting_or_unapproved_parent_even_with_p_groups(tree, monkeypatch, tu, confidence):
+    monkeypatch.setattr(te, "P_GROUPS", True)
+    out = [dict(r, tu=tu, confidence=confidence) if r["rva"] == "0x00001100" else r for r in map_rows()]
+    st = shared_structures(tree, out)
+    assert "P" not in te.gather(out, st, {"P"}).get(FUNCLET, {})
+    got = {r["rva"]: r for r in te.apply(tree[0], out, {"P"}, st)}
+    assert got[f"0x{FUNCLET:08X}"]["tu"] == ""
+
+
+def test_shared_p_vetoes_a_missing_native_parent_row(tree):
+    out = [r for r in map_rows() if r["rva"] != "0x00001100"]
+    st = shared_structures(tree, out)
+    assert any(parent is None for parent, _ in st.shared_parents[FUNCLET])
+    assert "P" not in te.gather(out, st, {"P"}).get(FUNCLET, {})
+
+
+def test_shared_p_does_not_use_a_parent_approved_during_this_apply(tree):
+    out = [dict(r, tu="", confidence="", by="-") if r["rva"] == "0x00001100" else r for r in map_rows()]
+    st = shared_structures(tree, out)
+    got = {r["rva"]: r for r in te.apply(tree[0], out, {"E", "P"}, st)}
+    assert got["0x00001100"]["confidence"] == "approved"  # E can place the parent first
+    assert got[f"0x{FUNCLET:08X}"]["tu"] == ""  # consensus still needs explicit input approval
+
+
+def test_shared_p_keeps_unknown_handler_owners_as_a_veto(tree):
+    blob = shared_image()
+    replace_rva(blob, 0x1A00, b"\xB8" + va(HANDLER + 0x10))  # reference outside every known body
+    st = shared_structures(tree, blob=blob)
+    assert FUNCLET in st.parent  # legacy inventory drops the ambiguous A2 handler
+    assert any(parent is None for parent, _ in st.shared_parents[FUNCLET])
+    assert "P" not in te.gather(map_rows(), st, {"P"}).get(FUNCLET, {})
+
+
+def test_shared_p_keeps_an_unowned_handler_referencing_the_action_as_a_veto(tree):
+    blob = shared_image()
+    replace_rva(blob, 0x1100 + 1, va(HANDLER))  # A2 joins A1; its old handler now has no owner
+    st = shared_structures(tree, blob=blob)
+    assert (None, FUNCINFO + 0x20) in st.shared_parents[FUNCLET]
+    assert "P" not in te.gather(map_rows(), st, {"P"}).get(FUNCLET, {})
+
+
+def test_shared_p_can_use_all_known_owners_of_one_folded_handler(tree):
+    blob = bytearray(image())
+    replace_rva(blob, 0x1100 + 1, va(HANDLER))  # both approved A parents use A1's entire graph
+    st = shared_structures(tree, blob=blob)
+    assert st.shared_parents[FUNCLET] == frozenset(((0x1000, FUNCINFO), (0x1100, FUNCINFO)))
+    assert te.gather(map_rows(), st, {"P"})[FUNCLET]["P"][0] == "code/a.cpp"
+
+
+@pytest.mark.parametrize("field,value", [(FUNCINFO + 0x40 + 8, BASE + 0x9000),
+                                          (FUNCINFO + 0x40 + 4, te.MAX_STATES + 1)])
+def test_shared_p_abstains_when_a_native_action_map_cannot_be_read_completely(tree, field, value):
+    blob = shared_image()
+    replace_rva(blob, field, struct.pack("<I", value))
+    st = shared_structures(tree, blob=blob)
+    assert not st.parentage_complete
+    assert "P" not in te.gather(map_rows(), st, {"P"}).get(FUNCLET, {})
+
+
+@pytest.mark.parametrize("missing", ["try-map", "catch-array"])
+def test_shared_p_requires_complete_native_catch_maps_too(tree, missing):
+    blob = shared_image()
+    trymap = RDATA + 0xA00
+    replace_rva(blob, FUNCINFO + 0x40 + 12, struct.pack("<II", 1, BASE + (0x9000 if missing == "try-map" else trymap)))
+    if missing == "catch-array":
+        replace_rva(blob, trymap, struct.pack("<IIIII", 0, 0, 0, 1, BASE + 0x9000))
+    st = shared_structures(tree, blob=blob)
+    assert not st.parentage_complete
+    assert "P" not in te.gather(map_rows(), st, {"P"}).get(FUNCLET, {})
+
+
+def test_shared_p_accounts_for_native_catch_handler_references(tree):
+    blob = bytearray(image())
+    trymap, handlers = RDATA + 0xA00, RDATA + 0xA20
+    replace_rva(blob, FUNCINFO + 0x20 + 12, struct.pack("<II", 1, BASE + trymap))
+    replace_rva(blob, trymap, struct.pack("<IIIII", 0, 0, 0, 1, BASE + handlers))
+    replace_rva(blob, handlers, struct.pack("<IIII", 0, 0, 0, BASE + FUNCLET))
+    st = shared_structures(tree, blob=blob)
+    assert st.shared_parents[FUNCLET] == frozenset(((0x1000, FUNCINFO), (0x1100, FUNCINFO + 0x20)))
+    assert te.gather(map_rows(), st, {"P"})[FUNCLET]["P"][0] == "code/a.cpp"
+
+
+def test_multiple_funcinfos_for_one_parent_preserve_unique_parent_behavior(tree):
+    blob = shared_image()
+    replace_rva(blob, 0x1100, b"\x90" * 5)
+    replace_rva(blob, 0x1010, b"\xB8" + va(HANDLER + 0x10))
+    st = shared_structures(tree, blob=blob)
+    assert FUNCLET in st.parent and FUNCLET not in st.shared_parents
+    assert te.gather(map_rows(), st, {"P"})[FUNCLET]["P"][0] == "code/a.cpp"
+
+
+@pytest.mark.parametrize("veto", ["inside", "broken", "unrooted"])
+def test_shared_p_preserves_span_and_anchoring_vetoes_without_group_rescue(tree, monkeypatch, veto):
+    monkeypatch.setattr(te, "P_GROUPS", True)
+    out = map_rows()
+    st = shared_structures(tree, out)
+    if veto == "inside":
+        real = te.inside_other
+        monkeypatch.setattr(te, "inside_other", lambda spans, rva, key: "code/b.cpp" if rva == FUNCLET else real(spans, rva, key))
+    else:
+        real = te.approvable
+        def denied(rows):
+            roots, broken, spans = real(rows)
+            return (roots - {"code/a.cpp"}, broken, spans) if veto == "unrooted" else (roots, broken | {"code/a.cpp"}, spans)
+        monkeypatch.setattr(te, "approvable", denied)
+    got = {r["rva"]: r for r in te.apply(tree[0], out, {"P"}, st)}
+    child = got[f"0x{FUNCLET:08X}"]
+    assert child["confidence"] == "proposed"
+    assert te.P_GROUP_TOKEN not in child["evidence"].split()
+
+
+def test_shared_p_validation_scores_new_predictions_against_native_parent_membership(tree):
+    st = shared_structures(tree)
+    res = te.validate(tree[0], map_rows(), st)["P"]
+    assert res["shared_predicted"] == res["shared_correct"] == 1
+    path = tree[0].path("functions.csv")
+    path.write_text(path.read_text().replace("gen-funclet;parent=A1\n", "gen-funclet;parent=B1\n"))
+    res = te.validate(tree[0], map_rows(), st)["P"]
+    assert res["shared_predicted"] == 1 and res["shared_correct"] == 0
+
+
+def test_shared_p_validation_never_follows_an_ambiguous_intermediate_cleanup(tree):
+    blob = shared_image()
+    # X's graph is now referenced from A1, while A3's graph also names X's
+    # action and has an unknown owner. The old filtered view sees only A1.
+    replace_rva(blob, 0x1200, b"\x90" * 5)
+    replace_rva(blob, 0x1010, b"\xB8" + va(HANDLER + 0x20))
+    replace_rva(blob, UNWIND + 3 * 8 + 4, va(FUNCLET + 0x20))
+    replace_rva(blob, 0x1A00, b"\xB8" + va(HANDLER + 0x30))
+    st = shared_structures(tree, blob=blob)
+    assert st.parent[FUNCLET + 0x20][0] == 0x1000
+    assert FUNCLET + 0x20 in st.shared_parents
+    path = tree[0].path("functions.csv")
+    text = path.read_text().replace("gen-funclet;parent=X\n", "gen-funclet\n")
+    path.write_text(text.replace("gen-funclet;parent=A1\n", "gen-funclet;parent=$L2\n"))
+    result = te.validate(tree[0], map_rows(), st)["P"]
+    assert result["shared_predicted"] == 1 and result["shared_correct"] == 0
+
+
 def test_the_image_layouts_are_read(tree):
     st = structures(tree)
     assert {h: p for h, (p, _, _) in st.eh.items()} == {HANDLER + 0x10 * i: f[1] for i, f in enumerate(FUNCS)}

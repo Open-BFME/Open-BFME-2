@@ -181,22 +181,22 @@ class Code:
         return self.starts[i] if i >= 0 and rva < self.ends[i] else None
 
 
-def eh_records(img, code):
-    """{handler rva: (parent rva, funcinfo rva, [funclet rvas])} from the image's EH tables:
-    a handler is `mov eax, FuncInfo; jmp` with the FuncInfo magic; its parent is the one
-    known body whose `mov eax, handler` or `push handler` references it; its funclets are
-    the FuncInfo's unwind actions and catch handlers. A handler referenced from two bodies
-    (folded parents) or from none is left out."""
+def eh_inventory(img, code):
+    """All handler owners, including unknown owners, and complete action-map status.
+
+    Dropping an ambiguous handler before grouping its actions could make a shared
+    funclet appear to have unanimous parents. Keep that evidence as a veto instead.
+    """
     tva, text = img.section(".text")
     if not text:
-        return {}
+        return {}, False
     handlers = {}
     for m in re.finditer(rb"(?=\xB8(.{4})\xE9)", text, re.S):
         fi = struct.unpack("<I", m.group(1))[0] - img.base
         if img.dword(fi) in EH_MAGIC:
             handlers[tva + m.start()] = fi
     if not handlers:
-        return {}
+        return {}, True
     first = min(handlers)
     by_va = {struct.pack("<I", h + img.base): h for h in handlers}
     owners = collections.defaultdict(set)
@@ -204,31 +204,56 @@ def eh_records(img, code):
         h = by_va.get(m.group(1))
         if h is not None:
             owners[h].add(code.owner(tva + m.start()))
-    out = {}
+    out, complete = {}, True
     for h, fi in sorted(handlers.items()):
-        parents = owners.get(h, set())
-        if len(parents) != 1 or None in parents:
-            continue
+        parents = owners.get(h) or {None}
         funclets = []
         head = img.read(fi, 20)
+        if not head:
+            complete = False
+            out[h] = (frozenset(parents), fi, [])
+            continue
         _, states, unwind, ntry, trymap = struct.unpack("<IIIII", head)
-        if 0 < states <= MAX_STATES and unwind:
+        if states and (states > MAX_STATES or not unwind
+                       or img.read(unwind - img.base, 8 * states) is None):
+            complete = False
+        elif states:
             for i in range(states):
                 act = img.dword(unwind - img.base + 8 * i + 4)
                 if act:
                     funclets.append(act - img.base)
-        if 0 < ntry <= MAX_STATES and trymap:
+        if ntry and (ntry > MAX_STATES or not trymap
+                     or img.read(trymap - img.base, 20 * ntry) is None):
+            complete = False
+        elif ntry:
             for i in range(ntry):
                 block = img.read(trymap - img.base + 20 * i, 20)
                 if not block:
+                    complete = False
                     break
                 ncatch, harr = struct.unpack_from("<II", block, 12)
-                for j in range(min(ncatch, MAX_STATES)):
-                    a = img.dword(harr - img.base + 16 * j + 12) if harr else None
+                if ncatch and (ncatch > MAX_STATES or not harr
+                               or img.read(harr - img.base, 16 * ncatch) is None):
+                    complete = False
+                    continue
+                for j in range(ncatch):
+                    a = img.dword(harr - img.base + 16 * j + 12)
                     if a:
                         funclets.append(a - img.base)
-        out[h] = (next(iter(parents)), fi, sorted({f for f in funclets if f >= first}))
-    return out
+        out[h] = (frozenset(parents), fi, sorted({f for f in funclets if f >= first}))
+    return out, complete
+
+
+def unique_eh_records(records):
+    """The existing unique-owner EH view used by ordered layouts."""
+    return {h: (next(iter(parents)), fi, funclets)
+            for h, (parents, fi, funclets) in records.items()
+            if len(parents) == 1 and None not in parents}
+
+
+def eh_records(img, code):
+    """{handler rva: (unique parent rva, FuncInfo rva, [funclet rvas])}."""
+    return unique_eh_records(eh_inventory(img, code)[0])
 
 
 def initializers(img, code):
@@ -306,8 +331,10 @@ class Structures:
         items = rdata_items(layout, self.code)
         if img is None:
             self.eh, self.inits, self.vfts = {}, [], []
+            inventory, self.parentage_complete = {}, False
         else:
-            self.eh = eh_records(img, self.code)
+            inventory, self.parentage_complete = eh_inventory(img, self.code)
+            self.eh = unique_eh_records(inventory)
             self.inits = initializers(img, self.code)
             self.vfts = vftables(img, self.code, sorted(items))
         vstart = {v for v, _ in self.vfts}
@@ -319,6 +346,14 @@ class Structures:
             for f in funclets:
                 par[f].add((p, fi))
         self.parent = {f: next(iter(v)) for f, v in par.items() if len({p for p, _ in v}) == 1}
+        all_parents = collections.defaultdict(set)
+        for h, (parents, fi, funclets) in inventory.items():
+            for f in (h, *funclets):
+                all_parents[f].update((p, fi) for p in parents)
+        # Keep the unique-parent API unchanged. Shared P needs the full set,
+        # including unknown handlers the ordered layouts deliberately omit.
+        self.shared_parents = {f: frozenset(v) for f, v in all_parents.items()
+                               if len({p for p, _ in v}) > 1 or any(p is None for p, _ in v)}
 
     def entries(self, signal):
         """Sorted [(position, function rva)] of one ordered layout."""
@@ -421,6 +456,28 @@ def layouts(st, anchor):
     return out
 
 
+def shared_parent_tu(st, rva, by_rva):
+    """A shared action follows only unanimous, explicitly approved input rows.
+
+    No guessed parent, newly proposed parent or P_GROUPS fallback can supply
+    missing ownership. An unreadable native action map could hide another
+    parent of any action, so it prevents new shared predictions altogether.
+    """
+    if not st.parentage_complete:
+        return None
+    parents = st.shared_parents.get(rva, ())
+    if not parents or any(p is None for p, _ in parents):
+        return None
+    rows = [by_rva.get(p) for p, _ in parents]
+    if any(r is None or r["confidence"] != "approved" or not r["tu"] for r in rows):
+        return None
+    tus = {r["tu"].lower() for r in rows}
+    if len(tus) != 1:
+        return None
+    witnesses = ",".join(f"0x{p:08X}@FuncInfo0x{fi:08X}" for p, fi in sorted(parents))
+    return next(iter(tus)), f"P=parents({witnesses})"
+
+
 def gather(out, st, signals=SIGNALS):
     """{rva: {signal: (tu key, ref)}} for every code row with no TU in `out`."""
     anchor, _ = anchors_of(out)
@@ -438,7 +495,14 @@ def gather(out, st, signals=SIGNALS):
                 got[rva][s] = p
     if "P" in signals:
         for rva, r in sorted(by_rva.items()):
-            if r["tu"] or rva not in st.parent:
+            if r["tu"]:
+                continue
+            if rva in st.shared_parents:
+                consensus = shared_parent_tu(st, rva, by_rva)
+                if consensus:
+                    got[rva]["P"] = consensus
+                continue
+            if rva not in st.parent:
                 continue
             parent, fi = st.parent[rva]
             pr = by_rva.get(parent)
@@ -522,6 +586,7 @@ def apply(layout, out, signals=None, st=None):
         return out
     st = st or Structures(layout, out)
     got = gather(out, st, tuple(s for s in SIGNALS if s in signals))
+    input_rows = {int(r["rva"], 16): r for r in out if r["kind"].startswith("code")}
     roots, broken, spans = approvable(out)
     _, spelled = anchors_of(out)
     new, conf = list(out), {}
@@ -542,9 +607,12 @@ def apply(layout, out, signals=None, st=None):
             ok = key in roots and key not in broken and not other
             group = False
             if s == "P":
-                ok = ok and conf.get(st.parent[rva][0]) == "approved"
-                # a proposed parent's group only: an approved parent's funclet keeps the usual checks
-                group = P_GROUPS and not ok and conf.get(st.parent[rva][0]) == "proposed"
+                if rva in st.shared_parents:
+                    ok = ok and shared_parent_tu(st, rva, input_rows) == (key, ref)
+                else:
+                    ok = ok and conf.get(st.parent[rva][0]) == "approved"
+                    # a proposed parent's group only: an approved parent's funclet keeps the usual checks
+                    group = P_GROUPS and not ok and conf.get(st.parent[rva][0]) == "proposed"
             unproven = ok and key in prov or group and (key not in roots or key in prov)
             ev = " ".join(x for x in (r["evidence"], ref, f"inside={spelled.get(other, other)}" if other else "",
                                       P_GROUP_TOKEN if group else "", tu_map.PROV_TOKEN if unproven else "") if x)
@@ -646,12 +714,20 @@ def validate(layout, out, st=None):
             seen.add(a)
             a = led[a]
         return a
-    pred = ok = 0
+    pred = ok = shared_pred = shared_ok = 0
     for f, (p, _) in st.parent.items():
-        if f in led:
+        if f in led and f not in st.shared_parents:
             pred += 1
             ok += root(f) == p or st.parent.get(root(f), (None,))[0] == p
-    res["P"] = dict(test=len(led), predicted=pred, correct=ok)
+    by_rva = {int(r["rva"], 16): r for r in out if r["kind"].startswith("code")}
+    for f, parents in st.shared_parents.items():
+        if f in led and shared_parent_tu(st, f, by_rva):
+            shared_pred += 1
+            shared_ok += any(root(f) == p or (root(f) not in st.shared_parents
+                                             and st.parent.get(root(f), (None,))[0] == p)
+                             for p, _ in parents)
+    res["P"] = dict(test=len(led), predicted=pred + shared_pred, correct=ok + shared_ok,
+                    shared_predicted=shared_pred, shared_correct=shared_ok)
     for v in res.values():
         v["precision"] = v["correct"] / v["predicted"] if v["predicted"] else 0.0
         v["recall"] = v["correct"] / v["test"] if v["test"] else 0.0
