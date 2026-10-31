@@ -61,6 +61,7 @@ private:
 	unsigned char m_bytes[0x58];
 };
 #include "../../../../../../reference/shims/bfme2_ascii/ascii_string.h"
+#include "../../../../../Libraries/Include/Lib/Coord3D.h"
 
 typedef float Real;
 
@@ -160,13 +161,21 @@ enum
 // calcBestGarrisonPosition (0x00478547), so B3 introduces it and its
 // override is entered with the +0x20 this.
 class B0 { public: virtual void b0(); int m_pad4; Object *m_object; };
+
 class B1 { public: virtual void b1(); };
+
 class B2 { public: virtual void b2(); private: unsigned char m_pad[12]; };
+
 class B3 { public: virtual bool calcBestGarrisonPosition(Coord3D *, const Coord3D *); };
+
 class B4 { public: virtual void b4(); };
+
 class B5 { public: virtual void b5(); };
+
 class B6 { public: virtual void b6(); };
+
 class B7 { public: virtual void b7(); };
+
 class B8 { public: virtual void b8(); private: unsigned char m_pad[0xC8 - 4]; };
 
 class OpenContain : public B0, public B1, public B2, public B3, public B4, public B5, public B6, public B7, public B8
@@ -358,13 +367,152 @@ private:
 	bool flag;
 };
 
-// tu-skeleton: 0x00477DA1 175B ?putObjectAtGarrisonPoint@GarrisonContain@@IAEXPAVObject@@W4ObjectID@@HH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainPutObjectAtGarrisonPoint.cpp (not merged yet)
+class GameLogic;
 
-// tu-skeleton: 0x00477E50 50B ?findConditionIndex@GarrisonContain@@IAEHXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainFindConditionIndex.cpp (not merged yet)
+extern GameLogic *TheGameLogic;
 
-// tu-skeleton: 0x00477E82 132B ?removeObjectFromGarrisonPoint@GarrisonContain@@IAEXPAVObject@@H@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainRemoveObject.cpp (not merged yet)
+struct GameLogicFrameView
+{
+    char m_pad[0x40];
+    unsigned int m_frame;
+};
+
+enum BodyDamageType
+{
+    BODY_PRISTINE = 0,
+    BODY_DAMAGED = 1,
+    BODY_REALLYDAMAGED = 2,
+    BODY_RUBBLE = 3
+};
+
+enum
+{
+    GARRISON_POINT_PRISTINE = 0,
+    GARRISON_POINT_DAMAGED = 1,
+    GARRISON_POINT_REALLY_DAMAGED = 2,
+    GARRISON_INDEX_INVALID = -1
+};
+
+class BodyModule
+{
+public:
+    virtual void slot00();
+    virtual void slot04();
+    virtual void slot08();
+    virtual void slot0C();
+    virtual void slot10();
+    virtual void slot14();
+    virtual void slot18();
+    virtual void slot1C();
+    virtual BodyDamageType getDamageState();
+};
+
+class ObjectBodyView
+{
+public:
+    unsigned char m_pad[0x254];
+    BodyModule *m_body;
+};
+
+class Object;
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainPutObjectAtGarrisonPoint.cpp
+
+// ?putObjectAtGarrisonPoint@GarrisonContain@@IAEXPAVObject@@W4ObjectID@@HH@Z @0x00477DA1 175B.
+// GarrisonContain placement sibling of removeObjectFromGarrisonPoint 0x00477E82.
+// Evidence: BFME1 donor GarrisonContain.cpp putObjectAtGarrisonPoint same
+// null plus 0x28 plus 3 bounds plus occupied check plus points[cond][point]
+// copy plus setPosition row plus ID stores plus TheGameLogic frame plus inc;
+// layout plus-0x100 data plus-0x420 count plus-0x424 points from remove TU.
+
+void GarrisonContain::putObjectAtGarrisonPoint(Object *obj, ObjectID targetID, int conditionIndex, int pointIndex)
+{
+    if (obj == 0 || pointIndex < 0 || pointIndex >= MAX_GARRISON_POINTS
+        || conditionIndex < 0 || conditionIndex >= MAX_GARRISON_POINT_CONDITIONS) {
+        return;
+    }
+    if (m_garrisonPointData[pointIndex].objectID != 0) {
+        return;
+    }
+    const Coord3D &pt = m_garrisonPoint[conditionIndex][pointIndex];
+    Coord3D pos;
+    pos.x = pt.x;
+    pos.y = pt.y;
+    pos.z = pt.z;
+    obj->setPosition(&pos);
+    m_garrisonPointData[pointIndex].objectID = (ObjectID)obj->getID();
+    m_garrisonPointData[pointIndex].targetID = targetID;
+    m_garrisonPointData[pointIndex].placeFrame = ((GameLogicFrameView *)TheGameLogic)->m_frame;
+    ++m_garrisonPointsInUse;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainFindConditionIndex.cpp
+
+// ?findConditionIndex@GarrisonContain@@IAEHXZ @0x00477E50 50B.
+// GarrisonContain condition query sibling of put 0x00477DA1 and remove 0x00477E82.
+// Evidence: BFME1 donor GarrisonContain.cpp findConditionIndex same m_object
+// plus-0x08 plus body damage switch pristine-0 damaged-1 really-2 rubble-2
+// else minus-1; BFME2 body at plus-0x254 via retail lea; slot 0x20
+// getDamageState; chain lane after put landing.
+
+int GarrisonContain::findConditionIndex()
+{
+    ObjectBodyView *obj = (ObjectBodyView *)m_object;
+    BodyModule *body = obj->m_body;
+    BodyDamageType damage = body->getDamageState();
+    int index = GARRISON_INDEX_INVALID;
+    switch (damage) {
+    case BODY_PRISTINE:
+        index = GARRISON_POINT_PRISTINE;
+        break;
+    case BODY_DAMAGED:
+        index = GARRISON_POINT_DAMAGED;
+        break;
+    case BODY_REALLYDAMAGED:
+    case BODY_RUBBLE:
+        index = GARRISON_POINT_REALLY_DAMAGED;
+        break;
+    default:
+        break;
+    }
+    return index;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainRemoveObject.cpp
+
+// ?removeObjectFromGarrisonPoint@GarrisonContain@@IAEXPAVObject@@H@Z @0x00477E82
+// (132B): GarrisonContain::removeObjectFromGarrisonPoint, BFME1 donor
+// GameEngine/Source/GameLogic/Object/Contain/GarrisonContainTrackTargets.cpp.
+// Identity via 40-slot 0x14 loop over [esi+0x100] comparing [eax+0x74] (Object ID),
+// bounds -1/0x28, four zero-stores, dec [esi+0x420] (m_garrisonPointsInUse) and
+// Thing::setPosition([esi+8]+0x38) row 0x0030AA80; callers 0x00478850/0x004788CE.
+
+void GarrisonContain::removeObjectFromGarrisonPoint(Object *occupant, int pointIndex)
+{
+	if (!occupant)
+		return;
+	if (pointIndex == -1)
+	{
+		for (int candidateIndex = 0; candidateIndex < 40; ++candidateIndex)
+		{
+			if (m_garrisonPointData[candidateIndex].objectID == occupant->getID())
+				removeObjectFromGarrisonPoint(occupant, candidateIndex);
+		}
+		return;
+	}
+	if (pointIndex < 0 || pointIndex >= 40)
+		return;
+	m_garrisonPointData[pointIndex].objectID = INVALID_ID;
+	m_garrisonPointData[pointIndex].targetID = INVALID_ID;
+	m_garrisonPointData[pointIndex].placeFrame = 0;
+	m_garrisonPointData[pointIndex].lastEffectFrame = 0;
+	--m_garrisonPointsInUse;
+	occupant->setPosition(m_object->getPosition());
+}
 
 // tu-skeleton: 0x00477F06 278B ??0GarrisonContain@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainCtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContain.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContain.cpp
 
@@ -775,16 +923,6 @@ GarrisonContainModuleData::GarrisonContainModuleData()
 	m_initialRosterCount = 0;
 }
 
-// tu-skeleton: 0x00478061 6B ?name@GarrisonContain@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00478067 128B ??1GarrisonContain@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00478141 240B ?validateRallyPoint@GarrisonContain@@IAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainValidateRallyPoint.cpp (not merged yet)
-
-// tu-skeleton: 0x00478231 47B ?rva00478231@Rva00478231@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/Rva00478231Contain.cpp (not merged yet)
-
-// tu-skeleton: 0x00478260 375B ?xfer@GarrisonContain@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainXfer.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/Rva004697E1Gate.cpp
 
 // Native 004783D7..004783DC and WB 011A75F0 prove an unchanged-receiver
@@ -795,11 +933,48 @@ void Rva004697E1Contain::rva004783D7()
     reinterpret_cast<OpenContain *>(this)->OpenContain::loadPostProcess();
 }
 
+// tu-skeleton: 0x00478061 6B ?name@GarrisonContain@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00478067 128B ??1GarrisonContain@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00478141 240B ?validateRallyPoint@GarrisonContain@@IAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainValidateRallyPoint.cpp (not merged yet)
+
+// tu-skeleton: 0x00478231 47B ?rva00478231@Rva00478231@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/Rva00478231Contain.cpp (not merged yet)
+
+// tu-skeleton: 0x00478260 375B ?xfer@GarrisonContain@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainXfer.cpp (not merged yet)
+
 // tu-skeleton: 0x00478416 47B ?calcDistSqr@@YAMABUCoord3D@@0@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainFindClosestFreePoint.cpp (not merged yet)
 
 // tu-skeleton: 0x00478445 258B ?findClosestFreeGarrisonPointIndex@GarrisonContain@@IAEHHPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainFindClosestFreePoint.cpp (not merged yet)
 
-// tu-skeleton: 0x00478547 91B ?calcBestGarrisonPosition@GarrisonContain@@UAE_NPAUCoord3D@@PBU2@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainCalcBestGarrisonPosition.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainCalcBestGarrisonPosition.cpp
+
+// ZH GeneralsMD GarrisonContain.cpp::calcBestGarrisonPosition, reviewed
+// through BFME1 reference revision 1399ad37d42ea52a63829e417c46a1ba9ed2cd20.
+// Target 0x00478547..0x004785A2: ret 8, incoming Contain interface at
+// +0x20, findConditionIndex 0x00477E50 and closest-free query 0x00478445.
+// The coordinate array is at full-object +0x424 with 40 points per condition.
+// Source supplies the purpose/name; native calls, copy and offsets establish
+// this target's ABI and layout. The base views follow the verified condition
+// query's TU; only the interface method used here is declared in B3.
+
+bool GarrisonContain::calcBestGarrisonPosition(Coord3D *sourcePos, const Coord3D *targetPos)
+{
+    if (!sourcePos || !targetPos)
+        return false;
+    int conditionIndex = findConditionIndex();
+    int placeIndex = findClosestFreeGarrisonPointIndex(conditionIndex, targetPos);
+    if (placeIndex == -1)
+        return false;
+    // The target copies the three words without floating-point arithmetic.
+    // Keep the sequential word stores, including their possible overlap.
+    const unsigned *point = (const unsigned *)&m_garrisonPoint[conditionIndex][placeIndex];
+    unsigned *out = (unsigned *)sourcePos;
+    out[0] = point[0];
+    out[1] = point[1];
+    out[2] = point[2];
+    return true;
+}
 
 // tu-skeleton: 0x004785A2 107B ?putObjectAtBestGarrisonPoint@GarrisonContain@@IAEXPAVObject@@0PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainFirePoints.cpp (not merged yet)
 
