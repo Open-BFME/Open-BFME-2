@@ -99,14 +99,6 @@ private:
 	char m_pad14[0x48 - 0x14];
 	Rva0052586BRecord m_records[16];
 };
-void Rva0052586B::resetHeroSlots()
-{
-	for (Int i = 0; i < 16; ++i)
-	{
-		m_records[i].m_00 = m_10->m_10;
-		m_records[i].m_16 = false;
-	}
-}
 // slot at VA 0x00C6808C: moves the +0x0C state from 3 to 4, setting +0x14 to 5.
 class Rva005277BA
 {

@@ -5,6 +5,9 @@
 #include <list>
 #pragma inline_depth(0)
 #pragma inline_depth()
+typedef unsigned int UnsignedInt;
+typedef bool Bool;
+#include "../../../../Common/GameLogicObjectLookupView.h"
 
 //
 // Listener-list walks around 0x005253A0.  Each list's forEach packs a vcall
@@ -161,6 +164,140 @@ private:
 	Int m_current; // +0x04
 };
 
+// slot at VA 0x00C5CC3C: with an argument, hands its +0x38 block and the
+// second argument to this object's vslot 12.
+struct Rva004C31ECArg
+{
+	char m_pad00[0x38];
+	char m_position[4];
+};
+
+class Rva004C31EC
+{
+public:
+	virtual void vslot00(); virtual void vslot01(); virtual void vslot02();
+	virtual void vslot03(); virtual void vslot04(); virtual void vslot05();
+	virtual void vslot06(); virtual void vslot07(); virtual void vslot08();
+	virtual void vslot09(); virtual void vslot10(); virtual void vslot11();
+	virtual void vslot12(void *block, Int value);
+	void doSpecialPowerAtObject(Rva004C31ECArg *target, Int value);
+};
+
+// slots at VA 0x00BC662C and 0x00C0883C: stores both arguments at +0x04 and
+// +0x08.
+class Rva004CEE7F
+{
+public:
+	void rva004CEE7F(Int a, Int b);
+private:
+	char m_pad00[0x04];
+	Int m_04;
+	Int m_08;
+};
+
+// slot at VA 0x00C66FDC: sets the +0x27C state to 3 once the +0x284 byte is
+// set, else sets the byte.
+class Rva0051BF2D
+{
+public:
+	void rva0051BF2D();
+private:
+	char m_pad00[0x27C];
+	Int m_state;
+	char m_pad280[0x284 - 0x280];
+	Bool m_284;
+};
+
+// slot at VA 0x00C67F14: a sixteen-entry table of 0x18-byte records at
+// +0x48; stamps every record's +0x00 with the +0x10 object's +0x10 value
+// and clears its +0x16 byte.
+struct Rva0052586BSource
+{
+	char m_pad00[0x10];
+	Int m_10;
+};
+
+struct Rva0052586BRecord
+{
+	Int m_00;
+	char m_pad04[0x16 - 0x04];
+	Bool m_16;
+	char m_pad17;
+};
+
+class Rva0052586B
+{
+public:
+	void resetHeroSlots();
+private:
+	char m_pad00[0x10];
+	Rva0052586BSource *m_10;
+	char m_pad14[0x48 - 0x14];
+	Rva0052586BRecord m_records[16];
+};
+
+// slot at VA 0x00C6808C: moves the +0x0C state from 3 to 4, setting +0x14 to 5.
+class Rva005277BA
+{
+public:
+	void rva005277BA();
+private:
+	char m_pad00[0x0C];
+	Int m_0C;
+	char m_pad10[0x14 - 0x10];
+	Int m_14;
+};
+
+// slot at VA 0x00C6A13C: true once TheGameLogic's frame reaches +0x04; the
+// argument is unused.
+class Rva00545B72
+{
+public:
+	Bool shouldExit(Int unused);
+private:
+	char m_pad00[0x04];
+	UnsignedInt m_04;
+};
+
+// slots at VA 0x00C6CEC8 and 0x00C6CEEC: a function-local static id taken
+// from the running counter at VA 0x00DFEE18 on first use (the same counter
+// as VslotSmallBodiesD's 0x0029B1EA).
+
+class Rva00567793
+{
+public:
+	Int rva00567793();
+};
+
+// ?GetAssociatedMessageType@@YAHH@Z, retail 0x00567700 (32 bytes).
+// WorldBuilder 0x01430A50 names this helper in
+// InGameToggleStanceCommandButton.cpp:95. Its caller at retail 0x005682BD
+// pushes CommandButton::getStance's result and uses the returned message.
+// The retail table at RVA 0x0086CE8C is exactly these three eight-byte
+// stance/message records: (1,149), (2,147), (3,148). The 0..3 unsigned scan,
+// success return and missing-stance zero return all byte-match; no data pin.
+struct StanceMessageEntry { int stance; int message; };
+
+// Native vtable-backed bit/word predicates. Address-token views carry only
+// observed data accesses and ABI; original owner and field meanings are unknown.
+struct Rva00261C72Word {char prefix[0x114]; unsigned int word;};
+
+struct Rva00261C72Arg {char prefix[4]; Rva00261C72Word *entry;};
+
+class Object;
+
+// Slot 1 (allow) of partition filter vftable 0x00C53D18.
+class Rva00261C72Filter {public: virtual ~Rva00261C72Filter(); virtual bool allow(Object *obj);};
+
+struct Rva00261C58Arg {char prefix[0x1C8]; unsigned int word;};
+
+// Slot 1 (allow) of partition filter vftable 0x00C1FE28.
+class Rva00261C58Filter {public: virtual ~Rva00261C58Filter(); virtual bool allow(Object *obj); private: char prefix[4]; unsigned char byte;};
+
+struct Rva0057A4BAWord {char prefix[0x34]; unsigned int word;};
+
+class Rva0057A4BA {public: int rva0057A4BA(); private: char prefix[0x48]; Rva0057A4BAWord *entry; unsigned int word;};
+
 // tu-skeleton: 0x00525407 114B ?rva00525407@Holder00525D9A@@QAEXABUHeroCall@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/InGameHeroSelectDataRemoveHero.cpp (not merged yet)
 
 // tu-skeleton: 0x00525479 16B ?compareRecords@Rva00525479@@QAEHPAVRva00525119@@0@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE14.cpp (not merged yet)
@@ -168,6 +305,8 @@ private:
 // tu-skeleton: 0x00525489 30B ??0Rva00525489@@QAE@ABUGapPair@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE14.cpp (not merged yet)
 
 // tu-skeleton: 0x005254A7 30B ??0Rva005254A7@@QAE@ABUGapPair@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE14.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/Holder00525D9A.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/InGameHeroSelectInterfaceRva005254C5.cpp
 
@@ -215,28 +354,6 @@ void Rva005254C5::rva005254C5(Int unused)
 	}
 }
 
-// tu-skeleton: 0x0052557E 100B ?OnHeroAttacked@Impl@InGameHeroSelectInterface@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/Rva0052557EPlay.cpp (not merged yet)
-
-// tu-skeleton: 0x005255E2 47B ?rva005255E2@Impl@InGameHeroSelectInterface@@QAEXPBVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/Rva005255E2SetFaction.cpp (not merged yet)
-
-// tu-skeleton: 0x00525611 34B ?rva00525611@Rva00525611@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/InGameHeroSelectInterface.cpp (not merged yet)
-
-// tu-skeleton: 0x00525633 336B ?ShowSelectAllHeroesBttn@Impl@InGameHeroSelectInterface@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/InGameHeroSelectInterfaceShowSelectAllHeroesBttn.cpp (not merged yet)
-
-// tu-skeleton: 0x00525783 115B ?rva00525783@Rva00525783@@QAEXXZ -- matched in Code/GameEngine/Source/Common/AptStateCalls.cpp (not merged yet)
-
-// tu-skeleton: 0x005257F6 117B ?rva005257F6@@YGXH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/Rva005257F6SelectAllHeroes.cpp (not merged yet)
-
-// tu-skeleton: 0x0052586B 27B ?resetHeroSlots@Rva0052586B@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesF.cpp (not merged yet)
-
-// tu-skeleton: 0x00525886 44B ?rva00525886@Rva00525886@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesZ.cpp (not merged yet)
-
-// tu-skeleton: 0x005258B2 7B ?rva005258B2@Rva005258B2@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/Rva005258B2Thunk.cpp (not merged yet)
-
-// tu-skeleton: 0x005258B9 7B ?rva005258B9@Rva005258B2@@QAEXPBVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/Rva005258B2Thunk.cpp (not merged yet)
-
-// tu-skeleton: 0x005258C0 34B ?_M_create_node@?$list@PAXV?$allocator@PAX@_STL@@@_STL@@IAEPAU?$_List_node@PAX@2@ABQAX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_create_nodes.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/Holder00525D9A.cpp
 
 // ---- from Code/GameEngine/Source/Common/Rva005253A0ListenerWalks.cpp
@@ -259,6 +376,37 @@ void Rva005258E2List::apply(const Rva005253A0Call &call)
 		i = m_index;
 	}
 }
+
+// tu-skeleton: 0x0052557E 100B ?OnHeroAttacked@Impl@InGameHeroSelectInterface@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/Rva0052557EPlay.cpp (not merged yet)
+
+// tu-skeleton: 0x005255E2 47B ?rva005255E2@Impl@InGameHeroSelectInterface@@QAEXPBVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/Rva005255E2SetFaction.cpp (not merged yet)
+
+// tu-skeleton: 0x00525611 34B ?rva00525611@Rva00525611@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/InGameHeroSelectInterface.cpp (not merged yet)
+
+// tu-skeleton: 0x00525633 336B ?ShowSelectAllHeroesBttn@Impl@InGameHeroSelectInterface@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/InGameHeroSelectInterfaceShowSelectAllHeroesBttn.cpp (not merged yet)
+
+// tu-skeleton: 0x00525783 115B ?rva00525783@Rva00525783@@QAEXXZ -- matched in Code/GameEngine/Source/Common/AptStateCalls.cpp (not merged yet)
+
+// tu-skeleton: 0x005257F6 117B ?rva005257F6@@YGXH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/Rva005257F6SelectAllHeroes.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/VslotSmallBodiesF.cpp
+
+void Rva0052586B::resetHeroSlots()
+{
+	for (Int i = 0; i < 16; ++i)
+	{
+		m_records[i].m_00 = m_10->m_10;
+		m_records[i].m_16 = false;
+	}
+}
+
+// tu-skeleton: 0x00525886 44B ?rva00525886@Rva00525886@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesZ.cpp (not merged yet)
+
+// tu-skeleton: 0x005258B2 7B ?rva005258B2@Rva005258B2@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/Rva005258B2Thunk.cpp (not merged yet)
+
+// tu-skeleton: 0x005258B9 7B ?rva005258B9@Rva005258B2@@QAEXPBVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/Rva005258B2Thunk.cpp (not merged yet)
+
+// tu-skeleton: 0x005258C0 34B ?_M_create_node@?$list@PAXV?$allocator@PAX@_STL@@@_STL@@IAEPAU?$_List_node@PAX@2@ABQAX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_create_nodes.cpp (not merged yet)
 
 // tu-skeleton: 0x005258F8 30B ?Rva005258F8@Holder00525D9A@@QAEXHUNodeRef00525D9A@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/InGameHeroSelectDataRemoveHero.cpp (not merged yet)
 

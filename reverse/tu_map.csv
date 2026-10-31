@@ -44060,7 +44060,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00525633,336,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/Holder00525D9A.cpp,approved,C,W=Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/InGameHeroSelectInterface.cpp C=0x00525407..0x00525783 provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/InGameHeroSelectInterfaceShowSelectAllHeroesBttn.cpp
 0x00525783,115,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/Holder00525D9A.cpp,approved,C,C=0x00525407..0x005257F6 provisional,Code/GameEngine/Source/Common/AptStateCalls.cpp
 0x005257F6,117,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/Holder00525D9A.cpp,approved,C,C=0x00525407..0x0052586B provisional,Code/GameEngine/Source/GameClient/GUI/ControlBar/Rva005257F6SelectAllHeroes.cpp
-0x0052586B,27,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/Holder00525D9A.cpp,approved,C,C=0x00525407..0x00525886 provisional,Code/GameEngine/Source/Common/VslotSmallBodiesF.cpp
+0x0052586B,27,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/Holder00525D9A.cpp,approved,C,C=0x00525407..0x00525886 provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/Holder00525D9A.cpp
 0x00525886,44,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/Holder00525D9A.cpp,approved,C,C=0x00525407..0x005258B2 provisional,Code/GameEngine/Source/Common/VslotSmallBodiesZ.cpp
 0x005258B2,7,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/Holder00525D9A.cpp,approved,C,C=0x00525407..0x005258B9 provisional,Code/GameEngine/Source/Common/Rva005258B2Thunk.cpp
 0x005258B9,7,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/Holder00525D9A.cpp,approved,C,C=0x00525407..0x005258C0 provisional,Code/GameEngine/Source/Common/Rva005258B2Thunk.cpp
