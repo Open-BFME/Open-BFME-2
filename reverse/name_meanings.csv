@@ -656,3 +656,7 @@ Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003BF045.cpp|loca
 Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003BF045.cpp|local|ScriptActions::doTeamFollowSkirmishApproachPath|z,d1cfdbc76cff12874448c290,drz-k2,drz-k2-7,w-ded32b2e2c5e,2026-10-31,912261a86cab86e4a06dabec
 Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003BF045.cpp|local|ScriptActions::doTeamFollowSkirmishApproachPath|q,04d2cfb9aa0c8a31d11d2ecb,drz-k2,drz-k2-7,w-ded32b2e2c5e,2026-10-31,887aef3d2332939e32a2aece
 Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003BF045.cpp|local|ScriptActions::doTeamFollowSkirmishApproachPath|s,208916f7c738398d3a4a2042,drz-k2,drz-k2-7,w-ded32b2e2c5e,2026-10-31,2e6427bd3304c897a576fb6b
+Code/GameEngine/Source/Common/Rva00410AABFree.cpp|param|Rva00410AABFree|p,22508ac95660d7717bdeb04f,drz-k4,drz-k4-2,w-855a0f400af4,2026-10-31,a321819fc52aa9dd10830e04
+Code/GameEngine/Source/Common/Rva00410AABFree.cpp|param|Rva00410AABHelper::rva00410AAB|p,d942649f73fdf0482aa57954,drz-k4,drz-k4-2,w-855a0f400af4,2026-10-31,d63d8ca163c850cbbb0747af
+Code/GameEngine/Source/Common/BuddyInviteGameInfo_LocationFromString.cpp|local|BuddyInviteGameInfo::LocationFromString|s,96a7f78eaba69ce8afdda35c,drz-k4,drz-k4-5,w-855a0f400af4,2026-10-31,77184211eda3c7bcae1cfa30
+Code/GameEngine/Source/Common/canPlayersTransferMoneyYet.cpp|local|canPlayersTransferMoneyYet|b,5a94c3c1dc4549e2e2fd65b5,drz-k4,drz-k4-16,w-855a0f400af4,2026-10-31,8e8a27be06ecc3eeb159d75b
