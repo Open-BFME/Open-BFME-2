@@ -27,6 +27,8 @@
 	}
 #include "../GameLogic/AI/WorkOrder.h"
 #include "../GameLogic/AI/TeamInQueue.h"
+#define _STLP_BFME_RB_MINMAX_IMPORT  // inline _Rb_tree_node_base::_S_minimum/_S_maximum without a COMDAT copy (vendor/stlport/stl/_tree.h)
+#include <set>
 
 class Object;
 
@@ -140,6 +142,20 @@ public:
 };
 
 BFME_LITERAL_NAME_GETTER(Rva0043B696Named, "DOTManager")
+
+struct Rva0043B69CElement {
+ Rva0043B69CElement(); Rva0043B69CElement(const Rva0043B69CElement&);
+ ~Rva0043B69CElement(){} Rva0043B69CElement&operator=(const Rva0043B69CElement&);
+ char bytes[8];
+};
+
+bool operator<(const Rva0043B69CElement&,const Rva0043B69CElement&);
+
+// Only the rowed default constructor is instantiated; the whole set would emit
+// members needing the element's undefined ctors, dtor and operator<.
+template _STL::set<Rva0043B69CElement>::set();
+
+// ---- from Code/GameEngine/Source/Common/DOTManager.cpp
 
 // ---- from Code/GameEngine/Source/Common/DOTManager.cpp
 
@@ -349,20 +365,6 @@ unsigned int DOTManager::rva0043B72D(int x)
 	return m_tree.rva0043B4EC(x);
 }
 
-// tu-skeleton: 0x0043B2D0 18B ?Rva0043B2D0Construct@@YAXPAVRva0043B23E@@ABV1@@Z -- matched in Code/GameEngine/Source/Common/Rva0043B23EPairCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0043B2E2 45B ?rva0043B2E2@Rva0043B2E2@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x0043B30F 37B ?Rva0043B30FNewNode@@YGPAXPBX@Z -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x0043B334 41B ?rva0043B334@Rva0043B2E2@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x0043B4B4 56B ??1Rva0043B2E2@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x0043B65B 5B ?j_0043b65b@@YAXXZ -- matched in Code/gen_small/gthunks_000_admitted.cpp (not merged yet)
-
-// tu-skeleton: 0x0043B660 54B ??1Rva0043B660@@UAE@XZ -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB10.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/ModuleNameGetters.cpp
 
 // Module literal name getters: six-byte const members with one shape:
@@ -380,7 +382,26 @@ unsigned int DOTManager::rva0043B72D(int x)
 // bytes, string carried in source where verify_string_refs re-reads it).
 // No // cl: line (defaults match the frameless 6-byte shape).
 
-// tu-skeleton: 0x0043B69C 25B ??0?$set@URva0043B69CElement@@U?$less@URva0043B69CElement@@@_STL@@V?$allocator@URva0043B69CElement@@@3@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva0043B69C.cpp (not merged yet)
+// tu-skeleton: 0x0043B2D0 18B ?Rva0043B2D0Construct@@YAXPAVRva0043B23E@@ABV1@@Z -- matched in Code/GameEngine/Source/Common/Rva0043B23EPairCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0043B2E2 45B ?rva0043B2E2@Rva0043B2E2@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x0043B30F 37B ?Rva0043B30FNewNode@@YGPAXPBX@Z -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x0043B334 41B ?rva0043B334@Rva0043B2E2@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x0043B4B4 56B ??1Rva0043B2E2@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x0043B65B 5B ?j_0043b65b@@YAXXZ -- matched in Code/gen_small/gthunks_000_admitted.cpp (not merged yet)
+
+// tu-skeleton: 0x0043B660 54B ??1Rva0043B660@@UAE@XZ -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB10.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva0043B69C.cpp
+
+// STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
+// Element identity and unconstrained fields remain address-derived structural inference.
+// STLport 4.5.3 reference instantiation. Target boundary and byte comparison prove operation shape.
+// Element spelling/layout is donor inference; opaque records have address-derived identity.
 
 // tu-skeleton: 0x0043B6B5 5B ?j_0043b6b5@@YAXXZ -- matched in Code/gen_small/gthunks_000_admitted.cpp (not merged yet)
 
