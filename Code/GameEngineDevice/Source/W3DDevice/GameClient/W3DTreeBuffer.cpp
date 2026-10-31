@@ -98,6 +98,92 @@ class MeshClass;
 #include "sphere.h"
 #include "aabox.h"
 #include "rendobj.h"
+// ?rva000EAFA4@W3DTreeBuffer@@QAE_NHPAURva000EAFA4Coord3@@PAMPAURva000EAFA4Coord2@@2@Z
+// ?rva000EAFA4@W3DTreeBuffer@@QAE_NHPAURva000EAFA4Coord3@@PAMPAURva000EAFA4Coord2@@2@Z
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
+// W3DTreeBuffer method at retail 0x000EAFA4 (232 bytes, ret 0x14). Open-BFME-1 twin: W3DTreeBufferRva00733E30.cpp
+// (0x00733E30). BFME2 layout read from retail: 1200 records of 0xE8 at +0x5C0 (count +0x44540), 64 types of
+// 0x5C at +0x44558. Address-derived identity: no semantic method name is asserted. The output copies are
+// component-wise; struct assignment adds an address temporary and changes register allocation.
+struct Rva000EAFA4Coord3 { float x,y,z; };
+struct Rva000EAFA4Coord2 { float x,y; };
+struct Rva000EAFA4Record {
+    Rva000EAFA4Coord3 position;
+    float scale;
+    char pad10[0x30];
+    int type;
+    unsigned char visible;
+    char pad45[0x0f];
+    float radius;
+    char pad58[0x28];
+    int state;
+    char pad84[0x64];
+};
+struct Rva000EAFA4Type {
+    void *mesh;
+    char pad04[0x20];
+    Rva000EAFA4Coord2 primary[2];
+    Rva000EAFA4Coord2 secondary[2];
+    unsigned char textureFlags[4];
+    char pad48[0x14];
+};
+#include "matrix3.h"
+#include "scene.h"
+#include "Coord3D.h"
+#include "Coord2D.h"
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+struct Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+#include "../../../../GameEngine/Include/Common/BfmeXfer.h"
+class Xfer::Version {
+public:
+	Version(unsigned char current, unsigned char minimum) : m_current(current), m_minimum(minimum) {}
+	unsigned char m_current;
+	unsigned char m_minimum;
+};
+// Rowed helpers: base xfer, three-float and matrix transfers, drawable id, topple state.
+class Rva000E63DCObj;
+void __stdcall Rva000E63DCDo(Rva000E63DCObj *obj);
+void Rva0030612AXfer(Xfer *xfer, float *vals);
+Xfer *Rva003062FEXfer(Xfer *xfer, float *vals);
+void XferDrawableID(Xfer *xfer, int *value);
+class Rva000EA1DBTarget;
+void __cdecl Rva000EA1DBTopple(Rva000EA1DBTarget *obj, int val);
+struct Rva000ECDF5TreeDrawData;
+class AsciiString;
+class ThingFactory;
+class Matrix3D;
+class AABoxClass;
+struct Rva00735E10Model;
+struct W3DTreeType {
+	MeshClass *m_mesh;
+	Vector3 m_offset;
+	SphereClass m_bounds;
+	const struct Rva000ECF79Data *m_data;
+	Coord2D m_coord24;
+	Coord2D m_coord2C;
+	Coord2D m_coord34;
+	Coord2D m_coord3C;
+	bool m_doShadow;
+	AsciiString m_textureName;
+	AsciiString m_modelName;
+	AsciiString m_nameC;
+	AsciiString m_templateName;
+	int m_field58;
+};
 
 class Rva000E6AC0Base
 {
@@ -996,9 +1082,13 @@ class VertexBufferClass;
 class IndexBufferClass;
 
 class Xfer;
+
 struct Rva000EAFA4Coord3;
+
 struct Rva000EAFA4Coord2;
+
 struct Rva000ECF79Coord;
+
 struct Rva000ECF79Data;
 
 class W3DTreeBuffer : public Rva000E6AC0
@@ -1063,6 +1153,154 @@ public:
 		float randomScaleAmount, const Rva000ECF79Data *data, int shadowKind, const AsciiString &textureName,
 		const AsciiString &templateName);
 };
+
+struct Rva000EA327Record
+{
+    Vector3 position;
+    Real scale;
+    Matrix3D transform;
+    Int type;
+    unsigned char reserved44[4];
+    SphereClass bounds;
+    void *key;
+    unsigned char reserved5c[0x8c];
+};
+
+struct Rva000EA327Type
+{
+    unsigned char reserved00[0x10];
+    SphereClass bounds;
+    unsigned char reserved20[0x3c];
+};
+
+// This method's native record and type views over the canonical tree records.
+struct Rva000EA327BufferView
+{
+    unsigned char reserved000[0x5c0];
+    Rva000EA327Record records[1200];
+    Int count;
+    unsigned char reserved44544[0x44558 - 0x44544];
+    Rva000EA327Type types[64];
+};
+
+// This method's native record and type views over the canonical tree records.
+struct Rva000EAFA4BufferView {
+    char pad000[0x5c0];
+    Rva000EAFA4Record records[1200];
+    int count;
+    char pad44544[0x44558 - 0x44544];
+    Rva000EAFA4Type types[64];
+};
+
+class Rva0027F2D6
+{
+public:
+	void rva0027F2D6(Int id);
+};
+
+// Retail global 0x012F8058 is W3DDisplay::m_3DScene
+// (?m_3DScene@W3DDisplay@@2PAVRTS3DScene@@A, defined in W3DDisplay's own TU).
+// RTS3DScene is forward declared: the two scene calls go through scene.h's
+// SceneClass view, which is what the retail call sites do.
+class RTS3DScene;
+
+class W3DDisplay { public: static RTS3DScene *m_3DScene; };
+
+RenderObjClass *Create_Render_Obj(const char *name);
+
+void rva0010E4F6(void *object, bool geometry);
+
+struct Rva000ECA4DTypeData
+{
+	unsigned char m_pad00[8];
+	AsciiString m_modelName;
+	unsigned char m_pad0c[0x4c - 0x0c];
+	Int m_duration;
+	const FXList *m_effect;
+	bool m_flag54;
+};
+
+struct Rva000ECA4DType
+{
+	unsigned char m_pad00[0x20];
+	const Rva000ECA4DTypeData *m_data;
+	unsigned char m_pad24[0x4c - 0x24];
+	AsciiString m_modelName;
+	unsigned char m_pad50[0x58 - 0x50];
+	Int m_morphTreeType;
+};
+
+struct Rva000ECA4DTree
+{
+	Coord3D m_location;
+	Real m_scale;
+	Matrix3D m_transform;
+	Int m_treeType;
+	unsigned char m_pad44[0x58 - 0x44];
+	Int m_drawableID;
+	unsigned char m_pad5c[0x80 - 0x5c];
+	Int m_toppleState;
+	unsigned char m_pad84[0xc4 - 0x84];
+	bool m_flagc4;
+	unsigned char m_padc5[0xc8 - 0xc5];
+	Int m_morphState;
+	unsigned char m_padcc[0xd0 - 0xcc];
+	Int m_fieldd0;
+	Int m_morphFramesLeft;
+	RenderObjClass *m_fieldd8;
+	RenderObjClass *m_fielddc;
+	unsigned char m_pade0[0xe8 - 0xe0];
+};
+
+// This method's native record and type views over the canonical tree records.
+struct Rva000ECA4DBufferView
+{
+	unsigned char m_pad0000[0x5c0];
+	Rva000ECA4DTree m_trees[1200];
+	unsigned char m_pad44540[0x44558 - 0x44540];
+	Rva000ECA4DType m_treeTypes[64];
+};
+
+// addTree's position, taken by value and converted from the caller's Coord3D.
+struct Rva000ECF79Coord
+{
+	Rva000ECF79Coord(const Coord3D &c) : x(c.x), y(c.y), z(c.z) {}
+	float x, y, z;
+};
+
+struct Rva000ECF79Data {
+ unsigned char prefix[8]; AsciiString modelName, nameC;
+ unsigned char gap10[0x38]; AsciiString name48;
+ unsigned char gap4c[8]; bool flag54;
+};
+
+struct Rva000ECF79Type {
+ void *mesh; Vector3 offset; SphereClass bounds; const void *data;
+ unsigned char gap24[0x20]; unsigned char shadow; unsigned char alignment[3];
+ AsciiString textureName,modelName,nameC,nameD; int m_morphTreeType;
+};
+
+struct Rva000ECF79Tree {
+ Vector3 location; float scale; Matrix3D transform;
+ int treeType; bool visible; unsigned char alignment45[3]; SphereClass bounds;
+ unsigned int drawableID; int pushAside; int swayType, firstIndex, bufferIndex;
+ float pushAsideSource; float pushAsideDelta; Vector3 vector74;
+ unsigned int lastFrame; float m_angularAccumulation; bool flag88; unsigned char gap89[3]; int m_options;
+ Matrix3D matrix90; int m_sinkFramesLeft; bool flagc4; unsigned char gapc5[3];
+ int m_morphState,typecc,fieldd0,m_morphFramesLeft,fieldd8,fielddc,m_alpha,m_targetAlpha;
+};
+
+extern float GetGameClientRandomValueReal(float,float,char*,int);
+
+extern int GetGameClientRandomValue(int,int,char*,int);
+
+// This method's native record and type views over the canonical tree records.
+struct Rva000ECF79BufferView {
+ unsigned char prefix[0x5c0]; Rva000ECF79Tree trees[1200];
+ unsigned char gap44540[0x44558-0x44540]; Rva000ECF79Type types[64];
+};
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBuffer.cpp
 
 // ---- from Code/GameEngine/Source/Common/Rva000EA24DReset.cpp
 
@@ -1861,8 +2099,6 @@ bool W3DTreeBuffer::rva000ECF2A(unsigned key, int mode)
     return false;
 }
 
-// tu-skeleton: 0x000EA327 358B ?rva000EA327@W3DTreeBuffer@@QAEDPAXVVector3@@PBVMatrix3D@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBufferRva000EA327.cpp (not merged yet)
-
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBufferUpdateTopplingTree.cpp
 
 //
@@ -1950,10 +2186,6 @@ void W3DTreeBuffer::updateTopplingTree(TTree *tree)
 	}
 }
 
-// tu-skeleton: 0x000EAF80 36B ?rva000EAF80@Rva000EAF80@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesJ.cpp (not merged yet)
-
-// tu-skeleton: 0x000EAFA4 232B ?rva000EAFA4@W3DTreeBuffer@@QAE_NHPAURva000EAFA4Coord3@@PAMPAURva000EAFA4Coord2@@2@Z -- matched in Code/GameEngine/Source/Common/rva000EAFA4Rva000EAFA4Farm.cpp (not merged yet)
-
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBufferUpdateTexture.cpp
 
 // W3DTreeBuffer::updateTexture, retail 0x000EB40F (684 bytes), twin of the shrub
@@ -1999,10 +2231,6 @@ void W3DTreeBuffer::updateTexture()
 		(unsigned)((TextureBaseClass *)&texture3c)->rva00132784() > 1024)
 		TREE_TEXTURE_REPORT("Combined tree shadow texture is bigger than 1024x1024. This will cause errors and significant slowdown on most graphics cards and has to be fixed!");
 }
-
-// tu-skeleton: 0x000EC67F 98B ??0Rva000EC67F@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00735D80TreeTypeCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x000EC6E1 124B ??1Rva000EC67F@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00735D80TreeTypeDtor.cpp (not merged yet)
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBufferAddTreeType.cpp
 
@@ -2110,11 +2338,392 @@ void Rva000EC9C6::rva000EC9C6(int arg)
 		rva000E663B(arg);
 }
 
-// tu-skeleton: 0x000ECA4D 936B ?startMorph@W3DTreeBuffer@@QAEXHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBuffer_startMorph.cpp (not merged yet)
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBufferRva000EA327.cpp
 
-// tu-skeleton: 0x000ECF79 1284B ?addTree@W3DTreeBuffer@@QAEXIURva000ECF79Coord@@MPBVMatrix3D@@MPBURva000ECF79Data@@HABVAsciiString@@3@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBufferAddTree.cpp (not merged yet)
+// W3DTreeBuffer method at retail 0x000EA327 (358 bytes, ret 0x14): moves the tree record of a drawable key to a new
+// position and transform and rebuilds its bounding sphere from the type. Open-BFME-1 twin:
+// W3DTreeBufferRva00733000.cpp (0x00733000). BFME2 layout read from retail: 1200 records of 0xE8 at +0x5C0
+// (count +0x44540, changed byte +0x44544), 64 types of 0x5C at +0x44558. Opaque identity.
 
-// tu-skeleton: 0x000ED47D 1559B ?xfer@W3DTreeBuffer@@MAEXPAVXfer@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBufferXfer.cpp (not merged yet)
+char W3DTreeBuffer::rva000EA327(void *key, Vector3 position,
+    const Matrix3D *transform)
+{
+    for (Int index = 0; index < m_count; ++index)
+    {
+        if (((Rva000EA327BufferView *)this)->records[index].key == key)
+        {
+            ((Rva000EA327BufferView *)this)->records[index].position = position;
+            ((Rva000EA327BufferView *)this)->records[index].transform = *transform;
+
+            Rva000EA327Type *type = ((Rva000EA327BufferView *)this)->types + ((Rva000EA327BufferView *)this)->records[index].type;
+            ((Rva000EA327BufferView *)this)->records[index].bounds = type->bounds;
+            Real scale = ((Rva000EA327BufferView *)this)->records[index].scale;
+            ((Rva000EA327BufferView *)this)->records[index].bounds.Center *= scale;
+            ((Rva000EA327BufferView *)this)->records[index].bounds.Radius *= ((Rva000EA327BufferView *)this)->records[index].scale;
+            ((Rva000EA327BufferView *)this)->records[index].bounds.Center += ((Rva000EA327BufferView *)this)->records[index].position;
+
+            m_anythingChanged = 1;
+            return 1;
+        }
+    }
+    return 0;
+}
+
+// tu-skeleton: 0x000EAF80 36B ?rva000EAF80@Rva000EAF80@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesJ.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/rva000EAFA4Rva000EAFA4Farm.cpp
+
+bool W3DTreeBuffer::rva000EAFA4(int index, Rva000EAFA4Coord3 *position,
+    float *radius, Rva000EAFA4Coord2 *primary, Rva000EAFA4Coord2 *secondary)
+{
+    if (index >= m_count) {
+        return false;
+    }
+    int typeIndex = ((Rva000EAFA4BufferView *)this)->records[index].type;
+    if (typeIndex < 0 || !((Rva000EAFA4BufferView *)this)->records[index].visible ||
+        !((Rva000EAFA4BufferView *)this)->types[typeIndex].mesh || !((Rva000EAFA4BufferView *)this)->types[typeIndex].textureFlags[0] ||
+        ((Rva000EAFA4BufferView *)this)->records[index].state) {
+        return false;
+    }
+    float *pos = &((Rva000EAFA4BufferView *)this)->records[index].position.x;
+    position->x = pos[0];
+    position->y = pos[1];
+    position->z = pos[2];
+    float value = ((Rva000EAFA4BufferView *)this)->records[index].radius * ((Rva000EAFA4BufferView *)this)->records[index].scale * 0.9f;
+    if (60.0f < value) value = 60.0f;
+    *radius = value;
+    *primary = ((Rva000EAFA4BufferView *)this)->types[typeIndex].primary[1];
+    _ReadWriteBarrier();
+    *secondary = ((Rva000EAFA4BufferView *)this)->types[typeIndex].secondary[1];
+    return true;
+}
+
+// tu-skeleton: 0x000EC67F 98B ??0Rva000EC67F@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00735D80TreeTypeCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x000EC6E1 124B ??1Rva000EC67F@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00735D80TreeTypeDtor.cpp (not merged yet)
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBuffer_startMorph.cpp
+
+// W3DTreeBuffer method at retail 0x000ECA4D (936 bytes, ret 8; called from the key lookup 0x000ECF2A):
+// gives a tree its type's model and the model of the type at +0xD0 at the tree's position and rotation,
+// starts the +0xD4 countdown and plays the type's effect. Donor: Open-BFME-1 W3DTreeBufferRva00736150.cpp
+// (BFME1 0x00736150). BFME2 layout read from retail.
+
+// File-static matrix copy (LK3-style): the TU's copy-ctor COMDAT loses
+// the link, and the rowed body below inlines the construction, so the def
+// cannot just go away. The helper keeps a call in the source (regalloc
+// preserved) while the copy-ctor goes unused.
+static void CopyTreeMatrix3D(Matrix3D &dst, const Matrix3D &src)
+{
+    dst[0] = src[0];
+    dst[1] = src[1];
+    dst[2] = src[2];
+}
+
+// ?startMorph@W3DTreeBuffer@@QAEXHH@Z
+void W3DTreeBuffer::startMorph(Int index, Int request)
+{
+	if (index >= m_count)
+		return;
+	Int type = ((Rva000ECA4DBufferView *)this)->m_trees[index].m_treeType;
+	if (type < 0)
+		return;
+	if (request == 1) {
+		if (((Rva000ECA4DBufferView *)this)->m_treeTypes[type].m_data->m_flag54)
+			return;
+	}
+	if (request == 2) {
+		if (!((Rva000ECA4DBufferView *)this)->m_treeTypes[type].m_data->m_flag54)
+			return;
+	}
+	if (!((Rva000ECA4DBufferView *)this)->m_trees[index].m_flagc4 && ((Rva000ECA4DBufferView *)this)->m_trees[index].m_toppleState != 0) {
+		((Rva0027F2D6 *)TheTerrainLogic)->rva0027F2D6(((Rva000ECA4DBufferView *)this)->m_trees[index].m_drawableID);
+		return;
+	}
+	if (((Rva000ECA4DBufferView *)this)->m_trees[index].m_flagc4 || ((Rva000ECA4DBufferView *)this)->m_trees[index].m_toppleState != 0)
+		return;
+
+	((Rva000ECA4DBufferView *)this)->m_trees[index].m_morphFramesLeft = ((Rva000ECA4DBufferView *)this)->m_treeTypes[type].m_data->m_duration;
+	((Rva000ECA4DBufferView *)this)->m_trees[index].m_morphState = request;
+	if (((Rva000ECA4DBufferView *)this)->m_trees[index].m_fieldd8 != 0) {
+		((Rva000ECA4DBufferView *)this)->m_trees[index].m_fieldd8->Release_Ref();
+		((Rva000ECA4DBufferView *)this)->m_trees[index].m_fieldd8 = 0;
+	}
+	((Rva000ECA4DBufferView *)this)->m_trees[index].m_fieldd8 = Create_Render_Obj(((Rva000ECA4DBufferView *)this)->m_treeTypes[type].m_modelName.str());
+	rva0010E4F6(((Rva000ECA4DBufferView *)this)->m_trees[index].m_fieldd8, false);
+	reinterpret_cast<SceneClass *>(W3DDisplay::m_3DScene)->Add_Render_Object(((Rva000ECA4DBufferView *)this)->m_trees[index].m_fieldd8);
+	Matrix3D transform;
+	CopyTreeMatrix3D(transform, ((Rva000ECA4DBufferView *)this)->m_trees[index].m_fieldd8->Get_Transform());
+	transform[0][3] = ((Rva000ECA4DBufferView *)this)->m_trees[index].m_location.x;
+	transform[1][3] = ((Rva000ECA4DBufferView *)this)->m_trees[index].m_location.y;
+	transform[2][3] = ((Rva000ECA4DBufferView *)this)->m_trees[index].m_location.z;
+	Matrix3 rotation(((Rva000ECA4DBufferView *)this)->m_trees[index].m_transform);
+	transform.Set_Rotation(rotation);
+	((Rva000ECA4DBufferView *)this)->m_trees[index].m_fieldd8->Set_Transform(transform);
+
+	if (((Rva000ECA4DBufferView *)this)->m_trees[index].m_fielddc != 0) {
+		((Rva000ECA4DBufferView *)this)->m_trees[index].m_fielddc->Release_Ref();
+		((Rva000ECA4DBufferView *)this)->m_trees[index].m_fielddc = 0;
+	}
+	if (((Rva000ECA4DBufferView *)this)->m_treeTypes[type].m_morphTreeType != -2) {
+		((Rva000ECA4DBufferView *)this)->m_trees[index].m_fielddc = Create_Render_Obj(((Rva000ECA4DBufferView *)this)->m_treeTypes[((Rva000ECA4DBufferView *)this)->m_trees[index].m_fieldd0].m_data->m_modelName.str());
+		rva0010E4F6(((Rva000ECA4DBufferView *)this)->m_trees[index].m_fielddc, false);
+		reinterpret_cast<SceneClass *>(W3DDisplay::m_3DScene)->Add_Render_Object(((Rva000ECA4DBufferView *)this)->m_trees[index].m_fielddc);
+		transform = ((Rva000ECA4DBufferView *)this)->m_trees[index].m_fielddc->Get_Transform();
+		transform[0][3] = ((Rva000ECA4DBufferView *)this)->m_trees[index].m_location.x;
+		transform[1][3] = ((Rva000ECA4DBufferView *)this)->m_trees[index].m_location.y;
+		transform[2][3] = ((Rva000ECA4DBufferView *)this)->m_trees[index].m_location.z;
+		transform.Set_Rotation(rotation);
+		((Rva000ECA4DBufferView *)this)->m_trees[index].m_fielddc->Set_Transform(transform);
+	}
+	if (((Rva000ECA4DBufferView *)this)->m_trees[index].m_fieldd8 != 0)
+		Rva0010E87A_SetOpacity(((Rva000ECA4DBufferView *)this)->m_trees[index].m_fieldd8, 1.0f);
+	if (((Rva000ECA4DBufferView *)this)->m_trees[index].m_fielddc != 0)
+		Rva0010E87A_SetOpacity(((Rva000ECA4DBufferView *)this)->m_trees[index].m_fielddc, 0.0f);
+	if (((Rva000ECA4DBufferView *)this)->m_treeTypes[type].m_data->m_effect != 0) {
+		Coord3D position;
+		position.x = ((Rva000ECA4DBufferView *)this)->m_trees[index].m_location.x;
+		position.y = ((Rva000ECA4DBufferView *)this)->m_trees[index].m_location.y;
+		position.z = ((Rva000ECA4DBufferView *)this)->m_trees[index].m_location.z;
+		FXList::doFXPos(((Rva000ECA4DBufferView *)this)->m_treeTypes[type].m_data->m_effect, &position, 0, 0.0f, 0);
+	}
+	m_anythingChanged = true;
+}
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBufferAddTree.cpp
+
+// W3DTreeBuffer::addTree, retail 0x000ECF79 (1284 bytes). Donor: Open-BFME-1
+// W3DTreeBufferRva000ECF79AddTree.cpp (BFME1 0x00736B60); BFME2 layout read from
+// retail: 1200 tree records of 0xE8 at +0x5C0 (count +0x44540, dirty byte
+// +0x44546, initialized +0x44554, type-added flag +0x44556), 64 types of 0x5C at
+// +0x44558 (count +0x45C58).
+// +0x44545, initialized +0x44554, type-added flag +0x44556), 64 types of 0x5C at
+
+// The x component reads through a volatile alias: it keeps retail's load order
+// (position first, then the center) for the first lane, as in the BFME1 shrub twin.
+static inline void translateBounds(Vector3 &center, const Vector3 &position)
+{
+ const volatile float &x=position.X;
+ center.X+=x;
+ center.Y=position.Y+center.Y;
+ center.Z=position.Z+center.Z;
+}
+
+// The donor's component operations, without an out-of-line Vector3 operator.
+static inline void scaleBounds(Vector3 &center, float scale)
+{
+ center.X=center.X*scale;
+ center.Y=center.Y*scale;
+ center.Z=center.Z*scale;
+}
+
+void W3DTreeBuffer::addTree(unsigned int id,Rva000ECF79Coord location,float scale,
+ const Matrix3D *transform,float randomScaleAmount,const Rva000ECF79Data *data,
+ int shadowKind,const AsciiString &textureName,const AsciiString &nameD)
+{
+ if(m_count>=1200) return;
+ if(!m_initialized) return;
+ int type=-2;
+ for(int i=0;i<m_typeCount;++i) {
+  // Both retail calls use the StringBase<char> provider at 0x00006A00.
+  if(((const StringBase<char> *)&((Rva000ECF79BufferView *)this)->types[i].modelName)->compareNoCase(*(const StringBase<char> *)&data->modelName)==0 &&
+     ((const StringBase<char> *)&((Rva000ECF79BufferView *)this)->types[i].nameC)->compareNoCase(*(const StringBase<char> *)&data->nameC)==0) {type=i;break;}
+ }
+ if(type<0) {
+  type=addTreeType(data->modelName,data->nameC,data,shadowKind,textureName,nameD);
+  if(type<0) return;
+  m_needUpdate=true;
+ }
+ ((Rva000ECF79BufferView *)this)->types[type].m_morphTreeType=rva000ECDF5(data->name48,shadowKind,textureName);
+ float randomScale=GetGameClientRandomValueReal(1.0f-randomScaleAmount,1.0f+randomScaleAmount,
+  "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\W3DTreeBuffer.cpp",0x2a7);
+ ((Rva000ECF79BufferView *)this)->trees[m_count].transform=*transform;
+ if(randomScaleAmount>0.0f) ((Rva000ECF79BufferView *)this)->trees[m_count].scale=scale*randomScale;
+ else ((Rva000ECF79BufferView *)this)->trees[m_count].scale=scale;
+ ((Rva000ECF79BufferView *)this)->trees[m_count].location=Vector3(location.x,location.y,location.z);
+ ((Rva000ECF79BufferView *)this)->trees[m_count].treeType=type;
+ ((Rva000ECF79BufferView *)this)->trees[m_count].typecc=type;
+ ((Rva000ECF79BufferView *)this)->trees[m_count].fieldd0=((Rva000ECF79BufferView *)this)->types[type].m_morphTreeType;
+ ((Rva000ECF79BufferView *)this)->trees[m_count].bounds=((Rva000ECF79BufferView *)this)->types[type].bounds;
+ scaleBounds(((Rva000ECF79BufferView *)this)->trees[m_count].bounds.Center,((Rva000ECF79BufferView *)this)->trees[m_count].scale);
+ ((Rva000ECF79BufferView *)this)->trees[m_count].bounds.Radius*=((Rva000ECF79BufferView *)this)->trees[m_count].scale;
+ translateBounds(((Rva000ECF79BufferView *)this)->trees[m_count].bounds.Center,((Rva000ECF79BufferView *)this)->trees[m_count].location);
+ ((Rva000ECF79BufferView *)this)->trees[m_count].visible=false;
+ ((Rva000ECF79BufferView *)this)->trees[m_count].drawableID=id;
+ ((Rva000ECF79BufferView *)this)->trees[m_count].firstIndex=0;
+ ((Rva000ECF79BufferView *)this)->trees[m_count].bufferIndex=-1;
+ ((Rva000ECF79BufferView *)this)->trees[m_count].swayType=data->flag54?0:GetGameClientRandomValue(1,10,
+  "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\W3DTreeBuffer.cpp",0x2c3);
+ ((Rva000ECF79BufferView *)this)->trees[m_count].pushAside=0;
+ ((Rva000ECF79BufferView *)this)->trees[m_count].lastFrame=0;
+ ((Rva000ECF79BufferView *)this)->trees[m_count].m_morphState=0;
+ ((Rva000ECF79BufferView *)this)->trees[m_count].m_alpha=255;
+ ((Rva000ECF79BufferView *)this)->trees[m_count].m_targetAlpha=255;
+ ((Rva000ECF79BufferView *)this)->trees[m_count].flagc4=false;
+ ((Rva000ECF79BufferView *)this)->trees[m_count].fieldd8=0;
+ ((Rva000ECF79BufferView *)this)->trees[m_count].fielddc=0;
+ ((Rva000ECF79BufferView *)this)->trees[m_count].m_morphFramesLeft=0;
+ ((Rva000ECF79BufferView *)this)->trees[m_count].pushAsideSource=0;
+ ((Rva000ECF79BufferView *)this)->trees[m_count].pushAsideDelta=0;
+ ((Rva000ECF79BufferView *)this)->trees[m_count].vector74.Set(0,0,0);
+ ((Rva000ECF79BufferView *)this)->trees[m_count].m_angularAccumulation=0;
+ ((Rva000ECF79BufferView *)this)->trees[m_count].flag88=false;
+ ((Rva000ECF79BufferView *)this)->trees[m_count].m_options=0;
+ ((Rva000ECF79BufferView *)this)->trees[m_count].matrix90.Make_Identity();
+ ((Rva000ECF79BufferView *)this)->trees[m_count].m_sinkFramesLeft=0;
+ ++m_count;
+ m_changed=true;
+}
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBufferXfer.cpp
+
+// The 0xE8-byte tree record (Zero Hour TTree plus BFME fields); default ctor 0x000EB27F.
+
+// ?xfer@W3DTreeBuffer@@MAEXPAVXfer@@@Z
+void W3DTreeBuffer::xfer(Xfer *xfer)
+{
+	Rva000E63DCDo((Rva000E63DCObj *)xfer);
+	if (xfer->IsLightCRC())
+		return;
+
+	// Retail stores {1, 4} and tests the second byte (the version read back on load).
+	Xfer::Version version(1, 4);
+	*xfer == version;
+
+	Int i;
+	Int numTrees = m_count;
+	*xfer == numTrees;
+
+	if (version.m_minimum >= 2) {
+		*xfer == m_typeCount;
+		for (i = 0; i < m_typeCount; i++) {
+			Rva0030612AXfer(xfer, &((W3DTreeType *)m_types)[i].m_offset.X);
+			Rva0030612AXfer(xfer, &((W3DTreeType *)m_types)[i].m_bounds.Center.X);
+			*xfer == ((W3DTreeType *)m_types)[i].m_bounds.Radius;
+			*xfer == ((W3DTreeType *)m_types)[i].m_coord24;
+			*xfer == ((W3DTreeType *)m_types)[i].m_coord2C;
+			*xfer == ((W3DTreeType *)m_types)[i].m_coord34;
+			*xfer == ((W3DTreeType *)m_types)[i].m_coord3C;
+			*xfer == ((W3DTreeType *)m_types)[i].m_doShadow;
+			*xfer == ((W3DTreeType *)m_types)[i].m_textureName;
+			*xfer == ((W3DTreeType *)m_types)[i].m_modelName;
+			*xfer == ((W3DTreeType *)m_types)[i].m_nameC;
+			*xfer == ((W3DTreeType *)m_types)[i].m_field58;
+			*xfer == ((W3DTreeType *)m_types)[i].m_templateName;
+			if (xfer->IsLoading()) {
+				// Rebuild the type's draw data and mesh from the loaded names.
+				const ThingTemplate *thingTemplate = TheThingFactory->findTemplate(((W3DTreeType *)m_types)[i].m_templateName);
+				if (thingTemplate) {
+					// A named reference keeps retail's receiver-before-argument order.
+					const ModuleInfo &moduleInfo = thingTemplate->getModuleInfo2F0();
+					const ModuleData *moduleData = moduleInfo.getNthData(0);
+					if (moduleData)
+						((W3DTreeType *)m_types)[i].m_data = (const Rva000ECF79Data *)moduleData->getAsW3DTreeDrawModuleData();
+				}
+				if (((W3DTreeType *)m_types)[i].m_mesh) {
+					((W3DTreeType *)m_types)[i].m_mesh->Release_Ref();
+					((W3DTreeType *)m_types)[i].m_mesh = 0;
+				}
+				RenderObjClass *robj = Create_Render_Obj(((W3DTreeType *)m_types)[i].m_modelName.str());
+				if (robj) {
+					// Retail slot +0x14 returns the mesh view; its original name is unknown.
+					if (robj->Class_ID() == 0)
+						((W3DTreeType *)m_types)[i].m_mesh = (MeshClass *)robj->_bfme_ro_v3();
+					else
+						robj->Release_Ref();
+				}
+			}
+		}
+	}
+
+	if (xfer->IsLoading())
+		m_count = 0;
+
+	for (i = 0; i < numTrees; i++) {
+		Rva000EDA94Record tree;
+		memset(&tree, 0, sizeof(tree));
+		AsciiString modelName;
+		AsciiString modelTexture;
+		Int treeType = -2;
+		if (xfer->IsStoring()) {
+			((Rva000EADA7 *)&tree)->Rva000EADA7::Rva000EADA7(*(const Rva000EADA7 *)&m_records[i]);
+			treeType = m_records[i].treeType;
+			if (treeType != -2) {
+				modelName = ((W3DTreeType *)m_types)[treeType].m_modelName;
+				modelTexture = ((W3DTreeType *)m_types)[treeType].m_nameC;
+			}
+		}
+		*xfer == modelName;
+		*xfer == modelTexture;
+		if (xfer->IsLoading()) {
+			Int j;
+			for (j = 0; j < m_typeCount; j++) {
+				// Retail folds AsciiString::compareNoCase to the rowed
+				// StringBase<char> body at 0x6A00 (symbols.csv pin): no
+				// wrapper exists in the image, so our TU must not emit its
+				// 5B-jmp copy (link census L+S). Spelling the StringBase
+				// call directly is what the inlined wrapper already emits;
+				// AsciiString is its one-pointer layout twin, so the
+				// twin casts are no-ops.
+				if (((const StringBase<char> &)((W3DTreeType *)m_types)[j].m_modelName).compareNoCase(*(const StringBase<char> *)&modelName) == 0 &&
+						((const StringBase<char> &)((W3DTreeType *)m_types)[j].m_nameC).compareNoCase(*(const StringBase<char> *)&modelTexture) == 0) {
+					treeType = j;
+					break;
+				}
+			}
+		}
+
+		*xfer == tree.location.X;
+		*xfer == tree.location.Y;
+		*xfer == tree.location.Z;
+		*xfer == tree.scale;
+		Rva003062FEXfer(xfer, (float *)&tree.transform);
+		XferDrawableID(xfer, (int *)&tree.drawableID);
+
+		*xfer == tree.m_angularVelocity;
+		*xfer == tree.m_angularAcceleration;
+		*xfer == *(Coord3DBase *)&tree.m_toppleDirection;
+		Rva000EA1DBTopple((Rva000EA1DBTarget *)xfer, (int)&tree.m_toppleState);
+		*xfer == tree.m_angularAccumulation;
+		*xfer == tree.m_options;
+		Rva003062FEXfer(xfer, version.m_minimum >= 3 ? (float *)&tree.m_mtx : (float *)&tree.transform);
+		*xfer == tree.m_sinkFramesLeft;
+		*xfer == tree.m_flagC4;
+		*xfer == tree.m_fieldE0;
+		*xfer == tree.m_fieldE4;
+
+		Bool doShadow = false;
+		AsciiString textureName;
+		if (!xfer->IsLoading() && treeType >= 0 && treeType < m_typeCount) {
+			doShadow = ((W3DTreeType *)m_types)[treeType].m_doShadow;
+			textureName = ((W3DTreeType *)m_types)[treeType].m_textureName;
+		}
+		*xfer == doShadow;
+		*xfer == textureName;
+
+		if (xfer->IsLoading() && treeType >= 0 && treeType < m_typeCount) {
+			Coord3D pos;
+			pos.x = tree.location.X;
+			pos.y = tree.location.Y;
+			pos.z = tree.location.Z;
+			addTree(tree.drawableID, pos, tree.scale, &tree.transform, 0, ((W3DTreeType *)m_types)[treeType].m_data,
+				doShadow ? 1 : 0, textureName, ((W3DTreeType *)m_types)[treeType].m_templateName);
+			if (m_count) {
+				Rva000EDA94Record *curTree = &m_records[m_count - 1];
+				curTree->m_angularAcceleration = tree.m_angularAcceleration;
+				curTree->m_angularVelocity = tree.m_angularVelocity;
+				curTree->m_toppleDirection = tree.m_toppleDirection;
+				curTree->m_toppleState = tree.m_toppleState;
+				curTree->m_options = tree.m_options;
+				curTree->m_mtx = tree.m_mtx;
+				curTree->m_sinkFramesLeft = tree.m_sinkFramesLeft;
+				curTree->m_flagC4 = tree.m_flagC4;
+				curTree->m_fieldE0 = tree.m_fieldE0;
+				curTree->m_fieldE4 = tree.m_fieldE4;
+			}
+		}
+	}
+}
 
 // tu-skeleton: 0x000EDB39 6B ?name@Rva000EDB39Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/W3DDrawNameGetters.cpp (not merged yet)
 
@@ -2137,14 +2746,6 @@ void Rva000EC9C6::rva000EC9C6(int arg)
 // tu-skeleton: 0x007637FA 11B uw_007637fa -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00735D80TreeTypeDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00763805 10B __ehhandler$??1Rva000EC67F@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00735D80TreeTypeDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076380F 8B Unwind@00b6380f -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBufferXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x00763817 8B Unwind@00b63817 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBufferXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0076381F 8B Unwind@00b6381f -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBufferXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x00763827 10B __ehhandler$?xfer@W3DTreeBuffer@@MAEXPAVXfer@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBufferXfer.cpp (not merged yet)
 
 // tu-skeleton: 0x00763887 8B uw_00763887 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBufferUpdate.cpp (not merged yet)
 
