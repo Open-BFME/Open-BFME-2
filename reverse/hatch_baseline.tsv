@@ -3259,7 +3259,7 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Update/UpdateModuleSetWake
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/WeaponFireSpecialAbilityUpdate.cpp	?slot@WFS_Iface1@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/WeaponFireSpecialAbilityUpdate.cpp	?slot@WFS_Iface2@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/WeaponFireSpecialAbilityUpdate.cpp	?slot@WFS_Iface3@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Update/WeaponSetSpecialAbilityUpdateFriendNew.cpp	??0WeaponSetSpecialAbilityUpdate@@QAE@PAVThing@@PBVModuleData@@@Z	1
+alternatename	Code/GameEngine/Source/GameLogic/Object/Update/WeaponSetSpecialAbilityUpdate.cpp	??0WeaponSetSpecialAbilityUpdate@@QAE@PAVThing@@PBVModuleData@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/WeaponSetSpecialAbilityUpdateModuleDataCtor.cpp	??0FellBeastSwoopPowerModuleData@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Upgrade/CommandPointsUpgradeModuleDataCtor.cpp	??1Rva00253487Base@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/WeaponLoadAmmoNow.cpp	?Rva002CE1AC@Weapon@@QAEXPAVObject@@@Z	1
