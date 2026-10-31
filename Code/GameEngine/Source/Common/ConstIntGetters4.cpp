@@ -1277,11 +1277,6 @@ protected:
 	virtual const char *GetSnapshotName() const;
 };
 
-const char *DamageModule::GetSnapshotName() const
-{
-	return "DamageModule";
-}
-
 // ?Rva004BA431Get@@YAHXZ @ 0x004ba431 (6B): returns 0x00bf49ec.
 // Follows a ret-8 (prev C2-08-00), carried by 1 .rdata vtable slot,
 // no direct callers, no branch sources. Opaque address-derived name.

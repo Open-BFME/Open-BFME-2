@@ -10936,7 +10936,7 @@ _luaX_lex,,0x00757C90,1324,Code/Libraries/Source/Lua/llex.c,matched,BFME1 byte-i
 ?Rva004B9281Get@@YAHXZ,,0x004B9281,6,Code/GameEngine/Source/GameLogic/Object/Create/PreorderCreate.cpp,matched,B8-6 returner ret bf4a94; prev C2-08-00 with 1 vtable ref and no callers; opaque name
 ?Rva004B936FGet@@YAHXZ,,0x004B936F,6,Code/GameEngine/Source/Common/ConstIntGetters4.cpp,matched,B8-6 returner ret bf4a54; prev C2-08-00 with 1 vtable ref and no callers; opaque name
 ?Rva004B9452Get@@YAHXZ,,0x004B9452,6,Code/GameEngine/Source/Common/ConstIntGetters4.cpp,matched,B8-6 returner ret bf4a10; prev C2-08-00 with 1 vtable ref and no callers; opaque name
-?GetSnapshotName@DamageModule@@MBEPBDXZ,,0x004B9735,6,Code/GameEngine/Source/Common/ConstIntGetters4.cpp,matched,B8-6 returner ret c59914; prev C2-08-00 with 1 vtable ref and no callers; opaque name
+?GetSnapshotName@DamageModule@@MBEPBDXZ,,0x004B9735,6,Code/GameEngine/Source/GameLogic/Object/Damage/DamageModule.cpp,matched,B8-6 returner ret c59914; prev C2-08-00 with 1 vtable ref and no callers; opaque name
 ?Rva004BA431Get@@YAHXZ,,0x004BA431,6,Code/GameEngine/Source/Common/ConstIntGetters4.cpp,matched,B8-6 returner ret bf49ec; prev C2-08-00 with 1 vtable ref and no callers; opaque name
 ?Rva004BAE7DGet@@YAHXZ,,0x004BAE7D,6,Code/GameEngine/Source/Common/ConstIntGetters4.cpp,matched,B8-6 returner ret bf49cc; prev C2-08-00 with 1 vtable ref and no callers; opaque name
 ?Rva004BB46AGet@@YAHXZ,,0x004BB46A,6,Code/GameEngine/Source/Common/ConstIntGetters4.cpp,matched,B8-6 returner ret bf499c; prev C2-08-00 with 1 vtable ref and no callers; opaque name
