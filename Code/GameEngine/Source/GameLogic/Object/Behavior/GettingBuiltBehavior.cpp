@@ -142,6 +142,18 @@ public:
 		field += ADDIMM; \
 		return base ? (int)field : 0; \
 	}
+#define BFME_DISP8_FILD_GETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		double get() const; \
+		char m_lead[DISP]; \
+		int m_value; \
+	}; \
+	double NAME::get() const \
+	{ \
+		return m_value; \
+	}
 
 extern GameLogic *TheGameLogic;
 
@@ -397,6 +409,10 @@ class Rva004543A9LeaNegSbbField
 public:
 	virtual int get() const;
 };
+
+BFME_DISP8_FILD_GETTER(Rva004543BAFildField, 0x18)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/GettingBuiltBehavior.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/GettingBuiltBehavior.cpp
 
@@ -855,6 +871,50 @@ void **__stdcall Rva00453AB8Insert(void **out, void *pos, const Rva004530ED &val
 // derived from its address.
 // No // cl: line (defaults match the frameless four-byte shape).
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ---- from Code/GameEngine/Source/Common/Disp8LeaNegSbbGetters.cpp
+
+// Disp8 lea-neg-sbb getters: thirteen-byte __thiscall members with one shape:
+//
+//     lea eax,[ecx-<LEADISP>] / add ecx,<ADDIMM> / neg eax / sbb eax,eax / and eax,ecx / ret
+//
+// A pointer derived from `this` is null-tested branchlessly: neg sets carry
+// exactly when the derived base is nonzero and sbb spreads it to a full mask
+// that selects the adjusted `this` or null. Deriving the base from a live
+// field-local keeps `this` in ecx so the adjustment compiles to an in-place
+// add instead of a lea into a scratch register. Identity is not recovered:
+// every name is derived from its address.
+// No // cl: line (defaults match the shape).
+
+int Rva004543A9LeaNegSbbField::get() const
+{
+	const char *field = (const char *)this;
+	const void *base = field - 12;
+	field += 0x14;
+	return base ? (int)field : 0;
+}
+
 // tu-skeleton: 0x00453221 12B ?empty@?$list@W4ObjectID@@V?$allocator@W4ObjectID@@@_STL@@@_STL@@QBE_NXZ -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupRemove.cpp (not merged yet)
 
 // tu-skeleton: 0x0045322D 15B ??E?$_List_iterator@PAVObject@@U?$_Const_traits@PAVObject@@@_STL@@@_STL@@QAE?AU01@H@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AssaultTransportAIUpdateUpdate.cpp (not merged yet)
@@ -899,29 +959,19 @@ void **__stdcall Rva00453AB8Insert(void **out, void *pos, const Rva004530ED &val
 
 // tu-skeleton: 0x004543A3 6B ?Rva004543A3Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/Disp8LeaNegSbbGetters.cpp
+// ---- from Code/GameEngine/Source/Common/Disp8FildFieldGetters.cpp
 
-// Disp8 lea-neg-sbb getters: thirteen-byte __thiscall members with one shape:
+// Disp8 fild getters: four-byte __thiscall members with one shape:
 //
-//     lea eax,[ecx-<LEADISP>] / add ecx,<ADDIMM> / neg eax / sbb eax,eax / and eax,ecx / ret
+//     fild dword ptr [ecx+<DISP>] / ret
 //
-// A pointer derived from `this` is null-tested branchlessly: neg sets carry
-// exactly when the derived base is nonzero and sbb spreads it to a full mask
-// that selects the adjusted `this` or null. Deriving the base from a live
-// field-local keeps `this` in ecx so the adjustment compiles to an in-place
-// add instead of a lea into a scratch register. Identity is not recovered:
-// every name is derived from its address.
-// No // cl: line (defaults match the shape).
-
-int Rva004543A9LeaNegSbbField::get() const
-{
-	const char *field = (const char *)this;
-	const void *base = field - 12;
-	field += 0x14;
-	return base ? (int)field : 0;
-}
-
-// tu-skeleton: 0x004543BA 4B ?get@Rva004543BAFildField@@QBENXZ -- matched in Code/GameEngine/Source/Common/Disp8FildFieldGetters.cpp (not merged yet)
+// One int is loaded from a fixed displacement from `this` onto the x87
+// stack, which is the return convention for `double`, so the member reads as
+// an int-to-double conversion. Every displacement here fits in a signed
+// byte, so MSVC 7.1 encodes it as a disp8. Spelled with the lead-array idiom
+// of the neighboring Disp* families (char pad, then the int member).
+// Identity is not recovered: every name is derived from its address.
+// No // cl: line (defaults match the frameless four-byte shape).
 
 // tu-skeleton: 0x004543E3 8B ?get@Rva004543A9LeaNegSbbField@@WBE@BEHXZ -- matched in Code/GameEngine/Source/Common/GapForwardersSeat8.cpp (not merged yet)
 
@@ -940,6 +990,8 @@ int Rva004543A9LeaNegSbbField::get() const
 // tu-skeleton: 0x0045499B 449B ?resumeBuildingConstruction@GettingBuiltBehaviorSecondary@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GettingBuiltBehaviorResume.cpp (not merged yet)
 
 // tu-skeleton: 0x00454B5C 669B ?rva00454B5C@GettingBuiltBehavior@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GettingBuiltBehaviorCompletion.cpp (not merged yet)
+
+// tu-skeleton: 0x00454DF9 599B ?update@GettingBuiltBehavior@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GettingBuiltBehaviorUpdate.cpp (not merged yet)
 
 // tu-skeleton: 0x00789D6A 8B $L1466 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GettingBuiltBehaviorModuleDataCtorShard.cpp (not merged yet)
 

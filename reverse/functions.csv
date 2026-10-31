@@ -9721,7 +9721,7 @@ _luaO_str2d,,0x0074E160,112,Code/Libraries/Source/Lua/lobject.c,matched,vendored
 ??1?$SimpleVecClass@VVector2@@@@UAE@XZ,,0x001883C0,41,Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextCtor.cpp,matched,strict relocations from its own object
 ??_G?$SimpleVecClass@VVector2@@@@UAEPAXI@Z,,0x00188540,61,Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextCtor.cpp,matched,strict relocations from its own object
 ?apply@Rva0005D10D6DwordImmSetter@@QAEXXZ,,0x005D10D6,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-9C55C700-C3
-?get@Rva004543BAFildField@@QBENXZ,,0x004543BA,4,Code/GameEngine/Source/Common/Disp8FildFieldGetters.cpp,matched,Disp8 fild int-to-double getter; RET-PREV C3; retail DB-41-18-C3
+?get@Rva004543BAFildField@@QBENXZ,,0x004543BA,4,Code/GameEngine/Source/GameLogic/Object/Behavior/GettingBuiltBehavior.cpp,matched,Disp8 fild int-to-double getter; RET-PREV C3; retail DB-41-18-C3
 ?get@Rva006D89D0ByteField@@QBEEXZ,,0x006D89D0,4,Code/Libraries/Source/Apt/AptValue/AptBoolean.cpp,matched,Disp8 byte getter CC-island Ghidra-4B standalone; address-derived opaque holder
 ?apply@Rva00078274DwordImmSetter@@QAEXXZ,,0x00078274,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-7867BC00-C3
 ?apply@Rva0005CE8EEDwordImmSetter@@QAEXXZ,,0x005CE8EE,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B; retail C7-01-A851C700-C3
