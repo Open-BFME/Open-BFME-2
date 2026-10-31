@@ -19353,3 +19353,12 @@ Code/GameEngine/Source/GameClient/InGameUIRva002A4A0C.cpp|param|InGameUI::rva002
 Code/GameEngine/Source/GameClient/InGameUIRva002A4A0C.cpp|param|InGameUI::rva002A4A0C|p4,04cfd48b4983d962caf2fbea,drz-k9,drz-k9-b2-13,w-4d4d8f8584bc,2026-10-31
 Code/GameEngine/Source/Common/System/Rva0021C970Find.cpp|function|0x0021C9D7|rva0021C9D7,eeb657db063e10cbcf3454ea,drz-k9,drz-k9-b2-18,w-4d4d8f8584bc,2026-10-31
 Code/GameEngine/Source/Common/Rva005FF267SetState.cpp|global||g_00C7A49C,f75254127d77b9bd6af1ae90,drz-k9,drz-k9-b2-19,w-4d4d8f8584bc,2026-10-31
+Code/GameEngine/Source/Common/Rva005EF3DE.cpp|param|Rva005EF3E6::showCommandPoints|a,720257683fe48eaadfcbf5b0,drz-k3,drz-k3-c2-0,w-077d7aeb666b,2026-10-31
+Code/GameEngine/Source/Common/Rva005EF3DE.cpp|param|Rva005EF3E6::showCommandPoints|b,60186d0135ec333cbc6c1cc6,drz-k3,drz-k3-c2-0,w-077d7aeb666b,2026-10-31
+Code/GameEngine/Source/Common/Rva005D4E37Set.cpp|function|0x005D4E37|rva005D4E37,3eb29bef10430e1eff5a64dd,drz-k3,drz-k3-c2-1,w-077d7aeb666b,2026-10-31
+Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsAudioControl.cpp|function|0x003BBC81|Rva003BBC81Set,d04758c37aa4ee1534953ff7,drz-k3,drz-k3-c2-8,w-077d7aeb666b,2026-10-31
+Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsAudioControl.cpp|function|0x003BBCB3|Rva003BBCB3Set,cda683aa1cb4d96413799e23,drz-k3,drz-k3-c2-8,w-077d7aeb666b,2026-10-31
+Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsAudioControl.cpp|function|0x003BBCD2|Rva003BBCD2Set,29e45260a24b447393ceb2d2,drz-k3,drz-k3-c2-8,w-077d7aeb666b,2026-10-31
+Code/GameEngine/Source/GameLogic/Object/Behavior/Rva0045F2F8Finish.cpp|member|Rva0045F2F8|m_34,2a5ff7f33ef571630e4b87a5,drz-k3,drz-k3-c2-9,w-077d7aeb666b,2026-10-31
+Code/GameEngine/Source/GameLogic/Object/Behavior/Rva0045F2F8Finish.cpp|member|Rva0045F2F8|m_38,829bb43ab6aa4f9d2296d7df,drz-k3,drz-k3-c2-9,w-077d7aeb666b,2026-10-31
+Code/GameEngine/Source/Common/SixteenByteIteratorArithmetic_Rva000696C0Distance.cpp|function|0x005047A0|Rva005047A0Advance,9ca51fcab8ab53e6071b0d0f,drz-k3,drz-k3-c2-18,w-077d7aeb666b,2026-10-31
