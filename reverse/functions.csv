@@ -11396,7 +11396,7 @@ _subexpr,,0x007558A0,261,Code/Libraries/Source/Lua/lparser.c,matched,BFME1 byte-
 ?get@Rva005FC75BAddDwordField@@QBEHXZ,,0x005FC75B,7,Code/GameEngine/Source/Common/Disp8AddDwordFieldGetters.cpp,matched,disp8 add dword getter; opaque holder
 ?get@Rva0040CACCSubDwordField@@QBEHXZ,,0x0040CACC,7,Code/GameEngine/Source/Common/Disp8SubDwordFieldGetters.cpp,matched,disp8 sub dword getter; opaque holder
 ?get@Rva00414325SubDwordField@@QBEHXZ,,0x00414325,7,Code/GameEngine/Source/Common/Disp8SubDwordFieldGetters.cpp,matched,disp8 sub dword getter; opaque holder
-?get@Rva0051E3F1SubDwordField@@QBEHXZ,,0x0051E3F1,7,Code/GameEngine/Source/Common/Disp8SubDwordFieldGetters.cpp,matched,disp8 sub dword getter; opaque holder
+?get@Rva0051E3F1SubDwordField@@QBEHXZ,,0x0051E3F1,7,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp,matched,disp8 sub dword getter; opaque holder
 ?Init@WW3D@@SA_NPAXPAD_N@Z,,0x00118040,158,Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp,matched,BFME1 byte-identical donor WW3D_Init_Bfme.cpp; DX8Wrapper::Init pinned from retail call
 ?get@Rva00030D00MaskedDwordField@@QBEHXZ,,0x00030D00,7,Code/GameEngine/Source/Common/Disp8MaskedDwordFieldGetters.cpp,matched,disp8 masked dword getter; opaque holder
 ?get@Rva00742EC0MaskedDwordField@@QBEHXZ,,0x00742EC0,7,Code/GameEngine/Source/Common/Disp8MaskedDwordFieldGetters.cpp,matched,disp8 masked dword getter; opaque holder

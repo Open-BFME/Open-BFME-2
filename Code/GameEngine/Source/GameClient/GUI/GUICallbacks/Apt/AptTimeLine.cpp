@@ -169,6 +169,18 @@ extern PlayerTemplateStore *ThePlayerTemplateStore;
 	{ \
 		return scale * IMM + m_value; \
 	}
+#define BFME_DISP8_SUB_DWORD_GETTER(NAME, DISP, IMM) \
+	class NAME \
+	{ \
+	public: \
+		int get() const; \
+		char m_lead[DISP]; \
+		int m_value; \
+	}; \
+	int NAME::get() const \
+	{ \
+		return m_value - IMM; \
+	}
 
 BFME_DISP8_DIV_AVG_DWORD_GETTER(Rva0051E3D9DivAvgField, 0x04, 0x00, 0x50)
 
@@ -1614,6 +1626,33 @@ extern GameSpyStagingRoom *TheGameSpyGame;
 
 BFME_IMUL_ADD_DWORD_GETTER(Rva0051E3E5ImulAddField, 0x50)
 
+BFME_DISP8_SUB_DWORD_GETTER(Rva0051E3F1SubDwordField, 0x04, 0x50)
+
+// BF1 f98983a7d3 Rva003D6960Get.cpp / Rva003D9D50Get.cpp and the
+// Gen20VectorDestructor.cpp-emitted back() provide clean operation guides.
+// Native2EAD79..2EAD7F and3B3F66..3B3F6D independently establish complete
+// RET0 leaves reading receiverwords0/4 and subtracting12/20 inEAX. Prior
+// completed RET and tail JMP, respectively, and following fresh entries
+// bound the bodies. Original owners, payload meaning and declarations remain
+// unknown; the raw unsigned words express native32-bit wrap without asserting
+// a pointer, vector, or Gen20 identity.
+// ?getBits@Rva002EAD79WordOffset@@QBEIXZ
+struct Rva002EAD79WordOffset
+{
+    unsigned int word0;
+    unsigned int getBits() const;
+};
+
+// ?getBits@Rva003B3F66WordOffset@@QBEIXZ
+struct Rva003B3F66WordOffset
+{
+    char pad0[4];
+    unsigned int word4;
+    unsigned int getBits() const;
+};
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp
+
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLineCallbacks.cpp
@@ -2840,7 +2879,21 @@ void AptTimeLine::rva00520CD1()
 // (/O1 alone strength-reduces them to lea sequences). Identity is not
 // recovered: every name is derived from its address.
 
-// tu-skeleton: 0x0051E3F1 7B ?get@Rva0051E3F1SubDwordField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8SubDwordFieldGetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Disp8SubDwordFieldGetters.cpp
+
+// Disp8 sub dword getters: seven-byte __thiscall members with one shape:
+//
+//     mov eax,[ecx+<DISP>] / sub eax,<IMM8> / ret
+//
+// One dword is read at a fixed displacement from `this`, a small immediate
+// is subtracted, and the result is returned. The immediate fits in a signed
+// byte, so MSVC 7.1 emits the `83 E8 XX` form (three bytes) after the disp8
+// load `8B 41 XX`, plus `ret`, for seven bytes total. This is the sub
+// sibling of the masked Disp8MaskedDwordFieldGetters family (and-imm8);
+// the opcode itself is why the two families are kept in separate
+// translation units. Identity is not recovered: every name is derived from
+// its address.
+// No // cl: line (defaults match the frameless seven-byte shape).
 
 // tu-skeleton: 0x0051E471 63B ??1Rva0051C0E7@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0051C0E7Ctor.cpp (not merged yet)
 
