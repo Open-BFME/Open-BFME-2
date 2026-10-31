@@ -118,21 +118,15 @@ public:
 	{ \
 		return ((const Sub##NAME *)((const char *)this - (BACK)))->m_holder->m_value; \
 	}
-
 extern PartitionManager *ThePartitionManager;
-
 class BfmeThingCME
 {
 public:
 	int rva0027F108(void *pos, float radius, int flag, int unused);	// rowed 0x0027F108
 };
-
 class TerrainLogic;
-
 extern TerrainLogic *TheTerrainLogic;
-
 template<int N>class BitFlags;
-
 class ObjectFilter
 {
 public:
@@ -140,13 +134,9 @@ public:
 private:
 	int m_index;
 };
-
 enum KindOfType { KINDOF_37 = 0x25, KINDOF_61 = 0x3D };
-
 enum SpecialPowerType { SPECIAL_POWER_39 = 0x27 };
-
 enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1, UPDATE_SLEEP_FOREVER = 0x3FFFFFFF };
-
 class SpecialPowerModuleInterface
 {
 public:
@@ -156,7 +146,6 @@ public:
 	virtual void doSpecialPowerAtObject(Object *target, unsigned int options);
 	virtual void doSpecialPowerAtLocation(const Coord3D *loc, unsigned int options);
 };
-
 class ContainModuleInterface
 {
 public:
@@ -180,7 +169,6 @@ public:
 	virtual void s68();
 	virtual unsigned int getRemainingAmmo(const void *descriptor);
 };
-
 class BodyModuleInterface
 {
 public:
@@ -188,7 +176,6 @@ public:
 	virtual void s04();
 	virtual float getHealth() const;
 };
-
 class Object
 {
 public:
@@ -216,7 +203,6 @@ private:
 	char m_pad278[0x438 - 0x278];
 	unsigned char m_privateStatus;		// +0x438
 };
-
 class Rva00360D26Member
 {
 public:
@@ -226,7 +212,6 @@ public:
 private:
 	unsigned int m_handle;
 };
-
 struct AutoPickUpEatObjectEntry
 {
 	AutoPickUpEatObjectEntry() : m_myHealth(0), m_targetHealth(1.0f) {}
@@ -235,7 +220,6 @@ struct AutoPickUpEatObjectEntry
 	float m_myHealth;
 	float m_targetHealth;
 };
-
 struct AutoPickUpEatObjectEntries
 {
 	unsigned int size() const { return m_finish - m_start; }
@@ -243,10 +227,8 @@ struct AutoPickUpEatObjectEntries
 	AutoPickUpEatObjectEntry *m_finish;
 	AutoPickUpEatObjectEntry *m_end;
 };
-
 class ModuleData;
 class INI;
-
 struct AutoPickUpUpdateModuleData
 {
 	static void iniParseEatObjectEntry(INI *ini, void *instance, void *store, const void *userData);
@@ -261,12 +243,52 @@ struct AutoPickUpUpdateModuleData
 	int m_runFromButtonNumber;			// +0x24
 	bool m_canScanWhileAttackingOrMoving;		// +0x28
 };
-
 class Thing;
 class Xfer;
 enum NameKeyType;
-
 #include "../../../../Include/Common/ObjectModule.h"
+#include <string.h>
+#define THROW_EAT_OBJECT_ENTRY_ERROR(format, token) \
+	do { \
+		throw INIException(3, format, token); \
+	} while (0)
+// ?xfer@AutoPickUpUpdate@@MAEXPAVXfer@@@Z retail 0x00495C77 89 bytes.
+// AutoPickUpUpdate xfer slot 3 offset 0x0C of vtable 0x0084F06C via rowed ctor
+// 0x00495D31: Version(1 2) via Xfer slot 0x28 then base UpdateModule xfer via
+// rowed 0x0044DF9F then uint at +0x24 via Xfer slot 0x78 then bool at +0x28
+// via Xfer slot 0x90 then version-gated bool at +0x29 via slot 0x90 when
+// minimum >= 2. Layout is the rowed 0x2C-byte class (UpdateModule base 0x20
+// plus ptr at +0x20 giving +0x24 start). Recipe is the BloodthirstyUpdateXfer
+// slot-3 Version-first pattern.
+class AsciiString;
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+#include "../../../../Include/Common/BfmeXfer.h"
+class Xfer::Version
+{
+public:
+	Version(unsigned char current, unsigned char minimum)
+		: m_current(current), m_minimum(minimum) {}
+
+	unsigned char m_current;
+	unsigned char m_minimum;
+};
+typedef int Int;
+Int GetGameLogicRandomValue(Int lo, Int hi, char *file, int line);
 
 // Inherited module data is at +0x04 and the object is at +0x08.
 class BehaviorModule : public ObjectModule
@@ -362,21 +384,125 @@ public:
 	void *m_template;
 };
 
+typedef float Real;
+
+class INI
+{
+public:
+	const char *getNextTokenOrNull(const char *seps);
+	const char *getSepsColon() const { return m_sepsColon; }
+	static void parsePercentToReal(INI *ini, void *instance, void *store, const void *userData);
+
+private:
+	char m_unreconstructed[0x420];
+	const char *m_sepsColon; // +0x420
+};
+
+class INIException
+{
+public:
+	INIException(int code, const char *format, ...);
+	INIException(const INIException &other);
+	~INIException();
+
+private:
+	char *m_failureMessage;
+	int m_argCount;
+};
+
+namespace _STL
+{
+template <class T> class allocator
+{
+};
+
+template <class T, class A = allocator<T> > class vector
+{
+public:
+	void push_back(const T &value);
+};
+}
+
+void iniParseObjectFilter(INI *ini, void *instance, void *store, const void *userData);
+
+// ?getModuleNameKey@AutoPickUpUpdate@@UBE?AW4NameKeyType@@XZ @0x495cec
+// (69B): cached pool-name key for AutoPickUpUpdate. The class
+// identity comes from the pool-name string the body pushes
+// ("AutoPickUpUpdate"); the body guards a function-local static
+// key fetched once through TheNameKeyGenerator. It is NOT getClassMemoryPool:
+// retail stores nameToKey's return (a key, not a pool pointer) and returns it,
+// and the address carries no getClassMemoryPool row anywhere. /EHsc for the
+// static-guard EH prologue; globals are TU-local externs (DIR32 slots patch
+// from retail, no pins; nameToKey resolves via its matched row).
+
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const char *name);
+};
+
+extern NameKeyGenerator *TheNameKeyGenerator;
+
 // tu-skeleton: 0x00495C48 32B ??1AutoPickUpUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AutoPickUpUpdateDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00495C68 6B ?name@AutoPickUpUpdate@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
 
-// tu-skeleton: 0x00495C6E 9B ?rva00495C6E@AutoPickUpUpdate@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AutoPickUpUpdateSlots.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/AutoPickUpUpdateSlots.cpp
 
-// tu-skeleton: 0x00495C77 89B ?xfer@AutoPickUpUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AutoPickUpUpdateXfer.cpp (not merged yet)
+void AutoPickUpUpdate::rva00495C6E()
+{
+	m_flag28 = true;
+	m_flag29 = true;
+}
 
-// tu-skeleton: 0x00495CEC 69B ?getModuleNameKey@AutoPickUpUpdate@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AutoPickUpUpdatePoolKey.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/AutoPickUpUpdateXfer.cpp
 
-// tu-skeleton: 0x00495D31 121B ??0AutoPickUpUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AutoPickUpUpdateCtor.cpp (not merged yet)
+void AutoPickUpUpdate::xfer(Xfer *xfer)
+{
+	Xfer::Version version(1, 2);
+	*xfer == version;
+	UpdateModule::xfer(xfer);
+	*xfer == m_count24;
+	*xfer == m_flag28;
+	if (version.m_minimum >= 2) {
+		*xfer == m_flag29;
+	}
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/AutoPickUpUpdatePoolKey.cpp
+
+// ?getModuleNameKey@AutoPickUpUpdate@@UBE?AW4NameKeyType@@XZ
+NameKeyType AutoPickUpUpdate::getModuleNameKey() const
+{
+	static NameKeyType TheAutoPickUpUpdatePoolKey =
+		TheNameKeyGenerator->nameToKey("AutoPickUpUpdate");
+	return TheAutoPickUpUpdatePoolKey;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/AutoPickUpUpdateCtor.cpp
+
+// ??0AutoPickUpUpdate@@QAE@PAVThing@@PBVModuleData@@@Z @0x00495D31
+AutoPickUpUpdate::AutoPickUpUpdate(Thing *thing, const ModuleData *moduleData)
+	: UpdateModule(thing, moduleData)
+{
+	const AutoPickUpUpdateModuleData *data = getAutoPickUpUpdateModuleData();
+	int zero = 0;
+	m_count24 = zero;
+	m_flag28 = zero;
+	m_flag29 = zero;
+	m_count24 += GetGameLogicRandomValue(0, data->m_scanDelayTime, "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\AutoPickUpUpdate.cpp", 0x83);
+}
 
 // tu-skeleton: 0x00495DAA 28B ??_GAutoPickUpUpdate@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AutoPickUpUpdateDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00495DC6 7B ?get@Rva00495DC6PtrChaseField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/AutoPickUpUpdate.cpp
 
 // ---- from Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp
 
@@ -396,9 +522,7 @@ public:
 // backward cast, which MSVC folds to `mov eax,[ecx-BACK]`; same shape and
 // reading as BFME1's ChainedFieldGetters.
 
-// tu-skeleton: 0x00495DD4 36B ?rva00495DD4@AutoPickUpUpdate@@QAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/Rva00495DD4.cpp (not merged yet)
 
-// tu-skeleton: 0x00495DF8 9B ??$_Destroy@VRva00495C43PoolRecord@@@_STL@@YAXPAVRva00495C43PoolRecord@@@Z -- matched in Code/GameEngine/Source/Common/DestroyInstances.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/AutoPickUpUpdate.cpp
 
@@ -559,6 +683,23 @@ Rva004962EA::~Rva004962EA()
 	}
 }
 
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/Rva00495DD4.cpp
+
+bool AutoPickUpUpdate::rva00495DD4()
+{
+	const AutoPickUpUpdateModuleData *data = getAutoPickUpUpdateModuleData();
+	if (data->m_runFromButton)
+		return m_flag28;
+	if (m_count24 == 0) {
+		m_count24 = data->m_scanDelayTime;
+		return true;
+	}
+	m_count24--;
+	return false;
+}
+
+// tu-skeleton: 0x00495DF8 9B ??$_Destroy@VRva00495C43PoolRecord@@@_STL@@YAXPAVRva00495C43PoolRecord@@@Z -- matched in Code/GameEngine/Source/Common/DestroyInstances.cpp (not merged yet)
+
 // tu-skeleton: 0x004962AB 63B ??1Rva004962ABVector@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AutoPickUpUpdateModuleDataDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00496308 151B ??0AutoPickUpUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AutoPickUpUpdateModuleDataCtor.cpp (not merged yet)
@@ -571,17 +712,70 @@ Rva004962EA::~Rva004962EA()
 
 // tu-skeleton: 0x004964BB 52B ?push_back@?$vector@UAutoPickUpEatObjectEntry@@V?$allocator@UAutoPickUpEatObjectEntry@@@_STL@@@_STL@@QAEXABUAutoPickUpEatObjectEntry@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_autopickup_eat_entry.cpp (not merged yet)
 
-// tu-skeleton: 0x004964EF 409B ?iniParseEatObjectEntry@AutoPickUpUpdateModuleData@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AutoPickUpUpdateParseEatObjectEntry.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/AutoPickUpUpdateParseEatObjectEntry.cpp
+
+//
+// ?iniParseEatObjectEntry@AutoPickUpUpdateModuleData@@SAXPAVINI@@PAX1PBX@Z
+// retail 0x004964EF, 409 bytes.
+//
+// Identity (target): the nine retail literals the body pushes name it --
+// "MyHealth", "TargetHealth", "Filter" and the six
+// "AutoPickUpUpdateModuleData::iniParseEatObjectEntry -- ..." messages at
+// 0x00C4F188..0x00C4F428. Callees are rowed: INI::getNextTokenOrNull
+// 0x0002DEED, INI::parsePercentToReal 0x0002F1BA, iniParseObjectFilter
+// 0x00361CA5, the filter ctor 0x003623E5 and dtor 0x00360D26,
+// INIException 0x0002F681; the push_back at 0x004964BB is rowed from
+// AutoPickUpUpdateEatObjectEntryVector.cpp.
+//
+// Donor: BFME 1 game/GameEngine/Source/GameLogic/Object/Update/
+// AutoPickUpUpdate.cpp at 6583b3c1 (same token order, messages, layout).
+// BFME 2 delta, read from the target: the entry keeps its filter's real
+// lifetime and the vector is the entry's own instantiation, whose growth
+// path destroys elements (0x00496292), so no POD stand-in cast.
+
+void AutoPickUpUpdateModuleData::iniParseEatObjectEntry(INI *ini, void *instance, void *store, const void *)
+{
+	AutoPickUpEatObjectEntry entry;
+
+	const char *token = ini->getNextTokenOrNull(ini->getSepsColon());
+	if (token == 0 || _strcmpi(token, "MyHealth") != 0)
+		THROW_EAT_OBJECT_ENTRY_ERROR(
+			"AutoPickUpUpdateModuleData::iniParseEatObjectEntry -- Expecting 'MyHealth' entry. You specified %s.",
+			token);
+	if (strcmp(token, "MyHealth") != 0)
+		THROW_EAT_OBJECT_ENTRY_ERROR(
+			"AutoPickUpUpdateModuleData::iniParseEatObjectEntry -- Entry for 'MyHealth' is case sensitive. You specified %s.",
+			token);
+	INI::parsePercentToReal(ini, instance, &entry.m_myHealth, 0);
+
+	token = ini->getNextTokenOrNull(ini->getSepsColon());
+	if (token == 0 || _strcmpi(token, "TargetHealth") != 0)
+		THROW_EAT_OBJECT_ENTRY_ERROR(
+			"AutoPickUpUpdateModuleData::iniParseEatObjectEntry -- Expecting 'TargetHealth' entry. You specified %s.",
+			token);
+	if (strcmp(token, "TargetHealth") != 0)
+		THROW_EAT_OBJECT_ENTRY_ERROR(
+			"AutoPickUpUpdateModuleData::iniParseEatObjectEntry -- Entry for 'TargetHealth' is case sensitive. You specified %s.",
+			token);
+	INI::parsePercentToReal(ini, instance, &entry.m_targetHealth, 0);
+
+	token = ini->getNextTokenOrNull(ini->getSepsColon());
+	if (token == 0 || _strcmpi(token, "Filter") != 0)
+		THROW_EAT_OBJECT_ENTRY_ERROR(
+			"AutoPickUpUpdateModuleData::iniParseEatObjectEntry -- Expecting 'Filter' entry. You specified %s.",
+			token);
+	if (strcmp(token, "Filter") != 0)
+		THROW_EAT_OBJECT_ENTRY_ERROR(
+			"AutoPickUpUpdateModuleData::iniParseEatObjectEntry -- Entry for 'Filter' is case sensitive. You specified %s.",
+			token);
+	iniParseObjectFilter(ini, instance, &entry.m_filter, 0);
+
+	((_STL::vector<AutoPickUpEatObjectEntry> *)store)->push_back(entry);
+}
 
 // tu-skeleton: 0x00496689 17B ?buildFieldParse@AutoPickUpUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
 
-// tu-skeleton: 0x0078CFF3 13B $L310 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AutoPickUpUpdatePoolKey.cpp (not merged yet)
-
-// tu-skeleton: 0x0078D000 10B __ehhandler$?getModuleNameKey@AutoPickUpUpdate@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AutoPickUpUpdatePoolKey.cpp (not merged yet)
-
 // tu-skeleton: 0x0078D00A 8B uw_0078d00a -- matched in Code/gen_small/uw_gen_011.cpp (not merged yet)
-
-// tu-skeleton: 0x0078D012 10B __ehhandler$??0AutoPickUpUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AutoPickUpUpdateCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0078D074 8B uw_0078d074 -- matched in Code/gen_small/uw_gen_010.cpp (not merged yet)
 
@@ -600,7 +794,3 @@ Rva004962EA::~Rva004962EA()
 // tu-skeleton: 0x0078D0B6 11B Unwind@00b8d0b6 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AutoPickUpUpdateModuleDataDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0078D0C1 10B __ehhandler$??1AutoPickUpUpdateModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AutoPickUpUpdateModuleDataDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078D0CB 8B $L484 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AutoPickUpUpdateParseEatObjectEntry.cpp (not merged yet)
-
-// tu-skeleton: 0x0078D0D3 10B __ehhandler$?iniParseEatObjectEntry@AutoPickUpUpdateModuleData@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AutoPickUpUpdateParseEatObjectEntry.cpp (not merged yet)

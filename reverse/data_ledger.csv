@@ -20190,8 +20190,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A03A44,4,.data,global,?TheDemoTrapUpdatePoolKey@?1??getModuleNameKey@DemoTrapUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/DemoTrapUpdate.cpp,owned,,1,2
 0x00A03A48,4,.data,global,?$S1@?1??getModuleNameKey@DemoTrapUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/DemoTrapUpdate.cpp,owned,,1,2
 0x00A03A4C,4,.data,global,_s_rva007B175F,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
-0x00A03A50,4,.data,global,?TheAutoPickUpUpdatePoolKey@?1??getModuleNameKey@AutoPickUpUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/AutoPickUpUpdatePoolKey.cpp,owned,,1,2
-0x00A03A54,4,.data,global,?$S1@?1??getModuleNameKey@AutoPickUpUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/AutoPickUpUpdatePoolKey.cpp,owned,,1,4
+0x00A03A50,4,.data,global,?TheAutoPickUpUpdatePoolKey@?1??getModuleNameKey@AutoPickUpUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/AutoPickUpUpdate.cpp,owned,,1,2
+0x00A03A54,4,.data,global,?$S1@?1??getModuleNameKey@AutoPickUpUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/AutoPickUpUpdate.cpp,owned,,1,4
 0x00A03A58,4,.data,global,?TheBoredUpdatePoolKey@?1??getModuleNameKey@BoredUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/BoredUpdate.cpp,owned,,1,2
 0x00A03A5C,4,.data,global,?$S1@?1??getModuleNameKey@BoredUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/BoredUpdate.cpp,owned,,1,4
 0x00A03A60,4,.data,global,?TheBannerCarrierUpdatePoolKey@?1??getModuleNameKey@BannerCarrierUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/BannerCarrierUpdate.cpp,owned,,1,2
