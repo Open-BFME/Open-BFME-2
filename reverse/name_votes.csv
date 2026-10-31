@@ -19184,3 +19184,5 @@ Code/GameEngine/Source/Common/AISpellBookBase.cpp|local|AISpellBookBase::findDen
 Code/Libraries/Source/WWVegas/WWLib/Rva00502787Clear.cpp|member|Rva00502787Header|m_08,8db59688c812cd9b2ffa1d65,drz-k9,n25f2-k9-17,w-4d4d8f8584bc,2026-10-31
 Code/Libraries/Source/WWVegas/WWLib/Rva00502787Clear.cpp|member|Rva00502787Header|m_0c,a2e1722dc92956aff64e0c05,drz-k9,n25f2-k9-17,w-4d4d8f8584bc,2026-10-31
 Code/GameEngine/Source/GameNetwork/Rva008030C0FeslPoolInit.cpp|local|Rva00803080::initPool|p,0fdfd7c1d0617cfbe2b10659,drz-k9,n25f2-k9-20,w-4d4d8f8584bc,2026-10-31
+Code/GameEngine/Source/GameNetwork/Rva007F7030Request.cpp|class||Rva007F7030,590fc701c9e56eb5cb9b8908,drz-k3,n25g2-k3-1,w-077d7aeb666b,2026-10-31
+Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIBattleResolverRva005CF937Constructor.cpp|class||Rva005CF937Owner,ad3abd7818c58f7150ea4928,drz-k3,n25g2-k3-4,w-077d7aeb666b,2026-10-31
