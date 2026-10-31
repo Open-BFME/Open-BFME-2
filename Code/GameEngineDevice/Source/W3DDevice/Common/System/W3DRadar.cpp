@@ -34,9 +34,43 @@
 
 
 
+
 #endif
 #include <string.h>
 #include "ascii_string.h"
+#include <algorithm>
+#undef W3DMPO_GLUE
+#define W3DMPO_GLUE(ARGCLASS)
+#define Matrix4x4 Matrix4  // BFME renamed it
+#undef W3DMPO_GLUE
+#define W3DMPO_GLUE(ARGCLASS)
+#define Matrix4x4 Matrix4  // BFME renamed it
+#undef W3DMPO_GLUE
+#define W3DMPO_GLUE(ARGCLASS)
+#define Matrix4x4 Matrix4  // BFME renamed it
+#include "Common/Geometry.h"
+#undef W3DMPO_GLUE
+#define W3DMPO_GLUE(ARGCLASS)
+#define Matrix4x4 Matrix4  // BFME renamed it
+#undef W3DMPO_GLUE
+#define W3DMPO_GLUE(ARGCLASS)
+#define Matrix4x4 Matrix4  // BFME renamed it
+#undef W3DMPO_GLUE
+#define W3DMPO_GLUE(ARGCLASS)
+#define Matrix4x4 Matrix4  // BFME renamed it
+#undef W3DMPO_GLUE
+#define W3DMPO_GLUE(ARGCLASS)
+#define Matrix4x4 Matrix4  // BFME renamed it
+#undef W3DMPO_GLUE
+#define W3DMPO_GLUE(ARGCLASS)
+#define Matrix4x4 Matrix4  // BFME renamed it
+#undef W3DMPO_GLUE
+#define W3DMPO_GLUE(ARGCLASS)
+#define Matrix4x4 Matrix4  // BFME renamed it
+#include "WW3D2/dx8wrapper.h"
+#undef W3DMPO_GLUE
+#define W3DMPO_GLUE(ARGCLASS)
+#define Matrix4x4 Matrix4  // BFME renamed it
 
 // Native 0004EFE9..0004F037, RET0. The rowed deleting destructor at
 // 0004F7D8 establishes the address-derived owner. Target bytes set its vptr,
@@ -481,6 +515,351 @@ typedef unsigned char UnsignedByte;
 
 void GameGetColorComponents(Color,UnsignedByte *,UnsignedByte *,UnsignedByte *,UnsignedByte *);
 
+namespace _STL
+{
+// Branch-form int overloads: this TU's flags compile the generic max/min ?:
+// to cmov, but retail's out-of-line copies use a branch (row 57 family-LK3).
+inline const int &(max)(const int &__a, const int &__b)
+{ const int *__pa = &__a, *__pb = &__b; if (*__pa < *__pb) return __b; return __a; }
+inline const int &(min)(const int &__a, const int &__b)
+{ const int *__pa = &__a, *__pb = &__b; if (*__pb < *__pa) return __b; return __a; }
+}
+
+typedef int Int;
+
+class Member0C00739C70 { public: void clear(); };
+
+class Rva0004D729 {
+public:
+	Rva0004D729(void *surface, void **bits, int *pitch, int left, int top, int right, int bottom) {
+		rva0004D729(surface, bits, pitch, left, top, right, bottom);
+	}
+	~Rva0004D729() { m_surface->clear(); }
+	Rva0004D729 *rva0004D729(void *surface, void **bits, int *pitch, int left, int top, int right, int bottom);
+	Member0C00739C70 *m_surface;
+};
+
+// The bank bodies of 0x0004F037 / 0x0004F29B spell the same lock this way.
+class NativeRadarSurfaceLock : public Rva0004D729 {
+public:
+	NativeRadarSurfaceLock(void *surface, void *&bits, int *pitch, int left, int top, int right, int bottom)
+		: Rva0004D729(surface, &bits, pitch, left, top, right, bottom) {}
+};
+
+Color Rva0004DE72Blend(Color *color, Color source, UnsignedByte alpha);
+
+struct BfmeRadarWorldPoint:Coord3D{BfmeRadarWorldPoint();~BfmeRadarWorldPoint();};
+
+struct BfmeRadarMapPoint:Coord2D{BfmeRadarMapPoint();~BfmeRadarMapPoint();};
+
+// BFME's View slots, reached through the real TheTacticalView.
+class W3DRadarTacticalView{public:
+virtual void slot0();
+virtual void slot1();
+virtual void slot2();
+virtual void slot3();
+virtual void slot4();
+virtual void slot5();
+virtual void slot6();
+virtual void slot7();
+virtual void slot8();
+virtual void slot9();
+virtual void slot10();
+virtual void slot11();
+virtual void slot12();
+virtual void getScreenCornerWorldPointsAtZ(Coord3D*,Coord3D*,Coord3D*,Coord3D*,float);
+virtual void slot14();
+virtual void slot15();
+virtual void slot16();
+virtual void slot17();
+virtual void slot18();
+virtual void slot19();
+virtual void slot20();
+virtual void slot21();
+virtual void slot22();
+virtual void slot23();
+virtual void slot24();
+virtual void slot25();
+virtual void slot26();
+virtual void slot27();
+virtual void slot28();
+virtual void slot29();
+virtual void slot30();
+virtual void slot31();
+virtual void slot32();
+virtual void slot33();
+virtual void slot34();
+virtual void slot35();
+virtual void slot36();
+virtual void slot37();
+virtual void slot38();
+virtual void slot39();
+virtual void slot40();
+virtual void slot41();
+virtual void slot42();
+virtual void slot43();
+virtual void slot44();
+virtual void slot45();
+virtual void slot46();
+virtual void slot47();
+virtual void slot48();
+virtual void slot49();
+virtual void slot50();
+virtual void slot51();
+virtual void slot52();
+virtual void slot53();
+virtual void slot54();
+virtual void slot55();
+virtual void slot56();
+virtual void slot57();
+virtual void slot58();
+virtual void slot59();
+virtual void slot60();
+virtual void slot61();
+virtual void slot62();
+virtual void slot63();
+virtual float getAngle();
+virtual void slot65();
+virtual void slot66();
+virtual void slot67();
+virtual void slot68();
+virtual void slot69();
+virtual void getPosition(Coord3D*);
+virtual void slot71();
+virtual void slot72();
+virtual float getZoom();
+};
+
+extern int BfmeClientFramesPerSecond;
+
+class Anim2D
+{
+public:
+    void draw(int, int, int, int);
+};
+
+class BeaconClientFrame
+{
+public:
+#define SLOT(N) virtual void slot##N();
+    SLOT(0) SLOT(1) SLOT(2) SLOT(3) SLOT(4) SLOT(5) SLOT(6)
+    SLOT(7) SLOT(8) SLOT(9) SLOT(10) SLOT(11) SLOT(12)
+    SLOT(13) SLOT(14) SLOT(15) SLOT(16) SLOT(17) SLOT(18)
+    SLOT(19) SLOT(20) SLOT(21) SLOT(22) SLOT(23) SLOT(24) SLOT(25) SLOT(26) SLOT(27) SLOT(28) SLOT(29) SLOT(30)
+#undef SLOT
+    virtual unsigned getFrame();
+};
+
+class GameClient;
+
+extern GameClient *TheGameClient;
+
+extern unsigned int g_Va00DE1D00;
+
+extern unsigned int g_Va00DE1D60;
+
+void __cdecl BFME_DX8_Thread_Lock();
+
+bool __cdecl BFME_DX8_Thread_Assert();
+
+class BFMEDX8DeviceLock
+{
+public:
+	BFMEDX8DeviceLock() { BFME_DX8_Thread_Lock(); }
+	~BFMEDX8DeviceLock() { BFME_DX8_Thread_Assert(); }
+};
+
+class BfmeMapPictureTexture
+{
+	void *m_ptr;
+};
+
+// The texture filter block, reached through the ledger's name for the
+// folded holder accessor 0x00132856.
+class ShroudFilter
+{
+public:
+	Int m_minFilter;
+	Int m_magFilter;
+	Int m_mipFilter;
+	Int m_uAddressMode;
+	Int m_vAddressMode;
+};
+
+class ShroudTexture
+{
+public:
+	ShroudFilter *getFilter(void);
+};
+
+class Rva00131DFC
+{
+public:
+	void rva00131DFC(void *width, void *height, void *format, void *levels, Int a, Int b);
+};
+
+// BFME's offset of the local player, reached through the real ThePlayerList. The inline
+// helper is what gives the static below retail's object in EDI and colour in EBX.
+class W3DRadarPlayerListView
+{
+public:
+	Player *bfme_local_player() { return m_local; }
+	char m_pad00[0x10];
+	Player *m_local; // +0x10
+};
+
+class Rva00373EC6 { public: char m_pad00[0x3c]; const ThingTemplate *m_template; };
+
+static const ObjectStatusTypes OBJECT_STATUS_BFME_17 = static_cast<ObjectStatusTypes>(0x11);
+
+extern void BFME_DX8_Thread_Lock(void);
+
+extern bool BFME_DX8_Thread_Assert(void);
+
+class TaintGrid
+{
+public:
+	Real getCellWidth() const { return m_cellWidth; }
+	Real getCellHeight() const { return m_cellHeight; }
+
+private:
+	unsigned char m_pad00[0x10];
+	Real m_cellWidth;
+	Real m_cellHeight;
+};
+
+// BFME's offsets of the terrain's two grids, reached through the real TheTerrainRenderObject.
+class W3DRadarTerrainView
+{
+public:
+	__declspec(dllimport) __forceinline W3DShroud *getShroud() { return m_shroud; }
+	TaintGrid *getTaintGrid() { return m_taintGrid; }
+	char m_pad00[0x3878];
+private:
+	W3DShroud *m_shroud; // +0x3878
+	TaintGrid *m_taintGrid; // +0x387C
+};
+
+Bool legalRadarPoint(Int px, Int py);
+
+// BFME's offsets of the taint colours and enable byte, reached through the real TheWritableGlobalData.
+class W3DRadarGlobalDataView
+{
+	unsigned char m_pad00[0xBEC];
+
+public:
+	Real m_lowRed;
+	Real m_lowGreen;
+	Real m_lowBlue;
+	Real m_highRed;
+	Real m_highGreen;
+	Real m_highBlue;
+
+private:
+	unsigned char m_padC04[0xC6A - 0xC04];
+
+public:
+	UnsignedByte m_taintOn;
+};
+
+// Retail's surface slots, reached through W3DRadarResetSurface::m_surface.
+struct BfmeD3DSurface
+{
+	virtual long __stdcall QueryInterface(void);
+	virtual unsigned long __stdcall AddRef(void);
+	virtual unsigned long __stdcall Release(void);
+	virtual long __stdcall GetDevice(void);
+	virtual long __stdcall SetPrivateData(void);
+	virtual long __stdcall GetPrivateData(void);
+	virtual long __stdcall FreePrivateData(void);
+	virtual long __stdcall GetContainer(void);
+	virtual long __stdcall GetDesc(void);
+	virtual long __stdcall unused09(void);
+	virtual long __stdcall unused10(void);
+	virtual long __stdcall unused11(void);
+	virtual long __stdcall unused12(void);
+	virtual long __stdcall LockRect(D3DLOCKED_RECT *locked, const RECT *rect, unsigned long flags);	// +0x34
+	virtual long __stdcall UnlockRect(void);								// +0x38
+};
+
+enum
+{
+	BFME_D3DFMT_A8R8G8B8 = 21,
+	BFME_D3DFMT_A4R4G4B4 = 26,
+	BFME_D3DLOCK_READONLY = 0x10
+};
+
+class BFME2ParticleTextureHandle
+{
+public:
+	~BFME2ParticleTextureHandle() { if (m_ptr) m_ptr->Release_Ref(); }
+	TextureClass *m_ptr;
+};
+
+class TextureAsset
+{
+public:
+	static BFME2ParticleTextureHandle Get(const char *filename, int a, int b);
+	void rva00132FE9(bool flag);
+};
+
+// BFME's Display slots, reached through the real TheDisplay.
+class W3DRadarDisplayView{public:
+virtual void slot0();
+virtual void slot1();
+virtual void slot2();
+virtual void slot3();
+virtual void slot4();
+virtual void slot5();
+virtual void slot6();
+virtual void slot7();
+virtual void slot8();
+virtual void slot9();
+virtual void slot10();
+virtual void slot11();
+virtual void slot12();
+virtual void slot13();
+virtual void slot14();
+virtual void slot15();
+virtual void slot16();
+virtual void slot17();
+virtual void slot18();
+virtual void slot19();
+virtual void slot20();
+virtual void slot21();
+virtual void slot22();
+virtual void slot23();
+virtual void slot24();
+virtual void slot25();
+virtual void slot26();
+virtual void slot27();
+virtual void slot28();
+virtual void slot29();
+virtual void slot30();
+virtual void slot31();
+virtual void slot32();
+virtual void slot33();
+virtual void slot34();
+virtual void slot35();
+virtual void slot36();
+virtual void slot37();
+virtual void slot38();
+virtual void slot39();
+virtual void slot40();
+virtual void slot41();
+virtual void setClip(void*);
+virtual void slot43();
+virtual void resetClip(void*);
+};
+
+class W3DDisplay{public:void rva0004D664(float,float,float,float,float,int);void rva0004D6B3(Image*,float,float,float,float,int,int);};
+
+class Rva0004263F{public:void rva0004263F(float,float,float,float,int);};
+
+int Rva0004D76EBlend(int,int);
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadar.cpp
+
 // ---- from Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadar.cpp
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadar.cpp
@@ -853,12 +1232,6 @@ void Rva004EFE9::rva0004F7F4()
     ::delete this;
 }
 
-// tu-skeleton: 0x0004D9B6 381B ?reconstructViewBox@W3DRadar@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarReconstructViewBox.cpp (not merged yet)
-
-// tu-skeleton: 0x0004DBD5 490B ?drawViewBox@W3DRadar@@QAEXHHHHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarDrawViewBox.cpp (not merged yet)
-
-// tu-skeleton: 0x0004DDBF 179B ?rva0004DDBF@W3DRadar@@QAEXHHHHHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarDrawBeacon.cpp (not merged yet)
-
 // ---- from Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarColorBlend.cpp
 
 Color Rva0004DE72Blend(Color *color, Color source, UnsignedByte alpha)
@@ -889,15 +1262,239 @@ Color Rva0004DE72Blend(Color *color, Color source, UnsignedByte alpha)
 	return *out = result;
 }
 
-// tu-skeleton: 0x0004DF6F 569B ?rva0004DF6F@@YAXPBVObject@@PAXHHMM@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarFootprintFill.cpp (not merged yet)
+// ---- from Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarReconstructViewBox.cpp
 
-// tu-skeleton: 0x0004E2FA 167B ?reset@W3DRadar@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarReset.cpp (not merged yet)
+// Native4D9B6..4DB33 RET0; BF1 f989 W3DRadar::reconstructViewBox
+// supplies four-corner projection and deltas. Target uses float radar points.
+
+void W3DRadar::reconstructViewBox(){
+BfmeRadarWorldPoint world[4];BfmeRadarMapPoint radar[4];int i;
+((W3DRadarTacticalView*)TheTacticalView)->getScreenCornerWorldPointsAtZ(&world[0],&world[1],&world[2],&world[3],m_terrainAverageZ);
+for(i=0;i<4;++i){radar[i].x=world[i].x/(m_mapExtent.width()/128);radar[i].y=world[i].y/(m_mapExtent.height()/128);
+if(i==0){m_viewBox[i].x=0;m_viewBox[i].y=0;}else{m_viewBox[i].x=radar[i].x-radar[i-1].x;m_viewBox[i].y=radar[i].y-radar[i-1].y;}}
+m_viewAngle=((W3DRadarTacticalView*)TheTacticalView)->getAngle();Coord3D pos;((W3DRadarTacticalView*)TheTacticalView)->getPosition(&pos);m_viewZoom=((W3DRadarTacticalView*)TheTacticalView)->getZoom();m_reconstructViewBox=false;
+}
+
+// tu-skeleton: 0x0004DBD5 490B ?drawViewBox@W3DRadar@@QAEXHHHHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarDrawViewBox.cpp (not merged yet)
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarDrawBeacon.cpp
+
+// BF1 f98983a7d W3DRadarEventRva006C1280.cpp supplies event projection and
+// animation semantics. Target 4DDBF..4DE72 RET24 proves a six-argument member;
+// target event records are 80B at +2C, animation table +14A8 and client-frame
+// query is slot31. Original method name remains unknown. Keep duration as
+// a float local: native retains it on the x87 stack across the size conversion.
+
+void W3DRadar::rva0004DDBF(int x, int y, int w, int h, int i, int unused)
+{
+    RadarEvent *event = &m_event[i];
+    int type = event->type;
+    unsigned frame = reinterpret_cast<BeaconClientFrame *>(TheGameClient)->getFrame();
+    const float duration = BfmeClientFramesPerSecond * 1.5;
+    int size = (int)((1.0f - (float)(frame - event->createFrame) / duration) *
+        (w * (2.0f / 3.0f)));
+    if (size < 16)
+        size = 16;
+
+    ICoord2D pixel;
+    radarToPixel(&event->radarLoc, &pixel, x, y, w, h);
+    int px = pixel.x - size / 2;
+    int py = pixel.y - size / 2;
+    m_eventImages[type]->draw(px, py, size, size);
+}
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarFootprintFill.cpp
+
+// ?rva0004DF6F@@YAXPBVObject@@PAXHHMM@Z  Native 0x0004DF6F..0x0004E1A8 (569 bytes)
+// W3DRadar footprint fill static (object in EBX); standalone fallback with a
+// dummy caller marked absent-from-retail (same practice as 4E55B / 4E704).
+// Exact including EH .xdata. Preferred home is the combined object-list unit.
+
+static void rva0004DF6F(const Object *obj, void *surface, Int width, Int height,
+	Real scaleX, Real scaleY)
+{
+	if (obj == 0)
+		return;
+
+	const Coord3D *pos = obj->getPosition();
+	Int radius = (Int)obj->getGeometryInfo().getMajorRadius();	// GeometryInfo +0x10
+	ICoord2D center;
+	center.x = (Int)(pos->x * scaleX);
+	center.y = (Int)(pos->y * scaleY);
+	Int x0 = (Int)(center.x - radius * scaleX);
+	Int y0 = (Int)(center.y - radius * scaleY);
+	Int x1 = (Int)(center.x + radius * scaleX);
+	Int y1 = (Int)(center.y + radius * scaleY);
+	Int left = (x0 > 0) ? x0 : 0;
+	Int top = (y0 > 0) ? y0 : 0;
+	Int right = (x1 < width) ? x1 : width;
+	Int bottom = (y1 < height) ? y1 : height;
+
+	int pitch;
+	void *bits;
+	Rva0004D729 lock(surface, &bits, &pitch, left, top, right, bottom);
+	if (!bits)
+		return;
+	{
+		Color color = obj->getIndicatorColor();
+		Coord3D pt;
+		pt.x = pos->x;
+		pt.y = pos->y;
+		pt.z = pos->z;
+		for (Int y = top; y < bottom; ++y)
+		{
+			Color *row = (Color *)((char *)bits + (y - top) * pitch);
+			pt.y = (center.y - y) * (1.0f / scaleY) + pos->y;
+			for (Int x = left; x < right; ++x)
+			{
+				pt.x = (center.x - x) * (1.0f / scaleX) + pos->x;
+				if (obj->getGeometryInfo().CollidesWith(*pos, obj->getOrientation(),
+					reinterpret_cast<const GeometryInfo &>(g_Va00DE1D00), pt, 0.0f))
+				{
+					if (obj->getGeometryInfo().CollidesWith(*pos, obj->getOrientation(),
+						reinterpret_cast<const GeometryInfo &>(g_Va00DE1D60), pt, 0.0f))
+						Rva0004DE72Blend(&row[x - left], color, 0xff);
+					else
+						Rva0004DE72Blend(&row[x - left], color, 0x80);
+				}
+			}
+		}
+	}
+}
+
+// ?rva0004DF6FCaller absent-from-retail
+void rva0004DF6FCaller(const Object *obj, void *surface, Int width, Int height, Real scaleX, Real scaleY)
+{
+	rva0004DF6F(obj, surface, width, height, scaleX, scaleY);
+}
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarReset.cpp
+
+// ?reset@W3DRadar@@UAEXXZ, retail 0x0004E2FA..0x0004E3A1 (167 bytes, EH). Zero Hour's
+// W3DRadar::reset: the base Radar::reset, then under the DX8 thread lock the overlay and
+// shroud textures' top surfaces are cleared to zero (rowed Get_Surface_Level 0x00132D70,
+// clear 0x00116780, surface handle dtor 0x00176CB0) and the terrain texture reference is
+// cleared (0x0004D75B); two primary-table steps (+0x20, +0x28) follow and the +0x1460 flag is
+// set. The override is entered through the SubsystemInterface sub-object at +4 of the
+// W3DRadar object, which the compiler adjusts for.
+
+void W3DRadar::reset()
+{
+	Radar::reset();
+	BFMEDX8DeviceLock lock;
+	m_terrainTexture.Get_Surface_Level().clear(false);
+	m_overlayTexture.Get_Surface_Level().clear(false);
+	reinterpret_cast<BfmeResetTextureRef *>(&m_terrainTextureAlt)->clear();
+	rva0004F580();
+	clearShroud();
+	m_dirty = true;
+}
 
 // tu-skeleton: 0x0004E3A1 5B ?rva0004E3A1@Rva0004E3A1@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAJ_Rva00034D00.cpp (not merged yet)
 
 // tu-skeleton: 0x0004E3A6 12B ?rva0004E3A6@Rva0004E3A6@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesB.cpp (not merged yet)
 
-// tu-skeleton: 0x0004E3F1 159B ?rva0004E3F1@W3DRadar@@IAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarInit.cpp (not merged yet)
+// ---- from Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarInit.cpp
+
+// Native [0004E3F1,0004E490),159B, RET0 and [0004E7D2,0004EB00),814B, RET0.
+// BFME 2 W3DRadar::init with its terrain-image helper; the ZH W3DRadar::init
+// (W3DRadar.cpp: texture formats, terrain texture, terrain Image with
+// raw-texture status, flipped UV, texture and image sizes) is the semantic
+// guide. BFME 2 builds four textures (formats +0x1468/+0x1478/+0x1484/+0x1490
+// into the holders +0x1470/+0x1480/+0x148C/+0x1498 through 0x00131DFC, the
+// last two with clamped filters) and four Images (+0x146C/+0x147C/+0x1488/
+// +0x1494); the first Image is configured by the helper, which picks the
+// holder at +0x1474 instead of +0x1470 when +0x14D5 is set. Texture size is
+// +0x149C/+0x14A0. init overrides the SubsystemInterface slot of the second
+// base (+0x04), so it runs on the adjusted this. Every offset is target
+// evidence; the helper name is address-derived.
+
+void W3DRadar::rva0004E3F1(void)
+{
+	Region2D uv;
+	uv.lo.x = 0.0f;
+	uv.lo.y = 1.0f;
+	uv.hi.x = 1.0f;
+	uv.hi.y = 0.0f;
+	const CursorTextureSlot &texture = m_useAltTerrainTexture ? m_terrainTextureAlt : m_terrainTexture;
+	m_terrainImage->setStatus(IMAGE_STATUS_RAW_TEXTURE);
+	m_terrainImage->bfmeSetTexture(reinterpret_cast<const BfmeMapPictureTexture &>(texture));
+	m_terrainImage->setUV(&uv);
+	m_terrainImage->setTextureWidth(m_textureWidth);
+	m_terrainImage->setTextureHeight(m_textureHeight);
+	ICoord2D size;
+	size.x = m_textureWidth;
+	size.y = m_textureHeight;
+	m_terrainImage->setImageSize(&size);
+}
+
+void W3DRadar::init(void)
+{
+	initializeTextureFormats();
+
+	((Rva00131DFC *)&m_terrainTexture)->rva00131DFC((void *)m_textureWidth, (void *)m_textureHeight,
+		(void *)m_terrainTextureFormat, (void *)1, 1, 0);
+	((Rva00131DFC *)&m_overlayTexture)->rva00131DFC((void *)m_textureWidth, (void *)m_textureHeight,
+		(void *)m_overlayTextureFormat, (void *)1, 1, 0);
+	((Rva00131DFC *)&m_shroudTexture)->rva00131DFC((void *)m_textureWidth, (void *)m_textureHeight,
+		(void *)m_shroudTextureFormat, (void *)1, 1, 0);
+	((ShroudTexture *)&m_shroudTexture)->getFilter()->m_minFilter = 4;
+	((ShroudTexture *)&m_shroudTexture)->getFilter()->m_magFilter = 4;
+	((ShroudTexture *)&m_shroudTexture)->getFilter()->m_uAddressMode = 1;
+	((ShroudTexture *)&m_shroudTexture)->getFilter()->m_vAddressMode = 1;
+	((Rva00131DFC *)&m_fogTexture)->rva00131DFC((void *)m_textureWidth, (void *)m_textureHeight,
+		(void *)m_fogTextureFormat, (void *)1, 1, 0);
+	((ShroudTexture *)&m_fogTexture)->getFilter()->m_minFilter = 4;
+	((ShroudTexture *)&m_fogTexture)->getFilter()->m_magFilter = 4;
+
+	m_terrainImage = new Image;
+	rva0004E3F1();
+
+	Region2D uv;
+	ICoord2D size;
+
+	m_overlayImage = new Image;
+	uv.lo.x = 0.0f;
+	uv.lo.y = 1.0f;
+	uv.hi.x = 1.0f;
+	uv.hi.y = 0.0f;
+	m_overlayImage->setStatus(IMAGE_STATUS_RAW_TEXTURE);
+	m_overlayImage->bfmeSetTexture(reinterpret_cast<const BfmeMapPictureTexture &>(m_overlayTexture));
+	m_overlayImage->setUV(&uv);
+	m_overlayImage->setTextureWidth(m_textureWidth);
+	m_overlayImage->setTextureHeight(m_textureHeight);
+	size.x = m_textureWidth;
+	size.y = m_textureHeight;
+	m_overlayImage->setImageSize(&size);
+
+	m_shroudImage = new Image;
+	uv.lo.x = 0.0f;
+	uv.lo.y = 1.0f;
+	uv.hi.x = 1.0f;
+	uv.hi.y = 0.0f;
+	m_shroudImage->setStatus(IMAGE_STATUS_RAW_TEXTURE);
+	m_shroudImage->bfmeSetTexture(reinterpret_cast<const BfmeMapPictureTexture &>(m_shroudTexture));
+	m_shroudImage->setUV(&uv);
+	m_shroudImage->setTextureWidth(m_textureWidth);
+	m_shroudImage->setTextureHeight(m_textureHeight);
+	size.x = m_textureWidth;
+	size.y = m_textureHeight;
+	m_shroudImage->setImageSize(&size);
+
+	m_fogImage = new Image;
+	uv.lo.x = 0.0f;
+	uv.lo.y = 1.0f;
+	uv.hi.x = 1.0f;
+	uv.hi.y = 0.0f;
+	m_fogImage->setStatus(IMAGE_STATUS_RAW_TEXTURE);
+	m_fogImage->bfmeSetTexture(reinterpret_cast<const BfmeMapPictureTexture &>(m_fogTexture));
+	m_fogImage->setUV(&uv);
+	m_fogImage->setTextureWidth(m_textureWidth);
+	m_fogImage->setTextureHeight(m_textureHeight);
+	size.x = m_textureWidth;
+	size.y = m_textureHeight;
+	m_fogImage->setImageSize(&size);
+}
 
 // tu-skeleton: 0x0004E4BD 12B ?rva0004E4BD@Rva0004E4BD@@QAEXXZ -- matched in Code/GameEngine/Source/Common/PinnedForwarders1830.cpp (not merged yet)
 
@@ -907,23 +1504,400 @@ Color Rva0004DE72Blend(Color *color, Color source, UnsignedByte alpha)
 
 // tu-skeleton: 0x0004E5A2 354B ?drawEvents@W3DRadar@@QAEXHHHHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DRadarDrawEvents.cpp (not merged yet)
 
-// tu-skeleton: 0x0004E704 206B ?rva0004E704@@YA_NPAVObject@@PAH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarStealthBlink.cpp (not merged yet)
+// ---- from Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarStealthBlink.cpp
 
-// tu-skeleton: 0x0004E7D2 814B ?init@W3DRadar@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarInit.cpp (not merged yet)
+// ?rva0004E704@@YA_NPAVObject@@PAH@Z  Native 0x0004E704..0x0004E7D2 (206 bytes)
+// Radar stealth blink for one object: unless the object passes the rowed
+// Object query 0x002943B2 (null player) or is disguised (0x0028F4BC record with
+// a template at +0x3C) a foreign object that fails rva002933CD and status 0x11
+// is hidden (returns false); otherwise the colour alpha pulses between 64 and
+// 255 over 2 * BfmeClientFramesPerSecond client frames (TheGameClient slot 0x7C).
+// Same shape as the BFME1 W3DRadar cold path rva006C42B0 (donor f98983a7d).
+// Static helper with a private convention: its retail caller 0x00050125 (W3DRadar
+// object-list render) passes the object in EDI and the colour pointer in EBX.
+// The caller tests only AL of rva002933CD so the int row is read as a byte.
 
-// tu-skeleton: 0x0004EB00 573B ?setShroudLevel@W3DRadar@@UAEXHHW4CellShroudStatus@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarSetShroudLevel.cpp (not merged yet)
+static Bool rva0004E704(Object *object, Color *color)
+{
+	if (object->rva002943B2(0))
+	{
+		Rva00373EC6 *disguise = object->rva0028F4BC();
+		if (disguise == 0 || disguise->m_template == 0)
+		{
+			if (object->getControllingPlayer() != ((W3DRadarPlayerListView *)ThePlayerList)->bfme_local_player() &&
+				!(UnsignedByte)object->rva002933CD() && !object->testStatus(OBJECT_STATUS_BFME_17))
+				return false;
 
-// tu-skeleton: 0x0004ED3D 544B ?rva0004ED3D@W3DRadar@@QAEXHHE@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarRva0004ED3D.cpp (not merged yet)
+			UnsignedByte red, green, blue, alpha;
+			GameGetColorComponents(*color, &red, &green, &blue, &alpha);
+			const UnsignedInt halfTransition = BfmeClientFramesPerSecond;
+			UnsignedInt frame = reinterpret_cast<BeaconClientFrame *>(TheGameClient)->getFrame() % (halfTransition * 2);
+			if (frame >= halfTransition)
+				alpha = (UnsignedByte)(255 - ((frame - halfTransition) * 191) / halfTransition);
+			else
+				alpha = (UnsignedByte)(64 + (frame * 191) / halfTransition);
+			*color = GameMakeColor(red, green, blue, alpha);
+		}
+	}
+	return true;
+}
+
+// ?rva0004E704Caller absent-from-retail
+Int rva0004E704Caller(RadarObject *const *objects, Int count, Color *colors)
+{
+	Int drawn = 0;
+	for (Int i = 0; i < count; ++i)
+	{
+		Object *obj = objects[i]->friend_getObject();
+		Color c = colors[i];
+		if (rva0004E704(obj, &c))
+			drawn += c;
+	}
+	return drawn;
+}
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarSetShroudLevel.cpp
+
+// Native [0004EB00,0004ED3D),573B, RET12. BFME 2 W3DRadar::setShroudLevel;
+// the ZH setShroudLevel (W3DRadar.cpp) is the semantic guide: shroud cell to
+// world rectangle (W3DShroud cell size +0x10/+0x14 on TheTerrainRenderObject
+// +0x3878), worldToRadar both corners, then write the alpha of every legal
+// radar pixel of the shroud texture (+0x148C) surface. BFME 2 holds the DX8
+// thread lock around the surface, squeezes the rectangle by the radar aspect
+// scale from 0x002D790A (centered with the texture height 0x00132784 or width
+// 0x0013275A) and writes only the alpha byte (0x00116D10). The body after
+// the missing-shroud return is its else block (retail's block layout).
+
+void W3DRadar::setShroudLevel(Int shroudX, Int shroudY, CellShroudStatus setting)
+{
+	W3DShroud *shroud = TheTerrainRenderObject ? ((W3DRadarTerrainView *)TheTerrainRenderObject)->getShroud() : 0;
+	if (!shroud)
+		return;
+	else
+	{
+		BFMEDX8DeviceLock lock;
+		W3DRadarResetSurface surface = m_shroudTexture.Get_Surface_Level();
+
+		Int mapMinX = shroudX * shroud->getCellWidth();
+		Int mapMinY = shroudY * shroud->getCellHeight();
+		Int mapMaxX = (shroudX + 1) * shroud->getCellWidth();
+		Int mapMaxY = (shroudY + 1) * shroud->getCellHeight();
+
+		ICoord2D radarPoint;
+		Coord3D worldPoint;
+		worldPoint.x = mapMinX;
+		worldPoint.y = mapMinY;
+		worldToRadar(&worldPoint, &radarPoint);
+		Int radarMinX = radarPoint.x;
+		Int radarMinY = radarPoint.y;
+
+		worldPoint.x = mapMaxX;
+		worldPoint.y = mapMaxY;
+		worldToRadar(&worldPoint, &radarPoint);
+		Int radarMaxX = radarPoint.x;
+		Int radarMaxY = radarPoint.y;
+
+		Real scaleX, scaleY;
+		rva002D790A(&scaleX, &scaleY);
+		if (scaleX > scaleY) {
+			radarMinY = radarMinY * scaleY;
+			radarMaxY = radarMaxY * scaleY;
+			Real offset = (UnsignedInt)((TextureBaseClass *)&m_shroudTexture)->rva00132784() * ((1.0f - scaleY) * 0.5f);
+			radarMinY = radarMinY + offset;
+			radarMaxY = radarMaxY + offset;
+		} else {
+			radarMinX = radarMinX * scaleX;
+			radarMaxX = radarMaxX * scaleX;
+			Real offset = (UnsignedInt)((TextureBaseClass *)&m_shroudTexture)->rva0013275A() * ((1.0f - scaleX) * 0.5f);
+			radarMinX = radarMinX + offset;
+			radarMaxX = radarMaxX + offset;
+		}
+
+		UnsignedByte alpha;
+		if (setting == CELLSHROUD_SHROUDED)
+			alpha = 255;
+		else if (setting == CELLSHROUD_FOGGED)
+			alpha = 127;
+		else
+			alpha = 0;
+
+		for (Int y = radarMinY; y <= radarMaxY; y++) {
+			for (Int x = radarMinX; x <= radarMaxX; x++) {
+				if (legalRadarPoint(x, y))
+					surface->rva00116D10(x, y, alpha);
+			}
+		}
+	}
+}
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarRva0004ED3D.cpp
+
+//
+// ?rva0004ED3D@W3DRadar@@QAEXHHE@Z @0x0004ED3D 544B, thiscall ret 0xC.
+// W3DRadar taint counterpart of setShroudLevel (0x0004EB00): gate on the
+// GlobalData taint-enable byte (+0xC6A), take the terrain's second grid
+// (TheTerrainRenderObject +0x387C, cell size +0x10/+0x14), map the cell to a
+// radar rectangle through Radar::worldToRadar and fill it on the radar's taint
+// texture (+0x1498) with the TaintColor-style tint below level 128 (colour
+// GlobalData +0xBEC scaled by (127-level)*2), the second colour (+0xBF8) above
+// it (level*2-256) and opaque white tint at exactly 128.
+// Evidence (target): the +0xBEC/+0xBF8 colour pair and +0xC6A enable byte are
+// the ones W3DTaint.cpp names; retail loads the grid, the shared DX8 thread
+// lock (0x0011F520 / 0x00120F50) and Get_Surface_Level (0x00132D70) exactly as
+// the rowed setShroudLevel does. Donor (structure only): BFME 1
+// W3DRadar_taintCell_rva006C2710.cpp (same function in the earlier title).
+// The method name is not known; it keeps the address.
+// Shape note: the body after the missing-grid return sits in its else block
+// (as in setShroudLevel); that is what puts cellX in eax before the first
+// cell-width load.
+
+void W3DRadar::rva0004ED3D(Int cellX, Int cellY, UnsignedByte level)
+{
+	if (!((W3DRadarGlobalDataView *)TheWritableGlobalData)->m_taintOn)
+		return;
+
+	TaintGrid *grid = TheTerrainRenderObject ? ((W3DRadarTerrainView *)TheTerrainRenderObject)->getTaintGrid() : 0;
+	if (!grid)
+		return;
+	else {
+		BFMEDX8DeviceLock lock;
+		W3DRadarResetSurface surface = m_fogTexture.Get_Surface_Level();
+
+		Int mapMinX = cellX * grid->getCellWidth();
+		Int mapMinY = cellY * grid->getCellHeight();
+		Int mapMaxX = (cellX + 1) * grid->getCellWidth();
+		Int mapMaxY = (cellY + 1) * grid->getCellHeight();
+
+		ICoord2D radarPoint;
+		Coord3D worldPoint;
+
+		worldPoint.x = mapMinX;
+		worldPoint.y = mapMinY;
+		worldToRadar(&worldPoint, &radarPoint);
+		Int radarMinX = radarPoint.x;
+		Int radarMinY = radarPoint.y;
+
+		worldPoint.x = mapMaxX;
+		worldPoint.y = mapMaxY;
+		worldToRadar(&worldPoint, &radarPoint);
+		Int radarMaxX = radarPoint.x;
+		Int radarMaxY = radarPoint.y;
+
+		Int alpha;
+		Int red;
+		Int green;
+		Int blue;
+		if (level < 128) {
+			alpha = (127 - level) * 2;
+			red = alpha * ((W3DRadarGlobalDataView *)TheWritableGlobalData)->m_lowRed;
+			green = alpha * ((W3DRadarGlobalDataView *)TheWritableGlobalData)->m_lowGreen;
+			blue = alpha * ((W3DRadarGlobalDataView *)TheWritableGlobalData)->m_lowBlue;
+		} else if (level > 128) {
+			alpha = level * 2 - 256;
+			red = alpha * ((W3DRadarGlobalDataView *)TheWritableGlobalData)->m_highRed;
+			green = alpha * ((W3DRadarGlobalDataView *)TheWritableGlobalData)->m_highGreen;
+			blue = alpha * ((W3DRadarGlobalDataView *)TheWritableGlobalData)->m_highBlue;
+		} else {
+			alpha = 0;
+			red = 255;
+			green = 255;
+			blue = 255;
+		}
+
+		for (Int y = radarMinY; y <= radarMaxY; y++) {
+			for (Int x = radarMinX; x <= radarMaxX; x++) {
+				if (legalRadarPoint(x, y))
+					surface->DrawPixel(x, y, GameMakeColor(red, green, blue, alpha));
+			}
+		}
+
+	}
+}
 
 // tu-skeleton: 0x0004EF5D 140B ??0Rva004EFE9@@QAE@PAURva0004F7F4Owner@@U?$_List_iterator@PAVSnapshot@@U?$_Nonconst_traits@PAVSnapshot@@@_STL@@@_STL@@PBD@Z -- matched in Code/GameEngine/Source/Common/Rva0004EFE9Ctor.cpp (not merged yet)
 
-// tu-skeleton: 0x0004F037 612B ?rva0004F037@@YAXPAXHHHHHPBE@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarBlobBlips.cpp (not merged yet)
+// ---- from Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarBlobBlips.cpp
 
-// tu-skeleton: 0x0004F29B 605B ?rva0004F29B@@YAXPAXHHHHHQAY01$$CBE@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarBlobBlips.cpp (not merged yet)
+// ?rva0004F037@@YAXPAXHHHHHPBE@Z  Native 0x0004F037..0x0004F29B (612 bytes)
+// ?rva0004F29B@@YAXPAXHHHHHQAY01$$CBE@Z  Native 0x0004F29B..0x0004F4F8 (605 bytes)
+// W3DRadar 6x6 alpha blob (height ECX width EDX) and 2x2 blend blip (width ECX)
+// statics; standalone fallback with a dummy caller marked absent-from-retail.
+// Both exact including EH .xdata. Preferred home is the combined unit.
+
+static void rva0004F037(void *surface, Int width, Int height,
+	Int centerX, Int centerY, Color color, const UnsignedByte *alpha)
+{
+	Int blobLeft = centerX - 3;
+	Int blobTop = centerY - 3;
+	Int blobRight = centerX + 3;
+	Int blobBottom = centerY + 3;
+	Int left = (blobLeft > 0) ? blobLeft : 0;
+	Int startY = (blobTop > 0) ? blobTop : 0;
+	Int right = (blobRight < width) ? blobRight : width;
+	Int endY = (blobBottom < height) ? blobBottom : height;
+
+	int pitch;
+	void *bits;
+	NativeRadarSurfaceLock lock(surface, bits, &pitch, left, startY, right, endY);
+	if (!bits)
+		return;
+	{
+		Int row;
+		for (row = startY; row < centerY && row < endY; ++row)
+		{
+			Color *dst = (Color *)((char *)bits + (row - startY) * pitch);
+			Int dy = row - blobTop;
+			Int col;
+			for (col = left; col < centerX && col < right; ++col)
+				Rva0004DE72Blend(&dst[col - left], color, alpha[(col - blobLeft) * 3 + dy]);
+			for (col = (std::max)(centerX, left); col < right; ++col)
+				Rva0004DE72Blend(&dst[col - left], color, alpha[(blobRight - col - 1) * 3 + dy]);
+		}
+		if (centerY < endY)
+		for (row = (std::max)(centerY, startY); row < endY; ++row)
+		{
+			Int dy = blobBottom - row - 1;
+			Color *dst = (Color *)((char *)bits + (row - startY) * pitch);
+			Int col;
+			for (col = left; col < centerX && col < right; ++col)
+				Rva0004DE72Blend(&dst[col - left], color, alpha[(col - blobLeft) * 3 + dy]);
+			for (col = (std::max)(centerX, left); col < right; ++col)
+				Rva0004DE72Blend(&dst[col - left], color, alpha[(blobRight - col - 1) * 3 + dy]);
+		}
+	}
+}
+
+static void rva0004F29B(void *surface, Int width, Int height,
+	Int centerX, Int centerY, Color color, const UnsignedByte alpha[][2])
+{
+	Int blobLeft = centerX - 2;
+	Int blobTop = centerY - 2;
+	Int blobRight = centerX + 2;
+	Int blobBottom = centerY + 2;
+	Int left = (blobLeft > 0) ? blobLeft : 0;
+	Int startY = (blobTop > 0) ? blobTop : 0;
+	Int right = (blobRight < width) ? blobRight : width;
+	Int endY = (blobBottom < height) ? blobBottom : height;
+
+	int pitch;
+	void *bits;
+	NativeRadarSurfaceLock lock(surface, bits, &pitch, left, startY, right, endY);
+	if (!bits)
+		return;
+	{
+		Int row;
+		for (row = startY; row < centerY && row < endY; ++row)
+		{
+			Color *dst = (Color *)((char *)bits + (row - startY) * pitch);
+			Int dy = row - blobTop;
+			Int col;
+			for (col = left; col < centerX && col < right; ++col)
+				Rva0004DE72Blend(&dst[col - left], color, alpha[col - blobLeft][dy]);
+			for (col = (std::max)(centerX, left); col < right; ++col)
+				Rva0004DE72Blend(&dst[col - left], color, alpha[blobRight - col - 1][dy]);
+		}
+		if (centerY < endY)
+		for (row = (std::max)(centerY, startY); row < endY; ++row)
+		{
+			Int dy = blobBottom - row - 1;
+			Color *dst = (Color *)((char *)bits + (row - startY) * pitch);
+			Int col;
+			for (col = left; col < centerX && col < right; ++col)
+				Rva0004DE72Blend(&dst[col - left], color, alpha[col - blobLeft][dy]);
+			for (col = (std::max)(centerX, left); col < right; ++col)
+				Rva0004DE72Blend(&dst[col - left], color, alpha[blobRight - col - 1][dy]);
+		}
+	}
+}
+
+// ?rva0004F037Caller absent-from-retail
+// The emission driver takes its tables from its caller; it owns no retail data.
+void rva0004F037Caller(void *surface, Int width, Int height, Int centerX, Int centerY, Color color, Color light,
+	const UnsignedByte *blobAlpha, const UnsignedByte blipAlpha[][2])
+{
+	rva0004F037(surface, width, height, centerX, centerY, color, blobAlpha);
+	rva0004F29B(surface, width, height, centerX, centerY, light, blipAlpha);
+}
 
 // tu-skeleton: 0x0004F4F8 29B ??$__copy_ptrs@PAUGeometryRecord@@PAU1@@_STL@@YAPAUGeometryRecord@@PAU1@00ABU__false_type@0@@Z -- matched in Code/GameEngine/Source/Common/System/GeometryRecordVectorCopyConstructor.cpp (not merged yet)
 
-// tu-skeleton: 0x0004F580 600B ?rva0004F580@W3DRadar@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarScrollShroud.cpp (not merged yet)
+// ---- from Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarScrollShroud.cpp
+
+// ?rva0004F580@W3DRadar@@UAEXXZ, retail 0x0004F580..0x0004F7D8 (600 bytes, EH).
+// W3DRadar primary vftable 0x00BC4E34 slot 8 (the step W3DRadar::reset calls
+// first): clears the texture held at +0x148C, then copies the "ScrollShroud"
+// mapped image into it. The image's texture holder (+0x2C) is used when present,
+// else the image file is loaded (0x00132D89, cached handle) and flagged
+// (0x00132FE9). Under the DX8 device lock both top surfaces are locked
+// (source read-only), equal-sized A8R8G8B8/A4R4G4B4 rows are copied (a size
+// mismatch clears the destination), both are unlocked and +0x14D6 is set.
+// Purpose and every offset/slot are read from the retail bytes; names of the
+// method and of the +0x148C/+0x14D6 members are not recovered.
+
+void W3DRadar::rva0004F580()
+{
+	m_scrollShroudLoaded = false;
+	m_shroudTexture.Get_Surface_Level().clear(false);
+
+	const Image *image = TheMappedImageCollection->findImageByName(AsciiString("ScrollShroud"));
+	if (!image)
+		return;
+
+	BFME2ParticleTextureHandle texture = TextureAsset::Get(image->getFilename().str(), 1, 0);
+	((TextureAsset *)&texture)->rva00132FE9(true);
+
+	CursorTextureSlot *slot = image->getRawTextureData() ? (CursorTextureSlot *)image->getRawTextureData() : (CursorTextureSlot *)&texture;
+	if (slot)
+	{
+		W3DRadarResetSurface srcSurface = slot->Get_Surface_Level();
+		W3DRadarResetSurface dstSurface = m_shroudTexture.Get_Surface_Level();
+		SurfaceClass::SurfaceDescription srcDesc;
+		SurfaceClass::SurfaceDescription dstDesc;
+		((SurfaceClass *)&srcSurface)->Get_Description(srcDesc);
+		((SurfaceClass *)&dstSurface)->Get_Description(dstDesc);
+		if (srcDesc.Format == dstDesc.Format)
+		{
+			BFMEDX8DeviceLock lock;
+			BfmeD3DSurface *src = (BfmeD3DSurface *)srcSurface.m_surface;
+			BfmeD3DSurface *dst = (BfmeD3DSurface *)dstSurface.m_surface;
+			if (src && dst)
+			{
+				D3DLOCKED_RECT srcRect;
+				D3DLOCKED_RECT dstRect;
+				memset(&srcRect, 0, sizeof(srcRect));
+				memset(&dstRect, 0, sizeof(dstRect));
+				DX8_ErrorCode(src->LockRect(&srcRect, 0, BFME_D3DLOCK_READONLY));
+				DX8_ErrorCode(dst->LockRect(&dstRect, 0, 0));
+				if (srcDesc.Width == dstDesc.Width && srcDesc.Height == dstDesc.Height)
+				{
+					int bytesPerPixel;
+					if (srcDesc.Format == BFME_D3DFMT_A8R8G8B8)
+						bytesPerPixel = 4;
+					else if (srcDesc.Format == BFME_D3DFMT_A4R4G4B4)
+						bytesPerPixel = 2;
+					else
+						goto unlock;
+					unsigned char *srcBits = (unsigned char *)srcRect.pBits;
+					unsigned char *dstBits = (unsigned char *)dstRect.pBits;
+					for (int y = dstDesc.Height - 1; y >= 0; --y)
+					{
+						memcpy(dstBits, srcBits, bytesPerPixel * dstDesc.Width);
+						srcBits += srcRect.Pitch;
+						dstBits += dstRect.Pitch;
+					}
+				}
+				else if (dstDesc.Format == BFME_D3DFMT_A8R8G8B8 || dstDesc.Format == BFME_D3DFMT_A4R4G4B4)
+				{
+					memset(dstRect.pBits, 0, dstRect.Pitch * dstDesc.Height);
+				}
+unlock:
+				DX8_ErrorCode(dst->UnlockRect());
+				DX8_ErrorCode(src->UnlockRect());
+				m_scrollShroudLoaded = true;
+			}
+		}
+	}
+}
 
 // tu-skeleton: 0x0004FAFF 1510B ?buildTerrainTexture@W3DRadar@@IAEXPAVTerrainLogic@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarTerrainTexture.cpp (not merged yet)
 
@@ -933,53 +1907,71 @@ Color Rva0004DE72Blend(Color *color, Color source, UnsignedByte alpha)
 
 // tu-skeleton: 0x00050125 1049B ?rva00050125@W3DRadar@@QAEXPBVRadarObject@@PBVCursorTextureSlot@@H@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarRenderObjectList.cpp (not merged yet)
 
-// tu-skeleton: 0x0005053E 1314B ?draw@W3DRadar@@QAEXHHHHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadar_draw.cpp (not merged yet)
+// ---- from Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadar_draw.cpp
 
-// tu-skeleton: 0x0075D3E8 19B $L496 -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarReconstructViewBox.cpp (not merged yet)
+//
+// ?draw@W3DRadar@@QAEXHHHHH@Z, retail 0x0005053e, 1314 bytes. Banked partial (score 1.0) closed by tools/permute.py;
+// the body is the banked one up to statement/operand order and local types.
+// Native [0x0005053E,0x00050A60),1314B, RET20. BFME1 W3DRadar::draw
+// at f98983a7d3bb405f1a4ba94bb6a2a168062a819d and GeneralsMD W3DRadar.cpp
+// guide the aspect bars, overlay refresh, texture layers and view-box order.
+// Target evidence supplies alpha argument5, clipping and dirty-overlay checks,
+// exact fields14/18/1434..1498/14D4..14DF, and view slots64/73. Existing Radar
+// ctor/dtor at2D87B9/2D7CED prove Snapshot + twelve-byte SubsystemInterface.
+// Its existing BFME2 subsystem header is used unchanged.
+// Direct callee interfaces are target facts, not inferred from byte matching:
+// 50125..5053E RET12 receives list/texture-slot/colour under Radar ECX;
+// 4E5A2..4E704 RET20 walks64 events of stride50 at+2C and projects pings;
+// 4DBD5..4DDBF RET20 projects the four view corners and forwards to2D55D2.
+// The last two take the same origin/dimensions/unused-colour stack arguments.
+// Reconstruction banks preserve their implementations and remaining codegen
+// blockers; their direct in-image pins add no recovered callee bytes.
 
-// tu-skeleton: 0x0075D3FB 19B $L497 -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarReconstructViewBox.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D40E 10B __ehhandler$?reconstructViewBox@W3DRadar@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarReconstructViewBox.cpp (not merged yet)
+void W3DRadar::draw(int pixelX,int pixelY,int width,int height,int color){
+Player*player=((W3DRadarPlayerListView *)ThePlayerList)->m_local;
+if(!player->hasRadar()&&!*(bool*)((char*)TheRadar+0x11))return;
+if(m_clip)((W3DRadarDisplayView *)TheDisplay)->setClip(m_clipRect);
+ICoord2D ul,lr;findDrawPositions(pixelX,pixelY,width,height,&ul,&lr);
+int scaledWidth=lr.x-ul.x,scaledHeight=lr.y-ul.y;
+if(!m_useAltTerrainTexture&&!m_scrollShroudLoaded){int fillColor=Rva0004D76EBlend(0xff000000,color);int lineColor=Rva0004D76EBlend(0xff323232,color);
+if(m_mapExtent.width()/width>=m_mapExtent.height()/height){
+((Rva0004263F*)TheDisplay)->rva0004263F(pixelX,pixelY,width,ul.y-pixelY-1,fillColor);
+((Rva0004263F*)TheDisplay)->rva0004263F(pixelX,lr.y+1,width,pixelY+height-lr.y-1,fillColor);
+((W3DDisplay*)TheDisplay)->rva0004D664(pixelX,ul.y,pixelX+width,ul.y,1,lineColor);
+((W3DDisplay*)TheDisplay)->rva0004D664(pixelX,lr.y+1,pixelX+width,lr.y+1,1,lineColor);
+}else{
+((Rva0004263F*)TheDisplay)->rva0004263F(pixelX,pixelY,ul.x-pixelX-1,height,fillColor);
+((Rva0004263F*)TheDisplay)->rva0004263F(lr.x+1,pixelY,width-(lr.x-pixelX)-1,height,fillColor);
+((W3DDisplay*)TheDisplay)->rva0004D664(ul.x,pixelY,ul.x,pixelY+height,1,lineColor);
+((W3DDisplay*)TheDisplay)->rva0004D664(lr.x+1,pixelY,lr.x+1,pixelY+height,1,lineColor);
+}}
+((W3DDisplay*)TheDisplay)->rva0004D6B3(m_terrainImage,ul.x,ul.y,lr.x,lr.y,color,2);
+if(m_dirty||reinterpret_cast<BeaconClientFrame *>(TheGameClient)->getFrame()%6==0){
+m_overlayTexture.Get_Surface_Level().clear(false);
+rva00050125(m_objectList,&m_overlayTexture,color);rva00050125(m_localObjectList,&m_overlayTexture,color);
+}
+((W3DDisplay*)TheDisplay)->rva0004D6B3(m_fogImage,ul.x,ul.y,lr.x,lr.y,color,2);
+((W3DDisplay*)TheDisplay)->rva0004D6B3(m_overlayImage,ul.x,ul.y,lr.x,lr.y,color,2);
+((W3DDisplay*)TheDisplay)->rva0004D6B3(m_shroudImage,pixelX,pixelY,pixelX+width,pixelY+height,color,2);
+drawEvents(ul.x,ul.y,scaledWidth,scaledHeight,color);
+rva0004F515(ul.x,ul.y,scaledWidth,scaledHeight);
+if(((W3DRadarTacticalView*)TheTacticalView)->getZoom()!=m_viewZoom)m_reconstructViewBox=true;
+if(((W3DRadarTacticalView*)TheTacticalView)->getAngle()!=m_viewAngle)m_reconstructViewBox=true;
+if(m_reconstructViewBox==true)reconstructViewBox();
+drawViewBox(ul.x,ul.y,scaledWidth,scaledHeight,color);
+if(m_clip)((W3DRadarDisplayView *)TheDisplay)->resetClip(0);
+m_dirty=false;
+}
 
 // tu-skeleton: 0x0075D418 19B ?rva0075d418@@YAXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarDrawViewBox.cpp (not merged yet)
 
 // tu-skeleton: 0x0075D42B 10B __ehhandler$?drawViewBox@W3DRadar@@QAEXHHHHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarDrawViewBox.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D447 8B uw_0075d447 -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarReset.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D44F 8B Unwind@00b5d44f -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarReset.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D457 8B Unwind@00b5d457 -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarReset.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D45F 10B __ehhandler$?reset@W3DRadar@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarReset.cpp (not merged yet)
 
 // tu-skeleton: 0x0075D47B 13B $L1673 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DRadarDrawEvents.cpp (not merged yet)
 
 // tu-skeleton: 0x0075D488 8B $L1674 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DRadarDrawEvents.cpp (not merged yet)
 
 // tu-skeleton: 0x0075D490 10B __ehhandler$?drawEvents@W3DRadar@@QAEXHHHHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DRadarDrawEvents.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D49A 10B $L629 -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarInit.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D4A4 10B $L630 -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarInit.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D4AE 10B $L631 -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarInit.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D4B8 10B $L632 -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarInit.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D4C2 10B __ehhandler$?init@W3DRadar@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarInit.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D4CC 8B uw_0075d4cc -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarSetShroudLevel.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D4D4 8B $L531 -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarSetShroudLevel.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D4DC 10B __ehhandler$?setShroudLevel@W3DRadar@@UAEXHHW4CellShroudStatus@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarSetShroudLevel.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D4E6 8B uw_0075d4e6 -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarRva0004ED3D.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D4EE 8B $L543 -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarRva0004ED3D.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D4F6 10B __ehhandler$?rva0004ED3D@W3DRadar@@QAEXHHE@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarRva0004ED3D.cpp (not merged yet)
 
 // tu-skeleton: 0x0075D500 8B Unwind@00b5d500 -- matched in Code/GameEngine/Source/Common/Rva0004EFE9Ctor.cpp (not merged yet)
 
@@ -990,24 +1982,6 @@ Color Rva0004DE72Blend(Color *color, Color source, UnsignedByte alpha)
 // tu-skeleton: 0x0075D51B 10B __ehhandler$??0Rva004EFE9@@QAE@PAURva0004F7F4Owner@@U?$_List_iterator@PAVSnapshot@@U?$_Nonconst_traits@PAVSnapshot@@@_STL@@@_STL@@PBD@Z -- matched in Code/GameEngine/Source/Common/Rva0004EFE9Ctor.cpp (not merged yet)
 
 // tu-skeleton: 0x0075D52D 11B uw_0075d52d -- matched in Code/gen_small/uw_gen_009.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D542 8B $L4400 -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarBlobBlips.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D54A 10B __ehhandler$?rva0004F29B@@YAXPAXHHHHHQAY01$$CBE@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarBlobBlips.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D554 8B Unwind@00b5d554 -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarScrollShroud.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D55C 8B Unwind@00b5d55c -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarScrollShroud.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D564 8B Unwind@00b5d564 -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarScrollShroud.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D56C 8B Unwind@00b5d56c -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarScrollShroud.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D574 8B Unwind@00b5d574 -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarScrollShroud.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D57C 8B uw_0075d57c -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarScrollShroud.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D584 10B __ehhandler$?rva0004F580@W3DRadar@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarScrollShroud.cpp (not merged yet)
 
 // tu-skeleton: 0x0075D5A2 8B uw_0075d5a2 -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/Rva004FA1FRadarDtor.cpp (not merged yet)
 
@@ -1060,7 +2034,3 @@ Color Rva0004DE72Blend(Color *color, Color source, UnsignedByte alpha)
 // tu-skeleton: 0x0075D6CA 8B $L4845 -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarRenderObjectList.cpp (not merged yet)
 
 // tu-skeleton: 0x0075D6D2 10B __ehhandler$?rva00050125@W3DRadar@@QAEXPBVRadarObject@@PBVCursorTextureSlot@@H@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarRenderObjectList.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D6DC 8B $L5739 -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadar_draw.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D6E4 10B __ehhandler$?draw@W3DRadar@@QAEXHHHHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadar_draw.cpp (not merged yet)

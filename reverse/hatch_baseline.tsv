@@ -1234,12 +1234,8 @@ address_global	Code/GameEngine/Source/GameNetwork/createServiceHubImpl.cpp	g_Va0
 address_global	Code/GameEngine/Source/GameNetwork/createServiceHubImpl.cpp	g_Va0130A58D	2
 address_global	Code/GameEngine/Source/Main/AudioManagerFocusVolume.cpp	g_Va00BBB8D8	2
 address_global	Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva0005CA03.cpp	g_Va00DE0878	2
-address_global	Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarBlobBlips.cpp	g_Va00DE1D00	1
-address_global	Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarBlobBlips.cpp	g_Va00DE1D60	1
-address_global	Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarFootprintFill.cpp	g_Va00BC4E80	1
-address_global	Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarFootprintFill.cpp	g_Va00BC4E84	1
-address_global	Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarFootprintFill.cpp	g_Va00DE1D00	2
-address_global	Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarFootprintFill.cpp	g_Va00DE1D60	2
+address_global	Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadar.cpp	g_Va00DE1D00	2
+address_global	Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadar.cpp	g_Va00DE1D60	2
 address_global	Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarRenderObjectList.cpp	g_Va00BC4E80	2
 address_global	Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarRenderObjectList.cpp	g_Va00BC4E84	2
 address_global	Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarRenderObjectList.cpp	g_Va00DE1D00	2
