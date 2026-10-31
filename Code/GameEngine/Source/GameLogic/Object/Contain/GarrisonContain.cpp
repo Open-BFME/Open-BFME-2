@@ -175,6 +175,58 @@ class RGBAColorReal;
 class RGBAColorInt;
 class Snapshot;
 #include "../../../../Include/Common/BfmeXfer.h"
+#pragma comment(linker, "/alternatename:?b1@B1@@UAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
+#pragma comment(linker, "/alternatename:?b6@B6@@UAEXXZ=?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")
+#pragma comment(linker, "/alternatename:?b0@B0@@UAEXXZ=??_GGarrisonContain@@UAEPAXI@Z")
+#pragma comment(linker, "/alternatename:?b2@B2@@UAEXXZ=?update@GarrisonContain@@UAE?AW4UpdateSleepTime@@XZ")
+#pragma comment(linker, "/alternatename:?b3@B3@@UAEXXZ=?rva0046261B@SlaughterHordeContain@@UAEX_N@Z")
+#pragma comment(linker, "/alternatename:?b4@B4@@UAEXXZ=?rva004628D1@Rva004628D1@@UAEXPAVObject@@HH@Z")
+#pragma comment(linker, "/alternatename:?b5@B5@@UAEXXZ=?onDie@OpenContain@@UAEXPBVDamageInfo@@@Z")
+#pragma comment(linker, "/alternatename:?b7@B7@@UAEXXZ=?IsCRC@Xfer@@UBE_NXZ")
+#pragma comment(linker, "/alternatename:?b8@B8@@UAEXXZ=??1Region2D@@QAE@XZ")
+struct Rva004786F8LogicView { char m_lead[0x40]; unsigned int m_frame; };
+class DamageInfo {
+public:
+    DamageInfo();
+    char m_lead[0x10];
+    int m_damageType;
+    char m_gap[8];
+    int m_deathType;
+    float m_amount;
+    char m_tail[0x7c-0x24];
+};
+class Rva00263895Member {
+public:
+    Rva00263895Member();
+    char m_lead[0x10];
+    int m_damageType;
+    char m_gap[8];
+    int m_deathType;
+    float m_amount;
+    char m_tail[0x7c-0x24];
+};
+class Rva004786F8Body {
+public:
+    virtual void slot00();
+    virtual void attemptHealing(DamageInfo*);
+    virtual void slot08();
+    virtual void slot0c();
+    virtual void slot10();
+    virtual void slot14();
+    virtual float getMaxHealth() const;
+};
+struct Rva004786F8TemplateView {
+    char m_lead[0x111];
+    unsigned char m_kindof111;
+};
+struct Rva004786F8ObjectView {
+    char m_lead00[4];
+    const Rva004786F8TemplateView* m_template;
+    char m_lead08[0x254-8];
+    Rva004786F8Body* m_body;
+    char m_gap[0x24];
+    unsigned int m_containedByFrame;
+};
 
 typedef float Real;
 
@@ -715,6 +767,10 @@ public:
 };
 
 class Team;
+
+class Thing;
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContain.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContain.cpp
 
@@ -1262,12 +1318,6 @@ bool GarrisonContain::calcBestGarrisonPosition(Coord3D *sourcePos, const Coord3D
     return true;
 }
 
-// tu-skeleton: 0x00477F06 278B ??0GarrisonContain@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00478061 6B ?name@GarrisonContain@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00478067 128B ??1GarrisonContain@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainDtor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainValidateRallyPoint.cpp
 
 // ?validateRallyPoint@GarrisonContain@@IAEXXZ, retail 0x00478141, 240 bytes.
@@ -1447,17 +1497,69 @@ int GarrisonContain::findClosestFreeGarrisonPointIndex(int conditionIndex, const
     return closestIndex;
 }
 
-// tu-skeleton: 0x004785A2 107B ?putObjectAtBestGarrisonPoint@GarrisonContain@@IAEXPAVObject@@0PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainFirePoints.cpp (not merged yet)
+// tu-skeleton: 0x00477F06 278B ??0GarrisonContain@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x0047860D 28B ??_GGarrisonContain@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainDtor.cpp (not merged yet)
+// tu-skeleton: 0x00478061 6B ?name@GarrisonContain@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainDtor.cpp
+
+//
+// ??1GarrisonContain@@UAE@XZ retail 0x00478067 128 bytes.
+// GarrisonContain virtual destructor over pinned OpenContain base 0x00464692.
+// Restores nine vtable slots at +0x00 +0x0C +0x10 +0x20 +0x24 +0x28 +0x2C +0x30 +0x34
+// then destroys 120 Coord3D at +0x424 via eh vector destructor iterator
+// through folded dtor at 0x000B3FD0 then calls base dtor.
+// Donor BFME1 GarrisonContainDestructor Coord3D 3x40 at 0x3FC moved to 0x424 in BFME2.
+// Identity via deleting wrapper 0x0047860D slot0 vtable 0x00C461F8
+// and pool key 0x0047801C with GarrisonContain string.
+// Layout from ctor 0x00477F06 array 0x424 count 0x78 size 0x0C and factory news 0x9E0.
+// Shape follows CaveContainDtor ten-vptr plus FlightDeck RunwayInfo Coord3D array precedent.
+
+GarrisonContain::~GarrisonContain()
+{
+}
+
+// Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
+// each one has the same function in that slot (vftable addresses from matched vptr
+// stores). Bind them to the rows at those functions.
+
+// Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
+// each one has the same function in that slot (vftable addresses from matched vptr
+// stores). Bind them to the rows at those functions.
+
+// Placeholder virtuals this unit's vftables hold.  In retail each such slot
+// holds a rowed function; the vftable's address is proven by the vptr stores in
+// the matched destructors, so bind the placeholder to that row's name.
+
+// tu-skeleton: 0x004785A2 107B ?putObjectAtBestGarrisonPoint@GarrisonContain@@IAEXPAVObject@@0PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainFirePoints.cpp (not merged yet)
 
 // tu-skeleton: 0x00478629 112B ?rva00478629@GarrisonContain@@QAE_NPAVObject@@_N1@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainIface20.cpp (not merged yet)
 
 // tu-skeleton: 0x00478699 95B ?isValidContainerFor@GarrisonContain@@UAE_NPAVObject@@_N1@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainIface20.cpp (not merged yet)
 
-// tu-skeleton: 0x004786F8 114B ?healSingleObject@GarrisonContain@@IAEXPAVObject@@M@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainHealSingleObject.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainHealSingleObject.cpp
 
-// tu-skeleton: 0x0047876A 70B ?onBodyDamageStateChange@GarrisonContain@@UAEXPBVDamageInfo@@W4BodyDamageType@@1@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainHealSingleObject.cpp (not merged yet)
+void GarrisonContain::healSingleObject(Object* object,float framesForFullHeal) {
+    Rva00263895Member healInfo;
+    healInfo.m_damageType=7;
+    healInfo.m_deathType=1;
+    Rva004786F8ObjectView* view=(Rva004786F8ObjectView*)object;
+    Rva004786F8Body* body=view->m_body;
+    if(((Rva004786F8LogicView*)TheGameLogic)->m_frame-view->m_containedByFrame >= framesForFullHeal)
+        healInfo.m_amount=body->getMaxHealth();
+    else
+        healInfo.m_amount=body->getMaxHealth()/framesForFullHeal;
+    body->attemptHealing((DamageInfo*)&healInfo);
+}
+
+void GarrisonContain::onBodyDamageStateChange(const DamageInfo*, BodyDamageType, BodyDamageType newState) {
+    if(newState == BODY_REALLYDAMAGED && !(((const Rva004786F8TemplateView*)((const Rva004786F8ObjectView*)m_object)->m_template)->m_kindof111 & 0x80)) {
+        if(getContainCount(0) > 0) {
+            cSlot35(2);
+            cSlot32(2);
+        }
+    }
+}
 
 // tu-skeleton: 0x004787B0 160B ?rva004787B0@GarrisonContain@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainRva004787B0.cpp (not merged yet)
 
