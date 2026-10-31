@@ -3,7 +3,6 @@
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "Common/Snapshot.h"
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
-#pragma comment(linker, "/alternatename:?crc@GhostObject@@MAEXPAVXfer@@@Z=?name@GhostObject@@QBEPBDXZ")
 // ?xfer@GhostObjectManager@@MAEXPAVXfer@@@Z @0x0030594D 31B via Xfer Version1 plus int operator== slot 0x7c
 // Retail Version1 then Xfer virtual at +0x7c with this+4; reverse-overload layout puts int at 0x7c.
 //
@@ -76,14 +75,15 @@ public:
 	Rva003058F9();
 };
 
+struct Coord3D;
 class GeometryInfo
 {
 public:
 	GeometryInfo();
+	bool CollidesWith(const Coord3D &, float, const GeometryInfo &, const Coord3D &, float) const;
 	virtual ~GeometryInfo();
-
 private:
-	unsigned char m_bytes[0x5C - 0x04];
+	unsigned char m_bytes[0x5C - 0x04]; // +0x04
 };
 
 class GhostObject : public Snapshot, public Rva003058F9
@@ -97,9 +97,10 @@ public:
 	virtual Real vslot08() const;
 	virtual void vslot0C( PartitionData *pd );
 	virtual PartitionData *vslot10() const;
+	// Slot 4 of table 0x00C0793C is __purecall; W3DGhostObject's 0x00BC5994 holds 0x00467F2C, returning +0xE0.
+	virtual GhostObject *getNext() = 0;
 
 protected:
-	virtual void crc( Xfer *xfer );
 	virtual void xfer( Xfer *xfer );
 
 	Object *m_parentObject;																			///< 0x0C
@@ -115,6 +116,13 @@ class GhostObjectManager : public Snapshot
 public:
 	GhostObjectManager( void );
 	virtual ~GhostObjectManager();
+	// Table 0x00C078F0: slot 4 is the shared empty RET 0x000B3FD0, slot 5 the shared setter 0x002B230F.
+	virtual void reset( void ) {}
+	virtual void setLocalPlayerIndex( int index ) { m_localPlayer = index; }
+	// Slots 6-8 are __purecall; W3DGhostObjectManager's 0x00BC59B8 fills them, slot 8 with 0x001DB09D, returning +0x10.
+	virtual void updateOrphanedObjects( int *playerIndexList, int numNonLocalPlayers ) = 0;
+	virtual GhostObject *addGhostObject( Object *object ) = 0;
+	virtual GhostObject *getFirst() = 0;
 
 protected:
 	virtual const char *GetSnapshotName( void ) const;
@@ -226,9 +234,5 @@ GhostObject::GhostObject() :
 GhostObject::~GhostObject()
 {
 }
-
-// Placeholder virtuals this unit's vftables hold.  In retail each such slot
-// holds a rowed function; the vftable's address is proven by the vptr stores in
-// the matched destructors, so bind the placeholder to that row's name.
 
 // tu-skeleton: 0x00305B30 6B ?name@GhostObject@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters2.cpp (not merged yet)
