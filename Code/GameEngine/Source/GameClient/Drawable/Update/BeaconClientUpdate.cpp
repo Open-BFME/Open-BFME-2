@@ -37,16 +37,13 @@ class Thing;
 class ModuleData;
 class Object;
 #include "../../../../Include/Common/BfmeXfer.h"
-
 class ParticleSystem
 {
   public:
     char pad[0xa8];
     ParticleSystemID id;
 };
-
 ParticleSystem *Make001FCBD7();
-
 class RvaSmartPtr12
 {
   public:
@@ -55,7 +52,6 @@ class RvaSmartPtr12
     void rva0004CBC0() throw();
     char bytes[12];
 };
-
 class BfmeParticleSystemHandle
 {
   public:
@@ -87,11 +83,8 @@ class BfmeParticleSystemHandle
     ParticleSystem *system;
     BfmeParticleSystemHandle *previous, *next;
 };
-
 class BeaconClientUpdate;
-
 class ParticleSystemTemplate;
-
 class ParticleSystemManager
 {
     friend class BeaconClientUpdate;
@@ -103,37 +96,24 @@ class ParticleSystemManager
   private:
     BfmeParticleSystemHandle findParticleSystemByID(ParticleSystemID) throw();
 };
-
 extern ParticleSystemManager *TheParticleSystemManager;
-
 class Rva0055A88BDwordField;
-
 class Rva001F3C20Slot
 {
   public:
     void set(const Rva0055A88BDwordField *);
 };
-
 struct Rva001F3899Arg;
-
 class Rva001F3899Slot
 {
   public:
     void set(const Rva001F3899Arg &);
 };
-
 class Rva001F3852ByteOneSetter
 {
   public:
     void enable();
 };
-
-class Object
-{
-  public:
-    int getIndicatorColor() const;
-};
-
 class Drawable
 {
   public:
@@ -144,14 +124,13 @@ class Drawable
     void setSelectable(bool);
     const Coord3D *getPosition() const;
 };
-
 class Rva00270260
 {
   public:
     bool rva00270260();
 };
-
 #include "../../../Common/Thing/thing.h"
+#include "../../BuffManager.h"
 
 class InGameUI;
 
@@ -253,6 +232,113 @@ extern "C" char PointDefenseLaserUpdate_vftable = -26;
 
 void XferParticleSystemID(Xfer *xfer, int *value);
 
+// Cold-slice B8-imm32 const-int returners (twin-free TU).
+//
+// Same shape as ConstIntGetters2.cpp/ConstIntGetters3.cpp (mov eax,<IMM32> /
+// ret, 6B) but kept in a separate TU so this lane does not contend with the
+// hot ConstIntGetters appends on origin/master. Rows are opaque
+// address-derived names: each body follows a ret-imm (C2-04-00 / C2-08-00)
+// and is carried by .rdata vtable slots with no direct callers and no branch
+// sources, so no class identity is witnessed. No // cl: line (defaults match
+// the frameless 6-byte shape).
+
+// The three Apt screen factories these getters return are matched rows.
+void *__stdcall createAptScreenInGameChat(void *);
+
+void *__stdcall createAptScreenObjectives(void *);
+
+void *__stdcall createAptScreenQuickMatchMenu(void *);
+
+class Object
+{
+  public:
+    int getIndicatorColor() const;
+};
+
+// ?GetSnapshotName@Rva004885DE@@MBEPBDXZ @ 0x004886c1 (6B): returns 0x00c4b550.
+// Follows a ret-8 (prev C2-08-00), carried by 1 .rdata vtable slot,
+// no direct callers, no branch sources. Opaque address-derived name.
+class Rva004885DE
+{
+protected:
+	virtual const char *GetSnapshotName() const;
+};
+
+// Retail table C4C3D4 selects this Snapshot name getter in slot 2.
+class FlammableUpdate
+{
+protected:
+	virtual const char *GetSnapshotName() const;
+};
+
+// Snapshot slot 2 of retail DamageModule table RVA 0x008598E4 selects this getter.
+class DamageModule
+{
+protected:
+	virtual const char *GetSnapshotName() const;
+};
+
+class Xfer;
+
+class LivingWorldCampaign
+{
+public:
+	virtual ~LivingWorldCampaign();
+	virtual void loadPostProcess();
+	virtual const char *GetSnapshotName() const;
+	virtual void xfer(Xfer *);
+};
+
+// Existing verified getters rehomed after naming their actual providers.
+// Integer return representation retained; provider addresses now relocate.
+class GameWindow;
+
+ class WinInstanceData;
+
+ void W3DLeftHUDDraw(GameWindow *, WinInstanceData *);
+
+class Rva0078D310Host;
+
+ Rva0078D310Host *__stdcall Rva00104FD5Create(void *);
+
+class AptLanLobby;
+
+ AptLanLobby *__stdcall Rva002D1F77Create(void *);
+
+class Rva004E4A45;
+
+ Rva004E4A45 *__stdcall Rva002D1FEBCreate(void *);
+
+class Rva004E8B38;
+
+ Rva004E8B38 *__stdcall Rva002D1F3DCreate(void *);
+
+class Rva00512AC8;
+
+ Rva00512AC8 *__stdcall Rva002D1E8FCreate(void *);
+
+class Rva005142B0;
+
+ Rva005142B0 *__stdcall Rva002D1F03Create(void *);
+
+class Rva00516211;
+
+ Rva00516211 *__stdcall Rva002D1FB1Create(void *);
+
+class Rva0051A78E;
+
+ Rva0051A78E *__stdcall Rva002D205FCreate(void *);
+
+class Rva005202C8;
+
+ Rva005202C8 *__stdcall Rva002D2147Create(void *);
+
+class Rva00523825;
+
+ Rva00523825 *__stdcall Rva002D21FBCreate(void *);
+
+// ---- from Code/GameEngine/Source/GameClient/Drawable/Update/BeaconClientUpdate.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/PointDefenseLaserUpdateCtor.cpp
 
 // Identity: ModuleFactory registers this module as "BeaconClientUpdate" (addModule pairs
@@ -273,8 +359,6 @@ BeaconClientUpdate::BeaconClientUpdate(Thing *thing, const ModuleData *moduleDat
 BeaconClientUpdate::~BeaconClientUpdate()
 {
 }
-
-// tu-skeleton: 0x004C95C3 6B ?Rva004C95C3Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/BeaconClientUpdateXfer.cpp
 
@@ -441,6 +525,16 @@ BeaconClientUpdateModuleData::BeaconClientUpdateModuleData()
 // ??1BeaconClientUpdateModuleData@@ present-unmatched
 BeaconClientUpdateModuleData::~BeaconClientUpdateModuleData()
 {
+}
+
+// ---- from Code/GameEngine/Source/Common/ConstIntGetters4.cpp
+
+// ?Rva004C95C3Get@@YAHXZ @ 0x004c95c3 (6B): returns 0x00bf44c0.
+// Follows a ret-8 (prev C2-08-00), carried by 1 .rdata vtable slot,
+// no direct callers, no branch sources. Opaque address-derived name.
+int Rva004C95C3Get(void)
+{
+	return (int)"BeaconClientUpdate";
 }
 
 // tu-skeleton: 0x004C9663 17B ?buildFieldParse@BeaconClientUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)

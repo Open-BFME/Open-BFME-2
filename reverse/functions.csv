@@ -11006,7 +11006,7 @@ _luaX_lex,,0x00757C90,1324,Code/Libraries/Source/Lua/llex.c,matched,BFME1 byte-i
 ?Rva004C8A10Get@@YAHXZ,,0x004C8A10,6,Code/GameEngine/Source/Common/ConstIntGetters4.cpp,matched,B8-6 returner ret bf450c; prev C2-08-00 with 1 vtable ref and no callers; opaque name
 ?Rva004C9008Get@@YAHXZ,,0x004C9008,6,Code/GameEngine/Source/Common/ConstIntGetters4.cpp,matched,B8-6 returner ret bf44e8; prev C2-08-00 with 1 vtable ref and no callers; opaque name
 ?Rva004C90DAGet@@YAHXZ,,0x004C90DA,6,Code/GameEngine/Source/Common/ConstIntGetters4.cpp,matched,B8-6 returner ret bf44d4; prev C2-08-00 with 1 vtable ref and no callers; opaque name
-?Rva004C95C3Get@@YAHXZ,,0x004C95C3,6,Code/GameEngine/Source/Common/ConstIntGetters4.cpp,matched,B8-6 returner ret bf44c0; prev C2-08-00 with 1 vtable ref and no callers; opaque name
+?Rva004C95C3Get@@YAHXZ,,0x004C95C3,6,Code/GameEngine/Source/GameClient/Drawable/Update/BeaconClientUpdate.cpp,matched,B8-6 returner ret bf44c0; prev C2-08-00 with 1 vtable ref and no callers; opaque name
 ?Rva004C9A06Get@@YAHXZ,,0x004C9A06,6,Code/GameEngine/Source/Common/ConstIntGetters4.cpp,matched,B8-6 returner ret bf4424; prev C2-08-00 with 1 vtable ref and no callers; opaque name
 ?Rva004C9BEDGet@@YAHXZ,,0x004C9BED,6,Code/GameEngine/Source/Common/ConstIntGetters4.cpp,matched,B8-6 returner ret bf44a8; prev C2-08-00 with 1 vtable ref and no callers; opaque name
 ?Rva004CBCA7Get@@YAHXZ,,0x004CBCA7,6,Code/GameEngine/Source/Common/ConstIntGetters4.cpp,matched,B8-6 returner ret bf4464; prev C2-08-00 with 1 vtable ref and no callers; opaque name
