@@ -237,23 +237,44 @@ struct Rva004786F8ObjectView {
 
 typedef float Real;
 
-enum ObjectID { INVALID_ID = 0 };
+#include "../../../Common/GameLogicObjectLookupView.h"
 
 enum NameKeyType { NK_UNKNOWN = 0 };
 
+class ConditionBits
+{
+public:
+    unsigned int test(int bit) const { return m_words[bit >> 5] & (1U << (bit & 31)); }
+    void set(int bit) { m_words[bit >> 5] |= 1U << (bit & 31); }
+private:
+    unsigned int m_words[4];
+};
+
+class ContainModuleInterface;
+
 // Native trackTargets reads ObjectID at +0x74 and Thing's position at +0x38;
-// validateRallyPoint 0x00478141 reads the bounding circle radius at +0xB8.
+// validateRallyPoint 0x00478141 reads the bounding circle radius at +0xB8;
+// redeployOccupants 0x00479395 tests and sets the +0x10C condition bits
+// (0x0028AE6D after a set) and getObjectGarrisonPointIndex 0x00479292 reads
+// the +0x250 contain interface.
 // Only the accessed Object prefix is represented; its full extent is unknown.
 class Object : public Thing
 {
 public:
     ObjectID getID() const { return m_id; }
     float getBoundingCircleRadius() const { return m_boundingCircleRadius; }
+    ContainModuleInterface *getContain() const { return m_contain; }
+    ConditionBits *getConditionBits() { return &m_conditionBits; }
+    void rva0028AE6D();
 private:
     unsigned char m_pad60[0x74 - 0x60];
     ObjectID m_id;
     unsigned char m_pad78[0xB8 - 0x78];
     float m_boundingCircleRadius;
+    unsigned char m_padBC[0x10C - 0xBC];
+    ConditionBits m_conditionBits; // +0x10C
+    unsigned char m_pad11C[0x250 - 0x11C];
+    ContainModuleInterface *m_contain; // +0x250
 };
 
 class AIUpdateInterface
@@ -563,6 +584,8 @@ protected:
     void healSingleObject(Object *obj, float framesForFullHeal);
     void putObjectAtBestGarrisonPoint(Object *obj, Object *target, const Coord3D *targetPos);
     virtual void redeployOccupants();
+    void addValidObjectsToGarrisonPoints();
+    void removeInvalidObjectsFromGarrisonPoints();
 private:
     unsigned int m_originalTeamID; // +0xFC
     GarrisonPointData m_garrisonPointData[MAX_GARRISON_POINTS]; // +0x100
@@ -916,8 +939,8 @@ void GarrisonContain::removeObjectFromGarrisonPoint(Object *occupant, int pointI
 	}
 	if (pointIndex < 0 || pointIndex >= 40)
 		return;
-	m_garrisonPointData[pointIndex].objectID = INVALID_ID;
-	m_garrisonPointData[pointIndex].targetID = INVALID_ID;
+	m_garrisonPointData[pointIndex].objectID = INVALID_OBJECT_ID;
+	m_garrisonPointData[pointIndex].targetID = INVALID_OBJECT_ID;
 	m_garrisonPointData[pointIndex].placeFrame = 0;
 	m_garrisonPointData[pointIndex].lastEffectFrame = 0;
 	--m_garrisonPointsInUse;
@@ -1161,7 +1184,7 @@ void GarrisonContain::trackTargets( void )
         if (newDistSq < currentDistSq)
         {
             removeObjectFromGarrisonPoint(obj, ourIndex);
-            ObjectID targetID = victim ? victim->getID() : INVALID_ID;
+            ObjectID targetID = victim ? victim->getID() : INVALID_OBJECT_ID;
             putObjectAtGarrisonPoint(obj, targetID, conditionIndex, newIndex);
         }
     }
@@ -1649,7 +1672,7 @@ void GarrisonContain::putObjectAtBestGarrisonPoint(Object *obj, Object *target, 
     if (pointIndex == -1)
         return;
 
-    putObjectAtGarrisonPoint(obj, target != 0 ? target->getID() : INVALID_ID, conditionIndex, pointIndex);
+    putObjectAtGarrisonPoint(obj, target != 0 ? target->getID() : INVALID_OBJECT_ID, conditionIndex, pointIndex);
 }
 
 bool GarrisonContain::attemptBestFirePointPosition(Object *source, Weapon *weapon, Object *victim)

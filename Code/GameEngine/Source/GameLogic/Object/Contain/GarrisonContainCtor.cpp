@@ -28,7 +28,7 @@ typedef unsigned int UnsignedInt;
 class Thing;
 class Object;
 
-enum ObjectID { INVALID_ID = 0 };
+#include "../../../Common/GameLogicObjectLookupView.h"
 
 enum NameKeyType { NK_UNKNOWN = 0 };
 
@@ -68,6 +68,7 @@ enum BodyDamageType
 };
 
 class DamageInfo;
+
 class Weapon;
 
 class ModuleData;
@@ -294,6 +295,8 @@ protected:
     void healSingleObject(Object *obj, float framesForFullHeal);
     void putObjectAtBestGarrisonPoint(Object *obj, Object *target, const Coord3D *targetPos);
     virtual void redeployOccupants();
+    void addValidObjectsToGarrisonPoints();
+    void removeInvalidObjectsFromGarrisonPoints();
 private:
     unsigned int m_originalTeamID; // +0xFC
     GarrisonPointData m_garrisonPointData[MAX_GARRISON_POINTS]; // +0x100
@@ -328,8 +331,8 @@ GarrisonContain::GarrisonContain(Thing *thing, const ModuleData *moduleData)
 
 	for (i = 0; i < MAX_GARRISON_POINTS; i++)
 	{
-		m_garrisonPointData[i].objectID = INVALID_ID;
-		m_garrisonPointData[i].targetID = INVALID_ID;
+		m_garrisonPointData[i].objectID = INVALID_OBJECT_ID;
+		m_garrisonPointData[i].targetID = INVALID_OBJECT_ID;
 		m_garrisonPointData[i].placeFrame = 0;
 		m_garrisonPointData[i].lastEffectFrame = 0;
 		m_garrisonPointData[i].effect = 0;
