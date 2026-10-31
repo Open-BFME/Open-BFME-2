@@ -13,22 +13,14 @@
 // a logged wall). The vtable store is an explicit member with a TU-local
 // stand-in, as in DeployStyleAIUpdateCtor.cpp; the vector is a call-only
 // view of the STLport class so its copy stays out of line.
+#include <vector>
+// Retail keeps the unsigned vector copy, destructor and the folded push_back
+// out of line (0x002CFAB9, 0x004DFCB0): declaration-only specializations.
 namespace _STL
 {
-template <class T> class allocator;
-template <class T, class A = allocator<T> > class vector
-{
-public:
-	vector(const vector &other);
-	~vector();
-	void push_back(const T &value);	// the folded push_back 0x004DFCB0
-	unsigned int size() const { return m_finish - m_start; }
-	const T &operator[](unsigned int i) const { return m_start[i]; }
-private:
-	T *m_start;
-	T *m_finish;
-	T *m_end;
-};
+template <> vector<unsigned int, allocator<unsigned int> >::vector(const vector<unsigned int, allocator<unsigned int> > &);
+template <> vector<unsigned int, allocator<unsigned int> >::~vector();
+template <> void vector<unsigned int, allocator<unsigned int> >::push_back(const unsigned int &);
 }
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
