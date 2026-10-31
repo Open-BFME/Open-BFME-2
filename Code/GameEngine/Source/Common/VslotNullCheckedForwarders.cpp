@@ -75,14 +75,6 @@ private:
 	W3DTreeBuffer *m_member;
 };
 
-// vtable 0x00BC5DB0#142
-Bool Rva0006820FNullForwarder::rva0006820F(Int firstValue)
-{
-	if (m_member)
-		return m_member->rva000EA644((void *)firstValue);
-	return false;
-}
-
 class Rva00091E38NullForwarder
 {
 public:

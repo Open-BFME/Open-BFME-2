@@ -306,16 +306,6 @@ public:
 	void rva000E7B04();
 };
 
-class Rva000680B3Host
-{
-public:
-	void rva000680B3();
-
-	char m_pad[0x3850];
-	Rva000EB3D1 *m_3850; // +0x3850
-	Rva000E7B04 *m_3854; // +0x3854
-};
-
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva000682B8@Rva000682B8@@QAEX_N@Z retail 0x000682B8 41B chain lane.
 // Evidence: forwards the same bool arg to two members at +0x3850/+0x3854;
@@ -514,6 +504,377 @@ private:
 
 BFME_DISP32_DWORD_CLEAR(Rva000685DADwordClearer, 0x37AC)
 
+// Real owners of the forwarders' targets, under their ledger names.
+class Drawable;
+
+class Transport;
+
+struct Coord3D;
+
+struct BuffInfoView;
+
+class TBuff;
+
+class W3DTreeBuffer { public: Bool rva000EA644(void *firstValue); };
+
+class Rva000680B3Host
+{
+public:
+	void rva000680B3();
+
+	char m_pad[0x3850];
+	Rva000EB3D1 *m_3850; // +0x3850
+	Rva000E7B04 *m_3854; // +0x3854
+};
+
+			// 0x000680B3
+class Rva000664F4
+{
+public:
+	TBuff *rva0006819B(Drawable *firstValue, const BuffInfoView *secondValue);	// 0x0006819B
+	Bool rva000681AF(void *firstValue, const Coord3D *secondValue);		// 0x000681AF
+	Bool rva000681D3(unsigned int firstValue, Int secondValue);			// 0x000681D3
+	Bool rva000681E7(Int firstValue, Bool secondValue);				// 0x000681E7
+	Bool rva000681FB(void *firstValue);					// 0x000681FB
+	void rva000682E1(Int firstValue);					// 0x000682E1
+};
+
+class Gen009794F0 { public: Int handle(); };
+
+				// 0x0019C0A0
+class Rva00149F20Holder { public: Int get() const; };
+
+			// 0x00149F20
+class Rva001E11F8 { public: void rva001E11F8(Int firstValue, Int secondValue); };
+
+	// 0x001E11F8
+class Rva001EB3D1 { public: void rva001EB3D1(); };
+
+			// 0x001EB3D1
+class Rva002CA9CA { public: void rva002CAC6E(Int firstValue, Int secondValue); };
+
+	// 0x002CAC6E
+class Rva004CFC81 { public: unsigned int rva004CFC81() const; };
+
+	// 0x004CFC81
+class BFMEConnectionManager
+{
+public:
+	unsigned char rva004CEF58(Int firstValue);				// 0x004CEF58
+	int isPlayerSlotActive(int slot);				// 0x004CF0CD
+	void attachTransport(Transport *transport);			// 0x004CF113
+};
+
+// rowed as ?setColor@Shadow@@QAEXH@Z (Shadow_setOpacity.cpp)
+class Shadow
+{
+public:
+	void setColor(Int firstValue);
+};
+
+class Rva000B31B9NullForwarder
+{
+public:
+	void rva000B31B9(Int firstValue);
+private:
+	char m_lead[0x1D4];
+	Shadow *m_member;
+};
+
+class Rva0006820FNullForwarder
+{
+public:
+	Bool rva0006820F(Int firstValue);
+private:
+	char m_lead[0x3850];
+	W3DTreeBuffer *m_member;
+};
+
+class Rva00091E38NullForwarder
+{
+public:
+	void rva00091E38();
+private:
+	char m_lead[0x14];
+	Rva000680B3Host *m_member;
+};
+
+class Rva00068283NullTarget
+{
+public:
+	void rva00068283(Int firstValue);
+};
+
+class Rva00091EDDNullForwarder
+{
+public:
+	void rva00091EDD(Int firstValue);
+private:
+	char m_lead[0x14];
+	Rva00068283NullTarget *m_member;
+};
+
+class Rva00091F2ANullForwarder
+{
+public:
+	Int rva00091F2A(Int firstValue, Int secondValue);
+private:
+	char m_lead[0x14];
+	Rva000664F4 *m_member;
+};
+
+class Rva00091F51NullForwarder
+{
+public:
+	Bool rva00091F51(Int firstValue, Int secondValue);
+private:
+	char m_lead[0x14];
+	Rva000664F4 *m_member;
+};
+
+class Rva00091F62NullForwarder
+{
+public:
+	Bool rva00091F62(Int firstValue, Int secondValue);
+private:
+	char m_lead[0x14];
+	Rva000664F4 *m_member;
+};
+
+class Rva00091F73NullForwarder
+{
+public:
+	Bool rva00091F73(Int firstValue, Bool secondValue);
+private:
+	char m_lead[0x14];
+	Rva000664F4 *m_member;
+};
+
+class Rva00091F84NullForwarder
+{
+public:
+	Bool rva00091F84(Int firstValue);
+private:
+	char m_lead[0x14];
+	Rva000664F4 *m_member;
+};
+
+class Rva00068061NullTarget
+{
+public:
+	void rva00068061(Int firstValue);
+};
+
+class Rva00091FABNullForwarder
+{
+public:
+	void rva00091FAB(Int firstValue);
+private:
+	char m_lead[0x14];
+	Rva00068061NullTarget *m_member;
+};
+
+class Rva0017FEC1NullForwarder
+{
+public:
+	Int rva0017FEC1();
+private:
+	char m_lead[0x14];
+	Gen009794F0 *m_member;
+};
+
+class Rva0018036CNullForwarder
+{
+public:
+	Int rva0018036C();
+private:
+	char m_lead[0x14];
+	Rva00149F20Holder *m_member;
+};
+
+// rowed as ?rva001A3930@AggregateDefClass@@QBEHXZ (AggregateDefRva001A3930.cpp)
+class AggregateDefClass
+{
+public:
+	Int rva001A3930() const;
+};
+
+class Rva00180AA6NullForwarder
+{
+public:
+	Int rva00180AA6();
+private:
+	char m_lead[0x14];
+	AggregateDefClass *m_member;
+};
+
+class Rva001E129BNullForwarder
+{
+public:
+	void rva001E129B(Int firstValue, Int secondValue);
+private:
+	char m_lead[0x148];
+	Rva001E11F8 *m_member;
+};
+
+class Rva001EB722NullForwarder
+{
+public:
+	void rva001EB722();
+private:
+	char m_lead[0xC];
+	Rva001EB3D1 *m_member;
+};
+
+class Rva001F01B9NullForwarder
+{
+public:
+	void rva001F01B9(Int firstValue, Int secondValue);
+private:
+	char m_lead[0x4];
+	Rva002CA9CA *m_member;
+};
+
+// ConnectionManager methods rowed under their real names (ConnectionManager*.cpp,
+// ConnectionManagerLocalSlot.cpp) that the Network forwarders below reach.
+class GameInfo;
+
+class ConnectionManager
+{
+public:
+	void parseUserList(const GameInfo *game);	// 0x004D1616
+	void initTransport();
+	unsigned int getPacketRouterSlot();	// 0x004CF3B2
+	unsigned int getLocalPlayerID();	// 0x004CF906
+	Int getNumPlayers();	// 0x004CF926
+	void updateLoadProgress(Int progress);	// 0x004CF940
+	void loadProgressComplete();	// 0x004D02F6
+	void requestLeave(Int firstValue);	// 0x004D00BB
+};
+
+// Network (vtable 0x00BF6040): WorldBuilder's Network.cpp:68-71 names these
+// three null-checked forwards to the connection manager (m_pConMgr, +0xC)
+// ParseUserList and the two InitTransport overloads. Retail reaches them
+// only through slots 17, 20 and 19 of that vftable, which
+// BFME2NativeNetwork::construct installs: they are virtual, as quitGame and
+// startNewSession are in Network.cpp, and the vptr sits at +0.
+class Network
+{
+public:
+	virtual void ParseUserList(Int firstValue);
+	virtual void InitTransport();
+	virtual void InitTransport(Int firstValue);
+private:
+	char m_lead04[0x8];
+	void *m_pConMgr;
+};
+
+class Rva0025DC17NullForwarder
+{
+public:
+	Int rva0025DC17();
+private:
+	char m_lead[0xC];
+	Rva004CFC81 *m_member;
+};
+
+class Rva0025DC5ENullForwarder
+{
+public:
+	void rva0025DC5E(Int firstValue);
+private:
+	char m_lead[0xC];
+	ConnectionManager *m_member;
+};
+
+class Rva0025DC6DNullForwarder
+{
+public:
+	void rva0025DC6D();
+private:
+	char m_lead[0xC];
+	ConnectionManager *m_member;
+};
+
+class Rva0025DCE2NullForwarder
+{
+public:
+	Int rva0025DCE2();
+private:
+	char m_lead[0xC];
+	ConnectionManager *m_member;
+};
+
+class Rva0025DCF1NullForwarder
+{
+public:
+	Int rva0025DCF1();
+private:
+	char m_lead[0xC];
+	ConnectionManager *m_member;
+};
+
+class Rva0025DD01NullForwarder
+{
+public:
+	Int rva0025DD01();
+private:
+	char m_lead[0xC];
+	ConnectionManager *m_member;
+};
+
+class Rva0025DEBBNullForwarder
+{
+public:
+	Bool rva0025DEBB(Int firstValue);
+private:
+	char m_lead[0xC];
+	BFMEConnectionManager *m_member;
+};
+
+class Rva0025DECCNullForwarder
+{
+public:
+	unsigned char rva0025DECC(Int firstValue);
+private:
+	char m_lead[0xC];
+	BFMEConnectionManager *m_member;
+};
+
+class Rva0025E27FNullForwarder
+{
+public:
+	void rva0025E27F(Int firstValue);
+private:
+	char m_lead[0xC];
+	ConnectionManager *m_member;
+};
+
+// The ICF-folded empty body at 0x000B3FD0 (EmptyFoldTwins.cpp).
+class Rva000B3FD0
+{
+public:
+	void rva000B3FD0();
+};
+
+class Rva0035BD00NullForwarder
+{
+public:
+	void rva0035BD00();
+private:
+	char m_lead[0x64];
+	Rva000B3FD0 *m_member;
+};
+
+class Rva00091F3BNullForwarder
+{
+public:
+	void rva00091F3B(void *p);
+private:
+	char m_lead[0x14];
+	Rva000664F4 *m_member;
+};
+
 // tu-skeleton: 0x0006669F 361B ?adjustTerrainLOD@BaseHeightMapRenderObjClass@@UAEXH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapAdjustTerrainLOD.cpp (not merged yet)
 
 // tu-skeleton: 0x00066808 292B ?ReleaseResources@BaseHeightMapRenderObjClass@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReleaseResources.cpp (not merged yet)
@@ -563,6 +924,8 @@ BFME_DISP32_DWORD_CLEAR(Rva000685DADwordClearer, 0x37AC)
 // tu-skeleton: 0x00068061 18B ?rva00068061@Rva00068061NullTarget@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp (not merged yet)
 
 // tu-skeleton: 0x00068073 64B ?rva00068073@Rva00068073Host@@QAEXHMH@Z -- matched in Code/GameEngine/Source/Common/Rva00068073Bodies.cpp (not merged yet)
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp
 
@@ -896,6 +1259,21 @@ void BaseHeightMapRenderObjClass::rva0006BBD9(int rinfo, int b)
 	m_buffBuffer->rva000D28FA(*(RenderInfoClass *)rinfo, *(bool *)&b);
 }
 
+// ---- from Code/GameEngine/Source/Common/Disp32DwordClearers2.cpp
+
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
+// Disp32 dword clearers: eight-byte __thiscall members with one shape:
+//
+//     and dword ptr [ecx+<DISP32>],0 / ret     (83 A1 XX XX XX XX 00 C3)
+//
+// A dword counter at a fixed displacement from `this` is cleared in place.
+// The zero is applied as an AND-immediate (not a MOV-immediate): under /O1
+// MSVC 7.1 emits the RMW form for `m_counter = 0` (defaults emit the longer
+// MOV-imm form). The displacements here do not fit in a signed byte, hence
+// disp32. Sibling TU to the field-clearer family, kept separate to avoid
+// churning a live file. Identity is not recovered: every name is derived
+// from its address.
+
 // tu-skeleton: 0x000680D6 67B ?rva000680D6@Rva00068073Host@@QAEXPBUCoord3D@@ABVGeometryInfo@@M@Z -- matched in Code/GameEngine/Source/Common/Rva00068073Bodies.cpp (not merged yet)
 
 // tu-skeleton: 0x00068119 34B ?rva00068119@Rva00068119@@QAEXPBUCoord3D@@PBVGeometryInfo@@M@Z -- matched in Code/GameEngine/Source/Common/Rva00068119Bodies.cpp (not merged yet)
@@ -912,7 +1290,15 @@ void BaseHeightMapRenderObjClass::rva0006BBD9(int rinfo, int b)
 
 // tu-skeleton: 0x000681FB 20B ?rva000681FB@Rva000664F4@@QAE_NPAX@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE29.cpp (not merged yet)
 
-// tu-skeleton: 0x0006820F 20B ?rva0006820F@Rva0006820FNullForwarder@@QAE_NH@Z -- matched in Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp
+
+// vtable 0x00BC5DB0#142
+Bool Rva0006820FNullForwarder::rva0006820F(Int firstValue)
+{
+	if (m_member)
+		return m_member->rva000EA644((void *)firstValue);
+	return false;
+}
 
 // tu-skeleton: 0x00068223 96B ?rva00068223@BaseHeightMapRenderObjClass@@QAEXIUCoord3D@@MPBVMatrix3D@@MPBURva000E91CEData@@HABVAsciiString@@3@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapAddTree.cpp (not merged yet)
 
@@ -947,21 +1333,6 @@ void BaseHeightMapRenderObjClass::rva0006BBD9(int rinfo, int b)
 // tu-skeleton: 0x00068494 114B ?writeEnvironmentData@BaseHeightMapRenderObjClass@@QAEXPAVDataChunkOutput@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapAddProp.cpp (not merged yet)
 
 // tu-skeleton: 0x00068506 212B ?xfer@BaseHeightMapRenderObjClass@@MAEXPAVXfer@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapXfer.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/Disp32DwordClearers2.cpp
-
-// flags: region default (reverse/retail_inventory/flag_regions.csv)
-// Disp32 dword clearers: eight-byte __thiscall members with one shape:
-//
-//     and dword ptr [ecx+<DISP32>],0 / ret     (83 A1 XX XX XX XX 00 C3)
-//
-// A dword counter at a fixed displacement from `this` is cleared in place.
-// The zero is applied as an AND-immediate (not a MOV-immediate): under /O1
-// MSVC 7.1 emits the RMW form for `m_counter = 0` (defaults emit the longer
-// MOV-imm form). The displacements here do not fit in a signed byte, hence
-// disp32. Sibling TU to the field-clearer family, kept separate to avoid
-// churning a live file. Identity is not recovered: every name is derived
-// from its address.
 
 // tu-skeleton: 0x000687EF 1364B ?rva000687EF@BaseHeightMapRenderObjClass@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapRva000687EF.cpp (not merged yet)
 
