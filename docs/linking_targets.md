@@ -1,5 +1,13 @@
 # Linking target checklist
 
+Special-power view-object ObjectModule adoption (2026-10-31): one private
+class view is replaced by the existing header, conserving all four rows,
+EXACT EH, ten retained external code definitions and the local S1 guard.
+Strict and owning acceptance checks retire one header key. The two removed
+private getters and added canonical getters have only debug incoming edges
+in the checked object; preserve the outgoing audit's broader consumer and
+index-currency limits. [Evidence](../reverse/attempt_support/view-object-objectmodule-20261031.md).
+
 Narrow imbue migration with the old proxy retained (2026-10-31, LINK-140):
 six narrow rows use STLport 4.6; the wide 4.5.3 unit supplies all five old
 helper bodies/relocations unchanged. The pair passes 7/7 rows and two EXACT
