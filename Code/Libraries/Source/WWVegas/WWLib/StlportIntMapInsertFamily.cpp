@@ -214,7 +214,7 @@ template class _STL::_Rb_tree<int, _STL::pair<const int, Rva00559076Mapped>, _ST
 
 struct Rva002F1DA1Mapped { int a; };
 struct Rva00501E3FElement { int a; };
-struct Rva00501656 { unsigned char m_data[0x58]; };
+struct Rva00501656 { unsigned char m_data[0x58]; ~Rva00501656(); };
 // bfme link decl-only Rva00501656
 namespace _STL { template <> pair<int const, Rva00501656>::pair(pair<int const, Rva00501656> const &); }
 // Region-tree destruction is owned by the verified destructor-only unit.

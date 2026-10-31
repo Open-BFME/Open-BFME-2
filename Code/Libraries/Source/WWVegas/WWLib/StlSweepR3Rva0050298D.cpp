@@ -6,7 +6,7 @@
 
 
 
-struct Rva00501656 {  char bytes[1]; };
+struct Rva00501656 {  char bytes[1]; ~Rva00501656(); };
 // Emit only the verified destructor and its required dependencies.
 typedef _STL::pair<int const, Rva00501656> Rva0050298DPair;
 typedef _STL::_Rb_tree<int, Rva0050298DPair, _STL::_Select1st<Rva0050298DPair>,
