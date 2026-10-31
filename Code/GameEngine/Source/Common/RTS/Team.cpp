@@ -934,6 +934,18 @@ struct RetailTeamRelationMap
 	{ \
 		m_value = value; \
 	}
+#define BFME_DISP32_FLOAT_SETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		void set(float newValue); \
+		char m_leadingPadding[DISP]; \
+		float m_floatValue; \
+	}; \
+	void NAME::set(float newValue) \
+	{ \
+		m_floatValue = newValue; \
+	}
 
 // ?rva0039D8BA@Team@@QAEXPAVObject@@@Z @0x0039D8BA (18B).
 // Team::rva0039D8BA(Object*): sets Team+0x5c entered flag then refreshes the
@@ -1207,36 +1219,6 @@ struct TeamPrototypeDoneView
 class PlayerTemplate;
 
 struct RetailPlayerRelationMap;
-
-class Player
-{
-public:
-	Team *getDefaultTeam() const { return m_defaultTeam; }
-	const AsciiString &getPlayerNameStr() const { return m_playerName; }
-	bool rva002AA245()const;
-	int getPlayerIndex() const { return m_playerIndex; }
-	void addTeamToList(TeamPrototype *team);
-	Relationship getRelationship(const Player *that) const;
-	Relationship getRelationship(const Team *that) const;
-	Relationship getRelationship(const Object *that) const;
-	void removeTeamFromList(TeamPrototype *team);
-	__declspec(dllimport) __forceinline const PlayerTemplate *getPlayerTemplate() const { return m_playerTemplate; }
-	char m_pad00[0x34];
-private:
-	const PlayerTemplate *m_playerTemplate; // +0x34 +0x34
-	char m_pad38[0x14];
-public:
-	AsciiString m_playerName; // +0x4C
-	char m_pad50[0x4];
-	int m_playerIndex; // +0x54
-	char m_pad58[0x4];
-	int m_playerType; // +0x5C +0x5C
-	char m_pad60[0x28C];
-	Team *m_defaultTeam; // +0x2EC
-	char m_pad2F0[0x40];
-	RetailPlayerRelationMap *m_playerRelations; // +0x330 +0x330
-	RetailPlayerRelationMap *m_teamRelations; // +0x334 +0x334
-};
 
 struct Rva003A0CD1
 {
@@ -1612,7 +1594,82 @@ public: void setValue(unsigned int index, unsigned int value);
 private: unsigned char unknown[0x68]; unsigned int values[1];
 };
 
+class Player
+{
+public:
+	Team *getDefaultTeam() const { return m_defaultTeam; }
+public:
+	const AsciiString &getPlayerNameStr() const { return m_playerName; }
+public:
+	bool rva002AA245()const;
+public:
+	int getPlayerIndex() const { return m_playerIndex; }
+public:
+	void addTeamToList(TeamPrototype *team);
+public:
+	Relationship getRelationship(const Player *that) const;
+public:
+	Relationship getRelationship(const Team *that) const;
+public:
+	Relationship getRelationship(const Object *that) const;
+public:
+	void removeTeamFromList(TeamPrototype *team);
+public:
+	__declspec(dllimport) __forceinline const PlayerTemplate *getPlayerTemplate() const { return m_playerTemplate; }
+public:
+	char m_pad00[0x34];
+private:
+	const PlayerTemplate *m_playerTemplate;
+private:
+	char m_pad38[0x14];
+public:
+	AsciiString m_playerName;
+public:
+	char m_pad50[0x4];
+public:
+	int m_playerIndex;
+public:
+	char m_pad58[0x4];
+public:
+	int m_playerType;
+public:
+	char m_pad60[0x28C];
+public:
+	Team *m_defaultTeam;
+public:
+	char m_pad2F0[0x40];
+public:
+	RetailPlayerRelationMap *m_playerRelations;
+public:
+	RetailPlayerRelationMap *m_teamRelations;
+public:
+	void rva002A9E25(float newValue);
+};
+
+// Native30F2BA..30F2C7 is a complete float-argument store at ECX+0,
+// between independently bounded RET4 at30F2B7 and known getter30F2C7.
+// Found beside the BF1 9cb WaterRenderObjConstructor Boxed<float> placement;
+// adjacency does not establish its original class or field purpose.
+class Rva0030F2BAFloatField
+{
+public:
+    void set(float value);
+    float m_value;
+};
+
+// BF1 f98983a7d3 WW3D2/animobj.cpp supplies only the clean float-store
+// source shape (fresh /O2 /arch:SSE2 /G6 donor sweep). Its animation method
+// is already owned at target1A5440 and is not the identity of this body.
+// Native39D470..39D481 copies the raw argument word to ECX+120 with MOVSS,
+// takes one four-byte stack argument and returns with RET4. Independent
+// RET4 at39D46D precedes it; the next byte setter starts at39D481.
+// Float is the source ABI used for this bit-preserving store; original
+// owner, field meaning and bounds beyond the accessed word are unresolved.
+BFME_DISP32_FLOAT_SETTER(Rva0039D470FloatField, 0x120)
+
 // tu-skeleton: 0x0039D40F 26B ?dlink_isInList_TeamInstanceList@Team@@QBE_NPBQAV1@@Z -- matched in Code/GameEngine/Source/Common/Team_dlink_isInList_TeamInstanceList.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/RTS/Team.cpp
 
 // ---- from Code/GameEngine/Source/Common/RTS/Team.cpp
 
@@ -3566,7 +3623,6 @@ void Team::rva003A38E9(const AsciiString &keyName, unsigned char stateWord)
 // remain address-derived.
 // No // cl: line (defaults match the frameless seven-byte shape).
 
-// tu-skeleton: 0x0039D470 17B ?set@Rva0039D470FloatField@@QAEXM@Z -- matched in Code/GameEngine/Source/Common/Disp32FloatFieldSetters.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/DispByteFieldSetters.cpp
 
@@ -3583,6 +3639,17 @@ void Team::rva003A38E9(const AsciiString &keyName, unsigned char stateWord)
 // Every displacement here is a disp32 (MSVC 7.1 uses disp8 whenever the
 // offset fits, so every offset is at least 0x80).
 // No // cl: line (defaults match the frameless 13-byte shape).
+
+// ---- from Code/GameEngine/Source/Common/Disp32FloatFieldSetters.cpp
+
+// Disp32 float setters: seventeen-byte __thiscall members with one shape:
+//
+//     movss xmm0,[esp+4] / movss [ecx+<DISP>],xmm0 / ret 4
+//
+// One float argument is stored at a fixed 32-bit displacement from `this`.
+// MSVC 7.1 emits `F3 0F 10 44 24 04` plus `F3 0F 11 81 DISP32` plus
+// `C2 04 00` for seventeen bytes total with /arch:SSE. Identity is not
+// recovered: every name is derived from its address.
 
 // tu-skeleton: 0x0039D52C 7B ?get@Rva0039D52CByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/DispByteFieldGetters.cpp (not merged yet)
 
