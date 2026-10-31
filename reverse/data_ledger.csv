@@ -20196,8 +20196,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A03A5C,4,.data,global,?$S1@?1??getModuleNameKey@BoredUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/BoredUpdate.cpp,owned,,1,4
 0x00A03A60,4,.data,global,?TheBannerCarrierUpdatePoolKey@?1??getModuleNameKey@BannerCarrierUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/BannerCarrierUpdate.cpp,owned,,1,2
 0x00A03A64,4,.data,global,?$S1@?1??getModuleNameKey@BannerCarrierUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/BannerCarrierUpdate.cpp,owned,,1,4
-0x00A03A68,4,.data,global,?s_key@?P@??rva00496B48@Rva00496B48@@QAE_NXZ@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/Object/Update/Rva00496B48Finish.cpp,owned,,1,2
-0x00A03A6C,4,.data,global,?$S1@?P@??rva00496B48@Rva00496B48@@QAE_NXZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/Rva00496B48Finish.cpp,owned,,1,4
+0x00A03A68,4,.data,global,?s_key@?P@??rva00496B48@Rva00496B48@@QAE_NXZ@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/Object/Update/BannerCarrierUpdate.cpp,owned,,1,2
+0x00A03A6C,4,.data,global,?$S1@?P@??rva00496B48@Rva00496B48@@QAE_NXZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/BannerCarrierUpdate.cpp,owned,,1,4
 0x00A03AC8,4,.data,global,_s_rva007B17BD,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A03ACC,4,.data,global,?TheBattlePlanUpdatePoolKey@?1??getModuleNameKey@BattlePlanUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/BattlePlanUpdate.cpp,owned,,1,2
 0x00A03AD0,4,.data,global,?$S1@?1??getModuleNameKey@BattlePlanUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/BattlePlanUpdate.cpp,owned,,1,2
