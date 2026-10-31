@@ -1,0 +1,11 @@
+# Final repair audit, 2026-10-31
+
+All six corrected pooled identities were admitted by add_match after the separate, reviewable withdrawal commit. Full native bodies and resolved calls distinguish the Object freelist family from the free-based GUI family. Three true GUI helper folds were admitted by pin_admission; three false GUI pins and two now-redundant temporary pooled pins were removed. Final pin consistency passes. The original allocator name is not recovered: the existing Rva001EB984PoolAllocator spelling is a structural view.
+
+Seven explicitly owned sources have strict reusable receipts and 66 exact code rows. The earlier eight-source gate passed 90/90 rows; the final buffer-clear-only edit additionally passed all 30 Script rows. Final exception data is EXACT 13/13. Normal string, float and import checks pass. All eight preview units link, preserving 6,915 bytes and predicting another 78 in registerTabList. This is a preview against index d249ce458a; whole-image and current consumer closure await the scheduled census.
+
+The live Formation caller was migrated before withdrawal, preserving its complete 845-byte body and EH. The StringBase<char> public clear view preserves the four live callback-name objects; private proof retains 70 external code definitions and relocations after the releaseBuffer identity correction, without an extra clear wrapper.
+
+Identity debt was not retired. The owning retirement tool refused because 46 ledger objects were missing and it reported a pooled operator=/range-insert shadow finding at 0x00423890. The code-identity register remains unchanged. Keep these facts pending; exact native call and pin-admission evidence do not establish whole-image kept-copy closure.
+
+Source-path audit: the three temporarily withdrawn helper files return at their original paths. All six primary rows retain their physical sources, including addresses without approved TU placement. The complete outgoing repair has no source-path move, no new data global, no header or active tool edit, and no TU-map change. No source-file reduction, new matched-byte coverage or census gain is claimed. Pre-push link_batch_audit remains authoritative for affected consumers.

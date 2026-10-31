@@ -1,0 +1,455 @@
+{
+  "source": "Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp",
+  "scope": "Use the existing public StringBase<char>::clear storage view for four live callback-name globals at both clear sites; do not end AsciiString lifetimes. Prove every current matched row and retained code/relocation after the existing releaseBuffer name correction.",
+  "variants": {
+    "before": {
+      "source_sha256": "b8f94ef93f155b62a5f357c0a77fd61ed28e4437a08792edf4bf9fb6deaa64c4",
+      "rows": [
+        {
+          "name": "?resetWindowDefaults@@YAXXZ",
+          "rva": "0x00314EC8",
+          "size": "38",
+          "exact": true
+        },
+        {
+          "name": "?popWindow@@YAPAVGameWindow@@XZ",
+          "rva": "0x00314F01",
+          "size": "26",
+          "exact": true
+        },
+        {
+          "name": "?pushWindow@@YAXPAVGameWindow@@@Z",
+          "rva": "0x00314F1B",
+          "size": "23",
+          "exact": true
+        },
+        {
+          "name": "?peekWindow@@YAPAVGameWindow@@XZ",
+          "rva": "0x00314EEE",
+          "size": "19",
+          "exact": true
+        },
+        {
+          "name": "?freeStaticStrings@GameWindowManager@@UAEXXZ",
+          "rva": "0x00315ACC",
+          "size": "40",
+          "exact": true
+        },
+        {
+          "name": "?resetWindowStack@@YAXXZ",
+          "rva": "0x00314EAD",
+          "size": "27",
+          "exact": true
+        },
+        {
+          "name": "?parseDefaultColor@@YA_NPAHPAVFile@@PAD@Z",
+          "rva": "0x00315AF4",
+          "size": "106",
+          "exact": true
+        },
+        {
+          "name": "?parseDefaultFont@@YA_NPAVGameFont@@PAVFile@@PAD@Z",
+          "rva": "0x00315B5E",
+          "size": "69",
+          "exact": true
+        },
+        {
+          "name": "??__EtheSystemString@@YAXXZ",
+          "rva": "0x007AE8B0",
+          "size": "22",
+          "exact": true
+        },
+        {
+          "name": "??__EtheInputString@@YAXXZ",
+          "rva": "0x007AE8C6",
+          "size": "22",
+          "exact": true
+        },
+        {
+          "name": "??__EtheTooltipString@@YAXXZ",
+          "rva": "0x007AE8DC",
+          "size": "22",
+          "exact": true
+        },
+        {
+          "name": "??__EtheDrawString@@YAXXZ",
+          "rva": "0x007AE8F2",
+          "size": "22",
+          "exact": true
+        },
+        {
+          "name": "??__FtheSystemString@@YAXXZ",
+          "rva": "0x007B7B50",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "??__FtheInputString@@YAXXZ",
+          "rva": "0x007B7B5A",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "??__FtheTooltipString@@YAXXZ",
+          "rva": "0x007B7B64",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "??__FtheDrawString@@YAXXZ",
+          "rva": "0x007B7B6E",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "?_M_create_node@?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@IAEPAU?$_List_node@PAVGameWindow@@@2@ABQAVGameWindow@@@Z",
+          "rva": "0x000B6447",
+          "size": "29",
+          "exact": true
+        },
+        {
+          "name": "?insert@?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVGameWindow@@U?$_Nonconst_traits@PAVGameWindow@@@_STL@@@2@U32@ABQAVGameWindow@@@Z",
+          "rva": "0x005925E2",
+          "size": "37",
+          "exact": true
+        },
+        {
+          "name": "?winCreateFromScript@GameWindowManager@@UAEPAVGameWindow@@VAsciiString@@PAVRva0031763A@@PAV2@@Z",
+          "rva": "0x003177EC",
+          "size": "841",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?winCreateFromScript@GameWindowManager@@UAEPAVGameWindow@@VAsciiString@@PAVRva0031763A@@PAV2@@Z",
+          "rva": "0x0077A6BF",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "?parseChildWindows@@YA_NPAVGameWindow@@PAVFile@@PAD@Z",
+          "rva": "0x00316CF8",
+          "size": "407",
+          "exact": true
+        },
+        {
+          "name": "?parseWindow@@YAPAVGameWindow@@PAVFile@@PAD@Z",
+          "rva": "0x00316E8F",
+          "size": "910",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?parseWindow@@YAPAVGameWindow@@PAVFile@@PAD@Z",
+          "rva": "0x0077A5C8",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b7a6a7",
+          "rva": "0x0077A6A7",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b7a6af",
+          "rva": "0x0077A6AF",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b7a6b7",
+          "rva": "0x0077A6B7",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b7a5b5",
+          "rva": "0x0077A5B5",
+          "size": "11",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b7a5c0",
+          "rva": "0x0077A5C0",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "?erase@?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@_STL@@QAE?AU?$_List_iterator@PAVObject@@U?$_Nonconst_traits@PAVObject@@@_STL@@@2@U32@0@Z",
+          "rva": "0x004221B2",
+          "size": "52",
+          "exact": true
+        },
+        {
+          "name": "??4?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@_STL@@QAEAAV01@ABV01@@Z",
+          "rva": "0x0046F0C2",
+          "size": "104",
+          "exact": true
+        }
+      ],
+      "eh": [
+        {
+          "name": "?parseDefaultColor@@YA_NPAHPAVFile@@PAD@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        },
+        {
+          "name": "?parseDefaultFont@@YA_NPAVGameFont@@PAVFile@@PAD@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        },
+        {
+          "name": "?winCreateFromScript@GameWindowManager@@UAEPAVGameWindow@@VAsciiString@@PAVRva0031763A@@PAV2@@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        },
+        {
+          "name": "?parseChildWindows@@YA_NPAVGameWindow@@PAVFile@@PAD@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        },
+        {
+          "name": "?parseWindow@@YAPAVGameWindow@@PAVFile@@PAD@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        }
+      ]
+    },
+    "trial": {
+      "source_sha256": "ca688f7bb0f368a6e9114e67c0fbb40121a5fb80a87e8cb98b58a1e4de057b96",
+      "rows": [
+        {
+          "name": "?resetWindowDefaults@@YAXXZ",
+          "rva": "0x00314EC8",
+          "size": "38",
+          "exact": true
+        },
+        {
+          "name": "?popWindow@@YAPAVGameWindow@@XZ",
+          "rva": "0x00314F01",
+          "size": "26",
+          "exact": true
+        },
+        {
+          "name": "?pushWindow@@YAXPAVGameWindow@@@Z",
+          "rva": "0x00314F1B",
+          "size": "23",
+          "exact": true
+        },
+        {
+          "name": "?peekWindow@@YAPAVGameWindow@@XZ",
+          "rva": "0x00314EEE",
+          "size": "19",
+          "exact": true
+        },
+        {
+          "name": "?freeStaticStrings@GameWindowManager@@UAEXXZ",
+          "rva": "0x00315ACC",
+          "size": "40",
+          "exact": true
+        },
+        {
+          "name": "?resetWindowStack@@YAXXZ",
+          "rva": "0x00314EAD",
+          "size": "27",
+          "exact": true
+        },
+        {
+          "name": "?parseDefaultColor@@YA_NPAHPAVFile@@PAD@Z",
+          "rva": "0x00315AF4",
+          "size": "106",
+          "exact": true
+        },
+        {
+          "name": "?parseDefaultFont@@YA_NPAVGameFont@@PAVFile@@PAD@Z",
+          "rva": "0x00315B5E",
+          "size": "69",
+          "exact": true
+        },
+        {
+          "name": "??__EtheSystemString@@YAXXZ",
+          "rva": "0x007AE8B0",
+          "size": "22",
+          "exact": true
+        },
+        {
+          "name": "??__EtheInputString@@YAXXZ",
+          "rva": "0x007AE8C6",
+          "size": "22",
+          "exact": true
+        },
+        {
+          "name": "??__EtheTooltipString@@YAXXZ",
+          "rva": "0x007AE8DC",
+          "size": "22",
+          "exact": true
+        },
+        {
+          "name": "??__EtheDrawString@@YAXXZ",
+          "rva": "0x007AE8F2",
+          "size": "22",
+          "exact": true
+        },
+        {
+          "name": "??__FtheSystemString@@YAXXZ",
+          "rva": "0x007B7B50",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "??__FtheInputString@@YAXXZ",
+          "rva": "0x007B7B5A",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "??__FtheTooltipString@@YAXXZ",
+          "rva": "0x007B7B64",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "??__FtheDrawString@@YAXXZ",
+          "rva": "0x007B7B6E",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "?_M_create_node@?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@IAEPAU?$_List_node@PAVGameWindow@@@2@ABQAVGameWindow@@@Z",
+          "rva": "0x000B6447",
+          "size": "29",
+          "exact": true
+        },
+        {
+          "name": "?insert@?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVGameWindow@@U?$_Nonconst_traits@PAVGameWindow@@@_STL@@@2@U32@ABQAVGameWindow@@@Z",
+          "rva": "0x005925E2",
+          "size": "37",
+          "exact": true
+        },
+        {
+          "name": "?winCreateFromScript@GameWindowManager@@UAEPAVGameWindow@@VAsciiString@@PAVRva0031763A@@PAV2@@Z",
+          "rva": "0x003177EC",
+          "size": "841",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?winCreateFromScript@GameWindowManager@@UAEPAVGameWindow@@VAsciiString@@PAVRva0031763A@@PAV2@@Z",
+          "rva": "0x0077A6BF",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "?parseChildWindows@@YA_NPAVGameWindow@@PAVFile@@PAD@Z",
+          "rva": "0x00316CF8",
+          "size": "407",
+          "exact": true
+        },
+        {
+          "name": "?parseWindow@@YAPAVGameWindow@@PAVFile@@PAD@Z",
+          "rva": "0x00316E8F",
+          "size": "910",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?parseWindow@@YAPAVGameWindow@@PAVFile@@PAD@Z",
+          "rva": "0x0077A5C8",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b7a6a7",
+          "rva": "0x0077A6A7",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b7a6af",
+          "rva": "0x0077A6AF",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b7a6b7",
+          "rva": "0x0077A6B7",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b7a5b5",
+          "rva": "0x0077A5B5",
+          "size": "11",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b7a5c0",
+          "rva": "0x0077A5C0",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "?erase@?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@_STL@@QAE?AU?$_List_iterator@PAVObject@@U?$_Nonconst_traits@PAVObject@@@_STL@@@2@U32@0@Z",
+          "rva": "0x004221B2",
+          "size": "52",
+          "exact": true
+        },
+        {
+          "name": "??4?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@_STL@@QAEAAV01@ABV01@@Z",
+          "rva": "0x0046F0C2",
+          "size": "104",
+          "exact": true
+        }
+      ],
+      "eh": [
+        {
+          "name": "?parseDefaultColor@@YA_NPAHPAVFile@@PAD@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        },
+        {
+          "name": "?parseDefaultFont@@YA_NPAVGameFont@@PAVFile@@PAD@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        },
+        {
+          "name": "?winCreateFromScript@GameWindowManager@@UAEPAVGameWindow@@VAsciiString@@PAVRva0031763A@@PAV2@@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        },
+        {
+          "name": "?parseChildWindows@@YA_NPAVGameWindow@@PAVFile@@PAD@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        },
+        {
+          "name": "?parseWindow@@YAPAVGameWindow@@PAVFile@@PAD@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        }
+      ]
+    }
+  },
+  "symbol_identity_changes": {
+    "?clear@AsciiString@@QAEXXZ": "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+  },
+  "all_external_code_and_symbolic_relocations_identical": true,
+  "all_retained_external_code_and_symbolic_relocations_identical": true
+}

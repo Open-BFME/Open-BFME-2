@@ -1,4 +1,9 @@
 // cl: /Ireference/shims/zh_outofline /FIzh_ascii.h /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /DZH_EMIT_POOL_GLUE /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib /Ireference/shims
+template<class T> class Rva001EB984PoolAllocator;
+namespace _STL {
+template<class A,class B> Rva001EB984PoolAllocator<B> &__stl_alloc_rebind(Rva001EB984PoolAllocator<A> &,const B *);
+template<class A,class B> Rva001EB984PoolAllocator<B> __stl_alloc_create(const Rva001EB984PoolAllocator<A> &,const B *);
+}
 // platformsdk
 // dxsdk
 // stlport
@@ -54,6 +59,8 @@
 // BFME2's UnicodeString is a StringBase<unsigned short> subclass; skip Zero
 // Hour's own class.
 #include "unicode_string.h"
+// Keep the existing public buffer-clear operation inline, with no competing wrapper.
+template <> __declspec(dllimport) __forceinline void StringBase<char>::clear() { releaseBuffer(); }
 #define UNICODESTRING_H
 #include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
 #include <list>
@@ -2074,10 +2081,10 @@ static GameWindow *parseWindow( File *inFile, char *buffer )
 	g_windowScriptCreateRecord.tooltip = NULL;
 	g_windowScriptCreateRecord.draw = NULL;
 	g_windowScriptCreateRecord.unknown2c = NULL;
-	g_systemCallbackName.clear();
-	g_inputCallbackName.clear();
-	g_tooltipCallbackName.clear();
-	g_drawCallbackName.clear();
+	((StringBase<char> *)&g_systemCallbackName)->clear();
+	((StringBase<char> *)&g_inputCallbackName)->clear();
+	((StringBase<char> *)&g_tooltipCallbackName)->clear();
+	((StringBase<char> *)&g_drawCallbackName)->clear();
 
 	// get the size of the parent, or if no parent present the screen
 	if( g_windowScriptCreateRecord.parent )
@@ -2297,10 +2304,10 @@ memory leak detection code happy.*/
 #pragma optimize("s", on)
 void GameWindowManager::freeStaticStrings(void)
 {
-	g_systemCallbackName.clear();
-	g_inputCallbackName.clear();
-	g_tooltipCallbackName.clear();
-	g_drawCallbackName.clear();
+	((StringBase<char> *)&g_systemCallbackName)->clear();
+	((StringBase<char> *)&g_inputCallbackName)->clear();
+	((StringBase<char> *)&g_tooltipCallbackName)->clear();
+	((StringBase<char> *)&g_drawCallbackName)->clear();
 }
 #pragma optimize("", on)
 
@@ -2333,7 +2340,37 @@ extern "C" __declspec(dllimport) char *__cdecl strchr(const char *, int);
 extern "C" __declspec(dllimport) int __cdecl sprintf(char *, const char *, ...);
 }
 
-// The false pooled-erase GameWindow specialization is withdrawn.
+// Existing pooled Object-list allocator ABI; implementation remains with its native providers.
+class Object;
+template<class T> class Rva001EB984PoolAllocator {
+public:
+    typedef T value_type; typedef T *pointer; typedef const T *const_pointer;
+    typedef T &reference; typedef const T &const_reference;
+    typedef unsigned int size_type; typedef int difference_type;
+    template<class U> struct rebind { typedef Rva001EB984PoolAllocator<U> other; };
+    Rva001EB984PoolAllocator();
+    template<class U> Rva001EB984PoolAllocator(const Rva001EB984PoolAllocator<U> &);
+    Rva001EB984PoolAllocator(const Rva001EB984PoolAllocator &);
+    ~Rva001EB984PoolAllocator();
+    T *allocate(unsigned int, const void * = 0);
+    void deallocate(T *,unsigned int);
+    void construct(T *,const T &); void destroy(T *);
+    unsigned int max_size() const;
+};
+namespace _STL {
+template<class T,class U> struct _Alloc_traits<T,Rva001EB984PoolAllocator<U> > {
+    typedef Rva001EB984PoolAllocator<U> _Orig;
+    typedef Rva001EB984PoolAllocator<T> allocator_type;
+    static allocator_type create_allocator(const _Orig &a) { return allocator_type(a); }
+};
+}
+typedef _STL::list<Object *,Rva001EB984PoolAllocator<Object *> > NativePooledObjectList;
+typedef char NativePooledObjectListExtent[sizeof(NativePooledObjectList)==4 ? 1 : -1];
+namespace _STL {
+template <> NativePooledObjectList::iterator NativePooledObjectList::erase(NativePooledObjectList::iterator);
+template <> NativePooledObjectList::iterator NativePooledObjectList::insert(NativePooledObjectList::iterator,Object *const &);
+}
+
 // STLport 4.5.3 node creation, kept out of line as in retail.
 namespace _STL {
 template<> __declspec(noinline)
@@ -2347,8 +2384,9 @@ _List_node<GameWindow*> *list<GameWindow*>::_M_create_node(GameWindow *const &va
 // Keep the already-rowed STLport assignment and range erase emitted after
 // the native caller delegates layout assignment to its 44-byte ABI owner.
 namespace _STL {
-
-
+template NativePooledObjectList &NativePooledObjectList::operator=(const NativePooledObjectList &);
+template NativePooledObjectList::iterator NativePooledObjectList::erase(NativePooledObjectList::iterator, NativePooledObjectList::iterator);
+template list<GameWindow*>::iterator list<GameWindow*>::erase(list<GameWindow*>::iterator);
 }
 // ABI view of the existing 44-byte constructor/dtor/assign owner.
 // Native callbacks prove +4/+8/+C/+10 functions and +14/+18/+1C/+20 names;

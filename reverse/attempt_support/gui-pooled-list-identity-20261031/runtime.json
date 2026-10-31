@@ -1,0 +1,169 @@
+{
+  "scope": "Final current sources, not a whole-image census or ownership receipt",
+  "strict_sources": [
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/GameWindowManager_registerTabList.cpp",
+      "source_sha256": "c864a5bba26bcf799e46b9a509728484336c66db82fd4d46903be2df5e64247c",
+      "object_sha256": "894ce9e4fc0ed074be7d10ae3d25017926311accf46d3988f44f86f450a71cf5",
+      "strict_current": true
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp",
+      "source_sha256": "ca688f7bb0f368a6e9114e67c0fbb40121a5fb80a87e8cb98b58a1e4de057b96",
+      "object_sha256": "7b5b935b7c7bb9be913e9ace559d9c9fee8522a714a0b13ae39699d5d187f364",
+      "strict_current": true
+    },
+    {
+      "source": "Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainRva00475F61.cpp",
+      "source_sha256": "d02f2e8ee3e1a0b2a73f2670df5b9ea55dc955a37c90dfce60422805d25ebc82",
+      "object_sha256": "b3d193900eecf9aedbe0860ac412da64f4beafe723d003637c63a63bc13b98d4",
+      "strict_current": true
+    },
+    {
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_list_gamewindow_copy.cpp",
+      "source_sha256": "74b2ef29618887515f3b7f0c5e7772991d9bceb50833b9fc93cd840904fcf770",
+      "object_sha256": "eff6d82269ed0c4fd76677c7a937c9420a482ef34e94666c7ac486997a73f6f0",
+      "strict_current": true
+    },
+    {
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_list_gamewindow_assign_dispatch.cpp",
+      "source_sha256": "948257d7ecc29f1d662a31e3cc71b85a80ce6cf704c7d09e71fc64d56053caed",
+      "object_sha256": "e9a05cc249cf45be1cdae22a44e05a7463e1d6ba06411f6f88d369920c418b9c",
+      "strict_current": true
+    },
+    {
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_list_gamewindow_assign_004243BE.cpp",
+      "source_sha256": "cdf22045e227524397a6bfa1a2869dc43095f7a83ee7dee114829958383cfcaa",
+      "object_sha256": "6e3c9cfd9d30255b8265154e6366eda8754caaecab611228adb265dc461e2672",
+      "strict_current": true
+    },
+    {
+      "source": "Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp",
+      "source_sha256": "1539809bf5916542861c85896269765f82d3bae61e13a9cacc1e7d941ce6144b",
+      "object_sha256": "eb31d2ed313b23dc50a435ca5c0f7cf865e08e5521bf0e641ebfc4f14ede022d",
+      "strict_current": true
+    }
+  ],
+  "normal_byte_verification": {
+    "owned_sources": 7,
+    "code_rows": 66,
+    "control_source": "Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_o1.cpp",
+    "earlier_eight_source_rows": 90,
+    "last_changed_script_rows": 30,
+    "literals": 27,
+    "empty_string_refs": 2,
+    "float_refs": 6,
+    "imports": 3
+  },
+  "exception_data": {
+    "??$_Construct@VRva0042476C@@V1@@_STL@@YAXPAVRva0042476C@@ABV1@@Z@0x00424BF4": [
+      "EXACT",
+      "",
+      "Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp"
+    ],
+    "??0Rva00425CE2@@QAE@XZ@0x00421A84": [
+      "EXACT",
+      "",
+      "Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp"
+    ],
+    "??1?$deque@V?$deque@UBfmeWordValue4@@V?$allocator@UBfmeWordValue4@@@_STL@@@_STL@@V?$allocator@V?$deque@UBfmeWordValue4@@V?$allocator@UBfmeWordValue4@@@_STL@@@_STL@@@2@@_STL@@QAE@XZ@0x00424A0E": [
+      "EXACT",
+      "",
+      "Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp"
+    ],
+    "?_M_push_back_aux_v@?$deque@V?$deque@V?$deque@UBfmeWordValue4@@V?$allocator@UBfmeWordValue4@@@_STL@@@_STL@@V?$allocator@V?$deque@UBfmeWordValue4@@V?$allocator@UBfmeWordValue4@@@_STL@@@_STL@@@2@@_STL@@V?$allocator@V?$deque@V?$deque@UBfmeWordValue4@@V?$allocator@UBfmeWordValue4@@@_STL@@@_STL@@V?$allocator@V?$deque@UBfmeWordValue4@@V?$allocator@UBfmeWordValue4@@@_STL@@@_STL@@@2@@_STL@@@2@@_STL@@IAEXABV?$deque@V?$deque@UBfmeWordValue4@@V?$allocator@UBfmeWordValue4@@@_STL@@@_STL@@V?$allocator@V?$deque@UBfmeWordValue4@@V?$allocator@UBfmeWordValue4@@@_STL@@@_STL@@@2@@2@@Z@0x00424A65": [
+      "EXACT",
+      "",
+      "Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp"
+    ],
+    "?init@Rva00425CE2@@UAEXXZ@0x00424DDE": [
+      "EXACT",
+      "",
+      "Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp"
+    ],
+    "?parseChildWindows@@YA_NPAVGameWindow@@PAVFile@@PAD@Z@0x00316CF8": [
+      "EXACT",
+      "",
+      "Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp"
+    ],
+    "?parseDefaultColor@@YA_NPAHPAVFile@@PAD@Z@0x00315AF4": [
+      "EXACT",
+      "",
+      "Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp"
+    ],
+    "?parseDefaultFont@@YA_NPAVGameFont@@PAVFile@@PAD@Z@0x00315B5E": [
+      "EXACT",
+      "",
+      "Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp"
+    ],
+    "?parseWindow@@YAPAVGameWindow@@PAVFile@@PAD@Z@0x00316E8F": [
+      "EXACT",
+      "",
+      "Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp"
+    ],
+    "?registerTabList@GameWindowManager@@UAEXV?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@@Z@0x002C55AC": [
+      "EXACT",
+      "",
+      "Code/GameEngine/Source/GameClient/GUI/GameWindowManager_registerTabList.cpp"
+    ],
+    "?rva00424E77@FormationAssistant@@QAEPAVFormation@@HPAVRva001EB130Holder@@PBUCoord3D@@@Z@0x00424E77": [
+      "EXACT",
+      "",
+      "Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp"
+    ],
+    "?rva00475F61@Rva00475F61Iface@@UAEXAAV?$vector@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@@Z@0x00475F61": [
+      "EXACT",
+      "",
+      "Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainRva00475F61.cpp"
+    ],
+    "?winCreateFromScript@GameWindowManager@@UAEPAVGameWindow@@VAsciiString@@PAVRva0031763A@@PAV2@@Z@0x003177EC": [
+      "EXACT",
+      "",
+      "Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp"
+    ]
+  },
+  "preview": {
+    "index": "d249ce458a",
+    "units": 8,
+    "linking_units": 8,
+    "before_bytes": 6915,
+    "after_bytes": 6993,
+    "predicted_gain": 78,
+    "census_confirmation": "pending scheduled census"
+  },
+  "identity_retirement": {
+    "retired": false,
+    "missing_objects": 46,
+    "remaining_shadow_finding": "pooled operator= calls range insert at 0x00423890; reported wrong by retirement check",
+    "baseline_changed": false
+  },
+  "source_paths": "Six corrected primary rows readmitted at unchanged physical paths; no TU move or source-recovery gain",
+  "clear_operation": "Public StringBase<char>::clear keeps four AsciiString objects alive; inline body calls existing native releaseBuffer, not a destructor",
+  "removed_pins": [
+    {
+      "name": "??$_M_assign_dispatch@U?$_List_iterator@PAVGameWindow@@U?$_Const_traits@PAVGameWindow@@@_STL@@@_STL@@@?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@QAEXU?$_List_iterator@PAVGameWindow@@U?$_Const_traits@PAVGameWindow@@@_STL@@@1@0ABU__false_type@1@@Z",
+      "rva": "0x423d92",
+      "reason": "false GUI identity"
+    },
+    {
+      "name": "?erase@?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVGameWindow@@U?$_Nonconst_traits@PAVGameWindow@@@_STL@@@2@U32@@Z",
+      "rva": "0x29dfc5",
+      "reason": "false GUI identity"
+    },
+    {
+      "name": "??$insert@U?$_List_iterator@PAVGameWindow@@U?$_Const_traits@PAVGameWindow@@@_STL@@@_STL@@@?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@QAEXU?$_List_iterator@PAVGameWindow@@U?$_Nonconst_traits@PAVGameWindow@@@_STL@@@1@U?$_List_iterator@PAVGameWindow@@U?$_Const_traits@PAVGameWindow@@@_STL@@@1@1@Z",
+      "rva": "0x423890",
+      "reason": "false GUI identity"
+    },
+    {
+      "name": "?erase@?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@_STL@@QAE?AU?$_List_iterator@PAVObject@@U?$_Nonconst_traits@PAVObject@@@_STL@@@2@U32@0@Z",
+      "rva": "0x4221b2",
+      "reason": "primary typed row now owns this name"
+    },
+    {
+      "name": "??$_M_assign_dispatch@U?$_List_iterator@PAVObject@@U?$_Const_traits@PAVObject@@@_STL@@@_STL@@@?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@_STL@@QAEXU?$_List_iterator@PAVObject@@U?$_Const_traits@PAVObject@@@_STL@@@1@0ABU__false_type@1@@Z",
+      "rva": "0x423d92",
+      "reason": "primary typed row now owns this name"
+    }
+  ]
+}
