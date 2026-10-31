@@ -1,4 +1,4 @@
-// cl: /FIzh_ascii.h /MD /GX /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /DZH_EMIT_POOL_GLUE -D_STLP_USE_STATIC_LIB -DNDEBUG -DWIN32 -D_WINDOWS /Ireference/shims/bfme_pathfinder_get_cell_link /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/bfme2_objectcreationlist /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib /Ireference/shims/bfme_namekey /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/shims -ICode/Libraries/Source/Compression/LZHCompress/CompLibHeader /Ireference/shims/bfme2htree /Ireference/shims/bfme2renderobj /Ireference/shims/bfmecamera /Ireference/shims/bfmelight /Ireference/shims/bfmeparticlehandle /Ireference/shims/bfmeparticleload /Ireference/shims/bfmeparticlequat /Ireference/shims/bfmeparticlesave /Ireference/shims/bfmeparticleline /Ireference/shims/bfme2ray /Ireference/shims/bfme2scene /Ireference/shims/bfmefrustum /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/inputs/reference/shims/sweep /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /ICode/Libraries/Include /ICode/GameEngine/Include
+// cl: /FIzh_ascii.h /MD /GX /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /DZH_EMIT_POOL_GLUE -D_STLP_USE_STATIC_LIB -DNDEBUG -DWIN32 -D_WINDOWS /Ireference/shims/bfme_pathfinder_get_cell_link /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/bfme2_objectcreationlist /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib /Ireference/shims/bfme_namekey /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/shims -ICode/Libraries/Source/Compression/LZHCompress/CompLibHeader /Ireference/shims/bfme2htree /Ireference/shims/bfme2renderobj /Ireference/shims/bfmecamera /Ireference/shims/bfmelight /Ireference/shims/bfmeparticlehandle /Ireference/shims/bfmeparticleload /Ireference/shims/bfmeparticlequat /Ireference/shims/bfmeparticlesave /Ireference/shims/bfmeparticleline /Ireference/shims/bfme2ray /Ireference/shims/bfme2scene /Ireference/shims/bfmefrustum /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/inputs/reference/shims/sweep /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /ICode/Libraries/Include /ICode/GameEngine/Include /Ireference/shims/ocls
 // stlport
 // TU Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp: generated by tools/tu_skeleton.py from tu_map.csv (approved rows, retail order)
 #include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
@@ -37,13 +37,12 @@
 #include "GameLogic/WeaponSet.h"
 #include "GameLogic/AIPathfind.h"
 #include "Common/CRCDebug.h"
-// Basetype.h already defines Coord3D with the canonical three floats, so the
-// canonical include of the files merged into this unit must not define it again.
 #define CANONICAL_COORD3D_H
 #ifdef _INTERNAL
 // for occasional debugging...
 //#pragma optimize("", off)
 //#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
+
 
 #endif
 #line 624 "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\ObjectCreationList.cpp"
@@ -56,6 +55,57 @@
 #pragma inline_depth()
 #define _STLP_NO_EXCEPTIONS 1
 #include <deque>
+//
+// Two Object Creation List nugget create() bodies, ported from the
+// Open-BFME-1 donor game/GameEngine/Source/GameLogic/Object/
+// Rva001D5EA0Dispatch.cpp (1281192f68; donor flags plus BFME 2's /O1). The
+// donor's TU compiled that way places both bodies uniquely on unclaimed
+// .text by masked whole-.text search (tools/donor_sweep.py).
+//
+// The names are recovered from retail, not carried from the donor (which
+// uses address-derived ones):
+//   * vtable 0x007E09D0 is ObjectCreationNugget's: its slot 0 is the rowed
+//     ??_GObjectCreationNugget (0x001F010B) and the base dtor 0x001F0409
+//     stores it. Slot 2 is 0x001F0132, which turns two objects into their
+//     positions (+0x38) and calls slot 3; slot 1 (0x001F0163, rowed under
+//     a donor name) forwards a five-argument create to slot 3, dropping the
+//     fourth argument. That is Zero Hour's ObjectCreationNugget::create
+//     overload set with BFME 2's four-argument coordinate create in slot 3.
+//   * vtable 0x007E09E8 is FireWeaponNugget's: FireWeaponNugget::parse
+//     (rowed 0x001F0D61) news 8 bytes and stores it. Its slot 3,
+//     0x001F0188, is Zero Hour's FireWeaponNugget::create: with all three
+//     pointers and the weapon template (+4) present, fire a temporary weapon
+//     from the primary object at the secondary position through
+//     WeaponStore::createAndFireTempWeapon (rowed 0x002CE904).
+// Both return nothing (RET 0xC / RET 0x10, eax not set).
+
+typedef unsigned int UnsignedInt;
+typedef bool Bool;
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
+class Player;
+struct Coord3D;
+class Matrix3D;
+class Rva002AA8BF
+{
+public:
+	bool testBit(int bit) const;
+};
+class UpgradeTemplate;
+struct UpgradeTemplateBitView
+{
+	char m_pad00[0x38];
+	int m_38;		// +0x38 the bit the object and player test
+};
+extern UpgradeCenter *TheUpgradeCenter;
+struct NuggetNameList
+{
+	unsigned int size() const { return m_end - m_begin; }
+	const AsciiString &operator[](unsigned int i) const { return m_begin[i]; }
+	AsciiString *m_begin;
+	AsciiString *m_end;
+	AsciiString *m_capacity;
+};
+
 class Rva001F20D6
 {
 public:
@@ -65,18 +115,6 @@ private:
     void *m_finish;
     _STL::_STLP_alloc_proxy<unsigned int, int, _STL::allocator<int> > m_end;
 };
-Rva001F20D6::Rva001F20D6(unsigned int n, const _STL::allocator<int> &a)
-    : m_start(0), m_finish(0), m_end(a, 0)
-{
-    void *tmp = m_finish;
-    if (n != 0)
-        tmp = (void *)_STL::allocator<char>::allocate(n * sizeof(int), 0);
-    else
-        tmp = 0;
-    m_start = tmp;
-    m_finish = tmp;
-    m_end._M_data = (unsigned int)((char *)tmp + n * sizeof(int));
-}
 
 // Bind to the kept retail copy instead of emitting this unit's own.
 namespace _STL { template <> __declspec(dllimport) __forceinline bool less<int>::operator()(int const &x,int const &y)const  { return x < y; } }
@@ -230,7 +268,6 @@ static const char* DebrisDispositionNames[] =
 };
 
 std::vector<AsciiString>	debrisModelNamesGlobalHack;
-
 
  
 
@@ -601,11 +638,99 @@ extern unsigned int g_Va00DFE014;
 // g_Va00DFE014: matched references place it at VA 0xdfe014 (zero-filled .bss).
 unsigned int g_Va00DFE014;
 
-// tu-skeleton: 0x001F0132 49B ?create@ObjectCreationNugget@@UBEXPBVObject@@0I@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectCreationNuggetCreate.cpp (not merged yet)
+class WeaponTemplate;
+
+extern WeaponStore *TheWeaponStore;
+
+static const FieldParse s_commonFieldParse[] =
+{
+	{ 0, 0, 0, 0 }
+};
+
+static const FieldParse s_objectFieldParse[] =
+{
+	{ 0, 0, 0, 0 }
+};
+
+// Debris table, 0x7E14A8 (the "CreateDebris" row of the OCL FieldParse).
+static const FieldParse s_debrisFieldParse[] =
+{
+	{ 0, 0, 0, 0 }
+};
+
+struct Rva003909FAObj
+{
+	void consume(void *buf, int a, int b);
+};
+
+// The existing ObjectCreationList.cpp owner supplies this same native call.
+void __cdecl calcRandomForce(float minMag, float maxMag,
+	float minPitch, float maxPitch, Coord3D *force);
+
+struct Rva001F01F1Primary
+{
+	char m_pad[0x25C];
+	Rva003909FAObj *m_obj;
+};
+
+class AssetList
+{
+public:
+	AssetList &operator<<(const AsciiString &s);
+};
+
+class Rva001E11F8
+{
+public:
+	void rva001E11F8(int assets, int context);
+};
+
+extern ThingFactory *TheThingFactory;
+
+class ParticleSystemTemplate;
+
+extern ParticleSystemManager *TheParticleSystemManager;
+
+struct AsciiStringRef
+{
+	AsciiStringRef() {}
+	AsciiStringRef(const AsciiString &asciiString) : m_string(&asciiString) {}
+	const AsciiString *m_string;
+};
+
+struct AsciiStringPlusString : AsciiStringRef
+{
+	operator AsciiString();
+	AsciiStringRef m_second;
+};
+
+namespace _STL {
+// Bind the by-value result's teardown to the rowed 0x001F22A3 thunk.
+template <> vector<Object *, allocator<Object *> >::~vector();
+}
+
+typedef _STL::vector<Object *, _STL::allocator<Object *> > NuggetCreated;
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/ObjectCreationNuggetCreate.cpp
+
+// ?create@ObjectCreationNugget@@UBEXPBVObject@@0I@Z
+void ObjectCreationNugget::create(const Object *primary, const Object *secondary, UnsignedInt lifetimeFrames) const
+{
+	create(primary, primary ? primary->getPosition() : 0,
+		secondary ? secondary->getPosition() : 0, lifetimeFrames);
+}
+
+// ?create@FireWeaponNugget@@UBEXPBVObject@@PBUCoord3D@@1I@Z
+void FireWeaponNugget::create(const Object *primaryObj, const Coord3D *primary, const Coord3D *secondary, UnsignedInt lifetimeFrames) const
+{
+	if (!primaryObj || !primary || !secondary)
+		return;
+
+	if (m_weapon)
+		TheWeaponStore->createAndFireTempWeapon(m_weapon, primaryObj, secondary);
+}
 
 // tu-skeleton: 0x001F017B 13B ??0Rva001F017B@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp (not merged yet)
-
-// tu-skeleton: 0x001F0188 49B ?create@FireWeaponNugget@@UBEXPBVObject@@PBUCoord3D@@1I@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectCreationNuggetCreate.cpp (not merged yet)
 
 // tu-skeleton: 0x001F01B9 15B ?rva001F01B9@Rva001F01B9NullForwarder@@QAEXHH@Z -- matched in Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp (not merged yet)
 
@@ -613,9 +738,98 @@ unsigned int g_Va00DFE014;
 
 // tu-skeleton: 0x001F01E8 3B ?rva001F01E8@Rva001F01E8@@QAEXHHHH@Z -- matched in Code/GameEngine/Source/Common/VtableSlotBodiesR3.cpp (not merged yet)
 
-// tu-skeleton: 0x001F01EB 6B ?getCommonFieldParse@GenericObjectCreationNugget@@SAPBUFieldParse@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetParseObject.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetParseObject.cpp
 
-// tu-skeleton: 0x001F01F1 86B ?create@ApplyRandomForceNugget@@UBEXPBVObject@@0I@Z -- matched in Code/GameEngine/Source/Common/ApplyRandomForceNugget_create.cpp (not merged yet)
+// ?getCommonFieldParse@GenericObjectCreationNugget@@SAPBUFieldParse@@XZ,
+// retail 0x001F01EB (6B): returns the common table above (VA 0x00BE0CC0),
+// Zero Hour's GenericObjectCreationNugget::getCommonFieldParse.
+const FieldParse *GenericObjectCreationNugget::getCommonFieldParse()
+{
+	return s_commonFieldParse;
+}
+
+// ?parseObject@GenericObjectCreationNugget@@SAXPAVINI@@PAX1PBX@Z
+void GenericObjectCreationNugget::parseObject(INI *ini, void *instance,
+	void *, const void *)
+{
+	MultiIniFieldParse fields;
+	fields.add(s_commonFieldParse);
+	fields.add(s_objectFieldParse);
+
+	GenericObjectCreationNugget *nugget = new GenericObjectCreationNugget;
+	nugget->m_nameAreObjects = true;
+
+	ini->initFromINIMulti(nugget, fields);
+	((ObjectCreationList *)instance)->addObjectCreationNugget(nugget);
+}
+
+// ?parseDebris@GenericObjectCreationNugget@@SAXPAVINI@@PAX1PBX@Z
+// retail 0x001F340A (148 bytes): parseObject's twin with the debris table and
+// m_nameAreObjects cleared.
+void GenericObjectCreationNugget::parseDebris(INI *ini, void *instance,
+	void *, const void *)
+{
+	MultiIniFieldParse fields;
+	fields.add(s_commonFieldParse);
+	fields.add(s_debrisFieldParse);
+
+	GenericObjectCreationNugget *nugget = new GenericObjectCreationNugget;
+	nugget->m_nameAreObjects = false;
+
+	ini->initFromINIMulti(nugget, fields);
+	((ObjectCreationList *)instance)->addObjectCreationNugget(nugget);
+}
+
+// ---- from Code/GameEngine/Source/Common/ApplyRandomForceNugget_create.cpp
+
+//
+// ?create@ApplyRandomForceNugget@@UBEXPBVObject@@0I@Z @0x001F01F1 86B.
+// Tiny x87 float helper (ObjectCreationNugget neighbourhood, per the range
+// notes): null-checks the param at [ebp+8] and its +0x25C object pointer,
+// spills this+4..this+16 as four floats through calcRandomForce at
+// 0x001F0247 into a three-float stack vector, then issues the thiscall at
+// 0x003909FA on the +0x25C object with (&force, 0, 0). Evidence (target facts
+// read from game.dat): ret 0xC with only [ebp+8] read (the two trailing
+// parameters are unused); fld/fstp order is this+16 first; caller
+// cleanup add esp,0x14 proves the 0x001F0247 call takes 5 stack args with
+// ecx untouched (cdecl spelling); the 0x003909FA call is a direct
+// E8 with ecx=esi (thiscall spelling on an opaque struct, pinned).
+// It is a virtual: slot 2 of ApplyRandomForceNugget's vtable 0x00BE0A00
+// (installed by its ctor 0x001F01C8), the slot where the base vtable
+// 0x00BE09D0 holds the rowed ObjectCreationNugget::create(const Object *,
+// const Object *, UnsignedInt) const at 0x001F0132, so it overrides that
+// overload (the one this tree's ObjectCreationList.cpp gives the nugget);
+// +0x0 is the vptr and +0x25C of the primary object its physics pointer.
+
+void ApplyRandomForceNugget::create(const Object *primary, const Object *, unsigned int) const
+{
+	if (primary == 0)
+		return;
+	Rva003909FAObj *obj = ((const Rva001F01F1Primary *)primary)->m_obj;
+	if (obj == 0)
+		return;
+	Coord3D force;
+	calcRandomForce(m_minForceMagnitude, m_maxForceMagnitude, m_minForcePitch, m_maxForcePitch, &force);
+	obj->consume(&force, 0, 0);
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp
+
+// Basetype.h already defines Coord3D with the canonical three floats, so the
+// canonical include of the files merged into this unit must not define it again.
+
+Rva001F20D6::Rva001F20D6(unsigned int n, const _STL::allocator<int> &a)
+    : m_start(0), m_finish(0), m_end(a, 0)
+{
+    void *tmp = m_finish;
+    if (n != 0)
+        tmp = (void *)_STL::allocator<char>::allocate(n * sizeof(int), 0);
+    else
+        tmp = 0;
+    m_start = tmp;
+    m_finish = tmp;
+    m_end._M_data = (unsigned int)((char *)tmp + n * sizeof(int));
+}
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp
 
@@ -676,7 +890,7 @@ static void adjustVector(Coord3D *vec, const Matrix3D* mtx)
 
 //-------------------------------------------------------------------------------------------------
 //This one is called only when we have a nugget that doesn't care about createOwner.
-// ?create@ObjectCreationNugget@@ present-unmatched
+// ?create@ObjectCreationNugget@@UBEXPBVObject@@PBUCoord3D@@1_NI@Z present-unmatched
 void ObjectCreationNugget::create( const Object *primaryObj, const Coord3D *primary, const Coord3D *secondary, Bool createOwner, UnsignedInt lifetimeFrames ) const
 {
 	create( primaryObj, primary, secondary, lifetimeFrames );
@@ -833,24 +1047,6 @@ void *bfmeAnchorParseAnimSet()
 	return (void *)&GenericObjectCreationNugget::parseAnimSet;
 }
 
-// tu-skeleton: 0x001F03ED 28B ??_GRva001F0409@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB02.cpp (not merged yet)
-
-// tu-skeleton: 0x001F0409 7B ??1ObjectCreationNugget@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x001F0410 36B ?rva001F0410@ObjectCreationList@@QAEXPAX0@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectCreationListRva001F0878.cpp (not merged yet)
-
-// tu-skeleton: 0x001F0434 52B ?rva001F0434@ObjectCreationList@@QAE_NPAX0@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Rva001F0434Finish.cpp (not merged yet)
-
-// tu-skeleton: 0x001F0468 45B ?rva001F0468@ObjectCreationList@@QAEXPAURva001F0468Node@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectCreationListRva001F0878.cpp (not merged yet)
-
-// tu-skeleton: 0x001F04A0 57B (unledgered) -- unmatched, no code, never credited
-
-// tu-skeleton: 0x001F04D9 50B ?rva001F04D9@ObjectCreationListStore@@UAE_NH@Z -- matched in Code/GameEngine/Source/Common/ReloadIniFileNotices.cpp (not merged yet)
-
-// tu-skeleton: 0x001F050B 41B ?rva001F050B@Rva001F050B@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectCreationListRva001F0878.cpp (not merged yet)
-
-// tu-skeleton: 0x001F0534 36B ??0?$_Rb_tree_base@U?$pair@$$CBHPAX@_STL@@V?$allocator@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$pair@$$CBHPAX@_STL@@@1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_ptr_o1.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetAnimSetCopy.cpp
 
 // GenericObjectCreationNugget::AnimSet from ObjectCreationList.cpp.
@@ -876,15 +1072,10 @@ void bfmeEmitGenericObjectCreationNuggetAnimSetCopy(GenericObjectCreationNugget:
 
 // STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
 
-// tu-skeleton: 0x001F05C1 69B ??0AttackNugget@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Damage/AttackNuggetCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x001F0622 48B ??1AttackNugget@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/AttackNuggetDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x001F0652 5B ?rva001F0652@Rva001F0652@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
 
-// tu-skeleton: 0x001F0657 56B ??1Rva001F050B@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
 
-// tu-skeleton: 0x001F068F 42B ??0?$_Rb_tree@EU?$pair@$$CBEH@_STL@@U?$_Select1st@U?$pair@$$CBEH@_STL@@@2@U?$less@E@2@V?$allocator@U?$pair@$$CBEH@_STL@@@2@@_STL@@QAE@ABU?$less@E@1@ABV?$allocator@U?$pair@$$CBEH@_STL@@@1@@Z -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PersistentStorageThread.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva001F06E6.cpp
 
@@ -924,22 +1115,6 @@ Rva001F073ACtor::Rva001F073ACtor(AsciiString *name)
 	, m_str(*name)
 {
 }
-
-// tu-skeleton: 0x001F0778 5B ?rva001F0778@Rva001F0778@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x001F081A 94B ?create@ObjectCreationList@@QAEXPAX000H@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectCreationListRva001F0878.cpp (not merged yet)
-
-// tu-skeleton: 0x001F0878 91B ?create@ObjectCreationList@@QAEXPAX00H@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectCreationListRva001F0878.cpp (not merged yet)
-
-// tu-skeleton: 0x001F08D3 87B ?create@ObjectCreationList@@QAEXPAX00@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectCreationListRva001F0878.cpp (not merged yet)
-
-// tu-skeleton: 0x001F092A 80B ??0ObjectCreationListStore@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Rva001F092ACtor.cpp (not merged yet)
-
-// tu-skeleton: 0x001F097A 28B ??_GRva001F097A@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/RvaDeletingDtorBatch01.cpp (not merged yet)
-
-// tu-skeleton: 0x001F0996 302B ??1ObjectCreationListStore@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectCreationListStore.cpp (not merged yet)
-
-// tu-skeleton: 0x001F0AD4 262B ?create@AttackNugget@@UBEPAVObject@@PBV2@PBUCoord3D@@1M@Z -- matched in Code/GameEngine/Source/GameLogic/Object/AttackNuggetCreate.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/ObjectCreationList_AnimSetInsertOverflow.cpp
 
@@ -981,27 +1156,16 @@ Rva001F073ACtor::Rva001F073ACtor(AsciiString *name)
 // flags (/G7 /arch:SSE) compile a different copy, and retail kept another unit's. This unit-local
 // overload keeps the inlined code and offers the link no second copy.
 
-// tu-skeleton: 0x001F0D61 53B ?parse@FireWeaponNugget@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectCreationNuggetParse.cpp (not merged yet)
 
-// tu-skeleton: 0x001F0D96 81B ?parse@AttackNugget@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectCreationNuggetParse.cpp (not merged yet)
 
-// tu-skeleton: 0x001F0DE7 75B ?parse@ApplyRandomForceNugget@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectCreationNuggetParse.cpp (not merged yet)
 
-// tu-skeleton: 0x001F0E32 478B ??0GenericObjectCreationNugget@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x001F1010 719B ?canCreate@GenericObjectCreationNugget@@UAE_NPAVObject@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetCanCreate.cpp (not merged yet)
 
-// tu-skeleton: 0x001F131F 407B ?GetAssetList@GenericObjectCreationNugget@@UBEXAAVAssetList@@PAX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetGetAssetList.cpp (not merged yet)
 
-// tu-skeleton: 0x001F14B6 93B ?create@GenericObjectCreationNugget@@UBEXPBVObject@@0I@Z -- matched in Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetRequirements_Create.cpp (not merged yet)
 
-// tu-skeleton: 0x001F1513 246B ?rva001F1513@GenericObjectCreationNugget@@QBE_NPBVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetRequirements.cpp (not merged yet)
 
-// tu-skeleton: 0x001F1609 43B ??1?$_Vector_base@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetWaypointPick.cpp (not merged yet)
 
-// tu-skeleton: 0x001F1634 2618B ?reallyCreate@GenericObjectCreationNugget@@QBE?AV?$vector@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@PBUCoord3D@@PBVMatrix3D@@MPBVObject@@I@Z -- matched in Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetReallyCreate.cpp (not merged yet)
 
-// tu-skeleton: 0x001F206E 104B ??0?$vector@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE@ABV01@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectCreationListVectorCopy.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Rva001F20D6Ctor.cpp
 
@@ -1019,7 +1183,6 @@ Rva001F073ACtor::Rva001F073ACtor(AsciiString *name)
 // reproduce the same complete69B body. Expand the allocator byte-count path
 // as retail does; preserve the zero-count branch and proxy at +8.
 
-// tu-skeleton: 0x001F211B 58B ?push_back@?$vector@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAEXABQAVObject@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorPushBackSiblings.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/StlportVectorObjectPtrInsertOverflow.cpp
 
@@ -1037,39 +1200,22 @@ Rva001F073ACtor::Rva001F073ACtor(AsciiString *name)
 // Donor: STLport 4.5.3 _vector.c __true_type _M_insert_overflow (copy, fill_n,
 // copy, _M_clear, _M_set); the zero-length guard is target-observed.
 
-// tu-skeleton: 0x001F21E8 187B ?rva001F21E8@GenericObjectCreationNugget@@IBEXPAUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetWaypointPick.cpp (not merged yet)
 
-// tu-skeleton: 0x001F22A3 5B ??1?$vector@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetWaypointPick.cpp (not merged yet)
 
-// tu-skeleton: 0x001F22A8 3075B ?doStuffToObj@GenericObjectCreationNugget@@IBEXPAVObject@@ABVAsciiString@@PBUCoord3D@@PBVMatrix3D@@MPBV2@IH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetDoStuffToObj.cpp (not merged yet)
 
-// tu-skeleton: 0x001F2EAB 99B ?adjustVector@@YAXPAUCoord3D@@PBVMatrix3D@@@Z -- matched in Code/GameEngine/Source/GameClient/ParticleSystemFXNuggetReallyDoFX.cpp (not merged yet)
 
-// tu-skeleton: 0x001F2F0E 525B ?create@GenericObjectCreationNugget@@QBEXPBVObject@@PBUCoord3D@@1I@Z -- matched in Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetPositionCreate.cpp (not merged yet)
 
-// tu-skeleton: 0x001F311B 143B ?parseObject@GenericObjectCreationNugget@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetParseObject.cpp (not merged yet)
 
-// tu-skeleton: 0x001F31AA 28B ??_GGenericObjectCreationNugget@@MAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x001F31C6 169B ??1GenericObjectCreationNugget@@MAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x001F340A 148B ?parseDebris@GenericObjectCreationNugget@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetParseObject.cpp (not merged yet)
 
-// tu-skeleton: 0x0076B013 8B $L6275 -- matched in Code/GameEngine/Source/GameLogic/Object/Rva001F092ACtor.cpp (not merged yet)
 
-// tu-skeleton: 0x0076B01B 10B __ehhandler$??0ObjectCreationListStore@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Rva001F092ACtor.cpp (not merged yet)
 
-// tu-skeleton: 0x0076B025 8B Unwind@00b6b025 -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectCreationListStore.cpp (not merged yet)
 
-// tu-skeleton: 0x0076B02D 11B uw_0076b02d -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectCreationListStore.cpp (not merged yet)
 
-// tu-skeleton: 0x0076B038 11B uw_0076b038 -- matched in Code/gen_small/uw_gen_010.cpp (not merged yet)
 
-// tu-skeleton: 0x0076B043 11B uw_0076b043 -- matched in Code/gen_small/uw_gen_010.cpp (not merged yet)
 
-// tu-skeleton: 0x0076B04E 10B __ehhandler$??1ObjectCreationListStore@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectCreationListStore.cpp (not merged yet)
 
-// tu-skeleton: 0x0076B058 11B Unwind@00b6b058 -- matched in Code/GameEngine/Source/GameLogic/Object/AttackNuggetCreate.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/GlobalFlagClearers_DFD8xx.cpp
 
@@ -1088,6 +1234,225 @@ unsigned int Rva0076B063ClearFlag(void)
 // GlobalFlagClearers_DFxx.cpp) belong to GenericObjectCreationNugget::doStuffToObj,
 // whose native parent emits them and owns the guard datum at 0x00DFDCF4.
 
+// tu-skeleton: 0x001F03ED 28B ??_GRva001F0409@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB02.cpp (not merged yet)
+
+// tu-skeleton: 0x001F0409 7B ??1ObjectCreationNugget@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x001F0410 36B ?rva001F0410@ObjectCreationList@@QAEXPAX0@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectCreationListRva001F0878.cpp (not merged yet)
+
+// tu-skeleton: 0x001F0434 52B ?rva001F0434@ObjectCreationList@@QAE_NPAX0@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Rva001F0434Finish.cpp (not merged yet)
+
+// tu-skeleton: 0x001F0468 45B ?rva001F0468@ObjectCreationList@@QAEXPAURva001F0468Node@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectCreationListRva001F0878.cpp (not merged yet)
+
+// tu-skeleton: 0x001F04A0 57B (unledgered) -- unmatched, no code, never credited
+
+// tu-skeleton: 0x001F04D9 50B ?rva001F04D9@ObjectCreationListStore@@UAE_NH@Z -- matched in Code/GameEngine/Source/Common/ReloadIniFileNotices.cpp (not merged yet)
+
+// tu-skeleton: 0x001F050B 41B ?rva001F050B@Rva001F050B@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectCreationListRva001F0878.cpp (not merged yet)
+
+// tu-skeleton: 0x001F0534 36B ??0?$_Rb_tree_base@U?$pair@$$CBHPAX@_STL@@V?$allocator@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$pair@$$CBHPAX@_STL@@@1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_ptr_o1.cpp (not merged yet)
+
+// tu-skeleton: 0x001F05C1 69B ??0AttackNugget@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Damage/AttackNuggetCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x001F0622 48B ??1AttackNugget@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/AttackNuggetDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x001F0652 5B ?rva001F0652@Rva001F0652@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
+
+// tu-skeleton: 0x001F0657 56B ??1Rva001F050B@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x001F068F 42B ??0?$_Rb_tree@EU?$pair@$$CBEH@_STL@@U?$_Select1st@U?$pair@$$CBEH@_STL@@@2@U?$less@E@2@V?$allocator@U?$pair@$$CBEH@_STL@@@2@@_STL@@QAE@ABU?$less@E@1@ABV?$allocator@U?$pair@$$CBEH@_STL@@@1@@Z -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PersistentStorageThread.cpp (not merged yet)
+
+// tu-skeleton: 0x001F0778 5B ?rva001F0778@Rva001F0778@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x001F081A 94B ?create@ObjectCreationList@@QAEXPAX000H@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectCreationListRva001F0878.cpp (not merged yet)
+
+// tu-skeleton: 0x001F0878 91B ?create@ObjectCreationList@@QAEXPAX00H@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectCreationListRva001F0878.cpp (not merged yet)
+
+// tu-skeleton: 0x001F08D3 87B ?create@ObjectCreationList@@QAEXPAX00@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectCreationListRva001F0878.cpp (not merged yet)
+
+// tu-skeleton: 0x001F092A 80B ??0ObjectCreationListStore@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Rva001F092ACtor.cpp (not merged yet)
+
+// tu-skeleton: 0x001F097A 28B ??_GRva001F097A@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/RvaDeletingDtorBatch01.cpp (not merged yet)
+
+// tu-skeleton: 0x001F0996 302B ??1ObjectCreationListStore@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectCreationListStore.cpp (not merged yet)
+
+// tu-skeleton: 0x001F0AD4 262B ?create@AttackNugget@@UBEPAVObject@@PBV2@PBUCoord3D@@1M@Z -- matched in Code/GameEngine/Source/GameLogic/Object/AttackNuggetCreate.cpp (not merged yet)
+
+// tu-skeleton: 0x001F0D61 53B ?parse@FireWeaponNugget@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectCreationNuggetParse.cpp (not merged yet)
+
+// tu-skeleton: 0x001F0D96 81B ?parse@AttackNugget@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectCreationNuggetParse.cpp (not merged yet)
+
+// tu-skeleton: 0x001F0DE7 75B ?parse@ApplyRandomForceNugget@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectCreationNuggetParse.cpp (not merged yet)
+
+// tu-skeleton: 0x001F0E32 478B ??0GenericObjectCreationNugget@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x001F1010 719B ?canCreate@GenericObjectCreationNugget@@UAE_NPAVObject@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetCanCreate.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetGetAssetList.cpp
+
+// ?GetAssetList@GenericObjectCreationNugget@@UBEXAAVAssetList@@PAX@Z, retail 0x001F131F (407 B).
+// The concat follows WB 0xB044D0: both operands become AsciiStringRef temporaries (right to left),
+// then the AsciiStringPlusString node (RegistryAsciiPath.cpp layout) is built from them and copied out.
+// Scratch result 2026-10-20 (claude-opus-5-5), build/nbr/r35/1f131f/best.cpp.
+
+// The house expression-template node (RegistryAsciiPath.cpp layout: AsciiStringRef base,
+// AsciiStringRef m_second). WB 0xB044D0 (unoptimised) shows each `prefix + set.m_x`
+// building both operand refs right to left into temps, assembling the node from them
+// and copying it out: an operator+ over two AsciiStringRef operands, like the
+// AsciiStringRefWithChar operator+ in Rva0037BA97Finish.cpp.
+inline AsciiStringPlusString operator+(const AsciiStringRef &a, const AsciiStringRef &b)
+{
+	AsciiStringPlusString r;
+	r.m_string = a.m_string;
+	r.m_second = b;
+	return r;
+}
+
+void GenericObjectCreationNugget::GetAssetList(AssetList &assets, void *context) const
+{
+	if (m_fxFinal)
+		((Rva001E11F8 *)m_fxFinal)->rva001E11F8((int)&assets, (int)context);
+	if (!((const StringBase<char> &)m_putInContainer).isEmpty()) {
+		const ThingTemplate *thingTemplate = TheThingFactory->findTemplate(m_putInContainer);
+		if (thingTemplate)
+			const_cast<ThingTemplate *>(thingTemplate)->GetAssetList((int)&assets, (int)context);
+	}
+	for (const AsciiString *name = m_names.begin(); name != m_names.end(); ++name) {
+		const ThingTemplate *thingTemplate = TheThingFactory->findTemplate(*name);
+		if (thingTemplate)
+			const_cast<ThingTemplate *>(thingTemplate)->GetAssetList((int)&assets, (int)context);
+	}
+	if (!((const StringBase<char> &)m_particleSysName).isEmpty())
+		TheParticleSystemManager->findTemplate(m_particleSysName);
+	for (const AnimSet *it = m_animSets.begin(); it != m_animSets.end(); ++it) {
+		AsciiString prefix("a*");
+		if (!((const StringBase<char> &)it->m_animInitial).isEmpty())
+			assets << (prefix + it->m_animInitial);
+		if (!((const StringBase<char> &)it->m_animFlying).isEmpty())
+			assets << (prefix + it->m_animFlying);
+		if (!((const StringBase<char> &)it->m_animFinal).isEmpty())
+			assets << (prefix + it->m_animFinal);
+	}
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetRequirements_Create.cpp
+
+// Split from GenericObjectCreationNuggetRequirements.cpp: these definitions reference a callee with no matched body yet,
+// so they are kept apart from the unit's bodies that already link.
+//
+// GenericObjectCreationNugget members that gate and forward a create (retail
+// 0x001F1513 and 0x001F14B6; ObjectCreationList.cpp in the debug build).
+// The nugget keeps two upgrade-name lists, +0x114 and +0x120, 4-byte
+// AsciiString entries each (the dtor TU's three tail vectors).
+//
+//   rva001F1513  the object may be created for: no +0x120 upgrade is
+//                present on the primary or its player, and when the
+//                +0x114 list is not empty at least one of its upgrades is
+//   create       slot 2 of the nugget vftable (the object-pair create):
+//                skip airborne primaries when +0xAF is set, check the
+//                upgrades, then really create at the primary's position
+//                (+0x38), transform (+0x08) and orientation (+0x44) and
+//                drop the result
+
+// reallyCreate's by-value result is the rowed STLport vector<Object*>
+// (0x001F1634's ledger name); its destructor is the 5-byte thunk at
+// 0x001F22A3. Declaration-only view of that template.
+
+void GenericObjectCreationNugget::create(const Object *primary, const Object *secondary, unsigned int lifetimeFrames) const
+{
+	if (primary) {
+		if (m_skipIfSignificantlyAirborne && primary->isSignificantlyAboveTerrain())
+			return;
+		if (rva001F1513(primary))
+			reallyCreate(primary->getPosition(), primary->getTransformMatrix(),
+				primary->getOrientation(), primary, lifetimeFrames);
+	}
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetRequirements.cpp
+
+//
+// GenericObjectCreationNugget members that gate and forward a create (retail
+// 0x001F1513 and 0x001F14B6; ObjectCreationList.cpp in the debug build).
+// The nugget keeps two upgrade-name lists, +0x114 and +0x120, 4-byte
+// AsciiString entries each (the dtor TU's three tail vectors).
+//
+//   rva001F1513  the object may be created for: no +0x120 upgrade is
+//                present on the primary or its player, and when the
+//                +0x114 list is not empty at least one of its upgrades is
+//   create       slot 2 of the nugget vftable (the object-pair create):
+//                skip airborne primaries when +0xAF is set, check the
+//                upgrades, then really create at the primary's position
+//                (+0x38), transform (+0x08) and orientation (+0x44) and
+//                drop the result
+// reallyCreate's by-value result: three words torn down through the 5-byte
+// thunk at 0x001F22A3.
+
+bool GenericObjectCreationNugget::rva001F1513(const Object *obj) const
+{
+	for (unsigned int i = 0; i < m_tailVec120.size(); ++i) {
+		const UpgradeTemplate *upgrade = TheUpgradeCenter->findUpgrade(m_tailVec120[i]);
+		if (upgrade) {
+			int bit = ((const UpgradeTemplateBitView *)upgrade)->m_38;
+			if (obj->hasUpgradeMask(bit))
+				return false;
+			if (((Rva002AA8BF *)obj->getControllingPlayer())->testBit(bit))
+				return false;
+		}
+	}
+	if (m_tailVec114.size() == 0)
+		return true;
+	for (unsigned int i = 0; i < m_tailVec114.size(); ++i) {
+		const UpgradeTemplate *upgrade = TheUpgradeCenter->findUpgrade(m_tailVec114[i]);
+		if (upgrade) {
+			int bit = ((const UpgradeTemplateBitView *)upgrade)->m_38;
+			if (obj->hasUpgradeMask(bit))
+				return true;
+			if (((Rva002AA8BF *)obj->getControllingPlayer())->testBit(bit))
+				return true;
+		}
+	}
+	return false;
+}
+
+// tu-skeleton: 0x001F1609 43B ??1?$_Vector_base@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetWaypointPick.cpp (not merged yet)
+
+// tu-skeleton: 0x001F1634 2618B ?reallyCreate@GenericObjectCreationNugget@@QBE?AV?$vector@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@PBUCoord3D@@PBVMatrix3D@@MPBVObject@@I@Z -- matched in Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetReallyCreate.cpp (not merged yet)
+
+// tu-skeleton: 0x001F206E 104B ??0?$vector@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE@ABV01@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectCreationListVectorCopy.cpp (not merged yet)
+
+// tu-skeleton: 0x001F211B 58B ?push_back@?$vector@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAEXABQAVObject@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorPushBackSiblings.cpp (not merged yet)
+
+// tu-skeleton: 0x001F21E8 187B ?rva001F21E8@GenericObjectCreationNugget@@IBEXPAUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetWaypointPick.cpp (not merged yet)
+
+// tu-skeleton: 0x001F22A3 5B ??1?$vector@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetWaypointPick.cpp (not merged yet)
+
+// tu-skeleton: 0x001F22A8 3075B ?doStuffToObj@GenericObjectCreationNugget@@IBEXPAVObject@@ABVAsciiString@@PBUCoord3D@@PBVMatrix3D@@MPBV2@IH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetDoStuffToObj.cpp (not merged yet)
+
+// tu-skeleton: 0x001F2EAB 99B ?adjustVector@@YAXPAUCoord3D@@PBVMatrix3D@@@Z -- matched in Code/GameEngine/Source/GameClient/ParticleSystemFXNuggetReallyDoFX.cpp (not merged yet)
+
+// tu-skeleton: 0x001F2F0E 525B ?create@GenericObjectCreationNugget@@QBEXPBVObject@@PBUCoord3D@@1I@Z -- matched in Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetPositionCreate.cpp (not merged yet)
+
+// tu-skeleton: 0x001F31AA 28B ??_GGenericObjectCreationNugget@@MAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x001F31C6 169B ??1GenericObjectCreationNugget@@MAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0076B013 8B $L6275 -- matched in Code/GameEngine/Source/GameLogic/Object/Rva001F092ACtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0076B01B 10B __ehhandler$??0ObjectCreationListStore@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Rva001F092ACtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0076B025 8B Unwind@00b6b025 -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectCreationListStore.cpp (not merged yet)
+
+// tu-skeleton: 0x0076B02D 11B uw_0076b02d -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectCreationListStore.cpp (not merged yet)
+
+// tu-skeleton: 0x0076B038 11B uw_0076b038 -- matched in Code/gen_small/uw_gen_010.cpp (not merged yet)
+
+// tu-skeleton: 0x0076B043 11B uw_0076b043 -- matched in Code/gen_small/uw_gen_010.cpp (not merged yet)
+
+// tu-skeleton: 0x0076B04E 10B __ehhandler$??1ObjectCreationListStore@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectCreationListStore.cpp (not merged yet)
+
+// tu-skeleton: 0x0076B058 11B Unwind@00b6b058 -- matched in Code/GameEngine/Source/GameLogic/Object/AttackNuggetCreate.cpp (not merged yet)
+
 // tu-skeleton: 0x0076B070 10B __ehhandler$?create@AttackNugget@@UBEPAVObject@@PBV2@PBUCoord3D@@1M@Z -- matched in Code/GameEngine/Source/GameLogic/Object/AttackNuggetCreate.cpp (not merged yet)
 
 // tu-skeleton: 0x0076B0BB 8B Unwind@00b6b0bb -- matched in Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetCtor.cpp (not merged yet)
@@ -1105,16 +1470,6 @@ unsigned int Rva0076B063ClearFlag(void)
 // tu-skeleton: 0x0076B0F9 8B Unwind@00b6b0f9 -- matched in Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetCanCreate.cpp (not merged yet)
 
 // tu-skeleton: 0x0076B101 10B __ehhandler$?canCreate@GenericObjectCreationNugget@@UAE_NPAVObject@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetCanCreate.cpp (not merged yet)
-
-// tu-skeleton: 0x0076B10B 8B Unwind@00b6b10b -- matched in Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetGetAssetList.cpp (not merged yet)
-
-// tu-skeleton: 0x0076B113 8B Unwind@00b6b113 -- matched in Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetGetAssetList.cpp (not merged yet)
-
-// tu-skeleton: 0x0076B11B 8B Unwind@00b6b11b -- matched in Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetGetAssetList.cpp (not merged yet)
-
-// tu-skeleton: 0x0076B123 8B Unwind@00b6b123 -- matched in Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetGetAssetList.cpp (not merged yet)
-
-// tu-skeleton: 0x0076B12B 10B __ehhandler$?GetAssetList@GenericObjectCreationNugget@@UBEXAAVAssetList@@PAX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetGetAssetList.cpp (not merged yet)
 
 // tu-skeleton: 0x0076B135 13B $L7227 -- matched in Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetReallyCreate.cpp (not merged yet)
 

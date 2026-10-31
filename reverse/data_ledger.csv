@@ -3125,7 +3125,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x007E0A00,360,.rdata,vtable,??_7ApplyRandomForceNugget@@6B@,,literal,,0,2
 0x007E0B68,8,.rdata,string,??_C@_07EAEHEHPO@FadeOut?$AA@,,literal,,0,7
 0x007E0B70,336,.rdata,string,??_C@_06GCJPJKOH@FadeIn?$AA@,,literal,,0,3
-0x007E0CC0,656,.rdata,global,_s_commonFieldParse,Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetParseObject.cpp,owned,,1,2
+0x007E0CC0,656,.rdata,global,_s_commonFieldParse,Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp,owned,,1,2
 0x007E0F50,96,.rdata,string,??_C@_0FP@EIALMENG@C?3?2projects?2bfme2patch103?2bfme2?2@,,literal,,0,1
 0x007E0FB0,68,.rdata,wstring,??_C@_1EC@LFAMBFLM@?$AAR?$AAI?$AAF?$AA?3?$AA?5?$AAO?$AAb?$AAj?$AAe?$AAc?$AAt?$AAC?$AAr?$AAe?$AAa?$AAt?$AAi?$AAo?$AAn?$AAL@,,literal,,0,1
 0x007E0FF4,24,.rdata,vtable,??_7AttackNugget@@6B@,,literal,,0,1
@@ -3144,8 +3144,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x007E11CC,28,.rdata,string,??_C@_0BM@IIKGJKGN@SpawnedModelConditionCreate?$AA@,,literal,,0,3
 0x007E11E8,16,.rdata,string,??_C@_0P@BDPFFDMA@LifetimeUpdate?$AA@,,literal,,0,5
 0x007E11F8,360,.rdata,string,??_C@_0BB@LEHPGPDI@StrafeAreaUpdate?$AA@,,literal,,0,3
-0x007E1360,328,.rdata,global,_s_objectFieldParse,Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetParseObject.cpp,owned,,1,1
-0x007E14A8,120,.rdata,global,_s_debrisFieldParse,Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetParseObject.cpp,owned,,1,1
+0x007E1360,328,.rdata,global,_s_objectFieldParse,Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp,owned,,1,1
+0x007E14A8,120,.rdata,global,_s_debrisFieldParse,Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp,owned,,1,1
 0x007E1520,32,.rdata,global,_s_particleSystemFieldParse,Code/GameEngine/Source/Common/INI/INIParticleSystemDefinition.cpp,owned,,1,1
 0x007E1540,8,.rdata,string,??_C@_06JIODDOFH@System?$AA@,,literal,,0,1
 0x007E1548,16,.rdata,vtable,??_7EmissionVolumeInfo@FXParticleSystem@@6B@,,literal,??_7EmissionVolumeInfo4AA@FXParticleSystem@@6B@;??_7EmissionVolumeInfo@FXParticleSystem@@6B@,0,8

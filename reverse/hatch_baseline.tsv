@@ -13108,8 +13108,8 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp	Locomoto
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp	LocomotorTemplate::getFieldParse	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp	bfmeEmitGenericObjectCreationNuggetAnimSetCopy@@YAXPAUAnimSet@GenericObjectCreationNugget@@PBU12@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp	clear@ObjectCreationList@@	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp	create@ObjectCreationNugget@@	2
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp	createInternal@ObjectCreationList@@	3
+present_unmatched	Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp	create@ObjectCreationNugget@@UBEXPBVObject@@PBUCoord3D@@1_NI@Z	1	allow=386f3197feeef554dde10b1da5f31e9132fa0a74
+present_unmatched	Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp	createInternal@ObjectCreationList@@	2
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/ObjectRva0028B238.cpp	Object::rva0028B238	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	0CellAndObjectIntersection@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	0CellOutwardIterator@@	1
