@@ -356,6 +356,18 @@ typedef unsigned short WideChar;
 	{ \
 		return m_value; \
 	}
+#define BFME_DISP32_FLOAT_GETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		float get() const; \
+		char m_lead[DISP]; \
+		float m_value; \
+	}; \
+	float NAME::get() const \
+	{ \
+		return m_value; \
+	}
 
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
 namespace _STL {
@@ -2202,11 +2214,15 @@ public:
 	void rva00407C17();
 };
 
+BFME_DISP32_FLOAT_GETTER(Rva0028BB86FloatField, 0x1B8)
+
 // tu-skeleton: 0x0028A670 20B ?setWeaponBonusCondition@Object@@QAEXW4WeaponBonusConditionType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/WeaponBonusUpgradeUpgradeImplementation.cpp (not merged yet)
 
 // tu-skeleton: 0x0028A684 22B ?clearWeaponBonusCondition@Object@@QAEXW4WeaponBonusConditionType@@@Z -- matched in Code/GameEngine/Source/Common/RTS/PlayerBattlePlanBonuses.cpp (not merged yet)
 
 // tu-skeleton: 0x0028A69A 7B ?get@Rva0028A69AByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/DispByteFieldGetters.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Object.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Object.cpp
 
@@ -4414,6 +4430,21 @@ void Rva0029173EAsciiField::setName(AsciiString value)
 	slot = value;
 }
 
+// ---- from Code/GameEngine/Source/Common/Rva004076EEConditionBits.cpp
+
+// Whole BF1 f98983a7d3bb405f1a4ba94bb6a2a168062a819d WWLib/mpmath.cpp
+// and its mpmath.h XMP_Set_Bit expression supply this raw-bit source guide.
+// The donor name already belongs to a different retail body at 61B760 and
+// is not asserted here. Native28F8B3..28F8CE follows the predecessor RET4
+// and ends with RET0 before a distinct call/return wrapper. Stack words
+// supply a writable raw32 array and an unsigned bit index; the logical
+// quotient/low-five-bit shift and OR store are independently witnessed.
+// Original owner, array extent and any higher-level flag meaning are unknown.
+void Rva0028F8B3SetBit(unsigned int *words, unsigned int bit)
+{
+    words[bit >> 5] |= 1u << (bit & 31);
+}
+
 // tu-skeleton: 0x0028A6B6 17B ?rva0028A6B6@Rva0028A638@@QAEXM@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp (not merged yet)
 
 // tu-skeleton: 0x0028A6C7 32B ?dlink_isInList_TeamMemberList@Object@@QBE_NPBQAV1@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectIsInTeamMemberList.cpp (not merged yet)
@@ -4606,7 +4637,19 @@ void Rva0029173EAsciiField::setName(AsciiString value)
 
 // tu-skeleton: 0x0028BB65 33B ?setShroudClearingRange@Object@@QAEXM@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectSetShroudClearingRange.cpp (not merged yet)
 
-// tu-skeleton: 0x0028BB86 7B ?get@Rva0028BB86FloatField@@QBEMXZ -- matched in Code/GameEngine/Source/Common/Disp32FloatGetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Disp32FloatGetters.cpp
+
+// Disp32 float getters: seven-byte __thiscall members with one shape:
+//
+//     fld dword [ecx+<DISP>] / ret
+//
+// One float is read at a fixed 32-bit displacement from `this` and returned
+// in ST0. The offset does not fit the sign-byte form, so MSVC 7.1 emits
+// `D9 81 DISP32`, plus `ret`, for seven bytes total. This is the disp32
+// sibling of the float-getter lane; the opcode itself is why it lives in
+// its own translation unit. Identity is not recovered: every name is
+// derived from its address.
+// No // cl: line (defaults match the frameless seven-byte shape).
 
 // tu-skeleton: 0x0028BB8D 17B ?rva0028BB8D@Rva0028A638@@QAEXM@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp (not merged yet)
 
@@ -4917,21 +4960,6 @@ void Rva0029173EAsciiField::setName(AsciiString value)
 // tu-skeleton: 0x0028F898 11B ?rva0028F898@Rva0028F898@@QAEAAVRva001EAFC1@@ABV2@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp (not merged yet)
 
 // tu-skeleton: 0x0028F8A3 16B ?rva0028F8A3@Object@@QBEMPBV1@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/Rva004076EEConditionBits.cpp
-
-// Whole BF1 f98983a7d3bb405f1a4ba94bb6a2a168062a819d WWLib/mpmath.cpp
-// and its mpmath.h XMP_Set_Bit expression supply this raw-bit source guide.
-// The donor name already belongs to a different retail body at 61B760 and
-// is not asserted here. Native28F8B3..28F8CE follows the predecessor RET4
-// and ends with RET0 before a distinct call/return wrapper. Stack words
-// supply a writable raw32 array and an unsigned bit index; the logical
-// quotient/low-five-bit shift and OR store are independently witnessed.
-// Original owner, array extent and any higher-level flag meaning are unknown.
-void Rva0028F8B3SetBit(unsigned int *words, unsigned int bit)
-{
-    words[bit >> 5] |= 1u << (bit & 31);
-}
 
 // tu-skeleton: 0x0028F8CE 9B ?rva0028F8CE@Rva0028F8CEOverrideView@@QBEPBIXZ -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModule.cpp (not merged yet)
 
