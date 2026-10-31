@@ -39,30 +39,22 @@ private:
 	ExperienceScalarTable **m_finish;
 	ExperienceScalarTable **m_endOfStorage;
 };
-class Overridable
+#include "../../../Include/Common/Overridable.h"
+// Zero Hour's inline getFinalOverride walk as retail inlines it here: the
+// first level only, then the out-of-line friend_getFinalOverride
+// (0x001E35DF) for the rest.
+static inline Overridable *firstLevelFinalOverride(Overridable *overridable)
 {
-public:
-	virtual ~Overridable();
-	Overridable *friend_getFinalOverride();	// 0x001E35DF
-	const Overridable *friend_getFinalOverride() const;	// 0x00288609
-
-	// Zero Hour's inline walk; retail inlines this first level.
-	Overridable *getFinalOverride()
-	{
-		if (m_nextOverride)
-			return m_nextOverride->friend_getFinalOverride();
-		return this;
-	}
-
-protected:
-	Overridable *m_nextOverride;		// +0x04
-};
+	if (overridable->friend_getNextOverride())
+		return overridable->friend_getNextOverride()->friend_getFinalOverride();
+	return overridable;
+}
 class ExperienceLevel : public Overridable
 {
 public:
 	bool operator<(const ExperienceLevel &that) const;
 
-	unsigned char m_pad08[0x14 - 8];
+	unsigned char m_pad10[0x14 - 0x10];
 	Int m_level;				// +0x14
 	Int m_requiredExperience;		// +0x18
 	Int m_experienceAward;			// +0x1C
@@ -240,7 +232,7 @@ union Rva00288940Call
 };
 static inline ExperienceLevel *finalLevel(const ExperienceLevelHandle &levelHandle)
 {
-	return (ExperienceLevel *)levelHandle.m_iter->getFinalOverride();
+	return (ExperienceLevel *)firstLevelFinalOverride(levelHandle.m_iter.operator->());
 }
 // ExperienceLevelStore::GetLevelRank, retail 0x0028879C.
 Int ExperienceLevelStore::GetLevelRank(ExperienceLevelHandle levelHandle) const
@@ -350,7 +342,7 @@ ExperienceLevelHandle ExperienceLevelStore::FindCurrentLevel(const ExperienceTra
 			ExperienceLevelIterator end = list->end();
 			for (ExperienceLevelIterator it = list->begin(); !(it == end); ++it)
 			{
-				if (((ExperienceLevel *)it->getFinalOverride())->m_level == level)
+				if (((ExperienceLevel *)firstLevelFinalOverride(it.operator->()))->m_level == level)
 				{
 					return ExperienceLevelHandle(list, it);
 				}
