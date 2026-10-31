@@ -60098,7 +60098,7 @@ __ehhandler$??0WorldHeightMap@@QAE@PAVChunkInputStream@@HHH@Z,,0x00761418,10,Cod
 ?rva00319A52@Rva00318BC6Owner@@QAEXABVAsciiString@@@Z,,0x00319A52,78,Code/GameEngine/Source/Common/GapBodiesGE14.cpp,matched,Ghidra-unlisted gap body; shape from retail bytes; address-derived identity: Small/Medium/Large to 1/2/3
 ?rva003681DC@Rva002645FF@@QAE_NXZ,,0x003681DC,17,Code/GameEngine/Source/Common/GapBodiesGE14.cpp,matched,Ghidra-unlisted gap body; shape from retail bytes; address-derived identity: +0x4B8 bit gate before rowed 0x2645FF
 ?rva004CFC81@Rva004CFC81@@QBEIXZ,,0x004CFC81,80,Code/GameEngine/Source/Common/GapBodiesGE14.cpp,matched,Ghidra-unlisted gap body; shape from retail bytes; address-derived identity: frames to deadline or since the earliest active slot
-??0Rva002E7334@@QAE@HABUGapPair@@@Z,,0x002E7334,26,Code/GameEngine/Source/Common/GapBodiesGE15.cpp,matched,Ghidra-unlisted gap body; shape from retail bytes; address-derived identity: word and pair record
+??0Rva002E7334@@QAE@HABUGapPair@@@Z,,0x002E7334,26,Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp,matched,Ghidra-unlisted gap body; shape from retail bytes; address-derived identity: word and pair record
 ?rva004E4E05@Rva004E4E05@@QAEXPBV1@@Z,,0x004E4E05,37,Code/GameEngine/Source/Common/GapBodiesGE15.cpp,matched,Ghidra-unlisted gap body; shape from retail bytes; address-derived identity: copy five settings
 ?rva004E4E2A@Rva004E4E05@@QAEXM@Z,,0x004E4E2A,48,Code/GameEngine/Source/Common/GapBodiesGE15.cpp,matched,Ghidra-unlisted gap body; shape from retail bytes; address-derived identity: +8 value clamped to 0..1
 ?rva0030F642@Rva0030F642@@QAEXPAURva0030F642Node@@@Z,,0x0030F642,55,Code/GameEngine/Source/Common/MessageStream.cpp,matched,Ghidra-unlisted gap body; shape from retail bytes; address-derived identity: doubly linked list unlink
@@ -69742,7 +69742,7 @@ _$E1,,0x007ACFB0,11,Code/Libraries/Source/WWVegas/WW3D2/Rva007ACFB0EncodingFilte
 ?IsValidHordeMemberRegularMovement@Pathfinder@@QAE_NPAVObject@@PBUCoord3D@@11@Z,,0x002F06A3,338,Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderIsValidHordeMemberRegularMovement.cpp,matched,
 ?rva00177EC7@@YAXPAURva00177EC7Pair@@AAU1@@Z,,0x00177EC7,70,Code/Libraries/Source/WWVegas/WW3D2/Rva00177E95Fill.cpp,matched,
 ?rva003AFF06@Rva003AFF06@@UAEXPAX0@Z,,0x003AFF06,28,Code/GameEngine/Source/Common/VslotSmallBodiesAD_Rva00349D02.cpp,matched,
-?rva002E734E@Rva002E7334@@QAEHPAURva002E734ECell@@0HH@Z,,0x002E734E,58,Code/GameEngine/Source/Common/GapBodiesGE15.cpp,matched,
+?rva002E734E@Rva002E7334@@QAEHPAURva002E734ECell@@0HH@Z,,0x002E734E,58,Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp,matched,
 ?updatePageCounts@@YIXPAVRegionUI@@PAURva005CB432Owner@@@Z,,0x005CB432,56,Code/GameEngine/Source/Common/Rva005CB432PageCounts.cpp,matched,
 ??0LargeGroupBonusUpdateModuleData@@QAE@XZ,,0x004901BD,104,Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupBonusUpdateModuleDataCtor.cpp,matched,
 ?mapLoadPostProcess@TransitionDamageFX@@UAEXPBVDict@@@Z,,0x004BA9E4,321,Code/GameEngine/Source/GameLogic/Object/Damage/TransitionDamageFX_mapLoadPostProcess.cpp,matched,

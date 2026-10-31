@@ -23,22 +23,6 @@ struct Rva002E7334
 	int m_08;
 };
 
-Rva002E7334::Rva002E7334(int value, const GapPair &pair) : m_00(value), m_04(pair.a), m_08(pair.b)
-{
-}
-
-// ?rva002E734E@Rva002E7334@@QAEHPAURva002E734ECell@@0HH@Z @0x002E734E (58B)
-// The trailing "&& 1" keeps retail's movzx between shr 16 and and 1.
-int Rva002E7334::rva002E734E(Rva002E734ECell *from, Rva002E734ECell *to, int cellColumn, int cellRow)
-{
-	if (cellColumn == m_04 && cellRow == m_08)
-		return 0;
-	unsigned int flags = to->m_flags;
-	if ((flags & 0xF) == 0 || (flags & 0xF) == 1)
-		return ((unsigned char)(flags >> 16) & 1) && 1;
-	return 1;
-}
-
 // --- 0x004E4E05 (37B): copy five settings from another record;
 // 0x004E4E2A (48B): the +0x08 value clamped to [0, 1].
 class Rva004E4E05

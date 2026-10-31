@@ -23438,8 +23438,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x002E7243,30,code,Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp,approved,C,C=0x002E7205..0x002E7261,Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp
 0x002E7261,53,code,Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp,approved,C,C=0x002E7205..0x002E7296,Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp
 0x002E7296,158,code,Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp N=Code/GameEngine/Source/GameLogic/Pathfinder/Pathfinder.cpp,Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp
-0x002E7334,26,code,Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp,approved,C,C=0x002E7296..0x002E734E,Code/GameEngine/Source/Common/GapBodiesGE15.cpp
-0x002E734E,58,code,Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp,approved,C,C=0x002E7296..0x002E7388,Code/GameEngine/Source/Common/GapBodiesGE15.cpp
+0x002E7334,26,code,Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp,approved,C,C=0x002E7296..0x002E734E,Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp
+0x002E734E,58,code,Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp,approved,C,C=0x002E7296..0x002E7388,Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp
 0x002E7388,76,code,Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp,approved,C,C=0x002E7296..0x002E73D4,Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp
 0x002E73D4,39,code,Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp,approved,C,C=0x002E7296..0x002E73FB,Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp
 0x002E73FB,25,code,Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp,approved,C,C=0x002E7296..0x002E7414,Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp
