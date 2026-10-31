@@ -33,6 +33,7 @@
 
 
 
+
 #endif
 #define TERRAIN_SAMPLE_SIZE 40.0f
 #define MIN_CAPPED_ZOOM (0.5f) //WST 10.19.2002. JSC integrated 5/20/03.
@@ -420,6 +421,18 @@ public:
 	{ \
 		return (m_first - *(int *)((char *)this + DISP2)) / DIVISOR; \
 	}
+#define BFME_DISP_BYTE_GETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		unsigned char get() const; \
+		char m_lead[DISP]; \
+		unsigned char m_value; \
+	}; \
+	unsigned char NAME::get() const \
+	{ \
+		return m_value; \
+	}
 
 // BFME adds View and Display virtuals that the shared Zero Hour headers omit;
 // these scoped views preserve the witnessed slots and +0x104 camera offset.
@@ -638,6 +651,7 @@ public:
 
 
 void drawDrawableExtents( Drawable *draw, void *userData );
+
 
 
 
@@ -2446,14 +2460,6 @@ public:
 	unsigned char m_enabled;
 };
 
-class MilesAudioManager : public SizedForwarderSlots
-{
-public:
-	virtual void rva000512BC();
-public:
-	char m_lead[0x6AB - sizeof(void *)];
-};
-
 class Rva00066517ByteOneSetter
 {
 public:
@@ -2862,11 +2868,32 @@ struct Rva002A87EAFields
     unsigned char get() const;
 };
 
+class MilesAudioManager : public SizedForwarderSlots
+{
+public:
+	virtual void rva000512BC();
+public:
+	char m_lead[0x6AB - sizeof(void *)];
+};
+
+BFME_DISP_BYTE_GETTER(Rva000879FBByteField, 0x2500)
+
+// BF1 9cbfb551fe Common/Rva005BD470ZeroTest.cpp is the clean semantic donor.
+// Full native leaf 001F350B..001F3513 ends at its own RET boundary.
+// Target evidence: receiver0C dword equals two; result in AL.
+// Original owner unresolved; the address-owned type is independent of nearby classes.
+class Rva001F350BFields {
+public: unsigned char isTwo() const;
+private: char unknown[0x0C]; unsigned int value;
+};
+
 // tu-skeleton: 0x00085B41 380B ?getAxisAlignedViewRegion@W3DView@@AAEXAAURegion3D@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewGetAxisAlignedViewRegion.cpp (not merged yet)
 
 // tu-skeleton: 0x00085CBD 522B ?rva00085CBD@W3DView@@QAEXAAURegion3D@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewFarRegion.cpp (not merged yet)
 
 // tu-skeleton: 0x00085EC7 62B ?setFadeParameters@W3DView@@UAEXHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewSetFadeParameters.cpp (not merged yet)
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp
 
@@ -3403,6 +3430,33 @@ float * Rva00088D05::rva00088D05()
 // name is derived from its address.
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ---- from Code/GameEngine/Source/Common/DispByteOneSetters.cpp
+
+void Rva000875CEByteZeroSetter::disable()
+{
+	m_enabled = 0;
+}
+
 // tu-skeleton: 0x00085F6A 62B ?rva00085F6A@Rva00085F6A@@QAE_NH@Z -- matched in Code/GameEngine/Source/Common/Rva00085F6ASet.cpp (not merged yet)
 
 // tu-skeleton: 0x00085FA8 178B ?calcDeltaScroll@Rva00085FA8@@QAEXPAM@Z -- matched in Code/GameEngine/Source/Common/Rva00085FA8Delta.cpp (not merged yet)
@@ -3443,13 +3497,6 @@ float * Rva00088D05::rva00088D05()
 
 // tu-skeleton: 0x000875A2 44B ?rva000875A2@W3DView@@UAEXABV?$StringBase@D@@0@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRva0008DAE4.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/DispByteOneSetters.cpp
-
-void Rva000875CEByteZeroSetter::disable()
-{
-	m_enabled = 0;
-}
-
 // tu-skeleton: 0x000875D6 28B ?rva000875D6@W3DView@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRva0008DAE4.cpp (not merged yet)
 
 // tu-skeleton: 0x00087642 456B ?rva00087642@W3DView@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRva00087642CameraRestore.cpp (not merged yet)
@@ -3460,7 +3507,25 @@ void Rva000875CEByteZeroSetter::disable()
 
 // tu-skeleton: 0x000879A9 61B ?rva000879A9@Rva00085947@@QAE_NH@Z -- matched in Code/GameEngine/Source/GameClient/Rva00085947Method.cpp (not merged yet)
 
-// tu-skeleton: 0x000879FB 7B ?get@Rva000879FBByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/DispByteFieldGetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/DispByteFieldGetters.cpp
+
+// Disp32 byte getters: seven-byte __thiscall members with one shape:
+//
+//     mov al,[ecx+<DISP>] / ret
+//
+// One BYTE is read at a fixed displacement from `this` and left in al. The
+// return type is spelled `unsigned char` because only al is written and the
+// upper bytes of eax are left holding whatever the caller had; the bytes
+// cannot distinguish it from `signed char`, `bool` or a one-byte enum.
+//
+// Every displacement here is a disp32 (MSVC 7.1 uses disp8 whenever the
+// offset fits, so every offset is at least 0x80), which is why this family
+// is separable from the far larger disp8 one. Members before the accessed
+// one are spelled as a lead array because their types are not witnessed
+// here, only their total size. Identity is not recovered: every name is
+// derived from its address (BFME1 pioneered the same family in
+// reference/open-bfme-1/Code/GameEngine/Source/Common/DispByteFieldGetters.cpp).
+// No // cl: line (defaults match the frameless 7-byte shape).
 
 // tu-skeleton: 0x00087A44 24B ??$fill@PAPAXPAX@_STL@@YAXPAPAX0ABQAX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_ptr_o1.cpp (not merged yet)
 
