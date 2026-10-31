@@ -30,6 +30,7 @@ public:
 #define REPORT(message) if (bfmeRva000387C0()) { _bfme_debugRecordCallsite(1); theDebug->slot60(); (theDebug->slot6c(0,0,0) << *(const StringBase<char> *)&name).slot38(message).slot4c(2); }
 #pragma pack(push,1)
 #pragma pack(pop)
+#include "ascii_string.h"	// shared AsciiString: operator= expands to StringBase<char>::set (0x000366F0), as retail
 
 class Rva00330757Member
 {
@@ -427,6 +428,59 @@ void _bfme_debugRecordCallsite(int);
 
 struct DepthTgaHeader { unsigned char idLength,colorMapType,imageType,unused[9]; unsigned short width,height; unsigned char bitsPerPixel,descriptor; };
 
+struct Rva003080AARef
+{
+	virtual void _slot00();
+	int m_ref04;
+};
+
+class Rva0030812E
+{
+public:
+	void *getTextureName(int i);
+};
+
+class Rva00308139
+{
+public:
+	void rva00308139(const AsciiString &s);
+private:
+	char m_pad00[0x80];
+	AsciiString m_str80;
+	char m_pad84[4];
+	bool m_flag88;
+};
+
+//
+// ?rva0030815D@Rva0030815D@@QAEXABVAsciiString@@@Z, retail 0x0030815D, 29B.
+// AsciiString assign to member+0x8c via pinned operator= then flag+0x9c=1.
+// Caller 0x3092CC in 0x3091B1. Same recipe/flags as 0x00308139. Honest address name.
+
+class Rva0030815D
+{
+public:
+	void rva0030815D(const AsciiString &s);
+private:
+	char m_pad00[0x8c];
+	AsciiString m_str8C;
+	char m_pad90[0x9c - 0x90];
+	bool m_flag9C;
+};
+
+// ?rva003080C3@Rva003080C3Owner@@QAEPAURva003080AARef@@H@Z @0x003080C3 11B,
+// directly after rva003080AA: forwards to the indexer held at +0x94.
+// Owner and name are address-derived.
+class Rva003080C3Owner
+{
+public:
+	Rva003080AARef *rva003080C3(int i);
+private:
+	char m_pad00[0x94];
+	Rva003080AA *m_indexer94;
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Map/StandingWaterArea.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Map/StandingWaterAreaReleasePCA.cpp
 
 // Native PCA release96: 3080CE..30812E; original helper name unknown.
@@ -443,24 +497,6 @@ void StandingWaterArea::rva003080CE()
   if(channels[i+6]) { delete[] channels[i+6]; channels[i+6]=0; }
  }
 }
-
-// tu-skeleton: 0x0030812E 11B ?getTextureName@Rva0030812E@@QAEPAXH@Z -- matched in Code/GameEngine/Source/Common/Rva00142C80LeaIndexer.cpp (not merged yet)
-
-// tu-skeleton: 0x00308139 29B ?rva00308139@Rva00308139@@QAEXABVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/Rva00142C80LeaIndexer.cpp (not merged yet)
-
-// tu-skeleton: 0x00308156 7B ?get@Rva00308156LeaGetter@@QBEPAXXZ -- matched in Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0030815D 29B ?rva0030815D@Rva0030815D@@QAEXABVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/Rva00142C80LeaIndexer.cpp (not merged yet)
-
-// tu-skeleton: 0x0030817A 8B ?rva0030817A@Rva0030817A@@UAEXH@Z -- matched in Code/GameEngine/Source/GameClient/Rva00330B2EMemberCall.cpp (not merged yet)
-
-// tu-skeleton: 0x00308182 69B ??D@YA?AVVector4@@MABV0@@Z -- matched in Code/Libraries/Source/WWVegas/WWMath/Vector4ScaleO1.cpp (not merged yet)
-
-// tu-skeleton: 0x003081C7 24B ?rva003081C7@Rva003081C7@@QAEEXZ -- matched in Code/GameEngine/Source/GameClient/Rva00330B2EMemberCall.cpp (not merged yet)
-
-// tu-skeleton: 0x003081DF 28B ?rva003081DF@Rva003081DF@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/Rva00330B2EMemberCall.cpp (not merged yet)
-
-// tu-skeleton: 0x003081FB 24B ?rva003081FB@Rva003081FB@@QAEEXZ -- matched in Code/GameEngine/Source/GameClient/Rva00330B2EMemberCall.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Map/StandingWaterArea.cpp
 
@@ -791,10 +827,6 @@ Rva0030902E::Rva0030902E(int count)
 	m_D0 = true;
 }
 
-// tu-skeleton: 0x00308688 109B ?apply@Rva003089CFList@@QAEXABURva00308688Call@@@Z -- matched in Code/GameEngine/Source/Common/Rva00308AA4Notifiers.cpp (not merged yet)
-
-// tu-skeleton: 0x003086F5 112B ?apply@Rva003089CFList@@QAEXABURva003086F5Call@@@Z -- matched in Code/GameEngine/Source/Common/Rva00308AA4Notifiers.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Map/StandingWaterAreaDepthColoring.cpp
 
 // WB BDDCA0 StandingWaterArea::getDepthColoringTexturePixels and native
@@ -822,6 +854,59 @@ unsigned char *StandingWaterArea::getDepthColoringTexturePixels(int *outWidth,in
  }
  *outWidth=width;*outHeight=height;return pixels;
 }
+
+// ---- from Code/GameEngine/Source/Common/Rva00142C80LeaIndexer.cpp
+
+//
+// 0x00142C80, the indexed lea this file was named for, is
+// RenderInfoClass::Current_Override_Flags and lives in WW3D2/rinfo.cpp.
+//
+// ?getTextureName@Rva0030812E@@QAEPAXH@Z, retail 0x0030812E, 11 bytes.
+// Stack-indexed lea: mov eax [esp+4] lea eax [ecx+eax*4+0x78] ret 4.
+// Spelled as byte arithmetic (no array size claimed); unlocks 0x7EDBC/
+// 0x81E36/0x81CDF. Honest address name.
+//
+// ?rva003080AA@Rva003080AA@@QAEPAURva003080AARef@@H@Z, retail 0x003080AA, 25B.
+// AddRef fetch from array at +0xB8:
+// p=m_items[i]; if (p) ++p->m_ref; return m_items[i] (reload for return).
+// Callers 0x38D9E/0x380C9. Honest address name.
+//
+// ?rva00308139@Rva00308139@@QAEXABVAsciiString@@@Z, retail 0x00308139, 29B.
+// AsciiString assign to member+0x80 via pinned operator= then flag+0x88=1.
+// Caller 0x392A9. Same flags.
+
+void *Rva0030812E::getTextureName(int i)
+{
+	return (char *)this + 0x78 + i * 4;
+}
+
+void Rva00308139::rva00308139(const AsciiString &asciiString)
+{
+	m_str80 = asciiString;
+	m_flag88 = true;
+}
+
+void Rva0030815D::rva0030815D(const AsciiString &asciiString)
+{
+	m_str8C = asciiString;
+	m_flag9C = true;
+}
+
+// tu-skeleton: 0x00308156 7B ?get@Rva00308156LeaGetter@@QBEPAXXZ -- matched in Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0030817A 8B ?rva0030817A@Rva0030817A@@UAEXH@Z -- matched in Code/GameEngine/Source/GameClient/Rva00330B2EMemberCall.cpp (not merged yet)
+
+// tu-skeleton: 0x00308182 69B ??D@YA?AVVector4@@MABV0@@Z -- matched in Code/Libraries/Source/WWVegas/WWMath/Vector4ScaleO1.cpp (not merged yet)
+
+// tu-skeleton: 0x003081C7 24B ?rva003081C7@Rva003081C7@@QAEEXZ -- matched in Code/GameEngine/Source/GameClient/Rva00330B2EMemberCall.cpp (not merged yet)
+
+// tu-skeleton: 0x003081DF 28B ?rva003081DF@Rva003081DF@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/Rva00330B2EMemberCall.cpp (not merged yet)
+
+// tu-skeleton: 0x003081FB 24B ?rva003081FB@Rva003081FB@@QAEEXZ -- matched in Code/GameEngine/Source/GameClient/Rva00330B2EMemberCall.cpp (not merged yet)
+
+// tu-skeleton: 0x00308688 109B ?apply@Rva003089CFList@@QAEXABURva00308688Call@@@Z -- matched in Code/GameEngine/Source/Common/Rva00308AA4Notifiers.cpp (not merged yet)
+
+// tu-skeleton: 0x003086F5 112B ?apply@Rva003089CFList@@QAEXABURva003086F5Call@@@Z -- matched in Code/GameEngine/Source/Common/Rva00308AA4Notifiers.cpp (not merged yet)
 
 // tu-skeleton: 0x003089CF 30B ?forEach@Rva003089CFList@@QAEXP8Rva00308AA4Listener@@AEXPAVRva00308AA4Owner@@@Z0@Z -- matched in Code/GameEngine/Source/Common/Rva00308AA4Notifiers.cpp (not merged yet)
 

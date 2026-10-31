@@ -23271,7 +23271,7 @@ uw_0076443a,,0x0076443A,8,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DD
 ?Rva00586B92Destroy@@YAXPAVRva00585B16@@0@Z,,0x00586B92,25,Code/Libraries/Source/WWVegas/WWLib/Rva00586B92Destroy.cpp,matched,unlocks 3 via rowed dtor 0x585B16 elem 0x54
 ?rva00586BAB@Rva00586BAB@@QAEXXZ,,0x00586BAB,30,Code/Libraries/Source/WWVegas/WWLib/Rva00586BABFree.cpp,matched,chain from 0x00586B92 destroy plus free 0x30830
 ?_M_create_node@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@3@UBfmeStringNoCaseLess@@V?$allocator@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@3@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@2@ABU?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@2@@Z,,0x002CFA8E,34,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_create_node_nocase4_002CFA8E.cpp,matched,NoCase create_node 0x18 via dup 0x2CF954 caller 0x2CFE30
-?getTextureName@Rva0030812E@@QAEPAXH@Z,,0x0030812E,11,Code/GameEngine/Source/Common/Rva00142C80LeaIndexer.cpp,matched,stack indexed lea plus78 unlocks 0x7EDBC
+?getTextureName@Rva0030812E@@QAEPAXH@Z,,0x0030812E,11,Code/GameEngine/Source/GameLogic/Map/StandingWaterArea.cpp,matched,stack indexed lea plus78 unlocks 0x7EDBC
 ?rva003EEFA0@Rva003EEFA0@@QAEXH@Z,,0x003EEFA0,59,Code/GameEngine/Source/Common/Rva003EE900Forward.cpp,matched,unlock loop over array calling 003EEA9D caller 1
 ?rva003EEA1A@Rva003EEA1A@@QAEXHH@Z,,0x003EEA1A,73,Code/GameEngine/Source/Common/Rva003EE900Forward.cpp,matched,unlock four-call forward strings 6C then 68 callers 2
 ?_M_clone_node@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@3@UBfmeStringNoCaseLess@@V?$allocator@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@3@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@2@PAU32@@Z,,0x002CFE27,30,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_clone_node_nocase4_002CFE27.cpp,matched,NoCase clone 30B via create_node 0x2CFA8E callers 0x2D03A6 0x2D03D6
@@ -23281,7 +23281,7 @@ uw_0076443a,,0x0076443A,8,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DD
 ?Rva002E22EBSort@@YAXPAPAX0PAX@Z,,0x002E22EB,68,Code/GameEngine/Source/Common/Rva002E1EB7Insert.cpp,matched,hybrid sort small direct else split 16 caller 0x002E2D82
 ?rva003081FB@Rva003081FB@@QAEEXZ,,0x003081FB,24,Code/GameEngine/Source/GameClient/Rva00330B2EMemberCall.cpp,matched,same recipe ptr plus8c uchar caller 0x6B692
 ?rva003080AA@Rva003080AA@@QAEPAURva003080AARef@@H@Z,,0x003080AA,25,Code/GameEngine/Source/Common/Rva00142C80LeaIndexer.cpp,matched,addref fetch array plusB8 callers 0x38D9E
-?rva00308139@Rva00308139@@QAEXABVAsciiString@@@Z,,0x00308139,29,Code/GameEngine/Source/Common/Rva00142C80LeaIndexer.cpp,matched,asciistring assign plus80 flag plus88 caller 0x392A9
+?rva00308139@Rva00308139@@QAEXABVAsciiString@@@Z,,0x00308139,29,Code/GameEngine/Source/GameLogic/Map/StandingWaterArea.cpp,matched,asciistring assign plus80 flag plus88 caller 0x392A9
 ?rva003EEB9F@Rva003EEB9F@@QAEXHH@Z,,0x003EEB9F,37,Code/GameEngine/Source/Common/Rva003EE900Forward.cpp,matched,chain via 004E3629 and 003EEA1A caller 1
 ?rva003EE980@Rva003EE980@@QAEXH@Z,,0x003EE980,87,Code/GameEngine/Source/Common/Rva003EE980Forward.cpp,matched,unlock three-call forward with floats caller 1
 ?rva003EE7E1@Rva003EE7E1@@QAEXH@Z,,0x003EE7E1,105,Code/GameEngine/Source/Common/Rva003EE900Forward.cpp,matched,unlock six-call broadcast strings 64 to 80 caller 1
@@ -23297,7 +23297,7 @@ uw_0076443a,,0x0076443A,8,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DD
 ??_GRva004E1A04@@QAEPAXI@Z,,0x0052BBBB,28,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp,matched,chain deleting dtor calls rowed dtor plus delete
 ?rva0052BAB2@Rva0052BAB2@@QBEHXZ,,0x0052BAB2,15,Code/GameEngine/Source/Common/Rva0052BAB2Getter.cpp,matched,unlock conditional getter callers 4
 ??0Rva002CF120@@QAE@ABU0@@Z,,0x002CF120,27,Code/Libraries/Source/WWVegas/WWLib/Rva002CF120Copy.cpp,matched,small copy ctor via header 0x2CF108 caller 0x2CF368
-?rva0030815D@Rva0030815D@@QAEXABVAsciiString@@@Z,,0x0030815D,29,Code/GameEngine/Source/Common/Rva00142C80LeaIndexer.cpp,matched,asciistring assign plus8c flag plus9c caller 0x3091B1
+?rva0030815D@Rva0030815D@@QAEXABVAsciiString@@@Z,,0x0030815D,29,Code/GameEngine/Source/GameLogic/Map/StandingWaterArea.cpp,matched,asciistring assign plus8c flag plus9c caller 0x3091B1
 ?Rva002CF35CCopy@@YAXPAURva002CF120@@PBU1@@Z,,0x002CF35C,18,Code/Libraries/Source/WWVegas/WWLib/Rva002CF35CCopy.cpp,matched,null guarded placement copy caller 0x2CF861
 ?Rva002CF84DCreate@@YGPAXPBURva002CF120@@@Z,,0x002CF84D,34,Code/Libraries/Source/WWVegas/WWLib/Rva002CF84DCreate.cpp,matched,stdcall node create via copy 0x2CF35C callers 0x2CFA39 0x33BFD9 0x33BFF4
 ?Rva002E5C15LowerBound@@YAPAUStringLookUp@@PAU1@0ABQBDURva002E5C15Comp@@H@Z,,0x002E5C15,76,Code/GameEngine/Source/GameClient/GameText.cpp,matched,chain from 0x002E56B3 Less binary lower_bound 8B array

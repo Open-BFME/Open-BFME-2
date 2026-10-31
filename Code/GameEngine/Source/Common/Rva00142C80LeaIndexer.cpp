@@ -40,11 +40,6 @@ public:
 	void *getTextureName(int i);
 };
 
-void *Rva0030812E::getTextureName(int i)
-{
-	return (char *)this + 0x78 + i * 4;
-}
-
 Rva003080AARef *Rva003080AA::rva003080AA(int i)
 {
 	Rva003080AARef *p = m_itemsB8[i];
@@ -64,12 +59,6 @@ private:
 	bool m_flag88;
 };
 
-void Rva00308139::rva00308139(const AsciiString &asciiString)
-{
-	m_str80 = asciiString;
-	m_flag88 = true;
-}
-
 //
 // ?rva0030815D@Rva0030815D@@QAEXABVAsciiString@@@Z, retail 0x0030815D, 29B.
 // AsciiString assign to member+0x8c via pinned operator= then flag+0x9c=1.
@@ -85,12 +74,6 @@ private:
 	char m_pad90[0x9c - 0x90];
 	bool m_flag9C;
 };
-
-void Rva0030815D::rva0030815D(const AsciiString &asciiString)
-{
-	m_str8C = asciiString;
-	m_flag9C = true;
-}
 
 // ?rva003080C3@Rva003080C3Owner@@QAEPAURva003080AARef@@H@Z @0x003080C3 11B,
 // directly after rva003080AA: forwards to the indexer held at +0x94.
