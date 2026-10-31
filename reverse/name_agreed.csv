@@ -13991,3 +13991,7 @@ nl-41c2feebdfa3-m0a06ae5e7fe94271c5fedc5e,param,arg,source,,w-077d7aeb666b@drz-k
 nl-16965647b855,param,a,leftKeys,,w-077d7aeb666b@drz-k3,Code/GameEngine/Source/Common/GapBodiesGE07.cpp|param|Rva00301E90|a,agreed,single-worker scoped approval: w-077d7aeb666b@drz-k3
 nl-84b3e240fbec,param,b,rightKeys,,w-077d7aeb666b@drz-k3,Code/GameEngine/Source/Common/GapBodiesGE07.cpp|param|Rva00301E90|b,agreed,single-worker scoped approval: w-077d7aeb666b@drz-k3
 nl-31f46218615a,member,m_F8,m_armorName,,w-077d7aeb666b@drz-k3;w-88a32c4f7da7@drz-k10,Code/GameEngine/Source/Common/VslotSmallBodiesAA.cpp|member|Rva004BF8AC|m_F8,agreed,two-agent agreement: w-077d7aeb666b@drz-k3;w-88a32c4f7da7@drz-k10
+nl-1998fb9c388a,local,p,iter,,w-4d4d8f8584bc@drz-k9,Code/GameEngine/Source/Common/Rva003F81B0Chain.cpp|local|Rva003F81FDProxy::rva003F816E|p,agreed,single-worker scoped approval: w-4d4d8f8584bc@drz-k9
+nl-d9372f3fc600,local,p,iter,,w-4d4d8f8584bc@drz-k9,Code/GameEngine/Source/Common/Rva003F81B0Chain.cpp|local|Rva003F812C::rva003F812C|p,agreed,single-worker scoped approval: w-4d4d8f8584bc@drz-k9
+nl-489c2297a0b5,local,p,iter,,w-4d4d8f8584bc@drz-k9,Code/GameEngine/Source/Common/Rva003F81B0Chain.cpp|local|Rva003F80E6::rva003F80E6|p,agreed,single-worker scoped approval: w-4d4d8f8584bc@drz-k9
+nl-26b3d1d55e82,member,m_14,m_scale,,w-09889333d128@drz-k11;w-4d4d8f8584bc@drz-k9,Code/GameEngine/Source/GameLogic/AI/Rva004389AENearbyCheck.cpp|member|Rva004388E3Template|m_14,agreed,two-agent agreement: w-09889333d128@drz-k11;w-4d4d8f8584bc@drz-k9
