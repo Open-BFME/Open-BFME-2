@@ -37,6 +37,7 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 
 
 
+
 #endif
 #define SC_DETAIL ( SHADE_CNST(ShaderClass::PASS_LEQUAL, ShaderClass::DEPTH_WRITE_ENABLE, ShaderClass::COLOR_WRITE_ENABLE, ShaderClass::SRCBLEND_ONE, \
 	ShaderClass::DSTBLEND_ZERO, ShaderClass::FOG_DISABLE, ShaderClass::GRADIENT_MODULATE, ShaderClass::SECONDARY_GRADIENT_DISABLE, ShaderClass::TEXTURING_ENABLE, \
@@ -239,6 +240,8 @@ private:
 // tu-skeleton: 0x00111FCF 124B ?rva00111FCF@W3DTerrainBackground@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundMarkTileGrid.cpp (not merged yet)
 
 // tu-skeleton: 0x0011204B 264B ?isEdgeAligned@W3DTerrainBackground@@QAE_NHHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundIsEdgeAligned.cpp (not merged yet)
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackground.cpp
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackground.cpp
 
@@ -806,8 +809,6 @@ void Rva0011216CSlotQuartet::rva00112197(void)
 	rva00112153();
 }
 
-// tu-skeleton: 0x00112230 41B ?rva00112230@Rva00112230CameraGroup@@QBE?AV?$RefCountPtr@VCameraClass@@@@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundUpdateCenter.cpp (not merged yet)
-
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00112259.cpp
 
 void Rva00112259::rva00112259()
@@ -816,6 +817,8 @@ void Rva00112259::rva00112259()
 	((Rva00111F0E *)this)->rva00111F0E();
 	m_62 = true;
 }
+
+// tu-skeleton: 0x00112230 41B ?rva00112230@Rva00112230CameraGroup@@QBE?AV?$RefCountPtr@VCameraClass@@@@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundUpdateCenter.cpp (not merged yet)
 
 // tu-skeleton: 0x0011234C 626B ?updateCenter@W3DTerrainBackground@@QAEXABVRva00112230CameraGroup@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundUpdateCenter.cpp (not merged yet)
 
@@ -831,7 +834,49 @@ void Rva00112259::rva00112259()
 
 // tu-skeleton: 0x00112AD1 749B ?setFlipRecursive@W3DTerrainBackground@@QAEXHHHM@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundSetFlipRecursiveTolerance.cpp (not merged yet)
 
-// tu-skeleton: 0x00112DBE 277B ??0Rva00112291TerrainOwner@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00112291TerrainCtor.cpp (not merged yet)
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00112291TerrainCtor.cpp
+
+Rva00112291TerrainOwner::Rva00112291TerrainOwner() : m_24(0),m_28(0),m_2C(0),m_30(0),
+    texture34(BfmeResetTextureRef::TerrainInit()),texture38(BfmeResetTextureRef::TerrainInit()),
+    texture3C(BfmeResetTextureRef::TerrainInit()),texture40(BfmeResetTextureRef::TerrainInit()) {
+
+m_44 = 1;
+m_48 = 0;
+m_4C = 0;
+m_50 = 0;
+m_54 = 0;
+m_58 = 1;
+map = 0;
+m_60 = 0;
+m_61 = 0;
+m_62 = 0;
+m_64 = 0.0f;
+m_68 = 0;
+m_6C = 0;
+m_70 = 0;
+m_74 = 0;
+m_78 = 0;
+m_7C = 0;
+m_80 = 0;
+m_84 = 0;
+m_88 = 1;
+m_8C = 1;
+m_90 = 1;
+m_94 = 1;
+m_C8 = 0;
+m_CC = 0.0f;
+m_D0 = 0;
+for(int i=0;i<3;++i) cullStatus[i]=0;
+m_98 = 500.0f;
+m_9C = 900.0f;
+m_A0 = 1500.0f;
+m_A4 = 2000.0f;
+m_A8 = 0;
+m_B0 = 0;
+m_B8 = 0;
+m_AC = 0;
+m_C0 = 0;
+}
 
 // tu-skeleton: 0x00112ED3 237B ?countUnsetCorners@W3DTerrainBackground@@QAEHHHHPA_N000@Z -- matched in Code/GameEngine/Source/Common/Rva00729300BitPlanes.cpp (not merged yet)
 
