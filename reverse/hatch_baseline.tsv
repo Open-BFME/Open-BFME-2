@@ -1278,9 +1278,6 @@ address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00105CF6.cpp
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/ScreenCrossFadeFilterUpdateFadeLevel.cpp	g_Va00BBB8D8	3
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/ScreenFilterRva000FC63DSet.cpp	g_Va00DEC1CC	2
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/ScreenFilterRva000FC63DSet.cpp	g_Va00DEC1DC	2
-address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/ScreenFilterRva007D6B70PostRender.cpp	g_Va00DB457C	3
-address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/ScreenFilterRva007DB820PostRender.cpp	g_Va00DB457C	3
-address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/ScreenFilterRva007DCA80PostRender.cpp	g_Va00DB457C	2
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/ScreenFilterRva007DCA80PostRender.cpp	g_Va00DB5B08	2
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/ScreenFilterRva007DCA80PostRender.cpp	g_Va00DEC0DC	5
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DVolumetricShadowUpdateMeshVolume.cpp	g_Va00DEBE08	2
@@ -1300,7 +1297,6 @@ address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShaderManage
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShaderManager.cpp	g_Va009E1F6C	4
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShaderManagerShutdown.cpp	g_Va009E1F6C	2
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSnow.cpp	g_Va00BBB8D8	2
-address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewBuildCameraTransformBfme.cpp	g_Va00DB457C	2
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewBuildCameraTransformBfme.cpp	g_Va00DE2020	2
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewBuildCameraTransformBfme.cpp	g_Va00E00944	2
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRva0008DB18.cpp	g_Va00DB4540	2
