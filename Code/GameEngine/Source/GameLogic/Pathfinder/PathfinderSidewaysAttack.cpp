@@ -312,12 +312,7 @@ public:
 unsigned char get() const;
 };
 // Weapon::isWithinAttackRange 0x002CB35C (WorldBuilder name).
-class Weapon
-{
-public:
-	bool isWithinAttackRange(Object*,const Coord3D*,Object*,const Coord3D*,float,bool);
-	float getAttackDistance(const Object *source, const Object *victimObj, const Coord3D *victimPos) const;	// 0x002C9C37
-};
+#include "../../../Include/GameLogic/Weapon.h"
 class Rva002C9B80Owner
 {
 public:

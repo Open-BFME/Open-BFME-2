@@ -548,19 +548,7 @@ public:
 	Bool is16b() const { return m_16b; }
 };
 
-class Weapon
-{
-public:
-	const WeaponTemplate *getTemplate() const { return m_template; }
-	Bool isWithinAttackRange(const Object *source, const Object *target, Real extra, Int flag) const;
-	char isWithinAttackRange(Object *source, void *pos, Real extra, Int flag) const;
-	Bool isWithinAttackRange(Object *source, const Coord3D *sourcePos, Object *victim, const Coord3D *victimPos, Real extra, Bool flag);	// 0x002CB35C
-	Bool isTooClose(const Object *source, const Object *target) const;
-	WeaponStatus getStatus() const;
-private:
-	unsigned char m_pad00[0x04];
-	const WeaponTemplate *m_template; // +0x04
-};
+#include "../../../Include/GameLogic/Weapon.h"
 
 // BFME 2's partition filter base (ctor 0x000421C8): a vptr and the +0x04 link
 // to the next filter (link 0x00625790 appends its argument and returns this).

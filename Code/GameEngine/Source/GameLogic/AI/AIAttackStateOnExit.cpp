@@ -136,15 +136,7 @@ public:
 	unsigned char m_pad00[0x08];
 	AsciiString m_name; // +0x08
 };
-class Weapon
-{
-public:
-	const WeaponTemplate *getTemplate() const { return m_template; }
-	unsigned char m_pad00[0x04];
-	const WeaponTemplate *m_template; // +0x04
-	unsigned char m_pad08[0x34 - 0x08];
-	Int m_maxShotCount; // +0x34
-};
+#include "../../../Include/GameLogic/Weapon.h"
 class ModelConditionFlags
 {
 public:

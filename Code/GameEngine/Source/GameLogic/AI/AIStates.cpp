@@ -531,18 +531,7 @@ public:
 	Bool m_noVictimNeeded; // +0x16B
 };
 
-class Weapon
-{
-public:
-	const WeaponTemplate *getTemplate() const { return m_template; }
-	Bool isWithinAttackRange(const Object *source, const Object *target, Real extra, Int flag) const;
-	char isWithinAttackRange(Object *source, void *pos, Real extra, Int flag) const;
-	Bool isTooClose(const Object *source, const Object *target) const;
-	WeaponStatus getStatus() const;
-private:
-	unsigned char m_pad00[0x04];
-	const WeaponTemplate *m_template; // +0x04
-};
+#include "../../../Include/GameLogic/Weapon.h"
 
 // BFME 2's partition filter base (ctor 0x000421C8): a vptr and the +0x04 link
 // to the next filter (link 0x00625790 appends its argument and returns this).

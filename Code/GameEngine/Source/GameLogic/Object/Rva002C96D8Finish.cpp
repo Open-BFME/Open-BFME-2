@@ -41,31 +41,7 @@ public:
 extern GameLogic *TheGameLogic;
 
 
-class Weapon
-{
-public:
-	bool isTooClose(const Object *source, const Coord3D *pos) const;
-	bool isTooClose(const Object *source, const Object *other) const;
-	float rva002C957E() const;
-	bool rva002C95F0() const;
-	void rva002C95DE(int offset);
-	void rva002C959E();
-	bool rva002C969D(const void *target, int b);
-	bool rva002C9586();
-	bool rva002C96D8();
-
-private:
-	char m_pad00[4];
-	const WeaponTemplate *m_template; // +4
-	char m_pad08[0x1C - 8]; // +8..0x1C
-	unsigned int m_whenPreAttackFinished; // +0x1C (layout from WeaponDtor TU)
-	unsigned int m_whenLastReloadStarted; // +0x20
-	unsigned int m_lastFireFrame; // +0x24
-	char m_pad28[0x50 - 0x28]; // +0x28..0x50
-	volatile unsigned int m_50; // +0x50 volatile forces m_50-first load order (retail 17B vs 16B A1 size opt)
-	int m_54; // +0x54
-	int m_58; // +0x58
-};
+#include "../../../Include/GameLogic/Weapon.h"
 
 bool Weapon::isTooClose(const Object *source, const Coord3D *pos) const
 {
@@ -99,7 +75,7 @@ float Weapon::rva002C957E() const
 // Evidence: callers 0x00343EAD 0x00343EC0 in 0x00343DD8; unblocks 0x00343DD8; prev/next Weapon owners; pooled TheGameLogic.
 bool Weapon::rva002C95F0() const
 {
-	unsigned int leechFrame = m_50;
+	unsigned int leechFrame = m_leechWeaponRangeActive;
 	return leechFrame > TheGameLogic->getFrame();
 }
 
@@ -108,7 +84,7 @@ bool Weapon::rva002C95F0() const
 // Evidence: same Weapon +0x50 and TheGameLogic +0x40 as rva002C95F0 sibling; prev/next same TU and flags.
 void Weapon::rva002C95DE(int offset)
 {
-	m_50 = TheGameLogic->getFrame() + offset;
+	m_leechWeaponRangeActive = TheGameLogic->getFrame() + offset;
 }
 
 // ?rva002C959E@Weapon@@QAEXXZ, retail 0x002C959E, 46 bytes.
@@ -122,7 +98,7 @@ void Weapon::rva002C959E()
 		randomValue = GetGameLogicRandomValue(0, m_template->m_preAttackRandomAmount, (char *)"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Weapon.cpp", 3644);
 	else
 		randomValue = 0;
-	m_58 = randomValue;
+	m_tailState = randomValue;
 }
 
 // ?rva002C969D@Weapon@@QAE_NPBXH@Z, retail 0x002C969D, 59 bytes.

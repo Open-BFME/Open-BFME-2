@@ -27,23 +27,7 @@ public:
 };
 #include "GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
-class Weapon
-{
-public:
-	float getPercentReadyToFire() const;
-	WeaponStatus computeStatus(bool *cacheable) const;
-private:
-	char m_pad00[4];
-	WeaponTemplate *m_template;
-	char m_pad08[8];
-	WeaponStatus m_status;
-	int m_pad14;
-	unsigned int m_frame18;
-	unsigned int m_frame1C;
-	unsigned int m_frame20;
-	unsigned int m_frame24;
-	unsigned int m_frame28;
-};
+#include "../../Include/GameLogic/Weapon.h"
 
 float Weapon::getPercentReadyToFire() const
 {
@@ -64,12 +48,12 @@ float Weapon::getPercentReadyToFire() const
 		return 0.0f;
 	}
 	unsigned int cur = TheGameLogic->getFrame();
-	if (cur >= m_frame18)
+	if (cur >= m_whenWeCanFireAgain)
 		return 1.0f;
-	unsigned int total = m_frame18 - m_frame28;
+	unsigned int total = m_whenWeCanFireAgain - m_projectileStreamID;
 	if (total == 0)
 		return 1.0f;
-	unsigned int done = total - m_frame18 + cur;
+	unsigned int done = total - m_whenWeCanFireAgain + cur;
 	if (done >= total)
 		return 1.0f;
 	return (float)done / (float)total;

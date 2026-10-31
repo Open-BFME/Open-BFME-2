@@ -472,12 +472,7 @@ public:
 	unsigned char get() const;
 };
 // Weapon::isWithinAttackRange 0x002CB35C (WorldBuilder name).
-class Weapon
-{
-public:
-	bool isWithinAttackRange(Object*,const Coord3D*,Object*,const Coord3D*,float,bool);
- float getAttackDistance(const Object*,const Object*,const Coord3D*)const;
-};
+#include "../../../Include/GameLogic/Weapon.h"
 // ?PathfinderWeaponRangeAdapter absent-from-retail
 __forceinline Bool Rva002CB35CObj::rva002CB35C(Int a1, void *pos, void *a3, void *a4, float range, Int a6)
 {
