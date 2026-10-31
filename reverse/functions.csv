@@ -8191,7 +8191,7 @@ _VP6_DecodeMode,,0x001C59F0,270,Code/Libraries/Source/VP6/DecodeMode.cpp,matched
 ?isValid@ObjectFilter@@QBE_NXZ,,0x00360CED,57,Code/GameEngine/Source/GameLogic/Object/ObjectFilter.cpp,matched,ammo-descriptor validity gate over global 0x94-stride table with flag at +0x88; BFME1 Weapon_getRemainingAmmo same call shape
 ?bfmeCloseBT@BfmeHostBT@@QAEXPAX@Z,,0x00664C50,98,Code/GameEngine/Source/GameNetwork/BfmeThingZI.cpp,matched,BFME1 byte-identical donor; b1 0x007F85D0
 ??0Rva00802E70Element@@QAE@XZ,,0x0066EF00,43,Code/GameEngine/Source/GameNetwork/V2FeslArrayBlocks.cpp,matched,BFME1 byte-identical donor; b1 0x00802E70
-?release@Rva007F9610Holder@@QAEXXZ,,0x00665B80,33,Code/GameEngine/Source/GameNetwork/V2FeslArrayBlocks.cpp,matched,BFME1 byte-identical donor; b1 0x007F9610
+?release@Rva007F9610Holder@@QAEXXZ,,0x00665B80,33,Code/Libraries/Source/Fesl/transactor.cpp,matched,BFME1 byte-identical donor; b1 0x007F9610
 ?reset@Rva007F70D0Owner@@QAEXXZ,,0x006637C0,21,Code/GameEngine/Source/GameNetwork/V2FeslArrayBlocks.cpp,matched,BFME1 byte-identical donor; b1 0x007F70D0
 ?reset@Rva007F7140Owner@@QAEXXZ,,0x00663830,21,Code/GameEngine/Source/GameNetwork/V2FeslArrayBlocks.cpp,matched,BFME1 byte-identical donor; b1 0x007F7140
 ?allocate@Rva007F77B0Block@@QAEXH@Z,,0x00663EA0,75,Code/GameEngine/Source/GameNetwork/V2FeslArrayBlocks.cpp,matched,BFME1 byte-identical donor; b1 0x007F77B0; ICF-folded in BFME1 so the name is this sweep's pick among its twins

@@ -262,14 +262,6 @@ public:
 	void *m_block;
 };
 
-void Rva007F9610Holder::release()
-{
-	Gen007EFFC0()->release( m_block, 1 );
-	m_b = 0;
-	m_a = 0;
-	m_block = 0;
-}
-
 Rva00802E70Element::Rva00802E70Element()
 {
 	m_value04 = 0;

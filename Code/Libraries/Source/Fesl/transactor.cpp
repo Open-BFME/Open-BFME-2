@@ -2,6 +2,7 @@
 #pragma intrinsic(_ReadWriteBarrier)
 #include <windows.h>
 #include <new>
+#include <new.h>
 
 // Open-BFME5 conversions.
 
@@ -308,6 +309,152 @@ private:
 	Rva00802A10 m_00;
 };
 
+class GenAlloc
+{
+public:
+	virtual void v0();
+	virtual void v1();
+	virtual void *allocate( unsigned int size, int flags );
+	virtual void release( void *block, int flags );
+};
+
+extern GenAlloc *Gen007EFFC0();
+
+// The two array objects Code/GameEngine/Source/Common/S3PolymorphicArrayClear.cpp
+// already claims a `clear` on, redeclared here so their existing symbols resolve.
+class Rva007F6BA0
+{
+public:
+	void clear();                                                     // 0x007F6BA0
+	void *m_array;
+	int m_count;
+};
+
+class Rva007F6C60
+{
+public:
+	void clear();                                                     // 0x007F6C60
+	void *m_array;
+	int m_count;
+};
+
+struct Gen_dtor_007f6d20
+{
+	Gen_dtor_007f6d20();                                              // 0x00800280
+	virtual ~Gen_dtor_007f6d20();                                     // 0x00800290
+	int m_pad;
+};
+
+struct V2ZeroInt
+{
+	__forceinline V2ZeroInt() : m_value(0) {}
+	int m_value;
+};
+
+struct Rva00802E70Element
+{
+	__declspec(noinline) Rva00802E70Element();                        // 0x00802E70
+	virtual void slot();
+	int m_value04;
+	V2ZeroInt m_value08;
+	Gen_dtor_007f6d20 m_value0c;
+	Gen_dtor_007f6d20 m_value14;
+};
+
+struct Rva00802D00Element
+{
+	__declspec(noinline) Rva00802D00Element();                        // 0x00802D00
+	virtual void slot();
+	int m_value04;
+	V2ZeroInt m_value08;
+	Gen_dtor_007f6d20 m_value0c;
+	Gen_dtor_007f6d20 m_value14;
+	int m_value1c;
+	int m_value20;
+	int m_value24;
+	int m_value28;
+	int m_value2c;
+	int m_value30;
+	int m_value34;
+	int m_value38;
+	int m_value3c;
+};
+
+// -------------------------------------------------- plain release-and-clear
+class Rva007F6CF0Block
+{
+public:
+	void clear();
+	void *m_data;
+	int m_count;
+};
+
+class Rva007F7860Block
+{
+public:
+	void clear();
+	void allocate( int count );
+	void *m_data;
+	int m_count;
+};
+
+// ------------------------------------- stride-8 block that destroys elements
+class Rva007F78E0Block
+{
+public:
+	void clear();
+	void allocate( int count );
+	Gen_dtor_007f6d20 *m_data;
+	int m_count;
+};
+
+// -------------------------------------- allocate-and-construct over the two
+//                                        already-named polymorphic arrays
+class Rva007F77B0Block : public Rva007F6BA0
+{
+public:
+	void allocate( int count );
+};
+
+class Rva007F7810Block : public Rva007F6C60
+{
+public:
+	void allocate( int count );
+};
+
+// ------------------------------------------- owners that reset a whole array
+class Rva007F70D0Owner
+{
+public:
+	void reset();
+	char m_head[ 0x38 ];
+	Rva007F6BA0 m_array;
+	int m_a;
+	int m_b;
+};
+
+class Rva007F7140Owner
+{
+public:
+	void reset();
+	char m_head[ 0x48 ];
+	Rva007F6C60 m_array;
+	int m_a;
+	int m_b;
+};
+
+// --------------------------------------------------- three-field free-and-zero
+class Rva007F9610Holder
+{
+public:
+	void release();
+	int m_a;
+	int m_b;
+	void *m_block;
+};
+
+// ---- from Code/Libraries/Source/Fesl/transactor.cpp
+
 // ---- from Code/Libraries/Source/Fesl/transactor.cpp
 
 // ---- from Code/Libraries/Source/Fesl/transactor.cpp
@@ -381,11 +528,8 @@ void *BfmeThingTVC::bfmeDelTVC(unsigned char flags)
 
 // ?g_bfmeVftTUA@@3PAPAXA: the global at VA 0xce0f20 is ?vftable_011296B0@@3HA.
 
-// tu-skeleton: 0x00665AD0 71B ?lookup@Rva007FA2C0@@QAEPAURva007F96C0Rec@@PAX@Z -- matched in Code/GameEngine/Source/GameNetwork/FeslTransactor_lookup_rva007F9530.cpp (not merged yet)
 
-// tu-skeleton: 0x00665B20 10B ?_M_construct_null@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@AAEXPAD@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_basic_ios_init.cpp (not merged yet)
 
-// tu-skeleton: 0x00665B60 7B ??1Rva00665C10@@UAE@XZ -- matched in Code/GameEngine/Source/Common/InlineDtorDeletingDtors2.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/GapBodiesSeat10O2A.cpp
 
@@ -396,7 +540,64 @@ Rva00665B70::Rva00665B70()
 	m_08 = 0;
 }
 
-// tu-skeleton: 0x00665B80 33B ?release@Rva007F9610Holder@@QAEXXZ -- matched in Code/GameEngine/Source/GameNetwork/V2FeslArrayBlocks.cpp (not merged yet)
+// tu-skeleton: 0x00665AD0 71B ?lookup@Rva007FA2C0@@QAEPAURva007F96C0Rec@@PAX@Z -- matched in Code/GameEngine/Source/GameNetwork/FeslTransactor_lookup_rva007F9530.cpp (not merged yet)
+
+// tu-skeleton: 0x00665B20 10B ?_M_construct_null@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@AAEXPAD@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_basic_ios_init.cpp (not merged yet)
+
+// tu-skeleton: 0x00665B60 7B ??1Rva00665C10@@UAE@XZ -- matched in Code/GameEngine/Source/Common/InlineDtorDeletingDtors2.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameNetwork/V2FeslArrayBlocks.cpp
+
+// EA FESL client SDK ("jabba") -- allocator-backed element blocks.
+//
+// Same translation-unit cluster as V2FeslTxnRequests.cpp; see that file's head
+// comment for how the span was identified.
+// `/GX-` is required because retail calls both nontrivial member constructors
+// without installing a constructor-unwind frame.
+//
+// WHAT THE BYTES SHOW.  Every row here reaches its storage through the same
+// __cdecl getter at RVA 0x007EFFC0 that Code/GameEngine/Source/Common/
+// S3PolymorphicArrayClear.cpp already names Gen007EFFC0, and drives the object
+// it returns through its vtable.  Two slots are used:
+//     [vptr+0x08]  entered __thiscall with (size, 0) and its eax kept as a
+//                  pointer -- an ALLOCATE
+//     [vptr+0x0C]  entered __thiscall with (block, flag) and no result used -- a
+//                  RELEASE, which is the slot S3PolymorphicArrayClear.cpp
+//                  already spells as `release`
+// This file therefore refines that file's placeholder `v2` into an allocating
+// slot; it does not contradict it, and it does not land over it.  The class
+// name GenAlloc is kept so the existing Gen007EFFC0 pin resolves; the slots are
+// virtual calls and need no symbol at all.
+//
+// The BLOCK objects are all two fields, a pointer at +0 and a count at +4.  The
+// evidence for each element STRIDE is an immediate with no relocation: an
+// `imul ecx,ecx,0x1C`, a `shl ecx,6`, a `lea ecx,[edi*8]`.  Where a stride-8
+// block frees its elements it calls RVA 0x00800290 once per element with the
+// element address in ecx and nothing pushed -- a destructor, which is what the
+// tree already pins that address as.
+//
+// Where an allocate is followed by a per-element `if (p) ctor(p)` the null test
+// is MSVC's placement-new codegen, so those loops are spelled as placement new.
+//
+// WHAT THE BYTES CANNOT DECIDE.  Nothing names the block types, the element
+// types, or the owners.  Rows 0x007F6CF0 and 0x007F7860 are the same body twice
+// under two different call sites; the bytes do not say the two owners are
+// related.  All names here are address-derived.
+
+void Rva007F9610Holder::release()
+{
+	Gen007EFFC0()->release( m_block, 1 );
+	m_b = 0;
+	m_a = 0;
+	m_block = 0;
+}
+
+// Callers elsewhere reach bodies in this unit through other spellings; retail's
+// call sites in their matched rows land on these addresses (same ABI). Bind them.
+
+// Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
+// each one has the same function in that slot (vftable addresses from matched vptr
+// stores). Bind them to the rows at those functions.
 
 // tu-skeleton: 0x00665C10 31B ??_GRva00665C10@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/InlineDtorDeletingDtors2.cpp (not merged yet)
 
