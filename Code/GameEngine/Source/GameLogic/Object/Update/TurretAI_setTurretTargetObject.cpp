@@ -172,7 +172,7 @@ public:
 	virtual StateReturnType resetToDefaultState();		// slot 6
 	virtual StateReturnType setState(int newStateID);	// slot 8
 	Object *getGoalObject();
-	int getCurrentStateID() const;					// current state's id, else INVALID_STATE_ID
+	int getCurrentStateID() const { return m_currentState ? m_currentState->m_id : INVALID_STATE_ID; }
 	TurretAI *m_turretAI;								// +0x3C
 };
 
@@ -223,7 +223,7 @@ private:
 	unsigned int m_enableSweepUntil;			// +0x24
 	Team *m_victimInitialTeam;					// +0x28
 	int m_target;								// +0x2C
-	int m_continuousFireExpirationFrame;		// +0x30
+	unsigned int m_continuousFireExpirationFrame;		// +0x30
 	unsigned int m_sleepUntil;					// +0x34
 	bool m_playRotSound;						// +0x38
 	bool m_playPitchSound;						// +0x39
@@ -235,14 +235,6 @@ private:
 	bool m_targetWasSetByIdleMood;				// +0x3F
 };
 // End of the TurretAI.cpp TU view.
-
-// ?TurretStateMachine::getCurrentStateID present-unmatched
-inline int TurretStateMachine::getCurrentStateID() const
-{
-	if (m_currentState)
-		return m_currentState->m_id;
-	return 999999;
-}
 
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 

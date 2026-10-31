@@ -13656,7 +13656,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/StructureTopple
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/SupplyCenterDockUpdateCtor.cpp	1EvacuateGarrisonSpecialPower@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/SupplyTruckAIUpdateCtor.cpp	1HordeDispatchSpecialPower@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/TeleportToCasterSpecialPower.cpp	1TeleportToCasterSpecialPowerModuleData@@	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/TurretAI_setTurretTargetObject.cpp	TurretStateMachine::getCurrentStateID	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/UntamedAllegianceSpecialPowerModuleDataCtor.cpp	1UntamedAllegianceSpecialPowerModuleData@@UAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Upgrade/StatusBitsUpgradeIfEldestKindofModuleDataDtor.cpp	1StatusBitsUpgradeModuleData@@UAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Upgrade/UpgradeModuleDataDtor.cpp	0UpgradeModuleData@@QAE@XZ	1
