@@ -4365,7 +4365,7 @@ _Rva008143A0,,0x006802A0,38,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ?set@Rva006DB2F0@@QAEXPBURva006DB2F0Vec@@@Z,,0x000D1EAA,78,Code/GameEngine/Source/Common/System/TBuff.cpp,matched,
 ?get@Rva0087DC00@@QAEXPAURva0087DC00Vec@@@Z,,0x006BD470,26,Code/GameEngine/Source/Common/Rva0087DC00Get.cpp,matched,
 ?set@Rva00193660@@QAEAAV1@PBURva00193660Src@@@Z,,0x0032A304,58,Code/GameEngine/Source/GameLogic/Map/SidesList.cpp,matched,
-?orderPairs@Rva00477DF0@@QAEXXZ,,0x0031394A,33,Code/GameEngine/Source/Common/Bfme/Rva00477DF0OrderPairs.cpp,matched,
+?orderPairs@Rva00477DF0@@QAEXXZ,,0x0031394A,33,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp,matched,
 _DeletePostProcInstance,,0x001B68D0,36,Code/Libraries/Source/VP6/PostProcInstance.cpp,matched,Clean-room spec 001b68d0; DeletePostProcInstance: cdecl deleting the post-processor instance buffers then freeing it and nulling the caller pointer; same retail extent as the replaced placeholder; implemented from reverse/vp6_cleanroom/specs/001b68d0.md and retail only
 ?bfmeGetBZA@BfmeThingBZA@@QAEPAVBfmeCacheBZA@@XZ,,0x00656E60,36,Code/GameEngine/Source/Common/BfmeThingRE.cpp,matched,
 ?bfmeGoBZD@BfmeThingBZD@@QAEXPBDH@Z,,0x00667200,36,Code/GameEngine/Source/Common/BfmeConv559.cpp,matched,

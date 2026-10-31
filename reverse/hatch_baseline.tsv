@@ -1570,7 +1570,6 @@ alternatename	Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp	?g_00BBD3EC@
 alternatename	Code/GameEngine/Source/Common/Bfme/BfmeChainRecord.cpp	??0BfmeRecEQR@@QAE@PAX0PAPAV0@@Z	1
 alternatename	Code/GameEngine/Source/Common/Bfme/IngameNoticeDisplay.cpp	??RRva004E5CB0Deleter@@QBEXPAVRva004E5A78@@@Z	1
 alternatename	Code/GameEngine/Source/Common/Bfme/IngameNoticeDisplay.cpp	?release@Rva00036E70Releaser@@QAEXXZ	1
-alternatename	Code/GameEngine/Source/Common/Bfme/Rva00477DF0OrderPairs.cpp	?orderPairs@GameWindow@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Bfme5NinetyOne.cpp	?randwc@@YAJJ@Z	1
 alternatename	Code/GameEngine/Source/Common/Bfme5ThirtyFour.cpp	?unlink@PartitionData@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Bfme5ThirtyTwo.cpp	?rva007F76D0@Rva00801670Host@@QAEPAHPAVBfmeVecCZ@@H@Z	1
@@ -2717,6 +2716,7 @@ alternatename	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPre
 alternatename	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_mapFind.cpp	?find@SkirmishFindMap@@QBEPAUSkirmishFindNode@@ABVAsciiString@@@Z	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/GameFont.cpp	??$__lower_bound@PAHHU?$greater@H@_STL@@H@_STL@@YAPAHPAH0ABHU?$greater@H@0@0@Z	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/GameFont.cpp	??0Rva00218E09Record@@QAE@ABU0@@Z	1
+alternatename	Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp	?orderPairs@GameWindow@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp	_strcpy	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp	??1FullFadeTransition@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp	_vtbl_00C16594	1

@@ -24656,7 +24656,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00313913,16,code,,,-,,Code/GameEngine/Source/Common/Disp8CmpBoolGettersFuncPtr.cpp
 0x00313923,23,code,,,-,,Code/GameEngine/Source/Common/GapForwardersSeat8.cpp
 0x0031393A,16,code,,,-,,Code/GameEngine/Source/Common/Disp8CmpBoolGettersFuncPtr.cpp
-0x0031394A,33,code,,,-,,Code/GameEngine/Source/Common/Bfme/Rva00477DF0OrderPairs.cpp
+0x0031394A,33,code,,,-,,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp
 0x0031396B,31,code,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp S=Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp N=Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp
 0x0031398A,41,code,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp S=Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp N=Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp
 0x003139B3,114,code,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp S=Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp N=Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp
