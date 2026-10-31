@@ -418,3 +418,19 @@ def test_r4_include_scan_refuses_unresolved_angle_code_and_depth(tmp_path, monke
 
 def test_r4_trigraph_is_refused():
     assert lane.scoped_rename("int f(Object *o) { return o->m_flags; } // ??/", RENAMES)[0] is None
+
+
+def test_r4b_guard_and_unrelated_conditional_do_not_hide_hierarchy():
+    header = "#ifndef GUARD\n#define GUARD\n#if 0\nint unrelated;\n#endif\nclass Object { int x; };\n#endif\n"
+    assert lane.conditional_hierarchy([("h", header)], {"Object"}) is None
+    inside = header.replace("int x;", "\n#if 0\nstatic int m_status;\n#endif\nint x;")
+    assert lane.conditional_hierarchy([("h", inside)], {"Object"})
+
+
+def test_r4b_system_angles_are_allowed_but_code_include_root_is_refused(tmp_path, monkeypatch):
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    include = tmp_path / "Code" / "includes"
+    include.mkdir(parents=True)
+    (include / "local.h").write_text("")
+    assert lane.include_problem("u.cpp", "#include <windows.h>\n#include <vector>\n", include_roots=[include]) is None
+    assert "angle" in lane.include_problem("u.cpp", "#include <local.h>\n", include_roots=[include])

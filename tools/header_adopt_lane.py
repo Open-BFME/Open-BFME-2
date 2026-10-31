@@ -320,7 +320,7 @@ def include_sources(source, text=None, depth=2):
     return out
 
 
-def include_problem(source, text, depth=2):
+def include_problem(source, text, depth=2, include_roots=()):
     """Refuse whenever the bounded include walk cannot account for an input."""
     start = (ROOT / source).resolve()
     queue, seen = [(start, text, 0)], {start}
@@ -332,10 +332,12 @@ def include_problem(source, text, depth=2):
             return f"{path}: splice or trigraph in include input"
         for m in re.finditer(r'(?m)^[ \t]*#[ \t]*include[ \t]*([<"])([^>"\n]+)[>"]', masked(body, keep_literals=True)):
             angle, name = m.group(1) == "<", m.group(2)
-            candidates = [(base / name).resolve() for base in (path.parent, ROOT, ROOT / "Code")]
+            candidates = [(base / name).resolve() for base in (path.parent, ROOT, ROOT / "Code", *include_roots)]
             target = next((p for p in candidates if p.is_file()), None)
             if angle:
-                return f"{path}: angle include {name} cannot be proven outside Code"
+                if target and target.is_relative_to(ROOT.resolve() / "Code"):
+                    return f"{path}: angle include {name} resolves under Code"
+                continue
             if target is None:
                 return f"{path}: unresolved include {name}"
             if target in seen:
@@ -350,10 +352,35 @@ def include_problem(source, text, depth=2):
 def conditional_hierarchy(texts, classes):
     """Conditional declarations in hierarchy bodies are not represented by layouts."""
     for path, text in texts:
-        # Even a guard may hide declarations from the layout probe. Refuse the
-        # entire input instead of trying to interpret preprocessing conditions.
-        if re.search(r"(?m)^\s*#\s*(?:if|ifdef|ifndef)\b", masked(text)):
-            return f"{path}: conditional header input"
+        code = masked(text)
+        directives = list(re.finditer(r"(?m)^[ \t]*#[ \t]*(if|ifdef|ifndef|endif|else|elif|define)\b([^\n]*)", code))
+        stack, regions = [], []
+        for directive in directives:
+            op = directive.group(1)
+            if op in ("if", "ifdef", "ifndef"):
+                stack.append(directive)
+            elif op == "endif" and stack:
+                regions.append((stack.pop(), directive))
+        # Recognize a complete outer guard only when it wraps all code and
+        # defines the same macro immediately after the opening directive.
+        guard = None
+        if directives and len(directives) >= 3:
+            first, define, last = directives[0], directives[1], directives[-1]
+            macro = first.group(2).strip()
+            if (first.group(1) == "ifndef" and re.fullmatch(r"[A-Za-z_]\w*", macro)
+                    and define.group(1) == "define" and define.group(2).strip() == macro
+                    and last.group(1) == "endif" and not code[:first.start()].strip()
+                    and not code[last.end():].strip()
+                    and any(a is first and b is last for a, b in regions)):
+                guard = first
+        spans = [(start, end) for name, start, end, _ in class_layouts.class_body_spans(text)
+                 if name in classes]
+        for opening, closing in regions:
+            if opening is guard:
+                continue
+            if any(opening.start() < end and closing.end() > start for start, end in spans):
+                return f"{path}: conditional declaration in class hierarchy"
+
     return None
 
 
@@ -571,15 +598,25 @@ def field_renames(source, text, strip, include, compile=None, header=None):
         if mine:
             mappings[name] = mine
     if mappings:
+        # The compiler also searches /I directories declared by the unit.
+        import build
+        flags_line = next ( (line[6:] for line in text.splitlines() if line.startswith("// cl:")), "")
+        flags = build._source_flag_tokens(flags_line)
+        include_roots = []
+        for i, flag in enumerate(flags):
+            if flag in ("/I", "-I") and i + 1 < len(flags):
+                include_roots.append(ROOT / flags[i + 1])
+            elif flag.startswith(("/I", "-I")) and len(flag) > 2:
+                include_roots.append(ROOT / flag[2:])
         if header:
-            why = include_problem(header, read_source(header))
+            why = include_problem(header, read_source(header), include_roots=include_roots)
             if why:
                 return None, why
             family = {cls for name in mappings for cls in hierarchy(name, laid)}
             why = conditional_hierarchy(canonical, family)
             if why:
                 return None, why
-        why = include_problem(source, text)
+        why = include_problem(source, text, include_roots=include_roots)
         if why:
             return None, why
         sources = [(source, text)] + include_sources(source, text) + canonical
