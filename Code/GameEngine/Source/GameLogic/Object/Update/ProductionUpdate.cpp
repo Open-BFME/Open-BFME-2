@@ -904,6 +904,64 @@ private:
 	ConstructProbePair m_value;
 };
 
+// INI field-parse forwarders: Zero Hour's BitFlags<N>::parseFromINI shape,
+//   static void parseFromINI(INI *ini, void *, void *store, const void *)
+//   { ((BitFlags *)store)->parse(ini, NULL); }
+// for seven parse targets the ledger already rows under address-derived
+// classes. Each forwarder is a FieldParse entry's parser (token, parser,
+// userData, offset) in retail .data; the token names are in each comment.
+// The forwarders stay static members of their target's class.
+class INI;
+
+class Rva0021B7B6
+{
+public:
+	void rva0021B7B6(INI *ini, void *str);
+	static void parseFromINI(INI *ini, void *instance, void *store, const void *userData);
+};
+
+class Rva0033AFBB
+{
+public:
+	void rva0033B84E(INI *ini, AsciiString *str);
+	static void parseFromINI(INI *ini, void *instance, void *store, const void *userData);
+};
+
+class Rva003B1017
+{
+public:
+	void rva003B1017(INI *ini, void *str);
+	static void parseFromINI(INI *ini, void *instance, void *store, const void *userData);
+};
+
+class Rva003FB508
+{
+public:
+	void rva003FB508(INI *ini, void *str);
+	static void parseFromINI(INI *ini, void *instance, void *store, const void *userData);
+};
+
+class Rva00417DFB
+{
+public:
+	void rva00417DFB(INI *ini, void *str);
+	static void parseFromINI(INI *ini, void *instance, void *store, const void *userData);
+};
+
+class Rva0049B8A0
+{
+public:
+	void parse(INI *ini, void *str);
+	static void parseFromINI(INI *ini, void *instance, void *store, const void *userData);
+};
+
+class Rva0049DD83
+{
+public:
+	void rva0049DD83(INI *ini, void *str);
+	static void parseFromINI(INI *ini, void *instance, void *store, const void *userData);
+};
+
 // tu-skeleton: 0x0049CC15 33B ?rva0049CC15@ProductionUpdate@@UAEXW4ProductionID@@H@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp (not merged yet)
 
 // tu-skeleton: 0x0049CC36 43B ?rva0049CC36@ProductionUpdate@@UBE_NW4ProductionID@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp (not merged yet)
@@ -911,6 +969,8 @@ private:
 // tu-skeleton: 0x0049CC61 60B ?rva0049CC61@ProductionUpdate@@UAEXPBVThingTemplate@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp (not merged yet)
 
 // tu-skeleton: 0x0049CC9D 83B ?rva0049CC9D@ProductionUpdate@@UAEXPBVThingTemplate@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp
 
@@ -1306,6 +1366,33 @@ ProductionUpdateModuleData::ProductionUpdateModuleData()
 	m_secondaryQueue = false;
 }
 
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp
+
+//
+// STLport placement-copy helpers and distinct native copy owners, same-shape
+// siblings of the rowed _Construct<AsciiString> at 0x0002C485 (45 bytes; see
+// stlport_construct_asciistring.cpp). Each body is the null-guarded
+// placement-new copy over a single element: the copy delegates out-of-line
+// to T's own rowed copy ctor, and __EH_prolog resolves via its matched row.
+// Unlike the opaque-struct batches, these T's come from the real STLport
+// headers (<vector>, and _STL::pair over a minimal AsciiString declaration):
+// declaration-only copy specializations below keep the calls out-of-line
+// and resolve through the complete provider rows.
+
+// ??0Rva0023FD06@@QAE@ABU?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@Z,
+// retail 0x0023FC98..0x0023FCD3 (59 bytes, EH, RET 4): a counted holder of one
+// such pair. The counted base (count at +0x04 cleared; EH state 0 once built)
+// comes first, then the vtable 0x00BEDC94 and the pair copied into +0x08
+// through its rowed out-of-line copy constructor 0x00466EA7.
+// Vtable 0x00BEDC94 is Rva0023FD06Dtor.cpp's class: its slot 0 is the rowed
+// scalar deleting dtor 0x0023FCEA (calling the rowed dtor 0x0023FD06) and its
+// slot 1 the rowed 0x0023FCD3. Use that name so the dtor binds to its row.
+
+void Rva0049DD0BConstruct(void *dest, const void *source)
+{
+    ::new (dest) ConstructProbePair(*static_cast<const ConstructProbePair *>(source));
+}
+
 // tu-skeleton: 0x0049CDF9 47B ?isUpgradeInQueue@ProductionUpdate@@UBE_NPBVUpgradeTemplate@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp (not merged yet)
 
 // tu-skeleton: 0x0049CE28 59B ?countUnitTypeInQueue@ProductionUpdate@@UBEIPBVThingTemplate@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp (not merged yet)
@@ -1336,40 +1423,19 @@ ProductionUpdateModuleData::ProductionUpdateModuleData()
 
 // tu-skeleton: 0x0049DA34 540B ?queueCreateUnit@ProductionUpdate@@UAE_NPBVThingTemplate@@HW4ProductionID@@H_NABVAsciiString@@2@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp (not merged yet)
 
-// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp
-
-//
-// STLport placement-copy helpers and distinct native copy owners, same-shape
-// siblings of the rowed _Construct<AsciiString> at 0x0002C485 (45 bytes; see
-// stlport_construct_asciistring.cpp). Each body is the null-guarded
-// placement-new copy over a single element: the copy delegates out-of-line
-// to T's own rowed copy ctor, and __EH_prolog resolves via its matched row.
-// Unlike the opaque-struct batches, these T's come from the real STLport
-// headers (<vector>, and _STL::pair over a minimal AsciiString declaration):
-// declaration-only copy specializations below keep the calls out-of-line
-// and resolve through the complete provider rows.
-
-// ??0Rva0023FD06@@QAE@ABU?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@Z,
-// retail 0x0023FC98..0x0023FCD3 (59 bytes, EH, RET 4): a counted holder of one
-// such pair. The counted base (count at +0x04 cleared; EH state 0 once built)
-// comes first, then the vtable 0x00BEDC94 and the pair copied into +0x08
-// through its rowed out-of-line copy constructor 0x00466EA7.
-// Vtable 0x00BEDC94 is Rva0023FD06Dtor.cpp's class: its slot 0 is the rowed
-// scalar deleting dtor 0x0023FCEA (calling the rowed dtor 0x0023FD06) and its
-// slot 1 the rowed 0x0023FCD3. Use that name so the dtor binds to its row.
-
-void Rva0049DD0BConstruct(void *dest, const void *source)
-{
-    ::new (dest) ConstructProbePair(*static_cast<const ConstructProbePair *>(source));
-}
-
 // tu-skeleton: 0x0049DD83 234B ?rva0049DD83@Rva0049DD83@@QAEXPAVINI@@PAX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_uninitialized_fill_n.cpp (not merged yet)
 
 // tu-skeleton: 0x0049DE6D 91B ?Rva0049DE6DParse@@YAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateCostModifierParse.cpp (not merged yet)
 
 // tu-skeleton: 0x0049DEC8 154B ?rva0049DEC8@ProductionUpdate@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp (not merged yet)
 
-// tu-skeleton: 0x0049DF62 16B ?parseFromINI@Rva0049DD83@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/Common/System/INIParseFromINIForwarders.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/System/INIParseFromINIForwarders.cpp
+
+// @0x0049DF62 16B
+void Rva0049DD83::parseFromINI(INI *ini, void * /*instance*/, void *store, const void * /*userData*/)
+{
+	((Rva0049DD83 *)store)->rva0049DD83(ini, 0);
+}
 
 // tu-skeleton: 0x0049E03A 258B ??0ProductionUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateCtor.cpp (not merged yet)
 
