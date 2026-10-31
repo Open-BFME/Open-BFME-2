@@ -101,8 +101,12 @@ template <class T, class LeftTraits, class RightTraits>
 static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
                               const _Rb_tree_iterator<T, RightTraits>& b)
 { return a._M_node != b._M_node; }
+}
+namespace _STL {
 static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
-{ return a < b ? b : a; }
+{
+    return a < b ? b : a;
+}
 }
 #ifdef _INTERNAL
 // for occasional debugging...
@@ -958,13 +962,20 @@ protected:
 		}
 	}
 
-private:
+public:
+	// Access is not part of a mangled name; the vector<AnimSet> instantiations
+	// name this type from namespace scope.
 	struct AnimSet
 	{
 		AsciiString								m_animInitial;
 		AsciiString								m_animFlying;
 		AsciiString								m_animFinal;
+		AnimSet() {}
+		// Rowed 0x001F0558 (GenericObjectCreationNuggetAnimSetCopy.cpp). Written out
+		// because the compiler-generated copy orders its second push differently from retail.
+		AnimSet(const AnimSet &);
 	};
+private:
 	std::vector<AsciiString>	m_names;
 	AsciiString								m_putInContainer;
 	std::vector<AnimSet>			m_animSets;
@@ -1140,7 +1151,20 @@ void ObjectCreationListStore::addObjectCreationNugget(ObjectCreationNugget* nugg
 // reached by the retail ObjectCreationList INI dispatch at 0x007AD4CC.
 // The owned constructor at 0x001F073A initializes 20 bytes: vector at +0,
 // override flag at +0x0C and AsciiString at +0x10. Keep its existing name.
-struct Rva001F073ACtor { Rva001F073ACtor(AsciiString *s); char bytes[20]; };
+struct PlayerAITypeEntry
+{
+	AsciiString name;
+	char unknown[12];
+};
+
+struct Rva001F073ACtor
+{
+	Rva001F073ACtor(AsciiString *name);
+	_STL::vector<PlayerAITypeEntry> m_vec;
+	unsigned char m_flag;
+	char m_pad0D[3];
+	AsciiString m_str;
+};
 // Target-proven offsets. The template element spellings are ABI call views;
 // the retired values are list pointers, not independently proven nuggets.
 struct OclStoreParseView {

@@ -17,16 +17,19 @@ unsigned int g_Va00DFDC48;
 extern unsigned int g_Va00DFDC50;
 // g_Va00DFDC50: matched references place it at VA 0xdfdc50 (zero-filled .bss).
 unsigned int g_Va00DFDC50;
-extern unsigned int g_Va00DFDCD8;
 // g_Va00DFDCD8: matched references place it at VA 0xdfdcd8 (zero-filled .bss).
 unsigned int g_Va00DFDCD8;
 extern unsigned int g_Va00DFE014;
 // g_Va00DFE014: matched references place it at VA 0xdfe014 (zero-filled .bss).
 unsigned int g_Va00DFE014;
 
+// Separate load, mask and store keep retail's shape at both /O1 and /O2.
 unsigned int Rva0076B063ClearFlag(void)
 {
-	return g_Va00DFDCD8 &= 0xFFFFFFFEu;
+	unsigned int flags = g_Va00DFDCD8;
+	flags &= 0xFFFFFFFEu;
+	g_Va00DFDCD8 = flags;
+	return flags;
 }
 
 // The76B248 action belongs to positional GenericObjectCreationNugget::create.

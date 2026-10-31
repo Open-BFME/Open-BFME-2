@@ -29,6 +29,8 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 class Object;
 
+namespace _STL {
+
 // STLport's fill_n is not expanded at this unit's /O1; retail inlines the
 // fill loop with fill_n's own shape (count in ecx, cursor in eax, the value
 // re-read through its reference each pass).
@@ -38,8 +40,6 @@ static inline Object **FillObjectPointers(Object **first, unsigned int n, Object
         *first = value;
     return first;
 }
-
-namespace _STL {
 
 // Retail calls _M_clear out of line (0x0007FAB3) rather than expanding it.
 template <> __declspec(noinline) void vector<Object *>::_M_clear();

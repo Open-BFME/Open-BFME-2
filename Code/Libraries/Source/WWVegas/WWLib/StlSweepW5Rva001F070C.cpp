@@ -6,7 +6,7 @@
 // The element is GenericObjectCreationNugget::AnimSet: retail's fill loop calls
 // the rowed _Construct<AnimSet> 0x001F06B9 (ObjectCreationList.cpp), which calls
 // the rowed AnimSet copy 0x001F0558, with the same 12-byte stride. Sibling of
-// StlSweepW5Rva001F06E6.cpp (the AnimSet uninitialized_copy). Both are declared only here.
+// StlSweepW5Rva001F06E6.cpp (the AnimSet uninitialized_copy). The copy is declared only here.
 class GenericObjectCreationNugget {
 public:
     struct AnimSet {
@@ -15,7 +15,6 @@ public:
         char bytes[12];
     };
 };
-namespace _STL { template <> void _Construct<GenericObjectCreationNugget::AnimSet, GenericObjectCreationNugget::AnimSet>(GenericObjectCreationNugget::AnimSet *, const GenericObjectCreationNugget::AnimSet &); }
 
 // Instantiate the recovered operation and its required template dependencies.
 template GenericObjectCreationNugget::AnimSet * _STL::__uninitialized_fill_n<GenericObjectCreationNugget::AnimSet *, unsigned int, GenericObjectCreationNugget::AnimSet>(GenericObjectCreationNugget::AnimSet *, unsigned int, GenericObjectCreationNugget::AnimSet const &, _STL::__false_type const &);

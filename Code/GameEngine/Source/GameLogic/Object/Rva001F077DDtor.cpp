@@ -60,6 +60,14 @@ struct PlayerAITypeEntry
 	char unknown[12];
 };
 
+// Declaration-only specializations: the unwind binds the kept vector teardown
+// copies instead of this unit emitting its own.
+namespace _STL {
+template <> vector<PlayerAITypeEntry, allocator<PlayerAITypeEntry> >::~vector();
+template <> _Vector_base<PlayerAITypeEntry, allocator<PlayerAITypeEntry> >::~_Vector_base();
+template <> void allocator<PlayerAITypeEntry>::deallocate(PlayerAITypeEntry *, size_t) const;
+}
+
 struct Rva001F073ACtor
 {
 	Rva001F073ACtor(AsciiString *name);
