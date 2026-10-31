@@ -9,19 +9,32 @@
 #include <list>
 #include "Common/AsciiString.h"
 
-struct BridgeBehaviorTimeInfo8 {
-	unsigned int delay_00;
-	AsciiString boneName_04;
-	BridgeBehaviorTimeInfo8(const BridgeBehaviorTimeInfo8 &other);
+struct TreeKey00242F5E
+{
+    unsigned int delay_00;
+    AsciiString boneName_04;
+    TreeKey00242F5E(const TreeKey00242F5E &other);
 };
+struct BridgeBehaviorListValue12
+{
+    void *object_00;
+    TreeKey00242F5E timeInfo_04;
+    BridgeBehaviorListValue12(const BridgeBehaviorListValue12 &other);
+    ~BridgeBehaviorListValue12();
+};
+typedef char VerifyBridgeBehaviorValueSize[(sizeof(BridgeBehaviorListValue12) == 12) ? 1 : -1];
 
-struct BridgeBehaviorListValue12 {
-	void *object_00;
-	BridgeBehaviorTimeInfo8 timeInfo_04;
-	BridgeBehaviorListValue12(const BridgeBehaviorListValue12 &other);
-	~BridgeBehaviorListValue12();
-};
-typedef char CheckBridgeListValueSize[(sizeof(BridgeBehaviorListValue12) == 12) ? 1 : -1];
+// Retail keeps this list's node construction out of line: insert 0x00457552 calls 0x0045741F.
+namespace _STL {
+template <>
+inline __declspec(noinline) list<BridgeBehaviorListValue12, allocator<BridgeBehaviorListValue12> >::_Node *
+list<BridgeBehaviorListValue12, allocator<BridgeBehaviorListValue12> >::_M_create_node(const BridgeBehaviorListValue12 &__x)
+{
+	_Node *__p = this->_M_node.allocate(1);
+	_Construct(&__p->_M_data, __x);
+	return __p;
+}
+}
 
 typedef std::list<BridgeBehaviorListValue12> BridgeBehaviorList12;
 

@@ -12,17 +12,20 @@ namespace _STL { template <> void __malloc_alloc<0>::deallocate(void *, size_t);
 #include <list>
 #include "ascii_string.h"
 
-struct BridgeBehaviorTimeInfo8 {
-	unsigned int delay_00;
-	AsciiString boneName_04;
+struct TreeKey00242F5E
+{
+    unsigned int delay_00;
+    AsciiString boneName_04;
+    TreeKey00242F5E(const TreeKey00242F5E &other);
 };
-
-struct BridgeBehaviorListValue12 {
-	void *object_00;
-	BridgeBehaviorTimeInfo8 time_04;
-	~BridgeBehaviorListValue12();
+struct BridgeBehaviorListValue12
+{
+    void *object_00;
+    TreeKey00242F5E timeInfo_04;
+    BridgeBehaviorListValue12(const BridgeBehaviorListValue12 &other);
+    ~BridgeBehaviorListValue12();
 };
-typedef char CheckBridgeListValueSize[(sizeof(BridgeBehaviorListValue12) == 12) ? 1 : -1];
+typedef char VerifyBridgeBehaviorValueSize[(sizeof(BridgeBehaviorListValue12) == 12) ? 1 : -1];
 
 __declspec(noinline) BridgeBehaviorListValue12::~BridgeBehaviorListValue12()
 {
