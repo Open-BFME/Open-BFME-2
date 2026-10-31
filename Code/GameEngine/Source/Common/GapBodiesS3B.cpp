@@ -265,11 +265,6 @@ public:
 	virtual Rva00466457Base3 *getCaveInterface();
 };
 
-Rva00466457Base3 *Rva00466457::getCaveInterface()
-{
-	return this;
-}
-
 class Rva0049A6C7Base3
 {
 public:
