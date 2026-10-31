@@ -25,6 +25,8 @@ public:
 
 #include <new>
 
+extern "C" const void* const __identifier("??_7OrCondition@@6B@")[ ];
+
 class Rva003B262E
 {
 protected:
@@ -37,6 +39,7 @@ private:
 
 Rva003B262E::~Rva003B262E()
 {
+    *(const void **)this = __identifier("??_7OrCondition@@6B@");
 	if (m_firstAnd) {
 		::operator delete(m_firstAnd->deleteInstance(0));
 		m_firstAnd = 0;

@@ -1,0 +1,62 @@
+{
+  "normal_build_sh": {
+    "matched_rows": 15,
+    "sources": 3,
+    "verdict": "PASS"
+  },
+  "strict_receipts": {
+    "matched_rows": 23,
+    "sources": 5,
+    "verdict": "PASS",
+    "data_rows": 1
+  },
+  "identity_staged": {
+    "rows": 13,
+    "new_findings": 0,
+    "mode": "shadow"
+  },
+  "ordinary_preview": {
+    "index": "d249ce458a",
+    "units_LINKS": 5,
+    "units_total": 5,
+    "source_row_bytes_before": 360,
+    "source_row_bytes_after": 940,
+    "sum_is_not_unique_global_gain": true,
+    "Scripts_owned_bytes": 547,
+    "Scripts_shared_scalar_delete_bytes": 28,
+    "original_Scripts_scope_bytes": 512
+  },
+  "independent_table_consumer_review": {
+    "explicit_candidates": 18,
+    "cached_actual_Scripts_header_consumers": 39,
+    "missing_objects": 0,
+    "table_definers": [
+      "Scripts.cpp",
+      "OrConditionCtor.cpp"
+    ],
+    "table_only_consumers": [
+      "OrConditionParse.cpp",
+      "Rva003B262EFinish.cpp"
+    ],
+    "both_table_sizes": 4,
+    "both_weak_fallbacks": "protected_E -> protected_G; COFF search2",
+    "remaining_public_UAE_refs": 0,
+    "basis": "Read-only independent helper scan reported to root; current4source code/dependency/object receipts confirmed"
+  },
+  "all_current_preview": {
+    "verdict": "REFUSED before judgment",
+    "missing_unrelated_provider_objects": 15,
+    "first": [
+      "OpaqueRefCounted",
+      "PlayingAudio",
+      "LivingWorldManager",
+      "LightPoint",
+      "AptLoadScreen"
+    ]
+  },
+  "global_census_gain_claimed": false,
+  "source_files_removed": 0,
+  "pins_added": 0,
+  "aliases_added": 0,
+  "original_class_name_claimed": false
+}

@@ -34,6 +34,7 @@ public:
 #define DEFINE_BUILDABLE_STATUS_NAMES
 #define DEFINE_OBJECT_STATUS_NAMES
 #define DEFINE_SCIENCE_AVAILABILITY_NAMES
+#include "../../../../../reference/shims/scripts_orcondition/GameLogic/Scripts.h"
 #include "Common/BorderColors.h"
 #include "Common/DataChunk.h"
 #include "Common/GameState.h"
