@@ -11929,6 +11929,8 @@ pragma_optimize	reference/shims/banked_segline/matrix4.h	"",on	1
 pragma_optimize	reference/shims/banked_segline/matrix4.h	"s",on	1
 pragma_optimize	reference/shims/bfme2_ascii/ascii_string.h	"",on	1
 pragma_optimize	reference/shims/bfme2_ascii/ascii_string.h	"sy",on	1
+pragma_optimize	reference/shims/bfme2_meshmdlio/meshmatdesc.h	"",on	1	allow=97d2bcab3c13487ef01884eb90e191c1e2d40e00
+pragma_optimize	reference/shims/bfme2_meshmdlio/meshmatdesc.h	"s",on	1	allow=97d2bcab3c13487ef01884eb90e191c1e2d40e00
 pragma_optimize	reference/shims/bfme2_vector3/vector3.h	"",on	2
 pragma_optimize	reference/shims/bfme2_vector3/vector3.h	"s",on	2
 pragma_optimize	reference/shims/bfme2_vector3/vector3.h	"t",off	2

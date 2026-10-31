@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/meshgeom /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
+// cl: /Ireference/shims/bfme2_meshmdlio /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/shims/bfmeshader /Ireference/shims/meshmatdesclayout /Ireference/shims/wwstring_teardown/zhmd /Ireference/shims/meshgeom /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/Wwutil /ICode/Libraries/Source/WWVegas/WWDownload /ICode/Libraries/Source/Compression /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/build/toolchains/dx81/include /Ireference/shims/bfmecamera
 // The compiler-generated vector constructor iterator (??_H) takes the
 // optimization state of the first function that needs it. Retail links one
 // copy, the /O1 body at 0x00001423; this unemitted anchor makes this unit's
@@ -30,24 +30,17 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // Semantic donor: Generals Zero Hour meshmdlio.cpp, retained in this repo.
 // The method name follows that donor; target shader tests and material accesses
 // establish the corresponding fog behavior and layout.
-class TextureBaseClass
-{
-public:
-	void Release_Ref();
-	void Add_Ref();
-};
-class TextureClass : public TextureBaseClass {};
-template<class T>
-class RefCountPtr {
-public:
-    RefCountPtr() : Ptr(0) {}
-    RefCountPtr(const RefCountPtr& other) : Ptr(other.Ptr) { if (Ptr) Ptr->Add_Ref(); }
-    ~RefCountPtr() { if (Ptr) Ptr->Release_Ref(); }
-    const RefCountPtr& operator=(const RefCountPtr& other);
-    operator T*() const { return Ptr; }
-protected:
-    T *Ptr;
-};
+// Retail BFME2 descriptor ABI: retail accesses anchor Texture at +0x78, Shader at +0x98,
+// Material at +0xA8, TextureArray at +0xC8, MaterialArray at +0xE8, ShaderArray at +0xF8.
+// The TexBufferClass allocation passes 0x18 to operator new.
+#include "always.h"
+#include <meshmatdesc.h>
+#include "meshmdl.h"
+#include "shader.h"
+#include "vertmaterial.h"
+#include "texture.h"
+#include "refcount.h"
+#include "sharebuf.h"
 
 // Target-local one-pointer wrapper view. It forwards assignment through the
 // donor RefCountPtr<TextureClass> owning-copy body while retaining the target
@@ -56,57 +49,6 @@ class BfmeTextureHandle {
 public:
     RefCountPtr<TextureClass> Handle;
     BfmeTextureHandle& operator=(const BfmeTextureHandle& other);
-};
-
-class MeshMatDescClass;
-class MeshModelClass;
-#include "meshgeometry.h"
-#include "shader.h"
-#include "vertmaterial.h"
-#include "refcount.h"
-#include "sharebuf.h"
-
-class TexBufferClass {
-public:
-    // Target allocation passes 0x18 to operator new; opaque base semantics.
-    unsigned char targetOpaqueLayout[0x18];
-    TexBufferClass(int, const char*);
-    RefCountPtr<TextureClass> Get_Element(int);
-    void Set_Element(int, const RefCountPtr<TextureClass>&);
-};
-class MatBufferClass {
-public:
-    VertexMaterialClass *Peek_Element(int);
-};
-
-// Retail BFME2 descriptor ABI view, bounded to fields used by this method.
-// Retail accesses anchor Texture at +0x78, Shader at +0x98, Material at
-// +0xA8, TextureArray at +0xC8, MaterialArray at +0xE8, ShaderArray at +0xF8.
-class MeshMatDescClass {
-public:
-    enum { MAX_PASSES = 4, MAX_TEX_STAGES = 2 };
-    int PassCount;
-    unsigned char opaque04[0x74];
-    BfmeTextureHandle Texture[MAX_PASSES][MAX_TEX_STAGES];
-    ShaderClass Shader[MAX_PASSES];
-    VertexMaterialClass *Material[MAX_PASSES];
-    RefCountClass *OpaquePassBuffers[MAX_PASSES];
-    TexBufferClass *TextureArray[MAX_PASSES][MAX_TEX_STAGES];
-    MatBufferClass *MaterialArray[MAX_PASSES];
-    ShareBufferClass<ShaderClass> *ShaderArray[MAX_PASSES];
-    RefCountClass *OpaqueTailBuffers[MAX_PASSES];
-    int Get_Pass_Count() const { return PassCount; }
-};
-typedef char VerifyBfmeTextureHandleSize[(sizeof(BfmeTextureHandle) == 4) ? 1 : -1];
-typedef char VerifyTexBufferSize[(sizeof(TexBufferClass) == 0x18) ? 1 : -1];
-typedef char VerifyMeshMatDescSize[(sizeof(MeshMatDescClass) == 0x118) ? 1 : -1];
-
-// Minimal source-owner views: field offsets are target disassembly anchors.
-class MeshModelClass : public MeshGeometryClass {
-public:
-    MeshMatDescClass *DefMatDesc;
-protected:
-    void post_process_fog(void);
 };
 
 void MeshModelClass::post_process_fog(void)
@@ -141,7 +83,8 @@ void MeshModelClass::post_process_fog(void)
 				shader1.Set_Fog_Func(ShaderClass::FOG_SCALE_FRAGMENT);
 
 				// Copy pass 1 texture/texture array to pass 0.
-				DefMatDesc->Texture[0][0] = DefMatDesc->Texture[1][0];
+				// Retail calls the out-of-line assignment row 0x00042707 here (call at 0x00189DF1).
+				*(BfmeTextureHandle *)&DefMatDesc->Texture[0][0] = *(BfmeTextureHandle *)&DefMatDesc->Texture[1][0];
 				if (DefMatDesc->TextureArray [1][0]) {
 					if (!DefMatDesc->TextureArray [0][0]) {
 						DefMatDesc->TextureArray [0][0] = NEW_REF (TexBufferClass, (PolyCount, "MeshModelClass::DefMatDesc::TextureArray"));

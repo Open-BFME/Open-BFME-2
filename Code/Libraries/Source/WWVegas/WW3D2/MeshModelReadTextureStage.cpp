@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /GX-
+// cl: /Ireference/shims/bfme2_meshmdlio /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/shims/bfmeshader /Ireference/shims/meshmatdesclayout /Ireference/shims/wwstring_teardown/zhmd /Ireference/shims/meshgeom /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/Wwutil /ICode/Libraries/Source/WWVegas/WWDownload /ICode/Libraries/Source/Compression /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/build/toolchains/dx81/include /Ireference/shims/bfmecamera
 //
 // ?read_texture_stage@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z,
 // retail 0x0018B080 (247 bytes: code through ret C2 08 00 at 0x18B0E9/0x18B11C,
@@ -15,47 +15,24 @@
 // - read_texture_ids resolves via pin at 0x189140 (banked 0.75 stash; pin to
 //   row coexistence on its landing); read_stage_texcoords via matched row;
 //   Open_Chunk/Close_Chunk/Cur_Chunk_ID/Cur_Chunk_Length via matched rows.
-// Dedicated TU: marker-less meshmdlio.cpp cannot take rows (PostProcess
-// precedent). Frameless, no EH temps.
+// Frameless, no EH temps.
 
-class ChunkLoadClass
-{
-public:
-	unsigned long Read(void *dst, unsigned long size);
-	unsigned long Cur_Chunk_Length();
-	unsigned long Cur_Chunk_ID();
-	bool Open_Chunk();
-	bool Close_Chunk();
-	unsigned long Seek(unsigned long pos);
-};
+#include "always.h"
+#include <meshmatdesc.h>
+#include "meshmdl.h"
+#include "chunkio.h"
+#include "w3d_file.h"
 
 class MeshLoadContextClass
 {
-	virtual ~MeshLoadContextClass();
-	char m_pad0[0x90 - 4];
-public:
+	friend class MeshModelClass;
+
+	W3dMeshHeader3Struct Header;
+	W3dTexCoordStruct *TexCoords;
+	W3dMaterialInfoStruct MatInfo;
+	uint32 PrelitChunkID;
+	int CurPass;
 	int CurTexStage;
-};
-
-class MeshModelClass
-{
-	virtual ~MeshModelClass();
-	char m_pad0[0x24 - 4];
-public:
-	int PolyCount;
-	int Get_Polygon_Count() const { return PolyCount; }
-protected:
-	bool read_texture_stage(ChunkLoadClass &cload, MeshLoadContextClass *context);
-	bool read_texture_ids(ChunkLoadClass &cload, MeshLoadContextClass *context);
-	bool read_stage_texcoords(ChunkLoadClass &cload, MeshLoadContextClass *context);
-};
-
-enum MeshTextureStageChunkID
-{
-	W3D_CHUNK_TEXCOORDS = 0x05,
-	W3D_CHUNK_TEXTURE_IDS = 0x49,
-	W3D_CHUNK_STAGE_TEXCOORDS = 0x4A,
-	W3D_CHUNK_PER_FACE_TEXCOORD_IDS = 0x4B
 };
 
 // ?read_texture_stage@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z

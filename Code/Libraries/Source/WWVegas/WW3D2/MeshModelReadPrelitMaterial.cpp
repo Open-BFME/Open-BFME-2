@@ -1,5 +1,4 @@
-// cl: /DNDEBUG /MD /GX-
-// platformsdk
+// cl: /Ireference/shims/bfme2_meshmdlio /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/shims/bfmeshader /Ireference/shims/meshmatdesclayout /Ireference/shims/wwstring_teardown/zhmd /Ireference/shims/meshgeom /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/Wwutil /ICode/Libraries/Source/WWVegas/WWDownload /ICode/Libraries/Source/Compression /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/build/toolchains/dx81/include /Ireference/shims/bfmecamera
 //
 // ?read_prelit_material@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z,
 // retail 0x0018B4F0 (249 bytes).
@@ -16,72 +15,26 @@
 //   TextureCount), PrelitChunkID at context+0x88, CurMatDesc at this+0x94.
 // - Switch over chunk IDs 0x28/0x29/0x2A/0x30/0x38 with a linker jump table
 //   (masked DIR32); cases call the bool sibling readers.
-// Dedicated TU: the enum-typed meshmdlio.cpp cannot take rows (PostProcess
-// precedent). Pins for the three unlanded bool callees are harvested from
+// Pins for the three unlanded bool callees are harvested from
 // the retail REL32 displacements at the switch cases (jump-table indices
 // 2/3/4); read_shaders resolves via its matched row.
 
-#include <windows.h>
-
-typedef unsigned long ulong;
-typedef unsigned int uint32;
-
-struct W3dMaterialInfoStruct
-{
-	uint32 PassCount;
-	uint32 VertexMaterialCount;
-	uint32 ShaderCount;
-	uint32 TextureCount;
-};
-
-class ChunkLoadClass
-{
-public:
-	unsigned long Read(void *dst, unsigned long size);
-	unsigned long Cur_Chunk_Length();
-	unsigned long Cur_Chunk_ID();
-	bool Open_Chunk();
-	bool Close_Chunk();
-	unsigned long Seek(unsigned long pos);
-};
-
-struct MeshMatDescClass
-{
-	int PassCount;
-};
+#include "always.h"
+#include <meshmatdesc.h>
+#include "meshmdl.h"
+#include "chunkio.h"
+#include "w3d_file.h"
 
 class MeshLoadContextClass
 {
-private:
-	char m_pad0[0x78];
-public:
+	friend class MeshModelClass;
+
+	W3dMeshHeader3Struct Header;
+	W3dTexCoordStruct *TexCoords;
 	W3dMaterialInfoStruct MatInfo;
 	uint32 PrelitChunkID;
-};
-
-class MeshModelClass
-{
-protected:
-	virtual ~MeshModelClass();
-	bool read_prelit_material(ChunkLoadClass &cload, MeshLoadContextClass *context);
-	bool read_shaders(ChunkLoadClass &cload, MeshLoadContextClass *context);
-	bool read_vertex_materials(ChunkLoadClass &cload, MeshLoadContextClass *context);
-	bool read_textures(ChunkLoadClass &cload, MeshLoadContextClass *context);
-	bool read_material_pass(ChunkLoadClass &cload, MeshLoadContextClass *context);
-	void Set_Pass_Count(int passes) { CurMatDesc->PassCount = passes; }
-
-private:
-	char m_pad[0x90];
-	MeshMatDescClass *CurMatDesc;
-};
-
-enum
-{
-	W3D_CHUNK_MATERIAL_INFO = 0x28,
-	W3D_CHUNK_SHADERS = 0x29,
-	W3D_CHUNK_VERTEX_MATERIALS = 0x2A,
-	W3D_CHUNK_TEXTURES = 0x30,
-	W3D_CHUNK_MATERIAL_PASS = 0x38
+	int CurPass;
+	int CurTexStage;
 };
 
 // ?read_prelit_material@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z
