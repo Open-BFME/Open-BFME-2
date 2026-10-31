@@ -13353,9 +13353,9 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x001EC859,103,code,Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp,approved,C,C=0x001EC63D..0x001EC8C0 provisional,Code/GameEngine/Source/Common/Rva001EC859CarryoverSpawn.cpp
 0x001EC8C0,193,code,Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp,approved,C,C=0x001EC63D..0x001EC98E provisional,Code/GameEngine/Source/Common/Rva001EC8C0CarryoverRevive.cpp
 0x001EC981,13,code,,displaced,-,Z=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisual.cpp S=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisual.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisual.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisual.cpp
-0x001EC98E,13,code,Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp,approved,C,C=0x001EC63D..0x001EC99B provisional,Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp
-0x001EC99B,17,code,Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp,approved,C,C=0x001EC63D..0x001EC9AC provisional,Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp
-0x001EC9AC,17,code,Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp,approved,C,C=0x001EC63D..0x001EC9BD provisional,Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp
+0x001EC98E,13,code,Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp,approved,C,C=0x001EC63D..0x001EC99B provisional,Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp
+0x001EC99B,17,code,Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp,approved,C,C=0x001EC63D..0x001EC9AC provisional,Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp
+0x001EC9AC,17,code,Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp,approved,C,C=0x001EC63D..0x001EC9BD provisional,Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp
 0x001EC9BD,112,code,Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp,approved,C,C=0x001EC63D..0x001ECA2D provisional,Code/Libraries/Source/WWVegas/WWLib/Rva001EC9BDResize.cpp
 0x001ECA2D,204,code,Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp,approved,C,C=0x001EC63D..0x001ECAF9 provisional,Code/GameEngine/Source/Common/System/XferScienceTypeVector.cpp
 0x001ECAF9,127,code,Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp,approved,U,N=Code/GameEngine/Source/Common/BfmeRecord001ECAF9.cpp provisional,Code/GameEngine/Source/Common/StringContainerRecordCopyBFME2.cpp

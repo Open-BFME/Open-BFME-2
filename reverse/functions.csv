@@ -43208,7 +43208,7 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva00068373@Rva00068373NullForwarder@@QAEXH@Z,,0x00068373,18,Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp,matched,Null-checked member tail forwarder by REL32
 ?rva000682FA@Rva000682FANullForwarder@@QAEXXZ,,0x000682FA,16,Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp,matched,Null-checked member tail forwarder by REL32
 ?rva002722F4@Rva002722F4NullForwarder@@QAEXH@Z,,0x002722F4,18,Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp,matched,Null-checked member tail forwarder by REL32
-?thru@Rva0023D6D5Callee@@QAEXXZ,,0x001EC98E,13,Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp,matched,Null-checked member tail forwarder by REL32
+?thru@Rva0023D6D5Callee@@QAEXXZ,,0x001EC98E,13,Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp,matched,Null-checked member tail forwarder by REL32
 ?rva00068061@Rva00068061NullTarget@@QAEXH@Z,,0x00068061,18,Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp,matched,Null-checked member tail forwarder by REL32
 ?rva00068283@Rva00068283NullTarget@@QAEXH@Z,,0x00068283,18,Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp,matched,Null-checked member tail forwarder by REL32
 ?rva005CD9F2@Rva005CD9F2NullForwarder@@QAEXXZ,,0x005CD9F2,13,Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp,matched,Null-checked member tail forwarder by REL32
@@ -46976,8 +46976,8 @@ _Rva00814770,,0x00680670,1511,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,m
 ??0Rva00575D45@@QAE@PAXH@Z,,0x005763ED,89,Code/GameEngine/Source/Common/Rva005763EDCtor.cpp,matched,Vtable and rowed base ctor identify Rva00575D45; raw args and nested constructor type remain address-derived
 ??0Rva00576B5E@@QAE@PAXH@Z,,0x00576ED9,89,Code/GameEngine/Source/Common/Rva00576ED9Ctor.cpp,matched,Vtable and rowed base ctor tie this to Rva00576B5E; raw args and nested constructor identity remain address-derived
 ??0Rva005772BF@@QAE@PAXH@Z,,0x00577747,89,Code/GameEngine/Source/Common/Rva00577747Ctor.cpp,matched,Vtable and rowed base ctor tie this to Rva005772BF; raw args and nested constructor identity remain address-derived
-?rva001EC99B@Rva001EC99B@@QAEPAXHH@Z,,0x001EC99B,17,Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp,matched,wide-scan null-checked forwarder; identity remains address-derived
-?rva001EC9AC@Rva001EC9AC@@QAE_NHHH@Z,,0x001EC9AC,17,Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp,matched,wide-scan null-checked bool forwarder; identity remains address-derived
+?rva001EC99B@Rva001EC99B@@QAEPAXHH@Z,,0x001EC99B,17,Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp,matched,wide-scan null-checked forwarder; identity remains address-derived
+?rva001EC9AC@Rva001EC9AC@@QAE_NHHH@Z,,0x001EC9AC,17,Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp,matched,wide-scan null-checked bool forwarder; identity remains address-derived
 ?doPlayerHunt@ScriptActions@@QAEXABVAsciiString@@@Z,,0x003BB29D,66,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BB31D.cpp,matched,player-mask loop shares rowed resolver and iterator; identity address-derived; member ABI: dispatcher3CA4BE passes ScriptActions receiver in ECX; canonical header owner
 ?doPlayerDisableFactories@ScriptActions@@QAEXABVAsciiString@@H@Z,,0x003BB35B,67,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BB31D.cpp,matched,player-mask mode-zero action; identity address-derived; member ABI: dispatcher3CA4BE passes ScriptActions receiver in ECX; canonical header owner
 ?doPlayerEnableFactories@ScriptActions@@QAEXABVAsciiString@@H@Z,,0x003BB41A,67,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BB31D.cpp,matched,player-mask mode-one action; identity address-derived; member ABI: dispatcher3CA4BE passes ScriptActions receiver in ECX; canonical header owner

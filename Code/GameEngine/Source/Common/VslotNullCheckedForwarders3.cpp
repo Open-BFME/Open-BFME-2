@@ -125,12 +125,6 @@ private:
 	LinearCampaign *m_member;
 };
 
-void Rva0023D6D5Callee::thru()
-{
-	if (m_member)
-		m_member->addCarryoverStuffToMap();
-}
-
 class Thing;
 class W3DShrubBuffer
 {
@@ -369,13 +363,6 @@ private:
 	Rva001EC859 *m_member;
 };
 
-void *Rva001EC99B::rva001EC99B(Int a0, Int a1)
-{
-	if (m_member)
-		return m_member->rva001EC859(a0, a1);
-	return 0;
-}
-
 class Rva001EC8C0
 {
 public:
@@ -390,13 +377,6 @@ private:
 	char m_lead[0x10];
 	Rva001EC8C0 *m_member;
 };
-
-bool Rva001EC9AC::rva001EC9AC(Int a0, Int a1, Int a2)
-{
-	if (m_member)
-		return m_member->rva001EC8C0(a0, a1, a2);
-	return false;
-}
 
 class AsciiString;
 
