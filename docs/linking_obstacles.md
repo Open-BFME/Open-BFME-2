@@ -15265,3 +15265,12 @@ Two unused legacy wrappers have byte/data/runtime-preserving removal evidence fr
 ### GUI/pooled-list identity correction: migrate the live caller first (2026-10-31, codex root)
 
 The mandatory separate withdrawal of six wrong GameWindow-family identities exposed a live Formation424E77 caller of the old Rva423D92 dispatch and was correctly refused by name_dependents. The attempted withdrawal was fully restored. The supported sequence now migrates that caller through native, tool-admitted pooled bindings before repeating the withdrawal. Its845B body requires the corrected dispatch body to remain visible to the compiler. All18 Formation rows and10 Horde rows, including scoped EH, now pass ordinary build. Seven private replacement bodies also pass full byte/relocation verification. No unit-link or census gain is claimed yet. The six legacy claims and other consumers still need correction; affected rows remain in their original physical sources until TU approval. [Evidence](../reverse/attempt_support/gui-pooled-list-identity-20261031/readme.md).
+
+
+### GUI and pooled Object-list identity correction (2026-10-31, codex root; in progress)
+
+The earlier registerTabList prerequisite is confirmed as a six-row identity family, not a GUI view adjustment. Native GUI assignment2C54EE uses free-based erase548267/438539 and insertionBB975/2C526D/5925E2. Pooled Object assignment46F0C2 uses erase4221B2/29DFC5 and insertion423890/423216/1EBD16; native Horde/Formation consumers corroborate the Object payload and freelist policy. The two families are not relocation twins.
+
+Two already-emitted pooled helper folds were admitted by pin_admission. Seven private replacement bodies pass full byte/relocation verification; the other28 GameWindowManagerScript rows remain exact. Formation parent424E77 retains its complete845B only when the corrected dispatch body remains visible to the compiler. Private scoped EH lookup still awaits the new ordinary ledger binding.
+
+Per add_match, the false real claims are withdrawn in a separately reviewable commit before readmission. Three old-only helper sources are temporarily removed during that withdrawal; corrected files will return at the same paths. No source-recovery or coverage gain is claimed from this unpublished intermediate state. Keep pooled rows in their original physical sources while TU approval is absent. [Evidence and pending work](../reverse/attempt_support/gui-pooled-list-identity-20261031/readme.md).
