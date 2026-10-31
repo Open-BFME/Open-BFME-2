@@ -23,7 +23,8 @@ template <> AsciiString *__uninitialized_copy(const AsciiString*, const AsciiStr
 template <> vector<AsciiString, allocator<AsciiString> > &vector<AsciiString, allocator<AsciiString> >::operator=(const vector<AsciiString, allocator<AsciiString> >&);
 }
 
-class Rva00403927 {
+class Rva00403927
+{
 public:
 	Rva00403927(const Rva00403927 &other);
 	Rva00403927 &operator=(const Rva00403927 &other);

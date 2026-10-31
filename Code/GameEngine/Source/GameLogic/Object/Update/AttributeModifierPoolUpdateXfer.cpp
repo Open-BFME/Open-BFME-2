@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc
 // stlport
 //
 // ?xfer@AttributeModifierPoolUpdate@@MAEXPAVXfer@@@Z, retail 0x0040426D, 321 bytes.
@@ -7,7 +7,7 @@
 // Xfer declaration (xferVersion 0x28 IsLoading 0x04 xferAsciiString 0x6C
 // xferUnsignedInt 0x78 xferInt 0x7C xferBool 0x90). Layout from rowed
 // constructor in AttributeModifierPoolUpdate.cpp (UpdateModule base 0x20 plus modifier
-// vector at +0x20 plus max frame at +0x2C plus 15 pool names at +0x30 plus
+// vector at +0x20 plus max frame at +0x2C plus 15 category frames at +0x30 plus
 // 15 tallies at +0x6C). Evidence: vtable slot 3 callers none callees rowed
 // EraseRange 0x2983DA push_back 0x403E3B Rva00368270 0x4034D5 rva004031F3
 // 0x4031F3 releaseBuffer 0x36410 BfmeStringRecord 0x40360E UpdateModule xfer
@@ -19,12 +19,19 @@
 // separate frame slots (the store-side count is declared at function scope so
 // the sibling arms do not share it); the store loop re-reads the vector end
 // each pass. Written from WB and retail, no donor.
+// vector at +0x20 plus max frame at +0x2C plus 15 pool names at +0x30 plus
 #include <vector>
 #include "ascii_string.h"
 
 class Thing;
 class ModuleData;
 class Object;
+class Xfer;
+enum UpdateSleepTime
+{
+	UPDATE_SLEEP_FOREVER = 0x3fffffff
+};
+enum NameKeyType { NAMEKEY_INVALID=-1 };
 
 typedef unsigned int UnsignedInt;
 
@@ -65,23 +72,25 @@ public:
 class Rva00297360Element
 {
 public:
+	Rva00297360Element(const Rva00297360Element &that);
 	~Rva00297360Element();
-	int m_00;
-	AsciiString m_04;
-	int m_08;
-	int m_0C;
+	int index;
+	AsciiString name;
+	unsigned expiration;
+	unsigned upgrade;
 };
 
 class Rva00368270
 {
 public:
 	Rva00368270(void *p, AsciiString name);
-private:
-	int m_00;
-	AsciiString m_04;
-	int m_08;
-	int m_0C;
+	int index;
+	AsciiString name;
+	unsigned expiration;
+	unsigned upgrade;
 };
+
+struct Rva004031F3;
 
 struct Obj
 {
@@ -95,7 +104,7 @@ struct Obj
 	virtual void f27(int *out);
 	virtual void f28(); virtual void f29();
 	virtual void f30(int *out);
-	virtual void f31(Rva00297360Element *ctx);
+	virtual void f31(Rva004031F3 *ctx);
 };
 
 struct Info
@@ -104,10 +113,16 @@ struct Info
 	unsigned char m01;
 };
 
-class Rva004031F3
+struct Rva004031F3
 {
 public:
 	void rva004031F3(Obj *obj, Info *info);
+
+private:
+	int m00;
+	int m01;
+	int m02;
+	int m03;
 };
 
 struct BfmeStringRecord0040360E
@@ -131,16 +146,16 @@ public:
 
 class BehaviorModuleBase
 {
+	virtual void unused();
 public:
-	virtual void behaviorModuleBaseAnchor();
+	Object *getObject() const { return m_object; }
 	const ModuleData *m_moduleData;
 	Object *m_object;
 };
 
 class BehaviorModuleOther
 {
-public:
-	virtual void behaviorModuleOtherAnchor();
+	virtual void unused();
 };
 
 class BehaviorModule : public BehaviorModuleBase, public BehaviorModuleOther
@@ -152,42 +167,85 @@ public:
 class UpdateModuleInterface
 {
 public:
-	virtual void update();
+	virtual void update() = 0;
 };
 
 class UpdateModule : public BehaviorModule, public UpdateModuleInterface
 {
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~UpdateModule();
-	void xfer(Xfer *xfer);
-protected:
 	unsigned m_nextCallFrameAndPhase;
 	int m_indexInLogic;
 	int m_bfmeReserved;
+
+public:
+	UpdateModule(Thing *thing, const ModuleData *moduleData);
+	virtual ~UpdateModule();
+	virtual void update();
+	void xfer(Xfer *xfer);
+protected:
+	void setWakeFrame(Object *obj, UpdateSleepTime frame);
+};
+
+// One entry of the +0x30 table: retail builds the table through the non-EH vector constructor
+// iterator 0x00001423 and the folded null constructor 0x00326BE6, and never destroys it.
+struct AttributeModifierCategoryFrame
+{
+	AttributeModifierCategoryFrame() : frame(0) {}
+	unsigned int frame;
 };
 
 class AttributeModifierPoolUpdate : public UpdateModule
 {
+public:
+	AttributeModifierPoolUpdate(Thing *thing, const ModuleData *moduleData);
+	virtual ~AttributeModifierPoolUpdate();
+	virtual NameKeyType getModuleNameKey() const;
+	int rva004031C9(int index);
+	unsigned char isCategoryDisabled(int index);
+	bool rva00403170(unsigned frame, const void *entry, int includeCategories);
+	bool rva00403382(int attribute, float *bonus, int name);
+	void rva00403415(int *mask, int value);
+	bool rva00403448(int attribute, float *multiplier, int name, int includeCategories);
+	void rva00403744(const AsciiString &name);
+	bool addModifierToPool(const AsciiString &name, int duration);
 protected:
 	virtual void xfer(Xfer *xfer);
 private:
 	_STL::vector<Rva00297360Element> m_modifiers;
 	unsigned int m_maxFrame;
-	AsciiString m_poolNames[15];
+	AttributeModifierCategoryFrame m_categoryFrames[15];
 	unsigned int m_poolCounts[15];
 };
 
+// Retail keeps one unsigned max, RVA 0x00013740 (the vendored STLport row). This unit's
+// flags (/G7 /arch:SSE) compile a different copy, and retail kept another unit's. This unit-local
+// overload keeps the inlined code and offers the link no second copy.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+
+// Retail's placement copy here is the rowed _Construct<BfmeStringRecord0040360E> at 0x00403639;
+// bind the calls to that row rather than an unprovided _Construct<Rva00297360Element>.
+struct BfmeStringRecord0040360E;
+namespace _STL { template <> void _Construct<BfmeStringRecord0040360E, BfmeStringRecord0040360E>(
+	BfmeStringRecord0040360E *, const BfmeStringRecord0040360E &); }
+namespace _STL
+{
+// ?_STL::_Construct absent-from-retail
+static __forceinline void _Construct(Rva00297360Element *dest, const Rva00297360Element &source)
+{
+	_Construct<BfmeStringRecord0040360E, BfmeStringRecord0040360E>(
+		reinterpret_cast<BfmeStringRecord0040360E *>(dest),
+		*reinterpret_cast<const BfmeStringRecord0040360E *>(&source));
+}
+}
+
 // bfme link decl-only begin
-namespace _STL { template <> Rva00297360Element * __uninitialized_copy<Rva00297360Element *,Rva00297360Element *>(Rva00297360Element *,Rva00297360Element *,Rva00297360Element *,_STL::__false_type const &); }
-namespace _STL { template <> Rva00297360Element * __uninitialized_fill_n<Rva00297360Element *,unsigned int,Rva00297360Element>(Rva00297360Element *,unsigned int,Rva00297360Element const &,_STL::__false_type const &); }
-namespace _STL { template <> unsigned int const & max<unsigned int>(unsigned int const &,unsigned int const &); }
 namespace _STL { template <> void vector<Rva00297360Element,_STL::allocator<Rva00297360Element> >::_M_clear(); }
-namespace _STL { template <> void vector<Rva00297360Element,_STL::allocator<Rva00297360Element> >::_M_insert_overflow(Rva00297360Element *,Rva00297360Element const &,_STL::__false_type const &,unsigned int,bool); }
-namespace _STL { template <> Rva00297360Element * allocator<Rva00297360Element>::allocate(unsigned int,void const *) const; }
 namespace _STL { template <> void _STLP_alloc_proxy<Rva00297360Element *,Rva00297360Element,_STL::allocator<Rva00297360Element> >::deallocate(Rva00297360Element *,unsigned int); }
 namespace _STL { template <> void allocator<Rva00297360Element>::deallocate(Rva00297360Element *,unsigned int) const; }
-namespace _STL { template <> void vector<Rva00297360Element,_STL::allocator<Rva00297360Element> >::push_back(Rva00297360Element const &); }
 // bfme link decl-only end
 void AttributeModifierPoolUpdate::xfer(Xfer *xfer)
 {

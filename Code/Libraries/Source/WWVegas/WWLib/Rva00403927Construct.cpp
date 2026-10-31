@@ -15,6 +15,7 @@ class Rva00403927
 {
 public:
 	Rva00403927(const Rva00403927 &other);
+	Rva00403927 &operator=(const Rva00403927 &other);
 private:
 	int m_00;
 	int m_04;

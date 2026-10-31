@@ -1,5 +1,5 @@
 // ?addModifierToPool@AttributeModifierPoolUpdate@@QAE_NABVAsciiString@@H@Z
-// cl: /O1 /EHsc /MD /arch:SSE /G7 /Ireference/shims/bfme2_ascii
+// cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc
 // stlport
 //
 // AttributeModifierPoolUpdate::addModifierToPool, retail 0x00403E72..0x0040426D
@@ -17,9 +17,20 @@
 // copies, and the max-health scale reads the body through a local object
 // pointer, which is what gives retail's compare-before-load order and
 // register roles.
+#include <vector>
 #include "ascii_string.h"
+#include "../../../Common/Thing/thing.h"
+#include "../../../../../Libraries/Include/Lib/BfmeE16.h"
 #include <string.h>
 #include <new>
+class Thing;
+class ModuleData;
+class Object;
+class Xfer;
+enum UpdateSleepTime
+{
+	UPDATE_SLEEP_FOREVER = 0x3fffffff
+};
 class UpgradeTemplate;
 struct DelayedModifierUpgrade {
     DelayedModifierUpgrade() : upgrade(0), delay(0) {}
@@ -32,30 +43,50 @@ struct DelayedModifierUpgrade {
 // semantic leads for entries and effect/category bookkeeping. Native establishes
 // entry stride16, object+8/body+254, category counts+6C, and the 19-word mask.
 // Existing Rva00297360Element erase and mask getter keep their verified ABI.
-class Rva00297360Element {
+class Rva00297360Element
+{
 public:
-    int index;
-    AsciiString name;
-    unsigned expiration, upgrade;
+	Rva00297360Element(const Rva00297360Element &that);
+	~Rva00297360Element();
+	int index;
+	AsciiString name;
+	unsigned expiration;
+	unsigned upgrade;
 };
-#include <vector>
 namespace _STL {
-template<> class vector<Rva00297360Element,allocator<Rva00297360Element> > {
-public:
-    Rva00297360Element *erase(Rva00297360Element *);
-    void push_back(const Rva00297360Element &);
-    Rva00297360Element *begin() const { return first; }
-    Rva00297360Element *end() const { return last; }
-private: Rva00297360Element *first,*last,*storage;
-};
-template<> class vector<AsciiString,allocator<AsciiString> > {
-public:
-    ~vector(); void push_back(const AsciiString &);
-    AsciiString *begin() const { return first; }
-    AsciiString *end() const { return last; }
-private: AsciiString *first,*last,*storage;
-};
+template <> vector<AsciiString, allocator<AsciiString> >::~vector();
+template <> void vector<AsciiString, allocator<AsciiString> >::push_back(const AsciiString &);
 }
+// Retail keeps one unsigned max, RVA 0x00013740 (the vendored STLport row). This unit's
+// flags (/G7 /arch:SSE) compile a different copy, and retail kept another unit's. This unit-local
+// overload keeps the inlined code and offers the link no second copy.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+
+// Retail's placement copy here is the rowed _Construct<BfmeStringRecord0040360E> at 0x00403639;
+// bind the calls to that row rather than an unprovided _Construct<Rva00297360Element>.
+struct BfmeStringRecord0040360E;
+namespace _STL { template <> void _Construct<BfmeStringRecord0040360E, BfmeStringRecord0040360E>(
+	BfmeStringRecord0040360E *, const BfmeStringRecord0040360E &); }
+namespace _STL
+{
+// ?_STL::_Construct absent-from-retail
+static __forceinline void _Construct(Rva00297360Element *dest, const Rva00297360Element &source)
+{
+	_Construct<BfmeStringRecord0040360E, BfmeStringRecord0040360E>(
+		reinterpret_cast<BfmeStringRecord0040360E *>(dest),
+		*reinterpret_cast<const BfmeStringRecord0040360E *>(&source));
+}
+}
+// bfme link decl-only begin
+namespace _STL { template <> void vector<Rva00297360Element,_STL::allocator<Rva00297360Element> >::_M_clear(); }
+namespace _STL { template <> void _STLP_alloc_proxy<Rva00297360Element *,Rva00297360Element,_STL::allocator<Rva00297360Element> >::deallocate(Rva00297360Element *,unsigned int); }
+namespace _STL { template <> void allocator<Rva00297360Element>::deallocate(Rva00297360Element *,unsigned int) const; }
+// bfme link decl-only end
 class ModifierBodyInterfaceView {
 public:
     virtual void slot00(); virtual void slot04(); virtual void slot08(); virtual void slot0C();
@@ -65,24 +96,39 @@ public:
     virtual void slot40(); virtual void slot44(); virtual void slot48(); virtual void slot4C();
     virtual void slot50(); virtual void slot54(); virtual void setMaxHealth(float, int);
 };
-class Object { public: void makeDirty(); void rva00293077(const void *); };
+class Rva0040327B;
+class AttributeModifierPoolUpdate;
+class Object
+{
+private:
+	friend class Rva0040327B;
+	AttributeModifierPoolUpdate *findAttributeModifierPoolUpdate() const;
+public:
+	bool addAttributeModifierToPool(const AsciiString &s, int v);
+	void makeDirty();
+	void rva00293077(const void *);
+};
 class Drawable;
-class Thing { public: Drawable *getDrawable() const; };
 struct ModifierObjectView {
     char pad[0x254]; ModifierBodyInterfaceView *body;
 };
-struct ModifierCategoryView {
-    char pad[0xC]; int index; AsciiString name; unsigned key; int duration;
-    char tail[0xD2-0x1C]; bool exclusive, enforceFrames;
+struct ModifierCategoryView
+{
+public:
+	char m_pad00[0xC];
+	int index; // +0x0C
+	AsciiString name; // +0x10
+	unsigned key; // +0x14
+	int duration; // +0x18
+	char tail[0xD2-0x1C]; // +0x1C
+	bool exclusive; // +0xD2
+	bool enforceFrames; // +0xD3
 };
 struct ModifierMask { int words[19]; };
 class Rva001E431E { public: void rva001E431E(const int *); };
 class GameLogic;
 extern GameLogic *TheGameLogic;
 struct ModifierFrameView { char prefix[0x40]; unsigned frame; };
-enum UpdateSleepTime { UPDATE_SLEEP_FOREVER=0x3fffffff };
-class UpdateModule { protected: void setWakeFrame(Object *, UpdateSleepTime); };
-#include "../../../../../Libraries/Include/Lib/BfmeE16.h"
 class ModifierPendingNames {
 public:
     __forceinline ModifierPendingNames(const _STL::allocator<BfmeE16> &a=_STL::allocator<BfmeE16>()) { ((_STL::_Vector_base<BfmeE16,_STL::allocator<BfmeE16> > *)this)->_STL::_Vector_base<BfmeE16,_STL::allocator<BfmeE16> >::_Vector_base(a); }
@@ -92,20 +138,28 @@ public:
     AsciiString *end() const { return ((_STL::vector<AsciiString> *)this)->end(); }
 private: unsigned storage[3];
 };
-class Rva00368270 { public: Rva00368270(void *,AsciiString);
-    int index; AsciiString name; unsigned expiration,upgrade; };
+class Rva00368270
+{
+public:
+	Rva00368270(void *p, AsciiString name);
+	int index;
+	AsciiString name;
+	unsigned expiration;
+	unsigned upgrade;
+};
 class Rva0040314A { public: unsigned rva0040314A(); };
 class Rva001E42F2 { public: void rva001E42F2(const int *flags); };
-class AttributeModifierStore {
+class AttributeModifierStore
+{
 public:
-    int rva00214713(int key);
-    void *rva00214801(void *out, int index);
-    void *rva00214862(void *out, int index);
-    void *getFX(int index,Object *object);
-    void *getDelayedUpgrade(int index);
-    bool getModifier(int index, void *key, float *value, const StringBase<char> *name);
-    void *getEndFX(int index, Object *object);
-    void *GetCategoryContainer(int index);
+	void *GetCategoryContainer(int index);
+	bool getModifier(int index, void *key, float *value, const StringBase<char> *name);
+	int rva00214713(int key);
+	void *rva00214801(void *out, int index);
+	void *getEndFX(int index, Object *object);
+	void *rva00214862(void *out, int index);
+	void *getFX(int index,Object *object);
+	void *getDelayedUpgrade(int index);
 };
 extern AttributeModifierStore *TheAttributeModifierStore;
 enum NameKeyType { NAMEKEY_INVALID=-1 };
@@ -114,21 +168,76 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 class FXList {
 public: static void doFXObj(const FXList *fx, const Object *primary, const Object *secondary);
 };
-class AttributeModifierPoolUpdate : public UpdateModule {
+class BehaviorModuleBase
+{
+	virtual void unused();
 public:
-    void rva00403744(const AsciiString &name);
-    bool addModifierToPool(const AsciiString &name,int duration);
-    unsigned char isCategoryDisabled(int index) { return ((ModifierFrameView *)TheGameLogic)->frame<categoryFrames[index]; }
-    bool rva00403448(int attribute, float *value, int name, int categories);
-Object *getObject() const { return (Object *)object; }
+	Object *getObject() const { return m_object; }
+	const ModuleData *m_moduleData;
+	Object *m_object;
+};
+
+class BehaviorModuleOther
+{
+	virtual void unused();
+};
+
+class BehaviorModule : public BehaviorModuleBase, public BehaviorModuleOther
+{
+public:
+	BehaviorModule(Thing *thing, const ModuleData *moduleData);
+};
+
+class UpdateModuleInterface
+{
+public:
+	virtual void update() = 0;
+};
+
+class UpdateModule : public BehaviorModule, public UpdateModuleInterface
+{
+	unsigned m_nextCallFrameAndPhase;
+	int m_indexInLogic;
+	int m_bfmeReserved;
+
+public:
+	UpdateModule(Thing *thing, const ModuleData *moduleData);
+	virtual ~UpdateModule();
+	virtual void update();
+	void xfer(Xfer *xfer);
+protected:
+	void setWakeFrame(Object *obj, UpdateSleepTime frame);
+};
+
+// One entry of the +0x30 table: retail builds the table through the non-EH vector constructor
+// iterator 0x00001423 and the folded null constructor 0x00326BE6, and never destroys it.
+struct AttributeModifierCategoryFrame
+{
+	AttributeModifierCategoryFrame() : frame(0) {}
+	unsigned int frame;
+};
+
+class AttributeModifierPoolUpdate : public UpdateModule
+{
+public:
+	AttributeModifierPoolUpdate(Thing *thing, const ModuleData *moduleData);
+	virtual ~AttributeModifierPoolUpdate();
+	virtual NameKeyType getModuleNameKey() const;
+	int rva004031C9(int index);
+	unsigned char isCategoryDisabled(int index);
+	bool rva00403170(unsigned frame, const void *entry, int includeCategories);
+	bool rva00403382(int attribute, float *bonus, int name);
+	void rva00403415(int *mask, int value);
+	bool rva00403448(int attribute, float *multiplier, int name, int includeCategories);
+	void rva00403744(const AsciiString &name);
+	bool addModifierToPool(const AsciiString &name, int duration);
+protected:
+	virtual void xfer(Xfer *xfer);
 private:
-    char pad00[8];
-    ModifierObjectView *object;
-    char pad0C[0x20 - 0xC];
-    _STL::vector<Rva00297360Element> modifiers;
-    unsigned nextExpiration;
-    unsigned categoryFrames[15];
-    int counts[15];
+	_STL::vector<Rva00297360Element> m_modifiers;
+	unsigned int m_maxFrame;
+	AttributeModifierCategoryFrame m_categoryFrames[15];
+	unsigned int m_poolCounts[15];
 };
 inline const int &modifierMax(const int &a,const int &b) { return a<b?b:a; }
 bool AttributeModifierPoolUpdate::addModifierToPool(const AsciiString &name,int duration)
@@ -138,7 +247,7 @@ bool AttributeModifierPoolUpdate::addModifierToPool(const AsciiString &name,int 
     if(index<0) return false;
     ModifierCategoryView *category=(ModifierCategoryView *)TheAttributeModifierStore->GetCategoryContainer(index);
     if(!category) return false;
-    if(category->enforceFrames && isCategoryDisabled(category->index)) return false;
+    if(category->enforceFrames && ((ModifierFrameView *)TheGameLogic)->frame<m_categoryFrames[category->index].frame) return false;
     int dur=duration_c;
     unsigned frame=((ModifierFrameView *)TheGameLogic)->frame;
     int zero=0;
@@ -149,7 +258,7 @@ bool AttributeModifierPoolUpdate::addModifierToPool(const AsciiString &name,int 
     ModifierPendingNames pending;
     bool exclusive=category->exclusive;
     if(exclusive) {
-        for(Rva00297360Element *it=modifiers.begin();it!=modifiers.end();++it) {
+        for(Rva00297360Element *it=m_modifiers.begin();it!=m_modifiers.end();++it) {
             ModifierCategoryView *other=(ModifierCategoryView *)TheAttributeModifierStore->GetCategoryContainer(it->index);
             if(it->index!=index && category->index==other->index) {
                 if(it->expiration>=expiration) return false;
@@ -158,49 +267,49 @@ bool AttributeModifierPoolUpdate::addModifierToPool(const AsciiString &name,int 
         }
     }
     for(AsciiString *it=pending.begin();it!=pending.end();++it) rva00403744(*it);
-    for(Rva00297360Element *it=modifiers.begin();it!=modifiers.end();++it) {
+    for(Rva00297360Element *it=m_modifiers.begin();it!=m_modifiers.end();++it) {
         if(it->index!=index) continue;
         it->expiration=expiration;
-        if(it->expiration<nextExpiration) {
-            nextExpiration=it->expiration;
+        if(it->expiration<m_maxFrame) {
+            m_maxFrame=it->expiration;
             setWakeFrame(getObject(),(UpdateSleepTime)length);
         }
         const FXList *fx;
-        if(frame<it->expiration) { Object *fxObj=(Object *)object; int fxIndex=it->index; fx=(const FXList *)TheAttributeModifierStore->getFX(fxIndex,fxObj); }
-        else { Object *fxObj=(Object *)object; int fxIndex=it->index; fx=(const FXList *)TheAttributeModifierStore->getEndFX(fxIndex,fxObj); }
-        if(fx) { Object *obj=(Object *)object; FXList::doFXObj(fx,obj,0); }
+        if(frame<it->expiration) { Object *fxObj=m_object; int fxIndex=it->index; fx=(const FXList *)TheAttributeModifierStore->getFX(fxIndex,fxObj); }
+        else { Object *fxObj=m_object; int fxIndex=it->index; fx=(const FXList *)TheAttributeModifierStore->getEndFX(fxIndex,fxObj); }
+        if(fx) { Object *obj=m_object; FXList::doFXObj(fx,obj,0); }
         return true;
     }
     ModifierMask flags;
     TheAttributeModifierStore->rva00214801(&flags,index);
-    ((Rva001E431E *)object)->rva001E431E(flags.words);
+    ((Rva001E431E *)m_object)->rva001E431E(flags.words);
     ModifierMask clear;
     flags=*(ModifierMask *)TheAttributeModifierStore->rva00214862(&clear,index);
-    ((Rva001E42F2 *)object)->rva001E42F2(flags.words);
+    ((Rva001E42F2 *)m_object)->rva001E42F2(flags.words);
     Rva00368270 local((void *)index,name);
     Rva00368270 &entry=local;
     entry.expiration=expiration;
     DelayedModifierUpgrade *upgrade=(DelayedModifierUpgrade *)TheAttributeModifierStore->getDelayedUpgrade(index);
     if(upgrade && upgrade->upgrade) {
-        if(!upgrade->delay) { Object *obj=(Object *)object; obj->rva00293077(upgrade->upgrade); }
+        if(!upgrade->delay) { Object *obj=m_object; obj->rva00293077(upgrade->upgrade); }
         else entry.upgrade=frame+upgrade->delay;
     }
     unsigned next=((Rva0040314A *)&entry)->rva0040314A();
-    if(next<nextExpiration) {
-        nextExpiration=next;
+    if(next<m_maxFrame) {
+        m_maxFrame=next;
         setWakeFrame(getObject(),(UpdateSleepTime)length);
     }
     if(((ModifierFrameView *)TheGameLogic)->frame<entry.expiration) {
-        Drawable *drawable=((const Thing *)object)->getDrawable();
+        Drawable *drawable=((const Thing *)m_object)->getDrawable();
         if(drawable) {
-            const FXList *fx=(const FXList *)TheAttributeModifierStore->getFX(entry.index,(Object *)object);
-            if(fx) { Object *obj=(Object *)object; FXList::doFXObj(fx,obj,0); }
+            const FXList *fx=(const FXList *)TheAttributeModifierStore->getFX(entry.index,m_object);
+            if(fx) { Object *obj=m_object; FXList::doFXObj(fx,obj,0); }
         }
     }
     float value=0;
     TheAttributeModifierStore->getModifier(entry.index,(void *)14,&value,0);
     if(value>0) {
-        ModifierBodyInterfaceView *body=object->body;
+        ModifierBodyInterfaceView *body=((ModifierObjectView *)m_object)->body;
         if(body) {
             float multiplier=1;
             if(rva00403448(15,&multiplier,0,1)) body->setMaxHealth(body->getMaxHealth()+value*multiplier,1);
@@ -210,15 +319,15 @@ bool AttributeModifierPoolUpdate::addModifierToPool(const AsciiString &name,int 
     value=0;
     TheAttributeModifierStore->getModifier(entry.index,(void *)15,&value,0);
     if(value>0) {
-        ModifierObjectView *obj=object;
+        ModifierObjectView *obj=(ModifierObjectView *)m_object;
         ModifierBodyInterfaceView *body=obj->body;
         if(body) body->setMaxHealth(body->getMaxHealth()*value,1);
     }
-    modifiers.push_back(*(Rva00297360Element *)&entry);
+    m_modifiers.push_back(*(Rva00297360Element *)&entry);
     category=(ModifierCategoryView *)TheAttributeModifierStore->GetCategoryContainer(index);
-    if(category) ++counts[category->index];
+    if(category) ++m_poolCounts[category->index];
     float dirty=0;
     TheAttributeModifierStore->getModifier(entry.index,(void *)20,&dirty,0);
-    if(dirty>0) ((Object *)object)->makeDirty();
+    if(dirty>0) m_object->makeDirty();
     return true;
 }

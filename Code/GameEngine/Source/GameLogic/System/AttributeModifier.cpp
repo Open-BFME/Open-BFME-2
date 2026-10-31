@@ -7,9 +7,18 @@
 // 16-bit narrowed ceil result in the four-byte delay slot.
 // The parser family in INI_parseDurationUnsignedShort.cpp supplies the
 // already verified scale/import/unsigned conversion shape, not class identity.
+#include <vector>
 #include "ascii_string.h"
 #include <string.h>
 #include <math.h>
+class Thing;
+class ModuleData;
+class Object;
+class Xfer;
+enum UpdateSleepTime
+{
+	UPDATE_SLEEP_FOREVER = 0x3fffffff
+};
 extern float g_parseDurationMsecScale;
 class UpgradeTemplate;
 class UpgradeCenter {
@@ -60,13 +69,16 @@ void AttributeModifierContainer::parseDelayedUpgradeTemplate(INI *ini, void *ins
 // semantic leads for entries and effect/category bookkeeping. Native establishes
 // entry stride16, object+8/body+254, category counts+6C, and the 19-word mask.
 // Existing Rva00297360Element erase and mask getter keep their verified ABI.
-class Rva00297360Element {
+class Rva00297360Element
+{
 public:
-    int index;
-    AsciiString name;
-    unsigned expiration, upgrade;
+	Rva00297360Element(const Rva00297360Element &that);
+	~Rva00297360Element();
+	int index;
+	AsciiString name;
+	unsigned expiration;
+	unsigned upgrade;
 };
-#include <vector>
 namespace _STL {
 // Bind the removal to the rowed element erase instead of emitting a second
 // copy of the header's inline definition.
@@ -81,19 +93,45 @@ public:
     virtual void slot40(); virtual void slot44(); virtual void slot48(); virtual void slot4C();
     virtual void slot50(); virtual void slot54(); virtual void setMaxHealth(float, int);
 };
-class Object { public: void makeDirty(); };
+class Rva0040327B;
+class AttributeModifierPoolUpdate;
+class Object
+{
+private:
+	friend class Rva0040327B;
+	AttributeModifierPoolUpdate *findAttributeModifierPoolUpdate() const;
+public:
+	bool addAttributeModifierToPool(const AsciiString &s, int v);
+	void makeDirty();
+	void rva00293077(const void *);
+};
 struct ModifierObjectView {
     char pad[0x254]; ModifierBodyInterfaceView *body;
 };
-struct ModifierCategoryView { char pad[0xC]; int index; };
-class Rva001E42F2 { public: void rva001E42F2(const int *flags); };
-class AttributeModifierStore {
+struct ModifierCategoryView
+{
 public:
-    int rva00214713(int key);
-    void *rva00214801(void *out, int index);
-    bool getModifier(int index, void *key, float *value, const StringBase<char> *name);
-    void *getEndFX(int index, Object *object);
-    void *GetCategoryContainer(int index);
+	char m_pad00[0xC];
+	int index; // +0x0C
+	AsciiString name; // +0x10
+	unsigned key; // +0x14
+	int duration; // +0x18
+	char tail[0xD2-0x1C]; // +0x1C
+	bool exclusive; // +0xD2
+	bool enforceFrames; // +0xD3
+};
+class Rva001E42F2 { public: void rva001E42F2(const int *flags); };
+class AttributeModifierStore
+{
+public:
+	void *GetCategoryContainer(int index);
+	bool getModifier(int index, void *key, float *value, const StringBase<char> *name);
+	int rva00214713(int key);
+	void *rva00214801(void *out, int index);
+	void *getEndFX(int index, Object *object);
+	void *rva00214862(void *out, int index);
+	void *getFX(int index,Object *object);
+	void *getDelayedUpgrade(int index);
 };
 extern AttributeModifierStore *TheAttributeModifierStore;
 enum NameKeyType { NAMEKEY_INVALID=-1 };
@@ -102,33 +140,91 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 class FXList {
 public: static void doFXObj(const FXList *fx, const Object *primary, const Object *secondary);
 };
-class AttributeModifierPoolUpdate {
+class BehaviorModuleBase
+{
+	virtual void unused();
 public:
-    void rva00403744(const AsciiString &name);
-    bool rva00403448(int attribute, float *value, int name, int categories);
+	Object *getObject() const { return m_object; }
+	const ModuleData *m_moduleData;
+	Object *m_object;
+};
+
+class BehaviorModuleOther
+{
+	virtual void unused();
+};
+
+class BehaviorModule : public BehaviorModuleBase, public BehaviorModuleOther
+{
+public:
+	BehaviorModule(Thing *thing, const ModuleData *moduleData);
+};
+
+class UpdateModuleInterface
+{
+public:
+	virtual void update() = 0;
+};
+
+class UpdateModule : public BehaviorModule, public UpdateModuleInterface
+{
+	unsigned m_nextCallFrameAndPhase;
+	int m_indexInLogic;
+	int m_bfmeReserved;
+
+public:
+	UpdateModule(Thing *thing, const ModuleData *moduleData);
+	virtual ~UpdateModule();
+	virtual void update();
+	void xfer(Xfer *xfer);
+protected:
+	void setWakeFrame(Object *obj, UpdateSleepTime frame);
+};
+
+// One entry of the +0x30 table: retail builds the table through the non-EH vector constructor
+// iterator 0x00001423 and the folded null constructor 0x00326BE6, and never destroys it.
+struct AttributeModifierCategoryFrame
+{
+	AttributeModifierCategoryFrame() : frame(0) {}
+	unsigned int frame;
+};
+
+class AttributeModifierPoolUpdate : public UpdateModule
+{
+public:
+	AttributeModifierPoolUpdate(Thing *thing, const ModuleData *moduleData);
+	virtual ~AttributeModifierPoolUpdate();
+	virtual NameKeyType getModuleNameKey() const;
+	int rva004031C9(int index);
+	unsigned char isCategoryDisabled(int index);
+	bool rva00403170(unsigned frame, const void *entry, int includeCategories);
+	bool rva00403382(int attribute, float *bonus, int name);
+	void rva00403415(int *mask, int value);
+	bool rva00403448(int attribute, float *multiplier, int name, int includeCategories);
+	void rva00403744(const AsciiString &name);
+	bool addModifierToPool(const AsciiString &name, int duration);
+protected:
+	virtual void xfer(Xfer *xfer);
 private:
-    char pad00[8];
-    ModifierObjectView *object;
-    char pad0C[0x20 - 0xC];
-    _STL::vector<Rva00297360Element> modifiers;
-    unsigned nextExpiration;
-    unsigned categoryFrames[15];
-    int counts[15];
+	_STL::vector<Rva00297360Element> m_modifiers;
+	unsigned int m_maxFrame;
+	AttributeModifierCategoryFrame m_categoryFrames[15];
+	unsigned int m_poolCounts[15];
 };
 void AttributeModifierPoolUpdate::rva00403744(const AsciiString &name)
 {
     int index = TheAttributeModifierStore->rva00214713(TheNameKeyGenerator->nameToKey(name.str()));
     if (index < 0) return;
-    for (Rva00297360Element *entry = modifiers.begin(); entry != modifiers.end(); ++entry) {
+    for (Rva00297360Element *entry = m_modifiers.begin(); entry != m_modifiers.end(); ++entry) {
         if (entry->index != index) continue;
-        modifiers.erase(entry);
+        m_modifiers.erase(entry);
         int flags[19];
         TheAttributeModifierStore->rva00214801(flags,index);
-        ((Rva001E42F2 *)object)->rva001E42F2(flags);
+        ((Rva001E42F2 *)m_object)->rva001E42F2(flags);
         float value = 0;
         TheAttributeModifierStore->getModifier(index,(void *)14,&value,0);
         if (value > 0) {
-            ModifierBodyInterfaceView *body = object->body;
+            ModifierBodyInterfaceView *body = ((ModifierObjectView *)m_object)->body;
             if (body && body->getHealth() > 0) {
                 float multiplier = 1;
                 if (rva00403448(15,&multiplier,0,1))
@@ -140,17 +236,17 @@ void AttributeModifierPoolUpdate::rva00403744(const AsciiString &name)
         value=0;
         TheAttributeModifierStore->getModifier(index,(void *)15,&value,0);
         if (value > 0) {
-            ModifierBodyInterfaceView *body = object->body;
+            ModifierBodyInterfaceView *body = ((ModifierObjectView *)m_object)->body;
             if (body && body->getHealth() > 0)
                 body->setMaxHealth(body->getMaxHealth()/value,1);
         }
-        const FXList *fx = (const FXList *)TheAttributeModifierStore->getEndFX(index,(Object *)object);
-        if (fx) FXList::doFXObj(fx,(Object *)object,0);
+        const FXList *fx = (const FXList *)TheAttributeModifierStore->getEndFX(index,m_object);
+        if (fx) FXList::doFXObj(fx,m_object,0);
         ModifierCategoryView *category=(ModifierCategoryView *)TheAttributeModifierStore->GetCategoryContainer(index);
-        if (category) --counts[category->index];
+        if (category) --m_poolCounts[category->index];
         float dirty=0;
         TheAttributeModifierStore->getModifier(index,(void *)20,&dirty,0);
-        if (dirty > 0) ((Object *)object)->makeDirty();
+        if (dirty > 0) m_object->makeDirty();
         break;
     }
 }

@@ -3,10 +3,17 @@
 // Evidence: cmp stack arg null then loop +0x20 to +0x24 step 0x10 calling Object::addAttributeModifierToPool with string +4 and int +8 minus TheGameLogic+0x40; caller 0x00470A38.
 #include "ascii_string.h"
 
+class Rva0040327B;
+class AttributeModifierPoolUpdate;
 class Object
 {
+private:
+	friend class Rva0040327B;
+	AttributeModifierPoolUpdate *findAttributeModifierPoolUpdate() const;
 public:
-    bool addAttributeModifierToPool(const AsciiString &s, int v);
+	bool addAttributeModifierToPool(const AsciiString &s, int v);
+	void makeDirty();
+	void rva00293077(const void *);
 };
 class GameLogic;
 extern GameLogic *TheGameLogic;

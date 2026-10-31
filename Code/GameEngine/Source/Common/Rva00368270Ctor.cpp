@@ -1,4 +1,5 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Ob2
+// cl: /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc
+// stlport
 //
 // Open-BFME5: near-twin of the Gen0014AE40 owning-record constructor
 // (Rva0014AE40OwnerDestructor.cpp / retail 0x0014ADC0) at retail 0x00368270,
@@ -14,30 +15,20 @@
 #include "ascii_string.h"
 
 
-class Bfme00368270String : private AsciiString
-{
-public:
-	Bfme00368270String(const AsciiString &other) : AsciiString(other) {}
-	~Bfme00368270String() {}
-};
-
 class Rva00368270
 {
 public:
 	Rva00368270(void *p, AsciiString name);
-	~Rva00368270();
-
-private:
-	void *m_00;
-	Bfme00368270String m_bfmeMember;
-	void *m_bfmeOwned;
-	void *m_bfmeOther;
+	int index;
+	AsciiString name;
+	unsigned expiration;
+	unsigned upgrade;
 };
 
-Rva00368270::Rva00368270(void *p, AsciiString name) :
-	m_00(p),
-	m_bfmeMember(name),
-	m_bfmeOwned(0),
-	m_bfmeOther(0)
+Rva00368270::Rva00368270(void *p, AsciiString nameValue) :
+	index((int)p),
+	name(nameValue),
+	expiration(0),
+	upgrade(0)
 {
 }
