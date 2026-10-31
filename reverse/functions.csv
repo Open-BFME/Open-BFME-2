@@ -17697,7 +17697,7 @@ _VP6_DecodeMacroBlock,,0x001C66B0,705,Code/Libraries/Source/VP6/DecodeMacroBlock
 ?get@Rva005BE245SarAvgField@@QBEHXZ,,0x005BE245,10,Code/GameEngine/Source/Common/Disp8SarAvgDwordGetters.cpp,matched,Disp8 sar-avg getter frameless mov-sub-sar shape phase-proven no-branch-to-addr
 ?get@Rva005D1397SarAvgField@@QBEHXZ,,0x005D1397,10,Code/GameEngine/Source/Common/Disp8SarAvgDwordGetters.cpp,matched,Disp8 sar-avg getter frameless mov-sub-sar shape phase-proven no-branch-to-addr
 ?get@Rva00051A6BDivMovField@@QBEHXZ,,0x00051A6B,14,Code/GameEngine/Source/Common/Disp8DivMovDwordGetters.cpp,matched,Disp8 div-mov getter frameless mov-sub-mov-cdq-idiv shape phase-proven no-branch-to-addr
-?get@Rva00087A36DivMovField@@QBEHXZ,,0x00087A36,14,Code/GameEngine/Source/Common/Disp8DivMovDwordGetters.cpp,matched,Disp8 div-mov getter /O1 mov-imm32 shape phase-proven no-branch-to-addr
+?get@Rva00087A36DivMovField@@QBEHXZ,,0x00087A36,14,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,matched,Disp8 div-mov getter /O1 mov-imm32 shape phase-proven no-branch-to-addr
 ?get@Rva000B3F67DivMovField@@QBEHXZ,,0x000B3F67,14,Code/GameEngine/Source/Common/Disp8DivMovDwordGetters.cpp,matched,Disp8 div-mov getter /O1 mov-imm32 shape phase-proven no-branch-to-addr
 ?get@Rva000B4071DivMovField@@QBEHXZ,,0x000B4071,14,Code/GameEngine/Source/Common/Disp8DivMovDwordGetters.cpp,matched,Disp8 div-mov getter /O1 mov-imm32 shape phase-proven no-branch-to-addr
 ?get@Rva000B40BDDivMovField@@QBEHXZ,,0x000B40BD,14,Code/GameEngine/Source/Common/Disp8DivMovDwordGetters.cpp,matched,Disp8 div-mov getter /O1 mov-imm32 shape phase-proven no-branch-to-addr

@@ -31,6 +31,7 @@
 
 
 
+
 #endif
 #define TERRAIN_SAMPLE_SIZE 40.0f
 #define MIN_CAPPED_ZOOM (0.5f) //WST 10.19.2002. JSC integrated 5/20/03.
@@ -406,6 +407,18 @@ public:
 	{ \
 		return m_value; \
 	}
+#define BFME_DISP8_DIV_MOV_DWORD_GETTER(NAME, DISP1, DISP2, DIVISOR) \
+	class NAME \
+	{ \
+	public: \
+		int get() const; \
+		char m_lead[DISP1]; \
+		int m_first; \
+	}; \
+	int NAME::get() const \
+	{ \
+		return (m_first - *(int *)((char *)this + DISP2)) / DIVISOR; \
+	}
 
 // BFME adds View and Display virtuals that the shared Zero Hour headers omit;
 // these scoped views preserve the witnessed slots and +0x104 camera offset.
@@ -624,6 +637,7 @@ public:
 
 
 void drawDrawableExtents( Drawable *draw, void *userData );
+
 
 
 
@@ -2341,11 +2355,15 @@ public:
 
 BFME_DISP32_FLOAT_GETTER(Rva000879E6FloatField, 0x24F4)
 
+BFME_DISP8_DIV_MOV_DWORD_GETTER(Rva00087A36DivMovField, 0x04, 0x00, 0xB8)
+
 // tu-skeleton: 0x00085B41 380B ?getAxisAlignedViewRegion@W3DView@@AAEXAAURegion3D@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewGetAxisAlignedViewRegion.cpp (not merged yet)
 
 // tu-skeleton: 0x00085CBD 522B ?rva00085CBD@W3DView@@QAEXAAURegion3D@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewFarRegion.cpp (not merged yet)
 
 // tu-skeleton: 0x00085EC7 62B ?setFadeParameters@W3DView@@UAEXHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewSetFadeParameters.cpp (not merged yet)
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp
 
@@ -2821,6 +2839,20 @@ float * Rva00088D05::rva00088D05()
 	return Rva000869CF::rva000869CF();
 }
 
+// ---- from Code/GameEngine/Source/Common/Disp32FloatGetters.cpp
+
+// Disp32 float getters: seven-byte __thiscall members with one shape:
+//
+//     fld dword [ecx+<DISP>] / ret
+//
+// One float is read at a fixed 32-bit displacement from `this` and returned
+// in ST0. The offset does not fit the sign-byte form, so MSVC 7.1 emits
+// `D9 81 DISP32`, plus `ret`, for seven bytes total. This is the disp32
+// sibling of the float-getter lane; the opcode itself is why it lives in
+// its own translation unit. Identity is not recovered: every name is
+// derived from its address.
+// No // cl: line (defaults match the frameless seven-byte shape).
+
 // tu-skeleton: 0x00085F6A 62B ?rva00085F6A@Rva00085F6A@@QAE_NH@Z -- matched in Code/GameEngine/Source/Common/Rva00085F6ASet.cpp (not merged yet)
 
 // tu-skeleton: 0x00085FA8 178B ?calcDeltaScroll@Rva00085FA8@@QAEXPAM@Z -- matched in Code/GameEngine/Source/Common/Rva00085FA8Delta.cpp (not merged yet)
@@ -2873,23 +2905,23 @@ float * Rva00088D05::rva00088D05()
 
 // tu-skeleton: 0x000879A9 61B ?rva000879A9@Rva00085947@@QAE_NH@Z -- matched in Code/GameEngine/Source/GameClient/Rva00085947Method.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/Disp32FloatGetters.cpp
-
-// Disp32 float getters: seven-byte __thiscall members with one shape:
-//
-//     fld dword [ecx+<DISP>] / ret
-//
-// One float is read at a fixed 32-bit displacement from `this` and returned
-// in ST0. The offset does not fit the sign-byte form, so MSVC 7.1 emits
-// `D9 81 DISP32`, plus `ret`, for seven bytes total. This is the disp32
-// sibling of the float-getter lane; the opcode itself is why it lives in
-// its own translation unit. Identity is not recovered: every name is
-// derived from its address.
-// No // cl: line (defaults match the frameless seven-byte shape).
-
 // tu-skeleton: 0x000879FB 7B ?get@Rva000879FBByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/DispByteFieldGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x00087A36 14B ?get@Rva00087A36DivMovField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8DivMovDwordGetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Disp8DivMovDwordGetters.cpp
+
+// Disp8 div-mov dword getters: fourteen-byte __thiscall members with one shape:
+//
+//     mov eax,[ecx+<DISP1>] / sub eax,[ecx+<DISP2>] / mov ecx,<DIV>
+//     cdq / idiv ecx / ret
+//
+// The difference of two dwords at fixed displacements from `this` is divided
+// by a constant. MSVC 7.1 under /O1 materializes small divisors through the
+// stack (`push imm8` + `pop ecx`, three bytes; the DivAvg sister TU) but
+// large divisors (>=0x80, needing `push imm32` + `pop`, six bytes) via
+// `mov ecx,imm32` (five bytes). All divisors here need imm32, so /O1 emits
+// mov. Fourteen-to-fifteen bytes total. Identity is not recovered: every
+// name is derived from its address.
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 
 // tu-skeleton: 0x00087A44 24B ??$fill@PAPAXPAX@_STL@@YAXPAPAX0ABQAX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_ptr_o1.cpp (not merged yet)
 
