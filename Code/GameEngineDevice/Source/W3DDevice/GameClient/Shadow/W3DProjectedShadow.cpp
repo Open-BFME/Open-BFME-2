@@ -79,12 +79,8 @@ class W3DShadowTexture : public RefCountClass, public	HashableClass
 
 	public:
 
-		W3DShadowTexture( void )
-		{	m_lastLightPosition.Set(0,0,0); m_lastObjectOrientation.Make_Identity();
-			m_shadowUV[0].Set(1.0f,0.0f,0.0f);	//u runs along world x axis
-			m_shadowUV[1].Set(0.0f,-1.0f,0.0f);	//v runs along world -y axis
-		}
-		~W3DShadowTexture( void ) {}
+		W3DShadowTexture( void );
+		~W3DShadowTexture( void );
 
 		virtual	const char * Get_Key( void )	{ return m_namebuf;	}
 
@@ -95,6 +91,7 @@ class W3DShadowTexture : public RefCountClass, public	HashableClass
 		{	memset(m_namebuf,0,sizeof(m_namebuf));	//pad with zero so always ends with null character.
 			strncpy(m_namebuf,name,sizeof(m_namebuf)-1);
 		}
+		TextureClass	*getTexture(void)	{ return m_texture.Peek();}
 		void			setTexture(const RefCountPtr<TextureClass> &texture);
 		void			setLightPosHistory(Vector3 &pos);	///<updates the last position of light
 		Vector3&		getLightPosHistory(void) {return m_lastLightPosition;}
@@ -166,6 +163,7 @@ class BfmeThing928F
 {
 public:
 	void bfmeTwo928F();
+	void bfmeOne928F();
 };
 class Rva00109236
 {
@@ -242,11 +240,24 @@ class RenderObjClass;
 
  class W3DShadowTexture;
 
-struct ShadowNameBuffer {int refs; unsigned short length,capacity; char text[1];};
+struct ShadowNameBuffer
+{
+public:
+	int refs; // +0x00
+	unsigned short length; // +0x04
+	unsigned short capacity; // +0x06
+	char text[1]; // +0x08
+	char m_pad09[0x3];
+};
 
 struct ShadowInfoView { ShadowNameBuffer *name; int unused; int type; float sizeX,sizeY,offsetX,offsetY,unused1,height; unsigned char force; };
 
-struct ShadowBounds {float center[3];float extent[3];};
+struct ShadowBounds
+{
+public:
+	float center[3]; // +0x00
+	float extent[3]; // +0x0C
+};
 
 class ShadowBoundsCall {public:
 virtual void slot0();
@@ -322,7 +333,16 @@ virtual void getBounds(ShadowBounds&);
 
 class Rva0010BC90ShadowManager { public: W3DShadowTexture *getTexture(const char*); };
 
-class Rva0010BB11ShadowFactory {public: W3DProjectedShadow *create(W3DShadowTexture*,RenderObjClass*,int,unsigned char,float,float,float,float,float,void*,unsigned char,int,unsigned char);};
+class Rva0010BB11ShadowFactory
+{
+public:
+	W3DProjectedShadow *create(W3DShadowTexture*,RenderObjClass*,int,unsigned char,float,float,float,float,float,void*,unsigned char,int,unsigned char);
+	char m_pad00[0x10];
+private:
+	W3DProjectedShadow *m_freeList; // +0x10
+	char m_pad14[0x23C];
+	int m_counted; // +0x250
+};
 
 class RvaNode00107152 {
 public:
@@ -384,12 +404,21 @@ struct Rva00108895Triplet
     void set(float value) { first = value; second = value; third = value; }
 };
 
-class Rva0010BA2COwner
+class Rva000F0F2B
 {
 public:
+    Rva000F0F2B();
+    virtual ~Rva000F0F2B();
+protected:
+    char m_body[0x68 - 4];
+};
+
+class Rva0010BA2COwner : public Rva000F0F2B
+{
+public:
+    Rva0010BA2COwner() throw();
     void rva00108895();
 private:
-    char unknown00[0x68];
     unsigned int retained68[2];
     void *retained70;
     unsigned char flag74;
@@ -403,6 +432,7 @@ private:
     Rva00108895Triplet sentinel88;
     unsigned int array94[16];
     unsigned int arrayD4[16];
+    Rva0010BA2COwner *next114;
 };
 
 // ?rva00109DCF@Rva00109DCF@@QAEXXZ retail 0x00109DCF 66 bytes.
@@ -410,10 +440,12 @@ private:
 // members at +0x258 and +0x254 via dec [ecx+4] with virtual slot-0 call and
 // zeroes them with and [m],0. Evidence: rowed callee 0x00108AD8 plus callers
 // at 0x0009A406 and 0x0010C7B3. Precedent: /O1 and-zero shape.
+class HashTableClass;
 class Rva00108AD8
 {
 public:
 	void invalidateCachedLightPositions();
+	HashTableClass *m_table; // +0x00
 };
 
 struct Rva00109DCFRef
@@ -427,12 +459,12 @@ class Rva00109DCF
 public:
 	void rva00109DCF();
 	void rva00108E28();
+	char m_pad00[0x24C];
 private:
-	char m_pad[0x24C];
-	Rva00108AD8 *m_24C;
-	char m_pad250[0x254 - 0x24C - 4];
-	Rva00109DCFRef *m_254;
-	Rva00109DCFRef *m_258;
+	Rva00108AD8 *m_24C; // +0x24C
+	char m_pad250[0x4];
+	Rva00109DCFRef *m_254; // +0x254
+	Rva00109DCFRef *m_258; // +0x258
 };
 
 // Retail 0x007AFF00: release two retained resources before base destruction.
@@ -732,9 +764,17 @@ private:
 
 extern "C" void _ReadWriteBarrier();
 
-class Rva001095B2 : public BfmeShadowBufferOwnerBase
+class Rva007B1380 : public BfmeShadowBufferOwnerBase
 {
 public:
+	Rva007B1380();
+	void rva00109D64();
+};
+
+class Rva001095B2 : public Rva007B1380
+{
+public:
+	Rva001095B2();
 	virtual ~Rva001095B2();
 
 private:
@@ -746,11 +786,6 @@ private:
 // ?rva0010BA61@Rva0010BA61@@QAEXXZ
 // recovered from packet 0x0010BA61 16B lane=unlock
 // Evidence: rowed call 0x00109D64 ?rva00109D64@Rva007B1380@@QAEXXZ; pin 0x00108895 ?rva00108895@Rva0010BA2COwner@@QAEXXZ; caller 0x0010BB4F; prev/next // cl: /O1 /DNDEBUG /MD
-class Rva007B1380
-{
-public:
-	void rva00109D64();
-};
 
 class Rva0010BA61
 {
@@ -796,12 +831,11 @@ struct Rva007AED00Entry
 
 class Rva007AED00Table
 {
-private:
-	char m_padding[0x58];
-	Rva007AED00Entry *m_entries[1];
-
 public:
 	void updateOffsets( int index, float first, float second );
+	char m_pad00[0x58];
+private:
+	Rva007AED00Entry *m_entries[1]; // +0x58
 };
 
 //

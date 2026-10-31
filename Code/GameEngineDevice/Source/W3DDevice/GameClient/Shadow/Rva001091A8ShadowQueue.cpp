@@ -8,18 +8,27 @@
 // WorldBuilder twin 0x008D6550: separate calls per elapsed case and per list (retail merges
 // them), field copies into locals first. Offsets are retail observations; names unknown.
 struct Rva001087BBNode;
+class BfmeDynamicNativeVB;
+class DX8IndexBufferClass;
 class Rva00108660ResourceManager
 {
-    void *m_unknown00;
-    Rva001087BBNode *m_head04;
-    Rva001087BBNode *m_head08;
-    Rva001087BBNode *m_head0C;
-    char m_unknown10[0x1c - 0x10];
-    Rva001087BBNode *m_head1C;
 public:
-    void rva001091A8(void *shadowArg);
+	bool ReAcquireResources();
+	void rva001091A8(void *shadowArg);
+	char m_pad00[0x4];
+private:
+	Rva001087BBNode *m_head04; // +0x04
+	Rva001087BBNode *m_head08; // +0x08
+	Rva001087BBNode *m_head0C; // +0x0C
+	char m_pad10[0xC];
+	Rva001087BBNode *m_head1C; // +0x1C
+	char m_pad20[0x234];
+	BfmeDynamicNativeVB *m_vb; // +0x254
+	DX8IndexBufferClass *m_ib; // +0x258
 };
-class W3DProjectedShadow
+class W3DProjectedShadow;
+// The fields this queue reads, at retail offsets; W3DProjectedShadow's own header spells a different layout.
+class Rva001091A8ShadowView
 {
 public:
     char m_unknown00[0x34];
@@ -39,7 +48,15 @@ public:
 };
 class Rva00330A37 { public: void rva00330A37(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8); };
 struct ShadowList;
-class Rva00109129 { public: bool rva00109129(W3DProjectedShadow *shadow, ShadowList *list); };
+class Rva00109129
+{
+public:
+	bool rva00109129(W3DProjectedShadow*,ShadowList*);
+	char m_pad00[0x10];
+	W3DProjectedShadow *free; // +0x10
+	char m_pad14[0x23C];
+	int decalCount; // +0x250
+};
 class Rva001091A8ClientView
 {
 public:
@@ -54,7 +71,7 @@ extern GameClient *TheGameClient;
 
 void Rva00108660ResourceManager::rva001091A8(void *shadowArg)
 {
-    W3DProjectedShadow *shadow = (W3DProjectedShadow *)shadowArg;
+    Rva001091A8ShadowView *shadow = (Rva001091A8ShadowView *)shadowArg;
     if ((shadow->m_type & 0x0C00) && shadow->m_expireFrame > ((Rva001091A8ClientView *)TheGameClient)->getFrame())
     {
         int v40 = shadow->m_40;
@@ -72,16 +89,16 @@ void Rva00108660ResourceManager::rva001091A8(void *shadowArg)
     {
         if (shadow->m_list0C)
         {
-            if (((Rva00109129 *)this)->rva00109129(shadow, (ShadowList *)&m_head0C))
+            if (((Rva00109129 *)this)->rva00109129((W3DProjectedShadow *)shadow, (ShadowList *)&m_head0C))
                 return;
         }
         else if (shadow->m_list1C)
         {
-            if (((Rva00109129 *)this)->rva00109129(shadow, (ShadowList *)&m_head1C))
+            if (((Rva00109129 *)this)->rva00109129((W3DProjectedShadow *)shadow, (ShadowList *)&m_head1C))
                 return;
         }
-        else if (((Rva00109129 *)this)->rva00109129(shadow, (ShadowList *)&m_head08))
+        else if (((Rva00109129 *)this)->rva00109129((W3DProjectedShadow *)shadow, (ShadowList *)&m_head08))
             return;
     }
-    ((Rva00109129 *)this)->rva00109129(shadow, (ShadowList *)&m_head04);
+    ((Rva00109129 *)this)->rva00109129((W3DProjectedShadow *)shadow, (ShadowList *)&m_head04);
 }

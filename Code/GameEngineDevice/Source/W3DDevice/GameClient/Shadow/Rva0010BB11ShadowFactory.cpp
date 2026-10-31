@@ -26,21 +26,42 @@ class W3DShadowTexture;
 class RenderObjClass;
 class Rva007AE5E0Referenced;
 
+struct Rva00108895Triplet
+{
+    float first, second, third;
+    void set(float value) { first = value; second = value; third = value; }
+};
+
 class Rva000F0F2B
 {
 public:
-	Rva000F0F2B();
-private:
-	char m_body[0x68];
+    Rva000F0F2B();
+    virtual ~Rva000F0F2B();
+protected:
+    char m_body[0x68 - 4];
 };
 
 // The rowed 0x118-byte decal constructor 0x0010BA2C.
 class Rva0010BA2COwner : public Rva000F0F2B
 {
 public:
-	Rva0010BA2COwner();
+    Rva0010BA2COwner() throw();
+    void rva00108895();
 private:
-	char m_tail[0x118 - 0x68];
+    unsigned int retained68[2];
+    void *retained70;
+    unsigned char flag74;
+    char unknown75[3];
+    float value78;
+    float value7C;
+    unsigned int word80;
+    unsigned char flag84;
+    unsigned char flag85;
+    char unknown86[2];
+    Rva00108895Triplet sentinel88;
+    unsigned int array94[16];
+    unsigned int arrayD4[16];
+    Rva0010BA2COwner *next114;
 };
 
 // The rowed reset of a recycled decal, 0x0010BA61.
@@ -57,7 +78,9 @@ public:
 	void setReferenced(Rva007AE5E0Referenced *owner);
 };
 
-class W3DProjectedShadow
+class W3DProjectedShadow;
+// The decal's fields at retail offsets; W3DProjectedShadow's own header spells a different layout.
+class Rva0010BB11DecalView
 {
 public:
 	char m_pad00[0x34];
@@ -77,24 +100,22 @@ public:
 	Bool m_flag84;				// +0x84
 	Bool m_flag85;				// +0x85
 	char m_pad86[0x114 - 0x86];
-	W3DProjectedShadow *m_next;		// +0x114
+	Rva0010BB11DecalView *m_next;		// +0x114
 };
 
 class Rva0010BB11ShadowFactory
 {
 public:
-	W3DProjectedShadow *create(W3DShadowTexture *texture, RenderObjClass *robj, Int type,
-		UnsignedByte flag, Real sizeX, Real sizeY, Real value, Real offsetU, Real offsetV,
-		void *list, UnsignedByte flag84, Int secondTexture, UnsignedByte flag85);
-
+	W3DProjectedShadow *create(W3DShadowTexture*,RenderObjClass*,int,unsigned char,float,float,float,float,float,void*,unsigned char,int,unsigned char);
+	char m_pad00[0x10];
 private:
-	char m_pad000[0x10];
-	W3DProjectedShadow *m_freeList;		// +0x10
-	char m_pad014[0x250 - 0x14];
-	Int m_counted;				// +0x250
+	W3DProjectedShadow *m_freeList; // +0x10
+	char m_pad14[0x23C];
+	int m_counted; // +0x250
 };
 
-W3DProjectedShadow *Rva0010BB11ShadowFactory::create(W3DShadowTexture *texture, RenderObjClass *robj, Int type,
+// Its callers keep the out-of-line call retail makes.
+__declspec(noinline) W3DProjectedShadow *Rva0010BB11ShadowFactory::create(W3DShadowTexture *texture, RenderObjClass *robj, Int type,
 	UnsignedByte flag, Real sizeX, Real sizeY, Real value, Real offsetU, Real offsetV,
 	void *list, UnsignedByte flag84, Int secondTexture, UnsignedByte flag85)
 {
@@ -103,17 +124,17 @@ W3DProjectedShadow *Rva0010BB11ShadowFactory::create(W3DShadowTexture *texture, 
 	if (flag85 && !secondTexture)
 		return 0;
 
-	W3DProjectedShadow *shadow;
+	Rva0010BB11DecalView *shadow;
 	if (m_freeList)
 	{
-		shadow = m_freeList;
-		m_freeList = shadow->m_next;
+		shadow = (Rva0010BB11DecalView *)m_freeList;
+		m_freeList = (W3DProjectedShadow *)shadow->m_next;
 		reinterpret_cast<Rva0010BA61 *>(shadow)->rva0010BA61();
 	}
 	else
 	{
 		Rva0010BA2COwner *owner = new Rva0010BA2COwner;
-		shadow = reinterpret_cast<W3DProjectedShadow *>(owner);	// allocated through a local, as retail merges the new result once
+		shadow = reinterpret_cast<Rva0010BB11DecalView *>(owner);	// allocated through a local, as retail merges the new result once
 	}
 
 	if (!shadow)
@@ -148,9 +169,9 @@ W3DProjectedShadow *Rva0010BB11ShadowFactory::create(W3DShadowTexture *texture, 
 		shadow->m_offsetV = offsetV / sizeY;
 
 	// Keep decals sharing a texture pair together so they draw in one batch.
-	W3DProjectedShadow **head = reinterpret_cast<W3DProjectedShadow **>(list);
-	W3DProjectedShadow *prev = 0;
-	W3DProjectedShadow *cur;
+	Rva0010BB11DecalView **head = reinterpret_cast<Rva0010BB11DecalView **>(list);
+	Rva0010BB11DecalView *prev = 0;
+	Rva0010BB11DecalView *cur;
 	for (cur = *head; cur; prev = cur, cur = cur->m_next)
 	{
 		if (cur->m_texture[0] == texture && cur->m_texture[1] == reinterpret_cast<W3DShadowTexture *>(secondTexture))
@@ -181,5 +202,5 @@ W3DProjectedShadow *Rva0010BB11ShadowFactory::create(W3DShadowTexture *texture, 
 		m_counted++;
 		break;
 	}
-	return shadow;
+	return (W3DProjectedShadow *)shadow;
 }

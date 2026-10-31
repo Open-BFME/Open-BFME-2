@@ -7,11 +7,21 @@
 // 0x00109D8C), the second over Rva000F0F2B (rowed ctor 0x000F0F2B). Bases are declared only as
 // far as the ctor call and virtual dispatch need. The first slot is the deleting destructor,
 // as in Rva001095B2Dtor.cpp and Rva00109610Dtor.cpp.
-class Rva007B1380
+#pragma inline_depth(0)
+#include "../../../GameEngineDevice/Source/W3DDevice/GameClient/Shadow/BfmeShadowPrefix.h"
+#pragma inline_depth()
+
+class Rva001095B2Owned
+{
+public:
+	virtual void *deleteInstance(int pool);
+};
+
+class Rva007B1380 : public BfmeShadowBufferOwnerBase
 {
 public:
 	Rva007B1380();
-	virtual ~Rva007B1380();
+	void rva00109D64();
 };
 
 class Rva001095B2 : public Rva007B1380
@@ -19,6 +29,11 @@ class Rva001095B2 : public Rva007B1380
 public:
 	Rva001095B2();
 	virtual ~Rva001095B2();
+
+private:
+	// BfmeShadowBufferOwnerBase fills +0x00..+0x57
+	Rva001095B2Owned *m_58; // +0x58
+	Rva001095B2Owned *m_5C; // +0x5C
 };
 
 Rva001095B2::Rva001095B2()
@@ -28,8 +43,10 @@ Rva001095B2::Rva001095B2()
 class Rva000F0F2B
 {
 public:
-	Rva000F0F2B();
-	virtual ~Rva000F0F2B();
+    Rva000F0F2B();
+    virtual ~Rva000F0F2B();
+protected:
+    char m_body[0x68 - 4];
 };
 
 class Rva00109610 : public Rva000F0F2B

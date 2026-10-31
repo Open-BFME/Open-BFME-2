@@ -94,14 +94,14 @@ class W3DShadowTexture : public RefCountClass, public	HashableClass
 			strncpy(m_namebuf,name,sizeof(m_namebuf)-1);
 		}
 		TextureClass	*getTexture(void)	{ return m_texture.Peek();}
-		void			setTexture(TextureClass *texture);
-		void			setLightPosHistory(Vector3 &pos) {m_lastLightPosition=pos;}	///<updates the last position of light
+		void			setTexture(const RefCountPtr<TextureClass> &texture);
+		void			setLightPosHistory(Vector3 &pos);	///<updates the last position of light
 		Vector3&		getLightPosHistory(void) {return m_lastLightPosition;}
 		void			setObjectOrientationHistory(Matrix3x3 &mat) {m_lastObjectOrientation=mat;}	///<updates the last position of light
 		Matrix3x3&		getObjectOrientationHistory(void) {return m_lastObjectOrientation;}
-		SphereClass&	getBoundingSphere(void)	{return m_areaEffectSphere;}
+		SphereClass&	getBoundingSphere(void);
 		AABoxClass&		getBoundingBox(void)		{return m_areaEffectBox;}
-		void		setBoundingSphere(SphereClass &sphere)	{m_areaEffectSphere=sphere;}
+		void		setBoundingSphere(SphereClass &sphere);
 		void		setBoundingBox(AABoxClass &box)		{m_areaEffectBox=box;}
 		void		updateBounds(Vector3 &lightPos, RenderObjClass *robj);	///<update extent of shadow
 		void		setDecalUVAxis(Vector3 &u, Vector3 &vec);
@@ -131,8 +131,8 @@ W3DShadowTexture::W3DShadowTexture()
  : m_lastLightPosition(0,0,0), m_lastObjectOrientation(true)
 {
 	m_namebuf[0] = 0;
-	m_shadowUV[0].Set(1.0f,0.0f,0.0f);
-	m_shadowUV[1].Set(0.0f,-1.0f,0.0f);
+	m_shadowUV[0].Set(1.0f,0.0f,0.0f);	//u runs along world x axis
+	m_shadowUV[1].Set(0.0f,-1.0f,0.0f);	//v runs along world -y axis
 }
 
 // Ghidra boundary at 0x00109236 is 131 bytes. Retail clears three linked
@@ -154,6 +154,7 @@ class BfmeThing928F
 {
 public:
 	void bfmeTwo928F();
+	void bfmeOne928F();
 };
 
 class Rva00109236
