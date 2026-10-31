@@ -247,6 +247,19 @@ public:
 #define _STLP_NO_EXCEPTIONS 1
 #define _STLP_USE_NEWALLOC 1
 #define _STLP_NO_EXCEPTIONS 1
+#define BFME_DISP8_LEA_NEG_SBB_GETTER(NAME, LEADISP, ADDIMM) \
+	class NAME \
+	{ \
+	public: \
+		int get() const; \
+	}; \
+	int NAME::get() const \
+	{ \
+		const char *field = (const char *)this; \
+		const void *base = field - LEADISP; \
+		field += ADDIMM; \
+		return base ? (int)field : 0; \
+	}
 
 class TeamFactory
 {
@@ -1025,7 +1038,19 @@ public:
 	virtual void rva00494AC6(float v);
 };
 
+// 0x004543A9 is also reached through the this-0x14 thunk 0x004543E3 in four
+// vtables, so it is virtual (same body).
+class Rva004543A9LeaNegSbbField
+{
+public:
+	virtual int get() const;
+};
+
+BFME_DISP8_LEA_NEG_SBB_GETTER(Rva0046644ALeaNegSbbField, 12, 0x28)
+
 // tu-skeleton: 0x004663B2 77B ??1CaveContain@@MAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/CaveContainDtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/CaveContain.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/CaveContain.cpp
 
@@ -1458,16 +1483,28 @@ void CaveContain::recalcApparentControllingPlayer()
 	}
 }
 
-// tu-skeleton: 0x00466444 6B ?name@CaveContain@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0046644A 13B ?get@Rva0046644ALeaNegSbbField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8LeaNegSbbGetters.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/GapBodiesS3B.cpp
 
 Rva00466457Base3 *Rva00466457::getCaveInterface()
 {
 	return this;
 }
+
+// tu-skeleton: 0x00466444 6B ?name@CaveContain@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Disp8LeaNegSbbGetters.cpp
+
+// Disp8 lea-neg-sbb getters: thirteen-byte __thiscall members with one shape:
+//
+//     lea eax,[ecx-<LEADISP>] / add ecx,<ADDIMM> / neg eax / sbb eax,eax / and eax,ecx / ret
+//
+// A pointer derived from `this` is null-tested branchlessly: neg sets carry
+// exactly when the derived base is nonzero and sbb spreads it to a full mask
+// that selects the adjusted `this` or null. Deriving the base from a live
+// field-local keeps `this` in ecx so the adjustment compiles to an in-place
+// add instead of a lea into a scratch register. Identity is not recovered:
+// every name is derived from its address.
+// No // cl: line (defaults match the shape).
 
 // tu-skeleton: 0x00466467 7B ?get@Rva00466467ByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/DispByteFieldGetters.cpp (not merged yet)
 
