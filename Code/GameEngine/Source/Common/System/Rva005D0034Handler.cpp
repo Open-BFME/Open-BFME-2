@@ -70,12 +70,12 @@ class Rva005D078B : public Rva005CF8A1, public Rva005D0C31Second
 public:
 	Rva005D078B(void *p);
 	virtual ~Rva005D078B();
-	virtual void rva005D0034(int a, int b, int c);
+	virtual void rva005D0034(int a, int worldValue, int objectID);
 };
 
-void Rva005D078B::rva005D0034(int a, int b, int c)
+void Rva005D078B::rva005D0034(int a, int worldValue, int objectID)
 {
-	if (b == ((Rva005D0034LogicView *)TheLivingWorldLogic)->m_98 && c == m_target->m_14)
+	if (worldValue == ((Rva005D0034LogicView *)TheLivingWorldLogic)->m_98 && objectID == m_target->m_14)
 		m_target->m_holder1C.reset(new Rva005D0034Callback(m_target));
 }
 

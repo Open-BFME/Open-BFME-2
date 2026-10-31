@@ -27,7 +27,7 @@ public:
 	void rva0057A83C(Int value);
 private:
 	char m_pad00[0x08];
-	Int m_08;
+	Int m_level;
 	Rva0057A51CTeam *m_0C;
 	char m_pad10[0x3C - 0x10];
 	Int m_turnNumber;
@@ -36,7 +36,7 @@ void Rva0057A83C::rva0057A83C(Int value)
 {
 	if (value != m_turnNumber)
 	{
-		StrategicHUD::SetTurnNumberString(m_08, &m_0C, value);
+		StrategicHUD::SetTurnNumberString(m_level, &m_0C, value);
 		m_turnNumber = value;
 	}
 }

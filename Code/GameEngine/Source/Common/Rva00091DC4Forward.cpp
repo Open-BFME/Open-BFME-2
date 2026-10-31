@@ -46,7 +46,7 @@ class Rva00091DE3Arg
 {
 public:
 	char m_pad00[0x74];
-	int m_74;
+	int m_objectID;
 };
 
 class Rva00091DC4
@@ -75,7 +75,7 @@ void Rva00091DC4::rva00091DC4(Rva0055A88BDwordField *p)
 void Rva00091DC4::rva00091DE3(Rva00091DE3Arg *p)
 {
 	if (m_1C)
-		((Rva0006842B *)m_14)->rva0006842B((ObjectID)p->m_74);
+		((Rva0006842B *)m_14)->rva0006842B((ObjectID)p->m_objectID);
 }
 
 // ?rva00091DFB@Rva00091DC4@@QAEXXZ

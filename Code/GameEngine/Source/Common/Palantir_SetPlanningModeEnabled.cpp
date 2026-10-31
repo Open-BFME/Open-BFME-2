@@ -47,7 +47,7 @@ extern class MessageStream *TheMessageStream;
 struct Rva002D37BDMid10
 {
 	char m_pad[0x128];
-	unsigned char m_128;
+	unsigned char m_planningModeEnabled;
 };
 
 class Palantir
@@ -63,7 +63,7 @@ private:
 // ?SetPlanningModeEnabled@Palantir@@QAEXE@Z
 void Palantir::SetPlanningModeEnabled(unsigned char enabled)
 {
-	if (enabled == m_10->m_128)
+	if (enabled == m_10->m_planningModeEnabled)
 		return;
 	if (enabled == 0) {
 		Rva002D37BDMid *mid = ThePlayerList->m_mid;
@@ -73,5 +73,5 @@ void Palantir::SetPlanningModeEnabled(unsigned char enabled)
 			gameMessage->appendIntegerArgument(2);
 		}
 	}
-	m_10->m_128 = enabled;
+	m_10->m_planningModeEnabled = enabled;
 }

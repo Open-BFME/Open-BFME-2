@@ -1,5 +1,5 @@
 // cl: /MD
-// ?rva005B01D3@Rva005B01D3@@QAEMMMM@Z, retail 0x005B01D3, 38 bytes.
+// ?lerp@Rva005B01D3@@QAEMMMM@Z, retail 0x005B01D3, 38 bytes.
 // Unlock leaf: lerp(a,b,t) with negative-t fallback to member at +0x60.
 // If t < 0, t = m_60; then return a + (b - a) * t (fld/fsub/fmul/fadd).
 // __thiscall proven by [ecx+0x60] read; ret 0xC = 3 float params.
@@ -10,7 +10,7 @@
 class Rva005B01D3
 {
 public:
-	float rva005B01D3(float startValue, float endValue, float fraction);
+	float lerp(float startValue, float endValue, float fraction);
 	float rva005B0569(float fraction);
 	float rva005B0588(float fraction);
 	float rva005B05A8(float fraction);
@@ -33,7 +33,7 @@ private:
 	float m_60;
 };
 
-float Rva005B01D3::rva005B01D3(float startValue, float endValue, float fraction)
+float Rva005B01D3::lerp(float startValue, float endValue, float fraction)
 {
 	if (fraction < 0.0f)
 		fraction = m_60;
@@ -42,25 +42,25 @@ float Rva005B01D3::rva005B01D3(float startValue, float endValue, float fraction)
 
 float Rva005B01D3::rva005B0588(float fraction)
 {
-	return rva005B01D3(m_04, m_1C, fraction);
+	return lerp(m_04, m_1C, fraction);
 }
 
 float Rva005B01D3::rva005B0569(float fraction)
 {
-	return rva005B01D3(m_00, m_18, fraction);
+	return lerp(m_00, m_18, fraction);
 }
 
 float Rva005B01D3::rva005B05A8(float fraction)
 {
-	return rva005B01D3(m_08, m_20, fraction);
+	return lerp(m_08, m_20, fraction);
 }
 
 float Rva005B01D3::rva005B05C8(float fraction)
 {
-	return rva005B01D3(m_0C, m_24, fraction);
+	return lerp(m_0C, m_24, fraction);
 }
 
 float Rva005B01D3::rva005B05E8(float fraction)
 {
-	return rva005B01D3(m_10, m_28, fraction);
+	return lerp(m_10, m_28, fraction);
 }

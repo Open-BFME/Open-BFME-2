@@ -680,7 +680,7 @@ void __identifier("?rva0057548A@Rva0057548A@@UAEHPAUParent00575E4E@@@Z")();
 void __identifier("?testBit@Rva005CBA3D@@QAEHI@Z")();
 void __identifier("?rva005770CB@Rva005770CB@@QAEXXZ")();
 void __identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")();
-void __identifier("?rva005775C1@Rva0057709A@@QAEXH@Z")();
+void __identifier("?selectArmy@Rva0057709A@@QAEXH@Z")();
 void __identifier("??_ERva005770F7@@W3AEPAXI@Z")();
 void __identifier("?rva00576FFE@Rva00576FFE@@QAEHXZ")();
 }
@@ -700,7 +700,7 @@ extern const void *const g_00C6E8A8[19] = {
 	(const void *)&__identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z"), // slot 12 0x0047A69C
 	(const void *)&__identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z"), // slot 13 0x0047A69C
 	(const void *)&__identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z"), // slot 14 0x0047A69C
-	(const void *)&__identifier("?rva005775C1@Rva0057709A@@QAEXH@Z"), // slot 15 0x005775C1
+	(const void *)&__identifier("?selectArmy@Rva0057709A@@QAEXH@Z"), // slot 15 0x005775C1
 	(const void *)&__identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z"), // slot 16 0x0047A69C
 	(const void *)&__identifier("??_ERva005770F7@@W3AEPAXI@Z"), // slot 17 0x00577185
 	(const void *)&__identifier("?rva00576FFE@Rva00576FFE@@QAEHXZ"), // slot 18 0x00576FFE

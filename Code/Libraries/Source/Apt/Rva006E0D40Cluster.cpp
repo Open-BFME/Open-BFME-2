@@ -87,10 +87,10 @@ void BfmeAptValue006DCD20::rva006E1540()
 	}
 	if (static_cast<unsigned char>(rva006E02B0())) {
 		Rva006E0F40Target *target = (Rva006E0F40Target *)rva006E0F40();
-		void *p20 = target->m_20;
-		if (p20 != 0 && p20 != (void *)&g_00DDC2E0) {
+		void *textBuffer = target->m_20;
+		if (textBuffer != 0 && textBuffer != (void *)&g_00DDC2E0) {
 			target->m_6C = 6;
-			g_00E17774(p20, 2);
+			g_00E17774(textBuffer, 2);
 		}
 		target->m_20 = 0;
 	}

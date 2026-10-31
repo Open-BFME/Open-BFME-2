@@ -76,12 +76,12 @@ public:
 	void rva006E0440();
 private:
 	char m_pad00[0x4C];
-	Rva006E0440Target *m_4C;
+	Rva006E0440Target *m_target;
 };
 void Rva006E0440::rva006E0440()
 {
-	if (m_4C && m_4C != (Rva006E0440Target *)0xBAADF00D)
-		m_4C->vslot00();
+	if (m_target && m_target != (Rva006E0440Target *)0xBAADF00D)
+		m_target->vslot00();
 }
 
 // slot at VA 0x00CEE988: copies the +0x10/+0x14 pair of the +0x30 object

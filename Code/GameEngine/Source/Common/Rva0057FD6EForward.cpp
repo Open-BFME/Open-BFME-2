@@ -26,8 +26,8 @@ public:
 	void rva0057FD6E();
 	void rva0057FD94();
 	bool rva0057FDA1();
-	void rva0057FDB0(bool arg);
-	bool rva0057FD7B(unsigned int arg0, unsigned int arg1, unsigned int arg2);
+	void rva0057FDB0(bool enabled);
+	bool rva0057FD7B(unsigned int msg, unsigned int wParam, unsigned int lParam);
 private:
 	char m_pad[100];
 	Rva005AFC92 *m_64;
@@ -62,10 +62,10 @@ bool Rva0057FD6E::rva0057FDA1()
 	return m_64->rva005AFD2E();
 }
 
-void Rva0057FD6E::rva0057FDB0(bool arg)
+void Rva0057FD6E::rva0057FDB0(bool enabled)
 {
 	if (m_64 != 0) {
-		reinterpret_cast<ChatWindowsInGame *>(m_64)->rva005AFCB4(arg);
+		reinterpret_cast<ChatWindowsInGame *>(m_64)->rva005AFCB4(enabled);
 	}
 }
 
@@ -73,13 +73,13 @@ void Rva0057FD6E::rva0057FDB0(bool arg)
 // Forwards to recovered 0x005B00C8 when +0x64 non-null and +0x68 non-zero,
 // else false. Evidence: gap packet; caller 0x00442CD4 passes three
 // message args; ChatWindowsInGame.cpp now owns the callee.
-bool Rva0057FD6E::rva0057FD7B(unsigned int arg0, unsigned int arg1, unsigned int arg2)
+bool Rva0057FD6E::rva0057FD7B(unsigned int msg, unsigned int wParam, unsigned int lParam)
 {
 	if (m_64 == 0) {
 		return false;
 	}
 	if (m_68 != 0) {
-		return reinterpret_cast<ChatWindowsInGame *>(m_64)->rva005B00C8(arg0, arg1, arg2);
+		return reinterpret_cast<ChatWindowsInGame *>(m_64)->rva005B00C8(msg, wParam, lParam);
 	}
 	return false;
 }

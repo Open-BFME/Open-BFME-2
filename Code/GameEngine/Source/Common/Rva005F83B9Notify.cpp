@@ -40,9 +40,9 @@ void Rva005F83B9::rva005F83B9()
 	Rva005F83B9Entry *it = m_vec.m_start;
 	for (; it != end; ++it)
 	{
-		Rva005F83B9Item *o = it->m_obj;
-		if (o)
-			o->rva005F83B9Run();
+		Rva005F83B9Item *notifyItem = it->m_obj;
+		if (notifyItem)
+			notifyItem->rva005F83B9Run();
 	}
 }
 

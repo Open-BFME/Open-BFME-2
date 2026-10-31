@@ -31,11 +31,11 @@ struct Src0059BD2D
 
 void Rva0059BD2D::rva0059BD2D(const void *src)
 {
-	const Src0059BD2D *s = (const Src0059BD2D *)src;
-	m_0c = s->m_34;
-	m_10 = s->m_38;
-	m_14 = s->m_3c;
-	m_18 = s->m_40;
-	m_1c = s->m_44;
-	m_20 = s->m_48;
+	const Src0059BD2D *source = (const Src0059BD2D *)src;
+	m_0c = source->m_34;
+	m_10 = source->m_38;
+	m_14 = source->m_3c;
+	m_18 = source->m_40;
+	m_1c = source->m_44;
+	m_20 = source->m_48;
 }

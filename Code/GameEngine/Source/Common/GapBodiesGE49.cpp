@@ -107,17 +107,17 @@ public:
 	void rva001D971F(unsigned int bits);
 private:
 	char m_pad00[0x48];
-	unsigned int m_48;
+	unsigned int m_flags;
 };
 
 void Rva001D9715::rva001D9715(unsigned int bits)
 {
-	m_48 |= bits;
+	m_flags |= bits;
 }
 
 void Rva001D9715::rva001D971F(unsigned int bits)
 {
-	m_48 &= ~bits;
+	m_flags &= ~bits;
 }
 
 // --- 0x001DBA77 (14B): both the +0x24 and +0x28 words are clear.

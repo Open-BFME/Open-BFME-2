@@ -124,14 +124,14 @@ void Rva0010F557::setLoopCount()
 // Native command slots BCFA4C/54/6C/74/94 corroborate these stream operations.
 extern "C" __declspec(dllimport) void __stdcall AIL_close_stream(void *stream);
 extern "C" __declspec(dllimport) int __stdcall AIL_service_stream(void *stream,int fillup);
-class Rva0010F28D { public: void rva0010F28D(); private: char pad[8]; Rva0010F28DInner *m_inner; };
-void Rva0010F28D::rva0010F28D() {
+class Rva0010F28D { public: void closeStream(); private: char pad[8]; Rva0010F28DInner *m_inner; };
+void Rva0010F28D::closeStream() {
  RVA0010F28D_LOCK(g);
  if(m_inner->m_stream) { AIL_close_stream(m_inner->m_stream); *(void * volatile *)&m_inner->m_stream=0; if(g.m_locked) ((Rva0010F26E*)&g)->rva0010F26E(); }
  else if(g.m_locked) ((Rva0010F26E*)&g)->rva0010F26E();
 }
-class Rva0010F2E5 { public: void rva0010F2E5(); private: char pad[8]; Rva0010F28DInner *m_inner; int m_0C; };
-void Rva0010F2E5::rva0010F2E5() {
+class Rva0010F2E5 { public: void serviceStream(); private: char pad[8]; Rva0010F28DInner *m_inner; int m_0C; };
+void Rva0010F2E5::serviceStream() {
  RVA0010F28D_LOCK(g);
  void *stream=m_inner->m_stream;
  if(stream) { AIL_service_stream(stream,m_0C==0); if(g.m_locked) ((Rva0010F26E*)&g)->rva0010F26E(); }

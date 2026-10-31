@@ -84,7 +84,7 @@ struct Rva006CD2C0Pool
 	AptValue *m_6C;
 };
 
-void Rva006CD2C0Name(char *buffer)
+void copyDisplayName(char *buffer)
 {
 	Rva006CD2C0Pool *pool = (Rva006CD2C0Pool *)g_bfmeAptPtrAtE176D0;
 	if (pool->m_6C)

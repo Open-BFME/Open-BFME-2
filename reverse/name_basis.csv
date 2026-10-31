@@ -6210,3 +6210,57 @@ function,?rva00035600@Rva000355E0@@QAEXXZ,?leave@Rva000355E0@@QAEXXZ,inferred,ag
 function,?rva006C1B50@GeneralAllocatorDebug@@QBE_KXZ,?getSequence@GeneralAllocatorDebug@@QBE_KXZ,inferred,agree:nl-9449a870f830,Code/GameEngine/Source/Common/Rva006C21C0.cpp,0x006C1B50
 function,?rva005CBA3D@Rva005CBA3D@@QAEHI@Z,?testBit@Rva005CBA3D@@QAEHI@Z,inferred,agree:nl-4b37bcbfb4ba,Code/GameEngine/Source/Common/VslotSmallBodiesG.cpp,0x005CBA3D
 param,Rva003AFF06::rva003AFF06::a,Rva003AFF06::rva003AFF06::context,inferred,agree:nl-7bb4adfdb9ea,Code/GameEngine/Source/Common/VslotSmallBodiesAD_Rva00349D02.cpp,0x003AFF06
+member,Rva001D9715::m_48,Rva001D9715::m_flags,inferred,agree:nl-34ffefc8bb1c,Code/GameEngine/Source/Common/GapBodiesGE49.cpp,
+member,Rva002D37BDMid10::m_128,Rva002D37BDMid10::m_planningModeEnabled,inferred,agree:nl-ce58ce0e4256,Code/GameEngine/Source/Common/Palantir_SetPlanningModeEnabled.cpp,
+member,Rva00091DE3Arg::m_74,Rva00091DE3Arg::m_objectID,inferred,agree:nl-9cf04482d122,Code/GameEngine/Source/Common/Rva00091DC4Forward.cpp,
+member,Rva005775C1Impl::m_14,Rva005775C1Impl::m_selection,inferred,agree:nl-ac9b31f0c4f2,Code/GameEngine/Source/Common/Rva005775C1Select.cpp,
+member,Rva006EBE50::m_24,Rva006EBE50::m_displayList,inferred,agree:nl-2ffe5af9c98e,Code/GameEngine/Source/Common/VslotSmallBodiesAH.cpp,
+member,Rva0057A83C::m_08,Rva0057A83C::m_level,inferred,agree:nl-faf6312042a6,Code/GameEngine/Source/Common/VslotSmallBodiesI.cpp,
+member,Rva006E0440::m_4C,Rva006E0440::m_target,inferred,agree:nl-275acfed87f3,Code/GameEngine/Source/Common/VslotSmallBodiesP.cpp,
+member,Rva003FD6E0Mid::m_08,Rva003FD6E0Mid::m_inner,inferred,agree:nl-cad0cef688b8,Code/GameEngine/Source/GameLogic/Object/Rva003FD6E0.cpp,
+param,Rva000A91D8AptFreeConstantTable::p,Rva000A91D8AptFreeConstantTable::table,inferred,agree:nl-c67b29f655b2,Code/GameEngine/Source/Common/EmptyFoldTwins.cpp,0x000A91D8
+local,Rva001F6492::rva001F6492::p,Rva001F6492::rva001F6492::linkHelper,inferred,agree:nl-03970492d60e,Code/GameEngine/Source/Common/Rva001F6492Chain.cpp,0x001F6492
+local,Rva001F8213::rva001F8213::p,Rva001F8213::rva001F8213::linkHelper,inferred,agree:nl-3f575ad2422e,Code/GameEngine/Source/Common/Rva001F6492Chain.cpp,0x001F8213
+local,Rva001F8960::rva001F8960::p,Rva001F8960::rva001F8960::linkHelper,inferred,agree:nl-025296d07748,Code/GameEngine/Source/Common/Rva001F6492Chain.cpp,0x001F8960
+local,Rva001F8DE2::rva001F8DE2::p,Rva001F8DE2::rva001F8DE2::linkHelper,inferred,agree:nl-2a8ced4e1d7b,Code/GameEngine/Source/Common/Rva001F6492Chain.cpp,0x001F8DE2
+local,Rva001F9424::rva001F9424::p,Rva001F9424::rva001F9424::linkHelper,inferred,agree:nl-895c005bb1d7,Code/GameEngine/Source/Common/Rva001F6492Chain.cpp,0x001F9424
+local,Rva001FA4C6::rva001FA4C6::p,Rva001FA4C6::rva001FA4C6::linkHelper,inferred,agree:nl-998f59bc9bed,Code/GameEngine/Source/Common/Rva001F6492Chain.cpp,0x001FA4C6
+local,Rva001FA7CE::rva001FA7CE::p,Rva001FA7CE::rva001FA7CE::linkHelper,inferred,agree:nl-62385d69c2b7,Code/GameEngine/Source/Common/Rva001F6492Chain.cpp,0x001FA7CE
+local,Rva00263895Member::rva004D6F86::t,Rva00263895Member::rva004D6F86::options,inferred,agree:nl-c19c85b0a397,Code/GameEngine/Source/Common/Rva004D6F86.cpp,0x004D6F86
+param,Rva00263895Member::rva004D6F86::arg,Rva00263895Member::rva004D6F86::context,inferred,agree:nl-a88022c550de,Code/GameEngine/Source/Common/Rva004D6F86.cpp,0x004D6F86
+param,Rva005757A5::rva005757A5::arg,Rva005757A5::rva005757A5::point,inferred,agree:nl-5194fef58327,Code/GameEngine/Source/Common/Rva005757A5Method.cpp,0x005757A5
+param,Rva0057FD6E::rva0057FD7B::arg0,Rva0057FD6E::rva0057FD7B::msg,inferred,agree:nl-33608347ffac,Code/GameEngine/Source/Common/Rva0057FD6EForward.cpp,0x0057FD7B
+param,Rva0057FD6E::rva0057FD7B::arg1,Rva0057FD6E::rva0057FD7B::wParam,inferred,agree:nl-7dcc4c19e9f8,Code/GameEngine/Source/Common/Rva0057FD6EForward.cpp,0x0057FD7B
+param,Rva0057FD6E::rva0057FD7B::arg2,Rva0057FD6E::rva0057FD7B::lParam,inferred,agree:nl-11ffd74e3508,Code/GameEngine/Source/Common/Rva0057FD6EForward.cpp,0x0057FD7B
+param,Rva0057FD6E::rva0057FDB0::arg,Rva0057FD6E::rva0057FDB0::enabled,inferred,agree:nl-cae7648f0577,Code/GameEngine/Source/Common/Rva0057FD6EForward.cpp,0x0057FDB0
+local,Rva0059BD2D::rva0059BD2D::s,Rva0059BD2D::rva0059BD2D::source,inferred,agree:nl-43e8c67e5439,Code/GameEngine/Source/Common/Rva0059BD2DCopy.cpp,0x0059BD2D
+local,Rva005F83B9::rva005F83B9::o,Rva005F83B9::rva005F83B9::notifyItem,inferred,agree:nl-eefda179446b,Code/GameEngine/Source/Common/Rva005F83B9Notify.cpp,0x005F83B9
+local,Rva006C4240::rva006C4240::r,Rva006C4240::rva006C4240::callResult,inferred,agree:nl-0bbc07cbfa9e,Code/GameEngine/Source/Common/Rva006C4240Cluster.cpp,0x006C4240
+local,Rva006C4240::rva006C4670::r,Rva006C4240::rva006C4670::callResult,inferred,agree:nl-82da5d9849d3,Code/GameEngine/Source/Common/Rva006C4240Cluster.cpp,0x006C4670
+local,Rva006ED2A0Base::~Rva006ED2A0Base::p,Rva006ED2A0Base::~Rva006ED2A0Base::block,inferred,agree:nl-c711c3b04984,Code/GameEngine/Source/Common/Rva006ED2A0Dtor.cpp,
+param,Rva003195C9Owner::rva00319AA0::arg,Rva003195C9Owner::rva00319AA0::pair,inferred,agree:nl-12264e28e0c8,Code/GameEngine/Source/Common/System/Rva00319AA0Handoff.cpp,0x00319AA0
+param,Rva005D078B::rva005D0034::b,Rva005D078B::rva005D0034::worldValue,inferred,agree:nl-6e61cd1da6fa,Code/GameEngine/Source/Common/System/Rva005D0034Handler.cpp,0x005D0034
+param,Rva005D078B::rva005D0034::c,Rva005D078B::rva005D0034::objectID,inferred,agree:nl-01e0d3638f48,Code/GameEngine/Source/Common/System/Rva005D0034Handler.cpp,0x005D0034
+local,Rva002EC3CE::rva002EC3CE::p2c,Rva002EC3CE::rva002EC3CE::victim,inferred,agree:nl-e707b07ad268,Code/GameEngine/Source/GameLogic/AI/Rva002EC3CEProbe.cpp,0x002EC3CE
+local,BfmeAptValue006DCD20::rva006E1540::p20,BfmeAptValue006DCD20::rva006E1540::textBuffer,inferred,agree:nl-03107321e13f,Code/Libraries/Source/Apt/Rva006E0D40Cluster.cpp,0x006E1540
+function,?Rva003B940E@@YAXE@Z,?setSkipCinematicSubsystemExclusions@@YAXE@Z,inferred,agree:nl-2e57f41ee9af,Code/GameEngine/Source/Common/GapBodiesGE09.cpp,0x003B940E
+function,?Rva003BD52F@@YAHPBD@Z,?findNameIndex@@YAHPBD@Z,inferred,agree:nl-968e863575e1,Code/GameEngine/Source/Common/GapBodiesGE09.cpp,0x003BD52F
+carry,Rva003BD52F::entry,findNameIndex::entry,inferred,scope renamed by Rename Rva003BD52F to findNameIndex (inferred),Code/GameEngine/Source/Common/GapBodiesGE09.cpp,0x003BD52F
+function,?rva0010F28D@Rva0010F28D@@QAEXXZ,?closeStream@Rva0010F28D@@QAEXXZ,inferred,agree:nl-773a7027fe12,Code/GameEngine/Source/Common/Rva0010F557Finish.cpp,0x0010F28D
+function,?rva0010F2E5@Rva0010F2E5@@QAEXXZ,?serviceStream@Rva0010F2E5@@QAEXXZ,inferred,agree:nl-2c5fee6dc87e,Code/GameEngine/Source/Common/Rva0010F557Finish.cpp,0x0010F2E5
+carry,Rva0010F2E5::rva0010F2E5::stream,Rva0010F2E5::serviceStream::stream,inferred,scope renamed by Rename rva0010F2E5 to serviceStream (inferred),Code/GameEngine/Source/Common/Rva0010F557Finish.cpp,0x0010F2E5
+function,?rva00542953@Rva00542953@@QAEXPADHHHH@Z,?reset@Rva00542953@@QAEXPADHHHH@Z,inferred,agree:nl-03c2e2fb7c67,Code/GameEngine/Source/Common/Rva00542953Reset.cpp,0x00542953
+function,?rva005775C1@Rva0057709A@@QAEXH@Z,?selectArmy@Rva0057709A@@QAEXH@Z,inferred,agree:nl-91933f8b9eee,Code/GameEngine/Source/Common/Rva005775C1Select.cpp,0x005775C1
+function,?rva005B01D3@Rva005B01D3@@QAEMMMM@Z,?lerp@Rva005B01D3@@QAEMMMM@Z,inferred,agree:nl-7183d8852e48,Code/GameEngine/Source/Common/Rva005B01D3Lerp.cpp,0x005B01D3
+carry,Rva005B01D3::rva005B01D3::startValue,Rva005B01D3::lerp::startValue,inferred,scope renamed by Rename rva005B01D3 to lerp (inferred),Code/GameEngine/Source/Common/Rva005B01D3Lerp.cpp,0x005B01D3
+carry,Rva005B01D3::rva005B01D3::endValue,Rva005B01D3::lerp::endValue,inferred,scope renamed by Rename rva005B01D3 to lerp (inferred),Code/GameEngine/Source/Common/Rva005B01D3Lerp.cpp,0x005B01D3
+carry,Rva005B01D3::rva005B01D3::fraction,Rva005B01D3::lerp::fraction,inferred,scope renamed by Rename rva005B01D3 to lerp (inferred),Code/GameEngine/Source/Common/Rva005B01D3Lerp.cpp,0x005B01D3
+function,?Rva006CD2C0Name@@YAXPAD@Z,?copyDisplayName@@YAXPAD@Z,inferred,agree:nl-f8143f1e382a,Code/GameEngine/Source/Common/Rva006CD2A0Cluster.cpp,0x006CD2C0
+function,?rva007ABF7B@Rva007AEA2CArrayInits@@SAXXZ,?initShaderTextureSlots@Rva007AEA2CArrayInits@@SAXXZ,inferred,agree:nl-dd5438fe01dc,Code/GameEngine/Source/Common/Rva007AEA2CArrayInits.cpp,0x007ABF7B
+function,?rva007AC207@Rva007AEA2CArrayInits@@SAXXZ,?initCursorTextures@Rva007AEA2CArrayInits@@SAXXZ,inferred,agree:nl-68312b0c8834,Code/GameEngine/Source/Common/Rva007AEA2CArrayInits.cpp,0x007AC207
+function,?rva007AF10C@Rva007AEA2CArrayInits@@SAXXZ,?initChatHistoryVectors@Rva007AEA2CArrayInits@@SAXXZ,inferred,agree:nl-d4f9c8cd5996,Code/GameEngine/Source/Common/Rva007AEA2CArrayInits.cpp,0x007AF10C
+function,?rva007B6BB9@@YAXXZ,?destroyShaderTextureSlots@@YAXXZ,inferred,agree:nl-873910a3b750,Code/GameEngine/Source/Common/Rva007AEA2CArrayInits.cpp,0x007B6BB9
+function,?rva007B6C84@@YAXXZ,?destroyCursorTextures@@YAXXZ,inferred,agree:nl-1566ef71b18c,Code/GameEngine/Source/Common/Rva007AEA2CArrayInits.cpp,0x007B6C84
+function,?rva007B7DD1@@YAXXZ,?destroyChatHistoryVectors@@YAXXZ,inferred,agree:nl-30758270ed65,Code/GameEngine/Source/Common/Rva007AEA2CArrayInits.cpp,0x007B7DD1
+function,?Rva003C3B2CPopHeap@@YAXPAPAURva003BD485Keyed@@0HH@Z,?popHeapAux@@YAXPAPAURva003BD485Keyed@@0HH@Z,inferred,agree:nl-ed2c483871ae,Code/GameEngine/Source/GameLogic/Object/Rva003BD485Median.cpp,0x003C3B2C
+function,?Rva003C4B67MakeHeap@@YAXPAPAURva003BD485Keyed@@0H@Z,?makeHeapAux@@YAXPAPAURva003BD485Keyed@@0H@Z,inferred,agree:nl-fcc4116fa342,Code/GameEngine/Source/GameLogic/Object/Rva003BD485Median.cpp,0x003C4B67

@@ -25,9 +25,9 @@ private:
 };
 void Rva001F6492::rva001F6492(int a, int b)
 {
-    Rva001F6492Helper *p = m_ptr;
-    if (p)
-        p->m3(a, b);
+    Rva001F6492Helper *linkHelper = m_ptr;
+    if (linkHelper)
+        linkHelper->m3(a, b);
     m_next.rva001F5D0E(a, b);
 }
 class Rva001F8213 {
@@ -39,9 +39,9 @@ private:
 };
 void Rva001F8213::rva001F8213(int a, int b)
 {
-    Rva001F6492Helper *p = m_ptr;
-    if (p)
-        p->m3(a, b);
+    Rva001F6492Helper *linkHelper = m_ptr;
+    if (linkHelper)
+        linkHelper->m3(a, b);
     m_next.rva001F6492(a, b);
 }
 class Rva001F8960 {
@@ -53,9 +53,9 @@ private:
 };
 void Rva001F8960::rva001F8960(int a, int b)
 {
-    Rva001F6492Helper *p = m_ptr;
-    if (p)
-        p->m3(a, b);
+    Rva001F6492Helper *linkHelper = m_ptr;
+    if (linkHelper)
+        linkHelper->m3(a, b);
     m_next.rva001F8213(a, b);
 }
 class Rva001F8DE2 {
@@ -67,9 +67,9 @@ private:
 };
 void Rva001F8DE2::rva001F8DE2(int a, int b)
 {
-    Rva001F6492Helper *p = m_ptr;
-    if (p)
-        p->m3(a, b);
+    Rva001F6492Helper *linkHelper = m_ptr;
+    if (linkHelper)
+        linkHelper->m3(a, b);
     m_next.rva001F8960(a, b);
 }
 class Rva001F9424 {
@@ -81,9 +81,9 @@ private:
 };
 void Rva001F9424::rva001F9424(int a, int b)
 {
-    Rva001F6492Helper *p = m_ptr;
-    if (p)
-        p->m3(a, b);
+    Rva001F6492Helper *linkHelper = m_ptr;
+    if (linkHelper)
+        linkHelper->m3(a, b);
     m_next.rva001F8DE2(a, b);
 }
 class Rva001FA4C6 {
@@ -95,9 +95,9 @@ private:
 };
 void Rva001FA4C6::rva001FA4C6(int a, int b)
 {
-    Rva001F6492Helper *p = m_ptr;
-    if (p)
-        p->m3(a, b);
+    Rva001F6492Helper *linkHelper = m_ptr;
+    if (linkHelper)
+        linkHelper->m3(a, b);
     m_next.rva001F9424(a, b);
 }
 class Rva001FA7CE {
@@ -109,8 +109,8 @@ private:
 };
 void Rva001FA7CE::rva001FA7CE(int a, int b)
 {
-    Rva001F6492Helper *p = m_ptr;
-    if (p)
-        p->m3(a, b);
+    Rva001F6492Helper *linkHelper = m_ptr;
+    if (linkHelper)
+        linkHelper->m3(a, b);
     m_next.rva001FA4C6(a, b);
 }

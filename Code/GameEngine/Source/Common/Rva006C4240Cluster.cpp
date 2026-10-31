@@ -75,12 +75,12 @@ void *Rva006C4240::rva006C4240(void *a, void *b, int c, int d, int e, int f)
 	m_51c = d;
 	m_520 = e;
 	m_524 = f;
-	void *r = ((Rva006C40C0 *)this)->rva006C40C0(a, b);
+	void *callResult = ((Rva006C40C0 *)this)->rva006C40C0(a, b);
 	m_518 = 0;
 	m_51c = 0;
 	m_520 = 0;
 	m_524 = 0;
-	return r;
+	return callResult;
 }
 
 void *Rva006C4240::rva006C4670(void *a, void *b, void *c, int d, int e, int f, int g)
@@ -90,10 +90,10 @@ void *Rva006C4240::rva006C4670(void *a, void *b, void *c, int d, int e, int f, i
 	m_51c = e;
 	m_520 = f;
 	m_524 = g;
-	void *r = ((Rva006C4530 *)this)->rva006C4530(a, b, c);
+	void *callResult = ((Rva006C4530 *)this)->rva006C4530(a, b, c);
 	m_518 = 0;
 	m_51c = 0;
 	m_520 = 0;
 	m_524 = 0;
-	return r;
+	return callResult;
 }

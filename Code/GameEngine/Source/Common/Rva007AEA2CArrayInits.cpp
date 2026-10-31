@@ -66,17 +66,17 @@ void __cdecl rva007B7BBE()
 	__ehvec_dtor(g_Va00E01D60, 4, 0x14, Rva0048BA39AsciiStringDtor);
 }
 
-void __cdecl rva007B7DD1()
+void __cdecl destroyChatHistoryVectors()
 {
 	__ehvec_dtor(g_00E022F8, 0xC, 2, Rva00381AE0VectorDtor);
 }
 
-void __cdecl rva007B6C84()
+void __cdecl destroyCursorTextures()
 {
 	__ehvec_dtor(cursorTextures, 4, 0x498, Rva0017098DTextureHandleDtor);
 }
 
-void __cdecl rva007B6BB9()
+void __cdecl destroyShaderTextureSlots()
 {
 	__ehvec_dtor(g_shaderTextureSlots, 4, 8, Rva0017098DTextureHandleDtor);
 }
@@ -89,9 +89,9 @@ void __cdecl rva007B93EC()
 struct Rva007AEA2CArrayInits
 {
 	static void rva007AEA2C();
-	static void rva007AF10C();
-	static void rva007AC207();
-	static void rva007ABF7B();
+	static void initChatHistoryVectors();
+	static void initCursorTextures();
+	static void initShaderTextureSlots();
 };
 
 void Rva007AEA2CArrayInits::rva007AEA2C()
@@ -100,20 +100,20 @@ void Rva007AEA2CArrayInits::rva007AEA2C()
 	atexit(rva007B7BBE);
 }
 
-void Rva007AEA2CArrayInits::rva007AF10C()
+void Rva007AEA2CArrayInits::initChatHistoryVectors()
 {
 	__ehvec_ctor(g_00E022F8, 0xC, 2, Rva00256646VectorCtorClosure, Rva00381AE0VectorDtor);
-	atexit(rva007B7DD1);
+	atexit(destroyChatHistoryVectors);
 }
 
-void Rva007AEA2CArrayInits::rva007AC207()
+void Rva007AEA2CArrayInits::initCursorTextures()
 {
 	__ehvec_ctor(cursorTextures, 4, 0x498, Rva00326BE6NullFirstWordCtor, Rva0017098DTextureHandleDtor);
-	atexit(rva007B6C84);
+	atexit(destroyCursorTextures);
 }
 
-void Rva007AEA2CArrayInits::rva007ABF7B()
+void Rva007AEA2CArrayInits::initShaderTextureSlots()
 {
 	__ehvec_ctor(g_shaderTextureSlots, 4, 8, Rva00326BE6NullFirstWordCtor, Rva0017098DTextureHandleDtor);
-	atexit(rva007B6BB9);
+	atexit(destroyShaderTextureSlots);
 }

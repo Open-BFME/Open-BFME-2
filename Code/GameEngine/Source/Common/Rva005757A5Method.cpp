@@ -47,15 +47,15 @@ struct Rva005757A5ResultView
 class Rva005757A5
 {
 public:
-	void rva005757A5(int arg);
+	void rva005757A5(int point);
 private:
 	char m_pad00[0x18];
 	Rva005757A5SlotView *m_18;
 	int m_1c;
 };
-void Rva005757A5::rva005757A5(int arg)
+void Rva005757A5::rva005757A5(int point)
 {
 	Rva005756B6 local((int)this);
 	Rva005757A5ResultView *result = (Rva005757A5ResultView *)m_18->m_04->get();
-	((Rva005CBB4A *)&local)->rva005CBB4A((void*)m_1c, arg, result->m_1c);
+	((Rva005CBB4A *)&local)->rva005CBB4A((void*)m_1c, point, result->m_1c);
 }

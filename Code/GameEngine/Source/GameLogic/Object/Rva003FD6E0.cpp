@@ -34,7 +34,7 @@ class Rva003FD6E0Mid
 public:
 	virtual void *virt00(int arg);
 	int m_04;
-	Rva003FD6E0Inner *m_08;
+	Rva003FD6E0Inner *m_inner;
 };
 
 class Rva003FD6E0
@@ -49,7 +49,7 @@ void Rva003FD6E0::rva003FD6E0()
 {
 	if (!m_04)
 		return;
-	Rva003FD6E0Inner *inner = m_04->m_08;
+	Rva003FD6E0Inner *inner = m_04->m_inner;
 	if (inner)
 		inner->v16();
 	void *toDelete = m_04 ? m_04->virt00(0) : 0;

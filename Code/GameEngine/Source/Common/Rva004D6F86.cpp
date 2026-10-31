@@ -41,20 +41,20 @@ public:
 class Rva00263895Member
 {
 public:
-	virtual void rva004D6F86(void *arg);
+	virtual void rva004D6F86(void *context);
 
 	Rva00263653View m_mem04;
 	Rva004D6F86Ptr m_obj6C;
 };
-void Rva00263895Member::rva004D6F86(void *arg)
+void Rva00263895Member::rva004D6F86(void *context)
 {
-	Rva004D6F86Arg *a = (Rva004D6F86Arg *)arg;
-	Temp004D6F86 t;
+	Rva004D6F86Arg *a = (Rva004D6F86Arg *)context;
+	Temp004D6F86 options;
 	if (!a->cond()) {
-		t.a = 1;
-		t.b = 1;
-		a->apply(&t);
-		m_mem04.add(arg);
-		m_obj6C.add(arg);
+		options.a = 1;
+		options.b = 1;
+		a->apply(&options);
+		m_mem04.add(context);
+		m_obj6C.add(context);
 	}
 }

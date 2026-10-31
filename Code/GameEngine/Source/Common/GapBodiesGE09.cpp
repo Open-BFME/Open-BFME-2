@@ -33,7 +33,7 @@ void Rva003B940A::rva003B940A()
 	m_00 = true;
 }
 
-void Rva003B940E(unsigned char flag)
+void setSkipCinematicSubsystemExclusions(unsigned char flag)
 {
 	reinterpret_cast<unsigned char &>(skipCinematicSubsystemExclusions) = flag;
 }
@@ -59,7 +59,7 @@ void Rva003B9433(bool flag)
 #include <string.h>
 extern const char *g_rva0033A3F4Table[];
 
-int Rva003BD52F(const char *name)
+int findNameIndex(const char *name)
 {
 	if (!name)
 		return 6;

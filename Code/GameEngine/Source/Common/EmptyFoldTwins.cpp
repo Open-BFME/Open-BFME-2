@@ -68,9 +68,9 @@ void Rva000B3FD0AptFreeRenderingUnit()
 {
 }
 
-void Rva000A91D8AptFreeConstantTable(void *p)
+void Rva000A91D8AptFreeConstantTable(void *table)
 {
-	operator delete[](p);
+	operator delete[](table);
 }
 
 int Rva000910FBAptPointHitTest()

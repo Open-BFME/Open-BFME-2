@@ -9,7 +9,7 @@ class Rva003195C9Owner;
 class Rva003195C9Owner
 {
 public:
-	void rva00319AA0(const int *arg);
+	void rva00319AA0(const int *pair);
 private:
 	unsigned char m_pad[0x44];
 	int m_44;
@@ -54,11 +54,11 @@ public:
 	virtual void slot05(void *rec) = 0;
 };
 
-void Rva003195C9Owner::rva00319AA0(const int *arg)
+void Rva003195C9Owner::rva00319AA0(const int *pair)
 {
 	int *pm = &m_44;
-	*pm = arg[0];
-	pm[1] = arg[1];
+	*pm = pair[0];
+	pm[1] = pair[1];
 	((Rva00319AA0 *)this)->rva003197B7();
 	if (m_88 != 0)
 	{

@@ -48,11 +48,11 @@ public:
 	void rva006EBE50();
 private:
 	char m_pad00[0x24];
-	AptDisplayList m_24;
+	AptDisplayList m_displayList;
 };
 void Rva006EBE50::rva006EBE50()
 {
-	m_24.rva006F8190();
+	m_displayList.rva006F8190();
 }
 class Rva00711AB0
 {
