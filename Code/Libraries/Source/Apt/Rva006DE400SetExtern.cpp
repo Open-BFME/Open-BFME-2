@@ -9,12 +9,14 @@
 
 class EAStringC
 {
-	void *m_pData;
-
 public:
+	unsigned int rva006D3750() const;
+	const char *rva00620090() const;
 	EAStringC();
 	~EAStringC();
-	const char *rva00620090() const;
+	bool rva006D3490(const char *text) const;
+private:
+	void *mpData; // +0x00
 };
 
 class AptValue

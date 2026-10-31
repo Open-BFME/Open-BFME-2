@@ -11,10 +11,27 @@
 // AddRef of the new value (slot 0) and Release of the old (slot 1) when the
 // name equals "__constructor__" via the same rowed compare, else false.
 // Base slot 8 is the empty xor-al ret-C stub at 0x006C8770.
+#include "../../../Libraries/Source/Apt/AptObject/AptScriptFunction.h"
+
+class Rva006D2A60
+{
+public:
+	void *allocBlock(int);
+	void freeBlock(void*,int);
+};
+
+extern Rva006D2A60 *g_pChainBlockAllocatorF4;
+
 class EAStringC
 {
 public:
+	unsigned int rva006D3750() const;
+	const char *rva00620090() const;
+	EAStringC();
+	~EAStringC();
 	bool rva006D3490(const char *text) const;
+private:
+	void *mpData; // +0x00
 };
 
 class AptRef
@@ -24,10 +41,14 @@ public:
 	virtual void Release();
 };
 
-class Rva006DE2B0
+class Rva006DE2B0 : public AptValueWithHash
 {
 public:
-	char m_pad[0x18];
+	virtual ~Rva006DE2B0();
+	static void operator delete(void *p, unsigned int size)
+	{
+		g_pChainBlockAllocatorF4->freeBlock(p, size);
+	}
 	AptRef *m_ctor;
 	virtual void *Rva006DE210(int unused, const EAStringC &name);
 	virtual bool Rva006DE240(int unused, const EAStringC &name, AptRef *value);

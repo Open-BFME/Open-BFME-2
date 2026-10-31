@@ -1,10 +1,13 @@
 // cl: /MD
 // These derived destructors install their own vtable and destroy AptValueWithHash.
 // The retail tail calls reach its complete destructor at 0x006D63C0.
-class AptValueWithHash
+#include "../../../Libraries/Source/Apt/AptObject/AptScriptFunction.h"
+
+class AptRef
 {
-protected:
-	virtual ~AptValueWithHash();
+public:
+	virtual void AddRef();
+	virtual void Release();
 };
 
 // Pooled classes: the scalar deleting destructors emitted here release
@@ -14,7 +17,8 @@ protected:
 class Rva006D2A60
 {
 public:
-	void freeBlock(void *block, int blockSize);
+	void *allocBlock(int);
+	void freeBlock(void*,int);
 };
 
 extern Rva006D2A60 *g_pChainBlockAllocatorF4;   // 0x00E176F4
@@ -27,7 +31,9 @@ public:
 	{
 		g_pChainBlockAllocatorF4->freeBlock(p, size);
 	}
-	char m_pad[0x1C]; // sizeof 0x20
+	AptRef *m_ctor;
+	virtual void *Rva006DE210(int unused, const EAStringC &name);
+	virtual bool Rva006DE240(int unused, const EAStringC &name, AptRef *value);
 };
 
 Rva006DE2B0::~Rva006DE2B0()
@@ -42,7 +48,7 @@ public:
 	{
 		g_pChainBlockAllocatorF4->freeBlock(p, size);
 	}
-	char m_pad[0x1C]; // sizeof 0x20
+	char m_pad[4]; // sizeof 0x20
 };
 
 Rva006DE6C0::~Rva006DE6C0()

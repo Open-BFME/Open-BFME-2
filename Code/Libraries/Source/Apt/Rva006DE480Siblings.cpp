@@ -38,6 +38,7 @@ public:
 class AptValueVector
 {
 public:
+	void ReleaseValues();
 	void rva006E6C00(AptValue *pValue);
 };
 

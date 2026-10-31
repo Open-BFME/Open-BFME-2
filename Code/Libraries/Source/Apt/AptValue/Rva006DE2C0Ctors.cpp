@@ -26,6 +26,7 @@ public:
 class AptValueVector
 {
 public:
+	void ReleaseValues();
 	void rva006E6C00(AptValue *pValue);
 };
 
@@ -34,12 +35,20 @@ extern AptValueVector *g_releaseVectorAtE17710;
 
 class BfmeAptValue006DCD20
 {
+public:
+	bool isCIH(bool=false) const;
+	int isObject() const;
+	int isPrototype() const;
+	int rva006DCC60(bool=false) const;
+	BfmeAptValue006DCD20 *rva006DCF60(bool=false);
+	BfmeAptValue006DCD20 *rva006DD0E0();
+	BfmeAptValue006DCD20 *rva006DD120();
+	void *rva006E04A0() const;
+private:
 	__declspec(dllimport) __forceinline void setTypeAt006DBBC0(int type)
 	{
 		m_flags = (m_flags & 0x01ffffffu) | (static_cast<unsigned int>(type) << 25);
 	}
-protected:
-	unsigned int m_flags;
 public:
 	__declspec(dllimport) __forceinline BfmeAptValue006DCD20(int type)
 	{
@@ -53,6 +62,8 @@ public:
 		}
 	}
 	virtual ~BfmeAptValue006DCD20();
+protected:
+	unsigned int m_flags; // +0x04
 };
 
 

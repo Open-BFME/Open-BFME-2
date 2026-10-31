@@ -13,7 +13,47 @@ struct R4Word { const char *name; int value; };
 
 const R4Word *Rva00897FD0(const char *,unsigned int);
 
-class BfmeAptValue006DCD20 { public: bool isCIH(bool=false) const; int isObject() const; int isPrototype() const; int rva006DCC60(bool=false) const; BfmeAptValue006DCD20 *rva006DCF60(bool=false); BfmeAptValue006DCD20 *rva006DD0E0(); BfmeAptValue006DCD20 *rva006DD120(); void *rva006E04A0() const; };
+class AptValueVector
+{
+public:
+	void ReleaseValues();
+	void rva006E6C00(AptValue *pValue);
+};
+
+extern AptValueVector *g_releaseVectorAtE17710;
+
+class BfmeAptValue006DCD20
+{
+public:
+	bool isCIH(bool=false) const;
+	int isObject() const;
+	int isPrototype() const;
+	int rva006DCC60(bool=false) const;
+	BfmeAptValue006DCD20 *rva006DCF60(bool=false);
+	BfmeAptValue006DCD20 *rva006DD0E0();
+	BfmeAptValue006DCD20 *rva006DD120();
+	void *rva006E04A0() const;
+private:
+	__declspec(dllimport) __forceinline void setTypeAt006DBBC0(int type)
+	{
+		m_flags = (m_flags & 0x01ffffffu) | (static_cast<unsigned int>(type) << 25);
+	}
+public:
+	__declspec(dllimport) __forceinline BfmeAptValue006DCD20(int type)
+	{
+		setTypeAt006DBBC0(type);
+		m_flags = (m_flags & 0xFE000035u) | 0x30u;
+		if (type == 0x1c || type == 0x2b || type == 0x2c)
+			m_flags &= ~4u;
+		else {
+			m_flags |= 4u;
+			g_releaseVectorAtE17710->rva006E6C00(reinterpret_cast<AptValue *>(this));
+		}
+	}
+	virtual ~BfmeAptValue006DCD20();
+protected:
+	unsigned int m_flags; // +0x04
+};
 
 class Rva006DC9E0 { public: int rva006DC9E0(); };
 
@@ -21,7 +61,16 @@ class BfmeN1034;
 
 class Rva0070A5C0 { public: BfmeN1034 *rva0070A5C0(int); };
 
-template<class T> class AptValuePtrStack { public: int count,capacity; T **elements; T *top(); };
+template <class T>
+class AptValuePtrStack
+{
+public:
+	int count;
+	int capacity;
+	T **elements;
+	T *top();
+	T *at(int nPos);
+};
 
 struct AptActionInterpreter;
 
@@ -53,17 +102,16 @@ extern int g_bfmeAptBreakOnAssertAtDDC01C;
 
 void __debugbreak();
 
-class EAStringC {
-private:
-	void *mpData;
+class EAStringC
+{
 public:
 	unsigned int rva006D3750() const;
-public:
 	const char *rva00620090() const;
-public:
 	EAStringC();
-public:
 	~EAStringC();
+	bool rva006D3490(const char *text) const;
+private:
+	void *mpData; // +0x00
 };
 
 // tu-skeleton: 0x006DCB20 216B ?Release@AptValue@@UAEXXZ -- matched in Code/Libraries/Source/Apt/AptValue/AptValueRefCountBFME2.cpp (not merged yet)
