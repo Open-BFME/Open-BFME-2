@@ -1434,9 +1434,30 @@ public:
     void *holder;
 };
 
+class Rva0023DA79
+{
+public:
+	Rva0023DA79 *rva0023DA79(int ignored, int index);
+private:
+	unsigned int m_bits[4];
+};
+
+// BFME1 9cbfb551 OpenContain.cpp emits _Base_bitset<4>::_M_do_flip.
+// Native 332E83..332E8F is a complete leaf after bounded 332E60+35:
+// four consecutive 32-bit words are complemented in an unsigned loop.
+// Preserve the unknown owning type with an address-derived storage view.
+class Rva00332E83BitWords
+{
+public:
+    void flip();
+    unsigned int m_words[4];
+};
+
 // tu-skeleton: 0x0023C924 212B ?selectObject@GameLogic@@QAEXPAVObject@@_NI1@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicDeselectObject.cpp (not merged yet)
 
 // tu-skeleton: 0x0023C9F8 171B ?deselectObject@GameLogic@@QAEXPAVObject@@I_N@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicDeselectObject.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
 
@@ -2234,6 +2255,53 @@ Rva000D3FA0Map::~Rva000D3FA0Map()
 // each one has the same function in that slot (vftable addresses from matched vptr
 // stores). Bind them to the rows at those functions.
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ---- from Code/GameEngine/Source/Common/Disp8WordChaseGetters.cpp
+
+// Disp8 word-chase getters: seven-byte __thiscall members with one shape:
+//
+//     mov eax,[ecx+<DISP1>] / movsx eax,word [eax+<DISP2>] / ret
+//
+// A pointer is read at a fixed displacement from `this`, then a signed word
+// is read at a second displacement from that pointer, sign-extended, and
+// returned. MSVC 7.1 emits the disp8 loads `8B 41 XX` + `0F BF XX`, plus
+// `ret`, for seven bytes total.
+// Identity is not recovered: every name is derived from its address.
+// No // cl: line (defaults match the frameless seven-byte shape).
+
 // tu-skeleton: 0x0023CAD2 7B ?getFirstObject@GameLogic@@QAEPAVObject@@XZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicGetObjectCount.cpp (not merged yet)
 
 // tu-skeleton: 0x0023CAD9 14B ?rva0023CAD9@GameLogic@@QAEHXZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicRva0023CAD9.cpp (not merged yet)
@@ -2290,7 +2358,25 @@ Rva000D3FA0Map::~Rva000D3FA0Map()
 
 // tu-skeleton: 0x0023DA4E 43B ?rva0023DA4E@GameLogic@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicLivingWorldBattleComplete.cpp (not merged yet)
 
-// tu-skeleton: 0x0023DA79 44B ?rva0023DA79@Rva0023DA79@@QAEPAV1@HH@Z -- matched in Code/GameEngine/Source/Common/Rva0023DA79Bitset.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva0023DA79Bitset.cpp
+
+// ?rva0023DA79@Rva0023DA79@@QAEPAV1@HH@Z @0x0023DA79 (44B): memset-16 plus
+// bit-set returning this. Retail: push esi; push 16; esi=ecx; push 0;
+// push esi; call memset (0x6291AE import); ecx=[esp+24] (index); edx=0;
+// eax=ecx; ecx&=31; edx=1; eax>>=5; edx<<=cl; eax=this+eax*4;
+// add esp,12; [eax]|=edx; eax=esi; pop esi; ret 8. Two int args (first
+// ignored beyond stack slot? second is index? actually [esp+24] after
+// pushes = original second arg?); memset size const 16; no EH; imports
+// resolve; address-derived.
+
+// ?rva0023DA79@Rva0023DA79@@QAEPAV1@HH@Z
+Rva0023DA79 *Rva0023DA79::rva0023DA79(int ignored, int index)
+{
+	(void)ignored;
+	memset(this, 0, 16);
+	m_bits[(unsigned)index >> 5] |= (1u << ((unsigned)index & 31));
+	return this;
+}
 
 // tu-skeleton: 0x0023DAA5 39B ?clear@?$_List_base@HV?$allocator@H@_STL@@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_o1.cpp (not merged yet)
 
@@ -2301,19 +2387,6 @@ Rva000D3FA0Map::~Rva000D3FA0Map()
 // tu-skeleton: 0x0023DB34 20B ??0Rva0023DB34@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp (not merged yet)
 
 // tu-skeleton: 0x0023DB48 16B ?rva0023DB48@Rva0023DB48@@QAEHXZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/Disp8WordChaseGetters.cpp
-
-// Disp8 word-chase getters: seven-byte __thiscall members with one shape:
-//
-//     mov eax,[ecx+<DISP1>] / movsx eax,word [eax+<DISP2>] / ret
-//
-// A pointer is read at a fixed displacement from `this`, then a signed word
-// is read at a second displacement from that pointer, sign-extended, and
-// returned. MSVC 7.1 emits the disp8 loads `8B 41 XX` + `0F BF XX`, plus
-// `ret`, for seven bytes total.
-// Identity is not recovered: every name is derived from its address.
-// No // cl: line (defaults match the frameless seven-byte shape).
 
 // tu-skeleton: 0x0023DB5F 17B ?keyAtA@Gen_000cd680@@QBEHH@Z -- matched in Code/GameEngine/Source/Common/Gen_000cd680.cpp (not merged yet)
 

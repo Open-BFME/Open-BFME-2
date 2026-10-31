@@ -17,15 +17,6 @@ private:
 	unsigned int m_bits[4];
 };
 
-// ?rva0023DA79@Rva0023DA79@@QAEPAV1@HH@Z
-Rva0023DA79 *Rva0023DA79::rva0023DA79(int ignored, int index)
-{
-	(void)ignored;
-	memset(this, 0, 16);
-	m_bits[(unsigned)index >> 5] |= (1u << ((unsigned)index & 31));
-	return this;
-}
-
 // BFME1 9cbfb551 OpenContain.cpp emits _Base_bitset<4>::_M_do_flip.
 // Native 332E83..332E8F is a complete leaf after bounded 332E60+35:
 // four consecutive 32-bit words are complemented in an unsigned loop.
