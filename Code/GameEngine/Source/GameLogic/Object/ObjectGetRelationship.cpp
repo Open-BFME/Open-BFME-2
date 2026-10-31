@@ -132,8 +132,8 @@ Relationship Object::getRelationship(const Object *other) const
 				void *p1 = rva0028C197();
 				if (p1 == 0)
 					goto team;
-				void *p2 = rva0028C197();
-				Object *mid = ((MidProvider *)p2)->v68();
+				void *provider = rva0028C197();
+				Object *mid = ((MidProvider *)provider)->v68();
 				if (mid == 0)
 					goto team;
 				if ((mid->m_template->m_field118 & 0x20) == 0)

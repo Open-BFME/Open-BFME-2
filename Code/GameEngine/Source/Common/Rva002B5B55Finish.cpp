@@ -60,25 +60,25 @@ public:
 class Rva002B5B55
 {
 public:
-	void rva002B5B55(Rva002B5B55Arg *arg);
+	void rva002B5B55(Rva002B5B55Arg *entry);
 private:
 	char m_pad[0x10C];
 	void *m_begin10C; // +0x10C vector start (vector<void*> layout)
 	void *m_end110; // +0x110 vector finish
 };
 
-void Rva002B5B55::rva002B5B55(Rva002B5B55Arg *arg)
+void Rva002B5B55::rva002B5B55(Rva002B5B55Arg *entry)
 {
-	if (arg == 0)
+	if (entry == 0)
 		return;
-	arg->m_flag75 = 1;
-	int id = arg->m_id;
+	entry->m_flag75 = 1;
+	int id = entry->m_id;
 	Rva002E2903Player *found = ((Rva002BA8F1Logic *)this)->find(id, 0);
 	if (found != 0)
-		((Rva002E10BDOwner *)found)->rva002E10BD((CreateAHeroData *)arg);
+		((Rva002E10BDOwner *)found)->rva002E10BD((CreateAHeroData *)entry);
 	CreateAHeroData **lim = (CreateAHeroData **)m_end110;
-	CreateAHeroData **got = _STL::find((CreateAHeroData **)m_begin10C, lim, *(CreateAHeroData **)&arg);
+	CreateAHeroData **got = _STL::find((CreateAHeroData **)m_begin10C, lim, *(CreateAHeroData **)&entry);
 	if (got != lim)
 		((_STL::vector<void *> *)&m_begin10C)->erase((void **)got);
-	::operator delete((void *)arg->rva002B5B55v0(0));
+	::operator delete((void *)entry->rva002B5B55v0(0));
 }

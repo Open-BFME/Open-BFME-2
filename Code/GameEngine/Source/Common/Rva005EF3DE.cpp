@@ -23,15 +23,15 @@ void Rva005EF3DE::hideArmyName()
 class Rva005EF3E6
 {
 public:
-	void showCommandPoints(int a, int b);
+	void showCommandPoints(int currentCommandPoints, int maxCommandPoints);
 private:
 	int m_pad00;
 	StrategicHUD::RegionDetailsArmiesMovieClip::Impl *m_ptr04;
 };
 
-void Rva005EF3E6::showCommandPoints(int a, int b)
+void Rva005EF3E6::showCommandPoints(int currentCommandPoints, int maxCommandPoints)
 {
-	return m_ptr04->ShowCommandPoints(a, b);
+	return m_ptr04->ShowCommandPoints(currentCommandPoints, maxCommandPoints);
 }
 
 // ?hideCommandPoints@Rva005EF3EE@@QAEXXZ retail 0x005EF3EE 8B

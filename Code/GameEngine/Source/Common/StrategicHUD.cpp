@@ -1877,7 +1877,7 @@ Rva0057A433::Rva0057A433(Rva005D1A79DwordCounter *const *record, int unused) : m
 		m_record->inc();
 }
 
-// tu-skeleton: 0x0057A313 8B ?rva0057A313@Rva0057A313Owner@@QAEXXZ -- matched in Code/GameEngine/Source/Common/EmbeddedMemberForwarders.cpp (not merged yet)
+// tu-skeleton: 0x0057A313 8B ?update@Rva0057A313Owner@@QAEXXZ -- matched in Code/GameEngine/Source/Common/EmbeddedMemberForwarders.cpp (not merged yet)
 
 // tu-skeleton: 0x0057A31B 21B ?rva0057A31B@Rva0057A31B@@UAEXXZ -- matched in Code/GameEngine/Source/Common/GapBodiesS3A.cpp (not merged yet)
 

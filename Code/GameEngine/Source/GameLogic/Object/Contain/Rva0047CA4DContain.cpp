@@ -76,10 +76,10 @@ private:
 class Rva0047CA4D
 {
 public:
-	bool rva0047CA4D(Object *obj, int a2, int a3);
+	bool rva0047CA4D(Object *obj, int enforceLimit, int a3);
 };
 
-bool Rva0047CA4D::rva0047CA4D(Object *obj, int a2, int a3)
+bool Rva0047CA4D::rva0047CA4D(Object *obj, int enforceLimit, int a3)
 {
 	if (obj->testStatus(STATUS_62))
 		return false;
@@ -91,17 +91,17 @@ bool Rva0047CA4D::rva0047CA4D(Object *obj, int a2, int a3)
 		goto failOther;
 	int limit = *(int *)((char *)tabBase + 0x190);
 	if (limit > 0) {
-		if ((unsigned char)a2 != 0 && *(unsigned int *)((char *)this + 0x10c) >= (unsigned int)limit)
-			return ((TransportContain *)this)->TransportContain::slot38(obj, a2, a3);
+		if ((unsigned char)enforceLimit != 0 && *(unsigned int *)((char *)this + 0x10c) >= (unsigned int)limit)
+			return ((TransportContain *)this)->TransportContain::slot38(obj, enforceLimit, a3);
 		{
 			Object *containerOwner = *(Object **)((char *)this - 0x18);
 			Player *ownerPlayer = containerOwner->getControllingPlayer();
 			Player *objectPlayer = obj->getControllingPlayer();
 			if (objectPlayer != ownerPlayer)
-				return ((TransportContain *)this)->TransportContain::slot38(obj, a2, a3);
+				return ((TransportContain *)this)->TransportContain::slot38(obj, enforceLimit, a3);
 			return true;
 		}
 	}
  failOther:
-	return ((HordeTransportContain *)this)->HordeTransportContain::isValidContainerFor(obj, *(bool *)&a2, *(bool *)&a3);
+	return ((HordeTransportContain *)this)->HordeTransportContain::isValidContainerFor(obj, *(bool *)&enforceLimit, *(bool *)&a3);
 }

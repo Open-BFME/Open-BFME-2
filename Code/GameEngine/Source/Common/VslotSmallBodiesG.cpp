@@ -181,12 +181,12 @@ char *AptSkirmishStats::GetRankPointValue()
 class Rva005CBA3D
 {
 public:
-	Int rva005CBA3D(UnsignedInt bit);
+	Int testBit(UnsignedInt bit);
 private:
 	char m_pad00[0x04];
 	UnsignedInt m_words[1];
 };
-Int Rva005CBA3D::rva005CBA3D(UnsignedInt bit)
+Int Rva005CBA3D::testBit(UnsignedInt bit)
 {
 	return (m_words[bit >> 5] & (1 << (bit & 0x1f))) != 0;
 }

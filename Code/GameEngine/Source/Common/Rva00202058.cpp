@@ -77,8 +77,8 @@ void Rva00202058::rva00202058(OptionPreferences *prefs)
 		idx1 = 0;
 	else
 	{
-		int v2 = prefs->getEffectsLOD();
-		if (v2 == 1)
+		int effectsLod = prefs->getEffectsLOD();
+		if (effectsLod == 1)
 			idx1 = 1;
 		else
 		{
@@ -115,8 +115,8 @@ void Rva00202058::rva00202058(OptionPreferences *prefs)
 		idx2 = 1;
 	else
 	{
-		int u2 = prefs->getTerrainLOD();
-		idx2 = 2 + (u2 > 1);
+		int m_terrainLOD = prefs->getTerrainLOD();
+		idx2 = 2 + (m_terrainLOD > 1);
 	}
 	LODDef *d2 = &m_defs[idx2];
 	m_19c = d2->f20;

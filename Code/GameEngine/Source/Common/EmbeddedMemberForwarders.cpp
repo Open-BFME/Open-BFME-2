@@ -74,9 +74,9 @@ void * Rva0030BC09Owner::rva0030BC09(int i, int off)
 class Rva0057A313Owner
 {
 public:
-	void rva0057A313();
+	void update();
 };
-void Rva0057A313Owner::rva0057A313()
+void Rva0057A313Owner::update()
 {
 	((Rva005D40A6 *)((char *)this + 0x8))->Update();
 }

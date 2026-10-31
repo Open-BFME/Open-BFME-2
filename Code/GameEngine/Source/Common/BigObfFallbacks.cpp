@@ -20,7 +20,7 @@
 struct FallbackCtx
 {
 	char pad[0x14];
-	unsigned int m_14, m_18, m_1c, m_20, m_24, m_28, m_2c, m_30, m_34;
+	unsigned int m_mask, m_18, m_1c, m_20, m_24, m_28, m_2c, m_30, m_34;
 };
 
 int __cdecl Rva00226140Get(void);
@@ -41,7 +41,7 @@ template<class T> struct ObfAdd { T operator()(T a, T b) { T x = a; T y = b; x +
 #define OBF_MARK_END __asm { __asm push eax __asm mov eax, 0xCFCECDCC __asm mov eax, offset L1 __asm mov eax, 0 __asm mov eax, 0 __asm mov eax, 0xCECDCCCB __asm pop eax }
 
 #define OBF_LOAD_KEYS(ctx) \
-	unsigned int g = ((FallbackCtx *)(ctx))->m_14; \
+	unsigned int g = ((FallbackCtx *)(ctx))->m_mask; \
 	unsigned int q = ((FallbackCtx *)(ctx))->m_18; \
 	unsigned int f = ((FallbackCtx *)(ctx))->m_1c; \
 	unsigned int u = ((FallbackCtx *)(ctx))->m_20; \
@@ -57,20 +57,20 @@ template<class T> struct ObfAdd { T operator()(T a, T b) { T x = a; T y = b; x +
 #define OBF_MIX1(t_) (OBF_ROUND1(t_) ^ (t_))
 #define OBF_IMIX2(t_) (OBF_IROUND2(t_) ^ (t_))
 
-unsigned int __cdecl Rva003EFEB2Unmask(int ctx, unsigned int p)
+unsigned int __cdecl unmaskValue(int ctx, unsigned int obfuscatedValue)
 {
 	OBF_MARK_BEGIN
 	OBF_LOAD_KEYS(ctx)
-	unsigned int n = OBF_MIX1(p) ^ OBF_ROUND2(OBF_MIX1(p));
+	unsigned int n = OBF_MIX1(obfuscatedValue) ^ OBF_ROUND2(OBF_MIX1(obfuscatedValue));
 	OBF_MARK_END
 	return n;
 }
 
-unsigned int __cdecl Rva00226156Mask(int ctx, unsigned int p)
+unsigned int __cdecl maskValue(int ctx, unsigned int clearValue)
 {
 	OBF_MARK_BEGIN
 	OBF_LOAD_KEYS(ctx)
-	unsigned int n = OBF_IMIX2(p) ^ OBF_ROUND1(OBF_IMIX2(p));
+	unsigned int n = OBF_IMIX2(clearValue) ^ OBF_ROUND1(OBF_IMIX2(clearValue));
 	OBF_MARK_END
 	return n;
 }
@@ -83,8 +83,8 @@ R __cdecl NAME(R pA, R pB) \
 	OBF_MARK_BEGIN \
 	unsigned int y = 0; \
 	int w = GET(); \
-	unsigned int v = Rva003EFEB2Unmask(w, pA); \
-	unsigned int u = Rva003EFEB2Unmask(w, pB); \
+	unsigned int v = unmaskValue(w, pA); \
+	unsigned int u = unmaskValue(w, pB); \
 	F<T> f = {}; \
 	int n = f((T)v, (T)u); \
 	n = Rva00225A93Get(KIND, OP, v, u, n); \
@@ -96,7 +96,7 @@ R __cdecl NAME(R pA, R pB) \
 	if ((OP) == 0xd) \
 		y = v; \
 	else \
-		y = Rva00226156Mask(w, n); \
+		y = maskValue(w, n); \
 	OBF_MARK_END \
 	return y; \
 }

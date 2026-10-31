@@ -176,17 +176,17 @@ void Object::rva0029041B(Player *player)
 		return;
 	if (m_cond110.get301() != 0)
 		return;
-	Rva0029041BTarget *t = 0;
+	Rva0029041BTarget *target = 0;
 	Rva0029041BProvider *prov = m_250;
 	if (prov != 0)
-		t = prov->w31();
+		target = prov->w31();
 	Player *ctrl = getControllingPlayer();
 	if (player == ctrl)
 	{
 		rva0029041BSetCondition(this, 138);
 	}
-	if (t != 0)
-		t->v53(player);
+	if (target != 0)
+		target->v53(player);
 }
 
 static __forceinline void rva00290496ClearCondition(Object *object, int bit)
@@ -209,8 +209,8 @@ void Object::rva00290496(Player *player)
 	Rva0029041BProvider *prov = m_250;
 	if (prov == 0)
 		return;
-	Rva0029041BTarget *t = prov->w31();
-	if (t == 0)
+	Rva0029041BTarget *target = prov->w31();
+	if (target == 0)
 		return;
-	t->v54(player);
+	target->v54(player);
 }

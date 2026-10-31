@@ -29,14 +29,14 @@ public:
 class InGameUI
 {
 public:
-	void rva002A4A0C(AsciiString name, unsigned int count, const Rva002A1B1DChunk *p1, const Rva002A1B1DChunk *p2, const Rva002A1B1DChunk *p3, const Rva002A1B1DChunk *p4);
+	void rva002A4A0C(AsciiString name, unsigned int count, const Rva002A1B1DChunk *firstChunk, const Rva002A1B1DChunk *secondChunk, const Rva002A1B1DChunk *thirdChunk, const Rva002A1B1DChunk *fourthChunk);
 private:
 	unsigned char m_pad000[0x8D4];
 	Rva002A1B1D m_bursts8D4;				// +0x8D4
 };
 
-void InGameUI::rva002A4A0C(AsciiString name, unsigned int count, const Rva002A1B1DChunk *p1, const Rva002A1B1DChunk *p2, const Rva002A1B1DChunk *p3, const Rva002A1B1DChunk *p4)
+void InGameUI::rva002A4A0C(AsciiString name, unsigned int count, const Rva002A1B1DChunk *firstChunk, const Rva002A1B1DChunk *secondChunk, const Rva002A1B1DChunk *thirdChunk, const Rva002A1B1DChunk *fourthChunk)
 {
-	m_bursts8D4.rva002A1B1D(p1, p2, p3, p4);
+	m_bursts8D4.rva002A1B1D(firstChunk, secondChunk, thirdChunk, fourthChunk);
 	reinterpret_cast<Rva002A4646BurstRecord *>(&m_bursts8D4)->rva002A4646(name, count);
 }

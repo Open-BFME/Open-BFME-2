@@ -21,13 +21,13 @@ public:
     unsigned char rva0045F2F8(float maxSelfTaskersRatio);
 private:
     char m_00[0x34];
-    int m_34;
+    int m_spawnCount;
     unsigned int m_38;
 };
 
 unsigned char Rva0045F2F8::rva0045F2F8(float maxSelfTaskersRatio)
 {
-    if (m_34 == 0)
+    if (m_spawnCount == 0)
         return 0;
     if (maxSelfTaskersRatio == 0.0f)
         return 0;
@@ -41,6 +41,6 @@ unsigned char Rva0045F2F8::rva0045F2F8(float maxSelfTaskersRatio)
     int ret = ((int (__fastcall *)(void *))((void ***)inner)[0][0x23C / 4])(inner);
     if (ret != 2)
         return 0;
-    float currentRatio = (float)m_38 / (float)m_34;
+    float currentRatio = (float)m_38 / (float)m_spawnCount;
     return maxSelfTaskersRatio > currentRatio ? 1 : 0;
 }

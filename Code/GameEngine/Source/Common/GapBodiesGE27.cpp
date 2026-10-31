@@ -57,7 +57,7 @@ public:
 			EnterCriticalSection(&m_section);
 	}
 	void rva000355E0();
-	void rva00035600();
+	void leave();
 private:
 	char m_pad00[8];
 	CRITICAL_SECTION m_section;									// +0x08
@@ -69,7 +69,7 @@ void Rva000355E0::rva000355E0()
 	enter();
 }
 
-void Rva000355E0::rva00035600()
+void Rva000355E0::leave()
 {
 	if (!m_singleThreaded)
 		LeaveCriticalSection(&m_section);

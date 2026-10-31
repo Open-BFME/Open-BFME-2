@@ -180,10 +180,10 @@ int Rva0011D290Get(void)
 	return G00DEDAC0;
 }
 
-// ?Rva0011D2A0Get@@YAHXZ @ 0x0011D2A0 (6B): returns global at 0xDEDA84.
+// ?getDX8FrameCount@@YAHXZ @ 0x0011D2A0 (6B): returns global at 0xDEDA84.
 // Follows int3 (prev CC), followed by CC padding, no .rdata vtable slot,
 // no direct callers, no branch sources. Opaque address-derived name.
-int Rva0011D2A0Get(void)
+int getDX8FrameCount(void)
 {
 	return (int)DX8Wrapper::Read_FrameCount();
 }

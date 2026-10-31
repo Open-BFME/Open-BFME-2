@@ -118,9 +118,9 @@ bool Rva002645FF::rva002645FF()
 	if (obj->testStatus((ObjectStatusTypes)0x26)) {
 		Mid *mid = obj->m_mid;
 		if (mid != 0) {
-			Slot110 *s = mid->m_slot;
-			if (s != 0) {
-				if (s->isReady())
+			Slot110 *slot = mid->m_slot;
+			if (slot != 0) {
+				if (slot->isReady())
 					return true;
 			}
 		}
