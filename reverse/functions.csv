@@ -7603,8 +7603,8 @@ _GetProcessorFlags,,0x001C4390,169,Code/Libraries/Source/VP6/GetProcessorFlags.c
 ?set@Rva0029A2C4DwordSlot@@QAEXH@Z,,0x0029A2C4,13,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp,matched,Disp32 dword setter
 ?set@Rva005AE60BDwordSlot@@QAEXH@Z,,0x005AE60B,13,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp,matched,Disp32 dword setter
 ?get@Rva005B5ABCDwordField@@QBEHXZ,,0x005B5ABC,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
-?enable@Rva000203AD5ByteOneSetter@@QAEXXZ,,0x00203AD5,8,Code/GameEngine/Source/Common/DispByteOneSetters.cpp,matched,Disp32 byte one-setter
-?disable@Rva000203ADDByteZeroSetter@@QAEXXZ,,0x00203ADD,8,Code/GameEngine/Source/Common/DispByteOneSetters.cpp,matched,Disp32 byte zero-setter
+?enable@Rva000203AD5ByteOneSetter@@QAEXXZ,,0x00203AD5,8,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine.cpp,matched,Disp32 byte one-setter
+?disable@Rva000203ADDByteZeroSetter@@QAEXXZ,,0x00203ADD,8,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine.cpp,matched,Disp32 byte zero-setter
 ?apply@Rva0023C7B0DwordImmSetter@@QAEXXZ,,0x0023C7B0,11,Code/GameEngine/Source/Common/DispDwordImmSetters.cpp,matched,Disp32 dword imm-setter
 ?apply@Rva002036A9DwordImmSetter@@QAEXXZ,,0x002036A9,11,Code/GameEngine/Source/Common/DispDwordImmSetters.cpp,matched,Disp32 dword imm-setter
 ?get@Rva005BE1A0DwordField@@QBEHXZ,,0x005BE1A0,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
@@ -7891,7 +7891,7 @@ _GetProcessorFlags,,0x001C4390,169,Code/Libraries/Source/VP6/GetProcessorFlags.c
 ?enable@Rva000EDB3FByteOneSetter@@QAEXXZ,,0x000EDB3F,8,Code/GameEngine/Source/Common/DispByteOneSetters.cpp,matched,Disp32 byte one-setter
 ?enable@Rva001EADF7ByteOneSetter@@QAEXXZ,,0x001EADF7,8,Code/GameEngine/Source/Common/DispByteOneSetters.cpp,matched,Disp32 byte one-setter
 ?enable@Rva001F3852ByteOneSetter@@QAEXXZ,,0x001F3852,8,Code/GameEngine/Source/Common/DispByteOneSetters.cpp,matched,Disp32 byte one-setter
-?enable@Rva00203BE1ByteOneSetter@@QAEXXZ,,0x00203BE1,8,Code/GameEngine/Source/Common/DispByteOneSetters.cpp,matched,Disp32 byte one-setter
+?enable@Rva00203BE1ByteOneSetter@@QAEXXZ,,0x00203BE1,8,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine.cpp,matched,Disp32 byte one-setter
 ?enable@Rva00222479ByteOneSetter@@QAEXXZ,,0x00222479,8,Code/GameEngine/Source/Common/DispByteOneSetters.cpp,matched,Disp32 byte one-setter
 ?enable@Rva00238D7BByteOneSetter@@QAEXXZ,,0x00238D7B,8,Code/GameEngine/Source/Common/DispByteOneSetters.cpp,matched,Disp32 byte one-setter
 ?enable@Rva0023CF83ByteOneSetter@@QAEXXZ,,0x0023CF83,8,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,matched,Disp32 byte one-setter

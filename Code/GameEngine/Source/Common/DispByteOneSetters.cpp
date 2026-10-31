@@ -47,11 +47,6 @@ public:
 	unsigned char m_enabled;
 };
 
-void Rva000203AD5ByteOneSetter::enable()
-{
-	m_enabled = 1;
-}
-
 class Rva000203ADDByteZeroSetter
 {
 public:
@@ -60,11 +55,6 @@ public:
 	char m_lead[0x1A4D4];
 	unsigned char m_enabled;
 };
-
-void Rva000203ADDByteZeroSetter::disable()
-{
-	m_enabled = 0;
-}
 
 class Rva0033F971ByteOneSetter
 {
@@ -292,11 +282,6 @@ public:
 	char m_lead[0x1A4D7];
 	unsigned char m_enabled;
 };
-
-void Rva00203BE1ByteOneSetter::enable()
-{
-	m_enabled = 1;
-}
 
 class Rva00222479ByteOneSetter
 {
