@@ -157,3 +157,4 @@ Overridable,Code/GameEngine/Include/Common/Overridable.h,"existing header extend
 RenderObjClass,Code/Libraries/Source/WWVegas/WW3D2/rendobj.h,Existing BFME2 ABI promoted from bfme2renderobj shim; retail table BD2F68; 0xC4 ctor/copy witnesses; reverse/attempt_support/renderobj-canonical-qc10-20261031
 State,Code/GameEngine/Include/Common/StateMachine.h,"Native4D73FC State20hex/17slots and545D50/C6A140 InnerState30hex/17slots; consumed bounded projection, no opaque provider recovery"
 AITNGuardInnerState,Code/GameEngine/Include/GameLogic/AITNGuard.h,"Native4D73FC State20hex/17slots and545D50/C6A140 InnerState30hex/17slots; consumed bounded projection, no opaque provider recovery"
+Player,Code/GameEngine/Include/Common/Player.h,hand-reviewed: retail ctor 2B0F3C three bases at 0/4/8; size 758 from 2A7F80 allocation; 8 primary slots; initial 9/9 rows in two AI delegate/query consumers; lifetime units remain adoption debt

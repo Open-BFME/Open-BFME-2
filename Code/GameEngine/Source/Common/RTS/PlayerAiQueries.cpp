@@ -32,15 +32,7 @@ public:
 	bool isSupplySourceAttacked();
 };
 
-class Player
-{
-public:
-	bool isSkirmishAIPlayer();
-	bool rva002A9CB8();
-private:
-	char m_pad00[0x2DC];
-	AIPlayer *m_ai;
-};
+#include "../../../Include/Common/Player.h"
 
 bool Player::isSkirmishAIPlayer()
 {

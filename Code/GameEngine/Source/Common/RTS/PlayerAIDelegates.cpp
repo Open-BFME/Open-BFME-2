@@ -90,19 +90,7 @@ private:
 	Bool m_baseCenterSet; // +0x40
 };
 
-class Player
-{
-public:
-	virtual void computeSuperweaponTarget(const SpecialPowerTemplate *power, Coord3D *retPos, Int playerNdx, Real weaponRadius);
-	virtual Bool checkBridges(Object *unit, Waypoint *way);
-	virtual Bool getAiBaseCenter(Coord3D *pos);
-	virtual void repairStructure(ObjectID structureID);
-	void onUnitCreated(Object *factory, Object *unit);
-	Bool rva002A9CA4(Int minimumCash);
-private:
-	unsigned char m_pad04[0x2DC - 0x04];
-	AIPlayer *m_ai; // +0x2DC
-};
+#include "../../../Include/Common/Player.h"
 
 //----------------------------------------------------------------------------------------------------------
 /**
