@@ -169,3 +169,4 @@ SmudgeSet,Code/GameEngine/Include/GameClient/Smudge.h,"Native2D2859/2D291B/2D299
 W3DShrubBuffer,Code/GameEngineDevice/Include/W3DDevice/GameClient/W3DShrubBuffer.h,Retail allocation 0x51280 at RVA6CB54; consumed storage/array offsets only; no virtual/base/provider recovery; qc-10 proof shrubbuffer-canonical-qc10-20261031
 LivingWorldScoreKeeper,Code/GameEngine/Include/Common/LivingWorldScoreKeeper.h,native primary C62AC4 and eight observer tables; complete 0xFC layout; all29 table slots retain exact provider or native empty-body proof; qc12
 rts::hash,Code/GameEngine/Source/GameLogic/AI/RtsHashView.h,shared empty-state primary from existing identity hash view; explicit NameKey specialization retained; native caller bytes conserved; qc12
+_STL::allocator,vendor/stlport/stl/_alloc.h,"pinned STLport allocator primary; replace private empty-state copies, keep library identity; qc12"

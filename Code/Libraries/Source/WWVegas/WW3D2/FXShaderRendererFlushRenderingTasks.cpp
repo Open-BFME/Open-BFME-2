@@ -1,4 +1,5 @@
 // cl: /O1 /G7 /MD /EHsc
+// stlport
 // Native comparator0017368A..001736A7 follows a RET4 at00173687.
 // Both range flushers001748B3 and00174A57 pass this address to the owned
 // STLport sort over32-byte rendering tasks. Only the mesh pointer at task0
@@ -42,8 +43,9 @@ unsigned Rva001736A7Compare(const Rva0017368ATask &lhs, const Rva0017368ATask &r
 // function-pointer comparator; declared only, so the call keeps that name.
 class FXShaderRenderer {public:void PerformRendering(int,int);};
 struct BfmeAssignRecord32 {char unknown[32];};
+#include "../../../../../vendor/stlport/stl/_alloc.h"
 namespace _STL {
-template<class T>class allocator {};
+
 template<class T,class A>class vector {public:T*erase(T*,T*);};
 template<class It,class Cmp> void sort(It first,It last,Cmp comp);
 }
