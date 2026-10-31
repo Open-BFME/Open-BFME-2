@@ -1061,27 +1061,6 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-// Retail VA 0x00C510B8: 8 fields and the zero sentinel.
-// The matched registration proves the class relationship; retail supplies
-// every token, offset and callback. Global spelling is descriptive.
-extern const FieldParse BfmeRadiateFearUpdateFields[] = {
-	{ "InitiallyActive", &INI::parseBool, 0, 0x8 },
-	{ "WhichSpecialPower", &INI::parseInt, 0, 0xC },
-	{ "GenerateTerror", &INI::parseBool, 0, 0x10 },
-	{ "GenerateFear", &INI::parseBool, 0, 0x11 },
-	{ "GenerateUncontrollableFear", &INI::parseBool, 0, 0x12 },
-	{ "EmotionPulseRadius", &INI::parseReal, 0, 0x14 },
-	{ "EmotionPulseInterval", &INI::parseDurationUnsignedInt, 0, 0x18 },
-	{ "VictimFilter", &iniParseObjectFilter, 0, 0x1C },
-	{ 0, 0, 0, 0 }
-};
-
-void RadiateFearUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
-{
-	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE29DGet()), 0x20);
-	parse.add(BfmeRadiateFearUpdateFields, 0);
-}
-
 class ModelConditionUpgradeModuleData
 {
 public:
