@@ -12,6 +12,15 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #pragma comment(linker, "/alternatename:??1Rva00150D42Entry@@QAE@XZ=??1Rva0014F699@@UAE@XZ")
 #pragma comment(linker, "/alternatename:?erase@?$vector@URva00150D42Entry@@V?$allocator@URva00150D42Entry@@@_STL@@@_STL@@QAEPAURva00150D42Entry@@PAU3@0@Z=?rva0015068C@Rva0015068C@@QAEPAVRva0014F699@@PAV2@0@Z")
 #pragma comment(linker, "/alternatename:??0Rva00150D42Entry@@QAE@XZ=??0SourceNamespace_Shadow@FXShaderParameterSourceNamespaceSAS@@QAE@XZ")
+#include <stl/_algobase.h>
+#pragma comment(linker, "/alternatename:?_M_fill_insert@?$vector@URva00150C97Entry@@V?$allocator@URva00150C97Entry@@@_STL@@@_STL@@QAEXPAURva00150C97Entry@@IABU3@@Z=?_M_fill_insert@?$vector@URva001506BFElement@@V?$allocator@URva001506BFElement@@@_STL@@@_STL@@QAEXPAURva001506BFElement@@IABU3@@Z")
+#pragma comment(linker, "/alternatename:?erase@?$vector@URva00150C97Entry@@V?$allocator@URva00150C97Entry@@@_STL@@@_STL@@QAEPAURva00150C97Entry@@PAU3@0@Z=?erase@?$vector@URva00150659Element@@V?$allocator@URva00150659Element@@@_STL@@@_STL@@QAEPAURva00150659Element@@PAU3@0@Z")
+#pragma comment(linker, "/alternatename:?_M_fill_insert@?$vector@URva00150CD0Entry@@V?$allocator@URva00150CD0Entry@@@_STL@@@_STL@@QAEXPAURva00150CD0Entry@@IABU3@@Z=?_M_fill_insert@?$vector@URva0015079DElement@@V?$allocator@URva0015079DElement@@@_STL@@@_STL@@QAEXPAURva0015079DElement@@IABU3@@Z")
+#pragma comment(linker, "/alternatename:?erase@?$vector@URva00150CD0Entry@@V?$allocator@URva00150CD0Entry@@@_STL@@@_STL@@QAEPAURva00150CD0Entry@@PAU3@0@Z=?erase@?$vector@URva00150659Element@@V?$allocator@URva00150659Element@@@_STL@@@_STL@@QAEPAURva00150659Element@@PAU3@0@Z")
+#pragma comment(linker, "/alternatename:?_M_fill_insert@?$vector@URva00150D09Entry@@V?$allocator@URva00150D09Entry@@@_STL@@@_STL@@QAEXPAURva00150D09Entry@@IABU3@@Z=?_M_fill_insert@?$vector@URva0015087BElement@@V?$allocator@URva0015087BElement@@@_STL@@@_STL@@QAEXPAURva0015087BElement@@IABU3@@Z")
+#pragma comment(linker, "/alternatename:?erase@?$vector@URva00150D09Entry@@V?$allocator@URva00150D09Entry@@@_STL@@@_STL@@QAEPAURva00150D09Entry@@PAU3@0@Z=?erase@?$vector@URva00150659Element@@V?$allocator@URva00150659Element@@@_STL@@@_STL@@QAEPAURva00150659Element@@PAU3@0@Z")
+#pragma comment(linker, "/alternatename:?rva00150B8D@Rva00150B8D@@QAEXHVRva0014DB9F@@@Z=?resize@Rva00150C74Vector@@QAEXIURva00150D42Entry@@@Z")
+#pragma comment(linker, "/alternatename:??0Rva0014DB9F@@QAE@XZ=??0SourceNamespace_Shadow@FXShaderParameterSourceNamespaceSAS@@QAE@XZ")
 
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva0014F90DFillN@@YAPAVRva0014F480@@PAV1@IABV1@@Z retail 0x0014F90D 27B, ?Rva0014F951FillN@@YAPAVRva0014F4A1@@PAV1@IABV1@@Z retail 0x0014F951 27B, ?Rva0014F9CCFillN@@YAPAVRva0014F4C2@@PAV1@IABV1@@Z retail 0x0014F9CC 27B: uninitialized_fill_n dispatchers creating Tag at [ebp-1] and tail-calling fill_n helpers 0x0014F5AB 0x0014F5E5 0x0014F61F. Callers 0x00150749 0x00150827 0x0015090D insert paths.
@@ -24,12 +33,6 @@ public:
 	Rva00BC6F24Base() { *(const void **)this = __identifier("??_7Base@@6B@"); }
 	virtual ~Rva00BC6F24Base();
 };
-
-// ??1Rva00BC6F24Base@@UAE@XZ present-unmatched
-inline Rva00BC6F24Base::~Rva00BC6F24Base()
-{
-	*(const void **)this = __identifier("??_7Base@@6B@");
-}
 
 extern "C" const void* const __identifier("??_7Rva0007E04D@@6B@")[];
 
@@ -182,10 +185,13 @@ public:
 	Rva001504A1Record&operator=(const Rva001504A1Record&);
 	char bytes[76]; // +0x00
 };
+
 // Native calls at 0x001504F7 and 0x0015053A already name these rowed
 // placement-copy and vector cleanup providers. Retain their opaque views.
 struct Rva0014F647Element;
+
 class Rva0014F8C6 { public: void rva0014F8C6(); };
+
 namespace _STL {
 template<> void _Construct<Rva0014F647Element,Rva0014F647Element>(Rva0014F647Element*,const Rva0014F647Element&);
 template<> __declspec(dllimport) __forceinline void _Construct<Rva001504A1Record,Rva001504A1Record>(Rva001504A1Record*p,const Rva001504A1Record&v)
@@ -214,18 +220,8 @@ struct Rva001501CA
 };
 
 struct EmitVtableTag;
-struct EmitDestructorTag;
 
-// The destructor is implicit: retail's ??1 stores no vptr of its own, only the base's.
-class Rva00150558 : public Rva00BC6F24Base
-{
-public:
-	Rva00150558(EmitVtableTag *);
-	Rva00150558(EmitDestructorTag *);
-private:
-	Rva001501CA m_04;
-	Rva00BC6F24Base m_10;
-};
+struct EmitDestructorTag;
 
 // Reference: Open-BFME-1 a7c38d3b2597121f178ab5190b3062478823257d,
 // inputs/vendor/stlport/stl/_vector.h: vector::insert(iterator,size_type,const T&).
@@ -273,13 +269,6 @@ public:
 
 class Rva00150A86 {public:void insert(Rva001504A1Record*,unsigned,const Rva0014F699&);};
 
-// ??_GRva0015058E@@UAEPAXI@Z @0x001510A6, 28B.
-// Scalar deleting dtor; calls rowed ??1 at 0x0015058E plus rowed delete at 0x0002FD60.
-// Evidence: retail calls 0x0015058E (rowed ??1Rva0015058E@@UAE@XZ) and 0x0002FD60 (rowed ??3@YAXPAX@Z); same 28B ??_G shape as family.
-struct EmitVtableTag;
-
-class Rva0015058E { public: Rva0015058E(EmitVtableTag *); virtual ~Rva0015058E(); };
-
 struct Rva00150D42Entry { Rva00150D42Entry(); Rva00150D42Entry(const Rva00150D42Entry&); ~Rva00150D42Entry(); unsigned int vptr; int index; char tail[68]; };
 
 class Rva00150C74Vector { Rva00150D42Entry *start,*finish,*end; public: void resize(unsigned, Rva00150D42Entry); };
@@ -307,6 +296,219 @@ template<> Rva00150D42Entry* vector<Rva00150D42Entry>::erase(Rva00150D42Entry*,R
 template<> void vector<Rva00150D42Entry>::_M_fill_insert(Rva00150D42Entry*,unsigned,const Rva00150D42Entry&);
 }
 
+class Rva0014F3E7;
+
+struct Rva00150209
+{
+	Rva0014F3E7 *m_start;
+	Rva0014F3E7 *m_finish;
+	Rva0014F3E7 *m_endOfStorage;
+	~Rva00150209();
+};
+
+// The destructor is implicit: retail's ??1 stores no vptr of its own, only the base's.
+class Rva0015058E : public Rva00BC6F24Base
+{
+public:
+	Rva0015058E(EmitVtableTag *);
+	Rva0015058E(EmitDestructorTag *);
+private:
+	Rva00150209 m_04;
+	Rva0014F699 m_10;
+};
+
+template void _STL::vector<Rva001504A1Record>::_M_insert_overflow(Rva001504A1Record*,const Rva001504A1Record&,const _STL::__false_type&,unsigned int,bool);
+
+// Preserve STLport placement-copy inlining without another external specialization (StlportConstructCopySiblings.cpp owns the
+// retail helper); the direct constructor call carries no /EHsc placement-delete cleanup, which would keep it out of line.
+namespace _STL {
+static inline void _Construct(Rva0014F480 *dest, const Rva0014F480 &source) { if (dest) dest->Rva0014F480::Rva0014F480(source); }
+}
+
+template void _STL::vector<Rva0014F480, _STL::allocator<Rva0014F480> >::_M_insert_overflow(
+    Rva0014F480 *, const Rva0014F480 &, const _STL::__false_type &, unsigned int, bool);
+
+// Preserve STLport placement-copy inlining without another external specialization (StlportConstructCopySiblings.cpp owns the
+// retail helper); the direct constructor call carries no /EHsc placement-delete cleanup, which would keep it out of line.
+namespace _STL {
+static inline void _Construct(Rva0014F4C2 *dest, const Rva0014F4C2 &source) { if (dest) dest->Rva0014F4C2::Rva0014F4C2(source); }
+}
+
+template void _STL::vector<Rva0014F4C2, _STL::allocator<Rva0014F4C2> >::_M_insert_overflow(
+    Rva0014F4C2 *, const Rva0014F4C2 &, const _STL::__false_type &, unsigned int, bool);
+
+// Preserve STLport placement-copy inlining without another external specialization (StlportConstructCopySiblings.cpp owns the
+// retail helper); the direct constructor call carries no /EHsc placement-delete cleanup, which would keep it out of line.
+namespace _STL {
+static inline void _Construct(Rva0014F4A1 *dest, const Rva0014F4A1 &source) { if (dest) dest->Rva0014F4A1::Rva0014F4A1(source); }
+}
+
+template void _STL::vector<Rva0014F4A1, _STL::allocator<Rva0014F4A1> >::_M_insert_overflow(
+    Rva0014F4A1 *, const Rva0014F4A1 &, const _STL::__false_type &, unsigned int, bool);
+
+// Retail range cleanup is the rowed virtual-destruction dispatcher.
+struct Rva001504A1Record;
+
+void __cdecl Rva0014F8AEDestroy(Rva0014F3E7*,Rva0014F3E7*);
+
+namespace _STL {
+template <> __declspec(dllimport) __forceinline void _Destroy<Rva001504A1Record *>(Rva001504A1Record *first,Rva001504A1Record *last)
+{ Rva0014F8AEDestroy((Rva0014F3E7*)first,(Rva0014F3E7*)last); }
+}
+
+namespace _STL { template <> void allocator<Rva001504A1Record>::deallocate(Rva001504A1Record *,unsigned int) const; }
+
+void __cdecl Rva0014FA0DCopyBackward(Rva0014F699 *first, Rva0014F699 *last, Rva0014F699 *result);
+
+typedef void (__cdecl *CopyBackward4Fn)(Rva0014F699 *first, Rva0014F699 *last, Rva0014F699 *result, const _STL::__false_type &tag);
+
+void __cdecl Rva0014FA2AFill(Rva0014F699 *first, Rva0014F699 *last, const Rva0014F699 &value);
+
+void *__cdecl rva0014FA47(void *first, unsigned int n, void *value);
+
+struct __declspec(novtable) Rva00150C97Entry : public Rva0014F480
+{
+	Rva00150C97Entry() {}
+	virtual ~Rva00150C97Entry() {}
+};
+
+class Rva00150BF9Vector {
+ Rva00150C97Entry *start,*finish,*end;
+public: void resize(unsigned, Rva00150C97Entry);
+};
+
+typedef _STL::vector<Rva00150C97Entry> Rva00150C97Vector;
+
+namespace _STL { template<> void vector<Rva00150C97Entry>::resize(unsigned int); }
+
+class Rva00150C97 : public Rva00BC6F24Base { Rva00150C97Vector values; const void *m_10; int m_14; public: void grow(int count); void rva00150C97(int count); };
+
+// Target: Ghidra extent and native ret4 boundary; vector member +4;
+// signed growth loop writes each new element index at +4. Storage stride
+// 8 is established by native pointer arithmetic. Application identity unknown.
+// STLport4.5.3 supplies size/operator[]; resize declaration targets the
+// unique native wrapper 0x00150BF9 decoded from this body.
+
+// 0x00150BF9: 41B native resize wrapper constructs an 8-byte by-value
+// entry. All three vtable writes come from this target; index remains
+// uninitialized until the grow loop fills it. No application name inferred.
+namespace _STL { template<> void vector<Rva00150C97Entry>::resize(unsigned n) {
+ reinterpret_cast<Rva00150BF9Vector*>(this)->resize(n,Rva00150C97Entry());
+} }
+
+namespace _STL {
+template<> Rva00150C97Entry* vector<Rva00150C97Entry>::erase(Rva00150C97Entry*,Rva00150C97Entry*);
+template<> void vector<Rva00150C97Entry>::_M_fill_insert(Rva00150C97Entry*,unsigned,const Rva00150C97Entry&);
+}
+
+struct __declspec(novtable) Rva00150CD0Entry : public Rva0014F4A1
+{
+	Rva00150CD0Entry() {}
+	virtual ~Rva00150CD0Entry() {}
+};
+
+class Rva00150C22Vector {
+ Rva00150CD0Entry *start,*finish,*end;
+public: void resize(unsigned, Rva00150CD0Entry);
+};
+
+typedef _STL::vector<Rva00150CD0Entry> Rva00150CD0Vector;
+
+namespace _STL { template<> void vector<Rva00150CD0Entry>::resize(unsigned int); }
+
+class Rva00150CD0 : public Rva00BC6F24Base { Rva00150CD0Vector values; const void *m_10; int m_14; public: void grow(int count); void rva00150CD0(int count); };
+
+// Target: Ghidra extent and native ret4 boundary; vector member +4;
+// signed growth loop writes each new element index at +4. Storage stride
+// 8 is established by native pointer arithmetic. Application identity unknown.
+// STLport4.5.3 supplies size/operator[]; resize declaration targets the
+// unique native wrapper 0x00150C22 decoded from this body.
+
+// 0x00150C22: 41B native resize wrapper constructs an 8-byte by-value
+// entry. All three vtable writes come from this target; index remains
+// uninitialized until the grow loop fills it. No application name inferred.
+namespace _STL { template<> void vector<Rva00150CD0Entry>::resize(unsigned n) {
+ reinterpret_cast<Rva00150C22Vector*>(this)->resize(n,Rva00150CD0Entry());
+} }
+
+namespace _STL {
+template<> Rva00150CD0Entry* vector<Rva00150CD0Entry>::erase(Rva00150CD0Entry*,Rva00150CD0Entry*);
+template<> void vector<Rva00150CD0Entry>::_M_fill_insert(Rva00150CD0Entry*,unsigned,const Rva00150CD0Entry&);
+}
+
+struct __declspec(novtable) Rva00150D09Entry : public Rva0014F4C2
+{
+	Rva00150D09Entry() {}
+	virtual ~Rva00150D09Entry() {}
+};
+
+class Rva00150C4BVector {
+ Rva00150D09Entry *start,*finish,*end;
+public: void resize(unsigned, Rva00150D09Entry);
+};
+
+typedef _STL::vector<Rva00150D09Entry> Rva00150D09Vector;
+
+namespace _STL { template<> void vector<Rva00150D09Entry>::resize(unsigned int); }
+
+class Rva00150D09 : public Rva00BC6F24Base { Rva00150D09Vector values; const void *m_10; int m_14; public: void grow(int count); void rva00150D09(int count); };
+
+// Target: Ghidra extent and native ret4 boundary; vector member +4;
+// signed growth loop writes each new element index at +4. Storage stride
+// 8 is established by native pointer arithmetic. Application identity unknown.
+// STLport4.5.3 supplies size/operator[]; resize declaration targets the
+// unique native wrapper 0x00150C4B decoded from this body.
+
+// 0x00150C4B: 41B native resize wrapper constructs an 8-byte by-value
+// entry. All three vtable writes come from this target; index remains
+// uninitialized until the grow loop fills it. No application name inferred.
+namespace _STL { template<> void vector<Rva00150D09Entry>::resize(unsigned n) {
+ reinterpret_cast<Rva00150C4BVector*>(this)->resize(n,Rva00150D09Entry());
+} }
+
+namespace _STL {
+template<> Rva00150D09Entry* vector<Rva00150D09Entry>::erase(Rva00150D09Entry*,Rva00150D09Entry*);
+template<> void vector<Rva00150D09Entry>::_M_fill_insert(Rva00150D09Entry*,unsigned,const Rva00150D09Entry&);
+}
+
+// 0x150C74 adapter and 0x150B8D grower share one {first,last} object: the
+// adapter builds a 76-byte scratch element through 0x14DB9F, then forwards
+// (this, n) to the grower, which reads the scratch in place as its by-value
+// fill element (hence its ret 0x50 against 4 pushed bytes; this frame's leave
+// rescues esp). The grower is declared (int) here to reproduce the retail
+// call shape; its true (int, element) signature lands with its body.
+class Rva0014DB9F
+{
+	char m_bytes[76];
+public:
+	Rva0014DB9F();
+	// Declared, never defined in this TU (same device the matched
+	// Rva00427130Vector::resize uses: its BfmeItemERF declares copy and
+	// dtor without defining them here): the invisible copy forces MSVC to
+	// construct the by-value temporary directly in the outgoing arg slot
+	// instead of building it aside and rep-movs copying it.
+	Rva0014DB9F(const Rva0014DB9F &other);
+	~Rva0014DB9F();
+};
+
+class Rva00150B8D
+{
+public:
+	void rva00150B8D(int n, Rva0014DB9F fill);
+	void rva00150C74(int count);
+};
+
+// The destructor is implicit: retail's ??1 stores no vptr of its own, only the base's.
+class Rva00150558 : public Rva00BC6F24Base
+{
+public:
+	Rva00150558(EmitVtableTag *);
+	Rva00150558(EmitDestructorTag *);
+private:
+	Rva001501CA m_04;
+	Rva00BC6F24Base m_10;
+};
+
 // tu-skeleton: 0x0014F778 122B ?SetShadowMapInfo@FXShaderParameterSourceNamespaceSAS@@QAEXHABVMatrix4@@V?$RefCountPtr@VTextureClass@@@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/fxshadernamespacesas.cpp (not merged yet)
 
 // tu-skeleton: 0x0014F7F2 122B ?rva0014F7F2@FXShaderParameterSourceNamespaceSAS@@QAEXH@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/fxshadernamespacesas.cpp (not merged yet)
@@ -319,7 +521,14 @@ template<> void vector<Rva00150D42Entry>::_M_fill_insert(Rva00150D42Entry*,unsig
 
 // tu-skeleton: 0x0014F8C6 30B ?rva0014F8C6@Rva0014F8C6@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva0014F3E7Destroy.cpp (not merged yet)
 
-// tu-skeleton: 0x0014F8E4 41B ??$__uninitialized_copy@PAVRva0014F480@@PAV1@@_STL@@YAPAVRva0014F480@@PAV1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorRva0014F480Overflow.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/StlportVectorRva0014F480Overflow.cpp
+
+inline Rva00BC6F24Base::~Rva00BC6F24Base()
+{
+	*(const void **)this = __identifier("??_7Base@@6B@");
+}
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp
 
@@ -459,64 +668,6 @@ void Rva00150A86::insert(Rva001504A1Record *p,unsigned n,const Rva0014F699 &v){r
 // ?<Rva0015058E::Rva0015058E> absent-from-retail
 Rva0015058E::Rva0015058E(EmitVtableTag *) {}
 
-// tu-skeleton: 0x0014F96C 41B ??$__uninitialized_copy@PAVRva0014F4C2@@PAV1@@_STL@@YAPAVRva0014F4C2@@PAV1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorRva0014F4C2Overflow.cpp (not merged yet)
-
-// tu-skeleton: 0x0014F9E7 38B ??$__uninitialized_copy@PAURva001504A1Record@@PAU1@@_STL@@YAPAURva001504A1Record@@PAU1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/VectorOverflowRva001504A1.cpp (not merged yet)
-
-// tu-skeleton: 0x0014FAC2 390B ?ResolveBindings@FXShaderParameterSourceNamespaceSAS@@UAEXPBD0PAVFXShaderParameterBinder@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/fxshadernamespacesas.cpp (not merged yet)
-
-// tu-skeleton: 0x0014FC48 126B ?ResolveBindings@SourceNamespace_Matrix@FXShaderParameterSourceNamespaceSAS@@UAEXPBD0PAVFXShaderParameterBinder@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/fxshadernamespacesas.cpp (not merged yet)
-
-// tu-skeleton: 0x0014FCC6 163B ?ResolveBindings@SourceNamespace_Camera@FXShaderParameterSourceNamespaceSAS@@UAEXPBD0PAVFXShaderParameterBinder@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/fxshadernamespacesas.cpp (not merged yet)
-
-// tu-skeleton: 0x0014FD69 97B ?ResolveBindings@SourceNamespace_Time@FXShaderParameterSourceNamespaceSAS@@UAEXPBD0PAVFXShaderParameterBinder@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/fxshadernamespacesas.cpp (not merged yet)
-
-// tu-skeleton: 0x0014FDCA 105B ?ResolveBindings@SourceNamespace_AmbientLight@FXShaderParameterSourceNamespaceSAS@@UAEXPBD0PAVFXShaderParameterBinder@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/fxshadernamespacesas.cpp (not merged yet)
-
-// tu-skeleton: 0x0014FE33 133B ?ResolveBindings@SourceNamespace_DirectionalLight@FXShaderParameterSourceNamespaceSAS@@UAEXPBD0PAVFXShaderParameterBinder@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/fxshadernamespacesas.cpp (not merged yet)
-
-// tu-skeleton: 0x0014FEB8 159B ?ResolveBindings@SourceNamespace_PointLight@FXShaderParameterSourceNamespaceSAS@@UAEXPBD0PAVFXShaderParameterBinder@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/fxshadernamespacesas.cpp (not merged yet)
-
-// tu-skeleton: 0x0014FF57 159B ?ResolveBindings@SourceNamespace_Shadow@FXShaderParameterSourceNamespaceSAS@@UAEXPBD0PAVFXShaderParameterBinder@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/fxshadernamespacesas.cpp (not merged yet)
-
-// tu-skeleton: 0x0014FFF6 468B ?ResolveBindings@SourceNamespace_Skeleton@FXShaderParameterSourceNamespaceSAS@@UAEXPBD0PAVFXShaderParameterBinder@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/fxshadernamespacesas.cpp (not merged yet)
-
-// tu-skeleton: 0x001501CA 63B ??1Rva001501CA@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaVectorDtorFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x00150209 63B ??1Rva00150209@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaVectorDtorFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x00150282 181B ?_M_insert_overflow@?$vector@VRva0014F480@@V?$allocator@VRva0014F480@@@_STL@@@_STL@@IAEXPAVRva0014F480@@ABV3@ABU__false_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorRva0014F480Overflow.cpp (not merged yet)
-
-// tu-skeleton: 0x00150337 181B ?_M_insert_overflow@?$vector@VRva0014F4A1@@V?$allocator@VRva0014F4A1@@@_STL@@@_STL@@IAEXPAVRva0014F4A1@@ABV3@ABU__false_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorRva0014F4A1Overflow.cpp (not merged yet)
-
-// tu-skeleton: 0x001503EC 181B ?_M_insert_overflow@?$vector@VRva0014F4C2@@V?$allocator@VRva0014F4C2@@@_STL@@@_STL@@IAEXPAVRva0014F4C2@@ABV3@ABU__false_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorRva0014F4C2Overflow.cpp (not merged yet)
-
-// tu-skeleton: 0x001504A1 183B ?_M_insert_overflow@?$vector@URva001504A1Record@@V?$allocator@URva001504A1Record@@@_STL@@@_STL@@IAEXPAURva001504A1Record@@ABU3@ABU__false_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/VectorOverflowRva001504A1.cpp (not merged yet)
-
-// tu-skeleton: 0x0015058E 63B ??1Rva0015058E@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0015058EDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x001505CD 140B ??1Rva001505CD@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva001505CDDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00150659 51B ?erase@?$vector@URva00150659Element@@V?$allocator@URva00150659Element@@@_STL@@@_STL@@QAEPAURva00150659Element@@PAU3@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeDeferred.cpp (not merged yet)
-
-// tu-skeleton: 0x0015068C 51B ?rva0015068C@Rva0015068C@@QAEPAVRva0014F699@@PAV2@0@Z -- matched in Code/GameEngine/Source/Common/Rva0015068CFinish.cpp (not merged yet)
-
-// tu-skeleton: 0x001506BF 222B ?_M_fill_insert@?$vector@URva001506BFElement@@V?$allocator@URva001506BFElement@@@_STL@@@_STL@@QAEXPAURva001506BFElement@@IABU3@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva001506BF.cpp (not merged yet)
-
-// tu-skeleton: 0x0015079D 222B ?_M_fill_insert@?$vector@URva0015079DElement@@V?$allocator@URva0015079DElement@@@_STL@@@_STL@@QAEXPAURva0015079DElement@@IABU3@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0015079D.cpp (not merged yet)
-
-// tu-skeleton: 0x0015087B 222B ?_M_fill_insert@?$vector@URva0015087BElement@@V?$allocator@URva0015087BElement@@@_STL@@@_STL@@QAEXPAURva0015087BElement@@IABU3@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0015087B.cpp (not merged yet)
-
-// tu-skeleton: 0x00150959 258B ?rva00150959@Rva00150959@@QAEXPAURva001504A1Record@@IABVRva0014F699@@@Z -- matched in Code/GameEngine/Source/Common/Rva00150959Insert.cpp (not merged yet)
-
-// tu-skeleton: 0x00150A5B 28B ??_GRva001505CD@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva001505CDDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00150A8B 86B ?resize@Rva00150BF9Vector@@QAEXIURva00150C97Entry@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00150C97IndexedVector.cpp (not merged yet)
-
-// tu-skeleton: 0x00150AE1 86B ?resize@Rva00150C22Vector@@QAEXIURva00150CD0Entry@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00150CD0IndexedVector.cpp (not merged yet)
-
-// tu-skeleton: 0x00150B37 86B ?resize@Rva00150C4BVector@@QAEXIURva00150D09Entry@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00150D09IndexedVector.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/Rva00150D42IndexedVector.cpp
 
 void Rva00150D42::grow(int count) {
@@ -544,25 +695,236 @@ void Rva00150C74Vector::resize(unsigned n,Rva00150D42Entry value) {
 
 //   0x0014DB9F reads ??0SourceNamespace_Shadow@FXShaderParameterSourceNamespaceSAS@@QAE@XZ
 
-// tu-skeleton: 0x00150BF9 41B ?resize@?$vector@URva00150C97Entry@@V?$allocator@URva00150C97Entry@@@_STL@@@_STL@@QAEXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00150C97IndexedVector.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/StlportVectorRva0014F4C2Overflow.cpp
 
-// tu-skeleton: 0x00150C22 41B ?resize@?$vector@URva00150CD0Entry@@V?$allocator@URva00150CD0Entry@@@_STL@@@_STL@@QAEXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00150CD0IndexedVector.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/VectorOverflowRva001504A1.cpp
 
-// tu-skeleton: 0x00150C4B 41B ?resize@?$vector@URva00150D09Entry@@V?$allocator@URva00150D09Entry@@@_STL@@@_STL@@QAEXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00150D09IndexedVector.cpp (not merged yet)
+// Reference: pristine STLport4.5.3 vector::_M_insert_overflow.
+// Retail 0x001504A1, 183B; Ghidra boundary, ret14 ABI and 76-byte
+// arithmetic independently establish the overflow and storage width. The
+// address-derived record is an opaque ABI view; no application class or
+// member layout is inferred. Each helper pin comes from this target's calls.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
 
-// tu-skeleton: 0x00150C74 35B ?rva00150C74@Rva00150B8D@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/Rva00150B8DFamily.cpp (not merged yet)
+// tu-skeleton: 0x0014FAC2 390B ?ResolveBindings@FXShaderParameterSourceNamespaceSAS@@UAEXPBD0PAVFXShaderParameterBinder@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/fxshadernamespacesas.cpp (not merged yet)
 
-// tu-skeleton: 0x00150C97 57B ?rva00150C97@Rva00150C97@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/Rva00150B8DFamily.cpp (not merged yet)
+// tu-skeleton: 0x0014FC48 126B ?ResolveBindings@SourceNamespace_Matrix@FXShaderParameterSourceNamespaceSAS@@UAEXPBD0PAVFXShaderParameterBinder@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/fxshadernamespacesas.cpp (not merged yet)
 
-// tu-skeleton: 0x00150CD0 57B ?rva00150CD0@Rva00150CD0@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/Rva00150B8DFamily.cpp (not merged yet)
+// tu-skeleton: 0x0014FCC6 163B ?ResolveBindings@SourceNamespace_Camera@FXShaderParameterSourceNamespaceSAS@@UAEXPBD0PAVFXShaderParameterBinder@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/fxshadernamespacesas.cpp (not merged yet)
 
-// tu-skeleton: 0x00150D09 57B ?rva00150D09@Rva00150D09@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/Rva00150B8DFamily.cpp (not merged yet)
+// tu-skeleton: 0x0014FD69 97B ?ResolveBindings@SourceNamespace_Time@FXShaderParameterSourceNamespaceSAS@@UAEXPBD0PAVFXShaderParameterBinder@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/fxshadernamespacesas.cpp (not merged yet)
 
-// tu-skeleton: 0x00150D42 72B ?rva00150D42@Rva00150D42@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/Rva00150B8DFamily.cpp (not merged yet)
+// tu-skeleton: 0x0014FDCA 105B ?ResolveBindings@SourceNamespace_AmbientLight@FXShaderParameterSourceNamespaceSAS@@UAEXPBD0PAVFXShaderParameterBinder@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/fxshadernamespacesas.cpp (not merged yet)
+
+// tu-skeleton: 0x0014FE33 133B ?ResolveBindings@SourceNamespace_DirectionalLight@FXShaderParameterSourceNamespaceSAS@@UAEXPBD0PAVFXShaderParameterBinder@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/fxshadernamespacesas.cpp (not merged yet)
+
+// tu-skeleton: 0x0014FEB8 159B ?ResolveBindings@SourceNamespace_PointLight@FXShaderParameterSourceNamespaceSAS@@UAEXPBD0PAVFXShaderParameterBinder@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/fxshadernamespacesas.cpp (not merged yet)
+
+// tu-skeleton: 0x0014FF57 159B ?ResolveBindings@SourceNamespace_Shadow@FXShaderParameterSourceNamespaceSAS@@UAEXPBD0PAVFXShaderParameterBinder@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/fxshadernamespacesas.cpp (not merged yet)
+
+// tu-skeleton: 0x0014FFF6 468B ?ResolveBindings@SourceNamespace_Skeleton@FXShaderParameterSourceNamespaceSAS@@UAEXPBD0PAVFXShaderParameterBinder@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/fxshadernamespacesas.cpp (not merged yet)
+
+// tu-skeleton: 0x001501CA 63B ??1Rva001501CA@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaVectorDtorFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x00150209 63B ??1Rva00150209@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaVectorDtorFamily.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/StlportVectorRva0014F4A1Overflow.cpp
+
+// ---- from Code/GameEngine/Source/Common/Rva0015058EDtor.cpp
+
+// ?<Rva0015058E::Rva0015058E> absent-from-retail
+Rva0015058E::Rva0015058E(EmitDestructorTag *) {}
+
+// tu-skeleton: 0x001505CD 140B ??1Rva001505CD@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva001505CDDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00150659 51B ?erase@?$vector@URva00150659Element@@V?$allocator@URva00150659Element@@@_STL@@@_STL@@QAEPAURva00150659Element@@PAU3@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeDeferred.cpp (not merged yet)
+
+// tu-skeleton: 0x0015068C 51B ?rva0015068C@Rva0015068C@@QAEPAVRva0014F699@@PAV2@0@Z -- matched in Code/GameEngine/Source/Common/Rva0015068CFinish.cpp (not merged yet)
+
+// tu-skeleton: 0x001506BF 222B ?_M_fill_insert@?$vector@URva001506BFElement@@V?$allocator@URva001506BFElement@@@_STL@@@_STL@@QAEXPAURva001506BFElement@@IABU3@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva001506BF.cpp (not merged yet)
+
+// tu-skeleton: 0x0015079D 222B ?_M_fill_insert@?$vector@URva0015079DElement@@V?$allocator@URva0015079DElement@@@_STL@@@_STL@@QAEXPAURva0015079DElement@@IABU3@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0015079D.cpp (not merged yet)
+
+// tu-skeleton: 0x0015087B 222B ?_M_fill_insert@?$vector@URva0015087BElement@@V?$allocator@URva0015087BElement@@@_STL@@@_STL@@QAEXPAURva0015087BElement@@IABU3@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0015087B.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva00150959Insert.cpp
+
+void Rva00150959::rva00150959(Rva001504A1Record *pos, unsigned int count, const Rva0014F699 &fillValue)
+{
+	if (count == 0)
+		return;
+	if ((unsigned int)(_M_end_of_storage._M_data - _M_finish) >= count) {
+		Rva0014F699 x_copy(fillValue);
+		unsigned int elems_after = (unsigned int)(_M_finish - pos);
+		Rva001504A1Record *old_finish = _M_finish;
+		if (elems_after > count) {
+			_STL::__uninitialized_copy(old_finish - count, old_finish, old_finish, *(const _STL::__false_type *)((char *)&pos + 3));
+			_M_finish += count;
+			Rva001504A1Record *p = pos;
+			((CopyBackward4Fn)Rva0014FA0DCopyBackward)((Rva0014F699 *)p, (Rva0014F699 *)(old_finish - count), (Rva0014F699 *)old_finish, *(const _STL::__false_type *)((char *)&pos + 3));
+			Rva0014FA2AFill((Rva0014F699 *)p, (Rva0014F699 *)(p + count), x_copy);
+		} else {
+			rva0014FA47(old_finish, count - elems_after, (void *)&x_copy);
+			_M_finish += count - elems_after;
+			_STL::__uninitialized_copy(pos, old_finish, _M_finish, *(const _STL::__false_type *)((char *)&pos + 3));
+			_M_finish += elems_after;
+			Rva0014FA2AFill((Rva0014F699 *)pos, (Rva0014F699 *)old_finish, x_copy);
+		}
+	} else {
+		_M_insert_overflow(pos, (const Rva001504A1Record &)fillValue, *(const _STL::__false_type *)((char *)&pos + 3), count, false);
+	}
+}
+
+// tu-skeleton: 0x00150A5B 28B ??_GRva001505CD@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva001505CDDtor.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva00150C97IndexedVector.cpp
+
+void Rva00150C97::grow(int count) {
+ if ((unsigned)count >= values.size()) {
+  int old=values.size();
+  values.resize(count);
+  for (;old<count;++old) values[old].index=old;
+ }
+}
+
+void Rva00150BF9Vector::resize(unsigned n,Rva00150C97Entry value) {
+ _STL::vector<Rva00150C97Entry>*v=reinterpret_cast<_STL::vector<Rva00150C97Entry>*>(this);
+ if (n<v->size()) v->erase(v->begin()+n,v->end());
+ else v->insert(v->end(),n-v->size(),value);
+}
+
+// By-value resize: native 86B ret0C body, 8B stride, erase and fill
+// callees read from this target. Inline vtable cleanup keeps EH unwind
+// registration while dead stores disappear on the normal return path.
+
+// Each retail call in this body reads an address the ledger already carries
+// under the rowed name below. Bind the donor spelling to that owner so one
+// address keeps one definition and the unit links.
+//   0x001506BF reads ?_M_fill_insert@?$vector@URva001506BFElement@@V?$allocator@URva001506BFElement@@@_STL@@@_STL@@QAEXPAURva001506BFElement@@IABU3@@Z
+
+//   0x00150659 reads ?erase@?$vector@URva00150659Element@@V?$allocator@URva00150659Element@@@_STL@@@_STL@@QAEPAURva00150659Element@@PAU3@0@Z
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva00150CD0IndexedVector.cpp
+
+void Rva00150CD0::grow(int count) {
+ if ((unsigned)count >= values.size()) {
+  int old=values.size();
+  values.resize(count);
+  for (;old<count;++old) values[old].index=old;
+ }
+}
+
+void Rva00150C22Vector::resize(unsigned n,Rva00150CD0Entry value) {
+ _STL::vector<Rva00150CD0Entry>*v=reinterpret_cast<_STL::vector<Rva00150CD0Entry>*>(this);
+ if (n<v->size()) v->erase(v->begin()+n,v->end());
+ else v->insert(v->end(),n-v->size(),value);
+}
+
+// By-value resize: native 86B ret0C body, 8B stride, erase and fill
+// callees read from this target. Inline vtable cleanup keeps EH unwind
+// registration while dead stores disappear on the normal return path.
+
+// Each retail call in this body reads an address the ledger already carries
+// under the rowed name below. Bind the donor spelling to that owner so one
+// address keeps one definition and the unit links.
+//   0x0015079D reads ?_M_fill_insert@?$vector@URva0015079DElement@@V?$allocator@URva0015079DElement@@@_STL@@@_STL@@QAEXPAURva0015079DElement@@IABU3@@Z
+
+//   0x00150659 reads ?erase@?$vector@URva00150659Element@@V?$allocator@URva00150659Element@@@_STL@@@_STL@@QAEPAURva00150659Element@@PAU3@0@Z
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva00150D09IndexedVector.cpp
+
+void Rva00150D09::grow(int count) {
+ if ((unsigned)count >= values.size()) {
+  int old=values.size();
+  values.resize(count);
+  for (;old<count;++old) values[old].index=old;
+ }
+}
+
+void Rva00150C4BVector::resize(unsigned n,Rva00150D09Entry value) {
+ _STL::vector<Rva00150D09Entry>*v=reinterpret_cast<_STL::vector<Rva00150D09Entry>*>(this);
+ if (n<v->size()) v->erase(v->begin()+n,v->end());
+ else v->insert(v->end(),n-v->size(),value);
+}
+
+// By-value resize: native 86B ret0C body, 8B stride, erase and fill
+// callees read from this target. Inline vtable cleanup keeps EH unwind
+// registration while dead stores disappear on the normal return path.
+
+// Each retail call in this body reads an address the ledger already carries
+// under the rowed name below. Bind the donor spelling to that owner so one
+// address keeps one definition and the unit links.
+//   0x0015087B reads ?_M_fill_insert@?$vector@URva0015087BElement@@V?$allocator@URva0015087BElement@@@_STL@@@_STL@@QAEXPAURva0015087BElement@@IABU3@@Z
+
+//   0x00150659 reads ?erase@?$vector@URva00150659Element@@V?$allocator@URva00150659Element@@@_STL@@@_STL@@QAEPAURva00150659Element@@PAU3@0@Z
+
+// ---- from Code/GameEngine/Source/Common/Rva00150B8DFamily.cpp
+
+// 87B subclass ctors (0x150D8A/0x150DFD/0x150F19): each installs its own
+// vtable, placement-constructs the {first,last} member through the pinned
+// 0x211E58 _Vector_base ctor (empty-allocator temporary, address only),
+// stamps the +0x10/0x14 pair, and grows when n > 0.
+
+// ?rva00150C97@Rva00150C97@@QAEXH@Z
+void Rva00150C97::rva00150C97(int count) {
+ if ((unsigned)count >= values.size()) {
+  int old=values.size();
+  values.resize(count);
+  for (;old<count;++old) values[old].index=old;
+ }
+}
+
+// ?rva00150CD0@Rva00150CD0@@QAEXH@Z
+void Rva00150CD0::rva00150CD0(int count) {
+ if ((unsigned)count >= values.size()) {
+  int old=values.size();
+  values.resize(count);
+  for (;old<count;++old) values[old].index=old;
+ }
+}
+
+// ?rva00150D09@Rva00150D09@@QAEXH@Z
+void Rva00150D09::rva00150D09(int count) {
+ if ((unsigned)count >= values.size()) {
+  int old=values.size();
+  values.resize(count);
+  for (;old<count;++old) values[old].index=old;
+ }
+}
+
+// ?rva00150C74@Rva00150B8D@@QAEXH@Z
+void Rva00150B8D::rva00150C74(int count)
+{
+	rva00150B8D(count, Rva0014DB9F());
+}
+
+// ?rva00150D42@Rva00150D42@@QAEXH@Z
+void Rva00150D42::rva00150D42(int count) {
+ if ((unsigned)count >= values.size()) {
+  int old=values.size();
+  values.resize(count);
+  for (;old<count;++old) values[old].index=old;
+ }
+}
+
+// 86B growers (0x150A8B/0x150AE1/0x150B37): resize core over the 8-byte
+// elements. Shrink goes through the rowed 0x150659 vector range erase;
+// grow recomputes size and forwards (end, n-size, &scratch) to 0x1506BF.
+
+// Each retail call in this body reads an address the ledger already carries
+// under the rowed name below. Bind the donor spelling to that owner so one
+// address keeps one definition and the unit links.
+//   0x00150B8D reads ?resize@Rva00150C74Vector@@QAEXIURva00150D42Entry@@@Z
+
+//   0x0014DB9F reads ??0SourceNamespace_Shadow@FXShaderParameterSourceNamespaceSAS@@QAE@XZ
 
 // tu-skeleton: 0x00150D8A 87B ??0?$FXShaderParameterSourceNamespace_Array@USourceNamespace_AmbientLight@FXShaderParameterSourceNamespaceSAS@@@@QAE@H@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/fxshadernamespacesas.cpp (not merged yet)
 
-// tu-skeleton: 0x00150DE1 28B ??_GRva00150558@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva00150558.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva00150558.cpp
+
+// ?<Rva00150558::Rva00150558> absent-from-retail
+Rva00150558::Rva00150558(EmitVtableTag *) {}
 
 // tu-skeleton: 0x00150DFD 87B ??0?$FXShaderParameterSourceNamespace_Array@USourceNamespace_DirectionalLight@FXShaderParameterSourceNamespaceSAS@@@@QAE@H@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/fxshadernamespacesas.cpp (not merged yet)
 
@@ -579,16 +941,6 @@ void Rva00150C74Vector::resize(unsigned n,Rva00150D42Entry value) {
 // tu-skeleton: 0x007669DF 8B Unwind@00b669df -- matched in Code/Libraries/Source/WWVegas/WW3D2/fxshadernamespacesas.cpp (not merged yet)
 
 // tu-skeleton: 0x007669E7 10B __ehhandler$?SetShadowMapInfo@FXShaderParameterSourceNamespaceSAS@@QAEXHABVMatrix4@@V?$RefCountPtr@VTextureClass@@@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/fxshadernamespacesas.cpp (not merged yet)
-
-// tu-skeleton: 0x00766A03 8B $L362 -- matched in Code/GameEngine/Source/Common/Rva0015058EDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00766A0B 11B uw_00766a0b -- matched in Code/GameEngine/Source/Common/Rva0015058EDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00766A16 10B __ehhandler$??1Rva0015058E@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0015058EDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00766A82 8B uw_00766a82 -- matched in Code/GameEngine/Source/Common/Rva00150959Insert.cpp (not merged yet)
-
-// tu-skeleton: 0x00766A8A 10B __ehhandler$?rva00150959@Rva00150959@@QAEXPAURva001504A1Record@@IABVRva0014F699@@@Z -- matched in Code/GameEngine/Source/Common/Rva00150959Insert.cpp (not merged yet)
 
 // tu-skeleton: 0x00766AE0 8B Unwind@00b66ae0 -- matched in Code/Libraries/Source/WWVegas/WW3D2/fxshadernamespacesas.cpp (not merged yet)
 

@@ -9792,7 +9792,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0014F60D,18,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlportConstructCopySiblings.cpp
 0x0014F61F,40,code,,,-,,Code/GameEngine/Source/Common/Rva0014F5FillN.cpp
 0x0014F647,45,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlportConstructFamilyW3G15.cpp
-0x0014F674,37,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/VectorOverflowRva001504A1.cpp
+0x0014F674,37,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp
 0x0014F699,127,code,,,-,,Code/GameEngine/Source/Common/Rva0014F699Assign.cpp
 0x0014F718,46,code,,,-,,Code/GameEngine/Source/Common/Rva0014F718CopyBackward.cpp
 0x0014F746,50,code,,,-,,Code/GameEngine/Source/Common/Rva0014F746CopyBackward.cpp
@@ -9802,15 +9802,15 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0014F89B,19,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014F86C..0x0014F8AE provisional,Code/GameEngine/Source/Common/GapBodiesGE45.cpp
 0x0014F8AE,24,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014F86C..0x0014F8C6 provisional,Code/GameEngine/Source/Common/Rva0014F3E7Destroy.cpp
 0x0014F8C6,30,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014F86C..0x0014F8E4 provisional,Code/GameEngine/Source/Common/Rva0014F3E7Destroy.cpp
-0x0014F8E4,41,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014F86C..0x0014F90D provisional,Code/Libraries/Source/WWVegas/WWLib/StlportVectorRva0014F480Overflow.cpp
+0x0014F8E4,41,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014F86C..0x0014F90D provisional,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp
 0x0014F90D,27,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014F86C..0x0014F928 provisional,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp
 0x0014F928,41,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014F86C..0x0014F951 provisional,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp
 0x0014F951,27,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014F86C..0x0014F96C provisional,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp
-0x0014F96C,41,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014F86C..0x0014F995 provisional,Code/Libraries/Source/WWVegas/WWLib/StlportVectorRva0014F4C2Overflow.cpp
+0x0014F96C,41,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014F86C..0x0014F995 provisional,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp
 0x0014F995,29,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014F86C..0x0014F9B2 provisional,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp
 0x0014F9B2,26,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014F86C..0x0014F9CC provisional,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp
 0x0014F9CC,27,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014F86C..0x0014F9E7 provisional,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp
-0x0014F9E7,38,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014F86C..0x0014FA0D provisional,Code/Libraries/Source/WWVegas/WWLib/VectorOverflowRva001504A1.cpp
+0x0014F9E7,38,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014F86C..0x0014FA0D provisional,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp
 0x0014FA0D,29,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014F86C..0x0014FA2A provisional,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp
 0x0014FA2A,29,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014F86C..0x0014FA47 provisional,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp
 0x0014FA47,27,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014F86C..0x0014FA62 provisional,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp
@@ -9829,38 +9829,38 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00150209,63,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014FAC2..0x00150248 provisional,Code/GameEngine/Source/Common/RvaVectorDtorFamily.cpp
 0x00150248,29,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014FAC2..0x00150265 provisional,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp
 0x00150265,29,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014FAC2..0x00150282 provisional,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp
-0x00150282,181,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014FAC2..0x00150337 provisional,Code/Libraries/Source/WWVegas/WWLib/StlportVectorRva0014F480Overflow.cpp
-0x00150337,181,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014FAC2..0x001503EC provisional,Code/Libraries/Source/WWVegas/WWLib/StlportVectorRva0014F4A1Overflow.cpp
-0x001503EC,181,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014FAC2..0x001504A1 provisional,Code/Libraries/Source/WWVegas/WWLib/StlportVectorRva0014F4C2Overflow.cpp
-0x001504A1,183,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014FAC2..0x00150558 provisional,Code/Libraries/Source/WWVegas/WWLib/VectorOverflowRva001504A1.cpp
+0x00150282,181,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014FAC2..0x00150337 provisional,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp
+0x00150337,181,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014FAC2..0x001503EC provisional,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp
+0x001503EC,181,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014FAC2..0x001504A1 provisional,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp
+0x001504A1,183,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014FAC2..0x00150558 provisional,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp
 0x00150558,54,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014FAC2..0x0015058E provisional,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp
-0x0015058E,63,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014FAC2..0x001505CD provisional,Code/GameEngine/Source/Common/Rva0015058EDtor.cpp
+0x0015058E,63,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014FAC2..0x001505CD provisional,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp
 0x001505CD,140,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014FAC2..0x00150659 provisional,Code/GameEngine/Source/Common/Rva001505CDDtor.cpp
 0x00150659,51,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014FAC2..0x0015068C provisional,Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeDeferred.cpp
 0x0015068C,51,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014FAC2..0x001506BF provisional,Code/GameEngine/Source/Common/Rva0015068CFinish.cpp
 0x001506BF,222,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014FAC2..0x0015079D provisional,Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva001506BF.cpp
 0x0015079D,222,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014FAC2..0x0015087B provisional,Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0015079D.cpp
 0x0015087B,222,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014FAC2..0x00150959 provisional,Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0015087B.cpp
-0x00150959,258,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014FAC2..0x00150A5B provisional,Code/GameEngine/Source/Common/Rva00150959Insert.cpp
+0x00150959,258,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014FAC2..0x00150A5B provisional,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp
 0x00150A5B,28,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014FAC2..0x00150A77 provisional,Code/GameEngine/Source/Common/Rva001505CDDtor.cpp
 0x00150A77,5,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014FAC2..0x00150A7C provisional,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp
 0x00150A7C,5,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014FAC2..0x00150A81 provisional,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp
 0x00150A81,5,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014FAC2..0x00150A86 provisional,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp
 0x00150A86,5,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014FAC2..0x00150A8B provisional,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp
-0x00150A8B,86,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014FAC2..0x00150AE1 provisional,Code/Libraries/Source/WWVegas/WWLib/Rva00150C97IndexedVector.cpp
-0x00150AE1,86,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014FAC2..0x00150B37 provisional,Code/Libraries/Source/WWVegas/WWLib/Rva00150CD0IndexedVector.cpp
-0x00150B37,86,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014FAC2..0x00150B8D provisional,Code/Libraries/Source/WWVegas/WWLib/Rva00150D09IndexedVector.cpp
+0x00150A8B,86,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014FAC2..0x00150AE1 provisional,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp
+0x00150AE1,86,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014FAC2..0x00150B37 provisional,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp
+0x00150B37,86,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014FAC2..0x00150B8D provisional,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp
 0x00150B8D,108,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014FAC2..0x00150BF9 provisional,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp
-0x00150BF9,41,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014FAC2..0x00150C22 provisional,Code/Libraries/Source/WWVegas/WWLib/Rva00150C97IndexedVector.cpp
-0x00150C22,41,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014FAC2..0x00150C4B provisional,Code/Libraries/Source/WWVegas/WWLib/Rva00150CD0IndexedVector.cpp
-0x00150C4B,41,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014FAC2..0x00150C74 provisional,Code/Libraries/Source/WWVegas/WWLib/Rva00150D09IndexedVector.cpp
-0x00150C74,35,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014FAC2..0x00150C97 provisional,Code/GameEngine/Source/Common/Rva00150B8DFamily.cpp
-0x00150C97,57,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014FAC2..0x00150CD0 provisional,Code/GameEngine/Source/Common/Rva00150B8DFamily.cpp
-0x00150CD0,57,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014FAC2..0x00150D09 provisional,Code/GameEngine/Source/Common/Rva00150B8DFamily.cpp
-0x00150D09,57,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014FAC2..0x00150D42 provisional,Code/GameEngine/Source/Common/Rva00150B8DFamily.cpp
-0x00150D42,72,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014FAC2..0x00150D8A provisional,Code/GameEngine/Source/Common/Rva00150B8DFamily.cpp
+0x00150BF9,41,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014FAC2..0x00150C22 provisional,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp
+0x00150C22,41,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014FAC2..0x00150C4B provisional,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp
+0x00150C4B,41,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014FAC2..0x00150C74 provisional,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp
+0x00150C74,35,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014FAC2..0x00150C97 provisional,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp
+0x00150C97,57,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014FAC2..0x00150CD0 provisional,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp
+0x00150CD0,57,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014FAC2..0x00150D09 provisional,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp
+0x00150D09,57,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014FAC2..0x00150D42 provisional,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp
+0x00150D42,72,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014FAC2..0x00150D8A provisional,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp
 0x00150D8A,87,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014FAC2..0x00150DE1 provisional,Code/Libraries/Source/WWVegas/WW3D2/fxshadernamespacesas.cpp
-0x00150DE1,28,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014FAC2..0x00150DFD provisional,Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva00150558.cpp
+0x00150DE1,28,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014FAC2..0x00150DFD provisional,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp
 0x00150DFD,87,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014FAC2..0x00150E54 provisional,Code/Libraries/Source/WWVegas/WW3D2/fxshadernamespacesas.cpp
 0x00150E54,197,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014FAC2..0x00150F19 provisional,Code/Libraries/Source/WWVegas/WW3D2/fxshadernamespacesas.cpp
 0x00150F19,87,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,C,C=0x0014FAC2..0x00150F70 provisional,Code/Libraries/Source/WWVegas/WW3D2/fxshadernamespacesas.cpp
@@ -65288,9 +65288,9 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007669E7,10,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,P,P=0x0014F778@FuncInfo0x0090B084 provisional,Code/Libraries/Source/WWVegas/WW3D2/fxshadernamespacesas.cpp
 0x007669F1,8,code,,,-,,Code/GameEngine/Source/Common/RvaVectorDtorFamily.cpp
 0x007669F9,10,code,,,-,,Code/GameEngine/Source/Common/RvaVectorDtorFamily.cpp
-0x00766A03,8,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,P,P=0x0015058E@FuncInfo0x0090B0D4 provisional,Code/GameEngine/Source/Common/Rva0015058EDtor.cpp
-0x00766A0B,11,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,P,P=0x0015058E@FuncInfo0x0090B0D4 provisional,Code/GameEngine/Source/Common/Rva0015058EDtor.cpp
-0x00766A16,10,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,P,P=0x0015058E@FuncInfo0x0090B0D4 provisional,Code/GameEngine/Source/Common/Rva0015058EDtor.cpp
+0x00766A03,8,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,P,P=0x0015058E@FuncInfo0x0090B0D4 provisional,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp
+0x00766A0B,11,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,P,P=0x0015058E@FuncInfo0x0090B0D4 provisional,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp
+0x00766A16,10,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,P,P=0x0015058E@FuncInfo0x0090B0D4 provisional,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp
 0x00766A20,8,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/fxshadernamespacesas.cpp
 0x00766A28,11,code,,,-,,Code/GameEngine/Source/Common/Rva001505CDDtor.cpp
 0x00766A33,11,code,,,-,,Code/GameEngine/Source/Common/Rva001505CDDtor.cpp
@@ -65300,10 +65300,10 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00766A5F,11,code,,,-,,Code/GameEngine/Source/Common/Rva001505CDDtor.cpp
 0x00766A6A,14,code,,,-,,Code/GameEngine/Source/Common/Rva001505CDDtor.cpp
 0x00766A78,10,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/fxshadernamespacesas.cpp
-0x00766A82,8,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,P,P=0x00150959@FuncInfo0x0090B154 provisional,Code/GameEngine/Source/Common/Rva00150959Insert.cpp
-0x00766A8A,10,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,P,P=0x00150959@FuncInfo0x0090B154 provisional,Code/GameEngine/Source/Common/Rva00150959Insert.cpp
-0x00766A94,8,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/Rva00150C97IndexedVector.cpp
-0x00766A9C,10,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/Rva00150C97IndexedVector.cpp
+0x00766A82,8,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,P,P=0x00150959@FuncInfo0x0090B154 provisional,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp
+0x00766A8A,10,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,P,P=0x00150959@FuncInfo0x0090B154 provisional,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp
+0x00766A94,8,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp
+0x00766A9C,10,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp
 0x00766AA6,8,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,P,P=0x00150B8D@FuncInfo0x0090B19C provisional,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp
 0x00766AAE,10,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,approved,P,P=0x00150B8D@FuncInfo0x0090B19C provisional,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp
 0x00766AB8,8,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/fxshadernamespacesas.cpp
