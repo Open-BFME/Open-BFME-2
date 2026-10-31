@@ -1,0 +1,46 @@
+RVA00250E9C size56
+00250E9C mov      eax, 0xb71bc5
+00250EA1 call     0x629188
+00250EA6 push     ecx
+00250EA7 push     0x14
+00250EA9 call     0x2fda0
+00250EAE pop      ecx
+00250EAF mov      ecx, eax
+00250EB1 mov      dword ptr [ebp - 0x10], ecx
+00250EB4 xor      eax, eax
+00250EB6 cmp      ecx, eax
+00250EB8 mov      dword ptr [ebp - 4], eax
+00250EBB je       0x250ec8
+00250EBD push     dword ptr [ebp + 0xc]
+00250EC0 push     dword ptr [ebp + 8]
+00250EC3 call     0x4bb130
+00250EC8 mov      ecx, dword ptr [ebp - 0xc]
+00250ECB mov      dword ptr fs:[0], ecx
+00250ED2 leave    
+00250ED3 ret      
+RVA004BB130 size40
+004BB130 push     esi
+004BB131 push     dword ptr [esp + 0xc]
+004BB135 mov      esi, ecx
+004BB137 push     dword ptr [esp + 0xc]
+004BB13B call     0x4b9704
+004BB140 mov      dword ptr [esi], 0xc59e70
+004BB146 mov      dword ptr [esi + 0xc], 0xc597f8
+004BB14D mov      dword ptr [esi + 0x10], 0xc59e64
+004BB154 mov      eax, esi
+004BB156 pop      esi
+RVA004B9704 size49
+004B9704 push     esi
+004B9705 push     dword ptr [esp + 0xc]
+004B9709 mov      esi, ecx
+004B970B push     dword ptr [esp + 0xc]
+004B970F call     0x253330
+004B9714 mov      dword ptr [esi + 0x10], 0xbe2b78
+004B971B mov      dword ptr [esi], 0xc598e4
+004B9721 mov      dword ptr [esi + 0xc], 0xc597f8
+004B9728 mov      dword ptr [esi + 0x10], 0xbe2b78
+004B972F mov      eax, esi
+004B9731 pop      esi
+004B9732 ret      8
+table00C59E70 prefix ['0x4bb15a', '0x497805', '0x4bb0e5', '0x45ce8c', '0x4bb0eb']
+table00C59E64 prefix ['0x4bb176', '0x47a69c', '0xd1407']
