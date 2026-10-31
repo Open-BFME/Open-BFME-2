@@ -7861,7 +7861,7 @@ _GetProcessorFlags,,0x001C4390,169,Code/Libraries/Source/VP6/GetProcessorFlags.c
 ?set@Rva0038899CByteSlot@@QAEXE@Z,,0x0038899C,13,Code/GameEngine/Source/Common/DispByteFieldSetters.cpp,matched,
 ?set@Rva003889D2ByteSlot@@QAEXE@Z,,0x003889D2,13,Code/GameEngine/Source/Common/DispByteFieldSetters.cpp,matched,
 ?getNthPlayer@PlayerList@@QAEPAVPlayer@@H@Z,,0x002A7A29,24,Code/GameEngine/Source/Common/RTS/PlayerList_getNthPlayer.cpp,matched,BFME1 PlayerList.cpp verbatim with BFME2 bound 20 not 32
-?set@Rva0039D495ByteSlot@@QAEXE@Z,,0x0039D495,13,Code/GameEngine/Source/Common/DispByteFieldSetters.cpp,matched,
+?set@Rva0039D495ByteSlot@@QAEXE@Z,,0x0039D495,13,Code/GameEngine/Source/Common/RTS/Team.cpp,matched,
 ?set@Rva00426306ByteSlot@@QAEXE@Z,,0x00426306,13,Code/GameEngine/Source/Common/DispByteFieldSetters.cpp,matched,
 ?set@Rva0042F9B9ByteSlot@@QAEXE@Z,,0x0042F9B9,13,Code/GameEngine/Source/Common/DispByteFieldSetters.cpp,matched,
 ?rva002360DE@GlobalData@@QBE?AVAsciiString@@XZ,,0x002360DE,30,Code/GameEngine/Source/Common/GlobalData.cpp,matched,
@@ -9209,7 +9209,7 @@ _settabsi,,0x00747DE0,32,Code/Libraries/Source/Lua/ldblib.c,matched,BFME1 byte-i
 ?preRender@ScreenMotionBlurFilter@@UAE_NAA_NAAW4CustomScenePassModes@@@Z,,0x000FD4CE,19,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShaderManager.cpp,matched,BFME1 donor-verbatim body; retail shape without smudge check
 ?set@Rva002C8F3BByteSlot@@QAEXE@Z,,0x002C8F3B,13,Code/GameEngine/Source/Common/DispByteFieldSetters.cpp,matched,Disp32 byte setter
 ?set@Rva00367415ByteSlot@@QAEXE@Z,,0x00367415,13,Code/GameEngine/Source/Common/DispByteFieldSetters.cpp,matched,Disp32 byte setter
-?set@Rva0039D481ByteSlot@@QAEXE@Z,,0x0039D481,13,Code/GameEngine/Source/Common/DispByteFieldSetters.cpp,matched,Disp32 byte setter
+?set@Rva0039D481ByteSlot@@QAEXE@Z,,0x0039D481,13,Code/GameEngine/Source/Common/RTS/Team.cpp,matched,Disp32 byte setter
 ?set@Rva003BA60DByteSlot@@QAEXE@Z,,0x003BA60D,13,Code/GameEngine/Source/Common/DispByteFieldSetters.cpp,matched,Disp32 byte setter
 ?set@Rva0043C6D7ByteSlot@@QAEXE@Z,,0x0043C6D7,13,Code/GameEngine/Source/Common/DispByteFieldSetters.cpp,matched,Disp32 byte setter
 ?set@Rva0044950EByteSlot@@QAEXE@Z,,0x0044950E,13,Code/GameEngine/Source/Common/DispByteFieldSetters.cpp,matched,Disp32 byte setter
