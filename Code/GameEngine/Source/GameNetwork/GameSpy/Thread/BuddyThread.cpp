@@ -18,15 +18,16 @@ class ThreadClass
 {
 public:
 	ThreadClass(const char *name);
+	void Stop();
 	virtual ~ThreadClass();
 	virtual void Execute();
 protected:
 	virtual void Thread_Function() = 0;
 private:
-	char m_name[0x40];
-	unsigned int m_threadId;
-	void *m_handle;
-	int m_priority;
+	char m_name[0x40]; // +0x04
+	unsigned int m_threadId; // +0x44
+	void *m_handle; // +0x48
+	int m_priority; // +0x4C
 };
 #include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
 #include "GameNetwork/GameSpy/BuddyThread.h"
@@ -98,9 +99,25 @@ namespace _STL {template<> deque<BuddyResponse>::~deque();}
 class BuddyThreadClass;
 
 // Retail shutdown550B4C and cleanup9990D prove the owning lock at +70.
-class Rva0009990D {public:MutexClass::LockClass *m_ptr;void clear();~Rva0009990D(){clear();}};
+class Rva0009990D
+{
+public:
+	void clear();
+	~Rva0009990D(){clear();}
+	void set(void *p);
+	MutexClass::LockClass *m_ptr; // +0x00
+};
 
-class Rva00550B4C {public:void rva00550B4C();};
+class Rva00550B4C
+{
+public:
+	void rva00550B4C();
+	char m_pad00[0x64];
+private:
+	ThreadClass *thread; // +0x64
+	char m_pad68[0x8];
+	Rva0009990D lockOwner; // +0x70
+};
 
 extern GameSpyBuddyMessageQueueInterface *TheGameSpyBuddyMessageQueue;
 
