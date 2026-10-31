@@ -196,7 +196,6 @@ Code/Libraries/Source/WWVegas/WW3D2/Rva007B73C0.cpp	unverified	unverified	1	1	0	
 Code/Libraries/Source/WWVegas/WW3D2/StreakLineCtor.cpp	unverified	unverified	1	1	0	0	0	0	0	0	0	0	0	<new>	no	yes	hand	27: Code/Libraries/Source/WWVegas/WWLib/always.h:61 malloc(unknown); Code/Libraries/Source/WWVegas/WWLib/always.h:62 calloc(unknown); Code/Libraries/Source/WWVegas/WWLib/always.h:63 realloc(unknown)		operator delete [ ]:same
 Code/Libraries/Source/WWVegas/WWDownload/urlBuilder.cpp	unverified	unverified	1	0	0	0	1	0	0	0	0	0	0	<crtdbg.h>	no	yes	hand			free:unverified
 Code/Libraries/Source/WWVegas/WWLib/Rva00155940Vector.cpp	unverified	unverified	1	1	0	0	0	0	0	0	0	0	0	<new>	no	yes	hand	27: Code/Libraries/Source/WWVegas/WWLib/always.h:61 malloc(unknown); Code/Libraries/Source/WWVegas/WWLib/always.h:62 calloc(unknown); Code/Libraries/Source/WWVegas/WWLib/always.h:63 realloc(unknown)		operator delete [ ]:same
-Code/Libraries/Source/WWVegas/WWLib/Rva003A6360UninitCopy.cpp	unverified	unverified	1	0	0	0	1	0	0	0	0	0	0	<new.h>	no	yes	hand			operator new:unverified
 Code/Libraries/Source/WWVegas/WWLib/Rva00568A20VectorLifetime.cpp	unverified	unverified	1	0	0	0	1	0	0	0	0	0	0	<crtdbg.h>	no	yes	hand			free:unverified
 Code/Libraries/Source/WWVegas/WWLib/StlportPod248ElementDtor.cpp	unverified	unverified	1	0	0	0	1	0	0	0	0	0	0	<crtdbg.h>	no	yes	hand			free:unverified
 Code/Libraries/Source/WWVegas/WWLib/StlportUcharMaps005538CE.cpp	unverified	unverified	1	0	0	0	1	0	0	0	0	0	0	<crtdbg.h>	no	yes	hand			free:unverified
