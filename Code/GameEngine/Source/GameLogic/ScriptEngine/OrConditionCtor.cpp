@@ -16,6 +16,7 @@ class OrCondition
 {
 public:
 	OrCondition();
+protected:
 	virtual ~OrCondition();
 
 protected:
@@ -31,4 +32,25 @@ static void anchorOrConditionCtor(void *p) { new (p) OrCondition(); }
 namespace { void (*kAnchorOrConditionCtor)(void *) = &anchorOrConditionCtor; }
 
 // vftable 0x00C1F3F4 slot 0 is the deleting dtor 0x003B331E, whose dtor call is the body at 0x003B262E.
-#pragma comment(linker, "/alternatename:??1OrCondition@@UAE@XZ=??1Rva003B262E@@MAE@XZ")
+
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
+struct OrConditionNativeDeleteView { virtual void *destroy(int flags); };
+OrCondition::~OrCondition()
+{
+	if (m_firstAnd) {
+		::operator delete(((OrConditionNativeDeleteView *)m_firstAnd)->destroy(0));
+		m_firstAnd = 0;
+	}
+	if (m_nextOr) {
+		OrCondition *cur = m_nextOr;
+		while (cur) {
+			OrCondition *next = cur->m_nextOr;
+			cur->m_nextOr = 0;
+			_ReadWriteBarrier();
+			::operator delete(((OrConditionNativeDeleteView *)cur)->destroy(0));
+			cur = next;
+		}
+	}
+}
+

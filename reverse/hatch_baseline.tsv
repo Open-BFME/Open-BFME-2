@@ -3240,7 +3240,6 @@ alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine.cpp	
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine.cpp	?bfmeOneEFF@@YAPAXPAXH@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine.cpp	?bfmeTwoEFF@@YAXHPAX@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine.cpp	?bfmeTwoEFFb@@YAXHPAX@Z	1
-alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/OrConditionCtor.cpp	??1OrCondition@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BBFFB.cpp	?g_Va00BCF628@@3MA	1
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_ctor.cpp	?init@ScriptActions@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_playerOwnershipOfTypeCounter.cpp	?prepForPlayerCounting@ObjectTypes@@QAEHAAV?$vector@PBVThingTemplate@@V?$allocator@PBVThingTemplate@@@_STL@@@_STL@@AAV?$vector@HV?$allocator@H@_STL@@@3@@Z	1
