@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /G7 /EHsc /DNDEBUG /MD /Ireference/shims/moduledata
+// cl: /FIzh_ascii.h /MD /GX /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /DZH_EMIT_POOL_GLUE -D_STLP_USE_STATIC_LIB -DNDEBUG -DWIN32 -D_WINDOWS /Ireference/shims/bfme2_flammableupdate /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/dockupdate /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib /Ireference/shims/bfme_namekey /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/shims -ICode/Libraries/Source/Compression/LZHCompress/CompLibHeader /Ireference/shims/bfme2htree /Ireference/shims/bfme2renderobj /Ireference/shims/bfmecamera /Ireference/shims/bfmelight /Ireference/shims/bfmeparticlehandle /Ireference/shims/bfmeparticleload /Ireference/shims/bfmeparticlequat /Ireference/shims/bfmeparticlesave /Ireference/shims/bfmeparticleline /Ireference/shims/bfme2ray /Ireference/shims/bfme2scene /Ireference/shims/bfmefrustum /Ireference/shims/moduledata /ICode/GameEngine/Include
 // stlport
 //
 // ??0FlammableUpdateModuleData@@QAE@XZ, retail 0x0048D541..0x0048D60C (203
@@ -12,97 +12,20 @@
 // animation -1. The CameraMarker vector is built empty (STLport vector base
 // 0x00211E58) and cleared through the rowed CameraMarkerVec::erase; retail
 // stores the +0x4C..+0x54 defaults on both sides of that call.
-#include <vector>
-#include "Common/Snapshot.h"
+#define BFME_SNAPSHOT_NAME_SLOT
+#define Matrix4x4 Matrix4  // BFME renamed it
+#include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
+#include "GameLogic/Module/FlammableUpdate.h"
 
 extern int BfmeLogicFramesPerSecond;
-
-class OpaqueRefCounted
-{
-public:
-	void Release_Ref();
-};
-
-struct BurningSoundHolder
-{
-	BurningSoundHolder() : m_ptr(0) {}
-	~BurningSoundHolder()
-	{
-		if (m_ptr)
-			m_ptr->Release_Ref();
-	}
-
-	OpaqueRefCounted *m_ptr;
-};
-
-// 8-byte element with a destructor (StlportVectorDtorChains.cpp).
-class CameraMarker { public: ~CameraMarker(); char m_pad[8]; };
-// Bind the outlined vector cleanup to the matched retail provider.
-namespace _STL {
-template<> vector<CameraMarker>::~vector();
-template<> _Vector_base<CameraMarker, allocator<CameraMarker> >::~_Vector_base();
-}
-struct CameraMarkerVec : public _STL::vector<CameraMarker>
-{
-	__forceinline CameraMarkerVec() {}
-	~CameraMarkerVec();
-	CameraMarker *erase(CameraMarker *first, CameraMarker *last);
-	void clear() { erase(begin(), end()); }
-};
-
-// The custom animation entry at +0x4C: an animation type (-1 for none) and
-// two words.
-struct CustomAnimAndDuration
-{
-	void reset()
-	{
-		m_animType = -1;
-		m_frames = 0;
-		m_extra = 0;
-	}
-	int m_animType;
-	int m_frames;
-	int m_extra;
-};
-
-class FlammableUpdateModuleData : public Snapshot
-{
-public:
-	FlammableUpdateModuleData();
-	virtual ~FlammableUpdateModuleData();
-
-private:
-	int m_unused04; // +0x04, retail never stores it
-	int m_burnedDelay; // +0x08
-	int m_aflameDuration; // +0x0C
-	int m_aflameDamageDelay; // +0x10
-	int m_aflameDamageAmount; // +0x14
-	BurningSoundHolder m_burningSound; // +0x18
-	float m_flameDamageLimit; // +0x1C
-	int m_flameDamageExpiration; // +0x20
-	int m_damageType; // +0x24
-	CameraMarkerVec m_fireMarkers; // +0x28
-	bool m_setBurnedStatus; // +0x34
-	bool m_swapModelWhenAflame; // +0x35
-	bool m_swapModelWhenQuenched; // +0x36
-	bool m_swapTextureWhenAflame; // +0x37
-	bool m_swapTextureWhenQuenched; // +0x38
-	bool m_burnContained; // +0x39
-	bool m_runToWater; // +0x3A
-	float m_runToWaterDepth; // +0x3C
-	float m_runToWaterSearchRadius; // +0x40
-	float m_runToWaterSearchIncrement; // +0x44
-	bool m_panicLocomotorWhileAflame; // +0x48
-	CustomAnimAndDuration m_customAnimAndDuration; // +0x4C
-};
 
 FlammableUpdateModuleData::FlammableUpdateModuleData()
 	: m_burnedDelay(0)
 	, m_aflameDuration(0)
 	, m_aflameDamageDelay(0)
 	, m_aflameDamageAmount(0)
-	, m_flameDamageLimit(20.0f)
-	, m_flameDamageExpiration(BfmeLogicFramesPerSecond * 5)
+	, m_flameDamageLimitData(20.0f)
+	, m_flameDamageExpirationDelay(BfmeLogicFramesPerSecond * 5)
 	, m_damageType(6)
 {
 	m_runToWaterDepth = 0.0f;

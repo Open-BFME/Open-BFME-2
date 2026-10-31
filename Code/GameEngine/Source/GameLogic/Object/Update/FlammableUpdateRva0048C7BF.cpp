@@ -1,146 +1,20 @@
-// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /EHsc /MD /DNDEBUG
+// cl: /FIzh_ascii.h /MD /GX /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /DZH_EMIT_POOL_GLUE -D_STLP_USE_STATIC_LIB -DNDEBUG -DWIN32 -D_WINDOWS /Ireference/shims/bfme2_flammableupdate /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/dockupdate /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib /Ireference/shims/bfme_namekey /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/shims -ICode/Libraries/Source/Compression/LZHCompress/CompLibHeader /Ireference/shims/bfme2htree /Ireference/shims/bfme2renderobj /Ireference/shims/bfmecamera /Ireference/shims/bfmelight /Ireference/shims/bfmeparticlehandle /Ireference/shims/bfmeparticleload /Ireference/shims/bfmeparticlequat /Ireference/shims/bfmeparticlesave /Ireference/shims/bfmeparticleline /Ireference/shims/bfme2ray /Ireference/shims/bfme2scene /Ireference/shims/bfmefrustum /Ireference/shims/moduledata /ICode/GameEngine/Include
+// stlport
 // ?rva0048C7BF@FlammableUpdate@@QAEXXZ @0x0048C7BF 96B
 // Evidence: rowed ??0BfmeAudioEventPrefix136 ObjectID overload 0x002DA461 plus rowed ??1BfmeStringTailRecord144 0x002D9A43 plus TheAudio 0x009FE6E8 slot 0x64 addAudioEvent storing handle to +0x34; neighbours FlammableUpdate doAflameDamage and FlammableUpdate layout with m_34 audio handle.
-#include "Common/BfmeAudioEventPrefix136.h"
+#define BFME_SNAPSHOT_NAME_SLOT
+#define Matrix4x4 Matrix4  // BFME renamed it
+#include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
+#include "GameLogic/Object.h"
+#include "GameLogic/Module/FlammableUpdate.h"
 
-enum ObjectID
-{
-	INVALID_ID = 0
-};
-
-class Object
-{
-public:
-	char m_pad00[0x74];
-	ObjectID m_id74;
-};
-
-struct FlammableUpdateModuleData
-{
-	char m_pad00[0x18];
-	OpaqueRefElement4 m_ref18;
-};
-
-struct BfmeAudioEventPrefix136;
-class Xfer;
-struct AbilityMiscAudio;
-class AudioManager
-{
-public:
-	virtual void _pad00() = 0;
-	virtual void _pad01() = 0;
-	virtual void _pad02() = 0;
-	virtual void _pad03() = 0;
-	virtual void _pad04() = 0;
-	virtual void _pad05() = 0;
-	virtual void _pad06() = 0;
-	virtual void _pad07() = 0;
-	virtual void _pad08() = 0;
-	virtual void _pad09() = 0;
-	virtual void _pad10() = 0;
-	virtual void _pad11() = 0;
-	virtual void _pad12() = 0;
-	virtual void _pad13() = 0;
-	virtual void _pad14() = 0;
-	virtual void _pad15() = 0;
-	virtual void _pad16() = 0;
-	virtual void _pad17() = 0;
-	virtual void _pad18() = 0;
-	virtual void _pad19() = 0;
-	virtual void _pad20() = 0;
-	virtual void _pad21() = 0;
-	virtual void _pad22() = 0;
-	virtual void _pad23() = 0;
-	virtual void _pad24() = 0;
-	// vslot 25 (+0x64)
-	virtual int addAudioEvent(BfmeAudioEventPrefix136 *event) = 0;
-	virtual void _pad26() = 0;
-	// vslot 27 (+0x6C)
-	virtual void removeAudioEvent(unsigned int handle) = 0;
-	virtual void _pad28() = 0;
-	virtual void _pad29() = 0;
-	virtual void _pad30() = 0;
-	virtual void _pad31() = 0;
-	virtual void _pad32() = 0;
-	virtual void _pad33() = 0;
-	virtual void _pad34() = 0;
-	virtual void _pad35() = 0;
-	virtual void _pad36() = 0;
-	virtual void _pad37() = 0;
-	virtual void _pad38() = 0;
-	virtual void _pad39() = 0;
-	virtual void _pad40() = 0;
-	virtual void _pad41() = 0;
-	virtual void _pad42() = 0;
-	virtual void _pad43() = 0;
-	virtual void _pad44() = 0;
-	virtual void _pad45() = 0;
-	virtual void _pad46() = 0;
-	virtual void _pad47() = 0;
-	virtual void _pad48() = 0;
-	virtual void _pad49() = 0;
-	virtual void _pad50() = 0;
-	virtual void _pad51() = 0;
-	// vslot 52 (+0xD0)
-	virtual bool isCurrentlyPlaying(int handle) = 0;
-	virtual void _pad53() = 0;
-	virtual void _pad54() = 0;
-	virtual void _pad55() = 0;
-	virtual void _pad56() = 0;
-	virtual void _pad57() = 0;
-	virtual void _pad58() = 0;
-	virtual void _pad59() = 0;
-	virtual void _pad60() = 0;
-	virtual void _pad61() = 0;
-	virtual void _pad62() = 0;
-	virtual void _pad63() = 0;
-	virtual void _pad64() = 0;
-	virtual void _pad65() = 0;
-	virtual void _pad66() = 0;
-	virtual void _pad67() = 0;
-	virtual void _pad68() = 0;
-	virtual void _pad69() = 0;
-	virtual void _pad70() = 0;
-	virtual void _pad71() = 0;
-	virtual void _pad72() = 0;
-	virtual void _pad73() = 0;
-	virtual void _pad74() = 0;
-	virtual void _pad75() = 0;
-	virtual void _pad76() = 0;
-	virtual void _pad77() = 0;
-	// vslot 78 (+0x138)
-	virtual AbilityMiscAudio * getMiscAudio() = 0;
-	virtual void _pad79() = 0;
-	virtual void _pad80() = 0;
-	virtual void _pad81() = 0;
-	virtual void _pad82() = 0;
-	virtual void _pad83() = 0;
-	virtual void _pad84() = 0;
-	virtual void _pad85() = 0;
-	virtual void _pad86() = 0;
-	virtual void _pad87() = 0;
-	// vslot 88 (+0x160)
-	virtual void xferAudioHandle(Xfer *xfer, unsigned int *handle) = 0;
-};
-
+class AudioManager;
 extern AudioManager *TheAudio;
-
-class FlammableUpdate
-{
-public:
-	void rva0048C7BF();
-private:
-	const void *m_vtable;
-	const FlammableUpdateModuleData *m_moduleData;
-	Object *m_object;
-	char m_pad0C[0x34 - 0x0C];
-	int m_handle34;
-};
 
 void FlammableUpdate::rva0048C7BF()
 {
-	const FlammableUpdateModuleData *md = m_moduleData;
-	Object *obj = m_object;
-	BfmeAudioEventPrefix136 evt(md->m_ref18, obj->m_id74);
-	m_handle34 = TheAudio->addAudioEvent(&evt);
+	const FlammableUpdateModuleData *md = getFlammableUpdateModuleData();
+	Object *obj = getObject();
+	BfmeAudioEventPrefix136 evt(md->m_burningSoundName.m_ref, obj->getID());
+	m_audioHandle = reinterpret_cast<AudioManagerSlots *>(TheAudio)->addAudioEvent(&evt);
 }

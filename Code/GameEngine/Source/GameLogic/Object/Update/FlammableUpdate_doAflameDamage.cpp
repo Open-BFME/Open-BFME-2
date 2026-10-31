@@ -1,64 +1,24 @@
-// cl: /DNDEBUG /MD /GX-
+// cl: /FIzh_ascii.h /MD /GX /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /DZH_EMIT_POOL_GLUE -D_STLP_USE_STATIC_LIB -DNDEBUG -DWIN32 -D_WINDOWS /Ireference/shims/bfme2_flammableupdate /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/dockupdate /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib /Ireference/shims/bfme_namekey /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/shims -ICode/Libraries/Source/Compression/LZHCompress/CompLibHeader /Ireference/shims/bfme2htree /Ireference/shims/bfme2renderobj /Ireference/shims/bfmecamera /Ireference/shims/bfmelight /Ireference/shims/bfmeparticlehandle /Ireference/shims/bfmeparticleload /Ireference/shims/bfmeparticlequat /Ireference/shims/bfmeparticlesave /Ireference/shims/bfmeparticleline /Ireference/shims/bfme2ray /Ireference/shims/bfme2scene /Ireference/shims/bfmefrustum /Ireference/shims/moduledata /ICode/GameEngine/Include
+// stlport
 // ?doAflameDamage@FlammableUpdate@@QAEXXZ @0x0048C771 78B
 // Evidence: stack DamageInfo 0x7C via rowed ??0Rva00263895Member@@QAE@XZ; Object::attemptDamage pin 0x0029848E; neighbor ??1FlammableUpdate; ModuleData+0x14 int->float and this+0x48 int.
-class DamageInfo;
-class Object;
-
-class Rva00263653
-{
-public:
-	Rva00263653() throw();
-	char m_data[0x68];
-};
-
-class Rva00263895Member
-{
-public:
-	Rva00263895Member() throw();
-	virtual void rva00263895_dummy();
-private:
-	Rva00263653 m_mem;
-	const void *m_ptr;
-	float m_f70;
-	float m_f74;
-	unsigned char m_b78;
-};
-
-class Object
-{
-public:
-	void attemptDamage(DamageInfo *damageInfo);
-};
-
-class FlammableUpdateModuleData
-{
-public:
-	unsigned char pad_00[0x14];
-	int m_aflameDamageAmount;
-};
-
-class FlammableUpdate
-{
-public:
-	void doAflameDamage();
-private:
-	const void *m_vtbl;
-	const FlammableUpdateModuleData *m_moduleData;
-	Object *m_object;
-	unsigned char pad_0C[0x3C];
-	int m_48;
-};
+#define BFME_SNAPSHOT_NAME_SLOT
+#define Matrix4x4 Matrix4  // BFME renamed it
+#include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
+#include "GameLogic/Object.h"
+#include "GameLogic/Module/FlammableUpdate.h"
 
 void FlammableUpdate::doAflameDamage()
 {
-	Object *obj = m_object;
-	const FlammableUpdateModuleData *md = m_moduleData;
-	Rva00263895Member damageInfo;
-	float f = (float)md->m_aflameDamageAmount;
-	*(int *)((char *)&damageInfo + 0x08) = m_48;
-	*(float *)((char *)&damageInfo + 0x20) = f;
-	*(int *)((char *)&damageInfo + 0x10) = 6;
-	*(int *)((char *)&damageInfo + 0x1C) = 3;
-	*(int *)((char *)&damageInfo + 0x18) = 2;
-	obj->attemptDamage((DamageInfo *)&damageInfo);
+	Object *obj = getObject();
+	const FlammableUpdateModuleData *md = getFlammableUpdateModuleData();
+	Rva00263895Member damageRecord;
+	DamageInfo *damageInfo = (DamageInfo *)&damageRecord;
+	Real amount = (Real)md->m_aflameDamageAmount;
+	damageInfo->in.m_sourceID = m_lastIgniterID;
+	damageInfo->in.m_amount = amount;
+	damageInfo->in.m_damageType = DAMAGE_FLAME;
+	damageInfo->in.m_deathType = DEATH_BURNED;
+	damageInfo->in.m_damageFXOverride = (DamageType)2;
+	obj->attemptDamage(damageInfo);
 }
