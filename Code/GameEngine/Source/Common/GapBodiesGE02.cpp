@@ -300,25 +300,8 @@ Rva002C902A::Rva002C902A() : m_00(0.0f), m_04(0.0f), m_progressOverlayColor(0.0f
 {
 }
 
-// --- 0x0058C459..0x0058C483: constant getters of one family, and one
-// field read (+0x28 of the argument, plus 25).
-int Rva0058C459() { return 0x17; }
-int Rva0058C45D() { return 0x15; }
-int Rva0058C461() { return 0x18; }
-int Rva0058C465() { return 0x0C; }
-int Rva0058C469() { return 0x14; }
-int Rva0058C46D() { return 0x0D; }
-int Rva0058C471() { return 0x25; }
-
 struct Rva0058C475Arg
 {
 	char m_pad[0x28];
 	int m_28;
 };
-
-int Rva0058C475(const Rva0058C475Arg *command)
-{
-	return command->m_28 + 0x19;
-}
-
-int Rva0058C480() { return 0x1A; }

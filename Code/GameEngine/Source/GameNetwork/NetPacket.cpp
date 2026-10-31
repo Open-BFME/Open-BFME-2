@@ -909,6 +909,224 @@ private:
 	char m_pad[0x04];
 };
 
+// Small GameEngine bodies from .text gaps no Ghidra function covers (second
+// batch; see GapBodiesGE01.cpp). Retail bytes establish every shape; owning
+// classes are not recovered, so each keeps an address-derived name and a view
+// of only the members it touches. Callees and globals use the ledger's
+// existing spellings.
+
+// --- 0x00367E31 / 0x00545393 (40B each): a vtable (0x00C17640 / 0x00C69F34)
+// over two cleared words (+0x04, +0x18) and four zero floats (+0x08..+0x14).
+class Rva00367E31
+{
+public:
+	Rva00367E31();
+	virtual ~Rva00367E31() {}
+private:
+	int m_04;
+	float m_progressOverlayColor;
+	float m_backButtonTooltip;
+	float m_10;
+	float m_14;
+	int m_18;
+};
+
+class Rva00545393
+{
+public:
+	Rva00545393();
+	virtual ~Rva00545393() {}
+private:
+	int m_04;
+	float m_progressOverlayColor;
+	float m_backButtonTooltip;
+	float m_10;
+	float m_14;
+	int m_18;
+};
+
+// --- 0x005E7026 (17B): clamp the second argument at zero and forward both to
+// virtual slot 12; 0x005E7037 (18B): parse this from INI with the field
+// table at VA 0x00C77E98; 0x005E7049 (5B): forward to the rowed 0x004E0625.
+class INI;
+
+typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
+
+struct FieldParse
+{
+	const char *token;
+	INIFieldParseProc parse;
+	const void *userData;
+	int offset;
+};
+
+class INI
+{
+public:
+	static void parseColorInt(INI *ini, void *instance, void *store, const void *userData);
+	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
+	void initFromINI(void *what, const FieldParse *parseTable);	// 0x0002DE78
+};
+
+class Rva004E0625
+{
+public:
+	int rva004E0625() const;								// 0x004E0625
+};
+
+class Rva005E7026
+{
+public:
+	virtual void s0();
+	virtual void s1();
+	virtual void s2();
+	virtual void s3();
+	virtual void s4();
+	virtual void s5();
+	virtual void s6();
+	virtual void s7();
+	virtual void s8();
+	virtual void s9();
+	virtual void s10();
+	virtual void s11();
+	virtual void s12(int a, int b);
+
+	void rva005E7026(int a, int b);
+	void rva005E7037(INI *ini);
+	int rva005E7049() const;
+};
+
+// --- 0x00428DC1 (41B, cdecl): when the player list's +0x10 player has a
+// rowed 0x002ABCF0(1, 0) result, the tactical view takes its +0x38 point
+// (virtual slot 21).
+class Player
+{
+public:
+	int rva002ABCF0(unsigned char a, int *b);				// 0x002ABCF0
+};
+
+class PlayerList;
+
+extern PlayerList *ThePlayerList;
+
+struct PlayerListView
+{
+	char m_pad[0x10];
+	Player *m_10;
+};
+
+class View
+{
+public:
+	virtual void s0();
+	virtual void s1();
+	virtual void s2();
+	virtual void s3();
+	virtual void s4();
+	virtual void s5();
+	virtual void s6();
+	virtual void s7();
+	virtual void s8();
+	virtual void s9();
+	virtual void s10();
+	virtual void s11();
+	virtual void s12();
+	virtual void s13();
+	virtual void s14();
+	virtual void s15();
+	virtual void s16();
+	virtual void s17();
+	virtual void s18();
+	virtual void s19();
+	virtual void s20();
+	virtual void s21(void *point);
+};
+
+extern View *TheTacticalView;
+
+// --- 0x00570405 / 0x0057041B / 0x00570455 / 0x00570469: this-returning
+// forwarders of a referenced value to the class's rowed setters.
+class Rva0056FCDB
+{
+public:
+	void rva0056FCDB(short value);							// 0x0056FCDB
+	Rva0056FCDB *rva00570405(const short &value);
+};
+
+class Rva0056FAA5
+{
+public:
+	void rva0056FD14(int value);							// 0x0056FD14
+	void rva0056FD2D(int value);							// 0x0056FD2D
+	void rva0056FD46(short value);							// 0x0056FD46
+	Rva0056FAA5 *rva0057041B(const int &value);
+	Rva0056FAA5 *rva00570455(const int &value);
+	Rva0056FAA5 *rva00570469(const short &value);
+};
+
+// --- 0x005C8774 (19B): +0x00 = 1.0f, +0x04 = 0; 0x005C8787 (23B): +0x00 and
+// +0x04 cleared, +0x08 = 1.0f.
+struct Rva005C8774
+{
+	Rva005C8774();
+	float m_00;
+	int m_04;
+};
+
+struct Rva005C8787
+{
+	Rva005C8787();
+	int m_00;
+	int m_04;
+	float m_progressOverlayColor;
+};
+
+template <class T> struct GapClassVector
+{
+	T *m_begin;
+	T *m_end;
+	T *m_storage;
+	unsigned int size() const { return (unsigned int)(m_end - m_begin); }
+	T &operator[](unsigned int i) { return m_begin[i]; }
+};
+
+// --- 0x0021A18B (42B): bounds-checked dispatch into the +0x14C table of
+// 32-byte CreateAHero classes (rowed 0x00219D3B), else 0.
+class CreateAHeroManager
+{
+public:
+	class CreateAHeroClass
+	{
+	public:
+		int rva00219D3B(unsigned int value);				// 0x00219D3B
+		char m_data[32];
+	};
+	int rva0021A18B(unsigned int index, unsigned int value);
+private:
+	char m_pad[0x14C];
+	GapClassVector<CreateAHeroClass> m_classes;			// +0x14C
+};
+
+// --- 0x002C902A (43B): five zero floats, then FLT_MAX at +0x14.
+struct Rva002C902A
+{
+	Rva002C902A();
+	float m_00;
+	float m_04;
+	float m_progressOverlayColor;
+	float m_backButtonTooltip;
+	float m_10;
+	float m_14;
+};
+
+struct Rva0058C475Arg
+{
+	char m_pad[0x28];
+	int m_28;
+};
+
+// ---- from Code/GameEngine/Source/GameNetwork/NetPacket.cpp
+
 // ---- from Code/GameEngine/Source/GameNetwork/NetPacket.cpp
 
 // ---- from Code/GameEngine/Source/GameNetwork/NetPacket.cpp
@@ -6333,36 +6551,6 @@ UnsignedByte NetPacket::rva00591D0D(NetCommandRef *msg)
 	return m_packetLen + strLen + len + 1 <= MAX_PACKET_SIZE;
 }
 
-// tu-skeleton: 0x0058C459 4B ?Rva0058C459@@YAHXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE02.cpp (not merged yet)
-
-// tu-skeleton: 0x0058C45D 4B ?Rva0058C45D@@YAHXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE02.cpp (not merged yet)
-
-// tu-skeleton: 0x0058C461 4B ?Rva0058C461@@YAHXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE02.cpp (not merged yet)
-
-// tu-skeleton: 0x0058C465 4B ?Rva0058C465@@YAHXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE02.cpp (not merged yet)
-
-// tu-skeleton: 0x0058C469 4B ?Rva0058C469@@YAHXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE02.cpp (not merged yet)
-
-// tu-skeleton: 0x0058C46D 4B ?Rva0058C46D@@YAHXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE02.cpp (not merged yet)
-
-// tu-skeleton: 0x0058C471 4B ?Rva0058C471@@YAHXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE02.cpp (not merged yet)
-
-// tu-skeleton: 0x0058C475 11B ?Rva0058C475@@YAHPBURva0058C475Arg@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE02.cpp (not merged yet)
-
-// tu-skeleton: 0x0058C480 4B ?Rva0058C480@@YAHXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE02.cpp (not merged yet)
-
-// tu-skeleton: 0x0058C484 4B ?rva0058C484@Rva0058C484@@QAEHXZ -- matched in Code/GameEngine/Source/Common/VtableConstantPredicates.cpp (not merged yet)
-
-// tu-skeleton: 0x0058C80F 213B ?FillBufferWithFrameCommand@@YAXPADPAVNetCommandRef@@@Z -- matched in Code/GameEngine/Source/GameNetwork/FillBufferWithFrameCommand.cpp (not merged yet)
-
-// tu-skeleton: 0x0058CD6A 185B ?Rva0058CD6AWrite@@YAXPADPAVNetCommandRef@@@Z -- matched in Code/GameEngine/Source/GameNetwork/Rva0058CD6AWrite.cpp (not merged yet)
-
-// tu-skeleton: 0x0058E0E2 299B ?readWrapperMessage@NetPacket@@KAPAVNetCommandMsg@@PAEAAH@Z -- matched in Code/GameEngine/Source/GameNetwork/NetPacketO1.cpp (not merged yet)
-
-// tu-skeleton: 0x00590F13 52B ?rva00590F13@Rva004D62A9@@QAEXVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/Rva004D65F9Set.cpp (not merged yet)
-
-// tu-skeleton: 0x005910B4 188B ?Rva005910B4Write@@YAXPADPAVNetCommandRef@@@Z -- matched in Code/GameEngine/Source/GameNetwork/Rva005910B4Write.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameNetwork/Rva00592520Read.cpp
 
 // ?Rva00592520Read@@YAPAVRva004D65DC@@HPAI@Z @0x00592520 (194B):
@@ -6396,6 +6584,43 @@ class Rva004D65DC *__cdecl Rva00592520Read(int base, unsigned int *cursor)
 	obj->rva004D662D(AsciiString(buf));
 	return obj;
 }
+
+// ---- from Code/GameEngine/Source/Common/GapBodiesGE02.cpp
+
+// --- 0x0058C459..0x0058C483: constant getters of one family, and one
+// field read (+0x28 of the argument, plus 25).
+int Rva0058C459() { return 0x17; }
+
+int Rva0058C45D() { return 0x15; }
+
+int Rva0058C461() { return 0x18; }
+
+int Rva0058C465() { return 0x0C; }
+
+int Rva0058C469() { return 0x14; }
+
+int Rva0058C46D() { return 0x0D; }
+
+int Rva0058C471() { return 0x25; }
+
+int Rva0058C475(const Rva0058C475Arg *command)
+{
+	return command->m_28 + 0x19;
+}
+
+int Rva0058C480() { return 0x1A; }
+
+// tu-skeleton: 0x0058C484 4B ?rva0058C484@Rva0058C484@@QAEHXZ -- matched in Code/GameEngine/Source/Common/VtableConstantPredicates.cpp (not merged yet)
+
+// tu-skeleton: 0x0058C80F 213B ?FillBufferWithFrameCommand@@YAXPADPAVNetCommandRef@@@Z -- matched in Code/GameEngine/Source/GameNetwork/FillBufferWithFrameCommand.cpp (not merged yet)
+
+// tu-skeleton: 0x0058CD6A 185B ?Rva0058CD6AWrite@@YAXPADPAVNetCommandRef@@@Z -- matched in Code/GameEngine/Source/GameNetwork/Rva0058CD6AWrite.cpp (not merged yet)
+
+// tu-skeleton: 0x0058E0E2 299B ?readWrapperMessage@NetPacket@@KAPAVNetCommandMsg@@PAEAAH@Z -- matched in Code/GameEngine/Source/GameNetwork/NetPacketO1.cpp (not merged yet)
+
+// tu-skeleton: 0x00590F13 52B ?rva00590F13@Rva004D62A9@@QAEXVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/Rva004D65F9Set.cpp (not merged yet)
+
+// tu-skeleton: 0x005910B4 188B ?Rva005910B4Write@@YAXPADPAVNetCommandRef@@@Z -- matched in Code/GameEngine/Source/GameNetwork/Rva005910B4Write.cpp (not merged yet)
 
 // tu-skeleton: 0x005925E2 37B ?insert@?$list@HV?$allocator@H@_STL@@@_STL@@QAE?AU?$_List_iterator@HU?$_Nonconst_traits@H@_STL@@@2@U32@ABH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_insert.cpp (not merged yet)
 
