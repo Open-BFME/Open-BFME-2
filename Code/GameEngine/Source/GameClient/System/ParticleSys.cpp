@@ -2081,11 +2081,55 @@ struct Rva00563E5FFields
 // ?set@Rva002DAC16Fields@@QAEXM@Z
 struct Rva002DAC16Fields { char pad[0x144]; float value144; void set(float value); };
 
+// ?rva001F5D4F@Rva001F5D4F@@QAEXH@Z @0x001F5D4F 34B.
+// Null-checked virtual slot 3 at +0 with int arg, then rowed Rva001F42BA::call on this+4.
+// Sibling of 0x001F5D38 (same shape without args); callers at 0x001F6502 and
+// 0x001F8DD9, jmp-ins at 0x001F648D, 0x001F820E and 0x001F895B. Honest Rva names.
+struct Rva001F42BA {
+    void call(int);
+};
+
+class Helper001F5D4F {
+public:
+    virtual ~Helper001F5D4F();
+    virtual void pad1();
+    virtual void pad2();
+    virtual void slot3(int);
+};
+
+class Rva001F5D4F {
+public:
+    void rva001F5D4F(int x);
+private:
+    Helper001F5D4F* m_ptr;
+    Rva001F42BA m_next;
+};
+
+// ?rva001F820B@Rva001F820BOwner@@QAEXH@Z @0x001F820B 8B: offsets this to the Rva001F5D4F embedded at +0x4 and
+// tail-jumps Rva001F5D4F::rva001F5D4F. Owner and name are address-derived; no
+// referencing site was found in this pass.
+class Rva001F820BOwner
+{
+public:
+	void rva001F820B(int x);
+};
+
+// ?rva001F8958@Rva001F8958Owner@@QAEXH@Z @0x001F8958 8B: offsets this to the Rva001F5D4F embedded at +0x8 and
+// tail-jumps Rva001F5D4F::rva001F5D4F. Owner and name are address-derived; no
+// referencing site was found in this pass.
+class Rva001F8958Owner
+{
+public:
+	void rva001F8958(int x);
+};
+
 // tu-skeleton: 0x001F392E 247B ?rotateLocalTransformX@ParticleSystem@@QAEXM@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemRotateLocalTransform.cpp (not merged yet)
 
 // tu-skeleton: 0x001F3A25 247B ?rotateLocalTransformY@ParticleSystem@@QAEXM@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemRotateLocalTransform.cpp (not merged yet)
 
 // tu-skeleton: 0x001F3B1C 247B ?rotateLocalTransformZ@ParticleSystem@@QAEXM@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemRotateLocalTransform.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/System/ParticleSys.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/System/ParticleSys.cpp
 
@@ -3116,7 +3160,6 @@ void Rva001F424E::forward(unsigned word) { if (held) held->forward(word); }
 // bytes, string carried in source where verify_string_refs re-reads it).
 // No // cl: line (defaults match the frameless 6-byte shape).
 
-// tu-skeleton: 0x001F3C6B 47B ?rva001F3C6B@ParticleSystem@@QAEIXZ -- matched in Code/GameEngine/Source/GameClient/System/FXParticleSystem/FXPSStorageModuleRva003B0869.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp
 
@@ -3133,6 +3176,8 @@ void Rva001F424E::forward(unsigned word) { if (held) held->forward(word); }
 // Every displacement here is a disp32 (MSVC 7.1 uses disp8 whenever the
 // offset fits, so every offset is at least 0x80).
 // No // cl: line (defaults match the frameless 13-byte shape).
+
+// tu-skeleton: 0x001F3C6B 47B ?rva001F3C6B@ParticleSystem@@QAEIXZ -- matched in Code/GameEngine/Source/GameClient/System/FXParticleSystem/FXPSStorageModuleRva003B0869.cpp (not merged yet)
 
 // tu-skeleton: 0x001F3D2E 674B ?parse@ParticleSystemTemplate@FXParticleSystem@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameClient/ParticleSystemTemplate.cpp (not merged yet)
 
@@ -3236,7 +3281,15 @@ void Rva001F424E::forward(unsigned word) { if (held) held->forward(word); }
 
 // tu-skeleton: 0x001F5C87 34B ?_M_create_node@?$list@VRvaSmartPtr12@@V?$allocator@VRvaSmartPtr12@@@_STL@@@_STL@@IAEPAU?$_List_node@VRvaSmartPtr12@@@2@ABVRvaSmartPtr12@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_create_nodes.cpp (not merged yet)
 
-// tu-skeleton: 0x001F5D4F 34B ?rva001F5D4F@Rva001F5D4F@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/Rva001F5D4F.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva001F5D4F.cpp
+
+void Rva001F5D4F::rva001F5D4F(int x)
+{
+    Helper001F5D4F* p = m_ptr;
+    if (p)
+        p->slot3(x);
+    m_next.call(x);
+}
 
 // tu-skeleton: 0x001F5E38 25B ??0sentry@?$basic_ostream@DV?$char_traits@D@_STL@@@_STL@@QAE@AAV12@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_ostream_put_num.cpp (not merged yet)
 
