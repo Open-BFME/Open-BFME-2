@@ -18255,3 +18255,6 @@ Code/GameEngine/Source/Common/VslotSmallBodiesR.cpp|param|Rva00330AD8::rva00330A
 Code/GameEngine/Source/Common/VslotSmallBodiesS.cpp|param|Rva00541F02::rva00541F02|v,74e7cd0291c2eb5021d01dec,drz-k2,drz-k2-506,w-ded32b2e2c5e,2026-10-30
 Code/GameEngine/Source/Common/CommandLineUnlistedSwitches.cpp|function|0x003B9521|Rva003B9521Parse,fe48d8ff1938bf4202d88256,drz-k2,drz-k2-515,w-ded32b2e2c5e,2026-10-30
 Code/GameEngine/Source/Common/CommandLineUnlistedSwitches.cpp|function|0x003B9535|Rva003B9535Parse,7738a6b0c4edf56d2b1dbee0,drz-k2,drz-k2-515,w-ded32b2e2c5e,2026-10-30
+Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainMovementPosition.cpp|param|MovementVector#3|p,d1325a1586927d09c129e849,drz-k8,drz-k8-501,w-87ae7cdc64ef,2026-10-30
+Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainMovementPosition.cpp|param|MovementPoint#3|c,f532f85c78890c8a626d1e11,drz-k8,drz-k8-501,w-87ae7cdc64ef,2026-10-30
+Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainCtor.cpp|member|Rva0046F543Tail|m_2A8,0992ba16e13e23c13315aaf3,drz-k8,drz-k8-509,w-87ae7cdc64ef,2026-10-30
