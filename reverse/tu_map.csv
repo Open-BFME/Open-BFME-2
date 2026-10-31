@@ -12632,7 +12632,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x001D9B3C,38,code,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp,approved,C,C=0x001D99E7..0x001D9B62,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp
 0x001D9B62,37,code,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp,approved,C,C=0x001D99E7..0x001D9B87,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp
 0x001D9B87,29,code,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp,approved,C,C=0x001D99E7..0x001D9BA4,Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeDeferred.cpp
-0x001D9BA4,47,code,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp,approved,C,C=0x001D99E7..0x001D9BD3,Code/GameEngine/Source/Common/Rva000A8CAEAssign.cpp
+0x001D9BA4,47,code,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp,approved,C,C=0x001D99E7..0x001D9BD3,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp
 0x001D9BD3,27,code,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp,approved,C,C=0x001D99E7..0x001D9BEE,Code/Libraries/Source/WWVegas/WWLib/StlportCopyWrapperPairsFamily.cpp
 0x001D9BEE,177,code,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp,approved,C,C=0x001D99E7..0x001D9C9F,Code/Libraries/Source/WWVegas/WWLib/stlport_pod_malloc_deferred_copies.cpp
 0x001D9C9F,45,code,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp,approved,C,C=0x001D99E7..0x001D9CCC,Code/GameEngine/Source/Common/Rva001D9C9FAllocateCopy.cpp

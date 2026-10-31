@@ -790,6 +790,17 @@ public:
     float m_value;
 };
 
+class Rva000A8CAE
+{
+public:
+    Rva000A8CAE &operator=(const Rva000A8CAE &other);
+private:
+    OpaqueRefElement4 m_ref;
+    int m_4;
+};
+
+// ---- from Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp
+
 // ---- from Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp
 
 // ---- from Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp
@@ -1298,10 +1309,6 @@ void Rva001D96FF::rva001D96FF(int mask)
 	m_flags4C |= mask;
 }
 
-// tu-skeleton: 0x001D9715 10B ?rva001D9715@Rva001D9715@@QAEXI@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE49.cpp (not merged yet)
-
-// tu-skeleton: 0x001D971F 12B ?rva001D971F@Rva001D9715@@QAEXI@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE49.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Disp32FloatFieldSetters.cpp
 
 // Disp32 float setters: seventeen-byte __thiscall members with one shape:
@@ -1312,6 +1319,10 @@ void Rva001D96FF::rva001D96FF(int mask)
 // MSVC 7.1 emits `F3 0F 10 44 24 04` plus `F3 0F 11 81 DISP32` plus
 // `C2 04 00` for seventeen bytes total with /arch:SSE. Identity is not
 // recovered: every name is derived from its address.
+
+// tu-skeleton: 0x001D9715 10B ?rva001D9715@Rva001D9715@@QAEXI@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE49.cpp (not merged yet)
+
+// tu-skeleton: 0x001D971F 12B ?rva001D971F@Rva001D9715@@QAEXI@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE49.cpp (not merged yet)
 
 // tu-skeleton: 0x001D9990 27B ??4FXBoneInfo@@QAEAAU0@ABU0@@Z -- matched in Code/GameEngine/Source/Common/Thing/ModuleFactory.cpp (not merged yet)
 
@@ -1331,7 +1342,20 @@ void Rva001D96FF::rva001D96FF(int mask)
 
 // tu-skeleton: 0x001D9B87 29B ??$__copy_ptrs@PAVBfmeStringTailRecord156@@PAV1@@_STL@@YAPAVBfmeStringTailRecord156@@PAV1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeDeferred.cpp (not merged yet)
 
-// tu-skeleton: 0x001D9BA4 47B ?Rva001D9BA4Copy@@YAPAVRva000A8CAE@@PAV1@00@Z -- matched in Code/GameEngine/Source/Common/Rva000A8CAEAssign.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva000A8CAEAssign.cpp
+
+Rva000A8CAE *__cdecl Rva001D9BA4Copy(Rva000A8CAE *first, Rva000A8CAE *last, Rva000A8CAE *dest)
+{
+    int n = last - first;
+    if (n <= 0)
+        return dest;
+    for (int i = n; i != 0; --i) {
+        *dest = *first;
+        ++first;
+        ++dest;
+    }
+    return dest;
+}
 
 // tu-skeleton: 0x001D9BD3 27B ??$copy@PAUFXBoneInfo@@PAU1@@_STL@@YAPAUFXBoneInfo@@PAU1@00@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportCopyWrapperPairsFamily.cpp (not merged yet)
 

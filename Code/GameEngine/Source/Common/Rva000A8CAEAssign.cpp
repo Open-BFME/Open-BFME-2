@@ -26,16 +26,3 @@ Rva000A8CAE &Rva000A8CAE::operator=(const Rva000A8CAE &other)
     m_4 = other.m_4;
     return *this;
 }
-
-Rva000A8CAE *__cdecl Rva001D9BA4Copy(Rva000A8CAE *first, Rva000A8CAE *last, Rva000A8CAE *dest)
-{
-    int n = last - first;
-    if (n <= 0)
-        return dest;
-    for (int i = n; i != 0; --i) {
-        *dest = *first;
-        ++first;
-        ++dest;
-    }
-    return dest;
-}
