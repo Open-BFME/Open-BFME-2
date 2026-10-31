@@ -959,6 +959,18 @@ struct RetailTeamRelationMap
 	{ \
 		return ((StringBase<char> &)m_str).set((const StringBase<char> &)s); \
 	}
+#define BFME_DISP32_DWORD_CLEAR(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		void clear(); \
+		char m_lead[DISP]; \
+		int m_counter; \
+	}; \
+	void NAME::clear() \
+	{ \
+		m_counter = 0; \
+	}
 
 // ?rva0039D8BA@Team@@QAEXPAVObject@@@Z @0x0039D8BA (18B).
 // Team::rva0039D8BA(Object*): sets Team+0x5c entered flag then refreshes the
@@ -1682,7 +1694,11 @@ BFME_DISP32_FLOAT_SETTER(Rva0039D470FloatField, 0x120)
 
 BFME_ASCII_FIELD_SETTER(Rva0039D91FStringField, 0x318)
 
+BFME_DISP32_DWORD_CLEAR(Rva0039D761DwordClearer, 0x1D8)
+
 // tu-skeleton: 0x0039D40F 26B ?dlink_isInList_TeamInstanceList@Team@@QBE_NPBQAV1@@Z -- matched in Code/GameEngine/Source/Common/Team_dlink_isInList_TeamInstanceList.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/RTS/Team.cpp
 
 // ---- from Code/GameEngine/Source/Common/RTS/Team.cpp
 
@@ -3668,13 +3684,46 @@ void Team::rva003A38E9(const AsciiString &keyName, unsigned char stateWord)
 // `C2 04 00` for seventeen bytes total with /arch:SSE. Identity is not
 // recovered: every name is derived from its address.
 
+
+
+
+
+
+
+
+
+
+
+// ---- from Code/GameEngine/Source/Common/AsciiStringFieldSetters.cpp
+
+//
+// AsciiString field setters: one shape, add ecx, <field>; jmp
+// StringBase<char>::set (rowed 0x000366F0), i.e. assign an AsciiString member
+// at a fixed offset of the receiver. Same recipe as the rowed Rva004EC1CE.cpp
+// (+0x148). Each body sits in a gap between rowed functions; receivers and
+// field purposes are unknown, so each gets a per-address name, and no
+// referencing site was found for these in this pass.
+
 // tu-skeleton: 0x0039D52C 7B ?get@Rva0039D52CByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/DispByteFieldGetters.cpp (not merged yet)
 
 // tu-skeleton: 0x0039D599 16B ?Rva0039D599TestBit@@YAHIH@Z -- matched in Code/GameEngine/Source/Common/RTS/TeamTemplateInfoXfer.cpp (not merged yet)
 
 // tu-skeleton: 0x0039D5C1 323B ?xfer@TeamTemplateInfo@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/RTS/TeamTemplateInfoXfer.cpp (not merged yet)
 
-// tu-skeleton: 0x0039D761 8B ?clear@Rva0039D761DwordClearer@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Disp32DwordClearers2.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Disp32DwordClearers2.cpp
+
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
+// Disp32 dword clearers: eight-byte __thiscall members with one shape:
+//
+//     and dword ptr [ecx+<DISP32>],0 / ret     (83 A1 XX XX XX XX 00 C3)
+//
+// A dword counter at a fixed displacement from `this` is cleared in place.
+// The zero is applied as an AND-immediate (not a MOV-immediate): under /O1
+// MSVC 7.1 emits the RMW form for `m_counter = 0` (defaults emit the longer
+// MOV-imm form). The displacements here do not fit in a signed byte, hence
+// disp32. Sibling TU to the field-clearer family, kept separate to avoid
+// churning a live file. Identity is not recovered: every name is derived
+// from its address.
 
 // tu-skeleton: 0x0039D7C8 7B ?get@Rva0039D7C8LeaGetter@@QBEPAXXZ -- matched in Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp (not merged yet)
 
@@ -3687,16 +3736,6 @@ void Team::rva003A38E9(const AsciiString &keyName, unsigned char stateWord)
 // tu-skeleton: 0x0039D84A 63B ?setTeamTargetObject@Team@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/Common/RTS/TeamGetControllingPlayer.cpp (not merged yet)
 
 // tu-skeleton: 0x0039D8CC 7B ?rva0039D8CC@Rva0039D8CC@@QBEHHHHH@Z -- matched in Code/GameEngine/Source/Common/GapLeavesSeat8.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/AsciiStringFieldSetters.cpp
-
-//
-// AsciiString field setters: one shape, add ecx, <field>; jmp
-// StringBase<char>::set (rowed 0x000366F0), i.e. assign an AsciiString member
-// at a fixed offset of the receiver. Same recipe as the rowed Rva004EC1CE.cpp
-// (+0x148). Each body sits in a gap between rowed functions; receivers and
-// field purposes are unknown, so each gets a per-address name, and no
-// referencing site was found for these in this pass.
 
 // tu-skeleton: 0x0039D92A 42B ?findTeamByID@TeamPrototype@@QAEPAVTeam@@I@Z -- matched in Code/GameEngine/Source/Common/RTS/TeamPrototypeFindAndCountInstances.cpp (not merged yet)
 
