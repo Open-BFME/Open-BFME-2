@@ -7,6 +7,7 @@
 // (operator-new immediate). Callees resolve by name to the ledger row (new),
 // the MeshMatDesc default-ctor pin and the Is_Empty / Init_Alternate pins.
 
+#define __PLACEMENT_VEC_NEW_INLINE	// always.h defines array placement-new itself
 #include <new>
 
 class MeshMatDescClass

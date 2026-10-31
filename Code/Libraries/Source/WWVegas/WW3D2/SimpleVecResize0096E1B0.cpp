@@ -2,7 +2,7 @@
 // Open-BFME7: SimpleVecClass<Vector2-like element>::Resize, retail 0x001883F0 (201 bytes): the
 // nothrow-delete twin (docs/shape_levers.md) that decalmsh.cpp, hmorphanim.cpp, meshmdlio.cpp,
 // ringobj.cpp and sphereobj.cpp all compile byte-identically for their own 8-byte elements;
-// same preprocessor preamble as decalmsh.cpp, address-tagged element.
+// address-tagged element.
 // BFME1 donor: reference/open-bfme-1 at 0x0096E1B0, byte-identical in game.dat.
 // The compiler-generated vector constructor iterator (??_H) takes the
 // optimization state of the first function that needs it. Retail links one
@@ -17,20 +17,8 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #pragma optimize("", on)
 #define __PLACEMENT_VEC_NEW_INLINE	// always.h defines array placement-new itself
 #include <new>
-#define Matrix4x4 Matrix4  // BFME renamed it
-#include "decalmsh.h"
-#include "decalsys.h"
-#include "rinfo.h"
-#include "mesh.h"
-#include "meshmdl.h"
-#include "plane.h"
-#include "statistics.h"
-#include "dx8vertexbuffer.h"
-#include "dx8indexbuffer.h"
 #include "simplevec.h"
-#include "texture.h"
-#include "dx8wrapper.h"
-#include "dx8caps.h"
+#include "vector2.h"
 
 struct Rva0096E1B0Elem : public Vector2 {};
 

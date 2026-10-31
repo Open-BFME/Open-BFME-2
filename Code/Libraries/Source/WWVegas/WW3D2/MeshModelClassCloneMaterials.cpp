@@ -15,6 +15,7 @@
 // to pins (matinfo.cpp holds the future row bodies).
 
 #include <string.h>
+#define __PLACEMENT_VEC_NEW_INLINE	// always.h defines array placement-new itself
 #include <new>
 #include <windows.h>
 

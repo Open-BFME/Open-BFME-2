@@ -59,6 +59,33 @@ template <> ShareBufferClass<unsigned short>::~ShareBufferClass();
 ** will own the refs for the mesh.  The load context object is destroyed once
 ** loading is complete...
 */
+// One owning texture pointer: the element of the context's +0x10C vector
+// (retail's ??_7?$DynamicVectorClass@VBfmeHandleCX@@@@6B@).
+class BfmeHandleCX
+{
+public:
+	BfmeHandleCX(void) : p(0) {}
+	BfmeHandleCX(const BfmeHandleCX &other) : p(other.p)
+	{
+		if (p) p->Add_Ref();
+	}
+	~BfmeHandleCX(void)
+	{
+		if (p) p->Release_Ref();
+	}
+	BfmeHandleCX &operator=(const BfmeHandleCX &other)
+	{
+		if (other.p) other.p->Add_Ref();
+		if (p) p->Release_Ref();
+		p = other.p;
+		return *this;
+	}
+	bool operator==(const BfmeHandleCX &other) const { return p == other.p; }
+	bool operator!=(const BfmeHandleCX &other) const { return p != other.p; }
+
+	TextureClass *p;
+};
+
 class MeshLoadContextClass : public W3DMPO
 {
 	W3DMPO_GLUE(MeshLoadContextClass)
@@ -134,6 +161,7 @@ private:
 	DynamicVectorClass < VertexMaterialClass * >		VertexMaterials;
 	DynamicVectorClass < unsigned long >				VertexMaterialCrcs;
 	DynamicVectorClass < TextureClass * >				Textures;			
+	DynamicVectorClass < BfmeHandleCX >					TextureHandles;	// +0x10C (0x00188750 reads its count at +0x11C)
 
 	/*
 	** Alternate material data.  Any alternate material data will be loaded into 
