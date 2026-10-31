@@ -79,13 +79,6 @@ private:
     Rva001F6492Helper *m_ptr;
     Rva001F8DE2 m_next;
 };
-void Rva001F9424::rva001F9424(int a, int b)
-{
-    Rva001F6492Helper *linkHelper = m_ptr;
-    if (linkHelper)
-        linkHelper->m3(a, b);
-    m_next.rva001F8DE2(a, b);
-}
 class Rva001FA4C6 {
 public:
     void rva001FA4C6(int a, int b);
@@ -93,13 +86,6 @@ private:
     Rva001F6492Helper *m_ptr;
     Rva001F9424 m_next;
 };
-void Rva001FA4C6::rva001FA4C6(int a, int b)
-{
-    Rva001F6492Helper *linkHelper = m_ptr;
-    if (linkHelper)
-        linkHelper->m3(a, b);
-    m_next.rva001F9424(a, b);
-}
 class Rva001FA7CE {
 public:
     void rva001FA7CE(int a, int b);
@@ -107,10 +93,3 @@ private:
     Rva001F6492Helper *m_ptr;
     Rva001FA4C6 m_next;
 };
-void Rva001FA7CE::rva001FA7CE(int a, int b)
-{
-    Rva001F6492Helper *linkHelper = m_ptr;
-    if (linkHelper)
-        linkHelper->m3(a, b);
-    m_next.rva001FA4C6(a, b);
-}

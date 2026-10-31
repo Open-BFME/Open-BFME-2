@@ -1236,14 +1236,6 @@ public:
     virtual void m3(int a, int b);
 };
 
-class Rva001F5D0E {
-public:
-    void rva001F5D0E(int a, int b);
-private:
-    Helper001F5D0E *m_ptr;
-    Rva001F4276 m_next;
-};
-
 // ?rva001F5D38@Rva001F5D38@@QAEXXZ @0x001F5D38 23B.
 // Null-checked virtual slot +4 at +0 then tail-jmp to rowed Rva001F429A::call on this+4.
 // Caller jmp from 0x001F64E4. Honest Rva names.
@@ -2219,11 +2211,91 @@ class Rva005CC958ByteStore {public: void rva005CC958(Int unused);void rva005CC95
 // write and stack-word ABI are known; owner and field meaning remain unknown.
 class Rva005E39D9ScalarStore {public: void rva005E39D9(Int unused,Int value); private: char m_prefix[0x29]; unsigned char m_value;};
 
+// Forwarding chain 001F6492 .. 001FA7CE (seven 42B bodies) with the
+// Rva001F5D0E.cpp shape: null-checked virtual slot 0xc on the pointer at +0
+// with (int,int) then the same call on the next link at +4. Next-link callees
+// by REL32: 001F6492 -> rowed 001F5D0E; 001F8213 -> 001F6492; 001F8960 ->
+// 001F8213; 001F8DE2 -> 001F8960; 001F9424 -> 001F8DE2; 001FA4C6 -> 001F9424;
+// 001FA7CE -> 001FA4C6. Original names unknown so address-derived Rva names.
+class Rva001F6492Helper {
+public:
+    virtual ~Rva001F6492Helper();
+    virtual void m1();
+    virtual void m2();
+    virtual void m3(int a, int b);
+};
+
+class Rva001F5D0E {
+public:
+    void rva001F5D0E(int a, int b);
+private:
+    Helper001F5D0E *m_ptr;
+    Rva001F4276 m_next;
+};
+
+class Rva001F6492 {
+public:
+    void rva001F6492(int a, int b);
+private:
+    Rva001F6492Helper *m_ptr;
+    Rva001F5D0E m_next;
+};
+
+class Rva001F8213 {
+public:
+    void rva001F8213(int a, int b);
+private:
+    Rva001F6492Helper *m_ptr;
+    Rva001F6492 m_next;
+};
+
+class Rva001F8960 {
+public:
+    void rva001F8960(int a, int b);
+private:
+    Rva001F6492Helper *m_ptr;
+    Rva001F8213 m_next;
+};
+
+class Rva001F8DE2 {
+public:
+    void rva001F8DE2(int a, int b);
+private:
+    Rva001F6492Helper *m_ptr;
+    Rva001F8960 m_next;
+};
+
+class Rva001F9424 {
+public:
+    void rva001F9424(int a, int b);
+private:
+    Rva001F6492Helper *m_ptr;
+    Rva001F8DE2 m_next;
+};
+
+class Rva001FA4C6 {
+public:
+    void rva001FA4C6(int a, int b);
+private:
+    Rva001F6492Helper *m_ptr;
+    Rva001F9424 m_next;
+};
+
+class Rva001FA7CE {
+public:
+    void rva001FA7CE(int a, int b);
+private:
+    Rva001F6492Helper *m_ptr;
+    Rva001FA4C6 m_next;
+};
+
 // tu-skeleton: 0x001F392E 247B ?rotateLocalTransformX@ParticleSystem@@QAEXM@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemRotateLocalTransform.cpp (not merged yet)
 
 // tu-skeleton: 0x001F3A25 247B ?rotateLocalTransformY@ParticleSystem@@QAEXM@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemRotateLocalTransform.cpp (not merged yet)
 
 // tu-skeleton: 0x001F3B1C 247B ?rotateLocalTransformZ@ParticleSystem@@QAEXM@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemRotateLocalTransform.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/System/ParticleSys.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/System/ParticleSys.cpp
 
@@ -3337,6 +3409,13 @@ void Rva001F5D4F::rva001F5D4F(int x)
     m_next.call(x);
 }
 
+// ---- from Code/GameEngine/Source/Common/VslotSmallBodiesAA.cpp
+
+ParticleSystemTemplate *ParticleSystemManager::rva001F9343(const AsciiString &name, Int) const
+{
+	return findTemplate(name);
+}
+
 // tu-skeleton: 0x001F3C6B 47B ?rva001F3C6B@ParticleSystem@@QAEIXZ -- matched in Code/GameEngine/Source/GameClient/System/FXParticleSystem/FXPSStorageModuleRva003B0869.cpp (not merged yet)
 
 // tu-skeleton: 0x001F3D2E 674B ?parse@ParticleSystemTemplate@FXParticleSystem@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameClient/ParticleSystemTemplate.cpp (not merged yet)
@@ -3461,13 +3540,6 @@ void Rva001F5D4F::rva001F5D4F(int x)
 
 // tu-skeleton: 0x001F933E 5B ??1?$map@VAsciiString@@UTreeHintPayload001F8ACB@@U?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@_STL@@@4@@_STL@@QAE@XZ -- matched in Code/GameEngine/Source/Common/System/SaveGame/CreateAHeroDataCopy.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/VslotSmallBodiesAA.cpp
-
-ParticleSystemTemplate *ParticleSystemManager::rva001F9343(const AsciiString &name, Int) const
-{
-	return findTemplate(name);
-}
-
 // tu-skeleton: 0x001F934F 20B ?insert@?$map@VAsciiString@@HU?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@H@_STL@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@H@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@H@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBVAsciiString@@H@2@@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemDebugDisplay.cpp (not merged yet)
 
 // tu-skeleton: 0x001F9363 64B ??0?$hashtable@U?$pair@$$CBHURva001F9363Element@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHURva001F9363Element@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHURva001F9363Element@@@_STL@@@2@@_STL@@QAE@IABU?$hash@H@1@ABU?$equal_to@H@1@ABV?$allocator@U?$pair@$$CBHURva001F9363Element@@@_STL@@@1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva001F9363.cpp (not merged yet)
@@ -3480,7 +3552,31 @@ ParticleSystemTemplate *ParticleSystemManager::rva001F9343(const AsciiString &na
 
 // tu-skeleton: 0x001F9402 34B ?rva001F9402@Rva001F9402@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/Thing/Rva001F9402.cpp (not merged yet)
 
-// tu-skeleton: 0x001F9424 42B ?rva001F9424@Rva001F9424@@QAEXHH@Z -- matched in Code/GameEngine/Source/Common/Rva001F6492Chain.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva001F6492Chain.cpp
+
+void Rva001F9424::rva001F9424(int a, int b)
+{
+    Rva001F6492Helper *linkHelper = m_ptr;
+    if (linkHelper)
+        linkHelper->m3(a, b);
+    m_next.rva001F8DE2(a, b);
+}
+
+void Rva001FA4C6::rva001FA4C6(int a, int b)
+{
+    Rva001F6492Helper *linkHelper = m_ptr;
+    if (linkHelper)
+        linkHelper->m3(a, b);
+    m_next.rva001F9424(a, b);
+}
+
+void Rva001FA7CE::rva001FA7CE(int a, int b)
+{
+    Rva001F6492Helper *linkHelper = m_ptr;
+    if (linkHelper)
+        linkHelper->m3(a, b);
+    m_next.rva001FA4C6(a, b);
+}
 
 // tu-skeleton: 0x001F944E 23B ?rva001F944E@Rva001F944E@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Thing/Rva001F944E.cpp (not merged yet)
 
@@ -3536,8 +3632,6 @@ ParticleSystemTemplate *ParticleSystemManager::rva001F9343(const AsciiString &na
 
 // tu-skeleton: 0x001FA473 26B ?str@?$basic_ostringstream@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QBE?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_ostringstream_dtor.cpp (not merged yet)
 
-// tu-skeleton: 0x001FA4C6 42B ?rva001FA4C6@Rva001FA4C6@@QAEXHH@Z -- matched in Code/GameEngine/Source/Common/Rva001F6492Chain.cpp (not merged yet)
-
 // tu-skeleton: 0x001FA574 16B ?Rva001FA574Append@@YAXPADPAURva002BA8F1Listener@@@Z -- matched in Code/GameEngine/Source/Common/Rva005A0B4CListAppend.cpp (not merged yet)
 
 // tu-skeleton: 0x001FA584 19B ??0Rva001FA584@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Rva001FA584Ctor.cpp (not merged yet)
@@ -3557,8 +3651,6 @@ ParticleSystemTemplate *ParticleSystemManager::rva001F9343(const AsciiString &na
 // tu-skeleton: 0x001FA69F 218B ??0Rva001F9D98@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleSystemManagerDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x001FA779 28B ??_GRva001F9D98@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleSystemManagerDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x001FA7CE 42B ?rva001FA7CE@Rva001FA7CE@@QAEXHH@Z -- matched in Code/GameEngine/Source/Common/Rva001F6492Chain.cpp (not merged yet)
 
 // tu-skeleton: 0x001FA831 5B ?rva001FA831@Rva001FA831@@QAEXPAX0@Z -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
 
