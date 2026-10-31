@@ -12901,8 +12901,8 @@ present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIClosestEnemySearch.cpp	0
 present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp	AI::loadPostProcess	1
 present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp	TAiData::loadPostProcess	1
 present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIExitStateMethods.cpp	StateMachine::getCurrentStateID	1
-present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIGroupRva0036E1C3.cpp	getDrawable@Thing@@QBEPAVDrawable@@XZ	1
-present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIGroupRva0036E1C3.cpp	setEmoticon@Drawable@@QAEXABV?$StringBase@D@@H@Z	1
+present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIGroup.cpp	getDrawable@Thing@@QBEPAVDrawable@@XZ	1
+present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIGroup.cpp	setEmoticon@Drawable@@QAEXABV?$StringBase@D@@H@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIInternalMoveToStateUpdate.cpp	isInIdleState@StateMachine@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIInternalMoveToStateUpdate.cpp	isSamePosition@@YA_NPBUCoord3D@@00@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp	Rva002F0DD6Less::operator()	1
@@ -15210,7 +15210,7 @@ present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp	Registry_Save_Ren
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp	Release_Debug_Resources@WW3D@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp	Set_Collision_Box_Display_Mask@WW3D@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp	Set_Texture_Bitdepth@WW3D@@	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp	Set_Texture_Reduction@WW3D@@SAXHH@Z	1	allow=137a56a69a12c9fbf52ef12b7007d92dcd50efde
+present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp	Set_Texture_Reduction@WW3D@@SAXHH@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp	Toggle_Windowed@WW3D@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp	Update_Pixel_Center@WW3D@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWDebug/debug_stack.cpp	0Signature@DebugStackwalk@@QAE@ABV01@@Z	1
