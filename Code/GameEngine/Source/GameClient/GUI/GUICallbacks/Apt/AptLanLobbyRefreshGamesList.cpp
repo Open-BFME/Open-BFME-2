@@ -140,7 +140,7 @@ private:
 	void *m_end;
 };
 
-void __cdecl Rva005810B6Sort(void **first, void **last, Rva000795C1Record compare);
+void __cdecl sort(void **first, void **last, Rva000795C1Record compare);
 
 class Rva0058113D
 {
@@ -304,7 +304,7 @@ LANGameInfo *Rva0058113D::rva0058113D(unsigned int index)
 	if (!m_sorted)
 	{
 		unsigned int sortKey = ((LANGameInfo *)m_first[index])->v07();
-		Rva005810B6Sort(first(), last(), Rva000795C1Record(this, sortKey));
+		sort(first(), last(), Rva000795C1Record(this, sortKey));
 		m_sorted = true;
 	}
 	return (LANGameInfo *)m_first[index];

@@ -5,7 +5,7 @@
 // copy is an EH-framed temporary with the record destructor (free of its first pointer).
 // Identities are address-derived; the sort family's record layout is the one from
 // Rva005810B6Sort.cpp.
-void __cdecl Rva00580AAC(void **, int, int, void *, class Rva000795C1Record);
+void __cdecl adjustHeap(void **, int, int, void *, class Rva000795C1Record);
 
 // Retail calls free directly (the game allocator), not through the CRT
 // import: read <stdlib.h> without dllimport. /EHs lets free throw,
@@ -27,5 +27,5 @@ public:
 void __cdecl Rva00580C0E(void **first, void **last, void **result, void *value, Rva000795C1Record compare, void **)
 {
 	*result = *first;
-	Rva00580AAC(first, 0, (int)(last - first), value, compare);
+	adjustHeap(first, 0, (int)(last - first), value, compare);
 }

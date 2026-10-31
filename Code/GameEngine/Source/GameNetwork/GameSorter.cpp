@@ -162,9 +162,9 @@ Rva000795C1Record::Rva000795C1Record(void *a, unsigned int n) : m_00(a), m_04(n)
 {
 }
 
-// tu-skeleton: 0x00580646 191B ?Rva00580646Median@@YAPAPAXABQAX00VRva000795C1Record@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva005810B6Sort.cpp (not merged yet)
+// tu-skeleton: 0x00580646 191B ?median@@YAPAPAXABQAX00VRva000795C1Record@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva005810B6Sort.cpp (not merged yet)
 
-// tu-skeleton: 0x00580705 113B ?Rva00580705Partition@@YAPAPAXPAPAX0PAXVRva000795C1Record@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva005810B6Sort.cpp (not merged yet)
+// tu-skeleton: 0x00580705 113B ?unguardedPartition@@YAPAPAXPAPAX0PAXVRva000795C1Record@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva005810B6Sort.cpp (not merged yet)
 
 // tu-skeleton: 0x00580776 88B ?unguardedLinearInsert@@YAXPAPAXPAXVRva000795C1Record@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00580776LinearInsert.cpp (not merged yet)
 

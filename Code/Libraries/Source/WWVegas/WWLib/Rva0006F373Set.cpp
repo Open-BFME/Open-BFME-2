@@ -15,8 +15,8 @@ private:
 	void *m_00;
 	int m_04;
 	int m_08;
-	void *m_0C;
-	void *m_10;
+	void *m_allocFunc;
+	void *m_freeFunc;
 	void *m_14;
 };
 
@@ -28,9 +28,9 @@ bool Rva0006F373::rva0006F373(void *a, int b, int c, void *d, void *e, void *f)
 	if (a)
 		m_00 = a;
 	if (d)
-		m_0C = d;
+		m_allocFunc = d;
 	if (e)
-		m_10 = e;
+		m_freeFunc = e;
 	m_14 = f;
 	if (m_04 == 0)
 		return ((Rva0006EFC8 *)this)->rva0006EFC8(b, c);
@@ -43,8 +43,8 @@ Rva0006F373::Rva0006F373(void *a, int b, int c, void *d, void *e, void *f)
 	m_00 = (void *)0x80;
 	m_04 = 0;
 	m_08 = 0;
-	m_0C = (void *)Rva0002FFC0Alloc;
-	m_10 = (void *)Rva0002FFE0Free;
+	m_allocFunc = (void *)Rva0002FFC0Alloc;
+	m_freeFunc = (void *)Rva0002FFE0Free;
 	m_14 = 0;
 	rva0006F373(a, b, c, d, e, f);
 }
