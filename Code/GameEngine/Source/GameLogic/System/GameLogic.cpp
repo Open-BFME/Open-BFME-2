@@ -484,7 +484,6 @@ struct Rva003F468DParticipant
 	unsigned char m_pad00[0x14];
 	int m_playerIndex;
 };
-class Player;
 class PlayerList : public SystemBase, public Snapshot
 {
 public:
@@ -667,7 +666,6 @@ void Rva00511730(int);
 void Rva00518262Enable();
 void Rva0051B11CEnable();
 void Rva00437E9C(int);
-class Rva005CB260;
 class InGameUISlots
 {
 public:
@@ -896,6 +894,69 @@ class ModuleData;
 	{ \
 		return ((const Sub##NAME *)((const char *)this + (DISP1)))->m_holder->m_value; \
 	}
+#include <stddef.h>
+typedef unsigned int PlayerMaskType;
+void setFPMode();
+unsigned int GetGameLogicRandomSeedCRC();
+#include "Common/Snapshot.h"
+class Rva0020E6B7RegionManager;
+// PartitionRangeQueryCallView.h pads this manager's two bases over +0x00..+0x10;
+// this view spells them for the Snapshot upcast.
+class PartitionManager;
+class PartitionManagerSnapshotView : public SystemBase, public Snapshot
+{
+};
+class CollisionManager : public SystemBase, public Snapshot
+{
+};
+class ShroudManager : public SystemBase, public Snapshot
+{
+};
+class TaintManager : public SystemBase, public Snapshot
+{
+};
+class SkirmishAIManager : public SystemBase, public Snapshot
+{
+};
+#define g_00E02D7C (*(unsigned char *)&TheXObjectCRC)
+#define g_00E02D7D (*(unsigned char *)&TheXPartitionCRC)
+#define g_00E02D7E (*(unsigned char *)&TheXCollisionCRC)
+#define g_00E02D7F (*(unsigned char *)&TheXShroudCRC)
+#define g_00E02D80 (*(unsigned char *)&TheXTaintCRC)
+#define g_00E02D83 (*(unsigned char *)&TheXPlayerCRC)
+#define g_00E02D84 (*(unsigned char *)&TheXAICRC)
+#define g_00E02D88 (*(unsigned char *)&TheXLWCRC)
+//
+// GameLogic::lastHeardFrom, retail 0x0023CF1C, 35 bytes.
+// Dedicated TU so GameLogicProcessProgress.cpp cannot see this body.
+// Timeout stamp array sits at this+0x130; MAX_SLOTS is 8.
+
+extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime(void);
+#include "string_base.h"
+// ?rva0023DC8E@Rva0023DC8E@@QAEXABVAsciiString@@@Z — RVA 0x0023DC8E, 64B.
+// Ghidra FUN_0063dc8e is the 64-byte sibling of the conditional
+// string-and-handles setter that retail emits inline (COMDAT) in GameLogic's own
+// unit; that 122-byte body at 0x0023DCCE now compiles from its retail home,
+// Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp. This file keeps
+// only the sibling, an address-derived host.
+// Evidence: retail branch bytes; callees rowed (isEmpty 0x1E2F, StringBase set
+// 0x366F0, releaseBuffer 0x36410); global at VA 0xdfe758.
+
+class Rva0023DC8E;
+#include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
+#pragma optimize("s", off)
+#pragma optimize("t", on)
+#pragma optimize("", on)
+#include <algorithm>
+#pragma optimize("s", off)
+#pragma optimize("t", on)
+#pragma optimize("", on)
+class GameSlot;
+class GameInfo
+{
+public:
+	GameSlot *getSlot(int slot);
+};
 
 class BodyModuleInterface;
 
@@ -1921,9 +1982,563 @@ private:
 	SizedForwarderSlots *m_inner;
 };
 
-// tu-skeleton: 0x0023C924 212B ?selectObject@GameLogic@@QAEXPAVObject@@_NI1@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicDeselectObject.cpp (not merged yet)
+class Drawable;
 
-// tu-skeleton: 0x0023C9F8 171B ?deselectObject@GameLogic@@QAEXPAVObject@@I_N@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicDeselectObject.cpp (not merged yet)
+class Rva0028BD3AInterface
+{
+public:
+	virtual void v00();
+	virtual void v01();
+};
+
+class AIGroup
+{
+public:
+	void add(Object *obj);
+	Bool remove(Object *obj);
+};
+
+class XferSave
+{
+public:
+	XferSave();
+	virtual ~XferSave();
+	virtual void slot1();
+	virtual void slot2();
+	virtual void slot3();
+	virtual void slot4();
+	virtual int beginBlock(const char *name);
+	virtual void slot6();
+	virtual void slot7();
+	virtual void slot8();
+	virtual void slot9();
+	virtual void slot10();
+	virtual void slot11();
+	virtual void xferSnapshot(Snapshot *snapshot);
+	virtual void slot13();
+	virtual void slot14();
+	virtual void slot15();
+	virtual void slot16();
+	virtual void slot17();
+	virtual void slot18();
+	virtual void slot19();
+	virtual void slot20();
+	virtual void slot21();
+	virtual void slot22();
+	virtual void slot23();
+	virtual void slot24();
+	virtual void slot25();
+	virtual void slot26();
+	virtual void slot27();
+	virtual void slot28();
+	virtual void slot29();
+	virtual void xferUnsignedInt(unsigned int *value);
+	virtual void slot31();
+	virtual void slot32();
+private:
+	char m_data[0x3C];
+};
+
+class BFMECRCWriter : public XferSave
+{
+public:
+	BFMECRCWriter(bool full);
+	bool m_full;
+	unsigned int m_crc;
+};
+
+class Rva0060D4C9
+{
+public:
+	unsigned char rva0060D4C9(Xfer *stream);
+};
+
+class Rva002CEC0A
+{
+public:
+	void rva002CED26(Xfer *xfer);
+};
+
+class Gen009D6DD0
+{
+public:
+	void bfmeClose();
+};
+
+class Rva00210C66CmpBoolField
+{
+public:
+	bool get() const;
+};
+
+extern "C" void *theLogicRandomLogFile;
+
+// g_00E02D7C is only an alias of the owned global TheXObjectCRC (ledger names column); this unit reads the owner through its own view type.
+extern bool TheXObjectCRC;
+
+// g_00E02D7D is only an alias of the owned global TheXPartitionCRC (ledger names column); this unit reads the owner through its own view type.
+extern bool TheXPartitionCRC;
+
+// g_00E02D7E is only an alias of the owned global TheXCollisionCRC (ledger names column); this unit reads the owner through its own view type.
+extern bool TheXCollisionCRC;
+
+// g_00E02D7F is only an alias of the owned global TheXShroudCRC (ledger names column); this unit reads the owner through its own view type.
+extern bool TheXShroudCRC;
+
+// g_00E02D80 is only an alias of the owned global TheXTaintCRC (ledger names column); this unit reads the owner through its own view type.
+extern bool TheXTaintCRC;
+
+// Native byte gate read by GameLogic::getCRC; original identifier unknown.
+unsigned char BfmeGameLogicCRCModeFlag = 0;
+
+// g_00E02D83 is only an alias of the owned global TheXPlayerCRC (ledger names column); this unit reads the owner through its own view type.
+extern bool TheXPlayerCRC;
+
+// g_00E02D84 is only an alias of the owned global TheXAICRC (ledger names column); this unit reads the owner through its own view type.
+extern bool TheXAICRC;
+
+// g_00E02D88 is only an alias of the owned global TheXLWCRC (ledger names column); this unit reads the owner through its own view type.
+extern bool TheXLWCRC;
+
+extern PartitionManager *TheShroudManager;
+
+extern CollisionManager *TheCollisionManager;
+
+class BfmeTaintManager;
+
+extern BfmeTaintManager *TheTaintManager;
+
+// TheSkirmishAIManager is only an alias of the owned global TheSkirmishAIManager (ledger names column); this unit reads the owner through its own view type.
+extern class Rva002A8F24 *TheSkirmishAIManager;
+
+extern class AI *TheAI;
+
+class Drawable
+{
+public:
+	void friend_bindToObject( Object *obj );
+	void rva00270FAC(bool value);
+};
+
+// sendObjectDestroyed reaches GameClient::destroyDrawable through slot 0x74 of
+// TheGameClient (0x00DFE77C).
+class GameClient
+{
+public:
+	virtual void s00(); virtual void s01(); virtual void s02(); virtual void s03();
+	virtual void s04(); virtual void s05(); virtual void s06(); virtual void s07();
+	virtual void s08(); virtual void s09(); virtual void s10(); virtual void s11();
+	virtual void s12(); virtual void s13(); virtual void s14(); virtual void s15();
+	virtual void s16(); virtual void s17(); virtual void s18(); virtual void s19();
+	virtual void s20(); virtual void s21(); virtual void s22(); virtual void s23();
+	virtual void s24(); virtual void s25(); virtual void s26(); virtual void s27();
+	virtual void s28();
+	virtual void destroyDrawable( Drawable *draw );
+};
+
+extern GameClient *TheGameClient;
+
+int GetGameClientRandomValue(int lo, int hi, char *file, int line);
+
+extern "C" __declspec(dllimport) int __cdecl sprintf(char *, const char *, ...);
+
+class BfmeAudio
+{
+public:
+	virtual void a00(); virtual void a01(); virtual void a02(); virtual void a03();
+	virtual void a04(); virtual void a05(); virtual void a06(); virtual void a07();
+	virtual void a08(); virtual void a09(); virtual void a10(); virtual void a11();
+	virtual void a12(); virtual void a13(); virtual void a14(); virtual void a15();
+	virtual void a16(); virtual void a17(); virtual void a18(); virtual void a19();
+	virtual void a20(); virtual void a21(); virtual void a22(); virtual void a23();
+	virtual void a24(); virtual void a25(); virtual void a26(); virtual void a27();
+	virtual void a28(); virtual void a29(); virtual void a30(); virtual void a31();
+	virtual void a32(); virtual void a33(); virtual void a34(); virtual void a35();
+	virtual void a36(); virtual void a37(); virtual void a38(); virtual void a39();
+	virtual void a40(); virtual void a41(); virtual void a42(); virtual void a43();
+	virtual void a44(); virtual void a45(); virtual void a46(); virtual void a47();
+	virtual void a48(); virtual void a49(); virtual void a50(); virtual void a51();
+	virtual void a52(); virtual void a53(); virtual void a54(); virtual void a55();
+	virtual void a56(); virtual void a57(); virtual void a58(); virtual void a59();
+	virtual void a60(); virtual void a61(); virtual void a62(); virtual void a63();
+	virtual void a64(); virtual void a65(); virtual void a66(); virtual void a67();
+	virtual void a68(); virtual void a69(); virtual void a70(); virtual void a71();
+	virtual void a72(); virtual void a73(); virtual void a74(); virtual void a75();
+	virtual void a76(); virtual void a77(); virtual void a78(); virtual void a79();
+	virtual void a80(); virtual void a81(); virtual void a82(); virtual void a83();
+	virtual void a84(); virtual void a85(); virtual void a86(); virtual void a87();
+	virtual void a88(); virtual void a89(); virtual void a90(); virtual void a91();
+	virtual void a92(); virtual void a93(); virtual void a94(); virtual void a95();
+	virtual void audioSlot180(int val);
+};
+
+extern class AudioManager *TheAudio;
+
+class Rva0023D661
+{
+public:
+	void rva0023D661(int val);
+private:
+	char m_pad[0xAC];
+	Object *m_head;
+};
+
+bool canPlayersTransferMoneyYet();
+
+class Rva002AA22AByteField
+{
+public:
+	unsigned char get() const;
+};
+
+struct OpaqueRefElement4
+{
+	void *m_ptr;
+	OpaqueRefElement4 &operator=(const OpaqueRefElement4 &other);
+};
+
+struct Rva000A8C9B
+{
+	void *m_ptr;
+	void clear();
+};
+
+// Ghidra FUN_0063dc8e is a 64-byte conditional string setter: it applies the
+// empty-string/global-flag test to a single string member at +0x74. Its public
+// setter body at 0x0023DCCE lives in GameLogicInit.cpp, its retail COMDAT home.
+class Rva0023DC8E
+{
+public:
+	void rva0023DC8E(const AsciiString &value);
+
+private:
+	char m_pad00[0x72];
+	unsigned char m_flag;
+	char m_pad73;
+	AsciiString m_string;
+};
+
+template _STL::_List_base<Rva0024076D, _STL::allocator<Rva0024076D> >::_List_base(const _STL::allocator<Rva0024076D> &);
+
+template _STL::list<Rva0024076D, _STL::allocator<Rva0024076D> >::list(const _STL::allocator<Rva0024076D> &);
+
+int GetGameLogicRandomValue(int lo, int hi, char *file, int line);
+
+// DelayedLuaEventList: ctor 0x000B6D8B and virtual dtor 0x000B6DD2 (slot 0 of its
+// vftable 0x007C9CF0 is the scalar deleting dtor 0x000B6E0C); the vptr is the +0 word.
+// BfmeDelayedLuaEventList is only the parameter tag of the 0x003360D2 row.
+struct BfmeDelayedLuaEventList;
+
+struct DelayedLuaEventList
+{
+	DelayedLuaEventList();
+	virtual ~DelayedLuaEventList();
+
+	unsigned char m_data[0x48];
+};
+
+class BfmeObjectEventDispatch
+{
+public:
+	void rva003360D2(int event, void *obj, BfmeDelayedLuaEventList *list);
+};
+
+class LuaScriptEngine;
+
+extern LuaScriptEngine *TheLuaScriptEngine;
+
+// clear is the rowed out-of-line 0x0006AA1C.
+namespace _STL { template <> void _Rb_tree<int, pair<const int, int>, _Select1st<pair<const int, int> >, less<int>, allocator<pair<const int, int> > >::clear(); }
+
+// Native 0x0023FD63, 14B: clear the int->int tree at +0, then set +0x10.
+struct Rva0023FD63Holder
+{
+	void reset();
+	_STL::_Rb_tree<int, _STL::pair<const int, int>,
+		_STL::_Select1st<_STL::pair<const int, int> >, _STL::less<int>,
+		_STL::allocator<_STL::pair<const int, int> > > m_tree;
+	int m_0c;
+	bool m_dirty; // +0x10
+};
+
+extern "C" {
+void __identifier("?rva0024002E@Rva0024002EForwarder@@QAEXXZ")();
+void __identifier("?rva00240035@Rva00240035Forwarder@@QAEXXZ")();
+void __identifier("?rva0024003D@Rva0024003DForwarder@@QAEXXZ")();
+void __identifier("?rva00240045@Rva00240045Forwarder@@QAEXXZ")();
+}
+
+extern const void *const g_00BEDCB4[4] = {
+	(const void *)&__identifier("?rva0024002E@Rva0024002EForwarder@@QAEXXZ"), // slot 0 0x0024002E
+	(const void *)&__identifier("?rva00240035@Rva00240035Forwarder@@QAEXXZ"), // slot 1 0x00240035
+	(const void *)&__identifier("?rva0024003D@Rva0024003DForwarder@@QAEXXZ"), // slot 2 0x0024003D
+	(const void *)&__identifier("?rva00240045@Rva00240045Forwarder@@QAEXXZ"), // slot 3 0x00240045
+};
+
+// The retail table at RVA 0x007EDAA8: 4 slots, each a rowed code owner (the next
+// word is not a code address or starts another ledger datum).
+extern "C" {
+void __identifier("?slot00@Rva0023DB34@@UAEHPAXH@Z")();
+void __identifier("?slot04@Rva0023DB34@@UAEHXZ")();
+void __identifier("?slot08@Rva0023DB34@@UAE_NH@Z")();
+void __identifier("?slot0C@Rva0023DB34@@UAE_NXZ")();
+}
+
+extern const void *const g_00BEDAA8[4] = {
+	(const void *)&__identifier("?slot00@Rva0023DB34@@UAEHPAXH@Z"), // slot 0 0x00306C15
+	(const void *)&__identifier("?slot04@Rva0023DB34@@UAEHXZ"), // slot 1 0x00306C42
+	(const void *)&__identifier("?slot08@Rva0023DB34@@UAE_NH@Z"), // slot 2 0x00306C49
+	(const void *)&__identifier("?slot0C@Rva0023DB34@@UAE_NXZ"), // slot 3 0x00306C58
+};
+
+struct BfmeE12
+{
+	float x;
+	float y;
+	float z;
+};
+
+// The base ctor is the rowed out-of-line 0x0007FAEA; the allocator temporary dies inline with no EH state.
+namespace _STL { template <> _Vector_base<BfmeE12, allocator<BfmeE12> >::_Vector_base(const allocator<BfmeE12> &); }
+
+namespace _STL { template <> inline allocator<BfmeE12>::~allocator() _STLP_NOTHROW {} }
+
+class Rva00240000
+{
+public:
+	Rva00240000();
+private:
+	const void *m_00;
+	_STL::_Vector_base<BfmeE12, _STL::allocator<BfmeE12> > m_04;
+	const void *m_10;
+	int m_14;
+	int m_18;
+	int m_1C;
+};
+
+struct BfmeStringRecord00239B46;
+
+void Rva0023FC3EConstruct(BfmeStringRecord00239B46 *, const BfmeStringRecord00239B46 &);
+
+struct BfmeStringRecord00239B46
+{
+	char m_data[8];
+};
+
+struct Rva00240C89Node
+{
+	char m_pad[8];
+	BfmeStringRecord00239B46 m_val08;
+};
+
+struct Rva00240C89Node * __stdcall Rva00240C89Create(const struct BfmeStringRecord00239B46 &x);
+
+void __cdecl Rva0023FC6BConstruct(void *dest, const void *source);
+
+struct Rva00240D0FValue
+{
+	char m_data[8];
+};
+
+struct Rva00240D0FNode
+{
+	int m_next;
+	Rva00240D0FValue m_04;
+};
+
+struct Rva00240D0FNode * __stdcall createNode(const struct Rva00240D0FValue &x);
+
+enum { BRIDGE_MAX_TOWERS = 4 };
+
+struct BridgeInfo
+{
+	unsigned char m_pad00[0x54];
+	ObjectID bridgeObjectID;
+	ObjectID towerObjectID[BRIDGE_MAX_TOWERS];
+};
+
+class Bridge
+{
+public:
+	const BridgeInfo *peekBridgeInfo() const { return &m_bridgeInfo; }
+
+private:
+	unsigned char m_pad00[0x0C];
+	BridgeInfo m_bridgeInfo;
+};
+
+template Rva0024076D* _STL::uninitialized_fill_n(Rva0024076D*,unsigned int,const Rva0024076D&);
+
+enum BuildableStatus
+{
+	BUILDABLE_STATUS_UNKNOWN = 0
+};
+
+namespace rts
+{
+template <typename T> struct equal_to
+{
+	bool operator()(const T &left, const T &right) const;
+};
+}
+
+typedef _STL::pair<const AsciiString, BuildableStatus> BuildableStatusPair;
+
+typedef _STL::hash_map<AsciiString, BuildableStatus, rts::hash<AsciiString>,
+	rts::equal_to<AsciiString>, _STL::allocator<BuildableStatusPair> > BuildableMap;
+
+class Rva00056F61;
+
+struct Rva0041534BIter {
+    void *m_node;
+    Rva00056F61 *m_table;
+    Rva0041534BIter(void *n, Rva00056F61 *t) : m_node(n), m_table(t) {}
+};
+
+class Rva00056F61 {
+public:
+    __declspec(nothrow) Rva0041534BIter rva0041534B(const AsciiString *);
+};
+
+struct BuildableSlotPair {
+    AsciiString name;
+    BuildableStatus status;
+    BuildableSlotPair(const AsciiString &asciiString, BuildableStatus s) : name(asciiString), status(s) {}
+};
+
+// Emit the owned specialization directly, without a synthetic GameLogic caller.
+template BuildableStatus &BuildableMap::operator[](const AsciiString &name);
+
+// Retail keeps this member out of line: insert 0x00247089 calls it, as list<int>'s does.
+namespace _STL {
+template <> __declspec(noinline) _List_node<Rva0024076D> *list<Rva0024076D, allocator<Rva0024076D> >::_M_create_node(const Rva0024076D &__x)
+{
+	_Node *__p = this->_M_node.allocate(1);
+	_Construct(&__p->_M_data, __x);
+	return __p;
+}
+}
+
+template _STL::_List_node<Rva0024076D> * _STL::list<Rva0024076D, _STL::allocator<Rva0024076D> >::_M_create_node(Rva0024076D const &);
+
+// Suppress this TU's non-retail copy of ?_M_create_node@?$list@VRva0024076D@@V?$allocator@VRva0024076D@@@_STL@@@_STL@@IAEPAU?$_Lis:
+// the kept copy serves the link. Plain declaration-only form (no __imp_).
+class Rva0024076D;
+
+namespace _STL { template <> _List_node<Rva0024076D> * list<Rva0024076D,allocator<Rva0024076D> >::_M_create_node(Rva0024076D const &); }
+
+template void _STL::list<Rva0024076D>::push_back(const Rva0024076D &);
+
+// ---- from Code/GameEngine/Source/GameLogic/System/GameLogicDeselectObject.cpp
+
+//
+// ?deselectObject@GameLogic@@QAEXPAVObject@@IH@Z retail 0x0023C9F8, 171 bytes.
+// Zero Hour GameLogic::deselectObject (no CRC log) with one BFME 2 addition:
+// after each player the object gets 0x00290496 (unnamed: when that player
+// controls it, clears flag +0x121 bit 2 and notifies its contain) - called
+// whether or not a group was made. Player::getCurrentSelectionAsAIGroup is
+// 0x002AA164 (forwards to the +0x730 selection), setCurrentlySelectedAIGroup
+// 0x002ACC53; TheAI->destroyGroup is the rowed AI::destroyGroup;
+// InGameUI::deselectDrawable is InGameUI slot 67 (0x10C).
+//
+// ?selectObject@GameLogic@@QAEXPAVObject@@_NI1@Z retail 0x0023C924, 212
+// bytes, directly before it: Zero Hour GameLogic::selectObject (no CRC log)
+// with two BFME 2 additions per player: when the player controls the object
+// the first non-null 0x0028BD3A behavior interface gets its slot 1, then the
+// object gets 0x0029041B (the select twin of 0x00290496). Object's
+// isSelectable is 0x00292FAC, addAIGroupToCurrentSelection 0x002ACCA3 and
+// InGameUI::selectDrawable slot 66 (0x108).
+
+void GameLogic::selectObject(Object *obj, Bool createNewSelection, PlayerMaskType playerMask, Bool affectClient)
+{
+	if (!obj) {
+		return;
+	}
+
+	if (!obj->isMassSelectable() && !createNewSelection) {
+		return;
+	}
+
+	while (playerMask) {
+		Player *player = ThePlayerList->getEachPlayerFromMask((Int &)playerMask);
+		if (!player) {
+			return;
+		}
+
+		AIGroup *group = TheAI->createGroup();
+		group->add(obj);
+
+		if (createNewSelection) {
+			player->setCurrentlySelectedAIGroup(group);
+		} else {
+			player->addAIGroupToCurrentSelection(group);
+		}
+
+		TheAI->destroyGroup(group);
+
+		if (affectClient) {
+			Drawable *draw = obj->getDrawable();
+			if (draw) {
+				TheInGameUI->selectDrawable(draw);
+			}
+		}
+
+		if (player == obj->getControllingPlayer()) {
+			Rva0028BD3AInterface *iface = (Rva0028BD3AInterface *)obj->rva0028BD3A();
+			if (iface) {
+				iface->v01();
+			}
+		}
+
+		obj->rva0029041B(player);
+	}
+}
+
+void GameLogic::deselectObject(Object *obj, PlayerMaskType playerMask, Bool affectClient)
+{
+	if (!obj) {
+		return;
+	}
+
+	while (playerMask) {
+		Player *player = ThePlayerList->getEachPlayerFromMask((Int &)playerMask);
+		if (!player) {
+			return;
+		}
+
+		AIGroup *group = NULL;
+		group = TheAI->createGroup();
+		player->getCurrentSelectionAsAIGroup(group);
+
+		Bool deleted = false;
+		Bool actuallyRemoved = false;
+
+		if (group) {
+			deleted = group->remove(obj);
+			actuallyRemoved = true;
+		}
+
+		if (actuallyRemoved) {
+			if (!deleted) {
+				player->setCurrentlySelectedAIGroup(group);
+				TheAI->destroyGroup(group);
+			} else {
+				player->setCurrentlySelectedAIGroup(NULL);
+			}
+
+			if (affectClient) {
+				Drawable *draw = obj->getDrawable();
+				if (draw) {
+					TheInGameUI->deselectDrawable(draw);
+				}
+			}
+		}
+
+		obj->rva00290496(player);
+	}
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
 
@@ -2820,17 +3435,123 @@ Rva0023DA79 *Rva0023DA79::rva0023DA79(int ignored, int index)
 	return this;
 }
 
-// tu-skeleton: 0x0023CAD2 7B ?getFirstObject@GameLogic@@QAEPAVObject@@XZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicGetObjectCount.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/VslotSizedForwarders.cpp
+
+// vtable 0x00BEDCB4#0: base at +0x10 ->slot0()
+void Rva0024002EForwarder::rva0024002E()
+{
+	slot0();
+}
+
+// vtable 0x00BEDCB4#1: base at +0x10 ->slot1()
+void Rva00240035Forwarder::rva00240035()
+{
+	slot1();
+}
+
+// vtable 0x00BEDCB4#2: base at +0x10 ->slot2()
+void Rva0024003DForwarder::rva0024003D()
+{
+	slot2();
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/System/GameLogicGetObjectCount.cpp
+
+// ?getFirstObject@GameLogic@@QAEPAVObject@@XZ @0x0023CAD2, 7B: the object list head.
+Object *GameLogic::getFirstObject()
+{
+	return m_firstObject;
+}
+
+UnsignedInt GameLogic::getObjectCount()
+{
+	UnsignedInt totalObjects = 0;
+	Object *obj;
+	for (obj = m_firstObject; obj; obj = obj->getNextObject()) {
+		++totalObjects;
+	}
+	return totalObjects;
+}
 
 // tu-skeleton: 0x0023CAD9 14B ?rva0023CAD9@GameLogic@@QAEHXZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicRva0023CAD9.cpp (not merged yet)
 
 // tu-skeleton: 0x0023CAE7 69B ?friend_createObject@GameLogic@@QAEPAVObject@@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z -- matched in Code/GameEngine/Source/Common/Thing/ThingFactory_newObject.cpp (not merged yet)
 
-// tu-skeleton: 0x0023CB2C 542B ?getCRC@GameLogic@@QAEIH@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicGetCRC.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/System/GameLogicGetCRC.cpp
 
-// tu-skeleton: 0x0023CD4A 29B ?bindObjectAndDrawable@GameLogic@@QAEXPAVObject@@PAVDrawable@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicBindObjectAndDrawable.cpp (not merged yet)
+unsigned int GameLogic::getCRC(int mode)
+{
+	setFPMode();
+	BFMECRCWriter writer(TheLiteCRC);
+	BFMECRCWriter *xfer = &writer;
+	if (mode != 0)
+		((Rva0060D4C9 *)&writer)->rva0060D4C9((Xfer *)mode);
+	if (theLogicRandomLogFile != 0)
+		((Rva002CEC0A *)theLogicRandomLogFile)->rva002CED26((Xfer *)&writer);
+	if (TheLiteCRC != 0 || g_00E02D7C == 0)
+	{
+		for (Object *obj = m_firstObject; obj != 0; obj = obj->getNextObject())
+			xfer->xferSnapshot(obj);
+	}
+	unsigned int seed = GetGameLogicRandomSeedCRC();
+	xfer->xferUnsignedInt(&seed);
+	if (TheLiteCRC != 0 || g_00E02D7D == 0)
+		xfer->xferSnapshot(*(PartitionManagerSnapshotView **)&ThePartitionManager);
+	if (TheLiteCRC != 0 || g_00E02D7E == 0)
+		xfer->xferSnapshot(TheCollisionManager);
+	if (TheLiteCRC != 0 || g_00E02D7F == 0)
+		xfer->xferSnapshot(*(PartitionManagerSnapshotView **)&TheShroudManager);
+	if (TheLiteCRC != 0 || g_00E02D80 == 0)
+		xfer->xferSnapshot((TaintManager *)TheTaintManager);
+	if (TheLiteCRC != 0 || BfmeGameLogicCRCModeFlag == 0)
+		xfer->xferSnapshot(*(SkirmishAIManager **)&TheSkirmishAIManager);
+	if (TheLiteCRC != 0 || g_00E02D83 == 0)
+		xfer->xferSnapshot(ThePlayerList);
+	if (TheLiteCRC != 0 || g_00E02D84 == 0)
+		xfer->xferSnapshot(TheAI);
+	if ((TheLiteCRC != 0 || g_00E02D88 == 0) && ((Rva00210C66CmpBoolField *)this)->get())
+		xfer->xferSnapshot((*(Rva002BA8F1Logic **)&TheLivingWorldLogic));
+	((Gen009D6DD0 *)&writer)->bfmeClose();
+	return writer.m_crc;
+}
 
-// tu-skeleton: 0x0023CD67 48B ?sendObjectDestroyed@GameLogic@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicBindObjectAndDrawable.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/System/GameLogicBindObjectAndDrawable.cpp
+
+//
+// ?bindObjectAndDrawable@GameLogic@@QAEXPAVObject@@PAVDrawable@@@Z retail
+// 0x0023CD4A, 29 bytes: the Zero Hour GameLogic.cpp body, which a /O1 build
+// places uniquely. Its two calls are the friend binders, pinned from these
+// sites: Drawable::friend_bindToObject 0x00274240 (stores the object at
+// Drawable +0xFC) and Object::friend_bindToDrawable 0x0029080C.
+
+void GameLogic::bindObjectAndDrawable(Object* obj, Drawable* draw)
+{
+	draw->friend_bindToObject( obj );
+	obj->friend_bindToDrawable( draw );
+}
+
+// ?sendObjectDestroyed@GameLogic@@QAEXPAVObject@@@Z retail 0x0023CD67, 48
+// bytes: the Zero Hour body right after bindObjectAndDrawable (as in
+// GameLogic.cpp), its getDrawable the pinned Object::getDrawable 0x005508E2.
+void GameLogic::sendObjectDestroyed( Object *obj )
+{
+	// Because this implementation is a bridge between the Logic and Interface,
+	// we must take extra care to handle such cases as when the system it
+	// shutting down.
+	if(TheGameClient == 0)
+		return;
+
+	// destroy the drawable
+	Drawable *draw = obj->getDrawable();
+	if(draw)
+	{
+		TheGameClient->destroyDrawable( draw );
+	}
+
+	// erase the binding of the drawable to this object
+	obj->friend_bindToDrawable( 0 );
+
+}
 
 // tu-skeleton: 0x0023CD97 7B ?isGamePaused@GameLogic@@QAEEXZ -- matched in Code/GameEngine/Source/Common/GameEngineNetworkHelpers.cpp (not merged yet)
 
@@ -2838,15 +3559,20 @@ Rva0023DA79 *Rva0023DA79::rva0023DA79(int ignored, int index)
 
 // tu-skeleton: 0x0023CEE5 55B ?rva0023CEE5@GameLogic@@QAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicSetGamePaused.cpp (not merged yet)
 
-// tu-skeleton: 0x0023CF1C 35B ?lastHeardFrom@GameLogic@@QAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicLastHeardFrom.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/System/GameLogicLastHeardFrom.cpp
+
+void GameLogic::lastHeardFrom(int playerId)
+{
+	if (playerId < 0 || playerId >= 8)
+		return;
+	m_progressCompleteTimeout[playerId] = timeGetTime();
+}
 
 // tu-skeleton: 0x0023CF3F 68B ?rva0023CF3F@GameLogic@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicSetGamePaused.cpp (not merged yet)
 
 // tu-skeleton: 0x0023CF83 8B ?enable@Rva0023CF83ByteOneSetter@@QAEXXZ -- matched in Code/GameEngine/Source/Common/DispByteOneSetters.cpp (not merged yet)
 
 // tu-skeleton: 0x0023CF8B 67B ?rva0023CF8B@GameLogic@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicRva0023CF8B.cpp (not merged yet)
-
-// tu-skeleton: 0x0023CFCE 22B ?getObjectCount@GameLogic@@QAEIXZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicGetObjectCount.cpp (not merged yet)
 
 // tu-skeleton: 0x0023D0E3 154B ?DoExitMap@GameLogic@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicSetGamePaused.cpp (not merged yet)
 
@@ -2858,9 +3584,38 @@ Rva0023DA79 *Rva0023DA79::rva0023DA79(int ignored, int index)
 
 // tu-skeleton: 0x0023D201 40B ?rva0023D201@GameLogic@@QAEXHH@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicSetPlayerLeaveStatus.cpp (not merged yet)
 
-// tu-skeleton: 0x0023D614 77B ?Rva0023D614Set@@YAXPAV?$StringBase@D@@@Z -- matched in Code/GameEngine/Source/Common/Rva0023D614Film.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva0023D614Film.cpp
 
-// tu-skeleton: 0x0023D661 45B ?rva0023D661@Rva0023D661@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/Rva0023D661List.cpp (not merged yet)
+// ?Rva0023D614Set@@YAXPAV?$StringBase@D@@@Z, retail 0x0023D614, 77 bytes.
+// push ebp frame with buf[60], GetGameClientRandomValue clamp sprintf set.
+// Evidence: unlock lane; callers push none (this in arg); format StillImage_Film%02d.
+
+void Rva0023D614Set(StringBase<char> *out)
+{
+	char buf[60];
+	unsigned int v = (unsigned int)GetGameClientRandomValue(1, 21, (char *)"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\System\\GameLogic.cpp", 0x6BB);
+	if (v < 1)
+		v = 1;
+	if (v > 21)
+		v = 21;
+	sprintf(buf, "StillImage_Film%02d", v);
+	out->set(buf);
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva0023D661List.cpp
+
+// ?rva0023D661@Rva0023D661@@QAEXH@Z @ 0x0023D661 45B: calls Object::rva0028B31A on each node from +0xAC head via +0x8C next then tails to TheAudio slot 0x180
+// Evidence: chain from just-landed 0x0028B31A; global 0x009FE6E8 is TheAudio per GameLogicSetGamePaused and ScriptActions siblings; slot 0x180 follows audioSlot178 convention.
+
+void Rva0023D661::rva0023D661(int val)
+{
+	Object *obj = m_head;
+	while (obj != 0) {
+		obj->rva0028B31A(val);
+		obj = obj->m_next;
+	}
+	return (*(BfmeAudio **)&TheAudio)->audioSlot180(val);
+}
 
 // tu-skeleton: 0x0023D68E 71B ?rva0023D68E@GameLogic@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicRva0023D68EAndD6FA.cpp (not merged yet)
 
@@ -2868,7 +3623,56 @@ Rva0023DA79 *Rva0023DA79::rva0023DA79(int ignored, int index)
 
 // tu-skeleton: 0x0023D6FA 70B ?rva0023D6FA@@YAHPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicRva0023D68EAndD6FA.cpp (not merged yet)
 
-// tu-skeleton: 0x0023D793 241B ?CallPlayerGiveMoney@GameLogic@@QAEXHHH@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogic_CallPlayerGiveMoney.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/System/GameLogic_CallPlayerGiveMoney.cpp
+
+// ?CallPlayerGiveMoney@GameLogic@@QAEXHHH@Z, retail 0x0023D793, 241 bytes.
+// Player index pair transfer with Money withdraw/deposit and tracker adds.
+// Evidence: leaf lane; callees canPlayersTransferMoneyYet getNthPlayer Rva002AA22AByteField MoneyRva003B0D7C Rva0039B795; caller 0x0037AB1B.
+
+void GameLogic::CallPlayerGiveMoney(int fromPlayerIndex, int toPlayerIndex, int amount)
+{
+	if (!canPlayersTransferMoneyYet())
+		return;
+	if (fromPlayerIndex < 0 || fromPlayerIndex >= 20)
+		return;
+	if (toPlayerIndex < 0 || toPlayerIndex >= 20)
+		return;
+	Player *player = 0;
+	Player *fromPlayer = 0;
+	for (int i = 0; i < 20; i++) {
+		Player *p = ThePlayerList->getNthPlayer(i);
+		if (p == 0)
+			continue;
+		if (p->m_playerIndex == fromPlayerIndex)
+			fromPlayer = p;
+		else if (p->m_playerIndex == toPlayerIndex)
+			player = p;
+		if (fromPlayer == 0)
+			continue;
+		if (player == 0)
+			continue;
+		break;
+	}
+	if (fromPlayer == 0 || player == 0)
+		return;
+	if (((Rva002AA22AByteField *)fromPlayer)->get() != 0)
+		return;
+	if (((Rva002AA22AByteField *)player)->get() != 0)
+		return;
+	Rva003B0D7C *fromMoney = &fromPlayer->m_money;
+	if (fromMoney == 0)
+		return;
+	unsigned int reqSlot = amount;
+	unsigned int balSlot = fromMoney->m_val04;
+	unsigned int *pmin = (balSlot < reqSlot) ? &balSlot : &reqSlot;
+	Rva0039B795 *fromTrack = (Rva0039B795 *)fromPlayer->m_track;
+	unsigned int got = fromMoney->withdraw(*pmin, fromTrack, true);
+	Rva0039B795 *toTrack = (Rva0039B795 *)player->m_track;
+	Rva003B0D7C *toMoney = &player->m_money;
+	toMoney->rva003B0D7C((int)got, (Rva0039B7AD *)toTrack, true);
+	fromTrack->rva0039B7E3((int)got);
+	toTrack->rva0039B7CB((int)got);
+}
 
 // tu-skeleton: 0x0023D914 309B ?LivingWorldTacticalBattleComplete@GameLogic@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicLivingWorldBattleComplete.cpp (not merged yet)
 
@@ -2902,7 +3706,23 @@ Rva0023DA79 *Rva0023DA79::rva0023DA79(int ignored, int index)
 
 // tu-skeleton: 0x0023DC86 8B ??1Rva0023DC86StringField@@QAE@XZ -- matched in Code/GameEngine/Source/Common/StringFieldOps.cpp (not merged yet)
 
-// tu-skeleton: 0x0023DC8E 64B ?rva0023DC8E@Rva0023DC8E@@QAEXABVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/Rva0023DCCESet.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva0023DCCESet.cpp
+
+void Rva0023DC8E::rva0023DC8E(const AsciiString &value)
+{
+	if (value.isEmpty() || TheWritableGlobalData->m_flag9AD)
+	{
+		m_flag = 0;
+		((StringBase<char> *)&m_string)->clear();
+	}
+	else
+	{
+		m_flag = 1;
+		((StringBase<char> *)&m_string)->set(*(const StringBase<char> *)&value);
+	}
+}
+
+// ?TheWritableGlobalData@@3PAVGlobalData@@A: the global at VA 0xdfe758.
 
 // tu-skeleton: 0x0023DCCE 122B ?rva0023DCCE@Rva0023DCCE@@QAEXABVAsciiString@@ABUOpaqueRefElement4@@1@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
 
@@ -2928,7 +3748,31 @@ Rva0023DA79 *Rva0023DA79::rva0023DA79(int ignored, int index)
 
 // tu-skeleton: 0x0023F8DA 484B ?rva0023F8DA@GameLogic@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
 
-// tu-skeleton: 0x0023FABE 154B ?rva0023FABE@GameLogic@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicRva0023FABE.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/System/GameLogicRva0023FABE.cpp
+
+//
+// Unnamed GameLogic member (WorldBuilder 0x00D08400, GameLogic.cpp), retail
+// 0x0023FABE (154B): give an object a drawable. A random value in [1, 999]
+// (GetGameLogicRandomValue, called with this file and its line as in
+// WorldBuilder), drawable status 0x20 when the object has status bit 0x37,
+// ThingFactory::newDrawable (0x002CF21B on 0x00DFF000) for the object's
+// template, GameLogic::bindObjectAndDrawable, then a local delayed Lua event
+// list handed to the object-event dispatcher (TheLuaScriptEngine 0x003360D2, event
+// 0xC). WorldBuilder line 0x199A against retail 0x199D.
+
+void GameLogic::rva0023FABE(Object *obj)
+{
+	int random = GetGameLogicRandomValue(1, 999,
+		"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\System\\GameLogic.cpp",
+		0x199D);
+	int status = 0;
+	if (obj->testStatus(OBJECT_STATUS_0x37))
+		status = 0x20;
+	Drawable *draw = (Drawable *)TheThingFactory->newDrawable((void *)obj->getTemplate(), status, random);
+	bindObjectAndDrawable(obj, draw);
+	DelayedLuaEventList events;
+	reinterpret_cast<BfmeObjectEventDispatch *>(TheLuaScriptEngine)->rva003360D2(0xC, obj, (BfmeDelayedLuaEventList *)&events);
+}
 
 // tu-skeleton: 0x0023FB58 104B ?rva0023FB58@GameLogic@@QAEABVAsciiString@@H@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
 
@@ -2948,30 +3792,35 @@ Rva0023DA79 *Rva0023DA79::rva0023DA79(int ignored, int index)
 
 // tu-skeleton: 0x0023FD36 45B ??$_Construct@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@0@ABU10@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00242f5e.cpp (not merged yet)
 
-// tu-skeleton: 0x0023FD63 14B ?reset@Rva0023FD63Holder@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaMemberCtorHolders_Reset.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/RvaMemberCtorHolders_Reset.cpp
+
+// Split from RvaMemberCtorHolders.cpp: these definitions reference a callee with no matched body yet,
+// so they are kept apart from the unit's bodies that already link.
+
+void Rva0023FD63Holder::reset()
+{
+	m_tree.clear();
+	m_dirty = true;
+}
 
 // tu-skeleton: 0x0023FED9 295B ?SetUpCampaignPlayers@GameLogic@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
 
-// tu-skeleton: 0x00240000 46B ??0Rva00240000@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00240000Ctor.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva00240000Ctor.cpp
 
-// ---- from Code/GameEngine/Source/Common/VslotSizedForwarders.cpp
+// ??0Rva00240000@@QAE@XZ, retail 0x00240000, 46 bytes.
+// Ctor with vtable 0xBEDCB4 vector BfmeE12 at +4 second ptr 0xBEDAA8 at +0x10 zeros at +0x14..0x1C.
+// Evidence: unlock lane, vtable store at +0, Vector_base ctor 0x7FAEA, caller fanout 7, prev/next neighbours.
+// The retail table at RVA 0x007EDCB4: 4 slots, each a rowed code owner (the next
+// word is not a code address or starts another ledger datum).
 
-// vtable 0x00BEDCB4#0: base at +0x10 ->slot0()
-void Rva0024002EForwarder::rva0024002E()
+Rva00240000::Rva00240000()
+	: m_00((const void *)g_00BEDCB4)
+	, m_04(_STL::allocator<BfmeE12>())
 {
-	slot0();
-}
-
-// vtable 0x00BEDCB4#1: base at +0x10 ->slot1()
-void Rva00240035Forwarder::rva00240035()
-{
-	slot1();
-}
-
-// vtable 0x00BEDCB4#2: base at +0x10 ->slot2()
-void Rva0024003DForwarder::rva0024003D()
-{
-	slot2();
+	m_14 = 0;
+	m_18 = 0;
+	m_1C = 0;
+	m_10 = (const void *)g_00BEDAA8;
 }
 
 // tu-skeleton: 0x00240045 8B ?rva00240045@Rva00240045Forwarder@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSizedForwarders2.cpp (not merged yet)
@@ -2988,13 +3837,36 @@ void Rva0024003DForwarder::rva0024003D()
 
 // tu-skeleton: 0x00240C60 41B ?rva00240C60@Rva00439325@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00439325Erase.cpp (not merged yet)
 
-// tu-skeleton: 0x00240C89 34B ?Rva00240C89Create@@YGPAURva00240C89Node@@ABUBfmeStringRecord00239B46@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00240C89Create.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva00240C89Create.cpp
+
+// ?Rva00240C89Create@@YGPAURva00240C89Node@@ABUBfmeStringRecord00239B46@@@Z, retail 0x00240C89, 34 bytes.
+// Free stdcall node creator: allocate 0x10 via byte allocator 0x307F0 then placement-copy the value at +8 via 0x23FC3E, return node.
+// Evidence: rowed allocator and typed copy owner, caller 0x241959 (pushes arg, links node), prev Rva00439325Erase flags.
+
+struct Rva00240C89Node * __stdcall Rva00240C89Create(const struct BfmeStringRecord00239B46 &x)
+{
+	struct Rva00240C89Node *tmp = (struct Rva00240C89Node *)_STL::allocator<char>::allocate(0x10, (const void *)0);
+	Rva0023FC3EConstruct((BfmeStringRecord00239B46 *)((char *)tmp + 8), x);
+	return tmp;
+}
 
 // tu-skeleton: 0x00240CAB 53B ?rva00240CAB@Rva00240CAB@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/RvaTreeValueEraseFamily.cpp (not merged yet)
 
 // tu-skeleton: 0x00240CE0 47B ??M@YA_NABUTreeKey00242F5E@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00242f5e.cpp (not merged yet)
 
-// tu-skeleton: 0x00240D0F 37B ?createNode@@YGPAURva00240D0FNode@@ABURva00240D0FValue@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/createNode.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/createNode.cpp
+
+// ?createNode@@YGPAURva00240D0FNode@@ABURva00240D0FValue@@@Z, retail 0x00240D0F, 37 bytes.
+// Free stdcall node creator: allocate 0xC via byte allocator 0x307F0 clear +0 then _Construct value at +4 via dup 0x23FC6B, return node.
+// Evidence: unlock lane, callee allocate row + dup_0023FC6B row (pair AsciiString NoCaseTreeValue _Construct), caller 0x242F45, sibling Rva00240C89Create same recipe.
+
+struct Rva00240D0FNode * __stdcall createNode(const struct Rva00240D0FValue &x)
+{
+	struct Rva00240D0FNode *node = (struct Rva00240D0FNode *)_STL::allocator<char>::allocate(0xC, (const void *)0);
+	node->m_next = 0;
+	Rva0023FC6BConstruct((struct Rva00240D0FValue *)((char *)node + 4), &x);
+	return node;
+}
 
 // tu-skeleton: 0x00240D8C 73B ?rva00240D8C@Rva002419ABOwner@@QAEPAXPBVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/Rva002419AB.cpp (not merged yet)
 
@@ -3022,7 +3894,41 @@ void Rva0024003DForwarder::rva0024003D()
 
 // tu-skeleton: 0x00242C09 125B ?destroyObject@GameLogic@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicDestroyObject.cpp (not merged yet)
 
-// tu-skeleton: 0x00242C86 151B ?prepareLogicForObjectLoad@GameLogic@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicObjectLoad.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/System/GameLogicObjectLoad.cpp
+
+//
+// GameLogic::prepareLogicForObjectLoad, retail 0x00242C86 (151B), from a
+// WorldBuilder lead with Zero Hour's GameLogic.cpp as the donor: before
+// loading a save, destroy each bridge's object and towers (bridge info inline
+// at Bridge +0x0C) and every KindOf-0x3C object, then process the destroy
+// list.
+//
+// Kind-of bits 0x16 (bridge) and 0x3C are tested inline on the template's
+// +0x108 bit set; Object +0x74 id, +0x38 position, +0x8C next; the object list
+// head is GameLogic +0xAC, read inline.
+
+void GameLogic::prepareLogicForObjectLoad()
+{
+	Object *obj;
+	Object *next;
+	for (obj = m_firstObject; obj; obj = next) {
+		next = obj->getNextObject();
+		if (obj->getTemplate()->isKindOf(0x16)) {
+			Bridge *bridge = TheTerrainLogic->findBridgeAt(obj->getPosition());
+			const BridgeInfo *info = bridge->peekBridgeInfo();
+			Object *bridgeObj = findObjectByID(info->bridgeObjectID);
+			for (int i = 0; i < BRIDGE_MAX_TOWERS; ++i) {
+				Object *tower = findObjectByID(info->towerObjectID[i]);
+				if (tower)
+					destroyObject(tower);
+			}
+			destroyObject(bridgeObj);
+		} else if (obj->getTemplate()->isKindOf(0x3C)) {
+			destroyObject(obj);
+		}
+	}
+	processDestroyList();
+}
 
 // tu-skeleton: 0x00242E71 57B (unledgered) -- unmatched, no code, never credited
 
@@ -3038,7 +3944,12 @@ void Rva0024003DForwarder::rva0024003D()
 
 // tu-skeleton: 0x00243119 49B ?clear@?$_List_base@VRva0024076D@@V?$allocator@VRva0024076D@@@_STL@@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_rva00243119_clear.cpp (not merged yet)
 
-// tu-skeleton: 0x0024314A 45B ??$_Construct@VRva0024076D@@V1@@_STL@@YAXPAVRva0024076D@@ABV1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0024314A.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0024314A.cpp
+
+// STLport 4.5.3 reference instantiation. Target boundary and byte comparison prove operation shape.
+// Element spelling/layout is donor inference; opaque records have address-derived identity.
+// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Define it for speed, then restore this unit's flags for its own bodies.
 
 // tu-skeleton: 0x00243177 50B ??0Rva000D3FA0Map@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00243177.cpp (not merged yet)
 
@@ -3076,7 +3987,30 @@ void Rva0024003DForwarder::rva0024003D()
 
 // tu-skeleton: 0x00245F79 330B ?xferObjectTOC@GameLogic@@QAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
 
-// tu-skeleton: 0x002460C3 121B ??A?$hash_map@VAsciiString@@W4BuildableStatus@@U?$hash@VAsciiString@@@rts@@U?$equal_to@VAsciiString@@@4@V?$allocator@U?$pair@$$CBVAsciiString@@W4BuildableStatus@@@_STL@@@_STL@@@_STL@@QAEAAW4BuildableStatus@@ABVAsciiString@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/VAsciiStringRva002460C3.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/VAsciiStringRva002460C3.cpp
+
+//
+// ??A?$hash_map@VAsciiString@@W4BuildableStatus@@U?$hash@VAsciiString@@@rts@@U?$equal_to@VAsciiString@@@4@V?$allocator@U?$pair@$$CBVAsciiString@@W4BuildableStatus@@@_STL@@@_STL@@@_STL@@QAEAAW4BuildableStatus@@ABVAsciiString@@@Z, retail 0x002460c3, 121 bytes. Banked partial (score 1.0) closed by tools/permute.py;
+// the body is the banked one up to statement/operand order and local types.
+//
+
+// Native 0x002460C3..0x0024613C: GameLogic's +0x10 override map returns
+// node+8 or inserts the copied key and enum zero, then returns pair+4.
+// The 0x41534B provider has a proven nonthrowing hash/compare-only chain.
+// ??A?$hash_map@VAsciiString@@W4BuildableStatus@@U?$hash@VAsciiString@@@rts@@U?$equal_to@VAsciiString@@@4@V?$allocator@U?$pair@$$CBVAsciiString@@W4BuildableStatus@@@_STL@@@_STL@@@_STL@@QAEAAW4BuildableStatus@@ABVAsciiString@@@Z
+template<>
+BuildableStatus &BuildableMap::operator[](const AsciiString &name)
+{
+    void *node;
+    {
+        Rva0041534BIter found = ((Rva00056F61 *)this)->rva0041534B(&name);
+        node = found.m_node;
+    }
+    return *(BuildableStatus *)(node == 0
+        ? (char *)((Rva00242F1A *)this)->rva00242F1A(
+            &static_cast<const BuildableSlotPair &>(BuildableSlotPair(name, BUILDABLE_STATUS_UNKNOWN))) + 4
+        : (char *)node + 8);
+}
 
 // tu-skeleton: 0x0024613C 25B ??0?$map@HUBfmePod8@@U?$less@H@_STL@@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@3@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_map_bodies.cpp (not merged yet)
 
@@ -3086,7 +4020,12 @@ void Rva0024003DForwarder::rva0024003D()
 
 // tu-skeleton: 0x00246186 20B ?lower_bound@?$_Rb_tree@UTreeKey00242F5E@@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@U?$_Select1st@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@@3@U?$less@UTreeKey00242F5E@@@3@V?$allocator@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@@2@@2@ABUTreeKey00242F5E@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00242f5e.cpp (not merged yet)
 
-// tu-skeleton: 0x002461F1 34B ?_M_create_node@?$list@VRva0024076D@@V?$allocator@VRva0024076D@@@_STL@@@_STL@@IAEPAU?$_List_node@VRva0024076D@@@2@ABVRva0024076D@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva002461F1.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva002461F1.cpp
+
+// STLport 4.5.3 reference instantiation. Target boundary and byte comparison prove operation shape.
+// Element spelling/layout is donor inference; opaque records have address-derived identity.
+// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Define it for speed, then restore this unit's flags for its own bodies.
 
 // tu-skeleton: 0x00246213 28B ??_GGameLogic@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicDestructor.cpp (not merged yet)
 
@@ -3102,29 +4041,47 @@ void Rva0024003DForwarder::rva0024003D()
 
 // tu-skeleton: 0x00246FF6 124B ??A?$map@UTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@U?$less@UTreeKey00242F5E@@@_STL@@V?$allocator@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@@4@@_STL@@QAEAAUTreeOpaqueMapped242F5E@@ABUTreeKey00242F5E@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00242f5e.cpp (not merged yet)
 
-// tu-skeleton: 0x00247072 18B ??0?$list@VRva0024076D@@V?$allocator@VRva0024076D@@@_STL@@@_STL@@QAE@ABV?$allocator@VRva0024076D@@@1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportListRva0024076DBase.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/StlportListRva0024076DBase.cpp
+
+// list<Rva0024076D> construction: _List_base ctor @0x0023E83A (41B, sentinel
+// node of 0x58 bytes through the 0x0014F3C4 alloc proxy ctor) and the list
+// ctor @0x00247072 (18B) that calls it. 0x0024877A builds its record list
+// through 0x0023E83A. Flags as stlport_pod_list_bodies.cpp, which compiled
+// these two bodies under a BfmePod80 placeholder before.
 
 // tu-skeleton: 0x00247084 5B ?rva00247084@Rva00247084@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
 
-// tu-skeleton: 0x00247089 37B ?insert@?$list@VRva0024076D@@V?$allocator@VRva0024076D@@@_STL@@@_STL@@QAE?AU?$_List_iterator@VRva0024076D@@U?$_Nonconst_traits@VRva0024076D@@@_STL@@@2@U32@ABVRva0024076D@@@Z -- matched in Code/GameEngine/Source/Common/Rva00248211ObjListPush.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva00248211ObjListPush.cpp
+
+// list<Rva0024076D>::push_back @0x00248211 and its insert @0x00247089, which
+// creates the node through _M_create_node 0x002461F1. 0x0024877A inserts into
+// its record list through 0x00247089.
 
 // tu-skeleton: 0x002470AE 714B ??0GameLogic@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
 
 // tu-skeleton: 0x00247378 1463B ?bfmePopulateGameReport@GameLogic@@QAEXPAVGameInfo@@PAH@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicPopulateGameReport.cpp (not merged yet)
 
-// tu-skeleton: 0x00248211 26B ?push_back@?$list@VRva0024076D@@V?$allocator@VRva0024076D@@@_STL@@@_STL@@QAEXABVRva0024076D@@@Z -- matched in Code/GameEngine/Source/Common/Rva00248211ObjListPush.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/System/GameLogicStartingCamera.cpp
 
-// tu-skeleton: 0x0024822B 77B ?formatPlayerStartWaypointName@GameLogic@@QAEXPAVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicStartingCamera.cpp (not merged yet)
+// ?formatPlayerStartWaypointName@GameLogic@@QAEXPAVAsciiString@@@Z
+void GameLogic::formatPlayerStartWaypointName(AsciiString *out)
+{
+	if (!TheGameInfo)
+		return;
+	int localSlot;
+	bfmePopulateGameReport(TheGameInfo, &localSlot);
+	GameSlot *slot = TheGameInfo->getSlot(localSlot);
+	if (!slot->isHuman())
+		return;
+	int startPos = slot->startPos;
+	out->format("Player_%d_Start", startPos + 1);
+}
 
 // tu-skeleton: 0x00248278 736B ?rva00248278@GameLogic@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
 
 // tu-skeleton: 0x00248558 546B ?startNewGame@GameLogic@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
 
 // tu-skeleton: 0x0024877A 1349B ?rva0024877A@GameLogic@@QAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
-
-// tu-skeleton: 0x00770F04 8B uw_00770f04 -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicGetCRC.cpp (not merged yet)
-
-// tu-skeleton: 0x00770F0C 10B __ehhandler$?getCRC@GameLogic@@QAEIH@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicGetCRC.cpp (not merged yet)
 
 // tu-skeleton: 0x00770F16 11B Unwind@00b70f16 -- matched in Code/GameEngine/Source/Common/Rva0048C200StringOwnerDtor.cpp (not merged yet)
 
@@ -3249,10 +4206,6 @@ void Rva0024003DForwarder::rva0024003D()
 // tu-skeleton: 0x0077116B 8B $L25797 -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
 
 // tu-skeleton: 0x00771173 10B __ehhandler$?rva0023F8DA@GameLogic@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
-
-// tu-skeleton: 0x0077117D 8B $L371 -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicRva0023FABE.cpp (not merged yet)
-
-// tu-skeleton: 0x00771185 10B __ehhandler$?rva0023FABE@GameLogic@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicRva0023FABE.cpp (not merged yet)
 
 // tu-skeleton: 0x0077118F 13B $L27983 -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
 
@@ -3425,10 +4378,6 @@ void Rva0024003DForwarder::rva0024003D()
 // tu-skeleton: 0x0077168B 8B $L29152 -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
 
 // tu-skeleton: 0x00771693 10B __ehhandler$?xferObjectTOC@GameLogic@@QAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
-
-// tu-skeleton: 0x0077169D 25B uw_0077169d -- matched in Code/Libraries/Source/WWVegas/WWLib/VAsciiStringRva002460C3.cpp (not merged yet)
-
-// tu-skeleton: 0x007716B6 10B __ehhandler$??A?$hash_map@VAsciiString@@W4BuildableStatus@@U?$hash@VAsciiString@@@rts@@U?$equal_to@VAsciiString@@@4@V?$allocator@U?$pair@$$CBVAsciiString@@W4BuildableStatus@@@_STL@@@_STL@@@_STL@@QAEAAW4BuildableStatus@@ABVAsciiString@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/VAsciiStringRva002460C3.cpp (not merged yet)
 
 // tu-skeleton: 0x007716C0 8B uw_007716c0 -- matched in Code/gen_small/uw_gen_000.cpp (not merged yet)
 

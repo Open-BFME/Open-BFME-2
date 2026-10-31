@@ -10720,6 +10720,9 @@ pragma_optimize	Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp	"",on
 pragma_optimize	Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp	"t",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/System/ArmyPlacer.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/System/ArmyPlacer.cpp	"y",off	1
+pragma_optimize	Code/GameEngine/Source/GameLogic/System/GameLogic.cpp	"",on	2
+pragma_optimize	Code/GameEngine/Source/GameLogic/System/GameLogic.cpp	"s",off	2
+pragma_optimize	Code/GameEngine/Source/GameLogic/System/GameLogic.cpp	"t",on	2
 pragma_optimize	Code/GameEngine/Source/GameLogic/System/PlayerAITypeSet.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/System/PlayerAITypeSet.cpp	"s",off	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/System/PlayerAITypeSet.cpp	"t",on	1
@@ -11472,12 +11475,6 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0021D657.cpp	"t
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0022CCEF.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0022CCEF.cpp	"s",off	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0022CCEF.cpp	"t",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0024314A.cpp	"",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0024314A.cpp	"s",off	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0024314A.cpp	"t",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva002461F1.cpp	"",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva002461F1.cpp	"s",off	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva002461F1.cpp	"t",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00285A26.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00285A26.cpp	"s",off	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00285A26.cpp	"t",on	1
