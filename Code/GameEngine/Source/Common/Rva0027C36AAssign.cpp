@@ -67,8 +67,3 @@ private:
 	unsigned char m_beforeRecord[0x0C];
 	Rva0027C36A m_record;
 };
-
-Rva0027C36A &Rva00087AB9::rva00087AB9(Rva0027C36A *destination)
-{
-	return *destination = m_record;
-}

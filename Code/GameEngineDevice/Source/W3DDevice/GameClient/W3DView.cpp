@@ -34,6 +34,7 @@
 
 
 
+
 #endif
 #define TERRAIN_SAMPLE_SIZE 40.0f
 #define MIN_CAPPED_ZOOM (0.5f) //WST 10.19.2002. JSC integrated 5/20/03.
@@ -651,6 +652,7 @@ public:
 
 
 void drawDrawableExtents( Drawable *draw, void *userData );
+
 
 
 
@@ -2887,11 +2889,64 @@ public: unsigned char isTwo() const;
 private: char unknown[0x0C]; unsigned int value;
 };
 
+// Fix over the banked 0.94 attempt: the four 12-byte {int, float, int}
+// records at +0x6C are copied through the record's own member-wise operator=
+// (defined inline), not field by field in the loop; that is what makes cl copy
+// the float through fld/fstp and walk the two arrays with retail's pointers.
+// ??4Rva0027C36A@@QAEAAV0@ABV0@@Z @0x00085420 175B via Rva0027C36A assign group F12 plus int-float-int loop; callers pair ctor 0x27C36A with assign (0x281FC7 plus 0x281FD6)
+// Evidence: stack temp 0xa8 at 0x00281FC1 ctor then assign from esi plus 0xc; 19 floats as 6 F12 plus 1; int[4] plus byte plus I12[4] plus S6[2] all match except middle float uses integer mov vs retail fld-fstp
+struct F12 { float a; float b; float c; };
+
+struct I12 { int a; float b; int c; I12 &operator=(const I12 &o) { a = o.a; b = o.b; c = o.c; return *this; } };
+
+struct S6 { char d[6]; };
+
+class Rva0027C36A
+{
+public:
+	Rva0027C36A &operator=(const Rva0027C36A &other);
+	F12 m_00;
+	F12 m_0c;
+	float m_18;
+	F12 m_1c;
+	F12 m_28;
+	F12 m_34;
+	F12 m_40;
+	int m_4c;
+	int m_50;
+	int m_54;
+	int m_58[4];
+	unsigned char m_68;
+	char m_pad69[3];
+	I12 m_6c[4];
+	S6 m_9c[2];
+};
+
+// Reference lead: clean Open-BFME-1 AIPlayer.cpp at f98983a7d3bb405f1a4ba94bb6a2a168062a819d,
+// compiled /O1 /G7 /arch:SSE. Its queue-membership name does not apply here:
+// native 00087AB9 calls the independently rowed 175-byte record assignment
+// at 00085420, rather than the donor's list predicate. The full 16-byte
+// entry forwards the receiver's +0x0C record to the destination stack word
+// and preserves the assignment's returned destination reference. Its
+// preceding rowed deleting destructor ends at 00087AB9, and the following
+// independent rowed pair-copy begins at 00087AC9. The original owner and
+// member name are unknown; this view describes only the consumed prefix.
+class Rva00087AB9
+{
+public:
+	Rva0027C36A &rva00087AB9(Rva0027C36A *destination);
+private:
+	unsigned char m_beforeRecord[0x0C];
+	Rva0027C36A m_record;
+};
+
 // tu-skeleton: 0x00085B41 380B ?getAxisAlignedViewRegion@W3DView@@AAEXAAURegion3D@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewGetAxisAlignedViewRegion.cpp (not merged yet)
 
 // tu-skeleton: 0x00085CBD 522B ?rva00085CBD@W3DView@@QAEXAAURegion3D@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewFarRegion.cpp (not merged yet)
 
 // tu-skeleton: 0x00085EC7 62B ?setFadeParameters@W3DView@@UAEXHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewSetFadeParameters.cpp (not merged yet)
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp
 
@@ -3457,6 +3512,26 @@ void Rva000875CEByteZeroSetter::disable()
 	m_enabled = 0;
 }
 
+// ---- from Code/GameEngine/Source/Common/DispByteFieldGetters.cpp
+
+// Disp32 byte getters: seven-byte __thiscall members with one shape:
+//
+//     mov al,[ecx+<DISP>] / ret
+//
+// One BYTE is read at a fixed displacement from `this` and left in al. The
+// return type is spelled `unsigned char` because only al is written and the
+// upper bytes of eax are left holding whatever the caller had; the bytes
+// cannot distinguish it from `signed char`, `bool` or a one-byte enum.
+//
+// Every displacement here is a disp32 (MSVC 7.1 uses disp8 whenever the
+// offset fits, so every offset is at least 0x80), which is why this family
+// is separable from the far larger disp8 one. Members before the accessed
+// one are spelled as a lead array because their types are not witnessed
+// here, only their total size. Identity is not recovered: every name is
+// derived from its address (BFME1 pioneered the same family in
+// reference/open-bfme-1/Code/GameEngine/Source/Common/DispByteFieldGetters.cpp).
+// No // cl: line (defaults match the frameless 7-byte shape).
+
 // tu-skeleton: 0x00085F6A 62B ?rva00085F6A@Rva00085F6A@@QAE_NH@Z -- matched in Code/GameEngine/Source/Common/Rva00085F6ASet.cpp (not merged yet)
 
 // tu-skeleton: 0x00085FA8 178B ?calcDeltaScroll@Rva00085FA8@@QAEXPAM@Z -- matched in Code/GameEngine/Source/Common/Rva00085FA8Delta.cpp (not merged yet)
@@ -3507,29 +3582,14 @@ void Rva000875CEByteZeroSetter::disable()
 
 // tu-skeleton: 0x000879A9 61B ?rva000879A9@Rva00085947@@QAE_NH@Z -- matched in Code/GameEngine/Source/GameClient/Rva00085947Method.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/DispByteFieldGetters.cpp
-
-// Disp32 byte getters: seven-byte __thiscall members with one shape:
-//
-//     mov al,[ecx+<DISP>] / ret
-//
-// One BYTE is read at a fixed displacement from `this` and left in al. The
-// return type is spelled `unsigned char` because only al is written and the
-// upper bytes of eax are left holding whatever the caller had; the bytes
-// cannot distinguish it from `signed char`, `bool` or a one-byte enum.
-//
-// Every displacement here is a disp32 (MSVC 7.1 uses disp8 whenever the
-// offset fits, so every offset is at least 0x80), which is why this family
-// is separable from the far larger disp8 one. Members before the accessed
-// one are spelled as a lead array because their types are not witnessed
-// here, only their total size. Identity is not recovered: every name is
-// derived from its address (BFME1 pioneered the same family in
-// reference/open-bfme-1/Code/GameEngine/Source/Common/DispByteFieldGetters.cpp).
-// No // cl: line (defaults match the frameless 7-byte shape).
-
 // tu-skeleton: 0x00087A44 24B ??$fill@PAPAXPAX@_STL@@YAXPAPAX0ABQAX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_ptr_o1.cpp (not merged yet)
 
-// tu-skeleton: 0x00087AB9 16B ?rva00087AB9@Rva00087AB9@@QAEAAVRva0027C36A@@PAV2@@Z -- matched in Code/GameEngine/Source/Common/Rva0027C36AAssign.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva0027C36AAssign.cpp
+
+Rva0027C36A &Rva00087AB9::rva00087AB9(Rva0027C36A *destination)
+{
+	return *destination = m_record;
+}
 
 // tu-skeleton: 0x00087AF4 141B ?setHeight@W3DView@@UAEXH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView_MoveCameraOrLocatorAlongSplinePathInit.cpp (not merged yet)
 
