@@ -812,29 +812,11 @@ inline void SpecialPowerCompletionDieModuleData::buildFieldParse(MultiIniFieldPa
 	parse.add(BfmeSpecialPowerCompletionDieFields, 0);
 }
 
-// Retail VA 0x00C4AE00: 4 fields and the zero sentinel.
-// Class identity comes from this unit's matched registration function;
-// tokens, callbacks and offsets are read from that retail table.
-// The global name below is descriptive; its original spelling is unknown.
-extern const FieldParse BfmeRebuildHoleExposeDieFields[] = {
-	{ "HoleName", &INI::parseAsciiString, 0, 0x38 },
-	{ "HoleMaxHealth", &INI::parseReal, 0, 0x3C },
-	{ "TransferAttackers", &INI::parseBool, 0, 0x44 },
-	{ "FadeInTimeSeconds", &INI::parseReal, 0, 0x40 },
-	{ 0, 0, 0, 0 }
-};
-
 class RebuildHoleExposeDieModuleData
 {
 public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
-
-void RebuildHoleExposeDieModuleData::buildFieldParse(MultiIniFieldParse &parse)
-{
-	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE52EGet()), 8);
-	parse.add(BfmeRebuildHoleExposeDieFields, 0);
-}
 
 class DamageFilteredCreateObjectDieModuleData
 {
