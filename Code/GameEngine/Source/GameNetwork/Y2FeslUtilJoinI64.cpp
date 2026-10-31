@@ -28,45 +28,6 @@ struct Rva007EB810Diag
 
 Rva007EB810Diag *Rva007EB810Get(void);
 
-void Rva00800040JoinI64(const __int64 *parts, unsigned count, char *dest, unsigned destSize, char sep)
-{
-	unsigned i;
-	unsigned used;
-	unsigned len;
-	char sepStr[2];
-	char buf[0x24];
-
-	dest[0] = 0;
-	if (count < 1)
-		return;
-
-	used = 0;
-	sepStr[0] = sep;
-	sepStr[1] = 0;
-	i = 0;
-
-	if (count <= 0)
-		return;
-
-	for (; i < count; i++)
-	{
-		sprintf(buf, "%I64d", parts[i]);
-		len = (unsigned)strlen(buf);
-		if (used + len + 1 >= destSize)
-		{
-			Rva007EB810Get()->fail("false", "\\views\\feslbuild_main\\jabba\\fesl\\source\\util.cpp", 0x48);
-			return;
-		}
-		if (i > 0)
-		{
-			strcat(dest, sepStr);
-			used++;
-		}
-		strcat(dest, buf);
-		used += len;
-	}
-}
-
 // BFME2 0x0066C460; body from Open-BFME-1 5cae4bdff (BFME1 0x007FFFB0), unchanged.
 // 0x007FFFB0 -- length of a present C string including its NUL, 0 for null.
 // Same jabba util.cpp neighbourhood as the joins below the DirtySock text
