@@ -148,6 +148,18 @@ private:
 #include <assert.h>
 #pragma intrinsic(memset)
 #pragma intrinsic(_ReadWriteBarrier)
+#define BFME_DISP8_BYTE_GETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		unsigned char get() const; \
+		char m_lead[DISP]; \
+		unsigned char m_value; \
+	}; \
+	unsigned char NAME::get() const \
+	{ \
+		return m_value; \
+	}
 
 // WWLib chunk file writer, verbatim from the Generals reference
 // (Libraries/Source/WWVegas/WWLib/chunkio.cpp). Compiled with NDEBUG because
@@ -212,6 +224,63 @@ struct Rva009E12B0Table {
 typedef unsigned char uint8;
 
 class FileClass;
+
+BFME_DISP8_BYTE_GETTER(Rva00614DA0ByteField, 0x01)
+
+class Rva001DCD05
+{
+public:
+	void *rva001DCD05();
+private:
+	char m_pad[8];
+	char m_08;
+	char m_pad2[0x14 - 0x09];
+	char m_14;
+	char m_pad3[0x20 - 0x15];
+	unsigned char m_20;
+	bool m_21;
+};
+
+// Clean BFME1 9cbfb551 donor structural leads; native instructions independently
+// establish complete RET boundaries and each raw field operation and ABI.
+// Address-owned carriers retain unknown original receiver identity and bounds.
+
+// ?setBit2@Rva0030000CFields@@QAEXXZ
+struct Rva0030000CFields { char pad[0x44]; unsigned int flags44; void setBit2(); };
+
+// Clean BFME1 9cbfb551 donor structural leads; native instructions independently
+// establish complete RET boundaries and each raw field operation and ABI.
+// Address-owned carriers retain unknown original receiver identity and bounds.
+
+// ?matches@Rva0056AB88Fields@@QBE_NI@Z
+struct Rva0056AB88Fields { char pad[0xC]; unsigned int wordC; bool matches(unsigned int value) const; };
+
+// Disp8 byte setter: mov al,[esp+4] / mov [ecx+<DISP>],al / ret 4 (10 bytes).
+// Address-derived class; the stored byte's meaning is unproven.
+class Rva0065D7C0ByteSetter
+{
+public:
+	void set(unsigned char value);
+	char m_lead[0x1D];
+	unsigned char m_value;
+};
+
+// ?rva002259F3@Rva002259F3@@QBEHXZ, retail 0x002259F3 (25B): three flag bytes at
+// +0x44 (must be set), +0xA8 and +0x9D (must be clear).
+class Rva002259F3
+{
+public:
+	int rva002259F3() const;
+private:
+	char m_pad00[0x44];
+	unsigned char m_44;
+	char m_pad45[0x9D - 0x45];
+	unsigned char m_9d;
+	char m_pad9E[0xA8 - 0x9E];
+	unsigned char m_a8;
+};
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/chunkio.cpp
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/chunkio.cpp
 
@@ -578,12 +647,6 @@ Rva009E12B0Table::Rva009E12B0Table(int owner)
 	m_c14 = 0;
 }
 
-// tu-skeleton: 0x00614D60 9B ?flag@Rva00614D60@@QBEIXZ -- matched in Code/GameEngine/Source/Common/RvaSmallLeafTransfers.cpp (not merged yet)
-
-// tu-skeleton: 0x00614D80 3B ?rva00614D80@Rva00614D80@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat10O2B.cpp (not merged yet)
-
-// tu-skeleton: 0x00614DA0 4B ?get@Rva00614DA0ByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/chunkio_load_ctor.cpp
 
 #pragma optimize("gsy", on)
@@ -608,5 +671,27 @@ ChunkLoadClass::ChunkLoadClass( BFMEChunkInput *input ) :
 
 	memset( &MCHeader, 0, sizeof( MCHeader ) );
 }
+
+// tu-skeleton: 0x00614D60 9B ?flag@Rva00614D60@@QBEIXZ -- matched in Code/GameEngine/Source/Common/RvaSmallLeafTransfers.cpp (not merged yet)
+
+// tu-skeleton: 0x00614D80 3B ?rva00614D80@Rva00614D80@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat10O2B.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp
+
+// Disp8 byte getters: four-byte __thiscall members with one shape:
+//
+//     mov al,[ecx+<DISP>] / ret
+//
+// One BYTE is read at a fixed displacement from `this` and left in al. The
+// return type is spelled `unsigned char` because only al is written and the
+// upper bytes of eax are left holding whatever the caller had; the bytes
+// cannot distinguish it from `signed char`, `bool` or a one-byte enum.
+// This is the small-offset sibling of the disp32 family in
+// DispByteFieldGetters.cpp (MSVC 7.1 uses disp8 whenever the offset fits,
+// so every offset here fits in a signed byte). Members before the accessed
+// one are spelled as a lead array because their types are not witnessed
+// here, only their total size. Identity is not recovered: every name is
+// derived from its address.
+// No // cl: line (defaults match the frameless four-byte shape).
 
 // tu-skeleton: 0x00615230 15B ?rva00615230@ChunkLoadClass@@QAEKPAX@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat10O2B.cpp (not merged yet)

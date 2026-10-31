@@ -11888,7 +11888,7 @@ $L979,,0x007A927C,11,Code/Libraries/Source/Apt/AptAnimationPoolDataCtor.cpp,matc
 ?get@Rva005C4FEBByteField@@QBEEXZ,,0x005C4FEB,4,Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindow.cpp,matched,Disp8 byte getter; address-derived opaque holder
 ?get@Rva005CC936ByteField@@QBEEXZ,,0x005CC936,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter; address-derived opaque holder
 ?get@Rva005FD047ByteField@@QBEEXZ,,0x005FD047,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter; address-derived opaque holder
-?get@Rva00614DA0ByteField@@QBEEXZ,,0x00614DA0,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter; address-derived opaque holder
+?get@Rva00614DA0ByteField@@QBEEXZ,,0x00614DA0,4,Code/Libraries/Source/WWVegas/WWLib/chunkio.cpp,matched,Disp8 byte getter; address-derived opaque holder
 ?get@Rva0065D7B0ByteField@@QBEEXZ,,0x0065D7B0,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter; address-derived opaque holder
 ?get@Rva0065D7D0ByteField@@QBEEXZ,,0x0065D7D0,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter; address-derived opaque holder
 ?get@Rva00661D30ByteField@@QBEEXZ,,0x00661D30,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter; address-derived opaque holder
