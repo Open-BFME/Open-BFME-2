@@ -19,12 +19,37 @@ class AIGateUpdateModuleData;
 enum NameKeyType { NK_UNKNOWN = 0 };
 enum UpdateSleepTime { UPDATE_SLEEP_INVALID = 0, UPDATE_SLEEP_FOREVER = 0x3fffffff };
 #include "../../../../Include/Common/ObjectModule.h"
+#define BFME_SNAPSHOT_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	protected: \
+		virtual const char *GetSnapshotName() const; \
+	}; \
+	const char *NAME::GetSnapshotName() const \
+	{ \
+		return TEXT; \
+	}
+#define BFME_LITERAL_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	public: \
+		const char *name() const; \
+	}; \
+	const char *NAME::name() const \
+	{ \
+		return TEXT; \
+	}
+#include "../../AI/WorkOrder.h"
+#include "../../AI/TeamInQueue.h"
+
 // WB122EF60 AIGateUpdate::update and native173B4B0C27..4B0CD4.
 // The module update interface starts at10. The opener cache and two counters
 // are native fields; Actor slot names and counters remain unasserted.
 // WB enclosing enabled branch closes the old bank's early-fail placement.
 class Player;
+
 enum Relationship { RELATION_0,RELATION_1,RELATION_2 };
+
 class Object
 {
 public:
@@ -36,13 +61,17 @@ public:
 	float pz; // +0x40
 	float angle; // +0x44
 };
+
 struct Rva002A8AB1Record;
+
 class Rva002A8F24
 {
 public:
 	Rva002A8AB1Record *rva002A8AB1(void *key);
 };
+
 extern Rva002A8F24 *TheSkirmishAIManager;
+
 class Actor
 {
 public:
@@ -167,9 +196,28 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
+BFME_LITERAL_NAME_GETTER(Rva004B0876Named, "AIGateUpdate")
+
 // tu-skeleton: 0x004B0802 116B ??1AIGateUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x004B0876 6B ?name@Rva004B0876Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/ModuleNameGetters.cpp
+
+// Module literal name getters: six-byte const members with one shape:
+//
+//     mov eax,<offset string literal> / ret
+//
+// Each body returns a pointer to a NUL-terminated Behavior/Update/Contain
+// class-name string in .rdata. Each body VA carries exactly one .rdata
+// reference from its module vtable (descriptor tail closed by the shared
+// 0x004B3FD0 pair -- the same family marker as the Subsystem getters).
+// Split from Code/GameEngine/Source/Common/SubsystemNameGetters.cpp into a
+// contributor-local unit to keep concurrent landings conflict-free; the
+// BFME_LITERAL_NAME_GETTER macro is verbatim, only the class names follow
+// this tree's address-derived convention (identity unrecoverable from 6
+// bytes, string carried in source where verify_string_refs re-reads it).
+// No // cl: line (defaults match the frameless 6-byte shape).
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdatePoolKey.cpp
 
@@ -212,20 +260,6 @@ GateOpener *AIGateUpdate::getOpener()
 	return m_opener;
 }
 
-// tu-skeleton: 0x004B08D7 17B ?buildFieldParse@AIGateUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
-
-// tu-skeleton: 0x004B08E8 62B ??0AIGateUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004B0926 28B ??_GAIGateUpdate@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004B095C 139B ?xfer@AIGateUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x004B09E7 61B ?triggerCallback@AIGateUpdate@@SAXPAVObject@@PAV1@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateTrigger.cpp (not merged yet)
-
-// tu-skeleton: 0x004B0A24 134B ?rva004B0A24@AIGateUpdate@@QAE?AVVector2@@MM@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateTrigger.cpp (not merged yet)
-
-// tu-skeleton: 0x004B0AAA 381B ?loadTrigger@AIGateUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateTrigger.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateRun.cpp
 
 UpdateSleepTime AIGateUpdate::update()
@@ -262,6 +296,20 @@ UpdateSleepTime AIGateUpdate::update()
  }
  return UPDATE_SLEEP_FOREVER;
 }
+
+// tu-skeleton: 0x004B08D7 17B ?buildFieldParse@AIGateUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
+
+// tu-skeleton: 0x004B08E8 62B ??0AIGateUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004B0926 28B ??_GAIGateUpdate@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004B095C 139B ?xfer@AIGateUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x004B09E7 61B ?triggerCallback@AIGateUpdate@@SAXPAVObject@@PAV1@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateTrigger.cpp (not merged yet)
+
+// tu-skeleton: 0x004B0A24 134B ?rva004B0A24@AIGateUpdate@@QAE?AVVector2@@MM@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateTrigger.cpp (not merged yet)
+
+// tu-skeleton: 0x004B0AAA 381B ?loadTrigger@AIGateUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateTrigger.cpp (not merged yet)
 
 // tu-skeleton: 0x0078E77E 8B Unwind@00b8e77e -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateDtor.cpp (not merged yet)
 
