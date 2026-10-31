@@ -35,12 +35,7 @@ private:
     ObjectID m_id; // +0x74
 };
 
-class Weapon
-{
-public:
-    bool isWithinAttackRange(const Object *source, const Object *target, float extra = 0.0f, int flag = 1) const;
-    char isWithinAttackRange(Object *source, void *pos, float extra = 0.0f, int flag = 1) const;
-};
+#include "../../../../Include/GameLogic/Weapon.h"
 
 class B0
 {
@@ -120,7 +115,7 @@ bool GarrisonContain::attemptBestFirePointPosition(Object *source, Weapon *weapo
 
     putObjectAtBestGarrisonPoint(source, victim, 0);
 
-    if (weapon->isWithinAttackRange((const Object *)source, victim))
+    if (weapon->isWithinAttackRange((const Object *)source, victim, 0.0f, 1))
         return true;
 
     existingIndex = getObjectGarrisonPointIndex(source->getID());
@@ -140,7 +135,7 @@ bool GarrisonContain::attemptBestFirePointPosition(Object *source, Weapon *weapo
 
     putObjectAtBestGarrisonPoint(source, 0, targetPos);
 
-    if (weapon->isWithinAttackRange(source, (void *)targetPos))
+    if (weapon->isWithinAttackRange(source, (void *)targetPos, 0.0f, 1))
         return true;
 
     existingIndex = getObjectGarrisonPointIndex(source->getID());
