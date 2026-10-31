@@ -15148,57 +15148,57 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00215F38,38,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp
 0x00215F5E,37,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp
 0x00215F83,108,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/Rva00215F83Find.cpp
-0x00215FEF,50,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva00215FEF.cpp
+0x00215FEF,50,code,,,-,,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
 0x00216021,20,code,,,-,,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
 0x00216035,95,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp W=Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
-0x00216094,48,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,C,C=0x00216035..0x002160C4 provisional,Code/GameEngine/Source/Common/Rva00216094Dtor.cpp
+0x00216094,48,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,C,C=0x00216035..0x002160C4 provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
 0x002160C4,68,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,C,C=0x00216035..0x00216108 provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
 0x00216108,53,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,C,C=0x00216035..0x0021613D provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
 0x0021613D,77,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,C,C=0x00216035..0x0021618A provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
-0x0021618A,27,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,C,C=0x00216035..0x002161A5 provisional,Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0021618A.cpp
-0x002161A5,29,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,C,C=0x00216035..0x002161C2 provisional,Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva00215FEF.cpp
+0x0021618A,27,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,C,C=0x00216035..0x002161A5 provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
+0x002161A5,29,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,C,C=0x00216035..0x002161C2 provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
 0x002161C2,28,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,C,C=0x00216035..0x002161DE provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
 0x002161DE,61,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,C,C=0x00216035..0x0021621B provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_pair_asciistring_twins.cpp
 0x0021621B,30,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,U,N=Code/GameEngine/Source/Common/Impl002165B0.cpp provisional,Code/GameEngine/Source/Common/Rva00579E47Delegate.cpp
 0x00216239,12,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,C,C=0x0021621B..0x00216245 provisional,Code/GameEngine/Source/Common/VtableSlotBodiesR3.cpp
 0x00216245,34,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,C,C=0x0021621B..0x00216267 provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
-0x00216267,47,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,C,C=0x0021621B..0x00216296 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pod28_single_erase.cpp
+0x00216267,47,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,C,C=0x0021621B..0x00216296 provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
 0x00216296,57,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,C,C=0x0021621B..0x002162CF provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_pair_asciistring_twins.cpp
 0x002162CF,99,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,C,C=0x0021621B..0x00216332 provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
-0x00216332,104,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,C,C=0x0021621B..0x0021639A provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUIUpdate.cpp
-0x0021639A,149,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,C,C=0x0021621B..0x0021642F provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUIUpdate.cpp
+0x00216332,104,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,C,C=0x0021621B..0x0021639A provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
+0x0021639A,149,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,C,C=0x0021621B..0x0021642F provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
 0x0021642F,103,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,C,C=0x0021621B..0x00216496 provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
 0x00216496,129,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,C,C=0x0021621B..0x00216517 provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
 0x00216517,153,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,C,C=0x0021621B..0x002165B0 provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
 0x002165B0,59,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,C,C=0x0021621B..0x002165EB provisional,Code/GameEngine/Source/Common/Rva00579E47Delegate.cpp
-0x002165EB,45,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,C,C=0x0021621B..0x00216618 provisional,Code/Libraries/Source/WWVegas/WWLib/Rva002165EBFinish.cpp
+0x002165EB,45,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,C,C=0x0021621B..0x00216618 provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
 0x00216618,9,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,C,C=0x0021621B..0x00216621 provisional,Code/GameEngine/Source/Common/DestroyInstances.cpp
-0x00216621,79,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,U,N=Code/GameEngine/Source/GameClient/BannerUI.cpp W=Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp provisional,Code/GameEngine/Source/GameClient/BannerUI.cpp
-0x00216670,75,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,U,N=Code/GameEngine/Source/GameClient/BannerUI.cpp provisional,Code/GameEngine/Source/GameClient/BannerUI.cpp
+0x00216621,79,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,U,N=Code/GameEngine/Source/GameClient/BannerUI.cpp W=Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
+0x00216670,75,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,U,N=Code/GameEngine/Source/GameClient/BannerUI.cpp provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
 0x002166BB,122,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp W=Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
 0x00216735,26,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
 0x0021674F,19,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,C,C=0x00216735..0x00216762 provisional,Code/GameEngine/Source/Common/GapBodiesGE53.cpp
-0x00216762,37,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,C,C=0x00216735..0x00216787 provisional,Code/GameEngine/Source/Common/Rva00216762.cpp
-0x00216787,28,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,C,C=0x00216735..0x002167A3 provisional,Code/GameEngine/Source/Common/Rva00216787Free.cpp
-0x002167A3,651,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUIUpdate.cpp
-0x00216A2E,11,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,C,C=0x002167A3..0x00216A39 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pod28_allocate_copy.cpp
-0x00216A39,189,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,C,C=0x002167A3..0x00216AF6 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pod28_allocate_copy.cpp
+0x00216762,37,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,C,C=0x00216735..0x00216787 provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
+0x00216787,28,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,C,C=0x00216735..0x002167A3 provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
+0x002167A3,651,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
+0x00216A2E,11,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,C,C=0x002167A3..0x00216A39 provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
+0x00216A39,189,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,C,C=0x002167A3..0x00216AF6 provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
 0x00216AF6,73,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,C,C=0x002167A3..0x00216B3F provisional,Code/Libraries/Source/WWVegas/WWLib/OwnedBucketChainClearO1.cpp
-0x00216B3F,65,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,U,N=Code/Libraries/Source/WWVegas/WWLib/BannerUI.cpp provisional,Code/Libraries/Source/WWVegas/WWLib/BannerUI.cpp
+0x00216B3F,65,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,U,N=Code/Libraries/Source/WWVegas/WWLib/BannerUI.cpp provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
 0x00216B80,57,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,C,C=0x00216B3F..0x00216BB9 provisional,Code/Libraries/Source/WWVegas/WWLib/OwnedBucketTableDtorsO1.cpp
 0x00216BB9,55,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,C,C=0x00216B3F..0x00216BF0 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp
 0x00216BF0,5,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,C,C=0x00216B3F..0x00216BF5 provisional,Code/Libraries/Source/WWVegas/WWLib/OwnedBucketTableDtorsO1.cpp
-0x00216BF5,312,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,C,C=0x00216B3F..0x00216D2D provisional,Code/GameEngine/Source/Common/Rva00216BF5Dtor.cpp
-0x00216D2D,47,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,U,N=Code/Libraries/Source/WWVegas/WWLib/BannerUI.cpp provisional,Code/Libraries/Source/WWVegas/WWLib/BannerUI.cpp
+0x00216BF5,312,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,C,C=0x00216B3F..0x00216D2D provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
+0x00216D2D,47,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,U,N=Code/Libraries/Source/WWVegas/WWLib/BannerUI.cpp provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
 0x00216D5C,68,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,C,C=0x00216D2D..0x00216DA0 provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
-0x00216DA0,28,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,C,C=0x00216D2D..0x00216DBC provisional,Code/GameEngine/Source/Common/Rva00216BF5Dtor.cpp
+0x00216DA0,28,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,C,C=0x00216D2D..0x00216DBC provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
 0x00216DBC,383,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp W=Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
 0x00216F3B,86,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp W=Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
 0x00216F91,160,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,C,C=0x00216F3B..0x00217031 provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
-0x00217031,64,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,C,C=0x00216F3B..0x00217071 provisional,Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva00217031.cpp
+0x00217031,64,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,C,C=0x00216F3B..0x00217071 provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
 0x00217071,291,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp W=Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
 0x00217194,94,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
-0x002171F2,31,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,C,C=0x00217194..0x00217211 provisional,Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva002171F2.cpp
+0x002171F2,31,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,C,C=0x00217194..0x00217211 provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
 0x00217211,466,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp W=Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
 0x002173E3,23,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/Rva002173E3Add.cpp
 0x002173FA,79,code,Code/GameEngine/Source/GameClient/GUI/GameFont.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/GUI/GameFont.cpp S=Code/GameEngine/Source/GameClient/GUI/GameFont.cpp N=Code/GameEngine/Source/GameClient/GUI/FontLibrary.cpp,Code/GameEngine/Source/GameClient/GUI/FontLibraryFontList.cpp
@@ -45105,7 +45105,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x005412E2,47,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/Rva005412E2Erase.cpp
 0x00541311,47,code,,,-,,Code/GameEngine/Source/Common/CursorCompaction.cpp
 0x00541340,112,code,,,-,,Code/GameEngine/Source/Common/Rva0053F97FListenerWalks.cpp
-0x005413B0,66,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pod28_allocate_copy.cpp
+0x005413B0,66,code,,,-,,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
 0x005413F2,66,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pod20_allocate_copy.cpp
 0x00541434,71,code,,,-,,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp
 0x0054147B,71,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlportVectorPodCopyCtorFamily.cpp
@@ -68010,30 +68010,30 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0076E1FF,8,code,,,-,,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
 0x0076E207,10,code,,,-,,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
 0x0076E211,8,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,P,P=0x00216094@FuncInfo0x00913DD8 provisional,Code/gen_small/uw_gen_012.cpp
-0x0076E219,10,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,P,P=0x00216094@FuncInfo0x00913DD8 provisional,Code/GameEngine/Source/Common/Rva00216094Dtor.cpp
+0x0076E219,10,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,P,P=0x00216094@FuncInfo0x00913DD8 provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
 0x0076E223,8,code,,,-,,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
 0x0076E22B,11,code,,,-,,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
 0x0076E236,10,code,,,-,,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
-0x0076E240,8,code,,,-,,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUIUpdate.cpp
-0x0076E248,10,code,,,-,,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUIUpdate.cpp
-0x0076E252,8,code,,,-,,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUIUpdate.cpp
-0x0076E25A,8,code,,,-,,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUIUpdate.cpp
+0x0076E240,8,code,,,-,,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
+0x0076E248,10,code,,,-,,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
+0x0076E252,8,code,,,-,,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
+0x0076E25A,8,code,,,-,,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
 0x0076E262,10,code,,,-,,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
-0x0076E26C,14,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,P,P=0x002165EB@FuncInfo0x00913E78 provisional,Code/Libraries/Source/WWVegas/WWLib/Rva002165EBFinish.cpp
-0x0076E27A,10,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,P,P=0x002165EB@FuncInfo0x00913E78 provisional,Code/Libraries/Source/WWVegas/WWLib/Rva002165EBFinish.cpp
-0x0076E284,8,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,P,P=0x002167A3@FuncInfo0x00913EBC provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUIUpdate.cpp
-0x0076E28C,8,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,P,P=0x002167A3@FuncInfo0x00913EBC provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUIUpdate.cpp
-0x0076E294,8,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,P,P=0x002167A3@FuncInfo0x00913EBC provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUIUpdate.cpp
-0x0076E29C,8,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,P,P=0x002167A3@FuncInfo0x00913EBC provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUIUpdate.cpp
+0x0076E26C,14,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,P,P=0x002165EB@FuncInfo0x00913E78 provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
+0x0076E27A,10,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,P,P=0x002165EB@FuncInfo0x00913E78 provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
+0x0076E284,8,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,P,P=0x002167A3@FuncInfo0x00913EBC provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
+0x0076E28C,8,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,P,P=0x002167A3@FuncInfo0x00913EBC provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
+0x0076E294,8,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,P,P=0x002167A3@FuncInfo0x00913EBC provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
+0x0076E29C,8,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,P,P=0x002167A3@FuncInfo0x00913EBC provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
 0x0076E2A4,8,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,P,P=0x002167A3@FuncInfo0x00913EBC provisional,Code/gen_small/uw_gen_001.cpp
-0x0076E2AC,10,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,P,P=0x002167A3@FuncInfo0x00913EBC provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUIUpdate.cpp
-0x0076E2B6,8,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,P,P=0x00216BF5@FuncInfo0x00913F2C provisional,Code/GameEngine/Source/Common/Rva00216BF5Dtor.cpp
-0x0076E2BE,11,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,P,P=0x00216BF5@FuncInfo0x00913F2C provisional,Code/GameEngine/Source/Common/Rva00216BF5Dtor.cpp
-0x0076E2C9,11,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,P,P=0x00216BF5@FuncInfo0x00913F2C provisional,Code/GameEngine/Source/Common/Rva00216BF5Dtor.cpp
-0x0076E2D4,8,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,P,P=0x00216BF5@FuncInfo0x00913F2C provisional,Code/GameEngine/Source/Common/Rva00216BF5Dtor.cpp
-0x0076E2DC,8,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,P,P=0x00216BF5@FuncInfo0x00913F2C provisional,Code/GameEngine/Source/Common/Rva00216BF5Dtor.cpp
-0x0076E2E4,8,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,P,P=0x00216BF5@FuncInfo0x00913F2C provisional,Code/GameEngine/Source/Common/Rva00216BF5Dtor.cpp
-0x0076E2EC,10,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,P,P=0x00216BF5@FuncInfo0x00913F2C provisional,Code/GameEngine/Source/Common/Rva00216BF5Dtor.cpp
+0x0076E2AC,10,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,P,P=0x002167A3@FuncInfo0x00913EBC provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
+0x0076E2B6,8,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,P,P=0x00216BF5@FuncInfo0x00913F2C provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
+0x0076E2BE,11,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,P,P=0x00216BF5@FuncInfo0x00913F2C provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
+0x0076E2C9,11,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,P,P=0x00216BF5@FuncInfo0x00913F2C provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
+0x0076E2D4,8,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,P,P=0x00216BF5@FuncInfo0x00913F2C provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
+0x0076E2DC,8,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,P,P=0x00216BF5@FuncInfo0x00913F2C provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
+0x0076E2E4,8,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,P,P=0x00216BF5@FuncInfo0x00913F2C provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
+0x0076E2EC,10,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,P,P=0x00216BF5@FuncInfo0x00913F2C provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
 0x0076E2F6,8,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,P,P=0x00216DBC@FuncInfo0x00913F60 provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
 0x0076E2FE,8,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,P,P=0x00216DBC@FuncInfo0x00913F60 provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
 0x0076E306,8,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,P,P=0x00216DBC@FuncInfo0x00913F60 provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
@@ -68041,7 +68041,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0076E318,25,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,P,P=0x00216F91@FuncInfo0x00913F8C provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
 0x0076E331,25,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,P,P=0x00216F91@FuncInfo0x00913F8C provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
 0x0076E34A,10,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,P,P=0x00216F91@FuncInfo0x00913F8C provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
-0x0076E354,11,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva00217031.cpp
+0x0076E354,11,code,,,-,,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
 0x0076E35F,10,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/OwnedBucketTableDtorsO1.cpp
 0x0076E369,8,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,P,P=0x00217071@FuncInfo0x00913FB0 provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
 0x0076E371,10,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,approved,P,P=0x00217071@FuncInfo0x00913FB0 provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp

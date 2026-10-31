@@ -2716,11 +2716,11 @@ alternatename	Code/GameEngine/Source/GameClient/GUI/GameWindow_winSetText.cpp	?w
 alternatename	Code/GameEngine/Source/GameClient/GUI/InGame/AptRadialMenu_PositionButton.cpp	?Move@ButtonShell@Impl@AptRadialMenu@@QAEXVCoord2D@@0@Z	2
 alternatename	Code/GameEngine/Source/GameClient/GUI/InGame/InGameSimpleHelp.cpp	??1InGameSimpleHelp@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/InGame/InGameSimpleHelp.cpp	??1Rva005398CDRefCounted@@UAE@XZ	1
-alternatename	Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUIUpdate.cpp	?GetStateString@Rva00215EA4BannerState@@SAPBDH@Z	1
-alternatename	Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUIUpdate.cpp	?bfmeShowDN@ControlBar@@QAEXPAUBfmeMsgDN@@@Z	1
-alternatename	Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUIUpdate.cpp	?rva0023D075@GameLogicFwd@@QAEHH@Z	1
-alternatename	Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUIUpdate.cpp	?rva0023D096@GameLogicFwd@@QAEMH@Z	1
-alternatename	Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUIUpdate.cpp	?rva0023D0AC@GameLogicFwd@@QAEHH@Z	1
+alternatename	Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp	?GetStateString@Rva00215EA4BannerState@@SAPBDH@Z	1
+alternatename	Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp	?bfmeShowDN@ControlBar@@QAEXPAUBfmeMsgDN@@@Z	1
+alternatename	Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp	?rva0023D075@GameLogicFwd@@QAEHH@Z	1
+alternatename	Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp	?rva0023D096@GameLogicFwd@@QAEMH@Z	1
+alternatename	Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp	?rva0023D0AC@GameLogicFwd@@QAEHH@Z	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/Rva00427157Ctor.cpp	?g_00DC85C4@@3PAPBDA	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/Rva0043D1C9Destructor.cpp	?Rva00030830FreeAllocation@@YAXPAX@Z	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/Rva0043D1C9Destructor.cpp	?erase@?$vector@PAURva0043D1C9Entry@@V?$allocator@PAURva0043D1C9Entry@@@_STL@@@_STL@@QAEPAPAURva0043D1C9Entry@@PAPAU3@0@Z	1
