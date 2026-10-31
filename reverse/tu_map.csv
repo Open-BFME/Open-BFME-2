@@ -58551,7 +58551,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x006D8860,29,code,,,-,,Code/Libraries/Source/Apt/AptValue/AptScalarValueConstructors.cpp
 0x006D8880,35,code,,,-,,Code/GameEngine/Source/Common/Rva006D88B0DeletingDtor.cpp
 0x006D88B0,11,code,,,-,,Code/GameEngine/Source/Common/Rva006DE350Derived.cpp
-0x006D88C0,263,code,Code/Libraries/Source/Apt/AptValue/AptBoolean.cpp,approved,N,N=Code/Libraries/Source/Apt/AptValue/AptBoolean.cpp provisional,Code/Libraries/Source/Apt/AptValue/AptBooleanCreateBFME2.cpp
+0x006D88C0,263,code,Code/Libraries/Source/Apt/AptValue/AptBoolean.cpp,approved,N,N=Code/Libraries/Source/Apt/AptValue/AptBoolean.cpp provisional,Code/Libraries/Source/Apt/AptValue/AptBoolean.cpp
 0x006D89D0,4,code,Code/Libraries/Source/Apt/AptValue/AptBoolean.cpp,approved,C,C=0x006D88C0..0x006D89E0 provisional,Code/Libraries/Source/Apt/AptValue/AptBoolean.cpp
 0x006D89E0,55,code,Code/Libraries/Source/Apt/AptValue/AptBoolean.cpp,approved,N,N=Code/Libraries/Source/Apt/AptValue/AptBoolean.cpp provisional,Code/Libraries/Source/Apt/AptValue/AptScalarClearPoolsBFME2.cpp
 0x006D8A20,15,code,,,-,,Code/GameEngine/Source/Common/VslotSmallBodiesP.cpp
@@ -91685,8 +91685,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007A8A4F,10,code,Code/Libraries/Source/Apt/AptValue/AptInteger.cpp,approved,P,P=0x006D8520@FuncInfo0x009624F8 provisional,Code/Libraries/Source/Apt/AptValue/AptInteger.cpp
 0x007A8A60,15,code,,,-,,Code/Libraries/Source/Apt/AptValue/AptFloatCreateBFME2.cpp
 0x007A8A6F,10,code,,,-,,Code/Libraries/Source/Apt/AptValue/AptFloatCreateBFME2.cpp
-0x007A8A80,15,code,Code/Libraries/Source/Apt/AptValue/AptBoolean.cpp,approved,P,P=0x006D88C0@FuncInfo0x00962540 provisional,Code/Libraries/Source/Apt/AptValue/AptBooleanCreateBFME2.cpp
-0x007A8A8F,10,code,Code/Libraries/Source/Apt/AptValue/AptBoolean.cpp,approved,P,P=0x006D88C0@FuncInfo0x00962540 provisional,Code/Libraries/Source/Apt/AptValue/AptBooleanCreateBFME2.cpp
+0x007A8A80,15,code,Code/Libraries/Source/Apt/AptValue/AptBoolean.cpp,approved,P,P=0x006D88C0@FuncInfo0x00962540 provisional,Code/Libraries/Source/Apt/AptValue/AptBoolean.cpp
+0x007A8A8F,10,code,Code/Libraries/Source/Apt/AptValue/AptBoolean.cpp,approved,P,P=0x006D88C0@FuncInfo0x00962540 provisional,Code/Libraries/Source/Apt/AptValue/AptBoolean.cpp
 0x007A8AA0,8,code,Code/Libraries/Source/Apt/AptArray.cpp,approved,P,P=0x006D91B0@FuncInfo0x00962564,Code/Libraries/Source/Apt/AptArray.cpp
 0x007A8AA8,10,code,Code/Libraries/Source/Apt/AptArray.cpp,approved,P,P=0x006D91B0@FuncInfo0x00962564,Code/Libraries/Source/Apt/AptArray.cpp
 0x007A8AC0,8,code,Code/Libraries/Source/Apt/AptArray.cpp,approved,P,P=0x006D9660@FuncInfo0x00962590,Code/Libraries/Source/Apt/AptObject/AptArrayConstructor.cpp
