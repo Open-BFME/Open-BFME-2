@@ -10,11 +10,7 @@ enum NameKeyType
 	NAMEKEY_INVALID = 0
 };
 
-class Team
-{
-public:
-	char m_pad[1];
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;

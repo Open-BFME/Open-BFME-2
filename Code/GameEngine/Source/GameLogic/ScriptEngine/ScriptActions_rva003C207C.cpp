@@ -16,11 +16,7 @@ private:
 	int m_id; // +0x74
 };
 
-class Team
-{
-public:
-	void rva003A23A5(int objectID, bool value);
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 class Parameter
 {

@@ -22,11 +22,7 @@ public:
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 
-class Team
-{
-public:
-	Coord3D *rva0039DA2A(Coord3D *out) const;
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 class TeamPrototype
 {

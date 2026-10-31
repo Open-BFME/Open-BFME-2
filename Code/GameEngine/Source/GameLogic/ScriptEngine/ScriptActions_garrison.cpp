@@ -303,15 +303,7 @@ public:
 };
 extern AI *TheAI;
 
-class Team
-{
-public:
-	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
-	Player *getControllingPlayer() const;
-	void getTeamAsAIGroup(AIGroup *group);
-	void rva0039E5B9(Coord3D *pos);
-	Coord3D *rva0039DA2A(Coord3D *out) const;	// 0x0039DA2A: the team's position
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 class Parameter
 {

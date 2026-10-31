@@ -13,12 +13,7 @@
 class Team;
 class ObjectTypes;
 
-class Team
-{
-public:
-	// Row 0x003A1626 spelling (returns int, typed template/list arguments).
-	int rva003A1626(const class ThingTemplate *a, class Rva00376A62 *b, int v, Team *other);
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;

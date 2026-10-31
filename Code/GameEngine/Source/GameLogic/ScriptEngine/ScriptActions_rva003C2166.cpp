@@ -11,12 +11,7 @@ typedef bool Bool;
 class ThingTemplate;
 class ObjectTypes;
 
-class Team
-{
-public:
-	Bool hasAnyObjects(Bool onlyLiving);						// 0x0039E042
-	int rva003A1AA3(const ThingTemplate *tmpl, ObjectTypes *types, int count, float radius);	// 0x003A1AA3
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 class ThingFactory
 {

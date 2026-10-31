@@ -10,11 +10,7 @@
 // 0x003C2662; globals g_Va009FE16C TheUpgradeCenter.
 #include "ascii_string.h"
 
-class Team
-{
-public:
-	void rva0039DB31(const void *arg);
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;

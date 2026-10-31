@@ -72,12 +72,7 @@ public:
 	void forceEmotion(int index, float value, int arg);
 };
 
-class Team : public MemoryPoolObject, public Snapshot
-{
-public:
-	Team *dlink_next_TeamInstanceList() const;
-	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 class TeamPrototype
 {

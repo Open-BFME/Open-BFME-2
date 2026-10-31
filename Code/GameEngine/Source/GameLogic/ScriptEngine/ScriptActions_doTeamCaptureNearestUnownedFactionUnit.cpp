@@ -76,12 +76,7 @@ enum DistanceCalculationType
 	FROM_CENTER_3D = 0
 };
 
-class Team
-{
-public:
-	Player *getControllingPlayer() const;	// 0x0039D7CF
-	void getTeamAsAIGroup(class AIGroup *group);	// 0x003A0F62
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 class AIGroup
 {

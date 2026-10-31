@@ -9,9 +9,7 @@
 #include "ascii_string.h"
 typedef bool Bool;
 
-class Team
-{
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;

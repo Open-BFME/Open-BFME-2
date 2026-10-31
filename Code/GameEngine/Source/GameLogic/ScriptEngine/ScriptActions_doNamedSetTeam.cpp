@@ -23,9 +23,7 @@ class Object
 public:
 	void setTeam(Team *team);
 };
-class Team
-{
-};
+#include "../../../Include/Common/TeamBFME2.h"
 class ScriptActions
 {
 protected:

@@ -112,7 +112,7 @@ template<class T> class DLINK_ITERATOR {public:
     bool done() const { return !current; }
     T *cur() const { return current; }
 };
-class Team {public:DLINK_ITERATOR<Object> iterate_TeamMemberList() const;};
+#include "../../../../../Include/Common/TeamBFME2.h"
 class Player {public:
     bool rva002AA245() const;
     Relationship getRelationship(const Player *) const;

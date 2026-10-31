@@ -349,23 +349,7 @@ struct PlayerTeamNode
 
 class Team;
 
-class Team : public MemoryPoolObject, public Snapshot
-{
-public:
-	Team *dlink_next_TeamInstanceList() const;
-	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
-	void rva0039E5B9(struct Coord3D *pos);
- Coord3D *rva0039DA2A(Coord3D *) const;
-	void getTeamAsAIGroup(class AIGroup *group);
-	class Object *rva0039E8EB();
-	void setControllingPlayer(Player *newController);
-	int rva0039DD12(int (*func)(class Object *, void *), void *userData) const;
-	bool hasAnyObjects(bool ignoreBuildings);
-	class Object *rva0039E968(int kindOf);
-	bool rva0039E8FF(int val);
-	Player *getControllingPlayer() const;
-	void rva003A1AA3(const class ThingTemplate *tmpl, class ObjectTypes *types, int count, float radius);
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 class TeamPrototype
 {

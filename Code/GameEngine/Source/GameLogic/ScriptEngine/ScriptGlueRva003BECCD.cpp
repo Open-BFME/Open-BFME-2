@@ -11,11 +11,7 @@
 
 typedef bool Bool;
 
-class Team
-{
-public:
-	void rva003A38E9(const AsciiString &a, unsigned char b);
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;

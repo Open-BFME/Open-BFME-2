@@ -62,12 +62,7 @@ public:
 };
 extern AI *TheAI;
 
-class Team
-{
-public:
-	void getTeamAsAIGroup(AIGroup *group);
-	Player *getControllingPlayer() const;
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;

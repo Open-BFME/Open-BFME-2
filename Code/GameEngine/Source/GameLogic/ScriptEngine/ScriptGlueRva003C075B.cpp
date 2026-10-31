@@ -19,11 +19,7 @@ enum CommandSourceType
 	CMD_FROM_AI = 2
 };
 
-class Team
-{
-public:
-	void getTeamAsAIGroup(class AIGroup *group);
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;

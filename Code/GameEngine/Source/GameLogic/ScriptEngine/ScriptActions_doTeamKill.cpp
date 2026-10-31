@@ -11,11 +11,7 @@
 
 typedef bool Bool;
 
-class Team
-{
-public:
-	void killTeam();
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;

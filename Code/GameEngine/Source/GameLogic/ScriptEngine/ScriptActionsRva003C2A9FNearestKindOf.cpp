@@ -37,12 +37,7 @@ template<int N> __declspec(noinline) BitFlags<N>::BitFlags(int /*unused*/, int b
 }
 extern BitFlags<116> KINDOFMASK_NONE;
 
-class Team
-{
-public:
-	void rva0039E5B9(Coord3D *center);
-	void getTeamAsAIGroup(AIGroup *group);
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 class Parameter;
 

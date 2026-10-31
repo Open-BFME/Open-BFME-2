@@ -22,11 +22,7 @@ private:
 	char m_pad[20];
 };
 
-class Team
-{
-public:
-	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 enum CommandSourceType { CMD_FROM_SCRIPT = 1 };
 

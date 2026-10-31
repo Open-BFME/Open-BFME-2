@@ -68,16 +68,7 @@ public:
 };
 extern AI *TheAI;
 
-class Team
-{
-	void *m_vptr;
-	void *m_prototype;
-	void *m_id;
-	Object *m_head;
-public:
-	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
-	void getTeamAsAIGroup(AIGroup *group);			// 0x003A0F62
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;

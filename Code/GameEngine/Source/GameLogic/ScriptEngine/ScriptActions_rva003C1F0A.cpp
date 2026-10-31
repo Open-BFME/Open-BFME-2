@@ -17,11 +17,7 @@ public:
 };
 extern class AI *TheAI;
 
-class Team
-{
-public:
-	void getTeamAsAIGroup(AIGroup *grp);
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 class Drawable;
 class Rva002D752DNode;

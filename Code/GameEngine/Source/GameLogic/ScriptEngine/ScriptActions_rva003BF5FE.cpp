@@ -31,12 +31,7 @@ public:
 	char m_pad00[0x38];
 	Coord3D m_position;
 };
-class Team
-{
-public:
-	void getTeamAsAIGroup(AIGroup *group);
-	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
-};
+#include "../../../Include/Common/TeamBFME2.h"
 #include "../../../Include/GameLogic/ScriptEngine.h"
 class AI
 {

@@ -27,11 +27,7 @@ public:
 	AIGroup *createGroup();
 };
 
-class Team
-{
-public:
-	void getTeamAsAIGroup(AIGroup *group);
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 class AIGroup
 {

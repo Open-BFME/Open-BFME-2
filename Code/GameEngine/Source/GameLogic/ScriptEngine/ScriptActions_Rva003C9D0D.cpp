@@ -141,13 +141,7 @@ private:
 	char m_pad[20];
 };
 
-class Team
-{
-public:
-	Player *getControllingPlayer() const;			// 0x0039D7CF
-	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;	// 0x00263864
-	Coord3D *rva0039DA2A(Coord3D *out) const;			// 0x0039DA2A (rowed with the hidden result pointer as an explicit argument)
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 struct BfmeWideResult
 {

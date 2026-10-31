@@ -36,12 +36,7 @@ public:
     bool done() const { return m_cur == 0; }
     OBJCLASS *cur() const { return m_cur; }
 };
-class Team : public MemoryPoolObject, public Snapshot
-{
-public:
-    Team *dlink_next_TeamInstanceList() const;
-    DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
-};
+#include "../../../Include/Common/TeamBFME2.h"
 // The target's function word and zero adjustment, also witnessed by
 // TeamPrototypeTeamIterators.cpp, are Team's8B multiple-base member pointer.
 class Rva003C069BTeamIterator

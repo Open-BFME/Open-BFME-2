@@ -31,12 +31,7 @@ public:
 };
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
-class Team
-{
-public:
-	void setAttackPriorityName(AsciiString);
-	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
-};
+#include "../../../Include/Common/TeamBFME2.h"
 class ScriptActions
 {
 protected:

@@ -23,12 +23,7 @@ private:
 	_STL::vector<AsciiString> m_objectTypes;
 };
 
-class Team
-{
-public:
-	// ?rva003A178D@Team@@QAEHPAVObjectTypes@@HPAV1@@Z (0x003A178D, returns int; ignored here)
-	int rva003A178D(ObjectTypes *types, int count, Team *otherTeam);
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;

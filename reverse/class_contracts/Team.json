@@ -1,0 +1,758 @@
+{
+ "bases": [
+  "Snapshot"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "Team",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 118,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x110": {
+    "1": 1
+   },
+   "0x111": {
+    "1": 1
+   },
+   "0x112": {
+    "1": 2
+   },
+   "0x114": {
+    "4": 2
+   },
+   "0x118": {
+    "4": 4
+   },
+   "0x11c": {
+    "4": 4
+   },
+   "0x120": {
+    "4": 1
+   },
+   "0x124": {
+    "4": 2
+   },
+   "0x30": {
+    "4": 4
+   },
+   "0x38": {
+    "4": 3
+   },
+   "0x3c": {
+    "4": 3
+   },
+   "0x40": {
+    "4": 5
+   },
+   "0x48": {
+    "4": 1
+   },
+   "0x5c": {
+    "1": 5
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x13c": 3
+     }
+    },
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x3a39a7"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "Snapshot",
+       "offset": 0,
+       "own_vftable": "0x81aefc",
+       "rule": "retail-inlined-base-vptr"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x3a39a7"
+     ],
+     "value": 297
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x3a39a7"
+     ],
+     "value": {
+      "0x110": [
+       1
+      ],
+      "0x111": [
+       1
+      ],
+      "0x112": [
+       1
+      ],
+      "0x113": [
+       1
+      ],
+      "0x114": [
+       4
+      ],
+      "0x118": [
+       4
+      ],
+      "0x11c": [
+       4
+      ],
+      "0x120": [
+       4
+      ],
+      "0x124": [
+       4
+      ],
+      "0x128": [
+       1
+      ],
+      "0x30": [
+       4
+      ],
+      "0x34": [
+       4
+      ],
+      "0x38": [
+       4
+      ],
+      "0x3c": [
+       4
+      ],
+      "0x40": [
+       4
+      ],
+      "0x44": [
+       4
+      ],
+      "0x5c": [
+       1
+      ],
+      "0x5d": [
+       1
+      ],
+      "0x5e": [
+       1
+      ],
+      "0x5f": [
+       1
+      ],
+      "0x60": [
+       1
+      ],
+      "0x61": [
+       1
+      ],
+      "0x62": [
+       1
+      ],
+      "0x63": [
+       1
+      ],
+      "0x64": [
+       4
+      ],
+      "0x68": [
+       4
+      ],
+      "0x6c": [
+       4
+      ],
+      "0x90": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x3a39a7"
+     ],
+     "value": {
+      "0x12c": [
+       "??0?$_List_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x130": [
+       "??0?$set@VAsciiString@@U?$less@VAsciiString@@@_STL@@V?$allocator@VAsciiString@@@3@@_STL@@QAE@XZ"
+      ],
+      "0x4": [
+       "??0Rva0055B0CC@@QAE@XZ"
+      ],
+      "0x48": [
+       "??0Rva003A393A@@QAE@XZ"
+      ]
+     }
+    },
+    "unknown_subobject_vptrs": {
+     "kind": "inference",
+     "rule": "retail-ctor-vptr-after-own",
+     "sites": [
+      "0x3a39a7"
+     ],
+     "value": {
+      "0x4": [
+       "0x81aeb8"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x3a39a7"
+     ],
+     "value": {
+      "0x0": "0x81aefc"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x81aefc"
+     ],
+     "value": {
+      "count": 4,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GTeam@@MAEPAXI@Z",
+        "slot": 0,
+        "target": "0x3a38cd"
+       },
+       {
+        "name": "?loadPostProcess@Team@@MAEXXZ",
+        "slot": 1,
+        "target": "0x3a2339"
+       },
+       {
+        "name": "?GetSnapshotName@Team@@MBEPBDXZ",
+        "slot": 2,
+        "target": "0x3a3709"
+       },
+       {
+        "name": "?xfer@Team@@MAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x3a2072"
+       }
+      ],
+      "table": "0x81aefc"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 81,
+  "retail_vtables": {
+   "0x81aefc": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GTeam@@MAEPAXI@Z",
+     "1": "?loadPostProcess@Team@@MAEXXZ",
+     "2": "?GetSnapshotName@Team@@MBEPBDXZ",
+     "3": "?xfer@Team@@MAEXPAVXfer@@@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 69,
+   "4": 1,
+   "8": 4,
+   "16": 4,
+   "52": 5,
+   "56": 4,
+   "60": 13,
+   "68": 1,
+   "93": 1,
+   "95": 2,
+   "96": 5,
+   "274": 2,
+   "276": 2,
+   "288": 1,
+   "292": 1,
+   "300": 1,
+   "316": 2
+  },
+  "views": 118,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_Team.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Team.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 20,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 96
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerTeamCommands.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamCtor.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamDeleter.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamDtor.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamGetControllingPlayer.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamPrototypeTeamIterators.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsFireSpecialPowerAtPosition.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_doPlayerForceEmotion.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_doTeamEnableStealth.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_doTeamFaceWaypoint.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_doTeamIdleForFramecount.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C7914.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditionsRva003E8E23.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateSkirmishSpecialPowerIsReady.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp"
+   ],
+   "views": 17
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerTeamCommands.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamCtor.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_doTeamEnableStealth.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_doTeamFaceWaypoint.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_doTeamIdleForFramecount.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C7914.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditionsRva003E8E23.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateSkirmishSpecialPowerIsReady.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_doTeamEnableStealth.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_doTeamFaceWaypoint.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_doTeamIdleForFramecount.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C7914.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/TeamCtor.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamDtor.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamGetControllingPlayer.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamSetControllingPlayer.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamUpdateState.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIGuard.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AISkirmishPlayer.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AITNGuardStates.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectSetTeam.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineEvaluateAndProgressAllSequentialScripts.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineGetTeamNamed.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/AITactic.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/AITacticsGenerator.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AITeamBuilder/AITeamBuilder.cpp"
+   ],
+   "views": 16
+  },
+  {
+   "offset": 52,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerGetRelationship.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamCtor.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamDtor.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamGetControllingPlayer.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamUpdateState.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectLookupMapFindSlot.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/AITactic.cpp",
+    "Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp"
+   ],
+   "views": 10
+  },
+  {
+   "offset": 56,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerTeamCommands.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamCtor.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamDidAllEnter.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamDtor.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamGetControllingPlayer.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamKillTeam.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamRva003A2DBB.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamSetControllingPlayer.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamUpdateState.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectSetTeam.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsAutoAbility.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsLoadAllTransports.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsReinforcements.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsTransferTeam.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_Rva003C9E4E.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_doMoveTeamTowardsNearest.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_doTeamGarrisonNearestBuilding.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_doTeamHuntWithCommandButton.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditionsRva003E8E23.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateSkirmishSpecialPowerIsReady.cpp"
+   ],
+   "views": 21
+  },
+  {
+   "offset": 60,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/TeamCtor.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamPrototypeTeamIterators.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 64,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/TeamCtor.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamPrototypeTeamIterators.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 68,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/TeamCtor.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 72,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/TeamCtor.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamDtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 76,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/TeamDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 80,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/TeamDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 84,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/TeamDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 88,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/TeamDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 92,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/TeamCtor.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamDidAllEnter.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamDidPartialEnter.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamDtor.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamUpdateState.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 93,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/TeamCtor.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamGetControllingPlayer.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamUpdateState.cpp",
+    "Code/GameEngine/Source/Common/Rva005AB309Tactic.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsReinforcements.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineGetTeamNamed.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/TargetlessTactics/AIStructureCreepTactic.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AITeamBuilder/AITeamBuilder.cpp",
+    "Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp"
+   ],
+   "views": 10
+  },
+  {
+   "offset": 94,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/TeamCtor.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamUpdateState.cpp",
+    "Code/GameEngine/Source/Common/Rva005AB309Tactic.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsReinforcements.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineGetTeamNamed.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/TargetlessTactics/AIStructureCreepTactic.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AITeamBuilder/AITeamBuilder.cpp",
+    "Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 95,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/TeamCtor.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamUpdateState.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 96,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/TeamCtor.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamUpdateState.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 97,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/TeamCtor.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamUpdateState.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 98,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/TeamCtor.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamUpdateState.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 99,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/TeamCtor.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamUpdateState.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 100,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/TeamCtor.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamUpdateState.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 104,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/TeamCtor.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamUpdateState.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 108,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/TeamCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 112,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/TeamCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 144,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/TeamCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 272,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/TeamCtor.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamGetControllingPlayer.cpp",
+    "Code/GameEngine/Source/Common/Rva0059ADB9.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_doTeamAvailableForRecruitment.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AITeamBuilder/AITeamBuilder.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 273,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/TeamCtor.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamGetControllingPlayer.cpp",
+    "Code/GameEngine/Source/Common/Rva0059ADB9.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_doTeamAvailableForRecruitment.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AITeamBuilder/AITeamBuilder.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 274,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/TeamCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 275,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/TeamCtor.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamUpdateState.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 276,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/TeamCtor.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamGetControllingPlayer.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 280,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/TeamCtor.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamDtor.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamGetControllingPlayer.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 284,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/TeamCtor.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamDtor.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamGetControllingPlayer.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 288,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/TeamCtor.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamDtor.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamRva003A2DBB.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 292,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/TeamCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 296,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/TeamCtor.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamUpdateState.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 300,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/TeamCtor.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamDtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 304,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/TeamCtor.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamDtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 308,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/TeamCtor.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamDtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 312,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/TeamCtor.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamDtor.cpp"
+   ],
+   "views": 2
+  }
+ ],
+ "queue": [],
+ "size": 60,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}

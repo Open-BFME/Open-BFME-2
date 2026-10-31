@@ -42,13 +42,7 @@ public:
 
 class Player;
 
-class Team
-{
-public:
-	Player *getControllingPlayer() const;
-	void getTeamAsAIGroup(class AIGroup *group);
-	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;

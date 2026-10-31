@@ -68,12 +68,7 @@ public:
     bool done() const { return m_cur == 0; }
     OBJCLASS *cur() const { return m_cur; }
 };
-class Team
-{
-public:
-    bool hasAnyObjects(bool ignoreBuildings);
-    DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
-};
+#include "../../../Include/Common/TeamBFME2.h"
 void ScriptActions::Rva003BFF50Do(const AsciiString *teamName, int seconds, RGBColor *colorOverride)
 {
     Team *team = TheScriptEngine->getTeamNamed(*teamName, false);

@@ -10,12 +10,7 @@ class Team;
 
 extern class ScriptEngine *TheScriptEngine;
 
-class Team
-{
-public:
-	bool hasAnyObjects(bool b);
-	void rva0039E5B9(Coord3D *p);
-};
+#include "../../Include/Common/TeamBFME2.h"
 
 class SpecialPowerTemplate;
 

@@ -11,11 +11,7 @@
 
 typedef bool Bool;
 
-class Team
-{
-public:
-	bool damageTeamMembers(float amount);	// rowed bool return (TeamApplyDamage.cpp); result unused here
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;

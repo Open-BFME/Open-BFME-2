@@ -36,11 +36,7 @@ public:
 	char m_pad00[0x54];
 	int m_playerIndex; // +0x54
 };
-class Team
-{
-public:
-	void rva003A2D53(int key, Object *val);
-};
+#include "../../../Include/Common/TeamBFME2.h"
 void ScriptActions::doTeamSetOverrideRelationToPlayer(const AsciiString &teamName, const AsciiString &playerName, Object *obj)
 {
 	Team *team = TheScriptEngine->getTeamNamed(teamName, false);

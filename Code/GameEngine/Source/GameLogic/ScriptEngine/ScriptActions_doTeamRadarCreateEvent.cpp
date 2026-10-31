@@ -12,12 +12,7 @@
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-class Team
-{
-public:
-	bool hasAnyUnits();
-	void rva0039E5B9(Coord3D *pos);
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;

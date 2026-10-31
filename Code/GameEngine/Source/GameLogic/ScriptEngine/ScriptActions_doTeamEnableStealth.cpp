@@ -38,15 +38,7 @@ public:
     void setScriptStatus( ObjectScriptStatusBit bit, Bool set );
 };
 
-class Team
-{
-    void *m_vptr;
-    void *m_prototype;
-    void *m_id;
-    Object *m_head;
-public:
-    DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
-};
+#include "../../../Include/Common/TeamBFME2.h"
 #include "../../../Include/GameLogic/ScriptEngine.h"
 class ScriptActions
 {

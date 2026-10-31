@@ -42,11 +42,7 @@ public:
 };
 extern AI *TheAI;
 
-class Team
-{
-public:
-    void getTeamAsAIGroup(AIGroup *);
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 class ScriptActions
 {
