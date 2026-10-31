@@ -31,8 +31,6 @@ address_global	Code/GameEngine/Source/Common/BfmeConv1292DeferredWalkers.cpp	g_V
 address_global	Code/GameEngine/Source/Common/BfmeConv1292DeferredWalkers.cpp	g_Va00E0300C	2
 address_global	Code/GameEngine/Source/Common/BfmeConv1871.cpp	g_Va00E0A198	2
 address_global	Code/GameEngine/Source/Common/BfmeConv1871.cpp	g_Va00E0A1BC	2
-address_global	Code/GameEngine/Source/Common/BfmeConv982.cpp	g_Rva00F06914Transform	1
-address_global	Code/GameEngine/Source/Common/BfmeConv982.cpp	g_Rva00F0692CTransform	1
 address_global	Code/GameEngine/Source/Common/BfmeOwnerCDECount.cpp	g_Va00BBB8D8	3
 address_global	Code/GameEngine/Source/Common/BfmeThingBFGTail.cpp	g_Va00BBB8D8	2
 address_global	Code/GameEngine/Source/Common/BfmeThingBFGTail.cpp	g_Va00BC74F0	2
@@ -1256,7 +1254,12 @@ address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawAdjustTransformMtx.cpp	g_Va00DEAF14	3
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawXfer.cpp	g_Rva0107301CEmptyString	5
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Rva000BE027FindAnim.cpp	g_Rva0107301CEmptyString	2
-address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/AptShapeContainer.cpp	g_Va00DE6194	2
+address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/AptShapeContainer.cpp	g_Rva00F06914Transform	1
+address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/AptShapeContainer.cpp	g_Rva00F0692CTransform	1
+address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/AptShapeContainer.cpp	g_Va00DB5FB0	1
+address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/AptShapeContainer.cpp	g_Va00DB5FC8	1
+address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/AptShapeContainer.cpp	g_Va00DE6194	3
+address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/AptShapeContainer.cpp	g_Va00DEC49C	1
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptAux.cpp	g_Va00DB5FB0	1
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptAux.cpp	g_Va00DB5FC8	1
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptAux.cpp	g_Va00DE6194	2
@@ -1265,10 +1268,6 @@ address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptAux_P
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptAux_PostDraw.cpp	g_Va00DB5FC8	4
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptAux_PostDraw.cpp	g_Va00DE6194	2
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptAux_PostDraw.cpp	g_Va00DEC49C	2
-address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptAux_PostDraw_W3dDrawRenderingUnit.cpp	g_Va00DB5FB0	1
-address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptAux_PostDraw_W3dDrawRenderingUnit.cpp	g_Va00DB5FC8	1
-address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptAux_PostDraw_W3dDrawRenderingUnit.cpp	g_Va00DE6194	2
-address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptAux_PostDraw_W3dDrawRenderingUnit.cpp	g_Va00DEC49C	1
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0004D47DParticleRender.cpp	g_Va00DB5F7D	4
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0009CD9BSunRaysSetup.cpp	g_Va00DE5E2C	3
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0009CD9BSunRaysSetup.cpp	g_Va00DE5E38	3
@@ -3127,7 +3126,6 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Object_setGeometryInfoZ.cp
 alternatename	Code/GameEngine/Source/GameLogic/Object/PartitionFilterPossibleToAttackAllow.cpp	?allow@Rva00260FD0Filter@@UAE_NPAVObject@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/PartitionFilterSameMapStatusAllow.cpp	?allow@Rva002611BFFilter@@UAE_NPAVObject@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/PartitionFilters_allow_Thunk.cpp	?allow@Rva0026137EFilter@@UAE_NPAVObject@@@Z	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Rva000AA867ArmorFind.cpp	?find@Rva00786BD0Owner@@QAEPAXI@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Rva001E86D0.cpp	?Rva00030830FreeAllocation@@YAXPAX@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Rva001E86D0.cpp	?rvaClear@Rva001E7087@@AAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Rva00220DCDInit.cpp	?g_00DFE490@@3VRva00575674@@A	1
@@ -3515,7 +3513,7 @@ alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTruckDrawDtor.cpp	?slotC@DrawInterfaceC@@UAEXXZ	1
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/Find_Asset.cpp	?Rva009EEC60_FindAsset@Rva009EEC60Registry@@QAE?AVRva009EBCE0AssetReference@@PBD@Z	1
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/FlatHeightMap.cpp	??1Rva00112291@@UAE@XZ	1
-alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptAux_PostDraw_W3dDrawRenderingUnit.cpp	?cleanup@Rva00785FD0Item@@QAEXXZ	1
+alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/AptShapeContainer.cpp	?find@Rva00786BD0Owner@@QAEPAXI@Z	1
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DGameFont.cpp	?Grow@?$SimpleDynVecClass@VVector3@@@@QAE_NH@Z	1
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS2DSceneCtor.cpp	??1RTS2DScene@@UAE@XZ	1
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/Render_Obj_Exists_Impl.cpp	?bfmeSay1025@BfmeP1025@@QAEDPAD@Z	1
@@ -10487,10 +10485,6 @@ pragma_optimize	Code/GameEngine/Source/Common/RTS/TeamFactoryList.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/Common/RTS/TeamFactoryList.cpp	"gsy",on	1
 pragma_optimize	Code/GameEngine/Source/Common/Rva0007BEDAOverlap.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/Common/Rva0007BEDAOverlap.cpp	"gsy",on	1
-pragma_optimize	Code/GameEngine/Source/Common/Rva000A9DC4Get.cpp	"",on	1
-pragma_optimize	Code/GameEngine/Source/Common/Rva000A9DC4Get.cpp	"t",on	1
-pragma_optimize	Code/GameEngine/Source/Common/Rva000A9F23Get.cpp	"",on	1
-pragma_optimize	Code/GameEngine/Source/Common/Rva000A9F23Get.cpp	"t",on	1
 pragma_optimize	Code/GameEngine/Source/Common/Rva000BBE29.cpp	"y",on	1
 pragma_optimize	Code/GameEngine/Source/Common/Rva000E48BC.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/Common/Rva000E48BC.cpp	"ty",on	1
@@ -10776,6 +10770,8 @@ pragma_optimize	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/
 pragma_optimize	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DRopeDraw.cpp	"",on	2
 pragma_optimize	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DRopeDraw.cpp	"gsy",on	1
 pragma_optimize	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DRopeDraw.cpp	"s",on	1
+pragma_optimize	Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/AptShapeContainer.cpp	"",on	2
+pragma_optimize	Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/AptShapeContainer.cpp	"t",on	2
 pragma_optimize	Code/GameEngineDevice/Source/W3DDevice/GameClient/Render_Obj_Exists_Impl.cpp	"",on	1
 pragma_optimize	Code/GameEngineDevice/Source/W3DDevice/GameClient/Render_Obj_Exists_Impl.cpp	"t",on	1
 pragma_optimize	Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0010461FCtor.cpp	"",on	1
@@ -15285,8 +15281,6 @@ present_unmatched	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00439609.cpp	
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva003876A4.cpp	<_Rb_tree::_M_create_node>	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/StlWordAssignRva000BC20D.cpp	Rva000BC20DWords::operator=	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/StlWordAssignRva00540295.cpp	Rva00540295Words::operator=	1
-present_unmatched	Code/Libraries/Source/WWVegas/WWLib/StlportCopyRva000AB3E2.cpp	__uninitialized_copy@_STL@@YAPAURva000AB3E2Element@@PAU2@00ABU__false_type@0@@Z	1
-present_unmatched	Code/Libraries/Source/WWVegas/WWLib/StlportCopyRva000AB419.cpp	__uninitialized_copy@_STL@@YAPAURva000AB419Element@@PAU2@00ABU__false_type@0@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/StlportFixedObject60Copy.cpp	BfmeFixedBlock16::BfmeFixedBlock16	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/StlportGetEdgesPairMapDestructor.cpp	BfmeGetEdgesPairMapArrayDeleteAnchor	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/StlportRecordRangeCopyDispatch.cpp	Rva00054E23CopyDispatch	1
