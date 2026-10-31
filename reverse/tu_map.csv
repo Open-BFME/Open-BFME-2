@@ -59238,7 +59238,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x006FD5B0,117,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,F,F=Code/Libraries/Source/Apt/AptActionInterpreter.cpp W=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreter.cpp
 0x006FD630,199,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,C,C=0x006FD5B0..0x006FD700,Code/Libraries/Source/Apt/AptActionInterpreter.cpp
 0x006FD700,133,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,N,N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp
-0x006FD790,50,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,C,C=0x006FD700..0x006FD7D0,Code/Libraries/Source/EA/Apt/Bfme5PrefixCheck8C5680.cpp
+0x006FD790,50,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,C,C=0x006FD700..0x006FD7D0,Code/Libraries/Source/Apt/AptActionInterpreter.cpp
 0x006FD7D0,121,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,N,N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp
 0x006FD850,35,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,N,N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp
 0x006FD880,35,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,N,N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp
@@ -59251,7 +59251,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x006FD9D0,35,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,N,N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp
 0x006FDA00,9,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,N,N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp
 0x006FDA10,35,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,N,N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp
-0x006FDA40,490,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,N,N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers_Unresolved__FunctionAptActionCloneSprite.cpp
+0x006FDA40,490,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,N,N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreter.cpp
 0x006FDC30,33,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,N,N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp
 0x006FDC60,218,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,N,N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp
 0x006FDD40,110,code,Code/Libraries/Source/Apt/AptBasePtrStack.cpp,proposed,N,N=Code/Libraries/Source/Apt/AptBasePtrStack.cpp noncontiguous,Code/Libraries/Source/Apt/AptBasePtrStackPopAndPush.cpp
@@ -59264,16 +59264,16 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x006FE050,93,code,Code/Libraries/Source/Apt/AptBasePtrStack.cpp,proposed,N,N=Code/Libraries/Source/Apt/AptBasePtrStack.cpp noncontiguous,Code/Libraries/Source/Apt/AptBasePtrStackPopAndPush.cpp
 0x006FE0B0,105,code,Code/Libraries/Source/Apt/AptBasePtrStack.cpp,proposed,N,N=Code/Libraries/Source/Apt/AptBasePtrStack.cpp noncontiguous,Code/Libraries/Source/Apt/AptBasePtrStackInit.cpp
 0x006FE120,51,code,Code/Libraries/Source/Apt/AptBasePtrStack.cpp,proposed,N,N=Code/Libraries/Source/Apt/AptBasePtrStack.cpp noncontiguous,Code/Libraries/Source/Apt/AptBasePtrStackPopAndPush.cpp
-0x006FE160,108,code,,,-,,Code/Libraries/Source/Apt/AptInterpreterDebugStack.cpp
-0x006FE1D0,146,code,,,-,,Code/Libraries/Source/Apt/AptInterpreterDebugStack.cpp
-0x006FE270,128,code,,,-,,Code/Libraries/Source/Apt/AptInterpreterDebugStack.cpp
-0x006FE2F0,59,code,,,-,,Code/Libraries/Source/Apt/AptInterpreterDebugStack.cpp
+0x006FE160,108,code,,,-,,Code/Libraries/Source/Apt/AptActionInterpreter.cpp
+0x006FE1D0,146,code,,,-,,Code/Libraries/Source/Apt/AptActionInterpreter.cpp
+0x006FE270,128,code,,,-,,Code/Libraries/Source/Apt/AptActionInterpreter.cpp
+0x006FE2F0,59,code,,,-,,Code/Libraries/Source/Apt/AptActionInterpreter.cpp
 0x006FE330,35,code,Code/Libraries/Source/Apt/AptObject/AptScriptFunction.cpp,proposed,K,K=Rva006FBDB0,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp
 0x006FE360,28,code,Code/Libraries/Source/Apt/AptObject/AptScriptFunction.cpp,proposed,K,K=Rva006FBE10Scope,Code/Libraries/Source/Apt/Rva006FBE10HasName.cpp
 0x006FE380,120,code,Code/Libraries/Source/Apt/AptObject/AptStringObject.cpp,proposed,N,N=Code/Libraries/Source/Apt/AptObject/AptStringObject.cpp,Code/Libraries/Source/Apt/AptObject/AptFactoryConstructors.cpp
-0x006FE400,42,code,,,-,,Code/Libraries/Source/Apt/Rva006FE400Chain.cpp
+0x006FE400,42,code,,,-,,Code/Libraries/Source/Apt/AptActionInterpreter.cpp
 0x006FE430,35,code,,,-,,Code/GameEngine/Source/Common/Rva006CBF40Deferred.cpp
-0x006FE460,93,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,E,"E=0x007AA38C..0x007AA3C0@0x006FDA40,0x006FE9C0",Code/Libraries/Source/Apt/Rva006FE460Dtor.cpp
+0x006FE460,93,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,E,"E=0x007AA38C..0x007AA3C0@0x006FDA40,0x006FE9C0",Code/Libraries/Source/Apt/AptActionInterpreter.cpp
 0x006FE4C0,189,code,Code/Libraries/Source/Apt/AptCharacter.cpp,proposed,K,K=Rva006ECFC0Owner,Code/GameEngine/Source/Common/Rva006ECFC0Siblings.cpp
 0x006FE580,66,code,Code/Libraries/Source/Apt/AptBasePtrStack.cpp,proposed,N,N=Code/Libraries/Source/Apt/AptBasePtrStack.cpp noncontiguous,Code/Libraries/Source/Apt/AptActionInterpreterBitwise.cpp
 0x006FE5D0,55,code,Code/Libraries/Source/Apt/AptBasePtrStack.cpp,proposed,N,N=Code/Libraries/Source/Apt/AptBasePtrStack.cpp noncontiguous,Code/Libraries/Source/Apt/Rva006FE5D0Cluster.cpp
@@ -59284,23 +59284,23 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x006FE920,61,code,Code/Libraries/Source/Apt/AptBasePtrStack.cpp,proposed,N,N=Code/Libraries/Source/Apt/AptBasePtrStack.cpp noncontiguous,Code/Libraries/Source/Apt/AptBasePtrStackPopAndPush.cpp
 0x006FE960,5,code,,,-,,Code/GameEngine/Source/Common/GapBodiesSeat10O2B.cpp
 0x006FE970,5,code,,,-,,Code/gen_small/gthunks_000_admitted.cpp
-0x006FE980,49,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,N,N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptInterpreterCtor.cpp
+0x006FE980,49,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,N,N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreter.cpp
 0x006FE9C0,298,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,N,N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreterDtor.cpp
-0x006FEAF0,87,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,N,N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptInterpreterCtor.cpp
-0x006FEB50,171,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,F,F=Code/Libraries/Source/Apt/AptActionInterpreter.cpp N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp W=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/Rva006FEB50Finish.cpp
+0x006FEAF0,87,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,N,N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreter.cpp
+0x006FEB50,171,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,F,F=Code/Libraries/Source/Apt/AptActionInterpreter.cpp N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp W=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreter.cpp
 0x006FEC00,251,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,C,C=0x006FEB50..0x006FED00,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp
 0x006FED00,739,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,F,F=Code/Libraries/Source/Apt/AptActionInterpreter.cpp N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreterSetVariable.cpp
 0x006FEFF0,1034,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,C,C=0x006FED00..0x006FF400,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp
 0x006FF400,256,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,C,C=0x006FED00..0x006FF500,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp
 0x006FF500,198,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,C,C=0x006FED00..0x006FF5D0,Code/Libraries/Source/Apt/AptMathCallbacksBFME2.cpp
-0x006FF5D0,134,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,F,F=Code/Libraries/Source/Apt/AptActionInterpreter.cpp W=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/Rva006ff5d0Cluster.cpp
-0x006FF660,231,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,C,C=0x006FF5D0..0x006FF750,Code/Libraries/Source/Apt/Rva006ff5d0Cluster.cpp
-0x006FF750,241,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,C,C=0x006FF5D0..0x006FF850,Code/Libraries/Source/Apt/Rva006ff5d0Cluster.cpp
+0x006FF5D0,134,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,F,F=Code/Libraries/Source/Apt/AptActionInterpreter.cpp W=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreter.cpp
+0x006FF660,231,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,C,C=0x006FF5D0..0x006FF750,Code/Libraries/Source/Apt/AptActionInterpreter.cpp
+0x006FF750,241,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,C,C=0x006FF5D0..0x006FF850,Code/Libraries/Source/Apt/AptActionInterpreter.cpp
 0x006FF850,302,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,F,F=Code/Libraries/Source/Apt/AptActionInterpreter.cpp W=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp
 0x006FF980,682,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,F,F=Code/Libraries/Source/Apt/AptActionInterpreter.cpp W=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreter.cpp
 0x006FFC30,174,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,C,C=0x006FF980..0x006FFCE0,Code/Libraries/Source/Apt/AptActionInterpreter.cpp
 0x006FFCE0,155,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,F,F=Code/Libraries/Source/Apt/AptActionInterpreter.cpp W=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreter.cpp
-0x006FFD80,781,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,F,F=Code/Libraries/Source/Apt/AptActionInterpreter.cpp N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp W=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreterGetVariable.cpp
+0x006FFD80,781,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,F,F=Code/Libraries/Source/Apt/AptActionInterpreter.cpp N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp W=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreter.cpp
 0x00700090,222,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,F,F=Code/Libraries/Source/Apt/AptActionInterpreter.cpp N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp
 0x00700170,327,code,Code/Libraries/Source/Apt/AptBasePtrStack.cpp,proposed,N,N=Code/Libraries/Source/Apt/AptBasePtrStack.cpp W=Code/Libraries/Source/Apt/AptActionInterpreter.cpp noncontiguous,Code/Libraries/Source/Apt/Rva00700170Pop.cpp
 0x007002C0,668,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,F,F=Code/Libraries/Source/Apt/AptActionInterpreter.cpp N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp
@@ -59327,17 +59327,17 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00701AF0,281,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,N,N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp
 0x00701C10,354,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,N,N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp
 0x00701D80,810,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,F,F=Code/Libraries/Source/Apt/AptActionInterpreter.cpp N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp
-0x007020B0,176,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,N,N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreterRandomBFME2.cpp
+0x007020B0,176,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,N,N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreter.cpp
 0x00702160,296,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,N,N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp
 0x00702290,25,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,N,N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp
 0x007022B0,316,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,N,N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp
 0x007023F0,246,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,N,N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp
-0x007024F0,267,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,N,N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreterScopeHandlers.cpp
+0x007024F0,267,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,N,N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreter.cpp
 0x00702600,315,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,N,N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp
-0x00702740,278,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,N,N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreterScopeHandlers.cpp
+0x00702740,278,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,N,N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreter.cpp
 0x00702860,310,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,N,N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp
 0x007029A0,413,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,N,N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp
-0x00702B40,22,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,C,C=0x007029A0..0x00702B60,Code/Libraries/Source/EA/Apt/Rva00702B40ExpandPrototype.cpp
+0x00702B40,22,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,C,C=0x007029A0..0x00702B60,Code/Libraries/Source/Apt/AptActionInterpreter.cpp
 0x00702B60,956,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,N,N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp
 0x00702F20,700,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,N,N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp
 0x007031E0,1345,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,N,N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp
@@ -59409,14 +59409,14 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00707700,307,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,N,N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp
 0x00707840,199,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,N,N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp
 0x00707910,615,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,N,N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp
-0x00707B80,331,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,N,N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers_Unresolved.cpp
-0x00707CD0,500,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,N,N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers_Unresolved.cpp
+0x00707B80,331,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,N,N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreter.cpp
+0x00707CD0,500,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,N,N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreter.cpp
 0x00707ED0,401,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,N,N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp
 0x00708070,1905,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,N,N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp
-0x007087F0,474,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,N,N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers_Unresolved.cpp
+0x007087F0,474,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,N,N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreter.cpp
 0x007089D0,321,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,N,N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp
 0x00708B20,278,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,N,N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp
-0x00708C40,877,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,N,N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers_Unresolved__FunctionAptActionCloneSprite.cpp
+0x00708C40,877,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,N,N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreter.cpp
 0x00708FB0,109,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,N,N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp
 0x00709020,63,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,N,N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp
 0x00709060,109,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,N,N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp
@@ -59426,7 +59426,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00709200,138,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,N,N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp
 0x00709290,87,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,N,N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp
 0x007092F0,491,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,N,N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp
-0x007094E0,267,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,N,N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers_Unresolved__FunctionAptActionCloneSprite.cpp
+0x007094E0,267,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,N,N=Code/Libraries/Source/Apt/AptActionInterpreter.cpp,Code/Libraries/Source/Apt/AptActionInterpreter.cpp
 0x007095F0,20,code,,,-,,Code/GameEngine/Source/Common/AddressTinyBodiesD0083FDF0.cpp
 0x00709610,91,code,Code/Libraries/Source/Apt/AptObject/AptScriptFunction.cpp,approved,U,N=Code/Libraries/Source/Apt/AptObject/AptScriptFunctionBase.cpp,Code/Libraries/Source/Apt/AptObject/AptScriptFunction.cpp
 0x00709670,190,code,Code/Libraries/Source/Apt/AptObject/AptScriptFunction.cpp,approved,F,F=Code/Libraries/Source/Apt/AptObject/AptScriptFunction.cpp N=Code/Libraries/Source/Apt/AptObject/AptScriptFunctionBase.cpp,Code/Libraries/Source/Apt/AptObject/AptScriptFunction.cpp
@@ -92147,13 +92147,13 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007AA336,10,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,P,P=0x006FD100@FuncInfo0x00963AEC,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp
 0x007AA340,8,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,P,P=0x006FD4C0@FuncInfo0x00963B10,Code/Libraries/Source/Apt/AptActionInterpreter.cpp
 0x007AA348,10,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,P,P=0x006FD4C0@FuncInfo0x00963B10,Code/Libraries/Source/Apt/AptActionInterpreter.cpp
-0x007AA360,11,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,P,P=0x006FDA40@FuncInfo0x00963B5C,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers_Unresolved__FunctionAptActionCloneSprite.cpp
-0x007AA36B,11,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,P,P=0x006FDA40@FuncInfo0x00963B5C,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers_Unresolved__FunctionAptActionCloneSprite.cpp
-0x007AA376,11,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,P,P=0x006FDA40@FuncInfo0x00963B5C,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers_Unresolved__FunctionAptActionCloneSprite.cpp
-0x007AA381,11,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,P,P=0x006FDA40@FuncInfo0x00963B5C,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers_Unresolved__FunctionAptActionCloneSprite.cpp
-0x007AA38C,10,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,P,P=0x006FDA40@FuncInfo0x00963B5C,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers_Unresolved__FunctionAptActionCloneSprite.cpp
-0x007AA3A0,8,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,P,P=0x006FE460@FuncInfo0x00963B80,Code/Libraries/Source/Apt/Rva006FE460Dtor.cpp
-0x007AA3A8,10,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,P,P=0x006FE460@FuncInfo0x00963B80,Code/Libraries/Source/Apt/Rva006FE460Dtor.cpp
+0x007AA360,11,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,P,P=0x006FDA40@FuncInfo0x00963B5C,Code/Libraries/Source/Apt/AptActionInterpreter.cpp
+0x007AA36B,11,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,P,P=0x006FDA40@FuncInfo0x00963B5C,Code/Libraries/Source/Apt/AptActionInterpreter.cpp
+0x007AA376,11,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,P,P=0x006FDA40@FuncInfo0x00963B5C,Code/Libraries/Source/Apt/AptActionInterpreter.cpp
+0x007AA381,11,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,P,P=0x006FDA40@FuncInfo0x00963B5C,Code/Libraries/Source/Apt/AptActionInterpreter.cpp
+0x007AA38C,10,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,P,P=0x006FDA40@FuncInfo0x00963B5C,Code/Libraries/Source/Apt/AptActionInterpreter.cpp
+0x007AA3A0,8,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,P,P=0x006FE460@FuncInfo0x00963B80,Code/Libraries/Source/Apt/AptActionInterpreter.cpp
+0x007AA3A8,10,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,P,P=0x006FE460@FuncInfo0x00963B80,Code/Libraries/Source/Apt/AptActionInterpreter.cpp
 0x007AA3C0,8,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,P,P=0x006FE9C0@FuncInfo0x00963BE8,Code/Libraries/Source/Apt/AptActionInterpreterDtor.cpp
 0x007AA3C8,11,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,P,P=0x006FE9C0@FuncInfo0x00963BE8,Code/Libraries/Source/Apt/AptActionInterpreterDtor.cpp
 0x007AA3D3,11,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,P,P=0x006FE9C0@FuncInfo0x00963BE8,Code/Libraries/Source/Apt/AptActionInterpreterDtor.cpp
@@ -92238,10 +92238,10 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007AA7F8,10,code,,,-,,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp
 0x007AA810,8,code,,,-,,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp
 0x007AA818,10,code,,,-,,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp
-0x007AA830,8,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,P,P=0x00708C40@FuncInfo0x00964038,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers_Unresolved__FunctionAptActionCloneSprite.cpp
-0x007AA838,8,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,P,P=0x00708C40@FuncInfo0x00964038,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers_Unresolved__FunctionAptActionCloneSprite.cpp
-0x007AA840,8,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,P,P=0x00708C40@FuncInfo0x00964038,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers_Unresolved__FunctionAptActionCloneSprite.cpp
-0x007AA848,10,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,P,P=0x00708C40@FuncInfo0x00964038,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers_Unresolved__FunctionAptActionCloneSprite.cpp
+0x007AA830,8,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,P,P=0x00708C40@FuncInfo0x00964038,Code/Libraries/Source/Apt/AptActionInterpreter.cpp
+0x007AA838,8,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,P,P=0x00708C40@FuncInfo0x00964038,Code/Libraries/Source/Apt/AptActionInterpreter.cpp
+0x007AA840,8,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,P,P=0x00708C40@FuncInfo0x00964038,Code/Libraries/Source/Apt/AptActionInterpreter.cpp
+0x007AA848,10,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,P,P=0x00708C40@FuncInfo0x00964038,Code/Libraries/Source/Apt/AptActionInterpreter.cpp
 0x007AA860,8,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,P,P=0x007092F0@FuncInfo0x0096405C,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp
 0x007AA868,10,code,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,approved,P,P=0x007092F0@FuncInfo0x0096405C,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp
 0x007AA880,8,code,Code/Libraries/Source/Apt/AptObject/AptScriptFunction.cpp,approved,P,P=0x00709870@FuncInfo0x00964088,Code/Libraries/Source/Apt/AptObject/AptScriptFunction.cpp

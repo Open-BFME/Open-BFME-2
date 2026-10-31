@@ -3706,7 +3706,7 @@ name,address,notes
 ?AptPushStaticData@@YAPAXXZ,0x00709730,TU alias bound to rowed AptScriptFunctionBase::PushStaticData; same cdecl no-argument pointer-return ABI; PrepareForExecution native call700156 target709730
 ?ArrayDeleteHelperBodyThunk@@YGXPAXII0@Z,0x00629110
 ?At@AptArray@@QAEPAVAptValue@@H@Z,0x006D8A50,Native AptArray lookup6DA630 call/constructor payload; target switch13 entries associates exact case-sensitive property names and callbacks; donor4416f7dfadc1781e plus original callback macro41843bcb3e6f8e37 supplies static cdecl context/count ABI; existing providers aliased where available
-?At@AptBasePtrStack@@QAEPAVAptValue@@H@Z,0x006FE580,Native slice6DA3A0 uses global value stackE182E0 and signed argument index; existing At66B provider bound by alias with canonical AptValue return; fold-proof=Code/Libraries/Source/Apt/Rva006ff5d0Cluster.cpp
+?At@AptBasePtrStack@@QAEPAVAptValue@@H@Z,0x006FE580,Native slice6DA3A0 uses global value stackE182E0 and signed argument index; existing At66B provider bound by alias with canonical AptValue return; fold-proof=Code/Libraries/Source/Apt/AptActionInterpreter.cpp
 ?AtlWinModuleInit@ATL@@YGJPAU_ATL_WIN_MODULE70@1@@Z,0x00003295,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?AtlWinModuleTerm@ATL@@YGJPAU_ATL_WIN_MODULE70@1@PAUHINSTANCE__@@@Z,0x000058C3,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?BFME_DX8_Thread_Assert@@YAXXZ,0x00120F50,releases BFMEs DX8 device mutex - decrements the recursion count at 0x00DEDA8C and signals the handle at 0x00DEC598; address read from retail REL32 at 0x00138840
