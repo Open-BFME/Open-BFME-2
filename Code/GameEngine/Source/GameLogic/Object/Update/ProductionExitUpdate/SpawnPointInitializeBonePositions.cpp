@@ -14,26 +14,8 @@ struct BfmeAsciiStringData
 
 #include "ascii_string.h"
 
-// One 16-byte transform row (Vector4 layout); the nullary row ctor is the
-// shared inline Vector4 body, so this TU's Matrix3D default ctor matches the
-// linked copy instead of offering a SpawnBoneRow-ctor variant to the link.
-class Vector4
-{
-public:
-	__forceinline Vector4() {}
-	void Set(float x, float y, float z, float w)
-	{
-		X = x;
-		Y = y;
-		Z = z;
-		W = w;
-	}
-
-	float X;
-	float Y;
-	float Z;
-	float W;
-};
+// Use the existing canonical 16-byte row, empty ctor and Set implementation.
+#include "../../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 
 class Matrix3D
 {

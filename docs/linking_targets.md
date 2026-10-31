@@ -1,5 +1,15 @@
 # Linking target checklist
 
+Spawn-bone initialization Vector4 adoption (2026-10-31): the existing row
+storage, ctor and Set header preserves the 340-byte function and all ten
+external code bodies/relocations, with no added helper. Owning acceptance
+retires one key; with offset/shroud transforms, two keys and 3/3 rows retain
+bounded cohort 1,133 -> 1,133. Broader provider/consumer/census proof and
+the separate Matrix3D/Thing adoptions remain open.
+The outgoing audit is INCONCLUSIVE on the older index and missing current
+CreateAHeroManager consumer receipt; carry that scope into the next census.
+[Evidence](../reverse/attempt_support/spawn-bone-vector4-adoption-20261031.md).
+
 Offset/shroud transform Vector4 adoption (2026-10-31): canonical storage and
 a local component accessor preserve both 252/541-byte rows and all seven
 external code bodies/relocations. One header key is retired; bounded
