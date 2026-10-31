@@ -10,7 +10,14 @@ struct Rva00318F42View { Rva00318F42Record *first,*finish,*end; };
 struct Rva00318F42Holder { unsigned char pad[0x3C]; Rva00318F42View view; };
 
 struct Rva00538CEFPair {int a,b;};
-class Rva00538CEF {public:void rva00538DC1(const Rva00538CEFPair *,int);bool rva00538D17(Rva00538CEFPair *);};
+class Rva0020E89C;
+class Rva00538CEF
+{
+public:
+	Rva0020E89C *rva00538CEF();
+	bool rva00538D17(Rva00538CEFPair *out);
+	void rva00538DC1(const Rva00538CEFPair *,int);
+};
 class Rva003195C9Owner {public:void rva003195C9();};
 class Rva003197EEListener {public:virtual void notify(void *);virtual void slot04(void *);virtual void slot08(void *);virtual void slot0c(void *);virtual void slot10(void *);};
 class Rva003197EEList {public:void forEach(void (Rva003197EEListener::*)(void *),void *);};
@@ -51,7 +58,11 @@ void Rva00318F42::rva0031986B(const Rva00538CEFPair *pair,int word){
 // The old unowned Boolean pin was unsupported: its fallback leaves AL
 // unconstrained and the owned71B caller discards the register result.
 // This declaration makes no register-return contract or original type claim.
-class Rva003190BBOwner {public:void rva003190BB(int *);};
+class Rva003190BBOwner
+{
+public:
+	void rva003190BB(int *out);
+};
 void Rva003190BBOwner::rva003190BB(int *out){
  Rva00318F42View *recordView=((Rva00318F42*)this)->rva00318B83();
  if(recordView){int *span=(int*)recordView;if((unsigned)((span[1]-span[0])>>4)>0){
