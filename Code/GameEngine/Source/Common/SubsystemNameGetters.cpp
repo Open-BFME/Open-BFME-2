@@ -76,7 +76,6 @@ BFME_LITERAL_NAME_GETTER(Rva001E3E56Named, "Locomotor")
 BFME_LITERAL_NAME_GETTER(Rva001E70BCNamed, "LocomotorSet")
 BFME_LITERAL_NAME_GETTER(Rva001EAE63Named, "LinearCampaign")
 BFME_LITERAL_NAME_GETTER(Rva001EAE69Named, "LinearCampaignManager")
-BFME_LITERAL_NAME_GETTER(Rva001FBEB1Named, "FXParticleSystem")
 BFME_LITERAL_NAME_GETTER(ScriptEngine, "ScriptEngine")
 class FireLogicSystem
 {
@@ -94,7 +93,6 @@ BFME_LITERAL_NAME_GETTER(Rva00414307Named, "ScoredKillEvaAnnouncer")
 class LivingWorldBuilding { public: virtual const char *GetSnapshotName(); };
 const char *LivingWorldBuilding::GetSnapshotName() { return "LivingWorldBuilding"; }
 BFME_LITERAL_NAME_GETTER(Rva001F37BENamed, "FXParticleInfo")
-BFME_LITERAL_NAME_GETTER(Rva001FC179Named, "FXParticle")
 class SequentialScript { public: virtual const char *GetSnapshotName(); };
 const char *SequentialScript::GetSnapshotName() { return "SequentialScript"; }
 // LargeGroupAudio getter is owned by the complete subsystem unit.

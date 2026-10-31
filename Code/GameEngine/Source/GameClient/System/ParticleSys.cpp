@@ -84,6 +84,16 @@ class Object;
 	{ \
 		((Rva001F43BD *)(owner + DISP))->rva001F43BD(p); \
 	}
+#define BFME_LITERAL_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	public: \
+		const char *name() const; \
+	}; \
+	const char *NAME::name() const \
+	{ \
+		return TEXT; \
+	}
 
 struct Coord3DBase
 {
@@ -1916,6 +1926,57 @@ public:
     Rva001F424ESlot3 *held;
 };
 
+class ModuleData
+{
+public:
+	virtual const char *GetSnapshotName() const;
+};
+
+class Eva
+{
+public:
+	virtual const char *GetSnapshotName() const;
+};
+
+class W3DDebrisDraw
+{
+protected:
+	virtual const char *GetSnapshotName() const;
+};
+
+BFME_LITERAL_NAME_GETTER(Rva001FBEB1Named, "FXParticleSystem")
+
+class FireLogicSystem
+{
+public:
+	virtual const char *GetSnapshotName() const;
+};
+
+class LivingWorldBuilding { public: virtual const char *GetSnapshotName(); };
+
+BFME_LITERAL_NAME_GETTER(Rva001FC179Named, "FXParticle")
+
+class SequentialScript { public: virtual const char *GetSnapshotName(); };
+
+// LargeGroupAudio getter is owned by the complete subsystem unit.
+class GeometryInfo
+{
+public:
+	virtual const char *GetSnapshotName();
+};
+
+class DrawModule
+{
+protected:
+    virtual const char *GetSnapshotName() const;
+};
+
+class BehaviorModule
+{
+protected:
+	virtual const char *GetSnapshotName() const;
+};
+
 // tu-skeleton: 0x001F392E 247B ?rotateLocalTransformX@ParticleSystem@@QAEXM@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemRotateLocalTransform.cpp (not merged yet)
 
 // tu-skeleton: 0x001F3A25 247B ?rotateLocalTransformY@ParticleSystem@@QAEXM@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemRotateLocalTransform.cpp (not merged yet)
@@ -1923,6 +1984,8 @@ public:
 // tu-skeleton: 0x001F3B1C 247B ?rotateLocalTransformZ@ParticleSystem@@QAEXM@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemRotateLocalTransform.cpp (not merged yet)
 
 // tu-skeleton: 0x001F3C13 13B ?set@Rva001F3C13ByteSlot@@QAEXE@Z -- matched in Code/GameEngine/Source/Common/DispByteFieldSetters.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/System/ParticleSys.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/System/ParticleSys.cpp
 
@@ -2899,15 +2962,10 @@ void Rva001F609FOwner::rva001F609F(void *p)
 // in the image; the anchor below only forces cl to emit them in that
 // convention. Owners and names are address-derived.
 
-// tu-skeleton: 0x001F3C6B 47B ?rva001F3C6B@ParticleSystem@@QAEIXZ -- matched in Code/GameEngine/Source/GameClient/System/FXParticleSystem/FXPSStorageModuleRva003B0869.cpp (not merged yet)
 
-// tu-skeleton: 0x001F3D21 13B ?set@Rva001F3D21DwordSlot@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp (not merged yet)
 
-// tu-skeleton: 0x001F3D2E 674B ?parse@ParticleSystemTemplate@FXParticleSystem@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameClient/ParticleSystemTemplate.cpp (not merged yet)
 
-// tu-skeleton: 0x001F3FEA 24B ?init@Rva001F3FEA@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/System/FXParticleSystem/FXParticleSystemStaticInitModules.cpp (not merged yet)
 
-// tu-skeleton: 0x001F421B 25B ??0?$CategoryModuleTemplateBase@$0A@@FXParticleSystem@@QAE@ABV01@@Z -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/S2NullCheckedTailDispatch.cpp
 
@@ -2918,6 +2976,16 @@ void Rva001F4240::forward(unsigned first, unsigned second) {
 }
 
 void Rva001F424E::forward(unsigned word) { if (held) held->forward(word); }
+
+// tu-skeleton: 0x001F3C6B 47B ?rva001F3C6B@ParticleSystem@@QAEIXZ -- matched in Code/GameEngine/Source/GameClient/System/FXParticleSystem/FXPSStorageModuleRva003B0869.cpp (not merged yet)
+
+// tu-skeleton: 0x001F3D21 13B ?set@Rva001F3D21DwordSlot@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp (not merged yet)
+
+// tu-skeleton: 0x001F3D2E 674B ?parse@ParticleSystemTemplate@FXParticleSystem@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameClient/ParticleSystemTemplate.cpp (not merged yet)
+
+// tu-skeleton: 0x001F3FEA 24B ?init@Rva001F3FEA@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/System/FXParticleSystem/FXParticleSystemStaticInitModules.cpp (not merged yet)
+
+// tu-skeleton: 0x001F421B 25B ??0?$CategoryModuleTemplateBase@$0A@@FXParticleSystem@@QAE@ABV01@@Z -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
 
 // tu-skeleton: 0x001F425C 26B ?call@Rva001F425C@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
 
@@ -3195,7 +3263,22 @@ void Rva001F424E::forward(unsigned word) { if (held) held->forward(word); }
 
 // tu-skeleton: 0x001FBD17 410B ??1ParticleSystem@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemDestructor.cpp (not merged yet)
 
-// tu-skeleton: 0x001FBEB1 6B ?name@Rva001FBEB1Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/SubsystemNameGetters.cpp
+
+// Subsystem literal name getters: six-byte const members with one shape:
+//
+//     mov eax,<offset string literal> / ret
+//
+// Each body returns a pointer to a NUL-terminated class-name string in
+// .rdata. The vtable at each site carries the body at slot 2 (offset 8)
+// behind a shared pair (slot 0 varies, slot 1 is 0xA9E440) and ahead of
+// class-specific tails, closed by 0x5B5384 -- the Subsystem/Snapshot family
+// pattern. Ported from Open-BFME-1
+// (Code/GameEngine/Source/Common/LiteralNameGetters_01.cpp): the
+// BFME_LITERAL_NAME_GETTER macro is verbatim; only the class names follow
+// this tree's address-derived convention (identity unrecoverable from 6
+// bytes, string carried in source where verify_string_refs re-reads it).
+// No // cl: line (defaults match the frameless 6-byte shape).
 
 // tu-skeleton: 0x001FBEB7 59B ??1ParticleSystemTemplateTail@FXParticleSystem@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva001F8BE8DtorChain.cpp (not merged yet)
 
@@ -3212,8 +3295,6 @@ void Rva001F424E::forward(unsigned word) { if (held) held->forward(word); }
 // tu-skeleton: 0x001FC052 78B ??_EParticleSystemTemplate@FXParticleSystem@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/VectorDeletingDtorsV05.cpp (not merged yet)
 
 // tu-skeleton: 0x001FC0A0 22B ??0Rva001FC0B6@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Rva001FA584Ctor.cpp (not merged yet)
-
-// tu-skeleton: 0x001FC179 6B ?name@Rva001FC179Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters.cpp (not merged yet)
 
 // tu-skeleton: 0x001FC19B 69B ??0Rva001FC19B@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Thing/Rva001F9C73CopyChain.cpp (not merged yet)
 

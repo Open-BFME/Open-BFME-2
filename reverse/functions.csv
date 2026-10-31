@@ -9877,7 +9877,7 @@ _read_file,,0x0074A870,151,Code/Libraries/Source/Lua/liolib_bfme1.c,matched,obje
 _read_chars,,0x0074A910,145,Code/Libraries/Source/Lua/liolib_bfme1.c,matched,object-symbol=_read_chars; emitted by liolib_bfme1.c object; vendored=lua-4.0.1
 ?name@Rva001EAE69Named@@QBEPBDXZ,,0x001EAE69,6,Code/GameEngine/Source/Common/SubsystemNameGetters.cpp,matched,literal name getter returning LinearCampaignManager; vtable ref in .rdata; address-derived placeholder name
 ?rva00800a40@Rva00800920Owner@@QAEHPAXEH@Z,,0x0066CE20,225,Code/Libraries/Source/Fesl/gamebrowser/gamebrowserdemangler.cpp,matched,BFME1 donor b1 0x00800A40 small repair: BFME1 string addresses -> BFME2 literals (CE3AFC/CE3A90/BBC410); logic/layout/cl verbatim
-?name@Rva001FBEB1Named@@QBEPBDXZ,,0x001FBEB1,6,Code/GameEngine/Source/Common/SubsystemNameGetters.cpp,matched,literal name getter returning FXParticleSystem; vtable ref in .rdata; address-derived placeholder name
+?name@Rva001FBEB1Named@@QBEPBDXZ,,0x001FBEB1,6,Code/GameEngine/Source/GameClient/System/ParticleSys.cpp,matched,literal name getter returning FXParticleSystem; vtable ref in .rdata; address-derived placeholder name
 ??_GRva00452D52@@UAEPAXI@Z,,0x00452EC1,28,Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ?get@Rva000B28C8AddDwordField@@QBEHXZ,,0x000B28C8,7,Code/GameEngine/Source/Common/Disp8AddDwordFieldGetters.cpp,matched,disp8 add dword getter; opaque holder
 _math_asin,,0x00748460,43,Code/Libraries/Source/Lua/lmathlib.c,matched,vendored=lua-4.0.1; Lua math.asin via check_number + CIasin + pushnumber; callees pinned
@@ -9992,7 +9992,7 @@ _math_deg,,0x00748710,38,Code/Libraries/Source/Lua/lmathlib.c,matched,vendored=l
 ??_GRva004E3D47@@UAEPAXI@Z,,0x004E3E3E,28,Code/GameEngine/Source/Common/Rva004E3CD0Derived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ?get@Rva00574AACAddDwordField@@QBEHXZ,,0x00574AAC,7,Code/GameEngine/Source/Common/Disp8AddDwordFieldGetters.cpp,matched,disp8 add dword getter; opaque holder
 ??_GRva0025BFE3@@UAEPAXI@Z,,0x0025C045,28,Code/GameEngine/Source/Common/FreeMemberDeleters.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
-?name@Rva001FC179Named@@QBEPBDXZ,,0x001FC179,6,Code/GameEngine/Source/Common/SubsystemNameGetters.cpp,matched,literal name getter returning FXParticle; vtable ref in .rdata; address-derived placeholder name
+?name@Rva001FC179Named@@QBEPBDXZ,,0x001FC179,6,Code/GameEngine/Source/GameClient/System/ParticleSys.cpp,matched,literal name getter returning FXParticle; vtable ref in .rdata; address-derived placeholder name
 ?get@Rva0059E81FAddDwordField@@QBEHXZ,,0x0059E81F,7,Code/GameEngine/Source/Common/Disp8AddDwordFieldGetters.cpp,matched,disp8 add dword getter; opaque holder
 _math_min,,0x00748800,113,Code/Libraries/Source/Lua/lmathlib.c,matched,vendored=lua-4.0.1; Lua math.min via gettop loop + check_number + pushnumber; callees pinned
 ?get@Rva005CCB30AddDwordField@@QBEHXZ,,0x005CCB30,7,Code/GameEngine/Source/Common/Disp8AddDwordFieldGetters.cpp,matched,disp8 add dword getter; opaque holder
