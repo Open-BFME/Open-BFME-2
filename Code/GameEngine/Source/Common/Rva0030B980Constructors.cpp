@@ -7,7 +7,8 @@
 // sets +24, and calls that provider with the initial capacity argument.
 // Owner names remain address-derived; AreaPolygonBase is the existing
 // reserve provider's name, rather than a new identity claim for the ctor.
-struct BfmeE8 { int a[2]; };
+#include "../../Include/Common/AreaPolygonBase.h"
+
 namespace _STL {
 template <> __declspec(dllimport) __forceinline
 void allocator<BfmeE8>::deallocate(BfmeE8* __p, size_t __n) const {
@@ -25,29 +26,19 @@ _Vector_base<BfmeE8,allocator<BfmeE8> >::~_Vector_base() {
 }
 
 
-class AreaPolygonBase
-{
-public:
-	__forceinline AreaPolygonBase() {}
-	void reserve(int count);
-protected:
-	_STL::vector<BfmeE8> vertices;
-};
 
 class Rva0030B980 : public AreaPolygonBase
 {
 public:
 	Rva0030B980(int capacity);
 private:
-	char unknown0C[0x10];
-	float unknown1C;
-	float unknown20;
-	bool dirty;
 };
 
 Rva0030B980::Rva0030B980(int capacity)
-	: unknown1C(0.0f), unknown20(0.0f), dirty(true)
 {
+ m_innerRadius=0.0f;
+ m_radius=0.0f;
+ m_dirty=true;
 	reserve(capacity);
 }
 

@@ -1,0 +1,221 @@
+RVA 0030B980 size74
+70b980: mov eax, 0xb7a049
+70b985: call 0xa29188
+70b98a: push ecx
+70b98b: push esi
+70b98c: lea eax, [ebp + 0xb]
+70b98f: mov esi, ecx
+70b991: push eax
+70b992: mov dword ptr [ebp - 0x10], esi
+70b995: call 0x611e58
+70b99a: xorps xmm0, xmm0
+70b99d: push dword ptr [ebp + 8]
+70b9a0: and dword ptr [ebp - 4], 0
+70b9a4: mov ecx, esi
+70b9a6: movss dword ptr [esi + 0x1c], xmm0
+70b9ab: movss dword ptr [esi + 0x20], xmm0
+70b9b0: mov byte ptr [esi + 0x24], 1
+70b9b4: call 0x70b96b
+70b9b9: mov ecx, dword ptr [ebp - 0xc]
+70b9bc: mov eax, esi
+70b9be: pop esi
+70b9bf: mov dword ptr fs:[0], ecx
+70b9c6: leave 
+70b9c7: ret 4
+
+RVA 0030B9DD size22
+70b9dd: push esi
+70b9de: push dword ptr [esp + 8]
+70b9e2: mov esi, ecx
+70b9e4: call 0x70b980
+70b9e9: and dword ptr [esi + 0x28], 0
+70b9ed: mov eax, esi
+70b9ef: pop esi
+70b9f0: ret 4
+
+RVA 0030B8E4 size72
+70b8e4: push ebx
+70b8e5: push ebp
+70b8e6: mov ebp, dword ptr [esp + 0xc]
+70b8ea: push ebp
+70b8eb: mov ebx, ecx
+70b8ed: call 0x8334d7
+70b8f2: xorps xmm0, xmm0
+70b8f5: movss dword ptr [ebx + 0x1c], xmm0
+70b8fa: movss dword ptr [ebx + 0x20], xmm0
+70b8ff: mov al, byte ptr [ebp + 0x24]
+70b902: mov byte ptr [ebx + 0x24], al
+70b905: cmp byte ptr [ebp + 0x24], 0
+70b909: jne 0x70b925
+70b90b: push esi
+70b90c: push edi
+70b90d: lea esi, [ebp + 0xc]
+70b910: lea edi, [ebx + 0xc]
+70b913: movsd dword ptr es:[edi], dword ptr [esi]
+70b914: movsd dword ptr es:[edi], dword ptr [esi]
+70b915: movsd dword ptr es:[edi], dword ptr [esi]
+70b916: movsd dword ptr es:[edi], dword ptr [esi]
+70b917: mov eax, dword ptr [ebp + 0x1c]
+70b91a: mov dword ptr [ebx + 0x1c], eax
+70b91d: mov eax, dword ptr [ebp + 0x20]
+70b920: pop edi
+70b921: mov dword ptr [ebx + 0x20], eax
+70b924: pop esi
+70b925: pop ebp
+70b926: mov eax, ebx
+70b928: pop ebx
+70b929: ret 4
+
+RVA 0030B3D1 size478
+70b3d1: push ebp
+70b3d2: mov ebp, esp
+70b3d4: sub esp, 0x20
+70b3d7: movss xmm0, dword ptr [0xbbb8e0]
+70b3df: push ebx
+70b3e0: push esi
+70b3e1: mov esi, ecx
+70b3e3: mov ecx, dword ptr [esi + 4]
+70b3e6: mov eax, dword ptr [esi]
+70b3e8: movss dword ptr [esi + 0x10], xmm0
+70b3ed: movss dword ptr [esi + 0xc], xmm0
+70b3f2: movss xmm0, dword ptr [0xbbb8dc]
+70b3fa: push edi
+70b3fb: movss dword ptr [esi + 0x18], xmm0
+70b400: movss dword ptr [esi + 0x14], xmm0
+70b405: mov dword ptr [ebp - 8], ecx
+70b408: jmp 0x70b44d
+70b40a: movss xmm0, dword ptr [esi + 0xc]
+70b40f: comiss xmm0, dword ptr [eax]
+70b412: jbe 0x70b419
+70b414: mov edx, dword ptr [eax]
+70b416: mov dword ptr [esi + 0xc], edx
+70b419: movss xmm0, dword ptr [esi + 0x10]
+70b41e: comiss xmm0, dword ptr [eax + 4]
+70b422: jbe 0x70b42a
+70b424: mov edx, dword ptr [eax + 4]
+70b427: mov dword ptr [esi + 0x10], edx
+70b42a: movss xmm0, dword ptr [eax]
+70b42e: comiss xmm0, dword ptr [esi + 0x14]
+70b432: jbe 0x70b439
+70b434: mov edx, dword ptr [eax]
+70b436: mov dword ptr [esi + 0x14], edx
+70b439: movss xmm0, dword ptr [eax + 4]
+70b43e: comiss xmm0, dword ptr [esi + 0x18]
+70b442: jbe 0x70b44a
+70b444: mov edx, dword ptr [eax + 4]
+70b447: mov dword ptr [esi + 0x18], edx
+70b44a: add eax, 8
+70b44d: cmp eax, ecx
+70b44f: jne 0x70b40a
+70b451: fld dword ptr [esi + 0x14]
+70b454: push ecx
+70b455: fsub dword ptr [esi + 0xc]
+70b458: push ecx
+70b459: fmul dword ptr [0xbc26f0]
+70b45f: fld dword ptr [esi + 0x18]
+70b462: fsub dword ptr [esi + 0x10]
+70b465: fmul dword ptr [0xbc26f0]
+70b46b: fld st(0)
+70b46d: fmul st(1)
+70b46f: fld st(2)
+70b471: fmul st(3)
+70b473: faddp st(1)
+70b475: fstp qword ptr [esp]
+70b478: fstp st(0)
+70b47a: fstp st(0)
+70b47c: call 0xa2921c
+70b481: movss xmm0, dword ptr [0xbbb8e0]
+70b489: movss xmm2, dword ptr [0xbc26f0]
+70b491: movss xmm1, dword ptr [esi + 0x14]
+70b496: mov edi, dword ptr [esi]
+70b498: cmp edi, dword ptr [ebp - 8]
+70b49b: addss xmm1, dword ptr [esi + 0xc]
+70b4a0: mov eax, dword ptr [esi + 4]
+70b4a3: movss dword ptr [ebp - 4], xmm0
+70b4a8: movss xmm0, dword ptr [esi + 0x18]
+70b4ad: addss xmm0, dword ptr [esi + 0x10]
+70b4b2: pop ecx
+70b4b3: fstp dword ptr [esi + 0x20]
+70b4b6: mulss xmm0, xmm2
+70b4ba: mulss xmm1, xmm2
+70b4be: pop ecx
+70b4bf: movss dword ptr [ebp - 0xc], xmm0
+70b4c4: movss dword ptr [ebp - 0x20], xmm1
+70b4c9: lea ebx, [eax - 8]
+70b4cc: je 0x70b57a
+70b4d2: jmp 0x70b4de
+70b4d4: movss xmm1, dword ptr [ebp - 0x20]
+70b4d9: movss xmm0, dword ptr [ebp - 0xc]
+70b4de: push edi
+70b4df: push ecx
+70b4e0: push ecx
+70b4e1: mov eax, esp
+70b4e3: movss dword ptr [eax], xmm1
+70b4e7: movss dword ptr [eax + 4], xmm0
+70b4ec: lea eax, [ebp - 0x18]
+70b4ef: mov dword ptr [ebp - 0x10], esp
+70b4f2: push eax
+70b4f3: call 0x5040ae
+70b4f8: movss xmm0, dword ptr [ebp - 0x14]
+70b4fd: movss xmm1, dword ptr [ebp - 0x18]
+70b502: mulss xmm1, xmm1
+70b506: mulss xmm0, xmm0
+70b50a: addss xmm0, xmm1
+70b50e: movss xmm1, dword ptr [ebp - 4]
+70b513: add esp, 0x10
+70b516: comiss xmm1, xmm0
+70b519: jbe 0x70b520
+70b51b: movss dword ptr [ebp - 4], xmm0
+70b520: fld dword ptr [ebx]
+70b522: push ecx
+70b523: fsub dword ptr [edi]
+70b525: push ecx
+70b526: fld dword ptr [ebx + 4]
+70b529: fsub dword ptr [edi + 4]
+70b52c: fld st(0)
+70b52e: fmul st(1)
+70b530: fld st(2)
+70b532: fmul st(3)
+70b534: faddp st(1)
+70b536: fstp qword ptr [esp]
+70b539: fstp st(0)
+70b53b: fstp st(0)
+70b53d: call 0xa2921c
+70b542: movss xmm0, dword ptr [ebp - 0x14]
+70b547: fstp st(0)
+70b549: movss xmm1, dword ptr [ebp - 0x18]
+70b54e: mulss xmm1, xmm1
+70b552: mulss xmm0, xmm0
+70b556: addss xmm0, xmm1
+70b55a: movss xmm1, dword ptr [ebp - 4]
+70b55f: add esp, 8
+70b562: comiss xmm1, xmm0
+70b565: jbe 0x70b56c
+70b567: movss dword ptr [ebp - 4], xmm0
+70b56c: mov ebx, edi
+70b56e: add edi, 8
+70b571: cmp edi, dword ptr [ebp - 8]
+70b574: jne 0x70b4d4
+70b57a: fld dword ptr [ebp - 4]
+70b57d: push ecx
+70b57e: push ecx
+70b57f: fstp qword ptr [esp]
+70b582: call 0xa2921c
+70b587: fsub dword ptr [0xbc2424]
+70b58d: pop ecx
+70b58e: pop ecx
+70b58f: fst dword ptr [esi + 0x1c]
+70b592: fld st(0)
+70b594: fldz 
+70b596: fcompi st(1)
+70b598: fstp st(1)
+70b59a: fstp st(0)
+70b59c: jbe 0x70b5a6
+70b59e: xorps xmm0, xmm0
+70b5a1: movss dword ptr [esi + 0x1c], xmm0
+70b5a6: pop edi
+70b5a7: mov byte ptr [esi + 0x24], 0
+70b5ab: pop esi
+70b5ac: pop ebx
+70b5ad: leave 
+70b5ae: ret 

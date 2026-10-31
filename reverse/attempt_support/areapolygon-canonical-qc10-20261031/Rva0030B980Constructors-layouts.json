@@ -1,0 +1,255 @@
+{
+  "original": {
+    "AreaPolygonBase": {
+      "fwd": false,
+      "key": "class",
+      "size": 12,
+      "bases": [],
+      "fields": [
+        [
+          0,
+          "vertices",
+          "_STL::vector<BfmeE8,_STL::allocator<BfmeE8> >",
+          12
+        ]
+      ],
+      "statics": [],
+      "methods": [
+        "AreaPolygonBase",
+        "__vecDelDtor",
+        "reserve",
+        "~AreaPolygonBase"
+      ],
+      "virtual": [],
+      "vslots": {},
+      "vfptr": false
+    },
+    "Rva0030B980": {
+      "fwd": false,
+      "key": "class",
+      "size": 40,
+      "bases": [
+        [
+          "AreaPolygonBase",
+          0
+        ]
+      ],
+      "fields": [
+        [
+          12,
+          "unknown0C",
+          "char[16]",
+          16
+        ],
+        [
+          28,
+          "unknown1C",
+          "float",
+          4
+        ],
+        [
+          32,
+          "unknown20",
+          "float",
+          4
+        ],
+        [
+          36,
+          "dirty",
+          "bool",
+          1
+        ]
+      ],
+      "statics": [],
+      "methods": [
+        "Rva0030B980",
+        "__vecDelDtor",
+        "~Rva0030B980"
+      ],
+      "virtual": [],
+      "vslots": {},
+      "vfptr": false
+    },
+    "Rva0030B9DD": {
+      "fwd": false,
+      "key": "class",
+      "size": 44,
+      "bases": [
+        [
+          "Rva0030B980",
+          0
+        ]
+      ],
+      "fields": [
+        [
+          40,
+          "unknown28",
+          "int",
+          4
+        ]
+      ],
+      "statics": [],
+      "methods": [
+        "Rva0030B9DD",
+        "__vecDelDtor",
+        "~Rva0030B9DD"
+      ],
+      "virtual": [],
+      "vslots": {},
+      "vfptr": false
+    },
+    "BfmeE8": {
+      "fwd": false,
+      "key": "struct",
+      "size": 8,
+      "bases": [],
+      "fields": [
+        [
+          0,
+          "a",
+          "int[8]",
+          8
+        ]
+      ],
+      "statics": [],
+      "methods": [],
+      "virtual": [],
+      "vslots": {},
+      "vfptr": false
+    }
+  },
+  "adopted": {
+    "AreaPolygonBase": {
+      "fwd": false,
+      "key": "struct",
+      "size": 40,
+      "bases": [],
+      "fields": [
+        [
+          0,
+          "m_points",
+          "_STL::vector<BfmeE8,_STL::allocator<BfmeE8> >",
+          12
+        ],
+        [
+          12,
+          "m_bounds",
+          "Region2D",
+          16
+        ],
+        [
+          28,
+          "m_innerRadius",
+          "float",
+          4
+        ],
+        [
+          32,
+          "m_radius",
+          "float",
+          4
+        ],
+        [
+          36,
+          "m_dirty",
+          "bool",
+          1
+        ]
+      ],
+      "statics": [],
+      "methods": [
+        "AreaPolygonBase",
+        "__vecDelDtor",
+        "deletePoint",
+        "insertPoint",
+        "parse",
+        "reserve",
+        "rva0030B135",
+        "rva0030B1A7",
+        "rva0030B232",
+        "rva0030B3D1",
+        "setPoint",
+        "~AreaPolygonBase"
+      ],
+      "virtual": [],
+      "vslots": {},
+      "vfptr": false
+    },
+    "Rva0030B980": {
+      "fwd": false,
+      "key": "class",
+      "size": 40,
+      "bases": [
+        [
+          "AreaPolygonBase",
+          0
+        ]
+      ],
+      "fields": [],
+      "statics": [],
+      "methods": [
+        "Rva0030B980",
+        "__vecDelDtor",
+        "~Rva0030B980"
+      ],
+      "virtual": [],
+      "vslots": {},
+      "vfptr": false
+    },
+    "Rva0030B9DD": {
+      "fwd": false,
+      "key": "class",
+      "size": 44,
+      "bases": [
+        [
+          "Rva0030B980",
+          0
+        ]
+      ],
+      "fields": [
+        [
+          40,
+          "unknown28",
+          "int",
+          4
+        ]
+      ],
+      "statics": [],
+      "methods": [
+        "Rva0030B9DD",
+        "__vecDelDtor",
+        "~Rva0030B9DD"
+      ],
+      "virtual": [],
+      "vslots": {},
+      "vfptr": false
+    },
+    "BfmeE8": {
+      "fwd": false,
+      "key": "struct",
+      "size": 8,
+      "bases": [],
+      "fields": [
+        [
+          0,
+          "x",
+          "float",
+          4
+        ],
+        [
+          4,
+          "y",
+          "float",
+          4
+        ]
+      ],
+      "statics": [],
+      "methods": [
+        "BfmeE8"
+      ],
+      "virtual": [],
+      "vslots": {},
+      "vfptr": false
+    }
+  }
+}

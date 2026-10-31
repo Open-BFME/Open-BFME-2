@@ -1,0 +1,137 @@
+{
+  "original": {
+    "AreaPolygonBase": {
+      "fwd": false,
+      "key": "struct",
+      "size": 40,
+      "bases": [],
+      "fields": [
+        [
+          0,
+          "m_points",
+          "_STL::vector<MathCoord2D,_STL::allocator<MathCoord2D> >",
+          12
+        ],
+        [
+          12,
+          "m_bounds",
+          "Region2D",
+          16
+        ],
+        [
+          28,
+          "m_innerRadius",
+          "float",
+          4
+        ],
+        [
+          32,
+          "m_radius",
+          "float",
+          4
+        ],
+        [
+          36,
+          "m_dirty",
+          "bool",
+          1
+        ]
+      ],
+      "statics": [],
+      "methods": [
+        "AreaPolygonBase",
+        "__vecDelDtor",
+        "rva0030B3D1",
+        "~AreaPolygonBase"
+      ],
+      "virtual": [],
+      "vslots": {},
+      "vfptr": false
+    }
+  },
+  "adopted": {
+    "AreaPolygonBase": {
+      "fwd": false,
+      "key": "struct",
+      "size": 40,
+      "bases": [],
+      "fields": [
+        [
+          0,
+          "m_points",
+          "_STL::vector<BfmeE8,_STL::allocator<BfmeE8> >",
+          12
+        ],
+        [
+          12,
+          "m_bounds",
+          "Region2D",
+          16
+        ],
+        [
+          28,
+          "m_innerRadius",
+          "float",
+          4
+        ],
+        [
+          32,
+          "m_radius",
+          "float",
+          4
+        ],
+        [
+          36,
+          "m_dirty",
+          "bool",
+          1
+        ]
+      ],
+      "statics": [],
+      "methods": [
+        "AreaPolygonBase",
+        "__vecDelDtor",
+        "deletePoint",
+        "insertPoint",
+        "parse",
+        "reserve",
+        "rva0030B135",
+        "rva0030B1A7",
+        "rva0030B232",
+        "rva0030B3D1",
+        "setPoint",
+        "~AreaPolygonBase"
+      ],
+      "virtual": [],
+      "vslots": {},
+      "vfptr": false
+    },
+    "BfmeE8": {
+      "fwd": false,
+      "key": "struct",
+      "size": 8,
+      "bases": [],
+      "fields": [
+        [
+          0,
+          "x",
+          "float",
+          4
+        ],
+        [
+          4,
+          "y",
+          "float",
+          4
+        ]
+      ],
+      "statics": [],
+      "methods": [
+        "BfmeE8"
+      ],
+      "virtual": [],
+      "vslots": {},
+      "vfptr": false
+    }
+  }
+}

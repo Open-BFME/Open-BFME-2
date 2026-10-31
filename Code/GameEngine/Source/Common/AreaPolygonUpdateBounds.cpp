@@ -37,24 +37,16 @@ public:
 };
 MathCoord2D operator-(MathCoord2D left, const MathCoord2D &right);
 
-struct AreaPolygonBase
-{
-	_STL::vector<MathCoord2D, _STL::allocator<MathCoord2D> > m_points;
-	Region2D m_bounds;		// +0x0C
-	float m_innerRadius;		// +0x1C
-	float m_radius;			// +0x20
-	bool m_dirty;			// +0x24
-	void rva0030B3D1();
-};
+#include "../../Include/Common/AreaPolygonBase.h"
 
 void AreaPolygonBase::rva0030B3D1()
 {
 	m_bounds.lo.x = m_bounds.lo.y = FLT_MAX;
 	m_bounds.hi.x = m_bounds.hi.y = -FLT_MAX;
 
-	_STL::vector<MathCoord2D, _STL::allocator<MathCoord2D> >::const_iterator end = m_points.end();
+	_STL::vector<MathCoord2D, _STL::allocator<MathCoord2D> >::const_iterator end = (const MathCoord2D *)m_points.end();
 	_STL::vector<MathCoord2D, _STL::allocator<MathCoord2D> >::const_iterator it;
-	for (it = m_points.begin(); it != end; ++it)
+	for (it = (const MathCoord2D *)m_points.begin(); it != end; ++it)
 	{
 		if (it->x < m_bounds.lo.x)
 			m_bounds.lo.x = it->x;
@@ -72,8 +64,8 @@ void AreaPolygonBase::rva0030B3D1()
 
 	float minDistSqr = FLT_MAX;
 	MathCoord2D center((m_bounds.lo.x + m_bounds.hi.x) * 0.5f, (m_bounds.lo.y + m_bounds.hi.y) * 0.5f);
-	_STL::vector<MathCoord2D, _STL::allocator<MathCoord2D> >::const_iterator prev = m_points.end() - 1;
-	for (it = m_points.begin(); it != end; prev = it, ++it)
+	_STL::vector<MathCoord2D, _STL::allocator<MathCoord2D> >::const_iterator prev = (const MathCoord2D *)m_points.end() - 1;
+	for (it = (const MathCoord2D *)m_points.begin(); it != end; prev = it, ++it)
 	{
 		MathCoord2D toCenter = center - *it;
 		float distSqr = toCenter.GetLengthSqrd();
