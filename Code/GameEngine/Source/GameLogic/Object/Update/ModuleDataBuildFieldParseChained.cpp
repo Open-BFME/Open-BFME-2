@@ -1517,32 +1517,11 @@ void HeroModeSpecialAbilityUpdateModuleData::buildFieldParse(MultiIniFieldParse 
 	parse.add(BfmeHeroModeSpecialAbilityUpdateFields, 0);
 }
 
-// Retail VA 0x00BEF008: 2 fields and the zero sentinel.
-// Class identity comes from this unit's matched registration function;
-// tokens, callbacks and offsets are read from that retail table.
-// The global name below is descriptive; its original spelling is unknown.
-extern const FieldParse BfmeWeaponSetSpecialAbilityUpdateFields[] = {
-	{ "WeaponsetEffectDuration", &INI::parseDurationUnsignedInt, 0, 0xC8 },
-	{ "WhichWeaponSet", &INI::parseInt, 0, 0xCC },
-	{ 0, 0, 0, 0 }
-};
-
 class WeaponSetSpecialAbilityUpdateModuleData
 {
 public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
-
-// ?buildFieldParse@WeaponSetSpecialAbilityUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z
-// retail 0x0024DA56 (27 bytes): chained on the rowed SpecialAbilityUpdateModuleData base proc at
-// 0x44ED95, then table 0x00BEF008. The owning factory pushes this proc VA
-// (unique image-wide); ModuleFactory registers it under
-// "WeaponSetSpecialAbilityUpdate".
-void WeaponSetSpecialAbilityUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
-{
-	SpecialAbilityUpdateModuleData::buildFieldParse(parse);
-	parse.add(BfmeWeaponSetSpecialAbilityUpdateFields, 0);
-}
 
 class TeleportSpecialAbilityUpdateModuleData
 {
