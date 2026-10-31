@@ -168,6 +168,55 @@ def test_inputs_only_checks_out_inputs(repos, tmp_path):
     ws.create(wt, cwd=main, inputs_only=True)
     assert (wt / SUB / "inputs" / "header.h").exists()
     assert not (wt / SUB / "game").exists()
+    assert ws.verify(wt, inputs_only=True) == run(main, "rev-parse", f"HEAD:{SUB}")
+    with pytest.raises(ws.SetupError, match="partial sparse checkout"):
+        ws.verify(wt)
+
+
+def test_prepare_expands_existing_partial_checkout_and_preserves_edits(repos, tmp_path):
+    _, main = repos
+    wt = tmp_path / "wt"
+    pin = ws.create(wt, cwd=main, inputs_only=True)
+    header = wt / SUB / "inputs/header.h"
+    header.write_text("local header edit\n", encoding="utf-8")
+    assert not (wt / SUB / "game/game.cpp").exists()
+
+    assert ws.prepare(wt) == pin
+    assert (wt / SUB / "game/game.cpp").read_text(encoding="utf-8") == "int y;\n"
+    assert header.read_text(encoding="utf-8") == "local header edit\n"
+    assert run(wt / SUB, "rev-parse", "HEAD") == pin
+    assert ws.verify(wt) == pin
+
+
+def test_explicit_inputs_only_applies_to_existing_checkout(repos, tmp_path):
+    _, main = repos
+    wt = tmp_path / "wt"
+    pin = ws.create(wt, cwd=main)
+    assert ws.prepare(wt, inputs_only=True) == pin
+    assert not (wt / SUB / "game/game.cpp").exists()
+    with pytest.raises(ws.SetupError, match="partial sparse checkout"):
+        ws.verify(wt)
+
+
+def test_cli_cannot_report_partial_checkout_as_full_ready(repos, tmp_path, capsys):
+    _, main = repos
+    wt = tmp_path / "wt"
+    ws.create(wt, cwd=main, inputs_only=True)
+    assert ws.main(["check", str(wt)]) == 1
+    assert "prepare without --inputs-only" in capsys.readouterr().err
+    assert ws.main(["check", str(wt), "--inputs-only"]) == 0
+    assert "PARTIAL inputs-only checkout" in capsys.readouterr().out
+    assert ws.main(["prepare", str(wt)]) == 0
+    assert "; full checkout" in capsys.readouterr().out
+
+
+def test_check_reports_deleted_build_input(repos, tmp_path):
+    _, main = repos
+    wt = tmp_path / "wt"
+    ws.create(wt, cwd=main)
+    (wt / SUB / "inputs/header.h").unlink()
+    with pytest.raises(ws.SetupError, match="missing tracked build inputs: inputs/header.h"):
+        ws.verify(wt)
 
 
 def commit_upstream(upstream, text, message):

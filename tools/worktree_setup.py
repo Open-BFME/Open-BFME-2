@@ -42,8 +42,10 @@ run `worktree_setup.py prepare` to move the seat to the new pin.
   python3 tools/worktree_setup.py remove WORKTREE
   python3 tools/worktree_setup.py prune-borrows
 
---inputs-only checks out only inputs/ (toolchains, reference headers, vendor):
-enough for ./build.sh, not for tools that read Open-BFME-1's game/ or targets/.
+Normal prepare expands an existing sparse reference checkout to the full pinned
+tree. --inputs-only explicitly requests a partial inputs/ checkout (toolchains,
+reference headers, vendor); it is not ready for builds that need game/ headers.
+Check a partial checkout with check --inputs-only; normal check refuses it.
 """
 import argparse
 import hashlib
@@ -449,13 +451,20 @@ def prepare(worktree, inputs_only=False):
         if inputs_only:
             git(sub, "sparse-checkout", "set", "--cone", *INPUTS_ONLY)
         git(sub, "reset", "-q", "--hard", pin)
-    elif out(sub, "rev-parse", "HEAD", check=False) != pin:
-        # An existing checkout may hold the seat's own edits: never reset it.
-        git(sub, "checkout", "-q", "--detach", pin)
-    return verify(worktree)
+    else:
+        if out(sub, "rev-parse", "HEAD", check=False) != pin:
+            # An existing checkout may hold the seat's own edits: never reset it.
+            git(sub, "checkout", "-q", "--detach", pin)
+        if inputs_only:
+            git(sub, "sparse-checkout", "set", "--cone", *INPUTS_ONLY)
+        elif out(sub, "config", "--bool", "--get", "core.sparseCheckout", check=False) == "true":
+            # A previous --inputs-only seat must become build-ready too. Git
+            # preserves local edits and refuses conflicting untracked files.
+            git(sub, "sparse-checkout", "disable")
+    return verify(worktree, inputs_only=inputs_only)
 
 
-def verify(worktree):
+def verify(worktree, inputs_only=False):
     paths = layout(worktree)
     top, sub, store = paths["top"], paths["sub"], paths["main_store"]
     pin = pinned_commit(top)
@@ -471,6 +480,15 @@ def verify(worktree):
         head = out(sub, "rev-parse", "HEAD", check=False)
         if head != pin:
             problems.append(f"{SUBMODULE} HEAD is {head or '(none)'}, pin is {pin}")
+        sparse = out(sub, "config", "--bool", "--get", "core.sparseCheckout", check=False) == "true"
+        if sparse and not inputs_only:
+            problems.append(f"{SUBMODULE} is a partial sparse checkout; game headers may be absent. "
+                            "Run tools/worktree_setup.py prepare without --inputs-only before source work; "
+                            "check --inputs-only only validates the partial setup")
+        roots = INPUTS_ONLY if inputs_only else ("inputs", "game", "Code")
+        missing = out(sub, "ls-files", "--deleted", "--", *roots).splitlines()
+        if missing:
+            problems.append(f"{SUBMODULE} has missing tracked build inputs: " + ", ".join(missing[:5]))
         status = git(top, "submodule", "status", "--", SUBMODULE, check=False).stdout
         if not status.startswith(" "):
             problems.append(f"git submodule status: {status.strip()!r}")
@@ -483,11 +501,12 @@ def verify(worktree):
             if store_out(each, "rev-parse", "--verify", "--quiet", ref, check=False) != pin:
                 problems.append(f"the donor store {each} has no {ref}; its gc may drop "
                                 f"the pin")
-        fsck = git(sub, "fsck", "--connectivity-only", "--no-dangling", "--no-progress",
-                   check=False)
-        if fsck.returncode != 0:
-            detail = (fsck.stdout + fsck.stderr).strip().splitlines()[:3]
-            problems.append(f"{SUBMODULE} objects are missing (git fsck): " + "; ".join(detail))
+        if not (sparse and not inputs_only) and not missing:
+            fsck = git(sub, "fsck", "--connectivity-only", "--no-dangling", "--no-progress",
+                       check=False)
+            if fsck.returncode != 0:
+                detail = (fsck.stdout + fsck.stderr).strip().splitlines()[:3]
+                problems.append(f"{SUBMODULE} objects are missing (git fsck): " + "; ".join(detail))
     hooks = out(top, "config", "--get", "core.hooksPath", check=False)
     if hooks != ".githooks":
         problems.append(f"core.hooksPath is {hooks!r}, not .githooks")
@@ -601,8 +620,10 @@ def main(argv=None):
     p.add_argument("path", nargs="?", default=".")
     p.add_argument("--inputs-only", action="store_true",
                    help=f"check out only {', '.join(INPUTS_ONLY)}/ of {SUBMODULE}")
-    k = sub.add_parser("check", help="verify a worktree's hooks, gitdir, pin and objects")
+    k = sub.add_parser("check", help="verify a worktree's checkout, hooks, gitdir, pin and objects")
     k.add_argument("path", nargs="?", default=".")
+    k.add_argument("--inputs-only", action="store_true",
+                   help="validate only a partial reference checkout; game headers are not guaranteed")
     r = sub.add_parser("remove", help="remove a clean worktree and its borrow refs")
     r.add_argument("path")
     sub.add_parser("prune-borrows", help="drop the borrow refs of worktrees git no "
@@ -624,12 +645,13 @@ def main(argv=None):
                 print(f"  {ref}")
             return 0
         else:
-            pin = verify(args.path)
+            pin = verify(args.path, inputs_only=args.inputs_only)
     except SetupError as exc:
         print(f"worktree_setup: {exc}", file=sys.stderr)
         return 1
+    mode = "; PARTIAL inputs-only checkout: game headers not guaranteed" if args.inputs_only else "; full checkout"
     print(f"worktree_setup: {args.cmd} OK: {SUBMODULE} at {pin}, own gitdir, "
-          f"objects borrowed from the main checkout, core.hooksPath=.githooks")
+          f"objects borrowed from the main checkout, core.hooksPath=.githooks{mode}")
     return 0
 
 
