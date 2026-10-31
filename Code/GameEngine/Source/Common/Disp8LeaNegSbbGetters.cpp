@@ -24,7 +24,6 @@
 	}
 
 BFME_DISP8_LEA_NEG_SBB_GETTER(Rva0039852BLeaNegSbbField, 12, 0x24)
-BFME_DISP8_LEA_NEG_SBB_GETTER(Rva004523A9LeaNegSbbField, 12, 0x1C)
 // 0x004543A9 is also reached through the this-0x14 thunk 0x004543E3 in four
 // vtables, so it is virtual (same body).
 class Rva004543A9LeaNegSbbField
