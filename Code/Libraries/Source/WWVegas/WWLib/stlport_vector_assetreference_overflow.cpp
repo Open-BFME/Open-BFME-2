@@ -23,14 +23,15 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 #include <vector>
 
+class TextureClass;
 class AssetReference
 {
 public:
 	AssetReference();
-	AssetReference(const AssetReference &other);
+	AssetReference(const AssetReference &);
 	~AssetReference();
-	AssetReference &operator=(const AssetReference &other);
-	void *m_ref;
+	AssetReference &operator=(const AssetReference &);
+	TextureClass *m_ref; // +0x00
 };
 
 namespace _STL {

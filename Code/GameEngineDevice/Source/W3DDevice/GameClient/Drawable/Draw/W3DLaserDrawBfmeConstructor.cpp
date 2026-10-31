@@ -54,11 +54,14 @@ class TextureAsset
 public:
 	static BFME2ParticleTextureHandle Get(const char *, Int, Int);
 };
-class AssetReference {
+class AssetReference
+{
 public:
- AssetReference(); AssetReference(const AssetReference &); ~AssetReference();
- AssetReference &operator=(const AssetReference &);
- TextureClass *m_ref;
+	AssetReference();
+	AssetReference(const AssetReference &);
+	~AssetReference();
+	AssetReference &operator=(const AssetReference &);
+	TextureClass *m_ref; // +0x00
 };
 class Thing;
 class Matrix3D;
@@ -116,7 +119,7 @@ protected:
 class LaserDrawInterface
 {
 public:
-	virtual Real getLaserTemplateWidth() const = 0;
+	virtual float getLaserTemplateWidth() const = 0;
 };
 
 class ShaderClass
