@@ -106,6 +106,20 @@ void __cdecl Rva00030830GameFree(void *p);
 #define _STLP_USE_STATIC_LIB 1
 #endif
 #include <stddef.h>
+#define BFME_DISP8_DIV_AVG_DWORD_GETTER(NAME, DISP1, DISP2, DIVISOR) \
+	class NAME \
+	{ \
+	public: \
+		int get() const; \
+		char m_lead[DISP1]; \
+		int m_first; \
+	}; \
+	int NAME::get() const \
+	{ \
+		return (m_first - *(int *)((char *)this + DISP2)) / DIVISOR; \
+	}
+BFME_DISP8_DIV_AVG_DWORD_GETTER(Rva0028628ADivAvgField, 0x30, 0x2C, 36)
+#include <new>
 
 // Suppress this TU's non-retail copy of ??1?$_Rb_tree@W4ObjectID@@U?$pair@$$CBW4ObjectID@@H@_STL@@U?$_Select1st@U?$pair@$$CBW4Obje:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
@@ -429,11 +443,27 @@ struct BurningCellTreeNode
 	Rva002860CFVirt m_10;
 };
 
+struct Rva000AD6F4Base
+{
+	virtual void *virt0(unsigned int);
+};
+
+class Rva000AD6F4
+{
+public:
+	~Rva000AD6F4();
+	void clear();
+private:
+	Rva000AD6F4Base *m_ptr;
+};
+
 // tu-skeleton: 0x00285778 232B ?ResetCellToOriginalFlammability@FireLogicSystem@@QAEXHH@Z -- matched in Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp (not merged yet)
 
 // tu-skeleton: 0x00285F43 102B ?ChangeCellToObjectFlammability@FireLogicSystem@@QAEXHHPBVThingTemplate@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp (not merged yet)
 
 // tu-skeleton: 0x00285FA9 293B ?Rva00285FA9Parse@@YAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/Map/FireLogicSystemParseMaterial.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp
 
 // ---- from Code/GameEngine/Source/Common/Rva002860CF.cpp
 
@@ -936,13 +966,27 @@ test:
 
 }
 
-// tu-skeleton: 0x0028628A 13B ?get@Rva0028628ADivAvgField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8DivAvgDwordGetters.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva00286297Zero.cpp
 
 Rva00286297::Rva00286297() : unknown00(0), unknown04(0), fuel(0), field18(0), field00(0), field10(0)
 {
 }
+
+// ---- from Code/GameEngine/Source/Common/Disp8DivAvgDwordGetters.cpp
+
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
+// Disp8 div-avg dword getters: thirteen-byte __thiscall members with one shape:
+//
+//     mov eax,[ecx+<DISP1>] / sub eax,[ecx+<DISP2>] / push <DIV> / cdq
+//     pop ecx / idiv ecx / ret
+//
+// The difference of two dwords at fixed displacements from `this` is divided
+// by a small constant. MSVC 7.1 under /O1 materializes the divisor through
+// the stack (`push imm` + `pop ecx`, three bytes) instead of `mov ecx,imm`
+// (five bytes); `cdq` sign-extends for the signed `idiv`. Thirteen bytes
+// total. Identity is not recovered: every name is derived from its address.
+
+// ?clear@Rva000AD6F4@@QAEXXZ @0x000AD6F4 29B: owning-pointer clear via virtual slot0 with 0 plus operator delete; callers 40+ incl Rva002D3573 dtor; no donor.
 
 // tu-skeleton: 0x002862AD 28B ??_GRva00285BEC@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva00285BECDtor.cpp (not merged yet)
 
