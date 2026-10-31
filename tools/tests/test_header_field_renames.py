@@ -412,7 +412,7 @@ def test_r4_include_scan_refuses_unresolved_and_angle_code(tmp_path, monkeypatch
     (tmp_path / "Code" / "b.h").write_text('#include "c.h"\n')
     (tmp_path / "Code" / "c.h").write_text('')
     assert "unresolved" in lane.include_problem("u.cpp", '#include "missing.h"\n')
-    assert "angle" in lane.include_problem("u.cpp", '#include <a.h>\n')
+    assert lane.include_problem("u.cpp", '#include <a.h>\n') is None
     assert lane.include_problem("u.cpp", '#include "a.h"\n') is None
 
 
@@ -470,4 +470,22 @@ def test_r4b_system_angles_are_allowed_but_code_include_root_is_refused(tmp_path
     include.mkdir(parents=True)
     (include / "local.h").write_text("")
     assert lane.include_problem("u.cpp", "#include <windows.h>\n#include <vector>\n", include_roots=[include]) is None
-    assert "angle" in lane.include_problem("u.cpp", "#include <local.h>\n", include_roots=[include])
+    assert lane.include_problem("u.cpp", "#include <local.h>\n", include_roots=[include]) is None
+
+
+def test_r5_guard_else_is_conditional():
+    text = '#ifndef H\n#define H\nclass Object { int other; };\n#else\nclass Object { int m_status; };\n#endif\n'
+    assert lane.conditional_hierarchy([("h", text)], {"Object"}, {"m_status"})
+
+
+def test_r5_angle_macro_shadow_all_candidates(tmp_path, monkeypatch):
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    a, b = tmp_path / "first", tmp_path / "second"
+    a.mkdir()
+    b.mkdir()
+    (a / "shadow.h").write_text("// harmless\n")
+    (b / "shadow.h").write_text("#define o q\n")
+    unit = '#include <shadow.h>\nint f(Object *o) { return o->m_flags; }\n'
+    headers = lane.include_sources("u.cpp", unit, [a, b])
+    assert len(headers) == 2
+    assert "#define o" in lane.macro_shadow(headers, RENAMES, unit)

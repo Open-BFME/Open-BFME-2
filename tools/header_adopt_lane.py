@@ -344,7 +344,7 @@ def header_comment_splice(text):
 
 
 def include_guarded(code):
-    directives = list(re.finditer(r'(?m)^[ \t]*#[ \t]*(if|ifdef|ifndef|endif|else|elif|define)\b([^\n]*)', code))
+    directives = list(re.finditer(r'(?m)^[ \t]*#[ \t]*([A-Za-z_]\w*)\b([^\n]*)', code))
     if len(directives) < 3:
         return False
     first, define = directives[:2]
@@ -367,9 +367,10 @@ def include_guarded(code):
     return False
 
 
-def include_walk(source, text, include_roots=()):
+def include_walk(source, text, include_roots=(), cache=None):
     """Scan the complete quoted include closure once, refusing unorderable cycles."""
     start = (ROOT / source).resolve()
+    cache = {} if cache is None else cache
     seen, active, guarded, out = set(), set(), set(), []
     stack = [(start, text, False)]
     while stack:
@@ -401,27 +402,32 @@ def include_walk(source, text, include_roots=()):
         for m in re.finditer(r'(?m)^[ \t]*#[ \t]*include[ \t]*([<"])([^>"\n]+)[>"]', masked(body, keep_literals=True)):
             angle, name = m.group(1) == "<", m.group(2)
             candidates = [(base / name).resolve() for base in (path.parent, ROOT, ROOT / "Code", *include_roots)]
-            target = next((p for p in candidates if p.is_file()), None)
+            if os.name != "nt":
+                import build
+                candidates = [Path(resolved).resolve() for p in candidates
+                              if (resolved := build._case_resolve(str(p))) is not None]
+            targets = list(dict.fromkeys(p for p in candidates if p.is_file()))
             if angle:
-                if target and target.is_relative_to(ROOT.resolve() / "Code"):
-                    return out, f"{path}: angle include {name} resolves under Code"
+                children.extend(targets)
                 continue
-            if target is None:
+            if not targets:
                 return out, f"{path}: unresolved include {name}"
-            children.append(target)
+            children.append(targets[0])
         for target in reversed(children):
-            stack.append((target, read_path(target), False))
+            if target not in cache:
+                cache[target] = read_path(target)
+            stack.append((target, cache[target], False))
     return out, None
 
 
-def include_problem(source, text, include_roots=()):
-    return include_walk(source, text, include_roots)[1]
+def include_problem(source, text, include_roots=(), cache=None):
+    return include_walk(source, text, include_roots, cache)[1]
 
 
-def include_sources(source, text=None, include_roots=()):
+def include_sources(source, text=None, include_roots=(), cache=None):
     if text is None:
         text = read_source(source)
-    return include_walk(source, text, include_roots)[0][1:]
+    return include_walk(source, text, include_roots, cache)[0][1:]
 
 
 def conditional_hierarchy(texts, classes, names):
@@ -439,7 +445,8 @@ def conditional_hierarchy(texts, classes, names):
         # Recognize a complete outer guard only when it wraps all code and
         # defines the same macro immediately after the opening directive.
         guard = None
-        if directives and len(directives) >= 3:
+        guard_code = re.sub(r'(?m)^[ \t]*#[ \t]*pragma[ \t]+once\b[^\n]*', '', code)
+        if directives and len(directives) >= 3 and include_guarded(guard_code):
             first, define, last = directives[0], directives[1], directives[-1]
             macro = first.group(2).strip()
             if (first.group(1) == "ifndef" and re.fullmatch(r"[A-Za-z_]\w*", macro)
@@ -466,13 +473,13 @@ def conditional_hierarchy(texts, classes, names):
     return None
 
 
-def header_sources(header, include_roots=()):
+def header_sources(header, include_roots=(), cache=None):
     """[(path, text)] for the canonical header and its quoted includes, or None when the
     header itself cannot be read."""
     text = read_source(header)
     if text is None:
         return None
-    return [(header, text)] + include_sources(header, text, include_roots)
+    return [(header, text)] + include_sources(header, text, include_roots, cache)
 
 
 def hierarchy(name, layouts):
@@ -635,15 +642,33 @@ def field_renames(source, text, strip, include, compile=None, header=None):
     import build
     flags_line = next((line[6:] for line in text.splitlines() if line.startswith("// cl:")), "")
     flags = build._source_flag_tokens(flags_line)
+    import stlport_overlay
+    flags = stlport_overlay.include_dirs(source, flags)
     include_roots = []
     for i, flag in enumerate(flags):
         if flag in ("/I", "-I") and i + 1 < len(flags):
             include_roots.append(ROOT / flags[i + 1])
         elif flag.startswith(("/I", "-I")) and len(flag) > 2:
             include_roots.append(ROOT / flag[2:])
+    # The compiler searches its implicit INCLUDE directories as well as /I.
+    toolchain = Path(os.environ.get("VC71_ROOT", build.DEFAULT_VC71_ROOT))
+    include_roots.append(toolchain / "Vc7" / "include")
+    if re.search(r"(?m)^// platformsdk[ \t]*$", text):
+        include_roots.append(toolchain / "Vc7" / "PlatformSDK" / "Include")
+    if re.search(r"(?m)^// dxsdk[ \t]*$", text):
+        include_roots.append(build.DXSDK_DIR / "Include")
+    if "// stlport" in text:
+        if re.search(r"(?m)^// stlport46[ \t]*$", text):
+            include_roots.extend([stlport_overlay.TREE / "stlport", stlport_overlay.TREE / "base"])
+        else:
+            stlport = build.stlport_include_dir()
+            if stlport:
+                include_roots.append(stlport)
+        include_roots.extend(root.parent / "include" for root in tuple(include_roots))
+    include_cache = {}
     canonical = []
     if header:
-        canonical = header_sources(header, include_roots)
+        canonical = header_sources(header, include_roots, include_cache)
         if canonical is None:
             return None, f"the canonical header {header} cannot be read; no proof of its names"
     try:
@@ -691,7 +716,7 @@ def field_renames(source, text, strip, include, compile=None, header=None):
             mappings[name] = mine
     if mappings:
         if header:
-            why = include_problem(header, read_source(header), include_roots=include_roots)
+            why = include_problem(header, read_source(header), include_roots=include_roots, cache=include_cache)
             if why:
                 return None, why
             family = {cls for name in mappings for cls in hierarchy(name, laid)}
@@ -699,10 +724,10 @@ def field_renames(source, text, strip, include, compile=None, header=None):
             why = conditional_hierarchy(canonical, family, rename_names)
             if why:
                 return None, why
-        why = include_problem(source, text, include_roots=include_roots)
+        why = include_problem(source, text, include_roots=include_roots, cache=include_cache)
         if why:
             return None, why
-        sources = [(source, text)] + include_sources(source, text, include_roots) + canonical
+        sources = [(source, text)] + include_sources(source, text, include_roots, include_cache) + canonical
         for name in mappings:
             why = name_shadow(sources, name)
             if why:
