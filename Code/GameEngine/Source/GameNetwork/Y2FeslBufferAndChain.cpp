@@ -76,48 +76,6 @@ public:
 	int   m_size;
 };
 
-void Rva00800290Buffer::reset()
-{
-	Gen007EFFC0()->release( m_ptr, 0 );
-	m_ptr = 0;
-	m_size = 0;
-}
-
-void Rva00800290Buffer::addPadded( int size )
-{
-	m_size = m_size + ( -m_size & 3 ) + size;
-}
-
-void Rva00800290Buffer::addString( const char *text )
-{
-	m_size += text == 0 ? 0 : (int)strlen( text ) + 1;
-}
-
-void Rva00800290Buffer::allocate()
-{
-	m_ptr = (char *)Gen007EFFC0()->acquire( m_size, 0 );
-}
-
-// Grow only when the text does not fit what is already there, then copy it in.
-// Both the length and the copy are the /Oi inline forms, not calls.  The
-// stringised condition retail reports on a failed allocation is "mBuffer",
-// which is the member's REAL name -- the only name in this file that is.
-void Rva00800290Buffer::append( const char *text )
-{
-	unsigned int length = strlen( text );
-
-	if( length >= (unsigned int)m_size )
-	{
-		m_size = (int)( length + 1 );
-		Gen007EFFC0()->release( m_ptr, 0 );
-		m_ptr = (char *)Gen007EFFC0()->acquire( m_size, 0 );
-	}
-	if( m_ptr == 0 )
-		Rva007EB810Get()->fail( "mBuffer",
-			"\\views\\feslbuild_main\\jabba\\fesl\\source\\util.cpp", 149 );
-	strcpy( m_ptr, text );
-}
-
 // ------------------------------------------------------------- block chain
 struct Rva00800550Node
 {

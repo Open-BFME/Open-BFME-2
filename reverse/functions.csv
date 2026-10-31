@@ -8909,16 +8909,16 @@ _luaB_getglobal,,0x0074B920,32,Code/Libraries/Source/Lua/lbaselibSmall.c,matched
 ?reset@Radar@@UAEXXZ,,0x002D7DB9,28,Code/GameEngine/Source/Common/System/Radar_reset.cpp,matched,BFME1 near-miss donor b1 0x001077A0 immediate-only drift flag offset +0x9 to +0xD plus MI second-base this-4
 ?go@Rva00803730Host@@QAEXPAVRva00803730Getter@@@Z,,0x0066F770,97,Code/GameEngine/Source/GameNetwork/Rva00803730FeslAttrs.cpp,matched,BFME1 near-miss donor b1 0x00803730 immediate-only string-literal drift
 ?apply@Rva00803730Sink@@QAEXPAX_N00@Z,,0x00675B60,413,Code/GameEngine/Source/GameNetwork/Rva00803730FeslAttrs.cpp,matched,BFME1 donor file second body b1 family 0x00803730
-?append@Rva00800290Buffer@@QAEXPBD@Z,,0x0066C760,127,Code/GameEngine/Source/GameNetwork/Y2FeslBufferAndChain.cpp,matched,BFME1 byte-identical donor; b1 0x008002C0; 2 DIR32 string literal(s) agree
+?append@Rva00800290Buffer@@QAEXPBD@Z,,0x0066C760,127,Code/Libraries/Source/Fesl/util.cpp,matched,BFME1 byte-identical donor; b1 0x008002C0; 2 DIR32 string literal(s) agree
 ?append@Rva00800550Chain@@QAEPAXH@Z,,0x0066C9B0,73,Code/GameEngine/Source/GameNetwork/Y2FeslBufferAndChain.cpp,matched,BFME1 byte-identical donor; b1 0x00800590
 ?clear@Rva00800550Chain@@QAEXXZ,,0x0066C970,63,Code/GameEngine/Source/GameNetwork/Y2FeslBufferAndChain.cpp,matched,BFME1 byte-identical donor; b1 0x00800550
 ?set@Rva00802DF0Owner@@QAEXPAURva00802DF0Source@@H@Z,,0x0066EEB0,52,Code/GameEngine/Source/GameNetwork/Y2FeslBufferAndChain.cpp,matched,BFME1 byte-identical donor; b1 0x00802DF0
 ?popFront@Rva00800550Chain@@QAEXXZ,,0x0066CA10,50,Code/GameEngine/Source/GameNetwork/Y2FeslBufferAndChain.cpp,matched,BFME1 byte-identical donor; b1 0x008005F0
-?addString@Rva00800290Buffer@@QAEXPBD@Z,,0x0066C800,40,Code/GameEngine/Source/GameNetwork/Y2FeslBufferAndChain.cpp,matched,BFME1 byte-identical donor; b1 0x00800370
-?allocate@Rva00800290Buffer@@QAEXXZ,,0x0066C830,25,Code/GameEngine/Source/GameNetwork/Y2FeslBufferAndChain.cpp,matched,BFME1 byte-identical donor; b1 0x008003A0
-?addPadded@Rva00800290Buffer@@QAEXH@Z,,0x0066C7E0,22,Code/GameEngine/Source/GameNetwork/Y2FeslBufferAndChain.cpp,matched,BFME1 byte-identical donor; b1 0x00800350
+?addString@Rva00800290Buffer@@QAEXPBD@Z,,0x0066C800,40,Code/Libraries/Source/Fesl/util.cpp,matched,BFME1 byte-identical donor; b1 0x00800370
+?allocate@Rva00800290Buffer@@QAEXXZ,,0x0066C830,25,Code/Libraries/Source/Fesl/util.cpp,matched,BFME1 byte-identical donor; b1 0x008003A0
+?addPadded@Rva00800290Buffer@@QAEXH@Z,,0x0066C7E0,22,Code/Libraries/Source/Fesl/util.cpp,matched,BFME1 byte-identical donor; b1 0x00800350
 ?clear@Rva008003C0Owner@@QAEXXZ,,0x0066CA50,42,Code/GameEngine/Source/GameNetwork/Y2FeslBufferAndChain.cpp,matched,BFME1 byte-identical donor; b1 0x008003C0; ICF-folded in BFME1 so the name is this sweep pick among its twins
-?reset@Rva00800290Buffer@@QAEXXZ,,0x0066C730,35,Code/GameEngine/Source/GameNetwork/Y2FeslBufferAndChain.cpp,matched,BFME1 byte-identical donor; b1 0x00800290; ICF-folded in BFME1 so the name is this sweep pick among its twins
+?reset@Rva00800290Buffer@@QAEXXZ,,0x0066C730,35,Code/Libraries/Source/Fesl/util.cpp,matched,BFME1 byte-identical donor; b1 0x00800290; ICF-folded in BFME1 so the name is this sweep pick among its twins
 ?Rva007F5AC0@@YAXPAVRva007E8810Message@@PAVRva007F7980Browser@@@Z,,0x00662260,54,Code/Libraries/Source/Fesl/gamebrowser/gamebrowser.cpp,matched,BFME1 byte-identical donor; b1 0x007F5AC0
 ?Rva007F5B40@@YAXPAVRva007E8810Message@@PAVRva007F7980Browser@@@Z,,0x006622E0,54,Code/Libraries/Source/Fesl/gamebrowser/gamebrowser.cpp,matched,BFME1 byte-identical donor; b1 0x007F5B40
 ?onRegionCount@Rva007F7980Browser@@QAEXPAVRva007E8810Message@@@Z,,0x00664000,101,Code/Libraries/Source/Fesl/gamebrowser/gamebrowser.cpp,matched,BFME1 byte-identical donor; b1 0x007F7980; 1 DIR32 string literal(s) agree
