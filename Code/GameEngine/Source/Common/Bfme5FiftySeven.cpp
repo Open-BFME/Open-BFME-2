@@ -26,25 +26,3 @@ void Gen_0073A2E0::bfmeSwapBits(void)
 		m_bfmeDirty = false;
 	}
 }
-
-// The flag address is read off retail's own DIR32 operands at 0x00087952
-// (`c6 05 1c 20 de 00 01`, twice), NOT from the donor's source comment, which
-// names 0x012F9DB8. build.py masks DIR32 sites when it compares, so a wrong
-// global still byte-matches; the operand bytes are the only evidence here.
-// Retail flag byte (data_ledger RVA 0x9E201C, zero .data, unowned); defined
-// here, nothing else defines it.
-bool g_bfmeFlagEC;
-
-// ?bfmeSet@@YGX_N@Z
-void __stdcall bfmeSet(bool value)
-{
-	if (value)
-	{
-		g_bfmeFlagEC = true;
-
-		return;
-	}
-
-	if (g_bfmeFlagEC)
-		g_bfmeFlagEC = false;
-}
