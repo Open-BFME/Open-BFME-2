@@ -17798,7 +17798,7 @@ _VP6_DecodeMacroBlock,,0x001C66B0,705,Code/Libraries/Source/VP6/DecodeMacroBlock
 ?Rva0077AC55ClearFlag@@YAIXZ,,0x0077AC55,13,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp,matched,B2-native clearer in E01D run; rdata table slot; /G7 narrowing
 ?Rva0077AD65ClearFlag@@YAIXZ,,0x0077AD65,13,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp,matched,B2-native clearer in E01D run; rdata table slot; /G7 narrowing
 ?get@Rva002C67CFCmpBoolField@@QBE_NXZ,,0x002C67CF,13,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp,matched,Disp32 cmp-imm bool getter; cmp [ecx+0x178] -1 sete; /O1
-?get@Rva0025DD1BCmpBoolField@@QBE_NXZ,,0x0025DD1B,10,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp,matched,Disp8 cmp-imm bool getter; cmp [ecx+0x3C] -1 setne; /O1
+?get@Rva0025DD1BCmpBoolField@@QBE_NXZ,,0x0025DD1B,10,Code/GameEngine/Source/GameNetwork/Network.cpp,matched,Disp8 cmp-imm bool getter; cmp [ecx+0x3C] -1 setne; /O1
 ?get@Rva0039567CCmpBoolField@@QBE_NXZ,,0x0039567C,10,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp,matched,Disp8 cmp-imm bool getter; cmp [ecx+0x34] 4 sete; /O1
 ?get@Rva0057B94DCmpBoolField@@QBE_NXZ,,0x0057B94D,10,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp,matched,Disp8 cmp-imm bool getter; cmp [ecx+0x28] 2 sete; /O1
 ?get@Rva0057B957CmpBoolField@@QBE_NXZ,,0x0057B957,9,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp,matched,Disp8 cmp-zero bool getter; cmp [ecx+0x28] eax sete; /O1
@@ -17818,7 +17818,7 @@ _VP6_DecodeMacroBlock,,0x001C66B0,705,Code/Libraries/Source/VP6/DecodeMacroBlock
 ?get@Rva001E3441CmpBoolField@@QBE_NXZ,,0x001E3441,14,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp,matched,Ptr-chase ternary bool getter; cmp [eax+0xD8] 0 setne no-xor; /O1
 ?m009F0BD0@Q1Receiver0134FAAC@@QAEXH@Z,,0x00623490,238,Code/Libraries/Source/assetmanager/assetmanager_impl.cpp,matched,BFME1 donor Q1Receiver0134FAAC_m009F0BD0 with TU plus8 layout repair; member set group at plus0x198 sinks address past empty check; insert_unique pin read from REL32
 ?get@Rva004CAFCCmpBoolField@@QBE_NXZ,,0x0004CAFC,10,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp,matched,Disp8 cmp-imm bool getter; cmp [ecx+0x04] 1 setne; /O1
-?get@Rva0025DC26CmpBoolField@@QBE_NXZ,,0x0025DC26,10,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp,matched,Disp8 cmp-imm bool getter; cmp [ecx+0x10] 1 sete; /O1
+?get@Rva0025DC26CmpBoolField@@QBE_NXZ,,0x0025DC26,10,Code/GameEngine/Source/GameNetwork/Network.cpp,matched,Disp8 cmp-imm bool getter; cmp [ecx+0x10] 1 sete; /O1
 ?get@Rva005A687FCmpBoolField@@QBE_NXZ,,0x005A687F,13,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp,matched,Disp32 cmp-imm bool getter; cmp [ecx+0x94C] 1 sete; /O1
 ?get@Rva005B5AAFCmpBoolField@@QBE_NXZ,,0x005B5AAF,13,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp,matched,Disp32 cmp-imm bool getter; cmp [ecx+0x14C] 1 setne; /O1
 ?get@Rva005F8E03CmpBoolField@@QBE_NXZ,,0x005F8E03,10,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp,matched,Disp8 cmp-imm bool getter; cmp [ecx+0x28] 3 sete; /O1
