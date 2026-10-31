@@ -1050,24 +1050,6 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-// Retail VA 0x00C58730: 5 fields and the zero sentinel.
-// The matched registration proves the class relationship; retail supplies
-// every token, offset and callback. Global spelling is descriptive.
-extern const FieldParse BfmeModelConditionUpgradeFields[] = {
-	{ "AddConditionFlags", &Rva000B9468Parse, 0, 0x118 },
-	{ "RemoveConditionFlags", &Rva000B9468Parse, 0, 0x164 },
-	{ "RemoveConditionFlagsInRange", &Rva004B65E4::rva004B65E4, 0, 0x164 },
-	{ "AddTempConditionFlag", &INI::iniParseAnim, 0, 0x1B0 },
-	{ "TempConditionTime", &INI::parseReal, 0, 0x1B4 },
-	{ 0, 0, 0, 0 }
-};
-
-void ModelConditionUpgradeModuleData::buildFieldParse(MultiIniFieldParse &parse)
-{
-	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE29DGet()), 8);
-	parse.add(BfmeModelConditionUpgradeFields, 0);
-}
-
 class BezierProjectileBehaviorModuleData
 {
 public:
