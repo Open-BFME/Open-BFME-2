@@ -8,7 +8,7 @@ public:
 	virtual void runInit(void *userData) = 0;
 	virtual void *deleteInstance(int flags) = 0;
 	virtual void runUpdate(void *userData) = 0;
-	virtual void s03(bool *flag) = 0;
+	virtual void runShutdown(bool *flag) = 0;
 	virtual void s04() = 0;
 	virtual void s05() = 0;
 	virtual void s06() = 0;
@@ -38,7 +38,7 @@ public:
 	virtual void m30() = 0;
 	virtual void m34() = 0;
 	virtual void m38() = 0;
-	virtual void m3C() = 0;
+	virtual void detatch() = 0;
 	virtual void m40() = 0;
 	virtual void m44() = 0;
 	virtual void m48() = 0;
@@ -59,23 +59,28 @@ enum AnimTypes
 class AnimateWindowManager
 {
 public:
-	virtual void *deleteInstance(int flags) = 0;
-	virtual void a01() = 0;
-	virtual void a02() = 0;
-	virtual void a03() = 0;
-	virtual void a04() = 0;
-	virtual void a05() = 0;
-	virtual void a06() = 0;
-	virtual void a07() = 0;
-	virtual void a08() = 0;
-	virtual void reset() = 0;
-	virtual void update() = 0;
+	AnimateWindowManager();
+	virtual void *deleteInstance(int flags);
+	virtual void a01();
+	virtual void a02();
+	virtual void a03();
+	virtual void a04();
+	virtual void a05();
+	virtual void a06();
+	virtual void a07();
+	virtual void a08();
+	virtual void reset();
+	virtual void update();
 	void registerGameWindow(GameWindow *win, AnimTypes animType, Bool needsToFinish, unsigned int ms, unsigned int delayMs);
 	void reverseAnimateWindow();
 	Bool isReversed() { return m_reverse; }
 private:
-	char m_pad04[0x15 - 4];
+	char m_pad04[0x14 - 4];
+public:
+	unsigned char m_14;
+private:
 	Bool m_reverse; // +0x15
+	char m_pad16[0x38 - 0x16];
 };
 #include "subsystem_interface.h"
 class Rva0035BD3F
@@ -87,12 +92,20 @@ class Rva002007D5
 {
 public:
 	~Rva002007D5();
+	Rva002007D5();
+	char m_pad00[0x8];
 };
 class GlobalData
 {
 public:
-	unsigned char _pad[0xB00];
-	Bool m_animateWindows;
+	unsigned char _pad1[0xabc];
+	AsciiString m_unk_abc;
+	unsigned char _pad2[0xac5 - (0xabc + 4)];
+	bool m_unk_ac5;
+	unsigned char _pad3[0xaf0 - (0xac5 + 1)];
+	bool m_unk_af0;
+	unsigned char _pad4[0xB00 - (0xaf0 + 1)];
+	bool m_animateWindows;
 };
 extern GlobalData *TheWritableGlobalData;
 #define TheGlobalData TheWritableGlobalData
@@ -150,7 +163,7 @@ class AudioManager { public:
     virtual void slot32() = 0;
     virtual void slot33() = 0;
     virtual void slot34() = 0;
-    virtual void slot35() = 0;
+    virtual void slot35(int, int, int) = 0;
     virtual void slot36() = 0;
     virtual void slot37() = 0;
     virtual void slot38() = 0;
@@ -241,6 +254,10 @@ protected:
 	void doPop(Bool impendingPush);
 	void doPush(AsciiString layoutFile);
 public:
+	Shell();
+	bool isAnimFinished();
+	void showShell(bool flag);
+	void rva0035BF4C(bool shutdownImmediate);
 	virtual ~Shell();
 	virtual void update();
 	WindowLayout *top();
@@ -309,11 +326,19 @@ extern Display *TheDisplay;
 class GameWindowTransitionsHandler
 {
 public:
-	virtual void t00(); virtual void t01(); virtual void t02(); virtual void t03();
-	virtual void t04(); virtual void t05(); virtual void t06(); virtual void t07();
-	virtual void t08(); virtual void t09();
-	virtual void slot0A();
 	void reverse(AsciiString groupName);
+	bool isFinished();
+	virtual void t00();
+	virtual void t01();
+	virtual void t02();
+	virtual void t03();
+	virtual void t04();
+	virtual void t05();
+	virtual void t06();
+	virtual void t07();
+	virtual void t08();
+	virtual void t09();
+	virtual void slot0A();
 };
 
 extern GameWindowTransitionsHandler *TheTransitionHandler;
@@ -574,7 +599,7 @@ void Shell::doPop(Bool impendingPush)
 	else
 		m_clearBackground = false;
 	if (TheIMEManager)
-		TheIMEManager->m3C();
+		TheIMEManager->detatch();
 }
 
 // ?doPush@Shell@@IAEXVAsciiString@@@Z @ 0x0035C3C3 (130B). Donor BFME1 Shell.cpp doPush: GameSpy check then winCreateLayout slot 0x80 then linkScreen then IMEManager detatch slot 0x3C then runInit slot0 then bringForward slot 0x14; caller 0x0035C445 passes pendingPushName; callees linkScreen rowed Rva00548C1ACleanup rowed StringBase copy and releaseBuffer rowed.
@@ -585,7 +610,7 @@ void Shell::doPush(AsciiString layoutFile)
 	WindowLayout *newScreen = TheWindowManager->winCreateLayout(layoutFile);
 	linkScreen(newScreen);
 	if (TheIMEManager)
-		TheIMEManager->m3C();
+		TheIMEManager->detatch();
 	newScreen->runInit(0);
 	newScreen->s05();
 }
@@ -617,7 +642,7 @@ void Shell::push(AsciiString filename, bool shutdownImmediate)
 	m_pendingPushName = filename;
 	WindowLayout *currentTop = top();
 	if (currentTop && !currentTop->isHidden())
-		currentTop->s03(&shutdownImmediate);
+		currentTop->runShutdown(&shutdownImmediate);
 	else
 		shutdownComplete(0, false);
 }
@@ -669,9 +694,9 @@ void Shell::pop()
 		return;
 	m_pendingPop = true;
 	bool flag = false;
-	layout->s03(&flag);
+	layout->runShutdown(&flag);
 	if (TheIMEManager)
-		TheIMEManager->m3C();
+		TheIMEManager->detatch();
 }
 
 void Shell::popImmediate()
@@ -681,10 +706,10 @@ void Shell::popImmediate()
 		return;
 	m_pendingPop = false;
 	bool flag = true;
-	layout->s03(&flag);
+	layout->runShutdown(&flag);
 	doPop(false);
 	if (TheIMEManager)
-		TheIMEManager->m3C();
+		TheIMEManager->detatch();
 }
 
 // ?reset@Shell@@UAEXXZ @ 0x0035C16A (42B). Vtable slot 9 of 0x00816208; IMEManager m3C then while m_screenCount pop then tail reset slot 0x24.
@@ -692,7 +717,7 @@ void Shell::popImmediate()
 void Shell::reset()
 {
 	if (TheIMEManager)
-		TheIMEManager->m3C();
+		TheIMEManager->detatch();
 	while (m_screenCount != 0)
 		pop();
 	return m_animateWindowManager->reset();

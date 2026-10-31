@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
+// cl: /DNDEBUG /MD /EHsc /Ireference/shims/subsystem_bfme2 /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include
 // BFME1 clean donor6583b3c1ff21db4a561285717028fdafc780b7db:
 // game/GameEngine/Source/GameClient/GUI/Shell/Shell.cpp hideShell(void)
 // supplies top-layout shutdown, IME detach and shell-active reset semantics.
@@ -24,20 +24,26 @@
 // worker call; the menu selection has two branches and one shared active write.
 #include <stddef.h>
 
-#include "ascii_string.h"
+typedef bool Bool;
+#include "subsystem_interface.h"
 
 class WindowLayout
 {
 public:
 	virtual void runInit(void *userData) = 0;
 	virtual void *deleteInstance(int flags) = 0;
-	virtual void s02() = 0;
-	virtual void runShutdown(bool*) = 0;
+	virtual void runUpdate(void *userData) = 0;
+	virtual void runShutdown(bool *flag) = 0;
 	virtual void s04() = 0;
 	virtual void s05() = 0;
 	virtual void s06() = 0;
 	virtual void s07() = 0;
 	virtual void destroyWindows() = 0;
+	bool isHidden() { return m_hidden; }
+	AsciiString getFilename();
+private:
+	char _pad14[0x10];
+	bool m_hidden;
 };
 
 class GlobalData
@@ -56,88 +62,163 @@ public:
 extern GlobalData *TheWritableGlobalData;
 extern class Shell *TheShell;
 
-class Shell
+class GameWindow;
+class WindowLayout;
+class ShellMenuSchemeManager;
+enum AnimTypes
+{
+	WIN_ANIMATION_NONE = 0,
+	WIN_ANIMATION_SLIDE_LEFT = 1
+};
+class AnimateWindowManager;
+class Shell : public SubsystemInterface
 {
 private:
-	unsigned char _pad[12];
-	WindowLayout *m_screenStack[16];
-	int m_screenCount;
-	bool m_pendingPush;
-	bool m_pendingPop;
-	unsigned char _pad5253[2];
-	bool m_clearBackground;
+	WindowLayout *m_screenStack[16]; // +0x0C
+	int m_screenCount; // +0x4C
+	Bool m_pendingPush; // +0x50
+	Bool m_pendingPop; // +0x51
+	Bool m_byte52; // +0x52
+	Bool m_lowLODBackdropDone; // +0x53
+	Bool m_clearBackground; // +0x54
 	unsigned char _pad5557[3];
-	AsciiString m_pendingPushName;
-	bool m_isShellActive;
-	bool m_shellMapOn;
+	AsciiString m_pendingPushName; // +0x58
+	Bool m_isShellActive; // +0x5C
+	Bool m_shellMapOn; // +0x5D
 	unsigned char _pad5E5F[2];
-	void *m_animateWindowManager;
+	AnimateWindowManager *m_animateWindowManager; // +0x60
+	ShellMenuSchemeManager *m_schemeManager; // +0x64
+	unsigned int m_musicHandle; // +0x68
+	Bool m_wantMusic; // +0x6C
+	Bool m_skipMusicRestart; // +0x6D
+	unsigned char _pad6E[2];
+	WindowLayout *m_saveLoadMenuLayout; // +0x70
+	WindowLayout *m_popupReplayLayout; // +0x74
+protected:
+	void linkScreen(WindowLayout *screen);
+	void unlinkScreen(WindowLayout *screen);
+	void doPop(Bool impendingPush);
+	void doPush(AsciiString layoutFile);
 public:
-	WindowLayout *top();
-	void push(AsciiString name, bool flag);
+	Shell();
+	bool isAnimFinished();
 	void showShell(bool flag);
 	void rva0035BF4C(bool shutdownImmediate);
+	virtual ~Shell();
+	virtual void update();
+	WindowLayout *top();
+	Bool rva0035BD5D();
+	void rva0035C2B9();
+	WindowLayout *findScreenByFilename(AsciiString filename);
+	void registerWithAnimateManager(GameWindow *win, AnimTypes animType, Bool needsToFinish, unsigned int delayMS);
+	void reverseAnimatewindow();
+	Bool isAnimReversed();
+	void loadScheme(AsciiString name);
+	void pop();
+	void popImmediate();
+	virtual void reset();
+	void shutdownComplete(WindowLayout *screen, Bool impendingPush);
+	void push(AsciiString filename, bool shutdownImmediate);
+	Bool showShellMap(Bool useShellMap, Bool restartShellGame);
+	WindowLayout *getSaveLoadMenuLayout();
+	WindowLayout *getPopupReplayLayout();
 };
 
 extern "C" __declspec(dllimport) char *__cdecl getenv(const char *name);
 
-class IMEManager {public:
-virtual void slot0()=0;
-virtual void slot1()=0;
-virtual void slot2()=0;
-virtual void slot3()=0;
-virtual void slot4()=0;
-virtual void slot5()=0;
-virtual void slot6()=0;
-virtual void slot7()=0;
-virtual void slot8()=0;
-virtual void slot9()=0;
-virtual void slot10()=0;
-virtual void slot11()=0;
-virtual void slot12()=0;
-virtual void slot13()=0;
-virtual void slot14()=0;
-virtual void detatch()=0;};extern IMEManager*TheIMEManager;
+class IMEManager
+{
+public:
+	virtual void m00() = 0;
+	virtual void m04() = 0;
+	virtual void m08() = 0;
+	virtual void m0C() = 0;
+	virtual void m10() = 0;
+	virtual void m14() = 0;
+	virtual void m18() = 0;
+	virtual void m1C() = 0;
+	virtual void m20() = 0;
+	virtual void m24() = 0;
+	virtual void m28() = 0;
+	virtual void m2C() = 0;
+	virtual void m30() = 0;
+	virtual void m34() = 0;
+	virtual void m38() = 0;
+	virtual void detatch() = 0;
+	virtual void m40() = 0;
+	virtual void m44() = 0;
+	virtual void m48() = 0;
+	virtual void m4C() = 0;
+	virtual void *m50() = 0;
+};
+extern IMEManager*TheIMEManager;
 class Display;extern Display*TheDisplay;
-class W3DDisplay {public:void rva0025D2F6();};
-class AudioManager {public:
-virtual void slot0()=0;
-virtual void slot1()=0;
-virtual void slot2()=0;
-virtual void slot3()=0;
-virtual void slot4()=0;
-virtual void slot5()=0;
-virtual void slot6()=0;
-virtual void slot7()=0;
-virtual void slot8()=0;
-virtual void slot9()=0;
-virtual void slot10()=0;
-virtual void slot11()=0;
-virtual void slot12()=0;
-virtual void slot13()=0;
-virtual void slot14()=0;
-virtual void slot15()=0;
-virtual void slot16()=0;
-virtual void slot17()=0;
-virtual void slot18()=0;
-virtual void slot19()=0;
-virtual void slot20()=0;
-virtual void slot21()=0;
-virtual void slot22()=0;
-virtual void slot23()=0;
-virtual void slot24()=0;
-virtual void slot25()=0;
-virtual void slot26()=0;
-virtual void slot27()=0;
-virtual void slot28()=0;
-virtual void slot29()=0;
-virtual void slot30()=0;
-virtual void slot31()=0;
-virtual void slot32()=0;
-virtual void slot33()=0;
-virtual void slot34()=0;
-virtual void slot35(int,int,int)=0;};extern AudioManager*TheAudio;
-class Rva0035BD3F {public:void rva0035BD3F();};
+class W3DDisplay
+{
+public:
+	void rva0025D2F6();
+};
+class AudioManager { public:
+    virtual void slot0() = 0;
+    virtual void slot1() = 0;
+    virtual void slot2() = 0;
+    virtual void slot3() = 0;
+    virtual void slot4() = 0;
+    virtual void slot5() = 0;
+    virtual void slot6() = 0;
+    virtual void slot7() = 0;
+    virtual void slot8() = 0;
+    virtual void slot9() = 0;
+    virtual void slot10() = 0;
+    virtual void slot11() = 0;
+    virtual void slot12() = 0;
+    virtual void slot13() = 0;
+    virtual void slot14() = 0;
+    virtual void slot15() = 0;
+    virtual void slot16() = 0;
+    virtual void slot17() = 0;
+    virtual void slot18() = 0;
+    virtual void slot19() = 0;
+    virtual void slot20() = 0;
+    virtual void slot21() = 0;
+    virtual void slot22() = 0;
+    virtual void slot23() = 0;
+    virtual void slot24() = 0;
+    virtual void slot25() = 0;
+    virtual void slot26() = 0;
+    virtual void slot27() = 0;
+    virtual void slot28() = 0;
+    virtual void slot29() = 0;
+    virtual void slot30() = 0;
+    virtual void slot31() = 0;
+    virtual void slot32() = 0;
+    virtual void slot33() = 0;
+    virtual void slot34() = 0;
+    virtual void slot35(int, int, int) = 0;
+    virtual void slot36() = 0;
+    virtual void slot37() = 0;
+    virtual void slot38() = 0;
+    virtual void slot39() = 0;
+    virtual void slot40() = 0;
+    virtual void slot41() = 0;
+    virtual void slot42() = 0;
+    virtual void slot43() = 0;
+    virtual void slot44() = 0;
+    virtual void slot45() = 0;
+    virtual void slot46() = 0;
+    virtual void slot47() = 0;
+    virtual void slot48() = 0;
+    virtual void slot49() = 0;
+    virtual void slot50() = 0;
+    virtual void slot51() = 0;
+    virtual bool slot52(unsigned int handle) = 0;
+};
+extern AudioManager*TheAudio;
+class Rva0035BD3F
+{
+public:
+	void rva0035BD3F();
+};
 
 void Shell::showShell(bool flag)
 {
