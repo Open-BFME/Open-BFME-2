@@ -59750,7 +59750,7 @@ __ehhandler$?rva00072A51@Rva00072A51@@UAEXVRva00072A94@@@Z,,0x0075EDA5,10,Code/G
 ?rva00290EAB@Object@@QBEPBURva00290EABElem@@H@Z,,0x00290EAB,53,Code/GameEngine/Source/GameLogic/Object/ObjectRva00290E67.cpp,matched,Object bounds-checked 0x5CB element lookup at +0x108 vector falling back to +0xA8 default
 ?getIdleWorkerCount@InGameUI@@EAEHXZ,,0x0029F7C8,34,Code/GameEngine/Source/GameClient/InGameUIRemoveIdleWorker.cpp,matched,InGameUI::getIdleWorkerCount returning local player idle worker list size
 ?reset@LivingWorldLogic@@UAEXXZ,,0x002B2535,26,Code/GameEngine/Source/Common/Rva002B254FCheck.cpp,matched,Guarded tail call to Rva002BED10::rva002BED10 on g_00DFEF18 when TheGameLogic +0x114 is 3
-?rva002D7B50@@YAXHH@Z,,0x002D7B50,27,Code/GameEngine/Source/Common/VslotSmallBodiesAG.cpp,matched,Null-guarded forwarder to TheDisplay virtual slot 82 (+0x148)
+?rva002D7B50@@YAXHH@Z,,0x002D7B50,27,Code/GameEngine/Source/Common/System/Radar.cpp,matched,Null-guarded forwarder to TheDisplay virtual slot 82 (+0x148)
 ?parseAiDataDefinition@AI@@SAXPAVINI@@@Z,,0x002FFF72,49,Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp,matched,AI::parseAiDataDefinition creating override on load type 2 and parsing s_aiDataFieldParseTable
 ?loadSunbeamObject@Rva00318A87@@QAEXXZ,,0x00318A87,14,Code/GameEngine/Source/Common/System/Rva00318ABBFieldParse.cpp,matched,Copies AsciiString global g_00E01CF4 into +0x0C member
 ?rva0037AEE2@RecorderClass@@QAEXXZ,,0x0037AEE2,35,Code/GameEngine/Source/Common/Recorder.cpp,matched,Restores TheWritableGlobalData +0x1100 and +0x1104 from recorderSavedGlobalFlag and recorderSavedGlobalValue

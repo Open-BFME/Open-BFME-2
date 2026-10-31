@@ -509,11 +509,6 @@ struct DisplayView002D7B50 : public Rva00251C24Slots<82>
 {
 	virtual void v82(Int a, Int b);
 };
-void rva002D7B50(Int a, Int b)
-{
-	if (TheDisplay)
-		reinterpret_cast<DisplayView002D7B50 *>(TheDisplay)->v82(a, b);
-}
 
 class LANAPI;
 extern LANAPI *TheLAN;
