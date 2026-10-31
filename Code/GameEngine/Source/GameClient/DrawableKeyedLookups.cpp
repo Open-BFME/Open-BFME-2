@@ -70,31 +70,6 @@ Rva002390CB Drawable::rva00346CC4()
 	return rva0027675F(0x24);
 }
 
-Rva002390CB Drawable::rva0027682F()
-{
-	return rva0027675F(0x25);
-}
-
-Rva002390CB Drawable::rva00276848()
-{
-	return rva0027675F(0x26);
-}
-
-Rva002390CB Drawable::rva00276861()
-{
-	return rva0027675F(0x27);
-}
-
-Rva002390CB Drawable::rva0027687A()
-{
-	return rva0027675F(0x28);
-}
-
-Rva002390CB Drawable::rva00276893()
-{
-	return rva0027675F(0x29);
-}
-
 Rva002390CB Drawable::rva00374389()
 {
 	return rva0027675F(0x2A);

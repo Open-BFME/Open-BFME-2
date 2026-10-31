@@ -40159,11 +40159,11 @@ _$E5,,0x007ACE60,12,Code/Libraries/Source/WWVegas/WW3D2/meshmdl_sidehash.cpp,mat
 ?rva00346C92@Drawable@@QAE?AVRva002390CB@@XZ,,0x00346C92,25,Code/GameEngine/Source/GameClient/DrawableKeyedLookups.cpp,matched,keyed Drawable lookup key 0x22 via rowed 0x0027675F
 ?rva00346CAB@Drawable@@QAE?AVRva002390CB@@XZ,,0x00346CAB,25,Code/GameEngine/Source/GameClient/DrawableKeyedLookups.cpp,matched,keyed Drawable lookup key 0x23 via rowed 0x0027675F
 ?rva00346CC4@Drawable@@QAE?AVRva002390CB@@XZ,,0x00346CC4,25,Code/GameEngine/Source/GameClient/DrawableKeyedLookups.cpp,matched,keyed Drawable lookup key 0x24 via rowed 0x0027675F
-?rva0027682F@Drawable@@QAE?AVRva002390CB@@XZ,,0x0027682F,25,Code/GameEngine/Source/GameClient/DrawableKeyedLookups.cpp,matched,keyed Drawable lookup key 0x25 via rowed 0x0027675F
-?rva00276848@Drawable@@QAE?AVRva002390CB@@XZ,,0x00276848,25,Code/GameEngine/Source/GameClient/DrawableKeyedLookups.cpp,matched,keyed Drawable lookup key 0x26 via rowed 0x0027675F
-?rva00276861@Drawable@@QAE?AVRva002390CB@@XZ,,0x00276861,25,Code/GameEngine/Source/GameClient/DrawableKeyedLookups.cpp,matched,keyed Drawable lookup key 0x27 via rowed 0x0027675F
-?rva0027687A@Drawable@@QAE?AVRva002390CB@@XZ,,0x0027687A,25,Code/GameEngine/Source/GameClient/DrawableKeyedLookups.cpp,matched,keyed Drawable lookup key 0x28 via rowed 0x0027675F
-?rva00276893@Drawable@@QAE?AVRva002390CB@@XZ,,0x00276893,25,Code/GameEngine/Source/GameClient/DrawableKeyedLookups.cpp,matched,keyed Drawable lookup key 0x29 via rowed 0x0027675F
+?rva0027682F@Drawable@@QAE?AVRva002390CB@@XZ,,0x0027682F,25,Code/GameEngine/Source/GameClient/Drawable.cpp,matched,keyed Drawable lookup key 0x25 via rowed 0x0027675F
+?rva00276848@Drawable@@QAE?AVRva002390CB@@XZ,,0x00276848,25,Code/GameEngine/Source/GameClient/Drawable.cpp,matched,keyed Drawable lookup key 0x26 via rowed 0x0027675F
+?rva00276861@Drawable@@QAE?AVRva002390CB@@XZ,,0x00276861,25,Code/GameEngine/Source/GameClient/Drawable.cpp,matched,keyed Drawable lookup key 0x27 via rowed 0x0027675F
+?rva0027687A@Drawable@@QAE?AVRva002390CB@@XZ,,0x0027687A,25,Code/GameEngine/Source/GameClient/Drawable.cpp,matched,keyed Drawable lookup key 0x28 via rowed 0x0027675F
+?rva00276893@Drawable@@QAE?AVRva002390CB@@XZ,,0x00276893,25,Code/GameEngine/Source/GameClient/Drawable.cpp,matched,keyed Drawable lookup key 0x29 via rowed 0x0027675F
 ?rva00374389@Drawable@@QAE?AVRva002390CB@@XZ,,0x00374389,25,Code/GameEngine/Source/GameClient/DrawableKeyedLookups.cpp,matched,keyed Drawable lookup key 0x2A via rowed 0x0027675F
 ?rva003743A2@Drawable@@QAE?AVRva002390CB@@XZ,,0x003743A2,25,Code/GameEngine/Source/GameClient/DrawableKeyedLookups.cpp,matched,keyed Drawable lookup key 0x2B via rowed 0x0027675F
 ?rva0049D114@Drawable@@QAE?AVRva002390CB@@XZ,,0x0049D114,25,Code/GameEngine/Source/GameClient/DrawableKeyedLookups.cpp,matched,keyed Drawable lookup key 0x2C via rowed 0x0027675F
