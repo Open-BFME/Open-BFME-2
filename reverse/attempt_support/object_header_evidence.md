@@ -138,3 +138,71 @@ by hand in game.dat (capstone disassembly):
 Rebased the draft header onto origin/master 63a3af3ab6. Retail RVA 0x0049212B (78-byte matched PickupStuffUpdate::update, now in Code/GameEngine/Source/Common/PickupStuffUpdate.cpp) loads its Object pointer then `cmp dword ptr [ecx+0x258],0` at RVA 0x00492131. The matched source spells this as `obj->getAI()` with inline `AIUpdateInterface *getAI() const { return m_ai; }`. The canonical draft already places m_ai at +0x258. Added that accessor without a new data member or virtual slot.
 
 `class_contract.py --class Object --sample 40 --jobs 8` reports class from bytes, sizeof 1240 (0x4D8) from retail-new, and Thing, Snapshot, BfmeCtor001B3A20, Rva005EEE6B, Rva0028AB0D plus the virtual base from retail-ctor; 40 views, zero uncompiled. The tool retains unresolved names for the three placeholder bases and virtual base, and a name tie at +0: these are not new name proofs. The draft retains five direct bases and its virtual base at +0x4D4. Object remains unregistered.
+
+## Staged adoption outcome and merge handoff (2026-10-31)
+
+The `object` worker acquired class:Object and object.h at 16:02 UTC after the
+requested 15-minute retries (first refusal at about 14:47 UTC). It did not
+release or override another worker's live claims. Renewals succeeded before
+the original class/header leases expired. All compilation and commits ran on
+one xlarge Boat sandbox, bx_mq9mj3pn, from bfme2-toolchain-20261030c; no push.
+
+The fixed-header survey (`header_adopt_lane.py run --class Object --header
+Code/GameEngine/Source/GameLogic/Object/object.h --jobs 8`, without --apply)
+checked 1,872 units: 236 passed and 1,636 were queued. Main refusal categories
+were conservative field renames (1,034), missing members C2039 (497), C2440
+(21), C2027 (17), and byte/callee identity (17). This is a broad census of
+Object consumers, not 236 merge-ready Object.cpp donors. The Object.cpp seed
+itself is refused: `Object::m_pre000 (+0x0, 4 bytes) has no canonical field of
+that offset and size`. No rename rule was bypassed or edited. AITacticSiege
+on this master also fails C2446, comparing Team* with an integer. The original
+StatusBitsEldestFrameCheck filename no longer exists in this checkout. The
+Rva004AAD69Idle file claim was held elsewhere and that unit was untouched.
+
+Ten units adopted through the landed `header_adopt_lane.py adopt` command,
+one byte-verified normal commit each, with zero added code-identity findings
+compared with a fresh pre-adoption build of that unit:
+
+- PickupStuffUpdate.cpp: 17/17 rows (62a2154326).
+- ObjectGetControllingPlayer.cpp: 1/1 (e23f26de80).
+- ObjectGuardingHelperDisband.cpp: 1/1 (a5d294e87c).
+- ObjectRva00293249.cpp: 1/1 (e3edfcd27b).
+- CitadelSlaughterHordeContainIsValidContainerFor.cpp: 1/1 (1683959bb4).
+- OpenContainDtorRva00464692.cpp: 8/8 (e647543472).
+- OpenContainOnDie.cpp: 1/1 (73944aa198).
+- OpenContainRemoveFromContain.cpp: 1/1 (b4818d8f44).
+- OpenContainSounds.cpp: 4/4 (77bcff9add).
+- OpenContainXfer.cpp: 4/4 (3489025cf2).
+
+Total 39/39 matched rows. The header prerequisite's normal scoped commit gate
+passed 1,051/1,051 functions across 141 dependent sources. Object remains
+unregistered, with its five direct bases, virtual base at +0x4D4 and sizeof
+0x4D8. There are no source deletions or new matched-byte claims in this pass.
+
+Fresh merge measurements (full Code/ paths, normal tool verification):
+
+- Code/GameEngine/Source/Common/PickupStuffUpdate.cpp: 0 accepted donors before,
+  0 after; both report `no verified merge of two or more donors`.
+- Code/GameEngine/Source/GameLogic/Object/Contain/CitadelSlaughterHordeContain.cpp:
+  0 before, 0 after; the same refusal.
+- OpenContain.cpp: 0 before. Its seed file is held by another worker, so no
+  applying merge was attempted; the five separately claimed donors above were
+  adopted independently.
+- Object.cpp: 678 approved rows, 223 donor files, 47 mixed files at this base.
+  The full-path dry run ran alone for two hours, 16:27-18:27 UTC, and was stopped
+  without a final report. After adoption, the full-path applying merge command
+  ran alone for about 85 minutes and was stopped at 20:20 UTC to preserve the
+  six-hour task budget and cleanup time. Neither attempt wrote tracked changes.
+  Object.cpp accepted-donor before/after counts are UNKNOWN, not zero or clean.
+  No Object.cpp merge, no other TU merge, and no file-count reduction is claimed.
+
+A local orchestration error initially called the smaller dry-run API from
+threads, exposing a shared-cache KeyError for two jobs. Those results were
+ discarded. PickupStuffUpdate and Citadel were then measured in separate
+processes, temporarily restoring only their own adopted sources to the header
+prerequisite for the before measurements and restoring HEAD in a finally
+block before the after measurements. No tool was changed. The reports and full
+survey are in build/fleet/inbox/object/ on the PC. Next work needs the seed's
+conservative rename prerequisite resolved through the supported tooling and a
+longer uninterrupted Object.cpp verifier window; the incomplete runs supply
+no permission to skip byte, identity, claim, or link checks.
