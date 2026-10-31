@@ -6,11 +6,7 @@
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 
 class Player;
-class Object {
-public:
- Player *getControllingPlayer() const;
- const Coord3D *getPosition() const { return reinterpret_cast<const Coord3D*>(reinterpret_cast<const char*>(this)+0x38); }
-};
+#include "../object.h"
 
 #define SLOT08(a,b,c,d,e,f,g,h) virtual void a(); virtual void b(); virtual void c(); virtual void d(); virtual void e(); virtual void f(); virtual void g(); virtual void h();
 
