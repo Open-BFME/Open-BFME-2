@@ -44,16 +44,6 @@ public:
     int get() const;
 };
 
-void Rva00299CA8DwordSlot::set(int value)
-{
-    ((int *)this)[-4] = value;
-}
-
-int Rva00299CA8DwordSlot::get() const
-{
-    return ((const int *)this)[-4];
-}
-
 // BF1 9cb WWDownload/CDownloadDownloadFile.cpp RestartFrom supplies the
 // store-and-zero-return expression only. Complete native6C9630..6C963C
 // lies between INT3 padding: raw32 argument to receiver2C then EAX0 RET4.

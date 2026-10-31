@@ -190,6 +190,18 @@ typedef float Real;
 	{ \
 		return (char *)this - BACK; \
 	}
+#define BFME_DISP8_DWORD_SETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		void set(int value); \
+		char m_lead[DISP]; \
+		int m_value; \
+	}; \
+	void NAME::set(int value) \
+	{ \
+		m_value = value; \
+	}
 
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
 namespace _STL {
@@ -1540,6 +1552,34 @@ public: void *at(int index);
 private: unsigned char unknown[8]; Rva006C03C0Slot entries[1];
 };
 
+// Object virtual-base table BFC27C references adjustment stubs299CA0 and
+// 299CB2. Each ends with an unconditional jump to a separate leaf below:
+// 299CA8..299CB2 stores one stack word at receiver-16 and returns RET4;
+// 299CBA..299CBE reads the same word and returns RET0. The following LEA
+// getter starts299CBE and is already independently owned. The Object
+// destructor proves the virtual base and its adjustment word; field purpose
+// and historical method names remain unknown. A shared view keeps the
+// independently demonstrated getter/setter pairing in one source.
+class Rva00299CA8DwordSlot
+{
+public:
+    void set(int value);
+    int get() const;
+};
+
+// BF1 9cb WWDownload/CDownloadDownloadFile.cpp RestartFrom supplies the
+// store-and-zero-return expression only. Complete native6C9630..6C963C
+// lies between INT3 padding: raw32 argument to receiver2C then EAX0 RET4.
+// Original receiver, field purpose and return type remain unknown.
+class Rva006C9630DwordSlot
+{
+public:
+    unsigned int store(unsigned int value);
+private:
+    char unknown00[0x2C];
+    unsigned int value2C;
+};
+
 // tu-skeleton: 0x0028A670 20B ?setWeaponBonusCondition@Object@@QAEXW4WeaponBonusConditionType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/WeaponBonusUpgradeUpgradeImplementation.cpp (not merged yet)
 
 // tu-skeleton: 0x0028A684 22B ?clearWeaponBonusCondition@Object@@QAEXW4WeaponBonusConditionType@@@Z -- matched in Code/GameEngine/Source/Common/RTS/PlayerBattlePlanBonuses.cpp (not merged yet)
@@ -1629,6 +1669,8 @@ private: unsigned char unknown[8]; Rva006C03C0Slot entries[1];
 // tu-skeleton: 0x0028AF2B 31B ?getAbleToUseWeaponAgainstTarget@Object@@QBE?AW4CanAttackResult@@W4AbleToAttackType@@PBV1@PBUCoord3D@@W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectGetAbleToUseWeaponAgainstTarget.cpp (not merged yet)
 
 // tu-skeleton: 0x0028AF4A 27B ?chooseBestWeaponForTarget@Object@@QAE_NPBV1@W4WeaponChoiceCriteria@@W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectGetAbleToUseWeaponAgainstTarget.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Object.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Object.cpp
 
@@ -3009,6 +3051,26 @@ Bool Rva0028D891Owner::testBit(int bit) const
 	return (m_flagBits[(UnsignedInt)bit >> 5] & (1 << (bit & 31))) != 0;
 }
 
+// ---- from Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp
+
+// Disp8 LEA getters: four-byte __thiscall members with one shape:
+//
+//     lea eax,[ecx+<DISP>] / ret
+//
+// The address of a member at a fixed displacement from `this` is returned.
+// Spelled as byte-pointer arithmetic from `this`, which MSVC 7.1 folds to
+// the same disp8 lea. The pointee type is unwitnessed (only an address is
+// produced), so the return is an untyped pointer. Members before the
+// accessed one are not spelled at all: unlike the load families, no lead
+// array is needed because nothing is read.
+// Identity is not recovered: every name is derived from its address, in the
+// same opaque-holder convention as the neighboring Disp* families.
+// No // cl: line (defaults match the frameless four-byte shape).
+
+// Negative-displacement sibling: the disp8 byte sign-extends, so a disp byte
+// above 0x7F addresses *before* `this` (e.g. 9C = -100). Spelled as a
+// negative byte offset from `this`, which folds to the same disp8 lea.
+
 // tu-skeleton: 0x0028AF76 16B ?rva0028AF76@Object@@QBEHXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
 
 // tu-skeleton: 0x0028AF86 17B ?getLastVictimID@Object@@QBEHXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
@@ -3775,26 +3837,6 @@ Bool Rva0028D891Owner::testBit(int bit) const
 
 // tu-skeleton: 0x00299C6E 6B ?GetSnapshotName@Object@@UBEPBDXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp
-
-// Disp8 LEA getters: four-byte __thiscall members with one shape:
-//
-//     lea eax,[ecx+<DISP>] / ret
-//
-// The address of a member at a fixed displacement from `this` is returned.
-// Spelled as byte-pointer arithmetic from `this`, which MSVC 7.1 folds to
-// the same disp8 lea. The pointee type is unwitnessed (only an address is
-// produced), so the return is an untyped pointer. Members before the
-// accessed one are not spelled at all: unlike the load families, no lead
-// array is needed because nothing is read.
-// Identity is not recovered: every name is derived from its address, in the
-// same opaque-holder convention as the neighboring Disp* families.
-// No // cl: line (defaults match the frameless four-byte shape).
-
-// Negative-displacement sibling: the disp8 byte sign-extends, so a disp byte
-// above 0x7F addresses *before* `this` (e.g. 9C = -100). Spelled as a
-// negative byte offset from `this`, which folds to the same disp8 lea.
-
 // tu-skeleton: 0x00299C7C 13B ?set@Rva00299C7CDwordSlot@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp (not merged yet)
 
 // tu-skeleton: 0x00299C89 8B ??_ERva00299CE4@@WGA@AEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB05.cpp (not merged yet)
@@ -3805,11 +3847,31 @@ Bool Rva0028D891Owner::testBit(int bit) const
 
 // tu-skeleton: 0x00299CA0 8B ?rva00299CA0@Rva00299CA0@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/GapForwardersSeat8.cpp (not merged yet)
 
-// tu-skeleton: 0x00299CA8 10B ?set@Rva00299CA8DwordSlot@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/Disp8DwordFieldSetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Disp8DwordFieldSetters.cpp
+
+// Disp8 dword setters: ten-byte __thiscall members with one shape:
+//
+//     mov eax,[esp+4] / mov [ecx+<DISP>],eax / ret 4
+//
+// One dword is taken from the stack argument slot and stored at a fixed
+// displacement from `this`. Same macro as DispDwordFieldSetters.cpp; every
+// displacement here fits disp8 (MSVC 7.1 uses disp8 whenever the offset
+// fits, so every offset is below 0x80).
+// Identity is not recovered: every name is derived from its address,
+// following DispDwordFieldSetters.cpp.
+// No // cl: line (defaults match the frameless ten-byte shape).
+
+void Rva00299CA8DwordSlot::set(int value)
+{
+    ((int *)this)[-4] = value;
+}
+
+int Rva00299CA8DwordSlot::get() const
+{
+    return ((const int *)this)[-4];
+}
 
 // tu-skeleton: 0x00299CB2 8B ?rva00299CB2@Rva00299CB2@@QBEHXZ -- matched in Code/GameEngine/Source/Common/GapForwardersSeat8.cpp (not merged yet)
-
-// tu-skeleton: 0x00299CBA 4B ?get@Rva00299CA8DwordSlot@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8DwordFieldSetters.cpp (not merged yet)
 
 // tu-skeleton: 0x00299CC2 4B ?get@Rva00299CC2FloatField@@QBEMXZ -- matched in Code/GameEngine/Source/Common/Disp8FloatFieldGetters.cpp (not merged yet)
 
