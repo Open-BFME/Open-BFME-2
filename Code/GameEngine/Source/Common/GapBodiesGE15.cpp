@@ -155,10 +155,3 @@ private:
 	char m_pad[0x838];
 	short m_table[8][8];
 };
-
-short Rva005DBB4D::rva005DBB4D(unsigned short row, unsigned short column) const
-{
-	if (row < 8 && column < 8)
-		return m_table[row][column];
-	return 0;
-}
