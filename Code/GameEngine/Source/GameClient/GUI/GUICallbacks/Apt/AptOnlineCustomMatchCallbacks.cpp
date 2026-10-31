@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // platformsdk
-// stlport
+// stlport46
 //
 // BFME2's online custom match screen Apt callbacks, 0x0059EC65 onward,
 // bound by these names ("AptOnline::CustomMatch::PlayGame" ...) as member
@@ -29,7 +29,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 namespace _STL { template <> basic_string<char, char_traits<char>, allocator<char> > & basic_string<char, char_traits<char>, allocator<char> >::operator=(char const *); }
 namespace _STL { template <> void basic_string<unsigned short, char_traits<unsigned short>, allocator<unsigned short> >::_M_construct_null(unsigned short *); }
 namespace _STL { template <> void basic_string<unsigned short, char_traits<unsigned short>, allocator<unsigned short> >::_M_construct_null_aux(unsigned short *, __true_type const &); }
-namespace _STL { template <> unsigned short * allocator<unsigned short>::allocate(unsigned int, void const *) const; }
+namespace _STL { template <> unsigned short * allocator<unsigned short>::allocate(unsigned int, void const *); }
 namespace _STL { template <> void __char_traits_base<unsigned short, unsigned short>::assign(unsigned short &, unsigned short const &); }
 namespace _STL { template <> basic_string<char, char_traits<char>, allocator<char> > & basic_string<char, char_traits<char>, allocator<char> >::assign(char const *, char const *); }
 namespace _STL { template <> basic_string<unsigned short, char_traits<unsigned short>, allocator<unsigned short> > & basic_string<unsigned short, char_traits<unsigned short>, allocator<unsigned short> >::assign(unsigned short const *, unsigned short const *); }
@@ -43,9 +43,6 @@ namespace _STL { template <> unsigned short * __char_traits_base<unsigned short,
 // bfme link decl-only end
 // Suppress this TU's non-retail proxy<char> deallocate copy (family2-LK3 row 28):
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-namespace _STL {
-template <> void _STLP_alloc_proxy<char*, char, allocator<char> >::deallocate(char*, size_t);
-}
 
 // _Rb_tree_iterator comparisons otherwise instantiate the base-class
 // operator!= COMDAT (one byte shape per TU flags); exact-match free

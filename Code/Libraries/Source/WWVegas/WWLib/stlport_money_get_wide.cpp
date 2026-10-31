@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 
 #include <locale>
 // STLport defines locale::facet::~facet out of line in locale_impl.cpp, where
@@ -16,7 +16,7 @@ namespace _STL { template <> basic_string<unsigned short, char_traits<unsigned s
 namespace _STL { template <> basic_string<unsigned short, char_traits<unsigned short>, allocator<unsigned short> >::basic_string(); }
 namespace _STL { template <> _String_base<char, allocator<char> >::~_String_base(); }
 namespace _STL { template <> unsigned short * basic_string<unsigned short, char_traits<unsigned short>, allocator<unsigned short> >::_M_insert_aux(unsigned short *, unsigned short); }
-namespace _STL { template <> unsigned short * allocator<unsigned short>::allocate(unsigned int, void const *) const; }
+namespace _STL { template <> unsigned short * allocator<unsigned short>::allocate(unsigned int, void const *); }
 namespace _STL { template <> istreambuf_iterator<unsigned short, char_traits<unsigned short> > money_get<unsigned short, istreambuf_iterator<unsigned short, char_traits<unsigned short> > >::do_get(istreambuf_iterator<unsigned short, char_traits<unsigned short> >, istreambuf_iterator<unsigned short, char_traits<unsigned short> >, bool, ios_base &, int &, long double &) const; }
 namespace _STL { template <> void basic_string<unsigned short, char_traits<unsigned short>, allocator<unsigned short> >::reserve(unsigned int); }
 // bfme link decl-only end
@@ -34,25 +34,12 @@ namespace _STL { template <> pair<istreambuf_iterator<unsigned short,char_traits
 namespace _STL { template <> void _String_base<unsigned short, allocator<unsigned short> >::_M_deallocate_block(); }
 // Suppress this TU's non-retail copy of ?deallocate@?$allocator@G@_STL@@QBEXPAGI@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-namespace _STL { template <> void allocator<unsigned short>::deallocate(unsigned short *, size_t) const; }
+namespace _STL { template <> void allocator<unsigned short>::deallocate(unsigned short *, size_t); }
 // Suppress this TU's non-retail proxy<char> deallocate copy (family2-LK3 row 28):
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-namespace _STL {
-template <> void _STLP_alloc_proxy<char*, char, allocator<char> >::deallocate(char*, size_t);
-}
 // Suppress this TU's non-retail proxy<char> allocate copy (family2-LK3 row 30):
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-namespace _STL {
-template <> char *_STLP_alloc_proxy<char*, char, allocator<char> >::allocate(size_t);
-}
 // Keep the STLport allocation forwarding inline without an unused external copy.
-namespace _STL {
-template <> __declspec(dllimport) __forceinline unsigned short *
-_STLP_alloc_proxy<unsigned short *, unsigned short, allocator<unsigned short> >::allocate(size_t count)
-{
-    return allocator<unsigned short>::allocate(count, 0);
-}
-}
 typedef _STL::basic_string<wchar_t> WideString;
 template _STL::back_insert_iterator<WideString> &_STL::back_insert_iterator<WideString>::operator=(const wchar_t &);
 template WideString &WideString::_M_append_dispatch<wchar_t *>(wchar_t *, wchar_t *, const _STL::__false_type &);
