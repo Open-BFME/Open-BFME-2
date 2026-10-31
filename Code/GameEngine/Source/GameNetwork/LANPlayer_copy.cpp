@@ -1,46 +1,50 @@
-// cl: /DNDEBUG /MD /EHsc /Ob2
+// cl: /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /Ireference/shims/subsystem_bfme2 /ICode/GameEngine/Include
 
-class LANPlayerUnicodeString;
-
-template <typename Character>
-class StringBase
-{
-	friend class LANPlayerUnicodeString;
-public:
-	~StringBase(void);
-
-private:
-	StringBase(const StringBase &other);
-
-	Character *m_data;
-};
-
-class LANPlayerUnicodeString : private StringBase<unsigned short>
+typedef int Int;
+typedef bool Bool;
+typedef unsigned char UnsignedByte;
+typedef unsigned int UnsignedInt;
+typedef unsigned short UnsignedShort;
+typedef unsigned short WideChar;
+#include "ascii_string.h"
+#include "unicode_string.h"
+class Rva00248CDD
 {
 public:
-	LANPlayerUnicodeString(const LANPlayerUnicodeString &other)
-		: StringBase<unsigned short>(other)
-	{
-	}
-
-	~LANPlayerUnicodeString(void)
-	{
-	}
+	Bool rva00248CDD( const Rva00248CDD &other ) const;
 };
+struct BfmeNetAddress : public Rva00248CDD
+{
+	BfmeNetAddress( void ) {}
+	BfmeNetAddress( UnsignedInt ip, UnsignedShort port ) : m_ip( ip ), m_port( port ) {}
+	BfmeNetAddress *self( void ) { return this; }
+	Bool Rva00248CBF( const BfmeNetAddress *other ) const;
 
+	UnsignedInt m_ip;
+	UnsignedShort m_port;
+};
 class LANPlayer
 {
 public:
-	LANPlayer(const LANPlayer &other);
+	LANPlayer() : m_lastHeard(0), m_next(0)
+	{
+		m_address.m_ip = 0;
+		m_address.m_port = 0;
+	}
+	LANPlayer( const LANPlayer &other );
+	~LANPlayer();
 
-private:
-	LANPlayerUnicodeString m_name;
-	LANPlayerUnicodeString m_login;
-	LANPlayerUnicodeString m_host;
-	unsigned int m_lastHeard;
+	const UnicodeString &getName(void) const { return m_name; }
+	LANPlayer *getNext(void) const { return m_next; }
+	void setNext(LANPlayer *next) { m_next = next; }
+	UnsignedInt getIP(void) const { return m_address.m_ip; }
+
+	UnicodeString m_name;
+	UnicodeString m_login;
+	UnicodeString m_host;
+	UnsignedInt m_lastHeard;
 	LANPlayer *m_next;
-	unsigned int m_ip;
-	unsigned int m_addressPadding;
+	BfmeNetAddress m_address;
 };
 
 LANPlayer::LANPlayer(const LANPlayer &other)
@@ -49,7 +53,6 @@ LANPlayer::LANPlayer(const LANPlayer &other)
 	  m_host(other.m_host),
 	  m_lastHeard(other.m_lastHeard),
 	  m_next(other.m_next),
-	  m_ip(other.m_ip),
-	  m_addressPadding(other.m_addressPadding)
+	  m_address(other.m_address)
 {
 }
