@@ -19540,7 +19540,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x002887EA,50,code,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp,approved,C,C=0x002887D1..0x0028881C,Code/GameEngine/Source/Common/System/CrateCreationEntryListClear.cpp
 0x0028881C,45,code,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp,approved,C,C=0x002887D1..0x00288849,Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp
 0x00288849,43,code,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp,approved,C,C=0x002887D1..0x00288874,Code/GameEngine/Source/Common/System/CrateCreationEntryListClear.cpp
-0x00288874,96,code,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp,approved,C,C=0x002887D1..0x002888D4,Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00288874.cpp
+0x00288874,96,code,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp,approved,C,C=0x002887D1..0x002888D4,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp
 0x002888D4,47,code,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp,approved,C,C=0x002887D1..0x0028891F,Code/GameEngine/Source/GameLogic/Object/Armor.cpp
 0x00288903,28,code,,displaced,-,N=Code/GameEngine/Source/Common/CameraMarker.cpp,Code/GameEngine/Source/Common/Rva003833BBErase.cpp
 0x0028891F,33,code,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/System/ExperienceLevelStore.cpp,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp
@@ -19561,9 +19561,9 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00288B4C,5,code,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp,approved,C,C=0x00288AF2..0x00288B51,Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp
 0x00288B51,56,code,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp,approved,C,C=0x00288AF2..0x00288B89,Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp
 0x00288B89,8,code,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp,approved,C,C=0x00288AF2..0x00288B91,Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int_list_pod264.cpp
-0x00288B91,13,code,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp,approved,C,C=0x00288AF2..0x00288B9E,Code/Libraries/Source/WWVegas/WWLib/stlport_list_pod264_insert.cpp
+0x00288B91,13,code,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp,approved,C,C=0x00288AF2..0x00288B9E,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp
 0x00288B9E,28,code,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp,approved,C,C=0x00288AF2..0x00288BBA,Code/GameEngine/Source/Common/FamilyDeletingDtors11.cpp
-0x00288BBA,58,code,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp,approved,C,C=0x00288AF2..0x00288BF4,Code/GameEngine/Source/Common/Rva00288BBACtor.cpp
+0x00288BBA,58,code,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp,approved,C,C=0x00288AF2..0x00288BF4,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp
 0x00288BF4,5,code,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp,approved,C,C=0x00288AF2..0x00288BF9,Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp
 0x00288BF9,59,code,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp,approved,C,C=0x00288AF2..0x00288C34,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp
 0x00288C34,52,code,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/System/ExperienceLevelStore.cpp,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp
@@ -19583,7 +19583,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00289164,28,code,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp,approved,C,C=0x00288E21..0x00289180,Code/GameEngine/Source/Common/Rva00289371HashClear.cpp
 0x00289180,91,code,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp,approved,U,N=Code/GameEngine/Source/Common/ExperienceLevelSystem.cpp,Code/GameEngine/Source/Common/Rva00289180Finish.cpp
 0x002891DB,61,code,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/System/ExperienceLevelStore.cpp,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp
-0x00289218,16,code,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp,approved,C,C=0x002891DB..0x00289265,Code/Libraries/Source/WWVegas/WWLib/Rva00289218PushBack.cpp
+0x00289218,16,code,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp,approved,C,C=0x002891DB..0x00289265,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp
 0x00289228,61,code,,displaced,-,N=Code/GameEngine/Source/Common/INI/INI.cpp,Code/GameEngine/Source/Common/INI/INIStringAndListParsers.cpp
 0x00289265,136,code,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp,approved,C,C=0x002891DB..0x002892ED,Code/GameEngine/Source/Common/INI/INIBfmeBlockParsers_Rva00210F64Parse.cpp
 0x002892ED,63,code,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp,approved,C,C=0x002891DB..0x0028932C,Code/GameEngine/Source/GameLogic/System/ExperienceLevelDtor.cpp
@@ -19615,7 +19615,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00289E69,45,code,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp,approved,C,C=0x00289D7A..0x00289E96,Code/Libraries/Source/WWVegas/WWLib/StlportConstructFamily.cpp
 0x00289E96,28,code,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp,approved,U,N=Code/GameEngine/Source/Common/ExperienceLevelSystem.cpp,Code/GameEngine/Source/Common/Rva00289ABDCtor.cpp
 0x00289EB2,37,code,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp,approved,C,C=0x00289E96..0x00289ED7,Code/Libraries/Source/WWVegas/WWLib/stlport_pod_list_bodies.cpp
-0x00289ED7,37,code,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp,approved,C,C=0x00289E96..0x00289EFC,Code/Libraries/Source/WWVegas/WWLib/stlport_list_pod264_insert.cpp
+0x00289ED7,37,code,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp,approved,C,C=0x00289E96..0x00289EFC,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp
 0x00289EFC,48,code,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp,approved,C,C=0x00289E96..0x00289F2C,Code/Libraries/Source/WWVegas/WWLib/stlport_pod_list_bodies.cpp
 0x00289F2C,26,code,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp,approved,C,C=0x00289E96..0x00289F46,Code/Libraries/Source/WWVegas/WWLib/stlport_pod_list_bodies.cpp
 0x00289F46,30,code,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp,approved,C,C=0x00289E96..0x00289F64,Code/Libraries/Source/WWVegas/WWLib/stlport_pod_list_bodies.cpp

@@ -580,6 +580,19 @@ ExperienceLevelSystem *TheExperienceLevelSystem = 0;
 #include <new>
 #pragma comment(linker, "/alternatename:?Rva00288A5CAssign@@YAPAVCameraMarker@@PAV1@00PAX@Z=?Rva00288A5CAssign@@YAXPAUCameraMarker@@00PAX@Z")
 #pragma comment(linker, "/alternatename:?Rva00030830FreeAllocation@@YAXPAX@Z=_free")
+#include <stl/_algobase.h>
+#pragma optimize("s", off)
+#pragma optimize("t", on)
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+#pragma optimize("", on)
+#pragma comment(linker, "/alternatename:??MRva00288874Record@@QBE_NABU0@@Z=??MExperienceLevel@@QBE_NABV0@@Z")
+#include "../../../../Libraries/Include/Lib/BfmeE16.h"
+#define _STLP_BFME_COPY_TRIVIAL_EXTERN  // call retail's one __copy_trivial (vendor/stlport/stl/_algobase.h)
 
 // ExperienceLevel copy assignment, rowed at 0x00289902 under its address name.
 class Rva00289902 { public: Rva00289902 &rva00289902(const Rva00289902 &); };
@@ -705,6 +718,78 @@ struct Rva00289BE0Level
 	unsigned char m_pad1C[0xFC - 0x1C];
 	int m_xFC;			// +0xFC
 };
+
+// _List_iterator comparisons otherwise instantiate the base-class
+// operator!= COMDAT (one byte shape per TU flags); exact-match free
+// overloads take those calls instead so this TU emits no external copy.
+namespace _STL {
+template <class _IterTp, class _LeftTraits, class _RightTraits>
+static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
+                              const _List_iterator<_IterTp, _RightTraits> &b)
+{ return a._M_node != b._M_node; }
+}
+
+struct Rva00288874Record { unsigned char bytes[1]; bool operator==(const Rva00288874Record&) const; bool operator<(const Rva00288874Record&) const; };
+
+// Instantiate the recovered member; retain only its required template dependencies.
+template void _STL::_S_merge<Rva00288874Record, _STL::allocator<Rva00288874Record>, _STL::less<Rva00288874Record> >(_STL::list<Rva00288874Record, _STL::allocator<Rva00288874Record> > &, _STL::list<Rva00288874Record, _STL::allocator<Rva00288874Record> > &, _STL::less<Rva00288874Record>);
+
+namespace _STL { template <> _List_node<BfmePod264> * list<BfmePod264,allocator<BfmePod264> >::_M_create_node(BfmePod264 const &); }
+
+namespace _STL { template <> void _List_base<BfmePod264,allocator<BfmePod264> >::clear(); }
+
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class Traits>
+static inline bool operator!=(const _List_iterator<T, Traits>& a,
+                              const _List_iterator<T, Traits>& b)
+{ return a._M_node != b._M_node; }
+}
+
+struct BfmePod264 { int a[66]; };
+
+// bfme link decl-only BfmePod264
+namespace _STL { template <> void _Construct<BfmePod264, BfmePod264>(BfmePod264 *, BfmePod264 const &); }
+
+template class _STL::list<BfmePod264, _STL::allocator<BfmePod264> >;
+
+// bfme link decl-only BfmeE16
+namespace _STL { template <> vector<BfmeE16, allocator<BfmeE16> >::~vector(); }
+
+class Rva00288BBA {
+public:
+_STL::vector<BfmeE16> m_vec;
+AsciiString m_str;
+Rva00288BBA(const AsciiString &s);
+};
+
+// __malloc_alloc<0> allocate/deallocate otherwise instantiate per-TU
+// COMDATs (one byte shape per TU malloc/free wiring); explicit
+// dllimport+forceinline specializations take those calls inline so this
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+void *__malloc_alloc<0>::allocate(size_t __n)
+{ void *__r = malloc(__n); if (!__r) __r = _S_oom_malloc(__n); return __r; }
+template <> __declspec(dllimport) __forceinline
+void __malloc_alloc<0>::deallocate(void *__p, size_t)
+{ free((char *)__p); }
+}
+
+class ModuleData;
+
+typedef _STL::vector<const ModuleData *, _STL::allocator<const ModuleData *> > ModuleDataVec;
+
+class Rva00289218 {
+    char m_pad[20];
+    ModuleDataVec m_vec;
+public:
+    void rva00289218(const ModuleData *p);
+};
+
+// bfme link decl-only begin
+namespace _STL { template <> ModuleData const * * allocator<ModuleData const *>::allocate(unsigned int,void const *) const; }
+
+// ---- from Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp
 
@@ -850,13 +935,38 @@ void *Rva00288BF9Record::destroy(unsigned flags)
     return this;
 }
 
+// ---- from Code/GameEngine/Source/GameLogic/System/ExperienceLevelStoreRva00289BE0.cpp
+
+int ExperienceLevelStore::rva00289BE0(const ExperienceTracker *tracker, int *out)
+{
+	ExperienceLevelList *list = FindExperienceLevelList(tracker);
+	if (list == 0)
+		return 0;
+	const Rva00289BE0Level *level = (const Rva00289BE0Level *)((Rva0028951F *)this)->rva002897A8(list, tracker->m_currentLevel);
+	if (level == 0)
+		return 0;
+	int current = (int)tracker->m_experience;
+	if (out)
+		*out = level->m_xFC;
+	return level->m_requiredExperience - current;
+}
+
 // tu-skeleton: 0x002887EA 50B ?clear@?$_List_base@UcrateCreationEntry@@V?$allocator@UcrateCreationEntry@@@_STL@@@_STL@@QAEXXZ -- matched in Code/GameEngine/Source/Common/System/CrateCreationEntryListClear.cpp (not merged yet)
 
 // tu-skeleton: 0x0028881C 45B ?rva0028881C@Rva0028881C@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
 
 // tu-skeleton: 0x00288849 43B ?erase@?$list@UcrateCreationEntry@@V?$allocator@UcrateCreationEntry@@@_STL@@@_STL@@QAE?AU?$_List_iterator@UcrateCreationEntry@@U?$_Nonconst_traits@UcrateCreationEntry@@@_STL@@@2@U32@@Z -- matched in Code/GameEngine/Source/Common/System/CrateCreationEntryListClear.cpp (not merged yet)
 
-// tu-skeleton: 0x00288874 96B ??$_S_merge@URva00288874Record@@V?$allocator@URva00288874Record@@@_STL@@U?$less@URva00288874Record@@@3@@_STL@@YAXAAV?$list@URva00288874Record@@V?$allocator@URva00288874Record@@@_STL@@@0@0U?$less@URva00288874Record@@@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00288874.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00288874.cpp
+
+// STLport 4.5.3 reference instantiation. Target boundary and byte comparison prove operation shape.
+// Element spelling/layout is donor inference; opaque records have address-derived identity.
+// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Define it for speed, then restore this unit's flags for its own bodies.
+
+// The retail call in this body reads 0x00288621, an address the ledger already
+// carries as ??MExperienceLevel@@QBE_NABV0@@Z. Bind the donor spelling to that rowed owner so one
+// address keeps one definition and the unit links.
 
 // tu-skeleton: 0x002888D4 47B ??$_M_find@W4NameKeyType@@@?$hashtable@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@W4NameKeyType@@U?$hash@W4NameKeyType@@@rts@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@U?$equal_to@W4NameKeyType@@@5@V?$allocator@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@@_STL@@ABEPAU?$_Hashtable_node@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@1@ABW4NameKeyType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Armor.cpp (not merged yet)
 
@@ -884,11 +994,28 @@ void *Rva00288BF9Record::destroy(unsigned flags)
 
 // tu-skeleton: 0x00288B89 8B ??1?$pair@$$CBHV?$list@UBfmePod264@@V?$allocator@UBfmePod264@@@_STL@@@_STL@@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int_list_pod264.cpp (not merged yet)
 
-// tu-skeleton: 0x00288B91 13B ??_F?$list@UBfmePod264@@V?$allocator@UBfmePod264@@@_STL@@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_pod264_insert.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_list_pod264_insert.cpp
+
+//
+// Dedicated unit without the bfmelist __forceinline _M_create_node shim so
+// list<BfmePod264>::insert calls the already-landed create_node at 0x00289EB2.
+// Retail 0x00289ED7 (37 bytes) is the insert worker; same pattern as
+// stlport_list_int_insert.cpp.
+
+inline bool operator==(const BfmePod264 &x, const BfmePod264 &y) { return x.a[0] == y.a[0]; }
+
+inline bool operator<(const BfmePod264 &x, const BfmePod264 &y) { return x.a[0] < y.a[0]; }
 
 // tu-skeleton: 0x00288B9E 28B ??_GRva00288B89@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyDeletingDtors11.cpp (not merged yet)
 
-// tu-skeleton: 0x00288BBA 58B ??0Rva00288BBA@@QAE@ABVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/Rva00288BBACtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva00288BBACtor.cpp
+
+// ??0Rva00288BBA@@QAE@ABVAsciiString@@@Z retail 0x00288BBA 58 bytes.
+// Converting ctor over vector<BfmeE16> plus AsciiString at +0x0C via rowed StringBase copy.
+// Evidence: rowed _Vector_base<BfmeE16> 0x00211E58 plus rowed StringBase copy 0x000365F0;
+// callers at 0x002892AB and 0x00289B35; unblocks 0x00289ABD.
+
+Rva00288BBA::Rva00288BBA(const AsciiString &asciiString) : m_str(asciiString) {}
 
 // tu-skeleton: 0x00288BF4 5B ?rva00288BF4@Rva00288BF4@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
 
@@ -910,7 +1037,24 @@ void *Rva00288BF9Record::destroy(unsigned flags)
 
 // tu-skeleton: 0x00289180 91B ?rva00289180@ExperienceLevelSystem@@UAEXXZ -- matched in Code/GameEngine/Source/Common/Rva00289180Finish.cpp (not merged yet)
 
-// tu-skeleton: 0x00289218 16B ?rva00289218@Rva00289218@@QAEXPBVModuleData@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00289218PushBack.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva00289218PushBack.cpp
+
+//
+// ?rva00289218@Rva00289218@@QAEXPBVModuleData@@@Z, retail 0x00289218, 16 bytes.
+//
+// Forwards a ModuleData pointer to the vector<const ModuleData*> at +0x14
+// through the rowed ModuleFactory push_back at 0x004DFCB0. Same 16-byte
+// lea-push-add-call shape as the rowed list/vector push_back twins. Identity:
+// unlock lane, thiscall (reads ecx), callers at 0x002892CF and 0x0052D0F8;
+// owner class unproven so honest Rva address name.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+
+// bfme link decl-only end
+void Rva00289218::rva00289218(const ModuleData *moduleData)
+{
+    m_vec.push_back(moduleData);
+}
 
 // tu-skeleton: 0x00289265 136B ?parseExperienceScalarTableDefinition@@YAXPAVINI@@@Z -- matched in Code/GameEngine/Source/Common/INI/INIBfmeBlockParsers_Rva00210F64Parse.cpp (not merged yet)
 
@@ -952,22 +1096,6 @@ void *Rva00288BF9Record::destroy(unsigned flags)
 
 // tu-skeleton: 0x00289BC4 28B ??_GRva00289706@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyDeletingDtors11.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/GameLogic/System/ExperienceLevelStoreRva00289BE0.cpp
-
-int ExperienceLevelStore::rva00289BE0(const ExperienceTracker *tracker, int *out)
-{
-	ExperienceLevelList *list = FindExperienceLevelList(tracker);
-	if (list == 0)
-		return 0;
-	const Rva00289BE0Level *level = (const Rva00289BE0Level *)((Rva0028951F *)this)->rva002897A8(list, tracker->m_currentLevel);
-	if (level == 0)
-		return 0;
-	int current = (int)tracker->m_experience;
-	if (out)
-		*out = level->m_xFC;
-	return level->m_requiredExperience - current;
-}
-
 // tu-skeleton: 0x00289C24 199B ?Rva00289C24Parse@@YAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/Common/INI/INILevelUpFxParse.cpp (not merged yet)
 
 // tu-skeleton: 0x00289CEB 143B ??0Rva002894A2@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/GameLogic/System/ExperienceLevelCtor.cpp (not merged yet)
@@ -979,8 +1107,6 @@ int ExperienceLevelStore::rva00289BE0(const ExperienceTracker *tracker, int *out
 // tu-skeleton: 0x00289E96 28B ??_GExperienceLevelSystem@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva00289ABDCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00289EB2 37B ?_M_create_node@?$list@UBfmePod264@@V?$allocator@UBfmePod264@@@_STL@@@_STL@@IAEPAU?$_List_node@UBfmePod264@@@2@ABUBfmePod264@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_list_bodies.cpp (not merged yet)
-
-// tu-skeleton: 0x00289ED7 37B ?insert@?$list@UBfmePod264@@V?$allocator@UBfmePod264@@@_STL@@@_STL@@QAE?AU?$_List_iterator@UBfmePod264@@U?$_Nonconst_traits@UBfmePod264@@@_STL@@@2@U32@ABUBfmePod264@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_pod264_insert.cpp (not merged yet)
 
 // tu-skeleton: 0x00289EFC 48B ??$_M_insert_dispatch@U?$_List_iterator@UBfmePod264@@U?$_Const_traits@UBfmePod264@@@_STL@@@_STL@@@?$list@UBfmePod264@@V?$allocator@UBfmePod264@@@_STL@@@_STL@@QAEXU?$_List_iterator@UBfmePod264@@U?$_Nonconst_traits@UBfmePod264@@@_STL@@@1@U?$_List_iterator@UBfmePod264@@U?$_Const_traits@UBfmePod264@@@_STL@@@1@1ABU__false_type@1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_list_bodies.cpp (not merged yet)
 

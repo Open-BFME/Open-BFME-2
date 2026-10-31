@@ -3269,6 +3269,7 @@ alternatename	Code/GameEngine/Source/GameLogic/SkirmishAI/AIWallBuilder/AIWallBu
 alternatename	Code/GameEngine/Source/GameLogic/System/CrateSystemLifetime.cpp	??0?$_Vector_base@PAVCrateTemplate@@V?$allocator@PAVCrateTemplate@@@_STL@@@_STL@@QAE@ABV?$allocator@PAVCrateTemplate@@@1@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/System/CrateSystemLifetime.cpp	?erase@?$vector@PAVCrateTemplate@@V?$allocator@PAVCrateTemplate@@@_STL@@@_STL@@QAEPAPAVCrateTemplate@@PAPAV3@0@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/System/CrateSystemLifetime.cpp	?erase@?$vector@PAVCrateTemplate@@V?$allocator@PAVCrateTemplate@@@_STL@@@_STL@@QAEPAPAVCrateTemplate@@PAPAV3@@Z	1
+alternatename	Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp	??MRva00288874Record@@QBE_NABU0@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp	?Rva00030830FreeAllocation@@YAXPAX@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp	?Rva00288A5CAssign@@YAPAVCameraMarker@@PAV1@00PAX@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/System/GameLogic.cpp	?crc@Rva000D3FA0Map@@MAEXPAVXfer@@@Z	1
@@ -4038,7 +4039,6 @@ alternatename	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva001DA05E.cpp	??$_
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva001DA05E.cpp	??1Rva001DA05ERecord@@QAE@XZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva001DA05E.cpp	??4Rva001DA05ERecord@@QAEAAU0@ABU0@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva001DDCC5.cpp	?_M_new_node@?$hashtable@U?$pair@$$CBHURva001DDCC5Record@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHURva001DDCC5Record@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHURva001DDCC5Record@@@_STL@@@2@@_STL@@AAEPAU?$_Hashtable_node@U?$pair@$$CBHURva001DDCC5Record@@@_STL@@@2@ABU?$pair@$$CBHURva001DDCC5Record@@@2@@Z	1
-alternatename	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00288874.cpp	??MRva00288874Record@@QBE_NABU0@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00289FBC.cpp	??4Rva00289FBCRecord@@QAEAAU0@ABU0@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva002A3FAF.cpp	??0Rva002A3FAFRecord@@QAE@XZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva002A3FAF.cpp	??1Rva002A3FAFRecord@@QAE@XZ	1
@@ -10680,6 +10680,9 @@ pragma_optimize	Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp	"",on
 pragma_optimize	Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp	"t",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/System/ArmyPlacer.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/System/ArmyPlacer.cpp	"y",off	1
+pragma_optimize	Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp	"",on	1
+pragma_optimize	Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp	"s",off	1
+pragma_optimize	Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp	"t",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/System/GameLogic.cpp	"",on	2
 pragma_optimize	Code/GameEngine/Source/GameLogic/System/GameLogic.cpp	"s",off	2
 pragma_optimize	Code/GameEngine/Source/GameLogic/System/GameLogic.cpp	"t",on	2
@@ -11419,9 +11422,6 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00285A26.cpp	"t
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00286693.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00286693.cpp	"s",off	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00286693.cpp	"t",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00288874.cpp	"",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00288874.cpp	"s",off	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00288874.cpp	"t",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00289FBC.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00289FBC.cpp	"s",off	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00289FBC.cpp	"t",on	1
