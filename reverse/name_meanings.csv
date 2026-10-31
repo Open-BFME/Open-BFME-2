@@ -661,3 +661,5 @@ Code/GameEngine/Source/Common/Rva00410AABFree.cpp|param|Rva00410AABHelper::rva00
 Code/GameEngine/Source/Common/BuddyInviteGameInfo_LocationFromString.cpp|local|BuddyInviteGameInfo::LocationFromString|s,96a7f78eaba69ce8afdda35c,drz-k4,drz-k4-5,w-855a0f400af4,2026-10-31,77184211eda3c7bcae1cfa30
 Code/GameEngine/Source/Common/canPlayersTransferMoneyYet.cpp|local|canPlayersTransferMoneyYet|b,5a94c3c1dc4549e2e2fd65b5,drz-k4,drz-k4-16,w-855a0f400af4,2026-10-31,8e8a27be06ecc3eeb159d75b
 Code/GameEngine/Source/GameLogic/Object/ObjectGetRelationship.cpp|local|Object::getRelationship|t,fc79ed3a4e094c8c37c23c5f,drz-k5,drz-k5-15,w-526a51702f64,2026-10-31,fbf2f7a33cd1a33ba4fabd92
+Code/GameEngine/Source/Common/BigObfFallbacks.cpp|param|Rva003EFEB2Unmask|p,60cb2248c89aa1ccab3065df,drz-k8,drz-k8-2,w-87ae7cdc64ef,2026-10-31,f75c3dde017579031938f725
+Code/GameEngine/Source/Common/BigObfFallbacks.cpp|param|Rva00226156Mask|p,ef8b9702d458eb6914f77d35,drz-k8,drz-k8-2,w-87ae7cdc64ef,2026-10-31,8886068ae3299c544f7a3788

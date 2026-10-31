@@ -19306,3 +19306,14 @@ Code/Libraries/Source/Apt/Rva006E3810FrontEnqueue.cpp|function|0x006E38D0|rva006
 Code/Libraries/Source/Apt/Rva006ED490Walk.cpp|member|Rva006ED490T|m_20,bacf38468fdb757b727b4b42,claude-sonnet-5-5,halilkkaya-nm-s2-10,w-758249a52a6f,2026-10-31
 Code/Libraries/Source/Apt/Rva006ED490Walk.cpp|member|Rva006ED490T|m_24,aa508edec6960398c53cd8d5,claude-sonnet-5-5,halilkkaya-nm-s2-10,w-758249a52a6f,2026-10-31
 Code/Libraries/Source/Apt/AptGapLeaves.cpp|class||Rva006D0350Iterator,cc8ccbcfd58cfcad570a02ca,claude-sonnet-5-5,halilkkaya-nm-s2-10,w-758249a52a6f,2026-10-31
+Code/GameEngine/Source/Common/GapBodiesGE41.cpp|function|0x00120670|rva00120670,0bcaf32b5be3ea1ad79d1ecf,drz-k8,drz-k8-1,w-87ae7cdc64ef,2026-10-31
+Code/GameEngine/Source/Common/GapBodiesGE41.cpp|function|0x00120690|rva00120690,e49fe476c4b1c5f2204e9748,drz-k8,drz-k8-1,w-87ae7cdc64ef,2026-10-31
+Code/GameEngine/Source/Common/GapBodiesGE41.cpp|function|0x001206B0|rva001206B0,7ca283e5c18ac642663a9923,drz-k8,drz-k8-1,w-87ae7cdc64ef,2026-10-31
+Code/GameEngine/Source/Common/BigObfFallbacks.cpp|member|FallbackCtx|m_14,e746ba567c19a5c4ddc8c459,drz-k8,drz-k8-2,w-87ae7cdc64ef,2026-10-31
+Code/GameEngine/Source/Common/BigObfFallbacks.cpp|function|0x003EFEB2|Rva003EFEB2Unmask,64183deeff3e2a0c24c300a1,drz-k8,drz-k8-2,w-87ae7cdc64ef,2026-10-31
+Code/GameEngine/Source/Common/BigObfFallbacks.cpp|function|0x00226156|Rva00226156Mask,979dc361616ec7f6f66c4782,drz-k8,drz-k8-2,w-87ae7cdc64ef,2026-10-31
+Code/GameEngine/Source/Common/BigObfFallbacks.cpp|param|Rva003EFEB2Unmask|p,60cb2248c89aa1ccab3065df,drz-k8,drz-k8-2,w-87ae7cdc64ef,2026-10-31
+Code/GameEngine/Source/Common/BigObfFallbacks.cpp|param|Rva00226156Mask|p,ef8b9702d458eb6914f77d35,drz-k8,drz-k8-2,w-87ae7cdc64ef,2026-10-31
+Code/GameEngine/Source/Common/Rva00150B8DFamily.cpp|function|0x00150C74|rva00150C74,56aa34a76f7b9bffb4859c47,drz-k8,drz-k8-15,w-87ae7cdc64ef,2026-10-31
+Code/GameEngine/Source/Common/GapBodiesGE27.cpp|function|0x00035600|rva00035600,5a13646543e05d4d1dbc831d,drz-k8,drz-k8-16,w-87ae7cdc64ef,2026-10-31
+Code/GameEngine/Source/Common/VslotSmallBodiesG.cpp|function|0x005CBA3D|rva005CBA3D,a1855e7ba31a0d277e3d069e,drz-k8,drz-k8-17,w-87ae7cdc64ef,2026-10-31
