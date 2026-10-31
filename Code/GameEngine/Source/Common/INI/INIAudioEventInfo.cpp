@@ -799,6 +799,39 @@ private:
     int m_4;
 };
 
+class Rva004362B0StrideAdd {
+public:
+    static void add(int *value, int index);
+};
+
+// f989 BF1 OnlineShellShutdown.cpp O2/x87/G6 emits an iterator-advance lead.
+// Native6CFEA0..6CFEA6 is independently complete after INT3 padding and
+// before more padding: it advances receiver's raw address slot by4 and
+// returns that receiver. Original container/element/owner identity remains
+// unknown; this prefix view transfers only the witnessed byte stride.
+class Rva006CFEA0Iterator
+{
+public:
+    Rva006CFEA0Iterator &advance();
+private:
+    unsigned char *position;
+};
+
+// Whole clean BF1 f989 RenderObjectDrawModuleSlot4_005F6ED0.cpp emits
+// Matrix3's indexed-row helper under O1/SSE2/G7. That donor interpretation
+// does not establish this target's original owner or element type.
+// Native562865..562871 follows RET and precedes a new prologue: first
+// stackword multiplied by12 then added to ECX, returned in EAX with RET4.
+// The address-only projection preserves native32bit modular arithmetic;
+// index signedness, original constness and complete array layout unknown.
+class Rva00562865Receiver
+{
+public:
+    void *address(unsigned int index);
+};
+
+// ---- from Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp
+
 // ---- from Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp
 
 // ---- from Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp
@@ -1320,27 +1353,16 @@ void Rva001D96FF::rva001D96FF(int mask)
 // `C2 04 00` for seventeen bytes total with /arch:SSE. Identity is not
 // recovered: every name is derived from its address.
 
-// tu-skeleton: 0x001D9715 10B ?rva001D9715@Rva001D9715@@QAEXI@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE49.cpp (not merged yet)
 
-// tu-skeleton: 0x001D971F 12B ?rva001D971F@Rva001D9715@@QAEXI@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE49.cpp (not merged yet)
 
-// tu-skeleton: 0x001D9990 27B ??4FXBoneInfo@@QAEAAU0@ABU0@@Z -- matched in Code/GameEngine/Source/Common/Thing/ModuleFactory.cpp (not merged yet)
 
-// tu-skeleton: 0x001D99BB 16B ?add@Rva004362B0StrideAdd@@SAXPAHH@Z -- matched in Code/GameEngine/Source/Common/Rva004362B0StrideAdd.cpp (not merged yet)
 
-// tu-skeleton: 0x001D99E7 25B ??0BfmeStringTailRecord156@@QAE@ABVRva0036CA00Str@@H@Z -- matched in Code/GameEngine/Source/Common/INI/AudioEventInfoParseSoundLists.cpp (not merged yet)
 
-// tu-skeleton: 0x001D9A4F 18B ??$_Construct@VBfmeStringTailRecord156@@V1@@_STL@@YAXPAVBfmeStringTailRecord156@@ABV1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_tailrecord156.cpp (not merged yet)
 
-// tu-skeleton: 0x001D9A61 38B ??$__uninitialized_copy@PAVBfmeStringTailRecord156@@PAV1@@_STL@@YAPAVBfmeStringTailRecord156@@PAV1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
 
-// tu-skeleton: 0x001D9A87 37B ??$__uninitialized_fill_n@PAVBfmeStringTailRecord156@@IV1@@_STL@@YAPAVBfmeStringTailRecord156@@PAV1@IABV1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
 
-// tu-skeleton: 0x001D9AD9 45B ??$_M_allocate_and_copy@PAUBfmeE8@@@?$vector@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@IAEPAUBfmeE8@@IPAU2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_e8_allocate_copy.cpp (not merged yet)
 
-// tu-skeleton: 0x001D9B06 9B ??$_Destroy@URva0010F149Handle@@@_STL@@YAXPAURva0010F149Handle@@@Z -- matched in Code/GameEngine/Source/Common/DestroyInstances.cpp (not merged yet)
 
-// tu-skeleton: 0x001D9B87 29B ??$__copy_ptrs@PAVBfmeStringTailRecord156@@PAV1@@_STL@@YAPAVBfmeStringTailRecord156@@PAV1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeDeferred.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva000A8CAEAssign.cpp
 
@@ -1356,6 +1378,33 @@ Rva000A8CAE *__cdecl Rva001D9BA4Copy(Rva000A8CAE *first, Rva000A8CAE *last, Rva0
     }
     return dest;
 }
+
+// tu-skeleton: 0x001D9715 10B ?rva001D9715@Rva001D9715@@QAEXI@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE49.cpp (not merged yet)
+
+// tu-skeleton: 0x001D971F 12B ?rva001D971F@Rva001D9715@@QAEXI@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE49.cpp (not merged yet)
+
+// tu-skeleton: 0x001D9990 27B ??4FXBoneInfo@@QAEAAU0@ABU0@@Z -- matched in Code/GameEngine/Source/Common/Thing/ModuleFactory.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva004362B0StrideAdd.cpp
+
+void Rva004362B0StrideAdd::add(int *value, int index)
+{
+    *value += index * 8;
+}
+
+// tu-skeleton: 0x001D99E7 25B ??0BfmeStringTailRecord156@@QAE@ABVRva0036CA00Str@@H@Z -- matched in Code/GameEngine/Source/Common/INI/AudioEventInfoParseSoundLists.cpp (not merged yet)
+
+// tu-skeleton: 0x001D9A4F 18B ??$_Construct@VBfmeStringTailRecord156@@V1@@_STL@@YAXPAVBfmeStringTailRecord156@@ABV1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_tailrecord156.cpp (not merged yet)
+
+// tu-skeleton: 0x001D9A61 38B ??$__uninitialized_copy@PAVBfmeStringTailRecord156@@PAV1@@_STL@@YAPAVBfmeStringTailRecord156@@PAV1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
+
+// tu-skeleton: 0x001D9A87 37B ??$__uninitialized_fill_n@PAVBfmeStringTailRecord156@@IV1@@_STL@@YAPAVBfmeStringTailRecord156@@PAV1@IABV1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
+
+// tu-skeleton: 0x001D9AD9 45B ??$_M_allocate_and_copy@PAUBfmeE8@@@?$vector@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@IAEPAUBfmeE8@@IPAU2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_e8_allocate_copy.cpp (not merged yet)
+
+// tu-skeleton: 0x001D9B06 9B ??$_Destroy@URva0010F149Handle@@@_STL@@YAXPAURva0010F149Handle@@@Z -- matched in Code/GameEngine/Source/Common/DestroyInstances.cpp (not merged yet)
+
+// tu-skeleton: 0x001D9B87 29B ??$__copy_ptrs@PAVBfmeStringTailRecord156@@PAV1@@_STL@@YAPAVBfmeStringTailRecord156@@PAV1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeDeferred.cpp (not merged yet)
 
 // tu-skeleton: 0x001D9BD3 27B ??$copy@PAUFXBoneInfo@@PAU1@@_STL@@YAPAUFXBoneInfo@@PAU1@00@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportCopyWrapperPairsFamily.cpp (not merged yet)
 

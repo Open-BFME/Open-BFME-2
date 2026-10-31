@@ -32849,7 +32849,7 @@ _GetThisFrameReconVPtr,,0x001B6360,17,Code/Libraries/Source/VP6/PbAccessors.cpp,
 ?bfmeGo1057C@@YAXHHH@Z,,0x0006628A,39,Code/GameEngine/Source/Common/BfmeConv1057_bfmeGo1057C.cpp,matched,BFME1 donor game/GameEngine/Source/Common/BfmeConv1057.cpp recompiled /Os; unique masked placement on unclaimed .text; vtable slot +0x114
 ?bfmeGoELHa@@YAXPAX@Z,,0x00075311,25,Code/GameEngine/Source/Common/BfmeConv816_bfmeGoELHa.cpp,matched,BFME1 donor game/GameEngine/Source/Common/BfmeConv816.cpp recompiled /Os; unique masked placement on unclaimed .text; vtable slot +0x164
 ?difference@Rva00436290StrideDifference@@SAHPBH0@Z,,0x001D99AB,16,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp,matched,BFME1 donor at /Os
-?add@Rva004362B0StrideAdd@@SAXPAHH@Z,,0x001D99BB,16,Code/GameEngine/Source/Common/Rva004362B0StrideAdd.cpp,matched,BFME1 donor at /Os
+?add@Rva004362B0StrideAdd@@SAXPAHH@Z,,0x001D99BB,16,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp,matched,BFME1 donor at /Os
 ?remainder@Rva00433760WrappedIndex@@QBEHH@Z,,0x0025FB85,16,Code/GameEngine/Source/Common/Rva00433760WrappedIndex.cpp,matched,BFME1 donor at /Os
 ?set@Rva0049A100@@QAEAAV1@PAH@Z,,0x0042C926,16,Code/GameEngine/Source/Common/Rva0049A100Set.cpp,matched,BFME1 donor at /Os
 ?rva003cc340@@YGHPAII@Z,,0x00568756,17,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,matched,BFME1 donor at /Os

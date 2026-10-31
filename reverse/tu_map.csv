@@ -12618,7 +12618,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x001D9975,27,code,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp,approved,U,N=Code/GameEngine/Source/Common/INI/BfmeStringTailRecord156.cpp,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp
 0x001D9990,27,code,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp,approved,C,C=0x001D9975..0x001D99AB,Code/GameEngine/Source/Common/Thing/ModuleFactory.cpp
 0x001D99AB,16,code,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp,approved,C,C=0x001D9975..0x001D99BB,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp
-0x001D99BB,16,code,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp,approved,C,C=0x001D9975..0x001D99E7,Code/GameEngine/Source/Common/Rva004362B0StrideAdd.cpp
+0x001D99BB,16,code,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp,approved,C,C=0x001D9975..0x001D99E7,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp
 0x001D99CB,28,code,,displaced,-,N=Code/GameEngine/Source/Common/BfmeStringTailRecord156.cpp,Code/GameEngine/Source/Common/FamilyDeletingDtors2.cpp
 0x001D99E7,25,code,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp,approved,U,N=Code/GameEngine/Source/Common/INI/BfmeStringTailRecord156.cpp,Code/GameEngine/Source/Common/INI/AudioEventInfoParseSoundLists.cpp
 0x001D9A00,79,code,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp,approved,C,C=0x001D99E7..0x001D9A4F,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp
