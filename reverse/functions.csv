@@ -17802,7 +17802,7 @@ _VP6_DecodeMacroBlock,,0x001C66B0,705,Code/Libraries/Source/VP6/DecodeMacroBlock
 ??0Parameter@@QAE@W4ParameterType@0@H@Z,,0x003B333A,55,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionParseAction.cpp,matched,BFME1 ScriptActionParseAction.cpp donor (inline ctor out-of-line copy); BFME2 /G7 /arch:SSE
 ?Add_Texture@MaterialCollectorClass@@QAEXABVBfmeHandleCX@@@Z,,0x0016FC70,96,Code/Libraries/Source/WWVegas/WW3D2/MaterialCollectorAddTexture.cpp,matched,BFME1 matinfo.cpp collector Add_Texture donor (owning handle); layout per matched ctor/dtor; /G7
 ?get@Rva00219095CmpBoolField@@QBE_NXZ,,0x00219095,12,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp,matched,Disp32 cmp-zero bool getter; cmp [ecx+0x114] eax sete; /O1
-?get@Rva0028B7B5CmpBoolField@@QBE_NXZ,,0x0028B7B5,12,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp,matched,Disp32 cmp-zero bool getter; cmp [ecx+0x354] eax setne; /O1
+?get@Rva0028B7B5CmpBoolField@@QBE_NXZ,,0x0028B7B5,12,Code/GameEngine/Source/GameLogic/Object/Object.cpp,matched,Disp32 cmp-zero bool getter; cmp [ecx+0x354] eax setne; /O1
 ?get@Rva0050D18CmpBoolField@@QBE_NXZ,,0x00050D18,9,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp,matched,Disp8 cmp-zero bool getter; cmp [ecx+0x14] eax setle; /O1
 ?get@Rva002A7EA0CmpBoolField@@QBE_NXZ,,0x002A7EA0,10,Code/GameEngine/Source/Common/RTS/PlayerList.cpp,matched,Disp8 cmp-imm bool getter; cmp [ecx+0x14] 0x13 setl; /O1
 ?get@Rva001DBB54CmpBoolField@@QBE_NXZ,,0x001DBB54,8,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp,matched,Disp8 ternary-cmp bool getter; cmp [ecx+0x04] 0 setl no-xor; /O1
@@ -17811,7 +17811,7 @@ _VP6_DecodeMacroBlock,,0x001C66B0,705,Code/Libraries/Source/VP6/DecodeMacroBlock
 ?isQueueEmpty@Connection@@QAE_NXZ,,0x0058B9A9,11,Code/GameEngine/Source/GameNetwork/Connection.cpp,matched,Zero Hour Connection::isQueueEmpty: m_netCommandList +18 getFirstMessage (head +04) == NULL. Callers ConnectionManager::areAllQueuesEmpty 004CF3C6 and update 004D36B2 only; retail places it directly before setQuitting 0058B9B4 as Zero Hour Connection.cpp orders them; BFME 1 row of the same name 00661C90
 ?get@Rva0055C428CmpBoolField@@QBE_NXZ,,0x0055C428,12,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp,matched,Disp32 byte-cmp bool getter; cmp byte [ecx+0x80] al sete; /O1
 ?get@Rva000665A4CmpBoolField@@QBE_NXZ,,0x000665A4,12,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp,matched,Disp32 byte-cmp bool getter; cmp byte [ecx+0x3880] al sete; /O1
-?get@Rva0028ADECmpBoolField@@QBE_NXZ,,0x0028ADEC,11,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp,matched,Disp32 byte-ternary bool getter; cmp byte [ecx+0x365] 0 setne no-xor; /O1
+?get@Rva0028ADECmpBoolField@@QBE_NXZ,,0x0028ADEC,11,Code/GameEngine/Source/GameLogic/Object/Object.cpp,matched,Disp32 byte-ternary bool getter; cmp byte [ecx+0x365] 0 setne no-xor; /O1
 ?get@Rva001E3441CmpBoolField@@QBE_NXZ,,0x001E3441,14,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp,matched,Ptr-chase ternary bool getter; cmp [eax+0xD8] 0 setne no-xor; /O1
 ?m009F0BD0@Q1Receiver0134FAAC@@QAEXH@Z,,0x00623490,238,Code/Libraries/Source/assetmanager/assetmanager_impl.cpp,matched,BFME1 donor Q1Receiver0134FAAC_m009F0BD0 with TU plus8 layout repair; member set group at plus0x198 sinks address past empty check; insert_unique pin read from REL32
 ?get@Rva004CAFCCmpBoolField@@QBE_NXZ,,0x0004CAFC,10,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp,matched,Disp8 cmp-imm bool getter; cmp [ecx+0x04] 1 setne; /O1

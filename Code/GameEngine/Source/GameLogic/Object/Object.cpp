@@ -216,6 +216,134 @@ typedef float Real;
 	}
 typedef unsigned short WideChar;
 #include <windows.h>
+#define BFME_DISP8_CMP_IMM_BOOL_GETTER(NAME, DISP, IMM, OP) \
+	class NAME \
+	{ \
+	public: \
+		bool get() const; \
+		char m_lead[DISP]; \
+		int m_value; \
+	}; \
+	bool NAME::get() const \
+	{ \
+		return m_value OP IMM; \
+	}
+#define BFME_DISP8_CMP_ZERO_BOOL_GETTER(NAME, DISP, OP) \
+	class NAME \
+	{ \
+	public: \
+		bool get() const; \
+		char m_lead[DISP]; \
+		int m_value; \
+	}; \
+	bool NAME::get() const \
+	{ \
+		return m_value OP 0; \
+	}
+#define BFME_DISP8_TERNARY_BOOL_GETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		bool get() const; \
+		char m_lead[DISP]; \
+		int m_value; \
+	}; \
+	bool NAME::get() const \
+	{ \
+		return m_value ? true : false; \
+	}
+#define BFME_DISP8_TERNARY_CMP_BOOL_GETTER(NAME, DISP, IMM, OP) \
+	class NAME \
+	{ \
+	public: \
+		bool get() const; \
+		char m_lead[DISP]; \
+		int m_value; \
+	}; \
+	bool NAME::get() const \
+	{ \
+		return m_value OP IMM ? true : false; \
+	}
+#define BFME_DISP8_PTR_TERNARY_CMP_BOOL_GETTER(NAME, DISP, INNER_DISP, IMM, OP) \
+	struct NAME##Inner \
+	{ \
+		char m_pad[INNER_DISP]; \
+		int m_inner; \
+	}; \
+	class NAME \
+	{ \
+	public: \
+		bool get() const; \
+		char m_lead[DISP]; \
+		NAME##Inner *m_ptr; \
+	}; \
+	bool NAME::get() const \
+	{ \
+		return m_ptr->m_inner OP IMM ? true : false; \
+	}
+#define BFME_DISP8_PTR_TERNARY_BOOL_GETTER(NAME, DISP, INNER_DISP) \
+	struct NAME##Inner \
+	{ \
+		char m_pad[INNER_DISP]; \
+		int m_inner; \
+	}; \
+	class NAME \
+	{ \
+	public: \
+		bool get() const; \
+		char m_lead[DISP]; \
+		NAME##Inner *m_ptr; \
+	}; \
+	bool NAME::get() const \
+	{ \
+		return m_ptr->m_inner ? true : false; \
+	}
+#define BFME_DISP8_BYTE_CMP_BOOL_GETTER(NAME, DISP, OP) \
+	class NAME \
+	{ \
+	public: \
+		bool get() const; \
+		char m_lead[DISP]; \
+		unsigned char m_byte; \
+	}; \
+	bool NAME::get() const \
+	{ \
+		return m_byte OP 0; \
+	}
+#define BFME_DISP8_BYTE_TERNARY_BOOL_GETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		bool get() const; \
+		char m_lead[DISP]; \
+		unsigned char m_byte; \
+	}; \
+	bool NAME::get() const \
+	{ \
+		return m_byte ? true : false; \
+	}
+#define BFME_DISP8_BACK_PTR_TERNARY_BOOL_GETTER(NAME, BACK, INNER_DISP) \
+	struct NAME##Inner \
+	{ \
+		char m_pad[INNER_DISP]; \
+		unsigned char m_b; \
+	}; \
+	struct NAME##Outer; \
+	class NAME##Sub \
+	{ \
+	public: \
+		bool get() const; \
+	}; \
+	struct NAME##Outer \
+	{ \
+		NAME##Inner *m_ptr; \
+		char m_fill[BACK - 4]; \
+		NAME##Sub m_sub; \
+	}; \
+	bool NAME##Sub::get() const \
+	{ \
+		return ((NAME##Outer *)((char *)this - BACK))->m_ptr->m_b ? true : false; \
+	}
 
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
 namespace _STL {
@@ -1841,6 +1969,146 @@ private:
 	AsciiString m_value; // +0x1DC
 };
 
+BFME_DISP8_CMP_ZERO_BOOL_GETTER(Rva0028B7B5CmpBoolField, 0x354, !=)
+
+BFME_DISP8_BYTE_TERNARY_BOOL_GETTER(Rva0028ADECmpBoolField, 0x365)
+
+// Native GameWindow table C0BBCC slot9 tests tooltip callback+1EC.
+// Keep the existing slot placeholder: no original method name is proven.
+enum WindowMsgHandledType { MSG_IGNORED, MSG_HANDLED };
+
+class WinInstanceData;
+
+class GameWindow
+{
+protected:
+    virtual ~GameWindow();
+public:
+    virtual WindowMsgHandledType input(unsigned int, unsigned int, unsigned int);
+    virtual WindowMsgHandledType bfmeGoEHCb(unsigned int, unsigned int, unsigned int);
+    virtual int draw(void *);
+    virtual int tooltip(WinInstanceData *, unsigned int);
+    virtual int rva0009FD78();
+    virtual bool vslot6() const;
+    virtual void *fetchCreateInstance() = 0;
+    virtual bool vslot8() const;
+    virtual bool vslot9() const;
+    virtual void vslot10() = 0;
+private:
+    unsigned char m_unmodelled04[0x1EC - 4];
+    void *m_tooltip;
+};
+
+// Zero-displacement members: the compared dword is the first field, so no
+// lead padding is emitted (a zero-length pad array is not legal C++).
+class Rva004CB73CmpBoolField
+{
+public:
+	bool get() const;
+	int m_value;
+};
+
+class Rva0050D3ECmpBoolField
+{
+public:
+	bool get() const;
+	int m_value;
+};
+
+class Rva002620FECmpBoolField
+{
+public:
+	bool get() const;
+	int m_value;
+};
+
+// 0x004A8125 is ToppleUpdate::isAbleToBeToppled (pinned under that name from
+// Object::topple 0x0028CF37; ZH: m_toppleState == TOPPLE_UPRIGHT, state at +0x38).
+class ToppleUpdate
+{
+public:
+	bool isAbleToBeToppled() const;
+	char m_lead[0x38];
+	int m_toppleState;
+};
+
+struct Rva0036CC89Inner
+{
+	char m_pad[0x1C];
+	unsigned int m_flags;
+};
+
+class Rva0036CC89CmpBoolField
+{
+public:
+	bool get() const;
+	char m_lead[4];
+	Rva0036CC89Inner *m_ptr;
+};
+
+class Rva00368594CmpBoolField
+{
+public:
+	bool get() const;
+	char m_lead[0x558];
+	unsigned char m_byte;
+};
+
+// ?rva00050D86@Rva00050D86@@QAE_NE@Z @0x00050D86 55B mask-covered set-field check.
+// Four disp8 bytes at +0x49..0x4C; every nonzero field requires its mask bit
+// (1/2/4/8); returns true when a set field lacks its bit, false when covered.
+// Unlocks 0x00053448. Caller 0x00053459. Flags /O1 like the getters above.
+class Rva00050D86
+{
+public:
+	bool rva00050D86(unsigned char mask);
+	char m_lead[0x49];
+	unsigned char m_49;
+	unsigned char m_4A;
+	unsigned char m_4B;
+	unsigned char m_4C;
+};
+
+class Rva00050D6C
+{
+public:
+	int rva00050D6C();
+	char m_lead[0x49];
+	unsigned char m_49;
+	unsigned char m_4A;
+	unsigned char m_4B;
+	unsigned char m_4C;
+};
+
+// Native 0x0026FFF7..0x0027000E RET: int at +B8 equals either 1 or 2.
+// Full EAX returns 0/1; field signedness and enum meaning remain unknown.
+class Rva0026FFF7 {
+    char m_pad[0xB8];
+    int m_value;
+public:
+    int get() const;
+};
+
+// BF1 9cbfb551fe Common/Rva00694830Accessors.cpp is the clean semantic guide.
+// Complete native 00050D53..00050D60 RET leaf proves: receiver0 pointer returns null or pointed address plus8.
+// Original owner and complete bounds unresolved; independent address-owned view.
+class Rva00050D53Fields {
+public: char *get();
+private: char *value;
+};
+
+// 0x0023C4F8 (14B): both flag bytes at +0x15 and +0x16 set (the
+// xor/cmp-je/cmp-je/inc shape of HordeUpdate::isTrueHordeMember 0x0049001F).
+// Owner unresolved; address-derived name.
+class Rva0023C4F8BothFlags
+{
+public:
+	bool get() const;
+	char m_lead[0x15];
+	bool m_first;
+	bool m_second;
+};
+
 // tu-skeleton: 0x0028A670 20B ?setWeaponBonusCondition@Object@@QAEXW4WeaponBonusConditionType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/WeaponBonusUpgradeUpgradeImplementation.cpp (not merged yet)
 
 // tu-skeleton: 0x0028A684 22B ?clearWeaponBonusCondition@Object@@QAEXW4WeaponBonusConditionType@@@Z -- matched in Code/GameEngine/Source/Common/RTS/PlayerBattlePlanBonuses.cpp (not merged yet)
@@ -1909,7 +2177,26 @@ private:
 
 // tu-skeleton: 0x0028ADE0 12B ?hasAnyWeapon@Object@@QBE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x0028ADEC 11B ?get@Rva0028ADECmpBoolField@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp
+
+// Disp8 compare bool getters: frameless __thiscall members in three shapes:
+//
+//   CMP_IMM: xor eax,eax / cmp [ecx+<DISP>],<IMM8> / setcc al / ret
+//   CMP_ZERO: xor eax,eax / cmp [ecx+<DISP>],eax / setcc al / ret
+//   TERNARY: cmp [ecx+<DISP>],0 / setcc al / ret (no xor)
+//
+// One dword is read at a fixed displacement from `this` and tested. The CMP
+// forms zero eax first and return the setcc result; comparing against zero
+// reuses the zeroed eax instead of an immediate. The TERNARY form spells the
+// test as `m_value ? true : false`, which the compiler emits as a bare
+// compare-plus-setcc with no xor (probe-proven). Identity is not recovered:
+// every name is derived from its address.
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
+
+// Backward-chase ternary: the method runs on a subobject BACK bytes into its
+// container, so the pointer member is read at a negative displacement from
+// `this` and the inner byte is tested through it (probe-proven; a direct
+// backward cast would fold the two offsets into one read).
 
 // tu-skeleton: 0x0028ADF7 28B ?rva0028ADF7@Object@@QBEHH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
 
@@ -1930,6 +2217,8 @@ private:
 // tu-skeleton: 0x0028AF2B 31B ?getAbleToUseWeaponAgainstTarget@Object@@QBE?AW4CanAttackResult@@W4AbleToAttackType@@PBV1@PBUCoord3D@@W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectGetAbleToUseWeaponAgainstTarget.cpp (not merged yet)
 
 // tu-skeleton: 0x0028AF4A 27B ?chooseBestWeaponForTarget@Object@@QAE_NPBV1@W4WeaponChoiceCriteria@@W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectGetAbleToUseWeaponAgainstTarget.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Object.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Object.cpp
 
@@ -3764,6 +4053,297 @@ int Rva00299CA8DwordSlot::get() const
 // offset fits, so every offset is at least 0x80).
 // No // cl: line (defaults match the frameless 13-byte shape).
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ---- from Code/GameEngine/Source/Common/System/AsciiStringRvoGetters.cpp
+
+// ?get@Rva00291775AsciiField@@QBE?AVAsciiString@@XZ
+AsciiString Rva00291775AsciiField::get() const
+{
+	return m_value;
+}
+
+// ?setName@Rva0029173EAsciiField@@QAEXVAsciiString@@@Z, retail 0x0029173E, 55 bytes.
+// Setter for +0x308 member: abuts prev 0x002916DA+100 and next getter
+// 0x00291775 (0x29173E+55=0x291775). Same 55B shape as rva004FDCFF with
+// member at +0x308 (lea eax,[ebp+8]; add ecx,0x308; push eax) via rowed
+// operator= then rowed releaseBuffer with EH unwind. New address-derived
+// class since no same-file getter shares +0x308 (Rva0046AA11 shares the
+// offset in another region).
+void Rva0029173EAsciiField::setName(AsciiString value)
+{
+	AsciiString &slot = m_value;
+	slot = value;
+}
+
 // tu-skeleton: 0x0028AF76 16B ?rva0028AF76@Object@@QBEHXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
 
 // tu-skeleton: 0x0028AF86 17B ?getLastVictimID@Object@@QBEHXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
@@ -3845,8 +4425,6 @@ int Rva00299CA8DwordSlot::get() const
 // tu-skeleton: 0x0028B79C 18B ?clearArmorSetFlag@Object@@QAEXW4ArmorSetType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectFindModule.cpp (not merged yet)
 
 // tu-skeleton: 0x0028B7AE 7B ?get@Rva0028B7AELeaGetter@@QBEPAXXZ -- matched in Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0028B7B5 12B ?get@Rva0028B7B5CmpBoolField@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp (not merged yet)
 
 // tu-skeleton: 0x0028B7C1 7B ?get@Rva0028B7C1DwordField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp (not merged yet)
 
@@ -4303,27 +4881,6 @@ int Rva00299CA8DwordSlot::get() const
 // tu-skeleton: 0x002914AF 316B ?xfer@?$BitFlags@$0GI@@@QAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponSetXfer.cpp (not merged yet)
 
 // tu-skeleton: 0x00291608 18B ??$_Construct@VRva00263895Member@@V1@@_STL@@YAXPAVRva00263895Member@@ABV1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_throw_spec.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/System/AsciiStringRvoGetters.cpp
-
-// ?get@Rva00291775AsciiField@@QBE?AVAsciiString@@XZ
-AsciiString Rva00291775AsciiField::get() const
-{
-	return m_value;
-}
-
-// ?setName@Rva0029173EAsciiField@@QAEXVAsciiString@@@Z, retail 0x0029173E, 55 bytes.
-// Setter for +0x308 member: abuts prev 0x002916DA+100 and next getter
-// 0x00291775 (0x29173E+55=0x291775). Same 55B shape as rva004FDCFF with
-// member at +0x308 (lea eax,[ebp+8]; add ecx,0x308; push eax) via rowed
-// operator= then rowed releaseBuffer with EH unwind. New address-derived
-// class since no same-file getter shares +0x308 (Rva0046AA11 shares the
-// offset in another region).
-void Rva0029173EAsciiField::setName(AsciiString value)
-{
-	AsciiString &slot = m_value;
-	slot = value;
-}
 
 // tu-skeleton: 0x002917E8 79B ?rva002917E8@Rva002917E8@@QAE_NXZ -- matched in Code/GameEngine/Source/Common/Rva002917E8Check.cpp (not merged yet)
 
