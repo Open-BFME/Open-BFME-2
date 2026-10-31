@@ -19634,3 +19634,9 @@ Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva004590C5.cpp|function
 Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva004590C5.cpp|function|0x004590E6|rva004590E6,40c0b2cc2b8089dd12078384,drz-k10,n28g-k10,w-88a32c4f7da7,2026-10-31
 Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva00368344.cpp|function|0x00368344|rva00368344,b95adeebe39e43cb5f24b2b3,drz-k10,n28g-k10,w-88a32c4f7da7,2026-10-31
 Code/GameEngine/Source/GameLogic/Object/Rva002A7588Query.cpp|member|Rva002A7588Mid|m_flags108,1b2e09c7bcb25d10b897db6c,drz-k10,n28g-k10,w-88a32c4f7da7,2026-10-31
+Code/GameEngine/Source/GameLogic/AI/AIRampageStateOnEnter.cpp|member|AIInner48|m_48,0c2c5c1d7d8e563161c65410,drz-k11,n28h-k11,w-09889333d128,2026-10-31
+Code/GameEngine/Source/GameLogic/AI/AIRampageStateOnEnter.cpp|local|AIRampageState::onEnter|v,d2793eeed80a3d5eca527070,drz-k11,n28h-k11,w-09889333d128,2026-10-31
+Code/GameEngine/Source/GameLogic/AI/AIRampageStateOnEnter.cpp|local|AIRampageState::onEnter|c,5059855e37304c7003f09e64,drz-k11,n28h-k11,w-09889333d128,2026-10-31
+Code/GameEngine/Source/Common/RvaAdjustCallEchoFamily.cpp|function|0x00538661|rva00538661,4306e8258cc113d0bf1c8fce,drz-k11,n28h-k11,w-09889333d128,2026-10-31
+Code/GameEngine/Source/Common/RvaAdjustCallEchoFamily.cpp|function|0x005381DC|rva005381DC,0150864d9fd2524068f3863a,drz-k11,n28h-k11,w-09889333d128,2026-10-31
+Code/GameEngine/Source/Common/RvaAdjustCallEchoFamily.cpp|function|0x0053856F|rva0053856F,2ca325a44c51a3d45307553e,drz-k11,n28h-k11,w-09889333d128,2026-10-31
