@@ -260,6 +260,28 @@ public:
 };
 extern PartitionManager *ThePartitionManager;
 #include "../../../Common/GameLogicObjectLookupView.h"
+#define BFME_SNAPSHOT_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	protected: \
+		virtual const char *GetSnapshotName() const; \
+	}; \
+	const char *NAME::GetSnapshotName() const \
+	{ \
+		return TEXT; \
+	}
+#define BFME_LITERAL_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	public: \
+		const char *name() const; \
+	}; \
+	const char *NAME::name() const \
+	{ \
+		return TEXT; \
+	}
+#include "../../AI/WorkOrder.h"
+#include "../../AI/TeamInQueue.h"
 
 //
 // ?xfer@LargeGroupBonusUpdate@@MAEXPAVXfer@@@Z, retail 0x00490031, 111 bytes.
@@ -354,6 +376,10 @@ private:
 
 extern GameLogic *TheGameLogic;
 
+BFME_LITERAL_NAME_GETTER(Rva00490019Named, "LargeGroupBonusUpdate")
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupBonusUpdate.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupBonusUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupBonusUpdate.cpp
@@ -415,16 +441,6 @@ void LargeGroupBonusUpdate::xfer(Xfer *xfer)
 		*xfer == m_24;
 	}
 }
-
-// tu-skeleton: 0x00490019 6B ?name@Rva00490019Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0049002D 4B ?get@Rva0049002DByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x004900A0 17B ?buildFieldParse@LargeGroupBonusUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
-
-// tu-skeleton: 0x004900B1 143B ??0LargeGroupBonusUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupBonusUpdateCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00490140 28B ??_GRva0048FFB4@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupBonusUpdateUpdate.cpp
 
@@ -525,6 +541,31 @@ void LargeGroupBonusUpdate::rva004901B5()
 {
  notify(0);
 }
+
+// ---- from Code/GameEngine/Source/Common/ModuleNameGetters.cpp
+
+// Module literal name getters: six-byte const members with one shape:
+//
+//     mov eax,<offset string literal> / ret
+//
+// Each body returns a pointer to a NUL-terminated Behavior/Update/Contain
+// class-name string in .rdata. Each body VA carries exactly one .rdata
+// reference from its module vtable (descriptor tail closed by the shared
+// 0x004B3FD0 pair -- the same family marker as the Subsystem getters).
+// Split from Code/GameEngine/Source/Common/SubsystemNameGetters.cpp into a
+// contributor-local unit to keep concurrent landings conflict-free; the
+// BFME_LITERAL_NAME_GETTER macro is verbatim, only the class names follow
+// this tree's address-derived convention (identity unrecoverable from 6
+// bytes, string carried in source where verify_string_refs re-reads it).
+// No // cl: line (defaults match the frameless 6-byte shape).
+
+// tu-skeleton: 0x0049002D 4B ?get@Rva0049002DByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x004900A0 17B ?buildFieldParse@LargeGroupBonusUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
+
+// tu-skeleton: 0x004900B1 143B ??0LargeGroupBonusUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupBonusUpdateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00490140 28B ??_GRva0048FFB4@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp (not merged yet)
 
 // tu-skeleton: 0x004901BD 104B ??0LargeGroupBonusUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupBonusUpdateModuleDataCtor.cpp (not merged yet)
 
