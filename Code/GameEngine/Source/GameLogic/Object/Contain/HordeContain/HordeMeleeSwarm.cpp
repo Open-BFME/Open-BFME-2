@@ -69,7 +69,18 @@ class SwarmListProvider : public SwarmSlots<70> { public: virtual void fill(Swar
 struct SwarmHeld { unsigned char pad[0x120]; bool active; };
 class Rva0046ACF6 { public: int rva0046ACF6(int); };
 class Rva005D6FE5 { public: unsigned char rva005D6FE5(); };
-class Pathfinder { public: int GetOverlapGoalUnits(Object *,const Coord3D *,int *); };
+enum PathfindLayerEnum
+{
+	LAYER_INVALID = 0,
+	LAYER_WALL = 0x10
+};
+class Pathfinder
+{
+public:
+	int GetOverlapGoalUnits(Object *,const Coord3D *,int *);
+	bool IsHordeMeleeLinePassable(void *obj, void *locomotorSet, PathfindLayerEnum layer, const Coord3D *from, const Coord3D *to);
+	bool rva002EDFF9(Object *obj, Coord3D *pos);
+};
 struct SwarmAIManager { unsigned char pad[0x10]; Pathfinder *pathfinder; };
 class AI; extern AI *TheAI;
 extern GameLogic *TheGameLogic;

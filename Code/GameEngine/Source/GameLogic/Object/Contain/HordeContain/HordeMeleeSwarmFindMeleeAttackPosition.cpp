@@ -74,9 +74,9 @@ private:
 class Pathfinder
 {
 public:
-	Int GetOverlapGoalUnits(Object *obj, const Coord3D *pos, Int *ids);
-	Bool IsHordeMeleeLinePassable(void *obj, void *locomotorSet, PathfindLayerEnum layer, const Coord3D *from, const Coord3D *to);
-	Bool rva002EDFF9(Object *obj, Coord3D *pos);
+	int GetOverlapGoalUnits(Object *,const Coord3D *,int *);
+	bool IsHordeMeleeLinePassable(void *obj, void *locomotorSet, PathfindLayerEnum layer, const Coord3D *from, const Coord3D *to);
+	bool rva002EDFF9(Object *obj, Coord3D *pos);
 };
 
 class AI

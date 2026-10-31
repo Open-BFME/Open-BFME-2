@@ -22,8 +22,9 @@ struct Rva00583CE0Elem
 class Rva005D6FCC
 {
 public:
+	Rva005D6FCC(void *held);
 	virtual ~Rva005D6FCC();
-	void *m_held;
+	void *m_held; // +0x04
 };
 
 class HordeMeleeSwarm : public Rva005D6FCC
