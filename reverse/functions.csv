@@ -17258,7 +17258,7 @@ _VP60D_GetVersionNumber,,0x001B5830,6,Code/Libraries/Source/VP6/PbAccessors.cpp,
 ?get@Rva002622C5PtrChase32Field@@QBEHXZ,,0x002622C5,10,Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp,matched,disp8 ptr-chase getter with disp32 inner; phase-proven no-branch-to-addr
 ?get@Rva00262363PtrChase32Field@@QBEHXZ,,0x00262363,10,Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp,matched,disp8 ptr-chase getter with disp32 inner; phase-proven no-branch-to-addr
 ?get@Rva0028AA6DPtrChase32Field@@QBEHXZ,,0x0028AA6D,10,Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp,matched,disp8 ptr-chase getter with disp32 inner; phase-proven no-branch-to-addr
-?get@Rva002E8B70PtrChase32Field@@QBEHXZ,,0x002E8B70,10,Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp,matched,disp8 ptr-chase getter with disp32 inner; phase-proven no-branch-to-addr
+?get@Rva002E8B70PtrChase32Field@@QBEHXZ,,0x002E8B70,10,Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp,matched,disp8 ptr-chase getter with disp32 inner; phase-proven no-branch-to-addr
 ?get@Rva0044E64BPtrChase32Field@@QBEHXZ,,0x0044E64B,10,Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp,matched,disp8 ptr-chase getter with disp32 inner; phase-proven no-branch-to-addr
 ?get@Rva004DE9D1PtrChase32Field@@QBEHXZ,,0x004DE9D1,10,Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp,matched,disp8 ptr-chase getter with disp32 inner; phase-proven no-branch-to-addr
 ?get@Rva004DE9DBPtrChase32Field@@QBEHXZ,,0x004DE9DB,10,Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp,matched,disp8 ptr-chase getter with disp32 inner; phase-proven no-branch-to-addr

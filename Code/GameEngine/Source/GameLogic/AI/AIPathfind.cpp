@@ -207,6 +207,39 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 	{ \
 		m_value = value; \
 	}
+#define BFME_DISP8_PTRCHASE_DWORD_GETTER(NAME, DISP1, DISP2) \
+	class NAME \
+	{ \
+	public: \
+		int get() const; \
+		char m_lead[DISP1]; \
+		void *m_ptr; \
+	}; \
+	int NAME::get() const \
+	{ \
+		return *(int *)((char *)m_ptr + DISP2); \
+	}
+#define BFME_DISP8_PTRCHASE_BEFORE_DWORD_GETTER(NAME, BACK, INNER) \
+	class Inner##NAME \
+	{ \
+	public: \
+		char m_lead[INNER]; \
+		int m_value; \
+	}; \
+	class Sub##NAME \
+	{ \
+	public: \
+		Inner##NAME *m_holder; \
+	}; \
+	class NAME \
+	{ \
+	public: \
+		int get() const; \
+	}; \
+	int NAME::get() const \
+	{ \
+		return ((const Sub##NAME *)((const char *)this - (BACK)))->m_holder->m_value; \
+	}
 
 // ?IsObstaclePresent@PathfindCell@@QBE_NW4ObjectID@@@Z, retail 0x002E6C23 (42 bytes, ret 4). WorldBuilder
 // PathfindCell::IsObstaclePresent (callgraph lead): whether this obstacle cell's info (+0x00) names the
@@ -1298,6 +1331,94 @@ private:
     void *pointee;
 };
 
+BFME_DISP8_PTRCHASE_DWORD_GETTER(Rva002E8B70PtrChase32Field, 0x04, 0x56C)
+
+// Address-named indexed pointer-chase getter at retail 0x005F6B12.
+class Rva005F6B12
+{
+public:
+	int rva005F6B12(int index) const;
+private:
+	char m_pad00[4];
+	int *m_values;
+};
+
+// Byte bit-7 getters: ptr-chase byte read plus shr to LSB (bool from high bit).
+// Retail 0x005FC73B is mov eax,[ecx+0x18] / mov al,[eax+0x34] / shr al,7 / ret.
+struct Rva005FC73BPtrChaseInner
+{
+	char m_pad[0x34];
+	unsigned char m_byte;
+};
+
+class Rva005FC73BPtrChaseField
+{
+public:
+	bool get() const;
+	char m_lead[0x18];
+	Rva005FC73BPtrChaseInner *m_ptr;
+};
+
+// Virtual-fallback ptr-chase getter: if bit 3 of the chased byte is set,
+// tail-jump to virtual slot 1; else return the chased pointer.
+// Retail 0x005FC745 is mov eax,[ecx+0x18] / test byte [eax+0x34],8 /
+// je ret / mov eax,[ecx] / jmp [eax+4] / ret.
+struct Rva005FC745PtrChaseInner
+{
+	char m_pad[0x34];
+	unsigned char m_flag;
+};
+
+class Rva005FC745PtrChaseField
+{
+	virtual ~Rva005FC745PtrChaseField() {}
+	virtual void *fetch() const = 0;
+	char m_lead[0x18 - 4];
+public:
+	void *get() const;
+	Rva005FC745PtrChaseInner *m_ptr;
+};
+
+// Clean BFME1 9cbfb551 donor structural leads; native instructions independently
+// establish complete RET boundaries and each raw field operation and ABI.
+// Address-owned carriers retain unknown original receiver identity and bounds.
+
+// ?clear@Rva002D2CDCFields@@QAEPAU1@XZ
+struct Rva002D2CDCFields { unsigned char byte0; Rva002D2CDCFields *clear(); };
+
+// Current BF1 9cbfb551fe20dae985f91f2319d8997287b6a705 ambiguous-min5 leads.
+// Rva00537850IndirectGet.cpp suggests the first operation; list iterator
+// dereference in Rva006CCCA0LoadSchemeVariant.cpp suggests the second.
+// Several donor names share each shape, so no donor owner/type is asserted.
+// Each native entry follows INT3 padding and ends its own RET: 1CD70..1CD76
+// and6F6830..6F6836. They read raw words through independently proved offsets.
+class Rva0001CD70Word
+{
+public:
+ unsigned int get() const;
+ char m_pad00[4];
+ unsigned int *m_ptr;
+};
+
+// 0x0001CDA0 is the same shape with the pointer at receiver offset 8 (1CDA0..1CDA5,
+// INT3 padding before, no reference in the image).
+class Rva0001CDA0Word
+{
+public:
+ unsigned int get() const;
+ char m_pad00[8];
+ unsigned int *m_ptr;
+};
+
+class Rva006F6830Word
+{
+public:
+ unsigned int get() const;
+ unsigned int *m_ptr;
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp
 
 #pragma optimize("s", off)
@@ -2183,11 +2304,8 @@ bool Rva002F336AOwner::rva002F336A(int x,int y) {
 // The emitted unsigned max copy must match retail RVA 0x00013740.
 // Define it for speed, then restore this unit's flags for its own bodies.
 
-// tu-skeleton: 0x002E6C60 18B ?rva002E6C60@Rva002E6B19@@QBEIXZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
 
-// tu-skeleton: 0x002E6C72 7B ?rva002E6C72@Rva002E6C72@@QBEIXZ -- matched in Code/GameEngine/Source/Common/GapLeavesSeat8.cpp (not merged yet)
 
-// tu-skeleton: 0x002E6C8D 7B ?clear@Rva002E6C8DWordChase@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Disp8DwordClearers.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Disp8WordFieldSetters.cpp
 
@@ -2210,6 +2328,12 @@ void Rva002E6C94WordChase::set(unsigned short value) {
 void Rva002E6CA2WordChase::set(unsigned short value) {
     *(unsigned short *)((char *)pointee + 0x10) = value;
 }
+
+// tu-skeleton: 0x002E6C60 18B ?rva002E6C60@Rva002E6B19@@QBEIXZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
+
+// tu-skeleton: 0x002E6C72 7B ?rva002E6C72@Rva002E6C72@@QBEIXZ -- matched in Code/GameEngine/Source/Common/GapLeavesSeat8.cpp (not merged yet)
+
+// tu-skeleton: 0x002E6C8D 7B ?clear@Rva002E6C8DWordChase@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Disp8DwordClearers.cpp (not merged yet)
 
 // tu-skeleton: 0x002E6CB0 7B ?getBits@Rva002E6CB0PointeeValue@@QBEIXZ -- matched in Code/GameEngine/Source/Common/Disp8WordChaseGetters.cpp (not merged yet)
 
@@ -2313,7 +2437,22 @@ void Rva002E6CA2WordChase::set(unsigned short value) {
 
 // tu-skeleton: 0x002E8B66 10B ?get@Rva002E8B66ByteChase32Field@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x002E8B70 10B ?get@Rva002E8B70PtrChase32Field@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp
+
+// Disp8 pointer-chase dword getters: seven-byte __thiscall members with one shape:
+//
+//     mov eax,[ecx+<DISP1>] / mov eax,[eax+<DISP2>] / ret
+//
+// A pointer is read at a fixed displacement from `this`, then a dword is read
+// at a second displacement from that pointer and returned. MSVC 7.1 emits the
+// disp8 loads `8B 41 XX` + `8B 40 XX`, plus `ret`, for seven bytes total.
+// Identity is not recovered: every name is derived from its address.
+// No // cl: line (defaults match the frameless seven-byte shape).
+
+// Backward variant: the holder sits at a NEGATIVE displacement from `this`
+// (a sub-object `this` pointing into a larger object). Spelled as an explicit
+// backward cast, which MSVC folds to `mov eax,[ecx-BACK]`; same shape and
+// reading as BFME1's ChainedFieldGetters.
 
 // tu-skeleton: 0x002E8B7A 33B ?Rva002E8B7AInit@@YAPAVMixFileInfoBuffer@@PAPAV1@HPAUIn002E6BA1@@@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
 
@@ -2372,6 +2511,24 @@ void Rva002E6CA2WordChase::set(unsigned short value) {
 // tu-skeleton: 0x002EA34A 782B ?checkForMovement@Pathfinder@@QAE_NPAVObject@@AAUTCheckMovementInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
 
 // tu-skeleton: 0x002EA658 1001B ?rva002EA658@Pathfinder@@QAE_NPAVObject@@AAUTCheckMovementInfo@@PBUICoord2D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderCheckMovementOverlap.cpp (not merged yet)
+
+// tu-skeleton: 0x002EAB6F 127B ??0Rva002EAB6F@@QAE@HPBURva002E8BCFSrc@@EHPAVObject@@EHH@Z -- matched in Code/GameEngine/Source/GameLogic/AI/Rva002EAB6F.cpp (not merged yet)
+
+// tu-skeleton: 0x002EABEE 5B ?pop_back@?$vector@UBfmeE12@@V?$allocator@UBfmeE12@@@_STL@@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_e12_o1.cpp (not merged yet)
+
+// tu-skeleton: 0x002EAD39 41B ?rva002EAD39@Rva002EAD39@@QAEXPAVRva0053476A@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_auto_ptr_rva0053476A.cpp (not merged yet)
+
+// tu-skeleton: 0x002EAD62 23B ?rva002EAD62@Rva002EAD62@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
+
+// tu-skeleton: 0x002EAD79 6B ?getBits@Rva002EAD79WordOffset@@QBEIXZ -- matched in Code/GameEngine/Source/Common/Disp8SubDwordFieldGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x002EAD7F 5B ?pop_back@?$vector@HV?$allocator@H@_STL@@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_int.cpp (not merged yet)
+
+// tu-skeleton: 0x002EAD84 24B ?Rva002EAD84@@YGXPAXI@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE04.cpp (not merged yet)
+
+// tu-skeleton: 0x002EAD9C 24B ?Rva002EAD9C@@YGXPAXI@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE04.cpp (not merged yet)
+
+// tu-skeleton: 0x002EADB4 45B ?rva002EADB4@Rva002EADB4@@QAEXPAU_Rva002EADB4Node@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva002EADB4Release.cpp (not merged yet)
 
 // tu-skeleton: 0x002EAE20 63B ?rva002EAE20@Pathfinder@@QAEHPBUCoord3D@@0W4PathfindLayerEnum@@PAURva002E6F92Info@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderRva002F95B7.cpp (not merged yet)
 
