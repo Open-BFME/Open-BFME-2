@@ -18752,7 +18752,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009FE77C,4,.data,global,?TheGameClient@@3PAVGameClient@@A,Code/GameEngine/Source/GameClient/GameClient.cpp,provisional,?TheGameClient@@3PAVClientFrameSubsystem@@A;?TheGameClient@@3PAVGameClient@@A;_g_anim2DGameClient,1,144
 0x009FE780,4,.data,global,_s_rva007ADC48,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x009FE784,8,.data,global,?lastStallTime@?BL@??update@GameClient@@UAEXXZ@4IA,Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp,owned,,1,2
-0x009FE78C,4,.data,global,?TheGameLogic@@3PAVGameLogic@@A,Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdate_initTimes.cpp,provisional,?TheGameLogic@@3PAUGameLogic@@A;?TheGameLogic@@3PAURva00482134Logic@@A;?TheGameLogic@@3PAURva0051483CLogic@@A;?TheGameLogic@@3PAVGameLogic@@A;?TheGameLogic@@3PAVGameLogicFrame@@A;?TheGameLogic@@3PAXA;?Va00DFE78CStatePointer@@3PAUVa00DFE78CState@@A;?g_009FE78C@@3PAUGameLogic@@A;?g_009FE78C@@3PAVRva0023D661@@A;?g_00DFE78C@@3PAXA;?g_Va009FE78C@@3HA;?g_Va009FE78C@@3PAUGlobal9FE78C@@A;?g_bfmeRva42E8C1Holder@@3PAUBfmeRva42E8C1Limit@@A;?g_rva00597426Logic@@3PAVGameLogic@@A,1,1602
+0x009FE78C,4,.data,global,?TheGameLogic@@3PAVGameLogic@@A,Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdate.cpp,provisional,?TheGameLogic@@3PAUGameLogic@@A;?TheGameLogic@@3PAURva00482134Logic@@A;?TheGameLogic@@3PAURva0051483CLogic@@A;?TheGameLogic@@3PAVGameLogic@@A;?TheGameLogic@@3PAVGameLogicFrame@@A;?TheGameLogic@@3PAXA;?Va00DFE78CStatePointer@@3PAUVa00DFE78CState@@A;?g_009FE78C@@3PAUGameLogic@@A;?g_009FE78C@@3PAVRva0023D661@@A;?g_00DFE78C@@3PAXA;?g_Va009FE78C@@3HA;?g_Va009FE78C@@3PAUGlobal9FE78C@@A;?g_bfmeRva42E8C1Holder@@3PAUBfmeRva42E8C1Limit@@A;?g_rva00597426Logic@@3PAVGameLogic@@A,1,1602
 0x009FE790,4,.data,global,_s_rva007ADC8C,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x009FE794,20,.data,global,?g_00DFE794@@3PAEA,,unowned,,0,1
 0x009FE7A8,8,.data,global,?g_Va00DFE7A8@@3IA,,unowned,?g_00DFE7A8@@3EA;?g_Va00DFE7A8@@3IA,0,7
@@ -20092,8 +20092,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A038B8,4,.data,global,?$S1@?5??makeFeedbackLaser@AssistedTargetingUpdate@@AAEXPBVThingTemplate@@PBVObject@@1@Z@4IA,Code/GameEngine/Source/GameLogic/Object/Update/AssistedTargetingUpdateFeedbackLaser.cpp,owned,,1,2
 0x00A038BC,8,.data,global,_s_rva007B13C0,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A038C4,4,.data,global,?g_Va00E038C4@@3IA,Code/GameEngine/Source/Common/GlobalFlagClearers_E038xx.cpp,owned,,1,2
-0x00A038C8,4,.data,global,?TheBoneFXUpdatePoolKey@?1??getModuleNameKey@BoneFXUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdatePoolKey.cpp,owned,,1,2
-0x00A038CC,4,.data,global,?$S1@?1??getModuleNameKey@BoneFXUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdatePoolKey.cpp,owned,,1,4
+0x00A038C8,4,.data,global,?TheBoneFXUpdatePoolKey@?1??getModuleNameKey@BoneFXUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdate.cpp,owned,,1,2
+0x00A038CC,4,.data,global,?$S1@?1??getModuleNameKey@BoneFXUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdate.cpp,owned,,1,4
 0x00A038D0,4,.data,global,_s_rva007B13EA,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A038D4,4,.data,global,?TheDefaultProductionExitUpdatePoolKey@?1??rva000487F82@DefaultProductionExitUpdate@@SA?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/DefaultProductionExitUpdatePoolKey.cpp,owned,,1,2
 0x00A038D8,4,.data,global,?$S1@?1??rva000487F82@DefaultProductionExitUpdate@@SA?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/DefaultProductionExitUpdatePoolKey.cpp,owned,,1,4

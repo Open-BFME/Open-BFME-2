@@ -1,4 +1,4 @@
-// cl: /FIzh_ascii.h /MD /GX /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /DZH_EMIT_POOL_GLUE -D_STLP_USE_STATIC_LIB -DNDEBUG -DWIN32 -D_WINDOWS /Ireference/shims/bfme2_bonefxupdate /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/dockupdate /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib /Ireference/shims/bfme_namekey /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/shims -ICode/Libraries/Source/Compression/LZHCompress/CompLibHeader /Ireference/shims/bfme2htree /Ireference/shims/bfme2renderobj /Ireference/shims/bfmecamera /Ireference/shims/bfmelight /Ireference/shims/bfmeparticlehandle /Ireference/shims/bfmeparticleload /Ireference/shims/bfmeparticlequat /Ireference/shims/bfmeparticlesave /Ireference/shims/bfmeparticleline /Ireference/shims/bfme2ray /Ireference/shims/bfme2scene /Ireference/shims/bfmefrustum
+// cl: /FIzh_ascii.h /MD /GX /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /DZH_EMIT_POOL_GLUE -D_STLP_USE_STATIC_LIB -DNDEBUG -DWIN32 -D_WINDOWS /Ireference/shims/bfme2_bonefxupdate /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/dockupdate /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib /Ireference/shims/bfme_namekey /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/shims -ICode/Libraries/Source/Compression/LZHCompress/CompLibHeader /Ireference/shims/bfme2htree /Ireference/shims/bfme2renderobj /Ireference/shims/bfmecamera /Ireference/shims/bfmelight /Ireference/shims/bfmeparticlehandle /Ireference/shims/bfmeparticleload /Ireference/shims/bfmeparticlequat /Ireference/shims/bfmeparticlesave /Ireference/shims/bfmeparticleline /Ireference/shims/bfme2ray /Ireference/shims/bfme2scene /Ireference/shims/bfmefrustum /Ireference/shims/moduledata /ICode/Libraries/Include
 // stlport
 // TU Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdate.cpp: generated by tools/tu_skeleton.py from tu_map.csv (approved rows, retail order)
 #include <stl/_algobase.h>
@@ -77,6 +77,42 @@ public:
 };
 
 BFME_LITERAL_NAME_GETTER(Rva00487A5ENamed, "BoneFXUpdate")
+
+// Native IAT 0x00BBA518 is msvcr71.dll's _strcmpi import; this unit's /D_CRTIMP= strips string.h's dllimport.
+namespace BoneFXUpdateCrt {
+extern "C" __declspec(dllimport) int __cdecl _strcmpi(const char *a, const char *b);
+}
+
+void parseGameClientRandomDelay( INI *ini, void *instance, GameClientRandomVariable *delay);
+
+// AsciiString::TheEmptyString: defined in Common/Rva00380200Getter.cpp.
+
+GameLogic *TheGameLogic;
+
+extern NameKeyGenerator *TheNameKeyGenerator;
+
+void XferParticleSystemID( Xfer *xfer, Int *value );
+
+class XferException
+{
+public:
+	XferException(int tag, const char *format, ...);
+	XferException(const XferException &that);
+	~XferException(void);
+
+	char *text;
+	int tagValue;
+};
+
+// ------------------------------------------------------------------------------------------------
+/** Xfer method
+	* Version Info:
+	* 1: Initial version */
+// ------------------------------------------------------------------------------------------------
+// bfme link decl-only begin
+namespace _STL { template <> void vector<ParticleSystemID,_STL::allocator<ParticleSystemID> >::push_back(ParticleSystemID const &); }
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdate.cpp
 
@@ -344,31 +380,18 @@ void BoneFXUpdate::loadPostProcess( void )
 
   // end loadPostProcess
 
-// tu-skeleton: 0x004871A7 88B ?parseFXLocInfo@@YAXPAVINI@@PAXPAUBoneLocInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateParse.cpp (not merged yet)
 
-// tu-skeleton: 0x00487200 175B ?parseFXList@BoneFXUpdateModuleData@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateParse.cpp (not merged yet)
 
-// tu-skeleton: 0x004872AF 175B ?parseObjectCreationList@BoneFXUpdateModuleData@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateParse.cpp (not merged yet)
 
-// tu-skeleton: 0x0048735E 175B ?parseParticleSystem@BoneFXUpdateModuleData@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateParse.cpp (not merged yet)
 
-// tu-skeleton: 0x0048740D 115B ?doFXListAtBone@BoneFXUpdate@@IAEXPBVFXList@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateUpdate.cpp (not merged yet)
 
-// tu-skeleton: 0x00487480 116B ?doOCLAtBone@BoneFXUpdate@@IAEXPBVObjectCreationList@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateUpdate.cpp (not merged yet)
 
-// tu-skeleton: 0x004874F4 23B ??0Rva004874F4@@QAE@XZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE22.cpp (not merged yet)
 
-// tu-skeleton: 0x0048750B 297B ?initTimes@BoneFXUpdate@@IAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdate_initTimes.cpp (not merged yet)
 
-// tu-skeleton: 0x00487634 355B ?resolveBoneLocations@BoneFXUpdate@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdate_resolveBoneLocations.cpp (not merged yet)
 
-// tu-skeleton: 0x00487797 196B ??0BoneFXUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateModuleDataCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x00487877 111B ??1BoneFXUpdateModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateModuleDataDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x004878E6 307B ??0BoneFXUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x00487A19 69B ?getModuleNameKey@BoneFXUpdate@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdatePoolKey.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/ModuleNameGetters.cpp
 
@@ -387,11 +410,325 @@ void BoneFXUpdate::loadPostProcess( void )
 // bytes, string carried in source where verify_string_refs re-reads it).
 // No // cl: line (defaults match the frameless 6-byte shape).
 
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateParse.cpp
+
+// ?parseFXLocInfo@@YAXPAVINI@@PAXPAUBoneLocInfo@@@Z, retail 0x004871A7 88B.
+// BoneFXUpdate parseFXLocInfo helper plus its three callers
+// (parseFXList/parseObjectCreationList/parseParticleSystem). Donor is BFME1
+// BoneFXUpdateModuleDataParseFXList.cpp parseFXLocInfo (bone check plus
+// AsciiString set plus INIException throws) and the three parse methods
+// (each calls helper then checks onlyonce then INI parse helpers).
+// Evidence: strings "bone" "'bone' expected" "onlyonce" "fxlist"/"ocl"/"psys"
+// in callers; callees rowed getNextToken 0x2DF97 set 0x55F5 parseBool 0x2E850
+// parseGameClientRandomDelay 0x870F6 parseFXList 0x338A09 parseOCL 0x338A6F
+// parsePsysTemplate 0x3395BB plus pinned CxxThrow and INIException ctor;
+// callers at 0x487200/0x4872AF/0x48735E become ready on landing; layout
+// locInfo +0 gameClientDelay +4 gameLogicDelay +0x10 onlyOnce +0x1C fx/ocl/psys +0x20
+// matches BoneFXUpdate_initTimes 0x0C/0x490/0x914 records and retail lea offsets.
+
+static void parseFXLocInfo(INI *ini, void *instance, BoneLocInfo *locInfo)
+{
+	const char *token = ini->getNextToken(ini->getSepsColon());
+	if (BoneFXUpdateCrt::_strcmpi(token, "bone") == 0)
+	{
+		reinterpret_cast<StringBase<char> *>(&locInfo->boneName)->set(ini->getNextToken(0));
+	}
+	else
+	{
+		throw INIException(3, "'bone' expected");
+	}
+}
+
+void BoneFXUpdateModuleData::parseFXList(INI *ini, void *instance, void *store, const void *userData)
+{
+	BoneFXListInfo *info = (BoneFXListInfo *)store;
+	parseFXLocInfo(ini, instance, &info->locInfo);
+	const char *token = ini->getNextToken(ini->getSepsColon());
+	if (BoneFXUpdateCrt::_strcmpi(token, "onlyonce") != 0)
+		throw INIException(3, "'onlyonce' expected");
+	INI::parseBool(ini, instance, &info->onlyOnce, 0);
+	parseGameClientRandomDelay(ini, instance, (GameClientRandomVariable *)&info->gameLogicDelay);
+	token = ini->getNextToken(ini->getSepsColon());
+	if (BoneFXUpdateCrt::_strcmpi(token, "fxlist") != 0)
+		throw INIException(3, "'fxlist' expected");
+	INI::parseFXList(ini, instance, (void *)&info->fx, 0);
+}
+
+void BoneFXUpdateModuleData::parseObjectCreationList(INI *ini, void *instance, void *store, const void *userData)
+{
+	BoneOCLInfo *info = (BoneOCLInfo *)store;
+	parseFXLocInfo(ini, instance, &info->locInfo);
+	const char *token = ini->getNextToken(ini->getSepsColon());
+	if (BoneFXUpdateCrt::_strcmpi(token, "onlyonce") != 0)
+		throw INIException(3, "'onlyonce' expected");
+	INI::parseBool(ini, instance, &info->onlyOnce, 0);
+	parseGameClientRandomDelay(ini, instance, (GameClientRandomVariable *)&info->gameLogicDelay);
+	token = ini->getNextToken(ini->getSepsColon());
+	if (BoneFXUpdateCrt::_strcmpi(token, "ocl") != 0)
+		throw INIException(3, "'ocl' expected");
+	INI::parseObjectCreationList(ini, instance, (void *)&info->ocl, 0);
+}
+
+void BoneFXUpdateModuleData::parseParticleSystem(INI *ini, void *instance, void *store, const void *userData)
+{
+	BoneParticleSystemInfo *info = (BoneParticleSystemInfo *)store;
+	parseFXLocInfo(ini, instance, &info->locInfo);
+	const char *token = ini->getNextToken(ini->getSepsColon());
+	if (BoneFXUpdateCrt::_strcmpi(token, "onlyonce") != 0)
+		throw INIException(3, "'onlyonce' expected");
+	INI::parseBool(ini, instance, &info->onlyOnce, 0);
+	parseGameClientRandomDelay(ini, instance, &info->gameClientDelay);
+	token = ini->getNextToken(ini->getSepsColon());
+	if (BoneFXUpdateCrt::_strcmpi(token, "psys") != 0)
+		throw INIException(3, "'psys' expected");
+	INI::parseParticleSystemTemplate(ini, instance, (void *)&info->particleSysTemplate, 0);
+}
+
+// tu-skeleton: 0x0048740D 115B ?doFXListAtBone@BoneFXUpdate@@IAEXPBVFXList@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x00487480 116B ?doOCLAtBone@BoneFXUpdate@@IAEXPBVObjectCreationList@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x004874F4 23B ??0Rva004874F4@@QAE@XZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE22.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdate_initTimes.cpp
+
+// BoneFXUpdate::initTimes — retail 0x0048750B / 297B.
+// Upstream: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdate.cpp
+// (BoneFXUpdate::initTimes, ZH uses REAL_TO_INT; retail BFME2 uses a plain
+// (int) cast which calls __ftol2 — same transfer BFME1 landed in
+// reference/open-bfme-1/Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdate_initTimes.cpp).
+// Layout notes (all verified against the target disasm):
+// - GameLogic::m_frame at +0x40 (ZH/BFME1 have +0x3C; BFME2 added 4 bytes).
+// - BoneFXUpdateModuleData matches ZH exactly: m_fxList at +0x0C (base 0x08 +
+//   m_damageFXTypes 4), m_OCL at +0x490, m_particleSystem at +0x914, element
+//   size 0x24.
+// - BoneFXUpdate matches ZH: m_moduleData at +4, m_nextFXFrame at +0x2C,
+//   m_nextOCLFrame at +0xAC, m_curBodyState at +0x62C.
+// - BoneLocInfo is a single-AsciiString wrapper at offset 0.
+// - AsciiString::compare is DECLARED only so the three call sites encode the
+//   retail StringBase::compare at 0x000069D6 (see symbols.csv pin); defining it
+//   locally with memcmp (as BFME1 did) would call memcmp instead and mismatch.
+
+void BoneFXUpdate::initTimes()
+{
+	int i;
+	const BoneFXUpdateModuleData *boneFXUpdateModuleData = getBoneFXUpdateModuleData();
+	// Retail reads GameLogic's current-frame field at +0x40; the included
+	// GeneralsMD getFrame() view reads +0x3C. Keep the target-specific layout
+	// local to this body instead of changing the shared GameLogic header.
+	struct BfmeGameLogicFrameView {
+		UnsignedByte unknown[0x40];
+		Int frame;
+	};
+	int now = ((const BfmeGameLogicFrameView *)TheGameLogic)->frame;
+
+	for (i = 0; i < BONE_FX_MAX_BONES; ++i) {
+		if (boneFXUpdateModuleData->m_fxList[m_curBodyState][i].locInfo.boneName.compare(AsciiString::TheEmptyString) != 0) {
+			m_nextFXFrame[m_curBodyState][i] = now + (int)boneFXUpdateModuleData->m_fxList[m_curBodyState][i].gameLogicDelay.getValue();
+		} else {
+			m_nextFXFrame[m_curBodyState][i] = -1;
+		}
+		if (boneFXUpdateModuleData->m_OCL[m_curBodyState][i].locInfo.boneName.compare(AsciiString::TheEmptyString) != 0) {
+			m_nextOCLFrame[m_curBodyState][i] = now + (int)boneFXUpdateModuleData->m_OCL[m_curBodyState][i].gameLogicDelay.getValue();
+		} else {
+			m_nextOCLFrame[m_curBodyState][i] = -1;
+		}
+		if (boneFXUpdateModuleData->m_particleSystem[m_curBodyState][i].locInfo.boneName.compare(AsciiString::TheEmptyString) != 0) {
+			m_nextParticleSystemFrame[m_curBodyState][i] = now + (int)boneFXUpdateModuleData->m_particleSystem[m_curBodyState][i].gameClientDelay.getValue();
+		} else {
+			m_nextParticleSystemFrame[m_curBodyState][i] = -1;
+		}
+	}
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdate_resolveBoneLocations.cpp
+
+//
+// ?resolveBoneLocations@BoneFXUpdate@@MAEXXZ, retail 0x00487634, 355 bytes.
+//
+// BoneFXUpdate virtual slot 13 (vtable 0x0084B170) resolveBoneLocations.
+// Donor is BFME1 BoneFXUpdate::resolveBoneLocations
+// (reference/open-bfme-1/Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdate.cpp:542)
+// via Zero Hour BoneFXUpdate.cpp:502. BFME2 layout matches the landed
+// initTimes TU in this directory (moduleData at +4, object at +8,
+// info arrays at +0x0C/+0x490/+0x914 element 0x24, positions at
+// +0x1AC/+0x32C/+0x4AC, curBodyState at +0x62C, bonesResolved at +0x630).
+// Retail inlines AsciiString::str as data+8 vs "" default (0x007BAC1C)
+// and calls the rowed StringBase compare at 0x000069D6 via the AsciiString
+// pin, Thing::getDrawable via pin 0x005508E2, and the rowed Drawable
+// getPristineBonePositions at 0x0027274D. DEBUG_ASSERTCRASH compiles out
+// under /DNDEBUG so the drawable null check emits no code.
+
+// AsciiString::TheEmptyString: defined in Common/Rva00380200Getter.cpp.
+
+void BoneFXUpdate::resolveBoneLocations()
+{
+	int i;
+	Object *building = getObject();
+	const BoneFXUpdateModuleData *boneFXUpdateModuleData = getBoneFXUpdateModuleData();
+	if (building == 0) {
+		return;
+	}
+
+	Drawable *drawable = building->getDrawable();
+
+	if (boneFXUpdateModuleData == 0) {
+		return;
+	}
+
+	for (i = 0; i < 8; ++i) {
+		if (boneFXUpdateModuleData->m_fxList[m_curBodyState][i].locInfo.boneName.compare(AsciiString::TheEmptyString) != 0) {
+			const BoneFXListInfo *info = &(boneFXUpdateModuleData->m_fxList[m_curBodyState][i]);
+			drawable->getPristineBonePositions(info->locInfo.boneName.str(), 0, &m_FXBonePositions[m_curBodyState][i], 0, 1, 0);
+		}
+
+		if (boneFXUpdateModuleData->m_OCL[m_curBodyState][i].locInfo.boneName.compare(AsciiString::TheEmptyString) != 0) {
+			const BoneOCLInfo *info = &(boneFXUpdateModuleData->m_OCL[m_curBodyState][i]);
+			drawable->getPristineBonePositions(info->locInfo.boneName.str(), 0, &m_OCLBonePositions[m_curBodyState][i], 0, 1, 0);
+		}
+
+		if (boneFXUpdateModuleData->m_particleSystem[m_curBodyState][i].locInfo.boneName.compare(AsciiString::TheEmptyString) != 0) {
+			const BoneParticleSystemInfo *info = &(boneFXUpdateModuleData->m_particleSystem[m_curBodyState][i]);
+			drawable->getPristineBonePositions(info->locInfo.boneName.str(), 0, &m_PSBonePositions[m_curBodyState][i], 0, 1, 0);
+		}
+	}
+	m_bonesResolved[m_curBodyState] = true;
+}
+
+// tu-skeleton: 0x00487797 196B ??0BoneFXUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateModuleDataCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00487877 111B ??1BoneFXUpdateModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateModuleDataDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004878E6 307B ??0BoneFXUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateCtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdatePoolKey.cpp
+
+// ?getModuleNameKey@BoneFXUpdate@@UBE?AW4NameKeyType@@XZ
+NameKeyType BoneFXUpdate::getModuleNameKey() const
+{
+	static NameKeyType TheBoneFXUpdatePoolKey =
+		TheNameKeyGenerator->nameToKey("BoneFXUpdate");
+	return TheBoneFXUpdatePoolKey;
+}
+
 // tu-skeleton: 0x00487ABF 161B ??1BoneFXUpdate@@MAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00487B7D 248B ?doParticleSystemAtBone@BoneFXUpdate@@IAEXPBVParticleSystemTemplate@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateUpdate.cpp (not merged yet)
 
-// tu-skeleton: 0x00487C75 349B ?xfer@BoneFXUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateXfer.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateXfer.cpp
+
+/*
+**	Command & Conquer Generals Zero Hour(tm)
+**	Copyright 2025 Electronic Arts Inc.
+**
+**	This program is free software: you can redistribute it and/or modify
+**	it under the terms of the GNU General Public License as published by
+**	the Free Software Foundation, either version 3 of the License, or
+**	(at your option) any later version.
+**
+**	This program is distributed in the hope that it will be useful,
+**	but WITHOUT ANY WARRANTY; without even the implied warranty of
+**	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+**	GNU General Public License for more details.
+**
+**	You should have received a copy of the GNU General Public License
+**	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
+// BoneFXUpdate::xfer, ported from Zero Hour's GameEngine/Source/GameLogic/
+// Object/Update/BoneFXUpdate.cpp (GeneralsMD tree vendored under
+// reference/open-bfme-1/inputs/reference). It is slot 3 of the vftable whose
+// name getter returns "BoneFXUpdate".
+//
+// BFME 2 order: the UpdateModule base (0x0044DF9F) first, then the light-CRC
+// gate and Version1, then ZH's body unchanged (four body-damage states by
+// eight bones). Particle system ids go through XferParticleSystemID
+// (0x0030600A, an Int helper, hence the cast) and the out-of-line, ICF-shared
+// 4-byte vector push_back 0x002E01C6. ZH's throw SC_INVALID_DATA becomes
+// XferException tag 5.
+
+// bfme link decl-only end
+void BoneFXUpdate::xfer( Xfer *xfer )
+{
+
+	// extend base class
+	UpdateModule::xfer( xfer );
+
+	if( xfer->IsLightCRC() )
+		return;
+
+	// version
+	xfer->Version1();
+
+	// particle system vector count and data
+	UnsignedShort particleSystemCount = m_particleSystemIDs.size();
+	*xfer == particleSystemCount;
+	ParticleSystemID systemID;
+	if( xfer->IsStoring() )
+	{
+		_STL::vector<ParticleSystemID>::const_iterator it;
+
+		for( it = m_particleSystemIDs.begin(); it != m_particleSystemIDs.end(); ++it )
+		{
+
+			systemID = *it;
+			XferParticleSystemID( xfer, (Int *)&systemID );
+
+		}  // end for
+
+	}  // end if, save
+	else
+	{
+
+		// the list should be emtpy right now
+		if( m_particleSystemIDs.empty() == false )
+			throw XferException( 5, 0 );
+
+		// read all data
+		for( UnsignedShort i = 0; i < particleSystemCount; ++i )
+		{
+
+			// read id
+			XferParticleSystemID( xfer, (Int *)&systemID );
+
+			// put at end of vector
+			m_particleSystemIDs.push_back( systemID );
+
+		}  // end for, i
+
+	}  // end else
+
+	// next fx frame
+	xfer->XferRawBytes( m_nextFXFrame, sizeof( Int ) * BODYDAMAGETYPE_COUNT * BONE_FX_MAX_BONES );
+
+	// next OCL farme
+	xfer->XferRawBytes( m_nextOCLFrame, sizeof( Int ) * BODYDAMAGETYPE_COUNT * BONE_FX_MAX_BONES );
+
+	// next particle system frame
+	xfer->XferRawBytes( m_nextParticleSystemFrame, sizeof( Int ) * BODYDAMAGETYPE_COUNT * BONE_FX_MAX_BONES );
+
+	// fx bone positions
+	xfer->XferRawBytes( m_FXBonePositions, sizeof( Coord3DBase ) * BODYDAMAGETYPE_COUNT * BONE_FX_MAX_BONES );
+
+	// ocl bone positions
+	xfer->XferRawBytes( m_OCLBonePositions, sizeof( Coord3DBase ) * BODYDAMAGETYPE_COUNT * BONE_FX_MAX_BONES );
+
+	// particle system bone positions
+	xfer->XferRawBytes( m_PSBonePositions, sizeof( Coord3DBase ) * BODYDAMAGETYPE_COUNT * BONE_FX_MAX_BONES );
+
+	// current body state
+	xfer->XferRawBytes( &m_curBodyState, sizeof( BodyDamageType ) );
+
+	// bones resolved
+	xfer->XferRawBytes( m_bonesResolved, sizeof( Bool ) * BODYDAMAGETYPE_COUNT );
+
+	// active
+	*xfer == m_active;
+
+}
+
+  // end xfer
 
 // tu-skeleton: 0x00487DD2 28B ??_GBoneFXUpdate@@MAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateDtor.cpp (not merged yet)
 
@@ -406,10 +743,6 @@ void BoneFXUpdate::loadPostProcess( void )
 // tu-skeleton: 0x0078C208 24B $L4398 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0078C220 10B __ehhandler$??0BoneFXUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078C22A 13B $L310 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdatePoolKey.cpp (not merged yet)
-
-// tu-skeleton: 0x0078C237 10B __ehhandler$?getModuleNameKey@BoneFXUpdate@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdatePoolKey.cpp (not merged yet)
 
 // tu-skeleton: 0x0078C241 8B Unwind@00b8c241 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateDtor.cpp (not merged yet)
 
