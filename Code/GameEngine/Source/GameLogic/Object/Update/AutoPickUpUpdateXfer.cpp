@@ -42,11 +42,34 @@ public:
 
 #include "../../../../Include/Common/ObjectModule.h"
 
-class BehaviorModuleInterface { public: virtual void behaviorSlot(); };
-class UpdateModuleInterface { public: virtual void updateSlot(); };
+enum NameKeyType;
+enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1, UPDATE_SLEEP_FOREVER = 0x3FFFFFFF };
+struct AutoPickUpUpdateModuleData
+{
+	char m_pad00[0x10];
+	float m_scanDistance;
+};
 
-class UpdateModule : public ObjectModule,
-	public BehaviorModuleInterface, public UpdateModuleInterface
+class BehaviorModule : public ObjectModule
+{
+public:
+	virtual ~BehaviorModule();
+	Object *getObject() const { return m_object; }
+};
+
+class BehaviorModuleInterface
+{
+public:
+	virtual void behaviorModuleInterfaceAnchor();
+};
+
+class UpdateModuleInterface
+{
+public:
+	virtual UpdateSleepTime update() = 0;
+};
+
+class UpdateModule : public BehaviorModule, public BehaviorModuleInterface, public UpdateModuleInterface
 {
 public:
 	UpdateModule(Thing *thing, const ModuleData *moduleData);
@@ -59,16 +82,35 @@ private:
 	int m_updateState;
 };
 
-class AutoPickUpUpdate : public UpdateModule
+class AutoPickUpUpdateInterface
 {
+public:
+	virtual void anchor() = 0;
+	virtual void slot1() = 0;
+	virtual void rva00495C6E() = 0;
+};
+
+class AutoPickUpUpdate : public UpdateModule, public AutoPickUpUpdateInterface
+{
+public:
+	AutoPickUpUpdate(Thing *thing, const ModuleData *moduleData);
+	virtual ~AutoPickUpUpdate();
+	virtual NameKeyType getModuleNameKey() const;
+	virtual void rva00495C6E();
+	virtual UpdateSleepTime update();
+	bool rva00495DD4();__forceinline float getScanRange()const{return getAutoPickUpUpdateModuleData()->m_scanDistance;}
+
+	const AutoPickUpUpdateModuleData *getAutoPickUpUpdateModuleData() const
+	{
+		return (const AutoPickUpUpdateModuleData *)m_moduleData;
+	}
 protected:
 	virtual void xfer(Xfer *xfer);
 
 private:
-	const void *m_20;
-	unsigned int m_24;
-	bool m_28;
-	bool m_29;
+	unsigned int m_count24;
+	bool m_flag28;
+	bool m_flag29;
 };
 
 void AutoPickUpUpdate::xfer(Xfer *xfer)
@@ -76,9 +118,9 @@ void AutoPickUpUpdate::xfer(Xfer *xfer)
 	Xfer::Version version(1, 2);
 	*xfer == version;
 	UpdateModule::xfer(xfer);
-	*xfer == m_24;
-	*xfer == m_28;
+	*xfer == m_count24;
+	*xfer == m_flag28;
 	if (version.m_minimum >= 2) {
-		*xfer == m_29;
+		*xfer == m_flag29;
 	}
 }

@@ -14,71 +14,100 @@
 // 0x233FF4 over lo/hi/file/line with the TU __FILE__ literal and line
 // 0x83). Row supersedes the ctor pin.
 
-extern "C" const void *const __identifier("??_7GhostObject@@6BRva001B3E60SecondBaseCore@@@")[];  // folded vftable 0x00C4EF80 (7 classes), by its data-ledger name
-
-extern "C" const void *const __identifier("??_7AutoPickUpUpdate@@6BAutoPickUpUpdateInterface@@@")[];  // vftable 0x00C4EF90
-extern "C" const void *const __identifier("??_7AutoPickUpUpdate@@6BUpdateModule@@@")[];  // vftable 0x00C4EFA0
-extern "C" const void *const __identifier("??_7AutoPickUpUpdate@@6BBehaviorModuleOther@@@")[];  // vftable 0x00C4EFB0
-extern "C" const void *const __identifier("??_7AutoPickUpUpdate@@6BBehaviorModuleBase@@@")[];  // vftable 0x00C4F06C
-
 class Thing;
 class ModuleData;
 class Object;
-
+class Xfer;
+enum NameKeyType;
+enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1, UPDATE_SLEEP_FOREVER = 0x3FFFFFFF };
 typedef int Int;
 Int GetGameLogicRandomValue(Int lo, Int hi, char *file, int line);
-
 struct AutoPickUpUpdateModuleData
 {
-	unsigned char m_pad00[8];
-	Int m_scanDelayTime;
+	char m_pad00[8];
+	int m_scanDelayTime;
+	char m_pad0C[4];
+	float m_scanDistance;
 };
 
-class UpdateModule
+#include "../../../../Include/Common/ObjectModule.h"
+
+// BehaviorModuleBase vftable 0x00C4F06C.
+class BehaviorModule : public ObjectModule
+{
+public:
+	virtual ~BehaviorModule();
+	Object *getObject() const { return m_object; }
+};
+
+// BehaviorModuleOther vftable 0x00C4EFB0.
+class BehaviorModuleInterface
+{
+public:
+	virtual void behaviorModuleInterfaceAnchor();
+};
+
+// UpdateModule vftable 0x00C4EFA0.
+class UpdateModuleInterface
+{
+public:
+	virtual UpdateSleepTime update() = 0;
+};
+
+class UpdateModule : public BehaviorModule, public BehaviorModuleInterface, public UpdateModuleInterface
 {
 public:
 	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	~UpdateModule();
+	virtual ~UpdateModule();
+	void xfer(Xfer *xfer);
 
-protected:
-	void setWakeFrame(Object *object, unsigned int frame);
-
-	const void *m_vtable;
-	const ModuleData *m_moduleData;
-	Object *m_object;
-	const void *m_secondary0C;
-	const void *m_secondary10;
+private:
 	unsigned int m_nextCallFrameAndPhase;
 	int m_indexInLogic;
-	int m_reserved1C;
+	int m_updateState;
 };
 
-class AutoPickUpUpdate : public UpdateModule
+// Folded base vftable 0x00C4EF80 (7 classes), named GhostObject in the data ledger.
+class AutoPickUpUpdateInterface
+{
+public:
+	virtual void anchor() = 0;
+	virtual void slot1() = 0;
+	virtual void rva00495C6E() = 0;
+};
+
+// AutoPickUpUpdateInterface vftable 0x00C4EF90.
+class AutoPickUpUpdate : public UpdateModule, public AutoPickUpUpdateInterface
 {
 public:
 	AutoPickUpUpdate(Thing *thing, const ModuleData *moduleData);
+	virtual ~AutoPickUpUpdate();
+	virtual NameKeyType getModuleNameKey() const;
+	virtual void rva00495C6E();
+	virtual UpdateSleepTime update();
+	bool rva00495DD4();__forceinline float getScanRange()const{return getAutoPickUpUpdateModuleData()->m_scanDistance;}
+
+	const AutoPickUpUpdateModuleData *getAutoPickUpUpdateModuleData() const
+	{
+		return (const AutoPickUpUpdateModuleData *)m_moduleData;
+	}
+protected:
+	virtual void xfer(Xfer *xfer);
 
 private:
-	const void *m_20;
-	unsigned int m_24;
-	unsigned char m_28;
-	unsigned char m_29;
+	unsigned int m_count24;
+	bool m_flag28;
+	bool m_flag29;
 };
 
 // ??0AutoPickUpUpdate@@QAE@PAVThing@@PBVModuleData@@@Z @0x00495D31
 AutoPickUpUpdate::AutoPickUpUpdate(Thing *thing, const ModuleData *moduleData)
 	: UpdateModule(thing, moduleData)
 {
-	int *slot20 = (int *)&m_20;
-	*slot20 = (int)((unsigned int)__identifier("??_7GhostObject@@6BRva001B3E60SecondBaseCore@@@"));
-	const AutoPickUpUpdateModuleData *data = (const AutoPickUpUpdateModuleData *)m_moduleData;
+	const AutoPickUpUpdateModuleData *data = getAutoPickUpUpdateModuleData();
 	int zero = 0;
-	m_vtable = (const void *)((unsigned int)__identifier("??_7AutoPickUpUpdate@@6BBehaviorModuleBase@@@"));
-	m_secondary0C = (const void *)((unsigned int)__identifier("??_7AutoPickUpUpdate@@6BBehaviorModuleOther@@@"));
-	m_secondary10 = (const void *)((unsigned int)__identifier("??_7AutoPickUpUpdate@@6BUpdateModule@@@"));
-	m_20 = (const void *)((unsigned int)__identifier("??_7AutoPickUpUpdate@@6BAutoPickUpUpdateInterface@@@"));
-	m_24 = zero;
-	m_28 = zero;
-	m_29 = zero;
-	m_24 += GetGameLogicRandomValue(0, data->m_scanDelayTime, "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\AutoPickUpUpdate.cpp", 0x83);
+	m_count24 = zero;
+	m_flag28 = zero;
+	m_flag29 = zero;
+	m_count24 += GetGameLogicRandomValue(0, data->m_scanDelayTime, "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\AutoPickUpUpdate.cpp", 0x83);
 }

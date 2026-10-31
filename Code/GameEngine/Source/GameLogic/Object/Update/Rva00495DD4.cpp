@@ -16,26 +16,86 @@ struct AutoPickUpUpdateModuleData
 {
 	char m_pad00[8];
 	int m_scanDelayTime; // +8
-	char m_pad0C[0x21 - 0x0C];
+	char m_pad0C[4];
+	float m_scanDistance; // +0x10
+	char m_pad14[0x21 - 0x14];
 	unsigned char m_runFromButton; // +0x21
 };
 
-class AutoPickUpUpdate
+enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1, UPDATE_SLEEP_FOREVER = 0x3FFFFFFF };
+class Object;
+class Thing;
+class ModuleData;
+class Xfer;
+enum NameKeyType;
+#include "../../../../Include/Common/ObjectModule.h"
+
+class BehaviorModule : public ObjectModule
 {
 public:
-	bool rva00495DD4();
+	virtual ~BehaviorModule();
+	Object *getObject() const { return m_object; }
+};
+
+class BehaviorModuleInterface
+{
+public:
+	virtual void behaviorModuleInterfaceAnchor();
+};
+
+class UpdateModuleInterface
+{
+public:
+	virtual UpdateSleepTime update() = 0;
+};
+
+class UpdateModule : public BehaviorModule, public BehaviorModuleInterface, public UpdateModuleInterface
+{
+public:
+	UpdateModule(Thing *thing, const ModuleData *moduleData);
+	virtual ~UpdateModule();
+	void xfer(Xfer *xfer);
 
 private:
-	char m_pad00[4];
-	AutoPickUpUpdateModuleData *m_data04; // +4
-	char m_pad08[0x24 - 0x08];
-	unsigned int m_count24; // +0x24
-	bool m_flag28; // +0x28
+	unsigned int m_nextCallFrameAndPhase;
+	int m_indexInLogic;
+	int m_updateState;
+};
+
+class AutoPickUpUpdateInterface
+{
+public:
+	virtual void anchor() = 0;
+	virtual void slot1() = 0;
+	virtual void rva00495C6E() = 0;
+};
+
+class AutoPickUpUpdate : public UpdateModule, public AutoPickUpUpdateInterface
+{
+public:
+	AutoPickUpUpdate(Thing *thing, const ModuleData *moduleData);
+	virtual ~AutoPickUpUpdate();
+	virtual NameKeyType getModuleNameKey() const;
+	virtual void rva00495C6E();
+	virtual UpdateSleepTime update();
+	bool rva00495DD4();__forceinline float getScanRange()const{return getAutoPickUpUpdateModuleData()->m_scanDistance;}
+
+	const AutoPickUpUpdateModuleData *getAutoPickUpUpdateModuleData() const
+	{
+		return (const AutoPickUpUpdateModuleData *)m_moduleData;
+	}
+protected:
+	virtual void xfer(Xfer *xfer);
+
+private:
+	unsigned int m_count24;
+	bool m_flag28;
+	bool m_flag29;
 };
 
 bool AutoPickUpUpdate::rva00495DD4()
 {
-	AutoPickUpUpdateModuleData *data = m_data04;
+	const AutoPickUpUpdateModuleData *data = getAutoPickUpUpdateModuleData();
 	if (data->m_runFromButton)
 		return m_flag28;
 	if (m_count24 == 0) {

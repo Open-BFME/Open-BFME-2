@@ -21,7 +21,7 @@ class BfmeFixedStorage0004543D
 public:
 	BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &other) throw();
 private:
-	unsigned char m_bytes[28];
+	unsigned char m_bytes[28]; // +0x00
 };
 // Rowed 44-byte single-bit constructor at 0x00045411; same 28-byte mask.
 struct Rva00045411BitSet
@@ -217,9 +217,21 @@ private:
 	unsigned char m_privateStatus;		// +0x438
 };
 
+class Rva00360D26Member
+{
+public:
+	Rva00360D26Member();
+	~Rva00360D26Member();
+
+private:
+	unsigned int m_handle;
+};
+
 struct AutoPickUpEatObjectEntry
 {
-	int m_filter;
+	AutoPickUpEatObjectEntry() : m_myHealth(0), m_targetHealth(1.0f) {}
+
+	Rva00360D26Member m_filter;
 	float m_myHealth;
 	float m_targetHealth;
 };
@@ -233,9 +245,11 @@ struct AutoPickUpEatObjectEntries
 };
 
 class ModuleData;
+class INI;
 
 struct AutoPickUpUpdateModuleData
 {
+	static void iniParseEatObjectEntry(INI *ini, void *instance, void *store, const void *userData);
 	void *m_vtable;
 	int m_unused04;
 	int m_scanDelayTime;				// +0x08
@@ -248,14 +262,18 @@ struct AutoPickUpUpdateModuleData
 	bool m_canScanWhileAttackingOrMoving;		// +0x28
 };
 
-class BehaviorModule
+class Thing;
+class Xfer;
+enum NameKeyType;
+
+#include "../../../../Include/Common/ObjectModule.h"
+
+// Inherited module data is at +0x04 and the object is at +0x08.
+class BehaviorModule : public ObjectModule
 {
 public:
 	virtual ~BehaviorModule();
 	Object *getObject() const { return m_object; }
-protected:
-	const ModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
 };
 
 class BehaviorModuleInterface
@@ -272,18 +290,32 @@ public:
 
 class UpdateModule : public BehaviorModule, public BehaviorModuleInterface, public UpdateModuleInterface
 {
-	unsigned int m_storage[3];
+public:
+	UpdateModule(Thing *thing, const ModuleData *moduleData);
+	virtual ~UpdateModule();
+	void xfer(Xfer *xfer);
+
+private:
+	unsigned int m_nextCallFrameAndPhase;
+	int m_indexInLogic;
+	int m_updateState;
 };
 
 class AutoPickUpUpdateInterface
 {
 public:
-	virtual void anchor();
+	virtual void anchor() = 0;
+	virtual void slot1() = 0;
+	virtual void rva00495C6E() = 0;
 };
 
 class AutoPickUpUpdate : public UpdateModule, public AutoPickUpUpdateInterface
 {
 public:
+	AutoPickUpUpdate(Thing *thing, const ModuleData *moduleData);
+	virtual ~AutoPickUpUpdate();
+	virtual NameKeyType getModuleNameKey() const;
+	virtual void rva00495C6E();
 	virtual UpdateSleepTime update();
 	bool rva00495DD4();__forceinline float getScanRange()const{return getAutoPickUpUpdateModuleData()->m_scanDistance;}
 
@@ -291,6 +323,9 @@ public:
 	{
 		return (const AutoPickUpUpdateModuleData *)m_moduleData;
 	}
+protected:
+	virtual void xfer(Xfer *xfer);
+
 private:
 	unsigned int m_count24;
 	bool m_flag28;
