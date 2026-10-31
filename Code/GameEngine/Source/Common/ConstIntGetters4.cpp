@@ -2079,12 +2079,6 @@ int Rva001052F9Get(void)
  return reinterpret_cast<int>(&Rva00104FD5Create);
 }
 
-// ?Rva0044643DGet@@YAHXZ @ 0x0044643D: verified existing getter.
-int Rva0044643DGet(void)
-{
- return reinterpret_cast<int>(&Rva002D1F77Create);
-}
-
 // ?Rva004E4DFFGet@@YAHXZ @ 0x004E4DFF: verified existing getter.
 int Rva004E4DFFGet(void)
 {

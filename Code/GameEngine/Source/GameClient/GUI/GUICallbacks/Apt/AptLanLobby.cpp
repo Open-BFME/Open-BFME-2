@@ -42,6 +42,7 @@ extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 #include <wchar.h>
 #pragma intrinsic(_ReadWriteBarrier)
+#include "../../../BuffManager.h"
 
 class LANGameInfo;
 
@@ -913,7 +914,109 @@ public:
     static void Shutdown();
 };
 
+// Cold-slice B8-imm32 const-int returners (twin-free TU).
+//
+// Same shape as ConstIntGetters2.cpp/ConstIntGetters3.cpp (mov eax,<IMM32> /
+// ret, 6B) but kept in a separate TU so this lane does not contend with the
+// hot ConstIntGetters appends on origin/master. Rows are opaque
+// address-derived names: each body follows a ret-imm (C2-04-00 / C2-08-00)
+// and is carried by .rdata vtable slots with no direct callers and no branch
+// sources, so no class identity is witnessed. No // cl: line (defaults match
+// the frameless 6-byte shape).
+
+// The three Apt screen factories these getters return are matched rows.
+void *__stdcall createAptScreenInGameChat(void *);
+
+void *__stdcall createAptScreenObjectives(void *);
+
+void *__stdcall createAptScreenQuickMatchMenu(void *);
+
+// Object Snapshot table VA 0x00BFC2F0 slot 2 returns its class name.
+class Object
+{
+public:
+	virtual const char *GetSnapshotName() const;
+};
+
+// ?GetSnapshotName@Rva004885DE@@MBEPBDXZ @ 0x004886c1 (6B): returns 0x00c4b550.
+// Follows a ret-8 (prev C2-08-00), carried by 1 .rdata vtable slot,
+// no direct callers, no branch sources. Opaque address-derived name.
+class Rva004885DE
+{
+protected:
+	virtual const char *GetSnapshotName() const;
+};
+
+// Retail table C4C3D4 selects this Snapshot name getter in slot 2.
+class FlammableUpdate
+{
+protected:
+	virtual const char *GetSnapshotName() const;
+};
+
+// Snapshot slot 2 of retail DamageModule table RVA 0x008598E4 selects this getter.
+class DamageModule
+{
+protected:
+	virtual const char *GetSnapshotName() const;
+};
+
+class Xfer;
+
+class LivingWorldCampaign
+{
+public:
+	virtual ~LivingWorldCampaign();
+	virtual void loadPostProcess();
+	virtual const char *GetSnapshotName() const;
+	virtual void xfer(Xfer *);
+};
+
+ void W3DLeftHUDDraw(GameWindow *, WinInstanceData *);
+
+class Rva0078D310Host;
+
+ Rva0078D310Host *__stdcall Rva00104FD5Create(void *);
+
+class AptLanLobby;
+
+ AptLanLobby *__stdcall Rva002D1F77Create(void *);
+
+class Rva004E4A45;
+
+ Rva004E4A45 *__stdcall Rva002D1FEBCreate(void *);
+
+class Rva004E8B38;
+
+ Rva004E8B38 *__stdcall Rva002D1F3DCreate(void *);
+
+class Rva00512AC8;
+
+ Rva00512AC8 *__stdcall Rva002D1E8FCreate(void *);
+
+class Rva005142B0;
+
+ Rva005142B0 *__stdcall Rva002D1F03Create(void *);
+
+class Rva00516211;
+
+ Rva00516211 *__stdcall Rva002D1FB1Create(void *);
+
+class Rva0051A78E;
+
+ Rva0051A78E *__stdcall Rva002D205FCreate(void *);
+
+class Rva005202C8;
+
+ Rva005202C8 *__stdcall Rva002D2147Create(void *);
+
+class Rva00523825;
+
+ Rva00523825 *__stdcall Rva002D21FBCreate(void *);
+
 // tu-skeleton: 0x00444165 75B ?GetValidSelectedGameInfo@AptLanLobby@@QAEHXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobbyGetValidSelectedGameInfo.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobby.cpp
 
 // ---- from Code/GameEngine/Source/Common/BfmeConv804.cpp
 
@@ -927,16 +1030,6 @@ bool bfmeGoECI(void)
 		return false;
 	return obj->bfmeAsk54ECI();
 }
-
-// tu-skeleton: 0x004441C5 67B ?rva004441C5@AptLanLobby@@QAEX_NH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/BfmeAptScreenLanLobby.cpp (not merged yet)
-
-// tu-skeleton: 0x00444208 20B ?MPOwnerValidatGameInfo@AptLanLobby@@UAEEH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobbyMPOwnerValidatGameInfo.cpp (not merged yet)
-
-// tu-skeleton: 0x0044421C 36B ?rva0044421C@AptLanLobby@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/BfmeAptScreenLanLobby.cpp (not merged yet)
-
-// tu-skeleton: 0x00444279 98B ?saveRulesRva00444279@AptLanLobby@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/BfmeAptScreenLanLobby.cpp (not merged yet)
-
-// tu-skeleton: 0x004442DB 34B ?rva004442DB@AptLanLobby@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobbyGameCreate.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobby.cpp
 
@@ -1710,6 +1803,16 @@ void Rva00445BAALanLobbyTooltip(GameWindow *window, WinInstanceData *, unsigned 
 	}
 }
 
+// tu-skeleton: 0x004441C5 67B ?rva004441C5@AptLanLobby@@QAEX_NH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/BfmeAptScreenLanLobby.cpp (not merged yet)
+
+// tu-skeleton: 0x00444208 20B ?MPOwnerValidatGameInfo@AptLanLobby@@UAEEH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobbyMPOwnerValidatGameInfo.cpp (not merged yet)
+
+// tu-skeleton: 0x0044421C 36B ?rva0044421C@AptLanLobby@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/BfmeAptScreenLanLobby.cpp (not merged yet)
+
+// tu-skeleton: 0x00444279 98B ?saveRulesRva00444279@AptLanLobby@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/BfmeAptScreenLanLobby.cpp (not merged yet)
+
+// tu-skeleton: 0x004442DB 34B ?rva004442DB@AptLanLobby@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobbyGameCreate.cpp (not merged yet)
+
 // tu-skeleton: 0x004443E7 37B ?rva004443E7@AptLanLobby@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobbyDestructor.cpp (not merged yet)
 
 // tu-skeleton: 0x0044440C 86B ?setScenarioRva0044440C@AptLanLobby@@QAE_NH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/BfmeAptScreenLanLobby.cpp (not merged yet)
@@ -1766,7 +1869,13 @@ void Rva00445BAALanLobbyTooltip(GameWindow *window, WinInstanceData *, unsigned 
 
 // tu-skeleton: 0x00445EE3 1187B ??0AptLanLobby@@QAE@PAX@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobbyDestructor.cpp (not merged yet)
 
-// tu-skeleton: 0x0044643D 6B ?Rva0044643DGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/ConstIntGetters4.cpp
+
+// ?Rva0044643DGet@@YAHXZ @ 0x0044643D: verified existing getter.
+int Rva0044643DGet(void)
+{
+ return reinterpret_cast<int>(&Rva002D1F77Create);
+}
 
 // tu-skeleton: 0x004469D1 75B ?OnGameCreate@AptLanLobby@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobbyGameCreate.cpp (not merged yet)
 
