@@ -19802,3 +19802,4 @@ Code/GameEngine/Source/Common/Rva002B41F4.cpp|function|0x002B41F4|rva002B41F4,d1
 Code/GameEngine/Source/Common/Rva002B41F4.cpp|local|Rva002B41F4::rva002B41F4|e,e80fcc7f476552e92f641fcb,drz-k11,n29h-k11,w-09889333d128,2026-10-31
 Code/GameEngine/Source/Common/Rva002B2757.cpp|member|Rva002B2757|m_b0,72021707d77978108536899a,drz-k11,n29h-k11,w-09889333d128,2026-10-31
 Code/GameEngine/Source/Common/Rva002B2757.cpp|local|Rva002B2757::rva002B2757|r,5fd1596820c6ffe0d9fd8e03,drz-k11,n29h-k11,w-09889333d128,2026-10-31
+Code/GameEngine/Source/Common/Rva00483B3DHealUpdate.cpp|member|Rva00483B3DFrames|m_frame40,4402238ef4b9cdcf266d22ed,drz-k3,n29a2-k3,w-077d7aeb666b,2026-10-31
