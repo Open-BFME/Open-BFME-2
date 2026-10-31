@@ -248,14 +248,6 @@ private:
 	char m_pad04[0x38];
 	GameWindow **m_3C;
 };
-void RadialWindowController::EnableButtonInput(Int i, bool clear)
-{
-	GameWindow *gameWindow = m_3C[i];
-	if (clear)
-		gameWindow->winClearStatus(0x200);
-	else
-		gameWindow->winSetStatus(0x200);
-}
 
 // 0x00540131 and 0x005411A3: overrides of the rowed chunk writer 0x0053F8E9
 // that chain to it and then write their members.
