@@ -156,6 +156,105 @@ class RenderObjClass : public RefCountClass
 #include "../../../../../../../reference/shims/wwmath/Vector2.h"
 #include <stdlib.h>
 #include <math.h>
+/*
+**	Command & Conquer Generals Zero Hour(tm)
+**	Copyright 2025 Electronic Arts Inc.
+**
+**	This program is free software: you can redistribute it and/or modify
+**	it under the terms of the GNU General Public License as published by
+**	the Free Software Foundation, either version 3 of the License, or
+**	(at your option) any later version.
+**
+**	This program is distributed in the hope that it will be useful,
+**	but WITHOUT ANY WARRANTY; without even the implied warranty of
+**	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+**	GNU General Public License for more details.
+**
+**	You should have received a copy of the GNU General Public License
+**	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+// W3DTankDraw::xfer, ported from Zero Hour's GameEngineDevice/Source/W3DDevice/
+// GameClient/Drawable/Draw/W3DTankDraw.cpp (GeneralsMD tree vendored under
+// reference/open-bfme-1/inputs/reference). It is slot 3 of ??_7W3DTankDraw
+// 0x00BCCBE8: the version, then the base model draw's xfer. In BFME 2 that
+// base is W3DScriptedModelDraw (slot 3 of its vftable 0x00BCA090,
+// 0x000C5C04). As in ZH, there is no data of its own.
+
+class AsciiString;
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+#include "../../../../../../GameEngine/Include/Common/BfmeXfer.h"
+class Xfer::Version
+{
+public:
+	Version(unsigned char current, unsigned char minimum)
+		: m_current(current), m_minimum(minimum) {}
+
+	unsigned char m_current;
+	unsigned char m_minimum;
+};
+// ?rva000CE09E@W3DTankDraw@@QAEXXZ @0x000CE09E 76B: disable debris emitters at +0x2E8/+0x2F4 via get-or-Make then rowed byte-zero disable 0x1F384A guarded by +0x8 rva00270260; W3DTankDraw layout from ctor 0xCEA6C and sibling Rva000CE0EA; volatile loads preserve Make chases; caller 0xCE4B0
+class Rva00270260 {
+public:
+	bool rva00270260();
+};
+class Rva001F384AByteZeroSetter {
+public:
+	void disable();
+};
+// ?rva000CE0EA@W3DTankDraw@@QAEXXZ @0x000CE0EA 63B: enable debris emitters at +0x2E8/+0x2F4 via get-or-Make then rowed byte-one enable 0x1F3852; W3DTankDraw layout from ctor 0xCEA6C; volatile loads preserve Make chases like truck toss 0xCB5C3; unblocks 0xCE147
+class Rva001F3852ByteOneSetter
+{
+public:
+	void enable();
+};
+//
+// W3DTankDraw::setHidden, retail 0x000CE129 (30 bytes), ported from Zero
+// Hour's GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/
+// W3DTankDraw.cpp (GeneralsMD tree vendored under
+// reference/open-bfme-1/inputs/reference).
+// Identity: slot 16 of vtable 0x00BCCBE8, whose slot-2 name getter returns
+// "W3DTankDraw"; slot 16 of the W3DModelDraw-family vtable 0x00BCBFC0 is the
+// base W3DModelDraw::setHidden (0x000B6F6D, pinned), which this body calls
+// first, then stops the tread debris when hiding, as Zero Hour does.
+// stopMoveDebris is the rowed opaque ?rva000CE0EA@W3DTankDraw (it acts on
+// the two tread-debris particle handles at +0x2E8/+0x2F4).
+
+typedef bool Bool;
+#include "../../../../../../GameEngine/Source/Common/Thing/thing.h"
+struct Rva001F3C43Arg {
+    char m_pad[0x74];
+    int m_value;
+};
+class Rva001F3C43Slot {
+public:
+    void set(const Rva001F3C43Arg *arg);
+};
+class ParticleSystem : public Rva001F3C43Slot {
+public:
+    void destroy();
+    void rva001F45F4(bool enabled) throw();
+};
+enum { FALSE = 0, TRUE = 1 };
+class ParticleSystemTemplate;
+class Rva0055A88BDwordField;
+class Rva001F3C20Slot { public: void set(const Rva0055A88BDwordField *) throw(); };
+struct Rva001F3C43Arg;
 
 typedef float Real;
 
@@ -336,6 +435,133 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
+struct ParticleSystemView
+{
+	unsigned char m_pad000[0x130];
+	Coord3D m_velocityMultiplier;
+	Real m_burstCountMultiplier;
+};
+
+class View
+{
+public:
+	virtual void vf00(); virtual void vf01(); virtual void vf02(); virtual void vf03();
+	virtual void vf04(); virtual void vf05(); virtual void vf06(); virtual void vf07();
+	virtual void vf08(); virtual void vf09(); virtual void vf10(); virtual void vf11();
+	virtual void vf12(); virtual void vf13(); virtual void vf14(); virtual void vf15();
+	virtual void vf16(); virtual void vf17(); virtual void vf18(); virtual void vf19();
+	virtual void vf20(); virtual void vf21(); virtual void vf22(); virtual void vf23();
+	virtual void vf24(); virtual void vf25(); virtual void vf26(); virtual void vf27();
+	virtual void vf28(); virtual void vf29();
+	virtual Bool isCameraMovementFinished(void);	// slot 30 (+0x78)
+	virtual void vf31(); virtual void vf32(); virtual void vf33(); virtual void vf34();
+	virtual void vf35(); virtual void vf36(); virtual void vf37(); virtual void vf38();
+	virtual void vf39(); virtual void vf40(); virtual void vf41(); virtual void vf42();
+	virtual void vf43(); virtual void vf44(); virtual void vf45(); virtual void vf46();
+	virtual void vf47(); virtual void vf48(); virtual void vf49(); virtual void vf50();
+	virtual void vf51(); virtual void vf52(); virtual void vf53();
+	virtual Bool isTimeFrozen(void);	// slot 54 (+0xD8)
+};
+
+extern View *TheTacticalView;
+
+class Rva00203B08
+{
+public:
+	bool rva0020424FF();
+};
+
+class Rva00203ACEByteField
+{
+public:
+	unsigned char get() const;
+};
+
+class ScriptEngine;
+
+extern ScriptEngine *TheScriptEngine;
+
+class Rva002627E8
+{
+public:
+	Real rva002627E8() const;
+};
+
+struct TurnStateView
+{
+	unsigned char m_pad000[0xA8];
+	Int m_turning;
+};
+
+struct AIUpdateView
+{
+	unsigned char m_pad000[0x1F0];
+	TurnStateView *m_turnState;
+};
+
+class Object : public Thing
+{
+public:
+	Real rva0028AC7D() const;
+
+	unsigned char m_pad[0x258 - sizeof(Thing)];
+	AIUpdateView *m_ai;
+	void *m_physics;
+};
+
+struct DrawableView
+{
+	unsigned char m_pad000[0xFC];
+	Object *m_object;
+};
+
+// W3DModelDraw vftable slots this unit dispatches through; only slot 49 is named.
+class W3DModelDrawSlots
+{
+public:
+	virtual void vf00(); virtual void vf01(); virtual void vf02(); virtual void vf03();
+	virtual void vf04(); virtual void vf05(); virtual void vf06(); virtual void vf07();
+	virtual void vf08(); virtual void vf09(); virtual void vf10(); virtual void vf11();
+	virtual void vf12(); virtual void vf13(); virtual void vf14(); virtual void vf15();
+	virtual void vf16(); virtual void vf17(); virtual void vf18(); virtual void vf19();
+	virtual void vf20(); virtual void vf21(); virtual void vf22(); virtual void vf23();
+	virtual void vf24(); virtual void vf25(); virtual void vf26(); virtual void vf27();
+	virtual void vf28(); virtual void vf29(); virtual void vf30(); virtual void vf31();
+	virtual void vf32(); virtual void vf33(); virtual void vf34(); virtual void vf35();
+	virtual void vf36(); virtual void vf37(); virtual void vf38(); virtual void vf39();
+	virtual void vf40(); virtual void vf41(); virtual void vf42(); virtual void vf43();
+	virtual void vf44(); virtual void vf45(); virtual void vf46(); virtual void vf47();
+	virtual void vf48();
+	virtual void *getRenderObject(void);	// slot 49 (+0xC4)
+};
+
+class ParticleSystemManager
+{
+public:
+	ParticleSystemTemplate *findTemplate(const AsciiString &name) const throw();
+	BfmeParticleSystemHandle createParticleSystem(
+		const ParticleSystemTemplate *sysTemplate, Bool createSlaves) throw();
+};
+
+extern ParticleSystemManager *TheParticleSystemManager;
+
+struct W3DTankDrawDebrisHandle
+{
+	void *m_ptr0;
+	void *m_ptr1;
+	void *m_ptr2;
+};
+
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const char *name);
+};
+
+extern NameKeyGenerator *TheNameKeyGenerator;
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankDraw.cpp
+
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawModuleDataBuildFieldParseChained.cpp
 
 void W3DTankDrawModuleData::buildFieldParse(MultiIniFieldParse &parse)
@@ -347,7 +573,6 @@ void W3DTankDrawModuleData::buildFieldParse(MultiIniFieldParse &parse)
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 
-// tu-skeleton: 0x000CDFB1 23B ??0TreadObjectInfo@W3DTankTruckDraw@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankTruckDraw.cpp (not merged yet)
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankDraw.cpp
 
@@ -472,32 +697,298 @@ W3DTankDraw::W3DTankDraw(Thing *thing, const ModuleData *moduleData)
 // holds a rowed function; the vftable's address is proven by the vptr stores in
 // the matched destructors, so bind the placeholder to that row's name.
 
-// tu-skeleton: 0x000CE03C 44B ?xfer@W3DTankDraw@@MAEXPAVXfer@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankDrawXfer.cpp (not merged yet)
+// tu-skeleton: 0x000CDFB1 23B ??0TreadObjectInfo@W3DTankTruckDraw@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankTruckDraw.cpp (not merged yet)
 
-// tu-skeleton: 0x000CE09E 76B ?rva000CE09E@W3DTankDraw@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/Rva000CE09E.cpp (not merged yet)
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankDrawXfer.cpp
 
-// tu-skeleton: 0x000CE0EA 63B ?rva000CE0EA@W3DTankDraw@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/Rva000CE0EA.cpp (not merged yet)
+// ------------------------------------------------------------------------------------------------
+/** Xfer method
+	* Version Info:
+	* 1: Initial version */
+// ------------------------------------------------------------------------------------------------
+void W3DTankDraw::xfer( Xfer *xfer )
+{
 
-// tu-skeleton: 0x000CE129 30B ?setHidden@W3DTankDraw@@UAEX_N@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankDrawSetHidden.cpp (not merged yet)
+	// version
+	Xfer::Version version( 1, 1 );
+	*xfer == version;
 
-// tu-skeleton: 0x000CE147 35B ?setFullyObscuredByShroud@W3DTankDraw@@UAEX_N@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankDraw_setFullyObscuredByShroud.cpp (not merged yet)
+	// extend base class
+	W3DScriptedModelDraw::xfer( xfer );
+
+	// John A and Mark W say there is no data to save here
+
+}
+
+  // end xfer
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/Rva000CE09E.cpp
+
+void W3DTankDraw::rva000CE09E()
+{
+	if (((Rva00270260 *)m_drawable)->rva00270260())
+		return;
+	if (m_treadDebrisLeft.systemRef()) {
+		ParticleSystem *particleSystem = m_treadDebrisLeft.systemRef();
+		if (!particleSystem)
+			particleSystem = Make001FCBD7();
+		((Rva001F384AByteZeroSetter *)particleSystem)->disable();
+	}
+	if (m_treadDebrisRight.systemRef()) {
+		ParticleSystem *q = m_treadDebrisRight.systemRef();
+		if (!q)
+			q = Make001FCBD7();
+		((Rva001F384AByteZeroSetter *)q)->disable();
+	}
+}
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/Rva000CE0EA.cpp
+
+void W3DTankDraw::rva000CE0EA()
+{
+	if (m_treadDebrisLeft.systemRef()) {
+		ParticleSystem *particleSystem = m_treadDebrisLeft.systemRef();
+		if (!particleSystem)
+			particleSystem = Make001FCBD7();
+		((Rva001F3852ByteOneSetter *)particleSystem)->enable();
+	}
+	if (m_treadDebrisRight.systemRef()) {
+		ParticleSystem *q = m_treadDebrisRight.systemRef();
+		if (!q)
+			q = Make001FCBD7();
+		((Rva001F3852ByteOneSetter *)q)->enable();
+	}
+}
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankDrawSetHidden.cpp
+
+//-------------------------------------------------------------------------------------------------
+void W3DTankDraw::setHidden(Bool h)
+{
+	W3DModelDraw::setHidden(h);
+	if (h)
+	{
+		rva000CE0EA();
+	}
+}
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankDraw_setFullyObscuredByShroud.cpp
+
+// ?setFullyObscuredByShroud@W3DTankDraw@@UAEX_N@Z @0x000CE147 35B: vtable slot 35 of W3DTankDraw; if arg differs from byte at +0x49 and nonzero call enable-emitters 0xCE0EA then base setFullyObscuredByShroud 0xB6FFE; chain from just-landed 0xCE0EA
+
+void W3DTankDraw::setFullyObscuredByShroud(bool v)
+{
+	if (v != m_fullyObscuredByShroud && v)
+		rva000CE0EA();
+	W3DModelDraw::setFullyObscuredByShroud(v);
+}
 
 // tu-skeleton: 0x000CE16A 628B ?updateTreadObjects@W3DTankDraw@@IAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankDrawUpdateTreadObjects.cpp (not merged yet)
 
 // tu-skeleton: 0x000CE3DE 5B ?onRenderObjRecreated@W3DTankDraw@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankDrawUpdateTreadObjects.cpp (not merged yet)
 
-// tu-skeleton: 0x000CE3E3 771B ?doDrawModule@W3DTankDraw@@UAEXPBVMatrix3D@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankDrawDoDrawModule.cpp (not merged yet)
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankDrawDoDrawModule.cpp
 
-// tu-skeleton: 0x000CE7B4 131B ?tossEmitters@W3DTankDraw@@IAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankDrawTossEmitters.cpp (not merged yet)
+// ?doDrawModule@W3DTankDraw@@UAEXPBVMatrix3D@@@Z
+void W3DTankDraw::doDrawModule(const Matrix3D *transformMtx)
+{
+	const Real DEBRIS_THRESHOLD = 0.00001f;
 
-// tu-skeleton: 0x000CE837 297B ?createEmitters@W3DTankDraw@@IAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankDrawEmitters.cpp (not merged yet)
+	if (TheTacticalView->isTimeFrozen() && !TheTacticalView->isCameraMovementFinished())
+		return;
+	if (((Rva00203B08 *)TheScriptEngine)->rva0020424FF())
+		return;
+	if (((Rva00203ACEByteField *)TheScriptEngine)->get())
+		return;
+	if (((W3DModelDrawSlots *)this)->getRenderObject() == 0)
+		return;
+	if (((W3DModelDrawSlots *)this)->getRenderObject() != m_prevRenderObj)
+		updateTreadObjects();
 
-// tu-skeleton: 0x000CE9EE 69B ?getModuleNameKey@W3DTankDraw@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DTankDrawPoolKey.cpp (not merged yet)
+	Object *obj = m_drawable->m_object;
+	if (obj == 0)
+		return;
+	if (obj->m_physics == 0)
+		return;
+
+	Real velMag = obj->rva0028AC7D();
+	if (velMag > DEBRIS_THRESHOLD && !((Rva00270260 *)m_drawable)->rva00270260() && !m_fullyObscuredByShroud)
+		rva000CE09E();
+	else
+		rva000CE0EA();
+
+	Coord3D velMult;
+	velMag = (Real)sqrt(velMag);
+	velMult.x = 0.5f * velMag + 0.1f;
+	if (velMult.x > 1.0f)
+		velMult.x = 1.0f;
+	velMult.y = velMult.x;
+	velMult.z = velMag + 0.1f;
+	if (velMult.z > 1.0f)
+		velMult.z = 1.0f;
+
+	if (m_treadDebrisLeft.getRaw()) {
+		((ParticleSystemView *)m_treadDebrisLeft.get())->m_velocityMultiplier = velMult;
+		((ParticleSystemView *)m_treadDebrisLeft.get())->m_burstCountMultiplier = velMult.z;
+	}
+	if (m_treadDebrisRight.getRaw()) {
+		((ParticleSystemView *)m_treadDebrisRight.get())->m_velocityMultiplier = velMult;
+		((ParticleSystemView *)m_treadDebrisRight.get())->m_burstCountMultiplier = velMult.z;
+	}
+
+	if (m_treadCount) {
+		AIUpdateView *ai = obj->m_ai;
+		TurnStateView *turnState = ai ? ai->m_turnState : 0;
+		if (turnState == 0)
+			return;
+		Int turn = turnState->m_turning;
+		Real treadScrollSpeed = getW3DTankDrawModuleData()->m_treadAnimationRate;
+		Real maxSpeed = ((Rva002627E8 *)ai)->rva002627E8();
+		if (turn != 0 && obj->rva0028AC7D() / maxSpeed < getW3DTankDrawModuleData()->m_treadPivotSpeedFraction) {
+			Coord3D dir;
+			obj->getUnitDirectionVector2D(dir);
+			Real angleToGoal = dir.x * m_lastDirection.x + dir.y * m_lastDirection.y;
+			if (fabs(1.0f - angleToGoal) > 0.00001f) {
+				if (turn == -1)
+					updateTreadPositions(-treadScrollSpeed);
+				else
+					updateTreadPositions(treadScrollSpeed);
+			}
+			m_lastDirection = dir;
+		} else if (obj->rva0028AC7D() / maxSpeed >= getW3DTankDrawModuleData()->m_treadDriveSpeedFraction) {
+			TreadObjectInfo *pTread = m_treads;
+			for (Int i = 0; i < m_treadCount; i++) {
+				Real offset_u = pTread->m_materialSettings.customUVOffset.X - treadScrollSpeed;
+				offset_u = offset_u - (Real)floor(offset_u);
+				pTread->m_materialSettings.customUVOffset.Set(offset_u, 0);
+				pTread++;
+			}
+		}
+	}
+	W3DModelDraw::doDrawModule(transformMtx);
+}
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankDrawTossEmitters.cpp
+
+// 0x0004CBC0 is the handle unlink (row ?rva0004CBC0@RvaSmartPtr12@@QAEXXZ); the dtor is the inline null test around it.
+
+void W3DTankDraw::tossEmitters()
+{
+    if ((1 ? (m_treadDebrisLeft.getRaw()) : (m_treadDebrisLeft.getRaw()))) {
+        m_treadDebrisLeft.get()->set(0);
+        m_treadDebrisLeft.get()->destroy();
+        if (m_treadDebrisLeft.getRaw()) {
+            m_treadDebrisLeft.rva0004CBC0();
+            m_treadDebrisLeft.m_system = 0;
+        }
+    }
+    if (m_treadDebrisRight.getRaw()) {
+        m_treadDebrisRight.get()->set(0);
+        m_treadDebrisRight.get()->destroy();
+        if (m_treadDebrisRight.getRaw()) {
+            m_treadDebrisRight.rva0004CBC0();
+            m_treadDebrisRight.m_system = 0;
+        }
+    }
+}
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankDrawEmitters.cpp
+
+// ?createEmitters@W3DTankDraw@@IAEXXZ
+// Retail CE837..CE960 is the 297-byte createEmitters body called by the
+// independently rowed W3DTankDraw constructor CEA6C and tail wrapper CEA4B.
+// Reference: BFME1 f98983a7d3bb405f1a4ba94bb6a2a168062a819d,
+// game/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankDrawCreateEmitters.cpp;
+// Zero Hour W3DTankDraw.cpp provides the same two-emitter sequence. Target
+// fields: handles2E8/2F4, moduleData4 names188/18C, drawable8. Each is
+// observed in this body and independently corroborated by constructor/dtor.
+// The native handle temporary conditionally calls the existing 4CBC0 unlink
+// helper via RvaSmartPtr12::rva0004CBC0, as in ParticleSystemManagerFindByID.
+// Callees use existing neutral providers for drawable-ID attachment and the
+// stop byte setter; their original method names remain donor facts. No new pins.
+
+void W3DTankDraw::createEmitters()
+{
+	Bool disabled = FALSE;
+	ParticleSystem *nullSystem = 0;
+	if (m_treadDebrisLeft.m_system == nullSystem)
+	{
+		const ParticleSystemTemplate *sysTemplate;
+		sysTemplate = TheParticleSystemManager->findTemplate(
+			m_moduleData->m_treadDebrisLeft);
+		if (sysTemplate)
+		{
+			m_treadDebrisLeft = TheParticleSystemManager->createParticleSystem(
+				sysTemplate, TRUE);
+			Rva0055A88BDwordField *drawable = (Rva0055A88BDwordField *)m_drawable;
+			((Rva001F3C20Slot *)m_treadDebrisLeft.operator->())->set(drawable);
+			m_treadDebrisLeft->rva001F45F4(disabled);
+			((Rva001F3852ByteOneSetter *)m_treadDebrisLeft.operator->())->enable();
+		}
+	}
+	if (!m_treadDebrisRight)
+	{
+		const ParticleSystemTemplate *sysTemplate;
+		sysTemplate = TheParticleSystemManager->findTemplate(
+			m_moduleData->m_treadDebrisRight);
+		if (sysTemplate)
+		{
+			m_treadDebrisRight = TheParticleSystemManager->createParticleSystem(
+				sysTemplate, TRUE);
+			Rva0055A88BDwordField *drawable = (Rva0055A88BDwordField *)m_drawable;
+			((Rva001F3C20Slot *)m_treadDebrisRight.operator->())->set(drawable);
+			m_treadDebrisRight->rva001F45F4(disabled);
+			((Rva001F3852ByteOneSetter *)m_treadDebrisRight.operator->())->enable();
+		}
+	}
+}
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DTankDrawPoolKey.cpp
+
+// ?getModuleNameKey@W3DTankDraw@@UBE?AW4NameKeyType@@XZ @0xCE9EE
+// (69B): cached pool-name key for W3DTankDraw. The class
+// identity comes from the pool-name string the body pushes
+// ("W3DTankDraw"); the body guards a function-local static
+// key fetched once through TheNameKeyGenerator. It is NOT getClassMemoryPool:
+// retail stores nameToKey's return (a key, not a pool pointer) and returns it,
+// and the address carries no getClassMemoryPool row anywhere. /EHsc for the
+// static-guard EH prologue; globals are TU-local externs (DIR32 slots patch
+// from retail, no pins; nameToKey resolves via its matched row).
+
+// ?getModuleNameKey@W3DTankDraw@@UBE?AW4NameKeyType@@XZ
+NameKeyType W3DTankDraw::getModuleNameKey() const
+{
+	static NameKeyType TheW3DTankDrawPoolKey =
+		TheNameKeyGenerator->nameToKey("W3DTankDraw");
+	return TheW3DTankDrawPoolKey;
+}
 
 // tu-skeleton: 0x000CEA33 6B ?name@Rva000CEA33Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/W3DDrawNameGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x000CEA39 23B ?loadPostProcess@W3DTankDraw@@MAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankDrawLoadPostProcess.cpp (not merged yet)
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankDrawLoadPostProcess.cpp
 
-// tu-skeleton: 0x00762614 13B $L310 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DTankDrawPoolKey.cpp (not merged yet)
+// W3DTankDraw::loadPostProcess, retail 0x000CEA39 (23 bytes), ported from
+// Zero Hour's GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/
+// W3DTankDraw.cpp (GeneralsMD tree vendored under reference/open-bfme-1/
+// inputs/reference).
+//
+// Target evidence: slot 1 of ??_7W3DTankDraw 0x00BCCBE8 (W3DTankDraw::xfer
+// 0x000CE03C is slot 3). The body
+// calls 0x000B3A2D, the base loadPostProcess the matched
+// W3DTankTruckDraw::loadPostProcess (0x000CDE47) also calls, then 0x000CE7B4
+// (tossEmitters, unrowed; its 131-byte body tests and releases the +0x2E8 and
+// +0x2F4 emitter handles createEmitters fills), then tail-jumps to the
+// matched W3DTankDraw::createEmitters 0x000CE837 -- ZH's toss-and-recreate.
 
-// tu-skeleton: 0x00762621 10B __ehhandler$?getModuleNameKey@W3DTankDraw@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DTankDrawPoolKey.cpp (not merged yet)
+// The base loadPostProcess at 0x000B3A2D is rowed under its address-derived
+// name (Rva000B3A2D.cpp); the call binds that row.
+
+void W3DTankDraw::loadPostProcess(void)
+{
+	// extend base class
+	W3DModelDraw::loadPostProcess();
+
+	// toss any existing ones and re-create 'em (since this module expects 'em to always be around)
+	tossEmitters();
+	createEmitters();
+}
