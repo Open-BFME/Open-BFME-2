@@ -1,4 +1,6 @@
-// cl: /DNDEBUG /MD
+// cl: /DNDEBUG /MD /EHsc /I. /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug
+enum NameKeyType { NK_UNKNOWN = 0 };
+#include "Code/GameEngine/Include/Common/ObjectModule.h"
 // Retail 0x004A1119 (87 bytes): ?update@SupplyCenterDockUpdate@@UAE?AW4UpdateSleepTime@@XZ.
 // Identity: slot 0 of the vtable 0x00C51B10 that the matched
 // SupplyCenterDockUpdate ctor 0x004A0DC7 installs at +0x10 (the
@@ -24,6 +26,7 @@
 // test/and for a clear). With the array based at +0x110 instead, a word-0 access
 // keeps the array address in a register (lea), which retail never does.
 
+struct Coord3D;
 class Drawable;
 class Rva0010CConditionBits
 {
@@ -45,18 +48,30 @@ private:
 };
 enum KindOfType { KINDOF_FIRST = 0 };
 enum ScienceType { SCIENCE_INVALID = -1 };
+class Rva003B0D7C;
+class Rva0039B7AD;
 class Player
 {
 public:
-	bool hasScience(ScienceType t) const;
+	int getSupplyBoxValue();
+	int ScaleMoney(int);
+	bool hasScience(ScienceType) const;
+	Rva003B0D7C *getMoney() { return (Rva003B0D7C *)((char *)this + 0x90); }
+	Rva0039B7AD *getScoreKeeper() { return (Rva0039B7AD *)((char *)this + 0x3bc); }
+	unsigned int getPlayerColor() const { return m_color; }
+	char m_pad00[0x280];
+private:
+	unsigned int m_color; // +0x280
 };
 class Object
 {
 public:
+	Player *getControllingPlayer() const;
+	bool rva0028C15E(int, float *, int, int);
+	const Coord3D *getPosition() const { return (const Coord3D *)((char *)this + 0x38); }
 	void rva0028AE6D();
 	Drawable *getDrawable() const;
 	bool isKindOf(KindOfType t) const;
-	Player *getControllingPlayer() const;
 	unsigned char m_pad000[0x10C];
 	Rva0010CConditionBits m_conditionBits; // +0x10C
 };
@@ -68,32 +83,51 @@ static __forceinline void setModelConditionBit(Object *object, int bit)
 		object->rva0028AE6D();
 	}
 }
-class Thing;
-class ModuleData;
-class BehaviorModule
+class DockUpdateModuleData
 {
 public:
-	virtual ~BehaviorModule();
-protected:
-	const ModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
+	DockUpdateModuleData();
+	virtual ~DockUpdateModuleData();
+private:
+	unsigned char m_basePad[0x0c];
 };
+
+class SupplyCenterDockUpdateModuleData : public DockUpdateModuleData
+{
+public:
+	SupplyCenterDockUpdateModuleData();
+	// Implicit destructor: retail's vtable 0x0084ED70 slot 0 0x004A10FD calls 0x0049B47C directly: the whole chain is trivial.
+	float m_valueMultiplier;
+	ScienceType m_bonusScience;
+	float m_bonusScienceMultiplier;
+};
+class Thing;
+class ModuleData;
+class Object;
+struct Coord3D;
+class SupplyCenterDockUpdateModuleData;
 class BehaviorModuleInterface
 {
 public:
 	virtual void behaviorModuleInterfaceAnchor();
 };
+// ObjectModule holds m_moduleData at +0x04 and m_object at +0x08.
+class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
+{
+public:
+	virtual ~BehaviorModule();
+};
 enum UpdateSleepTime
 {
-	UPDATE_SLEEP_NONE = 1,
-	UPDATE_SLEEP_FOREVER = 0x3fffffff
+ UPDATE_SLEEP_NONE = 1,
+ UPDATE_SLEEP_FOREVER = 0x3fffffff
 };
 class UpdateModuleInterface
 {
 public:
 	virtual UpdateSleepTime update() = 0;
 };
-class UpdateModule : public BehaviorModule, public BehaviorModuleInterface, public UpdateModuleInterface
+class UpdateModule : public BehaviorModule, public UpdateModuleInterface
 {
 protected:
 	unsigned int m_14;
@@ -103,23 +137,47 @@ protected:
 class DockUpdateInterface
 {
 public:
-	virtual void dockAnchor();
+	virtual bool isClearToApproach(const Object *) const = 0;
+	virtual bool reserveApproachPosition(Object *, Coord3D *, int *) = 0;
+	virtual bool advanceApproachPosition(Object *, Coord3D *, int *) = 0;
+	virtual bool isClearToEnter(const Object *) const = 0;
+	virtual bool isClearToAdvance(const Object *, int) const = 0;
+	virtual void getEnterPosition(Object *, Coord3D *) = 0;
+	virtual void getDockPosition(Object *, Coord3D *) = 0;
+	virtual void getExitPosition(Object *, Coord3D *) = 0;
+	virtual void onApproachReached(Object *) = 0;
+	virtual void onEnterReached(Object *) = 0;
+	virtual void onDockReached(Object *) = 0;
+	virtual void onExitReached(Object *) = 0;
+	virtual bool action(Object *, Object *) = 0;
+	virtual void cancelDock(Object *) = 0;
+	virtual bool isDockOpen() = 0;
+	virtual void setDockOpen(bool) = 0;
+	virtual void setDockCrippled(bool) = 0;
+	virtual bool isAllowPassthroughType() = 0;
+	virtual bool isRallyPointAfterDockType() = 0;
 };
 class DockUpdate : public UpdateModule, public DockUpdateInterface
 {
 public:
 	virtual UpdateSleepTime update();
-};
-class SupplyCenterDockUpdateModuleData
-{
-public:
-	unsigned char m_pad[0x14];
-	ScienceType m_14;
+protected:
+	virtual void xfer(Xfer *xfer);
 };
 class SupplyCenterDockUpdate : public DockUpdate
 {
 public:
+	SupplyCenterDockUpdate(Thing *thing, const ModuleData *moduleData);
+	virtual ~SupplyCenterDockUpdate();
+	virtual bool action(Object *, Object *);
+	virtual NameKeyType getModuleNameKey() const;
 	virtual UpdateSleepTime update();
+	SupplyCenterDockUpdateModuleData *getSupplyCenterDockUpdateModuleData() const
+	{
+		return (SupplyCenterDockUpdateModuleData *)m_moduleData;
+	}
+protected:
+	virtual void xfer(Xfer *xfer);
 };
 UpdateSleepTime SupplyCenterDockUpdate::update()
 {
@@ -128,7 +186,7 @@ UpdateSleepTime SupplyCenterDockUpdate::update()
 	if (!object->isKindOf((KindOfType)0x14c))
 	{
 		const SupplyCenterDockUpdateModuleData *data = (const SupplyCenterDockUpdateModuleData *)m_moduleData;
-		if (object->getControllingPlayer()->hasScience(data->m_14))
+		if (object->getControllingPlayer()->hasScience(data->m_bonusScience))
 			setModelConditionBit(object, 10 * 32 + 12);
 	}
 	return result;

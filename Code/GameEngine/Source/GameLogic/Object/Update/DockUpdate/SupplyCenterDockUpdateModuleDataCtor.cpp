@@ -9,6 +9,8 @@
 // 0x5896B0. Vtable 0xC4ED70 is ICF-folded shared (DeletionUpdate, SlotToLock,
 // ReflectDamage); DIR32-masked, no pin.
 
+enum ScienceType { SCIENCE_INVALID = -1 };
+
 class DockUpdateModuleData
 {
 public:
@@ -23,9 +25,8 @@ class SupplyCenterDockUpdateModuleData : public DockUpdateModuleData
 public:
 	SupplyCenterDockUpdateModuleData();
 	// Implicit destructor: retail's vtable 0x0084ED70 slot 0 0x004A10FD calls 0x0049B47C directly: the whole chain is trivial.
-private:
 	float m_valueMultiplier;
-	int m_bonusScience;
+	ScienceType m_bonusScience;
 	float m_bonusScienceMultiplier;
 };
 
@@ -33,5 +34,5 @@ SupplyCenterDockUpdateModuleData::SupplyCenterDockUpdateModuleData()
 {
 	m_valueMultiplier = 1.0f;
 	m_bonusScienceMultiplier = 1.0f;
-	m_bonusScience = -1;
+	m_bonusScience = SCIENCE_INVALID;
 }
