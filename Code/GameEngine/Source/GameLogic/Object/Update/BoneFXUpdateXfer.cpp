@@ -1,17 +1,5 @@
-// cl: /MD /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /EHsc
+// cl: /FIzh_ascii.h /MD /GX /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /DZH_EMIT_POOL_GLUE -D_STLP_USE_STATIC_LIB -DNDEBUG -DWIN32 -D_WINDOWS /Ireference/shims/bfme2_bonefxupdate /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/dockupdate /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib /Ireference/shims/bfme_namekey /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/shims -ICode/Libraries/Source/Compression/LZHCompress/CompLibHeader /Ireference/shims/bfme2htree /Ireference/shims/bfme2renderobj /Ireference/shims/bfmecamera /Ireference/shims/bfmelight /Ireference/shims/bfmeparticlehandle /Ireference/shims/bfmeparticleload /Ireference/shims/bfmeparticlequat /Ireference/shims/bfmeparticlesave /Ireference/shims/bfmeparticleline /Ireference/shims/bfme2ray /Ireference/shims/bfme2scene /Ireference/shims/bfmefrustum
 // stlport
-// cl: /O1 /DNDEBUG /MD /GX
-// Retail keeps one unsigned max, RVA 0x00013740 (the vendored STLport row). This unit's
-// flags (/G7) compile a different copy, and retail kept another unit's. This unit-local
-// overload keeps the inlined code and offers the link no second copy.
-#include <stl/_algobase.h>
-namespace _STL {
-static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
-{
-    return a < b ? b : a;
-}
-}
-
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
@@ -43,70 +31,9 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 // 4-byte vector push_back 0x002E01C6. ZH's throw SC_INVALID_DATA becomes
 // XferException tag 5.
 
-#include <vector>
-
-// __malloc_alloc<0> allocate/deallocate otherwise instantiate per-TU
-// COMDATs (one byte shape per TU malloc/free wiring); explicit
-// dllimport+forceinline specializations take those calls inline so this
-// TU emits no external copies.
-namespace _STL {
-template <> __declspec(dllimport) __forceinline
-void *__malloc_alloc<0>::allocate(size_t __n)
-{ void *__r = malloc(__n); if (!__r) __r = _S_oom_malloc(__n); return __r; }
-template <> __declspec(dllimport) __forceinline
-void __malloc_alloc<0>::deallocate(void *__p, size_t)
-{ free((char *)__p); }
-}
-
-class AsciiString;
-class UnicodeString;
-class PooledString;
-struct XferUnknown11;
-class Coord3DBase;
-class ICoord3D;
-class Region3D;
-class IRegion3D;
-class Coord2D;
-class ICoord2D;
-class Region2D;
-class IRegion2D;
-class RealRange;
-class RGBColor;
-class RGBAColorReal;
-class RGBAColorInt;
-class Snapshot;
-
-#include "../../../../Include/Common/BfmeXfer.h"
-
-class Xfer::Version
-{
-public:
-	Version(unsigned char current, unsigned char minimum)
-		: m_current(current), m_minimum(minimum) {}
-
-	unsigned char m_current;
-	unsigned char m_minimum;
-};
-
-typedef bool Bool;
-typedef int Int;
-typedef unsigned int UnsignedInt;
-
-class Coord3DBase
-{
-public:
-	float x;
-	float y;
-	float z;
-};
-
-typedef bool Bool;
-typedef unsigned short UnsignedShort;
-
-enum ParticleSystemID
-{
-	INVALID_PARTICLE_SYSTEM_ID = 0
-};
+#include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
+#include "Common/Xfer.h"
+#include "GameLogic/Module/BoneFXUpdate.h"
 
 void XferParticleSystemID( Xfer *xfer, Int *value );
 
@@ -121,56 +48,12 @@ public:
 	int tagValue;
 };
 
-enum BodyDamageType
-{
-	BODY_PRISTINE,
-	BODY_DAMAGED,
-	BODY_REALLYDAMAGED,
-	BODY_RUBBLE,
-
-	BODYDAMAGETYPE_COUNT
-};
-
-enum { BONE_FX_MAX_BONES = 8 };
-
-class UpdateModule
-{
-public:
-	virtual ~UpdateModule();
-	void xfer( Xfer *xfer );
-private:
-	char m_unrecovered04[ 0x20 - 0x04 ];
-};
-
-class BoneFXUpdate : public UpdateModule
-{
-protected:
-	virtual void xfer( Xfer *xfer );
-private:
-	_STL::vector<ParticleSystemID> m_particleSystemIDs;												///< 0x20
-	Int m_nextFXFrame[ BODYDAMAGETYPE_COUNT ][ BONE_FX_MAX_BONES ];						///< 0x2C
-	Int m_nextOCLFrame[ BODYDAMAGETYPE_COUNT ][ BONE_FX_MAX_BONES ];					///< 0xAC
-	Int m_nextParticleSystemFrame[ BODYDAMAGETYPE_COUNT ][ BONE_FX_MAX_BONES ];	///< 0x12C
-	Coord3DBase m_FXBonePositions[ BODYDAMAGETYPE_COUNT ][ BONE_FX_MAX_BONES ];	///< 0x1AC
-	Coord3DBase m_OCLBonePositions[ BODYDAMAGETYPE_COUNT ][ BONE_FX_MAX_BONES ];	///< 0x32C
-	Coord3DBase m_PSBonePositions[ BODYDAMAGETYPE_COUNT ][ BONE_FX_MAX_BONES ];	///< 0x4AC
-	BodyDamageType m_curBodyState;																						///< 0x62C
-	Bool m_bonesResolved[ BODYDAMAGETYPE_COUNT ];															///< 0x630
-	Bool m_active;																														///< 0x634
-};
-
 // ------------------------------------------------------------------------------------------------
 /** Xfer method
 	* Version Info:
 	* 1: Initial version */
 // ------------------------------------------------------------------------------------------------
 // bfme link decl-only begin
-namespace _STL { template <> void vector<ParticleSystemID,_STL::allocator<ParticleSystemID> >::_M_clear(); }
-namespace _STL { template <> void vector<ParticleSystemID,_STL::allocator<ParticleSystemID> >::_M_insert_overflow(ParticleSystemID *,ParticleSystemID const &,_STL::__false_type const &,unsigned int,bool); }
-namespace _STL { template <> ParticleSystemID * _STLP_alloc_proxy<ParticleSystemID *,ParticleSystemID,_STL::allocator<ParticleSystemID> >::allocate(unsigned int); }
-namespace _STL { template <> ParticleSystemID * allocator<ParticleSystemID>::allocate(unsigned int,void const *) const; }
-namespace _STL { template <> void _STLP_alloc_proxy<ParticleSystemID *,ParticleSystemID,_STL::allocator<ParticleSystemID> >::deallocate(ParticleSystemID *,unsigned int); }
-namespace _STL { template <> void allocator<ParticleSystemID>::deallocate(ParticleSystemID *,unsigned int) const; }
 namespace _STL { template <> void vector<ParticleSystemID,_STL::allocator<ParticleSystemID> >::push_back(ParticleSystemID const &); }
 // bfme link decl-only end
 void BoneFXUpdate::xfer( Xfer *xfer )

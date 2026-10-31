@@ -1,4 +1,5 @@
-// cl: /DNDEBUG /MD /EHs-c-
+// cl: /FIzh_ascii.h /MD /GX /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /DZH_EMIT_POOL_GLUE -D_STLP_USE_STATIC_LIB -DNDEBUG -DWIN32 -D_WINDOWS /Ireference/shims/bfme2_bonefxupdate /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/dockupdate /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib /Ireference/shims/bfme_namekey /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/shims -ICode/Libraries/Source/Compression/LZHCompress/CompLibHeader /Ireference/shims/bfme2htree /Ireference/shims/bfme2renderobj /Ireference/shims/bfmecamera /Ireference/shims/bfmelight /Ireference/shims/bfmeparticlehandle /Ireference/shims/bfmeparticleload /Ireference/shims/bfmeparticlequat /Ireference/shims/bfmeparticlesave /Ireference/shims/bfmeparticleline /Ireference/shims/bfme2ray /Ireference/shims/bfme2scene /Ireference/shims/bfmefrustum
+// stlport
 //
 // ?resolveBoneLocations@BoneFXUpdate@@MAEXXZ, retail 0x00487634, 355 bytes.
 //
@@ -15,96 +16,13 @@
 // getPristineBonePositions at 0x0027274D. DEBUG_ASSERTCRASH compiles out
 // under /DNDEBUG so the drawable null check emits no code.
 
-struct BfmeAsciiStringData
-{
-	unsigned short m_refCount;
-	unsigned short m_numCharsAllocated;
-	unsigned short m_len;
-	unsigned short m_pad;
-};
-
-#include "../../../../../../reference/shims/bfme2_ascii/ascii_string.h"
+#include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
+#include "Common/Thing.h"
+#include "GameClient/Drawable.h"
+#include "GameLogic/Object.h"
+#include "GameLogic/Module/BoneFXUpdate.h"
 
 // AsciiString::TheEmptyString: defined in Common/Rva00380200Getter.cpp.
-
-#include "../../../../../Libraries/Include/Lib/Coord3D.h"
-
-class Matrix3D;
-
-class Drawable
-{
-public:
-	int getPristineBonePositions(const char *boneNamePrefix, int startIndex,
-		Coord3D *positions, Matrix3D *transforms, int maxBones, int extra) const;
-};
-
-class Thing
-{
-public:
-	Drawable *getDrawable() const;
-};
-
-class Object : public Thing
-{
-};
-
-struct BoneFXListInfo
-{
-	AsciiString boneName;
-	char m_pad[0x20];
-};
-
-struct BoneOCLInfo
-{
-	AsciiString boneName;
-	char m_pad[0x20];
-};
-
-struct BoneParticleSystemInfo
-{
-	AsciiString boneName;
-	char m_pad[0x20];
-};
-
-class BoneFXUpdateModuleData
-{
-public:
-	char m_hdr[0x0C];
-	BoneFXListInfo m_fxList[4][8];
-	int m_damageOCLTypes;
-	BoneOCLInfo m_OCL[4][8];
-	int m_damageParticleTypes;
-	BoneParticleSystemInfo m_particleSystem[4][8];
-};
-
-class BoneFXUpdate
-{
-protected:
-	virtual void resolveBoneLocations();
-
-public:
-	const BoneFXUpdateModuleData *getBoneFXUpdateModuleData() const
-	{
-		return m_moduleData;
-	}
-	Object *getObject() const
-	{
-		return m_object;
-	}
-
-private:
-	const BoneFXUpdateModuleData *m_moduleData;
-	Object *m_object;
-	char m_pad0C[0x2C - 0x0C];
-	int m_nextFXFrame[4][8];
-	int m_nextOCLFrame[4][8];
-	int m_nextParticleSystemFrame[4][8];
-	Coord3D m_FXBonePositions[4][8];
-	Coord3D m_OCLBonePositions[4][8];
-	Coord3D m_PSBonePositions[4][8];
-	int m_curBodyState;
-	bool m_bonesResolved[4];
-};
 
 void BoneFXUpdate::resolveBoneLocations()
 {
@@ -122,19 +40,19 @@ void BoneFXUpdate::resolveBoneLocations()
 	}
 
 	for (i = 0; i < 8; ++i) {
-		if (boneFXUpdateModuleData->m_fxList[m_curBodyState][i].boneName.compare(AsciiString::TheEmptyString) != 0) {
+		if (boneFXUpdateModuleData->m_fxList[m_curBodyState][i].locInfo.boneName.compare(AsciiString::TheEmptyString) != 0) {
 			const BoneFXListInfo *info = &(boneFXUpdateModuleData->m_fxList[m_curBodyState][i]);
-			drawable->getPristineBonePositions(info->boneName.str(), 0, &m_FXBonePositions[m_curBodyState][i], 0, 1, 0);
+			drawable->getPristineBonePositions(info->locInfo.boneName.str(), 0, &m_FXBonePositions[m_curBodyState][i], 0, 1, 0);
 		}
 
-		if (boneFXUpdateModuleData->m_OCL[m_curBodyState][i].boneName.compare(AsciiString::TheEmptyString) != 0) {
+		if (boneFXUpdateModuleData->m_OCL[m_curBodyState][i].locInfo.boneName.compare(AsciiString::TheEmptyString) != 0) {
 			const BoneOCLInfo *info = &(boneFXUpdateModuleData->m_OCL[m_curBodyState][i]);
-			drawable->getPristineBonePositions(info->boneName.str(), 0, &m_OCLBonePositions[m_curBodyState][i], 0, 1, 0);
+			drawable->getPristineBonePositions(info->locInfo.boneName.str(), 0, &m_OCLBonePositions[m_curBodyState][i], 0, 1, 0);
 		}
 
-		if (boneFXUpdateModuleData->m_particleSystem[m_curBodyState][i].boneName.compare(AsciiString::TheEmptyString) != 0) {
+		if (boneFXUpdateModuleData->m_particleSystem[m_curBodyState][i].locInfo.boneName.compare(AsciiString::TheEmptyString) != 0) {
 			const BoneParticleSystemInfo *info = &(boneFXUpdateModuleData->m_particleSystem[m_curBodyState][i]);
-			drawable->getPristineBonePositions(info->boneName.str(), 0, &m_PSBonePositions[m_curBodyState][i], 0, 1, 0);
+			drawable->getPristineBonePositions(info->locInfo.boneName.str(), 0, &m_PSBonePositions[m_curBodyState][i], 0, 1, 0);
 		}
 	}
 	m_bonesResolved[m_curBodyState] = true;
