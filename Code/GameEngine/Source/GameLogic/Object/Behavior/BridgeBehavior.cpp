@@ -68,6 +68,39 @@ typedef char VerifyBridgeBehaviorValueSize[(sizeof(BridgeBehaviorListValue12) ==
 #include <stl/_alloc.h>
 namespace _STL { template <> void __malloc_alloc<0>::deallocate(void *, size_t); }
 #include "Common/AsciiString.h"
+#include "Common/INIException.h"
+#include <string.h>
+#define BFME_SNAPSHOT_NAME_SLOT
+#define BFME_MODULE_NO_MPO
+#define Matrix4x4 Matrix4  // BFME renamed it
+#define BFME_SNAPSHOT_NAME_SLOT
+#define BFME_MODULE_NO_MPO
+#define Matrix4x4 Matrix4  // BFME renamed it
+#define BFME_SNAPSHOT_NAME_SLOT
+#define BFME_MODULE_NO_MPO
+#define Matrix4x4 Matrix4  // BFME renamed it
+#include "../../../../Include/Common/BfmeAudioEventPrefix136.h"
+#include "Common/GameAudio.h"
+#define BFME_SNAPSHOT_NAME_SLOT
+#define BFME_MODULE_NO_MPO
+#define Matrix4x4 Matrix4  // BFME renamed it
+#define BFME_SNAPSHOT_NAME_SLOT
+#define BFME_MODULE_NO_MPO
+#define Matrix4x4 Matrix4  // BFME renamed it
+#define BFME_SNAPSHOT_NAME_SLOT
+#define BFME_MODULE_NO_MPO
+#define Matrix4x4 Matrix4  // BFME renamed it
+#define __PLACEMENT_VEC_NEW_INLINE
+#define BFME_SNAPSHOT_NAME_SLOT
+#define BFME_MODULE_NO_MPO
+#define _CRTIMP
+#define Matrix4x4 Matrix4  // BFME renamed it
+#include "Common/Geometry.h"
+#include <math.h>
+#include "wwmath.h"
+#undef REAL_TO_INT_CEIL
+#define REAL_TO_INT_CEIL(x) WWMath::Float_To_Long((Real)BridgeCrtImport::ceil(x))
+#include "../../../Common/GameLogicObjectLookupView.h"
 
 // Suppress this TU's non-retail copy of ??1?$_List_base@W4ObjectID@@V?$allocator@W4ObjectID@@@_STL@@@_STL@@QAE@XZ:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
@@ -124,7 +157,209 @@ list<BridgeBehaviorListValue12, allocator<BridgeBehaviorListValue12> >::_M_creat
 }
 }
 
+typedef unsigned int UnsignedInt;
+
+struct BoneNameSlot
+{
+    AsciiString *destination;
+
+    __forceinline BoneNameSlot( AsciiString *value ) : destination( value ) {}
+
+    __forceinline void operator=( const AsciiString &value )
+    {
+        destination->operator=( value );
+    }
+};
+
+extern const Real g_00BC2A10;
+
+class Anim2DTemplate
+{
+public:
+	AsciiString getName() const;
+};
+
+// The bridge template's repaired and damaged sound entries.
+class BridgeRoadSoundView
+{
+public:
+	unsigned char m_pad00[0x64];
+	OpaqueRefElement4 m_damageToSound[4];
+	unsigned char m_pad74[0xD4 - 0x74];
+	OpaqueRefElement4 m_repairedToSound[4];
+};
+
+// TheAudio's slots as retail calls them; Zero Hour's manager orders them differently.
+class BridgeAudioManagerView
+{
+public:
+	virtual void slot0();
+	virtual void slot1();
+	virtual void slot2();
+	virtual void slot3();
+	virtual void slot4();
+	virtual void slot5();
+	virtual void slot6();
+	virtual void slot7();
+	virtual void slot8();
+	virtual void slot9();
+	virtual void slot10();
+	virtual void slot11();
+	virtual void slot12();
+	virtual void slot13();
+	virtual void slot14();
+	virtual void slot15();
+	virtual void slot16();
+	virtual void slot17();
+	virtual void slot18();
+	virtual void slot19();
+	virtual void slot20();
+	virtual void slot21();
+	virtual void slot22();
+	virtual void slot23();
+	virtual void slot24();
+	virtual int addAudioEvent(const BfmeAudioEventPrefix136 *event);
+};
+
+// The audio event's object-id setter, address-named as rowed.
+class Rva002D9531
+{
+public:
+	void rva002D9531(int value);
+};
+
+extern NameKeyGenerator *TheNameKeyGenerator;
+
+// BFME 2's 0x7C-byte DamageInfo: its default constructor is the rowed 0x00263895, address-named
+// Rva00263895Member; trivially destroyed. Zero Hour's DamageInfo has other offsets.
+// BFME 2's 0x7C-byte DamageInfo as a local: its default constructor is the
+// rowed 0x00263895, address-named Rva00263895Member; trivially destroyed.
+class Rva00263895Member
+{
+public:
+	Rva00263895Member();
+	unsigned char m_pad00[0x08];
+	ObjectID m_sourceID;			// +0x08
+	unsigned char m_pad0C[0x10 - 0x0C];
+	Int m_damageType;			// +0x10
+	unsigned char m_pad14[0x1C - 0x14];
+	Int m_deathType;			// +0x1C
+	Real m_amount;				// +0x20
+	unsigned char m_pad24[0x7C - 0x24];
+};
+
+// The body module's slots as retail calls them; Zero Hour's interface orders them differently.
+class BridgeBodyModuleView
+{
+public:
+	virtual void slot00();
+	virtual void slot01();
+	virtual void slot02();
+	virtual void slot03();
+	virtual void slot04();
+	virtual void slot05();
+	virtual Real getMaxHealth() const;
+};
+
+// The owner's template pointer at +0x04 and the template's kind-of bytes (ZH KINDOF_BRIDGE and
+// KINDOF_BRIDGE_TOWER at +0x10A bit 6 and +0x10B bit 0; the BFME bit names are not recovered).
+struct BridgeKindOfView
+{
+	unsigned char m_pad00[0x10A];
+	unsigned char m_kindOf10A;
+	unsigned char m_kindOf10B;
+};
+
+struct BridgeObjectTemplateView
+{
+	unsigned char m_pad00[0x04];
+	const BridgeKindOfView *m_template;
+};
+
+// The scaffold walks read the list's sentinel and its nodes directly.
+struct RetailScaffoldNode
+{
+	RetailScaffoldNode *next;
+	RetailScaffoldNode *previous;
+	ObjectID objectID;
+};
+
+class Rva0029FB3BMember
+{
+public:
+	void reset();
+	void init(void *context);
+	void *m_head; // +0x00
+};
+
+// Retail's ceil goes through the import table, spelled as math.h's float overload does it; the
+// seed's _CRTIMP makes the CRT's other calls direct.
+namespace BridgeCrtImport {
+extern "C" __declspec(dllimport) double __cdecl ceil(double);
+inline float __cdecl ceilf(float x) { return ((float)ceil((double)x)); }
+inline float __cdecl ceil(float x) { return (ceilf(x)); }
+}
+
+// The support positions copy member-wise when constructed and block-copy when assigned.
+struct ScaffoldCoord : Coord3D
+{
+	ScaffoldCoord() {}
+	ScaffoldCoord(const Coord3D &o) { x = o.x; y = o.y; z = o.z; }
+};
+
+// The template's geometry info at +0xA0; Zero Hour's ThingTemplate holds it elsewhere.
+struct BridgeTemplateGeometryView
+{
+	unsigned char m_unmodelled000[0xA0];
+	GeometryInfo m_geometryInfo;	// +0xA0
+};
+
+// newObject's third argument: a 16-byte bit mask, zeroed when constructed.
+struct CreateMask
+{
+	unsigned int m_bits[4];
+};
+
+// The road template's scaffold / scaffold-support object name getters are
+// rowed under address-derived owners (0x002D9BC1 / 0x0056394A).
+class Rva002D9BC1AsciiField
+{
+public:
+	AsciiString get() const;
+};
+
+class Rva0056394A
+{
+public:
+	AsciiString rva0056394A();
+};
+
+class TerrainType
+{
+public:
+	AsciiString getTexture() const;
+};
+
+extern GameLogic *TheGameLogic;
+
+class BridgeBehaviorInterfaceView
+{
+public:
+	virtual ~BridgeBehaviorInterfaceView();
+	virtual ObjectID getTowerID(BridgeTowerType towerType) = 0;
+};
+
+class DamageInfo;
+
+class Rva004581FD
+{
+public:
+	virtual void onDie(const DamageInfo *damageInfo);
+};
+
 // tu-skeleton: 0x00456556 41B ?getBridgeBehaviorInterfaceFromObject@BridgeBehavior@@SAPAVBridgeBehaviorInterface@@PAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorGetInterfaceFromObject.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp
 
@@ -462,40 +697,6 @@ void Force_ConstructBridgeBehaviorListValue12(
     std::_Construct(destination, source);
 }
 
-// tu-skeleton: 0x004565BD 360B ?getRandomSurfacePosition@BridgeBehavior@@IAEXPAVTerrainRoadType@@PBVBridgeInfo@@PAUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorAreaEffects.cpp (not merged yet)
-
-// tu-skeleton: 0x0045679B 194B ?parseTimeAndLocationInfo@@YAXPAVINI@@PAXPAUTimeAndLocationInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorParseTimeAndLocation.cpp (not merged yet)
-
-// tu-skeleton: 0x0045685D 143B ?doAreaEffects@BridgeBehavior@@IAEXPAVTerrainRoadType@@PAVBridge@@PBVObjectCreationList@@PBVFXList@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorAreaEffects.cpp (not merged yet)
-
-// tu-skeleton: 0x004568EC 338B ?setScaffoldData@BridgeBehavior@@IAEXPAVObject@@PAM1PBUCoord3D@@22@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorSetScaffoldData.cpp (not merged yet)
-
-// tu-skeleton: 0x00456A3E 11B ?rva00456A3E@Rva00456A3E@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAI.cpp (not merged yet)
-
-// tu-skeleton: 0x00456A49 470B ?resolveFX@BridgeBehavior@@IAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorResolveFX.cpp (not merged yet)
-
-// tu-skeleton: 0x00456C1F 593B ?onBodyDamageStateChange@BridgeBehavior@@UAEXPBVDamageInfo@@W4BodyDamageType@@1@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorOnBodyDamageStateChange.cpp (not merged yet)
-
-// tu-skeleton: 0x00456E8D 592B ?update@BridgeBehavior@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorAreaEffects.cpp (not merged yet)
-
-// tu-skeleton: 0x0045710A 9B ??$_Destroy@UPrereqUnitRec@ProductionPrerequisite@@@_STL@@YAXPAUPrereqUnitRec@ProductionPrerequisite@@@Z -- matched in Code/GameEngine/Source/Common/DestroyInstances.cpp (not merged yet)
-
-// tu-skeleton: 0x00457113 150B ??1BridgeBehavior@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004571A9 69B ?getModuleNameKey@BridgeBehavior@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Module/BridgeBehaviorPoolKey.cpp (not merged yet)
-
-// tu-skeleton: 0x004571EE 6B ?GetSnapshotName@BridgeBehavior@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x004571F4 7B ?get@Rva004571F4ByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/DispByteFieldGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x004571FB 182B ?onDamage@BridgeBehavior@@UAEXPAVDamageInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorOnHealing.cpp (not merged yet)
-
-// tu-skeleton: 0x004572B1 141B ?onHealing@BridgeBehavior@@UAEXPAVDamageInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorOnHealing.cpp (not merged yet)
-
-// tu-skeleton: 0x0045733E 150B ?removeScaffolding@BridgeBehavior@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorRemoveScaffolding.cpp (not merged yet)
-
-// tu-skeleton: 0x004573D4 75B ?isScaffoldInMotion@BridgeBehavior@@UAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorIsScaffoldInMotion.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorListOperations.cpp
 
 /*
@@ -547,13 +748,769 @@ __declspec(noinline) void ForceBridgeBehaviorListDestroy(BridgeBehaviorList12 *l
 	list->~list();
 }
 
+// tu-skeleton: 0x004565BD 360B ?getRandomSurfacePosition@BridgeBehavior@@IAEXPAVTerrainRoadType@@PBVBridgeInfo@@PAUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorAreaEffects.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorParseTimeAndLocation.cpp
+
+// Copyright notice and GPL terms retained from the reference BridgeBehavior.cpp.
+/*
+**  Command & Conquer Generals Zero Hour(tm)
+**  Copyright 2025 Electronic Arts Inc.
+**
+**  This program is free software: you can redistribute it and/or modify
+**  it under the terms of the GNU General Public License as published by
+**  the Free Software Foundation, either version 3 of the License, or
+**  (at your option) any later version.
+**
+**  This program is distributed in the hope that it will be useful,
+**  but WITHOUT ANY WARRANTY; without even the implied warranty of
+**  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+**  GNU General Public License for more details.
+**
+**  You should have received a copy of the GNU General Public License
+**  along with this program. If not, see <http://www.gnu.org/licenses/>.
+*/
+// Donor semantics: BridgeBehaviorParseFX.cpp::parseTimeAndLocationInfo.
+// Target evidence: BridgeDieFX registered callback 0x4580A9 calls 0x45679B;
+// target Delay/Bone diagnostics identify this parser. Target extent 194B.
+// Target-local view: INI separator pointer is at +0x420 (donor +0x41C).
+// Force_ParseTimeAndLocation below is an isolated emission aid, not a target
+// function claim; it keeps this otherwise-static helper out of line.
+
+static void parseTimeAndLocationInfo( INI *ini, void *instance, TimeAndLocationInfo *info )
+{
+    const char *token = ini->getNextToken( ini->getSepsColon() );
+    if( _strcmpi( token, "Delay" ) != 0 )
+        throw INIException( 3, "Expected 'Delay' token, found '%s'\n", token );
+    ini->parseDurationUnsignedInt( ini, instance, &info->delay, 0 );
+    token = ini->getNextTokenOrNull( ini->getSepsColon() );
+    if( token != 0 )
+    {
+        if( _strcmpi( token, "Bone" ) != 0 )
+            throw INIException( 3, "Expected 'Bone' token, found '%s'\n", token );
+        BoneNameSlot( &info->boneName ) = ini->getNextAsciiString();
+    }
+}
+
+// ?Force_ParseTimeAndLocation@@YAXPAVINI@@PAXPAUTimeAndLocationInfo@@@Z absent-from-retail
+void Force_ParseTimeAndLocation( INI *ini, void *instance, TimeAndLocationInfo *info )
+{
+    parseTimeAndLocationInfo( ini, instance, info );
+}
+
+// tu-skeleton: 0x0045685D 143B ?doAreaEffects@BridgeBehavior@@IAEXPAVTerrainRoadType@@PAVBridge@@PBVObjectCreationList@@PBVFXList@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorAreaEffects.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorSetScaffoldData.cpp
+
+// Retail 0x004568EC, 338B; this six-argument thiscall returns with ret 0x18.
+// The ZH member declaration and body establish BridgeBehavior::setScaffoldData;
+// the BFME 1 port is at
+// reference/open-bfme-1/game/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorCreateScaffoldingThunk.cpp
+// (donor revision 6583b3c1ff21db4a561285717028fdafc780b7db).
+// Retail directly reads this+4 for module data, with lateral/vertical speeds
+// at data+8/+0xC. Its absolute float read at VA 0x00BC2A10 is 8.0f
+// (RVA 0x007C2A10; retail bytes 00 00 00 41). Coord3D::length and all direct
+// callees below are independently rowed; the minimal views preserve only the
+// offsets and virtual slots witnessed by this body.
+
+// Select-any: BridgeBehaviorCreateScaffolding.cpp compiles an identical copy for its caller.
+__declspec(noinline) inline void BridgeBehavior::setScaffoldData(Object *object, Real *angle,
+	Real *sunkenHeight, const Coord3D *risePosition,
+	const Coord3D *buildPosition, const Coord3D *bridgeCenter)
+{
+	if (!object)
+		return;
+	if (!angle)
+		return;
+	if (!risePosition)
+		return;
+	if (!buildPosition)
+		return;
+
+	const BridgeBehaviorModuleData *moduleData = getBridgeBehaviorModuleData();
+	BridgeScaffoldBehaviorInterface *scaffold =
+		BridgeScaffoldBehavior::getBridgeScaffoldBehaviorInterfaceFromObject(object);
+	Coord3D sunkenPosition;
+	sunkenPosition.x = risePosition->x;
+	sunkenPosition.y = risePosition->y;
+	sunkenPosition.z = risePosition->z - *sunkenHeight - g_00BC2A10;
+	object->setPosition(&sunkenPosition);
+	scaffold->setPositions(&sunkenPosition, risePosition, buildPosition);
+	scaffold->setMotion((ScaffoldTargetMotion)1);
+	((Thing *)object)->setOrientation(*angle);
+
+	Real lateralSpeed = moduleData->m_lateralScaffoldSpeed;
+	Coord3D buildToCenter;
+	buildToCenter.x = buildPosition->x - risePosition->x;
+	buildToCenter.y = buildPosition->y - risePosition->y;
+	buildToCenter.z = buildPosition->z - risePosition->z;
+	Coord3D riseToCenter;
+	riseToCenter.x = bridgeCenter->x - risePosition->x;
+	riseToCenter.y = bridgeCenter->y - risePosition->y;
+	riseToCenter.z = bridgeCenter->z - risePosition->z;
+	Real buildDistance = buildToCenter.length();
+	Real riseDistance = riseToCenter.length();
+	scaffold->setLateralSpeed(lateralSpeed * (buildDistance / riseDistance));
+	Real verticalSpeed = moduleData->m_verticalScaffoldSpeed;
+	scaffold->setVerticalSpeed(verticalSpeed);
+}
+
+// The anchor keeps the rowed select-any body emitted in this unit.
+// ?bfmeAnchorBridgeBehaviorSetScaffoldData absent-from-retail
+void bfmeAnchorBridgeBehaviorSetScaffoldData(BridgeBehavior *bridgeBehavior)
+{
+	bridgeBehavior->setScaffoldData(0, 0, 0, 0, 0, 0);
+}
+
+// tu-skeleton: 0x00456A3E 11B ?rva00456A3E@Rva00456A3E@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAI.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorResolveFX.cpp
+
+// Retail 0x00456A49, 470B: BridgeBehavior::resolveFX.
+// Body: Zero Hour's resolveFX (GeneralsMD GameEngine/Source/GameLogic/Object/
+// Behavior/BridgeBehavior.cpp). Target evidence: the bridge is found through
+// TerrainLogic slot 0xA4 from the object at this+8, the template through
+// TheTerrainRoads->findBridge (0x002DB4DA), and the four name getters
+// (getDamageToOCLString 0x002DACF4 and the address-named damage-FX,
+// repaired-OCL and repaired-FX getters 0x00456725/0x0045674D/0x00456774)
+// feed TheObjectCreationListStore / TheFXListStore lookups, ending with the
+// resolved flag at +0xFC. BFME 2 deltas: four body states by three effects,
+// the OCL/FX tables at +0x3C/+0x6C/+0x9C/+0xCC, and no sound resolution.
+
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
+void BridgeBehavior::resolveFX( void )
+{
+	Object *us = getObject();
+	Bridge *bridge = TheTerrainLogic->findBridgeAt( us->getPosition() );
+
+	// sanity
+	if( bridge == 0 )
+		return;
+
+	// get the bridge template name
+	AsciiString bridgeTemplateName = ((const Anim2DTemplate *)bridge)->getName();
+
+	// find the bridge template
+	TerrainRoadType *bridgeTemplate = TheTerrainRoads->findBridge( bridgeTemplateName );
+
+	// sanity
+	if( bridgeTemplate == 0 )
+		return;
+
+	AsciiString name;
+	for( Int bodyState = BODY_PRISTINE; bodyState < BODYDAMAGETYPE_COUNT; ++bodyState )
+	{
+
+		// initialize the fx and ocl lists
+		for( Int i = 0; i < MAX_BRIDGE_BODY_FX; ++i )
+		{
+
+			name = bridgeTemplate->getDamageToOCLString( (BodyDamageType)bodyState, i );
+			m_damageToOCL[ bodyState ][ i ] = TheObjectCreationListStore->findObjectCreationList( name.str() );
+
+			name = ((Rva00456725 *)bridgeTemplate)->rva00456725( bodyState, i );
+			m_damageToFX[ bodyState ][ i ] = TheFXListStore->findFXList( name.str() );
+
+			name = ((Rva0045674D *)bridgeTemplate)->rva0045674D( bodyState, i );
+			m_repairToOCL[ bodyState ][ i ] = TheObjectCreationListStore->findObjectCreationList( name.str() );
+
+			name = ((Rva00456774 *)bridgeTemplate)->rva00456774( bodyState, i );
+			m_repairToFX[ bodyState ][ i ] = TheFXListStore->findFXList( name.str() );
+
+		}  // end for i
+
+	}  // end for, bodyState
+
+	// fx are now "resolved"
+	m_fxResolved = true;
+
+}
+
+  // end resolveFX
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorOnBodyDamageStateChange.cpp
+
+// Retail 0x00456C1F, 593B: BridgeBehavior::onBodyDamageStateChange, entered
+// through the DamageModuleInterface subobject at BridgeBehavior+0x24 (the
+// object is this-0x1C, resolveFX and doAreaEffects are called on this-0x24,
+// the death frame is +0x104 and the resolved flag +0xFC).
+// Body: Zero Hour's onBodyDamageStateChange (GeneralsMD GameEngine/Source/
+// GameLogic/Object/Behavior/BridgeBehavior.cpp). BFME 2 deltas: the sound is
+// a local audio event built from the bridge template's repaired/damaged sound
+// entries (TerrainRoadType+0xD4/+0x64 indexed by the new state, guarded by a
+// template null test), stamped with the object id (0x002D9531) and passed to
+// TheAudio slot 0x64; the OCL/FX tables are BridgeBehavior+0x3C/+0x6C
+// (damage) and +0x9C/+0xCC (repair). TerrainLogic slot 0xC4 is
+// updateBridgeDamageStates and Radar slot 0x14 queueTerrainRefresh.
+
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
+void BridgeBehavior::onBodyDamageStateChange( const DamageInfo* damageInfo,
+																							BodyDamageType oldState,
+																							BodyDamageType newState )
+{
+
+	//
+	// check for coming back from the dead, if our new state is not the rubble state, we can't
+	// possibly be dead
+	//
+	if( newState != BODY_RUBBLE )
+		m_deathFrame = 0;
+
+	// first resolve any fx stuff if we need to
+	if( m_fxResolved == false )
+		resolveFX();
+
+	// sanity
+	if( m_fxResolved == false )
+		return;
+
+	Object *us = getObject();
+	Bridge *bridge = TheTerrainLogic->findBridgeAt( us->getPosition() );
+
+	// sanity
+	if( bridge == 0 )
+		return;
+
+	// get the bridge template name
+	AsciiString bridgeTemplateName = ((const Anim2DTemplate *)bridge)->getName();
+
+	// find the bridge template
+	TerrainRoadType *bridgeTemplate = TheTerrainRoads->findBridge( bridgeTemplateName );
+
+	//
+	// given the old state and the new state, did we get worse (damaged) or did
+	// we get better (repaired)?
+	//
+	Bool gotRepaired = oldState > newState;
+
+	// get the effect data
+	AsciiString soundString;
+	AsciiString oclString[ MAX_BRIDGE_BODY_FX ];
+	AsciiString fxString[ MAX_BRIDGE_BODY_FX ];
+	if( gotRepaired )
+	{
+
+		// play the sound
+		if( bridgeTemplate )
+		{
+			BfmeAudioEventPrefix136 sound( ((BridgeRoadSoundView *)bridgeTemplate)->m_repairedToSound[ newState ], 0 );
+			reinterpret_cast<Rva002D9531 *>( &sound )->rva002D9531( us->getID() );
+			((BridgeAudioManagerView *)TheAudio)->addAudioEvent( &sound );
+		}
+
+		for( Int i = 0; i < MAX_BRIDGE_BODY_FX; i++ )
+			doAreaEffects( bridgeTemplate, bridge, m_repairToOCL[ newState ][ i ], m_repairToFX[ newState ][ i ] );
+
+	}  // end if
+	else
+	{
+
+		// play the sound
+		if( bridgeTemplate )
+		{
+			BfmeAudioEventPrefix136 sound( ((BridgeRoadSoundView *)bridgeTemplate)->m_damageToSound[ newState ], 0 );
+			reinterpret_cast<Rva002D9531 *>( &sound )->rva002D9531( us->getID() );
+			((BridgeAudioManagerView *)TheAudio)->addAudioEvent( &sound );
+		}
+
+		for( Int i = 0; i < MAX_BRIDGE_BODY_FX; i++ )
+			doAreaEffects( bridgeTemplate, bridge, m_damageToOCL[ newState ][ i ], m_damageToFX[ newState ][ i ] );
+
+	}  // end else
+
+	// update bridge damage states
+	TheTerrainLogic->updateBridgeDamageStates();
+
+	//
+	// for the local player, if this bridge has switched from rubble, to usable, or from
+	// usable to rubble, we should reflect the change on the radar
+	//
+	if( oldState == BODY_RUBBLE || newState == BODY_RUBBLE )
+		TheRadar->queueTerrainRefresh();
+
+}
+
+  // end onBodyDamageStateChange
+
+// tu-skeleton: 0x00456E8D 592B ?update@BridgeBehavior@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorAreaEffects.cpp (not merged yet)
+
+// tu-skeleton: 0x0045710A 9B ??$_Destroy@UPrereqUnitRec@ProductionPrerequisite@@@_STL@@YAXPAUPrereqUnitRec@ProductionPrerequisite@@@Z -- matched in Code/GameEngine/Source/Common/DestroyInstances.cpp (not merged yet)
+
+// tu-skeleton: 0x00457113 150B ??1BridgeBehavior@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorDtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Module/BridgeBehaviorPoolKey.cpp
+
+// ?getModuleNameKey@BridgeBehavior@@UBE?AW4NameKeyType@@XZ
+NameKeyType BridgeBehavior::getModuleNameKey() const
+{
+	static NameKeyType TheBridgeBehaviorPoolKey =
+		TheNameKeyGenerator->nameToKey("BridgeBehavior");
+	return TheBridgeBehaviorPoolKey;
+}
+
+// tu-skeleton: 0x004571EE 6B ?GetSnapshotName@BridgeBehavior@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x004571F4 7B ?get@Rva004571F4ByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/DispByteFieldGetters.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorOnHealing.cpp
+
+// Retail 0x004572B1, 141B: BridgeBehavior::onHealing, entered through the
+// DamageModuleInterface subobject at BridgeBehavior+0x24 (object this-0x1C,
+// BridgeBehaviorInterface this-0x04 whose slot 1 is getTowerID).
+// Body: Zero Hour's onHealing (GeneralsMD GameEngine/Source/GameLogic/Object/
+// Behavior/BridgeBehavior.cpp) with the BFME 2 layout shared by the matched
+// BridgeTowerBehavior::onHealing 0x00458997: body module Object+0x254
+// (getMaxHealth slot 0x18), DamageInfo amount +0x20 / source +0x08, the
+// tower kind-of bit at template+0x10B bit 0 (ZH KINDOF_BRIDGE_TOWER) and
+// out-of-line Object::attemptHealing 0x0028FE55.
+
+// ------------------------------------------------------------------------------------------------
+// Retail 0x004571FB, 182B: BridgeBehavior::onDamage, the damage-interface slot
+// before onHealing. Zero Hour's body in the same BFME 2 layout; the tower
+// damage record is the 0x7C-byte local built by 0x00263895 and handed to the
+// out-of-line Object::attemptDamage 0x0029848E.
+// ------------------------------------------------------------------------------------------------
+void BridgeBehavior::onDamage( DamageInfo *damageInfo )
+{
+
+	// get the bridge object
+	Object *bridge = getObject();
+
+	// get bridge body module
+	BridgeBodyModuleView *body = (BridgeBodyModuleView *)bridge->getBodyModule();
+
+	// what is our percentage of the damage done to the bridge
+	Real damagePercentage = ((const Rva00263895Member *)damageInfo)->m_amount / body->getMaxHealth();
+
+	// if our source is a tower, don't do anything
+	Object *source = TheGameLogic->findObjectByID( ((const Rva00263895Member *)damageInfo)->m_sourceID );
+	if( source && (((const BridgeObjectTemplateView *)source)->m_template->m_kindOf10B & 1) )
+		return;
+
+	// apply damage to all towers
+	for( Int i = 0; i < BRIDGE_MAX_TOWERS; ++i )
+	{
+		Object *tower = TheGameLogic->findObjectByID( getTowerID( (BridgeTowerType)i ) );
+		if( tower )
+		{
+			BridgeBodyModuleView *towerBody = (BridgeBodyModuleView *)tower->getBodyModule();
+			Rva00263895Member towerDamage;
+			towerDamage.m_amount = towerBody->getMaxHealth() * damagePercentage;
+			towerDamage.m_sourceID = getObject()->getID();
+			towerDamage.m_damageType = ((const Rva00263895Member *)damageInfo)->m_damageType;
+			towerDamage.m_deathType = ((const Rva00263895Member *)damageInfo)->m_deathType;
+			tower->attemptDamage( (DamageInfo *)&towerDamage );
+		}
+	}
+
+}
+
+  // end onDamage
+
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
+void BridgeBehavior::onHealing( DamageInfo *damageInfo )
+{
+
+	//
+	// get our body info so we now how much healing percent is being done to us ... we need this
+	// so that we can propagate the same healing percentage amont the towers and the bridge
+	//
+	BridgeBodyModuleView *body = (BridgeBodyModuleView *)getObject()->getBodyModule();
+	Real healingPercentage = ((const Rva00263895Member *)damageInfo)->m_amount / body->getMaxHealth();
+
+	//
+	// if the healing didn't come from a bridge tower, then we must propagate this healing
+	// to all our towers
+	//
+	Object *source = TheGameLogic->findObjectByID( ((const Rva00263895Member *)damageInfo)->m_sourceID );
+	if( source == 0 || (((const BridgeObjectTemplateView *)source)->m_template->m_kindOf10B & 1) == 0 )
+	{
+		Object *tower;
+
+		for( Int i = 0; i < BRIDGE_MAX_TOWERS; i++ )
+		{
+
+			tower = TheGameLogic->findObjectByID( getTowerID( (BridgeTowerType)i ) );
+			if( tower )
+			{
+				BridgeBodyModuleView *towerBody = (BridgeBodyModuleView *)tower->getBodyModule();
+				tower->attemptHealing( healingPercentage * towerBody->getMaxHealth(), getObject() );
+			}  // end if
+
+		}  // end for i
+
+	}  // end if
+
+}
+
+  // end onHealing
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorRemoveScaffolding.cpp
+
+// removeScaffolding: native 0x0045733E..0x004573D4, RET at 0x004573D3.
+// BFME 1 donor 575ba2b04743f190f069805fbdc59936123c45da: purpose and control flow.
+// WB1139040 names the target. Native independently proves all view offsets,
+// canonical global addresses, virtual slots and call targets used below.
+// 150/150 extent and all resolved relocations; .8866666667 similarity: ESI/EDI
+// allocation differs. Direct donor, real list iterator and sibling /G6 produce
+// that same register-only wall. Existing 75B sibling remains exact.
+// Includes are relative to the intended normal Code home, not this evidence path.
+// W7-S2 r4 sweepchain: the equal-arm receiver on TheGameLogic keeps retail's EDI for this.
+// isScaffoldInMotion (0x004573D4) is rowed in BridgeBehaviorIsScaffoldInMotion.cpp.
+// Retail 0x004573D4, 75B. Identity is the matching ZH method plus its same
+// list/object/interface traversal in BFME 1's BridgeBehaviorOnHealing.cpp
+// (donor revision 6583b3c1ff21db4a561285717028fdafc780b7db). Retail bytes
+// independently place the list-head pointer at this+0xE0 and ObjectID at
+// node+8; the donor's full-class offset +0x400 does not apply here.
+
+// BFME1 575ba2b BridgeBehaviorOnHealing.cpp provides this purpose/control flow.
+// BFME2 WB1139040 names removeScaffolding; native receiverDD/E0, owner-18,
+// body254/slot20, terrain slotA4 and BridgeC4 are independently observed.
+void BridgeBehavior::removeScaffolding()
+{
+    if(!m_scaffoldPresent)return;
+    RetailScaffoldNode *const &listHead=*(RetailScaffoldNode *const *)&m_scaffoldObjectIDList;
+    RetailScaffoldNode *node=listHead->next;
+    if(node!=listHead) {
+        do {
+            Object *object=(TheGameLogic ? TheGameLogic : TheGameLogic)->findObjectByID(node->objectID);
+            if(object) {
+                BridgeScaffoldBehaviorInterface *scaffold=BridgeScaffoldBehavior::getBridgeScaffoldBehaviorInterfaceFromObject(object);
+                scaffold->reverseMotion();
+            }
+            node=node->next;
+        } while(node!=listHead);
+    }
+    ((Rva0029FB3BMember*)&m_scaffoldObjectIDList)->reset();
+    m_scaffoldPresent=false;
+    Object *object=getObject();
+    BodyModuleInterface *body=object->getBodyModule();
+    typedef int (BodyModuleInterface::*DamageState)() const;
+    if((body->**(DamageState*)(*(char**)body+0x20))()!=3) {
+        Bridge *bridge=TheTerrainLogic->findBridgeAt(object->getPosition());
+        if(bridge)TheAI->pathfinder()->SetBridgeStateRepaired(bridge->getLayer(),true);
+    }
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorIsScaffoldInMotion.cpp
+
+// Retail 0x004573D4, 75B. Identity is the matching ZH method plus its same
+// list/object/interface traversal in BFME 1's BridgeBehaviorOnHealing.cpp
+// (donor revision 6583b3c1ff21db4a561285717028fdafc780b7db). Retail bytes
+// independently place the list-head pointer at this+0xE0 and ObjectID at
+// node+8; the donor's full-class offset +0x400 does not apply here.
+
+Bool BridgeBehavior::isScaffoldInMotion()
+{
+	RetailScaffoldNode *const &listHead = *(RetailScaffoldNode *const *)&m_scaffoldObjectIDList;
+	RetailScaffoldNode *node = listHead->next;
+	if (node != listHead)
+	{
+		do
+		{
+			Object *object = TheGameLogic->findObjectByID(node->objectID);
+			if (object != 0)
+			{
+				BridgeScaffoldBehaviorInterface *scaffold =
+					BridgeScaffoldBehavior::getBridgeScaffoldBehaviorInterfaceFromObject(object);
+				if (scaffold != 0 && scaffold->getCurrentMotion() != STM_STILL)
+					return true;
+			}
+			node = node->next;
+		} while (node != listHead);
+	}
+	return false;
+}
+
 // tu-skeleton: 0x00457472 196B ??0BridgeBehavior@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00457536 28B ??_GBridgeBehavior@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00457577 448B ?handleObjectsOnBridgeOnDie@BridgeBehavior@@IAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorHandleObjectsOnBridgeOnDie.cpp (not merged yet)
 
-// tu-skeleton: 0x00457737 1851B ?createScaffolding@BridgeBehavior@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorCreateScaffolding.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorCreateScaffolding.cpp
+
+// BridgeBehavior::createScaffolding (retail 0x00457737, 1851B), the Zero Hour
+// GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp body built
+// /O1 G7 SSE like the rest of the BridgeBehavior TU
+// (BridgeBehaviorAreaEffects.cpp). `this` is the BridgeBehaviorInterface
+// subobject at +0x20; setScaffoldData (0x004568EC) runs on the behavior.
+// BFME target facts: scaffold present flag +0xFD and scaffold ObjectID list
+// +0x100 of the behavior; scaffold/support template names come from the road
+// template (0x002D9BC1 / 0x0056394A) and are looked up through
+// TheThingFactory 0x002D06CA; geometry major radius at template +0xB0 and
+// the GeometryInfo height getters 0x000BD7C0 / 0x000BD8A0 on template +0xA0;
+// objects come from the four-argument newObject with a zeroed CreateMask
+// and the owner's team (+0x304); bridge layer +0xC4 goes to
+// Pathfinder::SetBridgeStateRepaired(layer, false) on TheAI +0x10.
+// The bridge template name getter is the ICF-folded 0x000AF1DD body, reached
+// through the admitted TerrainType::getTexture pin as in
+// BridgeBehaviorAreaEffects.cpp.
+// Like retail's header-only callees, the BaseType.h Coord3D/Coord2D inlines
+// (0x00003571, 0x000035B6, 0x00005923), the scaffold ID list's STLport
+// push_back/insert/_M_create_node (0x002A1B6F, 0x002A1316, 0x0029FB80, the
+// DamageField pooled ObjectID list) and setScaffoldData are visible here as
+// select-any copies, so cl sees which local addresses they keep.
+// The scaffold ID list's nodes come from the fixed-size pool at 0x00DA60E8.
+
+// ------------------------------------------------------------------------------------------------
+/** Start the bridge repair scaffolding.  If we already have scaffolding this call
+	* is ignored */
+// ------------------------------------------------------------------------------------------------
+void BridgeBehavior::createScaffolding( void )
+{
+
+	// if we have scaffolding up already do nothing
+	if( m_scaffoldPresent == true )
+		return;
+
+	// get the bridge world object
+	Object *us = getObject();
+	const Coord3D *center = us->getPosition();
+
+	// get our bridge object
+	Bridge *bridge = TheTerrainLogic->findBridgeAt( us->getPosition() );
+
+	// get the bridge template
+	AsciiString bridgeTemplateName = ((const TerrainType *)bridge)->getTexture();
+	TerrainRoadType *bridgeTemplate = TheTerrainRoads->findBridge( bridgeTemplateName );
+
+	// get the thing template for the scaffold object we're going to use
+	AsciiString scaffoldObjectName = ((const Rva002D9BC1AsciiField *)bridgeTemplate)->get();
+	const ThingTemplate *scaffoldTemplate = TheThingFactory->findTemplate( scaffoldObjectName );
+	if( scaffoldTemplate == 0 )
+		return;
+
+	// get thing template for scaffold support object
+	AsciiString scaffoldSupportObjectName = ((Rva0056394A *)bridgeTemplate)->rva0056394A();
+	const ThingTemplate *scaffoldSupportTemplate = TheThingFactory->findTemplate( scaffoldSupportObjectName );
+	if( scaffoldSupportTemplate == 0 )
+		return;
+
+	// how much space is going to be between each of the scaffold objects at their final positions
+	Real spacing = ((const BridgeTemplateGeometryView *)scaffoldTemplate)->m_geometryInfo.getMajorRadius() * 2.0f;
+
+	// how tall are the scaffold objects
+	Real scaffoldHeight = ((const BridgeTemplateGeometryView *)scaffoldTemplate)->m_geometryInfo.getMaxHeightAbovePosition() +
+												((const BridgeTemplateGeometryView *)scaffoldTemplate)->m_geometryInfo.getMaxHeightBelowPosition();
+	Real scaffoldSupportHeight = ((const BridgeTemplateGeometryView *)scaffoldSupportTemplate)->m_geometryInfo.getMaxHeightAbovePosition() +
+															 ((const BridgeTemplateGeometryView *)scaffoldSupportTemplate)->m_geometryInfo.getMaxHeightBelowPosition();
+
+	// get the bridge info
+	BridgeInfo bridgeInfo;
+	bridge->getBridgeInfo( &bridgeInfo );
+
+	//
+	// given the area of the bridge, figure out what the start and end points are to create
+	// all the scaffold objects at (just in the 2D bridge plane, not thinking about
+	// rising the objects up through the ground yet)
+	//
+	Coord3D leftStart;
+	leftStart.x = ((bridgeInfo.fromLeft.x - bridgeInfo.fromRight.x) / 2.0f) + bridgeInfo.fromRight.x;
+	leftStart.y = ((bridgeInfo.fromLeft.y - bridgeInfo.fromRight.y) / 2.0f) + bridgeInfo.fromRight.y;
+	leftStart.z = ((bridgeInfo.fromLeft.z - bridgeInfo.fromRight.z) / 2.0f) + bridgeInfo.fromRight.z;
+
+	Coord3D rightStart;
+	rightStart.x = ((bridgeInfo.toLeft.x - bridgeInfo.toRight.x) / 2.0f) + bridgeInfo.toRight.x;
+	rightStart.y = ((bridgeInfo.toLeft.y - bridgeInfo.toRight.y) / 2.0f) + bridgeInfo.toRight.y;
+	rightStart.z = ((bridgeInfo.toLeft.z - bridgeInfo.toRight.z) / 2.0f) + bridgeInfo.toRight.z;
+
+	//
+	// now that we have the left and right start points, we will compute two angles to
+	// use for all the objects that we will create ... objects on the left side of the
+	// bridge will be given a 'leftAngle' pointing from 'leftStart' to 'rightStart' and
+	// the opposite will be given to objects on the right side of the bridge
+	//
+	Coord2D angleV;
+	angleV.x = rightStart.x - leftStart.x;
+	angleV.y = rightStart.y - leftStart.y;
+	Real leftAngle = angleV.toAngle();
+	Real rightAngle = leftAngle + TWO_PI;
+
+	// compute vector from left to right across bridge and the reverse
+	Coord3D leftVector;
+	leftVector.x = rightStart.x - leftStart.x;
+	leftVector.y = rightStart.y - leftStart.y;
+	leftVector.z = rightStart.z - leftStart.z;
+	Coord3D rightVector;
+	rightVector.x = leftStart.x - rightStart.x;
+	rightVector.y = leftStart.y - rightStart.y;
+	rightVector.z = leftStart.z - rightStart.z;
+
+	//
+	// how many of these scaffold objects will take to tile from each of the endpoints
+	// to the center area of the bridge
+	//
+	Real tileDistance = leftVector.length();
+	Int numObjects = REAL_TO_INT_CEIL( tileDistance / spacing ) + 1;
+
+	//
+	// given the number of objects that we need to tile across the whole bridge, we will
+	// go through the creation loop ceil( numObjects / 2.0f ) times, and each
+	// time through the loop we'll create an object to move from each side of the
+	// bridge, except the last object if the number of objects is odd is dead in the
+	// center
+	//
+	Int numIterations = REAL_TO_INT_CEIL( INT_TO_REAL( numObjects ) / 2.0f );
+
+	//
+	// normalize left and right vectors as it is a vector that goes from our left start
+	// position to the destination right start position ... we will multiply this vector by a
+	// spacing amount and add to the left start position to find a destination position
+	// for a particular scaffold object along the bridge surface
+	//
+	leftVector.normalize();
+	rightVector.normalize();
+
+	// create the scaffold objects for now
+	Int scaffoldObjectsCreated = 0;
+	Coord3D destinationPos, *riseToPos;
+	Real *angle;
+	Object *obj;
+	for( Int i = 0; i < numIterations; ++i )
+	{
+
+		// create object
+		CreateMask leftMask;
+		memset( &leftMask, 0, sizeof( leftMask ) );
+		obj = TheThingFactory->newObject( scaffoldTemplate, us->getTeam(), &leftMask, (ObjectID)0 );
+
+		// this object is from the "left" side of the bridge
+		riseToPos = &leftStart;
+		angle = &leftAngle;
+
+		//
+		// compute position for object moving from the left side, we're adding 0.1 here
+		// so that all scaffold objects *have* to move some distance ... that way we
+		// can just assign the speeds so they line up perfectly and not have to worry
+		// about any object reaching a destination before any other object
+		//
+		destinationPos.x = leftVector.x * (spacing * i) + riseToPos->x + 0.1f;
+		destinationPos.y = leftVector.y * (spacing * i) + riseToPos->y;
+		destinationPos.z = leftVector.z * (spacing * i) + riseToPos->z;
+
+		//
+		// now that they key positions are calculated, set the rest of the position data
+		// and movement speeds for the object
+		//
+		setScaffoldData( obj, angle, &scaffoldHeight, riseToPos, &destinationPos, center );
+
+		// keeping track of objects created
+		scaffoldObjectsCreated++;
+		m_scaffoldObjectIDList.push_back( obj->getID() );
+
+		//
+		// create support object layers under the scaffold object, this object mirrors the scaffold
+		// object except is on a lower layer
+		//
+		Real offset = riseToPos->z;
+		ScaffoldCoord supportRiseToPos = *riseToPos;
+		ScaffoldCoord supportDestinationPos = destinationPos;
+		ScaffoldCoord supportBridgeCenter = *center;
+		while( offset >= 0.0f )
+		{
+
+			supportRiseToPos.z -= scaffoldSupportHeight;
+			supportDestinationPos.z -= scaffoldSupportHeight;
+			supportBridgeCenter.z -= scaffoldSupportHeight;
+			CreateMask supportMask;
+			memset( &supportMask, 0, sizeof( supportMask ) );
+			obj = TheThingFactory->newObject( scaffoldSupportTemplate, us->getTeam(), &supportMask, (ObjectID)0 );
+			setScaffoldData( obj,
+											 angle,
+											 &scaffoldSupportHeight,
+											 &supportRiseToPos,
+											 &supportDestinationPos,
+											 &supportBridgeCenter );
+			m_scaffoldObjectIDList.push_back( obj->getID() );
+
+
+			// off to the next layer
+			offset -= scaffoldSupportHeight;
+
+		}  // end while
+
+		//
+		// now create the object from the "right" side of the bridge ... but note that
+		// we don't do this on the last iteration through this loop when we have an odd
+		// number of objects we're tiling because all the space is already perfectly used up)
+		//
+		if( scaffoldObjectsCreated < numObjects )
+		{
+
+			// create new object
+			CreateMask rightMask;
+			memset( &rightMask, 0, sizeof( rightMask ) );
+			obj = TheThingFactory->newObject( scaffoldTemplate, us->getTeam(), &rightMask, (ObjectID)0 );
+
+			// this object is on the "right" side of the bridge
+			riseToPos = &rightStart;
+			angle = &rightAngle;
+
+			//
+			// compute position for object moving from the left side, we're adding 0.1 here
+			// so that all scaffold objects *have* to move some distance ... that way we
+			// can just assign the speeds so they line up perfectly and not have to worry
+			// about any object reaching a destination before any other object
+			//
+			destinationPos.x = rightVector.x * (spacing * i) + riseToPos->x + 0.1f;
+			destinationPos.y = rightVector.y * (spacing * i) + riseToPos->y;
+			destinationPos.z = rightVector.z * (spacing * i) + riseToPos->z;
+
+			// set the rest scaffold data again
+			setScaffoldData( obj, angle, &scaffoldHeight, riseToPos, &destinationPos, center );
+
+			// keeping track of objects created
+			scaffoldObjectsCreated++;
+			m_scaffoldObjectIDList.push_back( obj->getID() );
+
+			//
+			// create support object layers under the scaffold object, this object mirrors the scaffold
+			// object except is on a lower layer
+			//
+			offset = riseToPos->z;
+			(Coord3D &)supportRiseToPos = *riseToPos;
+			(Coord3D &)supportDestinationPos = destinationPos;
+			(Coord3D &)supportBridgeCenter = *center;
+			while( offset >= 0.0f )
+			{
+
+				supportRiseToPos.z -= scaffoldSupportHeight;
+				supportDestinationPos.z -= scaffoldSupportHeight;
+				supportBridgeCenter.z -= scaffoldSupportHeight;
+				CreateMask supportMask;
+				memset( &supportMask, 0, sizeof( supportMask ) );
+				obj = TheThingFactory->newObject( scaffoldSupportTemplate, us->getTeam(), &supportMask, (ObjectID)0 );
+				setScaffoldData( obj,
+												 angle,
+												 &scaffoldSupportHeight,
+												 &supportRiseToPos,
+												 &supportDestinationPos,
+												 &supportBridgeCenter );
+				m_scaffoldObjectIDList.push_back( obj->getID() );
+
+
+				// off to the next layer
+				offset -= scaffoldSupportHeight;
+
+			}  // end while
+
+		}  // end if
+
+	}  // end for i
+
+	// scaffolding is now present
+	m_scaffoldPresent = true;
+
+	// when scaffolding is present, a bridge cannot be used
+	TheAI->pathfinder()->SetBridgeStateRepaired( bridge->getLayer(), false );
+
+}
+
+  // end createScaffolding
 
 // tu-skeleton: 0x00457E72 357B ?xfer@BridgeBehavior@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorXfer.cpp (not merged yet)
 
@@ -565,43 +1522,38 @@ __declspec(noinline) void ForceBridgeBehaviorListDestroy(BridgeBehaviorList12 *l
 
 // tu-skeleton: 0x00458153 170B ?parseOCL@BridgeBehaviorModuleData@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorParseOCL.cpp (not merged yet)
 
-// tu-skeleton: 0x004581FD 79B ?onDie@Rva004581FD@@UAEXPBVDamageInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/Rva004581FDOnDie.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/Rva004581FDOnDie.cpp
+
+// Target evidence: 0x004581FD is a 79-byte function with a four-iteration
+// tower-ID lookup through the interface at this-8, kills each found object
+// with (8, 0), calls 0x00457577 on this-0x28, then copies GameLogic+0x40 to
+// this+0xDC. The BridgeBehavior constructor installs its bridge and die
+// interface vtables at object+0x20 and object+0x28. The matching ZH
+// BridgeBehavior::onDie source is semantic donor evidence; the target owner
+// remains address-derived. The helper is BridgeBehavior::handleObjectsOnBridgeOnDie
+// (BridgeBehaviorHandleObjectsOnBridgeOnDie.cpp).
+
+void Rva004581FD::onDie(const DamageInfo *)
+{
+	int towerType = 0;
+	BridgeBehaviorInterfaceView *bridge =
+		(BridgeBehaviorInterfaceView *)((char *)this - 8);
+	while (towerType < 4)
+	{
+		ObjectID id = bridge->getTowerID((BridgeTowerType)towerType);
+		Object *tower = TheGameLogic->findObjectByID(id);
+		if (tower)
+			tower->kill((DamageType)8, (DeathType)0);
+		++towerType;
+	}
+	((BridgeBehavior *)((char *)this - 0x28))->handleObjectsOnBridgeOnDie();
+	*(unsigned int *)((char *)this + 0xDC) =
+		*(unsigned int *)((char *)TheGameLogic + 0x40);
+}
 
 // tu-skeleton: 0x0045824C 28B ??_GBridgeBehaviorModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorModuleDataDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00458268 17B ?buildFieldParse@BridgeBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BehaviorModuleDataBuildFieldParse.cpp (not merged yet)
-
-// tu-skeleton: 0x00789FEB 8B Unwind@00b89feb -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorParseTimeAndLocation.cpp (not merged yet)
-
-// tu-skeleton: 0x00789FF3 10B __ehhandler$?parseTimeAndLocationInfo@@YAXPAVINI@@PAXPAUTimeAndLocationInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorParseTimeAndLocation.cpp (not merged yet)
-
-// tu-skeleton: 0x00789FFD 8B Unwind@00b89ffd -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorResolveFX.cpp (not merged yet)
-
-// tu-skeleton: 0x0078A005 8B Unwind@00b8a005 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorResolveFX.cpp (not merged yet)
-
-// tu-skeleton: 0x0078A00D 8B Unwind@00b8a00d -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorResolveFX.cpp (not merged yet)
-
-// tu-skeleton: 0x0078A015 8B Unwind@00b8a015 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorResolveFX.cpp (not merged yet)
-
-// tu-skeleton: 0x0078A01D 8B Unwind@00b8a01d -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorResolveFX.cpp (not merged yet)
-
-// tu-skeleton: 0x0078A025 8B Unwind@00b8a025 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorResolveFX.cpp (not merged yet)
-
-// tu-skeleton: 0x0078A02D 10B __ehhandler$?resolveFX@BridgeBehavior@@IAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorResolveFX.cpp (not merged yet)
-
-// tu-skeleton: 0x0078A037 8B Unwind@00b8a037 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorOnBodyDamageStateChange.cpp (not merged yet)
-
-// tu-skeleton: 0x0078A03F 8B Unwind@00b8a03f -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorOnBodyDamageStateChange.cpp (not merged yet)
-
-// tu-skeleton: 0x0078A047 19B ?rva0078a047@@YAXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorOnBodyDamageStateChange.cpp (not merged yet)
-
-// tu-skeleton: 0x0078A05A 19B ?rva0078a05a@@YAXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorOnBodyDamageStateChange.cpp (not merged yet)
-
-// tu-skeleton: 0x0078A06D 11B Unwind@00b8a06d -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorOnBodyDamageStateChange.cpp (not merged yet)
-
-// tu-skeleton: 0x0078A078 11B Unwind@00b8a078 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorOnBodyDamageStateChange.cpp (not merged yet)
-
-// tu-skeleton: 0x0078A083 10B __ehhandler$?onBodyDamageStateChange@BridgeBehavior@@UAEXPBVDamageInfo@@W4BodyDamageType@@1@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorOnBodyDamageStateChange.cpp (not merged yet)
 
 // tu-skeleton: 0x0078A08D 8B Unwind@00b8a08d -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorAreaEffects.cpp (not merged yet)
 
@@ -615,10 +1567,6 @@ __declspec(noinline) void ForceBridgeBehaviorListDestroy(BridgeBehaviorList12 *l
 
 // tu-skeleton: 0x0078A0D5 10B __ehhandler$??1BridgeBehavior@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x0078A0DF 13B $L306 -- matched in Code/GameEngine/Source/GameLogic/Module/BridgeBehaviorPoolKey.cpp (not merged yet)
-
-// tu-skeleton: 0x0078A0EC 10B __ehhandler$?getModuleNameKey@BridgeBehavior@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Module/BridgeBehaviorPoolKey.cpp (not merged yet)
-
 // tu-skeleton: 0x0078A0F6 8B $L462 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0078A0FE 10B __ehhandler$??0BridgeBehavior@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorCtor.cpp (not merged yet)
@@ -628,14 +1576,6 @@ __declspec(noinline) void ForceBridgeBehaviorListDestroy(BridgeBehaviorList12 *l
 // tu-skeleton: 0x0078A11B 8B ?rva0078a11b@@YAXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorHandleObjectsOnBridgeOnDie.cpp (not merged yet)
 
 // tu-skeleton: 0x0078A123 10B __ehhandler$?handleObjectsOnBridgeOnDie@BridgeBehavior@@IAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorHandleObjectsOnBridgeOnDie.cpp (not merged yet)
-
-// tu-skeleton: 0x0078A12D 8B Unwind@00b8a12d -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorCreateScaffolding.cpp (not merged yet)
-
-// tu-skeleton: 0x0078A135 8B Unwind@00b8a135 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorCreateScaffolding.cpp (not merged yet)
-
-// tu-skeleton: 0x0078A13D 8B Unwind@00b8a13d -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorCreateScaffolding.cpp (not merged yet)
-
-// tu-skeleton: 0x0078A145 10B __ehhandler$?createScaffolding@BridgeBehavior@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorCreateScaffolding.cpp (not merged yet)
 
 // tu-skeleton: 0x0078A14F 8B Unwind@00b8a14f -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorModuleDataCtor.cpp (not merged yet)
 

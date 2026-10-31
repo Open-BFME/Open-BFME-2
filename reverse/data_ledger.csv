@@ -19861,8 +19861,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A03420,4,.data,global,?TheBuildingBehaviorPoolKey@?1??getModuleNameKey@BuildingBehavior@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Behavior/BuildingBehavior.cpp,owned,,1,2
 0x00A03424,4,.data,global,?$S1@?1??getModuleNameKey@BuildingBehavior@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/BuildingBehavior.cpp,owned,,1,4
 0x00A03428,4,.data,global,_s_rva007B0920,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
-0x00A0342C,4,.data,global,?TheBridgeBehaviorPoolKey@?1??getModuleNameKey@BridgeBehavior@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Module/BridgeBehaviorPoolKey.cpp,owned,,1,2
-0x00A03430,4,.data,global,?$S1@?1??getModuleNameKey@BridgeBehavior@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Module/BridgeBehaviorPoolKey.cpp,owned,,1,2
+0x00A0342C,4,.data,global,?TheBridgeBehaviorPoolKey@?1??getModuleNameKey@BridgeBehavior@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp,owned,,1,2
+0x00A03430,4,.data,global,?$S1@?1??getModuleNameKey@BridgeBehavior@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp,owned,,1,2
 0x00A03434,4,.data,global,_s_rva007B094A,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A03438,4,.data,global,?TheBridgeScaffoldBehaviorPoolKey@?1??rva0004583BD@BridgeScaffoldBehavior@@SA?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeScaffoldBehavior.cpp,owned,,1,2
 0x00A0343C,4,.data,global,?$S1@?1??rva0004583BD@BridgeScaffoldBehavior@@SA?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeScaffoldBehavior.cpp,owned,,1,2
