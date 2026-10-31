@@ -41858,10 +41858,10 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x004E7D16,7,code,Code/GameEngine/Source/GameClient/ResourceEntryOwner.cpp,approved,C,C=0x004E7CEF..0x004E7D1D provisional,Code/GameEngine/Source/GameClient/InGameUIResourceEntries.cpp
 0x004E7D1D,7,code,Code/GameEngine/Source/GameClient/ResourceEntryOwner.cpp,approved,C,C=0x004E7CEF..0x004E7D24 provisional,Code/GameEngine/Source/GameClient/InGameUIResourceEntries.cpp
 0x004E7D24,5,code,Code/GameEngine/Source/GameClient/ResourceEntryOwner.cpp,approved,C,C=0x004E7CEF..0x004E7D29 provisional,Code/GameEngine/Source/GameClient/InGameUIResourceEntries.cpp
-0x004E7D29,73,code,Code/GameEngine/Source/GameClient/ResourceEntryOwner.cpp,approved,C,C=0x004E7CEF..0x004E7D72 provisional,Code/Libraries/Source/WWVegas/WWLib/RvaTreeEraseRangeFamily.cpp
+0x004E7D29,73,code,Code/GameEngine/Source/GameClient/ResourceEntryOwner.cpp,approved,C,C=0x004E7CEF..0x004E7D72 provisional,Code/GameEngine/Source/GameClient/ResourceEntryOwner.cpp
 0x004E7D72,86,code,Code/GameEngine/Source/GameClient/ResourceEntryOwner.cpp,approved,C,C=0x004E7CEF..0x004E7DC8 provisional,Code/GameEngine/Source/Common/Rva004E6745Factory.cpp
 0x004E7DC8,81,code,Code/GameEngine/Source/GameClient/ResourceEntryOwner.cpp,approved,C,C=0x004E7CEF..0x004E7E19 provisional,Code/GameEngine/Source/GameClient/InGameUIResourceEntries.cpp
-0x004E7E19,5,code,Code/GameEngine/Source/GameClient/ResourceEntryOwner.cpp,approved,C,C=0x004E7CEF..0x004E7E1E provisional,Code/Libraries/Source/WWVegas/WWLib/RvaTreeEraseRangeFamily.cpp
+0x004E7E19,5,code,Code/GameEngine/Source/GameClient/ResourceEntryOwner.cpp,approved,C,C=0x004E7CEF..0x004E7E1E provisional,Code/GameEngine/Source/GameClient/ResourceEntryOwner.cpp
 0x004E7E1E,28,code,Code/GameEngine/Source/GameClient/ResourceEntryOwner.cpp,approved,C,C=0x004E7CEF..0x004E7E3A provisional,Code/GameEngine/Source/Common/FamilyDeletingDtors8.cpp
 0x004E7E3A,232,code,Code/GameEngine/Source/GameClient/ResourceEntryOwner.cpp,approved,N,N=Code/GameEngine/Source/GameClient/ResourceEntryOwner.cpp provisional,Code/GameEngine/Source/GameClient/ResourceEntryOwnerRva004E7E3A.cpp
 0x004E7F22,7,code,,,-,,Code/GameEngine/Source/GameClient/ResourceEntryOwnerRva004E7E3A.cpp

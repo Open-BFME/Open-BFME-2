@@ -29064,7 +29064,7 @@ _MmxFastDeInterlace,,0x001CDF60,232,Code/Libraries/Source/VP6/FastDeInterlace.cp
 ?rva00362B89@Rva00362AB5@@QAEIABH@Z,,0x00362B89,73,Code/Libraries/Source/WWVegas/WWLib/RvaTreeEraseRangeFamily_Unresolved.cpp,matched,STLport _Rb_tree::erase(const key &) body (equal_range then distance then erase(first last)) over map<int void *>'s equal_range and this tree's rowed range erase; bytes equal the rowed map<int void *> instance 0x004ABE65 except those calls
 ?rva00389913@Rva00388EAE@@QAEIABH@Z,,0x00389913,73,Code/Libraries/Source/WWVegas/WWLib/RvaTreeEraseRangeFamily.cpp,matched,STLport _Rb_tree::erase(const key &) body (equal_range then distance then erase(first last)) over map<int int>'s equal_range and this tree's rowed range erase; bytes equal the rowed map<int void *> instance 0x004ABE65 except those calls
 ?rva0046EDEF@Rva002EE9B7@@QAEIABH@Z,,0x0046EDEF,73,Code/Libraries/Source/WWVegas/WWLib/RvaTreeEraseRangeFamily.cpp,matched,STLport _Rb_tree::erase(const key &) body (equal_range then distance then erase(first last)) over map<int int>'s equal_range and this tree's rowed range erase; bytes equal the rowed map<int void *> instance 0x004ABE65 except those calls
-?rva004E7D29@Rva004E7B13@@QAEIABH@Z,,0x004E7D29,73,Code/Libraries/Source/WWVegas/WWLib/RvaTreeEraseRangeFamily.cpp,matched,STLport _Rb_tree::erase(const key &) body (equal_range then distance then erase(first last)) over map<int int>'s equal_range and this tree's rowed range erase; bytes equal the rowed map<int void *> instance 0x004ABE65 except those calls
+?rva004E7D29@Rva004E7B13@@QAEIABH@Z,,0x004E7D29,73,Code/GameEngine/Source/GameClient/ResourceEntryOwner.cpp,matched,STLport _Rb_tree::erase(const key &) body (equal_range then distance then erase(first last)) over map<int int>'s equal_range and this tree's rowed range erase; bytes equal the rowed map<int void *> instance 0x004ABE65 except those calls
 ?Rva00432931Pick@@YAPAURva00432931Entry@@PAU1@0@Z,,0x00432931,55,Code/GameEngine/Source/Common/AptTranslator.cpp,matched,callers 0x00432AA2 0x00432AC5 larger valid entry pick
 ??_GRva005FB204@@UAEPAXI@Z,,0x005FB20F,28,Code/GameEngine/Source/Common/RvaDerivedDtorTails.cpp,matched,own dtor TU emits exact deleting dtor
 ??_GRva005FB3D9@@UAEPAXI@Z,,0x005FB3E4,28,Code/GameEngine/Source/Common/RvaDerivedDtorTails.cpp,matched,own dtor TU emits exact deleting dtor
@@ -48327,7 +48327,7 @@ uw_00767390,,0x00767390,11,Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescDefaul
 ?rva00362C9A@Rva00362C9A@@QAEIABH@Z,,0x00362C9A,5,Code/Libraries/Source/WWVegas/WWLib/RvaTreeEraseRangeFamily_Rva00082BE1.cpp,matched,
 ?rva003899C4@Rva003899C4@@QAEIABH@Z,,0x003899C4,5,Code/Libraries/Source/WWVegas/WWLib/RvaTreeEraseRangeFamily.cpp,matched,
 ?rva0047003C@Rva0047003C@@QAEIABH@Z,,0x0047003C,5,Code/Libraries/Source/WWVegas/WWLib/RvaTreeEraseRangeFamily.cpp,matched,
-?rva004E7E19@Rva004E7E19@@QAEIABH@Z,,0x004E7E19,5,Code/Libraries/Source/WWVegas/WWLib/RvaTreeEraseRangeFamily.cpp,matched,
+?rva004E7E19@Rva004E7E19@@QAEIABH@Z,,0x004E7E19,5,Code/GameEngine/Source/GameClient/ResourceEntryOwner.cpp,matched,
 ?rva0022CA31@Rva0022CA31@@QAEXXZ,,0x0022CA31,5,Code/GameEngine/Source/Common/Rva0046A93EDtor.cpp,matched,
 ?rva003591EF@Rva003591EF@@QAEXXZ,,0x003591EF,5,Code/GameEngine/Source/Common/Rva0046A93EDtor.cpp,matched,
 ?rva0035928B@Rva0035928B@@QAEXXZ,,0x0035928B,5,Code/GameEngine/Source/Common/Rva0046A93EDtor.cpp,matched,
