@@ -1,4 +1,5 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// stlport
 // ?rva001EC859@Rva001EC859@@QAEPAXHH@Z retail 0x001EC859..0x001EC8C0 (103
 // bytes ret 8). Campaign half of TheLinearCampaignManager forwarder
 // 0x001EC99B (object types then player; returns an ObjectID). WorldBuilder
@@ -24,10 +25,10 @@ struct Rva001EB023Elem
 	char unknown94[0xAC - 0x94];
 };
 
-struct BfmePod172
-{
-	int a[43];
-};
+#include <vector>
+struct BfmePod172 {int a[43];};
+// Bind to the kept retail copy instead of emitting this unit's own.
+namespace _STL { template <> void vector<BfmePod172,allocator<BfmePod172> >::push_back(BfmePod172 const &); }
 
 class Rva001EB023
 {
@@ -35,11 +36,7 @@ public:
 	Rva001EB023Elem *rva001EB023(Rva00376A62 &key);
 };
 
-class CarryoverUnit
-{
-public:
-	Object *createSingleObject(Player *player);
-};
+class CarryoverUnit {public: CarryoverUnit(); virtual ~CarryoverUnit(); Object *createSingleObject(Player *player); private: char m_pad[168];};
 
 struct Rva001EC859ObjectView
 {
@@ -49,20 +46,6 @@ struct Rva001EC859ObjectView
 	unsigned char statusBits; // +0x438
 };
 
-namespace _STL
-{
-template <class T> class allocator
-{
-};
-template <class T, class A = allocator<T> > class vector
-{
-public:
-	void push_back(const T &value);
-
-private:
-	T *first, *last, *limit;
-};
-}
 
 class Slot0Receiver;
 class Rva001EBCD8

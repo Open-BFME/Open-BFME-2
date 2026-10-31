@@ -60,7 +60,9 @@ namespace _STL { template <> void _Destroy<BfmeAssignRecord172 *>(BfmeAssignReco
 #include <stdlib.h>
 #include <string.h>
 struct BfmePod172 {int a[43];};
-class CarryoverUnit {public: CarryoverUnit(); virtual ~CarryoverUnit(); private: char m_pad[168];};
+class Object;
+class Player;
+class CarryoverUnit {public: CarryoverUnit(); virtual ~CarryoverUnit(); Object *createSingleObject(Player *player); private: char m_pad[168];};
 struct Rva00291198Dest;
 class Rva00291198Host {public:void rva002910B7(Rva00291198Dest*);};
 class Rva0037EACC {public:void rva0037EACC(void*);};

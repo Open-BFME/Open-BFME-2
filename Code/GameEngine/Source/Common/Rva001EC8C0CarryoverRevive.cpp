@@ -10,16 +10,6 @@
 // ABI (three ints, bool) of the existing caller row 0x001EC9AC is kept; record and entry layouts are views.
 // Evidence: target bytes; sibling 0x001EC859 for the record and list handling. The meaning of the flag byte
 // (+0xA1 of the entry) and of the arguments is inferred.
-namespace _STL {
-template <class T> class allocator {};
-template <class T, class A = allocator<T> > class vector
-{
-public:
-	void push_back(const T &value);
-private:
-	T *first, *last, *limit;
-};
-}
 
 class Rva00376A62;
 class Player;
@@ -31,10 +21,10 @@ struct Rva001EB023Elem
 	char unknown94[0xAC - 0x94];
 };
 
-struct BfmePod172
-{
-	int a[43];
-};
+#include <vector>
+struct BfmePod172 {int a[43];};
+// Bind to the kept retail copy instead of emitting this unit's own.
+namespace _STL { template <> void vector<BfmePod172,allocator<BfmePod172> >::push_back(BfmePod172 const &); }
 
 class Rva001EB023
 {
