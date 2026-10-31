@@ -24,16 +24,15 @@ struct BfmeHeldFDE
 	unsigned char m_bfmeHead[0x254];
 	BfmeSubFDE *m_bfmeS;
 };
+class Matrix3D;
 class Drawable
 {
 public:
 	void rva002724FD(const AsciiString &a, int b, int c, float d, float e);
+	int getPristineBonePositions(const char *, int, Coord3D *, Matrix3D *, int, int) const;
+	void rva002724FD(const AsciiString &name, unsigned char visible, int a, float b, float c);
 };
-class Thing
-{
-public:
-	Drawable *getDrawable() const;
-};
+#include "../../../Common/Thing/thing.h"
 struct BfmeEntry
 {
 	char m_bfmeFields[4];
@@ -55,19 +54,19 @@ class Dict;
 class BehaviorModuleinterface
 {
 public:
-	virtual void slot00(); virtual void slot01(); virtual void slot02();
-	virtual void slot03(); virtual void slot04(); virtual void slot05();
-	virtual void slot06(); virtual void slot07(); virtual void slot08();
-	virtual void slot09(); virtual void slot10(); virtual void slot11();
-	virtual void slot12(); virtual void slot13(); virtual void slot14();
-	virtual void slot15(); virtual void slot16(); virtual void slot17();
-	virtual void slot18(); virtual void slot19(); virtual void slot20();
-	virtual void slot21(); virtual void slot22(); virtual void slot23();
-	virtual void slot24(); virtual void slot25(); virtual void slot26();
-	virtual void slot27(); virtual void slot28(); virtual void slot29();
-	virtual void slot30(); virtual void slot31(); virtual void slot32();
-	virtual void slot33(); virtual void slot34(); virtual void slot35();
-	virtual void slot36(); virtual void slot37(); virtual void slot38();
+	virtual void slot00() = 0; virtual void slot01() = 0; virtual void slot02() = 0;
+	virtual void slot03() = 0; virtual void slot04() = 0; virtual void slot05() = 0;
+	virtual void slot06() = 0; virtual void slot07() = 0; virtual void slot08() = 0;
+	virtual void slot09() = 0; virtual void slot10() = 0; virtual void slot11() = 0;
+	virtual void slot12() = 0; virtual void slot13() = 0; virtual void slot14() = 0;
+	virtual void slot15() = 0; virtual void slot16() = 0; virtual void slot17() = 0;
+	virtual void slot18() = 0; virtual void slot19() = 0; virtual void slot20() = 0;
+	virtual void slot21() = 0; virtual void slot22() = 0; virtual void slot23() = 0;
+	virtual void slot24() = 0; virtual void slot25() = 0; virtual void slot26() = 0;
+	virtual void slot27() = 0; virtual void slot28() = 0; virtual void slot29() = 0;
+	virtual void slot30() = 0; virtual void slot31() = 0; virtual void slot32() = 0;
+	virtual void slot33() = 0; virtual void slot34() = 0; virtual void slot35() = 0;
+	virtual void slot36() = 0; virtual void slot37() = 0; virtual void slot38() = 0;
 	virtual void mapLoadPostProcess(const Dict *) = 0;
 };
 // The three-slot table the constructor installs at +0x10 (0x010B2588).
@@ -79,54 +78,6 @@ public:
     virtual void onBodyDamageStateChange(const DamageInfo *, BodyDamageType, BodyDamageType) = 0;
 };
 class Xfer;
-class Rva004BA1D0;
-class TDFXObject;
-class TransitionDamageFXModuleDataView;
-enum ParticleSystemID
-{
-    INVALID_PARTICLE_SYSTEM_ID = 0
-};
-class DamageModule : public ObjectModule,
-    public BehaviorModuleinterface,
-    public DamageModuleinterface
-{
-public:
-    DamageModule(Thing *thing, const ModuleData *moduleData);
-    virtual ~DamageModule();
-};
-class TransitionDamageFX : public DamageModule
-{
-public:
-    TransitionDamageFX(Thing *thing, const ModuleData *moduleData);
-    void bfmeGoFDE();
-    void bfmeUseFDE(void *r);
-    void rva004B9DA9(bool applyTransition);
-    virtual NameKeyType getModuleNameKey() const;
-    virtual void mapLoadPostProcess(const Dict *);
-    virtual void onBodyDamageStateChange(const DamageInfo *, BodyDamageType, BodyDamageType);
-
-protected:
-    virtual ~TransitionDamageFX();
-    virtual void xfer(Xfer *xfer);
-    TDFXObject *getObject() const { return (TDFXObject *)m_object; }
-    const TransitionDamageFXModuleDataView *getTransitionDamageFXModuleData() const
-    {
-        return (const TransitionDamageFXModuleDataView *)m_moduleData;
-    }
-
-private:
-    ParticleSystemID m_particleSystemID[4][12]; // +0x14
-    _STL::vector<Rva004BA1D0> resolvedNeighbors;
-};
-// A declaration-only specialization stops this TU emitting its own
-// vector<AsciiString> COMDAT copies, so the calls bind the kept rowed copies.
-namespace _STL {
-template <> vector<AsciiString, allocator<AsciiString> >::~vector();
-template <> _Vector_base<AsciiString, allocator<AsciiString> >::~_Vector_base();
-template <> void _STLP_alloc_proxy<AsciiString*, AsciiString, allocator<AsciiString> >::deallocate(AsciiString*, size_t);
-template <> void allocator<AsciiString>::deallocate(AsciiString*, size_t) const;
-template <> vector<AsciiString, allocator<AsciiString> > &vector<AsciiString, allocator<AsciiString> >::operator=(const vector<AsciiString, allocator<AsciiString> >&);
-}
 class Rva004BA1C8Triple {
 public:
 	unsigned int a;
@@ -144,7 +95,65 @@ private:
 	Rva004BA1C8Triple m_14;
 	Rva004BA1C8Triple m_20;
 };
+class Rva004BA1D0;
+class TransitionDamageFXModuleDataView;
+enum ParticleSystemID
+{
+    INVALID_PARTICLE_SYSTEM_ID = 0
+};
+// The neighbour-record vector at +0xD4 of the module. Its constructor is the folded
+// Vector_base 0x00211E58 and its destructor the row 0x004BA35A.
+class TensileFormationUpdateMember : public _STL::vector<Rva004BA1C8>
+{
+public:
+	__forceinline TensileFormationUpdateMember() {}
+	~TensileFormationUpdateMember();
+};
+class DamageModule : public ObjectModule,
+    public BehaviorModuleinterface,
+    public DamageModuleinterface
+{
+public:
+    DamageModule(Thing *thing, const ModuleData *moduleData);
+    virtual ~DamageModule();
+};
+// Layout from constructor 0x00252F50: interfaces at +0x0C and +0x10, 0x30
+// zeroed words from +0x14, and the vector at +0xD4 (allocation 0xE0).
+class TransitionDamageFX : public DamageModule
+{
+public:
+    TransitionDamageFX(Thing *thing, const ModuleData *moduleData);
+    void bfmeGoFDE();
+    void bfmeUseFDE(void *r);
+    void rva004B9DA9(bool applyTransition);
+    virtual NameKeyType getModuleNameKey() const;
+    virtual void mapLoadPostProcess(const Dict *);
+    virtual void onBodyDamageStateChange(const DamageInfo *, BodyDamageType, BodyDamageType);
+
+protected:
+    virtual ~TransitionDamageFX();
+    virtual void xfer(Xfer *xfer);
+    const TransitionDamageFXModuleDataView *getTransitionDamageFXModuleData() const
+    {
+        return (const TransitionDamageFXModuleDataView *)m_moduleData;
+    }
+
+private:
+    ParticleSystemID m_particleSystemID[4][12]; // +0x14
+    TensileFormationUpdateMember resolvedNeighbors; // +0xD4
+};
+// A declaration-only specialization stops this TU emitting its own
+// vector<AsciiString> COMDAT copies, so the calls bind the kept rowed copies.
+namespace _STL {
+template <> vector<AsciiString, allocator<AsciiString> >::~vector();
+template <> _Vector_base<AsciiString, allocator<AsciiString> >::~_Vector_base();
+template <> void _STLP_alloc_proxy<AsciiString*, AsciiString, allocator<AsciiString> >::deallocate(AsciiString*, size_t);
+template <> void allocator<AsciiString>::deallocate(AsciiString*, size_t) const;
+template <> vector<AsciiString, allocator<AsciiString> > &vector<AsciiString, allocator<AsciiString> >::operator=(const vector<AsciiString, allocator<AsciiString> >&);
+}
 #include <stdlib.h>
+// Retail calls the engine's free (row _free, 0x00030830) directly; this unit's other CRT calls go through the import table.
+namespace EngineMemory { extern "C" void __cdecl free(void *); }
 //
 // ?xfer@TransitionDamageFX@@MAEXPAVXfer@@@Z, retail 0x004B98C6, 74 bytes: slot 3
 // of TransitionDamageFX's vtable 0x00859AEC (dtor and ctor rowed in
@@ -232,18 +241,38 @@ class ObjectCreationList;
 class Rva004BA1D0
 {
 public:
-    Rva004BA1D0(const Rva004BA1D0 &other);
-    int m_objectID;
-    _STL::vector<AsciiString> m_subObjects;
-    const ObjectCreationList *m_ocl;
-    Coord3D m_neighborOffset;
-    Coord3D m_oclOffset;
+	Rva004BA1D0(const Rva004BA1D0 &other);
+	int m_objectID; // +0x00
+	_STL::vector<AsciiString> m_subObjects; // +0x04
+	const ObjectCreationList *m_ocl; // +0x10
+	Coord3D m_neighborOffset; // +0x14
+	Coord3D m_oclOffset; // +0x20
 };
 
 namespace _STL {
 static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
 {
     return a < b ? b : a;
+}
+}
+
+// Match the shared allocator's existing callers without emitting a competing
+// out-of-line malloc deallocator from this unit's template instantiations.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+void __malloc_alloc<0>::deallocate(void *__p, size_t)
+{
+    EngineMemory::free((char *)__p);
+}
+}
+
+// The record vector's teardown 0x004BA3CC calls the engine's free directly.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+void allocator<Rva004BA1D0>::deallocate(Rva004BA1D0 *__p, size_t) const
+{
+    if (__p != 0)
+        EngineMemory::free((void *)__p);
 }
 }
 
@@ -258,16 +287,6 @@ template void _STL::vector<Rva004BA1D0>::_M_insert_overflow(
 template void _STL::vector<Rva004BA1D0>::push_back(const Rva004BA1D0 &);
 
 char g_00C59B20;
-
-// Match the shared allocator's existing callers without emitting a competing
-// out-of-line malloc deallocator from this unit's template instantiations.
-namespace _STL {
-template <> __declspec(dllimport) __forceinline
-void __malloc_alloc<0>::deallocate(void *__p, size_t)
-{
-    free((char *)__p);
-}
-}
 
 typedef int Int;
 
@@ -347,6 +366,12 @@ private:
 	int m_end; // +0x08
 };
 
+enum TransitionDamageFXExtent
+{
+	BODYDAMAGETYPE_COUNT = 4,
+	DAMAGE_MODULE_MAX_FX = 12
+};
+
 class UpdateModuleData
 {
 public:
@@ -354,16 +379,16 @@ public:
 	~UpdateModuleData();
 };
 
-enum
-{
-	BODYDAMAGETYPE_COUNT = 4,
-	DAMAGE_MODULE_MAX_FX = 12
-};
+class INI;
 
 class TransitionDamageFXModuleData : public UpdateModuleData
 {
 public:
 	TransitionDamageFXModuleData();
+	static void parseFXList(INI *ini, void *instance, void *store, const void *userData);
+	static void parseObjectCreationList(INI *ini, void *instance, void *store, const void *userData);
+	static void parseParticleSystem(INI *ini, void *instance, void *store, const void *userData);
+	static void NeighborIDSubobjectNameDataAppend(INI *ini, void *instance, void *store, const void *userData);
 
 private:
 	const void *m_vtable;
@@ -499,7 +524,7 @@ void Rva004BA3CC::clear()
 {
 	Rva004BA341DestroyRange(m_first, m_last);
 	if (m_first)
-		free(m_first);
+		EngineMemory::free(m_first);
 }
 
 // ---- from Code/GameEngine/Source/Common/Rva004BA1D0Record.cpp

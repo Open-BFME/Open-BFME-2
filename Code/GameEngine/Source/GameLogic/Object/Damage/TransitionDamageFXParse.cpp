@@ -1,4 +1,5 @@
-// cl: /ICode/Libraries/Include/Lib /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /DBFME_MODULE_NO_MPO /MD /EHsc /Ireference/open-bfme-1/reference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /ICode/GameEngine/Source/Common
+// cl: /DBFME_ASCII_DTOR_DECL /MD /GX /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfme2_ascii /Ireference/open-bfme-1/reference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/shims/bfmealloc /ICode/Libraries/Include/Lib /ICode/Libraries/Include /ICode/GameEngine/Source /ICode/GameEngine/Source/Common
+// stlport
 // ?parseFXLocInfo@@YAXPAVINI@@PAXPAUFXLocInfo@@@Z, retail 0x004B9917, 319 bytes.
 // TransitionDamageFX parseFXLocInfo helper plus its three callers
 // (parseFXList/parseObjectCreationList/parseParticleSystem). Donor is BFME1
@@ -23,9 +24,11 @@ typedef unsigned char UnsignedByte;
 template <typename T> struct BfmeStringData;
 
 #include "ascii_string.h"
-
-
 #include "Coord3D.h"
+#include <vector>
+#include "GameLogicObjectLookupView.h"
+#include "../../../Common/Thing/thing.h"
+#include "../../../../Include/Common/ObjectModule.h"
 
 typedef char FXDamageLocType;
 enum
@@ -65,35 +68,108 @@ struct FXDamageParticleSystemInfo
 class INI
 {
 public:
-	const char *getNextToken(const char *seps);
+	const char *getNextToken(const char *seps = 0);
+	const char *getNextTokenOrNull(const char *seps = 0);
 	const char *getNextSubToken(const char *expected);
-	Real scanReal(const char *token);
-	const char *getSepsColon() { return m_sepsColon; }
+	const char *getSepsColon() const { return m_sepsColon; }
+	float scanReal(const char *token);
 	static void parseBool(INI *ini, void *instance, void *store, const void *userData);
 	static void parseFXList(INI *ini, void *instance, void *store, const void *userData);
 	static void parseObjectCreationList(INI *ini, void *instance, void *store, const void *userData);
 	static void parseParticleSystemTemplate(INI *ini, void *instance, void *store, const void *userData);
+
 private:
-	char _pad[0x420];
+	char m_unreconstructed[0x420];
 	const char *m_sepsColon;
 };
 
 class INIException
 {
 public:
-	char *mFailureMessage;
-	int m_argCount;
 	INIException(int argCount, const char *format, ...);
 	INIException(const INIException &other);
 	~INIException();
+	char *mFailureMessage; // +0x00
+	int m_argCount; // +0x04
 };
 
-class TransitionDamageFXModuleData
+class Rva004BA1C8;
+
+struct TransitionDamageFXRecordA
+{
+	void *m_value;
+	unsigned char m_locType;
+	unsigned char m_pad05[3];
+	AsciiString m_boneName;
+	unsigned char m_randomBone;
+	unsigned char m_pad0D[3];
+	float m_loc[3];
+};
+
+struct TransitionDamageFXRecordB
+{
+	void *m_value;
+	unsigned char m_locType;
+	unsigned char m_pad05[3];
+	AsciiString m_boneName;
+	unsigned char m_randomBone;
+	unsigned char m_pad0D[3];
+	float m_loc[3];
+};
+
+struct TransitionDamageFXRecordC
+{
+	void *m_value;
+	unsigned char m_locType;
+	unsigned char m_pad05[3];
+	AsciiString m_boneName;
+	unsigned char m_randomBone;
+	unsigned char m_pad0D[3];
+	float m_loc[3];
+};
+
+// BFME1 supplies the string/vector semantic lead. Native callbacks 4B9C46
+// and 577998 independently prove a zeroed, owned word at record offset 8;
+// both four-element header arrays use the vector constructor closure256646
+// and string-vector destructor2CC70. The original record names are unknown.
+typedef _STL::vector<AsciiString> TransitionSmallVec;
+
+enum TransitionDamageFXExtent
+{
+	BODYDAMAGETYPE_COUNT = 4,
+	DAMAGE_MODULE_MAX_FX = 12
+};
+
+class UpdateModuleData
 {
 public:
+	__declspec(dllimport) __forceinline UpdateModuleData() {}
+	~UpdateModuleData();
+};
+
+class INI;
+
+class TransitionDamageFXModuleData : public UpdateModuleData
+{
+public:
+	TransitionDamageFXModuleData();
 	static void parseFXList(INI *ini, void *instance, void *store, const void *userData);
 	static void parseObjectCreationList(INI *ini, void *instance, void *store, const void *userData);
 	static void parseParticleSystem(INI *ini, void *instance, void *store, const void *userData);
+	static void NeighborIDSubobjectNameDataAppend(INI *ini, void *instance, void *store, const void *userData);
+
+private:
+	const void *m_vtable;
+	unsigned int m_unused04;
+	int m_damageFXTypes;
+	TransitionDamageFXRecordA m_fxList[BODYDAMAGETYPE_COUNT][DAMAGE_MODULE_MAX_FX];
+	int m_damageOCLTypes;
+	TransitionDamageFXRecordB m_ocl[BODYDAMAGETYPE_COUNT][DAMAGE_MODULE_MAX_FX];
+	int m_damageParticleTypes;
+	TransitionDamageFXRecordC m_particleSystem[BODYDAMAGETYPE_COUNT][DAMAGE_MODULE_MAX_FX];
+	TransitionSmallVec m_unkFD4[4];
+	TransitionSmallVec m_unk1004[4];
+	_STL::vector<Rva004BA1C8> m_tail;
 };
 
 static void parseFXLocInfo(INI *ini, void *instance, FXLocInfo *locInfo)
@@ -190,9 +266,6 @@ void TransitionDamageFXModuleData::parseParticleSystem(INI *ini, void *instance,
 // callbacks at47A6A9/B3FD0. The original location/point typedefs are unknown.
 // A scoped lifetime adapter preserves the canonical coordinate data header;
 // its empty constructor/destructor are independently verified ICF twins.
-#include "Coord3D.h"
-#include "ascii_string.h"
-
 // The target's 32-element array uses nontrivial, empty coordinate lifetimes.
 // Keep the canonical three-float data layout and express those lifetimes in
 // a scoped adapter; this does not assert a new original target point type.
@@ -205,9 +278,12 @@ struct Rva004B9C4DPoint : Coord3D {
     }
 };
 class Matrix3D;
-class Drawable {
+class Drawable
+{
 public:
-    int getPristineBonePositions(const char *, int, Coord3D *, Matrix3D *, int, int) const;
+	void rva002724FD(const AsciiString &a, int b, int c, float d, float e);
+	int getPristineBonePositions(const char *, int, Coord3D *, Matrix3D *, int, int) const;
+	void rva002724FD(const AsciiString &name, unsigned char visible, int a, float b, float c);
 };
 int GetGameLogicRandomValue(int, int, char *, int);
 struct Rva004B9C4DLoc {
@@ -237,8 +313,6 @@ static __declspec(noinline) Rva004B9C4DPoint getLocalEffectPos(
     }
     return loc->field0C;
 }
-#include "GameLogicObjectLookupView.h"
-
 // ?onBodyDamageStateChange@TransitionDamageFX@@UAEXPBVDamageInfo@@W4BodyDamageType@@1@Z
 // retail 0x004B9F18..0x004BA1B2 (666B), ret 0xC, reached through the damage
 // interface at +0x10 (this-adjusted: object at -8, module data at -0xC, the
@@ -266,11 +340,6 @@ enum DamageType
 };
 
 
-enum ParticleSystemID
-{
-	INVALID_PARTICLE_SYSTEM_ID = 0
-};
-
 class DamageInfo
 {
 public:
@@ -292,52 +361,139 @@ public:
 		float primarySpeed = 0.0f, const Coord3D *secondary = 0);
 };
 
-class TDFXObject;
+class Object;
 
 class ObjectCreationList
 {
 public:
+	void create(void *primary, void *secondary, void *lifetime);
 	void create(void *primaryObj, void *primary, void *secondary, Int lifetimeFrames);
-	static __forceinline void create(const ObjectCreationList *ocl, TDFXObject *primaryObj, const Coord3D *primary, const Coord3D *secondary)
+	static __forceinline void create(const ObjectCreationList *ocl, Object *primaryObj, const Coord3D *primary, const Coord3D *secondary)
 	{
 		if (ocl)
 			((ObjectCreationList *)ocl)->create(primaryObj, (void *)primary, (void *)secondary, 0);
 	}
 };
 
+class Dict;
+class BehaviorModuleinterface
+{
+public:
+	virtual void slot00() = 0; virtual void slot01() = 0; virtual void slot02() = 0;
+	virtual void slot03() = 0; virtual void slot04() = 0; virtual void slot05() = 0;
+	virtual void slot06() = 0; virtual void slot07() = 0; virtual void slot08() = 0;
+	virtual void slot09() = 0; virtual void slot10() = 0; virtual void slot11() = 0;
+	virtual void slot12() = 0; virtual void slot13() = 0; virtual void slot14() = 0;
+	virtual void slot15() = 0; virtual void slot16() = 0; virtual void slot17() = 0;
+	virtual void slot18() = 0; virtual void slot19() = 0; virtual void slot20() = 0;
+	virtual void slot21() = 0; virtual void slot22() = 0; virtual void slot23() = 0;
+	virtual void slot24() = 0; virtual void slot25() = 0; virtual void slot26() = 0;
+	virtual void slot27() = 0; virtual void slot28() = 0; virtual void slot29() = 0;
+	virtual void slot30() = 0; virtual void slot31() = 0; virtual void slot32() = 0;
+	virtual void slot33() = 0; virtual void slot34() = 0; virtual void slot35() = 0;
+	virtual void slot36() = 0; virtual void slot37() = 0; virtual void slot38() = 0;
+	virtual void mapLoadPostProcess(const Dict *) = 0;
+};
+// The three-slot table the constructor installs at +0x10 (0x010B2588).
+class DamageInfo;
+enum BodyDamageType;
+class DamageModuleinterface
+{
+public:
+    virtual void onBodyDamageStateChange(const DamageInfo *, BodyDamageType, BodyDamageType) = 0;
+};
+class Xfer;
+class Rva004BA1C8Triple {
+public:
+	unsigned int a;
+	unsigned int b;
+	unsigned int c;
+};
+class Rva004BA1C8 {
+public:
+	~Rva004BA1C8();
+	Rva004BA1C8 &operator=(const Rva004BA1C8 &other);
+private:
+	int m_00;
+	_STL::vector<AsciiString> m_04;
+	unsigned int m_10;
+	Rva004BA1C8Triple m_14;
+	Rva004BA1C8Triple m_20;
+};
+class Rva004BA1D0;
+class TransitionDamageFXModuleDataView;
+enum ParticleSystemID
+{
+    INVALID_PARTICLE_SYSTEM_ID = 0
+};
+// The neighbour-record vector at +0xD4 of the module. Its constructor is the folded
+// Vector_base 0x00211E58 and its destructor the row 0x004BA35A.
+class TensileFormationUpdateMember : public _STL::vector<Rva004BA1C8>
+{
+public:
+	__forceinline TensileFormationUpdateMember() {}
+	~TensileFormationUpdateMember();
+};
+class DamageModule : public ObjectModule,
+    public BehaviorModuleinterface,
+    public DamageModuleinterface
+{
+public:
+    DamageModule(Thing *thing, const ModuleData *moduleData);
+    virtual ~DamageModule();
+};
+// Layout from constructor 0x00252F50: interfaces at +0x0C and +0x10, 0x30
+// zeroed words from +0x14, and the vector at +0xD4 (allocation 0xE0).
+class TransitionDamageFX : public DamageModule
+{
+public:
+    TransitionDamageFX(Thing *thing, const ModuleData *moduleData);
+    void bfmeGoFDE();
+    void bfmeUseFDE(void *r);
+    void rva004B9DA9(bool applyTransition);
+    virtual NameKeyType getModuleNameKey() const;
+    virtual void mapLoadPostProcess(const Dict *);
+    virtual void onBodyDamageStateChange(const DamageInfo *, BodyDamageType, BodyDamageType);
+
+protected:
+    virtual ~TransitionDamageFX();
+    virtual void xfer(Xfer *xfer);
+    const TransitionDamageFXModuleDataView *getTransitionDamageFXModuleData() const
+    {
+        return (const TransitionDamageFXModuleDataView *)m_moduleData;
+    }
+
+private:
+    ParticleSystemID m_particleSystemID[4][12]; // +0x14
+    TensileFormationUpdateMember resolvedNeighbors; // +0xD4
+};
+
 class BodyModuleInterface
 {
 public:
 	virtual void b00(); virtual void b01(); virtual void b02(); virtual void b03(); virtual void b04();
-	virtual void b05(); virtual void b06(); virtual void b07(); virtual void b08(); virtual void b09();
+	virtual void b05(); virtual void b06(); virtual void b07();
+	virtual int getStatus(); // slot 8
+	virtual void b09();
 	virtual void b10(); virtual void b11(); virtual void b12(); virtual void b13(); virtual void b14();
 	virtual const DamageInfo *getLastDamageInfo() const; // slot 15
-};
-
-class Thing
-{
-public:
-	Drawable *getDrawable() const;
-	void convertBonePosToWorldPos(const Coord3D *bonePos, const Matrix3D *boneTransform,
-		Coord3D *worldPos, Matrix3D *worldTransform) const;
 };
 
 class Object : public Thing
 {
 public:
 	bool isKindOf(KindOfType t) const;
-};
-
-class TDFXObject : public Object
-{
-public:
+	unsigned getID() const { return m_id; }
+	Module *findDamageModule(NameKeyType key) const { return findModule(key); }
 	BodyModuleInterface *getBodyModule() const { return m_body; }
-	const Coord3D *getPosition() const { return &m_pos; }
 
-private:
-	char m_unknown00[0x38];
-	Coord3D m_pos;					// +0x38
-	char m_unknown44[0x254 - 0x44];
+protected:
+	Module *findModule(NameKeyType key) const;
+
+public:
+	unsigned char m_unmodelled60[0x14];
+	unsigned m_id;					// +0x74
+	unsigned char m_unmodelled78[0x254 - 0x78];
 	BodyModuleInterface *m_body;	// +0x254
 };
 
@@ -368,7 +524,7 @@ public:
 	{
 		((Rva001F3899Slot *)this)->set(*(const Rva001F3899Arg *)pos);
 	}
-	void attachToObject(const TDFXObject *obj)
+	void attachToObject(const Object *obj)
 	{
 		((Rva001F3C43Slot *)this)->set((const Rva001F3C43Arg *)obj);
 	}
@@ -414,12 +570,6 @@ public:
 };
 extern ParticleSystemManager *TheParticleSystemManager;
 
-enum
-{
-	BODYDAMAGETYPE_COUNT = 4,
-	DAMAGE_MODULE_MAX_FX = 12
-};
-
 class TransitionDamageFXModuleDataView
 {
 public:
@@ -430,64 +580,23 @@ public:
 	FXDamageOCLInfo m_OCL[BODYDAMAGETYPE_COUNT][DAMAGE_MODULE_MAX_FX];			// +0x550
 	UnsignedInt m_damageParticleTypes;	// +0xA90
 	FXDamageParticleSystemInfo m_particleSystem[BODYDAMAGETYPE_COUNT][DAMAGE_MODULE_MAX_FX];	// +0xA94
-};
-
-class TDFXModuleBase
-{
-public:
-	virtual ~TDFXModuleBase();
-
-	const void *m_moduleData;
-	TDFXObject *m_object;
-};
-
-class TDFXInterface1
-{
-public:
-	virtual void i1slot0() = 0;
-};
-
-class TDFXInterface2
-{
-public:
-	virtual void onBodyDamageStateChange(const DamageInfo *damageInfo, BodyDamageType oldState, BodyDamageType newState) = 0;
-};
-
-class TDFXDamageModule : public TDFXModuleBase, public TDFXInterface1, public TDFXInterface2
-{
-};
-
-class TransitionDamageFX : public TDFXDamageModule
-{
-public:
-	virtual void onBodyDamageStateChange(const DamageInfo *damageInfo, BodyDamageType oldState, BodyDamageType newState);
-	void rva004B9DA9(bool applyTransition);
-	void bfmeUseFDE(void *state);
-
-protected:
-	TDFXObject *getObject() const { return m_object; }
-	const TransitionDamageFXModuleDataView *getTransitionDamageFXModuleData() const
-	{
-		return (const TransitionDamageFXModuleDataView *)m_moduleData;
-	}
-
-private:
-	ParticleSystemID m_particleSystemID[BODYDAMAGETYPE_COUNT][DAMAGE_MODULE_MAX_FX];	// +0x14
+	char m_unknownFD4[0x60];
+	_STL::vector<Rva004BA1D0> neighbors;	// +0x1034
 };
 
 void TransitionDamageFX::onBodyDamageStateChange(const DamageInfo *damageInfo, BodyDamageType oldState, BodyDamageType newState)
 {
-	TDFXObject *obj = getObject();
+	Object *obj = getObject();
 	if (obj->isKindOf((KindOfType)0x45))
 		return;
 
-	TDFXObject *damageSource = 0;
+	Object *damageSource = 0;
 	Int i;
 	Drawable *draw = obj->getDrawable();
 	const TransitionDamageFXModuleDataView *modData = getTransitionDamageFXModuleData();
 
 	if (damageInfo)
-		damageSource = (TDFXObject *)TheGameLogic->findObjectByID(damageInfo->m_sourceID);
+		damageSource = TheGameLogic->findObjectByID(damageInfo->m_sourceID);
 
 	for (i = 0; i < DAMAGE_MODULE_MAX_FX; i++)
 	{

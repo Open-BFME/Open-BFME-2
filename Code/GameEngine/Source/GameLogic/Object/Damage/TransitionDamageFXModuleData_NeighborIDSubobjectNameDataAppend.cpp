@@ -1,5 +1,5 @@
 // ?NeighborIDSubobjectNameDataAppend@TransitionDamageFXModuleData@@SAXPAVINI@@PAX1PBX@Z
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
+// cl: /DBFME_ASCII_DTOR_DECL /MD /GX /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfme2_ascii /Ireference/open-bfme-1/reference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/shims/bfmealloc /ICode/Libraries/Include/Lib /ICode/Libraries/Include /ICode/GameEngine/Source /ICode/GameEngine/Source/Common
 // stlport
 //
 // ?NeighborIDSubobjectNameDataAppend@TransitionDamageFXModuleData@@SAXPAVINI@@PAX1PBX@Z @0x004BA817 460B
@@ -13,15 +13,15 @@ template <typename T> struct BfmeStringData;
 
 #include <vector>
 
+#include "../../../../../Libraries/Include/Lib/Coord3D.h"
+#include <string.h>
+
 namespace _STL
 {
 // Bind the appends and the element-vector teardown to their rowed workers.
 template <> void vector<AsciiString, allocator<AsciiString> >::push_back(const AsciiString &value);
 template <> vector<AsciiString, allocator<AsciiString> >::~vector();
 }
-
-#include "../../../../../Libraries/Include/Lib/Coord3D.h"
-#include <string.h>
 
 class INI
 {
@@ -31,7 +31,10 @@ public:
 	const char *getNextSubToken(const char *expected);
 	const char *getSepsColon() const { return m_sepsColon; }
 	float scanReal(const char *token);
+	static void parseBool(INI *ini, void *instance, void *store, const void *userData);
+	static void parseFXList(INI *ini, void *instance, void *store, const void *userData);
 	static void parseObjectCreationList(INI *ini, void *instance, void *store, const void *userData);
+	static void parseParticleSystemTemplate(INI *ini, void *instance, void *store, const void *userData);
 
 private:
 	char m_unreconstructed[0x420];
@@ -41,13 +44,11 @@ private:
 class INIException
 {
 public:
-	INIException(int code, const char *format, ...);
+	INIException(int argCount, const char *format, ...);
 	INIException(const INIException &other);
 	~INIException();
-
-private:
-	char *m_failureMessage;
-	int m_argCount;
+	char *mFailureMessage; // +0x00
+	int m_argCount; // +0x04
 };
 
 // The independently rowed initializer builds only the first sixteen bytes.
@@ -72,25 +73,95 @@ public:
 	Coord3D m_oclOffset;
 };
 
+class ObjectCreationList;
 class Rva004BA1D0
 {
-private:
-	int m_objectID;
-	_STL::vector<AsciiString> m_subObjects;
-	const void *m_ocl;
-	Coord3D m_neighborOffset;
-	Coord3D m_oclOffset;
+public:
+	Rva004BA1D0(const Rva004BA1D0 &other);
+	int m_objectID; // +0x00
+	_STL::vector<AsciiString> m_subObjects; // +0x04
+	const ObjectCreationList *m_ocl; // +0x10
+	Coord3D m_neighborOffset; // +0x14
+	Coord3D m_oclOffset; // +0x20
 };
 
-namespace _STL
-{
-template <> void vector<Rva004BA1D0, allocator<Rva004BA1D0> >::push_back(const Rva004BA1D0 &value);
-}
+class Rva004BA1C8;
 
-class TransitionDamageFXModuleData
+struct TransitionDamageFXRecordA
+{
+	void *m_value;
+	unsigned char m_locType;
+	unsigned char m_pad05[3];
+	AsciiString m_boneName;
+	unsigned char m_randomBone;
+	unsigned char m_pad0D[3];
+	float m_loc[3];
+};
+
+struct TransitionDamageFXRecordB
+{
+	void *m_value;
+	unsigned char m_locType;
+	unsigned char m_pad05[3];
+	AsciiString m_boneName;
+	unsigned char m_randomBone;
+	unsigned char m_pad0D[3];
+	float m_loc[3];
+};
+
+struct TransitionDamageFXRecordC
+{
+	void *m_value;
+	unsigned char m_locType;
+	unsigned char m_pad05[3];
+	AsciiString m_boneName;
+	unsigned char m_randomBone;
+	unsigned char m_pad0D[3];
+	float m_loc[3];
+};
+
+// BFME1 supplies the string/vector semantic lead. Native callbacks 4B9C46
+// and 577998 independently prove a zeroed, owned word at record offset 8;
+// both four-element header arrays use the vector constructor closure256646
+// and string-vector destructor2CC70. The original record names are unknown.
+typedef _STL::vector<AsciiString> TransitionSmallVec;
+
+enum TransitionDamageFXExtent
+{
+	BODYDAMAGETYPE_COUNT = 4,
+	DAMAGE_MODULE_MAX_FX = 12
+};
+
+class UpdateModuleData
 {
 public:
+	__declspec(dllimport) __forceinline UpdateModuleData() {}
+	~UpdateModuleData();
+};
+
+class INI;
+
+class TransitionDamageFXModuleData : public UpdateModuleData
+{
+public:
+	TransitionDamageFXModuleData();
+	static void parseFXList(INI *ini, void *instance, void *store, const void *userData);
+	static void parseObjectCreationList(INI *ini, void *instance, void *store, const void *userData);
+	static void parseParticleSystem(INI *ini, void *instance, void *store, const void *userData);
 	static void NeighborIDSubobjectNameDataAppend(INI *ini, void *instance, void *store, const void *userData);
+
+private:
+	const void *m_vtable;
+	unsigned int m_unused04;
+	int m_damageFXTypes;
+	TransitionDamageFXRecordA m_fxList[BODYDAMAGETYPE_COUNT][DAMAGE_MODULE_MAX_FX];
+	int m_damageOCLTypes;
+	TransitionDamageFXRecordB m_ocl[BODYDAMAGETYPE_COUNT][DAMAGE_MODULE_MAX_FX];
+	int m_damageParticleTypes;
+	TransitionDamageFXRecordC m_particleSystem[BODYDAMAGETYPE_COUNT][DAMAGE_MODULE_MAX_FX];
+	TransitionSmallVec m_unkFD4[4];
+	TransitionSmallVec m_unk1004[4];
+	_STL::vector<Rva004BA1C8> m_tail;
 };
 
 void TransitionDamageFXModuleData::NeighborIDSubobjectNameDataAppend(INI *ini, void *instance, void *store, const void *)
