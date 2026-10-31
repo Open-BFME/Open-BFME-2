@@ -217,11 +217,6 @@ void Rva003F1A5FConstruct(void *dest, const void *source)
     ::new (dest) ConstructProbeVec(*static_cast<const ConstructProbeVec *>(source));
 }
 
-void Rva00460F18Construct(void *dest, const void *source)
-{
-    ::new (dest) ConstructProbeVec(*static_cast<const ConstructProbeVec *>(source));
-}
-
 void Rva001E7243Construct(void *dest, const void *source)
 {
     ::new (dest) ConstructProbePairIV(*static_cast<const ConstructProbePairIV *>(source));
