@@ -1,0 +1,4301 @@
+[
+  {
+    "rva": "0x000B3FD0",
+    "name": "??1Region2D@@QAE@XZ",
+    "size": "1",
+    "source": "Code/Libraries/Source/WWVegas/WWMath/region.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "??1Region3D@@QAE@XZ",
+    "size": "1",
+    "source": "Code/Libraries/Source/WWVegas/WWMath/region.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x0050B238",
+    "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+    "size": "3",
+    "source": "Code/GameEngine/Source/Common/System/XferSkipBadBlock.cpp",
+    "bytes": "c20800",
+    "instructions": [
+      "0050b238 ret 8"
+    ]
+  },
+  {
+    "rva": "0x00452D82",
+    "name": "?getMinimumValue@GameClientRandomVariable@@QBEMXZ",
+    "size": "4",
+    "source": "Code/GameEngine/Source/GameClient/ClientRandomValue.cpp",
+    "bytes": "d94104c3",
+    "instructions": [
+      "00452d82 fld dword ptr [ecx + 4]",
+      "00452d85 ret "
+    ]
+  },
+  {
+    "rva": "0x004F5F92",
+    "name": "?getMaximumValue@GameClientRandomVariable@@QBEMXZ",
+    "size": "4",
+    "source": "Code/GameEngine/Source/GameClient/ClientRandomValue.cpp",
+    "bytes": "d94108c3",
+    "instructions": [
+      "004f5f92 fld dword ptr [ecx + 8]",
+      "004f5f95 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "??1Coord2D@@QAE@XZ",
+    "size": "1",
+    "source": "Code/Libraries/Source/WWVegas/WWMath/coord2d.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "??1Coord3D@@QAE@XZ",
+    "size": "1",
+    "source": "Code/Libraries/Source/WWVegas/WWMath/coord3d.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x0047A699",
+    "name": "?IsCRC@Xfer@@UBE_NXZ",
+    "size": "3",
+    "source": "Code/GameEngine/Source/Common/System/Xfer.cpp",
+    "bytes": "32c0c3",
+    "instructions": [
+      "0047a699 xor al, al",
+      "0047a69b ret "
+    ]
+  },
+  {
+    "rva": "0x0047A699",
+    "name": "?IsLightCRC@Xfer@@UBE_NXZ",
+    "size": "3",
+    "source": "Code/GameEngine/Source/Common/System/Xfer.cpp",
+    "bytes": "32c0c3",
+    "instructions": [
+      "0047a699 xor al, al",
+      "0047a69b ret "
+    ]
+  },
+  {
+    "rva": "0x0047A699",
+    "name": "?IsLoading@Xfer@@UBE_NXZ",
+    "size": "3",
+    "source": "Code/GameEngine/Source/Common/System/Xfer.cpp",
+    "bytes": "32c0c3",
+    "instructions": [
+      "0047a699 xor al, al",
+      "0047a69b ret "
+    ]
+  },
+  {
+    "rva": "0x0047A699",
+    "name": "?IsStoring@Xfer@@UBE_NXZ",
+    "size": "3",
+    "source": "Code/GameEngine/Source/Common/System/Xfer.cpp",
+    "bytes": "32c0c3",
+    "instructions": [
+      "0047a699 xor al, al",
+      "0047a69b ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "??1EventModuleInfo@FXParticleSystem@@IAE@XZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/fx_particle_system.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?validate@?$StringBase@D@@ABEXXZ",
+    "size": "1",
+    "source": "Code/Libraries/Source/WWVegas/WWLib/string_base_clear.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?validate@?$StringBase@G@@ABEXXZ",
+    "size": "1",
+    "source": "Code/Libraries/Source/WWVegas/WWLib/string_base_clear.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x005BE1A7",
+    "name": "?get@Rva005BE1A7DwordField@@QBEHXZ",
+    "size": "7",
+    "source": "Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp",
+    "bytes": "8b81b0000000c3",
+    "instructions": [
+      "005be1a7 mov eax, dword ptr [ecx + 0xb0]",
+      "005be1ad ret "
+    ]
+  },
+  {
+    "rva": "0x004BF8BE",
+    "name": "?set@Rva004BF8BEByteSlot@@QAEXE@Z",
+    "size": "13",
+    "source": "Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp",
+    "bytes": "8a4424048881b4000000c20400",
+    "instructions": [
+      "004bf8be mov al, byte ptr [esp + 4]",
+      "004bf8c2 mov byte ptr [ecx + 0xb4], al",
+      "004bf8c8 ret 4"
+    ]
+  },
+  {
+    "rva": "0x004BF8CB",
+    "name": "?set@Rva004BF8CBByteSlot@@QAEXE@Z",
+    "size": "13",
+    "source": "Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp",
+    "bytes": "8a4424048881b5000000c20400",
+    "instructions": [
+      "004bf8cb mov al, byte ptr [esp + 4]",
+      "004bf8cf mov byte ptr [ecx + 0xb5], al",
+      "004bf8d5 ret 4"
+    ]
+  },
+  {
+    "rva": "0x004C15F7",
+    "name": "?set@Rva004C15F7ByteSlot@@QAEXE@Z",
+    "size": "13",
+    "source": "Code/GameEngine/Source/Common/DispByteFieldSetters.cpp",
+    "bytes": "8a4424048881f1000000c20400",
+    "instructions": [
+      "004c15f7 mov al, byte ptr [esp + 4]",
+      "004c15fb mov byte ptr [ecx + 0xf1], al",
+      "004c1601 ret 4"
+    ]
+  },
+  {
+    "rva": "0x00314046",
+    "name": "?get@Rva00314046LeaField@@QBEPAXXZ",
+    "size": "4",
+    "source": "Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp",
+    "bytes": "8d4130c3",
+    "instructions": [
+      "00314046 lea eax, [ecx + 0x30]",
+      "00314049 ret "
+    ]
+  },
+  {
+    "rva": "0x00094A94",
+    "name": "?get@Rva00094A94FloatField@@QBEMXZ",
+    "size": "4",
+    "source": "Code/GameEngine/Source/Common/Disp8FloatFieldGetters.cpp",
+    "bytes": "d9411cc3",
+    "instructions": [
+      "00094a94 fld dword ptr [ecx + 0x1c]",
+      "00094a97 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?loadPostProcess@SpawnArmy@@UAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignObjects.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x004BF893",
+    "name": "?get@Rva004BF893LeaField@@QBEPAXXZ",
+    "size": "4",
+    "source": "Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp",
+    "bytes": "8d41f0c3",
+    "instructions": [
+      "004bf893 lea eax, [ecx - 0x10]",
+      "004bf896 ret "
+    ]
+  },
+  {
+    "rva": "0x005D870D",
+    "name": "?get@Rva005D870DFloatField@@QBEMXZ",
+    "size": "4",
+    "source": "Code/GameEngine/Source/Common/Disp8FloatFieldGetters.cpp",
+    "bytes": "d94110c3",
+    "instructions": [
+      "005d870d fld dword ptr [ecx + 0x10]",
+      "005d8710 ret "
+    ]
+  },
+  {
+    "rva": "0x000D43D0",
+    "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+    "size": "3",
+    "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/ControlBarCallback.cpp",
+    "bytes": "33c0c3",
+    "instructions": [
+      "000d43d0 xor eax, eax",
+      "000d43d2 ret "
+    ]
+  },
+  {
+    "rva": "0x004BDC48",
+    "name": "?get@Rva004BDC48PtrChaseField@@QBEHXZ",
+    "size": "7",
+    "source": "Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp",
+    "bytes": "8b41f48b4038c3",
+    "instructions": [
+      "004bdc48 mov eax, dword ptr [ecx - 0xc]",
+      "004bdc4b mov eax, dword ptr [eax + 0x38]",
+      "004bdc4e ret "
+    ]
+  },
+  {
+    "rva": "0x004BDC41",
+    "name": "?get@Rva004BDC41FloatChaseField@@QBEMXZ",
+    "size": "7",
+    "source": "Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp",
+    "bytes": "8b41f4d94018c3",
+    "instructions": [
+      "004bdc41 mov eax, dword ptr [ecx - 0xc]",
+      "004bdc44 fld dword ptr [eax + 0x18]",
+      "004bdc47 ret "
+    ]
+  },
+  {
+    "rva": "0x004BDC4F",
+    "name": "?get@Rva004BDC4FFloatChaseField@@QBEMXZ",
+    "size": "7",
+    "source": "Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp",
+    "bytes": "8b41f4d9403cc3",
+    "instructions": [
+      "004bdc4f mov eax, dword ptr [ecx - 0xc]",
+      "004bdc52 fld dword ptr [eax + 0x3c]",
+      "004bdc55 ret "
+    ]
+  },
+  {
+    "rva": "0x004BF8D8",
+    "name": "?get@Rva004BF8D8ByteField@@QBEEXZ",
+    "size": "7",
+    "source": "Code/GameEngine/Source/Common/Disp32ByteGetters.cpp",
+    "bytes": "8a81b7000000c3",
+    "instructions": [
+      "004bf8d8 mov al, byte ptr [ecx + 0xb7]",
+      "004bf8de ret "
+    ]
+  },
+  {
+    "rva": "0x0052BAAB",
+    "name": "?get@Rva0052BAABByteField@@QBEEXZ",
+    "size": "7",
+    "source": "Code/GameEngine/Source/Common/Disp32ByteGetters.cpp",
+    "bytes": "8a81b4000000c3",
+    "instructions": [
+      "0052baab mov al, byte ptr [ecx + 0xb4]",
+      "0052bab1 ret "
+    ]
+  },
+  {
+    "rva": "0x002BFBF0",
+    "name": "?rva002BFBF0@Rva002BFBF0@@QAEMXZ",
+    "size": "7",
+    "source": "Code/GameEngine/Source/Common/GlobalFloatGetters.cpp",
+    "bytes": "d905acaebb00c3",
+    "instructions": [
+      "002bfbf0 fld dword ptr [0xbbaeac]",
+      "002bfbf6 ret "
+    ]
+  },
+  {
+    "rva": "0x004BE67E",
+    "name": "?Rva004BE67E@DetachableRiderBody@@UBE?AVAsciiString@@XZ",
+    "size": "30",
+    "source": "Code/GameEngine/Source/GameLogic/Object/Body/DetachableRiderBodyRva004BE67E.cpp",
+    "bytes": "558bec518b41f48b4d088365fc0083c02c50e85b7fb7ff8b4508c9c20400",
+    "instructions": [
+      "004be67e push ebp",
+      "004be67f mov ebp, esp",
+      "004be681 push ecx",
+      "004be682 mov eax, dword ptr [ecx - 0xc]",
+      "004be685 mov ecx, dword ptr [ebp + 8]",
+      "004be688 and dword ptr [ebp - 4], 0",
+      "004be68c add eax, 0x2c",
+      "004be68f push eax",
+      "004be690 call 0x365f0",
+      "004be695 mov eax, dword ptr [ebp + 8]",
+      "004be698 leave ",
+      "004be699 ret 4"
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?W3DNoDraw@@YAXPAVGameWindow@@PAVWinInstanceData@@@Z",
+    "size": "1",
+    "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/GUICallbacks/W3DNoDraw.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x0030D377",
+    "name": "?getDataLength@NetWrapperCommandMsg@@QAEIXZ",
+    "size": "4",
+    "source": "Code/GameEngine/Source/GameNetwork/NetCommandMsg.cpp",
+    "bytes": "8b4120c3",
+    "instructions": [
+      "0030d377 mov eax, dword ptr [ecx + 0x20]",
+      "0030d37a ret "
+    ]
+  },
+  {
+    "rva": "0x0050B5C6",
+    "name": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ",
+    "size": "3",
+    "source": "Code/GameEngine/Source/Common/VtableConstantPredicates.cpp",
+    "bytes": "b001c3",
+    "instructions": [
+      "0050b5c6 mov al, 1",
+      "0050b5c8 ret "
+    ]
+  },
+  {
+    "rva": "0x0003B810",
+    "name": "__purecall",
+    "size": "62",
+    "source": "Code/Libraries/Source/debug/debug_purecall.cpp",
+    "bytes": "6a01e879cfffff8b0d8008de008b0183c404ff50608b0d8008de008b116a006a006a00ff526c8b106808edbb008bc8ff52388b106a018bc8ff524c33c0c3",
+    "instructions": [
+      "0003b810 push 1",
+      "0003b812 call 0x38790",
+      "0003b817 mov ecx, dword ptr [0xde0880]",
+      "0003b81d mov eax, dword ptr [ecx]",
+      "0003b81f add esp, 4",
+      "0003b822 call dword ptr [eax + 0x60]",
+      "0003b825 mov ecx, dword ptr [0xde0880]",
+      "0003b82b mov edx, dword ptr [ecx]",
+      "0003b82d push 0",
+      "0003b82f push 0",
+      "0003b831 push 0",
+      "0003b833 call dword ptr [edx + 0x6c]",
+      "0003b836 mov edx, dword ptr [eax]",
+      "0003b838 push 0xbbed08",
+      "0003b83d mov ecx, eax",
+      "0003b83f call dword ptr [edx + 0x38]",
+      "0003b842 mov edx, dword ptr [eax]",
+      "0003b844 push 1",
+      "0003b846 mov ecx, eax",
+      "0003b848 call dword ptr [edx + 0x4c]",
+      "0003b84b xor eax, eax",
+      "0003b84d ret "
+    ]
+  },
+  {
+    "rva": "0x0050B238",
+    "name": "?Add_Dependencies_To_List@RenderObjClass@@MAEXAAV?$DynamicVectorClass@VStringClass@@@@_N@Z",
+    "size": "3",
+    "source": "Code/Libraries/Source/WWVegas/WW3D2/RenderObjAddDependenciesToList.cpp",
+    "bytes": "c20800",
+    "instructions": [
+      "0050b238 ret 8"
+    ]
+  },
+  {
+    "rva": "0x00314046",
+    "name": "?winGetInstanceData@GameWindow@@QAEPAVWinInstanceData@@XZ",
+    "size": "4",
+    "source": "Code/GameEngine/Source/GameClient/GUI/GameWindowStatusUserData.cpp",
+    "bytes": "8d4130c3",
+    "instructions": [
+      "00314046 lea eax, [ecx + 0x30]",
+      "00314049 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?loadPostProcess@BehaviorModule@@MAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/GameLogic/Object/Behavior/BehaviorModuleLoadPostProcess.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?init@SmudgeManager@@UAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/GameClient/SmudgeManagerInit.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000D43D0",
+    "name": "?winNextTab@GameWindow@@QAEHXZ",
+    "size": "3",
+    "source": "Code/GameEngine/Source/GameClient/GUI/GameWindowStatusUserData.cpp",
+    "bytes": "33c0c3",
+    "instructions": [
+      "000d43d0 xor eax, eax",
+      "000d43d2 ret "
+    ]
+  },
+  {
+    "rva": "0x004BF186",
+    "name": "?setIndestructible@ActiveBody@@UAEX_N@Z",
+    "size": "98",
+    "source": "Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody_setIndestructible.cpp",
+    "bytes": "538b5c24088899b70000008b49f88b4104f6800a0100004074445651e8af73f9ff8bf085f65974355733ff8b06578bceff50048b0d8ce7df0050e800acb8ff85c074138b885402000085c974098b0153ff90840000004783ff047ccf5f5e5bc20400",
+    "instructions": [
+      "004bf186 push ebx",
+      "004bf187 mov ebx, dword ptr [esp + 8]",
+      "004bf18b mov byte ptr [ecx + 0xb7], bl",
+      "004bf191 mov ecx, dword ptr [ecx - 8]",
+      "004bf194 mov eax, dword ptr [ecx + 4]",
+      "004bf197 test byte ptr [eax + 0x10a], 0x40",
+      "004bf19e je 0x4bf1e4",
+      "004bf1a0 push esi",
+      "004bf1a1 push ecx",
+      "004bf1a2 call 0x456556",
+      "004bf1a7 mov esi, eax",
+      "004bf1a9 test esi, esi",
+      "004bf1ab pop ecx",
+      "004bf1ac je 0x4bf1e3",
+      "004bf1ae push edi",
+      "004bf1af xor edi, edi",
+      "004bf1b1 mov eax, dword ptr [esi]",
+      "004bf1b3 push edi",
+      "004bf1b4 mov ecx, esi",
+      "004bf1b6 call dword ptr [eax + 4]",
+      "004bf1b9 mov ecx, dword ptr [0xdfe78c]",
+      "004bf1bf push eax",
+      "004bf1c0 call 0x49dc5",
+      "004bf1c5 test eax, eax",
+      "004bf1c7 je 0x4bf1dc",
+      "004bf1c9 mov ecx, dword ptr [eax + 0x254]",
+      "004bf1cf test ecx, ecx",
+      "004bf1d1 je 0x4bf1dc",
+      "004bf1d3 mov eax, dword ptr [ecx]",
+      "004bf1d5 push ebx",
+      "004bf1d6 call dword ptr [eax + 0x84]",
+      "004bf1dc inc edi",
+      "004bf1dd cmp edi, 4",
+      "004bf1e0 jl 0x4bf1b1",
+      "004bf1e2 pop edi",
+      "004bf1e3 pop esi",
+      "004bf1e4 pop ebx",
+      "004bf1e5 ret 4"
+    ]
+  },
+  {
+    "rva": "0x000D43D0",
+    "name": "?winPrevTab@GameWindow@@QAEHXZ",
+    "size": "3",
+    "source": "Code/GameEngine/Source/GameClient/GUI/GameWindowStatusUserData.cpp",
+    "bytes": "33c0c3",
+    "instructions": [
+      "000d43d0 xor eax, eax",
+      "000d43d2 ret "
+    ]
+  },
+  {
+    "rva": "0x0023CAD2",
+    "name": "?getFirstObject@GameLogic@@QAEPAVObject@@XZ",
+    "size": "7",
+    "source": "Code/GameEngine/Source/GameLogic/System/GameLogic.cpp",
+    "bytes": "8b81ac000000c3",
+    "instructions": [
+      "0023cad2 mov eax, dword ptr [ecx + 0xac]",
+      "0023cad8 ret "
+    ]
+  },
+  {
+    "rva": "0x0047A69C",
+    "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+    "size": "3",
+    "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/EmissionInfoCopyCtors.cpp",
+    "bytes": "c20400",
+    "instructions": [
+      "0047a69c ret 4"
+    ]
+  },
+  {
+    "rva": "0x0036CC7A",
+    "name": "?Get_File_Handle@FileClass@@UAEPAXXZ",
+    "size": "4",
+    "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFileSystem.cpp",
+    "bytes": "83c8ffc3",
+    "instructions": [
+      "0036cc7a or eax, 0xffffffff",
+      "0036cc7d ret "
+    ]
+  },
+  {
+    "rva": "0x005CB9FA",
+    "name": "?_bfme_ro_v50@RenderObjClass@@UAE_NH@Z",
+    "size": "5",
+    "source": "Code/Libraries/Source/WWVegas/WW3D2/RenderObjO1Inlines.cpp",
+    "bytes": "b001c20400",
+    "instructions": [
+      "005cb9fa mov al, 1",
+      "005cb9fc ret 4"
+    ]
+  },
+  {
+    "rva": "0x00101CBE",
+    "name": "?set@Rva00101CBEFloatField@@QAEXM@Z",
+    "size": "14",
+    "source": "Code/GameEngine/Source/Common/DispArgFieldSettersVslots.cpp",
+    "bytes": "f30f10442404f30f114108c20400",
+    "instructions": [
+      "00101cbe movss xmm0, dword ptr [esp + 4]",
+      "00101cc4 movss dword ptr [ecx + 8], xmm0",
+      "00101cc9 ret 4"
+    ]
+  },
+  {
+    "rva": "0x004C082B",
+    "name": "?attemptDamage@HighlanderBody@@UAEXPAVDamageInfo@@@Z",
+    "size": "67",
+    "source": "Code/GameEngine/Source/GameLogic/Object/Body/HighlanderBodyAttemptDamage.cpp",
+    "bytes": "558bec568b7508837e1008578bf974258b07ff5010d825d8b8bb008d46208bc8d95d08d900d94508dff1ddd877038d4d088b098908568bcfe89ff5ffff5f5e5dc20400",
+    "instructions": [
+      "004c082b push ebp",
+      "004c082c mov ebp, esp",
+      "004c082e push esi",
+      "004c082f mov esi, dword ptr [ebp + 8]",
+      "004c0832 cmp dword ptr [esi + 0x10], 8",
+      "004c0836 push edi",
+      "004c0837 mov edi, ecx",
+      "004c0839 je 0x4c0860",
+      "004c083b mov eax, dword ptr [edi]",
+      "004c083d call dword ptr [eax + 0x10]",
+      "004c0840 fsub dword ptr [0xbbb8d8]",
+      "004c0846 lea eax, [esi + 0x20]",
+      "004c0849 mov ecx, eax",
+      "004c084b fstp dword ptr [ebp + 8]",
+      "004c084e fld dword ptr [eax]",
+      "004c0850 fld dword ptr [ebp + 8]",
+      "004c0853 fcompi st(1)",
+      "004c0855 fstp st(0)",
+      "004c0857 ja 0x4c085c",
+      "004c0859 lea ecx, [ebp + 8]",
+      "004c085c mov ecx, dword ptr [ecx]",
+      "004c085e mov dword ptr [eax], ecx",
+      "004c0860 push esi",
+      "004c0861 mov ecx, edi",
+      "004c0863 call 0x4bfe07",
+      "004c0868 pop edi",
+      "004c0869 pop esi",
+      "004c086a pop ebp",
+      "004c086b ret 4"
+    ]
+  },
+  {
+    "rva": "0x0047A69C",
+    "name": "?addSubsystem@SubsystemInterfaceList@@QAEXPAVSubsystemInterface@@@Z",
+    "size": "3",
+    "source": "Code/GameEngine/Source/Common/GameEngineInitFolded.cpp",
+    "bytes": "c20400",
+    "instructions": [
+      "0047a69c ret 4"
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?Rva000B3FD0@@YAXHQAPAD@Z",
+    "size": "1",
+    "source": "Code/GameEngine/Source/Common/GameEngineInitFolded.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x004BDB85",
+    "name": "?setMaxHealth@ActiveBody@@UAEXMW4MaxHealthChangeType@@@Z",
+    "size": "126",
+    "source": "Code/GameEngine/Source/GameLogic/Object/Body/ActiveBodySetMaxHealth.cpp",
+    "bytes": "8b44240848f30f10442404568bf1f30f104e10f30f114610f30f11461c74114875386a0051f30f5cc1f30f110424eb1af30f1056086a00f30f5ed1f30f59d0f30f5c560851f30f1114248b068bceff9080000000f30f10442408f30f104e080f2fc876168b066a0051f30f5cc18bcef30f110424ff90800000005ec20800",
+    "instructions": [
+      "004bdb85 mov eax, dword ptr [esp + 8]",
+      "004bdb89 dec eax",
+      "004bdb8a movss xmm0, dword ptr [esp + 4]",
+      "004bdb90 push esi",
+      "004bdb91 mov esi, ecx",
+      "004bdb93 movss xmm1, dword ptr [esi + 0x10]",
+      "004bdb98 movss dword ptr [esi + 0x10], xmm0",
+      "004bdb9d movss dword ptr [esi + 0x1c], xmm0",
+      "004bdba2 je 0x4bdbb5",
+      "004bdba4 dec eax",
+      "004bdba5 jne 0x4bdbdf",
+      "004bdba7 push 0",
+      "004bdba9 push ecx",
+      "004bdbaa subss xmm0, xmm1",
+      "004bdbae movss dword ptr [esp], xmm0",
+      "004bdbb3 jmp 0x4bdbcf",
+      "004bdbb5 movss xmm2, dword ptr [esi + 8]",
+      "004bdbba push 0",
+      "004bdbbc divss xmm2, xmm1",
+      "004bdbc0 mulss xmm2, xmm0",
+      "004bdbc4 subss xmm2, dword ptr [esi + 8]",
+      "004bdbc9 push ecx",
+      "004bdbca movss dword ptr [esp], xmm2",
+      "004bdbcf mov eax, dword ptr [esi]",
+      "004bdbd1 mov ecx, esi",
+      "004bdbd3 call dword ptr [eax + 0x80]",
+      "004bdbd9 movss xmm0, dword ptr [esp + 8]",
+      "004bdbdf movss xmm1, dword ptr [esi + 8]",
+      "004bdbe4 comiss xmm1, xmm0",
+      "004bdbe7 jbe 0x4bdbff",
+      "004bdbe9 mov eax, dword ptr [esi]",
+      "004bdbeb push 0",
+      "004bdbed push ecx",
+      "004bdbee subss xmm0, xmm1",
+      "004bdbf2 mov ecx, esi",
+      "004bdbf4 movss dword ptr [esp], xmm0",
+      "004bdbf9 call dword ptr [eax + 0x80]",
+      "004bdbff pop esi",
+      "004bdc00 ret 8"
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "??1BfmeRadarMapPoint@@QAE@XZ",
+    "size": "1",
+    "source": "Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarCornerLifetimes.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "??1BfmeRadarWorldPoint@@QAE@XZ",
+    "size": "1",
+    "source": "Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarCornerLifetimes.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x0036CC7A",
+    "name": "?getPlayerMask@Rva000421C8@@UAEHXZ",
+    "size": "4",
+    "source": "Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp",
+    "bytes": "83c8ffc3",
+    "instructions": [
+      "0036cc7a or eax, 0xffffffff",
+      "0036cc7d ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "??1GlobalDataLightingView@@QAE@XZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/Common/GlobalData.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "??1MoveHint@@QAE@XZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/GameClient/InGameUICtor.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "??1OnlineQuickMatchWindowRef@@QAE@XZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/GameClient/GUI/OnlineQuickMatchWindowRef.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "??1Rva00051CA2@@QAE@XZ",
+    "size": "1",
+    "source": "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioSlot00051CA2Dtor.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "??1Rva00323674@@QAE@XZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/GameClient/GUI/Gadget/Rva00323674Finish.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "??1Rva003901DAPoint@@QAE@XZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/Common/PhysicsFlightPointEmpty.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "??1Rva004B9C4DPoint@@QAE@XZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/GameLogic/Object/Damage/TransitionDamageFX.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "??1Rva004FB3F2Iterator@@QAE@XZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldAIEmptyMembers.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "??1Rva004FB3F2State120@@QAE@XZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldAIEmptyMembers.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "??1Rva004FB3F2State8C@@QAE@XZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldAIEmptyMembers.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x0047A69C",
+    "name": "?OnInitialized@AptLanLobby@@QAEXPBD@Z",
+    "size": "3",
+    "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobbyDestructor.cpp",
+    "bytes": "c20400",
+    "instructions": [
+      "0047a69c ret 4"
+    ]
+  },
+  {
+    "rva": "0x0047A69C",
+    "name": "?OnInitialized@AptOnline@@QAEXPBD@Z",
+    "size": "3",
+    "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellCallbacks.cpp",
+    "bytes": "c20400",
+    "instructions": [
+      "0047a69c ret 4"
+    ]
+  },
+  {
+    "rva": "0x0047A69C",
+    "name": "?OnInitialized@Rva00510D0C@@QAEXPBD@Z",
+    "size": "3",
+    "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTributePageRegister.cpp",
+    "bytes": "c20400",
+    "instructions": [
+      "0047a69c ret 4"
+    ]
+  },
+  {
+    "rva": "0x0047A69C",
+    "name": "?OnInitialized@StrategicPlayerStatus@@QAEXPBD@Z",
+    "size": "3",
+    "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptStrategicPlayerStatus.cpp",
+    "bytes": "c20400",
+    "instructions": [
+      "0047a69c ret 4"
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?Rva000B3FD0PathDebug@@YAXPBUCoord3D@@MHUPathfinderDebugColor@@@Z",
+    "size": "1",
+    "source": "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderReleaseDebug.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?rva000B3FD0@Drawable@@QAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/GameClient/DrawableConstructionNotifyEmpty.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000D43D0",
+    "name": "?calculateVeterancyOverlayForObject@ControlBar@@KAPBVImage@@PBVObject@@@Z",
+    "size": "3",
+    "source": "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateConstruction.cpp",
+    "bytes": "33c0c3",
+    "instructions": [
+      "000d43d0 xor eax, eax",
+      "000d43d2 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?clickSlot08@Rva005CCDDD@@UAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIChecklistDefaultClick.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?init@GlobalData@@UAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/Common/GlobalData.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?loadPostProcess@DrawModule@@MAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/DrawModuleLoadPostProcess.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?loadPostProcess@RadarObject@@MAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/Common/System/Radar.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x004BD77C",
+    "name": "?multiply@Rva004BD77CFloatField@@QAEXM@Z",
+    "size": "19",
+    "source": "Code/GameEngine/Source/GameLogic/Object/Body/BodyModuleCtor.cpp",
+    "bytes": "f30f10442404f30f594104f30f114104c20400",
+    "instructions": [
+      "004bd77c movss xmm0, dword ptr [esp + 4]",
+      "004bd782 mulss xmm0, dword ptr [ecx + 4]",
+      "004bd787 movss dword ptr [ecx + 4], xmm0",
+      "004bd78c ret 4"
+    ]
+  },
+  {
+    "rva": "0x0047A69C",
+    "name": "?onDestroyingStancesBehavior@Rva0086CE84Observer@@UAEXAAVStancesBehavior@@@Z",
+    "size": "3",
+    "source": "Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp",
+    "bytes": "c20400",
+    "instructions": [
+      "0047a69c ret 4"
+    ]
+  },
+  {
+    "rva": "0x0047A69C",
+    "name": "?onStructureUndone@Player@@QAEXPAVObject@@@Z",
+    "size": "3",
+    "source": "Code/GameEngine/Source/Common/RTS/Player.cpp",
+    "bytes": "c20400",
+    "instructions": [
+      "0047a69c ret 4"
+    ]
+  },
+  {
+    "rva": "0x0050B238",
+    "name": "?primary0@Rva005FPrimaryCallbacks@@UAEXPAX0@Z",
+    "size": "3",
+    "source": "Code/GameEngine/Source/GameClient/GUI/StrategicUiArmyHandler.cpp",
+    "bytes": "c20800",
+    "instructions": [
+      "0050b238 ret 8"
+    ]
+  },
+  {
+    "rva": "0x0047A69C",
+    "name": "?primary1@Rva005FPrimaryCallbacks@@UAEXPAX@Z",
+    "size": "3",
+    "source": "Code/GameEngine/Source/GameClient/GUI/StrategicUiArmyHandler.cpp",
+    "bytes": "c20400",
+    "instructions": [
+      "0047a69c ret 4"
+    ]
+  },
+  {
+    "rva": "0x0050B238",
+    "name": "?primary2@Rva005FPrimaryCallbacks@@UAEXPAX0@Z",
+    "size": "3",
+    "source": "Code/GameEngine/Source/GameClient/GUI/StrategicUiArmyHandler.cpp",
+    "bytes": "c20800",
+    "instructions": [
+      "0050b238 ret 8"
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?reset@Rva0041FB13@@UAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/GameClient/System/MeshInstancingManager.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?rva000B3FD0@Mouse@@QAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/GameClient/MouseSetCursor.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?rva000B3FD0@PathfindLayer@@QAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderReleaseDebug.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?rva000B3FD0@Rva000B3FD0@@QAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/Common/EmptyFoldTwins.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?rva000B3FD0Empty@Rva000B3FD0Empty@@QAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/Common/EmptyFoldTwins.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?rva000B3FD0Slot08@Rva005D40A6@@UAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/Common/Rva005D40A6Dtor.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?rva000B3FD0Slot0C@Rva005D40A6@@UAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/Common/Rva005D40A6Dtor.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?rva000B3FD0Slot10@Rva005D40A6@@UAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/Common/Rva005D40A6Dtor.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000D43D0",
+    "name": "?rva000D43D0@Rva00347E4CState@@QAEHXZ",
+    "size": "3",
+    "source": "Code/GameEngine/Source/GameLogic/AI/AIStatesRva00347E4CHelper.cpp",
+    "bytes": "33c0c3",
+    "instructions": [
+      "000d43d0 xor eax, eax",
+      "000d43d2 ret "
+    ]
+  },
+  {
+    "rva": "0x0047A69C",
+    "name": "?rva0047A69C@Rva005D40A6@@UAEXM@Z",
+    "size": "3",
+    "source": "Code/GameEngine/Source/Common/Rva005D40A6Dtor.cpp",
+    "bytes": "c20400",
+    "instructions": [
+      "0047a69c ret 4"
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?update@ShellMenuSchemeManager@@QAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuScheme.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x0050B238",
+    "name": "?secondary0@Rva005FSecondaryCallbacks@@UAEXPAX0@Z",
+    "size": "3",
+    "source": "Code/GameEngine/Source/GameClient/GUI/StrategicUiArmyHandler.cpp",
+    "bytes": "c20800",
+    "instructions": [
+      "0050b238 ret 8"
+    ]
+  },
+  {
+    "rva": "0x0047A69C",
+    "name": "?secondary1@Rva005FSecondaryCallbacks@@UAEXPAX@Z",
+    "size": "3",
+    "source": "Code/GameEngine/Source/GameClient/GUI/StrategicUiArmyHandler.cpp",
+    "bytes": "c20400",
+    "instructions": [
+      "0047a69c ret 4"
+    ]
+  },
+  {
+    "rva": "0x0050B238",
+    "name": "?secondary2@Rva005FSecondaryCallbacks@@UAEXPAX0@Z",
+    "size": "3",
+    "source": "Code/GameEngine/Source/GameClient/GUI/StrategicUiArmyHandler.cpp",
+    "bytes": "c20800",
+    "instructions": [
+      "0050b238 ret 8"
+    ]
+  },
+  {
+    "rva": "0x0050B238",
+    "name": "?secondary3@Rva005FSecondaryCallbacks@@UAEXPAX0@Z",
+    "size": "3",
+    "source": "Code/GameEngine/Source/GameClient/GUI/StrategicUiArmyHandler.cpp",
+    "bytes": "c20800",
+    "instructions": [
+      "0050b238 ret 8"
+    ]
+  },
+  {
+    "rva": "0x0050B238",
+    "name": "?secondary4@Rva005FSecondaryCallbacks@@UAEXPAX0@Z",
+    "size": "3",
+    "source": "Code/GameEngine/Source/GameClient/GUI/StrategicUiArmyHandler.cpp",
+    "bytes": "c20800",
+    "instructions": [
+      "0050b238 ret 8"
+    ]
+  },
+  {
+    "rva": "0x0047A69C",
+    "name": "?setPortraitByObject@ControlBar@@QAEXPAVObject@@@Z",
+    "size": "3",
+    "source": "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "bytes": "c20400",
+    "instructions": [
+      "0047a69c ret 4"
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?slot04@Rva004FBCBE@@UAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/Common/Rva004FBCBEDtor.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?slot08@Rva004FBCBE@@UAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/Common/Rva004FBCBEDtor.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x0047A69C",
+    "name": "?slot0@Rva003FE20FBase@@UAEXPAX@Z",
+    "size": "3",
+    "source": "Code/GameEngine/Source/Common/RvaLookupFieldOrZeroFamily.cpp",
+    "bytes": "c20400",
+    "instructions": [
+      "0047a69c ret 4"
+    ]
+  },
+  {
+    "rva": "0x0047A69C",
+    "name": "?slot2@Rva003FE20FBase@@UAEXPAX@Z",
+    "size": "3",
+    "source": "Code/GameEngine/Source/Common/RvaLookupFieldOrZeroFamily.cpp",
+    "bytes": "c20400",
+    "instructions": [
+      "0047a69c ret 4"
+    ]
+  },
+  {
+    "rva": "0x0047A69C",
+    "name": "?slot4@Rva003FE20FBase@@UAEXPAX@Z",
+    "size": "3",
+    "source": "Code/GameEngine/Source/Common/RvaLookupFieldOrZeroFamily.cpp",
+    "bytes": "c20400",
+    "instructions": [
+      "0047a69c ret 4"
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?update@GlobalData@@UAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/Common/GlobalData.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?update@Rva0041FB13@@UAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/GameClient/System/MeshInstancingManager.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x0047A69C",
+    "name": "?v02@Rva003F71D4Metric@@UAEXPBURva003F71D4Point@@@Z",
+    "size": "3",
+    "source": "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPathFinder.cpp",
+    "bytes": "c20400",
+    "instructions": [
+      "0047a69c ret 4"
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?loadPostProcess@LWPlayerDef@@MAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/Common/Rva002E0EF7Ctor.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?loadPostProcess@RegionBonusInfo@@MAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/Common/RegionBonusInfo.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?loadPostProcess@Rva002E0A0A@@MAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/Common/Rva002E0A0ACopyCtor.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?loadPostProcess@Rva002E0EF7@@MAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/Common/Rva002E0EF7Ctor.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?rva000B3FD0DebugDisplay@@YAXPAVDebugDisplayInterface@@PAXPAU_iobuf@@@Z",
+    "size": "1",
+    "source": "Code/GameEngine/Source/GameLogic/Object/Update/TemporarilyDefectUpdateModuleDataFriendNew.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x004BDCE2",
+    "name": "?updateBodyParticleSystems@Rva0020FE20ActiveBodyInterface@@UAEXXZ",
+    "size": "745",
+    "source": "Code/GameEngine/Source/GameLogic/Object/Body/ActiveBodyParticlesRva004BDCE2.cpp",
+    "bytes": "b817f9b800e89cb4160083ec1856578bf183cffff605b040e000018975dc7529830db040e00001a158e7df008b0d04dddf008365fc0005f409000050e8b7b3d3ffa3ac40e000897dfcf605b040e00002752c830db040e00002a158e7df008b0d04dddf0005000a000050c745fc01000000e882b3d3ffa3a840e000897dfc536a045b841db040e000752b091db040e000a158e7df008b0d04dddf00050c0a000050c745fc02000000e84bb3d3ffa3a440e000897dfcf605b040e00008752c830db040e00008a158e7df008b0d04dddf0005180a000050c745fc03000000e816b3d3ffa3a040e000897dfcf605b040e000107528830db040e00010a158e7df008b0d04dddf0005240a000050895dfce8e5b2d3ffa39c40e000897dfcf605b040e00020752c830db040e00020a158e7df008b0d04dddf0005300a000050c745fc05000000e8b0b2d3ffa39840e000897dfcf605b040e00040752c830db040e00040a158e7df008b0d04dddf00053c0a000050c745fc06000000e87bb2d3ffa39440e000897dfc8b4ef86a0ae8c506b9ff84c07421a1a440e0008b1da840e0008945f08945eca1ac40e0006a028945e88945e45feb2ea1a840e0008b1dac40e0008945f0a1a440e0008945eca1a040e0008945e8a19c40e00033ff8945e4a19840e0004783c6f08945e08b068bceff5050a158e7df008b88f80900008b160fafcf515305f0090000508bceff524ca158e7df008b88040a00008b160fafcf51ff75f005fc090000508bceff524ca158e7df008b88100a00008b160fafcf51ff75ec05080a0000508bceff524ca158e7df008b881c0a00008b160fafcf51ff75e805140a0000508bceff524ca158e7df008b88280a00008b160fafcf51ff75e405200a0000508bceff524ca158e7df008b88340a00008b160fafcf51ff75e0052c0a0000508bceff524c8b45dc8b48f86a0ae8a005b9ff84c05b7422a158e7df008b88400a00008b160fafcf51ff359440e00005380a0000508bceff524c8b4df45f5e64890d00000000c9c3",
+    "instructions": [
+      "004bdce2 mov eax, 0xb8f917",
+      "004bdce7 call 0x629188",
+      "004bdcec sub esp, 0x18",
+      "004bdcef push esi",
+      "004bdcf0 push edi",
+      "004bdcf1 mov esi, ecx",
+      "004bdcf3 or edi, 0xffffffff",
+      "004bdcf6 test byte ptr [0xe040b0], 1",
+      "004bdcfd mov dword ptr [ebp - 0x24], esi",
+      "004bdd00 jne 0x4bdd2b",
+      "004bdd02 or dword ptr [0xe040b0], 1",
+      "004bdd09 mov eax, dword ptr [0xdfe758]",
+      "004bdd0e mov ecx, dword ptr [0xdfdd04]",
+      "004bdd14 and dword ptr [ebp - 4], 0",
+      "004bdd18 add eax, 0x9f4",
+      "004bdd1d push eax",
+      "004bdd1e call 0x1f90da",
+      "004bdd23 mov dword ptr [0xe040ac], eax",
+      "004bdd28 mov dword ptr [ebp - 4], edi",
+      "004bdd2b test byte ptr [0xe040b0], 2",
+      "004bdd32 jne 0x4bdd60",
+      "004bdd34 or dword ptr [0xe040b0], 2",
+      "004bdd3b mov eax, dword ptr [0xdfe758]",
+      "004bdd40 mov ecx, dword ptr [0xdfdd04]",
+      "004bdd46 add eax, 0xa00",
+      "004bdd4b push eax",
+      "004bdd4c mov dword ptr [ebp - 4], 1",
+      "004bdd53 call 0x1f90da",
+      "004bdd58 mov dword ptr [0xe040a8], eax",
+      "004bdd5d mov dword ptr [ebp - 4], edi",
+      "004bdd60 push ebx",
+      "004bdd61 push 4",
+      "004bdd63 pop ebx",
+      "004bdd64 test byte ptr [0xe040b0], bl",
+      "004bdd6a jne 0x4bdd97",
+      "004bdd6c or dword ptr [0xe040b0], ebx",
+      "004bdd72 mov eax, dword ptr [0xdfe758]",
+      "004bdd77 mov ecx, dword ptr [0xdfdd04]",
+      "004bdd7d add eax, 0xa0c",
+      "004bdd82 push eax",
+      "004bdd83 mov dword ptr [ebp - 4], 2",
+      "004bdd8a call 0x1f90da",
+      "004bdd8f mov dword ptr [0xe040a4], eax",
+      "004bdd94 mov dword ptr [ebp - 4], edi",
+      "004bdd97 test byte ptr [0xe040b0], 8",
+      "004bdd9e jne 0x4bddcc",
+      "004bdda0 or dword ptr [0xe040b0], 8",
+      "004bdda7 mov eax, dword ptr [0xdfe758]",
+      "004bddac mov ecx, dword ptr [0xdfdd04]",
+      "004bddb2 add eax, 0xa18",
+      "004bddb7 push eax",
+      "004bddb8 mov dword ptr [ebp - 4], 3",
+      "004bddbf call 0x1f90da",
+      "004bddc4 mov dword ptr [0xe040a0], eax",
+      "004bddc9 mov dword ptr [ebp - 4], edi",
+      "004bddcc test byte ptr [0xe040b0], 0x10",
+      "004bddd3 jne 0x4bddfd",
+      "004bddd5 or dword ptr [0xe040b0], 0x10",
+      "004bdddc mov eax, dword ptr [0xdfe758]",
+      "004bdde1 mov ecx, dword ptr [0xdfdd04]",
+      "004bdde7 add eax, 0xa24",
+      "004bddec push eax",
+      "004bdded mov dword ptr [ebp - 4], ebx",
+      "004bddf0 call 0x1f90da",
+      "004bddf5 mov dword ptr [0xe0409c], eax",
+      "004bddfa mov dword ptr [ebp - 4], edi",
+      "004bddfd test byte ptr [0xe040b0], 0x20",
+      "004bde04 jne 0x4bde32",
+      "004bde06 or dword ptr [0xe040b0], 0x20",
+      "004bde0d mov eax, dword ptr [0xdfe758]",
+      "004bde12 mov ecx, dword ptr [0xdfdd04]",
+      "004bde18 add eax, 0xa30",
+      "004bde1d push eax",
+      "004bde1e mov dword ptr [ebp - 4], 5",
+      "004bde25 call 0x1f90da",
+      "004bde2a mov dword ptr [0xe04098], eax",
+      "004bde2f mov dword ptr [ebp - 4], edi",
+      "004bde32 test byte ptr [0xe040b0], 0x40",
+      "004bde39 jne 0x4bde67",
+      "004bde3b or dword ptr [0xe040b0], 0x40",
+      "004bde42 mov eax, dword ptr [0xdfe758]",
+      "004bde47 mov ecx, dword ptr [0xdfdd04]",
+      "004bde4d add eax, 0xa3c",
+      "004bde52 push eax",
+      "004bde53 mov dword ptr [ebp - 4], 6",
+      "004bde5a call 0x1f90da",
+      "004bde5f mov dword ptr [0xe04094], eax",
+      "004bde64 mov dword ptr [ebp - 4], edi",
+      "004bde67 mov ecx, dword ptr [esi - 8]",
+      "004bde6a push 0xa",
+      "004bde6c call 0x4e536",
+      "004bde71 test al, al",
+      "004bde73 je 0x4bde96",
+      "004bde75 mov eax, dword ptr [0xe040a4]",
+      "004bde7a mov ebx, dword ptr [0xe040a8]",
+      "004bde80 mov dword ptr [ebp - 0x10], eax",
+      "004bde83 mov dword ptr [ebp - 0x14], eax",
+      "004bde86 mov eax, dword ptr [0xe040ac]",
+      "004bde8b push 2",
+      "004bde8d mov dword ptr [ebp - 0x18], eax",
+      "004bde90 mov dword ptr [ebp - 0x1c], eax",
+      "004bde93 pop edi",
+      "004bde94 jmp 0x4bdec4",
+      "004bde96 mov eax, dword ptr [0xe040a8]",
+      "004bde9b mov ebx, dword ptr [0xe040ac]",
+      "004bdea1 mov dword ptr [ebp - 0x10], eax",
+      "004bdea4 mov eax, dword ptr [0xe040a4]",
+      "004bdea9 mov dword ptr [ebp - 0x14], eax",
+      "004bdeac mov eax, dword ptr [0xe040a0]",
+      "004bdeb1 mov dword ptr [ebp - 0x18], eax",
+      "004bdeb4 mov eax, dword ptr [0xe0409c]",
+      "004bdeb9 xor edi, edi",
+      "004bdebb mov dword ptr [ebp - 0x1c], eax",
+      "004bdebe mov eax, dword ptr [0xe04098]",
+      "004bdec3 inc edi",
+      "004bdec4 add esi, -0x10",
+      "004bdec7 mov dword ptr [ebp - 0x20], eax",
+      "004bdeca mov eax, dword ptr [esi]",
+      "004bdecc mov ecx, esi",
+      "004bdece call dword ptr [eax + 0x50]",
+      "004bded1 mov eax, dword ptr [0xdfe758]",
+      "004bded6 mov ecx, dword ptr [eax + 0x9f8]",
+      "004bdedc mov edx, dword ptr [esi]",
+      "004bdede imul ecx, edi",
+      "004bdee1 push ecx",
+      "004bdee2 push ebx",
+      "004bdee3 add eax, 0x9f0",
+      "004bdee8 push eax",
+      "004bdee9 mov ecx, esi",
+      "004bdeeb call dword ptr [edx + 0x4c]",
+      "004bdeee mov eax, dword ptr [0xdfe758]",
+      "004bdef3 mov ecx, dword ptr [eax + 0xa04]",
+      "004bdef9 mov edx, dword ptr [esi]",
+      "004bdefb imul ecx, edi",
+      "004bdefe push ecx",
+      "004bdeff push dword ptr [ebp - 0x10]",
+      "004bdf02 add eax, 0x9fc",
+      "004bdf07 push eax",
+      "004bdf08 mov ecx, esi",
+      "004bdf0a call dword ptr [edx + 0x4c]",
+      "004bdf0d mov eax, dword ptr [0xdfe758]",
+      "004bdf12 mov ecx, dword ptr [eax + 0xa10]",
+      "004bdf18 mov edx, dword ptr [esi]",
+      "004bdf1a imul ecx, edi",
+      "004bdf1d push ecx",
+      "004bdf1e push dword ptr [ebp - 0x14]",
+      "004bdf21 add eax, 0xa08",
+      "004bdf26 push eax",
+      "004bdf27 mov ecx, esi",
+      "004bdf29 call dword ptr [edx + 0x4c]",
+      "004bdf2c mov eax, dword ptr [0xdfe758]",
+      "004bdf31 mov ecx, dword ptr [eax + 0xa1c]",
+      "004bdf37 mov edx, dword ptr [esi]",
+      "004bdf39 imul ecx, edi",
+      "004bdf3c push ecx",
+      "004bdf3d push dword ptr [ebp - 0x18]",
+      "004bdf40 add eax, 0xa14",
+      "004bdf45 push eax",
+      "004bdf46 mov ecx, esi",
+      "004bdf48 call dword ptr [edx + 0x4c]",
+      "004bdf4b mov eax, dword ptr [0xdfe758]",
+      "004bdf50 mov ecx, dword ptr [eax + 0xa28]",
+      "004bdf56 mov edx, dword ptr [esi]",
+      "004bdf58 imul ecx, edi",
+      "004bdf5b push ecx",
+      "004bdf5c push dword ptr [ebp - 0x1c]",
+      "004bdf5f add eax, 0xa20",
+      "004bdf64 push eax",
+      "004bdf65 mov ecx, esi",
+      "004bdf67 call dword ptr [edx + 0x4c]",
+      "004bdf6a mov eax, dword ptr [0xdfe758]",
+      "004bdf6f mov ecx, dword ptr [eax + 0xa34]",
+      "004bdf75 mov edx, dword ptr [esi]",
+      "004bdf77 imul ecx, edi",
+      "004bdf7a push ecx",
+      "004bdf7b push dword ptr [ebp - 0x20]",
+      "004bdf7e add eax, 0xa2c",
+      "004bdf83 push eax",
+      "004bdf84 mov ecx, esi",
+      "004bdf86 call dword ptr [edx + 0x4c]",
+      "004bdf89 mov eax, dword ptr [ebp - 0x24]",
+      "004bdf8c mov ecx, dword ptr [eax - 8]",
+      "004bdf8f push 0xa",
+      "004bdf91 call 0x4e536",
+      "004bdf96 test al, al",
+      "004bdf98 pop ebx",
+      "004bdf99 je 0x4bdfbd",
+      "004bdf9b mov eax, dword ptr [0xdfe758]",
+      "004bdfa0 mov ecx, dword ptr [eax + 0xa40]",
+      "004bdfa6 mov edx, dword ptr [esi]",
+      "004bdfa8 imul ecx, edi",
+      "004bdfab push ecx",
+      "004bdfac push dword ptr [0xe04094]",
+      "004bdfb2 add eax, 0xa38",
+      "004bdfb7 push eax",
+      "004bdfb8 mov ecx, esi",
+      "004bdfba call dword ptr [edx + 0x4c]",
+      "004bdfbd mov ecx, dword ptr [ebp - 0xc]",
+      "004bdfc0 pop edi",
+      "004bdfc1 pop esi",
+      "004bdfc2 mov dword ptr fs:[0], ecx",
+      "004bdfc9 leave ",
+      "004bdfca ret "
+    ]
+  },
+  {
+    "rva": "0x0050B238",
+    "name": "?rva0050B238@Rva005E62F1@@UAEXPAXI@Z",
+    "size": "3",
+    "source": "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/Rva005E62F1Constructor.cpp",
+    "bytes": "c20800",
+    "instructions": [
+      "0050b238 ret 8"
+    ]
+  },
+  {
+    "rva": "0x0047A69C",
+    "name": "?setMineClearingDetail@AIGroup@@QAEX_N@Z",
+    "size": "3",
+    "source": "Code/GameEngine/Source/GameLogic/AI/AIGroup.cpp",
+    "bytes": "c20400",
+    "instructions": [
+      "0047a69c ret 4"
+    ]
+  },
+  {
+    "rva": "0x0047A699",
+    "name": "?isContactWeapon@WeaponTemplate@@QBE_NXZ",
+    "size": "3",
+    "source": "Code/GameEngine/Source/GameLogic/Object/Weapon.cpp",
+    "bytes": "32c0c3",
+    "instructions": [
+      "0047a699 xor al, al",
+      "0047a69b ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?noop@Rva000B3FD0Nop@@QAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/Common/Rva000B3FD0NopTwin.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?rva000B3FD0@WaterRenderObjClass@@QAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/W3DWaterAreaRenderables.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x0047A699",
+    "name": "?rva0047A699@@YA_NPAUState@@PAX@Z",
+    "size": "3",
+    "source": "Code/GameEngine/Source/GameLogic/AI/AIGuardRetaliateMachineCtor.cpp",
+    "bytes": "32c0c3",
+    "instructions": [
+      "0047a699 xor al, al",
+      "0047a69b ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "??1GameLODManager@@QAE@XZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/Common/GameLOD.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x0047A69C",
+    "name": "?unregisterCave@CaveSystem@@QAEXH@Z",
+    "size": "3",
+    "source": "Code/GameEngine/Source/GameLogic/System/CaveSystem.cpp",
+    "bytes": "c20400",
+    "instructions": [
+      "0047a69c ret 4"
+    ]
+  },
+  {
+    "rva": "0x0047A69C",
+    "name": "?rva0047A69C@LivingWorldLogic@@QAEXABVAsciiString@@@Z",
+    "size": "3",
+    "source": "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp",
+    "bytes": "c20400",
+    "instructions": [
+      "0047a69c ret 4"
+    ]
+  },
+  {
+    "rva": "0x0047A69C",
+    "name": "?rva0047A69C@Rva0059BB50@@QAEXH@Z",
+    "size": "3",
+    "source": "Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva0059BB50GarrisonMoves.cpp",
+    "bytes": "c20400",
+    "instructions": [
+      "0047a69c ret 4"
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?LoadPostProcess@WindModuleInfo@FXParticleSystem@@UAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003A53C4Finish.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?LoadPostProcess@TerrainCollisionModuleInfo@FXParticleSystem@@UAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/LifeEventModuleInfoDtor.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?LoadPostProcess@EmissionVolumeInfo@FXParticleSystem@@UAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/GameClient/FXParticleSystem.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?LoadPostProcess@EmissionVelocityInfo@FXParticleSystem@@UAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/GameClient/FXParticleSystem.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?LoadPostProcess@DefaultPhysicsModuleInfo@FXParticleSystem@@UAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/GameClient/FXParticleSystem.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x0047A69C",
+    "name": "?DoXfer@EmissionVolumeInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+    "size": "3",
+    "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/EmissionInfoCopyCtors.cpp",
+    "bytes": "c20400",
+    "instructions": [
+      "0047a69c ret 4"
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "??1Rva00248558Scope@@QAE@XZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/Common/System/SaveGame/GameStateLoadScope.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?slot0@Rva005CC5E5@@UAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/Common/Rva005CC5E5Ctor.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?loadPostProcess@TeamPrototype@@MAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/Common/RTS/Team.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?loadPostProcess@TeamTemplateInfo@@MAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/Common/RTS/Team.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?loadPostProcess@GhostObjectManager@@MAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?update@GameState@@UAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/Common/System/SaveGame/GameStateConstructor.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?loadPostProcess@GameState@@MAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/Common/System/SaveGame/GameStateConstructor.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000D43D0",
+    "name": "?rva000D43D0@Rva0025DE76Slot@@QAEHXZ",
+    "size": "3",
+    "source": "Code/GameEngine/Source/Common/VslotSmallBodiesBA.cpp",
+    "bytes": "33c0c3",
+    "instructions": [
+      "000d43d0 xor eax, eax",
+      "000d43d2 ret "
+    ]
+  },
+  {
+    "rva": "0x0047A69C",
+    "name": "?notify@Rva005E5FObserver@@UAEXPAX@Z",
+    "size": "3",
+    "source": "Code/GameEngine/Source/Common/Rva005E5FFBDtor.cpp",
+    "bytes": "c20400",
+    "instructions": [
+      "0047a69c ret 4"
+    ]
+  },
+  {
+    "rva": "0x0047A69C",
+    "name": "?v00@Rva0052634F_Base@@UAEXPAX@Z",
+    "size": "3",
+    "source": "Code/GameEngine/Source/Common/Rva0052634FPermuted.cpp",
+    "bytes": "c20400",
+    "instructions": [
+      "0047a69c ret 4"
+    ]
+  },
+  {
+    "rva": "0x0047A69C",
+    "name": "?slot0@Rva0086E330BaseSlots@@UAEXPAX@Z",
+    "size": "3",
+    "source": "Code/GameEngine/Source/GameClient/GUI/InGame/InGameHotSpotSimpleHelp.cpp",
+    "bytes": "c20400",
+    "instructions": [
+      "0047a69c ret 4"
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "??1Rva000EDA94Record@@QAE@XZ",
+    "size": "1",
+    "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBuffer.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "??1Elem4@@QAE@XZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/Common/Rva004421E1Dtor.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x0047A69C",
+    "name": "?notify@Rva005E626DListener@@UAEXPAX@Z",
+    "size": "3",
+    "source": "Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp",
+    "bytes": "c20400",
+    "instructions": [
+      "0047a69c ret 4"
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?notifyBackButtonClicked@ArmyDetailsMovieClip@StrategicHUD@@UAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/Common/Rva005F2FEFApt.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?notifyIconListBackgroundClicked@ArmyDetailsMovieClip@StrategicHUD@@UAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/Common/Rva005F2FEFApt.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?Rva000B3FD0AptDebugPrint@@YAXPBD0@Z",
+    "size": "1",
+    "source": "Code/GameEngine/Source/Common/EmptyFoldTwins.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?Rva000B3FD0AptDebugAddSavedInput@@YAXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/Common/EmptyFoldTwins.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?Rva000B3FD0AptDebugSetScreenGrabPending@@YAXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/Common/EmptyFoldTwins.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?Rva000B3FD0AptFreeSound@@YAXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/Common/EmptyFoldTwins.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?Rva000B3FD0AptStartSound@@YAXPAXH@Z",
+    "size": "1",
+    "source": "Code/GameEngine/Source/Common/EmptyFoldTwins.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?Rva000B3FD0AptStartSoundStream@@YAXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/Common/EmptyFoldTwins.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?Rva000B3FD0AptFreeRenderingUnit@@YAXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/Common/EmptyFoldTwins.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?Rva000B3FD0AptFreeTexture@@YAXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/Common/EmptyFoldTwins.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000D43D0",
+    "name": "?Rva000D43D0AptLoadSound@@YAHXZ",
+    "size": "3",
+    "source": "Code/GameEngine/Source/Common/EmptyFoldTwins.cpp",
+    "bytes": "33c0c3",
+    "instructions": [
+      "000d43d0 xor eax, eax",
+      "000d43d2 ret "
+    ]
+  },
+  {
+    "rva": "0x0047A69C",
+    "name": "?vslot0@TerrainLogicListenerRootA@@UAEXH@Z",
+    "size": "3",
+    "source": "Code/GameEngine/Source/GameLogic/Map/TerrainLogicDeleter.cpp",
+    "bytes": "c20400",
+    "instructions": [
+      "0047a69c ret 4"
+    ]
+  },
+  {
+    "rva": "0x0047A69C",
+    "name": "?vslot0@TerrainLogicListenerRootB@@UAEXH@Z",
+    "size": "3",
+    "source": "Code/GameEngine/Source/GameLogic/Map/TerrainLogicDeleter.cpp",
+    "bytes": "c20400",
+    "instructions": [
+      "0047a69c ret 4"
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?init@TerrainLogic@@UAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/GameLogic/Map/TerrainLogicDeleter.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?update@TeamFactory@@UAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/Common/RTS/TeamFactoryDtor.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?loadPostProcess@GameSlot@@MAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/GameNetwork/GameInfo.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?loadPostProcess@CreateAHeroData@@MAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/Common/System/SaveGame/CreateAHeroDataDtor.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?postUpgradeCheck@UpgradeMux@@UAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/GameLogic/Object/Update/UpgradeMuxAttemptUpgrade.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x0050B238",
+    "name": "?BeginTurn@RegionTurnObserverView@@UAEXHH@Z",
+    "size": "3",
+    "source": "Code/GameEngine/Source/Common/Rva004FC4D1Dtor.cpp",
+    "bytes": "c20800",
+    "instructions": [
+      "0050b238 ret 8"
+    ]
+  },
+  {
+    "rva": "0x0050B238",
+    "name": "?OnTurnEnding@RegionTurnObserverView@@UAEXHH@Z",
+    "size": "3",
+    "source": "Code/GameEngine/Source/Common/Rva004FC4D1Dtor.cpp",
+    "bytes": "c20800",
+    "instructions": [
+      "0050b238 ret 8"
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?loadPostProcess@LargeGroupAudio@@MAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?loadPostProcess@ScriptList@@MAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListDestructor.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000D43D0",
+    "name": "__setargv",
+    "size": "3",
+    "source": "Code/Libraries/Source/CRT/StartupDefaults.cpp",
+    "bytes": "33c0c3",
+    "instructions": [
+      "000d43d0 xor eax, eax",
+      "000d43d2 ret "
+    ]
+  },
+  {
+    "rva": "0x000D43D0",
+    "name": "__matherr",
+    "size": "3",
+    "source": "Code/Libraries/Source/CRT/StartupDefaults.cpp",
+    "bytes": "33c0c3",
+    "instructions": [
+      "000d43d0 xor eax, eax",
+      "000d43d2 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?update@ScriptActions@@UAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_ctor.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?update@ScriptConditions@@UAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?rva000B3FD0@Rva002A1B1D@@QAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/GameClient/InGameUIRva002A4A68.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x0047A69C",
+    "name": "?slot0@Rva00575125Second@@UAEXH@Z",
+    "size": "3",
+    "source": "Code/GameEngine/Source/Common/Rva00575125Dtor.cpp",
+    "bytes": "c20400",
+    "instructions": [
+      "0047a69c ret 4"
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?LoadPostProcess@Rva004E1B72@@UAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/Common/Rva004E1B72Dtor.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?loadPostProcess@WorkOrder@@MAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/Common/WorkOrder.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?loadPostProcess@TeamInQueue@@MAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/Common/TeamInQueue.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?LoadPostProcess@BuffInstance@@MAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?LoadPostProcess@BuffManager@@MAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x0047A69C",
+    "name": "?LevelSelect@AptMainMenu@@QAEXPBD@Z",
+    "size": "3",
+    "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuCallbacks.cpp",
+    "bytes": "c20400",
+    "instructions": [
+      "0047a69c ret 4"
+    ]
+  },
+  {
+    "rva": "0x0047A69C",
+    "name": "?notifySwapButtonClicked@BattlePromptPlayerPageMovieClip@StrategicHUD@@UAEXH@Z",
+    "size": "3",
+    "source": "Code/GameEngine/Source/Common/Rva005FFCCBAppend.cpp",
+    "bytes": "c20400",
+    "instructions": [
+      "0047a69c ret 4"
+    ]
+  },
+  {
+    "rva": "0x0047A69C",
+    "name": "?notifySwapButtonRollOver@BattlePromptPlayerPageMovieClip@StrategicHUD@@UAEXH@Z",
+    "size": "3",
+    "source": "Code/GameEngine/Source/Common/Rva005FFCCBAppend.cpp",
+    "bytes": "c20400",
+    "instructions": [
+      "0047a69c ret 4"
+    ]
+  },
+  {
+    "rva": "0x0047A69C",
+    "name": "?notifySwapButtonRollOut@BattlePromptPlayerPageMovieClip@StrategicHUD@@UAEXH@Z",
+    "size": "3",
+    "source": "Code/GameEngine/Source/Common/Rva005FFCCBAppend.cpp",
+    "bytes": "c20400",
+    "instructions": [
+      "0047a69c ret 4"
+    ]
+  },
+  {
+    "rva": "0x0047A69C",
+    "name": "?rva00239B94@Rva0023A128Link@@UAEXH@Z",
+    "size": "3",
+    "source": "Code/GameEngine/Source/Common/Rva0023A128Ctor.cpp",
+    "bytes": "c20400",
+    "instructions": [
+      "0047a69c ret 4"
+    ]
+  },
+  {
+    "rva": "0x0047A69C",
+    "name": "?v01@Rva0023A128Link@@UAEXH@Z",
+    "size": "3",
+    "source": "Code/GameEngine/Source/Common/Rva0023A128Ctor.cpp",
+    "bytes": "c20400",
+    "instructions": [
+      "0047a69c ret 4"
+    ]
+  },
+  {
+    "rva": "0x0047A69C",
+    "name": "?rva0023A1AA@Rva0023A128Listener@@UAEXH@Z",
+    "size": "3",
+    "source": "Code/GameEngine/Source/Common/Rva0023A128Ctor.cpp",
+    "bytes": "c20400",
+    "instructions": [
+      "0047a69c ret 4"
+    ]
+  },
+  {
+    "rva": "0x0047A69C",
+    "name": "?rva00239B7E@Rva0023A128Listener@@UAEXH@Z",
+    "size": "3",
+    "source": "Code/GameEngine/Source/Common/Rva0023A128Ctor.cpp",
+    "bytes": "c20400",
+    "instructions": [
+      "0047a69c ret 4"
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?notifyClosed@ArmyUnitSwapperMovieClip@StrategicHUD@@UAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/Common/Rva005FD788Apt_ArmyUnitSwapperMovieClip.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?notifyExit@ArmyUnitSwapperMovieClip@StrategicHUD@@UAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/Common/Rva005FD788Apt_ArmyUnitSwapperMovieClip.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?notifyMoveDown@ArmyUnitSwapperMovieClip@StrategicHUD@@UAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/Common/Rva005FD788Apt_ArmyUnitSwapperMovieClip.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?notifyMoveUp@ArmyUnitSwapperMovieClip@StrategicHUD@@UAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/Common/Rva005FD788Apt_ArmyUnitSwapperMovieClip.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?notifySwap@ArmyUnitSwapperMovieClip@StrategicHUD@@UAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/Common/Rva005FD788Apt_ArmyUnitSwapperMovieClip.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?LoadPostProcess@Rva004E179A@@UAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/Common/Rva004E179ADtor.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "??1?$allocator@PAVObject@@@_STL@@QAE@XZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetWaypointPick.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "??1?$_STLP_alloc_proxy@PAPAVObject@@PAV1@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE@XZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetWaypointPick.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x0047A69C",
+    "name": "?rva0045B4E2@MissileUpdate@@UAEXH@Z",
+    "size": "3",
+    "source": "Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdate.cpp",
+    "bytes": "c20400",
+    "instructions": [
+      "0047a69c ret 4"
+    ]
+  },
+  {
+    "rva": "0x0047A699",
+    "name": "?rva0047A699_2@MissileUpdate@@UAE_NXZ",
+    "size": "3",
+    "source": "Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdate.cpp",
+    "bytes": "32c0c3",
+    "instructions": [
+      "0047a699 xor al, al",
+      "0047a69b ret "
+    ]
+  },
+  {
+    "rva": "0x0047A699",
+    "name": "?rva0047A699_3@MissileUpdate@@UAE_NXZ",
+    "size": "3",
+    "source": "Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdate.cpp",
+    "bytes": "32c0c3",
+    "instructions": [
+      "0047a699 xor al, al",
+      "0047a69b ret "
+    ]
+  },
+  {
+    "rva": "0x0047A699",
+    "name": "?rva0047A699_4@MissileUpdate@@UAE_NXZ",
+    "size": "3",
+    "source": "Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdate.cpp",
+    "bytes": "32c0c3",
+    "instructions": [
+      "0047a699 xor al, al",
+      "0047a69b ret "
+    ]
+  },
+  {
+    "rva": "0x0047A699",
+    "name": "?rva0047A699_5@MissileUpdate@@UAE_NXZ",
+    "size": "3",
+    "source": "Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdate.cpp",
+    "bytes": "32c0c3",
+    "instructions": [
+      "0047a699 xor al, al",
+      "0047a69b ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?rva000B3FD0@Rva003AD273@@UAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003ABA83Ctor.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?LoadPostProcess@Rva003AD273@@UAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003ABA83Ctor.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?rva000B3FD0@Rva003AD19BModule@@UAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AF208Clone.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?LoadPostProcess@Rva003AD19BModule@@UAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AF208Clone.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?LoadPostProcess@Rva003ABC6E@@UAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsA_Rva003ABAF3_Rva003ABB93.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?LoadPostProcess@Rva003ABCB5@@UAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsA_Rva003ABAF3_Rva003ABB93.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?rva000B3FD0@Rva003ABD20@@UAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/Common/Rva003ABD20Ctor.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?LoadPostProcess@Rva003ABD20@@UAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/Common/Rva003ABD20Ctor.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?rva000B3FD0@Rva003ABD81@@UAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/Common/Rva003ABD81Ctor.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?LoadPostProcess@Rva003ABD81@@UAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/Common/Rva003ABD81Ctor.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "??1MpGameSetupComboRef@@QAE@XZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetImageComboBox.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "??1Rva00477F06GarrisonPoint@@QAE@XZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainCtor.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "??1Rva0026E836Record@@QAE@XZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIUpdateInterfaceDestructor.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?LoadPostProcess@SidesList@@UAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/GameLogic/Map/SidesListCtor.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?rva000B3FD0_1@Rva005B414FBase@@UAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroPowers.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x0047A69C",
+    "name": "?rva005B455D@Rva005B414FBase@@UAEX_N@Z",
+    "size": "3",
+    "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroPowers.cpp",
+    "bytes": "c20400",
+    "instructions": [
+      "0047a69c ret 4"
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?rva005B486D@Rva005B414FBase@@UAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroPowers.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?rva000B3FD0_4@Rva005B414FBase@@UAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroPowers.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x0047A69C",
+    "name": "?rva005B2B6D@Rva005B414FBase@@UAEXPBD@Z",
+    "size": "3",
+    "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroPowers.cpp",
+    "bytes": "c20400",
+    "instructions": [
+      "0047a69c ret 4"
+    ]
+  },
+  {
+    "rva": "0x0030D377",
+    "name": "?rva0030D377@InProgressIconSlot@Impl@BuildQueueDetailsMovieClip@StrategicHUD@@UBEHXZ",
+    "size": "4",
+    "source": "Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDBuildQueueInProgressIconSlotCtor.cpp",
+    "bytes": "8b4120c3",
+    "instructions": [
+      "0030d377 mov eax, dword ptr [ecx + 0x20]",
+      "0030d37a ret "
+    ]
+  },
+  {
+    "rva": "0x0030D377",
+    "name": "?slot06@IconSlot@Impl@RegionDetailsStructuresMovieClip@StrategicHUD@@UBEPBVImage@@XZ",
+    "size": "4",
+    "source": "Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDRegionDetailsStructuresMovieClip_IconSlot.cpp",
+    "bytes": "8b4120c3",
+    "instructions": [
+      "0030d377 mov eax, dword ptr [ecx + 0x20]",
+      "0030d37a ret "
+    ]
+  },
+  {
+    "rva": "0x0047A69C",
+    "name": "?buildFieldParse@Rva004691B7MeleeBehavior@@UAEXAAVMultiIniFieldParse@@@Z",
+    "size": "3",
+    "source": "Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainParseMeleeBehavior.cpp",
+    "bytes": "c20400",
+    "instructions": [
+      "0047a69c ret 4"
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?loadPostProcess@ArmySummaryEntry@@MAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/Common/Rva0040C351Dtor.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x002BFBF0",
+    "name": "?slot4@Rva0030C1FCOwner@@UBEMXZ",
+    "size": "7",
+    "source": "Code/GameEngine/Source/Common/Rva0030C1FCOwnerCtor.cpp",
+    "bytes": "d905acaebb00c3",
+    "instructions": [
+      "002bfbf0 fld dword ptr [0xbbaeac]",
+      "002bfbf6 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?loadPostProcess@BuildListInfo@@MAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/GameLogic/Map/BuildListInfo.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?LoadPostProcess@GeometryInfo@@UAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/Common/System/GeometryInfoCtor.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?loadPostProcess@W3DGhostObject@@MAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DGhostObjectScene.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?loadPostProcess@W3DRenderObjectSnapshot@@MAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DGhostObjectScene.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?loadPostProcess@Rva00285BECSnapshotBase@@UAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/Common/Rva00285BECDtor.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x0047A699",
+    "name": "?vslot09@Rva00285BEC@@UBE_NXZ",
+    "size": "3",
+    "source": "Code/GameEngine/Source/Common/Rva00285BECDtor.cpp",
+    "bytes": "32c0c3",
+    "instructions": [
+      "0047a699 xor al, al",
+      "0047a69b ret "
+    ]
+  },
+  {
+    "rva": "0x0047A699",
+    "name": "?vslot08@Rva00285BEC@@UBE_NXZ",
+    "size": "3",
+    "source": "Code/GameEngine/Source/Common/Rva00285BECDtor.cpp",
+    "bytes": "32c0c3",
+    "instructions": [
+      "0047a699 xor al, al",
+      "0047a69b ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?LoadPostProcess@Rva004E1B00@@UAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/Common/Rva004E1BFCParse.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000D43D0",
+    "name": "?behaviorAnchor@BehaviorModuleInterface@@UAEIXZ",
+    "size": "3",
+    "source": "Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDtor_Unresolved.cpp",
+    "bytes": "33c0c3",
+    "instructions": [
+      "000d43d0 xor eax, eax",
+      "000d43d2 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?loadPostProcess@PlayerRelationMap@@MAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/Common/RTS/Player.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "??1OclMemberList@@QAE@XZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetReallyCreate.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "??1Rva0073BE00Point@@QAE@XZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/Common/BfmeCellAt.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "??1Rva004216D3Coord@@QAE@XZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/Common/BfmeObject476Copy.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?loadPostProcess@S3Money@@UAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/Common/BfmeObject476Copy.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?loadPostProcess@Rva00538E43Result@@UAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/Common/Rva00538E22Ctor.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x0050B5C6",
+    "name": "?vslot10@GameWindow@@UAE_NXZ",
+    "size": "3",
+    "source": "Code/GameEngine/Source/Common/VtableConstantPredicates.cpp",
+    "bytes": "b001c3",
+    "instructions": [
+      "0050b5c6 mov al, 1",
+      "0050b5c8 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?LoadPostProcess@DefaultAlphaModuleInfo@FXParticleSystem@@UAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/GameClient/FXParticleSystem.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x000B3FD0",
+    "name": "?LoadPostProcess@DefaultColorModuleInfo@FXParticleSystem@@UAEXXZ",
+    "size": "1",
+    "source": "Code/GameEngine/Source/GameClient/FXParticleSystem.cpp",
+    "bytes": "c3",
+    "instructions": [
+      "000b3fd0 ret "
+    ]
+  },
+  {
+    "rva": "0x004BDB25",
+    "name": "?invoke@Rva0020DFC0Object@@QAEXXZ",
+    "size": "18",
+    "source": "Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp",
+    "bytes": "568bf18b06ff50208b16508bceff52245ec3",
+    "instructions": [
+      "004bdb25 push esi",
+      "004bdb26 mov esi, ecx",
+      "004bdb28 mov eax, dword ptr [esi]",
+      "004bdb2a call dword ptr [eax + 0x20]",
+      "004bdb2d mov edx, dword ptr [esi]",
+      "004bdb2f push eax",
+      "004bdb30 mov ecx, esi",
+      "004bdb32 call dword ptr [edx + 0x24]",
+      "004bdb35 pop esi",
+      "004bdb36 ret "
+    ]
+  },
+  {
+    "rva": "0x004BDC25",
+    "name": "?positiveRatio@Rva0020E150Value@@QBEMXZ",
+    "size": "28",
+    "source": "Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp",
+    "bytes": "f30f1041100f2f05acaebb007607d94108d87110c3d905acaebb00c3",
+    "instructions": [
+      "004bdc25 movss xmm0, dword ptr [ecx + 0x10]",
+      "004bdc2a comiss xmm0, dword ptr [0xbbaeac]",
+      "004bdc31 jbe 0x4bdc3a",
+      "004bdc33 fld dword ptr [ecx + 8]",
+      "004bdc36 fdiv dword ptr [ecx + 0x10]",
+      "004bdc39 ret ",
+      "004bdc3a fld dword ptr [0xbbaeac]",
+      "004bdc40 ret "
+    ]
+  },
+  {
+    "rva": "0x004BDC03",
+    "name": "?forwardAndFinish@Rva0020E100Owner@@QAEXXZ",
+    "size": "25",
+    "source": "Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp",
+    "bytes": "568bf1ff76248b4ef8ff7620e8c520ddff8b068bce5eff6028",
+    "instructions": [
+      "004bdc03 push esi",
+      "004bdc04 mov esi, ecx",
+      "004bdc06 push dword ptr [esi + 0x24]",
+      "004bdc09 mov ecx, dword ptr [esi - 8]",
+      "004bdc0c push dword ptr [esi + 0x20]",
+      "004bdc0f call 0x28fcd9",
+      "004bdc14 mov eax, dword ptr [esi]",
+      "004bdc16 mov ecx, esi",
+      "004bdc18 pop esi",
+      "004bdc19 jmp dword ptr [eax + 0x28]"
+    ]
+  },
+  {
+    "rva": "0x004BDB37",
+    "name": "?rva004BDB37@Rva004BDB37@@QAEXXZ",
+    "size": "78",
+    "source": "Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp",
+    "bytes": "568bf18b4ef8e8a02d090085c0743d53576a038d7ef05b8b076a018bcfff5054ff76248b4ef8ff7620e87421ddff8b4ef86a00e8732d09008bc8e80066dbff4b75d58b065f5b8bce5eff60285ec3",
+    "instructions": [
+      "004bdb37 push esi",
+      "004bdb38 mov esi, ecx",
+      "004bdb3a mov ecx, dword ptr [esi - 8]",
+      "004bdb3d call 0x5508e2",
+      "004bdb42 test eax, eax",
+      "004bdb44 je 0x4bdb83",
+      "004bdb46 push ebx",
+      "004bdb47 push edi",
+      "004bdb48 push 3",
+      "004bdb4a lea edi, [esi - 0x10]",
+      "004bdb4d pop ebx",
+      "004bdb4e mov eax, dword ptr [edi]",
+      "004bdb50 push 1",
+      "004bdb52 mov ecx, edi",
+      "004bdb54 call dword ptr [eax + 0x54]",
+      "004bdb57 push dword ptr [esi + 0x24]",
+      "004bdb5a mov ecx, dword ptr [esi - 8]",
+      "004bdb5d push dword ptr [esi + 0x20]",
+      "004bdb60 call 0x28fcd9",
+      "004bdb65 mov ecx, dword ptr [esi - 8]",
+      "004bdb68 push 0",
+      "004bdb6a call 0x5508e2",
+      "004bdb6f mov ecx, eax",
+      "004bdb71 call 0x274176",
+      "004bdb76 dec ebx",
+      "004bdb77 jne 0x4bdb4e",
+      "004bdb79 mov eax, dword ptr [esi]",
+      "004bdb7b pop edi",
+      "004bdb7c pop ebx",
+      "004bdb7d mov ecx, esi",
+      "004bdb7f pop esi",
+      "004bdb80 jmp dword ptr [eax + 0x28]",
+      "004bdb83 pop esi",
+      "004bdb84 ret "
+    ]
+  },
+  {
+    "rva": "0x004BDAA9",
+    "name": "?setDamageState@ActiveBody@@UAEXW4BodyDamageType@@@Z",
+    "size": "88",
+    "source": "Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp",
+    "bytes": "8b442404565733ff2bc78bf174214874124874084875330f57c0eb18f30f104618eb05f30f104614f30f594610eb05f30f104610f30f5c46088b0657518bcef30f110424ff90800000008d4ef08b0157ff50545f5ec20400",
+    "instructions": [
+      "004bdaa9 mov eax, dword ptr [esp + 4]",
+      "004bdaad push esi",
+      "004bdaae push edi",
+      "004bdaaf xor edi, edi",
+      "004bdab1 sub eax, edi",
+      "004bdab3 mov esi, ecx",
+      "004bdab5 je 0x4bdad8",
+      "004bdab7 dec eax",
+      "004bdab8 je 0x4bdacc",
+      "004bdaba dec eax",
+      "004bdabb je 0x4bdac5",
+      "004bdabd dec eax",
+      "004bdabe jne 0x4bdaf3",
+      "004bdac0 xorps xmm0, xmm0",
+      "004bdac3 jmp 0x4bdadd",
+      "004bdac5 movss xmm0, dword ptr [esi + 0x18]",
+      "004bdaca jmp 0x4bdad1",
+      "004bdacc movss xmm0, dword ptr [esi + 0x14]",
+      "004bdad1 mulss xmm0, dword ptr [esi + 0x10]",
+      "004bdad6 jmp 0x4bdadd",
+      "004bdad8 movss xmm0, dword ptr [esi + 0x10]",
+      "004bdadd subss xmm0, dword ptr [esi + 8]",
+      "004bdae2 mov eax, dword ptr [esi]",
+      "004bdae4 push edi",
+      "004bdae5 push ecx",
+      "004bdae6 mov ecx, esi",
+      "004bdae8 movss dword ptr [esp], xmm0",
+      "004bdaed call dword ptr [eax + 0x80]",
+      "004bdaf3 lea ecx, [esi - 0x10]",
+      "004bdaf6 mov eax, dword ptr [ecx]",
+      "004bdaf8 push edi",
+      "004bdaf9 call dword ptr [eax + 0x54]",
+      "004bdafc pop edi",
+      "004bdafd pop esi",
+      "004bdafe ret 4"
+    ]
+  },
+  {
+    "rva": "0x004BEE21",
+    "name": "?attemptHealing@ActiveBody@@UAEXPAVDamageInfo@@@Z",
+    "size": "484",
+    "source": "Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp",
+    "bytes": "558bec83ec10568bf18d4ef08b0157894df0ff50448b46f4807851008b7ef88945f4741468200200008bcfe8e801bbff84c00f85a6010000538b5d0885db0f8499010000837b1007740c8b06538bceff10e9870100008b470480b832060000007521f6801a01000040751866f7800a0100004001750df68738040000010f855a0100000f57c0f30f114370f30f1143748b46f86a00508d4304508d8ee8000000e8dba1d1ffd95dfcd9eed945fcdff1ddd80f861d0100008b4620d945fc53518945f8d91c248b068bceff9080000000f30f1045fcf30f114370f30f10460cf30f5c4608f30f114374a18ce7df008b4040f30f1046080f2f460c8986b0000000766f8b9f44020000eb1b83c00c8b108bc8ff521085c0740aff75088b108bc8ff520483c3048b0385c075df8b4704f680080100008075248b45f48b404885c0741a8b8f94000000c1e906f6c101750c6a005750e8bd32bfff83c40ca18ce7df00ff77748b8874010000e89fc7f7ff8b5d088b45f8394620745c8bbf44020000eb1f83c00c8b108bc8ff521085c0740eff76208b10ff75f88bc853ff520883c7048b0785c075db8b86dc00000085c074258b0d8ce7df0050e8e9adb8ff85c074158b885402000085c9740bff76208b01ff909c0000008b4df08b0153ff50485b5f5ec9c20400",
+    "instructions": [
+      "004bee21 push ebp",
+      "004bee22 mov ebp, esp",
+      "004bee24 sub esp, 0x10",
+      "004bee27 push esi",
+      "004bee28 mov esi, ecx",
+      "004bee2a lea ecx, [esi - 0x10]",
+      "004bee2d mov eax, dword ptr [ecx]",
+      "004bee2f push edi",
+      "004bee30 mov dword ptr [ebp - 0x10], ecx",
+      "004bee33 call dword ptr [eax + 0x44]",
+      "004bee36 mov eax, dword ptr [esi - 0xc]",
+      "004bee39 cmp byte ptr [eax + 0x51], 0",
+      "004bee3d mov edi, dword ptr [esi - 8]",
+      "004bee40 mov dword ptr [ebp - 0xc], eax",
+      "004bee43 je 0x4bee59",
+      "004bee45 push 0x220",
+      "004bee4a mov ecx, edi",
+      "004bee4c call 0x6f039",
+      "004bee51 test al, al",
+      "004bee53 jne 0x4befff",
+      "004bee59 push ebx",
+      "004bee5a mov ebx, dword ptr [ebp + 8]",
+      "004bee5d test ebx, ebx",
+      "004bee5f je 0x4beffe",
+      "004bee65 cmp dword ptr [ebx + 0x10], 7",
+      "004bee69 je 0x4bee77",
+      "004bee6b mov eax, dword ptr [esi]",
+      "004bee6d push ebx",
+      "004bee6e mov ecx, esi",
+      "004bee70 call dword ptr [eax]",
+      "004bee72 jmp 0x4beffe",
+      "004bee77 mov eax, dword ptr [edi + 4]",
+      "004bee7a cmp byte ptr [eax + 0x632], 0",
+      "004bee81 jne 0x4beea4",
+      "004bee83 test byte ptr [eax + 0x11a], 0x40",
+      "004bee8a jne 0x4beea4",
+      "004bee8c test word ptr [eax + 0x10a], 0x140",
+      "004bee95 jne 0x4beea4",
+      "004bee97 test byte ptr [edi + 0x438], 1",
+      "004bee9e jne 0x4beffe",
+      "004beea4 xorps xmm0, xmm0",
+      "004beea7 movss dword ptr [ebx + 0x70], xmm0",
+      "004beeac movss dword ptr [ebx + 0x74], xmm0",
+      "004beeb1 mov eax, dword ptr [esi - 8]",
+      "004beeb4 push 0",
+      "004beeb6 push eax",
+      "004beeb7 lea eax, [ebx + 4]",
+      "004beeba push eax",
+      "004beebb lea ecx, [esi + 0xe8]",
+      "004beec1 call 0x1d90a1",
+      "004beec6 fstp dword ptr [ebp - 4]",
+      "004beec9 fldz ",
+      "004beecb fld dword ptr [ebp - 4]",
+      "004beece fcompi st(1)",
+      "004beed0 fstp st(0)",
+      "004beed2 jbe 0x4beff5",
+      "004beed8 mov eax, dword ptr [esi + 0x20]",
+      "004beedb fld dword ptr [ebp - 4]",
+      "004beede push ebx",
+      "004beedf push ecx",
+      "004beee0 mov dword ptr [ebp - 8], eax",
+      "004beee3 fstp dword ptr [esp]",
+      "004beee6 mov eax, dword ptr [esi]",
+      "004beee8 mov ecx, esi",
+      "004beeea call dword ptr [eax + 0x80]",
+      "004beef0 movss xmm0, dword ptr [ebp - 4]",
+      "004beef5 movss dword ptr [ebx + 0x70], xmm0",
+      "004beefa movss xmm0, dword ptr [esi + 0xc]",
+      "004beeff subss xmm0, dword ptr [esi + 8]",
+      "004bef04 movss dword ptr [ebx + 0x74], xmm0",
+      "004bef09 mov eax, dword ptr [0xdfe78c]",
+      "004bef0e mov eax, dword ptr [eax + 0x40]",
+      "004bef11 movss xmm0, dword ptr [esi + 8]",
+      "004bef16 comiss xmm0, dword ptr [esi + 0xc]",
+      "004bef1a mov dword ptr [esi + 0xb0], eax",
+      "004bef20 jbe 0x4bef91",
+      "004bef22 mov ebx, dword ptr [edi + 0x244]",
+      "004bef28 jmp 0x4bef45",
+      "004bef2a add eax, 0xc",
+      "004bef2d mov edx, dword ptr [eax]",
+      "004bef2f mov ecx, eax",
+      "004bef31 call dword ptr [edx + 0x10]",
+      "004bef34 test eax, eax",
+      "004bef36 je 0x4bef42",
+      "004bef38 push dword ptr [ebp + 8]",
+      "004bef3b mov edx, dword ptr [eax]",
+      "004bef3d mov ecx, eax",
+      "004bef3f call dword ptr [edx + 4]",
+      "004bef42 add ebx, 4",
+      "004bef45 mov eax, dword ptr [ebx]",
+      "004bef47 test eax, eax",
+      "004bef49 jne 0x4bef2a",
+      "004bef4b mov eax, dword ptr [edi + 4]",
+      "004bef4e test byte ptr [eax + 0x108], 0x80",
+      "004bef55 jne 0x4bef7b",
+      "004bef57 mov eax, dword ptr [ebp - 0xc]",
+      "004bef5a mov eax, dword ptr [eax + 0x48]",
+      "004bef5d test eax, eax",
+      "004bef5f je 0x4bef7b",
+      "004bef61 mov ecx, dword ptr [edi + 0x94]",
+      "004bef67 shr ecx, 6",
+      "004bef6a test cl, 1",
+      "004bef6d jne 0x4bef7b",
+      "004bef6f push 0",
+      "004bef71 push edi",
+      "004bef72 push eax",
+      "004bef73 call 0xb2235",
+      "004bef78 add esp, 0xc",
+      "004bef7b mov eax, dword ptr [0xdfe78c]",
+      "004bef80 push dword ptr [edi + 0x74]",
+      "004bef83 mov ecx, dword ptr [eax + 0x174]",
+      "004bef89 call 0x43b72d",
+      "004bef8e mov ebx, dword ptr [ebp + 8]",
+      "004bef91 mov eax, dword ptr [ebp - 8]",
+      "004bef94 cmp dword ptr [esi + 0x20], eax",
+      "004bef97 je 0x4beff5",
+      "004bef99 mov edi, dword ptr [edi + 0x244]",
+      "004bef9f jmp 0x4befc0",
+      "004befa1 add eax, 0xc",
+      "004befa4 mov edx, dword ptr [eax]",
+      "004befa6 mov ecx, eax",
+      "004befa8 call dword ptr [edx + 0x10]",
+      "004befab test eax, eax",
+      "004befad je 0x4befbd",
+      "004befaf push dword ptr [esi + 0x20]",
+      "004befb2 mov edx, dword ptr [eax]",
+      "004befb4 push dword ptr [ebp - 8]",
+      "004befb7 mov ecx, eax",
+      "004befb9 push ebx",
+      "004befba call dword ptr [edx + 8]",
+      "004befbd add edi, 4",
+      "004befc0 mov eax, dword ptr [edi]",
+      "004befc2 test eax, eax",
+      "004befc4 jne 0x4befa1",
+      "004befc6 mov eax, dword ptr [esi + 0xdc]",
+      "004befcc test eax, eax",
+      "004befce je 0x4beff5",
+      "004befd0 mov ecx, dword ptr [0xdfe78c]",
+      "004befd6 push eax",
+      "004befd7 call 0x49dc5",
+      "004befdc test eax, eax",
+      "004befde je 0x4beff5",
+      "004befe0 mov ecx, dword ptr [eax + 0x254]",
+      "004befe6 test ecx, ecx",
+      "004befe8 je 0x4beff5",
+      "004befea push dword ptr [esi + 0x20]",
+      "004befed mov eax, dword ptr [ecx]",
+      "004befef call dword ptr [eax + 0x9c]",
+      "004beff5 mov ecx, dword ptr [ebp - 0x10]",
+      "004beff8 mov eax, dword ptr [ecx]",
+      "004beffa push ebx",
+      "004beffb call dword ptr [eax + 0x48]",
+      "004beffe pop ebx",
+      "004befff pop edi",
+      "004bf000 pop esi",
+      "004bf001 leave ",
+      "004bf002 ret 4"
+    ]
+  },
+  {
+    "rva": "0x004BF005",
+    "name": "?internalChangeHealth@ActiveBody@@UAEXMPAVDamageInfo@@@Z",
+    "size": "385",
+    "source": "Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp",
+    "bytes": "558bec51f30f104d08568bf18b4608f30f1056100f28c1f30f584608f30f1146080f2fc20f57c05789460c7613f30f11560833c08dbebc000000ababababeb7ff30f10560c0f2ed09ff6c4447a2e8b068bceff5018d80dd4b8bb000f57c08dbebc000000d80d8866bc00d825d8b8bb00d95dfc8b45fcababababeb430f2fc8763ef30f590dd4b8bb00f30f590d8866bc006a04f30f1145fc8d86bc0000005af30f1010f30f5cd10f2fc2f30f11108d4dfc77028bc88b09890883c0044a75e00f2f46087605f30f1146088b7e20538b5e248d4ef08b016a00ff5054397e208b4ef8894dfc7505395e24741e0f57c00f2f4608730b6a02e836f4b8ff84c0750a8b068bceff90900000000f57c00f2f46085b7204b001eb0232c08b4dfc50e8d4e1dcff8b86dc00000085c0744f8b0d8ce7df0050e888acb8ff8bf885ff743d8b8f5402000085c97433f30f1045080f2f05acaebb007604b001eb0232c0d946088b115051d91c24ff92a00000008b46f88b80800200008987800200005f5ec9c20800",
+    "instructions": [
+      "004bf005 push ebp",
+      "004bf006 mov ebp, esp",
+      "004bf008 push ecx",
+      "004bf009 movss xmm1, dword ptr [ebp + 8]",
+      "004bf00e push esi",
+      "004bf00f mov esi, ecx",
+      "004bf011 mov eax, dword ptr [esi + 8]",
+      "004bf014 movss xmm2, dword ptr [esi + 0x10]",
+      "004bf019 movaps xmm0, xmm1",
+      "004bf01c addss xmm0, dword ptr [esi + 8]",
+      "004bf021 movss dword ptr [esi + 8], xmm0",
+      "004bf026 comiss xmm0, xmm2",
+      "004bf029 xorps xmm0, xmm0",
+      "004bf02c push edi",
+      "004bf02d mov dword ptr [esi + 0xc], eax",
+      "004bf030 jbe 0x4bf045",
+      "004bf032 movss dword ptr [esi + 8], xmm2",
+      "004bf037 xor eax, eax",
+      "004bf039 lea edi, [esi + 0xbc]",
+      "004bf03f stosd dword ptr es:[edi], eax",
+      "004bf040 stosd dword ptr es:[edi], eax",
+      "004bf041 stosd dword ptr es:[edi], eax",
+      "004bf042 stosd dword ptr es:[edi], eax",
+      "004bf043 jmp 0x4bf0c4",
+      "004bf045 movss xmm2, dword ptr [esi + 0xc]",
+      "004bf04a ucomiss xmm2, xmm0",
+      "004bf04d lahf ",
+      "004bf04e test ah, 0x44",
+      "004bf051 jp 0x4bf081",
+      "004bf053 mov eax, dword ptr [esi]",
+      "004bf055 mov ecx, esi",
+      "004bf057 call dword ptr [eax + 0x18]",
+      "004bf05a fmul dword ptr [0xbbb8d4]",
+      "004bf060 xorps xmm0, xmm0",
+      "004bf063 lea edi, [esi + 0xbc]",
+      "004bf069 fmul dword ptr [0xbc6688]",
+      "004bf06f fsub dword ptr [0xbbb8d8]",
+      "004bf075 fstp dword ptr [ebp - 4]",
+      "004bf078 mov eax, dword ptr [ebp - 4]",
+      "004bf07b stosd dword ptr es:[edi], eax",
+      "004bf07c stosd dword ptr es:[edi], eax",
+      "004bf07d stosd dword ptr es:[edi], eax",
+      "004bf07e stosd dword ptr es:[edi], eax",
+      "004bf07f jmp 0x4bf0c4",
+      "004bf081 comiss xmm1, xmm0",
+      "004bf084 jbe 0x4bf0c4",
+      "004bf086 mulss xmm1, dword ptr [0xbbb8d4]",
+      "004bf08e mulss xmm1, dword ptr [0xbc6688]",
+      "004bf096 push 4",
+      "004bf098 movss dword ptr [ebp - 4], xmm0",
+      "004bf09d lea eax, [esi + 0xbc]",
+      "004bf0a3 pop edx",
+      "004bf0a4 movss xmm2, dword ptr [eax]",
+      "004bf0a8 subss xmm2, xmm1",
+      "004bf0ac comiss xmm0, xmm2",
+      "004bf0af movss dword ptr [eax], xmm2",
+      "004bf0b3 lea ecx, [ebp - 4]",
+      "004bf0b6 ja 0x4bf0ba",
+      "004bf0b8 mov ecx, eax",
+      "004bf0ba mov ecx, dword ptr [ecx]",
+      "004bf0bc mov dword ptr [eax], ecx",
+      "004bf0be add eax, 4",
+      "004bf0c1 dec edx",
+      "004bf0c2 jne 0x4bf0a4",
+      "004bf0c4 comiss xmm0, dword ptr [esi + 8]",
+      "004bf0c8 jbe 0x4bf0cf",
+      "004bf0ca movss dword ptr [esi + 8], xmm0",
+      "004bf0cf mov edi, dword ptr [esi + 0x20]",
+      "004bf0d2 push ebx",
+      "004bf0d3 mov ebx, dword ptr [esi + 0x24]",
+      "004bf0d6 lea ecx, [esi - 0x10]",
+      "004bf0d9 mov eax, dword ptr [ecx]",
+      "004bf0db push 0",
+      "004bf0dd call dword ptr [eax + 0x54]",
+      "004bf0e0 cmp dword ptr [esi + 0x20], edi",
+      "004bf0e3 mov ecx, dword ptr [esi - 8]",
+      "004bf0e6 mov dword ptr [ebp - 4], ecx",
+      "004bf0e9 jne 0x4bf0f0",
+      "004bf0eb cmp dword ptr [esi + 0x24], ebx",
+      "004bf0ee je 0x4bf10e",
+      "004bf0f0 xorps xmm0, xmm0",
+      "004bf0f3 comiss xmm0, dword ptr [esi + 8]",
+      "004bf0f7 jae 0x4bf104",
+      "004bf0f9 push 2",
+      "004bf0fb call 0x4e536",
+      "004bf100 test al, al",
+      "004bf102 jne 0x4bf10e",
+      "004bf104 mov eax, dword ptr [esi]",
+      "004bf106 mov ecx, esi",
+      "004bf108 call dword ptr [eax + 0x90]",
+      "004bf10e xorps xmm0, xmm0",
+      "004bf111 comiss xmm0, dword ptr [esi + 8]",
+      "004bf115 pop ebx",
+      "004bf116 jb 0x4bf11c",
+      "004bf118 mov al, 1",
+      "004bf11a jmp 0x4bf11e",
+      "004bf11c xor al, al",
+      "004bf11e mov ecx, dword ptr [ebp - 4]",
+      "004bf121 push eax",
+      "004bf122 call 0x28d2fb",
+      "004bf127 mov eax, dword ptr [esi + 0xdc]",
+      "004bf12d test eax, eax",
+      "004bf12f je 0x4bf180",
+      "004bf131 mov ecx, dword ptr [0xdfe78c]",
+      "004bf137 push eax",
+      "004bf138 call 0x49dc5",
+      "004bf13d mov edi, eax",
+      "004bf13f test edi, edi",
+      "004bf141 je 0x4bf180",
+      "004bf143 mov ecx, dword ptr [edi + 0x254]",
+      "004bf149 test ecx, ecx",
+      "004bf14b je 0x4bf180",
+      "004bf14d movss xmm0, dword ptr [ebp + 8]",
+      "004bf152 comiss xmm0, dword ptr [0xbbaeac]",
+      "004bf159 jbe 0x4bf15f",
+      "004bf15b mov al, 1",
+      "004bf15d jmp 0x4bf161",
+      "004bf15f xor al, al",
+      "004bf161 fld dword ptr [esi + 8]",
+      "004bf164 mov edx, dword ptr [ecx]",
+      "004bf166 push eax",
+      "004bf167 push ecx",
+      "004bf168 fstp dword ptr [esp]",
+      "004bf16b call dword ptr [edx + 0xa0]",
+      "004bf171 mov eax, dword ptr [esi - 8]",
+      "004bf174 mov eax, dword ptr [eax + 0x280]",
+      "004bf17a mov dword ptr [edi + 0x280], eax",
+      "004bf180 pop edi",
+      "004bf181 pop esi",
+      "004bf182 leave ",
+      "004bf183 ret 8"
+    ]
+  },
+  {
+    "rva": "0x004BDB01",
+    "name": "?estimateDamage@ActiveBody@@UBEMAAVDamageInfoInput@@@Z",
+    "size": "36",
+    "source": "Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp",
+    "bytes": "568bf18d4ef08b01ff50448b46f86a0150ff7424108d8ee8000000e880b5d1ff5ec20400",
+    "instructions": [
+      "004bdb01 push esi",
+      "004bdb02 mov esi, ecx",
+      "004bdb04 lea ecx, [esi - 0x10]",
+      "004bdb07 mov eax, dword ptr [ecx]",
+      "004bdb09 call dword ptr [eax + 0x44]",
+      "004bdb0c mov eax, dword ptr [esi - 8]",
+      "004bdb0f push 1",
+      "004bdb11 push eax",
+      "004bdb12 push dword ptr [esp + 0x10]",
+      "004bdb16 lea ecx, [esi + 0xe8]",
+      "004bdb1c call 0x1d90a1",
+      "004bdb21 pop esi",
+      "004bdb22 ret 4"
+    ]
+  },
+  {
+    "rva": "0x004BE47D",
+    "name": "?onVeterancyLevelChanged@ActiveBody@@UAEXW4VeterancyLevel@@0@Z",
+    "size": "513",
+    "source": "Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp",
+    "bytes": "b886f9b800e801ad160081eca4000000538b5d0c395d08568bf10f84d1010000570f8d340100008b4ef8e8362409008bf833c03bf80f84d70000008945f0508945fc8d45f0508d8d50ffffffe808b3e1ff8b4df085c9c645fc027405e8f529b9ff8bc348744c4874264875748d45d8508bcfe890fcffff83c004508d8d50ffffffc645fc05e828b7e1ff8b4ddceb448d45e8508bcfe854fcffff83c004508d8d50ffffffc645fc04e805b7e1ff8b4deceb218d45e0508bcfe818fcffff83c004508d8d50ffffffc645fc03e8e2b6e1ff8b4de485c9c645fc027405e87629b9ff8b46f8ff70748d8d50ffffffe8c3afe1ff8b0de8e6df008b018d9550ffffff52ff5064834dfcff8d8d50ffffffe8b4b4e1ff8b0df0eddf008b018b7ef8ff902c01000085c074348b98fc0000003bdf74218bbf7402000085ff74208b0df0eddf008b01ff901801000083f801750d3bdf7509a1fc1ce000c6402801a158e7df008b4d088b7d0cf30f1084b8d40a0000f30f5e8488d40a0000f30f5946108b166a01518bcef30f110424ff52588bc733c92bc15f744248743548741f4875538b06518bceff50348b066a018bceff50348b066a028bceff5030eb378b06518bceff50348b066a018bceff5030eb1b8b06518bceff5030eb088b06518bceff50348b068bce6a01ff50348b068bce6a02ff50348b4df45e5b64890d00000000c9c20800",
+    "instructions": [
+      "004be47d mov eax, 0xb8f986",
+      "004be482 call 0x629188",
+      "004be487 sub esp, 0xa4",
+      "004be48d push ebx",
+      "004be48e mov ebx, dword ptr [ebp + 0xc]",
+      "004be491 cmp dword ptr [ebp + 8], ebx",
+      "004be494 push esi",
+      "004be495 mov esi, ecx",
+      "004be497 je 0x4be66e",
+      "004be49d push edi",
+      "004be49e jge 0x4be5d8",
+      "004be4a4 mov ecx, dword ptr [esi - 8]",
+      "004be4a7 call 0x5508e2",
+      "004be4ac mov edi, eax",
+      "004be4ae xor eax, eax",
+      "004be4b0 cmp edi, eax",
+      "004be4b2 je 0x4be58f",
+      "004be4b8 mov dword ptr [ebp - 0x10], eax",
+      "004be4bb push eax",
+      "004be4bc mov dword ptr [ebp - 4], eax",
+      "004be4bf lea eax, [ebp - 0x10]",
+      "004be4c2 push eax",
+      "004be4c3 lea ecx, [ebp - 0xb0]",
+      "004be4c9 call 0x2d97d6",
+      "004be4ce mov ecx, dword ptr [ebp - 0x10]",
+      "004be4d1 test ecx, ecx",
+      "004be4d3 mov byte ptr [ebp - 4], 2",
+      "004be4d7 je 0x4be4de",
+      "004be4d9 call 0x50ed3",
+      "004be4de mov eax, ebx",
+      "004be4e0 dec eax",
+      "004be4e1 je 0x4be52f",
+      "004be4e3 dec eax",
+      "004be4e4 je 0x4be50c",
+      "004be4e6 dec eax",
+      "004be4e7 jne 0x4be55d",
+      "004be4e9 lea eax, [ebp - 0x28]",
+      "004be4ec push eax",
+      "004be4ed mov ecx, edi",
+      "004be4ef call 0x4be184",
+      "004be4f4 add eax, 4",
+      "004be4f7 push eax",
+      "004be4f8 lea ecx, [ebp - 0xb0]",
+      "004be4fe mov byte ptr [ebp - 4], 5",
+      "004be502 call 0x2d9c2f",
+      "004be507 mov ecx, dword ptr [ebp - 0x24]",
+      "004be50a jmp 0x4be550",
+      "004be50c lea eax, [ebp - 0x18]",
+      "004be50f push eax",
+      "004be510 mov ecx, edi",
+      "004be512 call 0x4be16b",
+      "004be517 add eax, 4",
+      "004be51a push eax",
+      "004be51b lea ecx, [ebp - 0xb0]",
+      "004be521 mov byte ptr [ebp - 4], 4",
+      "004be525 call 0x2d9c2f",
+      "004be52a mov ecx, dword ptr [ebp - 0x14]",
+      "004be52d jmp 0x4be550",
+      "004be52f lea eax, [ebp - 0x20]",
+      "004be532 push eax",
+      "004be533 mov ecx, edi",
+      "004be535 call 0x4be152",
+      "004be53a add eax, 4",
+      "004be53d push eax",
+      "004be53e lea ecx, [ebp - 0xb0]",
+      "004be544 mov byte ptr [ebp - 4], 3",
+      "004be548 call 0x2d9c2f",
+      "004be54d mov ecx, dword ptr [ebp - 0x1c]",
+      "004be550 test ecx, ecx",
+      "004be552 mov byte ptr [ebp - 4], 2",
+      "004be556 je 0x4be55d",
+      "004be558 call 0x50ed3",
+      "004be55d mov eax, dword ptr [esi - 8]",
+      "004be560 push dword ptr [eax + 0x74]",
+      "004be563 lea ecx, [ebp - 0xb0]",
+      "004be569 call 0x2d9531",
+      "004be56e mov ecx, dword ptr [0xdfe6e8]",
+      "004be574 mov eax, dword ptr [ecx]",
+      "004be576 lea edx, [ebp - 0xb0]",
+      "004be57c push edx",
+      "004be57d call dword ptr [eax + 0x64]",
+      "004be580 or dword ptr [ebp - 4], 0xffffffff",
+      "004be584 lea ecx, [ebp - 0xb0]",
+      "004be58a call 0x2d9a43",
+      "004be58f mov ecx, dword ptr [0xdfedf0]",
+      "004be595 mov eax, dword ptr [ecx]",
+      "004be597 mov edi, dword ptr [esi - 8]",
+      "004be59a call dword ptr [eax + 0x12c]",
+      "004be5a0 test eax, eax",
+      "004be5a2 je 0x4be5d8",
+      "004be5a4 mov ebx, dword ptr [eax + 0xfc]",
+      "004be5aa cmp ebx, edi",
+      "004be5ac je 0x4be5cf",
+      "004be5ae mov edi, dword ptr [edi + 0x274]",
+      "004be5b4 test edi, edi",
+      "004be5b6 je 0x4be5d8",
+      "004be5b8 mov ecx, dword ptr [0xdfedf0]",
+      "004be5be mov eax, dword ptr [ecx]",
+      "004be5c0 call dword ptr [eax + 0x118]",
+      "004be5c6 cmp eax, 1",
+      "004be5c9 jne 0x4be5d8",
+      "004be5cb cmp ebx, edi",
+      "004be5cd jne 0x4be5d8",
+      "004be5cf mov eax, dword ptr [0xe01cfc]",
+      "004be5d4 mov byte ptr [eax + 0x28], 1",
+      "004be5d8 mov eax, dword ptr [0xdfe758]",
+      "004be5dd mov ecx, dword ptr [ebp + 8]",
+      "004be5e0 mov edi, dword ptr [ebp + 0xc]",
+      "004be5e3 movss xmm0, dword ptr [eax + edi*4 + 0xad4]",
+      "004be5ec divss xmm0, dword ptr [eax + ecx*4 + 0xad4]",
+      "004be5f5 mulss xmm0, dword ptr [esi + 0x10]",
+      "004be5fa mov edx, dword ptr [esi]",
+      "004be5fc push 1",
+      "004be5fe push ecx",
+      "004be5ff mov ecx, esi",
+      "004be601 movss dword ptr [esp], xmm0",
+      "004be606 call dword ptr [edx + 0x58]",
+      "004be609 mov eax, edi",
+      "004be60b xor ecx, ecx",
+      "004be60d sub eax, ecx",
+      "004be60f pop edi",
+      "004be610 je 0x4be654",
+      "004be612 dec eax",
+      "004be613 je 0x4be64a",
+      "004be615 dec eax",
+      "004be616 je 0x4be637",
+      "004be618 dec eax",
+      "004be619 jne 0x4be66e",
+      "004be61b mov eax, dword ptr [esi]",
+      "004be61d push ecx",
+      "004be61e mov ecx, esi",
+      "004be620 call dword ptr [eax + 0x34]",
+      "004be623 mov eax, dword ptr [esi]",
+      "004be625 push 1",
+      "004be627 mov ecx, esi",
+      "004be629 call dword ptr [eax + 0x34]",
+      "004be62c mov eax, dword ptr [esi]",
+      "004be62e push 2",
+      "004be630 mov ecx, esi",
+      "004be632 call dword ptr [eax + 0x30]",
+      "004be635 jmp 0x4be66e",
+      "004be637 mov eax, dword ptr [esi]",
+      "004be639 push ecx",
+      "004be63a mov ecx, esi",
+      "004be63c call dword ptr [eax + 0x34]",
+      "004be63f mov eax, dword ptr [esi]",
+      "004be641 push 1",
+      "004be643 mov ecx, esi",
+      "004be645 call dword ptr [eax + 0x30]",
+      "004be648 jmp 0x4be665",
+      "004be64a mov eax, dword ptr [esi]",
+      "004be64c push ecx",
+      "004be64d mov ecx, esi",
+      "004be64f call dword ptr [eax + 0x30]",
+      "004be652 jmp 0x4be65c",
+      "004be654 mov eax, dword ptr [esi]",
+      "004be656 push ecx",
+      "004be657 mov ecx, esi",
+      "004be659 call dword ptr [eax + 0x34]",
+      "004be65c mov eax, dword ptr [esi]",
+      "004be65e mov ecx, esi",
+      "004be660 push 1",
+      "004be662 call dword ptr [eax + 0x34]",
+      "004be665 mov eax, dword ptr [esi]",
+      "004be667 mov ecx, esi",
+      "004be669 push 2",
+      "004be66b call dword ptr [eax + 0x34]",
+      "004be66e mov ecx, dword ptr [ebp - 0xc]",
+      "004be671 pop esi",
+      "004be672 pop ebx",
+      "004be673 mov dword ptr fs:[0], ecx",
+      "004be67a leave ",
+      "004be67b ret 8"
+    ]
+  },
+  {
+    "rva": "0x004BF930",
+    "name": "?clearArmorSetFlag@ActiveBody@@UAEXW4ArmorSetType@@@Z",
+    "size": "33",
+    "source": "Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp",
+    "bytes": "8b442404c1e8058d8481e00000008b4c240433d24283e11fd3e2f7d22110c20400",
+    "instructions": [
+      "004bf930 mov eax, dword ptr [esp + 4]",
+      "004bf934 shr eax, 5",
+      "004bf937 lea eax, [ecx + eax*4 + 0xe0]",
+      "004bf93e mov ecx, dword ptr [esp + 4]",
+      "004bf942 xor edx, edx",
+      "004bf944 inc edx",
+      "004bf945 and ecx, 0x1f",
+      "004bf948 shl edx, cl",
+      "004bf94a not edx",
+      "004bf94c and dword ptr [eax], edx",
+      "004bf94e ret 4"
+    ]
+  },
+  {
+    "rva": "0x004BF8B7",
+    "name": "?getBackCrushed@ActiveBody@@UBE_NXZ",
+    "size": "7",
+    "source": "Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp",
+    "bytes": "8a81b5000000c3",
+    "instructions": [
+      "004bf8b7 mov al, byte ptr [ecx + 0xb5]",
+      "004bf8bd ret "
+    ]
+  },
+  {
+    "rva": "0x004BDC56",
+    "name": "?rva004BDC56@ActiveBody@@UAE?AUBfmeBodyDataPair8@@XZ",
+    "size": "23",
+    "source": "Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp",
+    "bytes": "8b49f48b44240483c140d901d9188b4904894804c20400",
+    "instructions": [
+      "004bdc56 mov ecx, dword ptr [ecx - 0xc]",
+      "004bdc59 mov eax, dword ptr [esp + 4]",
+      "004bdc5d add ecx, 0x40",
+      "004bdc60 fld dword ptr [ecx]",
+      "004bdc62 fstp dword ptr [eax]",
+      "004bdc64 mov ecx, dword ptr [ecx + 4]",
+      "004bdc67 mov dword ptr [eax + 4], ecx",
+      "004bdc6a ret 4"
+    ]
+  },
+  {
+    "rva": "0x004BF897",
+    "name": "?rva004BF897@ActiveBody@@UAE?AW4ObjectID@@XZ",
+    "size": "21",
+    "source": "Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp",
+    "bytes": "8d81b6000000803800740333c0c3c600018b4138c3",
+    "instructions": [
+      "004bf897 lea eax, [ecx + 0xb6]",
+      "004bf89d cmp byte ptr [eax], 0",
+      "004bf8a0 je 0x4bf8a5",
+      "004bf8a2 xor eax, eax",
+      "004bf8a4 ret ",
+      "004bf8a5 mov byte ptr [eax], 1",
+      "004bf8a8 mov eax, dword ptr [ecx + 0x38]",
+      "004bf8ab ret "
+    ]
+  },
+  {
+    "rva": "0x004BF8F5",
+    "name": "?rva004BF8F5@ActiveBody@@UAE?AV?$BitFlags@$0BF@@@XZ",
+    "size": "28",
+    "source": "Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp",
+    "bytes": "6a0481c1e000000051ff74240ce8a19816008b44241083c40cc20400",
+    "instructions": [
+      "004bf8f5 push 4",
+      "004bf8f7 add ecx, 0xe0",
+      "004bf8fd push ecx",
+      "004bf8fe push dword ptr [esp + 0xc]",
+      "004bf902 call 0x6291a8",
+      "004bf907 mov eax, dword ptr [esp + 0x10]",
+      "004bf90b add esp, 0xc",
+      "004bf90e ret 4"
+    ]
+  },
+  {
+    "rva": "0x004BF911",
+    "name": "?setArmorSetFlag@ActiveBody@@UAEXW4ArmorSetType@@@Z",
+    "size": "31",
+    "source": "Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp",
+    "bytes": "8b442404c1e8058d8481e00000008b4c240433d283e11f42d3e20910c20400",
+    "instructions": [
+      "004bf911 mov eax, dword ptr [esp + 4]",
+      "004bf915 shr eax, 5",
+      "004bf918 lea eax, [ecx + eax*4 + 0xe0]",
+      "004bf91f mov ecx, dword ptr [esp + 4]",
+      "004bf923 xor edx, edx",
+      "004bf925 and ecx, 0x1f",
+      "004bf928 inc edx",
+      "004bf929 shl edx, cl",
+      "004bf92b or dword ptr [eax], edx",
+      "004bf92d ret 4"
+    ]
+  },
+  {
+    "rva": "0x004C0642",
+    "name": "?setInitialHealth@ActiveBody@@UAEXM_N@Z",
+    "size": "319",
+    "source": "Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp",
+    "bytes": "558bec83ec18f30f1045080f2f052c29bc00f30f100d28f6bc00568bf17612f30f105610f30f59d0f30f59d1f30f115610807d0c00f30f59c10f84df000000f30f104e10d9e88d46088b08f30f59c8f30f5c08f30f5808f30f11088b46f85783c038894e0c8b0868ff040000894df48b4804bf38afc500575151d95c2404f30f11450cf30f104008d905acb9bb00d91c24894df8f30f1145fce8b239d7ffd845f483c4106800050000d95df45751d9e851d95c2404d905acb9bb00d91c24e88d39d7ffd845f88b45f483c4106801050000d95dec5751d9e851d95c2404d905acb9bb008945e8d91c24e86239d7ffd845fcf30f1005d8b8bb00f30f5c450cf30f59461083c410d95df08d45e850518d4ef0f30f110424e8bff3ffff5feb1cf30f59461cf30f5c46088b066a00518bcef30f110424ff90800000005ec9c20800",
+    "instructions": [
+      "004c0642 push ebp",
+      "004c0643 mov ebp, esp",
+      "004c0645 sub esp, 0x18",
+      "004c0648 movss xmm0, dword ptr [ebp + 8]",
+      "004c064d comiss xmm0, dword ptr [0xbc292c]",
+      "004c0654 movss xmm1, dword ptr [0xbcf628]",
+      "004c065c push esi",
+      "004c065d mov esi, ecx",
+      "004c065f jbe 0x4c0673",
+      "004c0661 movss xmm2, dword ptr [esi + 0x10]",
+      "004c0666 mulss xmm2, xmm0",
+      "004c066a mulss xmm2, xmm1",
+      "004c066e movss dword ptr [esi + 0x10], xmm2",
+      "004c0673 cmp byte ptr [ebp + 0xc], 0",
+      "004c0677 mulss xmm0, xmm1",
+      "004c067b je 0x4c0760",
+      "004c0681 movss xmm1, dword ptr [esi + 0x10]",
+      "004c0686 fld1 ",
+      "004c0688 lea eax, [esi + 8]",
+      "004c068b mov ecx, dword ptr [eax]",
+      "004c068d mulss xmm1, xmm0",
+      "004c0691 subss xmm1, dword ptr [eax]",
+      "004c0695 addss xmm1, dword ptr [eax]",
+      "004c0699 movss dword ptr [eax], xmm1",
+      "004c069d mov eax, dword ptr [esi - 8]",
+      "004c06a0 push edi",
+      "004c06a1 add eax, 0x38",
+      "004c06a4 mov dword ptr [esi + 0xc], ecx",
+      "004c06a7 mov ecx, dword ptr [eax]",
+      "004c06a9 push 0x4ff",
+      "004c06ae mov dword ptr [ebp - 0xc], ecx",
+      "004c06b1 mov ecx, dword ptr [eax + 4]",
+      "004c06b4 mov edi, 0xc5af38",
+      "004c06b9 push edi",
+      "004c06ba push ecx",
+      "004c06bb push ecx",
+      "004c06bc fstp dword ptr [esp + 4]",
+      "004c06c0 movss dword ptr [ebp + 0xc], xmm0",
+      "004c06c5 movss xmm0, dword ptr [eax + 8]",
+      "004c06ca fld dword ptr [0xbbb9ac]",
+      "004c06d0 fstp dword ptr [esp]",
+      "004c06d3 mov dword ptr [ebp - 8], ecx",
+      "004c06d6 movss dword ptr [ebp - 4], xmm0",
+      "004c06db call 0x234092",
+      "004c06e0 fadd dword ptr [ebp - 0xc]",
+      "004c06e3 add esp, 0x10",
+      "004c06e6 push 0x500",
+      "004c06eb fstp dword ptr [ebp - 0xc]",
+      "004c06ee push edi",
+      "004c06ef push ecx",
+      "004c06f0 fld1 ",
+      "004c06f2 push ecx",
+      "004c06f3 fstp dword ptr [esp + 4]",
+      "004c06f7 fld dword ptr [0xbbb9ac]",
+      "004c06fd fstp dword ptr [esp]",
+      "004c0700 call 0x234092",
+      "004c0705 fadd dword ptr [ebp - 8]",
+      "004c0708 mov eax, dword ptr [ebp - 0xc]",
+      "004c070b add esp, 0x10",
+      "004c070e push 0x501",
+      "004c0713 fstp dword ptr [ebp - 0x14]",
+      "004c0716 push edi",
+      "004c0717 push ecx",
+      "004c0718 fld1 ",
+      "004c071a push ecx",
+      "004c071b fstp dword ptr [esp + 4]",
+      "004c071f fld dword ptr [0xbbb9ac]",
+      "004c0725 mov dword ptr [ebp - 0x18], eax",
+      "004c0728 fstp dword ptr [esp]",
+      "004c072b call 0x234092",
+      "004c0730 fadd dword ptr [ebp - 4]",
+      "004c0733 movss xmm0, dword ptr [0xbbb8d8]",
+      "004c073b subss xmm0, dword ptr [ebp + 0xc]",
+      "004c0740 mulss xmm0, dword ptr [esi + 0x10]",
+      "004c0745 add esp, 0x10",
+      "004c0748 fstp dword ptr [ebp - 0x10]",
+      "004c074b lea eax, [ebp - 0x18]",
+      "004c074e push eax",
+      "004c074f push ecx",
+      "004c0750 lea ecx, [esi - 0x10]",
+      "004c0753 movss dword ptr [esp], xmm0",
+      "004c0758 call 0x4bfb1c",
+      "004c075d pop edi",
+      "004c075e jmp 0x4c077c",
+      "004c0760 mulss xmm0, dword ptr [esi + 0x1c]",
+      "004c0765 subss xmm0, dword ptr [esi + 8]",
+      "004c076a mov eax, dword ptr [esi]",
+      "004c076c push 0",
+      "004c076e push ecx",
+      "004c076f mov ecx, esi",
+      "004c0771 movss dword ptr [esp], xmm0",
+      "004c0776 call dword ptr [eax + 0x80]",
+      "004c077c pop esi",
+      "004c077d leave ",
+      "004c077e ret 8"
+    ]
+  },
+  {
+    "rva": "0x004BFE07",
+    "name": "?attemptDamage@ActiveBody@@UAEXPAVDamageInfo@@@Z",
+    "size": "2107",
+    "source": "Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp",
+    "bytes": "b818fbb800e87793160081ec0001000053568bf18d4ef08b0157894dd8ff50448b5d0885db8b7ef88b46f4897df08945dc0f84f307000080beb7000000000f85e6070000684a0100008bcfe8e2f1baff84c00f85d20700006a3c8bcfe8cee6b8ff84c0740a837b10080f85bb0700008b877402000085c074208b4f04f6810e0100008075148b885002000085c9740a8b0153ff75d857ff50680f57c0f30f114370f30f114374f68738040000010f85770700006a00578d4304508d8ee8000000e8d591d1ffd95de88b431083f8070f844807000083f808740ff30f104604f30f5945e8f30f1145e8ff73088b0d8ce7df00e8c89eb8ff85c08945e074476a418bc8e829e6b8ff84c0743a8b4de06a00e8da32ddff85c0742c8bc8e883c2dcff8bf885ff741cff75f08b078bcfff500c84c0740eff75f0c64324018b078bcfff50208b7df08365d400f30f1045e80f2f05acaebb00c645ef00770a807b24000f84370600008b45f08bb87402000085ff740e8b8f500200008b01ff507c8945d4f6051c41e00001751c830d1c41e000016a696a6768810000006a00b9d040e000e8a952dafff6051c41e000027519830d1c41e000026a5a6a3d6a3a6a00b9c040e000e826ebf8ff8b45f08b805802000085c00f849e0000008b45dc807851000f84910000008b45f0059400000050b9c040e000e88416e7ff84c0757a8b45f0050c01000050b9d040e000e83135daff84c075638b431083f806740583f81775568b45f08b805c02000085c0740680785c00754385ff7406837dd40074398b068bceff5010d825d8b8bb008d45e8d95de4d945e8d945e4dff1ddd877038d45e4f30f10000f2e45e89ff6c4447b09f30f1145e8c645ef01807b24008b46208945e4740af30f104608f30f1145e8837b10047510d945e853518b4dd8d91c24e82cfcffff0f57c0f30f5c45e88b0653518bcef30f110424ff90800000008b45dc8b402485c076148b0d8ce7df008b494003c8518b4df0e8bda5fbfff30f1045e8f30f114370f30f10460cf30f5c4608f30f114374a18ce7df008b40408b8eac0000003bc87405483bc87546ff76388b0d8ce7df00e8a89cb8ffff73088b0d8ce7df008bf8e8989cb8ff85c0744285ff74208b4804f68109010000027514f6810901000001750b8bc8e840d3dcff84c0741e8d4e3053e87f26e8ffc686b600000000a18ce7df008b40408986ac0000008b46388365d00085c0742c8b0d8ce7df0050e83b9cb8ff8bc885c9894dd07417e811aedcffff70548b4df0e806aedcff8bc8e83aa0defff30f10460c0f2f460876388b45f08bb844020000eb168d480c8b01ff501085c074078b10538bc8ff1283c7048b0785c075e43945e0740cff75f08b4de053e8e7afdcff8b45e43946200f84610100008b45f08bb844020000eb1d8d480c8b01ff501085c0740eff76208b10ff75e48bc853ff520883c7048b0785c075dd8b462083f80175208b4ddc8b491c85c9894de4db45e47d06d805ec26bc00d9eed9c9dff1ddd8772283f80275328b45dc8b4820db402085c97d06d805ec26bc00d9eed9c9dff1ddd87615a18ce7df008b404003c18b4df0506a08e88efedcff8b4df0e8540609008bc833ff3bcf0f84910000008b562083fa0175228d45c850e875deffff5783c004508d8df4feffff897dfce81895e1ffc645fc02eb2983fa0275628d45c850e867deffff5783c004508d8df4feffffc745fc03000000e8ed94e1ffc645fc058b4dcc3bcf7405e8da0bb9ff8b45f0ff70748d8df4feffffe82792e1ff8b0de8e6df008b018d95f4feffff52ff5064834dfcff8d8df4feffffe81897e1ff8b86dc0000003bc774258b0d8ce7df0050e8849ab8ff3bc774158b88540200003bcf740bff76208b01ff909c000000f30f1005d8b8bb00f30f5e4610f30f10560cf30f100d88b3c500f30f59d00f2fd17271f30f105608f30f59d00f2fca7663f30f1046080f2f05acaebb0076558d450b508d4de8e80b98d7ff8b4df0c745fc06000000e82e0509008945e48d45e450518b4de88bc489088d45cc508d4de8e83399d7ff6a008d45e868e007000050e81ea70100834dfcff83c40c8d4de8e80697d7ff807def00751b0f57c00f2f46080f820f010000f30f104e0c0f2fc80f86010100008b4de085c9740a6a01ff75f0e84149ddff807def000f85e6000000f6051c41e000047527830d1c41e000048b0da436df0068084fbf00c745fc07000000e8c989c8ff834dfcffa3bc40e000ff35bc40e0008b4df0e86eb2dcff85c00f859d0000008b7df08b877402000085c00f95c384db742283b8500200000074198b80500200008b106a008bc8ff921401000083f802730232dbff75088bcfe86980ddff8b86dc00000085c074258b0d8ce7df0050e80199b8ff8bf885ff7413ff75088bcfe84380ddff6a018bcfe81ecedcff84db752c8b45088378080074238b45f08b4004b900000002858808010000751085881001000075088b4dd88b01ff50588b5d088b4de085c9743cf30f104374f30f5e4610f30f100dd8b8bb000f2fc1f30f11450876080f28c1f30f1145080f2f05acaebb00760fd9450851d91c24ff75f0e8f6b1dcff8d8d7cffffffe82d68bfff8b45d085c0c745fc08000000740d8b407489458cc74594030000008b0dbc1de0008d857cffffff50ff75f06a00e8425be7ff834dfcff8d8d7cffffffe83368bfff8b7df08b4dd88b0153ff5048a1f8f0df008b40188078640074178b4704f6800d01000020740b6a016a088bcfe83ed5d7ff807def00745b8b4dd485c974068b0157ff50388db7580200008b0ee8d72cdaff84c074078b0ee8e62cdaff8b0e6a0283c120e820f7ffff8b45dc85c074238b405485c0741c6a005750e8171cbfff83c40ceb0e807b240075088b06538bceff50048b4df45f5e64890d000000005bc9c20400",
+    "instructions": [
+      "004bfe07 mov eax, 0xb8fb18",
+      "004bfe0c call 0x629188",
+      "004bfe11 sub esp, 0x100",
+      "004bfe17 push ebx",
+      "004bfe18 push esi",
+      "004bfe19 mov esi, ecx",
+      "004bfe1b lea ecx, [esi - 0x10]",
+      "004bfe1e mov eax, dword ptr [ecx]",
+      "004bfe20 push edi",
+      "004bfe21 mov dword ptr [ebp - 0x28], ecx",
+      "004bfe24 call dword ptr [eax + 0x44]",
+      "004bfe27 mov ebx, dword ptr [ebp + 8]",
+      "004bfe2a test ebx, ebx",
+      "004bfe2c mov edi, dword ptr [esi - 8]",
+      "004bfe2f mov eax, dword ptr [esi - 0xc]",
+      "004bfe32 mov dword ptr [ebp - 0x10], edi",
+      "004bfe35 mov dword ptr [ebp - 0x24], eax",
+      "004bfe38 je 0x4c0631",
+      "004bfe3e cmp byte ptr [esi + 0xb7], 0",
+      "004bfe45 jne 0x4c0631",
+      "004bfe4b push 0x14a",
+      "004bfe50 mov ecx, edi",
+      "004bfe52 call 0x6f039",
+      "004bfe57 test al, al",
+      "004bfe59 jne 0x4c0631",
+      "004bfe5f push 0x3c",
+      "004bfe61 mov ecx, edi",
+      "004bfe63 call 0x4e536",
+      "004bfe68 test al, al",
+      "004bfe6a je 0x4bfe76",
+      "004bfe6c cmp dword ptr [ebx + 0x10], 8",
+      "004bfe70 jne 0x4c0631",
+      "004bfe76 mov eax, dword ptr [edi + 0x274]",
+      "004bfe7c test eax, eax",
+      "004bfe7e je 0x4bfea0",
+      "004bfe80 mov ecx, dword ptr [edi + 4]",
+      "004bfe83 test byte ptr [ecx + 0x10e], 0x80",
+      "004bfe8a jne 0x4bfea0",
+      "004bfe8c mov ecx, dword ptr [eax + 0x250]",
+      "004bfe92 test ecx, ecx",
+      "004bfe94 je 0x4bfea0",
+      "004bfe96 mov eax, dword ptr [ecx]",
+      "004bfe98 push ebx",
+      "004bfe99 push dword ptr [ebp - 0x28]",
+      "004bfe9c push edi",
+      "004bfe9d call dword ptr [eax + 0x68]",
+      "004bfea0 xorps xmm0, xmm0",
+      "004bfea3 movss dword ptr [ebx + 0x70], xmm0",
+      "004bfea8 movss dword ptr [ebx + 0x74], xmm0",
+      "004bfead test byte ptr [edi + 0x438], 1",
+      "004bfeb4 jne 0x4c0631",
+      "004bfeba push 0",
+      "004bfebc push edi",
+      "004bfebd lea eax, [ebx + 4]",
+      "004bfec0 push eax",
+      "004bfec1 lea ecx, [esi + 0xe8]",
+      "004bfec7 call 0x1d90a1",
+      "004bfecc fstp dword ptr [ebp - 0x18]",
+      "004bfecf mov eax, dword ptr [ebx + 0x10]",
+      "004bfed2 cmp eax, 7",
+      "004bfed5 je 0x4c0623",
+      "004bfedb cmp eax, 8",
+      "004bfede je 0x4bfeef",
+      "004bfee0 movss xmm0, dword ptr [esi + 4]",
+      "004bfee5 mulss xmm0, dword ptr [ebp - 0x18]",
+      "004bfeea movss dword ptr [ebp - 0x18], xmm0",
+      "004bfeef push dword ptr [ebx + 8]",
+      "004bfef2 mov ecx, dword ptr [0xdfe78c]",
+      "004bfef8 call 0x49dc5",
+      "004bfefd test eax, eax",
+      "004bfeff mov dword ptr [ebp - 0x20], eax",
+      "004bff02 je 0x4bff4b",
+      "004bff04 push 0x41",
+      "004bff06 mov ecx, eax",
+      "004bff08 call 0x4e536",
+      "004bff0d test al, al",
+      "004bff0f je 0x4bff4b",
+      "004bff11 mov ecx, dword ptr [ebp - 0x20]",
+      "004bff14 push 0",
+      "004bff16 call 0x2931f5",
+      "004bff1b test eax, eax",
+      "004bff1d je 0x4bff4b",
+      "004bff1f mov ecx, eax",
+      "004bff21 call 0x28c1a9",
+      "004bff26 mov edi, eax",
+      "004bff28 test edi, edi",
+      "004bff2a je 0x4bff48",
+      "004bff2c push dword ptr [ebp - 0x10]",
+      "004bff2f mov eax, dword ptr [edi]",
+      "004bff31 mov ecx, edi",
+      "004bff33 call dword ptr [eax + 0xc]",
+      "004bff36 test al, al",
+      "004bff38 je 0x4bff48",
+      "004bff3a push dword ptr [ebp - 0x10]",
+      "004bff3d mov byte ptr [ebx + 0x24], 1",
+      "004bff41 mov eax, dword ptr [edi]",
+      "004bff43 mov ecx, edi",
+      "004bff45 call dword ptr [eax + 0x20]",
+      "004bff48 mov edi, dword ptr [ebp - 0x10]",
+      "004bff4b and dword ptr [ebp - 0x2c], 0",
+      "004bff4f movss xmm0, dword ptr [ebp - 0x18]",
+      "004bff54 comiss xmm0, dword ptr [0xbbaeac]",
+      "004bff5b mov byte ptr [ebp - 0x11], 0",
+      "004bff5f ja 0x4bff6b",
+      "004bff61 cmp byte ptr [ebx + 0x24], 0",
+      "004bff65 je 0x4c05a2",
+      "004bff6b mov eax, dword ptr [ebp - 0x10]",
+      "004bff6e mov edi, dword ptr [eax + 0x274]",
+      "004bff74 test edi, edi",
+      "004bff76 je 0x4bff86",
+      "004bff78 mov ecx, dword ptr [edi + 0x250]",
+      "004bff7e mov eax, dword ptr [ecx]",
+      "004bff80 call dword ptr [eax + 0x7c]",
+      "004bff83 mov dword ptr [ebp - 0x2c], eax",
+      "004bff86 test byte ptr [0xe0411c], 1",
+      "004bff8d jne 0x4bffab",
+      "004bff8f or dword ptr [0xe0411c], 1",
+      "004bff96 push 0x69",
+      "004bff98 push 0x67",
+      "004bff9a push 0x81",
+      "004bff9f push 0",
+      "004bffa1 mov ecx, 0xe040d0",
+      "004bffa6 call 0x265254",
+      "004bffab test byte ptr [0xe0411c], 2",
+      "004bffb2 jne 0x4bffcd",
+      "004bffb4 or dword ptr [0xe0411c], 2",
+      "004bffbb push 0x5a",
+      "004bffbd push 0x3d",
+      "004bffbf push 0x3a",
+      "004bffc1 push 0",
+      "004bffc3 mov ecx, 0xe040c0",
+      "004bffc8 call 0x44eaf3",
+      "004bffcd mov eax, dword ptr [ebp - 0x10]",
+      "004bffd0 mov eax, dword ptr [eax + 0x258]",
+      "004bffd6 test eax, eax",
+      "004bffd8 je 0x4c007c",
+      "004bffde mov eax, dword ptr [ebp - 0x24]",
+      "004bffe1 cmp byte ptr [eax + 0x51], 0",
+      "004bffe5 je 0x4c007c",
+      "004bffeb mov eax, dword ptr [ebp - 0x10]",
+      "004bffee add eax, 0x94",
+      "004bfff3 push eax",
+      "004bfff4 mov ecx, 0xe040c0",
+      "004bfff9 call 0x331682",
+      "004bfffe test al, al",
+      "004c0000 jne 0x4c007c",
+      "004c0002 mov eax, dword ptr [ebp - 0x10]",
+      "004c0005 add eax, 0x10c",
+      "004c000a push eax",
+      "004c000b mov ecx, 0xe040d0",
+      "004c0010 call 0x263546",
+      "004c0015 test al, al",
+      "004c0017 jne 0x4c007c",
+      "004c0019 mov eax, dword ptr [ebx + 0x10]",
+      "004c001c cmp eax, 6",
+      "004c001f je 0x4c0026",
+      "004c0021 cmp eax, 0x17",
+      "004c0024 jne 0x4c007c",
+      "004c0026 mov eax, dword ptr [ebp - 0x10]",
+      "004c0029 mov eax, dword ptr [eax + 0x25c]",
+      "004c002f test eax, eax",
+      "004c0031 je 0x4c0039",
+      "004c0033 cmp byte ptr [eax + 0x5c], 0",
+      "004c0037 jne 0x4c007c",
+      "004c0039 test edi, edi",
+      "004c003b je 0x4c0043",
+      "004c003d cmp dword ptr [ebp - 0x2c], 0",
+      "004c0041 je 0x4c007c",
+      "004c0043 mov eax, dword ptr [esi]",
+      "004c0045 mov ecx, esi",
+      "004c0047 call dword ptr [eax + 0x10]",
+      "004c004a fsub dword ptr [0xbbb8d8]",
+      "004c0050 lea eax, [ebp - 0x18]",
+      "004c0053 fstp dword ptr [ebp - 0x1c]",
+      "004c0056 fld dword ptr [ebp - 0x18]",
+      "004c0059 fld dword ptr [ebp - 0x1c]",
+      "004c005c fcompi st(1)",
+      "004c005e fstp st(0)",
+      "004c0060 ja 0x4c0065",
+      "004c0062 lea eax, [ebp - 0x1c]",
+      "004c0065 movss xmm0, dword ptr [eax]",
+      "004c0069 ucomiss xmm0, dword ptr [ebp - 0x18]",
+      "004c006d lahf ",
+      "004c006e test ah, 0x44",
+      "004c0071 jnp 0x4c007c",
+      "004c0073 movss dword ptr [ebp - 0x18], xmm0",
+      "004c0078 mov byte ptr [ebp - 0x11], 1",
+      "004c007c cmp byte ptr [ebx + 0x24], 0",
+      "004c0080 mov eax, dword ptr [esi + 0x20]",
+      "004c0083 mov dword ptr [ebp - 0x1c], eax",
+      "004c0086 je 0x4c0092",
+      "004c0088 movss xmm0, dword ptr [esi + 8]",
+      "004c008d movss dword ptr [ebp - 0x18], xmm0",
+      "004c0092 cmp dword ptr [ebx + 0x10], 4",
+      "004c0096 jne 0x4c00a8",
+      "004c0098 fld dword ptr [ebp - 0x18]",
+      "004c009b push ebx",
+      "004c009c push ecx",
+      "004c009d mov ecx, dword ptr [ebp - 0x28]",
+      "004c00a0 fstp dword ptr [esp]",
+      "004c00a3 call 0x4bfcd4",
+      "004c00a8 xorps xmm0, xmm0",
+      "004c00ab subss xmm0, dword ptr [ebp - 0x18]",
+      "004c00b0 mov eax, dword ptr [esi]",
+      "004c00b2 push ebx",
+      "004c00b3 push ecx",
+      "004c00b4 mov ecx, esi",
+      "004c00b6 movss dword ptr [esp], xmm0",
+      "004c00bb call dword ptr [eax + 0x80]",
+      "004c00c1 mov eax, dword ptr [ebp - 0x24]",
+      "004c00c4 mov eax, dword ptr [eax + 0x24]",
+      "004c00c7 test eax, eax",
+      "004c00c9 jbe 0x4c00df",
+      "004c00cb mov ecx, dword ptr [0xdfe78c]",
+      "004c00d1 mov ecx, dword ptr [ecx + 0x40]",
+      "004c00d4 add ecx, eax",
+      "004c00d6 push ecx",
+      "004c00d7 mov ecx, dword ptr [ebp - 0x10]",
+      "004c00da call 0x47a69c",
+      "004c00df movss xmm0, dword ptr [ebp - 0x18]",
+      "004c00e4 movss dword ptr [ebx + 0x70], xmm0",
+      "004c00e9 movss xmm0, dword ptr [esi + 0xc]",
+      "004c00ee subss xmm0, dword ptr [esi + 8]",
+      "004c00f3 movss dword ptr [ebx + 0x74], xmm0",
+      "004c00f8 mov eax, dword ptr [0xdfe78c]",
+      "004c00fd mov eax, dword ptr [eax + 0x40]",
+      "004c0100 mov ecx, dword ptr [esi + 0xac]",
+      "004c0106 cmp ecx, eax",
+      "004c0108 je 0x4c010f",
+      "004c010a dec eax",
+      "004c010b cmp ecx, eax",
+      "004c010d jne 0x4c0155",
+      "004c010f push dword ptr [esi + 0x38]",
+      "004c0112 mov ecx, dword ptr [0xdfe78c]",
+      "004c0118 call 0x49dc5",
+      "004c011d push dword ptr [ebx + 8]",
+      "004c0120 mov ecx, dword ptr [0xdfe78c]",
+      "004c0126 mov edi, eax",
+      "004c0128 call 0x49dc5",
+      "004c012d test eax, eax",
+      "004c012f je 0x4c0173",
+      "004c0131 test edi, edi",
+      "004c0133 je 0x4c0155",
+      "004c0135 mov ecx, dword ptr [eax + 4]",
+      "004c0138 test byte ptr [ecx + 0x109], 2",
+      "004c013f jne 0x4c0155",
+      "004c0141 test byte ptr [ecx + 0x109], 1",
+      "004c0148 jne 0x4c0155",
+      "004c014a mov ecx, eax",
+      "004c014c call 0x28d491",
+      "004c0151 test al, al",
+      "004c0153 je 0x4c0173",
+      "004c0155 lea ecx, [esi + 0x30]",
+      "004c0158 push ebx",
+      "004c0159 call 0x3427dd",
+      "004c015e mov byte ptr [esi + 0xb6], 0",
+      "004c0165 mov eax, dword ptr [0xdfe78c]",
+      "004c016a mov eax, dword ptr [eax + 0x40]",
+      "004c016d mov dword ptr [esi + 0xac], eax",
+      "004c0173 mov eax, dword ptr [esi + 0x38]",
+      "004c0176 and dword ptr [ebp - 0x30], 0",
+      "004c017a test eax, eax",
+      "004c017c je 0x4c01aa",
+      "004c017e mov ecx, dword ptr [0xdfe78c]",
+      "004c0184 push eax",
+      "004c0185 call 0x49dc5",
+      "004c018a mov ecx, eax",
+      "004c018c test ecx, ecx",
+      "004c018e mov dword ptr [ebp - 0x30], ecx",
+      "004c0191 je 0x4c01aa",
+      "004c0193 call 0x28afa9",
+      "004c0198 push dword ptr [eax + 0x54]",
+      "004c019b mov ecx, dword ptr [ebp - 0x10]",
+      "004c019e call 0x28afa9",
+      "004c01a3 mov ecx, eax",
+      "004c01a5 call 0x2aa1e4",
+      "004c01aa movss xmm0, dword ptr [esi + 0xc]",
+      "004c01af comiss xmm0, dword ptr [esi + 8]",
+      "004c01b3 jbe 0x4c01ed",
+      "004c01b5 mov eax, dword ptr [ebp - 0x10]",
+      "004c01b8 mov edi, dword ptr [eax + 0x244]",
+      "004c01be jmp 0x4c01d6",
+      "004c01c0 lea ecx, [eax + 0xc]",
+      "004c01c3 mov eax, dword ptr [ecx]",
+      "004c01c5 call dword ptr [eax + 0x10]",
+      "004c01c8 test eax, eax",
+      "004c01ca je 0x4c01d3",
+      "004c01cc mov edx, dword ptr [eax]",
+      "004c01ce push ebx",
+      "004c01cf mov ecx, eax",
+      "004c01d1 call dword ptr [edx]",
+      "004c01d3 add edi, 4",
+      "004c01d6 mov eax, dword ptr [edi]",
+      "004c01d8 test eax, eax",
+      "004c01da jne 0x4c01c0",
+      "004c01dc cmp dword ptr [ebp - 0x20], eax",
+      "004c01df je 0x4c01ed",
+      "004c01e1 push dword ptr [ebp - 0x10]",
+      "004c01e4 mov ecx, dword ptr [ebp - 0x20]",
+      "004c01e7 push ebx",
+      "004c01e8 call 0x28b1d4",
+      "004c01ed mov eax, dword ptr [ebp - 0x1c]",
+      "004c01f0 cmp dword ptr [esi + 0x20], eax",
+      "004c01f3 je 0x4c035a",
+      "004c01f9 mov eax, dword ptr [ebp - 0x10]",
+      "004c01fc mov edi, dword ptr [eax + 0x244]",
+      "004c0202 jmp 0x4c0221",
+      "004c0204 lea ecx, [eax + 0xc]",
+      "004c0207 mov eax, dword ptr [ecx]",
+      "004c0209 call dword ptr [eax + 0x10]",
+      "004c020c test eax, eax",
+      "004c020e je 0x4c021e",
+      "004c0210 push dword ptr [esi + 0x20]",
+      "004c0213 mov edx, dword ptr [eax]",
+      "004c0215 push dword ptr [ebp - 0x1c]",
+      "004c0218 mov ecx, eax",
+      "004c021a push ebx",
+      "004c021b call dword ptr [edx + 8]",
+      "004c021e add edi, 4",
+      "004c0221 mov eax, dword ptr [edi]",
+      "004c0223 test eax, eax",
+      "004c0225 jne 0x4c0204",
+      "004c0227 mov eax, dword ptr [esi + 0x20]",
+      "004c022a cmp eax, 1",
+      "004c022d jne 0x4c024f",
+      "004c022f mov ecx, dword ptr [ebp - 0x24]",
+      "004c0232 mov ecx, dword ptr [ecx + 0x1c]",
+      "004c0235 test ecx, ecx",
+      "004c0237 mov dword ptr [ebp - 0x1c], ecx",
+      "004c023a fild dword ptr [ebp - 0x1c]",
+      "004c023d jge 0x4c0245",
+      "004c023f fadd dword ptr [0xbc26ec]",
+      "004c0245 fldz ",
+      "004c0247 fxch st(1)",
+      "004c0249 fcompi st(1)",
+      "004c024b fstp st(0)",
+      "004c024d ja 0x4c0271",
+      "004c024f cmp eax, 2",
+      "004c0252 jne 0x4c0286",
+      "004c0254 mov eax, dword ptr [ebp - 0x24]",
+      "004c0257 mov ecx, dword ptr [eax + 0x20]",
+      "004c025a fild dword ptr [eax + 0x20]",
+      "004c025d test ecx, ecx",
+      "004c025f jge 0x4c0267",
+      "004c0261 fadd dword ptr [0xbc26ec]",
+      "004c0267 fldz ",
+      "004c0269 fxch st(1)",
+      "004c026b fcompi st(1)",
+      "004c026d fstp st(0)",
+      "004c026f jbe 0x4c0286",
+      "004c0271 mov eax, dword ptr [0xdfe78c]",
+      "004c0276 mov eax, dword ptr [eax + 0x40]",
+      "004c0279 add eax, ecx",
+      "004c027b mov ecx, dword ptr [ebp - 0x10]",
+      "004c027e push eax",
+      "004c027f push 8",
+      "004c0281 call 0x290114",
+      "004c0286 mov ecx, dword ptr [ebp - 0x10]",
+      "004c0289 call 0x5508e2",
+      "004c028e mov ecx, eax",
+      "004c0290 xor edi, edi",
+      "004c0292 cmp ecx, edi",
+      "004c0294 je 0x4c032b",
+      "004c029a mov edx, dword ptr [esi + 0x20]",
+      "004c029d cmp edx, 1",
+      "004c02a0 jne 0x4c02c4",
+      "004c02a2 lea eax, [ebp - 0x38]",
+      "004c02a5 push eax",
+      "004c02a6 call 0x4be120",
+      "004c02ab push edi",
+      "004c02ac add eax, 4",
+      "004c02af push eax",
+      "004c02b0 lea ecx, [ebp - 0x10c]",
+      "004c02b6 mov dword ptr [ebp - 4], edi",
+      "004c02b9 call 0x2d97d6",
+      "004c02be mov byte ptr [ebp - 4], 2",
+      "004c02c2 jmp 0x4c02ed",
+      "004c02c4 cmp edx, 2",
+      "004c02c7 jne 0x4c032b",
+      "004c02c9 lea eax, [ebp - 0x38]",
+      "004c02cc push eax",
+      "004c02cd call 0x4be139",
+      "004c02d2 push edi",
+      "004c02d3 add eax, 4",
+      "004c02d6 push eax",
+      "004c02d7 lea ecx, [ebp - 0x10c]",
+      "004c02dd mov dword ptr [ebp - 4], 3",
+      "004c02e4 call 0x2d97d6",
+      "004c02e9 mov byte ptr [ebp - 4], 5",
+      "004c02ed mov ecx, dword ptr [ebp - 0x34]",
+      "004c02f0 cmp ecx, edi",
+      "004c02f2 je 0x4c02f9",
+      "004c02f4 call 0x50ed3",
+      "004c02f9 mov eax, dword ptr [ebp - 0x10]",
+      "004c02fc push dword ptr [eax + 0x74]",
+      "004c02ff lea ecx, [ebp - 0x10c]",
+      "004c0305 call 0x2d9531",
+      "004c030a mov ecx, dword ptr [0xdfe6e8]",
+      "004c0310 mov eax, dword ptr [ecx]",
+      "004c0312 lea edx, [ebp - 0x10c]",
+      "004c0318 push edx",
+      "004c0319 call dword ptr [eax + 0x64]",
+      "004c031c or dword ptr [ebp - 4], 0xffffffff",
+      "004c0320 lea ecx, [ebp - 0x10c]",
+      "004c0326 call 0x2d9a43",
+      "004c032b mov eax, dword ptr [esi + 0xdc]",
+      "004c0331 cmp eax, edi",
+      "004c0333 je 0x4c035a",
+      "004c0335 mov ecx, dword ptr [0xdfe78c]",
+      "004c033b push eax",
+      "004c033c call 0x49dc5",
+      "004c0341 cmp eax, edi",
+      "004c0343 je 0x4c035a",
+      "004c0345 mov ecx, dword ptr [eax + 0x254]",
+      "004c034b cmp ecx, edi",
+      "004c034d je 0x4c035a",
+      "004c034f push dword ptr [esi + 0x20]",
+      "004c0352 mov eax, dword ptr [ecx]",
+      "004c0354 call dword ptr [eax + 0x9c]",
+      "004c035a movss xmm0, dword ptr [0xbbb8d8]",
+      "004c0362 divss xmm0, dword ptr [esi + 0x10]",
+      "004c0367 movss xmm2, dword ptr [esi + 0xc]",
+      "004c036c movss xmm1, dword ptr [0xc5b388]",
+      "004c0374 mulss xmm2, xmm0",
+      "004c0378 comiss xmm2, xmm1",
+      "004c037b jb 0x4c03ee",
+      "004c037d movss xmm2, dword ptr [esi + 8]",
+      "004c0382 mulss xmm2, xmm0",
+      "004c0386 comiss xmm1, xmm2",
+      "004c0389 jbe 0x4c03ee",
+      "004c038b movss xmm0, dword ptr [esi + 8]",
+      "004c0390 comiss xmm0, dword ptr [0xbbaeac]",
+      "004c0397 jbe 0x4c03ee",
+      "004c0399 lea eax, [ebp + 0xb]",
+      "004c039c push eax",
+      "004c039d lea ecx, [ebp - 0x18]",
+      "004c03a0 call 0x239bb0",
+      "004c03a5 mov ecx, dword ptr [ebp - 0x10]",
+      "004c03a8 mov dword ptr [ebp - 4], 6",
+      "004c03af call 0x5508e2",
+      "004c03b4 mov dword ptr [ebp - 0x1c], eax",
+      "004c03b7 lea eax, [ebp - 0x1c]",
+      "004c03ba push eax",
+      "004c03bb push ecx",
+      "004c03bc mov ecx, dword ptr [ebp - 0x18]",
+      "004c03bf mov eax, esp",
+      "004c03c1 mov dword ptr [eax], ecx",
+      "004c03c3 lea eax, [ebp - 0x34]",
+      "004c03c6 push eax",
+      "004c03c7 lea ecx, [ebp - 0x18]",
+      "004c03ca call 0x239d02",
+      "004c03cf push 0",
+      "004c03d1 lea eax, [ebp - 0x18]",
+      "004c03d4 push 0x7e0",
+      "004c03d9 push eax",
+      "004c03da call 0x4daafd",
+      "004c03df or dword ptr [ebp - 4], 0xffffffff",
+      "004c03e3 add esp, 0xc",
+      "004c03e6 lea ecx, [ebp - 0x18]",
+      "004c03e9 call 0x239af4",
+      "004c03ee cmp byte ptr [ebp - 0x11], 0",
+      "004c03f2 jne 0x4c040f",
+      "004c03f4 xorps xmm0, xmm0",
+      "004c03f7 comiss xmm0, dword ptr [esi + 8]",
+      "004c03fb jb 0x4c0510",
+      "004c0401 movss xmm1, dword ptr [esi + 0xc]",
+      "004c0406 comiss xmm1, xmm0",
+      "004c0409 jbe 0x4c0510",
+      "004c040f mov ecx, dword ptr [ebp - 0x20]",
+      "004c0412 test ecx, ecx",
+      "004c0414 je 0x4c0420",
+      "004c0416 push 1",
+      "004c0418 push dword ptr [ebp - 0x10]",
+      "004c041b call 0x294d61",
+      "004c0420 cmp byte ptr [ebp - 0x11], 0",
+      "004c0424 jne 0x4c0510",
+      "004c042a test byte ptr [0xe0411c], 4",
+      "004c0431 jne 0x4c045a",
+      "004c0433 or dword ptr [0xe0411c], 4",
+      "004c043a mov ecx, dword ptr [0xdf36a4]",
+      "004c0440 push 0xbf4f08",
+      "004c0445 mov dword ptr [ebp - 4], 7",
+      "004c044c call 0x148e1a",
+      "004c0451 or dword ptr [ebp - 4], 0xffffffff",
+      "004c0455 mov dword ptr [0xe040bc], eax",
+      "004c045a push dword ptr [0xe040bc]",
+      "004c0460 mov ecx, dword ptr [ebp - 0x10]",
+      "004c0463 call 0x28b6d6",
+      "004c0468 test eax, eax",
+      "004c046a jne 0x4c050d",
+      "004c0470 mov edi, dword ptr [ebp - 0x10]",
+      "004c0473 mov eax, dword ptr [edi + 0x274]",
+      "004c0479 test eax, eax",
+      "004c047b setne bl",
+      "004c047e test bl, bl",
+      "004c0480 je 0x4c04a4",
+      "004c0482 cmp dword ptr [eax + 0x250], 0",
+      "004c0489 je 0x4c04a4",
+      "004c048b mov eax, dword ptr [eax + 0x250]",
+      "004c0491 mov edx, dword ptr [eax]",
+      "004c0493 push 0",
+      "004c0495 mov ecx, eax",
+      "004c0497 call dword ptr [edx + 0x114]",
+      "004c049d cmp eax, 2",
+      "004c04a0 jae 0x4c04a4",
+      "004c04a2 xor bl, bl",
+      "004c04a4 push dword ptr [ebp + 8]",
+      "004c04a7 mov ecx, edi",
+      "004c04a9 call 0x298517",
+      "004c04ae mov eax, dword ptr [esi + 0xdc]",
+      "004c04b4 test eax, eax",
+      "004c04b6 je 0x4c04dd",
+      "004c04b8 mov ecx, dword ptr [0xdfe78c]",
+      "004c04be push eax",
+      "004c04bf call 0x49dc5",
+      "004c04c4 mov edi, eax",
+      "004c04c6 test edi, edi",
+      "004c04c8 je 0x4c04dd",
+      "004c04ca push dword ptr [ebp + 8]",
+      "004c04cd mov ecx, edi",
+      "004c04cf call 0x298517",
+      "004c04d4 push 1",
+      "004c04d6 mov ecx, edi",
+      "004c04d8 call 0x28d2fb",
+      "004c04dd test bl, bl",
+      "004c04df jne 0x4c050d",
+      "004c04e1 mov eax, dword ptr [ebp + 8]",
+      "004c04e4 cmp dword ptr [eax + 8], 0",
+      "004c04e8 je 0x4c050d",
+      "004c04ea mov eax, dword ptr [ebp - 0x10]",
+      "004c04ed mov eax, dword ptr [eax + 4]",
+      "004c04f0 mov ecx, 0x2000000",
+      "004c04f5 test dword ptr [eax + 0x108], ecx",
+      "004c04fb jne 0x4c050d",
+      "004c04fd test dword ptr [eax + 0x110], ecx",
+      "004c0503 jne 0x4c050d",
+      "004c0505 mov ecx, dword ptr [ebp - 0x28]",
+      "004c0508 mov eax, dword ptr [ecx]",
+      "004c050a call dword ptr [eax + 0x58]",
+      "004c050d mov ebx, dword ptr [ebp + 8]",
+      "004c0510 mov ecx, dword ptr [ebp - 0x20]",
+      "004c0513 test ecx, ecx",
+      "004c0515 je 0x4c0553",
+      "004c0517 movss xmm0, dword ptr [ebx + 0x74]",
+      "004c051c divss xmm0, dword ptr [esi + 0x10]",
+      "004c0521 movss xmm1, dword ptr [0xbbb8d8]",
+      "004c0529 comiss xmm0, xmm1",
+      "004c052c movss dword ptr [ebp + 8], xmm0",
+      "004c0531 jbe 0x4c053b",
+      "004c0533 movaps xmm0, xmm1",
+      "004c0536 movss dword ptr [ebp + 8], xmm0",
+      "004c053b comiss xmm0, dword ptr [0xbbaeac]",
+      "004c0542 jbe 0x4c0553",
+      "004c0544 fld dword ptr [ebp + 8]",
+      "004c0547 push ecx",
+      "004c0548 fstp dword ptr [esp]",
+      "004c054b push dword ptr [ebp - 0x10]",
+      "004c054e call 0x28b749",
+      "004c0553 lea ecx, [ebp - 0x84]",
+      "004c0559 call 0xb6d8b",
+      "004c055e mov eax, dword ptr [ebp - 0x30]",
+      "004c0561 test eax, eax",
+      "004c0563 mov dword ptr [ebp - 4], 8",
+      "004c056a je 0x4c0579",
+      "004c056c mov eax, dword ptr [eax + 0x74]",
+      "004c056f mov dword ptr [ebp - 0x74], eax",
+      "004c0572 mov dword ptr [ebp - 0x6c], 3",
+      "004c0579 mov ecx, dword ptr [0xe01dbc]",
+      "004c057f lea eax, [ebp - 0x84]",
+      "004c0585 push eax",
+      "004c0586 push dword ptr [ebp - 0x10]",
+      "004c0589 push 0",
+      "004c058b call 0x3360d2",
+      "004c0590 or dword ptr [ebp - 4], 0xffffffff",
+      "004c0594 lea ecx, [ebp - 0x84]",
+      "004c059a call 0xb6dd2",
+      "004c059f mov edi, dword ptr [ebp - 0x10]",
+      "004c05a2 mov ecx, dword ptr [ebp - 0x28]",
+      "004c05a5 mov eax, dword ptr [ecx]",
+      "004c05a7 push ebx",
+      "004c05a8 call dword ptr [eax + 0x48]",
+      "004c05ab mov eax, dword ptr [0xdff0f8]",
+      "004c05b0 mov eax, dword ptr [eax + 0x18]",
+      "004c05b3 cmp byte ptr [eax + 0x64], 0",
+      "004c05b7 je 0x4c05d0",
+      "004c05b9 mov eax, dword ptr [edi + 4]",
+      "004c05bc test byte ptr [eax + 0x10d], 0x20",
+      "004c05c3 je 0x4c05d0",
+      "004c05c5 push 1",
+      "004c05c7 push 8",
+      "004c05c9 mov ecx, edi",
+      "004c05cb call 0x23db0e",
+      "004c05d0 cmp byte ptr [ebp - 0x11], 0",
+      "004c05d4 je 0x4c0631",
+      "004c05d6 mov ecx, dword ptr [ebp - 0x2c]",
+      "004c05d9 test ecx, ecx",
+      "004c05db je 0x4c05e3",
+      "004c05dd mov eax, dword ptr [ecx]",
+      "004c05df push edi",
+      "004c05e0 call dword ptr [eax + 0x38]",
+      "004c05e3 lea esi, [edi + 0x258]",
+      "004c05e9 mov ecx, dword ptr [esi]",
+      "004c05eb call 0x2632c7",
+      "004c05f0 test al, al",
+      "004c05f2 je 0x4c05fb",
+      "004c05f4 mov ecx, dword ptr [esi]",
+      "004c05f6 call 0x2632e1",
+      "004c05fb mov ecx, dword ptr [esi]",
+      "004c05fd push 2",
+      "004c05ff add ecx, 0x20",
+      "004c0602 call 0x4bfd27",
+      "004c0607 mov eax, dword ptr [ebp - 0x24]",
+      "004c060a test eax, eax",
+      "004c060c je 0x4c0631",
+      "004c060e mov eax, dword ptr [eax + 0x54]",
+      "004c0611 test eax, eax",
+      "004c0613 je 0x4c0631",
+      "004c0615 push 0",
+      "004c0617 push edi",
+      "004c0618 push eax",
+      "004c0619 call 0xb2235",
+      "004c061e add esp, 0xc",
+      "004c0621 jmp 0x4c0631",
+      "004c0623 cmp byte ptr [ebx + 0x24], 0",
+      "004c0627 jne 0x4c0631",
+      "004c0629 mov eax, dword ptr [esi]",
+      "004c062b push ebx",
+      "004c062c mov ecx, esi",
+      "004c062e call dword ptr [eax + 4]",
+      "004c0631 mov ecx, dword ptr [ebp - 0xc]",
+      "004c0634 pop edi",
+      "004c0635 pop esi",
+      "004c0636 mov dword ptr fs:[0], ecx",
+      "004c063d pop ebx",
+      "004c063e leave ",
+      "004c063f ret 4"
+    ]
+  },
+  {
+    "rva": "0x0050B238",
+    "name": "?rva005F267E@Rva0086EE20@@UAEXHM@Z",
+    "size": "3",
+    "source": "Code/GameEngine/Source/Common/Rva005F2CBAProgress.cpp",
+    "bytes": "c20800",
+    "instructions": [
+      "0050b238 ret 8"
+    ]
+  },
+  {
+    "rva": "0x0047A69C",
+    "name": "?slot0@Rva0086EE20@@UAEXH@Z",
+    "size": "3",
+    "source": "Code/GameEngine/Source/Common/Rva005F2CBAProgress.cpp",
+    "bytes": "c20400",
+    "instructions": [
+      "0047a69c ret 4"
+    ]
+  }
+]

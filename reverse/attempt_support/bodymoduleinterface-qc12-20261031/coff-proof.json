@@ -1,0 +1,131 @@
+{
+  "before": {
+    "functions": {
+      "??$bfmeMin@M@@YAABMABM0@Z": {
+        "bytes": "8b4424088b4c2404f30f10000f2f010f47c1c3",
+        "relocs": []
+      },
+      "?attemptDamage@HighlanderBody@@UAEXPAVDamageInfo@@@Z": {
+        "bytes": "558bec568b7508837e1008578bf974258b07ff5010d825000000008d46208bc8d95d08d900d94508dff1ddd877038d4d088b098908568bcfe8000000005f5e5dc20400",
+        "relocs": [
+          [
+            23,
+            6,
+            "__real@3f800000"
+          ],
+          [
+            57,
+            20,
+            "?attemptDamage@ActiveBody@@UAEXPAVDamageInfo@@@Z"
+          ]
+        ]
+      }
+    },
+    "tables": []
+  },
+  "after": {
+    "functions": {
+      "??$bfmeMin@M@@YAABMABM0@Z": {
+        "bytes": "8b4424088b4c2404f30f10000f2f010f47c1c3",
+        "relocs": []
+      },
+      "?attemptDamage@HighlanderBody@@UAEXPAVDamageInfo@@@Z": {
+        "bytes": "558bec568b7508837e1008578bf974258b07ff5010d825000000008d46208bc8d95d08d900d94508dff1ddd877038d4d088b098908568bcfe8000000005f5e5dc20400",
+        "relocs": [
+          [
+            23,
+            6,
+            "__real@3f800000"
+          ],
+          [
+            57,
+            20,
+            "?attemptDamage@ActiveBody@@UAEXPAVDamageInfo@@@Z"
+          ]
+        ]
+      }
+    },
+    "tables": []
+  },
+  "unchanged": true,
+  "constructor_baseline_tables": [
+    {
+      "name": "??_7ActiveBody@@6B@",
+      "size": 4,
+      "relocs": [
+        [
+          0,
+          6,
+          "__purecall"
+        ]
+      ]
+    },
+    {
+      "name": "??_7ActiveBody@@6BBehaviorIface@@@",
+      "size": 4,
+      "relocs": [
+        [
+          0,
+          6,
+          "__purecall"
+        ]
+      ]
+    },
+    {
+      "name": "??_7ActiveBody@@6BObjectModule@@@",
+      "size": 40,
+      "relocs": [
+        [
+          0,
+          6,
+          "??_EActiveBody@@UAEPAXI@Z"
+        ],
+        [
+          4,
+          6,
+          "__purecall"
+        ],
+        [
+          8,
+          6,
+          "__purecall"
+        ],
+        [
+          12,
+          6,
+          "__purecall"
+        ],
+        [
+          16,
+          6,
+          "__purecall"
+        ],
+        [
+          20,
+          6,
+          "?onObjectCreated@Module@@UAEXXZ"
+        ],
+        [
+          24,
+          6,
+          "?onDrawableBoundToObject@Module@@UAEXXZ"
+        ],
+        [
+          28,
+          6,
+          "?preloadAssets@Module@@UAEXXZ"
+        ],
+        [
+          32,
+          6,
+          "?onDelete@Module@@UAEXXZ"
+        ],
+        [
+          36,
+          6,
+          "?onCapture@ObjectModule@@UAEXPAVPlayer@@0@Z"
+        ]
+      ]
+    }
+  ]
+}

@@ -170,3 +170,4 @@ W3DShrubBuffer,Code/GameEngineDevice/Include/W3DDevice/GameClient/W3DShrubBuffer
 LivingWorldScoreKeeper,Code/GameEngine/Include/Common/LivingWorldScoreKeeper.h,native primary C62AC4 and eight observer tables; complete 0xFC layout; all29 table slots retain exact provider or native empty-body proof; qc12
 rts::hash,Code/GameEngine/Source/GameLogic/AI/RtsHashView.h,shared empty-state primary from existing identity hash view; explicit NameKey specialization retained; native caller bytes conserved; qc12
 _STL::allocator,vendor/stlport/stl/_alloc.h,"pinned STLport allocator primary; replace private empty-state copies, keep library identity; qc12"
+BodyModuleInterface,Code/GameEngine/Include/GameLogic/Module/BodyModule.h,43 pure native slots at C5AB68; structural signatures from native providers and matched callers; no BodyModule root profile
