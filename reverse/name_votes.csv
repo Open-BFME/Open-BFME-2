@@ -19223,3 +19223,4 @@ Code/GameEngine/Source/GameClient/Rva002230FFNewNode.cpp|function|0x002230FF|rva
 Code/GameEngine/Source/Common/canPlayersTransferMoneyYet.cpp|member|Rva0023D339B|m_40,a16278a636ba9ab652c4e6d0,drz-k4,drz-k4-16,w-855a0f400af4,2026-10-31
 Code/GameEngine/Source/Common/canPlayersTransferMoneyYet.cpp|local|canPlayersTransferMoneyYet|b,5a94c3c1dc4549e2e2fd65b5,drz-k4,drz-k4-16,w-855a0f400af4,2026-10-31
 Code/GameEngine/Source/Common/SixteenByteIteratorArithmetic_Rva000696C0Distance.cpp|function|0x005047A0|Rva005047A0Advance,5995c7299b79726c0914b3df,drz-k4,drz-k4-18,w-855a0f400af4,2026-10-31
+Code/GameEngine/Source/GameLogic/Object/ObjectGetRelationship.cpp|local|Object::getRelationship|t,fc79ed3a4e094c8c37c23c5f,drz-k5,drz-k5-15,w-526a51702f64,2026-10-31
