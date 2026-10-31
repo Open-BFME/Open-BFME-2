@@ -162,7 +162,6 @@ public:
 	void GetAssetList(int a, int b);
 };
 #include "../../../Include/Common/TeamBFME2.h"
-
 class LocomotorSet
 {
 public:
@@ -507,7 +506,6 @@ private:
 #pragma comment(linker, "/alternatename:?loadPostProcess@Rva000D3FA0Map@@MAEXXZ=??1Coord2D@@QAE@XZ")
 #pragma comment(linker, "/alternatename:?crc@Rva000D3FA0Map@@MAEXPAVXfer@@@Z=?name@Rva002431A9Named@@QBEPBDXZ")
 #pragma comment(linker, "/alternatename:?xfer@Rva000D3FA0Map@@MAEXPAVXfer@@@Z=__purecall")
-
 // BFME 1.03 GameLogic::processCommandList at RVA 0x00383050.
 
 class GameMessage
@@ -518,7 +516,6 @@ private:
 public:
 	GameMessage *m_next;
 };
-
 class CommandList
 {
 public:
@@ -540,85 +537,51 @@ private:
 public:
 	GameMessage *m_firstMessage;
 };
-
 class LivingWorldLogic
 {
 public:
 	void rva002B2A0A();
 	void GameLogic_tacticalBattleComplete();
 };
-
 void Rva004E400DEnable();
-
 class AptPlayerTribute
 {
 public:
 	static void CloseScreen(void);
 };
-
 void Rva004E855CClose();
-
 void Rva004E84ABRun();
-
 void Rva00511730(int);
-
 void Rva00518262Enable();
-
 void Rva0051B11CEnable();
-
 void Rva00437E9C(int);
-
 class Rva005CB260;
-
 class InGameUI { public: Rva005CB260 *rva000CF155(); };
-
 class Rva005CB265 { public: virtual int rva005CB265(); };
-
 class Rva0054CBEFTarget { public: void method(int); };
-
 extern InGameUI *TheInGameUI;
-
 class AptStrategicMessageBox {private: static AptStrategicMessageBox *s_instance; friend class GameLogic;};
-
 extern ControlBar *TheControlBar;
-
 extern NameKeyGenerator *TheNameKeyGenerator;
-
 extern GameWindowManager *TheWindowManager;
-
 class BfmeAptWindowManager;
-
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
-
 class AptQuitMenu;
-
  extern AptQuitMenu *TheAptQuitMenu;
-
 extern int g_Va00A04908;
-
 // vector3.h's Vector3::operator*=(float) under a unit-local name: called as the
 // Vector3 member, this unit emitted an external copy that differs from the kept
 // one (the 96f26b7c4d pattern). Body unchanged.
 struct PlaceDeltaView : Vector3 { WWINLINE PlaceDeltaView & operator *= (float k) { X = X*k; Y=Y*k; Z=Z*k; return *this; } };
-
 extern PartitionManager *ThePartitionManager;
-
 class NetworkPartitionDispatch {public:virtual void v0();virtual void v1();virtual void v2();virtual void v3();virtual void v4();virtual void v5();virtual void v6();virtual void v7();virtual void v8();virtual void v9();virtual void update();};
-
 class TerrainLogic {public:virtual void v0();virtual void v1();virtual void v2();virtual void v3();virtual void v4();virtual void v5();virtual float getGroundHeight(float,float,Coord3D*);};
-
 extern TerrainLogic *TheTerrainLogic;
-
 struct NetworkObjectPrefix {char pad[0x88];AsciiString name;char pad8C[0xB8-0x8C];float radius,width;float getWidth()const{return width;}};
-
 class Rva00395A60 {public:float rva00395A60();};
-
 class CastleBehavior {public:static NameKeyType rva0003955DA();};
-
 class GameInfo;
-
 extern GameInfo *TheGameInfo;
-
 class NetworkInterface
 {
 public:
@@ -642,9 +605,7 @@ public:
  virtual int slotB8();
 
 };
-
 extern NetworkInterface *TheNetwork;
-
 class GameState
 {
 	char m_pad00[0x2c];
@@ -653,9 +614,7 @@ public:
 
 	AsciiString m_pristineMapName;                                       // +0x2C
 };
-
 extern GameState *TheGameState;
-
 class GameTextInterface
 {
 public:
@@ -680,9 +639,7 @@ public:
 	virtual void g18(void) = 0;
 	virtual void initMapStringFile(const AsciiString &filename) = 0;  // +0x4C
 };
-
 extern GameTextInterface *TheGameText;
-
 // The network request 0x00240866 answers: the sending player at +0x0C, the
 // request kind at +0x1C, an argument at +0x20 and the save name through the
 // rowed RVO getter 0x0023E928.
@@ -697,7 +654,6 @@ public:
 	int m_kind;                                                          // +0x1C
 	int m_20;                                                            // +0x20
 };
-
 // The save screen (0x00E032E0 while the saved-game prompt is up) and its
 // rowed members.
 class AptSaveLoad
@@ -708,7 +664,6 @@ public:
 	// Rowed 0x00433D96 (Rva00433FDDSet.cpp): state +0x27C = 10.
 	void rva00433D96(void);
 };
-
 // VA 0x00E02EAC is a typo in the symbol name: the object is at VA
 // 0x00E032E8 (RVA 0x00A032E8), in .data's zero-filled tail past the raw end
 // at RVA 0x009DE008, so retail loads it an empty UnicodeString. Rva007ABBB3CtorInits.cpp
@@ -716,30 +671,23 @@ public:
 // a plain uninitialised definition (StringBase's default ctor only zeroes
 // m_data, which is already what .bss gives it).
 UnicodeString g_Va00E032E8;
-
 void __cdecl Rva004341D8(int button);
-
 void __cdecl Rva00435CCC(void);
-
 // TheGameState's rowed save-directory free-space check and save-exists test.
 class Rva002DC267
 {
 public:
 	bool rva002DC681(void) const;
 };
-
 class Rva002DCCFB
 {
 public:
 	bool rva002DCCFB(UnicodeString name);
 };
-
 // The refcounted prompt callback (0x0023E8D8 builds it from a pointer to
 // the function pointer) and the two prompt forwarders.
 struct TargetRef00217D4C;
-
 extern void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
-
 class Rva0023E8D8
 {
 	void *m_ptr;
@@ -756,41 +704,47 @@ public:
 			ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)m_ptr);
 	}
 };
-
 void Rva00437E84(int type, const UnicodeString &title, const UnicodeString &text);
-
 struct Rva0023E8D8Arg : Rva0023E8D8 { Rva0023E8D8Arg(void *p) : Rva0023E8D8(p) {} };
-
 extern "C" void __cdecl Rva00437F61(int type, const UnicodeString &title,
 	const UnicodeString &text, Rva0023E8D8Arg callback);
-
 typedef void (__cdecl *Rva00240866Answer)(int button);
-
 unsigned char __cdecl Rva0023D32DGet();
-
 typedef unsigned int UnsignedInt;
-
 typedef int Int;
-
 enum UpdateSleepTime
 {
 	UPDATE_SLEEP_FOREVER = 0x3fffffff
 };
-
 class UpdateModuleInterface
 {
 public:
 	virtual UpdateSleepTime update() = 0;
 };
-
 class ModuleData;
-
 #include "../../../Include/Common/Module.h"
 #include "../../../Include/Common/ObjectModule.h"
 #include "../../../Include/GameLogic/Module/BehaviorModule.h"
-
-
-
+#define BFME_DISP8_WORDCHASE_ZERO_GETTER(NAME, DISP1) \
+	class Inner##NAME \
+	{ \
+	public: \
+		short m_value; \
+	}; \
+	class Sub##NAME \
+	{ \
+	public: \
+		Inner##NAME *m_holder; \
+	}; \
+	class NAME \
+	{ \
+	public: \
+		int get() const; \
+	}; \
+	int NAME::get() const \
+	{ \
+		return ((const Sub##NAME *)((const char *)this + (DISP1)))->m_holder->m_value; \
+	}
 
 class BodyModuleInterface;
 
@@ -809,10 +763,6 @@ class DieModuleInterface;
 class SpecialPowerModuleInterface;
 
 class UpdateModuleInterface;
-
-
-
-
 
 class UpdateModule : public BehaviorModule, public UpdateModuleInterface
 {
@@ -1463,9 +1413,32 @@ private:
 	BitFlags<101> m_bitsA8; // +0xA8
 };
 
+BFME_DISP8_WORDCHASE_ZERO_GETTER(Rva0023DB58WordChaseField, 0x0C)
+
+// Native 2E6CB0..2E6CB7 and 2E6CB7..2E6CBE are independently complete
+// RET0 leaves after the RET4 at 2E6CAD and before the distinct initializer
+// at 2E6CBE. Each zero-extends an unsigned 16-bit pointee field, at +0x12
+// or +0x10. BF1 9cbfb551fe20 PathfindCell_costSoFar.cpp guides the field
+// access; its PathfindCell names are not established target identities.
+class Rva002E6CB0PointeeValue
+{
+public:
+    unsigned int getBits() const;
+    void *holder;
+};
+
+class Rva002E6CB7PointeeValue
+{
+public:
+    unsigned int getBits() const;
+    void *holder;
+};
+
 // tu-skeleton: 0x0023C924 212B ?selectObject@GameLogic@@QAEXPAVObject@@_NI1@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicDeselectObject.cpp (not merged yet)
 
 // tu-skeleton: 0x0023C9F8 171B ?deselectObject@GameLogic@@QAEXPAVObject@@I_N@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicDeselectObject.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
 
@@ -2131,6 +2104,136 @@ void GameLogic::rva00376D49(void)
 	m_background = 0;
 }
 
+// ---- from Code/GameEngine/Source/GameLogic/System/GameLogicProcessProgress.cpp
+
+void GameLogic::processProgress(int playerId, int percentage)
+{
+	if (m_loadScreen)
+		m_loadScreen->processProgress(playerId, percentage);
+	lastHeardFrom(playerId);
+}
+
+// ?processProgressComplete@GameLogic@@QAEXH@Z @0x0023D76E 37B: range-checks slot 0-7, tests byte at this+0x128, sets it and calls lastHeardFrom row 0x0023CF1C. Byte array sits just before timeout array at +0x130 proven by sibling lastHeardFrom TU. Callers at 0x004D0352 and 0x004D3095.
+void GameLogic::processProgressComplete(int playerId)
+{
+	if (playerId < 0 || playerId >= 8)
+		return;
+	if (m_heardFlags[playerId] == 1)
+		return;
+	m_heardFlags[playerId] = 1;
+	lastHeardFrom(playerId);
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva0023E7D9Clear.cpp
+
+// ?rva0023E7D9@Rva0023E7D9@@QAEXXZ — RVA 0x0023E7D9, 97B.
+// Two-list clear: delete-list at +0x48 with next at +0x14, then STL int
+// list at +0x50 walked via member iterator at +0x4c, each nonzero entry
+// emptied through BfmeThingEC::bfmeTakeEC and free, then list cleared.
+// Evidence: retail loop bytes; callees 0x0002FD60 0x006021A4 0x00030830
+// 0x0023DAA5; callers at 0x0023F88C 0x00243BA0 0x002442A4.
+
+void Rva0023E7D9::rva0023E7D9()
+{
+	while (m_head != 0)
+	{
+		Rva0023E7D9Link *next = m_head->m_next;
+		operator delete(m_head);
+		m_head = next;
+	}
+	for (m_cur = m_list.begin(); m_cur._M_node != m_list.end()._M_node; ++m_cur)
+	{
+		int v = *m_cur;
+		if (v != 0)
+		{
+			int tmp;
+			int r = ((BfmeThingEC *)v)->bfmeTakeEC(&tmp);
+			free((void *)r);
+		}
+	}
+	m_list.clear();
+	m_head = 0;
+}
+
+void Rva0023E7D9::rva0023F88C(bool loadingSaveGame)
+{
+	g_Rva00A00958->virt09();
+	rva0023E7D9();
+	*(unsigned char *)((char *)this + 0x71) = 0;
+	if (TheDeepCRC)
+	{
+		(*(Rva009FE758Obj **)&TheWritableGlobalData)->m_c18 = 2;
+		return;
+	}
+	if ((*(unsigned char *)&TheLiteCRC) == 0)
+		return;
+	(*(Rva009FE758Obj **)&TheWritableGlobalData)->m_c18 = 5;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/StealthInvisibilityRecordXfer.cpp
+
+// ?rva00438592@Rva002542F3Member@@QAEXPAVRva00438758Interface@@@Z
+//
+// ?rva00438592@Rva002542F3Member@@QAEXPAVRva00438758Interface@@@Z retail
+// 0x00438592..0x00438758 (454 bytes thiscall ret 4). The xfer of the
+// 0xB8-byte member (ctor 0x002542F3 / copy 0x0043831C) called only by the
+// wrapper xfer Rva004382FC::rva00438758 0x00438758 with the same interface.
+// Version {1 1} through slot +0x28 then the dword at +0 (slot +0x78)
+// BitFlags<104>::xfer +4 then XferInvisibilityType on +0x18 then
+// 0x003064CB on the +0x1C storage and the dword at +0x9C (+0x78). When
+// slot +0x04 answers true it reads two names (slot +0x6C) and resolves them
+// through TheFXListStore->findFXList into +0xA0 and +0xA4; otherwise it
+// writes the two FXLists' names (+0xC) or empty strings. Finally
+// BitFlags<101>::xfer +0xA8. The callees prove the interface is the Xfer;
+// the pinned spelling keeps the address-derived interface name.
+// StringBase::str uses the shared null-character object in both load lookups;
+// retail preserves the zero register across these two accesses.
+
+void Rva002542F3Member::rva00438592(Rva00438758Interface *interfaceView)
+{
+	Xfer *xfer = reinterpret_cast<Xfer *>(interfaceView);
+	Rva00438592Version version(1, 1);
+	interfaceView->slot10(&version);
+	interfaceView->slot30(this);
+	m_bits04.xfer(xfer);
+	XferInvisibilityType(xfer, &m_int18);
+	xferUpgradeMask(xfer, reinterpret_cast<Rva00291440 *>(m_buf1C));
+	interfaceView->slot30(&m_9C);
+	if (interfaceView->slot01())
+	{
+		AsciiString nameA0;
+		AsciiString nameA4;
+		interfaceView->slot27(&nameA0);
+		interfaceView->slot27(&nameA4);
+		m_fxA0 = TheFXListStore->findFXList(reinterpret_cast<const StringBase<char> *>(&nameA0)->str());
+		m_fxA4 = TheFXListStore->findFXList(reinterpret_cast<const StringBase<char> *>(&nameA4)->str());
+	}
+	else
+	{
+		AsciiString nameA0 = m_fxA0 ? m_fxA0->getName() : AsciiString("");
+		AsciiString nameA4 = m_fxA4 ? m_fxA4->getName() : AsciiString("");
+		interfaceView->slot27(&nameA0);
+		interfaceView->slot27(&nameA4);
+	}
+	m_bitsA8.xfer(xfer);
+}
+
+// ---- from Code/GameEngine/Source/Common/RTS/Rva000D3FA0Destructor.cpp
+
+// The base is the canonical Snapshot (vtable 0x00BBB554): the parent's unwind
+// funclet 0x007881DE destroys it through the folded Snapshot destructor
+// 0x0049B47C.
+
+// ??1Rva000D3FA0Map@@UAE@XZ
+Rva000D3FA0Map::~Rva000D3FA0Map()
+{
+	m_map.rva0043985D();
+}
+
+// Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
+// each one has the same function in that slot (vftable addresses from matched vptr
+// stores). Bind them to the rows at those functions.
+
 // tu-skeleton: 0x0023CAD2 7B ?getFirstObject@GameLogic@@QAEPAVObject@@XZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicGetObjectCount.cpp (not merged yet)
 
 // tu-skeleton: 0x0023CAD9 14B ?rva0023CAD9@GameLogic@@QAEHXZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicRva0023CAD9.cpp (not merged yet)
@@ -2179,26 +2282,6 @@ void GameLogic::rva00376D49(void)
 
 // tu-skeleton: 0x0023D6FA 70B ?rva0023D6FA@@YAHPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicRva0023D68EAndD6FA.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/GameLogic/System/GameLogicProcessProgress.cpp
-
-void GameLogic::processProgress(int playerId, int percentage)
-{
-	if (m_loadScreen)
-		m_loadScreen->processProgress(playerId, percentage);
-	lastHeardFrom(playerId);
-}
-
-// ?processProgressComplete@GameLogic@@QAEXH@Z @0x0023D76E 37B: range-checks slot 0-7, tests byte at this+0x128, sets it and calls lastHeardFrom row 0x0023CF1C. Byte array sits just before timeout array at +0x130 proven by sibling lastHeardFrom TU. Callers at 0x004D0352 and 0x004D3095.
-void GameLogic::processProgressComplete(int playerId)
-{
-	if (playerId < 0 || playerId >= 8)
-		return;
-	if (m_heardFlags[playerId] == 1)
-		return;
-	m_heardFlags[playerId] = 1;
-	lastHeardFrom(playerId);
-}
-
 // tu-skeleton: 0x0023D793 241B ?CallPlayerGiveMoney@GameLogic@@QAEXHHH@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogic_CallPlayerGiveMoney.cpp (not merged yet)
 
 // tu-skeleton: 0x0023D914 309B ?LivingWorldTacticalBattleComplete@GameLogic@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicLivingWorldBattleComplete.cpp (not merged yet)
@@ -2219,7 +2302,18 @@ void GameLogic::processProgressComplete(int playerId)
 
 // tu-skeleton: 0x0023DB48 16B ?rva0023DB48@Rva0023DB48@@QAEHXZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp (not merged yet)
 
-// tu-skeleton: 0x0023DB58 7B ?get@Rva0023DB58WordChaseField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8WordChaseGetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Disp8WordChaseGetters.cpp
+
+// Disp8 word-chase getters: seven-byte __thiscall members with one shape:
+//
+//     mov eax,[ecx+<DISP1>] / movsx eax,word [eax+<DISP2>] / ret
+//
+// A pointer is read at a fixed displacement from `this`, then a signed word
+// is read at a second displacement from that pointer, sign-extended, and
+// returned. MSVC 7.1 emits the disp8 loads `8B 41 XX` + `0F BF XX`, plus
+// `ret`, for seven bytes total.
+// Identity is not recovered: every name is derived from its address.
+// No // cl: line (defaults match the frameless seven-byte shape).
 
 // tu-skeleton: 0x0023DB5F 17B ?keyAtA@Gen_000cd680@@QBEHH@Z -- matched in Code/GameEngine/Source/Common/Gen_000cd680.cpp (not merged yet)
 
@@ -2260,52 +2354,6 @@ void GameLogic::processProgressComplete(int playerId)
 // tu-skeleton: 0x0023F4F0 60B ??1Rva00240000@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
 
 // tu-skeleton: 0x0023F52C 864B ?rva0023F52C@GameLogic@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/Rva0023E7D9Clear.cpp
-
-// ?rva0023E7D9@Rva0023E7D9@@QAEXXZ — RVA 0x0023E7D9, 97B.
-// Two-list clear: delete-list at +0x48 with next at +0x14, then STL int
-// list at +0x50 walked via member iterator at +0x4c, each nonzero entry
-// emptied through BfmeThingEC::bfmeTakeEC and free, then list cleared.
-// Evidence: retail loop bytes; callees 0x0002FD60 0x006021A4 0x00030830
-// 0x0023DAA5; callers at 0x0023F88C 0x00243BA0 0x002442A4.
-
-void Rva0023E7D9::rva0023E7D9()
-{
-	while (m_head != 0)
-	{
-		Rva0023E7D9Link *next = m_head->m_next;
-		operator delete(m_head);
-		m_head = next;
-	}
-	for (m_cur = m_list.begin(); m_cur._M_node != m_list.end()._M_node; ++m_cur)
-	{
-		int v = *m_cur;
-		if (v != 0)
-		{
-			int tmp;
-			int r = ((BfmeThingEC *)v)->bfmeTakeEC(&tmp);
-			free((void *)r);
-		}
-	}
-	m_list.clear();
-	m_head = 0;
-}
-
-void Rva0023E7D9::rva0023F88C(bool loadingSaveGame)
-{
-	g_Rva00A00958->virt09();
-	rva0023E7D9();
-	*(unsigned char *)((char *)this + 0x71) = 0;
-	if (TheDeepCRC)
-	{
-		(*(Rva009FE758Obj **)&TheWritableGlobalData)->m_c18 = 2;
-		return;
-	}
-	if ((*(unsigned char *)&TheLiteCRC) == 0)
-		return;
-	(*(Rva009FE758Obj **)&TheWritableGlobalData)->m_c18 = 5;
-}
 
 // tu-skeleton: 0x0023F8DA 484B ?rva0023F8DA@GameLogic@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
 
@@ -2478,6 +2526,8 @@ void Rva0023E7D9::rva0023F88C(bool loadingSaveGame)
 // tu-skeleton: 0x002470AE 714B ??0GameLogic@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
 
 // tu-skeleton: 0x00247378 1463B ?bfmePopulateGameReport@GameLogic@@QAEXPAVGameInfo@@PAH@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicPopulateGameReport.cpp (not merged yet)
+
+// tu-skeleton: 0x00248211 26B ?push_back@?$list@VRva0024076D@@V?$allocator@VRva0024076D@@@_STL@@@_STL@@QAEXABVRva0024076D@@@Z -- matched in Code/GameEngine/Source/Common/Rva00248211ObjListPush.cpp (not merged yet)
 
 // tu-skeleton: 0x0024822B 77B ?formatPlayerStartWaypointName@GameLogic@@QAEXPAVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicStartingCamera.cpp (not merged yet)
 
@@ -2925,54 +2975,6 @@ void Rva0023E7D9::rva0023F88C(bool loadingSaveGame)
 
 // tu-skeleton: 0x007719FC 10B __ehhandler$?rva0024877A@GameLogic@@QAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/GameLogic/Object/StealthInvisibilityRecordXfer.cpp
-
-// ?rva00438592@Rva002542F3Member@@QAEXPAVRva00438758Interface@@@Z
-//
-// ?rva00438592@Rva002542F3Member@@QAEXPAVRva00438758Interface@@@Z retail
-// 0x00438592..0x00438758 (454 bytes thiscall ret 4). The xfer of the
-// 0xB8-byte member (ctor 0x002542F3 / copy 0x0043831C) called only by the
-// wrapper xfer Rva004382FC::rva00438758 0x00438758 with the same interface.
-// Version {1 1} through slot +0x28 then the dword at +0 (slot +0x78)
-// BitFlags<104>::xfer +4 then XferInvisibilityType on +0x18 then
-// 0x003064CB on the +0x1C storage and the dword at +0x9C (+0x78). When
-// slot +0x04 answers true it reads two names (slot +0x6C) and resolves them
-// through TheFXListStore->findFXList into +0xA0 and +0xA4; otherwise it
-// writes the two FXLists' names (+0xC) or empty strings. Finally
-// BitFlags<101>::xfer +0xA8. The callees prove the interface is the Xfer;
-// the pinned spelling keeps the address-derived interface name.
-// StringBase::str uses the shared null-character object in both load lookups;
-// retail preserves the zero register across these two accesses.
-
-void Rva002542F3Member::rva00438592(Rva00438758Interface *interfaceView)
-{
-	Xfer *xfer = reinterpret_cast<Xfer *>(interfaceView);
-	Rva00438592Version version(1, 1);
-	interfaceView->slot10(&version);
-	interfaceView->slot30(this);
-	m_bits04.xfer(xfer);
-	XferInvisibilityType(xfer, &m_int18);
-	xferUpgradeMask(xfer, reinterpret_cast<Rva00291440 *>(m_buf1C));
-	interfaceView->slot30(&m_9C);
-	if (interfaceView->slot01())
-	{
-		AsciiString nameA0;
-		AsciiString nameA4;
-		interfaceView->slot27(&nameA0);
-		interfaceView->slot27(&nameA4);
-		m_fxA0 = TheFXListStore->findFXList(reinterpret_cast<const StringBase<char> *>(&nameA0)->str());
-		m_fxA4 = TheFXListStore->findFXList(reinterpret_cast<const StringBase<char> *>(&nameA4)->str());
-	}
-	else
-	{
-		AsciiString nameA0 = m_fxA0 ? m_fxA0->getName() : AsciiString("");
-		AsciiString nameA4 = m_fxA4 ? m_fxA4->getName() : AsciiString("");
-		interfaceView->slot27(&nameA0);
-		interfaceView->slot27(&nameA4);
-	}
-	m_bitsA8.xfer(xfer);
-}
-
 // tu-skeleton: 0x007880E7 8B Unwind@00b880e7 -- matched in Code/GameEngine/Source/GameLogic/AI/Rva004389AENearbyCheck.cpp (not merged yet)
 
 // tu-skeleton: 0x007880EF 8B Unwind@00b880ef -- matched in Code/GameEngine/Source/GameLogic/AI/Rva004389AENearbyCheck.cpp (not merged yet)
@@ -3018,22 +3020,6 @@ void Rva002542F3Member::rva00438592(Rva00438758Interface *interfaceView)
 // tu-skeleton: 0x007881C6 14B $L3029 -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_rva_records.cpp (not merged yet)
 
 // tu-skeleton: 0x007881D4 10B __ehhandler$??$_Construct@URva004395EC@@U1@@_STL@@YAXPAURva004395EC@@ABU1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_rva_records.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/RTS/Rva000D3FA0Destructor.cpp
-
-// The base is the canonical Snapshot (vtable 0x00BBB554): the parent's unwind
-// funclet 0x007881DE destroys it through the folded Snapshot destructor
-// 0x0049B47C.
-
-// ??1Rva000D3FA0Map@@UAE@XZ
-Rva000D3FA0Map::~Rva000D3FA0Map()
-{
-	m_map.rva0043985D();
-}
-
-// Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
-// each one has the same function in that slot (vftable addresses from matched vptr
-// stores). Bind them to the rows at those functions.
 
 // tu-skeleton: 0x007881FB 8B Unwind@00b881fb -- matched in Code/GameEngine/Source/GameLogic/Object/Update/InvisibilityManagerDetected.cpp (not merged yet)
 

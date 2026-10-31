@@ -17023,7 +17023,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0023DB0E,38,code,,displaced,-,Z=Code/GameEngine/Source/GameLogic/Object/Object.cpp S=Code/GameEngine/Source/GameLogic/Object/Object.cpp N=Code/GameEngine/Source/GameLogic/Object/Object.cpp,Code/GameEngine/Source/GameLogic/Object/ObjectRva00291A8C.cpp
 0x0023DB34,20,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,C,C=0x0023DA4E..0x0023DB48,Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp
 0x0023DB48,16,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,C,C=0x0023DA4E..0x0023DB58,Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp
-0x0023DB58,7,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,C,C=0x0023DA4E..0x0023DB5F,Code/GameEngine/Source/Common/Disp8WordChaseGetters.cpp
+0x0023DB58,7,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,C,C=0x0023DA4E..0x0023DB5F,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
 0x0023DB5F,17,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,C,C=0x0023DA4E..0x0023DB70,Code/GameEngine/Source/Common/Gen_000cd680.cpp
 0x0023DB70,25,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,C,C=0x0023DA4E..0x0023DB89,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
 0x0023DB89,10,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,C,C=0x0023DA4E..0x0023DB93,Code/GameEngine/Source/Common/Disp32FirstChaseGetters.cpp

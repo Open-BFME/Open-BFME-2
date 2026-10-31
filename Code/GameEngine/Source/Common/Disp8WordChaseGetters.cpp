@@ -29,7 +29,6 @@
 		return ((const Sub##NAME *)((const char *)this + (DISP1)))->m_holder->m_value; \
 	}
 
-BFME_DISP8_WORDCHASE_ZERO_GETTER(Rva0023DB58WordChaseField, 0x0C)
 
 // Native 2E6CB0..2E6CB7 and 2E6CB7..2E6CBE are independently complete
 // RET0 leaves after the RET4 at 2E6CAD and before the distinct initializer
