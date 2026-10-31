@@ -131,7 +131,6 @@ class Rva00248CDD
 public:
 	Bool rva00248CDD( const Rva00248CDD &other ) const;
 };
-
 struct BfmeNetAddress : public Rva00248CDD
 {
 	BfmeNetAddress( void ) {}
@@ -152,13 +151,11 @@ enum SlotState
 	SLOT_AI_5 = 5,
 	SLOT_PLAYER = 6
 };
-
 struct GameSlotConnectInfo
 {
 	Int m_nat;
 	UnsignedShort m_port;
 };
-
 class GameSlot
 {
 public:
@@ -177,7 +174,6 @@ public:
 	BfmeNetAddress m_address;		// +0x38
 	UnsignedByte m_pad40[0x1AC - 0x40];
 };
-
 class LANPlayer
 {
 public:
@@ -201,7 +197,6 @@ public:
 	LANPlayer *m_next;
 	BfmeNetAddress m_address;
 };
-
 class LANGameSlot : public GameSlot
 {
 public:
@@ -260,7 +255,6 @@ public:
 	void *getLANSlot( Int index );
 	void *rva00449522(Int index);
 };
-
 // getSlotNum (0x004483BC), under the ledger's class name, that of the
 // LANGameInfo destructor.
 class Rva004482FB : public Rva00447773
@@ -268,7 +262,6 @@ class Rva004482FB : public Rva00447773
 public:
 	Int getSlotNum( UnicodeString name );
 };
-
 class LANGameInfo : public Rva004482FB
 {
 public:
@@ -385,6 +378,52 @@ struct LANMessage
 #define NOMINMAX
 #include <stdlib.h>
 #pragma function(strcpy)
+#pragma pack(push, 1)
+#pragma pack(pop)
+#pragma pack(push, 1)
+#pragma pack(pop)
+#pragma pack(push, 1)
+#pragma pack(pop)
+#define BFME_VSLOT(n) virtual void slot##n( void ) = 0;
+#undef BFME_VSLOT
+#pragma pack(push, 1)
+#pragma pack(pop)
+#pragma function(memcpy)
+#pragma pack(push, 1)
+#pragma pack(pop)
+#pragma pack(push, 1)
+#pragma pack(pop)
+#pragma pack(push, 1)
+#pragma pack(pop)
+#pragma pack(push, 1)
+#pragma pack(pop)
+#pragma pack(push, 1)
+#pragma pack(pop)
+#pragma pack(push, 1)
+#pragma pack(pop)
+#pragma pack(push, 1)
+#pragma pack(pop)
+#pragma pack(push, 1)
+#pragma pack(pop)
+#pragma pack(push,1)
+struct LANReceivePacket { unsigned crc; unsigned char data[1024];unsigned length;unsigned ip;unsigned short port;};
+#pragma pack(pop)
+struct LANTransportRings {LANReceivePacket out[128],in[128];};
+extern "C" void _ReadWriteBarrier();
+#pragma intrinsic(_ReadWriteBarrier)
+#pragma pack(push, 1)
+#pragma pack(pop)
+// Retail expands UnicodeString::isEmpty inline as the header test
+// (m_data == 0 || m_data->length == 0); the shared shim keeps it out of line
+// (as MpGameSetupSlots.cpp also notes).
+static inline Bool unicodeIsEmpty( const UnicodeString &text )
+{
+	const unsigned char *data = *(const unsigned char *const *)&text;
+	return data == 0 || *(const UnsignedShort *)(data + 4) == 0;
+}
+#pragma pack(push, 1)
+#pragma pack(pop)
+
 enum
 {
 	LAN_BASE_PORT = 8086,
@@ -392,53 +431,40 @@ enum
 	USER_NAME_BUFFER = 257,
 	COMPUTER_NAME_BUFFER = 16
 };
-#pragma pack(push, 1)
-#pragma pack(pop)
+
 Bool GetStringFromRegistry( AsciiString path, AsciiString key, AsciiString &val );
-#pragma pack(push, 1)
-#pragma pack(pop)
-#pragma pack(push, 1)
-#pragma pack(pop)
-#define BFME_VSLOT(n) virtual void slot##n( void ) = 0;
-#undef BFME_VSLOT
+
 class LANGameInfo2
 {
 public:
 	virtual void s00();
 };
-#pragma pack(push, 1)
-#pragma pack(pop)
-#pragma function(memcpy)
+
 class UnicodeStringData
 {
 public:
 	UnsignedByte m_prefix[8];
 	WideChar m_data[1];
 };
+
 enum
 {
 	g_lanGameNameLength = 16,
 	g_lanMaxOptionsLength = 0x186
 };
+
 class GameSlot;
-#pragma pack(push, 1)
-#pragma pack(pop)
-#pragma pack(push, 1)
-#pragma pack(pop)
+
 template <typename T> class StringBase;
+
 class AsciiStringData
 {
 public:
 	UnsignedByte m_prefix[8];
 	char m_data[1];
 };
-#pragma pack(push, 1)
-#pragma pack(pop)
-#pragma pack(push, 1)
-#pragma pack(pop)
+
 unsigned int __cdecl ResolveIP(AsciiString addr);
-#pragma pack(push, 1)
-#pragma pack(pop)
 
 class LANGameInfo;
 
@@ -567,7 +593,6 @@ protected:
 
 extern class GameInfo *TheGameInfo;
 
-
 // Retail registers no unwind state for the compared name temporaries:
 // StringBase<unsigned short>::compareNoCase is taken not to throw (as in
 // AptSkirmishCallbacks.cpp).
@@ -580,8 +605,6 @@ typedef char MessageSizeCheck[sizeof(LANMessage) == 0x1D8 ? 1 : -1];
 // The native search keeps the getName temporary live across compare without
 // another EH state. Preserve that nonthrowing contract for this instantiation.
 template <> int StringBase<WideChar>::compare(const StringBase<WideChar> &) const throw();
-
-
 
 class GlobalData
 {
@@ -612,9 +635,68 @@ void GameInfoToByteBuffer( LANGameInfo *game, char *buffer, Int size );
 
 UnsignedInt ResolveIP( AsciiString host );
 
-// tu-skeleton: 0x004495A2 186B ?Rva004495A2@LANAPI@@QAEXPAULANMessage@@I@Z -- matched in Code/GameEngine/Source/GameNetwork/LANAPIRva004495A2Send.cpp (not merged yet)
+void Rva0044802D( char *buffer, Int size );
+
+extern Bool LANbuttonPushed;
+
+Bool LANSocketErrorDetected=false;
+
+class Rva004482B7 {public:UnicodeString rva004482B7(Int);};
+
+class GameModePreferences
+{
+public:
+	virtual ~GameModePreferences( void );
+	AsciiString rva0044D986( void );
+
+private:
+	unsigned char m_body[0x1C - 4];
+};
+
+class LANPreferences : public GameModePreferences
+{
+public:
+	LANPreferences( Int mode );
+	virtual ~LANPreferences( void );
+};
+
+// ---- from Code/GameEngine/Source/GameNetwork/LANAPIRva004495A2Send.cpp
+
+void LANAPI::Rva004495A2( LANMessage *msg, UnsignedInt ip )
+{
+	const BfmeNetAddress *to = (const BfmeNetAddress *)ip;
+	if (to != 0 && (to->m_ip != 0 || to->m_port != 0))
+	{
+		m_transport->queueSend((NetPacketAddress *)to, (const unsigned char *)msg, sizeof(LANMessage));
+	}
+	else if (m_currentGame != 0 && m_currentGame->m_isDirectConnect)
+	{
+		Int localSlot = m_currentGame->getLocalSlotNum();
+		for (Int i = 0; i < 8; ++i)
+		{
+			if (i != localSlot)
+			{
+				GameSlot *slot = m_currentGame->getSlot(i);
+				if (slot != 0 && slot->isHuman())
+					m_transport->queueSend((NetPacketAddress *)&slot->m_address, (const unsigned char *)msg, sizeof(LANMessage));
+			}
+		}
+	}
+	else
+	{
+		for (UnsignedShort port = 0x1F96; port < 0x1F9E; ++port)
+		{
+			BfmeNetAddress broadcast;
+			broadcast.m_ip = m_broadcastAddr;
+			broadcast.m_port = port;
+			m_transport->queueSend((NetPacketAddress *)&broadcast, (const unsigned char *)msg, sizeof(LANMessage));
+		}
+	}
+}
 
 // tu-skeleton: 0x004495AF 173B (unledgered) -- unmatched, no code, never credited
+
+// ---- from Code/GameEngine/Source/GameNetwork/LANAPI.cpp
 
 // ---- from Code/GameEngine/Source/GameNetwork/LANAPIRequestLocations.cpp
 
@@ -625,8 +707,6 @@ void LANAPI::RequestLocations( void )
 	fillInLANMessage( &message );
 	Rva004495A2( &message, 0 );
 }
-
-// tu-skeleton: 0x00449693 169B ?RequestGameStart@LANAPI@@UAEX_N@Z -- matched in Code/GameEngine/Source/GameNetwork/LANAPIRva00449693.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameNetwork/LANAPI.cpp
 
@@ -1098,8 +1178,6 @@ void LANAPI::RequestGameStartTimer(UnsignedInt seconds)
 	OnGameStartTimer(seconds);
 }
 
-// tu-skeleton: 0x004497EC 184B ?RequestGameOptionsPacked@LANAPI@@UAEX_NPAUBfmeNetAddress@@@Z -- matched in Code/GameEngine/Source/GameNetwork/LANAPI_RequestGameOptionsPacked.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameNetwork/LANAPISetIsActive.cpp
 
 void LANAPI::setIsActive( Bool active )
@@ -1116,8 +1194,6 @@ void LANAPI::setIsActive( Bool active )
 	}
 	m_isActive = active;
 }
-
-// tu-skeleton: 0x00449AB8 193B ??0LANAPI@@QAE@XZ -- matched in Code/GameEngine/Source/GameNetwork/LANAPIConstructor.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameNetwork/LANAPIInit.cpp
 
@@ -1294,10 +1370,6 @@ void LANAPI::RequestAccept( Bool accepted )
 	Rva004495A2( &message, 0 );
 }
 
-// tu-skeleton: 0x0044A808 249B ?RequestGameOptions@LANAPI@@UAEXVAsciiString@@HI@Z -- matched in Code/GameEngine/Source/GameNetwork/LANAPI_RequestGameOptions.cpp (not merged yet)
-
-// tu-skeleton: 0x0044A901 101B ??0LANPlayer@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/GameNetwork/LANPlayer_copy.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameNetwork/LANAPIFillInLANMessage.cpp
 
 // ?fillInLANMessage@LANAPI@@QAEXPAVLANMessage@@@Z @0x0044A966 128B slot 57.
@@ -1361,13 +1433,381 @@ void LANAPI::SetLocalIP(AsciiString addr)
 	SetLocalIP(ip);
 }
 
-// tu-skeleton: 0x0044AAED 1938B ?update@LANAPI@@UAEXXZ -- matched in Code/GameEngine/Source/GameNetwork/LANAPIUpdate.cpp (not merged yet)
+// tu-skeleton: 0x00449693 169B ?RequestGameStart@LANAPI@@UAEX_N@Z -- matched in Code/GameEngine/Source/GameNetwork/LANAPIRva00449693.cpp (not merged yet)
 
-// tu-skeleton: 0x0044B27F 107B ??0LANGameSlot@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/LANGameSlot.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameNetwork/LANAPI_RequestGameOptionsPacked.cpp
+
+// WorldBuilder LANAPI::RequestGameOptionsPacked, WB VA 0x014B6290 (callgraph lead, score 1).
+void LANAPI::RequestGameOptionsPacked( Bool unused, BfmeNetAddress *destination )
+{
+	if( !m_currentGame )
+		return;
+
+	LANMessage message;
+	fillInLANMessage( &message );
+	message.LANMessageType = 19;
+	Rva0044802D( message.GameOptions.options, 0x186 );
+	Rva004495A2( &message, (UnsignedInt)destination );
+
+	Int playerSlot;
+	for( playerSlot = 0; playerSlot < 8; ++playerSlot )
+	{
+		BfmeNetAddress *slotAddress = &m_currentGame->m_slots[playerSlot].m_address;
+		if( slotAddress->Rva00248CBF( getLocalAddress() ) )
+		{
+			OnGameOptionsPacked( *getLocalAddress(), playerSlot, message.GameOptions.options, 0x186 );
+			break;
+		}
+	}
+}
+
+// tu-skeleton: 0x00449AB8 193B ??0LANAPI@@QAE@XZ -- matched in Code/GameEngine/Source/GameNetwork/LANAPIConstructor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameNetwork/LANAPI_RequestGameOptions.cpp
+
+void LANAPI::RequestGameOptions(AsciiString str, int, UnsignedInt val)
+{
+	if (m_currentGame == 0)
+		return;
+	LANMessage msg;
+	fillInLANMessage(&msg);
+	msg.LANMessageType = 0x10;
+	strncpy(msg.GameOptions.options, str.str(), 0x186);
+	msg.GameOptions.options[0x186] = 0;
+	Rva004495A2(&msg, val);
+	for (int i = 0; i < 8; ++i)
+	{
+		BfmeNetAddress *addr = &m_currentGame->m_slots[i].m_address;
+		if (addr->Rva00248CBF(getLocalAddress()))
+		{
+			OnGameOptions(*getLocalAddress(), i, AsciiString(msg.GameOptions.options));
+			break;
+		}
+	}
+}
+
+// tu-skeleton: 0x0044A901 101B ??0LANPlayer@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/GameNetwork/LANPlayer_copy.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameNetwork/LANAPIUpdate.cpp
+
+// platformsdk
+// ?update@LANAPI@@UAEXXZ retail 0x0044AAED (1938 bytes incl. the 80-byte
+// switch table at 0x0084B22F): LANAPI::update, vtable slot 10.
+// Provenance: Open-BFME-1 f98983a7d lanapi.cpp (Zero Hour's LANAPI::update)
+// plus native BFME 2 dispatch and layout. The by-value player name comes from
+// rowed 0x004482B7 (Rva004482B7::rva004482B7, Zero Hour's
+// LANGameInfo::getPlayerName returning UnicodeString).
+// Cases 13/14: retail keeps case 13's copy of the shared handleGameStart
+// call and branches back to it from case 14; MSVC 7.1 cross-jumps that way
+// only when the statement after the switch is a labelled jump target (without
+// the label it keeps case 14's copy and case 13 jumps forward), hence markRead.
+// LANAPI message handlers, Zero Hour's GameNetwork/LANAPIhandlers.cpp, as
+// LANAPI::update (slot 10, 0x0044AAED) dispatches them by message type
+// through its jump table at 0x0084B22F. The sender arrives as a pointer to
+// its address, as in Open-BFME-1's handlers.
+//
+// LANAPI::handleRequestLobbyLeave, retail 0x005815AB (63 bytes), message type
+// 7: in the lobby, remove the lobby player (list +0x0C, next +0x10, address
+// +0x14) whose address equals the sender's (0x00248CBF) and refresh the
+// player list -- BFME 2's slot 33 (0x00248E87) takes no list.
+//
+// LANAPI::handleJoinDeny, retail 0x00581E3E (105 bytes), message type 5:
+// Open-BFME-1's body. A denial addressed to us (IP +0x46 and port +0x4A
+// against the local address, slot 64) while a join is pending reports the
+// reason (+0x4C) and the game looked up by name (+0x1E, slot 49) to
+// OnGameJoin (slot 34) with the message, then clears the pending action.
+//
+// LANAPI::handleHasMap, retail 0x00581EA7 (217 bytes), message type 10: Zero
+// Hour's map check (CRC of the portable map path against +0x40), but BFME 2
+// finds the sender among the current game's eight slot addresses (+0x114,
+// stride 0x1D0) instead of by name and reports the status byte (+0x44) to
+// OnHasMap (slot 39) with the sender's address. Retail tests the counter at
+// the bottom of the walk, so the loop is written that way.
+//
+// LANAPI::handleLobbyAnnounce, retail 0x00581C4E (223 bytes), message type 2:
+// Zero Hour's body, the remote half of the rowed RequestSetName. The player is
+// looked up by address (slot 63), allocated or unlinked, takes the name (+0x04)
+// and the one-character host (+0x1C) and login (+0x1A) fields, is re-added
+// and reported to OnNameChange (slot 48). LANPlayer is RequestSetName's view.
+//
+// LANAPI::handleInActive, retail 0x0058219D (234 bytes), message type 17:
+// Zero Hour's body (Open-BFME-1's LANAPI_handleInActive.cpp). The host of a
+// game not yet in progress (+0x11) un-accepts the named player's slot when
+// the sender owns it (0x00248CDD against slot +0x38), is not us and the start
+// timer (+0x20) is idle; BFME 2 then re-sends the game info through slot 26
+// with no address and refreshes the slot list with 0x00446A77 where Zero Hour
+// sent the options string.
+//
+// LANAPI::handleRequestGameInfo, retail 0x00581D2D (273 bytes), message type
+// 18: Zero Hour's body, the reply half of the rowed RequestGameAnnounce
+// (0x0044A214). The host (slot 0's address against ours) or the packet router
+// of a game in progress answers the sender with a type-1 announce: the game
+// serialized by the writer 0x00447CA9 into the options at +0x42, its name
+// (LANGameInfo vslot 23) at +0x1E, the in-progress (+0x11) and direct-connect
+// (+0xF68) flags at +0x40/+0x41 and, as in RequestGameAnnounce, 16 bytes from
+// the game at +0xCC in the message tail at +0x1C8. The LAN slots are 0x1D0
+// bytes from +0xDC.
+//
+// LANAPI::handleGameStart, retail 0x00582EB0 (273 bytes), message type 13:
+// BFME 2's three-argument form of Zero Hour's handler. Options from the host
+// (slot 0's address) of a game not in progress go, with the 0x186-byte blob
+// at +0x1E, to slot 46 (BFME's OnGameOptions, as slot 0); the options string
+// is regenerated before and after and compared (result unused). On success
+// the lobby flag goes off through slot 61 and slot 43 or 42 runs by the third
+// argument (update passes false); on failure we leave as RequestGameLeave's
+// host path does: OnPlayerLeave (slot 37) with our name, removeGame and
+// delete the game, back to the lobby.
+//
+// LANAPI::handleChat, retail 0x00581F80 (440 bytes), message type 11: Zero
+// Hour's body (game name +0x1E, chat type +0x40, text +0x44) reporting to
+// OnChat (slot 40), plus BFME 2's first branch: type-1 chat is reported with
+// the sender's own name and address wherever we are. In a game the sender is
+// found among the current game's slot addresses, its last-heard time set
+// through 0x00248D35.
+//
+// LANAPI::handleJoinAccept, retail 0x00582287 (529 bytes), message type 4:
+// Zero Hour's body (Open-BFME-1's LANAPIHandleJoinAcceptRva0068CF00.cpp
+// without its LANPreferences block). An accept addressed to us (IP +0x46,
+// port +0x4A) while joining makes the game looked up by name (+0x1E) current,
+// re-parses its options after entering it -- keeping the 16 bytes at +0xCC
+// across the parse (restored by 0x00381D02) -- seats us at the given position
+// (+0x4C) with RequestGameCreate's slot sequence, takes the host's login and
+// host names (+0x1A/+0x1C) into slot 0 and reports to OnGameJoin; a game that
+// is gone reports RET_UNKNOWN. update first calls slot 30 with true.
+//
+// LANAPI::handleRequestGameLeave, retail 0x00582498 (740 bytes), message
+// types 6 and 8 (update passes true for 8, false for 6 and for the leave it
+// fabricates for a timed-out player): Zero Hour's body with addresses. In a
+// game not in progress, a leaving host (slot 0's address) makes us
+// OnHostLeave (slot 36), drop and delete the game and re-add ourselves to the
+// lobby players (looked up by the local address, slot 63/64); any other
+// player's slot is opened (by the host through setSlot first), reported to
+// OnPlayerLeave (slot 37), the acceptances reset (GameInfo vslot 14) and the
+// game info re-sent to the sender through slot 26. In the lobby the game
+// named at +0x1E is found in the list (+0x10, next +0xF5C); only with the
+// flag is it removed and deleted (clearing the current game if it is that
+// one) before OnGameList (slot 32) runs.
+//
+// LANAPI::handleGameAnnounce, retail 0x00581984 (714 bytes), message type 1:
+// Open-BFME-1's body (LANAPIhandlers_handleGameAnnounce_Thunk.cpp), Zero
+// Hour's with addresses. Our own announces and any while our game is in
+// progress are ignored; the game named at +0x1E is looked up (slot 49) or
+// created, named (0x00449A81) and added, and its options (+0x42, 0x186 bytes)
+// parsed by 0x00449258. BFME 2 also fails an announce whose 16-byte digest
+// (+0x1C8), printed by MD5Print, is not all zeros and names no saved game
+// (0x004360B3) -- from the direct-connect host only when the parse succeeded.
+// A failed game is dropped; otherwise it takes the in-progress (+0x40) and
+// direct-connect (+0x41) flags, the time heard (+0xF60) and the digest
+// (0x00381D02, as handleJoinAccept), and is joined (slot 16) when it is the
+// direct-connect host's (+0x34) with no current game; any other sender's
+// announce refreshes OnGameList. Retail keeps the current game in a register
+// across the address compare, so it is read once.
+//
+// LANAPI::handleRequestLocations, retail 0x00581795 (495 bytes), message type
+// 0: Zero Hour's body (Open-BFME-1's LANAPIHandleRequestLocationsThunk.cpp).
+// In the lobby we broadcast a lobby announce (type 2) and note the resend
+// time (+0x3C); as host (slot 0's address is ours) we broadcast a game
+// announce (type 1) with the options from 0x0044802D, the name, the
+// in-progress flag and the game's 16 bytes at +0xCC, as handleRequestGameInfo
+// does. Either way the sender is (re)added to the lobby players exactly as
+// handleLobbyAnnounce does it.
+//
+// Retail registers no unwind state for a name compared with text:
+// StringBase<unsigned short>::compare is taken not to throw (as in
+// LANAPIAddGame.cpp).
+//
+// The handlers' helpers, as their views named them: the saved game filed
+// under a printed digest (0x004360B3), as MpGameSetupSlots.cpp declares it;
+// the 16 bytes at a game's +0xCC, restored by 0x00381D02 under the ledger's
+// class name; setPlayerLastHeard (0x00248D35), under the ledger's class name,
+// which retail calls on the current game directly; BFME 1's writeLANGameInfo,
+// which serializes the game into a message's options; fillCurrentLANGameInfo,
+// the current game's options, as Open-BFME-1 names BFME's helper. The slots
+// seen from their addresses have the same stride, starting at slot +0x38. A
+// zeroed connection info built at the call is setState's no-connection
+// argument.
+
+// The slots seen from their addresses: same stride, starting at slot +0x38.
+// The saved game filed under a printed digest (0x004360B3), as
+// MpGameSetupSlots.cpp declares it.
+// The 16 bytes at a game's +0xCC, restored by 0x00381D02 under the ledger's
+// class name.
+// setPlayerLastHeard (0x00248D35), under the ledger's class name; retail
+// calls it on the current game directly.
+
+// Layout-only access to the two packed native rings; Transport stays canonical.
+
+void LANAPI::update() {
+ if(LANbuttonPushed)return;
+ UnsignedInt now=timeGetTime();
+ if(now>m_lastUpdate+200)m_lastUpdate=now;else return;
+ if(!m_transport->update(0) && !LANSocketErrorDetected && m_isInLANMenu==true)LANSocketErrorDetected=true;
+ for(int i=0;i<128 && !LANbuttonPushed;++i) {
+  Bool flag=false;
+  if(((LANTransportRings*)m_transport)->in[i].length>0) {
+   BfmeNetAddress sender(((LANTransportRings*)m_transport)->in[i].ip,((LANTransportRings*)m_transport)->in[i].port);
+   if(sender.Rva00248CBF(getLocalAddress())){((LANTransportRings*)m_transport)->in[i].length=0;continue;}
+   LANMessage *msg=(LANMessage*)((LANTransportRings*)m_transport)->in[i].data;
+   switch(msg->LANMessageType) {
+    case 0:handleRequestLocations(msg,&sender);break;
+    case 1:handleGameAnnounce(msg,&sender);break;
+    case 2:handleLobbyAnnounce(msg,&sender);break;
+    case 18:handleRequestGameInfo(msg,&sender);break;
+    case 3:handleRequestJoin(msg,&sender);break;
+    case 4:RequestLobbyLeave(true);handleJoinAccept(msg,&sender);break;
+    case 5:handleJoinDeny(msg,&sender);break;
+    case 8:flag=true;
+    case 6:handleRequestGameLeave(msg,&sender,flag);break;
+    case 7:handleRequestLobbyLeave(msg,&sender);break;
+    case 9:handleSetAccept(msg,&sender);break;
+    case 10:handleHasMap(msg,&sender);break;
+    case 11:handleChat(msg,&sender);break;
+    case 12:rva00581641(msg,&sender);break;
+    case 13:handleGameStart(msg,&sender,false);break;
+    case 14:handleGameStart(msg,&sender,true);break;
+    case 15:handleGameStartTimer(msg,&sender);break;
+    case 16:handleGameOptions(msg,&sender);break;
+    case 17:handleInActive(msg,&sender);break;
+    case 19:rva005816E3(msg,&sender);break;
+    default:goto markRead;
+   }
+   markRead:
+   ((LANTransportRings*)m_transport)->in[i].length=0;
+  }
+ }
+ if(LANbuttonPushed)return;
+ UnsignedInt resendNow=*(volatile UnsignedInt*)&now;
+ if(resendNow>2000+m_lastResendTime) {
+  m_lastResendTime=resendNow;
+  if(m_inLobby)RequestSetName(m_name);
+  else if(m_currentGame && !m_currentGame->isGameInProgress()) {
+   // Retail tests only the low byte of slot 54's result.
+   if((UnsignedByte)AmIHost()) {RequestGameOptionsPacked(true,BfmeNetAddress(0,0).self());RequestGameAnnounce();}
+   else {
+    AsciiString text;text.format("User=%s",m_userName.str());
+    RequestGameOptions(text,true,(UnsignedInt)BfmeNetAddress(0,0).self());
+    text.format("Host=%s",m_hostName.str());RequestGameOptions(text,true,(UnsignedInt)BfmeNetAddress(0,0).self());
+    RequestGameOptions("HELLO",false,(UnsignedInt)BfmeNetAddress(0,0).self());
+   }
+  } else if(m_currentGame)RequestGameAnnounce();
+ }
+ LANPlayer *player=m_lobbyPlayers;
+ Bool playerListChanged=false,gameListChanged=false;
+ while(player) {
+  if(player->m_lastHeard+20000<now) {
+   LANPlayer *next=player->getNext();removePlayer(player);delete player;player=next;playerListChanged=true;
+  }else player=player->getNext();
+ }
+ LANGameInfo *game=m_games;
+ while(game) {
+  if(game!=m_currentGame && game->getLastHeard()+20000<now) {
+   removeGame(game);LANGameInfo*next=game->getNext();::delete game;game=next;gameListChanged=true;
+  } else game=game->getNext();
+ }
+ if(m_currentGame && !m_currentGame->isGameInProgress()) {
+  if(!(UnsignedByte)AmIHost()) {
+   if((UnsignedInt)m_currentGame->rva00449522(0)+20000<now) {
+   LANMessage msg;fillInLANMessage(&msg);msg.LANMessageType=8;
+   wcsncpy(msg.name,((Rva004482B7*)m_currentGame)->rva004482B7(0).str(),10);msg.name[10]=0;
+   handleRequestGameLeave(&msg,m_currentGame->getAddress(0),false);
+   UnicodeString text;text=TheGameText->fetch("LAN:HostNotResponding");OnChat(UnicodeString::TheEmptyString,getLocalAddress(),text,LANAPIInterface::LANCHAT_SYSTEM);
+   }
+  } else {
+   int p=1;BfmeNetAddress none(0,0);_ReadWriteBarrier();
+   for(;p<8;++p) {
+    LANGameInfo *current=m_currentGame;
+    if(current->getAddress(p)->Rva00248CDD::rva00248CDD(none) && (UnsignedInt)current->rva00449522(p)+20000<now) {
+     LANMessage msg;fillInLANMessage(&msg);UnicodeString text;
+     text.format(TheGameText->fetchPointer("LAN:PlayerDropped"),((Rva004482B7*)m_currentGame)->rva004482B7(p).str());
+     msg.LANMessageType=6;wcsncpy(msg.name,((Rva004482B7*)m_currentGame)->rva004482B7(p).str(),10);msg.name[10]=0;
+     handleRequestGameLeave(&msg,m_currentGame->getAddress(p),false);OnChat(UnicodeString::TheEmptyString,getLocalAddress(),text,LANAPIInterface::LANCHAT_SYSTEM);
+    }
+   }
+  }
+ }
+ if(playerListChanged)rva00248E87();if(gameListChanged)OnGameList(m_games);
+ if(m_pendingAction!=ACT_NONE && now>m_expiration) {
+  switch(m_pendingAction) {
+   case 1:OnGameJoin(LANAPIInterface::RET_TIMEOUT,0,0);m_currentGame=0;m_inLobby=true;break;
+   case 2:OnGameJoin(LANAPIInterface::RET_TIMEOUT,0,0);m_currentGame=0;m_inLobby=true;break;
+   case 3:OnPlayerLeave(m_name);m_currentGame=0;m_inLobby=true;break;
+  }m_pendingAction=ACT_NONE;
+ }
+ if(m_gameStartTime && m_gameStartSeconds && m_gameStartTime<=now)RequestGameStartTimer(m_gameStartSeconds);
+ else if(m_gameStartTime && m_gameStartTime<=now){ResetGameStartTimer();RequestGameStart(false);}
+ static UnsignedInt lastMOTDCheck=0;
+ if(now>lastMOTDCheck+30000){checkMOTD();lastMOTDCheck=now;}
+}
+
+// ---- from Code/GameEngine/Source/Common/LANGameSlot.cpp
+
+LANGameSlot::LANGameSlot(const LANGameSlot &other) :
+	GameSlot(other),
+	m_user(other.m_user),
+	m_serial(other.m_serial),
+	m_lastHeard(other.m_lastHeard)
+{
+}
 
 // tu-skeleton: 0x0044B49B 191B ?reset@LANAPI@@UAEXXZ -- matched in Code/GameEngine/Source/GameNetwork/LANAPIReset.cpp (not merged yet)
 
-// tu-skeleton: 0x0044B55A 591B ?RequestGameCreate@LANAPI@@UAEXVUnicodeString@@_N@Z -- matched in Code/GameEngine/Source/GameNetwork/LANAPIRequestGameCreate.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameNetwork/LANAPIRequestGameCreate.cpp
+
+void LANAPI::RequestGameCreate( UnicodeString gameName, Bool isDirectConnect )
+{
+	if( (!m_inLobby || m_currentGame) && !isDirectConnect )
+	{
+		OnGameCreate( RET_BUSY );
+		return;
+	}
+
+	if( m_pendingAction != 0 )
+	{
+		OnGameCreate( RET_BUSY );
+		return;
+	}
+
+	m_inLobby = false;
+	LANGameInfo *myGame = new LANGameInfo;
+	myGame->reset();
+	myGame->enterGame();
+
+	UnicodeString name;
+	name.format( L"%8.8X%8.8X", getLocalAddress()->m_ip, myGame->getSeed() );
+	if( unicodeIsEmpty( gameName ) )
+		name.concat( m_name );
+	else
+		name.concat( gameName );
+
+	while( name.getLength() > 16 )
+		name.removeLastChar();
+
+	myGame->setName( name );
+
+	LANGameSlot newSlot;
+	GameSlotConnectInfo connectInfo;
+	connectInfo.m_nat = 0;
+	connectInfo.m_port = 0;
+	newSlot.setState( SLOT_PLAYER, m_name, &connectInfo );
+	BfmeNetAddress *localAddress = getLocalAddress();
+	newSlot.setAddress( *localAddress );
+	newSlot.setLastHeard( 0 );
+	newSlot.setLogin( m_userName );
+	newSlot.setHost( m_hostName );
+
+	myGame->setSlot( 0, newSlot );
+	myGame->setNext( 0 );
+
+	LANPreferences pref( 0 );
+	AsciiString mapName = pref.rva0044D986();
+	myGame->setMapForwarder( mapName );
+	myGame->setIsDirectConnect( isDirectConnect );
+	myGame->setLastHeard( timeGetTime() );
+	m_currentGame = myGame;
+
+	addGame( myGame );
+	OnGameCreate( RET_OK );
+}
 
 // tu-skeleton: 0x0044B992 124B ??1LANAPI@@UAE@XZ -- matched in Code/GameEngine/Source/GameNetwork/LANAPICompleteDestructor.cpp (not merged yet)
 
@@ -1385,49 +1825,11 @@ void LANAPI::SetLocalIP(AsciiString addr)
 
 // tu-skeleton: 0x0078946C 10B __ehhandler$??0LANAPI@@QAE@XZ -- matched in Code/GameEngine/Source/GameNetwork/LANAPIConstructor.cpp (not merged yet)
 
-// tu-skeleton: 0x007894FD 8B Unwind@00b894fd -- matched in Code/GameEngine/Source/GameNetwork/LANAPI_RequestGameOptions.cpp (not merged yet)
-
-// tu-skeleton: 0x00789505 8B Unwind@00b89505 -- matched in Code/GameEngine/Source/GameNetwork/LANAPI_RequestGameOptions.cpp (not merged yet)
-
-// tu-skeleton: 0x0078950D 10B __ehhandler$?RequestGameOptions@LANAPI@@UAEXVAsciiString@@HI@Z -- matched in Code/GameEngine/Source/GameNetwork/LANAPI_RequestGameOptions.cpp (not merged yet)
-
 // tu-skeleton: 0x00789517 8B uw_00789517 -- matched in Code/gen_small/uw_gen_014.cpp (not merged yet)
 
 // tu-skeleton: 0x0078951F 11B uw_0078951f -- matched in Code/gen_small/uw_gen_014.cpp (not merged yet)
 
 // tu-skeleton: 0x0078952A 10B __ehhandler$??0LANPlayer@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/GameNetwork/LANPlayer_copy.cpp (not merged yet)
-
-// tu-skeleton: 0x00789546 8B Unwind@00b89546 -- matched in Code/GameEngine/Source/GameNetwork/LANAPIUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x0078954E 8B Unwind@00b8954e -- matched in Code/GameEngine/Source/GameNetwork/LANAPIUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x00789556 8B Unwind@00b89556 -- matched in Code/GameEngine/Source/GameNetwork/LANAPIUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x0078955E 8B Unwind@00b8955e -- matched in Code/GameEngine/Source/GameNetwork/LANAPIUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x00789566 8B Unwind@00b89566 -- matched in Code/GameEngine/Source/GameNetwork/LANAPIUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x0078956E 10B __ehhandler$?update@LANAPI@@UAEXXZ -- matched in Code/GameEngine/Source/GameNetwork/LANAPIUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x00789578 8B Unwind@00b89578 -- matched in Code/GameEngine/Source/Common/LANGameSlot.cpp (not merged yet)
-
-// tu-skeleton: 0x00789580 14B Unwind@00b89580 -- matched in Code/GameEngine/Source/Common/LANGameSlot.cpp (not merged yet)
-
-// tu-skeleton: 0x0078958E 10B __ehhandler$??0LANGameSlot@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/LANGameSlot.cpp (not merged yet)
-
-// tu-skeleton: 0x007895C3 8B Unwind@00b895c3 -- matched in Code/GameEngine/Source/GameNetwork/LANAPIRequestGameCreate.cpp (not merged yet)
-
-// tu-skeleton: 0x007895CB 10B uw_007895cb -- matched in Code/GameEngine/Source/GameNetwork/LANAPIRequestGameCreate.cpp (not merged yet)
-
-// tu-skeleton: 0x007895D5 8B Unwind@00b895d5 -- matched in Code/GameEngine/Source/GameNetwork/LANAPIRequestGameCreate.cpp (not merged yet)
-
-// tu-skeleton: 0x007895DD 11B $L2133 -- matched in Code/GameEngine/Source/GameNetwork/LANAPIRequestGameCreate.cpp (not merged yet)
-
-// tu-skeleton: 0x007895E8 8B Unwind@00b895e8 -- matched in Code/GameEngine/Source/GameNetwork/LANAPIRequestGameCreate.cpp (not merged yet)
-
-// tu-skeleton: 0x007895F0 8B Unwind@00b895f0 -- matched in Code/GameEngine/Source/GameNetwork/LANAPIRequestGameCreate.cpp (not merged yet)
-
-// tu-skeleton: 0x007895F8 10B __ehhandler$?RequestGameCreate@LANAPI@@UAEXVUnicodeString@@_N@Z -- matched in Code/GameEngine/Source/GameNetwork/LANAPIRequestGameCreate.cpp (not merged yet)
 
 // tu-skeleton: 0x0078962E 8B $L7833 -- matched in Code/GameEngine/Source/GameNetwork/LANAPICompleteDestructor.cpp (not merged yet)
 
