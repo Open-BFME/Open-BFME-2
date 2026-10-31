@@ -910,6 +910,18 @@ struct RetailTeamRelationMap
 	TeamRelationMapType m_map;
 };
 #include "../../../Include/Common/TeamBFME2.h"
+#define BFME_DISP32_BYTE_GETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		unsigned char get() const; \
+		char m_lead[DISP]; \
+		unsigned char m_value; \
+	}; \
+	unsigned char NAME::get() const \
+	{ \
+		return m_value; \
+	}
 
 // ?rva0039D8BA@Team@@QAEXPAVObject@@@Z @0x0039D8BA (18B).
 // Team::rva0039D8BA(Object*): sets Team+0x5c entered flag then refreshes the
@@ -1181,7 +1193,9 @@ struct TeamPrototypeDoneView
 };
 
 class PlayerTemplate;
+
 struct RetailPlayerRelationMap;
+
 class Player
 {
 public:
@@ -1500,7 +1514,65 @@ public:
 	void rva003A37DC(VideoPair cursor);
 };
 
+BFME_DISP32_BYTE_GETTER(Rva0039D48EByteField, 0x31E)
+
+BFME_DISP32_BYTE_GETTER(Rva0039D525ByteField, 0x3BE)
+
+BFME_DISP32_BYTE_GETTER(Rva0039D7C1ByteField, 0x324)
+
+class WorkerAIUpdate
+{
+public:
+	virtual bool isForcedIntoWantingState() const;
+private:
+	char m_pad04[0xD4 - 4];
+	bool m_forcePending;
+};
+
+// Clean BF1 9cbfb551fe Common/Rva003CBA00Indexed.cpp semantic donor, normal O1/SSE/G7.
+// Native 0029A25D..0029A268 has its own complete RET boundary and establishes
+// receiver10 indexed dword load, RET4. Original owner and full array bound remain
+// unresolved; this separate address-owned view models only observed accesses.
+class Rva0029A25DArray {
+public: int getValue(int index);
+private: unsigned char unknown[0x10]; int values[1];
+};
+
+// BF1 9cbfb551fe Common/Rva0028ED50Get.cpp is the clean semantic donor.
+// Full native leaf 004B0CEF..004B0CFD ends at its own RET boundary.
+// Target evidence: receiver4 pointer; inner0C dword not zero.
+// Original owner unresolved; the address-owned type is independent of nearby classes.
+struct Rva004B0CEFInner { char unknown[0x0C]; int value; };
+
+class Rva004B0CEFFields {
+public: bool get();
+private: char unknown[4]; Rva004B0CEFInner *inner;
+};
+
+// BF1 9cbfb551fe Common/Rva0028ED70Nz.cpp is the clean semantic donor.
+// Full native leaf 004B0CFD..004B0D0C ends at its own RET boundary.
+// Target evidence: receiver4 pointer; inner4C dword not all ones.
+// Original owner unresolved; the address-owned type is independent of nearby classes.
+struct Rva004B0CFDInner { char unknown[0x4C]; int value; };
+
+class Rva004B0CFDFields {
+public: bool get();
+private: char unknown[4]; Rva004B0CFDInner *inner;
+};
+
+// BF1 9cb Rva18C170NestedFloatGetter.cpp is a structural guide. Complete
+// target 262356..26235C follows the adjacent getter RET; receiver+8 points
+// to the float loaded into ST0. Original owner and full bounds unknown.
+struct Rva00262356Fields
+{
+    char unknown00[8];
+    const float *pointer;
+    float get() const;
+};
+
 // tu-skeleton: 0x0039D40F 26B ?dlink_isInList_TeamInstanceList@Team@@QBE_NPBQAV1@@Z -- matched in Code/GameEngine/Source/Common/Team_dlink_isInList_TeamInstanceList.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/RTS/Team.cpp
 
 // ---- from Code/GameEngine/Source/Common/RTS/Team.cpp
 
@@ -3387,15 +3459,74 @@ void TeamFactory::initFromSides(SidesList *sides)
  }
 }
 
+// ---- from Code/GameEngine/Source/Common/RTS/TeamRva003A3717.cpp
+
+// ?rva003A3717@Team@@QAE_NABVAsciiString@@@Z, retail 0x003A3717 (31B).
+// The matched TEAM_HAS_CUSTOM_STATE caller invokes this on Team with its
+// state-name parameter. Retail passes Team+0x48 to the rowed
+// Rva00056F61::rva0041534B AsciiString-keyed table lookup (the header's
+// opaque +0x48 hash table, viewed here as Rva00056F61) and returns whether
+// the iterator's node is non-null; the owner and table's semantic label remain
+// address-qualified.
+
+bool Team::rva003A3717(const AsciiString &stateName)
+{
+    Rva0041534BIter it = ((Rva00056F61 *)m_opaque48)->rva0041534B(&stateName);
+    if (it.m_node != 0) {
+        return true;
+    }
+    return false;
+}
+
+float Team::rva003A3736(float value)
+{
+    if (m_124 < TheGameLogic->getFrame())
+        rva003A2DBB(value);
+    return m_120;
+}
+
+// ---- from Code/GameEngine/Source/Common/RTS/TeamRva003A38E9.cpp
+
+// Native 003A38E9..003A393A RET8. Matched ScriptGlue 003BECCD supplies a
+// getTeamNamed receiver and the existing two-word method declaration. Retail
+// uses the first word as an AsciiString key and only the low byte of the
+// second: zero erases an existing entry; exactly one inserts a missing state.
+// Team+48 agrees with the matched state query 003A3717. Lookup/erase are
+// already rowed; 003A3763..003A37DC RET4 supplies the mapped-byte address.
+
+void Team::rva003A38E9(const AsciiString &keyName, unsigned char stateWord)
+{
+ const AsciiString *key = &keyName;
+ Rva0041534BIter cursor = ((Rva00056F61 *)m_opaque48)->rva0041534B(key);
+ if (cursor.m_node)
+ {
+  if ((unsigned char)stateWord == 0)
+   ((Rva000427195 *)m_opaque48)->rva003A37DC(VideoPair(cursor));
+ }
+ else if ((unsigned char)stateWord == 1)
+  *((Rva00056F61 *)m_opaque48)->rva003A3763(key) = true;
+}
+
 // tu-skeleton: 0x0039D470 17B ?set@Rva0039D470FloatField@@QAEXM@Z -- matched in Code/GameEngine/Source/Common/Disp32FloatFieldSetters.cpp (not merged yet)
 
 // tu-skeleton: 0x0039D481 13B ?set@Rva0039D481ByteSlot@@QAEXE@Z -- matched in Code/GameEngine/Source/Common/DispByteFieldSetters.cpp (not merged yet)
 
-// tu-skeleton: 0x0039D48E 7B ?get@Rva0039D48EByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp32ByteGetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Disp32ByteGetters.cpp
+
+// Disp32 byte getters: seven-byte __thiscall members with one shape:
+//
+//     mov al,[ecx+<DISP>] / ret
+//
+// One byte is read at a fixed 32-bit displacement from `this` and returned
+// in `al` (only the low byte is defined; the caller uses `al`). The offset
+// does not fit the sign-byte form, so MSVC 7.1 emits `8A 81 DISP32`, plus
+// `ret`, for seven bytes total. This is the disp32 sibling of the
+// byte-getter lane; the opcode itself is why it lives in its own
+// translation unit. Other than the worker flag getter, owner identities
+// remain address-derived.
+// No // cl: line (defaults match the frameless seven-byte shape).
 
 // tu-skeleton: 0x0039D495 13B ?set@Rva0039D495ByteSlot@@QAEXE@Z -- matched in Code/GameEngine/Source/Common/DispByteFieldSetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0039D525 7B ?get@Rva0039D525ByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp32ByteGetters.cpp (not merged yet)
 
 // tu-skeleton: 0x0039D52C 7B ?get@Rva0039D52CByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/DispByteFieldGetters.cpp (not merged yet)
 
@@ -3404,8 +3535,6 @@ void TeamFactory::initFromSides(SidesList *sides)
 // tu-skeleton: 0x0039D5C1 323B ?xfer@TeamTemplateInfo@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/RTS/TeamTemplateInfoXfer.cpp (not merged yet)
 
 // tu-skeleton: 0x0039D761 8B ?clear@Rva0039D761DwordClearer@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Disp32DwordClearers2.cpp (not merged yet)
-
-// tu-skeleton: 0x0039D7C1 7B ?get@Rva0039D7C1ByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp32ByteGetters.cpp (not merged yet)
 
 // tu-skeleton: 0x0039D7C8 7B ?get@Rva0039D7C8LeaGetter@@QBEPAXXZ -- matched in Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp (not merged yet)
 
@@ -3563,6 +3692,12 @@ void TeamFactory::initFromSides(SidesList *sides)
 
 // tu-skeleton: 0x003A23A5 203B ?rva003A23A5@Team@@QAEXH_N@Z -- matched in Code/GameEngine/Source/Common/RTS/TeamGateMembership.cpp (not merged yet)
 
+// tu-skeleton: 0x003A24A9 29B ?insert@?$map@U?$pair@HH@_STL@@PAVTeamPrototype@@U?$less@U?$pair@HH@_STL@@@2@V?$allocator@U?$pair@$$CBU?$pair@HH@_STL@@PAVTeamPrototype@@@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBU?$pair@HH@_STL@@PAVTeamPrototype@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBU?$pair@HH@_STL@@PAVTeamPrototype@@@_STL@@@2@@2@U32@ABU?$pair@$$CBU?$pair@HH@_STL@@PAVTeamPrototype@@@2@@Z -- matched in Code/GameEngine/Source/Common/RTS/TeamFactoryCtorThunk_Rva003a2943.cpp (not merged yet)
+
+// tu-skeleton: 0x003A24C6 115B ?_M_copy@?$_Rb_tree@HU?$pair@$$CBHUBfmePod8@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@AAEPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@PAU32@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_map_mcopy.cpp (not merged yet)
+
+// tu-skeleton: 0x003A2539 37B ?rva003A2539@Rva003A2539@@QAEPAURva003A2539Node@@ABU?$pair@$$CBVAsciiString@@UTreeHintPayload00207343@@@_STL@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_hashtable_003A2539.cpp (not merged yet)
+
 // tu-skeleton: 0x003A2563 72B ??1TeamRelationMap@@MAE@XZ -- matched in Code/GameEngine/Source/Common/RTS/TeamRelationMapDtor_Rva003A2563.cpp (not merged yet)
 
 // tu-skeleton: 0x003A25AB 6B ?GetSnapshotName@TeamRelationMap@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters4.cpp (not merged yet)
@@ -3615,32 +3750,6 @@ void TeamFactory::initFromSides(SidesList *sides)
 
 // tu-skeleton: 0x003A370F 8B ??_ETeam@@O3AEPAXI@Z -- matched in Code/GameEngine/Source/Common/RTS/TeamDeleter.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/RTS/TeamRva003A3717.cpp
-
-// ?rva003A3717@Team@@QAE_NABVAsciiString@@@Z, retail 0x003A3717 (31B).
-// The matched TEAM_HAS_CUSTOM_STATE caller invokes this on Team with its
-// state-name parameter. Retail passes Team+0x48 to the rowed
-// Rva00056F61::rva0041534B AsciiString-keyed table lookup (the header's
-// opaque +0x48 hash table, viewed here as Rva00056F61) and returns whether
-// the iterator's node is non-null; the owner and table's semantic label remain
-// address-qualified.
-
-bool Team::rva003A3717(const AsciiString &stateName)
-{
-    Rva0041534BIter it = ((Rva00056F61 *)m_opaque48)->rva0041534B(&stateName);
-    if (it.m_node != 0) {
-        return true;
-    }
-    return false;
-}
-
-float Team::rva003A3736(float value)
-{
-    if (m_124 < TheGameLogic->getFrame())
-        rva003A2DBB(value);
-    return m_120;
-}
-
 // tu-skeleton: 0x003A3763 121B ?rva003A3763@Rva00056F61@@QAEPA_NPBVAsciiString@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/AsciiStringTableSubscripts.cpp (not merged yet)
 
 // tu-skeleton: 0x003A37DC 30B ?rva003A37DC@Rva000427195@@QAEXUVideoPair@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarVideoMapErase.cpp (not merged yet)
@@ -3652,28 +3761,6 @@ float Team::rva003A3736(float value)
 // tu-skeleton: 0x003A389E 19B ?reset@TeamFactory@@UAEXXZ -- matched in Code/GameEngine/Source/Common/RTS/TeamFactoryDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x003A38CD 28B ??_GTeam@@MAEPAXI@Z -- matched in Code/GameEngine/Source/Common/RTS/TeamDeleter.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/RTS/TeamRva003A38E9.cpp
-
-// Native 003A38E9..003A393A RET8. Matched ScriptGlue 003BECCD supplies a
-// getTeamNamed receiver and the existing two-word method declaration. Retail
-// uses the first word as an AsciiString key and only the low byte of the
-// second: zero erases an existing entry; exactly one inserts a missing state.
-// Team+48 agrees with the matched state query 003A3717. Lookup/erase are
-// already rowed; 003A3763..003A37DC RET4 supplies the mapped-byte address.
-
-void Team::rva003A38E9(const AsciiString &keyName, unsigned char stateWord)
-{
- const AsciiString *key = &keyName;
- Rva0041534BIter cursor = ((Rva00056F61 *)m_opaque48)->rva0041534B(key);
- if (cursor.m_node)
- {
-  if ((unsigned char)stateWord == 0)
-   ((Rva000427195 *)m_opaque48)->rva003A37DC(VideoPair(cursor));
- }
- else if ((unsigned char)stateWord == 1)
-  *((Rva00056F61 *)m_opaque48)->rva003A3763(key) = true;
-}
 
 // tu-skeleton: 0x003A393A 31B ??0Rva003A393A@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RTS/ArmorHashMapCtor003A393A.cpp (not merged yet)
 

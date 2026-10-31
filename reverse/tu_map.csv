@@ -29258,13 +29258,13 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0039D440,48,code,Code/GameEngine/Source/Common/RTS/Team.cpp,approved,S,S=Code/GameEngine/Source/Common/RTS/Team.cpp N=Code/GameEngine/Source/Common/RTS/Team.cpp,Code/GameEngine/Source/Common/RTS/Team.cpp
 0x0039D470,17,code,Code/GameEngine/Source/Common/RTS/Team.cpp,approved,C,C=0x0039D440..0x0039D481,Code/GameEngine/Source/Common/Disp32FloatFieldSetters.cpp
 0x0039D481,13,code,Code/GameEngine/Source/Common/RTS/Team.cpp,approved,C,C=0x0039D440..0x0039D48E,Code/GameEngine/Source/Common/DispByteFieldSetters.cpp
-0x0039D48E,7,code,Code/GameEngine/Source/Common/RTS/Team.cpp,approved,C,C=0x0039D440..0x0039D495,Code/GameEngine/Source/Common/Disp32ByteGetters.cpp
+0x0039D48E,7,code,Code/GameEngine/Source/Common/RTS/Team.cpp,approved,C,C=0x0039D440..0x0039D495,Code/GameEngine/Source/Common/RTS/Team.cpp
 0x0039D495,13,code,Code/GameEngine/Source/Common/RTS/Team.cpp,approved,C,C=0x0039D440..0x0039D4A2,Code/GameEngine/Source/Common/DispByteFieldSetters.cpp
 0x0039D4A2,19,code,Code/GameEngine/Source/Common/RTS/Team.cpp,approved,S,S=Code/GameEngine/Source/Common/RTS/Team.cpp N=Code/GameEngine/Source/Common/RTS/TeamPrototype.cpp,Code/GameEngine/Source/Common/RTS/Team.cpp
 0x0039D4B5,35,code,Code/GameEngine/Source/Common/RTS/Team.cpp,approved,S,S=Code/GameEngine/Source/Common/RTS/Team.cpp N=Code/GameEngine/Source/Common/RTS/TeamPrototype.cpp,Code/GameEngine/Source/Common/RTS/Team.cpp
 0x0039D4D8,35,code,Code/GameEngine/Source/Common/RTS/Team.cpp,approved,S,S=Code/GameEngine/Source/Common/RTS/Team.cpp N=Code/GameEngine/Source/Common/RTS/TeamPrototype.cpp,Code/GameEngine/Source/Common/RTS/Team.cpp
 0x0039D4FB,42,code,Code/GameEngine/Source/Common/RTS/Team.cpp,approved,S,S=Code/GameEngine/Source/Common/RTS/Team.cpp N=Code/GameEngine/Source/Common/RTS/TeamPrototype.cpp,Code/GameEngine/Source/Common/RTS/Team.cpp
-0x0039D525,7,code,Code/GameEngine/Source/Common/RTS/Team.cpp,approved,C,C=0x0039D4FB..0x0039D52C,Code/GameEngine/Source/Common/Disp32ByteGetters.cpp
+0x0039D525,7,code,Code/GameEngine/Source/Common/RTS/Team.cpp,approved,C,C=0x0039D4FB..0x0039D52C,Code/GameEngine/Source/Common/RTS/Team.cpp
 0x0039D52C,7,code,Code/GameEngine/Source/Common/RTS/Team.cpp,approved,C,C=0x0039D4FB..0x0039D533,Code/GameEngine/Source/Common/DispByteFieldGetters.cpp
 0x0039D533,102,code,Code/GameEngine/Source/Common/RTS/Team.cpp,approved,C,C=0x0039D4FB..0x0039D599,Code/GameEngine/Source/Common/RTS/Team.cpp
 0x0039D599,16,code,Code/GameEngine/Source/Common/RTS/Team.cpp,approved,C,C=0x0039D4FB..0x0039D5A9,Code/GameEngine/Source/Common/RTS/TeamTemplateInfoXfer.cpp
@@ -29278,7 +29278,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0039D761,8,code,Code/GameEngine/Source/Common/RTS/Team.cpp,approved,C,C=0x0039D754..0x0039D769,Code/GameEngine/Source/Common/Disp32DwordClearers2.cpp
 0x0039D769,61,code,Code/GameEngine/Source/Common/RTS/Team.cpp,approved,C,C=0x0039D754..0x0039D7A6,Code/GameEngine/Source/Common/RTS/Team.cpp
 0x0039D7A6,27,code,Code/GameEngine/Source/Common/RTS/Team.cpp,approved,C,C=0x0039D754..0x0039D7C1,Code/GameEngine/Source/Common/RTS/Team.cpp
-0x0039D7C1,7,code,Code/GameEngine/Source/Common/RTS/Team.cpp,approved,C,C=0x0039D754..0x0039D7C8,Code/GameEngine/Source/Common/Disp32ByteGetters.cpp
+0x0039D7C1,7,code,Code/GameEngine/Source/Common/RTS/Team.cpp,approved,C,C=0x0039D754..0x0039D7C8,Code/GameEngine/Source/Common/RTS/Team.cpp
 0x0039D7C8,7,code,Code/GameEngine/Source/Common/RTS/Team.cpp,approved,C,C=0x0039D754..0x0039D7CF,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp
 0x0039D7CF,12,code,Code/GameEngine/Source/Common/RTS/Team.cpp,approved,Z,Z=Code/GameEngine/Source/Common/RTS/Team.cpp S=Code/GameEngine/Source/Common/RTS/Team.cpp N=Code/GameEngine/Source/Common/RTS/Team.cpp,Code/GameEngine/Source/Common/RTS/TeamGetControllingPlayer.cpp
 0x0039D7DB,101,code,Code/GameEngine/Source/Common/RTS/Team.cpp,approved,S,S=Code/GameEngine/Source/Common/RTS/Team.cpp N=Code/GameEngine/Source/Common/RTS/Team.cpp W=Code/GameEngine/Source/Common/RTS/Team.cpp,Code/GameEngine/Source/Common/RTS/TeamGetLocation.cpp
