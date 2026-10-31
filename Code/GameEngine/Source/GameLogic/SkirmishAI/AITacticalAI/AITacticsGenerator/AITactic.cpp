@@ -136,7 +136,12 @@ class AIGroup { public: void groupAttackMoveToPosition(const Coord3D *, int, Com
 
 class BfmeC986 { public: void groupGatherAndAttackInFormationToPosition(int, int, int, int); };
 
-class AI { public: AIGroup *createGroup(); void destroyGroup(AIGroup *); };
+class AI
+{
+public:
+	AIGroup *createGroup();
+	void destroyGroup(AIGroup *);
+};
 
 extern AI *TheAI;
 
@@ -156,8 +161,8 @@ class TeamFactory
 {
 public:
 	Rva003A2FD4Proto *initTeamForTacticalAI(const AsciiString &name, void *ownerName, int targetID, unsigned int tacticID);
-    TeamPrototype *findTeamPrototypeByID(unsigned int id);
-	Team *findTeamByID(unsigned int id);			// 0x0039F761
+	TeamPrototype *findTeamPrototypeByID(unsigned int id);
+	Team *findTeamByID(unsigned int id); // 0x0039F761
 };
 
 extern TeamFactory *TheTeamFactory;
@@ -243,7 +248,7 @@ typedef Rva004ECDC8 AITacticTeamRecord;
 class Rva004ED3A2
 {
 public:
-    void *rva004ED3A2(void *position);
+	void *rva004ED3A2(void *position);
 };
 
 // Target +38/+44 are three-float coordinates. This initialization view
@@ -267,9 +272,10 @@ class Rva002A8F24;
 
 struct Rva004ECECDNode
 {
-	void *m_model;
-	char m_pad0[0xC];
-	int m_10;
+public:
+	void *m_model; // +0x00
+	char m_pad04[0xC];
+	int m_10; // +0x10
 };
 
 // ?rva004ED69B@Rva004ED471@@QAEXPBVModelNodeClass@HLodClass@@@Z
@@ -302,9 +308,9 @@ class Rva004ED471
 public:
 	void rva004ED471(HLodClass::ModelNodeClass *pos, const HLodClass::ModelNodeClass *value, const void *dummy, unsigned int count, bool atend);
 	void rva004ED69B(const HLodClass::ModelNodeClass *value);
-	HLodClass::ModelNodeClass *m_start;
-	HLodClass::ModelNodeClass *m_finish;
-	HLodClass::ModelNodeClass *m_end;
+	HLodClass::ModelNodeClass *m_start; // +0x00
+	HLodClass::ModelNodeClass *m_finish; // +0x04
+	HLodClass::ModelNodeClass *m_end; // +0x08
 };
 
 class AITactic

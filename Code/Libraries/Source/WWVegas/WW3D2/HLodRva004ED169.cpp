@@ -4,9 +4,10 @@
 // Evidence: chain via 0x004ED134; prev 0x004ED134 next 0x004ED1A1 same flags; stride 0x14 matches ModelNode loop.
 struct Rva004ECECDNode
 {
-	void *m_model;
-	char m_pad0[0xC];
-	int m_10;
+public:
+	void *m_model; // +0x00
+	char m_pad04[0xC];
+	int m_10; // +0x10
 };
 class AITactic
 {

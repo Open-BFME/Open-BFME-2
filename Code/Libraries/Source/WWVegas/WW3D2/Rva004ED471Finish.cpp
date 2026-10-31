@@ -66,9 +66,10 @@ class Rva004ED471
 {
 public:
 	void rva004ED471(HLodClass::ModelNodeClass *pos, const HLodClass::ModelNodeClass *value, const void *dummy, unsigned int count, bool atend);
-	HLodClass::ModelNodeClass *m_start;
-	HLodClass::ModelNodeClass *m_finish;
-	HLodClass::ModelNodeClass *m_end;
+	void rva004ED69B(const HLodClass::ModelNodeClass *value);
+	HLodClass::ModelNodeClass *m_start; // +0x00
+	HLodClass::ModelNodeClass *m_finish; // +0x04
+	HLodClass::ModelNodeClass *m_end; // +0x08
 };
 
 void Rva004ED471::rva004ED471(HLodClass::ModelNodeClass *pos, const HLodClass::ModelNodeClass *value, const void *dummy, unsigned int count, bool atend)

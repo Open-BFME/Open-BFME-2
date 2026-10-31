@@ -12,16 +12,23 @@ class Team;
 class TeamFactory;
 extern TeamFactory *TheTeamFactory;
 
+struct Rva003A2FD4Proto;
+class AsciiString;
+class TeamPrototype;
 class TeamFactory
 {
 public:
-    Team *findTeamByID(unsigned int id);
+	Rva003A2FD4Proto *initTeamForTacticalAI(const AsciiString &name, void *ownerName, int targetID, unsigned int tacticID);
+	TeamPrototype *findTeamPrototypeByID(unsigned int id);
+	Team *findTeamByID(unsigned int id); // 0x0039F761
 };
 
 struct Rva004ECECDNode
 {
-    void *m_model;
-    char m_pad[0x10];
+public:
+	void *m_model; // +0x00
+	char m_pad04[0xC];
+	int m_10; // +0x10
 };
 
 class AITactic
@@ -71,8 +78,8 @@ public:
 class AI
 {
 public:
-    AIGroup *createGroup();
-    void destroyGroup(AIGroup *grp);
+	AIGroup *createGroup();
+	void destroyGroup(AIGroup *);
 };
 extern AI *TheAI;
 

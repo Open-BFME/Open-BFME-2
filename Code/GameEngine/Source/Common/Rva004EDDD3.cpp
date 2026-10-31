@@ -37,10 +37,15 @@ class Team;
 class TeamFactory;
 extern TeamFactory *TheTeamFactory;
 
+struct Rva003A2FD4Proto;
+class AsciiString;
+class TeamPrototype;
 class TeamFactory
 {
 public:
-	Team *findTeamByID(unsigned int id);
+	Rva003A2FD4Proto *initTeamForTacticalAI(const AsciiString &name, void *ownerName, int targetID, unsigned int tacticID);
+	TeamPrototype *findTeamPrototypeByID(unsigned int id);
+	Team *findTeamByID(unsigned int id); // 0x0039F761
 };
 
 #include "../../Include/Common/TeamBFME2.h"
@@ -63,7 +68,7 @@ _InputIter find(_InputIter, _InputIter, const _Tp &);
 class Rva004ED3A2
 {
 public:
-	void *rva004ED3A2(void *pos);
+	void *rva004ED3A2(void *position);
 };
 
 extern float g_Va00BBB8D8;
