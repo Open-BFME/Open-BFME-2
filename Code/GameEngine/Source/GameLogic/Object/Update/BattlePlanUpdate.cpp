@@ -134,6 +134,28 @@
 	{ \
 		return ((NAME##Outer *)((char *)this - BACK))->m_ptr->m_b ? true : false; \
 	}
+#define BFME_SNAPSHOT_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	protected: \
+		virtual const char *GetSnapshotName() const; \
+	}; \
+	const char *NAME::GetSnapshotName() const \
+	{ \
+		return TEXT; \
+	}
+#define BFME_LITERAL_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	public: \
+		const char *name() const; \
+	}; \
+	const char *NAME::name() const \
+	{ \
+		return TEXT; \
+	}
+#include "../../AI/WorkOrder.h"
+#include "../../AI/TeamInQueue.h"
 
 enum WhichTurretType
 {
@@ -876,7 +898,11 @@ protected:
 	virtual void loadPostProcess();
 };
 
+BFME_LITERAL_NAME_GETTER(Rva0049795ANamed, "BattlePlanUpdate")
+
 // tu-skeleton: 0x0049771E 33B ?getCommandOption@BattlePlanUpdate@@UBE?AW4CommandOption@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BattlePlanUpdate_getCommandOption.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/BattlePlanUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/BattlePlanUpdate.cpp
 
@@ -1190,7 +1216,22 @@ void Rva00497805::loadPostProcess()
 
 // tu-skeleton: 0x004978A3 114B ??1BattlePlanUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BattlePlanUpdateRva004978A3Dtor.cpp (not merged yet)
 
-// tu-skeleton: 0x0049795A 6B ?name@Rva0049795ANamed@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/ModuleNameGetters.cpp
+
+// Module literal name getters: six-byte const members with one shape:
+//
+//     mov eax,<offset string literal> / ret
+//
+// Each body returns a pointer to a NUL-terminated Behavior/Update/Contain
+// class-name string in .rdata. Each body VA carries exactly one .rdata
+// reference from its module vtable (descriptor tail closed by the shared
+// 0x004B3FD0 pair -- the same family marker as the Subsystem getters).
+// Split from Code/GameEngine/Source/Common/SubsystemNameGetters.cpp into a
+// contributor-local unit to keep concurrent landings conflict-free; the
+// BFME_LITERAL_NAME_GETTER macro is verbatim, only the class names follow
+// this tree's address-derived convention (identity unrecoverable from 6
+// bytes, string carried in source where verify_string_refs re-reads it).
+// No // cl: line (defaults match the frameless 6-byte shape).
 
 // tu-skeleton: 0x0049797F 204B ?onObjectCreated@BattlePlanUpdate@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BattlePlanUpdate_onObjectCreated.cpp (not merged yet)
 
