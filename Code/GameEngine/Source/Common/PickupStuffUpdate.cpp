@@ -312,17 +312,7 @@ struct PickupStuffAI
 	int m_34;
 };
 
-class Object
-{
-public:
-	Player *getControllingPlayer() const;	// 0x0028AFA9
-	const Coord3D *getPosition() const { return &m_pos; }
-	AIUpdateInterface *getAI() const { return m_ai; }
-	char m_pad000[0x38];
-	Coord3D m_pos;		// +0x38
-	char m_pad044[0x258 - 0x44];
-	AIUpdateInterface *m_ai;	// +0x258
-};
+#include "../GameLogic/Object/object.h"
 
 struct Rva002A8AB1Record;
 
