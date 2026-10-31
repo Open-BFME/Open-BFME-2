@@ -46810,16 +46810,16 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0056B7A0,62,code,,,-,W=Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldIconSubObjectTemplate.cpp,Code/GameEngine/Source/Common/Rva0056B613Forward.cpp
 0x0056B7DE,6,code,,,-,,Code/GameEngine/Source/Common/ConstIntGettersAddr.cpp
 0x0056B7E4,166,code,,,-,,Code/GameEngine/Source/Common/Rva0056B7E4Ctor.cpp
-0x0056B88A,21,code,Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp,approved,N,N=Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp provisional,Code/GameEngine/Source/Common/Rva0056B89F.cpp
-0x0056B89F,56,code,Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp,approved,N,N=Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp provisional,Code/GameEngine/Source/Common/Rva0056B89F.cpp
-0x0056B8D7,29,code,Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp,approved,N,N=Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp provisional,Code/GameEngine/Source/Common/Rva0056B89F.cpp
-0x0056B8F4,53,code,Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp,approved,C,C=0x0056B8D7..0x0056B929 provisional,Code/GameEngine/Source/Common/Rva0056B8F4.cpp
-0x0056B929,53,code,Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp,approved,C,C=0x0056B8D7..0x0056B95E provisional,Code/GameEngine/Source/Common/Rva0056B929.cpp
-0x0056B95E,18,code,Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp,approved,C,C=0x0056B8D7..0x0056B970 provisional,Code/GameEngine/Source/Common/Rva0056B95E.cpp
-0x0056B970,20,code,Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp,approved,C,C=0x0056B8D7..0x0056B984 provisional,Code/GameEngine/Source/Common/Rva0056B970.cpp
-0x0056B984,15,code,Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp,approved,N,N=Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp provisional,Code/GameEngine/Source/Common/Rva0056B89F.cpp
-0x0056B993,15,code,Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp,approved,N,N=Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp provisional,Code/GameEngine/Source/Common/Rva0056B89F.cpp
-0x0056B9A2,80,code,Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp,approved,C,C=0x0056B993..0x0056B9F2 provisional,Code/GameEngine/Source/Common/Rva0056B9A2Dtor.cpp
+0x0056B88A,21,code,Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp,approved,N,N=Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp provisional,Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp
+0x0056B89F,56,code,Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp,approved,N,N=Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp provisional,Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp
+0x0056B8D7,29,code,Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp,approved,N,N=Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp provisional,Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp
+0x0056B8F4,53,code,Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp,approved,C,C=0x0056B8D7..0x0056B929 provisional,Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp
+0x0056B929,53,code,Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp,approved,C,C=0x0056B8D7..0x0056B95E provisional,Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp
+0x0056B95E,18,code,Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp,approved,C,C=0x0056B8D7..0x0056B970 provisional,Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp
+0x0056B970,20,code,Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp,approved,C,C=0x0056B8D7..0x0056B984 provisional,Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp
+0x0056B984,15,code,Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp,approved,N,N=Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp provisional,Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp
+0x0056B993,15,code,Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp,approved,N,N=Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp provisional,Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp
+0x0056B9A2,80,code,Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp,approved,C,C=0x0056B993..0x0056B9F2 provisional,Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp
 0x0056B9F2,21,code,Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp,approved,C,C=0x0056B993..0x0056BA07 provisional,Code/GameEngine/Source/Common/VslotSmallBodiesAI.cpp
 0x0056BA07,156,code,Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp,approved,N,N=Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp provisional,Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp
 0x0056BAA3,28,code,Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp,proposed,K,K=Rva0056B9A2,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB12.cpp
@@ -85886,8 +85886,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0079A550,11,code,,,-,,Code/gen_small/uw_gen_009.cpp
 0x0079A55B,11,code,,,-,,Code/GameEngine/Source/Common/Rva0056B7E4Ctor.cpp
 0x0079A566,10,code,,,-,,Code/GameEngine/Source/Common/Rva0056B7E4Ctor.cpp
-0x0079A570,8,code,Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp,approved,P,P=0x0056B9A2@FuncInfo0x0094F528 provisional,Code/GameEngine/Source/Common/Rva0056B9A2Dtor.cpp
-0x0079A578,10,code,Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp,approved,P,P=0x0056B9A2@FuncInfo0x0094F528 provisional,Code/GameEngine/Source/Common/Rva0056B9A2Dtor.cpp
+0x0079A570,8,code,Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp,approved,P,P=0x0056B9A2@FuncInfo0x0094F528 provisional,Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp
+0x0079A578,10,code,Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp,approved,P,P=0x0056B9A2@FuncInfo0x0094F528 provisional,Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp
 0x0079A582,8,code,Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp,approved,P,P=0x0056BA07@FuncInfo0x0094F55C provisional,Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp
 0x0079A58A,8,code,Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp,approved,P,P=0x0056BA07@FuncInfo0x0094F55C provisional,Code/gen_small/uw_gen_014.cpp
 0x0079A592,10,code,Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp,approved,P,P=0x0056BA07@FuncInfo0x0094F55C provisional,Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp
