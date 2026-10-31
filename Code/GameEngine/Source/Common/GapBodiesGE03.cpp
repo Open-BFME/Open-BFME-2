@@ -75,18 +75,6 @@ private:
 	int m_c;
 };
 
-Rva005DBD10 &Rva005DBD10::operator=(const Rva005DBD10 &that)
-{
-	m_04 = that.m_04;
-	m_06 = that.m_06;
-	return *this;
-}
-
-void Rva005DBD10::invoke(GapReceiver *receiver)
-{
-	(receiver->*m_callback)(*(const int *)&m_04, m_b, m_c);
-}
-
 // --- 0x004A6BE7 (44B): through the +0x18 owner's object (+0x14) and its
 // +0x258 interface (virtual slot 95), virtual slot 13 with 0; returns 0.
 class Rva004A6BE7Target

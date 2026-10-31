@@ -50903,8 +50903,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x005DBCA6,43,code,Code/GameEngine/Source/Common/PortNegotiationSchema.cpp,approved,N,N=Code/GameEngine/Source/Common/PortNegotiationSchema.cpp provisional,Code/GameEngine/Source/Common/Rva005DBCA6Get.cpp
 0x005DBCD1,31,code,Code/GameEngine/Source/Common/PortNegotiationSchema.cpp,approved,C,C=0x005DBCA6..0x005DBCF0 provisional,Code/GameEngine/Source/Common/V3PolyCopyCtors.cpp
 0x005DBCF0,32,code,Code/GameEngine/Source/Common/PortNegotiationSchema.cpp,approved,C,C=0x005DBCA6..0x005DBD10 provisional,Code/Libraries/Source/ATL/atlimage.cpp
-0x005DBD10,25,code,Code/GameEngine/Source/Common/PortNegotiationSchema.cpp,approved,C,C=0x005DBCA6..0x005DBD29 provisional,Code/GameEngine/Source/Common/GapBodiesGE03.cpp
-0x005DBD29,20,code,Code/GameEngine/Source/Common/PortNegotiationSchema.cpp,approved,C,C=0x005DBCA6..0x005DBD3D provisional,Code/GameEngine/Source/Common/GapBodiesGE03.cpp
+0x005DBD10,25,code,Code/GameEngine/Source/Common/PortNegotiationSchema.cpp,approved,C,C=0x005DBCA6..0x005DBD29 provisional,Code/GameEngine/Source/Common/PortNegotiationSchema.cpp
+0x005DBD29,20,code,Code/GameEngine/Source/Common/PortNegotiationSchema.cpp,approved,C,C=0x005DBCA6..0x005DBD3D provisional,Code/GameEngine/Source/Common/PortNegotiationSchema.cpp
 0x005DBD3D,18,code,Code/GameEngine/Source/Common/PortNegotiationSchema.cpp,approved,C,C=0x005DBCA6..0x005DBD4F provisional,Code/Libraries/Source/WWVegas/WWLib/StlportConstructCopySiblings.cpp
 0x005DBD4F,41,code,Code/GameEngine/Source/Common/PortNegotiationSchema.cpp,approved,C,C=0x005DBCA6..0x005DBD78 provisional,Code/GameEngine/Source/Common/PortNegotiationSchema.cpp
 0x005DBD78,40,code,Code/GameEngine/Source/Common/PortNegotiationSchema.cpp,approved,C,C=0x005DBCA6..0x005DBDA0 provisional,Code/GameEngine/Source/Common/PortNegotiationSchema.cpp
