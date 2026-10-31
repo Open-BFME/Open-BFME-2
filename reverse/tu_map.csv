@@ -24917,7 +24917,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00318E9E,17,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,proposed,C,C=0x00318C79..0x00318EAF,Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp
 0x00318EAF,17,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,proposed,C,C=0x00318C79..0x00318EC0,Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp
 0x00318EC0,130,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,N,N=Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp provisional,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp
-0x00318F42,34,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,C,C=0x00318EC0..0x00318F64 provisional,Code/GameEngine/Source/Common/Rva00318F42.cpp
+0x00318F42,34,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,C,C=0x00318EC0..0x00318F64 provisional,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp
 0x00318F64,39,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,C,C=0x00318EC0..0x00318F8B provisional,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp
 0x00318F8B,22,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,C,C=0x00318EC0..0x00318FA1 provisional,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp
 0x00318FA1,29,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,C,C=0x00318EC0..0x00318FBE provisional,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp
@@ -24925,20 +24925,20 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00318FC6,98,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,C,C=0x00318EC0..0x00319028 provisional,Code/GameEngine/Source/GameLogic/System/LivingWorld/ConsumeGarrisonUnitsFromRTS.cpp
 0x00319028,125,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,C,C=0x00318EC0..0x003190A5 provisional,Code/GameEngine/Source/GameLogic/System/LivingWorld/ConsumeGarrisonUnitsFromRTS.cpp
 0x003190A5,22,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,C,C=0x00318EC0..0x003190BB provisional,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp
-0x003190BB,44,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,C,C=0x00318EC0..0x003190E7 provisional,Code/GameEngine/Source/Common/Rva00318F42.cpp
+0x003190BB,44,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,C,C=0x00318EC0..0x003190E7 provisional,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp
 0x003190E7,56,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,C,C=0x00318EC0..0x0031911F provisional,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp
 0x0031911F,15,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,U,N=Code/GameEngine/Source/Common/LivingWorldArmy.cpp provisional,Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp
-0x0031912E,43,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,C,C=0x0031911F..0x00319159 provisional,Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva0031912EPredicate.cpp
-0x00319159,33,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,C,C=0x0031911F..0x0031917A provisional,Code/GameEngine/Source/Common/Rva00319159Get.cpp
-0x0031917A,55,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,C,C=0x0031911F..0x003191B1 provisional,Code/GameEngine/Source/Common/Rva00319924Count.cpp
+0x0031912E,43,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,C,C=0x0031911F..0x00319159 provisional,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp
+0x00319159,33,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,C,C=0x0031911F..0x0031917A provisional,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp
+0x0031917A,55,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,C,C=0x0031911F..0x003191B1 provisional,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp
 0x003191B1,41,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,C,C=0x0031911F..0x003191DA provisional,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp
 0x003191DA,8,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,C,C=0x0031911F..0x003191E2 provisional,Code/GameEngine/Source/Common/ArmySummaryGetEntry.cpp
 0x003191E2,207,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldArmy.cpp provisional,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldArmy.cpp
 0x003192B1,8,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,C,C=0x003191E2..0x003192B9 provisional,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp
-0x003192B9,75,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,C,C=0x003191E2..0x00319304 provisional,Code/GameEngine/Source/Common/GetMaxCommandPoints.cpp
-0x00319304,45,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,C,C=0x003191E2..0x00319331 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_record_319c84_allocate_copy.cpp
+0x003192B9,75,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,C,C=0x003191E2..0x00319304 provisional,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp
+0x00319304,45,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,C,C=0x003191E2..0x00319331 provisional,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp
 0x00319331,26,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,C,C=0x003191E2..0x0031934B provisional,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp
-0x0031934B,134,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,N,N=Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp W=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldArmy.cpp provisional,Code/GameEngine/Source/Common/System/LivingWorldArmy_createVisualObjects.cpp
+0x0031934B,134,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,N,N=Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp W=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldArmy.cpp provisional,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp
 0x003193D1,27,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,C,C=0x0031934B..0x003193EC provisional,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp
 0x003193EC,39,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,C,C=0x0031934B..0x00319413 provisional,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp
 0x00319413,24,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,C,C=0x0031934B..0x0031942B provisional,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp
@@ -24946,7 +24946,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00319517,178,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldArmy.cpp W=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldArmy.cpp provisional,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldArmy.cpp
 0x003195C9,71,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,C,C=0x00319517..0x00319610 provisional,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp
 0x00319610,61,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,C,C=0x00319517..0x0031964D provisional,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp
-0x0031964D,61,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,C,W=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldArmy.cpp C=0x00319517..0x0031968A provisional,Code/GameEngine/Source/Common/Rva00319159Get.cpp
+0x0031964D,61,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,C,W=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldArmy.cpp C=0x00319517..0x0031968A provisional,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp
 0x0031968A,29,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,C,C=0x00319517..0x003196A7 provisional,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp
 0x003196A7,109,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,C,C=0x00319517..0x00319714 provisional,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp
 0x00319714,112,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,C,C=0x00319517..0x00319784 provisional,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp
@@ -24956,18 +24956,18 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x003197EE,30,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,C,C=0x00319517..0x0031980C provisional,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp
 0x0031980C,37,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,C,C=0x00319517..0x00319831 provisional,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp
 0x00319831,58,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,C,C=0x00319517..0x0031986B provisional,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp
-0x0031986B,77,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,C,C=0x00319517..0x003198B8 provisional,Code/GameEngine/Source/Common/Rva00318F42.cpp
+0x0031986B,77,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,C,C=0x00319517..0x003198B8 provisional,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp
 0x003198B8,76,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,C,C=0x00319517..0x00319904 provisional,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp
 0x00319904,32,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,C,C=0x00319517..0x00319924 provisional,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp
-0x00319924,73,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,C,C=0x00319517..0x0031996D provisional,Code/GameEngine/Source/Common/Rva00319924Count.cpp
+0x00319924,73,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,C,C=0x00319517..0x0031996D provisional,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp
 0x0031996D,101,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/System/LivingWorld/AttackOrdersMember.cpp provisional,Code/GameEngine/Source/GameLogic/System/LivingWorld/ConsumeGarrisonUnitsFromRTS.cpp
 0x003199D2,64,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldArmy.cpp W=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldArmy.cpp provisional,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldArmy.cpp
-0x00319A12,64,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,C,C=0x003199D2..0x00319A52 provisional,Code/GameEngine/Source/Common/Rva00319A12Loop.cpp
+0x00319A12,64,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,C,C=0x003199D2..0x00319A52 provisional,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp
 0x00319A52,78,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,C,C=0x003199D2..0x00319AA0 provisional,Code/GameEngine/Source/Common/GapBodiesGE14.cpp
 0x00319AA0,106,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,C,C=0x003199D2..0x00319B0A provisional,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp
 0x00319B0A,39,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,C,C=0x003199D2..0x00319B31 provisional,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp
 0x00319B31,39,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,C,C=0x003199D2..0x00319B58 provisional,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp
-0x00319B58,63,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,C,C=0x003199D2..0x00319B97 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_record_319b58_dtor.cpp
+0x00319B58,63,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,C,C=0x003199D2..0x00319B97 provisional,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp
 0x00319B97,51,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,C,C=0x003199D2..0x00319BCA provisional,Code/GameEngine/Source/Common/Rva00538E22Ctor.cpp
 0x00319BCA,186,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,C,C=0x003199D2..0x00319C84 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_record_319bca_assign.cpp
 0x00319C84,105,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,C,C=0x003199D2..0x00319D01 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_record_319c84_reserve.cpp
@@ -24986,7 +24986,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0031A257,283,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldArmy.cpp W=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldArmy.cpp provisional,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldArmy.cpp
 0x0031A372,543,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldArmy.cpp W=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldArmy.cpp provisional,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldArmy.cpp
 0x0031A591,330,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldArmy.cpp W=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldArmy.cpp provisional,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldArmy.cpp
-0x0031A6DB,514,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,U,N=Code/GameEngine/Source/Common/LivingWorldArmy.cpp provisional,Code/GameEngine/Source/Common/Rva00318F42.cpp
+0x0031A6DB,514,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,U,N=Code/GameEngine/Source/Common/LivingWorldArmy.cpp provisional,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp
 0x0031A8DD,234,code,,,-,W=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldArmy.cpp,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldArmy.cpp
 0x0031A9C7,7,code,,displaced,-,S=Code/Libraries/Source/WWVegas/WW3D2/ringobj.cpp N=Code/Libraries/Source/WWVegas/WW3D2/RingRenderObjClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/ringobj.cpp
 0x0031A9CE,7,code,,,-,,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp
@@ -72921,14 +72921,14 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0077A8A3,8,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,P,P=0x003191E2@FuncInfo0x009234C8 provisional,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldArmy.cpp
 0x0077A8AB,8,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,P,P=0x003191E2@FuncInfo0x009234C8 provisional,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldArmy.cpp
 0x0077A8B3,10,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,P,P=0x003191E2@FuncInfo0x009234C8 provisional,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldArmy.cpp
-0x0077A8BD,10,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,P,P=0x0031934B@FuncInfo0x009234EC provisional,Code/GameEngine/Source/Common/System/LivingWorldArmy_createVisualObjects.cpp
-0x0077A8C7,10,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,P,P=0x0031934B@FuncInfo0x009234EC provisional,Code/GameEngine/Source/Common/System/LivingWorldArmy_createVisualObjects.cpp
+0x0077A8BD,10,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,P,P=0x0031934B@FuncInfo0x009234EC provisional,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp
+0x0077A8C7,10,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,P,P=0x0031934B@FuncInfo0x009234EC provisional,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp
 0x0077A8D1,8,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,P,P=0x00319517@FuncInfo0x00923510 provisional,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldArmy.cpp
 0x0077A8D9,10,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,P,P=0x00319517@FuncInfo0x00923510 provisional,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldArmy.cpp
 0x0077A8E3,8,code,,,-,,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp
 0x0077A8EB,10,code,,,-,,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp
 0x0077A8F5,8,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,P,P=0x00319B58@FuncInfo0x00923558 provisional,Code/gen_small/uw_gen_010.cpp
-0x0077A8FD,10,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,P,P=0x00319B58@FuncInfo0x00923558 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_record_319b58_dtor.cpp
+0x0077A8FD,10,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,P,P=0x00319B58@FuncInfo0x00923558 provisional,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp
 0x0077A907,8,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,P,P=0x00319D01@FuncInfo0x009235D4 provisional,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldArmy.cpp
 0x0077A90F,20,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,P,P=0x00319D01@FuncInfo0x009235D4 provisional,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldArmy.cpp
 0x0077A923,20,code,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,approved,P,P=0x00319D01@FuncInfo0x009235D4 provisional,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldArmy.cpp

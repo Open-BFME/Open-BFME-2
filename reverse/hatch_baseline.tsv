@@ -4412,7 +4412,6 @@ class_gate_allow	Code/GameEngine/Source/Common/Rva005E5942Chain.cpp	StringBase	1
 class_gate_allow	Code/GameEngine/Source/Common/Rva0075A4DCCluster.cpp	Video	1
 class_gate_allow	Code/GameEngine/Source/Common/Rva007ABBB3CtorInits_Rva007ADCAE.cpp	AsciiString	1
 class_gate_allow	Code/GameEngine/Source/Common/RvaHelperThenMemberForwarders.cpp	StringBase	1
-class_gate_allow	Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp	StringBase	1
 class_gate_allow	Code/GameEngine/Source/Common/System/MessageStreamCommandName.cpp	AsciiString	1
 class_gate_allow	Code/GameEngine/Source/Common/parseAutoResolveBodyDefinition.cpp	Rva004188B6	1
 class_gate_allow	Code/GameEngine/Source/Common/parseAutoResolveBodyDefinition.cpp	Rva0041890FRecord	1
@@ -13813,7 +13812,6 @@ present_unmatched	Code/GameEngine/Source/GameNetwork/ConnectionManager.cpp	zeroF
 present_unmatched	Code/GameEngine/Source/GameNetwork/DownloadManager.cpp	OnQueryResume@DownloadManager@@	1
 present_unmatched	Code/GameEngine/Source/GameNetwork/DownloadManager.cpp	init@DownloadManager@@	1
 present_unmatched	Code/GameEngine/Source/GameNetwork/DownloadManager.cpp	reset@DownloadManager@@	1
-present_unmatched	Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp	1FirewallHelperClass@@UAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameNetwork/FrameData.cpp	BfmeTableYL::bfmeFindYL	1
 present_unmatched	Code/GameEngine/Source/GameNetwork/GameInfo.cpp	callGrabHexInt3	1
 present_unmatched	Code/GameEngine/Source/GameNetwork/GameSpy/Chat.cpp	registerTextWindow@GameSpyInfo@@	1
