@@ -105,8 +105,6 @@ BFME_DISP8_BYTE_GETTER(Rva004EA03AByteField, 0x64)
 BFME_DISP8_BYTE_GETTER(Rva00564B06ByteField, 0x55)
 BFME_DISP8_BYTE_GETTER(Rva005CC936ByteField, 0x23)
 BFME_DISP8_BYTE_GETTER(Rva005FD047ByteField, 0x38)
-BFME_DISP8_BYTE_GETTER(Rva0065D7B0ByteField, 0x1C)
-BFME_DISP8_BYTE_GETTER(Rva0065D7D0ByteField, 0x1D)
 BFME_DISP8_BYTE_GETTER(Rva00661D30ByteField, 0x14)
 BFME_DISP8_BYTE_GETTER(Rva0066D4A0ByteField, 0x25)
 BFME_DISP8_BYTE_GETTER(Rva0066D4B0ByteField, 0x24)
@@ -161,12 +159,6 @@ public:
 	char m_lead[0x1D];
 	unsigned char m_value;
 };
-
-// ?set@Rva0065D7C0ByteSetter@@QAEXE@Z
-void Rva0065D7C0ByteSetter::set(unsigned char value)
-{
-	m_value = value;
-}
 
 // ?rva002259F3@Rva002259F3@@QBEHXZ, retail 0x002259F3 (25B): three flag bytes at
 // +0x44 (must be set), +0xA8 and +0x9D (must be clear).
