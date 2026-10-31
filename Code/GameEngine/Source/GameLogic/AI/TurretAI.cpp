@@ -130,6 +130,12 @@ enum WhichTurretType
 	MAX_TURRETS
 };
 
+enum UpdateSleepTime
+{
+	UPDATE_SLEEP_NONE = 1,
+	UPDATE_SLEEP_FOREVER = 0x3fffffff
+};
+
 // TurretAIData, 0x70 bytes as TurretAIData::TurretAIData (0x004D7E6C) fills it.
 class TurretAIData
 {
@@ -362,6 +368,8 @@ public:
 public:
 	void rva004D82F6();
 public:
+	UpdateSleepTime updateTurretAI();
+public:
 	void setTurretTargetPosition(const Coord3D *pos);
 public:
 	void recenterTurret();
@@ -383,6 +391,10 @@ protected:
 	virtual void xfer(Xfer *xfer);
 private:
 	void removeSelfAsTargeter();
+private:
+	void startRotOrPitchSound();
+private:
+	void stopRotOrPitchSound() { rva004D82F6(); }
 private:
 	const TurretAIData *m_data;
 private:

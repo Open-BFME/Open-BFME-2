@@ -81,7 +81,7 @@ public:
 typedef bool Bool;
 typedef float Real;
 
-void XferTurretTargetType( Xfer *xfer, Int *value );
+void XferTurretTargetType( Xfer *xfer, int *value );
 
 // TheAudio's table as the TU's bodies call it: addAudioEvent 25,
 // removeAudioEvent 27 (+0x6C), isCurrentlyPlaying 52 (+0xD0) and the xfer
