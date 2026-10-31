@@ -41,14 +41,6 @@ private:
 	AsciiString m_name1C; // +0x1C
 };
 
-void Rva003EED9D::rva003EED9D()
-{
-	if (m_p04 != 0)
-		return;
-	((Rva003EEC63 *)this)->rva003EEC63((char *)this + 4, m_name1C, 0, 0);
-	((Rva004E3B78 *)((char *)this + 8))->rva004E3B78();
-}
-
 // Complete native 41B traversal at 4E3B78..4E3BA1. The existing caller
 // supplies its container at receiver+8. Payload and owner identities remain
 // address-derived; nodes survive this value-reset pass.
@@ -117,23 +109,3 @@ public:
     virtual float slot40();
     virtual void slot44(RenderObjClass *);
 };
-void Rva003EEC63::rva003EEC63(void *slot,AsciiString name,bool flag,bool prepare)
-{
-    RenderObjClass **out=(RenderObjClass **)slot;
-    if (!*out) {
-        RenderObjClass *renderObj=Create_Render_Obj(name.str());
-        if (renderObj) {
-            if (prepare) rva0010E4F6(renderObj,0);
-            RegionObjectTransform transform;
-            RegionRenderObjectView *view=(RegionRenderObjectView *)renderObj;
-            RegionPosition pos=view->position();
-            pos.z=((unsigned char *)TheWritableGlobalData)[0x87]
-                ? -100.0f : ((RegionSceneView *)((Rva002D3627Host *)TheLivingWorld))->slot40();
-            transform.m[0][3]=pos.x;transform.m[1][3]=pos.y;transform.m[2][3]=pos.z;
-            view->slot54(transform);
-            ((Rva002BF4F3 *)((Rva002D3627Host *)TheLivingWorld))->rva002BEA10(renderObj,flag);
-            ((RegionSceneView *)((Rva002D3627Host *)TheLivingWorld))->slot44(renderObj);
-        }
-        *out=renderObj;
-    }
-}

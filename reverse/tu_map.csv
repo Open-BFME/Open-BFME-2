@@ -31860,8 +31860,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x003EEB9F,37,code,Code/GameEngine/Source/Common/LivingWorldRegionEffectsManager.cpp,approved,C,C=0x003EEAFB..0x003EEBC4 provisional,Code/GameEngine/Source/Common/Rva003EE900Forward.cpp
 0x003EEBC4,43,code,Code/GameEngine/Source/Common/LivingWorldRegionEffectsManager.cpp,approved,C,C=0x003EEAFB..0x003EEBEF provisional,Code/GameEngine/Source/Common/Rva003EE900Forward.cpp
 0x003EEBEF,116,code,Code/GameEngine/Source/Common/LivingWorldRegionEffectsManager.cpp,approved,C,C=0x003EEAFB..0x003EEC63 provisional,Code/GameEngine/Source/Common/Rva003EE900Forward.cpp
-0x003EEC63,314,code,Code/GameEngine/Source/Common/LivingWorldRegionEffectsManager.cpp,approved,C,W=Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldRegionEffectsManager.cpp C=0x003EEAFB..0x003EED9D provisional,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptGlueRva003EED9D.cpp
-0x003EED9D,57,code,Code/GameEngine/Source/Common/LivingWorldRegionEffectsManager.cpp,approved,C,C=0x003EEAFB..0x003EEDD6 provisional,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptGlueRva003EED9D.cpp
+0x003EEC63,314,code,Code/GameEngine/Source/Common/LivingWorldRegionEffectsManager.cpp,approved,C,W=Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldRegionEffectsManager.cpp C=0x003EEAFB..0x003EED9D provisional,Code/GameEngine/Source/Common/LivingWorldRegionEffectsManager.cpp
+0x003EED9D,57,code,Code/GameEngine/Source/Common/LivingWorldRegionEffectsManager.cpp,approved,C,C=0x003EEAFB..0x003EEDD6 provisional,Code/GameEngine/Source/Common/LivingWorldRegionEffectsManager.cpp
 0x003EEDD6,142,code,Code/GameEngine/Source/Common/LivingWorldRegionEffectsManager.cpp,approved,C,C=0x003EEAFB..0x003EEE64 provisional,Code/GameEngine/Source/Common/Rva003EE900Forward.cpp
 0x003EEE64,42,code,Code/GameEngine/Source/Common/LivingWorldRegionEffectsManager.cpp,approved,C,C=0x003EEAFB..0x003EEE8E provisional,Code/GameEngine/Source/Common/Rva003EE900Forward.cpp
 0x003EEE8E,37,code,Code/GameEngine/Source/Common/LivingWorldRegionEffectsManager.cpp,approved,C,C=0x003EEAFB..0x003EEEB3 provisional,Code/GameEngine/Source/Common/Rva003EE900Forward.cpp
@@ -76562,8 +76562,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00783867,8,code,Code/GameEngine/Source/Common/LivingWorldRegionEffectsManager.cpp,approved,P,P=0x003EEAFB@FuncInfo0x0092F850 provisional,Code/gen_small/uw_gen_011.cpp
 0x0078386F,11,code,Code/GameEngine/Source/Common/LivingWorldRegionEffectsManager.cpp,approved,P,P=0x003EEAFB@FuncInfo0x0092F850 provisional,Code/GameEngine/Source/Common/Rva003EE746ColorProvider.cpp
 0x0078387A,10,code,Code/GameEngine/Source/Common/LivingWorldRegionEffectsManager.cpp,approved,P,P=0x003EEAFB@FuncInfo0x0092F850 provisional,Code/GameEngine/Source/Common/Rva003EE746ColorProvider.cpp
-0x00783884,8,code,Code/GameEngine/Source/Common/LivingWorldRegionEffectsManager.cpp,approved,P,P=0x003EEC63@FuncInfo0x0092F874 provisional,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptGlueRva003EED9D.cpp
-0x0078388C,10,code,Code/GameEngine/Source/Common/LivingWorldRegionEffectsManager.cpp,approved,P,P=0x003EEC63@FuncInfo0x0092F874 provisional,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptGlueRva003EED9D.cpp
+0x00783884,8,code,Code/GameEngine/Source/Common/LivingWorldRegionEffectsManager.cpp,approved,P,P=0x003EEC63@FuncInfo0x0092F874 provisional,Code/GameEngine/Source/Common/LivingWorldRegionEffectsManager.cpp
+0x0078388C,10,code,Code/GameEngine/Source/Common/LivingWorldRegionEffectsManager.cpp,approved,P,P=0x003EEC63@FuncInfo0x0092F874 provisional,Code/GameEngine/Source/Common/LivingWorldRegionEffectsManager.cpp
 0x00783896,14,code,Code/GameEngine/Source/Common/LivingWorldRegionEffectsManager.cpp,approved,P,P=0x003EEFDB@FuncInfo0x0092F898 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp
 0x007838A4,10,code,Code/GameEngine/Source/Common/LivingWorldRegionEffectsManager.cpp,approved,P,P=0x003EEFDB@FuncInfo0x0092F898 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp
 0x007838AE,8,code,Code/GameEngine/Source/Common/LivingWorldRegionEffectsManager.cpp,approved,P,P=0x003EF14A@FuncInfo0x0092F8DC provisional,Code/GameEngine/Source/Common/System/Rva003EF14ADtor.cpp
