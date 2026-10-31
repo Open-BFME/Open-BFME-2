@@ -54193,7 +54193,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00620B70,244,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp,approved,C,C=0x006205C0..0x00620C70 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int_resize.cpp
 0x00620C70,39,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp,approved,U,N=Code/GameEngine/Source/Common/BfmeUnsignedKeyTree620C70.cpp provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp
 0x00620CA0,207,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp,approved,C,C=0x00620C70..0x00620D70 provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp
-0x00620D70,11,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp,approved,C,C=0x00620C70..0x00620D80 provisional,Code/GameEngine/Source/Common/VptrCleanupDeletingDestructors.cpp
+0x00620D70,11,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp,approved,C,C=0x00620C70..0x00620D80 provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp
 0x00620D80,13,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp,approved,C,C=0x00620C70..0x00620D90 provisional,Code/Libraries/Source/assetmanager/AssetManagerImplCtor.cpp
 0x00620D90,5,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp,approved,C,C=0x00620C70..0x00620DA0 provisional,Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00620A00.cpp
 0x00620DA0,5,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp,approved,C,C=0x00620C70..0x00620DB0 provisional,Code/GameEngine/Source/Common/TailJumpWrappers5B.cpp
@@ -54208,7 +54208,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00620FD0,38,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp,approved,C,C=0x00620C70..0x00621000 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_int.cpp
 0x00621000,30,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp,approved,C,C=0x00620C70..0x00621020 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_int.cpp
 0x00621020,19,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp,approved,C,C=0x00620C70..0x00621040 provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp
-0x00621040,36,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp,approved,C,C=0x00620C70..0x00621070 provisional,Code/GameEngine/Source/Common/VptrCleanupDeletingDestructors.cpp
+0x00621040,36,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp,approved,C,C=0x00620C70..0x00621070 provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp
 0x00621070,5,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp,approved,C,C=0x00620C70..0x00621080 provisional,Code/GameEngine/Source/GameLogic/Object/Update/Rva0016DEE0Cluster.cpp
 0x00621080,239,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp,approved,C,W=Code/Libraries/Source/assetmanager/assetmanager_impl.cpp C=0x00620C70..0x00621170 provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp
 0x00621170,170,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp,approved,U,N=Code/GameEngineDevice/Source/W3DDevice/GameClient/AssetRegistry.cpp provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/Render_Obj_Exists_Impl.cpp
@@ -55179,7 +55179,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0065F970,11,code,,,-,,Code/Libraries/Source/DirtySock/BfmeDirtyBaseDerived.cpp
 0x0065F980,148,code,,,-,,Code/GameEngine/Source/GameNetwork/V2FeslResultCursors.cpp
 0x0065FA20,9,code,,,-,,Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp
-0x0065FA30,36,code,,,-,,Code/GameEngine/Source/Common/VptrCleanupDeletingDestructors.cpp
+0x0065FA30,36,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp
 0x0065FA60,32,code,,,-,,Code/GameEngine/Source/GameNetwork/Rva007F1DE0DerivedCtors.cpp
 0x0065FA80,323,code,,,-,,Code/GameEngine/Source/GameNetwork/Rva007F2FA0RecordRequest.cpp
 0x0065FBD0,124,code,,,-,,Code/GameEngine/Source/GameNetwork/V2FeslTxnRequests.cpp
@@ -55195,7 +55195,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00660140,156,code,,,-,,Code/GameEngine/Source/GameNetwork/V2FeslResultCursors.cpp
 0x006601E0,193,code,,,-,,Code/GameEngine/Source/GameNetwork/V2FeslResultCursors.cpp
 0x006602B0,9,code,,,-,,Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp
-0x006602C0,36,code,,,-,,Code/GameEngine/Source/Common/VptrCleanupDeletingDestructors.cpp
+0x006602C0,36,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp
 0x006602F0,36,code,,,-,,Code/GameEngine/Source/GameNetwork/V2FeslResultCursors.cpp
 0x00660320,32,code,,,-,,Code/GameEngine/Source/Common/Q3MakeDerivedFamily.cpp
 0x00660340,268,code,,,-,,Code/GameEngine/Source/GameNetwork/V2FeslResultCursors.cpp
@@ -55215,7 +55215,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00660BF0,113,code,,,-,,Code/GameEngine/Source/GameNetwork/V2FeslAriesRecords.cpp
 0x00660C70,30,code,,,-,,Code/GameEngine/Source/GameNetwork/V2FeslAriesRecords.cpp
 0x00660C90,9,code,,,-,,Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp
-0x00660CA0,36,code,,,-,,Code/GameEngine/Source/Common/VptrCleanupDeletingDestructors.cpp
+0x00660CA0,36,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp
 0x00660CD0,46,code,Code/GameEngine/Source/Common/BfmeCacheBZA.cpp,proposed,N,N=Code/GameEngine/Source/Common/BfmeCacheBZA.cpp,Code/GameEngine/Source/Common/BfmeMakeBZA.cpp
 0x00660D00,208,code,,,-,,Code/GameEngine/Source/GameNetwork/V2FeslTxnRequests.cpp
 0x00660DD0,44,code,,,-,,Code/GameEngine/Source/GameNetwork/Rva00660DD0Cluster.cpp
@@ -55240,7 +55240,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00661370,7,code,,,-,,Code/GameEngine/Source/Common/InlineDtorDeletingDtors2.cpp
 0x00661380,31,code,,,-,,Code/GameEngine/Source/Common/InlineDtorDeletingDtors2.cpp
 0x006613A0,9,code,,,-,,Code/Libraries/Source/DirtySock/Rva00666BA0Derived.cpp
-0x006613B0,36,code,,,-,,Code/GameEngine/Source/Common/VptrCleanupDeletingDestructors.cpp
+0x006613B0,36,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp
 0x006613E0,31,code,,,-,,Code/GameEngine/Source/Common/InlineDtorDeletingDtors2.cpp
 0x00661400,37,code,,,-,,Code/Libraries/Source/DirtySock/Y2ScalarDeleters.cpp
 0x00661430,51,code,,,-,,Code/GameEngine/Source/GameNetwork/Rva007F4980Slot.cpp
@@ -55520,7 +55520,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x006672B0,36,code,Code/GameEngine/Source/Common/BfmeThingVF.cpp,proposed,N,N=Code/GameEngine/Source/Common/BfmeThingVF.cpp,Code/GameEngine/Source/Common/BfmeThreeHundredSixtyThree.cpp
 0x006672E0,11,code,,,-,,Code/Libraries/Source/DirtySock/BfmeDirtyBaseDerived.cpp
 0x006672F0,9,code,,,-,,Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp
-0x00667300,36,code,,,-,,Code/GameEngine/Source/Common/VptrCleanupDeletingDestructors.cpp
+0x00667300,36,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp
 0x00667330,32,code,,,-,,Code/GameEngine/Source/GameNetwork/Rva007F1DE0DerivedCtors.cpp
 0x00667350,145,code,,,-,,Code/GameEngine/Source/GameNetwork/Y4FeslBuddyRequests3.cpp
 0x006673F0,162,code,,,-,,Code/GameEngine/Source/GameNetwork/Y4FeslBuddyRequests3.cpp
@@ -55568,7 +55568,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x006684B0,106,code,,,-,,Code/GameEngine/Source/GameNetwork/Y4FeslGameRecords.cpp
 0x00668520,240,code,,,-,,Code/GameEngine/Source/GameNetwork/Y4FeslGameDetailRecords.cpp
 0x00668610,9,code,,,-,,Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp
-0x00668620,36,code,,,-,,Code/GameEngine/Source/Common/VptrCleanupDeletingDestructors.cpp
+0x00668620,36,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp
 0x00668650,32,code,,,-,,Code/GameEngine/Source/GameNetwork/Rva007F1DE0DerivedCtors.cpp
 0x00668670,146,code,,,-,,Code/GameEngine/Source/GameNetwork/Y4FeslBuddyRequests.cpp
 0x00668710,81,code,,,-,,Code/GameEngine/Source/GameNetwork/Y4FeslBuddyRequests.cpp

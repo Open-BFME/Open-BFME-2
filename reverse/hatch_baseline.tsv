@@ -2656,9 +2656,6 @@ alternatename	Code/GameEngine/Source/Common/VectorDeletingDtorsV05_Unresolved.cp
 alternatename	Code/GameEngine/Source/Common/VectorDeletingDtorsV05_Unresolved.cpp	??1Rva003A8B51Vec@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/VectorDeletingDtorsV05_Unresolved.cpp	??1Rva003A8D6DVec@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/VectorDeletingDtorsV05_Unresolved.cpp	??1Rva003A9329Vec@@UAE@XZ	1
-alternatename	Code/GameEngine/Source/Common/VptrCleanupDeletingDestructors.cpp	?run@Rva007EB6C0Cleanup@@QAEXXZ	1
-alternatename	Code/GameEngine/Source/Common/VptrCleanupDeletingDestructors.cpp	?run@Rva007FA650Cleanup@@QAEXXZ	1
-alternatename	Code/GameEngine/Source/Common/VptrCleanupDeletingDestructors.cpp	?run@Rva009EDD30Cleanup@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/VptrZeroPrefixCtors.cpp	?vptrZeroAnchor@VptrZeroHead@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/VtableVirtualForwarders.cpp	?rva001FF3A9@Rva001FF3A9@@QAEXABUTreeHintRef00217D4C@@@Z	1
 alternatename	Code/GameEngine/Source/Common/VtableVirtualForwarders.cpp	?rva005CC208@Rva005CC208@@UAE_NXZ	1
@@ -3508,6 +3505,9 @@ alternatename	Code/GameEngine/Source/Main/Win32GameEngineCtor.cpp	?m_unknown24@G
 alternatename	Code/GameEngine/Source/Main/Win32GameEngineCtor.cpp	?setIsActive@GameEngine@@UAEX_N@Z	1
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/BFME2FallbackTextures_BfmeReleaseQueuedDeviceInterfaces_Rva0013331A.cpp	?vecPushBack@Rva0020FB8BVec20@@QAEXAAPAX@Z	1
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp	??0Q1ReceiverTreeStorage@@QAE@ABV?$set@UGen_t_009ee8e0_k4@@U?$less@UGen_t_009ee8e0_k4@@@_STL@@V?$allocator@UGen_t_009ee8e0_k4@@@3@@_STL@@@Z	1
+alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp	?run@Rva007EB6C0Cleanup@@QAEXXZ	1
+alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp	?run@Rva007FA650Cleanup@@QAEXXZ	1
+alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp	?run@Rva009EDD30Cleanup@@QAEXXZ	1
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/BFMERopeDrawableGetPosition.cpp	_D3DXVec3CatmullRom@24	1
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawParticleCleanup.cpp	?findParticleSystemByID@ParticleSystemManager@@AAE?AUBfmeW3DParticleHandle@@W4ParticleSystemID@@@Z	1
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankDraw.cpp	??1Rva000C79C9@@UAE@XZ	1
