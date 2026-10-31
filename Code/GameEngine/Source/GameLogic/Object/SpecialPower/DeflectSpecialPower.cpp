@@ -38,6 +38,19 @@ class Thing;
 class ModuleData;
 class Object;
 #include "../../../../Include/Common/BfmeXfer.h"
+#define BFME_DISP8_LEA_NEG_SBB_GETTER(NAME, LEADISP, ADDIMM) \
+	class NAME \
+	{ \
+	public: \
+		int get() const; \
+	}; \
+	int NAME::get() const \
+	{ \
+		const char *field = (const char *)this; \
+		const void *base = field - LEADISP; \
+		field += ADDIMM; \
+		return base ? (int)field : 0; \
+	}
 
 class Coord3D;
 
@@ -247,6 +260,18 @@ public:
 
 static const int DEFLECT_CONDITION_BIT = 4 * 32 + 30;
 
+// 0x004543A9 is also reached through the this-0x14 thunk 0x004543E3 in four
+// vtables, so it is virtual (same body).
+class Rva004543A9LeaNegSbbField
+{
+public:
+	virtual int get() const;
+};
+
+BFME_DISP8_LEA_NEG_SBB_GETTER(Rva004C54B1LeaNegSbbField, 12, 0x2C)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/DeflectSpecialPower.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/DeflectSpecialPower.cpp
 
 // ?getModuleNameKey@DeflectSpecialPower@@UBE?AW4NameKeyType@@XZ @0x4C54F0
@@ -300,12 +325,6 @@ void BfmeOwnBJ::bfmeSleepBJ(int first, int second, int third, int fourth, int fi
 
 	((BfmeWakeBJ *)((char *)this - 0x20))->bfmeSetWakeBJ(object, 1);
 }
-
-// tu-skeleton: 0x004C545D 78B ??0DeflectSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/DeflectSpecialPowerConstructorThunk.cpp (not merged yet)
-
-// tu-skeleton: 0x004C54AB 6B ?Rva004C54ABGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
-// tu-skeleton: 0x004C54B1 13B ?get@Rva004C54B1LeaNegSbbField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8LeaNegSbbGetters.cpp (not merged yet)
 
 // ??1DeflectSpecialPower@@UAE@XZ @0x004C54BE: restores the six vtables the
 // ctor 0x004C545D installs, then tail-calls the base dtor 0x00589079.
@@ -417,5 +436,23 @@ void DeflectSpecialPower::onCollide(Object *other, const Coord3D *, const Coord3
 			target->rva004C55B2Slot5(m_object);
 	}
 }
+
+// tu-skeleton: 0x004C545D 78B ??0DeflectSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/DeflectSpecialPowerConstructorThunk.cpp (not merged yet)
+
+// tu-skeleton: 0x004C54AB 6B ?Rva004C54ABGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Disp8LeaNegSbbGetters.cpp
+
+// Disp8 lea-neg-sbb getters: thirteen-byte __thiscall members with one shape:
+//
+//     lea eax,[ecx-<LEADISP>] / add ecx,<ADDIMM> / neg eax / sbb eax,eax / and eax,ecx / ret
+//
+// A pointer derived from `this` is null-tested branchlessly: neg sets carry
+// exactly when the derived base is nonzero and sbb spreads it to a full mask
+// that selects the adjusted `this` or null. Deriving the base from a live
+// field-local keeps `this` in ecx so the adjustment compiles to an in-place
+// add instead of a lea into a scratch register. Identity is not recovered:
+// every name is derived from its address.
+// No // cl: line (defaults match the shape).
 
 // tu-skeleton: 0x004C5671 18B ??0DeflectSpecialPowerModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/DeflectSpecialPowerModuleDataConstructor.cpp (not merged yet)
