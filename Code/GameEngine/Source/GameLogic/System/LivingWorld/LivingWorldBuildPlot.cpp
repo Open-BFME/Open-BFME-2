@@ -291,6 +291,48 @@ private:
 	unsigned char m_35;
 };
 
+class Rva0059DFFB
+{
+public:
+	virtual void slot0();
+	virtual void slot1();
+	virtual void slot2();
+	virtual void slot3();
+	virtual void slot4();
+	virtual void slot5();
+	virtual void slot6();
+	virtual void slot7();
+	virtual void slot8(bool result, int value);
+};
+
+// 0x0059DFFB is rowed as the virtual Rva0059E242::rva0059DFFB
+// (Rva0059DFFBUpdate.cpp); retail calls it directly, so the call is qualified.
+class Rva0059E242
+{
+public:
+	virtual ~Rva0059E242();
+	virtual void rva0059DF60();
+	virtual void rva0059DFFB();
+};
+
+class Rva004FC470
+{
+public:
+	void rva004FC470(bool flag);
+
+private:
+	char m_pad00[8];
+	Rva004FC320List m_list;
+	char m_pad18[8];
+	Rva000AD6F4 m_member20;
+	Rva0059DFFB *m_member24;
+	char m_pad28[8];
+	int m_30;
+	char m_34;
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuildPlot.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuildPlot.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuildPlot.cpp
@@ -405,16 +447,6 @@ void Rva004FC275::rva004FC2A6()
 	return h->f2();
 }
 
-// tu-skeleton: 0x004FC23E 55B ?BeginTurn@LivingWorldBuildPlot@@UAEXHH@Z -- matched in Code/GameEngine/Source/Common/Rva004FC4D1Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004FC2B3 109B ?apply@Rva004FC320List@@QAEXABURva004FC2B3Call@@@Z -- matched in Code/GameEngine/Source/Common/Rva004FA738ListenerWalks.cpp (not merged yet)
-
-// tu-skeleton: 0x004FC320 30B ?forEach@Rva004FC320List@@QAEXP8Rva004FC320Listener@@AEXPAX@Z0@Z -- matched in Code/GameEngine/Source/Common/Rva004FA738ListenerWalks.cpp (not merged yet)
-
-// tu-skeleton: 0x004FC470 97B ?rva004FC470@Rva004FC470@@QAEX_N@Z -- matched in Code/GameEngine/Source/Common/Rva004FC470Method.cpp (not merged yet)
-
-// tu-skeleton: 0x004FC4D1 140B ??1LivingWorldBuildPlot@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva004FC4D1Dtor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/ModuleNameGetters.cpp
 
 // Module literal name getters: six-byte const members with one shape:
@@ -431,6 +463,36 @@ void Rva004FC275::rva004FC2A6()
 // this tree's address-derived convention (identity unrecoverable from 6
 // bytes, string carried in source where verify_string_refs re-reads it).
 // No // cl: line (defaults match the frameless 6-byte shape).
+
+// tu-skeleton: 0x004FC23E 55B ?BeginTurn@LivingWorldBuildPlot@@UAEXHH@Z -- matched in Code/GameEngine/Source/Common/Rva004FC4D1Dtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004FC2B3 109B ?apply@Rva004FC320List@@QAEXABURva004FC2B3Call@@@Z -- matched in Code/GameEngine/Source/Common/Rva004FA738ListenerWalks.cpp (not merged yet)
+
+// tu-skeleton: 0x004FC320 30B ?forEach@Rva004FC320List@@QAEXP8Rva004FC320Listener@@AEXPAX@Z0@Z -- matched in Code/GameEngine/Source/Common/Rva004FA738ListenerWalks.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva004FC470Method.cpp
+
+void Rva004FC470::rva004FC470(bool flag)
+{
+	bool result = false;
+	if (flag && m_member20.m_ptr)
+		result = m_member20.m_ptr->rva004E0CCB();
+
+	m_member20.clear();
+	m_30 = 0;
+	m_34 = 0;
+
+	if (m_member24)
+	{
+		m_member24->slot8(result, 1);
+		if (!result)
+			((Rva0059E242 *)m_member24)->Rva0059E242::rva0059DFFB();
+	}
+
+	m_list.forEach((void (Rva004FC320Listener::*)(void *))(void (Rva001FF3A9::*)())&Rva001FF3A9::rva001FF3A9, this);
+}
+
+// tu-skeleton: 0x004FC4D1 140B ??1LivingWorldBuildPlot@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva004FC4D1Dtor.cpp (not merged yet)
 
 // tu-skeleton: 0x004FC563 28B ??_GLivingWorldBuildPlot@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB11.cpp (not merged yet)
 
