@@ -1125,6 +1125,107 @@ struct Rva0058C475Arg
 	int m_28;
 };
 
+//
+// Six constant-return bodies found by tools/vtable_gaps.py: each is an
+// UNNAMED slot of a vtable-shaped run that also carries named slots, so the
+// only evidence that reaches them is the vtable -- they have no direct caller
+// to name them and no Zero Hour counterpart to port.
+//
+// Identity is therefore not recoverable. Each keeps an address-derived class
+// name: AGENTS.md allows an opaque address-token name (it is self-labelling and
+// counted by progress.py) and prohibits a plausible guessed class, which no
+// gate can see. The class exists to give the body the retail __thiscall
+// convention -- `ret N` cleans the arguments, which a free __cdecl spelling
+// would not reproduce. The opaque classes have no virtual members. The later
+// GameWindow fold uses its observed virtual list without emitting a table here.
+//
+// Retail bodies:
+//   0x0050B5C6   3B   b0 01 c3              mov al,1 ; ret
+//   0x0050B5F1   5B   32 c0 c2 08 00        xor al,al ; ret 8
+//   0x005CB9FF   5B   32 c0 c2 04 00        xor al,al ; ret 4
+//   0x006C8770   5B   32 c0 c2 0c 00        xor al,al ; ret 0xc
+//   0x005748AD   5B   33 c0 c2 0c 00        xor eax,eax ; ret 0xc
+//   0x005748B2   5B   33 c0 c2 08 00        xor eax,eax ; ret 8
+
+class Rva0050B5C6
+{
+public:
+	bool rva0050B5C6();
+};
+
+// Retail GameWindow's installed table at RVA 0080BBCC has eleven slots.
+// Slot 10 selects this same three-byte constant body (0050B5C6), an ICF
+// fold shared with unrelated classes. Keep the opaque owner for those
+// consumers; the original name and const qualification remain unknown.
+class WinInstanceData;
+
+enum WindowMsgHandledType { MSG_IGNORED, MSG_HANDLED };
+
+class GameWindow
+{
+protected:
+	virtual ~GameWindow();
+public:
+	virtual WindowMsgHandledType input(unsigned int, unsigned int, unsigned int);
+	virtual WindowMsgHandledType bfmeGoEHCb(unsigned int, unsigned int, unsigned int);
+	virtual int draw(void *);
+	virtual int tooltip(WinInstanceData *, unsigned int);
+	virtual int rva0009FD78();
+	virtual bool vslot6() const;
+	virtual void *fetchCreateInstance() = 0;
+	virtual bool vslot8() const;
+	virtual bool vslot9() const;
+	virtual bool vslot10();
+};
+
+class Rva0050B5F1
+{
+public:
+	bool rva0050B5F1(int a, int b);
+};
+
+class Rva005CB9FF
+{
+public:
+	bool rva005CB9FF(int a);
+};
+
+// The two below return Int rather than Bool -- `xor eax,eax`, not `xor al,al`.
+
+class Rva005748AD
+{
+public:
+	int rva005748AD(int a, int b, int c);
+};
+
+class Rva005748B2
+{
+public:
+	int rva005748B2(int a, int b);
+};
+
+// Installed-vtable constant result; original owner and parameter semantics
+// remain unknown. RET 12 establishes native stack cleanup only.
+class Rva0041BA5C {public: bool rva0041BA5C(int a0, int a1, int a2);};
+
+// Installed-vtable constant result; original owner and parameter semantics
+// remain unknown. RET 24 establishes native stack cleanup only.
+class Rva00481279 {public: bool rva00481279(int a0, int a1, int a2, int a3, int a4, int a5);};
+
+// Installed-vtable constant result; original owner and parameter semantics
+// remain unknown. RET 12 establishes native stack cleanup only.
+class Rva0049A6D7 {public: bool rva0049A6D7(int a0, int a1, int a2);};
+
+// Installed-vtable constant result; original owner and parameter semantics
+// remain unknown. RET 4 establishes native stack cleanup only.
+class Rva0046480A {public: int rva0046480A(int a0);};
+
+// Installed-vtable constant result; original owner and parameter semantics
+// remain unknown. RET 0 establishes native stack cleanup only.
+class Rva0058C484 {public: int rva0058C484();};
+
+// ---- from Code/GameEngine/Source/GameNetwork/NetPacket.cpp
+
 // ---- from Code/GameEngine/Source/GameNetwork/NetPacket.cpp
 
 // ---- from Code/GameEngine/Source/GameNetwork/NetPacket.cpp
@@ -6610,7 +6711,9 @@ int Rva0058C475(const Rva0058C475Arg *command)
 
 int Rva0058C480() { return 0x1A; }
 
-// tu-skeleton: 0x0058C484 4B ?rva0058C484@Rva0058C484@@QAEHXZ -- matched in Code/GameEngine/Source/Common/VtableConstantPredicates.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/VtableConstantPredicates.cpp
+
+int Rva0058C484::rva0058C484() {return 28;}
 
 // tu-skeleton: 0x0058C80F 213B ?FillBufferWithFrameCommand@@YAXPADPAVNetCommandRef@@@Z -- matched in Code/GameEngine/Source/GameNetwork/FillBufferWithFrameCommand.cpp (not merged yet)
 

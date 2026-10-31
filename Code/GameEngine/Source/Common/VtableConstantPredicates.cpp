@@ -128,4 +128,3 @@ int Rva0046480A::rva0046480A(int a0) {return -1;}
 // Installed-vtable constant result; original owner and parameter semantics
 // remain unknown. RET 0 establishes native stack cleanup only.
 class Rva0058C484 {public: int rva0058C484();};
-int Rva0058C484::rva0058C484() {return 28;}
