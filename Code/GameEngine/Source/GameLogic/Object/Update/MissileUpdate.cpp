@@ -157,6 +157,19 @@ class Snapshot;
 	}
 #include "Code/Libraries/Include/Lib/Coord3D.h"
 #include <math.h>
+#define BFME_DISP32_DWORD_CLEAR(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		void clear(); \
+		char m_lead[DISP]; \
+		int m_counter; \
+	}; \
+	void NAME::clear() \
+	{ \
+		m_counter = 0; \
+	}
+
 struct MissilePoint:public Coord3D {MissilePoint(const Coord3D &p){x=p.x;y=p.y;z=p.z;}void setXY(const Coord3D&p,float height){x=p.x;y=p.y;z=height;}};
 
 class Object;
@@ -331,9 +344,26 @@ class TerrainLogic {public:virtual ~TerrainLogic();virtual void slot1();virtual 
 
 extern TerrainLogic *TheTerrainLogic;
 
+BFME_DISP32_DWORD_CLEAR(Rva004A750ADwordClearer, 0xC8)
+
 // tu-skeleton: 0x004A74EF 27B ?buildFieldParse@MissileUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp (not merged yet)
 
-// tu-skeleton: 0x004A750A 8B ?clear@Rva004A750ADwordClearer@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Disp32DwordClearers2.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Disp32DwordClearers2.cpp
+
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
+// Disp32 dword clearers: eight-byte __thiscall members with one shape:
+//
+//     and dword ptr [ecx+<DISP32>],0 / ret     (83 A1 XX XX XX XX 00 C3)
+//
+// A dword counter at a fixed displacement from `this` is cleared in place.
+// The zero is applied as an AND-immediate (not a MOV-immediate): under /O1
+// MSVC 7.1 emits the RMW form for `m_counter = 0` (defaults emit the longer
+// MOV-imm form). The displacements here do not fit in a signed byte, hence
+// disp32. Sibling TU to the field-clearer family, kept separate to avoid
+// churning a live file. Identity is not recovered: every name is derived
+// from its address.
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdate.cpp
 
@@ -639,9 +669,7 @@ void MissileUpdate::xfer(Xfer *xfer)
 // reference/open-bfme-1/Code/GameEngine/Source/Common/DispByteFieldGetters.cpp).
 // No // cl: line (defaults match the frameless 7-byte shape).
 
-// tu-skeleton: 0x004A7684 6B ?Rva004A7684Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
-// tu-skeleton: 0x004A7869 51B ??1MissileUpdateModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdateModuleDataDtor.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdate_update.cpp
 
@@ -664,6 +692,10 @@ UpdateSleepTime MissileUpdate::update(){
  PathfindLayerEnum ground=TheTerrainLogic->getHighestLayerForDestination(&pos,false);if(ground==oldLayer){pos.z=TheTerrainLogic->getLayerHeight(pos.x,pos.y,ground,0,true)+2.0f;getObject()->Thing::setPosition(&pos);rva004A7580();return UPDATE_SLEEP_NONE;}}
  return BezierProjectileBehavior::update();
 }
+
+// tu-skeleton: 0x004A7684 6B ?Rva004A7684Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x004A7869 51B ??1MissileUpdateModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdateModuleDataDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0078DF6E 8B uw_0078df6e -- matched in Code/gen_small/uw_gen_013.cpp (not merged yet)
 

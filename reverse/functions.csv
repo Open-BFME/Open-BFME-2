@@ -17517,7 +17517,7 @@ _VP60D_GetVersionNumber,,0x001B5830,6,Code/Libraries/Source/VP6/PbAccessors.cpp,
 ?clear@Rva0039D761DwordClearer@@QAEXXZ,,0x0039D761,8,Code/GameEngine/Source/Common/RTS/Team.cpp,matched,disp32 dword clearer; and-zero under O1; phase-proven no-branch-to-addr
 ?clear@Rva003ECB0BDwordClearer@@QAEXXZ,,0x003ECB0B,8,Code/GameEngine/Source/Common/Disp32DwordClearers2.cpp,matched,disp32 dword clearer; and-zero under O1; phase-proven no-branch-to-addr
 ?clear@Rva0044E5B8DwordClearer@@QAEXXZ,,0x0044E5B8,8,Code/GameEngine/Source/Common/Disp32DwordClearers2.cpp,matched,disp32 dword clearer; and-zero under O1; phase-proven no-branch-to-addr
-?clear@Rva004A750ADwordClearer@@QAEXXZ,,0x004A750A,8,Code/GameEngine/Source/Common/Disp32DwordClearers2.cpp,matched,disp32 dword clearer; and-zero under O1; phase-proven no-branch-to-addr
+?clear@Rva004A750ADwordClearer@@QAEXXZ,,0x004A750A,8,Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdate.cpp,matched,disp32 dword clearer; and-zero under O1; phase-proven no-branch-to-addr
 ?clear@Rva004ACD43DwordClearer@@QAEXXZ,,0x004ACD43,8,Code/GameEngine/Source/Common/Disp32DwordClearers2.cpp,matched,disp32 dword clearer; and-zero under O1; phase-proven no-branch-to-addr
 ?clear@Rva0010034FDwordClearer@@QAEXXZ,,0x0010034F,5,Code/GameEngine/Source/Common/Disp8DwordClearers.cpp,matched,disp8 dword clearer; and-zero under O1; phase-proven no-branch-to-addr
 ?clear@Rva0020E34FDwordClearer@@QAEXXZ,,0x0020E34F,5,Code/GameEngine/Source/Common/Disp8DwordClearers.cpp,matched,disp8 dword clearer; and-zero under O1; phase-proven no-branch-to-addr
