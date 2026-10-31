@@ -2128,7 +2128,6 @@ alternatename	Code/GameEngine/Source/Common/Rva002B37B4.cpp	?rva0020F2F1@Rva0020
 alternatename	Code/GameEngine/Source/Common/Rva002B3D81.cpp	?rva002B2BAA@@YA_NXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva002B3F9F.cpp	?rva0040CBD7@Rva0040CBD7Vec@@QAEXPAPAXH@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva002B91EDElementCopy.cpp	??0Rva002B5558@@QAE@ABV0@@Z	1
-alternatename	Code/GameEngine/Source/Common/Rva002D76C6Remove.cpp	?rva002D76C6@Radar@@QAE_NPAURva002D76C6Owner@@PAPAURva002D76C6Node@@@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva002E0427Dtor.cpp	??1Rva0022C0CDSubsystem@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/Rva002E15E6Method.cpp	?Rva002E17A0Copy@@YAPAVRva002E0D93@@PAV1@00PADH@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva002E3EB8Permuted.cpp	??1PolygonTrigger@@UAE@XZ	1
@@ -2551,6 +2550,7 @@ alternatename	Code/GameEngine/Source/Common/System/LivingWorldRegionConnectionCt
 alternatename	Code/GameEngine/Source/Common/System/LocalFile.cpp	??1Rva00605CA7@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/System/LocalFile.cpp	?wideOpenStub@LocalFile@@UAE_NPBGH@Z	1
 alternatename	Code/GameEngine/Source/Common/System/LocalFile_Unresolved.cpp	?convertToRAMFile@File@@UAEPAV1@XZ	1
+alternatename	Code/GameEngine/Source/Common/System/Radar.cpp	?rva002D76C6@Radar@@QAE_NPAURva002D76C6Owner@@PAPAURva002D76C6Node@@@Z	1
 alternatename	Code/GameEngine/Source/Common/System/Rva000ABB87ParserRegistration.cpp	?bfmeDropVE@BfmeSubVE@@QAEXPAX@Z	1
 alternatename	Code/GameEngine/Source/Common/System/Rva000ABB87ParserRegistration.cpp	?bfmeSlot0@BfmeParserBindingBaseVE@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/System/Rva000ABB87ParserRegistration.cpp	?bfmeSlot1@BfmeParserBindingBaseVE@@UAEXXZ	1

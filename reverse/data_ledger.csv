@@ -17158,8 +17158,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009BCBDC,24,.data,global,?g_009BCBDC@@3PADA,,unowned,,0,1
 0x009BCBF4,276,.data,global,?m_freeSmudgeList@SmudgeSet@@0V?$DLListClass@USmudge@@@@A,Code/GameEngine/Source/GameClient/System/SmudgeRemoveSmudgeFromSet.cpp,provisional,?m_freeSmudgeList@SmudgeSet@@0V?$DLListClass@USmudge@@@@A;?m_freeSmudgeList@SmudgeSet@@2V?$DLListClass@USmudge@@@@A,1,5
 0x009BCD08,436,.data,global,?radarColorLookupTable@@3PAURadarColorLookup@@A,,unowned,,0,5
-0x009BCEBC,16,.data,global,?color2@?M@??createEvent@Radar@@QAEXPBUCoord3D@@W4RadarEventType@@M@Z@4URGBAColorInt@@A,Code/GameEngine/Source/Common/System/Radar_createEvent.cpp,owned,,1,1
-0x009BCECC,16,.data,global,?color1@?M@??createEvent@Radar@@QAEXPBUCoord3D@@W4RadarEventType@@M@Z@4URGBAColorInt@@A,Code/GameEngine/Source/Common/System/Radar_createEvent.cpp,owned,,1,1
+0x009BCEBC,16,.data,global,?color2@?M@??createEvent@Radar@@QAEXPBUCoord3D@@W4RadarEventType@@M@Z@4URGBAColorInt@@A,Code/GameEngine/Source/Common/System/Radar.cpp,owned,,1,1
+0x009BCECC,16,.data,global,?color1@?M@??createEvent@Radar@@QAEXPBUCoord3D@@W4RadarEventType@@M@Z@4URGBAColorInt@@A,Code/GameEngine/Source/Common/System/Radar.cpp,owned,,1,1
 0x009BCEDC,84,.data,global,?imageStatusNames@@3PAPBDA,Code/GameEngine/Source/GameClient/System/Image.cpp,owned,,1,1
 0x009BCF30,264,.data,global,?TheBodyDamageTypeNames@@3PAPBDA,,unowned,,0,2
 0x009BD038,4,.data,global,?SAVE_FILE_EOF@@3PBDB,,unowned,,0,3
