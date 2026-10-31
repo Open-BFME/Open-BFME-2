@@ -19804,3 +19804,6 @@ Code/GameEngine/Source/Common/Rva002B2757.cpp|member|Rva002B2757|m_b0,72021707d7
 Code/GameEngine/Source/Common/Rva002B2757.cpp|local|Rva002B2757::rva002B2757|r,5fd1596820c6ffe0d9fd8e03,drz-k11,n29h-k11,w-09889333d128,2026-10-31
 Code/GameEngine/Source/Common/Rva00483B3DHealUpdate.cpp|member|Rva00483B3DFrames|m_frame40,4402238ef4b9cdcf266d22ed,drz-k3,n29a2-k3,w-077d7aeb666b,2026-10-31
 Code/GameEngine/Source/Common/Bfme/Rva005E70DF.cpp|function|0x005E70DF|rva005E70DF,b325dbad54d98a990759e020,drz-k9,n29b2-k9,w-4d4d8f8584bc,2026-10-31
+Code/GameEngine/Source/Common/Rva0021BC2CWrapper.cpp|member|Rva0021BC2CVec|m_14,80c74ec43a63d3594f1a2e09,drz-k9,n29d2-k9,w-4d4d8f8584bc,2026-10-31
+Code/GameEngine/Source/Common/Rva0021BC2CWrapper.cpp|member|Rva0021BC2CVec|m_18,c9093dc70b10667e0d9ea811,drz-k9,n29d2-k9,w-4d4d8f8584bc,2026-10-31
+Code/Libraries/Source/WWVegas/WWLib/realcrc_one_arg.cpp|function|0x003ECA2F|Rva003ECA2FGet,c3a7745674c060269bb49155,drz-k9,n29d2-k9,w-4d4d8f8584bc,2026-10-31
