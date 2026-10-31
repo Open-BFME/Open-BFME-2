@@ -72,7 +72,7 @@ template<> __declspec(dllimport) __forceinline _List_node<Object*> *list<Object*
 
 extern GameLogic*TheGameLogic;
 
-namespace rts{template<class T>struct hash{size_t operator()(const T&v)const{return(size_t)v;}};}
+#include "RtsHashView.h"
 
 typedef _STL::hash_map<ObjectID,Coord3D,rts::hash<ObjectID>,_STL::equal_to<ObjectID> > ObjectCoord3DMap;
 
