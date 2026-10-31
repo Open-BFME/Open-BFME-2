@@ -8,7 +8,13 @@
 // RvaPair address name for 8-byte AsciiString-plus-int layout retail proves.
 #include <vector>
 #include "ascii_string.h"
-struct RvaPair00207E26 { AsciiString m_key; int m_value; public: ~RvaPair00207E26(); };
+struct RvaPair00207E26
+{
+public:
+	~RvaPair00207E26();
+	AsciiString text; // +0x00
+	int scalar; // +0x04
+};
 template _STL::vector<RvaPair00207E26>::~vector();
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's

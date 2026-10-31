@@ -8,20 +8,25 @@
 #include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
 
+class File;
+
 namespace FXParticleSystem
 {
 
 class ParticleSystemTemplate
 {
 public:
-    AsciiString getName() const;
+	AsciiString getName() const;
+	void writeINI(File &file, unsigned int flags) const;
 };
 
 }
 
-struct Rva00204BB8
+class Rva00204BB8
 {
-    bool operator()(int a, int b) const;
+public:
+	Rva00204BB8() {}
+	bool operator()(int a, int b) const;
 };
 
 bool Rva00204BB8::operator()(int a, int b) const

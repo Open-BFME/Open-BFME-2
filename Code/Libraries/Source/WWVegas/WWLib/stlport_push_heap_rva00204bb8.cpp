@@ -7,32 +7,13 @@
 // the hole is above top and comp(*parent, value) holds, move the parent down.
 // Evidence: caller 0x206D33 in adjust_heap 94B; callee rowed 0x204BB8;
 // unblocks 0x206D33. Same STLport spelling as stlport_push_heap_rva00422ca8.cpp.
+#include <algorithm>
+
 class Rva00204BB8
 {
 public:
-    bool operator()(int a, int b) const;
+	Rva00204BB8() {}
+	bool operator()(int a, int b) const;
 };
 
-namespace _STL
-{
-
-template <class RandomAccessIterator, class Distance, class Tp, class Compare>
-void __push_heap(RandomAccessIterator first, Distance holeIndex,
-    Distance topIndex, Tp val, Compare comp)
-{
-    Distance parent = (holeIndex - 1) / 2;
-    while (holeIndex > topIndex)
-    {
-        if (!comp(*(first + parent), val))
-            break;
-        *(first + holeIndex) = *(first + parent);
-        holeIndex = parent;
-        parent = (holeIndex - 1) / 2;
-    }
-    *(first + holeIndex) = val;
-}
-
-template void __push_heap<int *, int, int,
-    Rva00204BB8>(int *, int, int, int, Rva00204BB8);
-
-}
+template void _STL::__push_heap<int *, int, int, Rva00204BB8>(int *, int, int, int, Rva00204BB8);

@@ -8,28 +8,13 @@
 // stlport_adjust_heap_rva00204bb8.cpp and stlport_push_heap_rva00422ca8.cpp
 // pop_heap precedent.
 
+#include <algorithm>
+
 class Rva00204BB8
 {
 public:
-    bool operator()(int a, int b) const;
+	Rva00204BB8() {}
+	bool operator()(int a, int b) const;
 };
 
-namespace _STL
-{
-
-template <class RandomAccessIterator, class Distance, class Tp, class Compare>
-void __adjust_heap(RandomAccessIterator first, Distance holeIndex,
-    Distance len, Tp val, Compare comp);
-
-template <class RandomAccessIter, class Tp, class Compare, class Distance>
-void __pop_heap(RandomAccessIter first, RandomAccessIter last,
-    RandomAccessIter result, Tp val, Compare comp, Distance *)
-{
-	*result = *first;
-	__adjust_heap(first, 0, (int)(last - first), val, comp);
-}
-
-template void __pop_heap<int *, int,
-    Rva00204BB8, int>(int *, int *, int *, int, Rva00204BB8, int *);
-
-}
+template void _STL::__pop_heap<int *, int, Rva00204BB8, int>(int *, int *, int *, int, Rva00204BB8, int *);

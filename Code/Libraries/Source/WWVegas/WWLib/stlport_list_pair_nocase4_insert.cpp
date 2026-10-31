@@ -21,4 +21,20 @@ template <>
 _List_node<PairNocase4> *list<PairNocase4, allocator<PairNocase4> >::_M_create_node(const PairNocase4 &);
 }
 
+// Rva002081C7Xfer.cpp declares this specialization, so the header template cannot emit the row.
+namespace _STL {
+template <>
+__declspec(noinline) ListNocase4::iterator ListNocase4::insert(ListNocase4::iterator position, const PairNocase4 &x)
+{
+    _Node *tmp = _M_create_node(x);
+    _List_node_base *next = position._M_node;
+    _List_node_base *prev = next->_M_prev;
+    tmp->_M_next = next;
+    tmp->_M_prev = prev;
+    prev->_M_next = tmp;
+    next->_M_prev = tmp;
+    return tmp;
+}
+}
+
 template ListNocase4::iterator ListNocase4::insert(ListNocase4::iterator, const PairNocase4 &);

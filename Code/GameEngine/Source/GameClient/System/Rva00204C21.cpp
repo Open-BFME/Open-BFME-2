@@ -10,7 +10,13 @@
 class Rva0020453CHolderBase
 {
 public:
+	~Rva0020453CHolderBase() { release(); }
+	virtual void holderSlot0();
 	void release();
+
+protected:
+	int m_systemID;		// +0x04
+	bool m_flag;		// +0x08
 };
 
 #include "ascii_string.h"
@@ -22,10 +28,31 @@ class BFMERetailAsciiString : public AsciiString
 {
 };
 
+class ParticleSystemTemplate;
+class BfmeParticleSystemHandle;
+class Rva000427195;
+class Rva000411084
+{
+public:
+	void *m_node;
+	Rva000427195 *m_table;
+	void *next();
+};
+
+class Rva000427195
+{
+public:
+	void *first(Rva000411084 *iterator);
+};
+
 class ParticleSystemManager
 {
 public:
+	ParticleSystemTemplate *findTemplate(const AsciiString &name) const;
+	BfmeParticleSystemHandle createParticleSystem(const ParticleSystemTemplate *tmpl, bool createSlaves);
 	void bfmeStopCW(const BFMERetailAsciiString &name);
+	unsigned char m_pad[0x88];
+	Rva000427195 m_templateMap;	// +0x88
 };
 
 extern ParticleSystemManager *TheParticleSystemManager;

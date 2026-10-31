@@ -13,7 +13,8 @@ struct FieldParse;
 class INI
 {
 public:
-    void initFromINI(void *what, const FieldParse *table);
+	void initFromINI(void *what, const FieldParse *table);
+	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
 };
 
 struct Rva003B39C7
@@ -47,7 +48,9 @@ struct Arg205A2B
 class Rva00205A2B
 {
 public:
-    void rva00205A2B(Arg205A2B *arg);
+	void rva00205A2B(Arg205A2B *arg);
+private:
+	char m_pool[0x257 * 0x80 + 0xa0]; // +0x00
 };
 
 class ScriptEngine;

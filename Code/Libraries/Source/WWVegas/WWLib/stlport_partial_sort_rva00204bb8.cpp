@@ -8,10 +8,13 @@
 // stlport_adjust_heap_rva00204bb8.cpp and __partial_sort precedent in
 // stlport_push_heap_rva00422ca8.cpp.
 
+#include <algorithm>
+
 class Rva00204BB8
 {
 public:
-    bool operator()(int a, int b) const;
+	Rva00204BB8() {}
+	bool operator()(int a, int b) const;
 };
 
 void __cdecl Rva00207BAAWrap(int *first, int *last, Rva00204BB8 comp);
@@ -19,20 +22,12 @@ void __cdecl Rva00207BAAWrap(int *first, int *last, Rva00204BB8 comp);
 namespace _STL
 {
 
-// STLport 4.5.3's own signatures (the trailing _Distance* tag included).
-template <class RandomAccessIter, class Tp, class Compare, class Distance>
-void __pop_heap(RandomAccessIter first, RandomAccessIter last,
-    RandomAccessIter result, Tp val, Compare comp, Distance *);
-
-template <class RandomAccessIter, class Compare>
-void sort_heap(RandomAccessIter first, RandomAccessIter last, Compare comp);
-
-template <class RandomAccessIter, class Tp, class Compare>
-void __partial_sort(RandomAccessIter first, RandomAccessIter middle,
-    RandomAccessIter last, Tp *, Compare comp)
+template <>
+inline __declspec(noinline) void __partial_sort<int *, int, Rva00204BB8>(int *first, int *middle,
+    int *last, int *, Rva00204BB8 comp)
 {
 	Rva00207BAAWrap(first, middle, comp);
-	for (RandomAccessIter i = middle; i < last; ++i) {
+	for (int *i = middle; i < last; ++i) {
 		if (comp(*i, *first)) {
 			__pop_heap(first, middle, i, *i, comp, (int *)0);
 		}
@@ -40,7 +35,6 @@ void __partial_sort(RandomAccessIter first, RandomAccessIter middle,
 	sort_heap(first, middle, comp);
 }
 
-template void __partial_sort<int *, int,
-    Rva00204BB8>(int *, int *, int *, int *, Rva00204BB8);
+template void __partial_sort<int *, int, Rva00204BB8>(int *, int *, int *, int *, Rva00204BB8);
 
 }

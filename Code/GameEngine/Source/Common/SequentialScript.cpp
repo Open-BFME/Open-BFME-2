@@ -10,12 +10,14 @@
 // attempt also wrote the vtable as a literal address).
 class Xfer;
 
-struct SequentialScriptQuad {
-    int m_count0;
-    int m_index0;
-    int m_count1;
-    int m_index1;
-    SequentialScriptQuad() : m_count0(0), m_index0(-1), m_count1(0), m_index1(-1) {}
+struct SequentialScriptQuad
+{
+public:
+	SequentialScriptQuad() : m_count0(0), m_index0(-1), m_count1(0), m_index1(-1) {}
+	int m_count0; // +0x00
+	int m_index0; // +0x04
+	int m_count1; // +0x08
+	int m_index1; // +0x0C
 };
 class SequentialScript {
 public:

@@ -10,12 +10,13 @@
 class Rva0020453CHolderBase
 {
 public:
-    ~Rva0020453CHolderBase() { release(); }
-    virtual void holderSlot0();
-    void release();
-private:
-    void *m_handle;
-    bool m_active;
+	~Rva0020453CHolderBase() { release(); }
+	virtual void holderSlot0();
+	void release();
+
+protected:
+	int m_systemID;		// +0x04
+	bool m_flag;		// +0x08
 };
 
 extern const void *const g_00BE39F4[];

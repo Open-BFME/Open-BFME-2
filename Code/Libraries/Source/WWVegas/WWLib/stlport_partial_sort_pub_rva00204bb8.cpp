@@ -6,27 +6,13 @@
 // stlport_push_heap_rva00422ca8.cpp. Evidence: chain via landed
 // __partial_sort; caller 0x0020C0BA in 0x0020C04C.
 
+#include <algorithm>
+
 class Rva00204BB8
 {
 public:
-    bool operator()(int a, int b) const;
+	Rva00204BB8() {}
+	bool operator()(int a, int b) const;
 };
 
-namespace _STL
-{
-
-template <class RandomAccessIter, class Tp, class Compare>
-void __partial_sort(RandomAccessIter first, RandomAccessIter middle,
-    RandomAccessIter last, Tp *, Compare comp);
-
-template <class RandomAccessIter, class Compare>
-void partial_sort(RandomAccessIter first, RandomAccessIter middle,
-    RandomAccessIter last, Compare comp)
-{
-	__partial_sort(first, middle, last, (int *)0, comp);
-}
-
-template void partial_sort<int *,
-    Rva00204BB8>(int *, int *, int *, Rva00204BB8);
-
-}
+template void _STL::partial_sort<int *, Rva00204BB8>(int *, int *, int *, Rva00204BB8);

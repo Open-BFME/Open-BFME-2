@@ -1,4 +1,4 @@
-// cl: /EHsc /D_STLP_NO_EXCEPTIONS /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// cl: /EHsc /D_STLP_NO_EXCEPTIONS /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT /Ireference/shims/bfmealloc
 // stlport
 // Batch _M_create_node family recovery (generated): one explicit
 // specialization per sibling, each proven by its own retail call
@@ -12,12 +12,6 @@
 #include <set>
 #include <list>
 #include <vector>
-namespace _STL {
-template <> class allocator<char> {
-public:
-    static char *allocate(unsigned int bytes, const void *hint);
-};
-}
 
 struct NoCaseTreeValue4 { public: unsigned char m_data[4]; };
 #include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
@@ -26,7 +20,7 @@ struct TreeHintPayload003012F0 { public: unsigned char m_data[12]; };
 // ?_M_create_node@?$list@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@2@@_STL@@IAEPAU?$_List_node@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@2@ABU?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@2@@Z
 void __cdecl Rva0020596AConstruct(void *dest, const void *source);
 template <>
-_STL::_List_node<_STL::pair<const AsciiString, NoCaseTreeValue4> > *_STL::list<_STL::pair<const AsciiString, NoCaseTreeValue4>, _STL::allocator<_STL::pair<const AsciiString, NoCaseTreeValue4> > >::_M_create_node(_STL::pair<const AsciiString, NoCaseTreeValue4> const &__x)
+__declspec(noinline) _STL::_List_node<_STL::pair<const AsciiString, NoCaseTreeValue4> > *_STL::list<_STL::pair<const AsciiString, NoCaseTreeValue4>, _STL::allocator<_STL::pair<const AsciiString, NoCaseTreeValue4> > >::_M_create_node(_STL::pair<const AsciiString, NoCaseTreeValue4> const &__x)
 {
 	_STL::_List_node<_STL::pair<const AsciiString, NoCaseTreeValue4> > *__p =
 		(_STL::_List_node<_STL::pair<const AsciiString, NoCaseTreeValue4> > *)_STL::allocator<char>::allocate(sizeof(_STL::_List_node<_STL::pair<const AsciiString, NoCaseTreeValue4> >), 0);

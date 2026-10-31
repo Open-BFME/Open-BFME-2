@@ -17,6 +17,7 @@ class NameKeyGenerator
 {
 public:
 	NameKeyType nameToKey(const AsciiString &name);
+	const AsciiString &keyToName(NameKeyType key); // 0x00148C95
 };
 
 extern NameKeyGenerator *TheNameKeyGenerator;
@@ -32,6 +33,7 @@ class PlayerList
 {
 public:
 	Player *getNthPlayer(int i);
+	void updateTeamStates(); // 0x002A7B1C
 };
 
 extern PlayerList *ThePlayerList;

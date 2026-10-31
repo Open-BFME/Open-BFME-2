@@ -11,20 +11,21 @@
 
 struct Arg205A8D
 {
-    char _pad0[4];
-    AsciiString m_4;
-    AsciiString m_8;
-    AsciiString m_C;
-    char _pad10[0x7c - 0x10];
-    AsciiString m_7c;
+public:
+	char m_pad00[0x4];
+	AsciiString m_4; // +0x04
+	AsciiString m_8; // +0x08
+	AsciiString m_C; // +0x0C
+	char m_pad10[0x6C];
+	AsciiString m_helpText; // +0x7C
 };
 
 class Rva00205A8D
 {
 public:
-    void rva00205A8D(Arg205A8D *arg);
+	void rva00205A8D(Arg205A8D *arg);
 private:
-    char m_pool[0xCA * 0x80 + 0x12C20];
+	char m_pool[0xCA * 0x80 + 0x12C20]; // +0x00
 };
 
 void Rva00205A8D::rva00205A8D(Arg205A8D *arg)
@@ -34,7 +35,7 @@ void Rva00205A8D::rva00205A8D(Arg205A8D *arg)
         if (name->compare(*(StringBase<char> *)&arg->m_C) == 0) {
             *(AsciiString *)(m_pool + i * 0x80 + 0x12BA4) = arg->m_4;
             *(AsciiString *)(m_pool + i * 0x80 + 0x12BA8) = arg->m_8;
-            *(AsciiString *)(m_pool + i * 0x80 + 0x12C1C) = arg->m_7c;
+            *(AsciiString *)(m_pool + i * 0x80 + 0x12C1C) = arg->m_helpText;
             return;
         }
     }

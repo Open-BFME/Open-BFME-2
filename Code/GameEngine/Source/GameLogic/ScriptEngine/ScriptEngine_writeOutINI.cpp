@@ -45,6 +45,7 @@ void free(void *);
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 class Rva00204BB8;
 namespace _STL { template <> void __partial_sort<int *,int,Rva00204BB8>(int *,int *,int *,int *,Rva00204BB8); }
+namespace _STL { template <> void __introsort_loop<int *,int,int,Rva00204BB8>(int *,int *,int *,int,Rva00204BB8); }
 
 class File
 {
@@ -72,12 +73,15 @@ public:
 
 extern FileSystem *TheFileSystem;
 
+class AsciiString;
+
 namespace FXParticleSystem
 {
 
 class ParticleSystemTemplate
 {
 public:
+	AsciiString getName() const;
 	void writeINI(File &file, unsigned int flags) const;
 };
 
@@ -93,7 +97,6 @@ public:
 };
 
 // The native sort body is supplied by stlport_sort_rva00204bb8.cpp.
-namespace _STL { template <> void sort<int *, Rva00204BB8>(int *, int *, Rva00204BB8); }
 
 class Rva000427195;
 class Rva000411084
@@ -118,9 +121,15 @@ struct TemplateNode
 	long m_template;
 };
 
+class ParticleSystemTemplate;
+class BfmeParticleSystemHandle;
+class BFMERetailAsciiString;
 class ParticleSystemManager
 {
 public:
+	ParticleSystemTemplate *findTemplate(const AsciiString &name) const;
+	BfmeParticleSystemHandle createParticleSystem(const ParticleSystemTemplate *tmpl, bool createSlaves);
+	void bfmeStopCW(const BFMERetailAsciiString &name);
 	unsigned char m_pad[0x88];
 	Rva000427195 m_templateMap;	// +0x88
 };

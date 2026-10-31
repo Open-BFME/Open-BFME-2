@@ -21,8 +21,8 @@ struct FieldParse
 class INI
 {
 public:
-    void initFromINI(void *what, const FieldParse *table);
-    static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
+	void initFromINI(void *what, const FieldParse *table);
+	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
 };
 
 struct Rva003B39C7
@@ -57,18 +57,21 @@ extern const FieldParse g_00BE3908[] = {
 
 struct Arg205A8D
 {
-    char _pad0[4];
-    AsciiString m_4;
-    AsciiString m_8;
-    AsciiString m_C;
-    char _pad10[0x7c - 0x10];
-    AsciiString m_helpText;
+public:
+	char m_pad00[0x4];
+	AsciiString m_4; // +0x04
+	AsciiString m_8; // +0x08
+	AsciiString m_C; // +0x0C
+	char m_pad10[0x6C];
+	AsciiString m_helpText; // +0x7C
 };
 
 class Rva00205A8D
 {
 public:
-    void rva00205A8D(Arg205A8D *arg);
+	void rva00205A8D(Arg205A8D *arg);
+private:
+	char m_pool[0xCA * 0x80 + 0x12C20]; // +0x00
 };
 
 class ScriptEngine;

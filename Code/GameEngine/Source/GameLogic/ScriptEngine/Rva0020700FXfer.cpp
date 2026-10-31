@@ -55,6 +55,17 @@ namespace _STL {
 typedef _STL::pair<AsciiString,Coord3D> Rva002080DARecord;
 typedef _STL::list<Rva002080DARecord> ListAscii;
 
+// Retail keeps this _M_create_node out of line (0x00206AE0, 34B); insert 0x00207162 calls it.
+namespace _STL {
+template <>
+inline __declspec(noinline) _List_node<Rva002080DARecord> *ListAscii::_M_create_node(const Rva002080DARecord &x)
+{
+    _Node *node = this->_M_node.allocate(1);
+    _Construct(&node->_M_data, x);
+    return node;
+}
+}
+
 class Rva00203DA2A;
 void Rva00203DA2Chain(Rva00203DA2A *a, void *b);
 

@@ -21,9 +21,9 @@ struct Arg205A2B
 class Rva00205A2B
 {
 public:
-    void rva00205A2B(Arg205A2B *arg);
+	void rva00205A2B(Arg205A2B *arg);
 private:
-    char m_pool[0x257 * 0x80 + 0xa0];
+	char m_pool[0x257 * 0x80 + 0xa0]; // +0x00
 };
 
 void Rva00205A2B::rva00205A2B(Arg205A2B *arg)
