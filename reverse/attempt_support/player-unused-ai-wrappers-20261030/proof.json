@@ -1,0 +1,4252 @@
+{
+  "source": "Code/GameEngine/Source/Common/RTS/Player.cpp",
+  "scope": "Remove only two unrowed legacy AI wrapper bodies with exclusively debug incoming references; retain every matched row and all other code/relocations.",
+  "variants": {
+    "before": {
+      "source_sha256": "b1d6a8c2e11bf6b6a650e2f083e71827e8961c04972974e33480a688089b0c14",
+      "rows": [
+        {
+          "name": "?getDefaultTeam@Player@@QAEPAVTeam@@XZ",
+          "rva": "0x0046F7E4",
+          "size": "7",
+          "exact": true
+        },
+        {
+          "name": "?getTeam@Object@@QAEPAVTeam@@XZ",
+          "rva": "0x0043A09D",
+          "size": "7",
+          "exact": true
+        },
+        {
+          "name": "?dlink_next_TeamMemberList@Object@@QBEPAV1@XZ",
+          "rva": "0x0046F7F8",
+          "size": "7",
+          "exact": true
+        },
+        {
+          "name": "?getAcademyStats@Player@@QAEPAVAcademyStats@@XZ",
+          "rva": "0x000B6464",
+          "size": "7",
+          "exact": true
+        },
+        {
+          "name": "?getNumSkirmishSides@SidesList@@QAEHXZ",
+          "rva": "0x0016809F",
+          "size": "7",
+          "exact": true
+        },
+        {
+          "name": "?getNumSkirmishTeams@SidesList@@QAEHXZ",
+          "rva": "0x00313840",
+          "size": "7",
+          "exact": true
+        },
+        {
+          "name": "?isPlayerDead@Player@@QBE_NXZ",
+          "rva": "0x0028A7D8",
+          "size": "7",
+          "exact": true
+        },
+        {
+          "name": "?setAIDifficulty@AIPlayer@@QAEXW4GameDifficulty@@@Z",
+          "rva": "0x00210C87",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "?onStructureUndone@Player@@QAEXPAVObject@@@Z",
+          "rva": "0x0047A69C",
+          "size": "3",
+          "exact": true
+        },
+        {
+          "name": "?isPlayerObserver@Player@@QBE_NXZ",
+          "rva": "0x002AA223",
+          "size": "7",
+          "exact": true
+        },
+        {
+          "name": "?loadPostProcess@PlayerRelationMap@@MAEXXZ",
+          "rva": "0x000B3FD0",
+          "size": "1",
+          "exact": true
+        },
+        {
+          "name": "??$__copy@PAW4ScienceType@@PAW41@H@_STL@@YAPAW4ScienceType@@PAW41@00ABUrandom_access_iterator_tag@0@PAH@Z",
+          "rva": "0x0031B031",
+          "size": "42",
+          "exact": true
+        }
+      ],
+      "eh": []
+    },
+    "trial": {
+      "source_sha256": "1f41f5c8844d0a555056634ba44c6f5fb109c3082cc0f0b80463f21bbf11d93f",
+      "rows": [
+        {
+          "name": "?getDefaultTeam@Player@@QAEPAVTeam@@XZ",
+          "rva": "0x0046F7E4",
+          "size": "7",
+          "exact": true
+        },
+        {
+          "name": "?getTeam@Object@@QAEPAVTeam@@XZ",
+          "rva": "0x0043A09D",
+          "size": "7",
+          "exact": true
+        },
+        {
+          "name": "?dlink_next_TeamMemberList@Object@@QBEPAV1@XZ",
+          "rva": "0x0046F7F8",
+          "size": "7",
+          "exact": true
+        },
+        {
+          "name": "?getAcademyStats@Player@@QAEPAVAcademyStats@@XZ",
+          "rva": "0x000B6464",
+          "size": "7",
+          "exact": true
+        },
+        {
+          "name": "?getNumSkirmishSides@SidesList@@QAEHXZ",
+          "rva": "0x0016809F",
+          "size": "7",
+          "exact": true
+        },
+        {
+          "name": "?getNumSkirmishTeams@SidesList@@QAEHXZ",
+          "rva": "0x00313840",
+          "size": "7",
+          "exact": true
+        },
+        {
+          "name": "?isPlayerDead@Player@@QBE_NXZ",
+          "rva": "0x0028A7D8",
+          "size": "7",
+          "exact": true
+        },
+        {
+          "name": "?setAIDifficulty@AIPlayer@@QAEXW4GameDifficulty@@@Z",
+          "rva": "0x00210C87",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "?onStructureUndone@Player@@QAEXPAVObject@@@Z",
+          "rva": "0x0047A69C",
+          "size": "3",
+          "exact": true
+        },
+        {
+          "name": "?isPlayerObserver@Player@@QBE_NXZ",
+          "rva": "0x002AA223",
+          "size": "7",
+          "exact": true
+        },
+        {
+          "name": "?loadPostProcess@PlayerRelationMap@@MAEXXZ",
+          "rva": "0x000B3FD0",
+          "size": "1",
+          "exact": true
+        },
+        {
+          "name": "??$__copy@PAW4ScienceType@@PAW41@H@_STL@@YAPAW4ScienceType@@PAW41@00ABUrandom_access_iterator_tag@0@PAH@Z",
+          "rva": "0x0031B031",
+          "size": "42",
+          "exact": true
+        }
+      ],
+      "eh": []
+    }
+  },
+  "removed_debug_only_definitions": [
+    {
+      "name": "?buildBySupplies@Player@@QAEXHABVAsciiString@@@Z",
+      "raw": "8b895001000085c97405e900000000c20800",
+      "relocations": [
+        [
+          11,
+          20,
+          "?buildBySupplies@AIPlayer@@QAEXHABVAsciiString@@@Z"
+        ]
+      ],
+      "incoming_refs": [
+        {
+          "section": ".debug$F",
+          "offset": 0,
+          "kind": 7
+        }
+      ]
+    },
+    {
+      "name": "?buildSpecificBuildingNearestTeam@Player@@QAEXABVAsciiString@@PBVTeam@@@Z",
+      "raw": "8b895001000085c97405e900000000c20800",
+      "relocations": [
+        [
+          11,
+          20,
+          "?buildSpecificBuildingNearestTeam@AIPlayer@@QAEXABVAsciiString@@PBVTeam@@@Z"
+        ]
+      ],
+      "incoming_refs": [
+        {
+          "section": ".debug$F",
+          "offset": 0,
+          "kind": 7
+        }
+      ]
+    }
+  ],
+  "all_external_code_and_symbolic_relocations_identical": false,
+  "all_retained_external_code_and_symbolic_relocations_identical": true,
+  "external_definitions": {
+    "??0AsciiString@@QAE@XZ": {
+      "raw": "8bc1832000c3",
+      "relocations": []
+    },
+    "??0AsciiString@@QAE@ABV0@@Z": {
+      "raw": "56ff7424088bf1e8000000008bc65ec20400",
+      "relocations": [
+        [
+          8,
+          20,
+          "??0?$StringBase@D@@AAE@ABV0@@Z"
+        ]
+      ]
+    },
+    "??0AsciiString@@QAE@PBD@Z": {
+      "raw": "56ff7424088bf1e8000000008bc65ec20400",
+      "relocations": [
+        [
+          8,
+          20,
+          "??0?$StringBase@D@@AAE@PBD@Z"
+        ]
+      ]
+    },
+    "??1AsciiString@@QAE@XZ": {
+      "raw": "e900000000",
+      "relocations": [
+        [
+          1,
+          20,
+          "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+        ]
+      ]
+    },
+    "??4AsciiString@@QAEAAV0@ABV0@@Z": {
+      "raw": "56ff7424088bf1e8000000008bc65ec20400",
+      "relocations": [
+        [
+          8,
+          20,
+          "?set@?$StringBase@D@@QAEXABV1@@Z"
+        ]
+      ]
+    },
+    "?str@AsciiString@@QBEPBDXZ": {
+      "raw": "8b0185c0740483c008c3b800000000c3",
+      "relocations": [
+        [
+          11,
+          6,
+          "??_C@_00CNPNBAHC@?$AA@"
+        ]
+      ]
+    },
+    "?fast_float2long_round@@YAJM@Z": {
+      "raw": "51d9442408db1c248b042459c3",
+      "relocations": []
+    },
+    "?fast_float_trunc@@YAMM@Z": {
+      "raw": "538b4c2408c1e917b8000080ff33db80e97f0f42c3d3f821442408d94424085bc3",
+      "relocations": []
+    },
+    "?fast_float_ceil@@YAMM@Z": {
+      "raw": "558becf6450b807512f30f100500000000f30f584508f30f1145088b4508538945088b4d08c1e917b8000080ff33db80e97f0f42c3d3f8214508d945085b5dc3",
+      "relocations": [
+        [
+          13,
+          6,
+          "?almost1@?1??fast_float_ceil@@YAMM@Z@4IA"
+        ]
+      ]
+    },
+    "??2@YAPAXIPAX@Z": {
+      "raw": "8b442408c3",
+      "relocations": []
+    },
+    "??3@YAXPAX0@Z": {
+      "raw": "c3",
+      "relocations": []
+    },
+    "??1MemoryPoolObject@@MAE@XZ": {
+      "raw": "c70100000000c3",
+      "relocations": [
+        [
+          2,
+          6,
+          "??_7MemoryPoolObject@@6B@"
+        ]
+      ]
+    },
+    "?deleteInstance@MemoryPoolObject@@QAEXXZ": {
+      "raw": "33c03bc874058b1150ff1250e80000000059c3",
+      "relocations": [
+        [
+          13,
+          20,
+          "??3@YAXPAX@Z"
+        ]
+      ]
+    },
+    "??_GMemoryPoolObject@@MAEPAXI@Z": {
+      "raw": "8bc1c70000000000c20400",
+      "relocations": [
+        [
+          4,
+          6,
+          "??_7MemoryPoolObject@@6B@"
+        ]
+      ]
+    },
+    "??R?$hash@H@_STL@@QBEIH@Z": {
+      "raw": "8b442404c20400",
+      "relocations": []
+    },
+    "??R?$hash@I@_STL@@QBEII@Z": {
+      "raw": "8b442404c20400",
+      "relocations": []
+    },
+    "?_M_is_any@?$_Base_bitset@$00@_STL@@QBE_NXZ": {
+      "raw": "33c039010f95c0c3",
+      "relocations": []
+    },
+    "?_M_do_sanitize@?$_Sanitize@$0A@@_STL@@SAXK@Z": {
+      "raw": "c3",
+      "relocations": []
+    },
+    "??0_List_iterator_base@_STL@@QAE@PAU_List_node_base@1@@Z": {
+      "raw": "8bc18b4c24048908c20400",
+      "relocations": []
+    },
+    "??0_List_iterator_base@_STL@@QAE@XZ": {
+      "raw": "8bc1c3",
+      "relocations": []
+    },
+    "?_M_incr@_List_iterator_base@_STL@@QAEXXZ": {
+      "raw": "8b018b008901c3",
+      "relocations": []
+    },
+    "?countMoney@Money@@QBEIXZ": {
+      "raw": "8b4104c3",
+      "relocations": []
+    },
+    "?friend_getFinalOverride@Overridable@@QAEPAV1@XZ": {
+      "raw": "8bc1eb028bc28b500485d275f7c3",
+      "relocations": []
+    },
+    "?friend_getFinalOverride@Overridable@@QBEPBV1@XZ": {
+      "raw": "8bc18b500485d2740e8b4a0485c97405e9000000008bc2c3",
+      "relocations": [
+        [
+          17,
+          20,
+          "?friend_getFinalOverride@Overridable@@QAEPAV1@XZ"
+        ]
+      ]
+    },
+    "??0MemoryPoolObject@@QAE@XZ": {
+      "raw": "8bc1c70000000000c3",
+      "relocations": [
+        [
+          4,
+          6,
+          "??_7MemoryPoolObject@@6B@"
+        ]
+      ]
+    },
+    "?NAMEKEY@@YA?AW4NameKeyType@@PBD@Z": {
+      "raw": "ff7424048b0d00000000e800000000c3",
+      "relocations": [
+        [
+          6,
+          6,
+          "?TheNameKeyGenerator@@3PAVNameKeyGenerator@@A"
+        ],
+        [
+          11,
+          20,
+          "?nameToKey@NameKeyGenerator@@QAE?AW4NameKeyType@@PBD@Z"
+        ]
+      ]
+    },
+    "??3Upgrade@@SAXPAXW4UpgradeMagicEnum@0@@Z": {
+      "raw": "ff742404e80000000059c3",
+      "relocations": [
+        [
+          5,
+          20,
+          "??3@YAXPAX@Z"
+        ]
+      ]
+    },
+    "?getClassMemoryPool@Upgrade@@CAPAVMemoryPool@@XZ": {
+      "raw": "b800000000e800000000f60500000000017521830d00000000018b0d0000000083642408006800000000e800000000a3000000008b0c24a10000000064890d00000000c9c3",
+      "relocations": [
+        [
+          1,
+          6,
+          "__ehhandler$?getClassMemoryPool@Upgrade@@CAPAVMemoryPool@@XZ"
+        ],
+        [
+          6,
+          20,
+          "__EH_prolog"
+        ],
+        [
+          12,
+          6,
+          "?$S7@?1??getClassMemoryPool@Upgrade@@CAPAVMemoryPool@@XZ@4IA"
+        ],
+        [
+          21,
+          6,
+          "?$S7@?1??getClassMemoryPool@Upgrade@@CAPAVMemoryPool@@XZ@4IA"
+        ],
+        [
+          28,
+          6,
+          "?TheMemoryPoolFactory@@3PAVMemoryPoolFactory@@A"
+        ],
+        [
+          38,
+          6,
+          "??_C@_07CJFOONCK@Upgrade?$AA@"
+        ],
+        [
+          43,
+          20,
+          "?findMemoryPool@MemoryPoolFactory@@QAEPAVMemoryPool@@PBD@Z"
+        ],
+        [
+          48,
+          6,
+          "?TheUpgradePool@?1??getClassMemoryPool@Upgrade@@CAPAVMemoryPool@@XZ@4PAV3@A"
+        ],
+        [
+          56,
+          6,
+          "?TheUpgradePool@?1??getClassMemoryPool@Upgrade@@CAPAVMemoryPool@@XZ@4PAV3@A"
+        ],
+        [
+          63,
+          6,
+          "__except_list"
+        ]
+      ]
+    },
+    "?getTemplate@Upgrade@@QBEPBVUpgradeTemplate@@XZ": {
+      "raw": "8b4108c3",
+      "relocations": []
+    },
+    "?getStatus@Upgrade@@QBE?AW4UpgradeStatusType@@XZ": {
+      "raw": "8b410cc3",
+      "relocations": []
+    },
+    "?setStatus@Upgrade@@QAEXW4UpgradeStatusType@@@Z": {
+      "raw": "8b44240489410cc20400",
+      "relocations": []
+    },
+    "?friend_setNext@Upgrade@@QAEXPAV1@@Z": {
+      "raw": "8b442404894110c20400",
+      "relocations": []
+    },
+    "?friend_setPrev@Upgrade@@QAEXPAV1@@Z": {
+      "raw": "8b442404894114c20400",
+      "relocations": []
+    },
+    "?friend_getNext@Upgrade@@QAEPAV1@XZ": {
+      "raw": "8b4110c3",
+      "relocations": []
+    },
+    "?friend_getPrev@Upgrade@@QAEPAV1@XZ": {
+      "raw": "8b4114c3",
+      "relocations": []
+    },
+    "?getUpgradeName@UpgradeTemplate@@QBEABVAsciiString@@XZ": {
+      "raw": "8d4108c3",
+      "relocations": []
+    },
+    "?getUpgradeMask@UpgradeTemplate@@QBE?AV?$BitFlags@$0IA@@@XZ": {
+      "raw": "8b44240456578d711c8bf8a5a5a5a55f5ec20400",
+      "relocations": []
+    },
+    "?TEST_KINDOFMASK_MULTI@@YA_NABV?$BitFlags@$0HE@@@00@Z": {
+      "raw": "ff74240c8b4c2408ff74240ce800000000c3",
+      "relocations": [
+        [
+          13,
+          20,
+          "?testSetAndClear@?$BitFlags@$0HE@@@QBE_NABV1@0@Z"
+        ]
+      ]
+    },
+    "??_H@YGXPAXIHP6EPAX0@Z@Z": {
+      "raw": "8b44240c487818568b742408578d78018bceff542418037424104f75f35f5ec21000",
+      "relocations": []
+    },
+    "?_M_create_node@?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@IAEPAU?$_List_node@PAVObject@@@2@ABQAVObject@@@Z": {
+      "raw": "b900000000e8000000008d480885c974088b5424048b128911c20400",
+      "relocations": [
+        [
+          1,
+          6,
+          "?g_freelistPool00DB8FEC@@3VFreelistPool@@A"
+        ],
+        [
+          6,
+          20,
+          "?pop@FreelistPool@@QAEPAXXZ"
+        ]
+      ]
+    },
+    "?getTeam@Object@@QAEPAVTeam@@XZ": {
+      "raw": "8b81d0010000c3",
+      "relocations": []
+    },
+    "?dlink_next_TeamMemberList@Object@@QBEPAV1@XZ": {
+      "raw": "8b81ec010000c3",
+      "relocations": []
+    },
+    "??3KindOfPercentProductionChange@@SAXPAXW4KindOfPercentProductionChangeMagicEnum@0@@Z": {
+      "raw": "ff742404e80000000059c3",
+      "relocations": [
+        [
+          5,
+          20,
+          "??3@YAXPAX@Z"
+        ]
+      ]
+    },
+    "?getClassMemoryPool@KindOfPercentProductionChange@@CAPAVMemoryPool@@XZ": {
+      "raw": "b800000000e800000000f60500000000017521830d00000000018b0d0000000083642408006800000000e800000000a3000000008b0c24a10000000064890d00000000c9c3",
+      "relocations": [
+        [
+          1,
+          6,
+          "__ehhandler$?getClassMemoryPool@KindOfPercentProductionChange@@CAPAVMemoryPool@@XZ"
+        ],
+        [
+          6,
+          20,
+          "__EH_prolog"
+        ],
+        [
+          12,
+          6,
+          "?$S18@?1??getClassMemoryPool@KindOfPercentProductionChange@@CAPAVMemoryPool@@XZ@4IA"
+        ],
+        [
+          21,
+          6,
+          "?$S18@?1??getClassMemoryPool@KindOfPercentProductionChange@@CAPAVMemoryPool@@XZ@4IA"
+        ],
+        [
+          28,
+          6,
+          "?TheMemoryPoolFactory@@3PAVMemoryPoolFactory@@A"
+        ],
+        [
+          38,
+          6,
+          "??_C@_0BO@CFFANDLG@KindOfPercentProductionChange?$AA@"
+        ],
+        [
+          43,
+          20,
+          "?findMemoryPool@MemoryPoolFactory@@QAEPAVMemoryPool@@PBD@Z"
+        ],
+        [
+          48,
+          6,
+          "?TheKindOfPercentProductionChangePool@?1??getClassMemoryPool@KindOfPercentProductionChange@@CAPAVMemoryPool@@XZ@4PAV3@A"
+        ],
+        [
+          56,
+          6,
+          "?TheKindOfPercentProductionChangePool@?1??getClassMemoryPool@KindOfPercentProductionChange@@CAPAVMemoryPool@@XZ@4PAV3@A"
+        ],
+        [
+          63,
+          6,
+          "__except_list"
+        ]
+      ]
+    },
+    "?clear@SpecialPowerReadyTimerType@@QAEXXZ": {
+      "raw": "834904ff832100c3",
+      "relocations": []
+    },
+    "?getPlayerTemplate@Player@@QBEPBVPlayerTemplate@@XZ": {
+      "raw": "8b4104c3",
+      "relocations": []
+    },
+    "?getMoney@Player@@QAEPAVMoney@@XZ": {
+      "raw": "8d4134c3",
+      "relocations": []
+    },
+    "?getMoney@Player@@QBEPBVMoney@@XZ": {
+      "raw": "8d4134c3",
+      "relocations": []
+    },
+    "?getPlayerType@Player@@QBE?AW4PlayerType@@XZ": {
+      "raw": "8b4130c3",
+      "relocations": []
+    },
+    "?onUpgradeRemoved@Player@@QAEXXZ": {
+      "raw": "c3",
+      "relocations": []
+    },
+    "?getDefaultTeam@Player@@QAEPAVTeam@@XZ": {
+      "raw": "8b8160010000c3",
+      "relocations": []
+    },
+    "?getAcademyStats@Player@@QAEPAVAcademyStats@@XZ": {
+      "raw": "8d81ac010000c3",
+      "relocations": []
+    },
+    "?getLocalPlayer@PlayerList@@QAEPAVPlayer@@XZ": {
+      "raw": "8b410cc3",
+      "relocations": []
+    },
+    "?isPlayableSide@PlayerTemplate@@QBE_NXZ": {
+      "raw": "8a81b9000000c3",
+      "relocations": []
+    },
+    "?getBeaconTemplate@PlayerTemplate@@QBE?AVAsciiString@@XZ": {
+      "raw": "558bec518365fc0081c1dc000000518b4d08e8000000008b4508c9c20400",
+      "relocations": [
+        [
+          19,
+          20,
+          "??0?$StringBase@D@@AAE@ABV0@@Z"
+        ]
+      ]
+    },
+    "?getIntrinsicSciences@PlayerTemplate@@QBEABV?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@XZ": {
+      "raw": "8d8188000000c3",
+      "relocations": []
+    },
+    "?findTemplate@ThingFactory@@QAEPBVThingTemplate@@ABVAsciiString@@_N@Z": {
+      "raw": "e900000000",
+      "relocations": [
+        [
+          1,
+          20,
+          "?findTemplateInternal@ThingFactory@@AAEPAVThingTemplate@@ABVAsciiString@@_N@Z"
+        ]
+      ]
+    },
+    "?getMaxSimultaneousLinkKey@ThingTemplate@@QBE?AW4NameKeyType@@XZ": {
+      "raw": "8b8118020000c3",
+      "relocations": []
+    },
+    "?getFO@SpecialPowerTemplate@@ABEPBV1@XZ": {
+      "raw": "e900000000",
+      "relocations": [
+        [
+          1,
+          20,
+          "?friend_getFinalOverride@Overridable@@QBEPBV1@XZ"
+        ]
+      ]
+    },
+    "?getRankLevelLimit@GameLogic@@QBEHXZ": {
+      "raw": "8b8198000000c3",
+      "relocations": []
+    },
+    "?getFrame@GameLogic@@QAEIXZ": {
+      "raw": "8b413cc3",
+      "relocations": []
+    },
+    "?isInShellGame@GameLogic@@QAE_NXZ": {
+      "raw": "33c083b994000000040f94c0c3",
+      "relocations": []
+    },
+    "?setAIDifficulty@AIPlayer@@QAEXW4GameDifficulty@@@Z": {
+      "raw": "8b442404894130c20400",
+      "relocations": []
+    },
+    "?getNumTeams@TeamsInfoRec@@QBEHXZ": {
+      "raw": "8b01c3",
+      "relocations": []
+    },
+    "?getNumSkirmishSides@SidesList@@QAEHXZ": {
+      "raw": "8b81d0000000c3",
+      "relocations": []
+    },
+    "?getNumSkirmishTeams@SidesList@@QAEHXZ": {
+      "raw": "8b81a0010000c3",
+      "relocations": []
+    },
+    "??3BuildListInfo@@SAXPAXW4BuildListInfoMagicEnum@0@@Z": {
+      "raw": "ff742404e80000000059c3",
+      "relocations": [
+        [
+          5,
+          20,
+          "??3@YAXPAX@Z"
+        ]
+      ]
+    },
+    "?getClassMemoryPool@BuildListInfo@@CAPAVMemoryPool@@XZ": {
+      "raw": "b800000000e800000000f60500000000017521830d00000000018b0d0000000083642408006800000000e800000000a3000000008b0c24a10000000064890d00000000c9c3",
+      "relocations": [
+        [
+          1,
+          6,
+          "__ehhandler$?getClassMemoryPool@BuildListInfo@@CAPAVMemoryPool@@XZ"
+        ],
+        [
+          6,
+          20,
+          "__EH_prolog"
+        ],
+        [
+          12,
+          6,
+          "?$S60@?1??getClassMemoryPool@BuildListInfo@@CAPAVMemoryPool@@XZ@4IA"
+        ],
+        [
+          21,
+          6,
+          "?$S60@?1??getClassMemoryPool@BuildListInfo@@CAPAVMemoryPool@@XZ@4IA"
+        ],
+        [
+          28,
+          6,
+          "?TheMemoryPoolFactory@@3PAVMemoryPoolFactory@@A"
+        ],
+        [
+          38,
+          6,
+          "??_C@_0O@IEGFDIIP@BuildListInfo?$AA@"
+        ],
+        [
+          43,
+          20,
+          "?findMemoryPool@MemoryPoolFactory@@QAEPAVMemoryPool@@PBD@Z"
+        ],
+        [
+          48,
+          6,
+          "?TheBuildListInfoPool@?1??getClassMemoryPool@BuildListInfo@@CAPAVMemoryPool@@XZ@4PAV3@A"
+        ],
+        [
+          56,
+          6,
+          "?TheBuildListInfoPool@?1??getClassMemoryPool@BuildListInfo@@CAPAVMemoryPool@@XZ@4PAV3@A"
+        ],
+        [
+          63,
+          6,
+          "__except_list"
+        ]
+      ]
+    },
+    "?setNextBuildList@BuildListInfo@@QAEXPAV1@@Z": {
+      "raw": "8b442404894130c20400",
+      "relocations": []
+    },
+    "?getNext@BuildListInfo@@QBEPAV1@XZ": {
+      "raw": "8b4130c3",
+      "relocations": []
+    },
+    "?getClassMemoryPool@Squad@@CAPAVMemoryPool@@XZ": {
+      "raw": "b800000000e800000000f60500000000017521830d00000000018b0d0000000083642408006800000000e800000000a3000000008b0c24a10000000064890d00000000c9c3",
+      "relocations": [
+        [
+          1,
+          6,
+          "__ehhandler$?getClassMemoryPool@Squad@@CAPAVMemoryPool@@XZ"
+        ],
+        [
+          6,
+          20,
+          "__EH_prolog"
+        ],
+        [
+          12,
+          6,
+          "?$S61@?1??getClassMemoryPool@Squad@@CAPAVMemoryPool@@XZ@4IA"
+        ],
+        [
+          21,
+          6,
+          "?$S61@?1??getClassMemoryPool@Squad@@CAPAVMemoryPool@@XZ@4IA"
+        ],
+        [
+          28,
+          6,
+          "?TheMemoryPoolFactory@@3PAVMemoryPoolFactory@@A"
+        ],
+        [
+          38,
+          6,
+          "??_C@_05BEPALCGA@Squad?$AA@"
+        ],
+        [
+          43,
+          20,
+          "?findMemoryPool@MemoryPoolFactory@@QAEPAVMemoryPool@@PBD@Z"
+        ],
+        [
+          48,
+          6,
+          "?TheSquadPool@?1??getClassMemoryPool@Squad@@CAPAVMemoryPool@@XZ@4PAV3@A"
+        ],
+        [
+          56,
+          6,
+          "?TheSquadPool@?1??getClassMemoryPool@Squad@@CAPAVMemoryPool@@XZ@4PAV3@A"
+        ],
+        [
+          63,
+          6,
+          "__except_list"
+        ]
+      ]
+    },
+    "??3BattlePlanBonuses@@SAXPAXW4BattlePlanBonusesMagicEnum@0@@Z": {
+      "raw": "ff742404e80000000059c3",
+      "relocations": [
+        [
+          5,
+          20,
+          "??3@YAXPAX@Z"
+        ]
+      ]
+    },
+    "?getClassMemoryPool@BattlePlanBonuses@@CAPAVMemoryPool@@XZ": {
+      "raw": "b800000000e800000000f60500000000017521830d00000000018b0d0000000083642408006800000000e800000000a3000000008b0c24a10000000064890d00000000c9c3",
+      "relocations": [
+        [
+          1,
+          6,
+          "__ehhandler$?getClassMemoryPool@BattlePlanBonuses@@CAPAVMemoryPool@@XZ"
+        ],
+        [
+          6,
+          20,
+          "__EH_prolog"
+        ],
+        [
+          12,
+          6,
+          "?$S121@?1??getClassMemoryPool@BattlePlanBonuses@@CAPAVMemoryPool@@XZ@4IA"
+        ],
+        [
+          21,
+          6,
+          "?$S121@?1??getClassMemoryPool@BattlePlanBonuses@@CAPAVMemoryPool@@XZ@4IA"
+        ],
+        [
+          28,
+          6,
+          "?TheMemoryPoolFactory@@3PAVMemoryPoolFactory@@A"
+        ],
+        [
+          38,
+          6,
+          "??_C@_0BC@LECDPAK@BattlePlanBonuses?$AA@"
+        ],
+        [
+          43,
+          20,
+          "?findMemoryPool@MemoryPoolFactory@@QAEPAVMemoryPool@@PBD@Z"
+        ],
+        [
+          48,
+          6,
+          "?TheBattlePlanBonusesPool@?1??getClassMemoryPool@BattlePlanBonuses@@CAPAVMemoryPool@@XZ@4PAV3@A"
+        ],
+        [
+          56,
+          6,
+          "?TheBattlePlanBonusesPool@?1??getClassMemoryPool@BattlePlanBonuses@@CAPAVMemoryPool@@XZ@4PAV3@A"
+        ],
+        [
+          63,
+          6,
+          "__except_list"
+        ]
+      ]
+    },
+    "??0BfmePlayerIter@@QAE@PAVObject@@P81@BEPAV1@XZ@Z": {
+      "raw": "8bc18b4c240489088b4c24088948088b4c240c89480cc20c00",
+      "relocations": []
+    },
+    "?advance@BfmePlayerIter@@QAEXXZ": {
+      "raw": "568bf18b0685c0740a8b4e0c03c8ff560889065ec3",
+      "relocations": []
+    },
+    "?done@BfmePlayerIter@@QBE_NXZ": {
+      "raw": "33c039010f94c0c3",
+      "relocations": []
+    },
+    "?cur@BfmePlayerIter@@QBEPAVObject@@XZ": {
+      "raw": "8b01c3",
+      "relocations": []
+    },
+    "??0BfmeTeamIter@@QAE@PAVTeam@@@Z": {
+      "raw": "8bc18b4c24048908c20400",
+      "relocations": []
+    },
+    "?advance@BfmeTeamIter@@QAEXXZ": {
+      "raw": "8b0185c074058b40188901c3",
+      "relocations": []
+    },
+    "?done@BfmeTeamIter@@QBE_NXZ": {
+      "raw": "33c039010f94c0c3",
+      "relocations": []
+    },
+    "?cur@BfmeTeamIter@@QBEPAVTeam@@XZ": {
+      "raw": "8b01c3",
+      "relocations": []
+    },
+    "?crc@PlayerRelationMap@@MAEXPAVXfer@@@Z": {
+      "raw": "c20400",
+      "relocations": []
+    },
+    "?loadPostProcess@PlayerRelationMap@@MAEXXZ": {
+      "raw": "c3",
+      "relocations": []
+    },
+    "?setBuildList@Player@@QAEXPAVBuildListInfo@@@Z": {
+      "raw": "568db1200100008b0e85c97405e8000000008b44240889065ec20400",
+      "relocations": [
+        [
+          14,
+          20,
+          "?deleteInstance@MemoryPoolObject@@QAEXXZ"
+        ]
+      ]
+    },
+    "?findMostReadyShortcutWeaponForThing@Player@@QAEPAVObject@@PBVThingTemplate@@AAI@Z": {
+      "raw": "558bec83ec1c8b45088365e8008365f8008945f08d45e4506800000000894de4e8000000008b450c8b4df889088b45e8c9c20800",
+      "relocations": [
+        [
+          25,
+          6,
+          "?doFindMostReadyWeaponForThing@@YAXPAVObject@@PAX@Z"
+        ],
+        [
+          33,
+          20,
+          "?iterateObjects@Player@@QBEXP6AXPAVObject@@PAX@Z1@Z"
+        ]
+      ]
+    },
+    "?findMostReadyShortcutSpecialPowerForThing@Player@@QAEPAVObject@@PBVThingTemplate@@AAI@Z": {
+      "raw": "558bec83ec1c8b45088365e8008365f8008945f08d45e4506800000000894de4e8000000008b450c8b4df889088b45e8c9c20800",
+      "relocations": [
+        [
+          25,
+          6,
+          "?doFindMostReadySpecialPowerForThing@@YAXPAVObject@@PAX@Z"
+        ],
+        [
+          33,
+          20,
+          "?iterateObjects@Player@@QBEXP6AXPAVObject@@PAX@Z1@Z"
+        ]
+      ]
+    },
+    "?findAnyExistingObjectWithThingTemplate@Player@@QAEPAVObject@@PBVThingTemplate@@@Z": {
+      "raw": "558bec83ec1c8b45088365e8008945f08d45e4506800000000894de4e8000000008b45e8c9c20400",
+      "relocations": [
+        [
+          21,
+          6,
+          "?doFindExistingObjectWithThingTemplate@@YAXPAVObject@@PAX@Z"
+        ],
+        [
+          29,
+          20,
+          "?iterateObjects@Player@@QBEXP6AXPAVObject@@PAX@Z1@Z"
+        ]
+      ]
+    },
+    "?getPlayerDifficulty@Player@@QBE?AW4GameDifficulty@@XZ": {
+      "raw": "8b892002000085c97405e900000000a1000000008b8020760100c3",
+      "relocations": [
+        [
+          11,
+          20,
+          "?getAIDifficulty@AIPlayer@@QBE?AW4GameDifficulty@@XZ"
+        ],
+        [
+          16,
+          6,
+          "?TheScriptEngine@@3PAVScriptEngine@@A"
+        ]
+      ]
+    },
+    "?isSupplySourceSafe@Player@@QAE_NH@Z": {
+      "raw": "8b892002000085c97405e900000000b001c20400",
+      "relocations": [
+        [
+          11,
+          20,
+          "?isSupplySourceSafe@AIPlayer@@QAE_NH@Z"
+        ]
+      ]
+    },
+    "?isSupplySourceAttacked@Player@@QAE_NXZ": {
+      "raw": "8b895001000085c97405e90000000032c0c3",
+      "relocations": [
+        [
+          11,
+          20,
+          "?isSupplySourceAttacked@AIPlayer@@QAE_NXZ"
+        ]
+      ]
+    },
+    "?setTeamDelaySeconds@Player@@QAEXH@Z": {
+      "raw": "8b812002000085c074078b4c240489481cc20400",
+      "relocations": []
+    },
+    "?guardSupplyCenter@Player@@QAEXPAVTeam@@H@Z": {
+      "raw": "8b892002000085c97405e900000000c20800",
+      "relocations": [
+        [
+          11,
+          20,
+          "?guardSupplyCenter@AIPlayer@@QAEXPAVTeam@@H@Z"
+        ]
+      ]
+    },
+    "?preTeamDestroy@Player@@QAEXPBVTeam@@@Z": {
+      "raw": "8b892002000085c97405e900000000c20400",
+      "relocations": [
+        [
+          11,
+          20,
+          "?aiPreTeamDestroy@AIPlayer@@QAEXPBVTeam@@@Z"
+        ]
+      ]
+    },
+    "?PlayerObjectTeamEmissionAnchor@@YAPAVTeam@@PAVObject@@@Z": {
+      "raw": "8b4424048b80d0010000c3",
+      "relocations": []
+    },
+    "?onStructureUndone@Player@@QAEXPAVObject@@@Z": {
+      "raw": "c20400",
+      "relocations": []
+    },
+    "?setListInScoreScreen@Player@@QAEX_N@Z": {
+      "raw": "8a442404888168020000c20400",
+      "relocations": []
+    },
+    "?getListInScoreScreen@Player@@QAE_NXZ": {
+      "raw": "8a8168020000c3",
+      "relocations": []
+    },
+    "?getSupplyBoxValue@Player@@QAEIXZ": {
+      "raw": "a1000000008b80a0070000c3",
+      "relocations": [
+        [
+          1,
+          6,
+          "?TheWritableGlobalData@@3PAVGlobalData@@A"
+        ]
+      ]
+    },
+    "?friend_setSkillset@Player@@QAEXH@Z": {
+      "raw": "8d815001000083380074098b008b108bc8ff6240c20400",
+      "relocations": []
+    },
+    "?sellBuildings@@YAXPAVObject@@PAX@Z": {
+      "raw": "568b7424088bcee80000000084c0751a6a0e8bcee80000000084c0750d6a398bcee80000000084c0740c8b0d000000008b0156ff50405ec3",
+      "relocations": [
+        [
+          8,
+          20,
+          "?isFactionStructure@Object@@QBE_NXZ"
+        ],
+        [
+          21,
+          20,
+          "?isKindOf@Thing@@QBE_NW4KindOfType@@@Z"
+        ],
+        [
+          34,
+          20,
+          "?isKindOf@Thing@@QBE_NW4KindOfType@@@Z"
+        ],
+        [
+          44,
+          6,
+          "?TheBuildAssistant@@3PAVBuildAssistant@@A"
+        ]
+      ]
+    },
+    "?sellEverythingUnderTheSun@Player@@QAEXXZ": {
+      "raw": "6a006800000000e800000000c3",
+      "relocations": [
+        [
+          3,
+          6,
+          "?sellBuildings@@YAXPAVObject@@PAX@Z"
+        ],
+        [
+          8,
+          20,
+          "?iterateObjects@Player@@QBEXP6AXPAVObject@@PAX@Z1@Z"
+        ]
+      ]
+    },
+    "?buildSpecificTeam@Player@@QAEXPAVTeamPrototype@@@Z": {
+      "raw": "8d8150010000833800740f8b008b106a01ff7424088bc8ff521cc20400",
+      "relocations": []
+    },
+    "?buildBaseDefense@Player@@QAEX_N@Z": {
+      "raw": "8d815001000083380074098b008b108bc8ff6220c20400",
+      "relocations": []
+    },
+    "?buildBaseDefenseStructure@Player@@QAEXABVAsciiString@@_N@Z": {
+      "raw": "8d815001000083380074098b008b108bc8ff6224c20800",
+      "relocations": []
+    },
+    "?buildSpecificBuilding@Player@@QAEXABVAsciiString@@@Z": {
+      "raw": "8d815001000083380074098b008b108bc8ff6228c20400",
+      "relocations": []
+    },
+    "?buildUpgrade@Player@@QAEXABVAsciiString@@@Z": {
+      "raw": "8b895001000085c97405e900000000c20400",
+      "relocations": [
+        [
+          11,
+          20,
+          "?buildUpgrade@AIPlayer@@QAEXABVAsciiString@@@Z"
+        ]
+      ]
+    },
+    "?recruitSpecificTeam@Player@@QAEXPAVTeamPrototype@@M@Z": {
+      "raw": "8d815001000083380074158b00d94424088b1051d91c24ff7424088bc8ff522cc20800",
+      "relocations": []
+    },
+    "?calcClosestConstructionZoneLocation@Player@@QAE_NPBVThingTemplate@@PAUCoord3D@@@Z": {
+      "raw": "8b895001000085c97405e90000000032c0c20800",
+      "relocations": [
+        [
+          11,
+          20,
+          "?calcClosestConstructionZoneLocation@AIPlayer@@QAE_NPBVThingTemplate@@PAUCoord3D@@@Z"
+        ]
+      ]
+    },
+    "?addSkillPoints@Player@@QAE_NH@Z": {
+      "raw": "558bec51f30f2a450853568bf1f30f598664020000f30f114508f6450b80750ff30f100d00000000f30f58c80f28c1f30f1145088b4d08c1e917b8000080ff33db80e97f0f42c3d3f8214508f30f104508f30f1145fcd945fcdb5d0833db395d08750432c0eb71a1000000008b0d00000000578bb898000000e8000000005057e80000000059598b0d0000000050e8000000008b8e8c010000034d088b40105150e8000000003b8694010000595989868c0100005f7c1fb3018b868801000040508bcee8000000008b868c0100003b86940100007de38ac35e5bc9c20400",
+      "relocations": [
+        [
+          36,
+          6,
+          "?almost1@?1??fast_float_ceil@@YAMM@Z@4IA"
+        ],
+        [
+          104,
+          6,
+          "?TheGameLogic@@3PAVGameLogic@@A"
+        ],
+        [
+          110,
+          6,
+          "?TheRankInfoStore@@3PAVRankInfoStore@@A"
+        ],
+        [
+          122,
+          20,
+          "?getRankLevelCount@RankInfoStore@@QBEHXZ"
+        ],
+        [
+          129,
+          20,
+          "??$min@H@@YAHHH@Z"
+        ],
+        [
+          137,
+          6,
+          "?TheRankInfoStore@@3PAVRankInfoStore@@A"
+        ],
+        [
+          143,
+          20,
+          "?getRankInfo@RankInfoStore@@QBEPBVRankInfo@@H@Z"
+        ],
+        [
+          162,
+          20,
+          "??$min@H@@YAHHH@Z"
+        ],
+        [
+          196,
+          20,
+          "?setRankLevel@Player@@QAE_NH@Z"
+        ]
+      ]
+    },
+    "?addSciencePurchasePoints@Player@@QAEXH@Z": {
+      "raw": "56578b7c240c85ff8bf17e0c578d8e48030000e8000000008d86640200008b108d0c3a85c989087d038320003b1074108b0d0000000085c9740656e8000000005f5ec20400",
+      "relocations": [
+        [
+          20,
+          20,
+          "?_bfme_recordPointsEarned@BfmeAcademyPointRecorder@@QAEXH@Z"
+        ],
+        [
+          50,
+          6,
+          "?TheControlBar@@3PAVControlBar@@A"
+        ],
+        [
+          60,
+          20,
+          "?onPlayerSciencePurchasePointsChanged@BfmeSciencePointsControlBar@@QAEXPAVPlayer@@@Z"
+        ]
+      ]
+    },
+    "?canAffordBuild@Player@@QBE_NPBVThingTemplate@@@Z": {
+      "raw": "568b7138518b4c240ce8000000003bf01ac0fec05ec20400",
+      "relocations": [
+        [
+          10,
+          20,
+          "?calcCostToBuild@ThingTemplate@@QBEHPBVPlayer@@@Z"
+        ]
+      ]
+    },
+    "?friend_applyDifficultyBonusesForObject@Player@@QBEXPAVObject@@_N@Z": {
+      "raw": "558bec51568bf18b0d00000000e80000000084c00f848a000000578b7e308bcee8000000008b0d0000000081c7910000006bff0303c7f30f1004810f2e05000000009ff6c444f30f1145fc7b2b8b45088bb854020000538b1f8bcf6a01ff5310807d0c00518bcf7405d84dfceb03d875fcd91c24ff53685b8b7e308bcee8000000006bff038b4d0803c7807d0c00ff3485000000007407e800000000eb05e8000000005f5ec9c20800",
+      "relocations": [
+        [
+          9,
+          6,
+          "?TheGameLogic@@3PAVGameLogic@@A"
+        ],
+        [
+          14,
+          20,
+          "?isInSinglePlayerGame@GameLogic@@QAE_NXZ"
+        ],
+        [
+          33,
+          20,
+          "?getPlayerDifficulty@Player@@QBE?AW4GameDifficulty@@XZ"
+        ],
+        [
+          39,
+          6,
+          "?TheWritableGlobalData@@3PAVGlobalData@@A"
+        ],
+        [
+          62,
+          6,
+          "__real@3f800000"
+        ],
+        [
+          126,
+          20,
+          "?getPlayerDifficulty@Player@@QBE?AW4GameDifficulty@@XZ"
+        ],
+        [
+          145,
+          6,
+          "?wbonus@?L@??friend_applyDifficultyBonusesForObject@Player@@QBEXPAVObject@@_N@Z@4QAY02$$CBW4WeaponBonusConditionType@@A"
+        ],
+        [
+          152,
+          20,
+          "?setWeaponBonusCondition@Object@@QAEXW4WeaponBonusConditionType@@@Z"
+        ],
+        [
+          159,
+          20,
+          "?clearWeaponBonusCondition@Object@@QAEXW4WeaponBonusConditionType@@@Z"
+        ]
+      ]
+    },
+    "?getBattlePlansActiveSpecific@Player@@QBEHW4BattlePlanStatus@@@Z": {
+      "raw": "8b44240448741448740c48740433c0eb0d8b4158eb088b4154eb038b4150c20400",
+      "relocations": []
+    },
+    "?getHotkeySquad@Player@@QAEPAVSquad@@H@Z": {
+      "raw": "8b44240485c07c0e83f80a7d098b84811c040000eb0233c0c20400",
+      "relocations": []
+    },
+    "?getSquadNumberForObject@Player@@QBEHPBVObject@@@Z": {
+      "raw": "565733ff8db154060000ff74240c8b0ee80000000084c075114783c60483ff0a7ce883c8ff5f5ec204008bc7ebf7",
+      "relocations": [
+        [
+          17,
+          20,
+          "?isOnSquad@Squad@@QBE_NPBVObject@@@Z"
+        ]
+      ]
+    },
+    "?removeObjectFromHotkeySquad@Player@@QAEXPAVObject@@@Z": {
+      "raw": "56576a0a8db1540600005f8b0e85c97409ff74240ce80000000083c6044f75eb5f5ec20400",
+      "relocations": [
+        [
+          22,
+          20,
+          "?removeObject@Squad@@QAEXPAVObject@@@Z"
+        ]
+      ]
+    },
+    "?setAttackedBy@Player@@QAEXH@Z": {
+      "raw": "8b442404c684089f02000001a1000000008b403c8981c0020000c20400",
+      "relocations": [
+        [
+          13,
+          6,
+          "?TheGameLogic@@3PAVGameLogic@@A"
+        ]
+      ]
+    },
+    "?getAttackedBy@Player@@QBE_NH@Z": {
+      "raw": "8b4424048a84086a020000c20400",
+      "relocations": []
+    },
+    "?isPlayerObserver@Player@@QBE_NXZ": {
+      "raw": "8a813a030000c3",
+      "relocations": []
+    },
+    "?isPlayerDead@Player@@QBE_NXZ": {
+      "raw": "8a8148040000c3",
+      "relocations": []
+    },
+    "?isPlayerActive@Player@@QBE_NXZ": {
+      "raw": "33c038813a0300007509388134070000750140c3",
+      "relocations": []
+    },
+    "?isPlayableSide@Player@@QBE_NXZ": {
+      "raw": "8b410485c074080fb680b9000000c333c0c3",
+      "relocations": []
+    },
+    "?loadPostProcess@Player@@MAEXXZ": {
+      "raw": "c3",
+      "relocations": []
+    },
+    "??0?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE@ABV?$allocator@PAVObject@@@1@@Z": {
+      "raw": "56ff7424088bf1e8000000008bc65ec20400",
+      "relocations": [
+        [
+          8,
+          20,
+          "??0?$_List_base@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE@ABV?$allocator@PAVObject@@@1@@Z"
+        ]
+      ]
+    },
+    "??1?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE@XZ": {
+      "raw": "e900000000",
+      "relocations": [
+        [
+          1,
+          20,
+          "??1?$_List_base@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE@XZ"
+        ]
+      ]
+    },
+    "?test@?$BitFlags@$0HE@@@QBE_NH@Z": {
+      "raw": "e900000000",
+      "relocations": [
+        [
+          1,
+          20,
+          "?test@?$bitset@$0HE@@_STL@@QBE_NI@Z"
+        ]
+      ]
+    },
+    "?begin@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAEPAW4ScienceType@@XZ": {
+      "raw": "8b01c3",
+      "relocations": []
+    },
+    "?begin@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QBEPBW4ScienceType@@XZ": {
+      "raw": "8b01c3",
+      "relocations": []
+    },
+    "?end@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAEPAW4ScienceType@@XZ": {
+      "raw": "8b4104c3",
+      "relocations": []
+    },
+    "?end@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QBEPBW4ScienceType@@XZ": {
+      "raw": "8b4104c3",
+      "relocations": []
+    },
+    "?size@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QBEIXZ": {
+      "raw": "8b41042b01c1f802c3",
+      "relocations": []
+    },
+    "??0?$allocator@PAVObject@@@_STL@@QAE@XZ": {
+      "raw": "8bc1c3",
+      "relocations": []
+    },
+    "??1?$allocator@PAVObject@@@_STL@@QAE@XZ": {
+      "raw": "c3",
+      "relocations": []
+    },
+    "??0?$_Ht_iterator@U?$pair@$$CBHW4Relationship@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHW4Relationship@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHW4Relationship@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@2@@_STL@@QAE@ABU01@@Z": {
+      "raw": "8bc18b4c24048b1189108b4904894804c20400",
+      "relocations": []
+    },
+    "??0?$_Ht_iterator@U?$pair@$$CBIW4Relationship@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBIW4Relationship@@@_STL@@@2@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@QAE@ABU01@@Z": {
+      "raw": "8bc18b4c24048b1189108b4904894804c20400",
+      "relocations": []
+    },
+    "??D?$_List_iterator@PAVTeamPrototype@@U?$_Const_traits@PAVTeamPrototype@@@_STL@@@_STL@@QBEABQAVTeamPrototype@@XZ": {
+      "raw": "8b0183c008c3",
+      "relocations": []
+    },
+    "??E?$_List_iterator@PAVTeamPrototype@@U?$_Const_traits@PAVTeamPrototype@@@_STL@@@_STL@@QAEAAU01@XZ": {
+      "raw": "8bc18b088b098908c3",
+      "relocations": []
+    },
+    "??0?$_List_iterator@PAVTeamPrototype@@U?$_Nonconst_traits@PAVTeamPrototype@@@_STL@@@_STL@@QAE@XZ": {
+      "raw": "8bc1c3",
+      "relocations": []
+    },
+    "??D?$_List_iterator@PAVTeamPrototype@@U?$_Nonconst_traits@PAVTeamPrototype@@@_STL@@@_STL@@QBEAAPAVTeamPrototype@@XZ": {
+      "raw": "8b0183c008c3",
+      "relocations": []
+    },
+    "??E?$_List_iterator@PAVTeamPrototype@@U?$_Nonconst_traits@PAVTeamPrototype@@@_STL@@@_STL@@QAEAAU01@XZ": {
+      "raw": "8bc18b088b098908c3",
+      "relocations": []
+    },
+    "??D?$_Rb_tree_iterator@U?$pair@$$CBW4NameKeyType@@M@_STL@@U?$_Const_traits@U?$pair@$$CBW4NameKeyType@@M@_STL@@@2@@_STL@@QBEABU?$pair@$$CBW4NameKeyType@@M@1@XZ": {
+      "raw": "8b0183c010c3",
+      "relocations": []
+    },
+    "??D?$_Rb_tree_iterator@U?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@_STL@@U?$_Const_traits@U?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@_STL@@@2@@_STL@@QBEABU?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@1@XZ": {
+      "raw": "8b0183c010c3",
+      "relocations": []
+    },
+    "??D?$_List_iterator@PAVObject@@U?$_Nonconst_traits@PAVObject@@@_STL@@@_STL@@QBEAAPAVObject@@XZ": {
+      "raw": "8b0183c008c3",
+      "relocations": []
+    },
+    "??E?$_List_iterator@PAVObject@@U?$_Nonconst_traits@PAVObject@@@_STL@@@_STL@@QAEAAU01@XZ": {
+      "raw": "8bc18b088b098908c3",
+      "relocations": []
+    },
+    "??0?$_List_iterator@USpecialPowerReadyTimerType@@U?$_Nonconst_traits@USpecialPowerReadyTimerType@@@_STL@@@_STL@@QAE@XZ": {
+      "raw": "8bc1c3",
+      "relocations": []
+    },
+    "??D?$_List_iterator@USpecialPowerReadyTimerType@@U?$_Nonconst_traits@USpecialPowerReadyTimerType@@@_STL@@@_STL@@QBEAAUSpecialPowerReadyTimerType@@XZ": {
+      "raw": "8b0183c008c3",
+      "relocations": []
+    },
+    "??E?$_List_iterator@USpecialPowerReadyTimerType@@U?$_Nonconst_traits@USpecialPowerReadyTimerType@@@_STL@@@_STL@@QAEAAU01@XZ": {
+      "raw": "8bc18b088b098908c3",
+      "relocations": []
+    },
+    "??0?$_List_iterator@PAVKindOfPercentProductionChange@@U?$_Nonconst_traits@PAVKindOfPercentProductionChange@@@_STL@@@_STL@@QAE@XZ": {
+      "raw": "8bc1c3",
+      "relocations": []
+    },
+    "??0?$_List_iterator@PAVKindOfPercentProductionChange@@U?$_Nonconst_traits@PAVKindOfPercentProductionChange@@@_STL@@@_STL@@QAE@ABU01@@Z": {
+      "raw": "8bc18b4c24048b098908c20400",
+      "relocations": []
+    },
+    "??D?$_List_iterator@PAVKindOfPercentProductionChange@@U?$_Nonconst_traits@PAVKindOfPercentProductionChange@@@_STL@@@_STL@@QBEAAPAVKindOfPercentProductionChange@@XZ": {
+      "raw": "8b0183c008c3",
+      "relocations": []
+    },
+    "??E?$_List_iterator@PAVKindOfPercentProductionChange@@U?$_Nonconst_traits@PAVKindOfPercentProductionChange@@@_STL@@@_STL@@QAEAAU01@XZ": {
+      "raw": "8bc18b088b098908c3",
+      "relocations": []
+    },
+    "??8?$bitset@$0HE@@_STL@@QBE_NABV01@@Z": {
+      "raw": "e900000000",
+      "relocations": [
+        [
+          1,
+          20,
+          "?_M_is_equal@?$_Base_bitset@$03@_STL@@QBE_NABU12@@Z"
+        ]
+      ]
+    },
+    "??_5?$bitset@$0IA@@_STL@@QAEAAV01@ABV01@@Z": {
+      "raw": "56ff7424088bf1e8000000008bc65ec20400",
+      "relocations": [
+        [
+          8,
+          20,
+          "?_M_do_or@?$_Base_bitset@$03@_STL@@QAEXABU12@@Z"
+        ]
+      ]
+    },
+    "?any@?$bitset@$0N@@_STL@@QBE_NXZ": {
+      "raw": "33c039010f95c0c3",
+      "relocations": []
+    },
+    "??0?$pair@$$CBIW4Relationship@@@_STL@@QAE@ABIABW4Relationship@@@Z": {
+      "raw": "8bc18b4c24048b0989088b4c24088b09894804c20800",
+      "relocations": []
+    },
+    "??D?$_Ht_iterator@U?$pair@$$CBIW4Relationship@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBIW4Relationship@@@_STL@@@2@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@QBEAAU?$pair@$$CBIW4Relationship@@@1@XZ": {
+      "raw": "8b0183c004c3",
+      "relocations": []
+    },
+    "??0?$_List_iterator@PAVTeamPrototype@@U?$_Const_traits@PAVTeamPrototype@@@_STL@@@_STL@@QAE@PAU?$_List_node@PAVTeamPrototype@@@1@@Z": {
+      "raw": "8bc18b4c24048908c20400",
+      "relocations": []
+    },
+    "??0?$_List_iterator@PAVTeamPrototype@@U?$_Nonconst_traits@PAVTeamPrototype@@@_STL@@@_STL@@QAE@PAU?$_List_node@PAVTeamPrototype@@@1@@Z": {
+      "raw": "8bc18b4c24048908c20400",
+      "relocations": []
+    },
+    "??0?$_List_iterator@PAVObject@@U?$_Nonconst_traits@PAVObject@@@_STL@@@_STL@@QAE@PAU?$_List_node@PAVObject@@@1@@Z": {
+      "raw": "8bc18b4c24048908c20400",
+      "relocations": []
+    },
+    "??0?$_List_iterator@USpecialPowerReadyTimerType@@U?$_Nonconst_traits@USpecialPowerReadyTimerType@@@_STL@@@_STL@@QAE@PAU?$_List_node@USpecialPowerReadyTimerType@@@1@@Z": {
+      "raw": "8bc18b4c24048908c20400",
+      "relocations": []
+    },
+    "??0?$_List_iterator@PAVKindOfPercentProductionChange@@U?$_Nonconst_traits@PAVKindOfPercentProductionChange@@@_STL@@@_STL@@QAE@PAU?$_List_node@PAVKindOfPercentProductionChange@@@1@@Z": {
+      "raw": "8bc18b4c24048908c20400",
+      "relocations": []
+    },
+    "??0?$_Ht_iterator@U?$pair@$$CBIW4Relationship@@@_STL@@U?$_Const_traits@U?$pair@$$CBIW4Relationship@@@_STL@@@2@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@QAE@ABU?$_Ht_iterator@U?$pair@$$CBIW4Relationship@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBIW4Relationship@@@_STL@@@2@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@1@@Z": {
+      "raw": "8bc18b4c24048b1189108b4904894804c20400",
+      "relocations": []
+    },
+    "??0?$_Ht_iterator@U?$pair@$$CBHW4Relationship@@@_STL@@U?$_Const_traits@U?$pair@$$CBHW4Relationship@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHW4Relationship@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@2@@_STL@@QAE@ABU?$_Ht_iterator@U?$pair@$$CBHW4Relationship@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHW4Relationship@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHW4Relationship@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@2@@1@@Z": {
+      "raw": "8bc18b4c24048b1189108b4904894804c20400",
+      "relocations": []
+    },
+    "?_M_do_and@?$_Base_bitset@$03@_STL@@QAEXABU12@@Z": {
+      "raw": "8b4424046a045a2bc1568b3408213183c1044a75f55ec20400",
+      "relocations": []
+    },
+    "?_M_do_flip@?$_Base_bitset@$03@_STL@@QAEXXZ": {
+      "raw": "33c0f714814083f80472f7c3",
+      "relocations": []
+    },
+    "?_M_do_reset@?$_Base_bitset@$03@_STL@@QAEXXZ": {
+      "raw": "6a106a0051e80000000083c40cc3",
+      "relocations": [
+        [
+          6,
+          20,
+          "_memset"
+        ]
+      ]
+    },
+    "?_M_is_any@?$_Base_bitset@$03@_STL@@QBE_NXZ": {
+      "raw": "33c0833c810075094083f80472f432c0c3b001c3",
+      "relocations": []
+    },
+    "?size@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@QBEIXZ": {
+      "raw": "8b4110c3",
+      "relocations": []
+    },
+    "?size@?$hashtable@U?$pair@$$CBHW4Relationship@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHW4Relationship@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@2@@_STL@@QBEIXZ": {
+      "raw": "8b4110c3",
+      "relocations": []
+    },
+    "?deallocate@?$allocator@U?$_List_node@PAVKindOfPercentProductionChange@@@_STL@@@_STL@@QBEXPAU?$_List_node@PAVKindOfPercentProductionChange@@@2@I@Z": {
+      "raw": "837c24040074148b4424086bc00c50ff742408ff15000000005959c20800",
+      "relocations": [
+        [
+          21,
+          6,
+          "__imp_?deallocate@__new_alloc@_STL@@SAXPAXI@Z"
+        ]
+      ]
+    },
+    "??0?$_Rb_tree_iterator@U?$pair@$$CBW4NameKeyType@@M@_STL@@U?$_Const_traits@U?$pair@$$CBW4NameKeyType@@M@_STL@@@2@@_STL@@QAE@PAU?$_Rb_tree_node@U?$pair@$$CBW4NameKeyType@@M@_STL@@@1@@Z": {
+      "raw": "8bc18b4c24048908c20400",
+      "relocations": []
+    },
+    "??0?$_Rb_tree_iterator@U?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@_STL@@U?$_Const_traits@U?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@_STL@@@2@@_STL@@QAE@PAU?$_Rb_tree_node@U?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@_STL@@@1@@Z": {
+      "raw": "8bc18b4c24048908c20400",
+      "relocations": []
+    },
+    "??0?$_List_iterator@PAVKindOfPercentProductionChange@@U?$_Const_traits@PAVKindOfPercentProductionChange@@@_STL@@@_STL@@QAE@PAU?$_List_node@PAVKindOfPercentProductionChange@@@1@@Z": {
+      "raw": "8bc18b4c24048908c20400",
+      "relocations": []
+    },
+    "??0?$_List_iterator@USpecialPowerReadyTimerType@@U?$_Const_traits@USpecialPowerReadyTimerType@@@_STL@@@_STL@@QAE@PAU?$_List_node@USpecialPowerReadyTimerType@@@1@@Z": {
+      "raw": "8bc18b4c24048908c20400",
+      "relocations": []
+    },
+    "?_M_hiword@?$_Base_bitset@$03@_STL@@QAEAAKXZ": {
+      "raw": "8d410cc3",
+      "relocations": []
+    },
+    "??0?$_Hashtable_iterator@U?$pair@$$CBHW4Relationship@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHW4Relationship@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@2@@_STL@@QAE@PAU?$_Hashtable_node@U?$pair@$$CBHW4Relationship@@@_STL@@@1@PAV?$hashtable@U?$pair@$$CBHW4Relationship@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHW4Relationship@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@2@@1@@Z": {
+      "raw": "8bc18b4c240489088b4c2408894804c20800",
+      "relocations": []
+    },
+    "??0?$_Hashtable_iterator@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@QAE@PAU?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@1@PAV?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@1@@Z": {
+      "raw": "8bc18b4c240489088b4c2408894804c20800",
+      "relocations": []
+    },
+    "?_S_whichword@?$_Base_bitset@$03@_STL@@SAII@Z": {
+      "raw": "8b442404c1e805c3",
+      "relocations": []
+    },
+    "?allocate@?$allocator@U?$_List_node@PAVKindOfPercentProductionChange@@@_STL@@@_STL@@QBEPAU?$_List_node@PAVKindOfPercentProductionChange@@@2@IPBX@Z": {
+      "raw": "8b44240485c0740d6bc00c50ff150000000059eb0233c0c20800",
+      "relocations": [
+        [
+          14,
+          6,
+          "__imp_?allocate@__new_alloc@_STL@@SAPAXI@Z"
+        ]
+      ]
+    },
+    "?allocate@?$allocator@U?$_List_node@USpecialPowerReadyTimerType@@@_STL@@@_STL@@QBEPAU?$_List_node@USpecialPowerReadyTimerType@@@2@IPBX@Z": {
+      "raw": "8b44240485c0740dc1e00450ff150000000059eb0233c0c20800",
+      "relocations": [
+        [
+          14,
+          6,
+          "__imp_?allocate@__new_alloc@_STL@@SAPAXI@Z"
+        ]
+      ]
+    },
+    "?deallocate@?$allocator@U?$_List_node@USpecialPowerReadyTimerType@@@_STL@@@_STL@@QBEXPAU?$_List_node@USpecialPowerReadyTimerType@@@2@I@Z": {
+      "raw": "837c24040074148b442408c1e00450ff742408ff15000000005959c20800",
+      "relocations": [
+        [
+          21,
+          6,
+          "__imp_?deallocate@__new_alloc@_STL@@SAXPAXI@Z"
+        ]
+      ]
+    },
+    "??$__stl_alloc_rebind@W4ScienceType@@W41@@_STL@@YAAAV?$allocator@W4ScienceType@@@0@AAV10@PBW4ScienceType@@@Z": {
+      "raw": "8b442404c3",
+      "relocations": []
+    },
+    "??$?9U?$pair@$$CBHW4Relationship@@@_STL@@HU?$hash@H@1@U?$_Select1st@U?$pair@$$CBHW4Relationship@@@_STL@@@1@U?$equal_to@H@1@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@1@@_STL@@YA_NABU?$_Hashtable_iterator@U?$pair@$$CBHW4Relationship@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHW4Relationship@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@2@@0@0@Z": {
+      "raw": "8b4424048b008b54240833c93b020f95c18ac1c3",
+      "relocations": []
+    },
+    "??$?9U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@1@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@1@U?$equal_to@I@1@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@1@@_STL@@YA_NABU?$_Hashtable_iterator@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@0@0@Z": {
+      "raw": "8b4424048b008b54240833c93b020f95c18ac1c3",
+      "relocations": []
+    },
+    "??$_Destroy@W4ScienceType@@@_STL@@YAXPAW4ScienceType@@@Z": {
+      "raw": "c3",
+      "relocations": []
+    },
+    "??$?8U?$pair@$$CBIW4Relationship@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBIW4Relationship@@@_STL@@@1@U21@IU?$hash@I@1@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@1@U?$equal_to@I@1@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@1@@_STL@@YA_NABU?$_Ht_iterator@U?$pair@$$CBIW4Relationship@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBIW4Relationship@@@_STL@@@2@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@0@0@Z": {
+      "raw": "8b4424048b008b4c24082b01f7d81bc040c3",
+      "relocations": []
+    },
+    "??$_Destroy@PAVKindOfPercentProductionChange@@@_STL@@YAXPAPAVKindOfPercentProductionChange@@@Z": {
+      "raw": "c3",
+      "relocations": []
+    },
+    "??$__stl_alloc_rebind@U?$_List_node@PAVKindOfPercentProductionChange@@@_STL@@U12@@_STL@@YAAAV?$allocator@U?$_List_node@PAVKindOfPercentProductionChange@@@_STL@@@0@AAV10@PBU?$_List_node@PAVKindOfPercentProductionChange@@@0@@Z": {
+      "raw": "8b442404c3",
+      "relocations": []
+    },
+    "??$_Construct@PAVKindOfPercentProductionChange@@PAV1@@_STL@@YAXPAPAVKindOfPercentProductionChange@@ABQAV1@@Z": {
+      "raw": "8b44240485c074088b4c24088b098908c3",
+      "relocations": []
+    },
+    "??$_Construct@USpecialPowerReadyTimerType@@U1@@_STL@@YAXPAUSpecialPowerReadyTimerType@@ABU1@@Z": {
+      "raw": "8b44240485c0740e8b4c24088b1189108b4904894804c3",
+      "relocations": []
+    },
+    "??$__stl_alloc_rebind@U?$_List_node@USpecialPowerReadyTimerType@@@_STL@@U12@@_STL@@YAAAV?$allocator@U?$_List_node@USpecialPowerReadyTimerType@@@_STL@@@0@AAV10@PBU?$_List_node@USpecialPowerReadyTimerType@@@0@@Z": {
+      "raw": "8b442404c3",
+      "relocations": []
+    },
+    "?getBitNameIfSet@?$BitFlags@$0HE@@@QBEPBDH@Z": {
+      "raw": "568b74240856e80000000084c074098b04b500000000eb0233c05ec20400",
+      "relocations": [
+        [
+          7,
+          20,
+          "?test@?$bitset@$0HE@@_STL@@QBE_NI@Z"
+        ],
+        [
+          18,
+          6,
+          "?s_bitNameList@?$BitFlags@$0HE@@@0PAPBDA"
+        ]
+      ]
+    },
+    "?capacity@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QBEIXZ": {
+      "raw": "8b41082b01c1f802c3",
+      "relocations": []
+    },
+    "?getSingleBitFromName@?$BitFlags@$0HE@@@SAHPBD@Z": {
+      "raw": "565733ff393d00000000be00000000741bff74240cff36ff150000000085c05959740f83c60447833e0075e583c8ff5f5ec38bc7ebf9",
+      "relocations": [
+        [
+          6,
+          6,
+          "?s_bitNameList@?$BitFlags@$0HE@@@0PAPBDA"
+        ],
+        [
+          11,
+          6,
+          "?s_bitNameList@?$BitFlags@$0HE@@@0PAPBDA"
+        ],
+        [
+          25,
+          6,
+          "__imp__stricmp"
+        ]
+      ]
+    },
+    "?size@?$bitset@$0HE@@_STL@@QBEIXZ": {
+      "raw": "6a7458c3",
+      "relocations": []
+    },
+    "??R?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@_STL@@QBEABIABU?$pair@$$CBIW4Relationship@@@1@@Z": {
+      "raw": "8b442404c20400",
+      "relocations": []
+    },
+    "??R?$_Select1st@U?$pair@$$CBHW4Relationship@@@_STL@@@_STL@@QBEABHABU?$pair@$$CBHW4Relationship@@@1@@Z": {
+      "raw": "8b442404c20400",
+      "relocations": []
+    },
+    "?_M_do_count@?$_Base_bitset@$03@_STL@@QBEIXZ": {
+      "raw": "8d511033c03bca7313560fb6310fb6b60000000003c6413bca72ef5ec3",
+      "relocations": [
+        [
+          16,
+          6,
+          "?_S_bit_count@?$_Bs_G@_N@_STL@@2PAEA"
+        ]
+      ]
+    },
+    "?_M_bkt_num_key@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@ABEIABII@Z": {
+      "raw": "8b4424048b0033d2f77424088bc2c20800",
+      "relocations": []
+    },
+    "?allocate@?$allocator@U?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@_STL@@@_STL@@QBEPAU?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@2@IPBX@Z": {
+      "raw": "8b44240485c0740d6bc00c50ff150000000059eb0233c0c20800",
+      "relocations": [
+        [
+          14,
+          6,
+          "__imp_?allocate@__new_alloc@_STL@@SAPAXI@Z"
+        ]
+      ]
+    },
+    "?deallocate@?$allocator@U?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@_STL@@@_STL@@QBEXPAU?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@2@I@Z": {
+      "raw": "837c24040074148b4424086bc00c50ff742408ff15000000005959c20800",
+      "relocations": [
+        [
+          21,
+          6,
+          "__imp_?deallocate@__new_alloc@_STL@@SAXPAXI@Z"
+        ]
+      ]
+    },
+    "?_M_bkt_num_key@?$hashtable@U?$pair@$$CBHW4Relationship@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHW4Relationship@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@2@@_STL@@ABEIABHI@Z": {
+      "raw": "8b4424048b0033d2f77424088bc2c20800",
+      "relocations": []
+    },
+    "?deallocate@?$allocator@U?$_Hashtable_node@U?$pair@$$CBHW4Relationship@@@_STL@@@_STL@@@_STL@@QBEXPAU?$_Hashtable_node@U?$pair@$$CBHW4Relationship@@@_STL@@@2@I@Z": {
+      "raw": "837c24040074148b4424086bc00c50ff742408ff15000000005959c20800",
+      "relocations": [
+        [
+          21,
+          6,
+          "__imp_?deallocate@__new_alloc@_STL@@SAXPAXI@Z"
+        ]
+      ]
+    },
+    "?_M_getword@?$_Base_bitset@$03@_STL@@QAEAAKI@Z": {
+      "raw": "8b442404c1e8058d0481c20400",
+      "relocations": []
+    },
+    "??$_Destroy@USpecialPowerReadyTimerType@@@_STL@@YAXPAUSpecialPowerReadyTimerType@@@Z": {
+      "raw": "c3",
+      "relocations": []
+    },
+    "??$__find@PBW4ScienceType@@W41@@_STL@@YAPBW4ScienceType@@PBW41@0ABW41@ABUrandom_access_iterator_tag@0@@Z": {
+      "raw": "558bec8b4d0c8b450856578b7d102bc8c1f90485c96a045e7e1f8b173910744303c63910743d03c63910743703c63910743103c64985c97fe38b4d0c2bc8c1f90249741649740b4975168b083b0f741303c68b083b0f740b03c68b083b0f74038b450c5f5e5dc3",
+      "relocations": []
+    },
+    "??$__copy@PAW4ScienceType@@PAW41@H@_STL@@YAPAW4ScienceType@@PAW41@00ABUrandom_access_iterator_tag@0@PAH@Z": {
+      "raw": "558bec8b450c8b4d082bc1c1f80285c07e13568b118b75108345100483c10448891675ef5e8b45105dc3",
+      "relocations": []
+    },
+    "??$__distance@U?$_List_iterator@PAVTeamPrototype@@U?$_Const_traits@PAVTeamPrototype@@@_STL@@@_STL@@@_STL@@YAHABU?$_List_iterator@PAVTeamPrototype@@U?$_Const_traits@PAVTeamPrototype@@@_STL@@@0@0ABUinput_iterator_tag@0@@Z": {
+      "raw": "8b5424088b4c24048b1233c0eb01408b093bca75f9c3",
+      "relocations": []
+    },
+    "??$_Destroy@U?$pair@$$CBIW4Relationship@@@_STL@@@_STL@@YAXPAU?$pair@$$CBIW4Relationship@@@0@@Z": {
+      "raw": "c3",
+      "relocations": []
+    },
+    "??$_Destroy@U?$pair@$$CBHW4Relationship@@@_STL@@@_STL@@YAXPAU?$pair@$$CBHW4Relationship@@@0@@Z": {
+      "raw": "c3",
+      "relocations": []
+    },
+    "??$__stl_alloc_rebind@U?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@_STL@@U12@@_STL@@YAAAV?$allocator@U?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@_STL@@@0@AAV10@PBU?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@0@@Z": {
+      "raw": "8b442404c3",
+      "relocations": []
+    },
+    "??$__stl_alloc_rebind@U?$_Hashtable_node@U?$pair@$$CBHW4Relationship@@@_STL@@@_STL@@U12@@_STL@@YAAAV?$allocator@U?$_Hashtable_node@U?$pair@$$CBHW4Relationship@@@_STL@@@_STL@@@0@AAV10@PBU?$_Hashtable_node@U?$pair@$$CBHW4Relationship@@@_STL@@@0@@Z": {
+      "raw": "8b442404c3",
+      "relocations": []
+    },
+    "?allocate@?$_STLP_alloc_proxy@PAW4ScienceType@@W41@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAEPAW4ScienceType@@I@Z": {
+      "raw": "6a00ff742408e800000000c20400",
+      "relocations": [
+        [
+          7,
+          20,
+          "?allocate@?$allocator@W4ScienceType@@@_STL@@QBEPAW4ScienceType@@IPBX@Z"
+        ]
+      ]
+    },
+    "?_M_bkt_num@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@ABEIABU?$pair@$$CBIW4Relationship@@@2@I@Z": {
+      "raw": "8b4424048b0033d2f77424088bc2c20800",
+      "relocations": []
+    },
+    "??R?$equal_to@I@_STL@@QBE_NABI0@Z": {
+      "raw": "8b4424048b008b4c24082b01f7d81bc040c20800",
+      "relocations": []
+    },
+    "??0?$pair@$$CBIW4Relationship@@@_STL@@QAE@ABU01@@Z": {
+      "raw": "8bc18b4c24048b1189108b4904894804c20400",
+      "relocations": []
+    },
+    "??R?$less@W4NameKeyType@@@_STL@@QBE_NABW4NameKeyType@@0@Z": {
+      "raw": "8b4424048b008b54240833c93b020f9cc18ac1c20800",
+      "relocations": []
+    },
+    "??R?$equal_to@H@_STL@@QBE_NABH0@Z": {
+      "raw": "8b4424048b008b4c24082b01f7d81bc040c20800",
+      "relocations": []
+    },
+    "?_M_root@?$_Rb_tree@W4NameKeyType@@U?$pair@$$CBW4NameKeyType@@M@_STL@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@M@_STL@@@3@U?$less@W4NameKeyType@@@3@V?$allocator@U?$pair@$$CBW4NameKeyType@@M@_STL@@@3@@_STL@@IBEAAPAU?$_Rb_tree_node@U?$pair@$$CBW4NameKeyType@@M@_STL@@@2@XZ": {
+      "raw": "8b0183c004c3",
+      "relocations": []
+    },
+    "?_S_left@?$_Rb_tree@W4NameKeyType@@U?$pair@$$CBW4NameKeyType@@M@_STL@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@M@_STL@@@3@U?$less@W4NameKeyType@@@3@V?$allocator@U?$pair@$$CBW4NameKeyType@@M@_STL@@@3@@_STL@@KAAAPAU?$_Rb_tree_node@U?$pair@$$CBW4NameKeyType@@M@_STL@@@2@PAU32@@Z": {
+      "raw": "8b44240483c008c3",
+      "relocations": []
+    },
+    "?_S_right@?$_Rb_tree@W4NameKeyType@@U?$pair@$$CBW4NameKeyType@@M@_STL@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@M@_STL@@@3@U?$less@W4NameKeyType@@@3@V?$allocator@U?$pair@$$CBW4NameKeyType@@M@_STL@@@3@@_STL@@KAAAPAU?$_Rb_tree_node@U?$pair@$$CBW4NameKeyType@@M@_STL@@@2@PAU32@@Z": {
+      "raw": "8b44240483c00cc3",
+      "relocations": []
+    },
+    "?_M_root@?$_Rb_tree@W4NameKeyType@@U?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@_STL@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@_STL@@@3@U?$less@W4NameKeyType@@@3@V?$allocator@U?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@_STL@@@3@@_STL@@IBEAAPAU?$_Rb_tree_node@U?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@_STL@@@2@XZ": {
+      "raw": "8b0183c004c3",
+      "relocations": []
+    },
+    "?_S_left@?$_Rb_tree@W4NameKeyType@@U?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@_STL@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@_STL@@@3@U?$less@W4NameKeyType@@@3@V?$allocator@U?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@_STL@@@3@@_STL@@KAAAPAU?$_Rb_tree_node@U?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@_STL@@@2@PAU32@@Z": {
+      "raw": "8b44240483c008c3",
+      "relocations": []
+    },
+    "?_S_right@?$_Rb_tree@W4NameKeyType@@U?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@_STL@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@_STL@@@3@U?$less@W4NameKeyType@@@3@V?$allocator@U?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@_STL@@@3@@_STL@@KAAAPAU?$_Rb_tree_node@U?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@_STL@@@2@PAU32@@Z": {
+      "raw": "8b44240483c00cc3",
+      "relocations": []
+    },
+    "??E?$_List_iterator@PAVKindOfPercentProductionChange@@U?$_Const_traits@PAVKindOfPercentProductionChange@@@_STL@@@_STL@@QAEAAU01@XZ": {
+      "raw": "8bc18b088b098908c3",
+      "relocations": []
+    },
+    "??E?$_List_iterator@USpecialPowerReadyTimerType@@U?$_Const_traits@USpecialPowerReadyTimerType@@@_STL@@@_STL@@QAEAAU01@XZ": {
+      "raw": "8bc18b088b098908c3",
+      "relocations": []
+    },
+    "?_S_value@?$_Rb_tree@W4NameKeyType@@U?$pair@$$CBW4NameKeyType@@M@_STL@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@M@_STL@@@3@U?$less@W4NameKeyType@@@3@V?$allocator@U?$pair@$$CBW4NameKeyType@@M@_STL@@@3@@_STL@@KAAAU?$pair@$$CBW4NameKeyType@@M@2@PAU?$_Rb_tree_node@U?$pair@$$CBW4NameKeyType@@M@_STL@@@2@@Z": {
+      "raw": "8b44240483c010c3",
+      "relocations": []
+    },
+    "?_S_value@?$_Rb_tree@W4NameKeyType@@U?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@_STL@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@_STL@@@3@U?$less@W4NameKeyType@@@3@V?$allocator@U?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@_STL@@@3@@_STL@@KAAAU?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@2@PAU?$_Rb_tree_node@U?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@_STL@@@2@@Z": {
+      "raw": "8b44240483c010c3",
+      "relocations": []
+    },
+    "??R?$_Select1st@U?$pair@$$CBW4NameKeyType@@M@_STL@@@_STL@@QBEABW4NameKeyType@@ABU?$pair@$$CBW4NameKeyType@@M@1@@Z": {
+      "raw": "8b442404c20400",
+      "relocations": []
+    },
+    "??R?$_Select1st@U?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@_STL@@@_STL@@QBEABW4NameKeyType@@ABU?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@1@@Z": {
+      "raw": "8b442404c20400",
+      "relocations": []
+    },
+    "??$__copy@PBW4ScienceType@@PAW41@H@_STL@@YAPAW4ScienceType@@PBW41@0PAW41@ABUrandom_access_iterator_tag@0@PAH@Z": {
+      "raw": "558bec8b450c8b4d082bc1c1f80285c07e13568b118b75108345100483c10448891675ef5e8b45105dc3",
+      "relocations": []
+    },
+    "??$_Construct@W4ScienceType@@W41@@_STL@@YAXPAW4ScienceType@@ABW41@@Z": {
+      "raw": "8b44240485c074088b4c24088b098908c3",
+      "relocations": []
+    },
+    "??$__destroy_aux@PAW4ScienceType@@@_STL@@YAXPAW4ScienceType@@0ABU__false_type@0@@Z": {
+      "raw": "c3",
+      "relocations": []
+    },
+    "??$__less@I@_STL@@YA?AU?$less@I@0@PAI@Z": {
+      "raw": "8b442404c3",
+      "relocations": []
+    },
+    "??2Upgrade@@SAPAXIW4UpgradeMagicEnum@0@@Z": {
+      "raw": "e800000000ff742404e80000000059c3",
+      "relocations": [
+        [
+          1,
+          20,
+          "?getClassMemoryPool@Upgrade@@CAPAVMemoryPool@@XZ"
+        ],
+        [
+          10,
+          20,
+          "??2@YAPAXI@Z"
+        ]
+      ]
+    },
+    "?TEST_KINDOFMASK@@YA_NABV?$BitFlags@$0HE@@@W4KindOfType@@@Z": {
+      "raw": "ff7424088b4c2408e800000000c3",
+      "relocations": [
+        [
+          9,
+          20,
+          "?test@?$bitset@$0HE@@_STL@@QBE_NI@Z"
+        ]
+      ]
+    },
+    "??2KindOfPercentProductionChange@@SAPAXIW4KindOfPercentProductionChangeMagicEnum@0@@Z": {
+      "raw": "e800000000ff742404e80000000059c3",
+      "relocations": [
+        [
+          1,
+          20,
+          "?getClassMemoryPool@KindOfPercentProductionChange@@CAPAVMemoryPool@@XZ"
+        ],
+        [
+          10,
+          20,
+          "??2@YAPAXI@Z"
+        ]
+      ]
+    },
+    "??0SpecialPowerReadyTimerType@@QAE@XZ": {
+      "raw": "8bc1834804ff832000c3",
+      "relocations": []
+    },
+    "?isKindOf@ThingTemplate@@QBE_NW4KindOfType@@@Z": {
+      "raw": "83c168e900000000",
+      "relocations": [
+        [
+          4,
+          20,
+          "?test@?$bitset@$0HE@@_STL@@QBE_NI@Z"
+        ]
+      ]
+    },
+    "?getReloadTime@SpecialPowerTemplate@@QBEIXZ": {
+      "raw": "e8000000008b4018c3",
+      "relocations": [
+        [
+          1,
+          20,
+          "?friend_getFinalOverride@Overridable@@QBEPBV1@XZ"
+        ]
+      ]
+    },
+    "?isSharedNSync@SpecialPowerTemplate@@QBE_NXZ": {
+      "raw": "e8000000008a80fd000000c3",
+      "relocations": [
+        [
+          1,
+          20,
+          "?friend_getFinalOverride@Overridable@@QBEPBV1@XZ"
+        ]
+      ]
+    },
+    "??2BuildListInfo@@SAPAXIW4BuildListInfoMagicEnum@0@@Z": {
+      "raw": "e800000000ff742404e80000000059c3",
+      "relocations": [
+        [
+          1,
+          20,
+          "?getClassMemoryPool@BuildListInfo@@CAPAVMemoryPool@@XZ"
+        ],
+        [
+          10,
+          20,
+          "??2@YAPAXI@Z"
+        ]
+      ]
+    },
+    "??2Squad@@SAPAXIW4SquadMagicEnum@0@@Z": {
+      "raw": "e800000000ff742404e80000000059c3",
+      "relocations": [
+        [
+          1,
+          20,
+          "?getClassMemoryPool@Squad@@CAPAVMemoryPool@@XZ"
+        ],
+        [
+          10,
+          20,
+          "??2@YAPAXI@Z"
+        ]
+      ]
+    },
+    "??2BattlePlanBonuses@@SAPAXIW4BattlePlanBonusesMagicEnum@0@@Z": {
+      "raw": "e800000000ff742404e80000000059c3",
+      "relocations": [
+        [
+          1,
+          20,
+          "?getClassMemoryPool@BattlePlanBonuses@@CAPAVMemoryPool@@XZ"
+        ],
+        [
+          10,
+          20,
+          "??2@YAPAXI@Z"
+        ]
+      ]
+    },
+    "?canBuildMoreOfType@Player@@QBE_NPBVThingTemplate@@@Z": {
+      "raw": "558bec83ec1053568b75088bd9578bcee8000000008bf885ff743c8b86180200008365f0006a078d4e688975f48945f8e800000000f6d81ac0fec08845fc8d45f05068000000008bcbe800000000397df0720432c0eb02b0015f5e5bc9c20400",
+      "relocations": [
+        [
+          17,
+          20,
+          "?getMaxSimultaneousOfType@ThingTemplate@@QBEIXZ"
+        ],
+        [
+          49,
+          20,
+          "?test@?$bitset@$0HE@@_STL@@QBE_NI@Z"
+        ],
+        [
+          67,
+          6,
+          "?countExisting@@YAXPAVObject@@PAX@Z"
+        ],
+        [
+          74,
+          20,
+          "?iterateObjects@Player@@QBEXP6AXPAVObject@@PAX@Z1@Z"
+        ]
+      ]
+    },
+    "?begin@?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVObject@@U?$_Nonconst_traits@PAVObject@@@_STL@@@2@XZ": {
+      "raw": "8b018b088b4424048908c20400",
+      "relocations": []
+    },
+    "?end@?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVObject@@U?$_Nonconst_traits@PAVObject@@@_STL@@@2@XZ": {
+      "raw": "8b098b4424048908c20400",
+      "relocations": []
+    },
+    "??8?$BitFlags@$0HE@@@QBE_NABV0@@Z": {
+      "raw": "e900000000",
+      "relocations": [
+        [
+          1,
+          20,
+          "?_M_is_equal@?$_Base_bitset@$03@_STL@@QBE_NABU12@@Z"
+        ]
+      ]
+    },
+    "?set@?$BitFlags@$0IA@@@QAEXABV1@@Z": {
+      "raw": "e900000000",
+      "relocations": [
+        [
+          1,
+          20,
+          "?_M_do_or@?$_Base_bitset@$03@_STL@@QAEXABU12@@Z"
+        ]
+      ]
+    },
+    "?any@?$BitFlags@$0N@@@QBE_NXZ": {
+      "raw": "33c039010f95c0c3",
+      "relocations": []
+    },
+    "?begin@?$list@PAVTeamPrototype@@V?$allocator@PAVTeamPrototype@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVTeamPrototype@@U?$_Nonconst_traits@PAVTeamPrototype@@@_STL@@@2@XZ": {
+      "raw": "8b018b088b4424048908c20400",
+      "relocations": []
+    },
+    "?begin@?$list@PAVTeamPrototype@@V?$allocator@PAVTeamPrototype@@@_STL@@@_STL@@QBE?AU?$_List_iterator@PAVTeamPrototype@@U?$_Const_traits@PAVTeamPrototype@@@_STL@@@2@XZ": {
+      "raw": "8b018b088b4424048908c20400",
+      "relocations": []
+    },
+    "?end@?$list@PAVTeamPrototype@@V?$allocator@PAVTeamPrototype@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVTeamPrototype@@U?$_Nonconst_traits@PAVTeamPrototype@@@_STL@@@2@XZ": {
+      "raw": "8b098b4424048908c20400",
+      "relocations": []
+    },
+    "?end@?$list@PAVTeamPrototype@@V?$allocator@PAVTeamPrototype@@@_STL@@@_STL@@QBE?AU?$_List_iterator@PAVTeamPrototype@@U?$_Const_traits@PAVTeamPrototype@@@_STL@@@2@XZ": {
+      "raw": "8b098b4424048908c20400",
+      "relocations": []
+    },
+    "?begin@?$list@PAVKindOfPercentProductionChange@@V?$allocator@PAVKindOfPercentProductionChange@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVKindOfPercentProductionChange@@U?$_Nonconst_traits@PAVKindOfPercentProductionChange@@@_STL@@@2@XZ": {
+      "raw": "8b018b088b4424048908c20400",
+      "relocations": []
+    },
+    "?end@?$list@PAVKindOfPercentProductionChange@@V?$allocator@PAVKindOfPercentProductionChange@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVKindOfPercentProductionChange@@U?$_Nonconst_traits@PAVKindOfPercentProductionChange@@@_STL@@@2@XZ": {
+      "raw": "8b098b4424048908c20400",
+      "relocations": []
+    },
+    "?begin@?$list@USpecialPowerReadyTimerType@@V?$allocator@USpecialPowerReadyTimerType@@@_STL@@@_STL@@QAE?AU?$_List_iterator@USpecialPowerReadyTimerType@@U?$_Nonconst_traits@USpecialPowerReadyTimerType@@@_STL@@@2@XZ": {
+      "raw": "8b018b088b4424048908c20400",
+      "relocations": []
+    },
+    "?end@?$list@USpecialPowerReadyTimerType@@V?$allocator@USpecialPowerReadyTimerType@@@_STL@@@_STL@@QAE?AU?$_List_iterator@USpecialPowerReadyTimerType@@U?$_Nonconst_traits@USpecialPowerReadyTimerType@@@_STL@@@2@XZ": {
+      "raw": "8b098b4424048908c20400",
+      "relocations": []
+    },
+    "?insert@?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVObject@@U?$_Nonconst_traits@PAVObject@@@_STL@@@2@U32@ABQAVObject@@@Z": {
+      "raw": "ff74240ce8000000008b4c24088b5104890889500489028941048b4c240489018bc1c20c00",
+      "relocations": [
+        [
+          5,
+          20,
+          "?_M_create_node@?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@IAEPAU?$_List_node@PAVObject@@@2@ABQAVObject@@@Z"
+        ]
+      ]
+    },
+    "??_4?$bitset@$0IA@@_STL@@QAEAAV01@ABV01@@Z": {
+      "raw": "56ff7424088bf1e8000000008bc65ec20400",
+      "relocations": [
+        [
+          8,
+          20,
+          "?_M_do_and@?$_Base_bitset@$03@_STL@@QAEXABU12@@Z"
+        ]
+      ]
+    },
+    "?any@?$bitset@$0IA@@_STL@@QBE_NXZ": {
+      "raw": "e900000000",
+      "relocations": [
+        [
+          1,
+          20,
+          "?_M_is_any@?$_Base_bitset@$03@_STL@@QBE_NXZ"
+        ]
+      ]
+    },
+    "?empty@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@QBE_NXZ": {
+      "raw": "33c03941100f94c0c3",
+      "relocations": []
+    },
+    "?empty@?$hashtable@U?$pair@$$CBHW4Relationship@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHW4Relationship@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@2@@_STL@@QBE_NXZ": {
+      "raw": "33c03941100f94c0c3",
+      "relocations": []
+    },
+    "?end@?$_Rb_tree@W4NameKeyType@@U?$pair@$$CBW4NameKeyType@@M@_STL@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@M@_STL@@@3@U?$less@W4NameKeyType@@@3@V?$allocator@U?$pair@$$CBW4NameKeyType@@M@_STL@@@3@@_STL@@QBE?AU?$_Rb_tree_iterator@U?$pair@$$CBW4NameKeyType@@M@_STL@@U?$_Const_traits@U?$pair@$$CBW4NameKeyType@@M@_STL@@@2@@2@XZ": {
+      "raw": "8b098b4424048908c20400",
+      "relocations": []
+    },
+    "?end@?$_Rb_tree@W4NameKeyType@@U?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@_STL@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@_STL@@@3@U?$less@W4NameKeyType@@@3@V?$allocator@U?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@_STL@@@3@@_STL@@QBE?AU?$_Rb_tree_iterator@U?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@_STL@@U?$_Const_traits@U?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@_STL@@@2@@2@XZ": {
+      "raw": "8b098b4424048908c20400",
+      "relocations": []
+    },
+    "?insert@?$list@PAVTeamPrototype@@V?$allocator@PAVTeamPrototype@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVTeamPrototype@@U?$_Nonconst_traits@PAVTeamPrototype@@@_STL@@@2@U32@ABQAVTeamPrototype@@@Z": {
+      "raw": "ff74240ce8000000008b4c24088b5104890889500489028941048b4c240489018bc1c20c00",
+      "relocations": [
+        [
+          5,
+          20,
+          "?_M_create_node@?$list@PAVTeamPrototype@@V?$allocator@PAVTeamPrototype@@@_STL@@@_STL@@IAEPAU?$_List_node@PAVTeamPrototype@@@2@ABQAVTeamPrototype@@@Z"
+        ]
+      ]
+    },
+    "?begin@?$list@PAVKindOfPercentProductionChange@@V?$allocator@PAVKindOfPercentProductionChange@@@_STL@@@_STL@@QBE?AU?$_List_iterator@PAVKindOfPercentProductionChange@@U?$_Const_traits@PAVKindOfPercentProductionChange@@@_STL@@@2@XZ": {
+      "raw": "8b018b088b4424048908c20400",
+      "relocations": []
+    },
+    "?end@?$list@PAVKindOfPercentProductionChange@@V?$allocator@PAVKindOfPercentProductionChange@@@_STL@@@_STL@@QBE?AU?$_List_iterator@PAVKindOfPercentProductionChange@@U?$_Const_traits@PAVKindOfPercentProductionChange@@@_STL@@@2@XZ": {
+      "raw": "8b098b4424048908c20400",
+      "relocations": []
+    },
+    "?deallocate@?$_STLP_alloc_proxy@PAU?$_List_node@PAVKindOfPercentProductionChange@@@_STL@@U12@V?$allocator@U?$_List_node@PAVKindOfPercentProductionChange@@@_STL@@@2@@_STL@@QAEXPAU?$_List_node@PAVKindOfPercentProductionChange@@@2@I@Z": {
+      "raw": "e900000000",
+      "relocations": [
+        [
+          1,
+          20,
+          "?deallocate@?$allocator@U?$_List_node@PAVKindOfPercentProductionChange@@@_STL@@@_STL@@QBEXPAU?$_List_node@PAVKindOfPercentProductionChange@@@2@I@Z"
+        ]
+      ]
+    },
+    "?begin@?$list@USpecialPowerReadyTimerType@@V?$allocator@USpecialPowerReadyTimerType@@@_STL@@@_STL@@QBE?AU?$_List_iterator@USpecialPowerReadyTimerType@@U?$_Const_traits@USpecialPowerReadyTimerType@@@_STL@@@2@XZ": {
+      "raw": "8b018b088b4424048908c20400",
+      "relocations": []
+    },
+    "?end@?$list@USpecialPowerReadyTimerType@@V?$allocator@USpecialPowerReadyTimerType@@@_STL@@@_STL@@QBE?AU?$_List_iterator@USpecialPowerReadyTimerType@@U?$_Const_traits@USpecialPowerReadyTimerType@@@_STL@@@2@XZ": {
+      "raw": "8b098b4424048908c20400",
+      "relocations": []
+    },
+    "??0?$_Base_bitset@$03@_STL@@QAE@XZ": {
+      "raw": "566a108bf16a0056e80000000083c40c8bc65ec3",
+      "relocations": [
+        [
+          9,
+          20,
+          "_memset"
+        ]
+      ]
+    },
+    "?_M_do_sanitize@?$bitset@$0IA@@_STL@@AAEXXZ": {
+      "raw": "c3",
+      "relocations": []
+    },
+    "??0?$_Ht_iterator@U?$pair@$$CBHW4Relationship@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHW4Relationship@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHW4Relationship@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@2@@_STL@@QAE@PBU?$_Hashtable_node@U?$pair@$$CBHW4Relationship@@@_STL@@@1@PBV?$hashtable@U?$pair@$$CBHW4Relationship@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHW4Relationship@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@2@@1@@Z": {
+      "raw": "8bc18b4c240489088b4c2408894804c20800",
+      "relocations": []
+    },
+    "??0?$_Ht_iterator@U?$pair@$$CBIW4Relationship@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBIW4Relationship@@@_STL@@@2@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@QAE@PBU?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@1@PBV?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@1@@Z": {
+      "raw": "8bc18b4c240489088b4c2408894804c20800",
+      "relocations": []
+    },
+    "?allocate@?$_STLP_alloc_proxy@PAU?$_List_node@PAVKindOfPercentProductionChange@@@_STL@@U12@V?$allocator@U?$_List_node@PAVKindOfPercentProductionChange@@@_STL@@@2@@_STL@@QAEPAU?$_List_node@PAVKindOfPercentProductionChange@@@2@I@Z": {
+      "raw": "6a00ff742408e800000000c20400",
+      "relocations": [
+        [
+          7,
+          20,
+          "?allocate@?$allocator@U?$_List_node@PAVKindOfPercentProductionChange@@@_STL@@@_STL@@QBEPAU?$_List_node@PAVKindOfPercentProductionChange@@@2@IPBX@Z"
+        ]
+      ]
+    },
+    "?allocate@?$_STLP_alloc_proxy@PAU?$_List_node@USpecialPowerReadyTimerType@@@_STL@@U12@V?$allocator@U?$_List_node@USpecialPowerReadyTimerType@@@_STL@@@2@@_STL@@QAEPAU?$_List_node@USpecialPowerReadyTimerType@@@2@I@Z": {
+      "raw": "6a00ff742408e800000000c20400",
+      "relocations": [
+        [
+          7,
+          20,
+          "?allocate@?$allocator@U?$_List_node@USpecialPowerReadyTimerType@@@_STL@@@_STL@@QBEPAU?$_List_node@USpecialPowerReadyTimerType@@@2@IPBX@Z"
+        ]
+      ]
+    },
+    "?deallocate@?$_STLP_alloc_proxy@PAU?$_List_node@USpecialPowerReadyTimerType@@@_STL@@U12@V?$allocator@U?$_List_node@USpecialPowerReadyTimerType@@@_STL@@@2@@_STL@@QAEXPAU?$_List_node@USpecialPowerReadyTimerType@@@2@I@Z": {
+      "raw": "e900000000",
+      "relocations": [
+        [
+          1,
+          20,
+          "?deallocate@?$allocator@U?$_List_node@USpecialPowerReadyTimerType@@@_STL@@@_STL@@QBEXPAU?$_List_node@USpecialPowerReadyTimerType@@@2@I@Z"
+        ]
+      ]
+    },
+    "?clear@?$_List_base@USpecialPowerReadyTimerType@@V?$allocator@USpecialPowerReadyTimerType@@@_STL@@@_STL@@QAEXXZ": {
+      "raw": "56578bf98b078b303bf074128bc68b366a01508bcfe8000000003b3775ee8b0789008b3f897f045f5ec3",
+      "relocations": [
+        [
+          22,
+          20,
+          "?deallocate@?$allocator@U?$_List_node@USpecialPowerReadyTimerType@@@_STL@@@_STL@@QBEXPAU?$_List_node@USpecialPowerReadyTimerType@@@2@I@Z"
+        ]
+      ]
+    },
+    "??$find@PBW4ScienceType@@W41@@_STL@@YAPBW4ScienceType@@PBW41@0ABW41@@Z": {
+      "raw": "558bec518d45ff50ff7510ff750cff7508e80000000083c410c9c3",
+      "relocations": [
+        [
+          18,
+          20,
+          "??$__find@PBW4ScienceType@@W41@@_STL@@YAPBW4ScienceType@@PBW41@0ABW41@ABUrandom_access_iterator_tag@0@@Z"
+        ]
+      ]
+    },
+    "??$__copy_ptrs@PAW4ScienceType@@PAW41@@_STL@@YAPAW4ScienceType@@PAW41@00ABU__false_type@0@@Z": {
+      "raw": "558bec516a008d45ff50ff7510ff750cff7508e80000000083c414c9c3",
+      "relocations": [
+        [
+          20,
+          20,
+          "??$__copy@PAW4ScienceType@@PAW41@H@_STL@@YAPAW4ScienceType@@PAW41@00ABUrandom_access_iterator_tag@0@PAH@Z"
+        ]
+      ]
+    },
+    "??$distance@U?$_List_iterator@PAVTeamPrototype@@U?$_Const_traits@PAVTeamPrototype@@@_STL@@@_STL@@@_STL@@YAHABU?$_List_iterator@PAVTeamPrototype@@U?$_Const_traits@PAVTeamPrototype@@@_STL@@@0@0@Z": {
+      "raw": "8b5424088b4c24048b1233c0eb01408b093bca75f9c3",
+      "relocations": []
+    },
+    "?size@?$BitFlags@$0HE@@@QBEHXZ": {
+      "raw": "6a7458c3",
+      "relocations": []
+    },
+    "?count@?$bitset@$0HE@@_STL@@QBEIXZ": {
+      "raw": "e900000000",
+      "relocations": [
+        [
+          1,
+          20,
+          "?_M_do_count@?$_Base_bitset@$03@_STL@@QBEIXZ"
+        ]
+      ]
+    },
+    "?_M_bkt_num_key@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@ABEIABI@Z": {
+      "raw": "8b4424048b00568b71082b710433d2c1fe02f7f65e8bc2c20400",
+      "relocations": []
+    },
+    "?allocate@?$_STLP_alloc_proxy@IU?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@_STL@@V?$allocator@U?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@_STL@@@2@@_STL@@QAEPAU?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@2@I@Z": {
+      "raw": "6a00ff742408e800000000c20400",
+      "relocations": [
+        [
+          7,
+          20,
+          "?allocate@?$allocator@U?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@_STL@@@_STL@@QBEPAU?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@2@IPBX@Z"
+        ]
+      ]
+    },
+    "?deallocate@?$_STLP_alloc_proxy@IU?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@_STL@@V?$allocator@U?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@_STL@@@2@@_STL@@QAEXPAU?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@2@I@Z": {
+      "raw": "e900000000",
+      "relocations": [
+        [
+          1,
+          20,
+          "?deallocate@?$allocator@U?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@_STL@@@_STL@@QBEXPAU?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@2@I@Z"
+        ]
+      ]
+    },
+    "?_M_bkt_num_key@?$hashtable@U?$pair@$$CBHW4Relationship@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHW4Relationship@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@2@@_STL@@ABEIABH@Z": {
+      "raw": "8b4424048b00568b71082b710433d2c1fe02f7f65e8bc2c20400",
+      "relocations": []
+    },
+    "?deallocate@?$_STLP_alloc_proxy@IU?$_Hashtable_node@U?$pair@$$CBHW4Relationship@@@_STL@@@_STL@@V?$allocator@U?$_Hashtable_node@U?$pair@$$CBHW4Relationship@@@_STL@@@_STL@@@2@@_STL@@QAEXPAU?$_Hashtable_node@U?$pair@$$CBHW4Relationship@@@_STL@@@2@I@Z": {
+      "raw": "e900000000",
+      "relocations": [
+        [
+          1,
+          20,
+          "?deallocate@?$allocator@U?$_Hashtable_node@U?$pair@$$CBHW4Relationship@@@_STL@@@_STL@@@_STL@@QBEXPAU?$_Hashtable_node@U?$pair@$$CBHW4Relationship@@@_STL@@@2@I@Z"
+        ]
+      ]
+    },
+    "?_Unchecked_set@?$bitset@$0HE@@_STL@@QAEAAV12@IH@Z": {
+      "raw": "558bec8b45085657ff75088bf9c1e8058d3487e800000000837d0c005974040906eb04f7d021068bc75f5e5dc20800",
+      "relocations": [
+        [
+          20,
+          20,
+          "?_S_maskbit@?$_Base_bitset@$03@_STL@@SAKI@Z"
+        ]
+      ]
+    },
+    "??$__copy_ptrs@PBW4ScienceType@@PAW41@@_STL@@YAPAW4ScienceType@@PBW41@0PAW41@ABU__false_type@0@@Z": {
+      "raw": "558bec516a008d45ff50ff7510ff750cff7508e80000000083c414c9c3",
+      "relocations": [
+        [
+          20,
+          20,
+          "??$__copy@PBW4ScienceType@@PAW41@H@_STL@@YAPAW4ScienceType@@PBW41@0PAW41@ABUrandom_access_iterator_tag@0@PAH@Z"
+        ]
+      ]
+    },
+    "??$__destroy@PAW4ScienceType@@W41@@_STL@@YAXPAW4ScienceType@@00@Z": {
+      "raw": "c3",
+      "relocations": []
+    },
+    "??$_M_find@I@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@ABEPAU?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@1@ABI@Z": {
+      "raw": "8b442404568b30578b79082b79048bc6c1ff0233d2f7f78b41048b0490eb0739700474068b0085c075f55f5ec20400",
+      "relocations": []
+    },
+    "??$_M_find@H@?$hashtable@U?$pair@$$CBHW4Relationship@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHW4Relationship@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@2@@_STL@@ABEPAU?$_Hashtable_node@U?$pair@$$CBHW4Relationship@@@_STL@@@1@ABH@Z": {
+      "raw": "8b442404568b30578b79082b79048bc6c1ff0233d2f7f78b41048b0490eb0739700474068b0085c075f55f5ec20400",
+      "relocations": []
+    },
+    "??$__distance@U?$_List_iterator@PAVKindOfPercentProductionChange@@U?$_Const_traits@PAVKindOfPercentProductionChange@@@_STL@@@_STL@@@_STL@@YAHABU?$_List_iterator@PAVKindOfPercentProductionChange@@U?$_Const_traits@PAVKindOfPercentProductionChange@@@_STL@@@0@0ABUinput_iterator_tag@0@@Z": {
+      "raw": "8b5424088b4c24048b1233c0eb01408b093bca75f9c3",
+      "relocations": []
+    },
+    "??$__distance@U?$_List_iterator@USpecialPowerReadyTimerType@@U?$_Const_traits@USpecialPowerReadyTimerType@@@_STL@@@_STL@@@_STL@@YAHABU?$_List_iterator@USpecialPowerReadyTimerType@@U?$_Const_traits@USpecialPowerReadyTimerType@@@_STL@@@0@0ABUinput_iterator_tag@0@@Z": {
+      "raw": "8b5424088b4c24048b1233c0eb01408b093bca75f9c3",
+      "relocations": []
+    },
+    "??$_Construct@U?$pair@$$CBIW4Relationship@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBIW4Relationship@@@0@ABU10@@Z": {
+      "raw": "8b44240485c0740e8b4c24088b1189108b4904894804c3",
+      "relocations": []
+    },
+    "?_S_key@?$_Rb_tree@W4NameKeyType@@U?$pair@$$CBW4NameKeyType@@M@_STL@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@M@_STL@@@3@U?$less@W4NameKeyType@@@3@V?$allocator@U?$pair@$$CBW4NameKeyType@@M@_STL@@@3@@_STL@@KAABW4NameKeyType@@PAU?$_Rb_tree_node@U?$pair@$$CBW4NameKeyType@@M@_STL@@@2@@Z": {
+      "raw": "8b44240483c010c3",
+      "relocations": []
+    },
+    "?_S_key@?$_Rb_tree@W4NameKeyType@@U?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@_STL@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@_STL@@@3@U?$less@W4NameKeyType@@@3@V?$allocator@U?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@_STL@@@3@@_STL@@KAABW4NameKeyType@@PAU?$_Rb_tree_node@U?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@_STL@@@2@@Z": {
+      "raw": "8b44240483c010c3",
+      "relocations": []
+    },
+    "?_M_next_size@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@ABEII@Z": {
+      "raw": "558beca100000000566a00ff75088d4d08518d70705650e80000000083c4143bc675058b46fceb028b005e5dc20400",
+      "relocations": [
+        [
+          4,
+          6,
+          "__imp_?_M_list@?$_Stl_prime@_N@_STL@@2QBIB"
+        ],
+        [
+          24,
+          20,
+          "??$__lower_bound@PBIIU?$less@I@_STL@@H@_STL@@YAPBIPBI0ABIU?$less@I@0@PAH@Z"
+        ]
+      ]
+    },
+    "?playerDonorIsDisabled@Object@@QBE_NXZ": {
+      "raw": "33c03981300100000f95c0c3",
+      "relocations": []
+    },
+    "?findMostReadyShortcutSpecialPowerOfType@Player@@QAEPAVObject@@W4SpecialPowerType@@@Z": {
+      "raw": "558bec83ec1c8b45088365e800834df4ff8945ec8d45e4506800000000894de4e8000000008b45e8c9c20400",
+      "relocations": [
+        [
+          25,
+          6,
+          "?doFindSpecialPowerSourceObject@@YAXPAVObject@@PAX@Z"
+        ],
+        [
+          33,
+          20,
+          "?iterateObjects@Player@@QBEXP6AXPAVObject@@PAX@Z1@Z"
+        ]
+      ]
+    },
+    "?hasAnyShortcutSpecialPower@Player@@QAE_NXZ": {
+      "raw": "558bec83ec1c8365e8008365ec00834df4ff8d45e4506800000000894de4e800000000837de8000f95c0c9c3",
+      "relocations": [
+        [
+          23,
+          6,
+          "?doFindSpecialPowerSourceObject@@YAXPAVObject@@PAX@Z"
+        ],
+        [
+          31,
+          20,
+          "?iterateObjects@Player@@QBEXP6AXPAVObject@@PAX@Z1@Z"
+        ]
+      ]
+    },
+    "?countReadyShortcutSpecialPowersOfType@Player@@QAEHW4SpecialPowerType@@@Z": {
+      "raw": "558bec83ec1c8b45088365fc008945ec8d45e4506800000000e8000000008b45fcc9c20400",
+      "relocations": [
+        [
+          21,
+          6,
+          "?doCountSpecialPowersReady@@YAXPAVObject@@PAX@Z"
+        ],
+        [
+          26,
+          20,
+          "?iterateObjects@Player@@QBEXP6AXPAVObject@@PAX@Z1@Z"
+        ]
+      ]
+    },
+    "?hasAnyBuildings@Player@@QBE_NXZ": {
+      "raw": "56578bf98b87a00100008b303bf074168b4e08e80000000084c0750f8b363bb7a001000075ea32c05f5ec3b001ebf9",
+      "relocations": [
+        [
+          20,
+          20,
+          "?hasAnyBuildings@TeamPrototype@@QBE_NXZ"
+        ]
+      ]
+    },
+    "?hasAnyBuildings@Player@@QBE_NV?$BitFlags@$0HE@@@@Z": {
+      "raw": "53558be98b85a00100008b183bd8565774238b4b0883ec108bfc8d742424a5a5a5a5e80000000084c075138b1b3b9da001000075dd32c05f5e5d5bc21000b001ebf5",
+      "relocations": [
+        [
+          35,
+          20,
+          "?hasAnyBuildings@TeamPrototype@@QBE_NV?$BitFlags@$0HE@@@@Z"
+        ]
+      ]
+    },
+    "?hasAnyUnits@Player@@QBE_NXZ": {
+      "raw": "56578bf98b87880200008b303bf074168b4e08e80000000084c0750f8b363bb78802000075ea32c05f5ec3b001ebf9",
+      "relocations": [
+        [
+          20,
+          20,
+          "?hasAnyUnits@TeamPrototype@@QBE_NXZ"
+        ]
+      ]
+    },
+    "?hasAnyBuildFacility@Player@@QBE_NXZ": {
+      "raw": "56578bf98b87880200008b303bf074168b4e08e80000000084c0750f8b363bb78802000075ea32c05f5ec3b001ebf9",
+      "relocations": [
+        [
+          20,
+          20,
+          "?hasAnyBuildFacility@TeamPrototype@@QBE_NXZ"
+        ]
+      ]
+    },
+    "?killPlayer@Player@@QAEXXZ": {
+      "raw": "53568bf18b86a0010000578b383bf874238b47088b986c01000085db740c8bcbe8000000008b5b18ebf08b3f3bbea001000075dd8b86a0010000c68648040000018b383bf874238b47088b986c01000085db740c8bcbe8000000008b5b18ebf08b3f3bbea001000075dd8b0d00000000e80000000084c0740f837e30017509c6864804000000eb768bcee80000000084c0745ea10000000083b8940000000474506a018bcee8000000008b150000000085d2743d8bcee80000000084c0740a568bcae800000000eb288b0d000000006800000000e8000000008b0d0000000050e8000000008b0d0000000050e8000000006a01ff76388d4e34e8000000005f5e5bc3",
+      "relocations": [
+        [
+          33,
+          20,
+          "?evacuateTeam@Team@@QAEXXZ"
+        ],
+        [
+          87,
+          20,
+          "?killTeam@Team@@QAEXXZ"
+        ],
+        [
+          108,
+          6,
+          "?TheGameLogic@@3PAVGameLogic@@A"
+        ],
+        [
+          113,
+          20,
+          "?isInSinglePlayerGame@GameLogic@@QAE_NXZ"
+        ],
+        [
+          139,
+          20,
+          "?isLocalPlayer@Player@@QBE_NXZ"
+        ],
+        [
+          148,
+          6,
+          "?TheGameLogic@@3PAVGameLogic@@A"
+        ],
+        [
+          166,
+          20,
+          "?becomingLocalPlayer@Player@@QAEX_N@Z"
+        ],
+        [
+          172,
+          6,
+          "?TheControlBar@@3PAVControlBar@@A"
+        ],
+        [
+          183,
+          20,
+          "?isPlayerActive@Player@@QBE_NXZ"
+        ],
+        [
+          195,
+          20,
+          "?setControlBarSchemeByPlayer@ControlBar@@QAEXPAVPlayer@@@Z"
+        ],
+        [
+          203,
+          6,
+          "?TheNameKeyGenerator@@3PAVNameKeyGenerator@@A"
+        ],
+        [
+          208,
+          6,
+          "??_C@_0BA@COGJGIOE@FactionObserver?$AA@"
+        ],
+        [
+          213,
+          20,
+          "?nameToKey@NameKeyGenerator@@QAE?AW4NameKeyType@@PBD@Z"
+        ],
+        [
+          219,
+          6,
+          "?ThePlayerTemplateStore@@3PAVPlayerTemplateStore@@A"
+        ],
+        [
+          225,
+          20,
+          "?findPlayerTemplate@PlayerTemplateStore@@QBEPBVPlayerTemplate@@W4NameKeyType@@@Z"
+        ],
+        [
+          231,
+          6,
+          "?TheControlBar@@3PAVControlBar@@A"
+        ],
+        [
+          237,
+          20,
+          "?setControlBarSchemeByPlayerTemplate@ControlBar@@QAEXPBVPlayerTemplate@@@Z"
+        ],
+        [
+          250,
+          20,
+          "?withdraw@Money@@QAEII_N@Z"
+        ]
+      ]
+    },
+    "?isScienceDisabled@Player@@QBE_NW4ScienceType@@@Z": {
+      "raw": "568bb1740100008d4424085056ffb170010000e80000000083c40c33c93bc60f95c18ac15ec20400",
+      "relocations": [
+        [
+          20,
+          20,
+          "??$find@PBW4ScienceType@@W41@@_STL@@YAPBW4ScienceType@@PBW41@0ABW41@@Z"
+        ]
+      ]
+    },
+    "?isScienceHidden@Player@@QBE_NW4ScienceType@@@Z": {
+      "raw": "568bb1800100008d4424085056ffb17c010000e80000000083c40c33c93bc60f95c18ac15ec20400",
+      "relocations": [
+        [
+          20,
+          20,
+          "??$find@PBW4ScienceType@@W41@@_STL@@YAPBW4ScienceType@@PBW41@0ABW41@@Z"
+        ]
+      ]
+    },
+    "?onUpgradeCompleted@Player@@QAEXPBVUpgradeTemplate@@@Z": {
+      "raw": "83ec148b81a0010000538b183bd8894c2404744c5556578b43088bb86c01000085ff742b8b7710b80000000033c98944241c8be985f674128bcee8000000008d0c2eff54241c8bf0ebea8b7f18ebd18b1b8b4424103b98a001000075ba5f5e5d5b83c414c20400",
+      "relocations": [
+        [
+          40,
+          6,
+          "?dlink_next_TeamMemberList@Object@@QBEPAV1@XZ"
+        ],
+        [
+          59,
+          20,
+          "?updateUpgradeModules@Object@@QAEXXZ"
+        ]
+      ]
+    },
+    "?getProductionCostChangeBasedOnKindOf@Player@@QBEMV?$BitFlags@$0HE@@@@Z": {
+      "raw": "558bec51f30f100500000000538bd98b8314040000568b303bf0f30f1145fc743b578b7e0868000000008d4704508d4d08e80000000084c07417f30f104714f30f580500000000f30f5945fcf30f1145fc8b363bb31404000075c75fd945fc5e5bc9c21000",
+      "relocations": [
+        [
+          8,
+          6,
+          "__real@3f800000"
+        ],
+        [
+          38,
+          6,
+          "?KINDOFMASK_NONE@@3V?$BitFlags@$0HE@@@A"
+        ],
+        [
+          50,
+          20,
+          "?testSetAndClear@?$BitFlags@$0HE@@@QBE_NABV1@0@Z"
+        ],
+        [
+          67,
+          6,
+          "__real@3f800000"
+        ]
+      ]
+    },
+    "?push_back@?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAEXABQAVObject@@@Z": {
+      "raw": "558becff75088b11518bc489108d450850e8000000005dc20400",
+      "relocations": [
+        [
+          18,
+          20,
+          "?insert@?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVObject@@U?$_Nonconst_traits@PAVObject@@@_STL@@@2@U32@ABQAVObject@@@Z"
+        ]
+      ]
+    },
+    "?erase@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAEPAW4ScienceType@@PAW43@@Z": {
+      "raw": "558bec56578b7d088bf18b46048d4f043bc8740f8d550b52575051e80000000083c410834604fc8bc75f5e5dc20400",
+      "relocations": [
+        [
+          28,
+          20,
+          "??$__copy_ptrs@PAW4ScienceType@@PAW41@@_STL@@YAPAW4ScienceType@@PAW41@00ABU__false_type@0@@Z"
+        ]
+      ]
+    },
+    "?empty@?$hash_map@IW4Relationship@@U?$hash@I@_STL@@U?$equal_to@I@3@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@3@@_STL@@QBE_NXZ": {
+      "raw": "33c03941100f94c0c3",
+      "relocations": []
+    },
+    "?empty@?$hash_map@HW4Relationship@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@3@@_STL@@QBE_NXZ": {
+      "raw": "33c03941100f94c0c3",
+      "relocations": []
+    },
+    "?end@?$map@W4NameKeyType@@MU?$less@W4NameKeyType@@@_STL@@V?$allocator@U?$pair@$$CBW4NameKeyType@@M@_STL@@@3@@_STL@@QBE?AU?$_Rb_tree_iterator@U?$pair@$$CBW4NameKeyType@@M@_STL@@U?$_Const_traits@U?$pair@$$CBW4NameKeyType@@M@_STL@@@2@@2@XZ": {
+      "raw": "8b098b4424048908c20400",
+      "relocations": []
+    },
+    "?end@?$map@W4NameKeyType@@W4VeterancyLevel@@U?$less@W4NameKeyType@@@_STL@@V?$allocator@U?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@_STL@@@4@@_STL@@QBE?AU?$_Rb_tree_iterator@U?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@_STL@@U?$_Const_traits@U?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@_STL@@@2@@2@XZ": {
+      "raw": "8b098b4424048908c20400",
+      "relocations": []
+    },
+    "?size@?$list@PAVTeamPrototype@@V?$allocator@PAVTeamPrototype@@@_STL@@@_STL@@QBEIXZ": {
+      "raw": "8b118b0a33c0eb038b09403bca75f9c3",
+      "relocations": []
+    },
+    "?push_back@?$list@PAVTeamPrototype@@V?$allocator@PAVTeamPrototype@@@_STL@@@_STL@@QAEXABQAVTeamPrototype@@@Z": {
+      "raw": "558becff75088b11518bc489108d450850e8000000005dc20400",
+      "relocations": [
+        [
+          18,
+          20,
+          "?insert@?$list@PAVTeamPrototype@@V?$allocator@PAVTeamPrototype@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVTeamPrototype@@U?$_Nonconst_traits@PAVTeamPrototype@@@_STL@@@2@U32@ABQAVTeamPrototype@@@Z"
+        ]
+      ]
+    },
+    "?erase@?$list@PAVKindOfPercentProductionChange@@V?$allocator@PAVKindOfPercentProductionChange@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVKindOfPercentProductionChange@@U?$_Nonconst_traits@PAVKindOfPercentProductionChange@@@_STL@@@2@U32@@Z": {
+      "raw": "8b5424088b4204568b326a01893052894604e8000000008b44240889305ec20800",
+      "relocations": [
+        [
+          19,
+          20,
+          "?deallocate@?$allocator@U?$_List_node@PAVKindOfPercentProductionChange@@@_STL@@@_STL@@QBEXPAU?$_List_node@PAVKindOfPercentProductionChange@@@2@I@Z"
+        ]
+      ]
+    },
+    "??0?$bitset@$0HE@@_STL@@QAE@XZ": {
+      "raw": "568bf1e8000000008bc65ec3",
+      "relocations": [
+        [
+          4,
+          20,
+          "??0?$_Base_bitset@$03@_STL@@QAE@XZ"
+        ]
+      ]
+    },
+    "?flip@?$bitset@$0IA@@_STL@@QAEAAV12@XZ": {
+      "raw": "8bc133d2f714904283fa0472f7c3",
+      "relocations": []
+    },
+    "??S?$bitset@$0IA@@_STL@@QBE?AV01@XZ": {
+      "raw": "558bec83ec1056578bf18d7df0a5a5a5a533c0f75485f04083f80472f68b45088d75f08bf8a5a5a5a55f5ec9c20400",
+      "relocations": []
+    },
+    "?end@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBIW4Relationship@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBIW4Relationship@@@_STL@@@2@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@2@XZ": {
+      "raw": "8b442404832000894804c20400",
+      "relocations": []
+    },
+    "?end@?$hashtable@U?$pair@$$CBHW4Relationship@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHW4Relationship@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@2@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBHW4Relationship@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHW4Relationship@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHW4Relationship@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@2@@2@XZ": {
+      "raw": "8b442404832000894804c20400",
+      "relocations": []
+    },
+    "?_M_create_node@?$list@PAVKindOfPercentProductionChange@@V?$allocator@PAVKindOfPercentProductionChange@@@_STL@@@_STL@@IAEPAU?$_List_node@PAVKindOfPercentProductionChange@@@2@ABQAVKindOfPercentProductionChange@@@Z": {
+      "raw": "6a0cff1500000000598d480885c974088b5424048b128911c20400",
+      "relocations": [
+        [
+          4,
+          6,
+          "__imp_?allocate@__new_alloc@_STL@@SAPAXI@Z"
+        ]
+      ]
+    },
+    "?_M_create_node@?$list@USpecialPowerReadyTimerType@@V?$allocator@USpecialPowerReadyTimerType@@@_STL@@@_STL@@IAEPAU?$_List_node@USpecialPowerReadyTimerType@@@2@ABUSpecialPowerReadyTimerType@@@Z": {
+      "raw": "566a10ff1500000000ff74240c8bf08d460850e80000000083c40c8bc65ec20400",
+      "relocations": [
+        [
+          5,
+          6,
+          "__imp_?allocate@__new_alloc@_STL@@SAPAXI@Z"
+        ],
+        [
+          20,
+          20,
+          "??$_Construct@USpecialPowerReadyTimerType@@U1@@_STL@@YAXPAUSpecialPowerReadyTimerType@@ABU1@@Z"
+        ]
+      ]
+    },
+    "??$_Destroy@PAW4ScienceType@@@_STL@@YAXPAW4ScienceType@@0@Z": {
+      "raw": "c3",
+      "relocations": []
+    },
+    "??$find@I@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBIW4Relationship@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBIW4Relationship@@@_STL@@@2@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@1@ABI@Z": {
+      "raw": "56ff74240c8bf1e8000000008b4c240889018971048bc15ec20800",
+      "relocations": [
+        [
+          8,
+          20,
+          "??$_M_find@I@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@ABEPAU?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@1@ABI@Z"
+        ]
+      ]
+    },
+    "??$find@H@?$hashtable@U?$pair@$$CBHW4Relationship@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHW4Relationship@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@2@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBHW4Relationship@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHW4Relationship@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHW4Relationship@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@2@@1@ABH@Z": {
+      "raw": "56ff74240c8bf1e8000000008b4c240889018971048bc15ec20800",
+      "relocations": [
+        [
+          8,
+          20,
+          "??$_M_find@H@?$hashtable@U?$pair@$$CBHW4Relationship@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHW4Relationship@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@2@@_STL@@ABEPAU?$_Hashtable_node@U?$pair@$$CBHW4Relationship@@@_STL@@@1@ABH@Z"
+        ]
+      ]
+    },
+    "??$distance@U?$_List_iterator@PAVKindOfPercentProductionChange@@U?$_Const_traits@PAVKindOfPercentProductionChange@@@_STL@@@_STL@@@_STL@@YAHABU?$_List_iterator@PAVKindOfPercentProductionChange@@U?$_Const_traits@PAVKindOfPercentProductionChange@@@_STL@@@0@0@Z": {
+      "raw": "8b5424088b4c24048b1233c0eb01408b093bca75f9c3",
+      "relocations": []
+    },
+    "??$distance@U?$_List_iterator@USpecialPowerReadyTimerType@@U?$_Const_traits@USpecialPowerReadyTimerType@@@_STL@@@_STL@@@_STL@@YAHABU?$_List_iterator@USpecialPowerReadyTimerType@@U?$_Const_traits@USpecialPowerReadyTimerType@@@_STL@@@0@0@Z": {
+      "raw": "8b5424088b4c24048b1233c0eb01408b093bca75f9c3",
+      "relocations": []
+    },
+    "?count@?$BitFlags@$0HE@@@QBEHXZ": {
+      "raw": "e900000000",
+      "relocations": [
+        [
+          1,
+          20,
+          "?_M_do_count@?$_Base_bitset@$03@_STL@@QBEIXZ"
+        ]
+      ]
+    },
+    "?_M_bkt_num@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@ABEIABU?$pair@$$CBIW4Relationship@@@2@@Z": {
+      "raw": "8b4424048b00568b71082b710433d2c1fe02f7f65e8bc2c20400",
+      "relocations": []
+    },
+    "?_M_new_node@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@AAEPAU?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@2@ABU?$pair@$$CBIW4Relationship@@@2@@Z": {
+      "raw": "566a0cff1500000000ff74240c8bf08326008d460450e80000000083c40c8bc65ec20400",
+      "relocations": [
+        [
+          5,
+          6,
+          "__imp_?allocate@__new_alloc@_STL@@SAPAXI@Z"
+        ],
+        [
+          23,
+          20,
+          "??$_Construct@U?$pair@$$CBIW4Relationship@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBIW4Relationship@@@0@ABU10@@Z"
+        ]
+      ]
+    },
+    "?_M_delete_node@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@AAEXPAU?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@Z": {
+      "raw": "6a01ff74240883c110e800000000c20400",
+      "relocations": [
+        [
+          10,
+          20,
+          "?deallocate@?$allocator@U?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@_STL@@@_STL@@QBEXPAU?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@2@I@Z"
+        ]
+      ]
+    },
+    "?_M_bkt_num@?$hashtable@U?$pair@$$CBHW4Relationship@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHW4Relationship@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@2@@_STL@@ABEIABU?$pair@$$CBHW4Relationship@@@2@@Z": {
+      "raw": "8b4424048b00568b71082b710433d2c1fe02f7f65e8bc2c20400",
+      "relocations": []
+    },
+    "?_M_delete_node@?$hashtable@U?$pair@$$CBHW4Relationship@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHW4Relationship@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@2@@_STL@@AAEXPAU?$_Hashtable_node@U?$pair@$$CBHW4Relationship@@@_STL@@@2@@Z": {
+      "raw": "6a01ff74240883c110e800000000c20400",
+      "relocations": [
+        [
+          10,
+          20,
+          "?deallocate@?$allocator@U?$_Hashtable_node@U?$pair@$$CBHW4Relationship@@@_STL@@@_STL@@@_STL@@QBEXPAU?$_Hashtable_node@U?$pair@$$CBHW4Relationship@@@_STL@@@2@I@Z"
+        ]
+      ]
+    },
+    "?set@?$bitset@$0HE@@_STL@@QAEAAV12@IH@Z": {
+      "raw": "837c240474568bf1720c6800000000ff150000000059ff74240c8bceff74240ce8000000005ec20800",
+      "relocations": [
+        [
+          11,
+          6,
+          "??_C@_06CBNGNPJL@bitset?$AA@"
+        ],
+        [
+          17,
+          6,
+          "__imp_?__stl_throw_out_of_range@_STL@@YAXPBD@Z"
+        ],
+        [
+          33,
+          20,
+          "?_Unchecked_set@?$bitset@$0HE@@_STL@@QAEAAV12@IH@Z"
+        ]
+      ]
+    },
+    "??$__uninitialized_copy@PBW4ScienceType@@PAW41@@_STL@@YAPAW4ScienceType@@PBW41@0PAW41@ABU__false_type@0@@Z": {
+      "raw": "8b44240c8b4c2404eb0e85c074048b11891083c10483c0043b4c240875ecc3",
+      "relocations": []
+    },
+    "?resize@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@QAEXI@Z": {
+      "raw": "b800000000e80000000083ec245356578d71048b7e042b3e8965f0c1ff02397d08894ddc0f8699000000ff7508e8000000003bc78945e80f86860000008d450b33db508bce895de4ff1500000000508d45e450ff75e88d4dd0895dfcff1500000000c645fc03895dec397dec733c8b068b4dec8b0c8885c9742b8b410433d2f775e88b068b5dec8955e08b118914988b45e08b55d0c1e0028b141089118b55d0890c10ebc9ff45ecebbf8d45d0508bceff1500000000834dfcff8d4dd0ff15000000008b4df45f5e64890d000000005bc9c204008b45d48b4dd02bc133ffc1f802743a8d04b983380074258b5ddc83c3108b008b306a01508bcbe8000000008b45d08934b88b4dd08d04b983380075e18b45d42bc147c1f8023bf872c66a006a00e800000000cc",
+      "relocations": [
+        [
+          1,
+          6,
+          "__ehhandler$?resize@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@QAEXI@Z"
+        ],
+        [
+          6,
+          20,
+          "__EH_prolog"
+        ],
+        [
+          46,
+          20,
+          "?_M_next_size@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@ABEII@Z"
+        ],
+        [
+          74,
+          6,
+          "__imp_?get_allocator@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBE?AV?$allocator@PAX@2@XZ"
+        ],
+        [
+          94,
+          6,
+          "__imp_??0?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAE@IABQAXABV?$allocator@PAX@1@@Z"
+        ],
+        [
+          178,
+          6,
+          "__imp_?swap@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEXAAV12@@Z"
+        ],
+        [
+          191,
+          6,
+          "__imp_??1?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAE@XZ"
+        ],
+        [
+          203,
+          6,
+          "__except_list"
+        ],
+        [
+          251,
+          20,
+          "?deallocate@?$allocator@U?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@_STL@@@_STL@@QBEXPAU?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@2@I@Z"
+        ],
+        [
+          290,
+          20,
+          "__CxxThrowException@8"
+        ]
+      ]
+    },
+    "??$_M_find@W4NameKeyType@@@?$_Rb_tree@W4NameKeyType@@U?$pair@$$CBW4NameKeyType@@M@_STL@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@M@_STL@@@3@U?$less@W4NameKeyType@@@3@V?$allocator@U?$pair@$$CBW4NameKeyType@@M@_STL@@@3@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBW4NameKeyType@@M@_STL@@@1@ABW4NameKeyType@@@Z": {
+      "raw": "8b118b4a0485c9578b7c24088bc27417568b373971107c078bc18b4908eb038b490c85c975ed5e3bc274078b0f3b48107d028bc25fc20400",
+      "relocations": []
+    },
+    "??$_M_find@W4NameKeyType@@@?$_Rb_tree@W4NameKeyType@@U?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@_STL@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@_STL@@@3@U?$less@W4NameKeyType@@@3@V?$allocator@U?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@_STL@@@3@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@_STL@@@1@ABW4NameKeyType@@@Z": {
+      "raw": "8b118b4a0485c9578b7c24088bc27417568b373971107c078bc18b4908eb038b490c85c975ed5e3bc274078b0f3b48107d028bc25fc20400",
+      "relocations": []
+    },
+    "?transferAssetsFromThat@Player@@QAEXPAV1@@Z": {
+      "raw": "b800000000e80000000083ec285356578bf98b876001000085c0897de48945e00f84040100008d45f3508d4dece8000000008b75088b4e048365fc008d450850e8000000008b0d000000006a0150c645fc01e8000000008d4d088945e8c645fc00e8000000008b86a00100008b183bd874788b43088bb86c01000085ff745e8b4710b900000000894dd433c9894dd8eb408b4dcc85c9894d08743dff75e8e8000000008bc8e80000000084c075188d450850518b4dec8bc489088d45dc508d4dece8000000008b45d88b4dcc03c8ff55d485c08945cc75b98b7f18eb9e8b1b3b9ea0010000758b8b7de48b45ec8b183bd87412ff75e08b4b08e8000000008b1b3b5dec75ee8b5e386a01538d4e34e8000000006a01538d4f34e800000000834dfcff8d4dece8000000008b4df45f5e64890d000000005bc9c20400",
+      "relocations": [
+        [
+          1,
+          6,
+          "__ehhandler$?transferAssetsFromThat@Player@@QAEXPAV1@@Z"
+        ],
+        [
+          6,
+          20,
+          "__EH_prolog"
+        ],
+        [
+          46,
+          20,
+          "??0?$_List_base@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE@ABV?$allocator@PAVObject@@@1@@Z"
+        ],
+        [
+          65,
+          20,
+          "?getBeaconTemplate@PlayerTemplate@@QBE?AVAsciiString@@XZ"
+        ],
+        [
+          71,
+          6,
+          "?TheThingFactory@@3PAVThingFactory@@A"
+        ],
+        [
+          83,
+          20,
+          "?findTemplateInternal@ThingFactory@@AAEPAVThingTemplate@@ABVAsciiString@@_N@Z"
+        ],
+        [
+          98,
+          20,
+          "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+        ],
+        [
+          131,
+          6,
+          "?dlink_next_TeamMemberList@Object@@QBEPAV1@XZ"
+        ],
+        [
+          159,
+          20,
+          "?getTemplate@Thing@@QBEPBVThingTemplate@@XZ"
+        ],
+        [
+          166,
+          20,
+          "?isEquivalentTo@ThingTemplate@@QBE_NPBV1@@Z"
+        ],
+        [
+          194,
+          20,
+          "?insert@?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVObject@@U?$_Nonconst_traits@PAVObject@@@_STL@@@2@U32@ABQAVObject@@@Z"
+        ],
+        [
+          250,
+          20,
+          "?setTeam@Object@@QAEXPAVTeam@@@Z"
+        ],
+        [
+          271,
+          20,
+          "?withdraw@Money@@QAEII_N@Z"
+        ],
+        [
+          282,
+          20,
+          "?deposit@Money@@QAEXI_N@Z"
+        ],
+        [
+          294,
+          20,
+          "??1?$_List_base@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE@XZ"
+        ],
+        [
+          306,
+          6,
+          "__except_list"
+        ]
+      ]
+    },
+    "?removeKindOfProductionCostChange@Player@@QAEXV?$BitFlags@$0HE@@@M@Z": {
+      "raw": "558bec5356578db9140400008b078b303bf074468b5e08f30f1043140f2e45189ff6c4447a108d4508508d4b04e80000000084c075088b363b3775d8eb1cff4b187517518bc489308d4518508bcfe8000000008bcbe8000000005f5e5b5dc21400",
+      "relocations": [
+        [
+          46,
+          20,
+          "?_M_is_equal@?$_Base_bitset@$03@_STL@@QBE_NABU12@@Z"
+        ],
+        [
+          79,
+          20,
+          "?erase@?$list@PAVKindOfPercentProductionChange@@V?$allocator@PAVKindOfPercentProductionChange@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVKindOfPercentProductionChange@@U?$_Nonconst_traits@PAVKindOfPercentProductionChange@@@_STL@@@2@U32@@Z"
+        ],
+        [
+          86,
+          20,
+          "?deleteInstance@MemoryPoolObject@@QAEXXZ"
+        ]
+      ]
+    },
+    "??0?$BitFlags@$0HE@@@QAE@XZ": {
+      "raw": "568bf1e8000000008bc65ec3",
+      "relocations": [
+        [
+          4,
+          20,
+          "??0?$_Base_bitset@$03@_STL@@QAE@XZ"
+        ]
+      ]
+    },
+    "?testForAll@?$BitFlags@$0IA@@@QBE_NABV1@@Z": {
+      "raw": "558bec83ec1056578bf18d7df0a5a5a5a55f33c05ef75485f04083f80472f6ff75088d4df0e80000000033c0837c85f00075154083f80472f332c033c984c00f94c18ac1c9c20400b001ebef",
+      "relocations": [
+        [
+          38,
+          20,
+          "?_M_do_and@?$_Base_bitset@$03@_STL@@QAEXABU12@@Z"
+        ]
+      ]
+    },
+    "?clear@?$BitFlags@$0IA@@@QAEXABV1@@Z": {
+      "raw": "558bec83ec10568d45f08bf18b4d0850e800000000508bcee8000000005ec9c20400",
+      "relocations": [
+        [
+          17,
+          20,
+          "??S?$bitset@$0IA@@_STL@@QBE?AV01@XZ"
+        ],
+        [
+          25,
+          20,
+          "?_M_do_and@?$_Base_bitset@$03@_STL@@QAEXABU12@@Z"
+        ]
+      ]
+    },
+    "?end@?$hash_map@IW4Relationship@@U?$hash@I@_STL@@U?$equal_to@I@3@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@3@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBIW4Relationship@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBIW4Relationship@@@_STL@@@2@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@2@XZ": {
+      "raw": "8b442404832000894804c20400",
+      "relocations": []
+    },
+    "?find@?$hash_map@IW4Relationship@@U?$hash@I@_STL@@U?$equal_to@I@3@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@3@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBIW4Relationship@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBIW4Relationship@@@_STL@@@2@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@2@ABI@Z": {
+      "raw": "ff742408ff742408e8000000008b442404c20800",
+      "relocations": [
+        [
+          9,
+          20,
+          "??$find@I@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBIW4Relationship@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBIW4Relationship@@@_STL@@@2@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@1@ABI@Z"
+        ]
+      ]
+    },
+    "?end@?$hash_map@HW4Relationship@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@3@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBHW4Relationship@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHW4Relationship@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHW4Relationship@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@2@@2@XZ": {
+      "raw": "8b442404832000894804c20400",
+      "relocations": []
+    },
+    "?find@?$hash_map@HW4Relationship@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@3@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBHW4Relationship@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHW4Relationship@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHW4Relationship@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@2@@2@ABH@Z": {
+      "raw": "ff742408ff742408e8000000008b442404c20800",
+      "relocations": [
+        [
+          9,
+          20,
+          "??$find@H@?$hashtable@U?$pair@$$CBHW4Relationship@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHW4Relationship@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@2@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBHW4Relationship@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHW4Relationship@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHW4Relationship@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@2@@1@ABH@Z"
+        ]
+      ]
+    },
+    "?size@?$list@PAVKindOfPercentProductionChange@@V?$allocator@PAVKindOfPercentProductionChange@@@_STL@@@_STL@@QBEIXZ": {
+      "raw": "8b118b0a33c0eb038b09403bca75f9c3",
+      "relocations": []
+    },
+    "?size@?$list@USpecialPowerReadyTimerType@@V?$allocator@USpecialPowerReadyTimerType@@@_STL@@@_STL@@QBEIXZ": {
+      "raw": "8b118b0a33c0eb038b09403bca75f9c3",
+      "relocations": []
+    },
+    "?erase@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAEPAW4ScienceType@@PAW43@0@Z": {
+      "raw": "558bec568d450b50ff75088bf1ff7604ff750ce80000000083c4108946048b45085e5dc20800",
+      "relocations": [
+        [
+          20,
+          20,
+          "??$__copy_ptrs@PAW4ScienceType@@PAW41@@_STL@@YAPAW4ScienceType@@PAW41@00ABU__false_type@0@@Z"
+        ]
+      ]
+    },
+    "?insert@?$list@PAVKindOfPercentProductionChange@@V?$allocator@PAVKindOfPercentProductionChange@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVKindOfPercentProductionChange@@U?$_Nonconst_traits@PAVKindOfPercentProductionChange@@@_STL@@@2@U32@ABQAVKindOfPercentProductionChange@@@Z": {
+      "raw": "ff74240ce8000000008b4c24088b5104890889500489028941048b4c240489018bc1c20c00",
+      "relocations": [
+        [
+          5,
+          20,
+          "?_M_create_node@?$list@PAVKindOfPercentProductionChange@@V?$allocator@PAVKindOfPercentProductionChange@@@_STL@@@_STL@@IAEPAU?$_List_node@PAVKindOfPercentProductionChange@@@2@ABQAVKindOfPercentProductionChange@@@Z"
+        ]
+      ]
+    },
+    "?insert@?$list@USpecialPowerReadyTimerType@@V?$allocator@USpecialPowerReadyTimerType@@@_STL@@@_STL@@QAE?AU?$_List_iterator@USpecialPowerReadyTimerType@@U?$_Nonconst_traits@USpecialPowerReadyTimerType@@@_STL@@@2@U32@ABUSpecialPowerReadyTimerType@@@Z": {
+      "raw": "ff74240ce8000000008b4c24088b5104890889500489028941048b4c240489018bc1c20c00",
+      "relocations": [
+        [
+          5,
+          20,
+          "?_M_create_node@?$list@USpecialPowerReadyTimerType@@V?$allocator@USpecialPowerReadyTimerType@@@_STL@@@_STL@@IAEPAU?$_List_node@USpecialPowerReadyTimerType@@@2@ABUSpecialPowerReadyTimerType@@@Z"
+        ]
+      ]
+    },
+    "?erase@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@QAEXABU?$_Ht_iterator@U?$pair@$$CBIW4Relationship@@@_STL@@U?$_Const_traits@U?$pair@$$CBIW4Relationship@@@_STL@@@2@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@2@@Z": {
+      "raw": "8b442404568b3085f6744c8b4604578b79082b790433d2c1ff02f7f78b41045f8d14908b023bc675098b306a01893250eb198b10eb083bd6740a8bc28b1285d275f4eb138b326a018930528d71108bcee800000000ff0e5ec20400",
+      "relocations": [
+        [
+          81,
+          20,
+          "?deallocate@?$allocator@U?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@_STL@@@_STL@@QBEXPAU?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@2@I@Z"
+        ]
+      ]
+    },
+    "?clear@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@QAEXXZ": {
+      "raw": "568bf18b46082b46045733ffc1f802743853558b46048b04b885c074158d6e108b186a01508bcde80000000085db8bc375ee8b46048324b8008b46082b460447c1f8023bf872cc5d5b836610005f5ec3",
+      "relocations": [
+        [
+          40,
+          20,
+          "?deallocate@?$allocator@U?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@_STL@@@_STL@@QBEXPAU?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@2@I@Z"
+        ]
+      ]
+    },
+    "?_M_insert@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@QAEAAU?$pair@$$CBIW4Relationship@@@2@ABU32@@Z": {
+      "raw": "53568bf18b4610574050e8000000008b7e082b7e048b4c24108b01c1ff0233d2f7f78b4604518bce8bfac1e7028b1c07e80000000089188b4e0489040fff46105f5e83c0045bc20400",
+      "relocations": [
+        [
+          11,
+          20,
+          "?resize@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@QAEXI@Z"
+        ],
+        [
+          49,
+          20,
+          "?_M_new_node@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@AAEPAU?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@2@ABU?$pair@$$CBIW4Relationship@@@2@@Z"
+        ]
+      ]
+    },
+    "?erase@?$hashtable@U?$pair@$$CBHW4Relationship@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHW4Relationship@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@2@@_STL@@QAEXABU?$_Ht_iterator@U?$pair@$$CBHW4Relationship@@@_STL@@U?$_Const_traits@U?$pair@$$CBHW4Relationship@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHW4Relationship@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@2@@2@@Z": {
+      "raw": "8b442404568b3085f6744c8b4604578b79082b790433d2c1ff02f7f78b41045f8d14908b023bc675098b306a01893250eb198b10eb083bd6740a8bc28b1285d275f4eb138b326a018930528d71108bcee800000000ff0e5ec20400",
+      "relocations": [
+        [
+          81,
+          20,
+          "?deallocate@?$allocator@U?$_Hashtable_node@U?$pair@$$CBHW4Relationship@@@_STL@@@_STL@@@_STL@@QBEXPAU?$_Hashtable_node@U?$pair@$$CBHW4Relationship@@@_STL@@@2@I@Z"
+        ]
+      ]
+    },
+    "?clear@?$hashtable@U?$pair@$$CBHW4Relationship@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHW4Relationship@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@2@@_STL@@QAEXXZ": {
+      "raw": "568bf18b46082b46045733ffc1f802743853558b46048b04b885c074158d6e108b186a01508bcde80000000085db8bc375ee8b46048324b8008b46082b460447c1f8023bf872cc5d5b836610005f5ec3",
+      "relocations": [
+        [
+          40,
+          20,
+          "?deallocate@?$allocator@U?$_Hashtable_node@U?$pair@$$CBHW4Relationship@@@_STL@@@_STL@@@_STL@@QBEXPAU?$_Hashtable_node@U?$pair@$$CBHW4Relationship@@@_STL@@@2@I@Z"
+        ]
+      ]
+    },
+    "??$find@W4NameKeyType@@@?$_Rb_tree@W4NameKeyType@@U?$pair@$$CBW4NameKeyType@@M@_STL@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@M@_STL@@@3@U?$less@W4NameKeyType@@@3@V?$allocator@U?$pair@$$CBW4NameKeyType@@M@_STL@@@3@@_STL@@QBE?AU?$_Rb_tree_iterator@U?$pair@$$CBW4NameKeyType@@M@_STL@@U?$_Const_traits@U?$pair@$$CBW4NameKeyType@@M@_STL@@@2@@1@ABW4NameKeyType@@@Z": {
+      "raw": "ff742408e8000000008b4c240489018bc1c20800",
+      "relocations": [
+        [
+          5,
+          20,
+          "??$_M_find@W4NameKeyType@@@?$_Rb_tree@W4NameKeyType@@U?$pair@$$CBW4NameKeyType@@M@_STL@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@M@_STL@@@3@U?$less@W4NameKeyType@@@3@V?$allocator@U?$pair@$$CBW4NameKeyType@@M@_STL@@@3@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBW4NameKeyType@@M@_STL@@@1@ABW4NameKeyType@@@Z"
+        ]
+      ]
+    },
+    "??$find@W4NameKeyType@@@?$_Rb_tree@W4NameKeyType@@U?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@_STL@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@_STL@@@3@U?$less@W4NameKeyType@@@3@V?$allocator@U?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@_STL@@@3@@_STL@@QBE?AU?$_Rb_tree_iterator@U?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@_STL@@U?$_Const_traits@U?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@_STL@@@2@@1@ABW4NameKeyType@@@Z": {
+      "raw": "ff742408e8000000008b4c240489018bc1c20800",
+      "relocations": [
+        [
+          5,
+          20,
+          "??$_M_find@W4NameKeyType@@@?$_Rb_tree@W4NameKeyType@@U?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@_STL@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@_STL@@@3@U?$less@W4NameKeyType@@@3@V?$allocator@U?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@_STL@@@3@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@_STL@@@1@ABW4NameKeyType@@@Z"
+        ]
+      ]
+    },
+    "?set@?$BitFlags@$0HE@@@QAEXHH@Z": {
+      "raw": "e900000000",
+      "relocations": [
+        [
+          1,
+          20,
+          "?set@?$bitset@$0HE@@_STL@@QAEAAV12@IH@Z"
+        ]
+      ]
+    },
+    "??$_M_allocate_and_copy@PBW4ScienceType@@@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@IAEPAW4ScienceType@@IPBW42@0@Z": {
+      "raw": "b800000000e80000000051515356578965f033f656ff750883c108e8000000008d4d0b5150ff75108945ecff750c8975fce8000000008b4df48b45ec83c4105f5e64890d000000005bc9c20c0033f63975ec74128b4508c1e00250ff75ecff150000000059595656e800000000cc",
+      "relocations": [
+        [
+          1,
+          6,
+          "__ehhandler$??$_M_allocate_and_copy@PBW4ScienceType@@@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@IAEPAW4ScienceType@@IPBW42@0@Z"
+        ],
+        [
+          6,
+          20,
+          "__EH_prolog"
+        ],
+        [
+          28,
+          20,
+          "?allocate@?$allocator@W4ScienceType@@@_STL@@QBEPAW4ScienceType@@IPBX@Z"
+        ],
+        [
+          50,
+          20,
+          "??$__uninitialized_copy@PBW4ScienceType@@PAW41@@_STL@@YAPAW4ScienceType@@PBW41@0PAW41@ABU__false_type@0@@Z"
+        ],
+        [
+          68,
+          6,
+          "__except_list"
+        ],
+        [
+          96,
+          6,
+          "__imp_?deallocate@__new_alloc@_STL@@SAXPAXI@Z"
+        ],
+        [
+          105,
+          20,
+          "__CxxThrowException@8"
+        ]
+      ]
+    },
+    "??0ClosestKindOfData@@QAE@XZ": {
+      "raw": "56578bf1e8000000008d7e108bcfe8000000008bcee8000000008bcfe800000000f30f10050000000083662000836624005ff30f1146288bc65ec3",
+      "relocations": [
+        [
+          5,
+          20,
+          "??0?$_Base_bitset@$03@_STL@@QAE@XZ"
+        ],
+        [
+          15,
+          20,
+          "??0?$_Base_bitset@$03@_STL@@QAE@XZ"
+        ],
+        [
+          22,
+          20,
+          "?clear@?$BitFlags@$0HE@@@QAEXXZ"
+        ],
+        [
+          29,
+          20,
+          "?clear@?$BitFlags@$0HE@@@QAEXXZ"
+        ],
+        [
+          37,
+          6,
+          "__real@7f7fffff"
+        ]
+      ]
+    },
+    "?hasUpgradeComplete@Player@@QAE_NV?$BitFlags@$0IA@@@@Z": {
+      "raw": "8d4424045083c170e800000000c21000",
+      "relocations": [
+        [
+          9,
+          20,
+          "?testForAll@?$BitFlags@$0IA@@@QBE_NABV1@@Z"
+        ]
+      ]
+    },
+    "?hasUpgradeInProduction@Player@@QAE_NPBVUpgradeTemplate@@@Z": {
+      "raw": "558bec83ec10568b75085783c61c8d7df0a5a5a58d45f05083c160a5e8000000005f5ec9c20400",
+      "relocations": [
+        [
+          29,
+          20,
+          "?testForAll@?$BitFlags@$0IA@@@QBE_NABV1@@Z"
+        ]
+      ]
+    },
+    "?addUpgrade@Player@@QAEPAVUpgrade@@PBVUpgradeTemplate@@W4UpgradeStatusType@@@Z": {
+      "raw": "b800000000e80000000083ec1453568b7508568bd9e80000000085c08945f07542e8000000006a18e800000000598945f08365fc0085c0740a568bc8e800000000eb0233c0836014008b4b40834dfcff8948108b4b4085c98945f074038941148943408b450c8b4df05783c61c83f80189410c8d7de0a5a5a5a55f750e8d45e0508d4b60e800000000eb2783f80275228d45e0508d4b60e8000000008d45e0508d4b70e800000000ff75088bcbe800000000a10000000039580c5e5b750b8b0d00000000e8000000008b4df48b45f064890d00000000c9c20800",
+      "relocations": [
+        [
+          1,
+          6,
+          "__ehhandler$?addUpgrade@Player@@QAEPAVUpgrade@@PBVUpgradeTemplate@@W4UpgradeStatusType@@@Z"
+        ],
+        [
+          6,
+          20,
+          "__EH_prolog"
+        ],
+        [
+          22,
+          20,
+          "?findUpgrade@Player@@QAEPAVUpgrade@@PBVUpgradeTemplate@@@Z"
+        ],
+        [
+          34,
+          20,
+          "?getClassMemoryPool@Upgrade@@CAPAVMemoryPool@@XZ"
+        ],
+        [
+          41,
+          20,
+          "??2@YAPAXI@Z"
+        ],
+        [
+          61,
+          20,
+          "??0Upgrade@@QAE@PBVUpgradeTemplate@@@Z"
+        ],
+        [
+          133,
+          20,
+          "?_M_do_or@?$_Base_bitset@$03@_STL@@QAEXABU12@@Z"
+        ],
+        [
+          152,
+          20,
+          "?clear@?$BitFlags@$0IA@@@QAEXABV1@@Z"
+        ],
+        [
+          164,
+          20,
+          "?_M_do_or@?$_Base_bitset@$03@_STL@@QAEXABU12@@Z"
+        ],
+        [
+          174,
+          20,
+          "?onUpgradeCompleted@Player@@QAEXPBVUpgradeTemplate@@@Z"
+        ],
+        [
+          179,
+          6,
+          "?ThePlayerList@@3PAVPlayerList@@A"
+        ],
+        [
+          192,
+          6,
+          "?TheControlBar@@3PAVControlBar@@A"
+        ],
+        [
+          197,
+          20,
+          "?markUIDirty@ControlBar@@QAEXXZ"
+        ],
+        [
+          210,
+          6,
+          "__except_list"
+        ]
+      ]
+    },
+    "?removeUpgrade@Player@@QAEXPBVUpgradeTemplate@@@Z": {
+      "raw": "558bec83ec1053568b7508568bd9e80000000085c074588b481085c974068b50148951148b481485c98b40107405894110eb038943405783c61c8d7df0a5a5a58d45f0508d4b60a5e8000000008d45f0508d4b70e800000000a10000000039580c5f750b8b0d00000000e8000000005e5bc9c20400",
+      "relocations": [
+        [
+          15,
+          20,
+          "?findUpgrade@Player@@QAEPAVUpgrade@@PBVUpgradeTemplate@@@Z"
+        ],
+        [
+          73,
+          20,
+          "?clear@?$BitFlags@$0IA@@@QAEXABV1@@Z"
+        ],
+        [
+          85,
+          20,
+          "?clear@?$BitFlags@$0IA@@@QAEXABV1@@Z"
+        ],
+        [
+          90,
+          6,
+          "?ThePlayerList@@3PAVPlayerList@@A"
+        ],
+        [
+          102,
+          6,
+          "?TheControlBar@@3PAVControlBar@@A"
+        ],
+        [
+          107,
+          20,
+          "?markUIDirty@ControlBar@@QAEXXZ"
+        ]
+      ]
+    },
+    "??0KindOfPercentProductionChange@@QAE@XZ": {
+      "raw": "568bf18d4e04c70600000000e8000000008bc65ec3",
+      "relocations": [
+        [
+          8,
+          6,
+          "??_7KindOfPercentProductionChange@@6B@"
+        ],
+        [
+          13,
+          20,
+          "??0?$_Base_bitset@$03@_STL@@QAE@XZ"
+        ]
+      ]
+    },
+    "??_GKindOfPercentProductionChange@@MAEPAXI@Z": {
+      "raw": "568bf1e800000000f644240801740756e800000000598bc65ec20400",
+      "relocations": [
+        [
+          4,
+          20,
+          "??1KindOfPercentProductionChange@@MAE@XZ"
+        ],
+        [
+          17,
+          20,
+          "??3@YAXPAX@Z"
+        ]
+      ]
+    },
+    "??1KindOfPercentProductionChange@@MAE@XZ": {
+      "raw": "c70100000000c3",
+      "relocations": [
+        [
+          2,
+          6,
+          "??_7MemoryPoolObject@@6B@"
+        ]
+      ]
+    },
+    "?getObjectMemoryPool@KindOfPercentProductionChange@@EAEPAVMemoryPool@@XZ": {
+      "raw": "e900000000",
+      "relocations": [
+        [
+          1,
+          20,
+          "?getClassMemoryPool@KindOfPercentProductionChange@@CAPAVMemoryPool@@XZ"
+        ]
+      ]
+    },
+    "??0BattlePlanBonuses@@QAE@XZ": {
+      "raw": "568bf18d4e18c70600000000e8000000008d4e28e8000000008bc65ec3",
+      "relocations": [
+        [
+          8,
+          6,
+          "??_7BattlePlanBonuses@@6B@"
+        ],
+        [
+          13,
+          20,
+          "??0?$_Base_bitset@$03@_STL@@QAE@XZ"
+        ],
+        [
+          21,
+          20,
+          "??0?$_Base_bitset@$03@_STL@@QAE@XZ"
+        ]
+      ]
+    },
+    "??_GBattlePlanBonuses@@MAEPAXI@Z": {
+      "raw": "568bf1e800000000f644240801740756e800000000598bc65ec20400",
+      "relocations": [
+        [
+          4,
+          20,
+          "??1BattlePlanBonuses@@MAE@XZ"
+        ],
+        [
+          17,
+          20,
+          "??3@YAXPAX@Z"
+        ]
+      ]
+    },
+    "??1BattlePlanBonuses@@MAE@XZ": {
+      "raw": "c70100000000c3",
+      "relocations": [
+        [
+          2,
+          6,
+          "??_7MemoryPoolObject@@6B@"
+        ]
+      ]
+    },
+    "?getObjectMemoryPool@BattlePlanBonuses@@EAEPAVMemoryPool@@XZ": {
+      "raw": "e900000000",
+      "relocations": [
+        [
+          1,
+          20,
+          "?getClassMemoryPool@BattlePlanBonuses@@CAPAVMemoryPool@@XZ"
+        ]
+      ]
+    },
+    "?clear@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAEXXZ": {
+      "raw": "ff7104ff31e800000000c3",
+      "relocations": [
+        [
+          6,
+          20,
+          "?erase@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAEPAW4ScienceType@@PAW43@0@Z"
+        ]
+      ]
+    },
+    "??A?$hash_map@IW4Relationship@@U?$hash@I@_STL@@U?$equal_to@I@3@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@3@@_STL@@QAEAAW4Relationship@@ABI@Z": {
+      "raw": "558bec5151568b750857568d45f8508bf9e8000000008b45f885c075198b068365fc008945f88d45f8508bcfe80000000083c004eb0383c0085f5ec9c20400",
+      "relocations": [
+        [
+          18,
+          20,
+          "??$find@I@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBIW4Relationship@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBIW4Relationship@@@_STL@@@2@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@1@ABI@Z"
+        ],
+        [
+          45,
+          20,
+          "?_M_insert@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@QAEAAU?$pair@$$CBIW4Relationship@@@2@ABU32@@Z"
+        ]
+      ]
+    },
+    "?erase@?$hash_map@IW4Relationship@@U?$hash@I@_STL@@U?$equal_to@I@3@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@3@@_STL@@QAEXU?$_Ht_iterator@U?$pair@$$CBIW4Relationship@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBIW4Relationship@@@_STL@@@2@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@2@@Z": {
+      "raw": "558bec51518b45088945f88b450c8945fc8d45f850e800000000c9c20800",
+      "relocations": [
+        [
+          22,
+          20,
+          "?erase@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@QAEXABU?$_Ht_iterator@U?$pair@$$CBIW4Relationship@@@_STL@@U?$_Const_traits@U?$pair@$$CBIW4Relationship@@@_STL@@@2@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@2@@Z"
+        ]
+      ]
+    },
+    "?clear@?$hash_map@IW4Relationship@@U?$hash@I@_STL@@U?$equal_to@I@3@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@3@@_STL@@QAEXXZ": {
+      "raw": "e900000000",
+      "relocations": [
+        [
+          1,
+          20,
+          "?clear@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@QAEXXZ"
+        ]
+      ]
+    },
+    "?erase@?$hash_map@HW4Relationship@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@3@@_STL@@QAEXU?$_Ht_iterator@U?$pair@$$CBHW4Relationship@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHW4Relationship@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHW4Relationship@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@2@@2@@Z": {
+      "raw": "558bec51518b45088945f88b450c8945fc8d45f850e800000000c9c20800",
+      "relocations": [
+        [
+          22,
+          20,
+          "?erase@?$hashtable@U?$pair@$$CBHW4Relationship@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHW4Relationship@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@2@@_STL@@QAEXABU?$_Ht_iterator@U?$pair@$$CBHW4Relationship@@@_STL@@U?$_Const_traits@U?$pair@$$CBHW4Relationship@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHW4Relationship@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@2@@2@@Z"
+        ]
+      ]
+    },
+    "?clear@?$hash_map@HW4Relationship@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@3@@_STL@@QAEXXZ": {
+      "raw": "e900000000",
+      "relocations": [
+        [
+          1,
+          20,
+          "?clear@?$hashtable@U?$pair@$$CBHW4Relationship@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHW4Relationship@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@2@@_STL@@QAEXXZ"
+        ]
+      ]
+    },
+    "?find@?$map@W4NameKeyType@@MU?$less@W4NameKeyType@@@_STL@@V?$allocator@U?$pair@$$CBW4NameKeyType@@M@_STL@@@3@@_STL@@QBE?AU?$_Rb_tree_iterator@U?$pair@$$CBW4NameKeyType@@M@_STL@@U?$_Const_traits@U?$pair@$$CBW4NameKeyType@@M@_STL@@@2@@2@ABW4NameKeyType@@@Z": {
+      "raw": "ff742408e8000000008b4c240489018bc1c20800",
+      "relocations": [
+        [
+          5,
+          20,
+          "??$_M_find@W4NameKeyType@@@?$_Rb_tree@W4NameKeyType@@U?$pair@$$CBW4NameKeyType@@M@_STL@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@M@_STL@@@3@U?$less@W4NameKeyType@@@3@V?$allocator@U?$pair@$$CBW4NameKeyType@@M@_STL@@@3@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBW4NameKeyType@@M@_STL@@@1@ABW4NameKeyType@@@Z"
+        ]
+      ]
+    },
+    "?find@?$map@W4NameKeyType@@W4VeterancyLevel@@U?$less@W4NameKeyType@@@_STL@@V?$allocator@U?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@_STL@@@4@@_STL@@QBE?AU?$_Rb_tree_iterator@U?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@_STL@@U?$_Const_traits@U?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@_STL@@@2@@2@ABW4NameKeyType@@@Z": {
+      "raw": "ff742408e8000000008b4c240489018bc1c20800",
+      "relocations": [
+        [
+          5,
+          20,
+          "??$_M_find@W4NameKeyType@@@?$_Rb_tree@W4NameKeyType@@U?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@_STL@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@_STL@@@3@U?$less@W4NameKeyType@@@3@V?$allocator@U?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@_STL@@@3@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@_STL@@@1@ABW4NameKeyType@@@Z"
+        ]
+      ]
+    },
+    "?push_back@?$list@PAVKindOfPercentProductionChange@@V?$allocator@PAVKindOfPercentProductionChange@@@_STL@@@_STL@@QAEXABQAVKindOfPercentProductionChange@@@Z": {
+      "raw": "558becff75088b11518bc489108d450850e8000000005dc20400",
+      "relocations": [
+        [
+          18,
+          20,
+          "?insert@?$list@PAVKindOfPercentProductionChange@@V?$allocator@PAVKindOfPercentProductionChange@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVKindOfPercentProductionChange@@U?$_Nonconst_traits@PAVKindOfPercentProductionChange@@@_STL@@@2@U32@ABQAVKindOfPercentProductionChange@@@Z"
+        ]
+      ]
+    },
+    "?push_back@?$list@USpecialPowerReadyTimerType@@V?$allocator@USpecialPowerReadyTimerType@@@_STL@@@_STL@@QAEXABUSpecialPowerReadyTimerType@@@Z": {
+      "raw": "558becff75088b11518bc489108d450850e8000000005dc20400",
+      "relocations": [
+        [
+          18,
+          20,
+          "?insert@?$list@USpecialPowerReadyTimerType@@V?$allocator@USpecialPowerReadyTimerType@@@_STL@@@_STL@@QAE?AU?$_List_iterator@USpecialPowerReadyTimerType@@U?$_Nonconst_traits@USpecialPowerReadyTimerType@@@_STL@@@2@U32@ABUSpecialPowerReadyTimerType@@@Z"
+        ]
+      ]
+    },
+    "??4?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z": {
+      "raw": "558bec56578b7d088bf13bfe0f84a50000008b0f8b168b4608538b5f04895d082bd92bc2c1fb02c1f8023bd87633ff750851538bcee8000000008bf88b0685c074158b4e082bc8c1f902c1e1025150ff150000000059598d049f893e894608eb4d8b46042bc2c1f8023bc372138d450b5052ff750851e80000000083c410eb2e8d550b52ff368d04815051e8000000008b46048d4d0b518b0f502b06ff7704c1f8028d048150e80000000083c4208b068d04988946045b5f8bc65e5dc20400",
+      "relocations": [
+        [
+          54,
+          20,
+          "??$_M_allocate_and_copy@PBW4ScienceType@@@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@IAEPAW4ScienceType@@IPBW42@0@Z"
+        ],
+        [
+          81,
+          6,
+          "__imp_?deallocate@__new_alloc@_STL@@SAXPAXI@Z"
+        ],
+        [
+          119,
+          20,
+          "??$__copy_ptrs@PBW4ScienceType@@PAW41@@_STL@@YAPAW4ScienceType@@PBW41@0PAW41@ABU__false_type@0@@Z"
+        ],
+        [
+          140,
+          20,
+          "??$__copy_ptrs@PBW4ScienceType@@PAW41@@_STL@@YAPAW4ScienceType@@PBW41@0PAW41@ABU__false_type@0@@Z"
+        ],
+        [
+          167,
+          20,
+          "??$__uninitialized_copy@PBW4ScienceType@@PAW41@@_STL@@YAPAW4ScienceType@@PBW41@0PAW41@ABU__false_type@0@@Z"
+        ]
+      ]
+    },
+    "?setBitByName@?$BitFlags@$0HE@@@QAE_NPBD@Z": {
+      "raw": "56ff7424088bf1e80000000085c0597c0e6a01508bcee800000000b001eb0232c05ec20400",
+      "relocations": [
+        [
+          8,
+          20,
+          "?getSingleBitFromName@?$BitFlags@$0HE@@@SAHPBD@Z"
+        ],
+        [
+          23,
+          20,
+          "?set@?$bitset@$0HE@@_STL@@QAEAAV12@IH@Z"
+        ]
+      ]
+    },
+    "?removePlayerRelationship@Player@@QAE_NPBV1@@Z": {
+      "raw": "558bec5151568bf18b86a40100008378180074468b4d0885c9750a8d4808e800000000eb3183c124518d4df8518d4808e8000000008b4df885c9741e51518bc489088b4dfc8948048b8ea401000083c108e800000000b001eb0232c05ec9c20400",
+      "relocations": [
+        [
+          31,
+          20,
+          "?clear@?$hashtable@U?$pair@$$CBHW4Relationship@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHW4Relationship@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@2@@_STL@@QAEXXZ"
+        ],
+        [
+          49,
+          20,
+          "??$find@H@?$hashtable@U?$pair@$$CBHW4Relationship@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHW4Relationship@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@2@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBHW4Relationship@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHW4Relationship@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHW4Relationship@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@2@@1@ABH@Z"
+        ],
+        [
+          82,
+          20,
+          "?erase@?$hash_map@HW4Relationship@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@3@@_STL@@QAEXU?$_Ht_iterator@U?$pair@$$CBHW4Relationship@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHW4Relationship@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHW4Relationship@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@2@@2@@Z"
+        ]
+      ]
+    },
+    "?setTeamRelationship@Player@@QAEXPBVTeam@@W4Relationship@@@Z": {
+      "raw": "558bec8b450885c0741d8b40348b89a80100008945088d45085083c108e8000000008b4d0c89085dc20800",
+      "relocations": [
+        [
+          30,
+          20,
+          "??A?$hash_map@IW4Relationship@@U?$hash@I@_STL@@U?$equal_to@I@3@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@3@@_STL@@QAEAAW4Relationship@@ABI@Z"
+        ]
+      ]
+    },
+    "?removeTeamRelationship@Player@@QAE_NPBVTeam@@@Z": {
+      "raw": "558bec56578bf98b87900200008378140074448b4d0885c9750a8d4804e800000000eb2f8b49348d70048d4508894d08508bcee80000000085c0741b51518bcc89018971048b87900200008d4804e800000000b001eb0232c05f5e5dc20400",
+      "relocations": [
+        [
+          30,
+          20,
+          "?clear@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@QAEXXZ"
+        ],
+        [
+          52,
+          20,
+          "??$_M_find@I@?$hashtable@U?$pair@$$CBIW4Relationship@@@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@_STL@@ABEPAU?$_Hashtable_node@U?$pair@$$CBIW4Relationship@@@_STL@@@1@ABI@Z"
+        ],
+        [
+          79,
+          20,
+          "?erase@?$hash_map@IW4Relationship@@U?$hash@I@_STL@@U?$equal_to@I@3@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@3@@_STL@@QAEXU?$_Ht_iterator@U?$pair@$$CBIW4Relationship@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBIW4Relationship@@@_STL@@@2@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIW4Relationship@@@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIW4Relationship@@@_STL@@@2@@2@@Z"
+        ]
+      ]
+    },
+    "?getProductionTimeChangePercent@Player@@QBEMVAsciiString@@@Z": {
+      "raw": "b800000000e80000000051568bf18b45088365fc0085c0740583c008eb05b8000000008b0d0000000050e8000000008945f08d45f081c638010000508bcee8000000003b065e740cf30f104014f30f1145f0eb05d9eed95df0834dfcff8d4d08e800000000d945f08b4df464890d00000000c9c20400",
+      "relocations": [
+        [
+          1,
+          6,
+          "__ehhandler$?getProductionTimeChangePercent@Player@@QBEMVAsciiString@@@Z"
+        ],
+        [
+          6,
+          20,
+          "__EH_prolog"
+        ],
+        [
+          31,
+          6,
+          "??_C@_00CNPNBAHC@?$AA@"
+        ],
+        [
+          37,
+          6,
+          "?TheNameKeyGenerator@@3PAVNameKeyGenerator@@A"
+        ],
+        [
+          43,
+          20,
+          "?nameToKey@NameKeyGenerator@@QAE?AW4NameKeyType@@PBD@Z"
+        ],
+        [
+          63,
+          20,
+          "??$_M_find@W4NameKeyType@@@?$_Rb_tree@W4NameKeyType@@U?$pair@$$CBW4NameKeyType@@M@_STL@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@M@_STL@@@3@U?$less@W4NameKeyType@@@3@V?$allocator@U?$pair@$$CBW4NameKeyType@@M@_STL@@@3@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBW4NameKeyType@@M@_STL@@@1@ABW4NameKeyType@@@Z"
+        ],
+        [
+          97,
+          20,
+          "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+        ],
+        [
+          110,
+          6,
+          "__except_list"
+        ]
+      ]
+    },
+    "?getProductionVeterancyLevel@Player@@QBE?AW4VeterancyLevel@@VAsciiString@@@Z": {
+      "raw": "b800000000e80000000051568bf18b45088365fc0085c0740583c008eb05b8000000008b0d0000000050e8000000008945f08d45f081c644010000508bcee8000000003b0674058b7014eb0233f6834dfcff8d4d08e8000000008b4df48bc65e64890d00000000c9c20400",
+      "relocations": [
+        [
+          1,
+          6,
+          "__ehhandler$?getProductionVeterancyLevel@Player@@QBE?AW4VeterancyLevel@@VAsciiString@@@Z"
+        ],
+        [
+          6,
+          20,
+          "__EH_prolog"
+        ],
+        [
+          31,
+          6,
+          "??_C@_00CNPNBAHC@?$AA@"
+        ],
+        [
+          37,
+          6,
+          "?TheNameKeyGenerator@@3PAVNameKeyGenerator@@A"
+        ],
+        [
+          43,
+          20,
+          "?nameToKey@NameKeyGenerator@@QAE?AW4NameKeyType@@PBD@Z"
+        ],
+        [
+          63,
+          20,
+          "??$_M_find@W4NameKeyType@@@?$_Rb_tree@W4NameKeyType@@U?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@_STL@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@_STL@@@3@U?$less@W4NameKeyType@@@3@V?$allocator@U?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@_STL@@@3@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBW4NameKeyType@@W4VeterancyLevel@@@_STL@@@1@ABW4NameKeyType@@@Z"
+        ],
+        [
+          86,
+          20,
+          "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+        ],
+        [
+          99,
+          6,
+          "__except_list"
+        ]
+      ]
+    },
+    "?resetSciences@Player@@QAEXXZ": {
+      "raw": "558bec515153568bf1578d9e64010000ff73048bcbff33e8000000008b460485c0740d0588000000508bcbe80000000033c0403986880100008945fc7c3cff75fc8b0d00000000e80000000085c08945f874198b7818eb0fff378bcee8000000008b45f883c7043b781c75ecff45fc8b45fc3b86880100007ec48b3beb16ff378b0d00000000ff76248b01ff908800000083c7043bbe6801000075e25f5e5bc9c3",
+      "relocations": [
+        [
+          24,
+          20,
+          "?erase@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAEPAW4ScienceType@@PAW43@0@Z"
+        ],
+        [
+          44,
+          20,
+          "??4?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z"
+        ],
+        [
+          67,
+          6,
+          "?TheRankInfoStore@@3PAVRankInfoStore@@A"
+        ],
+        [
+          72,
+          20,
+          "?getRankInfo@RankInfoStore@@QBEPBVRankInfo@@H@Z"
+        ],
+        [
+          93,
+          20,
+          "?addScience@Player@@AAE_NW4ScienceType@@@Z"
+        ],
+        [
+          130,
+          6,
+          "?TheScriptEngine@@3PAVScriptEngine@@A"
+        ]
+      ]
+    },
+    "?hasUpgradeComplete@Player@@QAE_NPBVUpgradeTemplate@@@Z": {
+      "raw": "568b7424085783c61c83ec108bfca5a5a5a5e8000000005f5ec20400",
+      "relocations": [
+        [
+          19,
+          20,
+          "?hasUpgradeComplete@Player@@QAE_NV?$BitFlags@$0IA@@@@Z"
+        ]
+      ]
+    },
+    "?addNewSharedSpecialPowerTimer@Player@@QAEXPBVSpecialPowerTemplate@@I@Z": {
+      "raw": "558bec5151568bf18b4d08e8000000008b40148945f88b450c8945fc8d45f8508d8e18040000e8000000005ec9c20800",
+      "relocations": [
+        [
+          12,
+          20,
+          "?friend_getFinalOverride@Overridable@@QBEPBV1@XZ"
+        ],
+        [
+          39,
+          20,
+          "?push_back@?$list@USpecialPowerReadyTimerType@@V?$allocator@USpecialPowerReadyTimerType@@@_STL@@@_STL@@QAEXABUSpecialPowerReadyTimerType@@@Z"
+        ]
+      ]
+    },
+    "?resetOrStartSpecialPowerReadyFrame@Player@@QAEXPBVSpecialPowerTemplate@@@Z": {
+      "raw": "53558b6c240c56578bf98bcde8000000008b0d000000008b593c8b8f180400008b40148b31eb0739460874168b363bf175f553558bcfe8000000005f5e5d5bc204008bcde8000000008b401803c389460cebe8",
+      "relocations": [
+        [
+          13,
+          20,
+          "?friend_getFinalOverride@Overridable@@QBEPBV1@XZ"
+        ],
+        [
+          19,
+          6,
+          "?TheGameLogic@@3PAVGameLogic@@A"
+        ],
+        [
+          55,
+          20,
+          "?addNewSharedSpecialPowerTimer@Player@@QAEXPBVSpecialPowerTemplate@@I@Z"
+        ],
+        [
+          69,
+          20,
+          "?friend_getFinalOverride@Overridable@@QBEPBV1@XZ"
+        ]
+      ]
+    },
+    "?expressSpecialPowerReadyFrame@Player@@QAEXPBVSpecialPowerTemplate@@I@Z": {
+      "raw": "53568bd9578bbb180400008b37eb138b4c2410e8000000008b4e083b4814741b8b363bf775e9ff7424148bcbff742414e8000000005f5e5bc208008b44241489460cebf1",
+      "relocations": [
+        [
+          20,
+          20,
+          "?friend_getFinalOverride@Overridable@@QBEPBV1@XZ"
+        ],
+        [
+          49,
+          20,
+          "?addNewSharedSpecialPowerTimer@Player@@QAEXPBVSpecialPowerTemplate@@I@Z"
+        ]
+      ]
+    },
+    "?getOrStartSpecialPowerReadyFrame@Player@@QAEIPBVSpecialPowerTemplate@@@Z": {
+      "raw": "568bf18b4c240857e8000000008b0d000000008b96180400008b793c8b40148b0aeb0739410874198b093bca75f557ff7424108bcee8000000008bc75f5ec204008b410cebf6",
+      "relocations": [
+        [
+          9,
+          20,
+          "?friend_getFinalOverride@Overridable@@QBEPBV1@XZ"
+        ],
+        [
+          15,
+          6,
+          "?TheGameLogic@@3PAVGameLogic@@A"
+        ],
+        [
+          54,
+          20,
+          "?addNewSharedSpecialPowerTimer@Player@@QAEXPBVSpecialPowerTemplate@@I@Z"
+        ]
+      ]
+    },
+    "?addKindOfProductionCostChange@Player@@QAEXV?$BitFlags@$0HE@@@M@Z": {
+      "raw": "558bec51538d99140400008b03568b303bf05774288b7e08f30f1047140f2e45189ff6c4447a108d4508508d4f04e80000000084c075208b363b3375d8e8000000006a1ce80000000085c059740e8bc8e800000000eb07ff4718eb2b33c0f30f1045188d78048d7508a5a5a5a5f30f1140148945fcc74018010000008d45fc508bcbe8000000005f5e5bc9c21400",
+      "relocations": [
+        [
+          47,
+          20,
+          "?_M_is_equal@?$_Base_bitset@$03@_STL@@QBE_NABU12@@Z"
+        ],
+        [
+          62,
+          20,
+          "?getClassMemoryPool@KindOfPercentProductionChange@@CAPAVMemoryPool@@XZ"
+        ],
+        [
+          69,
+          20,
+          "??2@YAPAXI@Z"
+        ],
+        [
+          81,
+          20,
+          "??0KindOfPercentProductionChange@@QAE@XZ"
+        ],
+        [
+          131,
+          20,
+          "?push_back@?$list@PAVKindOfPercentProductionChange@@V?$allocator@PAVKindOfPercentProductionChange@@@_STL@@@_STL@@QAEXABQAVKindOfPercentProductionChange@@@Z"
+        ]
+      ]
+    },
+    "?xfer@?$BitFlags@$0HE@@@QAEXPAVXfer@@@Z": {
+      "raw": "b800000000e80000000083ec0c53568b75088b065733db8bf943538d4df3518bce885df3ff502c8b068bceff50043bc3755e8bcfe8000000008d4dec8945ec8b06518bceff503c33db538bcfe80000000085c07424508d4d08e8000000008b068365fc008d4d08518bceff5058834dfcff8d4d08e8000000004383fb747cca8b4df45f5e5b64890d00000000c9c204008b068bceff500483f80275658bcfe8000000008b068d4dec518bceff503c83650800895dfc33db395dec7e2e8b068d4d08518bceff50588b450885c0740583c008eb05b800000000508bcfe80000000084c07414433b5dec7cd2834dfcff8d4d08e800000000eb87c745e806000000eb258b068bceff500483f80375128b066a04578bceff90b8000000e960ffffffc745e80800000068000000008d45e850e800000000cc",
+      "relocations": [
+        [
+          1,
+          6,
+          "__ehhandler$?xfer@?$BitFlags@$0HE@@@QAEXPAVXfer@@@Z"
+        ],
+        [
+          6,
+          20,
+          "__EH_prolog"
+        ],
+        [
+          53,
+          20,
+          "?_M_do_count@?$_Base_bitset@$03@_STL@@QBEIXZ"
+        ],
+        [
+          77,
+          20,
+          "?getBitNameIfSet@?$BitFlags@$0HE@@@QBEPBDH@Z"
+        ],
+        [
+          90,
+          20,
+          "??0?$StringBase@D@@AAE@PBD@Z"
+        ],
+        [
+          117,
+          20,
+          "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+        ],
+        [
+          136,
+          6,
+          "__except_list"
+        ],
+        [
+          159,
+          20,
+          "?clear@?$BitFlags@$0HE@@@QAEXXZ"
+        ],
+        [
+          212,
+          6,
+          "??_C@_00CNPNBAHC@?$AA@"
+        ],
+        [
+          220,
+          20,
+          "?setBitByName@?$BitFlags@$0HE@@@QAE_NPBD@Z"
+        ],
+        [
+          242,
+          20,
+          "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+        ],
+        [
+          295,
+          6,
+          "__TI1?AW4XferStatus@@"
+        ],
+        [
+          304,
+          20,
+          "__CxxThrowException@8"
+        ]
+      ]
+    },
+    "?crc@Player@@MAEXPAVXfer@@@Z": {
+      "raw": "558bec51568b7508578bf9837f5c008d4dff0f95c08845ff8b06518bceff50388b475c85c0745b8b1683c004508bceff52508b4f5c8b0683c114518bceff50508b4f5c8b0683c108518bceff503c8b4f5c8b0683c110518bceff503c8b4f5c8b0683c10c518bceff503c8b4f5c5683c118e8000000008b4f5c5683c128e8000000008b068d8f8c010000518bceff503c8b0681c790010000578bceff503c5f5ec9c20400",
+      "relocations": [
+        [
+          114,
+          20,
+          "?xfer@?$BitFlags@$0HE@@@QAEXPAVXfer@@@Z"
+        ],
+        [
+          126,
+          20,
+          "?xfer@?$BitFlags@$0HE@@@QAEXPAVXfer@@@Z"
+        ]
+      ]
+    },
+    "?xfer@Player@@MAEXPAVXfer@@@Z": {
+      "raw": "b800000000e80000000083ec3c53568b75088b06578bf96a088d4df3518bcec645f308ff502c8b068d4f34518bceff50288b474033db895de8eb06ff45e88b40103bc375f68b068d4de8518bceff504c807df307720e8b068d8f63020000518bceff5038807df30872228b068d8f70010000518bceff90ac0000008b068d8f7c010000518bceff90ac000000895de08b068bce895dfcff500483f80175338b5f40eb288b430883c008508d4de0e8000000008b068d4de0518bceff50588b068d4b04518bceff50288b5b1085db75d4eb4d66837de80076468b068d4de0518bceff50588b0d000000008d45e050e80000000085c00f84a20700006a00508bcfe8000000008b168bc883c004f7d91bc923c8518bceff522843663b5de872ba8b068d4f44518bceff503c8b068d8f48040000518bceff50388b068d4f48518bceff503c8b068d4f4c518bceff50388b068d4f60518bceff90b40000008b068d4f70518bceff90b40000008b068d8f80000000518bceff50288b87a00100008b0833d2eb038b09423bc875f98b068d4dcc518bce8955ccff504c8b068bceff500483f80175388b87a00100008b183bd80f84810000008b43088945bc8b400c6a048d4dd08945d08b06518bceff90b80000008b1b3b9fa001000075daeb598d9fa00100008bcbe8000000008365d80066837dcc0076418b066a048d4dd0518bceff90b8000000ff75d08b0d00000000e80000000085c08945bc0f847f0600008d45bc508bcbe800000000ff45d8668b45d8663b45cc72bf8b872001000033db895de4eb06ff45e48b40303bc375f68b068d4de4518bceff504c8b068bceff500483f8010f85280100008b9f20010000eb168b068bcbf7d91bc98d530423ca518bceff50288b5b3085db75e6399f500100008d4d0b0f95c088450b8b06518bceff5038807d0b01750c399f500100000f84ea050000807d0b00750c399f500100000f85d80500008b87500100003bc3740b8b1683c004508bceff5228399f580100008d4df20f95c08845f28b06518bceff5038807df201750c399f580100000f849a050000807df200750c399f580100000f85880500008b87580100003bc3740b8b1683c004508bceff5228399f5c0100008d4df10f95c08845f18b06518bceff5038807df101750c399f5c0100000f844a050000807df100750c399f5c0100000f85380500008b875c0100003bc3740b8b1683c004508bceff52288b87600100003bc30f84910000008b4034e98b0000008b8f200100003bcb7405e80000000066395de4899f20010000895dd80f86d8feffffe8000000006890000000e800000000598945c83bc3c645fc0174098bc8e800000000eb0233c08958308b8f200100003bcbc645fc00750b898720010000eb0b8b493039593075f88941308b1683c004508bceff5228ff45d8668b45d8663b45e4729ee971feffff33c06a048d4db88945b88b06518bceff90b80000008b068bceff500483f8027514ff75b88b0d00000000e800000000898760010000807df30572348b068bceff500483f80275128d8f640100008b41048b115052e8000000008b068d8f64010000518bceff90ac000000e9810000008d9f640100008b43042b038d4dc8c1f8028945c88b06518bceff504c8b068bceff500483f80175268b1beb188b036a048d4dd88945d88b06518bceff90b800000083c3043b9f6801000075e0eb338365dc0066837dc80076288b066a048d4dd8518bceff90b80000008d45d8508bcbe800000000ff45dc668b45dc663b45c872d88b068d8f88010000518bceff503c8b068d8f8c010000518bceff503c8b068d8f90010000518bceff503c8b068d8f94010000518bceff503c8b068d8f98010000518bceff503c8b068d8f9c010000518bceff505c8b87a401000085c0740583c004eb0233c08b16508bceff52288b87a801000085c0740583c004eb0233c08b16508bceff52288b068d8f60020000518bceff50388b068d8f61020000518bceff50388b068d8f62020000518bceff5038807df30272108b068d8f64020000518bceff5050eb10f30f100500000000f30f118764020000807df30372108b068d8f68020000518bceff5038eb07c68768020000018b066a108d8f6a020000518bceff90b80000008b068d8f80020000518bceff50508b068d8f84020000518bceff50288365c8008d9f140400008b038b08eb058b09ff45c83bc875f78b45c88d4dc48945c48b06518bceff504c8b068bceff500483f8018b038b08754a3bc8894dc80f84c80000008b45c88b4008568d48048945d8e8000000008b4dd88b0683c114518bceff50508b4dd88b0683c118518bceff50448b45c88b003b038945c875c6e9890000008365c8003bc874138b09ff45c83bc875f7837dc8000f85d30100008365c80066837dc4007663e8000000006a1ce80000000085c059740c8bc8e8000000008945dceb048365dc008b45dc568d48048945d8e8000000008b4ddc8b0683c114518bceff50508b4ddc8b0683c118518bceff50448d45d8508bcbe8000000000fb745c4ff45c83945c8729d807df30473108d8f18040000e800000000e9ca0000008365c8008d9f180400008b038b08eb058b09ff45c83bc875f78b45c88d4ddc8945dc8b06518bceff504c8b068bceff500483f8018b038b0875353bc8894dd80f84850000008b45d88b1683c008508bceff52448b45d88b1683c00c508bceff52448b45d88b003b038945d875d8eb5b8365c8003bc874138b09ff45c83bc875f7837dc8000f85c50000008365c80066837ddc0076358b06834dd8ff8365d4008d4dd4518bceff50448b068d4dd8518bceff50448d45d4508bcbe8000000000fb745dcff45c83945c872cb8b066a0a5b8d4dc0518bce895dc0ff504c66395dc0756e33db0fb7c38b84871c04000085c0745e8b1683c004508bceff522843663b5dc072e033db399f440400008d4df00f95c08845f08b06518bceff5038385df07464399f4404000075438b068bceff500483f8027537e8000000006a20e8000000003bc359741e8bc8e800000000eb1768000000008d45c850c745c806000000e80000000033c08987440400008b87440400003bc3740583c004eb0233c08b16508bceff5228395f5c8d4def0f95c08845ef8b06518bceff50388b068bceff500483f80275348b4f5c3bcb7408e800000000895f5c807def00741fe8000000006a38e8000000003bc35974098bc8e800000000eb0233c089475c8b475c3bc3745b8b1683c004508bceff52508b4f5c8b0683c114518bceff50508b4f5c8b0683c108518bceff503c8b4f5c8b0683c110518bceff503c8b4f5c8b0683c10c518bceff503c8b4f5c5683c118e8000000008b4f5c5683c128e8000000008b068d4f50518bceff503c8b068d4f54518bceff503c8b068d4f58518bceff503c807df30672108b0681c769020000578bceff5038eb07c6876902000000834dfcff8d4de0e8000000008b4df45f5e5b64890d00000000c9c20400",
+      "relocations": [
+        [
+          1,
+          6,
+          "__ehhandler$?xfer@Player@@MAEXPAVXfer@@@Z"
+        ],
+        [
+          6,
+          20,
+          "__EH_prolog"
+        ],
+        [
+          174,
+          20,
+          "?set@?$StringBase@D@@QAEXABV1@@Z"
+        ],
+        [
+          229,
+          6,
+          "?TheUpgradeCenter@@3PAVUpgradeCenter@@A"
+        ],
+        [
+          238,
+          20,
+          "?findUpgrade@UpgradeCenter@@QBEPBVUpgradeTemplate@@ABVAsciiString@@@Z"
+        ],
+        [
+          256,
+          20,
+          "?addUpgrade@Player@@QAEPAVUpgrade@@PBVUpgradeTemplate@@W4UpgradeStatusType@@@Z"
+        ],
+        [
+          485,
+          20,
+          "?clear@?$_List_base@PAVTeamPrototype@@V?$allocator@PAVTeamPrototype@@@_STL@@@_STL@@QAEXXZ"
+        ],
+        [
+          521,
+          6,
+          "?TheTeamFactory@@3PAVTeamFactory@@A"
+        ],
+        [
+          526,
+          20,
+          "?findTeamPrototypeByID@TeamFactory@@QAEPAVTeamPrototype@@I@Z"
+        ],
+        [
+          548,
+          20,
+          "?push_back@?$list@PAVTeamPrototype@@V?$allocator@PAVTeamPrototype@@@_STL@@@_STL@@QAEXABQAVTeamPrototype@@@Z"
+        ],
+        [
+          922,
+          20,
+          "?deleteInstance@MemoryPoolObject@@QAEXXZ"
+        ],
+        [
+          946,
+          20,
+          "?getClassMemoryPool@BuildListInfo@@CAPAVMemoryPool@@XZ"
+        ],
+        [
+          956,
+          20,
+          "??2@YAPAXI@Z"
+        ],
+        [
+          975,
+          20,
+          "??0BuildListInfo@@QAE@XZ"
+        ],
+        [
+          1086,
+          6,
+          "?TheTeamFactory@@3PAVTeamFactory@@A"
+        ],
+        [
+          1091,
+          20,
+          "?findTeamByID@TeamFactory@@QAEPAVTeam@@I@Z"
+        ],
+        [
+          1133,
+          20,
+          "?erase@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAEPAW4ScienceType@@PAW43@0@Z"
+        ],
+        [
+          1271,
+          20,
+          "?push_back@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAEXABW4ScienceType@@@Z"
+        ],
+        [
+          1490,
+          6,
+          "__real@3f800000"
+        ],
+        [
+          1661,
+          20,
+          "?xfer@?$BitFlags@$0HE@@@QAEXPAVXfer@@@Z"
+        ],
+        [
+          1749,
+          20,
+          "?getClassMemoryPool@KindOfPercentProductionChange@@CAPAVMemoryPool@@XZ"
+        ],
+        [
+          1756,
+          20,
+          "??2@YAPAXI@Z"
+        ],
+        [
+          1768,
+          20,
+          "??0KindOfPercentProductionChange@@QAE@XZ"
+        ],
+        [
+          1792,
+          20,
+          "?xfer@?$BitFlags@$0HE@@@QAEXPAVXfer@@@Z"
+        ],
+        [
+          1831,
+          20,
+          "?push_back@?$list@PAVKindOfPercentProductionChange@@V?$allocator@PAVKindOfPercentProductionChange@@@_STL@@@_STL@@QAEXABQAVKindOfPercentProductionChange@@@Z"
+        ],
+        [
+          1860,
+          20,
+          "?clear@?$_List_base@USpecialPowerReadyTimerType@@V?$allocator@USpecialPowerReadyTimerType@@@_STL@@@_STL@@QAEXXZ"
+        ],
+        [
+          2055,
+          20,
+          "?push_back@?$list@USpecialPowerReadyTimerType@@V?$allocator@USpecialPowerReadyTimerType@@@_STL@@@_STL@@QAEXABUSpecialPowerReadyTimerType@@@Z"
+        ],
+        [
+          2179,
+          20,
+          "?getClassMemoryPool@Squad@@CAPAVMemoryPool@@XZ"
+        ],
+        [
+          2186,
+          20,
+          "??2@YAPAXI@Z"
+        ],
+        [
+          2198,
+          20,
+          "??0Squad@@QAE@XZ"
+        ],
+        [
+          2205,
+          6,
+          "__TI1?AW4SaveCode@@"
+        ],
+        [
+          2221,
+          20,
+          "__CxxThrowException@8"
+        ],
+        [
+          2298,
+          20,
+          "?deleteInstance@MemoryPoolObject@@QAEXXZ"
+        ],
+        [
+          2312,
+          20,
+          "?getClassMemoryPool@BattlePlanBonuses@@CAPAVMemoryPool@@XZ"
+        ],
+        [
+          2319,
+          20,
+          "??2@YAPAXI@Z"
+        ],
+        [
+          2331,
+          20,
+          "??0BattlePlanBonuses@@QAE@XZ"
+        ],
+        [
+          2424,
+          20,
+          "?xfer@?$BitFlags@$0HE@@@QAEXPAVXfer@@@Z"
+        ],
+        [
+          2436,
+          20,
+          "?xfer@?$BitFlags@$0HE@@@QAEXPAVXfer@@@Z"
+        ],
+        [
+          2510,
+          20,
+          "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+        ],
+        [
+          2523,
+          6,
+          "__except_list"
+        ]
+      ]
+    }
+  }
+}

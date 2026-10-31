@@ -1,0 +1,35 @@
+{
+  "removed_wrappers": [
+    {
+      "name": "?buildBySupplies@Player@@QAEXHABVAsciiString@@@Z",
+      "raw": "8b895001000085c97405e900000000c20800",
+      "relocations": [
+        [
+          11,
+          20,
+          "?buildBySupplies@AIPlayer@@QAEXHABVAsciiString@@@Z"
+        ]
+      ]
+    },
+    {
+      "name": "?buildSpecificBuildingNearestTeam@Player@@QAEXABVAsciiString@@PBVTeam@@@Z",
+      "raw": "8b895001000085c97405e900000000c20800",
+      "relocations": [
+        [
+          11,
+          20,
+          "?buildSpecificBuildingNearestTeam@AIPlayer@@QAEXABVAsciiString@@PBVTeam@@@Z"
+        ]
+      ]
+    }
+  ],
+  "removed_undefined": [
+    "?buildBySupplies@AIPlayer@@QAEXHABVAsciiString@@@Z",
+    "?buildSpecificBuildingNearestTeam@AIPlayer@@QAEXABVAsciiString@@PBVTeam@@@Z"
+  ],
+  "retained_nondebug_sections_including_order_identical": true,
+  "all_retained_loadable_definitions_identical": true,
+  "retained_undefined_names_identical": true,
+  "retained_definitions": 435,
+  "retained_nondebug_section_sha256": "17c19cc688f0d1b679b4527e711a4a0536365b687f28dbabd61e45f25b96a2e2"
+}

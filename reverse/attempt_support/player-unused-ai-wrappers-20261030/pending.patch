@@ -1,0 +1,29 @@
+diff --git a/Code/GameEngine/Source/Common/RTS/Player.cpp b/Code/GameEngine/Source/Common/RTS/Player.cpp
+index 2802a60d38..c3ac92eea0 100644
+--- a/Code/GameEngine/Source/Common/RTS/Player.cpp
++++ b/Code/GameEngine/Source/Common/RTS/Player.cpp
+@@ -1525,24 +1525,8 @@ void Player::buildSpecificBuilding(const AsciiString &thingName)
+ }
+ 
+ //=============================================================================
+-// ?buildBySupplies@Player@@QAEXHABVAsciiString@@@Z present-unmatched
+-void Player::buildBySupplies(Int minimumCash, const AsciiString &thingName) 
+-{
+-	if (m_ai) 
+-	{
+-		m_ai->buildBySupplies(minimumCash, thingName);
+-	}
+-}
+ 
+ //=============================================================================
+-// ?buildSpecificBuildingNearestTeam@Player@@QAEXABVAsciiString@@PBVTeam@@@Z present-unmatched
+-void Player::buildSpecificBuildingNearestTeam( const AsciiString &thingName, const Team *team )
+-{
+-	if( m_ai )
+-	{
+-		m_ai->buildSpecificBuildingNearestTeam( thingName, team );
+-	}
+-}
+ 
+ //=============================================================================
+ // ?buildUpgrade@Player@@QAEXABVAsciiString@@@Z present-unmatched

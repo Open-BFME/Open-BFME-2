@@ -1,0 +1,9 @@
+# Pending Player legacy AI wrapper cleanup
+
+This handoff preserves a verified trial from base da4ce080d1 (2026-10-30). It removes only the unrowed Player::buildBySupplies and Player::buildSpecificBuildingNearestTeam wrappers and their existing markers. Each18-byte body had only debug incoming references and introduced one distinct unresolved AIPlayer call. The saved provider evidence is tied to the recorded old census and source/object hashes, not current whole-image evidence.
+
+Private and normal source checks at that base preserved all12 matched code rows and TheTeamFactory data row. All435 retained loadable definitions, remaining nondebug sections and their relocations were identical; only these two wrappers and their undefined callees disappeared. The frozen-file check reported74 to72 unclaimed bodies. No native dead-stripping, identity recovery or census gain is claimed.
+
+The session was interrupted before strict receipt validation or publication. On2026-10-31 the old reservation had expired; reacquisition is refused by another worker's live class:Object reservation (owner object, host JonathanPC), which covers Player.cpp. The source patch was therefore preserved here and NOT applied to current Code/. No hatch key or other debt is retired by this handoff. The current source and registers remain unchanged.
+
+Resume by acquiring the file scope, comparing pending.patch with current owners/history and refreshing all before/after bytes, data and provider evidence. Strict current receipts, ordinary preview and the owning hatch update must pass before landing. Five additional independently audited unused leaves remain a follow-up lead; they have not passed a complete private trial and are not part of this patch. The large interrupted tu_skeleton dry run left no verdict and grants no merge approval.
