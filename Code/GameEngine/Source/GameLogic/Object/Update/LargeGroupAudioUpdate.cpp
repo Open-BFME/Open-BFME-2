@@ -90,7 +90,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 
 // slot at VA 0x00C548F4: returns a copy of the global value at VA
 // 0x00E030D0 (rowed copy constructor 0x002CF0F0).
-template <int N> class BitFlags { public: unsigned int m_words[(N + 31) / 32]; };
+
 
 extern BitFlags<11> DISABLEDMASK_ALL;
 

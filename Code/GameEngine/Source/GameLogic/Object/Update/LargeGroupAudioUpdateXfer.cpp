@@ -42,41 +42,11 @@ public:
 };
 
 #include "../../../../../Libraries/Include/Lib/Coord2D.h"
+#include "LargeGroupAudioUpdateView.h"
 
 // The two flag sets xfer through the rowed BitFlags<591>::xfer (0x000BB710)
 // and BitFlags<101>::xfer (0x00292550); their sizes, 0x4C and 0x10, are the
 // dword arrays those bit counts need.
-template <int NUMBITS>
-class BitFlags
-{
-public:
-	void xfer(Xfer *xfer);
-private:
-	unsigned int m_bits[(NUMBITS + 31) / 32];
-};
-
-class UpdateModule
-{
-public:
-	virtual ~UpdateModule();
-	void xfer(Xfer *xfer);
-private:
-	char m_unrecovered04[0x28 - 0x04];
-};
-
-class LargeGroupAudioUpdate : public UpdateModule
-{
-protected:
-	virtual void xfer(Xfer *xfer);
-
-private:
-	Coord2D m_28;
-	BitFlags<591> m_30;
-	BitFlags<101> m_7C;
-	bool m_8C;
-	bool m_8D;
-	int m_90;
-};
 
 // ?xfer@LargeGroupAudioUpdate@@MAEXPAVXfer@@@Z @0x004AB9EA
 void LargeGroupAudioUpdate::xfer(Xfer *xfer)
@@ -89,7 +59,7 @@ void LargeGroupAudioUpdate::xfer(Xfer *xfer)
 	Xfer::Version version(1, 2);
 	*xfer == version;
 
-	*xfer == m_28;
+	*xfer == static_cast<Coord2D &>(m_28);
 	m_30.xfer(xfer);
 	m_7C.xfer(xfer);
 	*xfer == m_8C;
