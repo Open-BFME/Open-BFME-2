@@ -49284,7 +49284,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x005B72E7,107,code,Code/GameEngine/Source/GameClient/Credits.cpp,approved,C,C=0x005B72A5..0x005B7352,Code/GameEngine/Source/GameClient/Credits.cpp
 0x005B7352,28,code,Code/GameEngine/Source/GameClient/Credits.cpp,approved,C,C=0x005B72A5..0x005B736E,Code/GameEngine/Source/GameClient/Credits.cpp
 0x005B736E,184,code,Code/GameEngine/Source/GameClient/Credits.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/Credits.cpp S=Code/GameEngine/Source/GameClient/Credits.cpp N=Code/GameEngine/Source/GameClient/CreditsManager.cpp,Code/GameEngine/Source/GameClient/Credits.cpp
-0x005B7426,17,code,Code/GameEngine/Source/GameClient/Credits.cpp,approved,C,C=0x005B736E..0x005B7437,Code/GameEngine/Source/Common/VslotSmallBodiesG.cpp
+0x005B7426,17,code,Code/GameEngine/Source/GameClient/Credits.cpp,approved,C,C=0x005B736E..0x005B7437,Code/GameEngine/Source/GameClient/Credits.cpp
 0x005B7437,29,code,Code/GameEngine/Source/GameClient/Credits.cpp,approved,C,C=0x005B736E..0x005B7454,Code/GameEngine/Source/GameClient/Credits.cpp
 0x005B7454,600,code,Code/GameEngine/Source/GameClient/Credits.cpp,approved,U,N=Code/GameEngine/Source/GameClient/BfmeSinkBOE.cpp,Code/GameEngine/Source/GameClient/Credits.cpp
 0x005B76AC,194,code,Code/GameEngine/Source/GameClient/Credits.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/Credits.cpp S=Code/GameEngine/Source/GameClient/Credits.cpp N=Code/GameEngine/Source/GameClient/CreditsManager.cpp,Code/GameEngine/Source/GameClient/Credits.cpp

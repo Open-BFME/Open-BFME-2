@@ -118,12 +118,6 @@ private:
 	char m_pad35[0x38 - 0x35];
 	Int m_38;
 };
-void Rva005B7426::rva005B7426()
-{
-	m_34 = false;
-	m_10 = *m_0C;
-	m_38 = 0;
-}
 
 // slot at VA 0x00C73954: the global block at VA 0x00E05FCC while +0x2C is 2,
 // else the one at VA 0x00E06000.
