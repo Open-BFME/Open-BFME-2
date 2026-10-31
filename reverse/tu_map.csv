@@ -50841,7 +50841,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x005DABD5,94,code,,,-,,Code/GameEngine/Source/Common/Rva005DAAB6Slot15.cpp
 0x005DAC33,5,code,Code/GameEngine/Source/Common/AIBuildableUnit.cpp,proposed,N,N=Code/GameEngine/Source/Common/AIBuildableUnit.cpp,Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp
 0x005DAC38,53,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIBuildableUnit.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIBuildableUnit.cpp provisional,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIBuildableUnit.cpp
-0x005DAC6D,24,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIBuildableUnit.cpp,approved,C,C=0x005DAC38..0x005DAC85 provisional,Code/GameEngine/Source/Common/VslotSmallBodiesT.cpp
+0x005DAC6D,24,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIBuildableUnit.cpp,approved,C,C=0x005DAC38..0x005DAC85 provisional,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIBuildableUnit.cpp
 0x005DAC85,59,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIBuildableUnit.cpp,approved,C,C=0x005DAC38..0x005DACC0 provisional,Code/GameEngine/Source/Common/Rva005DAC85Dtor.cpp
 0x005DACC0,273,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIBuildableUnit.cpp,approved,C,W=Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIBuildableUnit.cpp C=0x005DAC38..0x005DADD1 provisional,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/Rva005DAC85Slot5.cpp
 0x005DADD1,28,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIBuildableUnit.cpp,approved,C,C=0x005DAC38..0x005DADED provisional,Code/GameEngine/Source/Common/Rva005DAC85Dtor.cpp

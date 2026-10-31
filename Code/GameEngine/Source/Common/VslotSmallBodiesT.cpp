@@ -142,12 +142,6 @@ private:
 	char m_pad00[0x2C];
 	Rva005DAA9ETriple m_2C;
 };
-void Rva005DAC6D::rva005DAC6D(Rva005DAA9ETriple *out) const
-{
-	out->x = m_2C.x;
-	out->y = m_2C.y;
-	out->z = m_2C.z;
-}
 
 // 0x005E16A7 and 0x005E2126: the pinned INI::initFromINI on this object with
 // the field table at VA 0x00C779F0 (resp. 0x00C77A98).
