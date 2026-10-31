@@ -22,7 +22,7 @@ class Rva000421C8
 public:
 	Rva000421C8() : m_next(0) {}
 	virtual ~Rva000421C8() {}
-	virtual bool allow(Object *obj) = 0;
+	virtual bool allow(class Object *obj) = 0;
 	virtual int getPlayerMask();
 	Rva000421C8 *link(Rva000421C8 *next);	// 0x00625790
 	Rva000421C8 *m_next;
@@ -32,16 +32,16 @@ public:
 class Rva0026119DFilter : public Rva000421C8
 {
 public:
-	virtual bool allow(Object *obj);
+	virtual bool allow(class Object *obj);
 };
 
 // vftable 0x00BF91BC, allow 0x002611BF.
 class Rva002611BFFilter : public Rva000421C8
 {
 public:
-	Rva002611BFFilter(const Object *obj) : m_obj(obj) {}
-	virtual bool allow(Object *obj);
-	const Object *m_obj;
+	Rva002611BFFilter(const class Object *obj) : m_obj(obj) {}
+	virtual bool allow(class Object *obj);
+	const class Object *m_obj;
 };
 
 // vftable 0x00C51150, allow 0x00261130: +0x08 an upgrade.
@@ -49,7 +49,7 @@ class Rva00261130Filter : public Rva000421C8
 {
 public:
 	Rva00261130Filter(const void *upgrade) : m_upgrade(upgrade) {}
-	virtual bool allow(Object *obj);
+	virtual bool allow(class Object *obj);
 	const void *m_upgrade;
 };
 
@@ -58,11 +58,11 @@ public:
 class Rva00261409Filter : public Rva000421C8
 {
 public:
-	Rva00261409Filter(Player *player, bool match, int flags)
+	Rva00261409Filter(class Player *player, bool match, int flags)
 		: m_player(player), m_match(match), m_flags(flags) {}
-	virtual bool allow(Object *obj);
+	virtual bool allow(class Object *obj);
 	virtual int getPlayerMask();
-	Player *m_player;
+	class Player *m_player;
 	bool m_match;
 	int m_flags;
 };
@@ -72,7 +72,7 @@ public:
 
 struct BfmeWideResult
 {
-	Object *next() throw();	// 0x00045623
+	class Object *next() throw();	// 0x00045623
 	~BfmeWideResult();	// 0x0004AA28
 	void *m_value;
 };
@@ -86,19 +86,22 @@ public:
 extern PartitionManager *ThePartitionManager;
 
 // TheUpgradeCenter's lookup: the first upgrade whose bit the mask has.
-struct Rva0026F0F0
+class Rva0026F0F0
 {
+public:
 	void *rva0026F0F0(const void *mask);	// 0x0026F0F0
 };
 // TheUpgradeCenter is only an alias of the owned global TheUpgradeCenter (ledger names column); this unit reads the owner through its own view type.
-extern class UpgradeCenter *TheUpgradeCenter;
-#define TheUpgradeCenter (*(Rva0026F0F0 * *)&TheUpgradeCenter)
+class UpgradeCenter;
+extern UpgradeCenter *TheUpgradeCenter;
 
 #include "../../../Common/GameLogicObjectLookupView.h"
 
 enum ObjectStatusTypes
 {
 	OBJECT_STATUS_RVA0049C73A_2 = 2,
+	OS_3 = 3,
+	OS_42 = 0x42,
 	OBJECT_STATUS_RVA0049C73A_66 = 0x42
 };
 
@@ -111,32 +114,61 @@ public:
 	unsigned m_118;		// +0x118 (bit 22 tested)
 };
 
+class UpgradeTemplate;
+class Provider31;
+class AIUpdate;
 class Object
 {
 public:
-	Player *getControllingPlayer() const;	// 0x0028AFA9
-	bool testStatus(ObjectStatusTypes bit) const;	// 0x0004E536
-	void setStatus(ObjectStatusTypes bit, bool flag);	// 0x0023DB0E
-	Object *rva002931F5(bool flag);		// 0x002931F5
+	void setStatus(ObjectStatusTypes status, bool set);
+	Object *rva002931F5(bool flag);
+	Player *getControllingPlayer() const; // 0x0028AFA9
+	bool testStatus(ObjectStatusTypes bit) const; // 0x0004E536
 	const Coord3D *getPosition() const { return &m_pos; }
-	char m_pad000[0x04];
-	const ThingTemplate *m_template;	// +0x04
-	char m_pad008[0x38 - 0x08];
-	Coord3D m_pos;				// +0x38
-	char m_pad044[0x78 - 0x44];
-	ObjectID m_78;				// +0x78
-	char m_pad07C[0x284 - 0x7C];
-	unsigned m_284[32];			// +0x284 the upgrade mask
+	bool affectedByUpgrade(const UpgradeTemplate *upgrade) const;
+	char m_pad00[0x4];
+	const ThingTemplate *m_template; // +0x04 +0x04
+	char m_pad08[0x30];
+	Coord3D m_pos; // +0x38 +0x38
+	char m_pad44[0x34];
+	ObjectID m_78; // +0x78 +0x78
+	char m_pad7C[0x1D4];
+	Provider31 *m_prov250; // +0x250
+	char m_pad254[0x4];
+	AIUpdate *m_ai; // +0x258
+	char m_pad25C[0x18];
+	int m_int274; // +0x274
+	char m_pad278[0xC];
+	unsigned m_284[32]; // +0x284 +0x284 the upgrade mask
+	char m_pad304[0x134];
+	unsigned char m_b438; // +0x438
+	char m_pad439[0x3];
 };
 
 extern GameLogic *TheGameLogic;
 
-struct GiveUpgradeUpdateModuleData
+class Rva0044ECCE
 {
-	char m_pad00[0x38];
-	int m_38;		// +0x38
-	char m_pad3C[0xE0 - 0x3C];
-	bool m_deliverUpgrade;		// +0xE0
+public:
+	virtual ~Rva0044ECCE();
+
+	unsigned char m_pad[0x38 - 4];
+	int m_38; // +0x38
+	unsigned char m_pad3C[0xC8 - 0x3C];
+};
+
+class __declspec(novtable) GiveUpgradeUpdateModuleData : public Rva0044ECCE
+{
+public:
+	virtual ~GiveUpgradeUpdateModuleData();
+
+	void *m_bufC8; // +0xC8 vector payload stand-in
+	unsigned char m_padCC[0xD4 - 0xCC]; // +0xCC..+0xD3 vector tail stand-in
+	int m_intD4; // +0xD4
+	int m_intD8; // +0xD8
+	float m_floatDC; // +0xDC
+	bool m_deliverUpgrade; // +0xE0
+	unsigned char m_padE1[0xE4 - 0xE1];
 };
 
 // What sits at +0x20: slot 0 takes the data's +0x38 and the object.
@@ -146,33 +178,60 @@ public:
 	virtual void rva0049C73ASlot0(int what, Object *obj, int a, int b, int c);
 };
 
+enum UpdateSleepTime
+{
+	UPDATE_SLEEP_NONE = 1
+};
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+class SpecialPowerTemplate;
+class Waypoint;
+class Rva0049C5D9;
+class Xfer;
+
 // 0x00450AE9 is the rowed SpecialAbilityUpdate::rva00450AE9 (bool, result
 // unused here), called on this unit's own receiver.
 class SpecialAbilityUpdate
 {
+	friend class Rva0049C5D9;
 public:
+	virtual UpdateSleepTime update();
+	virtual void initiateIntentToDoSpecialPower(const SpecialPowerTemplate *specialPowerTemplate, const Object *targetObj, const Coord3D *targetPos, unsigned int commandOptions, const Waypoint *way);
 	bool rva00450AE9();
-};
 
-class GiveUpgradeUpdate
-{
-public:
-	void GetDeliveryTarget();
-	unsigned char rva0049C8E9();
-private:
-	const GiveUpgradeUpdateModuleData *getGiveUpgradeUpdateModuleData() const
-	{
-		return (const GiveUpgradeUpdateModuleData *)m_moduleData;
-	}
-	void *m_vtable;
+protected:
+	virtual void onExit(bool a, bool b);
+	virtual void xfer(Xfer *xfer);
+
 	const void *m_moduleData;	// +0x04
 	Object *m_object;		// +0x08
 	char m_pad0C[0x20 - 0x0C];
 	Rva0049C73AHandler m_20;	// +0x20
 	char m_pad24[0x40 - 0x24];
 	ObjectID m_40;			// +0x40
-	char m_pad44[0x89 - 0x44];
+	char m_pad44[0x88 - 0x44];
+};
+
+class GiveUpgradeUpdate : public SpecialAbilityUpdate
+{
+public:
+	virtual NameKeyType getModuleNameKey() const;
+	void GetDeliveryTarget();
+	unsigned char rva0049C8E9();
+
+protected:
+	virtual void xfer(Xfer *xfer);
+	const GiveUpgradeUpdateModuleData *getGiveUpgradeUpdateModuleData() const
+	{
+		return (const GiveUpgradeUpdateModuleData *)m_moduleData;
+	}
+
+	bool m_firstFlag;		// +0x88
 	bool m_89;			// +0x89
+	unsigned char m_pad8A[2];
+	float m_value;			// +0x8C
 };
 
 void GiveUpgradeUpdate::GetDeliveryTarget()
@@ -183,7 +242,7 @@ void GiveUpgradeUpdate::GetDeliveryTarget()
 		return;
 	Object *obj = m_object;
 	m_89 = true;
-	const void *upgrade = TheUpgradeCenter->rva0026F0F0(obj->m_284);
+	const void *upgrade = ((Rva0026F0F0 *)TheUpgradeCenter)->rva0026F0F0(obj->m_284);
 	BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(obj->getPosition(), 100000.0f, 0,
 		Rva00261409Filter(obj->getControllingPlayer(), true, 2).link(&Rva0026119DFilter())
 			->link(&Rva00261130Filter(upgrade))

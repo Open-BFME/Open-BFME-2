@@ -8,6 +8,15 @@
 // unblocks 0x0049C6E1; thiscall ecx passed by callers but unused so the
 // class stays empty and address-derived. Flags /O1 /DNDEBUG /MD already fit.
 #include "../../../Common/GameLogicObjectLookupView.h"
+#include "../../../../../Libraries/Include/Lib/Coord3D.h"
+
+enum ObjectStatusTypes
+{
+	OBJECT_STATUS_RVA0049C73A_2 = 2,
+	OS_3 = 3,
+	OS_42 = 0x42,
+	OBJECT_STATUS_RVA0049C73A_66 = 0x42
+};
 
 class Provider31
 {
@@ -23,13 +32,37 @@ public:
 	virtual void *slot31();
 };
 
+class Player;
+struct Coord3D;
+class UpgradeTemplate;
+class ThingTemplate;
+class AIUpdate;
 class Object
 {
 public:
-	char m_pad00[0x78];
-	ObjectID m_id78;
-	char m_pad7C[0x250 - 0x7C];
-	Provider31 *m_prov250;
+	void setStatus(ObjectStatusTypes status, bool set);
+	Object *rva002931F5(bool flag);
+	Player *getControllingPlayer() const; // 0x0028AFA9
+	bool testStatus(ObjectStatusTypes bit) const; // 0x0004E536
+	const Coord3D *getPosition() const { return &m_pos; }
+	bool affectedByUpgrade(const UpgradeTemplate *upgrade) const;
+	char m_pad00[0x4];
+	const ThingTemplate *m_template; // +0x04 +0x04
+	char m_pad08[0x30];
+	Coord3D m_pos; // +0x38 +0x38
+	char m_pad44[0x34];
+	ObjectID m_78; // +0x78 +0x78
+	char m_pad7C[0x1D4];
+	Provider31 *m_prov250; // +0x250
+	char m_pad254[0x4];
+	AIUpdate *m_ai; // +0x258
+	char m_pad25C[0x18];
+	int m_int274; // +0x274
+	char m_pad278[0xC];
+	unsigned m_284[32]; // +0x284 +0x284 the upgrade mask
+	char m_pad304[0x134];
+	unsigned char m_b438; // +0x438
+	char m_pad439[0x3];
 };
 
 
@@ -45,7 +78,7 @@ void *Rva0049C5F4::rva0049C5F4(Object *object)
 {
 	if (object == 0)
 		return 0;
-	Object *found = TheGameLogic->findObjectByID(object->m_id78);
+	Object *found = TheGameLogic->findObjectByID(object->m_78);
 	if (found == 0)
 		return 0;
 	Provider31 *prov = found->m_prov250;
