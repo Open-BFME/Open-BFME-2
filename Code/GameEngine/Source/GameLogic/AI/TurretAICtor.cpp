@@ -20,12 +20,32 @@
 // through its slot 7 (initDefaultState). WB 0x0134FED0 is the same body
 // with the debug null-data check and the 0x48-byte machine.
 // The base and notify-interface views repeat TurretAIDtor.cpp so both
-// units emit identical vtable COMDATs. Fields at +0x20..+0x2C / +0x34 and
-// +0x3F stay unnamed.
+// units emit identical vtable COMDATs; the class view is the TU's.
 #include "Common/INIException.h"
 
+// The base is the canonical Snapshot (vtable 0x00BBB554): retail unwind
+// funclets destroy it through the folded Snapshot destructor 0x0049B47C.
+#include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
+
+// TurretAI.cpp TU view (one spelling in every file of the TU). The
+// constructor 0x004D85B6 stores the Snapshot table 0x00BBB554 and then
+// 0x00C60D78 at +0x00 and 0x00C60D64 at +0x04. 0x00C60D78 holds the deleting
+// destructor 0x004D8974, loadPostProcess 0x004D80D4, the "TurretAI" name
+// getter 0x004D86BB and xfer 0x004D7FAD (Snapshot's slots); 0x00C60D64 holds
+// notifyFired 0x004D81D2 (+0x37 from the +0x04 base is +0x3B) and
+// notifyNewVictimChosen 0x004D8B3F (ecx-4 before setTurretTargetObject).
+// Field names follow the constructor, xfer 0x004D7FAD and the target setters.
 class Object;
+class Team;
 class Xfer;
+class TurretAI;
+struct EmitVtableTag;
+
+enum WeaponSlotType
+{
+	WEAPONSLOT_PRIMARY = 0,
+	WEAPONSLOT_COUNT = 6
+};
 
 enum WhichTurretType
 {
@@ -35,26 +55,40 @@ enum WhichTurretType
 	MAX_TURRETS
 };
 
+// TurretAIData, 0x70 bytes as TurretAIData::TurretAIData (0x004D7E6C) fills it.
 class TurretAIData
 {
 public:
-	unsigned char m_pad00[0x08];
-	float m_naturalTurretAngle;			// +0x08
-	float m_naturalTurretPitch;			// +0x0C
-	unsigned char m_pad10[0x4C - 0x10];
-	unsigned int m_turretWeaponSlots;	// +0x4C
-	unsigned char m_pad50[0x64 - 0x50];
-	bool m_initiallyDisabled;			// +0x64
-	bool m_firesWhileTurning;			// +0x65
+	TurretAIData();
+	float m_turnRate;									// +0x00
+	float m_pitchRate;									// +0x04
+	float m_naturalTurretAngle;							// +0x08
+	float m_naturalTurretPitch;							// +0x0C
+	float m_turretFireAngleSweep[WEAPONSLOT_COUNT];		// +0x10
+	float m_turretSweepSpeedModifier[WEAPONSLOT_COUNT];	// +0x28
+	float m_firePitch;									// +0x40
+	float m_minPitch;									// +0x44
+	float m_groundUnitPitch;							// +0x48
+	unsigned int m_turretWeaponSlots;					// +0x4C
+	float m_minIdleScanAngle;							// +0x50
+	float m_maxIdleScanAngle;							// +0x54
+	unsigned int m_minIdleScanInterval;					// +0x58
+	unsigned int m_maxIdleScanInterval;					// +0x5C
+	unsigned int m_recenterTime;						// +0x60
+	bool m_initiallyDisabled;							// +0x64
+	bool m_firesWhileTurning;							// +0x65
+	bool m_isAllowsPitch;								// +0x66
+	float m_maxDeflectionCW;							// +0x68
+	float m_maxDeflectionACW;							// +0x6C
 };
 
-class TurretAI;
-
+// The 0x40-byte turret machine (vtable 0x00C609C8): deleting destructor in
+// slot 0, initDefaultState in slot 7; getGoalObject is 0x004D7726.
 class TurretStateMachine
 {
 public:
-	TurretStateMachine(TurretAI *owner, Object *obj, unsigned int nameKey);
-	virtual void slot0();
+	TurretStateMachine(TurretAI *tai, Object *obj, unsigned int nameKey);
+	virtual ~TurretStateMachine();
 	virtual void slot1();
 	virtual void slot2();
 	virtual void slot3();
@@ -62,30 +96,37 @@ public:
 	virtual void slot5();
 	virtual void slot6();
 	virtual int initDefaultState();		// slot 7
+	Object *getGoalObject();
 private:
 	unsigned char m_pad04[0x40 - 0x04];
 };
-
-// The base is the canonical Snapshot (vtable 0x00BBB554): retail unwind
-// funclets destroy it through the folded Snapshot destructor 0x0049B47C.
-#include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
 
 class TurretAINotifyBase
 {
 public:
 	virtual void notifyFired() = 0;
+	virtual void notifyNewVictimChosen(Object *victim) = 0;
 };
 
 class TurretAI : public Snapshot, public TurretAINotifyBase
 {
 public:
 	TurretAI(Object *owner, const TurretAIData *data, WhichTurretType tur);
+	TurretAI(EmitVtableTag *);
 protected:
 	virtual ~TurretAI();
 public:
+	virtual void loadPostProcess();
 	virtual void notifyFired();
+	virtual void notifyNewVictimChosen(Object *victim);
+	float getTurretFireAngleSweepForWeaponSlot(WeaponSlotType slot) const;
+	float getTurretSweepSpeedModifierForWeaponSlot(WeaponSlotType slot) const;
+	void setTurretTargetObject(Object *victim, bool forceAttacking);
+	void rva004D82F6();
 	float getNaturalTurretAngle() const { return m_data->m_naturalTurretAngle; }
 	float getNaturalTurretPitch() const { return m_data->m_naturalTurretPitch; }
+protected:
+	virtual void xfer(Xfer *xfer);
 private:
 	const TurretAIData *m_data;					// +0x08
 	WhichTurretType m_whichTurret;				// +0x0C
@@ -93,12 +134,12 @@ private:
 	TurretStateMachine *m_turretStateMachine;	// +0x14
 	float m_angle;								// +0x18
 	float m_pitch;								// +0x1C
-	int m_20;
-	int m_24;
-	int m_28;
-	int m_2C;
+	unsigned int m_audio20;						// +0x20
+	unsigned int m_enableSweepUntil;			// +0x24
+	Team *m_victimInitialTeam;					// +0x28
+	int m_target;								// +0x2C
 	int m_continuousFireExpirationFrame;		// +0x30
-	int m_34;
+	unsigned int m_sleepUntil;					// +0x34
 	bool m_playRotSound;						// +0x38
 	bool m_playPitchSound;						// +0x39
 	bool m_positiveSweep;						// +0x3A
@@ -106,19 +147,20 @@ private:
 	bool m_enabled;								// +0x3C
 	bool m_firesWhileTurning;					// +0x3D
 	bool m_isForceAttacking;					// +0x3E
-	bool m_3F;									// +0x3F
+	bool m_targetWasSetByIdleMood;				// +0x3F
 };
+// End of the TurretAI.cpp TU view.
 
 TurretAI::TurretAI(Object *owner, const TurretAIData *data, WhichTurretType tur) :
 	m_data(data),
 	m_whichTurret(tur),
 	m_owner(owner),
 	m_turretStateMachine(0),
-	m_20(1),
-	m_24(0),
-	m_28(0),
-	m_2C(0),
-	m_34(0),
+	m_audio20(1),
+	m_enableSweepUntil(0),
+	m_victimInitialTeam(0),
+	m_target(0),
+	m_sleepUntil(0),
 	m_playRotSound(false),
 	m_playPitchSound(false),
 	m_positiveSweep(true),
@@ -126,7 +168,7 @@ TurretAI::TurretAI(Object *owner, const TurretAIData *data, WhichTurretType tur)
 	m_enabled(!data->m_initiallyDisabled),
 	m_firesWhileTurning(data->m_firesWhileTurning),
 	m_isForceAttacking(false),
-	m_3F(false)
+	m_targetWasSetByIdleMood(false)
 {
 	m_continuousFireExpirationFrame = -1;
 	if (m_data->m_turretWeaponSlots == 0)
