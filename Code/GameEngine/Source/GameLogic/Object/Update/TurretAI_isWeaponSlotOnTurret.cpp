@@ -39,11 +39,12 @@ struct TurretStateMachine
 
 struct TurretData
 {
-	char m_pad[8];
-	float m_naturalAngle;
-	float m_naturalPitch;
-	char m_pad2[0x4C - 0x10];
-	unsigned m_slotMask;
+public:
+	char m_pad00[0x8];
+	float m_naturalAngle; // +0x08
+	float m_naturalPitch; // +0x0C
+	char m_pad10[0x3C];
+	unsigned m_slotMask; // +0x4C
 };
 
 #include "../../../Common/GameLogicObjectLookupView.h"

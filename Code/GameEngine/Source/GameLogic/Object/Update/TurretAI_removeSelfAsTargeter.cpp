@@ -19,9 +19,16 @@ enum TurretTargetType
 	TARGET_POSITION
 };
 
+enum MoodMatrixAction
+{
+	MM_Action_Idle
+};
+class Object;
 class AIUpdateInterface
 {
 public:
+	Object *getNextMoodTarget(Bool calledByAI, Bool calledDuringIdle);
+	unsigned int getMoodMatrixActionAdjustment(MoodMatrixAction action) const;
 	virtual void _slot000();
 	virtual void _slot001();
 	virtual void _slot002();
@@ -151,7 +158,7 @@ public:
 	virtual void _slot126();
 	virtual void _slot127();
 	virtual void _slot128();
-	virtual void addTargeter(ObjectID id, Bool add);
+	virtual void addTargeter(int id, Bool add);
 };
 
 class Object
@@ -174,8 +181,12 @@ public:
 
 struct TurretData
 {
-	char m_pad[0x4C];
-	unsigned m_slotMask;
+public:
+	char m_pad00[0x8];
+	float m_naturalAngle; // +0x08
+	float m_naturalPitch; // +0x0C
+	char m_pad10[0x3C];
+	unsigned m_slotMask; // +0x4C
 };
 
 class TurretAI
