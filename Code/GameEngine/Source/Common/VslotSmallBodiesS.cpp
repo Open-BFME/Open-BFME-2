@@ -321,11 +321,11 @@ public:
 class Rva00541F02
 {
 public:
-	void rva00541F02(Rva00541F02Visitor *v);
+	void rva00541F02(Rva00541F02Visitor *visitor);
 };
-void Rva00541F02::rva00541F02(Rva00541F02Visitor *v)
+void Rva00541F02::rva00541F02(Rva00541F02Visitor *visitor)
 {
-	v->v01(this);
+	visitor->v01(this);
 }
 
 // 0x005450B5 and 0x005451F3: clear model-condition bit 256 (resp. 257) of

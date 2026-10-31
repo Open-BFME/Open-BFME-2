@@ -131,17 +131,17 @@ struct Rva005042F2Node
 	Rva005042F2Key m_value;
 };
 
-static inline Rva005042F2Node *prevNode(Rva005042F2Node *n)
+static inline Rva005042F2Node *prevNode(Rva005042F2Node *node)
 {
-	return (Rva005042F2Node *)_STL::_Rb_global<bool>::_M_decrement((_STL::_Rb_tree_node_base *)n);
+	return (Rva005042F2Node *)_STL::_Rb_global<bool>::_M_decrement((_STL::_Rb_tree_node_base *)node);
 }
-static inline Rva005042F2Node *nextNode(Rva005042F2Node *n)
+static inline Rva005042F2Node *nextNode(Rva005042F2Node *node)
 {
-	return (Rva005042F2Node *)_STL::_Rb_global<bool>::_M_increment((_STL::_Rb_tree_node_base *)n);
+	return (Rva005042F2Node *)_STL::_Rb_global<bool>::_M_increment((_STL::_Rb_tree_node_base *)node);
 }
-static inline const Rva002BE7DB *pointOf(const Rva005042F2Node *n)
+static inline const Rva002BE7DB *pointOf(const Rva005042F2Node *node)
 {
-	return (const Rva002BE7DB *)&n->m_value;
+	return (const Rva002BE7DB *)&node->m_value;
 }
 
 class Rva005042F2

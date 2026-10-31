@@ -5793,3 +5793,11 @@ function,?rva000353F0@GeneralAllocator@Allocator@EA@@QAEXP6AXPBDPAX@Z11H@Z,?trac
 function,?rva004210EF@SpecialPowerTemplate@@QBEHXZ,?getLightPointCost@SpecialPowerTemplate@@QBEHXZ,inferred,agree:nl-e8e30f60b2a3,Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerTemplateFieldGetters.cpp,0x004210EF
 function,?rva0044EB4B@SpecialPowerTemplate@@QBEHXZ,?getEvaEventToPlayOnSuccess@SpecialPowerTemplate@@QBEHXZ,inferred,agree:nl-1b9427409f9a,Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerTemplateFieldGetters.cpp,0x0044EB4B
 class,Rva00741830NamedCamera,NamedCamera,inferred,agree:nl-e605a0d6713e,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00747E80WriteNamedCameras.cpp,
+local,Rva00072F49::rva00072F49::t,Rva00072F49::rva00072F49::target,inferred,agree:nl-902a9afabe2f-mfaac73dd4eed9f8728d44447,Code/GameEngine/Source/Common/VslotSmallBodiesR.cpp,0x00072F49
+local,Rva00072F49::rva00072F64::t,Rva00072F49::rva00072F64::target,inferred,agree:nl-8e6f330c96e8-m289dcea2d235bb277ae14a99,Code/GameEngine/Source/Common/VslotSmallBodiesR.cpp,0x00072F64
+param,Rva00330AD8::rva00330AD8::a,Rva00330AD8::rva00330AD8::index,inferred,agree:nl-ba5b242be6e9-mc66825f548d61f75c4e18ca8,Code/GameEngine/Source/Common/VslotSmallBodiesR.cpp,0x00330AD8
+param,Rva00330AD8::rva00330AD8::b,Rva00330AD8::rva00330AD8::point,inferred,agree:nl-7d333ddfd3d6-m6ae474edec0002934dec6b42,Code/GameEngine/Source/Common/VslotSmallBodiesR.cpp,0x00330AD8
+param,Rva00541F02::rva00541F02::v,Rva00541F02::rva00541F02::visitor,inferred,agree:nl-74e7cd0291c2-m86c56e89f385c185af719f0e,Code/GameEngine/Source/Common/VslotSmallBodiesS.cpp,0x00541F02
+param,nextNode::n,nextNode::node,inferred,agree:nl-4dfc678bad19-m758acb9712cebb25a8ad87bd,Code/GameEngine/Source/Common/calc.cpp,
+param,pointOf::n,pointOf::node,inferred,agree:nl-e6cebf938ca6-md460cbe1d67f04b8904d0d85,Code/GameEngine/Source/Common/calc.cpp,
+param,prevNode::n,prevNode::node,inferred,agree:nl-f0c5009fa7db-m6cc30d75ca188f79d7c1804e,Code/GameEngine/Source/Common/calc.cpp,

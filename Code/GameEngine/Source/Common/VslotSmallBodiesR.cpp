@@ -247,16 +247,16 @@ private:
 bool Rva00072F49::rva00072F49(Int a, Int b)
 {
 	m_0C->m_44 = 2;
-	Rva00072F49Target *t = m_08;
-	if (!t)
+	Rva00072F49Target *target = m_08;
+	if (!target)
 		return false;
-	return t->v02(a, b);
+	return target->v02(a, b);
 }
 void Rva00072F49::rva00072F64()
 {
-	Rva00072F49Target *t = m_08;
-	if (t)
-		t->v06();
+	Rva00072F49Target *target = m_08;
+	if (target)
+		target->v06();
 	m_0C->m_44 = 0;
 }
 
@@ -333,14 +333,14 @@ public:
 class Rva00330AD8 : public Rva00330AD8Base
 {
 public:
-	void rva00330AD8(Int a, const BfmeE8 &b);
+	void rva00330AD8(Int index, const BfmeE8 &point);
 private:
 	Int m_04;
 	AreaPolygonBase m_08;
 };
-void Rva00330AD8::rva00330AD8(Int a, const BfmeE8 &b)
+void Rva00330AD8::rva00330AD8(Int index, const BfmeE8 &point)
 {
-	m_08.setPoint(a, b);
+	m_08.setPoint(index, point);
 	v12();
 }
 class Rva00330B85 : public Rva00330AD8Base
