@@ -23,15 +23,77 @@ inline ModuleData::~ModuleData() { reinterpret_cast<Snapshot *>(this)->Snapshot:
 
 #include "ascii_string.h"
 
-class W3DLaserDrawModuleData : public ModuleData
+class MultiIniFieldParse;
+
+typedef unsigned int Color;
+
+typedef unsigned int UnsignedInt;
+
+typedef float Real;
+
+struct OrnamentData
+{
+	OrnamentData *init() throw();
+	unsigned char m_pad00[0x0C];
+	int m_reset0C;
+	unsigned char m_pad10[0x24 - 0x10];
+	int m_reset24;
+};
+
+
+class W3DLaserDrawModuleDataBase
 {
 public:
-	virtual ~W3DLaserDrawModuleData();
+	W3DLaserDrawModuleDataBase()
+		: m_innerColor((Color)-1),
+		  m_outerColor((Color)-1)
+	{
+	}
 
 private:
-	unsigned char m_pad04[0x2C - 4]; // +0x04
+	unsigned char m_pad04[4];	// +0x04
+	Color m_innerColor;		// +0x08 InnerColor
+	Color m_outerColor;		// +0x0C OuterColor
+};
+
+
+class W3DLaserDrawModuleData : public ModuleData, public W3DLaserDrawModuleDataBase
+{
+public:
+	W3DLaserDrawModuleData();
+public:
+	virtual ~W3DLaserDrawModuleData();
+private:
+	Real m_innerBeamWidth;
+private:
+	Real m_outerBeamWidth;
+private:
+	Real m_scrollRate;
+private:
+	bool m_tile;
+private:
+	UnsignedInt m_numBeams;
+private:
+	UnsignedInt m_maxIntensityFrames;
+private:
+	UnsignedInt m_fadeFrames;
+private:
 	_STL::vector<AsciiString> m_textureName; // +0x2C Texture
-	unsigned char m_tail38[0x74 - 0x38]; // +0x38..+0x73
+private:
+	// +0x38..+0x73
+	UnsignedInt m_segments;
+private:
+	Real m_arcHeight;
+private:
+	Real m_segmentOverlapRatio;
+private:
+	Real m_tilingScalar;
+private:
+	Real m_fanWidth;
+private:
+	OrnamentData m_envelope;
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
 typedef char AsciiExtent[sizeof(AsciiString) == 4 ? 1 : -1];

@@ -133,8 +133,8 @@ public:
 	RefCountPtr<TextureClass> *m_4;
 };
 
-// bfme link decl-only BfmeE16
-namespace _STL { template <> vector<BfmeE16, allocator<BfmeE16> >::~vector(); }
+// bfme link decl-only AsciiString
+namespace _STL { template <> vector<AsciiString, allocator<AsciiString> >::~vector(); }
 
 typedef unsigned int Color;
 
@@ -187,7 +187,7 @@ private:
 private:
 	UnsignedInt m_fadeFrames;
 private:
-	_STL::vector<BfmeE16> m_textureName;
+	_STL::vector<AsciiString> m_textureName;
 private:
 	UnsignedInt m_segments;
 private:
