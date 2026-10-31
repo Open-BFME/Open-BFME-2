@@ -30,7 +30,38 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 
 // tu-skeleton: 0x001B3510 213B ??1LineGroupClass@@UAE@XZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/LineGroupClassDestructor.cpp (not merged yet)
 
-// tu-skeleton: 0x001B35F0 14B ?Set_Line_Size@LineGroupClass@@QAEXM@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/linegrp_float_setters.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/linegrp_float_setters.cpp
+
+// LineGroupClass::Set_Line_Size, ::Set_Line_Alpha and ::Set_Line_UCoord, split
+// out of linegrp.cpp because retail stores these floats with movss.  The rest of
+// the accessor block in that unit is integer struct copies, which compile the
+// same either way; the float setters live here, where the flag costs nothing else.
+//
+// Set_Line_UCoord has no body of its own: the linker folded it into the
+// identical movss xmm0,[esp+4] / movss [ecx+0x44],xmm0 / ret 4 at 0x00179010
+// (PointGroupClass::Set_Point_Alpha), where symbols.csv already pins the name.
+//
+// Retail 0x001B35F0 is movss xmm0,[esp+4] / movss [ecx+0x30],xmm0 / ret 4 and
+// 0x001B3690 is the same shape against [ecx+0x40] -- DefaultLineSize and
+// DefaultLineAlpha at the offsets linegrp.h already gives them, confirmed by the
+// neighbouring landed rows (Set_Line_Color at +0x34, Set_Tail_Diffuse at +0x48).
+
+void LineGroupClass::Set_Line_Size(float size)
+{
+	DefaultLineSize = size;
+}
+
+void LineGroupClass::Set_Line_Alpha(float alpha)
+{
+	DefaultLineAlpha = alpha;
+}
+
+void LineGroupClass::Set_Line_UCoord(float ucoord)
+{
+	DefaultLineUCoord = ucoord;
+}
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/linegrp.cpp
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/linegrp.cpp
 
@@ -203,14 +234,6 @@ int LineGroupClass::Get_Polygon_Count(void)
 	return 0;
 }
 
-// tu-skeleton: 0x001B3690 14B ?Set_Line_Alpha@LineGroupClass@@QAEXM@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/linegrp_float_setters.cpp (not merged yet)
-
-// tu-skeleton: 0x001B36F0 15B ?Get_Flag@LineGroupClass@@QAEHW4FlagsType@1@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/LineGroupClassRender.cpp (not merged yet)
-
-// tu-skeleton: 0x001B3750 16B ?Get_Element@?$ShareBufferClass@VVector3@@@@QAEAAVVector3@@H@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/LineGroupClassRender.cpp (not merged yet)
-
-// tu-skeleton: 0x001B3760 13B ?Get_Element@?$ShareBufferClass@VShaderClass@@@@QAEAAVShaderClass@@H@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/meshmatdesc.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/LineGroupClassSetArrays.cpp
 
 //
@@ -256,6 +279,12 @@ void LineGroupClass::Set_Arrays(
 		LineCount = (active_line_count >= 0) ? active_line_count : StartLineLoc->Get_Count();
 	}
 }
+
+// tu-skeleton: 0x001B36F0 15B ?Get_Flag@LineGroupClass@@QAEHW4FlagsType@1@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/LineGroupClassRender.cpp (not merged yet)
+
+// tu-skeleton: 0x001B3750 16B ?Get_Element@?$ShareBufferClass@VVector3@@@@QAEAAVVector3@@H@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/LineGroupClassRender.cpp (not merged yet)
+
+// tu-skeleton: 0x001B3760 13B ?Get_Element@?$ShareBufferClass@VShaderClass@@@@QAEAAVShaderClass@@H@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/meshmatdesc.cpp (not merged yet)
 
 // tu-skeleton: 0x001B38A0 4371B ?Render@LineGroupClass@@QAEXAAVRenderInfoClass@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/LineGroupClassRender.cpp (not merged yet)
 
