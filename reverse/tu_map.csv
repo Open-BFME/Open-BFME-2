@@ -47471,7 +47471,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0057A260,18,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,C,C=0x00579A2F..0x0057A272 provisional,Code/GameEngine/Source/Common/GapBodiesS3E.cpp
 0x0057A272,62,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,C,C=0x00579A2F..0x0057A2B0 provisional,Code/GameEngine/Source/Common/StrategicHUD.cpp
 0x0057A2B0,84,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,C,C=0x00579A2F..0x0057A304 provisional,Code/GameEngine/Source/Common/Rva0057A2B0Dtor.cpp
-0x0057A304,15,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,C,C=0x00579A2F..0x0057A313 provisional,Code/GameEngine/Source/Common/GapBodiesGE32.cpp
+0x0057A304,15,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,C,C=0x00579A2F..0x0057A313 provisional,Code/GameEngine/Source/Common/StrategicHUD.cpp
 0x0057A313,8,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,C,C=0x00579A2F..0x0057A31B provisional,Code/GameEngine/Source/Common/EmbeddedMemberForwarders.cpp
 0x0057A31B,21,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,C,C=0x00579A2F..0x0057A330 provisional,Code/GameEngine/Source/Common/GapBodiesS3A.cpp
 0x0057A330,21,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,C,C=0x00579A2F..0x0057A345 provisional,Code/GameEngine/Source/Common/GapBodiesS3A.cpp
@@ -47490,7 +47490,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0057A3F4,24,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,U,N=Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/ChecklistItemRef.cpp provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDChecklistUIImplConstructor.cpp
 0x0057A40C,12,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,C,C=0x0057A3F4..0x0057A418 provisional,Code/GameEngine/Source/Common/Rva005CCC07Dtor.cpp
 0x0057A418,27,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,C,C=0x0057A3F4..0x0057A433 provisional,Code/GameEngine/Source/Common/StrategicHUD.cpp
-0x0057A433,26,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,C,C=0x0057A3F4..0x0057A44D provisional,Code/GameEngine/Source/Common/GapBodiesGE32.cpp
+0x0057A433,26,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,C,C=0x0057A3F4..0x0057A44D provisional,Code/GameEngine/Source/Common/StrategicHUD.cpp
 0x0057A44D,8,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,C,C=0x0057A3F4..0x0057A455 provisional,Code/GameEngine/Source/Common/Rva0057A2B0Dtor.cpp
 0x0057A455,28,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,C,C=0x0057A3F4..0x0057A471 provisional,Code/GameEngine/Source/Common/Rva0057A2B0Dtor.cpp
 0x0057A471,50,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,C,C=0x0057A3F4..0x0057A4A3 provisional,Code/GameEngine/Source/Common/StrategicHUD.cpp

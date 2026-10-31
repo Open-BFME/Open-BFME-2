@@ -129,11 +129,6 @@ private:
 	bool m_5C;
 };
 
-int Rva0057A304::rva0057A304() const
-{
-	return (m_5C != 0) + m_58 * 2;
-}
-
 // --- 0x0057A433 (26B): share a counted record (rowed 0x005D1A79 increment).
 class Rva005D1A79DwordCounter
 {
@@ -148,12 +143,6 @@ public:
 private:
 	Rva005D1A79DwordCounter *m_record;
 };
-
-Rva0057A433::Rva0057A433(Rva005D1A79DwordCounter *const *record, int unused) : m_record(*record)
-{
-	if (m_record)
-		m_record->inc();
-}
 
 // --- 0x0057E779 (40B): store a rule value, notify slot 1 and refresh its
 // gadget (rowed AptMpGameRules::UpdateRuleGadget).
