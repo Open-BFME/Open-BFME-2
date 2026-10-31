@@ -15,6 +15,17 @@
 typedef unsigned short WideChar;
 #include "../../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 #include "../../../../../../reference/shims/bfme2_ascii/unicode_string.h"
+#define BFME_IMUL_ADD_DWORD_GETTER(NAME, IMM) \
+	class NAME \
+	{ \
+	public: \
+		int get(int scale) const; \
+		int m_value; \
+	}; \
+	int NAME::get(int scale) const \
+	{ \
+		return scale * IMM + m_value; \
+	}
 
 class ObjectTypes {
 public:
@@ -212,7 +223,11 @@ struct Rva001EB15A
 	Rva001EB15A(const Rva001EB15A &other);
 };
 
+BFME_IMUL_ADD_DWORD_GETTER(Rva001EB10CImulAddField, 0x24)
+
 // tu-skeleton: 0x001EAEF9 101B ?grow@FreelistPool@@AAE_NHH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/FreelistPoolPop.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/FreelistPool.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/FreelistPool.cpp
 
@@ -368,20 +383,6 @@ UnitRevivalEntry::~UnitRevivalEntry()
 {
 }
 
-// tu-skeleton: 0x001EAF9B 21B ?rva001EAF9B@@YAHABUGapRecordCursor@@0@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE51.cpp (not merged yet)
-
-// tu-skeleton: 0x001EAFB0 17B ?advanceCursor@@YAXAAUGapRecordCursor@@H@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE51.cpp (not merged yet)
-
-// tu-skeleton: 0x001EAFFE 37B ?rva001EAFFE@Rva001EAFFE@@QAEAAVAsciiString@@H@Z -- matched in Code/GameEngine/Source/Common/Rva001EAFFEElementAt.cpp (not merged yet)
-
-// tu-skeleton: 0x001EB0EA 17B ?rva001EB0EA@Rva001EB0EA@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE51.cpp (not merged yet)
-
-// tu-skeleton: 0x001EB10C 12B ?get@Rva001EB10CImulAddField@@QBEHH@Z -- matched in Code/GameEngine/Source/Common/Disp8ImulAddDwordGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x001EB118 24B ?deallocate@Rva001EB118@@QAEXPAXI@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE51.cpp (not merged yet)
-
-// tu-skeleton: 0x001EB130 42B ?rva001EB130@Rva001EB130Holder@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva001EB130Clear.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva001EB15ACopy.cpp
 
 Rva001EB15A::Rva001EB15A(const Rva001EB15A &other)
@@ -399,5 +400,32 @@ Rva001EB15A::Rva001EB15A(const Rva001EB15A &other)
 // folds with the existing 4E04FD zero constructor. The record name is provisional.
 Rva001EB15A::Rva001EB15A()
  : m_00(0),m_04(0),m_08(0),m_wstr0C(),m_str10(),m_14(0) {}
+
+// tu-skeleton: 0x001EAF9B 21B ?rva001EAF9B@@YAHABUGapRecordCursor@@0@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE51.cpp (not merged yet)
+
+// tu-skeleton: 0x001EAFB0 17B ?advanceCursor@@YAXAAUGapRecordCursor@@H@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE51.cpp (not merged yet)
+
+// tu-skeleton: 0x001EAFFE 37B ?rva001EAFFE@Rva001EAFFE@@QAEAAVAsciiString@@H@Z -- matched in Code/GameEngine/Source/Common/Rva001EAFFEElementAt.cpp (not merged yet)
+
+// tu-skeleton: 0x001EB0EA 17B ?rva001EB0EA@Rva001EB0EA@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE51.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Disp8ImulAddDwordGetters.cpp
+
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
+// Disp8 imul-add dword getters: twelve-byte __thiscall members with one shape:
+//
+//     mov eax,[esp+4] / imul eax,eax,<IMM> / add eax,[ecx] / ret 4
+//
+// A stack-passed integer is scaled by a small immediate and biased by the
+// dword at `this`. MSVC 7.1 emits `8B 44 24 04` + `6B C0 XX` + `03 01`,
+// plus `ret 4` for the single callee-cleaned stack argument, for twelve
+// bytes total. /O1 keeps the memory-add after the multiply; /O2 hoists the
+// member load into edx first. /G7 keeps small multipliers as true `imul`
+// (/O1 alone strength-reduces them to lea sequences). Identity is not
+// recovered: every name is derived from its address.
+
+// tu-skeleton: 0x001EB118 24B ?deallocate@Rva001EB118@@QAEXPAXI@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE51.cpp (not merged yet)
+
+// tu-skeleton: 0x001EB130 42B ?rva001EB130@Rva001EB130Holder@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva001EB130Clear.cpp (not merged yet)
 
 // tu-skeleton: 0x001EB1B3 24B ??$_Destroy@PAUBfmeAssignRecord172@@@_STL@@YAXPAUBfmeAssignRecord172@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_record_bodies.cpp (not merged yet)

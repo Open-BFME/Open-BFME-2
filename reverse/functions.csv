@@ -17656,7 +17656,7 @@ _VP6_DecodeMacroBlock,,0x001C66B0,705,Code/Libraries/Source/VP6/DecodeMacroBlock
 ?get@Rva0014F3B8ImulAddField@@QBEHH@Z,,0x0014F3B8,12,Code/GameEngine/Source/Common/Disp8ImulAddDwordGetters.cpp,matched,disp8 imul-add dword getter; phase-proven no-branch-to-addr
 ?get@Rva001DD2A7ImulAddField@@QBEHH@Z,,0x001DD2A7,12,Code/GameEngine/Source/Common/Disp8ImulAddDwordGetters.cpp,matched,disp8 imul-add dword getter; phase-proven no-branch-to-addr
 ?get@Rva001DD2B3ImulAddField@@QBEHH@Z,,0x001DD2B3,12,Code/GameEngine/Source/Common/Disp8ImulAddDwordGetters.cpp,matched,disp8 imul-add dword getter; phase-proven no-branch-to-addr
-?get@Rva001EB10CImulAddField@@QBEHH@Z,,0x001EB10C,12,Code/GameEngine/Source/Common/Disp8ImulAddDwordGetters.cpp,matched,disp8 imul-add dword getter; phase-proven no-branch-to-addr
+?get@Rva001EB10CImulAddField@@QBEHH@Z,,0x001EB10C,12,Code/GameEngine/Source/GameLogic/Object/Update/FreelistPool.cpp,matched,disp8 imul-add dword getter; phase-proven no-branch-to-addr
 ?get@Rva002B2F00ImulAddField@@QBEHH@Z,,0x002B2F00,12,Code/GameEngine/Source/Common/Disp8ImulAddDwordGetters.cpp,matched,disp8 imul-add dword getter; phase-proven no-branch-to-addr
 ?get@Rva0033A8F0ImulAddField@@QBEHH@Z,,0x0033A8F0,12,Code/GameEngine/Source/Common/Disp8ImulAddDwordGetters.cpp,matched,disp8 imul-add dword getter; phase-proven no-branch-to-addr
 ?get@Rva0040A667ImulAddField@@QBEHH@Z,,0x0040A667,12,Code/GameEngine/Source/Common/Disp8ImulAddDwordGetters.cpp,matched,disp8 imul-add dword getter; phase-proven no-branch-to-addr
