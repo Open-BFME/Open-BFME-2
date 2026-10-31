@@ -40,6 +40,8 @@ class RGBAColorReal;
 class RGBAColorInt;
 class Snapshot;
 
+// The canonical State (Snapshot slots 0-3, 0x20 bytes) is the base.
+#include "../../../Include/Common/StateMachine.h"
 #include "../../../Include/Common/BfmeXfer.h"
 
 class Xfer::Version
@@ -64,16 +66,6 @@ public:
 	float z;
 };
 
-// The state base: only its virtual table matters to these bodies.
-class State
-{
-protected:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void xfer( Xfer *xfer );
-};
-
 enum ObjectID
 {
 	INVALID_ID = 0
@@ -81,22 +73,12 @@ enum ObjectID
 
 void XferObjectID( Xfer *xfer, ObjectID *id );
 
-class StateMachine
-{
-protected:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void xfer( Xfer *xfer );
-};
-
 // ------------------------------------------------------------------------------------------------
 class TurretAIIdleScanState : public State
 {
 protected:
 	virtual void xfer( Xfer *xfer );
 private:
-	char m_unrecovered04[ 0x20 - 0x04 ];
 	float m_desiredAngle;																											///< 0x20
 };
 
