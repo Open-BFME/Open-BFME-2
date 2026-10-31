@@ -17296,8 +17296,8 @@ _VP60D_GetVersionNumber,,0x001B5830,6,Code/Libraries/Source/VP6/PbAccessors.cpp,
 ?get@Rva004827EFByteChase32Field@@QBEEXZ,,0x004827EF,10,Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDamagedBehavior.cpp,matched,disp8 byte-chase getter with disp32 inner; phase-proven no-branch-to-addr
 ?get@Rva0049B657ByteChase32Field@@QBEEXZ,,0x0049B657,10,Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierAuraUpdate.cpp,matched,disp8 byte-chase getter with disp32 inner; phase-proven no-branch-to-addr
 ?get@Rva0049B661ByteChase32Field@@QBEEXZ,,0x0049B661,10,Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierAuraUpdate.cpp,matched,disp8 byte-chase getter with disp32 inner; phase-proven no-branch-to-addr
-?get@Rva0049C058ByteChase32Field@@QBEEXZ,,0x0049C058,10,Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp,matched,disp8 byte-chase getter with disp32 inner; phase-proven no-branch-to-addr
-?get@Rva0049C062ByteChase32Field@@QBEEXZ,,0x0049C062,10,Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp,matched,disp8 byte-chase getter with disp32 inner; phase-proven no-branch-to-addr
+?get@Rva0049C058ByteChase32Field@@QBEEXZ,,0x0049C058,10,Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdate.cpp,matched,disp8 byte-chase getter with disp32 inner; phase-proven no-branch-to-addr
+?get@Rva0049C062ByteChase32Field@@QBEEXZ,,0x0049C062,10,Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdate.cpp,matched,disp8 byte-chase getter with disp32 inner; phase-proven no-branch-to-addr
 ?get@Rva004A3541ByteChase32Field@@QBEEXZ,,0x004A3541,10,Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp,matched,disp8 byte-chase getter with disp32 inner; phase-proven no-branch-to-addr
 ?get@Rva004A354BByteChase32Field@@QBEEXZ,,0x004A354B,10,Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp,matched,disp8 byte-chase getter with disp32 inner; phase-proven no-branch-to-addr
 ?get@Rva004B4061ByteChase32Field@@QBEEXZ,,0x004B4061,10,Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp,matched,disp8 byte-chase getter with disp32 inner; phase-proven no-branch-to-addr

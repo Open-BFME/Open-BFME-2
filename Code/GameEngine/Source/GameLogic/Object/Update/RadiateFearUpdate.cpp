@@ -78,6 +78,39 @@ class RGBAColorReal;
 class RGBAColorInt;
 class Snapshot;
 #include "../../../../Include/Common/BfmeXfer.h"
+#define BFME_DISP8_BYTECHASE_GETTER(NAME, DISP1, DISP2) \
+	class NAME \
+	{ \
+	public: \
+		unsigned char get() const; \
+		char m_lead[DISP1]; \
+		void *m_ptr; \
+	}; \
+	unsigned char NAME::get() const \
+	{ \
+		return *(unsigned char *)((char *)m_ptr + DISP2); \
+	}
+#define BFME_DISP8_BYTECHASE_BEFORE_GETTER(NAME, BACK, INNER) \
+	class Inner##NAME \
+	{ \
+	public: \
+		char m_lead[INNER]; \
+		unsigned char m_value; \
+	}; \
+	class Sub##NAME \
+	{ \
+	public: \
+		Inner##NAME *m_holder; \
+	}; \
+	class NAME \
+	{ \
+	public: \
+		unsigned char get() const; \
+	}; \
+	unsigned char NAME::get() const \
+	{ \
+		return ((const Sub##NAME *)((const char *)this - (BACK)))->m_holder->m_value; \
+	}
 
 class Xfer::Version
 {
@@ -198,6 +231,23 @@ private:
 
 enum NameKeyType;
 
+// 0x0039ADAF is ExperienceTracker::isTrainable (pinned under that name from
+// VeterancyCrateCollide::isValidToExecute; ZH's isTrainable reads the
+// template's trainable flag): the byte at +0x5E7 of the +0x04 template.
+class ExperienceTracker
+{
+public:
+	bool isTrainable() const;
+	char m_lead[0x4];
+	void *m_template;
+};
+
+BFME_DISP8_BYTECHASE_BEFORE_GETTER(Rva0049C058ByteChase32Field, 0x1C, 0x12C)
+
+BFME_DISP8_BYTECHASE_BEFORE_GETTER(Rva0049C062ByteChase32Field, 0x1C, 0x12D)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdate.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdate.cpp
@@ -245,16 +295,6 @@ void RadiateFearUpdate::xfer(Xfer *xfer)
 	UpgradeMux::upgradeMuxXfer(xfer);
 }
 
-// tu-skeleton: 0x0049C022 39B ?getUpgradeActivationMasks@RadiateFearUpdate@@MBEXAAUUpgradeMaskType@@0@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpgradeMuxSlotOverrides.cpp (not merged yet)
-
-// tu-skeleton: 0x0049C049 15B ?performUpgradeFX@RadiateFearUpdate@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpgradeMuxSlotOverrides.cpp (not merged yet)
-
-// tu-skeleton: 0x0049C058 10B ?get@Rva0049C058ByteChase32Field@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0049C062 10B ?get@Rva0049C062ByteChase32Field@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0049C0E4 34B ?buildFieldParse@RadiateFearUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdateCtor.cpp
 
 // ??0RadiateFearUpdate@@QAE@PAVThing@@PBVModuleData@@@Z @0x0049C106
@@ -266,6 +306,30 @@ RadiateFearUpdate::RadiateFearUpdate(Thing *thing, const ModuleData *moduleData)
 	if (data->m_initiallyActive)
 		giveSelfUpgrade();
 }
+
+// tu-skeleton: 0x0049C022 39B ?getUpgradeActivationMasks@RadiateFearUpdate@@MBEXAAUUpgradeMaskType@@0@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpgradeMuxSlotOverrides.cpp (not merged yet)
+
+// tu-skeleton: 0x0049C049 15B ?performUpgradeFX@RadiateFearUpdate@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpgradeMuxSlotOverrides.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp
+
+// Disp8 byte-chase getters: seven-byte __thiscall members with one shape:
+//
+//     mov eax,[ecx+<DISP1>] / mov al,[eax+<DISP2>] / ret
+//
+// A pointer is read at a fixed displacement from `this`, then a byte is read
+// at a second displacement from that pointer and returned in `al` (only the
+// low byte is defined; the caller uses `al`). MSVC 7.1 emits the disp8 loads
+// `8B 41 XX` + `8A 40 XX`, plus `ret`, for seven bytes total.
+// Identity is not recovered: every name is derived from its address.
+// No // cl: line (defaults match the frameless seven-byte shape).
+
+// Backward variant: the holder sits at a NEGATIVE displacement from `this`
+// (a sub-object `this` pointing into a larger object). Spelled as an explicit
+// backward cast, which MSVC folds to `mov eax,[ecx-BACK]`; same shape and
+// reading as BFME1's ChainedFieldGetters.
+
+// tu-skeleton: 0x0049C0E4 34B ?buildFieldParse@RadiateFearUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp (not merged yet)
 
 // tu-skeleton: 0x0049C179 28B ??_GRva0049BFB7@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp (not merged yet)
 
