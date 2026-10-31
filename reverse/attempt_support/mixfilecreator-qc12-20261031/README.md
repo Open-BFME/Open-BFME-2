@@ -78,3 +78,5 @@ helpers and2duplicate tiny helpers). ALL SIX are pre-existing: complete code
 bytes and every relocation in retained baseline COFF and adopted COFF compare
 identically; gamefont-shadow-proof.json records each before/after body. No
 baseline is edited and no existing shadow defect is claimed repaired.
+
+Additional verified consumer Code/Libraries/Source/WWVegas/WWLib/MixFileCreatorFileInfoStructAssign.cpp: 12/12 native rows; headeraccept/frozenPASS. Full8unit runtime graph still identical to original baseline (924sections/858external definitions/2weak bindings); no added/lost runtime provider or changed relocation. Normal hooks required for this single-donor commit.

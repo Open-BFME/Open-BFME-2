@@ -15,21 +15,7 @@
 #include "ascii_string.h"
 
 
-class MixFileCreator
-{
-public:
-	struct FileInfoStruct
-	{
-		FileInfoStruct(const FileInfoStruct &src);
-		FileInfoStruct &operator=(const FileInfoStruct &src);
-
-		unsigned long CRC;			// +0x00 CRC code for embedded file
-		unsigned long Offset;		// +0x04 offset from start of data section
-		unsigned long Size;			// +0x08 size of data subfile
-		AsciiString Filename;		// +0x0C entry name
-	};
-};
-
+#include "MixFileCreatorFileInfo.h"
 // ??0FileInfoStruct@MixFileCreator@@QAE@ABU01@@Z
 MixFileCreator::FileInfoStruct::FileInfoStruct(const FileInfoStruct &src) :
 	CRC(src.CRC),
