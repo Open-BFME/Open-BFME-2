@@ -17839,7 +17839,7 @@ _VP6_DecodeMacroBlock,,0x001C66B0,705,Code/Libraries/Source/VP6/DecodeMacroBlock
 _WinMain@16,,0x00002C39,1388,Code/GameEngine/Source/Main/WinMain.cpp,matched,BFME2 WinMain: Zero Hour WinMain.cpp reshaped - GetCommandLineW UTF-8 argv; lotrsec.big chdir gate; -DX via DebugStackwalk; second-pass -win/-fullscreen/-xpos/-ypos; ATL CImage splash; launcher handshake; GlobalData+0xC74 teardown order; catch continuation is 0x319F; extent includes its catch funclet (formerly a false 6 B const getter row) and continuation
 ?get@Rva00210CDDCmpBoolField@@QBE_NXZ,,0x00210CDD,11,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp,matched,Disp32 ternary bool getter; cmp [ecx+0xB8] 0 setne no-xor; /O1
 ?get@Rva00211EF5CmpBoolField@@QBE_NXZ,,0x00211EF5,11,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp,matched,Disp32 ternary bool getter; cmp [ecx+0x228] 0 setne no-xor; /O1
-?get@Rva003598CBCmpBoolField@@QBE_NXZ,,0x003598CB,8,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp,matched,Disp8 ternary bool getter; cmp [ecx+0x40] 0 setne no-xor; /O1
+?get@Rva003598CBCmpBoolField@@QBE_NXZ,,0x003598CB,8,Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp,matched,Disp8 ternary bool getter; cmp [ecx+0x40] 0 setne no-xor; /O1
 ?get@Rva0026FC63CmpBoolField@@QBE_NXZ,,0x0026FC63,12,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp,matched,Disp32 cmp-zero bool getter; cmp [ecx+0x260] eax setne; /O1
 ?get@Rva0027C1F2CmpBoolField@@QBE_NXZ,,0x0027C1F2,12,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp,matched,Disp32 cmp-zero bool getter; cmp [ecx+0x1B4] eax setg; /O1
 ?get@Rva0028A842CmpBoolField@@QBE_NXZ,,0x0028A842,9,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp,matched,Disp8 cmp-zero bool getter; cmp [ecx+0x28] eax setne; /O1
