@@ -194,12 +194,14 @@ class W3DShadowManager;
 //#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
 
 
+
 #endif
 #define DEFAULT_RENDER_TARGET_WIDTH			512
 #define DEFAULT_RENDER_TARGET_HEIGHT		512
 #define SHADOW_DECAL_FVF	D3DFVF_XYZ|D3DFVF_TEX1|D3DFVF_DIFFUSE
 #if defined(_DEBUG) || defined(_INTERNAL)
 // ?getRenderCost@W3DProjectedShadow@@ present-unmatched
+
 
 
 
@@ -221,6 +223,24 @@ public:
 };
 #pragma inline_depth(0)
 #include "BfmeShadowPrefix.h"
+#pragma inline_depth()
+#define Matrix4x4 Matrix4  // BFME renamed it
+#include "../../../../../../reference/shims/bfmestreak/ref_ptr.h"
+// RefCountPtr<TextureClass>::~RefCountPtr is the out-of-line retail body; its owner row binds it.
+template <> RefCountPtr<TextureClass>::~RefCountPtr();
+// Retail 0x00108BB4..0x00108CA8 and WB 0x008D7020 establish this constructor
+// and the two base subobjects, the owned texture at +0x30, and the name at
+// +0x10. The donor supplies the math interfaces; retail orders their member
+// initialization before construction of the next array. RefCountPtr is the
+// existing GeneralsMD ownership template, including its unwind lifetime.
+W3DShadowTexture::W3DShadowTexture()
+ : m_lastLightPosition(0,0,0), m_lastObjectOrientation(true)
+{
+	m_namebuf[0] = 0;
+	m_shadowUV[0].Set(1.0f,0.0f,0.0f);	//u runs along world x axis
+	m_shadowUV[1].Set(0.0f,-1.0f,0.0f);	//v runs along world -y axis
+}
+#pragma inline_depth(0)
 #pragma inline_depth()
 
 // Native 10C578..10C6C4; WB8D61F0 independently names addShadow.
@@ -441,6 +461,7 @@ private:
 // zeroes them with and [m],0. Evidence: rowed callee 0x00108AD8 plus callers
 // at 0x0009A406 and 0x0010C7B3. Precedent: /O1 and-zero shape.
 class HashTableClass;
+
 class Rva00108AD8
 {
 public:
@@ -613,7 +634,9 @@ public:
 TextureClass *snow=NULL;
 
 
+
 TextureClass *grass=NULL;
+
 
 
 TextureClass *ground=NULL;
@@ -632,6 +655,7 @@ enum BlendDirection
 	B_TR,	//visible on top/right 
 	B_BL	//visilbe on bottom/left
 };
+
 
 
 
@@ -654,7 +678,9 @@ DWORD BDToVA[9][4]=
 
 
 
+
 //Debug code used to draw some dummy polygons.
+
 
 
 
@@ -870,7 +896,154 @@ public:
 	Rva007AE3B0Vec m_vec;
 };
 
+// ?rva001091A8@Rva00108660ResourceManager@@QAEXPAX@Z, retail 0x001091A8 (142 bytes, RET 4;
+// caller 0x00109DA6): queue one projected shadow. A 0x0C00-type shadow whose fade has not
+// expired (+0x3C against the client frame, slot 31) restarts it through 0x00330A37 from its
+// stored timings (+0x40/+0x48/+0x50/+0x54, the +0x4C elapsed part subtracted unless -1);
+// otherwise a 0x3C61-type shadow goes into the +0x0C, +0x1C or +0x08 list by its +0x84/+0x85
+// selectors, and whatever is refused lands in the +0x04 list (0x00109129). Shape from the
+// WorldBuilder twin 0x008D6550: separate calls per elapsed case and per list (retail merges
+// them), field copies into locals first. Offsets are retail observations; names unknown.
+struct Rva001087BBNode;
+
+class BfmeDynamicNativeVB;
+
+class DX8IndexBufferClass;
+
+class Rva00108660ResourceManager
+{
+public:
+	bool ReAcquireResources();
+	void rva001091A8(void *shadowArg);
+	char m_pad00[0x4];
+private:
+	Rva001087BBNode *m_head04; // +0x04
+	Rva001087BBNode *m_head08; // +0x08
+	Rva001087BBNode *m_head0C; // +0x0C
+	char m_pad10[0xC];
+	Rva001087BBNode *m_head1C; // +0x1C
+	char m_pad20[0x234];
+	BfmeDynamicNativeVB *m_vb; // +0x254
+	DX8IndexBufferClass *m_ib; // +0x258
+};
+
+// The fields this queue reads, at retail offsets; W3DProjectedShadow's own header spells a different layout.
+class Rva001091A8ShadowView
+{
+public:
+    char m_unknown00[0x34];
+    unsigned short m_type;          // +0x34
+    char m_unknown36[0x3c - 0x36];
+    unsigned int m_expireFrame;     // +0x3C
+    int m_40;
+    int m_unknown44;
+    int m_48;
+    int m_elapsed;                  // +0x4C, -1 when unset
+    int m_total;                    // +0x50
+    int m_54;
+    char m_unknown58[0x84 - 0x58];
+    bool m_list0C;                  // +0x84
+    bool m_list1C;                  // +0x85
+
+};
+
+class Rva00330A37 { public: void rva00330A37(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8); };
+
+struct ShadowList;
+
+class Rva00109129
+{
+public:
+	bool rva00109129(W3DProjectedShadow*,ShadowList*);
+	char m_pad00[0x10];
+	W3DProjectedShadow *free; // +0x10
+	char m_pad14[0x23C];
+	int decalCount; // +0x250
+};
+
+class Rva001091A8ClientView
+{
+public:
+    virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03(); virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
+    virtual void v08(); virtual void v09(); virtual void v0A(); virtual void v0B(); virtual void v0C(); virtual void v0D(); virtual void v0E(); virtual void v0F();
+    virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15(); virtual void v16(); virtual void v17();
+    virtual void v18(); virtual void v19(); virtual void v1A(); virtual void v1B(); virtual void v1C(); virtual void v1D(); virtual void v1E();
+    virtual unsigned int getFrame();    // slot 31 (+0x7C)
+};
+
+class GameClient;
+
+extern GameClient *TheGameClient;
+
+class Rva00109610 : public Rva000F0F2B
+{
+public:
+	Rva00109610();
+	virtual ~Rva00109610();
+};
+
+//
+// ?create@Rva0010BB11ShadowFactory@@QAEPAVW3DProjectedShadow@@PAVW3DShadowTexture@@PAVRenderObjClass@@HEMMMMMPAXEHE@Z,
+// retail 0x0010BB11..0x0010BC90 (383B), thiscall ret 0x34.
+//
+// BFME 2's pooled projected-decal factory: it takes a decal from the
+// manager's free list (+0x10, linked through +0x114) and resets it, or
+// allocates a fresh 0x118-byte one; sets the stencil/timed flags, owner,
+// both textures, type and sizes (with offsets stored as offset/size); and
+// splices it into the caller's list right after the first decal using the
+// same texture pair, so draws batch by texture. Decal types 1, 0x20, 0x40,
+// 0x400, 0x800, 0x1000 and 0x2000 are counted at +0x250.
+//
+// Evidence (target): WorldBuilder twin 0x8D5330 has the same statements;
+// callers such as 0x0010C065 and 0x0010C6B9 push the thirteen arguments.
+// Callees are the rowed decal constructor 0x0010BA2C, its reset 0x0010BA61
+// and setReferenced 0x00108538. Class and field names are the ledger's
+// address-derived owners; the manager's original method name is unknown.
+
+typedef int Int;
+
+typedef bool Bool;
+
+typedef float Real;
+
+typedef unsigned char UnsignedByte;
+
+class Rva007AE5E0Referenced;
+
+// The rowed owner binding 0x00108538.
+class Rva007AE5E0Owner
+{
+public:
+	void setReferenced(Rva007AE5E0Referenced *owner);
+};
+
+// The decal's fields at retail offsets; W3DProjectedShadow's own header spells a different layout.
+class Rva0010BB11DecalView
+{
+public:
+	char m_pad00[0x34];
+	Int m_type;				// +0x34
+	char m_pad38[0x58 - 0x38];
+	Real m_sizeX;				// +0x58
+	Real m_sizeY;				// +0x5C
+	Real m_value60;				// +0x60
+	char m_pad64[0x68 - 0x64];
+	W3DShadowTexture *m_texture[2];		// +0x68
+	char m_pad70[0x74 - 0x70];
+	UnsignedByte m_flag74;			// +0x74
+	char m_pad75[0x78 - 0x75];
+	Real m_offsetU;				// +0x78
+	Real m_offsetV;				// +0x7C
+	Int m_value80;				// +0x80
+	Bool m_flag84;				// +0x84
+	Bool m_flag85;				// +0x85
+	char m_pad86[0x114 - 0x86];
+	Rva0010BB11DecalView *m_next;		// +0x114
+};
+
 // tu-skeleton: 0x0010713A 24B ?rva0010713A@W3DProjectedShadowManager@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/VslotMiscForwarders.cpp (not merged yet)
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp
 
@@ -1270,34 +1443,6 @@ void Rva0010BA61::rva0010BA61()
 	((Rva0010BA2COwner *)this)->rva00108895();
 }
 
-// tu-skeleton: 0x0010716D 127B ?ReAcquireResources@W3DProjectedShadowManager@@QAE_NXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowManagerReAcquire.cpp (not merged yet)
-
-// tu-skeleton: 0x001072C9 125B ?rva001072C9@W3DProjectedShadowManager@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowManagerReAcquire.cpp (not merged yet)
-
-// tu-skeleton: 0x001085FB 8B ?setBoundingBox@W3DShadowTexture@@QAEXAAURegion3D@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowUpdateTexture.cpp (not merged yet)
-
-// tu-skeleton: 0x0010863C 20B ??0HAnimManagerIterator@@QAE@AAVHAnimManagerClass@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/hanimmgr.cpp (not merged yet)
-
-// tu-skeleton: 0x00108650 7B ??1Rva000EFA0E@@UAE@XZ -- matched in Code/GameEngine/Source/Common/InlineDtorDeletingDtorsC01.cpp (not merged yet)
-
-// tu-skeleton: 0x00108660 140B ?ReAcquireResources@Rva00108660ResourceManager@@QAE_NXZ -- matched in Code/GameEngine/Source/Common/Rva00108660ReAcquire.cpp (not merged yet)
-
-// tu-skeleton: 0x001086EC 164B ?layerHeightRva001086EC@@YAMPAVRenderObjClass@@ABVRva00108E7AVector@@AAV2@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowDecalHelpers.cpp (not merged yet)
-
-// tu-skeleton: 0x00108790 22B ?forward@W3DProjectedShadowManager@@UAEXIII@Z -- matched in Code/GameEngine/Source/Common/Rva007AE9C0Dispatch.cpp (not merged yet)
-
-// tu-skeleton: 0x001087A6 21B ?forwardIf@W3DProjectedShadowManager@@UAEIIPAXII@Z -- matched in Code/GameEngine/Source/Common/Rva007AE9C0Dispatch.cpp (not merged yet)
-
-// tu-skeleton: 0x001087BB 66B ?rva001087BB@Rva00108660ResourceManager@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowManagerToggleLists.cpp (not merged yet)
-
-// tu-skeleton: 0x001087FD 69B ?rva001087FD@Rva00108660ResourceManager@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowManagerToggleLists.cpp (not merged yet)
-
-// tu-skeleton: 0x001088F6 59B ?rva007AEC10@W3DProjectedShadow@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowRva007AEC10.cpp (not merged yet)
-
-// tu-skeleton: 0x00108931 32B ?rva00108931@W3DProjectedShadow@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowRva007AEC10.cpp (not merged yet)
-
-// tu-skeleton: 0x00108951 25B ?rva00108951@W3DProjectedShadow@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowRva007AEC10.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva007AECC0Slot.cpp
 
 void Rva007AECC0Slot::set(unsigned int index, int value)
@@ -1344,6 +1489,41 @@ Rva00108A0B::Rva00108A0B()
 {
 }
 
+// ---- from Code/GameEngine/Source/Common/Rva007AE3B0Copy.cpp
+
+void Rva007AE3B0Copy::copyTo(Rva007AE3B0Vec *out)
+{
+	*out = m_vec;
+}
+
+// tu-skeleton: 0x0010716D 127B ?ReAcquireResources@W3DProjectedShadowManager@@QAE_NXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowManagerReAcquire.cpp (not merged yet)
+
+// tu-skeleton: 0x001072C9 125B ?rva001072C9@W3DProjectedShadowManager@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowManagerReAcquire.cpp (not merged yet)
+
+// tu-skeleton: 0x001085FB 8B ?setBoundingBox@W3DShadowTexture@@QAEXAAURegion3D@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowUpdateTexture.cpp (not merged yet)
+
+// tu-skeleton: 0x0010863C 20B ??0HAnimManagerIterator@@QAE@AAVHAnimManagerClass@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/hanimmgr.cpp (not merged yet)
+
+// tu-skeleton: 0x00108650 7B ??1Rva000EFA0E@@UAE@XZ -- matched in Code/GameEngine/Source/Common/InlineDtorDeletingDtorsC01.cpp (not merged yet)
+
+// tu-skeleton: 0x00108660 140B ?ReAcquireResources@Rva00108660ResourceManager@@QAE_NXZ -- matched in Code/GameEngine/Source/Common/Rva00108660ReAcquire.cpp (not merged yet)
+
+// tu-skeleton: 0x001086EC 164B ?layerHeightRva001086EC@@YAMPAVRenderObjClass@@ABVRva00108E7AVector@@AAV2@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowDecalHelpers.cpp (not merged yet)
+
+// tu-skeleton: 0x00108790 22B ?forward@W3DProjectedShadowManager@@UAEXIII@Z -- matched in Code/GameEngine/Source/Common/Rva007AE9C0Dispatch.cpp (not merged yet)
+
+// tu-skeleton: 0x001087A6 21B ?forwardIf@W3DProjectedShadowManager@@UAEIIPAXII@Z -- matched in Code/GameEngine/Source/Common/Rva007AE9C0Dispatch.cpp (not merged yet)
+
+// tu-skeleton: 0x001087BB 66B ?rva001087BB@Rva00108660ResourceManager@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowManagerToggleLists.cpp (not merged yet)
+
+// tu-skeleton: 0x001087FD 69B ?rva001087FD@Rva00108660ResourceManager@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowManagerToggleLists.cpp (not merged yet)
+
+// tu-skeleton: 0x001088F6 59B ?rva007AEC10@W3DProjectedShadow@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowRva007AEC10.cpp (not merged yet)
+
+// tu-skeleton: 0x00108931 32B ?rva00108931@W3DProjectedShadow@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowRva007AEC10.cpp (not merged yet)
+
+// tu-skeleton: 0x00108951 25B ?rva00108951@W3DProjectedShadow@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowRva007AEC10.cpp (not merged yet)
+
 // tu-skeleton: 0x00108AD8 95B ?invalidateCachedLightPositions@Rva00108AD8@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva00108AD8Finish.cpp (not merged yet)
 
 // tu-skeleton: 0x00108B37 15B ?clear@Rva00108B37Pair@@QAEPAU1@XZ -- matched in Code/GameEngine/Source/Common/Disp8BinaryAddGetters.cpp (not merged yet)
@@ -1352,18 +1532,27 @@ Rva00108A0B::Rva00108A0B()
 
 // tu-skeleton: 0x00108B4D 7B ??1Rva00108B4D@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/Rva007AE3B0Copy.cpp
-
-void Rva007AE3B0Copy::copyTo(Rva007AE3B0Vec *out)
-{
-	*out = m_vec;
-}
-
 // tu-skeleton: 0x00108B65 46B ??0AABoxClass@@QAE@ABVVector3@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWMath/aabtreecull.cpp (not merged yet)
 
 // tu-skeleton: 0x00108B93 33B ?Rva00108B93Make@@YA?AVRva000B3F84Pair@@PBD@Z -- matched in Code/GameEngine/Source/Main/WinMainPairUnicode.cpp (not merged yet)
 
-// tu-skeleton: 0x00108BB4 244B ??0W3DShadowTexture@@QAE@XZ -- matched in Code/GameEngine/Source/Common/W3DShadowTextureCtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/W3DShadowTextureCtor.cpp
+
+////////////////////////////////////////////////////////////////////////////////
+
+// FILE: W3DTextureShadow.cpp ///////////////////////////////////////////////////////////
+//
+// Texture based shadow representation.
+//
+// Author: Mark Wilczynski, February 2002
+//
+//
+///////////////////////////////////////////////////////////////////////////////
+
+// USER INCLUDES //////////////////////////////////////////////////////////////
+
+// Pull in the shim RenderObjClass (BFME vtable layout stubs) before any WW3D2
+// header grabs the ZH reference rendobj.h; both share include guard RENDOBJ_H.
 
 // tu-skeleton: 0x00108CC4 75B ??1W3DShadowTexture@@UAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowTextureDestructor.cpp (not merged yet)
 
@@ -1381,7 +1570,41 @@ void Rva007AE3B0Copy::copyTo(Rva007AE3B0Vec *out)
 
 // tu-skeleton: 0x00109129 127B ?rva00109129@Rva00109129@@QAE_NPAVW3DProjectedShadow@@PAUShadowList@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/Rva00109129ShadowUnlink.cpp (not merged yet)
 
-// tu-skeleton: 0x001091A8 142B ?rva001091A8@Rva00108660ResourceManager@@QAEXPAX@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/Rva001091A8ShadowQueue.cpp (not merged yet)
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/Rva001091A8ShadowQueue.cpp
+
+void Rva00108660ResourceManager::rva001091A8(void *shadowArg)
+{
+    Rva001091A8ShadowView *shadow = (Rva001091A8ShadowView *)shadowArg;
+    if ((shadow->m_type & 0x0C00) && shadow->m_expireFrame > ((Rva001091A8ClientView *)TheGameClient)->getFrame())
+    {
+        int v40 = shadow->m_40;
+        int v48 = shadow->m_48;
+        int elapsed = shadow->m_elapsed;
+        int total = shadow->m_total;
+        int v54 = shadow->m_54;
+        if (elapsed == -1)
+            ((Rva00330A37 *)shadow)->rva00330A37(0, total, v40, 0, v48, 0, total, v54);
+        else
+            ((Rva00330A37 *)shadow)->rva00330A37(0, total - elapsed, v40, 0, v48, 0, total - elapsed, v54);
+        return;
+    }
+    if (shadow->m_type & 0x3C61)
+    {
+        if (shadow->m_list0C)
+        {
+            if (((Rva00109129 *)this)->rva00109129((W3DProjectedShadow *)shadow, (ShadowList *)&m_head0C))
+                return;
+        }
+        else if (shadow->m_list1C)
+        {
+            if (((Rva00109129 *)this)->rva00109129((W3DProjectedShadow *)shadow, (ShadowList *)&m_head1C))
+                return;
+        }
+        else if (((Rva00109129 *)this)->rva00109129((W3DProjectedShadow *)shadow, (ShadowList *)&m_head08))
+            return;
+    }
+    ((Rva00109129 *)this)->rva00109129((W3DProjectedShadow *)shadow, (ShadowList *)&m_head04);
+}
 
 // tu-skeleton: 0x0010930F 467B ?updateTexture@W3DProjectedShadow@@QAEXAAVVector3@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowUpdateTexture.cpp (not merged yet)
 
@@ -1397,7 +1620,34 @@ void Rva007AE3B0Copy::copyTo(Rva007AE3B0Vec *out)
 
 // tu-skeleton: 0x0010A736 4737B ?queueDualDecal@W3DProjectedShadowManager@@QAEXPAVW3DDualProjectedShadow@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowDecalHelpers.cpp (not merged yet)
 
-// tu-skeleton: 0x0010B9B7 18B ??0Rva001095B2@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva001095B2Ctor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva001095B2Ctor.cpp
+
+// ??0Rva001095B2@@QAE@XZ @0x0010B9B7 (18B) and ??0Rva00109610@@QAE@XZ @0x0010BA71 (18B).
+// Derived default constructors of the two shadow-family classes whose destructors are rowed
+// at 0x001095B2 (Rva001095B2Dtor.cpp) and 0x00109610 (Rva00109610Dtor.cpp) and whose scalar
+// deleting destructors are 0x0010B9C9 / 0x0010BA83. Each calls its out-of-line base ctor and
+// stores its own vtable (0x007CF9F4 / 0x007CFA00): the first over Rva007B1380 (rowed ctor
+// 0x00109D8C), the second over Rva000F0F2B (rowed ctor 0x000F0F2B). Bases are declared only as
+// far as the ctor call and virtual dispatch need. The first slot is the deleting destructor,
+// as in Rva001095B2Dtor.cpp and Rva00109610Dtor.cpp.
+
+Rva001095B2::Rva001095B2()
+{
+}
+
+// Select-any like the W3DProjectedShadowInit.cpp copy (this retail body comes
+// first in link order, so it is the copy the link keeps); the anchor keeps the
+// body emitted.
+inline Rva00109610::Rva00109610()
+{
+}
+
+// Retain the inline body's ledger emission without changing its callers.
+// ?bfmeEmitRva00109610Ctor@@YAXPAVRva00109610@@@Z absent-from-retail
+void bfmeEmitRva00109610Ctor(Rva00109610 *p)
+{
+	p->Rva00109610::Rva00109610();
+}
 
 // tu-skeleton: 0x0010B9C9 28B ??_GRva001095B2@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB01.cpp (not merged yet)
 
@@ -1405,15 +1655,104 @@ void Rva007AE3B0Copy::copyTo(Rva007AE3B0Vec *out)
 
 // tu-skeleton: 0x0010BA2C 25B ??0Rva0010BA2COwner@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/Rva0010BA2COwnerCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x0010BA71 18B ??0Rva00109610@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva001095B2Ctor.cpp (not merged yet)
-
 // tu-skeleton: 0x0010BA83 28B ??_GRva00109610@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva00109610Dtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0010BA9F 101B ??BWinMainTitlePair@@QAE?AVAsciiString@@XZ -- matched in Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp (not merged yet)
 
 // tu-skeleton: 0x0010BB04 13B ?rva0010BB04@Rva0010BB04Host@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotMiscForwarders.cpp (not merged yet)
 
-// tu-skeleton: 0x0010BB11 383B ?create@Rva0010BB11ShadowFactory@@QAEPAVW3DProjectedShadow@@PAVW3DShadowTexture@@PAVRenderObjClass@@HEMMMMMPAXEHE@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/Rva0010BB11ShadowFactory.cpp (not merged yet)
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/Rva0010BB11ShadowFactory.cpp
+
+// Its callers keep the out-of-line call retail makes.
+__declspec(noinline) W3DProjectedShadow *Rva0010BB11ShadowFactory::create(W3DShadowTexture *texture, RenderObjClass *robj, Int type,
+	UnsignedByte flag, Real sizeX, Real sizeY, Real value, Real offsetU, Real offsetV,
+	void *list, UnsignedByte flag84, Int secondTexture, UnsignedByte flag85)
+{
+	if (!texture)
+		return 0;
+	if (flag85 && !secondTexture)
+		return 0;
+
+	Rva0010BB11DecalView *shadow;
+	if (m_freeList)
+	{
+		shadow = (Rva0010BB11DecalView *)m_freeList;
+		m_freeList = (W3DProjectedShadow *)shadow->m_next;
+		reinterpret_cast<Rva0010BA61 *>(shadow)->rva0010BA61();
+	}
+	else
+	{
+		Rva0010BA2COwner *owner = new Rva0010BA2COwner;
+		shadow = reinterpret_cast<Rva0010BB11DecalView *>(owner);	// allocated through a local, as retail merges the new result once
+	}
+
+	if (!shadow)
+		return 0;
+
+	if (flag84)
+		shadow->m_flag84 = true;
+	else if (flag85)
+		shadow->m_flag85 = true;
+
+	Int shadowType = type;
+	reinterpret_cast<Rva007AE5E0Owner *>(shadow)->setReferenced(reinterpret_cast<Rva007AE5E0Referenced *>(robj));
+	// Texture stages are written through a running index (WorldBuilder computes
+	// both offsets from it), which also fixes retail's store order.
+	Int stage = 0;
+	shadow->m_texture[stage] = texture;
+	stage = 1;
+	shadow->m_texture[stage] = reinterpret_cast<W3DShadowTexture *>(secondTexture);
+	shadow->m_type = shadowType;
+	shadow->m_flag74 = flag;
+	shadow->m_value80 = 0;
+	shadow->m_sizeX = sizeX;
+	shadow->m_sizeY = sizeY;
+	shadow->m_value60 = value;
+	if (sizeX == 0.0f)
+		shadow->m_offsetU = 0.0f;
+	else
+		shadow->m_offsetU = offsetU / sizeX;
+	if (sizeY == 0.0f)
+		shadow->m_offsetV = 0.0f;
+	else
+		shadow->m_offsetV = offsetV / sizeY;
+
+	// Keep decals sharing a texture pair together so they draw in one batch.
+	Rva0010BB11DecalView **head = reinterpret_cast<Rva0010BB11DecalView **>(list);
+	Rva0010BB11DecalView *prev = 0;
+	Rva0010BB11DecalView *cur;
+	for (cur = *head; cur; prev = cur, cur = cur->m_next)
+	{
+		if (cur->m_texture[0] == texture && cur->m_texture[1] == reinterpret_cast<W3DShadowTexture *>(secondTexture))
+		{
+			shadow->m_next = cur;
+			if (prev)
+				prev->m_next = shadow;
+			else
+				*head = shadow;
+			break;
+		}
+	}
+	if (!cur)
+	{
+		shadow->m_next = *head;
+		*head = shadow;
+	}
+
+	switch (shadow->m_type)
+	{
+	case 1:
+	case 0x20:
+	case 0x40:
+	case 0x400:
+	case 0x800:
+	case 0x1000:
+	case 0x2000:
+		m_counted++;
+		break;
+	}
+	return (W3DProjectedShadow *)shadow;
+}
 
 // tu-skeleton: 0x0010BC90 360B ?getTexture@Rva0010BC90ShadowManager@@QAEPAVW3DShadowTexture@@PBD@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowManagerRva0010C145.cpp (not merged yet)
 
@@ -1434,14 +1773,6 @@ void Rva007AE3B0Copy::copyTo(Rva007AE3B0Vec *out)
 // tu-skeleton: 0x0010DA71 1218B ?rva0010DA71@W3DProjectedShadowManager@@QAEHAAVRenderInfoClass@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowRenderShadows.cpp (not merged yet)
 
 // tu-skeleton: 0x0010DF33 1359B ?rva0010DF33@W3DProjectedShadowManager@@QAEHAAVRenderInfoClass@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowRenderShadows.cpp (not merged yet)
-
-// tu-skeleton: 0x0076452D 8B Unwind@00b6452d -- matched in Code/GameEngine/Source/Common/W3DShadowTextureCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00764535 11B Unwind@00b64535 -- matched in Code/GameEngine/Source/Common/W3DShadowTextureCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00764540 11B Unwind@00b64540 -- matched in Code/GameEngine/Source/Common/W3DShadowTextureCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076454B 10B __ehhandler$??0W3DShadowTexture@@QAE@XZ -- matched in Code/GameEngine/Source/Common/W3DShadowTextureCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00764555 8B Unwind@00b64555 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowTextureDestructor.cpp (not merged yet)
 
