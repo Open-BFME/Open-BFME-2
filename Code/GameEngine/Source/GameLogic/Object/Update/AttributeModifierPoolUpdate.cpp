@@ -11,6 +11,12 @@ enum UpdateSleepTime
 };
 #include "../../../../../Libraries/Include/Lib/BfmeE16.h"
 #pragma comment(linker, "/alternatename:?unused@BehaviorModuleOther@@EAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
+// ??$__copy@PAVRva00403927@@PAV1@H@_STL@@YAPAVRva00403927@@PAV1@00ABUrandom_access_iterator_tag@0@PAH@Z @0x004039E0 50B
+// _STL::__copy<Rva00403927> random-access loop, retail 50 bytes. Count via
+// idiv by stride 0x14, per-element operator= through the rowed 0x00403927.
+// Called by the 29B forwarding wrapper at 0x00403BD2 (copy dispatch with tag
+// and NULL distance). Dedicated TU so the operator= call stays external.
+class AsciiString;
 
 class AsciiString
 {
@@ -192,11 +198,46 @@ private:
 	_STL::vector<BfmeE16> m_vec;
 };
 
+class Rva00403927
+{
+public:
+    Rva00403927(const Rva00403927 &other);
+    Rva00403927 &operator=(const Rva00403927 &other);
+private:
+    int m_00;
+    int m_04;
+    _STL::vector<AsciiString> m_names;
+};
+
+template Rva00403927 *_STL::__copy(Rva00403927 *, Rva00403927 *, Rva00403927 *, const random_access_iterator_tag &, int *);
+
+namespace _STL
+{
+template <class InputIter, class OutputIter, class Distance>
+__declspec(noinline) OutputIter __copy(InputIter first, InputIter last, OutputIter result, const random_access_iterator_tag &, Distance *);
+
+template <>
+Rva00403927 *copy<Rva00403927 *, Rva00403927 *>(Rva00403927 *first, Rva00403927 *last, Rva00403927 *result)
+{
+    random_access_iterator_tag tag;
+    return __copy(first, last, result, tag, (int *)0);
+}
+}
+
 // tu-skeleton: 0x00403170 89B ?rva00403170@AttributeModifierPoolUpdate@@QAE_NIPBXH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierPoolUpdateCategory.cpp (not merged yet)
 
-// tu-skeleton: 0x004031C9 20B ?rva004031C9@AttributeModifierPoolUpdate@@QAEHH@Z -- matched in Code/GameEngine/Source/Common/AttributeModifierPoolUpdateRva.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/AttributeModifierPoolUpdateRva.cpp
+
+int AttributeModifierPoolUpdate::rva004031C9(int index)
+{
+	if (index < 15)
+		return m_poolCounts[index];
+	return 0;
+}
 
 // tu-skeleton: 0x004031DD 22B ?isCategoryDisabled@AttributeModifierPoolUpdate@@QAEEH@Z -- matched in Code/GameEngine/Source/Common/AttributeModifierPoolUpdate_isCategoryDisabled.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierPoolUpdate.cpp
 
 // ---- from Code/GameEngine/Source/Common/Rva004031F3.cpp
 
@@ -208,8 +249,6 @@ void Rva004031F3::rva004031F3(Obj *obj, Info *info)
 	obj->f30(&m02);
 	obj->f30(&m03);
 }
-
-// tu-skeleton: 0x00403233 71B ?Rva00403233Parse@@YAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/Common/INI/INIRangeCheckedParsers.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva0040327BGet.cpp
 
@@ -252,36 +291,6 @@ void *Rva0040327B::rva004032D3(Object *obj)
 	return m_c0[0];
 }
 
-// tu-skeleton: 0x0040332B 32B ?rva0040332B@Rva0040332B@@QBEHH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE20.cpp (not merged yet)
-
-// tu-skeleton: 0x0040334B 55B ?rva0040334B@Rva0040334B@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/Common/Rva0040334BLoop.cpp (not merged yet)
-
-// tu-skeleton: 0x00403382 147B ?rva00403382@AttributeModifierPoolUpdate@@QAE_NHPAMH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierPoolUpdateCategory.cpp (not merged yet)
-
-// tu-skeleton: 0x00403415 51B ?rva00403415@AttributeModifierPoolUpdate@@QAEXPAHH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierPoolUpdateRva03415.cpp (not merged yet)
-
-// tu-skeleton: 0x00403448 141B ?rva00403448@AttributeModifierPoolUpdate@@QAE_NHPAMHH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierPoolUpdateCategory.cpp (not merged yet)
-
-// tu-skeleton: 0x004034D5 71B ??0Rva00368270@@QAE@PAXVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/Rva00368270Ctor.cpp (not merged yet)
-
-// tu-skeleton: 0x0040351C 242B ?parseDelayedUpgradeTemplate@AttributeModifierContainer@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/System/AttributeModifier.cpp (not merged yet)
-
-// tu-skeleton: 0x0040360E 43B ??0BfmeStringRecord0040360E@@QAE@ABU0@@Z -- matched in Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp (not merged yet)
-
-// tu-skeleton: 0x00403639 45B ??$_Construct@UBfmeStringRecord0040360E@@U1@@_STL@@YAXPAUBfmeStringRecord0040360E@@ABU1@@Z -- matched in Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp (not merged yet)
-
-// tu-skeleton: 0x00403666 38B ??$__uninitialized_copy@PAUBfmeStringRecord0040360E@@PAU1@@_STL@@YAPAUBfmeStringRecord0040360E@@PAU1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
-
-// tu-skeleton: 0x0040368C 37B ??$__uninitialized_fill_n@PAUBfmeStringRecord0040360E@@IU1@@_STL@@YAPAUBfmeStringRecord0040360E@@PAU1@IABU1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
-
-// tu-skeleton: 0x004036B1 92B ?rva004036B1@Rva004036B1@@QAE_NPAXPAMPBV?$StringBase@D@@@Z -- matched in Code/GameEngine/Source/Common/Rva004036B1Finish.cpp (not merged yet)
-
-// tu-skeleton: 0x0040370D 55B ?erase@?$vector@VRva00297360Element@@V?$allocator@VRva00297360Element@@@_STL@@@_STL@@QAEPAVRva00297360Element@@PAV3@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0040370DFinish.cpp (not merged yet)
-
-// tu-skeleton: 0x00403744 483B ?rva00403744@AttributeModifierPoolUpdate@@QAEXABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/AttributeModifier.cpp (not merged yet)
-
-// tu-skeleton: 0x00403927 35B ??4Rva00403927@@QAEAAV0@ABV0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00403927Assign.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/Rva0040394ADefaultCtor.cpp
 
 // ??0Rva0040394A@@QAE@XZ @0x0040394A 22B
@@ -298,14 +307,6 @@ void *Rva0040327B::rva004032D3(Object *obj)
 Rva0040394A::Rva0040394A()
 {
 }
-
-// tu-skeleton: 0x00403960 63B ??1?$vector@VRva00297360Element@@V?$allocator@VRva00297360Element@@@_STL@@@_STL@@QAE@XZ -- matched in Code/GameEngine/Source/Common/FamilyVectorDtors_CodexSep26.cpp (not merged yet)
-
-// tu-skeleton: 0x0040399F 30B ?_M_clear@?$vector@VRva00297360Element@@V?$allocator@VRva00297360Element@@@_STL@@@_STL@@IAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorChains.cpp (not merged yet)
-
-// tu-skeleton: 0x004039BD 35B ??0Rva00403927@@QAE@ABV0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00403927Assign.cpp (not merged yet)
-
-// tu-skeleton: 0x004039E0 50B ??$__copy@PAVRva00403927@@PAV1@H@_STL@@YAPAVRva00403927@@PAV1@00ABUrandom_access_iterator_tag@0@PAH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00403927Copy.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierPoolUpdateCtor.cpp
 
@@ -346,6 +347,46 @@ AttributeModifierPoolUpdate::~AttributeModifierPoolUpdate()
 // each one has the same function in that slot (vftable addresses from matched vptr
 // stores). Bind them to the rows at those functions.
 
+// tu-skeleton: 0x00403233 71B ?Rva00403233Parse@@YAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/Common/INI/INIRangeCheckedParsers.cpp (not merged yet)
+
+// tu-skeleton: 0x0040332B 32B ?rva0040332B@Rva0040332B@@QBEHH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE20.cpp (not merged yet)
+
+// tu-skeleton: 0x0040334B 55B ?rva0040334B@Rva0040334B@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/Common/Rva0040334BLoop.cpp (not merged yet)
+
+// tu-skeleton: 0x00403382 147B ?rva00403382@AttributeModifierPoolUpdate@@QAE_NHPAMH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierPoolUpdateCategory.cpp (not merged yet)
+
+// tu-skeleton: 0x00403415 51B ?rva00403415@AttributeModifierPoolUpdate@@QAEXPAHH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierPoolUpdateRva03415.cpp (not merged yet)
+
+// tu-skeleton: 0x00403448 141B ?rva00403448@AttributeModifierPoolUpdate@@QAE_NHPAMHH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierPoolUpdateCategory.cpp (not merged yet)
+
+// tu-skeleton: 0x004034D5 71B ??0Rva00368270@@QAE@PAXVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/Rva00368270Ctor.cpp (not merged yet)
+
+// tu-skeleton: 0x0040351C 242B ?parseDelayedUpgradeTemplate@AttributeModifierContainer@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/System/AttributeModifier.cpp (not merged yet)
+
+// tu-skeleton: 0x0040360E 43B ??0BfmeStringRecord0040360E@@QAE@ABU0@@Z -- matched in Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp (not merged yet)
+
+// tu-skeleton: 0x00403639 45B ??$_Construct@UBfmeStringRecord0040360E@@U1@@_STL@@YAXPAUBfmeStringRecord0040360E@@ABU1@@Z -- matched in Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp (not merged yet)
+
+// tu-skeleton: 0x00403666 38B ??$__uninitialized_copy@PAUBfmeStringRecord0040360E@@PAU1@@_STL@@YAPAUBfmeStringRecord0040360E@@PAU1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
+
+// tu-skeleton: 0x0040368C 37B ??$__uninitialized_fill_n@PAUBfmeStringRecord0040360E@@IU1@@_STL@@YAPAUBfmeStringRecord0040360E@@PAU1@IABU1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
+
+// tu-skeleton: 0x004036B1 92B ?rva004036B1@Rva004036B1@@QAE_NPAXPAMPBV?$StringBase@D@@@Z -- matched in Code/GameEngine/Source/Common/Rva004036B1Finish.cpp (not merged yet)
+
+// tu-skeleton: 0x0040370D 55B ?erase@?$vector@VRva00297360Element@@V?$allocator@VRva00297360Element@@@_STL@@@_STL@@QAEPAVRva00297360Element@@PAV3@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0040370DFinish.cpp (not merged yet)
+
+// tu-skeleton: 0x00403744 483B ?rva00403744@AttributeModifierPoolUpdate@@QAEXABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/AttributeModifier.cpp (not merged yet)
+
+// tu-skeleton: 0x00403927 35B ??4Rva00403927@@QAEAAV0@ABV0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00403927Assign.cpp (not merged yet)
+
+// tu-skeleton: 0x00403960 63B ??1?$vector@VRva00297360Element@@V?$allocator@VRva00297360Element@@@_STL@@@_STL@@QAE@XZ -- matched in Code/GameEngine/Source/Common/FamilyVectorDtors_CodexSep26.cpp (not merged yet)
+
+// tu-skeleton: 0x0040399F 30B ?_M_clear@?$vector@VRva00297360Element@@V?$allocator@VRva00297360Element@@@_STL@@@_STL@@IAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorChains.cpp (not merged yet)
+
+// tu-skeleton: 0x004039BD 35B ??0Rva00403927@@QAE@ABV0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00403927Assign.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva00403927Copy.cpp
+
 // tu-skeleton: 0x00403A5B 6B ?name@AttributeModifierPoolUpdate@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters4.cpp (not merged yet)
 
 // tu-skeleton: 0x00403A61 69B ?getModuleNameKey@AttributeModifierPoolUpdate@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierPoolUpdatePoolKey.cpp (not merged yet)
@@ -358,7 +399,7 @@ AttributeModifierPoolUpdate::~AttributeModifierPoolUpdate()
 
 // tu-skeleton: 0x00403BAD 37B ??$__uninitialized_fill_n@PAVRva00403927@@IV1@@_STL@@YAPAVRva00403927@@PAV1@IABV1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00403927FillN.cpp (not merged yet)
 
-// tu-skeleton: 0x00403BD2 29B ??$copy@PAVRva00403927@@PAV1@@_STL@@YAPAVRva00403927@@PAV1@00@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00403927CopyWrapper.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva00403927CopyWrapper.cpp
 
 // tu-skeleton: 0x00403CA8 403B ?update@AttributeModifierPoolUpdate@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierPoolUpdateTick.cpp (not merged yet)
 
