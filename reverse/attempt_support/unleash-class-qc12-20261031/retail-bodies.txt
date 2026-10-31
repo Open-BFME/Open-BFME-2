@@ -1,0 +1,125 @@
+RVA004CE006 size49
+004CE006 push     esi
+004CE007 push     dword ptr [esp + 0xc]
+004CE00B mov      esi, ecx
+004CE00D push     dword ptr [esp + 0xc]
+004CE011 call     0x44ef5e
+004CE016 mov      dword ptr [esi], 0xc5fdc0
+004CE01C mov      dword ptr [esi + 0xc], 0xc4d640
+004CE023 mov      dword ptr [esi + 0x10], 0xc4dee8
+004CE02A mov      dword ptr [esi + 0x20], 0xc5fd98
+004CE031 mov      eax, esi
+004CE033 pop      esi
+004CE034 ret      8
+RVA004CE0D9 size177
+004CE0D9 mov      eax, 0xb90af5
+004CE0DE call     0x629188
+004CE0E3 push     esi
+004CE0E4 mov      esi, dword ptr [ecx - 0x18]
+004CE0E7 test     esi, esi
+004CE0E9 je       0x4ce186
+004CE0EF test     byte ptr [0xe043d8], 1
+004CE0F6 jne      0x4ce11c
+004CE0F8 or       dword ptr [0xe043d8], 1
+004CE0FF mov      ecx, dword ptr [0xdf36a4]
+004CE105 and      dword ptr [ebp - 4], 0
+004CE109 push     0xbf57f4
+004CE10E call     0x148e1a
+004CE113 or       dword ptr [ebp - 4], 0xffffffff
+004CE117 mov      dword ptr [0xe043d4], eax
+004CE11C push     dword ptr [0xe043d4]
+004CE122 mov      ecx, esi
+004CE124 call     0x28b6d6
+004CE129 test     eax, eax
+004CE12B je       0x4ce186
+004CE12D mov      ecx, eax
+004CE12F call     0x30d377
+004CE134 mov      ecx, dword ptr [0xdfe78c]
+004CE13A push     eax
+004CE13B call     0x49dc5
+004CE140 test     eax, eax
+004CE142 je       0x4ce186
+004CE144 test     byte ptr [eax + 0x438], 1
+004CE14B jne      0x4ce186
+004CE14D mov      esi, dword ptr [eax + 0x244]
+004CE153 jmp      0x4ce16f
+004CE155 lea      ecx, [eax + 0xc]
+004CE158 mov      eax, dword ptr [ecx]
+004CE15A call     dword ptr [eax + 0x68]
+004CE15D test     eax, eax
+004CE15F je       0x4ce16c
+004CE161 mov      edx, dword ptr [eax]
+004CE163 mov      ecx, eax
+004CE165 call     dword ptr [edx + 0x1c]
+004CE168 test     al, al
+004CE16A jne      0x4ce186
+004CE16C add      esi, 4
+004CE16F mov      eax, dword ptr [esi]
+004CE171 test     eax, eax
+004CE173 jne      0x4ce155
+004CE175 mov      al, 1
+004CE177 mov      ecx, dword ptr [ebp - 0xc]
+004CE17A pop      esi
+004CE17B mov      dword ptr fs:[0], ecx
+004CE182 leave    
+004CE183 ret      4
+004CE186 xor      al, al
+004CE188 jmp      0x4ce177
+RVA004CE18A size187
+004CE18A mov      eax, 0xb90b0c
+004CE18F call     0x629188
+004CE194 push     esi
+004CE195 mov      esi, ecx
+004CE197 call     0x45108d
+004CE19C mov      esi, dword ptr [esi + 8]
+004CE19F test     esi, esi
+004CE1A1 je       0x4ce238
+004CE1A7 test     byte ptr [0xe043e0], 1
+004CE1AE jne      0x4ce1d4
+004CE1B0 or       dword ptr [0xe043e0], 1
+004CE1B7 mov      ecx, dword ptr [0xdf36a4]
+004CE1BD and      dword ptr [ebp - 4], 0
+004CE1C1 push     0xbf57f4
+004CE1C6 call     0x148e1a
+004CE1CB or       dword ptr [ebp - 4], 0xffffffff
+004CE1CF mov      dword ptr [0xe043dc], eax
+004CE1D4 push     dword ptr [0xe043dc]
+004CE1DA mov      ecx, esi
+004CE1DC call     0x28b6d6
+004CE1E1 test     eax, eax
+004CE1E3 je       0x4ce238
+004CE1E5 push     edi
+004CE1E6 mov      ecx, eax
+004CE1E8 call     0x30d377
+004CE1ED mov      ecx, dword ptr [0xdfe78c]
+004CE1F3 push     eax
+004CE1F4 call     0x49dc5
+004CE1F9 mov      edi, eax
+004CE1FB test     edi, edi
+004CE1FD je       0x4ce237
+004CE1FF mov      esi, dword ptr [edi + 0x244]
+004CE205 jmp      0x4ce231
+004CE207 lea      ecx, [eax + 0xc]
+004CE20A mov      eax, dword ptr [ecx]
+004CE20C call     dword ptr [eax + 0x68]
+004CE20F test     eax, eax
+004CE211 je       0x4ce22e
+004CE213 mov      edx, dword ptr [eax]
+004CE215 mov      ecx, eax
+004CE217 call     dword ptr [edx + 0x18]
+004CE21A mov      eax, dword ptr [edi + 0x258]
+004CE220 test     eax, eax
+004CE222 je       0x4ce22e
+004CE224 push     2
+004CE226 lea      ecx, [eax + 0x20]
+004CE229 call     0x2ae657
+004CE22E add      esi, 4
+004CE231 mov      eax, dword ptr [esi]
+004CE233 test     eax, eax
+004CE235 jne      0x4ce207
+004CE237 pop      edi
+004CE238 mov      ecx, dword ptr [ebp - 0xc]
+004CE23B pop      esi
+004CE23C mov      dword ptr fs:[0], ecx
+004CE243 leave    
+004CE244 ret      
