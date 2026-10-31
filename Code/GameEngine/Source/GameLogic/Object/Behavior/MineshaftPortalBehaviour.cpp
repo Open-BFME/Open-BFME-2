@@ -406,14 +406,43 @@ struct Rva003732BFNode : _STL::_Rb_tree_node_base { int key; Rva00373158Group *g
 #define _BFME_RETAIL_TREE_INSERT_LAYOUT
 #include <set>
 #include <new>
+#include "ascii_string.h"
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+#include <math.h>
+#define _BFME_RETAIL_TREE_INSERT_LAYOUT
+namespace _STL {
+template<> __declspec(dllimport) __forceinline
+bool less<int>::operator()(const int& a,const int& b) const { return a < b; }
+}
+#include "../../../../../Libraries/Include/Lib/Coord3D.h"
+#define _BFME_RETAIL_TREE_INSERT_LAYOUT
+#define _BFME_RETAIL_TREE_INSERT_LAYOUT
+#include <stl/_algobase.h>
+// Retail's push_back overflow path (0x00148D00) calls the shared four-byte
+// allocate at 0x00068E15; this unit's malloc-wired copy differed from it.
+namespace _STL {
+template <> ScienceType *allocator<ScienceType>::allocate(size_t, const void *) const;
+}
+
 namespace _STL {
 template <> __declspec(dllimport) __forceinline
 _Rb_tree<int, pair<const int, void *>, _Select1st<pair<const int, void *> >, less<int>, allocator<pair<const int, void *> > >::~_Rb_tree()
 { clear(); }
 }
+
 typedef _STL::pair<const float, TreeOpaqueMapped00372FF4> TreeValue00372FF4;
+
 typedef _STL::_Rb_tree<float, TreeValue00372FF4, _STL::_Select1st<TreeValue00372FF4>, _STL::less<float>, _STL::allocator<TreeValue00372FF4> > Tree00372FF4;
+
 typedef _STL::_Rb_tree<int, int, _STL::_Identity<int>, _STL::less<int>, _STL::allocator<int> > SetIntTree;
+
 struct LocalTree {
     void *header;
     unsigned int count;
@@ -421,10 +450,7 @@ struct LocalTree {
     __forceinline LocalTree() { ((_STL::map<int, void *> *)this)->_STL::map<int, void *>::map(); }
     __forceinline ~LocalTree() { ((Rva00372F00 *)this)->~Rva00372F00(); }
 };
-static __forceinline void eraseFirst(LocalTree *tree) throw()
-{
-    ((SetIntTree *)tree)->erase(SetIntTree::iterator((SetIntTree::_Link_type)((_STL::_Rb_tree_node_base *)tree->header)->_M_left));
-}
+
 class Waypoint
 {
 public:
@@ -442,11 +468,17 @@ public:
 	int m_B0; // +0xB0
 	char m_padB4[0xC];
 };
+
 struct NetGroup : public _STL::vector<ObjectID> { bool changed; };
+
 struct NetNode : _STL::_Rb_tree_node_base { int key; NetGroup *group; };
+
 struct TreeNode : _STL::_Rb_tree_node_base { float key; ObjectID id; };
+
 class Player;
+
 class Rva00373B70Contain;
+
 extern void *TheMineshaftPortalNetworkManager;
 
 //
@@ -575,6 +607,77 @@ public:
     void addWaypoint(Waypoint *waypoint, Player *player);
     _STL::map<int, void *> m_map; // +0x10, after the 0xC subsystem base and the Snapshot pointer
 };
+
+typedef int WaypointID;
+
+const WaypointID INVALID_WAYPOINT_ID = 0x7FFFFFFF;
+
+void XferWaypointID(Xfer *xfer, WaypointID *value);
+
+void XferObjectID(Xfer *xfer, ObjectID *value);
+
+class TerrainLogic;
+
+// createWaypoint's geometry bounds: the rowed GeometryInfo helper 0x006BDEE0
+// fills two corners; the first positive x extent wins.
+struct Rva0087E650Bounds { Coord3D lo, hi; };
+
+class GeometryInfo { public: void rva0087E650(Rva0087E650Bounds *bounds); };
+
+// WWMath Vector3 subset used by createWaypoint (WB F3CD30 names
+// Vector3::Rotate_Z, vector3.h). As in the BFME 1 vector3.h donor, the angle
+// form forwards sinf(angle), cosf(angle) (the CRT inline float wrappers; sin
+// is called first) to the X-first two-argument rotate.
+struct Vector3
+{
+	float x, y, z;
+	Vector3(float a, float b, float c) : x(a), y(b), z(c) {}
+	__forceinline void Rotate_Z(float angle)
+	{
+		Rotate_Z(sinf(angle), cosf(angle));
+	}
+	__forceinline void Rotate_Z(float s_angle, float c_angle)
+	{
+		float tmp_x = x;
+		float tmp_y = y;
+		x = c_angle * tmp_x - s_angle * tmp_y;
+		y = s_angle * tmp_x + c_angle * tmp_y;
+	}
+};
+
+struct Rva003738F6Terrain
+{
+	virtual void slot0(); virtual void slot1(); virtual void slot2();
+	virtual void slot3(); virtual void slot4(); virtual void slot5();
+	virtual float groundHeight(float x, float y, void *normal);
+};
+
+// The 10.0f pad beyond the geometry's x extent: a four-byte .data float at
+// VA 0x00DC039C read only by createWaypoint (data_xrefs). Descriptive name;
+// the original identifier is unknown.
+float BfmeMineshaftPortalWaypointPad = 10.0f;
+
+// Emit the already-used enum-vector operations with their verified provider flags.
+template void _STL::vector<ObjectID>::push_back(const ObjectID &);
+
+template void _STL::vector<ObjectID>::_M_insert_overflow(ObjectID *,
+    const ObjectID &, const _STL::__false_type &, unsigned int, bool);
+
+class Rva00373373Portal;
+
+typedef std::map<int, Rva0037307F *> NetworkMap;
+
+template Tree00372FF4::~_Rb_tree();
+
+// The +0x10 map's values are vector<int> pointers (4B, same as int) here.
+typedef _STL::map<int, _STL::vector<int, _STL::allocator<int> > *, _STL::less<int>, _STL::allocator<_STL::pair<const int, _STL::vector<int, _STL::allocator<int> > *> > > UsableNetworkMap;
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviour.cpp
+
+static __forceinline void eraseFirst(LocalTree *tree) throw()
+{
+    ((SetIntTree *)tree)->erase(SetIntTree::iterator((SetIntTree::_Link_type)((_STL::_Rb_tree_node_base *)tree->header)->_M_left));
+}
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviour.cpp
 
@@ -789,31 +892,18 @@ UpdateSleepTime Rva0037343B::update()
 // every name is derived from its address.
 // No // cl: line (defaults match the shape).
 
-// tu-skeleton: 0x00372DFA 217B ?rva00372DFA@MineshaftPortalBehaviour@@QAEPAVWaypoint@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourNewWaypoint.cpp (not merged yet)
 
-// tu-skeleton: 0x00372ED3 45B ?_M_erase@?$_Rb_tree@MU?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@U?$_Select1st@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@U?$less@M@2@V?$allocator@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@@_STL@@AAEXPAU?$_Rb_tree_node@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_float_00372ff4.cpp (not merged yet)
 
-// tu-skeleton: 0x00372F00 45B ?rva00372F00@Rva00372F00@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
 
-// tu-skeleton: 0x00372F2D 41B ?clear@?$_Rb_tree@MU?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@U?$_Select1st@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@U?$less@M@2@V?$allocator@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_float_00372ff4.cpp (not merged yet)
 
-// tu-skeleton: 0x00372F56 41B ?rva00372F56@Rva00372F00@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
 
-// tu-skeleton: 0x00372F7F 5B ?clear@?$map@MUTreeOpaqueMapped00372FF4@@U?$less@M@_STL@@V?$allocator@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@3@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportMapForwardersSeat8.cpp (not merged yet)
 
-// tu-skeleton: 0x00372F84 56B ??1?$_Rb_tree@MU?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@U?$_Select1st@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@U?$less@M@2@V?$allocator@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_float_00372ff4_dtor.cpp (not merged yet)
 
-// tu-skeleton: 0x00372FBC 56B ??1Rva00372F00@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
 
-// tu-skeleton: 0x00372FF4 139B ?_M_insert@?$_Rb_tree@MU?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@U?$_Select1st@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@U?$less@M@2@V?$allocator@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@@_STL@@AAE?AU?$_Rb_tree_iterator@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@@2@PAU_Rb_tree_node_base@2@0ABU?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_float_00372ff4.cpp (not merged yet)
 
-// tu-skeleton: 0x00373096 96B ??0MineshaftPortalBehaviour@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x003730F6 6B ?Rva003730F6Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
-// tu-skeleton: 0x00373158 115B ?rva00373158@MineshaftPortalNetworkManager@@QAEXPAVRva00373373Portal@@H@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourLinkStep.cpp (not merged yet)
 
-// tu-skeleton: 0x00373278 71B ?hasUsableNetwork@MineshaftPortalNetworkManager@@QAE_NPAX@Z -- matched in Code/GameEngine/Source/Common/MineshaftPortalNetworkManager_hasUsableNetwork.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/MineshaftPortalCleanupRva00373373.cpp
 
@@ -829,16 +919,6 @@ void Rva003733B5Base::Init()
         registered = false;
     }
 }
-
-// tu-skeleton: 0x003733B5 19B ?Start@Rva003733B5Obj@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/Rva00082E1DInitFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x003733C8 73B ??0MineshaftPortalNetworkManager@@QAE@XZ -- matched in Code/GameEngine/Source/Common/MineshaftPortalNetworkManager.cpp (not merged yet)
-
-// tu-skeleton: 0x00373411 6B ?name@Rva00373411Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters4.cpp (not merged yet)
-
-// tu-skeleton: 0x00373417 8B ??_EMineshaftPortalNetworkManager@@WM@AEPAXI@Z -- matched in Code/GameEngine/Source/Common/MineshaftPortalNetworkManager.cpp (not merged yet)
-
-// tu-skeleton: 0x003734A4 28B ?addArrivingObject@MineshaftPortalBehaviour@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/MineshaftPortalBehaviour_addArrivingObject.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/MineshaftPortalNetworkManager_reset.cpp
 
@@ -954,27 +1034,245 @@ void MineshaftPortalNetworkManager::update()
     }
 }
 
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourNewWaypoint.cpp
+
+//
+// Link repair: retail native methods retain frames; delayed STLport instances
+// use /O1 frame omission and the verified bfmealloc provider. The complete
+// scalar ObjectID vector cleanup folds to 0x0007FAB3 (14B including free REL32);
+// its former 0x005F120F pin described a different 30B nontrivial-element clear.
+// Pin admission verifies every owner relocation, not only the masked bytes.
+//
+// ?rva00372DFA@MineshaftPortalBehaviour@@QAEPAVWaypoint@@PBUCoord3D@@@Z,
+// retail 0x00372DFA..0x00372ED3 (217B), thiscall ret 4.
+//
+// Allocates the portal's private Waypoint (0xC0 bytes): id 0x7FFFFFFE, name
+// "#mineshaftportal_wp", the given location, three empty labels, not
+// bi-directional, 8 and an empty trailing name (rowed
+// ??0Waypoint@@QAE@IVAsciiString@@PBUCoord3D@@000_NH0@Z 0x00282212). The
+// waypoint then takes the object's +0x74 word at +0xB0 and the module data's
+// +0x118 / +0x119 bytes at +0xA8 / +0xA9, and its +0x48 byte is cleared.
+//
+// Evidence (target): the only caller is MineshaftPortalBehaviour::createWaypoint
+// (unrowed 0x003738F6; WorldBuilder twin 0xF3CD30 carries that name) at
+// 0x003739E9 with ecx = the behaviour and the result stored at +0x34.
+// WorldBuilder twin 0xF3D100 (strings lead) reads the +0x04 module data
+// into a local before the new. The string literal is at 0x00817D9C; the
+// labels copy AsciiString::TheEmptyString (0x009E0878). Field names stay
+// address-derived.
+
+// Coord3D member-wise set, inlined at the use (WB F3CD30 builds pos from two
+// evaluated temporaries and a zero z before adding the object position).
+static __forceinline void setCoord(Coord3D *p, float x, float y, float z)
+{
+	p->x = x;
+	p->y = y;
+	p->z = z;
+}
+
+// Retain the retail frames only for the native methods below.
+
+#pragma optimize("y", off)
+
+Waypoint *MineshaftPortalBehaviour::rva00372DFA(const Coord3D *pos)
+{
+	const MineshaftPortalBehaviourModuleData *data = (const MineshaftPortalBehaviourModuleData *)m_moduleData;
+	Waypoint *wp = new Waypoint(0x7FFFFFFE, AsciiString("#mineshaftportal_wp"), pos,
+		AsciiString::TheEmptyString, AsciiString::TheEmptyString, AsciiString::TheEmptyString,
+		false, 8, AsciiString::TheEmptyString);
+	wp->m_B0 = m_object->m_id;
+	wp->m_A8 = data->m_trailingFlag0;
+	wp->m_A9 = data->m_trailingFlag1;
+	wp->m_48 = 0;
+	return wp;
+}
+
+void MineshaftPortalNetworkManager::addWaypoint(Waypoint *waypoint, Player *player)
+{
+    int key = player->key;
+    NetworkMap::iterator it = ((NetworkMap *)&m_map)->find(key);
+    if (it == ((NetworkMap *)&m_map)->end()) {
+        // Retail's allocation has no unwind state: the record constructor cannot throw.
+        Rva0037307F *record = (Rva0037307F *)::operator new(sizeof(Rva0037307F));
+        Rva0037307F *network = record ? &record->Rva0037307F::Rva0037307F() : 0;
+        int insertionKey = player->key;
+        (*(NetworkMap *)&m_map)[insertionKey] = network;
+        int lookupKey = player->key;
+        it = ((NetworkMap *)&m_map)->find(lookupKey);
+    }
+    ObjectID id = (ObjectID)waypoint->id;
+    ((_STL::vector<ObjectID> *)&it->second->m_vec)->push_back(id);
+    it->second->changed = true;
+}
+
+// DoXfer role named by WB F3D290 (MineshaftPortalBehaviour.cpp:231..267).
+// Native373A0F..373B54 RET4: UpdateModule transfer, light-CRC bypass,
+// version1/1; resolve and register the loaded waypoint or save its id;
+// transfer bytes38/39 and pending ObjectIDs at28. Original access and
+// virtual declaration are not asserted by this neutral method label.
+void MineshaftPortalBehaviour::DoXfer(Xfer *xfer)
+{
+    ((UpdateModule *)this)->xfer(xfer);
+    if (xfer->IsLightCRC())
+        return;
+    Xfer::Version version(1, 1);
+    *xfer == version;
+    if (xfer->IsLoading()) {
+        WaypointID id;
+        XferWaypointID(xfer, &id);
+        struct TerrainWaypointView {
+            virtual void slot0(); virtual void slot1(); virtual void slot2();
+            virtual void slot3(); virtual void slot4(); virtual void slot5();
+            virtual void slot6(); virtual void slot7(); virtual void slot8();
+            virtual void slot9(); virtual void slot10(); virtual void slot11();
+            virtual void slot12(); virtual void slot13(); virtual void slot14();
+            virtual void slot15(); virtual void slot16(); virtual void slot17();
+            virtual void slot18(); virtual void slot19(); virtual void slot20();
+            virtual void slot21(); virtual void slot22(); virtual void slot23();
+            virtual void slot24(); virtual void slot25(); virtual void slot26();
+            virtual void slot27(); virtual void slot28(); virtual void slot29();
+            virtual void slot30(); virtual void slot31(); virtual void slot32();
+            virtual void slot33(); virtual void slot34();
+            virtual Waypoint *findWaypoint(WaypointID id);
+        };
+        m_waypoint = id == INVALID_WAYPOINT_ID ? 0 : ((TerrainWaypointView *)TheTerrainLogic)->findWaypoint(id);
+        if (m_waypoint)
+            ((MineshaftPortalNetworkManager *)TheMineshaftPortalNetworkManager)->addWaypoint(m_waypoint, m_object->getControllingPlayer());
+    } else {
+        WaypointID id = m_waypoint ? m_waypoint->getID() : INVALID_WAYPOINT_ID;
+        XferWaypointID(xfer, &id);
+    }
+    *xfer == m_registered;
+    *xfer == m_mode39;
+    unsigned int count = m_pending.size();
+    *xfer == count;
+    if (xfer->IsStoring()) {
+        std::vector<ObjectID>::const_iterator end = m_pending.end();
+        for (std::vector<ObjectID>::const_iterator it = m_pending.begin(); it != end; ++it) {
+            ObjectID id = *it;
+            XferObjectID(xfer, &id);
+        }
+    } else if (xfer->IsLoading()) {
+        for (unsigned int i = 0; i < count; ++i) {
+            ObjectID id = INVALID_OBJECT_ID;
+            XferObjectID(xfer, &id);
+            m_pending.push_back(id);
+        }
+    }
+}
+
+// MineshaftPortalBehaviour::createWaypoint, retail 0x003738F6..0x00373A0F
+// (281 B). WB F3CD30 carries the name (MineshaftPortalBehaviour.cpp:188
+// asserts m_waypoint). Once per behaviour: place the private waypoint just
+// outside the geometry's x extent, rotated by the object's angle, on the
+// terrain, and register it with the portal network for the controlling player.
+void MineshaftPortalBehaviour::createWaypoint()
+{
+	if (!m_registered) {
+		float angle = m_object->angle;
+		Rva0087E650Bounds bounds;
+		m_object->geometry->rva0087E650(&bounds);
+		float extent = bounds.lo.x > 0.0f ? bounds.lo.x : bounds.hi.x;
+		Vector3 offset(extent + BfmeMineshaftPortalWaypointPad, 0.0f, 0.0f);
+		offset.Rotate_Z(angle);
+		Coord3D pos;
+		setCoord(&pos, offset.x, offset.y, 0.0f);
+		pos.x += m_object->x;
+		pos.y += m_object->y;
+		pos.z = ((Rva003738F6Terrain *)TheTerrainLogic)->groundHeight(pos.x, pos.y, 0);
+		m_waypoint = rva00372DFA(&pos);
+		((MineshaftPortalNetworkManager *)TheMineshaftPortalNetworkManager)->addWaypoint(
+			m_waypoint, m_object->getControllingPlayer());
+		m_registered = true;
+	}
+}
+
+// MSVC emits delayed template instances after the native methods.
+
+#pragma optimize("", on)
+
+// tu-skeleton: 0x00372ED3 45B ?_M_erase@?$_Rb_tree@MU?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@U?$_Select1st@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@U?$less@M@2@V?$allocator@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@@_STL@@AAEXPAU?$_Rb_tree_node@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_float_00372ff4.cpp (not merged yet)
+
+// tu-skeleton: 0x00372F00 45B ?rva00372F00@Rva00372F00@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x00372F2D 41B ?clear@?$_Rb_tree@MU?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@U?$_Select1st@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@U?$less@M@2@V?$allocator@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_float_00372ff4.cpp (not merged yet)
+
+// tu-skeleton: 0x00372F56 41B ?rva00372F56@Rva00372F00@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x00372F7F 5B ?clear@?$map@MUTreeOpaqueMapped00372FF4@@U?$less@M@_STL@@V?$allocator@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@3@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportMapForwardersSeat8.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_float_00372ff4_dtor.cpp
+
+//
+// The destructor of the float-keyed tree whose insert and clear are rowed in
+// stlport_rb_tree_float_00372ff4.cpp: 0x00372F84, 56B. Target evidence: the
+// body is the EH-framed STLport _Rb_tree destructor rowed for
+// map<int, vector<unsigned> > at 0x0021E0FC (CreateAHeroDataDtor.cpp), with its
+// clear call landing on this tree's rowed clear (0x00372F2D); only the call
+// target and the frame's own __ehhandler differ. That unit builds without EH,
+// so the destructor lives here, with the flags of the unit whose twin it is.
+// The tree's node and value view are copied from that unit.
+
+// tu-skeleton: 0x00372FBC 56B ??1Rva00372F00@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x00372FF4 139B ?_M_insert@?$_Rb_tree@MU?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@U?$_Select1st@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@U?$less@M@2@V?$allocator@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@@_STL@@AAE?AU?$_Rb_tree_iterator@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@@2@PAU_Rb_tree_node_base@2@0ABU?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_float_00372ff4.cpp (not merged yet)
+
+// tu-skeleton: 0x00373096 96B ??0MineshaftPortalBehaviour@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x003730F6 6B ?Rva003730F6Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x00373158 115B ?rva00373158@MineshaftPortalNetworkManager@@QAEXPAVRva00373373Portal@@H@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourLinkStep.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/MineshaftPortalNetworkManager_hasUsableNetwork.cpp
+
+// MineshaftPortalNetworkManager::hasUsableNetwork (WorldBuilder name, MineshaftPortalBehaviour.cpp line 511: find in the +0x10 network map).
+//
+// was ?rva00373278@Rva00373278@@QAE_NPAX@Z, retail 0x00373278 71B.
+// Map lookup plus vector size check: null param plus int key at +0x54 via
+// rowed Rb_tree _M_find 0x00388F63 plus empty plus size>1 via sbb/neg.
+// Evidence: this+0x10 map plus caller 0x002F7265 plus rowed callee.
+
+bool MineshaftPortalNetworkManager::hasUsableNetwork(void *p)
+{
+	if (p == 0)
+		return false;
+	int key = *(int *)((char *)p + 0x54);
+	UsableNetworkMap::iterator it = ((UsableNetworkMap *)&m_map)->find(key);
+	if (it == ((UsableNetworkMap *)&m_map)->end())
+		return false;
+	if (!(*it).second->empty())
+		return (*it).second->size() > 1;
+	return false;
+}
+
+// tu-skeleton: 0x003733B5 19B ?Start@Rva003733B5Obj@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/Rva00082E1DInitFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x003733C8 73B ??0MineshaftPortalNetworkManager@@QAE@XZ -- matched in Code/GameEngine/Source/Common/MineshaftPortalNetworkManager.cpp (not merged yet)
+
+// tu-skeleton: 0x00373411 6B ?name@Rva00373411Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x00373417 8B ??_EMineshaftPortalNetworkManager@@WM@AEPAXI@Z -- matched in Code/GameEngine/Source/Common/MineshaftPortalNetworkManager.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/MineshaftPortalBehaviour_addArrivingObject.cpp
+
+// MineshaftPortalBehaviour::addArrivingObject (WorldBuilder name, MineshaftPortalBehaviour.cpp line 164: push_back onto the arriving list).
+//
+// was ?rva003734A4@Rva003734A4@@QAEXPAX@Z @0x003734A4 (28B).
+// Vector push_back of ScienceType field at +0x74 of arg into vector at +0x28
+// via rowed push_back 0x002E01C6. EBP frame from /O1. Between 0x0037341F and
+// 0x003734C0. Flags from Rva00373357 neighbour.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+
+void MineshaftPortalBehaviour::addArrivingObject(void *p)
+{
+	ScienceType tmp = *(ScienceType *)((char *)p + 0x74);
+	((_STL::vector<ScienceType> *)&m_pending)->push_back(tmp);
+}
+
 // tu-skeleton: 0x0037381C 85B ??1MineshaftPortalNetworkManager@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0037381CDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x00373871 133B ?addWaypoint@MineshaftPortalNetworkManager@@QAEXPAVWaypoint@@PAVPlayer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourNewWaypoint.cpp (not merged yet)
-
-// tu-skeleton: 0x003738F6 281B ?createWaypoint@MineshaftPortalBehaviour@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourNewWaypoint.cpp (not merged yet)
-
-// tu-skeleton: 0x00373A0F 325B ?DoXfer@MineshaftPortalBehaviour@@UAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourNewWaypoint.cpp (not merged yet)
-
 // tu-skeleton: 0x00373B54 28B ??_GMineshaftPortalNetworkManager@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/MineshaftPortalNetworkManager.cpp (not merged yet)
-
-// tu-skeleton: 0x0077E78F 10B uw_0077e78f -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourNewWaypoint.cpp (not merged yet)
-
-// tu-skeleton: 0x0077E799 8B Unwind@00b7e799 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourNewWaypoint.cpp (not merged yet)
-
-// tu-skeleton: 0x0077E7A1 8B Unwind@00b7e7a1 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourNewWaypoint.cpp (not merged yet)
-
-// tu-skeleton: 0x0077E7A9 8B Unwind@00b7e7a9 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourNewWaypoint.cpp (not merged yet)
-
-// tu-skeleton: 0x0077E7B1 8B Unwind@00b7e7b1 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourNewWaypoint.cpp (not merged yet)
-
-// tu-skeleton: 0x0077E7B9 10B __ehhandler$?rva00372DFA@MineshaftPortalBehaviour@@QAEPAVWaypoint@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourNewWaypoint.cpp (not merged yet)
 
 // tu-skeleton: 0x0077E7EC 8B uw_0077e7ec -- matched in Code/gen_small/uw_gen_011.cpp (not merged yet)
 

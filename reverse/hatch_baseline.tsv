@@ -10646,8 +10646,8 @@ pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorP
 pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorParseOCL.cpp	"t",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Behavior/FlightDeckBehavior.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Behavior/FlightDeckBehavior.cpp	"gsy",on	1
-pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourNewWaypoint.cpp	"",on	1
-pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourNewWaypoint.cpp	"y",off	1
+pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviour.cpp	"",on	1
+pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviour.cpp	"y",off	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Behavior/Rva003307F2Method.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Behavior/Rva003307F2Method.cpp	"s",off	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Behavior/Rva003307F2Method.cpp	"t",on	1
