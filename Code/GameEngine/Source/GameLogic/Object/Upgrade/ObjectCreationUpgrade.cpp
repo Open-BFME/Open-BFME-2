@@ -108,6 +108,26 @@ public:
 		field += ADDIMM; \
 		return base ? (int)field : 0; \
 	}
+#define BFME_DISP8_LEA_GETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		void *get() const; \
+	}; \
+	void *NAME::get() const \
+	{ \
+		return (char *)this + DISP; \
+	}
+#define BFME_DISP8_NEG_LEA_GETTER(NAME, BACK) \
+	class NAME \
+	{ \
+	public: \
+		void *get() const; \
+	}; \
+	void *NAME::get() const \
+	{ \
+		return (char *)this - BACK; \
+	}
 
 extern GameLogic *TheGameLogic;
 
@@ -295,9 +315,30 @@ public:
 
 BFME_DISP8_LEA_NEG_SBB_GETTER(Rva004B3FBALeaNegSbbField, 20, 0x04)
 
+BFME_DISP8_NEG_LEA_GETTER(Rva004B3FC7LeaField, 20)
+
+// Callers elsewhere reach bodies in this unit through other spellings; retail's
+// call sites in their matched rows land on these addresses (same ABI). Bind them.
+
+// Callers elsewhere reach bodies in this unit through other spellings; retail's
+// call sites in their matched rows land on these addresses (same ABI). Bind them.
+
+// Clean BF1 9cbfb551fe Common/Rva00880960Accessors.cpp semantic guide.
+// Native 006C03C0..006C03CB is a complete independently bounded RET leaf.
+// Target behavior: receiver8 plus eight-byte element stride; RET4.
+// Original owner and full array bounds remain unknown; address-owned view only.
+struct Rva006C03C0Slot { unsigned char bytes[8]; };
+
+class Rva006C03C0Fields {
+public: void *at(int index);
+private: unsigned char unknown[8]; Rva006C03C0Slot entries[1];
+};
+
 // tu-skeleton: 0x004B3F90 36B ??1ObjectCreationUpgrade@@MAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x004B3FB4 6B ?name@ObjectCreationUpgrade@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp
 
 // ---- from Code/GameEngine/Source/Common/Disp8LeaNegSbbGetters.cpp
 
@@ -313,13 +354,9 @@ BFME_DISP8_LEA_NEG_SBB_GETTER(Rva004B3FBALeaNegSbbField, 20, 0x04)
 // every name is derived from its address.
 // No // cl: line (defaults match the shape).
 
-// tu-skeleton: 0x004B3FC7 4B ?get@Rva004B3FC7LeaField@@QBEPAXXZ -- matched in Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x004B3FCB 17B ?loadPostProcess@ObjectCreationUpgrade@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade_loadPostProcess.cpp (not merged yet)
 
-// tu-skeleton: 0x004B3FDC 17B ?rva004B3FDC@Rva00406F9C@@QAEHPBX@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE24.cpp (not merged yet)
 
-// tu-skeleton: 0x004B3FED 8B ??_EObjectCreationUpgrade@@O7AEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeDtor.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp
 
@@ -419,6 +456,32 @@ void ObjectCreationUpgradeModuleData::buildFieldParse(MultiIniFieldParse &parse)
 // (a sub-object `this` pointing into a larger object). Spelled as an explicit
 // backward cast, which MSVC folds to `mov eax,[ecx-BACK]`; same shape and
 // reading as BFME1's ChainedFieldGetters.
+
+// ---- from Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp
+
+// Disp8 LEA getters: four-byte __thiscall members with one shape:
+//
+//     lea eax,[ecx+<DISP>] / ret
+//
+// The address of a member at a fixed displacement from `this` is returned.
+// Spelled as byte-pointer arithmetic from `this`, which MSVC 7.1 folds to
+// the same disp8 lea. The pointee type is unwitnessed (only an address is
+// produced), so the return is an untyped pointer. Members before the
+// accessed one are not spelled at all: unlike the load families, no lead
+// array is needed because nothing is read.
+// Identity is not recovered: every name is derived from its address, in the
+// same opaque-holder convention as the neighboring Disp* families.
+// No // cl: line (defaults match the frameless four-byte shape).
+
+// Negative-displacement sibling: the disp8 byte sign-extends, so a disp byte
+// above 0x7F addresses *before* `this` (e.g. 9C = -100). Spelled as a
+// negative byte offset from `this`, which folds to the same disp8 lea.
+
+// tu-skeleton: 0x004B3FCB 17B ?loadPostProcess@ObjectCreationUpgrade@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade_loadPostProcess.cpp (not merged yet)
+
+// tu-skeleton: 0x004B3FDC 17B ?rva004B3FDC@Rva00406F9C@@QAEHPBX@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE24.cpp (not merged yet)
+
+// tu-skeleton: 0x004B3FED 8B ??_EObjectCreationUpgrade@@O7AEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x004B403A 39B ?getUpgradeActivationMasks@ObjectCreationUpgrade@@MBEXAAUUpgradeMaskType@@0@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpgradeMuxSlotOverrides.cpp (not merged yet)
 
