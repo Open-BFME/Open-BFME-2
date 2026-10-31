@@ -35,6 +35,19 @@ typedef int Int;
 #define COORD3D_VIEW_INLINE
 #include "../../../../Libraries/Include/Lib/Coord3DCtorView.h"
 #include "../../../../Libraries/Include/Lib/ICoord3D.h"
+#define BFME_ASCII_FIELD_SETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		void set(const AsciiString &s); \
+	private: \
+		char m_pad[DISP]; \
+		AsciiString m_str; \
+	}; \
+	void NAME::set(const AsciiString &s) \
+	{ \
+		return ((StringBase<char> &)m_str).set((const StringBase<char> &)s); \
+	}
 
 struct FloatRect0073CE30
 {
@@ -362,6 +375,12 @@ bool rva00285B66(const void *point, const void *region);
 // ?take@Rva002E3A7AFields@@QAEIXZ
 struct Rva002E3A7AFields { unsigned int word0; unsigned int take(); };
 
+BFME_ASCII_FIELD_SETTER(Rva002E389FStringField, 0x40)
+
+BFME_ASCII_FIELD_SETTER(Rva002E38A7StringField, 0x4C)
+
+// ---- from Code/GameEngine/Source/GameLogic/Map/PolygonTrigger.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Map/PolygonTrigger.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Map/PolygonTrigger.cpp
@@ -569,12 +588,6 @@ void Rva002E373CClear(void)
 	operator delete(toDelete);
 }
 
-// tu-skeleton: 0x002E37B1 18B ?rva002E37B1@Rva002E37B1@@QAE_NPBURva0030B7C2Point@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
-
-// tu-skeleton: 0x002E37C3 8B ?rva002E37C3@Rva002E37C3@@QAE_NPBURva0030B7C2Point@@@Z -- matched in Code/GameEngine/Source/Common/GapForwardersSeat8.cpp (not merged yet)
-
-// tu-skeleton: 0x002E37CB 26B ?rva002E37CB@Rva002E37CB@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/PolygonTriggerParserParse.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Map/PolygonTriggerCenter.cpp
 
 Rva0030B72CPoint PolygonTrigger::getCenterPoint2D(void) const
@@ -612,12 +625,6 @@ void PolygonTrigger::rva002E38AF(const Coord3D *offset)
 	(this->*(&PolygonTrigger::slot18))((Int)(offset->z + m_defaultHeight));
 }
 
-// tu-skeleton: 0x002E3889 22B ?Rva002E3889@@YA_NPBURva002E3889Vector@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
-
-// tu-skeleton: 0x002E389F 8B ?set@Rva002E389FStringField@@QAEXABVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/AsciiStringFieldSetters.cpp (not merged yet)
-
-// tu-skeleton: 0x002E38A7 8B ?set@Rva002E38A7StringField@@QAEXABVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/AsciiStringFieldSetters.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Map/PolygonTrigger_pointInTrigger.cpp
 
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
@@ -636,6 +643,24 @@ bool PolygonTrigger::pointInTrigger(const ICoord3D &point)
 }
 
 unsigned int Rva002E3A7AFields::take() { unsigned int value=word0; word0=0; return value; }
+
+// tu-skeleton: 0x002E37B1 18B ?rva002E37B1@Rva002E37B1@@QAE_NPBURva0030B7C2Point@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
+
+// tu-skeleton: 0x002E37C3 8B ?rva002E37C3@Rva002E37C3@@QAE_NPBURva0030B7C2Point@@@Z -- matched in Code/GameEngine/Source/Common/GapForwardersSeat8.cpp (not merged yet)
+
+// tu-skeleton: 0x002E37CB 26B ?rva002E37CB@Rva002E37CB@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/PolygonTriggerParserParse.cpp (not merged yet)
+
+// tu-skeleton: 0x002E3889 22B ?Rva002E3889@@YA_NPBURva002E3889Vector@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/AsciiStringFieldSetters.cpp
+
+//
+// AsciiString field setters: one shape, add ecx, <field>; jmp
+// StringBase<char>::set (rowed 0x000366F0), i.e. assign an AsciiString member
+// at a fixed offset of the receiver. Same recipe as the rowed Rva004EC1CE.cpp
+// (+0x148). Each body sits in a gap between rowed functions; receivers and
+// field purposes are unknown, so each gets a per-address name, and no
+// referencing site was found for these in this pass.
 
 // tu-skeleton: 0x002E3A39 46B ?rva002E3A39@PolygonTrigger@@QAE_NABUCoord3D@@@Z -- matched in Code/GameEngine/Source/Common/Rva002E3A39Pair.cpp (not merged yet)
 

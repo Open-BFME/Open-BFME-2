@@ -23204,8 +23204,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x002E37E5,145,code,Code/GameEngine/Source/GameLogic/Map/PolygonTrigger.cpp,approved,C,C=0x002E36EF..0x002E3876,Code/GameEngine/Source/GameLogic/Map/PolygonTrigger.cpp
 0x002E3876,19,code,Code/GameEngine/Source/GameLogic/Map/PolygonTrigger.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Map/PolygonTrigger.cpp N=Code/GameEngine/Source/GameLogic/Map/PolygonTrigger.cpp,Code/GameEngine/Source/GameLogic/Map/PolygonTrigger.cpp
 0x002E3889,22,code,Code/GameEngine/Source/GameLogic/Map/PolygonTrigger.cpp,approved,C,C=0x002E3876..0x002E389F,Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp
-0x002E389F,8,code,Code/GameEngine/Source/GameLogic/Map/PolygonTrigger.cpp,approved,C,C=0x002E3876..0x002E38A7,Code/GameEngine/Source/Common/AsciiStringFieldSetters.cpp
-0x002E38A7,8,code,Code/GameEngine/Source/GameLogic/Map/PolygonTrigger.cpp,approved,C,C=0x002E3876..0x002E38AF,Code/GameEngine/Source/Common/AsciiStringFieldSetters.cpp
+0x002E389F,8,code,Code/GameEngine/Source/GameLogic/Map/PolygonTrigger.cpp,approved,C,C=0x002E3876..0x002E38A7,Code/GameEngine/Source/GameLogic/Map/PolygonTrigger.cpp
+0x002E38A7,8,code,Code/GameEngine/Source/GameLogic/Map/PolygonTrigger.cpp,approved,C,C=0x002E3876..0x002E38AF,Code/GameEngine/Source/GameLogic/Map/PolygonTrigger.cpp
 0x002E38AF,68,code,Code/GameEngine/Source/GameLogic/Map/PolygonTrigger.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Map/PolygonTrigger.cpp N=Code/GameEngine/Source/GameLogic/Map/PolygonTrigger.cpp,Code/GameEngine/Source/GameLogic/Map/PolygonTrigger.cpp
 0x002E38F3,97,code,Code/GameEngine/Source/GameLogic/Map/PolygonTrigger.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Map/PolygonTrigger.cpp S=Code/GameEngine/Source/GameLogic/Map/PolygonTrigger.cpp N=Code/GameEngine/Source/GameLogic/Map/PolygonTrigger.cpp,Code/GameEngine/Source/GameLogic/Map/PolygonTrigger.cpp
 0x002E3954,36,code,Code/GameEngine/Source/GameLogic/Map/PolygonTrigger.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Map/PolygonTrigger.cpp N=Code/GameEngine/Source/GameLogic/Map/PolygonTrigger.cpp,Code/GameEngine/Source/GameLogic/Map/PolygonTrigger.cpp
