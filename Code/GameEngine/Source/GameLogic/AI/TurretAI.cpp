@@ -336,6 +336,32 @@ enum CommandSourceType
 	CMD_FROM_AI
 };
 
+// Object's model-condition bits at +0x10C (19 words); bit 58 is
+// MODELCONDITION_TURRET_ROTATE (friend_turnTowardsAngle 0x004D8990).
+enum ModelConditionFlagType
+{
+	MODELCONDITION_TURRET_ROTATE = 58
+};
+
+class ModelConditionFlags
+{
+public:
+	unsigned int test(unsigned int bit) const
+	{
+		return m_words[bit >> 5] & (1U << (bit & 0x1f));
+	}
+	void set(unsigned int bit)
+	{
+		m_words[bit >> 5] |= (1U << (bit & 0x1f));
+	}
+	void clear(unsigned int bit)
+	{
+		m_words[bit >> 5] &= ~(1U << (bit & 0x1f));
+	}
+private:
+	unsigned int m_words[19];
+};
+
 // Object as the TU's bodies read it: id +0x74, AI +0x258, team +0x304 and
 // the effectively-dead bit at +0x438.
 class Object
@@ -349,9 +375,29 @@ public:
 	int getID() const { return m_id; }
 	bool isEffectivelyDead() const { return (m_deadByte & 1) != 0; }
 	Team *getTeam() const { return m_team; }
+	void rva0028AE6D();
+	void reactToTurretChange(WhichTurretType turret, float oldRotation, float oldPitch);
+	__forceinline void setModelConditionState(ModelConditionFlagType mc)
+	{
+		if (m_modelConditionFlags.test(mc) == 0)
+		{
+			m_modelConditionFlags.set(mc);
+			rva0028AE6D();
+		}
+	}
+	__forceinline void clearModelConditionState(ModelConditionFlagType mc)
+	{
+		if (m_modelConditionFlags.test(mc) != 0)
+		{
+			m_modelConditionFlags.clear(mc);
+			rva0028AE6D();
+		}
+	}
 	char m_pad00[0x74];
 	int m_id;							// +0x74
-	char m_pad78[0x258 - 0x78];
+	char m_pad78[0x10C - 0x78];
+	ModelConditionFlags m_modelConditionFlags;	// +0x10C
+	char m_pad158[0x258 - 0x158];
 	AIUpdateInterface *m_ai;			// +0x258
 	char m_pad25C[0x304 - 0x25C];
 	Team *m_team;						// +0x304
@@ -542,6 +588,20 @@ public:
 	void rva004D82F6();
 public:
 	UpdateSleepTime updateTurretAI();
+public:
+	bool friend_turnTowardsPitch(float desiredPitch, float rateModifier);
+public:
+	bool friend_turnTowardsAngle(float desiredAngle, float rateModifier, float relThresh);
+public:
+	bool isAllowsPitch() const { return m_data->m_isAllowsPitch; }
+public:
+	float getTurretPitch() const { return m_pitch; }
+public:
+	float getPitchRate() const { return m_data->m_pitchRate; }
+public:
+	float getTurretAngle() const { return m_angle; }
+public:
+	float getTurnRate() const { return m_data->m_turnRate; }
 public:
 	void setTurretTargetPosition(const Coord3D *pos);
 public:

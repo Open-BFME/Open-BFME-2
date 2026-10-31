@@ -21,7 +21,7 @@ typedef bool Bool;
 typedef float Real;
 typedef int Int;
 
-Real normalizeAngle(Real angle);
+float normalizeAngle(float angle);
 #define TWO_PI 6.28318548f
 
 enum WhichTurretType
@@ -78,16 +78,17 @@ private:
 	ModelConditionFlags m_modelConditionFlags; // +0x10C
 };
 
-struct TurretAIData
+class TurretAIData
 {
+public:
 	Real m_turnRate; // +0x00
 	Real m_pitchRate; // +0x04
 	Real m_naturalTurretAngle; // +0x08
 	unsigned char m_pad0C[0x66 - 0x0C];
 	Bool m_isAllowsPitch; // +0x66
 	unsigned char m_pad67[0x68 - 0x67];
-	Real m_bfmeMinAngleOffset; // +0x68
-	Real m_bfmeMaxAngleOffset; // +0x6C
+	Real m_maxDeflectionCW; // +0x68
+	Real m_maxDeflectionACW; // +0x6C
 };
 
 class TurretAI
@@ -154,8 +155,8 @@ Bool TurretAI::friend_turnTowardsAngle(Real desiredAngle, Real rateModifier, Rea
 	Real targetAngle = desiredAngle;
 
 	// BFME 2: keep the turret inside its arc, else send it home.
-	Real minOffset = m_data->m_bfmeMinAngleOffset;
-	Real maxOffset = m_data->m_bfmeMaxAngleOffset;
+	Real minOffset = m_data->m_maxDeflectionCW;
+	Real maxOffset = m_data->m_maxDeflectionACW;
 	if (maxOffset + minOffset < TWO_PI)
 	{
 		Real natural = getNaturalTurretAngle();
