@@ -488,6 +488,39 @@ void FoundationAIUpdate::rva0045537F()
 	{ \
 		return ((StringBase<char> &)m_str).set((const StringBase<char> &)s); \
 	}
+#define BFME_DISP8_BYTECHASE_GETTER(NAME, DISP1, DISP2) \
+	class NAME \
+	{ \
+	public: \
+		unsigned char get() const; \
+		char m_lead[DISP1]; \
+		void *m_ptr; \
+	}; \
+	unsigned char NAME::get() const \
+	{ \
+		return *(unsigned char *)((char *)m_ptr + DISP2); \
+	}
+#define BFME_DISP8_BYTECHASE_BEFORE_GETTER(NAME, BACK, INNER) \
+	class Inner##NAME \
+	{ \
+	public: \
+		char m_lead[INNER]; \
+		unsigned char m_value; \
+	}; \
+	class Sub##NAME \
+	{ \
+	public: \
+		Inner##NAME *m_holder; \
+	}; \
+	class NAME \
+	{ \
+	public: \
+		unsigned char get() const; \
+	}; \
+	unsigned char NAME::get() const \
+	{ \
+		return ((const Sub##NAME *)((const char *)this - (BACK)))->m_holder->m_value; \
+	}
 
 float GetGameLogicRandomValueReal(float, float, char *, int);
 
@@ -628,6 +661,21 @@ public:
 extern AudioManager *TheAudio;
 
 BFME_ASCII_FIELD_SETTER(Rva0045515CStringField, 0x424)
+
+BFME_DISP8_BYTECHASE_GETTER(Rva004551ACByteChaseField, 0x04, 0x74)
+
+// 0x0039ADAF is ExperienceTracker::isTrainable (pinned under that name from
+// VeterancyCrateCollide::isValidToExecute; ZH's isTrainable reads the
+// template's trainable flag): the byte at +0x5E7 of the +0x04 template.
+class ExperienceTracker
+{
+public:
+	bool isTrainable() const;
+	char m_lead[0x4];
+	void *m_template;
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/FoundationAIUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/FoundationAIUpdate.cpp
 
@@ -790,8 +838,6 @@ UpdateSleepTime FoundationAIUpdate::update()
  return UPDATE_SLEEP_NONE;
 }
 
-// tu-skeleton: 0x004550F8 100B ?xfer@FoundationAIUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/FoundationAIUpdateXfer.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/AsciiStringFieldSetters.cpp
 
 //
@@ -802,7 +848,25 @@ UpdateSleepTime FoundationAIUpdate::update()
 // field purposes are unknown, so each gets a per-address name, and no
 // referencing site was found for these in this pass.
 
-// tu-skeleton: 0x004551AC 7B ?get@Rva004551ACByteChaseField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp (not merged yet)
+// tu-skeleton: 0x004550F8 100B ?xfer@FoundationAIUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/FoundationAIUpdateXfer.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp
+
+// Disp8 byte-chase getters: seven-byte __thiscall members with one shape:
+//
+//     mov eax,[ecx+<DISP1>] / mov al,[eax+<DISP2>] / ret
+//
+// A pointer is read at a fixed displacement from `this`, then a byte is read
+// at a second displacement from that pointer and returned in `al` (only the
+// low byte is defined; the caller uses `al`). MSVC 7.1 emits the disp8 loads
+// `8B 41 XX` + `8A 40 XX`, plus `ret`, for seven bytes total.
+// Identity is not recovered: every name is derived from its address.
+// No // cl: line (defaults match the frameless seven-byte shape).
+
+// Backward variant: the holder sits at a NEGATIVE displacement from `this`
+// (a sub-object `this` pointing into a larger object). Spelled as an explicit
+// backward cast, which MSVC folds to `mov eax,[ecx-BACK]`; same shape and
+// reading as BFME1's ChainedFieldGetters.
 
 // tu-skeleton: 0x004551B3 107B ??0FoundationAIUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/FoundationAIUpdateCtor.cpp (not merged yet)
 
