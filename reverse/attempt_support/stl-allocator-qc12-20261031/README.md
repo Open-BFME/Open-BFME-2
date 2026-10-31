@@ -19,3 +19,18 @@ allocator identity from the pinned header, not an inferred private class layout.
 Second donor is handled separately; no progress is claimed for an unverified
 trial. Shared obstacle register remains held elsewhere; this is proposed entry.
 No census or full-image linking gain is claimed from link-check acceptance.
+
+Second donor: campaign act replaces its private allocator primary with the same
+real header and required STLport include context. Its custom vector/storage
+views and verified lifetime provider names are untouched. 48/48 native code
+rows and1data row pass; header accept and post-edit frozen check PASS.
+All40 prior complete externally defined code functions retain identical bytes
+and relocations, with none removed or changed. The public header additionally
+emits its empty allocator<BfmeE16> destructor (single RET). Every COFF reference
+to that body/section was checked: its sole incoming relocation is .debug$F,
+with zero runtime code/data/EH references. No import-inline suppression or
+other hatch is introduced to hide it. Proofs are campaign-code-comparison.json
+and allocator-dtor-reach.json. Real allocator lifetime/state is empty, and all
+native member cleanup paths and complete EH graphs must still pass the hooks.
+Both real private allocator copies served by5081 are now replaced. The other
+two served sources already used public headers and earn no new adoption credit.

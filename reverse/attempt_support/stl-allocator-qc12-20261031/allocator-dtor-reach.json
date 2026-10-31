@@ -1,0 +1,15 @@
+{
+ "helper": "??1?$allocator@UBfmeE16@@@_STL@@QAE@XZ",
+ "body": "c3",
+ "relocations": [],
+ "references": [
+  {
+   "from_section": ".debug$F",
+   "from_index": 45,
+   "offset": 0,
+   "symbol": "??1?$allocator@UBfmeE16@@@_STL@@QAE@XZ",
+   "kind": 7
+  }
+ ],
+ "runtime_references": []
+}

@@ -1,4 +1,5 @@
 // cl: /ICode/Libraries/Include/Lib /Ireference/shims/moduledata /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /D_CRTIMP= /Ireference/shims/iniexception
+// stlport
 // Native 566BF6..566D7B (389B), named act parser 566D83 and its WB
 // twin 1438E40 establish the 184B act record and constructor relationship.
 // Existing destructor 56616B independently supplies the 16 member cleanup
@@ -10,8 +11,9 @@
 // inferred from an empty header. The ten clears call existing rowed providers.
 #include "ascii_string.h"
 #include "../../../../../Libraries/Include/Lib/BfmeE16.h"
+#include "../../../../../../vendor/stlport/stl/_alloc.h"
 namespace _STL {
-template<class T>class allocator{public:allocator(){}};
+
  template<class T,class A>class _Vector_base{public:_Vector_base(const A&)throw(); T *begin,*end,*capacity;};
  template<class T,class A>class vector{public:~vector();T *erase(T*,T*); __forceinline void clear(){erase(begin,end);} T *begin,*end,*capacity;};
 }
