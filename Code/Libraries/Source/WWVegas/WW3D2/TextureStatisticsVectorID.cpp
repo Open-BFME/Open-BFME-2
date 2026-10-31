@@ -22,7 +22,8 @@ class TextureClass : public TextureBaseClass
 {
 };
 
-// TextureBaseClass::Add_Ref: defined in ringobj.cpp (its row's unit).
+// TextureBaseClass::Add_Ref lives in ringobj.cpp (row at 0x000424B6);
+// the in-class declaration above stays so this TU's calls keep the same name.
 
 template<class T>
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib/ref_ptr.h
@@ -33,9 +34,9 @@ public:
 	RefCountPtr(RefCountPtr const &other) : Referent(other.Referent)
 	{
 		if (Referent != 0)
-			Referent->Add_Ref();
+			++*(unsigned short *)((char *)Referent + 4);
 	}
-	// BFME's destructor does not null the pointer (TextureStatisticsVector.cpp).
+	// BFME's destructor does not null the pointer (see TextureStatisticsVector.cpp).
 	~RefCountPtr()
 	{
 		if (Referent != 0)
@@ -43,22 +44,16 @@ public:
 			Referent->Release_Ref();
 		}
 	}
-	RefCountPtr const &operator=(RefCountPtr const &other)
+	// Inlined at every use here; the out-of-line copy is TextureStatisticsVector.cpp's
+	// row (0x000424D0, built without /G7), so this unit must not emit its own.
+	__declspec(dllimport) __forceinline RefCountPtr const &operator=(RefCountPtr const &other)
 	{
 		if (other.Referent != 0)
-			other.Referent->Add_Ref();
+			++*(unsigned short *)((char *)other.Referent + 4);
 		if (Referent != 0)
 			Referent->Release_Ref();
 		Referent = other.Referent;
 		return *this;
-	}
-	void Clear()
-	{
-		if (Referent != 0)
-		{
-			Referent->Release_Ref();
-			Referent = 0;
-		}
 	}
 	bool operator==(RefCountPtr const &other) const { return Referent == other.Referent; }
 	bool operator!=(RefCountPtr const &other) const { return Referent != other.Referent; }
@@ -81,10 +76,6 @@ struct TextureStatisticsStruct
 	{
 		return tex != other.tex;
 	}
-public:
-	~TextureStatisticsStruct();
-public:
-	TextureStatisticsStruct &operator=(const TextureStatisticsStruct &);
 };
 
 template<class T>
@@ -144,49 +135,6 @@ VectorClass<T>::VectorClass(unsigned size, T const *array)
 			IsAllocated = true;
 		}
 	}
-}
-
-template<class T>
-bool VectorClass<T>::Resize(int newsize, T const *array)
-{
-	if (newsize)
-	{
-		T *newptr;
-		IsValid = false;
-		if (!array)
-		{
-			newptr = new T[newsize];
-		}
-		else
-		{
-			newptr = new ((void *)array) T[newsize];
-		}
-		IsValid = true;
-		if (!newptr)
-			return false;
-
-		if (Vector != 0)
-		{
-			int copycount = (newsize < VectorMax) ? newsize : VectorMax;
-			for (int index = 0; index < copycount; ++index)
-				newptr[index] = Vector[index];
-
-			if (IsAllocated)
-			{
-				delete [] Vector;
-				Vector = 0;
-			}
-		}
-
-		Vector = newptr;
-		VectorMax = newsize;
-		IsAllocated = (Vector && !array);
-	}
-	else
-	{
-		Clear();
-	}
-	return true;
 }
 
 template<class T>
@@ -310,10 +258,8 @@ DynamicVectorClass<T>::DynamicVectorClass(unsigned size, T const *array)
 	ActiveCount = 0;
 }
 
-// VectorClass::Resize is rowed in TextureStatisticsVectorResize.cpp; the
-// vftables here reference that body.
-template<> bool VectorClass<TextureStatisticsStruct>::Resize(
-	int, TextureStatisticsStruct const *);
+// VectorClass<TextureStatisticsStruct>::Resize is rowed in statistics.cpp
+// (0x00129990); the vftables here reference that instantiation.
 
 template DynamicVectorClass<TextureStatisticsStruct>::DynamicVectorClass(
 	unsigned, TextureStatisticsStruct const *);

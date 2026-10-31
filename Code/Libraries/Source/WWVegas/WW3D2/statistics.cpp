@@ -338,6 +338,15 @@ struct TextureStatisticsStruct
 	RefCountPtr<TextureClass> tex;
 	int usage_count;
 	int change_count;
+
+	bool operator==(TextureStatisticsStruct const &other) const
+	{
+		return tex == other.tex;
+	}
+	bool operator!=(TextureStatisticsStruct const &other) const
+	{
+		return tex != other.tex;
+	}
 };
 
 template<class T>
