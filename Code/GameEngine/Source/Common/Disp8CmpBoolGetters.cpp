@@ -300,7 +300,6 @@ bool ToppleUpdate::isAbleToBeToppled() const
 BFME_DISP8_CMP_ZERO_BOOL_GETTER(Rva004D374CCmpBoolField, 0x120, !=)
 BFME_DISP8_CMP_IMM_BOOL_GETTER(Rva004D86B1CmpBoolField, 0x28, 1, ==)
 BFME_DISP8_TERNARY_CMP_BOOL_GETTER(Rva004D393ACmpBoolField, 0x0C, 1, ==)
-BFME_DISP8_PTR_TERNARY_BOOL_GETTER(Rva0036CC7ECmpBoolField, 0x04, 0x1C)
 struct Rva0036CC89Inner
 {
 	char m_pad[0x1C];
@@ -313,10 +312,6 @@ public:
 	char m_lead[4];
 	Rva0036CC89Inner *m_ptr;
 };
-bool Rva0036CC89CmpBoolField::get() const
-{
-	return (m_ptr->m_flags & 2) ? true : false;
-}
 BFME_DISP8_CMP_IMM_BOOL_GETTER(Rva0008E112CmpBoolField, 0x110, 9, !=)
 BFME_DISP8_CMP_ZERO_BOOL_GETTER(Rva000EFA05CmpBoolField, 0x0C, ==)
 BFME_DISP8_CMP_IMM_BOOL_GETTER(Rva00050CC1CmpBoolField, 0x7C, -12345, ==)

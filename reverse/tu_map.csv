@@ -27833,8 +27833,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0036CBF2,7,code,,,-,,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp
 0x0036CBF9,129,code,Code/GameEngine/Source/GameLogic/AI/AIGroup.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/AI/AIGroup.cpp N=Code/GameEngine/Source/GameLogic/AI/AIGroup.cpp W=Code/GameEngine/Source/GameLogic/AI/AIGroup.cpp,Code/GameEngine/Source/GameLogic/AI/AIGroupMoveFormation.cpp
 0x0036CC7A,4,code,Code/GameEngine/Source/GameLogic/AI/AIGroup.cpp,approved,C,C=0x0036CBF9..0x0036CC7E,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFileSystem.cpp
-0x0036CC7E,11,code,Code/GameEngine/Source/GameLogic/AI/AIGroup.cpp,approved,C,C=0x0036CBF9..0x0036CC89,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp
-0x0036CC89,11,code,Code/GameEngine/Source/GameLogic/AI/AIGroup.cpp,approved,C,C=0x0036CBF9..0x0036CC94,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp
+0x0036CC7E,11,code,Code/GameEngine/Source/GameLogic/AI/AIGroup.cpp,approved,C,C=0x0036CBF9..0x0036CC89,Code/GameEngine/Source/GameLogic/AI/AIGroup.cpp
+0x0036CC89,11,code,Code/GameEngine/Source/GameLogic/AI/AIGroup.cpp,approved,C,C=0x0036CBF9..0x0036CC94,Code/GameEngine/Source/GameLogic/AI/AIGroup.cpp
 0x0036CC94,499,code,Code/GameEngine/Source/GameLogic/AI/AIGroup.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/AIGroup.cpp S=Code/GameEngine/Source/GameLogic/AI/AIGroup.cpp N=Code/GameEngine/Source/GameLogic/AI/AIGroup.cpp W=Code/GameEngine/Source/GameLogic/AI/AIGroup.cpp,Code/GameEngine/Source/GameLogic/AI/AIGroupIndividualDestination.cpp
 0x0036CE87,73,code,Code/GameEngine/Source/GameLogic/AI/AIGroup.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/AI/AIGroup.cpp N=Code/GameEngine/Source/GameLogic/AI/AIGroup.cpp,Code/GameEngine/Source/GameLogic/AI/Rva0036CE87Finish.cpp
 0x0036CED0,55,code,Code/GameEngine/Source/GameLogic/AI/AIGroup.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/AIGroup.cpp S=Code/GameEngine/Source/GameLogic/AI/AIGroup.cpp N=Code/GameEngine/Source/GameLogic/AI/AIGroup.cpp,Code/GameEngine/Source/GameLogic/AI/AIGroup.cpp
