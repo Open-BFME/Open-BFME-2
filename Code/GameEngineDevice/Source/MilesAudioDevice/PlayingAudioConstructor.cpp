@@ -93,8 +93,5 @@ PlayingAudio::PlayingAudio() :
 // NativeA8E0A..A8E79 verified111B relocated from the opaque dtor owner;
 // native BC5128 counted-base vtable slot0 binds Rva00051E4D deleting29B.
 class AudioManager;
-extern AudioManager *TheAudio;
+
 class MilesAudioManager {public:void onPlayingAudioDeleted(PlayingAudio&);};
-PlayingAudio::~PlayingAudio(){
- if(TheAudio)((MilesAudioManager*)TheAudio)->onPlayingAudioDeleted(*this);
-}
