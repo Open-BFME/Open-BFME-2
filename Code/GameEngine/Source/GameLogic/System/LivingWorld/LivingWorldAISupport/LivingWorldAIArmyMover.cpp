@@ -115,7 +115,12 @@ namespace _STL {
 template<> BattlePlayers::~vector();
 template<> inline BattlePlayers::vector(const allocator<Rva002BBB96Element>&a):_Vector_base<Rva002BBB96Element,allocator<Rva002BBB96Element> >(a) {}
 }
-struct PlayerStorage;
+// The battle records are a PlayerStorage (the auto-resolve battle's input):
+// its destructor is the 5-byte thunk 0x002BBD4D the unwind funclets jump
+// to; the normal path expands it into the vector destructor.
+struct PlayerStorage : public BattlePlayers
+{
+};
 class Rva004FA2E2 {public:~Rva004FA2E2();char gap00[0x78];int winner;int round;};
 class LivingWorldAutoResolveBattle: public Rva004FA2E2 {public:LivingWorldAutoResolveBattle(const PlayerStorage&);};
 class Rva004FA10FOwner {public:void rva004FA10F();};
@@ -126,7 +131,7 @@ int LivingWorldAIArmyMover::WinTestBattle(ArmyMoverRegion*region,int distance,in
  rva0059BE1F(region,distance,playerID,&friendly,&enemy,&players,info,difficulty);
  int ownerID=region->owner;Rva002E2903Player *owner=((Rva002BA8F1Logic*)TheLivingWorldLogic)->find(ownerID,0);
  unsigned enemyCount=enemy.size();if(enemyCount>0) {
-  BattlePlayers records;
+  PlayerStorage records;
   _STL::vector<unsigned int> battleArmies=*(const _STL::vector<unsigned int>*)&enemy;
   ((PointerVector*)&battleArmies)->push_back(army);
   TheLivingWorldLogic->SetUpAutoResolveBattle((const _STL::vector<SetupPlayer*>*)&players,(SetupPlayer*)owner,(const _STL::vector<SetupArmy*>*)&battleArmies,region,(_STL::vector<SetupRecord52>*)&records,0);
@@ -138,12 +143,12 @@ int LivingWorldAIArmyMover::WinTestBattle(ArmyMoverRegion*region,int distance,in
     else if(difficulty==2){records[playerIndex].weapon*=0.75f;records[playerIndex].armor*=1.25f;}
    }
   }
-  LivingWorldAutoResolveBattle battleManager(*(const PlayerStorage*)&records);
+  LivingWorldAutoResolveBattle battleManager(records);
   while(battleManager.winner==-1)((Rva004FA10FOwner*)&battleManager)->rva004FA10F();
   if(!owner || ((unsigned char)((Rva002E071E*)owner)->rva002E0BC0(playerID) && battleManager.winner==0) || battleManager.winner==1)return 0;
  }
  unsigned friendlyCount=friendly.size();const ModuleData **friendlyBegin=friendly.begin();if(friendlyCount>0 && enemyCount>0) {
-  BattlePlayers records;
+  PlayerStorage records;
   _STL::vector<unsigned int> battleArmies=*(const _STL::vector<unsigned int>*)&enemy;
   for(unsigned i=0;i<friendlyCount;++i)((PointerVector*)&battleArmies)->push_back(friendlyBegin[i]);
   TheLivingWorldLogic->SetUpAutoResolveBattle((const _STL::vector<SetupPlayer*>*)&players,(SetupPlayer*)owner,(const _STL::vector<SetupArmy*>*)&battleArmies,region,(_STL::vector<SetupRecord52>*)&records,0);
@@ -155,7 +160,7 @@ int LivingWorldAIArmyMover::WinTestBattle(ArmyMoverRegion*region,int distance,in
     else if(difficulty==2){records[playerIndex].weapon*=0.5f;records[playerIndex].armor*=1.5f;}
    }
   }
-  LivingWorldAutoResolveBattle battleManager(*(const PlayerStorage*)&records);
+  LivingWorldAutoResolveBattle battleManager(records);
   while(battleManager.winner==-1)((Rva004FA10FOwner*)&battleManager)->rva004FA10F();
   if(!owner || ((unsigned char)((Rva002E071E*)owner)->rva002E0BC0(playerID) && battleManager.winner==0) || battleManager.winner==1)return 1;
  }
