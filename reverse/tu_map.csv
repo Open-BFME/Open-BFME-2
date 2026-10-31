@@ -25432,7 +25432,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0032AF56,25,code,,,-,,Code/GameEngine/Source/Common/Rva0032AF56Destroy.cpp
 0x0032AF6F,45,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_0032cb55.cpp
 0x0032AF9C,8,code,,,-,,Code/GameEngine/Source/Common/VslotMemberForwarders.cpp
-0x0032AFA4,40,code,,,-,,Code/GameEngine/Source/Common/VslotSmallBodiesAG.cpp
+0x0032AFA4,40,code,,,-,,Code/GameEngine/Source/GameLogic/Map/SidesList.cpp
 0x0032AFCC,8,code,,,-,,Code/GameEngine/Source/Common/VslotMemberForwarders.cpp
 0x0032AFD4,147,code,,,-,,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineResolveName.cpp
 0x0032B067,9,code,,,-,,Code/GameEngine/Source/Common/System/XferAsciiStringVector.cpp

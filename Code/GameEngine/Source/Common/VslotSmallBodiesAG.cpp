@@ -344,12 +344,6 @@ private:
 	Int m_00;
 	Rva0032AFA4Pair *m_04;
 };
-Int Rva0032AFA4::rva0032AFA4(char *buf)
-{
-	Rva0032AFA4Pair *stringPair = m_04;
-	Int bytesWritten = stringPair->m_a.write(buf);
-	return stringPair->m_b.write(buf + bytesWritten) + bytesWritten;
-}
 
 struct Rva003678D6Sub04
 {
