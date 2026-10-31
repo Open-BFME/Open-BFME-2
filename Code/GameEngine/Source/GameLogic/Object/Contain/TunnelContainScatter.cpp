@@ -1,4 +1,5 @@
-// cl: /DNDEBUG /MD
+// cl: /MD /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /I.
+// stlport
 //
 // ?scatterToNearbyPosition@TunnelContain@@IAEXPAVObject@@@Z @0x0047E16B 253B.
 //
@@ -32,34 +33,15 @@
 //   0x0030AA80, ignoreObstacle 0x00268D88, aiMoveToPosition 0x0026C26D,
 //   GetGameLogicRandomValueReal 0x00234092, Cos/Sin 0x002FBC0/0x002FBB0).
 
-typedef float Real;
+#include "TunnelContainView.h"
 
-#include "../../../../../Libraries/Include/Lib/Coord3D.h"
+typedef float Real;
 
 enum CommandSourceType
 {
 	CMD_FROM_PLAYER = 0,
 	CMD_FROM_SCRIPT = 1,
 	CMD_FROM_AI = 2
-};
-
-class Object;
-class AIUpdateInterface;
-
-#include "../../../Common/Thing/thing.h"
-
-class Object : public Thing
-{
-public:
-	const Coord3D *bfmePosition() const { return (const Coord3D *)((const char *)this + 0x38); }
-	Real bfmeBoundingRadius() const { return *(const Real *)((const char *)this + 0xB8); }
-	AIUpdateInterface *bfmeAI() { return *(AIUpdateInterface **)((char *)this + 0x258); }
-};
-
-class AIUpdateInterface
-{
-public:
-	void ignoreObstacle(const Object *obj);
 };
 
 class AICommandInterface
@@ -94,24 +76,14 @@ float sin(float v);
 
 #define PI 3.14159265f
 
-class TunnelContain
-{
-protected:
-	void scatterToNearbyPosition(Object *rider);
-
-private:
-	char m_pad00[8];
-	Object *m_object; // +0x08
-};
-
 void TunnelContain::scatterToNearbyPosition(Object *rider)
 {
 	Object *theContainer = m_object;
 
 	Real angle = GetGameLogicRandomValueReal(0.0f, 2.0f * PI, g_00C477C8, 0x151);
 
-	Real minRadius = theContainer->bfmeBoundingRadius();
-	const Coord3D *containerPos = theContainer->bfmePosition();
+	Real minRadius = theContainer->m_geometryBoundingRadius;
+	const Coord3D *containerPos = theContainer->getPosition();
 	Real dist = GetGameLogicRandomValueReal(minRadius, minRadius * 1.5f, g_00C477C8, 0x158);
 
 	Coord3D pos;
@@ -122,7 +94,7 @@ void TunnelContain::scatterToNearbyPosition(Object *rider)
 	// set orientation
 	rider->setOrientation(angle);
 
-	AIUpdateInterface *ai = rider->bfmeAI();
+	AIUpdateInterface *ai = rider->getAI();
 	if (ai)
 	{
 		// set position of the object at center of building and move them toward pos
