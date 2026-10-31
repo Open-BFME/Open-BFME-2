@@ -1,0 +1,141 @@
+{
+  "source": "Code/GameEngine/Source/GameLogic/Object/Behavior/SlowDeathBehavior.cpp",
+  "variants": {
+    "before": {
+      "source_sha256": "7d2c7db12c172b9f61c5bdb85c728a12396dfe74658b0c1284a40f2717d352e3",
+      "rows": [
+        {
+          "name": "?setExtraBounciness@PhysicsBehavior@@QAEXM@Z",
+          "rva": "0x000EFB3E",
+          "size": "14",
+          "exact": true
+        },
+        {
+          "name": "?setExtraFriction@PhysicsBehavior@@QAEXM@Z",
+          "rva": "0x000EFB5A",
+          "size": "14",
+          "exact": true
+        }
+      ],
+      "eh": []
+    },
+    "trial": {
+      "source_sha256": "f6e21d2ce0d35b6d6d4eaf5c32c4484457b59a6d9cab3110def0ac29127b4df1",
+      "rows": [
+        {
+          "name": "?setExtraBounciness@PhysicsBehavior@@QAEXM@Z",
+          "rva": "0x000EFB3E",
+          "size": "14",
+          "exact": true
+        },
+        {
+          "name": "?setExtraFriction@PhysicsBehavior@@QAEXM@Z",
+          "rva": "0x000EFB5A",
+          "size": "14",
+          "exact": true
+        }
+      ],
+      "eh": []
+    }
+  },
+  "retained_external_definitions": 62,
+  "retained_code_and_symbolic_relocations_identical": true,
+  "imported_existing_owner": {
+    "name": "?getModuleNameKey@SlowDeathBehavior@@UBE?AW4NameKeyType@@XZ",
+    "source": "Code/GameEngine/Source/GameLogic/Module/SlowDeathBehaviorPoolKey.cpp",
+    "rva": "0x0045D459"
+  },
+  "removed_inline_definition": {
+    "raw": "b800000000e800000000f60500000000017521830d00000000018b0d0000000083642408006800000000e800000000a3000000008b0c24a10000000064890d00000000c9c3",
+    "relocations": [
+      [
+        1,
+        6,
+        "__ehhandler$?getModuleNameKey@SlowDeathBehavior@@UBE?AW4NameKeyType@@XZ"
+      ],
+      [
+        6,
+        20,
+        "__EH_prolog"
+      ],
+      [
+        12,
+        6,
+        "??_B?1??getModuleNameKey@SlowDeathBehavior@@UBE?AW4NameKeyType@@XZ@51"
+      ],
+      [
+        21,
+        6,
+        "??_B?1??getModuleNameKey@SlowDeathBehavior@@UBE?AW4NameKeyType@@XZ@51"
+      ],
+      [
+        28,
+        6,
+        "?TheNameKeyGenerator@@3PAVNameKeyGenerator@@A"
+      ],
+      [
+        38,
+        6,
+        "??_C@_0BC@CDBCPEGF@SlowDeathBehavior?$AA@"
+      ],
+      [
+        43,
+        20,
+        "?nameToKey@NameKeyGenerator@@QAE?AW4NameKeyType@@PBD@Z"
+      ],
+      [
+        48,
+        6,
+        "?nk@?1??getModuleNameKey@SlowDeathBehavior@@UBE?AW4NameKeyType@@XZ@4W43@A"
+      ],
+      [
+        56,
+        6,
+        "?nk@?1??getModuleNameKey@SlowDeathBehavior@@UBE?AW4NameKeyType@@XZ@4W43@A"
+      ],
+      [
+        63,
+        6,
+        "__except_list"
+      ]
+    ]
+  },
+  "scope": "Consolidation prerequisite only; preserve factory, slots and access; no final merge or census claim",
+  "retained_external_data_definitions": 560,
+  "identical_initialized_data_definitions": 558,
+  "uninitialized_bss_definitions": [
+    {
+      "variant": "before",
+      "symbol": "?TheSlowDeathBehaviorPool@?1??getClassMemoryPool@SlowDeathBehavior@@CAPAVMemoryPool@@XZ@4PAV3@A",
+      "section": ".bss",
+      "size": 4,
+      "initialization": "four zero bytes of uninitialized storage"
+    },
+    {
+      "variant": "before",
+      "symbol": "?$S24@?1??getClassMemoryPool@SlowDeathBehavior@@CAPAVMemoryPool@@XZ@4IA",
+      "section": ".bss",
+      "size": 4,
+      "initialization": "four zero bytes of uninitialized storage"
+    },
+    {
+      "variant": "trial",
+      "symbol": "?TheSlowDeathBehaviorPool@?1??getClassMemoryPool@SlowDeathBehavior@@CAPAVMemoryPool@@XZ@4PAV3@A",
+      "section": ".bss",
+      "size": 4,
+      "initialization": "four zero bytes of uninitialized storage"
+    },
+    {
+      "variant": "trial",
+      "symbol": "?$S24@?1??getClassMemoryPool@SlowDeathBehavior@@CAPAVMemoryPool@@XZ@4IA",
+      "section": ".bss",
+      "size": 4,
+      "initialization": "four zero bytes of uninitialized storage"
+    }
+  ],
+  "removed_inline_getter_statics": [
+    "??_B?1??getModuleNameKey@SlowDeathBehavior@@UBE?AW4NameKeyType@@XZ@51",
+    "?nk@?1??getModuleNameKey@SlowDeathBehavior@@UBE?AW4NameKeyType@@XZ@4W43@A"
+  ],
+  "no_new_external_data": true
+}

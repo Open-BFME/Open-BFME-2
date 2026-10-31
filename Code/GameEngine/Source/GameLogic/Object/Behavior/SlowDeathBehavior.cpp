@@ -60,7 +60,23 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include "GameLogic/GameLogic.h"
 #include "GameLogic/Module/BodyModule.h"
 #include "GameLogic/Module/PhysicsUpdate.h"
+// This TU uses the already-owned out-of-line module-name key. Keep the
+// remaining factory, virtual slots and access unchanged for this header only.
+#include "GameLogic/Module/BehaviorModule.h"
+#include "GameLogic/Module/DieModule.h"
+#include "GameLogic/Module/UpdateModule.h"
+#pragma push_macro("MAKE_STANDARD_MODULE_MACRO")
+#undef MAKE_STANDARD_MODULE_MACRO
+#define MAKE_STANDARD_MODULE_MACRO(cls) \
+public: \
+    static Module* friend_newModuleInstance(Thing *thing, const ModuleData *moduleData) { return ::new cls(thing, moduleData); } \
+    virtual NameKeyType getModuleNameKey() const; \
+protected: \
+    virtual void crc(Xfer *xfer); \
+    virtual void xfer(Xfer *xfer); \
+    virtual void loadPostProcess(void);
 #include "GameLogic/Module/SlowDeathBehavior.h"
+#pragma pop_macro("MAKE_STANDARD_MODULE_MACRO")
 #include "GameLogic/Module/AIUpdate.h"
 #include "GameLogic/Module/SlavedUpdate.h"
 #include "GameLogic/Object.h"
