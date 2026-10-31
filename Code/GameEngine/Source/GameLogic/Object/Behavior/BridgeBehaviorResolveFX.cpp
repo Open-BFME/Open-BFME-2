@@ -1,4 +1,5 @@
-// cl: /FIzh_ascii.h /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc
+// cl: /FIzh_ascii.h /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_bridgebehavior /Ireference/shims/update_modules_bfme2 /Ireference/shims/moduledata /Ireference/shims/zh_outofline /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib /ICode/Libraries/Include /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ivendor/stlport /Ireference/shims/asciistring_outofline /ICode/GameEngine/Include /Ireference/shims/iniexception /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad
+// stlport
 // Retail 0x00456A49, 470B: BridgeBehavior::resolveFX.
 // Body: Zero Hour's resolveFX (GeneralsMD GameEngine/Source/GameLogic/Object/
 // Behavior/BridgeBehavior.cpp). Target evidence: the bridge is found through
@@ -10,158 +11,46 @@
 // resolved flag at +0xFC. BFME 2 deltas: four body states by three effects,
 // the OCL/FX tables at +0x3C/+0x6C/+0x9C/+0xCC, and no sound resolution.
 
+#define BFME_SNAPSHOT_NAME_SLOT
+#define BFME_MODULE_NO_MPO
+#define Matrix4x4 Matrix4  // BFME renamed it
+#include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
 #include "ascii_string.h"
-
-typedef int Int;
-
-enum BodyDamageType
-{
-	BODY_PRISTINE = 0
-};
-
-struct Coord3D;
-class ObjectCreationList;
-class FXList;
-
-class Object
-{
-public:
-	const Coord3D *getPosition() const { return (const Coord3D *)m_pos; }
-	unsigned char m_pad00[0x38];
-	unsigned char m_pos[12];
-};
-
-class TerrainRoadType
-{
-public:
-	AsciiString getDamageToOCLString(BodyDamageType state, Int index);
-};
+#include "GameClient/FXList.h"
+#include "GameClient/TerrainRoads.h"
+#include "GameLogic/Object.h"
+#include "GameLogic/ObjectCreationList.h"
+#include "GameLogic/TerrainLogic.h"
+#include "GameLogic/Module/BridgeBehavior.h"
 
 // Address-named TerrainRoadType name getters (ZH getDamageToFXString,
 // getRepairedToOCLString and getRepairedToFXString).
 class Rva00456725
 {
 public:
-	AsciiString rva00456725(Int state, Int index);
+	AsciiString rva00456725(int a, int b);
+	char m_pad00[0xA4];
+	AsciiString m_strings[80]; // +0xA4
 };
 
 class Rva0045674D
 {
 public:
-	AsciiString rva0045674D(Int state, Int index);
+	AsciiString rva0045674D(int a, int b);
+	AsciiString m_strings[80]; // +0x00
 };
 
 class Rva00456774
 {
 public:
-	AsciiString rva00456774(Int state, Int index);
-};
-
-class TerrainRoadCollection
-{
-public:
-	TerrainRoadType *findBridge(AsciiString name);
-};
-
-extern TerrainRoadCollection *TheTerrainRoads;
-
-class Bridge
-{
+	AsciiString rva00456774(int a, int b);
+	AsciiString m_strings[80]; // +0x00
 };
 
 class Anim2DTemplate
 {
 public:
 	AsciiString getName() const;
-};
-
-class TerrainLogic
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void v03();
-	virtual void v04();
-	virtual void v05();
-	virtual void v06();
-	virtual void v07();
-	virtual void v08();
-	virtual void v09();
-	virtual void v0a();
-	virtual void v0b();
-	virtual void v0c();
-	virtual void v0d();
-	virtual void v0e();
-	virtual void v0f();
-	virtual void v10();
-	virtual void v11();
-	virtual void v12();
-	virtual void v13();
-	virtual void v14();
-	virtual void v15();
-	virtual void v16();
-	virtual void v17();
-	virtual void v18();
-	virtual void v19();
-	virtual void v1a();
-	virtual void v1b();
-	virtual void v1c();
-	virtual void v1d();
-	virtual void v1e();
-	virtual void v1f();
-	virtual void v20();
-	virtual void v21();
-	virtual void v22();
-	virtual void v23();
-	virtual void v24();
-	virtual void v25();
-	virtual void v26();
-	virtual void v27();
-	virtual void v28();
-	virtual Bridge *findBridgeAt(const Coord3D *loc) const;
-};
-
-extern TerrainLogic *TheTerrainLogic;
-
-class ObjectCreationListStore
-{
-public:
-	const ObjectCreationList *findObjectCreationList(const char *name) const;
-};
-
-extern ObjectCreationListStore *TheObjectCreationListStore;
-
-class FXListStore
-{
-public:
-	const FXList *findFXList(const char *name) const;
-};
-
-extern FXListStore *TheFXListStore;
-
-enum
-{
-	BODYDAMAGETYPE_COUNT = 4,
-	MAX_BRIDGE_BODY_FX = 3
-};
-
-class BridgeBehavior
-{
-protected:
-	void resolveFX();
-	Object *getObject() const { return m_object; }
-
-private:
-	void *m_vtable;
-	const void *m_moduleData;
-	Object *m_object;
-	unsigned char m_pad0C[0x3C - 0x0C];
-	const ObjectCreationList *m_damageToOCL[ BODYDAMAGETYPE_COUNT ][ MAX_BRIDGE_BODY_FX ];
-	const FXList *m_damageToFX[ BODYDAMAGETYPE_COUNT ][ MAX_BRIDGE_BODY_FX ];
-	const ObjectCreationList *m_repairToOCL[ BODYDAMAGETYPE_COUNT ][ MAX_BRIDGE_BODY_FX ];
-	const FXList *m_repairToFX[ BODYDAMAGETYPE_COUNT ][ MAX_BRIDGE_BODY_FX ];
-	bool m_fxResolved;
 };
 
 // ------------------------------------------------------------------------------------------------

@@ -33,23 +33,28 @@ typedef unsigned int UnsignedInt;
 
 class INI
 {
-    char unknown[0x420];
-    const char *sepsColon;
 public:
-    const char *getNextToken( const char *seps );
-    const char *getNextTokenOrNull( const char *seps );
-    __forceinline const char *getSepsColon() const
-    {
-        return sepsColon;
-    }
-    AsciiString getNextAsciiString();
-    static void parseDurationUnsignedInt( INI *, void *, void *, const void * );
+	const char *getNextToken( const char *seps );
+	const char *getNextTokenOrNull( const char *seps );
+	__forceinline const char *getSepsColon() const
+	{
+	    return sepsColon;
+	}
+	AsciiString getNextAsciiString();
+	static void parseDurationUnsignedInt( INI *, void *, void *, const void * );
+	static void parseObjectCreationList( INI *, void *, void *, const void * );
+	char m_pad00[0x420];
+private:
+	const char *sepsColon; // +0x420
 };
 
 struct TimeAndLocationInfo
 {
-    UnsignedInt delay;
-    AsciiString boneName;
+public:
+	TimeAndLocationInfo() {}
+	~TimeAndLocationInfo() {}
+	UnsignedInt delay; // +0x00
+	AsciiString boneName; // +0x04
 };
 
 struct BoneNameSlot

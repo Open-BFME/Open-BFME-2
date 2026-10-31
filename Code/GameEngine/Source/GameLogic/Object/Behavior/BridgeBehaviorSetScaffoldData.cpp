@@ -1,4 +1,5 @@
-// cl: /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /FIzh_ascii.h /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_bridgebehavior /Ireference/shims/update_modules_bfme2 /Ireference/shims/moduledata /Ireference/shims/zh_outofline /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib /ICode/Libraries/Include /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ivendor/stlport /Ireference/shims/asciistring_outofline /ICode/GameEngine/Include /Ireference/shims/iniexception /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad
+// stlport
 // Retail 0x004568EC, 338B; this six-argument thiscall returns with ret 0x18.
 // The ZH member declaration and body establish BridgeBehavior::setScaffoldData;
 // the BFME 1 port is at
@@ -10,54 +11,15 @@
 // callees below are independently rowed; the minimal views preserve only the
 // offsets and virtual slots witnessed by this body.
 
-typedef float Real;
+#define BFME_SNAPSHOT_NAME_SLOT
+#define BFME_MODULE_NO_MPO
+#define Matrix4x4 Matrix4  // BFME renamed it
+#include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
+#include "GameLogic/Object.h"
+#include "GameLogic/Module/BridgeBehavior.h"
+#include "GameLogic/Module/BridgeScaffoldBehavior.h"
+
 extern const Real g_00BC2A10;
-
-#include "../../../../../Libraries/Include/Lib/Coord3D.h"
-
-#include "../../../Common/Thing/thing.h"
-
-class Object : public Thing
-{
-};
-
-class BridgeScaffoldBehaviorInterface
-{
-public:
-	virtual void setPositions(const Coord3D *sunkenPosition,
-		const Coord3D *risePosition, const Coord3D *buildPosition);
-	virtual void setMotion(int motion);
-	virtual int getCurrentMotion() const;
-	virtual void reverseMotion();
-	virtual void setLateralSpeed(Real speed);
-	virtual void setVerticalSpeed(Real speed);
-};
-
-class BridgeScaffoldBehavior
-{
-public:
-	static BridgeScaffoldBehaviorInterface *getBridgeScaffoldBehaviorInterfaceFromObject(Object *object);
-};
-
-struct BridgeBehaviorModuleData
-{
-	unsigned char m_unmodelled00[8];
-	Real m_lateralScaffoldSpeed;
-	Real m_verticalScaffoldSpeed;
-};
-
-class BridgeBehavior
-{
-public:
-	void *m_vtable;
-	BridgeBehaviorModuleData *m_moduleData;
-
-protected:
-	void setScaffoldData(Object *object, Real *angle, Real *sunkenHeight,
-		const Coord3D *risePosition, const Coord3D *buildPosition,
-		const Coord3D *bridgeCenter);
-	friend void bfmeAnchorBridgeBehaviorSetScaffoldData(BridgeBehavior *p);
-};
 
 // Select-any: BridgeBehaviorCreateScaffolding.cpp compiles an identical copy for its caller.
 __declspec(noinline) inline void BridgeBehavior::setScaffoldData(Object *object, Real *angle,
@@ -73,7 +35,7 @@ __declspec(noinline) inline void BridgeBehavior::setScaffoldData(Object *object,
 	if (!buildPosition)
 		return;
 
-	BridgeBehaviorModuleData *moduleData = m_moduleData;
+	const BridgeBehaviorModuleData *moduleData = getBridgeBehaviorModuleData();
 	BridgeScaffoldBehaviorInterface *scaffold =
 		BridgeScaffoldBehavior::getBridgeScaffoldBehaviorInterfaceFromObject(object);
 	Coord3D sunkenPosition;
@@ -82,7 +44,7 @@ __declspec(noinline) inline void BridgeBehavior::setScaffoldData(Object *object,
 	sunkenPosition.z = risePosition->z - *sunkenHeight - g_00BC2A10;
 	object->setPosition(&sunkenPosition);
 	scaffold->setPositions(&sunkenPosition, risePosition, buildPosition);
-	scaffold->setMotion(1);
+	scaffold->setMotion((ScaffoldTargetMotion)1);
 	((Thing *)object)->setOrientation(*angle);
 
 	Real lateralSpeed = moduleData->m_lateralScaffoldSpeed;

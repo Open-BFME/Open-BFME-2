@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /ICode/Libraries/Include /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug
+// cl: /FIzh_ascii.h /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_bridgebehavior /Ireference/shims/update_modules_bfme2 /Ireference/shims/moduledata /Ireference/shims/zh_outofline /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib /ICode/Libraries/Include /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ivendor/stlport /Ireference/shims/asciistring_outofline /ICode/GameEngine/Include /Ireference/shims/iniexception /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad
 // stlport
 // BridgeBehavior::createScaffolding (retail 0x00457737, 1851B), the Zero Hour
 // GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp body built
@@ -21,21 +21,35 @@
 // push_back/insert/_M_create_node (0x002A1B6F, 0x002A1316, 0x0029FB80, the
 // DamageField pooled ObjectID list) and setScaffoldData are visible here as
 // select-any copies, so cl sees which local addresses they keep.
-template <class T> class BfmeObjectIdPoolAllocator;
-namespace _STL {
-template <class T, class U>
-inline BfmeObjectIdPoolAllocator<U> &__stl_alloc_rebind(BfmeObjectIdPoolAllocator<T> &a, const U *)
-{ return (BfmeObjectIdPoolAllocator<U> &)a; }
-template <class T, class U>
-inline BfmeObjectIdPoolAllocator<U> __stl_alloc_create(const BfmeObjectIdPoolAllocator<T> &, const U *)
-{ return BfmeObjectIdPoolAllocator<U>(); }
-}
-// WWLib's always.h supplies the vector placement new/delete.
+// The scaffold ID list's nodes come from the fixed-size pool at 0x00DA60E8.
 #define __PLACEMENT_VEC_NEW_INLINE
-#include <list>
+#define BFME_SNAPSHOT_NAME_SLOT
+#define BFME_MODULE_NO_MPO
+#define _CRTIMP
+#define Matrix4x4 Matrix4  // BFME renamed it
+#include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
 #include "ascii_string.h"
-#include "Lib/Coord3D.h"
-#include "Lib/Coord2D.h"
+#include "Common/ThingFactory.h"
+#include "Common/Geometry.h"
+#include "GameClient/TerrainRoads.h"
+#include "GameLogic/AI.h"
+#include "GameLogic/AIPathfind.h"
+#include "GameLogic/Object.h"
+#include "GameLogic/TerrainLogic.h"
+#include "GameLogic/Module/BridgeBehavior.h"
+#include "GameLogic/Module/BridgeScaffoldBehavior.h"
+#include <math.h>
+#include <string.h>
+#include "wwmath.h"
+#undef REAL_TO_INT_CEIL
+// Retail's ceil goes through the import table, spelled as math.h's float overload does it; the
+// seed's _CRTIMP makes the CRT's other calls direct.
+namespace BridgeCrtImport {
+extern "C" __declspec(dllimport) double __cdecl ceil(double);
+inline float __cdecl ceilf(float x) { return ((float)ceil((double)x)); }
+inline float __cdecl ceil(float x) { return (ceilf(x)); }
+}
+#define REAL_TO_INT_CEIL(x) WWMath::Float_To_Long((Real)BridgeCrtImport::ceil(x))
 
 // The support positions copy member-wise when constructed and block-copy when assigned.
 struct ScaffoldCoord : Coord3D
@@ -44,136 +58,11 @@ struct ScaffoldCoord : Coord3D
 	ScaffoldCoord(const Coord3D &o) { x = o.x; y = o.y; z = o.z; }
 };
 
-#include <math.h>
-float ACos(float value);
-
-inline float Coord3D::length() const
+// The template's geometry info at +0xA0; Zero Hour's ThingTemplate holds it elsewhere.
+struct BridgeTemplateGeometryView
 {
-	return (float)sqrt(x * x + y * y + z * z);
-}
-
-inline void Coord3D::normalize()
-{
-	float len = length();
-	if (len != 0.0f) {
-		float scale = 1.0f / len;
-		x *= scale;
-		y *= scale;
-		z *= scale;
-	}
-}
-
-inline float Coord2D::length() const
-{
-	return (float)sqrt(x * x + y * y);
-}
-
-// The angle of the vector, clamped so a rounding overshoot cannot reach acos out of range.
-inline float Coord2D::toAngle() const
-{
-	float len = length();
-	if (len == 0.0f) {
-		return 0.0f;
-	}
-	const float raw = x / len;
-	float cosine;
-	if (raw < -1.0f) {
-		cosine = -1.0f;
-	} else if (raw > 1.0f) {
-		cosine = 1.0f;
-	} else {
-		cosine = raw;
-	}
-	if (y < 0.0f) {
-		return -ACos(cosine);
-	}
-	return ACos(cosine);
-}
-
-#include <string.h>
-typedef float Real;
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
-#define TWO_PI 6.28318530718f
-#include "wwmath.h"
-#define REAL_TO_INT_CEIL(x) WWMath::Float_To_Long((Real)ceil(x))
-#define INT_TO_REAL(x) ((Real)(x))
-
-class Team;
-
-class GeometryInfo
-{
-public:
-	Real getMajorRadius() const { return m_majorRadius; }
-	Real getMaxHeightBelowPosition() const;
-	Real getMaxHeightAbovePosition() const;
-private:
-	unsigned char m_unmodelled00[0x10];
-	Real m_majorRadius;	// +0x10
-};
-
-class ThingTemplate
-{
-public:
-	const GeometryInfo &getTemplateGeometryInfo() const { return m_geometryInfo; }
-private:
 	unsigned char m_unmodelled000[0xA0];
 	GeometryInfo m_geometryInfo;	// +0xA0
-};
-
-enum ObjectID { INVALID_ID = 0 };
-
-// The scaffold ID list's nodes come from the fixed-size pool at 0x00DA60E8.
-class FreelistPool { public: void *pop(); };
-extern FreelistPool g_freelistPool;
-extern void *g_freeList;
-template <class T> class BfmeObjectIdPoolAllocator {
-public:
-	typedef T value_type;
-	typedef T *pointer;
-	typedef const T *const_pointer;
-	typedef T &reference;
-	typedef const T &const_reference;
-	typedef unsigned int size_type;
-	typedef int difference_type;
-	template <class U> struct rebind { typedef BfmeObjectIdPoolAllocator<U> other; };
-	BfmeObjectIdPoolAllocator() {}
-	template <class U> BfmeObjectIdPoolAllocator(const BfmeObjectIdPoolAllocator<U> &) {}
-	pointer allocate(size_type, const void * = 0) { return (pointer)g_freelistPool.pop(); }
-	void deallocate(pointer p, size_type)
-	{
-		if (p)
-		{
-			*(void **)p = g_freeList;
-			g_freeList = p;
-		}
-	}
-	void construct(pointer p, const_reference value) { new (p) T(value); }
-	void destroy(pointer p) { p->~T(); }
-	size_type max_size() const { return (size_type)(-1)/sizeof(T); }
-};
-namespace _STL {
-template <class T, class U> struct _Alloc_traits<T, BfmeObjectIdPoolAllocator<U> > {
-	typedef BfmeObjectIdPoolAllocator<U> _Orig;
-	typedef BfmeObjectIdPoolAllocator<T> allocator_type;
-	static allocator_type create_allocator(const _Orig &a) { return allocator_type(a); }
-};
-}
-typedef std::list<ObjectID, BfmeObjectIdPoolAllocator<ObjectID> > ObjectIDList;
-
-#include "../../../Common/Thing/thing.h"
-
-class Object : public Thing
-{
-public:
-	ObjectID getID() const { return m_id; }
-	Team *getTeam() const { return m_team; }
-private:
-	unsigned char m_pad060[0x74 - 0x60];
-	ObjectID m_id;	// +0x74
-	unsigned char m_unmodelled078[0x304 - 0x78];
-	Team *m_team;	// +0x304
 };
 
 // newObject's third argument: a 16-byte bit mask, zeroed when constructed.
@@ -181,14 +70,6 @@ struct CreateMask
 {
 	unsigned int m_bits[4];
 };
-
-class ThingFactory
-{
-public:
-	Object *newObject(const ThingTemplate *tmplate, Team *team, const CreateMask *mask, ObjectID b);
-	const ThingTemplate *findTemplate(const AsciiString &name);
-};
-extern ThingFactory *TheThingFactory;
 
 // The road template's scaffold / scaffold-support object name getters are
 // rowed under address-derived owners (0x002D9BC1 / 0x0056394A).
@@ -204,174 +85,15 @@ public:
 	AsciiString rva0056394A();
 };
 
-class TerrainRoadType;
-
-class Rva0027C36A
-{
-public:
-	Rva0027C36A();
-	Rva0027C36A &operator=(const Rva0027C36A &other);
-	Coord3D from;		// +0x00
-	Coord3D to;		// +0x0C
-	Real bridgeWidth;	// +0x18
-	Coord3D fromLeft;	// +0x1C
-	Coord3D fromRight;	// +0x28
-	Coord3D toLeft;		// +0x34
-	Coord3D toRight;	// +0x40
-private:
-	char m_pad4C[0xA8 - 0x4C];
-};
-typedef Rva0027C36A BridgeInfo;
-
 class TerrainType
 {
 public:
 	AsciiString getTexture() const;
 };
 
-class Bridge
-{
-public:
-	void getBridgeInfo(BridgeInfo *info) { *info = m_bridgeInfo; }
-	Int getLayer() const { return m_layer; }
-private:
-	void *m_vtable;
-	Bridge *m_next;			// +0x04
-	AsciiString m_templateName;	// +0x08
-	BridgeInfo m_bridgeInfo;	// +0x0C
-	char m_padB4[0xC4 - 0xB4];
-	Int m_layer;			// +0xC4
-};
-
-class TerrainRoadCollection
-{
-public:
-	TerrainRoadType *findBridge(AsciiString name);
-};
-extern TerrainRoadCollection *TheTerrainRoads;
-
-class TerrainLogic
-{
-public:
-	virtual void slot00();
-	virtual void slot04();
-	virtual void slot08();
-	virtual void slot0C();
-	virtual void slot10();
-	virtual void slot14();
-	virtual void slot18();
-	virtual void slot1C();
-	virtual void slot20();
-	virtual void slot24();
-	virtual void slot28();
-	virtual void slot2C();
-	virtual void slot30();
-	virtual void slot34();
-	virtual void slot38();
-	virtual void slot3C();
-	virtual void slot40();
-	virtual void slot44();
-	virtual void slot48();
-	virtual void slot4C();
-	virtual void slot50();
-	virtual void slot54();
-	virtual void slot58();
-	virtual void slot5C();
-	virtual void slot60();
-	virtual void slot64();
-	virtual void slot68();
-	virtual void slot6C();
-	virtual void slot70();
-	virtual void slot74();
-	virtual void slot78();
-	virtual void slot7C();
-	virtual void slot80();
-	virtual void slot84();
-	virtual void slot88();
-	virtual void slot8C();
-	virtual void slot90();
-	virtual void slot94();
-	virtual void slot98();
-	virtual void slot9C();
-	virtual void slotA0();
-	virtual Bridge *findBridgeAt(const Coord3D *loc) const;
-};
-extern TerrainLogic *TheTerrainLogic;
-
-class Pathfinder
-{
-public:
-	void SetBridgeStateRepaired(Int layer, bool repaired);
-};
-
-class AI
-{
-public:
-	Pathfinder *pathfinder() { return m_pathfinder; }
-private:
-	unsigned char m_unmodelled00[0x10];
-	Pathfinder *m_pathfinder;	// +0x10
-};
-extern AI *TheAI;
-
-struct BridgeBehaviorModuleData
-{
-	char pad[8];
-	Real m_lateralScaffoldSpeed, m_verticalScaffoldSpeed;
-};
-
-class BridgeBehaviorBase
-{
-public:
-	virtual ~BridgeBehaviorBase();
-	Object *getObject() const { return m_object; }
-protected:
-	BridgeBehaviorModuleData *m_moduleData;	// +0x04
-	Object *m_object;			// +0x08
-	unsigned char m_unmodelled0C[0x20 - 0x0C];
-};
-
-class BridgeBehaviorInterface
-{
-public:
-	virtual void createScaffolding() = 0;
-};
-
-class BridgeBehavior : public BridgeBehaviorBase, public BridgeBehaviorInterface
-{
-public:
-	virtual void createScaffolding();
-protected:
-	void setScaffoldData(Object *obj, Real *angle, Real *height, const Coord3D *riseToPos,
-		const Coord3D *buildPos, const Coord3D *bridgeCenter);
-private:
-	unsigned char m_unmodelled24[0xFD - 0x24];
-	Bool m_scaffoldPresent;			// +0xFD
-	unsigned char m_unmodelledFE[0x100 - 0xFE];
-	ObjectIDList m_scaffoldObjectIDList;	// +0x100
-};
-
-class BridgeScaffoldBehaviorInterface
-{
-public:
-	virtual void setPositions(const Coord3D *sunkenPosition,
-		const Coord3D *risePosition, const Coord3D *buildPosition);
-	virtual void setMotion(int motion);
-	virtual int getCurrentMotion() const;
-	virtual void reverseMotion();
-	virtual void setLateralSpeed(Real speed);
-	virtual void setVerticalSpeed(Real speed);
-};
-
-class BridgeScaffoldBehavior
-{
-public:
-	static BridgeScaffoldBehaviorInterface *getBridgeScaffoldBehaviorInterfaceFromObject(Object *object);
-};
-
 extern const Real g_00BC2A10;
 
-// Select-any copy of the rowed BridgeBehaviorSetScaffoldData.cpp body.
+// Select-any: BridgeBehaviorCreateScaffolding.cpp compiles an identical copy for its caller.
 __declspec(noinline) inline void BridgeBehavior::setScaffoldData(Object *object, Real *angle,
 	Real *sunkenHeight, const Coord3D *risePosition,
 	const Coord3D *buildPosition, const Coord3D *bridgeCenter)
@@ -385,7 +107,7 @@ __declspec(noinline) inline void BridgeBehavior::setScaffoldData(Object *object,
 	if (!buildPosition)
 		return;
 
-	BridgeBehaviorModuleData *moduleData = m_moduleData;
+	const BridgeBehaviorModuleData *moduleData = getBridgeBehaviorModuleData();
 	BridgeScaffoldBehaviorInterface *scaffold =
 		BridgeScaffoldBehavior::getBridgeScaffoldBehaviorInterfaceFromObject(object);
 	Coord3D sunkenPosition;
@@ -394,7 +116,7 @@ __declspec(noinline) inline void BridgeBehavior::setScaffoldData(Object *object,
 	sunkenPosition.z = risePosition->z - *sunkenHeight - g_00BC2A10;
 	object->setPosition(&sunkenPosition);
 	scaffold->setPositions(&sunkenPosition, risePosition, buildPosition);
-	scaffold->setMotion(1);
+	scaffold->setMotion((ScaffoldTargetMotion)1);
 	((Thing *)object)->setOrientation(*angle);
 
 	Real lateralSpeed = moduleData->m_lateralScaffoldSpeed;
@@ -448,13 +170,13 @@ void BridgeBehavior::createScaffolding( void )
 		return;
 
 	// how much space is going to be between each of the scaffold objects at their final positions
-	Real spacing = scaffoldTemplate->getTemplateGeometryInfo().getMajorRadius() * 2.0f;
+	Real spacing = ((const BridgeTemplateGeometryView *)scaffoldTemplate)->m_geometryInfo.getMajorRadius() * 2.0f;
 
 	// how tall are the scaffold objects
-	Real scaffoldHeight = scaffoldTemplate->getTemplateGeometryInfo().getMaxHeightAbovePosition() +
-												scaffoldTemplate->getTemplateGeometryInfo().getMaxHeightBelowPosition();
-	Real scaffoldSupportHeight = scaffoldSupportTemplate->getTemplateGeometryInfo().getMaxHeightAbovePosition() +
-															 scaffoldSupportTemplate->getTemplateGeometryInfo().getMaxHeightBelowPosition();
+	Real scaffoldHeight = ((const BridgeTemplateGeometryView *)scaffoldTemplate)->m_geometryInfo.getMaxHeightAbovePosition() +
+												((const BridgeTemplateGeometryView *)scaffoldTemplate)->m_geometryInfo.getMaxHeightBelowPosition();
+	Real scaffoldSupportHeight = ((const BridgeTemplateGeometryView *)scaffoldSupportTemplate)->m_geometryInfo.getMaxHeightAbovePosition() +
+															 ((const BridgeTemplateGeometryView *)scaffoldSupportTemplate)->m_geometryInfo.getMaxHeightBelowPosition();
 
 	// get the bridge info
 	BridgeInfo bridgeInfo;

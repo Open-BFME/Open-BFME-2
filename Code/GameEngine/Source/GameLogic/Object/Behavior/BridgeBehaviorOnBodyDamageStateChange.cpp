@@ -1,4 +1,5 @@
-// cl: /FIzh_ascii.h /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc
+// cl: /FIzh_ascii.h /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_bridgebehavior /Ireference/shims/update_modules_bfme2 /Ireference/shims/moduledata /Ireference/shims/zh_outofline /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib /ICode/Libraries/Include /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ivendor/stlport /Ireference/shims/asciistring_outofline /ICode/GameEngine/Include /Ireference/shims/iniexception /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad
+// stlport
 // Retail 0x00456C1F, 593B: BridgeBehavior::onBodyDamageStateChange, entered
 // through the DamageModuleInterface subobject at BridgeBehavior+0x24 (the
 // object is this-0x1C, resolveFX and doAreaEffects are called on this-0x24,
@@ -12,40 +13,21 @@
 // (damage) and +0x9C/+0xCC (repair). TerrainLogic slot 0xC4 is
 // updateBridgeDamageStates and Radar slot 0x14 queueTerrainRefresh.
 
+#define BFME_SNAPSHOT_NAME_SLOT
+#define BFME_MODULE_NO_MPO
+#define Matrix4x4 Matrix4  // BFME renamed it
+#include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
 #include "ascii_string.h"
-#include "Common/BfmeAudioEventPrefix136.h"
+#include "../../../../Include/Common/BfmeAudioEventPrefix136.h"
+#include "Common/GameAudio.h"
+#include "Common/Radar.h"
+#include "GameClient/TerrainRoads.h"
+#include "GameLogic/Object.h"
+#include "GameLogic/TerrainLogic.h"
+#include "GameLogic/Module/BridgeBehavior.h"
 
-typedef int Int;
-typedef bool Bool;
-
-enum BodyDamageType
-{
-	BODY_PRISTINE = 0,
-	BODY_RUBBLE = 3
-};
-
-enum ObjectID
-{
-	INVALID_ID = 0
-};
-
-struct Coord3D;
-class DamageInfo;
-class ObjectCreationList;
-class FXList;
-
-class Object
-{
-public:
-	const Coord3D *getPosition() const { return (const Coord3D *)m_pos; }
-	ObjectID getID() const { return m_id; }
-	unsigned char m_pad00[0x38];
-	unsigned char m_pos[12];
-	unsigned char m_pad44[0x74 - 0x44];
-	ObjectID m_id;
-};
-
-class TerrainRoadType
+// The bridge template's repaired and damaged sound entries.
+class BridgeRoadSoundView
 {
 public:
 	unsigned char m_pad00[0x64];
@@ -54,82 +36,14 @@ public:
 	OpaqueRefElement4 m_repairedToSound[4];
 };
 
-class TerrainRoadCollection
-{
-public:
-	TerrainRoadType *findBridge(AsciiString name);
-};
-
-extern TerrainRoadCollection *TheTerrainRoads;
-
-class Bridge
-{
-};
-
 class Anim2DTemplate
 {
 public:
 	AsciiString getName() const;
 };
 
-class TerrainLogic
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void v03();
-	virtual void v04();
-	virtual void v05();
-	virtual void v06();
-	virtual void v07();
-	virtual void v08();
-	virtual void v09();
-	virtual void v0a();
-	virtual void v0b();
-	virtual void v0c();
-	virtual void v0d();
-	virtual void v0e();
-	virtual void v0f();
-	virtual void v10();
-	virtual void v11();
-	virtual void v12();
-	virtual void v13();
-	virtual void v14();
-	virtual void v15();
-	virtual void v16();
-	virtual void v17();
-	virtual void v18();
-	virtual void v19();
-	virtual void v1a();
-	virtual void v1b();
-	virtual void v1c();
-	virtual void v1d();
-	virtual void v1e();
-	virtual void v1f();
-	virtual void v20();
-	virtual void v21();
-	virtual void v22();
-	virtual void v23();
-	virtual void v24();
-	virtual void v25();
-	virtual void v26();
-	virtual void v27();
-	virtual void v28();
-	virtual Bridge *findBridgeAt(const Coord3D *loc) const;
-	virtual void v2a();
-	virtual void v2b();
-	virtual void v2c();
-	virtual void v2d();
-	virtual void v2e();
-	virtual void v2f();
-	virtual void v30();
-	virtual void updateBridgeDamageStates();
-};
-
-extern TerrainLogic *TheTerrainLogic;
-
-class AudioManager
+// TheAudio's slots as retail calls them; Zero Hour's manager orders them differently.
+class BridgeAudioManagerView
 {
 public:
 	virtual void slot0();
@@ -160,89 +74,12 @@ public:
 	virtual int addAudioEvent(const BfmeAudioEventPrefix136 *event);
 };
 
-extern AudioManager *TheAudio;
-
-class Radar
-{
-public:
-	virtual void slot0();
-	virtual void slot1();
-	virtual void slot2();
-	virtual void slot3();
-	virtual void slot4();
-	virtual void queueTerrainRefresh();
-};
-
-extern Radar *TheRadar;
 
 // The audio event's object-id setter, address-named as rowed.
 class Rva002D9531
 {
 public:
 	void rva002D9531(int value);
-};
-
-enum
-{
-	BODYDAMAGETYPE_COUNT = 4,
-	MAX_BRIDGE_BODY_FX = 3
-};
-
-class UpdateModule
-{
-public:
-	virtual ~UpdateModule();
-protected:
-	Object *getObject() const { return m_object; }
-private:
-	const void *m_moduleData;
-	Object *m_object;
-	unsigned char m_pad0C[0x20 - 0x0C];
-};
-
-class BridgeBehaviorInterface
-{
-public:
-	virtual void setTower(int towerType, Object *tower) = 0;
-};
-
-class DamageModuleInterface
-{
-public:
-	virtual void onDamage(DamageInfo *damageInfo) = 0;
-	virtual void onHealing(DamageInfo *damageInfo) = 0;
-	virtual void onBodyDamageStateChange(const DamageInfo *damageInfo,
-		BodyDamageType oldState, BodyDamageType newState) = 0;
-};
-
-class DieModuleInterface
-{
-public:
-	virtual void onDie(const DamageInfo *damageInfo) = 0;
-};
-
-class BridgeBehavior : public UpdateModule, public BridgeBehaviorInterface,
-	public DamageModuleInterface, public DieModuleInterface
-{
-public:
-	virtual void onBodyDamageStateChange(const DamageInfo *damageInfo,
-		BodyDamageType oldState, BodyDamageType newState);
-
-protected:
-	void resolveFX();
-	void doAreaEffects(TerrainRoadType *bridgeTemplate, Bridge *bridge,
-		const ObjectCreationList *ocl, const FXList *fx);
-
-private:
-	unsigned char m_pad2C[0x3C - 0x2C];
-	const ObjectCreationList *m_damageToOCL[ BODYDAMAGETYPE_COUNT ][ MAX_BRIDGE_BODY_FX ];
-	const FXList *m_damageToFX[ BODYDAMAGETYPE_COUNT ][ MAX_BRIDGE_BODY_FX ];
-	const ObjectCreationList *m_repairToOCL[ BODYDAMAGETYPE_COUNT ][ MAX_BRIDGE_BODY_FX ];
-	const FXList *m_repairToFX[ BODYDAMAGETYPE_COUNT ][ MAX_BRIDGE_BODY_FX ];
-	Bool m_fxResolved;
-	Bool m_scaffoldPresent;
-	unsigned char m_padFE[0x104 - 0xFE];
-	unsigned int m_deathFrame;
 };
 
 // ------------------------------------------------------------------------------------------------
@@ -296,9 +133,9 @@ void BridgeBehavior::onBodyDamageStateChange( const DamageInfo* damageInfo,
 		// play the sound
 		if( bridgeTemplate )
 		{
-			BfmeAudioEventPrefix136 sound( bridgeTemplate->m_repairedToSound[ newState ], 0 );
+			BfmeAudioEventPrefix136 sound( ((BridgeRoadSoundView *)bridgeTemplate)->m_repairedToSound[ newState ], 0 );
 			reinterpret_cast<Rva002D9531 *>( &sound )->rva002D9531( us->getID() );
-			TheAudio->addAudioEvent( &sound );
+			((BridgeAudioManagerView *)TheAudio)->addAudioEvent( &sound );
 		}
 
 		for( Int i = 0; i < MAX_BRIDGE_BODY_FX; i++ )
@@ -311,9 +148,9 @@ void BridgeBehavior::onBodyDamageStateChange( const DamageInfo* damageInfo,
 		// play the sound
 		if( bridgeTemplate )
 		{
-			BfmeAudioEventPrefix136 sound( bridgeTemplate->m_damageToSound[ newState ], 0 );
+			BfmeAudioEventPrefix136 sound( ((BridgeRoadSoundView *)bridgeTemplate)->m_damageToSound[ newState ], 0 );
 			reinterpret_cast<Rva002D9531 *>( &sound )->rva002D9531( us->getID() );
-			TheAudio->addAudioEvent( &sound );
+			((BridgeAudioManagerView *)TheAudio)->addAudioEvent( &sound );
 		}
 
 		for( Int i = 0; i < MAX_BRIDGE_BODY_FX; i++ )
