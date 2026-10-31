@@ -10796,6 +10796,11 @@ Census confirmation: awaiting the next census.
     `??_7GameLogic@@6BSubsystemInterface@@@` lost by link order (no retail
     address). Restored the 13-virtual view; the adoption PASS compared function
     bytes but not emitted COMDAT vtables. `./build.sh` OK 30/30,
+  - `GameLogicInit.cpp` (attempt 2026-10-31): adopting canonical `Code/Libraries/Source/subsystem/SubsystemInterface.h`
+    is blocked because `GameLogicInit.cpp` calls `reset()` and `update()` (slots 9 and 10 of retail's 14-slot table
+    `0x00BD77A0`) across multiple subsystems (`TheSidesList`, `TheTaintManager`, `TheVictorySystem`,
+    `TheMineshaftPortalNetworkManager`), and derived classes (`TeamFactory`) rely on these virtual methods.
+    Adopting the 1-slot canonical header causes C2039. Kept the 14-slot private view matching `GameLogicDestructor.cpp`.
     `link_check.py` 0 -> 887 B.
   - `ObjectCreationListStore.cpp` (312 B, commit `link: give ObjectCreationListStore the canonical SubsystemInterface base`): `Rva001F092ACtor.cpp`
     derived from a private `BFME2NativeNetwork` base with an inline virtual
