@@ -540,10 +540,6 @@ class Rva00088D05 : public Rva000869CF
 public:
 	float * rva00088D05();
 };
-float * Rva00088D05::rva00088D05()
-{
-	return Rva000869CF::rva000869CF();
-}
 
 // 0x000907B7: tail jump to VideoPlayer::Rva00689180.
 class Rva000907B7 : public VideoPlayer

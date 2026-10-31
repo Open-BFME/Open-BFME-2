@@ -40431,7 +40431,7 @@ _$E5,,0x007ACE60,12,Code/Libraries/Source/WWVegas/WW3D2/meshmdl_sidehash.cpp,mat
 ?rva00043F94@Rva00043F94@@QAEHXZ,,0x00043F94,5,Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp,matched,vtable slot; single tail jump to Debug_Statistics::Get_Draw_Calls (rowed/pinned); no Ghidra entry
 ?rva00062972@Rva00062972@@QAEHXZ,,0x00062972,5,Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp,matched,vtable slot; single tail jump to Rva000A8F58Get (rowed/pinned); no Ghidra entry
 ?rva00062977@Rva00062977@@QAEHXZ,,0x00062977,5,Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp,matched,vtable slot; single tail jump to Rva000A8F5EGet (rowed/pinned); no Ghidra entry
-?rva00088D05@Rva00088D05@@QAEPAMXZ,,0x00088D05,5,Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp,matched,vtable slot; single tail jump to Rva000869CF::rva000869CF (rowed/pinned); no Ghidra entry
+?rva00088D05@Rva00088D05@@QAEPAMXZ,,0x00088D05,5,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp,matched,vtable slot; single tail jump to Rva000869CF::rva000869CF (rowed/pinned); no Ghidra entry
 ?rva000907B7@Rva000907B7@@QAEXXZ,,0x000907B7,5,Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp,matched,vtable slot; single tail jump to VideoPlayer::Rva00689180 (rowed/pinned); no Ghidra entry
 ?rva00098560@Rva00098560@@QAEXXZ,,0x00098560,5,Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp,matched,vtable slot; single tail jump to Rva0030ADE8Forwarder::rva0030ADE8 (rowed/pinned); no Ghidra entry
 ?rva000B23D8@Rva000B23D8@@QAEXXZ,,0x000B23D8,5,Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp,matched,vtable slot; single tail jump to Rva005CB260::rva005CB260 (rowed/pinned); no Ghidra entry
