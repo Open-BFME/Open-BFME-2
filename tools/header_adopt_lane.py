@@ -928,7 +928,7 @@ def scoped_rename(text, mappings):
     olds = {old for m in mappings.values() for old in m}
     if not olds:
         return text, None
-    if re.search(r"\\\r?\n|\?\?", text):
+    if re.search(r"\\\r?\n|\?\?[=/'()!<>-]", text):
         return None, "line splice or trigraph in unit"
     spliced = spliced_identifiers(text) & olds
     if spliced:

@@ -431,7 +431,10 @@ def test_r4d_transitive_include_chain_and_cycles(tmp_path, monkeypatch):
 
 
 def test_r4_trigraph_is_refused():
-    assert lane.scoped_rename("int f(Object *o) { return o->m_flags; } // ??/", RENAMES)[0] is None
+    for char in "=/'()!<>-":
+        assert lane.scoped_rename("int f(Object *o) { return o->m_flags; } // ??" + char, RENAMES)[0] is None
+    assert lane.scoped_rename("int f(Object *o) { return o->m_flags; } // ??0Thing", RENAMES)[0] is not None
+    assert lane.scoped_rename("int f(Object *o) { return o->m_flags; } // comment\\\n", RENAMES)[0] is None
 
 
 def test_r4c_header_continuations(tmp_path, monkeypatch):
