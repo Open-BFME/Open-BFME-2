@@ -338,7 +338,3 @@ class Rva00497805 : public UpdateModule
 protected:
 	virtual void loadPostProcess();
 };
-void Rva00497805::loadPostProcess()
-{
-	UpdateModule::loadPostProcess();
-}
