@@ -143,21 +143,7 @@ public:
 	void detach(void);
 };
 
-class MixFileCreator
-{
-public:
-	struct FileInfoStruct
-	{
-		FileInfoStruct();
-		FileInfoStruct(const FileInfoStruct &src);
-		FileInfoStruct &operator=(const FileInfoStruct &src);
-		unsigned long CRC;
-		unsigned long Offset;
-		unsigned long Size;
-		AsciiString Filename;
-	};
-};
-
+#include "../../../../Libraries/Source/WWVegas/WWLib/MixFileCreatorFileInfo.h"
 struct GeometryRecord;
 
 class Rva0021887C

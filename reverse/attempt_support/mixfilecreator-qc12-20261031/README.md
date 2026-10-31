@@ -82,3 +82,5 @@ baseline is edited and no existing shadow defect is claimed repaired.
 Additional verified consumer Code/Libraries/Source/WWVegas/WWLib/MixFileCreatorFileInfoStructAssign.cpp: 12/12 native rows; headeraccept/frozenPASS. Full8unit runtime graph still identical to original baseline (924sections/858external definitions/2weak bindings); no added/lost runtime provider or changed relocation. Normal hooks required for this single-donor commit.
 
 Additional verified consumer Code/GameEngine/Source/Common/__linear_insert.cpp: 1/1 native rows; headeraccept/frozenPASS. Full8unit runtime graph still identical to original baseline (924sections/858external definitions/2weak bindings); no added/lost runtime provider or changed relocation. Normal hooks required for this single-donor commit.
+
+Additional verified consumer Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DGhostObject.cpp: 9/9 native rows; headeraccept/frozenPASS. Full8unit runtime graph still identical to original baseline (924sections/858external definitions/2weak bindings); no added/lost runtime provider or changed relocation. Normal hooks required for this single-donor commit.
