@@ -29,7 +29,10 @@ private:
 class Rva0009990D
 {
 public:
-	void set(void *lock);
+	void clear();
+	~Rva0009990D(){clear();}
+	void set(void *p);
+	MutexClass::LockClass *m_ptr; // +0x00
 };
 
 class Rva005505E3

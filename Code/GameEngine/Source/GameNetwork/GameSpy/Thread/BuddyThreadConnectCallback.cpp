@@ -29,15 +29,16 @@ class ThreadClass
 {
 public:
 	ThreadClass(const char *name);
+	void Stop();
 	virtual ~ThreadClass();
 	virtual void Execute();
 protected:
 	virtual void Thread_Function() = 0;
 private:
-	char m_name[0x40];
-	unsigned int m_threadId;
-	void *m_handle;
-	int m_priority;
+	char m_name[0x40]; // +0x04
+	unsigned int m_threadId; // +0x44
+	void *m_handle; // +0x48
+	int m_priority; // +0x4C
 };
 
 #define _STLP_BFME_COPY_TRIVIAL_EXTERN  // call retail's one __copy_trivial (vendor/stlport/stl/_algobase.h)
