@@ -8,7 +8,7 @@
 #include "debug/debug.h"
 bool bfmeRva000387C0();
 enum ObjectStatusTypes { OBJECT_STATUS_5=5 };
-class Object { public: void setStatus(ObjectStatusTypes,bool); };
+#include "../object.h"
 class OpenContain { public: void privateRemoveFromContain(Object *,bool); };
 struct Rva00463509Flags {
     unsigned words[4];
