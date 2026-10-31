@@ -1,0 +1,360 @@
+{
+  "W3DStreakDraw": {
+    "fwd": false,
+    "key": "class",
+    "size": 20,
+    "bases": [
+      [
+        "DrawModule",
+        0
+      ]
+    ],
+    "fields": [
+      [
+        12,
+        "m_streak",
+        "BfmeStreakObject*",
+        4
+      ],
+      [
+        16,
+        "m_texture",
+        "TextureClass*",
+        4
+      ]
+    ],
+    "statics": [],
+    "methods": [
+      "GetSnapshotName",
+      "Rva000CFF4C",
+      "W3DStreakDraw",
+      "__vecDelDtor",
+      "friend_newModuleInstance",
+      "getModuleNameKey",
+      "loadPostProcess",
+      "name",
+      "rva000D0091",
+      "rva000D0459",
+      "rva000D0461",
+      "xfer",
+      "~W3DStreakDraw"
+    ],
+    "virtual": [
+      "GetSnapshotName",
+      "Rva000CFF4C",
+      "__vecDelDtor",
+      "getModuleNameKey",
+      "loadPostProcess",
+      "xfer",
+      "~W3DStreakDraw"
+    ],
+    "vslots": {
+      "0": "__vecDelDtor(uint)"
+    },
+    "vfptr": false
+  },
+  "DrawModule": {
+    "fwd": false,
+    "key": "class",
+    "size": 12,
+    "bases": [
+      [
+        "DrawableModule",
+        0
+      ]
+    ],
+    "fields": [],
+    "statics": [],
+    "methods": [
+      "DrawModule",
+      "GetSnapshotName",
+      "Rva000CFF4C",
+      "__vecDelDtor",
+      "_bfme_draw_slot11",
+      "_bfme_draw_slot12",
+      "_bfme_draw_slot13",
+      "_bfme_draw_slot14",
+      "_bfme_draw_slot15",
+      "_bfme_draw_slot17",
+      "_bfme_draw_slot18",
+      "_bfme_draw_slot19",
+      "_bfme_draw_slot20",
+      "_bfme_draw_slot21",
+      "_bfme_draw_slot22",
+      "_bfme_draw_slot23",
+      "_bfme_draw_slot24",
+      "_bfme_draw_slot25",
+      "_bfme_draw_slot26",
+      "_bfme_draw_slot27",
+      "_bfme_draw_slot28",
+      "_bfme_draw_slot29",
+      "_bfme_draw_slot30",
+      "_bfme_draw_slot31",
+      "_bfme_draw_slot32",
+      "_bfme_draw_slot33",
+      "_bfme_draw_slot34",
+      "_bfme_draw_slot35",
+      "_bfme_draw_slot36",
+      "_bfme_draw_slot37",
+      "_bfme_draw_slot38",
+      "_bfme_draw_slot39",
+      "_bfme_draw_slot40",
+      "_bfme_draw_slot41",
+      "_bfme_draw_slot42",
+      "_bfme_draw_slot43",
+      "_bfme_draw_slot44",
+      "_bfme_draw_slot45",
+      "_bfme_draw_slot46",
+      "_bfme_draw_slot47",
+      "_bfme_draw_slot48",
+      "_bfme_draw_slot49",
+      "_bfme_draw_slot50",
+      "_bfme_draw_slot51",
+      "_bfme_draw_slot52",
+      "_bfme_draw_slot53",
+      "_bfme_draw_slot54",
+      "_bfme_draw_slot55",
+      "_bfme_draw_slot56",
+      "_bfme_draw_slot57",
+      "_bfme_draw_slot58",
+      "_bfme_draw_slot59",
+      "_bfme_draw_slot60",
+      "_bfme_draw_slot61",
+      "loadPostProcess",
+      "xfer",
+      "~DrawModule"
+    ],
+    "virtual": [
+      "GetSnapshotName",
+      "Rva000CFF4C",
+      "__vecDelDtor",
+      "_bfme_draw_slot11",
+      "_bfme_draw_slot12",
+      "_bfme_draw_slot13",
+      "_bfme_draw_slot14",
+      "_bfme_draw_slot15",
+      "_bfme_draw_slot17",
+      "_bfme_draw_slot18",
+      "_bfme_draw_slot19",
+      "_bfme_draw_slot20",
+      "_bfme_draw_slot21",
+      "_bfme_draw_slot22",
+      "_bfme_draw_slot23",
+      "_bfme_draw_slot24",
+      "_bfme_draw_slot25",
+      "_bfme_draw_slot26",
+      "_bfme_draw_slot27",
+      "_bfme_draw_slot28",
+      "_bfme_draw_slot29",
+      "_bfme_draw_slot30",
+      "_bfme_draw_slot31",
+      "_bfme_draw_slot32",
+      "_bfme_draw_slot33",
+      "_bfme_draw_slot34",
+      "_bfme_draw_slot35",
+      "_bfme_draw_slot36",
+      "_bfme_draw_slot37",
+      "_bfme_draw_slot38",
+      "_bfme_draw_slot39",
+      "_bfme_draw_slot40",
+      "_bfme_draw_slot41",
+      "_bfme_draw_slot42",
+      "_bfme_draw_slot43",
+      "_bfme_draw_slot44",
+      "_bfme_draw_slot45",
+      "_bfme_draw_slot46",
+      "_bfme_draw_slot47",
+      "_bfme_draw_slot48",
+      "_bfme_draw_slot49",
+      "_bfme_draw_slot50",
+      "_bfme_draw_slot51",
+      "_bfme_draw_slot52",
+      "_bfme_draw_slot53",
+      "_bfme_draw_slot54",
+      "_bfme_draw_slot55",
+      "_bfme_draw_slot56",
+      "_bfme_draw_slot57",
+      "_bfme_draw_slot58",
+      "_bfme_draw_slot59",
+      "_bfme_draw_slot60",
+      "_bfme_draw_slot61",
+      "loadPostProcess",
+      "xfer",
+      "~DrawModule"
+    ],
+    "vslots": {
+      "0": "__vecDelDtor(uint)",
+      "11": "_bfme_draw_slot11()",
+      "12": "_bfme_draw_slot12()",
+      "13": "_bfme_draw_slot13()",
+      "14": "_bfme_draw_slot14()",
+      "15": "_bfme_draw_slot15()",
+      "16": "Rva000CFF4C(bool)",
+      "17": "_bfme_draw_slot17()",
+      "18": "_bfme_draw_slot18()",
+      "19": "_bfme_draw_slot19()",
+      "20": "_bfme_draw_slot20()",
+      "21": "_bfme_draw_slot21()",
+      "22": "_bfme_draw_slot22()",
+      "23": "_bfme_draw_slot23()",
+      "24": "_bfme_draw_slot24()",
+      "25": "_bfme_draw_slot25()",
+      "26": "_bfme_draw_slot26()",
+      "27": "_bfme_draw_slot27()",
+      "28": "_bfme_draw_slot28()",
+      "29": "_bfme_draw_slot29()",
+      "30": "_bfme_draw_slot30()",
+      "31": "_bfme_draw_slot31()",
+      "32": "_bfme_draw_slot32()",
+      "33": "_bfme_draw_slot33()",
+      "34": "_bfme_draw_slot34()",
+      "35": "_bfme_draw_slot35()",
+      "36": "_bfme_draw_slot36()",
+      "37": "_bfme_draw_slot37()",
+      "38": "_bfme_draw_slot38()",
+      "39": "_bfme_draw_slot39()",
+      "40": "_bfme_draw_slot40()",
+      "41": "_bfme_draw_slot41()",
+      "42": "_bfme_draw_slot42()",
+      "43": "_bfme_draw_slot43()",
+      "44": "_bfme_draw_slot44()",
+      "45": "_bfme_draw_slot45()",
+      "46": "_bfme_draw_slot46()",
+      "47": "_bfme_draw_slot47()",
+      "48": "_bfme_draw_slot48()",
+      "49": "_bfme_draw_slot49()",
+      "50": "_bfme_draw_slot50()",
+      "51": "_bfme_draw_slot51()",
+      "52": "_bfme_draw_slot52()",
+      "53": "_bfme_draw_slot53()",
+      "54": "_bfme_draw_slot54()",
+      "55": "_bfme_draw_slot55()",
+      "56": "_bfme_draw_slot56()",
+      "57": "_bfme_draw_slot57()",
+      "58": "_bfme_draw_slot58()",
+      "59": "_bfme_draw_slot59()",
+      "60": "_bfme_draw_slot60()",
+      "61": "_bfme_draw_slot61()"
+    },
+    "vfptr": false
+  },
+  "DrawableModule": {
+    "fwd": false,
+    "key": "class",
+    "size": 12,
+    "bases": [
+      [
+        "Module",
+        0
+      ]
+    ],
+    "fields": [
+      [
+        8,
+        "m_drawable",
+        "Drawable*",
+        4
+      ]
+    ],
+    "statics": [],
+    "methods": [
+      "DrawableModule",
+      "__vecDelDtor",
+      "_bfme_drawable_slot10",
+      "_bfme_drawable_slot9",
+      "~DrawableModule"
+    ],
+    "virtual": [
+      "__vecDelDtor",
+      "_bfme_drawable_slot10",
+      "_bfme_drawable_slot9",
+      "~DrawableModule"
+    ],
+    "vslots": {
+      "0": "__vecDelDtor(uint)",
+      "9": "_bfme_drawable_slot9()",
+      "10": "_bfme_drawable_slot10()"
+    },
+    "vfptr": false
+  },
+  "Module": {
+    "fwd": false,
+    "key": "class",
+    "size": 8,
+    "bases": [
+      [
+        "Snapshot",
+        0
+      ]
+    ],
+    "fields": [
+      [
+        4,
+        "m_moduleData",
+        "ModuleData*",
+        4
+      ]
+    ],
+    "statics": [],
+    "methods": [
+      "Module",
+      "__vecDelDtor",
+      "getModuleData",
+      "getModuleNameKey",
+      "onDelete",
+      "onDrawableBoundToObject",
+      "onObjectCreated",
+      "preloadAssets",
+      "~Module"
+    ],
+    "virtual": [
+      "__vecDelDtor",
+      "getModuleNameKey",
+      "onDelete",
+      "onDrawableBoundToObject",
+      "onObjectCreated",
+      "preloadAssets",
+      "~Module"
+    ],
+    "vslots": {
+      "0": "__vecDelDtor(uint)",
+      "4": "getModuleNameKey()",
+      "5": "onObjectCreated()",
+      "6": "onDrawableBoundToObject()",
+      "7": "preloadAssets()",
+      "8": "onDelete()"
+    },
+    "vfptr": false
+  },
+  "Snapshot": {
+    "fwd": false,
+    "key": "class",
+    "size": 4,
+    "bases": [],
+    "fields": [],
+    "statics": [],
+    "methods": [
+      "GetSnapshotName",
+      "Snapshot",
+      "__local_vftable_ctor_closure",
+      "__vecDelDtor",
+      "loadPostProcess",
+      "xfer",
+      "~Snapshot"
+    ],
+    "virtual": [
+      "GetSnapshotName",
+      "__vecDelDtor",
+      "loadPostProcess",
+      "xfer",
+      "~Snapshot"
+    ],
+    "vslots": {
+      "0": "__vecDelDtor(uint)",
+      "1": "loadPostProcess()",
+      "2": "GetSnapshotName()",
+      "3": "xfer(Xfer*)"
+    },
+    "vfptr": true
+  }
+}

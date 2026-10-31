@@ -35,30 +35,10 @@ public:
 	virtual void slot105(int onoff);
 };
 
-class Rva0002B8C8TailBase
-{
-public:
-	virtual ~Rva0002B8C8TailBase();
 
-private:
-	unsigned char m_pad[8];
-};
 
-class StreakDrawBase : public Rva0002B8C8TailBase
-{
-public:
-	virtual ~StreakDrawBase() {}
-};
 
-class W3DStreakDraw : public StreakDrawBase
-{
-public:
-	virtual void Rva000CFF4C(bool hidden);
-
-private:
-	BfmeStreakObject *m_streak;
-	unsigned char m_pad[8];
-};
+#include "../../../../../Include/W3DDevice/GameClient/Drawable/Draw/W3DStreakDraw.h"
 
 void W3DStreakDraw::Rva000CFF4C(bool hidden)
 {

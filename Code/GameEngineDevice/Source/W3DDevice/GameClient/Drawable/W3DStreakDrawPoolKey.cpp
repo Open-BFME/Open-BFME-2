@@ -22,11 +22,8 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class W3DStreakDraw
-{
-public:
-	virtual NameKeyType getModuleNameKey() const;
-};
+
+#include "../../../../Include/W3DDevice/GameClient/Drawable/Draw/W3DStreakDraw.h"
 
 // ?getModuleNameKey@W3DStreakDraw@@UBE?AW4NameKeyType@@XZ
 NameKeyType W3DStreakDraw::getModuleNameKey() const
