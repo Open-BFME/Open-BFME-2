@@ -17509,7 +17509,7 @@ _VP60D_GetVersionNumber,,0x001B5830,6,Code/Libraries/Source/VP6/PbAccessors.cpp,
 ?disable@Rva00118CB0DwordSetter@@QAEXXZ,,0x00118CB0,8,Code/GameEngine/Source/Common/Disp8DwordSetters.cpp,matched,disp8 dword setter; phase-proven no-branch-to-addr
 ?disable@Rva00660050DwordSetter@@QAEXXZ,,0x00660050,8,Code/GameEngine/Source/Common/Disp8DwordSetters.cpp,matched,disp8 dword setter; phase-proven no-branch-to-addr
 ?disable@Rva006F1350DwordSetter@@QAEXXZ,,0x006F1350,8,Code/GameEngine/Source/Common/Disp8DwordSetters.cpp,matched,disp8 dword setter; phase-proven no-branch-to-addr
-?clear@Rva000685DADwordClearer@@QAEXXZ,,0x000685DA,8,Code/GameEngine/Source/Common/Disp32DwordClearers2.cpp,matched,disp32 dword clearer; and-zero under O1; phase-proven no-branch-to-addr
+?clear@Rva000685DADwordClearer@@QAEXXZ,,0x000685DA,8,Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp,matched,disp32 dword clearer; and-zero under O1; phase-proven no-branch-to-addr
 ?clear@Rva00262CB6DwordClearer@@QAEXXZ,,0x00262CB6,8,Code/GameEngine/Source/Common/Disp32DwordClearers2.cpp,matched,disp32 dword clearer; and-zero under O1; phase-proven no-branch-to-addr
 ?clear@Rva002A9F0FDwordClearer@@QAEXXZ,,0x002A9F0F,8,Code/GameEngine/Source/Common/Disp32DwordClearers2.cpp,matched,disp32 dword clearer; and-zero under O1; phase-proven no-branch-to-addr
 ?clear@Rva00381DB5DwordClearer@@QAEXXZ,,0x00381DB5,8,Code/GameEngine/Source/Common/Disp32DwordClearers2.cpp,matched,disp32 dword clearer; and-zero under O1; phase-proven no-branch-to-addr

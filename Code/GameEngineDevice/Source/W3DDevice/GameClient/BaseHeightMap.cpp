@@ -24,6 +24,18 @@ typedef unsigned int Uint;
 typedef unsigned short UShort;
 #include <new>
 #define DEVICE9 (reinterpret_cast<IDirect3DDevice9 *>(DX8Wrapper::D3DDevice))
+#define BFME_DISP32_DWORD_CLEAR(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		void clear(); \
+		char m_lead[DISP]; \
+		int m_counter; \
+	}; \
+	void NAME::clear() \
+	{ \
+		m_counter = 0; \
+	}
 
 typedef int Int;
 
@@ -500,6 +512,8 @@ private:
 	float m_e2; // +0x37DC
 };
 
+BFME_DISP32_DWORD_CLEAR(Rva000685DADwordClearer, 0x37AC)
+
 // tu-skeleton: 0x0006669F 361B ?adjustTerrainLOD@BaseHeightMapRenderObjClass@@UAEXH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapAdjustTerrainLOD.cpp (not merged yet)
 
 // tu-skeleton: 0x00066808 292B ?ReleaseResources@BaseHeightMapRenderObjClass@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReleaseResources.cpp (not merged yet)
@@ -550,6 +564,8 @@ private:
 
 // tu-skeleton: 0x00068073 64B ?rva00068073@Rva00068073Host@@QAEXHMH@Z -- matched in Code/GameEngine/Source/Common/Rva00068073Bodies.cpp (not merged yet)
 
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp
+
 // ---- from Code/GameEngine/Source/Common/Rva000680B3Body.cpp
 
 void Rva000680B3Host::rva000680B3()
@@ -559,30 +575,6 @@ void Rva000680B3Host::rva000680B3()
 	if (m_3854)
 		m_3854->rva000E7B04();
 }
-
-// tu-skeleton: 0x000680D6 67B ?rva000680D6@Rva00068073Host@@QAEXPBUCoord3D@@ABVGeometryInfo@@M@Z -- matched in Code/GameEngine/Source/Common/Rva00068073Bodies.cpp (not merged yet)
-
-// tu-skeleton: 0x00068119 34B ?rva00068119@Rva00068119@@QAEXPBUCoord3D@@PBVGeometryInfo@@M@Z -- matched in Code/GameEngine/Source/Common/Rva00068119Bodies.cpp (not merged yet)
-
-// tu-skeleton: 0x0006813B 96B ?addTree@BaseHeightMapRenderObjClass@@QAEXIURva000ECF79Coord@@MPBVMatrix3D@@MPBURva000ECF79Data@@HABVAsciiString@@3@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapAddTree.cpp (not merged yet)
-
-// tu-skeleton: 0x0006819B 20B ?rva0006819B@Rva000664F4@@QAEPAVTBuff@@PAVDrawable@@PBUBuffInfoView@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE29.cpp (not merged yet)
-
-// tu-skeleton: 0x000681AF 36B ?rva000681AF@Rva000664F4@@QAE_NPAXPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE29.cpp (not merged yet)
-
-// tu-skeleton: 0x000681D3 20B ?rva000681D3@Rva000664F4@@QAE_NIH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE29.cpp (not merged yet)
-
-// tu-skeleton: 0x000681E7 20B ?rva000681E7@Rva000664F4@@QAE_NH_N@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE29.cpp (not merged yet)
-
-// tu-skeleton: 0x000681FB 20B ?rva000681FB@Rva000664F4@@QAE_NPAX@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE29.cpp (not merged yet)
-
-// tu-skeleton: 0x0006820F 20B ?rva0006820F@Rva0006820FNullForwarder@@QAE_NH@Z -- matched in Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp (not merged yet)
-
-// tu-skeleton: 0x00068223 96B ?rva00068223@BaseHeightMapRenderObjClass@@QAEXIUCoord3D@@MPBVMatrix3D@@MPBURva000E91CEData@@HABVAsciiString@@3@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapAddTree.cpp (not merged yet)
-
-// tu-skeleton: 0x00068283 18B ?rva00068283@Rva00068283NullTarget@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp (not merged yet)
-
-// tu-skeleton: 0x00068295 35B ?rva00068295@Rva00068295@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva00068295.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva000682B8.cpp
 
@@ -594,22 +586,6 @@ void Rva000682B8::rva000682B8(bool v)
 		m_b->rva000E6FE3(v);
 }
 
-// tu-skeleton: 0x000682E1 25B ?rva000682E1@Rva000664F4@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE29.cpp (not merged yet)
-
-// tu-skeleton: 0x000682FA 16B ?rva000682FA@Rva000682FANullForwarder@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp (not merged yet)
-
-// tu-skeleton: 0x0006830A 18B ?rva0006830A@Rva000664F4@@QAEXAAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE29.cpp (not merged yet)
-
-// tu-skeleton: 0x0006831C 87B ?addProp@BaseHeightMapRenderObjClass@@QAEXHUCoord3D@@MMABVAsciiString@@_N@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapAddProp.cpp (not merged yet)
-
-// tu-skeleton: 0x00068373 18B ?rva00068373@Rva00068373NullForwarder@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp (not merged yet)
-
-// tu-skeleton: 0x00068385 16B ?rva00068385@Rva00068385NullForwarder@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp (not merged yet)
-
-// tu-skeleton: 0x00068395 23B ?rva00068395@BaseHeightMapRenderObjClass@@QAEXHPAVAsciiString@@0_N1@Z -- matched in Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp (not merged yet)
-
-// tu-skeleton: 0x000683AC 48B ?rva000683AC@BaseHeightMapRenderObjClass@@QAE_NHUCoord3D@@MM@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapAddProp.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva000683DC.cpp
 
 void Rva000683DC::rva000683DC()
@@ -619,8 +595,6 @@ void Rva000683DC::rva000683DC()
 	if (m_3854)
 		m_3854->rva000E73CE();
 }
-
-// tu-skeleton: 0x000683FF 11B ?rva000683FF@Rva000683FF@@QAEXQAVVector3@@W4ObjectID@@_N@Z -- matched in Code/GameEngine/Source/Common/Rva000683FF.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva0006840ABodies.cpp
 
@@ -648,18 +622,6 @@ void Rva00068436::rva00068436(int id)
 {
 	return m_bib->removeBibDrawable((DrawableID)id);
 }
-
-// tu-skeleton: 0x00068441 41B ?rva00068441@Rva00068441@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/Rva00068119Bodies.cpp (not merged yet)
-
-// tu-skeleton: 0x0006846A 13B ?rva0006846A@BaseHeightMapRenderObjClass@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/BaseHeightMapRenderObjClassRva0006846A.cpp (not merged yet)
-
-// tu-skeleton: 0x00068477 29B ?Notify_Added@BaseHeightMapRenderObjClass@@UAEXPAVSceneClass@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapNotifyAdded.cpp (not merged yet)
-
-// tu-skeleton: 0x00068494 114B ?writeEnvironmentData@BaseHeightMapRenderObjClass@@QAEXPAVDataChunkOutput@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapAddProp.cpp (not merged yet)
-
-// tu-skeleton: 0x00068506 212B ?xfer@BaseHeightMapRenderObjClass@@MAEXPAVXfer@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x000685DA 8B ?clear@Rva000685DADwordClearer@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Disp32DwordClearers2.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva000685E2Reset.cpp
 
@@ -753,12 +715,6 @@ void Rva000687B8::rva000687B8()
 	}
 }
 
-// tu-skeleton: 0x000687EF 1364B ?rva000687EF@BaseHeightMapRenderObjClass@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapRva000687EF.cpp (not merged yet)
-
-// tu-skeleton: 0x000693AE 245B ?drawScorches@BaseHeightMapRenderObjClass@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapDrawScorches.cpp (not merged yet)
-
-// tu-skeleton: 0x000694A3 1618B ?doTheLight@BaseHeightMapRenderObjClass@@QAEXPAUVertexFormatXYZDUV2@@PAVVector3@@1PAV?$RefMultiListIterator@VRenderObjClass@@@@E_N@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapDoTheLight.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva00069AF5Falloff.cpp
 
 void Rva00069AF5Host::rva00069AF5(float *out)
@@ -786,36 +742,6 @@ void Rva00069AF5Host::rva00069AF5(float *out)
 	out[1] = fb;
 	out[3] = dist;
 }
-
-// tu-skeleton: 0x00069BCC 147B ?Get_Obj_Space_Bounding_Box@BaseHeightMapRenderObjClass@@UBEXAAVAABoxClass@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapBoundingBox.cpp (not merged yet)
-
-// tu-skeleton: 0x00069C5F 135B ?rva00069C5F@BaseHeightMapRenderObjClass@@QAEXVVector3@@M@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapScorchOverlap.cpp (not merged yet)
-
-// tu-skeleton: 0x00069CE6 203B ?rva00069CE6@BaseHeightMapRenderObjClass@@QAEXABVRva000E3A8D@@H@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapRva00069CE6.cpp (not merged yet)
-
-// tu-skeleton: 0x00069DB1 369B ?draw@Rva00069DB1@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapDrawAuxiliary.cpp (not merged yet)
-
-// tu-skeleton: 0x0006ABE7 214B ?rva0006ABE7@BaseHeightMapRenderObjClass@@QAEXVAsciiString@@_N@Z -- matched in Code/GameEngine/Source/Common/Rva0006ACBDMethod.cpp (not merged yet)
-
-// tu-skeleton: 0x0006ACBD 173B ?rva0006ACBD@BaseHeightMapRenderObjClass@@QAEXVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/Rva0006ACBDMethod.cpp (not merged yet)
-
-// tu-skeleton: 0x0006AD6A 938B ?getHeightMapHeight@BaseHeightMapRenderObjClass@@UBEMMMPAUCoord3D@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapGetHeightMapHeight.cpp (not merged yet)
-
-// tu-skeleton: 0x0006B114 115B ?rva0006B114@BaseHeightMapRenderObjClass@@QAE_NMM@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapCellQueries.cpp (not merged yet)
-
-// tu-skeleton: 0x0006B187 115B ?rva0006B187@BaseHeightMapRenderObjClass@@QAEEMM@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapCellQueries.cpp (not merged yet)
-
-// tu-skeleton: 0x0006B1FA 505B ?getMaximumVisibleBox@BaseHeightMapRenderObjClass@@QAE_NABVFrustumClass@@PAVAABoxClass@@_N@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapGetMaximumVisibleBox.cpp (not merged yet)
-
-// tu-skeleton: 0x0006B3F3 217B ?rva0006B3F3@BaseHeightMapRenderObjClass@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapScorchResources.cpp (not merged yet)
-
-// tu-skeleton: 0x0006B4CC 672B ?getStaticDiffuse@BaseHeightMapRenderObjClass@@QAEHHH_N@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapGetStaticDiffuse.cpp (not merged yet)
-
-// tu-skeleton: 0x0006B76C 83B ?rva0006B76C@BaseHeightMapRenderObjClass@@QAEXPBVRva0055A88BDwordField@@VAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/Rva0006B76CMethod.cpp (not merged yet)
-
-// tu-skeleton: 0x0006B7BF 69B ?rva0006B7BF@BaseHeightMapRenderObjClass@@QAEXPBVRva0055A88BDwordField@@V?$StringBase@D@@M@Z -- matched in Code/GameEngine/Source/Common/Rva0006B7BFMethod.cpp (not merged yet)
-
-// tu-skeleton: 0x0006B804 145B ?rva0006B804@BaseHeightMapRenderObjClass@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap_Rva0006B804.cpp (not merged yet)
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapRenderTreesShrubs.cpp
 
@@ -970,6 +896,109 @@ void BaseHeightMapRenderObjClass::rva0006BBD9(int rinfo, int b)
 	m_buffBuffer->rva000D28FA(*(RenderInfoClass *)rinfo, *(bool *)&b);
 }
 
+// tu-skeleton: 0x000680D6 67B ?rva000680D6@Rva00068073Host@@QAEXPBUCoord3D@@ABVGeometryInfo@@M@Z -- matched in Code/GameEngine/Source/Common/Rva00068073Bodies.cpp (not merged yet)
+
+// tu-skeleton: 0x00068119 34B ?rva00068119@Rva00068119@@QAEXPBUCoord3D@@PBVGeometryInfo@@M@Z -- matched in Code/GameEngine/Source/Common/Rva00068119Bodies.cpp (not merged yet)
+
+// tu-skeleton: 0x0006813B 96B ?addTree@BaseHeightMapRenderObjClass@@QAEXIURva000ECF79Coord@@MPBVMatrix3D@@MPBURva000ECF79Data@@HABVAsciiString@@3@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapAddTree.cpp (not merged yet)
+
+// tu-skeleton: 0x0006819B 20B ?rva0006819B@Rva000664F4@@QAEPAVTBuff@@PAVDrawable@@PBUBuffInfoView@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE29.cpp (not merged yet)
+
+// tu-skeleton: 0x000681AF 36B ?rva000681AF@Rva000664F4@@QAE_NPAXPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE29.cpp (not merged yet)
+
+// tu-skeleton: 0x000681D3 20B ?rva000681D3@Rva000664F4@@QAE_NIH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE29.cpp (not merged yet)
+
+// tu-skeleton: 0x000681E7 20B ?rva000681E7@Rva000664F4@@QAE_NH_N@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE29.cpp (not merged yet)
+
+// tu-skeleton: 0x000681FB 20B ?rva000681FB@Rva000664F4@@QAE_NPAX@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE29.cpp (not merged yet)
+
+// tu-skeleton: 0x0006820F 20B ?rva0006820F@Rva0006820FNullForwarder@@QAE_NH@Z -- matched in Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp (not merged yet)
+
+// tu-skeleton: 0x00068223 96B ?rva00068223@BaseHeightMapRenderObjClass@@QAEXIUCoord3D@@MPBVMatrix3D@@MPBURva000E91CEData@@HABVAsciiString@@3@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapAddTree.cpp (not merged yet)
+
+// tu-skeleton: 0x00068283 18B ?rva00068283@Rva00068283NullTarget@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp (not merged yet)
+
+// tu-skeleton: 0x00068295 35B ?rva00068295@Rva00068295@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva00068295.cpp (not merged yet)
+
+// tu-skeleton: 0x000682E1 25B ?rva000682E1@Rva000664F4@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE29.cpp (not merged yet)
+
+// tu-skeleton: 0x000682FA 16B ?rva000682FA@Rva000682FANullForwarder@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp (not merged yet)
+
+// tu-skeleton: 0x0006830A 18B ?rva0006830A@Rva000664F4@@QAEXAAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE29.cpp (not merged yet)
+
+// tu-skeleton: 0x0006831C 87B ?addProp@BaseHeightMapRenderObjClass@@QAEXHUCoord3D@@MMABVAsciiString@@_N@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapAddProp.cpp (not merged yet)
+
+// tu-skeleton: 0x00068373 18B ?rva00068373@Rva00068373NullForwarder@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp (not merged yet)
+
+// tu-skeleton: 0x00068385 16B ?rva00068385@Rva00068385NullForwarder@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp (not merged yet)
+
+// tu-skeleton: 0x00068395 23B ?rva00068395@BaseHeightMapRenderObjClass@@QAEXHPAVAsciiString@@0_N1@Z -- matched in Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp (not merged yet)
+
+// tu-skeleton: 0x000683AC 48B ?rva000683AC@BaseHeightMapRenderObjClass@@QAE_NHUCoord3D@@MM@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapAddProp.cpp (not merged yet)
+
+// tu-skeleton: 0x000683FF 11B ?rva000683FF@Rva000683FF@@QAEXQAVVector3@@W4ObjectID@@_N@Z -- matched in Code/GameEngine/Source/Common/Rva000683FF.cpp (not merged yet)
+
+// tu-skeleton: 0x00068441 41B ?rva00068441@Rva00068441@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/Rva00068119Bodies.cpp (not merged yet)
+
+// tu-skeleton: 0x0006846A 13B ?rva0006846A@BaseHeightMapRenderObjClass@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/BaseHeightMapRenderObjClassRva0006846A.cpp (not merged yet)
+
+// tu-skeleton: 0x00068477 29B ?Notify_Added@BaseHeightMapRenderObjClass@@UAEXPAVSceneClass@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapNotifyAdded.cpp (not merged yet)
+
+// tu-skeleton: 0x00068494 114B ?writeEnvironmentData@BaseHeightMapRenderObjClass@@QAEXPAVDataChunkOutput@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapAddProp.cpp (not merged yet)
+
+// tu-skeleton: 0x00068506 212B ?xfer@BaseHeightMapRenderObjClass@@MAEXPAVXfer@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapXfer.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Disp32DwordClearers2.cpp
+
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
+// Disp32 dword clearers: eight-byte __thiscall members with one shape:
+//
+//     and dword ptr [ecx+<DISP32>],0 / ret     (83 A1 XX XX XX XX 00 C3)
+//
+// A dword counter at a fixed displacement from `this` is cleared in place.
+// The zero is applied as an AND-immediate (not a MOV-immediate): under /O1
+// MSVC 7.1 emits the RMW form for `m_counter = 0` (defaults emit the longer
+// MOV-imm form). The displacements here do not fit in a signed byte, hence
+// disp32. Sibling TU to the field-clearer family, kept separate to avoid
+// churning a live file. Identity is not recovered: every name is derived
+// from its address.
+
+// tu-skeleton: 0x000687EF 1364B ?rva000687EF@BaseHeightMapRenderObjClass@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapRva000687EF.cpp (not merged yet)
+
+// tu-skeleton: 0x000693AE 245B ?drawScorches@BaseHeightMapRenderObjClass@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapDrawScorches.cpp (not merged yet)
+
+// tu-skeleton: 0x000694A3 1618B ?doTheLight@BaseHeightMapRenderObjClass@@QAEXPAUVertexFormatXYZDUV2@@PAVVector3@@1PAV?$RefMultiListIterator@VRenderObjClass@@@@E_N@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapDoTheLight.cpp (not merged yet)
+
+// tu-skeleton: 0x00069BCC 147B ?Get_Obj_Space_Bounding_Box@BaseHeightMapRenderObjClass@@UBEXAAVAABoxClass@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapBoundingBox.cpp (not merged yet)
+
+// tu-skeleton: 0x00069C5F 135B ?rva00069C5F@BaseHeightMapRenderObjClass@@QAEXVVector3@@M@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapScorchOverlap.cpp (not merged yet)
+
+// tu-skeleton: 0x00069CE6 203B ?rva00069CE6@BaseHeightMapRenderObjClass@@QAEXABVRva000E3A8D@@H@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapRva00069CE6.cpp (not merged yet)
+
+// tu-skeleton: 0x00069DB1 369B ?draw@Rva00069DB1@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapDrawAuxiliary.cpp (not merged yet)
+
+// tu-skeleton: 0x0006ABE7 214B ?rva0006ABE7@BaseHeightMapRenderObjClass@@QAEXVAsciiString@@_N@Z -- matched in Code/GameEngine/Source/Common/Rva0006ACBDMethod.cpp (not merged yet)
+
+// tu-skeleton: 0x0006ACBD 173B ?rva0006ACBD@BaseHeightMapRenderObjClass@@QAEXVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/Rva0006ACBDMethod.cpp (not merged yet)
+
+// tu-skeleton: 0x0006AD6A 938B ?getHeightMapHeight@BaseHeightMapRenderObjClass@@UBEMMMPAUCoord3D@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapGetHeightMapHeight.cpp (not merged yet)
+
+// tu-skeleton: 0x0006B114 115B ?rva0006B114@BaseHeightMapRenderObjClass@@QAE_NMM@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapCellQueries.cpp (not merged yet)
+
+// tu-skeleton: 0x0006B187 115B ?rva0006B187@BaseHeightMapRenderObjClass@@QAEEMM@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapCellQueries.cpp (not merged yet)
+
+// tu-skeleton: 0x0006B1FA 505B ?getMaximumVisibleBox@BaseHeightMapRenderObjClass@@QAE_NABVFrustumClass@@PAVAABoxClass@@_N@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapGetMaximumVisibleBox.cpp (not merged yet)
+
+// tu-skeleton: 0x0006B3F3 217B ?rva0006B3F3@BaseHeightMapRenderObjClass@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapScorchResources.cpp (not merged yet)
+
+// tu-skeleton: 0x0006B4CC 672B ?getStaticDiffuse@BaseHeightMapRenderObjClass@@QAEHHH_N@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapGetStaticDiffuse.cpp (not merged yet)
+
+// tu-skeleton: 0x0006B76C 83B ?rva0006B76C@BaseHeightMapRenderObjClass@@QAEXPBVRva0055A88BDwordField@@VAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/Rva0006B76CMethod.cpp (not merged yet)
+
+// tu-skeleton: 0x0006B7BF 69B ?rva0006B7BF@BaseHeightMapRenderObjClass@@QAEXPBVRva0055A88BDwordField@@V?$StringBase@D@@M@Z -- matched in Code/GameEngine/Source/Common/Rva0006B7BFMethod.cpp (not merged yet)
+
+// tu-skeleton: 0x0006B804 145B ?rva0006B804@BaseHeightMapRenderObjClass@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap_Rva0006B804.cpp (not merged yet)
+
 // tu-skeleton: 0x0006BE05 26B ?size@?$vector@_NV?$allocator@_N@_STL@@@_STL@@QBEIXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_bool.cpp (not merged yet)
 
 // tu-skeleton: 0x0006BE1F 54B ??A?$vector@_NV?$allocator@_N@_STL@@@_STL@@QAE?AU_Bit_reference@1@I@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdateCtor.cpp (not merged yet)
@@ -988,9 +1017,27 @@ void BaseHeightMapRenderObjClass::rva0006BBD9(int rinfo, int b)
 
 // tu-skeleton: 0x0006C6E2 63B ?showAsVisibleImpassable@BaseHeightMapRenderObjClass@@QBE_NHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapVisibleCellQueries.cpp (not merged yet)
 
+// tu-skeleton: 0x0006C721 18B ??0?$vector@_NV?$allocator@_N@_STL@@@_STL@@QAE@ABV?$allocator@_N@1@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0006C733 93B ?erase@?$vector@_NV?$allocator@_N@_STL@@@_STL@@QAE?AU?$_Bit_iter@U_Bit_reference@_STL@@PAU12@@2@U32@0@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0006C790 443B ?_M_fill_insert@?$vector@_NV?$allocator@_N@_STL@@@_STL@@QAEXU?$_Bit_iter@U_Bit_reference@_STL@@PAU12@@2@I_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/StlO1Instantiations.cpp (not merged yet)
+
+// tu-skeleton: 0x0006C950 69B ??6AssetList00208F90@@QAEAAU0@ABVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/Rva00208F90AssetWalk_Rva0006C950.cpp (not merged yet)
+
+// tu-skeleton: 0x0006C995 58B ?rva0006C995@Rva0006C995@@QAEPAV1@PAURva001408C0Target@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0006C995Insert.cpp (not merged yet)
+
 // tu-skeleton: 0x0006C9CF 1160B ??0BaseHeightMapRenderObjClass@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp (not merged yet)
 
 // tu-skeleton: 0x0006D0D7 735B ??1BaseHeightMapRenderObjClass@@UAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0006D0D7Dtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0006D3B6 186B ?rva0006D3B6@Rva0006D3B6@@QAEXVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/Rva0006ACBDMethod.cpp (not merged yet)
+
+// tu-skeleton: 0x0006D470 186B ?rva0006D470@Rva0006D470@@QAEXVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/Rva0006ACBDMethod.cpp (not merged yet)
+
+// tu-skeleton: 0x0006D52A 44B ?clear@?$vector@_NV?$allocator@_N@_STL@@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_bool_clear.cpp (not merged yet)
+
+// tu-skeleton: 0x0006D556 33B ?insert@?$vector@_NV?$allocator@_N@_STL@@@_STL@@QAEXU?$_Bit_iter@U_Bit_reference@_STL@@PAU12@@2@I_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdateCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0006D5A7 306B ?reset@BaseHeightMapRenderObjClass@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReset.cpp (not merged yet)
 
