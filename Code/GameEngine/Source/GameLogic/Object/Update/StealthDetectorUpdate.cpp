@@ -300,7 +300,7 @@ class StealthUpdate{public:void markAsDetected(unsigned,int,Object*,bool);};
 
 class Drawable{public:int getPristineBonePositions(const char*,int,Coord3D*,Matrix3D*,int,int) const;char pad[0x358];float opacity;};
 
-class Thing{public:Drawable *getDrawable() const;};
+#include "../../../Common/Thing/thing.h"
 
 class ParticleSystemTemplate;
 

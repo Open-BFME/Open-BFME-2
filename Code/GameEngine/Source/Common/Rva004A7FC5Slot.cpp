@@ -15,11 +15,7 @@ protected:
 };
 
 class Drawable;
-class Thing
-{
-public:
-	Drawable *getDrawable() const;
-};
+#include "Thing/thing.h"
 
 class Rva002716Holder
 {

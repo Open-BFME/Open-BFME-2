@@ -236,16 +236,7 @@ class ObjectFilter { public: bool testTemplate(const ThingTemplate *tt, const Pl
 class GlobalData { public: unsigned char m_pad[0xEB4]; ObjectFilter m_filter; };
 extern GlobalData *TheWritableGlobalData;
 
-class Thing
-{
-public:
-	Thing(const ThingTemplate *thingTemplate);
-protected:
-	virtual ~Thing();
-public:
-	const ThingTemplate *m_template;			// +0x04
-	unsigned char m_pad08[0x58];
-};
+#include "../../Common/Thing/thing.h"
 
 class BfmeCtorFirstBase001B3A20
 {
@@ -288,7 +279,6 @@ struct ZeroICoord2D { int x, y; ZeroICoord2D() { x = 0; y = 0; } };
 struct ZeroICoord3D { int x, y, z; ZeroICoord3D() { x = 0; y = 0; z = 0; } };
 class Rva0042526Member { public: Rva0042526Member(); unsigned char m_data[0x4C]; };
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
-class Matrix3D { public: __forceinline Matrix3D() {} Vector4 Row[3]; };
 class Rva002913EB
 {
 public:

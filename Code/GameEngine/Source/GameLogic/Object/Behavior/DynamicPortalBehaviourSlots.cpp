@@ -141,11 +141,7 @@ int Rva00460872::rva00460872()
 
 #include "ascii_string.h"
 class Drawable;
-class Thing
-{
-public:
-    Drawable *getDrawable() const;
-};
+#include "../../../Common/Thing/thing.h"
 class Object
 {
 public:

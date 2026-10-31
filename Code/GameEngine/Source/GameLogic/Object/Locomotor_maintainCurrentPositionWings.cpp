@@ -5,7 +5,7 @@
 // is pinned under its address-derived name. Protected, as in ZH's Locomotor.h.
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 #include <math.h>
-class Thing { public: bool isAboveTerrain() const; };
+#include "../../Common/Thing/thing.h"
 class Object;
 int __cdecl Rva001E3896Check(float);
 float Cos(float); float Sin(float);

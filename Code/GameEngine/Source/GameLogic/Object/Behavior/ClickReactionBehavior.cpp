@@ -12,11 +12,7 @@
 // Rva00459864 (this-0x18) and Rva00495801 AI-slot template precedent.
 
 class Drawable;
-class Thing
-{
-public:
-	Drawable *getDrawable() const;
-};
+#include "../../../Common/Thing/thing.h"
 class PadBase
 {
 public:

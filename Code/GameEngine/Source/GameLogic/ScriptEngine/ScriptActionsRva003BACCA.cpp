@@ -433,11 +433,7 @@ void ScriptActions::Rva003BAE04()
 }
 
 class Drawable;
-class Thing
-{
-public:
-    Drawable *getDrawable() const;
-};
+#include "../../Common/Thing/thing.h"
 class Rva0055A88BDwordField
 {
 public:

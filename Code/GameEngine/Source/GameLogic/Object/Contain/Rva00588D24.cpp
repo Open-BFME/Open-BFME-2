@@ -81,11 +81,7 @@ public:
 	char m_pad00[0x43c];
 	bool m_43c;
 };
-class Thing
-{
-public:
-	Drawable *getDrawable() const;
-};
+#include "../../../Common/Thing/thing.h"
 class Player;
 class PlayerList
 {

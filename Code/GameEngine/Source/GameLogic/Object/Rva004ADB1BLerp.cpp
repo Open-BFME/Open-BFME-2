@@ -16,11 +16,7 @@ public:
 	float m_value;
 };
 
-class Thing
-{
-public:
-	Drawable *getDrawable() const;
-};
+#include "../../Common/Thing/thing.h"
 
 class Src
 {

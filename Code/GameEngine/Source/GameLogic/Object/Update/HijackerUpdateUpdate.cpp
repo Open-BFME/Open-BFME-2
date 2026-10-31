@@ -45,12 +45,7 @@ class Team;
 class Drawable;
 class Object;
 
-class Thing
-{
-public:
-	void setPosition(const Coord3D *position);
-	Drawable *getDrawable() const;
-};
+#include "../../../Common/Thing/thing.h"
 
 class Drawable
 {

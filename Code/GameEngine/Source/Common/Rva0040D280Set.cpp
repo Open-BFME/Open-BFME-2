@@ -9,11 +9,7 @@
 // Evidence: callees all rowed or pinned; caller jmp at 0x0023D0C8 and call
 // at 0x002411F4 in 0x0024104A; neighbours 0x0040D251 and 0x0040D487 share page.
 class Drawable;
-class Thing
-{
-public:
-	Drawable *getDrawable() const;
-};
+#include "Thing/thing.h"
 class BfmeY1038;
 class ArmySummary
 {

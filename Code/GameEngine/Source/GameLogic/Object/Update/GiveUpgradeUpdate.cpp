@@ -120,11 +120,7 @@ public:
 	int m_bitsB0;
 };
 
-class Thing
-{
-public:
-	Drawable *getDrawable() const;
-};
+#include "../../../Common/Thing/thing.h"
 
 class AICommandInterface
 {

@@ -40,11 +40,7 @@ private:
 	Int m_color;
 };
 
-class Thing
-{
-public:
-	Drawable *getDrawable() const;
-};
+#include "../Common/Thing/thing.h"
 
 #define GROUP_VSLOTS10(p) \
 	virtual void p##0(); virtual void p##1(); virtual void p##2(); virtual void p##3(); virtual void p##4(); \

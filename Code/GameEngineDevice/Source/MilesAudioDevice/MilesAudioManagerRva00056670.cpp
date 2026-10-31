@@ -8,11 +8,7 @@ class Drawable;
 
 #include "../../../GameEngine/Source/Common/GameLogicObjectLookupView.h"
 
-class Thing
-{
-public:
-	Drawable *getDrawable() const;
-};
+#include "../../../GameEngine/Source/Common/Thing/thing.h"
 
 class Object : public Thing
 {

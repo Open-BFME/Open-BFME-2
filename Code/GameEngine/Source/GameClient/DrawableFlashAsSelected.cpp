@@ -43,7 +43,7 @@ void _STLP_alloc_proxy<_List_node<Object *>*,_List_node<Object *>,allocator<_Lis
 }
 
 class Drawable;
-class Thing { public: Drawable *getDrawable() const; };
+#include "../Common/Thing/thing.h"
 #include "../../../Libraries/Include/Lib/RGBColor.h"
 inline void RGBColor::setFromInt(int color)
 {

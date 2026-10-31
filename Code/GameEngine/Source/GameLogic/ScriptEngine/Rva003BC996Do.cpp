@@ -14,11 +14,7 @@ public:
 	void setEmoticon(const StringBase<char> &name, int val);
 };
 
-class Thing
-{
-public:
-	Drawable *getDrawable() const;
-};
+#include "../../Common/Thing/thing.h"
 
 class Object : public Thing
 {

@@ -76,11 +76,7 @@ public:
 	Real m_B0;
 };
 
-class Thing
-{
-public:
-	Drawable *getDrawable() const;
-};
+#include "Thing/thing.h"
 
 class Object
 {

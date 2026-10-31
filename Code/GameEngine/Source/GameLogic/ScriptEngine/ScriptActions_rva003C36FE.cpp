@@ -30,11 +30,7 @@ public:
 	OBJCLASS *cur() const { return m_cur; }
 };
 
-class Thing
-{
-public:
-	Drawable *getDrawable() const;
-};
+#include "../../Common/Thing/thing.h"
 
 class Object : public Thing
 {

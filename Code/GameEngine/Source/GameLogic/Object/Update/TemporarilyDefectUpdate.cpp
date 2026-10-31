@@ -63,11 +63,7 @@ public:
 	unsigned char m_438; // +0x438
 	char m_pad439[0x3];
 };
-class Thing
-{
-public:
-    Drawable *getDrawable() const;
-};
+#include "../../../Common/Thing/thing.h"
 class PlayerList
 {
 public:

@@ -32,7 +32,7 @@ enum Relationship { ENEMIES, NEUTRAL, ALLIES };
 enum ObjectStatusTypes { OBJECT_STATUS_UNDER_CONSTRUCTION = 2, OBJECT_STATUS_SOLD = 0x13, OBJECT_STATUS_3B = 0x3b,
 	OBJECT_STATUS_63 = 0x63 };
 
-class Thing { public: bool isAboveTerrain() const; };
+#include "../Thing/thing.h"
 
 class Object;
 class Player;

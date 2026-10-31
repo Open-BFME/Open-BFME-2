@@ -38,7 +38,7 @@ class Object {public:
  const Coord3D *getPosition()const{return &position;}
  char pad0[4];FootprintTemplate *templ;char pad8[0x38-8];Coord3D position;float orientation;char pad48[0xac-0x48];bool small;char padAD[0xd4-0xad];BfmeShapeE15 *begin,*end;
 };
-class Thing{public:float getHeightAboveTerrain()const;};
+#include "../../Common/Thing/thing.h"
 struct Rva0052DEEFArg;struct Rva0052DFB1Arg;struct In002E6BA1{int x,y;};
 class PathfindCell {public:
  bool SetType_Dirty(int);bool rva0052DEEF(const Rva0052DEEFArg*,bool,In002E6BA1*);bool rva0052DFB1(const Rva0052DFB1Arg*);

@@ -23,7 +23,7 @@ extern PartitionManager*ThePartitionManager;
 float GetGameLogicRandomValueReal(float,float,char*,int);float normalizeAngle(float);
 enum CommandSourceType;
 class AICommandInterface {public:void aiIdle(CommandSourceType);};
-class Thing {public:float getHeightAboveTerrain()const;void setPosition(const Coord3D*);};
+#include "../../../../Common/Thing/thing.h"
 class AIHolder {public:
 virtual int rvaSlot0();
 virtual int rvaSlot1();

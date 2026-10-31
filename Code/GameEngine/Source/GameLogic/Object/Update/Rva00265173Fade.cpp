@@ -16,11 +16,7 @@ public:
 	bool m_43c;
 };
 
-class Thing
-{
-public:
-	Drawable *getDrawable() const;
-};
+#include "../../../Common/Thing/thing.h"
 
 class Object
 {

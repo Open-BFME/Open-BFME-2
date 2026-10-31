@@ -260,11 +260,7 @@ public:
 	Player *m_local; // +0x10
 };
 
-class Thing
-{
-public:
-	Drawable *getDrawable() const;
-};
+#include "../Common/Thing/thing.h"
 
 class GameMessage
 {

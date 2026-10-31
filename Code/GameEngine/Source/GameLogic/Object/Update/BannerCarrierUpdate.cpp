@@ -190,11 +190,7 @@ public:
 	void rva002724FD(const AsciiString &a, unsigned char b, int c, float d, float e);
 };
 
-class Thing
-{
-public:
-	Drawable *getDrawable() const;
-};
+#include "../../../Common/Thing/thing.h"
 
 struct Rva00496CA8SubB
 {

@@ -23,12 +23,7 @@ struct Rva00368C7AObject
 	char unknown44[0xBC - 0x44];
 	float valueBC;
 };
-class Thing
-{
-public:
-	float getHeightAboveTerrain() const;
-	void setPositionZ(float z);
-};
+#include "../../../../Common/Thing/thing.h"
 class Object;
 struct Rva00375A73Coord { float x, y, z; };
 class Rva00375A73Context

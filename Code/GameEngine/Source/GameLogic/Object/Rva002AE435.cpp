@@ -65,11 +65,7 @@ class AiOrdersManager;
 extern AiOrdersManager *TheAiOrdersManager;
 
 class Drawable;
-class Thing
-{
-public:
-	Drawable *getDrawable(void) const;
-};
+#include "../../Common/Thing/thing.h"
 
 int rva002AE435(const Thing *thing, std::list<Drawable *> *output)
 {

@@ -13,11 +13,7 @@ public:
 	int m_168;
 	int m_16c;
 };
-class Thing
-{
-public:
-	Drawable *getDrawable() const;
-};
+#include "../../Common/Thing/thing.h"
 #include "../../../../Libraries/Include/Lib/RGBColor.h"
 class Object
 {

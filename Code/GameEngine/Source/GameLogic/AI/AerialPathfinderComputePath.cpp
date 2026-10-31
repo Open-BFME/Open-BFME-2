@@ -77,7 +77,7 @@ extern AI *TheAI;
 extern GameLogic *TheGameLogic;
 extern GlobalData *TheWritableGlobalData;
 extern InGameUI *TheInGameUI;
-class Thing { public: void getUnitDirectionVector3D(Coord3D &) const; };
+#include "../../Common/Thing/thing.h"
 class Rva006C65F0 {
 public:
     Rva006C65F0(const char *, const char *, bool);

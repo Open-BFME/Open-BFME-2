@@ -130,11 +130,7 @@ public:
 };
 
 class Drawable;
-class Thing
-{
-public:
-	Drawable *getDrawable() const;
-};
+#include "../Common/Thing/thing.h"
 
 class Rva00279074Contained
 {

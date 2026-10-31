@@ -7,11 +7,7 @@
 // (0x0030A4D0) on its own this and returns whether the height is above
 // zero; no caller is witnessed, so the class name stays a view.
 // /G7 /arch:SSE give retail's fldz/fxch/fcomip compare.
-class Thing
-{
-public:
-	float getHeightAboveTerrainOrWater() const;
-};
+#include "Thing/thing.h"
 
 class Rva000854F9HeightView
 {

@@ -422,11 +422,7 @@ class GeometryInfo
 public:
 	Real getMaxHeightAbovePosition() const;
 };
-class Thing
-{
-public:
-	void getUnitDirectionVector3D(Coord3D &dir) const;
-};
+#include "../../Common/Thing/thing.h"
 enum ObjectStatusTypes
 {
 	OBJECT_STATUS_IMMOBILE = 0x31

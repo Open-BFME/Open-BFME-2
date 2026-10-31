@@ -41,11 +41,7 @@ public:
 	void rva0027656F(int ownerID, AsciiString bone);void setDrawableHidden(bool);
 };
 
-class Thing
-{
-public:
-	Drawable *getDrawable() const;
-};
+#include "../../../Common/Thing/thing.h"
 
 class Object {public:int getID()const{return id;}char pad[0x74];int id;};
 

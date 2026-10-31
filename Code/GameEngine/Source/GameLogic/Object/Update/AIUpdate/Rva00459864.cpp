@@ -10,11 +10,7 @@
 #include <string.h>
 #pragma function(memset)
 
-class Thing
-{
-public:
-	class Drawable *getDrawable() const;
-};
+#include "../../../../Common/Thing/thing.h"
 
 class Drawable
 {

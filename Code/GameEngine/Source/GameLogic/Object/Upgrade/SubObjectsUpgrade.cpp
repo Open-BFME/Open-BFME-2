@@ -91,11 +91,7 @@ public:
 	unsigned char m_flag153;
 };
 
-class Thing
-{
-public:
-	Drawable *getDrawable() const;
-};
+#include "../../../Common/Thing/thing.h"
 
 class Object : public Thing
 {

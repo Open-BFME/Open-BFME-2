@@ -407,12 +407,7 @@ class GeometryInfo
 public:
 	Real getMaxHeightAbovePosition() const;
 };
-class Thing
-{
-public:
-	void getUnitDirectionVector3D(Coord3D &dir) const;
-	void setOrientation(Real angle);
-};
+#include "../../Common/Thing/thing.h"
 class Object;
 class StealthUpdate { public: void markAsDetected(unsigned int, int, Object *, bool); };
 class Rva00373EC6

@@ -720,7 +720,7 @@ class Rva0055A88BDwordField { public: int get() const; };
 class Rva000FE9E3PointBounds { public: Rva000FE9E3PointBounds *rva000FE9E3(Vector3 *points, int count); float m_box[6]; };
 class AABoxClass { public: WWINLINE AABoxClass(const Vector3 &center, const Vector3 &extent) : Center(center), Extent(extent) {} Vector3 Center; Vector3 Extent; };
 class CollisionMath { public: enum OverlapType { POS = 1 }; static OverlapType Overlap_Test(const AABoxClass &a, const AABoxClass &b); };
-class Thing { public: Drawable *getDrawable() const; };
+#include "../../../../../GameEngine/Source/Common/Thing/thing.h"
 class PartitionObjectView10C841 : public Thing {};
 float Rva000930C0(float x, float y);
 

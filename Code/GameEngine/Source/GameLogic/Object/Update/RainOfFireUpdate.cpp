@@ -40,7 +40,7 @@ class Object;
 
 class WeaponSet {public:Weapon *getWeaponInWeaponSlot(WeaponSlotType) const;};
 
-class Thing {public:void setTransformMatrix(const Matrix3D *);};
+#include "../../../Common/Thing/thing.h"
 
 class Object:public Thing {public:__forceinline Weapon *getWeapon()const{return ((const WeaponSet*)((const char*)this+0x330))->getWeaponInWeaponSlot(PRIMARY_WEAPON);} };
 

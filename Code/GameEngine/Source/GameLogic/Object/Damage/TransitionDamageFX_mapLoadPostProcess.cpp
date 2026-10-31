@@ -27,7 +27,7 @@ class Matrix3D;class ObjectCreationList;class Dict;
 // emitting this unit's own copy of the header's inline growth path.
 class Rva004BA1D0;
 namespace _STL {template <> void vector<Rva004BA1D0, allocator<Rva004BA1D0> >::push_back(const Rva004BA1D0 &);}
-class Thing {public:void convertBonePosToWorldPos(const Coord3D*,const Matrix3D*,Coord3D*,Matrix3D*)const;};
+#include "../../../Common/Thing/thing.h"
 class Object:public Thing {public:unsigned getID()const{return *(const unsigned*)((const char*)this+0x74);}};
 class Rva004BA1D0 {public:
  Rva004BA1D0(const Rva004BA1D0&);

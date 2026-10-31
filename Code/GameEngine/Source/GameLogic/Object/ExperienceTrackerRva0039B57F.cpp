@@ -48,11 +48,7 @@ public:
 	Rva0039B632 m_3BC;		// +0x3BC
 };
 
-class Thing
-{
-public:
-	Drawable *getDrawable() const;
-};
+#include "../../Common/Thing/thing.h"
 
 enum ObjectStatusTypes
 {

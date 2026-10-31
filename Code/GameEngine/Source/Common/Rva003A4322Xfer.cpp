@@ -103,12 +103,7 @@ void Rva003A4322::xfer(Xfer *xfer)
 // virtual drawable getter and resource identity do not carry over to BFME2.
 struct Coord3D;
 class Drawable;
-class Thing
-{
-public:
-	void setPosition(const Coord3D *position);
-	Drawable *getDrawable() const;
-};
+#include "Thing/thing.h"
 enum DamageType { DAMAGE_UNRESISTABLE = 8 };
 enum DeathType { DEATH_NORMAL = 0 };
 class Object : public Thing

@@ -691,7 +691,7 @@ class Rva004DC8E7AsciiField { public: AsciiString get() const; };
 #include "../../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 class Rva00358752Opaque { public: Object *lookupUnitByValue(AsciiString); };
-class Thing { public: Drawable *getDrawable() const; void setPosition(const Coord3D *); void setOrientation(float); };
+#include "../../../Common/Thing/thing.h"
 class Rva002390CB { public: int opaque00; OpaqueRefElement4 ref; ~Rva002390CB() { if(ref.referent) ref.referent->Release_Ref(); } };
 class Drawable { public:
  void setFullyObscuredByShroud(bool); void rva002723C0(int); void rva00274176(bool);

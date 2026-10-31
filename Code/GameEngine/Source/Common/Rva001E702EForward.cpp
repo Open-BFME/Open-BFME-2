@@ -6,11 +6,7 @@
 // (its body in LocomotorMoveTowardsPositionHorde.cpp).
 
 class Matrix3D;
-class Thing
-{
-public:
-	void setTransformMatrix(const Matrix3D *m);
-};
+#include "Thing/thing.h"
 struct Coord3D;
 class Object;
 class Rva001E685F

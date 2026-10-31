@@ -16,12 +16,7 @@ struct WorldPos
 
 #include "../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 
-class Matrix3D
-{
-public:
-	__forceinline Matrix3D() {}
-	Vector4 Row[3];
-};
+#include "../Common/Thing/thing.h"
 
 #include "ascii_string.h"
 
@@ -39,12 +34,6 @@ public:
 		Coord3D *positions, Matrix3D *transforms, int maxBones) const;
 };
 
-class Thing
-{
-public:
-	void convertBonePosToWorldPos(const Coord3D *bonePos, const Matrix3D *boneTransform,
-		Coord3D *worldPos, Matrix3D *worldTransform) const;
-};
 
 class Object : public Thing
 {

@@ -25,11 +25,7 @@ public:
 	float m_358;
 };
 
-class Thing
-{
-public:
-	Drawable *getDrawable() const;
-};
+#include "../../../Common/Thing/thing.h"
 
 class PlayerList
 {
