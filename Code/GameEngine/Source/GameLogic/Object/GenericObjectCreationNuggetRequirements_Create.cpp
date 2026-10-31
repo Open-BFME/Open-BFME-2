@@ -19,6 +19,8 @@
 #include "ascii_string.h"
 
 class Player;
+struct Coord3D;
+class Matrix3D;
 
 class Rva002AA8BF
 {
@@ -32,14 +34,20 @@ public:
 	bool hasUpgradeMask(int bit) const;
 	Player *getControllingPlayer() const;
 	bool isSignificantlyAboveTerrain() const;
-	char m_pad00[0x38];
+	const Coord3D *getPosition() const { return (const Coord3D *)m_position; }
+	const Matrix3D *getTransformMatrix() const { return (const Matrix3D *)m_transform; }
+	float getOrientation() const { return m_angle; }
+private:
+	char m_pad00[0x08];
+	char m_transform[0x30];	// +0x08
 	float m_position[3];	// +0x38
-	float m_pad44;		// +0x44 orientation
+	float m_angle;		// +0x44 orientation
 };
 
-class UpgradeTemplate
+class UpgradeTemplate;
+
+struct UpgradeTemplateBitView
 {
-public:
 	char m_pad00[0x38];
 	int m_38;		// +0x38 the bit the object and player test
 };
@@ -55,6 +63,7 @@ extern UpgradeCenter *TheUpgradeCenter;
 struct NuggetNameList
 {
 	unsigned int size() const { return m_end - m_begin; }
+	const AsciiString &operator[](unsigned int i) const { return m_begin[i]; }
 	AsciiString *m_begin;
 	AsciiString *m_end;
 	AsciiString *m_capacity;
@@ -87,8 +96,8 @@ private:
 	char m_pad04[0xAF - 4];
 	bool m_skipIfSignificantlyAirborne;	// +0xAF
 	char m_padB0[0x114 - 0xB0];
-	NuggetNameList m_114;	// +0x114
-	NuggetNameList m_120;	// +0x120
+	NuggetNameList m_tailVec114;	// +0x114
+	NuggetNameList m_tailVec120;	// +0x120
 };
 
 
@@ -98,7 +107,7 @@ void GenericObjectCreationNugget::create(const Object *primary, const Object *se
 		if (m_skipIfSignificantlyAirborne && primary->isSignificantlyAboveTerrain())
 			return;
 		if (rva001F1513(primary))
-			reallyCreate((const Coord3D *)primary->m_position, (const Matrix3D *)((const char *)primary + 8),
-				primary->m_pad44, primary, lifetimeFrames);
+			reallyCreate(primary->getPosition(), primary->getTransformMatrix(),
+				primary->getOrientation(), primary, lifetimeFrames);
 	}
 }

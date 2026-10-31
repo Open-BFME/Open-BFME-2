@@ -13,9 +13,13 @@
 //                upgrades, then really create at the primary's position
 //                (+0x38), transform (+0x08) and orientation (+0x44) and
 //                drop the result
+// reallyCreate's by-value result: three words torn down through the 5-byte
+// thunk at 0x001F22A3.
 #include "ascii_string.h"
 
 class Player;
+struct Coord3D;
+class Matrix3D;
 
 class Rva002AA8BF
 {
@@ -29,14 +33,20 @@ public:
 	bool hasUpgradeMask(int bit) const;
 	Player *getControllingPlayer() const;
 	bool isSignificantlyAboveTerrain() const;
-	char m_pad00[0x38];
+	const Coord3D *getPosition() const { return (const Coord3D *)m_position; }
+	const Matrix3D *getTransformMatrix() const { return (const Matrix3D *)m_transform; }
+	float getOrientation() const { return m_angle; }
+private:
+	char m_pad00[0x08];
+	char m_transform[0x30];	// +0x08
 	float m_position[3];	// +0x38
-	float m_pad44;		// +0x44 orientation
+	float m_angle;		// +0x44 orientation
 };
 
-class UpgradeTemplate
+class UpgradeTemplate;
+
+struct UpgradeTemplateBitView
 {
-public:
 	char m_pad00[0x38];
 	int m_38;		// +0x38 the bit the object and player test
 };
@@ -52,6 +62,7 @@ extern UpgradeCenter *TheUpgradeCenter;
 struct NuggetNameList
 {
 	unsigned int size() const { return m_end - m_begin; }
+	const AsciiString &operator[](unsigned int i) const { return m_begin[i]; }
 	AsciiString *m_begin;
 	AsciiString *m_end;
 	AsciiString *m_capacity;
@@ -60,14 +71,6 @@ struct NuggetNameList
 struct Coord3D;
 class Matrix3D;
 
-// reallyCreate's by-value result: three words torn down through the 5-byte
-// thunk at 0x001F22A3.
-struct NuggetCreated
-{
-	~NuggetCreated();
-	char m_data[12];
-};
-
 class GenericObjectCreationNugget
 {
 public:
@@ -75,34 +78,32 @@ public:
 	virtual void v1();
 	virtual void create(const Object *primary, const Object *secondary, unsigned int lifetimeFrames) const;
 	bool rva001F1513(const Object *obj) const;
-	NuggetCreated reallyCreate(const Coord3D *pos, const Matrix3D *transform, float orientation,
-		const Object *sourceObj, unsigned int lifetimeFrames) const;	// 0x001F1634
 private:
 	char m_pad04[0xAF - 4];
 	bool m_skipIfSignificantlyAirborne;	// +0xAF
 	char m_padB0[0x114 - 0xB0];
-	NuggetNameList m_114;	// +0x114
-	NuggetNameList m_120;	// +0x120
+	NuggetNameList m_tailVec114;	// +0x114
+	NuggetNameList m_tailVec120;	// +0x120
 };
 
 bool GenericObjectCreationNugget::rva001F1513(const Object *obj) const
 {
-	for (unsigned int i = 0; i < m_120.size(); ++i) {
-		const UpgradeTemplate *upgrade = TheUpgradeCenter->findUpgrade(m_120.m_begin[i]);
+	for (unsigned int i = 0; i < m_tailVec120.size(); ++i) {
+		const UpgradeTemplate *upgrade = TheUpgradeCenter->findUpgrade(m_tailVec120[i]);
 		if (upgrade) {
-			int bit = upgrade->m_38;
+			int bit = ((const UpgradeTemplateBitView *)upgrade)->m_38;
 			if (obj->hasUpgradeMask(bit))
 				return false;
 			if (((Rva002AA8BF *)obj->getControllingPlayer())->testBit(bit))
 				return false;
 		}
 	}
-	if (m_114.size() == 0)
+	if (m_tailVec114.size() == 0)
 		return true;
-	for (unsigned int i = 0; i < m_114.size(); ++i) {
-		const UpgradeTemplate *upgrade = TheUpgradeCenter->findUpgrade(m_114.m_begin[i]);
+	for (unsigned int i = 0; i < m_tailVec114.size(); ++i) {
+		const UpgradeTemplate *upgrade = TheUpgradeCenter->findUpgrade(m_tailVec114[i]);
 		if (upgrade) {
-			int bit = upgrade->m_38;
+			int bit = ((const UpgradeTemplateBitView *)upgrade)->m_38;
 			if (obj->hasUpgradeMask(bit))
 				return true;
 			if (((Rva002AA8BF *)obj->getControllingPlayer())->testBit(bit))

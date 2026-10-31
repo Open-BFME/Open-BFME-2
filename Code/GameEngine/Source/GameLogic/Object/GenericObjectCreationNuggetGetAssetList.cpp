@@ -72,19 +72,31 @@ public:
 	virtual void slot3() = 0;
 	virtual void GetAssetList(AssetList &assets, void *context) const;
 private:
-	AsciiString *m_namesBegin;
-	AsciiString *m_namesEnd;
-	AsciiString *m_namesCap;
-	AsciiString m_putInContainer;
+	struct NameList
+	{
+		const AsciiString *begin() const { return m_begin; }
+		const AsciiString *end() const { return m_end; }
+		AsciiString *m_begin;
+		AsciiString *m_end;
+		AsciiString *m_capacity;
+	};
 	struct AnimSet
 	{
-		AsciiString m_initial;
-		AsciiString m_flying;
-		AsciiString m_final;
+		AsciiString m_animInitial;
+		AsciiString m_animFlying;
+		AsciiString m_animFinal;
 	};
-	AnimSet *m_animBegin;
-	AnimSet *m_animEnd;
-	AnimSet *m_animCap;
+	struct AnimSetList
+	{
+		const AnimSet *begin() const { return m_begin; }
+		const AnimSet *end() const { return m_end; }
+		AnimSet *m_begin;
+		AnimSet *m_end;
+		AnimSet *m_capacity;
+	};
+	NameList m_names;
+	AsciiString m_putInContainer;
+	AnimSetList m_animSets;
 	Rva001E11F8 *m_fxFinal;
 	AsciiString m_particleSysName;
 };
@@ -92,26 +104,26 @@ private:
 void GenericObjectCreationNugget::GetAssetList(AssetList &assets, void *context) const
 {
 	if (m_fxFinal)
-		m_fxFinal->rva001E11F8((int)&assets, (int)context);
+		((Rva001E11F8 *)m_fxFinal)->rva001E11F8((int)&assets, (int)context);
 	if (!((const StringBase<char> &)m_putInContainer).isEmpty()) {
 		const ThingTemplate *thingTemplate = TheThingFactory->findTemplate(m_putInContainer);
 		if (thingTemplate)
 			const_cast<ThingTemplate *>(thingTemplate)->GetAssetList((int)&assets, (int)context);
 	}
-	for (const AsciiString *name = m_namesBegin; name != m_namesEnd; ++name) {
+	for (const AsciiString *name = m_names.begin(); name != m_names.end(); ++name) {
 		const ThingTemplate *thingTemplate = TheThingFactory->findTemplate(*name);
 		if (thingTemplate)
 			const_cast<ThingTemplate *>(thingTemplate)->GetAssetList((int)&assets, (int)context);
 	}
 	if (!((const StringBase<char> &)m_particleSysName).isEmpty())
 		TheParticleSystemManager->findTemplate(m_particleSysName);
-	for (const AnimSet *it = m_animBegin; it != m_animEnd; ++it) {
+	for (const AnimSet *it = m_animSets.begin(); it != m_animSets.end(); ++it) {
 		AsciiString prefix("a*");
-		if (!((const StringBase<char> &)it->m_initial).isEmpty())
-			assets << (prefix + it->m_initial);
-		if (!((const StringBase<char> &)it->m_flying).isEmpty())
-			assets << (prefix + it->m_flying);
-		if (!((const StringBase<char> &)it->m_final).isEmpty())
-			assets << (prefix + it->m_final);
+		if (!((const StringBase<char> &)it->m_animInitial).isEmpty())
+			assets << (prefix + it->m_animInitial);
+		if (!((const StringBase<char> &)it->m_animFlying).isEmpty())
+			assets << (prefix + it->m_animFlying);
+		if (!((const StringBase<char> &)it->m_animFinal).isEmpty())
+			assets << (prefix + it->m_animFinal);
 	}
 }
