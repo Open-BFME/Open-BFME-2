@@ -1,0 +1,13 @@
+# LANAPI consumed canonical header
+
+Target workshop vanilla1.06 game.dat SHA256 f008b587570bad693981dc7218588c81d192a1e064b0f7f861539c51156a7640, base400000. Tables, native bodies and fresh compiler layouts are attached.
+
+Native449AB8 calls SubsystemInterface1B4E63, stores listsC/10, strings14/18/1C, flags40/41, game44, Transport50 and flags5C/5D. Allocator sequence50CF54 pushes0x60 then calls449AB8 at50CF69: complete size is0x60, not the truncated0x48 consumed private donor views. Header fields are extracted from the existing matched constructor; no field layout is inferred from a majority. Native44B992 proves base teardown and the three string lifetimes. No constructor/dtor donor is adopted in this commit.
+
+LANAPIInterface table C3E588 has61code entries0..60, then a zero alignment word, then the independently installed LANAPI table C3E680. Derived table has65entries0..64 followed by an Unknown Message string. The existing ctor's58-slot comment/view is truncated. Canonical SubsystemInterface is included unchanged: it exposes12-byte data/lifetime but only its destructor virtually. The consumed LANAPIInterface explicitly declares the target-proven native prefix and callback surface over that base, without a private copy or new base provider. This does not claim the current canonical SubsystemInterface already exposes those missing virtual methods.
+
+Inherited callback44 is the owned OnGameStartTimer(int); callback45 is the owned OnGameOptions(const BfmeNetAddress&,int,AsciiString). The handler's pointer is passed as the real reference ABI, and currentGame is explicitly cast to its existing local LANGame access view. Fresh compiler slots44/45 and introduced derived61..64 match the native table. Overload declaration order retains actual SetLocalIP string52/integer53 placement. Unknown58/59/62/64 are private uncallable positions, no callable signature/provider identity. No vtable provider is emitted by these handlers; full provider closure remains future work.
+
+Names/signatures already owned by the constructor/callback rows are preserved; external ZH layout is not asserted as BFME2. Both handlers must stay byte exact and pass byte/link acceptance plus normal header hooks. No pin, alias, escape hatch or census gain is added.
+
+Refresh against 3261895e6c5f780e8d3178546822b95b71c3df8c: original verified source/layout facts retained; canonical registry and adoption queue recreated through header_adopt_lane, and accept/hooks rerun. docs/linking_obstacles.md is held by hdr-player-2; its original append remains in item 5137 rejected bundle for a later register-only handoff. No edit to that held file is included in this refresh.
