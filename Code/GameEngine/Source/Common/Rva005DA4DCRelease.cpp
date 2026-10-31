@@ -18,12 +18,15 @@ public:
 class FrameData
 {
 public:
+	FrameData();
 	~FrameData();
-
+	unsigned int getAckCommandCount();
 private:
-	unsigned int m_frameCommandCount;
-	unsigned int m_commandCount;
-	NetCommandList *m_commandList;
+	unsigned int m_frameCommandCount; // +0x00
+	unsigned int m_commandCount; // +0x04
+	NetCommandList *m_commandList; // +0x08
+	unsigned int m_lastFailedCC; // +0x0C
+	unsigned int m_lastFailedFrameCC; // +0x10
 };
 
 FrameData::~FrameData()
