@@ -1,4 +1,4 @@
-// cl: /DBFME_SNAPSHOT_NAME_SLOT /Ireference/shims/moduledata /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /D_STLP_NO_EXCEPTIONS /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /ICode/GameEngine/Source /Ireference/shims/moduledata /Ireference/shims/bfmealloc
 //
 // ??0LivingWorldCampaign@@QAE@ABVAsciiString@@@Z, retail 0x0052cf0f, 156 bytes. Banked partial (score 1.0) closed by tools/permute.py;
 // the body is the banked one up to statement/operand order and local types.
@@ -9,7 +9,11 @@
 #include <vector>
 #include "../../../Libraries/Include/Lib/BfmeE16.h"
 
+#define BFME_SNAPSHOT_NAME_SLOT
 #include "Common/Snapshot.h"
+// +0x1C and +0x20 hold objects released through virtual slot 0.
+struct RvaItem0052CFB1 { virtual void *get(int x); };
+struct Sub0052BAC1;
 struct Rva0052CA2D {
  __forceinline Rva0052CA2D():storage(_STL::allocator<BfmeE16>()){}
  ~Rva0052CA2D();
@@ -20,49 +24,40 @@ struct Rva0052CA6C {
  ~Rva0052CA6C();
  _STL::_Vector_base<BfmeE16,_STL::allocator<BfmeE16> > storage;
 };
+class Rva002E0A0A;
 class LivingWorldCampaign : public Snapshot {
 public:
-	LivingWorldCampaign(const AsciiString &s);
-	virtual ~LivingWorldCampaign();
+ LivingWorldCampaign(const AsciiString &name);
+ virtual ~LivingWorldCampaign();
  virtual void loadPostProcess();
- virtual const char *GetSnapshotName()const;
+ virtual const char *GetSnapshotName() const;
  virtual void xfer(Xfer *);
-private:
-	AsciiString m_04;
-	int m_08;
-	Rva0052CA2D m_0c;
-	int m_18;
-	void *m_1c;
-	void *m_20;
-	Rva0052CA6C m_24;
-	AsciiString m_30;
-	AsciiString m_34;
-	int m_38;
-	int m_3c;
-	int m_40;
-	float m_44;
-	float m_48;
-	bool m_4c;
-	bool m_4d;
-	bool m_4e;
+ void rva0052C0C8();
+ static void ParseLivingWorldCampaignBlock(class INI *ini);
+ void CreatePlayers(); int AdjustStartingPositionForScenario(int);
+ void AddPlayer(const Rva002E0A0A &arg);
+ AsciiString m_04; int m_08; Rva0052CA2D m_records; int m_currentIndex;
+ Sub0052BAC1 *m_1C; RvaItem0052CFB1 *m_20; Rva0052CA6C players; AsciiString localName;
+ AsciiString m_34; int m_38; int m_3c; int m_40; float m_44; float m_48;
+ bool fromCampaign; bool m_4d; bool m_4e;
 };
 LivingWorldCampaign::LivingWorldCampaign(const AsciiString &asciiString)
 	: Snapshot()
 	, m_04(asciiString)
 	, m_08(0)
-	, m_0c()
-	, m_18(0)
-	, m_1c(0)
+	, m_records()
+	, m_currentIndex(0)
+	, m_1C(0)
 	, m_20(0)
-	, m_24()
-	, m_30()
+	, players()
+	, localName()
 	, m_34()
 	, m_38(0xb4)
 	, m_3c(0x1d4c)
 	, m_40(0x9c4)
 	, m_44(2.0f)
 	, m_48(1.0f)
-	, m_4c(false)
+	, fromCampaign(false)
 	, m_4d(false)
 	, m_4e(false)
 {

@@ -90,6 +90,9 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 }
 #include <deque>
+#include "../../../../../Libraries/Include/Lib/BfmeE16.h"
+#define BFME_SNAPSHOT_NAME_SLOT
+#include "Common/Snapshot.h"
 
 extern GameLogic *TheGameLogic;
 
@@ -271,7 +274,7 @@ extern int R2Data010EC760;
 class Rva003A6360Record
 {
 public:
-	Rva003A6360Record(const Rva003A6360Record &other);
+	Rva003A6360Record(const Rva003A6360Record &other) throw();
 
 	int m_vtable;
 	int m_word04;
@@ -395,20 +398,41 @@ struct Res004FCA0C
 	int m_12C;
 };
 
-struct Sub0052BAC1
+// +0x1C and +0x20 hold objects released through virtual slot 0.
+struct RvaItem0052CFB1 { virtual void *get(int x); };
+struct Sub0052BAC1 : public RvaItem0052CFB1
 {
 	Res004FCA0C *Rva004FCA0C(Rva0020E89C *found);
 };
 
-class LivingWorldCampaign {
+struct Rva0052CA2D {
+ __forceinline Rva0052CA2D():storage(_STL::allocator<BfmeE16>()){}
+ ~Rva0052CA2D();
+ _STL::_Vector_base<BfmeE16,_STL::allocator<BfmeE16> > storage;
+};
+struct Rva0052CA6C {
+ __forceinline Rva0052CA6C():storage(_STL::allocator<BfmeE16>()){}
+ ~Rva0052CA6C();
+ _STL::_Vector_base<BfmeE16,_STL::allocator<BfmeE16> > storage;
+};
+class Rva002E0A0A;
+// +0x0C and +0x24 are vectors whose destructors are rowed as Rva0052CA2D and Rva0052CA6C;
+// the 0xB8-stride mission records and 0x28-stride player records are read through element views.
+class LivingWorldCampaign : public Snapshot {
 public:
  LivingWorldCampaign(const AsciiString &name);
+ virtual ~LivingWorldCampaign();
+ virtual void loadPostProcess();
+ virtual const char *GetSnapshotName() const;
+ virtual void xfer(Xfer *);
  void rva0052C0C8();
  static void ParseLivingWorldCampaignBlock(class INI *ini);
  void CreatePlayers(); int AdjustStartingPositionForScenario(int);
- char pad00[0x0c]; LivingWorldCampaignRecords m_records; int m_currentIndex;
- Sub0052BAC1 *m_1C; char pad20[4]; _STL::vector<Rva002E0EF7> players; AsciiString localName;
- char pad34[0x4c-0x34]; unsigned char fromCampaign;
+ void AddPlayer(const Rva002E0A0A &arg);
+ AsciiString m_04; int m_08; Rva0052CA2D m_records; int m_currentIndex;
+ Sub0052BAC1 *m_1C; RvaItem0052CFB1 *m_20; Rva0052CA6C players; AsciiString localName;
+ AsciiString m_34; int m_38; int m_3c; int m_40; float m_44; float m_48;
+ bool fromCampaign; bool m_4d; bool m_4e;
 };
 
 class Rva0059E647World
@@ -774,7 +798,7 @@ Rva004E18A2::Rva004E18A2(const Rva004E18A2 &other) : m_04(other.m_04), m_08(othe
 // The native C619A0 slot points to the FlashRegion record deleting destructor.
 // Resolve this existing address view to its verified C++ vtable provider.
 
-Rva003A6360Record::Rva003A6360Record(const Rva003A6360Record &other)
+Rva003A6360Record::Rva003A6360Record(const Rva003A6360Record &other) throw()
 {
 	m_vtable = (int)&R2Data010EC760;
 	m_word04 = other.m_word04;
@@ -865,9 +889,9 @@ void LivingWorldCampaign::CreatePlayers()
   GameLogic *logic=TheGameLogic;
   if(((Rva00210C66CmpBoolField *)logic)->get())logic->CreateWOTRMPPlayers();
  } else {
-  for(unsigned int i=0;i<players.size();++i) {
-   bool local=players[i].narrow(8)==localName;
-   TheLivingWorldLogic->AddPlayer((Rva002BA8F1Input *)&players[i],local,!local,0);
+  for(unsigned int i=0;i<((_STL::vector<Rva002E0EF7> &)players).size();++i) {
+   bool local=((_STL::vector<Rva002E0EF7> &)players)[i].narrow(8)==localName;
+   TheLivingWorldLogic->AddPlayer((Rva002BA8F1Input *)&((_STL::vector<Rva002E0EF7> &)players)[i],local,!local,0);
   }
  }
  TheLivingWorldLogic->ValidatePlayers();
@@ -910,10 +934,10 @@ void LivingWorldCampaign::ParseLivingWorldCampaignBlock(INI *ini)
 // 0xB8 and both offsets are retail's; the names are structural.
 void LivingWorldCampaign::rva0052C0C8()
 {
-	m_currentIndex = m_records.size() - 1;
-	for (unsigned int i = 0; i < m_records.size(); ++i)
+	m_currentIndex = ((LivingWorldCampaignRecords &)m_records).size() - 1;
+	for (unsigned int i = 0; i < ((LivingWorldCampaignRecords &)m_records).size(); ++i)
 	{
-		if (m_records[i].m_selected)
+		if (((LivingWorldCampaignRecords &)m_records)[i].m_selected)
 		{
 			m_currentIndex = i;
 			break;
