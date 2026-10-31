@@ -7937,8 +7937,8 @@ _GetProcessorFlags,,0x001C4390,169,Code/Libraries/Source/VP6/GetProcessorFlags.c
 ?set@Rva0026FCECDwordSlot@@QAEXH@Z,,0x0026FCEC,13,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp,matched,Disp32 dword setter
 ?set@Rva002856A3DwordSlot@@QAEXH@Z,,0x002856A3,13,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp,matched,Disp32 dword setter
 ?set@Rva0028A7DFDwordSlot@@QAEXH@Z,,0x0028A7DF,13,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp,matched,Disp32 dword setter
-?set@Rva0028B525DwordSlot@@QAEXH@Z,,0x0028B525,13,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp,matched,Disp32 dword setter
-?set@Rva00299C7CDwordSlot@@QAEXH@Z,,0x00299C7C,13,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp,matched,Disp32 dword setter
+?set@Rva0028B525DwordSlot@@QAEXH@Z,,0x0028B525,13,Code/GameEngine/Source/GameLogic/Object/Object.cpp,matched,Disp32 dword setter
+?set@Rva00299C7CDwordSlot@@QAEXH@Z,,0x00299C7C,13,Code/GameEngine/Source/GameLogic/Object/Object.cpp,matched,Disp32 dword setter
 ?set@Rva002AA257DwordSlot@@QAEXH@Z,,0x002AA257,13,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp,matched,Disp32 dword setter
 ?set@Rva002B23AFDwordSlot@@QAEXH@Z,,0x002B23AF,13,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp,matched,Disp32 dword setter
 ?set@Rva002B23C3DwordSlot@@QAEXH@Z,,0x002B23C3,13,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp,matched,Disp32 dword setter
