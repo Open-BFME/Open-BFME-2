@@ -59,7 +59,6 @@ struct Rva0023DC7FFields {
     unsigned char unknown[0x18]; unsigned int word18;
     Rva0023DC7FFields *clear();
 };
-Rva0023DC7FFields *Rva0023DC7FFields::clear() { word18=0; return this; }
 struct Rva00085524Fields {
     unsigned char unknown[0x28]; unsigned int word28;
     Rva00085524Fields *clear();
