@@ -1,0 +1,47 @@
+[
+  {
+    "name": "?rva00462579@Rva00462579@@QAEPAURva00462579Block@@XZ",
+    "rva": "0x00462579",
+    "bytes_and_relocations_preserved": true
+  },
+  {
+    "name": "?rva00483BA3@Rva00483BA3@@QAEXXZ",
+    "rva": "0x00483BA3",
+    "bytes_and_relocations_preserved": true
+  },
+  {
+    "name": "?onExit@Rva004885B8@@QAEXH@Z",
+    "rva": "0x004885B8",
+    "bytes_and_relocations_preserved": true
+  },
+  {
+    "name": "?rva004A6C30@Rva004885B8@@QAEHXZ",
+    "rva": "0x004A6C30",
+    "bytes_and_relocations_preserved": true
+  },
+  {
+    "name": "?onEnter@Rva0048872D@@QAEHXZ",
+    "rva": "0x0048872D",
+    "bytes_and_relocations_preserved": true
+  },
+  {
+    "name": "?onEnter@Rva00488545@@QAEHXZ",
+    "rva": "0x00488573",
+    "bytes_and_relocations_preserved": true
+  },
+  {
+    "name": "?xfer@Rva004886C7@@QAEXPAVXfer@@@Z",
+    "rva": "0x004886F5",
+    "bytes_and_relocations_preserved": true
+  },
+  {
+    "name": "?onExit@Rva004886C7@@QAEXH@Z",
+    "rva": "0x0048873F",
+    "bytes_and_relocations_preserved": true
+  },
+  {
+    "name": "?update@Rva004886C7@@QAEHXZ",
+    "rva": "0x0048876B",
+    "bytes_and_relocations_preserved": true
+  }
+]

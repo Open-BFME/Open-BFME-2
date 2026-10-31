@@ -36,31 +36,6 @@ Rva00462579Block *Rva00462579::rva00462579()
 	return 0;
 }
 
-// slot at VA 0x00C496E8: counts the +0x98 field down and, when it reaches
-// zero, hands +0x1C to the embedded +0x18 object's first virtual; answers 1.
-class Rva00482BB9Member
-{
-public:
-	virtual void vslot00(void *arg);
-};
-class Rva00482BB9
-{
-public:
-	Int update();
-private:
-	char m_pad00[0x18];
-	Rva00482BB9Member m_18;
-	char m_1C[0x98 - 0x1C];
-	Int m_98;
-};
-Int Rva00482BB9::update()
-{
-	Int *count = &m_98;
-	if (*count > 0 && --*count == 0)
-		m_18.vslot00(m_1C);
-	return 1;
-}
-
 // slot at VA 0x00C49AFC: both +0x24 and +0x28 become TheGameLogic's frame
 // plus the +0x04 object's +0x08 delay.
 struct Rva00483BA3Data

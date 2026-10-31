@@ -1,0 +1,8 @@
+{
+  "score": 1.0,
+  "exact": true,
+  "unresolved": false,
+  "compiler_context": "Code defaults O1 arch:SSE G7 preserved explicitly in private scratch",
+  "compiled": "8d81980000008b1085d27e124a8910750d8d41188b1083c11c518bc8ff1233c040c3",
+  "native": "8d81980000008b1085d27e124a8910750d8d41188b1083c11c518bc8ff1233c040c3"
+}
