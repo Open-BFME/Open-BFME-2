@@ -55,7 +55,12 @@ regenerated `tu_map.csv` from this lane.
    a placeholder comment (unmatched; it compiles to nothing and is never credited).
 3. **Dry run.** `--merge TU --dry-run` composes and verifies without writing.
    `accepted` donors merge as they are. Each `rejected` donor carries the compile
-   error or `bytes` (a row the merged text no longer matches).
+   error or `bytes` (a row the merged text no longer matches). A successful dry
+   run saves its winning composition under ignored `build/tu_skeleton/plans/`.
+   The later `--merge TU` reuses that choice when the worktree and TU inputs are
+   unchanged. It recompiles and checks the chosen unit's bytes and current link
+   guard once, then recomputes protected-register transfers before writing. A
+   changed input or failed check returns to the ordinary merge search.
 4. **Reconcile the rejected donors, one ordinary commit each.** The usual cause is
    a private view of a class or struct that differs from the seed's: a local
    `Coord3D`, an enum declared twice, a member declared `private` in one view and

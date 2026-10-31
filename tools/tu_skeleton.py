@@ -109,6 +109,7 @@ import tu_map  # noqa: E402
 import claims  # noqa: E402
 import rename  # noqa: E402
 import rename_files  # noqa: E402
+import picker_cache  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 LAYOUT = tu_map.Layout(ROOT)
@@ -1712,7 +1713,97 @@ def header_queue_rows(root=ROOT):
 ACCRETE_MAX = 64
 
 
+def merge_plan_path(tu):
+    return ROOT / "build/tu_skeleton/plans" / (hashlib.sha256(tu.encode("utf-8")).hexdigest() + ".json")
+
+
+def merge_plan_state():
+    # tree_state also hashes dirty and untracked source, including submodules. Its
+    # per-process memo must be cleared between the dry run and a later merge call.
+    picker_cache.reset()
+    return picker_cache.tree_state(ROOT)
+
+
+def merge_plan_inputs(sk, don, mixed, refused):
+    raw = json.dumps([sk, don, mixed, refused], sort_keys=True, separators=(",", ":"))
+    return hashlib.sha256(raw.encode("utf-8")).hexdigest()
+
+
+def load_merge_plan(tu, state, inputs):
+    if state is None:
+        return None
+    try:
+        plan = json.loads(merge_plan_path(tu).read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return None
+    if not isinstance(plan, dict):
+        return None
+    if (plan.get("version"), plan.get("state"), plan.get("inputs")) != (1, state, inputs):
+        return None
+    return plan
+
+
+def save_merge_plan(tu, state, inputs, plan):
+    if state is None or merge_plan_state() != state:
+        return  # inputs changed during verification; a later apply must search again
+    path = merge_plan_path(tu)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_name(path.name + f".{os.getpid()}.tmp")
+    temporary.write_text(json.dumps({"version": 1, "state": state, "inputs": inputs, **plan}),
+                         encoding="utf-8")
+    temporary.replace(path)
+
+
+def reuse_merge_plan(tu, don, report, plan, dry_run):
+    """Verify the saved winning unit once against today's bytes and link index.
+
+    The search result is a hint, never verification: any failed check falls back
+    to the ordinary search, which can choose a different donor set.
+    """
+    acc, text = plan.get("accepted"), plan.get("text")
+    expected = plan.get("baseline")
+    if (not isinstance(acc, list) or not acc or not all(isinstance(f, str) for f in acc)
+            or len(acc) != len(set(acc))
+            or not set(acc) <= set(don) or not isinstance(text, str)
+            or not isinstance(expected, list) or not all(isinstance(x, str) for x in expected)
+            or not isinstance(plan.get("rows"), int)
+            or not isinstance(plan.get("rejected"), dict)
+            or plan.get("verifier_flags") is not None and not isinstance(plan["verifier_flags"], str)):
+        return None
+    v = Verifier(tu, flags=plan.get("verifier_flags"))
+    rows = [r for f in acc for r in don[f]]
+    got = v.matched(text, rows)
+    if got is None or not set(expected) <= got:
+        return None
+    guard = LinkGuard(tu)
+    guard.load()
+    linked = guard.linked(don)
+    if (linked and guard.prepare(don)) or guard.judge(v.obj, acc, text):
+        return None
+    texts = {f: relocate_includes((ROOT / f).read_text(encoding="utf-8-sig", errors="replace"),
+                                 posixpath.dirname(f), posixpath.dirname(tu)) for f in acc}
+    carry = Carry(ROOT, tu, acc, texts, text, plan.get("verifier_flags"))
+    if carry.problems:
+        return None
+    if plan.get("state") and merge_plan_state() != plan["state"]:
+        return None  # a source changed during the final check
+    report.update(accepted=acc, rejected=plan["rejected"], flags=plan.get("flags", []),
+                  rows=plan["rows"], plan_reused=True, link_guard=(
+                      f"census-linked: {', '.join(linked)}" if linked else "no file of this merge links at the census"))
+    report.update(carry.report())
+    if dry_run:
+        report["text"] = text
+        return report
+    moved = apply(tu, acc, text, carry=carry)
+    report["repointed"] = moved
+    report["stage"] = "staged: " + " ".join([tu] + sorted(moved) + [f for f in acc if f != tu])
+    report["subject"] = (f"Merge {len(acc)} files into {posixpath.basename(tu)} "
+                         f"({plan['rows']} rows, tu_map approved TU, retail order)")
+    return report
+
+
 def merge(tu, dry_run=False, log=print, claim=True):
+    state = merge_plan_state()
     sk = skeleton(tu)
     don, mixed, refused = donors(tu, sk)
     # The map's spelling names the TU; the file the tree has is the one to write. A
@@ -1736,17 +1827,31 @@ def merge(tu, dry_run=False, log=print, claim=True):
     if len(don) < 2 and not (len(don) == 1 and tu not in don):
         report["blocked"] = "fewer than two donors"
         return report
+    inputs = merge_plan_inputs(sk, don, mixed, refused)
+
+    def run():
+        plan = load_merge_plan(canonical, state, inputs)
+        if plan and plan.get("tu_file") == tu:
+            reused = reuse_merge_plan(tu, don, report, plan, dry_run)
+            if reused is not None:
+                return reused
+        result = _merge(tu, sk, don, report, dry_run)
+        saved = result.pop("_plan", None)
+        if dry_run and saved and not result.get("blocked"):
+            save_merge_plan(canonical, state, inputs, {"tu_file": tu, **saved})
+        return result
+
     if claim and not dry_run:
         held = claim_scope(tu, don)
         if held:
             claims.release(claim_keys(tu, don))     # the part of the scope we did win goes back
             report["blocked"] = held_message(held)
             return report
-        report = _merge(tu, sk, don, report, dry_run)
+        report = run()
         if "blocked" in report:   # nothing was written: give the scope back
             claims.release(claim_keys(tu, don))
         return view_hint(report, tu, don)
-    return view_hint(_merge(tu, sk, don, report, dry_run), tu, don)
+    return view_hint(run(), tu, don)
 
 
 def view_hint(report, tu, don):
@@ -2042,6 +2147,10 @@ def _merge(tu, sk, don, report, dry_run, texts=None, applier=None, guard=None):
             report["blocked"] = "protected registers: " + "; ".join(carry.problems[:5])
             return report
     if dry_run:
+        if applier is None:
+            report["_plan"] = {"accepted": acc, "text": text, "baseline": sorted(set().union(*(base[f] for f in acc))),
+                               "verifier_flags": v.flags, "flags": flags, "rows": score,
+                               "rejected": report["rejected"]}
         report["text"] = text
         return report
     moved = applier(tu, acc, text) if applier else apply(tu, acc, text, carry=carry)

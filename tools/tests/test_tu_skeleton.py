@@ -15,6 +15,95 @@ import tu_skeleton as T
 HEADER = "name,export_rva,target_rva,target_size,source,status,notes\n"
 
 
+class SavedMergePlanTests(unittest.TestCase):
+    def test_dry_run_plan_is_selected_after_claim_without_repeating_search(self):
+        with tempfile.TemporaryDirectory() as folder, patch.object(T, "ROOT", Path(folder)), \
+                patch.object(T, "merge_plan_state", return_value="same-tree"), \
+                patch.object(T, "skeleton", return_value=[]), \
+                patch.object(T, "donors", return_value=({"Code/T.cpp": [], "Code/A.cpp": []}, {}, {})), \
+                patch.object(T, "header_queue_rows", return_value={}), \
+                patch.object(T, "claim_scope", return_value=[]), \
+                patch.object(T, "view_hint", side_effect=lambda report, *args: report):
+            calls = []
+
+            def search(tu, sk, don, report, dry_run):
+                calls.append(dry_run)
+                return dict(report, accepted=["Code/T.cpp", "Code/A.cpp"], text="merged", _plan={
+                    "accepted": ["Code/T.cpp", "Code/A.cpp"], "text": "merged", "baseline": [],
+                    "rows": 2, "rejected": {}, "flags": [], "verifier_flags": None})
+
+            with patch.object(T, "_merge", side_effect=search), \
+                    patch.object(T, "reuse_merge_plan", side_effect=lambda tu, don, report, plan, dry_run:
+                                 dict(report, accepted=plan["accepted"], plan_reused=True, subject="merge")) as reuse:
+                T.merge("Code/T.cpp", dry_run=True)
+                report = T.merge("Code/T.cpp")
+            self.assertEqual(calls, [True])
+            self.assertEqual(reuse.call_count, 1)
+            self.assertTrue(report["plan_reused"])
+
+    def test_plan_requires_same_tree_and_tu_inputs(self):
+        with tempfile.TemporaryDirectory() as folder, patch.object(T, "ROOT", Path(folder)), \
+                patch.object(T, "merge_plan_state", return_value="tree-a"):
+            plan = {"accepted": ["Code/A.cpp", "Code/B.cpp"], "text": "unit"}
+            T.save_merge_plan("Code/T.cpp", "tree-a", "inputs-a", plan)
+            self.assertEqual(T.load_merge_plan("Code/T.cpp", "tree-a", "inputs-a")["text"], "unit")
+            self.assertIsNone(T.load_merge_plan("Code/T.cpp", "tree-b", "inputs-a"))
+            self.assertIsNone(T.load_merge_plan("Code/T.cpp", "tree-a", "inputs-b"))
+
+    def test_reused_plan_still_verifies_bytes_link_and_carry_before_apply(self):
+        with tempfile.TemporaryDirectory() as folder, patch.object(T, "ROOT", Path(folder)):
+            source = Path(folder) / "Code/A.cpp"
+            source.parent.mkdir()
+            source.write_text("int a() { return 1; }\n")
+            donor = {"Code/A.cpp": [{"target_rva": "0x1000"}]}
+            plan = {"accepted": ["Code/A.cpp"], "text": "merged", "baseline": ["0x1000"],
+                    "rows": 1, "rejected": {}, "flags": [], "verifier_flags": None}
+            state = {"bytes": {"0x1000"}, "link": [], "carry": []}
+            applied = []
+
+            class Verifier:
+                def __init__(self, *args, **kw):
+                    self.obj = "compiled.obj"
+
+                def matched(self, text, rows):
+                    return state["bytes"]
+
+            class Guard:
+                def __init__(self, *args):
+                    pass
+
+                def load(self):
+                    pass
+
+                def linked(self, files):
+                    return []
+
+                def judge(self, obj, files, text):
+                    return state["link"]
+
+            class Carry:
+                def __init__(self, *args):
+                    self.problems = state["carry"]
+
+                def report(self):
+                    return {}
+
+            with patch.object(T, "Verifier", Verifier), patch.object(T, "LinkGuard", Guard), \
+                    patch.object(T, "Carry", Carry), patch.object(T, "apply", side_effect=lambda *a, **kw: applied.append(a) or {}):
+                state["bytes"] = set()
+                self.assertIsNone(T.reuse_merge_plan("Code/T.cpp", donor, {}, plan, False))
+                state["bytes"] = {"0x1000"}
+                state["link"] = ["lost"]
+                self.assertIsNone(T.reuse_merge_plan("Code/T.cpp", donor, {}, plan, False))
+                state["link"] = []
+                state["carry"] = ["changed"]
+                self.assertIsNone(T.reuse_merge_plan("Code/T.cpp", donor, {}, plan, False))
+                state["carry"] = []
+                result = T.reuse_merge_plan("Code/T.cpp", donor, {}, plan, False)
+                self.assertTrue(result["plan_reused"])
+                self.assertEqual(len(applied), 1)
+
+
 class RedefinitionTests(unittest.TestCase):
     def test_reads_type_typedef_and_enum_redefinitions(self):
         errors = [
