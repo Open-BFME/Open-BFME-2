@@ -124,26 +124,46 @@ static int s_secondary20;
 
 static int s_secondary24;
 
-// Opaque UpdateModule base; ctor resolves to its row. The explicit m_vtable
-// member stands in for the inherited vptr so body order is source order.
-class UpdateModule
+enum UpdateSleepTime
+{
+	UPDATE_SLEEP_NONE = 1,
+	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
+};
+
+class __declspec(novtable) RebuildHoleModulePrefix
+{
+public:
+	virtual void rebuildHoleModulePrefixAnchor() = 0;
+
+protected:
+	const ModuleData *m_moduleData;
+	Object *m_object;
+	const void *m_p0C;
+};
+
+class __declspec(novtable) UpdateModuleInterface
+{
+public:
+	virtual UpdateSleepTime update() = 0;
+};
+
+// UpdateModule base; ctor resolves to its row, and __declspec(novtable) keeps
+// the explicit vptr store order in 0x00483271 while placing UpdateModuleInterface
+// at +0x10 for RebuildHoleBehavior::update.
+class __declspec(novtable) UpdateModule : public RebuildHoleModulePrefix, public UpdateModuleInterface
 {
 public:
 	UpdateModule(Thing *thing, const ModuleData *moduleData);
 
 protected:
-	const void *m_vtable;
-	Thing *m_owner;
-	int m_pad08;
-	const void *m_p0C;
-	const void *m_p10;
 	unsigned char m_pad[0x20 - 0x14];
 };
 
-class RebuildHoleBehavior : public UpdateModule
+class __declspec(novtable) RebuildHoleBehavior : public UpdateModule
 {
 public:
 	RebuildHoleBehavior(Thing *thing, const ModuleData *moduleData);
+	virtual UpdateSleepTime update();
 	void newWorkerRespawnProcess(Object *existingWorker);
 private:
 	const void *m_secondary20;
@@ -220,9 +240,9 @@ RebuildHoleBehavior::RebuildHoleBehavior(Thing *thing, const ModuleData *moduleD
 	m_34 = 0;
 	m_38 = 0;
 	m_3C = 0;
-	m_vtable = &s_vtable;
+	*(const void **)this = &s_vtable;
 	m_p0C = &s_secondary0C;
-	m_p10 = &s_secondary10;
+	*(const void **)((char *)this + 0x10) = &s_secondary10;
 	m_secondary20 = &s_secondary20;
 	m_secondary24 = &s_secondary24;
 	m_40 = 0.0f;
@@ -247,15 +267,12 @@ RebuildHoleBehavior::RebuildHoleBehavior(Thing *thing, const ModuleData *moduleD
 
 // tu-skeleton: 0x00483629 28B ??_GRebuildHoleBehavior@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/RebuildHoleBehaviorDtor.cpp (not merged yet)
 
-// Native 00483645..004839D3: update receiver is the secondary interface at
-// complete object+10. Keep an address-qualified receiver until the home
-// class interfaces are reconciled. WB112E990 follows RebuildHoleBehavior
-// update despite its inlined BitFlags assertion label. ZH RebuildHoleBehavior
-// update at donor9e3be919 is the semantic spine; target adds direct rebuild
-// when no worker name exists, flags, owner transfer, spawn activation and
-// completion conditions. Every offset and slot below is native evidence.
-// Providers retain their existing ledger ABI spellings; global owners come
-// from the current data ledger. /O1 /G7 /arch:SSE reproduces all910 bytes.
+// Native 00483645..004839D3: RebuildHoleBehavior::update() overriding
+// UpdateModuleInterface::update() (slot 0 of secondary vtable 0x00849A68 at
+// complete object +0x10). WB 0x0112E990 and ZH RebuildHoleBehavior::update
+// provide the semantic spine; target adds direct rebuild when no worker name
+// exists, flags, owner transfer, spawn activation and completion conditions.
+// /O1 /G7 /arch:SSE reproduces all 910 bytes.
 #include "GameLogicObjectLookupView.h"
 #include "ascii_string.h"
 // Native 128-bit status view; the 101-bit extent is a WB/donor lead.
@@ -345,27 +362,26 @@ extern int BfmeLogicFramesPerSecond;
 template<class T> inline T& fld(void*p,int offset) {return *(T*)((char*)p+offset);}
 __forceinline Team *Object::getTeam(){ return fld<Team*>(this,0x304); }
 struct RebuildData {char pad[8];float wait,heal;AsciiString workerName;};
-class Rva00483645 {public:int update();};
-int Rva00483645::update() {
- const RebuildData *modData=fld<const RebuildData*>(this,-12);
- Object *hole=fld<Object*>(this,-8);
+UpdateSleepTime RebuildHoleBehavior::update() {
+ const RebuildData *modData=(const RebuildData*)m_moduleData;
+ Object *hole=m_object;
  Object *reconstructing=0; Object *worker=0;
- if(fld<ObjectID>(this,0x18)!=0) {
-  worker=TheGameLogic->findObjectByID(fld<ObjectID>(this,0x18));
-  if(!worker)((RebuildHoleBehavior*)((char*)this-16))->newWorkerRespawnProcess(0);
+ if(fld<ObjectID>(this,0x28)!=0) {
+  worker=TheGameLogic->findObjectByID(fld<ObjectID>(this,0x28));
+  if(!worker)newWorkerRespawnProcess(0);
  }
- if(fld<ObjectID>(this,0x1c)!=0) {
-  reconstructing=TheGameLogic->findObjectByID(fld<ObjectID>(this,0x1c));
-  if(!reconstructing){((RebuildHoleBehavior*)((char*)this-16))->newWorkerRespawnProcess(worker);fld<ObjectID>(this,0x1c)=INVALID_OBJECT_ID;}
+ if(fld<ObjectID>(this,0x2c)!=0) {
+  reconstructing=TheGameLogic->findObjectByID(fld<ObjectID>(this,0x2c));
+  if(!reconstructing){newWorkerRespawnProcess(worker);fld<ObjectID>(this,0x2c)=INVALID_OBJECT_ID;}
  }
- if(!worker && fld<unsigned>(this,0x24)>0) {
-  unsigned wait=fld<unsigned>(this,0x24)-1;fld<unsigned>(this,0x24)=wait;
+ if(!worker && fld<unsigned>(this,0x34)>0) {
+  unsigned wait=fld<unsigned>(this,0x34)-1;fld<unsigned>(this,0x34)=wait;
   if(wait==0) {
    if(modData->workerName.isEmpty()) {
     ((AIDataView*)TheAI)->path->RemoveObjectFromPathfindMap(hole);
     float orientation=fld<float>(hole,0x44);
-    reconstructing=((BuildView*)TheBuildAssistant)->build(hole,fld<const ThingTemplate*>(this,0x2c),&fld<Coord3D>(hole,0x38),orientation,hole->getControllingPlayer());
-    if(!reconstructing) return 0x3fffffff;
+    reconstructing=((BuildView*)TheBuildAssistant)->build(hole,fld<const ThingTemplate*>(this,0x3c),&fld<Coord3D>(hole,0x38),orientation,hole->getControllingPlayer());
+    if(!reconstructing) return UPDATE_SLEEP_FOREVER;
     ControlView *control=(ControlView*)reconstructing->rva0028BD17();
     if(control) {
      fld<BodyView*>(reconstructing,0x254)->setStatus(1.0f,0);
@@ -374,18 +390,18 @@ int Rva00483645::update() {
     ((Rva001E431E*)reconstructing)->rva001E431E((const int*)Rva001E4912().rva001E4912(0,0x44,0x45));
     ((Thing*)reconstructing)->getDrawable()->rva00274176(true);
    } else {
-    if(!fld<const ThingTemplate*>(this,0x28))fld<const ThingTemplate*>(this,0x28)=TheThingFactory->findTemplate(modData->workerName);
-    worker=TheThingFactory->newObject(fld<const ThingTemplate*>(this,0x28),hole->getTeam(),(const CreateMask*)&RebuildCreateMaskView(),(ObjectID)0);
+    if(!fld<const ThingTemplate*>(this,0x38))fld<const ThingTemplate*>(this,0x38)=TheThingFactory->findTemplate(modData->workerName);
+    worker=TheThingFactory->newObject(fld<const ThingTemplate*>(this,0x38),hole->getTeam(),(const CreateMask*)&RebuildCreateMaskView(),(ObjectID)0);
     if(worker) {
      ((Thing*)worker)->setPosition(&fld<Coord3D>(hole,0x38));
-     fld<ObjectID>(this,0x18)=fld<ObjectID>(worker,0x74);
+     fld<ObjectID>(this,0x28)=fld<ObjectID>(worker,0x74);
      AIView *ai=fld<AIView*>(worker,0x258);
      if(ai) {
       if(!reconstructing) {
        ((AIDataView*)TheAI)->path->RemoveObjectFromPathfindMap(hole);
        float orientation=fld<float>(hole,0x44);
-       reconstructing=ai->construct(fld<const ThingTemplate*>(this,0x2c),&fld<Coord3D>(hole,0x38),orientation,hole->getControllingPlayer(),true,false);
-       if(!reconstructing)return 0x3fffffff;
+       reconstructing=ai->construct(fld<const ThingTemplate*>(this,0x3c),&fld<Coord3D>(hole,0x38),orientation,hole->getControllingPlayer(),true,false);
+       if(!reconstructing)return UPDATE_SLEEP_FOREVER;
       } else ((AICommandInterface*)((char*)ai+0x20))->aiResumeConstruction(reconstructing,CMD_FROM_AI);
      }
      worker->rva0028CDEB(*(const Rva00346BC0*)Rva0023DA79().rva0023DA79(0,3),true);
@@ -396,10 +412,10 @@ int Rva00483645::update() {
      AIUpdateInterface *ai=fld<AIUpdateInterface*>(obj,0x258);
      if(ai)ai->transferAttack(fld<ObjectID>(hole,0x74),fld<ObjectID>(reconstructing,0x74));
     }
-    fld<ObjectID>(this,0x1c)=fld<ObjectID>(reconstructing,0x74);
+    fld<ObjectID>(this,0x2c)=fld<ObjectID>(reconstructing,0x74);
     reconstructing->setProducer(hole);
-    fld<ObjectID>(reconstructing,0x324)=fld<ObjectID>(this,0x30);
-    if(!fld<bool>(this,0x34)) {
+    fld<ObjectID>(reconstructing,0x324)=fld<ObjectID>(this,0x40);
+    if(!fld<bool>(this,0x44)) {
      SpawnView *spawn=(SpawnView*)reconstructing->getSpawnBehaviorInterface();
      if(spawn)spawn->invoke();
     }
@@ -429,5 +445,5 @@ int Rva00483645::update() {
    }
   }
  }
- return 1;
+ return UPDATE_SLEEP_NONE;
 }

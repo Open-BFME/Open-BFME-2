@@ -9567,21 +9567,12 @@ Census confirmation: not claimed.
 
 ### LINK-058: narrow istream find_if sweep row calls a record-construction worker
 
-Status: Blocked on row identity reconciliation. Updated: 2026-10-26; inspected revision: `896af216804e`.
-Evidence / affected units: `stlport_narrow_istream.cpp`, whose 30-byte `find_if` row at 0x006BE980 pushes an empty tag and calls 0x006BE8C0. The destination is the 115-byte `bfmeFillBE` in `Rva006BE840Construction.cpp`, which constructs 36-byte records with a string at +0x1C and flags at +0x20/+0x21. Raw evidence: `build/link-worker-w5/retail-probe-final.log`, `before-extra-providers.log` and `after-cohort.log`.
-Completed: diagnosis only. The actual worker LINKS; the istream unit still has U1/L1/S1. The four other rows are small constructor/accessor shapes and do not prove the distant fill wrapper's find_if identity. The unresolved `ctype<char>::scan_not` comes from other emitted istream operations, with no corresponding reference in these five matched bodies. No missing retail address is inferred for that unused dependency.
-Remaining / next check: recover the construction wrapper's real template/type spelling, preserving its four argument slots and the already rowed worker, then narrow the unrelated istream instantiation without losing any of the other four rows or their consumers. No new function body, shared-header change or pin was attempted.
-Clearance: pending.
-Census confirmation: not claimed.
-
-Current-input recheck (2026-10-27, `a89d0627df`, index `bf3dd31211`):
-normal `./build.sh stlport_narrow_istream.cpp` passes all five rows. Paired
-ordinary `link_check.py` with Rva006BE840Construction.cpp preserves the same
-U1/L1/S1 blockers in the istream unit and LINKS for the 241-byte construction
-provider. No source trial was repeated. The picker now has a unit-level blocked
-verdict at 0x00007120 so this existing identity prerequisite is visible before
-serving the unit again. Wrapper identity reconciliation remains the next step;
-no new census result or missing retail body is claimed.
+Status: Repair landed / awaiting census. Updated: 2026-10-31; inspected index: `d913de13fd`.
+Evidence / affected units: `stlport_narrow_istream.cpp`, whose 30-byte `find_if` row at 0x006BE980 pushes an empty tag and calls 0x006BE8C0 (`bfmeFillBE` in `Rva006BE840Construction.cpp`). Under `// stlport46`, its trailing whole-class `basic_istream<char>` instantiation also emitted `/O2` copies of `find_if<const char *, _Eq_char_bound>` and `__find_if<const char *, _Eq_char_bound>` at early sort order 0x00007120, causing `wrong_selected` across `BfmeTwoHundredFiftySeven_FindByteCore.cpp`, `BfmeTwoHundredFiftySeven_FindByte.cpp`, `stlport_reverse_string_search.cpp`, `Rva00027080Cluster.cpp`, `BfmeConv1301.cpp`, `BfmeTwoHundredFiftySeven_DoOV.cpp`, and `BfmeTwoHundredFiftySeven.cpp`.
+Completed: 0x006BE980 is respelled as `_STL::uninitialized_fill_n<BfmeElemBE *, unsigned, BfmeElemBE>` forwarding to the rowed `bfmeFillBE` worker, its retired `find_if` sweep name is tombstoned in `deleted_rows.csv`, the harvested `0x006BE8C0` `__find_if<_Eq_int_bound>` pin in `symbols.csv` is retired, and `stlport_narrow_istream.cpp` is narrowed from `template class basic_istream<char>` to explicit instantiations of its five owned rows (no unrowed `basic_istream<char>` COMDATs had external consumers in `d913de13fd`). Ordinary `link_check.py` previews `LINKS` across all 8 units (`0 -> 2,810 B`: 90 B in `stlport_narrow_istream.cpp` plus 2,720 B across the seven `_Eq_char_bound` units), while `Rva006BE840Construction.cpp` retains `LINKS` (241 B).
+Remaining / next check: full link census confirmation and `code_identity_baseline.tsv` retirement.
+Clearance: cleared in ordinary-preview scope.
+Census confirmation: pending.
 
 ### LINK-065: Zero Hour port units still define ZH bodies that BFME 2 rows elsewhere or lacks
 
@@ -14766,6 +14757,18 @@ fix in the consumers.
   real-vptr class view and a real ctor. Its interface bases' own-table
   stores (retail +0x20/+0x24 before the member zeroing) must keep the folded
   data-ledger names, then the re-row above applies.
+  2026-10-31 (Noro420): Resolved. Declaring `__declspec(novtable)` on the
+  `RebuildHoleBehavior` prefix/interface view in `RebuildHoleBehavior.cpp`
+  places `UpdateModuleInterface` at `+0x10` without disturbing `0x00483271`'s
+  two-phase vptr store order or emitting duplicate COMDAT vftables, so
+  `0x00483645` re-rows cleanly as
+  `?update@RebuildHoleBehavior@@UAE?AW4UpdateSleepTime@@XZ` (tombstoned in
+  `reverse/deleted_rows.csv`) and `RebuildHoleBehaviorDtor.cpp` binds it via
+  `virtual UpdateSleepTime update() = 0` on `UpdateModuleInterface` with zero
+  new hatches. Verified: `./build.sh` 12/12 rows across both files;
+  `data_check --enforce` 0 findings; `link_check` 12/12 `RebuildHole*` units
+  `LINKS`, `2,860 -> 3,087 B` (`RebuildHoleBehavior.cpp` `1,198 -> 1,198 B`,
+  `RebuildHoleBehaviorDtor.cpp` `0 -> 227 B`; census confirmation pending).
 
 ### GarrisonContain source-recovery prerequisites (2026-10-30, codex5)
 
