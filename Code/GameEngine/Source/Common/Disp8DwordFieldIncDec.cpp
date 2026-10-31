@@ -82,7 +82,6 @@ BFME_DISP8_DWORD_DEC(Rva00050D14DwordCounter, 0x14)
 
 // ?subtract24@Rva006272D0Fields@@QAEXXZ
 struct Rva006272D0Fields { char pad[4]; unsigned int word4; void subtract24(); };
-void Rva006272D0Fields::subtract24() { word4 -= 24u; }
 
 // Whole clean BF1 f989 Rva001A6BD0VectorDtor.cpp emits pop_back for
 // several opaque eight-byte element names under O2/SSE2/G7. This is a

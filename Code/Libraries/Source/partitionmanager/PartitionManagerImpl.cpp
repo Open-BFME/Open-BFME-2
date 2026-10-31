@@ -11,6 +11,30 @@
 #include "../../Include/Lib/Coord3D.h"
 #pragma comment(linker, "/alternatename:?Rva006276E0@ShroudManager@@QAEXPBURegion3D@@@Z=?m@T_009f4fb0@@QAEXPAURva009F5970StateInit@@@Z")
 #pragma comment(linker, "/alternatename:?m@T_009f4fb0@@QAEXXZ=?m@T_009f4fb0@@QAEXPAURva009F5970StateInit@@@Z")
+#define BFME_DISP8_DWORD_INC(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		void inc(); \
+		char m_lead[DISP]; \
+		int m_counter; \
+	}; \
+	void NAME::inc() \
+	{ \
+		++m_counter; \
+	}
+#define BFME_DISP8_DWORD_DEC(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		void dec(); \
+		char m_lead[DISP]; \
+		int m_counter; \
+	}; \
+	void NAME::dec() \
+	{ \
+		--m_counter; \
+	}
 
 // Partition calculate recovery: BFME1 donor commit 63c2207a252634a8d48d248b11d81d5e5f6f8241,
 // at verified reference 644b1863ec6ec70c7eb3313432ab438c5735d347, from
@@ -529,7 +553,40 @@ public:
 	void bfmeDropYQ(BfmeThingYQ *t);
 };
 
+// WB1107620 RadarMarker::AddReference increments its +8 reference count.
+// Native smart-pointer assignment4C9B8F calls this four-byte body before
+// the adjacent RadarMarker::DeleteReference body2D76BB.
+class RadarMarker
+{
+public:
+	void AddReference();
+private:
+	char m_opaque00[8];
+	int m_refCount;
+};
+
+// Callers elsewhere reach bodies in this unit through other spellings; retail's
+// call sites in their matched rows land on these addresses (same ABI). Bind them.
+
+// Native6272D0..6272D5 lies between INT3 padding and ends RET:
+// subtract24 from raw word4. Clean BF1 9cb Rva009F5B10VectorPushBack24.cpp
+// supplies the expression only; no vector identity or element type is claimed.
+// Unsigned storage preserves the native32-bit wrap semantics.
+
+// ?subtract24@Rva006272D0Fields@@QAEXXZ
+struct Rva006272D0Fields { char pad[4]; unsigned int word4; void subtract24(); };
+
+// Whole clean BF1 f989 Rva001A6BD0VectorDtor.cpp emits pop_back for
+// several opaque eight-byte element names under O2/SSE2/G7. This is a
+// source guide only: native539A13..539A18 follows a complete RET4 and
+// ends its own RET0 before a distinct stack-based body. It subtracts8
+// modulo32 from receiver word4; no vector, pointer, element or owner
+// identity is asserted. Unsigned storage preserves the witnessed bits.
+struct Rva00539A13Fields { char pad[4]; unsigned word4; void subtract8(); };
+
 // tu-skeleton: 0x00626AA0 72B ?_ClearNumObjBelow@PartitionManagerImpl@@QAEXPAPAXI@Z -- matched in Code/Libraries/Source/partitionmanager/partitionmanager_impl.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp
 
 // ---- from Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp
 
@@ -944,37 +1001,22 @@ float distCalcProc_BoundaryAndBoundary_3D(
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_push_heap_s4sortelem24.cpp
 
-// tu-skeleton: 0x00626D90 30B ??_GRva00625800Dtor@@UAEPAXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00170C0Siblings.cpp (not merged yet)
 
-// tu-skeleton: 0x00626DE0 9B ?size@?$vector@U?$pair@HH@_STL@@V?$allocator@U?$pair@HH@_STL@@@2@@_STL@@QBEIXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pair.cpp (not merged yet)
 
-// tu-skeleton: 0x00626DF0 25B ?size@?$vector@VProductionPrerequisite@@V?$allocator@VProductionPrerequisite@@@_STL@@@_STL@@QBEIXZ -- matched in Code/GameEngine/Source/Common/Thing/ThingFactory.cpp (not merged yet)
 
-// tu-skeleton: 0x00626E10 47B ??$_Construct@UFlightDeckInfo@FlightDeckBehavior@@U12@@_STL@@YAXPAUFlightDeckInfo@FlightDeckBehavior@@ABU12@@Z -- matched in Code/Libraries/Source/partitionmanager/partitionmanager_impl.cpp (not merged yet)
 
-// tu-skeleton: 0x00626E40 75B ??$__uninitialized_copy@PAUFlightDeckInfo@FlightDeckBehavior@@PAU12@@_STL@@YAPAUFlightDeckInfo@FlightDeckBehavior@@PAU12@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/partitionmanager/partitionmanager_impl.cpp (not merged yet)
 
-// tu-skeleton: 0x00626E90 71B ??$__uninitialized_fill_n@PAUFlightDeckInfo@FlightDeckBehavior@@IU12@@_STL@@YAPAUFlightDeckInfo@FlightDeckBehavior@@PAU12@IABU12@ABU__false_type@0@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FlightDeckInfoVectorInsertOverflow.cpp (not merged yet)
 
-// tu-skeleton: 0x00626EE0 9B ?capacity@?$vector@U?$pair@HH@_STL@@V?$allocator@U?$pair@HH@_STL@@@2@@_STL@@QBEIXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pair.cpp (not merged yet)
 
-// tu-skeleton: 0x00626EF0 96B ??$__copy@PAURva00626EF0Element@@PAU1@H@_STL@@YAPAURva00626EF0Element@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva00626EF0.cpp (not merged yet)
 
-// tu-skeleton: 0x00626F50 50B ??$__copy@PBU?$pair@HH@_STL@@PAU12@H@_STL@@YAPAU?$pair@HH@0@PBU10@0PAU10@ABUrandom_access_iterator_tag@0@PAH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pair.cpp (not merged yet)
 
-// tu-skeleton: 0x00626F90 24B ??R?$less@H@_STL@@QBE_NABH0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_int.cpp (not merged yet)
 
-// tu-skeleton: 0x006272C0 12B ??A?$vector@U?$pair@HH@_STL@@V?$allocator@U?$pair@HH@_STL@@@2@@_STL@@QAEAAU?$pair@HH@1@I@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pair.cpp (not merged yet)
 
-// tu-skeleton: 0x006272D0 5B ?subtract24@Rva006272D0Fields@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Disp8DwordFieldIncDec.cpp (not merged yet)
 
-// tu-skeleton: 0x006272E0 32B ??$__copy_ptrs@PAV?$BitFlags@$0HF@@@PAV1@@_STL@@YAPAV?$BitFlags@$0HF@@@PAV1@00U__false_type@0@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDraw.cpp (not merged yet)
 
-// tu-skeleton: 0x00627300 39B ??$__uninitialized_fill_n@PAU?$pair@HH@_STL@@IU12@@_STL@@YAPAU?$pair@HH@0@PAU10@IABU10@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pair.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_heap_s4sortelem24.cpp
 
-// tu-skeleton: 0x00627600 163B ?cleanup@PartitionManagerImpl@@QAEXXZ -- matched in Code/Libraries/Source/partitionmanager/partitionmanager_impl.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Bfme/T_009F4FB0.cpp
 
@@ -1019,6 +1061,56 @@ void PartitionManagerImpl::bfmeDropYQ(BfmeThingYQ *t)
 
 	::operator delete(n);
 }
+
+// tu-skeleton: 0x00626D90 30B ??_GRva00625800Dtor@@UAEPAXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00170C0Siblings.cpp (not merged yet)
+
+// tu-skeleton: 0x00626DE0 9B ?size@?$vector@U?$pair@HH@_STL@@V?$allocator@U?$pair@HH@_STL@@@2@@_STL@@QBEIXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pair.cpp (not merged yet)
+
+// tu-skeleton: 0x00626DF0 25B ?size@?$vector@VProductionPrerequisite@@V?$allocator@VProductionPrerequisite@@@_STL@@@_STL@@QBEIXZ -- matched in Code/GameEngine/Source/Common/Thing/ThingFactory.cpp (not merged yet)
+
+// tu-skeleton: 0x00626E10 47B ??$_Construct@UFlightDeckInfo@FlightDeckBehavior@@U12@@_STL@@YAXPAUFlightDeckInfo@FlightDeckBehavior@@ABU12@@Z -- matched in Code/Libraries/Source/partitionmanager/partitionmanager_impl.cpp (not merged yet)
+
+// tu-skeleton: 0x00626E40 75B ??$__uninitialized_copy@PAUFlightDeckInfo@FlightDeckBehavior@@PAU12@@_STL@@YAPAUFlightDeckInfo@FlightDeckBehavior@@PAU12@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/partitionmanager/partitionmanager_impl.cpp (not merged yet)
+
+// tu-skeleton: 0x00626E90 71B ??$__uninitialized_fill_n@PAUFlightDeckInfo@FlightDeckBehavior@@IU12@@_STL@@YAPAUFlightDeckInfo@FlightDeckBehavior@@PAU12@IABU12@ABU__false_type@0@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FlightDeckInfoVectorInsertOverflow.cpp (not merged yet)
+
+// tu-skeleton: 0x00626EE0 9B ?capacity@?$vector@U?$pair@HH@_STL@@V?$allocator@U?$pair@HH@_STL@@@2@@_STL@@QBEIXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pair.cpp (not merged yet)
+
+// tu-skeleton: 0x00626EF0 96B ??$__copy@PAURva00626EF0Element@@PAU1@H@_STL@@YAPAURva00626EF0Element@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva00626EF0.cpp (not merged yet)
+
+// tu-skeleton: 0x00626F50 50B ??$__copy@PBU?$pair@HH@_STL@@PAU12@H@_STL@@YAPAU?$pair@HH@0@PBU10@0PAU10@ABUrandom_access_iterator_tag@0@PAH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pair.cpp (not merged yet)
+
+// tu-skeleton: 0x00626F90 24B ??R?$less@H@_STL@@QBE_NABH0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_int.cpp (not merged yet)
+
+// tu-skeleton: 0x006272C0 12B ??A?$vector@U?$pair@HH@_STL@@V?$allocator@U?$pair@HH@_STL@@@2@@_STL@@QAEAAU?$pair@HH@1@I@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pair.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Disp8DwordFieldIncDec.cpp
+
+// Disp8 dword inc/dec: four-byte __thiscall members with one shape:
+//
+//     inc dword ptr [ecx+<DISP>] / ret        (FF 41 XX C3)
+//     dec dword ptr [ecx+<DISP>] / ret        (FF 49 XX C3)
+//
+// A dword counter at a fixed displacement from `this` is incremented (or
+// decremented) in place. Every displacement here fits in a signed byte, so
+// MSVC 7.1 emits the disp8 form plus `ret`, for four bytes total. The
+// accessed member is spelled as an `int` right after the lead array; the
+// bytes cannot distinguish `int` from `unsigned int` or any other
+// four-byte-wide incremented slot. Members before the accessed one are
+// spelled as a lead array because their types are not witnessed here, only
+// their total size.
+// Identity is not recovered: every name is derived from its address (the
+// disp8 dword-getter family pioneered the same opaque-holder pattern in
+// Disp8DwordFieldGetters.cpp).
+// No // cl: line (defaults match the frameless four-byte shape).
+
+void Rva006272D0Fields::subtract24() { word4 -= 24u; }
+
+// tu-skeleton: 0x006272E0 32B ??$__copy_ptrs@PAV?$BitFlags@$0HF@@@PAV1@@_STL@@YAPAV?$BitFlags@$0HF@@@PAV1@00U__false_type@0@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDraw.cpp (not merged yet)
+
+// tu-skeleton: 0x00627300 39B ??$__uninitialized_fill_n@PAU?$pair@HH@_STL@@IU12@@_STL@@YAPAU?$pair@HH@0@PAU10@IABU10@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pair.cpp (not merged yet)
+
+// tu-skeleton: 0x00627600 163B ?cleanup@PartitionManagerImpl@@QAEXXZ -- matched in Code/Libraries/Source/partitionmanager/partitionmanager_impl.cpp (not merged yet)
 
 // tu-skeleton: 0x006278F0 99B ??0?$_Vector_base@U?$pair@W4ObjectID@@I@_STL@@V?$allocator@U?$pair@W4ObjectID@@I@_STL@@@2@@_STL@@QAE@IABV?$allocator@U?$pair@W4ObjectID@@I@_STL@@@1@@Z -- matched in Code/GameEngine/Source/Common/PartitionSolver.cpp (not merged yet)
 
