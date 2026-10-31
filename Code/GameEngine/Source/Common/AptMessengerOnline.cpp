@@ -5,6 +5,19 @@
 #include "unicode_string.h"
 #include "ascii_string.h"
 #pragma pointers_to_members(full_generality, multiple_inheritance)
+#define BFME_DISP8_SAR_AVG_DWORD_GETTER(NAME, DISP1, DISP2, IMM) \
+	class NAME \
+	{ \
+	public: \
+		int get() const; \
+		char m_lead[DISP1]; \
+		int m_first; \
+	}; \
+	int NAME::get() const \
+	{ \
+		return (m_first - *(int *)((char *)this + DISP2)) >> IMM; \
+	}
+BFME_DISP8_SAR_AVG_DWORD_GETTER(Rva005AE6EFSarAvgField, 0x04, 0x00, 3)
 
 // ??1AptMessengerOnline@@UAE@XZ @0x005AE66B 36B evidence: vtable 0x00872760 store at [this] plus second vtable 0x0087275C store at +0x218 plus singleton clear of g_00E0644C when equal to this plus tail-jmp to pinned base dtor ??1AptMessenger@@UAE@XZ @0x005125ED; caller scalar deleting dtor; ghidra 36B vs 132B trust ret plus int3 gate
 // Identity: the AptMessengerOnline constructor 0x005AEF6B stores the same two
@@ -280,6 +293,35 @@ struct Rva005AE7A5Class
 
 extern int g_Va00E046BC;
 
+class INI
+{
+public:
+	const char *rva0002DFE2(const char *seps, bool *substituted);
+};
+
+class Rva0049B6AE
+{
+public:
+	void append(const char *s, StringBase<char> *b);
+};
+
+class Rva003339CE
+{
+public:
+	bool rva003339CE(const char *token, bool *foundNormal, bool *foundAddOrSub);
+
+private:
+	unsigned int m_words[4]; // Native worker clears/accesses the 16-byte bitset.
+};
+
+class Rva003B1017 : public Rva003339CE
+{
+public:
+	void rva003B1017(INI *ini, void *extra);
+};
+
+// ---- from Code/GameEngine/Source/Common/AptMessengerOnline.cpp
+
 // ---- from Code/GameEngine/Source/Common/AptMessengerOnline.cpp
 
 // ---- from Code/GameEngine/Source/Common/AptMessengerOnline.cpp
@@ -401,16 +443,6 @@ int Rva005AE7A5Class::rva005AE7A5(int a1)
 	return d ? r : 0;
 }
 
-// tu-skeleton: 0x005AE68F 96B ?CreateChatWindow@AptMessengerOnline@@UAEPAXH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/AptMessengerCreateChatWindows.cpp (not merged yet)
-
-// tu-skeleton: 0x005AE6EF 9B ?get@Rva005AE6EFSarAvgField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8SarAvgDwordGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x005AE76E 28B ??_GAptMessengerOnline@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB14.cpp (not merged yet)
-
-// tu-skeleton: 0x005AE7C6 192B ?OnBttnInvite@AptMessengerOnline@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessenger.cpp (not merged yet)
-
-// tu-skeleton: 0x005AEB2C 167B ??0Rva005AEB2C@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva005AEB2CVectorFill.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerOnline.cpp
 
 // ?UpdatePlayerTabButtons@AptMessengerOnline@@QAEXXZ
@@ -485,6 +517,36 @@ void AptMessengerOnline::UpdatePlayerTabButtons()
         m_28C[1].text = "APT:RemoveIgnore";
     }
 }
+
+// tu-skeleton: 0x005AE68F 96B ?CreateChatWindow@AptMessengerOnline@@UAEPAXH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/AptMessengerCreateChatWindows.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Disp8SarAvgDwordGetters.cpp
+
+// Disp8 sar-avg dword getters: eight-to-ten-byte __thiscall members with one shape:
+//
+//     mov eax,[ecx+<DISP1>] / sub eax,[ecx+<DISP2>] / sar eax,<IMM8> / ret
+//
+// The difference of two dwords at fixed displacements from `this` is
+// arithmetically shifted right. MSVC 7.1 emits the disp8 loads `8B 41 XX`
+// plus `2B 41 XX`, plus `C1 F8 XX` (or `D1 F8` for shift-by-1), plus `ret`.
+// Identity is not recovered: every name is derived from its address.
+// The established /O1 /SSE /G7 settings are unchanged; /EHsc supports the
+// independently recovered BodyState INI driver below.
+
+// Native Ghidra [0x003B1017,0x003B1101), 234 bytes, RET 8. BodyState
+// list driver: both native worker calls use complete rowed 0x003339CE;
+// quoted-token reader and StringBase lifetime/tokenization ABI are the
+// same as exact KindOf driver 0x00256499, used as the C++ semantic guide.
+// The complete 47-byte append helper at 0x0049B6AE ignores the incoming
+// receiver. Reuse its existing opaque member ABI binding without a new
+// pin: native sets ECX=this before both appends. The fallback is retail's
+// actual one-byte empty string. Original driver name remains unknown.
+
+// tu-skeleton: 0x005AE76E 28B ??_GAptMessengerOnline@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB14.cpp (not merged yet)
+
+// tu-skeleton: 0x005AE7C6 192B ?OnBttnInvite@AptMessengerOnline@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessenger.cpp (not merged yet)
+
+// tu-skeleton: 0x005AEB2C 167B ??0Rva005AEB2C@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva005AEB2CVectorFill.cpp (not merged yet)
 
 // tu-skeleton: 0x005AF12F 2240B ?ProcessGameSpyResponse@AptMessengerOnline@@SA_NPAX@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerOnlineResponse.cpp (not merged yet)
 

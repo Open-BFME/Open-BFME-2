@@ -17693,7 +17693,7 @@ _VP6_DecodeMacroBlock,,0x001C66B0,705,Code/Libraries/Source/VP6/DecodeMacroBlock
 ?get@Rva004F607ESarAvgField@@QBEHXZ,,0x004F607E,9,Code/GameEngine/Source/Common/Disp8SarAvgDwordGetters.cpp,matched,Disp8 sar-avg getter frameless mov-sub-sar shape phase-proven no-branch-to-addr
 ?get@Rva0052AF7ESarAvgField@@QBEHXZ,,0x0052AF7E,10,Code/GameEngine/Source/Common/Disp8SarAvgDwordGetters.cpp,matched,Disp8 sar-avg getter frameless mov-sub-sar shape phase-proven no-branch-to-addr
 ?get@Rva0053821BSarAvgField@@QBEHXZ,,0x0053821B,9,Code/GameEngine/Source/Common/Disp8SarAvgDwordGetters.cpp,matched,Disp8 sar-avg getter frameless mov-sub-sar shape phase-proven no-branch-to-addr
-?get@Rva005AE6EFSarAvgField@@QBEHXZ,,0x005AE6EF,9,Code/GameEngine/Source/Common/Disp8SarAvgDwordGetters.cpp,matched,Disp8 sar-avg getter frameless mov-sub-sar shape phase-proven no-branch-to-addr
+?get@Rva005AE6EFSarAvgField@@QBEHXZ,,0x005AE6EF,9,Code/GameEngine/Source/Common/AptMessengerOnline.cpp,matched,Disp8 sar-avg getter frameless mov-sub-sar shape phase-proven no-branch-to-addr
 ?get@Rva005BE245SarAvgField@@QBEHXZ,,0x005BE245,10,Code/GameEngine/Source/Common/Disp8SarAvgDwordGetters.cpp,matched,Disp8 sar-avg getter frameless mov-sub-sar shape phase-proven no-branch-to-addr
 ?get@Rva005D1397SarAvgField@@QBEHXZ,,0x005D1397,10,Code/GameEngine/Source/Common/Disp8SarAvgDwordGetters.cpp,matched,Disp8 sar-avg getter frameless mov-sub-sar shape phase-proven no-branch-to-addr
 ?get@Rva00051A6BDivMovField@@QBEHXZ,,0x00051A6B,14,Code/GameEngine/Source/Common/Disp8DivMovDwordGetters.cpp,matched,Disp8 div-mov getter frameless mov-sub-mov-cdq-idiv shape phase-proven no-branch-to-addr
