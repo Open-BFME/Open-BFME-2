@@ -33,6 +33,11 @@ class Thing;
 class ModuleData;
 class DamageInfo;
 #include "../../../Include/Common/BfmeXfer.h"
+#define BFME_SNAPSHOT_NAME_SLOT
+#include "../../Common/PlacementPositionValue.h"
+#define BFME_SNAPSHOT_NAME_SLOT
+#include "../../../../Libraries/Include/Lib/Coord3DBase.h"
+#include "../../Common/GameLogicObjectLookupView.h"
 
 typedef int Int;
 
@@ -76,6 +81,7 @@ public:
 };
 
 struct Coord3D;
+
 class GeometryInfo
 {
 public:
@@ -134,11 +140,40 @@ protected:
 	Bool m_saveLockGhostObjects;																///< 0x09
 };
 
+extern GhostObjectManager *TheGhostObjectManager;
+
+void XferObjectID(Xfer *xfer, ObjectID *objectID);
+
+// Retail ThrowInfo names the 8-byte XferException class and its rowed
+// copy constructor and destructor (see Common/System/XferException.cpp).
+class XferException
+{
+public:
+	XferException(int tag, const char *format, ...);
+	XferException(const XferException &that);
+	~XferException();
+
+	char *text;
+	int tag;
+};
+
+class Object
+{
+public:
+	ObjectID getID() const { return m_id; }
+	unsigned char m_pad[0x74];
+	ObjectID m_id;
+};
+
+extern GameLogic *TheGameLogic;
+
 // tu-skeleton: 0x00305927 4B ?vslot00@GhostObject@@UBEPBXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DGhostObjectScene.cpp (not merged yet)
 
 // tu-skeleton: 0x0030592B 4B ?vslot04@GhostObject@@UBEPBXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DGhostObjectScene.cpp (not merged yet)
 
 // tu-skeleton: 0x0030592F 4B ?vslot08@GhostObject@@UBEMXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DGhostObjectScene.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp
 
@@ -189,10 +224,6 @@ void GhostObjectManager::xfer(Xfer *xfer)
 	*xfer == m_localPlayer;
 }
 
-// tu-skeleton: 0x0030596C 137B ?Rva0030596CIntersects@@YA_NPAXUPlaceCoord@@M@Z -- matched in Code/GameEngine/Source/Common/Rva0030596CIntersects.cpp (not merged yet)
-
-// tu-skeleton: 0x003059F5 154B ?xfer@GhostObject@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/GhostObjectXfer.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/GhostObjectCtorDtor.cpp
 
 //
@@ -233,6 +264,66 @@ GhostObject::GhostObject() :
 //-------------------------------------------------------------------------------------------------
 GhostObject::~GhostObject()
 {
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva0030596CIntersects.cpp
+
+// ?Rva0030596CIntersects@@YA_NPAXUPlaceCoord@@M@Z @0x0030596C 137B via GhostObjectManager GhostObject CollidesWith
+// Retail walks GhostObject list from TheGhostObjectManager slot 0x20 and tests GeometryInfo::CollidesWith.
+
+// ?Rva0030596CIntersects@@YA_NPAXUPlaceCoord@@M@Z @0x0030596C 137B via GhostObjectManager GhostProvider CollidesWith
+
+bool __cdecl Rva0030596CIntersects(void *self, PlaceCoord coord, float radius)
+{
+	GhostObject *ghost = TheGhostObjectManager->getFirst();
+	if (ghost != 0)
+	{
+		GeometryInfo *myGeom = (GeometryInfo *)((char *)self + 0xa0);
+		for (; ghost != 0; ghost = ghost->getNext())
+		{
+			const GeometryInfo *gi = (const GeometryInfo *)ghost->vslot00();
+			const Coord3D *pos = (const Coord3D *)ghost->vslot04();
+			float ang = ghost->vslot08();
+			if (gi->CollidesWith(*pos, ang, *myGeom, coord, radius))
+				return true;
+		}
+	}
+	return false;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/GhostObjectXfer.cpp
+
+//
+// ?xfer@GhostObject@@MAEXPAVXfer@@@Z, retail 0x003059F5, 154 bytes.
+// Slot 3 (offset 0x0C) of vtable 0x0080793C (class of ??1GhostObject@@UAE@XZ).
+// Donor: ZH GeneralsMD GhostObject::xfer (parent ObjectID via getID at Object
+// +0x74 plus XferObjectID plus IsLoading-gated findObjectByID via TheGameLogic
+// plus XferException on missing plus angle then position). BFME2 repairs:
+// IsLightCRC early-out via Xfer slot 0x10, Version1 via rowed 0x000053EE,
+// ObjectID at +0x0C via rowed XferObjectID 0x003060B2, IsLoading via Xfer slot
+// 0x04, float at +0x1C via Xfer slot 0x70, Coord3DBase at +0x10 via Xfer slot
+// 0x60. Layout is Snapshot base (vptr) plus the provider at +0x04 (vbptr +0x08)
+// giving +0x0C parent (cf. retail mov [esi+0x0C] and [eax+0x74] getID), Coord
+// (12B) at +0x10 then float at +0x1C (0x10+0x0C=0x1C contiguous). Recipe is
+// PoisonedBehaviorXfer slot-3 pattern with Xfer decl verbatim.
+
+void GhostObject::xfer(Xfer *xfer)
+{
+	if (xfer->IsLightCRC())
+		return;
+	xfer->Version1();
+	ObjectID parentObjectID = INVALID_OBJECT_ID;
+	if (m_parentObject)
+		parentObjectID = m_parentObject->getID();
+	XferObjectID(xfer, &parentObjectID);
+	if (xfer->IsLoading()) {
+		m_parentObject = TheGameLogic->findObjectByID(parentObjectID);
+		if (parentObjectID != INVALID_OBJECT_ID && m_parentObject == 0) {
+			throw XferException(5, 0);
+		}
+	}
+	*xfer == m_parentAngle;
+	*xfer == asBase(m_parentPosition);
 }
 
 // tu-skeleton: 0x00305B30 6B ?name@GhostObject@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters2.cpp (not merged yet)
