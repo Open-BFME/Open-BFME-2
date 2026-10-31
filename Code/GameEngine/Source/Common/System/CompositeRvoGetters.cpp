@@ -98,18 +98,10 @@ private:
 	Rva00394173Member m_value; // +0x754
 };
 
-// ?get@Rva00394173Field@@QBE?AVRva00394173Member@@XZ, retail 0x00394173, 30 bytes.
-// Returns +0x754 member by value via the member copy ctor at 0x00332106.
-Rva00394173Member Rva00394173Field::get() const
-{
-	return m_value;
-}
-
 // Each retail call in this body reads an address the ledger already carries
 // under the rowed name below. Bind the donor spelling to that owner so one
 // address keeps one definition and the unit links.
 //   0x00332106 reads ??0?$list@PAURva00332106PointerTarget@@V?$allocator@PAURva00332106PointerTarget@@@_STL@@@_STL@@QAE@ABV01@@Z
-#pragma comment(linker, "/alternatename:??0Rva00394173Member@@QAE@ABV0@@Z=??0?$list@PAURva00332106PointerTarget@@V?$allocator@PAURva00332106PointerTarget@@@_STL@@@_STL@@QAE@ABV01@@Z")
 //   0x0038630B reads ??0PSPlayerAllStats@@QAE@ABV0@@Z
 #pragma comment(linker, "/alternatename:??0Rva003862EDMember@@QAE@ABV0@@Z=??0PSPlayerAllStats@@QAE@ABV0@@Z")
 //   0x005559FC reads ??0Rva003844D7@@QAE@ABV0@@Z

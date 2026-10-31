@@ -43318,7 +43318,7 @@ _FilterBlockBil_8_mmx,,0x001D7200,204,Code/Libraries/Source/VP6/FilterBlockBil8M
 ?get@Rva003862EDField@@QBE?AVRva003862EDMember@@XZ,,0x003862ED,30,Code/GameEngine/Source/Common/System/CompositeRvoGetters.cpp,matched,
 ?get@Rva00389DF1Field@@QBE?AVRva00389DF1Member@@XZ,,0x00389DF1,30,Code/GameEngine/Source/Common/System/CompositeRvoGetters.cpp,matched,
 ?get@Rva00389E0FField@@QBE?AVRva00389E0FMember@@XZ,,0x00389E0F,30,Code/GameEngine/Source/Common/System/CompositeRvoGetters.cpp,matched,
-?get@Rva00394173Field@@QBE?AVRva00394173Member@@XZ,,0x00394173,30,Code/GameEngine/Source/Common/System/CompositeRvoGetters.cpp,matched,
+?get@Rva00394173Field@@QBE?AVRva00394173Member@@XZ,,0x00394173,30,Code/GameEngine/Source/Common/System/BuildAssistant.cpp,matched,
 ?update@GiantBirdGuardOuterState@@UAE?AW4StateReturnType@@XZ,,0x0036A75C,127,Code/GameEngine/Source/Common/Rva00368004Getter.cpp,matched,
 ?rva0039BD7D@Rva0039BD7D@@QAE?AUBfmeStringRecord002B4DC1@@XZ,,0x0039BD7D,30,Code/GameEngine/Source/Common/Rva0039BD7DCopyOut.cpp,matched,By-value return of the +0x310 string record; rowed copy ctor 0x002B4DC1 builds into hidden retptr (NRVO); ret 4 with arg returned; 30B incl frame and state slot
 ?rva00396B0D@Rva00396B0D@@QAEHXZ,,0x00396B0D,24,Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00396B0DForward.cpp,matched,Forwards m08 Object controlling player (rowed 0x0028AFA9) to m04 pinned 0x00396A5C lookup; sequenced locals keep this in eax across the loads; ret passes callee eax through

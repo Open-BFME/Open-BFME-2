@@ -2388,6 +2388,7 @@ public:
 	NAME::NAME(const GapPair &pair) : m_04(0), m_08(pair.a), m_0C(pair.b) \
 	{ \
 	}
+#pragma comment(linker, "/alternatename:??0Rva00394173Member@@QAE@ABV0@@Z=??0?$list@PAURva00332106PointerTarget@@V?$allocator@PAURva00332106PointerTarget@@@_STL@@@_STL@@QAE@ABV01@@Z")
 
 // Partial lookup-result storage; the native caller reads ObjectID at +0x18.
 class Rva00395708ModuleView : public Module
@@ -2414,20 +2415,6 @@ struct Rva00394173Node
 	Rva00394173Node *m_next;
 	Rva00394173Node *m_prev;
 	ObjectID m_id;
-};
-
-class Rva00394173Member
-{
-public:
-	Rva00394173Member(const Rva00394173Member &that);
-	~Rva00394173Member() { ((PoolMember *)this)->Rva00268902(); }
-	Rva00394173Node *m_head;
-};
-
-class Rva00394173Field
-{
-public:
-	Rva00394173Member get() const;
 };
 
 struct Rva00394879Exit
@@ -2598,9 +2585,90 @@ private:
 	unsigned int m_times[8];								// +0x12060
 };
 
+//
+// Four 30-byte RVO getters sharing the exact shape of the landed
+// AsciiString/Stlport RVO getters (e.g. 0x003821B9): prologue
+// 55 8B EC 51 83 65 FC 00, add ecx,<off>, push ecx, mov ecx,[ebp+8],
+// call <member copy ctor>, mov eax,[ebp+8], leave, ret 4. Each returns
+// the member at its offset by value; the member copy-constructs directly
+// into the hidden return pointer. Member types are minimal
+// address-derived views (copy ctor declared only, pinned to the REL32
+// address read from retail); owner/member identity unproven.
+
+class Rva003862EDMember
+{
+public:
+	Rva003862EDMember(const Rva003862EDMember &o);
+	~Rva003862EDMember();
+};
+
+class Rva003862EDField
+{
+public:
+	Rva003862EDMember get() const;
+
+private:
+	char m_pad[0x84];
+	Rva003862EDMember m_value; // +0x84
+};
+
+class Rva00389DF1Member
+{
+public:
+	Rva00389DF1Member(const Rva00389DF1Member &o);
+	~Rva00389DF1Member();
+};
+
+class Rva00389DF1Field
+{
+public:
+	Rva00389DF1Member get() const;
+
+private:
+	char m_pad[0x1B0];
+	Rva00389DF1Member m_value; // +0x1B0
+};
+
+class Rva00389E0FMember
+{
+public:
+	Rva00389E0FMember(const Rva00389E0FMember &o);
+	~Rva00389E0FMember();
+};
+
+class Rva00389E0FField
+{
+public:
+	Rva00389E0FMember get() const;
+
+private:
+	char m_pad[0x340];
+	Rva00389E0FMember m_value; // +0x340
+};
+
+class Rva00394173Member
+{
+public:
+	Rva00394173Member(const Rva00394173Member &that);
+	~Rva00394173Member() { ((PoolMember *)this)->Rva00268902(); }
+	Rva00394173Node *m_head;
+};
+
+class Rva00394173Field
+{
+public:
+	Rva00394173Member get() const;
+
+private:
+	char m_pad[0x754];
+	Rva00394173Member m_value; // +0x754
+};
+
 // tu-skeleton: 0x00391693 17B ??0ObjectSellInfo@@QAE@XZ -- matched in Code/GameEngine/Source/Common/System/BuildAssistantXferSellList.cpp (not merged yet)
 
 // tu-skeleton: 0x003916A4 7B ??1ObjectSellInfo@@UAE@XZ -- matched in Code/GameEngine/Source/Common/System/BuildAssistantXfer.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/System/BuildAssistant.cpp
 
 // ---- from Code/GameEngine/Source/Common/System/BuildAssistant.cpp
 
@@ -3210,10 +3278,6 @@ Bool BuildAssistant::rva0039321C(Rva0039205C *info, Object *first, Object *secon
 	return true;
 }
 
-// tu-skeleton: 0x00391994 69B ?rva00391994@Rva00391994@@QAE_NXZ -- matched in Code/GameEngine/Source/Common/Rva00391994Check.cpp (not merged yet)
-
-// tu-skeleton: 0x00391F4E 66B ??0Rva00391F4E@@QAE@HHH@Z -- matched in Code/GameEngine/Source/Common/Rva00391F4EBitSet.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/GapBodiesGE14.cpp
 
 // Small GameEngine bodies from .text gaps no Ghidra function covers
@@ -3235,6 +3299,10 @@ Rva004D9A3C::Rva004D9A3C()
 	m_18 = -1;
 	m_10 = false;
 }
+
+// tu-skeleton: 0x00391994 69B ?rva00391994@Rva00391994@@QAE_NXZ -- matched in Code/GameEngine/Source/Common/Rva00391994Check.cpp (not merged yet)
+
+// tu-skeleton: 0x00391F4E 66B ??0Rva00391F4E@@QAE@HHH@Z -- matched in Code/GameEngine/Source/Common/Rva00391F4EBitSet.cpp (not merged yet)
 
 // tu-skeleton: 0x00392011 75B ??_ERva004D9A3C@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva004D9A3CVectorDeletingDtor.cpp (not merged yet)
 
@@ -3278,7 +3346,23 @@ Rva004D9A3C::Rva004D9A3C()
 
 // tu-skeleton: 0x0039380F 2217B ?rva0039380F@BuildAssistant@@UAE_NPAVRva0039205C@@PAVObject@@PBUCoord3D@@2I@Z -- matched in Code/GameEngine/Source/Common/System/BuildAssistantWallLocations.cpp (not merged yet)
 
-// tu-skeleton: 0x00394173 30B ?get@Rva00394173Field@@QBE?AVRva00394173Member@@XZ -- matched in Code/GameEngine/Source/Common/System/CompositeRvoGetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/System/CompositeRvoGetters.cpp
+
+// ?get@Rva00394173Field@@QBE?AVRva00394173Member@@XZ, retail 0x00394173, 30 bytes.
+// Returns +0x754 member by value via the member copy ctor at 0x00332106.
+Rva00394173Member Rva00394173Field::get() const
+{
+	return m_value;
+}
+
+// Each retail call in this body reads an address the ledger already carries
+// under the rowed name below. Bind the donor spelling to that owner so one
+// address keeps one definition and the unit links.
+//   0x00332106 reads ??0?$list@PAURva00332106PointerTarget@@V?$allocator@PAURva00332106PointerTarget@@@_STL@@@_STL@@QAE@ABV01@@Z
+
+//   0x0038630B reads ??0PSPlayerAllStats@@QAE@ABV0@@Z
+//   0x005559FC reads ??0Rva003844D7@@QAE@ABV0@@Z
+//   0x00555616 reads ??0Rva0038454E@@QAE@ABV0@@Z
 
 // tu-skeleton: 0x00780B3D 10B uw_00780b3d -- matched in Code/GameEngine/Source/Common/Rva00392092Init.cpp (not merged yet)
 
