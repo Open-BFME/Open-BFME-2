@@ -67,6 +67,17 @@ public:
 
 extern PlayerList *ThePlayerList;
 
+class ShroudManager
+{
+public:
+	class Data
+	{
+	public:
+		char EverSeenByPlayer(int index);
+	};
+};
+
+class Rva008F7B00Unused {};
 class Rva008F7B00
 {
 public:
@@ -121,7 +132,7 @@ private:
 	unsigned char m_pad308[0x438 - 0x308];
 	unsigned char m_privateStatus; // +0x438
 	unsigned char m_pad439[0x4C4 - 0x439];
-	Rva008F7B00 *m_shroudData; // +0x4C4
+	ShroudManager::Data *m_shroudData; // +0x4C4
 };
 
 int Object::PartitionGetPlayerIndex() const
@@ -151,7 +162,7 @@ bool Object::ShroudHideIfFogged(int playerIndex) const
 	}
 	else
 	{
-		if (!isKindOf(KINDOF_2) || !m_shroudData->get(playerIndex) || isKindOf(KINDOF_180))
+		if (!isKindOf(KINDOF_2) || !m_shroudData->EverSeenByPlayer(playerIndex) || isKindOf(KINDOF_180))
 			return true;
 	}
 	return false;
