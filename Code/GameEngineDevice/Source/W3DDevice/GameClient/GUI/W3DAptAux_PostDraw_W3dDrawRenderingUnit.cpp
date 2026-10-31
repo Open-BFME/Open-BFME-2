@@ -1,7 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /O1 /G7 /EHsc /MD /arch:SSE /D_STLP_USE_STATIC_LIB
 
-#pragma comment(linker, "/alternatename:?cleanup@Rva00785FD0Item@@QAEXXZ=?render@AptShapeContainer@@QAEXXZ")
-
 // stlport
 // Split from W3DAptAux_PostDraw.cpp: these definitions reference a callee with no matched body yet,
 // so they are kept apart from the unit's bodies that already link.
@@ -48,7 +46,7 @@ class WW3D
 {
 public:
 	static void Get_Device_Resolution(int &width, int &height, int &bits, bool &windowed);
-	static void Sync(UnsignedInt sync_time);	// 0x00117490
+	static void Sync(unsigned int sync_time);	// 0x00117490
 };
 
 void Rva00118990();					// 0x00118990
@@ -68,18 +66,23 @@ extern int g_00DB5FB0;
 #define g_Va00DB5FB0 (*(int *)&g_00DB5FB0)
 extern float g_Va00DEC49C;
 
+class BfmeT982;
+class AptRenderingUnit;
+
 class W3DAptAux
 {
- friend void w3dDrawRenderingUnit(class AptRenderingUnit*,Int);
-	friend void w3dCustomControlRender(const char *name, Int arg1, class AptRenderingUnit *renderingUnit, Int arg3);
+	friend void rebuildMask();
+	friend void bfmeGo982C(BfmeT982 *);
+	friend void w3dDrawRenderingUnit(AptRenderingUnit *, int);
+	friend void w3dCustomControlRender(const char *name, int arg1, AptRenderingUnit *renderingUnit, int arg3);
 
 public:
 	static void PostDraw();
 
 private:
 	static BfmeHub982 *s_renderer;			// 0x00DE6170
-	static UnsignedInt s_syncTime0;			// 0x00DE6174
-	static UnsignedInt s_syncTime1;			// 0x00DE6178
+	static unsigned int s_syncTime0;			// 0x00DE6174
+	static unsigned int s_syncTime1;			// 0x00DE6178
 };
 
 const char *getNameAndIndex(const AsciiString &path, Int *index, Bool fullPath);
@@ -91,15 +94,19 @@ template <> int StringBase<unsigned short>::compare(const StringBase<unsigned sh
 
 // The game-client DisplayString as W3DAptDisplayString reaches it (virtual
 // slots by offset; target evidence).
+class GameFont;
 class DisplayString
 {
 public:
 	virtual void slot00();
 	virtual void setText(UnicodeString text);		// +0x04
-	virtual UnicodeString getText();			// +0x08
+	virtual UnicodeString getText();			// +0x08 (WB debug block)
 	virtual void slot0C(); virtual void slot10(); virtual void slot14();
-	virtual void slot18(); virtual void slot1C(); virtual void slot20();
-	virtual void slot24(); virtual void slot28(); virtual void slot2C();
+	virtual void setFont(GameFont *font);			// +0x18
+	virtual void slot1C();
+	virtual void setWordWrap(Int wordWrap);			// +0x20
+	virtual void setWordWrapCentered(Bool isCentered);	// +0x24
+	virtual void slot28(); virtual void slot2C();
 	virtual void slot30(); virtual void slot34(); virtual void slot38();
 	virtual void getSize(Int *width, Int *height);		// +0x3C
 	virtual void slot40(); virtual void slot44();
@@ -108,35 +115,28 @@ public:
 
 #include "../../../../../Libraries/Include/Lib/Coord2D.h"
 
-class W3DAptDisplayString
-{
-public:
-	virtual void SetText(const UnicodeString &text);
-
-private:
-	unsigned char m_pad04[4];
-	DisplayString *m_displayString;			// +0x08 (WB member name)
-	unsigned char m_pad0C[0x1c - 0xc];
-	Coord2D m_size;						// +0x1C
-};
 
 
 // The Apt-side render transform copied into each shape container before it
 // draws (six dwords at 0x00DE6148; target evidence).
 struct AptRenderTransform
 {
-	int m_data[6];
+	float a, b, c, d, tx, ty;
 };
 
 extern AptRenderTransform g_aptRenderTransform; // native zero-filled DE6148..DE6160
 
+class AptShape;
+
 class AptShapeContainer
 {
 public:
-	void getRenderRegion(Coord2D &topLeft, Coord2D &bottomRight);	// 0x000A99B8
-
-	unsigned char m_pad00[0x10];
-	AptRenderTransform m_transform;				// +0x10
+	int unknown00;
+	AptShape **first, **last;
+	int unknown0C;
+	AptRenderTransform matrix;			// +0x10
+	void getRenderRegion(Coord2D &, Coord2D &);	// 0x000A99B8
+	void render();					// 0x000A9F98
 };
 
 class AptRenderingUnit
@@ -177,12 +177,9 @@ void w3dCustomControlRender(const char *name, Int arg1, AptRenderingUnit *render
 // six-word transform copy, modes -1/0/1 and pointer-valued queue operations.
 // BFME1 Apt flush/rounded-bounds donors supply the established transform and
 // queue views; native data/call relocations independently verify their use.
-// Keep the existing address-neutral cleanup spelling for the unrowed render
-// callee; this recovery does not assert its full body is recovered.
 namespace _STL {
 template list<AptShapeContainer*>::_Node *list<AptShapeContainer*>::_M_create_node(AptShapeContainer*const&);
 }
-class Rva00785FD0Item { public:void cleanup(); };
 struct Rva00785FD0Node;
 // g_rva00785FD0Queue is only an alias of the owned global g_Va00DE6194 (ledger names column); this unit reads the owner through its own view type.
 extern unsigned int g_Va00DE6194;
@@ -194,14 +191,14 @@ void w3dDrawRenderingUnit(AptRenderingUnit *renderingUnit,Int mode)
  AptShapeContainer *const renderShape=renderingUnit->getShapes();
  AptShapeContainer *shapes=renderShape;
  if(!renderShape) return;
- renderShape->m_transform=g_aptRenderTransform;
+ renderShape->matrix=g_aptRenderTransform;
  // The existing flush names the sentinel pointer; the list header is that
  // one pointer, and the native queue stores AptShapeContainer pointers.
  _STL::list<AptShapeContainer*> &queue=*(_STL::list<AptShapeContainer*>*)&g_rva00785FD0Queue;
  switch(mode) {
  case 1: queue.insert(queue.end(),shapes);g_rva00785FD0Dirty=1;return;
  case -1: if(!queue.empty()) {queue.remove(shapes);g_rva00785FD0Dirty=1;return;}
- case 0: rebuildMask();((Rva00785FD0Item*)renderShape)->cleanup();return;
+ case 0: rebuildMask();renderShape->render();return;
  }
 }
 void *Rva000A91D3AptAlloc(unsigned int bytes);
@@ -243,7 +240,7 @@ extern Rva000A994CColors g_aptHostColorBlock1;void Rva000A994CSetColor(const flo
 class Rva00786BD0Owner
 {
 public:
- void *find(unsigned int key);
+	void *find(unsigned key);
 };
 void *Rva000AA8C3LoadRenderingUnit(Rva00786BD0Owner *owner, unsigned int key);
 

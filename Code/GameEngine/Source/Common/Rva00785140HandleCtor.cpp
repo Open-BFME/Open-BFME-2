@@ -3,18 +3,22 @@
 class AssetReference
 {
 public:
-    AssetReference(const AssetReference &that);
+	AssetReference(const AssetReference &);
+	AssetReference();
+	~AssetReference();
+	unsigned pointer; // +0x00
 };
-extern "C" const void *const __identifier("??_7Rva00785140Handle@@6B@")[];
+// Native new-expression carries no delete-on-throw state for this 27B
+// pointer-copy constructor; carry that observed caller contract.
 class Rva00785140Handle
 {
 public:
-    Rva00785140Handle(const AssetReference &that);
+	__declspec(nothrow) Rva00785140Handle(const AssetReference &);
+	virtual ~Rva00785140Handle();
 private:
-    const void *m_vptr;
-    AssetReference m_ref;
+	AssetReference ref; // +0x04
 };
-Rva00785140Handle::Rva00785140Handle(const AssetReference &that) : m_vptr(__identifier("??_7Rva00785140Handle@@6B@")), m_ref(that)
+Rva00785140Handle::Rva00785140Handle(const AssetReference &that) : ref(that)
 {
 }
 

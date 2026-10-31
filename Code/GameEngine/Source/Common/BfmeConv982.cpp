@@ -9,8 +9,6 @@
 // retail's call sites (reverse/symbols.csv). Only the placed bodies are
 // carried; the donor's other definitions are omitted.
 
-#include "../../../../reference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib/basetype.h"
-
 class BfmeZ982;
 
 class BfmeY982
@@ -106,14 +104,28 @@ public:
 class BfmeHub982
 {
 public:
-	void bfmeBegin982C();
-	void bfmeEnd982C();
+	void * __fastcall rva00111312(int count);
+	void rva001116E2();				// 0x001116E2
+	void bfmeBegin982C();				// 0x00111319
+	void bfmeEnd982C();				// 0x00110611
 };
+
+class AptRenderingUnit;
 
 class W3DAptAux
 {
+	friend void rebuildMask();
 	friend void bfmeGo982C(BfmeT982 *);
-	static BfmeHub982 *s_renderer;
+	friend void w3dDrawRenderingUnit(AptRenderingUnit *, int);
+	friend void w3dCustomControlRender(const char *name, int arg1, AptRenderingUnit *renderingUnit, int arg3);
+
+public:
+	static void PostDraw();
+
+private:
+	static BfmeHub982 *s_renderer;			// 0x00DE6170
+	static unsigned int s_syncTime0;			// 0x00DE6174
+	static unsigned int s_syncTime1;			// 0x00DE6178
 };
 
 void rebuildMask(void);
@@ -167,20 +179,3 @@ public:
 	virtual void slot48(float a, float b);
 };
 
-
-class Rva007845D0
-{
-public:
-	void method(void);
-
-	char m_pad00[8];
-	Rva007845D0Backend *m_backend;
-	Region2D m_region;
-	float m_width;
-	float m_height;
-	int m_color;
-	int m_align;
-	bool m_byte2c;
-	bool m_byte2d;
-	bool m_byte2e;
-};

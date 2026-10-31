@@ -68,35 +68,39 @@ class DisplayString
 {
 public:
 	virtual void slot00();
-	virtual void slot01();
+	virtual void setText(UnicodeString text);		// +0x04
 	virtual UnicodeString getText();			// +0x08 (WB debug block)
-	virtual void slot03();
-	virtual void slot04();
-	virtual void slot05();
+	virtual void slot0C(); virtual void slot10(); virtual void slot14();
 	virtual void setFont(GameFont *font);			// +0x18
-	virtual void slot07();
+	virtual void slot1C();
 	virtual void setWordWrap(Int wordWrap);			// +0x20
 	virtual void setWordWrapCentered(Bool isCentered);	// +0x24
+	virtual void slot28(); virtual void slot2C();
+	virtual void slot30(); virtual void slot34(); virtual void slot38();
+	virtual void getSize(Int *width, Int *height);		// +0x3C
+	virtual void slot40(); virtual void slot44();
+	virtual void slot48(Real x, Real y);			// +0x48, called with (0, 0)
 };
 
 class DisplayStringManager
 {
 public:
-	virtual void slot00();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual void slot04();
-	virtual void slot05();
-	virtual void slot06();
-	virtual void slot07();
-	virtual void slot08();
-	virtual void slot09();
-	virtual void slot10();
-	virtual void slot11();
-	virtual void slot12();
-	virtual void slot13();
+	virtual ~DisplayStringManager() {}
+	virtual void managerSlot04() = 0;
+	virtual void managerSlot08() = 0;
+	virtual void managerSlot0C() = 0;
+	virtual void managerSlot10() = 0;
+	virtual void managerSlot14() = 0;
+	virtual void managerSlot18() = 0;
+	virtual void managerSlot1C() = 0;
+	virtual void managerSlot20() = 0;
+	virtual void managerSlot24() = 0;
+	virtual void managerSlot28() = 0;
+	virtual void managerSlot2C() = 0;
+	virtual void managerSlot30() = 0;
+	virtual void managerSlot34() = 0;
 	virtual DisplayString *newDisplayString();		// +0x38
+	virtual void freeDisplayString(DisplayString *s);	// +0x3C
 };
 extern DisplayStringManager *TheDisplayStringManager;
 
@@ -186,19 +190,21 @@ class W3DAptDisplayString : public AptDisplayStringBase
 public:
 	W3DAptDisplayString(Rva000AAD88Arg *params);
 	virtual ~W3DAptDisplayString();
+	// Slot 1 (rowed at 0x000AA7B2, W3DAptAux.cpp), declared so this unit's
+	// vtable COMDAT matches the constructor unit's.
 	virtual void SetText(const UnicodeString &text);
 
 private:
 	AsciiString m_name;			// +0x04
-	DisplayString *m_displayString;		// +0x08
+	DisplayString *m_displayString;		// +0x08 (WB member name)
 	Coord2D m_topLeft;			// +0x0C
 	Coord2D m_bottomRight;			// +0x14
 	Coord2D m_size;				// +0x1C
-	Int m_24;				// +0x24
-	Int m_28;				// +0x28
-	Bool m_scaled;				// +0x2C
-	Bool m_dropShadow;			// +0x2D
-	Bool m_2e;				// +0x2E
+	int m_24;				// +0x24
+	int m_28;				// +0x28
+	bool m_scaled;				// +0x2C
+	bool m_dropShadow;			// +0x2D
+	bool m_2e;				// +0x2E
 };
 
 // ??0W3DAptDisplayString@@QAE@PAURva000AAD88Arg@@@Z @ 0x000AA966
