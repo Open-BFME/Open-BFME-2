@@ -48,15 +48,7 @@ private:
 	AICommandInterface m_commands; // +0x20
 };
 
-class Object
-{
-public:
-	AIUpdateInterface *getAI() const { return m_ai; }
-
-private:
-	unsigned char m_pad000[0x258];
-	AIUpdateInterface *m_ai; // +0x258
-};
+#include "object.h"
 
 
 extern GameLogic *TheGameLogic;
