@@ -23,7 +23,7 @@ Native table bytes and every exact-address ledger provider are attached.
 | slot21 | setInitialHealth(float,bool), target4C0642319B and its matched typed body. Reject int argument vote. |
 | slot31 | BfmeBodyDataPair8 rva004BDC56() by value, target4BDC5623B hidden result pointer and paired words; existing matched row uses struct return. Reject unproved getGrabOffset identity. |
 | slot33 | setIndestructible(bool), target4BF18698B and existing typed body. |
-| slot39 | rvaSlot39(BodyDamageType), not void*: ActiveBody::rva004BF969 and setDamageState path pass m_curDamageState at virtual+9C. Symbiotic4C121B forwards the same stack word, so its old opaque pointer view is not stronger evidence. |
+| slot39 | rvaSlot39(BodyDamageType), not void*: ActiveBody::attemptHealing4BEE21 and attemptDamage4BFE07 pass m_curDamageState at virtual+9C. Symbiotic4C121B forwards the same stack word, so its old opaque pointer view is not stronger evidence. |
 | slot40 | rvaSlot40(float,bool), not void*: native internalChangeHealth4BF005 and matched caller pass m_currentHealth and delta>0 to virtual+A0. Symbiotic4C123C ignores first arg and reads second byte, hence cannot establish pointer first arg. |
 
 ## Remaining slot signatures and provenance
@@ -80,3 +80,5 @@ BodyModuleInterface now has native43-slot header and a verified no-vtable
 caller adoption; ctor/dtor consumers still need full native BodyModule and
 ActiveBody table providers, not merely byte matching or a pure/default base.
 No new census-linked coverage is claimed. No source paths or rows moved.
+
+Normal header hook PASS:944/944 code,25data,97dependentunits; leaf1/1,0newidentity,0newdatafindings. Native callback instructions in native-providers.json include both actual healing/damage caller rows.
