@@ -30,6 +30,54 @@ template <> _List_base<int, allocator<int> >::~_List_base();
 }
 #define BFME_ASCII_DTOR_DECL
 #include "../../../../../../reference/shims/bfme2_ascii/ascii_string.h"
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class LeftTraits, class RightTraits>
+static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
+                              const _List_iterator<T, RightTraits>& b)
+{ return a._M_node != b._M_node; }
+}
+struct NoCaseTreeValue4
+{
+	char m_body[4];
+};
+#include "../../../../../Libraries/Include/Lib/Coord3D.h"
+enum ScienceType
+{
+	SCIENCE_INVALID = -1
+};
+typedef _STL::pair<const AsciiString, NoCaseTreeValue4> ConstructProbePair;
+typedef _STL::vector<unsigned int> ConstructProbeVec;
+typedef _STL::pair<const int, _STL::vector<unsigned int> > ConstructProbePairIV;
+typedef _STL::vector<ScienceType> ConstructProbeSciVec;
+typedef _STL::list<Coord3D> ConstructProbeCoordList;
+typedef _STL::pair<const AsciiString, char> ConstructProbePairC;
+// These helpers delegate to complete copy constructors already rowed in
+// their provider units. Declaration-only specializations suppress incorrect
+// local copies and their allocator/container machinery, preserving the
+// actual out-of-line placement-copy calls.
+namespace _STL {
+template <> ConstructProbeVec::vector(const ConstructProbeVec &);
+template <> ConstructProbePair::pair(const ConstructProbePair &);
+template <> ConstructProbePairIV::pair(const ConstructProbePairIV &);
+template <> ConstructProbeSciVec::vector(const ConstructProbeSciVec &);
+template <> ConstructProbeCoordList::list(const ConstructProbeCoordList &);
+template <> ConstructProbePairC::pair(const ConstructProbePairC &);
+}
+// Native 0x396170 is called through the eight-byte element view used by
+// vector::push_back at 0x39A48E and both uninitialized workers. Its complete
+// construction delegates to the existing pair copy at 0x466EA7. Preserve
+// that witnessed storage operation without asserting an application identity.
+struct Rva0039A48EElement { int a[2]; };
+namespace _STL {
+}
+template void _STL::_Construct<ConstructProbeVec, ConstructProbeVec>(ConstructProbeVec *, const ConstructProbeVec &);
+template void _STL::_Construct<ConstructProbePair, ConstructProbePair>(ConstructProbePair *, const ConstructProbePair &);
+template void _STL::_Construct<ConstructProbePairIV, ConstructProbePairIV>(ConstructProbePairIV *, const ConstructProbePairIV &);
+template void _STL::_Construct<ConstructProbeSciVec, ConstructProbeSciVec>(ConstructProbeSciVec *, const ConstructProbeSciVec &);
+template void _STL::_Construct<ConstructProbeCoordList, ConstructProbeCoordList>(ConstructProbeCoordList *, const ConstructProbeCoordList &);
+template void _STL::_Construct<ConstructProbePairC, ConstructProbePairC>(ConstructProbePairC *, const ConstructProbePairC &);
+#include "../../../../Include/Common/Rva0007DF07.h"
 
 // ProductionUpdate.cpp -- ProductionUpdate members recovered from WorldBuilder
 // leads (reverse/wb_name_leads.csv): WB's debug build names the function
@@ -846,6 +894,16 @@ vector<QuantityModifier, allocator<QuantityModifier> >::erase(
 // bfme link decl-only begin
 namespace _STL { template <> vector<QuantityModifier,_STL::allocator<QuantityModifier> >::~vector(); }
 
+class Rva0023FD06 : public Rva0007DF07
+{
+public:
+	Rva0023FD06(const ConstructProbePair &value);
+	virtual ~Rva0023FD06();
+	virtual int rva0023FCD3(float a, int b);
+private:
+	ConstructProbePair m_value;
+};
+
 // tu-skeleton: 0x0049CC15 33B ?rva0049CC15@ProductionUpdate@@UAEXW4ProductionID@@H@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp (not merged yet)
 
 // tu-skeleton: 0x0049CC36 43B ?rva0049CC36@ProductionUpdate@@UBE_NW4ProductionID@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp (not merged yet)
@@ -853,6 +911,8 @@ namespace _STL { template <> vector<QuantityModifier,_STL::allocator<QuantityMod
 // tu-skeleton: 0x0049CC61 60B ?rva0049CC61@ProductionUpdate@@UAEXPBVThingTemplate@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp (not merged yet)
 
 // tu-skeleton: 0x0049CC9D 83B ?rva0049CC9D@ProductionUpdate@@UAEXPBVThingTemplate@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp
 
@@ -1123,30 +1183,6 @@ int ProductionUpdate::calcTotalProductionFrames(Rva0049CD4FArg *arg)
 	return result;
 }
 
-// tu-skeleton: 0x0049CDF9 47B ?isUpgradeInQueue@ProductionUpdate@@UBE_NPBVUpgradeTemplate@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp (not merged yet)
-
-// tu-skeleton: 0x0049CE28 59B ?countUnitTypeInQueue@ProductionUpdate@@UBEIPBVThingTemplate@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp (not merged yet)
-
-// tu-skeleton: 0x0049CE63 11B ?rva0049CE63@Rva0049CE63@@UAEXH@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAM.cpp (not merged yet)
-
-// tu-skeleton: 0x0049CEAE 51B ?rva0049CEAE@ProductionUpdate@@UBEIPBVThingTemplate@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp (not merged yet)
-
-// tu-skeleton: 0x0049CEE1 27B ?rva0049CEE1@ProductionUpdate@@UBEIH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp (not merged yet)
-
-// tu-skeleton: 0x0049CEFC 41B ?getProductionUpdateInterfaceFromObject@ProductionUpdate@@SAPAVProductionUpdateInterface@@PAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp (not merged yet)
-
-// tu-skeleton: 0x0049CF25 121B ?rva0049CF25@ProductionUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp (not merged yet)
-
-// tu-skeleton: 0x0049CF9E 11B ?get@Rva0049CF9ESub@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0049CFA9 36B ?canQueueUpgrade@ProductionUpdate@@UBE?AW4CanMakeType@@PBVUpgradeTemplate@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp (not merged yet)
-
-// tu-skeleton: 0x0049CFCD 30B ?rva0049CFCD@ProductionUpdate@@UBE?AW4CanMakeType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp (not merged yet)
-
-// tu-skeleton: 0x0049CFEB 143B ?GetEntryToProcess@ProductionUpdate@@QAEPBVRva0049D1B1@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp (not merged yet)
-
-// tu-skeleton: 0x0049D0DE 54B ?rva0049D0DE@ProductionUpdate@@UBEIPBURva0049D0DEMask@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/Rva0049D3BC.cpp
 
 // ?rva0049D3BC@ProductionUpdate@@QAEXXZ retail 0x0049D3BC 362B
@@ -1198,38 +1234,6 @@ void ProductionUpdate::rva0049D3BC()
 	}
 }
 
-// tu-skeleton: 0x0049D867 315B ?queueUpgrade@ProductionUpdate@@UAE_NPBVUpgradeTemplate@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp (not merged yet)
-
-// tu-skeleton: 0x0049D9A2 146B ?cancelUpgrade@ProductionUpdate@@UAEXPBVUpgradeTemplate@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp (not merged yet)
-
-// tu-skeleton: 0x0049DA34 540B ?queueCreateUnit@ProductionUpdate@@UAE_NPBVThingTemplate@@HW4ProductionID@@H_NABVAsciiString@@2@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp (not merged yet)
-
-// tu-skeleton: 0x0049DD0B 45B ?Rva0049DD0BConstruct@@YAXPAXPBX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp (not merged yet)
-
-// tu-skeleton: 0x0049DD83 234B ?rva0049DD83@Rva0049DD83@@QAEXPAVINI@@PAX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_uninitialized_fill_n.cpp (not merged yet)
-
-// tu-skeleton: 0x0049DE6D 91B ?Rva0049DE6DParse@@YAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateCostModifierParse.cpp (not merged yet)
-
-// tu-skeleton: 0x0049DEC8 154B ?rva0049DEC8@ProductionUpdate@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp (not merged yet)
-
-// tu-skeleton: 0x0049DF62 16B ?parseFromINI@Rva0049DD83@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/Common/System/INIParseFromINIForwarders.cpp (not merged yet)
-
-// tu-skeleton: 0x0049E03A 258B ??0ProductionUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0049E13C 6B ?Rva0049E13CGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
-// tu-skeleton: 0x0049E142 10B ?requestUniqueUnitID@ProductionUpdate@@UAE?AW4ProductionID@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp (not merged yet)
-
-// tu-skeleton: 0x0049E14C 18B ?nextProduction@ProductionUpdate@@UBEPBVRva0049D1B1@@PBV2@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp (not merged yet)
-
-// tu-skeleton: 0x0049E1A3 28B ?getDisabledTypesToProcess@ProductionUpdate@@UBE?AV?$BitFlags@$0L@@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0049E1BF 181B ??1ProductionUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0049E274 63B ??1?$vector@UQuantityModifier@@V?$allocator@UQuantityModifier@@@_STL@@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x0049E34C 28B ??_GProductionUpdate@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateDtor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateRva0049E368.cpp
 
 // ?rva0049E368@ProductionUpdate@@QAEXXZ @0x0049E368 77B
@@ -1250,10 +1254,6 @@ void ProductionUpdate::rva0049E368()
 	_STL::vector<AsciiString, _STL::allocator<AsciiString> > &v = m_bfme130;
 	v.erase(((BfmeAsciiVecView *)&v)->m_start, ((BfmeAsciiVecView *)&v)->m_finish);
 }
-
-// tu-skeleton: 0x0049E3B5 4969B ?update@ProductionUpdate@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp (not merged yet)
-
-// tu-skeleton: 0x0049F71E 11B ?clear@?$vector@UFXBoneInfo@@V?$allocator@UFXBoneInfo@@@_STL@@@_STL@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Thing/ModuleFactory.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateModuleDataCtor.cpp
 
@@ -1306,6 +1306,91 @@ ProductionUpdateModuleData::ProductionUpdateModuleData()
 	m_secondaryQueue = false;
 }
 
+// tu-skeleton: 0x0049CDF9 47B ?isUpgradeInQueue@ProductionUpdate@@UBE_NPBVUpgradeTemplate@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp (not merged yet)
+
+// tu-skeleton: 0x0049CE28 59B ?countUnitTypeInQueue@ProductionUpdate@@UBEIPBVThingTemplate@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp (not merged yet)
+
+// tu-skeleton: 0x0049CE63 11B ?rva0049CE63@Rva0049CE63@@UAEXH@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAM.cpp (not merged yet)
+
+// tu-skeleton: 0x0049CEAE 51B ?rva0049CEAE@ProductionUpdate@@UBEIPBVThingTemplate@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp (not merged yet)
+
+// tu-skeleton: 0x0049CEE1 27B ?rva0049CEE1@ProductionUpdate@@UBEIH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp (not merged yet)
+
+// tu-skeleton: 0x0049CEFC 41B ?getProductionUpdateInterfaceFromObject@ProductionUpdate@@SAPAVProductionUpdateInterface@@PAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp (not merged yet)
+
+// tu-skeleton: 0x0049CF25 121B ?rva0049CF25@ProductionUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp (not merged yet)
+
+// tu-skeleton: 0x0049CF9E 11B ?get@Rva0049CF9ESub@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0049CFA9 36B ?canQueueUpgrade@ProductionUpdate@@UBE?AW4CanMakeType@@PBVUpgradeTemplate@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp (not merged yet)
+
+// tu-skeleton: 0x0049CFCD 30B ?rva0049CFCD@ProductionUpdate@@UBE?AW4CanMakeType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp (not merged yet)
+
+// tu-skeleton: 0x0049CFEB 143B ?GetEntryToProcess@ProductionUpdate@@QAEPBVRva0049D1B1@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp (not merged yet)
+
+// tu-skeleton: 0x0049D0DE 54B ?rva0049D0DE@ProductionUpdate@@UBEIPBURva0049D0DEMask@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp (not merged yet)
+
+// tu-skeleton: 0x0049D867 315B ?queueUpgrade@ProductionUpdate@@UAE_NPBVUpgradeTemplate@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp (not merged yet)
+
+// tu-skeleton: 0x0049D9A2 146B ?cancelUpgrade@ProductionUpdate@@UAEXPBVUpgradeTemplate@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp (not merged yet)
+
+// tu-skeleton: 0x0049DA34 540B ?queueCreateUnit@ProductionUpdate@@UAE_NPBVThingTemplate@@HW4ProductionID@@H_NABVAsciiString@@2@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp
+
+//
+// STLport placement-copy helpers and distinct native copy owners, same-shape
+// siblings of the rowed _Construct<AsciiString> at 0x0002C485 (45 bytes; see
+// stlport_construct_asciistring.cpp). Each body is the null-guarded
+// placement-new copy over a single element: the copy delegates out-of-line
+// to T's own rowed copy ctor, and __EH_prolog resolves via its matched row.
+// Unlike the opaque-struct batches, these T's come from the real STLport
+// headers (<vector>, and _STL::pair over a minimal AsciiString declaration):
+// declaration-only copy specializations below keep the calls out-of-line
+// and resolve through the complete provider rows.
+
+// ??0Rva0023FD06@@QAE@ABU?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@Z,
+// retail 0x0023FC98..0x0023FCD3 (59 bytes, EH, RET 4): a counted holder of one
+// such pair. The counted base (count at +0x04 cleared; EH state 0 once built)
+// comes first, then the vtable 0x00BEDC94 and the pair copied into +0x08
+// through its rowed out-of-line copy constructor 0x00466EA7.
+// Vtable 0x00BEDC94 is Rva0023FD06Dtor.cpp's class: its slot 0 is the rowed
+// scalar deleting dtor 0x0023FCEA (calling the rowed dtor 0x0023FD06) and its
+// slot 1 the rowed 0x0023FCD3. Use that name so the dtor binds to its row.
+
+void Rva0049DD0BConstruct(void *dest, const void *source)
+{
+    ::new (dest) ConstructProbePair(*static_cast<const ConstructProbePair *>(source));
+}
+
+// tu-skeleton: 0x0049DD83 234B ?rva0049DD83@Rva0049DD83@@QAEXPAVINI@@PAX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_uninitialized_fill_n.cpp (not merged yet)
+
+// tu-skeleton: 0x0049DE6D 91B ?Rva0049DE6DParse@@YAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateCostModifierParse.cpp (not merged yet)
+
+// tu-skeleton: 0x0049DEC8 154B ?rva0049DEC8@ProductionUpdate@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp (not merged yet)
+
+// tu-skeleton: 0x0049DF62 16B ?parseFromINI@Rva0049DD83@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/Common/System/INIParseFromINIForwarders.cpp (not merged yet)
+
+// tu-skeleton: 0x0049E03A 258B ??0ProductionUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0049E13C 6B ?Rva0049E13CGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x0049E142 10B ?requestUniqueUnitID@ProductionUpdate@@UAE?AW4ProductionID@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp (not merged yet)
+
+// tu-skeleton: 0x0049E14C 18B ?nextProduction@ProductionUpdate@@UBEPBVRva0049D1B1@@PBV2@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp (not merged yet)
+
+// tu-skeleton: 0x0049E1A3 28B ?getDisabledTypesToProcess@ProductionUpdate@@UBE?AV?$BitFlags@$0L@@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0049E1BF 181B ??1ProductionUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0049E274 63B ??1?$vector@UQuantityModifier@@V?$allocator@UQuantityModifier@@@_STL@@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x0049E34C 28B ??_GProductionUpdate@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0049E3B5 4969B ?update@ProductionUpdate@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp (not merged yet)
+
+// tu-skeleton: 0x0049F71E 11B ?clear@?$vector@UFXBoneInfo@@V?$allocator@UFXBoneInfo@@@_STL@@@_STL@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Thing/ModuleFactory.cpp (not merged yet)
+
 // tu-skeleton: 0x0049F8A9 113B ?rva0049F8A9@ProductionUpdate@@UAEXPBVThingTemplate@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp (not merged yet)
 
 // tu-skeleton: 0x0049F91A 1192B ?xfer@ProductionUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp (not merged yet)
@@ -1313,10 +1398,6 @@ ProductionUpdateModuleData::ProductionUpdateModuleData()
 // tu-skeleton: 0x0049FDF9 113B ?Rva0049FDF9Parse@@YAXPAVINI@@PAVProductionUpdateModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQuantityModifierParse.cpp (not merged yet)
 
 // tu-skeleton: 0x0049FE6A 17B ?buildFieldParse@ProductionUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
-
-// tu-skeleton: 0x0078D8B3 14B $L6605 -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp (not merged yet)
-
-// tu-skeleton: 0x0078D8C1 10B __ehhandler$?Rva0049DD0BConstruct@@YAXPAXPBX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp (not merged yet)
 
 // tu-skeleton: 0x0078D8CB 8B Unwind@00b8d8cb -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_uninitialized_fill_n.cpp (not merged yet)
 
