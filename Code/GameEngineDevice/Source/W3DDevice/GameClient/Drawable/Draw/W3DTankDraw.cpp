@@ -17,12 +17,10 @@ extern "C" { static float __cdecl floorf(float); }
 // members zeroed in place, destroyed in retail's unwind map (states 1/2)
 // through the conditional destroy 0x002115C5, as in W3DTankDrawDestructor.cpp.
 // The +0x0C/+0x10 vtables and the base's 0x2E8 size follow that file.
-class Thing;
-class ModuleData;
-class RenderObjClass;
 // 0x0004CBC0 is the handle unlink (row ?rva0004CBC0@RvaSmartPtr12@@QAEXXZ); the
 // handle dtor is the inline null test around it (0x002115C5), spelled out below.
 class ParticleSystem;
+ParticleSystem *Make001FCBD7();
 class RvaSmartPtr12
 {
 public:
@@ -32,24 +30,57 @@ public:
 	void *m_previous; // +0x04
 	void *m_next; // +0x08
 };
-struct BfmeParticleSystemHandle
+class BfmeParticleSystemHandle : public RvaSmartPtr12
 {
-	BfmeParticleSystemHandle() : m_system(0), m_previous(0), m_next(0) {}
-	~BfmeParticleSystemHandle()
+public:
+	BfmeParticleSystemHandle()
+	{
+		m_system = 0;
+		m_previous = 0;
+		m_next = 0;
+	}
+	~BfmeParticleSystemHandle() throw()
 	{
 		if (m_system != 0)
-			reinterpret_cast<RvaSmartPtr12 *>(this)->rva0004CBC0();
+			rva0004CBC0();
 	}
-	void *m_system;
-	void *m_previous;
-	void *m_next;
+	operator bool() const { return m_system != 0; }
+	ParticleSystem *operator->() const
+	{
+		if (!m_system)
+			return Make001FCBD7();
+		return m_system;
+	}
+	// A volatile read keeps retail's redundant null-or-Make chases.
+	__forceinline ParticleSystem *const volatile &systemRef() const
+	{
+		return *(ParticleSystem *const volatile *)&m_system;
+	}
+	__forceinline ParticleSystem *getRaw() const
+	{
+		return *(ParticleSystem *const volatile *)&m_system;
+	}
+	ParticleSystem *get() const
+	{
+		ParticleSystem *p = getRaw();
+		if (!p)
+			p = Make001FCBD7();
+		return p;
+	}
 };
+class W3DTankDrawModuleData;
+struct DrawableView;
+class Xfer;
+class Matrix3D;
+class Thing;
+class ModuleData;
+class RenderObjClass;
 class DrawModuleBase
 {
 public:
 	virtual ~DrawModuleBase();
-private:
-	char m_pad04[8];
+	const W3DTankDrawModuleData *m_moduleData; // +0x04
+	DrawableView *m_drawable; // +0x08
 };
 class DrawInterfaceA
 {
@@ -61,13 +92,25 @@ class DrawInterfaceB
 public:
 	virtual void b();
 };
-class W3DScriptedModelDraw : public DrawModuleBase, public DrawInterfaceA, public DrawInterfaceB
+class W3DModelDraw : public DrawModuleBase, public DrawInterfaceA, public DrawInterfaceB
+{
+public:
+	virtual void setHidden(bool h);
+	virtual void setFullyObscuredByShroud(bool v);
+	virtual void doDrawModule(const Matrix3D *transformMtx);
+protected:
+	virtual void loadPostProcess(void);
+	char m_pad14[0x49 - 0x14];
+	bool m_fullyObscuredByShroud; // +0x49
+	char m_pad4A[0x2E8 - 0x4A];
+};
+class W3DScriptedModelDraw : public W3DModelDraw
 {
 public:
 	W3DScriptedModelDraw(Thing *thing, const ModuleData *moduleData);
 	virtual ~W3DScriptedModelDraw();
-private:
-	char m_pad14[0x2E8 - 0x14];
+protected:
+	virtual void xfer(Xfer *xfer);
 };
 #include "../../../../../../Libraries/Include/Lib/Coord3D.h"
 #pragma comment(linker, "/alternatename:?a@W3DTankDraw@@UAEXXZ=?clientOnly_getRenderObjInfo@Rva000B34D8@@UAE_NPAVVector3@@PAMPAURva000B34D8Out30@@@Z")
@@ -118,19 +161,6 @@ typedef float Real;
 
 typedef int Int;
 
-struct Material_Override
-{
-	int Struct_ID;
-	Vector2 customUVOffset;
-};
-
-struct TreadObjectInfo
-{
-	RenderObjClass *m_robj;
-	int m_type;
-	Material_Override m_materialSettings;
-};
-
 class Rva000C79C9
 {
 public:
@@ -154,6 +184,17 @@ public:
 
 enum TreadType { TREAD_LEFT = 0, TREAD_RIGHT = 1, TREAD_MIDDLE = 2 };
 
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
+struct Material_Override
+{
+	int Struct_ID;
+	Vector2 customUVOffset;
+};
+
 class W3DTankDraw : public W3DScriptedModelDraw
 {
 public:
@@ -161,7 +202,15 @@ public:
 	virtual ~W3DTankDraw();
 	virtual void a();
 	virtual void b();
+	virtual void setHidden(bool h);
+	virtual void setFullyObscuredByShroud(bool v);
+	virtual void doDrawModule(const Matrix3D *transformMtx);
+	virtual NameKeyType getModuleNameKey() const;
+	void rva000CE09E();
+	void rva000CE0EA();
 protected:
+	virtual void xfer(Xfer *xfer);
+	virtual void loadPostProcess(void);
 	BfmeParticleSystemHandle m_treadDebrisLeft;
 	BfmeParticleSystemHandle m_treadDebrisRight;
 	RenderObjClass *m_prevRenderObj;
@@ -176,7 +225,10 @@ protected:
 	TreadObjectInfo m_treads[MAX_TREADS_PER_TANK];
 	int m_treadCount;
 	Coord3D m_lastDirection;
+	const W3DTankDrawModuleData *getW3DTankDrawModuleData() const { return m_moduleData; }
 	void createEmitters(void);
+	void tossEmitters(void);
+	void updateTreadObjects(void);
 	void updateTreadPositions(float uvDelta);
 };
 
@@ -264,15 +316,15 @@ public:
 	virtual ~W3DTankDrawModuleData();
 private:
 	unsigned char m_basePad[0x188 - 4];
-private:
+public:
 	AsciiString m_treadDebrisLeft;
-private:
+public:
 	AsciiString m_treadDebrisRight;
-private:
+public:
 	float m_treadAnimationRate;
-private:
+public:
 	float m_treadPivotSpeedFraction;
-private:
+public:
 	float m_treadDriveSpeedFraction;
 public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
