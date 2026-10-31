@@ -4328,8 +4328,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00078A82,68,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,U,N=Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DHordeModelDraw.cpp provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DHordeModelDrawCtor.cpp
 0x00078AC6,8,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,C,C=0x00078A82..0x00078ACE provisional,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp
 0x00078ACE,13,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,C,C=0x00078A82..0x00078ADB provisional,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp
-0x00078ADB,8,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,C,C=0x00078A82..0x00078AE3 provisional,Code/GameEngine/Source/Common/VslotSmallBodiesAP.cpp
-0x00078AE3,72,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,C,C=0x00078A82..0x00078B2B provisional,Code/GameEngine/Source/Common/VslotSmallBodiesAP.cpp
+0x00078ADB,8,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,C,C=0x00078A82..0x00078AE3 provisional,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp
+0x00078AE3,72,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,C,C=0x00078A82..0x00078B2B provisional,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp
 0x00078B2B,13,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,C,C=0x00078A82..0x00078B38 provisional,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp
 0x00078B38,69,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,U,N=Code/GameEngine/Source/Common/W3DHordeModelDraw.cpp provisional,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp
 0x00078B7D,6,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,C,C=0x00078B38..0x00078B83 provisional,Code/GameEngine/Source/Common/SubsystemNameGetters.cpp

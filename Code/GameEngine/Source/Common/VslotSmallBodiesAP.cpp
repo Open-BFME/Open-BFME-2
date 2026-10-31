@@ -18,23 +18,6 @@ private:
 	unsigned int bit30 : 1;
 	unsigned int word04, word08, word0C;
 };
-
-// Native 00078AE3..00078B2B is a 72-byte self-guarded copy returning this.
-// Retail separately merges bits 0..2, 3..29 and 30, preserving bit 31,
-// then copies the three remaining dwords. Original class identity is unknown.
-Rva00078AE3& Rva00078AE3::rva00078AE3(const Rva00078AE3 *other)
-{
-	if (other != this)
-	{
-		bits00 = other->bits00;
-		bits03 = other->bits03;
-		bit30 = other->bit30;
-		word04 = other->word04;
-		word08 = other->word08;
-		word0C = other->word0C;
-	}
-	return *this;
-}
 class Rva00078ADB
 {
 public:
@@ -43,10 +26,6 @@ private:
 	char m_pad00[0x1C];
 	Rva00078AE3 m_1C;
 };
-void Rva00078ADB::rva00078ADB(Int firstValue)
-{
-	m_1C.rva00078AE3(reinterpret_cast<const Rva00078AE3*>(firstValue));
-}
 
 class DataChunkInput;
 struct DataChunkInfo;
