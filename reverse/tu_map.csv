@@ -6005,7 +6005,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x000AD71D,5,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMap.cpp
 0x000AD722,27,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_s_o1.cpp
 0x000AD73D,51,code,Code/GameEngine/Source/Common/System/BfmeParserBindingVE.cpp,proposed,N,N=Code/GameEngine/Source/Common/System/BfmeParserBindingVE.cpp,Code/GameEngine/Source/Common/System/BfmeDataChunkParserBinding.cpp
-0x000AD770,11,code,,,-,,Code/GameEngine/Source/Common/FunctorBindConstructors.cpp
+0x000AD770,11,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMap.cpp
 0x000AD77B,45,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMap.cpp,approved,E,"E=0x00760FBB..0x00760FF1@0x000ABEA0,0x000AE275",Code/GameEngine/Source/Common/StringRecordInlineCopyBFME2.cpp
 0x000AD7A8,37,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_stringrecord_111acf_allocate_copy.cpp
 0x000AD7CD,23,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlportVectorRva000AD7CDAllocator.cpp
