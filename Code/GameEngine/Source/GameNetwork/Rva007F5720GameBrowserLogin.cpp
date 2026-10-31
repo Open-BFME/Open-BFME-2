@@ -1,4 +1,4 @@
-// cl: /O2
+// cl:
 // 0x007F5720: FESL game-browser login-reply handler.
 //
 // The assertion text identifies state 4 as GameBrowserStateLoggingIn, while
@@ -10,8 +10,12 @@
 class Rva007E8810Message
 {
 public:
-	bool hasError( void );
-	int getError( void );
+	bool hasError();                                                  // 0x007E88A0
+	int getError();                                                   // 0x007E88B0
+	int getInt( const char *key, int defaultValue );                  // 0x007E8900
+
+	char m_head[ 0x28 ];
+	int m_txn;
 };
 
 class Rva007F5720Listener
@@ -24,9 +28,9 @@ public:
 
 struct Rva007EB810Diag
 {
-	virtual void v0();
-	virtual void v1();
-	virtual void v2();
+	virtual void slot00();
+	virtual void slot04();
+	virtual void slot08();
 	virtual void fail( const char *expression, const char *file, int line );
 };
 

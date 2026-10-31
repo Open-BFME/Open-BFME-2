@@ -1,4 +1,4 @@
-// cl: /O2 /GS /GX-
+// cl: /GS /GX-
 // FESL game-browser hosted-game reply at 0x007F5920. The adjacent ticket
 // handler shares listener +0x1c, connection +0x24 and lobby +0x2d8.
 class Rva007F5920Diag
@@ -12,8 +12,12 @@ extern Rva007EB810Diag *Rva007EB810Get();
 class Rva007E8810Message
 {
 public:
-    bool hasError();
-    int getError();
+	bool hasError();                                                  // 0x007E88A0
+	int getError();                                                   // 0x007E88B0
+	int getInt( const char *key, int defaultValue );                  // 0x007E8900
+
+	char m_head[ 0x28 ];
+	int m_txn;
 };
 class Rva007F5080Game
 {
@@ -34,10 +38,12 @@ public:
 };
 class Rva00802040Src;
 class Rva00802040OwnerSrc;
+class Rva00802680Owner;
 class Rva00802040Owner : public Gen007F0130
 {
 public:
     Rva00802040Owner(Rva00802040Src *game, Rva00802040OwnerSrc *owner);
+    Rva00802680Owner *findFree();
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
     virtual void v8(); virtual int *v9(void *out);
@@ -59,7 +65,7 @@ public:
 class Rva008006C0Owner
 {
 public:
-    int connect(const char *ugid, const char *secret, int flag);
+	int connect(const char *ugid, const char *secret, int flag);
 };
 class Rva007F5920Owner
 {

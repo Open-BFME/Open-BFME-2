@@ -1,4 +1,4 @@
-// cl: /O2 /GS
+// cl: /GS
 // 0x007F5840: FESL queue-status reply handler.
 //
 // The on-stack Rva007F5120Queue temporary (ctor at 0x007F5120, matched in
@@ -14,8 +14,12 @@
 class Rva007E8810Message
 {
 public:
-	bool hasError( void );
-	int getError( void );
+	bool hasError();                                                  // 0x007E88A0
+	int getError();                                                   // 0x007E88B0
+	int getInt( const char *key, int defaultValue );                  // 0x007E8900
+
+	char m_head[ 0x28 ];
+	int m_txn;
 };
 
 class Rva007F5120Queue
@@ -61,13 +65,13 @@ public:
 class Rva007F5840Owner
 {
 public:
-	void handleQueueReply( Rva007E8810Message *msg, BfmeOwnerYA *result );
-
+	void handleQueueReply(Rva007E8810Message *message, BfmeOwnerYA *result);
+	char m_pad00[0x1C];
 private:
-	char m_pad000[ 0x1c ];
-	Rva007F5840Listener *m_listener;
-	char m_pad020[ 0x16 ];
-	unsigned char m_flag036;
+	Rva007F5840Listener *m_listener; // +0x1C
+	char m_pad20[0x16];
+	unsigned char m_flag036; // +0x36
+	char m_pad37[0x1];
 };
 
 void Rva007F5840Owner::handleQueueReply( Rva007E8810Message *msg, BfmeOwnerYA *result )

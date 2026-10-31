@@ -1,4 +1,4 @@
-// cl: /O2
+// cl:
 // 0x007F6260: FESL game-browser ConnectingProtocol reply handler.
 //
 // The assertion names state 2.  The bytes establish the listener at +0x1c,
@@ -9,8 +9,12 @@
 class Rva007E8810Message
 {
 public:
-	bool hasError( void );
-	int getError( void );
+	bool hasError();                                                  // 0x007E88A0
+	int getError();                                                   // 0x007E88B0
+	int getInt( const char *key, int defaultValue );                  // 0x007E8900
+
+	char m_head[ 0x28 ];
+	int m_txn;
 };
 
 class Rva007F6260Listener
@@ -22,14 +26,14 @@ public:
 class Rva008006C0Owner
 {
 public:
-	int connect( const char *name, const char *addr, int cookie );
+	int connect(const char *ugid, const char *secret, int flag);
 };
 
 struct Rva007EB810Diag
 {
-	virtual void v0();
-	virtual void v1();
-	virtual void v2();
+	virtual void slot00();
+	virtual void slot04();
+	virtual void slot08();
 	virtual void fail( const char *expression, const char *file, int line );
 };
 
@@ -39,15 +43,15 @@ class Rva007F6260GameBrowser
 {
 public:
 	void handleConnectingProtocolReply( Rva007E8810Message *msg );
-
+	char m_pad00[0x1C];
 private:
-	char m_pad000[ 0x1c ];
-	Rva007F6260Listener *m_listener;
-	char m_pad020[ 4 ];
-	Rva008006C0Owner *m_connectOwner;
-	char m_pad028[ 8 ];
-	int m_state;
-	bool m_connectProtocol;
+	Rva007F6260Listener *m_listener; // +0x1C
+	char m_pad20[0x4];
+	Rva008006C0Owner *m_connectOwner; // +0x24
+	char m_pad28[0x8];
+	int m_state; // +0x30
+	bool m_connectProtocol; // +0x34
+	char m_pad35[0x3];
 };
 
 void Rva007F6260GameBrowser::handleConnectingProtocolReply(
