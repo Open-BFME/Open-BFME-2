@@ -21,6 +21,23 @@ enum CommandSourceType
 	CMD_FROM_AI = 2
 };
 #include "../../../../../../Libraries/Include/Lib/Coord3D.h"
+enum StateReturnType
+{
+	STATE_CONTINUE = 0,
+	STATE_SUCCESS = -1,
+	STATE_FAILURE = -2
+};
+#include "../../../../../../../reference/shims/bfme2_statemachine/StateMachineView.h"
+#define BFME_LITERAL_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	public: \
+		const char *name() const; \
+	}; \
+	const char *NAME::name() const \
+	{ \
+		return TEXT; \
+	}
 
 // BFME-only AnimalAIUpdate::update, retail 0x0047EDC9..0x0047F92D (2916 B).
 // No Zero Hour twin. The update interface is the +0x10 secondary of the
@@ -291,11 +308,35 @@ public:
 	virtual NameKeyType getModuleNameKey() const;
 };
 
+class SlowDeathBehavior
+{
+protected:
+	virtual const char *GetSnapshotName() const;
+};
+
+BFME_LITERAL_NAME_GETTER(Rva0047EBA9Named, "AnimalAIUpdate")
+
 // tu-skeleton: 0x0047EB78 49B ??1AnimalAIUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0026E836Derived.cpp (not merged yet)
 
-// tu-skeleton: 0x0047EBA9 6B ?name@Rva0047EBA9Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters2.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/ModuleNameGetters2.cpp
+
+// Module literal name getters (state-machine/behavior/update names): six-byte
+// const members with one shape:
+//
+//     mov eax,<offset string literal> / ret
+//
+// Each body returns a pointer to a NUL-terminated class-name string in
+// .rdata. Contributor-local unit split from ModuleNameGetters.cpp to keep
+// concurrent landings conflict-free; the BFME_LITERAL_NAME_GETTER macro is
+// verbatim, only the class names follow this tree's address-derived
+// convention (identity unrecoverable from 6 bytes, string carried in source
+// where verify_string_refs re-reads it).
+// No // cl: line (defaults match the frameless 6-byte shape, same as the
+// ModuleNameGetters.cpp precedent).
 
 // tu-skeleton: 0x0047EBAF 107B ?xfer@AnimalAIUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AnimalAIUpdateXfer.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AnimalAIUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/AnimalAIUpdatePoolKey.cpp
 
@@ -306,14 +347,6 @@ NameKeyType AnimalAIUpdate::getModuleNameKey() const
 		TheNameKeyGenerator->nameToKey("AnimalAIUpdate");
 	return TheAnimalAIUpdatePoolKey;
 }
-
-// tu-skeleton: 0x0047EC5F 10B ?rva0047EC5F@AnimalAIUpdate@@UBEEXZ -- matched in Code/GameEngine/Source/Common/Disp32FirstChaseGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0047EC69 63B ?makeStateMachine@AnimalAIUpdate@@MAEPAVAIStateMachine@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AnimalAIUpdateMakeStateMachine.cpp (not merged yet)
-
-// tu-skeleton: 0x0047ECA8 121B ??0AnimalAIUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AnimalAIUpdateCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0047ED21 28B ??_GAnimalAIUpdate@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0026E836Derived.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AnimalAIUpdate.cpp
 
@@ -657,6 +690,14 @@ Coord3D destination;
 
 	return UPDATE_SLEEP_NONE;
 }
+
+// tu-skeleton: 0x0047EC5F 10B ?rva0047EC5F@AnimalAIUpdate@@UBEEXZ -- matched in Code/GameEngine/Source/Common/Disp32FirstChaseGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0047EC69 63B ?makeStateMachine@AnimalAIUpdate@@MAEPAVAIStateMachine@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AnimalAIUpdateMakeStateMachine.cpp (not merged yet)
+
+// tu-skeleton: 0x0047ECA8 121B ??0AnimalAIUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AnimalAIUpdateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0047ED21 28B ??_GAnimalAIUpdate@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0026E836Derived.cpp (not merged yet)
 
 // tu-skeleton: 0x0078B824 10B uw_0078b824 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AnimalAIUpdateMakeStateMachine.cpp (not merged yet)
 

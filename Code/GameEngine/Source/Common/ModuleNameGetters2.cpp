@@ -63,7 +63,6 @@ const char *SlowDeathBehavior::GetSnapshotName() const
 {
 	return "SlowDeathBehavior";
 }
-BFME_LITERAL_NAME_GETTER(Rva0047EBA9Named, "AnimalAIUpdate")
 BFME_LITERAL_NAME_GETTER(Rva0047F946Named, "CivilianSpawnUpdate")
 BFME_LITERAL_NAME_GETTER(Rva0047FE45Named, "ShareExperienceBehavior")
 BFME_LITERAL_NAME_GETTER(Rva0048182CNamed, "PropagandaTowerBehavior")
