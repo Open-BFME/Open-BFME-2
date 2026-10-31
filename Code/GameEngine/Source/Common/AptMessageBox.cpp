@@ -8,6 +8,7 @@
 // g_Va00E032FC) through 0x0054D2DD / 0x0054D3D9 (unnamed there, pinned
 // address-named). Argument types are not recovered.
 extern int g_Va00E032FC;
+#include "ascii_string.h"
 #include "unicode_string.h"
 
 // Counted callback ABI established by the rowed 54D362 forwarder and
@@ -38,9 +39,40 @@ public:
 	bool configure(int a, const UnicodeString &b, const UnicodeString &c);
 };
 
-class AptMessageBox
+// This four-byte wrapper view is supported by the 0x0023E8D8 constructor,
+// its vtable, and the callback argument traffic at 0x00437F61. The payload's
+// application identity remains unresolved. Its +4 refcount uses the already
+// matched release helper; TargetRef00217D4C is only that helper's ABI view.
+class Rva0023E8D8
+{
+	void *m_ptr;
+public:
+	Rva0023E8D8(const Rva0023E8D8 &other) : m_ptr(other.m_ptr)
+	{
+		if (m_ptr)
+			++((int *)m_ptr)[1];
+	}
+	~Rva0023E8D8()
+	{
+		if (m_ptr)
+			ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)m_ptr);
+	}
+};
+
+class Rva0054D2CF
 {
 public:
+	Rva0054D2CF(int type, const AsciiString &label);
+	virtual ~Rva0054D2CF();
+	void Rva0054D308(int type, const UnicodeString &message,
+		const UnicodeString &title, Rva0023E8D8 callback);
+};
+
+class AptMessageBox : public Rva0054D2CF
+{
+public:
+	AptMessageBox();
+	virtual ~AptMessageBox();
 	static void Show(void *a, void *b, void *c);
  static void Show(int,const UnicodeString &,const UnicodeString &,TreeHintRef00217D4C,TreeHintRef00217D4C);
 	static void Change(void *type, void *text, void *title);
