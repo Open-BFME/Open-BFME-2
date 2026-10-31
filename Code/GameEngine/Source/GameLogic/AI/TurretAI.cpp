@@ -103,6 +103,13 @@ enum WeaponSlotType
 	WEAPONSLOT_COUNT = 6
 };
 #include "../../../Include/GameLogic/Weapon.h"
+typedef float Real;
+void XferTurretTargetType( Xfer *xfer, int *value );
+#include "../../../Include/Common/TeamBFME2.h"
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
+#define IS_STATE_SLEEP(r) ((r) > 0)
+#define GET_STATE_SLEEP_FRAMES(r) ((Int)(r))
+#define UPDATE_SLEEP(x) ((UpdateSleepTime)(x))
 
 // TurretAI.cpp TU view (one spelling in every file of the TU). The
 // constructor 0x004D85B6 stores the Snapshot table 0x00BBB554 and then
@@ -345,102 +352,6 @@ public:
 
 class Weapon;
 
-class TurretAI : public Snapshot, public TurretAINotifyBase
-{
-public:
-	TurretAI(Object *owner, const TurretAIData *data, WhichTurretType tur);
-public:
-	TurretAI(EmitVtableTag *);
-protected:
-	virtual ~TurretAI();
-public:
-	virtual void loadPostProcess();
-public:
-	virtual void notifyFired();
-public:
-	virtual void notifyNewVictimChosen(Object *victim);
-public:
-	float getTurretFireAngleSweepForWeaponSlot(WeaponSlotType slot) const;
-public:
-	float getTurretSweepSpeedModifierForWeaponSlot(WeaponSlotType slot) const;
-public:
-	void setTurretTargetObject(Object *victim, bool forceAttacking);
-public:
-	void rva004D82F6();
-public:
-	UpdateSleepTime updateTurretAI();
-public:
-	void setTurretTargetPosition(const Coord3D *pos);
-public:
-	void recenterTurret();
-public:
-	void setTurretEnabled(bool enabled);
-public:
-	bool isTurretInNaturalPosition() const;
-public:
-	void friend_checkForIdleMoodTarget();
-public:
-	Object *getOwner() const { return m_owner; }
-public:
-	void friend_notifyStateMachineChanged() { m_sleepUntil = TheGameLogic->getFrame(); }
-public:
-	float getNaturalTurretAngle() const { return m_data->m_naturalTurretAngle; }
-public:
-	float getNaturalTurretPitch() const { return m_data->m_naturalTurretPitch; }
-protected:
-	virtual void xfer(Xfer *xfer);
-private:
-	void removeSelfAsTargeter();
-private:
-	void startRotOrPitchSound();
-private:
-	void stopRotOrPitchSound() { rva004D82F6(); }
-private:
-	const TurretAIData *m_data;
-private:
-	WhichTurretType m_whichTurret;
-private:
-	Object *m_owner;
-private:
-	TurretStateMachine *m_turretStateMachine;
-private:
-	float m_angle;
-private:
-	float m_pitch;
-private:
-	unsigned int m_audio20;
-private:
-	unsigned int m_enableSweepUntil;
-private:
-	Team *m_victimInitialTeam;
-private:
-	int m_target;
-private:
-	unsigned int m_continuousFireExpirationFrame;
-private:
-	unsigned int m_sleepUntil;
-private:
-	bool m_playRotSound;
-private:
-	bool m_playPitchSound;
-private:
-	bool m_positiveSweep;
-private:
-	bool m_didFire;
-private:
-	bool m_enabled;
-private:
-	bool m_firesWhileTurning;
-private:
-	bool m_isForceAttacking;
-private:
-	bool m_targetWasSetByIdleMood;
-public:
-	bool isOwnersCurWeaponOnTurret() const;
-public:
-	bool isWeaponSlotOnTurret(WeaponSlotType wslot) const;
-};
-
 enum MoodMatrixAction
 {
 	MM_Action_Idle
@@ -588,6 +499,112 @@ enum
 	MAA_Affect_Range_IgnoreAll = 0x00000010
 };
 
+class TeamFactory
+{
+public:
+	Team *findTeamByID(unsigned int id);
+};
+
+class TeamFactory;
+
+extern TeamFactory *TheTeamFactory;
+
+class TurretAI : public Snapshot, public TurretAINotifyBase
+{
+public:
+	TurretAI(Object *owner, const TurretAIData *data, WhichTurretType tur);
+public:
+	TurretAI(EmitVtableTag *);
+protected:
+	virtual ~TurretAI();
+public:
+	virtual void loadPostProcess();
+public:
+	virtual void notifyFired();
+public:
+	virtual void notifyNewVictimChosen(Object *victim);
+public:
+	float getTurretFireAngleSweepForWeaponSlot(WeaponSlotType slot) const;
+public:
+	float getTurretSweepSpeedModifierForWeaponSlot(WeaponSlotType slot) const;
+public:
+	void setTurretTargetObject(Object *victim, bool forceAttacking);
+public:
+	void rva004D82F6();
+public:
+	UpdateSleepTime updateTurretAI();
+public:
+	void setTurretTargetPosition(const Coord3D *pos);
+public:
+	void recenterTurret();
+public:
+	void setTurretEnabled(bool enabled);
+public:
+	bool isTurretInNaturalPosition() const;
+public:
+	void friend_checkForIdleMoodTarget();
+public:
+	Object *getOwner() const { return m_owner; }
+public:
+	void friend_notifyStateMachineChanged() { m_sleepUntil = TheGameLogic->getFrame(); }
+public:
+	float getNaturalTurretAngle() const { return m_data->m_naturalTurretAngle; }
+public:
+	float getNaturalTurretPitch() const { return m_data->m_naturalTurretPitch; }
+protected:
+	virtual void xfer(Xfer *xfer);
+private:
+	void removeSelfAsTargeter();
+private:
+	void startRotOrPitchSound();
+private:
+	void stopRotOrPitchSound() { rva004D82F6(); }
+private:
+	const TurretAIData *m_data;
+private:
+	WhichTurretType m_whichTurret;
+private:
+	Object *m_owner;
+private:
+	TurretStateMachine *m_turretStateMachine;
+private:
+	float m_angle;
+private:
+	float m_pitch;
+private:
+	unsigned int m_audio20;
+private:
+	unsigned int m_enableSweepUntil;
+private:
+	Team *m_victimInitialTeam;
+private:
+	int m_target;
+private:
+	unsigned int m_continuousFireExpirationFrame;
+private:
+	unsigned int m_sleepUntil;
+private:
+	bool m_playRotSound;
+private:
+	bool m_playPitchSound;
+private:
+	bool m_positiveSweep;
+private:
+	bool m_didFire;
+private:
+	bool m_enabled;
+private:
+	bool m_firesWhileTurning;
+private:
+	bool m_isForceAttacking;
+private:
+	bool m_targetWasSetByIdleMood;
+public:
+	bool isOwnersCurWeaponOnTurret() const;
+public:
+	bool isWeaponSlotOnTurret(WeaponSlotType wslot) const;
+};
+
 // tu-skeleton: 0x004D7CE6 373B ??0TurretStateMachine@@QAE@PAVTurretAI@@PAVObject@@I@Z -- matched in Code/GameEngine/Source/GameLogic/AI/TurretStateMachineCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x004D7E5B 6B ?Rva004D7E5BGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
@@ -604,7 +621,87 @@ enum
 
 // tu-skeleton: 0x004D7F9C 17B ?buildFieldParse@TurretAIData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIDataParse.cpp (not merged yet)
 
-// tu-skeleton: 0x004D7FAD 295B ?xfer@TurretAI@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIMainXfer.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/AI/TurretAIMainXfer.cpp
+
+/*
+**	Command & Conquer Generals Zero Hour(tm)
+**	Copyright 2025 Electronic Arts Inc.
+**
+**	This program is free software: you can redistribute it and/or modify
+**	it under the terms of the GNU General Public License as published by
+**	the Free Software Foundation, either version 3 of the License, or
+**	(at your option) any later version.
+**
+**	This program is distributed in the hope that it will be useful,
+**	but WITHOUT ANY WARRANTY; without even the implied warranty of
+**	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+**	GNU General Public License for more details.
+**
+**	You should have received a copy of the GNU General Public License
+**	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
+// TurretAI::xfer, ported from Zero Hour's GameEngine/Source/GameLogic/AI/
+// TurretAI.cpp (GeneralsMD tree vendored under
+// reference/open-bfme-1/inputs/reference). It is slot 3 of the vftable whose
+// name getter returns "TurretAI".
+//
+// BFME 2 opens with the light-CRC gate and Version1, then ZH's fields. The
+// turret target goes through XferTurretTargetType (0x00305DCA). ZH's packed
+// flags are plain Bools here, with one more BFME 2 flag (+0x3E). The ZH flag
+// names follow ZH's order and are an inference. The sleep frame (+0x34) is
+// unconditional. BFME 2 then hands Xfer and the +0x20 member to TheAudio's
+// slot 88 when there is an audio manager. ZH rebuilds the victim's initial
+// team in loadPostProcess; BFME 2 instead saves the team id (Team+0x34) and
+// re-resolves it through the team factory lookup 0x0039F761.
+
+// End of the TurretAI.cpp TU view.
+
+// ------------------------------------------------------------------------------------------------
+/** Xfer method
+	* Version Info:
+	* 1: Initial version */
+// ------------------------------------------------------------------------------------------------
+void TurretAI::xfer( Xfer *xfer )
+{
+	if( xfer->IsLightCRC() )
+		return;
+
+  // version
+	xfer->Version1();
+
+	*xfer == *m_turretStateMachine;
+
+	*xfer == m_angle;
+	*xfer == m_pitch;
+	*xfer == m_enableSweepUntil;
+
+	XferTurretTargetType( xfer, &m_target );
+	*xfer == m_continuousFireExpirationFrame;
+	*xfer == m_playRotSound;
+	*xfer == m_playPitchSound;
+	*xfer == m_positiveSweep;
+	*xfer == m_didFire;
+	*xfer == m_enabled;
+	*xfer == m_firesWhileTurning;
+	*xfer == m_targetWasSetByIdleMood;
+	*xfer == m_isForceAttacking;
+
+	*xfer == m_sleepUntil;
+
+	if( TheAudio )
+		TheAudio->slot88( xfer, &m_audio20 );
+
+	UnsignedInt teamID = m_victimInitialTeam ? m_victimInitialTeam->getID() : 0;
+	*xfer == teamID;
+	m_victimInitialTeam = TheTeamFactory->findTeamByID( teamID );
+
+}
+
+  // end xfer
+
+// ---- from Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp
 
@@ -780,10 +877,6 @@ bool TurretAI::isOwnersCurWeaponOnTurret() const
 	return currentWeapon != 0 && isWeaponSlotOnTurret(wslot);
 }
 
-// tu-skeleton: 0x004D80EE 200B ?friend_turnTowardsPitch@TurretAI@@QAE_NMM@Z -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAITurnTowardsPitch.cpp (not merged yet)
-
-// tu-skeleton: 0x004D81D2 5B ?notifyFired@TurretAI@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAICtor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/TurretAI_isWeaponSlotOnTurret.cpp
 
 //
@@ -833,8 +926,6 @@ Bool TurretAI::isTurretInNaturalPosition() const
 	return false;
 }
 
-// tu-skeleton: 0x004D81F1 110B ?friend_getTurretTarget@TurretAI@@QBE?AW4TurretTargetType@@AAPAVObject@@AAUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/TurretAI_removeSelfAsTargeter.cpp
 
 //
@@ -864,20 +955,6 @@ void TurretAI::removeSelfAsTargeter()
 		}
 	}
 }
-
-// tu-skeleton: 0x004D82CA 12B ?rva004D82CA@Rva004D82CA@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE24.cpp (not merged yet)
-
-// tu-skeleton: 0x004D8310 85B ?friend_isAnyWeaponInRangeOf@TurretAI@@QBE_NPBVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAI_friendIsAnyWeaponInRangeOf.cpp (not merged yet)
-
-// tu-skeleton: 0x004D8365 24B ?friend_isSweepEnabled@TurretAI@@QBE_NXZ -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp (not merged yet)
-
-// tu-skeleton: 0x004D837D 29B ?rva004D837D@TurretAI@@QAEIXZ -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp (not merged yet)
-
-// tu-skeleton: 0x004D83D1 88B ?onEnter@TurretAIIdleState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp (not merged yet)
-
-// tu-skeleton: 0x004D8448 138B ?onEnter@TurretAIIdleScanState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp (not merged yet)
-
-// tu-skeleton: 0x004D84D2 53B ?onEnter@TurretAIHoldTurretState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/TurretStateMachineSetState.cpp
 
@@ -929,20 +1006,6 @@ void TurretStateMachine::clear()
 		turret->friend_notifyStateMachineChanged();
 }
 
-// tu-skeleton: 0x004D85B6 251B ??0TurretAI@@QAE@PAVObject@@PBVTurretAIData@@W4WhichTurretType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAICtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004D86BB 6B ?name@TurretAI@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x004D86C1 86B ??1TurretAI@@MAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/TurretAIDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004D8717 8B ?rva004D8717@Rva004D8717@@QBE_NW4WeaponSlotType@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesS9B.cpp (not merged yet)
-
-// tu-skeleton: 0x004D871F 67B ?isTryingToAimAtTarget@TurretAI@@QBE_NPBVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_isWeaponSlotOnTurretAndAimingAtTarget.cpp (not merged yet)
-
-// tu-skeleton: 0x004D8791 151B ?setTurretTargetObject@TurretAI@@QAEXPAVObject@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/TurretAI_setTurretTargetObject.cpp (not merged yet)
-
-// tu-skeleton: 0x004D8828 132B ?setTurretTargetPosition@TurretAI@@QAEXPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/TurretAI_setTurretTargetObject.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/TurretAI_friendCheckForIdleMoodTarget.cpp
 
 //
@@ -974,6 +1037,111 @@ void TurretAI::friend_checkForIdleMoodTarget()
 	}
 }
 
+// tu-skeleton: 0x004D80EE 200B ?friend_turnTowardsPitch@TurretAI@@QAE_NMM@Z -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAITurnTowardsPitch.cpp (not merged yet)
+
+// tu-skeleton: 0x004D81D2 5B ?notifyFired@TurretAI@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAICtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004D81F1 110B ?friend_getTurretTarget@TurretAI@@QBE?AW4TurretTargetType@@AAPAVObject@@AAUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp (not merged yet)
+
+// tu-skeleton: 0x004D82CA 12B ?rva004D82CA@Rva004D82CA@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE24.cpp (not merged yet)
+
+// tu-skeleton: 0x004D8310 85B ?friend_isAnyWeaponInRangeOf@TurretAI@@QBE_NPBVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAI_friendIsAnyWeaponInRangeOf.cpp (not merged yet)
+
+// tu-skeleton: 0x004D8365 24B ?friend_isSweepEnabled@TurretAI@@QBE_NXZ -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp (not merged yet)
+
+// tu-skeleton: 0x004D837D 29B ?rva004D837D@TurretAI@@QAEIXZ -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp (not merged yet)
+
+// tu-skeleton: 0x004D83D1 88B ?onEnter@TurretAIIdleState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp (not merged yet)
+
+// tu-skeleton: 0x004D8448 138B ?onEnter@TurretAIIdleScanState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp (not merged yet)
+
+// tu-skeleton: 0x004D84D2 53B ?onEnter@TurretAIHoldTurretState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp (not merged yet)
+
+// tu-skeleton: 0x004D85B6 251B ??0TurretAI@@QAE@PAVObject@@PBVTurretAIData@@W4WhichTurretType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAICtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004D86BB 6B ?name@TurretAI@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x004D86C1 86B ??1TurretAI@@MAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/TurretAIDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004D8717 8B ?rva004D8717@Rva004D8717@@QBE_NW4WeaponSlotType@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesS9B.cpp (not merged yet)
+
+// tu-skeleton: 0x004D871F 67B ?isTryingToAimAtTarget@TurretAI@@QBE_NPBVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_isWeaponSlotOnTurretAndAimingAtTarget.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/TurretAI_setTurretTargetObject.cpp
+
+//
+// ?setTurretTargetObject@TurretAI@@QAEXPAVObject@@_N@Z, retail 0x004D8791 (151 bytes).
+// ?setTurretTargetPosition@TurretAI@@QAEXPBUCoord3D@@@Z, retail 0x004D8828 (132 bytes).
+//
+// TurretAI target-select pair ported from Open-BFME-1
+// Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp (setTurretTargetObject
+// + setTurretTargetPosition) with BFME2 divergences: the
+// getOwner()->getAI()->areTurretsLinked() gate is GONE (retail nulls the
+// target unconditionally when !victim/dead/off-turret); isEffectivelyDead
+// and getTeam inline to +0x438-bit0 and +0x304 loads; getCurrentStateID
+// inlines to the machine+4 pointer chase with INVALID 999999 fallback.
+// Callees isOwnersCurWeaponOnTurret 0x4D8762 and removeSelfAsTargeter
+// 0x4D825F are rowed in sibling TUs; state-machine setGoalObject (slot 14)
+// and setState (slot 8) are virtual; setGoalPosition 0x262224 is pinned.
+
+// End of the TurretAI.cpp TU view.
+
+void TurretAI::setTurretTargetObject(Object* victim, bool forceAttacking)
+{
+	if (!victim || victim->isEffectivelyDead() || !isOwnersCurWeaponOnTurret())
+		victim = 0;
+
+	if (!victim)
+		removeSelfAsTargeter();
+
+	m_turretStateMachine->setGoalObject(victim);
+	m_target = victim ? TARGET_OBJECT : TARGET_NONE;
+	m_targetWasSetByIdleMood = false;
+	m_isForceAttacking = forceAttacking;
+
+	int sid = m_turretStateMachine->getCurrentStateID();
+	if (victim)
+	{
+		if (sid != TURRETAI_AIM && sid != TURRETAI_FIRE)
+			m_turretStateMachine->setState(TURRETAI_AIM);
+		m_victimInitialTeam = victim->getTeam();
+	}
+	else
+	{
+		if (sid == TURRETAI_AIM || sid == TURRETAI_FIRE)
+			m_turretStateMachine->setState(TURRETAI_HOLD);
+		m_victimInitialTeam = 0;
+	}
+}
+
+void TurretAI::setTurretTargetPosition(const Coord3D* pos)
+{
+	if (!pos || !isOwnersCurWeaponOnTurret())
+		pos = 0;
+
+	removeSelfAsTargeter();
+
+	m_turretStateMachine->setGoalObject(0);
+	if (pos)
+		m_turretStateMachine->setGoalPosition(pos);
+	m_target = pos ? TARGET_POSITION : TARGET_NONE;
+	m_targetWasSetByIdleMood = false;
+
+	int sid = m_turretStateMachine->getCurrentStateID();
+	if (pos)
+	{
+		if (sid != TURRETAI_AIM && sid != TURRETAI_FIRE)
+			m_turretStateMachine->setState(TURRETAI_AIM);
+		m_victimInitialTeam = 0;
+	}
+	else
+	{
+		if (sid == TURRETAI_AIM || sid == TURRETAI_FIRE)
+			m_turretStateMachine->setState(TURRETAI_HOLD);
+		m_victimInitialTeam = 0;
+	}
+}
+
 // tu-skeleton: 0x004D88F6 63B ?update@TurretAIIdleState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp (not merged yet)
 
 // tu-skeleton: 0x004D8935 63B ?update@TurretAIHoldTurretState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp (not merged yet)
@@ -990,7 +1158,68 @@ void TurretAI::friend_checkForIdleMoodTarget()
 
 // tu-skeleton: 0x004D8D7F 107B ?update@TurretAIIdleScanState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp (not merged yet)
 
-// tu-skeleton: 0x004D8DEA 194B ?updateTurretAI@TurretAI@@QAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIUpdate.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/AI/TurretAIUpdate.cpp
+
+// End of the TurretAI.cpp TU view.
+
+UpdateSleepTime TurretAI::updateTurretAI()
+{
+	UnsignedInt now = TheGameLogic->getFrame();
+	if (m_sleepUntil != 0 && now < m_sleepUntil)
+	{
+		return UPDATE_SLEEP(m_sleepUntil - now);
+	}
+
+	UpdateSleepTime subMachineSleep = UPDATE_SLEEP_FOREVER;	// assume the best!
+
+	// either we don't care about continuous fire stuff, or we care, but time has elapsed
+	if ((!m_firesWhileTurning) || (m_continuousFireExpirationFrame <= now))
+	{
+		m_playRotSound = false;
+		m_playPitchSound = false;
+	}
+
+	if (m_enabled || m_turretStateMachine->getCurrentStateID() == TURRETAI_RECENTER)
+	{
+		m_didFire = false;
+
+		// run the behavior state machine BEFORE doing sound check
+		StateReturnType stRet = m_turretStateMachine->updateStateMachine();
+		if (m_turretStateMachine == 0)
+			return UPDATE_SLEEP_NONE;
+
+		if (m_didFire)
+		{
+			// if we fired, enable sweeping for a few frames.
+			const Int ENABLE_SWEEP_FRAME_COUNT = 3;
+			m_enableSweepUntil = now + ENABLE_SWEEP_FRAME_COUNT;
+			m_continuousFireExpirationFrame = now + ENABLE_SWEEP_FRAME_COUNT;// so the recent firing will not interrupt the moving sound
+		}
+
+		if (m_playRotSound || m_playPitchSound)
+			startRotOrPitchSound();
+		else
+			stopRotOrPitchSound();
+
+		if (IS_STATE_SLEEP(stRet))
+		{
+			Int frames = GET_STATE_SLEEP_FRAMES(stRet);
+			if (frames < subMachineSleep)
+				subMachineSleep = UPDATE_SLEEP(frames);
+		}
+		else
+		{
+			// it's STATE_CONTINUE, STATE_SUCCESS, or STATE_FAILURE,
+			// any of which will probably require next frame
+			subMachineSleep = UPDATE_SLEEP_NONE;
+		}
+
+	}	// if enabled or recentering
+
+	m_sleepUntil = now + subMachineSleep;
+
+	return subMachineSleep;
+}
 
 // tu-skeleton: 0x004D8EAC 1085B ?update@TurretAIAimTurretState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp (not merged yet)
 
