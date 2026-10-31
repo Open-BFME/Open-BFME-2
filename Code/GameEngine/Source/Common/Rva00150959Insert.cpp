@@ -31,7 +31,12 @@ namespace _STL { template <> void allocator<Rva001504A1Record>::deallocate(Rva00
 
 struct Rva001504A1Record
 {
-	char bytes[76];
+public:
+	Rva001504A1Record();
+	Rva001504A1Record(const Rva001504A1Record&);
+	~Rva001504A1Record();
+	Rva001504A1Record&operator=(const Rva001504A1Record&);
+	char bytes[76]; // +0x00
 };
 // Retail 00150990 calls the established Shadow copy owner at 0014F4E3.
 // The temporary remains an opaque 76-byte view with its rowed destructor.

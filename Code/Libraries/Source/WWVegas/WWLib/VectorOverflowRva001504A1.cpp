@@ -17,9 +17,14 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 #include <vector>
 
-struct Rva001504A1Record {
- Rva001504A1Record(); Rva001504A1Record(const Rva001504A1Record&); ~Rva001504A1Record(); Rva001504A1Record&operator=(const Rva001504A1Record&);
-private: char bytes[76];
+struct Rva001504A1Record
+{
+public:
+	Rva001504A1Record();
+	Rva001504A1Record(const Rva001504A1Record&);
+	~Rva001504A1Record();
+	Rva001504A1Record&operator=(const Rva001504A1Record&);
+	char bytes[76]; // +0x00
 };
 // Native calls at 0x001504F7 and 0x0015053A already name these rowed
 // placement-copy and vector cleanup providers. Retain their opaque views.
