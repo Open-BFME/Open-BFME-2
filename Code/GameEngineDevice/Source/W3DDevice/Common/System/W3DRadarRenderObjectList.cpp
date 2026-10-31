@@ -71,7 +71,7 @@ public:
 };
 
 class ThingTemplate;
-class Player { public: Int getPlayerIndex() const { return m_playerIndex; } char m_pad00[0x54]; Int m_playerIndex; };
+#include "../../../../../GameEngine/Include/Common/Player.h"
 class PlayerList { public: Player *radarLocalPlayer() { return m_local; } char m_pad00[0x10]; Player *m_local; };
 extern PlayerList *ThePlayerList;
 class Rva002A7DD0 { public: bool rva002A7DD0(); };

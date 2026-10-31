@@ -19,13 +19,7 @@ struct SpecialPowerTemplateView
 	bool m_sharedNSync;										// +0x59
 };
 
-class Player
-{
-public:
-	char m_pad00[0x54];
-	int m_playerIndex;										// +0x54
-	int getPlayerIndex() const { return m_playerIndex; }
-};
+#include "../../../../Include/Common/Player.h"
 
 struct ThingTemplateKindOfView
 {

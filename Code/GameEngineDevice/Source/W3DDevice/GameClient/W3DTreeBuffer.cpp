@@ -34,14 +34,7 @@ public:
 };
 class PartitionManager;
 extern PartitionManager *TheShroudManager;
-class Player
-{
-public:
-	int getPlayerIndex() const { return m_playerIndex; }
-private:
-	char m_pad00[0x54];
-	int m_playerIndex;	// +0x54
-};
+#include "../../../../GameEngine/Include/Common/Player.h"
 class PlayerList
 {
 public:

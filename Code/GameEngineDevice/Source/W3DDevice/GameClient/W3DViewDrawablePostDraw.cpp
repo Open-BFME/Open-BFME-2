@@ -59,15 +59,7 @@ private:
 	Object *m_object;				// +0xFC
 };
 
-class Player
-{
-public:
-	Int getPlayerIndex() const { return m_playerIndex; }
-
-private:
-	unsigned char m_pad00[0x54];
-	Int m_playerIndex;				// +0x54
-};
+#include "../../../../GameEngine/Include/Common/Player.h"
 
 class PlayerList
 {

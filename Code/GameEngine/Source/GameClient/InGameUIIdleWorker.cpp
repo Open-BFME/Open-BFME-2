@@ -86,14 +86,7 @@ public:
 
 extern GameWindowManager *TheWindowManager;
 
-class Player
-{
-public:
-	int getPlayerIndex() const { return m_playerIndex; }
-private:
-	char m_unknown00[0x54];
-	int m_playerIndex;
-};
+#include "../../Include/Common/Player.h"
 
 class PlayerList
 {

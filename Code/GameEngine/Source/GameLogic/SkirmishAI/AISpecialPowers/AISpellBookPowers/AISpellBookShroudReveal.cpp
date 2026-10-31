@@ -54,13 +54,7 @@ public:
 // Coord3D: shared header/view; no private copy.
 #include "../../../../../../Libraries/Include/Lib/Coord3DInline.h"
 
-class Player
-{
-public:
-	int getPlayerIndex() const { return m_54; }
-	char m_pad00[0x54];
-	int m_54;		// +0x54
-};
+#include "../../../../../Include/Common/Player.h"
 
 class Object
 {

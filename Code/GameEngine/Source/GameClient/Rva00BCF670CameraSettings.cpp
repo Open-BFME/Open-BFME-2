@@ -122,13 +122,7 @@ public:
 };
 extern PartitionManager *TheShroudManager;	// VA 0x00DFE74C
 
-class Player
-{
-public:
-	int getPlayerIndex() const { return m_playerIndex; }
-	char m_pad00[0x54];
-	int m_playerIndex;	// +0x54
-};
+#include "../../Include/Common/Player.h"
 
 class PlayerList
 {

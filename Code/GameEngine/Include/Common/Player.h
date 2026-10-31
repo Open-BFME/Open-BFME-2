@@ -3,6 +3,13 @@
 // BFDF3C at +0, BFDF30 at +4, BFDF18 at +8. Allocation 2A7FBF
 // is 0x758. Primary slots 4..7 are the matched AI delegates.
 // Unknown member storage remains opaque; no donor layout is imported.
+// Mixing Snapshot spelling variants would introduce extra primary slots.
+#if defined(__SNAPSHOT_H_) && !defined(BFME_SNAPSHOT_NAME_SLOT)
+#error Player requires the Snapshot name-slot surface before first inclusion
+#endif
+#if defined(BFME_SNAPSHOT_CAPITALIZED_SLOTS) || defined(BFME_SNAPSHOT_NONCONST_NAME_SLOT)
+#error Player requires Snapshot loadPostProcess, const GetSnapshotName, xfer slots
+#endif
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../../reference/shims/moduledata/Common/Snapshot.h"
 #include "../../Source/Common/Rva00380200.h"

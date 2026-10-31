@@ -1349,6 +1349,24 @@ broader confirmation remains pending. No census gain is claimed.
 
 ### PlayerList stale constructor exemption and composition prerequisites (2026-10-30)
 
+2026-10-31 header reconciliation (hdr-player-2, base dae67b429b): the
+Player size/base ambiguity is resolved in the new Common/Player.h by direct
+retail ctor/dtor tables at +0/+4/+8 and the 0x758 allocation in 2A7F80.
+The first AI delegate/query clients pass 9/9 rows and ordinary header acceptance;
+isLocalPlayer subsequently passes 1/1. A homogeneous index-only caller batch
+then adopts 16 more units (137 matched rows); eight refused trials are
+restored and retain their queue rows, and two held units are skipped. Normal scoped header gates pass
+635/635 over 87 dependents, then 636/636 over 88. This clears only those
+adoption units, not the earlier PlayerList merge or census obstacle. Constructor
+adoption still refuses its +0x34 member because the header retains opaque
+storage. PlayerList's primary table has fourteen inherited slots plus three
+introductions; its registered SubsystemInterface header exposes only the
+destructor. Reconcile that base surface before establishing PlayerList; do not
+copy the competing shim or insert guessed slots. Complete target tables,
+layout decisions and remaining lifetime bindings are in
+[the header handoff](../reverse/attempt_support/hdr-player-2-20261031.md).
+
+
 At base `112d98e320`, PlayerList.cpp's stale constructor exemption is retired:
 the complete 136-byte constructor and its EH rows already belong to
 PlayerListCtorBFME2.cpp. All 57 rows across twelve fragments, the data row,

@@ -64,14 +64,7 @@ private:
 	unsigned char m_kindOf108; // +0x108
 };
 
-class Player
-{
-public:
-	Int getPlayerIndex() const { return m_playerIndex; }
-private:
-	char m_pad[0x54];
-	Int m_playerIndex; // +0x54
-};
+#include "../../../../Include/Common/Player.h"
 
 class Object
 {

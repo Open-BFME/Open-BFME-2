@@ -198,7 +198,7 @@ enum ObjectShroudStatus
 	OBJECTSHROUD_SHROUDED
 };
 
-class Player { public: Int getPlayerIndex(void) const { return m_playerIndex; } private: char m_pad[0x54]; Int m_playerIndex; };
+#include "../../../../GameEngine/Include/Common/Player.h"
 class PlayerList { public: Player *propLocalPlayer(void) { return m_local; } private: char m_pad[0x10]; Player *m_local; };
 extern PlayerList *ThePlayerList;
 

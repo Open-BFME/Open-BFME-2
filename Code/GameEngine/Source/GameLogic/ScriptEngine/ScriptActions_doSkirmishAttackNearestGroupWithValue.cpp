@@ -32,14 +32,7 @@ public:
 	enum { LESS_THAN = 0, LESS_EQUAL, EQUAL, GREATER_EQUAL, GREATER, NOT_EQUAL };
 };
 
-class Player
-{
-public:
-	Int getPlayerIndex() const { return m_playerIndex; }
-private:
-	unsigned char m_pad[0x54];
-	Int m_playerIndex;	// +0x54
-};
+#include "../../../Include/Common/Player.h"
 
 class PlayerList
 {

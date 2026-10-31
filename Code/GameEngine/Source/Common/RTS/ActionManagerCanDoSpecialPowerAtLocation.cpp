@@ -124,7 +124,7 @@ public:
  float construction() const { return *(const float *)((const char *)this+0x280); }
  const char *objectTemplate() const { return *(const char *const *)((const char *)this+4); }
 };
-class Player { public: int getPlayerIndex() const { return index; } char pad[0x54]; int index; };
+#include "../../../Include/Common/Player.h"
 class Locomotor { public: float getMaxSpeed(Object *) const; };
 class Rva00395A60 { public: float rva00395A60(); };
 class CastleBehavior { public: static NameKeyType rva0003955DA(); };

@@ -92,13 +92,7 @@ public:
 	unsigned int m_unknown20;
 };
 
-class Player
-{
-public:
-	int getPlayerIndex() const { return m_playerIndex; }
-	char m_pad[0x54];
-	int m_playerIndex;
-};
+#include "../../../Include/Common/Player.h"
 
 class Object
 {

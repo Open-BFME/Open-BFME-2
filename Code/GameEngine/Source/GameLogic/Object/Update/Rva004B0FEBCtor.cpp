@@ -5,7 +5,7 @@
 // identity. ZH PartitionFilter base supplies chain/destructor role;
 // target alone establishes24B layout, two masks and shroud counters.
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
-class Player {public:__forceinline int getPlayerIndex()const{return index;}char pad[0x54];int index;};
+#include "../../../../Include/Common/Player.h"
 class Object {public:Player *getControllingPlayer()const;char pad[0x38];Coord3D pos;};
 class EmotionTrackerUpdate {public:class TauntPointFilter;char pad[8];Object *object;};
 class PlayerList {public:int getPlayersWithRelationship(int,unsigned,bool);};extern PlayerList *ThePlayerList;
