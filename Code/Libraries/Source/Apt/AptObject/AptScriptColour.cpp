@@ -37,7 +37,9 @@ public:
 class AptObject
 {
 public:
+	// Qualified calls only: this partial declaration does not model vtable slots.
 	virtual void RegisterReferences() const;
+	virtual void DestroyGCPointers();
 };
 
 class Rva006F2C20 {
