@@ -27,6 +27,55 @@
 	{ \
 		return m_value; \
 	}
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class LeftTraits, class RightTraits>
+static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
+                              const _List_iterator<T, RightTraits>& b)
+{ return a._M_node != b._M_node; }
+}
+#include "../../../../../../reference/shims/bfme2_ascii/ascii_string.h"
+struct NoCaseTreeValue4
+{
+	char m_body[4];
+};
+#include "../../../../../Libraries/Include/Lib/Coord3D.h"
+enum ScienceType
+{
+	SCIENCE_INVALID = -1
+};
+typedef _STL::pair<const AsciiString, NoCaseTreeValue4> ConstructProbePair;
+typedef _STL::vector<unsigned int> ConstructProbeVec;
+typedef _STL::pair<const int, _STL::vector<unsigned int> > ConstructProbePairIV;
+typedef _STL::vector<ScienceType> ConstructProbeSciVec;
+typedef _STL::list<Coord3D> ConstructProbeCoordList;
+typedef _STL::pair<const AsciiString, char> ConstructProbePairC;
+// These helpers delegate to complete copy constructors already rowed in
+// their provider units. Declaration-only specializations suppress incorrect
+// local copies and their allocator/container machinery, preserving the
+// actual out-of-line placement-copy calls.
+namespace _STL {
+template <> ConstructProbeVec::vector(const ConstructProbeVec &);
+template <> ConstructProbePair::pair(const ConstructProbePair &);
+template <> ConstructProbePairIV::pair(const ConstructProbePairIV &);
+template <> ConstructProbeSciVec::vector(const ConstructProbeSciVec &);
+template <> ConstructProbeCoordList::list(const ConstructProbeCoordList &);
+template <> ConstructProbePairC::pair(const ConstructProbePairC &);
+}
+// Native 0x396170 is called through the eight-byte element view used by
+// vector::push_back at 0x39A48E and both uninitialized workers. Its complete
+// construction delegates to the existing pair copy at 0x466EA7. Preserve
+// that witnessed storage operation without asserting an application identity.
+struct Rva0039A48EElement { int a[2]; };
+namespace _STL {
+}
+template void _STL::_Construct<ConstructProbeVec, ConstructProbeVec>(ConstructProbeVec *, const ConstructProbeVec &);
+template void _STL::_Construct<ConstructProbePair, ConstructProbePair>(ConstructProbePair *, const ConstructProbePair &);
+template void _STL::_Construct<ConstructProbePairIV, ConstructProbePairIV>(ConstructProbePairIV *, const ConstructProbePairIV &);
+template void _STL::_Construct<ConstructProbeSciVec, ConstructProbeSciVec>(ConstructProbeSciVec *, const ConstructProbeSciVec &);
+template void _STL::_Construct<ConstructProbeCoordList, ConstructProbeCoordList>(ConstructProbeCoordList *, const ConstructProbeCoordList &);
+template void _STL::_Construct<ConstructProbePairC, ConstructProbePairC>(ConstructProbePairC *, const ConstructProbePairC &);
+#include "../../../../Include/Common/Rva0007DF07.h"
 
 enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
 
@@ -1408,11 +1457,23 @@ public: void setFlags(unsigned int value);
 private: unsigned char unknown[0x114]; unsigned int flags;
 };
 
+class Rva0023FD06 : public Rva0007DF07
+{
+public:
+	Rva0023FD06(const ConstructProbePair &value);
+	virtual ~Rva0023FD06();
+	virtual int rva0023FCD3(float a, int b);
+private:
+	ConstructProbePair m_value;
+};
+
 // tu-skeleton: 0x00466DA9 19B ?isExitBusy@TransportContain@@UBE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/Rva00466D93ExitReserve.cpp (not merged yet)
 
 // tu-skeleton: 0x00466DBC 73B ?xfer@TransportContain@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/TransportContainXfer.cpp (not merged yet)
 
 // tu-skeleton: 0x00466E05 5B ?rva00466E05@Rva00466E05@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/TransportContain.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/TransportContain.cpp
 
@@ -1941,6 +2002,23 @@ void __cdecl rva00467DE6(INI *ini, void *instance, void *store, const void *user
 		static_cast<char *>(instance) + 0xA4)->push_back(reinterpret_cast<Rva00467DB3Obj *const &>(payload));
 }
 
+// ---- from Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp
+
+// Disp32 dword getters: seven-byte __thiscall members with one shape:
+//
+//     mov eax,[ecx+<DISP>] / ret
+//
+// One dword is read at a fixed displacement from `this` and returned. Every
+// displacement here is a multiple of four, so the accessed member is spelled
+// as an `int` right after the lead array. The bytes cannot distinguish `int`
+// from `unsigned int`, a pointer, or anything else four bytes wide moved
+// with a plain load. Members before the accessed one are spelled as a lead
+// array because their types are not witnessed here, only their total size.
+// Identity is not recovered: every name is derived from its address (BFME1
+// pioneered the same family in
+// reference/open-bfme-1/Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp).
+// No // cl: line (defaults match the frameless 7-byte shape).
+
 // tu-skeleton: 0x00466E12 17B ??0Rva00466E12@@QAE@XZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE22.cpp (not merged yet)
 
 // tu-skeleton: 0x00466E58 12B ?rva00466E58@Rva00466E58@@QBEEH@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAM.cpp (not merged yet)
@@ -1967,7 +2045,32 @@ void __cdecl rva00467DE6(INI *ini, void *instance, void *store, const void *user
 
 // tu-skeleton: 0x0046773E 37B ??$__uninitialized_fill_n@PAUBfmeStringRecord00466E64@@IU1@@_STL@@YAPAUBfmeStringRecord00466E64@@PAU1@IABU1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_uninitialized_fill_n12.cpp (not merged yet)
 
-// tu-skeleton: 0x00467763 45B ?Rva00467763Construct@@YAXPAXPBX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp
+
+//
+// STLport placement-copy helpers and distinct native copy owners, same-shape
+// siblings of the rowed _Construct<AsciiString> at 0x0002C485 (45 bytes; see
+// stlport_construct_asciistring.cpp). Each body is the null-guarded
+// placement-new copy over a single element: the copy delegates out-of-line
+// to T's own rowed copy ctor, and __EH_prolog resolves via its matched row.
+// Unlike the opaque-struct batches, these T's come from the real STLport
+// headers (<vector>, and _STL::pair over a minimal AsciiString declaration):
+// declaration-only copy specializations below keep the calls out-of-line
+// and resolve through the complete provider rows.
+
+// ??0Rva0023FD06@@QAE@ABU?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@Z,
+// retail 0x0023FC98..0x0023FCD3 (59 bytes, EH, RET 4): a counted holder of one
+// such pair. The counted base (count at +0x04 cleared; EH state 0 once built)
+// comes first, then the vtable 0x00BEDC94 and the pair copied into +0x08
+// through its rowed out-of-line copy constructor 0x00466EA7.
+// Vtable 0x00BEDC94 is Rva0023FD06Dtor.cpp's class: its slot 0 is the rowed
+// scalar deleting dtor 0x0023FCEA (calling the rowed dtor 0x0023FD06) and its
+// slot 1 the rowed 0x0023FCD3. Use that name so the dtor binds to its row.
+
+void Rva00467763Construct(void *dest, const void *source)
+{
+    ::new (dest) ConstructProbePair(*static_cast<const ConstructProbePair *>(source));
+}
 
 // tu-skeleton: 0x00467790 9B ??$_Destroy@VRva00466E23@@@_STL@@YAXPAVRva00466E23@@@Z -- matched in Code/GameEngine/Source/Common/DestroyInstances.cpp (not merged yet)
 
@@ -1978,23 +2081,6 @@ void __cdecl rva00467DE6(INI *ini, void *instance, void *store, const void *user
 // tu-skeleton: 0x00467E61 128B ??1TransportContain@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/TransportContainDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00467F26 6B ?name@TransportContain@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp
-
-// Disp32 dword getters: seven-byte __thiscall members with one shape:
-//
-//     mov eax,[ecx+<DISP>] / ret
-//
-// One dword is read at a fixed displacement from `this` and returned. Every
-// displacement here is a multiple of four, so the accessed member is spelled
-// as an `int` right after the lead array. The bytes cannot distinguish `int`
-// from `unsigned int`, a pointer, or anything else four bytes wide moved
-// with a plain load. Members before the accessed one are spelled as a lead
-// array because their types are not witnessed here, only their total size.
-// Identity is not recovered: every name is derived from its address (BFME1
-// pioneered the same family in
-// reference/open-bfme-1/Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp).
-// No // cl: line (defaults match the frameless 7-byte shape).
 
 // tu-skeleton: 0x00467F33 8B ?onCapture@TransportContain@@WCA@AEXHH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/TransportContainDtor.cpp (not merged yet)
 
