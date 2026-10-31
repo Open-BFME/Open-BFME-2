@@ -46,6 +46,64 @@
 	{ \
 		return m_value + IMM; \
 	}
+// ?rva004AB90A@LargeGroupAudioUpdate@@QAEXXZ, retail 0x004AB90A, 152 bytes.
+// Target evidence: linkbody LINK BONUS 48B; callers jmp at 0x004ABA7C 0x004ABB40 in LargeGroupAudioUpdateSlots.cpp; callees rowed 0x0020D925 0x004AB7C8 0x0044DF71 0x002943B2; layout +4 moduledata +8 object +0x24 host +0x28 position pair +0x30/+0x7C state +0x8C bool +0x8D flag +0x90 GameLogic from slots and 004AB9A2 precedents.
+class Object;
+class Player;
+class LargeGroupAudioUpdate;
+class Rva0020DXXX
+{
+public:
+	void registerSubject(int v);
+	void rva0020D959(int v);
+	void updateSubject(int slot);
+};
+class Rva0020D959Host;
+class LargeGroupAudio;
+ extern LargeGroupAudio *TheLargeGroupAudio;
+class Player
+{
+};
+#include "../../../Common/GameLogicObjectLookupView.h"
+//
+// ?xfer@LargeGroupAudioUpdate@@MAEXPAVXfer@@@Z, retail 0x004AB9EA, 135 bytes.
+// Slot 3 of ??_7LargeGroupAudioUpdate 0x00C549BC (slot-2 name getter
+// returns "LargeGroupAudioUpdate"). The rowed UpdateModule::xfer 0x0044DF9F,
+// the light-CRC out, Version(1,2), a Coord2D at +0x28 (Xfer slot 0x50), the
+// members at +0x30 and +0x7C through their pinned non-virtual transfers
+// (0x000BB710, 0x00292550), a bool at +0x8C, from version 2 an int at
+// +0x90, and a bool at +0x8D. Member names not recovered.
+
+class AsciiString;
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+class Thing;
+class ModuleData;
+#include "../../../../Include/Common/BfmeXfer.h"
+class Xfer::Version
+{
+public:
+	Version(unsigned char current, unsigned char minimum)
+		: m_current(current), m_minimum(minimum) {}
+
+	unsigned char m_current;
+	unsigned char m_minimum;
+};
+#include "../../../../../Libraries/Include/Lib/Coord2D.h"
 
 // ?rva004AB7C8@LargeGroupAudioUpdate@@QBEHXZ @0x004AB7C8 35B: returns GetGameLogicRandomValue(0 m_18 file 0xA7) plus m_14 plus 1. File literal at 0x008547B8 is LargeGroupAudioUpdate.cpp. Callers at 0x004AB94B 0x004ABB60 0x004ABB72 0x004ABC52. Prev Rva0024A797Grandchildren next V3PolyCopyCtors.
 
@@ -121,6 +179,10 @@ BFME_DISP8_ADD_BEFORE_DWORD_GETTER(Rva004ABAC4AddDwordField, 0x20, 0x08)
 
 // ?get@Rva005F83EDFields@@QBEIXZ
 struct Rva005F83EDFields { char pad[4]; unsigned int word4; unsigned int get() const; };
+
+extern GameLogic *TheGameLogic;
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdate.cpp
 
@@ -255,21 +317,13 @@ BfmeFixedStorage002CF0F0 Rva004AB9D5::getDisabledTypesToProcess()
 // Spelled as an explicit backward read, which MSVC folds to
 // `mov eax,[ecx-BACK]`.
 
-// tu-skeleton: 0x004AB7EB 21B ??0Rva004AB7EB@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/V3PolyCopyCtors.cpp (not merged yet)
 
-// tu-skeleton: 0x004AB800 17B ?buildFieldParse@LargeGroupAudioUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
 
-// tu-skeleton: 0x004AB811 120B ??0LargeGroupAudioUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdateCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x004AB889 6B ?Rva004AB889Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
-// tu-skeleton: 0x004AB8DC 46B ??1LargeGroupAudioUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdateDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x004AB90A 152B ?rva004AB90A@LargeGroupAudioUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdate004AB90A.cpp (not merged yet)
 
-// tu-skeleton: 0x004AB9A2 51B ?rva004AB9A2@LargeGroupAudioUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdate004AB9A2.cpp (not merged yet)
 
-// tu-skeleton: 0x004AB9EA 135B ?xfer@LargeGroupAudioUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdateXfer.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Disp8AddDwordFieldGetters.cpp
 
@@ -288,6 +342,80 @@ BfmeFixedStorage002CF0F0 Rva004AB9D5::getDisabledTypesToProcess()
 // Backward variant: the field sits at a NEGATIVE displacement from `this`.
 // Spelled as an explicit backward read, which MSVC folds to
 // `mov eax,[ecx-BACK]`; same reading as the chase-family backward cast.
+
+// tu-skeleton: 0x004AB7EB 21B ??0Rva004AB7EB@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/V3PolyCopyCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x004AB800 17B ?buildFieldParse@LargeGroupAudioUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
+
+// tu-skeleton: 0x004AB811 120B ??0LargeGroupAudioUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004AB889 6B ?Rva004AB889Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x004AB8DC 46B ??1LargeGroupAudioUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdateDtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdate004AB90A.cpp
+
+inline unsigned char Inv20(unsigned int v)
+{
+	return (unsigned char)~(v >> 20);
+}
+
+void LargeGroupAudioUpdate::rva004AB90A()
+{
+	if (m_8D)
+		return;
+	if (((Inv20(m_object->m_94.m_words[1]) & 1) == 0))
+		return;
+	m_8D = true;
+	((Rva0020DXXX *)(*(Rva0020D959Host * *)&TheLargeGroupAudio))->registerSubject((int)static_cast<Rva004ABABCIface *>(this));
+	Object *obj = m_object;
+	int delay = ((const LargeGroupAudioUpdate *)m_moduleData)->rva004AB7C8();
+	setWakeFrame(obj, (UpdateSleepTime)delay);
+	*(int *)&m_28.x = *(const int *)&obj->m_position.x;
+	*(int *)&m_28.y = *(const int *)&obj->m_position.y;
+	m_30 = obj->m_10C;
+	m_7C = obj->m_94;
+	m_8C = obj->rva002943B2(0);
+	m_90 = TheGameLogic->getFrame();
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdate004AB9A2.cpp
+
+void LargeGroupAudioUpdate::rva004AB9A2()
+{
+	if (m_8D)
+	{
+		((Rva0020DXXX *)(*(Rva0020D959Host * *)&TheLargeGroupAudio))->rva0020D959((int)static_cast<Rva004ABABCIface *>(this));
+		setWakeFrame(m_object, UPDATE_SLEEP_FOREVER);
+		m_8D = false;
+	}
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdateXfer.cpp
+
+// The two flag sets xfer through the rowed BitFlags<591>::xfer (0x000BB710)
+// and BitFlags<101>::xfer (0x00292550); their sizes, 0x4C and 0x10, are the
+// dword arrays those bit counts need.
+
+// ?xfer@LargeGroupAudioUpdate@@MAEXPAVXfer@@@Z @0x004AB9EA
+void LargeGroupAudioUpdate::xfer(Xfer *xfer)
+{
+	UpdateModule::xfer(xfer);
+
+	if (xfer->IsLightCRC())
+		return;
+
+	Xfer::Version version(1, 2);
+	*xfer == version;
+
+	*xfer == static_cast<Coord2D &>(m_28);
+	m_30.xfer(xfer);
+	m_7C.xfer(xfer);
+	*xfer == m_8C;
+	if (version.m_minimum >= 2)
+		*xfer == m_90;
+	*xfer == m_8D;
+}
 
 // tu-skeleton: 0x004ABAD6 45B ?_M_erase@?$_Rb_tree@HU?$pair@$$CBHPAX@_STL@@U?$_Select1st@U?$pair@$$CBHPAX@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@AAEXPAU?$_Rb_tree_node@U?$pair@$$CBHPAX@_STL@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_ptr_o1.cpp (not merged yet)
 
