@@ -24,29 +24,6 @@ private:
  char pad0[0x10]; Rva002829BD **m_begin; Rva002829BD **m_end;
  char pad18[8]; Rva00282B26Callback m_callback;
 };
-int Rva00282B26::rva00282B26(void *key)
-{
- int count = 0;
- Rva002829BD **it = m_begin;
- Rva002829BD **finish = m_end;
- for (; it != finish; ++it)
- {
-  Rva002829BD *group = *it;
-  void **lastCandidate = group->end;
-  for (void **candidate = group->begin; candidate != lastCandidate; ++candidate)
-  {
-   if (((Rva004DFAB3 *)this)->rva004DFAB3(key, *candidate))
-   {
-    group->active = 1;
-    if (count == 0)
-     group->rva002829BD((const ModuleData *)key, m_callback);
-    ++count;
-    break;
-   }
-  }
- }
- return count;
-}
 
 // Native 4DFE4F..4DFEC8 repeats the matched282B26 nested scan.
 // Target fields and predicate are identical; only the first-match group

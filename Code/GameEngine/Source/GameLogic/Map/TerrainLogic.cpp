@@ -1958,6 +1958,65 @@ protected:
 	void addWaypointLink(Int id1, Int id2);
 };
 
+// Native282B26..282B9F RET4. Vector10/14 contains groups. Each group's
+// 1C/20 vector supplies candidate words; first matching candidate sets its
+// flag and increments the result. Only the first matching group calls29BD.
+// Layout and control flow are target facts; group/key semantics are open.
+class Rva002829BD;
+
+class ModuleData;
+
+class Rva002829BD
+{
+public:
+ void rva002829BD(const ModuleData *key, Rva00282B26Callback callback); // Rva002829BDSphereMerge.cpp
+ unsigned char active;
+ char pad[0x1C-1];
+ void **begin;
+ void **end;
+};
+
+class Rva004DFAB3 { public: bool rva004DFAB3(void *key, void *candidate); };
+
+class Rva00282B26
+{
+public:
+ int rva00282B26(void *key);
+private:
+ char pad0[0x10]; Rva002829BD **m_begin; Rva002829BD **m_end;
+ char pad18[8]; Rva00282B26Callback m_callback;
+};
+
+// Native 4DFE4F..4DFEC8 repeats the matched282B26 nested scan.
+// Target fields and predicate are identical; only the first-match group
+// callback moves to4DFCE6. Its indirect cdecl callback and ret8 establish
+// the explicit argument ABI. Concrete container/group identity stays open.
+class Rva004DFCE6;
+
+typedef void *(__cdecl *Rva004DFE4FCallback)(void *key);
+
+class Rva004DFCE6
+{
+public:
+ // The rowed 0x004DFCE6 Rva004DFCE6::rva004DFCE6(Object *, void *).
+ void rva004DFCE6(class Object *object, void *callback);
+ unsigned char active;
+ char pad[0x1C-1];
+ void **begin;
+ void **end;
+};
+
+class Rva004DFE4F
+{
+public:
+ int rva004DFE4F(void *key);
+private:
+ char pad0[0x10]; Rva004DFCE6 **m_begin; Rva004DFCE6 **m_end;
+ char pad18[8]; Rva004DFE4FCallback m_callback;
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp
@@ -3811,59 +3870,32 @@ void TerrainLogic::rva00285193(Object *argument)
 // carries as ?iterateTreesNearAPoint@TerrainLogic@@QAEXPBUCoord3D@@MPAVGeometryInfo@@PAVBfmeT1035@@_NH@Z. Bind the donor spelling to that rowed owner so one
 // address keeps one definition and the unit links.
 
-// tu-skeleton: 0x0027C36A 166B ??0Rva0027C36A@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0027C36ACtor.cpp (not merged yet)
 
-// tu-skeleton: 0x0027C410 228B ??0Rva0027C36A@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Rva0027C36ACopyCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x0027C4F4 680B ?LineInRegion@@YA_NPBVCoord2D@@0PBURegion2D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp (not merged yet)
 
-// tu-skeleton: 0x0027C79C 447B ?isCellOnEnd@Bridge@@QAE_NPBURegion2D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp (not merged yet)
 
-// tu-skeleton: 0x0027C95B 548B ?isCellOnSide@Bridge@@QAE_NPBURegion2D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp (not merged yet)
 
-// tu-skeleton: 0x0027CB7F 484B ?isCellEntryPoint@Bridge@@QAE_NPBURegion2D@@PAM@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp (not merged yet)
 
-// tu-skeleton: 0x0027CD63 285B ?update@TerrainLogic@@UAEXXZ -- matched in Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x0027CE80 26B ?rva0027CE80@Rva0027CE80@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAG.cpp (not merged yet)
 
-// tu-skeleton: 0x0027CE8F 24B (unledgered) -- unmatched, no code, never credited
 
-// tu-skeleton: 0x0027CEDE 337B ?alignToTerrain@@YAXMABUCoord3D@@0AAVMatrix3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/RailroadGuideAIUpdate.cpp (not merged yet)
 
-// tu-skeleton: 0x0027D098 62B ?rva0027D098@Rva0027D098@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva0027DF9DGridQueries.cpp (not merged yet)
 
-// tu-skeleton: 0x0027D0D6 206B ?getPartitionBucket@TerrainLogic@@QAEHPAM@Z -- matched in Code/GameEngine/Source/Common/TerrainLogic_getPartitionBucket.cpp (not merged yet)
 
-// tu-skeleton: 0x0027D1EF 85B ?rva0027D1EF@Rva0027D244@@QAEXPAV1@0@Z -- matched in Code/GameEngine/Source/Common/Rva0027DF9DGridQueries.cpp (not merged yet)
 
-// tu-skeleton: 0x0027DCF2 683B ?rva0027DCF2@Rva0027DCF2@@QAEXPAUCoord3D@@MPAVRva0027D244@@_NH@Z -- matched in Code/GameEngine/Source/Common/Rva0027DF9DGridQueries.cpp (not merged yet)
 
-// tu-skeleton: 0x0027DF9D 683B ?rva0027DF9D@Rva0027DF9D@@QAEXPAUCoord3D@@MPAVRva0027D244@@_NH@Z -- matched in Code/GameEngine/Source/Common/Rva0027DF9DGridQueries.cpp (not merged yet)
 
-// tu-skeleton: 0x0027E248 683B ?rva0027E248@Rva0027E248@@QAEXPAUCoord3D@@MPAVRva0027D30D@@_NH@Z -- matched in Code/GameEngine/Source/Common/Rva0027DF9DGridQueries.cpp (not merged yet)
 
-// tu-skeleton: 0x0027E4F3 683B ?rva0027E4F3@Rva0027E4F3@@QAEXPAUCoord3D@@MPAVRva0027D347@@_NH@Z -- matched in Code/GameEngine/Source/Common/Rva0027DF9DGridQueries.cpp (not merged yet)
 
-// tu-skeleton: 0x0027E79E 683B ?rva0027E79E@Rva0027E79E@@QAEXPAUCoord3D@@MPAVRva0027D35F@@_NH@Z -- matched in Code/GameEngine/Source/Common/Rva0027DF9DGridQueries.cpp (not merged yet)
 
-// tu-skeleton: 0x0027EA49 13B ??1Rva0027EA49@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Map/Rva00282135Clear.cpp (not merged yet)
 
-// tu-skeleton: 0x0027EA56 13B ??0?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@U?$pair@$$CBHH@_STL@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHH@_STL@@@_STL@@@2@@_STL@@QAE@ABV01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_int_os.cpp (not merged yet)
 
-// tu-skeleton: 0x0027EA63 31B ??0?$LatchRestore@I@@QAE@AAIABI@Z -- matched in Code/GameEngine/Source/Common/Rva00308AA4Notifiers.cpp (not merged yet)
 
-// tu-skeleton: 0x0027EA82 15B ??1?$LatchRestore@I@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00308AA4Notifiers.cpp (not merged yet)
 
-// tu-skeleton: 0x0027EA91 37B ??_G?$LatchRestore@I@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva00308AA4Notifiers.cpp (not merged yet)
 
-// tu-skeleton: 0x0027EAB6 70B ??0PlaneClass@@QAE@ABVVector3@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWMath/PlaneTwoVectorCtorO1.cpp (not merged yet)
 
-// tu-skeleton: 0x0027EAFC 704B ?Point_In_Triangle_2D@@YA_NABVVector3@@000HHAAE@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/PointInTriangle2DO1.cpp (not merged yet)
 
-// tu-skeleton: 0x0027EDBC 241B ?createTower@Bridge@@QAEPAVObject@@PAUCoord3D@@W4BridgeTowerType@@PBVThingTemplate@@PAV2@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/BridgeObjectCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x0027EEAD 348B ?isPointOnBridge@Bridge@@QAE_NPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/BridgePickBridge.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Map/TerrainLogic_parseWaypointData.cpp
 
@@ -3920,6 +3952,60 @@ void TerrainLogic::addWaypointLink(Int id1, Int id2)
 		}
 	}
 }
+
+// tu-skeleton: 0x0027C36A 166B ??0Rva0027C36A@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0027C36ACtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0027C410 228B ??0Rva0027C36A@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Rva0027C36ACopyCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0027C4F4 680B ?LineInRegion@@YA_NPBVCoord2D@@0PBURegion2D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp (not merged yet)
+
+// tu-skeleton: 0x0027C79C 447B ?isCellOnEnd@Bridge@@QAE_NPBURegion2D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp (not merged yet)
+
+// tu-skeleton: 0x0027C95B 548B ?isCellOnSide@Bridge@@QAE_NPBURegion2D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp (not merged yet)
+
+// tu-skeleton: 0x0027CB7F 484B ?isCellEntryPoint@Bridge@@QAE_NPBURegion2D@@PAM@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp (not merged yet)
+
+// tu-skeleton: 0x0027CD63 285B ?update@TerrainLogic@@UAEXXZ -- matched in Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0027CE80 26B ?rva0027CE80@Rva0027CE80@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAG.cpp (not merged yet)
+
+// tu-skeleton: 0x0027CE8F 24B (unledgered) -- unmatched, no code, never credited
+
+// tu-skeleton: 0x0027CEDE 337B ?alignToTerrain@@YAXMABUCoord3D@@0AAVMatrix3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/RailroadGuideAIUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x0027D098 62B ?rva0027D098@Rva0027D098@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva0027DF9DGridQueries.cpp (not merged yet)
+
+// tu-skeleton: 0x0027D0D6 206B ?getPartitionBucket@TerrainLogic@@QAEHPAM@Z -- matched in Code/GameEngine/Source/Common/TerrainLogic_getPartitionBucket.cpp (not merged yet)
+
+// tu-skeleton: 0x0027D1EF 85B ?rva0027D1EF@Rva0027D244@@QAEXPAV1@0@Z -- matched in Code/GameEngine/Source/Common/Rva0027DF9DGridQueries.cpp (not merged yet)
+
+// tu-skeleton: 0x0027DCF2 683B ?rva0027DCF2@Rva0027DCF2@@QAEXPAUCoord3D@@MPAVRva0027D244@@_NH@Z -- matched in Code/GameEngine/Source/Common/Rva0027DF9DGridQueries.cpp (not merged yet)
+
+// tu-skeleton: 0x0027DF9D 683B ?rva0027DF9D@Rva0027DF9D@@QAEXPAUCoord3D@@MPAVRva0027D244@@_NH@Z -- matched in Code/GameEngine/Source/Common/Rva0027DF9DGridQueries.cpp (not merged yet)
+
+// tu-skeleton: 0x0027E248 683B ?rva0027E248@Rva0027E248@@QAEXPAUCoord3D@@MPAVRva0027D30D@@_NH@Z -- matched in Code/GameEngine/Source/Common/Rva0027DF9DGridQueries.cpp (not merged yet)
+
+// tu-skeleton: 0x0027E4F3 683B ?rva0027E4F3@Rva0027E4F3@@QAEXPAUCoord3D@@MPAVRva0027D347@@_NH@Z -- matched in Code/GameEngine/Source/Common/Rva0027DF9DGridQueries.cpp (not merged yet)
+
+// tu-skeleton: 0x0027E79E 683B ?rva0027E79E@Rva0027E79E@@QAEXPAUCoord3D@@MPAVRva0027D35F@@_NH@Z -- matched in Code/GameEngine/Source/Common/Rva0027DF9DGridQueries.cpp (not merged yet)
+
+// tu-skeleton: 0x0027EA49 13B ??1Rva0027EA49@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Map/Rva00282135Clear.cpp (not merged yet)
+
+// tu-skeleton: 0x0027EA56 13B ??0?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@U?$pair@$$CBHH@_STL@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHH@_STL@@@_STL@@@2@@_STL@@QAE@ABV01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_int_os.cpp (not merged yet)
+
+// tu-skeleton: 0x0027EA63 31B ??0?$LatchRestore@I@@QAE@AAIABI@Z -- matched in Code/GameEngine/Source/Common/Rva00308AA4Notifiers.cpp (not merged yet)
+
+// tu-skeleton: 0x0027EA82 15B ??1?$LatchRestore@I@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00308AA4Notifiers.cpp (not merged yet)
+
+// tu-skeleton: 0x0027EA91 37B ??_G?$LatchRestore@I@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva00308AA4Notifiers.cpp (not merged yet)
+
+// tu-skeleton: 0x0027EAB6 70B ??0PlaneClass@@QAE@ABVVector3@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWMath/PlaneTwoVectorCtorO1.cpp (not merged yet)
+
+// tu-skeleton: 0x0027EAFC 704B ?Point_In_Triangle_2D@@YA_NABVVector3@@000HHAAE@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/PointInTriangle2DO1.cpp (not merged yet)
+
+// tu-skeleton: 0x0027EDBC 241B ?createTower@Bridge@@QAEPAVObject@@PAUCoord3D@@W4BridgeTowerType@@PBVThingTemplate@@PAV2@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/BridgeObjectCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0027EEAD 348B ?isPointOnBridge@Bridge@@QAE_NPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/BridgePickBridge.cpp (not merged yet)
 
 // tu-skeleton: 0x0027F30A 45B ?findBridgeAt@TerrainLogic@@UBEPAVBridge@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp (not merged yet)
 
@@ -4015,7 +4101,31 @@ void TerrainLogic::addWaypointLink(Int id1, Int id2)
 
 // tu-skeleton: 0x002829BD 361B ?rva002829BD@Rva002829BD@@QAEXPBVModuleData@@P6APAXPAX@Z@Z -- matched in Code/GameEngine/Source/Common/Rva002829BDSphereMerge.cpp (not merged yet)
 
-// tu-skeleton: 0x00282B26 121B ?rva00282B26@Rva00282B26@@QAEHPAX@Z -- matched in Code/GameEngine/Source/Common/Rva00282B26.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva00282B26.cpp
+
+int Rva00282B26::rva00282B26(void *key)
+{
+ int count = 0;
+ Rva002829BD **it = m_begin;
+ Rva002829BD **finish = m_end;
+ for (; it != finish; ++it)
+ {
+  Rva002829BD *group = *it;
+  void **lastCandidate = group->end;
+  for (void **candidate = group->begin; candidate != lastCandidate; ++candidate)
+  {
+   if (((Rva004DFAB3 *)this)->rva004DFAB3(key, *candidate))
+   {
+    group->active = 1;
+    if (count == 0)
+     group->rva002829BD((const ModuleData *)key, m_callback);
+    ++count;
+    break;
+   }
+  }
+ }
+ return count;
+}
 
 // tu-skeleton: 0x00282C9B 6B (unledgered) -- unmatched, no code, never credited
 
