@@ -79,9 +79,3 @@ class Rva00240045Forwarder : public Rva00240045Lead, public SizedForwarderSlots
 public:
 	void rva00240045();
 };
-
-// vtable 0x00BEDCB4#3: base at +0x10 ->slot3()
-void Rva00240045Forwarder::rva00240045()
-{
-	slot3();
-}

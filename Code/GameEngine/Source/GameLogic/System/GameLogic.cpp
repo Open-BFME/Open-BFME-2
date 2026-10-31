@@ -3673,6 +3673,45 @@ protected:
 
 BFME_LITERAL_NAME_GETTER(Rva002431A9Named, "InvisibilityManager")
 
+class Rva00085B36Lead
+{
+public:
+	virtual void lead0();
+private:
+	char m_lead[0xB0];
+};
+
+class Rva00085B36Forwarder : public Rva00085B36Lead, public SizedForwarderSlots
+{
+public:
+	void rva00085B36();
+};
+
+class Rva000AF012Forwarder
+{
+public:
+	void rva000AF012();
+private:
+	char m_lead[0xC];
+	SizedForwarderSlots *m_inner;
+};
+
+class Rva00240045Lead
+{
+public:
+	virtual void lead0();
+private:
+	char m_lead[0xC];
+};
+
+class Rva00240045Forwarder : public Rva00240045Lead, public SizedForwarderSlots
+{
+public:
+	void rva00240045();
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
@@ -6114,6 +6153,23 @@ Rva0023DC86StringField::~Rva0023DC86StringField()
 {
 }
 
+// ---- from Code/GameEngine/Source/Common/SubsystemNameGetters.cpp
+
+// Subsystem literal name getters: six-byte const members with one shape:
+//
+//     mov eax,<offset string literal> / ret
+//
+// Each body returns a pointer to a NUL-terminated class-name string in
+// .rdata. The vtable at each site carries the body at slot 2 (offset 8)
+// behind a shared pair (slot 0 varies, slot 1 is 0xA9E440) and ahead of
+// class-specific tails, closed by 0x5B5384 -- the Subsystem/Snapshot family
+// pattern. Ported from Open-BFME-1
+// (Code/GameEngine/Source/Common/LiteralNameGetters_01.cpp): the
+// BFME_LITERAL_NAME_GETTER macro is verbatim; only the class names follow
+// this tree's address-derived convention (identity unrecoverable from 6
+// bytes, string carried in source where verify_string_refs re-reads it).
+// No // cl: line (defaults match the frameless 6-byte shape).
+
 // tu-skeleton: 0x0023CAE7 69B ?friend_createObject@GameLogic@@QAEPAVObject@@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z -- matched in Code/GameEngine/Source/Common/Thing/ThingFactory_newObject.cpp (not merged yet)
 
 // tu-skeleton: 0x0023CD97 7B ?isGamePaused@GameLogic@@QAEEXZ -- matched in Code/GameEngine/Source/Common/GameEngineNetworkHelpers.cpp (not merged yet)
@@ -6182,7 +6238,13 @@ Rva0023DC86StringField::~Rva0023DC86StringField()
 
 // tu-skeleton: 0x0023FED9 295B ?SetUpCampaignPlayers@GameLogic@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
 
-// tu-skeleton: 0x00240045 8B ?rva00240045@Rva00240045Forwarder@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSizedForwarders2.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/VslotSizedForwarders2.cpp
+
+// vtable 0x00BEDCB4#3: base at +0x10 ->slot3()
+void Rva00240045Forwarder::rva00240045()
+{
+	slot3();
+}
 
 // tu-skeleton: 0x0024004D 247B ?rva0024004D@GameLogic@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
 
@@ -6237,23 +6299,6 @@ Rva0023DC86StringField::~Rva0023DC86StringField()
 // tu-skeleton: 0x00243119 49B ?clear@?$_List_base@VRva0024076D@@V?$allocator@VRva0024076D@@@_STL@@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_rva00243119_clear.cpp (not merged yet)
 
 // tu-skeleton: 0x00243177 50B ??0Rva000D3FA0Map@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00243177.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/SubsystemNameGetters.cpp
-
-// Subsystem literal name getters: six-byte const members with one shape:
-//
-//     mov eax,<offset string literal> / ret
-//
-// Each body returns a pointer to a NUL-terminated class-name string in
-// .rdata. The vtable at each site carries the body at slot 2 (offset 8)
-// behind a shared pair (slot 0 varies, slot 1 is 0xA9E440) and ahead of
-// class-specific tails, closed by 0x5B5384 -- the Subsystem/Snapshot family
-// pattern. Ported from Open-BFME-1
-// (Code/GameEngine/Source/Common/LiteralNameGetters_01.cpp): the
-// BFME_LITERAL_NAME_GETTER macro is verbatim; only the class names follow
-// this tree's address-derived convention (identity unrecoverable from 6
-// bytes, string carried in source where verify_string_refs re-reads it).
-// No // cl: line (defaults match the frameless 6-byte shape).
 
 // tu-skeleton: 0x002431AF 28B ??_GRva000D3FA0Map@@UAEPAXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00243177.cpp (not merged yet)
 
