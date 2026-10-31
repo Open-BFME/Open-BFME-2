@@ -1,5 +1,4 @@
-// cl: /ICode/Libraries/Include/Lib /O1 /EHsc /MD /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /arch:SSE /Ireference/shims/sweep
-// platformsdk
+// cl: /EHsc /MD /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /Ireference/shims/bfme2_dockupdate /Ireference/shims/bfmealloc /Ireference/open-bfme-1/inputs/reference/shims/dockupdate /Ireference/open-bfme-1/inputs/reference/shims/moduledata /Ireference/open-bfme-1/inputs/reference/shims/sweep /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Include/Lib /Ireference/shims/sweep -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/Object/Update/DockUpdate
 // stlport
 //
 // ?loadDockPositions@DockUpdate@@IAEXXZ, retail 0x005897FB, 270 bytes.
@@ -12,16 +11,15 @@
 // patch branch. Layout is the rowed DockUpdateCtor TU (UpdateModule base 0x20 plus
 // DockUpdateInterface vptr at +0x20, enter/dock/exit at +0x24/+0x30/+0x3C,
 // number/bones/loaded at +0x48/+0x4C/+0x50, approach vector at +0x54).
-#include <limits.h>
-
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
-
-#define NOMINMAX
-#include <windows.h>
-
-#include "Coord3D.h"
+#define Matrix4x4 Matrix4  // BFME renamed it
+#include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
+#include "Common/Debug.h"
+#include "Common/Xfer.h"
+#include "GameClient/Drawable.h"
+#include "GameLogic/GameLogic.h"
+#include "GameLogic/Object.h"
+#include "GameLogic/PartitionManager.h"
+#include "GameLogic/Module/DockUpdate.h"
 
 // This array's construction/destruction is witnessed in the native unwind
 // graph; the data view uses the canonical Coord3D layout. The lifetime-only
@@ -34,109 +32,11 @@ struct Rva005897FBCoordLifetime : Coord3D
     ~Rva005897FBCoordLifetime() {}
 };
 
-#include "../../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
-
-class Drawable
-{
-public:
-	Int getPristineBonePositions(const char *boneNamePrefix, Int startIndex,
-		Coord3D *positions, Matrix3D *transforms, Int maxBones, Int extra) const;
-};
-
-class Thing
-{
-public:
-	Drawable *getDrawable() const;
-};
-
-class Object : public Thing
-{
-};
-
-class ModuleData;
-class Thing;
-
-class BehaviorModuleBase
-{
-public:
-	virtual void unused();
-	const ModuleData *m_moduleData;
-	Object *m_object;
-};
-
-class BehaviorModuleOther
-{
-	virtual void unused();
-};
-
-class BehaviorModule : public BehaviorModuleBase, public BehaviorModuleOther
-{
-public:
-	BehaviorModule(Thing *thing, const ModuleData *moduleData);
-};
-
-class UpdateModuleInterface
-{
-public:
-	virtual void update() = 0;
-};
-
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-	unsigned m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_bfmeReserved;
-
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~UpdateModule();
-	virtual void update();
-};
-
-class DockUpdateInterface
-{
-public:
-	virtual void dockAnchor() = 0;
-};
-
-#include <vector>
-
-typedef _STL::vector<Coord3D, _STL::allocator<Coord3D> > VecCoord3D;
-
-class DockUpdate : public UpdateModule, public DockUpdateInterface
-{
-public:
-	DockUpdate(Thing *thing, const ModuleData *moduleData);
-	virtual ~DockUpdate();
-
-	virtual void objectModuleAnchor();
-	virtual void behaviorAnchor();
-	virtual void updateAnchor();
-	virtual void dockAnchor();
-
-protected:
-	void loadDockPositions();
-
-	Coord3D m_enterPosition;
-	Coord3D m_dockPosition;
-	Coord3D m_exitPosition;
-	Int m_numberApproachPositions;
-	Int m_numberApproachPositionBones;
-	Bool m_positionsLoaded;
-	VecCoord3D m_approachPositions;
-};
-
-enum
-{
-	DEFAULT_APPROACH_VECTOR_SIZE = 10,
-	DYNAMIC_APPROACH_VECTOR_FLAG = -1
-};
-
 // ?loadDockPositions@DockUpdate@@IAEXXZ
 void DockUpdate::loadDockPositions()
 {
-	Object *obj = m_object;
-	Drawable *myDrawable = obj->getDrawable();
+	Object *obj = getObject();
+	Drawable *myDrawable = obj->Thing::getDrawable();
 
 	if (myDrawable != NULL)
 	{
