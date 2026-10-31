@@ -8,36 +8,36 @@ public:
 	static void Get_Render_Target_Resolution(int &a, int &b, int &c, bool &d);
 };
 
-void __stdcall Rva0006297CClamp(const float *a, const float *b, float *c, float *d)
+void __stdcall Rva0006297CClamp(const float *pos, const float *size, float *outPosition, float *outSize)
 {
-	int w = 0;
-	int h = 0;
+	int width = 0;
+	int height = 0;
 	int w2 = 0;
 	bool flag = false;
-	WW3D::Get_Render_Target_Resolution(w, h, w2, flag);
+	WW3D::Get_Render_Target_Resolution(width, height, w2, flag);
 	float x = 0.0f;
-	if (!(0.0f >= a[0]))
-		x = a[0];
-	c[0] = x;
+	if (!(0.0f >= pos[0]))
+		x = pos[0];
+	outPosition[0] = x;
 	float y;
-	if (0.0f >= a[1])
+	if (0.0f >= pos[1])
 		y = 0.0f;
 	else
-		y = a[1];
-	c[1] = y;
-	float wf = (float)w;
-	float t = b[0] + c[0];
+		y = pos[1];
+	outPosition[1] = y;
+	float wf = (float)width;
+	float t = size[0] + outPosition[0];
 	if (t > wf)
-		t = wf - c[0];
+		t = wf - outPosition[0];
 	else
-		t = b[0];
-	d[0] = t;
-	float u = b[1] + c[1];
+		t = size[0];
+	outSize[0] = t;
+	float u = size[1] + outPosition[1];
 	if (u > wf)
-		u = wf - c[1];
+		u = wf - outPosition[1];
 	else
-		u = b[1];
-	d[1] = u;
+		u = size[1];
+	outSize[1] = u;
 }
 
 // Installed-vtable store through the first stack argument. Native stack

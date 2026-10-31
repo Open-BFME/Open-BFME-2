@@ -177,7 +177,7 @@ class Rva00577302
 {
 public:
 	void rva00577302(Int a);
-	__declspec(noinline) void rva005753A4(Int a);
+	__declspec(noinline) void rva005753A4(Int msg);
 private:
 	Int m_00;
 	Rva005E6817Mid *m_04;
@@ -188,9 +188,9 @@ void Rva00577302::rva00577302(Int a)
 	if (m_08->v00(a) != 1)
 		rva005753A4(a);
 }
-void Rva00577302::rva005753A4(Int a)
+void Rva00577302::rva005753A4(Int msg)
 {
-	m_04->fwd((GameMessage *)a);
+	m_04->fwd((GameMessage *)msg);
 }
 
 // 0x00584A7D and 0x00587057: the pinned 0x00584A3D resp. 0x0058702C with
@@ -256,11 +256,11 @@ bool Rva0038190FSendChat(const UnicodeString &text, const _STL::vector<int, Rva0
 class Rva005AFA0E
 {
 public:
-	void rva005AFA0E(Int a, Int b);
+	void rva005AFA0E(Int text, Int selected);
 };
-void Rva005AFA0E::rva005AFA0E(Int a, Int b)
+void Rva005AFA0E::rva005AFA0E(Int text, Int selected)
 {
-	Rva0038190FSendChat(*(const UnicodeString *)a, *(const _STL::vector<int, Rva002444BEAllocator<int> > *)b);
+	Rva0038190FSendChat(*(const UnicodeString *)text, *(const _STL::vector<int, Rva002444BEAllocator<int> > *)selected);
 }
 
 // 0x005AFCEC (eight tables): the pinned 0x005AFCB4(1) when the argument
@@ -442,7 +442,7 @@ struct Rva00597426Arg
 class AIUpgrade
 {
 public:
-	virtual Int canMake(const Rva00597426Arg *arg);
+	virtual Int canMake(const Rva00597426Arg *request);
 private:
 	Int m_04;
 	ObjectID m_08;
@@ -450,9 +450,9 @@ private:
 	UnsignedInt m_2C;
 	Int m_30;
 };
-Int AIUpgrade::canMake(const Rva00597426Arg *arg)
+Int AIUpgrade::canMake(const Rva00597426Arg *request)
 {
-	if (arg->m_94 < m_2C)
+	if (request->m_94 < m_2C)
 		return 2;
 	Object *obj = TheGameLogic->findObjectByID(m_08);
 	Rva00597426Part *part = (Rva00597426Part *)obj->rva0028BC58(0);

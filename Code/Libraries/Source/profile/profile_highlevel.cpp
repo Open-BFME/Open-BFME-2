@@ -402,7 +402,7 @@ bool ProfileHighLevel::FindProfile(const char *name, Id &id)
 	return false;
 }
 
-// tu-skeleton: 0x006C5E70 6B ?Rva006C5E70Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstGlobalGetters2.cpp (not merged yet)
+// tu-skeleton: 0x006C5E70 6B ?getFirstProfileId@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstGlobalGetters2.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/ConstIntGetters7Addr.cpp
 

@@ -11121,7 +11121,7 @@ _luaX_lex,,0x00757C90,1324,Code/Libraries/Source/Lua/llex.c,matched,BFME1 byte-i
 ?Rva00139470Get@@YAHXZ,,0x00139470,6,Code/GameEngine/Source/Common/ConstGlobalGetters2.cpp,matched,global-int getter A1-6 prev CC with no vtable and no callers; twin-free TU
 ?Rva0011CDB0Get@@YAHXZ,,0x0011CDB0,6,Code/GameEngine/Source/Common/ConstGlobalGetters2.cpp,matched,global-int getter A1-6 prev CC with no vtable and no callers; twin-free TU
 ?Rva00120130Get@@YAHXZ,,0x00120130,6,Code/GameEngine/Source/Common/ConstGlobalGetters2.cpp,matched,global-int getter A1-6 prev CC with no vtable and no callers; twin-free TU
-?Rva00129450Get@@YAHXZ,,0x00129450,6,Code/GameEngine/Source/Common/ConstGlobalGetters2.cpp,matched,global-int getter A1-6 prev CC with no vtable and no callers; twin-free TU
+?getNPatchesLevel@@YAHXZ,,0x00129450,6,Code/GameEngine/Source/Common/ConstGlobalGetters2.cpp,matched,global-int getter A1-6 prev CC with no vtable and no callers; twin-free TU
 ?wrapAngle@@YAMM@Z,,0x006E03F0,67,Code/GameEngine/Source/Common/SmallGaps/wrapAngle.cpp,matched,BFME1 SmallGaps donor with halved constants; intrinsic fmod via msvcr71 __CIfmod 0x629A36; strict-lt middle selects test-ah-05
 ??0Rva00064640Record@@QAE@ABV0@@Z,,0x0050403D,49,Code/GameEngine/Source/Common/Rva00064640Copy.cpp,matched,BFME1 byte-identical donor; b1 0x00064640
 ?Rva0011D250Get@@YAHXZ,,0x0011D250,6,Code/GameEngine/Source/Common/ConstGlobalGetters2.cpp,matched,global-int getter A1-6 prev CC with no vtable and no callers; twin-free TU
@@ -11135,8 +11135,8 @@ _luaX_lex,,0x00757C90,1324,Code/Libraries/Source/Lua/llex.c,matched,BFME1 byte-i
 ?Rva00143300Get@@YAHXZ,,0x00143300,6,Code/GameEngine/Source/Common/ConstGlobalGetters2.cpp,matched,global-int getter A1-6 prev CC with no vtable and no callers; twin-free TU
 ?Rva00187F30Get@@YAHXZ,,0x00187F30,6,Code/GameEngine/Source/Common/ConstGlobalGetters2.cpp,matched,global-int getter A1-6 prev CC with no vtable and no callers; twin-free TU
 _duck_mem_get_allocator,,0x001B6390,6,Code/Libraries/Source/VP6/DuckMem.cpp,matched,Clean-room spec 001b6390; duck_mem_get_allocator: cdecl load of the EA allocator object pointer from G00DFDA54; same retail extent as the replaced placeholder; implemented from reverse/vp6_cleanroom/specs/001b6390.md and retail only
-?Rva00610F10Get@@YAHXZ,,0x00610F10,6,Code/GameEngine/Source/Common/ConstGlobalGetters2.cpp,matched,global-int getter A1-6 prev CC with no vtable and no callers; twin-free TU
-?Rva00610F20Get@@YAHXZ,,0x00610F20,6,Code/GameEngine/Source/Common/ConstGlobalGetters2.cpp,matched,global-int getter A1-6 prev CC with no vtable and no callers; twin-free TU
+?getFeatureBits@@YAHXZ,,0x00610F10,6,Code/GameEngine/Source/Common/ConstGlobalGetters2.cpp,matched,global-int getter A1-6 prev CC with no vtable and no callers; twin-free TU
+?getExtendedFeatureBits@@YAHXZ,,0x00610F20,6,Code/GameEngine/Source/Common/ConstGlobalGetters2.cpp,matched,global-int getter A1-6 prev CC with no vtable and no callers; twin-free TU
 ?q3PartialSort009F3D80@@YAXPAUQ3SortElem8@@00UQ3SortCompare@@@Z,,0x00626740,31,Code/GameEngine/Source/Common/SmallGaps/Rva009F3D80PartialSortWrappers.cpp,matched,BFME1 SmallGaps donor pair b1 0x009F3D80; Gen callee is landed partial_sort asc 0x00626530; zero new pins
 ?q3PartialSort009F3DA0@@YAXPAUQ3SortElem8@@00UQ3SortCompare@@@Z,,0x00626760,31,Code/GameEngine/Source/Common/SmallGaps/Rva009F3D80PartialSortWrappers.cpp,matched,BFME1 SmallGaps donor pair b1 0x009F3DA0; Gen callee is landed partial_sort desc 0x006265B0; zero new pins
 ?erase@?$vector@URva001D28F0Element@@V?$allocator@URva001D28F0Element@@@_STL@@@_STL@@QAEPAURva001D28F0Element@@PAU3@@Z,,0x00689C70,59,Code/GameEngine/Source/GameClient/VideoPlayer.cpp,matched,place_bodies masked placement; TU already emits; stride 0x1C matches BFME1 Video erase
@@ -11144,21 +11144,21 @@ _duck_mem_get_allocator,,0x001B6390,6,Code/Libraries/Source/VP6/DuckMem.cpp,matc
 _SatUnsigned8,,0x001D55C0,301,Code/Libraries/Source/VP6/ScalarRecon.cpp,matched,Clean-room spec 001d55c0; SatUnsigned8: cdecl storing an 8x8 block of int16 values clamped to 0..255 as bytes; same retail extent as the replaced placeholder; implemented from reverse/vp6_cleanroom/specs/001d55c0.md and retail only
 _WmtFastDeInterlace,,0x001D1540,200,Code/Libraries/Source/VP6/FastDeInterlace.cpp,matched,Clean-room spec 001d1540; WmtFastDeInterlace: cdecl SSE2 vertical 1-2-1 deinterlace eight pixels per step; same retail extent as the replaced placeholder; implemented from reverse/vp6_cleanroom/specs/001d1540.md and retail only
 ?nameToLowercaseKey@NameKeyGenerator@@QAE?AW4NameKeyType@@PBD@Z,,0x00620500,187,Code/GameEngine/Source/Common/NameKeyGeneratorNameToLowercaseKey.cpp,matched,BFME1 byte-identical donor; b1 0x009EDD70; stale-header LegacyBucket layout; hash via pinned Rva0061FCA0Hash
-?Rva00610F30Get@@YAHXZ,,0x00610F30,6,Code/GameEngine/Source/Common/ConstGlobalGetters2.cpp,matched,global-int getter A1-6 prev CC with no vtable and no callers; twin-free TU
+?getL2CacheSize@@YAHXZ,,0x00610F30,6,Code/GameEngine/Source/Common/ConstGlobalGetters2.cpp,matched,global-int getter A1-6 prev CC with no vtable and no callers; twin-free TU
 ??0MeshModelClass@@QAE@ABV0@@Z,,0x00172940,361,Code/Libraries/Source/WWVegas/WW3D2/MeshModelClassCopyCtor.cpp,matched,BFME1 meshmdl.cpp copy ctor port with BFME2 0xC4 tail layout and global instance list; base copy pin 0x16A230 matdesc copy pin 0x15DD10 list dtor pin 0x144690
 ??0MeshModelClass@@QAE@XZ,,0x001727E0,335,Code/Libraries/Source/WWVegas/WW3D2/MeshModelClassDefaultCtor.cpp,matched,BFME1 meshmdl.cpp default ctor port; same 0xC4 tail and instance list as the copy ctor TU; base default matched 0x168F30 matdesc default pin 0x15B480 matinfo default pin 0x1708D0; trailing int3 excluded
-?Rva00610F40Get@@YAHXZ,,0x00610F40,6,Code/GameEngine/Source/Common/ConstGlobalGetters2.cpp,matched,global-int getter A1-6 prev CC with no vtable and no callers; twin-free TU
-?Rva00610F50Get@@YAHXZ,,0x00610F50,6,Code/GameEngine/Source/Common/ConstGlobalGetters2.cpp,matched,global-int getter A1-6 prev CC with no vtable and no callers; twin-free TU
-?Rva00610F60Get@@YAHXZ,,0x00610F60,6,Code/GameEngine/Source/Common/ConstGlobalGetters2.cpp,matched,global-int getter A1-6 prev CC with no vtable and no callers; twin-free TU
-?Rva00610F70Get@@YAHXZ,,0x00610F70,6,Code/GameEngine/Source/Common/ConstGlobalGetters2.cpp,matched,global-int getter A1-6 prev CC with no vtable and no callers; twin-free TU
-?Rva00610F80Get@@YAHXZ,,0x00610F80,6,Code/GameEngine/Source/Common/ConstGlobalGetters2.cpp,matched,global-int getter A1-6 prev CC with no vtable and no callers; twin-free TU
-?Rva00610F90Get@@YAHXZ,,0x00610F90,6,Code/GameEngine/Source/Common/ConstGlobalGetters2.cpp,matched,global-int getter A1-6 prev CC with no vtable and no callers; twin-free TU
-?Rva00610FA0Get@@YAHXZ,,0x00610FA0,6,Code/GameEngine/Source/Common/ConstGlobalGetters2.cpp,matched,global-int getter A1-6 prev CC with no vtable and no callers; twin-free TU
-?Rva00610FB0Get@@YAHXZ,,0x00610FB0,6,Code/GameEngine/Source/Common/ConstGlobalGetters2.cpp,matched,global-int getter A1-6 prev CC with no vtable and no callers; twin-free TU
-?Rva00610FC0Get@@YAHXZ,,0x00610FC0,6,Code/GameEngine/Source/Common/ConstGlobalGetters2.cpp,matched,global-int getter A1-6 prev CC with no vtable and no callers; twin-free TU
-?Rva00611020Get@@YAHXZ,,0x00611020,6,Code/GameEngine/Source/Common/ConstGlobalGetters2.cpp,matched,global-int getter A1-6 prev CC with no vtable and no callers; twin-free TU
+?getL2CacheLineSize@@YAHXZ,,0x00610F40,6,Code/GameEngine/Source/Common/ConstGlobalGetters2.cpp,matched,global-int getter A1-6 prev CC with no vtable and no callers; twin-free TU
+?getL2CacheSetAssociative@@YAHXZ,,0x00610F50,6,Code/GameEngine/Source/Common/ConstGlobalGetters2.cpp,matched,global-int getter A1-6 prev CC with no vtable and no callers; twin-free TU
+?getL1DataCacheSize@@YAHXZ,,0x00610F60,6,Code/GameEngine/Source/Common/ConstGlobalGetters2.cpp,matched,global-int getter A1-6 prev CC with no vtable and no callers; twin-free TU
+?getL1DataCacheLineSize@@YAHXZ,,0x00610F70,6,Code/GameEngine/Source/Common/ConstGlobalGetters2.cpp,matched,global-int getter A1-6 prev CC with no vtable and no callers; twin-free TU
+?getL1DataCacheSetAssociative@@YAHXZ,,0x00610F80,6,Code/GameEngine/Source/Common/ConstGlobalGetters2.cpp,matched,global-int getter A1-6 prev CC with no vtable and no callers; twin-free TU
+?getL1InstructionCacheSize@@YAHXZ,,0x00610F90,6,Code/GameEngine/Source/Common/ConstGlobalGetters2.cpp,matched,global-int getter A1-6 prev CC with no vtable and no callers; twin-free TU
+?getL1InstructionCacheLineSize@@YAHXZ,,0x00610FA0,6,Code/GameEngine/Source/Common/ConstGlobalGetters2.cpp,matched,global-int getter A1-6 prev CC with no vtable and no callers; twin-free TU
+?getL1InstructionCacheSetAssociative@@YAHXZ,,0x00610FB0,6,Code/GameEngine/Source/Common/ConstGlobalGetters2.cpp,matched,global-int getter A1-6 prev CC with no vtable and no callers; twin-free TU
+?getL1InstructionTraceCacheSize@@YAHXZ,,0x00610FC0,6,Code/GameEngine/Source/Common/ConstGlobalGetters2.cpp,matched,global-int getter A1-6 prev CC with no vtable and no callers; twin-free TU
+?getProcessorType@@YAHXZ,,0x00611020,6,Code/GameEngine/Source/Common/ConstGlobalGetters2.cpp,matched,global-int getter A1-6 prev CC with no vtable and no callers; twin-free TU
 ?Rva0069BD50Get@@YAHXZ,,0x0069BD50,6,Code/GameEngine/Source/Common/ConstGlobalGetters2.cpp,matched,global-int getter A1-6 prev CC with no vtable and no callers; twin-free TU
-?Rva006C5E70Get@@YAHXZ,,0x006C5E70,6,Code/GameEngine/Source/Common/ConstGlobalGetters2.cpp,matched,global-int getter A1-6 prev CC with no vtable and no callers; twin-free TU
+?getFirstProfileId@@YAHXZ,,0x006C5E70,6,Code/GameEngine/Source/Common/ConstGlobalGetters2.cpp,matched,global-int getter A1-6 prev CC with no vtable and no callers; twin-free TU
 ?set@Rva009A29A0WindowManager@@QAEXPAURva009A29A0Window@@@Z,,0x00758940,121,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,matched,BFME1 byte-identical donor; b1 0x009A29A0 area; record ctor at 0x7583B0 already rowed
 ?insertNode@Rva009A3290Owner@@QAEPAXPBX@Z,,0x00758FC0,106,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,matched,BFME1 byte-identical donor; operator new via ledger; memcpy intrinsic
 _VP6_DeleteQuantizer,,0x001B7930,94,Code/Libraries/Source/VP6/DeleteQuantizer.cpp,matched,Clean-room spec 001b7930; VP6_DeleteQuantizer: cdecl freeing the quantizer dequantiser buffers and block then nulling the caller pointer; same retail extent as the replaced placeholder; implemented from reverse/vp6_cleanroom/specs/001b7930.md and retail only
@@ -60037,7 +60037,7 @@ __ehhandler$??0WorldHeightMap@@QAE@PAVChunkInputStream@@HHH@Z,,0x00761418,10,Cod
 ?naturalLog@@YANM@Z,,0x0059CEB3,17,Code/GameEngine/Source/Common/GapBodiesGE05.cpp,matched,Ghidra-unlisted gap body; shape from retail bytes; address-derived identity: log of a float
 ?rva0059CEC4@Rva0059CEC4@@QAEHPBURva0059CEC4Arg@@@Z,,0x0059CEC4,16,Code/GameEngine/Source/Common/GapBodiesGE05.cpp,matched,Ghidra-unlisted gap body; shape from retail bytes; address-derived identity: argument +0x48 pointer-vector count
 ?rva0059CED4@Rva0059CEC4@@QAEHPBURva0059CEC4Arg@@@Z,,0x0059CED4,16,Code/GameEngine/Source/Common/GapBodiesGE05.cpp,matched,Ghidra-unlisted gap body; shape from retail bytes; address-derived identity: argument +0x24 pointer-vector count
-?rva005EB7CD@Rva005EB7CD@@QAEHHH@Z,,0x005EB7CD,17,Code/GameEngine/Source/Common/GapBodiesGE05.cpp,matched,Ghidra-unlisted gap body; shape from retail bytes; address-derived identity: base-10000 pack
+?packPair@Rva005EB7CD@@QAEHHH@Z,,0x005EB7CD,17,Code/GameEngine/Source/Common/GapBodiesGE05.cpp,matched,Ghidra-unlisted gap body; shape from retail bytes; address-derived identity: base-10000 pack
 ?rva005EB7DE@Rva005EB7CD@@QAEHH@Z,,0x005EB7DE,15,Code/GameEngine/Source/Common/GapBodiesGE05.cpp,matched,Ghidra-unlisted gap body; shape from retail bytes; address-derived identity: base-10000 high
 ?rva005EB7ED@Rva005EB7CD@@QAEHH@Z,,0x005EB7ED,17,Code/GameEngine/Source/Common/GapBodiesGE05.cpp,matched,Ghidra-unlisted gap body; shape from retail bytes; address-derived identity: base-10000 low
 ?rva0035BD0D@Rva0035BD0D@@QAEXH@Z,,0x0035BD0D,50,Code/GameEngine/Source/Common/GapBodiesGE05.cpp,matched,Ghidra-unlisted gap body; shape from retail bytes; address-derived identity: 16 slots virtual slot 4 then TheIMEManager slot 15

@@ -101,9 +101,9 @@ bool HTreeClass::read_pivots(ChunkLoadClass &cload, bool pre30)
 struct S2CompactTransform {
  Quaternion Q; Vector3 Position;
  S2CompactTransform(){}
- __forceinline explicit S2CompactTransform(const Matrix3D &m) {
-  Q=Build_Quaternion(m);
-  m.Get_Translation(&Position);
+ __forceinline explicit S2CompactTransform(const Matrix3D &matrix) {
+  Q=Build_Quaternion(matrix);
+  matrix.Get_Translation(&Position);
  }
  explicit S2CompactTransform(bool init):Q(init),Position(0.0f,0.0f,0.0f){}
 };
@@ -129,7 +129,7 @@ static __forceinline void rotate(const Quaternion &q,const Vector3&v,Vector3*out
  out->Z=(q.X*y-q.Y*x)+(q.W*z-q.Z*w);
 }
 static __forceinline void compose(const S2CompactTransform&a,const S2CompactTransform&b,S2CompactTransform&result){
- Vector3 r;rotate(a.Q,b.Position,&r);result.Position=r+a.Position;
+ Vector3 rotated;rotate(a.Q,b.Position,&rotated);result.Position=rotated+a.Position;
  result.Q=a.Q*b.Q;
 }
 
@@ -143,7 +143,7 @@ static __forceinline void rotate2(const Quaternion &q,const Vector3&v,Vector3*ou
  out->Z=((1 ? (q.X*y) : (q.X*y))-q.Y*x)+(q.W*z-q.Z*w);
 }
 static __forceinline void compose2(const S2CompactTransform&a,const S2CompactTransform&b,S2CompactTransform&result){
- Vector3 r;rotate2(a.Q,b.Position,&r);result.Position=r+a.Position;
+ Vector3 rotated;rotate2(a.Q,b.Position,&rotated);result.Position=rotated+a.Position;
  result.Q=a.Q*b.Q;
 }
 
@@ -188,7 +188,7 @@ static __forceinline void SlaveProduct(const Quaternion &a,const Quaternion &b,Q
  out=q;
 }
 static __forceinline void SlaveCompose(const S2CompactTransform&a,const S2CompactTransform&b,S2CompactTransform&result){
- Vector3 r;rotate(a.Q,b.Position,&r);result.Position=r+a.Position;
+ Vector3 rotated;rotate(a.Q,b.Position,&rotated);result.Position=rotated+a.Position;
  SlaveProduct(a.Q,b.Q,result.Q);
 }
 

@@ -233,12 +233,12 @@ int Rva0059CEC4::rva0059CED4(const Rva0059CEC4Arg *arg)
 class Rva005EB7CD
 {
 public:
-	int rva005EB7CD(int high, int low);
+	int packPair(int high, int low);
 	int rva005EB7DE(int packed);
 	int rva005EB7ED(int packed);
 };
 
-int Rva005EB7CD::rva005EB7CD(int high, int low)
+int Rva005EB7CD::packPair(int high, int low)
 {
 	return high * 10000 + low;
 }

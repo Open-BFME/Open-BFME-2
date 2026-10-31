@@ -117,10 +117,10 @@ int Rva00120130Get(void)
 	return G009EE5D0;
 }
 
-// ?Rva00129450Get@@YAHXZ @ 0x00129450 (6B): returns global at 0x9B5F94.
+// ?getNPatchesLevel@@YAHXZ @ 0x00129450 (6B): returns global at 0x9B5F94.
 // Follows int3 (prev CC), followed by CC padding, no .rdata vtable slot,
 // no direct callers, no branch sources. Opaque address-derived name.
-int Rva00129450Get(void)
+int getNPatchesLevel(void)
 {
 	return (int)WW3D::Read_NPatchesLevel();
 }
@@ -230,106 +230,106 @@ extern int G00DFDA54;
 // G00DFDA54: VA 0xdfda54 (zero-filled .bss).
 int G00DFDA54;
 
-// ?Rva00610F10Get@@YAHXZ @ 0x00610F10 (6B): returns global at 0xE08C48.
+// ?getFeatureBits@@YAHXZ @ 0x00610F10 (6B): returns global at 0xE08C48.
 // Follows int3 (prev CC), followed by CC padding, no .rdata vtable slot,
 // no direct callers, no branch sources. Opaque address-derived name.
-int Rva00610F10Get(void)
+int getFeatureBits(void)
 {
 	return (int)CPUDetectClass::Read_FeatureBits();
 }
 
-// ?Rva00610F20Get@@YAHXZ @ 0x00610F20 (6B): returns global at 0xE08CF0.
+// ?getExtendedFeatureBits@@YAHXZ @ 0x00610F20 (6B): returns global at 0xE08CF0.
 // Follows int3 (prev CC), followed by CC padding, no .rdata vtable slot,
 // no direct callers, no branch sources. Opaque address-derived name.
-int Rva00610F20Get(void)
+int getExtendedFeatureBits(void)
 {
 	return (int)CPUDetectClass::Read_ExtendedFeatureBits();
 }
 
-// ?Rva00610F30Get@@YAHXZ @ 0x00610F30 (6B): returns global at 0xE08C44.
+// ?getL2CacheSize@@YAHXZ @ 0x00610F30 (6B): returns global at 0xE08C44.
 // Follows int3 (prev CC), followed by CC padding, no .rdata vtable slot,
 // no direct callers, no branch sources. Opaque address-derived name.
-int Rva00610F30Get(void)
+int getL2CacheSize(void)
 {
 	return (int)CPUDetectClass::Read_L2CacheSize();
 }
 
-// ?Rva00610F40Get@@YAHXZ @ 0x00610F40 (6B): returns global at 0xE08CA0.
+// ?getL2CacheLineSize@@YAHXZ @ 0x00610F40 (6B): returns global at 0xE08CA0.
 // Follows int3 (prev CC), followed by CC padding, no .rdata vtable slot,
 // no direct callers, no branch sources. Opaque address-derived name.
-int Rva00610F40Get(void)
+int getL2CacheLineSize(void)
 {
 	return (int)CPUDetectClass::Read_L2CacheLineSize();
 }
 
-// ?Rva00610F50Get@@YAHXZ @ 0x00610F50 (6B): returns global at 0xE08CA4.
+// ?getL2CacheSetAssociative@@YAHXZ @ 0x00610F50 (6B): returns global at 0xE08CA4.
 // Follows int3 (prev CC), followed by CC padding, no .rdata vtable slot,
 // no direct callers, no branch sources. Opaque address-derived name.
-int Rva00610F50Get(void)
+int getL2CacheSetAssociative(void)
 {
 	return (int)CPUDetectClass::Read_L2CacheSetAssociative();
 }
 
-// ?Rva00610F60Get@@YAHXZ @ 0x00610F60 (6B): returns global at 0xE08C28.
+// ?getL1DataCacheSize@@YAHXZ @ 0x00610F60 (6B): returns global at 0xE08C28.
 // Follows int3 (prev CC), followed by CC padding, no .rdata vtable slot,
 // no direct callers, no branch sources. Opaque address-derived name.
-int Rva00610F60Get(void)
+int getL1DataCacheSize(void)
 {
 	return (int)CPUDetectClass::Read_L1DataCacheSize();
 }
 
-// ?Rva00610F70Get@@YAHXZ @ 0x00610F70 (6B): returns global at 0xE08CC0.
+// ?getL1DataCacheLineSize@@YAHXZ @ 0x00610F70 (6B): returns global at 0xE08CC0.
 // Follows int3 (prev CC), followed by CC padding, no .rdata vtable slot,
 // no direct callers, no branch sources. Opaque address-derived name.
-int Rva00610F70Get(void)
+int getL1DataCacheLineSize(void)
 {
 	return (int)CPUDetectClass::Read_L1DataCacheLineSize();
 }
 
-// ?Rva00610F80Get@@YAHXZ @ 0x00610F80 (6B): returns global at 0xE08D08.
+// ?getL1DataCacheSetAssociative@@YAHXZ @ 0x00610F80 (6B): returns global at 0xE08D08.
 // Follows int3 (prev CC), followed by CC padding, no .rdata vtable slot,
 // no direct callers, no branch sources. Opaque address-derived name.
-int Rva00610F80Get(void)
+int getL1DataCacheSetAssociative(void)
 {
 	return (int)CPUDetectClass::Read_L1DataCacheSetAssociative();
 }
 
-// ?Rva00610F90Get@@YAHXZ @ 0x00610F90 (6B): returns global at 0xE08CD8.
+// ?getL1InstructionCacheSize@@YAHXZ @ 0x00610F90 (6B): returns global at 0xE08CD8.
 // Follows int3 (prev CC), followed by CC padding, no .rdata vtable slot,
 // no direct callers, no branch sources. Opaque address-derived name.
-int Rva00610F90Get(void)
+int getL1InstructionCacheSize(void)
 {
 	return (int)CPUDetectClass::Read_L1InstructionCacheSize();
 }
 
-// ?Rva00610FA0Get@@YAHXZ @ 0x00610FA0 (6B): returns global at 0xE08CC4.
+// ?getL1InstructionCacheLineSize@@YAHXZ @ 0x00610FA0 (6B): returns global at 0xE08CC4.
 // Follows int3 (prev CC), followed by CC padding, no .rdata vtable slot,
 // no direct callers, no branch sources. Opaque address-derived name.
-int Rva00610FA0Get(void)
+int getL1InstructionCacheLineSize(void)
 {
 	return (int)CPUDetectClass::Read_L1InstructionCacheLineSize();
 }
 
-// ?Rva00610FB0Get@@YAHXZ @ 0x00610FB0 (6B): returns global at 0xE08C40.
+// ?getL1InstructionCacheSetAssociative@@YAHXZ @ 0x00610FB0 (6B): returns global at 0xE08C40.
 // Follows int3 (prev CC), followed by CC padding, no .rdata vtable slot,
 // no direct callers, no branch sources. Opaque address-derived name.
-int Rva00610FB0Get(void)
+int getL1InstructionCacheSetAssociative(void)
 {
 	return (int)CPUDetectClass::Read_L1InstructionCacheSetAssociative();
 }
 
-// ?Rva00610FC0Get@@YAHXZ @ 0x00610FC0 (6B): returns global at 0xE08CFC.
+// ?getL1InstructionTraceCacheSize@@YAHXZ @ 0x00610FC0 (6B): returns global at 0xE08CFC.
 // Follows int3 (prev CC), followed by CC padding, no .rdata vtable slot,
 // no direct callers, no branch sources. Opaque address-derived name.
-int Rva00610FC0Get(void)
+int getL1InstructionTraceCacheSize(void)
 {
 	return (int)CPUDetectClass::Read_L1InstructionTraceCacheSize();
 }
 
-// ?Rva00611020Get@@YAHXZ @ 0x00611020 (6B): returns global at 0xE08D24.
+// ?getProcessorType@@YAHXZ @ 0x00611020 (6B): returns global at 0xE08D24.
 // Follows int3 (prev CC), followed by CC padding, no .rdata vtable slot,
 // no direct callers, no branch sources. Opaque address-derived name.
-int Rva00611020Get(void)
+int getProcessorType(void)
 {
 	return (int)CPUDetectClass::Read_ProcessorType();
 }
@@ -345,13 +345,13 @@ int Rva0069BD50Get(void)
 	return G00E0BE00;
 }
 
-// ?Rva006C5E70Get@@YAHXZ @ 0x006C5E70 (6B): returns ProfileId::first (0xE0C620,
+// ?getFirstProfileId@@YAHXZ @ 0x006C5E70 (6B): returns ProfileId::first (0xE0C620,
 // defined in profile/profile_highlevel.cpp); inside that unit's address range.
 // Follows int3 (prev CC), followed by CC padding, no .rdata vtable slot,
 // no direct callers, no branch sources. Opaque address-derived name.
 #include "../../../Libraries/Source/profile/internal_highlevel.h"
 
-int Rva006C5E70Get(void)
+int getFirstProfileId(void)
 {
 	return (int)ProfileId::GetFirst();
 }

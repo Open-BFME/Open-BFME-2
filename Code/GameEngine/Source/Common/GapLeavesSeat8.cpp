@@ -517,7 +517,7 @@ struct Rva00584CAEConst { static int get(); };
 int Rva00584CAEConst::get() { return 0x0A; }
 
 // 0x0016CB40 (8B, cdecl): returns p + 0x10.
-void *__cdecl Rva0016CB40(char *p) { return p + 0x10; }
+void *__cdecl Rva0016CB40(char *base) { return base + 0x10; }
 
 // 0x00181490 (5B, RET4): empty 1-arg constructor returning this.
 class Rva00181490 { public: Rva00181490(int); };
@@ -532,8 +532,8 @@ class Rva0039ADEC { public: float rva0039ADEC(float x) const; };
 float Rva0039ADEC::rva0039ADEC(float x) const { return x; }
 
 // 0x0039D8CC (7B, RET16): returns the first of four dword arguments.
-class Rva0039D8CC { public: int rva0039D8CC(int a, int, int, int) const; };
-int Rva0039D8CC::rva0039D8CC(int a, int, int, int) const { return a; }
+class Rva0039D8CC { public: int rva0039D8CC(int first, int, int, int) const; };
+int Rva0039D8CC::rva0039D8CC(int first, int, int, int) const { return first; }
 
 // 0x00468A2F (7B): returns the float at +0x528.
 class Rva00468A2F { public: float get() const; private: char m_pad[0x528]; float m_528; };
@@ -556,10 +556,10 @@ class Rva00462477 { public: bool rva00462477() const; };
 bool Rva00462477::rva00462477() const { return BfmeAIExitDoorFlag; }
 
 // 0x001E4132 (21B): height delta divided by twice logic fps.
-class Rva001E4132 { public: float rva001E4132(float a, float y1, float b, float y2); };
-float Rva001E4132::rva001E4132(float, float y1, float, float y2)
+class Rva001E4132 { public: float rva001E4132(float a, float startHeight, float b, float endHeight); };
+float Rva001E4132::rva001E4132(float, float startHeight, float, float endHeight)
 {
-	return (y2 - y1) / ((float)BfmeLogicFramesPerSecond + (float)BfmeLogicFramesPerSecond);
+	return (endHeight - startHeight) / ((float)BfmeLogicFramesPerSecond + (float)BfmeLogicFramesPerSecond);
 }
 
 // 0x001513E5 (5B): sets bit 2 at byte offset +7
