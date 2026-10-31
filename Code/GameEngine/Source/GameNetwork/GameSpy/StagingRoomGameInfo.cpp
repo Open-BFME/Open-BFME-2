@@ -50,6 +50,8 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #define SNMP_PDU_GET 0xA0
 #define SNMP_PDU_GETNEXT 0xA1
 #define ARRAY_SIZE(a) (sizeof(a)/sizeof(a[0]))
+typedef unsigned short WideChar;
+#include <windows.h>
 
 // bfme link decl-only begin
 namespace _STL { template <> _String_base<char, allocator<char> >::~_String_base(); }
@@ -161,47 +163,6 @@ private:
 	int m_losses;					// +0x1C4
 	int m_rankPoints;				// +0x1C8
 	int m_favoriteSide;				// +0x1CC
-};
-
-// The slot's out-of-line AsciiString setters and getters, rowed on address
-// classes: +0x1B0 (Zero Hour's setLoginName/getLoginName), +0x1B4
-// (setLocale), +0x1D8, +0x1DC and +0x1A8.
-class Rva004FDCE1AsciiField
-{
-public:
-	AsciiString get(void) const;
-	void setGameSpyName(AsciiString value);
-};
-
-class Rva004FDD6DAsciiField
-{
-public:
-	AsciiString get(void) const;
-};
-
-class Rva003821B9AsciiField
-{
-public:
-	AsciiString get(void) const;
-};
-
-class Rva004FDD36AsciiField
-{
-public:
-	void setClan(AsciiString value);
-};
-
-class Rva004CFB6DAsciiField
-{
-public:
-	AsciiString get(void) const;
-	void rva004CFB8B(AsciiString value);
-};
-
-class Rva004CFBC2AsciiField
-{
-public:
-	void rva004CFBC2(AsciiString value);
 };
 
 class Image;
@@ -695,8 +656,6 @@ typedef void *HANDLE;
 
 typedef void *LPVOID;
 
-typedef struct HINSTANCE__ *HINSTANCE;
-
 typedef int (__stdcall *FARPROC)();
 
 struct hostent
@@ -812,6 +771,201 @@ class Rva004FDB04 {
 public:
 	void rva004FDB04(AsciiString arg);
 };
+
+class Rva00274DB6AsciiField
+{
+public:
+	AsciiString get() const;
+
+private:
+	char m_pad[0x79C];
+	AsciiString m_value; // +0x79C
+};
+
+class Rva00291775AsciiField
+{
+public:
+	AsciiString get() const;
+
+private:
+	char m_pad[0x318];
+	AsciiString m_value; // +0x318
+};
+
+class Rva003821B9AsciiField
+{
+public:
+	AsciiString get() const;
+
+private:
+	char m_pad[0x1A8];
+	AsciiString m_value; // +0x1A8
+};
+
+class Rva00382216AsciiField
+{
+public:
+	AsciiString get() const;
+
+private:
+	char m_pad[0x1B8];
+	AsciiString m_value; // +0x1B8
+};
+
+class Rva00095224AsciiField
+{
+public:
+	AsciiString get() const;
+
+private:
+	char m_pad[0xAC];
+	AsciiString m_value; // +0xAC
+};
+
+class Rva0046AA11AsciiField
+{
+public:
+	AsciiString get() const;
+
+private:
+	char m_pad[0x308];
+	AsciiString m_value; // +0x308
+};
+
+class Rva004CFB6DAsciiField
+{
+public:
+	AsciiString get() const;
+	void rva004CFB8B(AsciiString value);
+
+private:
+	char m_pad[0x1D8];
+	AsciiString m_value; // +0x1D8
+};
+
+class Rva004DC902AsciiField
+{
+public:
+	AsciiString get() const;
+
+private:
+	char m_pad[0x188];
+	AsciiString m_value; // +0x188
+};
+
+class Rva004FDCE1AsciiField
+{
+public:
+	AsciiString get() const;
+	void setGameSpyName(AsciiString value);
+
+private:
+	char m_pad[0x1B0];
+	AsciiString m_value; // +0x1B0
+};
+
+class Rva004FDD36AsciiField
+{
+public:
+	void setClan(AsciiString value);
+
+private:
+	char m_pad[0x1B4];
+	AsciiString m_value; // +0x1B4
+};
+
+class Rva004FDD6DAsciiField
+{
+public:
+	AsciiString get() const;
+
+private:
+	char m_pad[0x1DC];
+	AsciiString m_value; // +0x1DC
+};
+
+class Rva0056D653AsciiField
+{
+public:
+	AsciiString get() const;
+
+private:
+	char m_pad[0x258];
+	AsciiString m_value; // +0x258
+};
+
+class Rva00581777AsciiField
+{
+public:
+	AsciiString get() const;
+	void setSerial(AsciiString value);
+
+private:
+	char m_pad[0x1C8];
+	AsciiString m_value; // +0x1C8
+};
+
+class Rva0059F322AsciiField
+{
+public:
+	AsciiString get() const;
+
+private:
+	char m_pad[0xFFC];
+	AsciiString m_value; // +0xFFC
+};
+
+class Rva0059F340AsciiField
+{
+public:
+	AsciiString get() const;
+
+private:
+	char m_pad[0xFDC];
+	AsciiString m_value; // +0xFDC
+};
+
+class Rva002D9BC1AsciiField
+{
+public:
+	AsciiString get() const;
+
+private:
+	char m_pad[0x20];
+	AsciiString m_value; // +0x20
+};
+
+class Rva004DC8E7AsciiField
+{
+public:
+	AsciiString get() const;
+
+private:
+	char m_pad[0x3c];
+	AsciiString m_value; // +0x3c
+};
+
+class Rva0029173EAsciiField
+{
+public:
+	void setName(AsciiString value);
+
+private:
+	char m_pad[0x308];
+	AsciiString m_value; // +0x308
+};
+
+class Rva004CFBC2AsciiField
+{
+public:
+	void rva004CFBC2(AsciiString value);
+
+private:
+	char m_pad[0x1DC];
+	AsciiString m_value; // +0x1DC
+};
+
+// ---- from Code/GameEngine/Source/GameNetwork/GameSpy/StagingRoomGameInfo.cpp
 
 // ---- from Code/GameEngine/Source/GameNetwork/GameSpy/StagingRoomGameInfo.cpp
 
@@ -1842,10 +1996,6 @@ void Rva004FDA42Owner::rva004FDA42()
 	m_101C = 0;
 }
 
-// tu-skeleton: 0x004FDAC7 39B ?xfer@GameSpyStagingRoom@@UAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/GameSpyStagingRoomXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x004FDAEE 22B ??$_Construct@UBfmePod20@@U1@@_STL@@YAXPAUBfmePod20@@ABU1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva004FDB57Assign.cpp
 
 // ?rva004FDB57@Rva004FDB57@@QAEXVAsciiString@@@Z, retail 0x004FDB57, 83 bytes.
@@ -1870,14 +2020,6 @@ void Rva004FDB04::rva004FDB04(AsciiString arg)
 	slot = arg;
 	m_id1BC = TheGameSpyInfo->_M_slot_120(arg);
 }
-
-// tu-skeleton: 0x004FDCE1 30B ?get@Rva004FDCE1AsciiField@@QBE?AVAsciiString@@XZ -- matched in Code/GameEngine/Source/Common/System/AsciiStringRvoGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x004FDCFF 55B ?setGameSpyName@Rva004FDCE1AsciiField@@QAEXVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/System/AsciiStringRvoGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x004FDD36 55B ?setClan@Rva004FDD36AsciiField@@QAEXVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/System/AsciiStringRvoGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x004FDD6D 30B ?get@Rva004FDD6DAsciiField@@QBE?AVAsciiString@@XZ -- matched in Code/GameEngine/Source/Common/System/AsciiStringRvoGetters.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/System/SaveGame/Rva00382398Ctor.cpp
 
@@ -1950,4 +2092,43 @@ GameSpyStagingRoom::GameSpyStagingRoom()
 	m_isQM = false;
 	m_qmLadderType = 0;
 	m_reportedNumObservers = 0;
+}
+
+// tu-skeleton: 0x004FDAC7 39B ?xfer@GameSpyStagingRoom@@UAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/GameSpyStagingRoomXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x004FDAEE 22B ??$_Construct@UBfmePod20@@U1@@_STL@@YAXPAUBfmePod20@@ABU1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/System/AsciiStringRvoGetters.cpp
+
+// ?get@Rva004FDCE1AsciiField@@QBE?AVAsciiString@@XZ
+AsciiString Rva004FDCE1AsciiField::get() const
+{
+	return m_value;
+}
+
+// Setter for the same +0x1B0 member the getter above returns: abuts it
+// (0x004FDCE1+30=0x004FDCFF), same class and offset. Takes AsciiString by value
+// (lea eax,[ebp+8]; ret 4), assigns via rowed operator= then destroys the copy
+// via rowed releaseBuffer with EH unwind (mov eax,scope; call __EH_prolog).
+void Rva004FDCE1AsciiField::setGameSpyName(AsciiString value)
+{
+	AsciiString &slot = m_value;
+	slot = value;
+}
+
+// Setter at 0x004FDD36 55B: abuts prev setter (0x004FDCFF+55=0x004FDD36) and
+// next getter (0x004FDD36+55=0x004FDD6D). Same 55B shape as rva004FDCFF with
+// member at +0x1B4 (lea eax,[ebp+8]; add ecx,0x1B4; push eax) via rowed
+// operator= then rowed releaseBuffer with EH unwind. New address-derived
+// class since no landed getter shares +0x1B4.
+void Rva004FDD36AsciiField::setClan(AsciiString value)
+{
+	AsciiString &slot = m_value;
+	slot = value;
+}
+
+// ?get@Rva004FDD6DAsciiField@@QBE?AVAsciiString@@XZ
+AsciiString Rva004FDD6DAsciiField::get() const
+{
+	return m_value;
 }

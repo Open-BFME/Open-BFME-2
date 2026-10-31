@@ -8028,7 +8028,7 @@ _GetProcessorFlags,,0x001C4390,169,Code/Libraries/Source/VP6/GetProcessorFlags.c
 ?get@Rva0033A444WordIntField@@QBEHXZ,,0x0033A444,8,Code/GameEngine/Source/Common/DispWordIntGetters.cpp,matched,Disp32 word-int getter movzx shape
 ?get@Rva00391614WordIntField@@QBEHXZ,,0x00391614,8,Code/GameEngine/Source/Common/DispWordIntGetters.cpp,matched,Disp32 word-int getter movzx shape
 ?get@Rva003FDA90SmartField@@QBE?AVRvaSmartPtr12@@XZ,,0x003FDA90,30,Code/GameEngine/Source/Common/System/SmartPtrRvoGetter.cpp,matched,RVO smart-ptr getter member +0x15C via 0x4CC19 pin
-?get@Rva004FDCE1AsciiField@@QBE?AVAsciiString@@XZ,,0x004FDCE1,30,Code/GameEngine/Source/Common/System/AsciiStringRvoGetters.cpp,matched,RVO AsciiString getter member +0x1B0 via 0x365F0 row
+?get@Rva004FDCE1AsciiField@@QBE?AVAsciiString@@XZ,,0x004FDCE1,30,Code/GameEngine/Source/GameNetwork/GameSpy/StagingRoomGameInfo.cpp,matched,RVO AsciiString getter member +0x1B0 via 0x365F0 row
 ?Get_Intensity@LightClass@@QBEMXZ,,0x0011C6F0,7,Code/Libraries/Source/WWVegas/WW3D2/lightenvironment.cpp,matched,LightClass Intensity +0xD0; emitted with Get_Specular 0x11C700 / Get_Spot_Direction 0x11C730 / Get_Spot_Exponent 0x11C760 in dx8wrapper Set_Light order; dx8wrapper.cpp and lightenvironment.cpp emit identical bytes
 ?get@Rva0015E1A0FloatField@@QBEMXZ,,0x0015E1A0,7,Code/GameEngine/Source/Common/DispFloatFieldGetters.cpp,matched,Disp32 float getter
 ?get@Rva0015E1B0FloatField@@QBEMXZ,,0x0015E1B0,7,Code/GameEngine/Source/Common/DispFloatFieldGetters.cpp,matched,Disp32 float getter
@@ -9220,7 +9220,7 @@ _LoadChunk,,0x00756CF0,23,Code/Libraries/Source/Lua/lundump.c,matched,BFME1 byte
 ?bfmeGoDXKa@BfmeThingDXK@@QAEXXZ,,0x00176B60,34,Code/GameEngine/Source/Common/BfmeConv794.cpp,matched,BFME1 donor b1 0x009587F0; SysFreeString import plus ledger array-delete; void return eliminates ICF twins
 ?setBit8@Rva008993E0Owner@@QAEXH@Z,,0x006D6440,32,Code/GameEngine/Source/Common/SmallGaps/Rva008993E0Bit8Access.cpp,matched,BFME1 byte-identical donor; b1 0x008993E0
 ?getBit8@Rva008993E0Owner@@QAEHXZ,,0x006D6460,10,Code/GameEngine/Source/Common/SmallGaps/Rva008993E0Bit8Access.cpp,matched,BFME1 byte-identical donor; b1 0x00899400
-?get@Rva004FDD6DAsciiField@@QBE?AVAsciiString@@XZ,,0x004FDD6D,30,Code/GameEngine/Source/Common/System/AsciiStringRvoGetters.cpp,matched,RVO AsciiString out-getter; member +0x1DC via StringBase copy 0x365F0
+?get@Rva004FDD6DAsciiField@@QBE?AVAsciiString@@XZ,,0x004FDD6D,30,Code/GameEngine/Source/GameNetwork/GameSpy/StagingRoomGameInfo.cpp,matched,RVO AsciiString out-getter; member +0x1DC via StringBase copy 0x365F0
 ??0SmudgeSet@@QAE@XZ,,0x002D2859,36,Code/GameEngine/Source/GameClient/System/Smudge.cpp,matched,BFME1 donor b1 0x005D4160; caller-proven by addSmudgeSet new at 0x002D2956
 ?go@Rva008A2C60@@QAEXXZ,,0x006E5FD0,21,Code/GameEngine/Source/Common/R1GuardedReleaseHelpers.cpp,matched,BFME1 byte-identical donor; b1 0x008A2C60
 ?get@Rva0056D653AsciiField@@QBE?AVAsciiString@@XZ,,0x0056D653,30,Code/GameEngine/Source/Common/System/AsciiStringRvoGetters.cpp,matched,RVO AsciiString out-getter; member +0x258 via StringBase copy 0x365F0
@@ -26114,8 +26114,8 @@ _piConnectNickErrorCallbackA,,0x006A0180,44,Code/GameEngine/Source/GameNetwork/G
 ?rva00041118@Rva00041078@@QAE_NXZ,,0x00041118,54,Code/GameEngine/Source/Common/Rva00041078Wait.cpp,matched,wait set requery same layout caller 0x4135C O1 MD
 ?insert_unique@?$_Rb_tree@VAsciiString@@V1@U?$_Identity@VAsciiString@@@_STL@@UBfmeStringNoCaseLess@@V?$allocator@VAsciiString@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@VAsciiString@@U?$_Nonconst_traits@VAsciiString@@@_STL@@@_STL@@_N@2@ABVAsciiString@@@Z,,0x0002C908,153,Code/GameEngine/Source/Common/INI/INI.cpp,matched,set insert_unique caller of rowed _M_insert 0x2C686 via nocase less 0x2C63C
 ??1Rva000A79CE@@QAE@XZ,,0x000A7BEE,56,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_treekey00242F5E_dtor.cpp,matched,chain tree dtor via rowed clear plus header free
-?setGameSpyName@Rva004FDCE1AsciiField@@QAEXVAsciiString@@@Z,,0x004FDCFF,55,Code/GameEngine/Source/Common/System/AsciiStringRvoGetters.cpp,matched,setter for same 0x1B0 member as rowed getter via rowed callees
-?setClan@Rva004FDD36AsciiField@@QAEXVAsciiString@@@Z,,0x004FDD36,55,Code/GameEngine/Source/Common/System/AsciiStringRvoGetters.cpp,matched,setter 0x1B4 same 55B shape as sibling via rowed callees
+?setGameSpyName@Rva004FDCE1AsciiField@@QAEXVAsciiString@@@Z,,0x004FDCFF,55,Code/GameEngine/Source/GameNetwork/GameSpy/StagingRoomGameInfo.cpp,matched,setter for same 0x1B0 member as rowed getter via rowed callees
+?setClan@Rva004FDD36AsciiField@@QAEXVAsciiString@@@Z,,0x004FDD36,55,Code/GameEngine/Source/GameNetwork/GameSpy/StagingRoomGameInfo.cpp,matched,setter 0x1B4 same 55B shape as sibling via rowed callees
 ?insert@?$set@VAsciiString@@UBfmeStringNoCaseLess@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@VAsciiString@@U?$_Const_traits@VAsciiString@@@_STL@@@_STL@@_N@2@ABVAsciiString@@@Z,,0x0002CA26,35,Code/GameEngine/Source/Common/INI/INI.cpp,matched,set insert wrapper calls rowed tree insert_unique 0x2C908
 ??1Rva006ED2A0@@UAE@XZ,,0x006ED2A0,228,Code/GameEngine/Source/Common/Rva006ED2A0Dtor.cpp,matched,chain via 0x006DB270 caller 0x006EFB90 sibling Rva006F8460 base pattern
 ?Rva00361594Assign@@YAXPAVRva0036105B@@00PAX@Z,,0x00361594,29,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,matched,range-assign wrapper over rowed copy at 0x003614F4 via stack tag plus null

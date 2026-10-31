@@ -158,22 +158,6 @@ private:
 	AsciiString m_value; // +0x1B0
 };
 
-// ?get@Rva004FDCE1AsciiField@@QBE?AVAsciiString@@XZ
-AsciiString Rva004FDCE1AsciiField::get() const
-{
-	return m_value;
-}
-
-// Setter for the same +0x1B0 member the getter above returns: abuts it
-// (0x004FDCE1+30=0x004FDCFF), same class and offset. Takes AsciiString by value
-// (lea eax,[ebp+8]; ret 4), assigns via rowed operator= then destroys the copy
-// via rowed releaseBuffer with EH unwind (mov eax,scope; call __EH_prolog).
-void Rva004FDCE1AsciiField::setGameSpyName(AsciiString value)
-{
-	AsciiString &slot = m_value;
-	slot = value;
-}
-
 class Rva004FDD36AsciiField
 {
 public:
@@ -184,17 +168,6 @@ private:
 	AsciiString m_value; // +0x1B4
 };
 
-// Setter at 0x004FDD36 55B: abuts prev setter (0x004FDCFF+55=0x004FDD36) and
-// next getter (0x004FDD36+55=0x004FDD6D). Same 55B shape as rva004FDCFF with
-// member at +0x1B4 (lea eax,[ebp+8]; add ecx,0x1B4; push eax) via rowed
-// operator= then rowed releaseBuffer with EH unwind. New address-derived
-// class since no landed getter shares +0x1B4.
-void Rva004FDD36AsciiField::setClan(AsciiString value)
-{
-	AsciiString &slot = m_value;
-	slot = value;
-}
-
 class Rva004FDD6DAsciiField
 {
 public:
@@ -204,12 +177,6 @@ private:
 	char m_pad[0x1DC];
 	AsciiString m_value; // +0x1DC
 };
-
-// ?get@Rva004FDD6DAsciiField@@QBE?AVAsciiString@@XZ
-AsciiString Rva004FDD6DAsciiField::get() const
-{
-	return m_value;
-}
 
 class Rva0056D653AsciiField
 {
