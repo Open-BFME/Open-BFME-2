@@ -1,4 +1,5 @@
 // cl: /O1 /G7 /arch:SSE /MD
+#include "../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 // ActionManager receiver proven by native488B2E and WB11CB926. BFME1
 // a7c38d3b2597 ActionManager_canResumeConstructionOf_Thunk.cpp establishes
 // the same operation; BFME2 retains its own template/status/object offsets.
@@ -6,7 +7,10 @@ enum Relationship
 {
 	ENEMIES = 0,
 	NEUTRAL = 1,
-	ALLIES = 2
+	ALLIES = 2,
+	RvaRel0 = 0,
+	RvaRel1 = 1,
+	RvaRelEnemies = 2
 };
 
 enum ObjectStatusTypes
@@ -24,36 +28,137 @@ enum ObjectID
 class ThingTemplate
 {
 public:
-	unsigned char m_pad00[0x109];
-	unsigned char m_flags109;               // +0x109 bit 0x40
+	unsigned char m_pre108[0x108];
+	unsigned char m_kindOfBytes[0x20]; // +0x108; byte +0x109 bit 0x40
 };
 
+enum SpecialPowerType { SPECIAL_INVALID = 0 };
+#include "../../../Libraries/Include/Lib/Coord3D.h"
+class ThingTemplate;
+class VisIface;
+class Team;
+class SpawnBehaviorInterface;
+class BfmeContainModule;
+class SpecialPowerTemplate;
+class SpecialPowerModuleInterface;
+class Player;
+class SpecialAbilityUpdate;
+enum CanAttackResult
+{
+	ATTACKRESULT_NOT_POSSIBLE,
+	ATTACKRESULT_INVALID_SHOT,
+	ATTACKRESULT_POSSIBLE_AFTER_MOVING,
+	ATTACKRESULT_POSSIBLE
+};
+enum AbleToAttackType
+{
+	ATTACK_NEW_TARGET = 0,
+	ATTACK_TYPE_FLAG_10 = 0x10
+};
 class Object
 {
 public:
+	virtual ~Object();
+	const ThingTemplate *m_template; // +0x04
+	char m_pad08[0x38 - 0x08];
+	Coord3D m_pos38;
+	char m_pad44[0x74 - 0x44];
+	ObjectID m_id; // +0x74
+	char m_pad78[0x250 - 0x78];
+	VisIface *m_vis;
+	char m_pad254[0x258 - 0x254];
+	int m_258;
+	char m_pad25C[0x304 - 0x25C];
+	Team *m_team;
+	char m_pad308[0x438 - 0x308];
+	unsigned char m_flags438; // +0x438 bit0
+public:
+	bool isEffectivelyDead() const
+	{
+		return (*(const unsigned char *)((const char *)this + 0x438) & 1) != 0;
+	}
+public:
+	bool testStatus( ObjectStatusTypes bit ) const;
+public:
+	bool rva002931BA();
+public:
+	bool isAbleToAttack() const;
+public:
+	CanAttackResult getAbleToAttackSpecificObject( AbleToAttackType attackType,
+		const Object *target, CommandSourceType commandSource ) const;
+public:
+	SpawnBehaviorInterface *getSpawnBehaviorInterface() const;
+public:
+	const Coord3D *getPosition() const
+	{
+		return (const Coord3D *)((const char *)this + 0x38);
+	}
+public:
+	BfmeContainModule *getContain() const
+	{
+		return *(BfmeContainModule **)((const char *)this + 0x250);
+	}
+public:
+	Object *rva002931F5(bool checkProducer);
+public:
+	void *rva0028C1A9() const;
+public:
+	bool hasSpecialPower(SpecialPowerType type) const;
+public:
+	SpecialPowerModuleInterface *getSpecialPowerModule(const SpecialPowerTemplate *specialPowerTemplate) const;
+public:
+	void *rva0028BD5D(int i) const;
+public:
+	Player *getControllingPlayer() const;
+	void *rva0028C197() const;
 	Relationship getRelationship(const Object *that) const;
-	bool testStatus(ObjectStatusTypes s) const;
 	ObjectID getSoleHealingBenefactor() const;
-
-	unsigned char m_pad00[4];
-	ThingTemplate *m_template;               // +0x04
-	unsigned char m_pad08[0x74 - 0x08];
-	ObjectID m_id;                           // +0x74
-	unsigned char m_pad78[0x438 - 0x78];
-	unsigned char m_flags438;                // +0x438 bit0
+	SpecialAbilityUpdate *findSpecialAbilityUpdate(SpecialPowerType type) const;
 };
 
-enum CommandSourceType { CMD_FROM_UNRECONSTRUCTED = 0 };
-class ActionManager {
+class GameMessage
+{
 public:
- bool canResumeConstructionOf(const Object *a, const Object *b, CommandSourceType);
+	enum Type { MSG_ENTER_HINT = 175, MSG_CONTEST_HINT = 176, MSG_TYPE_193 = 193, MSG_TYPE_194 = 194 };
+};
+enum WeaponSlotType { PRIMARY_WEAPON=0 };
+class Rva0041B8D2Obj;
+class SpecialPowerTemplate;
+struct Coord3D;
+class Player;
+class DrawableList;
+class ActionManager
+{
+public:
+	unsigned char Rva0041B8D2Check(Rva0041B8D2Obj*, Rva0041B8D2Obj*, int);
+	CanAttackResult bfmeGetCanAttackContained( const Object *obj, const Object *objectToAttack, CommandSourceType commandSource, AbleToAttackType attackType );
+	CanAttackResult getCanAttackObject( const Object *obj, const Object *objectToAttack, CommandSourceType commandSource, AbleToAttackType attackType );
+	unsigned char canFireWeapon(const Object*,WeaponSlotType,CommandSourceType);
+	unsigned char Rva0041BB87IsRelated(Object*, Object*, int);
+	bool canDoSpecialPower(const Object *obj, const SpecialPowerTemplate *spTemplate, CommandSourceType commandSource, unsigned int commandOptions, bool checkSourceRequirements);
+	bool rva0041BA61(const Object *obj);
+	bool canOverrideSpecialPowerDestination(Object *obj, const Coord3D *pos, int idx, int unused);
+	bool rva0041BAD2(const Object*,const Object*,CommandSourceType,WeaponSlotType);
+	bool Rva0041B94AGet(Object*, Object*, int);
+	bool canResumeConstructionOf(const Object *a, const Object *b, CommandSourceType);
+	bool canPlayerGarrison(const Player *player, const Object *obj, CommandSourceType commandSource);
+	bool rva0041C9C4(const Object *, const Coord3D *, const SpecialPowerTemplate *);
+	bool Rva0041CE27Check(Object *, Object *, int);
+	GameMessage::Type getEnterMessage(const Object *obj, const DrawableList *allDraws);
+	GameMessage::Type rva0041CE06(const Object *obj);
+	bool canDoSpecialPowerAtLocation(const Object *,const Coord3D *,CommandSourceType,const SpecialPowerTemplate *,const Object *,unsigned,bool);
+	bool rva0041CC65(const SpecialPowerTemplate *,const Coord3D *);
+	bool rva0041CA9E(const Coord3D *,const Coord3D *,const SpecialPowerTemplate *);
+	bool rva0041CB10(const Coord3D *,const SpecialPowerTemplate *);
+	bool validLocationForCastingOnObjectFilter(const Object *,const Coord3D *,const SpecialPowerTemplate *);
+	bool validateLocationForForbiddenObjects(const Object *,const Coord3D *,const SpecialPowerTemplate *);
 };
 
 bool ActionManager::canResumeConstructionOf(const Object *object, const Object *b, CommandSourceType)
 {
 	if (object == 0 || b == 0)
 		return false;
-	if ((object->m_template->m_flags109 & 0x40) == 0)
+	if ((object->m_template->m_kindOfBytes[1] & 0x40) == 0)
 		return false;
 	Relationship r = object->getRelationship(b);
 	if (r != ALLIES)

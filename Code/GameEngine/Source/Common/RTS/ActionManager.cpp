@@ -10,11 +10,23 @@ enum CellShroudStatus
 	FOGBANK = 1,
 	SHROUDED = 2
 };
+enum Relationship
+{
+	ENEMIES = 0,
+	NEUTRAL = 1,
+	ALLIES = 2,
+	RvaRel0 = 0,
+	RvaRel1 = 1,
+	RvaRelEnemies = 2
+};
+class Team;
 class Player
 {
 public:
-	char m_pad[0x54];
-	int m_playerIndex;
+	Relationship getRelationship(const Team *that) const;
+	int getPlayerIndex() const { return m_playerIndex; }
+	char m_pad00[0x54];
+	int m_playerIndex; // +0x54
 };
 #include "../PartitionRangeQueryCallView.h"
 enum WeaponSlotType { PRIMARY_WEAPON=0 };
@@ -186,7 +198,9 @@ enum KindOfType
 
 enum ObjectStatusTypes
 {
-	OBJECT_STATUS_1 = 1
+	OBJECT_STATUS_0 = 0,
+	OBJECT_STATUS_1 = 1,
+	OBJECT_STATUS_2 = 2
 };
 
 class Object;
@@ -233,7 +247,7 @@ class ThingTemplate
 {
 public:
 	unsigned char m_pre108[0x108];
-	unsigned char m_kindOfBytes[0x20];
+	unsigned char m_kindOfBytes[0x20]; // +0x108; byte +0x109 bit 0x40
 };
 
 class ActionManager;
@@ -258,10 +272,7 @@ struct Rva0041BB87Iface
 	virtual unsigned char Check(Object *obj);
 };
 
-enum SpecialPowerType
-{
-	SPECIAL_INVALID = 0
-};
+enum SpecialPowerType { SPECIAL_INVALID = 0 };
 
 class Overridable
 {
@@ -319,29 +330,52 @@ class BfmeRefCF
 {
 public:
 	BfmeRefCF *bfmeAssignCF(const BfmeRefCF &other);
-
-	BfmeObjCF *m_bfmePtrCF;
+	BfmeObjCF *m_bfmePtrCF; // +0x00
 };
 
 extern PartitionManager *TheShroudManager;
 
+enum ObjectID
+{
+	OBJECTID_INVALID = 0
+};
+class ThingTemplate;
+class VisIface;
+class Team;
+class SpawnBehaviorInterface;
+class BfmeContainModule;
+class SpecialPowerTemplate;
+class SpecialPowerModuleInterface;
+class Player;
+class SpecialAbilityUpdate;
 class Object
 {
 public:
-	unsigned char m_pre000[4];
+	virtual ~Object();
+	const ThingTemplate *m_template; // +0x04
+	char m_pad08[0x38 - 0x08];
+	Coord3D m_pos38;
+	char m_pad44[0x74 - 0x44];
+	ObjectID m_id; // +0x74
+	char m_pad78[0x250 - 0x78];
+	VisIface *m_vis;
+	char m_pad254[0x258 - 0x254];
+	int m_258;
+	char m_pad25C[0x304 - 0x25C];
+	Team *m_team;
+	char m_pad308[0x438 - 0x308];
+	unsigned char m_flags438; // +0x438 bit0
 public:
-	const ThingTemplate *m_template004;
-public:
-	Bool isEffectivelyDead() const
+	bool isEffectivelyDead() const
 	{
 		return (*(const unsigned char *)((const char *)this + 0x438) & 1) != 0;
 	}
 public:
-	Bool testStatus( ObjectStatusTypes bit ) const;
+	bool testStatus( ObjectStatusTypes bit ) const;
 public:
-	Bool rva002931BA();
+	bool rva002931BA();
 public:
-	Bool isAbleToAttack() const;
+	bool isAbleToAttack() const;
 public:
 	CanAttackResult getAbleToAttackSpecificObject( AbleToAttackType attackType,
 		const Object *target, CommandSourceType commandSource ) const;
@@ -369,31 +403,43 @@ public:
 	void *rva0028BD5D(int i) const;
 public:
 	Player *getControllingPlayer() const;
+	void *rva0028C197() const;
+	Relationship getRelationship(const Object *that) const;
+	ObjectID getSoleHealingBenefactor() const;
+	SpecialAbilityUpdate *findSpecialAbilityUpdate(SpecialPowerType type) const;
 };
 
-class ActionManager {
+class GameMessage
+{
+public:
+	enum Type { MSG_ENTER_HINT = 175, MSG_CONTEST_HINT = 176, MSG_TYPE_193 = 193, MSG_TYPE_194 = 194 };
+};
+class DrawableList;
+class ActionManager
+{
 public:
 	unsigned char Rva0041B8D2Check(Rva0041B8D2Obj*, Rva0041B8D2Obj*, int);
-public:
-	CanAttackResult bfmeGetCanAttackContained( const Object *obj,
-		const Object *objectToAttack, CommandSourceType commandSource,
-		AbleToAttackType attackType );
-public:
-	CanAttackResult getCanAttackObject( const Object *obj,
-		const Object *objectToAttack, CommandSourceType commandSource,
-		AbleToAttackType attackType );
-public:
+	CanAttackResult bfmeGetCanAttackContained( const Object *obj, const Object *objectToAttack, CommandSourceType commandSource, AbleToAttackType attackType );
+	CanAttackResult getCanAttackObject( const Object *obj, const Object *objectToAttack, CommandSourceType commandSource, AbleToAttackType attackType );
 	unsigned char canFireWeapon(const Object*,WeaponSlotType,CommandSourceType);
-public:
 	unsigned char Rva0041BB87IsRelated(Object*, Object*, int);
-public:
 	bool canDoSpecialPower(const Object *obj, const SpecialPowerTemplate *spTemplate, CommandSourceType commandSource, unsigned int commandOptions, bool checkSourceRequirements);
-public:
 	bool rva0041BA61(const Object *obj);
-public:
 	bool canOverrideSpecialPowerDestination(Object *obj, const Coord3D *pos, int idx, int unused);
-public:
 	bool rva0041BAD2(const Object*,const Object*,CommandSourceType,WeaponSlotType);
+	bool Rva0041B94AGet(Object*, Object*, int);
+	bool canResumeConstructionOf(const Object *a, const Object *b, CommandSourceType);
+	bool canPlayerGarrison(const Player *player, const Object *obj, CommandSourceType commandSource);
+	bool rva0041C9C4(const Object *, const Coord3D *, const SpecialPowerTemplate *);
+	bool Rva0041CE27Check(Object *, Object *, int);
+	GameMessage::Type getEnterMessage(const Object *obj, const DrawableList *allDraws);
+	GameMessage::Type rva0041CE06(const Object *obj);
+	bool canDoSpecialPowerAtLocation(const Object *,const Coord3D *,CommandSourceType,const SpecialPowerTemplate *,const Object *,unsigned,bool);
+	bool rva0041CC65(const SpecialPowerTemplate *,const Coord3D *);
+	bool rva0041CA9E(const Coord3D *,const Coord3D *,const SpecialPowerTemplate *);
+	bool rva0041CB10(const Coord3D *,const SpecialPowerTemplate *);
+	bool validLocationForCastingOnObjectFilter(const Object *,const Coord3D *,const SpecialPowerTemplate *);
+	bool validateLocationForForbiddenObjects(const Object *,const Coord3D *,const SpecialPowerTemplate *);
 };
 
 // tu-skeleton: 0x0041B8B5 18B ??0ActionManager@@QAE@XZ -- matched in Code/GameEngine/Source/Common/GameEngineDeletingBaseDerived.cpp (not merged yet)
@@ -484,14 +530,14 @@ CanAttackResult ActionManager::getCanAttackObject( const Object *obj,
 		return ATTACKRESULT_NOT_POSSIBLE;
 
 	CanAttackResult result;
-	if ((obj->m_template004->m_kindOfBytes[KINDOF_STRUCTURE >> 3] & (1 << (KINDOF_STRUCTURE & 7))) != 0)
+	if ((obj->m_template->m_kindOfBytes[KINDOF_STRUCTURE >> 3] & (1 << (KINDOF_STRUCTURE & 7))) != 0)
 	{
 		result = bfmeGetCanAttackContained(obj, objectToAttack, commandSource, attackType);
 		if (result != ATTACKRESULT_NOT_POSSIBLE)
 			return result;
 	}
 
-	if ((obj->m_template004->m_kindOfBytes[KINDOF_SPAWNS_ARE_THE_WEAPONS >> 3] & (1 << (KINDOF_SPAWNS_ARE_THE_WEAPONS & 7))) != 0)
+	if ((obj->m_template->m_kindOfBytes[KINDOF_SPAWNS_ARE_THE_WEAPONS >> 3] & (1 << (KINDOF_SPAWNS_ARE_THE_WEAPONS & 7))) != 0)
 	{
 		SpawnBehaviorInterface *spawnInterface = obj->getSpawnBehaviorInterface();
 		if (spawnInterface)
