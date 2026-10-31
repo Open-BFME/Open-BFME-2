@@ -21894,7 +21894,7 @@ _FilterBlockBil_8_wmt,,0x001D7C80,204,Code/Libraries/Source/VP6/FilterBlockBil8W
 ?GetCampaign@LivingWorldCampaignManager@@QAEPAXH@Z,,0x003B8BF9,13,Code/GameEngine/Source/Common/Rva003B8BAALookup.cpp,matched,same plus0x14 array indexed by stack arg via callers at 0x522434 0x56DB3B 0x57D286
 ?rva003B8B2A@Rva003B8B2A@@QAEHXZ,,0x003B8B2A,19,Code/GameEngine/Source/Common/Rva003B8B2ACheck.cpp,matched,triple-and byte4C dword20 dword1C via callers testing al at 0x3B92E6 0x3B933E
 ?Rva003B8B61Destroy@@YAXPAURva003B8B61Elem@@0H@Z,,0x003B8B61,26,Code/GameEngine/Source/Common/Rva003B8B61Destroy.cpp,matched,range destroy stride 0x68 virtual slot0 via caller 0x3B8E21 pinned _Destroy
-?get@Rva002D9BC1AsciiField@@QBE?AVAsciiString@@XZ,,0x002D9BC1,27,Code/GameEngine/Source/Common/System/AsciiStringRvoGetters.cpp,matched,RVO AsciiString out-getter member +0x20 via StringBase copy 0x365F0 callers at 0x2DA88F and 0x54A47
+?get@Rva002D9BC1AsciiField@@QBE?AVAsciiString@@XZ,,0x002D9BC1,27,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,matched,RVO AsciiString out-getter member +0x20 via StringBase copy 0x365F0 callers at 0x2DA88F and 0x54A47
 ?rva000D4435@Rva000D4435Buffers@@QAEXXZ,,0x000D4435,28,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DRoadBuffer.cpp,matched,RoadType buffer setter VB+0x08 IB+0x0C via rowed DX8Wrapper calls caller at 0xD7AF8
 ?ReleaseClosedList@PathfindCell@@SAHPAVMixFileInfoBuffer@@@Z,,0x0052DE9B,56,Code/GameEngine/Source/Common/PathfindCell_ReleaseClosedList.cpp,matched,walk unlink list call finishReset return count
 ?Rva003B8E13DestroyRange@@YAXPAURva003B8B61Elem@@0@Z,,0x003B8E13,24,Code/GameEngine/Source/Common/Rva003B8E13DestroyRange.cpp,matched,honest DestroyRange forwarding to 0x3B8B61 tagged loop mirrors LivingWorld helpers

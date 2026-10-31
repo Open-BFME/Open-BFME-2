@@ -301,11 +301,6 @@ private:
 	AsciiString m_value; // +0x20
 };
 
-AsciiString Rva002D9BC1AsciiField::get() const
-{
-	return m_value;
-}
-
 class Rva004DC8E7AsciiField
 {
 public:

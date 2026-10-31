@@ -26,6 +26,20 @@ struct XferUnknown11;
 #define AUDIO_EVENT_RTS_FILE "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\Common\\Audio\\AudioEventRTS.cpp"
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 #pragma comment(linker, "/alternatename:?g_00BBD3EC@@3QBDB=??_C@_01LFCBOECM@?4?$AA@")
+// platformsdk
+//
+// Value-returning AsciiString getters with the RVO idiom proven by
+// GlobalDataRva002360DE.cpp (retail 0x002360DE, 30 bytes):
+// each returns the string member at its offset via the hidden return
+// pointer; the member copy-constructs directly into it (RVO) through
+// the StringBase copy body at 0x365F0, and the function returns the
+// hidden pointer. Class names are address-derived (identity
+// unrecoverable from 30 bytes); member names positional.
+
+typedef int Int;
+typedef unsigned short WideChar;
+#include <windows.h>
+#include "unicode_string.h"
 
 class Rva002D9AD4
 {
@@ -806,19 +820,6 @@ struct AudioEventInfo
 	unsigned int m_soundType;		// +0xB0
 };
 
-// ?rva002DA867@AudioEventRTS@@QAE?AVAsciiString@@XZ, RVA 0x002DA867 size 72.
-// Returns the string for the current play portion (+0x74 PP_Attack/Sound/Decay/Done).
-// Evidence: abuts rowed getFilename 0x002DA838 in this TU; switch on +0x74 matches
-// PP enum; case 0 calls getAttackFilename 0x002D9BA6; case 1 calls rowed
-// getFilename 0x002DA838; case 2 forwards to the rowed +0x20 getter
-// ?get@Rva002D9BC1AsciiField@@QBE?AVAsciiString@@XZ (same offset as m_decayName);
-// default copies AsciiString::TheEmptyString. Callees called by their row names.
-class Rva002D9BC1AsciiField
-{
-public:
-	AsciiString get(void) const;
-};
-
 // Native 0x002D9D7C..0x002D9F9F (547B, RET8). WorldBuilder BD6C40
 // names AudioEventRTS::internalXfer and independently corroborates the calls.
 // Retail serializes the event-info name, owner tag/ID or position, flags and
@@ -904,6 +905,201 @@ struct Rva002B2579Result {char pad[0x2c];Rva002B2579Position *data; Rva002B2579P
 extern GameClient *TheGameClient;
 
 extern const char g_00BBD3EC[];
+
+class Rva00274DB6AsciiField
+{
+public:
+	AsciiString get() const;
+
+private:
+	char m_pad[0x79C];
+	AsciiString m_value; // +0x79C
+};
+
+class Rva00291775AsciiField
+{
+public:
+	AsciiString get() const;
+
+private:
+	char m_pad[0x318];
+	AsciiString m_value; // +0x318
+};
+
+class Rva003821B9AsciiField
+{
+public:
+	AsciiString get() const;
+
+private:
+	char m_pad[0x1A8];
+	AsciiString m_value; // +0x1A8
+};
+
+class Rva00382216AsciiField
+{
+public:
+	AsciiString get() const;
+
+private:
+	char m_pad[0x1B8];
+	AsciiString m_value; // +0x1B8
+};
+
+class Rva00095224AsciiField
+{
+public:
+	AsciiString get() const;
+
+private:
+	char m_pad[0xAC];
+	AsciiString m_value; // +0xAC
+};
+
+class Rva0046AA11AsciiField
+{
+public:
+	AsciiString get() const;
+
+private:
+	char m_pad[0x308];
+	AsciiString m_value; // +0x308
+};
+
+class Rva004CFB6DAsciiField
+{
+public:
+	AsciiString get() const;
+	void rva004CFB8B(AsciiString value);
+
+private:
+	char m_pad[0x1D8];
+	AsciiString m_value; // +0x1D8
+};
+
+class Rva004DC902AsciiField
+{
+public:
+	AsciiString get() const;
+
+private:
+	char m_pad[0x188];
+	AsciiString m_value; // +0x188
+};
+
+class Rva004FDCE1AsciiField
+{
+public:
+	AsciiString get() const;
+	void setGameSpyName(AsciiString value);
+
+private:
+	char m_pad[0x1B0];
+	AsciiString m_value; // +0x1B0
+};
+
+class Rva004FDD36AsciiField
+{
+public:
+	void setClan(AsciiString value);
+
+private:
+	char m_pad[0x1B4];
+	AsciiString m_value; // +0x1B4
+};
+
+class Rva004FDD6DAsciiField
+{
+public:
+	AsciiString get() const;
+
+private:
+	char m_pad[0x1DC];
+	AsciiString m_value; // +0x1DC
+};
+
+class Rva0056D653AsciiField
+{
+public:
+	AsciiString get() const;
+
+private:
+	char m_pad[0x258];
+	AsciiString m_value; // +0x258
+};
+
+class Rva00581777AsciiField
+{
+public:
+	AsciiString get() const;
+	void setSerial(AsciiString value);
+
+private:
+	char m_pad[0x1C8];
+	AsciiString m_value; // +0x1C8
+};
+
+class Rva0059F322AsciiField
+{
+public:
+	AsciiString get() const;
+
+private:
+	char m_pad[0xFFC];
+	AsciiString m_value; // +0xFFC
+};
+
+class Rva0059F340AsciiField
+{
+public:
+	AsciiString get() const;
+
+private:
+	char m_pad[0xFDC];
+	AsciiString m_value; // +0xFDC
+};
+
+class Rva002D9BC1AsciiField
+{
+public:
+	AsciiString get() const;
+
+private:
+	char m_pad[0x20];
+	AsciiString m_value; // +0x20
+};
+
+class Rva004DC8E7AsciiField
+{
+public:
+	AsciiString get() const;
+
+private:
+	char m_pad[0x3c];
+	AsciiString m_value; // +0x3c
+};
+
+class Rva0029173EAsciiField
+{
+public:
+	void setName(AsciiString value);
+
+private:
+	char m_pad[0x308];
+	AsciiString m_value; // +0x308
+};
+
+class Rva004CFBC2AsciiField
+{
+public:
+	void rva004CFBC2(AsciiString value);
+
+private:
+	char m_pad[0x1DC];
+	AsciiString m_value; // +0x1DC
+};
+
+// ---- from Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
 
 // ---- from Code/GameEngine/Source/Common/Audio/AudioEventRTSClassification.cpp
 
@@ -1313,8 +1509,6 @@ void AudioEventRTS::internalXfer(Xfer *xfer, const void *version)
  }
 }
 
-// tu-skeleton: 0x002D955A 28B ?rva002D955A@Rva002D955A@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
 
 // ---- from Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
@@ -1662,26 +1856,6 @@ Rva002D9893 &Rva002D9893::operator=(const Rva002D9893 &other)
 	return *this;
 }
 
-// tu-skeleton: 0x002D9583 28B ?rva002D9583@Rva002D955A@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
-
-// tu-skeleton: 0x002D959F 13B ?rva002D959F@Rva002D955A@@QBEHXZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
-
-// tu-skeleton: 0x002D95AC 28B ?rva002D95AC@Rva002D955A@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
-
-// tu-skeleton: 0x002D95C8 13B ?rva002D95C8@Rva002D955A@@QBEHXZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
-
-// tu-skeleton: 0x002D95D5 28B ?rva002D95D5@Rva002D955A@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
-
-// tu-skeleton: 0x002D95F1 13B ?rva002D95F1@Rva002D955A@@QBEHXZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
-
-// tu-skeleton: 0x002D96D3 259B ?rva002D96D3@BfmeStringTailRecord144@@QAEXABUOpaqueRefElement4@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_stringtailrecord144_dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x002D9A43 128B ??1BfmeStringTailRecord144@@UAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_stringtailrecord144_dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x002D9BC1 27B ?get@Rva002D9BC1AsciiField@@QBE?AVAsciiString@@XZ -- matched in Code/GameEngine/Source/Common/System/AsciiStringRvoGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x002DA070 28B ??_GBfmeStringTailRecord144@@UAEPAXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_stringtailrecord144_dtor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva002DA0CFFinish.cpp
 
 // ?rva002DA0CF@Rva002DA0CF@@QAENXZ, retail 0x002DA0CF, 132 bytes.
@@ -1882,6 +2056,33 @@ AsciiString Rva002DA398Get(int n)
 
 // Retail's data references in this unit's matched rows land on globals defined
 // under other spellings at the same addresses (addend-corrected DIR32). Bind them.
+
+// tu-skeleton: 0x002D955A 28B ?rva002D955A@Rva002D955A@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
+
+// tu-skeleton: 0x002D9583 28B ?rva002D9583@Rva002D955A@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
+
+// tu-skeleton: 0x002D959F 13B ?rva002D959F@Rva002D955A@@QBEHXZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
+
+// tu-skeleton: 0x002D95AC 28B ?rva002D95AC@Rva002D955A@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
+
+// tu-skeleton: 0x002D95C8 13B ?rva002D95C8@Rva002D955A@@QBEHXZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
+
+// tu-skeleton: 0x002D95D5 28B ?rva002D95D5@Rva002D955A@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
+
+// tu-skeleton: 0x002D95F1 13B ?rva002D95F1@Rva002D955A@@QBEHXZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
+
+// tu-skeleton: 0x002D96D3 259B ?rva002D96D3@BfmeStringTailRecord144@@QAEXABUOpaqueRefElement4@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_stringtailrecord144_dtor.cpp (not merged yet)
+
+// tu-skeleton: 0x002D9A43 128B ??1BfmeStringTailRecord144@@UAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_stringtailrecord144_dtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/System/AsciiStringRvoGetters.cpp
+
+AsciiString Rva002D9BC1AsciiField::get() const
+{
+	return m_value;
+}
+
+// tu-skeleton: 0x002DA070 28B ??_GBfmeStringTailRecord144@@UAEPAXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_stringtailrecord144_dtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00777B1C 11B Unwind@00b77b1c -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_stringtailrecord144_dtor.cpp (not merged yet)
 
