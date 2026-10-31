@@ -372,7 +372,7 @@ struct ParserWrap : Rva00542806
 	ParserWrap(char *source, int buffer, int bufferSize) { rva00542806(source, buffer, bufferSize); }
 	~ParserWrap() { ((Rva0054288B *)this)->rva0054288B(); }
 };
-#include "unicode_string.h"
+#include "../../../../../reference/shims/bfme2_ascii/unicode_string.h"
 #define _CRTIMP __declspec(dllimport)
 #undef _CRTIMP
 #include "../../../Include/GameLogic/ScriptEngine.h"
