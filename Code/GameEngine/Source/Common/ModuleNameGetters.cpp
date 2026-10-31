@@ -65,7 +65,6 @@ BFME_LITERAL_NAME_GETTER(WeaponFireSpecialAbilityUpdate, "WeaponFireSpecialAbili
 BFME_LITERAL_NAME_GETTER(Rva00490019Named, "LargeGroupBonusUpdate")
 BFME_LITERAL_NAME_GETTER(Rva0048F456Named, "AssaultTransportAIUpdate")
 BFME_LITERAL_NAME_GETTER(Rva0048E8F1Named, "DeployStyleAIUpdate")
-BFME_LITERAL_NAME_GETTER(Rva0048BDADNamed, "FireWeaponUpdate")
 BFME_SNAPSHOT_NAME_GETTER(DozerAIUpdate, "DozerAIUpdate")
 BFME_SNAPSHOT_NAME_GETTER(AssistedTargetingUpdate, "AssistedTargetingUpdate")
 BFME_LITERAL_NAME_GETTER(RebuildHoleExposeDie, "RebuildHoleExposeDie")

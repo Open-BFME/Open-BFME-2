@@ -265,6 +265,28 @@ enum NameKeyType
 #define BFME_ASCII_DTOR_DECL
 #endif
 #include "Common/Snapshot.h"
+#define BFME_SNAPSHOT_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	protected: \
+		virtual const char *GetSnapshotName() const; \
+	}; \
+	const char *NAME::GetSnapshotName() const \
+	{ \
+		return TEXT; \
+	}
+#define BFME_LITERAL_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	public: \
+		const char *name() const; \
+	}; \
+	const char *NAME::name() const \
+	{ \
+		return TEXT; \
+	}
+#include "../../AI/WorkOrder.h"
+#include "../../AI/TeamInQueue.h"
 
 class BehaviorModuleInterface
 {
@@ -341,11 +363,15 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
+BFME_LITERAL_NAME_GETTER(Rva0048BDADNamed, "FireWeaponUpdate")
+
 // tu-skeleton: 0x0048B9D0 74B ?rva0048B9D0@FireWeaponUpdate@@QAEXPBVWeaponTemplate@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Rva0048B9D0Replace.cpp (not merged yet)
 
 // tu-skeleton: 0x0048BA1A 31B ??0Rva0048BCBBNugget@@QAE@XZ -- matched in Code/GameEngine/Source/Common/System/INI_Rva0048BCBBParseFireWeaponNugget.cpp (not merged yet)
 
 // tu-skeleton: 0x0048BA39 5B ??1?$StringBase@D@@AAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/string_base_clear.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/FireWeaponUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/FireWeaponUpdate.cpp
 
@@ -611,10 +637,6 @@ FireWeaponUpdate::FireWeaponUpdate(Thing *thing, const ModuleData *moduleData)
 	setWakeFrame(*objSlot, UPDATE_SLEEP_NONE);
 }
 
-// tu-skeleton: 0x0048BBF3 16B ?rva0048BBF3@Rva0048BBF3@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE22.cpp (not merged yet)
-
-// tu-skeleton: 0x0048BC03 67B ??0FireWeaponUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/FireWeaponUpdateModuleDataCtor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/FireWeaponUpdateModuleDataDtor.cpp
 
 //
@@ -647,9 +669,28 @@ FireWeaponUpdateModuleData::~FireWeaponUpdateModuleData()
 	}
 }
 
+// tu-skeleton: 0x0048BBF3 16B ?rva0048BBF3@Rva0048BBF3@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE22.cpp (not merged yet)
+
+// tu-skeleton: 0x0048BC03 67B ??0FireWeaponUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/FireWeaponUpdateModuleDataCtor.cpp (not merged yet)
+
 // tu-skeleton: 0x0048BCBB 86B ?Rva0048BCBBParse@@YAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/Common/System/INI_Rva0048BCBBParseFireWeaponNugget.cpp (not merged yet)
 
-// tu-skeleton: 0x0048BDAD 6B ?name@Rva0048BDADNamed@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/ModuleNameGetters.cpp
+
+// Module literal name getters: six-byte const members with one shape:
+//
+//     mov eax,<offset string literal> / ret
+//
+// Each body returns a pointer to a NUL-terminated Behavior/Update/Contain
+// class-name string in .rdata. Each body VA carries exactly one .rdata
+// reference from its module vtable (descriptor tail closed by the shared
+// 0x004B3FD0 pair -- the same family marker as the Subsystem getters).
+// Split from Code/GameEngine/Source/Common/SubsystemNameGetters.cpp into a
+// contributor-local unit to keep concurrent landings conflict-free; the
+// BFME_LITERAL_NAME_GETTER macro is verbatim, only the class names follow
+// this tree's address-derived convention (identity unrecoverable from 6
+// bytes, string carried in source where verify_string_refs re-reads it).
+// No // cl: line (defaults match the frameless 6-byte shape).
 
 // tu-skeleton: 0x0048C0B4 17B ?buildFieldParse@FireWeaponUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
 
