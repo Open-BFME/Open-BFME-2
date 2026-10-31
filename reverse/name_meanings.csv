@@ -663,3 +663,9 @@ Code/GameEngine/Source/Common/canPlayersTransferMoneyYet.cpp|local|canPlayersTra
 Code/GameEngine/Source/GameLogic/Object/ObjectGetRelationship.cpp|local|Object::getRelationship|t,fc79ed3a4e094c8c37c23c5f,drz-k5,drz-k5-15,w-526a51702f64,2026-10-31,fbf2f7a33cd1a33ba4fabd92
 Code/GameEngine/Source/Common/BigObfFallbacks.cpp|param|Rva003EFEB2Unmask|p,60cb2248c89aa1ccab3065df,drz-k8,drz-k8-2,w-87ae7cdc64ef,2026-10-31,f75c3dde017579031938f725
 Code/GameEngine/Source/Common/BigObfFallbacks.cpp|param|Rva00226156Mask|p,ef8b9702d458eb6914f77d35,drz-k8,drz-k8-2,w-87ae7cdc64ef,2026-10-31,8886068ae3299c544f7a3788
+Code/GameEngine/Source/Common/Rva002B5B55Finish.cpp|param|Rva002B5B55::rva002B5B55|arg,6e2b46921da207c6ce9dfb18,drz-k9,drz-k9-b2-2,w-4d4d8f8584bc,2026-10-31,c92765174e68d633fcff12a2
+Code/GameEngine/Source/GameLogic/Object/Contain/Rva0047CA4DContain.cpp|param|Rva0047CA4D::rva0047CA4D|a2,ee0624ab41878c2cabf56a16,drz-k9,drz-k9-b2-10,w-4d4d8f8584bc,2026-10-31,5355950a1528e71f5e155da4
+Code/GameEngine/Source/GameClient/InGameUIRva002A4A0C.cpp|param|InGameUI::rva002A4A0C|p1,8747c7c3fc1f4af5c5146f61,drz-k9,drz-k9-b2-13,w-4d4d8f8584bc,2026-10-31,39ad56822dd57f489bcc03ea
+Code/GameEngine/Source/GameClient/InGameUIRva002A4A0C.cpp|param|InGameUI::rva002A4A0C|p2,17bca7af74c88643e8c504a5,drz-k9,drz-k9-b2-13,w-4d4d8f8584bc,2026-10-31,5ed5862c99532f5aa880ab8b
+Code/GameEngine/Source/GameClient/InGameUIRva002A4A0C.cpp|param|InGameUI::rva002A4A0C|p3,31df27e86228461c7a3c60f8,drz-k9,drz-k9-b2-13,w-4d4d8f8584bc,2026-10-31,76b19e4bb5f9557b13906e82
+Code/GameEngine/Source/GameClient/InGameUIRva002A4A0C.cpp|param|InGameUI::rva002A4A0C|p4,04cfd48b4983d962caf2fbea,drz-k9,drz-k9-b2-13,w-4d4d8f8584bc,2026-10-31,12ec94e679ece827d4b0751b
