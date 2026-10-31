@@ -53,20 +53,6 @@ public:
 	int finish();								// 0x00542890 (retail returns EAX)
 };
 
-const char *XmlNameSlotList::tagAt(int index)
-{
-	if (index < 0 || index >= m_count)
-		return 0;
-	return m_slots[index].tag;
-}
-
-const char *XmlNameSlotList::nameAt(int index)
-{
-	if (index < 0 || index >= m_count)
-		return 0;
-	return m_slots[index].name;
-}
-
 // LuaScriptEngine's internal-event table. WorldBuilder's LuaScriptEngine.cpp
 // names both bodies: InitializeInternalEvents (:795 asserts each
 // m_internalEvents[i] name key; the same 17 event names in the same order)
