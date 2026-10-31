@@ -246,13 +246,14 @@ class UpdateModule : public BehaviorModule, public UpdateModuleInterface
 {
 public:
 	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~UpdateModule();
 	void xfer(Xfer *xfer);
 protected:
 	void setWakeFrame(Object *obj, unsigned int frame);
-	unsigned m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_bfmeReserved;
+public:
+	virtual ~UpdateModule();
+	unsigned m_nextCallFrameAndPhase; // +0x14
+	int m_indexInLogic; // +0x18
+	int m_bfmeReserved; // +0x1C
 };
 
 enum NameKeyType

@@ -85,6 +85,8 @@ public:
 class BehaviorModule : public BehaviorModuleBase, public BehaviorModuleOther
 {
 public:
+	Object *getObject() const { return m_object; }
+	BehaviorModule(Thing *thing, const ModuleData *moduleData);
 };
 
 enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
@@ -92,19 +94,22 @@ enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
 class UpdateModuleInterface
 {
 public:
-	virtual UpdateSleepTime update() = 0;
+	virtual UpdateSleepTime update();
 };
 
+class Xfer;
 class UpdateModule : public BehaviorModule, public UpdateModuleInterface
 {
 public:
-	virtual ~UpdateModule();
+	UpdateModule(Thing *thing, const ModuleData *moduleData);
+	void xfer(Xfer *xfer);
 protected:
 	void setWakeFrame(Object *obj, unsigned int frame);
-private:
-	unsigned m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_bfmeReserved;
+public:
+	virtual ~UpdateModule();
+	unsigned m_nextCallFrameAndPhase; // +0x14
+	int m_indexInLogic; // +0x18
+	int m_bfmeReserved; // +0x1C
 };
 
 // Heap record owned through the +0x20 list: a POD vector at +0x04 whose
