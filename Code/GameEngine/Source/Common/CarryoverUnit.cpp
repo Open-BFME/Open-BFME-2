@@ -15,6 +15,40 @@
 // and Rva00045473Equal at 0x00045473 with identical shape and /O1 flags.
 typedef bool Bool;
 #include <string.h>
+// ?GetCommandPointSize@Rva0037DCA5@@QAEHXZ, retail 0x0037DCA5 (39B).
+// Lookup via TheThingFactory global 0x00DFF000 plus AsciiString at +0x4 through
+// rowed 0x002D06CA. Returns 0 when lookup misses else template dword at +0x618
+// times int at +0x90. Sibling of rowed 0x0037E270 (same global and callee via
+// Rva0037E270Lookup.cpp) and unclaimed 0x0037DC52 (same +0x4 lookup shape).
+// Callers at 0x002B369C 0x002B36A5 0x002B6C58 0x0031906A 0x0040CFAC.
+
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
+class ThingTemplate;
+class ThingFactory
+{
+public:
+	const ThingTemplate *findTemplate(const AsciiString &key);
+};
+extern class ThingFactory *TheThingFactory;
+struct Rva0037DCA5Template
+{
+	char m_pad[0x618];
+	int m_cost;
+};
+class Rva0037DCA5
+{
+	char m_pad0[4];
+	AsciiString m_name;
+	char m_pad8[0x90 - 8];
+	int m_count;
+public:
+	int GetCommandPointSize();
+	void *GetThingTemplate();
+	void *GetDisplayNameStrategicGame();
+	void *GetDisplayNameStrategicGame(int v);
+};
+#include "unicode_string.h"
 
 class Rva001EB05E{public:~Rva001EB05E();private:char bytes[0x20];};
 
@@ -54,7 +88,23 @@ public:
 	Rva0037DCCC284 m_284; // +0x284 inline subobject (lea address taken; unproven)
 };
 
+class Rva002E2903Player;
+
+class Rva002BA8F1Logic
+{
+public:
+	Rva002E2903Player *find(int v, unsigned int *x);
+};
+
+class LivingWorldPlayer
+{
+public:
+	void *rva002E06EF();
+};
+
 // tu-skeleton: 0x0037DC84 6B ?name@CarryoverUnit@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/CarryoverUnit.cpp
 
 // ---- from Code/GameEngine/Source/Common/Rva0037DC8AEqual.cpp
 
@@ -62,8 +112,6 @@ Bool Rva0037DC8AEqual(const void *lhs, const void *rhs)
 {
 	return memcmp(lhs, rhs, 0x80) == 0;
 }
-
-// tu-skeleton: 0x0037DCA5 39B ?GetCommandPointSize@Rva0037DCA5@@QAEHXZ -- matched in Code/GameEngine/Source/Common/Rva0037DCA5Get.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva0037DCCCForward.cpp
 
@@ -73,16 +121,6 @@ void __cdecl rva0037DCCC(Object *object, int m_upgradeMask)
 	((_STL::_Base_bitset<32> *)&object->m_284)->_M_do_or(*(const _STL::_Base_bitset<32> *)m_upgradeMask);
 	object->updateUpgradeModules();
 }
-
-// tu-skeleton: 0x0037DCE8 294B ?createSingleObject@CarryoverUnit@@QAEPAVObject@@PAVPlayer@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/CarryoverUnit.cpp (not merged yet)
-
-// tu-skeleton: 0x0037DE0E 85B ?rva0037DE0E@Rva0037DE0E@@QAEEPAX@Z -- matched in Code/GameEngine/Source/Common/Rva0037DE0ECopy.cpp (not merged yet)
-
-// tu-skeleton: 0x0037DE63 13B ??0Rva0037DE63@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp (not merged yet)
-
-// tu-skeleton: 0x0037DE70 9B ?rva0037DE70@Rva0037DE70@@UAEHH@Z -- matched in Code/GameEngine/Source/GameLogic/System/CarryoverUnit.cpp (not merged yet)
-
-// tu-skeleton: 0x0037DE79 107B ?xfer@CarryoverUnit@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/System/SnapshotXfersBfme.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/CarryoverUnit.cpp
 
@@ -106,5 +144,25 @@ CarryoverUnit::~CarryoverUnit(){}
 // Placeholder virtuals this unit's vftables hold.  In retail each such slot
 // holds a rowed function; the vftable's address is proven by the vptr stores in
 // the matched destructors, so bind the placeholder to that row's name.
+
+// ---- from Code/GameEngine/Source/Common/Rva0037DCA5Get.cpp
+
+int Rva0037DCA5::GetCommandPointSize()
+{
+	void *found = (void *)TheThingFactory->findTemplate(m_name);
+	if (found == 0)
+		return 0;
+	return ((Rva0037DCA5Template *)found)->m_cost * m_count;
+}
+
+// tu-skeleton: 0x0037DCE8 294B ?createSingleObject@CarryoverUnit@@QAEPAVObject@@PAVPlayer@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/CarryoverUnit.cpp (not merged yet)
+
+// tu-skeleton: 0x0037DE0E 85B ?rva0037DE0E@Rva0037DE0E@@QAEEPAX@Z -- matched in Code/GameEngine/Source/Common/Rva0037DE0ECopy.cpp (not merged yet)
+
+// tu-skeleton: 0x0037DE63 13B ??0Rva0037DE63@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x0037DE70 9B ?rva0037DE70@Rva0037DE70@@UAEHH@Z -- matched in Code/GameEngine/Source/GameLogic/System/CarryoverUnit.cpp (not merged yet)
+
+// tu-skeleton: 0x0037DE79 107B ?xfer@CarryoverUnit@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/System/SnapshotXfersBfme.cpp (not merged yet)
 
 // tu-skeleton: 0x0037DF2C 97B ??0CarryoverUnit@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0037DF2CCtor.cpp (not merged yet)

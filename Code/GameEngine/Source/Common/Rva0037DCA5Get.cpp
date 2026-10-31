@@ -46,13 +46,6 @@ class LivingWorldPlayer
 public:
 	void *rva002E06EF();
 };
-int Rva0037DCA5::GetCommandPointSize()
-{
-	void *found = (void *)TheThingFactory->findTemplate(m_name);
-	if (found == 0)
-		return 0;
-	return ((Rva0037DCA5Template *)found)->m_cost * m_count;
-}
 // ?GetThingTemplate@Rva0037DCA5@@QAEPAXXZ @0x0037DC52 16B same +0x4 lookup via 0x002D06CA and global 0x00DFF000.
 void *Rva0037DCA5::GetThingTemplate()
 {

@@ -22470,7 +22470,7 @@ uw_0076443a,,0x0076443A,8,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DD
 ?write@Rva002226E5TextPlusString@@QAEHPAD@Z,,0x00222D9A,37,Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp,matched,text-plus-string write pair then string ref
 ??0BfmeStringRecord002CF4C6@@QAE@ABVAsciiString@@0IIE@Z,,0x0033B13B,79,Code/GameEngine/Source/Common/BfmeStringRecord002CF4C6Ctor.cpp,matched,five-arg ctor for vector push_back caller 0x0033D751 via StringBase copies
 ?write@Rva005F1B75@@QAEHPAD@Z,,0x005F1BB7,37,Code/GameEngine/Source/Common/System/Rva00513E03Length.cpp,matched,three-part write base plus third ref chain from base write
-?GetCommandPointSize@Rva0037DCA5@@QAEHXZ,,0x0037DCA5,39,Code/GameEngine/Source/Common/Rva0037DCA5Get.cpp,matched,sibling 0x0037E270 same global and callee via Rva0037E270Lookup plus same-shape 0x0037DC52
+?GetCommandPointSize@Rva0037DCA5@@QAEHXZ,,0x0037DCA5,39,Code/GameEngine/Source/Common/CarryoverUnit.cpp,matched,sibling 0x0037E270 same global and callee via Rva0037E270Lookup plus same-shape 0x0037DC52
 ?GetThingTemplate@Rva0037DCA5@@QAEPAXXZ,,0x0037DC52,16,Code/GameEngine/Source/Common/Rva0037DCA5Get.cpp,matched,same class as 0x0037DCA5 same global and callee
 ?rva00239380@Rva00239380Holder@@QAEXXZ,,0x00239380,42,Code/GameEngine/Source/Common/Rva00239380Clear.cpp,matched,circular list clear via freelist 0x009BA5E8 same shape as 0x001EB130
 ?rva00239AF4@Rva00239AF4@@QAEXXZ,,0x00239AF4,29,Code/GameEngine/Source/Common/Rva00239380Clear.cpp,matched,dispose via clear 0x00239380 plus freelist 0x009BA5E8 same shape as 0x001EB769
