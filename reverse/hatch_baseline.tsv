@@ -14116,10 +14116,8 @@ present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/MapObject_fa
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/BfmeShadowBufferOwnerBaseDtor.cpp	destroyBaseExplicit	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DBufferManager.cpp	getDX8Format@W3DBufferManager@@SAHW4VBM_FVF_TYPES@1@@Z	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp	0W3DProjectedShadow@@QAE@XZ	1
-present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp	0W3DProjectedShadowManager@@QAE@XZ	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp	1Rva007AFF00Base@@UAE@XZ	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp	1W3DProjectedShadow@@QAE@XZ	1
-present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp	1W3DProjectedShadowManager@@UAE@XZ	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp	ReAcquireResources@W3DProjectedShadowManager@@QAE_NXZ	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp	ReleaseResources@W3DProjectedShadowManager@@QAEXXZ	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp	addDecal@W3DProjectedShadowManager@@UAEPAVShadow@@PAVRenderObjClass@@PAUShadowTypeInfo@2@@Z	1
