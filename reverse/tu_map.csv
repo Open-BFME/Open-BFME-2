@@ -22039,7 +22039,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x002C7469,11,code,,displaced,-,S=Code/Libraries/Source/WWVegas/WW3D2/matpass.cpp N=Code/Libraries/Source/WWVegas/WW3D2/MaterialPassClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/matpass.cpp
 0x002C7474,30,code,Code/GameEngine/Source/GameLogic/Object/WeaponSet.cpp,approved,C,C=0x002C741C..0x002C7492,Code/Libraries/Source/WWVegas/WW3D2/Rva002C7474Loop.cpp
 0x002C7492,25,code,Code/GameEngine/Source/GameLogic/Object/WeaponSet.cpp,approved,C,C=0x002C741C..0x002C74AB,Code/GameEngine/Source/Common/Rva002C7492Or.cpp
-0x002C74AB,7,code,Code/GameEngine/Source/GameLogic/Object/WeaponSet.cpp,approved,C,C=0x002C741C..0x002C74B2,Code/GameEngine/Source/Common/Disp32ByteGetters.cpp
+0x002C74AB,7,code,Code/GameEngine/Source/GameLogic/Object/WeaponSet.cpp,approved,C,C=0x002C741C..0x002C74B2,Code/GameEngine/Source/GameLogic/Object/WeaponSet.cpp
 0x002C74B2,7,code,Code/GameEngine/Source/GameLogic/Object/WeaponSet.cpp,approved,C,C=0x002C741C..0x002C74B9,Code/GameEngine/Source/GameLogic/Object/WeaponSet.cpp
 0x002C74B9,7,code,Code/GameEngine/Source/GameLogic/Object/WeaponSet.cpp,approved,C,C=0x002C741C..0x002C74C0,Code/GameEngine/Source/GameLogic/Object/WeaponSet.cpp
 0x002C74C0,11,code,Code/GameEngine/Source/GameLogic/Object/WeaponSet.cpp,approved,C,C=0x002C741C..0x002C74CB,Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp

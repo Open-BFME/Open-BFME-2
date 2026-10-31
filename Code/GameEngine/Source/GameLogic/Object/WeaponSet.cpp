@@ -42,8 +42,21 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 //#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
 
 
+
 #endif
 #define BFME_DISP_BYTE_GETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		unsigned char get() const; \
+		char m_lead[DISP]; \
+		unsigned char m_value; \
+	}; \
+	unsigned char NAME::get() const \
+	{ \
+		return m_value; \
+	}
+#define BFME_DISP32_BYTE_GETTER(NAME, DISP) \
 	class NAME \
 	{ \
 	public: \
@@ -135,6 +148,58 @@ public: unsigned char isTwo() const;
 private: char unknown[0x0C]; unsigned int value;
 };
 
+BFME_DISP32_BYTE_GETTER(Rva002C74ABByteField, 0x35C)
+
+class WorkerAIUpdate
+{
+public:
+	virtual bool isForcedIntoWantingState() const;
+private:
+	char m_pad04[0xD4 - 4];
+	bool m_forcePending;
+};
+
+// Clean BF1 9cbfb551fe Common/Rva003CBA00Indexed.cpp semantic donor, normal O1/SSE/G7.
+// Native 0029A25D..0029A268 has its own complete RET boundary and establishes
+// receiver10 indexed dword load, RET4. Original owner and full array bound remain
+// unresolved; this separate address-owned view models only observed accesses.
+class Rva0029A25DArray {
+public: int getValue(int index);
+private: unsigned char unknown[0x10]; int values[1];
+};
+
+// BF1 9cbfb551fe Common/Rva0028ED50Get.cpp is the clean semantic donor.
+// Full native leaf 004B0CEF..004B0CFD ends at its own RET boundary.
+// Target evidence: receiver4 pointer; inner0C dword not zero.
+// Original owner unresolved; the address-owned type is independent of nearby classes.
+struct Rva004B0CEFInner { char unknown[0x0C]; int value; };
+
+class Rva004B0CEFFields {
+public: bool get();
+private: char unknown[4]; Rva004B0CEFInner *inner;
+};
+
+// BF1 9cbfb551fe Common/Rva0028ED70Nz.cpp is the clean semantic donor.
+// Full native leaf 004B0CFD..004B0D0C ends at its own RET boundary.
+// Target evidence: receiver4 pointer; inner4C dword not all ones.
+// Original owner unresolved; the address-owned type is independent of nearby classes.
+struct Rva004B0CFDInner { char unknown[0x4C]; int value; };
+
+class Rva004B0CFDFields {
+public: bool get();
+private: char unknown[4]; Rva004B0CFDInner *inner;
+};
+
+// BF1 9cb Rva18C170NestedFloatGetter.cpp is a structural guide. Complete
+// target 262356..26235C follows the adjacent getter RET; receiver+8 points
+// to the float loaded into ST0. Original owner and full bounds unknown.
+struct Rva00262356Fields
+{
+    char unknown00[8];
+    const float *pointer;
+    float get() const;
+};
+
 // tu-skeleton: 0x002C726C 51B ?parseWeapon@WeaponTemplateSet@@CAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponTemplateSetParse.cpp (not merged yet)
 
 // tu-skeleton: 0x002C729F 54B ?parseAutoChoose@WeaponTemplateSet@@CAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponTemplateSetParse.cpp (not merged yet)
@@ -161,7 +226,22 @@ private: char unknown[0x0C]; unsigned int value;
 
 // tu-skeleton: 0x002C7492 25B ?rva002C7492@Rva002C7492@@QAEXPBV1@@Z -- matched in Code/GameEngine/Source/Common/Rva002C7492Or.cpp (not merged yet)
 
-// tu-skeleton: 0x002C74AB 7B ?get@Rva002C74ABByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp32ByteGetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Disp32ByteGetters.cpp
+
+// Disp32 byte getters: seven-byte __thiscall members with one shape:
+//
+//     mov al,[ecx+<DISP>] / ret
+//
+// One byte is read at a fixed 32-bit displacement from `this` and returned
+// in `al` (only the low byte is defined; the caller uses `al`). The offset
+// does not fit the sign-byte form, so MSVC 7.1 emits `8A 81 DISP32`, plus
+// `ret`, for seven bytes total. This is the disp32 sibling of the
+// byte-getter lane; the opcode itself is why it lives in its own
+// translation unit. Other than the worker flag getter, owner identities
+// remain address-derived.
+// No // cl: line (defaults match the frameless seven-byte shape).
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/WeaponSet.cpp
 
 // ---- from Code/GameEngine/Source/Common/DispByteFieldGetters.cpp
 
@@ -183,55 +263,30 @@ private: char unknown[0x0C]; unsigned int value;
 // reference/open-bfme-1/Code/GameEngine/Source/Common/DispByteFieldGetters.cpp).
 // No // cl: line (defaults match the frameless 7-byte shape).
 
-// tu-skeleton: 0x002C74C0 11B ?rva002C74C0@Rva002C74C0@@QBEHH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
 
-// tu-skeleton: 0x002C74CB 14B ?rva002C74CB@Rva002C71CA@@QAEPAURva002C74CBRecord@@H@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
 
-// tu-skeleton: 0x002C74D9 17B ?get@Rva00751B90@@QAEPAXH@Z -- matched in Code/GameEngine/Source/Common/Rva00751B90Get.cpp (not merged yet)
 
-// tu-skeleton: 0x002C74EA 17B ?rva002C74EA@Rva002C71CA@@QAEPAURva002C74EARecord@@H@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
 
-// tu-skeleton: 0x002C74FB 6B ?Rva002C74FBGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
-// tu-skeleton: 0x002C7501 20B ?any@?$BitFlags@$0NK@@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/System/BitFlags218Any.cpp (not merged yet)
 
-// tu-skeleton: 0x002C7515 9B ?Rva002C7515Any@@YA_NPBV?$BitFlags@$0NK@@@@Z -- matched in Code/GameEngine/Source/Common/GapThunksSeat8.cpp (not merged yet)
 
-// tu-skeleton: 0x002C751E 17B ?Rva002C751E@@YAXPAURva002C74CBRecord@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
 
-// tu-skeleton: 0x002C752F 134B ?clear@Rva002C752F@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponSetRva002C752F.cpp (not merged yet)
 
-// tu-skeleton: 0x002C75B5 28B ??_GWeaponSet@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponSetDeleter.cpp (not merged yet)
 
-// tu-skeleton: 0x002C75D1 41B ?rva002C75D1@WeaponSet@@QBE_NHH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponSetRva002C75D1.cpp (not merged yet)
 
-// tu-skeleton: 0x002C75FA 17B ?rva002C75FA@Rva002C71CA@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
 
-// tu-skeleton: 0x002C760B 167B ?rva002C760B@Rva002C7492@@QAEPAV1@HHHHHHHH@Z -- matched in Code/GameEngine/Source/Common/Rva002C7492Or.cpp (not merged yet)
 
-// tu-skeleton: 0x002C76B2 204B ?Rva002C76B2Build@@YAPAVWeaponTemplateSetHead@@PAV1@HH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Rva002C76B2Build.cpp (not merged yet)
 
-// tu-skeleton: 0x002C777E 257B ?rva002C777E@@YAPAVWeaponTemplateSetHead@@PAV1@H@Z -- matched in Code/GameEngine/Source/Common/Rva002C777EBuild.cpp (not merged yet)
 
-// tu-skeleton: 0x002C787F 136B ?getVictimAntiMask@@YAHPBVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponSetSetWeaponLock.cpp (not merged yet)
 
-// tu-skeleton: 0x002C7907 1020B ?getAbleToUseWeaponAgainstTarget@WeaponSet@@QBE?AW4CanAttackResult@@W4AbleToAttackType@@PBVObject@@1PBUCoord3D@@W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponSetSetWeaponLock.cpp (not merged yet)
 
-// tu-skeleton: 0x002C7D03 1477B ?chooseBestWeaponForTarget@WeaponSet@@QAE_NPBVObject@@0W4WeaponChoiceCriteria@@W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponSetSetWeaponLock.cpp (not merged yet)
 
-// tu-skeleton: 0x002C82C8 308B ?rva002C82C8@Rva002C82C8@@QAE_NPBDPA_N1@Z -- matched in Code/GameEngine/Source/Common/System/Rva003339CEBodyState.cpp (not merged yet)
 
-// tu-skeleton: 0x002C83FC 856B ?getAbleToAttackSpecificObject@WeaponSet@@QBE?AW4CanAttackResult@@W4AbleToAttackType@@PBVObject@@1W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponSetSetWeaponLock.cpp (not merged yet)
 
-// tu-skeleton: 0x002C8754 234B ?rva002C8754@Rva002C8754@@QAEXPAVINI@@PAX@Z -- matched in Code/GameEngine/Source/Common/Rva002C8754.cpp (not merged yet)
 
-// tu-skeleton: 0x002C883E 52B ?rva002C883E@WeaponTemplateSet@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponTemplateSetParse.cpp (not merged yet)
 
-// tu-skeleton: 0x002C8872 572B ?xfer@WeaponSet@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponSetXfer.cpp (not merged yet)
 
-// tu-skeleton: 0x002C8AAE 237B ?setWeaponLock@WeaponSet@@QAE_NW4WeaponSlotType@@W4WeaponLockType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponSetSetWeaponLock.cpp (not merged yet)
 
-// tu-skeleton: 0x002C8B9B 107B ?releaseWeaponLock@WeaponSet@@QAEXW4WeaponLockType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponSetSetWeaponLock.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/WeaponSet.cpp
 
@@ -923,6 +978,56 @@ Bool WeaponSet::isSharedReloadTime() const
 		return m_curWeaponTemplateSet->isSharedReloadTime();
 	return false;
 }
+
+// tu-skeleton: 0x002C74C0 11B ?rva002C74C0@Rva002C74C0@@QBEHH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
+
+// tu-skeleton: 0x002C74CB 14B ?rva002C74CB@Rva002C71CA@@QAEPAURva002C74CBRecord@@H@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
+
+// tu-skeleton: 0x002C74D9 17B ?get@Rva00751B90@@QAEPAXH@Z -- matched in Code/GameEngine/Source/Common/Rva00751B90Get.cpp (not merged yet)
+
+// tu-skeleton: 0x002C74EA 17B ?rva002C74EA@Rva002C71CA@@QAEPAURva002C74EARecord@@H@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
+
+// tu-skeleton: 0x002C74FB 6B ?Rva002C74FBGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x002C7501 20B ?any@?$BitFlags@$0NK@@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/System/BitFlags218Any.cpp (not merged yet)
+
+// tu-skeleton: 0x002C7515 9B ?Rva002C7515Any@@YA_NPBV?$BitFlags@$0NK@@@@Z -- matched in Code/GameEngine/Source/Common/GapThunksSeat8.cpp (not merged yet)
+
+// tu-skeleton: 0x002C751E 17B ?Rva002C751E@@YAXPAURva002C74CBRecord@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
+
+// tu-skeleton: 0x002C752F 134B ?clear@Rva002C752F@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponSetRva002C752F.cpp (not merged yet)
+
+// tu-skeleton: 0x002C75B5 28B ??_GWeaponSet@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponSetDeleter.cpp (not merged yet)
+
+// tu-skeleton: 0x002C75D1 41B ?rva002C75D1@WeaponSet@@QBE_NHH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponSetRva002C75D1.cpp (not merged yet)
+
+// tu-skeleton: 0x002C75FA 17B ?rva002C75FA@Rva002C71CA@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
+
+// tu-skeleton: 0x002C760B 167B ?rva002C760B@Rva002C7492@@QAEPAV1@HHHHHHHH@Z -- matched in Code/GameEngine/Source/Common/Rva002C7492Or.cpp (not merged yet)
+
+// tu-skeleton: 0x002C76B2 204B ?Rva002C76B2Build@@YAPAVWeaponTemplateSetHead@@PAV1@HH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Rva002C76B2Build.cpp (not merged yet)
+
+// tu-skeleton: 0x002C777E 257B ?rva002C777E@@YAPAVWeaponTemplateSetHead@@PAV1@H@Z -- matched in Code/GameEngine/Source/Common/Rva002C777EBuild.cpp (not merged yet)
+
+// tu-skeleton: 0x002C787F 136B ?getVictimAntiMask@@YAHPBVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponSetSetWeaponLock.cpp (not merged yet)
+
+// tu-skeleton: 0x002C7907 1020B ?getAbleToUseWeaponAgainstTarget@WeaponSet@@QBE?AW4CanAttackResult@@W4AbleToAttackType@@PBVObject@@1PBUCoord3D@@W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponSetSetWeaponLock.cpp (not merged yet)
+
+// tu-skeleton: 0x002C7D03 1477B ?chooseBestWeaponForTarget@WeaponSet@@QAE_NPBVObject@@0W4WeaponChoiceCriteria@@W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponSetSetWeaponLock.cpp (not merged yet)
+
+// tu-skeleton: 0x002C82C8 308B ?rva002C82C8@Rva002C82C8@@QAE_NPBDPA_N1@Z -- matched in Code/GameEngine/Source/Common/System/Rva003339CEBodyState.cpp (not merged yet)
+
+// tu-skeleton: 0x002C83FC 856B ?getAbleToAttackSpecificObject@WeaponSet@@QBE?AW4CanAttackResult@@W4AbleToAttackType@@PBVObject@@1W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponSetSetWeaponLock.cpp (not merged yet)
+
+// tu-skeleton: 0x002C8754 234B ?rva002C8754@Rva002C8754@@QAEXPAVINI@@PAX@Z -- matched in Code/GameEngine/Source/Common/Rva002C8754.cpp (not merged yet)
+
+// tu-skeleton: 0x002C883E 52B ?rva002C883E@WeaponTemplateSet@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponTemplateSetParse.cpp (not merged yet)
+
+// tu-skeleton: 0x002C8872 572B ?xfer@WeaponSet@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponSetXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x002C8AAE 237B ?setWeaponLock@WeaponSet@@QAE_NW4WeaponSlotType@@W4WeaponLockType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponSetSetWeaponLock.cpp (not merged yet)
+
+// tu-skeleton: 0x002C8B9B 107B ?releaseWeaponLock@WeaponSet@@QAEXW4WeaponLockType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponSetSetWeaponLock.cpp (not merged yet)
 
 // tu-skeleton: 0x002C8C16 49B ?parsePreferredAgainst@WeaponTemplateSet@@CAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponTemplateSetParse.cpp (not merged yet)
 
