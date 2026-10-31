@@ -17,7 +17,8 @@ typedef int Int;
 
 enum NameKeyType
 {
-	NAMEKEY_INVALID = 0
+	NAMEKEY_INVALID = -1,
+	FORCE_NAMEKEYTYPE_LONG = 0x7fffffff
 };
 
 class AsciiString;
@@ -44,15 +45,9 @@ extern const char *TheVeterancyNames[];
 
 namespace _STL
 {
-template <class T> struct less
-{
-};
-template <class T> class allocator
-{
-};
-template <class A, class B> struct pair
-{
-};
+template <class T> struct less;
+template <class T> class allocator;
+template <class A, class B> struct pair;
 template <class K, class V, class C, class A> class map;
 template <> class map<int, float, less<int>, allocator<pair<const int, float> > >
 {
@@ -82,20 +77,49 @@ private:
 	unsigned char m_table[0x14]; // +0x00
 };
 
-class PlayerTemplate
+class Overridable
 {
+public:
+	Overridable *deleteOverrides();
+	const Overridable *getFinalOverride() const;
+
+	virtual ~Overridable();
+	Overridable *m_nextOverride;
+	bool m_isOverride;
+    char pad09[3];
+	int m_extra0C;
+};
+class Image;
+class PlayerTemplate : public Overridable
+{
+public:
+	PlayerTemplate();
+    virtual ~PlayerTemplate();
+    static void parseStartMoney(INI *ini, void *instance, void *store, const void *userData);
+    const Image *getFlagWaterMarkImage() const;
+    const Image *getEnabledImage() const;
+    int rva001FD234() const;
+    const Image *rva001FD23F() const;
 protected:
 	static void parseProductionCostChange(INI *ini, void *instance, void *store, const void *userData);
 	static void parseProductionTimeChange(INI *ini, void *instance, void *store, const void *userData);
 	static void parseProductionVeterancyLevel(INI *ini, void *instance, void *store, const void *userData);
-
-private:
-	unsigned char m_unreconstructed_000[0xF4];
-	ProductionChangeMap m_productionCostChanges;		// +0xF4
-	Rva001FDE3F m_productionTimeChanges;			// +0x100
-	ProductionVeterancyMap m_productionVeterancyLevels;	// +0x114
+public:
+    NameKeyType m_nameKey; // +0x10
+    char display14[4];
+    AsciiString side;
+    char beforeF4[0xF4 - 0x1C];
+    ProductionChangeMap m_productionCostChanges;
+    Rva001FDE3F m_productionTimeChanges;
+    ProductionVeterancyMap m_productionVeterancyLevels;
+    char before150[0x150 - 0x120];
+    bool flag150,flag151;
+    char tail152[0x170 - 0x152];
+    AsciiString m_170;
+    AsciiString m_174;
+    char m_pad178[0x1D8 - 0x178];
+    AsciiString m_1D8;
 };
-
 
 // ?parseProductionTimeChange@PlayerTemplate@@KAXPAVINI@@PAX1PBX@Z
 void PlayerTemplate::parseProductionTimeChange(INI *ini, void *instance, void * /*store*/, const void * /*userData*/)

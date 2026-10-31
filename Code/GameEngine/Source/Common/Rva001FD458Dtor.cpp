@@ -14,33 +14,7 @@
 #include <stdlib.h>
 #undef _CRTIMP
 
-struct Rva001FD458Node
-{
-	unsigned char m_color;
-	unsigned char m_pad01[3];
-	Rva001FD458Node *m_parent;
-	Rva001FD458Node *m_left;
-	Rva001FD458Node *m_right;
-	unsigned char m_value[8];
-};
-
-struct Rva001FD458HeaderHandle
-{
-	~Rva001FD458HeaderHandle()
-	{
-		if (m_header)
-			free(m_header);
-	}
-	Rva001FD458Node *m_header;
-};
-
-struct Rva001FD458
-{
-	void rva001FD659();
-	~Rva001FD458();
-	Rva001FD458HeaderHandle m_handle;
-	unsigned int m_count;
-};
+#include "RTS/PlayerTemplateTreeView.h"
 
 Rva001FD458::~Rva001FD458()
 {

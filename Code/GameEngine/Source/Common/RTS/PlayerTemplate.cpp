@@ -6,6 +6,7 @@
 #include <list>
 #include "ascii_string.h"
 #include "unicode_string.h"
+#include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 // Keep typed iterator comparisons local; TU flags otherwise emit an
 // incompatible external base comparison. STLport compares the same nodes.
 namespace _STL {
@@ -52,8 +53,9 @@ bool less<int>::operator()(const int &a, const int &b) const
 class INI;
 class PlayerTemplateStore;
 class Image;
-struct BfmeObject476 { virtual ~BfmeObject476(); unsigned char opaque[472]; BfmeObject476 &operator=(const BfmeObject476 &); };
+struct BfmeObject476 { virtual ~BfmeObject476(); unsigned char opaque[472]; BfmeObject476(); BfmeObject476(const BfmeObject476 &); BfmeObject476 &operator=(const BfmeObject476 &); };
 extern template void _STL::vector<BfmeObject476>::push_back(const BfmeObject476 &);
+namespace _STL { template <> vector<BfmeObject476>::~vector(); }
 //
 // Reference guide: BFME1 34f59164f6d1efd413c5fd37f4894ec834c3c0fe
 // game/GameEngine/Source/Common/RTS/PlayerTemplate.cpp parser and the same
@@ -263,16 +265,6 @@ struct Rva001FD751
 // fix leftmost via +8 and rightmost via +0xC, copy count, return this.
 // Same 115B shape as the rowed Rva001FD42B assign 0x001FD8DF
 // (Rva001FD42BAssign.cpp precedent). Callers at 0x001FD709 0x002AFBE0.
-struct Rva001FD458Node
-{
-	unsigned char m_color;
-	unsigned char m_pad01[3];
-	Rva001FD458Node *m_parent;
-	Rva001FD458Node *m_left;
-	Rva001FD458Node *m_right;
-	unsigned char m_value[8];
-};
-
 struct Rva001FD7C4Node
 {
 	unsigned char m_color;
@@ -286,20 +278,6 @@ struct Rva001FD7C4Node
 struct Rva001FD7C4
 {
 	Rva001FD7C4Node *rva001FD7C4(Rva001FD7C4Node *x, Rva001FD7C4Node *p);
-};
-
-struct Rva001FD458
-{
-public:
-	void rva001FD659();
-public:
-	Rva001FD458 *rva001FD952(const Rva001FD458 &other);
-public:
-	Rva001FD458Node *m_header;
-public:
-	unsigned int m_count;
-public:
-	void rva001FD458(Rva001FD458Node *x);
 };
 
 struct Rva001FDAB0Less
@@ -421,17 +399,21 @@ public:
     void push_back(const PlayerTemplate &pt) { reinterpret_cast<_STL::vector<BfmeObject476> *>(this)->push_back(reinterpret_cast<const BfmeObject476 &>(pt)); }
 };
 
-struct PlayerTemplateOverrideView : public Overridable
+// The store's index tree at +0x18: a set<int> whose destructor is the row 0x000730DE
+// (not set<int>'s own 0x00073116) and whose clear is the row 0x00072FE6.
+class Rva00072FE6 : public _STL::set<int>
 {
 public:
-	char m_pad00[0x10];
-	NameKeyType m_nameKey; // +0x10 +0x10
-	char m_rest[0x1DC - 0x14]; // +0x14
+	~Rva00072FE6();
+	void rva00072FE6();
 };
 
-class PlayerTemplateStore
+class PlayerTemplateStore : public SubsystemInterface
 {
 public:
+	PlayerTemplateStore();
+	virtual ~PlayerTemplateStore();
+	virtual void init();
 	virtual void reset();
 	bool rva001FD4E1(NameKeyType key, int *index);
 	bool rva001FD367(int faction, int *outIndex) const;
@@ -439,15 +421,14 @@ public:
     const PlayerTemplate *findPlayerTemplate(NameKeyType namekey) const;
 	const PlayerTemplate *getNthPlayerTemplate(int index) const;
 	void getAllSideStrings(_STL::list<AsciiString> *outStringList);
+    bool showReload() const { return m_flag; }
+    PlayerTemplateVector &templates() { return *reinterpret_cast<PlayerTemplateVector *>(&m_playerTemplates); }
+    const PlayerTemplateVector &templates() const { return *reinterpret_cast<const PlayerTemplateVector *>(&m_playerTemplates); }
 
-private:
-	public:
     // +0x00: the vptr (retail table 0x00BE1BB0, installed at +0 by the ctor 0x001FDB55)
-    bool showReload;
-    char m_pad05[7];
-	PlayerTemplateVector m_playerTemplates;
-    _STL::set<int> playableIndices;
-    int index24;
+    _STL::vector<BfmeObject476> m_playerTemplates; // +0x0C
+    Rva00072FE6 playableIndices; // +0x18
+    int index24; // +0x24
 };
 
 bool operator==(const AsciiString &a, const AsciiString &b);
@@ -516,7 +497,7 @@ public:
 // NameKeyType e.g. call at 0x002B5D66 after nameToKey at 0x0009FA65.
 const PlayerTemplate *PlayerTemplateStore::findPlayerTemplate(NameKeyType namekey) const
 {
-	for (const PlayerTemplate *it = m_playerTemplates.m_first; it != m_playerTemplates.m_last; ++it)
+	for (const PlayerTemplate *it = templates().m_first; it != templates().m_last; ++it)
 	{
 		if (it->m_nameKey == namekey)
 		{
@@ -532,8 +513,8 @@ const PlayerTemplate *PlayerTemplateStore::findPlayerTemplate(NameKeyType nameke
 // 0x1DC-byte vector element and its Overridable final-override lookup.
 const PlayerTemplate *PlayerTemplateStore::getNthPlayerTemplate(int index) const
 {
-	if (index >= 0 && static_cast<unsigned>(index) < m_playerTemplates.size()) {
-		const PlayerTemplate *playerTemplate = &m_playerTemplates[index];
+	if (index >= 0 && static_cast<unsigned>(index) < templates().size()) {
+		const PlayerTemplate *playerTemplate = &templates()[index];
 		const PlayerTemplate *result;
 		if (playerTemplate->m_nextOverride)
 			result = static_cast<const PlayerTemplate *>(playerTemplate->m_nextOverride->getFinalOverride());
@@ -558,7 +539,7 @@ void PlayerTemplateStore::getAllSideStrings(_STL::list<AsciiString> *outStringLi
 	if (!outStringList)
 		return;
 	_STL::list<AsciiString> tmpList;
-	int numTemplates = static_cast<int>(m_playerTemplates.size());
+	int numTemplates = static_cast<int>(templates().size());
 	for (int i = 0; i < numTemplates; ++i)
 	{
 		const PlayerTemplate *pt = getNthPlayerTemplate(i);
@@ -592,15 +573,15 @@ void PlayerTemplateStore::parsePlayerTemplateDefinition(INI *ini)
             reinterpret_cast<Rva001FE70F *>(pt)->rva001FE70F(ini);
             pt->m_nameKey=key;
         }
-        if(ThePlayerTemplateStore->showReload)
+        if(ThePlayerTemplateStore->showReload())
             TheInGameUI->ReloadMessage(L"The PlayerTemplate, '%S' was reloaded.",name);
     } else {
         PlayerTemplate npt;
         reinterpret_cast<Rva001FE70F *>(&npt)->rva001FE70F(ini);
         npt.m_nameKey=key;
-        int index=ThePlayerTemplateStore->m_playerTemplates.size();
+        int index=ThePlayerTemplateStore->templates().size();
         g_00E01EA8=1;
-        ThePlayerTemplateStore->m_playerTemplates.push_back(npt);
+        ThePlayerTemplateStore->templates().push_back(npt);
         g_00E01EA8=0;
         if(npt.flag150) { ThePlayerTemplateStore->index24=index; index=-1; }
         else if(npt.flag151) {
@@ -692,10 +673,10 @@ void Rva001FD458::rva001FD458(Rva001FD458Node *x)
 void Rva001FD458::rva001FD659()
 {
 	if (m_count != 0) {
-		rva001FD458(m_header->m_parent);
-		m_header->m_left = m_header;
-		m_header->m_parent = 0;
-		m_header->m_right = m_header;
+		rva001FD458(m_handle.m_header->m_parent);
+		m_handle.m_header->m_left = m_handle.m_header;
+		m_handle.m_header->m_parent = 0;
+		m_handle.m_header->m_right = m_handle.m_header;
 		m_count = 0;
 	}
 }
@@ -720,23 +701,23 @@ Rva001FD458 *Rva001FD458::rva001FD952(const Rva001FD458 &other)
 	if (this != &other) {
 		rva001FD659();
 		m_count = 0;
-		Rva001FD458Node *otherRoot = other.m_header->m_parent;
+		Rva001FD458Node *otherRoot = other.m_handle.m_header->m_parent;
 		if (otherRoot == 0) {
-			m_header->m_parent = 0;
-			m_header->m_left = m_header;
-			m_header->m_right = m_header;
+			m_handle.m_header->m_parent = 0;
+			m_handle.m_header->m_left = m_handle.m_header;
+			m_handle.m_header->m_right = m_handle.m_header;
 		} else {
 			Rva001FD7C4 *self = (Rva001FD7C4 *)this;
-			Rva001FD458Node *hdr = m_header;
+			Rva001FD458Node *hdr = m_handle.m_header;
 			hdr->m_parent = (Rva001FD458Node *)self->rva001FD7C4((Rva001FD7C4Node *)otherRoot, (Rva001FD7C4Node *)hdr);
-			Rva001FD458Node *x = m_header->m_parent;
+			Rva001FD458Node *x = m_handle.m_header->m_parent;
 			while (x->m_left != 0)
 				x = x->m_left;
-			m_header->m_left = x;
-			x = m_header->m_parent;
+			m_handle.m_header->m_left = x;
+			x = m_handle.m_header->m_parent;
 			while (x->m_right != 0)
 				x = x->m_right;
-			m_header->m_right = x;
+			m_handle.m_header->m_right = x;
 			m_count = other.m_count;
 		}
 	}
@@ -874,9 +855,9 @@ const Image *PlayerTemplate::rva001FD23F() const
 
 bool PlayerTemplateStore::rva001FD367(int faction, int *outIndex) const
 {
-	for (int i = 0; i < m_playerTemplates.size(); ++i)
+	for (int i = 0; i < templates().size(); ++i)
 	{
-		if (Rva0033A3F4Lookup(m_playerTemplates[i].side) == faction)
+		if (Rva0033A3F4Lookup(templates()[i].side) == faction)
 		{
 			*outIndex = i;
 			return true;
@@ -898,8 +879,8 @@ bool PlayerTemplateStore::rva001FD367(int faction, int *outIndex) const
 
 void PlayerTemplateStore::reset()
 {
-	for (unsigned int i = 0; i < m_playerTemplates.size(); ++i)
-		m_playerTemplates[i].deleteOverrides();
+	for (unsigned int i = 0; i < templates().size(); ++i)
+		templates()[i].deleteOverrides();
 }
 
 // tu-skeleton: 0x001FD4E1 153B ?rva001FD4E1@PlayerTemplateStore@@QAE_NW4NameKeyType@@PAH@Z -- matched in Code/GameEngine/Source/Common/RTS/Rva001FD4E1Find.cpp (not merged yet)
