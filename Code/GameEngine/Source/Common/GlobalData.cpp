@@ -50,7 +50,6 @@ enum { MAX_GLOBAL_LIGHTS = 3 };
 extern int BfmeLogicFramesPerSecond;
 #define LOGICFRAMES_PER_SECOND BfmeLogicFramesPerSecond
 struct Rva00235A21 { char words[528]; Rva00235A21(); };
-class Rva00235A37 { public: char words[48]; Rva00235A37 &operator=(const Rva00235A37&); };
 extern Version *TheVersion;
 struct MultiPlayMults { char words[480]; MultiPlayMults() throw(); };
 struct RvaGDConst3 { float x,y,z; RvaGDConst3(float v):x(v),y(v),z(v){} };
@@ -60,6 +59,7 @@ typedef float Real;
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 #include <map>
 #include <stdlib.h>
+
 template <typename T> struct BfmeStringData
 {
 	int refCount;
@@ -1319,6 +1319,27 @@ public:
 	void getResolution(Int *xres, Int *yres);
 };
 
+class Rva00235A37
+{
+public:
+	Rva00235A37 &operator=(const Rva00235A37 &other);
+private:
+	int m_00;
+	int m_04;
+	int m_08;
+	int m_0C;
+	AsciiString m_10;
+	AsciiString m_14;
+	AsciiString m_18;
+	AsciiString m_1C;
+	AsciiString m_20;
+	AsciiString m_24;
+	AsciiString m_28;
+	unsigned char m_2C;
+};
+
+// ---- from Code/GameEngine/Source/Common/GlobalData.cpp
+
 // ---- from Code/GameEngine/Source/Common/GlobalDataSetTimeOfDay.cpp
 
 // ?setTimeOfDay@GlobalData@@QAE_NW4TimeOfDay@@@Z @0x2352BC
@@ -1338,8 +1359,6 @@ Bool GlobalData::setTimeOfDay( TimeOfDay tod )
 
 	return true;
 }
-
-// tu-skeleton: 0x00235312 1060B ?rva00235312@GlobalData@@QAE_NW4TimeOfDay@@0M@Z -- matched in Code/GameEngine/Source/Common/rva00235312Rva00235312Farm.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/GlobalData.cpp
 
@@ -2043,6 +2062,48 @@ void GlobalData::applyOptionPreferences()
 	m_xResolution = xres;
 	m_yResolution = yres;
 }
+
+// tu-skeleton: 0x00235312 1060B ?rva00235312@GlobalData@@QAE_NW4TimeOfDay@@0M@Z -- matched in Code/GameEngine/Source/Common/rva00235312Rva00235312Farm.cpp (not merged yet)
+
+// tu-skeleton: 0x00235A00 14B ??0Rva00235A00WordPair@@QAE@I@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp (not merged yet)
+
+// tu-skeleton: 0x00235A0E 19B ??0WeaponBonus@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponReloadAmmo.cpp (not merged yet)
+
+// tu-skeleton: 0x00235A21 22B ??0Rva00235A21@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00235A21Ctor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva00235A37Assign.cpp
+
+// ??4Rva00235A37@@QAEAAV0@ABV0@@Z @0x00235A37 127B
+// Copy assignment over 4 ints plus 7 AsciiStrings plus byte at +0x2C via
+// pin-only AsciiString assign 0x000366F0. Evidence: unlock lane unblocks
+// 0x00381F04; callers 0x00237683 0x00381FCA 0x0038393B; prev/next MultiPlayMult.
+
+Rva00235A37 &Rva00235A37::operator=(const Rva00235A37 &other)
+{
+	m_00 = other.m_00;
+	m_04 = other.m_04;
+	m_08 = other.m_08;
+	m_0C = other.m_0C;
+	m_10 = other.m_10;
+	m_14 = other.m_14;
+	m_18 = other.m_18;
+	m_1C = other.m_1C;
+	m_20 = other.m_20;
+	m_24 = other.m_24;
+	m_28 = other.m_28;
+	m_2C = other.m_2C;
+	return *this;
+}
+
+// tu-skeleton: 0x00235AB6 336B ?parseMultiPlayMoneyMult@@YAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/Common/MultiPlayMoneyMultParse.cpp (not merged yet)
+
+// tu-skeleton: 0x00235C06 310B ?parseMultiPlayUnitXPMult@@YAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/Common/MultiPlayOtherMultParsers.cpp (not merged yet)
+
+// tu-skeleton: 0x00235D3C 310B ?parseMultiPlayBuildingXPMult@@YAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/Common/MultiPlayOtherMultParsers.cpp (not merged yet)
+
+// tu-skeleton: 0x00235E72 310B ?parseMultiPlayUnitSpeedMult@@YAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/Common/MultiPlayOtherMultParsers.cpp (not merged yet)
+
+// tu-skeleton: 0x00235FA8 310B ?parseMultiPlayBuildingSpeedMult@@YAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/Common/MultiPlayOtherMultParsers.cpp (not merged yet)
 
 // tu-skeleton: 0x00236285 47B ??0Rva00236285@@QAE@XZ -- matched in Code/GameEngine/Source/Common/System/Rva00236285Ctor.cpp (not merged yet)
 
