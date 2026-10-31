@@ -24,6 +24,39 @@
 	{ \
 		return TEXT; \
 	}
+#define TheThunk230 ((Rva00758230 *)TheCollisionManager)
+#define TheThunk240 ((Rva00758240 *)TheCollisionManager)
+//
+// ?xfer@CritterEmitterUpdate@@MAEXPAVXfer@@@Z, retail 0x004C8E42, 65 bytes.
+// CritterEmitterUpdate xfer (slot 3 offset 0x0C of vtable 0x0085E8E8, same
+// primary as rowed ctor 0x004C8D86 and dtor 0x004C8D1B with ??_G 0x004C8DC6):
+// base UpdateModule xfer via rowed 0x0044DF9F, IsLightCRC early-out via Xfer
+// slot 0x10, Version1 via rowed 0x000053EE, then two bool runs at +0x24/+0x25
+// via Xfer slot 0x90. Layout is the rowed dtor TU (real UpdateModule base
+// 0x20 plus trailing iface at +0x20 giving +0x24 start) plus the ctor TU's
+// m_24/m_25 bytes as bool; donor is BFME1 CritterEmitterUpdateDestructor
+// (protected MAE) plus SlowDeathBehaviorXfer slot-3 pattern (Version1 plus
+// bool runs, no Version gating).
+
+
+class AsciiString;
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+#include "../../../../Include/Common/BfmeXfer.h"
 
 class __declspec(novtable) CritterEmitterUpdateModuleData : public Snapshot
 {
@@ -61,9 +94,13 @@ public:
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 class Thing;
+
 class ModuleData;
+
 class Object;
+
 class Coord3D;
+
 class Xfer;
 
 class BehaviorModuleBase
@@ -145,7 +182,88 @@ protected:
 
 BFME_LITERAL_NAME_GETTER(Rva004C8D3BNamed, "CritterEmitterUpdate")
 
-// tu-skeleton: 0x004C8D1B 32B ??1CritterEmitterUpdate@@MAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/CritterEmitterUpdateDtor.cpp (not merged yet)
+//
+// ?update@CritterEmitterUpdate@@UAE?AW4UpdateSleepTime@@XZ, retail
+// 0x004C8DE2, 96 bytes. Identity: slot 0 of the vtable 0x00C5E8DC that the
+// matched CritterEmitterUpdate ctor 0x004C8D86 and dtor 0x004C8D1B install at
+// +0x10 (the UpdateModuleInterface base), i.e. update(); compiled with that
+// subobject this, hence m_object at [this-8] and m_moduleData at [this-0xC].
+// The body was first rowed as ?rva004C8DE2@HordeDispatchSpecialPower@@MAEHXZ
+// (slot 20 of 0x00C5E88C) from an over-long candidate vtable that ran on into
+// CritterEmitterUpdate's; see reverse/deleted_rows.csv.
+// The two bools at +0x24/+0x25 are the ones the matched xfer 0x004C8E42 saves
+// and the ctor clears; +0x24 is also onCollide's once-only flag. Returns the
+// module data's +0x20 sleep value on the set path, else UPDATE_SLEEP_NONE.
+// Callees 0x00758230/0x00758240 are reached through the global at 0x00DFE754
+// (rowed via Rva00758210Thunks.cpp). Recipe: ternary +0x70 via neg-sbb-and
+// under /O1 with xor-inc for return 1.
+
+struct Rva009A29A0Window;
+
+class Rva00758230
+{
+public:
+	void rva00758230(Rva009A29A0Window *window);
+};
+
+class Rva009A36F0Param;
+
+class Rva00758240
+{
+public:
+	void rva00758240(Rva009A36F0Param *param);
+};
+
+// The data-ledger owner supplies the retail collision-manager slot.
+class CollisionManager;
+
+extern CollisionManager *TheCollisionManager;
+
+int GetGameLogicRandomValue(int lo, int hi, char *file, int line);
+
+class FXList
+{
+public:
+	static void doFXObj(const FXList *fx, const Object *primary, const Object *secondary);
+};
+
+class ObjectCreationList
+{
+public:
+	void create(void *primary, void *secondary, void *a3);
+	static void create(const ObjectCreationList *ocl, const Object *primary, const Object *secondary)
+	{
+		if (!ocl)
+			return;
+		const_cast<ObjectCreationList *>(ocl)->create((void *)primary, (void *)secondary, 0);
+	}
+};
+
+template <class T> class PtrVector
+{
+public:
+	int size() const { return m_end - m_begin; }
+	T operator[](int i) const { return m_begin[i]; }
+private:
+	T *m_begin;
+	T *m_end;
+	T *m_cap;
+};
+
+struct CritterEmitterUpdateModuleDataView
+{
+	unsigned char m_pad00[0x08];
+	PtrVector<const FXList *> m_fxLists; // +0x08
+	PtrVector<const ObjectCreationList *> m_oclLists; // +0x14
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/CritterEmitterUpdateDtor.cpp
+
+CritterEmitterUpdate::~CritterEmitterUpdate()
+{
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/CritterEmitterUpdate.cpp
 
 // ---- from Code/GameEngine/Source/Common/ModuleNameGetters3.cpp
 
@@ -193,15 +311,83 @@ CritterEmitterUpdateModuleData::~CritterEmitterUpdateModuleData()
 {
 }
 
-// tu-skeleton: 0x004C8D86 64B ??0CritterEmitterUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/CritterEmitterUpdateConstructorThunk.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/CritterEmitterUpdateConstructorThunk.cpp
 
-// tu-skeleton: 0x004C8DC6 28B ??_GCritterEmitterUpdate@@MAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/CritterEmitterUpdateDtor.cpp (not merged yet)
+// ??0CritterEmitterUpdate@@QAE@PAVThing@@PBVModuleData@@@Z
+CritterEmitterUpdate::CritterEmitterUpdate(Thing *thing, const ModuleData *moduleData)
+    : UpdateModule(thing, moduleData)
+{
+    m_24 = false;
+    m_25 = true;
+}
 
-// tu-skeleton: 0x004C8DE2 96B ?update@CritterEmitterUpdate@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/CritterEmitterUpdateUpdate.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/CritterEmitterUpdateUpdate.cpp
 
-// tu-skeleton: 0x004C8E42 65B ?xfer@CritterEmitterUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/CritterEmitterUpdateXfer.cpp (not merged yet)
+UpdateSleepTime CritterEmitterUpdate::update()
+{
+	if (m_24)
+	{
+		Rva00758240 *mgr = TheThunk240;
+		if (mgr)
+		{
+			char *obj = (char *)m_object;
+			char *arg = obj ? obj + 0x70 : 0;
+			mgr->rva00758240((Rva009A36F0Param *)arg);
+		}
+		const char *d = (const char *)m_moduleData;
+		m_24 = false;
+		m_25 = false;
+		return *(const UpdateSleepTime *)(d + 0x20);
+	}
+	if (m_25)
+		return UPDATE_SLEEP_NONE;
+	Rva00758230 *mgr = TheThunk230;
+	if (!mgr)
+		return UPDATE_SLEEP_NONE;
+	char *obj = (char *)m_object;
+	char *arg = obj ? obj + 0x70 : 0;
+	mgr->rva00758230((Rva009A29A0Window *)arg);
+	return UPDATE_SLEEP_NONE;
+}
 
-// tu-skeleton: 0x004C8E83 124B ?onCollide@CritterEmitterUpdate@@UAEXPAVObject@@PBVCoord3D@@1@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/CritterEmitterUpdateOnCollide.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/CritterEmitterUpdateXfer.cpp
+
+void CritterEmitterUpdate::xfer(Xfer *xfer)
+{
+	UpdateModule::xfer(xfer);
+	if (xfer->IsLightCRC())
+		return;
+	xfer->Version1();
+	*xfer == m_24;
+	*xfer == m_25;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/CritterEmitterUpdateOnCollide.cpp
+
+// ?onCollide@CritterEmitterUpdate@@UAEXPAVObject@@PBVCoord3D@@1@Z @0x004C8E83
+void CritterEmitterUpdate::onCollide(Object *, const Coord3D *, const Coord3D *)
+{
+	if (m_24)
+		return;
+
+	const CritterEmitterUpdateModuleDataView *data = (const CritterEmitterUpdateModuleDataView *)m_moduleData;
+
+	int count = data->m_fxLists.size();
+	if (count > 0)
+	{
+		int which = GetGameLogicRandomValue(0, count - 1, "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\CritterEmitter.cpp", 127);
+		FXList::doFXObj(data->m_fxLists[which], m_object, 0);
+	}
+
+	count = data->m_oclLists.size();
+	if (count > 0)
+	{
+		int which = GetGameLogicRandomValue(0, count - 1, "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\CritterEmitter.cpp", 138);
+		ObjectCreationList::create(data->m_oclLists[which], m_object, 0);
+	}
+
+	m_24 = true;
+}
 
 // tu-skeleton: 0x004C8EFF 46B ??0CritterEmitterUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DynamicGeometryInfoUpdateCtor.cpp (not merged yet)
 
