@@ -19841,3 +19841,4 @@ Code/GameEngine/Source/Common/Rva003833BBErase.cpp|class||Rva003833BBNode,fc4e5f
 Code/GameEngine/Source/Common/Rva003833BBErase.cpp|class||Rva00383380,085388fe34065d5de7ef9327,drz-k9,n29h2-k9,w-4d4d8f8584bc,2026-10-31
 Code/GameEngine/Source/Common/Rva002D2DF6Init.cpp|function|0x002D2DF6|rva002D2DF6,48970b434fa1fd356cbbadea,drz-k9,n29h2-k9,w-4d4d8f8584bc,2026-10-31
 Code/GameEngine/Source/Common/Rva002B2757.cpp|member|Rva002B2757|m_b0,72021707d77978108536899a,drz-k9,n29h2-k9,w-4d4d8f8584bc,2026-10-31
+Code/GameEngine/Source/GameLogic/Map/StandingWaterAreaLoadPCA.cpp|function|0x00199FCC|rva00199FCC,1269b7e7ff1fdb9ff90bc17b,claude-sonnet-5-5,halilkkaya-hdr-s2-n2,w-b2cdd93d26f5,2026-10-31
