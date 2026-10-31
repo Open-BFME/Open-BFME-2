@@ -8,15 +8,18 @@
 // at +0x88 from the shared 100.0f constant at 0x00BC292C (see the rowed
 // buildFieldParse proc holding the four-field table 0x00C5D378, and the
 // rowed CloudBreakSpecialPower pool key closing this cluster). Size 0x8C
-// matches the rowed 0x251E58 factory news. The TU-local base keeps an
-// explicit vtable slot plus pad to 0x7C (Darkness precedent, so no vtable
-// is emitted); both absolute floats stay extern so they keep the movss form
+// matches the rowed 0x251E58 factory news. The class is novtable, so the
+// only vptr store is the data table's below and no vtable is emitted; both
+// absolute floats stay extern so they keep the movss form
 // (Rain precedent), each materialized into a named local first. Scheduling:
 // the _ReadWriteBarrier pins the and-stores below the vtable store
 // (UpgradeDie precedent); the loads stay in place (no cross-store
 // hoisting); the +0x84 zero sources before +0x80 to match retail. Row
 // supersedes the ctor pin.
 
+// matches the rowed 0x251E58 factory news. The TU-local base keeps an
+// explicit vtable slot plus pad to 0x7C (Darkness precedent, so no vtable
+// is emitted); both absolute floats stay extern so they keep the movss form
 // Retail VA 0x00C5D468 (.rdata): a 31-slot vftable no unit emits. Defined here as
 // data with retail's slot pointers, each bound to the ledger name at its
 // target (tools/vftable_map.py); its installers store this table.
@@ -62,13 +65,16 @@ extern "C" const void *const vtbl_00C5D468[] = {
 	(const void *)&__identifier("?rva0050B5C6@Rva0050B5C6@@QAE_NXZ")
 };
 
+typedef float Real;
+class FXList;
 class SpecialPowerModuleData
 {
 public:
 	SpecialPowerModuleData();
+	virtual ~SpecialPowerModuleData();
 
-	void *m_vtable; // +0
-	unsigned char m_pad[0x7C - 4]; // +4..0x7B
+private:
+	unsigned char m_pad[0x7C - 4];
 };
 
 extern float g_cloudBreakRadiusDefault; // 0x00BC2428, 10.0f
@@ -77,16 +83,15 @@ extern float g_objectSpacingDefault; // 0x00BC292C, 100.0f
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
-class CloudBreakSpecialPowerModuleData : public SpecialPowerModuleData
+class __declspec(novtable) CloudBreakSpecialPowerModuleData : public SpecialPowerModuleData
 {
 public:
 	CloudBreakSpecialPowerModuleData();
 
-private:
 	float m_cloudBreakRadius; // +0x7C
-	void *m_cloudBreakFX; // +0x80
-	void *m_sunbeamObject; // +0x84
-	float m_objectSpacing; // +0x88
+	const FXList *m_fx; // +0x80
+	unsigned char m_objectName[4]; // +0x84
+	Real m_spacing; // +0x88
 };
 
 // ??0CloudBreakSpecialPowerModuleData@@QAE@XZ @0x4C479A
@@ -94,13 +99,13 @@ CloudBreakSpecialPowerModuleData::CloudBreakSpecialPowerModuleData()
 	: SpecialPowerModuleData()
 {
 	float radius = g_cloudBreakRadiusDefault;
-	m_vtable = reinterpret_cast<void *>(((unsigned int)vtbl_00C5D468));
+	*(unsigned int *)this = ((unsigned int)vtbl_00C5D468);
 	_ReadWriteBarrier();
-	m_sunbeamObject = 0;
-	m_cloudBreakFX = 0;
+	*(int *)m_objectName = 0;
+	m_fx = 0;
 	m_cloudBreakRadius = radius;
 	float spacing = g_objectSpacingDefault;
-	m_objectSpacing = spacing;
+	m_spacing = spacing;
 }
 
 // ?g_objectSpacingDefault@@3MA: matched references place it at VA 0xbc292c; also referenced as _kF7C.

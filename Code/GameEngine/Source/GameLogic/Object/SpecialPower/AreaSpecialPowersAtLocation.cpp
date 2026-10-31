@@ -30,26 +30,60 @@
 // TheTriggerManager (0x00DFEC68).
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 
+
+#include "../../../../../Libraries/Include/Lib/Region3D.h"
+#include "string_base.h"
+#include <string.h>
+#include "../../../Common/Thing/thing.h"
+
+class Player;
+class Team;
+class AsciiString;
+enum ObjectStatusTypes
+{
+	OBJECT_STATUS_0x54 = 0x54
+};
+
 template <int N> class BitFlags
 {
 public:
+	// Retail's guarded static of this type carries no EH state.
+	__declspec(nothrow) BitFlags() { clear(); }
 	bool any() const;	// 0x0023C58B for N = 11
+	bool setBitByName(const char *token);
+	void clear() { memset(m_words, 0, sizeof(m_words)); }
 private:
-	unsigned int m_bits[1];
+	unsigned int m_words[N == 11 ? 1 : 19];
 };
 
-#include "string_base.h"
+enum WeaponSetType { WEAPONSET_FIRST = 0 };
+enum DisabledType { DISABLED_FIRST = 0 };
+enum ModelConditionFlagType { MODELCONDITION_FIRST = 0 };
 
-class Object
+class Object : public Thing
 {
 public:
+	void setStatus(ObjectStatusTypes status, bool set);
+	Player *getControllingPlayer() const;	// 0x0028AFA9
+	void rva0028EC68(int a, void *b, int c);
+	void setTeam(Team *);
+	Team *getTeam() const { return m_team; }
 	bool isDisabled() const { return m_disabledMask.any(); }
-	const Coord3D *getPosition() const { return &m_position; }
+	void setWeaponSetFlag(WeaponSetType type);
+	void clearWeaponSetFlag(WeaponSetType type);
+	void rva001E42F2(const int *mask);
+	bool addAttributeModifierToPool(const AsciiString &name, int n);
+	void setDisabledUntil(DisabledType type, unsigned int frame);
+	void setSpecialModelConditionState(ModelConditionFlagType set, unsigned int frames);
 private:
-	unsigned char m_pad000[0x38];
-	Coord3D m_position;		// +0x38
-	unsigned char m_pad044[0x1C8 - 0x44];
-	BitFlags<11> m_disabledMask;	// +0x1C8
+	char m_pad60[0x74 - 0x60];
+public:
+	int m_id; // +0x74
+private:
+	char m_pad78[0x1C8 - 0x78];
+	BitFlags<11> m_disabledMask; // +0x1C8
+	char m_pad1CC[0x304 - 0x1CC];
+	Team *m_team; // +0x304
 };
 
 // Object's disabled mask is at +0x1C8. Retail forms its address (and the
@@ -71,25 +105,26 @@ class Rva002872BA;
 extern Rva002872BA *TheTriggerManager;
 
 class ModuleData;
-class ModuleBase
+class BehaviorModule
 {
 public:
-	virtual ~ModuleBase();
+	virtual void behaviorModuleAnchor();
+
 protected:
 	const ModuleData *m_moduleData;	// +0x04
 	Object *m_object;		// +0x08
 };
 
-class BehaviorModuleInterface
-{
-public:
-	virtual void b00() = 0;
-};
-
 class SpecialPowerModuleInterface
 {
 public:
-	virtual void s00() = 0;
+	virtual void specialPowerModuleInterfaceAnchor();
+};
+
+class ModuleInterface
+{
+public:
+	virtual void moduleInterfaceAnchor();
 	virtual void s01() = 0;
 	virtual void s02() = 0;
 	virtual void s03() = 0;
@@ -102,64 +137,140 @@ public:
 	virtual void doSpecialPower(unsigned int options) = 0;
 	virtual void doSpecialPowerAtObject(Object *obj, unsigned int options) = 0;
 	virtual void doSpecialPowerAtLocation(const Coord3D *loc, unsigned int options) = 0;
+	virtual void doSpecialPowerUsingWaypoints(void *target, float angle, int commandOptions) = 0;
 };
 
-class SpecialPowerModule : public ModuleBase, public BehaviorModuleInterface,
-	public SpecialPowerModuleInterface
+class SpecialPowerModule : public BehaviorModule,
+	public SpecialPowerModuleInterface,
+	public ModuleInterface
 {
 public:
+	SpecialPowerModule( Thing *thing, const ModuleData *moduleData );
+
+	// Public: the rowed dtor at 0x00493DEF is ??1SpecialPowerModule@@UAE@XZ.
+	virtual ~SpecialPowerModule();
+	virtual void doSpecialPower(unsigned int options);	// 0x0049490F
+	virtual void doSpecialPowerAtObject(Object *obj, unsigned int options);	// 0x0049495B
 	virtual void doSpecialPowerAtLocation(const Coord3D *loc, unsigned int options);	// 0x004949D8
+	virtual void pauseCountdown(bool pause);	// 0x00492FC2
+protected:
+	unsigned char m_pad14[0x34 - 0x14];
+};
+
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
 };
 
 class ElvenWoodSpecialPower : public SpecialPowerModule
 {
 public:
+	ElvenWoodSpecialPower( Thing *thing, const ModuleData *moduleData );
+	Object *addObject(const Coord3D *position, const AsciiString *name);
+
+	void rva004C3C36(const Coord3D *position);
+
+	void rva004C3B17(const Coord3D *position);
 	virtual void doSpecialPower(unsigned int options);
 	virtual void doSpecialPowerAtObject(Object *obj, unsigned int options);
 	virtual void doSpecialPowerAtLocation(const Coord3D *loc, unsigned int options);
-	void rva004C3B17(const Coord3D *loc);
+
+protected:
+	virtual ~ElvenWoodSpecialPower();
+public:
+	virtual NameKeyType getModuleNameKey() const;
 };
 
-class DarknessSpecialPower : public SpecialPowerModule
+class CloudBreakSpecialPower : public SpecialPowerModule
 {
 public:
+	CloudBreakSpecialPower( Thing *thing, const ModuleData *moduleData );
+	virtual NameKeyType getModuleNameKey() const;
+
+	// Rowed helpers: they stay out of line under this unit's /Ob2.
+	__declspec(noinline) void rva004C4582();
+
+	void rva004C4621(const Coord3D *position);
+	__declspec(noinline) void rva004C45CF(const Coord3D *position, const AsciiString *name);
 	virtual void doSpecialPowerAtLocation(const Coord3D *loc, unsigned int options);
-	void rva004C4E93(const Coord3D *loc);
+
+protected:
+	virtual ~CloudBreakSpecialPower();
 };
 
 class TaintSpecialPower : public SpecialPowerModule
 {
 public:
+	TaintSpecialPower( Thing *thing, const ModuleData *moduleData );
+	virtual NameKeyType getModuleNameKey() const;
+
+	void rva004C49AE(const Coord3D *position);
+	Object *addObject(const Coord3D *position, const AsciiString &name);
+	Object *getObject() const { return m_object; }
 	virtual void doSpecialPowerAtLocation(const Coord3D *loc, unsigned int options);
-	void rva004C49AE(const Coord3D *loc);
+
+protected:
+	virtual ~TaintSpecialPower();
 };
 
-class FXList;
-struct FreezingRainSpecialPowerModuleData
+class DarknessSpecialPower : public SpecialPowerModule
 {
-	unsigned char m_pad00[0x80];
-	const FXList *m_fx;
-	int m_burnRateModifier;			// +0x84
+public:
+	DarknessSpecialPower( Thing *thing, const ModuleData *moduleData );
+	virtual NameKeyType getModuleNameKey() const;
+	virtual void doSpecialPowerAtLocation(const Coord3D *loc, unsigned int options);
+	void rva004C4E93(const Coord3D *loc);
+
+protected:
+	virtual ~DarknessSpecialPower();
 };
 
+class FreezingRainSpecialPowerModuleData;
 class FreezingRainSpecialPower : public SpecialPowerModule
 {
 public:
+	FreezingRainSpecialPower( Thing *thing, const ModuleData *moduleData );
+	virtual NameKeyType getModuleNameKey() const;
 	virtual void doSpecialPowerAtLocation(const Coord3D *loc, unsigned int options);
 	void rva004C4C99(const Coord3D *loc);
 	const FreezingRainSpecialPowerModuleData *getData() const
 	{
 		return (const FreezingRainSpecialPowerModuleData *)m_moduleData;
 	}
+
+protected:
+	virtual ~FreezingRainSpecialPower();
 };
 
-class CloudBreakSpecialPower : public SpecialPowerModule
+
+
+
+
+
+
+
+class FXList;
+class SpecialPowerModuleData
 {
 public:
-	virtual void doSpecialPowerAtLocation(const Coord3D *loc, unsigned int options);
-	void rva004C4621(const Coord3D *loc);
-	void rva004C4582();
+	SpecialPowerModuleData();
+	virtual ~SpecialPowerModuleData();
+
+private:
+	unsigned char m_pad[0x7C - 4];
 };
+
+class FreezingRainSpecialPowerModuleData : public SpecialPowerModuleData
+{
+public:
+	FreezingRainSpecialPowerModuleData();
+
+	float m_freezingRainRadius; // +0x7C
+	const FXList *m_freezingRainFX; // +0x80
+	int m_burnRateModifier; // +0x84
+};
+
+
 
 void DarknessSpecialPower::doSpecialPowerAtLocation(const Coord3D *loc, unsigned int options)
 {
@@ -273,19 +384,23 @@ struct GlobalWeatherState
 };
 class GlobalWeatherSystem;
 extern GlobalWeatherSystem *TheGlobalWeatherSystem;
-#include "../../../../../Libraries/Include/Lib/Region3D.h"
 class TerrainLogic
 {
 public:
- virtual void slot00() = 0;
- virtual void slot01() = 0;
- virtual void slot02() = 0;
- virtual void slot03() = 0;
- virtual void slot04() = 0;
- virtual void slot05() = 0;
- virtual void slot06() = 0;
- virtual void slot07() = 0;
- virtual void getExtent(Region3D *extent) = 0;
+	virtual void v00();
+	virtual void v01();
+	virtual void v02();
+	virtual void v03();
+	virtual void v04();
+	virtual void v05();
+	virtual float getGroundHeight( float x, float y, Coord3D *normal ) const;
+	virtual void v07();
+	virtual void getExtent( Region3D *extent ) const;
+	void addTree(const ThingTemplate *, const Coord3D *, const Matrix3D *, float);
+	void rva00280176(const ThingTemplate *, const Coord3D *, const Matrix3D *, float);
+	void rva0027D3D9(const ThingTemplate *, const Coord3D *, const Matrix3D *, float);
+	void rva0027F28E(const Coord3D *loc, float radius, int flag);
+	void rva0027D1A4(const Coord3D *loc, float radius, int flag);
 };
 extern TerrainLogic *TheTerrainLogic;
 class Matrix3D;
@@ -305,11 +420,11 @@ void FreezingRainSpecialPower::rva004C4C99(const Coord3D *loc)
  if (((const GlobalWeatherState *)TheGlobalWeatherSystem)->m_currentWeather == 2)
   return;
  const FreezingRainSpecialPowerModuleData *data = getData();
- if (data->m_fx == 0)
+ if (data->m_freezingRainFX == 0)
   return;
  Region3D extent;
  TheTerrainLogic->getExtent(&extent);
- FXList::doFXPos(data->m_fx,
+ FXList::doFXPos(data->m_freezingRainFX,
   &WeatherPoint((extent.lo.x + extent.hi.x) * 0.5f,
    (extent.lo.y + extent.hi.y) * 0.5f, loc->z), 0, 0.0f, 0);
 }

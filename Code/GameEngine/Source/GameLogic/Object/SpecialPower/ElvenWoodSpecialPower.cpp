@@ -5,8 +5,21 @@
 #define _OPERATOR_NEW_DEFINED_
 #include "ascii_string.h"
 #include <bitset>
+#include <vector>
+#include "../../../../../Libraries/Include/Lib/BfmeE16.h"
+// bfme link decl-only begin
+namespace _STL { template <> __declspec(nothrow) _Vector_base<BfmeE16,_STL::allocator<BfmeE16> >::_Vector_base(const allocator<BfmeE16> &); }
+namespace _STL { template <> _Vector_base<BfmeE16,_STL::allocator<BfmeE16> >::~_Vector_base(); }
+// bfme link decl-only end
+// bfme link decl-only BfmeE16
+namespace _STL { template <> vector<BfmeE16, allocator<BfmeE16> >::~vector(); }
+// Suppress this TU's non-retail BfmeE16 proxy deallocate copy (family2-LK3 row 34):
+// the kept copy serves the link. Plain declaration-only form (no __imp_).
+namespace _STL {
+template <> void _STLP_alloc_proxy<BfmeE16*, BfmeE16, allocator<BfmeE16> >::deallocate(BfmeE16*, size_t);
+}
 #include "matrix3d.h"
-class Thing;
+#include "../../../Common/Thing/thing.h"
 class ModuleData;
 class Object;
 class Player;
@@ -19,8 +32,8 @@ public:
 	virtual void behaviorModuleAnchor();
 
 protected:
-	const ModuleData *m_moduleData;
-	Object *m_object;
+	const ModuleData *m_moduleData;	// +0x04
+	Object *m_object;		// +0x08
 };
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/SpecialPowerModule.h
 class SpecialPowerModuleInterface
@@ -32,6 +45,19 @@ class ModuleInterface
 {
 public:
 	virtual void moduleInterfaceAnchor();
+	virtual void s01() = 0;
+	virtual void s02() = 0;
+	virtual void s03() = 0;
+	virtual void s04() = 0;
+	virtual void s05() = 0;
+	virtual void s06() = 0;
+	virtual void s07() = 0;
+	virtual void s08() = 0;
+	virtual void s09() = 0;
+	virtual void doSpecialPower(unsigned int options) = 0;
+	virtual void doSpecialPowerAtObject(Object *obj, unsigned int options) = 0;
+	virtual void doSpecialPowerAtLocation(const Coord3D *loc, unsigned int options) = 0;
+	virtual void doSpecialPowerUsingWaypoints(void *target, float angle, int commandOptions) = 0;
 };
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/SpecialPowerModule.h
 class SpecialPowerModule : public BehaviorModule,
@@ -43,6 +69,10 @@ public:
 
 	// Public: the rowed dtor at 0x00493DEF is ??1SpecialPowerModule@@UAE@XZ.
 	virtual ~SpecialPowerModule();
+	virtual void doSpecialPower(unsigned int options);	// 0x0049490F
+	virtual void doSpecialPowerAtObject(Object *obj, unsigned int options);	// 0x0049495B
+	virtual void doSpecialPowerAtLocation(const Coord3D *loc, unsigned int options);	// 0x004949D8
+	virtual void pauseCountdown(bool pause);	// 0x00492FC2
 protected:
 	unsigned char m_pad14[0x34 - 0x14];
 };
@@ -59,6 +89,9 @@ public:
 	void rva004C3C36(const Coord3D *position);
 
 	void rva004C3B17(const Coord3D *position);
+	virtual void doSpecialPower(unsigned int options);
+	virtual void doSpecialPowerAtObject(Object *obj, unsigned int options);
+	virtual void doSpecialPowerAtLocation(const Coord3D *loc, unsigned int options);
 
 protected:
 	virtual ~ElvenWoodSpecialPower();
@@ -118,12 +151,7 @@ extern TerrainLogic *TheTerrainLogic;
 struct CreateMask
 {
 public:
-	unsigned int m_words[4]; // +0x00 +0x00
-};
-class Thing
-{
-public:
-	void setPosition(const Coord3D *);
+	unsigned int m_words[4]; // +0x00
 };
 enum ObjectStatusTypes
 {
@@ -174,6 +202,7 @@ class RGBAColorReal;
 class RGBAColorInt;
 class Snapshot;
 #include "../../../../Include/Common/BfmeXfer.h"
+extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 // ?rva004C3B17@ElvenWoodSpecialPower@@QAEXPBUCoord3D@@@Z
 // Retail 0x004C3B17..0x004C3C36 (287 bytes): ElvenWoodSpecialPower's
@@ -201,20 +230,43 @@ class BfmeTab1026 : public Rva2225E0Filter
 {
 public:
 };
+template <int N> class BitFlags
+{
+public:
+	// Retail's guarded static of this type carries no EH state.
+	__declspec(nothrow) BitFlags() { clear(); }
+	bool any() const;	// 0x0023C58B for N = 11
+	bool setBitByName(const char *token);
+	void clear() { memset(m_words, 0, sizeof(m_words)); }
+private:
+	unsigned int m_words[N == 11 ? 1 : 19];
+};
+enum WeaponSetType { WEAPONSET_FIRST = 0 };
+enum DisabledType { DISABLED_FIRST = 0 };
+enum ModelConditionFlagType { MODELCONDITION_FIRST = 0 };
 class Object : public Thing
 {
 public:
 	void setStatus(ObjectStatusTypes status, bool set);
-	Player *getControllingPlayer() const;
+	Player *getControllingPlayer() const;	// 0x0028AFA9
 	void rva0028EC68(int a, void *b, int c);
 	void setTeam(Team *);
 	Team *getTeam() const { return m_team; }
+	bool isDisabled() const { return m_disabledMask.any(); }
+	void setWeaponSetFlag(WeaponSetType type);
+	void clearWeaponSetFlag(WeaponSetType type);
+	void rva001E42F2(const int *mask);
+	bool addAttributeModifierToPool(const AsciiString &name, int n);
+	void setDisabledUntil(DisabledType type, unsigned int frame);
+	void setSpecialModelConditionState(ModelConditionFlagType set, unsigned int frames);
 private:
-	char m_pad00[0x74];
+	char m_pad60[0x74 - 0x60];
 public:
 	int m_id; // +0x74
 private:
-	char m_pad78[0x304 - 0x78];
+	char m_pad78[0x1C8 - 0x78];
+	BitFlags<11> m_disabledMask; // +0x1C8
+	char m_pad1CC[0x304 - 0x1CC];
 	Team *m_team; // +0x304
 };
 #include "../../../Common/GameLogicObjectLookupView.h"
@@ -240,11 +292,15 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
+struct WeaponChangeData;
 class WeaponChangeSpecialPowerModule : public SpecialPowerModule
 {
 public:
 	WeaponChangeSpecialPowerModule( Thing *thing, const ModuleData *moduleData );
 	virtual NameKeyType getModuleNameKey() const;
+	virtual void doSpecialPower(unsigned int options);
+	const WeaponChangeData *getData() const { return (const WeaponChangeData *)m_moduleData; }
+	virtual void doSpecialPowerUsingWaypoints(void *target, float angle, int commandOptions);
 
 protected:
 	virtual ~WeaponChangeSpecialPowerModule();
@@ -270,11 +326,22 @@ private:
 	AsciiString m_nameB; // +0x98
 };
 
+struct ScavengerSpecialPowerModuleData
+{
+	unsigned char m_pad00[0x7C];
+	float m_7C;			// +0x7C
+};
+
 class ScavengerSpecialPower : public SpecialPowerModule
 {
 public:
 	ScavengerSpecialPower(Thing *thing, const ModuleData *moduleData);
 	virtual NameKeyType getModuleNameKey() const;
+	virtual void doSpecialPower(unsigned int options);
+	const ScavengerSpecialPowerModuleData *getData() const
+	{
+		return (const ScavengerSpecialPowerModuleData *)m_moduleData;
+	}
 
 private:
 	bool m_34; // +0x34
@@ -314,10 +381,12 @@ public:
 	CloudBreakSpecialPower( Thing *thing, const ModuleData *moduleData );
 	virtual NameKeyType getModuleNameKey() const;
 
-	void rva004C4582();
+	// Rowed helpers: they stay out of line under this unit's /Ob2.
+	__declspec(noinline) void rva004C4582();
 
 	void rva004C4621(const Coord3D *position);
-	void rva004C45CF(const Coord3D *position, const AsciiString *name);
+	__declspec(noinline) void rva004C45CF(const Coord3D *position, const AsciiString *name);
+	virtual void doSpecialPowerAtLocation(const Coord3D *loc, unsigned int options);
 
 protected:
 	virtual ~CloudBreakSpecialPower();
@@ -331,16 +400,25 @@ public:
 
 	void rva004C49AE(const Coord3D *position);
 	Object *addObject(const Coord3D *position, const AsciiString &name);
+	Object *getObject() const { return m_object; }
+	virtual void doSpecialPowerAtLocation(const Coord3D *loc, unsigned int options);
 
 protected:
 	virtual ~TaintSpecialPower();
 };
 
+class FreezingRainSpecialPowerModuleData;
 class FreezingRainSpecialPower : public SpecialPowerModule
 {
 public:
 	FreezingRainSpecialPower( Thing *thing, const ModuleData *moduleData );
 	virtual NameKeyType getModuleNameKey() const;
+	virtual void doSpecialPowerAtLocation(const Coord3D *loc, unsigned int options);
+	void rva004C4C99(const Coord3D *loc);
+	const FreezingRainSpecialPowerModuleData *getData() const
+	{
+		return (const FreezingRainSpecialPowerModuleData *)m_moduleData;
+	}
 
 protected:
 	virtual ~FreezingRainSpecialPower();
@@ -351,6 +429,8 @@ class DarknessSpecialPower : public SpecialPowerModule
 public:
 	DarknessSpecialPower( Thing *thing, const ModuleData *moduleData );
 	virtual NameKeyType getModuleNameKey() const;
+	virtual void doSpecialPowerAtLocation(const Coord3D *loc, unsigned int options);
+	void rva004C4E93(const Coord3D *loc);
 
 protected:
 	virtual ~DarknessSpecialPower();
@@ -415,17 +495,18 @@ extern "C" const void *const vtbl_00C5D608[] = {
 	(const void *)&__identifier("?rva0050B5C6@Rva0050B5C6@@QAE_NXZ")
 };
 
-extern "C" void _ReadWriteBarrier(void);
+class FXList;
+class ObjectCreationList;
 
 class TaintSpecialPowerModuleData : public SpecialPowerModuleData
 {
 public:
 	TaintSpecialPowerModuleData();
 
-	int m_taintObject;
-	float m_taintRadius;
-	int m_taintFX;
-	int m_taintOCL;
+	int m_taintObject; // +0x7C
+	Real m_taintRadius; // +0x80
+	FXList *m_taintFX; // +0x84
+	ObjectCreationList *m_taintOCL; // +0x88
 };
 
 struct BfmePointFC;
@@ -450,13 +531,18 @@ public:
 
 extern BfmeTaintManager *TheTaintManager;
 
-struct ElvenWoodSpecialPowerModuleData
+class ElvenWoodSpecialPowerModuleData : public SpecialPowerModuleData
 {
-	unsigned char m_pad00[0x88];
-	unsigned char m_objectName[8];
-	Real m_radius;						// +0x90
-	FXList *m_fx;						// +0x94
-	ObjectCreationList *m_ocl;				// +0x98
+public:
+	ElvenWoodSpecialPowerModuleData();
+	virtual ~ElvenWoodSpecialPowerModuleData();
+
+	_STL::vector<BfmeE16> m_elves; // +0x7C, element unproven
+	AsciiString m_objectName; // +0x88
+	int m_numObjects; // +0x8C
+	Real m_radius; // +0x90
+	FXList *m_fx; // +0x94
+	ObjectCreationList *m_ocl; // +0x98
 };
 
 enum NameKeyType;
@@ -469,12 +555,15 @@ struct Rva004C4582TabHolder
 	BfmeTab1026 m_tab;
 };
 
-struct CloudBreakSpecialPowerModuleData
+class __declspec(novtable) CloudBreakSpecialPowerModuleData : public SpecialPowerModuleData
 {
-	unsigned char m_pad00[0x80];
-	const FXList *m_fx;
-	unsigned char m_objectName[4];
-	Real m_spacing;
+public:
+	CloudBreakSpecialPowerModuleData();
+
+	float m_cloudBreakRadius; // +0x7C
+	const FXList *m_fx; // +0x80
+	unsigned char m_objectName[4]; // +0x84
+	Real m_spacing; // +0x88
 };
 
 class FreezingRainSpecialPowerModuleData : public SpecialPowerModuleData
@@ -482,9 +571,8 @@ class FreezingRainSpecialPowerModuleData : public SpecialPowerModuleData
 public:
 	FreezingRainSpecialPowerModuleData();
 
-private:
 	float m_freezingRainRadius; // +0x7C
-	void *m_freezingRainFX; // +0x80
+	const FXList *m_freezingRainFX; // +0x80
 	int m_burnRateModifier; // +0x84
 };
 
@@ -714,7 +802,7 @@ void ElvenWoodSpecialPower::rva004C3B17( const Coord3D *loc )
 		ocl->create( owner, &oclPoint, 0, 0 );
 	}
 
-	Object *wood = addObject( loc, (const AsciiString *)data->m_objectName );
+	Object *wood = addObject( loc, &data->m_objectName );
 	if( wood )
 		wood->setStatus( OBJECT_STATUS_0x54, true );
 	TheTaintManager->bfmeApplyCircleWorld( (const BfmePointFC *)loc, radius * 1.25f, 0x80, true, -1 );

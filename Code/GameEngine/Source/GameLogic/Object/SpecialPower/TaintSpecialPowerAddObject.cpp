@@ -19,20 +19,57 @@ class ThingTemplate;
 struct CreateMask
 {
 public:
-	unsigned int m_words[4]; // +0x00 +0x00
+	unsigned int m_words[4]; // +0x00
 };
 
 #include "../../../Common/Thing/thing.h"
 
+class Player;
+enum ObjectStatusTypes
+{
+	OBJECT_STATUS_0x54 = 0x54
+};
+
+template <int N> class BitFlags
+{
+public:
+	// Retail's guarded static of this type carries no EH state.
+	__declspec(nothrow) BitFlags() { clear(); }
+	bool any() const;	// 0x0023C58B for N = 11
+	bool setBitByName(const char *token);
+	void clear() { memset(m_words, 0, sizeof(m_words)); }
+private:
+	unsigned int m_words[N == 11 ? 1 : 19];
+};
+
+enum WeaponSetType { WEAPONSET_FIRST = 0 };
+enum DisabledType { DISABLED_FIRST = 0 };
+enum ModelConditionFlagType { MODELCONDITION_FIRST = 0 };
+
 class Object : public Thing
 {
 public:
-	void setTeam(Team *team);
+	void setStatus(ObjectStatusTypes status, bool set);
+	Player *getControllingPlayer() const;	// 0x0028AFA9
+	void rva0028EC68(int a, void *b, int c);
+	void setTeam(Team *);
 	Team *getTeam() const { return m_team; }
-
+	bool isDisabled() const { return m_disabledMask.any(); }
+	void setWeaponSetFlag(WeaponSetType type);
+	void clearWeaponSetFlag(WeaponSetType type);
+	void rva001E42F2(const int *mask);
+	bool addAttributeModifierToPool(const AsciiString &name, int n);
+	void setDisabledUntil(DisabledType type, unsigned int frame);
+	void setSpecialModelConditionState(ModelConditionFlagType set, unsigned int frames);
 private:
-	unsigned char m_pad060[0x304 - 0x60];
-	Team *m_team;
+	char m_pad60[0x74 - 0x60];
+public:
+	int m_id; // +0x74
+private:
+	char m_pad78[0x1C8 - 0x78];
+	BitFlags<11> m_disabledMask; // +0x1C8
+	char m_pad1CC[0x304 - 0x1CC];
+	Team *m_team; // +0x304
 };
 
 enum ObjectID; class ThingFactory
@@ -43,16 +80,77 @@ public:
 };
 extern ThingFactory *TheThingFactory;
 
-class TaintSpecialPower
+class ModuleData;
+class BehaviorModule
 {
 public:
-	Object *addObject(const Coord3D *pos, const AsciiString &templateName);
-	Object *getObject() const { return m_object; }
+	virtual void behaviorModuleAnchor();
 
-private:
-	void *m_vtbl;
-	void *m_moduleData;
-	Object *m_object;
+protected:
+	const ModuleData *m_moduleData;	// +0x04
+	Object *m_object;		// +0x08
+};
+
+class SpecialPowerModuleInterface
+{
+public:
+	virtual void specialPowerModuleInterfaceAnchor();
+};
+
+class ModuleInterface
+{
+public:
+	virtual void moduleInterfaceAnchor();
+	virtual void s01() = 0;
+	virtual void s02() = 0;
+	virtual void s03() = 0;
+	virtual void s04() = 0;
+	virtual void s05() = 0;
+	virtual void s06() = 0;
+	virtual void s07() = 0;
+	virtual void s08() = 0;
+	virtual void s09() = 0;
+	virtual void doSpecialPower(unsigned int options) = 0;
+	virtual void doSpecialPowerAtObject(Object *obj, unsigned int options) = 0;
+	virtual void doSpecialPowerAtLocation(const Coord3D *loc, unsigned int options) = 0;
+	virtual void doSpecialPowerUsingWaypoints(void *target, float angle, int commandOptions) = 0;
+};
+
+class SpecialPowerModule : public BehaviorModule,
+	public SpecialPowerModuleInterface,
+	public ModuleInterface
+{
+public:
+	SpecialPowerModule( Thing *thing, const ModuleData *moduleData );
+
+	// Public: the rowed dtor at 0x00493DEF is ??1SpecialPowerModule@@UAE@XZ.
+	virtual ~SpecialPowerModule();
+	virtual void doSpecialPower(unsigned int options);	// 0x0049490F
+	virtual void doSpecialPowerAtObject(Object *obj, unsigned int options);	// 0x0049495B
+	virtual void doSpecialPowerAtLocation(const Coord3D *loc, unsigned int options);	// 0x004949D8
+	virtual void pauseCountdown(bool pause);	// 0x00492FC2
+protected:
+	unsigned char m_pad14[0x34 - 0x14];
+};
+
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
+class TaintSpecialPower : public SpecialPowerModule
+{
+public:
+	TaintSpecialPower( Thing *thing, const ModuleData *moduleData );
+	virtual NameKeyType getModuleNameKey() const;
+
+	void rva004C49AE(const Coord3D *position);
+	Object *addObject(const Coord3D *position, const AsciiString &name);
+	Object *getObject() const { return m_object; }
+	virtual void doSpecialPowerAtLocation(const Coord3D *loc, unsigned int options);
+
+protected:
+	virtual ~TaintSpecialPower();
 };
 
 Object *TaintSpecialPower::addObject(const Coord3D *pos, const AsciiString &asciiString)

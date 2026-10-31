@@ -14,10 +14,12 @@
 // unproven, so the TU keeps the BfmeE16 stand-in (fold-equivalent and
 // byte-correct, BattlePlanUpdate precedent) and the row carries the identity.
 
+#include "../../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 #include <vector>
 
 #include "../../../../../Libraries/Include/Lib/BfmeE16.h"
 // bfme link decl-only begin
+namespace _STL { template <> __declspec(nothrow) _Vector_base<BfmeE16,_STL::allocator<BfmeE16> >::_Vector_base(const allocator<BfmeE16> &); }
 namespace _STL { template <> _Vector_base<BfmeE16,_STL::allocator<BfmeE16> >::~_Vector_base(); }
 // bfme link decl-only end
 // bfme link decl-only BfmeE16
@@ -28,13 +30,16 @@ namespace _STL {
 template <> void _STLP_alloc_proxy<BfmeE16*, BfmeE16, allocator<BfmeE16> >::deallocate(BfmeE16*, size_t);
 }
 
+typedef float Real;
+class FXList;
+class ObjectCreationList;
 class SpecialPowerModuleData
 {
 public:
 	SpecialPowerModuleData();
 	virtual ~SpecialPowerModuleData();
 
-protected:
+private:
 	unsigned char m_pad[0x7C - 4];
 };
 
@@ -44,22 +49,20 @@ public:
 	ElvenWoodSpecialPowerModuleData();
 	virtual ~ElvenWoodSpecialPowerModuleData();
 
-private:
 	_STL::vector<BfmeE16> m_elves; // +0x7C, element unproven
-	int m_elvenGroveObject; // +0x88
-	int m_elvenNumObjects; // +0x8C
-	float m_elvenWoodRadius; // +0x90
-	int m_elvenWoodFX; // +0x94
-	int m_elvenWoodOCL; // +0x98
+	AsciiString m_objectName; // +0x88
+	int m_numObjects; // +0x8C
+	Real m_radius; // +0x90
+	FXList *m_fx; // +0x94
+	ObjectCreationList *m_ocl; // +0x98
 };
 
 // ??0ElvenWoodSpecialPowerModuleData@@QAE@XZ @0x4C3DA9
 ElvenWoodSpecialPowerModuleData::ElvenWoodSpecialPowerModuleData()
 	: SpecialPowerModuleData()
-	, m_elvenGroveObject(0)
-	, m_elvenNumObjects(0)
-	, m_elvenWoodRadius(10.0f)
-	, m_elvenWoodFX(0)
-	, m_elvenWoodOCL(0)
+	, m_numObjects(0)
+	, m_radius(10.0f)
+	, m_fx(0)
+	, m_ocl(0)
 {
 }

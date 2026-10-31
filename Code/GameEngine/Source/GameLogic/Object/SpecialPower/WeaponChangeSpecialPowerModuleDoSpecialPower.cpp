@@ -24,15 +24,54 @@ public:
 #include <string.h>
 #pragma function(memset)
 
-template <unsigned N>
-class BitFlags
+#include "../../../Common/Thing/thing.h"
+class Player;
+class Team;
+enum ObjectStatusTypes
+{
+	OBJECT_STATUS_0x54 = 0x54
+};
+
+template <int N> class BitFlags
 {
 public:
-	BitFlags() { clear(); }
+	// Retail's guarded static of this type carries no EH state.
+	__declspec(nothrow) BitFlags() { clear(); }
+	bool any() const;	// 0x0023C58B for N = 11
 	bool setBitByName(const char *token);
 	void clear() { memset(m_words, 0, sizeof(m_words)); }
 private:
-	unsigned m_words[19];
+	unsigned int m_words[N == 11 ? 1 : 19];
+};
+
+enum WeaponSetType { WEAPONSET_FIRST = 0 };
+enum DisabledType { DISABLED_FIRST = 0 };
+enum ModelConditionFlagType { MODELCONDITION_FIRST = 0 };
+
+class Object : public Thing
+{
+public:
+	void setStatus(ObjectStatusTypes status, bool set);
+	Player *getControllingPlayer() const;	// 0x0028AFA9
+	void rva0028EC68(int a, void *b, int c);
+	void setTeam(Team *);
+	Team *getTeam() const { return m_team; }
+	bool isDisabled() const { return m_disabledMask.any(); }
+	void setWeaponSetFlag(WeaponSetType type);
+	void clearWeaponSetFlag(WeaponSetType type);
+	void rva001E42F2(const int *mask);
+	bool addAttributeModifierToPool(const AsciiString &name, int n);
+	void setDisabledUntil(DisabledType type, unsigned int frame);
+	void setSpecialModelConditionState(ModelConditionFlagType set, unsigned int frames);
+private:
+	char m_pad60[0x74 - 0x60];
+public:
+	int m_id; // +0x74
+private:
+	char m_pad78[0x1C8 - 0x78];
+	BitFlags<11> m_disabledMask; // +0x1C8
+	char m_pad1CC[0x304 - 0x1CC];
+	Team *m_team; // +0x304
 };
 
 class Rva0028D891Owner
@@ -44,20 +83,6 @@ public:
 #include "../../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 
-enum WeaponSetType { WEAPONSET_FIRST = 0 };
-enum DisabledType { DISABLED_FIRST = 0 };
-enum ModelConditionFlagType { MODELCONDITION_FIRST = 0 };
-
-class Object
-{
-public:
-	void setWeaponSetFlag(WeaponSetType type);
-	void clearWeaponSetFlag(WeaponSetType type);
-	void rva001E42F2(const int *mask);
-	bool addAttributeModifierToPool(const AsciiString &name, int n);
-	void setDisabledUntil(DisabledType type, unsigned int frame);
-	void setSpecialModelConditionState(ModelConditionFlagType set, unsigned int frames);
-};
 
 struct WeaponChangeData
 {
@@ -71,25 +96,26 @@ struct WeaponChangeData
 };
 
 class ModuleData;
-class ModuleBase
+class BehaviorModule
 {
 public:
-	virtual ~ModuleBase();
+	virtual void behaviorModuleAnchor();
+
 protected:
 	const ModuleData *m_moduleData;	// +0x04
 	Object *m_object;		// +0x08
 };
 
-class BehaviorModuleInterface
-{
-public:
-	virtual void b00() = 0;
-};
-
 class SpecialPowerModuleInterface
 {
 public:
-	virtual void s00() = 0;
+	virtual void specialPowerModuleInterfaceAnchor();
+};
+
+class ModuleInterface
+{
+public:
+	virtual void moduleInterfaceAnchor();
 	virtual void s01() = 0;
 	virtual void s02() = 0;
 	virtual void s03() = 0;
@@ -100,20 +126,44 @@ public:
 	virtual void s08() = 0;
 	virtual void s09() = 0;
 	virtual void doSpecialPower(unsigned int options) = 0;
+	virtual void doSpecialPowerAtObject(Object *obj, unsigned int options) = 0;
+	virtual void doSpecialPowerAtLocation(const Coord3D *loc, unsigned int options) = 0;
+	virtual void doSpecialPowerUsingWaypoints(void *target, float angle, int commandOptions) = 0;
 };
 
-class SpecialPowerModule : public ModuleBase, public BehaviorModuleInterface,
-	public SpecialPowerModuleInterface
+class SpecialPowerModule : public BehaviorModule,
+	public SpecialPowerModuleInterface,
+	public ModuleInterface
 {
 public:
+	SpecialPowerModule( Thing *thing, const ModuleData *moduleData );
+
+	// Public: the rowed dtor at 0x00493DEF is ??1SpecialPowerModule@@UAE@XZ.
+	virtual ~SpecialPowerModule();
 	virtual void doSpecialPower(unsigned int options);	// 0x0049490F
+	virtual void doSpecialPowerAtObject(Object *obj, unsigned int options);	// 0x0049495B
+	virtual void doSpecialPowerAtLocation(const Coord3D *loc, unsigned int options);	// 0x004949D8
+	virtual void pauseCountdown(bool pause);	// 0x00492FC2
+protected:
+	unsigned char m_pad14[0x34 - 0x14];
+};
+
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
 };
 
 class WeaponChangeSpecialPowerModule : public SpecialPowerModule
 {
 public:
+	WeaponChangeSpecialPowerModule( Thing *thing, const ModuleData *moduleData );
+	virtual NameKeyType getModuleNameKey() const;
 	virtual void doSpecialPower(unsigned int options);
 	const WeaponChangeData *getData() const { return (const WeaponChangeData *)m_moduleData; }
+	virtual void doSpecialPowerUsingWaypoints(void *target, float angle, int commandOptions);
+
+protected:
+	virtual ~WeaponChangeSpecialPowerModule();
 };
 
 void WeaponChangeSpecialPowerModule::doSpecialPower(unsigned int options)
@@ -150,7 +200,7 @@ void WeaponChangeSpecialPowerModule::doSpecialPower(unsigned int options)
 		}
 		if (added)
 		{
-			if (!data->m_name94.isEmpty() && data->m_attackerModifier)
+			if (!((const StringBase<char> *)&data->m_name94)->isEmpty() && data->m_attackerModifier)
 				object->addAttributeModifierToPool(data->m_name94, data->m_attackerModifier);
 			if (data->m_attackerModifier > 0)
 				object->setDisabledUntil((DisabledType)4, TheGameLogic->getFrame() + data->m_attackerModifier);
@@ -158,7 +208,7 @@ void WeaponChangeSpecialPowerModule::doSpecialPower(unsigned int options)
 		}
 		else
 		{
-			if (!data->m_name98.isEmpty() && data->m_disabledFrames)
+			if (!((const StringBase<char> *)&data->m_name98)->isEmpty() && data->m_disabledFrames)
 				object->addAttributeModifierToPool(data->m_name98, data->m_disabledFrames);
 			if (data->m_disabledFrames > 0)
 				object->setDisabledUntil((DisabledType)4, TheGameLogic->getFrame() + data->m_disabledFrames);
