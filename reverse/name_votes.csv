@@ -19662,3 +19662,9 @@ Code/GameEngine/Source/Common/Rva0046E455.cpp|function|0x0046E455|rva0046E455,03
 Code/GameEngine/Source/Common/Rva0046E455.cpp|function|0x0046E4DD|rva0046E4DD,db1b1efcd867d3984032bbd4,drz-k1,n29a-k1,w-d29055ee9848,2026-10-31
 Code/GameEngine/Source/Common/Rva004075E0.cpp|function|0x004075E0|rva004075E0,94b2baaf1e884088c5ff0ab3,drz-k1,n29a-k1,w-d29055ee9848,2026-10-31
 Code/GameEngine/Source/Common/Rva004075E0.cpp|function|0x00407668|rva00407668,efd2827ee2026d89484c91bc,drz-k1,n29a-k1,w-d29055ee9848,2026-10-31
+Code/GameEngine/Source/Common/ConstGlobalGetters.cpp|function|0x00116E20|Rva00116E20Get,8d9035a65a5f92ff32352b03,drz-k2,n29b-k2,w-ded32b2e2c5e,2026-10-31
+Code/GameEngine/Source/Common/ConstGlobalGetters.cpp|function|0x00116E30|Rva00116E30Get,7a7a3ddf4fe341dd51721f5d,drz-k2,n29b-k2,w-ded32b2e2c5e,2026-10-31
+Code/GameEngine/Source/Common/ConstGlobalGetters.cpp|function|0x00117C30|Rva00117C30Get,0f64ebe765479ecb149c9c3d,drz-k2,n29b-k2,w-ded32b2e2c5e,2026-10-31
+Code/GameEngine/Source/Common/ConstGlobalGetters.cpp|function|0x0011C450|Rva0011C450Get,02346ee3d6c90fbf3a435fea,drz-k2,n29b-k2,w-ded32b2e2c5e,2026-10-31
+Code/GameEngine/Source/Common/Bfme/Rva005E70DF.cpp|function|0x005E70DF|rva005E70DF,b325dbad54d98a990759e020,drz-k2,n29b-k2,w-ded32b2e2c5e,2026-10-31
+Code/GameEngine/Source/Common/Bfme/Rva005E70DF.cpp|param|Rva005E70DF::rva005E70DF|arg,8639a3272f52f7046c8382ca,drz-k2,n29b-k2,w-ded32b2e2c5e,2026-10-31
