@@ -44,16 +44,17 @@ class ExperienceLevelIterator
 {
 public:
 	ExperienceLevelIterator() {}
-	ExperienceLevelIterator(const ExperienceLevelIterator &that) : m_node(that.m_node) {}
-	void *m_node;
+	ExperienceLevelIterator(const ExperienceLevelIterator &other) : m_node(other.m_node) {}
+	void *m_node; // +0x00
 };
 
 struct ExperienceLevelHandle
 {
+public:
 	ExperienceLevelHandle() {}
-	ExperienceLevelHandle(const ExperienceLevelHandle &that) : m_list(that.m_list), m_iter(that.m_iter) {}
-	ExperienceLevelList *m_list;
-	ExperienceLevelIterator m_iter;
+	ExperienceLevelHandle(const ExperienceLevelHandle &other) : m_list(other.m_list), m_iter(other.m_iter) {}
+	ExperienceLevelList *m_list; // +0x00
+	ExperienceLevelIterator m_iter; // +0x04
 };
 
 class ExperienceTracker
@@ -82,15 +83,15 @@ extern SpecialPowerStore *TheSpecialPowerStore;
 class ThingTemplate
 {
 public:
-	char m_pad[0x113];
-	unsigned char m_113;
+	char m_pad000[0x108];
+	unsigned char m_kindOf[0x20]; // +0x108
 };
 
-class AIUpdate
+class AIUpdateInterface
 {
 public:
 	char m_pad00[0x48];
-	Int m_48;
+	CommandSourceType m_lastCommandSource;
 	char m_pad4C[0x3C5 - 0x4C];
 	unsigned char m_3C5;
 };
@@ -104,21 +105,24 @@ public:
 	void doSpecialPowerAtLocation(const SpecialPowerTemplate *specialPowerTemplate, const Coord3D *loc, UnsignedInt commandOptions, bool forceUsable);
 
 	char m_pad00[0x04];
-	ThingTemplate *m_template;
+	const ThingTemplate *m_template;
 	char m_pad08[0x74 - 0x08];
 	Int m_id;
 	char m_pad78[0x258 - 0x78];
-	AIUpdate *m_ai;
+	AIUpdateInterface *m_ai;
 	char m_pad25C[0x264 - 0x25C];
-	ExperienceTracker *m_tracker;
+	ExperienceTracker *m_experienceTracker;
 };
 
+enum CanAttackResult { ATTACKRESULT_POSSIBLE_AFTER_MOVING=2, ATTACKRESULT_POSSIBLE=3 };
+enum AbleToAttackType { ATTACK_NEW_TARGET=0, ATTACK_NEW_TARGET_FORCED=1 };
 class ActionManager
 {
 public:
-	bool canDoSpecialPower(const Object *, const SpecialPowerTemplate *, CommandSourceType, UnsignedInt, bool);
-	bool canDoSpecialPowerAtLocation(const Object *obj, const Coord3D *loc, CommandSourceType commandSource,
-		const SpecialPowerTemplate *spTemplate, const Object *objectInWay, UnsignedInt commandOptions, bool checkSourceRequirements);
+	bool canDoSpecialPowerAtObject(const Object *obj, const Object *target, CommandSourceType commandSource, const SpecialPowerTemplate *spTemplate, unsigned int commandOptions, bool checkSourceRequirements);
+	bool canDoSpecialPower(const Object *, const SpecialPowerTemplate *, CommandSourceType, unsigned int, bool);
+	bool canDoSpecialPowerAtLocation(const Object *obj, const Coord3D *loc, CommandSourceType commandSource, const SpecialPowerTemplate *spTemplate, const Object *objectInWay, unsigned int commandOptions, bool checkSourceRequirements);
+	CanAttackResult getCanAttackObject(const Object*,const Object*,CommandSourceType,AbleToAttackType);
 };
 extern ActionManager *TheActionManager;
 
@@ -146,10 +150,10 @@ bool AIGroup::groupDoSpecialPower(UnsignedInt id, UnsignedInt commandOptions, In
 	if (!all) {
 	for (_STL::list<Object *>::iterator it = m_memberList.begin(); it != m_memberList.end(); ++it) {
 		Object *object = *it;
-		ThingTemplate *thingTemplate = object->m_template;
-		if ((thingTemplate->m_113 & 4) == 0)
+		const ThingTemplate *thingTemplate = object->m_template;
+		if ((thingTemplate->m_kindOf[0x0B] & 4) == 0)
 			continue;
-		ExperienceLevelHandle handle = object->m_tracker->rva0039AC0C();
+		ExperienceLevelHandle handle = object->m_experienceTracker->rva0039AC0C();
 		if (!((ExperienceLevelStore *)TheExperienceLevelSystem)->IsValid(handle))
 			continue;
 		Int rank = ((ExperienceLevelStore *)TheExperienceLevelSystem)->GetLevelRank(handle);
@@ -168,13 +172,13 @@ bool AIGroup::groupDoSpecialPower(UnsignedInt id, UnsignedInt commandOptions, In
 	bool done = false;
 	for (_STL::list<Object *>::iterator it = m_memberList.begin(); it != m_memberList.end(); ++it) {
 		Object *object = *it;
-		AIUpdate *ai = object->m_ai;
+		AIUpdateInterface *ai = object->m_ai;
 		if (ai != 0) {
 			if (unk == 0) {
 				if (ai->m_3C5 != 0)
 					continue;
 			}
-			ai->m_48 = unk;
+			ai->m_lastCommandSource = (CommandSourceType)unk;
 		}
 		if (spTemplate == 0)
 			continue;
@@ -187,13 +191,13 @@ bool AIGroup::groupDoSpecialPower(UnsignedInt id, UnsignedInt commandOptions, In
 	}
 	return done;
 	} else {
-		AIUpdate *ai = best->m_ai;
+		AIUpdateInterface *ai = best->m_ai;
 		if (ai != 0) {
 			if (unk == 0) {
 				if (ai->m_3C5 != 0)
 					return false;
 			}
-			ai->m_48 = unk;
+			ai->m_lastCommandSource = (CommandSourceType)unk;
 		}
 		if (spTemplate != 0) {
 			if (TheActionManager->canDoSpecialPower(best, spTemplate, CMD_FROM_PLAYER, commandOptions, true)) {

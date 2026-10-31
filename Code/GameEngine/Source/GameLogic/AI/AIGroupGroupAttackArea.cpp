@@ -32,7 +32,7 @@ class AIUpdateInterface
 {
 public:
 	char m_pad00[0x20];
-	AICommandInterface m_commandInterface;
+	AICommandInterface m_commands;
 };
 
 class Object
@@ -61,7 +61,7 @@ void AIGroup::groupAttackArea(PolygonTrigger *areaToGuard, CommandSourceType cmd
 		Object *obj = *i;
 		AIUpdateInterface *ai = obj->getAIUpdateInterface();
 		if (ai) {
-			ai->m_commandInterface.aiAttackArea(areaToGuard, cmdSource);
+			ai->m_commands.aiAttackArea(areaToGuard, cmdSource);
 		}
 	}
 }

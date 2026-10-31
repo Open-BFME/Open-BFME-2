@@ -1,4 +1,5 @@
-// cl: /DNDEBUG /MD
+// cl: /EHs /DNDEBUG /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /ICode/Libraries/Include/Lib /Ireference/shims/bfmelist /ICode/GameEngine/Include/GameLogic /I. /ICode/Libraries/Include -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/AI /Ireference/shims/bfme2_ascii
+// stlport
 // ?rva0036CE87@AIGroup@@QAEXXZ @0x0036CE87 73B
 // AIGroup ground-path reset: destroy the Path at +0x14 through its out-of-line
 // destructor, free it, then clear the path state. The four clears run from the
@@ -9,6 +10,12 @@
 // Donor shape: reference/open-bfme-1 .../AIGroup/Rva00150700PathReset.cpp
 // (same RAII spelling, BFME1 offsets +0x18..+0x30; this body uses BFME2's
 // +0x14 ground path and +0x18/+0x1c/+0x20 float state).
+
+#include <list>
+namespace _STL {template<class T,class L,class R> static __forceinline bool operator!=(const _List_iterator<T,L>&a,const _List_iterator<T,R>&b){return a._M_node!=b._M_node;}}
+#include "../../Common/Thing/thing.h"
+
+class Object;
 
 class Path
 {
@@ -25,7 +32,6 @@ public:
 class PathDeleteArgument;
 
 struct Coord3D;
-struct BfmeListNodeBase;
 
 class AIGroup
 {
@@ -36,22 +42,17 @@ public:
 
 private:
 	char m_pad00[4];
-	BfmeListNodeBase *m_list04;
-	float m_speed08;
-	unsigned char m_dirty0C;
+	std::list<Object *> m_memberList;
+	float m_speed;
+	bool m_dirty;
 	char m_pad0D[0x14 - 0x0d];
 	Path *m_groundPath;
-	float m_pathState18;
-	float m_pathState1C;
-	float m_pathState20;
-	float m_pathState24;
-	float m_pathState28;
-	float m_pathState2C;
+	Coord3D m_position;
+	Coord3D m_spacing;
 	void recompute();
 };
 
 #include <new>
-#include "../../../../Libraries/Include/Lib/Coord3D.h"
 
 class Object;
 class Rva002627E8 {
@@ -73,26 +74,16 @@ public:
 class ThingTemplate {
 public:
 	char m_pad00[0x108];
-	unsigned char m_kind108;
+	unsigned char m_kindOf[0x20]; // +0x108
 };
-class Object {
+class AIUpdateInterface;
+class Object : public Thing {
 public:
-	void *m_vtbl00;
-	ThingTemplate *m_template04;
-	char m_pad08[0x38 - 0x08];
-	Coord3D m_pos38;
-	char m_pad44[0x1c8 - 0x44];
-	unsigned char m_disabled1C8;
-	char m_pad1C9[0x254 - 0x1c9];
+	char m_pad60[0x1c8 - 0x60];
+	unsigned char m_disabledMask[0x04]; // +0x1C8
+	char m_pad1CC[0x254 - 0x1cc];
 	BodyModuleInterface *m_body254;
-	Rva002627E8 *m_ai258;
-};
-struct BfmeListNodeBase {
-	BfmeListNodeBase *m_next;
-	BfmeListNodeBase *m_prev;
-};
-struct BfmeMemberNode : public BfmeListNodeBase {
-	Object *m_value;
+	AIUpdateInterface *m_ai;
 };
 class GlobalData {
 public:
@@ -110,9 +101,9 @@ public:
 	~PathDeleteArgument(void) throw()
 	{
 		m_owner->m_groundPath = 0;
-		m_owner->m_pathState18 = 0.0f;
-		m_owner->m_pathState1C = 0.0f;
-		m_owner->m_pathState20 = 0.0f;
+		m_owner->m_position.x = 0.0f;
+		m_owner->m_position.y = 0.0f;
+		m_owner->m_position.z = 0.0f;
 	}
 
 private:
@@ -127,9 +118,9 @@ void AIGroup::rva0036CE87()
 		Path *path = m_groundPath;
 		reinterpret_cast<BFMEDeletablePath *>(path)->destroy();
 		operator delete(PathDeleteArgument(path, this));
-		m_pathState24 = 10.0f;
-		m_pathState28 = 0.0f;
-		m_pathState2C = 0.0f;
+		m_spacing.x = 10.0f;
+		m_spacing.y = 0.0f;
+		m_spacing.z = 0.0f;
 	}
 }
 
@@ -139,26 +130,26 @@ void AIGroup::recompute()
 	Coord3D center;
 	getCenter(&center);
 	rva0036CE87();
-	m_speed08 = 1e+10f;
-	for (BfmeListNodeBase *it = m_list04->m_next; it != m_list04; it = it->m_next)
+	m_speed = 1e+10f;
+	for (std::list<Object *>::iterator it = m_memberList.begin(); it != m_memberList.end(); ++it)
 	{
-		Object *obj = ((BfmeMemberNode *)it)->m_value;
-		if ((obj->m_template04->m_kind108 & 4) != 0)
+		Object *obj = *it;
+		if ((obj->m_template->m_kindOf[0] & 4) != 0)
 			continue;
-		if ((obj->m_disabled1C8 & 8) != 0)
+		if ((obj->m_disabledMask[0] & 8) != 0)
 			continue;
-		Rva002627E8 *ai = obj->m_ai258;
+		Rva002627E8 *ai = reinterpret_cast<Rva002627E8 *>(obj->m_ai);
 		if (ai == 0)
 			continue;
 		float maxSpeed = ai->rva002627E8();
-		if (m_speed08 > maxSpeed &&
+		if (m_speed > maxSpeed &&
 			obj->m_body254->getDamageState() < TheWritableGlobalData->m_movementPenaltyDamageState)
-			m_speed08 = maxSpeed;
-		float dx = obj->m_pos38.x - center.x;
-		float dy = obj->m_pos38.y - center.y;
+			m_speed = maxSpeed;
+		float dx = obj->m_cachedPos.x - center.x;
+		float dy = obj->m_cachedPos.y - center.y;
 		float dist = dx * dx + dy * dy;
 		if (dist < closeDist)
 			closeDist = dist;
 	}
-	m_dirty0C = 0;
+	m_dirty = false;
 }

@@ -10,6 +10,9 @@
 // passes the slot-110 virtual (rowed AIUpdateInterface::isIdle, +0x1B8):
 // its +0x20 Rva00295A0FCommands run rowed Rva00295A0FCommand (0x295A0F) with
 // the victim position at found+0x38, 0x7FFFFFFF and CMD_FROM_AI.
+
+#include <list>
+
 #include <windows.h>
 typedef bool Bool;
 
@@ -32,8 +35,8 @@ struct AICommandParms;
 class Rva00295A0FCommands
 {
 public:
-	virtual void aiDoCommand(const AICommandParms *parms);
 	void Rva00295A0FCommand(void *pos, int maxShots, int source);
+	virtual void aiDoCommand(const AICommandParms *parms);
 };
 
 class AIUpdateInterface : public BfmeVirtualSlots<110>
@@ -59,32 +62,24 @@ public:
 	Object *m_containedBy;
 };
 
-struct ListNode
-{
-	ListNode *m_next;
-	char m_pad04[4];
-	Object *m_obj;
-};
-
 class AIGroup
 {
 public:
 	void cohereAttackState();
 
 private:
-	char m_pad00[4];
-	ListNode *m_head;
+	std::list<Object *> m_memberList;
 };
 
 // WorldBuilder AIGroup::cohereAttackState, WB VA 0x00EEB350 (callgraph lead, score 3).
 void AIGroup::cohereAttackState()
 {
 	Object *found = NULL;
-	ListNode *head = m_head;
-	for (ListNode *node = head->m_next; node != head; node = node->m_next) {
+	std::list<Object *>::iterator head = m_memberList.end();
+	for (std::list<Object *>::iterator node = m_memberList.begin(); node != head; ++node) {
 		if (found != NULL)
 			goto PHASE2;
-		Object *obj = node->m_obj;
+		Object *obj = *node;
 		if (obj->getContainedBy() != NULL)
 			continue;
 		AIUpdateInterface *ai = obj->getAIUpdateInterface();
@@ -97,8 +92,8 @@ void AIGroup::cohereAttackState()
 	if (found == NULL)
 		return;
 PHASE2:
-	for (ListNode *node = m_head->m_next; node != head; node = node->m_next) {
-		Object *obj = node->m_obj;
+	for (std::list<Object *>::iterator node = m_memberList.begin(); node != head; ++node) {
+		Object *obj = *node;
 		if (obj->getContainedBy() != NULL)
 			continue;
 		if (!obj->isAbleToAttack())
@@ -110,6 +105,6 @@ PHASE2:
 			continue;
 		if (!ai->isIdle())
 			continue;
-		ai->m_commands.Rva00295A0FCommand((void *)((char *)found + 0x38), 0x7FFFFFFF, 2);
+		reinterpret_cast<Rva00295A0FCommands *>(&ai->m_commands)->Rva00295A0FCommand((void *)((char *)found + 0x38), 0x7FFFFFFF, 2);
 	}
 }

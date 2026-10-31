@@ -9,6 +9,8 @@
 
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
+#include <list>
+
 struct ListNode
 {
 	ListNode *m_next; // +0x00
@@ -16,7 +18,14 @@ struct ListNode
 	class Object *m_obj; // +0x08
 };
 
-class AIHolder
+class ThingTemplate
+{
+public:
+	char m_pad000[0x108];
+	unsigned char m_kindOf[0x20]; // +0x108
+};
+
+class AIUpdateInterface
 {
 public:
 	char m_pad[0x1F0];
@@ -29,13 +38,13 @@ class Object
 {
 public:
 	char pad0[4];
- void *m_template;
+ const ThingTemplate *m_template;
  char pad8[0x1C8-8];
- unsigned char flag1C8;
- char pad1C9[0x258-0x1C9];
-	AIHolder *m_ai; // +0x258
+ unsigned char m_disabledMask[0x04]; // +0x1C8
+ char pad1CC[0x258-0x1CC];
+	AIUpdateInterface *m_ai; // +0x258
 	char m_mid[0x438 - 0x25C]; // +0x25C..+0x437
-	unsigned char m_flag438; // +0x438
+	unsigned char m_privateStatus; // +0x438
 	void *rva0028BD5D(int v) const;
  void leaveGroup();
 };
@@ -72,41 +81,36 @@ public:
 	void rva0036E2E2(bool flag);
 	bool rva0036E0E3();
  bool rva0036E357();
- inline int count() const {ListNode*listNode=m_head,*p=listNode->m_next;int memberCount=0;while(p!=listNode){p=p->m_next;++memberCount;}return memberCount;}
+	inline int count() const { int memberCount = 0; for (std::list<Object *>::const_iterator p = m_memberList.begin(); p != m_memberList.end(); ++p) ++memberCount; return memberCount; }
 
 private:
-	char m_pad0[4]; // +0x00
-	ListNode *m_head; // +0x04
+	std::list<Object *> m_memberList;
 };
 
 void AIGroup::rva0036E2E2(bool flag)
 {
-	ListNode *cur = m_head->m_next;
-	if (cur == m_head)
-		return;
-	do
+	for (std::list<Object *>::iterator cur = m_memberList.begin(); cur != m_memberList.end(); ++cur)
 	{
-		Object *obj = cur->m_obj;
-		AIHolder *ai = obj->m_ai;
+		Object *obj = *cur;
+		AIUpdateInterface *ai = obj->m_ai;
 		if (ai)
 			ai->m_flag3DA = flag;
-		cur = cur->m_next;
-	} while (cur != m_head);
+	}
 }
 
 bool AIGroup::rva0036E0E3()
 {
-	ListNode *head = m_head;
-	ListNode *cur = head->m_next;
+	std::list<Object *>::iterator head = m_memberList.end();
+	std::list<Object *>::iterator cur = m_memberList.begin();
 	bool ok = true;
 	if (cur != head)
 	{
 		do
 		{
-			Object *obj = cur->m_obj;
+			Object *obj = *cur;
 			if (obj)
-				ok = ok && ((obj->m_flag438 & 1) != 0);
-			cur = cur->m_next;
+				ok = ok && ((obj->m_privateStatus & 1) != 0);
+			++cur;
 		} while (cur != head);
 	}
 	return ok;
@@ -151,10 +155,11 @@ void Rva0036E1F7::groupOverrideSpecialPowerDestination(int spType, int loc, int 
 
 // ?rva0036E2A7@Rva0036E2A7@@QAEXPAVSequentialScript@@H@Z, retail 0x0036E2A7, 59 bytes.
 // Chain from 0x00262453: same list holder (+0x04 head, [node+0x00] next,
-// [node+0x08] Object, Object+0x258 AIHolder), AIHolder+0x3D0 is the
+// [node+0x08] Object, Object+0x258 AIUpdateInterface), AIUpdateInterface+0x3D0 is the
 // ScriptTracker script slot (its +0x0A is the +0x3DA flag). Forwards (p, 1,
 // dummy). Caller at 0x003B3DF5.
 
+// [node+0x08] Object, Object+0x258 AIHolder), AIHolder+0x3D0 is the
 class SequentialScript;
 
 class ScriptTracker
@@ -181,7 +186,7 @@ void Rva0036E2A7::rva0036E2A7(SequentialScript *sequentialScript, int dummy)
 	do
 	{
 		Object *obj = cur->m_obj;
-		AIHolder *ai = obj->m_ai;
+		AIUpdateInterface *ai = obj->m_ai;
 		if (ai != 0)
 			((ScriptTracker *)((char *)ai + 0x3D0))->setCurScript(sequentialScript, true, dummy);
 		cur = cur->m_next;
@@ -194,20 +199,19 @@ void Rva0036E2A7::rva0036E2A7(SequentialScript *sequentialScript, int dummy)
 // spelling and meanings of the tested bits remain unresolved.
 // Nested tests plus a barrier before count select native CL flag and
 // reload the sentinel instead of retaining it through the field tests.
-struct Rva0036E357TemplateView {char pad[0x108];unsigned char m_kindOf;};
 bool AIGroup::rva0036E357() {
- ListNode *cur=m_head->m_next;
- while(cur!=m_head) {
-  Object *obj=cur->m_obj;
+ std::list<Object *>::iterator cur=m_memberList.begin();
+ while(cur!=m_memberList.end()) {
+  Object *obj=*cur;
   bool reject=false;
-  if(obj->flag1C8&8)reject=true;
-  AIHolder *ai=obj->m_ai;
-  if(!ai)reject=true;else if(!ai->m_field1F0)reject=true;else if(static_cast<Rva0036E357TemplateView*>(obj->m_template)->m_kindOf&4)reject=true;
-  cur=cur->m_next;
+  if(obj->m_disabledMask[0]&8)reject=true;
+  AIUpdateInterface *ai=obj->m_ai;
+  if(!ai)reject=true;else if(!ai->m_field1F0)reject=true;else if(obj->m_template->m_kindOf[0]&4)reject=true;
+  ++cur;
   if(reject) {
    _ReadWriteBarrier();
    if(count()==1)return false;
-   obj->leaveGroup();cur=m_head->m_next;
+   obj->leaveGroup();cur=m_memberList.begin();
   }
  }
  return true;

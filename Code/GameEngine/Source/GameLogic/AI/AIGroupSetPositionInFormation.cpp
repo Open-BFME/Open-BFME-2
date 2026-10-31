@@ -35,10 +35,17 @@ private:
 };
 
 // 0x0036D6B4 is matched as Rva0036ListOwner::rva0036D6B4 (same receiver).
+class Rva0036E474Ref;
+struct RvaListNode;
 class Rva0036ListOwner
 {
 public:
+	void rva0036E474(Rva0036E474Ref ref);
+	void rva0036DC46(int unused);
 	void rva0036D6B4();
+	char m_pad00[0x4];
+private:
+	RvaListNode *m_head; // +0x04
 };
 
 class AIGroup

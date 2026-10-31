@@ -77,7 +77,7 @@ private:
 void AIGroup::groupEnter(Object *obj, CommandSourceType cmdSource)
 {
 	_STL::list<int> snapshot;
-	for (_STL::list<int>::iterator src = m_memberList.begin(); src != m_memberList.end(); ++src) {
+	for (_STL::list<int>::iterator src = reinterpret_cast<_STL::list<int> &>(m_memberList).begin(); src != reinterpret_cast<_STL::list<int> &>(m_memberList).end(); ++src) {
 		snapshot.push_back(*src);
 	}
 	for (_STL::list<int>::iterator it = snapshot.begin(); it != snapshot.end(); ++it) {

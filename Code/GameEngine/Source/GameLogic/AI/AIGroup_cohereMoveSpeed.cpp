@@ -9,6 +9,9 @@
 // rowed Object::rva0028AC4E with disp8 float at +0x40 and pinned worker
 // 0x001E46E1 writing +0x2C; sentinel -1.0f at g_00BBB9AC.
 
+#include <list>
+
+
 extern float g_00BBB9AC;
 
 class Object;
@@ -48,29 +51,21 @@ public:
 	Object *getCurrentVictim() const;
 };
 
-struct ListNode
-{
-	ListNode *m_next;
-	char m_pad04[4];
-	Object *m_obj;
-};
-
 class AIGroup
 {
 public:
 	void cohereMoveSpeed();
 
 private:
-	char m_pad00[4];
-	ListNode *m_head;
+	std::list<Object *> m_memberList;
 };
 
 void AIGroup::cohereMoveSpeed()
 {
-	ListNode *head = m_head;
+	std::list<Object *>::iterator head = m_memberList.end();
 	float best = g_00BBB9AC;
-	for (ListNode *node = head->m_next; node != head; node = node->m_next) {
-		Object *obj = node->m_obj;
+	for (std::list<Object *>::iterator node = m_memberList.begin(); node != head; ++node) {
+		Object *obj = *node;
 		const Rva0028AC4EEntry *entry = obj->rva0028AC4E();
 		if (entry != 0) {
 			float m = ((const Rva0008BB38FloatField *)entry)->get();
@@ -84,8 +79,8 @@ void AIGroup::cohereMoveSpeed()
 			}
 		}
 	}
-	for (ListNode *node = m_head->m_next; node != head; node = node->m_next) {
-		Object *obj = node->m_obj;
+	for (std::list<Object *>::iterator node = m_memberList.begin(); node != head; ++node) {
+		Object *obj = *node;
 		const Rva0028AC4EEntry *entry = obj->rva0028AC4E();
 		if (entry == 0)
 			continue;

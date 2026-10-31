@@ -14,6 +14,7 @@
 // member first tries the matched group formation dispatch 0x003724B8
 // (rowed under the placeholder BfmeC986, same this) when two TheAI data flags
 // (+0xBA, +0xBD) are set, and stops if it took the order.
+#include <list>
 typedef int Int;
 typedef float Real;
 
@@ -24,10 +25,12 @@ enum CommandSourceType
 	CMD_FROM_PLAYER = 0
 };
 
+struct AICommandParms;
 class Rva00295A0FCommands
 {
 public:
-	void Rva00295A0FCommand(void *pos, int maxShotsToFire, int cmdSource);
+	void Rva00295A0FCommand(void *pos, int maxShots, int source);
+	virtual void aiDoCommand(const AICommandParms *parms);
 };
 
 class AICommandInterface
@@ -90,16 +93,9 @@ public:
 	void groupAttackMoveToPosition(const Coord3D *pos, Int maxShotsToFire, CommandSourceType cmdSource);
 
 private:
-	unsigned int size() const
-	{
-		unsigned int n = 0;
-		for (ObjectListNode *objectListNode = m_head->m_next; objectListNode != m_head; objectListNode = objectListNode->m_next)
-			++n;
-		return n;
-	}
+	unsigned int size() const { unsigned int n = 0; for (std::list<Object *>::const_iterator p = m_memberList.begin(); p != m_memberList.end(); ++p) ++n; return n; }
 
-	char m_pad[0x04];
-	ObjectListNode *m_head; // +0x04
+	std::list<Object *> m_memberList;
 };
 
 void AIGroup::groupAttackMoveToPosition(const Coord3D *pos, Int maxShotsToFire, CommandSourceType cmdSource)
@@ -111,12 +107,12 @@ void AIGroup::groupAttackMoveToPosition(const Coord3D *pos, Int maxShotsToFire, 
 			return;
 	}
 
-	for (ObjectListNode *i = m_head->m_next; i != m_head; i = i->m_next)
+	for (std::list<Object *>::iterator i = m_memberList.begin(); i != m_memberList.end(); ++i)
 	{
-		AIUpdateInterface *ai = i->m_data->m_ai;
+		AIUpdateInterface *ai = (*i)->m_ai;
 		if (ai)
 		{
-			if (i->m_data->isAbleToAttack())
+			if ((*i)->isAbleToAttack())
 				((Rva00295A0FCommands *)&ai->m_commands)->Rva00295A0FCommand((void *)pos, maxShotsToFire, cmdSource);
 			else
 				ai->m_commands.aiMoveToPosition(pos, cmdSource);

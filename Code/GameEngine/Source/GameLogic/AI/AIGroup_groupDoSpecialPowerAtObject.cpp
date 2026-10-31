@@ -65,20 +65,20 @@ class ExperienceLevelIterator
 public:
 	ExperienceLevelIterator() {}
 	ExperienceLevelIterator(const ExperienceLevelIterator &other) : m_node(other.m_node) {}
-private:
-	void *m_node;
+	void *m_node; // +0x00
 };
 struct ExperienceLevelHandle
 {
+public:
 	ExperienceLevelHandle() {}
 	ExperienceLevelHandle(const ExperienceLevelHandle &other) : m_list(other.m_list), m_iter(other.m_iter) {}
-	ExperienceLevelList *m_list;
-	ExperienceLevelIterator m_iter;
+	ExperienceLevelList *m_list; // +0x00
+	ExperienceLevelIterator m_iter; // +0x04
 };
 class ExperienceLevelStore
 {
 public:
-	Bool IsValid(ExperienceLevelHandle handle) const;
+	bool IsValid(ExperienceLevelHandle handle) const;
 	Int GetLevelRank(ExperienceLevelHandle handle) const;
 };
 class ExperienceLevelSystem;
@@ -99,11 +99,16 @@ public:
 extern SpecialPowerStore *TheSpecialPowerStore;
 
 class Object;
+enum CanAttackResult { ATTACKRESULT_POSSIBLE_AFTER_MOVING=2, ATTACKRESULT_POSSIBLE=3 };
+enum AbleToAttackType { ATTACK_NEW_TARGET=0, ATTACK_NEW_TARGET_FORCED=1 };
+struct Coord3D;
 class ActionManager
 {
 public:
-	Bool canDoSpecialPowerAtObject(const Object *obj, const Object *target, CommandSourceType commandSource,
-		const SpecialPowerTemplate *spTemplate, UnsignedInt commandOptions, Bool checkSourceRequirements);
+	bool canDoSpecialPowerAtObject(const Object *obj, const Object *target, CommandSourceType commandSource, const SpecialPowerTemplate *spTemplate, unsigned int commandOptions, bool checkSourceRequirements);
+	bool canDoSpecialPower(const Object *, const SpecialPowerTemplate *, CommandSourceType, unsigned int, bool);
+	bool canDoSpecialPowerAtLocation(const Object *obj, const Coord3D *loc, CommandSourceType commandSource, const SpecialPowerTemplate *spTemplate, const Object *objectInWay, unsigned int commandOptions, bool checkSourceRequirements);
+	CanAttackResult getCanAttackObject(const Object*,const Object*,CommandSourceType,AbleToAttackType);
 };
 extern ActionManager *TheActionManager;
 

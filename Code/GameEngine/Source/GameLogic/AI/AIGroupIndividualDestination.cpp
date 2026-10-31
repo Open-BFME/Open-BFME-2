@@ -15,10 +15,11 @@
 // result for other out-of-domain values; no added fallback changes that contract.
 #include "Lib/Coord2D.h"
 #include "Lib/Coord3D.h"
+class ThingTemplate;
 struct IndividualTemplate {char pad[0x114];unsigned flags114;unsigned pad118;unsigned flags11c;};
 class Object;
 class LocomotorSet;
-class DestinationAI {
+class AIUpdateInterface {
 public:
  virtual void p000();virtual void p001();virtual void p002();virtual void p003();
  virtual void p004();virtual void p005();virtual void p006();virtual void p007();
@@ -55,28 +56,35 @@ public:
  virtual void p128();virtual void p129();virtual void p130();virtual void p131();
  virtual void p132();virtual void p133();virtual void p134();virtual void p135();
  virtual void p136();
- virtual bool isDoingGroundMovement();
+ virtual bool isDoingGroundMovement() const;
 };
 class Object {
 public:
  float GetRelativeAngle(const Coord3D*)const;
  void rva0028AD00(int,float,int);
- char pad0[4];IndividualTemplate *info;
- char pad8[0x38-8];float x,y,z,angle;
+ char pad0[4];const ThingTemplate *m_template;
+ char pad8[0x38-8];Coord3D m_cachedPos;float m_cachedAngle;
  char pad48[0xb8-0x48];float radius;
- char padbc[0x258-0xbc];DestinationAI *ai;
- char pad25c[0x414-0x25c];Coord2D formation;
+ char padbc[0x258-0xbc];AIUpdateInterface *m_ai;
+ char pad25c[0x414-0x25c];Coord2D m_formationOffset;
 };
 enum PathfindLayerEnum { DestinationLayerInvalid=0,DestinationLayerGround=1,DestinationLayerRamp=16 };
 class TerrainLogic {
 public:
  virtual void p0();virtual void p1();virtual void p2();virtual void p3();virtual void p4();virtual void p5();virtual void p6();
- virtual float getLayerHeight(float,float,int,Coord3D*,bool);
+ virtual float getLayerHeight(float,float,PathfindLayerEnum,Coord3D*,bool);
  PathfindLayerEnum getLayerForDestination(Object*,const Coord3D*);
 };
 extern TerrainLogic *TheTerrainLogic;
-class Pathfinder {public:bool AdjustDestination(Object*,const LocomotorSet&,Coord3D*,const Coord3D*);};
-class AI {public:char pad[0x10];Pathfinder *pathfinder;};extern AI *TheAI;
+class Path;
+class Pathfinder
+{
+public:
+	bool AdjustDestination(Object *obj, const LocomotorSet &locomotorSet, Coord3D *dest, const Coord3D *groupDest);
+	bool IsLineBlocked(void *obj, void *surfaces, PathfindLayerEnum layer, const Coord3D *from, const Coord3D *to);
+	Path *FindGroundPath(Object *obj, const Coord3D *from, const Coord3D *to, int pathDiameter);
+};
+class AI {public:Pathfinder *pathfinder() const {return m_pathfinder;}private:char pad[0x10];Pathfinder *m_pathfinder;};extern AI *TheAI;
 class AIGroup
 {
 public:
@@ -85,11 +93,11 @@ public:
 void AIGroup::computeIndividualDestination(Coord3D *dest,const Coord3D *groupDest,Object *obj,const Coord3D *center,const float *facing,int mode)
 {
  Coord2D offset;
- bool special=(obj->info->flags114>>13)&1;
+ bool special=(reinterpret_cast<const IndividualTemplate *>(obj->m_template)->flags114>>13)&1;
  int layer=TheTerrainLogic->getLayerForDestination(obj,groupDest);
  if(special && layer!=1){*dest=*groupDest;return;}
- if(mode){offset=obj->formation;}
- else{offset.x=obj->x-center->x;offset.y=obj->y-center->y;}
+ if(mode){offset=obj->m_formationOffset;}
+ else{offset.x=obj->m_cachedPos.x-center->x;offset.y=obj->m_cachedPos.y-center->y;}
  float offsetX,offsetY;
  if(mode!=2){
   float length=offset.length();
@@ -97,20 +105,20 @@ void AIGroup::computeIndividualDestination(Coord3D *dest,const Coord3D *groupDes
   offset.normalize();offsetX=offset.x*length;offsetY=offset.y*length;
  }else {offsetX=offset.x;offsetY=offset.y;}
  dest->x=groupDest->x+offsetX;dest->y=groupDest->y+offsetY;
- dest->z=TheTerrainLogic->getLayerHeight(dest->x,dest->y,layer,0,true);
- DestinationAI *ai=obj->ai;
+ dest->z=TheTerrainLogic->getLayerHeight(dest->x,dest->y,(PathfindLayerEnum)layer,0,true);
+ AIUpdateInterface *ai=obj->m_ai;
  if(ai && ai->isDoingGroundMovement()){
   float angle=0.f;bool adjusted;
   switch(mode){
   case 0:
-   if(obj->info->flags11c&(1u<<26)){float current=obj->angle;angle=current+obj->GetRelativeAngle(dest);}
-   adjusted=TheAI->pathfinder->AdjustDestination(obj,*(const LocomotorSet*)((char*)ai+0x1cc),dest,groupDest);break;
+   if(reinterpret_cast<const IndividualTemplate *>(obj->m_template)->flags11c&(1u<<26)){float current=obj->m_cachedAngle;angle=current+obj->GetRelativeAngle(dest);}
+   adjusted=TheAI->pathfinder()->AdjustDestination(obj,*(const LocomotorSet*)((char*)ai+0x1cc),dest,groupDest);break;
   case 1:
-   if(obj->info->flags11c&(1u<<26)){float current=obj->angle;angle=current+obj->GetRelativeAngle(dest);}
-   adjusted=TheAI->pathfinder->AdjustDestination(obj,*(const LocomotorSet*)((char*)ai+0x1cc),dest,0);break;
+   if(reinterpret_cast<const IndividualTemplate *>(obj->m_template)->flags11c&(1u<<26)){float current=obj->m_cachedAngle;angle=current+obj->GetRelativeAngle(dest);}
+   adjusted=TheAI->pathfinder()->AdjustDestination(obj,*(const LocomotorSet*)((char*)ai+0x1cc),dest,0);break;
   case 2:
-   if(facing && (obj->info->flags11c&(1u<<26)))angle=*facing;
-   adjusted=TheAI->pathfinder->AdjustDestination(obj,*(const LocomotorSet*)((char*)ai+0x1cc),dest,0);break;
+   if(facing && (reinterpret_cast<const IndividualTemplate *>(obj->m_template)->flags11c&(1u<<26)))angle=*facing;
+   adjusted=TheAI->pathfinder()->AdjustDestination(obj,*(const LocomotorSet*)((char*)ai+0x1cc),dest,0);break;
   }
   if(!adjusted)*dest=*groupDest;
   obj->rva0028AD00((int)dest,angle,1);

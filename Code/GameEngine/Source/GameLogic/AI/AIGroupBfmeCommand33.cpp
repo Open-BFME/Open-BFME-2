@@ -77,8 +77,9 @@ public:
 class Rva00373EC6
 {
 public:
-	char m_pad[4];
-	Rva00373EC6ModuleData *m_moduleData;
+	void rva00374815();
+	char m_pad00[0x4];
+	Rva00373EC6ModuleData *m_moduleData; // +0x04
 };
 
 class Object;
@@ -140,7 +141,7 @@ public:
 	char m_pad254[0x258 - 0x254];
 	AIUpdateInterface *m_ai; // +0x258
 	char m_pad25C[0x410 - 0x25C];
-	int m_410;
+	int m_formationID;
 };
 
 extern GameLogic *TheGameLogic;
@@ -162,7 +163,7 @@ void AIGroup::rva0036FBC5(const Waypoint *waypoint, CommandSourceType cmdSource)
 	for (std::list<Object *>::iterator i = m_memberList.begin(); i != m_memberList.end(); ++i)
 	{
 		Object *obj = *i;
-		obj->m_410 = 0;
+		obj->m_formationID = 0;
 		AIUpdateInterface *ai = obj->m_ai;
 		if (ai != 0)
 			ai->m_commands.aiBfmeCommand33(waypoint, cmdSource);
