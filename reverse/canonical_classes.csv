@@ -163,3 +163,4 @@ PolygonTrigger,Code/GameEngine/Include/GameLogic/PolygonTrigger.h,Shared target 
 HordeMeleeAmoeba,Code/GameEngine/Include/GameLogic/HordeMeleeAmoeba.h,"Native ctor587D9C/base5D6FCC/factory587F11 and C6FF38 slots0..15; xfer at15, no Snapshot base; bounded consumed projection"
 AreaPolygonBase,Code/GameEngine/Include/Common/AreaPolygonBase.h,Native30B980/30B3D1/30B8E4 prove40-byte nonpolymorphic vector+region+radii+dirty layout; native30B9DD adds field28
 W3DStreakDraw,Code/GameEngineDevice/Include/W3DDevice/GameClient/Drawable/Draw/W3DStreakDraw.h,"NativeD02A7/B19A1/306B19 constructor chain; factory64F0F alloc14; boundedBCD9B8 andBC9690 tables62slots, hidden16/namekey4"
+WaterTransparencySetting,Code/GameEngine/Include/GameClient/Water.h,Native200D80 exact MI ctor: canonical Overridable0 plus registration base10; field tableC080B0 and allocation5C prove full shape

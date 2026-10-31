@@ -16,42 +16,9 @@ typedef int Int;
 
 #include "../../../Include/Common/Overridable.h"
 
-class Rva00200D38
-{
-public:
-	virtual void rva00200BD9() = 0;
-	virtual void slot1() = 0;
-	virtual int Rva00200BBAGet() = 0;
 
-	Rva00200D38(const AsciiString &name);
 
-private:
-	AsciiString m_name;
-};
-
-class WaterTransparencySetting : public Overridable, public Rva00200D38
-{
-public:
-	WaterTransparencySetting();
-	virtual ~WaterTransparencySetting();
-	virtual void rva00200BD9();
-	virtual void slot1();
-	virtual int Rva00200BBAGet();
-
-	Real m_transparentWaterDepth; // +0x18
-	Real m_minWaterOpacity; // +0x1C
-	RGBColor m_standingWaterColor; // +0x20
-	RGBColor m_radarColor; // +0x2C
-	Bool m_additiveBlend; // +0x38
-	AsciiString m_standingWaterTexture; // +0x3C
-	Real m_riverTransparencyMultiplier; // +0x40
-	Int m_unk44;
-	Int m_unk48;
-	Real m_unk4C;
-	Bool m_unk50;
-	Real m_unk54;
-	Real m_unk58;
-};
+#include "../../../Include/GameClient/Water.h"
 
 WaterTransparencySetting::WaterTransparencySetting() : Rva00200D38(AsciiString("WaterTransparency"))
 {

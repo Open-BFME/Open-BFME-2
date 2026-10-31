@@ -1,0 +1,165 @@
+RVA 00200D80 size249
+600d80: mov eax, 0xb6c44a
+600d85: call 0xa29188
+600d8a: push ecx
+600d8b: push ecx
+600d8c: push ebx
+600d8d: push esi
+600d8e: mov esi, ecx
+600d90: or dword ptr [esi + 0xc], 0xffffffff
+600d94: xor ebx, ebx
+600d96: push edi
+600d97: mov dword ptr [ebp - 0x14], esi
+600d9a: mov dword ptr [esi], 0xbddc48
+600da0: mov dword ptr [esi + 4], ebx
+600da3: mov byte ptr [esi + 8], bl
+600da6: push 0xbe2ba8
+600dab: lea ecx, [ebp - 0x10]
+600dae: mov dword ptr [ebp - 4], ebx
+600db1: call 0x437ba0
+600db6: lea eax, [ebp - 0x10]
+600db9: lea edi, [esi + 0x10]
+600dbc: push eax
+600dbd: mov ecx, edi
+600dbf: mov byte ptr [ebp - 4], 1
+600dc3: call 0x600d38
+600dc8: lea ecx, [ebp - 0x10]
+600dcb: mov byte ptr [ebp - 4], 3
+600dcf: call 0x436410
+600dd4: lea ecx, [esi + 0x3c]
+600dd7: mov dword ptr [esi], 0xbe2ba4
+600ddd: mov dword ptr [edi], 0xbe2b98
+600de3: mov dword ptr [ecx], ebx
+600de5: movss xmm0, dword ptr [0xbc7508]
+600ded: movss dword ptr [esi + 0x18], xmm0
+600df2: movss xmm0, dword ptr [0xbbb8d8]
+600dfa: movss dword ptr [esi + 0x1c], xmm0
+600dff: movss dword ptr [esi + 0x20], xmm0
+600e04: movss dword ptr [esi + 0x24], xmm0
+600e09: movss dword ptr [esi + 0x28], xmm0
+600e0e: movss xmm0, dword ptr [0xbe2b94]
+600e16: movss dword ptr [esi + 0x2c], xmm0
+600e1b: movss dword ptr [esi + 0x30], xmm0
+600e20: movss xmm0, dword ptr [0xbc2900]
+600e28: push 0xbe2b84
+600e2d: mov byte ptr [ebp - 4], 4
+600e31: movss dword ptr [esi + 0x34], xmm0
+600e36: call 0x4055f5
+600e3b: movss xmm0, dword ptr [0xbbb8d8]
+600e43: mov ecx, dword ptr [ebp - 0xc]
+600e46: movss dword ptr [esi + 0x40], xmm0
+600e4b: movss xmm0, dword ptr [0xbd5e50]
+600e53: movss dword ptr [esi + 0x4c], xmm0
+600e58: xorps xmm0, xmm0
+600e5b: mov byte ptr [esi + 0x38], bl
+600e5e: mov byte ptr [esi + 0x50], bl
+600e61: pop edi
+600e62: movss dword ptr [esi + 0x54], xmm0
+600e67: movss dword ptr [esi + 0x58], xmm0
+600e6c: mov eax, esi
+600e6e: pop esi
+600e6f: pop ebx
+600e70: mov dword ptr fs:[0], ecx
+600e77: leave 
+600e78: ret 
+
+RVA 00200EE4 size254
+600ee4: mov eax, 0xb6c48e
+600ee9: call 0xa29188
+600eee: push ecx
+600eef: push ecx
+600ef0: push ebx
+600ef1: mov ebx, dword ptr [ebp + 8]
+600ef4: push esi
+600ef5: mov esi, dword ptr [0xdff488]
+600efb: push edi
+600efc: xor edi, edi
+600efe: cmp esi, edi
+600f00: je 0x600f16
+600f02: mov ecx, dword ptr [esi + 4]
+600f05: cmp ecx, edi
+600f07: je 0x600f10
+600f09: call 0x5e35df
+600f0e: jmp 0x600f12
+600f10: mov eax, esi
+600f12: cmp eax, edi
+600f14: jne 0x600f3e
+600f16: push 0x5c
+600f18: call 0x42fda0
+600f1d: pop ecx
+600f1e: mov ecx, eax
+600f20: mov dword ptr [ebp - 0x10], ecx
+600f23: cmp ecx, edi
+600f25: mov dword ptr [ebp - 4], edi
+600f28: je 0x600f31
+600f2a: call 0x600d80
+600f2f: jmp 0x600f33
+600f31: xor eax, eax
+600f33: or dword ptr [ebp - 4], 0xffffffff
+600f37: mov dword ptr [0xdff488], eax
+600f3c: jmp 0x600f94
+600f3e: cmp dword ptr [ebx + 8], 2
+600f42: jne 0x600fc1
+600f44: push 0x5c
+600f46: call 0x42fda0
+600f4b: pop ecx
+600f4c: mov ecx, eax
+600f4e: mov dword ptr [ebp - 0x10], ecx
+600f51: cmp ecx, edi
+600f53: mov dword ptr [ebp - 4], 1
+600f5a: je 0x600f63
+600f5c: call 0x600d80
+600f61: mov edi, eax
+600f63: or dword ptr [ebp - 4], 0xffffffff
+600f67: push esi
+600f68: mov ecx, edi
+600f6a: mov byte ptr [0xe01ea8], 1
+600f71: call 0x600cb1
+600f76: mov byte ptr [0xe01ea8], 0
+600f7d: mov byte ptr [edi + 8], 1
+600f81: mov ecx, dword ptr [esi + 4]
+600f84: test ecx, ecx
+600f86: je 0x600f8f
+600f88: call 0x5e35df
+600f8d: jmp 0x600f91
+600f8f: mov eax, esi
+600f91: mov dword ptr [eax + 4], edi
+600f94: mov eax, dword ptr [0xdff488]
+600f99: mov ecx, dword ptr [eax + 4]
+600f9c: test ecx, ecx
+600f9e: je 0x600fa5
+600fa0: call 0x5e35df
+600fa5: push 0xc080b0
+600faa: push eax
+600fab: mov ecx, ebx
+600fad: call 0x42de78
+600fb2: mov ecx, dword ptr [ebp - 0xc]
+600fb5: pop edi
+600fb6: pop esi
+600fb7: pop ebx
+600fb8: mov dword ptr fs:[0], ecx
+600fbf: leave 
+600fc0: ret 
+600fc1: push 0xbe2bbc
+600fc6: lea eax, [ebp - 0x14]
+600fc9: push 3
+600fcb: push eax
+600fcc: call 0x42f681
+600fd1: add esp, 0xc
+600fd4: push 0xcfe2fc
+600fd9: lea eax, [ebp - 0x14]
+600fdc: push eax
+600fdd: call 0xa29094
+
+RVA 001E35DF size14
+5e35df: mov eax, ecx
+5e35e1: jmp 0x5e35e5
+5e35e3: mov eax, edx
+5e35e5: mov edx, dword ptr [eax + 4]
+5e35e8: test edx, edx
+5e35ea: jne 0x5e35e3
+5e35ec: ret 
+
+RVA 00248D08 size5
+648d08: mov byte ptr [ecx + 8], 1
+648d0c: ret 

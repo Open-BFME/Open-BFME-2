@@ -1,0 +1,407 @@
+{
+  "original": {
+    "WaterTransparencySetting": {
+      "fwd": false,
+      "key": "class",
+      "size": 92,
+      "bases": [
+        [
+          "Overridable",
+          0
+        ],
+        [
+          "Rva00200D38",
+          16
+        ]
+      ],
+      "fields": [
+        [
+          24,
+          "m_transparentWaterDepth",
+          "float",
+          4
+        ],
+        [
+          28,
+          "m_minWaterOpacity",
+          "float",
+          4
+        ],
+        [
+          32,
+          "m_standingWaterColor",
+          "RGBColor",
+          12
+        ],
+        [
+          44,
+          "m_radarColor",
+          "RGBColor",
+          12
+        ],
+        [
+          56,
+          "m_additiveBlend",
+          "bool",
+          1
+        ],
+        [
+          60,
+          "m_standingWaterTexture",
+          "AsciiString",
+          4
+        ],
+        [
+          64,
+          "m_riverTransparencyMultiplier",
+          "float",
+          4
+        ],
+        [
+          68,
+          "m_unk44",
+          "int",
+          4
+        ],
+        [
+          72,
+          "m_unk48",
+          "int",
+          4
+        ],
+        [
+          76,
+          "m_unk4C",
+          "float",
+          4
+        ],
+        [
+          80,
+          "m_unk50",
+          "bool",
+          1
+        ],
+        [
+          84,
+          "m_unk54",
+          "float",
+          4
+        ],
+        [
+          88,
+          "m_unk58",
+          "float",
+          4
+        ]
+      ],
+      "statics": [],
+      "methods": [
+        "Rva00200BBAGet",
+        "WaterTransparencySetting",
+        "__local_vftable_ctor_closure",
+        "__vecDelDtor",
+        "rva00200BD9",
+        "slot1",
+        "~WaterTransparencySetting"
+      ],
+      "virtual": [
+        "Rva00200BBAGet",
+        "__vecDelDtor",
+        "rva00200BD9",
+        "slot1",
+        "~WaterTransparencySetting"
+      ],
+      "vslots": {
+        "0": "__vecDelDtor(uint)"
+      },
+      "vfptr": false
+    },
+    "Rva00200D38": {
+      "fwd": false,
+      "key": "class",
+      "size": 8,
+      "bases": [],
+      "fields": [
+        [
+          4,
+          "m_name",
+          "AsciiString",
+          4
+        ]
+      ],
+      "statics": [],
+      "methods": [
+        "Rva00200BBAGet",
+        "Rva00200D38",
+        "__vecDelDtor",
+        "rva00200BD9",
+        "slot1",
+        "~Rva00200D38"
+      ],
+      "virtual": [
+        "Rva00200BBAGet",
+        "rva00200BD9",
+        "slot1"
+      ],
+      "vslots": {
+        "0": "rva00200BD9()",
+        "1": "slot1()",
+        "2": "Rva00200BBAGet()"
+      },
+      "vfptr": true
+    },
+    "Overridable": {
+      "fwd": false,
+      "key": "class",
+      "size": 16,
+      "bases": [],
+      "fields": [
+        [
+          4,
+          "m_nextOverride",
+          "Overridable*",
+          4
+        ],
+        [
+          8,
+          "m_isOverride",
+          "bool",
+          1
+        ],
+        [
+          12,
+          "m0C",
+          "int",
+          4
+        ]
+      ],
+      "statics": [],
+      "methods": [
+        "Overridable",
+        "__local_vftable_ctor_closure",
+        "__vecDelDtor",
+        "deleteOverrides",
+        "friend_getFinalOverride",
+        "friend_getNextOverride",
+        "getFinalOverride",
+        "getNextOverride",
+        "markAsOverride",
+        "rva0028864F",
+        "setNextOverride",
+        "~Overridable"
+      ],
+      "virtual": [
+        "__vecDelDtor",
+        "~Overridable"
+      ],
+      "vslots": {
+        "0": "__vecDelDtor(uint)"
+      },
+      "vfptr": true
+    }
+  },
+  "adopted": {
+    "WaterTransparencySetting": {
+      "fwd": false,
+      "key": "class",
+      "size": 92,
+      "bases": [
+        [
+          "Overridable",
+          0
+        ],
+        [
+          "Rva00200D38",
+          16
+        ]
+      ],
+      "fields": [
+        [
+          24,
+          "m_transparentWaterDepth",
+          "float",
+          4
+        ],
+        [
+          28,
+          "m_minWaterOpacity",
+          "float",
+          4
+        ],
+        [
+          32,
+          "m_standingWaterColor",
+          "RGBColor",
+          12
+        ],
+        [
+          44,
+          "m_radarColor",
+          "RGBColor",
+          12
+        ],
+        [
+          56,
+          "m_additiveBlend",
+          "bool",
+          1
+        ],
+        [
+          60,
+          "m_standingWaterTexture",
+          "AsciiString",
+          4
+        ],
+        [
+          64,
+          "m_riverTransparencyMultiplier",
+          "float",
+          4
+        ],
+        [
+          68,
+          "m_unk44",
+          "int",
+          4
+        ],
+        [
+          72,
+          "m_unk48",
+          "int",
+          4
+        ],
+        [
+          76,
+          "m_unk4C",
+          "float",
+          4
+        ],
+        [
+          80,
+          "m_unk50",
+          "bool",
+          1
+        ],
+        [
+          84,
+          "m_unk54",
+          "float",
+          4
+        ],
+        [
+          88,
+          "m_unk58",
+          "float",
+          4
+        ]
+      ],
+      "statics": [
+        "m_waterTransparencySettingFieldParseTable"
+      ],
+      "methods": [
+        "Rva00200BBAGet",
+        "WaterTransparencySetting",
+        "__local_vftable_ctor_closure",
+        "__vecDelDtor",
+        "getFieldParse",
+        "rva00200BD9",
+        "slot1",
+        "~WaterTransparencySetting"
+      ],
+      "virtual": [
+        "Rva00200BBAGet",
+        "__vecDelDtor",
+        "rva00200BD9",
+        "slot1",
+        "~WaterTransparencySetting"
+      ],
+      "vslots": {
+        "0": "__vecDelDtor(uint)"
+      },
+      "vfptr": false
+    },
+    "Rva00200D38": {
+      "fwd": false,
+      "key": "class",
+      "size": 8,
+      "bases": [],
+      "fields": [
+        [
+          4,
+          "m_name",
+          "AsciiString",
+          4
+        ]
+      ],
+      "statics": [],
+      "methods": [
+        "Rva00200BBAGet",
+        "Rva00200D38",
+        "__vecDelDtor",
+        "rva00200BD9",
+        "slot1",
+        "~Rva00200D38"
+      ],
+      "virtual": [
+        "Rva00200BBAGet",
+        "rva00200BD9",
+        "slot1"
+      ],
+      "vslots": {
+        "0": "rva00200BD9()",
+        "1": "slot1()",
+        "2": "Rva00200BBAGet()"
+      },
+      "vfptr": true
+    },
+    "Overridable": {
+      "fwd": false,
+      "key": "class",
+      "size": 16,
+      "bases": [],
+      "fields": [
+        [
+          4,
+          "m_nextOverride",
+          "Overridable*",
+          4
+        ],
+        [
+          8,
+          "m_isOverride",
+          "bool",
+          1
+        ],
+        [
+          12,
+          "m0C",
+          "int",
+          4
+        ]
+      ],
+      "statics": [],
+      "methods": [
+        "Overridable",
+        "__local_vftable_ctor_closure",
+        "__vecDelDtor",
+        "deleteOverrides",
+        "friend_getFinalOverride",
+        "friend_getNextOverride",
+        "getFinalOverride",
+        "getNextOverride",
+        "markAsOverride",
+        "rva0028864F",
+        "setNextOverride",
+        "~Overridable"
+      ],
+      "virtual": [
+        "__vecDelDtor",
+        "~Overridable"
+      ],
+      "vslots": {
+        "0": "__vecDelDtor(uint)"
+      },
+      "vfptr": true
+    }
+  }
+}

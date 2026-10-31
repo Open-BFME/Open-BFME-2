@@ -60,30 +60,6 @@ private:
 	INILoadType m_loadType; // +0x08 +0x08
 };
 
-class Overridable
-{
-public:
-	const Overridable *getFinalOverride(void) const
-	{
-		if (m_nextOverride)
-			return m_nextOverride->getFinalOverride();
-		return this;
-	}
-	Overridable *friend_getFinalOverride(void)
-	{
-		if (m_nextOverride)
-			return m_nextOverride->friend_getFinalOverride();
-		return this;
-	}
-	void setNextOverride(Overridable *nextOverridable) { m_nextOverride = nextOverridable; }
-	void markAsOverride(void) { m_isOverride = true; }
-
-private:
-	void *m_vptr;                  // +0x00
-	Overridable *m_nextOverride;   // +0x04
-	bool m_isOverride;             // +0x08
-	char m_pad09[0x10 - 0x09];
-};
 
 template <class T> class OVERRIDE
 {
@@ -103,28 +79,21 @@ private:
 };
 
 // The copy 0x00200CB1 is rowed as Rva00200CB1::operator=; call it.
-class Rva00200CB1
+
+
+#include "../../../Include/GameClient/Water.h"
+
+// Native200EE4 consumes these canonical accessors inline. Keep the identical
+// owned semantics local, preserving the original identical accessor COMDATs.
+__forceinline Overridable *Overridable::friend_getFinalOverride()
 {
-public:
-	Rva00200CB1 &operator=(const Rva00200CB1 &that);
-};
-
-class WaterTransparencySetting : public Overridable
+ if (m_nextOverride) return m_nextOverride->friend_getFinalOverride();
+ return this;
+}
+__forceinline void Overridable::markAsOverride()
 {
-public:
-	WaterTransparencySetting();
-	__declspec(dllimport) __forceinline WaterTransparencySetting &operator=(const WaterTransparencySetting &that)
-	{
-		reinterpret_cast<Rva00200CB1 *>(this)->operator=(reinterpret_cast<const Rva00200CB1 &>(that));
-		return *this;
-	}
-
-	const FieldParse *getFieldParse(void) const { return m_waterTransparencySettingFieldParseTable; }
-	static const FieldParse m_waterTransparencySettingFieldParseTable[];
-
-private:
-	char m_pad10[0x5C - 0x10];
-};
+ m_isOverride = true;
+}
 
 // The setting's field-parse table, .rdata 0x00C080B0 (ZH Water.cpp's
 // entries; offsets are retail's).

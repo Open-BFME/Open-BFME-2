@@ -1,0 +1,22 @@
+{
+  "original": {
+    "?friend_getFinalOverride@Overridable@@QAEPAV1@XZ": {
+      "bytes": "8bc1eb028bc28b500485d275f7c3",
+      "relocs": []
+    },
+    "?markAsOverride@Overridable@@QAEXXZ": {
+      "bytes": "c6410801c3",
+      "relocs": []
+    }
+  },
+  "adopted": {
+    "?friend_getFinalOverride@Overridable@@QAEPAV1@XZ": {
+      "bytes": "8bc1eb028bc28b500485d275f7c3",
+      "relocs": []
+    },
+    "?markAsOverride@Overridable@@QAEXXZ": {
+      "bytes": "c6410801c3",
+      "relocs": []
+    }
+  }
+}
