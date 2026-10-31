@@ -8,7 +8,8 @@ class Xfer;
 struct BfmeAudioEventPrefix136;
 class Xfer;
 struct AbilityMiscAudio;
-class AudioManager
+// TheAudio's slots as this unit calls them; the class itself is declared below.
+class WorkerAIUpdateAudioView
 {
 public:
 	virtual void _pad00() = 0;
@@ -107,6 +108,7 @@ public:
 	virtual void xferAudioHandle(Xfer *xfer, unsigned int *handle) = 0;
 };
 
+class AudioManager;
 extern AudioManager *TheAudio;
 
 class Rva004A99F6
@@ -120,6 +122,6 @@ private:
 
 void Rva004A99F6::rva004A99F6()
 {
-	TheAudio->removeAudioEvent(m_e8);
+	((WorkerAIUpdateAudioView *)TheAudio)->removeAudioEvent(m_e8);
 	m_e8 = 1;
 }

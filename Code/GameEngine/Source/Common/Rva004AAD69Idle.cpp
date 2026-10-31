@@ -10,23 +10,37 @@ enum CommandSourceType
 	CMD_FROM_AI = 2
 };
 
+struct AICommandParms;
+struct Coord3D;
 class AICommandInterface
 {
 public:
-	void aiIdle(CommandSourceType cmd);
+	void aiIdle(CommandSourceType cmdSource);
+	void aiMoveToPosition(const Coord3D *position, CommandSourceType cmdSource);
+	virtual void aiDoCommand(const AICommandParms *parms);
 };
 
-struct AIUpdateInterface
-{
-	char m_pad[0x20];
-	AICommandInterface m_cmd;
-};
-
-class Object
+// The update module's 0x20 bytes ahead of the AI's command interface.
+class WorkerAIModuleView
 {
 public:
+	virtual void v0();
+private:
+	char m_pad04[0x20 - 4];
+};
+
+// AIUpdateInterface as this unit reaches it: its command interface sits at +0x20.
+class WorkerAIUpdateView : public WorkerAIModuleView, public AICommandInterface
+{
+};
+
+class Object;
+
+// Object's AI pointer at +0x258.
+struct WorkerObjectAIView
+{
 	char m_pad[0x258];
-	AIUpdateInterface *m_ai;
+	WorkerAIUpdateView *m_ai;
 };
 
 struct Rva004AAD69Node
@@ -67,8 +81,8 @@ void Rva004AAD69::rva004AAD69()
 	if (value != 1)
 		return;
 	Object *obj = *(Object **)((char *)this - 0x3E4);
-	AIUpdateInterface *ai = obj->m_ai;
+	WorkerAIUpdateView *ai = ((WorkerObjectAIView *)obj)->m_ai;
 	if (ai != 0)
-		ai->m_cmd.aiIdle(CMD_FROM_AI);
+		ai->aiIdle(CMD_FROM_AI);
 	m_holder->s8(0);
 }
