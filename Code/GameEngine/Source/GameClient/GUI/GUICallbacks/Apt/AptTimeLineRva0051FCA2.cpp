@@ -138,12 +138,17 @@ private:
 	_STL::vector<AsciiString> m_names;
 };
 
+class Image;
+
+// The image binder at +0x40 of the Apt window half (0x00524306 family), +0x258
+// of the screen: window name to image name, with its rowed setter 0x00524725.
 // The image binder at +0x40 of the Apt window half (0x00524306 family):
 // window name to image name.
 class Rva00524306
 {
 public:
-	void rva00524767(const AsciiString &name, const AsciiString &image);
+	void rva00524725(const AsciiString &key, const Image *image);
+	void rva00524767(const AsciiString &key, const AsciiString &image);
 private:
 	_STL::vector<AsciiString> m_names;
 };
@@ -224,10 +229,32 @@ public:
 	void rva0051E766(int which, char *buffer, bool probing);
 	char m_pad00[0x284];
 private:
-	int m_mode; // +0x284 +0x284
-	_STL::vector<Rva0051E766Record> m_records; // +0x288 +0x288
+	int m_mode; // +0x284
+	_STL::vector<Rva0051E766Record> m_records; // +0x288
 	bool m_294; // +0x294
 	char m_pad295[0x3];
+};
+
+struct Rva0051F7ADRecord;
+struct Rva0026F4F4Element;
+class AptTimeLineStats;
+class LivingWorldPlayer;
+class Rva00520923Source;
+
+// One player's row of the time line (0x50 bytes): name, color, faction name,
+// status, and the score vectors; m_eventsA and m_eventsB hold the graph's event frames.
+struct AptTimeLinePlayer
+{
+	unsigned char m_pad00[4];
+	UnicodeString m_name;        // +0x04
+	int m_color;                 // +0x08
+	AsciiString m_faction;       // +0x0C, read by PlayerFaction 0x0051EC4E
+	int m_side;                  // +0x10: 0 won, 1 dead, 2 left, 3 (0x002E1046)
+	unsigned char m_pad14[0x20 - 0x14];
+	_STL::vector<Rva0051F7ADRecord> m_20; // +0x20
+	_STL::vector<Rva0026F4F4Element> m_eventsA; // +0x2C
+	_STL::vector<Rva0026F4F4Element> m_eventsB; // +0x38
+	_STL::vector<Rva0026F4F4Element> m_44; // +0x44
 };
 
 class AptTimeLine : public _bfme_AptGameWindow
@@ -235,17 +262,36 @@ class AptTimeLine : public _bfme_AptGameWindow
 public:
 	virtual void rva0051FCA2();
 	void OnButtonContinue(const char *unused);
-	// Bound as "AptTimeLine::OnButtonSaveReplay" and "AptScoreScreen::Save".
+	// Bound as "AptTimeLine::OnButtonSaveReplay" and "AptScoreScreen::Save":
+	// one body or two folded, so it keeps its address.
 	void rva0051E3C3(const char *unused);
-	void CaHAwardNumber(const char *value);
-	void RenderGraph(const Pair0051E31A &a, const Pair0051E31A &b, int c, const char *d);
+	void GraphFocus(int index, const char *value, bool set);
 	void PlayerColor(int index, char *value, bool set);
 	void PlayerFaction(int index, char *value, bool set);
-	void GraphFocus(int index, const char *value, bool set);
+	void CaHAwardNumber(const char *value);
 	void CollectAllPlayerData();
+	void RenderGraph(const Pair0051E31A &position, const Pair0051E31A &size, int unused, const char *params);
+	void CollectPlayerData(class Player *player, const class GameSlot *slot);
+	void CollectPlayerData(LivingWorldPlayer *player, Rva00520923Source *source);
+	void rva00520CD1();
+
+	// Retail 0x0051ED7E (345 bytes), the continue action shared by two callbacks.
+	void rva0051ED7E();
+
 private:
 	unsigned char m_pad27C[0x280 - 0x27C];
-	AptTimeLineStats *m_stats; // +0x280
+	AptTimeLineStats *m_stats;          // +0x280
+	int m_gameType;                     // +0x284, 6 for a strategic single-player game
+	_STL::vector<AptTimeLinePlayer> m_players; // +0x288
+	bool m_observer;                    // +0x294
+	unsigned char m_pad295[0x298 - 0x295];
+	Image *m_sideImages[4];             // +0x298
+	Image *m_eventImageA;               // +0x2A8
+	Image *m_eventImageB;               // +0x2AC
+	float m_lastMaximum;                // +0x2B0
+	int m_lastFrames;                   // +0x2B4
+	_STL::vector<float> m_focus;        // +0x2B8, one focus weight per player
+	char m_extra[48];                   // +0x2C4
 };
 
 #pragma pointers_to_members(full_generality, multiple_inheritance)

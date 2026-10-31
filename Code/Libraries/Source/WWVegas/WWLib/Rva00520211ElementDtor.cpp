@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
+// cl: /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/shims/bfmealloc /ICode/GameEngine/Include /ICode/GameEngine/Source/Common /ICode /I.
 //
 // ??1Rva00520211Element@@QAE@XZ
 // RVA 0x0051FB52 size 135. The byte-verified vector helpers at 0x5200F4,
@@ -10,11 +10,6 @@
 // identity claims.
 
 #include "ascii_string.h"
-
-namespace _STL
-{
-void free(void *block);
-}
 
 class BfmeWideString000543F5
 {
@@ -43,6 +38,8 @@ private:
 	char m_pad[12];
 };
 
+void __cdecl Rva00030830GameFree(void *);
+
 struct Rva00520211FreeOwner
 {
 	void *m_block;
@@ -52,10 +49,11 @@ struct Rva00520211FreeOwner
 	~Rva00520211FreeOwner()
 	{
 		if (m_block != 0)
-			_STL::free(m_block);
+			Rva00030830GameFree(m_block);
 	}
 };
 
+// Native destroy/fill helpers advance by 0x50; field identities stay opaque.
 struct Rva00520211Element
 {
 	int m_unknown00;
@@ -68,6 +66,8 @@ struct Rva00520211Element
 	Rva00520211FreeOwner m_owned2C;
 	Rva00520211FreeOwner m_owned38;
 	Rva00520211FreeOwner m_owned44;
+	Rva00520211Element(const Rva00520211Element &);
+	Rva00520211Element &operator=(const Rva00520211Element &);
 	~Rva00520211Element();
 };
 

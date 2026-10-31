@@ -290,12 +290,60 @@ protected:
 	char m_pad04[0x214];
 };
 
+template <class T> class AptRef;
+class AptCommandMap;
+class AptExternHandler;
+class AptOverButtonHandler;
+
+class AptCommandMapAdder
+{
+public:
+	void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map);
+private:
+	_STL::vector<AsciiString> m_names;
+};
+
+class AptExternHandlerAdder
+{
+public:
+	void AddExternHandler(const AsciiString &name, int arg, AptRef<AptExternHandler> handler);
+private:
+	_STL::vector<AsciiString> m_names;
+};
+
+class AptOverButtonHandlerAdder
+{
+public:
+	void AddOverButtonHandler(const AsciiString &name, AptRef<AptOverButtonHandler> handler);
+private:
+	_STL::vector<AsciiString> m_names;
+};
+
+// The image binder at +0x40 of the Apt window half (0x00524306 family), +0x258
+// of the screen: window name to image name, with its rowed setter 0x00524725.
+// The screen's Apt image table at +0x258 and its rowed setter 0x00524725.
+class Rva00524306
+{
+public:
+	void rva00524725(const AsciiString &key, const Image *image);
+	void rva00524767(const AsciiString &key, const AsciiString &image);
+private:
+	_STL::vector<AsciiString> m_names;
+};
+
 class Rva005248D0
 {
 public:
 	virtual ~Rva005248D0();
+	AptCommandMapAdder m_commandMaps; // +0x04
+	AptExternHandlerAdder m_externHandlers; // +0x10
+	AptOverButtonHandlerAdder m_overButtonHandlers; // +0x1C
 private:
-	unsigned char unknown[0x58 - 4];
+	unsigned char m_pad028[0x40 - 0x28];
+public:
+	Rva00524306 m_imageAdder; // +0x40
+private:
+	unsigned char m_pad04C[0x58 - 0x4C];
 };
 
 class _bfme_AptGameWindow : public GameWindow, public Rva005248D0
@@ -346,10 +394,63 @@ struct Rva0051C0E7
 	unsigned char m_pad[0x30];
 };
 
+class BfmeWideString000543F5
+{
+public:
+	~BfmeWideString000543F5();
+
+private:
+	char *m_text;
+};
+
+class Rva0039C151Subobject
+{
+public:
+	~Rva0039C151Subobject();
+
+private:
+	char m_pad[12];
+};
+
+class Rva004EE501Subobject
+{
+public:
+	~Rva004EE501Subobject();
+
+private:
+	char m_pad[12];
+};
+
+void __cdecl Rva00030830GameFree(void *);
+
+struct Rva00520211FreeOwner
+{
+	void *m_block;
+	int m_unused04;
+	int m_unused08;
+
+	~Rva00520211FreeOwner()
+	{
+		if (m_block != 0)
+			Rva00030830GameFree(m_block);
+	}
+};
+
 // Native destroy/fill helpers advance by 0x50; field identities stay opaque.
 struct Rva00520211Element
 {
-    unsigned char m_data[0x50];
+	int m_unknown00;
+	BfmeWideString000543F5 m_wide04;
+	int m_unknown08;
+	AsciiString m_ascii0C;
+	int m_unknown10;
+	Rva0039C151Subobject m_subobject14;
+	Rva004EE501Subobject m_subobject20;
+	Rva00520211FreeOwner m_owned2C;
+	Rva00520211FreeOwner m_owned38;
+	Rva00520211FreeOwner m_owned44;
+	Rva00520211Element(const Rva00520211Element &);
+	Rva00520211Element &operator=(const Rva00520211Element &);
 	~Rva00520211Element();
 };
 
@@ -465,10 +566,64 @@ public:
 
 struct BfmePod80 { int a[20]; };
 
+class Rva0054103E
+{
+public:
+	int m00;
+	int m04;
+	int m08;
+	int m0C;
+	int m10;
+};
+
+struct PrereqUnitRec
+{
+	unsigned int m_data[3];
+};
+
+// Declared only: the rowed bases 0x00211E58, 0x004FF36C and 0x005C8C37 serve these calls.
+namespace _STL {
+template <> _Vector_base<Rva0054103E, allocator<Rva0054103E> >::_Vector_base(const allocator<Rva0054103E> &) throw();
+template <> _Vector_base<Rva0054103E, allocator<Rva0054103E> >::_Vector_base(size_t, const allocator<Rva0054103E> &) throw();
+template <> _Vector_base<PrereqUnitRec, allocator<PrereqUnitRec> >::_Vector_base(const allocator<PrereqUnitRec> &) throw();
+template <> _Vector_base<PrereqUnitRec, allocator<PrereqUnitRec> >::_Vector_base(size_t, const allocator<PrereqUnitRec> &) throw();
+}
+
+class Rva0039C151 : public _STL::_Vector_base<Rva0054103E, _STL::allocator<Rva0054103E> >
+{
+public:
+	__forceinline Rva0039C151() : _STL::_Vector_base<Rva0054103E, _STL::allocator<Rva0054103E> >(_STL::allocator<Rva0054103E>()) {}
+	Rva0039C151(const Rva0039C151 &x);
+	~Rva0039C151();
+};
+
+class Rva004EE501 : public _STL::_Vector_base<PrereqUnitRec, _STL::allocator<PrereqUnitRec> >
+{
+public:
+	__forceinline Rva004EE501() : _STL::_Vector_base<PrereqUnitRec, _STL::allocator<PrereqUnitRec> >(_STL::allocator<PrereqUnitRec>()) {}
+	Rva004EE501(const Rva004EE501 &x);
+	~Rva004EE501();
+};
+
+class Xfer0051FFF5;
+
 class Rva0051F87B
 {
 public:
-	Rva0051F87B(const Rva0051F87B &o);
+	virtual void Rva0051FFF5(Xfer0051FFF5 *x);
+	Rva0051F87B();
+	Rva0051F87B(const Rva0051F87B &other);
+	Rva0051F87B &operator=(const Rva0051F87B &other);
+private:
+	UnicodeString m_04;
+	int m_08;
+	AsciiString m_0C;
+	int m_10;
+	Rva0039C151 m_14;
+	Rva004EE501 m_20;
+	_STL::vector<unsigned int, _STL::allocator<unsigned int> > m_2C;
+	_STL::vector<unsigned int, _STL::allocator<unsigned int> > m_38;
+	_STL::vector<unsigned int, _STL::allocator<unsigned int> > m_44;
 };
 
 namespace _STL {
@@ -527,20 +682,6 @@ struct Pair0051E31A
 {
 	int word;
 	float scalar;
-};
-
-// One player's row of the time line (0x50 bytes).
-struct AptTimeLinePlayer
-{
-	unsigned char m_pad00[4];
-	UnicodeString m_name;        // +0x04
-	int m_color;                 // +0x08
-	AsciiString m_faction;       // +0x0C
-	int m_side;                  // +0x10
-	unsigned char m_pad14[0x2C - 0x14];
-	_STL::vector<int> m_eventsA; // +0x2C
-	_STL::vector<int> m_eventsB; // +0x38
-	unsigned char m_pad44[0x50 - 0x44];
 };
 
 // Vtable 0x00867268 (slots 0x0051E72C / 0x0051E96B).
@@ -605,17 +746,38 @@ extern GameTextInterface *TheGameText;
 
 extern int BfmeLogicFramesPerSecond;
 
-// The screen's Apt image table at +0x258 and its rowed setter 0x00524725.
-class Rva00524306
+struct Rva0051F7ADRecord;
+struct Rva0026F4F4Element;
+class AptTimeLineStats;
+class LivingWorldPlayer;
+class Rva00520923Source;
+
+struct Rva0026F4F4Element
 {
-public:
-	void rva00524725(const AsciiString &key, const Image *image);
-	void rva00524767(const AsciiString &key, const AsciiString &image);
+	unsigned int m_value;
 };
 
-class AptTimeLine
+// One player's row of the time line (0x50 bytes): name, color, faction name,
+// status, and the score vectors; m_eventsA and m_eventsB hold the graph's event frames.
+// One player's row of the time line (0x50 bytes).
+struct AptTimeLinePlayer
+{
+	unsigned char m_pad00[4];
+	UnicodeString m_name;        // +0x04
+	int m_color;                 // +0x08
+	AsciiString m_faction;       // +0x0C, read by PlayerFaction 0x0051EC4E
+	int m_side;                  // +0x10: 0 won, 1 dead, 2 left, 3 (0x002E1046)
+	unsigned char m_pad14[0x20 - 0x14];
+	_STL::vector<Rva0051F7ADRecord> m_20; // +0x20
+	_STL::vector<Rva0026F4F4Element> m_eventsA; // +0x2C
+	_STL::vector<Rva0026F4F4Element> m_eventsB; // +0x38
+	_STL::vector<Rva0026F4F4Element> m_44; // +0x44
+};
+
+class AptTimeLine : public _bfme_AptGameWindow
 {
 public:
+	virtual void rva0051FCA2();
 	void OnButtonContinue(const char *unused);
 	// Bound as "AptTimeLine::OnButtonSaveReplay" and "AptScoreScreen::Save":
 	// one body or two folded, so it keeps its address.
@@ -626,23 +788,27 @@ public:
 	void CaHAwardNumber(const char *value);
 	void CollectAllPlayerData();
 	void RenderGraph(const Pair0051E31A &position, const Pair0051E31A &size, int unused, const char *params);
+	void CollectPlayerData(class Player *player, const class GameSlot *slot);
+	void CollectPlayerData(LivingWorldPlayer *player, Rva00520923Source *source);
+	void rva00520CD1();
 
 	// Retail 0x0051ED7E (345 bytes), the continue action shared by two callbacks.
 	void rva0051ED7E();
 
 private:
-	unsigned char m_pad000[0x258];
-	Rva00524306 m_images;               // +0x258
-	unsigned char m_pad259[0x284 - 0x259];
-	int m_gameType;                     // +0x284
+	unsigned char m_pad27C[0x280 - 0x27C];
+	AptTimeLineStats *m_stats;          // +0x280
+	int m_gameType;                     // +0x284, 6 for a strategic single-player game
 	_STL::vector<AptTimeLinePlayer> m_players; // +0x288
-	unsigned char m_pad294[0x298 - 0x294];
+	bool m_observer;                    // +0x294
+	unsigned char m_pad295[0x298 - 0x295];
 	Image *m_sideImages[4];             // +0x298
 	Image *m_eventImageA;               // +0x2A8
 	Image *m_eventImageB;               // +0x2AC
 	float m_lastMaximum;                // +0x2B0
 	int m_lastFrames;                   // +0x2B4
 	_STL::vector<float> m_focus;        // +0x2B8, one focus weight per player
+	char m_extra[48];                   // +0x2C4
 };
 
 class GlobalData;
@@ -668,8 +834,8 @@ public:
 	void rva0051E766(int which, char *buffer, bool probing);
 	char m_pad00[0x284];
 private:
-	int m_mode; // +0x284 +0x284
-	_STL::vector<Rva0051E766Record> m_records; // +0x288 +0x288
+	int m_mode; // +0x284
+	_STL::vector<Rva0051E766Record> m_records; // +0x288
 	bool m_294; // +0x294
 	char m_pad295[0x3];
 };
@@ -1094,11 +1260,11 @@ void AptTimeLine::RenderGraph(const Pair0051E31A &position, const Pair0051E31A &
 		int last = series->count() - 1;
 		if (last >= 0)
 			graph.rva0051E664(series, last, (player->m_side == 4 || player->m_side == 3) ? 0 : m_sideImages[player->m_side]);
-		_STL::vector<int>::iterator it;
+		_STL::vector<Rva0026F4F4Element>::iterator it;
 		for (it = player->m_eventsA.begin(); it != player->m_eventsA.end(); ++it)
-			graph.rva0051E664(series, *it, m_eventImageA);
+			graph.rva0051E664(series, it->m_value, m_eventImageA);
 		for (it = player->m_eventsB.begin(); it != player->m_eventsB.end(); ++it)
-			graph.rva0051E664(series, *it, m_eventImageB);
+			graph.rva0051E664(series, it->m_value, m_eventImageB);
 	}
 
 	if (m_lastMaximum != maximum)

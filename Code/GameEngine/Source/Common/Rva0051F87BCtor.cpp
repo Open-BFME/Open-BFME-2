@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/shims/bfmealloc /ICode/GameEngine/Include /ICode/GameEngine/Source/Common /ICode /I.
 // stlport
 //
 // ??0Rva0051F87B@@QAE@XZ @ 0x0051FAFC size 86.
@@ -31,9 +31,47 @@ struct SaveMapPreview
 	int m10;
 };
 
+// The census's consumers of vector<SaveMapPreview> take its base constructor and
+// allocator proxy from this unit's COMDAT copies; retail folds them at 0x00211E58.
+template _STL::_Vector_base<SaveMapPreview, _STL::allocator<SaveMapPreview> >::_Vector_base(const _STL::allocator<SaveMapPreview> &);
+
+class Rva0054103E
+{
+public:
+	int m00;
+	int m04;
+	int m08;
+	int m0C;
+	int m10;
+};
+
 struct PrereqUnitRec
 {
 	unsigned int m_data[3];
+};
+
+// Declared only: the rowed bases 0x00211E58, 0x004FF36C and 0x005C8C37 serve these calls.
+namespace _STL {
+template <> _Vector_base<Rva0054103E, allocator<Rva0054103E> >::_Vector_base(const allocator<Rva0054103E> &) throw();
+template <> _Vector_base<Rva0054103E, allocator<Rva0054103E> >::_Vector_base(size_t, const allocator<Rva0054103E> &) throw();
+template <> _Vector_base<PrereqUnitRec, allocator<PrereqUnitRec> >::_Vector_base(const allocator<PrereqUnitRec> &) throw();
+template <> _Vector_base<PrereqUnitRec, allocator<PrereqUnitRec> >::_Vector_base(size_t, const allocator<PrereqUnitRec> &) throw();
+}
+
+class Rva0039C151 : public _STL::_Vector_base<Rva0054103E, _STL::allocator<Rva0054103E> >
+{
+public:
+	__forceinline Rva0039C151() : _STL::_Vector_base<Rva0054103E, _STL::allocator<Rva0054103E> >(_STL::allocator<Rva0054103E>()) {}
+	Rva0039C151(const Rva0039C151 &x);
+	~Rva0039C151();
+};
+
+class Rva004EE501 : public _STL::_Vector_base<PrereqUnitRec, _STL::allocator<PrereqUnitRec> >
+{
+public:
+	__forceinline Rva004EE501() : _STL::_Vector_base<PrereqUnitRec, _STL::allocator<PrereqUnitRec> >(_STL::allocator<PrereqUnitRec>()) {}
+	Rva004EE501(const Rva004EE501 &x);
+	~Rva004EE501();
 };
 
 class Xfer0051FFF5;
@@ -43,13 +81,15 @@ class Rva0051F87B
 public:
 	virtual void Rva0051FFF5(Xfer0051FFF5 *x);
 	Rva0051F87B();
+	Rva0051F87B(const Rva0051F87B &other);
+	Rva0051F87B &operator=(const Rva0051F87B &other);
 private:
 	UnicodeString m_04;
 	int m_08;
 	AsciiString m_0C;
 	int m_10;
-	_STL::vector<SaveMapPreview, _STL::allocator<SaveMapPreview> > m_14;
-	_STL::vector<PrereqUnitRec, _STL::allocator<PrereqUnitRec> > m_20;
+	Rva0039C151 m_14;
+	Rva004EE501 m_20;
 	_STL::vector<unsigned int, _STL::allocator<unsigned int> > m_2C;
 	_STL::vector<unsigned int, _STL::allocator<unsigned int> > m_38;
 	_STL::vector<unsigned int, _STL::allocator<unsigned int> > m_44;

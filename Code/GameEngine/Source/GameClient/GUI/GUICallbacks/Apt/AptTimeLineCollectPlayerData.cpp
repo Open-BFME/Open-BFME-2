@@ -60,14 +60,24 @@ extern PlayerTemplateStore *ThePlayerTemplateStore;
 class GameTextInterface
 {
 public:
-#define TEXT_SLOT(N) virtual void slot##N();
-	TEXT_SLOT(00) TEXT_SLOT(01) TEXT_SLOT(02) TEXT_SLOT(03) TEXT_SLOT(04) TEXT_SLOT(05) TEXT_SLOT(06)
-	TEXT_SLOT(07) TEXT_SLOT(08) TEXT_SLOT(09) TEXT_SLOT(10) TEXT_SLOT(11) TEXT_SLOT(12) TEXT_SLOT(13)
-#undef TEXT_SLOT
-	// Overloaded virtuals are laid out in reverse declaration order: the
-	// AsciiString fetch is vslot 14, the char one vslot 15.
-	virtual UnicodeString fetch(const char *label, bool *exists = 0);
-	virtual UnicodeString fetch(const AsciiString &label, bool *exists = 0);
+	virtual ~GameTextInterface() {}
+	virtual void slot01() = 0;
+	virtual void slot02() = 0;
+	virtual void slot03() = 0;
+	virtual void slot04() = 0;
+	virtual void slot05() = 0;
+	virtual void slot06() = 0;
+	virtual void slot07() = 0;
+	virtual void slot08() = 0;
+	virtual void slot09() = 0;
+	virtual void slot10() = 0;
+	virtual void slot11() = 0;
+	virtual void slot12() = 0;
+	virtual void slot13() = 0;
+	// MSVC lays overloaded virtuals out in reverse declaration order: the
+	// AsciiString fetch is slot 14 (+0x38), the C-string fetch slot 15 (+0x3C).
+	virtual UnicodeString fetch(const char *label, bool *exists = 0) = 0;
+	virtual UnicodeString fetch(const AsciiString &label, bool *exists = 0) = 0;
 };
 
 extern GameTextInterface *TheGameText;
@@ -113,7 +123,7 @@ namespace _STL { template <> Rva0051F7ADRecord * __copy<Rva0051F7ADRecord const 
 // Element types of the four per-player score vectors.
 struct Rva0051F7ADRecord
 {
-	unsigned int m_words[2];
+	char bytes[12];
 };
 // The records' range destroy is the rowed 0x0052C37A body.
 struct Rva0052BFB5Elem;
@@ -137,7 +147,9 @@ struct Rva00520923Faction
 class LivingWorldPlayer
 {
 public:
-	unsigned char m_pad000[0x40];
+	unsigned char m_pad000[0x14];
+	void *m_template; // +0x14
+	unsigned char m_pad018[0x40 - 0x18];
 	Rva00520923Faction *m_faction; // +0x40
 	unsigned char m_pad044[0x190 - 0x44];
 	RGBColor m_color; // +0x190
@@ -148,8 +160,8 @@ public:
 	_STL::vector<Rva0026F4F4Element> m_314; // +0x314
 	unsigned char m_pad320[0x3C4 - 0x320];
 	unsigned char m_3C4; // +0x3C4, nonzero once the player is dead
-	Bool m_3C5; // +0x3C5, set once the player has left
-	Bool hasLeft() const { return m_3C5; }
+	bool m_3C5; // +0x3C5, set once the player has left
+	bool hasLeft() const { return m_3C5; }
 };
 
 class Rva002E0687
@@ -222,39 +234,138 @@ public:
 
 extern Rva00E02D6C *TheCampaignManager;
 
+class Image;
+
+template <class T> class AptRef;
+class AptCommandMap;
+class AptExternHandler;
+class AptOverButtonHandler;
+
+class AptCommandMapAdder
+{
+public:
+	void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map);
+private:
+	_STL::vector<AsciiString> m_names;
+};
+
+class AptExternHandlerAdder
+{
+public:
+	void AddExternHandler(const AsciiString &name, int arg, AptRef<AptExternHandler> handler);
+private:
+	_STL::vector<AsciiString> m_names;
+};
+
+class AptOverButtonHandlerAdder
+{
+public:
+	void AddOverButtonHandler(const AsciiString &name, AptRef<AptOverButtonHandler> handler);
+private:
+	_STL::vector<AsciiString> m_names;
+};
+
+// The image binder at +0x40 of the Apt window half (0x00524306 family), +0x258
+// of the screen: window name to image name, with its rowed setter 0x00524725.
 class Rva00524306
 {
 public:
-	void rva00524767(const AsciiString &name, const AsciiString &image);
+	void rva00524725(const AsciiString &key, const Image *image);
+	void rva00524767(const AsciiString &key, const AsciiString &image);
+private:
+	_STL::vector<AsciiString> m_names;
 };
 
+class Rva005248D0
+{
+public:
+	virtual ~Rva005248D0();
+	AptCommandMapAdder m_commandMaps; // +0x04
+	AptExternHandlerAdder m_externHandlers; // +0x10
+	AptOverButtonHandlerAdder m_overButtonHandlers; // +0x1C
+private:
+	unsigned char m_pad028[0x40 - 0x28];
+public:
+	Rva00524306 m_imageAdder; // +0x40
+private:
+	unsigned char m_pad04C[0x58 - 0x4C];
+};
+
+class GameWindow
+{
+public:
+	GameWindow();
+protected:
+	virtual ~GameWindow();
+	char m_pad04[0x214];
+};
+
+class _bfme_AptGameWindow : public GameWindow, public Rva005248D0
+{
+public:
+	_bfme_AptGameWindow(void *context);
+	virtual ~_bfme_AptGameWindow();
+private:
+	AsciiString filename270; // +0x270
+	int m_274; // +0x274
+	char m_278; // +0x278
+	char m_pad279[0x3];
+};
+
+struct Pair0051E31A;
+
+// One player's row of the time line (0x50 bytes): name, color, faction name,
+// status, and the score vectors; m_eventsA and m_eventsB hold the graph's event frames.
 // One player's row of the time line (0x50 bytes).
 struct AptTimeLinePlayer
 {
 	unsigned char m_pad00[4];
-	UnicodeString m_name; // +0x04
-	int m_color; // +0x08
-	AsciiString m_faction; // +0x0C
-	int m_status; // +0x10: 0 won, 1 dead, 2 left, 3 (0x002E1046)
+	UnicodeString m_name;        // +0x04
+	int m_color;                 // +0x08
+	AsciiString m_faction;       // +0x0C, read by PlayerFaction 0x0051EC4E
+	int m_side;                  // +0x10: 0 won, 1 dead, 2 left, 3 (0x002E1046)
 	unsigned char m_pad14[0x20 - 0x14];
 	_STL::vector<Rva0051F7ADRecord> m_20; // +0x20
-	_STL::vector<Rva0026F4F4Element> m_2C; // +0x2C
-	_STL::vector<Rva0026F4F4Element> m_38; // +0x38
+	_STL::vector<Rva0026F4F4Element> m_eventsA; // +0x2C
+	_STL::vector<Rva0026F4F4Element> m_eventsB; // +0x38
 	_STL::vector<Rva0026F4F4Element> m_44; // +0x44
 };
 
-class AptTimeLine
+class AptTimeLine : public _bfme_AptGameWindow
 {
 public:
-	void CollectPlayerData(LivingWorldPlayer *player, Rva00520923Source *source);
+	virtual void rva0051FCA2();
+	void OnButtonContinue(const char *unused);
+	// Bound as "AptTimeLine::OnButtonSaveReplay" and "AptScoreScreen::Save":
+	// one body or two folded, so it keeps its address.
+	void rva0051E3C3(const char *unused);
+	void GraphFocus(int index, const char *value, bool set);
+	void PlayerColor(int index, char *value, bool set);
+	void PlayerFaction(int index, char *value, bool set);
+	void CaHAwardNumber(const char *value);
+	void CollectAllPlayerData();
+	void RenderGraph(const Pair0051E31A &position, const Pair0051E31A &size, int unused, const char *params);
 	void CollectPlayerData(class Player *player, const class GameSlot *slot);
+	void CollectPlayerData(LivingWorldPlayer *player, Rva00520923Source *source);
+	void rva00520CD1();
+
+	// Retail 0x0051ED7E (345 bytes), the continue action shared by two callbacks.
+	void rva0051ED7E();
+
 private:
-	unsigned char m_pad000[0x258];
-	Rva00524306 m_images; // +0x258
-	unsigned char m_pad259[0x280 - 0x259];
-	AptTimeLineStats *m_stats; // +0x280
-	int m_284; // +0x284, 6 for a strategic single-player game
+	unsigned char m_pad27C[0x280 - 0x27C];
+	AptTimeLineStats *m_stats;          // +0x280
+	int m_gameType;                     // +0x284, 6 for a strategic single-player game
 	_STL::vector<AptTimeLinePlayer> m_players; // +0x288
+	bool m_observer;                    // +0x294
+	unsigned char m_pad295[0x298 - 0x295];
+	Image *m_sideImages[4];             // +0x298
+	Image *m_eventImageA;               // +0x2A8
+	Image *m_eventImageB;               // +0x2AC
+	float m_lastMaximum;                // +0x2B0
+	int m_lastFrames;                   // +0x2B4
+	_STL::vector<float> m_focus;        // +0x2B8, one focus weight per player
+	char m_extra[48];                   // +0x2C4
 };
 
 // resize(n) is the rowed 0x0052076F body.
@@ -294,25 +405,25 @@ void AptTimeLine::CollectPlayerData(LivingWorldPlayer *player, Rva00520923Source
 			isEvil = playerTemplate->m_isEvil;
 		}
 	}
-	row->m_status = 0;
+	row->m_side = 0;
 	if (player->hasLeft())
-		row->m_status = 2;
+		row->m_side = 2;
 	else if (player->m_3C4)
-		row->m_status = 1;
+		row->m_side = 1;
 	else if (((Rva002E1046 *)player)->rva002E1046())
-		row->m_status = 3;
+		row->m_side = 3;
 	row->m_20 = player->m_2F0;
-	row->m_2C = player->m_314;
-	row->m_38 = player->m_2FC;
+	row->m_eventsA = player->m_314;
+	row->m_eventsB = player->m_2FC;
 	row->m_44 = player->m_308;
 
 	if (isLocal)
 	{
-		if (m_284 == 6)
+		if (m_gameType == 6)
 			StatsReporter::ProcessStrategicSinglePlayerGame(player);
-		if (row->m_status == 0 || row->m_status == 1)
+		if (row->m_side == 0 || row->m_side == 1)
 		{
-			UnicodeString winLoss = TheGameText->fetch(row->m_status == 0 ? "APT:EndVictorious" : "APT:EndDefeat");
+			UnicodeString winLoss = TheGameText->fetch(row->m_side == 0 ? "APT:EndVictorious" : "APT:EndDefeat");
 			g_bfmeAptWindowManager->bfmeSetText(AsciiString("APT:StrategicWinLossTitle"), winLoss, false);
 			UnicodeString scenarioName;
 			UnicodeString description;
@@ -321,7 +432,7 @@ void AptTimeLine::CollectPlayerData(LivingWorldPlayer *player, Rva00520923Source
 			if (scenario)
 			{
 				scenarioName = TheGameText->fetch(scenario->m_name);
-				description = row->m_status == 0
+				description = row->m_side == 0
 					? ((Rva003F83B5 *)scenario)->rva003F83B5()
 					: ((Rva004FCBA9 *)scenario)->rva004fcba9();
 			}
@@ -329,10 +440,10 @@ void AptTimeLine::CollectPlayerData(LivingWorldPlayer *player, Rva00520923Source
 			g_bfmeAptWindowManager->bfmeSetText(AsciiString("APT:StrategicWinLossConditionDescription"), description, false);
 			const char *image;
 			if (isEvil)
-				image = row->m_status == 0 ? "StrategicEndGameEvilWin" : "StrategicEndGameEvilLose";
+				image = row->m_side == 0 ? "StrategicEndGameEvilWin" : "StrategicEndGameEvilLose";
 			else
-				image = row->m_status == 0 ? "StrategicEndGameGoodWin" : "StrategicEndGameGoodLose";
-			m_images.rva00524767(AsciiString("StrategicWinLossImage"), AsciiString(image));
+				image = row->m_side == 0 ? "StrategicEndGameGoodWin" : "StrategicEndGameGoodLose";
+			m_imageAdder.rva00524767(AsciiString("StrategicWinLossImage"), AsciiString(image));
 		}
 	}
 	if (m_stats)
@@ -396,24 +507,24 @@ void AptTimeLine::CollectPlayerData(Player *player, const GameSlot *slot)
  else reinterpret_cast<Rva00520703Vector*>(&m_players)->resize(index+1);
  _STL::vector<AptTimeLinePlayer>::iterator row=isLocal?m_players.begin():m_players.end()-1;
  TimelineRTSPlayerView *rts=reinterpret_cast<TimelineRTSPlayerView*>(player);
- if(m_284!=1)row->m_name=rts->name;
+ if(m_gameType!=1)row->m_name=rts->name;
  else row->m_name=TheGameText->fetch("GUI:Player");
  row->m_color=rts->color;
  row->m_faction=rts->side;
- if(m_284!=1) {
-  row->m_status=3;
-  if(slot && slot->disconnected()) row->m_status=2;
-  else if(reinterpret_cast<TimelineVictoryView*>(TheVictoryConditions)->hasLost(player))row->m_status=1;
-  else if(reinterpret_cast<TimelineVictoryView*>(TheVictoryConditions)->hasWon(player))row->m_status=0;
+ if(m_gameType!=1) {
+  row->m_side=3;
+  if(slot && slot->disconnected()) row->m_side=2;
+  else if(reinterpret_cast<TimelineVictoryView*>(TheVictoryConditions)->hasLost(player))row->m_side=1;
+  else if(reinterpret_cast<TimelineVictoryView*>(TheVictoryConditions)->hasWon(player))row->m_side=0;
  } else {
-  row->m_status=1;
-  if(TheLinearCampaignManager && reinterpret_cast<Rva001EB0CAHolder*>(TheLinearCampaignManager)->rva001EB0D9())row->m_status=0;
+  row->m_side=1;
+  if(TheLinearCampaignManager && reinterpret_cast<Rva001EB0CAHolder*>(TheLinearCampaignManager)->rva001EB0D9())row->m_side=0;
  }
  *reinterpret_cast<Rva0051F6DF*>(reinterpret_cast<char*>(&*row)+0x14)=*reinterpret_cast<const Rva0051F6DF*>(rts->graph);
- row->m_2C=rts->values;
+ row->m_eventsA=rts->values;
  if(isLocal) {
-  if(m_284==2)Rva005BF4BCProcess(player);
-  if(m_284==4)StatsReporter::ProcessOnlineGameResults(player);
+  if(m_gameType==2)Rva005BF4BCProcess(player);
+  if(m_gameType==4)StatsReporter::ProcessOnlineGameResults(player);
  }
  if(m_stats)m_stats->CollectPlayerData(index,player);
 }

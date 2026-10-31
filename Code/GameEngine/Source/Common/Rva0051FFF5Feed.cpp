@@ -1,4 +1,5 @@
-// cl: /MD
+// cl: /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/shims/bfmealloc /ICode/GameEngine/Include /ICode/GameEngine/Source/Common /ICode /I.
+// stlport
 // Range-27 xfer feed sequence.
 // ?Rva0051FFF5@Rva0051F87B@@UAEXPAVXfer0051FFF5@@@Z @0x0051FFF5 125B
 // Thiscall feeds holder fields to an Xfer-like object's virtual slots
@@ -7,6 +8,10 @@
 // 0x0039C4F7 and 0x004EE9E9 plus the rowed 0x0040E269 Xfer vector helper
 // three times (local cdecl spellings via pins). The trailing out-param
 // reuses dead this with an in-place +0x44 adjust.
+#include <vector>
+#include "ascii_string.h"
+#include "unicode_string.h"
+
 class Xfer0051FFF5
 {
 public:
@@ -48,34 +53,78 @@ void Rva0039C4F7(Xfer0051FFF5 *x, void *out);
 void Rva004EE9E9(Xfer0051FFF5 *x, void *out);
 void Rva0040E269(Xfer0051FFF5 *x, void *out);
 
-struct Out120051FFF5
+class Rva0054103E
 {
-	char m_bytes[12];
+public:
+	int m00;
+	int m04;
+	int m08;
+	int m0C;
+	int m10;
 };
+
+struct PrereqUnitRec
+{
+	unsigned int m_data[3];
+};
+
+// Declared only: the rowed bases 0x00211E58, 0x004FF36C and 0x005C8C37 serve these calls.
+namespace _STL {
+template <> _Vector_base<Rva0054103E, allocator<Rva0054103E> >::_Vector_base(const allocator<Rva0054103E> &) throw();
+template <> _Vector_base<Rva0054103E, allocator<Rva0054103E> >::_Vector_base(size_t, const allocator<Rva0054103E> &) throw();
+template <> _Vector_base<PrereqUnitRec, allocator<PrereqUnitRec> >::_Vector_base(const allocator<PrereqUnitRec> &) throw();
+template <> _Vector_base<PrereqUnitRec, allocator<PrereqUnitRec> >::_Vector_base(size_t, const allocator<PrereqUnitRec> &) throw();
+}
+
+class Rva0039C151 : public _STL::_Vector_base<Rva0054103E, _STL::allocator<Rva0054103E> >
+{
+public:
+	__forceinline Rva0039C151() : _STL::_Vector_base<Rva0054103E, _STL::allocator<Rva0054103E> >(_STL::allocator<Rva0054103E>()) {}
+	Rva0039C151(const Rva0039C151 &x);
+	~Rva0039C151();
+};
+
+class Rva004EE501 : public _STL::_Vector_base<PrereqUnitRec, _STL::allocator<PrereqUnitRec> >
+{
+public:
+	__forceinline Rva004EE501() : _STL::_Vector_base<PrereqUnitRec, _STL::allocator<PrereqUnitRec> >(_STL::allocator<PrereqUnitRec>()) {}
+	Rva004EE501(const Rva004EE501 &x);
+	~Rva004EE501();
+};
+
+class Xfer0051FFF5;
 
 class Rva0051F87B
 {
 public:
-	int m_4;
-	int m_8;
-	int m_C;
+	virtual void Rva0051FFF5(Xfer0051FFF5 *x);
+	Rva0051F87B();
+	Rva0051F87B(const Rva0051F87B &other);
+	Rva0051F87B &operator=(const Rva0051F87B &other);
+private:
+	UnicodeString m_04;
+	int m_08;
+	AsciiString m_0C;
 	int m_10;
-	Out120051FFF5 m_outs[5];
-	virtual void Rva0051FFF5(Xfer0051FFF5 *xfer);
+	Rva0039C151 m_14;
+	Rva004EE501 m_20;
+	_STL::vector<unsigned int, _STL::allocator<unsigned int> > m_2C;
+	_STL::vector<unsigned int, _STL::allocator<unsigned int> > m_38;
+	_STL::vector<unsigned int, _STL::allocator<unsigned int> > m_44;
 };
 
 void Rva0051F87B::Rva0051FFF5(Xfer0051FFF5 *xfer)
 {
-	xfer->slot26(&m_4);
-	xfer->slot31(&m_8);
-	xfer->slot27(&m_C);
+	xfer->slot26(&m_04);
+	xfer->slot31(&m_08);
+	xfer->slot27(&m_0C);
 	int tmp = m_10;
 	xfer->slot31(&tmp);
 	m_10 = tmp;
-	Rva0039C4F7(xfer, &m_outs[0]);
-	Rva004EE9E9(xfer, &m_outs[1]);
-	Rva0040E269(xfer, &m_outs[2]);
-	Rva0040E269(xfer, &m_outs[3]);
+	Rva0039C4F7(xfer, &m_14);
+	Rva004EE9E9(xfer, &m_20);
+	Rva0040E269(xfer, &m_2C);
+	Rva0040E269(xfer, &m_38);
 	char *tail = (char *)this + 0x44;
 	Rva0040E269(xfer, tail);
 }

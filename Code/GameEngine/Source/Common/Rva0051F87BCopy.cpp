@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/shims/bfmealloc /ICode/GameEngine/Include /ICode/GameEngine/Source/Common /ICode /I.
 // stlport
 // ??0Rva0051F87B@@QAE@ABV0@@Z @ 0x0051F87B, 165 bytes.
 // Copy ctor for 0x50-byte record with vtable 0x0086745C at +0: UnicodeString
@@ -13,22 +13,43 @@
 #include "ascii_string.h"
 #include "unicode_string.h"
 
-class Rva0039C151
+class Rva0054103E
 {
 public:
-	Rva0039C151(const Rva0039C151 &other);
-	~Rva0039C151();
-private:
-	char m_data[12];
+	int m00;
+	int m04;
+	int m08;
+	int m0C;
+	int m10;
 };
 
-class Rva004EE501
+struct PrereqUnitRec
+{
+	unsigned int m_data[3];
+};
+
+// Declared only: the rowed bases 0x00211E58, 0x004FF36C and 0x005C8C37 serve these calls.
+namespace _STL {
+template <> _Vector_base<Rva0054103E, allocator<Rva0054103E> >::_Vector_base(const allocator<Rva0054103E> &) throw();
+template <> _Vector_base<Rva0054103E, allocator<Rva0054103E> >::_Vector_base(size_t, const allocator<Rva0054103E> &) throw();
+template <> _Vector_base<PrereqUnitRec, allocator<PrereqUnitRec> >::_Vector_base(const allocator<PrereqUnitRec> &) throw();
+template <> _Vector_base<PrereqUnitRec, allocator<PrereqUnitRec> >::_Vector_base(size_t, const allocator<PrereqUnitRec> &) throw();
+}
+
+class Rva0039C151 : public _STL::_Vector_base<Rva0054103E, _STL::allocator<Rva0054103E> >
 {
 public:
-	Rva004EE501(const Rva004EE501 &other);
+	__forceinline Rva0039C151() : _STL::_Vector_base<Rva0054103E, _STL::allocator<Rva0054103E> >(_STL::allocator<Rva0054103E>()) {}
+	Rva0039C151(const Rva0039C151 &x);
+	~Rva0039C151();
+};
+
+class Rva004EE501 : public _STL::_Vector_base<PrereqUnitRec, _STL::allocator<PrereqUnitRec> >
+{
+public:
+	__forceinline Rva004EE501() : _STL::_Vector_base<PrereqUnitRec, _STL::allocator<PrereqUnitRec> >(_STL::allocator<PrereqUnitRec>()) {}
+	Rva004EE501(const Rva004EE501 &x);
 	~Rva004EE501();
-private:
-	char m_data[12];
 };
 
 class Xfer0051FFF5;
@@ -37,7 +58,9 @@ class Rva0051F87B
 {
 public:
 	virtual void Rva0051FFF5(Xfer0051FFF5 *x);
+	Rva0051F87B();
 	Rva0051F87B(const Rva0051F87B &other);
+	Rva0051F87B &operator=(const Rva0051F87B &other);
 private:
 	UnicodeString m_04;
 	int m_08;

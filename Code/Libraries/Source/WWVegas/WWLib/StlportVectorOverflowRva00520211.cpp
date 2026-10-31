@@ -29,6 +29,13 @@ struct Rva00520211Element {
 };
 
 class Rva0051F87B { public: Rva0051F87B(const Rva0051F87B &); };
+
+// Rowed 0x00030830, called directly: a direct free whichever way the unit's CRT headers import it.
+void __cdecl Rva00030830GameFree(void *);
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+void allocator<Rva00520211Element>::deallocate(Rva00520211Element *__p, size_t) const { if (__p != 0) Rva00030830GameFree(__p); }
+}
 namespace _STL {
 template <> __declspec(noinline) inline void _Construct<Rva00520211Element, Rva00520211Element>(
 	Rva00520211Element *p, const Rva00520211Element &value)

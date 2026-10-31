@@ -1,3 +1,5 @@
+// cl: /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/shims/bfmealloc /ICode/GameEngine/Include /ICode/GameEngine/Source/Common /ICode /I.
+// stlport
 // ??4Rva0051F6DF@@QAEAAV0@ABV0@@Z
 // Seat-4 finish pass from the 0.96 bank
 // ??4Rva0051F6DF@@QAEAAV0@ABV0@@Z
@@ -10,6 +12,8 @@
 // copy via rowed 0x0039BD9BCopy plus destroy 0x0022C8E3 or uninit-copy 0x0039BA22.
 // Evidence: chain lane, callers at 0x0051F9A5/0x005208C5, twin tags at
 // ebp+0xb matching landed 0x0039C190. Owning class unproven.
+
+#include <vector>
 
 class Rva0039B893
 {
@@ -25,16 +29,21 @@ public:
 };
 
 struct Rva0052BF9BElem;
-namespace _STL { struct __false_type { }; }
 
 void __cdecl Rva0039BD9BCopy(Rva0039B893 *first, Rva0039B893 *last, Rva0039B893 *result);
 void __cdecl Rva0022C8E3DestroyRange(Rva0052BF9BElem *first, Rva0052BF9BElem *last);
-Rva0039B893 *__cdecl Rva0039BA22UninitCopy(Rva0039B893 *first, Rva0039B893 *last, Rva0039B893 *result, const _STL::__false_type &tag);
+Rva0039B893 *__cdecl Rva0039BA22UninitCopy(Rva0039B893 *first, Rva0039B893 *last, Rva0039B893 *result, const _STL::__false_type &tag) throw();
+
+struct BfmeStringRecord002CF4C6;
 
 class Rva0051ED51Holder
 {
 public:
 	Rva0039B893 *rva0051ED51(unsigned int n, Rva0039B893 *first, Rva0039B893 *last);
+
+private:
+	char m_pad00[8];
+	_STL::allocator<BfmeStringRecord002CF4C6> m_alloc08;
 };
 
 class Rva00565A42

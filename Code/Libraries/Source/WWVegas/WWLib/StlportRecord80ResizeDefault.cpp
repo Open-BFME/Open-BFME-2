@@ -4,7 +4,7 @@
 // The zero-storage derived view adapts the independently rowed constructor
 // name to the fill argument's existing name; original type identity is unknown.
 class Rva0051F87B {public:Rva0051F87B();char storage[80];};
-struct Rva005205DAElement : Rva0051F87B {
+struct __declspec(novtable) Rva005205DAElement : Rva0051F87B {
  __forceinline Rva005205DAElement() {}
  Rva005205DAElement(const Rva005205DAElement&);
  ~Rva005205DAElement();
