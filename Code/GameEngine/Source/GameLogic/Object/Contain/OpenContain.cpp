@@ -69,6 +69,7 @@ template unsigned int vector<Coord3D, allocator<Coord3D> >::capacity() const;
 
 
 
+
 #endif
 #include <deque>
 #include <string.h>
@@ -136,6 +137,18 @@ struct BfmePod96 { int a[24]; };
 		const void *base = field - LEADISP; \
 		field += ADDIMM; \
 		return base ? (int)field : 0; \
+	}
+#define BFME_DISP_BYTE_SETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		void set(unsigned char value); \
+		char m_lead[DISP]; \
+		unsigned char m_value; \
+	}; \
+	void NAME::set(unsigned char value) \
+	{ \
+		m_value = value; \
 	}
 
 namespace _STL { template <> void __malloc_alloc<0>::deallocate(void *, size_t); }
@@ -885,6 +898,36 @@ public:
 
 BFME_DISP8_LEA_NEG_SBB_GETTER(Rva004647C0LeaNegSbbField, 12, 0x20)
 
+BFME_DISP_BYTE_SETTER(Rva004647FDByteSlot, 0xBD)
+
+BFME_DISP_BYTE_SETTER(Rva00464810ByteSlot, 0xBE)
+
+// Address-owned initializer at 0x0047A2B6..0x0047A2E1 (RET0).
+// Clean donor: Open-BFME-1 34f59164, game/GameEngine/Source/Common/
+// Rva00221100TinyBodies.cpp, Rva0022F780Pair constructor, /O1 /arch:SSE /G7.
+// Target evidence establishes six float slots at 0/4/8/C/10/14, the
+// 0,0,1,0,0,1 stores, and ECX returned through EAX. No target class name
+// or constructor identity is established; retain the target address and
+// describe its proven initializer ABI. Destination is the repository's
+// nearest-neighbour home, immediately after its 0x0047A2A9 setter.
+class Rva0047A2B6Floats
+{
+public:
+    Rva0047A2B6Floats *initialize();
+private:
+    float first[3];
+    float second[3];
+};
+
+// Clean BF1 9cbfb551fe Common/Rva007AE610Array.cpp semantic donor, normal O1/SSE/G7.
+// Native 0010855F..0010856E has its own complete RET boundary and establishes
+// receiver68 indexed dword store, RET8. Original owner and full array bound remain
+// unresolved; this separate address-owned view models only observed accesses.
+class Rva0010855FArray {
+public: void setValue(unsigned int index, unsigned int value);
+private: unsigned char unknown[0x68]; unsigned int values[1];
+};
+
 // tu-skeleton: 0x004624E3 8B ?containReactToTransformChange@OpenContain@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainReactToTransformChange.cpp (not merged yet)
 
 // tu-skeleton: 0x004624EB 25B ?rva004624EB@Rva004624EB@@UAE?AURva00462465@@XZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE22.cpp (not merged yet)
@@ -892,6 +935,8 @@ BFME_DISP8_LEA_NEG_SBB_GETTER(Rva004647C0LeaNegSbbField, 12, 0x20)
 // tu-skeleton: 0x0046262D 29B ??0Rva0046262D@@QAE@PAXABVWeaponTemplateSetHead@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/Rva0046262DCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0046264A 20B ?deallocate@?$allocator@D@_STL@@QAEXPADI@Z -- matched in Code/GameEngine/Source/Common/NarrowStringRecordCopyBFME2.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp
 
@@ -1383,6 +1428,65 @@ unsigned int Rva004643C9::rva004643C9(const Rva00463D9BElement &key)
 // backward cast, which MSVC folds to `mov eax,[ecx-BACK]`; same shape and
 // reading as BFME1's ChainedFieldGetters.
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ---- from Code/GameEngine/Source/Common/Disp8LeaNegSbbGetters.cpp
+
+// Disp8 lea-neg-sbb getters: thirteen-byte __thiscall members with one shape:
+//
+//     lea eax,[ecx-<LEADISP>] / add ecx,<ADDIMM> / neg eax / sbb eax,eax / and eax,ecx / ret
+//
+// A pointer derived from `this` is null-tested branchlessly: neg sets carry
+// exactly when the derived base is nonzero and sbb spreads it to a full mask
+// that selects the adjusted `this` or null. Deriving the base from a live
+// field-local keeps `this` in ecx so the adjustment compiles to an in-place
+// add instead of a lea into a scratch register. Identity is not recovered:
+// every name is derived from its address.
+// No // cl: line (defaults match the shape).
+
 // tu-skeleton: 0x00462697 15B ?rva00462697@Rva00462697@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE22.cpp (not merged yet)
 
 // tu-skeleton: 0x004626A6 9B ??0Rva004626A6@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp (not merged yet)
@@ -1473,20 +1577,6 @@ unsigned int Rva004643C9::rva004643C9(const Rva00463D9BElement &key)
 
 // tu-skeleton: 0x004647BA 6B ?name@OpenContain@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/Disp8LeaNegSbbGetters.cpp
-
-// Disp8 lea-neg-sbb getters: thirteen-byte __thiscall members with one shape:
-//
-//     lea eax,[ecx-<LEADISP>] / add ecx,<ADDIMM> / neg eax / sbb eax,eax / and eax,ecx / ret
-//
-// A pointer derived from `this` is null-tested branchlessly: neg sets carry
-// exactly when the derived base is nonzero and sbb spreads it to a full mask
-// that selects the adjusted `this` or null. Deriving the base from a live
-// field-local keeps `this` in ecx so the adjustment compiles to an in-place
-// add instead of a lea into a scratch register. Identity is not recovered:
-// every name is derived from its address.
-// No // cl: line (defaults match the shape).
-
 // tu-skeleton: 0x004647CD 4B ?get@Rva004647CDLeaField@@QBEPAXXZ -- matched in Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp (not merged yet)
 
 // tu-skeleton: 0x004647D1 7B ?Rva004647D1Get@@YAMXZ -- matched in Code/GameEngine/Source/Common/GlobalFloatGetters.cpp (not merged yet)
@@ -1495,11 +1585,23 @@ unsigned int Rva004643C9::rva004643C9(const Rva00463D9BElement &key)
 
 // tu-skeleton: 0x004647F0 13B ?Rva004647F0Adjust@@YIPAXPAX@Z -- matched in Code/GameEngine/Source/Common/Disp8NullAdjustGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x004647FD 13B ?set@Rva004647FDByteSlot@@QAEXE@Z -- matched in Code/GameEngine/Source/Common/DispByteFieldSetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/DispByteFieldSetters.cpp
+
+// Disp32 byte setters: thirteen-byte __thiscall members with one shape:
+//
+//     mov al,[esp+4] / mov [ecx+<DISP>],al / ret 4
+//
+// One byte is taken from the stack argument slot and stored at a fixed
+// displacement from `this`. Ported from Open-BFME-1
+// (Code/GameEngine/Source/Common/DispByteFieldSetters.cpp): the
+// BFME_DISP_BYTE_SETTER macro is verbatim (unsigned char set over a lead
+// array), only the class names follow this tree's Disp* convention
+// (address-derived Rva<addr>ByteSlot, identity unrecoverable from 13 bytes).
+// Every displacement here is a disp32 (MSVC 7.1 uses disp8 whenever the
+// offset fits, so every offset is at least 0x80).
+// No // cl: line (defaults match the frameless 13-byte shape).
 
 // tu-skeleton: 0x0046480A 6B ?rva0046480A@Rva0046480A@@QAEHH@Z -- matched in Code/GameEngine/Source/Common/VtableConstantPredicates.cpp (not merged yet)
-
-// tu-skeleton: 0x00464810 13B ?set@Rva00464810ByteSlot@@QAEXE@Z -- matched in Code/GameEngine/Source/Common/DispByteFieldSetters.cpp (not merged yet)
 
 // tu-skeleton: 0x0046481D 8B ?rva0050B238@Rva005E62F1@@WCA@AEXPAXI@Z -- matched in Code/GameEngine/Source/Common/GapForwardersSeat8.cpp (not merged yet)
 
