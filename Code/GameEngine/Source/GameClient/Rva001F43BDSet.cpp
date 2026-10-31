@@ -18,16 +18,6 @@ public:
     void rva001F43BD(void *p);
 };
 
-void Rva001F43BD::rva001F43BD(void *p)
-{
-    Ifc *old = m_ptr;
-    void *doomed = 0;
-    if (old != 0)
-        doomed = old->slot0(0);
-    ::operator delete(doomed);
-    m_ptr = (Ifc *)p;
-}
-
 // ?rva001F609F@Rva001F609FOwner@@QAEXPAX@Z @0x001F609F 11B: offsets this to the Rva001F43BD embedded at +0xA4 and
 // tail-jumps Rva001F43BD::rva001F43BD. Owner and name are address-derived; no
 // referencing site was found in this pass.
@@ -36,11 +26,6 @@ class Rva001F609FOwner
 public:
 	void rva001F609F(void *p);
 };
-
-void Rva001F609FOwner::rva001F609F(void *p)
-{
-	((Rva001F43BD *)((char *)this + 0xA4))->rva001F43BD(p);
-}
 
 // Seven more of the 0x001F609F shape, contiguous at 0x001F617C..0x001F61C9
 // (11 bytes each): offset this to the Rva001F43BD at +0xA8..+0xC0 (one per
@@ -57,13 +42,6 @@ void Rva001F609FOwner::rva001F609F(void *p)
 		((Rva001F43BD *)((char *)this + DISP))->rva001F43BD(p); \
 	}
 
-BFME_RVA001F43BD_SLOT_SETTER(Rva001F617CSlot, 0xA8)
-BFME_RVA001F43BD_SLOT_SETTER(Rva001F6187Slot, 0xAC)
-BFME_RVA001F43BD_SLOT_SETTER(Rva001F6192Slot, 0xB0)
-BFME_RVA001F43BD_SLOT_SETTER(Rva001F619DSlot, 0xB4)
-BFME_RVA001F43BD_SLOT_SETTER(Rva001F61A8Slot, 0xB8)
-BFME_RVA001F43BD_SLOT_SETTER(Rva001F61B3Slot, 0xBC)
-BFME_RVA001F43BD_SLOT_SETTER(Rva001F61BESlot, 0xC0)
 
 // Eight more forwarders to the same setters (+0xA4..+0xC0), contiguous at
 // 0x001F68AF and 0x001F68CE..0x001F693E (16 bytes each): the same offset and

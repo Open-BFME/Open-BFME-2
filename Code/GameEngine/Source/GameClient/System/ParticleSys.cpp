@@ -69,6 +69,22 @@ class Thing;
 class ModuleData;
 class Object;
 #include "../../../Include/Common/BfmeXfer.h"
+#define BFME_RVA001F43BD_SLOT_SETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		void set(void *p); \
+	}; \
+	void NAME::set(void *p) \
+	{ \
+		((Rva001F43BD *)((char *)this + DISP))->rva001F43BD(p); \
+	}
+#define BFME_RVA001F43BD_STATIC_SETTER(NAME, DISP) \
+	static __declspec(noinline) void NAME(char *owner, void *p) \
+	{ \
+		((Rva001F43BD *)(owner + DISP))->rva001F43BD(p); \
+	}
+
 struct Coord3DBase
 {
 public:
@@ -76,7 +92,9 @@ public:
 	float y; // +0x04
 	float z; // +0x08
 };
+
 float __cdecl ACos(float);
+
 class Rva001F37C4 {public:void rva001F37C4(Xfer*);};
 
 struct Rva003AFA0BVector
@@ -1751,6 +1769,48 @@ void CPUParticle::rva001FAA8D(Xfer *xfer)
 }
 }
 
+// ?rva001F43BD@Rva001F43BD@@QAEXPAX@Z @0x001F43BD 33B
+// Owned-pointer setter: releases the old object through its virtual slot 0
+// with a 0 argument, frees the returned pointer with operator delete, then
+// stores the new pointer. Evidence: retail pushes 0 (reused xor-ed eax) for
+// the slot call, deletes unconditionally (je lands on push+delete), stores
+// [esp+0xC] after; sole direct callee is rowed ??3@YAXPAX@Z 0x0002FD60;
+// virtual slot call needs no row; 8 INI Parse bodies (0x001F83C9 et al)
+// call it, landing this unblocks 6 of them.
+class Rva001F43BD
+{
+    struct Ifc
+    {
+        virtual void *slot0(int flags);
+    };
+    Ifc *m_ptr;
+public:
+    void rva001F43BD(void *p);
+};
+
+// ?rva001F609F@Rva001F609FOwner@@QAEXPAX@Z @0x001F609F 11B: offsets this to the Rva001F43BD embedded at +0xA4 and
+// tail-jumps Rva001F43BD::rva001F43BD. Owner and name are address-derived; no
+// referencing site was found in this pass.
+class Rva001F609FOwner
+{
+public:
+	void rva001F609F(void *p);
+};
+
+BFME_RVA001F43BD_SLOT_SETTER(Rva001F617CSlot, 0xA8)
+
+BFME_RVA001F43BD_SLOT_SETTER(Rva001F6187Slot, 0xAC)
+
+BFME_RVA001F43BD_SLOT_SETTER(Rva001F6192Slot, 0xB0)
+
+BFME_RVA001F43BD_SLOT_SETTER(Rva001F619DSlot, 0xB4)
+
+BFME_RVA001F43BD_SLOT_SETTER(Rva001F61A8Slot, 0xB8)
+
+BFME_RVA001F43BD_SLOT_SETTER(Rva001F61B3Slot, 0xBC)
+
+BFME_RVA001F43BD_SLOT_SETTER(Rva001F61BESlot, 0xC0)
+
 // tu-skeleton: 0x001F392E 247B ?rotateLocalTransformX@ParticleSystem@@QAEXM@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemRotateLocalTransform.cpp (not merged yet)
 
 // tu-skeleton: 0x001F3A25 247B ?rotateLocalTransformY@ParticleSystem@@QAEXM@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemRotateLocalTransform.cpp (not merged yet)
@@ -1758,6 +1818,8 @@ void CPUParticle::rva001FAA8D(Xfer *xfer)
 // tu-skeleton: 0x001F3B1C 247B ?rotateLocalTransformZ@ParticleSystem@@QAEXM@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemRotateLocalTransform.cpp (not merged yet)
 
 // tu-skeleton: 0x001F3C13 13B ?set@Rva001F3C13ByteSlot@@QAEXE@Z -- matched in Code/GameEngine/Source/Common/DispByteFieldSetters.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/System/ParticleSys.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/System/ParticleSys.cpp
 
@@ -2625,14 +2687,56 @@ void Rva001FC42D::rva001FC42D(void *a, void *b)
 	((Rva001FC333 *)((char *)this + 4))->rva001FC333(a, b);
 }
 
-// tu-skeleton: 0x001F3C6B 47B ?rva001F3C6B@ParticleSystem@@QAEIXZ -- matched in Code/GameEngine/Source/GameClient/System/FXParticleSystem/FXPSStorageModuleRva003B0869.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva001F3D03Set.cpp
 
 void Rva001F3D03Slot::set(float a, float b)
 {
     m_var.setRange(a, b, GameClientRandomVariable::UNIFORM);
 }
+
+// ---- from Code/GameEngine/Source/GameClient/System/ParticleSystemRva001F45F4.cpp
+
+void ParticleSystem::rva001F45F4(bool flag)
+{
+	m_flag1A6 = flag;
+	if (m_next15C == 0)
+		return;
+	ParticleSystem *cur = this;
+	ParticleSystem *nxt;
+	do
+	{
+		nxt = cur->m_next15C;
+		if (nxt == 0)
+			nxt = Make001FCBD7();
+		nxt->m_flag1A6 = flag;
+		_ReadWriteBarrier();
+		cur = nxt;
+	} while (nxt->m_next15C != 0);
+}
+
+// ---- from Code/GameEngine/Source/GameClient/System/ParticleSystemRva001F465E.cpp
+
+void ParticleSystem::rva001F465E(void *val)
+{
+	m_val98 = val;
+	if (m_next15C == 0)
+		return;
+	ParticleSystem *cur = this;
+	ParticleSystem *nxt;
+	do
+	{
+		nxt = cur->m_next15C;
+		if (nxt == 0)
+			nxt = Make001FCBD7();
+		nxt->m_val98 = val;
+		_ReadWriteBarrier();
+		cur = nxt;
+	} while (nxt->m_next15C != 0);
+}
+
+// ---- from Code/GameEngine/Source/GameClient/System/FXParticleSystem/CPUParticleUpdate.cpp
+
+// tu-skeleton: 0x001F3C6B 47B ?rva001F3C6B@ParticleSystem@@QAEIXZ -- matched in Code/GameEngine/Source/GameClient/System/FXParticleSystem/FXPSStorageModuleRva003B0869.cpp (not merged yet)
 
 // tu-skeleton: 0x001F3D21 13B ?set@Rva001F3D21DwordSlot@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp (not merged yet)
 
@@ -2684,7 +2788,35 @@ void Rva001F3D03Slot::set(float a, float b)
 
 // tu-skeleton: 0x001F43A7 22B ??0?$CategoryModuleClassBase@$02$00@FXParticleSystem@@IAE@ABV?$CategoryModuleClass@$02@1@_N@Z -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
 
-// tu-skeleton: 0x001F43BD 33B ?rva001F43BD@Rva001F43BD@@QAEXPAX@Z -- matched in Code/GameEngine/Source/GameClient/Rva001F43BDSet.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameClient/Rva001F43BDSet.cpp
+
+void Rva001F43BD::rva001F43BD(void *p)
+{
+    Ifc *old = m_ptr;
+    void *doomed = 0;
+    if (old != 0)
+        doomed = old->slot0(0);
+    ::operator delete(doomed);
+    m_ptr = (Ifc *)p;
+}
+
+void Rva001F609FOwner::rva001F609F(void *p)
+{
+	((Rva001F43BD *)((char *)this + 0xA4))->rva001F43BD(p);
+}
+
+// Seven more of the 0x001F609F shape, contiguous at 0x001F617C..0x001F61C9
+// (11 bytes each): offset this to the Rva001F43BD at +0xA8..+0xC0 (one per
+// four-byte slot) and tail-jump Rva001F43BD::rva001F43BD. Owners and names are
+// address-derived; no referencing site was found in this pass.
+
+// Eight more forwarders to the same setters (+0xA4..+0xC0), contiguous at
+// 0x001F68AF and 0x001F68CE..0x001F693E (16 bytes each): the same offset and
+// call, but as file-statics in cl 7.1's register convention - the owner stays
+// in ECX and the caller cleans the argument, so they call the ret-4 setter and
+// end in a plain ret instead of tail-jumping. No call to any of them survives
+// in the image; the anchor below only forces cl to emit them in that
+// convention. Owners and names are address-derived.
 
 // tu-skeleton: 0x001F43DE 6B ?getFirst@?$CategoryModuleClass@$03@FXParticleSystem@@SAPBV12@XZ -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
 
@@ -2730,46 +2862,6 @@ void Rva001F3D03Slot::set(float a, float b)
 
 // tu-skeleton: 0x001F45C3 28B ??_GRva000E14BD@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB08.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/GameClient/System/ParticleSystemRva001F45F4.cpp
-
-void ParticleSystem::rva001F45F4(bool flag)
-{
-	m_flag1A6 = flag;
-	if (m_next15C == 0)
-		return;
-	ParticleSystem *cur = this;
-	ParticleSystem *nxt;
-	do
-	{
-		nxt = cur->m_next15C;
-		if (nxt == 0)
-			nxt = Make001FCBD7();
-		nxt->m_flag1A6 = flag;
-		_ReadWriteBarrier();
-		cur = nxt;
-	} while (nxt->m_next15C != 0);
-}
-
-// ---- from Code/GameEngine/Source/GameClient/System/ParticleSystemRva001F465E.cpp
-
-void ParticleSystem::rva001F465E(void *val)
-{
-	m_val98 = val;
-	if (m_next15C == 0)
-		return;
-	ParticleSystem *cur = this;
-	ParticleSystem *nxt;
-	do
-	{
-		nxt = cur->m_next15C;
-		if (nxt == 0)
-			nxt = Make001FCBD7();
-		nxt->m_val98 = val;
-		_ReadWriteBarrier();
-		cur = nxt;
-	} while (nxt->m_next15C != 0);
-}
-
 // tu-skeleton: 0x001F4696 354B ?rva001F4696@ParticleSystem@@QAEXPAX0_N0@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemRva001F4696.cpp (not merged yet)
 
 // tu-skeleton: 0x001F54C5 122B ?rva001F54C5@ParticleSystem@@QAE?AURva003AFA0BVector@@PBU2@@Z -- matched in Code/GameEngine/Source/Common/ParticleSystemManagerFindByID.cpp (not merged yet)
@@ -2794,23 +2886,7 @@ void ParticleSystem::rva001F465E(void *val)
 
 // tu-skeleton: 0x001F5F65 286B ?_M_put_nowiden@?$basic_ostream@DV?$char_traits@D@_STL@@@_STL@@QAEXPBD@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_ostream_put_num.cpp (not merged yet)
 
-// tu-skeleton: 0x001F609F 11B ?rva001F609F@Rva001F609FOwner@@QAEXPAX@Z -- matched in Code/GameEngine/Source/GameClient/Rva001F43BDSet.cpp (not merged yet)
-
 // tu-skeleton: 0x001F60AA 210B ??$_M_put_num@DV?$char_traits@D@_STL@@K@_STL@@YAAAV?$basic_ostream@DV?$char_traits@D@_STL@@@0@AAV10@K@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_ostream_put_num.cpp (not merged yet)
-
-// tu-skeleton: 0x001F617C 11B ?set@Rva001F617CSlot@@QAEXPAX@Z -- matched in Code/GameEngine/Source/GameClient/Rva001F43BDSet.cpp (not merged yet)
-
-// tu-skeleton: 0x001F6187 11B ?set@Rva001F6187Slot@@QAEXPAX@Z -- matched in Code/GameEngine/Source/GameClient/Rva001F43BDSet.cpp (not merged yet)
-
-// tu-skeleton: 0x001F6192 11B ?set@Rva001F6192Slot@@QAEXPAX@Z -- matched in Code/GameEngine/Source/GameClient/Rva001F43BDSet.cpp (not merged yet)
-
-// tu-skeleton: 0x001F619D 11B ?set@Rva001F619DSlot@@QAEXPAX@Z -- matched in Code/GameEngine/Source/GameClient/Rva001F43BDSet.cpp (not merged yet)
-
-// tu-skeleton: 0x001F61A8 11B ?set@Rva001F61A8Slot@@QAEXPAX@Z -- matched in Code/GameEngine/Source/GameClient/Rva001F43BDSet.cpp (not merged yet)
-
-// tu-skeleton: 0x001F61B3 11B ?set@Rva001F61B3Slot@@QAEXPAX@Z -- matched in Code/GameEngine/Source/GameClient/Rva001F43BDSet.cpp (not merged yet)
-
-// tu-skeleton: 0x001F61BE 11B ?set@Rva001F61BESlot@@QAEXPAX@Z -- matched in Code/GameEngine/Source/GameClient/Rva001F43BDSet.cpp (not merged yet)
 
 // tu-skeleton: 0x001F61C9 28B ??_GRva001F4C67@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva001F4C67Finish.cpp (not merged yet)
 
@@ -2825,6 +2901,60 @@ void ParticleSystem::rva001F465E(void *val)
 // tu-skeleton: 0x001F933E 5B ??1?$map@VAsciiString@@UTreeHintPayload001F8ACB@@U?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@_STL@@@4@@_STL@@QAE@XZ -- matched in Code/GameEngine/Source/Common/System/SaveGame/CreateAHeroDataCopy.cpp (not merged yet)
 
 // tu-skeleton: 0x001F9343 12B ?rva001F9343@ParticleSystemManager@@QBEPAVParticleSystemTemplate@@ABVAsciiString@@H@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAA.cpp (not merged yet)
+
+// tu-skeleton: 0x001F934F 20B ?insert@?$map@VAsciiString@@HU?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@H@_STL@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@H@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@H@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBVAsciiString@@H@2@@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemDebugDisplay.cpp (not merged yet)
+
+// tu-skeleton: 0x001F9363 64B ??0?$hashtable@U?$pair@$$CBHURva001F9363Element@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHURva001F9363Element@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHURva001F9363Element@@@_STL@@@2@@_STL@@QAE@IABU?$hash@H@1@ABU?$equal_to@H@1@ABV?$allocator@U?$pair@$$CBHURva001F9363Element@@@_STL@@@1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva001F9363.cpp (not merged yet)
+
+// tu-skeleton: 0x001F93A3 36B ?insertWithGrow@Rva000427195@@QAE?AUInsertRet001F8F2A@@PBX@Z -- matched in Code/GameEngine/Source/GameClient/Rva001F93A3Insert.cpp (not merged yet)
+
+// tu-skeleton: 0x001F93C7 36B ?str@?$basic_stringbuf@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QBE?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_ostringstream_dtor.cpp (not merged yet)
+
+// tu-skeleton: 0x001F93EB 23B ?rva001F93EB@Rva001F93EB@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Thing/Rva001F93EB.cpp (not merged yet)
+
+// tu-skeleton: 0x001F9402 34B ?rva001F9402@Rva001F9402@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/Thing/Rva001F9402.cpp (not merged yet)
+
+// tu-skeleton: 0x001F9424 42B ?rva001F9424@Rva001F9424@@QAEXHH@Z -- matched in Code/GameEngine/Source/Common/Rva001F6492Chain.cpp (not merged yet)
+
+// tu-skeleton: 0x001F944E 23B ?rva001F944E@Rva001F944E@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Thing/Rva001F944E.cpp (not merged yet)
+
+// tu-skeleton: 0x001F9465 34B ?rva001F9465@Rva001F9465@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/Thing/Rva001F9465.cpp (not merged yet)
+
+// tu-skeleton: 0x001F9487 5B ?rva001F9487@Rva001F9487@@QAEXPAX0@Z -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
+
+// tu-skeleton: 0x001F949D 135B ?Rva001F949DConvert@@YA?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@ABV?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@2@D@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_from_wide_push.cpp (not merged yet)
+
+// tu-skeleton: 0x001F9524 160B ?Rva001F9524Concat@@YA?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@ABV12@PBD@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001F9524Concat.cpp (not merged yet)
+
+// tu-skeleton: 0x001F95C4 183B ?overflow@?$basic_stringbuf@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@MAEHH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_stringbuf_overflow_setbuf.cpp (not merged yet)
+
+// tu-skeleton: 0x001F967B 276B ?xsputn@?$basic_stringbuf@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@MAEHPBDH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_ostringstream_dtor.cpp (not merged yet)
+
+// tu-skeleton: 0x001F978F 250B ?_M_xsputnc@?$basic_stringbuf@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@MAEHDH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_ostringstream_ctor.cpp (not merged yet)
+
+// tu-skeleton: 0x001F9889 176B ?setbuf@?$basic_stringbuf@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@MAEPAV?$basic_streambuf@DV?$char_traits@D@_STL@@@2@PADH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_stringbuf_overflow_setbuf.cpp (not merged yet)
+
+// tu-skeleton: 0x001F9939 289B ?seekoff@?$basic_stringbuf@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@MAE?AV?$fpos@H@2@JHH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_ostringstream_ctor.cpp (not merged yet)
+
+// tu-skeleton: 0x001F9A5A 237B ?seekpos@?$basic_stringbuf@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@MAE?AV?$fpos@H@2@V32@H@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_ostringstream_ctor.cpp (not merged yet)
+
+// tu-skeleton: 0x001F9B47 11B ?rva001F9B47@Rva001F693E@@QAEXPAURva002BA8F1Listener@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1C.cpp (not merged yet)
+
+// tu-skeleton: 0x001F9B52 18B ??0Rva001F9B52@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Rva001FA5A5Ctor.cpp (not merged yet)
+
+// tu-skeleton: 0x001F9B64 5B ??1Rva001F9B64@@QAE@XZ -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
+
+// tu-skeleton: 0x001F9B69 59B ??1Rva001F9B69@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva001F8BE8DtorChain.cpp (not merged yet)
+
+// tu-skeleton: 0x001F9BA4 207B ?rva001F9BA4@ParticleSystem@FXParticleSystem@@QAEXPAXH@Z -- matched in Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva001F9BA4Generate.cpp (not merged yet)
+
+// tu-skeleton: 0x001F9C73 69B ??0Rva001F9C73@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Thing/Rva001F9C73CopyChain.cpp (not merged yet)
+
+// tu-skeleton: 0x001F9CB8 18B ??0Rva001F9CB8@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001F9CB8Ctor.cpp (not merged yet)
+
+// tu-skeleton: 0x001F9CCA 41B ??4Rva001F9CCA@@QAEAAV0@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Rva001F9CCAAssignChain.cpp (not merged yet)
+
+// tu-skeleton: 0x001F9CF3 165B ?rva001F9CF3@ParticleSystemTemplate@FXParticleSystem@@QBE?AVBfmeParticleSystemHandle@@_N@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemTemplateCreateSlave.cpp (not merged yet)
 
 // tu-skeleton: 0x001F9EAF 89B ?bfmeStopCW@ParticleSystemManager@@QAEXABVBFMERetailAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemManagerMappedTextureUVs.cpp (not merged yet)
 
@@ -2875,8 +3005,6 @@ void ParticleSystem::rva001F465E(void *val)
 // tu-skeleton: 0x001FA95A 23B ??1Sub005CD540Outer@@QAE@XZ -- matched in Code/GameEngine/Source/Common/BigChainBaseDtors.cpp (not merged yet)
 
 // tu-skeleton: 0x001FA971 284B ?update@CPUParticle@FXParticleSystem@@QAE_NXZ -- matched in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/GameClient/System/FXParticleSystem/CPUParticleUpdate.cpp
 
 // tu-skeleton: 0x001FAB1E 59B ??1Rva001FAB1E@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva001F8BE8DtorChain.cpp (not merged yet)
 
@@ -2993,6 +3121,10 @@ void ParticleSystem::rva001F465E(void *val)
 // tu-skeleton: 0x0076B5FF 8B $L1437 -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemManagerFindTemplate.cpp (not merged yet)
 
 // tu-skeleton: 0x0076B607 10B __ehhandler$?rva001F9105@Rva001F9105Snapshot@@QAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemManagerFindTemplate.cpp (not merged yet)
+
+// tu-skeleton: 0x0076B651 8B $L1300 -- matched in Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva001F9BA4Generate.cpp (not merged yet)
+
+// tu-skeleton: 0x0076B659 10B __ehhandler$?rva001F9BA4@ParticleSystem@FXParticleSystem@@QAEXPAXH@Z -- matched in Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva001F9BA4Generate.cpp (not merged yet)
 
 // tu-skeleton: 0x0076B663 8B Unwind@00b6b663 -- matched in Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleSystemManagerDtor.cpp (not merged yet)
 
