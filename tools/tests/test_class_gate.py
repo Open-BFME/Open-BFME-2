@@ -418,3 +418,48 @@ def test_inline_namespace_class_heads_keep_namespace_identity():
     new = 'namespace B { class X { int a; }; }'
     assert class_gate.moved_bodies(old)['X'][0] == ('A',)
     assert class_gate.moved_bodies(new)['X'][0] == ('B',)
+
+
+@pytest.mark.parametrize('side', ['donor', 'destination'])
+@pytest.mark.parametrize('prefix,suffix', [
+    ('OPEN_NAMESPACE; ', ' CLOSE_NAMESPACE'),
+    ('OPEN_NAMESPACE(A); ', ' CLOSE_NAMESPACE(A);'),
+    ('OPEN_NAMESPACE; int value; namespace A {\n', '\n}\n'),
+    ('namespace A {\nOPEN_NAMESPACE;\nnamespace B {\n', '\n}\n}\n'),
+    ('class Outer {\npublic: OPEN_NAMESPACE;\n', '\n};\n'),
+])
+def test_semicolon_macro_scope_gets_no_move_credit(repo, capsys, side, prefix, suffix):
+    ambiguous = prefix + X_BODY + suffix
+    # Compare against the same proven lexical scopes without the macro wrapper.
+    plain = ambiguous.replace('OPEN_NAMESPACE(A);', '').replace('OPEN_NAMESPACE;', '')
+    plain = plain.replace('CLOSE_NAMESPACE(A);', '').replace('CLOSE_NAMESPACE', '')
+    old, new = (ambiguous, plain) if side == 'donor' else (plain, ambiguous)
+    repo.write('reverse/canonical_classes.csv', 'class,header\nX,Code/Game/X.h\n')
+    repo.write(OLD, old + BODY)
+    repo.commit('reverse/canonical_classes.csv', OLD)
+    merge_into(repo, FILLER + new + FRESH, OLD)
+    assert class_gate.staged_renames() == {}
+    rc, err = repo.gate(capsys)
+    assert rc == 1 and '`X`' in err
+
+
+@pytest.mark.parametrize('declaration', [
+    'int value;', 'Widget value;', 'Widget *value;', 'Widget &value;',
+    'A::Widget value;', 'Widget function(int);', 'using Alias = Widget;',
+    'typedef Widget Alias;', 'static int value;', 'const Widget value;',
+])
+def test_recognizable_declarations_before_class_keep_move_credit(declaration):
+    plain = scoped_x('namespace A')
+    expected = class_gate.moved_bodies(plain)
+    assert expected
+    assert class_gate.moved_bodies(declaration + '\n' + plain) == expected
+
+
+
+def test_semicolon_declaration_before_class_still_credits_move(repo, capsys):
+    repo.write('reverse/canonical_classes.csv', 'class,header\nX,Code/Game/X.h\n')
+    repo.write(OLD, 'Widget value;\n' + X_BODY + BODY)
+    repo.commit('reverse/canonical_classes.csv', OLD)
+    merge_into(repo, FILLER + X_BODY + FRESH, OLD)
+    assert class_gate.staged_renames() == {}
+    assert repo.gate(capsys) == (0, '')

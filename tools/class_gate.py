@@ -158,6 +158,24 @@ def declared_names(text):
     return {m.group('name') for m in MOVE_HEAD.finditer(code)}
 
 
+def proven_scope_statement(statement):
+    """A declaration, rather than a possible macro that opens hidden scope."""
+    statement = re.sub(r'^(?:(?:public|protected|private)\s*:\s*)+', '', statement.strip())
+    if not statement:
+        return True
+    if re.match(r'(?:class|struct|union|enum|namespace|typedef|using|template|extern|'
+                r'static|const|volatile|inline|void|bool|char|wchar_t|char8_t|char16_t|'
+                r'char32_t|short|int|long|float|double|signed|unsigned|__int(?:8|16|32|64))\b',
+                statement):
+        return True
+    # Require a separate type and declarator: NAME or NAME(args) alone is not
+    # a declaration. Keep this deliberately narrow; uncertain syntax refuses.
+    return re.fullmatch(
+        r'[A-Za-z_]\w*(?:::[A-Za-z_]\w*)*(?:\s*<[^;{}()]*>)?'
+        r'(?:\s+|\s*[*&]\s*)[*&\s]*[A-Za-z_]\w*\s*'
+        r'(?:\[[^;{}]*\]\s*)*(?:\([^;{}]*\)\s*)?(?:=[^;{}]*)?', statement) is not None
+
+
 def scoped_move_spans(text):
     """(name, start, end, enclosing path), or [] if scope proof is ambiguous.
 
@@ -176,6 +194,7 @@ def scoped_move_spans(text):
     linkage = {m.end() - 1 for m in class_layouts.LINKAGE.finditer(text)
                if code[m.start():m.start() + 6] == 'extern'}
     stack, spans, boundary = [], [], 0
+    unproven = [False]  # One persistent flag for each enclosing lexical level.
     for token in re.finditer(r'[{};]', code):
         pos, char = token.start(), token.group()
         if char == '{':
@@ -183,7 +202,7 @@ def scoped_move_spans(text):
             if head or namespace:
                 start = (head or namespace).start()
                 prefix = code[boundary:start].strip()
-                if (any(frame[0] is None for frame in stack)
+                if (any(unproven) or any(frame[0] is None for frame in stack)
                         or not re.fullmatch(r'(?:(?:public|protected|private)\s*:\s*)*'
                                             r'(?:inline\s*)?', prefix)):
                     return []
@@ -195,14 +214,20 @@ def scoped_move_spans(text):
                 path = () if pos in linkage else None
             scope = tuple(part for frame in stack for part in (frame[0] or ()))
             stack.append((path, head, scope))
+            unproven.append(False)
         elif char == '}':
             if not stack:
                 return []
             _, head, scope = stack.pop()
+            unproven.pop()
             if head:
                 if head.group('template'):
                     return []
                 spans.append((head.group('name'), head.start(), pos + 1, scope))
+        elif all(frame[0] is not None for frame in stack):
+            # A semicolon ends text, not the uncertainty of a macro expansion.
+            if not proven_scope_statement(code[boundary:pos]):
+                unproven[-1] = True
         boundary = token.end()
     return [] if stack else sorted(spans, key=lambda span: span[1])
 
