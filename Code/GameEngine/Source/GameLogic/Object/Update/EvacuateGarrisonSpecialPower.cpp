@@ -85,11 +85,82 @@ struct Rva004CDF2BOwner
 	_STL::vector<Rva004CDF2BTrigger, _STL::allocator<Rva004CDF2BTrigger> > m_triggers;	// +0xC8
 };
 
-// tu-skeleton: 0x004CDBE1 27B ?buildFieldParse@EvacuateGarrisonSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/EvacuateGarrisonSpecialPowerModuleDataCtor.cpp (not merged yet)
+// ??0EvacuateGarrisonSpecialPowerModuleData@@QAE@XZ at retail 0x004CDFD9.
+// Default ctor over the second intermediate base 0x0044EB54 (pinned opaque
+// as SpecialAbilityUpdateModuleData, 0xC8 bytes). No trailing members (factory size 0xC8).
+// Target identity: ModuleFactory registers the data factories 0x2531B0
+// (EvacuateGarrisonSpecialPower) and 0x25327A (UnleashSpecialPower); both new
+// 0xC8 with this one folded ctor (vtable 0x00C5F778). Named after the
+// lower-address registration. Do NOT declare an explicit vptr member.
+struct FieldParse
+{
+	const char *m_token;
+	void *m_parse;
+	const void *m_userData;
+	int m_offset;
+};
+
+// Both retail parse procs reference the existing empty table at VA 0x00C6BB18.
+extern const int g_emptyFieldParseTable[4];
+
+class MultiIniFieldParse
+{
+public:
+	void add(const FieldParse *f, unsigned int extraOffset);
+};
+
+class SpecialAbilityUpdateModuleData
+{
+public:
+	SpecialAbilityUpdateModuleData();
+	virtual ~SpecialAbilityUpdateModuleData();
+	static void buildFieldParse(MultiIniFieldParse &p);
+
+protected:
+	unsigned char m_pad[0xC8 - 4];
+};
+
+class EvacuateGarrisonSpecialPowerModuleData : public SpecialAbilityUpdateModuleData
+{
+public:
+	EvacuateGarrisonSpecialPowerModuleData();
+	virtual ~EvacuateGarrisonSpecialPowerModuleData();
+	static void buildFieldParse(MultiIniFieldParse &p);
+};
+
+class UnleashSpecialPowerModuleData : public SpecialAbilityUpdateModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &p);
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/EvacuateGarrisonSpecialPowerModuleDataCtor.cpp
+
+EvacuateGarrisonSpecialPowerModuleData::EvacuateGarrisonSpecialPowerModuleData()
+	: SpecialAbilityUpdateModuleData()
+{
+}
+
+// ??1EvacuateGarrisonSpecialPowerModuleData@@UAE@XZ present-unmatched
+EvacuateGarrisonSpecialPowerModuleData::~EvacuateGarrisonSpecialPowerModuleData()
+{
+}
+
+// Target registration: factory 0x002531B0 passes this proc at VA 0x008CDBE1
+// for EvacuateGarrisonSpecialPower; the body extends the shared base parser
+// with an empty table and no member offsets.
+// ?buildFieldParse@EvacuateGarrisonSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z @0x004CDBE1
+void EvacuateGarrisonSpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &multiIniFieldParse)
+{
+	SpecialAbilityUpdateModuleData::buildFieldParse(multiIniFieldParse);
+	multiIniFieldParse.add(reinterpret_cast<const FieldParse *>(g_emptyFieldParseTable), 0);
+}
 
 // tu-skeleton: 0x004CDBFC 49B ??0EvacuateGarrisonSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/SupplyCenterDockUpdateCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x004CDC2D 6B ?Rva004CDC2DGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/EvacuateGarrisonSpecialPower.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/EvacuateGarrisonSpecialPowerPoolKey.cpp
 
@@ -101,14 +172,6 @@ NameKeyType EvacuateGarrisonSpecialPower::getModuleNameKey() const
 	return TheEvacuateGarrisonSpecialPowerPoolKey;
 }
 
-// tu-skeleton: 0x004CDCB4 78B ?finishAbility@EvacuateGarrisonSpecialPower@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/EvacuateGarrisonSpecialPowerSlot19.cpp (not merged yet)
-
-// tu-skeleton: 0x004CDD02 49B ??0ActivateModuleSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DozerAIUpdateCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004CDD33 6B ?Rva004CDD33Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
-// tu-skeleton: 0x004CDD39 32B ??1Rva004CDD39@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/ActivateModuleSpecialPowerPoolKey.cpp
 
 // ?getModuleNameKey@ActivateModuleSpecialPower@@UBE?AW4NameKeyType@@XZ
@@ -118,16 +181,6 @@ NameKeyType ActivateModuleSpecialPower::getModuleNameKey() const
 		TheNameKeyGenerator->nameToKey("ActivateModuleSpecialPower");
 	return TheActivateModuleSpecialPowerPoolKey;
 }
-
-// tu-skeleton: 0x004CDD9E 28B ??_GRva004CDD39@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors.cpp (not merged yet)
-
-// tu-skeleton: 0x004CDDBA 307B ?SetWakeState@ActivateModuleSpecialPower@@QAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ActivateModuleSpecialPowerVslot.cpp (not merged yet)
-
-// tu-skeleton: 0x004CDEED 19B ?triggerAbilityEffect@ActivateModuleSpecialPower@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ActivateModuleSpecialPowerVslot.cpp (not merged yet)
-
-// tu-skeleton: 0x004CDF00 29B ?onExit@ActivateModuleSpecialPower@@QAEX_N0@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAD_Rva00349D02.cpp (not merged yet)
-
-// tu-skeleton: 0x004CDF1D 14B ?onObjectCreated@ActivateModuleSpecialPower@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAD.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/TriggerSpecialPowerParse.cpp
 
@@ -171,6 +224,20 @@ void parseTriggerSpecialPower(INI *ini, void *instance, void *, const void *)
 	((_STL::vector<BfmeE8, _STL::allocator<BfmeE8> > *)&triggers)->push_back(*(const BfmeE8 *)&trigger);
 }
 
-// tu-skeleton: 0x004CDFBE 27B ?buildFieldParse@ActivateModuleSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/ActivateModuleSpecialPowerModuleDataCtor.cpp (not merged yet)
+// tu-skeleton: 0x004CDCB4 78B ?finishAbility@EvacuateGarrisonSpecialPower@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/EvacuateGarrisonSpecialPowerSlot19.cpp (not merged yet)
 
-// tu-skeleton: 0x004CDFD9 18B ??0EvacuateGarrisonSpecialPowerModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/EvacuateGarrisonSpecialPowerModuleDataCtor.cpp (not merged yet)
+// tu-skeleton: 0x004CDD02 49B ??0ActivateModuleSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DozerAIUpdateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004CDD33 6B ?Rva004CDD33Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x004CDD39 32B ??1Rva004CDD39@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors.cpp (not merged yet)
+
+// tu-skeleton: 0x004CDD9E 28B ??_GRva004CDD39@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors.cpp (not merged yet)
+
+// tu-skeleton: 0x004CDDBA 307B ?SetWakeState@ActivateModuleSpecialPower@@QAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ActivateModuleSpecialPowerVslot.cpp (not merged yet)
+
+// tu-skeleton: 0x004CDEED 19B ?triggerAbilityEffect@ActivateModuleSpecialPower@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ActivateModuleSpecialPowerVslot.cpp (not merged yet)
+
+// tu-skeleton: 0x004CDF00 29B ?onExit@ActivateModuleSpecialPower@@QAEX_N0@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAD_Rva00349D02.cpp (not merged yet)
+
+// tu-skeleton: 0x004CDF1D 14B ?onObjectCreated@ActivateModuleSpecialPower@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAD.cpp (not merged yet)

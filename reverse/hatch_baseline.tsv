@@ -13656,7 +13656,7 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/Supp
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DozerAIUpdateCtor.cpp	1ActivateModuleSpecialPower@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/EmotionNuggetCanBeActivatedFor.cpp	rva004DD018@Emotion@@QAE_NHHPAURva004DD018Arg@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/EvaAnnounceClientCreate.cpp	1EvaAnnounceClientCreateModuleData@@	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/EvacuateGarrisonSpecialPowerModuleDataCtor.cpp	1EvacuateGarrisonSpecialPowerModuleData@@UAE@XZ	1
+present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/EvacuateGarrisonSpecialPower.cpp	1EvacuateGarrisonSpecialPowerModuleData@@UAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/FireSpreadUpdate.cpp	FireSpreadUpdate::loadPostProcess	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/FireSpreadUpdate.cpp	FireSpreadUpdate::xfer	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/FireSpreadUpdate.cpp	FireSpreadUpdate::~FireSpreadUpdate	1
