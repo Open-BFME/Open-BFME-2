@@ -20117,8 +20117,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A03920,4,.data,global,?TheOilSpillUpdatePoolKey@?1??getModuleNameKey@OilSpillUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/OilSpillUpdate.cpp,owned,,1,2
 0x00A03924,4,.data,global,?$S1@?1??getModuleNameKey@OilSpillUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/OilSpillUpdate.cpp,owned,,1,4
 0x00A03928,4,.data,global,_s_rva007B148C,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
-0x00A0392C,4,.data,global,?TheFlammableUpdatePoolKey@?1??getModuleNameKey@FlammableUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdatePoolKey.cpp,owned,,1,2
-0x00A03930,4,.data,global,?$S1@?1??getModuleNameKey@FlammableUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdatePoolKey.cpp,owned,,1,4
+0x00A0392C,4,.data,global,?TheFlammableUpdatePoolKey@?1??getModuleNameKey@FlammableUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdate.cpp,owned,,1,2
+0x00A03930,4,.data,global,?$S1@?1??getModuleNameKey@FlammableUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdate.cpp,owned,,1,4
 0x00A03934,4,.data,global,?key_EntEnragedUpdate@?4??rva0048C8F9@FlammableUpdate@@QAEXXZ@4W4NameKeyType@@B,Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdateDtor.cpp,owned,,1,2
 0x00A03938,4,.data,global,?$S1@?4??rva0048C8F9@FlammableUpdate@@QAEXXZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdateDtor.cpp,owned,,1,2
 0x00A0393C,4,.data,global,?key_FireSpreadUpdate@?4??tryToIgnite@FlammableUpdate@@QAEXXZ@4W4NameKeyType@@B,Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdateDtor.cpp,owned,,1,2
