@@ -23,11 +23,6 @@ public:
 	int m_flags4C;
 };
 
-void Rva001D9709::rva001D9709(int mask)
-{
-	m_flags4C &= ~mask;
-}
-
 class Rva001D96FF
 {
 public:
@@ -36,11 +31,6 @@ public:
 	char m_lead[0x4C];
 	int m_flags4C;
 };
-
-void Rva001D96FF::rva001D96FF(int mask)
-{
-	m_flags4C |= mask;
-}
 
 // BF1 f98983a7d3 WW3D2/w3d_util_convert_shader.cpp and shader.h are the clean
 // clear-and-shift expression guide, compiled /O1 /x87 /G7 in discovery.

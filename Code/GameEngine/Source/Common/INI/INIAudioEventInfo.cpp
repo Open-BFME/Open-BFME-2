@@ -702,6 +702,59 @@ private:
 	ConstructProbePair m_value;
 };
 
+// Disp8 dword mask set/clear: __thiscall members with one stack mask argument:
+//
+//     mov eax,[esp+4] / or [ecx+<DISP>],eax / ret 4                      (10 B)
+//     mov eax,[esp+4] / not eax / and [ecx+<DISP>],eax / ret 4            (12 B)
+//
+// A dword bitmask at a fixed disp8 displacement from `this` gains (`|= mask`)
+// or loses (`&= ~mask`) the bits set in the argument. Both siblings below touch
+// +0x4C from the same two unclaimed callers, so they are the set/clear pair of
+// one flag word. Identity is not recovered: names are derived from addresses.
+//
+// ?rva001D9709@Rva001D9709@@QAEXH@Z retail 0x001D9709 12 bytes.
+// Evidence: 2 unclaimed callers at 0x004332A2/0x0043344B; neighbours are disp
+// lea getter 0x001D96F8 and float setter 0x001D972B.
+// ?rva001D96FF@Rva001D96FF@@QAEXH@Z retail 0x001D96FF 10 bytes.
+// Evidence: same +0x4C word and same 2 callers at 0x0043329B/0x00433444.
+class Rva001D9709
+{
+public:
+	void rva001D9709(int mask);
+
+	char m_lead[0x4C];
+	int m_flags4C;
+};
+
+class Rva001D96FF
+{
+public:
+	void rva001D96FF(int mask);
+
+	char m_lead[0x4C];
+	int m_flags4C;
+};
+
+// BF1 f98983a7d3 WW3D2/w3d_util_convert_shader.cpp and shader.h are the clean
+// clear-and-shift expression guide, compiled /O1 /x87 /G7 in discovery.
+// Retail65F73..65F85 lies after rowed65F66 RET4 and before rowed65F85.
+// It reads/writes raw receiverword0, clears bit3, ORs the full stackword
+// shifted left3, and RET4. All eight image sections contain no direct or
+// literal reference to this entry. Shader/DepthMask names and enum limits
+// are donor facts; the original concrete owner, result and complete layout
+// are not proved by this leaf. The address-owned consumed-word view below
+// preserves the complete observed operation for every raw32 input, without
+// re-declaring ShaderClass or altering its independently unresolved copies.
+class Rva00065F73Word
+{
+public:
+    void set(unsigned int value);
+private:
+    unsigned int word0;
+};
+
+// ---- from Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp
+
 // ---- from Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp
 
 // ---- from Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp
@@ -1167,32 +1220,6 @@ Rva001D976EFields *Rva001D976EFields::initialize() {
     word00 = ~0u; value04 = 1.0f; return this;
 }
 
-// tu-skeleton: 0x001D96FF 10B ?rva001D96FF@Rva001D96FF@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/Disp8DwordMaskClearers.cpp (not merged yet)
-
-// tu-skeleton: 0x001D9709 12B ?rva001D9709@Rva001D9709@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/Disp8DwordMaskClearers.cpp (not merged yet)
-
-// tu-skeleton: 0x001D9715 10B ?rva001D9715@Rva001D9715@@QAEXI@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE49.cpp (not merged yet)
-
-// tu-skeleton: 0x001D971F 12B ?rva001D971F@Rva001D9715@@QAEXI@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE49.cpp (not merged yet)
-
-// tu-skeleton: 0x001D972B 17B ?set@Rva001D972BFloatField@@QAEXM@Z -- matched in Code/GameEngine/Source/Common/Disp32FloatFieldSetters.cpp (not merged yet)
-
-// tu-skeleton: 0x001D9990 27B ??4FXBoneInfo@@QAEAAU0@ABU0@@Z -- matched in Code/GameEngine/Source/Common/Thing/ModuleFactory.cpp (not merged yet)
-
-// tu-skeleton: 0x001D99BB 16B ?add@Rva004362B0StrideAdd@@SAXPAHH@Z -- matched in Code/GameEngine/Source/Common/Rva004362B0StrideAdd.cpp (not merged yet)
-
-// tu-skeleton: 0x001D99E7 25B ??0BfmeStringTailRecord156@@QAE@ABVRva0036CA00Str@@H@Z -- matched in Code/GameEngine/Source/Common/INI/AudioEventInfoParseSoundLists.cpp (not merged yet)
-
-// tu-skeleton: 0x001D9A4F 18B ??$_Construct@VBfmeStringTailRecord156@@V1@@_STL@@YAXPAVBfmeStringTailRecord156@@ABV1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_tailrecord156.cpp (not merged yet)
-
-// tu-skeleton: 0x001D9A61 38B ??$__uninitialized_copy@PAVBfmeStringTailRecord156@@PAV1@@_STL@@YAPAVBfmeStringTailRecord156@@PAV1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
-
-// tu-skeleton: 0x001D9A87 37B ??$__uninitialized_fill_n@PAVBfmeStringTailRecord156@@IV1@@_STL@@YAPAVBfmeStringTailRecord156@@PAV1@IABV1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
-
-// tu-skeleton: 0x001D9AD9 45B ??$_M_allocate_and_copy@PAUBfmeE8@@@?$vector@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@IAEPAUBfmeE8@@IPAU2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_e8_allocate_copy.cpp (not merged yet)
-
-// tu-skeleton: 0x001D9B06 9B ??$_Destroy@URva0010F149Handle@@@_STL@@YAXPAURva0010F149Handle@@@Z -- matched in Code/GameEngine/Source/Common/DestroyInstances.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp
 
 //
@@ -1219,6 +1246,40 @@ void Rva001D9B0FConstruct(void *dest, const void *source)
 {
     ::new (dest) ConstructProbePair(*static_cast<const ConstructProbePair *>(source));
 }
+
+// ---- from Code/GameEngine/Source/Common/Disp8DwordMaskClearers.cpp
+
+void Rva001D9709::rva001D9709(int mask)
+{
+	m_flags4C &= ~mask;
+}
+
+void Rva001D96FF::rva001D96FF(int mask)
+{
+	m_flags4C |= mask;
+}
+
+// tu-skeleton: 0x001D9715 10B ?rva001D9715@Rva001D9715@@QAEXI@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE49.cpp (not merged yet)
+
+// tu-skeleton: 0x001D971F 12B ?rva001D971F@Rva001D9715@@QAEXI@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE49.cpp (not merged yet)
+
+// tu-skeleton: 0x001D972B 17B ?set@Rva001D972BFloatField@@QAEXM@Z -- matched in Code/GameEngine/Source/Common/Disp32FloatFieldSetters.cpp (not merged yet)
+
+// tu-skeleton: 0x001D9990 27B ??4FXBoneInfo@@QAEAAU0@ABU0@@Z -- matched in Code/GameEngine/Source/Common/Thing/ModuleFactory.cpp (not merged yet)
+
+// tu-skeleton: 0x001D99BB 16B ?add@Rva004362B0StrideAdd@@SAXPAHH@Z -- matched in Code/GameEngine/Source/Common/Rva004362B0StrideAdd.cpp (not merged yet)
+
+// tu-skeleton: 0x001D99E7 25B ??0BfmeStringTailRecord156@@QAE@ABVRva0036CA00Str@@H@Z -- matched in Code/GameEngine/Source/Common/INI/AudioEventInfoParseSoundLists.cpp (not merged yet)
+
+// tu-skeleton: 0x001D9A4F 18B ??$_Construct@VBfmeStringTailRecord156@@V1@@_STL@@YAXPAVBfmeStringTailRecord156@@ABV1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_tailrecord156.cpp (not merged yet)
+
+// tu-skeleton: 0x001D9A61 38B ??$__uninitialized_copy@PAVBfmeStringTailRecord156@@PAV1@@_STL@@YAPAVBfmeStringTailRecord156@@PAV1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
+
+// tu-skeleton: 0x001D9A87 37B ??$__uninitialized_fill_n@PAVBfmeStringTailRecord156@@IV1@@_STL@@YAPAVBfmeStringTailRecord156@@PAV1@IABV1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
+
+// tu-skeleton: 0x001D9AD9 45B ??$_M_allocate_and_copy@PAUBfmeE8@@@?$vector@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@IAEPAUBfmeE8@@IPAU2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_e8_allocate_copy.cpp (not merged yet)
+
+// tu-skeleton: 0x001D9B06 9B ??$_Destroy@URva0010F149Handle@@@_STL@@YAXPAURva0010F149Handle@@@Z -- matched in Code/GameEngine/Source/Common/DestroyInstances.cpp (not merged yet)
 
 // tu-skeleton: 0x001D9B87 29B ??$__copy_ptrs@PAVBfmeStringTailRecord156@@PAV1@@_STL@@YAPAVBfmeStringTailRecord156@@PAV1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeDeferred.cpp (not merged yet)
 

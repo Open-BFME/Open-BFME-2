@@ -29471,8 +29471,8 @@ _CpuProbe_Sse2Executes,,0x001D5540,126,Code/Libraries/Source/VP6/CpuProbeSse2.cp
 ??0Rva005E3AE1@@QAE@XZ,,0x005E3AE1,57,Code/Libraries/Source/WWVegas/WWLib/SBServer.cpp,matched,Native57B ctor hidden-most-derived flag; parent5E4F6D proves true second interface constructor ABI; standalone vbptr4 virtualCount8 and native C1C780/C77C70 pair; replaces manual vptr helper without byte gain
 ?rva00223854@Rva00223591@@QAEPAU?$pair@$$CBVAsciiString@@UTreeHintRef00222C5A@@@_STL@@PBU23@@Z,,0x00223854,68,Code/GameEngine/Source/GameClient/Rva00223591Free.cpp,matched,Rva00223591 insert via rowed bucketIndex and NewNode plus pin reserve
 ?Rva0043B30FNewNode@@YGPAXPBX@Z,,0x0043B30F,37,Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp,matched,gap node alloc 0x9C via rowed allocator plus rowed Construct callers 0x0043B3C9
-?rva001D9709@Rva001D9709@@QAEXH@Z,,0x001D9709,12,Code/GameEngine/Source/Common/Disp8DwordMaskClearers.cpp,matched,leaf mask-clear via 2 unclaimed callers neighbours 1D96F8-1D972B
-?rva001D96FF@Rva001D96FF@@QAEXH@Z,,0x001D96FF,10,Code/GameEngine/Source/Common/Disp8DwordMaskClearers.cpp,matched,leaf mask-set same word-callers as 1D9709
+?rva001D9709@Rva001D9709@@QAEXH@Z,,0x001D9709,12,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp,matched,leaf mask-clear via 2 unclaimed callers neighbours 1D96F8-1D972B
+?rva001D96FF@Rva001D96FF@@QAEXH@Z,,0x001D96FF,10,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp,matched,leaf mask-set same word-callers as 1D9709
 ??_GRva0022A9DDSubsystem@@UAEPAXI@Z,,0x0022DFB0,28,Code/GameEngine/Source/GameClient/Rva00418298Dtor.cpp,matched,deleting dtor slot0 vtable 0x007E76D0 calls rowed 0x00418298
 ?swap@Rva003B56A5@@QAEXPAV1@@Z,,0x003B56A5,55,Code/GameEngine/Source/Common/System/Rva003B56A5Swap.cpp,matched,Two-vector plus two-int swap via rowed vector swap and barrier-ordered tail
 ?Rva005F8EDAAptCall@@YAHPAVRva00222A8BTarget@@PAXPBD22PAPAX@Z,,0x005F8EDA,38,Code/GameEngine/Source/Common/Rva005F8EDAAptCall.cpp,matched,chain via twin pin deref local
