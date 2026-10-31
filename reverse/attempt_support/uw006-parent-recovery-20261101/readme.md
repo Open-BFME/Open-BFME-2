@@ -1,0 +1,11 @@
+# uw_gen_006 real-parent recovery
+
+The carrier has56rows/457B; all56 byte-verify unchanged. Retail EH tables, not adjacency, identify46 FuncInfo graphs and61 matched parents across46sources. Seventy EXACT label occurrences cover55carrier addresses. Generated source is never hand-edited.
+
+The first row7604BD still waits for W3DMouse::initD3DAssets98FC1. Its native48B body and current8B cleanup match, but native has a second null-action unwind state, current onlyone; the existing EH baseline correctly records this five-byte mismatch. Copy initialization, /O1 and /EHs keep all17 code rows exact without fixing it; /EHa breaks3 and still fails. Source, row and baseline remain unchanged. No unsupported parent or dead-strip conclusion is inferred. See mouse-eh-blocker.json.
+
+BfmeAssignRecord32 actions767C6A/767C7C now have exact parents and fully proven71B destructor, but shared native parentage leaves their child TU assignments unapproved. CollectKeys7A75C0 likewise lacks approved routing. No retraction or repoint is performed for those leads. The remaining candidate work admits existing complete C++ destructor twins and repoints only children whose current approved TU equals their real parent's source.
+
+The preceding curve publication551435e234 passed its hook, with a scoped independent no-loss provider audit and a native isolated unit link. The outgoing broad audit remained INCONCLUSIVE against older index4a490aa2e4/basee78b61f1b2: affected AICowerState_onEnter lacked a current receipt. Two explicit receipts have since been refreshed (AICowerState_onEnter and BfmeApplierBHRva003C4145):2/2rows strict. This does not replace next-census consumer confirmation.
+
+LivingWorldManager: current in-memory map approves parent210FC6 and child76D8D9 in its existing TU. Complete emitted Rva00210FC6Ref destructor12B is a raw/relocation twin of the existing10F149 owner, calling actual rowed OpaqueRefCounted::Release_Ref39B. Strict preparation refreshes allthree providers (6/6rows,3imports), resolving the prior legacy receipt/missing-object qualification. Official add_match --icf-owner admits this existing complete C++ destructor with fold-proof and no new pin or source change; all4 manager rows pass. The separate generated-child replacement follows only after current exact EH placement and collision checks.

@@ -1,0 +1,121 @@
+{
+  "scope": "Existing first generated row remains unchanged; no source attempt landed",
+  "native_parent": {
+    "name": "?initD3DAssets@W3DMouse@@AAEXXZ",
+    "rva": "0x00098FC1",
+    "size": 48,
+    "funcinfo": "0x009033F4",
+    "unwind_map": "0x009033E4",
+    "states": [
+      [
+        -1,
+        "0x007604BD"
+      ],
+      [
+        0,
+        null
+      ]
+    ]
+  },
+  "current_parent_states": [
+    [
+      -1,
+      "correct8B lock cleanup"
+    ]
+  ],
+  "difference": "Four previous-state bytes and one FuncInfo count byte; exact current8B cleanup and existing16B lock callee alone do not repair the parent graph",
+  "private_trials": {
+    "before": {
+      "source_sha256_normalized": "c37e91a90dca9c3e8d900fc7eba41994cfd359160a72c80e2dbb7275653e71ef",
+      "code_rows_exact": 17,
+      "code_rows_total": 17,
+      "failed_rows": [],
+      "target_eh": [
+        {
+          "name": "?initD3DAssets@W3DMouse@@AAEXXZ",
+          "rva": "0x00098FC1",
+          "verdict": [
+            "bytes_differ",
+            ".xdata$x @0x9033EC: 5 byte(s)"
+          ],
+          "previously_baselined": true
+        }
+      ]
+    },
+    "copy-init": {
+      "source_sha256_normalized": "270df8ea5766aabd4004d4a87f8ed924cb2b464388a748b066dc30788c6c3365",
+      "code_rows_exact": 17,
+      "code_rows_total": 17,
+      "failed_rows": [],
+      "target_eh": [
+        {
+          "name": "?initD3DAssets@W3DMouse@@AAEXXZ",
+          "rva": "0x00098FC1",
+          "verdict": [
+            "bytes_differ",
+            ".xdata$x @0x9033EC: 5 byte(s)"
+          ],
+          "previously_baselined": true
+        }
+      ]
+    },
+    "O1": {
+      "source_sha256_normalized": "c37e91a90dca9c3e8d900fc7eba41994cfd359160a72c80e2dbb7275653e71ef",
+      "code_rows_exact": 17,
+      "code_rows_total": 17,
+      "failed_rows": [],
+      "target_eh": [
+        {
+          "name": "?initD3DAssets@W3DMouse@@AAEXXZ",
+          "rva": "0x00098FC1",
+          "verdict": [
+            "bytes_differ",
+            ".xdata$x @0x9033EC: 5 byte(s)"
+          ],
+          "previously_baselined": true
+        }
+      ]
+    },
+    "EHs": {
+      "source_sha256_normalized": "c37e91a90dca9c3e8d900fc7eba41994cfd359160a72c80e2dbb7275653e71ef",
+      "code_rows_exact": 17,
+      "code_rows_total": 17,
+      "failed_rows": [],
+      "target_eh": [
+        {
+          "name": "?initD3DAssets@W3DMouse@@AAEXXZ",
+          "rva": "0x00098FC1",
+          "verdict": [
+            "bytes_differ",
+            ".xdata$x @0x9033EC: 5 byte(s)"
+          ],
+          "previously_baselined": true
+        }
+      ]
+    },
+    "EHa": {
+      "source_sha256_normalized": "c37e91a90dca9c3e8d900fc7eba41994cfd359160a72c80e2dbb7275653e71ef",
+      "code_rows_exact": 14,
+      "code_rows_total": 17,
+      "failed_rows": [
+        "?initD3DAssets@W3DMouse@@AAEXXZ",
+        "?Thread_Function@MouseThreadClass@@UAEXXZ",
+        "?initPolygonAssets@W3DMouse@@AAEXXZ"
+      ],
+      "target_eh": [
+        {
+          "name": "?initD3DAssets@W3DMouse@@AAEXXZ",
+          "rva": "0x00098FC1",
+          "verdict": [
+            "bytes_differ",
+            ".xdata$x @0x9033EC: 5 byte(s)"
+          ],
+          "previously_baselined": true
+        }
+      ]
+    }
+  },
+  "source_changed": false,
+  "row_repointed": false,
+  "baseline_retired": false
+}
