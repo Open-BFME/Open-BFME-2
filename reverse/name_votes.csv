@@ -19434,3 +19434,7 @@ Code/GameEngine/Source/GameLogic/Object/Rva003FD6E0.cpp|member|Rva003FD6E0Mid|m_
 Code/GameEngine/Source/Common/Palantir_SetPlanningModeEnabled.cpp|member|Rva002D37BDMid10|m_128,4d0b69ea7b9cbcb8a77e046e,drz-k1,n27a-k1,w-d29055ee9848,2026-10-31
 Code/GameEngine/Source/Common/VslotSmallBodiesAH.cpp|member|Rva006EBE50|m_24,27fa063e3c1b51ac49976da4,drz-k1,n27a-k1,w-d29055ee9848,2026-10-31
 Code/GameEngine/Source/Common/VslotSmallBodiesAH.cpp|member|Rva00711AB0|m_1C,4137841a95904605c3ffc936,drz-k1,n27a-k1,w-d29055ee9848,2026-10-31
+Code/GameEngine/Source/GameNetwork/FeslMessage_send_rva007F93E0.cpp|class||Rva007F93E0Connection,bf5b2a0daf8e8dd6b88164be,drz-k2,n27b-k2,w-ded32b2e2c5e,2026-10-31
+Code/GameEngine/Source/GameLogic/AI/Rva002EC3CEProbe.cpp|local|Rva002EC3CE::rva002EC3CE|p2c,e707b07ad26854ba5b5a7849,drz-k2,n27b-k2,w-ded32b2e2c5e,2026-10-31
+Code/GameEngine/Source/Common/VslotSmallBodiesP.cpp|function|0x00709BF0|rva00709BF0,f30bc56d2e2f950dca01ed5c,drz-k2,n27b-k2,w-ded32b2e2c5e,2026-10-31
+Code/GameEngine/Source/Common/VslotSmallBodiesI.cpp|member|Rva0057A83C|m_08,fc14f0fde1b981b1ddf22f37,drz-k2,n27b-k2,w-ded32b2e2c5e,2026-10-31
