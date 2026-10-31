@@ -27,16 +27,12 @@ public:
 	WWINLINE Vector3 &operator=(const Vector3 &v) { X = v.X; Y = v.Y; Z = v.Z; return *this; }
 };
 
-class Vector4
+#include "../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
+
+static WWINLINE const float &vector4Component(const Vector4 &row, int index)
 {
-public:
-	float X;
-	float Y;
-	float Z;
-	float W;
-	WWINLINE float &operator[](int i) { return (&X)[i]; }
-	WWINLINE const float &operator[](int i) const { return (&X)[i]; }
-};
+	return (&row.X)[index];
+}
 
 #pragma optimize("ty", on)
 class Matrix3D
@@ -55,9 +51,9 @@ public:
 		} else {
 			v = (Vector3 *)&in;
 		}
-		out->X = (matrix3D[0][0] * v->X + matrix3D[0][1] * v->Y + matrix3D[0][2] * v->Z + matrix3D[0][3]);
-		out->Y = (matrix3D[1][0] * v->X + matrix3D[1][1] * v->Y + matrix3D[1][2] * v->Z + matrix3D[1][3]);
-		out->Z = (matrix3D[2][0] * v->X + matrix3D[2][1] * v->Y + matrix3D[2][2] * v->Z + matrix3D[2][3]);
+		out->X = (vector4Component(matrix3D[0], 0) * v->X + vector4Component(matrix3D[0], 1) * v->Y + vector4Component(matrix3D[0], 2) * v->Z + vector4Component(matrix3D[0], 3));
+		out->Y = (vector4Component(matrix3D[1], 0) * v->X + vector4Component(matrix3D[1], 1) * v->Y + vector4Component(matrix3D[1], 2) * v->Z + vector4Component(matrix3D[1], 3));
+		out->Z = (vector4Component(matrix3D[2], 0) * v->X + vector4Component(matrix3D[2], 1) * v->Y + vector4Component(matrix3D[2], 2) * v->Z + vector4Component(matrix3D[2], 3));
 	}
 	// LINK: same-body file-static helper (identical inlined bytes; kept inside
 	// the same optimize region so codegen matches). This TU's Transform_Vector
@@ -74,9 +70,9 @@ public:
 		} else {
 			v = (Vector3 *)&in;
 		}
-		out->X = (matrix3D[0][0] * v->X + matrix3D[0][1] * v->Y + matrix3D[0][2] * v->Z + matrix3D[0][3]);
-		out->Y = (matrix3D[1][0] * v->X + matrix3D[1][1] * v->Y + matrix3D[1][2] * v->Z + matrix3D[1][3]);
-		out->Z = (matrix3D[2][0] * v->X + matrix3D[2][1] * v->Y + matrix3D[2][2] * v->Z + matrix3D[2][3]);
+		out->X = (vector4Component(matrix3D[0], 0) * v->X + vector4Component(matrix3D[0], 1) * v->Y + vector4Component(matrix3D[0], 2) * v->Z + vector4Component(matrix3D[0], 3));
+		out->Y = (vector4Component(matrix3D[1], 0) * v->X + vector4Component(matrix3D[1], 1) * v->Y + vector4Component(matrix3D[1], 2) * v->Z + vector4Component(matrix3D[1], 3));
+		out->Z = (vector4Component(matrix3D[2], 0) * v->X + vector4Component(matrix3D[2], 1) * v->Y + vector4Component(matrix3D[2], 2) * v->Z + vector4Component(matrix3D[2], 3));
 	}
 };
 #pragma optimize("", on)
@@ -154,9 +150,9 @@ static WWINLINE void bfme_xform_cond(const Matrix3D &matrix3D, const Vector3 &in
 {
 	Vector3 tmp;
 	Vector3 *v = (out == &in) ? (tmp = in, &tmp) : (Vector3 *)&in;
-	out->X = (matrix3D[0][0] * v->X + matrix3D[0][1] * v->Y + matrix3D[0][2] * v->Z + matrix3D[0][3]);
-	out->Y = (matrix3D[1][0] * v->X + matrix3D[1][1] * v->Y + matrix3D[1][2] * v->Z + matrix3D[1][3]);
-	out->Z = (matrix3D[2][0] * v->X + matrix3D[2][1] * v->Y + matrix3D[2][2] * v->Z + matrix3D[2][3]);
+	out->X = (vector4Component(matrix3D[0], 0) * v->X + vector4Component(matrix3D[0], 1) * v->Y + vector4Component(matrix3D[0], 2) * v->Z + vector4Component(matrix3D[0], 3));
+	out->Y = (vector4Component(matrix3D[1], 0) * v->X + vector4Component(matrix3D[1], 1) * v->Y + vector4Component(matrix3D[1], 2) * v->Z + vector4Component(matrix3D[1], 3));
+	out->Z = (vector4Component(matrix3D[2], 0) * v->X + vector4Component(matrix3D[2], 1) * v->Y + vector4Component(matrix3D[2], 2) * v->Z + vector4Component(matrix3D[2], 3));
 }
 
 template<class T> inline volatile T &__vref(T &x){return *(volatile T *)&x;}

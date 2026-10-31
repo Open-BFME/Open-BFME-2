@@ -1,5 +1,12 @@
 # Linking target checklist
 
+Offset/shroud transform Vector4 adoption (2026-10-31): canonical storage and
+a local component accessor preserve both 252/541-byte rows and all seven
+external code bodies/relocations. One header key is retired; bounded
+LINKS/793 is retained. The one internal helper copy is debug-referenced only.
+Matrix3D/Vector3 and complete consumer/census validation remain open.
+[Evidence](../reverse/attempt_support/offset-transform-vector4-adoption-20261031.md).
+
 DX8 color clamp Vector4 adoption (2026-10-31): the canonical storage header
 and local component accessor preserve all three rows and five external code
 bodies/relocations. Owning acceptance retires one key. One new internal
