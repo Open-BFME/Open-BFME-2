@@ -12083,7 +12083,6 @@ present_unmatched	Code/GameEngine/Source/Common/GameEngineControl.cpp	Rva00211E7
 present_unmatched	Code/GameEngine/Source/Common/GameEngineDeletingBaseDerived.cpp	bfmeEmitRva0041FE0EDtor@@YAXPAVRva0041FE0E@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/GameLOD.cpp	parseStaticGameLODLevel@INI@@SAXPAV1@PAX1PBX@Z	1
 present_unmatched	Code/GameEngine/Source/Common/INI/INI.cpp	StringBase<char>::find	1
-present_unmatched	Code/GameEngine/Source/Common/INI/INI.cpp	findFieldParse	1
 present_unmatched	Code/GameEngine/Source/Common/INI/LivingWorldBonusMapParsers.cpp	InsertValue::pair	1
 present_unmatched	Code/GameEngine/Source/Common/INI/WaterTransparencySettingCtor.cpp	WaterTransparencySetting::slot1	1
 present_unmatched	Code/GameEngine/Source/Common/LivingWorldCampaign_xfer.cpp	LivingWorldCampaign::loadPostProcess	1
@@ -12243,7 +12242,6 @@ present_unmatched	Code/GameEngine/Source/Common/Rva00170999.cpp	1Rva001709F8@@QA
 present_unmatched	Code/GameEngine/Source/Common/Rva00170999.cpp	Rva001709F8Delete@@YAXPAVRva001709F8@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/Rva001F4C67Finish.cpp	Base001F4C67::~Base001F4C67	1
 present_unmatched	Code/GameEngine/Source/Common/Rva001F8BE8DtorChain.cpp	1Rva001F8BE8Hold@@QAE@XZ	1
-present_unmatched	Code/GameEngine/Source/Common/Rva001FDB55Ctor.cpp	0BFME2NativeNetwork@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/Rva00261790Ctor.cpp	dummy@Rva00261790@@UAEXXZ	1
 present_unmatched	Code/GameEngine/Source/Common/Rva002A1316.cpp	Rva002A1316Iterator::Rva002A1316Iterator	2
 present_unmatched	Code/GameEngine/Source/Common/Rva002A1316.cpp	Rva002A1B6FNativeList::end	1
@@ -15236,7 +15234,6 @@ present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva00150D09IndexedVector.c
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva00150D09IndexedVector.cpp	Rva00BC6F2CBase::Rva00BC6F2CBase	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva00150D09IndexedVector.cpp	Rva00BC6F2CBase::~Rva00BC6F2CBase	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva00151248Reset.cpp	Rva00151248String::Rva00151248String	1
-present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva00153E6FArrayVectorResize.cpp	Rva00153729::~Rva00153729	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva0018C262.cpp	Rva0018C262HeaderOwner::~Rva0018C262HeaderOwner	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva0018C262.cpp	Rva0018C4A9Result::Rva0018C4A9Result	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva001EBAEACtor.cpp	0Rva001EAE6FHelper@@QAE@XZ	1
