@@ -6,6 +6,8 @@
 // getGoalObject 0x004D7726 already rowed in TurretAI_friendGetTurretTarget.cpp.
 // Honest address name: class proven by +0x14/+0x28 layout, method unproven.
 
+#include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
+
 class Team;
 class Object
 {
@@ -13,8 +15,6 @@ public:
 	char m_pad00[0x304];
 	Team *m_team;
 };
-
-#include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
 
 // TurretAI.cpp TU view (one spelling in every file of the TU). The
 // constructor 0x004D85B6 stores the Snapshot table 0x00BBB554 and then

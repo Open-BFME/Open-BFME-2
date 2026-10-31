@@ -21,7 +21,9 @@
 // with the debug null-data check and the 0x48-byte machine.
 // The base and notify-interface views repeat TurretAIDtor.cpp so both
 // units emit identical vtable COMDATs; the class view is the TU's.
-#include "Common/INIException.h"
+// The INIException shim by path, so the unit composes the same beside
+// any include order.
+#include "../../../../../reference/shims/iniexception/Common/INIException.h"
 
 // The base is the canonical Snapshot (vtable 0x00BBB554): retail unwind
 // funclets destroy it through the folded Snapshot destructor 0x0049B47C.
