@@ -69626,7 +69626,7 @@ __ehhandler$?init@W3DView@@UAEXXZ,,0x0075FD33,10,Code/GameEngineDevice/Source/W3
 ?rva007B0290@@YAXXZ,,0x007B0290,22,Code/GameEngine/Source/Common/Rva007ACDE1StlGlobalInits.cpp,matched,STLport container global initializer map ctor 0024613C then atexit cleanup 007B82D3
 ?rva007B3945@@YAXXZ,,0x007B3945,22,Code/GameEngine/Source/Common/Rva007ACDE1StlGlobalInits.cpp,matched,STLport container global initializer hash_map ctor 00524ED5 then atexit cleanup 007B91F8
 ?rva007AE6E6@@YAXXZ,,0x007AE6E6,22,Code/GameEngine/Source/Common/Rva007ACDE1StlGlobalInits.cpp,matched,STLport container global initializer hash_map ctor 0030A101 then atexit cleanup 007B7AE1
-?rva00531041@Rva00531041@@QAEXXZ,,0x00531041,9,Code/GameEngine/Source/Common/GapBodiesSeat10O1.cpp,matched,clear +10 then +0C
+?rva00531041@Rva00531041@@QAEXXZ,,0x00531041,9,Code/GameEngine/Source/Common/BooleanBitmapSet.cpp,matched,clear +10 then +0C
 ?rva0054C836@Rva0054C836@@QBE_NXZ,,0x0054C836,9,Code/GameEngine/Source/Common/GapBodiesSeat10O1.cpp,matched,pointer at +14 non-null
 ?rva005FC6EE@Rva005FC6EE@@QBE_NXZ,,0x005FC6EE,9,Code/GameEngine/Source/Common/GapBodiesSeat10O1.cpp,matched,bit0 of byte +34 of object at +18 twin of 0x005F273B
 ?rva005CCBA8@Rva005CCBA8@@QAEXXZ,,0x005CCBA8,8,Code/GameEngine/Source/Common/GapBodiesSeat10O1.cpp,matched,clear byte +20 of object at +08

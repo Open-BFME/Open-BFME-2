@@ -15,11 +15,6 @@ private:
 	int m_0c;
 	int m_10;
 };
-void Rva00531041::rva00531041()
-{
-	m_10 = 0;
-	m_0c = 0;
-}
 
 // ?rva0054C836@Rva0054C836@@QBE_NXZ @0x0054C836 9B: pointer at +0x14 non-null.
 class Rva0054C836
