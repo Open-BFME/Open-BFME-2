@@ -13990,3 +13990,4 @@ nl-6bcffa098680,local,r,writeResult,,w-077d7aeb666b@drz-k3,Code/GameEngine/Sourc
 nl-41c2feebdfa3-m0a06ae5e7fe94271c5fedc5e,param,arg,source,,w-077d7aeb666b@drz-k3,Code/GameEngine/Source/Common/VslotSmallBodiesAN.cpp|param|Rva006680C0::rva006680C0|arg,agreed,meaning agreement; single-worker scoped approval: w-077d7aeb666b@drz-k3
 nl-16965647b855,param,a,leftKeys,,w-077d7aeb666b@drz-k3,Code/GameEngine/Source/Common/GapBodiesGE07.cpp|param|Rva00301E90|a,agreed,single-worker scoped approval: w-077d7aeb666b@drz-k3
 nl-84b3e240fbec,param,b,rightKeys,,w-077d7aeb666b@drz-k3,Code/GameEngine/Source/Common/GapBodiesGE07.cpp|param|Rva00301E90|b,agreed,single-worker scoped approval: w-077d7aeb666b@drz-k3
+nl-31f46218615a,member,m_F8,m_armorName,,w-077d7aeb666b@drz-k3;w-88a32c4f7da7@drz-k10,Code/GameEngine/Source/Common/VslotSmallBodiesAA.cpp|member|Rva004BF8AC|m_F8,agreed,two-agent agreement: w-077d7aeb666b@drz-k3;w-88a32c4f7da7@drz-k10
