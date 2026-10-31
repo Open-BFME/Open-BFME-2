@@ -59,11 +59,6 @@ public:
 	void rva000E585A(Rva000E488F *arg);
 };
 
-void Rva000E585A::rva000E585A(Rva000E488F *arg)
-{
-	((Rva000E57FF *)this)->rva000E57FF(arg);
-}
-
 // ??_GVegetationFXShaderParameterSourceNamespace@@UAEPAXI@Z @0x000E63C0 28B; calls pinned ??1 at 0x000E6387
 class FXShaderParameterBinder;
 class VegetationFXShaderParameterSourceNamespace { public: VegetationFXShaderParameterSourceNamespace(EmitVtableTag *); virtual ~VegetationFXShaderParameterSourceNamespace(); virtual void ResolveBindings(const char *name, const char *handle, FXShaderParameterBinder *registry); };

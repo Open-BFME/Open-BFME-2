@@ -657,18 +657,6 @@ struct Rva000E57FFNode
 	Rva000E48BC *obj;
 };
 
-class Rva000E57FF
-{
-public:
-	void rva000E57FF(Rva000E488F *arg);
-
-	char m_pad[0x18];
-	Rva000E57FFNode *m_list;
-	char m_pad1C[0x21 - 0x1C];
-	unsigned char m_21;
-	unsigned char m_22;
-};
-
 // ?rva000E58BE@Rva000E58BE@@QAEXXZ @0x000E58BE 205B
 // Rva000E58BE::rva000E58BE, retail 0x000E58BE (205 bytes, EBP frame with
 // __EH_prolog): null-guards the index/vertex buffers at +8/+4 and the +0x20
@@ -1009,6 +997,102 @@ private:
     char m_pad21;
     unsigned char m22;
 };
+
+//
+// Scalar deleting destructors of the 28B flag-test shape, batch B01:
+// push esi / mov esi,ecx / call <dtor> / test [esp+8],1 / je / push esi /
+// call ??3 (0x2FD60) / pop ecx / mov eax,esi / pop esi / ret 4.
+//
+// Target facts: each ??_G body and the destructor address it calls are read
+// from the retail bytes; the destructor is a Ghidra-inventoried function
+// start with no other pin or ledger row, and is pinned opaquely.
+// Not established: the owning class, its layout and its destructor body.
+// Each class below is therefore declared with nothing but the virtual
+// destructor the ??_G needs; __declspec(noinline) keeps that destructor out
+// of line so the ??_G calls it through the pin, and its empty body here is a
+// placeholder, not a claim (present-unmatched). Names are address-derived
+// (Rva<dtor rva>) and disclaim identity.
+// Audit 2026-09-26: all 30 wrapper/callee boundaries and both calls verified.
+// Retired 2026-10-17: the 0x000D1E6C/0x000D1E88 pair. Its owner is proven to
+// be ShareBufferClass<unsigned> -- the pinned dtor's vtable store 0xBCE330 is
+// the vtable the rowed ctor 0xD1DE2 and the rowed copy ctor 0x15B000 install --
+// so both bodies now live under their real names in
+// Code/Libraries/Source/WWVegas/WW3D2/ShareBufferClassUnsignedCtor.cpp.
+// Virtual declarations are emission scaffolds, not recovered class layouts.
+// Nine wrappers have no pointer occurrence in retail .rdata/.data; virtual
+// ownership is unproven for those, as documented in the audit table.
+// See docs/reconstruction/deleting-destructor-identity-audit.md.
+
+struct EmitVtableTag;
+
+// ??_GRva000C2980@@UAEPAXI@Z @0x000C3808 28B; calls pinned ??1 at 0x000C2980
+class Rva000C2980 { public: Rva000C2980(EmitVtableTag *); virtual ~Rva000C2980(); };
+
+// ??_GRva000D1BA6@@UAEPAXI@Z @0x000D208D 28B; calls pinned ??1 at 0x000D1BA6
+class Rva000D1BA6 { public: Rva000D1BA6(EmitVtableTag *); virtual ~Rva000D1BA6(); };
+
+// ??_GRva00142FE0@@UAEPAXI@Z @0x000E00A4 28B; calls pinned ??1 at 0x00142FE0
+class Rva00142FE0 { public: Rva00142FE0(EmitVtableTag *); virtual ~Rva00142FE0(); };
+
+// ??_GRva000E5033@@UAEPAXI@Z @0x000E583E 28B; calls pinned ??1 at 0x000E5033
+class Rva000E5033 { public: Rva000E5033(EmitVtableTag *); virtual ~Rva000E5033(); };
+
+class Rva000E57FF
+{
+public:
+	void rva000E57FF(Rva000E488F *arg);
+
+	char m_pad[0x18];
+	Rva000E57FFNode *m_list;
+	char m_pad1C[0x21 - 0x1C];
+	unsigned char m_21;
+	unsigned char m_22;
+};
+
+class Rva000E585A
+{
+public:
+	void rva000E585A(Rva000E488F *arg);
+};
+
+// ??_GVegetationFXShaderParameterSourceNamespace@@UAEPAXI@Z @0x000E63C0 28B; calls pinned ??1 at 0x000E6387
+class FXShaderParameterBinder;
+
+class VegetationFXShaderParameterSourceNamespace { public: VegetationFXShaderParameterSourceNamespace(EmitVtableTag *); virtual ~VegetationFXShaderParameterSourceNamespace(); virtual void ResolveBindings(const char *name, const char *handle, FXShaderParameterBinder *registry); };
+
+// ??_GRva000E6C6F@@UAEPAXI@Z @0x000E6D78 28B; calls pinned ??1 at 0x000E6C6F
+class Rva000E6C6F { public: Rva000E6C6F(EmitVtableTag *); virtual ~Rva000E6C6F(); };
+
+// ??_GRva000E9BAC@@UAEPAXI@Z @0x000E9CDF 28B; calls pinned ??1 at 0x000E9BAC
+class Rva000E9BAC { public: Rva000E9BAC(EmitVtableTag *); virtual ~Rva000E9BAC(); };
+
+// ??_GRva000EFC45@@UAEPAXI@Z @0x000F1698 28B; calls pinned ??1 at 0x000EFC45
+class Rva000EFC45 { public: Rva000EFC45(EmitVtableTag *); virtual ~Rva000EFC45(); };
+
+// ??_GRva000F26DC@@UAEPAXI@Z @0x000F2B81 28B; calls pinned ??1 at 0x000F26DC
+class Rva000F26DC { public: Rva000F26DC(EmitVtableTag *); virtual ~Rva000F26DC(); };
+
+// ??_GRva000F2797@@UAEPAXI@Z @0x000F2B9D 28B; calls pinned ??1 at 0x000F2797
+class Rva000F2797 { public: Rva000F2797(EmitVtableTag *); virtual ~Rva000F2797(); };
+
+// ??_GRva00102188@@UAEPAXI@Z @0x001021BE 28B; calls pinned ??1 at 0x00102188
+class Rva00102188 { public: Rva00102188(EmitVtableTag *); virtual ~Rva00102188(); };
+
+// ??_GRva00104DB0@@UAEPAXI@Z @0x00104F16 28B; calls pinned ??1 at 0x00104DB0
+class Rva00104DB0 { public: Rva00104DB0(EmitVtableTag *); virtual ~Rva00104DB0(); };
+
+// ??_GRva001095B2@@UAEPAXI@Z @0x0010B9C9 28B; calls pinned ??1 at 0x001095B2
+class Rva001095B2 { public: Rva001095B2(EmitVtableTag *); virtual ~Rva001095B2(); };
+
+// ??_GRva0010F7EE@@UAEPAXI@Z @0x0010F7D2 28B; calls pinned ??1 at 0x0010F7EE
+// Retail BCFAB0 has two slots: 10F7D2 and the rowed handle forwarder 5D124D.
+// Match the factory's complete table instead of emitting a truncated copy.
+class Rva0010F7EE { public: Rva0010F7EE(EmitVtableTag *); virtual ~Rva0010F7EE(); virtual int rva005D124D(); };
+
+// ??_GRva0010F83E@@UAEPAXI@Z @0x0010F822 28B; calls pinned ??1 at 0x0010F83E
+class Rva0010F83E { public: Rva0010F83E(EmitVtableTag *); virtual ~Rva0010F83E(); };
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorBuffer.cpp
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorBuffer.cpp
 
@@ -1627,25 +1711,15 @@ void Rva000E5EE5::rva000E5EE5(const Rva0055A88BDwordField *idSrc, StringBase<cha
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 
-// tu-skeleton: 0x000E4886 9B ?rva000E4886@Rva000E4886@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VtableSlotBodiesR3.cpp (not merged yet)
 
-// tu-skeleton: 0x000E48BC 252B ?rva000E48BC@Rva000E48BC@@QAE_NPAVRva000E488F@@@Z -- matched in Code/GameEngine/Source/Common/Rva000E48BC.cpp (not merged yet)
 
-// tu-skeleton: 0x000E49B8 541B ?rva000E49B8@Rva000E48BC@@QAEHH@Z -- matched in Code/GameEngine/Source/Common/Rva000E48BC.cpp (not merged yet)
 
-// tu-skeleton: 0x000E4F20 275B ??0Gen_uw_000e5033@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorElementDestructor.cpp (not merged yet)
 
-// tu-skeleton: 0x000E5033 104B ??1Gen_uw_000e5033@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorElementDestructor.cpp (not merged yet)
 
-// tu-skeleton: 0x000E509B 875B ?load@Gen_uw_000e5033@@QAE_NXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorElementDestructor.cpp (not merged yet)
 
-// tu-skeleton: 0x000E583E 28B ??_GRva000E5033@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB01.cpp (not merged yet)
 
-// tu-skeleton: 0x000E585A 5B ?rva000E585A@Rva000E585A@@QAEXPAVRva000E488F@@@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB01.cpp (not merged yet)
 
-// tu-skeleton: 0x000E59D3 82B ??1Rva000E59D3@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva000E59D3Dtor.cpp (not merged yet)
 
-// tu-skeleton: 0x000E5A2B 28B ??_GRva000E59D3@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva000E59D3Dtor.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva000E59D3Ctor.cpp
 
@@ -1678,6 +1752,41 @@ Rva000E59D3::Rva000E59D3() : Rva000E59D3Base(), m14(0)
 // Native763401: complete11B list<int> member+18 constructor unwind.
 // Whole102B parent and native EH graph bind this action; the same object
 // emits the whole5B list destructor200667 forwarding to native list-base4EC395.
+
+// tu-skeleton: 0x000E4886 9B ?rva000E4886@Rva000E4886@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VtableSlotBodiesR3.cpp (not merged yet)
+
+// tu-skeleton: 0x000E48BC 252B ?rva000E48BC@Rva000E48BC@@QAE_NPAVRva000E488F@@@Z -- matched in Code/GameEngine/Source/Common/Rva000E48BC.cpp (not merged yet)
+
+// tu-skeleton: 0x000E49B8 541B ?rva000E49B8@Rva000E48BC@@QAEHH@Z -- matched in Code/GameEngine/Source/Common/Rva000E48BC.cpp (not merged yet)
+
+// tu-skeleton: 0x000E4F20 275B ??0Gen_uw_000e5033@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorElementDestructor.cpp (not merged yet)
+
+// tu-skeleton: 0x000E5033 104B ??1Gen_uw_000e5033@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorElementDestructor.cpp (not merged yet)
+
+// tu-skeleton: 0x000E509B 875B ?load@Gen_uw_000e5033@@QAE_NXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorElementDestructor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB01.cpp
+
+void Rva000E585A::rva000E585A(Rva000E488F *arg)
+{
+	((Rva000E57FF *)this)->rva000E57FF(arg);
+}
+
+// Each retail call in this body reads an address the ledger already carries
+// under the rowed name below; bind the donor spelling to that owner so one
+// address keeps one definition.
+//   0x000C2980 -> ??1Rva000C2980@@QAE@XZ
+//   0x000D1BA6 -> ??1Rva006DABB0@@UAE@XZ
+//   0x000E5033 -> ??1Gen_uw_000e5033@@QAE@XZ
+//   0x000E6C6F -> ??1Rva000E6AC0@@UAE@XZ
+//   0x000EFC45 -> ??1Geometry@@QAE@XZ
+//   0x000F26DC -> ??1W3DVolumetricShadow@@UAE@XZ
+//   0x000F2797 -> ??1W3DShadowGeometryManager@@QAE@XZ
+//   0x00142FE0 -> ??1RenderInfoClass@@QAE@XZ
+
+// tu-skeleton: 0x000E59D3 82B ??1Rva000E59D3@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva000E59D3Dtor.cpp (not merged yet)
+
+// tu-skeleton: 0x000E5A2B 28B ??_GRva000E59D3@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva000E59D3Dtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0076330E 11B $L5271 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorElementDestructor.cpp (not merged yet)
 
