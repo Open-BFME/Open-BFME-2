@@ -7770,7 +7770,7 @@ _GetProcessorFlags,,0x001C4390,169,Code/Libraries/Source/VP6/GetProcessorFlags.c
 ?set@Rva003BA688ByteSlot@@QAEXE@Z,,0x003BA688,13,Code/GameEngine/Source/Common/DispByteFieldSetters.cpp,matched,Disp32 byte setter
 ?set@Rva003BA695ByteSlot@@QAEXE@Z,,0x003BA695,13,Code/GameEngine/Source/Common/DispByteFieldSetters.cpp,matched,Disp32 byte setter
 ?set@Rva00415E96ByteSlot@@QAEXE@Z,,0x00415E96,13,Code/GameEngine/Source/Common/DispByteFieldSetters.cpp,matched,Disp32 byte setter
-?set@Rva0031410CDwordSlot@@QAEXH@Z,,0x0031410C,13,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp,matched,Disp32 dword setter
+?set@Rva0031410CDwordSlot@@QAEXH@Z,,0x0031410C,13,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp,matched,Disp32 dword setter
 ?set@Rva000E43F4DwordSlot@@QAEXH@Z,,0x000E43F4,13,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp,matched,Disp32 dword setter
 ?Reset_D3D_Device@@YAX_N@Z,,0x0004312A,278,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayResetD3DDevice.cpp,matched,BFME1 W3DDisplayResetD3DDevice port; DX8-mutex guard; Display slots measured from retail
 ?lessEntries@VersionBlockKeyCompare@@QBE_NPBUVersionBlockEntry@@0@Z,,0x00427C2C,33,Code/GameEngine/Source/Common/VersionBlockKeyCompare.cpp,matched,version-block table search key-compare leaf record-vs-record; used by search cluster near 0x427C88; strcmp via existing thunk pin; opaque holder
@@ -7950,7 +7950,7 @@ _GetProcessorFlags,,0x001C4390,169,Code/Libraries/Source/VP6/GetProcessorFlags.c
 ?set@Rva0030C89ADwordSlot@@QAEXH@Z,,0x0030C89A,13,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp,matched,Disp32 dword setter
 ?set@Rva0030C8AEDwordSlot@@QAEXH@Z,,0x0030C8AE,13,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp,matched,Disp32 dword setter
 ?set@Rva0030C93DDwordSlot@@QAEXH@Z,,0x0030C93D,13,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp,matched,Disp32 dword setter
-?set@Rva003140F8DwordSlot@@QAEXH@Z,,0x003140F8,13,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp,matched,Disp32 dword setter
+?set@Rva003140F8DwordSlot@@QAEXH@Z,,0x003140F8,13,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp,matched,Disp32 dword setter
 ?set@Rva00332B28DwordSlot@@QAEXH@Z,,0x00332B28,13,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp,matched,Disp32 dword setter
 ?set@Rva0033F940DwordSlot@@QAEXH@Z,,0x0033F940,13,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp,matched,Disp32 dword setter
 ?set@Rva0036CBCCDwordSlot@@QAEXH@Z,,0x0036CBCC,13,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp,matched,Disp32 dword setter
@@ -10112,7 +10112,7 @@ _read_word,,0x0074A700,184,Code/Libraries/Source/Lua/liolib_bfme1.c,matched,stri
 ?set@Rva00285652DwordSlot@@QAEXH@Z,,0x00285652,13,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp,matched,Disp32 dword setter
 ?set@Rva0028A5E8DwordSlot@@QAEXH@Z,,0x0028A5E8,13,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp,matched,Disp32 dword setter
 ?set@Rva002DAC27DwordSlot@@QAEXH@Z,,0x002DAC27,13,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp,matched,Disp32 dword setter
-?set@Rva003140E4DwordSlot@@QAEXH@Z,,0x003140E4,13,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp,matched,Disp32 dword setter
+?set@Rva003140E4DwordSlot@@QAEXH@Z,,0x003140E4,13,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp,matched,Disp32 dword setter
 ?rva006C4E50@@YAXXZ,,0x006C4E50,61,Code/Libraries/Source/WWVegas/WWDebug/Rva006C4CD0InitDbghelp.cpp,matched,
 ?name@Rva0026E7E4Named@@QBEPBDXZ,,0x0026E7E4,6,Code/GameEngine/Source/Common/SubsystemNameGetters2.cpp,matched,literal name getter returning LuaSpyData; vtable ref in .rdata; address-derived placeholder name
 ?name@Rva0028CA92Named@@QBEPBDXZ,,0x0028CA92,6,Code/GameEngine/Source/Common/SubsystemNameGetters.cpp,matched,literal name getter returning ObjectRecoveryHelper; vtable ref in .rdata; address-derived placeholder name
@@ -10120,7 +10120,7 @@ _read_word,,0x0074A700,184,Code/Libraries/Source/Lua/liolib_bfme1.c,matched,stri
 ?name@Upgrade@@QBEPBDXZ,,0x0026EDF9,6,Code/GameEngine/Source/Common/SubsystemNameGetters2.cpp,matched,literal name getter returning Upgrade; vtable ref in .rdata; address-derived placeholder name
 ?name@GhostObject@@QBEPBDXZ,,0x00305B30,6,Code/GameEngine/Source/Common/SubsystemNameGetters2.cpp,matched,literal name getter returning GhostObject; vtable ref in .rdata; address-derived placeholder name
 ?name@Rva003067C4Named@@QBEPBDXZ,,0x003067C4,6,Code/GameEngine/Source/Common/GODupBase.cpp,matched,literal name getter returning BuffLogic; vtable ref in .rdata; address-derived placeholder name
-?set@Rva0031417CDwordSlot@@QAEXH@Z,,0x0031417C,13,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp,matched,Disp32 dword setter
+?set@Rva0031417CDwordSlot@@QAEXH@Z,,0x0031417C,13,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp,matched,Disp32 dword setter
 ?name@Rva00306A48Named@@QBEPBDXZ,,0x00306A48,6,Code/GameEngine/Source/Common/SubsystemNameGetters2.cpp,matched,literal name getter returning Module; vtable ref in .rdata; address-derived placeholder name
 ?name@Rva0028CB23Named@@QBEPBDXZ,,0x0028CB23,6,Code/GameEngine/Source/Common/SubsystemNameGetters.cpp,matched,literal name getter returning ObjectRepulsorHelper; vtable ref in .rdata; address-derived placeholder name
 ?name@ObjectModule@@QBEPBDXZ,,0x00306B13,6,Code/GameEngine/Source/Common/SubsystemNameGetters2.cpp,matched,literal name getter returning ObjectModule; vtable ref in .rdata; address-derived placeholder name
