@@ -83,13 +83,112 @@ DEPENDENCY_ORDER = [
 ]
 # Views of these are stripped together with the class (the header brings them in).
 STRIP_WITH = {"AsciiString": ["StringBase"], "UnicodeString": ["StringBase"]}
-NON_CODE = re.compile(r'//[^\n]*|/\*.*?(?:\*/|\Z)|"(?:\\.|[^"\\\n])*"?|\'(?:\\.|[^\'\\\n])*\'?', re.S)
+IDENT_CHAR = re.compile(r"[\w$]")
+SPLICE = re.compile(r"\\\r?\n")
+RAW_STRING = re.compile(r'(?<![\w$])(?:u8|[LuU])?R"([^ ()\\\t\v\f\r\n"]{0,16})\(')
 
 
 # ---------------------------------------------------------------- source surgery
 
-def masked(text):
-    return NON_CODE.sub(lambda m: re.sub(r"[^\n]", " ", m.group()), text)
+def spliced_identifiers(text):
+    """Identifiers a line splice joins: `other_\\\nm_flags` is one token, not two."""
+    out = set()
+    for m in SPLICE.finditer(text):
+        before, after = m.start(), m.end()
+        if not before or after >= len(text):
+            continue
+        if not (IDENT_CHAR.match(text[before - 1]) and IDENT_CHAR.match(text[after])):
+            continue
+        start, end = before, after
+        while start and IDENT_CHAR.match(text[start - 1]):
+            start -= 1
+        while end < len(text) and IDENT_CHAR.match(text[end]):
+            end += 1
+        out.add(SPLICE.sub("", text[start:end]))
+    return out
+
+
+def masked(text, keep_literals=False):
+    """`text` with comments and literals blanked, one character per input character so
+    positions still line up. A line splice joins its lines: a continued `//` comment is one
+    comment, and an identifier a splice splits is one token (blanked whole, so a rename can
+    never reach half of it). Raw strings, including the ones holding a quote, are blanked
+    whole. `keep_literals` keeps string and character literals (an `#include` names a file)."""
+    out = list(text)
+    i, n = 0, len(text)
+
+    def blank(a, b):
+        for k in range(a, b):
+            if out[k] not in "\r\n":
+                out[k] = " "
+
+    for m in SPLICE.finditer(text):
+        before, after = m.start(), m.end()
+        if before and after < n and IDENT_CHAR.match(text[before - 1]) and IDENT_CHAR.match(text[after]):
+            start, end = before, after
+            while start and IDENT_CHAR.match(text[start - 1]):
+                start -= 1
+            while end < n and IDENT_CHAR.match(text[end]):
+                end += 1
+            blank(start, end)
+    while i < n:
+        ch = text[i]
+        if ch == "/" and text.startswith("//", i):
+            j = i + 2
+            while j < n:
+                if text[j] == "\n":
+                    break
+                if text[j] == "\\" and text.startswith("\n", j + 1):
+                    j += 2
+                    continue
+                if text[j] == "\\" and text.startswith("\r\n", j + 1):
+                    j += 3
+                    continue
+                j += 1
+            blank(i, j)
+            i = j
+            continue
+        if ch == "/" and text.startswith("/*", i):
+            j = text.find("*/", i + 2)
+            j = n if j < 0 else j + 2
+            blank(i, j)
+            i = j
+            continue
+        raw = RAW_STRING.match(text, i)
+        if raw:
+            close = ")" + raw.group(1) + '"'
+            j = text.find(close, raw.end())
+            j = n if j < 0 else j + len(close)
+            if not keep_literals:
+                blank(i, j)
+            i = j
+            continue
+        if ch in "\"'":
+            j = i + 1
+            while j < n:
+                if text[j] == "\\" and j + 1 < n:
+                    j += 2
+                    continue
+                if text[j] == ch:
+                    j += 1
+                    break
+                if text[j] == "\n":
+                    break
+                j += 1
+            if not keep_literals:
+                blank(i, j)
+            i = j
+            continue
+        if ch == "\\" and text.startswith("\n", i + 1):
+            out[i] = " "
+            i += 2
+            continue
+        if ch == "\\" and text.startswith("\r\n", i + 1):
+            out[i] = " "
+            i += 3
+            continue
+        i += 1
+    return "".join(out)
 
 
 def body_span(text, name):
@@ -185,14 +284,187 @@ def flat_fields(name, layouts, base=0, seen=()):
     return out
 
 
-def field_renames(source, text, strip, include, compile=None):
+def read_path(path):
+    try:
+        return Path(path).read_text(encoding="latin-1")
+    except OSError:
+        return None
+
+
+def read_source(source):
+    return read_path(ROOT / source)
+
+
+def include_sources(source, text=None, depth=2):
+    """[(path, text)] for the quoted includes `source` reaches that resolve next to the
+    includer, at the root or under Code/ (the build's own include roots are not read here).
+    `text` is the unit's own text when it is not (or not only) the file on disk."""
+    start = Path(os.path.normpath(str(ROOT / source)))
+    out, queue, seen = [], [(start, 0)], {str(start)}
+    while queue and len(out) < 200:
+        path, level = queue.pop(0)
+        body = text if level == 0 and text is not None else read_path(path)
+        if body is None:
+            continue
+        if level:
+            out.append((str(path), body))
+        if level >= depth:
+            continue
+        for m in re.finditer(r'(?m)^[ \t]*#[ \t]*include[ \t]*"([^"]+)"', masked(body, keep_literals=True)):
+            for base in (path.parent, ROOT, ROOT / "Code"):
+                candidate = Path(os.path.normpath(str(base / m.group(1))))
+                if str(candidate) not in seen and candidate.is_file():
+                    seen.add(str(candidate))
+                    queue.append((candidate, level + 1))
+                    break
+    return out
+
+
+def header_sources(header):
+    """[(path, text)] for the canonical header and its quoted includes, or None when the
+    header itself cannot be read."""
+    text = read_source(header)
+    if text is None:
+        return None
+    return [(header, text)] + include_sources(header)
+
+
+def hierarchy(name, layouts):
+    """`name` and its bases: a name any of them declares can hide a field of that name."""
+    out, stack = [], [name]
+    while stack:
+        cls = stack.pop()
+        if cls in out:
+            continue
+        out.append(cls)
+        for base, _offset in (layouts.get(cls) or {}).get("bases", []):
+            stack.append(base)
+    return out
+
+
+def class_scope(body):
+    """`body` with every nested brace block blanked: only the declarations in the class
+    body's own scope remain. A method body and a nested class's members drop out, while a
+    nested class's head stays."""
+    out, depth = list(body), 0
+    for i, ch in enumerate(body):
+        if ch == "{":
+            depth += 1
+            if depth > 1:
+                out[i] = " "
+        elif ch == "}":
+            if depth > 1:
+                out[i] = " "
+            depth -= 1
+        elif depth > 1 and ch not in "\r\n":
+            out[i] = " "
+    return "".join(out)
+
+
+def header_hiding(texts, classes):
+    """{identifier: [why]} for the nested types, typedefs, using aliases and enumerators the
+    bodies of `classes` declare in `texts`: each hides a data field of that name."""
+    out = collections.defaultdict(list)
+    for _path, text in texts:
+        code = masked(text)
+        for name, start, end, _key in class_layouts.class_body_spans(text):
+            if name not in classes:
+                continue
+            open_ = code.find("{", start)
+            if open_ < 0:
+                continue
+            body = code[open_ + 1:end - 1]
+            for m in re.finditer(r"\benum\b[^{};]*\{([^{}]*)\}", body):
+                for ident in re.findall(r"[A-Za-z_]\w*", m.group(1)):
+                    out[ident].append(f"an enumerator of {name}")
+            flat = class_scope(body)
+            for m in re.finditer(r"\b(?:class|struct|union|enum)\s+(?:__declspec\([^)]*\)\s*)*([A-Za-z_]\w*)", flat):
+                out[m.group(1)].append(f"a nested type of {name}")
+            for m in re.finditer(r"\btypedef\b([^;]*);", flat):
+                alias = re.search(r"([A-Za-z_]\w*)\s*(?:\[[^\]]*\])?\s*$", m.group(1))
+                if alias:
+                    out[alias.group(1)].append(f"a typedef of {name}")
+            for m in re.finditer(r"\busing\s+([A-Za-z_]\w*)\s*=", flat):
+                out[m.group(1)].append(f"a using-alias of {name}")
+    return out
+
+
+def hiding(name, layouts, texts=()):
+    """{identifier: [why]} for every declaration in `name`'s hierarchy that can hide a field
+    of that name: a static, a method, a nested type, a typedef, a using alias or an
+    enumerator. Plain data fields are not here: flat_fields owns them."""
+    out = collections.defaultdict(list)
+    family = set(hierarchy(name, layouts))
+    for cls in family:
+        lay = layouts.get(cls) or {}
+        for found in lay.get("statics", []):
+            out[found].append(f"a static member of {cls}")
+        for found in lay.get("methods", []):
+            out[found].append(f"a method of {cls}")
+    for ident, why in header_hiding(texts, family).items():
+        out[ident].extend(why)
+    return out
+
+
+def block_end(code, open_):
+    """The index of the `}` matching the `{` at `open_`, or the end of the text."""
+    depth = 0
+    for i in range(open_, len(code)):
+        if code[i] == "{":
+            depth += 1
+        elif code[i] == "}":
+            depth -= 1
+            if not depth:
+                return i
+    return len(code)
+
+
+def name_shadow(sources, name):
+    """Why an unqualified `name` is not proven to be the adopting class in these sources, or
+    None: a typedef, a using alias or a namespace-scoped type of that name is another type."""
+    for where, text in sources:
+        code = masked(text)
+        if re.search(r"\btypedef\b[^;{}]*\b" + re.escape(name) + r"\s*;", code):
+            return f"{where}: a typedef declares `{name}`; the unqualified name is not proven the adopting class"
+        if re.search(r"\busing\s+" + re.escape(name) + r"\s*=", code):
+            return f"{where}: a using-alias declares `{name}`; the unqualified name is not proven the adopting class"
+        for m in re.finditer(r"\bnamespace\b[^{;]*\{", code):
+            body = code[m.end():block_end(code, m.end() - 1)]
+            if re.search(r"\b(?:class|struct|union|enum)\s+(?:__declspec\([^)]*\)\s*)*"
+                         + re.escape(name) + r"\b", body):
+                return (f"{where}: a namespace declares a type `{name}`; the unqualified name is not "
+                        "proven the adopting class")
+    return None
+
+
+def macro_shadow(sources, mappings, text):
+    """Why a `#define` in the unit or an include makes a rename unsafe, or None: a macro that
+    names a receiver, an old or new field, or the class itself rewrites the tokens around it."""
+    olds = {old for m in mappings.values() for old in m}
+    news = {new for m in mappings.values() for new in m.values()}
+    code = masked(text)
+    receivers = {m.group(1) for old in olds
+                 for m in re.finditer(r"([A-Za-z_]\w*)\s*(?:->|\.)\s*" + re.escape(old) + r"\b", code)}
+    watched = olds | news | set(mappings) | receivers
+    for where, body in sources:
+        for m in re.finditer(r"(?m)^[ \t]*#[ \t]*define[ \t]+([A-Za-z_]\w*)", masked(body)):
+            if m.group(1) in watched:
+                return (f"{where}: `#define {m.group(1)}` names a receiver, field or class this rename "
+                        "depends on")
+    return None
+
+
+def field_renames(source, text, strip, include, compile=None, header=None):
     """({class: {private field: canonical field}}, None) for the unit's views of the
     `strip` classes, or (None, why) when a private field has no canonical field of its
     offset and size, several canonical fields share that offset and size (a union) and
-    none carries the private name, the canonical name is declared by more than one class
-    of the hierarchy (hidden or shadowed), the two disagree on what the field is, or a
-    rename is unsafe in the unit (tu_views.rename_problem). `compile(source, text)` gives
-    {class: layout} (text None: the unit as it stands)."""
+    none carries the private name, the canonical name is declared by another class of the
+    hierarchy or hidden by a static, method, nested type, typedef, using alias or enumerator
+    there (the unqualified name would select that), the two disagree on what the field is, a
+    rename is unsafe in the unit (tu_views.rename_problem), or the unit or an include shadows
+    the class's name or defines a macro the rename depends on. `compile(source, text)` gives
+    {class: layout} (text None: the unit as it stands); `header` is the canonical header,
+    whose class bodies prove the new names hide nothing (refused when it cannot be read)."""
     import tu_views
     compile = compile or compile_text
     try:
@@ -213,6 +485,11 @@ def field_renames(source, text, strip, include, compile=None):
             views.append((view, own))
     if not views:
         return {}, None
+    canonical = []
+    if header:
+        canonical = header_sources(header)
+        if canonical is None:
+            return None, f"the canonical header {header} cannot be read; no proof of its names"
     try:
         laid = compile(source, probe_text(text, strip, include))
     except RuntimeError as exc:
@@ -220,18 +497,19 @@ def field_renames(source, text, strip, include, compile=None):
     mappings = {}
     for view, own in views:
         name = view.cls
-        canonical = flat_fields(name, laid)
-        if not canonical:
+        fields = flat_fields(name, laid)
+        if not fields:
             return None, f"{include}: the probe laid out no field of {name}"
         declared = collections.defaultdict(set)         # canonical field -> classes declaring it
-        for found in canonical.values():
+        for found in fields.values():
             for field, _, owner in found:
                 declared[field].add(owner)
+        hides = hiding(name, laid, canonical)
         table = tu_views.field_table(view)
         mine = {}
         for old in own:
             offset, size, cvtype = table[old]
-            found = canonical.get((offset, size), [])
+            found = fields.get((offset, size), [])
             if not found:
                 return None, (f"{name}::{old} (+0x{offset:X}, {size} bytes) has no canonical field "
                               "of that offset and size")
@@ -243,6 +521,9 @@ def field_renames(source, text, strip, include, compile=None):
             if len(declared[new]) > 1:
                 return None, (f"{name}::{old} -> {new}: {new} is declared by "
                               + ", ".join(sorted(declared[new])) + "; the unqualified name is hidden or shadowed")
+            if new in hides:
+                return None, (f"{name}::{old} -> {new}: {new} is {hides[new][0]} in the hierarchy; "
+                              "the unqualified name would select it")
             if not tu_views.cv_compatible(cvtype, want):
                 return None, f"{name}::{old} (+0x{offset:X}) is {cvtype}; the canonical {owner}::{new} is {want}"
             if new != old:
@@ -252,35 +533,128 @@ def field_renames(source, text, strip, include, compile=None):
             return None, why
         if mine:
             mappings[name] = mine
+    if mappings:
+        sources = [(source, text)] + include_sources(source, text) + canonical
+        for name in mappings:
+            why = name_shadow(sources, name)
+            if why:
+                return None, why
+        why = macro_shadow(sources, mappings, text)
+        if why:
+            return None, why
     return mappings, None
 
 
 # -- scoped renaming: a reference is rewritten only when its class is proven
-NOT_TYPES = {"return", "delete", "else", "case", "goto", "sizeof", "new", "throw", "typedef", "operator",
-             "using", "namespace", "public", "private", "protected", "virtual", "static", "extern", "inline",
-             "const", "volatile", "struct", "class", "union", "enum", "friend", "template", "typename", "do"}
-DECL = r"(?<![\w.>:])((?:[A-Za-z_]\w*\s*::\s*)*[A-Za-z_]\w*)\s*((?:const\s*)?(?:[*&]\s*(?:const\s*)?)*)\b{}\s*"
+STATEMENT_WORDS = {"return", "delete", "else", "case", "goto", "sizeof", "new", "throw", "typedef",
+                   "operator", "using", "namespace", "public", "private", "protected", "virtual",
+                   "static", "extern", "inline", "friend", "template", "do", "if", "while", "for",
+                   "switch", "catch", "break", "continue", "default", "const_cast", "static_cast",
+                   "dynamic_cast", "reinterpret_cast", "this", "true", "false", "asm", "try",
+                   "noexcept", "decltype", "alignof", "alignas", "export", "mutable", "explicit",
+                   "register", "return"}
+TYPE_WORDS = {"void", "int", "float", "double", "char", "short", "long", "unsigned", "signed", "bool",
+              "const", "volatile", "struct", "class", "union", "enum", "wchar_t", "__int8", "__int16",
+              "__int32", "__int64", "typename", "auto"}
 
 
-def declared_types(code, ident, call=False):
-    """{type} the masked code declares `ident` with: a variable, parameter or field, or with
-    `call` a function's return type. Qualifiers and pointers are dropped."""
-    follow = r"(?=\()" if call else r"(?=[,;=)\[:])"
-    types = set()
-    for m in re.finditer(DECL.format(re.escape(ident)) + follow, code):
-        word = re.sub(r"\s+", "", m.group(1))
-        if word.split("::")[-1] in NOT_TYPES or word == ident:
+def decl_type_before(code, at):
+    """The type `code` spells just before `at` when `at` starts a declarator, else None (a
+    use). The spelling is kept: `OtherNS::Object` and `Box<Other>` are not `Object`.
+    Qualifiers, pointers and references are dropped."""
+    i, parts, has_type = at, [], False
+    while i:
+        j = i
+        while j and code[j - 1] in " \t\r\n":
+            j -= 1
+        if not j:
+            break
+        ch = code[j - 1]
+        if ch == ">":                                   # a template-id: Box<Other>
+            depth, k = 0, j
+            while k:
+                k -= 1
+                if code[k] == ">":
+                    depth += 1
+                elif code[k] == "<":
+                    depth -= 1
+                    if not depth:
+                        break
+            if depth:
+                break
+            name = re.search(r"([A-Za-z_]\w*)\s*$", code[:k])
+            if not name:
+                break
+            parts.append(code[k:j].strip())
+            parts.append(name.group(1))
+            i, has_type = name.start(), True
             continue
-        types.add(word.split("::")[-1])
+        word = re.search(r"([A-Za-z_]\w*)$", code[:j])
+        if word:
+            if word.group(1) in STATEMENT_WORDS:
+                break
+            parts.append(word.group(1))
+            i = word.start()
+            has_type = True
+            continue
+        if j >= 2 and code.startswith("::", j - 2):
+            parts.append("::")
+            i = j - 2
+            continue
+        if ch in "*&":
+            i = j - 1
+            continue
+        break
+    if not has_type:
+        return None
+    spelled = ""
+    for part in reversed(parts):
+        if part == "::":
+            spelled += "::"
+        elif part.startswith("<"):
+            spelled += part
+        else:
+            spelled += ("" if not spelled or spelled.endswith("::") else " ") + part
+    return re.sub(r"^(?:(?:const|volatile|struct|class|enum|union|typename|unsigned|signed|long|short)\s+)+",
+                  "", spelled)
+
+
+def declaration_types(code, ident):
+    """{type} the masked code declares `ident` with, in any form: a variable, a parameter, a
+    field, a function's return type, a direct initialisation (`Other p(1)`), a template-id.
+    Only declarations count; a use adds nothing."""
+    types = set()
+    for m in re.finditer(r"(?<![\w$])" + re.escape(ident) + r"(?![\w$])", code):
+        at = m.start()
+        if at and (code[at - 1] == "." or code[max(0, at - 2):at] in ("->", "::")):
+            continue
+        spelled = decl_type_before(code, at)
+        if spelled:
+            types.add(spelled)
     return types
+
+
+def starts_declaration(code, at):
+    """Whether the qualified name at `at` heads a definition: what precedes it is nothing, a
+    block or statement end, or a type, never an operator or a call."""
+    j = at
+    while j and code[j - 1] in " \t\r\n":
+        j -= 1
+    if not j or code[j - 1] in ";}{:":
+        return True
+    word = re.search(r"([A-Za-z_]\w*)$", code[:j])
+    return bool(word) and (word.group(1) in TYPE_WORDS or word.group(1) not in STATEMENT_WORDS)
 
 
 def member_spans(code, classes):
     """[(start, end, class)]: the out-of-line member function definitions of `classes` in the
-    masked unit, from the qualified name through the closing brace (initializer list included)."""
+    masked unit, from the qualified name through the closing brace (initializer list
+    included). A call that happens to spell `Class::name(` is not a definition."""
     spans = []
     for cls in classes:
         for m in re.finditer(r"\b" + re.escape(cls) + r"\s*::\s*~?[A-Za-z_]\w*\s*\(", code):
+            if not starts_declaration(code, m.start()):
+                continue
             depth, i = 0, m.end() - 1
             while i < len(code):                        # the parameter list
                 depth += (code[i] == "(") - (code[i] == ")")
@@ -302,10 +676,50 @@ def member_spans(code, classes):
     return spans
 
 
+NESTED_SCOPE = re.compile(r"(?:\b(?:class|struct|union)\b[^{;]*[^)\s]"
+                          r"|\[[^\]]*\]\s*(?:\([^()]*\))?\s*(?:mutable\s*)?)$")
+
+
+def unsafe_scope(code, start, at):
+    """Whether `at`, inside the span beginning at `start`, lies in a nested class, struct,
+    union or lambda body: there `this` and a bare name are not the member function's class."""
+    depth, i = [], code.find("{", start)
+    while 0 <= i < at:
+        if code[i] == "{":
+            prev = max(code.rfind(ch, 0, i) for ch in ";{}")
+            depth.append(bool(NESTED_SCOPE.search(code[prev + 1:i].rstrip())))
+        elif code[i] == "}":
+            if depth:
+                depth.pop()
+        i += 1
+    return any(depth)
+
+
+def in_capture_list(code, at):
+    """Whether `at` is inside a `[...]` that introduces a lambda (a subscript is not one)."""
+    depth, i = 0, at
+    while i:
+        i -= 1
+        if code[i] == "]":
+            depth += 1
+        elif code[i] == "[":
+            if not depth:
+                before = code[:i].rstrip()
+                if not before:
+                    return True
+                if before[-1] in ")]":
+                    return False
+                word = re.search(r"([A-Za-z_]\w*)$", before)
+                return word.group(1) in STATEMENT_WORDS if word else before[-1] not in "0123456789"
+            depth -= 1
+    return False
+
+
 def object_class(code, end, here):
     """The class of the object expression ending at `end` (just before its `->` or `.`):
-    `this` in a member function, an identifier or a call the unit declares with exactly one
-    type; None for anything else (chains, indexing, casts, several declared types)."""
+    `this` in a member function, an identifier or a call every declaration of which spells
+    exactly one type; None for anything else (chains, indexing, casts, several declared
+    types, a qualified or template type, which is not the adopting class's own name)."""
     i = end
     while i and code[i - 1] in " \t\r\n":
         i -= 1
@@ -325,19 +739,30 @@ def object_class(code, end, here):
         return here
     if code[:name.start()].rstrip().endswith(("->", ".", "::")):
         return None                                     # a chained or qualified expression
-    types = declared_types(code, name.group(1), call)
+    types = declaration_types(code, name.group(1))
     return next(iter(types)) if len(types) == 1 else None
+
+
+def declared_class(code, name):
+    """Whether the masked code declares `name` a class or struct (a forward declaration
+    counts): only then is a member of that name proven not the adopting class's."""
+    return bool(re.search(r"\b(?:class|struct)\s+(?:__declspec\([^)]*\)\s*)*" + re.escape(name) + r"\b", code))
 
 
 def scoped_rename(text, mappings):
     """(text with every reference to a renamed field rewritten, None), or (None, why) when an
     occurrence of an old name is not proven to be a member of a class it is renamed in, or of
     a class unrelated to them. Proven: `this->x` or a bare `x` inside an out-of-line member
-    function of the class (where nothing declares x locally), `p->x` / `o.x` / `f()->x`
-    where the unit declares p, o or f with exactly one type, and `Class::x`."""
+    function of the class (where nothing declares x locally), `p->x` / `o.x` / `f()->x` where
+    every declaration of p, o or f in the file spells exactly the class, and `Class::x`.
+    A nested class or lambda, a capture list, a macro, a splice, a local, or any other
+    spelling of the type refuses the unit."""
     olds = {old for m in mappings.values() for old in m}
     if not olds:
         return text, None
+    spliced = spliced_identifiers(text) & olds
+    if spliced:
+        return None, f"`{sorted(spliced)[0]}` is split by a line splice; not proven a member"
     code = masked(text)
     spans = member_spans(code, list(mappings))
     derived = re.compile(r"\b(?:class|struct)\s+(\w+)\s*:[^{;]*\b(?:" + "|".join(map(re.escape, mappings)) + r")\b")
@@ -351,23 +776,32 @@ def scoped_rename(text, mappings):
         line = code[code.rfind("\n", 0, at) + 1:at]
         if line.lstrip().startswith("#"):
             return None, f"{where} is in a preprocessor line; not proven a member"
+        if in_capture_list(code, at):
+            return None, f"{where} is in a lambda capture list; not proven a member"
         inside = next((sp for sp in spans if sp[0] <= at < sp[1]), None)
         here = inside[2] if inside else None
+        if inside and unsafe_scope(code, inside[0], at):
+            return None, (f"{where} is inside a nested class or lambda in a {here} member function; "
+                          "not proven a member")
         before = code[:at].rstrip()
         if before.endswith("->") or (before.endswith(".") and not before.endswith("..")):
             cls = object_class(code, len(before) - (2 if before.endswith("->") else 1), here)
         elif before.endswith("::"):
-            q = re.search(r"([A-Za-z_]\w*)\s*$", before[:-2])
-            cls = q.group(1) if q else None
-        elif inside and not declared_types(code[inside[0]:inside[1]], old):
+            q = re.search(r"((?:[A-Za-z_]\w*\s*::\s*)*[A-Za-z_]\w*)\s*$", before[:-2])
+            cls = re.sub(r"\s+", "", q.group(1)) if q else None
+        elif inside and not declaration_types(code[inside[0]:inside[1]], old):
             cls = here
         else:
             cls = None
         if cls is None:
             return None, (f"{where} is not proven a member of " + "/".join(sorted(mappings))
                           + "; refusing rather than guessing")
-        if cls not in mappings and cls in heirs:
-            return None, f"{where}: {cls} derives from " + "/".join(sorted(mappings)) + "; not resolved"
+        if cls not in mappings:
+            if cls in heirs:
+                return None, f"{where}: {cls} derives from " + "/".join(sorted(mappings)) + "; not resolved"
+            if not declared_class(code, cls):
+                return None, (f"{where} is reached through `{cls}`, which the unit does not declare a "
+                              "class; not proven a member of another class")
         new = mappings.get(cls, {}).get(old)
         if new:
             out.append(text[last:at])
@@ -836,7 +1270,7 @@ def try_unit(source, strip, header, key):
     swapped = swap(text, strip, include)
     if swapped is None:
         return source, "no private view found", None, []
-    fields, why = field_renames(source, text, strip, include)
+    fields, why = field_renames(source, text, strip, include, header=header)
     if why:
         return source, f"field renames: {why}", None, []
     if fields:

@@ -216,3 +216,176 @@ def test_s3_try_unit_refuses_a_unit_with_an_unproven_occurrence(tree):
                                          encoding="latin-1", newline="")
     source, why, text, _ = lane.try_unit("Code/u.cpp", ["Object", "Thing"], "Code/Object.h", "class")
     assert text is None and why.startswith("field renames: m_flags at line")
+
+
+# -- R2 regressions: every example Sol's second review named, each a silent wrong rename or
+#    a rename of a token that is not the adopting class's field.
+
+def test_s2_a_static_of_the_same_name_in_the_hierarchy_is_refused():
+    header = dict(HEADER_LAYOUTS, Object=layout([(8, "m_moveSpeed", "float", 4)], bases=[("Thing", 0)]))
+    header["Object"]["statics"] = ["m_status"]
+    mapping, why = lane.field_renames("u.cpp", UNIT, ["Object"], "Object.h", compiler(header=header))
+    assert mapping is None and "m_status is a static member of Object" in why
+
+
+def test_s2_a_method_of_the_same_name_in_the_hierarchy_is_refused():
+    header = dict(HEADER_LAYOUTS, Object=layout([(8, "m_moveSpeed", "float", 4)], bases=[("Thing", 0)]))
+    header["Object"]["methods"] = ["m_status"]
+    mapping, why = lane.field_renames("u.cpp", UNIT, ["Object"], "Object.h", compiler(header=header))
+    assert mapping is None and "m_status is a method of Object" in why
+
+
+def test_s2_a_nested_type_of_the_same_name_in_the_header_is_refused(tmp_path, monkeypatch):
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    (tmp_path / "Object.h").write_text(
+        "class Thing { public: int m_status; int m_extra; };\n"
+        "class Object : public Thing { public: float m_moveSpeed; class m_status; };\n",
+        encoding="latin-1", newline="")
+    mapping, why = lane.field_renames("u.cpp", UNIT, ["Object"], "Object.h", compiler(), header="Object.h")
+    assert mapping is None and "m_status is a nested type of Object" in why
+
+
+def test_s2_an_enumerator_of_the_same_name_in_the_header_is_refused(tmp_path, monkeypatch):
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    (tmp_path / "Object.h").write_text(
+        "class Thing { public: int m_status; int m_extra; };\n"
+        "class Object : public Thing { public: float m_moveSpeed; enum { m_status }; };\n",
+        encoding="latin-1", newline="")
+    mapping, why = lane.field_renames("u.cpp", UNIT, ["Object"], "Object.h", compiler(), header="Object.h")
+    assert mapping is None and "m_status is an enumerator of Object" in why
+
+
+def test_s3_a_template_type_for_the_receiver_refuses_the_rename():
+    text = ("class Other;\nclass Object;\ntemplate <class T> class Box;\n"
+            "int f(Object *p) { return p->m_flags; }\n"
+            "#if 0\nint g(Box<Other> *p) { return p->m_flags; }\n#endif\n")
+    out, why = lane.scoped_rename(text, RENAMES)
+    assert out is None and "not proven a member" in why
+
+
+def test_s3_a_receiver_declared_only_with_a_template_is_refused():
+    text = "class Other;\ntemplate <class T> class Box;\nint f(Box<Other> *p) { return p->m_flags; }\n"
+    out, why = lane.scoped_rename(text, RENAMES)
+    assert out is None
+
+
+def test_s3_direct_initialisation_of_another_type_refuses_the_rename():
+    text = ("class Other;\nclass Object;\nint f(Object *p) { return p->m_flags; }\n"
+            "int g() { Other p(1); return 0; }\n")
+    out, why = lane.scoped_rename(text, RENAMES)
+    assert out is None and "not proven a member" in why
+
+
+def test_s3_direct_initialisation_of_the_class_is_recognised():
+    text = "class Object;\nint f() { Object p(1); return p.m_flags; }\n"
+    out, why = lane.scoped_rename(text, RENAMES)
+    assert why is None and out.endswith("return p.m_status; }\n")
+
+
+def test_s4_a_nested_struct_in_a_member_function_refuses_the_rename():
+    text = ("class Other;\n"
+            "int Object::g() { struct Local : Other { int f() { return this->m_flags; } }; return 0; }\n")
+    out, why = lane.scoped_rename(text, RENAMES)
+    assert out is None and "nested class or lambda" in why
+
+
+def test_s4_a_lambda_capture_in_a_member_function_refuses_the_rename():
+    text = "class Object;\nint Object::g() { return [&m_flags]() { return m_flags; }; }\n"
+    out, why = lane.scoped_rename(text, RENAMES)
+    assert out is None and "capture list" in why
+
+
+def test_s4_a_call_is_not_a_member_definition():
+    text = ("class Object { public: static bool test(); };\n"
+            "int f() { if (Object::test()) { return m_flags; } return 0; }\n")
+    out, why = lane.scoped_rename(text, RENAMES)
+    assert out is None and "not proven a member" in why
+
+
+def test_s5_a_qualified_type_is_not_the_adopting_class():
+    text = "namespace OtherNS { class Object; }\nint f(OtherNS::Object *p) { return p->m_flags; }\n"
+    out, why = lane.scoped_rename(text, RENAMES)
+    assert out is None
+
+
+def test_s5_a_qualified_class_member_access_is_not_the_adopting_class():
+    text = "namespace OtherNS { class Object; }\nint g() { return OtherNS::Object::m_flags; }\n"
+    out, why = lane.scoped_rename(text, RENAMES)
+    assert out is None
+
+
+def test_s5_a_typedef_of_the_class_name_refuses_the_unit(tmp_path, monkeypatch):
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    mapping, why = lane.field_renames("u.cpp", UNIT + "typedef Team Object;\n", ["Object"], "Object.h", compiler())
+    assert mapping is None and "a typedef declares `Object`" in why
+
+
+def test_s5_a_using_alias_of_the_class_name_refuses_the_unit(tmp_path, monkeypatch):
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    mapping, why = lane.field_renames("u.cpp", UNIT + "using Object = Team;\n", ["Object"], "Object.h", compiler())
+    assert mapping is None and "a using-alias declares `Object`" in why
+
+
+def test_s5_a_typedef_in_an_include_refuses_the_unit(tmp_path, monkeypatch):
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    (tmp_path / "Code").mkdir()
+    (tmp_path / "Code" / "u.cpp").write_text(UNIT + '#include "alias.h"\n', encoding="latin-1", newline="")
+    (tmp_path / "Code" / "alias.h").write_text("typedef Team Object;\n", encoding="latin-1", newline="")
+    text = (tmp_path / "Code" / "u.cpp").read_text(encoding="latin-1")
+    mapping, why = lane.field_renames("Code/u.cpp", text, ["Object"], "Object.h", compiler())
+    assert mapping is None and "alias.h: a typedef declares `Object`" in why
+
+
+def test_s6_a_macro_naming_a_receiver_refuses_the_unit(tmp_path, monkeypatch):
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    mapping, why = lane.field_renames("u.cpp", UNIT + "#define o q\n", ["Object"], "Object.h", compiler())
+    assert mapping is None and "`#define o`" in why
+
+
+def test_s6_a_macro_naming_the_new_field_refuses_the_unit(tmp_path, monkeypatch):
+    # rename_problem's collision check fires first on this spelling; either refusal is safe.
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    mapping, why = lane.field_renames("u.cpp", UNIT + "#define m_status other\n", ["Object"], "Object.h", compiler())
+    assert mapping is None and why
+
+
+def test_s6_a_macro_naming_the_class_refuses_the_unit(tmp_path, monkeypatch):
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    mapping, why = lane.field_renames("u.cpp", UNIT + "#define Object X\n", ["Object"], "Object.h", compiler())
+    assert mapping is None and "`#define Object`" in why
+
+
+def test_s6_a_macro_in_an_include_refuses_the_unit(tmp_path, monkeypatch):
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    (tmp_path / "Code").mkdir()
+    (tmp_path / "Code" / "u.cpp").write_text(UNIT + '#include "macros.h"\n', encoding="latin-1", newline="")
+    (tmp_path / "Code" / "macros.h").write_text("#define o q\n", encoding="latin-1", newline="")
+    text = (tmp_path / "Code" / "u.cpp").read_text(encoding="latin-1")
+    mapping, why = lane.field_renames("Code/u.cpp", text, ["Object"], "Object.h", compiler())
+    assert mapping is None and "macros.h: `#define o`" in why
+
+
+def test_s7_a_spliced_identifier_is_not_half_rewritten():
+    text = "class Object;\nint Object::g() { return other_\\\nm_flags; }\n"
+    out, why = lane.scoped_rename(text, RENAMES)
+    assert why is None and out == text
+
+
+def test_s7_a_spliced_old_name_is_refused():
+    text = "class Object;\nint f(Object *o) { return o->m_fl\\\nags; }\n"
+    out, why = lane.scoped_rename(text, RENAMES)
+    assert out is None and "line splice" in why
+
+
+def test_s7_a_continued_comment_is_not_code():
+    text = ("class Object;\nint f(Object *o) { return o->m_flags; }\n"
+            "// the member \\\no->m_flags is documented here\n")
+    out, why = lane.scoped_rename(text, RENAMES)
+    assert why is None and out.count("m_status") == 1
+
+
+def test_s7_a_raw_string_is_not_code():
+    text = ('class Object;\nint f(Object *o) { return o->m_flags; }\n'
+            'const char *s = R"(say "o->m_flags")";\n')
+    out, why = lane.scoped_rename(text, RENAMES)
+    assert why is None and out.count("m_status") == 1
