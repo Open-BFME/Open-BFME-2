@@ -15361,3 +15361,5 @@ RenderObjClass copies only; the remaining private views stay in the header
 queue and no class-wide link/census improvement is inferred.
 Retail table, compiled layout and provenance are retained in
 reverse/attempt_support/renderobj-canonical-qc10-20261031/README.md.
+
+Sibling publication follow-up: tools/push.py landed ecf9028b74 on the first attempt in 41.1 seconds. Pre-push reused all three strict source receipts and passed its normal cross-checks. The required batch audit is INCONCLUSIVE against index d249ce458a / outgoing base dae67b429b: affected consumer Common/0CreateAHeroManager21FE49.cpp lacks a current receipt. Carry that consumer, all three shader-vector units and the copy/cleanup provider cohort into the next scheduled census. The +444 is a bounded preview increment, not an updated census headline.
