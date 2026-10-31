@@ -5195,7 +5195,7 @@ _AverageBlock_MMX,,0x001D76E0,84,Code/Libraries/Source/VP6/AverageBlockMmx.cpp,m
 _Copy12x12_MMX,,0x001D76A0,51,Code/Libraries/Source/VP6/ReconMmx.cpp,matched,Clean-room spec 001d76a0; Copy12x12_MMX: cdecl 12x12 byte block copy as 12 rows of three dwords with separate source and destination strides (plain integer C); spread-table slot B40 of all three tiers; implemented from the spec plus retail only (no VP6 source read); full 51B exact; replaces placeholder copyTwelveVec3
 ??0Rva007F0F20Struct@@QAE@HHHHHHHHHHH@Z,,0x0065DAB0,81,Code/Libraries/Source/Fesl/blobservice.cpp,matched,bfme1 uncapped SmallGaps sweep exact placement
 ??0Rva007F0F80Owner@@QAE@HHHHHHHDDHHHH@Z,,0x0065DB10,95,Code/Libraries/Source/Fesl/blobservice.cpp,matched,bfme1 uncapped SmallGaps sweep exact placement
-?allocSlot@Rva007F6A10Owner@@QAEPAURva007F6A10Slot@@XZ,,0x006631A0,41,Code/GameEngine/Source/Common/SmallGaps/Rva007F6A10AllocSlot.cpp,matched,bfme1 uncapped SmallGaps sweep exact placement
+?allocSlot@Rva007F6A10Owner@@QAEPAURva007F6A10Slot@@XZ,,0x006631A0,41,Code/Libraries/Source/Fesl/gamebrowser/gamebrowser.cpp,matched,bfme1 uncapped SmallGaps sweep exact placement
 ?nextNode@Rva009A2BE0Iter@@QAEPAURva009A2BE0Node@@XZ,,0x00758B80,68,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,matched,bfme1 uncapped SmallGaps sweep exact placement
 ?nextNode@Rva009A2AB0Iter@@QAEPAURva009A2AB0Node@@XZ,,0x00758A50,68,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,matched,bfme1 uncapped SmallGaps sweep exact placement
 ?popSqrt@Rva009F2FA0Reader@@QAEHPAM@Z,,0x00625B70,42,Code/GameEngine/Source/Common/SmallGaps/Rva009F2FA0PopSqrt.cpp,matched,bfme1 uncapped SmallGaps sweep exact placement
@@ -8256,7 +8256,7 @@ _duck_memset,,0x001B6420,49,Code/Libraries/Source/VP6/MemShim.cpp,matched,Clean-
 ??0Rva005A7A90@@QAE@XZ,,0x004296C2,44,Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp,matched,BFME1 donor with vtable-literal repair; b1 0x005A7A90
 ?probeFile@@YAXPBDPAH@Z,,0x006B8AE0,44,Code/GameEngine/Source/Common/SmallGaps/probeFile.cpp,matched,BFME1 donor with fopen-fclose import repair; b1 0x00879240
 ?bfmeFormatToBuffer88A640@@YAXPBDZZ,,0x000398F0,42,Code/Libraries/Source/debug/debug_cmd.cpp,matched,BFME1 byte-identical donor; b1 0x0088A640
-?wrap@Rva007F5FB0@@UAEXPAX000@Z,,0x00662750,36,Code/GameEngine/Source/GameNetwork/Rva007F5FB0VirtualForward.cpp,matched,BFME1 byte-identical donor; b1 0x007F5FB0
+?wrap@Rva007F5FB0@@UAEXPAX000@Z,,0x00662750,36,Code/Libraries/Source/Fesl/gamebrowser/gamebrowser.cpp,matched,BFME1 byte-identical donor; b1 0x007F5FB0
 ??0Rva007F4DA0@@QAE@XZ,,0x00661830,33,Code/GameEngine/Source/Common/Rva007F4DA0Ctor.cpp,matched,BFME1 byte-identical donor; b1 0x007F4DA0
 ?_bfme_debugRecordCallsite@@YAXH@Z,,0x00038790,33,Code/GameEngine/Source/Common/Debug_recordCallsite.cpp,matched,BFME1 byte-identical donor; b1 0x008896A0
 ??0Energy@@QAE@XZ,,0x00674870,32,Code/GameEngine/Source/Common/RTS/EnergyConstructorThunk.cpp,matched,BFME1 byte-identical donor; b1 0x00808880
@@ -8418,7 +8418,7 @@ _VP6_StopDecoder,,0x001B62E0,67,Code/Libraries/Source/VP6/StopDecoder.cpp,matche
 _VP6_AllocateTmpBuffers,,0x001B55E0,179,Code/Libraries/Source/VP6/TmpBuffers.cpp,matched,Clean-room spec 001b55e0; VP6_AllocateTmpBuffers: allocates four 32-byte aligned scratch buffers; same retail extent as the replaced placeholder; implemented from reverse/vp6_cleanroom/specs/001b55e0.md and retail only
 ?bfmeReplace1153@BfmeS1153@@QAEXIIPBD@Z,,0x000268C0,135,Code/GameEngine/Source/Common/BfmeConv1153.cpp,matched,BFME1 byte-identical donor; b1 0x0082DC60
 ?bfmeGoPQ@BfmeThingPQ@@QAEXPBU1@@Z,,0x000266F0,49,Code/GameEngine/Source/Common/BfmeTwoHundredSeventySix.cpp,matched,BFME1 byte-identical donor; b1 0x0082DA90
-?videoBufferValue@Rva007F5A70Owner@@QAEHPAVW3DVideoBuffer@@@Z,,0x00662220,58,Code/GameEngine/Source/Common/SmallGaps/Rva007F5A70VideoBufferValue.cpp,matched,BFME1 byte-identical donor; b1 0x007F5A80
+?videoBufferValue@Rva007F5A70Owner@@QAEHPAVW3DVideoBuffer@@@Z,,0x00662220,58,Code/Libraries/Source/Fesl/gamebrowser/gamebrowser.cpp,matched,BFME1 byte-identical donor; b1 0x007F5A80
 ?removePendingRequest@Rva00803080@@QAEXH@Z,,0x0066F2C0,178,Code/GameEngine/Source/GameNetwork/Y2FeslGameBrowserPinger.cpp,matched,BFME1 byte-identical donor; b1 0x00803260; 2 DIR32 string literals agree
 ?onConnectReply@Rva00800780Owner@@QAEXPAVRva007E8810Message@@@Z,,0x0066CB90,174,Code/Libraries/Source/Fesl/gamebrowser/gamebrowserdemangler.cpp,matched,BFME1 byte-identical donor; b1 0x00800780; 3 DIR32 string literals agree
 ?Rva00895340@Gen_uw_00893e70@@QAEXXZ,,0x006D0390,126,Code/GameEngine/Source/Common/Rva00895340InlineContainer.cpp,matched,BFME1 byte-identical donor; b1 0x00895340
@@ -8768,7 +8768,7 @@ _luaG_symbexec,,0x0074CEF0,437,Code/Libraries/Source/Lua/ldebug.c,matched,BFME1 
 ?notifyEcho@FeslEchoNotifier@@QAEXXZ,,0x0066D140,227,Code/GameEngine/Source/GameNetwork/FeslEchoNotifier.cpp,matched,BFME1 near-miss donor b1 0x00800D60 immediate-only drift
 ?d_008830d0@Rva008830D0Class@@QAEPAV1@H@Z,,0x0003CC80,21,Code/Libraries/Source/debug/debug_except.cpp,matched,BFME1 donor with address-drift repair; retail pushes 0xBBE8DC which holds 0x
 ?Rva007E93C0@@YGXPAVRva007E8810Message@@PBD11HHH11_N2@Z,,0x006563B0,223,Code/GameEngine/Source/GameNetwork/Rva007E93C0Acct.cpp,matched,BFME1 near-miss donor b1 0x007E93C0 immediate-only drift
-?bfmeGoBDB@@YAXPAXPAVBfmeSubBDB@@@Z,,0x00663000,17,Code/GameEngine/Source/Common/BfmeConv443.cpp,matched,BFME1 byte-identical donor; b1 0x0021A2F0; thiscall shape refutes free-function twins; donor-attested bfmeDoBDB pin only
+?bfmeGoBDB@@YAXPAXPAVBfmeSubBDB@@@Z,,0x00663000,17,Code/Libraries/Source/Fesl/gamebrowser/gamebrowser.cpp,matched,BFME1 byte-identical donor; b1 0x0021A2F0; thiscall shape refutes free-function twins; donor-attested bfmeDoBDB pin only
 ?load@Rva007E8F20Country@@QAE_NPAVRva007E8810Message@@H@Z,,0x00655F90,243,Code/GameEngine/Source/GameNetwork/Rva007E90C0Names.cpp,matched,BFME1 near-miss donor b1 0x007E8F20 immediate-only drift
 ?m@T_009f4fb0@@QAEXPAURva009F5970StateInit@@@Z,,0x006276E0,132,Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp,matched,BFME1 near-miss donor b1 0x009F4FB0; list head plus 0x114 repair same as bfmeAddEQR lane; callees via existing pins
 ?allocate@Rva00801600@@QAEXH@Z,,0x0066DEB0,75,Code/GameEngine/Source/GameNetwork/Rva00801BD0FeslAlloc.cpp,matched,BFME1 byte-identical donor; b1 0x00801BD0; ICF-folded in BFME1 so the name is this sweep single pick among its twins

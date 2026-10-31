@@ -230,7 +230,6 @@ Code/GameEngine/Source/Common/S3PolymorphicArrayClear128.cpp,,1,1,region default
 Code/GameEngine/Source/Common/S3SmallAccessorFamilies.cpp,,4,1,region default loses rows
 Code/GameEngine/Source/Common/SListTagBlockIndexRemoveAllThunk.cpp,,3,1,region default loses rows
 Code/GameEngine/Source/Common/SmallGaps/Rva00664EC0Method.cpp,-O2 -G5,1,1,region default loses rows
-Code/GameEngine/Source/Common/SmallGaps/Rva007F6A10AllocSlot.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/Common/SmallGaps/Rva007F9A40GetOrCreateSlot.cpp,,2,1,region default loses rows
 Code/GameEngine/Source/Common/SmallGaps/Rva0087DBA0BaseValue.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/Common/SmallGaps/Rva008809E0Transform2D.cpp,,1,1,region default loses rows
@@ -535,7 +534,7 @@ Code/Libraries/Source/EA/Apt/AptString/EAStringCMid.cpp,-O2,4,1,region default l
 Code/Libraries/Source/EA/Apt/AptString/EAStringCRemoveRange.cpp,-O2,1,1,region default loses rows
 Code/Libraries/Source/Fesl/ariesudp.cpp,-O2,3,2,region default loses rows
 Code/Libraries/Source/Fesl/blobservice.cpp,,1,1,region default loses rows
-Code/Libraries/Source/Fesl/gamebrowser/gamebrowser.cpp,,8,6,region default loses rows
+Code/Libraries/Source/Fesl/gamebrowser/gamebrowser.cpp,,9,7,region default loses rows
 Code/Libraries/Source/Fesl/gamebrowser/gamebrowserdemangler.cpp,,7,7,region default loses rows
 Code/Libraries/Source/Fesl/gamebrowser/gamebrowserpinger.cpp,,3,3,region default loses rows
 Code/Libraries/Source/Fesl/gamebrowser/lantheateremulator.cpp,-O2,5,5,region default loses rows

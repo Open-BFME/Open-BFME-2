@@ -1630,7 +1630,6 @@ alternatename	Code/GameEngine/Source/Common/BfmeConv1773.cpp	??0BfmeScopeCO@@QAE
 alternatename	Code/GameEngine/Source/Common/BfmeConv1773.cpp	?bfmeCloseCN@BfmeInnerCN@@QAEXPAX@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv1773.cpp	?bfmeStepCN@BfmeTargetCN@@QAEDH@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv2131.cpp	?bfmeOneCDE@BfmeOwnerCDE@@QAEXPAX@Z	1
-alternatename	Code/GameEngine/Source/Common/BfmeConv443.cpp	?bfmeCbVJM@@YGXXZ	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv479.cpp	?bfmeDoBLA@@YGXH@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv487.cpp	?bfmeNoteVJI@BfmeSubVJI@@QAEXPBD@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv606.cpp	?addInt@BfmeMsg803A00@@QAEXPBDH@Z	1
@@ -2509,7 +2508,6 @@ alternatename	Code/GameEngine/Source/Common/S3AllocatorOperatorNewDelete.cpp	?bf
 alternatename	Code/GameEngine/Source/Common/S3PolymorphicArrayClear.cpp	?bfmeClearAVHW@BfmeSubAVHW@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/S3PolymorphicArrayClear.cpp	?bfmeDtorATYA@BfmeHeadTYA@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/S3PolymorphicArrayClear128.cpp	?bfmeRva0066EB40@BfmeSubBZC@@QAEXXZ	1
-alternatename	Code/GameEngine/Source/Common/SmallGaps/Rva007F5A70VideoBufferValue.cpp	?m@Gen_007e88b0@@QAEHXZ	1
 alternatename	Code/GameEngine/Source/Common/SpawnArmyCopyCtor.cpp	??0BfmePod88@@QAE@ABU0@@Z	1
 alternatename	Code/GameEngine/Source/Common/StateMachineXfer.cpp	?XferObjectID@@YAAAVXfer@@PAV1@PAW4ObjectID@@@Z	1
 alternatename	Code/GameEngine/Source/Common/StdioStreambufBase.cpp	??0stdio_streambuf_base@_SgI@@QAE@PAU_iobuf@@@Z	1
@@ -3819,6 +3817,8 @@ alternatename	Code/Libraries/Source/DirtySock/commudp.cpp	_Rva00819300Op	1
 alternatename	Code/Libraries/Source/EA/Apt/AptString/EAStringCRefCount.cpp	??1S4Mem005864A0@@QAE@XZ	1
 alternatename	Code/Libraries/Source/EA/Apt/AptString/EAStringCRefCount.cpp	??1S4Mem005879C0@@QAE@XZ	1
 alternatename	Code/Libraries/Source/EA/Apt/StringPoolInitialize.cpp	?rva006CD4A0@EAStringC@@QBE_NXZ	1
+alternatename	Code/Libraries/Source/Fesl/gamebrowser/gamebrowser.cpp	?bfmeCbVJM@@YGXXZ	1
+alternatename	Code/Libraries/Source/Fesl/gamebrowser/gamebrowser.cpp	?m@Gen_007e88b0@@QAEHXZ	1
 alternatename	Code/Libraries/Source/Fesl/gamebrowser/gamebrowser.cpp	?resetHpState@Rva007F5D10HostLookup@@QAEXPAVRva008022A0Owner@@@Z	1
 alternatename	Code/Libraries/Source/Fesl/gamebrowser/gamebrowserdemangler.cpp	?bfmeDo1052@Rva00800E50Owner@@QAEXHPAURva00800E50Stamp@@H@Z	1
 alternatename	Code/Libraries/Source/Fesl/gamebrowser/gamebrowserdemangler.cpp	?bfmeFreeVNC@Rva00800E50Owner@@QAEXPAVRva007E8810Message@@@Z	1
