@@ -1,3 +1,5 @@
+// cl: /MD /Ireference/shims/moduledata
+// stlport
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // PerTurnStats snapshot transfer, retail 0x004EE15B.
@@ -19,7 +21,7 @@ public:
 	virtual void vf32(); virtual void vf33(void *p);
 };
 
-class LivingWorldScoreKeeper { public: class PerTurnStats; };
+#include "../../Include/Common/LivingWorldScoreKeeper.h"
 class LivingWorldScoreKeeper::PerTurnStats
 {
 public:

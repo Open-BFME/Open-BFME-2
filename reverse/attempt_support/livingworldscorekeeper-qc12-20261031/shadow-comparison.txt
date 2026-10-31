@@ -1,0 +1,5 @@
+?allocate@?$allocator@U?$_Rb_tree_node@U?$pair@$$CBUTemplateCountKey@@H@_STL@@@_STL@@@_STL@@QBEPAU?$_Rb_tree_node@U?$pair@$$CBUTemplateCountKey@@H@_STL@@@2@IPBX@Z
+?allocate@?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@U?$pair@$$CBUTemplateCountKey@@H@_STL@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@U?$pair@$$CBUTemplateCountKey@@H@_STL@@@_STL@@@2@@_STL@@QAEPAU?$_Rb_tree_node@U?$pair@$$CBUTemplateCountKey@@H@_STL@@@2@I@Z
+?rva004EE8B8@@YAXPAUObjectCountMap@@0@Z
+?rva004EE950@LivingWorldScoreKeeper@@QAEXPAVScoreKeeper@@@Z
+all complete bytes and relocations unchanged

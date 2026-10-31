@@ -43,3 +43,9 @@ pins, aliases, ledger edits, or tools changes. Header acceptance is used for any
 queue retirement. Shared obstacle register is held by another worker; this
 README contains the proposed entry and scope. BFME1 pinned input remains
 7a8a034afa7d; no external donor fact establishes target offsets here.
+
+First served consumer Rva004EE15BFwd.cpp passes adoption and accept. It only
+defines PerTurnStats::xfer and emits no LivingWorldScoreKeeper vtable.
+Added STLport and canonical Snapshot include context; method stays exact.
+All four header-hook shadow definition findings have identical complete bytes
+and relocations in the original and adopted owner (shadow-comparison.txt).
