@@ -1,4 +1,4 @@
-// cl: /EHsc
+// cl: /O1 /arch:SSE /Ob1 /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc
 // ??0Rva0002C4FD@@QAE@ABV?$StringBase@D@@0@Z @0x0002C4FD 57B
 // Honest placeholder ctor: two StringBase<char> at +0 and +4 via pinned
 // 0x000365F0 copy, returns this. Layout read from retail stores (copy to
@@ -6,31 +6,19 @@
 // destroy via pair dtor 0x0002C0C0. Same 57B shape as pair two-arg ctor
 // 0x002027B1 which already claims the STL name, so honest Rva name used.
 
-template <typename T> class StringBase
-{
-	friend struct Rva0002C4FD;
-	StringBase(const StringBase<T> &other);
-	void releaseBuffer();
-	void *m_data;
-
-public:
-	StringBase() : m_data(0) {}
-	~StringBase() { releaseBuffer(); }
-};
-
 // Existing public narrow teardown spelling resolves to the verified
 // 133-byte releaseBuffer worker at RVA 0x36410. Wide teardown is unchanged.
-template <> StringBase<char>::~StringBase();
+#include "ascii_string.h"
 
-
+// Teardown resolves to the verified 133-byte releaseBuffer worker at RVA 0x36410.
 struct Rva0002C4FD
 {
-	StringBase<char> m_a; // +0
-	StringBase<char> m_b; // +4
+	AsciiString m_a; // +0
+	AsciiString m_b; // +4
 	Rva0002C4FD(const StringBase<char> &lhs, const StringBase<char> &rhs);
 };
 
 Rva0002C4FD::Rva0002C4FD(const StringBase<char> &lhs, const StringBase<char> &rhs)
-	: m_a(lhs), m_b(rhs)
+	: m_a(*(const AsciiString *)&lhs), m_b(*(const AsciiString *)&rhs)
 {
 }

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1
+// cl: /O1 /arch:SSE /Ob1 /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc
 // stlport
 //
 // vector<AsciiString>::erase(first, last), retail 0x002CCFC, 51 bytes.
@@ -10,44 +10,15 @@
 // The four-argument wrapper is defined here (Nugget-erase idiom): it
 // forwards to the five-argument __copy worker rowed at 0x000B4431 under
 // this TU's spelling. Both bodies are verified below.
+#pragma inline_depth(3)
+#define _STLP_NO_EXCEPTIONS 1
 #include "ascii_string.h"
+#include <vector>
+#include <memory>
 
-namespace _STL
-{
-
-struct __false_type
-{
-};
-
-struct random_access_iterator_tag
-{
-};
-
-template <class Type>
-class allocator
-{
-};
-
-template <class Type, class Allocator>
-class vector
-{
-public:
-	typedef Type *iterator;
-
-	iterator erase(iterator first, iterator last);
-	iterator begin() { return m_start; }
-	iterator end() { return m_finish; }
-
-private:
-	iterator m_start;
-	iterator m_finish;
-	iterator m_endOfStorage;
-};
-
-template <class InputIter, class OutputIter, class Distance>
-OutputIter __copy(InputIter first, InputIter last, OutputIter result,
-	const random_access_iterator_tag &tag, Distance *extra);
-
+// Retail's range erase goes through a by-reference __copy_ptrs that forwards to
+// the five-argument __copy worker rowed at 0x000B4431, unlike the vendored by-value one.
+namespace _STL {
 template <class InputIter, class OutputIter>
 OutputIter __copy_ptrs(InputIter first, InputIter last, OutputIter result,
 	const __false_type &tag)
@@ -57,19 +28,27 @@ OutputIter __copy_ptrs(InputIter first, InputIter last, OutputIter result,
 		reinterpret_cast<const random_access_iterator_tag &>(local), (int *)0);
 }
 
-template <class ForwardIter>
-void _Destroy(ForwardIter first, ForwardIter last);
-
+template <> inline vector<AsciiString, allocator<AsciiString> >::iterator
+vector<AsciiString, allocator<AsciiString> >::erase(iterator first, iterator last)
+{
+	typedef iterator (*CopyPtrs)(iterator, iterator, iterator, const __false_type &);
+	iterator result = static_cast<CopyPtrs>(__copy_ptrs)(last, this->_M_finish, first, __false_type());
+	_Destroy(result, this->_M_finish);
+	this->_M_finish = result;
+	return first;
+}
 }
 
-_STL::vector<AsciiString, _STL::allocator<AsciiString> >::iterator
-inline _STL::vector<AsciiString, _STL::allocator<AsciiString> >::erase(
-	iterator first, iterator last)
+// Retail's range destroy calls the out-of-line destructor 0x0048BA39 for each
+// string, so its first instantiation expands the helpers but not the destructor.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline void _Destroy<AsciiString>(AsciiString *pointer)
 {
-	iterator result = __copy_ptrs(last, m_finish, first, __false_type());
-	_STL::_Destroy(result, m_finish);
-	m_finish = result;
-	return first;
+    pointer->AsciiString::~AsciiString();
+}
+#pragma inline_depth(3)
+template void _Destroy<AsciiString *>(AsciiString *, AsciiString *);
+#pragma inline_depth()
 }
 
 // The genuine erase-all caller below emits this header-inline erase and

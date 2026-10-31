@@ -48,22 +48,24 @@ class MultiIniFieldParse
 {
 public:
 	enum { MAX_MULTI_FIELDS = 16 };
-	const FieldParse *m_fieldParse[MAX_MULTI_FIELDS];
-	UnsignedInt m_extraOffset[MAX_MULTI_FIELDS];
-	Int m_count;
-	inline Int getCount() const { return m_count; }
-	inline const FieldParse *getNthFieldParse(Int i) const { return m_fieldParse[i]; }
-	inline UnsignedInt getNthExtraOffset(Int i) const { return m_extraOffset[i]; }
+	inline int getCount() const { return m_count; }
+	inline const FieldParse *getNthFieldParse(int i) const { return m_fieldParse[i]; }
+	inline unsigned getNthExtraOffset(int i) const { return m_extraOffset[i]; }
+	MultiIniFieldParse();
+	void add(const FieldParse *fields, unsigned extraOffset);
+	const FieldParse *m_fieldParse[MAX_MULTI_FIELDS]; // +0x00
+	unsigned m_extraOffset[MAX_MULTI_FIELDS]; // +0x40
+	int m_count; // +0x80
 };
 
 class INIException
 {
 public:
-	INIException(int code, const char *format, ...);
-	INIException(const INIException &that);
-	~INIException();
+	INIException(int argCount, const char *format, ...);
 	char *mFailureMessage;
 	int mErrorCode;
+	INIException(const INIException &that);
+	~INIException();
 };
 
 class INI
@@ -78,13 +80,13 @@ private:
 	unsigned char m_pad0[0x14];
 	char m_buffer[0x418 - 0x14];		// +0x14
 	const char *m_seps;			// +0x418
-	const char *m_x41C;
-	const char *m_x420;
-	const char *m_x424;
+	const char *m_sepsPercent;
+	const char *m_sepsColon;
+	const char *m_sepsQuote;
 	const char *m_blockEndToken;		// +0x428
-	const char *m_x42C;
-	Bool m_endOfFile;			// +0x430
-	char m_curBlockStart[0x400];		// +0x431
+	const char *m_endScriptToken;
+	unsigned char m_endOfFile;		// +0x430
+	char m_curBlockStart[0x838 - 0x431];	// +0x431
 };
 
 void __cdecl Rva0002C237Get(INI *ini);	// 0x0002C237

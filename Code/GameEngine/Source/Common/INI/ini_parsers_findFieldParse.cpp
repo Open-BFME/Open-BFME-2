@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ob1 /Ireference/open-bfme-1/inputs/reference/shims/ini_inline /Ireference/open-bfme-1/inputs/reference/shims/ini /Ireference/open-bfme-1/inputs/reference/shims/sweep /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad
+// cl: /O1 /arch:SSE /Ob1 /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc
 //
 // ?findFieldParse@@YAP6AXPAVINI@@PAX1PBX@ZPBUFieldParse@@PBDAAHAAPBX@Z
 // retail 0x0002BC27, 71 bytes. Dedicated TU ported from the Open-BFME-1
@@ -48,18 +48,27 @@
 // different arena at 0x000B8E80..0x000BB040 and CALL it out of line. A single TU
 // cannot produce both, so ini.cpp keeps that group and this file takes this one.
 //
-// The include path puts inputs/reference/shims/ini_inline first: its Common/INI.h is
-// the same header with getNextToken inline and BFME's member layout (m_seps at
-// +0x414, with no 8K m_readBuffer ahead of m_buffer).
-#include "PreRTS.h"
-#include "Common/INI.h"
+#include <string.h>
+#include "ascii_string.h"
 
-//-------------------------------------------------------------------------------------------------
-static INIFieldParseProc findFieldParse(const FieldParse* parseTable, const char* token, int& offset, const void*& userData)
+class INI;
+
+typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
+
+struct FieldParse
 {
-	for (const FieldParse* parse = parseTable; parse->token; ++parse)
+	const char *token;
+	INIFieldParseProc parse;
+	const void *userData;
+	int offset;
+};
+
+static INIFieldParseProc findFieldParse(const FieldParse *parseTable, const char *token, int &offset, const void *&userData)
+{
+	const FieldParse *parse;
+	for (parse = parseTable; parse->token; ++parse)
 	{
-		if (strcmp( parse->token, token ) == 0)
+		if (strcmp(parse->token, token) == 0)
 		{
 			offset = parse->offset;
 			userData = parse->userData;
@@ -67,7 +76,7 @@ static INIFieldParseProc findFieldParse(const FieldParse* parseTable, const char
 		}
 	}
 
-	if (!parse->token && parse->parse) 
+	if (!parse->token && parse->parse)
 	{
 		offset = parse->offset;
 		userData = token;
@@ -75,25 +84,10 @@ static INIFieldParseProc findFieldParse(const FieldParse* parseTable, const char
 	}
 	else
 	{
-		return NULL;
+		return 0;
 	}
 }
 
-//-------------------------------------------------------------------------------------------------
-// MultiIniFieldParse::add is inline in this TU's Common/INI.h; force the
-// out-of-line COMDAT retail keeps at 0x00850920.
-#pragma auto_inline(off)
-
-#pragma auto_inline(on)
-
-//-------------------------------------------------------------------------------------------------
-// Every integer INI field lands here. BFME first runs the token through the
-// macro table (see INI::preprocessMacro) and reports the SUBSTITUTED text in the
-// error, not the original token.
-#pragma auto_inline(off)
-
-//-------------------------------------------------------------------------------------------------
-//-------------------------------------------------------------------------------------------------
 // Retail's element here is AsciiString, but the vector<AsciiString> COMDAT this
 // TU reaches is the copy at 0x00063700 -- the one whose element copy calls
 // StringBase<char>'s constructor out of line, which 38 retail sites encode. The

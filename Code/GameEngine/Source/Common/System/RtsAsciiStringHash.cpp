@@ -38,6 +38,17 @@ namespace rts
 	{
 		unsigned int operator()(const AsciiString &key) const;
 	};
+	template <class T> struct equal_to
+	{
+	};
+	template <> struct equal_to<AsciiString>
+	{
+		// Expanded in place; the file emits no out-of-line copy of this functor.
+		__declspec(dllimport) __forceinline bool operator()(const AsciiString &a, const AsciiString &b) const
+		{
+			return a.compareNoCase(b) == 0;
+		}
+	};
 }
 
 unsigned int rts::hash<AsciiString>::operator()(const AsciiString &key) const

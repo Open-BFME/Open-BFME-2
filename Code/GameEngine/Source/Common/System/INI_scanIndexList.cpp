@@ -1,4 +1,4 @@
-// cl: /Oy- /DNDEBUG /MD /GX- /Oi-
+// cl: /O1 /arch:SSE /Ob1 /DNDEBUG /MD /EHsc
 //
 // ?scanIndexList@INI@@QAEHPBDPBQBD@Z, retail 0x002BD39, 76 bytes.
 // Dedicated TU (same INI family as INI_scanLookupList.cpp, framed).
@@ -22,22 +22,17 @@ public:
 	int scanIndexList(const char *token, ConstCharPtrArray nameList);
 };
 
-struct INIException
+class INIException
 {
-	INIException() {}
+public:
 	INIException(int argCount, const char *format, ...);
 	char *mFailureMessage;
 	int mErrorCode;
+	INIException(const INIException &that);
+	~INIException();
 };
 
 #include <string.h>
-extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
-
-// Address anchor only: the throw site pushes this object's address as an
-// immediate (DIR32, copied from retail's throwinfo at 0xCFE2FC). Content is
-// never compared; the real chain lives in the retail image.
-struct ScanIndexListThrowInfoAnchor { int a; int b; int c; int d; };
-static const ScanIndexListThrowInfoAnchor scanIndexListThrowInfoAnchor = { 0, 0, 0, 0 };
 
 // _rva002bcab_scanIndex, retail 0x002BCAB, 132 bytes. Index-list worker
 // behind member scanIndexList: walks the null-terminated 4-byte-per-entry
@@ -47,14 +42,12 @@ static const ScanIndexListThrowInfoAnchor scanIndexListThrowInfoAnchor = { 0, 0,
 // through the shared INIException filler plus _CxxThrowException).
 extern "C" int rva002bcab_scanIndex(const char *token, ConstCharPtrArray nameList, bool *found, bool doThrow)
 {
-	INIException e;
 	ConstCharPtrArray cursor;
 	int index;
 
 	*found = false;
 	if (nameList == 0 || nameList[0] == 0) {
-		e.INIException::INIException(2, "INTERNAL ERROR! scanIndexList: No name list provided!");
-		_CxxThrowException(&e, (const _s__ThrowInfo *)&scanIndexListThrowInfoAnchor); __assume(0);
+		throw INIException(2, "INTERNAL ERROR! scanIndexList: No name list provided!");
 	}
 	cursor = nameList;
 	index = 0;
@@ -67,8 +60,7 @@ extern "C" int rva002bcab_scanIndex(const char *token, ConstCharPtrArray nameLis
 		++index;
 	} while (*cursor != 0);
 	if (doThrow) {
-		e.INIException::INIException(3, "Token '%s' is not a valid member of the index list", token);
-		_CxxThrowException(&e, (const _s__ThrowInfo *)&scanIndexListThrowInfoAnchor); __assume(0);
+		throw INIException(3, "Token '%s' is not a valid member of the index list", token);
 	} else {
 		return 0;
 	}
@@ -82,8 +74,7 @@ int INI::scanIndexList(const char *token, ConstCharPtrArray nameList)
 	bool found = false;
 	int index = rva002bcab_scanIndex(token, nameList, &found, 0);
 	if (!found) {
-		INIException e(3, "Token '%s' is not a valid member of the index list", token);
-		_CxxThrowException(&e, (const _s__ThrowInfo *)&scanIndexListThrowInfoAnchor); __assume(0);
+		throw INIException(3, "Token '%s' is not a valid member of the index list", token);
 	}
 	return index;
 }

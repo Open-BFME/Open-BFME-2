@@ -16,9 +16,14 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
 }
 
 
-
-
-
+// Node storage comes straight from the byte allocator; this file keeps no copy of the forwarder.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline _List_node<short> *
+_STLP_alloc_proxy<_List_node<short> *, _List_node<short>, allocator<_List_node<short> > >::allocate(size_t count)
+{
+    return reinterpret_cast<_List_node<short> *>(allocator<char>::allocate(count * sizeof(_List_node<short>), 0));
+}
+}
 
 struct Rva0002C4D8Element { _STL::list<short> values[1]; bool operator==(const Rva0002C4D8Element&) const; };
 

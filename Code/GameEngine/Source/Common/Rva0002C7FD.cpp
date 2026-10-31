@@ -11,21 +11,68 @@
 // partial score=0.9813 date=2026-10-09
 // ?resize@Rva0002C7FD@@QAEXI@Z
 // partial score=0.92 date=2026-10-09
-// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /O1 /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_STLP_USE_MALLOC /G7
+// cl: /O1 /arch:SSE /Ob1 /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc
 // R1 template_visibility closure (W8-T4LEAD): dropping the three explicit vector<void*> specialization declarations removes a mov-swap wall; exact 214B. Dedicated TU.
 // stlport
 // Successive local union members reuse the native zero-value/counter home;
 // this records temporary lifetime, not a recovered class or payload type.
 // The full native214B shape now agrees except the two independent MOVs
 // at2C881/2C884 are exchanged. Every direct callee resolves.
-#include <vector>
+#define _STLP_NO_EXCEPTIONS 1
+#define _STLP_BFME_LOWER_BOUND_EXTERN  // bind the prime-list search to its shared retail provider
+// STLport frees through the game's plain _free at 0x00030830, not the CRT import.
+#define free BfmeCrtImportedFree
+#include <stdlib.h>
+#include <malloc.h>
+#undef free
+extern "C" void __cdecl free(void *) throw(...);
 #include "ascii_string.h"
-// Bind to the kept retail copy instead of emitting this unit's own.
-namespace _STL { template <> __declspec(dllimport) __forceinline unsigned int vector<void *,allocator<void *> >::size()const  { return (unsigned int)(this->_M_finish - this->_M_start); } }
-// Bind to the kept retail copy instead of emitting this unit's own.
+#include <hash_map>
+
+namespace rts
+{
+	template <class T> struct hash
+	{
+	};
+	template <> struct hash<AsciiString>
+	{
+		unsigned int operator()(const AsciiString &key) const;
+	};
+	template <class T> struct equal_to
+	{
+	};
+	template <> struct equal_to<AsciiString>
+	{
+		// Expanded in place; the file emits no out-of-line copy of this functor.
+		__declspec(dllimport) __forceinline bool operator()(const AsciiString &a, const AsciiString &b) const
+		{
+			return a.compareNoCase(b) == 0;
+		}
+	};
+}
+
+// Keep the inline bucket-vector access while binding outlined copies to
+// the shared retail helpers instead of emitting this unit's /O1 variants.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+vector<void *>::const_iterator vector<void *>::begin() const
+{ return this->_M_start; }
+template <> __declspec(dllimport) __forceinline
+vector<void *>::size_type vector<void *>::size() const
+{ return size_type(this->_M_finish - this->_M_start); }
+// The bucket lookup in hashtable::_M_find<AsciiString> inlines this too; left out of
+// line, this unit's _M_find copy differs from retail's 0x0002C9E7 and, first in link
+// order, would be the one the link keeps.
+template <> __declspec(dllimport) __forceinline
+vector<void *>::const_reference vector<void *>::operator[](size_type __n) const
+{ return *(begin() + __n); }
+}
+
+// The rehash and teardown code expand the bucket access in place.
 namespace _STL { template <> __declspec(dllimport) __forceinline void * & vector<void *,allocator<void *> >::operator[](unsigned int n) { return *(this->_M_start + n); } }
 // bfme link decl-only begin
 namespace _STL { template <> _STLP_alloc_proxy<void **, void *, allocator<void *> >::~_STLP_alloc_proxy(); }
+
 namespace _STL {
 // The allocator is stateless; only the stored pointers need exchanging.
 template <> inline void swap(_STLP_alloc_proxy<void **, void *, allocator<void *> > &left,
@@ -35,46 +82,40 @@ template <> inline void swap(_STLP_alloc_proxy<void **, void *, allocator<void *
 }
 }
 
-namespace _STL { template <> _Vector_base<void *, allocator<void *> >::~_Vector_base(); }
 namespace _STL { template <> allocator<void *> vector<void *, allocator<void *> >::get_allocator() const; }
+
 // bfme link decl-only end
-void Rva00030830FreeAllocation(void *);
-template<> inline _STL::_Vector_base<void*,_STL::allocator<void*> >::~_Vector_base() {
- if(this->_M_start) Rva00030830FreeAllocation(this->_M_start);
-}
 class Rva0002C7FD;
 enum NameKeyType { RvaRehashNameKeyWidth = 0x7fffffff };
 class ArmorTemplate;
-namespace rts {
- template<class T> struct hash;
- template<class T> struct equal_to;
- template<> struct hash<AsciiString> { unsigned int operator()(const AsciiString &) const; };
-}
+typedef _STL::pair<const NameKeyType, ArmorTemplate> RvaRehashPrimePair;
 namespace _STL {
- template<class T> struct _Select1st;
- template<class V, class K, class H, class E, class Q, class A>
- class hashtable {
+// Only the receiver-independent prime chooser of this table is viewed.
+template <>
+class hashtable<RvaRehashPrimePair,NameKeyType,rts::hash<NameKeyType>,
+ _Select1st<RvaRehashPrimePair>,rts::equal_to<NameKeyType>,
+ allocator<RvaRehashPrimePair> > {
   friend class ::Rva0002C7FD;
   unsigned int _M_next_size(unsigned int) const;
- };
+};
 }
-typedef _STL::pair<const NameKeyType, ArmorTemplate> RvaRehashPrimePair;
 typedef _STL::hashtable<RvaRehashPrimePair,NameKeyType,rts::hash<NameKeyType>,
  _STL::_Select1st<RvaRehashPrimePair>,rts::equal_to<NameKeyType>,
  _STL::allocator<RvaRehashPrimePair> > RvaRehashPrimeProvider;
 
-
-
 // Only the node prefix is viewed. This function never allocates a node,
 // computes its full size, or reads the unnamed payload following the key.
 struct Rva0002C7FDNodePrefix { Rva0002C7FDNodePrefix *next; AsciiString key; };
-class Rva0002C7FD {
-public: void resize(unsigned int hint);
+class Rva0002C7FD
+{
+public:
+	void resize(unsigned int);
 private:
- rts::hash<AsciiString> hash;
- _STL::vector<void*> buckets;
- unsigned int count;
- unsigned int bucketForKey(const AsciiString &key,unsigned int bucketCount) const { return hash(key)%bucketCount; }
+	unsigned int bucketForKey(const AsciiString &key,unsigned int bucketCount) const { return hash(key)%bucketCount; }
+	rts::hash<AsciiString> hash; // +0x00
+	char m_pad01[0x3];
+	_STL::vector<void*> buckets; // +0x04
+	unsigned int count; // +0x10
 };
 void Rva0002C7FD::resize(unsigned int hint) {
  const unsigned int oldCount=buckets.size();

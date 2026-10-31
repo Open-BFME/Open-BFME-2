@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /Ob2 /EHsc /MD
+// cl: /O1 /arch:SSE /Ob1 /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc
 // stlport
 //
 // ?rva0002CA72@Rva0002CA72@@QAEPAUOut0002CA72@@PAU2@PBUPair0002CA72@@@Z @0x0002CA72 124B
@@ -7,7 +7,31 @@
 // rowed new-node 0x00223124; bucket array at +4, count at +0x10, hidden out-pointer ret 8.
 // Donor: Code/GameEngine/Source/GameClient/Rva004182F8Insert.cpp (124B same shape, compare->compareNoCase).
 
+#define _STLP_NO_EXCEPTIONS 1
 #include "ascii_string.h"
+#include <hash_map>
+
+namespace rts
+{
+	template <class T> struct hash
+	{
+	};
+	template <> struct hash<AsciiString>
+	{
+		unsigned int operator()(const AsciiString &key) const;
+	};
+	template <class T> struct equal_to
+	{
+	};
+	template <> struct equal_to<AsciiString>
+	{
+		// Expanded in place; the file emits no out-of-line copy of this functor.
+		__declspec(dllimport) __forceinline bool operator()(const AsciiString &a, const AsciiString &b) const
+		{
+			return a.compareNoCase(b) == 0;
+		}
+	};
+}
 
 enum BuildableStatus
 {
@@ -16,33 +40,8 @@ enum BuildableStatus
 
 class Rva0002CA72;
 
-namespace rts
-{
-template <class T> struct hash
-{
-};
-template <> struct hash<AsciiString>
-{
-	unsigned operator()(const AsciiString &key) const;
-};
-template <class T> struct equal_to
-{
-};
-}
-
 namespace _STL
 {
-template <class T1, class T2> struct pair
-{
-	T1 first;
-	T2 second;
-};
-template <class T> struct _Select1st
-{
-};
-template <class T> class allocator
-{
-};
 class _BucketVector
 {
 public:
@@ -52,17 +51,21 @@ public:
 	void **_M_finish;
 	void **_M_end;
 };
-template <class Value, class Key, class HashFcn, class ExtractKey, class EqualKey, class Alloc>
-class hashtable
+// The members of this table the rowed insert touches: the hash key lookup and
+// the bucket array at +4 and count at +0x10.
+template <>
+class hashtable<pair<const AsciiString, BuildableStatus>, AsciiString, rts::hash<AsciiString>,
+	_Select1st<pair<const AsciiString, BuildableStatus> >, rts::equal_to<AsciiString>,
+	allocator<pair<const AsciiString, BuildableStatus> > >
 {
 	friend class ::Rva0002CA72;
 public:
 	typedef unsigned size_type;
 private:
-	size_type _M_bkt_num_key(const Key &key) const;
-	HashFcn _M_hash;
-	EqualKey _M_equals;
-	ExtractKey _M_get_key;
+	size_type _M_bkt_num_key(const AsciiString &key) const;
+	rts::hash<AsciiString> _M_hash;
+	rts::equal_to<AsciiString> _M_equals;
+	_Select1st<pair<const AsciiString, BuildableStatus> > _M_get_key;
 	_BucketVector _M_buckets;
 	size_type _M_num_elements;
 };
@@ -95,12 +98,13 @@ struct Node0002CA72
 
 class Rva0002CA72
 {
-public:
-	Out0002CA72 *rva0002CA72(Out0002CA72 *out, const Pair0002CA72 *obj);
 private:
 	typedef _STL::pair<const AsciiString, BuildableStatus> TablePair;
 	typedef _STL::hashtable<TablePair, AsciiString, rts::hash<AsciiString>, _STL::_Select1st<TablePair>, rts::equal_to<AsciiString>, _STL::allocator<TablePair> > Table;
-	Table m_table;
+public:
+	struct Out0002CA72 *rva0002CA72(struct Out0002CA72 *out, const struct Pair0002CA72 *obj);
+private:
+	Table m_table; // +0x00
 };
 
 Out0002CA72 *Rva0002CA72::rva0002CA72(Out0002CA72 *out, const Pair0002CA72 *obj)
