@@ -1062,7 +1062,7 @@ address_global	Code/GameEngine/Source/GameLogic/Object/ObjectRva002E6B89.cpp	g_V
 address_global	Code/GameEngine/Source/GameLogic/Object/ObjectSetTriggerAreaFlagsForChangeInPosition.cpp	g_Va00DBD0F4	2
 address_global	Code/GameEngine/Source/GameLogic/Object/PathfinderPosGoalManager.cpp	g_Va00E049D8	3
 address_global	Code/GameEngine/Source/GameLogic/Object/Rva005003DF.cpp	g_Va00E04544	2
-address_global	Code/GameEngine/Source/GameLogic/Object/SpecialPower/CloudBreakSpecialPowerModuleDataCtor.cpp	g_Va00BC2428	1
+address_global	Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp	g_Va00BC2428	1
 address_global	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva00459109.cpp	g_Va00BBB8D8	2
 address_global	Code/GameEngine/Source/GameLogic/Object/Update/Rva00254845Ctor.cpp	g_Va00DCBB7C	2
 address_global	Code/GameEngine/Source/GameLogic/Object/Update/Rva0037441ELeaf.cpp	g_Va00BBB8D8	2
@@ -3138,9 +3138,9 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/SpecialPower/CashHackSpeci
 alternatename	Code/GameEngine/Source/GameLogic/Object/SpecialPower/CashHackSpecialPower.cpp	??0Rva004CEE6EMemberTracked@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/SpecialPower/CashHackSpecialPower.cpp	??0VoiceSlot@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/SpecialPower/CashHackUpgradesCopyCtor.cpp	??0Rva003B31ADMember@@QAE@XZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/SpecialPower/CloudBreakSpecialPowerModuleDataCtor.cpp	?g_cloudBreakRadiusDefault@@3MA	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/SpecialPower/CloudBreakSpecialPowerModuleDataCtor.cpp	_kF7C	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/SpecialPower/DevastateSpecialPowerDoSpecialPowerAtLocation.cpp	?rva0028447F@Rva004C82E5Terrain@@QAEXPAVBfmeX1035@@PBUCoord3D@@@Z	1
+alternatename	Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp	?g_cloudBreakRadiusDefault@@3MA	1
+alternatename	Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp	_kF7C	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/SpecialPower/GiveOrRestoreUpgradeSpecialPowerSlot17.cpp	_TheUpgradeCenter	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeployHordeSpecialPowerDtor.cpp	?f1@SiegeDeployHordeSpecialPower_S1@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeployHordeSpecialPowerDtor.cpp	?f2@SiegeDeployHordeSpecialPower_S2@@UAEXXZ	1

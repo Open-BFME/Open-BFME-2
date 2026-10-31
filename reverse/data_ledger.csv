@@ -11544,7 +11544,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x0085D304,196,.rdata,vtable,??_7Rva004C43A3@@6BRva00493DEF@@@,,literal,??_7Rva004C43A3@@6BRva00493DEF@@@;_s_vtable@Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp,1,2
 0x0085D3C8,100,.rdata,vtable,??_7CloudBreakSpecialPower@@6BModuleInterface@@@,,literal,??_7CloudBreakSpecialPower@@6BModuleInterface@@@;??_7Rva004C4508@@6BRva004C4508_B2@@@,0,2
 0x0085D42C,60,.rdata,vtable,??_7CloudBreakSpecialPower@@6BBehaviorModule@@@,,literal,??_7CloudBreakSpecialPower@@6BBehaviorModule@@@;??_7Rva004C4508@@6BRva00493DEF@@@,0,2
-0x0085D468,256,.rdata,global,_vtbl_00C5D468,Code/GameEngine/Source/GameLogic/Object/SpecialPower/CloudBreakSpecialPowerModuleDataCtor.cpp,owned,,1,1
+0x0085D468,256,.rdata,global,_vtbl_00C5D468,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp,owned,,1,1
 0x0085D568,100,.rdata,vtable,??_7Rva004C48C6@@6BRva004C48C6_B2@@@,,literal,??_7Rva004C48C6@@6BRva004C48C6_B2@@@;??_7TaintSpecialPower@@6BModuleInterface@@@,0,2
 0x0085D5CC,60,.rdata,vtable,??_7Rva004C48C6@@6BRva00493DEF@@@,,literal,??_7Rva004C48C6@@6BRva00493DEF@@@;??_7TaintSpecialPower@@6BBehaviorModule@@@,0,2
 0x0085D608,248,.rdata,global,_vtbl_00C5D608,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp,owned,,1,1
@@ -20608,8 +20608,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A041D0,4,.data,global,_s_rva007B2906,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A041D4,4,.data,global,?TheWeaponChangeSpecialPowerModulePoolKey@?1??getModuleNameKey@WeaponChangeSpecialPowerModule@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp,owned,,1,2
 0x00A041D8,8,.data,global,?$S2@?1??getModuleNameKey@WeaponChangeSpecialPowerModule@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp,owned,,1,4
-0x00A041E0,76,.data,global,?conditions@?4??doSpecialPower@WeaponChangeSpecialPowerModule@@UAEXI@Z@4V?$BitFlags@$0BDA@@@A,Code/GameEngine/Source/GameLogic/Object/SpecialPower/WeaponChangeSpecialPowerModuleDoSpecialPower.cpp,owned,,1,2
-0x00A0422C,4,.data,global,?$S1@?4??doSpecialPower@WeaponChangeSpecialPowerModule@@UAEXI@Z@4IA,Code/GameEngine/Source/GameLogic/Object/SpecialPower/WeaponChangeSpecialPowerModuleDoSpecialPower.cpp,owned,,1,2
+0x00A041E0,76,.data,global,?conditions@?4??doSpecialPower@WeaponChangeSpecialPowerModule@@UAEXI@Z@4V?$BitFlags@$0BDA@@@A,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp,owned,,1,2
+0x00A0422C,4,.data,global,?$S1@?4??doSpecialPower@WeaponChangeSpecialPowerModule@@UAEXI@Z@4IA,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp,owned,,1,2
 0x00A04230,4,.data,global,?TheScavengerSpecialPowerPoolKey@?1??getModuleNameKey@ScavengerSpecialPower@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp,owned,,1,2
 0x00A04234,4,.data,global,?$S3@?1??getModuleNameKey@ScavengerSpecialPower@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp,owned,,1,4
 0x00A04238,4,.data,global,?TheCloudBreakSpecialPowerPoolKey@?1??getModuleNameKey@CloudBreakSpecialPower@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp,owned,,1,2
