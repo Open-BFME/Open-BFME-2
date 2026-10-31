@@ -1,0 +1,82 @@
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+code identity: 9 row(s), 0 new finding(s), 3.5s, mode shadow
+data_check (shadow): 1 source(s), 0 finding(s), 0 outside the baseline {}; 0.4s
+data_check (converged, enforced): 0 source(s), 11 address(es), 0 second name(s), 0 unjudged row(s)
+check_csv: OK (functions.csv 99252 rows, symbols.csv 9359 rows, data_rows.csv 2253 rows)
+Flag overrides: OK 702
+Pin consistency: OK (5 multi-pinned symbols of 9354; 0 baselined, 0 new, 0 stale)
+pin admission: OK
+All defined functions are already matched.
+name_dependents: 1 call target(s) and 1 data-row target(s) lost (?update@Rva00482BB9@@QAEHXZ); 686 referencing unit(s) of 18853 scanned in 7.7s
+Source claims: OK (172 sources, scoped byte-verified)
+Data rows: OK (80 row(s) byte-verified)
+Compile: 144 of 172 TU(s) (deps-cache: 28 current)
+Object store: 141 of 144 stale TU(s) restored
+Funclet pins: 1131 row(s) verified past a renumbered $L label
+    $L1214 (Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine.cpp): $L1214 was renumbered; verified parent EH data places $L17448 at 0x0077C0E4
+    $L4904 (Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptGlueRva003BE7ED.cpp): $L4904 was renumbered; verified parent EH data places $L5005 at 0x00782AAF
+    $L1483 (Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp): $L1483 was renumbered; verified parent EH data places $L6598 at 0x007916CF
+    uw_007739ac (Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp): $L1343 was renumbered; verified parent EH data places $L17211 at 0x007739AC
+    uw_007739b4 (Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp): $L1344 was renumbered; verified parent EH data places $L17212 at 0x007739B4
+STLport folds: 8 complete emitted constructor(s) verified against retail owners and resolved callees
+Functions: OK 4093/4093 matched across 172 source file(s)
+String-ref verify: OK (868 literals + 109 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (463 compiler literals verified)
+Import-ref verify: OK (154 named imports verified)
+Source claims: OK (177 sources, scoped byte-verified)
+Data rows: OK (50 row(s) byte-verified)
+Compile: 148 of 177 TU(s) (deps-cache: 29 current)
+Object store: 145 of 148 stale TU(s) restored
+Funclet pins: 842 row(s) verified past a renumbered $L label
+    $L7319 (Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp): $L7319 was renumbered; verified parent EH data places $L8036 at 0x0079A19C
+    $L8020 (Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp): $L8020 was renumbered; verified parent EH data places $L8118 at 0x0079A1DF
+    uw_00774b05 (Code/GameEngine/Source/GameClient/InGameUIMessages.cpp): $L3307 was renumbered; verified parent EH data places $L3421 at 0x00774B05
+    uw_00774b17 (Code/GameEngine/Source/GameClient/InGameUIMessages.cpp): $L3340 was renumbered; verified parent EH data places $L3454 at 0x00774B17
+    uw_00774b29 (Code/GameEngine/Source/GameClient/InGameUIMessages.cpp): $L3386 was renumbered; verified parent EH data places $L3500 at 0x00774B29
+STLport folds: 10 complete emitted constructor(s) verified against retail owners and resolved callees
+Functions: OK 3048/3048 matched across 177 source file(s)
+String-ref verify: OK (464 literals + 51 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (407 compiler literals verified)
+Import-ref verify: OK (117 named imports verified)
+Source claims: OK (172 sources, scoped byte-verified)
+Data rows: OK (60 row(s) byte-verified)
+Compile: 136 of 172 TU(s) (deps-cache: 36 current)
+Object store: 133 of 136 stale TU(s) restored
+Funclet pins: 946 row(s) verified past a renumbered $L label
+    $L59902 (Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/SkirmishGameOptionsMenu.cpp): $L59902 was renumbered; verified parent EH data places $L57848 at 0x0077961B
+    uw_007a7c00 (Code/GameEngine/Source/Common/BfmeTaintManager.cpp): $L417 was renumbered; verified parent EH data places $L2677 at 0x007A7C00
+    uw_007a7c08 (Code/GameEngine/Source/Common/BfmeTaintManager.cpp): $L418 was renumbered; verified parent EH data places $L2678 at 0x007A7C08
+    uw_007a7c13 (Code/GameEngine/Source/Common/BfmeTaintManager.cpp): $L419 was renumbered; verified parent EH data places $L2679 at 0x007A7C13
+    uw_007a8038 (Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp): $L373 was renumbered; verified parent EH data places $L62269 at 0x007A8038
+STLport folds: 15 complete emitted constructor(s) verified against retail owners and resolved callees
+Functions: OK 2889/2889 matched across 172 source file(s)
+String-ref verify: OK (579 literals + 86 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (487 compiler literals verified)
+Import-ref verify: OK (104 named imports verified)
+Source claims: OK (166 sources, scoped byte-verified)
+Data rows: OK (46 row(s) byte-verified)
+Compile: 137 of 166 TU(s) (deps-cache: 29 current)
+Object store: 133 of 137 stale TU(s) restored
+Funclet pins: 886 row(s) verified past a renumbered $L label
+    $L1673 (Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainRva0046CF21.cpp): $L1673 was renumbered; verified parent EH data places $L1767 at 0x0078AF96
+    $L3982 (Code/GameEngine/Source/GameNetwork/LANAPIhandlers.cpp): $L3982 was renumbered; verified parent EH data places $L58247 at 0x0079C996
+    uw_0076b1ec (Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetDoStuffToObj.cpp): $L7389 was renumbered; verified parent EH data places $L7574 at 0x0076B1EC
+    uw_0076b1f4 (Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetDoStuffToObj.cpp): $L7390 was renumbered; verified parent EH data places $L7575 at 0x0076B1F4
+    uw_0076b1fc (Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetDoStuffToObj.cpp): $L7459 was renumbered; verified parent EH data places $L7644 at 0x0076B1FC
+STLport folds: 13 complete emitted constructor(s) verified against retail owners and resolved callees
+Functions: OK 3132/3132 matched across 166 source file(s)
+String-ref verify: OK (482 literals + 71 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (555 compiler literals verified)
+Import-ref verify: OK (295 named imports verified)
+EH verify: 1720 row(s) with EH data (EXACT 1719, bytes_differ 1); 1 not exact, 1 in baseline; 0 row(s) without an object; 2.7s
+  differing sections: .xdata$x 1
+data_check (converged, enforced): 687 source(s), 11 address(es), 0 second name(s), 0 unjudged row(s)
+PRE-COMMIT OK (ledger integrity + 687 source(s) byte-verified)
+[codex/finish-lane-r-next-20261020 71932c440b9] Retract the nonvirtual FireWeapon update placeholder
+ 10 files changed, 94 insertions(+), 26 deletions(-)
+ create mode 100644 reverse/attempt_support/fireweapon-update-link-20261031/before-owner-build.log
+ create mode 100644 reverse/attempt_support/fireweapon-update-link-20261031/owner-preservation.json
+ create mode 100644 reverse/attempt_support/fireweapon-update-link-20261031/owner-score.json
+ create mode 100644 reverse/attempt_support/fireweapon-update-link-20261031/readme.md
+ create mode 100644 reverse/attempt_support/fireweapon-update-link-20261031/retracted-owner-build.log
+ create mode 100644 reverse/attempt_support/fireweapon-update-link-20261031/update-score-native-flags.json

@@ -1,0 +1,41 @@
+{
+  "native_table_rva": "0x008496E8",
+  "native_slots": [
+    "0x482bb9",
+    "0x4df396",
+    "0x44df8d"
+  ],
+  "table_size": 12,
+  "relocations": [
+    [
+      0,
+      6,
+      "?update@FireWeaponWhenDeadBehavior@@UAE?AW4UpdateSleepTime@@XZ"
+    ],
+    [
+      4,
+      6,
+      "?getDisabledTypesToProcess@FireWeaponWhenDeadBehavior@@UBE?AV?$BitFlags@$0L@@@XZ"
+    ],
+    [
+      8,
+      6,
+      "?rva0044DF8D@UpdateModule@@UAEXW4UpdateSleepTime@@@Z"
+    ]
+  ],
+  "mask_getter_emitted_size": 26,
+  "mask_getter_resolved_exact": true,
+  "mask_getter_unresolved": [],
+  "mask_getter_relocations": [
+    [
+      3,
+      6,
+      "?DISABLEDMASK_ALL@@3V?$BitFlags@$0L@@@A"
+    ],
+    [
+      12,
+      20,
+      "_memcpy"
+    ]
+  ]
+}

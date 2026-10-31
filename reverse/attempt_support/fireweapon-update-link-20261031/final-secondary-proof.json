@@ -1,0 +1,37 @@
+{
+  "native_table_rva": "0x008496E8",
+  "native_slots": [
+    "0x482bb9",
+    "0x4df396",
+    "0x44df8d"
+  ],
+  "constructor_size": 12,
+  "constructor_relocations": [
+    [
+      0,
+      6,
+      "?update@FireWeaponWhenDeadBehavior@@UAE?AW4UpdateSleepTime@@XZ"
+    ],
+    [
+      4,
+      6,
+      "?getDisabledTypesToProcess@FireWeaponWhenDeadBehavior@@UBE?AV?$BitFlags@$0L@@@XZ"
+    ],
+    [
+      8,
+      6,
+      "?rva0044DF8D@UpdateModule@@UAEXW4UpdateSleepTime@@@Z"
+    ]
+  ],
+  "update_exact_34": true,
+  "mask_getter_exact_resolved_26": true,
+  "wake_slot_existing_binding": true,
+  "dtor_first_slot_corrected_without_alias": [
+    [
+      0,
+      6,
+      "?update@FireWeaponWhenDeadBehavior@@UAE?AW4UpdateSleepTime@@XZ"
+    ]
+  ],
+  "scope_limit": "The destructor retains its pre-existing one-slot opaque secondary view. Its other two secondary slots are not recovered here; this proof does not claim full class-view unification."
+}

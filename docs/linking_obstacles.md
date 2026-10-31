@@ -11464,6 +11464,20 @@ receipts. CreateAHeroManager's receipt now passes 24/24. Keep the primary repair
 scope separate from secondary recovery and carry wider selection/loss checks
 into the scheduled census. No measured gain or full closure is claimed.
 
+**2026-10-31 Update provider follow-up (base `941fe7fcbcfe`):** the existing
+0x00482BB9/34 row is separately retracted and readmitted as the actual virtual
+FireWeaponWhenDeadBehavior::update returning UpdateSleepTime, at its unchanged
+owner path. The constructor emits all three native Update slots, including the
+complete 26-byte all-disabled mask override and existing wake member. The opaque
+destructor view now overrides the real update slot directly, removing its f2
+alias; its two other secondary slots remain unrecovered. Both primary tables
+retain all thirteen native slots. Strict direct preparation passes 453/453 rows
+across seventeen sources and seven EXACT EH graphs; all seventeen preview LINKS
+against 7300bffea9, with the constructor now 0 -> 209 B. No other since-index
+growth is credited. The retraction hook additionally verifies 13,162 functions
+in 687 source scopes. Wider batch audit and census confirmation remain open;
+no measured gain is claimed. [Native proof and remaining scope](../reverse/attempt_support/fireweapon-update-link-20261031/readme.md).
+
 ### LINK-115: BfmeConv1292DeferredWalkers needs six hash providers bound to their native owners
 Status: Blocked on one identity (0x00410C7B) plus five provider bindings. Updated: 2026-10-27; inspected revision: 65abb0c7f0.
 Evidence / affected units: `Common/BfmeConv1292DeferredWalkers.cpp` (298 B, 6 rows exact) does not link against index `bf3dd31211`. Its unresolved names, with the rowed native owners at the addresses retail calls: pointer-hash `_M_bkt_num_key` -> `Rva000427195::bucketIndex` 0x00223149 (`PlayerXferStringMaps.cpp`), `_M_delete_node` -> `Rva001FD9EF::rva001FD9EF` 0x001FD9EF, `_M_skip_to_next` -> `Rva000411084::advance` 0x003F7925 (`EvaBucketAdvance.cpp`); `Rva004FC957Delete::rva004FC957` -> `W3DFileSystem::Return_File` 0x004FC957 (an ICF fold of the delete functor, so it needs a fold-proof or the real functor identity); the value-hash `allocator<_Hashtable_node<...Rva004609B0Mapped> >::deallocate`, which this TU suppresses, has no provider and is referenced only from unrowed emitted COMDATs (`_M_delete_node`, `_STLP_alloc_proxy::deallocate`); and `dup_00410c7b`, the target of the 5-byte stub `??1Rva004110B9Tree` 0x004110B9, whose identity is already recorded as blocked (`reverse/re_attempts.log`, 0x00410C7B).

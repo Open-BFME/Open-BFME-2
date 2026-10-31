@@ -36,6 +36,156 @@ Rva00462579Block *Rva00462579::rva00462579()
 	return 0;
 }
 
+
+
+typedef float Real;
+
+
+
+
+
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
+class Thing;
+
+class ModuleData;
+
+class Object;
+
+class DamageInfo;
+
+class Xfer;
+
+enum UpdateSleepTime
+{
+	UPDATE_SLEEP_NONE = 1,
+	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
+};
+
+#define BFME_SNAPSHOT_NAME_SLOT
+#include "../../Include/Common/ObjectModule.h"
+
+class BehaviorModuleInterface
+{
+public:
+	virtual void getBody();
+};
+
+class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
+{
+public:
+    virtual void *vslot10() { return 0; }
+    virtual void *vslot11() { return 0; }
+};
+
+// Native Update interface at +0x10: update, disabled mask, wake frame.
+#pragma function(memcpy)
+#include <string.h>
+template <int NUM_BITS> class BitFlags
+{
+public:
+    __forceinline BitFlags(const BitFlags &other) { memcpy(m_bits, other.m_bits, sizeof(m_bits)); }
+private:
+    UnsignedInt m_bits[(NUM_BITS + 31) / 32];
+};
+typedef BitFlags<11> DisabledMaskType;
+extern DisabledMaskType DISABLEDMASK_ALL;
+
+class UpdateModuleInterface
+{
+public:
+    virtual UpdateSleepTime update() = 0;
+    virtual DisabledMaskType getDisabledTypesToProcess() const = 0;
+    virtual void rva0044DF8D(UpdateSleepTime wakeDelay) = 0;
+};
+
+enum SleepyUpdatePhase;
+
+class UpdateModule : public BehaviorModule, public UpdateModuleInterface
+{
+public:
+	UpdateModule(Thing *thing, const ModuleData *moduleData);
+	virtual ~UpdateModule();
+    virtual DisabledMaskType getDisabledTypesToProcess() const;
+    virtual void rva0044DF8D(UpdateSleepTime wakeDelay);
+protected:
+    virtual SleepyUpdatePhase getUpdatePhase() const;
+	Object *getObject() const { return m_object; }
+	void setWakeFrame(Object *obj, UpdateSleepTime wakeDelay);
+private:
+	UnsignedInt m_nextCallFrameAndPhase; // +0x14
+	Int m_indexInLogic; // +0x18
+	Int m_reserved1C; // +0x1C
+};
+
+class UpgradeMux
+{
+public:
+	UpgradeMux();
+	virtual Bool isAlreadyUpgraded() const;
+	void giveSelfUpgrade();
+protected:
+	Bool m_upgradeExecuted; // +0x04
+};
+
+class DieModuleInterface
+{
+public:
+	virtual void onDie(const DamageInfo *damageInfo) = 0;
+};
+
+// The +0x2C damage record; its ctor is rowed at 0x00263895.
+class Rva00263895Member
+{
+public:
+	Rva00263895Member();
+private:
+	unsigned char m_data[0x7C];
+};
+
+class FireWeaponWhenDeadBehaviorModuleData
+{
+public:
+	unsigned char m_pad00[0x118];
+	Bool m_initiallyActive; // +0x118
+	UnsignedInt m_count; // +0x11C
+};
+
+class FireWeaponWhenDeadBehavior : public UpdateModule, public UpgradeMux, public DieModuleInterface
+{
+public:
+	FireWeaponWhenDeadBehavior(Thing *thing, const ModuleData *moduleData);
+	virtual ~FireWeaponWhenDeadBehavior();
+    virtual UpdateSleepTime update();
+    virtual DisabledMaskType getDisabledTypesToProcess() const { return DISABLEDMASK_ALL; }
+	virtual void onDie(const DamageInfo *damageInfo);
+	// Primary vftable 0x008497B4 slots 1-3, as Rva00589079Derived.cpp declares them.
+	virtual void loadPostProcess();
+	virtual const char *GetSnapshotName() const;
+protected:
+	virtual void xfer(Xfer *xfer);
+public:
+	// Primary vtable slot 4, already rowed at 0x00482E51.
+	virtual NameKeyType getModuleNameKey() const;
+private:
+	const FireWeaponWhenDeadBehaviorModuleData *getFireWeaponWhenDeadBehaviorModuleData() const { return (const FireWeaponWhenDeadBehaviorModuleData *)m_moduleData; }
+
+	Rva00263895Member m_damageInfo; // +0x2C
+	UnsignedInt m_count; // +0xA8
+};
+
+// Native 0x00482BB9, slot zero of the +0x10 Update interface.
+UpdateSleepTime FireWeaponWhenDeadBehavior::update()
+{
+    Int *count = (Int *)&m_count;
+    if (*count > 0 && --*count == 0)
+        onDie((const DamageInfo *)&m_damageInfo);
+    return UPDATE_SLEEP_NONE;
+}
+
 // slot at VA 0x00C49AFC: both +0x24 and +0x28 become TheGameLogic's frame
 // plus the +0x04 object's +0x08 delay.
 struct Rva00483BA3Data

@@ -1,0 +1,26 @@
+[
+  {
+    "name": "??0FireWeaponWhenDeadBehavior@@QAE@PAVThing@@PBVModuleData@@@Z",
+    "rva": "0x00482D80",
+    "size": "203",
+    "exact_resolved": true
+  },
+  {
+    "name": "__ehhandler$??0FireWeaponWhenDeadBehavior@@QAE@PAVThing@@PBVModuleData@@@Z",
+    "rva": "0x0078BBDF",
+    "size": "10",
+    "exact_resolved": true
+  },
+  {
+    "name": "$L500",
+    "rva": "0x0078BBD7",
+    "size": "8",
+    "exact_resolved": true
+  },
+  {
+    "name": "?GetSnapshotName@FireWeaponWhenDeadBehavior@@UBEPBDXZ",
+    "rva": "0x00482E4B",
+    "size": "6",
+    "exact_resolved": true
+  }
+]

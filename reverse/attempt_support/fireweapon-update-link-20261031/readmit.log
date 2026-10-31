@@ -1,0 +1,10 @@
+add_match: appended: ?update@FireWeaponWhenDeadBehavior@@UAE?AW4UpdateSleepTime@@XZ,,0x00482BB9,34,Code/GameEngine/Source/Common/VslotSmallBodiesE.cpp,matched,Native constructor 00482D80 installs Update interface 008496E8 at +10; slot0 is this complete 34B member. Interface count98 is whole-object countA8 and zero dispatches die28 with DamageInfo2C. Corrects the retracted nonvirtual placeholder; no ICF alias or new pin. t=10 model=GPT-6 lane=R budget=30m; subsequent verification separate.
+add_match: verifying: ./build.sh Code/GameEngine/Source/Common/VslotSmallBodiesE.cpp
+Source claims: OK (1 sources, scoped byte-verified)
+Functions: OK 10/10 matched across 1 source file(s)
+String-ref verify: OK (0 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (1 compiler literals verified)
+Import-ref verify: OK (0 named imports verified)
+add_match: verified OK — row is live
+add_match: recorded `landed` x1 in reverse/re_attempts.log -- stage it
+add_match: claim kept until the row is on origin/master; after your push run `python3 tools/claims.py release --landed`

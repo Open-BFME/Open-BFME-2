@@ -1,0 +1,256 @@
+{
+  "getter": {
+    "name": "?GetSnapshotName@FireWeaponWhenDeadBehavior@@UBEPBDXZ",
+    "rva": "0x00482E4B",
+    "size": 6,
+    "exact_resolved_bytes": true
+  },
+  "native_table_rva": "0x008497B4",
+  "sources": {
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehavior.cpp": {
+      "size": 52,
+      "relocations": [
+        [
+          0,
+          6,
+          "??_EFireWeaponWhenDeadBehavior@@UAEPAXI@Z"
+        ],
+        [
+          4,
+          6,
+          "?loadPostProcess@FireWeaponWhenDeadBehavior@@UAEXXZ"
+        ],
+        [
+          8,
+          6,
+          "?GetSnapshotName@FireWeaponWhenDeadBehavior@@UBEPBDXZ"
+        ],
+        [
+          12,
+          6,
+          "?xfer@FireWeaponWhenDeadBehavior@@MAEXPAVXfer@@@Z"
+        ],
+        [
+          16,
+          6,
+          "?getModuleNameKey@FireWeaponWhenDeadBehavior@@UBE?AW4NameKeyType@@XZ"
+        ],
+        [
+          20,
+          6,
+          "?onObjectCreated@Module@@UAEXXZ"
+        ],
+        [
+          24,
+          6,
+          "?onDrawableBoundToObject@Module@@UAEXXZ"
+        ],
+        [
+          28,
+          6,
+          "?preloadAssets@Module@@UAEXXZ"
+        ],
+        [
+          32,
+          6,
+          "?onDelete@Module@@UAEXXZ"
+        ],
+        [
+          36,
+          6,
+          "?onCapture@ObjectModule@@UAEXPAVPlayer@@0@Z"
+        ],
+        [
+          40,
+          6,
+          "?vslot10@BehaviorModule@@UAEPAXXZ"
+        ],
+        [
+          44,
+          6,
+          "?vslot11@BehaviorModule@@UAEPAXXZ"
+        ],
+        [
+          48,
+          6,
+          "?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ"
+        ]
+      ],
+      "weak_deleting_destructor": "??_GFireWeaponWhenDeadBehavior@@UAEPAXI@Z"
+    },
+    "Code/GameEngine/Source/Common/Rva00589079Derived.cpp": {
+      "size": 52,
+      "relocations": [
+        [
+          0,
+          6,
+          "??_EFireWeaponWhenDeadBehavior@@UAEPAXI@Z"
+        ],
+        [
+          4,
+          6,
+          "?loadPostProcess@FireWeaponWhenDeadBehavior@@UAEXXZ"
+        ],
+        [
+          8,
+          6,
+          "?GetSnapshotName@FireWeaponWhenDeadBehavior@@UBEPBDXZ"
+        ],
+        [
+          12,
+          6,
+          "?xfer@FireWeaponWhenDeadBehavior@@MAEXPAVXfer@@@Z"
+        ],
+        [
+          16,
+          6,
+          "?getModuleNameKey@FireWeaponWhenDeadBehavior@@UBE?AW4NameKeyType@@XZ"
+        ],
+        [
+          20,
+          6,
+          "?onObjectCreated@Module@@UAEXXZ"
+        ],
+        [
+          24,
+          6,
+          "?onDrawableBoundToObject@Module@@UAEXXZ"
+        ],
+        [
+          28,
+          6,
+          "?preloadAssets@Module@@UAEXXZ"
+        ],
+        [
+          32,
+          6,
+          "?onDelete@Module@@UAEXXZ"
+        ],
+        [
+          36,
+          6,
+          "?onCapture@ObjectModule@@UAEXPAVPlayer@@0@Z"
+        ],
+        [
+          40,
+          6,
+          "?vslot10@BehaviorModule@@UAEPAXXZ"
+        ],
+        [
+          44,
+          6,
+          "?vslot11@BehaviorModule@@UAEPAXXZ"
+        ],
+        [
+          48,
+          6,
+          "?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ"
+        ]
+      ],
+      "weak_deleting_destructor": "??_GFireWeaponWhenDeadBehavior@@UAEPAXI@Z"
+    }
+  },
+  "slots": [
+    {
+      "slot": 0,
+      "name": "??_EFireWeaponWhenDeadBehavior@@UAEPAXI@Z",
+      "resolved": "??_GFireWeaponWhenDeadBehavior@@UAEPAXI@Z",
+      "native_rva": "0x482ebd",
+      "evidence": "existing ledger/pin binding"
+    },
+    {
+      "slot": 1,
+      "name": "?loadPostProcess@FireWeaponWhenDeadBehavior@@UAEXXZ",
+      "resolved": "?loadPostProcess@FireWeaponWhenDeadBehavior@@UAEXXZ",
+      "native_rva": "0x482c39",
+      "evidence": "existing ledger/pin binding"
+    },
+    {
+      "slot": 2,
+      "name": "?GetSnapshotName@FireWeaponWhenDeadBehavior@@UBEPBDXZ",
+      "resolved": "?GetSnapshotName@FireWeaponWhenDeadBehavior@@UBEPBDXZ",
+      "native_rva": "0x482e4b",
+      "evidence": "getter body independently verified at native address"
+    },
+    {
+      "slot": 3,
+      "name": "?xfer@FireWeaponWhenDeadBehavior@@MAEXPAVXfer@@@Z",
+      "resolved": "?xfer@FireWeaponWhenDeadBehavior@@MAEXPAVXfer@@@Z",
+      "native_rva": "0x482bdb",
+      "evidence": "existing ledger/pin binding"
+    },
+    {
+      "slot": 4,
+      "name": "?getModuleNameKey@FireWeaponWhenDeadBehavior@@UBE?AW4NameKeyType@@XZ",
+      "resolved": "?getModuleNameKey@FireWeaponWhenDeadBehavior@@UBE?AW4NameKeyType@@XZ",
+      "native_rva": "0x482e51",
+      "evidence": "existing ledger/pin binding"
+    },
+    {
+      "slot": 5,
+      "name": "?onObjectCreated@Module@@UAEXXZ",
+      "resolved": "?onObjectCreated@Module@@UAEXXZ",
+      "native_rva": "0xb3fd0",
+      "evidence": "complete inline leaf body equals native slot body"
+    },
+    {
+      "slot": 6,
+      "name": "?onDrawableBoundToObject@Module@@UAEXXZ",
+      "resolved": "?onDrawableBoundToObject@Module@@UAEXXZ",
+      "native_rva": "0xb3fd0",
+      "evidence": "complete inline leaf body equals native slot body"
+    },
+    {
+      "slot": 7,
+      "name": "?preloadAssets@Module@@UAEXXZ",
+      "resolved": "?preloadAssets@Module@@UAEXXZ",
+      "native_rva": "0xb3fd0",
+      "evidence": "complete inline leaf body equals native slot body"
+    },
+    {
+      "slot": 8,
+      "name": "?onDelete@Module@@UAEXXZ",
+      "resolved": "?onDelete@Module@@UAEXXZ",
+      "native_rva": "0xb3fd0",
+      "evidence": "complete inline leaf body equals native slot body"
+    },
+    {
+      "slot": 9,
+      "name": "?onCapture@ObjectModule@@UAEXPAVPlayer@@0@Z",
+      "resolved": "?onCapture@ObjectModule@@UAEXPAVPlayer@@0@Z",
+      "native_rva": "0x50b238",
+      "evidence": "complete inline leaf body equals native slot body"
+    },
+    {
+      "slot": 10,
+      "name": "?vslot10@BehaviorModule@@UAEPAXXZ",
+      "resolved": "?vslot10@BehaviorModule@@UAEPAXXZ",
+      "native_rva": "0xd43d0",
+      "evidence": "complete inline leaf body equals native slot body"
+    },
+    {
+      "slot": 11,
+      "name": "?vslot11@BehaviorModule@@UAEPAXXZ",
+      "resolved": "?vslot11@BehaviorModule@@UAEPAXXZ",
+      "native_rva": "0xd43d0",
+      "evidence": "complete inline leaf body equals native slot body"
+    },
+    {
+      "slot": 12,
+      "name": "?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ",
+      "resolved": "?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ",
+      "native_rva": "0x22c4cb",
+      "evidence": "existing ledger/pin binding"
+    }
+  ],
+  "native_vptr_bindings": [
+    {
+      "rva": "0x00482D80",
+      "offset": 55
+    },
+    {
+      "rva": "0x00482E96",
+      "offset": 2
+    }
+  ]
+}

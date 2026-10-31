@@ -63,10 +63,25 @@ public:
     virtual void *vslot11() { return 0; }
 };
 
+// Native Update interface at +0x10: update, disabled mask, wake frame.
+#pragma function(memcpy)
+#include <string.h>
+template <int NUM_BITS> class BitFlags
+{
+public:
+    __forceinline BitFlags(const BitFlags &other) { memcpy(m_bits, other.m_bits, sizeof(m_bits)); }
+private:
+    UnsignedInt m_bits[(NUM_BITS + 31) / 32];
+};
+typedef BitFlags<11> DisabledMaskType;
+extern DisabledMaskType DISABLEDMASK_ALL;
+
 class UpdateModuleInterface
 {
 public:
-	virtual void update();
+    virtual UpdateSleepTime update() = 0;
+    virtual DisabledMaskType getDisabledTypesToProcess() const = 0;
+    virtual void rva0044DF8D(UpdateSleepTime wakeDelay) = 0;
 };
 
 enum SleepyUpdatePhase;
@@ -76,6 +91,8 @@ class UpdateModule : public BehaviorModule, public UpdateModuleInterface
 public:
 	UpdateModule(Thing *thing, const ModuleData *moduleData);
 	virtual ~UpdateModule();
+    virtual DisabledMaskType getDisabledTypesToProcess() const;
+    virtual void rva0044DF8D(UpdateSleepTime wakeDelay);
 protected:
     virtual SleepyUpdatePhase getUpdatePhase() const;
 	Object *getObject() const { return m_object; }
@@ -124,6 +141,8 @@ class FireWeaponWhenDeadBehavior : public UpdateModule, public UpgradeMux, publi
 public:
 	FireWeaponWhenDeadBehavior(Thing *thing, const ModuleData *moduleData);
 	virtual ~FireWeaponWhenDeadBehavior();
+    virtual UpdateSleepTime update();
+    virtual DisabledMaskType getDisabledTypesToProcess() const { return DISABLEDMASK_ALL; }
 	virtual void onDie(const DamageInfo *damageInfo);
 	// Primary vftable 0x008497B4 slots 1-3, as Rva00589079Derived.cpp declares them.
 	virtual void loadPostProcess();

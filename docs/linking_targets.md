@@ -1381,3 +1381,11 @@ at 0x008496E8. The earlier +209-byte prediction is superseded, not a current
 gain. The wider audit is INCONCLUSIVE: 538 of 591 affected consumers lack local
 receipts. Primary-table repair and alias retirement stand; secondary recovery
 and scheduled census confirmation remain open.
+
+2026-10-31 Update provider repair at `941fe7fcbcfe`: the real virtual 34-byte
+member and complete constructor Update table now pass native checks. The existing
+destructor slot uses the real override and drops one alias. All seventeen direct
+sources preview LINKS against 7300bffea9 (453/453 functions, seven EXACT EH
+checks); the constructor now predicts 0 -> 209 bytes. Wider audit, the opaque
+destructor's remaining secondary slots and scheduled census remain open.
+[Evidence](../reverse/attempt_support/fireweapon-update-link-20261031/readme.md).
