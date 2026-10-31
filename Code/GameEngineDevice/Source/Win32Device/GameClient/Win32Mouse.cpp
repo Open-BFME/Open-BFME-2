@@ -31,6 +31,18 @@ typedef StringBase<char> AsciiString;
 #define MOUSE_NONE 0x00
 #define MOUSE_OK 0x01
 #define MAX_2D_CURSOR_DIRECTIONS 8
+#define BFME_DISP_DWORD_GETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		int get() const; \
+		char m_lead[DISP]; \
+		int m_value; \
+	}; \
+	int NAME::get() const \
+	{ \
+		return m_value; \
+	}
 
 struct RGBAColorInt
 {
@@ -156,6 +168,44 @@ protected:
 extern Win32Mouse *TheWin32Mouse;
 
 struct MouseIO;
+
+class MilesAudioManager
+{
+public:
+    virtual int rva0005189D() const;
+    char m_lead[0x678 - sizeof(void *)];
+    int m_value;
+};
+
+// ?rva00524F35@Rva00524F35@@QAEAAV1@H@Z @0x00524F35 37B
+class Rva00524F35
+{
+public:
+	int m_00;
+	int m_04;
+	int m_08;
+	int m_0c;
+	int m_10;
+	unsigned char m_14;
+	unsigned char m_15;
+	unsigned char m_16;
+	Rva00524F35& rva00524F35(int v);
+};
+
+BFME_DISP_DWORD_GETTER(Rva000419DCDwordField, 0x12DC)
+
+// Callers elsewhere reach bodies in this unit through other spellings; retail's
+// call sites in their matched rows land on these addresses (same ABI). Bind them.
+
+// BF1 9cbfb551fe Common/Bfme/Rva001BD660_setFlags.cpp is the clean semantic guide.
+// Complete native 0023C4CE..0023C4DB RET leaf proves: OR stack dword into receiver114; RET4.
+// Original owner and complete bounds unresolved; independent address-owned view.
+class Rva0023C4CEFields {
+public: void setFlags(unsigned int value);
+private: unsigned char unknown[0x114]; unsigned int flags;
+};
+
+// ---- from Code/GameEngineDevice/Source/Win32Device/GameClient/Win32Mouse.cpp
 
 // ---- from Code/GameEngineDevice/Source/Win32Device/GameClient/Win32Mouse.cpp
 
@@ -396,14 +446,6 @@ void Win32Mouse::initCursorResources(void)
 	}
 }
 
-// tu-skeleton: 0x000419CF 13B ?set@Rva000419CFDwordSlot@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp (not merged yet)
-
-// tu-skeleton: 0x000419DC 7B ?get@Rva000419DCDwordField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x000419F5 17B ?init@Win32Mouse@@UAEXXZ -- matched in Code/GameEngineDevice/Source/Win32Device/GameClient/Win32Mouse_reset.cpp (not merged yet)
-
-// tu-skeleton: 0x00041A06 5B ?rva00041A06@Rva00041A06@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp (not merged yet)
-
 // ---- from Code/GameEngineDevice/Source/Win32Device/GameClient/Win32Mouse_addWin32Event.cpp
 
 // platformsdk
@@ -429,6 +471,29 @@ void Win32Mouse::addWin32Event(UINT msg, WPARAM wParam, LPARAM lParam, DWORD tim
 	if (m_nextFreeIndex >= 256)
 		m_nextFreeIndex = 0;
 }
+
+// tu-skeleton: 0x000419CF 13B ?set@Rva000419CFDwordSlot@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp
+
+// Disp32 dword getters: seven-byte __thiscall members with one shape:
+//
+//     mov eax,[ecx+<DISP>] / ret
+//
+// One dword is read at a fixed displacement from `this` and returned. Every
+// displacement here is a multiple of four, so the accessed member is spelled
+// as an `int` right after the lead array. The bytes cannot distinguish `int`
+// from `unsigned int`, a pointer, or anything else four bytes wide moved
+// with a plain load. Members before the accessed one are spelled as a lead
+// array because their types are not witnessed here, only their total size.
+// Identity is not recovered: every name is derived from its address (BFME1
+// pioneered the same family in
+// reference/open-bfme-1/Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp).
+// No // cl: line (defaults match the frameless 7-byte shape).
+
+// tu-skeleton: 0x000419F5 17B ?init@Win32Mouse@@UAEXXZ -- matched in Code/GameEngineDevice/Source/Win32Device/GameClient/Win32Mouse_reset.cpp (not merged yet)
+
+// tu-skeleton: 0x00041A06 5B ?rva00041A06@Rva00041A06@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp (not merged yet)
 
 // tu-skeleton: 0x00041AD4 60B ?setPosition@Win32Mouse@@UAEXHH@Z -- matched in Code/GameEngineDevice/Source/Win32Device/GameClient/Win32DIMouse.cpp (not merged yet)
 

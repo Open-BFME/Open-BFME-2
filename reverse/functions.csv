@@ -10195,7 +10195,7 @@ _lmemfind,,0x007496B0,110,Code/Libraries/Source/Lua/lstrlib.c,matched,vendored=l
 ?get@Rva00512678DwordField@@QBEHXZ,,0x00512678,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
 ?get@Rva0052AF70DwordField@@QBEHXZ,,0x0052AF70,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
 ?get@Rva0057C4FEDwordField@@QBEHXZ,,0x0057C4FE,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
-?get@Rva000419DCDwordField@@QBEHXZ,,0x000419DC,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
+?get@Rva000419DCDwordField@@QBEHXZ,,0x000419DC,7,Code/GameEngineDevice/Source/Win32Device/GameClient/Win32Mouse.cpp,matched,Disp32 dword getter
 ?get@Rva0006EE1BDwordField@@QBEHXZ,,0x0006EE1B,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
 ?get@Rva0023C513DwordField@@QBEHXZ,,0x0023C513,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
 ?get@Rva0029A7EADwordField@@QBEHXZ,,0x0029A7EA,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
