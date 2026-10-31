@@ -64,10 +64,11 @@ class Rva002EE9B7
 {
 public:
 	~Rva002EE9B7();
-
+	Rva002EE9B7();
 private:
-	void *m_header;
-	int m_flag;
+	void *m_header; // +0x00
+	int m_flag; // +0x04
+	int m_compare; // +0x08
 };
 
 struct EmotionTrackerVecHolder

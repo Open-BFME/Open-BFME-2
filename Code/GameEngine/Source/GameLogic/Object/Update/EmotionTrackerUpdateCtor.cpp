@@ -131,12 +131,12 @@ public:
 class Rva002EE9B7
 {
 public:
-	Rva002EE9B7();
 	~Rva002EE9B7();
+	Rva002EE9B7();
 private:
-	void *m_header;
-	Int m_count;
-	Int m_compare;
+	void *m_header; // +0x00
+	int m_flag; // +0x04
+	int m_compare; // +0x08
 };
 
 class EmotionTrackerUpdate : public UpdateModule, public EmotionTrackerUpdateSecondaryBase

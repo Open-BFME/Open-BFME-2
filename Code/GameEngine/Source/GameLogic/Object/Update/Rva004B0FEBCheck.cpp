@@ -60,7 +60,8 @@ public:
 class Rva2225E0Filter
 {
 public:
-	bool accepts(Object *obj, Player *player);
+	bool accepts(Object *, Player *);
+	void *value; // +0x00
 };
 
 struct EmotionEntry

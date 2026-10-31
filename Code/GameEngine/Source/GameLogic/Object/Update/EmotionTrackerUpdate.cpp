@@ -39,7 +39,13 @@ struct EmotionLookupBuckets {
 struct EmotionLookupMap { unsigned char hashEqual[4]; EmotionLookupBuckets buckets; };
 enum UpdateSleepTime { UPDATE_SLEEP_NONE=1, UPDATE_SLEEP_FOREVER=0x3fffffff };
 enum NameKeyType { NK_UNKNOWN = 0 };
-class Player { public: char pad[0x54]; int index; };
+class Player
+{
+public:
+	__forceinline int getPlayerIndex() const { return index; }
+	char m_pad00[0x54];
+	int index; // +0x54
+};
 class ThingTemplate { public: char pad[0x10b]; unsigned char flags10b; };
 class ExperienceTracker { public: char pad[0x24]; int level; };
 enum ObjectStatusTypes;
@@ -338,12 +344,12 @@ public:
 class Rva002EE9B7
 {
 public:
-    Rva002EE9B7();
-    ~Rva002EE9B7();
+	~Rva002EE9B7();
+	Rva002EE9B7();
 private:
-    void *m_header;
-    int m_count;
-    int m_compare;
+	void *m_header; // +0x00
+	int m_flag; // +0x04
+	int m_compare; // +0x08
 };
 
 class EmotionTrackerUpdate : public UpdateModule, public EmotionTrackerUpdateSecondaryBase

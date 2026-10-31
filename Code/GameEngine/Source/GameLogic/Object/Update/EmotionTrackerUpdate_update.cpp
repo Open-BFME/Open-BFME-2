@@ -35,7 +35,13 @@ enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1, UPDATE_SLEEP_FOREVER = 0x3fffffff 
 enum ObjectStatusTypes {};
 enum Relationship { REL_ENEMY = 0, REL_NEUTRAL = 1, REL_ALLY = 2 };
 
-class Player { public: __forceinline int getPlayerIndex() const { return index; } char pad[0x54]; int index; };
+class Player
+{
+public:
+	__forceinline int getPlayerIndex() const { return index; }
+	char m_pad00[0x54];
+	int index; // +0x54
+};
 class ThingTemplate {
 public:
     bool isEquivalentTo(const ThingTemplate *) const;
@@ -67,7 +73,12 @@ public:
     bool isEmotionTarget() const { return flag454; }
 };
 class Rva0028F326Owner { public: unsigned char rva0028F326(unsigned int, float); };
-class Rva2225E0Filter { public: bool accepts(Object *, Player *); void *value; };
+class Rva2225E0Filter
+{
+public:
+	bool accepts(Object *, Player *);
+	void *value; // +0x00
+};
 struct EmotionUpdateData {
     char pad0[8]; float range; int interval;
     char pad10[4]; Rva2225E0Filter filter14,filter18,filter1c;
