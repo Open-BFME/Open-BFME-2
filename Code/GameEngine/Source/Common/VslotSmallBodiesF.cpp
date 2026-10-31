@@ -193,4 +193,3 @@ bool Rva00261C58Filter::allow(Object *obj) {Rva00261C58Arg *objectView=(Rva00261
 
 struct Rva0057A4BAWord {char prefix[0x34]; unsigned int word;};
 class Rva0057A4BA {public: int rva0057A4BA(); private: char prefix[0x48]; Rva0057A4BAWord *entry; unsigned int word;};
-int Rva0057A4BA::rva0057A4BA() {return (entry->word-word) ?0:1;}

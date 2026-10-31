@@ -256,6 +256,16 @@ namespace StrategicHUD
 	{ \
 		return m_value; \
 	}
+//
+// Small vtable-slot bodies with no ledger owner and no Ghidra entry (sized
+// from their bytes), batch F. As in VslotSmallBodiesA-E, each class and method
+// is address-derived and models only what its body touches; the comment above
+// each gives the .rdata slot address(es) that reference it. Meanings are not
+// recovered.
+
+typedef int Int;
+typedef unsigned int UnsignedInt;
+#include "GameLogicObjectLookupView.h"
 
 // The slot holders. Each one's destructor is its rowed clear, which the
 // Impl destructor calls once per slot, in reverse, under its own
@@ -1079,8 +1089,6 @@ private:
 // (rowed resize 0x000E6D39, 0x005839A7) with null / invalid fill.
 class Drawable;
 
-enum ObjectID { INVALID_ID = 0 };
-
 class Rva0057EF0A : public _STL::vector<Drawable *>
 {
 public:
@@ -1294,7 +1302,141 @@ private:
 	unsigned char m_a8;
 };
 
+// slot at VA 0x00C5CC3C: with an argument, hands its +0x38 block and the
+// second argument to this object's vslot 12.
+struct Rva004C31ECArg
+{
+	char m_pad00[0x38];
+	char m_position[4];
+};
+
+class Rva004C31EC
+{
+public:
+	virtual void vslot00(); virtual void vslot01(); virtual void vslot02();
+	virtual void vslot03(); virtual void vslot04(); virtual void vslot05();
+	virtual void vslot06(); virtual void vslot07(); virtual void vslot08();
+	virtual void vslot09(); virtual void vslot10(); virtual void vslot11();
+	virtual void vslot12(void *block, Int value);
+	void doSpecialPowerAtObject(Rva004C31ECArg *target, Int value);
+};
+
+// slots at VA 0x00BC662C and 0x00C0883C: stores both arguments at +0x04 and
+// +0x08.
+class Rva004CEE7F
+{
+public:
+	void rva004CEE7F(Int a, Int b);
+private:
+	char m_pad00[0x04];
+	Int m_04;
+	Int m_08;
+};
+
+// slot at VA 0x00C66FDC: sets the +0x27C state to 3 once the +0x284 byte is
+// set, else sets the byte.
+class Rva0051BF2D
+{
+public:
+	void rva0051BF2D();
+private:
+	char m_pad00[0x27C];
+	Int m_state;
+	char m_pad280[0x284 - 0x280];
+	Bool m_284;
+};
+
+// slot at VA 0x00C67F14: a sixteen-entry table of 0x18-byte records at
+// +0x48; stamps every record's +0x00 with the +0x10 object's +0x10 value
+// and clears its +0x16 byte.
+struct Rva0052586BSource
+{
+	char m_pad00[0x10];
+	Int m_10;
+};
+
+struct Rva0052586BRecord
+{
+	Int m_00;
+	char m_pad04[0x16 - 0x04];
+	Bool m_16;
+	char m_pad17;
+};
+
+class Rva0052586B
+{
+public:
+	void resetHeroSlots();
+private:
+	char m_pad00[0x10];
+	Rva0052586BSource *m_10;
+	char m_pad14[0x48 - 0x14];
+	Rva0052586BRecord m_records[16];
+};
+
+// slot at VA 0x00C6808C: moves the +0x0C state from 3 to 4, setting +0x14 to 5.
+class Rva005277BA
+{
+public:
+	void rva005277BA();
+private:
+	char m_pad00[0x0C];
+	Int m_0C;
+	char m_pad10[0x14 - 0x10];
+	Int m_14;
+};
+
+// slot at VA 0x00C6A13C: true once TheGameLogic's frame reaches +0x04; the
+// argument is unused.
+class Rva00545B72
+{
+public:
+	Bool shouldExit(Int unused);
+private:
+	char m_pad00[0x04];
+	UnsignedInt m_04;
+};
+
+// slots at VA 0x00C6CEC8 and 0x00C6CEEC: a function-local static id taken
+// from the running counter at VA 0x00DFEE18 on first use (the same counter
+// as VslotSmallBodiesD's 0x0029B1EA).
+
+class Rva00567793
+{
+public:
+	Int rva00567793();
+};
+
+// ?GetAssociatedMessageType@@YAHH@Z, retail 0x00567700 (32 bytes).
+// WorldBuilder 0x01430A50 names this helper in
+// InGameToggleStanceCommandButton.cpp:95. Its caller at retail 0x005682BD
+// pushes CommandButton::getStance's result and uses the returned message.
+// The retail table at RVA 0x0086CE8C is exactly these three eight-byte
+// stance/message records: (1,149), (2,147), (3,148). The 0..3 unsigned scan,
+// success return and missing-stance zero return all byte-match; no data pin.
+struct StanceMessageEntry { int stance; int message; };
+
+// Native vtable-backed bit/word predicates. Address-token views carry only
+// observed data accesses and ABI; original owner and field meanings are unknown.
+struct Rva00261C72Word {char prefix[0x114]; unsigned int word;};
+
+struct Rva00261C72Arg {char prefix[4]; Rva00261C72Word *entry;};
+
+// Slot 1 (allow) of partition filter vftable 0x00C53D18.
+class Rva00261C72Filter {public: virtual ~Rva00261C72Filter(); virtual bool allow(Object *obj);};
+
+struct Rva00261C58Arg {char prefix[0x1C8]; unsigned int word;};
+
+// Slot 1 (allow) of partition filter vftable 0x00C1FE28.
+class Rva00261C58Filter {public: virtual ~Rva00261C58Filter(); virtual bool allow(Object *obj); private: char prefix[4]; unsigned char byte;};
+
+struct Rva0057A4BAWord {char prefix[0x34]; unsigned int word;};
+
+class Rva0057A4BA {public: int rva0057A4BA(); private: char prefix[0x48]; Rva0057A4BAWord *entry; unsigned int word;};
+
 // tu-skeleton: 0x00579674 2B ?GetBonusRowNum@StrategicHUD@@YAHH@Z -- matched in Code/GameEngine/Source/Common/Rva00579AB7Dtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/StrategicHUD.cpp
 
 // ---- from Code/GameEngine/Source/Common/StrategicHUD.cpp
 
@@ -1925,6 +2067,24 @@ Rva0057A433::Rva0057A433(Rva005D1A79DwordCounter *const *record, int unused) : m
 		m_record->inc();
 }
 
+// ---- from Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp
+
+// Disp8 byte getters: four-byte __thiscall members with one shape:
+//
+//     mov al,[ecx+<DISP>] / ret
+//
+// One BYTE is read at a fixed displacement from `this` and left in al. The
+// return type is spelled `unsigned char` because only al is written and the
+// upper bytes of eax are left holding whatever the caller had; the bytes
+// cannot distinguish it from `signed char`, `bool` or a one-byte enum.
+// This is the small-offset sibling of the disp32 family in
+// DispByteFieldGetters.cpp (MSVC 7.1 uses disp8 whenever the offset fits,
+// so every offset here fits in a signed byte). Members before the accessed
+// one are spelled as a lead array because their types are not witnessed
+// here, only their total size. Identity is not recovered: every name is
+// derived from its address.
+// No // cl: line (defaults match the frameless four-byte shape).
+
 // tu-skeleton: 0x005796FC 53B ??1Rva005796FC@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_stringrecord_b94d2_allocate_copy.cpp (not merged yet)
 
 // tu-skeleton: 0x00579731 63B ??1Rva00579731@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00579731Dtor.cpp (not merged yet)
@@ -1987,24 +2147,6 @@ Rva0057A433::Rva0057A433(Rva005D1A79DwordCounter *const *record, int unused) : m
 
 // tu-skeleton: 0x0057A3A9 9B ??0Rva0057A3A9@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp
-
-// Disp8 byte getters: four-byte __thiscall members with one shape:
-//
-//     mov al,[ecx+<DISP>] / ret
-//
-// One BYTE is read at a fixed displacement from `this` and left in al. The
-// return type is spelled `unsigned char` because only al is written and the
-// upper bytes of eax are left holding whatever the caller had; the bytes
-// cannot distinguish it from `signed char`, `bool` or a one-byte enum.
-// This is the small-offset sibling of the disp32 family in
-// DispByteFieldGetters.cpp (MSVC 7.1 uses disp8 whenever the offset fits,
-// so every offset here fits in a signed byte). Members before the accessed
-// one are spelled as a lead array because their types are not witnessed
-// here, only their total size. Identity is not recovered: every name is
-// derived from its address.
-// No // cl: line (defaults match the frameless four-byte shape).
-
 // tu-skeleton: 0x0057A3D7 13B ?OnClosed@ChecklistUIImpl@StrategicHUD@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/AptWotrPanelCallbacks.cpp (not merged yet)
 
 // tu-skeleton: 0x0057A3E4 16B ?OnOpen@ChecklistUIImpl@StrategicHUD@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/AptWotrPanelCallbacks.cpp (not merged yet)
@@ -2017,7 +2159,9 @@ Rva0057A433::Rva0057A433(Rva005D1A79DwordCounter *const *record, int unused) : m
 
 // tu-skeleton: 0x0057A455 28B ??_GRva0057A2B0@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0057A2B0Dtor.cpp (not merged yet)
 
-// tu-skeleton: 0x0057A4BA 15B ?rva0057A4BA@Rva0057A4BA@@QAEHXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesF.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/VslotSmallBodiesF.cpp
+
+int Rva0057A4BA::rva0057A4BA() {return (entry->word-word) ?0:1;}
 
 // tu-skeleton: 0x0057A4C9 19B ?rva0057A4C9@Rva0057A4C9@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesS.cpp (not merged yet)
 
