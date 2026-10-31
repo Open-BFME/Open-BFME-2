@@ -268,3 +268,49 @@ def test_rename_credited_body_is_not_credited_again(repo, capsys):
     assert class_gate.staged_renames() == {NEW: OLD}
     rc, err = repo.gate(capsys)
     assert rc == 1 and "Third.cpp" in err and NEW not in err
+
+
+# Changed bodies that the survey normalisation used to mistake for pure moves.
+LEXICAL_CASES = []
+for label, literal in [('string', '"a  b"'), ('wide', 'L"a  b"'), ('raw', 'R"(a  b)"')]:
+    old = 'class GameLogic { const void *tag() { return %s; } };\n' % literal
+    LEXICAL_CASES.append(('literal-' + label, old, old.replace('  ', ' ')))
+for directive in ['#define', '%:define', '\f#define', '\v#define']:
+    old = 'class GameLogic {\n%s FIELD int\n FIELD a;\n int b;\n};\n' % directive
+    LEXICAL_CASES.append(('directive-' + repr(directive), old, old.replace('int\n FIELD', 'int FIELD')))
+for splice in ['\\', '??/']:
+    old = 'class GameLogic {\n int a; //comment%s\nint b;\n};\n' % splice
+    LEXICAL_CASES.append(('splice-' + splice, old, old.replace('comment' + splice, 'comment')))
+old = 'class GameLogic {\n const char *s = R"tag("})tag";\n int a;\n};\n'
+LEXICAL_CASES.append(('raw-span', old, old.replace('int a;', 'long a;')))
+old = 'class GameLogic {\n??=define FIELD int\n FIELD a;\n int b;\n};\n'
+LEXICAL_CASES.append(('trigraph-directive', old, old.replace('int\n FIELD', 'int FIELD')))
+old = 'class GameLogic { void f() <% int x; } int a; };\n'
+LEXICAL_CASES.append(('brace-digraph', old, old.replace('int a;', 'double a;')))
+
+
+@pytest.mark.parametrize('label,old,new', LEXICAL_CASES, ids=[c[0] for c in LEXICAL_CASES])
+def test_deleted_donor_lexical_change_is_refused(repo, capsys, label, old, new):
+    repo.write(OLD, old + BODY)
+    repo.commit(OLD)
+    merge_into(repo, FILLER + new + FRESH, OLD)
+    assert class_gate.staged_renames() == {}
+    rc, err = repo.gate(capsys)
+    assert rc == 1 and '`GameLogic`' in err
+
+
+@pytest.mark.parametrize('token', ['<%', '%>', '<:', ':>'])
+def test_alternative_braces_or_brackets_disable_move_credit(token):
+    # Even a token outside the class can corrupt the extractor's scope stack.
+    assert class_gate.moved_bodies(LOGIC + '\n' + token) == {}
+
+
+@pytest.mark.parametrize('literal', ['"a  b"', 'L"a  b"', "' '"])
+def test_moved_literal_keeps_data_but_allows_comment_and_format_edits(repo, capsys, literal):
+    old = 'class GameLogic { const void *tag() { return %s; } };\n' % literal
+    repo.write(OLD, old + BODY)
+    repo.commit(OLD)
+    new = old.replace('return ', 'return /*same data*/  ')
+    merge_into(repo, FILLER + new + FRESH, OLD)
+    assert class_gate.staged_renames() == {}
+    assert repo.gate(capsys) == (0, '')

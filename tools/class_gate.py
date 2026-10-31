@@ -16,10 +16,11 @@ reconciliation backlog (tools/class_views.py --class NAME), not a reason to
 refuse unrelated edits to them or a pure move of them.
 
 A body that a unit deleted in the same commit carried verbatim (after comment
-and whitespace normalisation) is moved, not introduced: a TU merge
+and whitespace normalisation outside literals) is moved, not introduced: a TU merge
 (tools/tu_skeleton.py --merge) composes one unit from several deleted donors,
 which git rarely rates as a rename. Each deleted unit's body credits at most
-one staged unit, and an edited body gets no credit.
+one staged unit, and an edited body gets no credit. Ambiguous preprocessing,
+raw strings and alternative brace/bracket tokens receive no move credit.
 
 A unit that genuinely needs its own layout for a registered class (a
 deliberately different codegen view, proved by its bytes) can say so on any
@@ -87,6 +88,81 @@ def staged_renames():
     return renames
 
 
+# One token that is not code: a comment, or a string or character literal.
+# A literal's bytes are the program's data, so they are kept as written and
+# only whitespace between tokens is collapsed. A raw string is matched whole,
+# before the ordinary string alternative could stop at an embedded quote.
+LITERAL = re.compile(
+    r'(?:u8|u|U|L)?R"(?P<delimiter>[^ ()\\\t\v\f\n]{0,16})\(.*?\)(?P=delimiter)"'
+    r'|(?:u8|u|U|L)?"(?:\\.|[^"\\\n])*"?'
+    r"|(?:u8|u|U|L)?'(?:\\.|[^'\\\n])*'?"
+    r'|//[^\n]*|/\*.*?(?:\*/|\Z)', re.S)
+COMMENT = ("//", "/*")
+
+
+def collapsed(text):
+    """`text` with comments dropped and whitespace collapsed outside literals."""
+    segments, pos = [], 0
+    for match in LITERAL.finditer(text):
+        token = match.group()
+        comment = token.startswith(COMMENT)
+        segments.append((text[pos:match.start()], False))
+        segments.append((" " if comment else token, not comment))
+        pos = match.end()
+    segments.append((text[pos:], False))
+    merged = []
+    for piece, literal in segments:
+        if not literal and merged and not merged[-1][1]:
+            merged[-1][0] += piece
+        else:
+            merged.append([piece, literal])
+    return "".join(piece if literal else re.sub(r"\s+", " ", piece)
+                   for piece, literal in merged).strip()
+
+
+def normalised_body(text):
+    """The body's code with comments dropped and whitespace collapsed, or None.
+
+    Whitespace is collapsed only between tokens: a string or character
+    literal's bytes are data, so `"a  b"` never equals `"a b"`. A body that
+    contains a preprocessing directive or a splice is refused (None): both
+    change what the text means without changing the tokens this can see (a
+    spliced comment swallows the next line; a directive redefines a field),
+    and modelling the preprocessor here would risk a wrong credit. The
+    directive check masks literals first, then looks for `#` or its `%:`
+    digraph at the start of a line after any preprocessing whitespace, or
+    directly after a form feed or vertical tab (an implementation may treat
+    either as a line break). The splice check covers backslash-newline and
+    every trigraph: `??/` is a backslash that splices before comments are
+    even recognised, so it is looked for in the raw text, as is `??=` (`#`)
+    and the rest.
+    """
+    masked = LITERAL.sub(lambda m: re.sub(r"[^\n]", " ", m.group()), text)
+    if (re.search(r"\\\r?\n", text) or re.search(r"\?\?[=/'()!<>-]", text)
+            or re.search(r"(?:^|[\f\v])[ \t\f\v]*(?:#|%:)", masked, re.M)):
+        return None
+    return collapsed(text)
+
+
+def moved_bodies(text):
+    """Master's body keys, with conservative lexical checks for move credit.
+
+    Raw strings, digraphs and translation-phase splices/trigraphs can corrupt
+    class_body_spans before we ever see a body. Refuse the entire unit's move
+    credit for those constructs. Ordinary existing-path/rename credit is
+    unchanged; class_views' survey normalisation is not proof of a pure move.
+    """
+    if (re.search(r'(?:u8|u|U|L)?R"|<%|%>|<:|:>|\\\r?\n', text)
+            or re.search(r"\?\?[=/'()!<>-]", text)):
+        return {}
+    found = {}
+    for name, start, end, _ in class_views.class_body_spans(text):
+        body = normalised_body(text[start:end])
+        if body is not None:
+            found.setdefault(name, body)
+    return found
+
+
 def staged_deletions(renames):
     """{(class name, normalised body): [HEAD path, ...]} for gated units the index deletes.
 
@@ -105,7 +181,7 @@ def staged_deletions(renames):
             continue
         before = git_text(f"HEAD:{old}")
         if before:
-            for item in class_views.class_bodies(before).items():
+            for item in moved_bodies(before).items():
                 bodies.setdefault(item, []).append(old)
     return bodies
 
@@ -135,9 +211,9 @@ def introduced(path, text, canon, renamed_from=None, moved=None):
     allowed = set(ALLOW.findall(text))
     fresh = now - had - allowed
     if moved:
-        bodies = class_views.class_bodies(text)
+        bodies = moved_bodies(text)
         for name in sorted(fresh):
-            donors = moved.get((name, bodies[name]))
+            donors = moved.get((name, bodies[name])) if name in bodies else None
             if donors:
                 donors.pop()
                 fresh.discard(name)
