@@ -19342,3 +19342,5 @@ Code/GameEngine/Source/GameClient/Rva00085947Method.cpp|member|Rva00085947|m_24C
 Code/GameEngine/Source/Common/GapBodiesGE15.cpp|function|0x004E4E05|rva004E4E05,78e73b3d40fd76336d677570,drz-k10,drz-k10-16,w-88a32c4f7da7,2026-10-31
 Code/GameEngine/Source/Common/GapBodiesGE15.cpp|function|0x004E4E2A|rva004E4E2A,34dd15e7fdf928f796b1f6a6,drz-k10,drz-k10-16,w-88a32c4f7da7,2026-10-31
 Code/GameEngine/Source/Common/EmbeddedMemberForwarders.cpp|function|0x0057A313|rva0057A313,7127b6fdaf612c7209c26cf9,drz-k10,drz-k10-17,w-88a32c4f7da7,2026-10-31
+Code/GameEngine/Source/Common/S3GuardedGlobalTriples.cpp|function|0x001071EC|h000217DD,213d74f0c460102954ee21a1,drz-k3,drz-k3-a2-9,w-077d7aeb666b,2026-10-31
+Code/GameEngine/Source/Common/S3GuardedGlobalTriples.cpp|function|0x001071FD|h00005592,215957979422b9cc13c51be0,drz-k3,drz-k3-a2-9,w-077d7aeb666b,2026-10-31
