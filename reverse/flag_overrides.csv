@@ -91,7 +91,6 @@ Code/GameEngine/Source/Common/BfmeS1155.cpp,-Od,12,12,region default loses rows
 Code/GameEngine/Source/Common/BfmeSlot1173.cpp,,2,2,region default loses rows
 Code/GameEngine/Source/Common/BfmeSlotPool.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeSubBZCSet.cpp,,1,1,region default loses rows
-Code/GameEngine/Source/Common/BfmeTaintManager.cpp,,13,2,region default loses rows
 Code/GameEngine/Source/Common/BfmeThingCDEDestructor.cpp,-O2,5,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeThingPF.cpp,-Od,4,4,region default loses rows
 Code/GameEngine/Source/Common/BfmeThingRE.cpp,,12,12,region default loses rows
@@ -257,6 +256,7 @@ Code/GameEngine/Source/Common/System/Rva00033D50Shutdown.cpp,-Od,1,1,region defa
 Code/GameEngine/Source/Common/System/Rva0050F0AB.cpp,-O1 -G7,7,1,region default loses rows
 Code/GameEngine/Source/Common/System/SaveGame/SaveMapPreviewCopy.cpp,-O1,5,1,region default loses rows
 Code/GameEngine/Source/Common/T2IndexedArrayAccessors.cpp,,11,5,region default loses rows
+Code/GameEngine/Source/Common/TaintManagerImpl.cpp,,13,2,region default loses rows
 Code/GameEngine/Source/Common/Thing/Thing.cpp,,10,3,region default loses rows
 Code/GameEngine/Source/Common/Thing/ThingFactory.cpp,,10,5,region default loses rows
 Code/GameEngine/Source/Common/U2FixedSlotSearches.cpp,,5,4,region default loses rows

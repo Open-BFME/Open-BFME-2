@@ -1717,7 +1717,6 @@ alternatename	Code/GameEngine/Source/Common/BfmeStrVM0Dtor.cpp	?v37@Display@@UAE
 alternatename	Code/GameEngine/Source/Common/BfmeStrVM0Dtor.cpp	?v66@Display@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/BfmeStrVM0Dtor.cpp	?v67@Display@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/BfmeStrVM0Dtor.cpp	?v68@Display@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/Common/BfmeTaintManager.cpp	?bfmeVecDtorDMC@@YGXPAXIHP6AX0@Z@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeThingBFGTail.cpp	?rva0025F30DCallView@BfmeThingBFG@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/BfmeThingCDEDestructor.cpp	?ArrayDeleteHelperBodyThunk@@YGXPAXII0@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeThingRE.cpp	?bfmeRunRE@BfmeThingRE@@QAEXPAX@Z	1
@@ -2564,6 +2563,7 @@ alternatename	Code/GameEngine/Source/Common/System/Xfer.cpp	?bfmeReset@Gen009D6E
 alternatename	Code/GameEngine/Source/Common/T1ReceiverSwappingThunks.cpp	?accept@T1Sink_005C8D40@@QAEPAXPAX0@Z	1
 alternatename	Code/GameEngine/Source/Common/T4VtableSetCtors.cpp	_vtbl_00C1C780	1
 alternatename	Code/GameEngine/Source/Common/T4VtableSetCtors.cpp	_vtbl_00C1C780_again	1
+alternatename	Code/GameEngine/Source/Common/TaintManagerImpl.cpp	?bfmeVecDtorDMC@@YGXPAXIHP6AX0@Z@Z	1
 alternatename	Code/GameEngine/Source/Common/TerrainTypes.cpp	?allocate@?$allocator@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@_STL@@QBEPAU?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@2@IPBX@Z	1
 alternatename	Code/GameEngine/Source/Common/Thing/FXBoneInfoVectorErase.cpp	?erase@?$vector@UQuantityModifier@@V?$allocator@UQuantityModifier@@@_STL@@@_STL@@QAEPAUQuantityModifier@@PAU3@0@Z	1
 alternatename	Code/GameEngine/Source/Common/Thing/IntFloatMapSubscript.cpp	?erase@?$_Rb_tree@HU?$pair@$$CBHURva00358FEERecord@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva00358FEERecord@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva00358FEERecord@@@_STL@@@2@@_STL@@QAEXU?$_Rb_tree_iterator@U?$pair@$$CBHURva00358FEERecord@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHURva00358FEERecord@@@_STL@@@2@@2@@Z	1
