@@ -8,41 +8,31 @@
 // a tail jmp to DieModule::~DieModule 0x0045CE54. The empty bases are
 // structural stand-ins; their real types are unrecovered.
 
-class DieModule
-{
-protected:
-	virtual ~DieModule();
+#include "../../../../Include/GameLogic/Module/DieModule.h"
 
-private:
-	char m_pad04[8];
-};
-
-// Empty structural stand-ins: retail's +0x0C/+0x10/+0x14 subobject vtables
-// hold the shared empty return, so these bodies are the shared 1-byte ret at
-// 0x000B3FD0 (fold).
-class MiBase1
+// The +0x14 subobject is DamageFilteredCreateObjectDie's damage-module
+// interface (table 0x00C4AA84, per the matched ctor); its overrides live in
+// DamageFilteredCreateObjectDieDamageSlots.cpp, so this TU only declares.
+class Rva00C4AA84Iface
 {
 public:
-	virtual void f1();
+	virtual void onDamage(DamageInfo *damageInfo) = 0;
+	virtual void onHealing(void *arg) = 0;
 };
 
-class DamageFilteredCreateObjectDie_B2
-{
-public:
-	virtual void f2() {}
-};
+enum NameKeyType { NK_UNKNOWN = 0 };
 
-class DamageFilteredCreateObjectDie_B3
-{
-public:
-	virtual void f3() {}
-};
-
-class DamageFilteredCreateObjectDie : public DieModule, public MiBase1,
-	public DamageFilteredCreateObjectDie_B2, public DamageFilteredCreateObjectDie_B3
+class DamageFilteredCreateObjectDie : public DieModule, public Rva00C4AA84Iface
 {
 public:
 	virtual ~DamageFilteredCreateObjectDie();
+	virtual void onDamage(DamageInfo *damageInfo);
+	virtual void onDie(const DamageInfo *damageInfo);
+	virtual void onHealing(void *arg);
+	virtual NameKeyType getModuleNameKey() const;
+private:
+	unsigned int m_frame;		// +0x18
+	int m_playerValue;		// +0x1C
 };
 
 DamageFilteredCreateObjectDie::~DamageFilteredCreateObjectDie()
