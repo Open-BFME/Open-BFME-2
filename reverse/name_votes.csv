@@ -19179,3 +19179,8 @@ Code/GameEngine/Source/Common/Rva00395E19.cpp|local|Rva00395E19::rva00395E19|q,0
 Code/GameEngine/Source/Common/Rva00395E19.cpp|local|Rva00395E19::rva00395E19|s,a666d42188df3ffb63bb9e9c,drz-k9,n25d2-k9-20,w-4d4d8f8584bc,2026-10-31
 Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003BC47ADo.cpp|function|0x003BC466|Rva003BC466RadarForceOn,df9e3911f88c17066853677f,drz-k3,drz-k3-n25e2-5,w-077d7aeb666b,2026-10-31
 Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003BC47ADo.cpp|function|0x003BC470|Rva003BC470RadarRevertNormal,5b3708967e8d20a5a2dafe3e,drz-k3,drz-k3-n25e2-5,w-077d7aeb666b,2026-10-31
+Code/GameEngine/Source/Common/GameEngineFrameTiming.cpp|local|GameEngine::update|t,2d79c0547ea2cd2d09fc55e0,drz-k9,n25f2-k9-10,w-4d4d8f8584bc,2026-10-31
+Code/GameEngine/Source/Common/AISpellBookBase.cpp|local|AISpellBookBase::findDenseStructureCenter|c,878a68885724a83f1d3eb392,drz-k9,n25f2-k9-11,w-4d4d8f8584bc,2026-10-31
+Code/Libraries/Source/WWVegas/WWLib/Rva00502787Clear.cpp|member|Rva00502787Header|m_08,8db59688c812cd9b2ffa1d65,drz-k9,n25f2-k9-17,w-4d4d8f8584bc,2026-10-31
+Code/Libraries/Source/WWVegas/WWLib/Rva00502787Clear.cpp|member|Rva00502787Header|m_0c,a2e1722dc92956aff64e0c05,drz-k9,n25f2-k9-17,w-4d4d8f8584bc,2026-10-31
+Code/GameEngine/Source/GameNetwork/Rva008030C0FeslPoolInit.cpp|local|Rva00803080::initPool|p,0fdfd7c1d0617cfbe2b10659,drz-k9,n25f2-k9-20,w-4d4d8f8584bc,2026-10-31
