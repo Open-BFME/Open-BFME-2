@@ -20,21 +20,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include "ascii_string.h"
 
 
-class MixFileCreator
-{
-public:
-    struct FileInfoStruct
-    {
-        FileInfoStruct();
-        FileInfoStruct(const FileInfoStruct &src);
-        FileInfoStruct &operator=(const FileInfoStruct &src);
-        unsigned long CRC;
-        unsigned long Offset;
-        unsigned long Size;
-        AsciiString Filename;
-    };
-};
-
+#include "MixFileCreatorFileInfo.h"
 // operator= is rowed in stlport_vector_fileinfo_assign.cpp (/O1); this TU's
 // default-flag copy would compete with it at link time.
 template <> _STL::vector<MixFileCreator::FileInfoStruct,
