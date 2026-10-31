@@ -14,7 +14,6 @@
 // at VA 0x00C60B90; AIUpdateModuleData::parseTurret hands it to
 // initFromINIMultiProc.
 
-#include <windows.h>
 typedef float Real;
 typedef unsigned int UnsignedInt;
 
@@ -51,7 +50,7 @@ public:
 extern const FieldParse g_00C60B90[];
 enum WeaponSlotType
 {
-	PRIMARY_WEAPON = 0,
+	WEAPONSLOT_PRIMARY = 0,
 	WEAPONSLOT_COUNT = 6
 };
 
@@ -64,7 +63,10 @@ public:
 	static void parseTurretSweepSpeed(INI *ini, void *instance, void *store, const void *userData);
 	static void buildFieldParse(MultiIniFieldParse &p);
 
-	unsigned char m_unreconstructed_00[0x10];
+	Real m_turnRate;									// +0x00
+	Real m_pitchRate;									// +0x04
+	Real m_naturalTurretAngle;							// +0x08
+	Real m_naturalTurretPitch;							// +0x0C
 	Real m_turretFireAngleSweep[WEAPONSLOT_COUNT];		// +0x10
 	Real m_turretSweepSpeedModifier[WEAPONSLOT_COUNT];	// +0x28
 };
@@ -74,7 +76,7 @@ void parseTWS(INI *ini, void * /*instance*/, void *store, const void * /*userDat
 {
 	UnsignedInt *tws = (UnsignedInt *)store;
 	const char *token = ini->getNextToken();
-	while (token != NULL)
+	while (token != 0)
 	{
 		WeaponSlotType wslot = (WeaponSlotType)ini->scanIndexList(token, TheWeaponSlotTypeNames);
 		*tws |= (1 << wslot);
@@ -86,16 +88,16 @@ void parseTWS(INI *ini, void * /*instance*/, void *store, const void * /*userDat
 void TurretAIData::parseTurretSweep(INI *ini, void *instance, void * /*store*/, const void * /*userData*/)
 {
 	TurretAIData *self = (TurretAIData *)instance;
-	WeaponSlotType wslot = (WeaponSlotType)ini->scanIndexList(ini->getNextToken(NULL), TheWeaponSlotTypeNames);
-	INI::parseAngleReal(ini, instance, &self->m_turretFireAngleSweep[wslot], NULL);
+	WeaponSlotType wslot = (WeaponSlotType)ini->scanIndexList(ini->getNextToken(0), TheWeaponSlotTypeNames);
+	INI::parseAngleReal(ini, instance, &self->m_turretFireAngleSweep[wslot], 0);
 }
 
 // ?parseTurretSweepSpeed@TurretAIData@@SAXPAVINI@@PAX1PBX@Z
 void TurretAIData::parseTurretSweepSpeed(INI *ini, void *instance, void * /*store*/, const void * /*userData*/)
 {
 	TurretAIData *self = (TurretAIData *)instance;
-	WeaponSlotType wslot = (WeaponSlotType)ini->scanIndexList(ini->getNextToken(NULL), TheWeaponSlotTypeNames);
-	INI::parseReal(ini, instance, &self->m_turretSweepSpeedModifier[wslot], NULL);
+	WeaponSlotType wslot = (WeaponSlotType)ini->scanIndexList(ini->getNextToken(0), TheWeaponSlotTypeNames);
+	INI::parseReal(ini, instance, &self->m_turretSweepSpeedModifier[wslot], 0);
 }
 
 // The extra field parsers retail's TurretAIData table reaches on top of the ones

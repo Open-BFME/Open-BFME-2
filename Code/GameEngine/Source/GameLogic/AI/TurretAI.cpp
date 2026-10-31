@@ -144,10 +144,19 @@ enum UpdateSleepTime
 };
 
 // TurretAIData, 0x70 bytes as TurretAIData::TurretAIData (0x004D7E6C) fills it.
+class INI;
+class MultiIniFieldParse;
+
 class TurretAIData
 {
 public:
 	TurretAIData();
+public:
+	static void parseTurretSweep(INI *ini, void *instance, void *store, const void *userData);
+public:
+	static void parseTurretSweepSpeed(INI *ini, void *instance, void *store, const void *userData);
+public:
+	static void buildFieldParse(MultiIniFieldParse &p);
 	float m_turnRate;									// +0x00
 	float m_pitchRate;									// +0x04
 	float m_naturalTurretAngle;							// +0x08

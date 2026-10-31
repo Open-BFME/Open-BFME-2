@@ -55,7 +55,12 @@ typedef unsigned int UnsignedInt;
 extern int BfmeLogicFramesPerSecond;
 #define LogicFramesPerSecond BfmeLogicFramesPerSecond
 
-enum { WEAPONSLOT_COUNT = 5 };
+// The TU's six-slot WeaponSlotType: the arrays and the loop are six wide.
+enum WeaponSlotType
+{
+	WEAPONSLOT_PRIMARY = 0,
+	WEAPONSLOT_COUNT = 6
+};
 
 const Real DEFAULT_TURN_RATE = 0.01f;
 const Real DEFAULT_PITCH_RATE = 0.01f;
@@ -67,8 +72,8 @@ public:
 	Real m_pitchRate; // +0x04
 	Real m_naturalTurretAngle; // +0x08
 	Real m_naturalTurretPitch; // +0x0C
-	Real m_turretFireAngleSweep[WEAPONSLOT_COUNT + 1]; // +0x10 (6)
-	Real m_turretSweepSpeedModifier[WEAPONSLOT_COUNT + 1]; // +0x28 (6)
+	Real m_turretFireAngleSweep[WEAPONSLOT_COUNT]; // +0x10 (6)
+	Real m_turretSweepSpeedModifier[WEAPONSLOT_COUNT]; // +0x28 (6)
 	Real m_firePitch; // +0x40
 	Real m_minPitch; // +0x44
 	Real m_groundUnitPitch; // +0x48
@@ -93,7 +98,7 @@ TurretAIData::TurretAIData()
 	m_pitchRate = DEFAULT_PITCH_RATE;
 	m_naturalTurretAngle = 0.0f;
 	m_naturalTurretPitch = 0.0f;
-	for (Int slotIndex = 0; slotIndex < WEAPONSLOT_COUNT + 1; ++slotIndex)
+	for (Int slotIndex = 0; slotIndex < WEAPONSLOT_COUNT; ++slotIndex)
 	{
 		m_turretFireAngleSweep[slotIndex] = 0.0f;
 		m_turretSweepSpeedModifier[slotIndex] = 1.0f;
