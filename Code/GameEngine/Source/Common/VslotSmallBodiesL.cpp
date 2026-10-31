@@ -143,12 +143,6 @@ private:
 	char m_pad00[0x08];
 	BfmeA1042N m_08;
 };
-void Rva00517364::rva00517364(Int which)
-{
-	BfmeA1042N *member = &m_08;
-	if (which == 1 && member->m_00 != 0)
-		member->bfmeGo1042D();
-}
 
 // slots at VA 0x00C1AEC4, 0x00C6B90C, 0x00C6E27C and more: appends the
 // argument to the int list at +0x14 (rowed list<int>::push_back).

@@ -520,9 +520,173 @@ private:
 	int m_state;                         // +0x2B0
 };
 
+namespace _STL
+{
+template <class T> class allocator;
+template <class T, class A = allocator<T> > class list
+{
+public:
+	void push_back(const T &value);
+private:
+	void *m_node;
+};
+}
+
+// slot at VA 0x00C37080: LivingWorldBattle's traversal visitor (the class
+// whose inlined construction ~LivingWorldBattle stores, Rva003F6A91Dtor.cpp),
+// slot 0 of its two-slot table (slot 1 is the folded deleting destructor at
+// 0x003F4261). Hands the battle, viewed as its CreateAHeroData base at +0x04
+// (NULL stays NULL), to the rowed 0x002B7250 on the entry's +0x08 member;
+// answers true. Same shape as Rva005FED52::invoke (vtable 0x00C37064).
+class CreateAHeroData;
+
+class Rva002B7250
+{
+public:
+	void rva002B7250(CreateAHeroData *data);
+};
+
+struct Rva003F55B6Head
+{
+	Int m_00;
+};
+
+class CreateAHeroData
+{
+	Int m_00;
+};
+
+class Rva003F55B6Entry : public Rva003F55B6Head, public CreateAHeroData
+{
+};
+
+struct Rva003F55B6Arg
+{
+	char m_pad00[0x08];
+	Rva002B7250 m_08;
+};
+
+class Rva003F498ACallback
+{
+public:
+	virtual bool invoke(int) = 0;
+	~Rva003F498ACallback() {}
+};
+
+class Rva003F424F : public Rva003F498ACallback
+{
+public:
+	virtual bool invoke(int entry);
+	virtual ~Rva003F424F() {}
+private:
+	Rva003F55B6Entry *m_owner;
+};
+
+// slots at VA 0x00C644C4, 0x00C64544 and 0x00C645AC: forward both arguments
+// to a rowed method of the +0x134 (resp. +0x128) object when it is set.
+class Rva001E11F8
+{
+public:
+	void rva001E11F8(Int a, Int b);
+};
+
+class Rva002CA9CA
+{
+public:
+	void rva002CAC6E(Int a, Int b);
+};
+
+class ObjectCreationList
+{
+public:
+	void rva001F0410(void *a, void *b);
+};
+
+class Rva00508F0C
+{
+public:
+	void rva00508F0C(Int a, Int b);
+private:
+	char m_pad00[0x134];
+	Rva001E11F8 *m_134;
+};
+
+class Rva00509367
+{
+public:
+	void rva00509367(Int a, Int b);
+private:
+	char m_pad00[0x128];
+	Rva002CA9CA *m_128;
+};
+
+class Rva0050959C
+{
+public:
+	void rva0050959C(void *a, void *b);
+private:
+	char m_pad00[0x128];
+	ObjectCreationList *m_128;
+};
+
+// slot at VA 0x00C66420: for argument 1, runs the rowed 0x0044BD79 on the
+// +0x08 member when its first word is set.
+class BfmeA1042N
+{
+public:
+	void bfmeGo1042D();
+	Int m_00;
+};
+
+class Rva00517364
+{
+public:
+	void rva00517364(Int which);
+private:
+	char m_pad00[0x08];
+	BfmeA1042N m_08;
+};
+
+// slots at VA 0x00C1AEC4, 0x00C6B90C, 0x00C6E27C and more: appends the
+// argument to the int list at +0x14 (rowed list<int>::push_back).
+class AIBuildable
+{
+public:
+	void addNeed(Int value);
+private:
+	char m_pad00[0x14];
+	_STL::list<Int> m_14;
+};
+
+// slots at VA 0x00C1C350, 0x00C1C3A4, 0x00C1C3E4 and more: the +0x08 field of
+// the +0x04 system, or of the rowed 0x001FCBD7 factory's result without one.
+class ParticleSystem
+{
+public:
+	char m_pad00[0x08];
+	Int m_08;
+};
+
+ParticleSystem *Make001FCBD7();
+
+class Rva0055C44F
+{
+public:
+	Int rva0055C44F();
+private:
+	char m_pad00[0x04];
+	ParticleSystem *m_system;
+};
+
+// Installed table output words. Original owner, base relationship and
+// aggregate/return convention remain unknown. Native word operations only.
+class Rva004647D8 {public:void *rva004647D8(void *output);};
+
 // tu-skeleton: 0x00516EC0 19B ?Options@AptOnline@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellCallbacks.cpp (not merged yet)
 
 // tu-skeleton: 0x00516ED3 22B ?ShellExit@AptOnline@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellCallbacks.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp
 
@@ -698,12 +862,6 @@ void rva00516FA9()
 	((Rva00222A8BTarget *)g_bfmeAptWindowManager)->rva002233A6(1);
 }
 
-// tu-skeleton: 0x00516F08 25B ?rva00516F08@AptOnline@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellScreens.cpp (not merged yet)
-
-// tu-skeleton: 0x00517027 33B ?LoadChildScreen@AptOnlineShell@@QAEXPBD@Z -- matched in Code/GameEngine/Source/Common/Rva00517027Set.cpp (not merged yet)
-
-// tu-skeleton: 0x005170B4 25B ?rva005170B4@AptOnline@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellCallbacks.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva005170CDReset.cpp
 
 // ?rva005170CD@Rva005170CD@@QAEXXZ @0x005170CD 36B
@@ -732,44 +890,6 @@ void Rva005170CD::rva005170F1()
 	Rva00516E92Enable();
 	Rva00437E84(0, TheGameText->fetch("GUI:GSErrorTitle", 0), TheGameText->fetch("GUI:GSDisconReason3", 0));
 }
-
-// tu-skeleton: 0x0051719B 8B ??1Rva0051719B@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/Rva005173F8Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x005171A3 100B ?ShellUnloadScreen@AptOnline@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellScreens.cpp (not merged yet)
-
-// tu-skeleton: 0x00517207 263B ?ExternFunc@AptOnline@@QAEXHPAD_N@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellScreens.cpp (not merged yet)
-
-// tu-skeleton: 0x0051730E 28B ??0Rva0051730E@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/Rva0051730ECtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00517345 31B ??0Rva00517345@@QAE@ABURva0051732A@@@Z -- matched in Code/GameEngine/Source/Common/Rva00517345Ctor.cpp (not merged yet)
-
-// tu-skeleton: 0x00517364 23B ?rva00517364@Rva00517364@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesL.cpp (not merged yet)
-
-// tu-skeleton: 0x0051737B 28B ??_GRva00517397@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-10.cpp (not merged yet)
-
-// tu-skeleton: 0x005173CB 45B ?rva005173CB@Rva005173CB@@QAEPAU1@ABURva0051732A@@@Z -- matched in Code/GameEngine/Source/Common/Rva005173CBSet.cpp (not merged yet)
-
-// tu-skeleton: 0x005173F8 225B ??1Rva005173F8@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/Rva005173F8Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x005174D9 11B ??_ERva005173F8@@WCBI@AEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB12.cpp (not merged yet)
-
-// tu-skeleton: 0x005174E4 99B ?rva005174E4@Rva005174E4@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAF.cpp (not merged yet)
-
-// tu-skeleton: 0x00517547 59B ?rva00517547@Rva00517547@@QAEPAU1@URva0051732A@@@Z -- matched in Code/GameEngine/Source/Common/Rva00517547Set.cpp (not merged yet)
-
-// tu-skeleton: 0x00517582 28B ??_GRva005173F8@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB12.cpp (not merged yet)
-
-// tu-skeleton: 0x00517724 199B ?ShellLoadScreen@AptOnline@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellScreens.cpp (not merged yet)
-
-// tu-skeleton: 0x005177EB 369B ?rva005177EB@Rva00517048@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineBuddyInvites.cpp (not merged yet)
-
-// tu-skeleton: 0x0051795C 877B ??0Rva005173F8@@QAE@PAX@Z -- matched in Code/GameEngine/Source/GameClient/GUI/Rva005173F8Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00517CC9 473B ?rva00517CC9@Rva00517048@@QAEXABVBuddyInviteGameInfo@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineBuddyInvites.cpp (not merged yet)
-
-// tu-skeleton: 0x00517EA2 137B ?rva00517EA2@Rva00517EA2@@QAEXXZ -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp (not merged yet)
-
-// tu-skeleton: 0x00517F2B 6B ?Rva00517F2BGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellCachedStats.cpp
 
@@ -873,6 +993,57 @@ int AptOnline::rva0051805B()
 	((Rva005170CD *)this)->rva005170F1();
 	return 1;
 }
+
+// tu-skeleton: 0x00516F08 25B ?rva00516F08@AptOnline@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellScreens.cpp (not merged yet)
+
+// tu-skeleton: 0x00517027 33B ?LoadChildScreen@AptOnlineShell@@QAEXPBD@Z -- matched in Code/GameEngine/Source/Common/Rva00517027Set.cpp (not merged yet)
+
+// tu-skeleton: 0x005170B4 25B ?rva005170B4@AptOnline@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellCallbacks.cpp (not merged yet)
+
+// tu-skeleton: 0x0051719B 8B ??1Rva0051719B@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/Rva005173F8Dtor.cpp (not merged yet)
+
+// tu-skeleton: 0x005171A3 100B ?ShellUnloadScreen@AptOnline@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellScreens.cpp (not merged yet)
+
+// tu-skeleton: 0x00517207 263B ?ExternFunc@AptOnline@@QAEXHPAD_N@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellScreens.cpp (not merged yet)
+
+// tu-skeleton: 0x0051730E 28B ??0Rva0051730E@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/Rva0051730ECtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00517345 31B ??0Rva00517345@@QAE@ABURva0051732A@@@Z -- matched in Code/GameEngine/Source/Common/Rva00517345Ctor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/VslotSmallBodiesL.cpp
+
+void Rva00517364::rva00517364(Int which)
+{
+	BfmeA1042N *member = &m_08;
+	if (which == 1 && member->m_00 != 0)
+		member->bfmeGo1042D();
+}
+
+// tu-skeleton: 0x0051737B 28B ??_GRva00517397@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-10.cpp (not merged yet)
+
+// tu-skeleton: 0x005173CB 45B ?rva005173CB@Rva005173CB@@QAEPAU1@ABURva0051732A@@@Z -- matched in Code/GameEngine/Source/Common/Rva005173CBSet.cpp (not merged yet)
+
+// tu-skeleton: 0x005173F8 225B ??1Rva005173F8@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/Rva005173F8Dtor.cpp (not merged yet)
+
+// tu-skeleton: 0x005174D9 11B ??_ERva005173F8@@WCBI@AEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB12.cpp (not merged yet)
+
+// tu-skeleton: 0x005174E4 99B ?rva005174E4@Rva005174E4@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAF.cpp (not merged yet)
+
+// tu-skeleton: 0x00517547 59B ?rva00517547@Rva00517547@@QAEPAU1@URva0051732A@@@Z -- matched in Code/GameEngine/Source/Common/Rva00517547Set.cpp (not merged yet)
+
+// tu-skeleton: 0x00517582 28B ??_GRva005173F8@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB12.cpp (not merged yet)
+
+// tu-skeleton: 0x00517724 199B ?ShellLoadScreen@AptOnline@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellScreens.cpp (not merged yet)
+
+// tu-skeleton: 0x005177EB 369B ?rva005177EB@Rva00517048@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineBuddyInvites.cpp (not merged yet)
+
+// tu-skeleton: 0x0051795C 877B ??0Rva005173F8@@QAE@PAX@Z -- matched in Code/GameEngine/Source/GameClient/GUI/Rva005173F8Dtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00517CC9 473B ?rva00517CC9@Rva00517048@@QAEXABVBuddyInviteGameInfo@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineBuddyInvites.cpp (not merged yet)
+
+// tu-skeleton: 0x00517EA2 137B ?rva00517EA2@Rva00517EA2@@QAEXXZ -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp (not merged yet)
+
+// tu-skeleton: 0x00517F2B 6B ?Rva00517F2BGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters.cpp (not merged yet)
 
 // tu-skeleton: 0x007954CC 8B Unwind@00b954cc -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellScreens.cpp (not merged yet)
 

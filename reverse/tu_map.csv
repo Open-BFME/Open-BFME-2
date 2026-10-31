@@ -43645,7 +43645,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0051730E,28,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,C,C=0x00517207..0x0051732A provisional,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/Rva0051730ECtor.cpp
 0x0051732A,27,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,C,C=0x00517207..0x00517345 provisional,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp
 0x00517345,31,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,C,C=0x00517207..0x00517364 provisional,Code/GameEngine/Source/Common/Rva00517345Ctor.cpp
-0x00517364,23,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,C,C=0x00517207..0x0051737B provisional,Code/GameEngine/Source/Common/VslotSmallBodiesL.cpp
+0x00517364,23,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,C,C=0x00517207..0x0051737B provisional,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp
 0x0051737B,28,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,C,C=0x00517207..0x00517397 provisional,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-10.cpp
 0x00517397,52,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,C,C=0x00517207..0x005173CB provisional,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp
 0x005173CB,45,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,C,C=0x00517207..0x005173F8 provisional,Code/GameEngine/Source/Common/Rva005173CBSet.cpp
