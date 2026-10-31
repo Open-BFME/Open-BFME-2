@@ -4118,7 +4118,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0007243D,53,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBuffer.cpp,approved,C,C=0x000723FB..0x00072472,Code/GameEngine/Source/Common/Rva0007243D.cpp
 0x00072472,14,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBuffer.cpp,approved,S,S=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBuffer.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBuffer.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBufferCtorBfme.cpp
 0x00072480,32,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBuffer.cpp,approved,S,S=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBuffer.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBuffer.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBufferRva00072480.cpp
-0x000724A0,14,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBuffer.cpp,approved,C,C=0x00072480..0x000724AE,Code/GameEngine/Source/Common/S1ZeroingConstructors.cpp
+0x000724A0,14,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBuffer.cpp,approved,C,C=0x00072480..0x000724AE,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBuffer.cpp
 0x000724AE,25,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBuffer.cpp,approved,C,C=0x00072480..0x000724C7,Code/GameEngine/Source/Common/Rva000724AEClear.cpp
 0x000724C7,16,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBuffer.cpp,approved,C,C=0x00072480..0x000724D7,Code/GameEngine/Source/Common/Rva000724C7Check.cpp
 0x000724D7,72,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBuffer.cpp,approved,C,C=0x00072480..0x0007251F,Code/GameEngine/Source/Common/Rva000724D7Lock.cpp

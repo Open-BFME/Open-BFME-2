@@ -89,12 +89,3 @@ private:
 	unsigned int a, b, c;
 };
 
-// ?rva000724A0@Rva000724A0ZeroView@@QAEPAV1@XZ
-Rva000724A0ZeroView *Rva000724A0ZeroView::rva000724A0()
-{
-	a = 0;
-	b = 0;
-	c = 0;
-	return this;
-}
-
