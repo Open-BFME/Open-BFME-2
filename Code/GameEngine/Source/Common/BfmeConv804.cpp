@@ -97,18 +97,7 @@ public:
 };
 
 class LANAPI;
-extern LANAPI *TheLAN;
 
-// ?bfmeGoECI@@YA_NXZ
-// Retail tail-jmps vtable slot 54; the BFME1 class stops at slot 46,
-// so BFME2 grew eight convention virtuals ahead of the ask.
-bool bfmeGoECI(void)
-{
-	BfmeObjECI *obj = reinterpret_cast<BfmeObjECI *>(TheLAN);
-	if (!obj)
-		return false;
-	return obj->bfmeAsk54ECI();
-}
 
 // ?g_bfmeObjECF@@3PAUBfmeObjECF@@A: matched references place it at VA 0xdf7040; also referenced as ?g_bfmeObjECF@@3VBfmeObjECFPtr@@A.
 BfmeObjECF * g_bfmeObjECF = 0;
