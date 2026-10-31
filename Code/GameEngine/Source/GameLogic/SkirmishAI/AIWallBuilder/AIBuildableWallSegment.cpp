@@ -275,6 +275,83 @@ struct Rva005C3513Buffer {float first; unsigned int second;};
 
 class Rva005C3513 {public: void *rva005C3513(Rva005C3513Buffer *output); private: char prefix[0x14]; float first; unsigned int second;};
 
+// 0x00525886: of the sixteen 0x18-byte entries at +0x48, the first whose
+// leading word equals the argument takes the +0x10 object's +0x10 word.
+struct Rva00525886Entry
+{
+	Int m_00;
+	char m_pad04[0x14];
+};
+
+struct Rva00525886Source
+{
+	char m_pad00[0x10];
+	Int m_10;
+};
+
+class Rva00525886
+{
+public:
+	void rva00525886(Int key);
+private:
+	char m_pad00[0x10];
+	Rva00525886Source *m_10;
+	char m_pad14[0x34];
+	Rva00525886Entry m_entries[16];
+};
+
+// 0x003F468D (nineteen callers): word [b] of the 0x30-byte records that
+// entry [a] (0x1C bytes each) of the +0x18 table points at from its +0x04.
+struct Rva003F468DRecord
+{
+	Int m_00;
+	char m_pad04[0x2C];
+};
+
+struct Rva003F468DRecords
+{
+	Int size() const { return m_end - m_begin; }
+	Rva003F468DRecord *m_begin;
+	Rva003F468DRecord *m_end;
+};
+
+struct Rva003F468DEntry
+{
+	Int m_00;
+	Rva003F468DRecords m_records; // +0x04
+	char m_pad0C[0x10];
+};
+
+class Rva003F468D
+{
+public:
+	Int rva003F468D(Int entryIndex, Int recordIndex);
+	Int rva003F4DAE(Int entryIndex);
+private:
+	char m_pad00[0x18];
+	Rva003F468DEntry *m_18;
+};
+
+// 0x0056a9cf: vtable-backed integer predicate; only the accessed word
+// and the native ABI are known. Original owner and field meaning are unknown.
+class Rva0056A9CF {public: Int rva0056A9CF(Int value); private: char m_prefix[0x10]; Int m_word;};
+
+// 0x005ce7bf: vtable-backed integer predicate; only the accessed word
+// and the native ABI are known. Original owner and field meaning are unknown.
+namespace StrategicInGameUI { class PlanningPhaseBuildingSelection; }
+
+class StrategicInGameUI::PlanningPhaseBuildingSelection {public: virtual Int rva005CE7BF(Int value); private: char m_prefix[0x14]; Int m_word;};
+
+// 0x0046322c: vtable-backed integer predicate; only the accessed word
+// and the native ABI are known. Original owner and field meaning are unknown.
+class Rva0046322C {public: Int rva0046322C(); private: char m_prefix[0x40]; Int m_word;};
+
+// 0x00596cbe: vtable-backed integer predicate; only the accessed word
+// and the native ABI are known. Original owner and field meaning are unknown.
+class Rva00596CBE {public: Int rva00596CBE(); private: char m_prefix[0x4C]; Int m_word;};
+
+// ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AIWallBuilder/AIBuildableWallSegment.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AIWallBuilder/AIBuildableWallSegment.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AIWallBuilder/AIBuildableWallSegment.cpp
@@ -387,12 +464,14 @@ Rva00596CDF::Rva00596CDF(unsigned int key)
     value58 = false;
 }
 
-// tu-skeleton: 0x00596C7C 9B ?registerWithBuilder@Rva00596CDF@@UAEXPAX_N@Z -- matched in Code/GameEngine/Source/Common/Rva0055AD91Wrapper.cpp (not merged yet)
-
-// tu-skeleton: 0x00596CBE 9B ?rva00596CBE@Rva00596CBE@@QAEHXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesZ.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/VslotSmallBodiesJ.cpp
 
 void *Rva00596CC7::rva00596CC7(Rva00596CC7Buffer *output) {output->first=first; output->second=second; output->third=third; return output;}
+
+// tu-skeleton: 0x00596C7C 9B ?registerWithBuilder@Rva00596CDF@@UAEXPAX_N@Z -- matched in Code/GameEngine/Source/Common/Rva0055AD91Wrapper.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/VslotSmallBodiesZ.cpp
+
+Int Rva00596CBE::rva00596CBE() {return m_word == 0;}
 
 // tu-skeleton: 0x00596CEA 147B ?Rva00596CEA@Rva00596CDF@@UAEXPAVXfer@@PAX@Z -- matched in Code/GameEngine/Source/Common/Rva00596CEAXfer.cpp (not merged yet)

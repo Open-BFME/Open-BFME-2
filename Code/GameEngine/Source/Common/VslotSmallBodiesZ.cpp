@@ -99,4 +99,3 @@ Int Rva0046322C::rva0046322C() {return m_word != 0;}
 // 0x00596cbe: vtable-backed integer predicate; only the accessed word
 // and the native ABI are known. Original owner and field meaning are unknown.
 class Rva00596CBE {public: Int rva00596CBE(); private: char m_prefix[0x4C]; Int m_word;};
-Int Rva00596CBE::rva00596CBE() {return m_word == 0;}
