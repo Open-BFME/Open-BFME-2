@@ -607,3 +607,7 @@ Code/GameEngine/Source/GameClient/GUI/Rva00575F38Dtor.cpp|param|slot17|Rva005CBC
 Code/GameEngine/Source/Common/VslotSmallBodiesAL.cpp|param|Rva00526342::rva00527111|a,9630b333ffe85b26faa1dfe2,drz-k7,drz-k7-552,w-4471b1f6edef,2026-10-30,4cc6b29cb71797aed96025b5
 Code/GameEngine/Source/Common/Rva00576C4BDtor.cpp|local|StrategicInGameUI::ResolveBattlesBehavior::Impl::~Impl|v2,b50741193d4493b32ef581e0,drz-k5,drz-k5-540,w-526a51702f64,2026-10-30,e19a907bc66ad1e1658e9611
 Code/GameEngine/Source/Common/GapBodiesGE37.cpp|param|Rva000E01F4::rva000E01F4|n,13818b5f55d31d9d58523444,drz-k11,drz-k11-546,w-09889333d128,2026-10-30,6ae5f3f7e1cebc88c356a266
+Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPathFinder.cpp|param|Rva003F71D4Metric::v00|a,ae6457a7bf33bce2a67fb8e7,drz-k10,drz-k10-540,w-88a32c4f7da7,2026-10-30,352b77d63c6b8e999d00526d
+Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPathFinder.cpp|param|Rva003F71D4Metric::v00|b,8762eb242389cea6c3a2cc47,drz-k10,drz-k10-540,w-88a32c4f7da7,2026-10-30,119a3bfbc1aa2c9c536b5acc
+Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPathFinder.cpp|param|Rva003F71D4Metric::v01|a,e6488187472384e25ffcad73,drz-k10,drz-k10-540,w-88a32c4f7da7,2026-10-30,9e461d4da2c85ec9270c96fc
+Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPathFinder.cpp|param|Rva003F71D4Metric::v01|b,f10dabdb918ec8717e12caa6,drz-k10,drz-k10-540,w-88a32c4f7da7,2026-10-30,a21e7611133aedcb241a2090
