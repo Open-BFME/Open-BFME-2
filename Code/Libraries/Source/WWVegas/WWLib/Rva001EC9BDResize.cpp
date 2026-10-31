@@ -8,14 +8,16 @@
 // 0x0037DF2C before forwarding. Resize semantics and element size are target
 // evidence; original vector and record identities remain unresolved.
 struct BfmeAssignRecord172 { unsigned char bytes[172]; };
-struct Rva001EBEABElement {
-	unsigned char bytes[172];
+struct Rva001EBEABElement
+{
+public:
 	Rva001EBEABElement();
-	Rva001EBEABElement(const Rva001EBEABElement &);
+	Rva001EBEABElement(const Rva001EBEABElement&);
 	~Rva001EBEABElement();
-	Rva001EBEABElement &operator=(const Rva001EBEABElement &);
-	bool operator<(const Rva001EBEABElement &) const;
-	bool operator==(const Rva001EBEABElement &) const;
+	Rva001EBEABElement&operator=(const Rva001EBEABElement&);
+	bool operator<(const Rva001EBEABElement&)const;
+	bool operator==(const Rva001EBEABElement&)const;
+	char bytes[172]; // +0x00
 };
 
 namespace _STL {

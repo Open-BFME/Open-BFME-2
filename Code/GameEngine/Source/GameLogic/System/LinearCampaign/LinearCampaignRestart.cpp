@@ -19,23 +19,30 @@ class Rva001ECD19 : public _STL::vector<BfmeAssignRecord172> {
 public:
     void rva001ECD19(BfmeAssignRecord172 *, BfmeAssignRecord172 *, BfmeAssignRecord172 *);
 };
-class Rva001EB456 { public: void rva001EB456(int, int); };
+class Rva001EB456
+{
+public:
+	void rva001EB456(int,int);
+};
 class LinearCampaign {
 public:
     void restartCurrentCampaignMission();
     void onMissionComplete();     // 0x001EB68A, the completion path
 private:
     unsigned char unknown00[0xA4];
-    Rva001ECD19 current;
+    Rva001ECD19 units;
     unsigned unknownB0;
-    _STL::vector<BfmeAssignRecord172> previous;
+    _STL::vector<BfmeAssignRecord172> used;
     bool won, restarting, unknownC2, advanced;
 };
 void LinearCampaign::restartCurrentCampaignMission() {
 switch(won || advanced) { case 0: {
     restarting = false;
-    current.rva001ECD19(current.end(), previous.begin(), previous.end());
-    _STL::vector<BfmeAssignRecord172> *history=&previous;
+    // The TU's other views type +A4 by its element; this body reaches it as
+    // the vector the 0x001ECD19 insert forwarder takes.
+    reinterpret_cast<Rva001ECD19 &>(units).rva001ECD19(
+        reinterpret_cast<Rva001ECD19 &>(units).end(), used.begin(), used.end());
+    _STL::vector<BfmeAssignRecord172> *history=&used;
     history->erase(history->begin(), history->end());
     reinterpret_cast<Rva001EB456 *>(this)->rva001EB456(1, 0);
 break; } default: onMissionComplete(); break; }

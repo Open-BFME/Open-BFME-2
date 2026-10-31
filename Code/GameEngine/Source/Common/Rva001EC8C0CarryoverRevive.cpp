@@ -69,24 +69,27 @@ public:
 	void addRevivableUnit(const Rva002E2D10Record &item, Player *player);
 };
 
+class Slot0Receiver;
 class Rva001EBCD8
 {
 public:
-	void *rva001EBCD8(void *record);
+	void *rva001EBCD8(void *a1);
+	char m_pad00[0x4];
+private:
+	Slot0Receiver *m_ptr; // +0x04
 };
 
 class Rva001EC8C0
 {
 public:
-	bool rva001EC8C0(int key, int tracker, int player);
-
+	bool rva001EC8C0(int a0, int a1, int a2);
+	char m_pad00[0xA4];
 private:
-	char unknown00[0xA4];
-	Rva001EB023Elem *m_first; // +0xA4
-	Rva001EB023Elem *m_last; // +0xA8
-	Rva001EB023Elem *m_limit; // +0xAC
-	int unknownB0;
-	_STL::vector<BfmePod172> m_used; // +0xB4
+	Rva001EB023Elem *m_first; // +0xA4 +0xA4
+	Rva001EB023Elem *m_last; // +0xA8 +0xA8
+	Rva001EB023Elem *m_limit; // +0xAC +0xAC
+	char m_padB0[0x4];
+	_STL::vector<BfmePod172> m_used; // +0xB4 +0xB4
 };
 
 bool Rva001EC8C0::rva001EC8C0(int key, int tracker, int player)

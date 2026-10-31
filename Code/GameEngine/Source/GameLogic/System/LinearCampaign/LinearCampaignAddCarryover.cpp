@@ -139,12 +139,19 @@ public:
 class PlayerList
 {
 public:
+	Player* getNthPlayer(int);
 	int rva002A7D30();
-	Player *getEachPlayerFromMask(int &mask);
+	Player*getEachPlayerFromMask(int&);
+	char p0[0x14]; // +0x00
+	int count; // +0x14
 };
 extern PlayerList *ThePlayerList;
 
-class UpgradeCenter { public: const UpgradeTemplate *rva0026EEA0(int key) const; };
+class UpgradeCenter
+{
+public:
+	const UpgradeTemplate*rva0026EEA0(int)const;
+};
 extern UpgradeCenter *TheUpgradeCenter;
 
 class CarryoverUnit
@@ -172,7 +179,15 @@ namespace _STL { template <> BfmeAssignRecord172 *vector<BfmeAssignRecord172, al
 struct Rva001EB8A4Elem;
 class Rva001EB8A4 { public: bool rva001EB8A4(const Rva001EB8A4Elem &e); };
 class Rva001EB3A6 { public: BfmeAssignRecord36 *rva001EB3A6(int index); };
-class Rva001EBCD8 { public: void *rva001EBCD8(void *record); };
+class Slot0Receiver;
+class Rva001EBCD8
+{
+public:
+	void *rva001EBCD8(void *a1);
+	char m_pad00[0x4];
+private:
+	Slot0Receiver *m_ptr; // +0x04
+};
 
 class Rva0037F57E
 {

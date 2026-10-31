@@ -12,7 +12,17 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 #include <vector>
 
-struct Rva001EBEABElement { char bytes[172];Rva001EBEABElement();Rva001EBEABElement(const Rva001EBEABElement&);~Rva001EBEABElement();Rva001EBEABElement&operator=(const Rva001EBEABElement&); bool operator<(const Rva001EBEABElement&)const; bool operator==(const Rva001EBEABElement&)const; };
+struct Rva001EBEABElement
+{
+public:
+	Rva001EBEABElement();
+	Rva001EBEABElement(const Rva001EBEABElement&);
+	~Rva001EBEABElement();
+	Rva001EBEABElement&operator=(const Rva001EBEABElement&);
+	bool operator<(const Rva001EBEABElement&)const;
+	bool operator==(const Rva001EBEABElement&)const;
+	char bytes[172]; // +0x00
+};
 
 // Instantiate the recovered operation and its required template dependencies.
 template void _STL::vector<Rva001EBEABElement, _STL::allocator<Rva001EBEABElement> >::_M_fill_insert(Rva001EBEABElement *, unsigned int, Rva001EBEABElement const &);

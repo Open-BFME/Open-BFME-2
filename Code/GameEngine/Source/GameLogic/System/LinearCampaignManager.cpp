@@ -210,7 +210,15 @@ struct Bits1024 {unsigned int words[32];__forceinline bool test(unsigned n)const
 
 class Player {public:char p0[0x14];int value14;char p18[0x5c-0x18];int value5C;char p60[0x13c-0x60];Bits1024 upgrades;char p1BC[0x2f0-0x1bc];_STL::vector<ScienceType>sciences;char p2FC[0x314-0x2fc];float value314;char p318[0x738-0x318];Rva0037E421 revival;};
 
-class PlayerList {public:Player* getNthPlayer(int);int rva002A7D30();Player*getEachPlayerFromMask(int&);char p0[0x14];int count;};
+class PlayerList
+{
+public:
+	Player* getNthPlayer(int);
+	int rva002A7D30();
+	Player*getEachPlayerFromMask(int&);
+	char p0[0x14]; // +0x00
+	int count; // +0x14
+};
 
 extern PlayerList*ThePlayerList;
 
@@ -220,7 +228,11 @@ extern ScienceStore*TheScienceStore;
 
 class UpgradeTemplate {public:char p0[0x78];bool carryover;};
 
-class UpgradeCenter {public:const UpgradeTemplate*rva0026EEA0(int)const;};
+class UpgradeCenter
+{
+public:
+	const UpgradeTemplate*rva0026EEA0(int)const;
+};
 
 extern UpgradeCenter*TheUpgradeCenter;
 
@@ -378,13 +390,17 @@ private:
 	Rva00270025 *m_member;
 };
 
+class Rva001EAFFE;
 class LinearCampaign {
 public:
 	void onCurrentMissionWon();
 public:
 	void beginCampaign();
 public:
-	char p0[0x10];
+	char p0[0x4];
+	Rva001EAFFE *m_campaign;	// +0x04, the campaign record
+	char p08[0x4];
+	int m_0c;
 public:
 	int value10;
 public:
@@ -396,13 +412,18 @@ public:
 public:
 	_STL::vector<BfmePod172>units;
 public:
-	char pB0[4];
+	int m_numFlaggedCarryovers;	// +0xB0
 public:
 	_STL::vector<BfmeAssignRecord172>used;
 public:
 	bool won;
+	bool restarting;	// +0xC1
+	bool unknownC2;
+	bool advanced;		// +0xC3
 public:
 	void addCarryoverStuffToMap();
+	void restartCurrentCampaignMission();
+	void onMissionComplete();	// 0x001EB68A, the completion path
 };
 
 class Rva0023D6D5Callee
@@ -583,10 +604,18 @@ private:
 // wrapper identities and the two unrowed callees remain address-derived; the
 // third callee is the already-rowed AITargetChooser::rva00505408. Field offsets
 // and return/argument shapes come from each retail body.
+struct Rva001EB023Elem;
 class Rva001EC859
 {
 public:
-	void *rva001EC859(Int a0, Int a1);
+	void *rva001EC859(int a0, int a1);
+	char m_pad00[0xA4];
+private:
+	Rva001EB023Elem *m_first; // +0xA4 +0xA4
+	Rva001EB023Elem *m_last; // +0xA8 +0xA8
+	Rva001EB023Elem *m_limit; // +0xAC +0xAC
+	char m_padB0[0x4];
+	_STL::vector<BfmePod172> m_used; // +0xB4 +0xB4
 };
 
 class Rva001EC99B
@@ -601,7 +630,14 @@ private:
 class Rva001EC8C0
 {
 public:
-	bool rva001EC8C0(Int a0, Int a1, Int a2);
+	bool rva001EC8C0(int a0, int a1, int a2);
+	char m_pad00[0xA4];
+private:
+	Rva001EB023Elem *m_first; // +0xA4 +0xA4
+	Rva001EB023Elem *m_last; // +0xA8 +0xA8
+	Rva001EB023Elem *m_limit; // +0xAC +0xAC
+	char m_padB0[0x4];
+	_STL::vector<BfmePod172> m_used; // +0xB4 +0xB4
 };
 
 class Rva001EC9AC

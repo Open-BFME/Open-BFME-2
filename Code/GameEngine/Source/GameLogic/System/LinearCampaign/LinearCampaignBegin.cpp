@@ -86,7 +86,11 @@ public:
 
 extern Display *TheDisplay;
 
-class Rva001EB456 {public:void rva001EB456(int,int);};
+class Rva001EB456
+{
+public:
+	void rva001EB456(int,int);
+};
 class LinearCampaign
 {
 public:
@@ -98,34 +102,36 @@ private:
 	unsigned char m_pad08[0x0C - 0x08];
 	int m_0c;
 	unsigned char m_pad10[0xA4 - 0x10];
-	Rva001EC9BDVector m_carryoverUnits;	// +0xA4
+	Rva001EC9BDVector units;			// +0xA4
 	int m_numFlaggedCarryovers;			// +0xB0
-	_STL::vector<BfmeAssignRecord172> m_b4;	// +0xB4
+	_STL::vector<BfmeAssignRecord172> used;	// +0xB4
 	unsigned char m_padC0[0xC3 - 0xC0];
-	bool m_c3;
+	bool advanced;					// +0xC3
 };
 
 void LinearCampaign::beginCampaign()
 {
 	int count = m_campaign->m_units.size();
-	Rva001EC9BDVector &units = m_carryoverUnits;
-	units.resize(count);
+	// The TU's other views type +A4 by its element; this body reaches it as
+	// the vector the 0x001ECCF3 resize forwarder takes.
+	Rva001EC9BDVector &carryovers = reinterpret_cast<Rva001EC9BDVector &>(units);
+	carryovers.resize(count);
 	m_numFlaggedCarryovers = 0;
 	for (int i = 0; i < count; ++i)
 	{
 		const AsciiString &name = m_campaign->rva001EAFFE(i);
-		units[i].m_name = name;
-		units[i].m_90 = 1;
+		carryovers[i].m_name = name;
+		carryovers[i].m_90 = 1;
 		const CarryoverThingTemplateView *thing = static_cast<const CarryoverThingTemplateView *>(
-			reinterpret_cast<Rva0037DCA5 *>(&units[i])->GetThingTemplate());
+			reinterpret_cast<Rva0037DCA5 *>(&carryovers[i])->GetThingTemplate());
 		if (thing && (thing->m_kindOf[0x5A >> 3] & (1 << (0x5A & 7))))
 			++m_numFlaggedCarryovers;
 	}
-	m_b4.reserve(count);
+	used.reserve(count);
 	const AsciiString &movie = m_campaign->m_movie;
 	if (!reinterpret_cast<const StringBase<char> *>(&movie)->isEmpty())
 		TheDisplay->slot67(movie, 1, 0);
 	m_0c = 0;
-	m_c3 = false;
+	advanced = false;
 	((Rva001EB456*)this)->rva001EB456(1, 1);
 }

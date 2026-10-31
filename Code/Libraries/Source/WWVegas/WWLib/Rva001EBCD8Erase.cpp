@@ -31,9 +31,9 @@ class Rva001EBCD8
 {
 public:
 	void *rva001EBCD8(void *a1);
+	char m_pad00[0x4];
 private:
-	char m_pad[4];
-	Slot0Receiver *m_ptr;
+	Slot0Receiver *m_ptr; // +0x04
 };
 
 // ?rva001EBCD8@Rva001EBCD8@@QAEPAXPAX@Z retail 0x001EBCD8 62B. Custom
