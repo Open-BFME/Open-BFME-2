@@ -46611,26 +46611,26 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0056866A,71,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_10byte_key_helpers.cpp
 0x005686B1,8,code,,,-,,Code/GameEngine/Source/Common/DispWordFieldGetters.cpp
 0x005686B9,8,code,,,-,,Code/GameEngine/Source/Common/DispWordFieldGetters.cpp
-0x005686C1,24,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,N,N=Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair_getGrid.cpp
+0x005686C1,24,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,N,N=Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
 0x005686D9,28,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x005686C1..0x005686F5 provisional,Code/GameEngine/Source/Common/FamilyDeletingDtors12.cpp
-0x005686F5,44,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,W=Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp C=0x005686C1..0x00568721 provisional,Code/GameEngine/Source/Common/Rva005686F5Lookup.cpp
-0x00568721,53,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x005686C1..0x00568756 provisional,Code/GameEngine/Source/Common/Rva00568721Less.cpp
-0x00568756,17,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x005686C1..0x00568767 provisional,Code/GameEngine/Source/Common/Rva003CC340Lt.cpp
-0x00568767,108,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x005686C1..0x005687D3 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_introsort_loop_rva00568721.cpp
+0x005686F5,44,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,W=Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp C=0x005686C1..0x00568721 provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
+0x00568721,53,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x005686C1..0x00568756 provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
+0x00568756,17,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x005686C1..0x00568767 provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
+0x00568767,108,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x005686C1..0x005687D3 provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
 0x005687D3,12,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x005686C1..0x005687DF provisional,Code/GameEngine/Source/Common/Disp8DivAvgDwordGetters.cpp
-0x005687DF,16,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x005686C1..0x005687EF provisional,Code/GameEngine/Source/Common/Rva005687DFPermuted.cpp
-0x005687EF,16,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x005686C1..0x005687FF provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_lower_bound_uint.cpp
+0x005687DF,16,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x005686C1..0x005687EF provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
+0x005687EF,16,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x005686C1..0x005687FF provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
 0x005687FF,49,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x005686C1..0x00568830 provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
 0x00568830,77,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x005686C1..0x0056887D provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
 0x0056887D,28,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x005686C1..0x00568899 provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
 0x00568899,57,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x005686C1..0x005688D2 provisional,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB09.cpp
 0x005688D2,78,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x005686C1..0x00568920 provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
-0x00568920,25,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp provisional,Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp
-0x00568939,88,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp W=Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp provisional,Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp
+0x00568920,25,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
+0x00568939,88,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp W=Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
 0x00568991,116,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x00568939..0x00568A05 provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
 0x00568A05,27,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x00568939..0x00568A20 provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
-0x00568A20,33,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x00568939..0x00568A41 provisional,Code/GameEngine/Source/Common/Rva00568A20Copy.cpp
-0x00568A41,92,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x00568939..0x00568A9D provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_10byte_key_568fe4_insert.cpp
+0x00568A20,33,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x00568939..0x00568A41 provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
+0x00568A41,92,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x00568939..0x00568A9D provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
 0x00568A9D,31,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x00568939..0x00568ABC provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_10byte_key_helpers.cpp
 0x00568ABC,19,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x00568939..0x00568ACF provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
 0x00568ACF,33,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x00568939..0x00568AF0 provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
@@ -46644,12 +46644,12 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00568C4E,53,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x00568939..0x00568C83 provisional,Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp
 0x00568C83,18,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x00568939..0x00568C95 provisional,Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp
 0x00568C95,38,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x00568939..0x00568CBB provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
-0x00568CBB,37,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x00568939..0x00568CE0 provisional,Code/GameEngine/Source/Common/Rva00568CBBFillN.cpp
+0x00568CBB,37,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x00568939..0x00568CE0 provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
 0x00568CE0,79,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,U,N=Code/GameEngine/Source/Common/BfmeStringRecord00568CE0.cpp provisional,Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp
-0x00568D2F,57,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x00568CE0..0x00568D68 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_lower_bound_uint.cpp
-0x00568D68,45,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x00568CE0..0x00568D95 provisional,Code/GameEngine/Source/Common/Rva00568D68AllocateCopy.cpp
+0x00568D2F,57,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x00568CE0..0x00568D68 provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
+0x00568D68,45,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x00568CE0..0x00568D95 provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
 0x00568D95,34,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x00568CE0..0x00568DB7 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_10byte_key_helpers.cpp
-0x00568DB7,73,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x00568CE0..0x00568E00 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_unguarded_partition_rva00568721.cpp
+0x00568DB7,73,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x00568CE0..0x00568E00 provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
 0x00568E00,23,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x00568CE0..0x00568E17 provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
 0x00568E17,28,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x00568CE0..0x00568E4F provisional,Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp
 0x00568E33,28,code,,displaced,-,N=Code/Libraries/Source/WWVegas/WWLib/BfmePoolRef10.cpp,Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorChains.cpp
@@ -46658,12 +46658,12 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00568EB4,50,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x00568CE0..0x00568EE6 provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
 0x00568EE6,30,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x00568CE0..0x00568F04 provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
 0x00568F04,42,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x00568CE0..0x00568F2E provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
-0x00568F2E,45,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x00568CE0..0x00568F5B provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_10byte_key_568fe4_insert.cpp
-0x00568F5B,35,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x00568CE0..0x00568F7E provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_lower_bound_uint.cpp
-0x00568F7E,20,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x00568CE0..0x00568F92 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_10byte_key_568fe4_insert.cpp
+0x00568F2E,45,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x00568CE0..0x00568F5B provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
+0x00568F5B,35,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x00568CE0..0x00568F7E provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
+0x00568F7E,20,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x00568CE0..0x00568F92 provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
 0x00568F92,45,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x00568CE0..0x00568FBF provisional,Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp
 0x00568FBF,37,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x00568CE0..0x00568FE4 provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
-0x00568FE4,149,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x00568CE0..0x00569079 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_10byte_key_568fe4_insert.cpp
+0x00568FE4,149,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x00568CE0..0x00569079 provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
 0x00569079,38,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x00568CE0..0x0056909F provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
 0x0056909F,63,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x00568CE0..0x005690DE provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
 0x005690DE,9,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x00568CE0..0x005690E7 provisional,Code/GameEngine/Source/Common/GapBodiesSeat10O1.cpp
@@ -46673,54 +46673,54 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00569126,23,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x00568CE0..0x0056913D provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
 0x0056913D,158,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,N,N=Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
 0x005691DB,145,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,N,N=Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
-0x0056926C,41,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x005691DB..0x00569295 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_10byte_key_568fe4_insert.cpp
-0x00569295,74,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x005691DB..0x005692DF provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_10byte_key_568fe4_insert.cpp
+0x0056926C,41,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x005691DB..0x00569295 provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
+0x00569295,74,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x005691DB..0x005692DF provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
 0x005692DF,45,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x005691DB..0x0056930C provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
 0x0056930C,45,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x005691DB..0x00569339 provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
 0x00569339,58,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x005691DB..0x00569373 provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
 0x00569373,32,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x005691DB..0x00569393 provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
 0x00569393,34,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x005691DB..0x005693B5 provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
-0x005693B5,26,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x005691DB..0x005693CF provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_10byte_key_568fe4_insert.cpp
+0x005693B5,26,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x005691DB..0x005693CF provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
 0x005693CF,5,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x005691DB..0x005693D4 provisional,Code/GameEngine/Source/Common/GapBodiesSeat10O1.cpp
-0x005693D4,56,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x005691DB..0x0056940C provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_10byte_key_568fe4_insert.cpp
+0x005693D4,56,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x005691DB..0x0056940C provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
 0x0056940C,68,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x005691DB..0x00569450 provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
 0x00569450,27,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x005691DB..0x0056946B provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
 0x0056946B,93,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x005691DB..0x005694C8 provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
 0x005694C8,5,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x005691DB..0x005694CD provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
-0x005694CD,118,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x005691DB..0x00569543 provisional,Code/GameEngine/Source/Common/Rva005694CDTeardown.cpp
+0x005694CD,118,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x005691DB..0x00569543 provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
 0x00569543,42,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x005691DB..0x0056956D provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
 0x0056956D,133,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,N,N=Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
 0x005695F2,54,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x0056956D..0x00569628 provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
-0x00569628,370,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp provisional,Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp
-0x0056979A,93,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp provisional,Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp
-0x005697F7,108,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp provisional,Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp
-0x00569863,219,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp W=Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp provisional,Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp
-0x0056993E,285,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp provisional,Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp
+0x00569628,370,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
+0x0056979A,93,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
+0x005697F7,108,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
+0x00569863,219,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp W=Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
+0x0056993E,285,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
 0x00569A5B,25,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x0056993E..0x00569A74 provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
 0x00569A74,25,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x0056993E..0x00569A8D provisional,Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorChains.cpp
 0x00569A8D,27,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x0056993E..0x00569AA8 provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
 0x00569AA8,21,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x0056993E..0x00569ABD provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
-0x00569ABD,255,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp W=Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp provisional,Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp
-0x00569BBC,423,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp provisional,Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp
+0x00569ABD,255,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp W=Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
+0x00569BBC,423,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
 0x00569D63,63,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x00569BBC..0x00569DA2 provisional,Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorChains.cpp
 0x00569DA2,63,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x00569BBC..0x00569DE1 provisional,Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorChains.cpp
 0x00569DE1,30,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x00569BBC..0x00569DFF provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
-0x00569DFF,30,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x00569BBC..0x00569E1D provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_poolref10_mclear.cpp
-0x00569E1D,116,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x00569BBC..0x00569E91 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva00568a20_reserve.cpp
-0x00569E91,123,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x00569BBC..0x00569F0C provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_introsort_loop_rva00568721.cpp
-0x00569F0C,167,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x00569BBC..0x00569FB3 provisional,Code/Libraries/Source/WWVegas/WWLib/Rva00569F0CAssign.cpp
-0x00569FB3,174,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp provisional,Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp
-0x0056A061,204,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp provisional,Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp
-0x0056A12D,183,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x0056A061..0x0056A1E4 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_stringrecord_568ce0_insert_overflow_g7.cpp
+0x00569DFF,30,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x00569BBC..0x00569E1D provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
+0x00569E1D,116,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x00569BBC..0x00569E91 provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
+0x00569E91,123,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x00569BBC..0x00569F0C provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
+0x00569F0C,167,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x00569BBC..0x00569FB3 provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
+0x00569FB3,174,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
+0x0056A061,204,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
+0x0056A12D,183,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x0056A061..0x0056A1E4 provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
 0x0056A1E4,183,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x0056A061..0x0056A29B provisional,Code/Libraries/Source/WWVegas/WWLib/StlportVectorInsertOverflowFamily.cpp
 0x0056A29B,67,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x0056A061..0x0056A2DE provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
 0x0056A2DE,22,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x0056A061..0x0056A2F4 provisional,Code/GameEngine/Source/Common/EbpParamForwarders.cpp
 0x0056A2F4,55,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x0056A061..0x0056A32B provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
 0x0056A32B,55,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x0056A061..0x0056A362 provisional,Code/Libraries/Source/WWVegas/WWLib/StlportVectorPushBackFamily.cpp
 0x0056A362,22,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x0056A061..0x0056A378 provisional,Code/GameEngine/Source/Common/EbpParamForwarders.cpp
-0x0056A378,135,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp provisional,Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp
+0x0056A378,135,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
 0x0056A3FF,171,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,C,C=0x0056A378..0x0056A4AA provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
-0x0056A4AA,913,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp W=Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp provisional,Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp
+0x0056A4AA,913,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp W=Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
 0x0056A83B,328,code,,,-,,Code/GameEngine/Source/GameLogic/LargeGroupAudio/Rva0056A83BParseAudioMap.cpp
 0x0056A983,6,code,,,-,,Code/GameEngine/Source/Common/ConstIntGetters5.cpp
 0x0056A989,22,code,,,-,,Code/GameEngine/Source/Common/Rva0056A989Gate.cpp
@@ -85816,26 +85816,26 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0079A278,10,code,,,-,,Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp
 0x0079A282,14,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,P,P=0x00568F92@FuncInfo0x0094F128 provisional,Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp
 0x0079A290,10,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,P,P=0x00568F92@FuncInfo0x0094F128 provisional,Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp
-0x0079A29A,10,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,P,P=0x00569ABD@FuncInfo0x0094F14C provisional,Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp
-0x0079A2A4,10,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,P,P=0x00569ABD@FuncInfo0x0094F14C provisional,Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp
+0x0079A29A,10,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,P,P=0x00569ABD@FuncInfo0x0094F14C provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
+0x0079A2A4,10,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,P,P=0x00569ABD@FuncInfo0x0094F14C provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
 0x0079A2AE,8,code,,,-,,Code/gen_small/uw_gen_010.cpp
 0x0079A2B6,10,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorChains.cpp
 0x0079A2C0,8,code,,,-,,Code/gen_small/uw_gen_011.cpp
 0x0079A2C8,11,code,,,-,,Code/gen_small/uw_gen_010.cpp
-0x0079A2D3,11,code,,,-,,Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp
-0x0079A2DE,11,code,,,-,,Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp
+0x0079A2D3,11,code,,,-,,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
+0x0079A2DE,11,code,,,-,,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
 0x0079A2E9,11,code,,,-,,Code/gen_small/uw_gen_013.cpp
-0x0079A2F4,11,code,,,-,,Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp
-0x0079A2FF,11,code,,,-,,Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp
-0x0079A30A,11,code,,,-,,Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp
-0x0079A315,10,code,,,-,,Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp
+0x0079A2F4,11,code,,,-,,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
+0x0079A2FF,11,code,,,-,,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
+0x0079A30A,11,code,,,-,,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
+0x0079A315,10,code,,,-,,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
 0x0079A31F,8,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,P,P=0x0056A3FF@FuncInfo0x0094F1F8 provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
 0x0079A327,8,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,P,P=0x0056A3FF@FuncInfo0x0094F1F8 provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
 0x0079A32F,10,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,P,P=0x0056A3FF@FuncInfo0x0094F1F8 provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
-0x0079A339,8,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,P,P=0x0056A4AA@FuncInfo0x0094F22C provisional,Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp
-0x0079A341,10,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,P,P=0x0056A4AA@FuncInfo0x0094F22C provisional,Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp
-0x0079A34B,8,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,P,P=0x0056A4AA@FuncInfo0x0094F22C provisional,Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp
-0x0079A353,10,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,P,P=0x0056A4AA@FuncInfo0x0094F22C provisional,Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp
+0x0079A339,8,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,P,P=0x0056A4AA@FuncInfo0x0094F22C provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
+0x0079A341,10,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,P,P=0x0056A4AA@FuncInfo0x0094F22C provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
+0x0079A34B,8,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,P,P=0x0056A4AA@FuncInfo0x0094F22C provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
+0x0079A353,10,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,approved,P,P=0x0056A4AA@FuncInfo0x0094F22C provisional,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
 0x0079A35D,8,code,,,-,,Code/GameEngine/Source/GameLogic/LargeGroupAudio/Rva0056A83BParseAudioMap.cpp
 0x0079A365,10,code,,,-,,Code/GameEngine/Source/GameLogic/LargeGroupAudio/Rva0056A83BParseAudioMap.cpp
 0x0079A36F,8,code,,,-,,Code/GameEngine/Source/Common/Rva0056AA54Probe.cpp

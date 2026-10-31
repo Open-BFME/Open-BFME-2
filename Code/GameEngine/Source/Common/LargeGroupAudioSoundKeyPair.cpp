@@ -375,11 +375,157 @@ struct Rva00568FE4Less {
 // The nonvirtual deleting wrapper at665BF calls this complete destructor.
 class Rva000D3A17Resource { public: virtual void Delete_This()=0; int references; };
 #include "../../Include/Common/Rva000D3A8AElemA.h"
+//
+// LargeGroupAudioSoundKeyPair subject bookkeeping (retail 0x00568920..0x00569863).
+//
+// Identity (target): WorldBuilder's LargeGroupAudioSoundKeyPair.cpp keeps these
+// bodies in retail's order: 0x00568920 (0x0143F9F0) directly before
+// setupDuckingTarget 0x00568939 (0x0143FA30), then updateSubject 0x00569628
+// (0x014413B0), the unnamed 0x0056979A (0x01441A20) and 0x005697F7
+// (0x01441AC0), and unregisterSubject 0x00569863 (0x01441BC0). The WorldBuilder
+// asserts in unregisterSubject ("Less than zero units on LGAS grid set") read
+// the total weight at +0x64; 0x005697F7 adds the same weight back, and the
+// 0x003EDE44 worker dispatches the three subject callbacks. The two unnamed
+// bodies keep address-derived method names.
+// The subject's vtable slots (previous position, position, weight, keys) are
+// read from these callers; the class names of the grid, ducking-slot and
+// pending-add helpers stay address-derived.
+// 0x00568920 and 0x00568939 moved here from their split-out unit: 0x00568939
+// and 0x005697F7 keep THIS in ECX across the 0x00568920 call, which MSVC only
+// does for a callee compiled earlier in the same unit.
+// Shape notes: BFME 2's Coord2D has a user-declared destructor, which is what
+// makes 0x0056979A's caller-side argument copy record its address (a copy
+// constructor alone does not). WorldBuilder's 0x005697F7 stores the getKeys()
+// result in a local before the overlap test; spelling it that way gives
+// retail's register assignment (subject in ESI, THIS in EDI).
+// The owning AudioMap destroys each key pair through 0x0056A061. Its
+// WorldBuilder twin confirms the destructor identity; the native cleanup
+// sequence independently establishes members at 0/C/10/14/20/40/4C/58.
+// The first twelve bytes remain an opaque owning container: its destructor
+// is the existing 0x003ED94F provider. Automatic member destruction preserves
+// all eight retail EH states, including the throwing allocation free.
+// BFME1 donor revision reviewed: cee35b7d8 (semantic/reference search only).
+void __cdecl Rva00030830FreeAllocation(void *);
+#include <cstdlib>
+#define free Rva00030830FreeAllocation
+// Keep the typed tree comparison local, as in W3DShroudInterpolate.cpp.
+// Its unused external base wrapper differs from the selected provider.
+namespace _STL {
+template <class Value, class Left, class Right>
+static inline bool operator!=(const _Rb_tree_iterator<Value, Left> &a,
+                              const _Rb_tree_iterator<Value, Right> &b)
+{ return a._M_node != b._M_node; }
+}
+#undef free
+class Rva00568A20;
+// Keep native inline frees without publishing competing allocator helpers.
+namespace _STL {
+template<> __declspec(dllimport) __forceinline void allocator<BfmeStringRecord00568CE0>::deallocate(BfmeStringRecord00568CE0 *p, size_t) const { if(p) Rva00030830FreeAllocation(p); }
+template<> __declspec(dllimport) __forceinline void _STLP_alloc_proxy<BfmeStringRecord00568CE0 *,BfmeStringRecord00568CE0,allocator<BfmeStringRecord00568CE0> >::deallocate(BfmeStringRecord00568CE0 *p, size_t n) { __stl_alloc_rebind(static_cast<allocator<BfmeStringRecord00568CE0> &>(*this), (BfmeStringRecord00568CE0 *)0).deallocate(p,n); }
+template<> __declspec(dllimport) __forceinline void allocator<const ModuleData *>::deallocate(const ModuleData * *p, size_t) const { if(p) Rva00030830FreeAllocation(p); }
+template<> __declspec(dllimport) __forceinline void _STLP_alloc_proxy<const ModuleData * *,const ModuleData *,allocator<const ModuleData *> >::deallocate(const ModuleData * *p, size_t n) { __stl_alloc_rebind(static_cast<allocator<const ModuleData *> &>(*this), (const ModuleData * *)0).deallocate(p,n); }
+template<> __declspec(dllimport) __forceinline void allocator<Rva00568A20>::deallocate(Rva00568A20 *p, size_t) const { if(p) Rva00030830FreeAllocation(p); }
+template<> __declspec(dllimport) __forceinline void _STLP_alloc_proxy<Rva00568A20 *,Rva00568A20,allocator<Rva00568A20> >::deallocate(Rva00568A20 *p, size_t n) { __stl_alloc_rebind(static_cast<allocator<Rva00568A20> &>(*this), (Rva00568A20 *)0).deallocate(p,n); }
+}
+// The native allocator ignores the element count. Keep its null-guarded
+// free inline, including member cleanup, and leave whole-container owners
+// to their rowed units (vector69D63 and node creation568D95).
+namespace _STL {
+template<> __declspec(dllimport) __forceinline _Vector_base<BfmeStringRecord00568CE0,allocator<BfmeStringRecord00568CE0> >::~_Vector_base() { if(this->_M_start) Rva00030830FreeAllocation(this->_M_start); }
+template<> __declspec(dllimport) __forceinline _Vector_base<const ModuleData *,allocator<const ModuleData *> >::~_Vector_base() { if(this->_M_start) Rva00030830FreeAllocation(this->_M_start); }
+template<> vector<BfmeStringRecord00568CE0>::~vector();
+template<> __declspec(dllimport) __forceinline void vector<const ModuleData *>::_M_clear() { _Destroy(this->_M_start, this->_M_finish); this->_M_end_of_storage.deallocate(this->_M_start, this->_M_end_of_storage._M_data - this->_M_start); }
+}
+// BFME 2's Coord2D (MathCoord2D.h), kept under the pair name the grid lookup
+// 0x005C8176 is pinned with.
+struct FloatPair
+{
+	FloatPair() {}
+ // Nontrivial coordinate return has the same two-float physical ABI.
+ FloatPair(float a,float b):x(a),y(b){}
+ operator float *() { return &x; }
+	FloatPair(const FloatPair &floatPair) : x(floatPair.x), y(floatPair.y) {}
+	~FloatPair() {}
+	__forceinline bool isExactlyEqualTo(const FloatPair &floatPair) const { return x == floatPair.x && y == floatPair.y; }
+	float x;
+	float y;
+};
+namespace _STL {
+template<> _Rb_tree_node<Rva00568FE4Key> *_Rb_tree<Rva00568FE4Key,Rva00568FE4Key,_Identity<Rva00568FE4Key>,Rva00568FE4Less,allocator<Rva00568FE4Key> >::_M_create_node(const Rva00568FE4Key &);
+}
+class Rva005C8176 { public: void *rva005C8176(FloatPair p); };
+struct Rva00568939Elem
+{
+	char m_00[8];
+	float m_08;
+	int m_0c;
+	bool m_10;
+	char m_pad11[3];
+};
+class HostClass005C815B;
+// Layout the two ducking helpers below read (+0x14/+0x18 element range,
+// four grid slots at +0x2C); a view of LargeGroupAudioSoundKeyPair's storage.
+struct LargeGroupAudioSoundKeyPairDuckingView
+{
+	char m_pad[0x14];
+	Rva00568939Elem *m_begin14;
+	Rva00568939Elem *m_end18;
+	char m_pad1C[0x10];
+	union
+	{
+		int m_vals[4];
+		HostClass005C815B *m_slots[4];
+	};
+};
+class LargeGroupAudioSubject
+{
+public:
+	virtual FloatPair getPreviousPosition() = 0;
+	virtual FloatPair getPosition() = 0;
+	virtual void vslot08() = 0;
+	virtual void vslot0C() = 0;
+	virtual void vslot10() = 0;
+	virtual void vslot14() = 0;
+	virtual unsigned short getWeight() = 0;
+	virtual const Rva003CDDB0Range *getKeys() = 0;
+};
+// Native transfer569BBC and WB unnamed twin1442480 establish version/Xfer
+// protocol. WB-named1442010 establishes xferGridCellVector identity.
+// ModuleData pointer vectors are opaque four-byte emitter views only.
+struct VersionPair { unsigned char minimum,current; };
+class Snapshot;
+class AsciiString;
+class UnicodeString;
+class PooledString;
+struct Coord3DBase;
+struct ICoord3D;
+struct Region3D;
+class IRegion3D;
+class Coord2D;
+struct ICoord2D;
+struct Region2D;
+struct IRegion2D;
+class RealRange;
+struct RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+struct XferUnknown11;
+#include "../../Include/Common/BfmeXfer.h"
+#define _BFME_RETAIL_TREE_INSERT_LAYOUT
+#define free Rva00030830FreeAllocation
+#undef free
+#include <new.h>
+// Adapted from BF1 f98983a7 inputs/vendor/stlport/stl/_vector.h:274.
+// Native 00569F0C..00569FB3 RET12 proves three-word vector ABI and 20B stride.
+// All five allocation/copy/cleanup callees already have verified providers.
+// The existing neutral caller-view name is retained: original template spelling
+// and the unused third argument type are not independently established.
+// Empty tag constructor has no state.
+int rva00569450(void *,void *,void *);
 
 // Retail has no EH frame here (no __EH_prolog, only the [ebp-4] alive flag of
 // the rva00568BE2 temporary): it compiled compare as non-throwing.
 template <> int StringBase<char>::compare(const StringBase<char> &str) const throw();
-
 
 // The ledger row at 0x005C834A is HostClass005C815B::method_005C834A.
 class HostClass005C815B
@@ -678,23 +824,383 @@ public: ~Rva000D3A17();
 private: Rva0074011F buffers; int field08,field0c,field10,field14; Rva000D3A8AElemA refs[10]; int field90; Rva000D3A8AElemB sets[10]; unsigned char field10c;
 };
 
-// tu-skeleton: 0x005686C1 24B ?getGrid@LargeGroupAudioSoundKeyPair@@QAEHH@Z -- matched in Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair_getGrid.cpp (not merged yet)
+// Native 5688D2 returns its two-float output address in EAX and RET8.
+// Its caller569ABD consumes that EAX as a live temporary with an empty
+// destructor. This typed-return body is an emitted byte/relocation twin of
+// the existing explicit-output provider; original source spelling is unknown.
+// Native constant BC6C50 is -0.5f; scale belongs to owner+10 reached at this+3C.
+class Rva005C83C0DivAvgField;
+
+// Retail passes one source pointer (RET4), keeps it in EDI, and reuses its
+// dead argument home for the four-grid counter and then the output flag at
+// byte3. This four-byte carrier models that observed ABI and storage reuse;
+// it does not claim the original source-language argument type.
+struct Rva0056A378Source {
+ union { const LargeGroupAudioSoundKeyPair *source; int count; struct { char pad[3]; bool ok; } result; };
+};
+
+class LargeGroupAudioKeyMap {public: LargeGroupAudioKeyMap &operator=(const LargeGroupAudioKeyMap &);};
+
+struct OpaqueRefElement4 { void *m_referent; OpaqueRefElement4 &operator=(const OpaqueRefElement4 &);};
+
+// Existing rowed adjustor destructor5C8565, called before scalar delete.
+class Rva005C8565
+{
+public:
+	~Rva005C8565();
+};
+
+struct Rva00569F0CVec : _STL::vector<BfmeStringRecord00568CE0,_STL::allocator<BfmeStringRecord00568CE0> > {
+ void rva00569F0C(void *,void *,bool *);
+};
+
+class Rva005C865B {public: Rva005C865B(void *,float *); char opaque[0x1C];};
+
+class Rva005C81D8 {public: void rva005C81D8(Rva005C8176 *,Rva005C8176 *,Rva005C8176 *);};
+
+struct BfmeEventPositionView {float x,y,z;};
+
+struct Rva005C8876Position {float x,y,z;Rva005C8876Position(){} Rva005C8876Position(const Rva005C8876Position&p):x(p.x),y(p.y),z(p.z){} };
+
+struct Rva005C8876Grid {char pad[0xE0];unsigned short startWeight,continueWeight;unsigned char mode;};
+
+class Rva0051D93 {public:Rva0051D93(const OpaqueRefElement4&,const BfmeEventPositionView&,int);char data[0x90];};
+
+class GameMessageList;
+
+class GameMessage {public:void friend_setList(GameMessageList*);};
+
+class AudioManager;
+
+extern AudioManager *TheAudio;
+
+class AudioCalls {
+public:
+ virtual void s00();virtual void s01();virtual void s02();virtual void s03();
+ virtual void s04();virtual void s05();virtual void s06();virtual void s07();
+ virtual void s08();virtual void s09();virtual void s10();virtual void s11();
+ virtual void s12();virtual void s13();virtual void s14();virtual void s15();
+ virtual void s16();virtual void s17();virtual void s18();virtual void s19();
+ virtual void s20();virtual void s21();virtual void s22();virtual void s23();
+ virtual GameMessageList *start(BfmePoolRef10*);
+ virtual void s25();virtual void s26();virtual void stop(int);
+};
+
+extern class GameLogic *TheGameLogic;
+
+struct LogicFrame {char pad[0x40];unsigned frame;};
+
+namespace _STL {
+template<> void vector<Rva00568A20>::reserve(unsigned);
+template<> vector<BfmePoolRef10>::~vector();
+template<> void sort<void**,Rva00568721Cmp>(void**,void**,Rva00568721Cmp);
+
+template<> _Vector_base<int,allocator<int> >::_Vector_base(const allocator<int>&);
+}
+
+void __cdecl Rva00568A9DCopy(void *dest, const void *src);
+
+template Rva00568FE4Tree::iterator Rva00568FE4Tree::insert_equal(const Rva00568FE4Tree::value_type &);
+
+template Rva00568FE4Multi::iterator Rva00568FE4Multi::insert(const Rva00568FE4Multi::value_type &);
+
+// ??$_M_find@URva00568FE4Key@@@?$_Rb_tree@... @0x00568A41 92B (key search
+// with the two out-of-line comparator calls), ?_M_erase@... @0x00568F2E 45B,
+// ?clear@... @0x0056926C 41B and ??1?$_Rb_tree@... @0x005693D4 56B (clear,
+// then free the header): the lookup and teardown members of the same tree,
+// each placed uniquely by masked search in 0x568000-0x56A400. The 20B find
+// wrapper at 0x00568F7E is not rowed: const find, non-const find and the
+// bound wrappers are byte-identical there.
+template Rva00568FE4Tree::iterator Rva00568FE4Tree::find(const Rva00568FE4Key &);
+
+template void Rva00568FE4Tree::clear();
+
+template Rva00568FE4Tree::~_Rb_tree();
+
+class Rva0020DB91
+{
+public:
+	void *rva0020DB91(const AsciiString &arg);
+};
+
+class LargeGroupAudio;
+
+extern LargeGroupAudio *TheLargeGroupAudio;
+
+class Rva003EE083
+{
+public:
+	void *rva003EE083(const AsciiString &arg);
+};
+
+struct Rva005686F5Elem
+{
+	AsciiString m_key;
+	AsciiString m_04;
+};
+
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
+// ?Rva00568721Less@@YG_NPBX0@Z @0x00568721 53B. Stdcall word+nibble ordering
+// for the 0x005687xx sort family. Retail compares word at +0x44 unsigned
+// greater-true then nibble at +0x47 high-4-bits unsigned less-true via
+// sbb-neg. Evidence: same +0x44 word and +0x47 nibble fields as the tiny
+// getters at 0x00568645 (word) 0x0056864A (shr-4 high nibble) 0x00568651
+// (low nibble); callers are the sort helpers 0x00568767 0x005687FF
+// 0x00568830 0x00568AF0 0x00568DB7 0x0056909F 0x0056946B which all test al.
+// Shape follows sibling Less 0x0056866A in
+// Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_10byte_key_helpers.cpp
+// (mixed greater-true primaries with less-true final via sbb-neg).
+struct Rva00568721Key
+{
+    char m_lead[0x44];
+    unsigned short m_word;
+    unsigned char m_pad46;
+    unsigned char m_byte47;
+};
+
+namespace _STL
+{
+// ??$__median@PAPAXURva00568721Cmp@@@_STL@@YAPAPAXPAPAX00URva00568721Cmp@@@Z @0x00568767
+template <class RandomAccessIter, class Compare>
+RandomAccessIter __median(RandomAccessIter a, RandomAccessIter b,
+	RandomAccessIter c, Compare comp)
+{
+	void *bv = *b;
+	void *av = *a;
+	if (comp(av, bv))
+	{
+		void *cv = *c;
+		if (comp(bv, cv))
+			return b;
+		else if (comp(av, cv))
+			return c;
+		else
+			return a;
+	}
+	else
+	{
+		void *cv = *c;
+		if (comp(av, cv))
+			return a;
+		else if (comp(bv, cv))
+			return c;
+		else
+			return b;
+	}
+}
+template <class RandomAccessIter, class Tp, class Compare>
+RandomAccessIter __unguarded_partition(RandomAccessIter first,
+	RandomAccessIter last, Tp pivot, Compare comp);
+template <class RandomAccessIter, class Compare>
+void partial_sort(RandomAccessIter first, RandomAccessIter middle,
+	RandomAccessIter last, Compare comp);
+template <class RandomAccessIter, class Tp, class Size, class Compare>
+void __introsort_loop(RandomAccessIter first, RandomAccessIter last,
+	Tp *, Size depth_limit, Compare comp);
+template <> void **__unguarded_partition<void **, void *, Rva00568721Cmp>(void **, void **, void *, Rva00568721Cmp);
+// ??$__introsort_loop@PAPAXPAXHURva00568721Cmp@@@_STL@@YAXPAPAX0PAPAXHURva00568721Cmp@@@Z @0x00569E91
+template <>
+void __introsort_loop<void **, void *, int, Rva00568721Cmp>(void **first, void **last,
+	void **, int depth_limit, Rva00568721Cmp comp)
+{
+	typedef void **(*Median)(void **, void **, void **, Rva00568721Cmp);
+	while (last - first > 16)
+	{
+		if (depth_limit == 0)
+		{
+			partial_sort(first, last, last, comp);
+			return;
+		}
+		--depth_limit;
+		void **cut = __unguarded_partition(first, last,
+			*static_cast<Median>(__median)(first, first + (last - first) / 2, last - 1, comp),
+			comp);
+		__introsort_loop(cut, last, (void **)0, depth_limit, comp);
+		last = cut;
+	}
+}
+}
+
+namespace _STL {
+
+template const unsigned int* __lower_bound<const unsigned int*, unsigned int, less<unsigned int>, int>(
+	const unsigned int*, const unsigned int*, const unsigned int&, less<unsigned int>, int*);
+
+// lower_bound<const unsigned int*, unsigned int> @0x00568F5B 35B: the public
+// wrapper, building the empty less<unsigned int> temporary (xor/stosb into the
+// frame slot) and passing a null distance-type pointer to the rowed worker
+// 0x00568D2F above. Evidence: sole callee is that worker; unique masked hit.
+template const unsigned int* lower_bound<const unsigned int*, unsigned int>(
+	const unsigned int*, const unsigned int*, const unsigned int&);
+
+}
+
+struct BfmePoolHolder88;
+
+class HostClass005C8E0A;
+
+template Rva00568A20 *_STL::__uninitialized_fill_n(Rva00568A20 *, unsigned int, const Rva00568A20 &, const _STL::__false_type &);
+
+namespace _STL
+{
+template <> void _Construct<Rva00568A20, Rva00568A20>(Rva00568A20 *, const Rva00568A20 &);
+template <> Rva00568A20 *allocator<Rva00568A20>::allocate(unsigned int, const void *) const;
+}
+
+template Rva00568A20 *_STL::vector<Rva00568A20, _STL::allocator<Rva00568A20> >::_M_allocate_and_copy<const Rva00568A20 *>(unsigned int, const Rva00568A20 *, const Rva00568A20 *);
+
+namespace _STL
+{
+
+template <class RandomAccessIter, class Tp, class Compare>
+RandomAccessIter __unguarded_partition(RandomAccessIter first,
+	RandomAccessIter last, Tp pivot, Compare comp);
+
+template <>
+void **__unguarded_partition<void **, void *, Rva00568721Cmp>(void **first,
+	void **last, void *pivot, Rva00568721Cmp comp)
+{
+	while (true)
+	{
+		while (comp(*first, pivot))
+			++first;
+		--last;
+		while (comp(pivot, *last))
+			--last;
+		if (!(first < last))
+			return first;
+		void *temporary = *first;
+		*first = *last;
+		*last = temporary;
+		++first;
+	}
+}
+
+}
+
+struct Rva005694CDElem
+{
+	char m_pad[0x10];
+	unsigned char m_flag;	// +0x10
+	char m_pad2[3];
+};
+
+namespace _STL { template <> void _Destroy<BfmePoolRef10 *>(BfmePoolRef10 *, BfmePoolRef10 *); }
+
+template void _STL::vector<BfmePoolRef10>::_M_clear();
+
+namespace _STL
+{
+template <> void _Construct<Rva00568A20, Rva00568A20>(Rva00568A20 *, const Rva00568A20 &);
+template <> Rva00568A20 *allocator<Rva00568A20>::allocate(unsigned int, const void *) const;
+template <> void vector<Rva00568A20>::_M_clear();
+}
+
+template void _STL::vector<BfmeStringRecord00568CE0>::_M_insert_overflow(
+	BfmeStringRecord00568CE0 *,
+	const BfmeStringRecord00568CE0 &,
+	const _STL::__false_type &,
+	unsigned int,
+	bool);
+
+// ---- from Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair_getGrid.cpp
+
+int LargeGroupAudioSoundKeyPair::getGrid(int index)
+{
+	if (index < 0 || index >= 4)
+		return 0;
+	return (int)m_grids[index];
+}
 
 // tu-skeleton: 0x005686D9 28B ??_GRva005C8565@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyDeletingDtors12.cpp (not merged yet)
 
-// tu-skeleton: 0x005686F5 44B ?rva005686F5@@YGPAXPBURva005686F5Elem@@@Z -- matched in Code/GameEngine/Source/Common/Rva005686F5Lookup.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva005686F5Lookup.cpp
 
-// tu-skeleton: 0x00568721 53B ?Rva00568721Less@@YG_NPBX0@Z -- matched in Code/GameEngine/Source/Common/Rva00568721Less.cpp (not merged yet)
+//
+// ?rva005686F5@@YGPAXPBURva005686F5Elem@@@Z @0x005686F5 44B.
+// Null-guarded two-stage name lookup: if g_00DFE1A8 is null return 0,
+// else scan it with Rva0020DB91::rva0020DB91 (rowed 0x0020DB91) for m_00;
+// a miss returns 0, a hit runs the pinned 0x003EE083 AsciiString scan on
+// m_04. The element carries two adjacent AsciiStrings at +0/+4 (the +4 is
+// the observed add-esi-4); later fields seen at the 0x0056956D caller.
 
-// tu-skeleton: 0x00568756 17B ?rva003cc340@@YGHPAII@Z -- matched in Code/GameEngine/Source/Common/Rva003CC340Lt.cpp (not merged yet)
+void *__stdcall rva005686F5(const Rva005686F5Elem *element)
+{
+	if (TheLargeGroupAudio == 0)
+		return 0;
+	void *item = reinterpret_cast<Rva0020DB91 *>(TheLargeGroupAudio)->rva0020DB91(element->m_key);
+	if (item == 0)
+		return 0;
+	return ((Rva003EE083 *)item)->rva003EE083(element->m_04);
+}
 
-// tu-skeleton: 0x00568767 108B ??$__median@PAPAXURva00568721Cmp@@@_STL@@YAPAPAXPAPAX00URva00568721Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_introsort_loop_rva00568721.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva00568721Less.cpp
+
+bool __stdcall Rva00568721Less(const void *a_, const void *b_)
+{
+    const Rva00568721Key *a = (const Rva00568721Key *)a_;
+    const Rva00568721Key *b = (const Rva00568721Key *)b_;
+    if (a->m_word > b->m_word)
+        return true;
+    if (a->m_word < b->m_word)
+        return false;
+    return (a->m_byte47 & 0xF0) < (b->m_byte47 & 0xF0);
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva003CC340Lt.cpp
+
+int __stdcall rva003cc340(unsigned *a, unsigned b)
+{
+	return *a < b;
+}
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_introsort_loop_rva00568721.cpp
 
 // tu-skeleton: 0x005687D3 12B ?get@Rva005687D3DivAvgField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8DivAvgDwordGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x005687DF 16B ?rva005687DF@@YAHABI0@Z -- matched in Code/GameEngine/Source/Common/Rva005687DFPermuted.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva005687DFPermuted.cpp
 
-// tu-skeleton: 0x005687EF 16B ??$advance@PBIH@_STL@@YAXAAPBIH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_lower_bound_uint.cpp (not merged yet)
+//
+// ?rva005687DF@@YAHABI0@Z, retail 0x005687df, 16 bytes. Banked partial (score 1.0) closed by tools/permute.py;
+// the body is the banked one up to statement/operand order and local types.
+// Donor BFME1@6583b3c1ff21db4a561285717028fdafc780b7db,
+// game/GameEngine/Source/Common/BfmeConv881.cpp blob8831c2f9dfa0d0d35893925ba29bca090c78610c.
+// Full source profile /O2 /Ob1 /GX- /GS /G7 /arch:SSE places two tied
+// STLport distance labels at5687DF/16. Native reads two referenced raw32
+// words, subtracts, and arithmetic-shifts by2. Pointer element type and
+// original STL identity remain donor-only. No standalone Ghidra, E8/E9,
+// or absolute-VA entry witness; packed RET boundaries alone do not prove
+// a standalone function. This exact raw-ABI body is evidence, not progress.
+int __cdecl rva005687DF(const unsigned int &first, const unsigned int &last)
+{
+    return static_cast<int>(last - first) >> 2;
+}
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_lower_bound_uint.cpp
+
+//
+// __lower_bound over const unsigned int* with less<unsigned int>, the
+// binary-search worker behind lower_bound on a sorted unsigned array.
+//
+// Everything about the instantiation is legible in the 57 bytes. sar edx,2
+// is the four-byte element stride, so the iterator is a pointer to a 4-byte
+// type; sar ecx,1 is arithmetic, so _Distance is signed int and not size_t;
+// cmp dword ptr [esi],edi followed by jae is an unsigned compare, which is
+// less<unsigned int> and not less<int>; and the value arrives as a pointer
+// that is dereferenced once into edi before the loop, which is the const _Tp&
+// parameter being hoisted.
+//
+// The trailing _Distance* parameter carries no value - it exists only to
+// hand the distance type to the template - so it is never touched here.
+//
+// /O1 rather than /O2, and the tell is an absence. At /O2 cl aligns the loop
+// head with a seven-byte lea esp,[esp+0] and allocates the hoisted value to
+// esi instead of edi; retail has no padding at all and the whole body is
+// exactly 57 bytes. Every size-directed level agrees - /O1, /Os and /Oxs all
+// reproduce it - so this says the unit was built for size and does not
+// distinguish between them.
+
+// ---- from Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
 
 // ---- from Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp
 
@@ -1141,99 +1647,523 @@ void LargeGroupAudioSoundKeyPair::setupAllDuckingTargets()
 	}
 }
 
-// tu-skeleton: 0x00568899 57B ??0Rva0051D93@@QAE@ABUOpaqueRefElement4@@ABUBfmeEventPositionView@@H@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB09.cpp (not merged yet)
-
-// tu-skeleton: 0x00568920 25B ?rva00568920@LargeGroupAudioSoundKeyPair@@QBE_NXZ -- matched in Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp (not merged yet)
-
-// tu-skeleton: 0x00568939 88B ?rva00568939@LargeGroupAudioSoundKeyPair@@QAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp (not merged yet)
-
-// tu-skeleton: 0x00568A20 33B ??0Rva00568A20@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Rva00568A20Copy.cpp (not merged yet)
-
-// tu-skeleton: 0x00568A41 92B ??$_M_find@URva00568FE4Key@@@?$_Rb_tree@URva00568FE4Key@@U1@U?$_Identity@URva00568FE4Key@@@_STL@@URva00568FE4Less@@V?$allocator@URva00568FE4Key@@@3@@_STL@@ABEPAU?$_Rb_tree_node@URva00568FE4Key@@@1@ABURva00568FE4Key@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_10byte_key_568fe4_insert.cpp (not merged yet)
-
-// tu-skeleton: 0x00568A9D 31B ?Rva00568A9DCopy@@YAXPAXPBX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_10byte_key_helpers.cpp (not merged yet)
-
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000D3A17Dtor.cpp
 
 Rva000D3A8AElemA::Rva000D3A8AElemA() : pointer(0), name(), flag(0) {}
+
+// tu-skeleton: 0x00568899 57B ??0Rva0051D93@@QAE@ABUOpaqueRefElement4@@ABUBfmeEventPositionView@@H@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB09.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp
+
+FloatPair Rva005688D2::rva005688D2(int mode)
+{
+ float first,second;
+ if(mode==0 || mode==2)first=0;
+ else first=m_base->m_scale * -0.5f;
+ if(mode==0 || mode==1)second=0;
+ else second=m_base->m_scale * -0.5f;
+ return FloatPair(first,second);
+}
+
+LargeGroupAudioSoundKeyPair::~LargeGroupAudioSoundKeyPair(){
+ reinterpret_cast<Rva00569373 *>(this)->rva00569373((void *)1);
+ _STL::vector<BfmeStringRecord00568CE0> *v=&m_subjects;
+ for(BfmeStringRecord00568CE0 *it=v->begin();it!=m_subjects.end();++it){if(it->subject)it->subject->rva00568F04(this);}
+ reinterpret_cast<Rva00569393 *>(this)->rva005694CD();
+}
+
+bool LargeGroupAudioSoundKeyPair::rva00568920() const
+{
+	const LargeGroupAudioSoundKeyPairDuckingView *largeGroupAudioSoundKeyPairDuckingView = (const LargeGroupAudioSoundKeyPairDuckingView *)this;
+	for (int i = 0; i < 4; ++i)
+		if (largeGroupAudioSoundKeyPairDuckingView->m_vals[i] == 0)
+			return false;
+	return true;
+}
+
+void LargeGroupAudioSoundKeyPair::rva00568939(int key)
+{
+	LargeGroupAudioSoundKeyPairDuckingView *largeGroupAudioSoundKeyPairDuckingView = (LargeGroupAudioSoundKeyPairDuckingView *)this;
+	if (!rva00568920())
+		return;
+	for (Rva00568939Elem *e = largeGroupAudioSoundKeyPairDuckingView->m_begin14; e != largeGroupAudioSoundKeyPairDuckingView->m_end18; ++e) {
+		if (e->m_0c != key)
+			continue;
+		if (e->m_10)
+			return;
+		HostClass005C815B **slot = largeGroupAudioSoundKeyPairDuckingView->m_slots;
+		for (int left = 4; left != 0; --left, ++slot) {
+			if (*slot != 0) {
+				float f = e->m_08;
+				(*slot)->method_005C836F(key, f);
+			}
+		}
+		e->m_10 = true;
+		return;
+	}
+}
+
+void LargeGroupAudioSoundKeyPair::updateSubject(LargeGroupAudioSubject *subject)
+{
+	if (!((Rva003CDDB0Range *)this)->method(subject->getKeys()))
+		return;
+	FloatPair oldPos = subject->getPreviousPosition();
+	FloatPair newPos = subject->getPosition();
+	if (oldPos.isExactlyEqualTo(newPos))
+		return;
+	unsigned short weight = subject->getWeight();
+	if (rva00568920())
+	{
+		for (int i = 0; i < 4; ++i)
+		{
+			if (m_grids[i] != 0)
+			{
+				LargeGroupAudioGridCell *oldCell = (LargeGroupAudioGridCell *)m_grids[i]->rva005C8176(oldPos);
+				LargeGroupAudioGridCell *newCell = (LargeGroupAudioGridCell *)m_grids[i]->rva005C8176(newPos);
+				if (oldCell != newCell)
+				{
+					if (oldCell != 0)
+					{
+						oldCell->subtractFromWeight(weight);
+						((Rva00569543 *)this)->rva005695F2((const ModuleData *)oldCell);
+					}
+					if (newCell != 0)
+					{
+						newCell->addToWeight(weight);
+						((Rva00569543 *)this)->rva005695F2((const ModuleData *)newCell);
+					}
+				}
+			}
+		}
+	}
+	else
+	{
+		Rva00568FE4Key key;
+		key.x = oldPos.x;
+		key.y = oldPos.y;
+		key.w = weight;
+		Rva00568FE4Multi::iterator it = m_pendingAdds.find(key);
+		if (it != m_pendingAdds.end())
+			m_pendingAdds.erase(it);
+		key.x = newPos.x;
+		key.y = newPos.y;
+		key.w = weight;
+		m_pendingAdds.insert(key);
+	}
+}
+
+// WB143EA40 names allocateGrids. Native569ABD proves allocations1C and
+// four ordered neighbour hookups through neutral5C81D8. /G7 closes the
+// pending key's 16-bit weight load; target has no zero-extension instruction.
+void LargeGroupAudioSoundKeyPair::allocateGrids()
+{
+ for(int i=0;i<4;++i){
+  if(m_grids[i]){reinterpret_cast<Rva00569393 *>(this)->rva005694CD();i=0;}
+  m_grids[i]=reinterpret_cast<Rva005C8176 *>(new Rva005C865B(reinterpret_cast<void *>(m_grid),reinterpret_cast<Rva005688D2 *>(this)->rva005688D2(i)));
+ }
+ reinterpret_cast<Rva005C81D8 *>(m_grids[0])->rva005C81D8(m_grids[1],m_grids[2],m_grids[3]);
+ reinterpret_cast<Rva005C81D8 *>(m_grids[1])->rva005C81D8(m_grids[0],m_grids[3],m_grids[2]);
+ reinterpret_cast<Rva005C81D8 *>(m_grids[2])->rva005C81D8(m_grids[3],m_grids[0],m_grids[1]);
+ reinterpret_cast<Rva005C81D8 *>(m_grids[3])->rva005C81D8(m_grids[2],m_grids[1],m_grids[0]);
+ setupAllDuckingTargets();
+ Rva00568FE4Multi::iterator it=m_pendingAdds.begin(),end=m_pendingAdds.end();
+ for(;it!=end;++it)rva0056979A(reinterpret_cast<const FloatPair &>(*it),it->w);
+ m_pendingAdds.clear();
+}
+
+void LargeGroupAudioSoundKeyPair::rva0056979A(const FloatPair &pos, unsigned short weight)
+{
+	for (int i = 0; i < 4; ++i)
+	{
+		if (m_grids[i] != 0)
+		{
+			LargeGroupAudioGridCell *cell = (LargeGroupAudioGridCell *)m_grids[i]->rva005C8176(pos);
+			if (cell != 0)
+			{
+				cell->addToWeight(weight);
+				((Rva00569543 *)this)->rva005695F2((const ModuleData *)cell);
+			}
+		}
+	}
+}
+
+void LargeGroupAudioSoundKeyPair::rva005697F7(LargeGroupAudioSubject *subject)
+{
+	const Rva003CDDB0Range *keys = subject->getKeys();
+	if (!((Rva003CDDB0Range *)this)->method(keys))
+		return;
+	FloatPair pos = subject->getPosition();
+	unsigned short weight = subject->getWeight();
+	m_totalWeight += weight;
+	if (rva00568920())
+		rva0056979A(pos, weight);
+	else
+	{
+		Rva0056887D record;
+		m_pendingAdds.insert((const Rva00568FE4Key &)record.rva0056887D((const Rva0056887D &)pos, weight));
+	}
+}
+
+void LargeGroupAudioSoundKeyPair::unregisterSubject(LargeGroupAudioSubject *subject)
+{
+	if (!((Rva003CDDB0Range *)this)->method(subject->getKeys()))
+		return;
+	FloatPair pos = subject->getPreviousPosition();
+	unsigned short weight = subject->getWeight();
+	m_totalWeight -= weight;
+	if (rva00568920())
+	{
+		for (int i = 0; i < 4; ++i)
+		{
+			if (m_grids[i] != 0)
+			{
+				LargeGroupAudioGridCell *cell = (LargeGroupAudioGridCell *)m_grids[i]->rva005C8176(pos);
+				if (cell != 0)
+				{
+					cell->subtractFromWeight(weight);
+					((Rva00569543 *)this)->rva005695F2((const ModuleData *)cell);
+				}
+			}
+		}
+	}
+	else
+	{
+		Rva00568FE4Key key;
+		key.x = pos.x;
+		key.y = pos.y;
+		key.w = weight;
+		Rva00568FE4Multi::iterator it = m_pendingAdds.find(key);
+		if (it != m_pendingAdds.end())
+			m_pendingAdds.erase(it);
+	}
+}
+
+LargeGroupAudioSoundKeyPair::LargeGroupAudioSoundKeyPair(LargeGroupAudioAudioMap *owner, const char *name):m_owner(),m_grid(reinterpret_cast<Rva005C8876Grid*>(owner)),m_totalWeight(0){
+ for(int i=0;i<4;++i)m_grids[i]=0;
+ m_v4C.reserve(40);m_v40.reserve(40);
+ if(name)m_name.set(name);
+}
+
+void LargeGroupAudioSoundKeyPair::rva0056A378(Rva0056A378Source arg)
+{
+ const LargeGroupAudioSoundKeyPair *other=arg.source;
+ if(other==this)return;
+ Rva005C8565 **slot=reinterpret_cast<Rva005C8565 **>(m_grids);
+ arg.count=4;
+ do {
+  Rva005C8565 *s=*slot;
+  if(s){s->~Rva005C8565(); ::operator delete(s); *slot=0;}
+  ++slot;
+ }while(--arg.count);
+ reinterpret_cast<LargeGroupAudioKeyMap *>(this)->operator=(*reinterpret_cast<const LargeGroupAudioKeyMap *>(other));
+ *reinterpret_cast<OpaqueRefElement4 *>(&m_owner)=*reinterpret_cast<const OpaqueRefElement4 *>(&other->m_owner);
+ ((StringBase<char> &)(m_name)).set((const StringBase<char> &)(other->m_name));
+ Rva00569F0CVec *v=reinterpret_cast<Rva00569F0CVec *>(&m_subjects);
+ v->rva00569F0C(const_cast<BfmeStringRecord00568CE0 *>(other->m_subjects.begin()),const_cast<BfmeStringRecord00568CE0 *>(other->m_subjects.end()),&arg.result.ok);
+ for(BfmeStringRecord00568CE0 *e=m_subjects.begin();e!=m_subjects.end();++e)e->subject=0;
+}
+
+void LargeGroupAudioSoundKeyPair::rva00569BBC(Xfer *xfer, VersionPair *version)
+{
+ if(version->current>=3)*xfer == m_totalWeight;
+ else if(xfer->IsLoading())m_totalWeight=300000;
+ bool hasGrids=rva00568920();
+ if(version->current>=5){
+  *xfer == hasGrids;
+  unsigned count=m_pendingAdds.size();
+  *xfer == count;
+  if(xfer->IsLoading()){
+   m_pendingAdds.clear();
+   if(count>0){
+    FloatPair position;position.x=0;position.y=0;
+    do{
+     Rva0056887D record;
+     record.rva0056887D(reinterpret_cast<const Rva0056887D &>(position),0);
+     *xfer == *reinterpret_cast<Coord2D *>(&record);
+     *xfer == *reinterpret_cast<unsigned short *>(reinterpret_cast<char *>(&record)+8);
+     m_pendingAdds.insert(reinterpret_cast<const Rva00568FE4Key &>(record));
+    }while(--count);
+   }
+  }else{
+   Rva00568FE4Multi::iterator it=m_pendingAdds.begin(),end=m_pendingAdds.end();
+   for(;it!=end;++it){
+    Rva0056887D record;
+    reinterpret_cast<Rva00568A05 *>(&record)->operator=(*reinterpret_cast<const Rva00568A05 *>(&*it));
+    *xfer == *reinterpret_cast<Coord2D *>(&record);
+    *xfer == *reinterpret_cast<unsigned short *>(reinterpret_cast<char *>(&record)+8);
+   }
+  }
+ }else if(xfer->IsLoading()){
+  m_pendingAdds.clear();hasGrids=m_totalWeight>0;
+ }
+ if(!hasGrids){
+  if(xfer->IsLoading() && rva00568920())reinterpret_cast<Rva00569393 *>(this)->rva005694CD();
+ }else{
+  if(xfer->IsLoading() && !rva00568920())allocateGrids();
+  for(int left=4,i=0;left;--left,++i)reinterpret_cast<HostClass005C815B *>(m_grids[i])->method_005C839B(reinterpret_cast<int>(xfer),reinterpret_cast<int>(version));
+  xferGridCellVector(xfer,&m_v4C,version);
+  xferGridCellVector(xfer,&m_v40,version);
+ }
+}
+
+void LargeGroupAudioSoundKeyPair::xferGridCellVector(Xfer *xfer, void *storage, VersionPair *)
+{
+ _STL::vector<const ModuleData *> *vec=reinterpret_cast<_STL::vector<const ModuleData *> *>(storage);
+ int count=static_cast<int>(vec->size());
+ *xfer == count;
+ if(xfer->IsLoading()){vec->clear();vec->reserve(count);}
+ for(int index=0;index<count;++index){
+  FloatPair position;position.x=0;position.y=0;
+  if(xfer->IsStoring())position=*reinterpret_cast<const FloatPair *>((*vec)[index]);
+  *xfer == reinterpret_cast<Coord2D &>(position);
+  if(xfer->IsLoading()){
+   for(unsigned grid=0;grid<4;++grid){
+    if(m_grids[grid]){
+     const ModuleData *cell=reinterpret_cast<const ModuleData *>(m_grids[grid]->rva005C8176(position));
+     if(cell && reinterpret_cast<const FloatPair *>(cell)->isExactlyEqualTo(position)){
+      vec->push_back(cell);break;
+     }
+    }
+   }
+  }
+ }
+}
+
+void LargeGroupAudioSoundKeyPair::update(bool *flag)
+{
+ int startWeight=m_grid->startWeight,continueWeight=m_grid->continueWeight;
+ if(!rva00568920() && m_totalWeight>=startWeight){
+  if(!*flag || reinterpret_cast<LogicFrame*>(TheGameLogic)->frame<=1){
+   reinterpret_cast<LargeGroupAudioSoundKeyPair*>(this)->allocateGrids();*flag=true;
+  }
+ }else if(rva00568920() && m_totalWeight<=0){
+  reinterpret_cast<Rva00569393*>(this)->rva005694CD();
+ }
+ if(rva00568920()){
+  if(!m_v4C.empty()){
+   _STL::vector<Rva00568A20> displaced;displaced.reserve(m_v40.size());
+   for(unsigned i=0;i<m_v4C.size();++i){
+    HostClass005C8E0A *cell=reinterpret_cast<HostClass005C8E0A*>(const_cast<ModuleData*>(m_v4C[i]));
+    if(cell->m_pool08.m_target){
+     if(cell->weight<continueWeight)reinterpret_cast<Rva0056A3FF*>(this)->rva0056A3FF(cell,reinterpret_cast<_STL::vector<Rva00568A20>*>(&displaced));
+     else {HostClass005C8E0A **p=cell->neighbors;
+     for(int left=8;left;--left,++p){
+      HostClass005C8E0A *neighbor=*p;
+      if(neighbor && neighbor->weight>cell->weight)reinterpret_cast<Rva0056A3FF*>(this)->rva0056A3FF(cell,reinterpret_cast<_STL::vector<Rva00568A20>*>(&displaced));
+     }}
+    }else if(cell->lowNibble>0){
+     HostClass005C8E0A **p=cell->neighbors;
+     for(int left=8;left;--left,++p){
+      HostClass005C8E0A *neighbor=*p;
+      if(neighbor && neighbor->m_pool08.m_target && neighbor->weight<cell->weight){
+       reinterpret_cast<Rva0056A3FF*>(this)->rva0056A3FF(neighbor,reinterpret_cast<_STL::vector<Rva00568A20>*>(&displaced));
+       m_v4C.push_back(reinterpret_cast<const ModuleData* const&>(neighbor));
+      }
+     }
+    }
+   }
+   for(Rva00568A20 *e=displaced.begin();e!=displaced.end();++e){
+    HostClass005C8E0A *best=0;
+    for(int n=0;n<=8;++n){
+     HostClass005C8E0A *cell=n==8?e->m_host:e->m_host->neighbors[n];
+     if(cell && cell->weight>=startWeight && cell->lowNibble<=0){
+      if(best){
+       if(cell->weight>best->weight || (cell->weight==best->weight && cell->highNibble<best->highNibble)){
+        reinterpret_cast<Rva00569543*>(this)->rva005695F2(reinterpret_cast<const ModuleData*>(best));best=cell;
+       }else reinterpret_cast<Rva00569543*>(this)->rva005695F2(reinterpret_cast<const ModuleData*>(cell));
+      }else best=cell;
+     }
+    }
+    if(best){
+     unsigned char mode=e->m_host==best?e->m_byte:m_grid->mode;
+     best->method_005C908B(e->m_ref,mode);
+     m_v40.push_back(reinterpret_cast<const ModuleData* const&>(best));
+    }else {int handle=*reinterpret_cast<int*>(reinterpret_cast<char*>(e->m_ref.m_target)+0xC); reinterpret_cast<AudioCalls*>(TheAudio)->stop(handle);}
+   }
+   _STL::sort(reinterpret_cast<void**>(const_cast<ModuleData**>(m_v4C.begin())),reinterpret_cast<void**>(const_cast<ModuleData**>(m_v4C.end())),Rva00568721Cmp());
+   const ModuleData **i=m_v4C.begin();
+   for(;i!=m_v4C.end();++i){
+    HostClass005C8E0A* const &cell=*reinterpret_cast<HostClass005C8E0A**>(const_cast<ModuleData**>(i));
+    if(cell->weight<startWeight)break;
+    if(cell->lowNibble<=0){
+     Rva005C8876Position position=reinterpret_cast<LargeGroupAudioGridCell*>(cell)->getPreferredAudioPosition(m_grid);
+     BfmePoolRef10 holder(reinterpret_cast<BfmePoolHolder88*>(new Rva0051D93(reinterpret_cast<const OpaqueRefElement4&>(m_owner),reinterpret_cast<const BfmeEventPositionView&>(position),0)));
+     GameMessage *message=reinterpret_cast<GameMessage*>(holder.m_target);
+     GameMessageList *handle=reinterpret_cast<AudioCalls*>(TheAudio)->start(&holder);
+     message->friend_setList(handle);
+     cell->method_005C908B(holder,0);
+     m_v40.push_back(*i);
+    }
+   }
+   m_v4C.clear();
+  }
+  for(const ModuleData **p=m_v40.begin();p!=m_v40.end();++p)reinterpret_cast<LargeGroupAudioGridCell*>(const_cast<ModuleData*>(*p))->update(m_grid);
+ }
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva00568A20Copy.cpp
+
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
+// ??0Rva00568A20@@QAE@ABV0@@Z @0x00568A20 33B: copy ctor over BfmePoolRef10 base plus int at +4 and byte at +8. Base copy is rowed at 0x00051950. Caller at 0x00568C8F passes dest in ecx with null check.
+
+// Select-any like every other TU's copy (a strong definition would duplicate theirs at link time);
+// the anchor keeps the noinline body emitted.
+__declspec(noinline) inline Rva00568A20::Rva00568A20(const Rva00568A20 &o) : m_ref(o.m_ref), m_host(o.m_host), m_byte(o.m_byte)
+{
+}
+
+// ?bfmeAnchorRva00568A20 absent-from-retail
+void *bfmeAnchorRva00568A20(void *where, const Rva00568A20 *src)
+{
+	return new (where) Rva00568A20(*src);
+}
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_10byte_key_568fe4_insert.cpp
+
+// ?_M_insert@?$_Rb_tree@URva00568FE4Key@@U1@U?$_Identity@URva00568FE4Key@@@_STL@@URva00568FE4Less@@V?$allocator@URva00568FE4Key@@@3@@_STL@@AAE?AU?$_Rb_tree_iterator@URva00568FE4Key@@U?$_Nonconst_traits@URva00568FE4Key@@@_STL@@@2@PAU_Rb_tree_node_base@2@0ABURva00568FE4Key@@0@Z
+// retail 0x00568FE4 149B. _Rb_tree 10-byte key set _M_insert (hinted insert worker).
+// Shape matches sibling AsciiString _M_insert 0x002A484A 148B; the 1B delta is the
+// member comparator call (lea ecx,[edi+8]) vs the sibling's inlined free operator<
+// (2x pop). Calls the rowed _Rebalance 0x00025490; the comparator (71B) and
+// create-node (34B) are TU-local members byte-identical to the rowed free helpers
+// 0x0056866A/0x00568D95 (same float/word compare and 0x1c alloc plus 10-byte copy
+// via rowed 0x00568A9D), landed as ICF twins in the same commit. Evidence: caller
+// is the 74B find-or-insert at 0x00569295; prev/next rows are the 20-byte
+// StringRecord vector workers 0x00568FBF/0x00569079 in the neighbour TU sharing
+// these flags (plus /arch:SSE for the movss/comiss compare); node key at +0x10
+// and count at +4 match the 10-byte family (2 floats + word at +8).
+
+template <>
+Rva00568FE4Tree::_Link_type Rva00568FE4Tree::_M_create_node(const Rva00568FE4Tree::value_type &value) {
+  char *node = _STL::allocator<char>::allocate(0x1c, 0);
+  Rva00568A9DCopy(node + 0x10, &value);
+  return (Rva00568FE4Tree::_Link_type)node;
+}
+
+// tu-skeleton: 0x00568A9D 31B ?Rva00568A9DCopy@@YAXPAXPBX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_10byte_key_helpers.cpp (not merged yet)
 
 // tu-skeleton: 0x00568C4E 53B ??1Rva00568C4E@@QAE@XZ -- matched in Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp (not merged yet)
 
 // tu-skeleton: 0x00568C83 18B ??$_Construct@VRva00568A20@@V1@@_STL@@YAXPAVRva00568A20@@ABV1@@Z -- matched in Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp (not merged yet)
 
-// tu-skeleton: 0x00568CBB 37B ??$__uninitialized_fill_n@PAVRva00568A20@@IV1@@_STL@@YAPAVRva00568A20@@PAV1@IABV1@ABU__false_type@0@@Z -- matched in Code/GameEngine/Source/Common/Rva00568CBBFillN.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva00568CBBFillN.cpp
 
 // tu-skeleton: 0x00568CE0 79B ??0BfmeStringRecord00568CE0@@QAE@ABU0@@Z -- matched in Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp (not merged yet)
 
-// tu-skeleton: 0x00568D2F 57B ??$__lower_bound@PBIIU?$less@I@_STL@@H@_STL@@YAPBIPBI0ABIU?$less@I@0@PAH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_lower_bound_uint.cpp (not merged yet)
-
-// tu-skeleton: 0x00568D68 45B ??$_M_allocate_and_copy@PBVRva00568A20@@@?$vector@VRva00568A20@@V?$allocator@VRva00568A20@@@_STL@@@_STL@@IAEPAVRva00568A20@@IPBV2@0@Z -- matched in Code/GameEngine/Source/Common/Rva00568D68AllocateCopy.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva00568D68AllocateCopy.cpp
 
 // tu-skeleton: 0x00568D95 34B ?Rva00568D95CreateNode@@YGPAXPBX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_10byte_key_helpers.cpp (not merged yet)
 
-// tu-skeleton: 0x00568DB7 73B ??$__unguarded_partition@PAPAXPAXURva00568721Cmp@@@_STL@@YAPAPAXPAPAX0PAXURva00568721Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_unguarded_partition_rva00568721.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_unguarded_partition_rva00568721.cpp
 
 // tu-skeleton: 0x00568E17 28B ??_GRva00568C4E@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp (not merged yet)
 
-// tu-skeleton: 0x00568F2E 45B ?_M_erase@?$_Rb_tree@URva00568FE4Key@@U1@U?$_Identity@URva00568FE4Key@@@_STL@@URva00568FE4Less@@V?$allocator@URva00568FE4Key@@@3@@_STL@@AAEXPAU?$_Rb_tree_node@URva00568FE4Key@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_10byte_key_568fe4_insert.cpp (not merged yet)
-
-// tu-skeleton: 0x00568F5B 35B ??$lower_bound@PBII@_STL@@YAPBIPBI0ABI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_lower_bound_uint.cpp (not merged yet)
-
-// tu-skeleton: 0x00568F7E 20B ??$find@URva00568FE4Key@@@?$_Rb_tree@URva00568FE4Key@@U1@U?$_Identity@URva00568FE4Key@@@_STL@@URva00568FE4Less@@V?$allocator@URva00568FE4Key@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@URva00568FE4Key@@U?$_Nonconst_traits@URva00568FE4Key@@@_STL@@@1@ABURva00568FE4Key@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_10byte_key_568fe4_insert.cpp (not merged yet)
-
 // tu-skeleton: 0x00568F92 45B ??$_Construct@UBfmeStringRecord00568CE0@@U1@@_STL@@YAXPAUBfmeStringRecord00568CE0@@ABU1@@Z -- matched in Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp (not merged yet)
-
-// tu-skeleton: 0x00568FE4 149B ?_M_insert@?$_Rb_tree@URva00568FE4Key@@U1@U?$_Identity@URva00568FE4Key@@@_STL@@URva00568FE4Less@@V?$allocator@URva00568FE4Key@@@3@@_STL@@AAE?AU?$_Rb_tree_iterator@URva00568FE4Key@@U?$_Nonconst_traits@URva00568FE4Key@@@_STL@@@2@PAU_Rb_tree_node_base@2@0ABURva00568FE4Key@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_10byte_key_568fe4_insert.cpp (not merged yet)
 
 // tu-skeleton: 0x005690DE 9B ?Rva005690DE@@YAXPAVRva00568C4E@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat10O1.cpp (not merged yet)
 
 // tu-skeleton: 0x005690E7 9B ?Rva005690E7@@YAXPAVBfmePoolRef10@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat10O1.cpp (not merged yet)
 
-// tu-skeleton: 0x0056926C 41B ?clear@?$_Rb_tree@URva00568FE4Key@@U1@U?$_Identity@URva00568FE4Key@@@_STL@@URva00568FE4Less@@V?$allocator@URva00568FE4Key@@@3@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_10byte_key_568fe4_insert.cpp (not merged yet)
-
-// tu-skeleton: 0x00569295 74B ?insert_equal@?$_Rb_tree@URva00568FE4Key@@U1@U?$_Identity@URva00568FE4Key@@@_STL@@URva00568FE4Less@@V?$allocator@URva00568FE4Key@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@URva00568FE4Key@@U?$_Nonconst_traits@URva00568FE4Key@@@_STL@@@2@ABURva00568FE4Key@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_10byte_key_568fe4_insert.cpp (not merged yet)
-
-// tu-skeleton: 0x005693B5 26B ?insert@?$multiset@URva00568FE4Key@@URva00568FE4Less@@V?$allocator@URva00568FE4Key@@@_STL@@@_STL@@QAE?AU?$_Rb_tree_iterator@URva00568FE4Key@@U?$_Const_traits@URva00568FE4Key@@@_STL@@@2@ABURva00568FE4Key@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_10byte_key_568fe4_insert.cpp (not merged yet)
-
 // tu-skeleton: 0x005693CF 5B ?rva005693CF@Rva005693CF@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat10O1.cpp (not merged yet)
 
-// tu-skeleton: 0x005693D4 56B ??1?$_Rb_tree@URva00568FE4Key@@U1@U?$_Identity@URva00568FE4Key@@@_STL@@URva00568FE4Less@@V?$allocator@URva00568FE4Key@@@3@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_10byte_key_568fe4_insert.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva005694CDTeardown.cpp
 
-// tu-skeleton: 0x005694CD 118B ?rva005694CD@Rva00569393@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva005694CDTeardown.cpp (not merged yet)
+//
+// ?rva005694CD@Rva00569393@@QAEXXZ @0x005694CD 118B.
+// Teardown: drain-notify via the rowed 0x00569393 cursor loop, fan out the
+// +0x2C slots through rowed 0x005C815B, release each slot through the rowed
+// destructor 0x005C8565 plus ::operator delete (rowed 0x0002FD60) and null it, clear
+// every element +0x10, then clear the +0x40/+0x4C STLport vectors via rowed
+// two-iterator erase 0x0031BD55. Honest address-derived names.
 
-// tu-skeleton: 0x00569628 370B ?updateSubject@LargeGroupAudioSoundKeyPair@@QAEXPAVLargeGroupAudioSubject@@@Z -- matched in Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp (not merged yet)
-
-// tu-skeleton: 0x0056979A 93B ?rva0056979A@LargeGroupAudioSoundKeyPair@@QAEXABUFloatPair@@G@Z -- matched in Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp (not merged yet)
-
-// tu-skeleton: 0x005697F7 108B ?rva005697F7@LargeGroupAudioSoundKeyPair@@QAEXPAVLargeGroupAudioSubject@@@Z -- matched in Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp (not merged yet)
-
-// tu-skeleton: 0x00569863 219B ?unregisterSubject@LargeGroupAudioSoundKeyPair@@QAEXPAVLargeGroupAudioSubject@@@Z -- matched in Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp (not merged yet)
-
-// tu-skeleton: 0x0056993E 285B ?xferGridCellVector@LargeGroupAudioSoundKeyPair@@QAEXPAVXfer@@PAXPAUVersionPair@@@Z -- matched in Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp (not merged yet)
+void Rva00569393::rva005694CD()
+{
+	rva00569393((void *)1);
+	HostClass005C815B **slot = (HostClass005C815B **)m_slots;
+	int left = 4;
+	do {
+		if (*slot != 0)
+			(*slot)->method_005C815B();
+		++slot;
+	} while (--left != 0);
+	Rva005C8565 **slot2 = (Rva005C8565 **)m_slots;
+	left = 4;
+	do {
+		Rva005C8565 *slotObject = *slot2;
+		if (slotObject != 0) {
+			slotObject->~Rva005C8565();
+			::operator delete(slotObject);
+			*slot2 = 0;
+		}
+		++slot2;
+	} while (--left != 0);
+	for (Rva005694CDElem *element = m_begin; element != m_end; ++element)
+		element->m_flag = 0;
+	::_STL::vector<void *, ::_STL::allocator<void *> > *v40 = &m_40;
+	v40->erase(v40->begin(), v40->end());
+	::_STL::vector<void *, ::_STL::allocator<void *> > *v4C = &m_4C;
+	v4C->erase(v4C->begin(), v4C->end());
+}
 
 // tu-skeleton: 0x00569A74 25B ??$_Destroy@PAVBfmePoolRef10@@@_STL@@YAXPAVBfmePoolRef10@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorChains.cpp (not merged yet)
-
-// tu-skeleton: 0x00569ABD 255B ?allocateGrids@LargeGroupAudioSoundKeyPair@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp (not merged yet)
-
-// tu-skeleton: 0x00569BBC 423B ?rva00569BBC@LargeGroupAudioSoundKeyPair@@QAEXPAVXfer@@PAUVersionPair@@@Z -- matched in Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp (not merged yet)
 
 // tu-skeleton: 0x00569D63 63B ??1?$vector@UBfmeStringRecord00568CE0@@V?$allocator@UBfmeStringRecord00568CE0@@@_STL@@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorChains.cpp (not merged yet)
 
 // tu-skeleton: 0x00569DA2 63B ??1?$vector@VBfmePoolRef10@@V?$allocator@VBfmePoolRef10@@@_STL@@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorChains.cpp (not merged yet)
 
-// tu-skeleton: 0x00569DFF 30B ?_M_clear@?$vector@VBfmePoolRef10@@V?$allocator@VBfmePoolRef10@@@_STL@@@_STL@@IAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_poolref10_mclear.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_vector_poolref10_mclear.cpp
 
-// tu-skeleton: 0x00569E1D 116B ?reserve@?$vector@VRva00568A20@@V?$allocator@VRva00568A20@@@_STL@@@_STL@@QAEXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva00568a20_reserve.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva00568a20_reserve.cpp
 
-// tu-skeleton: 0x00569E91 123B ??$__introsort_loop@PAPAXPAXHURva00568721Cmp@@@_STL@@YAXPAPAX00HURva00568721Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_introsort_loop_rva00568721.cpp (not merged yet)
+// The copy goes through the const-pointer instance rowed at 0x00568D68.
+template <>
+void _STL::vector<Rva00568A20, _STL::allocator<Rva00568A20> >::reserve(size_type n)
+{
+	if (capacity() < n)
+	{
+		const size_type old_size = size();
+		pointer tmp;
+		if (_M_start)
+		{
+			tmp = _M_allocate_and_copy(n, (const_pointer)_M_start, (const_pointer)_M_finish);
+			_M_clear();
+		}
+		else
+		{
+			tmp = _M_end_of_storage.allocate(n);
+		}
+		_M_set(tmp, tmp + old_size, tmp + n);
+	}
+}
 
-// tu-skeleton: 0x00569F0C 167B ?rva00569F0C@Rva00569F0CVec@@QAEXPAX0PA_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00569F0CAssign.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva00569F0CAssign.cpp
 
-// tu-skeleton: 0x00569FB3 174B ??0LargeGroupAudioSoundKeyPair@@QAE@PAVLargeGroupAudioAudioMap@@PBD@Z -- matched in Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp (not merged yet)
+void Rva00569F0CVec::rva00569F0C(void *a,void *b,bool *){
+ const BfmeStringRecord00568CE0 *first=static_cast<const BfmeStringRecord00568CE0 *>(a),*last=static_cast<const BfmeStringRecord00568CE0 *>(b);
+ unsigned len=last-first;
+ if(len>static_cast<unsigned>(_M_end_of_storage._M_data-_M_start)){
+  BfmeStringRecord00568CE0 *newStorage=_M_allocate_and_copy(len,first,last);
+  _M_clear();_M_start=newStorage;_M_end_of_storage._M_data=newStorage+len;_M_finish=_M_end_of_storage._M_data;
+ }else if(static_cast<unsigned>(_M_finish-_M_start)>=len){
+  BfmeStringRecord00568CE0 *end=reinterpret_cast<BfmeStringRecord00568CE0 *>(rva00569450(const_cast<BfmeStringRecord00568CE0 *>(first),const_cast<BfmeStringRecord00568CE0 *>(last),_M_start));
+  _STL::_Destroy(end,_M_finish);_M_finish=end;
+ }else{
+  int bytes=(_M_finish-_M_start)*sizeof(BfmeStringRecord00568CE0);
+  const BfmeStringRecord00568CE0 *mid=reinterpret_cast<const BfmeStringRecord00568CE0 *>(reinterpret_cast<const char *>(first)+bytes);
+  rva00569450(const_cast<BfmeStringRecord00568CE0 *>(first),const_cast<BfmeStringRecord00568CE0 *>(mid),_M_start);
+  _M_finish=_STL::__uninitialized_copy(mid,last,_M_finish,_STL::__false_type());
+ }
+}
 
-// tu-skeleton: 0x0056A061 204B ??1LargeGroupAudioSoundKeyPair@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_vector_stringrecord_568ce0_insert_overflow_g7.cpp
 
-// tu-skeleton: 0x0056A12D 183B ?_M_insert_overflow@?$vector@UBfmeStringRecord00568CE0@@V?$allocator@UBfmeStringRecord00568CE0@@@_STL@@@_STL@@IAEXPAUBfmeStringRecord00568CE0@@ABU3@ABU__false_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_stringrecord_568ce0_insert_overflow_g7.cpp (not merged yet)
+// BFME2's 20-byte BfmeStringRecord00568CE0 vector _M_insert_overflow at RVA 0x0056A12D.
+// /G7 emits the retail register allocation and imul; explicit member (not whole-class)
+// instantiation keeps the other members owned by the /O1 sibling TU. _Construct is
+// declared only so the copies call the rowed body at 0x00568F92.
+// Retail keeps one unsigned max, RVA 0x00013740 (the vendored STLport row). This unit's
+// flags (/G7) compile a different copy, and retail kept another unit's. This unit-local
+// overload keeps the inlined code and offers the link no second copy.
 
 // tu-skeleton: 0x0056A1E4 183B ?_M_insert_overflow@?$vector@VRva00568A20@@V?$allocator@VRva00568A20@@@_STL@@@_STL@@IAEXPAVRva00568A20@@ABV3@ABU__false_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorInsertOverflowFamily.cpp (not merged yet)
 
@@ -1243,22 +2173,6 @@ Rva000D3A8AElemA::Rva000D3A8AElemA() : pointer(0), name(), flag(0) {}
 
 // tu-skeleton: 0x0056A362 22B ?rva0056A362@Rva0056A362@@QAEXHH@Z -- matched in Code/GameEngine/Source/Common/EbpParamForwarders.cpp (not merged yet)
 
-// tu-skeleton: 0x0056A378 135B ?rva0056A378@LargeGroupAudioSoundKeyPair@@QAEXURva0056A378Source@@@Z -- matched in Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp (not merged yet)
-
-// tu-skeleton: 0x0056A4AA 913B ?update@LargeGroupAudioSoundKeyPair@@QAEXPA_N@Z -- matched in Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp (not merged yet)
-
 // tu-skeleton: 0x0079A282 14B uw_0079a282 -- matched in Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp (not merged yet)
 
 // tu-skeleton: 0x0079A290 10B __ehhandler$??$_Construct@UBfmeStringRecord00568CE0@@U1@@_STL@@YAXPAUBfmeStringRecord00568CE0@@ABU1@@Z -- matched in Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp (not merged yet)
-
-// tu-skeleton: 0x0079A29A 10B $L9102 -- matched in Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp (not merged yet)
-
-// tu-skeleton: 0x0079A2A4 10B __ehhandler$?allocateGrids@LargeGroupAudioSoundKeyPair@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp (not merged yet)
-
-// tu-skeleton: 0x0079A339 8B Unwind@00b9a339 -- matched in Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp (not merged yet)
-
-// tu-skeleton: 0x0079A341 10B uw_0079a341 -- matched in Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp (not merged yet)
-
-// tu-skeleton: 0x0079A34B 8B Unwind@00b9a34b -- matched in Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp (not merged yet)
-
-// tu-skeleton: 0x0079A353 10B __ehhandler$?update@LargeGroupAudioSoundKeyPair@@QAEXPA_N@Z -- matched in Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp (not merged yet)
