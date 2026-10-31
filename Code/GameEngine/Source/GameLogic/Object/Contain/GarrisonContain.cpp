@@ -232,6 +232,12 @@ struct Rva004786F8ObjectView {
 typedef float Real;
 #include "../../../Common/GameLogicObjectLookupView.h"
 #include <list>
+class Rva002C9400ByteField
+{
+public:
+    unsigned char get() const;
+};
+
 // _List_iterator comparisons otherwise instantiate the base-class
 // operator!= COMDAT (one byte shape per TU flags); exact-match free
 // overloads take those calls instead so this TU emits no external copy.
@@ -241,7 +247,9 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
                               const _List_iterator<_IterTp, _RightTraits> &b)
 { return a._M_node != b._M_node; }
 }
+
 struct Rva0046247DPair;
+
 class HordeContainInterface
 {
 public:
@@ -264,6 +272,7 @@ public:
     virtual void h64(); virtual void h65();
     virtual Rva0046247DPair &slot108(Rva0046247DPair &p); // +0x108
 };
+
 class ContainModuleInterface
 {
 public:
@@ -293,12 +302,16 @@ enum ObjectStatusTypes
 {
     OBJECT_STATUS_NONE = 0
 };
+
 enum WeaponSlotType
 {
     PRIMARY_WEAPON = 0
 };
+
 class Weapon;
+
 class AIUpdateInterface;
+
 class ContainModuleInterface;
 
 // Native trackTargets reads ObjectID at +0x74 and Thing's position at +0x38;
@@ -413,9 +426,8 @@ enum BodyDamageType
 };
 
 class DamageInfo;
-struct Flags128;
 
-class Weapon;
+struct Flags128;
 
 class ModuleData;
 
@@ -903,6 +915,14 @@ public:
 class Team;
 
 class Thing;
+
+struct Flags128
+{
+    bool test(int i) const { return ((m_bits[i >> 5] >> (i & 31)) & 1) != 0; }
+    unsigned int m_bits[4];
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContain.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContain.cpp
 
@@ -1770,28 +1790,6 @@ bool GarrisonContain::attemptBestFirePointPosition(Object *source, Weapon *weapo
     return false;
 }
 
-// tu-skeleton: 0x00477F06 278B ??0GarrisonContain@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00478061 6B ?name@GarrisonContain@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00478629 112B ?rva00478629@GarrisonContain@@QAE_NPAVObject@@_N1@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainIface20.cpp (not merged yet)
-
-// tu-skeleton: 0x00478699 95B ?isValidContainerFor@GarrisonContain@@UAE_NPAVObject@@_N1@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainIface20.cpp (not merged yet)
-
-// tu-skeleton: 0x004787B0 160B ?rva004787B0@GarrisonContain@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainRva004787B0.cpp (not merged yet)
-
-// tu-skeleton: 0x0047894C 399B ?addValidObjectsToGarrisonPoints@GarrisonContain@@IAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainAddValidObjects.cpp (not merged yet)
-
-// tu-skeleton: 0x00478BE0 76B ?rva00478BE0@GarrisonContain@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainSiblingHelpers.cpp (not merged yet)
-
-// tu-skeleton: 0x00478C2C 222B ?onContaining@GarrisonContain@@UAEXPAVObject@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainOnContaining.cpp (not merged yet)
-
-// tu-skeleton: 0x00478D0A 717B ?onRemoving@GarrisonContain@@UAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainOnRemoving.cpp (not merged yet)
-
-// tu-skeleton: 0x00478FD7 68B ?rva00478FD7@GarrisonContain@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainSiblingHelpers.cpp (not merged yet)
-
-// tu-skeleton: 0x0047901B 631B ?loadGarrisonPoints@GarrisonContain@@IAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainLoadGarrisonPoints.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainGetObjectGarrisonPointIndex.cpp
 
 //
@@ -1904,6 +1902,109 @@ void GarrisonContain::redeployOccupants()
         }
     }
 }
+
+// tu-skeleton: 0x00477F06 278B ??0GarrisonContain@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00478061 6B ?name@GarrisonContain@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00478629 112B ?rva00478629@GarrisonContain@@QAE_NPAVObject@@_N1@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainIface20.cpp (not merged yet)
+
+// tu-skeleton: 0x00478699 95B ?isValidContainerFor@GarrisonContain@@UAE_NPAVObject@@_N1@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainIface20.cpp (not merged yet)
+
+// tu-skeleton: 0x004787B0 160B ?rva004787B0@GarrisonContain@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainRva004787B0.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainAddValidObjects.cpp
+
+// GarrisonContain::addValidObjectsToGarrisonPoints (0x0047894C, 399 bytes),
+// after the BFME1/ZH GarrisonContain.cpp body (BFME1 reference revision
+// 1399ad37d42ea52a63829e417c46a1ba9ed2cd20).
+//
+// Target facts: the contain list comes from the pair helper 0x0046247D (its
+// second word points at the STLport list, re-read for every end test); an
+// empty list returns before the callee-saved pushes. Each occupant with status
+// 0x25 (Object::testStatus 0x0004E536) is skipped. An occupant whose +0x250
+// contain module answers vtable slot +0x7C with an interface has that
+// interface's slot +0x108 fill a second pair, and every member of that list
+// with a current weapon (0x0028AEBD) whose +4 field's byte getter (0x002C9400)
+// is zero and with an AI at +0x258 is placed: at its current victim
+// (0x00268D71), else at its victim position (0x00264E93), else at its own
+// position (+0x38) unless bit 61 of the 16-byte mask returned by slot +0xB0 of
+// the Contain interface at +0x20 is set (tested twice, through two
+// temporaries). An occupant without a contain module is placed the same way
+// from its own AI with one mask test. Placement is putObjectAtBestGarrisonPoint
+// 0x004785A2.
+//
+// Carried from the donor: the method name and the victim / victim-position
+// order. Structural inference: the twice-tested mask is written as two
+// else-if arms with the same placement; the merged-call form allocates the
+// zero constant and the member to the registers retail uses, the single
+// "a || b" condition swaps them.
+
+void GarrisonContain::addValidObjectsToGarrisonPoints()
+{
+    Rva0046247DPair pair;
+    ((Rva0046247D *)this)->rva0046247D(pair);
+    if (((const _STL::list<Object *> *)pair.second)->empty())
+        return;
+    for (_STL::list<Object *>::const_iterator it = ((const _STL::list<Object *> *)pair.second)->begin(); it != ((const _STL::list<Object *> *)pair.second)->end(); ++it)
+    {
+        Object *obj = *it;
+        if (obj->testStatus((ObjectStatusTypes)0x25))
+            continue;
+        if (ContainModuleInterface *contain = obj->getContain())
+        {
+            HordeContainInterface *iface = contain->getHordeContainInterface();
+            if (!iface)
+                continue;
+            Rva0046247DPair members;
+            iface->slot108(members);
+            for (_STL::list<Object *>::const_iterator it2 = ((const _STL::list<Object *> *)members.second)->begin(); it2 != ((const _STL::list<Object *> *)members.second)->end(); ++it2)
+            {
+                Object *member = *it2;
+                const Weapon *weapon = member->getCurrentWeapon();
+                if (!weapon || ((const Rva002C9400ByteField *)weapon->getTemplate())->get())
+                    continue;
+                AIUpdateInterface *ai = member->getAI();
+                if (!ai)
+                    continue;
+                Object *victim = ai->getCurrentVictim();
+                const Coord3D *victimPos = (const Coord3D *)((Rva00264E93 *)ai)->rva00264E93();
+                if (victim)
+                    putObjectAtBestGarrisonPoint(member, victim, 0);
+                else if (victimPos)
+                    putObjectAtBestGarrisonPoint(member, 0, victimPos);
+                else if (!getFlags(0).test(61))
+                    putObjectAtBestGarrisonPoint(member, 0, member->getPosition());
+                else if (!getFlags(0).test(61))
+                    putObjectAtBestGarrisonPoint(member, 0, member->getPosition());
+            }
+        }
+        else
+        {
+            AIUpdateInterface *ai = obj->getAI();
+            if (!ai)
+                continue;
+            Object *victim = ai->getCurrentVictim();
+            const Coord3D *victimPos = (const Coord3D *)((Rva00264E93 *)ai)->rva00264E93();
+            if (victim)
+                putObjectAtBestGarrisonPoint(obj, victim, 0);
+            else if (victimPos)
+                putObjectAtBestGarrisonPoint(obj, 0, victimPos);
+            else if (!getFlags(0).test(61))
+                putObjectAtBestGarrisonPoint(obj, 0, obj->getPosition());
+        }
+    }
+}
+
+// tu-skeleton: 0x00478BE0 76B ?rva00478BE0@GarrisonContain@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainSiblingHelpers.cpp (not merged yet)
+
+// tu-skeleton: 0x00478C2C 222B ?onContaining@GarrisonContain@@UAEXPAVObject@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainOnContaining.cpp (not merged yet)
+
+// tu-skeleton: 0x00478D0A 717B ?onRemoving@GarrisonContain@@UAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainOnRemoving.cpp (not merged yet)
+
+// tu-skeleton: 0x00478FD7 68B ?rva00478FD7@GarrisonContain@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainSiblingHelpers.cpp (not merged yet)
+
+// tu-skeleton: 0x0047901B 631B ?loadGarrisonPoints@GarrisonContain@@IAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainLoadGarrisonPoints.cpp (not merged yet)
 
 // tu-skeleton: 0x0047933C 89B ?removeInvalidObjectsFromGarrisonPoints@GarrisonContain@@IAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainRemoveInvalidObjects.cpp (not merged yet)
 
