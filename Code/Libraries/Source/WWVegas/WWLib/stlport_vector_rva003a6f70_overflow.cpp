@@ -19,7 +19,6 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 }
 
-#define _STLP_NO_EXCEPTIONS 1
 #include <vector>
 
 class Rva003A6F70

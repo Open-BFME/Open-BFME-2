@@ -28,7 +28,6 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 }
 
-#define _STLP_NO_EXCEPTIONS 1
 #include <vector>
 // These elements copy through real copy constructors; their _Construct
 // bodies are rowed under the real element names, so call those.

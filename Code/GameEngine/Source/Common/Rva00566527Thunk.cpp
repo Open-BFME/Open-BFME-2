@@ -5,18 +5,17 @@
 // vector at +8. Unlocks 0x004E1579. Caller is 0x004E15B8.
 class FXList
 {
-    char _m[8];
+public:
+	FXList(const FXList &that);
+private:
+	char _m[8]; // +0x00
 };
 
 #include <vector>
 
 namespace _STL
 {
-template <> class vector<FXList, allocator<FXList> >
-{
-public:
-    void push_back(const FXList &x);
-};
+template <> void vector<FXList, allocator<FXList> >::push_back(const FXList &);
 }
 
 class Rva00566527
@@ -35,16 +34,13 @@ void Rva00566527::rva00566527(const FXList &fXList)
 
 struct BfmePod40
 {
-    int a[10];
+	virtual ~BfmePod40();
+	int a[9];
 };
 
 namespace _STL
 {
-template <> class vector<BfmePod40, allocator<BfmePod40> >
-{
-public:
-    void push_back(const BfmePod40 &x);
-};
+template <> void vector<BfmePod40, allocator<BfmePod40> >::push_back(const BfmePod40 &);
 }
 
 class Rva0056652FOwner

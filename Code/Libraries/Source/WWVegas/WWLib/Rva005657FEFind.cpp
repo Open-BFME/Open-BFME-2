@@ -9,7 +9,7 @@
 // the rowed contains helper 0x004E2CD5 and the record is returned when that
 // helper accepts it. Owner, element and holder names are address-derived views;
 // no field meaning is claimed beyond the bytes.
-#include "string_base.h"
+#include "../../../../../reference/shims/bfme2_ascii/string_base.h"
 
 class Rva004E2CD5
 {

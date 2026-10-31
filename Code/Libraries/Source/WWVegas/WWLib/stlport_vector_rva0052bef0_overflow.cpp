@@ -17,15 +17,14 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 }
 
-#define _STLP_NO_EXCEPTIONS 1
 #include <vector>
 
 class Rva0052BEF0
 {
 public:
-	virtual ~Rva0052BEF0();
 	Rva0052BEF0(const Rva0052BEF0 &other);
-	int a[2];
+	virtual ~Rva0052BEF0();
+	int a[2]; // +0x04
 };
 inline bool operator==(const Rva0052BEF0 &x, const Rva0052BEF0 &y) { return x.a[0] == y.a[0]; }
 inline bool operator<(const Rva0052BEF0 &x, const Rva0052BEF0 &y) { return x.a[0] < y.a[0]; }
