@@ -13,6 +13,7 @@ class Rva00072FE6
 {
 public:
 	~Rva00072FE6();
+	void rva00072FE6();
 };
 
 class AsciiStringMember

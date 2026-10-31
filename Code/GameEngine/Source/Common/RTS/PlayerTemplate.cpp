@@ -116,7 +116,7 @@ class Rva001FDE3F
 public:
 	float &rva001FDE3F(const AsciiString &key);
 private:
-	unsigned char m_table[0x14];
+	unsigned char m_table[0x14]; // +0x00
 };
 class PlayerTemplate : public Overridable
 {
@@ -155,8 +155,8 @@ public:
 	static void parseInt(INI *ini, void *instance, void *store, const void *userData);
 	int scanIndexList(const char *token, const char *const *names);
 	float dup_002EE10(const char *token);
-	char prefix[8];
-	int mode;
+	char prefix[8]; // +0x00
+	int mode; // +0x08
 };
 class NameKeyGenerator
 {
@@ -423,8 +423,10 @@ public:
 
 struct PlayerTemplateOverrideView : public Overridable
 {
-	NameKeyType m_nameKey;
-	char m_rest[0x1DC - 0x14];
+public:
+	char m_pad00[0x10];
+	NameKeyType m_nameKey; // +0x10 +0x10
+	char m_rest[0x1DC - 0x14]; // +0x14
 };
 
 class PlayerTemplateStore

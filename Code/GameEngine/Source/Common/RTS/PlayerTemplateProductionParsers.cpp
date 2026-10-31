@@ -20,10 +20,12 @@ enum NameKeyType
 	NAMEKEY_INVALID = 0
 };
 
+class AsciiString;
 class NameKeyGenerator
 {
 public:
-	NameKeyType nameToKey(const char *nameString);
+	NameKeyType nameToKey(const char *);
+	const AsciiString &keyToName(NameKeyType key);
 };
 extern NameKeyGenerator *TheNameKeyGenerator;
 
@@ -31,8 +33,11 @@ class INI
 {
 public:
 	const char *getNextToken(const char *seps = 0);
-	Int scanIndexList(const char *token, const char *const *names);
-	Real dup_002EE10(const char *token);	// percent-to-real scan
+	static void parseInt(INI *ini, void *instance, void *store, const void *userData);
+	int scanIndexList(const char *token, const char *const *names);
+	float dup_002EE10(const char *token);
+	char prefix[8]; // +0x00
+	int mode; // +0x08
 };
 
 extern const char *TheVeterancyNames[];
@@ -72,9 +77,9 @@ typedef _STL::map<int, int, _STL::less<int>, _STL::allocator<_STL::pair<const in
 class Rva001FDE3F
 {
 public:
-	Real &rva001FDE3F(const AsciiString &key);
+	float &rva001FDE3F(const AsciiString &key);
 private:
-	unsigned char m_table[0x14];
+	unsigned char m_table[0x14]; // +0x00
 };
 
 class PlayerTemplate

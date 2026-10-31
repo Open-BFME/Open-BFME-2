@@ -28,6 +28,7 @@ namespace _STL { template <> BfmeObject476 * vector<BfmeObject476, allocator<Bfm
 class Rva00072FE6
 {
 public:
+	~Rva00072FE6();
 	void rva00072FE6();
 };
 

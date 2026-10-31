@@ -21,6 +21,7 @@ enum NameKeyType
 class NameKeyGenerator
 {
 public:
+	NameKeyType nameToKey(const char *);
 	const AsciiString &keyToName(NameKeyType key);
 };
 
@@ -34,9 +35,10 @@ public:
 
 struct PlayerTemplateOverrideView : public Overridable
 {
-	char m_pad04[0x10];
-	NameKeyType m_nameKey;			// +0x10
-	char m_rest[0x1DC - 0x14];
+public:
+	char m_pad00[0x10];
+	NameKeyType m_nameKey; // +0x10 +0x10
+	char m_rest[0x1DC - 0x14]; // +0x14
 };
 
 class PlayerTemplateStore
