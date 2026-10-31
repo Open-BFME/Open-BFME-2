@@ -138,10 +138,16 @@ public:
 
 class PassiveAreaEffectBehavior;
 
+class UpgradeTemplate;
+enum ObjectStatusTypes { status2 = 2 };
+
 class Object
 {
 	friend class PassiveAreaEffectBehavior;
 public:
+	void *rva0028BD17() const;
+	bool testStatus(ObjectStatusTypes) const;
+	bool hasUpgrade(const UpgradeTemplate *) const;
 	int getID() const { return id; }
 	Player *getControllingPlayer() const;
 	bool rva0028C264(int *out, int frames);
@@ -253,7 +259,8 @@ struct AreaData
 	const AsciiString *m_14End; // +0x18
 	char m_pad1C[0x20 - 0x1C];
 	char m_allowFilter; // +0x20
-	char m_pad21[0x28 - 0x21];
+	char m_pad21[0x24 - 0x21];
+	AsciiString m_upgradeRequired; // +0x24
 	bool m_nonStackable; // +0x28
 	int m_antiCategories; // +0x2C
 	const FXList *m_30; // +0x30
@@ -279,8 +286,9 @@ class ModuleData;
 // (0x00484C3C in 0x00C4A448), so the base's first virtual is the destructor.
 class BehaviorModuleBase
 {
+private:
 	virtual ~BehaviorModuleBase();
-protected:
+public:
 	const AreaData *m_moduleData; // +0x04
 	Object *m_object; // +0x08
 };

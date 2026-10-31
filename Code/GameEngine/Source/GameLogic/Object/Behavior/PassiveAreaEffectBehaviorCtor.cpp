@@ -1,4 +1,4 @@
-// cl: /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc  /D_CRTIMP=
+// cl: /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc /ICode/Libraries/Include /ICode/GameEngine/Source /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /Ireference/shims/bfmelist
 // stlport
 //
 // ??0PassiveAreaEffectBehavior@@QAE@PAVThing@@PBVModuleData@@@Z, retail
@@ -33,14 +33,25 @@ template <> _List_base<int, allocator<int> >::~_List_base();
 class Thing;
 class ModuleData;
 class Object;
+class Xfer;
+
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
+#include "../../../../Include/Common/ObjectModule.h"
 
 // Slot 0 of each module's primary vftable is its deleting destructor
 // (0x00484C3C in 0x00C4A448), so the base's first virtual is the destructor.
+struct AreaData;
 class BehaviorModuleBase
 {
+private:
 	virtual ~BehaviorModuleBase();
-	int a;
-	int b;
+public:
+	const AreaData *m_moduleData; // +0x04
+	Object *m_object; // +0x08
 };
 
 class BehaviorModuleOther
@@ -54,17 +65,19 @@ public:
 	BehaviorModule(Thing *thing, const ModuleData *moduleData);
 };
 
-class UpdateModuleInterface
-{
-public:
-	virtual void update() = 0;
-};
-
 enum UpdateSleepTime
 {
+	UPDATE_SLEEP_INVALID = 0,
 	UPDATE_SLEEP_NONE = 1,
 	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
 };
+
+class UpdateModuleInterface
+{
+public:
+	virtual UpdateSleepTime update() = 0;
+};
+
 
 class UpdateModule : public BehaviorModule, public UpdateModuleInterface
 {
@@ -75,6 +88,7 @@ class UpdateModule : public BehaviorModule, public UpdateModuleInterface
 public:
 	UpdateModule(Thing *thing, const ModuleData *moduleData);
 	virtual ~UpdateModule();
+	void xfer(Xfer *xfer);
 
 protected:
 	void setWakeFrame(Object *obj, UpdateSleepTime frame);
@@ -85,9 +99,30 @@ class PassiveAreaEffectBehavior : public UpdateModule
 public:
 	PassiveAreaEffectBehavior(Thing *thing, const ModuleData *moduleData);
 	virtual ~PassiveAreaEffectBehavior();
+	virtual void slot01() = 0;
+	virtual void slot02() = 0;
+
+protected:
+	virtual void xfer(Xfer *xfer);
+
+public:
+	virtual NameKeyType getModuleNameKey() const;
+	virtual void slot05() = 0;
+	virtual void slot06() = 0;
+	virtual void slot07() = 0;
+	virtual void slot08() = 0;
+	virtual void slot09() = 0;
+	virtual void slot10() = 0;
+	virtual void slot11() = 0;
+	virtual void slot12() = 0;
+	virtual void rva00484C8B();
+	virtual void rva004848E6(Object *obj);
+	virtual void rva0048491F(Object *obj);
+	virtual void rva00484A08(Object *obj);
+	virtual UpdateSleepTime update();
 
 private:
-	int m_20; // +0x20
+	unsigned int m_20; // +0x20
 	_STL::list<int> m_trackedIds; // +0x24, runtime watch list
 };
 
@@ -97,7 +132,7 @@ PassiveAreaEffectBehavior::PassiveAreaEffectBehavior(Thing *thing, const ModuleD
 	, m_20(0)
 {
 	m_trackedIds.clear();
-	setWakeFrame(*(Object **)((char *)this + 8), UPDATE_SLEEP_NONE);
+	setWakeFrame(m_object, UPDATE_SLEEP_NONE);
 }
 
 // Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
