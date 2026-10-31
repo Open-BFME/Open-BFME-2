@@ -33329,7 +33329,6 @@ _VP6_decodeModeAndMotionVector,,0x001C63F0,700,Code/Libraries/Source/VP6/DecodeM
 ??0Rva0010F185@@QAE@ABVRva0036CA00Str@@PBXABVAsciiString@@1@Z,,0x0010F185,75,Code/GameEngine/Source/Common/Rva0010F185Ctor.cpp,matched,ctor via base Rva001164D3 plus AsciiString at 0x10 vtable g_00BCFAB8 caller 0x0010F9B4
 ?rva0010F1D0@Rva0010F185@@UAEXXZ,,0x0010F1D0,127,Code/GameEngine/Source/Common/Rva0010F1D0Vslot.cpp,matched,vslot1 of 0x007CFAB8 via guard plus AIL open with EmptyString fallback caller none; spelled virtual: slot 1 of vftable 0x00BCFAB8 that the class's own constructor install at +0; retail never calls it directly
 ??1Rva0010F83E@@UAE@XZ,,0x0010F83E,53,Code/GameEngine/Source/Common/Rva0010F83EDtor.cpp,matched,EH dtor via novtable plus AsciiString at 0x10 plus base 0x001164F5 caller 0x0010F825
-??_GRva003B262E@@MAEPAXI@Z,,0x003B331E,28,Code/GameEngine/Source/Common/Rva003B262EFinish.cpp,matched,deleting dtor via own ??1 unit plus base delete 0x002FD60 caller none
 ??_GRva001DA2D5@@UAEPAXI@Z,,0x001DA754,28,Code/Libraries/Source/WWVegas/WWLib/Rva001DA2D5Finish.cpp,matched,deleting dtor via own ??1 unit Rva001DA2D5 caller none
 ?markAsDead@AIUpdateInterface@@QAEXXZ,,0x0026296D,28,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_wakeUpNow.cpp,matched,named via BFME1 donor plus pinned setDead plus rowed wakeUp tail
 ?rva00262989@AIUpdateInterface@@QAEXI@Z,,0x00262989,97,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_wakeUpNow.cpp,matched,4-entry frame cache oldest-reuse via TheGameLogic frame plus callers
