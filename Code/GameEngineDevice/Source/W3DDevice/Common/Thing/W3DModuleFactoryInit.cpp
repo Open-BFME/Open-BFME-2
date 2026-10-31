@@ -123,7 +123,7 @@ struct AssetList00208F90;
 struct GapNamedEntry;
 void Rva000C32C7(Rva000C19C3 *, void *, const bool *);
 void Rva000CA152(Rva000C19C3 *, void *, const bool *);
-AssetList00208F90 &rva000D1112(const GapNamedEntry *, AssetList00208F90 &);
+AssetList00208F90 &streamName(const GapNamedEntry *, AssetList00208F90 &);
 
 #define ADD_DRAW(instance, data, hook, name) \
 	reinterpret_cast<Rva002573EE *>(this)->rva002573EE((int)&instance, (int)&data, hook, MODULETYPE_DRAW, AsciiString(name), 0x400)
@@ -143,8 +143,8 @@ void W3DModuleFactory::init()
 	ADD_DRAW(W3DTruckDraw::friend_newModuleInstance, W3DTruckDraw::friend_newModuleData, (int)&Rva000CA152, "W3DTruckDraw");
 	ADD_DRAW(W3DTankDraw::friend_newModuleInstance, W3DTankDraw::friend_newModuleData, (int)&Rva000CA152, "W3DTankDraw");
 	ADD_DRAW(W3DTreeDraw::friend_newModuleInstance, W3DTreeDraw::friend_newModuleData, (int)&Rva000CED4BUpdate, "W3DTreeDraw");
-	ADD_DRAW(W3DFloorDraw::friend_newModuleInstance, W3DFloorDrawModuleData::friend_newModuleData, (int)&rva000D1112, "W3DFloorDraw");
-	ADD_DRAW(W3DPropDraw::friend_newModuleInstance, W3DPropDrawModuleData::friend_newModuleData, (int)&rva000D1112, "W3DPropDraw");
+	ADD_DRAW(W3DFloorDraw::friend_newModuleInstance, W3DFloorDrawModuleData::friend_newModuleData, (int)&streamName, "W3DFloorDraw");
+	ADD_DRAW(W3DPropDraw::friend_newModuleInstance, W3DPropDrawModuleData::friend_newModuleData, (int)&streamName, "W3DPropDraw");
 	ADD_DRAW(W3DLightDraw::friend_newModuleInstance, W3DLightDraw::friend_newModuleData, 0, "W3DLightDraw");
 	ADD_DRAW(W3DBuffDraw::friend_newModuleInstance, W3DBuffDrawModuleData::friend_newModuleData, 0, "W3DBuffDraw");
 	ADD_DRAW(W3DStreakDraw::friend_newModuleInstance, W3DStreakDrawModuleData::friend_newModuleData, 0, "W3DStreakDraw");

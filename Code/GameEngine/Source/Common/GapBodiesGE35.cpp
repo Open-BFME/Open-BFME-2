@@ -54,7 +54,7 @@ struct GapIPair
 	GapIPair(const GapIPair &o) : x(o.x), y(o.y) {}
 };
 
-GapIPair rva0009AA2D(GapIPair a, const GapIPair &b)
+GapIPair subtractPoints(GapIPair a, const GapIPair &b)
 {
 	GapIPair result;
 	result.x = a.x - b.x;

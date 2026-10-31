@@ -88,13 +88,13 @@ struct Rva004AC8D9Entry
 class Rva004AC8D9
 {
 public:
-	void rva004AC8D9(int index, float value);
+	void setEntryValue(int index, float value);
 private:
 	char m_pad[0x58];
 	Rva004AC8D9Entry *m_entries[1];
 };
 
-void Rva004AC8D9::rva004AC8D9(int index, float value)
+void Rva004AC8D9::setEntryValue(int index, float value)
 {
 	m_entries[index]->m_20 = value;
 }
@@ -104,13 +104,13 @@ void Rva004AC8D9::rva004AC8D9(int index, float value)
 class Rva004B2B01
 {
 public:
-	void rva004B2B01(const ModuleData *data);
+	void addModuleData(const ModuleData *data);
 private:
 	char m_pad[0xC8];
 	_STL::vector<const ModuleData *> m_data;
 };
 
-void Rva004B2B01::rva004B2B01(const ModuleData *data)
+void Rva004B2B01::addModuleData(const ModuleData *data)
 {
 	m_data.push_back(data);
 }
@@ -208,10 +208,10 @@ class AnimationSoundTree
 {
 public:
 	AnimationSoundTreeNode *rva004C9FE0(const void *key);	// 0x004C9FE0
-	Rva004CA256Cursor rva004CA256(const void *key);
+	Rva004CA256Cursor findCursor(const void *key);
 };
 
-Rva004CA256Cursor AnimationSoundTree::rva004CA256(const void *key)
+Rva004CA256Cursor AnimationSoundTree::findCursor(const void *key)
 {
 	return Rva004CA256Cursor(rva004C9FE0(key));
 }

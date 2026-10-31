@@ -114,10 +114,10 @@ void *Rva002041A2Host::rva002041A2(const Rva002041A2Item *item, int)
 class Rva00210C7DWords
 {
 public:
-	int &rva00210C7D(int index);
+	int &wordAt(int index);
 	int m_words[1];
 };
-int &Rva00210C7DWords::rva00210C7D(int index)
+int &Rva00210C7DWords::wordAt(int index)
 {
 	return m_words[index];
 }
@@ -195,12 +195,12 @@ struct Rva00215E99Target
 class Rva00215E99
 {
 public:
-	void rva00215E99(int unused);
+	void copyToTarget(int unused);
 private:
 	Rva00215E99Target *m_target;
 	int m_value;
 };
-void Rva00215E99::rva00215E99(int)
+void Rva00215E99::copyToTarget(int)
 {
 	m_target->m_38 = m_value;
 }
@@ -425,7 +425,7 @@ Rva0033A501::Rva0033A501()
 
 // --- 0x002226DA (11B, cdecl): stores the byte argument through the pointer
 // argument and returns the pointer (EAX holds it on return).
-unsigned char *Rva002226DAStore(unsigned char *target, unsigned char value)
+unsigned char *storeByte(unsigned char *target, unsigned char value)
 {
 	*target = value;
 	return target;
@@ -435,11 +435,11 @@ unsigned char *Rva002226DAStore(unsigned char *target, unsigned char value)
 class Rva0023527FScales
 {
 public:
-	void rva0023527F();
+	void resetScales();
 private:
 	float m_values[6];
 };
-void Rva0023527FScales::rva0023527F()
+void Rva0023527FScales::resetScales()
 {
 	for (int i = 0; i < 6; ++i)
 		m_values[i] = 1.0f;
@@ -447,7 +447,7 @@ void Rva0023527FScales::rva0023527F()
 
 // --- 0x0029A24F (6B): getter of BfmeFormationPreviewUseDecals (VA DC84F4).
 extern bool BfmeFormationPreviewUseDecals;
-bool __cdecl Rva0029A24FGet()
+bool __cdecl getFormationPreviewUseDecals()
 {
 	return BfmeFormationPreviewUseDecals;
 }

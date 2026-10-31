@@ -41,7 +41,7 @@ namespace _STL
 class Rva000CB103
 {
 public:
-	bool rva000CB103(int bit) const;
+	bool isBitSet(int bit) const;
 	void rva000CB11C(float delta);
 private:
 	char m_pad00[0x2C];
@@ -50,7 +50,7 @@ private:
 	unsigned int m_44;
 };
 
-bool Rva000CB103::rva000CB103(int bit) const
+bool Rva000CB103::isBitSet(int bit) const
 {
 	return (m_44 & (1 << bit)) != 0;
 }
@@ -124,7 +124,7 @@ struct GapNamedEntry
 	char m_name[4];											// +0x08 (an AsciiString)
 };
 
-AssetList00208F90 &rva000D1112(const GapNamedEntry *entry, AssetList00208F90 &list)
+AssetList00208F90 &streamName(const GapNamedEntry *entry, AssetList00208F90 &list)
 {
 	return list << *(const AsciiString *)entry->m_name;
 }
@@ -140,13 +140,13 @@ public:
 class Rva000D204B
 {
 public:
-	Vector2 *rva000D204B(int index);
+	Vector2 *getUvArray(int index);
 private:
 	char m_pad00[0x94];
 	MeshMatDescClass *m_matDesc;							// +0x94
 };
 
-Vector2 *Rva000D204B::rva000D204B(int index)
+Vector2 *Rva000D204B::getUvArray(int index)
 {
 	return m_matDesc->Get_UV_Array_By_Index(index, false);
 }
@@ -162,7 +162,7 @@ struct GapPairKey
 class Rva000E01F4
 {
 public:
-	unsigned int rva000E01F4(const GapPairKey *key, unsigned int n) const;
+	unsigned int rva000E01F4(const GapPairKey *key, unsigned int bucketCount) const;
 	unsigned int rva000E0208(const GapPairKey *key) const;
 private:
 	int m_00;
@@ -170,9 +170,9 @@ private:
 	void **m_bucketsFinish;									// +0x08
 };
 
-unsigned int Rva000E01F4::rva000E01F4(const GapPairKey *key, unsigned int n) const
+unsigned int Rva000E01F4::rva000E01F4(const GapPairKey *key, unsigned int bucketCount) const
 {
-	return (key->b ^ key->a) % n;
+	return (key->b ^ key->a) % bucketCount;
 }
 
 unsigned int Rva000E01F4::rva000E0208(const GapPairKey *key) const
@@ -188,12 +188,12 @@ struct Coord3D;
 class Rva000E0254
 {
 public:
-	void rva000E0254();
+	void clearPoints();
 private:
 	_STL::vector<Coord3D> m_points;
 };
 
-void Rva000E0254::rva000E0254()
+void Rva000E0254::clearPoints()
 {
 	m_points.clear();
 }
@@ -266,21 +266,21 @@ struct GapStringHeader
 class Rva000EF9A8
 {
 public:
-	GapStringHeader *rva000EF9A8() const;
-	void rva000EF9AE(int length);
+	GapStringHeader *getHeader() const;
+	void setLength(int length);
 private:
 	char *m_buffer;
 };
 
-GapStringHeader *Rva000EF9A8::rva000EF9A8() const
+GapStringHeader *Rva000EF9A8::getHeader() const
 {
 	return (GapStringHeader *)(m_buffer - sizeof(GapStringHeader));
 }
 
-void Rva000EF9A8::rva000EF9AE(int length)
+void Rva000EF9A8::setLength(int length)
 {
 	if (m_buffer != StringClass::m_EmptyString)
-		rva000EF9A8()->m_length = length;
+		getHeader()->m_length = length;
 }
 
 // --- 0x000EFAEE (31B): zero +0x58/+0x5C, 20.0f at +0x60, clear +0x64.
@@ -349,13 +349,13 @@ class Rva00102087
 {
 public:
 	EvaMessageInfo *rva00102087(EvaMessageInfo *first, EvaMessageInfo *last);	// 0x00102087
-	void rva001021EC();
+	void clearMessages();
 private:
 	EvaMessageInfo *m_start;
 	EvaMessageInfo *m_finish;
 };
 
-void Rva00102087::rva001021EC()
+void Rva00102087::clearMessages()
 {
 	rva00102087(m_start, m_finish);
 }

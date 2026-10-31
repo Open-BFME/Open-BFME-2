@@ -75,9 +75,9 @@ AutoAbilityQueryEntry *AutoAbilityQueryEntry::init()
 	return this;
 }
 
-// tu-skeleton: 0x0045A1EB 12B ?rva0045A1EB@Rva0045A1EB@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE22.cpp (not merged yet)
+// tu-skeleton: 0x0045A1EB 12B ?hasLowFlags@Rva0045A1EB@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE22.cpp (not merged yet)
 
-// tu-skeleton: 0x0045A1F7 12B ?rva0045A1F7@Rva0045A1EB@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE22.cpp (not merged yet)
+// tu-skeleton: 0x0045A1F7 12B ?isBit3Clear@Rva0045A1EB@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE22.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/DispByteFieldGetters.cpp
 

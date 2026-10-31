@@ -704,7 +704,7 @@ int *Rva004B2A9D::rva004B2A9D()
 
 // tu-skeleton: 0x004B2AC4 61B ??0ReplaceObjectUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ReplaceObjectUpdateModuleDataCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x004B2B01 19B ?rva004B2B01@Rva004B2B01@@QAEXPBVModuleData@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE24.cpp (not merged yet)
+// tu-skeleton: 0x004B2B01 19B ?addModuleData@Rva004B2B01@@QAEXPBVModuleData@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE24.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/ReplaceObjectUpdateFieldParse.cpp
 

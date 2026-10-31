@@ -87,7 +87,7 @@ struct Rva004476E7Peer
 class Rva004476E7
 {
 public:
-	int rva004476E7(const Rva004476E7Peer *peer) const;
+	int matchesPeerAddress(const Rva004476E7Peer *peer) const;
 private:
 	int m_00;
 	int m_kind;												// +0x04
@@ -95,7 +95,7 @@ private:
 	BfmeNetAddress m_address;								// +0x38
 };
 
-int Rva004476E7::rva004476E7(const Rva004476E7Peer *peer) const
+int Rva004476E7::matchesPeerAddress(const Rva004476E7Peer *peer) const
 {
 	if (peer && m_kind == 6 && peer->m_address.Rva00248CBF(&m_address))
 		return 1;
@@ -116,10 +116,10 @@ class Rva00448DCB
 {
 public:
 	Rva00448DCBNode *rva00448DCB(const BfmeStringRecord00448113 &key);	// 0x00448DCB
-	Rva00448F92Cursor rva00448F92(const BfmeStringRecord00448113 &key);
+	Rva00448F92Cursor findCursor(const BfmeStringRecord00448113 &key);
 };
 
-Rva00448F92Cursor Rva00448DCB::rva00448F92(const BfmeStringRecord00448113 &key)
+Rva00448F92Cursor Rva00448DCB::findCursor(const BfmeStringRecord00448113 &key)
 {
 	return Rva00448F92Cursor(rva00448DCB(key));
 }
@@ -129,13 +129,13 @@ Rva00448F92Cursor Rva00448DCB::rva00448F92(const BfmeStringRecord00448113 &key)
 class Rva004494AC
 {
 public:
-	int rva004494AC() const;
+	int isZero() const;
 private:
 	int m_00;
 	short m_04;
 };
 
-int Rva004494AC::rva004494AC() const
+int Rva004494AC::isZero() const
 {
 	return m_00 == 0 && m_04 == 0;
 }
@@ -172,7 +172,7 @@ class Object
 public:
 	void rva0028CDEB(const Rva00346BC0 &mask, bool flag);	// 0x0028CDEB
 	void defect(Object *other, bool flag);				// 0x00298979
-	void rva0044E5AA(const Rva00346BC0 &mask);
+	void clearMask(const Rva00346BC0 &mask);
 	void rva00462457(Object *other);
 	void rva0047B985(Object *other);
 	void kill(DamageType damage, DeathType death);	// 0x002984D4
@@ -180,7 +180,7 @@ public:
 	ObjectCreationList *m_38;								// +0x38
 };
 
-void Object::rva0044E5AA(const Rva00346BC0 &mask)
+void Object::clearMask(const Rva00346BC0 &mask)
 {
 	rva0028CDEB(mask, false);
 }
@@ -220,19 +220,19 @@ void Rva0044E5D6::rva0044E5D6(bool flag)
 class Rva0045A1EB
 {
 public:
-	bool rva0045A1EB() const;
-	bool rva0045A1F7() const;
+	bool hasLowFlags() const;
+	bool isBit3Clear() const;
 private:
 	char m_pad[0x1C];
 	unsigned m_flags;
 };
 
-bool Rva0045A1EB::rva0045A1EB() const
+bool Rva0045A1EB::hasLowFlags() const
 {
 	return (m_flags & 7) != 0;
 }
 
-bool Rva0045A1EB::rva0045A1F7() const
+bool Rva0045A1EB::isBit3Clear() const
 {
 	return (m_flags & 8) == 0;
 }
@@ -259,13 +259,13 @@ class __single_inheritance Rva0045ED7ETarget;
 class Rva0045ED7E
 {
 public:
-	void rva0045ED7E(Rva0045ED7ETarget *target);
+	void invokeCallback(Rva0045ED7ETarget *target);
 private:
 	void (Rva0045ED7ETarget::*m_method)(int value);
 	int m_value;
 };
 
-void Rva0045ED7E::rva0045ED7E(Rva0045ED7ETarget *target)
+void Rva0045ED7E::invokeCallback(Rva0045ED7ETarget *target)
 {
 	(target->*m_method)(m_value);
 }

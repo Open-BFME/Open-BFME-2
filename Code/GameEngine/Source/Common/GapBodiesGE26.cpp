@@ -49,7 +49,7 @@ enum Relationship { ENEMIES = 0, NEUTRAL = 1, ALLIES = 2 };
 class Rva004E569C
 {
 public:
-	void rva004E569C();
+	void resetIds();
 private:
 	int m_00;
 	int m_04;
@@ -59,7 +59,7 @@ private:
 	int m_14;
 };
 
-void Rva004E569C::rva004E569C()
+void Rva004E569C::resetIds()
 {
 	m_14 = -1;
 	m_10 = -1;
@@ -148,8 +148,8 @@ class Rva004E8F37
 {
 public:
 	bool rva004E8F37(Player *player);
-	void rva004E8F76(const Player *player);
-	void rva004E8FB7(const Player *player);
+	void openAlliedGates(const Player *player);
+	void closeAlliedGates(const Player *player);
 private:
 	GateOpenAndCloseBehavior **m_begin;
 	GateOpenAndCloseBehavior **m_end;
@@ -174,7 +174,7 @@ bool Rva004E8F37::rva004E8F37(Player *player)
 	return true;
 }
 
-void Rva004E8F37::rva004E8F76(const Player *player)
+void Rva004E8F37::openAlliedGates(const Player *player)
 {
 	GateOpenAndCloseBehavior **end = m_end;
 	for (GateOpenAndCloseBehavior **it = m_begin; it != end; ++it)
@@ -185,7 +185,7 @@ void Rva004E8F37::rva004E8F76(const Player *player)
 	}
 }
 
-void Rva004E8F37::rva004E8FB7(const Player *player)
+void Rva004E8F37::closeAlliedGates(const Player *player)
 {
 	GateOpenAndCloseBehavior **end = m_end;
 	for (GateOpenAndCloseBehavior **it = m_begin; it != end; ++it)

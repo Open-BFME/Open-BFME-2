@@ -103,13 +103,13 @@ private:
 class Rva0053B975
 {
 public:
-	BfmeFixedStorage0004543D rva0053B975() const;
+	BfmeFixedStorage0004543D getFlags() const;
 private:
 	char m_pad[0x110];
 	BfmeFixedStorage0004543D m_flags;
 };
 
-BfmeFixedStorage0004543D Rva0053B975::rva0053B975() const
+BfmeFixedStorage0004543D Rva0053B975::getFlags() const
 {
 	return m_flags;
 }
@@ -170,7 +170,7 @@ struct Rva0053FCEACursor
 	Rva0053FCEARecord *m_at;
 };
 
-void Rva0053FCEA(Rva0053FCEACursor &cursor, int count)
+void advanceCursor(Rva0053FCEACursor &cursor, int count)
 {
 	cursor.m_at += count;
 }
@@ -180,10 +180,10 @@ void Rva0053FCEA(Rva0053FCEACursor &cursor, int count)
 class Rva00541191
 {
 public:
-	bool rva00541191(const int *a, int b);
+	bool isBelow(const int *a, int b);
 };
 
-bool Rva00541191::rva00541191(const int *a, int b)
+bool Rva00541191::isBelow(const int *a, int b)
 {
 	return *a < b;
 }
@@ -198,13 +198,13 @@ struct Rva0054810BHandle
 class Rva0054810B
 {
 public:
-	Rva0054810BHandle rva0054810B() const;
+	Rva0054810BHandle getHandle() const;
 private:
 	int m_00;
 	int m_04;
 };
 
-Rva0054810BHandle Rva0054810B::rva0054810B() const
+Rva0054810BHandle Rva0054810B::getHandle() const
 {
 	return Rva0054810BHandle(m_04);
 }
@@ -218,14 +218,14 @@ struct Rva0054A19CBlock
 class Rva0054A19C
 {
 public:
-	void rva0054A19C();
+	void copyBlock();
 private:
 	int m_00;
 	Rva0054A19CBlock m_04;
 	Rva0054A19CBlock m_14;
 };
 
-void Rva0054A19C::rva0054A19C()
+void Rva0054A19C::copyBlock()
 {
 	m_04 = m_14;
 }
@@ -235,10 +235,10 @@ void Rva0054A19C::rva0054A19C()
 class Rva0054E8CF : public _STL::list<int>
 {
 public:
-	void rva0054E8CF(int value);
+	void pushValue(int value);
 };
 
-void Rva0054E8CF::rva0054E8CF(int value)
+void Rva0054E8CF::pushValue(int value)
 {
 	push_back(value);
 }
@@ -248,16 +248,16 @@ void Rva0054E8CF::rva0054E8CF(int value)
 class Rva00552F42
 {
 public:
-	bool rva00552F42(const unsigned char *a, const unsigned char *b);
+	bool isByteBelow(const unsigned char *a, const unsigned char *b);
 };
 
-bool Rva00552F42::rva00552F42(const unsigned char *a, const unsigned char *b)
+bool Rva00552F42::isByteBelow(const unsigned char *a, const unsigned char *b)
 {
 	return *a < *b;
 }
 
 // --- 0x00559EFE (19B, cdecl): copy a 40-byte record.
-void Rva00559EFE(void *to, const void *from)
+void copyRecord(void *to, const void *from)
 {
 	memcpy(to, from, 0x28);
 }
@@ -274,13 +274,13 @@ struct Rva0055D988Value
 class Rva0055D988
 {
 public:
-	Rva0055D988Value rva0055D988() const;
+	Rva0055D988Value getValue() const;
 private:
 	char m_pad[0x188];
 	Rva0055D988Value m_value;
 };
 
-Rva0055D988Value Rva0055D988::rva0055D988() const
+Rva0055D988Value Rva0055D988::getValue() const
 {
 	return m_value;
 }
@@ -330,7 +330,7 @@ struct Rva00567B59Pair
 	int m_second;
 };
 
-void Rva00567B59(Rva00567B59Pair *out, const int *first, int second)
+void makePair(Rva00567B59Pair *out, const int *first, int second)
 {
 	out->m_first = *first;
 	out->m_second = second;
@@ -355,14 +355,14 @@ bool Rva00568651::rva00568651() const
 class Rva0056AB09
 {
 public:
-	int rva0056AB09(int a, int b) const;
+	int matchesPair(int a, int b) const;
 private:
 	char m_pad[0x10];
 	int m_10;
 	int m_14;
 };
 
-int Rva0056AB09::rva0056AB09(int a, int b) const
+int Rva0056AB09::matchesPair(int a, int b) const
 {
 	return m_10 == a && m_14 == b;
 }

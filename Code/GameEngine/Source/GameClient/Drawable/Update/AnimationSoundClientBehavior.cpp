@@ -708,7 +708,7 @@ AnimationSoundTree::AnimationSoundTree()
 
 // tu-skeleton: 0x004CA1C1 98B ??0AnimationSoundClientBehavior@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehaviorCopy.cpp (not merged yet)
 
-// tu-skeleton: 0x004CA256 20B ?rva004CA256@AnimationSoundTree@@QAE?AURva004CA256Cursor@@PBX@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE24.cpp (not merged yet)
+// tu-skeleton: 0x004CA256 20B ?findCursor@AnimationSoundTree@@QAE?AURva004CA256Cursor@@PBX@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE24.cpp (not merged yet)
 
 // tu-skeleton: 0x004CA26A 41B ?rva004CA26A@AnimationSoundTree@@QAEXXZ -- matched in Code/GameEngine/Source/Common/AnimationSoundTreeFree.cpp (not merged yet)
 

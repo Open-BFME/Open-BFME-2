@@ -52,7 +52,7 @@ unsigned int AlignUp(unsigned int unalignedValue, unsigned int requiredAlignment
 }
 
 // --- 0x00030B00 (21B): in-use bit of a chunk, kept in the next chunk's size.
-int rva00030B00(GapChunk *chunk)
+int isChunkInUse(GapChunk *chunk)
 {
 	return GAP_CHUNK_AT(chunk, GAP_CHUNK_SIZE(chunk))->m_size & 1;
 }

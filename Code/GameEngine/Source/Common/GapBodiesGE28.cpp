@@ -31,7 +31,7 @@ public:
 // fails (its result read as a byte).
 int Rva00360C1FEqual(const void *a, const void *b);			// 0x00360C1F
 
-int Rva005079EF(const void *a, const void *b)
+int isNotEqual(const void *a, const void *b)
 {
 	return !(unsigned char)Rva00360C1FEqual(a, b);
 }
@@ -119,13 +119,13 @@ void Rva0051E2BD::rva0051E2BD(const Rva0051E2BDScale &scale)
 class Rva005233FC
 {
 public:
-	int rva005233FC() const;
+	int getOpaqueColor() const;
 private:
 	char m_pad[0x184];
 	RGBColor m_color;
 };
 
-int Rva005233FC::rva005233FC() const
+int Rva005233FC::getOpaqueColor() const
 {
 	return m_color.getAsInt() | 0xFF000000;
 }

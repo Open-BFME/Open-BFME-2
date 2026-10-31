@@ -130,7 +130,7 @@ Rva006CD4B0 &Rva006CD4B0::operator--()
 	return *this;
 }
 
-// ?rva006CFE30@Rva006CFE30@@QAE?AURva006CFE30Iterator@@H@Z @0x006CFE30 16B:
+// ?popHead@Rva006CFE30@@QAE?AURva006CFE30Iterator@@H@Z @0x006CFE30 16B:
 // unlink the head node (next at +4) and return it by value; the word
 // argument is unused (same shape as the rowed 0x002C1F6F).
 struct Rva006CFE30Node
@@ -146,11 +146,11 @@ struct Rva006CFE30Iterator
 class Rva006CFE30
 {
 public:
-	Rva006CFE30Iterator rva006CFE30(int unused);
+	Rva006CFE30Iterator popHead(int unused);
 private:
 	Rva006CFE30Node *m_head;
 };
-Rva006CFE30Iterator Rva006CFE30::rva006CFE30(int)
+Rva006CFE30Iterator Rva006CFE30::popHead(int)
 {
 	Rva006CFE30Node *node = m_head;
 	m_head = node->m_next;
@@ -187,7 +187,7 @@ int Rva0073B640::rva0073B640(int row, int column) const
 	return m_table[row][column];
 }
 
-// ?rva007584F0@Rva007584F0@@QAEXXZ @0x007584F0 12B and
+// ?unregisterObject@Rva007584F0@@QAEXXZ @0x007584F0 12B and
 // ?rva00625870@Rva00625870@@QAEXXZ @0x00625870 12B: hand the +4 word to a
 // rowed member of the object held at +0 (CollisionManagerImpl::UnRegisterObject
 // 0x007592E0 / PartitionManagerImpl::bfmeDropYQ 0x006278A0).
@@ -200,12 +200,12 @@ public:
 class Rva007584F0
 {
 public:
-	void rva007584F0();
+	void unregisterObject();
 private:
 	CollisionManagerImpl *m_00;
 	Rva009A36F0Param *m_04;
 };
-void Rva007584F0::rva007584F0()
+void Rva007584F0::unregisterObject()
 {
 	m_00->UnRegisterObject(m_04);
 }

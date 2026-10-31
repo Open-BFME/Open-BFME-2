@@ -304,13 +304,13 @@ struct Rva000910C7Target
 class Rva000910C7
 {
 public:
-	void rva000910C7(float value);
+	void setTargetValue(float value);
 private:
 	char m_pad00[0x2C];
 	Rva000910C7Target *m_target2C;
 };
 
-void Rva000910C7::rva000910C7(float value)
+void Rva000910C7::setTargetValue(float value)
 {
 	m_target2C->m_value20 = value;
 }

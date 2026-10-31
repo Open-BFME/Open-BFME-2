@@ -811,7 +811,7 @@ int __cdecl Rva000D1D26Identity(int value)
 
 // tu-skeleton: 0x000D1E88 26B ??1?$ShareBufferClass@I@@UAE@XZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/ShareBufferClassUnsignedCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x000D204B 20B ?rva000D204B@Rva000D204B@@QAEPAVVector2@@H@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE37.cpp (not merged yet)
+// tu-skeleton: 0x000D204B 20B ?getUvArray@Rva000D204B@@QAEPAVVector2@@H@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE37.cpp (not merged yet)
 
 // tu-skeleton: 0x000D20A9 45B ?rva000D20A9@Rva000D20A9@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
 

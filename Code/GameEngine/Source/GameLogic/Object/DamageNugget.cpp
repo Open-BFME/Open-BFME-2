@@ -243,7 +243,7 @@ private:
 
 // tu-skeleton: 0x00507991 94B ?rva00507991@DamageNugget@@UAEXPAX0@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Made002CC5E1Rva00507991.cpp (not merged yet)
 
-// tu-skeleton: 0x005079EF 21B ?Rva005079EF@@YAHPBX0@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE28.cpp (not merged yet)
+// tu-skeleton: 0x005079EF 21B ?isNotEqual@@YAHPBX0@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE28.cpp (not merged yet)
 
 // tu-skeleton: 0x00507A04 435B ?v4@DamageNugget@@UAEXPAX0@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Made002CC5E1Rva00507A04.cpp (not merged yet)
 
