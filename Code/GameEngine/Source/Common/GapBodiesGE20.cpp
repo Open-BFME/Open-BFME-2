@@ -792,40 +792,6 @@ private:
 	int m_slots[8];											// +0x90
 };
 
-void AptLoadScreen::PlayerColor(int index, char *buffer, bool skip)
-{
-	if (skip || index >= 8)
-		return;
-	int slotIndex = m_slots[index];
-	if (slotIndex < 0 || slotIndex >= 8)
-		return;
-	strcpy(buffer, "0");
-	if (!m_gameInfo)
-		return;
-	GameSlot *slot = m_gameInfo->getSlot(slotIndex);
-	if (!slot || !slot->isOccupied())
-		return;
-	sprintf(buffer, "%d", ((Rva0043A1C0ColorView *)TheMultiplayerSettings->getColor(slot->getApparentColor()))->m_color);
-}
-
-void AptLoadScreen::GameLoadingType(int index, char *buffer, bool skip)
-{
-	if (skip)
-		return;
-	switch (m_mode)
-	{
-	case 1:
-		strcpy(buffer, "_lan");
-		break;
-	case 2:
-		strcpy(buffer, "_skirmish");
-		break;
-	case 5:
-		strcpy(buffer, "_internetAdv");
-		break;
-	}
-}
-
 // --- 0x0041FCD6 (20B): forward to the rowed 0x0041FC77 insert, returning its
 // result record.
 struct InsertRet0041FA92

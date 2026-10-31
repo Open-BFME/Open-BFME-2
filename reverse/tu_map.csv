@@ -35027,8 +35027,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0043A0B2,15,code,,,-,,Code/GameEngine/Source/Common/VslotSmallBodiesAT.cpp
 0x0043A0C1,156,code,,,-,,Code/GameEngine/Source/Common/Rva0043A0C1Progress.cpp
 0x0043A15D,99,code,Code/GameEngine/Source/Common/AptLoadScreen.cpp,approved,N,N=Code/GameEngine/Source/Common/AptLoadScreen.cpp provisional,Code/GameEngine/Source/Common/AptHeroPowerText.cpp
-0x0043A1C0,130,code,Code/GameEngine/Source/Common/AptLoadScreen.cpp,approved,N,N=Code/GameEngine/Source/Common/AptLoadScreen.cpp provisional,Code/GameEngine/Source/Common/GapBodiesGE20.cpp
-0x0043A242,54,code,Code/GameEngine/Source/Common/AptLoadScreen.cpp,approved,N,N=Code/GameEngine/Source/Common/AptLoadScreen.cpp provisional,Code/GameEngine/Source/Common/GapBodiesGE20.cpp
+0x0043A1C0,130,code,Code/GameEngine/Source/Common/AptLoadScreen.cpp,approved,N,N=Code/GameEngine/Source/Common/AptLoadScreen.cpp provisional,Code/GameEngine/Source/Common/AptLoadScreen.cpp
+0x0043A242,54,code,Code/GameEngine/Source/Common/AptLoadScreen.cpp,approved,N,N=Code/GameEngine/Source/Common/AptLoadScreen.cpp provisional,Code/GameEngine/Source/Common/AptLoadScreen.cpp
 0x0043A278,18,code,,,-,,Code/GameEngine/Source/Common/Rva0043A278Ctor.cpp
 0x0043A28A,148,code,,,-,,Code/GameEngine/Source/Common/Rva0043A278Slot2.cpp
 0x0043A31E,34,code,,,-,,Code/GameEngine/Source/Common/Rva0043A31ECleanup.cpp
