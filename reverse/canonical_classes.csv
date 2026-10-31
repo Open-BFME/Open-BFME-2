@@ -165,3 +165,4 @@ AreaPolygonBase,Code/GameEngine/Include/Common/AreaPolygonBase.h,Native30B980/30
 W3DStreakDraw,Code/GameEngineDevice/Include/W3DDevice/GameClient/Drawable/Draw/W3DStreakDraw.h,"NativeD02A7/B19A1/306B19 constructor chain; factory64F0F alloc14; boundedBCD9B8 andBC9690 tables62slots, hidden16/namekey4"
 WaterTransparencySetting,Code/GameEngine/Include/GameClient/Water.h,Native200D80 exact MI ctor: canonical Overridable0 plus registration base10; field tableC080B0 and allocation5C prove full shape
 LANAPI,Code/GameEngine/Include/GameNetwork/LANAPI.h,Native449AB8/44B992 and allocation50CF54 establish0x60-byte layout; C3E588 has61slots and C3E68065slots; consumed callbacks44/45
+SmudgeSet,Code/GameEngine/Include/GameClient/Smudge.h,"Native2D2859/2D291B/2D2996/2D29F7 prove node base4,20hex set,8Chex smudge and real virtual dtor; existing shadow header promoted with canonical Vector2"

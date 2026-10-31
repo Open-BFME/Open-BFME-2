@@ -1,0 +1,204 @@
+{
+  "original": {
+    "SmudgeSet": {
+      "fwd": false,
+      "key": "struct",
+      "size": 32,
+      "bases": [
+        [
+          "DLNodeClass<SmudgeSet>",
+          4
+        ]
+      ],
+      "fields": [
+        [
+          16,
+          "m_usedSmudgeList",
+          "DLListClass<Smudge>",
+          12
+        ],
+        [
+          28,
+          "m_usedSmudgeCount",
+          "int",
+          4
+        ]
+      ],
+      "statics": [
+        "m_freeSmudgeList"
+      ],
+      "methods": [
+        "SmudgeSet",
+        "__local_vftable_ctor_closure",
+        "__vecDelDtor",
+        "addSmudgeToSet",
+        "getUsedSmudgeCount",
+        "getUsedSmudgeList",
+        "removeSmudgeFromSet",
+        "reset",
+        "~SmudgeSet"
+      ],
+      "virtual": [
+        "__vecDelDtor",
+        "~SmudgeSet"
+      ],
+      "vslots": {
+        "0": "__vecDelDtor(uint)"
+      },
+      "vfptr": true
+    },
+    "Smudge": {
+      "fwd": false,
+      "key": "struct",
+      "size": 140,
+      "bases": [
+        [
+          "DLNodeClass<Smudge>",
+          0
+        ]
+      ],
+      "fields": [
+        [
+          12,
+          "m_pos",
+          "Vector3",
+          12
+        ],
+        [
+          24,
+          "m_offset",
+          "Vector2",
+          8
+        ],
+        [
+          32,
+          "m_size",
+          "float",
+          4
+        ],
+        [
+          36,
+          "m_opacity",
+          "float",
+          4
+        ],
+        [
+          40,
+          "m_verts",
+          "Smudge::smudgeVertex[100]",
+          100
+        ]
+      ],
+      "statics": [],
+      "methods": [
+        "Smudge",
+        "__vecDelDtor",
+        "~Smudge"
+      ],
+      "virtual": [],
+      "vslots": {},
+      "vfptr": false
+    }
+  },
+  "adopted": {
+    "SmudgeSet": {
+      "fwd": false,
+      "key": "struct",
+      "size": 32,
+      "bases": [
+        [
+          "DLNodeClass<SmudgeSet>",
+          4
+        ]
+      ],
+      "fields": [
+        [
+          16,
+          "m_usedSmudgeList",
+          "DLListClass<Smudge>",
+          12
+        ],
+        [
+          28,
+          "m_usedSmudgeCount",
+          "int",
+          4
+        ]
+      ],
+      "statics": [
+        "m_freeSmudgeList"
+      ],
+      "methods": [
+        "SmudgeSet",
+        "__local_vftable_ctor_closure",
+        "__vecDelDtor",
+        "addSmudgeToSet",
+        "getUsedSmudgeCount",
+        "getUsedSmudgeList",
+        "removeSmudgeFromSet",
+        "reset",
+        "~SmudgeSet"
+      ],
+      "virtual": [
+        "__vecDelDtor",
+        "~SmudgeSet"
+      ],
+      "vslots": {
+        "0": "__vecDelDtor(uint)"
+      },
+      "vfptr": true
+    },
+    "Smudge": {
+      "fwd": false,
+      "key": "struct",
+      "size": 140,
+      "bases": [
+        [
+          "DLNodeClass<Smudge>",
+          0
+        ]
+      ],
+      "fields": [
+        [
+          12,
+          "m_pos",
+          "Vector3",
+          12
+        ],
+        [
+          24,
+          "m_offset",
+          "Vector2",
+          8
+        ],
+        [
+          32,
+          "m_size",
+          "float",
+          4
+        ],
+        [
+          36,
+          "m_opacity",
+          "float",
+          4
+        ],
+        [
+          40,
+          "m_verts",
+          "Smudge::smudgeVertex[100]",
+          100
+        ]
+      ],
+      "statics": [],
+      "methods": [
+        "Smudge",
+        "__vecDelDtor",
+        "~Smudge"
+      ],
+      "virtual": [],
+      "vslots": {},
+      "vfptr": false
+    }
+  }
+}

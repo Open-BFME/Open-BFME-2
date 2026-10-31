@@ -1,0 +1,108 @@
+{
+  "original": {
+    "fwd": false,
+    "key": "class",
+    "size": 36,
+    "bases": [],
+    "fields": [
+      [
+        4,
+        "m_hardwareSupportStatus",
+        "int",
+        4
+      ],
+      [
+        8,
+        "m_usedSmudgeSetList",
+        "DLListClass<SmudgeSet>",
+        12
+      ],
+      [
+        20,
+        "m_freeSmudgeSetList",
+        "DLListClass<SmudgeSet>",
+        12
+      ],
+      [
+        32,
+        "m_smudgeCountLastFrame",
+        "int",
+        4
+      ]
+    ],
+    "statics": [],
+    "methods": [
+      "SmudgeManager",
+      "__local_vftable_ctor_closure",
+      "__vecDelDtor",
+      "init",
+      "reset",
+      "~SmudgeManager"
+    ],
+    "virtual": [
+      "__vecDelDtor",
+      "init",
+      "reset",
+      "~SmudgeManager"
+    ],
+    "vslots": {
+      "0": "__vecDelDtor(uint)",
+      "1": "init()",
+      "2": "reset()"
+    },
+    "vfptr": true
+  },
+  "adopted": {
+    "fwd": false,
+    "key": "class",
+    "size": 36,
+    "bases": [],
+    "fields": [
+      [
+        4,
+        "m_hardwareSupportStatus",
+        "int",
+        4
+      ],
+      [
+        8,
+        "m_usedSmudgeSetList",
+        "DLListClass<SmudgeSet>",
+        12
+      ],
+      [
+        20,
+        "m_freeSmudgeSetList",
+        "DLListClass<SmudgeSet>",
+        12
+      ],
+      [
+        32,
+        "m_smudgeCountLastFrame",
+        "int",
+        4
+      ]
+    ],
+    "statics": [],
+    "methods": [
+      "SmudgeManager",
+      "__local_vftable_ctor_closure",
+      "__vecDelDtor",
+      "init",
+      "reset",
+      "~SmudgeManager"
+    ],
+    "virtual": [
+      "__vecDelDtor",
+      "init",
+      "reset",
+      "~SmudgeManager"
+    ],
+    "vslots": {
+      "0": "__vecDelDtor(uint)",
+      "1": "init()",
+      "2": "reset()"
+    },
+    "vfptr": true
+  }
+}

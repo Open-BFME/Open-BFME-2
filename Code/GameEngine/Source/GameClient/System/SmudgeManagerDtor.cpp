@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
 //
 // ??1SmudgeManager@@UAE@XZ, retail 0x002D29F7, 140 bytes.
 // Virtual dtor over vtable 0x00C02A60 (slot 0 deleting dtor at 0x002D2A83
@@ -16,57 +16,17 @@
 
 typedef int Int;
 
-class W3DMPO {};
 
 template <class T> class DLNodeClass;
 
-template <class T>
-class DLListClass
-{
-	friend DLNodeClass<T>;
-	DLNodeClass<T> *head;
-	DLNodeClass<T> *tail;
 
-public:
-	DLListClass() : head(0), tail(0) {}
-	virtual ~DLListClass() { }
 
-	void Add_Head(DLNodeClass<T> *node);
-	void Add_Tail(DLNodeClass<T> *node);
-	void Remove_Head();
 
-	T *Head() { return static_cast<T *>(head); }
-};
 
-template <class T>
-class DLNodeClass : public W3DMPO
-{
-	friend DLListClass<T>;
-	DLNodeClass<T> *succ;
-	DLNodeClass<T> *pred;
-	DLListClass<T> *list;
-public:
-	DLNodeClass() : succ(0), pred(0), list(0) {}
-	~DLNodeClass() { Remove(); }
 
-	void Remove();
-};
-
-struct Smudge : public DLNodeClass<Smudge>
-{
-};
-
-struct SmudgeSet : public DLNodeClass<SmudgeSet>
-{
-	friend class SmudgeManager;
-public:
-	virtual void *deleteInstance(int flags);
-
-private:
-	static DLListClass<Smudge> m_freeSmudgeList;
-	DLListClass<Smudge> m_usedSmudgeList;
-	Int m_usedSmudgeCount;
-};
+#include "../../../Include/GameClient/Smudge.h"
+template<> void DLListClass<SmudgeSet>::Remove_Head();
+template<> void DLNodeClass<Smudge>::Remove();
 
 class SmudgeManager
 {
@@ -91,7 +51,7 @@ SmudgeManager::~SmudgeManager()
 	SmudgeSet *head;
 	while ((head = m_freeSmudgeSetList.Head()) != 0) {
 		m_freeSmudgeSetList.Remove_Head();
-		::operator delete(head->deleteInstance(0));
+		::delete head;
 	}
 
 	Smudge *smudge;

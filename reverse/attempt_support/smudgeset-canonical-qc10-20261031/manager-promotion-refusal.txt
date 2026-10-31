@@ -1,0 +1,6 @@
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Code/GameEngine/Source/GameClient/System/SmudgeManagerDtor.cpp: does not link  LINKED 185 -> 0 bytes (census 2026-10-31 18:37 at 7300bffea9; file's own bytes 185)
+  unresolved  ?ReAcquireResources@SmudgeManager@@UAEXXZ
+  unresolved  ?ReleaseResources@SmudgeManager@@UAEXXZ
+  comdat      ??_7SmudgeManager@@6B@  (first: differs from the first copy in link order (no retail address))
+link_check: 0 of 1 link cleanly; LINKED 185 -> 0 bytes (4.4s)
