@@ -31,6 +31,26 @@ public:
 #pragma pack(push,1)
 #pragma pack(pop)
 #include "ascii_string.h"	// shared AsciiString: operator= expands to StringBase<char>::set (0x000366F0), as retail
+#define BFME_DISP32_LEA_GETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		void *get() const; \
+	}; \
+	void *NAME::get() const \
+	{ \
+		return (char *)this + DISP; \
+	}
+#define BFME_DISP32_LEA_BEFORE_GETTER(NAME, BACK) \
+	class NAME \
+	{ \
+	public: \
+		void *get() const; \
+	}; \
+	void *NAME::get() const \
+	{ \
+		return (char *)this - (BACK); \
+	}
 
 class Rva00330757Member
 {
@@ -479,6 +499,29 @@ private:
 	Rva003080AA *m_indexer94;
 };
 
+class MilesAudioManager { public: virtual void *rva0055D96F() const; };
+
+BFME_DISP32_LEA_GETTER(Rva00308156LeaGetter, 0x8C)
+
+// Callers elsewhere reach bodies in this unit through other spellings; retail's
+// call sites in their matched rows land on these addresses (same ABI). Bind them.
+
+
+
+// Retail299C91 is an eight-byte receiver-adjustment stub ending with an
+// unconditional jump to this independent299C99..299CA0 LEA/RET body.
+// Object's virtual-base table BFC27C references the stub; the owned Object
+// destructor establishes that base and its preceding adjustment word.
+// The adjusted receiver addresses a member 0x42C bytes before itself.
+// The original member name and pointee type are not established.
+class Object
+{
+public:
+	virtual void *slot() const;
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Map/StandingWaterArea.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Map/StandingWaterArea.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Map/StandingWaterAreaReleasePCA.cpp
@@ -892,7 +935,22 @@ void Rva0030815D::rva0030815D(const AsciiString &asciiString)
 	m_flag9C = true;
 }
 
-// tu-skeleton: 0x00308156 7B ?get@Rva00308156LeaGetter@@QBEPAXXZ -- matched in Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp
+
+// Disp32 LEA getters: seven-byte __thiscall members with one shape:
+//
+//     lea eax,[ecx+<DISP>] / ret
+//
+// The address of a member at a fixed displacement from `this` is returned.
+// Spelled as byte-pointer arithmetic from `this`, which MSVC 7.1 folds to
+// the same disp32 lea. The pointee type is unwitnessed (only an address is
+// produced), so the return is an untyped pointer. Members before the
+// accessed one are not spelled at all: unlike the load families, no lead
+// array is needed because nothing is read. The disp32 mirror of the disp8
+// family in Disp8LeaFieldGetters.cpp (MSVC 7.1 uses disp8 whenever the
+// offset fits in a signed byte, so every offset here is at least 0x80).
+// Identity is not recovered: every name is derived from its address.
+// No // cl: line (defaults match the frameless seven-byte shape).
 
 // tu-skeleton: 0x0030817A 8B ?rva0030817A@Rva0030817A@@UAEXH@Z -- matched in Code/GameEngine/Source/GameClient/Rva00330B2EMemberCall.cpp (not merged yet)
 
