@@ -1457,7 +1457,7 @@ address_global	Code/Libraries/Source/DirtySock/Y5SmallHelpers.c	g_Rva012C47A4Tex
 address_global	Code/Libraries/Source/DirtySock/commudp.cpp	g_Rva0130AD08Count	5
 address_global	Code/Libraries/Source/DirtySock/commudp.cpp	g_Rva0130AF38Lock	17
 address_global	Code/Libraries/Source/DirtySock/commudp.cpp	g_Rva0130B188List	4
-address_global	Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterBinder.cpp	g_Rva00153565Vec	7
+address_global	Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterBinder.cpp	g_Rva00153565Vec	10
 address_global	Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterBinderInit.cpp	g_Rva00153565Vec	3
 address_global	Code/Libraries/Source/WWVegas/WW3D2/Render2DClassAddQuadColor.cpp	g_Va00DB5FC8	9
 address_global	Code/Libraries/Source/WWVegas/WW3D2/Render2DClassAddQuadColor.cpp	g_Va00DEC49C	2
@@ -1520,7 +1520,6 @@ address_global	Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp	g_Va00DEC40C	3
 address_global	Code/Libraries/Source/WWVegas/WWLib/HordeMeleeSwarmXfer.cpp	g_Rva0107301CEmptyString	3
 address_global	Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp	g_Va00E03174	2
 address_global	Code/Libraries/Source/WWVegas/WWLib/LivingWorldAutoResolveBodyTemplate.cpp	g_Va00BBB8D8	2
-address_global	Code/Libraries/Source/WWVegas/WWLib/Rva001532E1Erase.cpp	g_Rva00153565Vec	4
 address_global	Code/Libraries/Source/WWVegas/WWLib/Rva001DABB6SoundsListParse.cpp	g_Rva0107301CEmptyString	3
 address_global	Code/Libraries/Source/WWVegas/WWLib/Rva002EE9E0Reset.cpp	g_Va00DBD4B8	3
 address_global	Code/Libraries/Source/WWVegas/WWLib/Rva002EEA1DReset.cpp	g_Va00DBD4C8	2
@@ -3831,7 +3830,10 @@ alternatename	Code/Libraries/Source/WWVegas/WW3D2/DX8RendererAddMesh.cpp	?Peek_T
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/DynamicIBAccessWriteLock.cpp	??0WriteLock@BfmeSortingIBAccess@@QAE@PAU1@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/DynamicIBAccessWriteLock.cpp	??1WriteLock@BfmeSortingIBAccess@@QAE@XZ	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/DynamicVectorBfmeHandleCtor.cpp	_vtbl_00BD4688	1
+alternatename	Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterBinder.cpp	??0?$vector@URva005F8F96@@V?$allocator@URva005F8F96@@@_STL@@@_STL@@QAE@ABV01@@Z	1
+alternatename	Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterBinder.cpp	?Rva001534B6Copy@@YAPAURva00153252@@PAU1@00ABUTag@@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterBinder.cpp	?Rva00153A5ERangeCallee@@YAPAURva00153A5EOutput@@PAURva00153A5EInput@@0PAU1@ABURva00153A5EIteratorTag@@PAH@Z	1
+alternatename	Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterBinder.cpp	?get@Rva001514B2@@QAEPAXXZ	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterBinder.cpp	?rva001538A8@Rva001538A8@@QAEPAXXZ	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterBinder.cpp	?rva00153E6F@Rva00153E6F@@QAEXHURva00153EE5Tmp@@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp	??0Rva0014DB9F@@QAE@XZ	1
@@ -3879,7 +3881,6 @@ alternatename	Code/Libraries/Source/WWVegas/WW3D2/Rva00118B50State.cpp	_g_BfmeRe
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/Rva00122190Delete.cpp	??1Gen_uw_001212f0@@QAE@XZ	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/Rva001263B7Finish.cpp	?g_007BB8D8@@3MA	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/Rva00144690Dtor.cpp	??1DX8PolygonRendererList@@UAE@XZ	1
-alternatename	Code/Libraries/Source/WWVegas/WW3D2/Rva001514B2ForwardAndApply.cpp	?get@Rva001514B2@@QAEPAXXZ	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/SceneOwnership.cpp	?link@Gen_00943CF0@@AAEXPAXHHH@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/SceneOwnership.cpp	?second@Gen_00943CF0@@AAEXPAX000@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/SceneOwnership.cpp	?unlink@Gen_00943CF0@@AAEXPAX@Z	1
@@ -4002,7 +4003,6 @@ alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva00151248Reset.cpp	?clear@Rv
 alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva00152BDBValueVectorResize.cpp	??0Rva00152BDBEntry@@QAE@XZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva00152BDBValueVectorResize.cpp	??1Rva00152BDBEntry@@QAE@XZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva00152BDBValueVectorResize.cpp	?erase@?$vector@URva00152BDBEntry@@V?$allocator@URva00152BDBEntry@@@_STL@@@_STL@@QAEPAURva00152BDBEntry@@PAU3@0@Z	1
-alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva00153729Dtor.cpp	??0?$vector@URva005F8F96@@V?$allocator@URva005F8F96@@@_STL@@@_STL@@QAE@ABV01@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva00174A8ADefaultResize.cpp	??0Rva0017480CRecord@@QAE@XZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva001DEE3CRangeForward.cpp	?Rva001DEE3CRangeCallee@@YAPAURva001DEE3COutput@@PAURva001DEE3CInput@@0PAU1@ABURva001DEE3CIteratorTag@@PAH@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva001DEF6BDtorFinish.cpp	?__destroy_aux@_STL@@YAXPAURva00414BDBElement@@0@Z	1
@@ -4134,7 +4134,6 @@ alternatename	Code/Libraries/Source/WWVegas/WWLib/StringBaseWideReleaseBuffer.cp
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StringBaseWideReleaseBuffer.cpp	?destroy@CustomAsciiStringShim@@QAEXXZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StringBaseWideReleaseBuffer.cpp	?release@Rva0048C200String@@QAEXXZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StringBaseWideReleaseBuffer.cpp	?releaseBuffer@UnicodeString@@IAEXXZ	1
-alternatename	Code/Libraries/Source/WWVegas/WWLib/URva005F8F96Rva001537D8.cpp	?Rva001534B6Copy@@YAPAURva00153252@@PAU1@00ABUTag@@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/UnicodeStringEmptyCleanup.cpp	?destroy@UnicodeStringCleanup@@QAEXXZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/VectorCopyDispatchRva003F5B3E.cpp	?backwardDeep@@YAPAURva003F5B3ERecord@@PAU1@00ABURva003F5B3ETag@@PAH@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/VectorCopyDispatchRva003F5B3E.cpp	?copyDeep@@YAPAURva003F5B3ERecord@@PAU1@00ABURva003F5B3ETag@@PAH@Z	1
@@ -15276,7 +15275,6 @@ present_unmatched	Code/Libraries/Source/WWVegas/WWLib/stlport_rva004f6352_sort_e
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/stlport_stdexcept_dtors.cpp	__Named_exception::~__Named_exception	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/stlport_stringtailrecord144_dtor.cpp	BfmeEventPositionView::zero	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/stlport_uninitialized_copy_rva0054000b.cpp	get_allocator@?$vector@VRva0054000B@@V?$allocator@VRva0054000B@@@_STL@@@_STL@@QBE?AV?$allocator@VRva0054000B@@@2@XZ	1
-present_unmatched	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_bfmee8_allocate_copy.cpp	0Tag@@QAE@XZ	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_e12_allocate_copy.cpp	bfmeEmitstlport_vector_e12_copy_ptrs@@YAXPAUBfmeE12@@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_opaque_mclear.cpp	1OpaqueRefElement4@@QAE@XZ	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva000b435f_erase.cpp	$__copy_ptrs@PAURva000B435F@@PAU1@@_STL@@YAPAURva000B435F@@PAU1@00ABU__false_type@0@@Z	1
