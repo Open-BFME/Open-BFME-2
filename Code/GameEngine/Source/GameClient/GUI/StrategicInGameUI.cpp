@@ -628,6 +628,150 @@ struct Rva005E6938Entry {int first,second;};
 
 struct Rva005E6938Owner {char pad0[0x78];Rva0040CC0EIndexedField *catalog;};
 
+// Seven retail virtual-forward thunks (7-8B each). Retail shape per member:
+// mov ecx, [ecx+adj], mov eax, [ecx], jmp [eax+slot]. Each forwards through
+// a pointer owned at a fixed displacement from this to one virtual slot:
+// 0x005E6817: adj +4, slot 0x00 (1st); 0x005E681E: adj +4, slot 0x18 (7th);
+// 0x005E6826: adj +4, slot 0x14 (6th); 0x005E682E: adj +4, slot 0x10 (5th);
+// 0x005E6836: adj +4, slot 0x08 (3rd);
+// 0x005E683E: adj +4, slot 0x04 (2nd, two stack args from callers 0x005CE130 0x005CE804);
+// 0x005E3AA2: adj -8 (pointer kept 8 below this), slot 0x0C (4th).
+// Slot/owner identities unproven; names are address-derived.
+// One ledger row per thunk.
+
+// Native caller42C879 forwards GameMessage* and tests the full int result.
+// Correct the existing thunk owner ABI; its seven target bytes stay unchanged.
+class GameMessage;
+
+class Rva005E6817Outer
+{
+public:
+	virtual int slot0(GameMessage *message);
+};
+
+class Rva005E681EOuter
+{
+public:
+	virtual void slot0();
+	virtual void slot1();
+	virtual void slot2();
+	virtual void slot3();
+	virtual void slot4();
+	virtual void slot5();
+	virtual void slot6();
+};
+
+class Rva005E6826Outer
+{
+public:
+	virtual void slot0();
+	virtual void slot1();
+	virtual void slot2();
+	virtual void slot3();
+	virtual void slot4();
+	virtual void slot5();
+};
+
+class Rva005E682EOuter
+{
+public:
+	virtual void slot0();
+	virtual void slot1();
+	virtual void slot2();
+	virtual void slot3();
+	virtual void slot4();
+};
+
+class Rva005E6836Outer
+{
+public:
+	virtual void slot0();
+	virtual void slot1();
+	virtual void slot2();
+};
+
+class Rva005E683EOuter
+{
+public:
+	virtual void slot0();
+	virtual void slot1(int a, int b);
+};
+
+class Rva005E3AA2Outer
+{
+public:
+	virtual void slot0();
+	virtual void slot1();
+	virtual void slot2();
+	virtual void slot3();
+};
+
+class Rva005E6817Mid
+{
+public:
+	int fwd(GameMessage *message);
+
+private:
+	unsigned m_00;
+	Rva005E6817Outer *m_outer;
+};
+
+class Rva005E681EMid
+{
+public:
+	void fwd();
+
+private:
+	unsigned m_00;
+	Rva005E681EOuter *m_outer;
+};
+
+class Rva005E6826Mid
+{
+public:
+	void fwd();
+
+private:
+	unsigned m_00;
+	Rva005E6826Outer *m_outer;
+};
+
+class Rva005E682EMid
+{
+public:
+	void fwd();
+
+private:
+	unsigned m_00;
+	Rva005E682EOuter *m_outer;
+};
+
+class Rva005E6836Mid
+{
+public:
+	void fwd();
+
+private:
+	unsigned m_00;
+	Rva005E6836Outer *m_outer;
+};
+
+class Rva005E683EMid
+{
+public:
+	void fwd(int a, int b);
+
+private:
+	unsigned m_00;
+	Rva005E683EOuter *m_outer;
+};
+
+class Rva005E3AA2Mid
+{
+public:
+	void fwd();
+};
+
 // tu-skeleton: 0x005E5DF5 133B ?SendSwapArmyMembersMessage@StrategicInGameUI@@YAXHPBURva005FSelectionView@@HABU2@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/StrategicUiArmyDragDrop.cpp (not merged yet)
 
 // tu-skeleton: 0x005E5E7A 67B ?clone@Rva005E5E7A@@QBE?AURvaF1Handle@@XZ -- matched in Code/GameEngine/Source/Common/RvaFamily1Clones.cpp (not merged yet)
@@ -639,6 +783,8 @@ struct Rva005E6938Owner {char pad0[0x78];Rva0040CC0EIndexedField *catalog;};
 // tu-skeleton: 0x005E5F43 79B ??$_M_range_initialize@URva005E59FCKeyIterator@@@?$vector@HV?$allocator@H@_STL@@@_STL@@IAEXURva005E59FCKeyIterator@@0ABUforward_iterator_tag@1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportTreeKeyRangeVector.cpp (not merged yet)
 
 // tu-skeleton: 0x005E5F92 22B ??$_M_initialize_aux@URva005E59FCKeyIterator@@@?$vector@HV?$allocator@H@_STL@@@_STL@@QAEXURva005E59FCKeyIterator@@0ABU__false_type@1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportTreeKeyRangeVector.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp
 
@@ -813,18 +959,6 @@ void Rva005E6A9DRun::run()
 	((Rva005E3B25 *)((char *)m_04 + 0xC))->rva005E3B25(m_14);
 }
 
-// tu-skeleton: 0x005E5FFB 186B ??1Rva005E5FFB@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva005E5FFBDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x005E60B5 28B ??_GRva005E5FFB@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva005E5FFBDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x005E60D1 63B ??$?0URva005E59FCKeyIterator@@@?$vector@HV?$allocator@H@_STL@@@_STL@@QAE@URva005E59FCKeyIterator@@0ABV?$allocator@H@1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportTreeKeyRangeVector.cpp (not merged yet)
-
-// tu-skeleton: 0x005E6253 26B ?clear@Rva005E6253@@QAEXXZ -- matched in Code/GameEngine/Source/Common/OwnedPointerResets.cpp (not merged yet)
-
-// tu-skeleton: 0x005E62F1 573B ??0Rva005E62F1@@QAE@PAXHH0PAVRva005CB84A@@0PAVDetailsPanelFactoryFactory@PlanningPhaseArmySelection@StrategicInGameUI@@@Z -- matched in Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/Rva005E62F1Constructor.cpp (not merged yet)
-
-// tu-skeleton: 0x005E652E 270B ?rva005E652E@Rva005E652E@@QAEXPAVRva005FArmyView@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/StrategicUiArmyDragDrop.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva005E663CConstructor.cpp
 
 Rva005E663C::Rva005E663C(void *a0, int a1, int a2, int a3, int a4, int a5,
@@ -834,32 +968,6 @@ Rva005E663C::Rva005E663C(void *a0, int a1, int a2, int a3, int a4, int a5,
 	owned = new Rva005E62F1(this, a1, a2, (void *)a3, (Rva005CB84A *)a4, (void *)a5,
 		(StrategicInGameUI::PlanningPhaseArmySelection::DetailsPanelFactoryFactory *)a6);
 }
-
-// tu-skeleton: 0x005E67FE 18B ??0Rva005E67FE@@QAE@PAX@Z -- matched in Code/GameEngine/Source/Common/V3PolyCopyCtors.cpp (not merged yet)
-
-// tu-skeleton: 0x005E6810 7B ??1Rva005E67FE@@UAE@XZ -- matched in Code/GameEngine/Source/Common/V3PolyCopyCtors.cpp (not merged yet)
-
-// tu-skeleton: 0x005E6817 7B ?fwd@Rva005E6817Mid@@QAEHPAVGameMessage@@@Z -- matched in Code/GameEngine/Source/Common/RvaVirtualFwdThunks.cpp (not merged yet)
-
-// tu-skeleton: 0x005E681E 8B ?fwd@Rva005E681EMid@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaVirtualFwdThunks.cpp (not merged yet)
-
-// tu-skeleton: 0x005E6826 8B ?fwd@Rva005E6826Mid@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaVirtualFwdThunks.cpp (not merged yet)
-
-// tu-skeleton: 0x005E682E 8B ?fwd@Rva005E682EMid@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaVirtualFwdThunks.cpp (not merged yet)
-
-// tu-skeleton: 0x005E6836 8B ?fwd@Rva005E6836Mid@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaVirtualFwdThunks.cpp (not merged yet)
-
-// tu-skeleton: 0x005E683E 8B ?fwd@Rva005E683EMid@@QAEXHH@Z -- matched in Code/GameEngine/Source/Common/RvaVirtualFwdThunks.cpp (not merged yet)
-
-// tu-skeleton: 0x005E6846 29B ??_GRva005E67FE@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/V3PolyCopyCtors.cpp (not merged yet)
-
-// tu-skeleton: 0x005E6863 28B ?rva005E6863@Rva005E6863@@QAEXHH@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAI.cpp (not merged yet)
-
-// tu-skeleton: 0x005E687F 5B ?get@Rva005E687F@@QBEEXZ -- matched in Code/GameEngine/Source/Common/TailJumpWrappers5B.cpp (not merged yet)
-
-// tu-skeleton: 0x005E6884 16B ?rva005E6884@Rva005E6884@@QAEXXZ -- matched in Code/GameEngine/Source/Common/TailJumpWrappers5B.cpp (not merged yet)
-
-// tu-skeleton: 0x005E68A7 25B ??4Rva005E68A7@@QAEAAV0@ABURva005E68A7Pair@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE40.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva005E68C0.cpp
 
@@ -895,26 +1003,6 @@ void Rva005E6938::rva005E6938(){
    ((Rva005E508F*)((char*)guard+0xC))->rva005E5097(item);
  }
 }
-
-// tu-skeleton: 0x005E69C8 8B ?rva005E69C8@Rva005E6F9D@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva005E4F6DConstructor.cpp (not merged yet)
-
-// tu-skeleton: 0x005E69D0 48B ?getTotalCost@Rva005E69D0@@QAEHXZ -- matched in Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIHeroComparator.cpp (not merged yet)
-
-// tu-skeleton: 0x005E6A00 17B ?rva005E6A00@Rva005E6A00@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaHelperThenMemberForwarders.cpp (not merged yet)
-
-// tu-skeleton: 0x005E6A11 18B ?Rva000DFB80@@YAPAVR1DwordPair@@PAV1@HH@Z -- matched in Code/GameEngine/Source/Common/R1SmallFieldInitialisersOs.cpp (not merged yet)
-
-// tu-skeleton: 0x005E6AD8 102B ?rva005E6AD8@Rva005E6AD8@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIHeroComparator.cpp (not merged yet)
-
-// tu-skeleton: 0x005E6B3E 81B ?updateTooltip@Rva005E6B3E@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIHeroComparator.cpp (not merged yet)
-
-// tu-skeleton: 0x005E6B8F 20B ?rva005E6B8F@Rva005E6B8F@@UAEXXZ -- matched in Code/GameEngine/Source/Common/Rva0010BA61Wrappers.cpp (not merged yet)
-
-// tu-skeleton: 0x005E6BA3 17B ?rva005E6BA3@Rva005E6BA3@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva0010BA61Wrappers.cpp (not merged yet)
-
-// tu-skeleton: 0x005E6BB4 17B ?rva005E6BB4@Rva005E6BB4@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva0010BA61Wrappers.cpp (not merged yet)
-
-// tu-skeleton: 0x005E6BC5 220B ?ComputeRankProgress@StrategicInGameUI@@YAMPBURva005E4300Entry@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ComputeRankProgress.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIPlanningPhaseGarrisonSelectionCtor.cpp
 
@@ -955,9 +1043,7 @@ Rva005CD9C0::Rva005CD9C0(int level, const AsciiString &name, void *phase)
 // holds a rowed function; the vftable's address is proven by the vptr stores in
 // the matched destructors, so bind the placeholder to that row's name.
 
-// tu-skeleton: 0x007A15D9 10B $L1111 -- matched in Code/GameEngine/Source/Common/Rva005F4C8EFactory.cpp (not merged yet)
 
-// tu-skeleton: 0x007A15E3 10B __ehhandler$?rva005CDBAE@Rva005CDB8F@@UAE?AV?$Rva005F4C8ERef@VRva005CD9C0Iface@@@@HH@Z -- matched in Code/GameEngine/Source/Common/Rva005F4C8EFactory.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva005CDCEEConstructor.cpp
 
@@ -1017,6 +1103,88 @@ int Rva005E5A8B::handleMessage(GameMessage*msg){
  default:return 0;
  }
 }
+
+// tu-skeleton: 0x005E5FFB 186B ??1Rva005E5FFB@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva005E5FFBDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x005E60B5 28B ??_GRva005E5FFB@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva005E5FFBDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x005E60D1 63B ??$?0URva005E59FCKeyIterator@@@?$vector@HV?$allocator@H@_STL@@@_STL@@QAE@URva005E59FCKeyIterator@@0ABV?$allocator@H@1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportTreeKeyRangeVector.cpp (not merged yet)
+
+// tu-skeleton: 0x005E6253 26B ?clear@Rva005E6253@@QAEXXZ -- matched in Code/GameEngine/Source/Common/OwnedPointerResets.cpp (not merged yet)
+
+// tu-skeleton: 0x005E62F1 573B ??0Rva005E62F1@@QAE@PAXHH0PAVRva005CB84A@@0PAVDetailsPanelFactoryFactory@PlanningPhaseArmySelection@StrategicInGameUI@@@Z -- matched in Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/Rva005E62F1Constructor.cpp (not merged yet)
+
+// tu-skeleton: 0x005E652E 270B ?rva005E652E@Rva005E652E@@QAEXPAVRva005FArmyView@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/StrategicUiArmyDragDrop.cpp (not merged yet)
+
+// tu-skeleton: 0x005E67FE 18B ??0Rva005E67FE@@QAE@PAX@Z -- matched in Code/GameEngine/Source/Common/V3PolyCopyCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x005E6810 7B ??1Rva005E67FE@@UAE@XZ -- matched in Code/GameEngine/Source/Common/V3PolyCopyCtors.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/RvaVirtualFwdThunks.cpp
+
+int Rva005E6817Mid::fwd(GameMessage *message)
+{
+	return m_outer->slot0(message);
+}
+
+void Rva005E681EMid::fwd()
+{
+	m_outer->slot6();
+}
+
+void Rva005E6826Mid::fwd()
+{
+	m_outer->slot5();
+}
+
+void Rva005E682EMid::fwd()
+{
+	m_outer->slot4();
+}
+
+void Rva005E6836Mid::fwd()
+{
+	m_outer->slot2();
+}
+
+void Rva005E683EMid::fwd(int a, int b)
+{
+	m_outer->slot1(a, b);
+}
+
+// tu-skeleton: 0x005E6846 29B ??_GRva005E67FE@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/V3PolyCopyCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x005E6863 28B ?rva005E6863@Rva005E6863@@QAEXHH@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAI.cpp (not merged yet)
+
+// tu-skeleton: 0x005E687F 5B ?get@Rva005E687F@@QBEEXZ -- matched in Code/GameEngine/Source/Common/TailJumpWrappers5B.cpp (not merged yet)
+
+// tu-skeleton: 0x005E6884 16B ?rva005E6884@Rva005E6884@@QAEXXZ -- matched in Code/GameEngine/Source/Common/TailJumpWrappers5B.cpp (not merged yet)
+
+// tu-skeleton: 0x005E68A7 25B ??4Rva005E68A7@@QAEAAV0@ABURva005E68A7Pair@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE40.cpp (not merged yet)
+
+// tu-skeleton: 0x005E69C8 8B ?rva005E69C8@Rva005E6F9D@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva005E4F6DConstructor.cpp (not merged yet)
+
+// tu-skeleton: 0x005E69D0 48B ?getTotalCost@Rva005E69D0@@QAEHXZ -- matched in Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIHeroComparator.cpp (not merged yet)
+
+// tu-skeleton: 0x005E6A00 17B ?rva005E6A00@Rva005E6A00@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaHelperThenMemberForwarders.cpp (not merged yet)
+
+// tu-skeleton: 0x005E6A11 18B ?Rva000DFB80@@YAPAVR1DwordPair@@PAV1@HH@Z -- matched in Code/GameEngine/Source/Common/R1SmallFieldInitialisersOs.cpp (not merged yet)
+
+// tu-skeleton: 0x005E6AD8 102B ?rva005E6AD8@Rva005E6AD8@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIHeroComparator.cpp (not merged yet)
+
+// tu-skeleton: 0x005E6B3E 81B ?updateTooltip@Rva005E6B3E@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIHeroComparator.cpp (not merged yet)
+
+// tu-skeleton: 0x005E6B8F 20B ?rva005E6B8F@Rva005E6B8F@@UAEXXZ -- matched in Code/GameEngine/Source/Common/Rva0010BA61Wrappers.cpp (not merged yet)
+
+// tu-skeleton: 0x005E6BA3 17B ?rva005E6BA3@Rva005E6BA3@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva0010BA61Wrappers.cpp (not merged yet)
+
+// tu-skeleton: 0x005E6BB4 17B ?rva005E6BB4@Rva005E6BB4@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva0010BA61Wrappers.cpp (not merged yet)
+
+// tu-skeleton: 0x005E6BC5 220B ?ComputeRankProgress@StrategicInGameUI@@YAMPBURva005E4300Entry@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ComputeRankProgress.cpp (not merged yet)
+
+// tu-skeleton: 0x007A15D9 10B $L1111 -- matched in Code/GameEngine/Source/Common/Rva005F4C8EFactory.cpp (not merged yet)
+
+// tu-skeleton: 0x007A15E3 10B __ehhandler$?rva005CDBAE@Rva005CDB8F@@UAE?AV?$Rva005F4C8ERef@VRva005CD9C0Iface@@@@HH@Z -- matched in Code/GameEngine/Source/Common/Rva005F4C8EFactory.cpp (not merged yet)
 
 // tu-skeleton: 0x007A3A31 25B ?rva007A3A31@@YAXXZ -- matched in Code/GameEngine/Source/Common/RvaPayloadValueFactories.cpp (not merged yet)
 

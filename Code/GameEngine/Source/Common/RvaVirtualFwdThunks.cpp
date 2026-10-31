@@ -142,36 +142,6 @@ public:
 	void fwd();
 };
 
-int Rva005E6817Mid::fwd(GameMessage *message)
-{
-	return m_outer->slot0(message);
-}
-
-void Rva005E681EMid::fwd()
-{
-	m_outer->slot6();
-}
-
-void Rva005E6826Mid::fwd()
-{
-	m_outer->slot5();
-}
-
-void Rva005E682EMid::fwd()
-{
-	m_outer->slot4();
-}
-
-void Rva005E6836Mid::fwd()
-{
-	m_outer->slot2();
-}
-
-void Rva005E683EMid::fwd(int a, int b)
-{
-	m_outer->slot1(a, b);
-}
-
 void Rva005E3AA2Mid::fwd()
 {
 	Rva005E3AA2Outer *outer = *(Rva005E3AA2Outer *const *)((char *)this - 8);

@@ -43250,8 +43250,8 @@ _FilterBlockBil_8_mmx,,0x001D7200,204,Code/Libraries/Source/VP6/FilterBlockBil8M
 ?setupA0@Rva005CDMorph@@QAEPAV1@HHHHH@Z,,0x005CD2A3,45,Code/GameEngine/Source/Common/RvaMorphInitFamily.cpp,matched,Address-derived morph-init installing 0x00C74FA0; 45B sharedInit/last-store/placement-new shape
 ?setupBC@Rva005CDMorph@@QAEPAV1@HHHHH@Z,,0x005CD2EF,45,Code/GameEngine/Source/Common/RvaMorphInitFamily.cpp,matched,Address-derived morph-init installing 0x00C74FBC; 45B sharedInit/last-store/placement-new shape
 ?setupD8@Rva005CDMorph@@QAEPAV1@HHHHH@Z,,0x005CD34B,45,Code/GameEngine/Source/Common/RvaMorphInitFamily.cpp,matched,Address-derived morph-init installing 0x00C74FD8; 45B sharedInit/last-store/placement-new shape
-?fwd@Rva005E681EMid@@QAEXXZ,,0x005E681E,8,Code/GameEngine/Source/Common/RvaVirtualFwdThunks.cpp,matched,Address-derived virtual-forward thunk: owned ptr at +4 slot6 tail-jmp; 8B shape
-?fwd@Rva005E6836Mid@@QAEXXZ,,0x005E6836,8,Code/GameEngine/Source/Common/RvaVirtualFwdThunks.cpp,matched,Address-derived virtual-forward thunk: adj +4 slot 0x08 tail-jmp; 8B shape
+?fwd@Rva005E681EMid@@QAEXXZ,,0x005E681E,8,Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp,matched,Address-derived virtual-forward thunk: owned ptr at +4 slot6 tail-jmp; 8B shape
+?fwd@Rva005E6836Mid@@QAEXXZ,,0x005E6836,8,Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp,matched,Address-derived virtual-forward thunk: adj +4 slot 0x08 tail-jmp; 8B shape
 ?fwd@Rva005E3AA2Mid@@QAEXXZ,,0x005E3AA2,8,Code/GameEngine/Source/Common/RvaVirtualFwdThunks.cpp,matched,Address-derived virtual-forward thunk: adj -8 slot 0x0C tail-jmp; 8B shape
 ?Rva007B6890@@YAXXZ,,0x007B6890,11,Code/GameEngine/Source/Common/Rva007B6890SingletonFwd.cpp,matched,Address-derived singleton virtual forward: global ptr slot2 tail-jmp; 11B shape
 ?Rva00409892@@YAPAVFile@@ABVAsciiString@@_N@Z,,0x00409892,23,Code/GameEngine/Source/Common/Rva004097AFWrappers.cpp,matched,Address-derived tagged wrapper: callee(a;b;0x4A;b); 23B shape
@@ -43928,7 +43928,7 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ??1RoadType@@QAE@XZ,,0x000D4F4F,108,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DRoadBufferRoadTypeDtor.cpp,matched,inline release of two refcounted buffers then two texture handle member dtors
 ??1Rva0073EE55@@UAE@XZ,,0x0073EE55,82,Code/GameEngine/Source/Common/Rva0073EE55Dtor.cpp,matched,novtable dtor calling member set and held target slot0 then two member dtors
 ?rva152d1c@Rva00152D1CObj@@QAEXH@Z,,0x00152D1C,170,Code/GameEngine/Source/Common/Rva00152D1C.cpp,matched,caller 0x00117172 via mesh plus 0xB8 arg 4 LINK BONUS 131B virtual slot0 AsciiString vector; calls matched FXShaderSetup::InitializeShader 0x0015288F with two strings parameters and LOD
-?fwd@Rva005E6826Mid@@QAEXXZ,,0x005E6826,8,Code/GameEngine/Source/Common/RvaVirtualFwdThunks.cpp,matched,gap fwd adj+4 slot14 1 caller
+?fwd@Rva005E6826Mid@@QAEXXZ,,0x005E6826,8,Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp,matched,gap fwd adj+4 slot14 1 caller
 ?rva005E261C@Rva005E261C@@QAEXXZ,,0x005E261C,40,Code/GameEngine/Source/Common/Rva005E261C.cpp,matched,finish via unnamed temp plus tail jmp plus rowed callees
 ?ObjectHasUpgrade@@YAHPAUlua_State@@@Z,,0x003355B2,224,Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine.cpp,matched,Lua binding via sibling HideSubObject plus UpgradeCenter
 ??1Rva005E12D1@@UAE@XZ,,0x005E12D1,99,Code/GameEngine/Source/Common/Rva005E12D1Dtor.cpp,matched,owner unlock check via vcall twin then inline ref release then Rva005E129B base dtor
@@ -43940,7 +43940,7 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?ObjectCreateAndFireTempWeapon@@YAHPAUlua_State@@@Z,,0x0033541C,186,Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectCreateAndFireTempWeapon.cpp,matched,Lua binding via HasUpgrade sibling WeaponStore
 ?rva005E3B25@Rva005E3B25@@QAEXH@Z,,0x005E3B25,8,Code/GameEngine/Source/Common/Rva005E3B25.cpp,matched,ptr chase tail jmp via rowed callee plus caller plus gap
 ?rva005E3266@Rva005E3266@@QAEXXZ,,0x005E3266,8,Code/GameEngine/Source/Common/Rva005E3266.cpp,matched,ptr chase tail jmp via rowed callee plus caller plus gap
-?fwd@Rva005E683EMid@@QAEXHH@Z,,0x005E683E,8,Code/GameEngine/Source/Common/RvaVirtualFwdThunks.cpp,matched,Address-derived virtual-forward thunk adj +4 slot 0x04 two args from callers 0x005CE130 0x005CE804
+?fwd@Rva005E683EMid@@QAEXHH@Z,,0x005E683E,8,Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp,matched,Address-derived virtual-forward thunk adj +4 slot 0x04 two args from callers 0x005CE130 0x005CE804
 ?UnRegister@Rva002A8F24@@QAEXPAVObject@@@Z,,0x002A8F56,138,Code/GameEngine/Source/Common/RTS/Rva002A8F56.cpp,matched,packet callers LINK BONUS via 0x28BAC0 prev-next offsets
 ??1Rva005EC09B@@QAE@XZ,,0x005EC09B,91,Code/GameEngine/Source/Common/Rva005EC09BDtor.cpp,matched,guarded Apt window manager call with m_04 then three member dtors
 ??1W3DAptDisplayString@@UAE@XZ,,0x000A9CC7,111,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/AptShapeContainer.cpp,matched,Apt manager name release then display string free via TheDisplayStringManager then string member and inline base dtor
@@ -48274,8 +48274,8 @@ uw_00767390,,0x00767390,11,Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescDefaul
 ?Init_Alternate@MeshMatDescClass@@QAEXAAV1@0@Z,,0x0015A1B0,1294,Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescDefaultCtor.cpp,matched,BFME1 Init_Alternate with BFME2 +0xB8/+0x108 pass-reference pair block; word-count RefCountPtr textures; called by install_alternate_material_desc 0x188290
 ?rva00346C53@Object@@QAEXW4ObjectStatusTypes@@_N@Z,,0x00346C53,38,Code/GameEngine/Source/GameLogic/AI/Rva00346C53Mask.cpp,matched,Object status-bool RET8 twin of setStatus: mask via 0x0023DA79 to rowed Object::rva00293D3B; receiver Object per its 3 callers
 ?rva002B3D0E@Rva002B3D0E@@QAEXXZ,,0x002B3D0E,115,Code/GameEngine/Source/Common/PinnedForwarders1830.cpp,matched,Native Ghidra115B no stack args; nested pointer ranges receiver8C-90 group1B8-1BC; complete rowed61B element319610; tail receiverB0 to full775B 20FDDF RET0 placeholder; exact sibling2B3B66 algorithm guide; identities unknown; helper remains unrecovered beyond middle lane
-?fwd@Rva005E6817Mid@@QAEHPAVGameMessage@@@Z,,0x005E6817,7,Code/GameEngine/Source/Common/RvaVirtualFwdThunks.cpp,matched,
-?fwd@Rva005E682EMid@@QAEXXZ,,0x005E682E,8,Code/GameEngine/Source/Common/RvaVirtualFwdThunks.cpp,matched,
+?fwd@Rva005E6817Mid@@QAEHPAVGameMessage@@@Z,,0x005E6817,7,Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp,matched,
+?fwd@Rva005E682EMid@@QAEXXZ,,0x005E682E,8,Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp,matched,
 ?rva005F8408@Rva005F8427@@QBEHXZ,,0x005F8408,15,Code/GameEngine/Source/Common/Rva005F83B9Notify.cpp,matched,
 ?rva000BBF4B@Rva000BBF4B@@QAEXXZ,,0x000BBF4B,5,Code/GameEngine/Source/Common/Rva000BB694Dtor.cpp,matched,
 ?rva000BBF50@Rva000BBF50@@QAEXXZ,,0x000BBF50,5,Code/GameEngine/Source/Common/Rva000BB694Dtor.cpp,matched,
