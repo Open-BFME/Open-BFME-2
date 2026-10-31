@@ -707,11 +707,7 @@ public:
 // --- 0x00428DC1 (41B, cdecl): when the player list's +0x10 player has a
 // rowed 0x002ABCF0(1, 0) result, the tactical view takes its +0x38 point
 // (virtual slot 21).
-class Player
-{
-public:
-	int rva002ABCF0(unsigned char a, int *b);				// 0x002ABCF0
-};
+#include "../../../../../Include/Common/Player.h"
 
 class PlayerList;
 

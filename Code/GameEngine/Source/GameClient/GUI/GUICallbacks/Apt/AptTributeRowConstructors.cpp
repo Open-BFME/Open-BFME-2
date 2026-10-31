@@ -191,7 +191,7 @@ virtual void slot12();
 virtual void slot13();
 virtual UnicodeString fetch(const char*,bool*exists=0);virtual UnicodeString fetch(const AsciiString&,bool*exists=0);};extern GameTextInterface*TheGameText;
 class MultiplayerColorDefinition {public:char pad[0x10];int color;};class MultiplayerSettings {public:MultiplayerColorDefinition*getColor(int);};extern MultiplayerSettings*TheMultiplayerSettings;
-class Player {public:bool isPlayerObserver()const;};
+#include "../../../../../Include/Common/Player.h"
 void Rva0050EE72Set(int,const AsciiString&,int,const UnicodeString&);
 class Rva0050F909:public Rva0050FAEC {public:Rva0050F909(int,const AsciiString&,int,int);virtual~Rva0050F909(){}};
 Rva0050F909::Rva0050F909(int level,const AsciiString&path,int slotIndex,int stateWord):Rva0050FAEC(level,path){

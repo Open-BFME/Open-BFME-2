@@ -96,11 +96,7 @@ public:
 	Int winGetScreenPosition(Int *x, Int *y);
 };
 
-class Player
-{
-public:
-	Bool hasRadar() const;
-};
+#include "../../../../Include/Common/Player.h"
 
 class PlayerList
 {

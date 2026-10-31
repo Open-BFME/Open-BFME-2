@@ -10,11 +10,7 @@
 #include "ascii_string.h"
 
 class Object;
-class Player
-{
-public:
-	int rva002ABCF0(unsigned char flag, int *out);
-};
+#include "../../../Include/Common/Player.h"
 
 class PlayerList
 {

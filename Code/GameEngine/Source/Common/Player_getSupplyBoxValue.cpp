@@ -16,11 +16,7 @@ struct Rva002A9DACHolder
 
 #define TheRva002A9DAC (*(Rva002A9DACHolder **)&TheWritableGlobalData)
 
-class Player
-{
-public:
-	int getSupplyBoxValue();
-};
+#include "../../Include/Common/Player.h"
 
 int Player::getSupplyBoxValue()
 {

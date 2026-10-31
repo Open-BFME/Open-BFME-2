@@ -4,17 +4,8 @@
 // Calls rowed Rva00380200::rva0038028B on this then tail-jmps to rowed
 // Player::rva002AE252 on this-8. Evidence: rowed callees, caller at 0x002AFC01,
 // neighbours in PlayerRva002AE252.cpp. Owner unproven so honest address name.
-class Rva00380200
-{
-public:
-	void rva0038028B();
-};
+#include "../../../Include/Common/Player.h"
 
-class Player
-{
-public:
-	void rva002AE252();
-};
 
 class Rva002AE318
 {

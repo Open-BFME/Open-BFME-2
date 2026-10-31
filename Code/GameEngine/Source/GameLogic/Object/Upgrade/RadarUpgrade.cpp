@@ -257,12 +257,7 @@ public:
 	bool any() const;
 };
 
-class Player
-{
-public:
-	void removeRadar(bool b);
-	void addRadar(bool disableProof);
-};
+#include "../../../../Include/Common/Player.h"
 
 class Module;
 

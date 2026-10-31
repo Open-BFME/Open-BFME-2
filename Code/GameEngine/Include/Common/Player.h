@@ -52,6 +52,19 @@ public:
  virtual void rslot03();
  virtual void rslot04(const void *);
  virtual bool rslot05();
+ // Existing matched nonvirtual Player row signatures; no new layout or slots.
+ void addRadar(bool disableProof);
+ bool cloneFrom(Player *other);
+ int getSupplyBoxValue();
+ bool hasRadar() const;
+ bool isPlayerObserver()const;
+ void removeRadar(bool);
+ void rva002A9E25(float newValue);
+ bool rva002AA245() const;
+ void rva002AA756(int delta);
+ int rva002ABCF0(unsigned char flag, int *out);
+ int rva002ABD1D(int kind, int limit);
+ void rva002AE252();
  void onUnitCreated(Object *, Object *);
  bool rva002A9CA4(int);
  int getPlayerIndex() const { return m_playerIndex; }

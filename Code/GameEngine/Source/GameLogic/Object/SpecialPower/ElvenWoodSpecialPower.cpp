@@ -313,11 +313,7 @@ public:
 // 0x002A9E25), runs the SpecialPowerModule base doSpecialPower 0x0049490F,
 // then raises the byte at +0x34.
 
-class Player
-{
-public:
-	void rva002A9E25(float value);	// sets +0x314
-};
+#include "../../../../Include/Common/Player.h"
 
  extern class ThingFactory *TheThingFactory;
 

@@ -158,11 +158,7 @@ struct Arg001DCDAF
 	unsigned char m_pad2d[0x30 - 0x2d];
 };
 
-class Player
-{
-public:
-	int rva002ABCF0(unsigned char flag, int *out);		// 0x002ABCF0, the player's best object
-};
+#include "../../Include/Common/Player.h"
 
 // The object view: its position at +0x38.
 struct EvaObjectView

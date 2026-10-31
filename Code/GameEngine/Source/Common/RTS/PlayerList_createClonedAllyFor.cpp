@@ -12,11 +12,7 @@
 
 typedef int Int;
 
-class Player
-{
-public:
-	bool cloneFrom(Player *other);
-};
+#include "../../../Include/Common/Player.h"
 
 class PlayerList
 {

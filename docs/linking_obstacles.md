@@ -1355,7 +1355,14 @@ retail ctor/dtor tables at +0/+4/+8 and the 0x758 allocation in 2A7F80.
 The first AI delegate/query clients pass 9/9 rows and ordinary header acceptance;
 isLocalPlayer subsequently passes 1/1. A homogeneous index-only caller batch
 then adopts 16 more units (137 matched rows); eight refused trials are
-restored and retain their queue rows, and two held units are skipped. Normal scoped header gates pass
+restored and retain their queue rows, and two held units are skipped. Twelve
+additional method callers then adopt (278 matched rows), bringing the pass to
+31 units / 425 rows. The complete original/adopted union conserves all fifteen
+pre-existing identity findings and all five pre-existing shadow-data findings;
+combined ordinary previews preserve every adopted unit. NetPacket is restored
+and remains queued: even its original previews 33,222 -> 0 census-linked bytes
+with duplicate rva0058C484, despite 209/209 exact rows. No cause or census
+clearance is inferred from that old-index refusal. Normal scoped header gates pass
 635/635 over 87 dependents, then 636/636 over 88. This clears only those
 adoption units, not the earlier PlayerList merge or census obstacle. Constructor
 adoption still refuses its +0x34 member because the header retains opaque

@@ -33,11 +33,7 @@ public:
 	void *get() const;
 };
 
-class Player
-{
-public:
-	bool rva002AA245() const; // 0x002AA245
-};
+#include "../../Include/Common/Player.h"
 
 struct FlagBlock
 {
