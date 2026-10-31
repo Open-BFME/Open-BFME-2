@@ -34,7 +34,7 @@ enum RadarEventType
 
 struct RGBAColorInt
 {
-	UnsignedInt red, green, blue, alpha;
+	unsigned int red, green, blue, alpha;
 };
 
 struct RadarColorLookup
@@ -46,14 +46,31 @@ struct RadarColorLookup
 
 struct Rva002D893BColorSource;
 
-struct BfmeRadarEventRecord
+class RadarEventRef;
+#include "../../../../Libraries/Include/Lib/ICoord2D.h"
+class RadarEventRefSlot
 {
+public:
+	void clearRef();
+	RadarEventRef *m_ref; // +0x00
+};
+
+class RadarEvent
+{
+public:
+    RadarEvent();
+    ~RadarEvent();
     RadarEventType type;
-    char opaque04[4];
-    UnsignedInt createFrame;
-    char opaque0C[0x28];
+    bool active;
+    unsigned int createFrame;
+    unsigned int dieFrame;
+    unsigned int fadeFrame;
+    RGBAColorInt color1;
+    RGBAColorInt color2;
     Coord3D worldLoc;
-    char opaque40[0x10];
+    ICoord2D radarLoc;
+    bool soundPlayed;
+    RadarEventRefSlot ref; // +0x4C
 };
 
 class GameClient;
@@ -95,21 +112,107 @@ RadarColorLookup radarColorLookupTable[] =
 	{ RADAR_EVENT_INVALID,               {   0,   0,   0,   0 },  {   0,   0,   0,   0 } }
 };
 
-class Radar
+class Object;
+class RadarObject;
+class GameWindow;
+class TerrainLogic;
+class RadarEventRef;
+struct Rva002D76C6Owner;
+struct Rva002D76C6Node;
+struct Rva002D893BColorSource;
+#define BFME_SNAPSHOT_NAME_SLOT
+#include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
+#include "../../../../Libraries/Include/Lib/ICoord2D.h"
+#include "../../../../Libraries/Include/Lib/Coord2D.h"
+typedef float Real;
+typedef int Int;
+typedef bool Bool;
+enum RadarPriorityType { RADAR_PRIORITY_INVALID, RADAR_PRIORITY_NOT_ON_RADAR, RADAR_PRIORITY_STRUCTURE, RADAR_PRIORITY_UNIT, RADAR_PRIORITY_LOCAL_UNIT_ONLY };
+struct RadarExtent
+{
+	Real minX;
+	Real minY;
+	Int reserved;
+	Real maxX;
+	Real maxY;
+
+	Real width() const { return maxX - minX; }
+	Real height() const { return maxY - minY; }
+};
+
+struct RadarRect16
+{
+	int m_00;
+	int m_04;
+	int m_08;
+	int m_0C;
+};
+
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
+#include "../GameLogicObjectLookupView.h"
+class Radar : public Snapshot
 {
 public:
-	bool tryEvent(RadarEventType type, const Coord3D *world);
-	void tryUnderAttackEvent(const Object *object);
-	void tryInfiltrationEvent(const Object *object);
-	void createEvent(const Coord3D *world, RadarEventType type, Real secondsToLive);
-	void createPlayerEvent(const Rva002D893BColorSource *source, const Coord3D *world, RadarEventType type, Real scale);
+
+    Radar();
+    virtual ~Radar();
+    void rva002D790A(float *widthRatio, float *heightRatio);
+    bool screenPixelToWorld(const ICoord2D *pixel, Coord3D *world);
+    Object *objectUnderRadarPixel(const ICoord2D *pixel);
+    void removeObject(Rva002D76C6Owner *owner);
+    bool rva002D76C6(Rva002D76C6Owner *owner, Rva002D76C6Node **head);
+    bool tryEvent(RadarEventType type, const Coord3D *world);
+    void tryUnderAttackEvent(const Object *object);
+    void tryInfiltrationEvent(const Object *object);
+    void createEvent(const Coord3D *world, RadarEventType type, float secondsToLive);
+    void createPlayerEvent(const Rva002D893BColorSource *source, const Coord3D *world, RadarEventType type, float scale);
+	void newMap();
+	bool radarToWorld(const ICoord2D *, Coord3D *);
+	void rva002D7E68(void *);
+	bool isPriorityVisible(RadarPriorityType priority) const;
+	void addObject(Object *object);
+	bool worldToRadar(const Coord3D *world, ICoord2D *radar);
+	bool rva002D782C(const Coord3D *world, Coord2D *radar);
+	Object *searchListForRadarLocationMatch(RadarObject *list, ICoord2D *target);
+	void findDrawPositions(Int startX, Int startY, Int width, Int height,
+		ICoord2D *ul, ICoord2D *lr);
+	virtual void refreshTerrain(TerrainLogic *terrain);
+	virtual void queueTerrainRefresh();
+	virtual void loadPostProcess();
+	virtual void s06();
+	virtual void s07();
+	virtual void s09();
+	virtual void s10(int a, int b, int c);
+	virtual void s11();
+	virtual void s12(int a, int b, int c);
+	void rva002D7BB7(void const *src);
+	Bool localPixelToRadar(const ICoord2D *pixel, ICoord2D *radar);
 
 protected:
-	void internalCreateEvent(const Coord3D *world, RadarEventType type, Real secondsToLive,
+	void deleteListResources();
+	void internalCreateEvent(const Coord3D *world, RadarEventType type, float secondsToLive,
 		const RGBAColorInt *color1, const RGBAColorInt *color2);
+	virtual void xfer(Xfer *);
 private:
-	char opaque00[0x2C];
-	BfmeRadarEventRecord m_event[64];
+	unsigned char m_pad04[0x0C];
+	bool m_hidden;
+	bool m_forceOn;
+	char m_pad12[2];
+	RadarObject *m_objectList;
+	RadarObject *m_localObjectList;
+	float m_averageTerrainZ; // +0x1C: native ground sample accumulator
+	float m_averageWaterZ; // +0x20: native underwater sample accumulator
+	float m_xSample; // +0x24
+	float m_ySample; // +0x28
+	RadarEvent m_events[64]; // native 80-byte event stride
+	int m_nextFree; // +0x142C
+	GameWindow *m_radarWindow; // +0x1430
+	RadarExtent m_extent; // +0x1434..+0x1447
+	char m_pad1448[0x144C - 0x1448];
+	RadarRect16 m_rect; // +0x144C 16B copied from arg
+	unsigned char m_dirty; // +0x145C
+	char m_pad145D[0x1460 - 0x145D];
+	unsigned int m_queueTerrainRefreshFrame;
 };
 
 // Retail reads the color selector at +0x280 from argument one. Its identity
@@ -178,10 +281,37 @@ void Radar::createPlayerEvent(const Rva002D893BColorSource *source, const Coord3
 // flow; target uses a local 136-byte event, MiscAudio ref+8 and UI/audio slots
 // 3C/138/64 instead of the donor's static sound and slots30/124/44.
 class Player;
+class Player;
+class RadarObject;
+class Team;
+class Rva00373EC6;
 class Object
 {
 public:
-    Player *getControllingPlayer() const;
+	Object *getNextObject() { return m_next; }
+	void friend_setRadarData(RadarObject *data) { m_radarData = data; }
+	ObjectID getID() const { return m_id; }
+	bool isNeutralControlled() const;
+	Player *getControllingPlayer() const;
+	Rva00373EC6 *rva0028F4BC();
+	int getIndicatorColor() const;
+	bool isLocallyControlled() const;
+	unsigned char m_pad0[4];
+	void *m_4;
+	unsigned char m_pad8[0x38-8];
+	Coord3D m_pos; // +0x38, retained for the existing list search
+	unsigned char m_pad44[0x74-0x44];
+	ObjectID m_id; // +0x74
+	unsigned char m_pad78[0x8C-0x78];
+	Object *m_next; // +0x8C
+	unsigned char m_pad90[0x94-0x90];
+	unsigned int m_destroyed; // native load-side radar guard
+	unsigned char m_pad98[0x250-0x98];
+	void *m_250;
+	unsigned char m_pad254[0x260-0x254];
+	RadarObject *m_radarData;
+	unsigned char m_pad264[0x304-0x264];
+	Team *m_304;
 };
 class BfmeMemberRV;
 class BfmeThingRV
@@ -196,25 +326,24 @@ extern InGameUI *TheInGameUI;
 class AudioManager;
 extern AudioManager *TheAudio;
 
-#define INFILTRATION_SLOT(n) virtual void slot##n();
 class RadarInfiltrationUI
 {
 public:
-    INFILTRATION_SLOT(0)
-    INFILTRATION_SLOT(1)
-    INFILTRATION_SLOT(2)
-    INFILTRATION_SLOT(3)
-    INFILTRATION_SLOT(4)
-    INFILTRATION_SLOT(5)
-    INFILTRATION_SLOT(6)
-    INFILTRATION_SLOT(7)
-    INFILTRATION_SLOT(8)
-    INFILTRATION_SLOT(9)
-    INFILTRATION_SLOT(10)
-    INFILTRATION_SLOT(11)
-    INFILTRATION_SLOT(12)
-    INFILTRATION_SLOT(13)
-    INFILTRATION_SLOT(14)
+    virtual void slot0();
+    virtual void slot1();
+    virtual void slot2();
+    virtual void slot3();
+    virtual void slot4();
+    virtual void slot5();
+    virtual void slot6();
+    virtual void slot7();
+    virtual void slot8();
+    virtual void slot9();
+    virtual void slot10();
+    virtual void slot11();
+    virtual void slot12();
+    virtual void slot13();
+    virtual void slot14();
     virtual void __cdecl message(AsciiString label, ...);
 };
 struct RadarInfiltrationMiscAudio
@@ -226,87 +355,86 @@ struct RadarInfiltrationMiscAudio
 class RadarInfiltrationAudio
 {
 public:
-    INFILTRATION_SLOT(0)
-    INFILTRATION_SLOT(1)
-    INFILTRATION_SLOT(2)
-    INFILTRATION_SLOT(3)
-    INFILTRATION_SLOT(4)
-    INFILTRATION_SLOT(5)
-    INFILTRATION_SLOT(6)
-    INFILTRATION_SLOT(7)
-    INFILTRATION_SLOT(8)
-    INFILTRATION_SLOT(9)
-    INFILTRATION_SLOT(10)
-    INFILTRATION_SLOT(11)
-    INFILTRATION_SLOT(12)
-    INFILTRATION_SLOT(13)
-    INFILTRATION_SLOT(14)
-    INFILTRATION_SLOT(15)
-    INFILTRATION_SLOT(16)
-    INFILTRATION_SLOT(17)
-    INFILTRATION_SLOT(18)
-    INFILTRATION_SLOT(19)
-    INFILTRATION_SLOT(20)
-    INFILTRATION_SLOT(21)
-    INFILTRATION_SLOT(22)
-    INFILTRATION_SLOT(23)
-    INFILTRATION_SLOT(24)
+    virtual void slot0();
+    virtual void slot1();
+    virtual void slot2();
+    virtual void slot3();
+    virtual void slot4();
+    virtual void slot5();
+    virtual void slot6();
+    virtual void slot7();
+    virtual void slot8();
+    virtual void slot9();
+    virtual void slot10();
+    virtual void slot11();
+    virtual void slot12();
+    virtual void slot13();
+    virtual void slot14();
+    virtual void slot15();
+    virtual void slot16();
+    virtual void slot17();
+    virtual void slot18();
+    virtual void slot19();
+    virtual void slot20();
+    virtual void slot21();
+    virtual void slot22();
+    virtual void slot23();
+    virtual void slot24();
     virtual int addAudioEvent(const BfmeAudioEventPrefix136 *event);
-    INFILTRATION_SLOT(26)
-    INFILTRATION_SLOT(27)
-    INFILTRATION_SLOT(28)
-    INFILTRATION_SLOT(29)
-    INFILTRATION_SLOT(30)
-    INFILTRATION_SLOT(31)
-    INFILTRATION_SLOT(32)
-    INFILTRATION_SLOT(33)
-    INFILTRATION_SLOT(34)
-    INFILTRATION_SLOT(35)
-    INFILTRATION_SLOT(36)
-    INFILTRATION_SLOT(37)
-    INFILTRATION_SLOT(38)
-    INFILTRATION_SLOT(39)
-    INFILTRATION_SLOT(40)
-    INFILTRATION_SLOT(41)
-    INFILTRATION_SLOT(42)
-    INFILTRATION_SLOT(43)
-    INFILTRATION_SLOT(44)
-    INFILTRATION_SLOT(45)
-    INFILTRATION_SLOT(46)
-    INFILTRATION_SLOT(47)
-    INFILTRATION_SLOT(48)
-    INFILTRATION_SLOT(49)
-    INFILTRATION_SLOT(50)
-    INFILTRATION_SLOT(51)
-    INFILTRATION_SLOT(52)
-    INFILTRATION_SLOT(53)
-    INFILTRATION_SLOT(54)
-    INFILTRATION_SLOT(55)
-    INFILTRATION_SLOT(56)
-    INFILTRATION_SLOT(57)
-    INFILTRATION_SLOT(58)
-    INFILTRATION_SLOT(59)
-    INFILTRATION_SLOT(60)
-    INFILTRATION_SLOT(61)
-    INFILTRATION_SLOT(62)
-    INFILTRATION_SLOT(63)
-    INFILTRATION_SLOT(64)
-    INFILTRATION_SLOT(65)
-    INFILTRATION_SLOT(66)
-    INFILTRATION_SLOT(67)
-    INFILTRATION_SLOT(68)
-    INFILTRATION_SLOT(69)
-    INFILTRATION_SLOT(70)
-    INFILTRATION_SLOT(71)
-    INFILTRATION_SLOT(72)
-    INFILTRATION_SLOT(73)
-    INFILTRATION_SLOT(74)
-    INFILTRATION_SLOT(75)
-    INFILTRATION_SLOT(76)
-    INFILTRATION_SLOT(77)
+    virtual void slot26();
+    virtual void slot27();
+    virtual void slot28();
+    virtual void slot29();
+    virtual void slot30();
+    virtual void slot31();
+    virtual void slot32();
+    virtual void slot33();
+    virtual void slot34();
+    virtual void slot35();
+    virtual void slot36();
+    virtual void slot37();
+    virtual void slot38();
+    virtual void slot39();
+    virtual void slot40();
+    virtual void slot41();
+    virtual void slot42();
+    virtual void slot43();
+    virtual void slot44();
+    virtual void slot45();
+    virtual void slot46();
+    virtual void slot47();
+    virtual void slot48();
+    virtual void slot49();
+    virtual void slot50();
+    virtual void slot51();
+    virtual void slot52();
+    virtual void slot53();
+    virtual void slot54();
+    virtual void slot55();
+    virtual void slot56();
+    virtual void slot57();
+    virtual void slot58();
+    virtual void slot59();
+    virtual void slot60();
+    virtual void slot61();
+    virtual void slot62();
+    virtual void slot63();
+    virtual void slot64();
+    virtual void slot65();
+    virtual void slot66();
+    virtual void slot67();
+    virtual void slot68();
+    virtual void slot69();
+    virtual void slot70();
+    virtual void slot71();
+    virtual void slot72();
+    virtual void slot73();
+    virtual void slot74();
+    virtual void slot75();
+    virtual void slot76();
+    virtual void slot77();
     virtual const RadarInfiltrationMiscAudio *getMiscAudio();
 };
-#undef INFILTRATION_SLOT
 class Rva0033F15DDwordSlot
 {
 public:
@@ -347,7 +475,7 @@ bool Radar::tryEvent(RadarEventType type, const Coord3D *world)
 
     UnsignedInt currentFrame = ((Rva00DFE77CHolder *)TheGameClient)->slot1F();
     const UnsignedInt framesBetweenEvents = BfmeClientFramesPerSecond * 10;
-    BfmeRadarEventRecord *event = m_event;
+    RadarEvent *event = m_events;
     for (int i = 0; i < 64; ++i, ++event)
     {
         if (event->type == type)

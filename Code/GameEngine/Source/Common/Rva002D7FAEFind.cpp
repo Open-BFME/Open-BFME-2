@@ -6,17 +6,54 @@
 // (data +4, next +8) for the arg; on a hit stores pinned cdecl
 // 0x002D7BFD(player+0x280) into node+0xc. Callee is landed
 // getControllingPlayer. Views minimal; exact identities unproven.
+enum Relationship
+{
+	REL_ENEMY = 0,
+	REL_NEUTRAL = 1,
+	REL_ALLY = 2
+};
+class Team;
 class Player
 {
 public:
-	char m_pad[0x280];
-	int m_280;
+	Relationship getRelationship(const Team *t) const;
+	char m_pad00[0x280];
+	int m_280; // +0x280
 };
 
+class Player;
+class RadarObject;
+class Team;
+class Rva00373EC6;
+#include "../../../Libraries/Include/Lib/Coord3D.h"
+#include "GameLogicObjectLookupView.h"
 class Object
 {
 public:
+	Object *getNextObject() { return m_next; }
+	void friend_setRadarData(RadarObject *data) { m_radarData = data; }
+	ObjectID getID() const { return m_id; }
+	bool isNeutralControlled() const;
 	Player *getControllingPlayer() const;
+	Rva00373EC6 *rva0028F4BC();
+	int getIndicatorColor() const;
+	bool isLocallyControlled() const;
+	unsigned char m_pad0[4];
+	void *m_4;
+	unsigned char m_pad8[0x38-8];
+	Coord3D m_pos; // +0x38, retained for the existing list search
+	unsigned char m_pad44[0x74-0x44];
+	ObjectID m_id; // +0x74
+	unsigned char m_pad78[0x8C-0x78];
+	Object *m_next; // +0x8C
+	unsigned char m_pad90[0x94-0x90];
+	unsigned int m_destroyed; // native load-side radar guard
+	unsigned char m_pad98[0x250-0x98];
+	void *m_250;
+	unsigned char m_pad254[0x260-0x254];
+	RadarObject *m_radarData;
+	unsigned char m_pad264[0x304-0x264];
+	Team *m_304;
 };
 
 struct Rva002D7FAENode

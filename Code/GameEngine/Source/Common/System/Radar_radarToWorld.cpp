@@ -28,8 +28,18 @@ public:
 class TerrainLogic;
 extern TerrainLogic *TheTerrainLogic;
 
-struct RGBAColorInt { unsigned int v[4]; };
-enum RadarEventType { RADAR_EVENT_INVALID = 11 };
+struct RGBAColorInt
+{
+	unsigned int red, green, blue, alpha;
+};
+enum RadarEventType
+{
+	RADAR_EVENT_CONSTRUCTION = 1,
+	RADAR_EVENT_BATTLE_PLAN = 7,
+	RADAR_EVENT_STEALTH_DISCOVERED = 8,
+	RADAR_EVENT_STEALTH_NEUTRALIZED = 9,
+	RADAR_EVENT_INVALID = 0x0B
+};
 
 class ClientFrameSubsystem
 {
@@ -53,42 +63,141 @@ float BfmeRadarEventFadeFraction=0.5f;
 class RadarEventRef
 {
 public:
+	void release();
 	virtual void m_spare0();
 	virtual void m_deleter();
-	void release();
 private:
-	int m_refCount;
+	int m_refCount; // +0x04
 };
 
 class RadarEventRefSlot
 {
 public:
 	void clearRef();
-private:
-	RadarEventRef *m_ref;
+	RadarEventRef *m_ref; // +0x00
 };
 
-struct RadarEvent {
- RadarEventType type; bool active;
- unsigned int createFrame, dieFrame, fadeFrame;
- RGBAColorInt color1,color2; Coord3D worldLoc; ICoord2D radarLoc;
- bool soundPlayed; RadarEventRefSlot ref;
-};
-
-
-class Radar
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
+#include "../../../../Libraries/Include/Lib/ICoord2D.h"
+class RadarEvent
 {
 public:
-	bool radarToWorld(const ICoord2D *radar, Coord3D *world);
+    RadarEvent();
+    ~RadarEvent();
+    RadarEventType type;
+    bool active;
+    unsigned int createFrame;
+    unsigned int dieFrame;
+    unsigned int fadeFrame;
+    RGBAColorInt color1;
+    RGBAColorInt color2;
+    Coord3D worldLoc;
+    ICoord2D radarLoc;
+    bool soundPlayed;
+    RadarEventRefSlot ref; // +0x4C
+};
+
+
+class Object;
+class RadarObject;
+class GameWindow;
+class TerrainLogic;
+class RadarEventRef;
+struct Rva002D76C6Owner;
+struct Rva002D76C6Node;
+struct Rva002D893BColorSource;
+#define BFME_SNAPSHOT_NAME_SLOT
+#include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
+#include "../../../../Libraries/Include/Lib/ICoord2D.h"
+#include "../../../../Libraries/Include/Lib/Coord2D.h"
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
+typedef float Real;
+typedef int Int;
+typedef bool Bool;
+enum RadarPriorityType { RADAR_PRIORITY_INVALID, RADAR_PRIORITY_NOT_ON_RADAR, RADAR_PRIORITY_STRUCTURE, RADAR_PRIORITY_UNIT, RADAR_PRIORITY_LOCAL_UNIT_ONLY };
+struct RadarExtent
+{
+	Real minX;
+	Real minY;
+	Int reserved;
+	Real maxX;
+	Real maxY;
+
+	Real width() const { return maxX - minX; }
+	Real height() const { return maxY - minY; }
+};
+
+struct RadarRect16
+{
+	int m_00;
+	int m_04;
+	int m_08;
+	int m_0C;
+};
+
+class Radar : public Snapshot
+{
+public:
+
+    Radar();
+    virtual ~Radar();
+    void rva002D790A(float *widthRatio, float *heightRatio);
+    bool screenPixelToWorld(const ICoord2D *pixel, Coord3D *world);
+    Object *objectUnderRadarPixel(const ICoord2D *pixel);
+    void removeObject(Rva002D76C6Owner *owner);
+    bool rva002D76C6(Rva002D76C6Owner *owner, Rva002D76C6Node **head);
+    bool tryEvent(RadarEventType type, const Coord3D *world);
+    void tryUnderAttackEvent(const Object *object);
+    void tryInfiltrationEvent(const Object *object);
+    void createEvent(const Coord3D *world, RadarEventType type, float secondsToLive);
+    void createPlayerEvent(const Rva002D893BColorSource *source, const Coord3D *world, RadarEventType type, float scale);
+	void newMap();
+	bool radarToWorld(const ICoord2D *, Coord3D *);
+	void rva002D7E68(void *);
+	bool isPriorityVisible(RadarPriorityType priority) const;
+	void addObject(Object *object);
 	bool worldToRadar(const Coord3D *world, ICoord2D *radar);
+	bool rva002D782C(const Coord3D *world, Coord2D *radar);
+	Object *searchListForRadarLocationMatch(RadarObject *list, ICoord2D *target);
+	void findDrawPositions(Int startX, Int startY, Int width, Int height,
+		ICoord2D *ul, ICoord2D *lr);
+	virtual void refreshTerrain(TerrainLogic *terrain);
+	virtual void queueTerrainRefresh();
+	virtual void loadPostProcess();
+	virtual void s06();
+	virtual void s07();
+	virtual void s09();
+	virtual void s10(int a, int b, int c);
+	virtual void s11();
+	virtual void s12(int a, int b, int c);
+	void rva002D7BB7(void const *src);
+	Bool localPixelToRadar(const ICoord2D *pixel, ICoord2D *radar);
 
 protected:
- void internalCreateEvent(const Coord3D*,RadarEventType,float,const RGBAColorInt*,const RGBAColorInt*);
+	void deleteListResources();
+	void internalCreateEvent(const Coord3D *world, RadarEventType type, float secondsToLive,
+		const RGBAColorInt *color1, const RGBAColorInt *color2);
+	virtual void xfer(Xfer *);
 private:
-	unsigned char m_pad[0x24];
-	float m_xSample; // +0x24 (retail-measured)
-	float m_ySample; // +0x28 (retail-measured)
- RadarEvent m_events[64];int m_eventCount;
+	unsigned char m_pad04[0x0C];
+	bool m_hidden;
+	bool m_forceOn;
+	char m_pad12[2];
+	RadarObject *m_objectList;
+	RadarObject *m_localObjectList;
+	float m_averageTerrainZ; // +0x1C: native ground sample accumulator
+	float m_averageWaterZ; // +0x20: native underwater sample accumulator
+	float m_xSample; // +0x24
+	float m_ySample; // +0x28
+	RadarEvent m_events[64]; // native 80-byte event stride
+	int m_nextFree; // +0x142C
+	GameWindow *m_radarWindow; // +0x1430
+	RadarExtent m_extent; // +0x1434..+0x1447
+	char m_pad1448[0x144C - 0x1448];
+	RadarRect16 m_rect; // +0x144C 16B copied from arg
+	unsigned char m_dirty; // +0x145C
+	char m_pad145D[0x1460 - 0x145D];
+	unsigned int m_queueTerrainRefreshFrame;
 };
 
 // ?radarToWorld@Radar@@QAE_NPBUICoord2D@@PAUCoord3D@@@Z
@@ -141,17 +250,17 @@ inline __declspec(noinline) bool Radar::worldToRadar(const Coord3D *world, ICoor
 void Radar::internalCreateEvent(const Coord3D *pos, RadarEventType tag, float scale, const RGBAColorInt *rGBAColorInt, const RGBAColorInt *b)
 {
  ICoord2D tmp; if(!pos||!rGBAColorInt||!b)return; worldToRadar(pos,&tmp);
- m_events[m_eventCount].type=tag;
- m_events[m_eventCount].active=true;
- m_events[m_eventCount].createFrame=reinterpret_cast<ClientFrameSubsystem*>(TheGameClient)->getFrame();
- m_events[m_eventCount].dieFrame=(unsigned int)((float)(unsigned)reinterpret_cast<ClientFrameSubsystem*>(TheGameClient)->getFrame()+(float)BfmeClientFramesPerSecond*scale);
- m_events[m_eventCount].fadeFrame=(unsigned int)((float)m_events[m_eventCount].dieFrame-(float)BfmeClientFramesPerSecond*BfmeRadarEventFadeFraction);
- m_events[m_eventCount].color1=*rGBAColorInt;
- m_events[m_eventCount].color2=*b;
- m_events[m_eventCount].worldLoc=*pos;
- m_events[m_eventCount].radarLoc=tmp;
- m_events[m_eventCount].soundPlayed=false;
- m_events[m_eventCount].ref.clearRef();
- if(++m_eventCount>=64)m_eventCount=0;
+ m_events[m_nextFree].type=tag;
+ m_events[m_nextFree].active=true;
+ m_events[m_nextFree].createFrame=reinterpret_cast<ClientFrameSubsystem*>(TheGameClient)->getFrame();
+ m_events[m_nextFree].dieFrame=(unsigned int)((float)(unsigned)reinterpret_cast<ClientFrameSubsystem*>(TheGameClient)->getFrame()+(float)BfmeClientFramesPerSecond*scale);
+ m_events[m_nextFree].fadeFrame=(unsigned int)((float)m_events[m_nextFree].dieFrame-(float)BfmeClientFramesPerSecond*BfmeRadarEventFadeFraction);
+ m_events[m_nextFree].color1=*rGBAColorInt;
+ m_events[m_nextFree].color2=*b;
+ m_events[m_nextFree].worldLoc=*pos;
+ m_events[m_nextFree].radarLoc=tmp;
+ m_events[m_nextFree].soundPlayed=false;
+ m_events[m_nextFree].ref.clearRef();
+ if(++m_nextFree>=64)m_nextFree=0;
 }
 
