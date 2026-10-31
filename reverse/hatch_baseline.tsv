@@ -2741,7 +2741,7 @@ alternatename	Code/GameEngine/Source/GameClient/GUI/Rva0052B634ArmyActionPrime.c
 alternatename	Code/GameEngine/Source/GameClient/GUI/Rva0052B634ArmyActionPrime.cpp	?rva0052B58F@Rva0052B58FRegistration@@QAEPAXABVAsciiString@@@Z	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/Rva0052B634ArmyActionPrime.cpp	?rva0052B5C6@Rva0052B5C6Registration@@QAEPAXABVAsciiString@@@Z	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/Rva005FBBEEDtor.cpp	??1Rva005FBBA6ReleaseView@@QAE@XZ	1
-alternatename	Code/GameEngine/Source/GameClient/GUI/Shell/ShellHide.cpp	?hide@Shell@@QAEX_N@Z	1
+alternatename	Code/GameEngine/Source/GameClient/GUI/Shell/Shell.cpp	?hide@Shell@@QAEX_N@Z	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp	?slot0@Rva005E4F6D@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp	?slot1@Rva005E4F6D@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/createAptScreenQuickMatchMenu.cpp	??0BfmeAptScreenQuickMatchMenu@@QAE@PAX@Z	1

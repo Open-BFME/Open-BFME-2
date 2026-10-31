@@ -116,6 +116,9 @@ class ShellMenuSchemeManager;
 #define TheShellLinearCampaignManager ((ShellLinearCampaignManager *)TheLinearCampaignManager)
 #define TheShellGameLogic ((ShellGameLogic *)TheGameLogic)
 #define TheShellMapGlobalData ((ShellMapGlobalData *)TheGlobalData)
+#include <stddef.h>
+#pragma comment(linker,"/alternatename:?hide@Shell@@QAEX_N@Z=?rva0035BF4C@Shell@@QAEX_N@Z")
+#define BFME_ASCII_DTOR_DECL
 
 // flags: GameEngine retail region default /O1 /arch:SSE /G7
 // Target 0x0035BD5D/33B: Shell receiver corroborated by update and CreditsExit.
@@ -460,6 +463,22 @@ class GameLogic;
 extern GameLogic *TheGameLogic;
 
 void InitGameLogicRandom(unsigned int seed);
+
+class WindowLayout;
+
+extern class Shell *TheShell;
+
+class AnimateWindowManager;
+
+extern "C" __declspec(dllimport) char *__cdecl getenv(const char *name);
+
+extern IMEManager*TheIMEManager;
+
+extern Display*TheDisplay;
+
+extern AudioManager*TheAudio;
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/Shell/Shell.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/Shell/Shell.cpp
 
@@ -838,10 +857,100 @@ Bool Shell::showShellMap(Bool useShellMap, Bool restartShellGame)
 	}
 }
 
-// tu-skeleton: 0x0035BE55 58B ?isAnimFinished@Shell@@QAE_NXZ -- matched in Code/GameEngine/Source/GameClient/GUI/Shell/Shell_isAnimFinished.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameClient/GUI/Shell/Shell_isAnimFinished.cpp
 
-// tu-skeleton: 0x0035BF4C 112B ?rva0035BF4C@Shell@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameClient/GUI/Shell/ShellHide.cpp (not merged yet)
+bool Shell::isAnimFinished()
+{
+	if (!TheTransitionHandler->isFinished())
+		return false;
+	if (m_animateWindowManager == 0)
+		return true;
+	if (TheWritableGlobalData->m_animateWindows)
+		return m_animateWindowManager->m_14 == 0;
+	return true;
+}
 
-// tu-skeleton: 0x0035BFBC 203B ??0Shell@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/Shell/ShellCtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameClient/GUI/Shell/ShellHide.cpp
 
-// tu-skeleton: 0x0035C7CF 163B ?showShell@Shell@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameClient/GUI/Shell/ShellHide.cpp (not merged yet)
+// BFME1 clean donor6583b3c1ff21db4a561285717028fdafc780b7db:
+// game/GameEngine/Source/GameClient/GUI/Shell/Shell.cpp hideShell(void)
+// supplies top-layout shutdown, IME detach and shell-active reset semantics.
+// Native35BF4C..35BFBC/112B adds a bool argument gating the shutdown, no
+// clear-background write, GlobalData+AF0/display69B25D2F6 cleanup and audio.
+// Rowed13B Shell::top35BD7E plus receiver+5C establish the Shell prefix;
+// all named global DIR32s verify. WindowLayout slot3 gets an actual true
+// local bool; cl reuses the dead argument's high byte at EBP+B naturally.
+// The target's original method name is unknown: the existing hide(bool) pin
+// is a caller ABI spelling, not proof of Zero Hour's hide-all-layouts method.
+// GlobalData+AF0 meaning and AudioManager slot35 method name remain unknown.
+// The native audio arguments are three words2/1/0. The full30B audio-handle
+// release35BD3F independently verifies and is reached with the same receiver.
+// Shell activation35C7CF..35C872/163B follows the BFME1 clean donor
+// game/GameEngine/Source/GameClient/GUI/Shell/Shell_showShell_Thunk.cpp at
+// 34f59164f6d1efd413c5fd37f4894ec834c3c0fe. BFME2 WB Shell.cpp showShell
+// and native calls independently establish top/runInit and menu selection.
+// BFME2 native fields: initial-file stringABC, alternate-shell flagAC5,
+// shell-map flagAF0; Shell screenCount4C and active5C. Original target
+// spelling remains unknown, so retain the existing showShell name.
+// Canonical AsciiString inline forwarding constructs the by-value argument
+// in its stack slot. Calling StringBase<char>::isEmpty preserves the native
+// worker call; the menu selection has two branches and one shared active write.
+
+void Shell::showShell(bool flag)
+{
+	GlobalData *globalData = TheWritableGlobalData;
+	if (!reinterpret_cast<const StringBase<char> *>(&globalData->m_unk_abc)->isEmpty() && !globalData->m_unk_ac5)
+		return;
+	if (flag)
+	{
+		WindowLayout *windowLayout = top();
+		if (windowLayout != 0) {
+			windowLayout->runInit(0);
+			globalData = TheWritableGlobalData;
+		}
+	}
+	if (!globalData->m_unk_af0 && m_screenCount == 0)
+	{
+		if (getenv("_EA_RTS_HEADLESS") != 0 || TheWritableGlobalData->m_unk_ac5)
+			TheShell->push(AsciiString("Menus/LanLobbyMenu.wnd"), false);
+		else
+			TheShell->push(AsciiString("MainMenu.apt"), false);
+	}
+	m_isShellActive = true;
+}
+
+void Shell::rva0035BF4C(bool shutdownImmediate) {
+ WindowLayout*layout=top();
+ if(layout && shutdownImmediate) {bool immediate=true;layout->runShutdown(&immediate);}
+ if(TheIMEManager)TheIMEManager->detatch();
+ m_isShellActive=false;
+ if(!TheWritableGlobalData->m_unk_af0)reinterpret_cast<W3DDisplay*>(TheDisplay)->rva0025D2F6();
+ reinterpret_cast<Rva0035BD3F*>(this)->rva0035BD3F();
+ TheAudio->slot35(2,1,0);
+}
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/Shell/ShellCtor.cpp
+
+Shell::Shell()
+{
+	int i;
+	m_screenCount = 0;
+	for (i = 0; i < 16; i++)
+		m_screenStack[i] = 0;
+	m_byte52 = 0;
+	m_lowLODBackdropDone = 0;
+	m_pendingPush = 0;
+	m_pendingPop = 0;
+	m_clearBackground = 0;
+	m_pendingPushName.set("");
+	m_isShellActive = true;
+	m_shellMapOn = false;
+	m_animateWindowManager = new AnimateWindowManager;
+	m_schemeManager = reinterpret_cast<ShellMenuSchemeManager *>(new Rva002007D5);
+	m_musicHandle = 1;
+	m_wantMusic = true;
+	m_skipMusicRestart = true;
+	m_saveLoadMenuLayout = 0;
+	m_popupReplayLayout = 0;
+	m_screenCount = 0;
+}
