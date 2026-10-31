@@ -53,6 +53,75 @@
 #pragma comment(linker, "/alternatename:??1Rva0064C290Tree@@QAE@XZ=??1?$_Rb_tree@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@U?$pair@$$CBV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@H@2@U?$_Select1st@U?$pair@$$CBV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@H@_STL@@@2@U?$less@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@V?$allocator@U?$pair@$$CBV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@H@_STL@@@2@@_STL@@QAE@XZ")
 #pragma comment(linker, "/alternatename:??1GameResultsCounter@@QAE@XZ=??1MutexClass@@QAE@XZ")
 #pragma comment(linker, "/alternatename:?bfmeClearVHX@Rva0055011A@@AAEXXZ=?rva0054FC14@Rva0054FC14@@QAEXXZ")
+#define Matrix4x4 Matrix4  // BFME renamed it
+#define _STLP_USE_STATIC_LIB
+#define _STLP_BFME_COPY_TRIVIAL_EXTERN  // call retail's one __copy_trivial (vendor/stlport/stl/_algobase.h)
+#include "thread.h"
+#define IP_STATUS_BASE 11000
+#define IP_SUCCESS 0
+#define IP_BUF_TOO_SMALL (IP_STATUS_BASE + 1)
+#define IP_DEST_NET_UNREACHABLE (IP_STATUS_BASE + 2)
+#define IP_DEST_HOST_UNREACHABLE (IP_STATUS_BASE + 3)
+#define IP_DEST_PROT_UNREACHABLE (IP_STATUS_BASE + 4)
+#define IP_DEST_PORT_UNREACHABLE (IP_STATUS_BASE + 5)
+#define IP_NO_RESOURCES (IP_STATUS_BASE + 6)
+#define IP_BAD_OPTION (IP_STATUS_BASE + 7)
+#define IP_HW_ERROR (IP_STATUS_BASE + 8)
+#define IP_PACKET_TOO_BIG (IP_STATUS_BASE + 9)
+#define IP_REQ_TIMED_OUT (IP_STATUS_BASE + 10)
+#define IP_BAD_REQ (IP_STATUS_BASE + 11)
+#define IP_BAD_ROUTE (IP_STATUS_BASE + 12)
+#define IP_TTL_EXPIRED_TRANSIT (IP_STATUS_BASE + 13)
+#define IP_TTL_EXPIRED_REASSEM (IP_STATUS_BASE + 14)
+#define IP_PARAM_PROBLEM (IP_STATUS_BASE + 15)
+#define IP_SOURCE_QUENCH (IP_STATUS_BASE + 16)
+#define IP_OPTION_TOO_BIG (IP_STATUS_BASE + 17)
+#define IP_BAD_DESTINATION (IP_STATUS_BASE + 18)
+#define IP_ADDR_DELETED (IP_STATUS_BASE + 19)
+#define IP_SPEC_MTU_CHANGE (IP_STATUS_BASE + 20)
+#define IP_MTU_CHANGE (IP_STATUS_BASE + 21)
+#define IP_UNLOAD (IP_STATUS_BASE + 22)
+#define IP_GENERAL_FAILURE (IP_STATUS_BASE + 50)
+#define MAX_IP_STATUS IP_GENERAL_FAILURE
+#define IP_PENDING (IP_STATUS_BASE + 255)
+#define BUFSIZE     8192
+#define DEFAULT_LEN 32
+#define LOOPLIMIT   4
+#define DEFAULT_TTL 64
+#define Matrix4x4 Matrix4  // BFME renamed it
+#define _STLP_USE_STATIC_LIB
+#define _STLP_BFME_COPY_TRIVIAL_EXTERN  // call retail's one __copy_trivial (vendor/stlport/stl/_algobase.h)
+#define IP_STATUS_BASE 11000
+#define IP_SUCCESS 0
+#define IP_BUF_TOO_SMALL (IP_STATUS_BASE + 1)
+#define IP_DEST_NET_UNREACHABLE (IP_STATUS_BASE + 2)
+#define IP_DEST_HOST_UNREACHABLE (IP_STATUS_BASE + 3)
+#define IP_DEST_PROT_UNREACHABLE (IP_STATUS_BASE + 4)
+#define IP_DEST_PORT_UNREACHABLE (IP_STATUS_BASE + 5)
+#define IP_NO_RESOURCES (IP_STATUS_BASE + 6)
+#define IP_BAD_OPTION (IP_STATUS_BASE + 7)
+#define IP_HW_ERROR (IP_STATUS_BASE + 8)
+#define IP_PACKET_TOO_BIG (IP_STATUS_BASE + 9)
+#define IP_REQ_TIMED_OUT (IP_STATUS_BASE + 10)
+#define IP_BAD_REQ (IP_STATUS_BASE + 11)
+#define IP_BAD_ROUTE (IP_STATUS_BASE + 12)
+#define IP_TTL_EXPIRED_TRANSIT (IP_STATUS_BASE + 13)
+#define IP_TTL_EXPIRED_REASSEM (IP_STATUS_BASE + 14)
+#define IP_PARAM_PROBLEM (IP_STATUS_BASE + 15)
+#define IP_SOURCE_QUENCH (IP_STATUS_BASE + 16)
+#define IP_OPTION_TOO_BIG (IP_STATUS_BASE + 17)
+#define IP_BAD_DESTINATION (IP_STATUS_BASE + 18)
+#define IP_ADDR_DELETED (IP_STATUS_BASE + 19)
+#define IP_SPEC_MTU_CHANGE (IP_STATUS_BASE + 20)
+#define IP_MTU_CHANGE (IP_STATUS_BASE + 21)
+#define IP_UNLOAD (IP_STATUS_BASE + 22)
+#define IP_GENERAL_FAILURE (IP_STATUS_BASE + 50)
+#define MAX_IP_STATUS IP_GENERAL_FAILURE
+#define IP_PENDING (IP_STATUS_BASE + 255)
+#define BUFSIZE     8192
+#define DEFAULT_LEN 32
+#define LOOPLIMIT   4
+#define DEFAULT_TTL 64
 
 // BFME 2 layout and methods shared with ThreadClassLifecycle.cpp.
 class ThreadClass
@@ -445,6 +514,17 @@ public:
 	static Rva0055011A *rva005503B1();
 };
 
+class BuddyResponse { char m_bfmeBody[0x864]; };
+
+template _STL::deque<BuddyResponse>::~deque();
+
+// bfme link decl-only begin
+namespace _STL { template <> _String_base<char, allocator<char> >::_String_base(allocator<char> const &); }
+
+namespace _STL { template <> basic_string<char, char_traits<char>, allocator<char> >::basic_string(basic_string<char, char_traits<char>, allocator<char> > const &); }
+
+// ---- from Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread.cpp
+
 // ---- from Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread.cpp
 
 // Use the BFME 2 ThreadClass view below, including through mutex.h.
@@ -711,13 +791,9 @@ Bool Pinger::getRequest( PingRequest& req )
 // flags (/G7) compile a different copy, and retail kept another unit's. This unit-local
 // overload keeps the inlined code and offers the link no second copy.
 
-// tu-skeleton: 0x0054F990 14B ?rva0054F990@Rva0054F990@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAM.cpp (not merged yet)
 
-// tu-skeleton: 0x0054FA88 36B ?_M_increment@?$_Deque_iterator_base@UPodPayload20@@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_destroy_pod.cpp (not merged yet)
 
-// tu-skeleton: 0x0054FAAC 40B ??1?$_Deque_base@PAXV?$allocator@PAX@_STL@@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_ptr_o1.cpp (not merged yet)
 
-// tu-skeleton: 0x0054FB6C 12B ??E?$_Deque_iterator@UPodPayload20@@U?$_Nonconst_traits@UPodPayload20@@@_STL@@@_STL@@QAEAAU01@XZ -- matched in Code/GameEngine/Source/Common/Rva0054FD83Destroy.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread_Pinger_startThreads.cpp
 
@@ -732,14 +808,6 @@ void Pinger::startThreads(void)
 	}
 }
 
-// tu-skeleton: 0x0054FC14 70B ?rva0054FC14@Rva0054FC14@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva0054FC14Cleanup.cpp (not merged yet)
-
-// tu-skeleton: 0x0054FCA5 202B ?rva0054FCA5@Rva0054FC14@@QAE?AVAsciiString@@H@Z -- matched in Code/GameEngine/Source/Common/Rva0054FC14Cleanup.cpp (not merged yet)
-
-// tu-skeleton: 0x0054FD83 33B ??$__destroy_aux@U?$_Deque_iterator@UPodPayload20@@U?$_Nonconst_traits@UPodPayload20@@@_STL@@@_STL@@@_STL@@YAXU?$_Deque_iterator@UPodPayload20@@U?$_Nonconst_traits@UPodPayload20@@@_STL@@@0@0ABU__false_type@0@@Z -- matched in Code/GameEngine/Source/Common/Rva0054FD83Destroy.cpp (not merged yet)
-
-// tu-skeleton: 0x0054FDA4 163B ?getPing@Pinger@@UAEHVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread_Pinger_getPing.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0054FE47.cpp
 
 // STLport 4.5.3 reference instantiation. Target boundary and byte comparison prove operation shape.
@@ -752,20 +820,6 @@ void Pinger::startThreads(void)
 #pragma optimize("t", on)
 
 #pragma optimize("", on)
-
-// tu-skeleton: 0x0054FE7A 45B ??$__destroy@U?$_Deque_iterator@UPodPayload20@@U?$_Nonconst_traits@UPodPayload20@@@_STL@@@_STL@@UPodPayload20@@@_STL@@YAXU?$_Deque_iterator@UPodPayload20@@U?$_Nonconst_traits@UPodPayload20@@@_STL@@@0@0PAUPodPayload20@@@Z -- matched in Code/GameEngine/Source/Common/Rva0054FD83Destroy.cpp (not merged yet)
-
-// tu-skeleton: 0x0054FEC8 41B ??$_Destroy@U?$_Deque_iterator@UBfmePod16@@U?$_Nonconst_traits@UBfmePod16@@@_STL@@@_STL@@@_STL@@YAXU?$_Deque_iterator@UBfmePod16@@U?$_Nonconst_traits@UBfmePod16@@@_STL@@@0@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_noexc_bodies.cpp (not merged yet)
-
-// tu-skeleton: 0x0054FEF1 33B ??0BfmeNarrowRecord0054FEF1@@QAE@ABU0@@Z -- matched in Code/GameEngine/Source/Common/NarrowStringRecordCopyBFME2.cpp (not merged yet)
-
-// tu-skeleton: 0x0054FF12 5B ?rva0054FF12@Rva0054FF12@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat10O1.cpp (not merged yet)
-
-// tu-skeleton: 0x0054FF6E 45B ??$_Construct@UBfmeNarrowRecord0054FEF1@@U1@@_STL@@YAXPAUBfmeNarrowRecord0054FEF1@@ABU1@@Z -- matched in Code/GameEngine/Source/Common/NarrowStringRecordCopyBFME2.cpp (not merged yet)
-
-// tu-skeleton: 0x0054FF9B 5B ?rva0054FF9B@Rva0054FF9B@@QAEXXZ -- matched in Code/GameEngine/Source/Common/NarrowStringRecordCopyBFME2.cpp (not merged yet)
-
-// tu-skeleton: 0x0054FFA0 5B ?rva0054FFA0@Rva0054FFA0@@QAEXXZ -- matched in Code/GameEngine/Source/Common/NarrowStringRecordCopyBFME2.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameNetwork/GameSpy/Thread/Rva006609D0Destructor_Rva0054ffa5.cpp
 
@@ -788,6 +842,55 @@ Rva0055011A::~Rva0055011A()
 
 //   0x0054FC14 reads ?rva0054FC14@Rva0054FC14@@QAEXXZ
 
+
+
+
+
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva005503B1Factory.cpp
+
+Rva0055011A *Rva005503B1::rva005503B1()
+{
+	return new Rva0055011A;
+}
+
+// tu-skeleton: 0x0054F990 14B ?rva0054F990@Rva0054F990@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAM.cpp (not merged yet)
+
+// tu-skeleton: 0x0054FA88 36B ?_M_increment@?$_Deque_iterator_base@UPodPayload20@@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_destroy_pod.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameNetwork/GameSpy/BuddyResponseDequeCleanup.cpp
+
+// Named Buddy queue getResponse/addResponse and ctor establish this deque.
+// Target5508A5 advances0x864; target551910 copies0x219 words and allocates
+// 0x864. BuddyResponse is trivially destroyed in its ZH definition; the same
+// opaque byte storage already appears in BuddyResponseDequePushBackAux.cpp.
+// Typed cleanup emissions are full-body twins of StlportDeque2148Cleanup.cpp;
+// allocator/free calls are kept on their existing canonical providers.
+
+// tu-skeleton: 0x0054FB6C 12B ??E?$_Deque_iterator@UPodPayload20@@U?$_Nonconst_traits@UPodPayload20@@@_STL@@@_STL@@QAEAAU01@XZ -- matched in Code/GameEngine/Source/Common/Rva0054FD83Destroy.cpp (not merged yet)
+
+// tu-skeleton: 0x0054FC14 70B ?rva0054FC14@Rva0054FC14@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva0054FC14Cleanup.cpp (not merged yet)
+
+// tu-skeleton: 0x0054FCA5 202B ?rva0054FCA5@Rva0054FC14@@QAE?AVAsciiString@@H@Z -- matched in Code/GameEngine/Source/Common/Rva0054FC14Cleanup.cpp (not merged yet)
+
+// tu-skeleton: 0x0054FD83 33B ??$__destroy_aux@U?$_Deque_iterator@UPodPayload20@@U?$_Nonconst_traits@UPodPayload20@@@_STL@@@_STL@@@_STL@@YAXU?$_Deque_iterator@UPodPayload20@@U?$_Nonconst_traits@UPodPayload20@@@_STL@@@0@0ABU__false_type@0@@Z -- matched in Code/GameEngine/Source/Common/Rva0054FD83Destroy.cpp (not merged yet)
+
+// tu-skeleton: 0x0054FDA4 163B ?getPing@Pinger@@UAEHVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread_Pinger_getPing.cpp (not merged yet)
+
+// tu-skeleton: 0x0054FE7A 45B ??$__destroy@U?$_Deque_iterator@UPodPayload20@@U?$_Nonconst_traits@UPodPayload20@@@_STL@@@_STL@@UPodPayload20@@@_STL@@YAXU?$_Deque_iterator@UPodPayload20@@U?$_Nonconst_traits@UPodPayload20@@@_STL@@@0@0PAUPodPayload20@@@Z -- matched in Code/GameEngine/Source/Common/Rva0054FD83Destroy.cpp (not merged yet)
+
+// tu-skeleton: 0x0054FEC8 41B ??$_Destroy@U?$_Deque_iterator@UBfmePod16@@U?$_Nonconst_traits@UBfmePod16@@@_STL@@@_STL@@@_STL@@YAXU?$_Deque_iterator@UBfmePod16@@U?$_Nonconst_traits@UBfmePod16@@@_STL@@@0@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_noexc_bodies.cpp (not merged yet)
+
+// tu-skeleton: 0x0054FEF1 33B ??0BfmeNarrowRecord0054FEF1@@QAE@ABU0@@Z -- matched in Code/GameEngine/Source/Common/NarrowStringRecordCopyBFME2.cpp (not merged yet)
+
+// tu-skeleton: 0x0054FF12 5B ?rva0054FF12@Rva0054FF12@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat10O1.cpp (not merged yet)
+
+// tu-skeleton: 0x0054FF6E 45B ??$_Construct@UBfmeNarrowRecord0054FEF1@@U1@@_STL@@YAXPAUBfmeNarrowRecord0054FEF1@@ABU1@@Z -- matched in Code/GameEngine/Source/Common/NarrowStringRecordCopyBFME2.cpp (not merged yet)
+
+// tu-skeleton: 0x0054FF9B 5B ??1Rva00550083@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0055011ACtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0054FFA0 5B ??1Rva0055011ADeque44@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0055011ACtor.cpp (not merged yet)
+
 // tu-skeleton: 0x00550041 66B ?rva00550041@Rva0055011A@@UAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0055011A00550041.cpp (not merged yet)
 
 // tu-skeleton: 0x0055011A 157B ??0Rva0055011A@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0055011ACtor.cpp (not merged yet)
@@ -798,15 +901,169 @@ Rva0055011A::~Rva0055011A()
 
 // tu-skeleton: 0x0055037E 6B (unledgered) -- unmatched, no code, never credited
 
-// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva005503B1Factory.cpp
+// ---- from Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread_Pinger_getResponse.cpp
 
-Rva0055011A *Rva005503B1::rva005503B1()
+//
+// ?getResponse@Pinger@@UAE_NAAVPingResponse@@@Z
+// retail 0x00550448, 98 bytes. Dedicated TU ported from the Open-BFME-1
+// donor game/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread.cpp (reference/open-bfme-1 @ 6d943426).
+// The donor body does not place at BFME 1's flags; compiled /O1 it is
+// byte-identical to retail once relocations are masked (unique hit on
+// unclaimed .text). Only the placed body is defined here; the donor's
+// other definitions are omitted.
+// stlport-range-errors: vendored (these rows match only with STLport's extern __stl_throw_* calls, which offset another shape difference; see inputs/reference/shims/stlport_bfme/stl/_range_errors.h)
+
+/*
+**	Command & Conquer Generals Zero Hour(tm)
+**	Copyright 2025 Electronic Arts Inc.
+**
+**	This program is free software: you can redistribute it and/or modify
+**	it under the terms of the GNU General Public License as published by
+**	the Free Software Foundation, either version 3 of the License, or
+**	(at your option) any later version.
+**
+**	This program is distributed in the hope that it will be useful,
+**	but WITHOUT ANY WARRANTY; without even the implied warranty of
+**	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+**	GNU General Public License for more details.
+**
+**	You should have received a copy of the GNU General Public License
+**	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+////////////////////////////////////////////////////////////////////////////////
+//																																						//
+//  (c) 2001-2003 Electronic Arts Inc.																				//
+//																																						//
+////////////////////////////////////////////////////////////////////////////////
+
+// FILE: PingThread.cpp //////////////////////////////////////////////////////
+// Ping thread
+// Author: Matthew D. Campbell, August 2002
+
+//-------------------------------------------------------------------------
+
+
+//-------------------------------------------------------------------------
+
+Bool Pinger::getResponse( PingResponse& resp )
 {
-	return new Rva0055011A;
+	MutexClass::LockClass m(m_responseMutex, 0);
+	if (m.Failed())
+		return false;
+
+	if (m_responses.empty())
+		return false;
+	resp = m_responses.front();
+	m_responses.pop();
+	return true;
 }
 
-// tu-skeleton: 0x00550448 98B ?getResponse@Pinger@@UAE_NAAVPingResponse@@@Z -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread_Pinger_getResponse.cpp (not merged yet)
+//-------------------------------------------------------------------------
 
-// tu-skeleton: 0x005504AA 5B ?push@?$queue@VPingRequest@@V?$deque@VPingRequest@@V?$allocator@VPingRequest@@@_STL@@@_STL@@@_STL@@QAEXABVPingRequest@@@Z -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread_Pinger_addRequest.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread_Pinger_addRequest.cpp
 
-// tu-skeleton: 0x005504AF 74B ?addRequest@Pinger@@UAEXABVPingRequest@@@Z -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread_Pinger_addRequest.cpp (not merged yet)
+//
+// ?addRequest@Pinger@@UAEXABVPingRequest@@@Z
+// retail 0x005504AF, 74 bytes. Dedicated TU ported from the Open-BFME-1
+// donor game/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread.cpp (reference/open-bfme-1 @ 6d943426).
+// The donor body does not place at BFME 1's flags; compiled /O1 it is
+// byte-identical to retail once relocations are masked (unique hit on
+// unclaimed .text). Only the placed body is defined here; the donor's
+// other definitions are omitted.
+// stlport-range-errors: vendored (these rows match only with STLport's extern __stl_throw_* calls, which offset another shape difference; see inputs/reference/shims/stlport_bfme/stl/_range_errors.h)
+
+/*
+**	Command & Conquer Generals Zero Hour(tm)
+**	Copyright 2025 Electronic Arts Inc.
+**
+**	This program is free software: you can redistribute it and/or modify
+**	it under the terms of the GNU General Public License as published by
+**	the Free Software Foundation, either version 3 of the License, or
+**	(at your option) any later version.
+**
+**	This program is distributed in the hope that it will be useful,
+**	but WITHOUT ANY WARRANTY; without even the implied warranty of
+**	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+**	GNU General Public License for more details.
+**
+**	You should have received a copy of the GNU General Public License
+**	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+////////////////////////////////////////////////////////////////////////////////
+//																																						//
+//  (c) 2001-2003 Electronic Arts Inc.																				//
+//																																						//
+////////////////////////////////////////////////////////////////////////////////
+
+// FILE: PingThread.cpp //////////////////////////////////////////////////////
+// Ping thread
+// Author: Matthew D. Campbell, August 2002
+
+//-------------------------------------------------------------------------
+
+
+//-------------------------------------------------------------------------
+
+void Pinger::addRequest( const PingRequest& req )
+{
+	MutexClass::LockClass m(m_requestMutex);
+
+	++m_requestCount;
+	m_requests.push(req);
+}
+
+//-------------------------------------------------------------------------
+
+// tu-skeleton: 0x00798787 8B Unwind@00b98787 -- matched in Code/GameEngine/Source/Common/Rva0054FC14Cleanup.cpp (not merged yet)
+
+// tu-skeleton: 0x0079878F 8B Unwind@00b9878f -- matched in Code/GameEngine/Source/Common/Rva0054FC14Cleanup.cpp (not merged yet)
+
+// tu-skeleton: 0x00798797 8B Unwind@00b98797 -- matched in Code/GameEngine/Source/Common/Rva0054FC14Cleanup.cpp (not merged yet)
+
+// tu-skeleton: 0x0079879F 25B ?rva0079879F@@YAXXZ -- matched in Code/GameEngine/Source/Common/Rva0054FC14Cleanup.cpp (not merged yet)
+
+// tu-skeleton: 0x007987B8 10B __ehhandler$?rva0054FCA5@Rva0054FC14@@QAE?AVAsciiString@@H@Z -- matched in Code/GameEngine/Source/Common/Rva0054FC14Cleanup.cpp (not merged yet)
+
+// tu-skeleton: 0x007987C2 8B Unwind@00b987c2 -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread_Pinger_getPing.cpp (not merged yet)
+
+// tu-skeleton: 0x007987CA 8B Unwind@00b987ca -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread_Pinger_getPing.cpp (not merged yet)
+
+// tu-skeleton: 0x007987D2 10B __ehhandler$?getPing@Pinger@@UAEHVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread_Pinger_getPing.cpp (not merged yet)
+
+// tu-skeleton: 0x007987EE 14B uw_007987ee -- matched in Code/GameEngine/Source/Common/NarrowStringRecordCopyBFME2.cpp (not merged yet)
+
+// tu-skeleton: 0x007987FC 10B __ehhandler$??$_Construct@UBfmeNarrowRecord0054FEF1@@U1@@_STL@@YAXPAUBfmeNarrowRecord0054FEF1@@ABU1@@Z -- matched in Code/GameEngine/Source/Common/NarrowStringRecordCopyBFME2.cpp (not merged yet)
+
+// tu-skeleton: 0x00798888 8B $L6362 -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0055011ACtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00798890 11B $L6363 -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0055011ACtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0079889B 11B $L6364 -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0055011ACtor.cpp (not merged yet)
+
+// tu-skeleton: 0x007988A6 11B $L6365 -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0055011ACtor.cpp (not merged yet)
+
+// tu-skeleton: 0x007988B1 11B $L6366 -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0055011ACtor.cpp (not merged yet)
+
+// tu-skeleton: 0x007988BC 11B $L6367 -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0055011ACtor.cpp (not merged yet)
+
+// tu-skeleton: 0x007988C7 11B $L6368 -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0055011ACtor.cpp (not merged yet)
+
+// tu-skeleton: 0x007988D2 10B __ehhandler$??0Rva0055011A@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0055011ACtor.cpp (not merged yet)
+
+// tu-skeleton: 0x007988DC 8B Unwind@00b988dc -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread_PingThreadClass_Thread_Function.cpp (not merged yet)
+
+// tu-skeleton: 0x007988E4 8B Unwind@00b988e4 -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread_PingThreadClass_Thread_Function.cpp (not merged yet)
+
+// tu-skeleton: 0x007988EC 8B Unwind@00b988ec -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread_PingThreadClass_Thread_Function.cpp (not merged yet)
+
+// tu-skeleton: 0x007988F4 8B $L33630 -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread_PingThreadClass_Thread_Function.cpp (not merged yet)
+
+// tu-skeleton: 0x007988FC 10B __ehhandler$?Thread_Function@PingThreadClass@@UAEXXZ -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread_PingThreadClass_Thread_Function.cpp (not merged yet)
+
+// tu-skeleton: 0x0079892C 8B Unwind@00b9892c -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0055011A005504F9.cpp (not merged yet)
+
+// tu-skeleton: 0x00798934 8B Unwind@00b98934 -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0055011A005504F9.cpp (not merged yet)
+
+// tu-skeleton: 0x0079893C 10B __ehhandler$?rva005504F9@Rva0055011A@@UAEXABUBfmeNarrowRecord0054FEF1@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0055011A005504F9.cpp (not merged yet)
