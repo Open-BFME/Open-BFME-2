@@ -244,6 +244,18 @@ namespace StrategicHUD
 #pragma comment(linker, "/alternatename:?g_Va007C9260@@3QBGB=??_C@_15KNBIKKIN@?$AA?$CF?$AAd?$AA?$AA@")
 #include <stdlib.h>
 #include "../../../Libraries/Include/Lib/ICoord2D.h"
+#define BFME_DISP8_BYTE_GETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		unsigned char get() const; \
+		char m_lead[DISP]; \
+		unsigned char m_value; \
+	}; \
+	unsigned char NAME::get() const \
+	{ \
+		return m_value; \
+	}
 
 // The slot holders. Each one's destructor is its rowed clear, which the
 // Impl destructor calls once per slot, in reverse, under its own
@@ -1227,7 +1239,64 @@ private:
 	short m_1008;
 };
 
+BFME_DISP8_BYTE_GETTER(Rva0057A3D3ByteField, 0x48)
+
+class Rva001DCD05
+{
+public:
+	void *rva001DCD05();
+private:
+	char m_pad[8];
+	char m_08;
+	char m_pad2[0x14 - 0x09];
+	char m_14;
+	char m_pad3[0x20 - 0x15];
+	unsigned char m_20;
+	bool m_21;
+};
+
+// Clean BFME1 9cbfb551 donor structural leads; native instructions independently
+// establish complete RET boundaries and each raw field operation and ABI.
+// Address-owned carriers retain unknown original receiver identity and bounds.
+
+// ?setBit2@Rva0030000CFields@@QAEXXZ
+struct Rva0030000CFields { char pad[0x44]; unsigned int flags44; void setBit2(); };
+
+// Clean BFME1 9cbfb551 donor structural leads; native instructions independently
+// establish complete RET boundaries and each raw field operation and ABI.
+// Address-owned carriers retain unknown original receiver identity and bounds.
+
+// ?matches@Rva0056AB88Fields@@QBE_NI@Z
+struct Rva0056AB88Fields { char pad[0xC]; unsigned int wordC; bool matches(unsigned int value) const; };
+
+// Disp8 byte setter: mov al,[esp+4] / mov [ecx+<DISP>],al / ret 4 (10 bytes).
+// Address-derived class; the stored byte's meaning is unproven.
+class Rva0065D7C0ByteSetter
+{
+public:
+	void set(unsigned char value);
+	char m_lead[0x1D];
+	unsigned char m_value;
+};
+
+// ?rva002259F3@Rva002259F3@@QBEHXZ, retail 0x002259F3 (25B): three flag bytes at
+// +0x44 (must be set), +0xA8 and +0x9D (must be clear).
+class Rva002259F3
+{
+public:
+	int rva002259F3() const;
+private:
+	char m_pad00[0x44];
+	unsigned char m_44;
+	char m_pad45[0x9D - 0x45];
+	unsigned char m_9d;
+	char m_pad9E[0xA8 - 0x9E];
+	unsigned char m_a8;
+};
+
 // tu-skeleton: 0x00579674 2B ?GetBonusRowNum@StrategicHUD@@YAHH@Z -- matched in Code/GameEngine/Source/Common/Rva00579AB7Dtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/StrategicHUD.cpp
 
 // ---- from Code/GameEngine/Source/Common/StrategicHUD.cpp
 
@@ -1815,6 +1884,47 @@ StrategicHUD::ChecklistUIImpl::Item::Item(ChecklistUIImpl *owner, ChecklistItera
 // The height query 0x0057ABD0 and spacing 0x0057A24A live with their other
 // caller DoCreateNewItem in StrategicHUDChecklistUIImplConstructor.cpp.
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ---- from Code/GameEngine/Source/Common/GapBodiesGE32.cpp
+
+// stlport46
+// Small GameEngine bodies from .text gaps no Ghidra function covers
+// (thirty-second batch; see GapBodiesGE01.cpp). Retail bytes establish every
+// shape; owning classes are not recovered, so each keeps an address-derived
+// name and a view of only the members it touches. Callees and globals use the
+// ledger's existing spellings.
+
+int Rva0057A304::rva0057A304() const
+{
+	return (m_5C != 0) + m_58 * 2;
+}
+
+Rva0057A433::Rva0057A433(Rva005D1A79DwordCounter *const *record, int unused) : m_record(*record)
+{
+	if (m_record)
+		m_record->inc();
+}
+
 // tu-skeleton: 0x005796FC 53B ??1Rva005796FC@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_stringrecord_b94d2_allocate_copy.cpp (not merged yet)
 
 // tu-skeleton: 0x00579731 63B ??1Rva00579731@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00579731Dtor.cpp (not merged yet)
@@ -1857,26 +1967,6 @@ StrategicHUD::ChecklistUIImpl::Item::Item(ChecklistUIImpl *owner, ChecklistItera
 
 // tu-skeleton: 0x0057A2B0 84B ??1Rva0057A2B0@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0057A2B0Dtor.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/GapBodiesGE32.cpp
-
-// stlport46
-// Small GameEngine bodies from .text gaps no Ghidra function covers
-// (thirty-second batch; see GapBodiesGE01.cpp). Retail bytes establish every
-// shape; owning classes are not recovered, so each keeps an address-derived
-// name and a view of only the members it touches. Callees and globals use the
-// ledger's existing spellings.
-
-int Rva0057A304::rva0057A304() const
-{
-	return (m_5C != 0) + m_58 * 2;
-}
-
-Rva0057A433::Rva0057A433(Rva005D1A79DwordCounter *const *record, int unused) : m_record(*record)
-{
-	if (m_record)
-		m_record->inc();
-}
-
 // tu-skeleton: 0x0057A313 8B ?update@Rva0057A313Owner@@QAEXXZ -- matched in Code/GameEngine/Source/Common/EmbeddedMemberForwarders.cpp (not merged yet)
 
 // tu-skeleton: 0x0057A31B 21B ?rva0057A31B@Rva0057A31B@@UAEXXZ -- matched in Code/GameEngine/Source/Common/GapBodiesS3A.cpp (not merged yet)
@@ -1897,7 +1987,23 @@ Rva0057A433::Rva0057A433(Rva005D1A79DwordCounter *const *record, int unused) : m
 
 // tu-skeleton: 0x0057A3A9 9B ??0Rva0057A3A9@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp (not merged yet)
 
-// tu-skeleton: 0x0057A3D3 4B ?get@Rva0057A3D3ByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp
+
+// Disp8 byte getters: four-byte __thiscall members with one shape:
+//
+//     mov al,[ecx+<DISP>] / ret
+//
+// One BYTE is read at a fixed displacement from `this` and left in al. The
+// return type is spelled `unsigned char` because only al is written and the
+// upper bytes of eax are left holding whatever the caller had; the bytes
+// cannot distinguish it from `signed char`, `bool` or a one-byte enum.
+// This is the small-offset sibling of the disp32 family in
+// DispByteFieldGetters.cpp (MSVC 7.1 uses disp8 whenever the offset fits,
+// so every offset here fits in a signed byte). Members before the accessed
+// one are spelled as a lead array because their types are not witnessed
+// here, only their total size. Identity is not recovered: every name is
+// derived from its address.
+// No // cl: line (defaults match the frameless four-byte shape).
 
 // tu-skeleton: 0x0057A3D7 13B ?OnClosed@ChecklistUIImpl@StrategicHUD@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/AptWotrPanelCallbacks.cpp (not merged yet)
 

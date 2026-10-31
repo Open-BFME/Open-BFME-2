@@ -47484,7 +47484,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0057A382,39,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,C,C=0x00579A2F..0x0057A3A9 provisional,Code/GameEngine/Source/Common/StrategicHUD.cpp
 0x0057A3A9,9,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,C,C=0x00579A2F..0x0057A3B2 provisional,Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp
 0x0057A3B2,33,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,N,N=Code/GameEngine/Source/Common/StrategicHUD.cpp W=Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDChecklistUIImpl.cpp provisional,Code/GameEngine/Source/Common/StrategicHUD.cpp
-0x0057A3D3,4,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,C,C=0x0057A3B2..0x0057A3D7 provisional,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp
+0x0057A3D3,4,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,C,C=0x0057A3B2..0x0057A3D7 provisional,Code/GameEngine/Source/Common/StrategicHUD.cpp
 0x0057A3D7,13,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,C,C=0x0057A3B2..0x0057A3E4 provisional,Code/GameEngine/Source/GameClient/GUI/AptWotrPanelCallbacks.cpp
 0x0057A3E4,16,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,C,C=0x0057A3B2..0x0057A3F4 provisional,Code/GameEngine/Source/GameClient/GUI/AptWotrPanelCallbacks.cpp
 0x0057A3F4,24,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,U,N=Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/ChecklistItemRef.cpp provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDChecklistUIImplConstructor.cpp
