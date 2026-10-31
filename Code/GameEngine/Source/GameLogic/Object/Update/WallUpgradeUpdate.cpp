@@ -123,6 +123,7 @@ public:
 	virtual bool allow(Object *obj);
 	const Object *m_obj;
 };
+#include "../../../Common/GameLogicObjectLookupView.h"
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 #define BFME_SNAPSHOT_NAME_GETTER(NAME, TEXT) \
 	class NAME \
@@ -145,9 +146,16 @@ public:
 		return TEXT; \
 	}
 
-enum ObjectID
+class Module;
+
+enum NameKeyType
 {
-	INVALID_ID = 0
+	NK_UNKNOWN = 0
+};
+
+enum KindOfType
+{
+	KIND_45 = 0x45
 };
 
 struct BfmeWideResultEntry
@@ -207,7 +215,11 @@ public:
 
 class Object
 {
+protected:
+	Module *findModule(NameKeyType key) const;
+	friend class WallUpgradeUpdate;
 public:
+	bool isKindOf(KindOfType kind) const;
 	void rva0028C2DD(Coord3D *center) const;	// 0x0028C2DD
 	int rva0028B511() const;			// 0x0028B511
 	void teleportTo(const Coord3D *pos, bool flag);  // rowed 0x0029660C
@@ -221,6 +233,8 @@ public:
 	float m_B8;			// +0xB8 (geometry +0xA8, its +0x10 radius)
 	char m_pad0BC[0x258 - 0xBC];
 	AIUpdateInterface *m_ai;	// +0x258
+	char m_pad25C[0x438 - 0x25C];
+	unsigned char m_flag438;	// +0x438
 };
 
 class PartitionManager
@@ -313,23 +327,17 @@ class WallUpgradeUpdate : public UpdateModule
 {
 public:
 	WallUpgradeUpdate(Thing *thing, const ModuleData *moduleData);
+	static Module *rva004AB1F5(Object *obj);
 private:
 	const void *m_secondary20;
-private:
 	const void *m_secondary24;
-private:
 	unsigned int m_28;
-private:
 	unsigned int m_2C;
-private:
 	unsigned char m_30;
-private:
 	unsigned char m_31;
-private:
 	unsigned char m_pad32[2];
 public:
 	void scanForBuildingAndPossess();
-public:
 	void rva004AB57E();
 };
 
@@ -399,7 +407,7 @@ WallUpgradeUpdate::WallUpgradeUpdate(Thing *thing, const ModuleData *moduleData)
 
 void WallUpgradeUpdate::scanForBuildingAndPossess()
 {
-	if (m_28 != INVALID_ID)
+	if (m_28 != INVALID_OBJECT_ID)
 		return;
 	Object *obj = m_object;
 	const Coord3D *pos = &obj->m_pos;
