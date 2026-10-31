@@ -29,7 +29,8 @@ private: char body[0x228];
 class BfmeThing928F {public:void bfmeOne928F();void bfmeTwo928F();};
 class Rva00109DCF {public:void rva00109DCF();};
 class BfmeSub928F {public: ~BfmeSub928F();};
-struct Rva0010C785Ref {virtual void Release();int m_ref;};
+class CameraClass {public:virtual void Delete_This();void Release_Ref(){if(--m_ref==0)Delete_This();}int m_ref;};
+class W3DShadowTextureManager;
 class W3DProjectedShadowManager : public Rva00108475 {
 public:
  
@@ -40,9 +41,9 @@ public:
  virtual unsigned forwardIf(unsigned,void *,unsigned,unsigned);
  virtual W3DProjectedShadow *rva0010C2D5(int,RenderObjClass *,Shadow::ShadowTypeInfo *,Shadow::ShadowTypeInfo *);
 private:
- unsigned m_04,m_08,m_0c,m_10,m_14,m_18,m_1c; Rva0010C785Ref *m_20;
- LightEnvironmentClass m_light;
- BfmeSub928F *m_24c; unsigned m_250,m_254,m_258,m_25c,m_260,m_264,m_268,m_26c,m_270;
+ W3DProjectedShadow *m_shadowList,*m_decalList,*m_simpleDecalList,*m_freeShadowList,*m_dualDecalList,*m_freeDualList,*m_list1C; CameraClass *m_shadowCamera;
+ LightEnvironmentClass m_shadowLightEnv;
+ W3DShadowTextureManager *m_W3DShadowTextureManager; unsigned m_numDecalShadows,m_vb,m_ib,m_nShadowDecalVertsInBuf,m_260,m_nShadowDecalIndicesInBuf,m_268,m_26C,m_270;
 };
 
 #include <new>
@@ -50,7 +51,7 @@ W3DProjectedShadowManager::~W3DProjectedShadowManager(){
 ((BfmeThing928F*)this)->bfmeOne928F();
 ((BfmeThing928F*)this)->bfmeTwo928F();
 ((Rva00109DCF*)this)->rva00109DCF();
-Rva0010C785Ref *ref=m_20; if(ref){if(--ref->m_ref==0)ref->Release();m_20=0;}
-BfmeSub928F *q=m_24c; if(q){q->BfmeSub928F::~BfmeSub928F();::operator delete(q);}m_24c=0;
+if(m_shadowCamera){m_shadowCamera->Release_Ref();m_shadowCamera=0;}
+BfmeSub928F *q=(BfmeSub928F*)m_W3DShadowTextureManager; if(q){q->BfmeSub928F::~BfmeSub928F();::operator delete(q);}m_W3DShadowTextureManager=0;
 }
 

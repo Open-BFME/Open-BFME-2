@@ -35,11 +35,10 @@ public:
 	virtual ~HashTableIteratorClass() {}
 	void First();
 	void Next();
-	bool Is_Done();
+	bool Is_Done() { return m_cur == 0; }
 	HashableClass *Get_Current() { return m_cur; }
 };
 // ?Is_Done@HashTableIteratorClass@@QAE_NXZ present-unmatched
-inline bool HashTableIteratorClass::Is_Done() { return m_cur == 0; }
 // The loop walks the table through the texture manager's iterator subclass
 // (target facts): the inline ctor stores VA 0x00BCF9AC, the one-slot table
 // whose deleting dtor 0x00108D17 calls 0x00108650, and that destructor stores

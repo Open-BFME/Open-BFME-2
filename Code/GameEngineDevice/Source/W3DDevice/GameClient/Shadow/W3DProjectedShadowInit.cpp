@@ -24,7 +24,7 @@
 class Rva000F0F2B
 {
 public:
-	Rva000F0F2B();
+	Rva000F0F2B() throw();
 	virtual ~Rva000F0F2B();
 protected:
 	char m_body[0x68 - 4];
@@ -33,11 +33,15 @@ protected:
 class Rva00109610 : public Rva000F0F2B
 {
 public:
-	Rva00109610() {}
+	Rva00109610();
 	virtual ~Rva00109610();
 private:
 	char m_tail[0x74 - 0x68];
 };
+
+inline Rva00109610::Rva00109610()
+{
+}
 
 // The rowed 0x0010953E, called on the shadow once both projectors exist.
 class Rva0010959E

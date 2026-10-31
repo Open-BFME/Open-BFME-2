@@ -26,12 +26,13 @@ public:
  virtual unsigned forwardIf(unsigned,void *,unsigned,unsigned);
  virtual W3DProjectedShadow *rva0010C2D5(int,RenderObjClass *,Shadow::ShadowTypeInfo *,Shadow::ShadowTypeInfo *);
 private:
- unsigned m_04,m_08,m_0c,m_10,m_14,m_18,m_1c,m_20;
- LightEnvironmentClass m_light;
- unsigned m_24c,m_250,m_254,m_258,m_25c,m_260,m_264,m_268,m_26c,m_270;
+ W3DProjectedShadow *m_shadowList,*m_decalList,*m_simpleDecalList,*m_freeShadowList,*m_dualDecalList,*m_freeDualList,*m_list1C;
+ unsigned m_shadowCamera;
+ LightEnvironmentClass m_shadowLightEnv;
+ unsigned m_W3DShadowTextureManager,m_numDecalShadows,m_vb,m_ib,m_nShadowDecalVertsInBuf,m_260,m_nShadowDecalIndicesInBuf,m_268,m_26C,m_270;
 };
 W3DProjectedShadowManager::W3DProjectedShadowManager() {
- m_0c=0;m_04=0;m_08=0;m_10=0;m_14=0;m_18=0;m_1c=0;
- m_250=0;m_24c=0;m_20=0;m_254=0;m_258=0;m_25c=0;
- m_260=0;m_264=0;m_268=0;m_26c=0;m_270=0;
+ m_simpleDecalList=0;m_shadowList=0;m_decalList=0;m_freeShadowList=0;m_dualDecalList=0;m_freeDualList=0;m_list1C=0;
+ m_numDecalShadows=0;m_W3DShadowTextureManager=0;m_shadowCamera=0;m_vb=0;m_ib=0;m_nShadowDecalVertsInBuf=0;
+ m_260=0;m_nShadowDecalIndicesInBuf=0;m_268=0;m_26C=0;m_270=0;
 }

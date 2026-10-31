@@ -9,11 +9,28 @@
 ** (at your option) any later version.
 */
 
-class RefCountedShadowResource
+class W3DShadowTexture
 {
 public:
-	virtual void deleteThis(void) = 0;
-	unsigned long referenceCount;
+	virtual void Delete_This(void) = 0;
+	void Release_Ref(void)
+	{
+		if (--m_refs == 0)
+			Delete_This();
+	}
+	unsigned long m_refs;
+};
+
+class RenderObjClass
+{
+public:
+	virtual void Delete_This(void) = 0;
+	void Release_Ref(void)
+	{
+		if (--m_refs == 0)
+			Delete_This();
+	}
+	unsigned long m_refs;
 };
 
 // Partial observed view: pool recycling calls retail 0x007AEC10 on the
@@ -28,36 +45,30 @@ public:
 
 private:
 	unsigned char m_shadowData00[0x08];
-	float m_value08[3];			// +0x08
+	float m_x, m_y, m_z;		// +0x08
 	unsigned char m_shadowData14[0x20 - 0x14];
-	float m_value20;			// +0x20
+	float m_localAngle;			// +0x20
 	unsigned char m_shadowData24[0x28 - 0x24];
-	int m_index28;				// +0x28
+	int m_diffuse;				// +0x28
 	unsigned char m_shadowData2C[0x68 - 0x2C];
-	RefCountedShadowResource *m_references68[2];
-	RefCountedShadowResource *m_reference70;
+	W3DShadowTexture *m_shadowTexture[2];
+	RenderObjClass *m_robj;
 };
-
-static void releaseReference(RefCountedShadowResource *resource)
-{
-	if (--resource->referenceCount == 0)
-		resource->deleteThis();
-}
 
 void W3DProjectedShadow::rva007AEC10(void)
 {
 	for (int i = 0; i < 2; ++i)
 	{
-		if (m_references68[i] != 0)
+		if (m_shadowTexture[i] != 0)
 		{
-			releaseReference(m_references68[i]);
-			m_references68[i] = 0;
+			m_shadowTexture[i]->Release_Ref();
+			m_shadowTexture[i] = 0;
 		}
 	}
-	if (m_reference70 != 0)
+	if (m_robj != 0)
 	{
-		releaseReference(m_reference70);
-		m_reference70 = 0;
+		m_robj->Release_Ref();
+		m_robj = 0;
 	}
 }
 
@@ -67,21 +78,20 @@ void W3DProjectedShadow::rva007AEC10(void)
 // address reference reaches it in retail, so its name stays address-derived.
 void W3DProjectedShadow::rva00108931(void)
 {
-	m_index28 = -1;
-	m_references68[0] = 0;
-	m_value08[2] = 0.0f;
-	m_value08[1] = 0.0f;
-	m_value08[0] = 0.0f;
-	m_value20 = 0.0f;
+	m_diffuse = -1;
+	m_shadowTexture[0] = 0;
+	m_z = 0.0f;
+	m_y = 0.0f;
+	m_x = 0.0f;
+	m_localAngle = 0.0f;
 }
 
 void W3DProjectedShadow::rva00108951(void)
 {
-	RefCountedShadowResource *refCountedShadowResource = m_references68[0];
-	if (refCountedShadowResource != 0)
+	W3DShadowTexture *texture = m_shadowTexture[0];
+	if (texture != 0)
 	{
-		if (--refCountedShadowResource->referenceCount == 0)
-			refCountedShadowResource->deleteThis();
-		m_references68[0] = 0;
+		texture->Release_Ref();
+		m_shadowTexture[0] = 0;
 	}
 }
