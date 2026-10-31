@@ -605,3 +605,4 @@ Code/GameEngine/Source/GameClient/GUI/Rva00575F38Dtor.cpp|param|slot15|Rva005CBC
 Code/GameEngine/Source/GameClient/GUI/Rva00575F38Dtor.cpp|param|slot16|Rva005CBC95Pixel,d5aded75fac3c92b78bea1e4,drz-k7,drz-k7-550,w-4471b1f6edef,2026-10-30,6b187119573fe5263e1e97a1
 Code/GameEngine/Source/GameClient/GUI/Rva00575F38Dtor.cpp|param|slot17|Rva005CBC95Pixel,72b5f2f239c827d3283f0671,drz-k7,drz-k7-550,w-4471b1f6edef,2026-10-30,2c3fe7c0921f340941ed240e
 Code/GameEngine/Source/Common/VslotSmallBodiesAL.cpp|param|Rva00526342::rva00527111|a,9630b333ffe85b26faa1dfe2,drz-k7,drz-k7-552,w-4471b1f6edef,2026-10-30,4cc6b29cb71797aed96025b5
+Code/GameEngine/Source/Common/Rva00576C4BDtor.cpp|local|StrategicInGameUI::ResolveBattlesBehavior::Impl::~Impl|v2,b50741193d4493b32ef581e0,drz-k5,drz-k5-540,w-526a51702f64,2026-10-30,e19a907bc66ad1e1658e9611
