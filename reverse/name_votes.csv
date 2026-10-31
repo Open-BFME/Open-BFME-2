@@ -18258,3 +18258,15 @@ Code/GameEngine/Source/Common/CommandLineUnlistedSwitches.cpp|function|0x003B953
 Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainMovementPosition.cpp|param|MovementVector#3|p,d1325a1586927d09c129e849,drz-k8,drz-k8-501,w-87ae7cdc64ef,2026-10-30
 Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainMovementPosition.cpp|param|MovementPoint#3|c,f532f85c78890c8a626d1e11,drz-k8,drz-k8-501,w-87ae7cdc64ef,2026-10-30
 Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainCtor.cpp|member|Rva0046F543Tail|m_2A8,0992ba16e13e23c13315aaf3,drz-k8,drz-k8-509,w-87ae7cdc64ef,2026-10-30
+Code/GameEngine/Source/Common/GapBodiesS9B.cpp|function|0x003F59FE|rva003F59FE,59789e470ce4a8231be6cbc5,drz-k5,drz-k5-505,w-526a51702f64,2026-10-30
+Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AC9AFCreate.cpp|function|0x003AC93E|rva003AC93E,9c3c123ac931c3896c5dfc3b,drz-k5,drz-k5-507,w-526a51702f64,2026-10-30
+Code/GameEngine/Source/Common/Rva0025D489Ctor.cpp|member|DisplayTick50|tick50,6d44d7057a8d66ca3f206bd0,drz-k5,drz-k5-513,w-526a51702f64,2026-10-30
+Code/GameEngine/Source/Common/Rva0025D489Ctor.cpp|global||g_00DFE9E0,3baf47b14d9984e6f7222563,drz-k5,drz-k5-513,w-526a51702f64,2026-10-30
+Code/GameEngine/Source/Common/BfmeOneHundredNinetyOne.cpp|function|0x002744C7|bfmeFindEH,fff20bf5baf64c9704374bac,drz-k5,drz-k5-514,w-526a51702f64,2026-10-30
+Code/GameEngine/Source/Common/VslotSmallBodiesB.cpp|function|0x000910E1|rva000910E1,cb223ba229c626d866937c7b,drz-k5,drz-k5-518,w-526a51702f64,2026-10-30
+Code/GameEngine/Source/Common/VslotSmallBodiesB.cpp|function|0x000910EE|rva000910EE,398c287f64d7808f35898c2a,drz-k5,drz-k5-518,w-526a51702f64,2026-10-30
+Code/GameEngine/Source/Common/VslotSmallBodiesB.cpp|function|0x00330484|rva00330484,064a4fd83bdf67428c5f09cc,drz-k5,drz-k5-518,w-526a51702f64,2026-10-30
+Code/GameEngine/Source/Common/VslotSmallBodiesB.cpp|function|0x00330494|rva00330494,8dbf143472ecf4dfe19f0872,drz-k5,drz-k5-518,w-526a51702f64,2026-10-30
+Code/GameEngine/Source/Common/Rva00595A9F.cpp|member|Rva00595A9F|m_17c,dd29eff800434c23265c6e18,drz-k5,drz-k5-519,w-526a51702f64,2026-10-30
+Code/GameEngine/Source/Common/Rva00595A9F.cpp|member|Rva00595A9F|m_180,df943159a6343af441ad371b,drz-k5,drz-k5-519,w-526a51702f64,2026-10-30
+Code/GameEngine/Source/Common/Rva00595A9F.cpp|member|Rva00595A9F|m_184,089cd656209ba43262a79dc1,drz-k5,drz-k5-519,w-526a51702f64,2026-10-30
