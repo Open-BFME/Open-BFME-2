@@ -215,12 +215,12 @@ bool AIGroup::removeInvalidObjectsFromGroup(Rva0036D7A6Outer *o)
 {
 	Rva0036D7A6Inner *inner = o->m_inner;
 	if (inner) {
-		Rva0036D7A6Receiver *r = inner->m_rec;
+		Rva0036D7A6Receiver *receiver = inner->m_rec;
 		for (_STL::list<ObjectID>::iterator it = m_memberList.begin(); it != m_memberList.end();) {
 			Object *obj = (Object *)(*it);
 			_STL::list<ObjectID>::iterator nxt = it;
 			++nxt;
-			if (!r->slot38(obj, 0, 1)) {
+			if (!receiver->slot38(obj, 0, 1)) {
 				if (remove(obj))
 					return false;
 			}
@@ -245,9 +245,9 @@ void AIGroup::rva0036D805(int x)
 {
 	for (_STL::list<ObjectID>::iterator it = m_memberList.begin(); it != m_memberList.end(); ++it) {
 		Object *obj = (Object *)(*it);
-		Rva0036D805If *p = obj->m_provider250;
-		if (p)
-			p->slot34(x);
+		Rva0036D805If *provider = obj->m_provider250;
+		if (provider)
+			provider->slot34(x);
 	}
 }
 
@@ -255,8 +255,8 @@ void AIGroup::rva0036D837(int x)
 {
 	for (_STL::list<ObjectID>::iterator it = m_memberList.begin(); it != m_memberList.end(); ++it) {
 		Object *obj = (Object *)(*it);
-		Rva0036D805If *p = obj->m_provider250;
-		if (p)
-			p->slot35(x);
+		Rva0036D805If *provider = obj->m_provider250;
+		if (provider)
+			provider->slot35(x);
 	}
 }

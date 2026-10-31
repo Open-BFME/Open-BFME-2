@@ -24,15 +24,15 @@ public:
 	Int rva0018E6F0();
 private:
 	char m_pad00[0x48];
-	Int m_48;
+	Int m_entryCount;
 	Int m_4C;
-	BfmeThingVID *m_50;
+	BfmeThingVID *m_entries;
 };
 Int Rva0018E6F0::rva0018E6F0()
 {
 	Int total = 0x54;
-	for (Int i = 0; i < m_48; i++)
-		total += m_50[i].bfmeSizeVID();
+	for (Int i = 0; i < m_entryCount; i++)
+		total += m_entries[i].bfmeSizeVID();
 	return total;
 }
 

@@ -80,7 +80,7 @@ class Rva00526342
 {
 public:
 	bool rva00526342(Int unused);
-	bool rva00527111(Int a);
+	bool rva00527111(Int nearestOnly);
 	bool rva00567D96(Int unused);
 private:
 	Int m_00;
@@ -93,11 +93,11 @@ bool Rva00526342::rva00526342(Int)
 	reinterpret_cast<InGameHeroSelectInterface::Impl *>(m_08)->SelectAllHeroes();
 	return true;
 }
-bool Rva00526342::rva00527111(Int a)
+bool Rva00526342::rva00527111(Int nearestOnly)
 {
 	// The action slot forwards its word unchanged; the named callee consumes
 	// only its low boolean byte. Preserve that native payload representation.
-	reinterpret_cast<InGameHeroSelectInterface::Impl *>(m_08)->SelectNearestBuilder(*reinterpret_cast<const bool *>(&a));
+	reinterpret_cast<InGameHeroSelectInterface::Impl *>(m_08)->SelectNearestBuilder(*reinterpret_cast<const bool *>(&nearestOnly));
 	return true;
 }
 bool Rva00526342::rva00567D96(Int)

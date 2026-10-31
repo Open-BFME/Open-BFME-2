@@ -76,9 +76,9 @@ Rva000748F6 *__stdcall Rva00074F25Get(const Matrix3D *transform, float radius, f
 	record->m_34 = arg34;
 	record->m_38 = arg38;
 	record->m_transform = *transform;
-	float r = radius;
+	float scaleRadius = radius;
 	float h = height;
-	scaleAxes(record->m_transform, r, r, h);
+	scaleAxes(record->m_transform, scaleRadius, scaleRadius, h);
 	return record;
 }
 

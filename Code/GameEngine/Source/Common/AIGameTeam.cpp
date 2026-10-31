@@ -85,8 +85,8 @@ class Rva004E9600
 {
 public:
     _STL::map<int, int, _STL::less<int>, _STL::allocator<_STL::pair<const int, int> > > m_map;
-    void *rva004E95D4(void *p);
-    bool rva004E9600(void *p);
+    void *rva004E95D4(void *record);
+    bool rva004E9600(void *record);
 };
 
 // ?rva004E94CA@Rva004E94CA@@QAE_NPAVPlayer@@@Z @0x004E94CA 49B if +4==0 false else nth=getNthPlayer([[[this]+8]+0x10]) return arg->getRelationship(nth)==ALLIES callees 0x002A7A29 0x002AC3E0 global ThePlayerList caller 0x002A949F
@@ -251,8 +251,8 @@ bool Rva004E94CA::rva004E94CA(Player *player)
     if (m_04) {
         int idx = m_00->m_08->m_10;
         Player *nth = ThePlayerList->getNthPlayer(idx);
-        Relationship r = player->getRelationship(nth);
-        return r == ALLIES;
+        Relationship relationship = player->getRelationship(nth);
+        return relationship == ALLIES;
     }
     return false;
 }
@@ -271,10 +271,10 @@ bool Rva004E94CA::rva004E94CA(Player *player)
 // (+0x14 of the node) and a null arg or a miss returns null. Rva002A8F24.cpp's
 // 0x002A8F24 is the same logic with the map at +0x908. Caller 0x002A8AB1
 // (Rva002A8AE4.cpp), which returns the result as its record pointer.
-void *Rva004E9600::rva004E95D4(void *p)
+void *Rva004E9600::rva004E95D4(void *record)
 {
-    if (p) {
-        int key = *(int *)((char *)p + 0x54);
+    if (record) {
+        int key = *(int *)((char *)record + 0x54);
         _STL::map<int, int>::iterator it = m_map.find(key);
         if (it != m_map.end())
             return (void *)(*it).second;
@@ -282,11 +282,11 @@ void *Rva004E9600::rva004E95D4(void *p)
     return 0;
 }
 
-bool Rva004E9600::rva004E9600(void *p)
+bool Rva004E9600::rva004E9600(void *record)
 {
     bool result;
-    if (p) {
-        int key = *(int *)((char *)p + 0x54);
+    if (record) {
+        int key = *(int *)((char *)record + 0x54);
         result = m_map.find(key) != m_map.end();
     } else {
         result = false;

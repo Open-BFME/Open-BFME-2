@@ -190,16 +190,16 @@ struct Rva002616D1Arg
 class Rva002616D1
 {
 public:
-	bool allow(const Rva002616D1Arg *arg) const;
+	bool allow(const Rva002616D1Arg *otherObject) const;
 	Int rva002616EB(const Rva002616D1Arg *otherObject) const;
 private:
 	char m_pad00[0x08];
 	char m_08[0x10];
 	char m_18[0x10];
 };
-bool Rva002616D1::allow(const Rva002616D1Arg *arg) const
+bool Rva002616D1::allow(const Rva002616D1Arg *otherObject) const
 {
-	return arg->m_status.testMasks(m_08, m_18);
+	return otherObject->m_status.testMasks(m_08, m_18);
 }
 Int Rva002616D1::rva002616EB(const Rva002616D1Arg *otherObject) const
 {

@@ -13,7 +13,7 @@ public:
 };
 struct Rva007E9A50Entry {
     void *field00;
-    const char *field04;
+    const char *m_name;
 };
 
 // Registry records are owned by Rva007B55E0TxnNameInits.cpp.
@@ -115,7 +115,7 @@ Rva007E9A50Entry *Rva007E9A50::lookup(Rva007E8810Message *message)
     if (!message->getString("TXN", text, 32))
         return 0;
     for (Rva007E9A50Entry **entry = g_Rva012C37F8; *entry; ++entry) {
-        if (strcmp((*entry)->field04, text) == 0)
+        if (strcmp((*entry)->m_name, text) == 0)
             return *entry;
     }
     return 0;
@@ -144,7 +144,7 @@ Rva007E9A50Entry *Rva007F1160::lookup(Rva007E8810Message *message)
     if (!message->getString("TXN", text, 32))
         return 0;
     for (Rva007E9A50Entry **entry = g_Rva012C3958; *entry; ++entry) {
-        if (strcmp((*entry)->field04, text) == 0)
+        if (strcmp((*entry)->m_name, text) == 0)
             return *entry;
     }
     return 0;
@@ -165,7 +165,7 @@ Rva007E9A50Entry *Rva007F1EA0::lookup(Rva007E8810Message *message)
     if (!message->getString("TXN", text, 32))
         return 0;
     for (Rva007E9A50Entry **entry = g_Rva012C3988; *entry; ++entry) {
-        if (strcmp((*entry)->field04, text) == 0)
+        if (strcmp((*entry)->m_name, text) == 0)
             return *entry;
     }
     return 0;
@@ -195,7 +195,7 @@ Rva007E9A50Entry *Rva007F2D70::lookup(Rva007E8810Message *message)
     if (!message->getString("TXN", text, 32))
         return 0;
     for (Rva007E9A50Entry **entry = g_Rva012C3998; *entry; ++entry) {
-        if (strcmp((*entry)->field04, text) == 0)
+        if (strcmp((*entry)->m_name, text) == 0)
             return *entry;
     }
     return 0;
@@ -218,7 +218,7 @@ Rva007E9A50Entry *Rva007F3320::lookup(Rva007E8810Message *message)
     if (!message->getString("TXN", text, 32))
         return 0;
     for (Rva007E9A50Entry **entry = g_Rva012C39CC; *entry; ++entry) {
-        if (strcmp((*entry)->field04, text) == 0)
+        if (strcmp((*entry)->m_name, text) == 0)
             return *entry;
     }
     return 0;
@@ -248,7 +248,7 @@ Rva007E9A50Entry *Rva007F4000::lookup(Rva007E8810Message *message)
     if (!message->getString("TXN", text, 32))
         return 0;
     for (Rva007E9A50Entry **entry = g_Rva012C39E4; *entry; ++entry) {
-        if (strcmp((*entry)->field04, text) == 0)
+        if (strcmp((*entry)->m_name, text) == 0)
             return *entry;
     }
     return 0;
@@ -271,7 +271,7 @@ Rva007E9A50Entry *Rva007F4380::lookup(Rva007E8810Message *message)
     if (!message->getString("TXN", text, 32))
         return 0;
     for (Rva007E9A50Entry **entry = g_Rva012C3A1C; *entry; ++entry) {
-        if (strcmp((*entry)->field04, text) == 0)
+        if (strcmp((*entry)->m_name, text) == 0)
             return *entry;
     }
     return 0;

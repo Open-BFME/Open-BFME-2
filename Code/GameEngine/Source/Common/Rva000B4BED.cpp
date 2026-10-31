@@ -39,12 +39,12 @@ public:
 void *Rva000B4BED::rva000B4BED(const void *query)
 {
 	WeaponTemplateSetHead tmpQuery(*(const WeaponTemplateSetHead *)query);
-	Rva000B4BEDEntry *p = m_begin;
-	if (p != m_end)
+	Rva000B4BEDEntry *entry = m_begin;
+	if (entry != m_end)
 	{
 		do
 		{
-			WeaponTemplateSetHead tmp(p->head);
+			WeaponTemplateSetHead tmp(entry->head);
 			unsigned i = 0;
 			do
 			{
@@ -54,17 +54,17 @@ void *Rva000B4BED::rva000B4BED(const void *query)
 			} while (i < 19);
 			goto nextEntry;
 		hasBits:
-			for (unsigned b = 0; b < 0x4C; b += 4)
-				*(unsigned *)((char *)&tmp + b) &= *(const unsigned *)((const char *)&tmpQuery + b);
-			if (Rva00045473Equal(&tmp, &p->head))
-				return p;
+			for (unsigned byteOffset = 0; byteOffset < 0x4C; byteOffset += 4)
+				*(unsigned *)((char *)&tmp + byteOffset) &= *(const unsigned *)((const char *)&tmpQuery + byteOffset);
+			if (Rva00045473Equal(&tmp, &entry->head))
+				return entry;
 		nextEntry:
-			++p;
-		} while (p != m_end);
+			++entry;
+		} while (entry != m_end);
 	}
-	for (p = m_begin; p != m_end; ++p)
+	for (entry = m_begin; entry != m_end; ++entry)
 	{
-		WeaponTemplateSetHead tmp(p->head);
+		WeaponTemplateSetHead tmp(entry->head);
 		unsigned i = 0;
 		do
 		{
@@ -72,7 +72,7 @@ void *Rva000B4BED::rva000B4BED(const void *query)
 				goto nonEmpty;
 			++i;
 		} while (i < 19);
-	return p;
+	return entry;
 nonEmpty:;
 	}
 	return 0;
@@ -112,8 +112,8 @@ void *Rva000B4BED::rva000B4CBE(const void *entry)
 // Evidence: caller at 0x002D0667, neighbours 0x000B4AB5/0x000B4BED.
 void Rva000B4BED::rva000B4AE4()
 {
-	for (Rva000B4BEDEntry *p = m_begin; p != m_end; ++p)
-		p->m_00F4 = 0;
+	for (Rva000B4BEDEntry *entry = m_begin; entry != m_end; ++entry)
+		entry->m_00F4 = 0;
 }
 
 // Native 0B4AFB..0B4B23 (40B), between rva000B4AE4 and rva000B4B23: a
@@ -186,9 +186,9 @@ public:
 
 static __forceinline bool tmpHasBits(const WeaponTemplateSetHead &weaponTemplateSetHead)
 {
-	const unsigned *w = (const unsigned *)&weaponTemplateSetHead;
+	const unsigned *bits = (const unsigned *)&weaponTemplateSetHead;
 	for (unsigned i = 0; i < 19; ++i)
-		if (w[i] != 0)
+		if (bits[i] != 0)
 			return true;
 	return false;
 }
@@ -198,26 +198,26 @@ void *Rva000B4B23::rva000B4B23(const ModelConditionFlags &query)
 	Rva000B4B23Entry *fallback = 0;
 	if (!query.rva000B3EB3() && m_index >= 0)
 		return m_begin + m_index;
-	for (Rva000B4B23Entry *p = m_begin; p != m_end; ++p)
+	for (Rva000B4B23Entry *entry = m_begin; entry != m_end; ++entry)
 	{
-		WeaponTemplateSetHead tmp(p->head);
+		WeaponTemplateSetHead tmp(entry->head);
 		if (query.rva000B3EB3() == 0)
 		{
 			if (!tmpHasBits(tmp))
-				return p;
+				return entry;
 		}
 		else
 		{
 			if (!tmpHasBits(tmp))
 			{
-				fallback = p;
+				fallback = entry;
 				continue;
 			}
 		}
-		for (unsigned b = 0; b < 0x4C; b += 4)
-			*(unsigned *)((char *)&tmp + b) &= *(const unsigned *)((const char *)&tmpQuery + b);
-		if (Rva00045473Equal(&tmp, &p->head))
-			return p;
+		for (unsigned byteOffset = 0; byteOffset < 0x4C; byteOffset += 4)
+			*(unsigned *)((char *)&tmp + byteOffset) &= *(const unsigned *)((const char *)&tmpQuery + byteOffset);
+		if (Rva00045473Equal(&tmp, &entry->head))
+			return entry;
 	}
 	if (m_index >= 0)
 		return m_begin + m_index;

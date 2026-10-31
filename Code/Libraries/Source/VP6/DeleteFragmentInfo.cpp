@@ -35,9 +35,9 @@ struct FragmentInfoInstance
 	void *m_700;
 };
 
-extern "C" void __cdecl VP6_DeleteFragmentInfo(void *q)
+extern "C" void __cdecl VP6_DeleteFragmentInfo(void *fragmentInfo)
 {
-	FragmentInfoInstance *state = (FragmentInfoInstance *)q;
+	FragmentInfoInstance *state = (FragmentInfoInstance *)fragmentInfo;
 
 	if (state->m_00 != 0)
 		bfmeFreeOneJT(state->m_00);

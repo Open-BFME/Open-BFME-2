@@ -113,12 +113,12 @@ public:
 
 Rva00504E38Owner *Rva00504E38Owner::rva00504E38(const Rva00504DF8Owner *src)
 {
-	Rva00504DF8Owner tmp;
-	tmp.rva00504DF8(src);
-	((Rva0050492F *)this)->rva0050492F(&tmp);
-	void *p = *(void **)((char *)&tmp + 8);
-	if (p)
-		free(p);
+	Rva00504DF8Owner copy;
+	copy.rva00504DF8(src);
+	((Rva0050492F *)this)->rva0050492F(&copy);
+	void *buffer = *(void **)((char *)&copy + 8);
+	if (buffer)
+		free(buffer);
 	return this;
 }
 

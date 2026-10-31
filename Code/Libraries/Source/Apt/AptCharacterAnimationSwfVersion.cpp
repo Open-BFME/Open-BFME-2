@@ -152,7 +152,7 @@ struct Rva006E3E20Object {
     __forceinline void rva006E3E20Slot(int &slot) { slot=m_slots[slot]; }
 };
 
-void Rva006E3E20Object::rva006E3E20(void *unused, void *argument)
+void Rva006E3E20Object::rva006E3E20(void *unused, void *bindContext)
 {
     for (int i = 0; i < m_namedCount; ++i) {
         if(m_slots[m_namedEntries[i].m_slot]!=0) {
@@ -173,7 +173,7 @@ void Rva006E3E20Object::rva006E3E20(void *unused, void *argument)
         switch (record->m_kind) {
         case 7:
             g_AptBindTexture(
-                argument, i, (void *)record->m_slot08);
+                bindContext, i, (void *)record->m_slot08);
             break;
 
         case 8:

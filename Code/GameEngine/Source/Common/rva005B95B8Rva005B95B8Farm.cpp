@@ -40,15 +40,15 @@ extern FactionStatBlock g_Va00E064E4;
 extern FactionStatBlock g_Va00E06504;
 extern FactionStatBlock g_Va00E06524;
 
-template<class T> inline const T &onlineHomeMax(const T &a, const T &b)
+template<class T> inline const T &onlineHomeMax(const T &left, const T &right)
 {
-	return a < b ? b : a;
+	return left < right ? right : left;
 }
 
 float getWinShare(int *selected, int category)
 {
-	int t0 = g_Va00E06484.losses[category] + g_Va00E06484.wins[category];
-	float r0 = float(g_Va00E06484.wins[category] * 100) / float(onlineHomeMax(t0, 1));
+	int totalGames = g_Va00E06484.losses[category] + g_Va00E06484.wins[category];
+	float winPercent = float(g_Va00E06484.wins[category] * 100) / float(onlineHomeMax(totalGames, 1));
 
 	int t1 = g_Va00E064A4.losses[category] + g_Va00E064A4.wins[category];
 	float r1 = float(g_Va00E064A4.wins[category] * 100) / float(onlineHomeMax(t1, 1));
@@ -69,7 +69,7 @@ float getWinShare(int *selected, int category)
 	int ts = sel->losses[category] + sel->wins[category];
 	float rs = float(sel->wins[category] * 100) / float(onlineHomeMax(ts, 1));
 
-	float sum = r5 + r4 + r3 + r2 + r1 + r0;
+	float sum = r5 + r4 + r3 + r2 + r1 + winPercent;
 	return rs / onlineHomeMax(sum, 1.0f) * 100.0f;
 }
 
@@ -85,7 +85,7 @@ public:
 void AptOnline::OnlineHome::rva005B95B8()
 {
 	float callResult = getWinShare(reinterpret_cast<int *>(&g_Va00E06484), 3);
-	int a = int(callResult * 100.0f);
+	int winShareScaled = int(callResult * 100.0f);
 	callResult = getWinShare(reinterpret_cast<int *>(&g_Va00E064A4), 3);
 	int b = int(callResult * 100.0f);
 	callResult = getWinShare(reinterpret_cast<int *>(&g_Va00E064C4), 3);
@@ -94,9 +94,9 @@ void AptOnline::OnlineHome::rva005B95B8()
 	int d = int(callResult * 100.0f);
 	callResult = getWinShare(reinterpret_cast<int *>(&g_Va00E06504), 3);
 	int e = int(callResult * 100.0f);
-	int remainder = 10000 - e - d - c - b - a;
+	int remainder = 10000 - e - d - c - b - winShareScaled;
 	AptOnlineHome *home = reinterpret_cast<AptOnlineHome *>(this);
-	home->rva005B947D(6, a / 100, (a % 100) / 10);
+	home->rva005B947D(6, winShareScaled / 100, (winShareScaled % 100) / 10);
 	home->rva005B947D(7, b / 100, (b % 100) / 10);
 	home->rva005B947D(8, c / 100, (c % 100) / 10);
 	home->rva005B947D(9, d / 100, (d % 100) / 10);

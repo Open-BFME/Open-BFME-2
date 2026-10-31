@@ -32,14 +32,14 @@ void rva0024610Construct(int *place, const int *value)
 	}
 }
 
-int *rva0024720FillN(int *dst, unsigned n, const int *value)
+int *rva0024720FillN(int *dst, unsigned count, const int *value)
 {
-	for (; n > 0; --n, ++dst)
+	for (; count > 0; --count, ++dst)
 		*dst = *value;
 	return dst;
 }
 
-void rva00248A0Fill(int *first, unsigned n, const int *value)
+void rva00248A0Fill(int *first, unsigned count, const int *value)
 {
 	char pad[8];
 
@@ -106,11 +106,11 @@ int rva0024940Equal(const int *a, const int *b)
 	return x == y;
 }
 
-void rva0024780Forward(const void *a, const void *b, void *c)
+void rva0024780Forward(const void *first, const void *last, void *c)
 {
 	void *unused;
 
-	_STL::__copy_trivial_backward(a, b, c);
+	_STL::__copy_trivial_backward(first, last, c);
 }
 
 int rva0024A00Sub(const int *a, const int *b)

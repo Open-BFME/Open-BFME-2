@@ -19,7 +19,7 @@ void famgenDelete(Rva005D07E1 *p) { delete p; }
 
 // ??_GImpl@TacticalBattleResolver@StrategicInGameUI@@QAEPAXI@Z @0x005D1260 28B: calls pinned ~Impl 0x005D1210
 namespace StrategicInGameUI { class TacticalBattleResolver { public: class Impl { public: ~Impl(); }; }; }
-void famgenDelete(StrategicInGameUI::TacticalBattleResolver::Impl *p) { delete p; }
+void famgenDelete(StrategicInGameUI::TacticalBattleResolver::Impl *impl) { delete impl; }
 
 // ??_GRva005E1D07@@QAEPAXI@Z @0x005E1D41 28B: calls pinned ~Rva005E1D07 0x005E1D07
 class Rva005E1D07 { public: ~Rva005E1D07(); };
@@ -73,11 +73,11 @@ void famgenDelete(Rva005FCA8B *p) { delete p; }
 // ??_GImpl@ArmyUnitSwapperMovieClip@StrategicHUD@@QAEPAXI@Z @0x005FD8C9 28B: calls recovered ~Impl 0x005FD628
 // Destructor-only view of the owner whose native member cleanup is recovered.
 namespace StrategicHUD { class ArmyUnitSwapperMovieClip { public: class Impl; }; class ArmyUnitSwapperMovieClip::Impl { public: ~Impl(); }; }
-void famgenDelete(StrategicHUD::ArmyUnitSwapperMovieClip::Impl *p) { delete p; }
+void famgenDelete(StrategicHUD::ArmyUnitSwapperMovieClip::Impl *impl) { delete impl; }
 
 // Native005FF659..005FF675: scalar delete for the recovered clip Impl.
 #include "BattlePromptArmyPanelClipImplView.h"
-void famgenDelete(StrategicHUD::BattlePromptArmyPanelMovieClip::Impl *p) { delete p; }
+void famgenDelete(StrategicHUD::BattlePromptArmyPanelMovieClip::Impl *impl) { delete impl; }
 
 // Each retail call in this body reads an address the ledger already carries
 // under the rowed name below. Bind the donor spelling to that owner so one

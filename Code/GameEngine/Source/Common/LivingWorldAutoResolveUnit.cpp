@@ -214,7 +214,7 @@ public:
 class NarrowStrSource0059B0DD : public CharSource<char>
 {
 public:
-	NarrowStrSource0059B0DD(const char *s) : m_str(s) {}
+	NarrowStrSource0059B0DD(const char *str) : m_str(str) {}
 	~NarrowStrSource0059B0DD() {}
 	virtual int getLength() const;
 	virtual void _gap() const {}

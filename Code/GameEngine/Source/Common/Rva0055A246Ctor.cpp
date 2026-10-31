@@ -47,8 +47,8 @@ public:
 	Rva0055A246(float x0, float y0, float z0, float x1, float y1, float z1,
 	             float x2, float y2, float z2, float x3, float y3, float z3);
 	Rva0055A246(float coordinates[12]);
-	Rva0055A246(const Coord3D &cp0, const Coord3D &cp1,
-	             const Coord3D &cp2, const Coord3D &cp3);
+	Rva0055A246(const Coord3D &controlPoint0, const Coord3D &controlPoint1,
+	             const Coord3D &controlPoint2, const Coord3D &controlPoint3);
 	void rva0055A0DD(float t, Coord3D *result) const;
 	void rva0055A7DB(int numSegments, void *outResult);
 	float rva0055A627(float tolerance) const;
@@ -118,15 +118,15 @@ Rva0055A246::Rva0055A246(float controlPointCoordinates[12])
 		m_arr[3].z = controlPointCoordinates[11];
 }
 
-Rva0055A246::Rva0055A246(const Coord3D& cp0,
-																			 const Coord3D& cp1,
-																			 const Coord3D& cp2,
-																			 const Coord3D& cp3)
+Rva0055A246::Rva0055A246(const Coord3D& controlPoint0,
+																			 const Coord3D& controlPoint1,
+																			 const Coord3D& controlPoint2,
+																			 const Coord3D& controlPoint3)
 {
-		m_arr[0] = cp0;
-		m_arr[1] = cp1;
-		m_arr[2] = cp2;
-		m_arr[3] = cp3;
+		m_arr[0] = controlPoint0;
+		m_arr[1] = controlPoint1;
+		m_arr[2] = controlPoint2;
+		m_arr[3] = controlPoint3;
 }
 
 // Donor6d943 ConstructionAndLength supplies the adaptive length formula.
@@ -306,13 +306,13 @@ Bool BezierProjectileBehavior::calcFlightPath(Bool recalcNumSegments)
 				m_heightScale = (targetDistance - thresh) / thresh;
 
 			controlPoints[1].z = firstPct * (controlPoints[3].z - controlPoints[0].z) + controlPoints[0].z;
-			Real z2 = (controlPoints[3].z - controlPoints[0].z) * secondPct + controlPoints[0].z;
+			Real secondPointZ = (controlPoints[3].z - controlPoints[0].z) * secondPct + controlPoints[0].z;
 			if (controlPoints[1].z < highestInterveningTerrain)
 				controlPoints[1].z = highestInterveningTerrain;
 			controlPoints[1].z = firstHeight * m_heightScale + controlPoints[1].z;
-			if (z2 < highestInterveningTerrain)
-				z2 = highestInterveningTerrain;
-			controlPoints[2].z = secondHeight * m_heightScale + z2;
+			if (secondPointZ < highestInterveningTerrain)
+				secondPointZ = highestInterveningTerrain;
+			controlPoints[2].z = secondHeight * m_heightScale + secondPointZ;
 		}
 		else
 		{

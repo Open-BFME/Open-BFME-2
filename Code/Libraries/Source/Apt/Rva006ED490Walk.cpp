@@ -59,9 +59,9 @@ public:
 	Rva006ED490X *m_48;
 	Rva006ED490Y *m_4c;
 };
-int rva006ED490(Rva006ED490X *x, Rva006ED490Obj *obj, char flag)
+int rva006ED490(Rva006ED490X *characterInst, Rva006ED490Obj *obj, char flag)
 {
-	Rva006ED490X *cur = x;
+	Rva006ED490X *cur = characterInst;
 	for (;;) {
 		if (!(char)((BfmeAptValue006DCD20 *)cur)->isCharacterInst()) {
 			g_bfmeAptAssertAtE17734("isCharacterInst()", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h", 0xa5);

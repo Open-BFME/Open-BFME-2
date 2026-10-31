@@ -17,11 +17,11 @@ struct MovementVector : Coord3D
     MovementVector()
     {
     }
-    MovementVector(float a, float b, float c)
+    MovementVector(float xComponent, float yComponent, float zComponent)
     {
-        x = a;
-        y = b;
-        z = c;
+        x = xComponent;
+        y = yComponent;
+        z = zComponent;
     }
     MovementVector(const Coord3D &p)
     {
@@ -64,11 +64,11 @@ struct MovementPoint
     MovementPoint()
     {
     }
-    MovementPoint(float a, float b, float c)
+    MovementPoint(float xComponent, float yComponent, float zComponent)
     {
-        x = a;
-        y = b;
-        z = c;
+        x = xComponent;
+        y = yComponent;
+        z = zComponent;
     }
     MovementPoint(const Coord3D &c)
     {
@@ -84,14 +84,14 @@ class Matrix3D
     float Row[3][4];
 };
 
-template <class T> __forceinline void Rva0046B05BTransform(const Matrix3D &matrix3D, T *v)
+template <class T> __forceinline void Rva0046B05BTransform(const Matrix3D &matrix3D, T *point)
 {
-    float x = matrix3D.Row[0][0] * v->x + matrix3D.Row[0][1] * v->y + matrix3D.Row[0][2] * v->z + matrix3D.Row[0][3];
-    float y = matrix3D.Row[1][0] * v->x + matrix3D.Row[1][1] * v->y + matrix3D.Row[1][2] * v->z + matrix3D.Row[1][3];
-    float z = matrix3D.Row[2][0] * v->x + matrix3D.Row[2][1] * v->y + matrix3D.Row[2][2] * v->z + matrix3D.Row[2][3];
-    v->x = x;
-    v->y = y;
-    v->z = z;
+    float x = matrix3D.Row[0][0] * point->x + matrix3D.Row[0][1] * point->y + matrix3D.Row[0][2] * point->z + matrix3D.Row[0][3];
+    float y = matrix3D.Row[1][0] * point->x + matrix3D.Row[1][1] * point->y + matrix3D.Row[1][2] * point->z + matrix3D.Row[1][3];
+    float z = matrix3D.Row[2][0] * point->x + matrix3D.Row[2][1] * point->y + matrix3D.Row[2][2] * point->z + matrix3D.Row[2][3];
+    point->x = x;
+    point->y = y;
+    point->z = z;
 }
 
 class GeometryInfo
@@ -215,7 +215,7 @@ void HordeContain::rva0046B05B(Object *objArg, Coord3D *posArg, Object *otherArg
     Object *obj = objArg;
 
     bool far;
-    float r;
+    float moveRadius;
     MovementVector start;
     MovementVector target;
     float dist;
@@ -227,33 +227,33 @@ void HordeContain::rva0046B05B(Object *objArg, Coord3D *posArg, Object *otherArg
         dir.normalize();
         far = dist > 2.0f * m_object->m_geometry.m_10;
 
-        r = dist < other->m_258->rva002627E8() ? dist : other->m_258->rva002627E8();
-        r *= 0.7f;
-        r = r < 7.0f ? r : 7.0f;
+        moveRadius = dist < other->m_258->rva002627E8() ? dist : other->m_258->rva002627E8();
+        moveRadius *= 0.7f;
+        moveRadius = moveRadius < 7.0f ? moveRadius : 7.0f;
 
-        float d;
+        float clampedDistance;
         {
             Coord3D toward;
             obj->getPlanarDirectionTo(&toward, m_object);
-            d = toward.GetLengthEstimate();
+            clampedDistance = toward.GetLengthEstimate();
         }
-        if (200.0f < d)
-            d = 200.0f;
-        else if (d <= 1.0f)
-            d = 1.0f;
-        float t = (200.0f - d) / 200.0f;
-        r *= t * 0.8f + 0.2f;
-        if (r > 10.0f)
-            r = 10.0f;
+        if (200.0f < clampedDistance)
+            clampedDistance = 200.0f;
+        else if (clampedDistance <= 1.0f)
+            clampedDistance = 1.0f;
+        float t = (200.0f - clampedDistance) / 200.0f;
+        moveRadius *= t * 0.8f + 0.2f;
+        if (moveRadius > 10.0f)
+            moveRadius = 10.0f;
         if (obj->m_template->m_11C & 0x10)
-            r *= 0.8f;
+            moveRadius *= 0.8f;
         if (far)
-            r = r > 9.0f ? r : 9.0f;
+            moveRadius = moveRadius > 9.0f ? moveRadius : 9.0f;
 
         // Preserve the starting height before advancing along the direction.
         float &zValue = start.z;
         zValue = obj->m_position.z;
-        dir.scale(r);
+        dir.scale(moveRadius);
         target.x = obj->m_position.x;
         target.y = obj->m_position.y;
         start.x = target.x;
@@ -326,9 +326,9 @@ void HordeContain::rva0046B05B(Object *objArg, Coord3D *posArg, Object *otherArg
                 if (half + baseZ > start.z)
                     start.z = baseZ + half;
                 else if (far)
-                    start.z = start.z + (r * 0.8f);
+                    start.z = start.z + (moveRadius * 0.8f);
                 else
-                    start.z += r * 0.6f;
+                    start.z += moveRadius * 0.6f;
                 if (start.z > topZ)
                     start.z = topZ;
                 raised = true;
@@ -341,9 +341,9 @@ void HordeContain::rva0046B05B(Object *objArg, Coord3D *posArg, Object *otherArg
         if (start.z > ground)
         {
             if (far)
-                start.z -= r * 0.8f;
+                start.z -= moveRadius * 0.8f;
             else
-                start.z -= r * 0.6f;
+                start.z -= moveRadius * 0.6f;
             if (start.z < ground)
                 start.z = ground;
             lowered = true;
@@ -360,7 +360,7 @@ void HordeContain::rva0046B05B(Object *objArg, Coord3D *posArg, Object *otherArg
                 b.scale(2.0f);
                 a.add(b);
                 a.normalize();
-                a.scale(r);
+                a.scale(moveRadius);
                 MovementVector c(obj->m_position);
                 c.add(a);
                 target = c;

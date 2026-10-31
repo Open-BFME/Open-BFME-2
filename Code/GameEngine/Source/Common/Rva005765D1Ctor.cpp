@@ -44,16 +44,16 @@ public:
 class Rva005765D1 : public Rva005D19F8
 {
 public:
-	Rva005765D1(void *p, int a, int b);
+	Rva005765D1(void *outer, int a, int b);
 	virtual ~Rva005765D1();
 	void rva0057662B();
 private:
 	void *m_08;
 };
-Rva005765D1::Rva005765D1(void *p, int a, int b)
-	: Rva005D19F8(a, b), m_08(p)
+Rva005765D1::Rva005765D1(void *outer, int a, int b)
+	: Rva005D19F8(a, b), m_08(outer)
 {
-	const Rva005765D1Outer *o = (const Rva005765D1Outer *)p;
+	const Rva005765D1Outer *o = (const Rva005765D1Outer *)outer;
 	int v1 = o->m_10->m_04->get();
 	const Rva0042D697PtrChaseField *p2 = (const Rva0042D697PtrChaseField *)v1;
 	int v2 = p2->get();

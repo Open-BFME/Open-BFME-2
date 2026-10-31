@@ -233,7 +233,7 @@ extern unsigned int number_of_DX8_calls;
 
 void bfmeGoELHb(void *a)
 {
-	BfmeObjELH *o = reinterpret_cast<BfmeObjELH *>(DX8Wrapper::_Get_D3D_Device8());
-	o->m_bfmeVtbl->m_bfmeF92(o, a);
+	BfmeObjELH *device = reinterpret_cast<BfmeObjELH *>(DX8Wrapper::_Get_D3D_Device8());
+	device->m_bfmeVtbl->m_bfmeF92(device, a);
 	++number_of_DX8_calls;
 }

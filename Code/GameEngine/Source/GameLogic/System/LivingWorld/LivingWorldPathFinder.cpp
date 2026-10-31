@@ -48,11 +48,11 @@ class LivingWorldLogic;extern LivingWorldLogic *TheLivingWorldLogic;
 class Rva002E2903Player;
 class Rva002BA8F1Logic{public:Rva002E2903Player *find(int,unsigned*);};
 class Rva002E071E{public:int rva002E0BC0(int);};
-struct Rva003EF5FBNode {int key;_STL::vector<Rva003EF5FBNode*> adjacent;float x,y;int owner18;float cost1c,estimate20,total24;Rva003EF5FBNode *previous28;bool allowed2c;
+struct Rva003EF5FBNode {int key;_STL::vector<Rva003EF5FBNode*> adjacent;float x,y;int owner18;float m_cost,m_estimate,total24;Rva003EF5FBNode *m_previous;bool m_allowed;
  unsigned char rva003EF5FB(int);
 };
 unsigned char Rva003EF5FBNode::rva003EF5FB(int owner){
- if(!allowed2c)return 0;
+ if(!m_allowed)return 0;
  if(owner18==-1 || owner==-1)return 1;
  return (unsigned char)((Rva002E071E*)((Rva002BA8F1Logic*)TheLivingWorldLogic)->find(owner18,0))->rva002E0BC0(owner);
 }
@@ -94,17 +94,17 @@ void Rva003EF8E1::rva003EF8E1(Rva003EF5FBNode *node,int owner,bool allowOther){
  for(unsigned i=0;i<adjacent.size();++i){
   Rva003EF5FBNode *next=adjacent[i];
   if(next!=goal){
-   if(!next->allowed2c)continue;
+   if(!next->m_allowed)continue;
    if(!next->rva003EF5FB(owner) && !allowOther)continue;
   }
-  if(next==node->previous28)continue;
-  float baseCost=node->cost1c;
+  if(next==node->m_previous)continue;
+  float baseCost=node->m_cost;
   float cost=baseCost+metric->v01((const Rva003F71D4Point*)node,(const Rva003F71D4Point*)next);
-  if((contains((Rva003EF6D6Span*)&open,(Rva003EF6D6Entry*)next)||contains((Rva003EF6D6Span*)&closed,(Rva003EF6D6Entry*)next))&&cost>=next->cost1c)continue;
+  if((contains((Rva003EF6D6Span*)&open,(Rva003EF6D6Entry*)next)||contains((Rva003EF6D6Span*)&closed,(Rva003EF6D6Entry*)next))&&cost>=next->m_cost)continue;
   remove((Rva003C4CF0Span*)&open,(int)next);remove((Rva003C4CF0Span*)&closed,(int)next);
-  next->previous28=node;next->cost1c=cost;
-  next->estimate20=metric->v00((const Rva003F71D4Point*)next,(const Rva003F71D4Point*)goal);
-  next->total24=next->cost1c+next->estimate20;
+  next->m_previous=node;next->m_cost=cost;
+  next->m_estimate=metric->v00((const Rva003F71D4Point*)next,(const Rva003F71D4Point*)goal);
+  next->total24=next->m_cost+next->m_estimate;
   insertSorted((_STL::vector<Rva002C589B*>*)&open,(Rva002C589B*)next);
  }
 }
@@ -159,7 +159,7 @@ int Rva003EF8E1::FindShortestPath(LivingWorldSearchCallback *cb,int opaque,int f
  goal=(Rva003EF5FBNode*)rva003EF6A0((Rva003EF6A0Span *)this,to);
  if(first && goal) {
   first->f1c=0.0f;first->f20=0.0f;first->f24=0.0f;
-  start->previous28=0;
+  start->m_previous=0;
   open.push_back((Rva003C5890Item *const &)start);
   while(open.size()) {
    Rva003EF6A0Entry *current=(Rva003EF6A0Entry *)open[0];
@@ -192,7 +192,7 @@ bool Rva003EF8E1::Pathfind(LivingWorldSearchCallback *cb,int from,_STL::vector<O
  start=(Rva003EF5FBNode*)first;
  if(!first) return false;
  first->f1c=0.0f;first->f20=0.0f;first->f24=0.0f;
- start->previous28=0;
+ start->m_previous=0;
  open.push_back((Rva003C5890Item *const &)start);
  while(open.size()) {
   Rva003EF6A0Entry *current=(Rva003EF6A0Entry *)open[0];
