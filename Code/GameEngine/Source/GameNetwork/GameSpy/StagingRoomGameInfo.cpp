@@ -95,8 +95,8 @@ class Transport;
 // An address as BFME 2's NetworkInterface::setLocalAddress takes it.
 struct BfmeNetAddress
 {
-	UnsignedInt m_ip;
-	UnsignedShort m_port;
+	unsigned int m_ip;
+	unsigned short m_port;
 };
 
 // Vtable gaps: VSlots<N> declares slots 0..N-1 and VPad<B, N> the N slots
@@ -124,41 +124,43 @@ template <class B> class VPad<B, 0> : public B
 class GameSlot
 {
 public:
+	GameSlot();
 	virtual ~GameSlot();
-	Bool isHuman(void) const;
-	Bool isAI(void) const;
-	Bool disconnected(void) const;
-	Int getTeamNumber(void) const { return m_teamNumber; }
+	bool isPlayer(AsciiString userName) const;
+	bool isHuman(void) const;
+	bool isAI(void) const;
+	bool disconnected(void) const;
+	int getTeamNumber(void) const { return m_teamNumber; }
 
-	UnsignedByte m_pre1C[0x1C - 4];
-	Int m_teamNumber;				// +0x1C
-	UnsignedByte m_pre30[0x30 - 0x20];
+	unsigned char m_pre1C[0x1C - 4];
+	int m_teamNumber;				// +0x1C
+	unsigned char m_pre30[0x30 - 0x20];
 	UnicodeString m_name;				// +0x30
 	AsciiString m_bfme34;				// +0x34, the player's name-key string
-	UnsignedByte m_pre4C[0x4C - 0x38];
-	Int m_bfme4C;					// +0x4C, the living-world battle's index
-	UnsignedByte m_pre1A4[0x1A4 - 0x50];
-	Bool m_bfme1A4;					// +0x1A4
-	UnsignedByte m_pre1AC[0x1AC - 0x1A5];
+	unsigned char m_pre4C[0x4C - 0x38];
+	int m_bfme4C;					// +0x4C, the living-world battle's index
+	unsigned char m_pre1A4[0x1A4 - 0x50];
+	bool m_bfme1A4;					// +0x1A4
+	unsigned char m_pre1AC[0x1AC - 0x1A5];
 };
 
 class GameSpyGameSlot : public GameSlot
 {
 public:
-	__declspec(dllimport) __forceinline Int getProfileID(void) const { return m_profileID; }
-	void setProfileID(Int id) { m_profileID = id; }
-	void setSlotRankPoints(Int val) { m_rankPoints = val; }
-	void setFavoriteSide(Int val) { m_favoriteSide = val; }
+	__declspec(dllimport) __forceinline int getProfileID(void) const { return m_profileID; }
+	void setProfileID(int id) { m_profileID = id; }
+	void setSlotRankPoints(int val) { m_rankPoints = val; }
+	void setFavoriteSide(int val) { m_favoriteSide = val; }
 private:
-	Int m_profileID;				// +0x1AC
+	int m_profileID;				// +0x1AC
 	AsciiString m_gameSpyLogin;			// +0x1B0
 	AsciiString m_gameSpyLocale;			// +0x1B4
 	AsciiString m_pingStr;				// +0x1B8
-	Int m_pingInt;					// +0x1BC
-	Int m_wins;					// +0x1C0
-	Int m_losses;					// +0x1C4
-	Int m_rankPoints;				// +0x1C8
-	Int m_favoriteSide;				// +0x1CC
+	int m_pingInt;					// +0x1BC
+	int m_wins;					// +0x1C0
+	int m_losses;					// +0x1C4
+	int m_rankPoints;				// +0x1C8
+	int m_favoriteSide;				// +0x1CC
 };
 
 // The slot's out-of-line AsciiString setters and getters, rowed on address
@@ -202,61 +204,81 @@ public:
 	void rva004CFBC2(AsciiString value);
 };
 
+class Image;
+
 class GameInfo
 {
 public:
 	GameInfo();
 	virtual ~GameInfo();
 	virtual void v1() = 0; virtual void v2() = 0; virtual void v3() = 0;
-	virtual void v4() = 0; virtual void v5() = 0; virtual void v6() = 0;
+	virtual void v4() = 0; virtual void v5() = 0;
+	virtual const Image *rva00401015(int column);
 	virtual void v7() = 0; virtual void v8() = 0; virtual void v9() = 0;
 	virtual void reset(void);			// slot 10 (+0x28)
-	virtual void startGame(Int gameID) = 0;		// slot 11
-	virtual Bool amIHost(void) const = 0;		// slot 12
-	virtual Int getLocalSlotNum(void) const = 0;	// slot 13 (+0x34)
-	void setSlotPointer(Int index, GameSlot *slot);
-	GameSlot *getSlot(Int slotNum);
+	virtual void startGame(int gameID) = 0;		// slot 11
+	virtual bool amIHost(void) const = 0;		// slot 12
+	virtual int getLocalSlotNum(void) const = 0;	// slot 13 (+0x34)
+	virtual void resetAccepted(void);
+	void init();
+	const GameSlot *getConstSlot(int slotNum) const;
+	void setSlotPointer(int index, GameSlot *slot);
+	GameSlot *getSlot(int slotNum);
 	void setMap(AsciiString mapName);
 	AsciiString getMap(void) const;
-	void markPlayerAsPreorder(Int index);
-	void setGameInProgress(Bool inProgress) { m_inProgress = inProgress; }
-	UnsignedInt getSeed(void) const { return m_seed; }
+	void markPlayerAsPreorder(int index);
+	void setGameInProgress(bool inProgress) { m_inProgress = inProgress; }
+	unsigned int getSeed(void) const { return m_seed; }
 private:
-	char m_pad04[0x11 - 4];
-	Bool m_inProgress;				// +0x11
+	char m_pad04[0x10 - 4];
+protected:
+	bool m_inGame; // +0x10
+private:
+	bool m_inProgress;				// +0x11
 	char m_pad12[0x38 - 0x12];
 protected:
 	BfmeNetAddress m_localAddress;			// +0x38
 private:
 	char m_pad40[0x50 - 0x40];
-	UnsignedInt m_seed;				// +0x50
+	unsigned int m_seed;				// +0x50
 	char m_pad54[0x58 - 0x54];
 protected:
-	Int m_bfme58;					// +0x58
+	int m_bfme58;					// +0x58
 private:
 	char m_pad5C[0x60 - 0x5C];
 public:
-	Int m_bfme60;					// +0x60, zero when heroes are allowed
+	int m_bfme60;					// +0x60, zero when heroes are allowed
 private:
 	char m_pad64[0x6C - 0x64];
 public:
 	// Inline reads: retail 0x4FE5CA loads both into registers before pushing
 	// them, where a plain member access is pushed from memory.
-	Int getCmdPointFactor(void) const { return m_bfme6C; }
-	Int getIniResource(void) const { return m_bfme70; }
-	Int m_bfme6C;					// +0x6C, the command point factor
-	Int m_bfme70;					// +0x70, the initial resources
+	int getCmdPointFactor(void) const { return m_bfme6C; }
+	int getIniResource(void) const { return m_bfme70; }
+	int m_bfme6C;					// +0x6C, the command point factor
+	int m_bfme70;					// +0x70, the initial resources
 private:
 	char m_pad74[0xDC - 0x74];
 };
 
-class Rva00382398
+class Rva00382398 : public GameSlot
 {
 public:
-	Rva00382398();
 	virtual ~Rva00382398();
-private:
-	char m_pad[0x1E0 - 4];
+	int m_1AC;
+	AsciiString m_1B0;
+	AsciiString m_1B4;
+	AsciiString m_1B8;
+	int m_1BC;
+	int m_1C0;
+	int m_1C4;
+	int m_1C8;
+	int m_1CC;
+	int m_1D0;
+	int m_1D4;
+	AsciiString m_1D8;
+	AsciiString m_1DC;
+	Rva00382398();
 };
 
 struct Rva003EFDDBOut;
@@ -279,39 +301,49 @@ public:
 	Rva003EFDDBHolder *m_holder;		// +0x24
 };
 
+struct NAT;
+class LivingWorldBattle;
+class GameSpyGameSlot;
+
 class GameSpyStagingRoom : public GameInfo
 {
 public:
 	GameSpyStagingRoom();
 	virtual ~GameSpyStagingRoom();
 	virtual void reset(void);
-	virtual void startGame(Int gameID);
+	virtual void startGame(int gameID);
+	virtual bool amIHost(void) const;
+	virtual int getLocalSlotNum(void) const;
+	virtual void resetAccepted(void);
+	virtual const Image *rva00401015(int column);
+	GameSpyGameSlot *getGameSpySlot(int index);
+	bool getBfmeFEC(void) const { return m_bfmeFEC; }
 	void cleanUpSlotPointers(void);
 	void launchGame(void);
 	void rva004FDEFF(LivingWorldBattle *battle);
 	void launchWOTRMPGame(void);
-	AsciiString generateGameSpyGameResultsPacket(Bool sawCRCMismatch, Bool playerQuit);
-	Bool isQMGame(void) { return m_isQM; }
+	AsciiString generateGameSpyGameResultsPacket(bool sawCRCMismatch, bool playerQuit);
+	bool isQMGame(void) { return m_isQM; }
 private:
-	Rva00382398 m_GameSpySlot[MAX_SLOTS]; // +0xDC
+	Rva00382398 m_GameSpySlot[8]; // +0xDC
 	AsciiString m_gameName;     // +0xFDC
-	Int m_id;                   // +0xFE0
+	int m_id;                   // +0xFE0
 	NAT *m_transport;           // +0xFE4
 	AsciiString m_localName;    // +0xFE8
-	Bool m_bfmeFEC;             // +0xFEC
-	Bool m_bfmeFED;             // +0xFED
-	UnsignedInt m_bfmeFF0;      // +0xFF0
-	Bool m_isQM;                // +0xFF4
-	Int m_bfmeFF8;              // +0xFF8
+	bool m_bfmeFEC;             // +0xFEC
+	bool m_bfmeFED;             // +0xFED
+	unsigned int m_bfmeFF0;      // +0xFF0
+	bool m_isQM;                // +0xFF4
+	int m_qmLadderType;         // +0xFF8
 	AsciiString m_ladderIP;     // +0xFFC
-	AsciiString m_bfme1000;     // +0x1000
-	Int m_bfme1004;             // +0x1004
-	UnsignedShort m_ladderPort; // +0x1008
-	Int m_bfme100C;             // +0x100C
-	Int m_bfme1010;             // +0x1010
-	Int m_bfme1014;             // +0x1014
-	Int m_bfme1018;             // +0x1018
-	Int m_bfme101C;             // +0x101C
+	AsciiString m_pingStr;     // +0x1000
+	int m_pingInt;             // +0x1004
+	unsigned short m_ladderPort; // +0x1008
+	int m_bfme100C;             // +0x100C
+	int m_bfme1010;             // +0x1010
+	int m_bfme1014;             // +0x1014
+	int m_reportedMaxPlayers;   // +0x1018
+	int m_reportedNumObservers; // +0x101C
 };
 
 class GameSpyStagingRoom;
@@ -323,16 +355,16 @@ public:
 	AsciiString m_name;
 	AsciiString m_locale;
 	AsciiString m_clan;
-	Int m_wins;
-	Int m_losses;
-	Int m_profileID;
-	Int m_flags;
-	Int m_rankPoints;
-	Int m_side;
-	Int m_unk24;
-	Int m_dc;
-	Int m_desync;
-	Int m_preorder;
+	int m_wins;
+	int m_losses;
+	int m_profileID;
+	int m_flags;
+	int m_rankPoints;
+	int m_side;
+	int m_unk24;
+	int m_dc;
+	int m_desync;
+	int m_preorder;
 };
 
 struct AsciiComparator
@@ -349,10 +381,16 @@ public:
 	virtual PlayerInfo *rva00382CCE(const char *key) = 0;		// slot 22 (+0x58)
 };
 
-class GameSpyInfoSlot31 : public VPad<GameSpyInfoSlot22, 8>
+class GameSpyInfoSlot29 : public VPad<GameSpyInfoSlot22, 6>
 {
 public:
-	virtual Int getLocalProfileID(void) = 0;			// slot 31 (+0x7C)
+	virtual AsciiString getLocalName(void) = 0; // slot 29 (+0x74)
+};
+
+class GameSpyInfoSlot31 : public VPad<GameSpyInfoSlot29, 1>
+{
+public:
+	virtual int getLocalProfileID(void) = 0;			// slot 31 (+0x7C)
 };
 
 class GameSpyInfoSlot47 : public VPad<GameSpyInfoSlot31, 15>
@@ -367,10 +405,16 @@ public:
 	virtual GameSpyStagingRoom *getCurrentStagingRoom(void) = 0;	// slot 53 (+0xD4)
 };
 
-class GameSpyInfoInterface : public VPad<GameSpyInfoSlot53, 36>
+class GameSpyInfoSlot72 : public VPad<GameSpyInfoSlot53, 18>
 {
 public:
-	virtual Bool didPlayerPreorder(Int profileID) const = 0;	// slot 90 (+0x168)
+	virtual int _M_slot_120(const AsciiString &name); // slot 72 (+0x120)
+};
+
+class GameSpyInfoInterface : public VPad<GameSpyInfoSlot72, 17>
+{
+public:
+	virtual bool didPlayerPreorder(int profileID) const = 0;	// slot 90 (+0x168)
 };
 
 extern GameSpyInfoInterface *TheGameSpyInfo;
@@ -973,11 +1017,11 @@ AsciiString GameSpyStagingRoom::generateGameSpyGameResultsPacket(Bool sawCRCMism
 	AsciiString ladder;
 	if (isQMGame())
 	{
-		if (m_bfmeFF8 == 1)
+		if (m_qmLadderType == 1)
 			ladder = "1v1";
-		else if (m_bfmeFF8 == 2)
+		else if (m_qmLadderType == 2)
 			ladder = "2v2";
-		else if (m_bfmeFF8 == 3)
+		else if (m_qmLadderType == 3)
 			ladder = "clan";
 	}
 	else
@@ -1010,7 +1054,7 @@ AsciiString GameSpyStagingRoom::generateGameSpyGameResultsPacket(Bool sawCRCMism
 			GameSpyGameSlot *slot = (GameSpyGameSlot *)&m_GameSpySlot[i];
 			AsciiString authName = ((Rva004CFB6DAsciiField *)slot)->get();
 			AsciiString authToken = ((Rva004FDD6DAsciiField *)slot)->get();
-			AsciiString clanID = (m_isQM && m_bfmeFF8 == 3) ?
+			AsciiString clanID = (m_isQM && m_qmLadderType == 3) ?
 				((Rva003821B9AsciiField *)slot)->get() : AsciiString::TheEmptyString;
 			clanID.trim();
 			AsciiString playerName = (slot->isHuman()) ? ((Rva004FDCE1AsciiField *)slot)->get() : "AIPlayer";
@@ -1314,7 +1358,7 @@ void GameSpyStagingRoom::launchGame(void)
 	msg->appendIntegerArgument(5);
 	msg->appendIntegerArgument(1);
 	msg->appendIntegerArgument(0);
-	msg->appendIntegerArgument(m_bfme1018);
+	msg->appendIntegerArgument(m_reportedMaxPlayers);
 	((GameLogicStartView *)TheGameLogic)->m_bfme9D = true;
 
 	InitGameLogicRandom(getSeed());
@@ -1329,7 +1373,7 @@ void GameSpyStagingRoom::launchGame(void)
 
 	if (m_isQM)
 	{
-		if (m_bfme101C)
+		if (m_reportedNumObservers)
 		{
 			BfmeOpaqueOwnedRecord1432 req;
 			req.requestType = 7;

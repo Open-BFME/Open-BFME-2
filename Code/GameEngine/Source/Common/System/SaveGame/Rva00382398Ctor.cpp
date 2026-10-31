@@ -6,12 +6,29 @@
 // two AsciiStrings at +0x1D8/+0x1DC. Identity from vtable 0x00819424
 // shared with copy 0x003830EA and dtor 0x00382398 of the same class.
 #include "ascii_string.h"
+#include "unicode_string.h"
 
-class GameSlot {
+class GameSlot
+{
 public:
-	virtual ~GameSlot();
-	unsigned char m_pad04[0x1AC - 4];
 	GameSlot();
+	virtual ~GameSlot();
+	bool isPlayer(AsciiString userName) const;
+	bool isHuman(void) const;
+	bool isAI(void) const;
+	bool disconnected(void) const;
+	int getTeamNumber(void) const { return m_teamNumber; }
+
+	unsigned char m_pre1C[0x1C - 4];
+	int m_teamNumber;				// +0x1C
+	unsigned char m_pre30[0x30 - 0x20];
+	UnicodeString m_name;				// +0x30
+	AsciiString m_bfme34;				// +0x34, the player's name-key string
+	unsigned char m_pre4C[0x4C - 0x38];
+	int m_bfme4C;					// +0x4C, the living-world battle's index
+	unsigned char m_pre1A4[0x1A4 - 0x50];
+	bool m_bfme1A4;					// +0x1A4
+	unsigned char m_pre1AC[0x1AC - 0x1A5];
 };
 
 class Rva00382398 : public GameSlot
