@@ -12,9 +12,12 @@
 class ChunkLoadClass
 {
 public:
-	unsigned long Read(void *, unsigned long);
+	unsigned long Read(void *dst, unsigned long size);
+	unsigned long Cur_Chunk_Length();
+	unsigned long Cur_Chunk_ID();
 	bool Open_Chunk();
 	bool Close_Chunk();
+	unsigned long Seek(unsigned long pos);
 };
 
 class TextureClass

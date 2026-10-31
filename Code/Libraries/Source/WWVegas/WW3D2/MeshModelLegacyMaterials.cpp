@@ -48,9 +48,11 @@ public:
 
 // The handle releases through TextureBaseClass::Release_Ref (the same retail
 // body, 0x0061ED10), as the MaterialCollector units' view does.
-class TextureBaseClass {
+class TextureBaseClass
+{
 public:
-    void Release_Ref();
+	void Release_Ref();
+	void Add_Ref();
 };
 
 class BfmeHandleCX {
@@ -72,13 +74,15 @@ public:
     }
 };
 
-class ChunkLoadClass {
+class ChunkLoadClass
+{
 public:
-    unsigned long Cur_Chunk_Length();
-    unsigned long Cur_Chunk_ID();
-    bool Open_Chunk();
-    bool Close_Chunk();
-    unsigned long Read(void *buffer, unsigned long bytes);
+	unsigned long Read(void *dst, unsigned long size);
+	unsigned long Cur_Chunk_Length();
+	unsigned long Cur_Chunk_ID();
+	bool Open_Chunk();
+	bool Close_Chunk();
+	unsigned long Seek(unsigned long pos);
 };
 
 class MeshMatDescClass {

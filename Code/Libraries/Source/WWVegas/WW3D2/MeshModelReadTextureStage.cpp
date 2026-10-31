@@ -21,10 +21,11 @@
 class ChunkLoadClass
 {
 public:
-	bool Open_Chunk();
-	unsigned long Cur_Chunk_ID();
-	bool Close_Chunk();
+	unsigned long Read(void *dst, unsigned long size);
 	unsigned long Cur_Chunk_Length();
+	unsigned long Cur_Chunk_ID();
+	bool Open_Chunk();
+	bool Close_Chunk();
 	unsigned long Seek(unsigned long pos);
 };
 
