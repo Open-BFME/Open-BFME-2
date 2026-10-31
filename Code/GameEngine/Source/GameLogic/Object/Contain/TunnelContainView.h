@@ -1,4 +1,4 @@
-// Existing TunnelContain view shared by its seed and primary list getter.
+// TunnelContain class views shared by the TU and its behavior donors.
 // Primary slot 33 returns the same tracker view as secondary rva0047DE12;
 // the ctor installs the primary vptr and the object pointer remains at +8.
 #ifndef TUNNEL_CONTAIN_VIEW_H
@@ -11,6 +11,77 @@ class ModuleData;
 class Player;
 class Xfer;
 class Object;
+class ContainModuleInterface;
+class Rva0047DEE1Rider;
+class Rva0047DE6CRiderInterface;
+class TurretStateMachine;
+class AIUpdateInterface
+{
+public:
+	void ignoreObstacle(const Object *obj);
+	char m_pad00[0x30];
+	TurretStateMachine *m_stateMachine; // +0x30
+};
+
+class Rva0047DEE1Rider
+{
+public:
+	virtual void x0();
+	virtual void x1();
+	virtual void x2();
+	virtual void x3();
+	virtual void x4();
+	virtual void x5();
+	virtual bool x6( int arg );
+};
+
+class ContainModuleInterface
+{
+public:
+	virtual void c00();
+	virtual void c01();
+	virtual void c02();
+	virtual void c03();
+	virtual void c04();
+	virtual void c05();
+	virtual void c06();
+	virtual void c07();
+	virtual void c08();
+	virtual void c09();
+	virtual void c10();
+	virtual void c11();
+	virtual void c12();
+	virtual void c13();
+	virtual void c14();
+	virtual void c15();
+	virtual void c16();
+	virtual void c17();
+	virtual void c18();
+	virtual void c19();
+	virtual void c20();
+	virtual void c21();
+	virtual void c22();
+	virtual void c23();
+	virtual void c24();
+	virtual void c25();
+	virtual void c26();
+	virtual void c27();
+	virtual void c28();
+	virtual void c29();
+	virtual void c30();
+	virtual Rva0047DE6CRiderInterface *c31();
+	virtual void c32();
+	virtual void c33();
+	virtual void c34();
+	virtual void c35();
+	virtual void c36();
+	virtual void c37();
+	virtual void c38();
+	virtual void c39();
+	virtual void c40();
+	virtual void removeFromContain(Object *obj, int exposeStealthUnits) = 0;
+};
+
 typedef void (__cdecl *Rva004F553FCb)(void *data, void *user);
 typedef void (__cdecl *ContainIterateFunc)(Object *object, void *user);
 enum UpdateSleepTime
@@ -22,9 +93,12 @@ enum Relationship
 {
 	ENEMIES = 0
 };
+enum ObjectID;
 class TunnelTracker
 {
 public:
+	bool isInContainer(ObjectID id);
+	void removeFromContain(ObjectID id, int exposeStealthUnits);
 	void healObjects(float frames);
 	void updateNemesis(const Object *target);
 	void iterateContained(ContainIterateFunc cb, void *user, bool reverse);
@@ -33,16 +107,17 @@ public:
 	bool isValidContainerFor(Object *obj, bool checkCapacity);
 };
 class Rva004F5436 { public: int rva004F5436(class BfmeTab1026 *tab); };
-class Rva00466398 { public: Rva0036AE51ListView rva00466398(); };
+class Rva00466398 { public: inline __declspec(noinline) Rva0036AE51ListView rva00466398(); };
 class Rva004F56FC
 {
 public:
 	void rva004F56FC(Object *obj);
+	bool rva004F571B(const Object *object);
 };
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
 class Drawable { public: void setDrawableHidden(bool hidden); };
-struct Rva0047DD2DTemplate { char pad[0x554]; unsigned int occlusionDelay; };
+struct Rva0047DD2DTemplate { char pad[0x115]; unsigned char m_kindOf115; char pad116[0x554 - 0x116]; unsigned int occlusionDelay; };
 class Thing {
 public:
     void setPosition(const Coord3D *position);
@@ -71,22 +146,140 @@ public:
     void rva0028DCC4();
     enum Relationship getRelationship(const Object *that) const;
     BodyModuleInterface *getBodyModule() const { return body; }
-    char pad44[0x254-0x44]; BodyModuleInterface *body;
-    char pad258[0x428-0x258]; unsigned int safeOcclusionFrame;
+    ContainModuleInterface *getContain() const { return m_contain; }
+    AIUpdateInterface *getAI() const { return m_ai; }
+    char pad44[0x250-0x44]; ContainModuleInterface *m_contain;
+    BodyModuleInterface *body;
+    AIUpdateInterface *m_ai;
+    char pad25C[0x428-0x25C]; unsigned int safeOcclusionFrame;
     char pad42C[0x454-0x42c]; bool flag454;
 };
 extern GameLogic *TheGameLogic;
 class Player
 {
 public:
-	TunnelTracker *getTunnelSystem() const { return m_2E8; }
+	TunnelTracker *getTunnelSystem() const { return m_tunnelSystem; }
 	unsigned char m_pad000[0x2E8];
-	TunnelTracker *m_2E8; // WB names the list visitor; the sibling manager is the same tracker.
+	TunnelTracker *m_tunnelSystem; // WB names the list visitor; the sibling manager is the same tracker.
 };
-struct B00 { virtual void f00(); virtual void p01(); virtual void p02(); virtual void xfer(Xfer *xfer); virtual void p04(); virtual void p05(); virtual void p06(); virtual void p07(); virtual void p08(); virtual void p09(); virtual void p10(); virtual void p11(); virtual void p12(); virtual void p13(); virtual void p14(); virtual void p15(); virtual void p16(); virtual void p17(); virtual void p18(); virtual void p19(); virtual void p20(); virtual void p21(); virtual void rvaPrimary58(); virtual void p23(); virtual void p24(); virtual void p25(); virtual void p26(); virtual void p27(); virtual void p28(); virtual void p29(); virtual void p30(); virtual void p31(); virtual void p32(); virtual Rva0036AE51ListView rva0047DD0F(); const ModuleData *m_moduleData; Object *m_object; };
+struct B00
+{
+	virtual void f00();
+	virtual void p01();
+	virtual void p02();
+	virtual void xfer(Xfer *xfer);
+	virtual void p04();
+	virtual void p05();
+	virtual void p06();
+	virtual void p07();
+	virtual void onDelete();
+	virtual void p09();
+	virtual void p10();
+	virtual void p11();
+	virtual void p12();
+	virtual void p13();
+	virtual void p14();
+	virtual void p15();
+	virtual void p16();
+	virtual void p17();
+	virtual void p18();
+	virtual void p19();
+	virtual void p20();
+	virtual void p21();
+	virtual void rvaPrimary58();
+	virtual void p23();
+	virtual void p24();
+	virtual void p25();
+	virtual void p26();
+	virtual void p27();
+	virtual void p28();
+	virtual void p29();
+	virtual void p30();
+	virtual void p31();
+	virtual int p32(Object *obj);
+	virtual Rva0036AE51ListView rva0047DD0F();
+	const ModuleData *m_moduleData;
+	Object *m_object;
+};
 struct B0C { virtual void f0C(); };
 struct B10 { virtual UpdateSleepTime update(); int m_14; int m_18; Object *m_1C; };
-struct B20 { virtual void f20(); virtual void c01(); virtual void c02(); virtual void c03(); virtual void c04(); virtual void c05(); virtual void c06(); virtual void c07(); virtual void c08(); virtual void c09(); virtual void c10(); virtual void c11(); virtual void c12(); virtual void c13(); virtual void c14(); virtual void c15(); virtual void c16(); virtual void c17(); virtual void c18(); virtual void c19(); virtual void c20(); virtual void c21(); virtual void c22(); virtual void onRemoving(Object *object); virtual void c24(); virtual void onSelling(); };
+class Rva00479DCD
+{
+	public:
+	virtual void f20();
+	void rva00479DCD(Object *obj, int exposeStealthUnits);
+};
+struct B20 : public Rva00479DCD
+{
+	virtual void c01();
+	virtual void c02();
+	virtual void c03();
+	virtual void c04();
+	virtual void c05();
+	virtual void c06();
+	virtual void c07();
+	virtual void c08();
+	virtual void c09();
+	virtual void c10();
+	virtual void c11();
+	virtual void c12();
+	virtual void c13();
+	virtual void c14();
+	virtual void c15();
+	virtual void c16();
+	virtual void c17();
+	virtual void c18();
+	virtual void c19();
+	virtual void c20();
+	virtual void c21();
+	virtual void c22();
+	virtual void onRemoving(Object *object);
+	virtual void c24();
+	virtual void onSelling();
+	virtual void c26();
+	virtual void c27();
+	virtual void c28();
+	virtual void c29();
+	virtual void c30();
+	virtual void c31();
+	virtual void c32();
+	virtual void c33();
+	virtual void c34();
+	virtual void c35();
+	virtual void c36();
+	virtual void c37();
+	virtual void c38();
+	virtual void c39();
+	virtual void c40();
+	virtual void removeFromContain(Object *obj, int exposeStealthUnits);
+	virtual void dispatch42(bool flag);
+	virtual void slot43();
+	virtual void slot44();
+	virtual void slot45();
+	virtual void slot46();
+	virtual void slot47();
+	virtual void slot48();
+	virtual void slot49();
+	virtual void slot50();
+	virtual void slot51();
+	virtual void slot52();
+	virtual void slot53();
+	virtual void slot54();
+	virtual void slot55();
+	virtual void slot56();
+	virtual void slot57();
+	virtual bool rva0047DF44(int id);
+	virtual void slot59();
+	virtual void slot60();
+	virtual void slot61();
+	virtual void slot62();
+	virtual void slot63();
+	virtual void slot64();
+	virtual void slot65();
+	virtual void slot66();
+	virtual void slot67();
+	virtual void dispatch68(void (__cdecl *callback)(Object *, Object *), Object *object, bool flag);
+};
 struct B24 { virtual void f24(); };
 class DamageInfo;
 class DieMuxData { public: bool isDieApplicable(const Object *obj, const DamageInfo *damageInfo) const; };
@@ -195,6 +388,9 @@ enum NameKeyType
 class TunnelContain : public HordeGarrisonContain
 {
 public:
+	virtual void removeFromContain(Object *obj, int exposeStealthUnits);
+	virtual void onDelete();
+	virtual bool rva0047DF44(int id);
 	virtual void onRemoving(Object *object);
 	virtual void onSelling();
 	virtual UpdateSleepTime update();
@@ -203,6 +399,7 @@ public:
 	virtual void rva0047DE30();
 	virtual void addToContainList(Object *obj);
 	virtual void onDie(const DamageInfo *damageInfo);
+	virtual Rva0047DEE1Rider *rva0047DEE1(int arg);
 	void rva0047DF81();
 	virtual int getContainMax() const;
 	virtual int rva0047DDD9(void *arg);
@@ -213,7 +410,7 @@ protected:
 private:
 	char m_pad9AC[0x9AC];
 	bool m_flag9B0;
-	bool m_flag9B1;
+	bool pending;
 public:
 	virtual NameKeyType getModuleNameKey() const;
 };

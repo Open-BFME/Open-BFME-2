@@ -152,7 +152,7 @@ void TunnelContain::xfer( Xfer *xfer )
 	*xfer == m_flag9B0;
 
 	// Currently registered with a Tunnel Tracker?
-	*xfer == m_flag9B1;
+	*xfer == pending;
 
 }
 
@@ -189,7 +189,7 @@ void TunnelContain::iterateContained(Rva004F553FCb cb, void *user, unsigned int 
 	if (!(flags & 1))
 		return;
 	Player *player = m_1C->getControllingPlayer();
-	player->m_2E8->iterateContained((ContainIterateFunc)cb, user, (flags >> 3) & 1);
+	player->m_tunnelSystem->iterateContained((ContainIterateFunc)cb, user, (flags >> 3) & 1);
 }
 
 // ?rva0047DE30@TunnelContain@@UAEXXZ, retail 0x0047DE30, 60 bytes.
@@ -203,11 +203,11 @@ void TunnelContain::rva0047DE30()
 	Player *player = m_object->getControllingPlayer();
 	if (player == 0)
 		return;
-	Rva004F56FC *mgr = (Rva004F56FC *)player->m_2E8;
+	Rva004F56FC *mgr = (Rva004F56FC *)player->m_tunnelSystem;
 	if (mgr == 0)
 		return;
 	mgr->rva004F56FC(m_object);
-	m_flag9B1 = 1;
+	pending = 1;
 }
 
 // ?addToContainList@TunnelContain@@UAEXPAVObject@@@Z, retail 0x0047DC75,
@@ -219,7 +219,7 @@ void TunnelContain::rva0047DE30()
 void TunnelContain::addToContainList(Object *obj)
 {
 	Player *owningPlayer = m_1C->getControllingPlayer();
-	owningPlayer->m_2E8->addToContainList(obj);
+	owningPlayer->m_tunnelSystem->addToContainList(obj);
 }
 
 // Three more slots of the contain interface at +0x34 (vtable 0x008475B8),
@@ -231,7 +231,7 @@ void TunnelContain::addToContainList(Object *obj)
 int TunnelContain::getContainMax() const
 {
 	Player *owningPlayer = m_1C->getControllingPlayer();
-	return owningPlayer->m_2E8->getContainMax();
+	return owningPlayer->m_tunnelSystem->getContainMax();
 }
 
 // ?rva0047DDD9@TunnelContain@@UAEHPAX@Z 0x0047DDD9 38B, slot 69: with a
@@ -240,8 +240,8 @@ int TunnelContain::getContainMax() const
 int TunnelContain::rva0047DDD9(void *)
 {
 	Player *owningPlayer = m_1C->getControllingPlayer();
-	if (owningPlayer && owningPlayer->m_2E8)
-		return ((Rva004F5436 *)owningPlayer->m_2E8)->rva004F5436(0);
+	if (owningPlayer && owningPlayer->m_tunnelSystem)
+		return ((Rva004F5436 *)owningPlayer->m_tunnelSystem)->rva004F5436(0);
 	return 0;
 }
 
@@ -251,7 +251,7 @@ int TunnelContain::rva0047DDD9(void *)
 Rva0036AE51ListView TunnelContain::rva0047DE12()
 {
 	Player *owningPlayer = m_1C->getControllingPlayer();
-	return ((Rva00466398 *)owningPlayer->m_2E8)->rva00466398();
+	return ((Rva00466398 *)owningPlayer->m_tunnelSystem)->rva00466398();
 }
 
 // ?onDie@TunnelContain@@UAEXPBVDamageInfo@@@Z, retail 0x0047DFD9, 38 bytes:
@@ -295,7 +295,7 @@ UpdateSleepTime TunnelContain::update()
 	Player *controllingPlayer = obj->getControllingPlayer();
 	if (!controllingPlayer)
 		return UPDATE_SLEEP_NONE;
-	TunnelTracker *tunnelSystem = controllingPlayer->m_2E8;
+	TunnelTracker *tunnelSystem = controllingPlayer->m_tunnelSystem;
 	if (!tunnelSystem)
 		return UPDATE_SLEEP_FOREVER;
 	if (modData->m_healTunnelSystem)
@@ -353,7 +353,7 @@ void TunnelContain::onSelling()
 Rva0036AE51ListView TunnelContain::rva0047DD0F()
 {
 	Player *owningPlayer = m_object->getControllingPlayer();
-	return ((Rva00466398 *)owningPlayer->m_2E8)->rva00466398();
+	return ((Rva00466398 *)owningPlayer->m_tunnelSystem)->rva00466398();
 }
 
 // tu-skeleton: 0x0047DB88 6B ?name@TunnelContain@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)

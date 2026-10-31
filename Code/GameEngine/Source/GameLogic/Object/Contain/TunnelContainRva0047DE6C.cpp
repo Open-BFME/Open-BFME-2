@@ -1,4 +1,5 @@
-// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc
+// cl: /MD /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /I.
+// stlport
 // Retail 0x0047DE6C, 117B: a TunnelContain contained-object visitor
 // (cdecl (Object *, void *userData), the tunnel Object as user data).
 // Target evidence: an object whose AI state machine (AI at Object+0x258,
@@ -11,26 +12,12 @@
 // contain interface at +0x20) is called. The owner and purpose are not
 // otherwise named; the function keeps an address-derived name.
 
-class Object;
+#include "TunnelContainView.h"
 
 class TurretStateMachine
 {
 public:
 	Object *getGoalObject();
-};
-
-class AIUpdateInterface
-{
-public:
-	unsigned char m_pad00[0x30];
-	TurretStateMachine *m_stateMachine;
-};
-
-class ThingTemplate
-{
-public:
-	unsigned char m_pad00[0x115];
-	unsigned char m_kindOf115;
 };
 
 class Rva0047DE6CRiderInterface
@@ -100,82 +87,7 @@ public:
 	virtual bool x61();
 };
 
-class ContainModuleInterface
-{
-public:
-	virtual void c00();
-	virtual void c01();
-	virtual void c02();
-	virtual void c03();
-	virtual void c04();
-	virtual void c05();
-	virtual void c06();
-	virtual void c07();
-	virtual void c08();
-	virtual void c09();
-	virtual void c10();
-	virtual void c11();
-	virtual void c12();
-	virtual void c13();
-	virtual void c14();
-	virtual void c15();
-	virtual void c16();
-	virtual void c17();
-	virtual void c18();
-	virtual void c19();
-	virtual void c20();
-	virtual void c21();
-	virtual void c22();
-	virtual void c23();
-	virtual void c24();
-	virtual void c25();
-	virtual void c26();
-	virtual void c27();
-	virtual void c28();
-	virtual void c29();
-	virtual void c30();
-	virtual Rva0047DE6CRiderInterface *c31();
-	virtual void c32();
-	virtual void c33();
-	virtual void c34();
-	virtual void c35();
-	virtual void c36();
-	virtual void c37();
-	virtual void c38();
-	virtual void c39();
-	virtual void c40();
-	virtual void removeFromContain( Object *obj, int exposeStealthUnits ) = 0;
-};
-
-class Object
-{
-public:
-	// Keep the native +0x250 load inline; omit the competing legacy getter.
-	__declspec(dllimport) __forceinline ContainModuleInterface *getContain() const { return m_contain; }
-	AIUpdateInterface *getAI() const { return m_ai; }
-	void *m_vtable;
-	const ThingTemplate *m_template;
-	unsigned char m_pad08[0x250 - 0x08];
-	ContainModuleInterface *m_contain;
-	unsigned char m_pad254[0x258 - 0x254];
-	AIUpdateInterface *m_ai;
-};
-
-class TunnelContainPrimary
-{
-public:
-	virtual void primarySlot00();
-	const void *m_moduleData;
-	Object *m_object;
-	unsigned char m_pad0C[0x20 - 0x0C];
-};
-
-class TunnelContain : public TunnelContainPrimary, public ContainModuleInterface
-{
-public:
-	virtual void removeFromContain( Object *obj, int exposeStealthUnits );
-};
-
+// Keep the native +0x250 load inline; omit the competing legacy getter.
 void Rva0047DE6CVisit( Object *obj, void *userData )
 {
 	if( obj == 0 )
@@ -192,7 +104,7 @@ void Rva0047DE6CVisit( Object *obj, void *userData )
 	if( ai->m_stateMachine->getGoalObject() != tunnel )
 		return;
 
-	if( ( obj->m_template->m_kindOf115 & 0x20 ) == 0 )
+	if( ( obj->getTemplate()->m_kindOf115 & 0x20 ) == 0 )
 		return;
 
 	ContainModuleInterface *contain = obj->getContain();
@@ -206,6 +118,6 @@ void Rva0047DE6CVisit( Object *obj, void *userData )
 	if( rider->x61() )
 		return;
 
-	TunnelContain *tunnelContain = static_cast<TunnelContain *>( tunnel->getContain() );
+	TunnelContain *tunnelContain = static_cast<TunnelContain *>( reinterpret_cast<B20 *>(tunnel->getContain()) );
 	tunnelContain->removeFromContain( obj, 1 );
 }
