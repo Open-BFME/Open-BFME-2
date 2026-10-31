@@ -245,9 +245,9 @@ StrategicInGameUI::ResolveBattlesBehavior::Impl::~Impl()
 	(*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->m_holder.rva002B7250((CreateAHeroData *)(Listener00576C4B *)this);
 	if (m_flag44) {
 		int v1 = m_s->m_p->get();
-		int v2 = ((Rva0042D6AEPtrChaseField *)v1)->get();
-		if (v2)
-			((VirtObj00576C4B *)v2)->f3();
+		int subscriber = ((Rva0042D6AEPtrChaseField *)v1)->get();
+		if (subscriber)
+			((VirtObj00576C4B *)subscriber)->f3();
 	}
 }
 

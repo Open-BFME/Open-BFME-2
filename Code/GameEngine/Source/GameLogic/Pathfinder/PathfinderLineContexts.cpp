@@ -65,7 +65,7 @@ struct Rva002ED0CCBlock16
 struct Rva002ED15AInfo
 {
 public:
-	Rva002ED15AInfo *init(void *a, void *b, void *c);
+	Rva002ED15AInfo *init(void *a, void *sourceObject, void *c);
 private:
 	void *m_00;
 	Object *m_04;
@@ -75,24 +75,24 @@ private:
 	int m_58;
 };
 
-Rva002ED15AInfo *Rva002ED15AInfo::init(void *a, void *b, void *c)
+Rva002ED15AInfo *Rva002ED15AInfo::init(void *a, void *sourceObject, void *c)
 {
 	m_00 = a;
-	m_04 = (Object *)b;
+	m_04 = (Object *)sourceObject;
 	m_08.rva002E6FDF();
-	Rva002ED0CCInner *inner = *(Rva002ED0CCInner **)((char *)b + 4);
+	Rva002ED0CCInner *inner = *(Rva002ED0CCInner **)((char *)sourceObject + 4);
 	unsigned char ok1;
 	unsigned char v634;
 	int v56c = inner->m_56C;
 	v634 = inner->m_634;
-	ok1 = ((Object*)b)->rva0028AC62();
-	bool ok2 = ((Object*)b)->rva0028AFBB();
-	Rva002ED0CCBlock16 *p48 = &m_48;
-	p48->m_00 = (int)c;
-	p48->m_04 = (v634 == 0);
-	p48->m_05 = ok2;
-	p48->m_0C = ok1;
-	p48->m_08 = v56c - 1;
+	ok1 = ((Object*)sourceObject)->rva0028AC62();
+	bool ok2 = ((Object*)sourceObject)->rva0028AFBB();
+	Rva002ED0CCBlock16 *block = &m_48;
+	block->m_00 = (int)c;
+	block->m_04 = (v634 == 0);
+	block->m_05 = ok2;
+	block->m_0C = ok1;
+	block->m_08 = v56c - 1;
 	m_58 = 0;
 	*(Rva002ED0CCBlock16 *)&m_08.m_1C = m_48;
 	m_08.m_11 = 0;
@@ -109,7 +109,7 @@ struct PreviousCellCoord {int x,y;void zero(){x=0;y=0;}};
 struct Rva002ED01EInfo
 {
 public:
-	Rva002ED01EInfo *init(void *a, void *b, void *c);
+	Rva002ED01EInfo *init(void *a, void *sourceObject, void *c);
 private:
 	void *m_00;
 	Object *m_04;
@@ -118,24 +118,24 @@ private:
 	PreviousCellCoord previous;
 };
 
-Rva002ED01EInfo *Rva002ED01EInfo::init(void *a, void *b, void *c)
+Rva002ED01EInfo *Rva002ED01EInfo::init(void *a, void *sourceObject, void *c)
 {
 	m_00 = a;
-	m_04 = (Object *)b;
+	m_04 = (Object *)sourceObject;
 	m_08.rva002E6FDF();
-	Rva002ED0CCInner *inner = *(Rva002ED0CCInner **)((char *)b + 4);
+	Rva002ED0CCInner *inner = *(Rva002ED0CCInner **)((char *)sourceObject + 4);
 	unsigned char ok1;
 	unsigned char v634;
 	int v56c = inner->m_56C;
 	v634 = inner->m_634;
-	ok1 = ((Object*)b)->rva0028AC62();
-	bool ok2 = ((Object*)b)->rva0028AFBB();
-	Rva002ED0CCBlock16 *p48 = &m_48;
-	p48->m_00 = (int)c;
-	p48->m_04 = (v634 == 0);
-	p48->m_05 = ok2;
-	p48->m_0C = ok1;
-	p48->m_08 = v56c - 1;
+	ok1 = ((Object*)sourceObject)->rva0028AC62();
+	bool ok2 = ((Object*)sourceObject)->rva0028AFBB();
+	Rva002ED0CCBlock16 *block = &m_48;
+	block->m_00 = (int)c;
+	block->m_04 = (v634 == 0);
+	block->m_05 = ok2;
+	block->m_0C = ok1;
+	block->m_08 = v56c - 1;
 	previous.zero();
 	*(Rva002ED0CCBlock16 *)&m_08.m_1C = m_48;
 	m_08.m_11 = 0;

@@ -180,11 +180,11 @@ public:
 	Int rva0055C44F();
 private:
 	char m_pad00[0x04];
-	ParticleSystem *m_04;
+	ParticleSystem *m_system;
 };
 Int Rva0055C44F::rva0055C44F()
 {
-	ParticleSystem *system = m_04;
+	ParticleSystem *system = m_system;
 	if (!system)
 		system = Make001FCBD7();
 	return system->m_08;

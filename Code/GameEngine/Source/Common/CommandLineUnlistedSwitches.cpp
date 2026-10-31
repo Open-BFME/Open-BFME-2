@@ -69,14 +69,14 @@ int parseSkipMapUnroll(char *args[],int num) {
 }
 
 // Native 3B9521..3B9535: sets +11CA false.
-int Rva003B9521Parse(char *args[],int num) {
+int parseNoPlanningMode(char *args[],int num) {
     if(TheWritableGlobalData)
         TheSwitches->m_planningModeEnabled=false;
     return 1;
 }
 
 // Native 3B9535..3B9549: sets +11CA true.
-int Rva003B9535Parse(char *args[],int num) {
+int parsePlanningMode(char *args[],int num) {
     if(TheWritableGlobalData)
         TheSwitches->m_planningModeEnabled=true;
     return 1;

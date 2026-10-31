@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /MD /arch:SSE
-// ?Rva0030CAF8Save@@YAXPAVRva0030CAF8Collection@@PAVDataChunkOutput@@@Z, retail 0x0030CAF8, 323 bytes.
+// ?saveStandingWaveAreas@@YAXPAVRva0030CAF8Collection@@PAVDataChunkOutput@@@Z, retail 0x0030CAF8, 323 bytes.
 // StandingWaveAreas save via DataChunkOutput: openDataChunk StandingWaveAreas, write count, cursor-iterate areas, write int, Rva00537EAD, Rva0030B2FE at +0x38, cvttss2si floats, AsciiString at +0x9c. Evidence: packet disassembly, chain from 0x00537EAD, sibling 0x0030C2CE cursor pattern.
 #include "ascii_string.h"
 
@@ -28,7 +28,7 @@ public:
 struct Rva0030CAF8Elem
 {
 	int m_int00;
-	void *m_ptr04;
+	void *m_area;
 };
 
 struct Rva0030CAF8Area
@@ -51,8 +51,8 @@ class Rva0030CAF8Collection
 {
 public:
 	char m_pad00[0x14];
-	Rva0030CAF8Elem *m_begin14;
-	Rva0030CAF8Elem *m_end18;
+	Rva0030CAF8Elem *m_begin;
+	Rva0030CAF8Elem *m_end;
 };
 
 struct Rva0030CAF8Cursor
@@ -67,24 +67,24 @@ extern "C" __declspec(noinline) bool __cdecl Rva0030CAF8CursorEqual(const Rva003
 	return a.m_store == b.m_store && a.m_index == b.m_index;
 }
 
-void __cdecl Rva0030CAF8Save(Rva0030CAF8Collection *coll, DataChunkOutput *out)
+void __cdecl saveStandingWaveAreas(Rva0030CAF8Collection *coll, DataChunkOutput *out)
 {
 	out->openDataChunk("StandingWaveAreas", 2);
-	int count = (int)(coll->m_end18 - coll->m_begin14);
+	int count = (int)(coll->m_end - coll->m_begin);
 	out->writeInt(count);
 	Rva0030CAF8Cursor endCur;
 	Rva0030CAF8Cursor cur;
 	endCur.m_store = coll;
-	endCur.m_index = (int)(coll->m_end18 - coll->m_begin14);
+	endCur.m_index = (int)(coll->m_end - coll->m_begin);
 	cur.m_store = coll;
 	cur.m_index = 0;
 	if (Rva0030CAF8CursorEqual(cur, endCur) == false)
 	{
 		do
 		{
-			Rva0030CAF8Elem *begin = cur.m_store->m_begin14;
+			Rva0030CAF8Elem *begin = cur.m_store->m_begin;
 			int idx = cur.m_index;
-			Rva0030CAF8Area *area = (Rva0030CAF8Area *)begin[idx].m_ptr04;
+			Rva0030CAF8Area *area = (Rva0030CAF8Area *)begin[idx].m_area;
 			out->writeInt(begin[idx].m_int00);
 			((Rva00537EAD *)area)->rva00537EAD(out);
 			((Rva0030B2FE *)((char *)area + 0x38))->rva0030B2FE(out);

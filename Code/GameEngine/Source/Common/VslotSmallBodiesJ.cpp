@@ -48,7 +48,7 @@ public:
 struct Rva00104DE6Font
 {
 	char m_pad00[0x14];
-	FontCharsClass *m_14;
+	FontCharsClass *m_font;
 };
 class Rva00104DE6
 {
@@ -57,9 +57,9 @@ public:
 	void rva00104DE6(const Rva00104DE6Font *font);
 private:
 	char m_pad00[0x04];
-	Render2DSentenceClass m_04;
+	Render2DSentenceClass m_sentence;
 	char m_pad05[0xC8 - 0x05];
-	Int m_C8;
+	Int m_width;
 	Int m_CC;
 	char m_padD0[0xD4 - 0xD0];
 	Bool m_D4;
@@ -68,12 +68,12 @@ private:
 void Rva00104DE6::rva00104E68(Int left, Int top, Int right, Int bottom)
 {
 	m_D5 = true;
-	m_C8 += right - left;
+	m_width += right - left;
 	m_CC += bottom - top;
 }
 void Rva00104DE6::rva00104DE6(const Rva00104DE6Font *font)
 {
-	m_04.Set_Font(font->m_14);
+	m_sentence.Set_Font(font->m_font);
 	m_D4 = true;
 }
 

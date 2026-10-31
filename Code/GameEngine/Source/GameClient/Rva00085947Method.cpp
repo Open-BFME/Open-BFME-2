@@ -343,7 +343,7 @@ private:
 	unsigned char m_pad074[0xA0 - 0x74];
 	float m_0A0;
 	unsigned char m_pad0A4[0x104 - 0xA4];
-	RenderObjClass *m_p104;
+	RenderObjClass *m_renderObject;
 	unsigned char m_pad108[0x138 - 0x108];
 	float m_138;
 	unsigned char m_pad13C[0x23E8 - 0x13C];
@@ -405,7 +405,7 @@ static int g_00DE2074;
 extern "C" void rva00BB6C15Cleanup();
 Vector3 *Rva00085947::rva00087D42()
 {
-	Vector3 pos = m_p104->Get_Position();
+	Vector3 pos = m_renderObject->Get_Position();
 	if (!(g_00DE2074 & 1)) {
 		g_00DE2074 |= 1;
 		atexit(rva00BB6C15Cleanup);
@@ -438,5 +438,5 @@ void Rva00085947::rva0008D253()
 bool Rva00085947::rva00087CF7(const Rva00087CF7Vec3 *position, float value)
 {
 	Rva00087CF7Vec4 vector(copyRva00087CF7Position(*position), value);
-	return !reinterpret_cast<Rva00087CF7Probe *>(m_p104)->slot129(&vector);
+	return !reinterpret_cast<Rva00087CF7Probe *>(m_renderObject)->slot129(&vector);
 }

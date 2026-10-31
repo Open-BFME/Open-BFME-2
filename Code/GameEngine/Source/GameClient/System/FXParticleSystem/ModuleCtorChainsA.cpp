@@ -79,10 +79,10 @@ extern const void *const g_00C1C404[];
 // The retail table at RVA 0x0081C538: 1 slots, each a rowed code owner (the next
 // word is not a code address or starts another ledger datum).
 extern "C" {
-void __identifier("?rva003AC93E@Rva003AC93ETemplate@@UAEPAVRva003AC93EModule@@I@Z")();
+void __identifier("?CreateModule@Rva003AC93ETemplate@@UAEPAVRva003AC93EModule@@I@Z")();
 }
 extern const void *const g_00C1C538[1] = {
-	(const void *)&__identifier("?rva003AC93E@Rva003AC93ETemplate@@UAEPAVRva003AC93EModule@@I@Z"), // slot 0 0x003AC93E
+	(const void *)&__identifier("?CreateModule@Rva003AC93ETemplate@@UAEPAVRva003AC93EModule@@I@Z"), // slot 0 0x003AC93E
 };
 // The retail table at RVA 0x0081C53C: 7 slots, each a rowed code owner (the next
 // word is not a code address or starts another ledger datum).

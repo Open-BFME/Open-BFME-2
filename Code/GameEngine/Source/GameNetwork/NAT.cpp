@@ -830,7 +830,7 @@ void NAT::generatePortNumbers(GameSlot **slotList, int localSlot)
     }
 }
 
-// tu-skeleton: 0x005A683C 19B ?rva005A683C@Rva005A683C@@QAEXG@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE34.cpp (not merged yet)
+// tu-skeleton: 0x005A683C 19B ?setSlot@Rva005A683C@@QAEXG@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE34.cpp (not merged yet)
 
 // tu-skeleton: 0x005A684F 26B ?get@NAT@@QBEII@Z -- matched in Code/GameEngine/Source/GameNetwork/NATUpdateBfme.cpp (not merged yet)
 

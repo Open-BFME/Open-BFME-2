@@ -49,9 +49,9 @@ private:
     char m_pad7c[0x88 - 0x7c];
     unsigned short m_88;
     char m_pad8a[0x17c - 0x8a];
-    unsigned long m_17c;
+    unsigned long m_state;
     unsigned long m_180;
-    unsigned long m_184;
+    unsigned long m_timeout;
     char m_pad188[0x18c - 0x188];
     unsigned long m_18c;
 };
@@ -62,10 +62,10 @@ bool Rva00595A9F::rva00595A9F()
     m_78 = r;
     if (r == 0) {
         unsigned long now = timeGetTime();
-        if (now - m_180 > m_184) {
+        if (now - m_180 > m_timeout) {
             ((Rva0059534A *)this)->rva0059534A(m_68);
             ((Rva0059534A *)this)->rva0059534A(m_6a);
-            m_17c = 9;
+            m_state = 9;
             return true;
         }
         return false;
@@ -76,9 +76,9 @@ bool Rva00595A9F::rva00595A9F()
         ((Rva0059517F *)this)->sendToManglerFromPort(addr, m_68, m_88, 0x10e2, false);
         ++m_88;
         m_180 = timeGetTime();
-        m_184 = 0xfa0;
+        m_timeout = 0xfa0;
         ((Rva0059517F *)this)->sendToManglerFromPort(m_54, m_6a, m_88, 0x10e1, false);
-        m_17c = 7;
+        m_state = 7;
         return false;
     }
 }
@@ -89,7 +89,7 @@ bool Rva00595A9F::rva00595B97()
     m_7a = r;
     if (r == 0) {
         unsigned long now = timeGetTime();
-        if (now - m_180 > m_184) {
+        if (now - m_180 > m_timeout) {
             ((Rva0059534A *)this)->rva0059534A(m_68);
             ((Rva0059534A *)this)->rva0059534A(m_6a);
         } else {
@@ -100,7 +100,7 @@ bool Rva00595A9F::rva00595B97()
         if ((unsigned int)r != combined)
             m_04 |= 0x80;
     }
-    m_17c = 9;
+    m_state = 9;
     return true;
 }
 
@@ -110,8 +110,8 @@ bool Rva00595A9F::rva0059573C()
     m_7a = r;
     if (r == 0) {
         unsigned long now = timeGetTime();
-        if (now - m_180 > m_184) {
-            m_17c = 9;
+        if (now - m_180 > m_timeout) {
+            m_state = 9;
             return true;
         }
         return false;
@@ -119,19 +119,19 @@ bool Rva00595A9F::rva0059573C()
     ((Rva0059534A *)this)->rva0059534A(m_68);
     if (m_7a == m_68) {
         m_04d |= 1;
-        m_17c = 9;
+        m_state = 9;
         return true;
     }
     m_04d &= ~1u;
-    unsigned long f = m_04d;
+    unsigned long flags = m_04d;
     if (m_78 == m_7a)
-        f |= 2;
+        flags |= 2;
     else
-        f |= 4;
+        flags |= 4;
     m_18c = 0;
     m_88 += 10;
-    m_04d = f;
-    m_17c = 4;
+    m_04d = flags;
+    m_state = 4;
     return false;
 }
 
@@ -144,10 +144,10 @@ bool Rva00595A9F::rva00595685()
     {
         unsigned long now = timeGetTime();
         m_180 = now;
-        m_184 = 0x1770;
+        m_timeout = 0x1770;
         m_7a = 0;
         ((Rva0059517F *)this)->sendToManglerFromPort(m_58, m_68, (unsigned short)(m_88 + 1), 0x10e1, false);
-        m_17c = 3;
+        m_state = 3;
         return false;
     }
 L_check:
@@ -157,13 +157,13 @@ L_check:
         goto L_cleanup;
     {
         unsigned long now = timeGetTime();
-        if (now - m_180 < m_184)
+        if (now - m_180 < m_timeout)
             return false;
     }
 L_cleanup:
     if (m_78 == 0)
         timeGetTime();
     ((Rva0059534A *)this)->rva0059534A(m_68);
-    m_17c = 9;
+    m_state = 9;
     return true;
 }

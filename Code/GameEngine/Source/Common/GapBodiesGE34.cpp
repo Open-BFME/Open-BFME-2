@@ -59,7 +59,7 @@ struct Rva005A6869Entry
 class Rva005A683C
 {
 public:
-	void rva005A683C(unsigned short slot);
+	void setSlot(unsigned short slot);
 	void rva005A6869(short value);
 private:
 	char m_pad[0x0C];
@@ -70,7 +70,7 @@ private:
 	Rva005A6869Entry *m_entries[1];							// +0x90C
 };
 
-void Rva005A683C::rva005A683C(unsigned short slot)
+void Rva005A683C::setSlot(unsigned short slot)
 {
 	if (slot < 8)
 		m_slot = slot;

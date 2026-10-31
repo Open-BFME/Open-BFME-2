@@ -190,11 +190,11 @@ void Rva00072559::rva00072559() { m_44->rva000724D7(&m_1C); }
 class Rva000910E1
 {
 public:
-	void *rva000910E1(unsigned int size, Int);
-	void rva000910EE(void *block, Int);
+	void *allocate(unsigned int size, Int);
+	void deallocate(void *block, Int);
 };
-void *Rva000910E1::rva000910E1(unsigned int size, Int) { return operator new[](size); }
-void Rva000910E1::rva000910EE(void *block, Int) { operator delete[](block); }
+void *Rva000910E1::allocate(unsigned int size, Int) { return operator new[](size); }
+void Rva000910E1::deallocate(void *block, Int) { operator delete[](block); }
 
 // vtable 0x00C35B28#1: 0x00261C89 on the object at +4 of the argument.
 class Rva00261C89

@@ -38,28 +38,28 @@ struct Rva009AB320Tables {
     unsigned short at31fc[3][2][6][64];
     unsigned short at43fc[2][64];
 };
-extern "C" void __cdecl ConvertBoolTrees(Rva009AB320Tables* s)
+extern "C" void __cdecl ConvertBoolTrees(Rva009AB320Tables* tables)
 {
     int plane,group,band;
     for(plane=0;plane<2;++plane) {
-        BoolTreeToHuffCodes(s->at03a0[plane],s->at09c0[plane]);
-        VP6_BuildHuffTree(s->at0a20[plane],s->at09c0[plane],12);
-        VP6_BuildHuffLookupTable(s->at0a20[plane],s->at30fc[plane]);
-        VP6_CreateCodeArray((Rva009B6320Node*)s->at0a20[plane],0,s->at0948[plane],s->at09a8[plane],0,0);
+        BoolTreeToHuffCodes(tables->at03a0[plane],tables->at09c0[plane]);
+        VP6_BuildHuffTree(tables->at0a20[plane],tables->at09c0[plane],12);
+        VP6_BuildHuffLookupTable(tables->at0a20[plane],tables->at30fc[plane]);
+        VP6_CreateCodeArray((Rva009B6320Node*)tables->at0a20[plane],0,tables->at0948[plane],tables->at09a8[plane],0,0);
     }
     for(plane=0;plane<2;++plane) {
-        ZerosBoolTreeToHuffCodes(s->at0560[plane],s->at2f3c[plane]);
-        VP6_BuildHuffTree(s->at2fac[plane],(unsigned*)s->at2f3c[plane],9);
-        VP6_BuildHuffLookupTable(s->at2fac[plane],s->at43fc[plane]);
-        VP6_CreateCodeArray((Rva009B6320Node*)s->at2fac[plane],0,s->at2eb0[plane],s->at2f20[plane],0,0);
+        ZerosBoolTreeToHuffCodes(tables->at0560[plane],tables->at2f3c[plane]);
+        VP6_BuildHuffTree(tables->at2fac[plane],(unsigned*)tables->at2f3c[plane],9);
+        VP6_BuildHuffLookupTable(tables->at2fac[plane],tables->at43fc[plane]);
+        VP6_CreateCodeArray((Rva009B6320Node*)tables->at2fac[plane],0,tables->at2eb0[plane],tables->at2f20[plane],0,0);
     }
     for(group=0;group<3;++group) {
         for(plane=0;plane<2;++plane) {
             for(band=0;band<6;++band) {
-                BoolTreeToHuffCodes(s->at03b6[plane][group][band],s->at13b0[group][plane][band]);
-                VP6_BuildHuffTree(s->at1a70[group][plane][band],s->at13b0[group][plane][band],12);
-                VP6_BuildHuffLookupTable(s->at1a70[group][plane][band],s->at31fc[group][plane][band]);
-                VP6_CreateCodeArray((Rva009B6320Node*)s->at1a70[group][plane][band],0,s->at0b40[group][plane][band],s->at1200[group][plane][band],0,0);
+                BoolTreeToHuffCodes(tables->at03b6[plane][group][band],tables->at13b0[group][plane][band]);
+                VP6_BuildHuffTree(tables->at1a70[group][plane][band],tables->at13b0[group][plane][band],12);
+                VP6_BuildHuffLookupTable(tables->at1a70[group][plane][band],tables->at31fc[group][plane][band]);
+                VP6_CreateCodeArray((Rva009B6320Node*)tables->at1a70[group][plane][band],0,tables->at0b40[group][plane][band],tables->at1200[group][plane][band],0,0);
             }
         }
     }

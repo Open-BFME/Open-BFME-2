@@ -66,7 +66,7 @@ Int Rva00482BB9::update()
 struct Rva00483BA3Data
 {
 	char m_pad00[0x08];
-	UnsignedInt m_08;
+	UnsignedInt m_delay;
 };
 class Rva00483BA3
 {
@@ -82,7 +82,7 @@ private:
 void Rva00483BA3::rva00483BA3()
 {
 	UnsignedInt now = TheGameLogic->getFrame();
-	m_24 = m_moduleData->m_08 + now;
+	m_24 = m_moduleData->m_delay + now;
 	m_28 = m_24;
 }
 

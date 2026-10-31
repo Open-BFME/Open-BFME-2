@@ -11,7 +11,7 @@
 // DeployStyleAIUpdateCtor.cpp); nothing here emits a vtable.
 //
 // The same factory for three sibling templates:
-// ?rva003AC93E@Rva003AC93ETemplate@@UAEPAVRva003AC93EModule@@I@Z, retail
+// ?CreateModule@Rva003AC93ETemplate@@UAEPAVRva003AC93EModule@@I@Z, retail
 // 0x003AC93E (92 bytes): 0xB0-byte module over the rowed 0x0055BCF1
 // (template passed by pointer), vtables 0x00C1C954/0x00C1C950/0x00C1C940.
 // ?rva003ACA24@Rva003ACA24Template@@UAEPAVRva003ACA24Module@@I@Z, retail
@@ -108,14 +108,14 @@ public:
 class Rva003AC93EFactory
 {
 public:
-	virtual Rva003AC93EModule *rva003AC93E(unsigned int arg) = 0;
+	virtual Rva003AC93EModule *CreateModule(unsigned int arg) = 0;
 };
 class Rva003AC93ETemplate : public Rva003AC9AFPrimary, public Rva003AC93EFactory
 {
 public:
-	virtual Rva003AC93EModule *rva003AC93E(unsigned int arg);
+	virtual Rva003AC93EModule *CreateModule(unsigned int arg);
 };
-Rva003AC93EModule *Rva003AC93ETemplate::rva003AC93E(unsigned int arg)
+Rva003AC93EModule *Rva003AC93ETemplate::CreateModule(unsigned int arg)
 {
 	return new Rva003AC93EModule(arg, (const ColorModuleTemplate *)this);
 }

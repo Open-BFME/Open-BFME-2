@@ -19,8 +19,8 @@ extern "C" const void *const __identifier("??_7Rva0060061A@@6B@")[];  // vftable
 // 0x00090FE0; 0x00C6573C has two slots installed at 0x005111FA. The map
 // identifies every slot as a matched body, so keep the retail tables as
 // relocations to those bodies rather than absolute image-address bytes.
-extern "C" void __identifier("?rva000910E1@Rva000910E1@@QAEPAXIH@Z")(void);
-extern "C" void __identifier("?rva000910EE@Rva000910E1@@QAEXPAXH@Z")(void);
+extern "C" void __identifier("?allocate@Rva000910E1@@QAEPAXIH@Z")(void);
+extern "C" void __identifier("?deallocate@Rva000910E1@@QAEXPAXH@Z")(void);
 extern "C" void __identifier("?Create@GameFileClass@@UAEHXZ")(void);
 extern "C" void __identifier("??_GRva0090771@@UAEPAXI@Z")(void);
 extern "C" void __identifier("?rva00511620@Rva005114BD@@UAEXHH@Z")(void);
@@ -28,8 +28,8 @@ extern "C" void __identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAE
 
 extern "C" const void *const vtbl_00BC7F74[] =
 {
-	reinterpret_cast<const void *>(__identifier("?rva000910E1@Rva000910E1@@QAEPAXIH@Z")),
-	reinterpret_cast<const void *>(__identifier("?rva000910EE@Rva000910E1@@QAEXPAXH@Z")),
+	reinterpret_cast<const void *>(__identifier("?allocate@Rva000910E1@@QAEPAXIH@Z")),
+	reinterpret_cast<const void *>(__identifier("?deallocate@Rva000910E1@@QAEXPAXH@Z")),
 	reinterpret_cast<const void *>(__identifier("?Create@GameFileClass@@UAEHXZ")),
 	reinterpret_cast<const void *>(__identifier("?Create@GameFileClass@@UAEHXZ")),
 	reinterpret_cast<const void *>(__identifier("??_GRva0090771@@UAEPAXI@Z"))

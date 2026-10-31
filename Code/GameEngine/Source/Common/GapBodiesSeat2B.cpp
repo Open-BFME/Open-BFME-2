@@ -73,7 +73,7 @@ private:
 
 // --- 0x000B2B7C (11B): scales its argument by 0.001 (the constant at
 // VA 0x00BC28F8), e.g. milliseconds to seconds.
-float Rva000B2B7CScale(float value)
+float millisecondsToSeconds(float value)
 {
 	return value * 0.001f;
 }

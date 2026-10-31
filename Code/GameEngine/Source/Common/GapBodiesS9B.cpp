@@ -231,15 +231,15 @@ public:
 	void rva004EC06A(void *p);
 private:
 	char m_pad00[0x38];
-	AIUnitBuilder m_38;
+	AIUnitBuilder m_unitBuilder;
 };
 
 void Rva004EC062::rva004EC062(ObjectID id)
 {
-	m_38.registerUnitFactory(id);
+	m_unitBuilder.registerUnitFactory(id);
 }
 
 void Rva004EC062::rva004EC06A(void *p)
 {
-	((Rva00598149 *)&m_38)->rva00598149(p);
+	((Rva00598149 *)&m_unitBuilder)->rva00598149(p);
 }
