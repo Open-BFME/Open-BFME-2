@@ -29265,7 +29265,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0039D4D8,35,code,Code/GameEngine/Source/Common/RTS/Team.cpp,approved,S,S=Code/GameEngine/Source/Common/RTS/Team.cpp N=Code/GameEngine/Source/Common/RTS/TeamPrototype.cpp,Code/GameEngine/Source/Common/RTS/Team.cpp
 0x0039D4FB,42,code,Code/GameEngine/Source/Common/RTS/Team.cpp,approved,S,S=Code/GameEngine/Source/Common/RTS/Team.cpp N=Code/GameEngine/Source/Common/RTS/TeamPrototype.cpp,Code/GameEngine/Source/Common/RTS/Team.cpp
 0x0039D525,7,code,Code/GameEngine/Source/Common/RTS/Team.cpp,approved,C,C=0x0039D4FB..0x0039D52C,Code/GameEngine/Source/Common/RTS/Team.cpp
-0x0039D52C,7,code,Code/GameEngine/Source/Common/RTS/Team.cpp,approved,C,C=0x0039D4FB..0x0039D533,Code/GameEngine/Source/Common/DispByteFieldGetters.cpp
+0x0039D52C,7,code,Code/GameEngine/Source/Common/RTS/Team.cpp,approved,C,C=0x0039D4FB..0x0039D533,Code/GameEngine/Source/Common/RTS/Team.cpp
 0x0039D533,102,code,Code/GameEngine/Source/Common/RTS/Team.cpp,approved,C,C=0x0039D4FB..0x0039D599,Code/GameEngine/Source/Common/RTS/Team.cpp
 0x0039D599,16,code,Code/GameEngine/Source/Common/RTS/Team.cpp,approved,C,C=0x0039D4FB..0x0039D5A9,Code/GameEngine/Source/Common/RTS/TeamTemplateInfoXfer.cpp
 0x0039D5A9,24,code,Code/GameEngine/Source/Common/RTS/Team.cpp,approved,C,C=0x0039D4FB..0x0039D5C1,Code/GameEngine/Source/Common/RTS/Team.cpp

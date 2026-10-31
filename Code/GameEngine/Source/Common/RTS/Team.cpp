@@ -971,6 +971,18 @@ struct RetailTeamRelationMap
 	{ \
 		m_counter = 0; \
 	}
+#define BFME_DISP_BYTE_GETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		unsigned char get() const; \
+		char m_lead[DISP]; \
+		unsigned char m_value; \
+	}; \
+	unsigned char NAME::get() const \
+	{ \
+		return m_value; \
+	}
 
 // ?rva0039D8BA@Team@@QAEXPAVObject@@@Z @0x0039D8BA (18B).
 // Team::rva0039D8BA(Object*): sets Team+0x5c entered flag then refreshes the
@@ -1696,7 +1708,31 @@ BFME_ASCII_FIELD_SETTER(Rva0039D91FStringField, 0x318)
 
 BFME_DISP32_DWORD_CLEAR(Rva0039D761DwordClearer, 0x1D8)
 
+class MilesAudioManager
+{
+public:
+    virtual unsigned char rva000515A4() const;
+    virtual unsigned char rva00051896() const;
+    char m_lead[0x6A3 - sizeof(void *)];
+    unsigned char m_6A3;
+    char m_pad6A4[2];
+    unsigned char m_6A6;
+};
+
+BFME_DISP_BYTE_GETTER(Rva0039D52CByteField, 0x5E6)
+
+// BF1 9cbfb551fe Common/Rva005BD470ZeroTest.cpp is the clean semantic donor.
+// Full native leaf 001F350B..001F3513 ends at its own RET boundary.
+// Target evidence: receiver0C dword equals two; result in AL.
+// Original owner unresolved; the address-owned type is independent of nearby classes.
+class Rva001F350BFields {
+public: unsigned char isTwo() const;
+private: char unknown[0x0C]; unsigned int value;
+};
+
 // tu-skeleton: 0x0039D40F 26B ?dlink_isInList_TeamInstanceList@Team@@QBE_NPBQAV1@@Z -- matched in Code/GameEngine/Source/Common/Team_dlink_isInList_TeamInstanceList.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/RTS/Team.cpp
 
 // ---- from Code/GameEngine/Source/Common/RTS/Team.cpp
 
@@ -3704,11 +3740,8 @@ void Team::rva003A38E9(const AsciiString &keyName, unsigned char stateWord)
 // field purposes are unknown, so each gets a per-address name, and no
 // referencing site was found for these in this pass.
 
-// tu-skeleton: 0x0039D52C 7B ?get@Rva0039D52CByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/DispByteFieldGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x0039D599 16B ?Rva0039D599TestBit@@YAHIH@Z -- matched in Code/GameEngine/Source/Common/RTS/TeamTemplateInfoXfer.cpp (not merged yet)
 
-// tu-skeleton: 0x0039D5C1 323B ?xfer@TeamTemplateInfo@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/RTS/TeamTemplateInfoXfer.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Disp32DwordClearers2.cpp
 
@@ -3724,6 +3757,30 @@ void Team::rva003A38E9(const AsciiString &keyName, unsigned char stateWord)
 // disp32. Sibling TU to the field-clearer family, kept separate to avoid
 // churning a live file. Identity is not recovered: every name is derived
 // from its address.
+
+// ---- from Code/GameEngine/Source/Common/DispByteFieldGetters.cpp
+
+// Disp32 byte getters: seven-byte __thiscall members with one shape:
+//
+//     mov al,[ecx+<DISP>] / ret
+//
+// One BYTE is read at a fixed displacement from `this` and left in al. The
+// return type is spelled `unsigned char` because only al is written and the
+// upper bytes of eax are left holding whatever the caller had; the bytes
+// cannot distinguish it from `signed char`, `bool` or a one-byte enum.
+//
+// Every displacement here is a disp32 (MSVC 7.1 uses disp8 whenever the
+// offset fits, so every offset is at least 0x80), which is why this family
+// is separable from the far larger disp8 one. Members before the accessed
+// one are spelled as a lead array because their types are not witnessed
+// here, only their total size. Identity is not recovered: every name is
+// derived from its address (BFME1 pioneered the same family in
+// reference/open-bfme-1/Code/GameEngine/Source/Common/DispByteFieldGetters.cpp).
+// No // cl: line (defaults match the frameless 7-byte shape).
+
+// tu-skeleton: 0x0039D599 16B ?Rva0039D599TestBit@@YAHIH@Z -- matched in Code/GameEngine/Source/Common/RTS/TeamTemplateInfoXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x0039D5C1 323B ?xfer@TeamTemplateInfo@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/RTS/TeamTemplateInfoXfer.cpp (not merged yet)
 
 // tu-skeleton: 0x0039D7C8 7B ?get@Rva0039D7C8LeaGetter@@QBEPAXXZ -- matched in Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp (not merged yet)
 
