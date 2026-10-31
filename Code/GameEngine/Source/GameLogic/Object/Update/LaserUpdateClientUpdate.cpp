@@ -7,6 +7,7 @@
 // retail SSE operand order; all endpoint updates and handle cleanups are retained.
 // Target measured deltas: GameClient frame31/find16/destroy29; Object geometry+A8.
 // Handle return/assignment use existing BFME2 12-byte call views and conditional cleanup.
+#include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
 #include "ascii_string.h"
 #include "Code/Libraries/Include/Lib/Coord3D.h"
 class GeometryInfo { public: float getMaxHeightAbovePosition() const; };
@@ -20,15 +21,16 @@ public:
     char m_unmodelled_000[0xa8];
     const GeometryInfo &getGeometryInfo() const { return *(const GeometryInfo *)((const char *)this+0xa8); }
 };
-class Drawable {
+class Drawable
+{
 public:
-    bool rva00272835(int, int);
- __forceinline bool getCurrentWorldspaceClientBonePositions(const char *name, Matrix3D &matrix) const { return const_cast<Drawable *>(this)->rva00272835(reinterpret_cast<int>(name),reinterpret_cast<int>(&matrix)); }
-    void setPosition(const Coord3D *);
-    const Coord3D *getPosition() const;
-    char m_unmodelled_000[0xfc];
-    Rva00603BB0ObjectView *m_object;
-    Rva00603BB0ObjectView *getObject() const { return m_object; }
+	bool rva00272835(int, int);
+	__forceinline bool getCurrentWorldspaceClientBonePositions(const char *name, Matrix3D &matrix) const { return const_cast<Drawable *>(this)->rva00272835(reinterpret_cast<int>(name),reinterpret_cast<int>(&matrix)); }
+	void setPosition(const Coord3D *);
+	const Coord3D *getPosition() const;
+	Rva00603BB0ObjectView *getObject() const { return m_object; }
+	char m_unmodelled_000[0xfc]; // +0x00
+	Rva00603BB0ObjectView *m_object; // +0xFC
 };
 class GameClient {
 public:
@@ -44,40 +46,79 @@ public:
     virtual void slot30(); virtual unsigned getFrame();
 };
 extern GameClient *TheGameClient;
+enum ParticleSystemID { INVALID_PARTICLE_SYSTEM_ID=0 };
 struct Rva001F3899Arg { float x,y,z; };
 class Rva001F3899Slot { public: void set(const Rva001F3899Arg &); };
-class ParticleSystem { public: __forceinline void setPosition(const Coord3D *pos) { reinterpret_cast<Rva001F3899Slot *>(this)->set(*reinterpret_cast<const Rva001F3899Arg *>(pos)); } };
-class RvaSmartPtr12 {
-	public: void rva0004CBC0() throw(); // 0x0004CBC0, the unlink the inline dtor null test calls
-private:
- public: RvaSmartPtr12 &operator=(const RvaSmartPtr12 &) throw(); };
-struct BfmeParticleSystemHandle { ~BfmeParticleSystemHandle() throw(); ParticleSystem *m_system; void *m_previous,*m_next; };
-struct BfmeW3DParticleHandle {
- BfmeW3DParticleHandle():m_system(0),m_previous(0),m_next(0) {}
- __forceinline ~BfmeW3DParticleHandle() throw() { if(m_system) reinterpret_cast<RvaSmartPtr12 *>(this)->rva0004CBC0(); }
- BfmeW3DParticleHandle &operator=(const BfmeW3DParticleHandle &other) throw() {
-  *((RvaSmartPtr12 *)this)=*((const RvaSmartPtr12 *)&other);return *this;
- }
- ParticleSystem *m_system; void *m_previous,*m_next;
+class ParticleSystem
+{
+public:
+	__forceinline void setPosition(const Coord3D *pos) { reinterpret_cast<Rva001F3899Slot *>(this)->set(*reinterpret_cast<const Rva001F3899Arg *>(pos)); }
+	char m_pad00[0xA8];
+	ParticleSystemID m_systemID; // +0xA8 +0xA8, verified by native initLaser loads.
 };
-enum ParticleSystemID { INVALID_PARTICLE_SYSTEM_ID=0 };
-class ParticleSystemManager {
-private: BfmeW3DParticleHandle findParticleSystemByID(ParticleSystemID);
-    friend class LaserUpdate;
+class RvaSmartPtr12
+{
+public:
+	void rva0004CBC0() throw(); // 0x0004CBC0, the unlink the inline dtor null test calls
+	RvaSmartPtr12 &operator=(const RvaSmartPtr12 &) throw();
+};
+class BfmeParticleSystemHandle
+{
+public:
+	BfmeParticleSystemHandle():m_system(0),m_previous(0),m_next(0) {}
+	__forceinline ~BfmeParticleSystemHandle() throw() { if(m_system) ((RvaSmartPtr12 *)this)->rva0004CBC0(); }
+	BfmeParticleSystemHandle &operator=(const BfmeParticleSystemHandle &other) throw() {
+	 *((RvaSmartPtr12 *)this)=*((const RvaSmartPtr12 *)&other);return *this;
+	}
+	ParticleSystem *m_system; // +0x00
+	void *m_previous; // +0x04
+	void *m_next; // +0x08
+};
+class ParticleSystemTemplate;
+class AsciiString;
+class ParticleSystemManager
+{
+private:
+	friend class LaserUpdate;
+public:
+	void destroyParticleSystemByID(ParticleSystemID id);
+private:
+	BfmeParticleSystemHandle findParticleSystemByID(ParticleSystemID);
+public:
+	ParticleSystemTemplate *findTemplate(const AsciiString &) const;
+	BfmeParticleSystemHandle createParticleSystem(const ParticleSystemTemplate *,bool);
 };
 extern ParticleSystemManager *TheParticleSystemManager;
-class LaserUpdateModuleData {
+class __declspec(novtable) LaserUpdateModuleData : public Snapshot {
 public:
-    char m_unmodelled_00[8];
+    virtual ~LaserUpdateModuleData();
+    unsigned char m_pad[0x08 - 4];
     AsciiString m_particleSystemName;
     AsciiString m_parentFireBoneName;
+    bool m_parentFireBoneOnTurret;
+    unsigned char m_pad11[3];
+    AsciiString m_targetParticleSystemName;
+    float m_rva00603FE0LifetimeMsec;
 };
-class LaserUpdate {
+enum NameKeyType { NK_UNKNOWN = 0 };
+class Object;
+class Rva0049B47C {
 public:
-    virtual void clientUpdate();
- Drawable *getDrawable() const { return m_drawable; }
+    virtual ~Rva0049B47C();
+protected:
     const LaserUpdateModuleData *m_moduleData;
     Drawable *m_drawable;
+};
+class LaserUpdate : public Rva0049B47C {
+public:
+    virtual ~LaserUpdate();
+    virtual void clientUpdate();
+    Drawable *getDrawable() const { return m_drawable; }
+    const LaserUpdateModuleData *getLaserUpdateModuleData() const { return m_moduleData; }
+    float getCurrentLaserRadius() const;
+    void initLaser(const Object *parent, const Coord3D *startPos, const Coord3D *endPos, int sizeDeltaFrames);
+    void initFromDrawables(void *primary, Drawable *parent, Drawable *target, void *d);
+    static NameKeyType rva000363102();
     Coord3D m_startPos, m_endPos;
     bool m_dirty;
     char m_pad25[3];
@@ -131,7 +172,7 @@ expired:
             }
             coordSet(&m_endPos,target->getPosition());
             m_endPos.z+=target->getObject()->getGeometryInfo().getMaxHeightAbovePosition()*0.83f;
-            BfmeW3DParticleHandle system;
+            BfmeParticleSystemHandle system;
             if(m_particleSystemID) {
                 system=TheParticleSystemManager->findParticleSystemByID(m_particleSystemID);
                 if(system.m_system) system.m_system->setPosition(&m_startPos);

@@ -8,10 +8,11 @@
 // Module layout carried from BFME1, corroborated by native field accesses.
 // Bone-on-turret callee identity uses native Object drawable/AI guards and
 // pristine-bone/turret-transform spine; WB's automatic Matrix3D pairing is not evidence.
+#include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
 #include "ascii_string.h"
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 class GeometryInfo { public: float getMaxHeightAbovePosition() const; };
-#include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
+class Matrix3D;
 static inline void coordSet(Coord3D *to,const Coord3D *from) {to->x=from->x;to->y=from->y;to->z=from->z;}
 static inline void coordSet(Coord3D *to,float x,float y,float z) {to->x=x;to->y=y;to->z=z;}
 static inline void coordAdd(Coord3D *to,const Coord3D *from) {to->x=to->x+from->x;to->y=to->y+from->y;to->z=to->z+from->z;}
@@ -21,16 +22,16 @@ public:
     char m_unmodelled_000[0xa8];
     const GeometryInfo &getGeometryInfo() const { return *(const GeometryInfo *)((const char *)this+0xa8); }
 };
-class BFMERopeDrawable { public: const Coord3D *getPosition() const; };
-class Drawable {
+class Drawable
+{
 public:
-    bool rva00272835(int, int);
- __forceinline bool getCurrentWorldspaceClientBonePositions(const char *name, Matrix3D &matrix) const { return const_cast<Drawable *>(this)->rva00272835(reinterpret_cast<int>(name),reinterpret_cast<int>(&matrix)); }
-    void setPosition(const Coord3D *);
-    const Coord3D *getPosition() const { return ((const BFMERopeDrawable *)this)->getPosition(); }
-    char m_unmodelled_000[0xfc];
-    Rva00603BB0ObjectView *m_object;
-    Rva00603BB0ObjectView *getObject() const { return m_object; }
+	bool rva00272835(int, int);
+	__forceinline bool getCurrentWorldspaceClientBonePositions(const char *name, Matrix3D &matrix) const { return const_cast<Drawable *>(this)->rva00272835(reinterpret_cast<int>(name),reinterpret_cast<int>(&matrix)); }
+	void setPosition(const Coord3D *);
+	const Coord3D *getPosition() const;
+	Rva00603BB0ObjectView *getObject() const { return m_object; }
+	char m_unmodelled_000[0xfc]; // +0x00
+	Rva00603BB0ObjectView *m_object; // +0xFC
 };
 class GameClient {
 public:
@@ -50,46 +51,73 @@ extern float BfmeClientFramesPerMillisecond; // Existing frame/millisecond scala
 enum ParticleSystemID { INVALID_PARTICLE_SYSTEM_ID=0 };
 struct Rva001F3899Arg { float x,y,z; };
 class Rva001F3899Slot { public: void set(const Rva001F3899Arg &); };
-class ParticleSystem { public:
- char m_unknown00[0xA8];
- ParticleSystemID m_systemID; // +0xA8, verified by native initLaser loads.
- __forceinline void setPosition(const Coord3D *pos) { reinterpret_cast<Rva001F3899Slot *>(this)->set(*reinterpret_cast<const Rva001F3899Arg *>(pos)); } };
-class RvaSmartPtr12 { public: RvaSmartPtr12 &operator=(const RvaSmartPtr12 &) throw(); void rva0004CBC0() throw(); };
-class BfmeParticleSystemHandle { public:
- BfmeParticleSystemHandle():m_system(0),m_previous(0),m_next(0) {}
- __forceinline ~BfmeParticleSystemHandle() throw() { if(m_system) ((RvaSmartPtr12 *)this)->rva0004CBC0(); }
- BfmeParticleSystemHandle &operator=(const BfmeParticleSystemHandle &other) throw() {
-  *((RvaSmartPtr12 *)this)=*((const RvaSmartPtr12 *)&other);return *this;
- }
- ParticleSystem *m_system; void *m_previous,*m_next;
+class ParticleSystem
+{
+public:
+	__forceinline void setPosition(const Coord3D *pos) { reinterpret_cast<Rva001F3899Slot *>(this)->set(*reinterpret_cast<const Rva001F3899Arg *>(pos)); }
+	char m_pad00[0xA8];
+	ParticleSystemID m_systemID; // +0xA8 +0xA8, verified by native initLaser loads.
+};
+class RvaSmartPtr12
+{
+public:
+	void rva0004CBC0() throw(); // 0x0004CBC0, the unlink the inline dtor null test calls
+	RvaSmartPtr12 &operator=(const RvaSmartPtr12 &) throw();
+};
+class BfmeParticleSystemHandle
+{
+public:
+	BfmeParticleSystemHandle():m_system(0),m_previous(0),m_next(0) {}
+	__forceinline ~BfmeParticleSystemHandle() throw() { if(m_system) ((RvaSmartPtr12 *)this)->rva0004CBC0(); }
+	BfmeParticleSystemHandle &operator=(const BfmeParticleSystemHandle &other) throw() {
+	 *((RvaSmartPtr12 *)this)=*((const RvaSmartPtr12 *)&other);return *this;
+	}
+	ParticleSystem *m_system; // +0x00
+	void *m_previous; // +0x04
+	void *m_next; // +0x08
 };
 
 class ParticleSystemTemplate;
-class ParticleSystemManager {
+class ParticleSystemManager
+{
+private:
+	friend class LaserUpdate;
 public:
- ParticleSystemTemplate *findTemplate(const AsciiString &) const;
- BfmeParticleSystemHandle createParticleSystem(const ParticleSystemTemplate *,bool);
-private: BfmeParticleSystemHandle findParticleSystemByID(ParticleSystemID);
-    friend class LaserUpdate;
+	void destroyParticleSystemByID(ParticleSystemID id);
+private:
+	BfmeParticleSystemHandle findParticleSystemByID(ParticleSystemID);
+public:
+	ParticleSystemTemplate *findTemplate(const AsciiString &) const;
+	BfmeParticleSystemHandle createParticleSystem(const ParticleSystemTemplate *,bool);
 };
 extern ParticleSystemManager *TheParticleSystemManager;
-class LaserUpdateModuleData {
+class __declspec(novtable) LaserUpdateModuleData : public Snapshot {
 public:
-    char m_unmodelled_00[8];
+    virtual ~LaserUpdateModuleData();
+    unsigned char m_pad[0x08 - 4];
     AsciiString m_particleSystemName;
     AsciiString m_parentFireBoneName;
- bool m_parentFireBoneOnTurret; char m_pad11[3];
+ bool m_parentFireBoneOnTurret; unsigned char m_pad11[3];
  AsciiString m_targetParticleSystemName; float m_rva00603FE0LifetimeMsec;
 };
+enum NameKeyType { NK_UNKNOWN = 0 };
 class Object;
-class LaserUpdate {
+class Rva0049B47C {
 public:
-    virtual void clientUpdate();
+    virtual ~Rva0049B47C();
+protected:
+    const LaserUpdateModuleData *m_moduleData;
+    Drawable *m_drawable;
+};
+class LaserUpdate : public Rva0049B47C {
+public:
+    virtual ~LaserUpdate();
  Drawable *getDrawable() const { return m_drawable; }
     const LaserUpdateModuleData *getLaserUpdateModuleData() const { return m_moduleData; }
+    float getCurrentLaserRadius() const;
  void initLaser(const Object *parent,const Coord3D *startPos,const Coord3D *endPos,int sizeDeltaFrames);
- const LaserUpdateModuleData *m_moduleData;
-    Drawable *m_drawable;
+    void initFromDrawables(void *primary, Drawable *parent, Drawable *target, void *d);
+    static NameKeyType rva000363102();
     Coord3D m_startPos, m_endPos;
     bool m_dirty;
     char m_pad25[3];

@@ -24,22 +24,69 @@ public:
 };
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/Drawable.h
+class Matrix3D;
+class Rva00603BB0ObjectView;
 class Drawable
 {
 public:
+	bool rva00272835(int, int);
+	__forceinline bool getCurrentWorldspaceClientBonePositions(const char *name, Matrix3D &matrix) const { return const_cast<Drawable *>(this)->rva00272835(reinterpret_cast<int>(name),reinterpret_cast<int>(&matrix)); }
+	void setPosition(const Coord3D *);
 	const Coord3D *getPosition() const;
+	Rva00603BB0ObjectView *getObject() const { return m_object; }
+	char m_unmodelled_000[0xfc]; // +0x00
+	Rva00603BB0ObjectView *m_object; // +0xFC
+};
+
+enum ParticleSystemID
+{
+	INVALID_PARTICLE_SYSTEM_ID = 0
+};
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
+class LaserUpdateModuleData;
+
+class Rva0049B47C
+{
+public:
+	virtual ~Rva0049B47C();
+
+protected:
+	const LaserUpdateModuleData *m_moduleData;
+	Drawable *m_drawable;
 };
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/LaserUpdate.h
-class LaserUpdate
+class LaserUpdate : public Rva0049B47C
 {
 public:
-	void initFromDrawables(void *primary, Drawable *parent, Drawable *target, void *d);
+	virtual ~LaserUpdate();
+	Drawable *getDrawable() const { return m_drawable; }
+	const LaserUpdateModuleData *getLaserUpdateModuleData() const { return m_moduleData; }
+	float getCurrentLaserRadius() const;
 	void initLaser(const Object *primary, const Coord3D *parentPos,
 		const Coord3D *targetPos, int sizeDeltaFrames);
+	void initFromDrawables(void *primary, Drawable *parent, Drawable *target, void *d);
+	static NameKeyType rva000363102();
 
-private:
-	char m_pad00[0x4C];
+	Coord3D m_startPos;
+	Coord3D m_endPos;
+	bool m_dirty;
+	char m_pad25[3];
+	ParticleSystemID m_particleSystemID;
+	ParticleSystemID m_targetParticleSystemID;
+	bool m_widening;
+	bool m_decaying;
+	char m_pad32[2];
+	unsigned m_widenStartFrame;
+	unsigned m_widenFinishFrame;
+	float m_currentWidthScalar;
+	unsigned m_decayStartFrame;
+	unsigned m_decayFinishFrame;
+	unsigned m_rva00603BB0ExpiryFrame;
 	unsigned m_parentID;
 	unsigned m_targetID;
 };
