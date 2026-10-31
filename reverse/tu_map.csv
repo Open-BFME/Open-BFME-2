@@ -6590,7 +6590,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x000BCFF9,189,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pod24_overflow.cpp
 0x000BD0B6,165,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_map_namekey_pristinebone.cpp
 0x000BD15B,189,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlportFixedObject60Vector.cpp
-0x000BD218,23,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorListCleanup.cpp
+0x000BD218,23,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp
 0x000BD22F,27,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_find_asciistring.cpp
 0x000BD24A,30,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_pod_list_bodies.cpp
 0x000BD268,37,code,,,-,,Code/GameEngine/Source/Common/Rva000BC834Write.cpp
@@ -6607,7 +6607,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x000BDAE1,18,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_map_namekey_pristinebone.cpp
 0x000BDAF3,55,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlportFixedObject60Vector.cpp
 0x000BDB2A,18,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_pod_list_bodies.cpp
-0x000BDB3C,5,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorListCleanup.cpp
+0x000BDB3C,5,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp
 0x000BDB41,5,code,,,-,,Code/GameEngine/Source/Common/Rva0055A7DBTess.cpp
 0x000BDB46,180,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlportAsciiStringVectorAssign.cpp
 0x000BDBFA,115,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva000BDBFA.cpp
@@ -35844,15 +35844,15 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x004572B1,141,code,Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp S=Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp N=Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp,Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorOnHealing.cpp
 0x0045733E,150,code,Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp S=Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp N=Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp W=Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp,Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorRemoveScaffolding.cpp
 0x004573D4,75,code,Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp S=Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp N=Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp,Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorIsScaffoldInMotion.cpp
-0x0045741F,34,code,Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp,approved,C,C=0x004573D4..0x00457441,Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorListOperations.cpp
-0x00457441,49,code,Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp,approved,C,C=0x004573D4..0x00457472,Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorListCleanup.cpp
+0x0045741F,34,code,Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp,approved,C,C=0x004573D4..0x00457441,Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp
+0x00457441,49,code,Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp,approved,C,C=0x004573D4..0x00457472,Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp
 0x00457472,196,code,Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp S=Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp N=Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp,Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorCtor.cpp
 0x00457536,28,code,Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp,Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorDtor.cpp
-0x00457552,37,code,Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp,approved,C,C=0x00457536..0x00457577,Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorListOperations.cpp
+0x00457552,37,code,Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp,approved,C,C=0x00457536..0x00457577,Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp
 0x00457577,448,code,Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp S=Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp N=Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp,Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorHandleObjectsOnBridgeOnDie.cpp
 0x00457737,1851,code,Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp S=Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp N=Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp W=Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp,Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorCreateScaffolding.cpp
 0x00457E72,357,code,Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp S=Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp N=Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp,Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorXfer.cpp
-0x00457FD7,26,code,Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp,approved,C,C=0x00457E72..0x00457FF1,Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorListOperations.cpp
+0x00457FD7,26,code,Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp,approved,C,C=0x00457E72..0x00457FF1,Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp
 0x00457FF1,89,code,Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp N=Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp,Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorModuleDataCtor.cpp
 0x0045804A,95,code,Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp N=Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp,Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorModuleDataDtor.cpp
 0x004580A9,170,code,Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp S=Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp N=Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp,Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorParseFX.cpp

@@ -10659,11 +10659,9 @@ pragma_optimize	Code/GameEngine/Source/GameLogic/Map/SidesList.cpp	"t",on	3
 pragma_optimize	Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp	"s",off	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp	"t",on	1
-pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp	"",on	3
-pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp	"gsy",on	1
+pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp	"",on	4
+pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp	"gsy",on	2
 pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp	"s",on	2
-pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorListCleanup.cpp	"",on	1
-pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorListCleanup.cpp	"gsy",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorParseFX.cpp	"",on	2
 pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorParseFX.cpp	"s",off	2
 pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorParseFX.cpp	"t",on	2
