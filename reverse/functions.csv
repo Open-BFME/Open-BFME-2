@@ -10139,7 +10139,7 @@ _read_word,,0x0074A700,184,Code/Libraries/Source/Lua/liolib_bfme1.c,matched,stri
 ??1BufferedFileClass@@UAE@XZ,,0x0061AF60,102,Code/Libraries/Source/WWVegas/WWLib/bufffile.cpp,matched,zh-sweep exact-unique placement in unclaimed text; ZH donor verbatim
 ?Close@BufferedFileClass@@UAEXXZ,,0x0061AFD0,42,Code/Libraries/Source/WWVegas/WWLib/bufffile.cpp,matched,zh-sweep exact-unique placement in unclaimed text; ZH donor verbatim
 ?Seek@BufferedFileClass@@UAEHHH@Z,,0x0061B000,113,Code/Libraries/Source/WWVegas/WWLib/bufffile.cpp,matched,placed by masked whole-text search of the compiled body; ZH donor verbatim
-?parseWaypointData@TerrainLogic@@IAE_NAAVDataChunkInput@@PAUDataChunkInfo@@PAX@Z,,0x0027FFF3,60,Code/GameEngine/Source/GameLogic/Map/TerrainLogic_parseWaypointData.cpp,matched,ZH TerrainLogic donor verbatim; NDEBUG drops end-of-chunk assert
+?parseWaypointData@TerrainLogic@@IAE_NAAVDataChunkInput@@PAUDataChunkInfo@@PAX@Z,,0x0027FFF3,60,Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp,matched,ZH TerrainLogic donor verbatim; NDEBUG drops end-of-chunk assert
 _str_byte,,0x00748D60,136,Code/Libraries/Source/Lua/lstrlib.c,matched,vendored=lua-4.0.1; obj_sweep rel32 alias; object-symbol=_str_byte; Lua lstrlib static compiles to retail span
 ?set@Rva0038895EDwordSlot@@QAEXH@Z,,0x0038895E,13,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp,matched,Disp32 dword setter
 ?enable@Rva0038896BByteOneSetter@@QAEXXZ,,0x0038896B,8,Code/GameEngine/Source/Common/DispByteOneSetters.cpp,matched,Disp32 byte one-setter
@@ -35867,7 +35867,7 @@ uw_0075c910,,0x0075C910,8,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_str
 ?Rva002AADB6Compare@@YAHPAVRva002AADB6Reader@@0H@Z,,0x002AADB6,135,Code/GameEngine/Source/Common/Rva002AADB6Compare.cpp,matched,chunked compare over two reader adaptors; cmovl needs /arch:SSE
 ?rva00421A16@Rva00421A16@@QAE_NPBM0@Z,,0x00421A16,53,Code/Libraries/Source/WWVegas/WWLib/Rva00421A16DistCompare.cpp,matched,nearer-point comparator over squared distance 0x4219F4; fcompi needs /arch:SSE
 ?rva005490AE@Rva005490D2@@QBEHXZ,,0x005490AE,36,Code/GameEngine/Source/GameLogic/AI/AIGroupFormations.cpp,matched,max sibling of 0x5490D2 sum over +0x564; cmovg needs /arch:SSE
-?addWaypointLink@TerrainLogic@@IAEXHH@Z,,0x0027F009,150,Code/GameEngine/Source/GameLogic/Map/TerrainLogic_parseWaypointData.cpp,matched,ZH addWaypointLink with BFME link count read once per waypoint; cmove needs /arch:SSE
+?addWaypointLink@TerrainLogic@@IAEXHH@Z,,0x0027F009,150,Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp,matched,ZH addWaypointLink with BFME link count read once per waypoint; cmove needs /arch:SSE
 ?rva0058ADD0@Rva0058ADD0@@QAE_NPAX_N1@Z,,0x0058ADD0,78,Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISPecialPower.cpp,matched,coin flip before vslot 6; AISPecialPower.cpp line 94 by retail __FILE__ literal; fcompi needs /arch:SSE
 ?slot00@Rva0023DB34@@UAEHPAXH@Z,,0x00306C15,45,Code/GameEngine/Source/Common/System/DataChunk.cpp,matched,memory chunk stream read as slot 0 of VA 0xBEDAA8; cmovg needs /arch:SSE
 ?Flash@ChecklistUIItemMovieClip@StrategicHUD@@QAEXXZ,,0x005D4118,41,Code/GameEngine/Source/Common/Rva005D40A6Dtor.cpp,matched,"flash apt call via EmptyString fallback and rowed AptCall caller 0x0057A37D; name per WorldBuilder StrategicHUD::ChecklistUIItemMovieClip::Flash (lead strings); retail evidence: it calls the same ""Flash"" Apt function as the WB twin; its slot forwarder binds the new name"

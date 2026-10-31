@@ -96,19 +96,6 @@ protected:
 	void addWaypointLink(Int id1, Int id2);
 };
 
-// ?parseWaypointData@TerrainLogic@@IAE_NAAVDataChunkInput@@PAUDataChunkInfo@@PAX@Z
-bool TerrainLogic::parseWaypointData(DataChunkInput &file, DataChunkInfo *info, void *userData)
-{
-	Int numWaypointLinks = file.readInt();
-	Int i;
-	for (i = 0; i < numWaypointLinks; i++) {
-		Int waypoint1 = file.readInt();
-		Int waypoint2 = file.readInt();
-		addWaypointLink(waypoint1, waypoint2);
-	}
-	return true;
-}
-
 // ?readInt@DataChunkInput@@QAEHXZ @0x00306E78
 Int DataChunkInput::readInt()
 {
@@ -116,45 +103,4 @@ Int DataChunkInput::readInt()
 	m_reader->read(&value, 4);
 	consume(4);
 	return value;
-}
-
-// ?addWaypointLink@TerrainLogic@@IAEXHH@Z @0x0027F009 150B
-// Zero Hour's addWaypointLink, except that BFME 2 reads each waypoint's link
-// count once before scanning its links: retail keeps the count in EDI and
-// the index in the dead id1 home. getFirstWaypoint is virtual slot 33
-// (+0x84); getLink 0x00085404 and addLink 0x00272306 are rowed. Retail picks
-// the two matching waypoints with cmove, which MSVC 7.1 emits only under
-// /arch:SSE; parseWaypointData and readInt are unchanged by that flag.
-void TerrainLogic::addWaypointLink(Int id1, Int id2)
-{
-	Waypoint *pWay1 = 0;
-	Waypoint *pWay2 = 0;
-	Waypoint *pWay;
-	for (pWay = getFirstWaypoint(); pWay; pWay = pWay->getNext()) {
-		if (pWay->getID() == (UnsignedInt)id1) {
-			pWay1 = pWay;
-		}
-		if (pWay->getID() == (UnsignedInt)id2) {
-			pWay2 = pWay;
-		}
-	}
-	if (pWay1 && pWay2 && (pWay1 != pWay2)) {
-		Int i;
-		Int numLinks = pWay1->getNumLinks();
-		for (i = 0; i < numLinks; i++) {
-			if (pWay1->getLink(i) == pWay2) {
-				return;
-			}
-		}
-		pWay1->addLink(pWay2);
-		if (pWay1->getBiDirectional()) {
-			numLinks = pWay2->getNumLinks();
-			for (i = 0; i < numLinks; i++) {
-				if (pWay2->getLink(i) == pWay1) {
-					return;
-				}
-			}
-			pWay2->addLink(pWay1);
-		}
-	}
 }

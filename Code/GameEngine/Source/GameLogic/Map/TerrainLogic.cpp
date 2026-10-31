@@ -1127,19 +1127,6 @@ public:
 	unsigned char get() const;
 };
 
-class DataChunkInput
-{
-public:
-	DataChunkInput(ChunkInputStream *pStream);
-	~DataChunkInput();
-	UserParser *registerParser(const AsciiString &label, const AsciiString &parentLabel,
-		DataChunkParserPtr parser, void *userData = NULL);
-	Bool parse(void *userData = NULL);
-	Bool isValidFileType() { return ((Rva001DBA6DByteField *)this)->get() != 0; }
-private:
-	char m_data[0x28];
-};
-
 struct TerrainPoint00282CFB;
 
 class G00DFF080Obj
@@ -1566,6 +1553,114 @@ struct Rva002814EFSet
 
 typedef _STL::pair<const unsigned, Rva0007E394Element *> Rva002814EFEqualityWords;
 
+template<int N> class Rva00285193Slots : public Rva00285193Slots<N-1>
+{
+public:
+    virtual void unused(char (*)[N]) = 0;
+};
+
+template<> class Rva00285193Slots<0> {};
+
+class Object
+{
+public:
+	const Coord3D *getPosition() const { return &m_pos; }
+public:
+	const GeometryInfo &getGeometryInfo() const { return m_geometryInfo; }
+public:
+	ObjectID getID() const { return m_id; }
+public:
+	Object *getNextObject() { return m_next; }
+public:
+	BodyModuleInterface *getBodyModule() const { return m_body; }
+public:
+	unsigned char _pad[0x38];
+public:
+	Coord3D m_pos;
+public:
+	unsigned char m_pad44[0x74 - 0x44];
+public:
+	ObjectID m_id;
+public:
+	unsigned char m_pad78[0x8C - 0x78];
+public:
+	Object *m_next;
+public:
+	unsigned char m_pad90[0xA8 - 0x90];
+public:
+	GeometryInfo m_geometryInfo;
+public:
+	unsigned char m_pad104[0x254 - 0x104];
+public:
+	BodyModuleInterface *m_body;
+public:
+	Relationship getRelationship(const Object *) const;
+public:
+	const TerrainTryTemplatePrefix *getTemplate() const {
+  return *(const TerrainTryTemplatePrefix *const *)((const char *)this+4);
+ }
+public:
+	__forceinline unsigned int kindMask(int kind) const { return getTemplate()->kindOf[kind/32] & (1U << (kind%32)); }
+public:
+	Int rva0028B511() const;
+public:
+	void attemptDamage(DamageInfo *damageInfo);
+public:
+	char rva00294815();
+};
+
+struct Rva00285193TemplateView
+{
+    char unknown00[0x108];
+    unsigned char flags108, flags109;
+    char unknown10A[0x11A - 0x10A];
+    unsigned char flags11A;
+};
+
+struct Rva00285193ObjectView
+{
+    void *unknown00;
+    Rva00285193TemplateView *data;
+    char unknown08[0x38 - 8];
+    Coord3D position;
+    float orientation;
+    char unknown48[0xA8 - 0x48];
+    char geometry;
+};
+
+class Rva00285193GlobalView : public Rva00285193Slots<27>
+{
+public:
+    virtual void slot6C(Object *object) = 0;
+};
+
+class DataChunkReader
+{
+public:
+	virtual void read(void *buffer, Int size);
+};
+
+class DataChunkInput
+{
+public:
+	DataChunkInput(ChunkInputStream *pStream);
+public:
+	~DataChunkInput();
+public:
+	UserParser *registerParser(const AsciiString &label, const AsciiString &parentLabel,
+		DataChunkParserPtr parser, void *userData = NULL);
+public:
+	Bool parse(void *userData = NULL);
+public:
+	Bool isValidFileType() { return ((Rva001DBA6DByteField *)this)->get() != 0; }
+private:
+	char m_data[0x28];
+public:
+	Int readInt();
+public:
+	void consume(Int bytes);
+};
+
 class Waypoint
 {
 public:
@@ -1651,15 +1746,15 @@ public:
 	{
 		return &m_location;
 	}
-};
-
-template<int N> class Rva00285193Slots : public Rva00285193Slots<N-1>
-{
 public:
-    virtual void unused(char (*)[N]) = 0;
+	__declspec(dllimport) __forceinline Int getNumLinks(void) const { return m_numLinks; }
+public:
+	Waypoint *getLink(Int ndx) const;
+public:
+	void addLink(Waypoint *other);
+public:
+	Bool getBiDirectional(void) const { return m_biDirectional; }
 };
-
-template<> class Rva00285193Slots<0> {};
 
 class TerrainLogic
 {
@@ -1859,80 +1954,11 @@ public:
 public:
 	void rva00284DD2(const Coord3D *position, float orientation, const void *geometry,
         Object **object, bool optionA, bool optionB);
+protected:
+	void addWaypointLink(Int id1, Int id2);
 };
 
-class Object
-{
-public:
-	const Coord3D *getPosition() const { return &m_pos; }
-public:
-	const GeometryInfo &getGeometryInfo() const { return m_geometryInfo; }
-public:
-	ObjectID getID() const { return m_id; }
-public:
-	Object *getNextObject() { return m_next; }
-public:
-	BodyModuleInterface *getBodyModule() const { return m_body; }
-public:
-	unsigned char _pad[0x38];
-public:
-	Coord3D m_pos;
-public:
-	unsigned char m_pad44[0x74 - 0x44];
-public:
-	ObjectID m_id;
-public:
-	unsigned char m_pad78[0x8C - 0x78];
-public:
-	Object *m_next;
-public:
-	unsigned char m_pad90[0xA8 - 0x90];
-public:
-	GeometryInfo m_geometryInfo;
-public:
-	unsigned char m_pad104[0x254 - 0x104];
-public:
-	BodyModuleInterface *m_body;
-public:
-	Relationship getRelationship(const Object *) const;
-public:
-	const TerrainTryTemplatePrefix *getTemplate() const {
-  return *(const TerrainTryTemplatePrefix *const *)((const char *)this+4);
- }
-public:
-	__forceinline unsigned int kindMask(int kind) const { return getTemplate()->kindOf[kind/32] & (1U << (kind%32)); }
-public:
-	Int rva0028B511() const;
-public:
-	void attemptDamage(DamageInfo *damageInfo);
-public:
-	char rva00294815();
-};
-
-struct Rva00285193TemplateView
-{
-    char unknown00[0x108];
-    unsigned char flags108, flags109;
-    char unknown10A[0x11A - 0x10A];
-    unsigned char flags11A;
-};
-
-struct Rva00285193ObjectView
-{
-    void *unknown00;
-    Rva00285193TemplateView *data;
-    char unknown08[0x38 - 8];
-    Coord3D position;
-    float orientation;
-    char unknown48[0xA8 - 0x48];
-    char geometry;
-};
-
-class Rva00285193GlobalView : public Rva00285193Slots<27>
-{
-public:
-    virtual void slot6C(Object *object) = 0;
-};
+// ---- from Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp
 
@@ -2685,24 +2711,6 @@ void __stdcall bfmeGo1035C(BfmeX1035 *p, int b)
 	t.bfmeUse1035(p, b);
 }
 
-// tu-skeleton: 0x0027C36A 166B ??0Rva0027C36A@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0027C36ACtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0027C410 228B ??0Rva0027C36A@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Rva0027C36ACopyCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0027C4F4 680B ?LineInRegion@@YA_NPBVCoord2D@@0PBURegion2D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp (not merged yet)
-
-// tu-skeleton: 0x0027C79C 447B ?isCellOnEnd@Bridge@@QAE_NPBURegion2D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp (not merged yet)
-
-// tu-skeleton: 0x0027C95B 548B ?isCellOnSide@Bridge@@QAE_NPBURegion2D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp (not merged yet)
-
-// tu-skeleton: 0x0027CB7F 484B ?isCellEntryPoint@Bridge@@QAE_NPBURegion2D@@PAM@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp (not merged yet)
-
-// tu-skeleton: 0x0027CD63 285B ?update@TerrainLogic@@UAEXXZ -- matched in Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0027CE80 26B ?rva0027CE80@Rva0027CE80@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAG.cpp (not merged yet)
-
-// tu-skeleton: 0x0027CE8F 24B (unledgered) -- unmatched, no code, never credited
-
 // ---- from Code/GameEngine/Source/GameLogic/Map/TerrainLogic_getGroundHeight.cpp
 
 // Retail inlines these three zero stores; the canonical Coord3D::zero is the out-of-line owner.
@@ -2736,13 +2744,9 @@ Real TerrainLogic::getLayerHeight( Real x, Real y, PathfindLayerEnum layer, Coor
 
   // end getLayerHeight
 
-// tu-skeleton: 0x0027CEDE 337B ?alignToTerrain@@YAXMABUCoord3D@@0AAVMatrix3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/RailroadGuideAIUpdate.cpp (not merged yet)
 
-// tu-skeleton: 0x0027D098 62B ?rva0027D098@Rva0027D098@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva0027DF9DGridQueries.cpp (not merged yet)
 
-// tu-skeleton: 0x0027D0D6 206B ?getPartitionBucket@TerrainLogic@@QAEHPAM@Z -- matched in Code/GameEngine/Source/Common/TerrainLogic_getPartitionBucket.cpp (not merged yet)
 
-// tu-skeleton: 0x0027D1EF 85B ?rva0027D1EF@Rva0027D244@@QAEXPAV1@0@Z -- matched in Code/GameEngine/Source/Common/Rva0027DF9DGridQueries.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Map/TerrainLogic_isBridgeBroken.cpp
 
@@ -2900,50 +2904,6 @@ bool __cdecl Rva0027DC65Check(float *p)
 	return 0;
 }
 
-// tu-skeleton: 0x0027DCF2 683B ?rva0027DCF2@Rva0027DCF2@@QAEXPAUCoord3D@@MPAVRva0027D244@@_NH@Z -- matched in Code/GameEngine/Source/Common/Rva0027DF9DGridQueries.cpp (not merged yet)
-
-// tu-skeleton: 0x0027DF9D 683B ?rva0027DF9D@Rva0027DF9D@@QAEXPAUCoord3D@@MPAVRva0027D244@@_NH@Z -- matched in Code/GameEngine/Source/Common/Rva0027DF9DGridQueries.cpp (not merged yet)
-
-// tu-skeleton: 0x0027E248 683B ?rva0027E248@Rva0027E248@@QAEXPAUCoord3D@@MPAVRva0027D30D@@_NH@Z -- matched in Code/GameEngine/Source/Common/Rva0027DF9DGridQueries.cpp (not merged yet)
-
-// tu-skeleton: 0x0027E4F3 683B ?rva0027E4F3@Rva0027E4F3@@QAEXPAUCoord3D@@MPAVRva0027D347@@_NH@Z -- matched in Code/GameEngine/Source/Common/Rva0027DF9DGridQueries.cpp (not merged yet)
-
-// tu-skeleton: 0x0027E79E 683B ?rva0027E79E@Rva0027E79E@@QAEXPAUCoord3D@@MPAVRva0027D35F@@_NH@Z -- matched in Code/GameEngine/Source/Common/Rva0027DF9DGridQueries.cpp (not merged yet)
-
-// tu-skeleton: 0x0027EA49 13B ??1Rva0027EA49@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Map/Rva00282135Clear.cpp (not merged yet)
-
-// tu-skeleton: 0x0027EA56 13B ??0?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@U?$pair@$$CBHH@_STL@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHH@_STL@@@_STL@@@2@@_STL@@QAE@ABV01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_int_os.cpp (not merged yet)
-
-// tu-skeleton: 0x0027EA63 31B ??0?$LatchRestore@I@@QAE@AAIABI@Z -- matched in Code/GameEngine/Source/Common/Rva00308AA4Notifiers.cpp (not merged yet)
-
-// tu-skeleton: 0x0027EA82 15B ??1?$LatchRestore@I@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00308AA4Notifiers.cpp (not merged yet)
-
-// tu-skeleton: 0x0027EA91 37B ??_G?$LatchRestore@I@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva00308AA4Notifiers.cpp (not merged yet)
-
-// tu-skeleton: 0x0027EAB6 70B ??0PlaneClass@@QAE@ABVVector3@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWMath/PlaneTwoVectorCtorO1.cpp (not merged yet)
-
-// tu-skeleton: 0x0027EAFC 704B ?Point_In_Triangle_2D@@YA_NABVVector3@@000HHAAE@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/PointInTriangle2DO1.cpp (not merged yet)
-
-// tu-skeleton: 0x0027EDBC 241B ?createTower@Bridge@@QAEPAVObject@@PAUCoord3D@@W4BridgeTowerType@@PBVThingTemplate@@PAV2@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/BridgeObjectCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0027EEAD 348B ?isPointOnBridge@Bridge@@QAE_NPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/BridgePickBridge.cpp (not merged yet)
-
-// tu-skeleton: 0x0027F009 150B ?addWaypointLink@TerrainLogic@@IAEXHH@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogic_parseWaypointData.cpp (not merged yet)
-
-// tu-skeleton: 0x0027F30A 45B ?findBridgeAt@TerrainLogic@@UBEPAVBridge@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp (not merged yet)
-
-// tu-skeleton: 0x0027F337 76B ?findBridgeLayerAt@TerrainLogic@@UBEPAVBridge@@PBUCoord3D@@W4PathfindLayerEnum@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp (not merged yet)
-
-// tu-skeleton: 0x0027F383 294B ?rva0027F383NearestPointOnSegment@@YA?AVCoord3D@@ABV1@00PAM@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicBeaconPathPoint.cpp (not merged yet)
-
-// tu-skeleton: 0x0027F4A9 34B ?_M_create_node@?$list@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@IAEPAU?$_List_node@UCoord3D@@@2@ABUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameClient/Coord3DListCreateNode.cpp (not merged yet)
-
-// tu-skeleton: 0x0027F4CB 45B ?rva0027F4CB@Rva0027F4CB@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x0027F589 29B ??4Rva0027EA49@@QAEAAU0@ABU0@@Z -- matched in Code/GameEngine/Source/Common/Rva002821CFErase.cpp (not merged yet)
-
-// tu-skeleton: 0x0027F882 810B ??0Bridge@@QAE@AAVRva0027C36A@@PAVDict@@ABVAsciiString@@PAVPolygonTrigger@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/BridgeCtor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Map/Bridge.cpp
 
 // ??1Bridge@@UAE@XZ @0x0027FBAC 82B. Dtor stores vtable 0x00BFB1E0,
@@ -2965,18 +2925,6 @@ Bridge::~Bridge()
 		m_outline = 0;
 	}
 }
-
-// tu-skeleton: 0x0027FBFE 300B ?pickBridge@Bridge@@QAE_NABVVector3@@0PAV2@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/BridgePickBridge.cpp (not merged yet)
-
-// tu-skeleton: 0x0027FD2A 713B ?getBridgeHeight@Bridge@@QAEMPBUCoord3D@@PAU2@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/BridgeGetBridgeHeight.cpp (not merged yet)
-
-// tu-skeleton: 0x0027FFF3 60B ?parseWaypointData@TerrainLogic@@IAE_NAAVDataChunkInput@@PAUDataChunkInfo@@PAX@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogic_parseWaypointData.cpp (not merged yet)
-
-// tu-skeleton: 0x0028002F 327B ?rva0028002F@Rva0027C230@@QAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x00280176 286B ?rva00280176@TerrainLogic@@QAEXPBVThingTemplate@@PBUCoord3D@@PBVMatrix3D@@M@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x00280294 106B ?addBridgeToLogic@TerrainLogic@@UAEXPAVRva0027C36A@@PAVDict@@ABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/BridgeCtor.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges_GetHighestLayerForDestination_GetHighestLayerForDestination.cpp
 
@@ -3188,24 +3136,6 @@ inline void Coord3D::normalize()
 	}
 }
 
-// tu-skeleton: 0x0028069E 220B ?setActiveBoundary@TerrainLogic@@QAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogic_setActiveBoundary.cpp (not merged yet)
-
-// tu-skeleton: 0x0028077A 750B ?FindClosestBeacon@TerrainLogic@@QAE_NPAVCoord3D@@PBV2@1M_N@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicBeaconPathPoint.cpp (not merged yet)
-
-// tu-skeleton: 0x00280A68 37B ?insert@?$list@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@QAE?AU?$_List_iterator@UCoord3D@@U?$_Nonconst_traits@UCoord3D@@@_STL@@@2@U32@ABUCoord3D@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportListInsertFootprints.cpp (not merged yet)
-
-// tu-skeleton: 0x00280A8D 41B ??0?$_List_base@URva0073EEE0ListValue@@V?$allocator@URva0073EEE0ListValue@@@_STL@@@_STL@@QAE@ABV?$allocator@URva0073EEE0ListValue@@@1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_target_list_73eee0.cpp (not merged yet)
-
-// tu-skeleton: 0x00280AB6 41B ?rva00280AB6@Rva0027F4CB@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x00280ADF 59B ?rva00280ADF@Rva002834C4@@QAEHPBVWaterHandle@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x00280B87 48B ??$_M_insert_dispatch@U?$_List_iterator@UCoord3D@@U?$_Const_traits@UCoord3D@@@_STL@@@_STL@@@?$list@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@QAEXU?$_List_iterator@UCoord3D@@U?$_Nonconst_traits@UCoord3D@@@_STL@@@1@U?$_List_iterator@UCoord3D@@U?$_Const_traits@UCoord3D@@@_STL@@@1@1ABU__false_type@1@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicBuildBeacons.cpp (not merged yet)
-
-// tu-skeleton: 0x00280BB7 47B ??$__copy@PBURva0027EA49@@PAU1@H@_STL@@YAPAURva0027EA49@@PBU1@0PAU1@ABUrandom_access_iterator_tag@0@PAH@Z -- matched in Code/GameEngine/Source/Common/Rva002821CFErase.cpp (not merged yet)
-
-// tu-skeleton: 0x00280C21 1449B ??0Bridge@@QAE@PAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/BridgeObjectCtor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Map/TerrainLogicLoadMap.cpp
 
 // platformsdk
@@ -3298,8 +3228,6 @@ void TerrainLogic::addWaypoint(MapObject *pMapObj)
 		pMapObj->getProperties()->getInt(TheKey_waypointType, &exists),
 		pMapObj->getProperties()->getAsciiString(TheKey_waypointTypeOption, &exists));
 }
-
-// tu-skeleton: 0x0028125C 99B ?addLandmarkBridgeToLogic@TerrainLogic@@UAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/BridgeCtor.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Map/TerrainLogicWaypointLookups.cpp
 
@@ -3517,18 +3445,6 @@ Bool TerrainLogic::rva002814EF(const Coord3D *start, const Coord3D *p1, Coord3D 
 	return false;
 }
 
-// tu-skeleton: 0x002819AD 28B ?push_front@?$list@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@QAEXABUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicBuildBeacons.cpp (not merged yet)
-
-// tu-skeleton: 0x002819C9 5B ?rva002819C9@Rva002819C9@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x002819CE 56B ??1Rva0027F4CB@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x00281A58 30B ??$insert@U?$_List_iterator@UCoord3D@@U?$_Const_traits@UCoord3D@@@_STL@@@_STL@@@?$list@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@QAEXU?$_List_iterator@UCoord3D@@U?$_Nonconst_traits@UCoord3D@@@_STL@@@1@U?$_List_iterator@UCoord3D@@U?$_Const_traits@UCoord3D@@@_STL@@@1@1@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicBuildBeacons.cpp (not merged yet)
-
-// tu-skeleton: 0x00281AB7 29B ??$__copy_ptrs@PBURva0027EA49@@PAU1@@_STL@@YAPAURva0027EA49@@PBU1@0PAU1@ABU__false_type@0@@Z -- matched in Code/GameEngine/Source/Common/Rva002821CFErase.cpp (not merged yet)
-
-// tu-skeleton: 0x00281AED 266B ?isValidUnitType@Waypoint@@QAE_NPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/WaypointIsValidUnitType.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges_GetHighestLayerForDestination.cpp
 
 // Split from TerrainLogicBridges.cpp: these definitions reference a callee with no matched body yet,
@@ -3635,48 +3551,6 @@ void Bridge::updateDamageState( void )
 		m_bridgeInfo.bridgeObjectID = INVALID_OBJECT_ID;
 	}
 }
-
-// tu-skeleton: 0x00281D47 5B ?rva00281D47@Rva00281D47@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x00281D87 11B ?rva00281D87@Rva00281D87Owner@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x00281ECA 181B ?pickBridge@TerrainLogic@@UAE_NABVVector3@@0PAV2@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp (not merged yet)
-
-// tu-skeleton: 0x00281F7F 162B ?deleteBridge@TerrainLogic@@UAEXPAVBridge@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp (not merged yet)
-
-// tu-skeleton: 0x00282021 127B ?rva00282021@Rva00282021WaterLookup@@QAEPAXABV?$StringBase@D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/Rva00282021WaterLookup.cpp (not merged yet)
-
-// tu-skeleton: 0x002820A0 61B ?loadPostProcess@TerrainLogic@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp (not merged yet)
-
-// tu-skeleton: 0x002820DD 88B ??0?$list@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@QAE@ABV01@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicBuildBeacons.cpp (not merged yet)
-
-// tu-skeleton: 0x00282135 126B ?rva00282135@Rva00282135@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Map/Rva00282135Clear.cpp (not merged yet)
-
-// tu-skeleton: 0x002821B3 28B ??_GRva00200667@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyDeletingDtors11.cpp (not merged yet)
-
-// tu-skeleton: 0x002821CF 55B ?erase@Rva002821CF@@QAEPAURva002821CFElem@@PAU2@@Z -- matched in Code/GameEngine/Source/Common/Rva002821CFErase.cpp (not merged yet)
-
-// tu-skeleton: 0x00282206 12B ?rva00282206@Rva00282206@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp (not merged yet)
-
-// tu-skeleton: 0x00282794 11B ?rva00282794@Rva00282794@@QAEXI@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp (not merged yet)
-
-// tu-skeleton: 0x0028279F 84B ??1Rva0028279F@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Map/Rva0028279FDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x002827F3 80B ?rva002827F3@Rva002827F3@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/Rva002827F3Clear.cpp (not merged yet)
-
-// tu-skeleton: 0x00282843 45B ??$_Construct@V?$list@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@V12@@_STL@@YAXPAV?$list@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@0@ABV10@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp (not merged yet)
-
-// tu-skeleton: 0x00282870 178B ?_M_insert_overflow@?$vector@URva00308E2CElement@@V?$allocator@URva00308E2CElement@@@_STL@@@_STL@@IAEXPAURva00308E2CElement@@ABU3@ABU__false_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorInsertOverflowFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x00282922 9B ??$_Destroy@VRva00200667@@@_STL@@YAXPAVRva00200667@@@Z -- matched in Code/GameEngine/Source/Common/GapThunksSeat8.cpp (not merged yet)
-
-// tu-skeleton: 0x0028292B 146B ?rva0028292B@Rva00283033@@QAE?AUTreeHintRef00217D4C@@PAXI@Z -- matched in Code/GameEngine/Source/Common/Rva002833A3C5.cpp (not merged yet)
-
-// tu-skeleton: 0x002829BD 361B ?rva002829BD@Rva002829BD@@QAEXPBVModuleData@@P6APAXPAX@Z@Z -- matched in Code/GameEngine/Source/Common/Rva002829BDSphereMerge.cpp (not merged yet)
-
-// tu-skeleton: 0x00282B26 121B ?rva00282B26@Rva00282B26@@QAEHPAX@Z -- matched in Code/GameEngine/Source/Common/Rva00282B26.cpp (not merged yet)
-
-// tu-skeleton: 0x00282C9B 6B (unledgered) -- unmatched, no code, never credited
 
 // ---- from Code/GameEngine/Source/Common/TerrainLogicRva00283262.cpp
 
@@ -3816,45 +3690,25 @@ void TerrainLogic::setWaterHeight( const WaterHandle *water, Real height, Real d
 
   // end setWaterHeight
 
-// tu-skeleton: 0x00282FE0 34B ?Rva00282FE0CreateNode@@YGPAXPBX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00282FE0CreateNode.cpp (not merged yet)
 
-// tu-skeleton: 0x00283002 49B ?clear@?$_List_base@V?$list@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@V?$allocator@V?$list@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@@2@@_STL@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicBuildBeacons.cpp (not merged yet)
 
-// tu-skeleton: 0x00283033 78B ?rva00283033@Rva00283033@@QAE?AUTreeHintRef00217D4C@@PAX@Z -- matched in Code/GameEngine/Source/Common/Rva002833A3C5.cpp (not merged yet)
 
-// tu-skeleton: 0x00283081 84B ??1Rva00283081@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00283081Dtor.cpp (not merged yet)
 
-// tu-skeleton: 0x00283114 306B ?rva00283114@Rva00283114@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/Rva00283114GroupMerge.cpp (not merged yet)
 
-// tu-skeleton: 0x00283246 28B ??_GRva00283081@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva00283081Dtor.cpp (not merged yet)
 
-// tu-skeleton: 0x0028339B 8B ?rva0028339B@Rva0028339B@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapForwardersSeat8.cpp (not merged yet)
 
-// tu-skeleton: 0x002833E7 26B ??1Rva002833E7Holder@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/Rva002827F3Clear.cpp (not merged yet)
 
-// tu-skeleton: 0x0028343D 135B ?rva0028343D@Rva0028343D@@QAEXHVWaterHandleRef@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/AreaSetInsert.cpp (not merged yet)
 
-// tu-skeleton: 0x00283567 165B ?reset@TerrainLogic@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicRva00283CE7.cpp (not merged yet)
 
-// tu-skeleton: 0x00283642 515B ?addTree@TerrainLogic@@QAEXPBVThingTemplate@@PBUCoord3D@@PBVMatrix3D@@M@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicXfer.cpp (not merged yet)
 
-// tu-skeleton: 0x00283845 970B ?xfer@TerrainLogic@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicXfer.cpp (not merged yet)
 
-// tu-skeleton: 0x00283CE7 137B ?rva00283CE7@TerrainLogic@@QAEXI@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicRva00283CE7.cpp (not merged yet)
 
-// tu-skeleton: 0x00283D70 295B ?rva00283D70@TerrainLogic@@QAEPAVObject@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/Common/Rva0027DF9DGridQueries.cpp (not merged yet)
 
-// tu-skeleton: 0x00283E97 5B ?rva00283E97@Rva00283E97@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
 
-// tu-skeleton: 0x00283E9C 270B ?buildBeacons@TerrainLogic@@IAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicBuildBeacons.cpp (not merged yet)
 
-// tu-skeleton: 0x00283FAA 466B ??0TerrainLogic@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x0028417C 6B ?GetSnapshotName@TerrainLogic@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters2.cpp (not merged yet)
 
-// tu-skeleton: 0x00284182 8B ??_ETerrainLogic@@W3AEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicDeleter.cpp (not merged yet)
 
-// tu-skeleton: 0x0028418A 262B ??1TerrainLogic@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicDeleter.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Map/TerrainLogicNewMap.cpp
 
@@ -3868,10 +3722,6 @@ void TerrainLogic::newMap(Bool)
 
 	buildBeacons();
 }
-
-// tu-skeleton: 0x0028449F 240B ?rva0028449F@TerrainLogic@@QAEXPBUCoord3D@@ABVGeometryInfo@@M@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicRva0028449F.cpp (not merged yet)
-
-// tu-skeleton: 0x0028458F 1335B ?flattenTerrain@TerrainLogic@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicRva0028449F.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Map/TerrainLogicTryPosition.cpp
 
@@ -3940,10 +3790,6 @@ Bool Rva00284AC6TryPosition(const Coord3D *center,Real dist,Real angle,
  return true;
 }
 
-// tu-skeleton: 0x00284DD2 933B ?iterateTreesNearAPoint@TerrainLogic@@QAEXPBUCoord3D@@MPAVGeometryInfo@@PAVBfmeT1035@@_NH@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicIterateTreesNearAPoint.cpp (not merged yet)
-
-// tu-skeleton: 0x00285177 28B ??_GTerrainLogic@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicDeleter.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Map/TerrainLogicRva00285193.cpp
 
 void TerrainLogic::rva00285193(Object *argument)
@@ -3964,6 +3810,262 @@ void TerrainLogic::rva00285193(Object *argument)
 // The retail call in this body reads 0x00284DD2, an address the ledger already
 // carries as ?iterateTreesNearAPoint@TerrainLogic@@QAEXPBUCoord3D@@MPAVGeometryInfo@@PAVBfmeT1035@@_NH@Z. Bind the donor spelling to that rowed owner so one
 // address keeps one definition and the unit links.
+
+// tu-skeleton: 0x0027C36A 166B ??0Rva0027C36A@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0027C36ACtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0027C410 228B ??0Rva0027C36A@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Rva0027C36ACopyCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0027C4F4 680B ?LineInRegion@@YA_NPBVCoord2D@@0PBURegion2D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp (not merged yet)
+
+// tu-skeleton: 0x0027C79C 447B ?isCellOnEnd@Bridge@@QAE_NPBURegion2D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp (not merged yet)
+
+// tu-skeleton: 0x0027C95B 548B ?isCellOnSide@Bridge@@QAE_NPBURegion2D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp (not merged yet)
+
+// tu-skeleton: 0x0027CB7F 484B ?isCellEntryPoint@Bridge@@QAE_NPBURegion2D@@PAM@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp (not merged yet)
+
+// tu-skeleton: 0x0027CD63 285B ?update@TerrainLogic@@UAEXXZ -- matched in Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0027CE80 26B ?rva0027CE80@Rva0027CE80@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAG.cpp (not merged yet)
+
+// tu-skeleton: 0x0027CE8F 24B (unledgered) -- unmatched, no code, never credited
+
+// tu-skeleton: 0x0027CEDE 337B ?alignToTerrain@@YAXMABUCoord3D@@0AAVMatrix3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/RailroadGuideAIUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x0027D098 62B ?rva0027D098@Rva0027D098@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva0027DF9DGridQueries.cpp (not merged yet)
+
+// tu-skeleton: 0x0027D0D6 206B ?getPartitionBucket@TerrainLogic@@QAEHPAM@Z -- matched in Code/GameEngine/Source/Common/TerrainLogic_getPartitionBucket.cpp (not merged yet)
+
+// tu-skeleton: 0x0027D1EF 85B ?rva0027D1EF@Rva0027D244@@QAEXPAV1@0@Z -- matched in Code/GameEngine/Source/Common/Rva0027DF9DGridQueries.cpp (not merged yet)
+
+// tu-skeleton: 0x0027DCF2 683B ?rva0027DCF2@Rva0027DCF2@@QAEXPAUCoord3D@@MPAVRva0027D244@@_NH@Z -- matched in Code/GameEngine/Source/Common/Rva0027DF9DGridQueries.cpp (not merged yet)
+
+// tu-skeleton: 0x0027DF9D 683B ?rva0027DF9D@Rva0027DF9D@@QAEXPAUCoord3D@@MPAVRva0027D244@@_NH@Z -- matched in Code/GameEngine/Source/Common/Rva0027DF9DGridQueries.cpp (not merged yet)
+
+// tu-skeleton: 0x0027E248 683B ?rva0027E248@Rva0027E248@@QAEXPAUCoord3D@@MPAVRva0027D30D@@_NH@Z -- matched in Code/GameEngine/Source/Common/Rva0027DF9DGridQueries.cpp (not merged yet)
+
+// tu-skeleton: 0x0027E4F3 683B ?rva0027E4F3@Rva0027E4F3@@QAEXPAUCoord3D@@MPAVRva0027D347@@_NH@Z -- matched in Code/GameEngine/Source/Common/Rva0027DF9DGridQueries.cpp (not merged yet)
+
+// tu-skeleton: 0x0027E79E 683B ?rva0027E79E@Rva0027E79E@@QAEXPAUCoord3D@@MPAVRva0027D35F@@_NH@Z -- matched in Code/GameEngine/Source/Common/Rva0027DF9DGridQueries.cpp (not merged yet)
+
+// tu-skeleton: 0x0027EA49 13B ??1Rva0027EA49@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Map/Rva00282135Clear.cpp (not merged yet)
+
+// tu-skeleton: 0x0027EA56 13B ??0?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@U?$pair@$$CBHH@_STL@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHH@_STL@@@_STL@@@2@@_STL@@QAE@ABV01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_int_os.cpp (not merged yet)
+
+// tu-skeleton: 0x0027EA63 31B ??0?$LatchRestore@I@@QAE@AAIABI@Z -- matched in Code/GameEngine/Source/Common/Rva00308AA4Notifiers.cpp (not merged yet)
+
+// tu-skeleton: 0x0027EA82 15B ??1?$LatchRestore@I@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00308AA4Notifiers.cpp (not merged yet)
+
+// tu-skeleton: 0x0027EA91 37B ??_G?$LatchRestore@I@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva00308AA4Notifiers.cpp (not merged yet)
+
+// tu-skeleton: 0x0027EAB6 70B ??0PlaneClass@@QAE@ABVVector3@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWMath/PlaneTwoVectorCtorO1.cpp (not merged yet)
+
+// tu-skeleton: 0x0027EAFC 704B ?Point_In_Triangle_2D@@YA_NABVVector3@@000HHAAE@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/PointInTriangle2DO1.cpp (not merged yet)
+
+// tu-skeleton: 0x0027EDBC 241B ?createTower@Bridge@@QAEPAVObject@@PAUCoord3D@@W4BridgeTowerType@@PBVThingTemplate@@PAV2@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/BridgeObjectCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0027EEAD 348B ?isPointOnBridge@Bridge@@QAE_NPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/BridgePickBridge.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Map/TerrainLogic_parseWaypointData.cpp
+
+// ?parseWaypointData@TerrainLogic@@IAE_NAAVDataChunkInput@@PAUDataChunkInfo@@PAX@Z
+bool TerrainLogic::parseWaypointData(DataChunkInput &file, DataChunkInfo *info, void *userData)
+{
+	Int numWaypointLinks = file.readInt();
+	Int i;
+	for (i = 0; i < numWaypointLinks; i++) {
+		Int waypoint1 = file.readInt();
+		Int waypoint2 = file.readInt();
+		addWaypointLink(waypoint1, waypoint2);
+	}
+	return true;
+}
+
+// ?addWaypointLink@TerrainLogic@@IAEXHH@Z @0x0027F009 150B
+// Zero Hour's addWaypointLink, except that BFME 2 reads each waypoint's link
+// count once before scanning its links: retail keeps the count in EDI and
+// the index in the dead id1 home. getFirstWaypoint is virtual slot 33
+// (+0x84); getLink 0x00085404 and addLink 0x00272306 are rowed. Retail picks
+// the two matching waypoints with cmove, which MSVC 7.1 emits only under
+// /arch:SSE; parseWaypointData and readInt are unchanged by that flag.
+void TerrainLogic::addWaypointLink(Int id1, Int id2)
+{
+	Waypoint *pWay1 = 0;
+	Waypoint *pWay2 = 0;
+	Waypoint *pWay;
+	for (pWay = getFirstWaypoint(); pWay; pWay = pWay->getNext()) {
+		if (pWay->getID() == (UnsignedInt)id1) {
+			pWay1 = pWay;
+		}
+		if (pWay->getID() == (UnsignedInt)id2) {
+			pWay2 = pWay;
+		}
+	}
+	if (pWay1 && pWay2 && (pWay1 != pWay2)) {
+		Int i;
+		Int numLinks = pWay1->getNumLinks();
+		for (i = 0; i < numLinks; i++) {
+			if (pWay1->getLink(i) == pWay2) {
+				return;
+			}
+		}
+		pWay1->addLink(pWay2);
+		if (pWay1->getBiDirectional()) {
+			numLinks = pWay2->getNumLinks();
+			for (i = 0; i < numLinks; i++) {
+				if (pWay2->getLink(i) == pWay1) {
+					return;
+				}
+			}
+			pWay2->addLink(pWay1);
+		}
+	}
+}
+
+// tu-skeleton: 0x0027F30A 45B ?findBridgeAt@TerrainLogic@@UBEPAVBridge@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp (not merged yet)
+
+// tu-skeleton: 0x0027F337 76B ?findBridgeLayerAt@TerrainLogic@@UBEPAVBridge@@PBUCoord3D@@W4PathfindLayerEnum@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp (not merged yet)
+
+// tu-skeleton: 0x0027F383 294B ?rva0027F383NearestPointOnSegment@@YA?AVCoord3D@@ABV1@00PAM@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicBeaconPathPoint.cpp (not merged yet)
+
+// tu-skeleton: 0x0027F4A9 34B ?_M_create_node@?$list@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@IAEPAU?$_List_node@UCoord3D@@@2@ABUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameClient/Coord3DListCreateNode.cpp (not merged yet)
+
+// tu-skeleton: 0x0027F4CB 45B ?rva0027F4CB@Rva0027F4CB@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x0027F589 29B ??4Rva0027EA49@@QAEAAU0@ABU0@@Z -- matched in Code/GameEngine/Source/Common/Rva002821CFErase.cpp (not merged yet)
+
+// tu-skeleton: 0x0027F882 810B ??0Bridge@@QAE@AAVRva0027C36A@@PAVDict@@ABVAsciiString@@PAVPolygonTrigger@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/BridgeCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0027FBFE 300B ?pickBridge@Bridge@@QAE_NABVVector3@@0PAV2@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/BridgePickBridge.cpp (not merged yet)
+
+// tu-skeleton: 0x0027FD2A 713B ?getBridgeHeight@Bridge@@QAEMPBUCoord3D@@PAU2@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/BridgeGetBridgeHeight.cpp (not merged yet)
+
+// tu-skeleton: 0x0028002F 327B ?rva0028002F@Rva0027C230@@QAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x00280176 286B ?rva00280176@TerrainLogic@@QAEXPBVThingTemplate@@PBUCoord3D@@PBVMatrix3D@@M@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x00280294 106B ?addBridgeToLogic@TerrainLogic@@UAEXPAVRva0027C36A@@PAVDict@@ABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/BridgeCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0028069E 220B ?setActiveBoundary@TerrainLogic@@QAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogic_setActiveBoundary.cpp (not merged yet)
+
+// tu-skeleton: 0x0028077A 750B ?FindClosestBeacon@TerrainLogic@@QAE_NPAVCoord3D@@PBV2@1M_N@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicBeaconPathPoint.cpp (not merged yet)
+
+// tu-skeleton: 0x00280A68 37B ?insert@?$list@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@QAE?AU?$_List_iterator@UCoord3D@@U?$_Nonconst_traits@UCoord3D@@@_STL@@@2@U32@ABUCoord3D@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportListInsertFootprints.cpp (not merged yet)
+
+// tu-skeleton: 0x00280A8D 41B ??0?$_List_base@URva0073EEE0ListValue@@V?$allocator@URva0073EEE0ListValue@@@_STL@@@_STL@@QAE@ABV?$allocator@URva0073EEE0ListValue@@@1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_target_list_73eee0.cpp (not merged yet)
+
+// tu-skeleton: 0x00280AB6 41B ?rva00280AB6@Rva0027F4CB@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x00280ADF 59B ?rva00280ADF@Rva002834C4@@QAEHPBVWaterHandle@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x00280B87 48B ??$_M_insert_dispatch@U?$_List_iterator@UCoord3D@@U?$_Const_traits@UCoord3D@@@_STL@@@_STL@@@?$list@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@QAEXU?$_List_iterator@UCoord3D@@U?$_Nonconst_traits@UCoord3D@@@_STL@@@1@U?$_List_iterator@UCoord3D@@U?$_Const_traits@UCoord3D@@@_STL@@@1@1ABU__false_type@1@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicBuildBeacons.cpp (not merged yet)
+
+// tu-skeleton: 0x00280BB7 47B ??$__copy@PBURva0027EA49@@PAU1@H@_STL@@YAPAURva0027EA49@@PBU1@0PAU1@ABUrandom_access_iterator_tag@0@PAH@Z -- matched in Code/GameEngine/Source/Common/Rva002821CFErase.cpp (not merged yet)
+
+// tu-skeleton: 0x00280C21 1449B ??0Bridge@@QAE@PAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/BridgeObjectCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0028125C 99B ?addLandmarkBridgeToLogic@TerrainLogic@@UAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/BridgeCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x002819AD 28B ?push_front@?$list@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@QAEXABUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicBuildBeacons.cpp (not merged yet)
+
+// tu-skeleton: 0x002819C9 5B ?rva002819C9@Rva002819C9@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x002819CE 56B ??1Rva0027F4CB@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x00281A58 30B ??$insert@U?$_List_iterator@UCoord3D@@U?$_Const_traits@UCoord3D@@@_STL@@@_STL@@@?$list@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@QAEXU?$_List_iterator@UCoord3D@@U?$_Nonconst_traits@UCoord3D@@@_STL@@@1@U?$_List_iterator@UCoord3D@@U?$_Const_traits@UCoord3D@@@_STL@@@1@1@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicBuildBeacons.cpp (not merged yet)
+
+// tu-skeleton: 0x00281AB7 29B ??$__copy_ptrs@PBURva0027EA49@@PAU1@@_STL@@YAPAURva0027EA49@@PBU1@0PAU1@ABU__false_type@0@@Z -- matched in Code/GameEngine/Source/Common/Rva002821CFErase.cpp (not merged yet)
+
+// tu-skeleton: 0x00281AED 266B ?isValidUnitType@Waypoint@@QAE_NPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/WaypointIsValidUnitType.cpp (not merged yet)
+
+// tu-skeleton: 0x00281D47 5B ?rva00281D47@Rva00281D47@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x00281D87 11B ?rva00281D87@Rva00281D87Owner@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x00281ECA 181B ?pickBridge@TerrainLogic@@UAE_NABVVector3@@0PAV2@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp (not merged yet)
+
+// tu-skeleton: 0x00281F7F 162B ?deleteBridge@TerrainLogic@@UAEXPAVBridge@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp (not merged yet)
+
+// tu-skeleton: 0x00282021 127B ?rva00282021@Rva00282021WaterLookup@@QAEPAXABV?$StringBase@D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/Rva00282021WaterLookup.cpp (not merged yet)
+
+// tu-skeleton: 0x002820A0 61B ?loadPostProcess@TerrainLogic@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp (not merged yet)
+
+// tu-skeleton: 0x002820DD 88B ??0?$list@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@QAE@ABV01@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicBuildBeacons.cpp (not merged yet)
+
+// tu-skeleton: 0x00282135 126B ?rva00282135@Rva00282135@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Map/Rva00282135Clear.cpp (not merged yet)
+
+// tu-skeleton: 0x002821B3 28B ??_GRva00200667@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyDeletingDtors11.cpp (not merged yet)
+
+// tu-skeleton: 0x002821CF 55B ?erase@Rva002821CF@@QAEPAURva002821CFElem@@PAU2@@Z -- matched in Code/GameEngine/Source/Common/Rva002821CFErase.cpp (not merged yet)
+
+// tu-skeleton: 0x00282206 12B ?rva00282206@Rva00282206@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp (not merged yet)
+
+// tu-skeleton: 0x00282794 11B ?rva00282794@Rva00282794@@QAEXI@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp (not merged yet)
+
+// tu-skeleton: 0x0028279F 84B ??1Rva0028279F@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Map/Rva0028279FDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x002827F3 80B ?rva002827F3@Rva002827F3@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/Rva002827F3Clear.cpp (not merged yet)
+
+// tu-skeleton: 0x00282843 45B ??$_Construct@V?$list@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@V12@@_STL@@YAXPAV?$list@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@0@ABV10@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp (not merged yet)
+
+// tu-skeleton: 0x00282870 178B ?_M_insert_overflow@?$vector@URva00308E2CElement@@V?$allocator@URva00308E2CElement@@@_STL@@@_STL@@IAEXPAURva00308E2CElement@@ABU3@ABU__false_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorInsertOverflowFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x00282922 9B ??$_Destroy@VRva00200667@@@_STL@@YAXPAVRva00200667@@@Z -- matched in Code/GameEngine/Source/Common/GapThunksSeat8.cpp (not merged yet)
+
+// tu-skeleton: 0x0028292B 146B ?rva0028292B@Rva00283033@@QAE?AUTreeHintRef00217D4C@@PAXI@Z -- matched in Code/GameEngine/Source/Common/Rva002833A3C5.cpp (not merged yet)
+
+// tu-skeleton: 0x002829BD 361B ?rva002829BD@Rva002829BD@@QAEXPBVModuleData@@P6APAXPAX@Z@Z -- matched in Code/GameEngine/Source/Common/Rva002829BDSphereMerge.cpp (not merged yet)
+
+// tu-skeleton: 0x00282B26 121B ?rva00282B26@Rva00282B26@@QAEHPAX@Z -- matched in Code/GameEngine/Source/Common/Rva00282B26.cpp (not merged yet)
+
+// tu-skeleton: 0x00282C9B 6B (unledgered) -- unmatched, no code, never credited
+
+// tu-skeleton: 0x00282FE0 34B ?Rva00282FE0CreateNode@@YGPAXPBX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00282FE0CreateNode.cpp (not merged yet)
+
+// tu-skeleton: 0x00283002 49B ?clear@?$_List_base@V?$list@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@V?$allocator@V?$list@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@@2@@_STL@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicBuildBeacons.cpp (not merged yet)
+
+// tu-skeleton: 0x00283033 78B ?rva00283033@Rva00283033@@QAE?AUTreeHintRef00217D4C@@PAX@Z -- matched in Code/GameEngine/Source/Common/Rva002833A3C5.cpp (not merged yet)
+
+// tu-skeleton: 0x00283081 84B ??1Rva00283081@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00283081Dtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00283114 306B ?rva00283114@Rva00283114@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/Rva00283114GroupMerge.cpp (not merged yet)
+
+// tu-skeleton: 0x00283246 28B ??_GRva00283081@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva00283081Dtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0028339B 8B ?rva0028339B@Rva0028339B@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapForwardersSeat8.cpp (not merged yet)
+
+// tu-skeleton: 0x002833E7 26B ??1Rva002833E7Holder@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/Rva002827F3Clear.cpp (not merged yet)
+
+// tu-skeleton: 0x0028343D 135B ?rva0028343D@Rva0028343D@@QAEXHVWaterHandleRef@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/AreaSetInsert.cpp (not merged yet)
+
+// tu-skeleton: 0x00283567 165B ?reset@TerrainLogic@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicRva00283CE7.cpp (not merged yet)
+
+// tu-skeleton: 0x00283642 515B ?addTree@TerrainLogic@@QAEXPBVThingTemplate@@PBUCoord3D@@PBVMatrix3D@@M@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x00283845 970B ?xfer@TerrainLogic@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x00283CE7 137B ?rva00283CE7@TerrainLogic@@QAEXI@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicRva00283CE7.cpp (not merged yet)
+
+// tu-skeleton: 0x00283D70 295B ?rva00283D70@TerrainLogic@@QAEPAVObject@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/Common/Rva0027DF9DGridQueries.cpp (not merged yet)
+
+// tu-skeleton: 0x00283E97 5B ?rva00283E97@Rva00283E97@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
+
+// tu-skeleton: 0x00283E9C 270B ?buildBeacons@TerrainLogic@@IAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicBuildBeacons.cpp (not merged yet)
+
+// tu-skeleton: 0x00283FAA 466B ??0TerrainLogic@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0028417C 6B ?GetSnapshotName@TerrainLogic@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters2.cpp (not merged yet)
+
+// tu-skeleton: 0x00284182 8B ??_ETerrainLogic@@W3AEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicDeleter.cpp (not merged yet)
+
+// tu-skeleton: 0x0028418A 262B ??1TerrainLogic@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicDeleter.cpp (not merged yet)
+
+// tu-skeleton: 0x0028449F 240B ?rva0028449F@TerrainLogic@@QAEXPBUCoord3D@@ABVGeometryInfo@@M@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicRva0028449F.cpp (not merged yet)
+
+// tu-skeleton: 0x0028458F 1335B ?flattenTerrain@TerrainLogic@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicRva0028449F.cpp (not merged yet)
+
+// tu-skeleton: 0x00284DD2 933B ?iterateTreesNearAPoint@TerrainLogic@@QAEXPBUCoord3D@@MPAVGeometryInfo@@PAVBfmeT1035@@_NH@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicIterateTreesNearAPoint.cpp (not merged yet)
+
+// tu-skeleton: 0x00285177 28B ??_GTerrainLogic@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicDeleter.cpp (not merged yet)
 
 // tu-skeleton: 0x00285202 1068B ?findPositionAround@PartitionManager@@SA_NPBUCoord3D@@PBUFindPositionOptions@@PAU2@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicFindPositionAround.cpp (not merged yet)
 
