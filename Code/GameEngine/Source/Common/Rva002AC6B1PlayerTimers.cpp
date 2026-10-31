@@ -9,7 +9,7 @@
 namespace _STL {
 template<> void list<BfmeSpecialPowerTimer8,allocator<BfmeSpecialPowerTimer8> >::push_back(const BfmeSpecialPowerTimer8 &);
 }
-class Overridable { public:const Overridable *friend_getFinalOverride()const; };
+#include "../../Include/Common/Overridable.h"
 class SpecialPowerTemplate;
 struct Rva002AC6B1TemplateView { unsigned char prefix[0x14];unsigned id;unsigned char pad18[8];unsigned reloadTime; };
 class GameLogic;extern GameLogic *TheGameLogic;

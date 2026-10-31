@@ -7,15 +7,7 @@
 // retain its meaning as unknown instead of borrowing BFME1's list link.
 // Preserve the target vtable/base owners' existing address-derived identities.
 #include "ascii_string.h"
-class Overridable {
-public:
-    Overridable() : m_next(0), m_override(false), m_stale(-1) {}
-    virtual ~Overridable();
-private:
-    Overridable *m_next;
-    bool m_override;
-    int m_stale;
-};
+#include "../../../../Include/Common/Overridable.h"
 class CommandSet : public Overridable {
 public:
     CommandSet(const AsciiString &name, int mode98);

@@ -7,11 +7,7 @@
 // else -1. Names are structural.
 #include <vector>
 
-class Overridable
-{
-public:
-	const Overridable *friend_getFinalOverride() const;	// 0x00288609
-};
+#include "../../Include/Common/Overridable.h"
 
 struct Rva004210F8IDView
 {

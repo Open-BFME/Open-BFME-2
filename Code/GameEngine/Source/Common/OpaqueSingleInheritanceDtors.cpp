@@ -251,11 +251,7 @@ Rva005C4B1B::~Rva005C4B1B()
 {
 }
 
-class Overridable
-{
-public:
-	virtual ~Overridable();
-};
+#include "../../Include/Common/Overridable.h"
 
 class Rva003FA776 : public Overridable
 {

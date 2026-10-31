@@ -16,7 +16,7 @@
 // tail's application names/types remain unreconstructed (widths are target facts).
 // Declared library views call already verified providers, emitting no substitute
 // container implementation. Inline adapters retain their existing ABI names.
-class Overridable { public: virtual ~Overridable(); Overridable& operator=(const Overridable&); private: void* next04; bool override08; unsigned char gap09[7]; };
+#include "../../../Include/Common/Overridable.h"
 struct Rva002CEF2A { AsciiString name; int words[2]; Rva002CEF2A& operator=(const Rva002CEF2A&); };
 struct Rva002CEF4B { AsciiString name; StringBase<unsigned short> wide; Rva002CEF4B& operator=(const Rva002CEF4B&); };
 struct BfmeCopyElementA { unsigned char bytes[0x5C]; BfmeCopyElementA* bfmeAssign(BfmeCopyElementA*); __forceinline BfmeCopyElementA& operator=(const BfmeCopyElementA&b){ bfmeAssign(const_cast<BfmeCopyElementA*>(&b));return *this;} };

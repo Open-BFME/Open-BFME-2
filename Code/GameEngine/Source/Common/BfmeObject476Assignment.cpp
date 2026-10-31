@@ -20,7 +20,7 @@ template <> void _STLP_alloc_proxy<AsciiString*, AsciiString, allocator<AsciiStr
 template <> void allocator<AsciiString>::deallocate(AsciiString*, size_t) const;
 template <> vector<AsciiString, allocator<AsciiString> > &vector<AsciiString, allocator<AsciiString> >::operator=(const vector<AsciiString, allocator<AsciiString> >&);
 }
-class Overridable { public: virtual ~Overridable(); Overridable &operator=(const Overridable &); char data[12]; };
+#include "../../Include/Common/Overridable.h"
 struct S3Handicap { int words[4]; };
 struct S3Money { virtual ~S3Money(); int words[2]; __forceinline S3Money &operator=(const S3Money &r) { words[0]=r.words[0]; words[1]=r.words[1]; return *this;} };
 struct S3Coord { float x,y,z; };

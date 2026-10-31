@@ -10,11 +10,7 @@
 // (slot 34: player index, power name, object id, template).
 #include "ascii_string.h"
 
-class Overridable
-{
-public:
-	const Overridable *friend_getFinalOverride() const;		// 0x00288609
-};
+#include "../../../../Include/Common/Overridable.h"
 
 struct SpecialPowerTemplateView
 {

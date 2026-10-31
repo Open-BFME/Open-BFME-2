@@ -133,27 +133,7 @@ template <> __declspec(dllimport) __forceinline
 void **vector<void *>::end() { return this->_M_finish; }
 }
 
-class Overridable
-{
-public:
-	Overridable *deleteOverrides();
-	Overridable() : m_nextOverride(0), m_isOverride(false), m_reloadState(-1) {}
-	Overridable *friend_getFinalOverride()
-	{
-		if (m_nextOverride)
-			return m_nextOverride->friend_getFinalOverride();
-		return this;
-	}
-	void setNextOverride(Overridable *next) { m_nextOverride = next; }
-	void markAsOverride() { m_isOverride = true; }
-	void setReloadState(int state) { m_reloadState = state; }
-	virtual ~Overridable();
-private:
-	Overridable *m_nextOverride; // +0x04
-	bool m_isOverride; // +0x08
-	char m_pad09[0x3];
-	int m_reloadState; // +0x0C
-};
+#include "../../../Include/Common/Overridable.h"
 
 class AsciiStringMember {
 public:

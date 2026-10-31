@@ -11,11 +11,7 @@ typedef bool Bool;
 
 // slot at VA 0x00C3BE24: deleteOverrides on every non-NULL entry of the
 // pointer array [+0x0C, +0x10) (rowed Overridable::deleteOverrides).
-class Overridable
-{
-public:
-	Overridable *deleteOverrides();
-};
+#include "../../Include/Common/Overridable.h"
 class Rva004210D0
 {
 public:

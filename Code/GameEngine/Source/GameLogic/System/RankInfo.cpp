@@ -55,17 +55,7 @@ typedef int Int;
 
 extern "C" void __cdecl free(void *block) throw(...);
 
-class Overridable
-{
-public:
-	virtual ~Overridable();
-
-private:
-	Overridable *m_next; // +0x04
-	unsigned char m_isAllocated; // +0x08
-	unsigned char m_pad09[3];
-	Int m_extra0C; // +0x0C
-};
+#include "../../../Include/Common/Overridable.h"
 
 struct IntVector
 {

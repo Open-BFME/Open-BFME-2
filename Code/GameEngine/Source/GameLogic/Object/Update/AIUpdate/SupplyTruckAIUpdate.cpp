@@ -721,15 +721,7 @@ public:
 
 // --- 0x0028864F (46B): whether this override's final override has a higher
 // +0x18 value than the other's.
-class Overridable
-{
-public:
-	const Overridable *friend_getFinalOverride() const;	// 0x00288609
-	bool rva0028864F(const Overridable *other) const;
-private:
-	char m_pad[0x18];
-	int m_18;
-};
+#include "../../../../../Include/Common/Overridable.h"
 
 // --- 0x00525AAC (19B): by-value DelegateDesc wrapper over the rowed binder
 // 0x00525916 on the same object (shape of rva0052AC16 above).

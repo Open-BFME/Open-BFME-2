@@ -14,11 +14,7 @@
 // folded empty body); run/member/owner identities unproven (opaque run
 // pins); names are address-derived. One ledger row per step.
 
-class Overridable
-{
-public:
-	void markAsOverride();
-};
+#include "../../Include/Common/Overridable.h"
 
 class Rva00420B2AZeroSetter
 {

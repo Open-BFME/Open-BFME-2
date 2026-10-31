@@ -15,11 +15,7 @@ class Player;
 class ScriptEngine;
 class AsciiString;
 
-class Overridable
-{
-public:
-	const Overridable *friend_getFinalOverride() const;
-};
+#include "../../../../Include/Common/Overridable.h"
 
 class Object
 {

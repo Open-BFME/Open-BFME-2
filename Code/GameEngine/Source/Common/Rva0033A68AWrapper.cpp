@@ -4,11 +4,7 @@
 // and returns its result, or this when it is null. Callers at 0x0033A6AA and
 // 0x0033AA2D use the result as the template (word at +0x5DA, float +0x4DC).
 // Opaque Rva name: the Overridable subclass behind this is unproven.
-class Overridable
-{
-public:
-	const Overridable *friend_getFinalOverride() const;
-};
+#include "../../Include/Common/Overridable.h"
 
 class Rva0033A68A
 {

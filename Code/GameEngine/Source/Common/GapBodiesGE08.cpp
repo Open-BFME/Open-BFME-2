@@ -320,11 +320,7 @@ int Rva004FC91D::rva004FC92D(int regionID) const
 // --- 0x0041C295 (21B) / 0x0041C2AC / 0x0041C2B5 / 0x0041C2BE / 0x0041C2C7
 // (9B each): final-override reads: a +0x18 mask bit, the +0x50 value, the
 // +0x60 and +0x78 members, the +0x7C value.
-class Overridable
-{
-public:
-	const Overridable *friend_getFinalOverride() const;		// 0x00288609
-};
+#include "../../Include/Common/Overridable.h"
 
 struct Rva0041C295Data
 {

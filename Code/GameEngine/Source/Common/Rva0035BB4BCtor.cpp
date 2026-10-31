@@ -31,7 +31,7 @@ namespace _STL { template <> void _Destroy<AsciiString>(AsciiString *); }
 namespace _STL { template <> vector<AsciiString, allocator<AsciiString> >::~vector(); }
 namespace _STL { template <> AsciiString * vector<AsciiString, allocator<AsciiString> >::erase(AsciiString *, AsciiString *); }
 // bfme link decl-only end
-class Overridable {public:Overridable():next(0),flag(false),extra(-1){}virtual ~Overridable();void*next;bool flag;int extra;};
+#include "../../Include/Common/Overridable.h"
 class Rva002390CB {public:~Rva002390CB();char bytes[8];};
 // Bind to the kept copies (rows: vector<Rva002390CB> dtor 0x0035B825, range
 // erase 0x00532803, vector<void *> range erase 0x0031BD55) instead of

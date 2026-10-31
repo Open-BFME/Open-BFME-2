@@ -40,14 +40,7 @@ public:
 // Opaque ModuleData base (never defined; base-dtor call resolves through
 // the symbols.csv pin at 0x1E3624). Retail base body keeps a conditional
 // delete pointer at +0x04; +0x08/+0x0C ride as data.
-class Overridable
-{
-public:
-	virtual ~Overridable();
-	void *m_unk04;
-	int m_unk08;
-	int m_unk0C;
-};
+#include "../../../Include/Common/Overridable.h"
 
 class CrateTemplate : public Overridable
 {

@@ -216,11 +216,7 @@ private:
 	Rva005D13C2 *m_08;
 };
 
-class Overridable
-{
-public:
-	void markAsOverride();
-};
+#include "../../Include/Common/Overridable.h"
 
 class Rva005E18D0Forwarder
 {

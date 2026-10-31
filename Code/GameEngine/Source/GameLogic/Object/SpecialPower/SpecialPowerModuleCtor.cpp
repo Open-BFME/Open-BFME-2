@@ -40,13 +40,7 @@ enum ObjectStatusTypes
 
 #include "../../../Common/GameLogicObjectLookupView.h"
 
-class Overridable
-{
-public:
-	const Overridable *friend_getFinalOverride() const;
-private:
-	char m_pad[0x10];
-};
+#include "../../../../Include/Common/Overridable.h"
 
 class SpecialPowerTemplate : public Overridable
 {

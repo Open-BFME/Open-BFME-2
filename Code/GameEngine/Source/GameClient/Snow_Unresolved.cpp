@@ -85,24 +85,7 @@ SnowManager::SnowManager()
 
 #include "../../Include/Common/MemoryPoolObject.h"
 
-class Overridable : public MemoryPoolObject {
-public:
-    Overridable *m_nextOverride;
-    bool m_isOverride;
-    Overridable *deleteOverrides();
-    Overridable *friend_getFinalOverride()
-    {
-        if (m_nextOverride)
-            return m_nextOverride->friend_getFinalOverride();
-        return this;
-    }
-    const Overridable *getFinalOverride() const
-    {
-        if (m_nextOverride)
-            return m_nextOverride->getFinalOverride();
-        return this;
-    }
-};
+#include "../../Include/Common/Overridable.h"
 
 // Field offsets read from retail's compiler-generated WeatherSetting
 // copy assignment (0x00201412, 0xB4 bytes). +0x1C..+0x44 follow Zero Hour's

@@ -3,16 +3,7 @@
 // Ctor for Rva003FA776 (vtable 0x00C37930, dtor at 0x003FA776): base Overridable (+4 0, +8 0, +0xC -1), +0x10 6, +0x14 0.0f, +0x18 1.0f (VA 0x00BBB8D8).
 // Evidence: vtable store at [this], tail-jmp base dtor 0x001E3624, callers 0x0021116F 0x00213814.
 
-class Overridable
-{
-public:
-	Overridable() : m_04(0), m_08(0), m_0C(-1) {}
-	virtual ~Overridable();
-private:
-	int m_04;
-	unsigned char m_08;
-	int m_0C;
-};
+#include "../../Include/Common/Overridable.h"
 
 class Rva003FA776 : public Overridable
 {

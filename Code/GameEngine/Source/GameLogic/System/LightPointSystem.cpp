@@ -57,7 +57,7 @@ class Rva004213A2 { public: Rva004213A2 &operator=(const Rva004213A2 &); };
 class Rva004214C3 { public: void rva004214C3(const ModuleData *); };
 class Rva00421520;
 extern Rva00421520 *TheLightPointSystem;
-class Overridable { public: Overridable *friend_getFinalOverride(); };
+#include "../../../Include/Common/Overridable.h"
 typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
 struct FieldParse { const char *token; FieldParseProc parse; const void *userData; int offset; };
 extern "C" {

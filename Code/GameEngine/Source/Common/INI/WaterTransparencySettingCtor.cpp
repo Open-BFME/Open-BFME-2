@@ -14,17 +14,7 @@ typedef float Real;
 typedef bool Bool;
 typedef int Int;
 
-class Overridable
-{
-public:
-	Overridable() : m_nextOverride(0), m_isAllocatedOverride(0), m_extra0C(-1) {}
-	virtual ~Overridable();
-
-private:
-	Overridable *m_nextOverride; // +0x04
-	unsigned char m_isAllocatedOverride; // +0x08
-	Int m_extra0C; // +0x0C
-};
+#include "../../../Include/Common/Overridable.h"
 
 class Rva00200D38
 {

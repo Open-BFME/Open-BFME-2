@@ -93,12 +93,7 @@ extern AudioManager *TheAudio;
 #include "../../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
-class Overridable
-{
-public:
-	const Overridable *friend_getFinalOverride() const;
-	char m_pad[0x10];
-};
+#include "../../../../Include/Common/Overridable.h"
 
 class SpecialPowerTemplate : public Overridable
 {

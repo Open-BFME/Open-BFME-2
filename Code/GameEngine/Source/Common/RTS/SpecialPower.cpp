@@ -14,16 +14,7 @@ namespace _STL {
 template <> inline _Vector_base<ScienceType, allocator<ScienceType> >::~_Vector_base()
 { if (_M_start) Rva00030830GameFree(_M_start); }
 }
-class Overridable
-{
-public:
-	Overridable() : m_04(0), m_08(0), m_0c(-1) {}
-	virtual ~Overridable();
-private:
-	Int m_04; // +0x04
-	unsigned char m_08; // +0x08
-	Int m_0c; // +0x0C
-};
+#include "../../../Include/Common/Overridable.h"
 #define BFME_ASCII_DTOR_DECL
 #include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 #undef BFME_ASCII_DTOR_DECL

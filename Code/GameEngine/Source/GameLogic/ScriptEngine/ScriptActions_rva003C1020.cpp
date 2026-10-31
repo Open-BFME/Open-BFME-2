@@ -34,10 +34,7 @@ public:
 	const CommandButton *findCommandButton(const AsciiString &);
 };
 
-class Overridable {
-public:
-	const Overridable *friend_getFinalOverride() const;
-};
+#include "../../../Include/Common/Overridable.h"
 
 enum GUICommandType { GUI_DUMMY = 0 };
 enum CommandSourceType { CMD_FROM_PLAYER = 0, CMD_FROM_SCRIPT = 1 };

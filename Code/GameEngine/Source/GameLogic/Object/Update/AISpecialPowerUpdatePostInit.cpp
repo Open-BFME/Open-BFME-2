@@ -45,11 +45,7 @@ extern Debug *theDebug;
 bool _bfme_debugReportingEnabled();
 void _bfme_debugRecordCallsite(int kind);
 
-class Overridable
-{
-public:
-	const Overridable *friend_getFinalOverride() const;
-};
+#include "../../../../Include/Common/Overridable.h"
 
 struct SpecialPowerTemplateView
 {

@@ -300,13 +300,7 @@ private:
 	int m_84; // +0x84
 };
 
-class Overridable
-{
-public:
-	const Overridable *friend_getFinalOverride() const;
-	unsigned char m_pad00[0x1C];
-	int m_val1C;
-};
+#include "../../../../Include/Common/Overridable.h"
 
 struct Rva0044EF2CHolder
 {

@@ -337,11 +337,7 @@ public:
 	int rva0037E649(int index, Object *obj);
 };
 
-class Overridable
-{
-public:
-	const Overridable *friend_getFinalOverride() const;
-};
+#include "../../../../Include/Common/Overridable.h"
 
 class Rva0029FCB4
 {

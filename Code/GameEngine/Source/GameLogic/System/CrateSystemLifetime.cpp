@@ -32,16 +32,7 @@
 
 #include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 
-class Overridable
-{
-public:
-	virtual ~Overridable();
-	Overridable *deleteOverrides();		// 0x001E35ED
-
-private:
-	Overridable *m_nextOverride;
-	bool m_isOverride;
-};
+#include "../../../Include/Common/Overridable.h"
 
 class CrateTemplate : public Overridable
 {

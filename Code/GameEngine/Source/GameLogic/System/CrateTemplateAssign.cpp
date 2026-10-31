@@ -49,13 +49,7 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
 }
 
 
-class Overridable
-{
-public:
-	Overridable &operator=(const Overridable &that);
-private:
-	char m_pad[0x10];
-};
+#include "../../../Include/Common/Overridable.h"
 
 struct SevenInts00035CE52
 {

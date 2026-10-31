@@ -10,11 +10,7 @@
 // same class already pinned as Rva00539926Base at 0x004E84A4, identified by
 // that vtable. Member modeling follows Rva002D3573Dtor.
 
-class Overridable
-{
-public:
-	void markAsOverride();
-};
+#include "../../Include/Common/Overridable.h"
 
 class Rva005E2439
 {

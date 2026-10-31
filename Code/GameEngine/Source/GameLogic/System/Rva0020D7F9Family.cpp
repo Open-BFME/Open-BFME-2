@@ -44,13 +44,7 @@ struct Rva003ED94FDtor
 	void **m_end;
 };
 
-class Overridable
-{
-public:
-	virtual ~Overridable();
-private:
-	char m_pad[0x0C];
-};
+#include "../../../Include/Common/Overridable.h"
 
 class Rva0020DXXX : public Overridable
 {

@@ -39,13 +39,7 @@ Rva002892ED::~Rva002892ED()
 {
  _STL::_Destroy(start,finish);
 }
-class Overridable
-{
-public:
- virtual ~Overridable();
-private:
- char base[12];
-};
+#include "../../../Include/Common/Overridable.h"
 struct BfmeStringRecord000B94D2
 {
  ~BfmeStringRecord000B94D2();

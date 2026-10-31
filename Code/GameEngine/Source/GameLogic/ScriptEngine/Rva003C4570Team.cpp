@@ -33,11 +33,7 @@ public:
 };
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class Overridable
-{
-public:
-	void *m_v0;
-};
+#include "../../../Include/Common/Overridable.h"
 
 class Rva0028951F
 {

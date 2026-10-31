@@ -72,13 +72,7 @@ private:
 	_STL::vector<void *, _STL::allocator<void *> > m_entries; // +0x0C
 };
 
-class Overridable
-{
-public:
-	virtual ~Overridable();
-private:
-	char m_pad[0x0C];
-};
+#include "../../Include/Common/Overridable.h"
 
 class Rva004211CA : public Overridable
 {

@@ -64,12 +64,7 @@ class GameLogic;
 extern GameLogic *TheGameLogic;
 struct Rva0049402BFrameView { char pad[0x40]; unsigned frame; };
 
-class Overridable
-{
-public:
-	const Overridable *friend_getFinalOverride() const;
-	char m_pad[0x10];
-};
+#include "../../../../Include/Common/Overridable.h"
 
 class SpecialPowerTemplate : public Overridable
 {

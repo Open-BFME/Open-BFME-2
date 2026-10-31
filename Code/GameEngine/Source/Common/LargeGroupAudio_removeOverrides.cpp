@@ -12,10 +12,7 @@ namespace _STL { template <> __declspec(dllimport) __forceinline void * * vector
 // Bind to the kept retail copy instead of emitting this unit's own.
 namespace _STL { template <> __declspec(dllimport) __forceinline void * * vector<void *,allocator<void *> >::begin() { return this->_M_start; } }
 
-class Overridable {
-public:
-    Overridable *deleteOverrides();
-};
+#include "../../Include/Common/Overridable.h"
 
 template <typename T> class StringBase {
     friend class LargeGroupAudio;

@@ -44,15 +44,7 @@ public:
 
 struct BfmePod8 { int a[2]; };
 
-class Overridable
-{
-public:
-	Overridable() : m_unk04(0), m_unk08(0), m_unk0C(-1) {}
-	virtual ~Overridable();
-	void *m_unk04;
-	unsigned char m_unk08;
-	int m_unk0C;
-};
+#include "../../../Include/Common/Overridable.h"
 
 class CrateTemplate : public Overridable
 {

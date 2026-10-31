@@ -8,21 +8,7 @@
 
 #include "ascii_string.h"
 
-class Overridable
-{
-public:
-	virtual ~Overridable();
-	// LINK: declaration-only default ctor (no body in this TU). The derived
-	// WeatherSetting(int) anchor ctor below base-inits through it; the base-init
-	// E8 binds the kept copy instead of emitting this TU's loser copy. The
-	// anchor ctor itself is unclaimed (not a row), so its extra E8 is
-	// harmless; the rowed 79B dtor is untouched. Same recipe as the
-	// Rva00200E95Dtor sibling. No flags touched.
-	Overridable();
-
-private:
-	unsigned char m_pad04[0x10 - 4];
-};
+#include "../../Include/Common/Overridable.h"
 
 class Rva0020182BSecond
 {

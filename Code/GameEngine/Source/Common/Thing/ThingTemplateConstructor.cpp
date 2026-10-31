@@ -20,13 +20,7 @@
 #include "unicode_string.h"
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-class Overridable {
-public:
-    Overridable() : next(0), allocated(0), extra(-1) {}
-    virtual ~Overridable();
-private:
-    void *next; unsigned char allocated; int extra;
-};
+#include "../../../Include/Common/Overridable.h"
 struct TemplateStringRange { AsciiString name; float first,second; TemplateStringRange() : first(50.0f),second(50.0f) {} };
 struct Rva0033B352Record { ~Rva0033B352Record(); AsciiString name; UnicodeString text; __forceinline void clear() { name.clear(); text.clear(); } };
 enum GeometryType { GEOMETRY_SPHERE,GEOMETRY_CYLINDER,GEOMETRY_BOX };

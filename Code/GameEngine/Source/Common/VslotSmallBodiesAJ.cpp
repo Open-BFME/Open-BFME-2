@@ -423,11 +423,7 @@ public:
 	void addNeed(int a);
 };
 
-class Overridable
-{
-public:
-	void markAsOverride();
-};
+#include "../../Include/Common/Overridable.h"
 
 class Rva00420B2AZeroSetter
 {

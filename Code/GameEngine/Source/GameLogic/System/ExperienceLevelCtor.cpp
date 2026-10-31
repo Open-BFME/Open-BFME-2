@@ -61,15 +61,7 @@ template <> void allocator<AsciiString>::deallocate(AsciiString*, size_t) const;
 class FXList;
 class UpgradeTemplate;
 struct LevelUpFXInfo { const FXList *fx; AsciiString boneName; };
-class __declspec(novtable) Overridable
-{
-public:
-    __declspec(dllimport) __forceinline Overridable() : m_next(0), m_override(false), m_index(-1) {}
-    virtual ~Overridable();
-    Overridable *m_next;
-    bool m_override;
-    int m_index;
-};
+#include "../../../Include/Common/Overridable.h"
 class Rva002894A2 : public Overridable
 {
 public:

@@ -350,11 +350,7 @@ public:
 	bool rva00203AE5(void);
 };
 
-class Overridable
-{
-public:
-	Overridable *deleteOverrides(void);
-};
+#include "../../../Include/Common/Overridable.h"
 
 struct Rva00200BD9Holder;
 

@@ -55,7 +55,7 @@ void *const &vector<void *>::operator[](size_t __n) const
 }
 #include "ascii_string.h"
 #include "unicode_string.h"
-class Overridable {public: virtual ~Overridable(); Overridable(const Overridable &); Overridable():next(0),flag(false),extra(-1){} void *next;bool flag;int extra; };
+#include "../../Include/Common/Overridable.h"
 class Rva003B0E83 {public:Rva003B0E83*rva003B0E83();};
 struct S3Handicap {__forceinline S3Handicap(){((Rva003B0E83*)this)->rva003B0E83();} int words[4];};
 class AsciiString;

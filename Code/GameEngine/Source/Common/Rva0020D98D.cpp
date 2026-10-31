@@ -1,16 +1,7 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ??0Rva0020D98D@@QAE@ABV0@@Z 0x0020D98D 67B copy ctor via base Overridable and member Rva003ED658
 // Evidence: retail calls base copy 0x003664DD then stores vtable then calls member copy 0x003ED658 with +0x10; caller 0x0020DE68; layout base size 0x10 from donor
-class Overridable
-{
-public:
-	virtual ~Overridable();
-	Overridable(const Overridable &that);
-private:
-	void *m_next04;
-	unsigned char m_alloc08;
-	int m_extra0C;
-};
+#include "../../Include/Common/Overridable.h"
 
 class Rva003ED658
 {

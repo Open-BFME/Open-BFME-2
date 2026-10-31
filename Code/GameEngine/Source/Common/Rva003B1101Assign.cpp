@@ -46,16 +46,7 @@ vector<Rva0021C21BElement, allocator<Rva0021C21BElement> >::operator=(
 
 typedef int Int;
 
-class Overridable
-{
-public:
-	virtual ~Overridable();
-	Overridable &operator=(const Overridable &that);
-private:
-	Overridable *m_nextOverride; // +0x04
-	unsigned char m_isAllocatedOverride; // +0x08
-	Int m_extra0C; // +0x0C
-};
+#include "../../Include/Common/Overridable.h"
 
 template <typename T>
 class StringBase

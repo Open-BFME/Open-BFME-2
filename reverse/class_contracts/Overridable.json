@@ -1,0 +1,401 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Overridable",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 179,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 1
+   },
+   "0x4": {
+    "4": 1
+   },
+   "0x8": {
+    "1": 2
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x1e35ca",
+      "0x3664dd"
+     ],
+     "value": 9
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x1e35ca",
+      "0x3664dd"
+     ],
+     "value": {
+      "0x8": [
+       1
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x1e35ca",
+      "0x3664dd"
+     ],
+     "value": {
+      "0x0": "0x7ddc48"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7ddc48"
+     ],
+     "value": {
+      "count": 1,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GOverridable@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x1e4445"
+       }
+      ],
+      "table": "0x7ddc48"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 5,
+  "retail_vtables": {
+   "0x7ddc48": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GOverridable@@UAEPAXI@Z"
+    },
+    "stores": 2
+   }
+  },
+  "view_errors": 11,
+  "view_sizes": {
+   "1": 50,
+   "4": 5,
+   "8": 29,
+   "12": 15,
+   "16": 48,
+   "20": 1,
+   "24": 2,
+   "28": 4,
+   "32": 5,
+   "52": 1,
+   "72": 1,
+   "88": 1,
+   "90": 2,
+   "92": 3,
+   "100": 1
+  },
+  "views": 168,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_Overridable.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Overridable.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "void*",
+   "views": 92,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 8
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/AttackPriorityInfo_setPriority.cpp",
+    "Code/GameEngine/Source/Common/BfmeObject476Assignment.cpp",
+    "Code/GameEngine/Source/Common/BfmeObject476Copy.cpp",
+    "Code/GameEngine/Source/Common/CommandButtonRva0035B5C2.cpp",
+    "Code/GameEngine/Source/Common/INI/INIWaterTransparency.cpp",
+    "Code/GameEngine/Source/Common/INI/WaterTransparencySettingCtor.cpp",
+    "Code/GameEngine/Source/Common/Overridable.cpp",
+    "Code/GameEngine/Source/Common/OverridableDeleteOverrides.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerTemplate.cpp",
+    "Code/GameEngine/Source/Common/RTS/Science.cpp",
+    "Code/GameEngine/Source/Common/RTS/ScienceStoreParseScienceDefinition.cpp",
+    "Code/GameEngine/Source/Common/RTS/SpecialPower.cpp",
+    "Code/GameEngine/Source/Common/RTS/SpecialPowerStoreFind.cpp",
+    "Code/GameEngine/Source/Common/RTS/SpecialPowerStoreParseSpecialPowerDefinition.cpp",
+    "Code/GameEngine/Source/Common/Rva0007EBFBWaterDraw.cpp",
+    "Code/GameEngine/Source/Common/Rva001E4DB0Ctor.cpp",
+    "Code/GameEngine/Source/Common/Rva0020D98D.cpp",
+    "Code/GameEngine/Source/Common/Rva0028867DCheck.cpp",
+    "Code/GameEngine/Source/Common/Rva00288940Find.cpp",
+    "Code/GameEngine/Source/Common/Rva0030C1FCOwnerCtor.cpp",
+    "Code/GameEngine/Source/Common/Rva0035BB4BCtor.cpp",
+    "Code/GameEngine/Source/Common/Rva0035BB4BDtor.cpp",
+    "Code/GameEngine/Source/Common/Rva003B1101Assign.cpp",
+    "Code/GameEngine/Source/Common/Rva003FA776Ctor.cpp",
+    "Code/GameEngine/Source/Common/Rva0041C9C4.cpp",
+    "Code/GameEngine/Source/Common/Rva00421520Find.cpp",
+    "Code/GameEngine/Source/Common/System/SaveGame/CommandSet.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingConstructor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingFactoryNewOverride.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingFactoryReset.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/Common/rva0052E4C9Rva0052E4C9Farm.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarCommandSetCtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/INIParseWeatherDefinition.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldObjectParser.cpp",
+    "Code/GameEngine/Source/GameClient/Snow.cpp",
+    "Code/GameEngine/Source/GameClient/Snow_Unresolved.cpp",
+    "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva00081CDFWaterTextures.cpp",
+    "Code/GameEngine/Source/GameClient/W3DSnowManager.cpp",
+    "Code/GameEngine/Source/GameClient/WeatherSettingCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/Overridable.cpp",
+    "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+    "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioAudioMap.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityBehavior.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalLinkVector.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ExperienceTracker.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/LocomotorCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectFindSpecialPowerModuleInterface.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectWorldspaceBestContactPoint.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIUpdateInterfaceIgnoreObstacle.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/TransportAIUpdatePrivateAttackPosition.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateGuardObject.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateGuardPosition.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/AttackPriorityInfoGetPriority.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine.cpp",
+    "Code/GameEngine/Source/GameLogic/System/CrateSystem.cpp",
+    "Code/GameEngine/Source/GameLogic/System/CrateSystemLifetime.cpp",
+    "Code/GameEngine/Source/GameLogic/System/CrateSystemNewCrateTemplate.cpp",
+    "Code/GameEngine/Source/GameLogic/System/ExperienceLevelCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/System/ExperienceLevelDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp",
+    "Code/GameEngine/Source/GameLogic/System/RankInfo.cpp",
+    "Code/GameEngine/Source/GameLogic/System/RankInfoCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/System/RankInfoParse.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSceneUpdateFixedLightEnvironments.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSnowBlendPhase.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSnowManagerRender.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSnowStateTransition.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DWaypointBuffer.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/W3DWaterRva0007F0FB.cpp",
+    "Code/Libraries/Source/WWVegas/WWLib/Rva0028951FFind.cpp",
+    "Code/Libraries/Source/WWVegas/WWLib/Rva002897A8Find.cpp"
+   ],
+   "views": 77
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/BfmeObject476Copy.cpp",
+    "Code/GameEngine/Source/Common/INI/INIWaterTransparency.cpp",
+    "Code/GameEngine/Source/Common/INI/WaterTransparencySettingCtor.cpp",
+    "Code/GameEngine/Source/Common/OverridableDeleteOverrides.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerTemplate.cpp",
+    "Code/GameEngine/Source/Common/RTS/Science.cpp",
+    "Code/GameEngine/Source/Common/RTS/ScienceStoreParseScienceDefinition.cpp",
+    "Code/GameEngine/Source/Common/RTS/SpecialPower.cpp",
+    "Code/GameEngine/Source/Common/RTS/SpecialPowerStoreFind.cpp",
+    "Code/GameEngine/Source/Common/RTS/SpecialPowerStoreParseSpecialPowerDefinition.cpp",
+    "Code/GameEngine/Source/Common/Rva0007EBFBWaterDraw.cpp",
+    "Code/GameEngine/Source/Common/Rva001E4DB0Ctor.cpp",
+    "Code/GameEngine/Source/Common/Rva0020D98D.cpp",
+    "Code/GameEngine/Source/Common/Rva0035BB4BCtor.cpp",
+    "Code/GameEngine/Source/Common/Rva003B1101Assign.cpp",
+    "Code/GameEngine/Source/Common/Rva003FA776Ctor.cpp",
+    "Code/GameEngine/Source/Common/Rva0041C9C4.cpp",
+    "Code/GameEngine/Source/Common/Rva00421520Find.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingFactoryNewOverride.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingFactoryReset.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarCommandSetCtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/INIParseWeatherDefinition.cpp",
+    "Code/GameEngine/Source/GameClient/Snow.cpp",
+    "Code/GameEngine/Source/GameClient/Snow_Unresolved.cpp",
+    "Code/GameEngine/Source/GameClient/W3DSnowManager.cpp",
+    "Code/GameEngine/Source/GameClient/WeatherSettingCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/Overridable.cpp",
+    "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+    "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioAudioMap.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectFindSpecialPowerModuleInterface.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIUpdateInterfaceIgnoreObstacle.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine.cpp",
+    "Code/GameEngine/Source/GameLogic/System/CrateSystem.cpp",
+    "Code/GameEngine/Source/GameLogic/System/CrateSystemLifetime.cpp",
+    "Code/GameEngine/Source/GameLogic/System/CrateSystemNewCrateTemplate.cpp",
+    "Code/GameEngine/Source/GameLogic/System/ExperienceLevelCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/System/RankInfo.cpp",
+    "Code/GameEngine/Source/GameLogic/System/RankInfoCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/System/RankInfoParse.cpp"
+   ],
+   "views": 43
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/Common/BfmeObject476Copy.cpp",
+    "Code/GameEngine/Source/Common/INI/WaterTransparencySettingCtor.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerTemplate.cpp",
+    "Code/GameEngine/Source/Common/RTS/Science.cpp",
+    "Code/GameEngine/Source/Common/RTS/ScienceStoreParseScienceDefinition.cpp",
+    "Code/GameEngine/Source/Common/RTS/SpecialPower.cpp",
+    "Code/GameEngine/Source/Common/Rva001E4DB0Ctor.cpp",
+    "Code/GameEngine/Source/Common/Rva0020D98D.cpp",
+    "Code/GameEngine/Source/Common/Rva0035BB4BCtor.cpp",
+    "Code/GameEngine/Source/Common/Rva003B1101Assign.cpp",
+    "Code/GameEngine/Source/Common/Rva003FA776Ctor.cpp",
+    "Code/GameEngine/Source/Common/Rva00421520Find.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarCommandSetCtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/WeatherSettingCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/Overridable.cpp",
+    "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+    "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioAudioMap.cpp",
+    "Code/GameEngine/Source/GameLogic/System/CrateSystem.cpp",
+    "Code/GameEngine/Source/GameLogic/System/ExperienceLevelCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/System/RankInfo.cpp",
+    "Code/GameEngine/Source/GameLogic/System/RankInfoCtor.cpp"
+   ],
+   "views": 24
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/WeaponModeSpecialPowerUpdateBase.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/Common/CommandTranslator_issueFireWeaponCommand.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarCommandProcessing.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/Rva00493BD4.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/Common/GapBodiesGE03.cpp",
+    "Code/GameEngine/Source/Common/Rva00288940Find.cpp",
+    "Code/GameEngine/Source/Common/Rva0041C9C4.cpp",
+    "Code/Libraries/Source/WWVegas/WWLib/Rva002897A8Find.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00495840Gate.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/Rva0042970AGet.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdateRun.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdateSlot8.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdateTriggerAbilityEffect.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdateXfer.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/WeaponModeSpecialPowerUpdateBase.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/Rva004211A0Gate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdateTriggerAbilityEffect.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 68,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdate.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 84,
+   "sources": [
+    "Code/GameEngine/Source/Common/ScriptActions_doSkirmishFireSpecialPowerAtMostCost.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 89,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0049355ERatio.cpp",
+    "Code/GameEngine/Source/Common/Rva00493AB7Ready.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/Rva00493BD4.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/WeaponModeSpecialPowerUpdateBase.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/WeaponModeSpecialPowerUpdateBaseCtor.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 96,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdateTriggerAbilityEffect.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 16,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}

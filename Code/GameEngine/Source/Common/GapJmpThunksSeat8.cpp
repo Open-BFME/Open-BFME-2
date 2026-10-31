@@ -866,7 +866,7 @@ class Rva00077710Value { public: bool operator!=(const Rva00077710Value &) const
 struct Rva0039B24FInput;
 class Rva0039B24F { public: void rva0039B24F(Rva0039B24FInput *, bool, bool); };
 class Rva003BD306Target { public: void rva0039B28F(bool); void rva0039B2C7(int, bool); };
-class Overridable { public: const Overridable *friend_getFinalOverride() const; };
+#include "../../Include/Common/Overridable.h"
 class WeaponStore
 {
 	friend class Rva002C724E;

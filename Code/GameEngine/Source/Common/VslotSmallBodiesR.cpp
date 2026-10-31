@@ -56,11 +56,7 @@ bool HRawAnimClass::Has_VisibilityF(Int i) const
 
 // slot at 0x00200BD9: runs the rowed 0x001E35DF on the +0x04 member of the
 // object held at VA 0x00DFF488, when there is one.
-class Overridable
-{
-public:
-	Overridable *friend_getFinalOverride();
-};
+#include "../../Include/Common/Overridable.h"
 struct Rva00200BD9Holder
 {
 	Int m_00;

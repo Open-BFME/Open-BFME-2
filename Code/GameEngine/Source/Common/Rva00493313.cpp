@@ -3,12 +3,7 @@
 // Evidence: calls friend_getFinalOverride 0x00288609 then StringBase copy 0x000365F0; ret 4 hidden AsciiString return.
 #include "ascii_string.h"
 
-class Overridable {
-public:
-	const Overridable *friend_getFinalOverride() const;
-private:
-	char m_pad[0x10];
-};
+#include "../../Include/Common/Overridable.h"
 
 class Rva00493313 : public Overridable {
 public:

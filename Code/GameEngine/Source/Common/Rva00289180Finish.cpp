@@ -28,11 +28,7 @@ template <> __declspec(dllimport) __forceinline void **vector<void*>::end() { re
 class GameWindow;
 class WindowVideo;
 
-class Overridable
-{
-public:
-	Overridable *deleteOverrides();
-};
+#include "../../Include/Common/Overridable.h"
 
 struct ListNode
 {

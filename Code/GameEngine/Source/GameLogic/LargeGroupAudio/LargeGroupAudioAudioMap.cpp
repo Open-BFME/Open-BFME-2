@@ -97,16 +97,7 @@ public:
 
 // Base shared with the LargeGroupAudio key holder (dtor 0x001E3624): vptr,
 // +4 next override, +8 override flag, +0xC.
-class Overridable
-{
-public:
-	Overridable() : m_next04(0), m_alloc08(0), m_extra0C(-1) {}
-	virtual ~Overridable();
-private:
-	Overridable *m_next04;
-	unsigned char m_alloc08;
-	int m_extra0C;
-};
+#include "../../../Include/Common/Overridable.h"
 
 class LargeGroupAudioAudioMap;
 

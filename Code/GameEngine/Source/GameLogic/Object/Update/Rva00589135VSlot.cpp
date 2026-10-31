@@ -12,14 +12,7 @@ struct VirtBase
 	virtual void vf(void *a, int b, int c, int d, int e);
 };
 
-class Overridable
-{
-public:
-	virtual void overridableAnchor();
-	const Overridable *friend_getFinalOverride() const;
-	unsigned char m_pad04[0x55];
-	unsigned char m_hasOverride;
-};
+#include "../../../../Include/Common/Overridable.h"
 
 class SpecialPowerTemplate;
 class Player;

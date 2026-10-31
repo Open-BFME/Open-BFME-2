@@ -20,7 +20,7 @@ extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
 class Object;class SpecialPowerTemplate;class SpecialPowerModuleInterface;class Waypoint;
 template<int N> class BitFlags {public:bool any()const;unsigned words[(N+31)/32];};
-class Overridable {public:const Overridable *friend_getFinalOverride()const;};
+#include "../../../../Include/Common/Overridable.h"
 class SpecialPowerTemplate:public Overridable {};
 struct GrabFinalTemplateView {char head[0x1C];int type;};
 enum SpecialPowerType { GRAB_POWER27=0x27 };

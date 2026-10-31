@@ -1,10 +1,7 @@
 // cl: /MD
 // ?rva00493805@SpecialPowerModule@@UAEXXZ @0x00493805 64B: vslot 12 frame-store guard.
 // Evidence: vtable slot 12 of SpecialPowerModule family; callees testStatus Overridable TheGameLogic.
-class Overridable {
-public:
-	const Overridable *friend_getFinalOverride() const;
-};
+#include "../../../../Include/Common/Overridable.h"
 struct TemplateView00493805 {
 	unsigned char pad[0x59];
 	unsigned char flag59;

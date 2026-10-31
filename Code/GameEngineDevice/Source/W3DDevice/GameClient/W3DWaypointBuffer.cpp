@@ -100,19 +100,7 @@ public:
 };
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Overridable.h
-class Overridable
-{
-public:
-	const Overridable *getFinalOverride() const
-	{
-		if (m_nextOverride)
-			return m_nextOverride->getFinalOverride();
-		return this;
-	}
-
-	void *m_vtable;
-	Overridable *m_nextOverride;
-};
+#include "../../../../GameEngine/Include/Common/Overridable.h"
 
 // m_kindof: BFME 2 tests the kind-of mask at +0x108 as bytes (bit 47 is
 // +0x10D bit 7), with no override walk from Object.

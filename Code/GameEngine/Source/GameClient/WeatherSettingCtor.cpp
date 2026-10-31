@@ -15,16 +15,7 @@ extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
 inline void setWeatherPair(Coord2D &pair,float x,float y){pair.x=x;pair.y=y;}
 
-class Overridable
-{
-public:
-	Overridable() : m_nextOverride(0), m_isOverride(false), m_0C(-1) {}
-	virtual ~Overridable();
-protected:
-	Overridable *m_nextOverride;
-	bool m_isOverride;
-	int m_0C;
-};
+#include "../../Include/Common/Overridable.h"
 
 class WeatherSetting;
 

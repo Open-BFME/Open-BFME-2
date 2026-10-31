@@ -22,20 +22,7 @@ struct Coord3DZero
 	static void zero(Coord3D &c) { c.x = 0.0f; c.y = 0.0f; c.z = 0.0f; }
 };
 
-class Overridable
-{
-public:
-	virtual ~Overridable();
-	const Overridable *getFinalOverride() const
-	{
-		if (m_nextOverride)
-			return m_nextOverride->getFinalOverride();
-		return this;
-	}
-
-private:
-	Overridable *m_nextOverride;
-};
+#include "../../../Include/Common/Overridable.h"
 
 class ThingTemplate : public Overridable
 {

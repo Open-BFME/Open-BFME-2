@@ -3,7 +3,7 @@
 // Evidence: ZH isReady semantic lead; target adds blocked+28 and status70 check;
 // MI receiver is SpecialPowerModuleInterface subobject at primary+10;
 // layout agrees with rowed getPowerName 0x004934B8; callees rowed testStatus/getControllingPlayer/friend_getFinalOverride/getOrStart/TheGameLogic.
-class Overridable { public: const Overridable *friend_getFinalOverride() const; char pad[0x10]; };
+#include "../../../../Include/Common/Overridable.h"
 class SpecialPowerTemplate : public Overridable { public: unsigned unknown10; unsigned id; unsigned flags; char pad1C[4]; unsigned reloadTime; char pad24[0x59-0x24]; bool shared; };
 class Rva002AC6B1PlayerTimers { public: unsigned getOrStart(const SpecialPowerTemplate *); void resetOrStart(const SpecialPowerTemplate *); };
 class Rva002AA0B1FloatField { public: float get() const; };

@@ -105,11 +105,7 @@ public:
 
 extern GameLogic *TheGameLogic;
 
-class Overridable
-{
-public:
-	const Overridable *friend_getFinalOverride() const;
-};
+#include "../../../../Include/Common/Overridable.h"
 
 struct SpecialPowerTemplateView
 {

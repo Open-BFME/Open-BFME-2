@@ -18,11 +18,7 @@ template <> __declspec(dllimport) __forceinline
 void **vector<void *>::end() { return this->_M_finish; }
 }
 
-class Overridable
-{
-public:
-	Overridable *deleteOverrides();
-};
+#include "../../Include/Common/Overridable.h"
 
 class RankInfoStore
 {

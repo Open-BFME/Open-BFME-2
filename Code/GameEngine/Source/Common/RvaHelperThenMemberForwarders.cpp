@@ -13,11 +13,7 @@ class SmudgeManager
 public:
     virtual void init();
 };
-class Overridable
-{
-public:
-    void markAsOverride();
-};
+#include "../../Include/Common/Overridable.h"
 class Rva00420B2AZeroSetter
 {
 public:

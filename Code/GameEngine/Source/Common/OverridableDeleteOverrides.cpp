@@ -5,14 +5,7 @@
 */
 // Zero Hour Overridable.h donor with target global-delete semantics.
 // Target layout: destructor slot 0, next override +4, override flag +8.
-class Overridable {
-public:
-    virtual ~Overridable();
-    Overridable *m_nextOverride;
-    bool m_isOverride;
-    Overridable *deleteOverrides();
-    Overridable &operator=(const Overridable &that);
-};
+#include "../../Include/Common/Overridable.h"
 inline Overridable *Overridable::deleteOverrides() {
     if (m_isOverride) {
         ::delete this;
