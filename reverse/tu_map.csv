@@ -2924,8 +2924,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00050EAE,8,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_insert.cpp
 0x00050EB6,18,code,,,-,,Code/GameEngine/Source/Common/RvaA0380ByteThresholdThunk_Rva00050EB6.cpp
 0x00050EC8,11,code,Code/Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.cpp,approved,N,N=Code/Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.cpp provisional,Code/Libraries/Source/WWVegas/WWLib/OpaqueRefOwnership.cpp
-0x00050ED3,39,code,Code/Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.cpp,approved,N,N=Code/Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.cpp provisional,Code/Libraries/Source/WWVegas/WWLib/OpaqueRefOwnership.cpp
-0x00050EFA,31,code,Code/Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.cpp,approved,N,N=Code/Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.cpp provisional,Code/Libraries/Source/WWVegas/WWLib/OpaqueRefOwnership.cpp
+0x00050ED3,39,code,Code/Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.cpp,approved,N,N=Code/Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.cpp provisional,Code/Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.cpp
+0x00050EFA,31,code,Code/Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.cpp,approved,N,N=Code/Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.cpp provisional,Code/Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.cpp
 0x00050F19,16,code,,,-,,Code/GameEngineDevice/Source/MilesAudioDevice/PlayingAudioConstructor.cpp
 0x00050F29,24,code,,displaced,-,S=Code/GameEngine/Source/GameClient/View.cpp N=Code/GameEngine/Source/GameClient/View.cpp,Code/GameEngine/Source/GameClient/ViewWorldToScreen.cpp
 0x00050F41,16,code,,,-,,Code/GameEngine/Source/Common/GapBodiesGE25.cpp
