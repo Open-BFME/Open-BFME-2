@@ -35,7 +35,7 @@ class ThingFactory
 public:
 	const ThingTemplate *findTemplate(const AsciiString &name);
 };
-extern class ThingFactory *TheThingFactory;
+
 struct Rva00452EDDData
 {
 	char m_pad00[0x14];
@@ -57,27 +57,6 @@ public:
 	void *rva00452EF5();
 	void *rva00452F0D();
 };
-void *Rva00452EDD::rva00452EDD()
-{
-	const Rva00452EDDData *moduleData = (const Rva00452EDDData *)m_moduleData;
-	if (!moduleData)
-		return 0;
-	return (void *)TheThingFactory->findTemplate(*((const AsciiString *)&moduleData->m_14));
-}
-void *Rva00452EDD::rva00452EF5()
-{
-	const Rva00452EDDData *moduleData = (const Rva00452EDDData *)m_moduleData;
-	if (!moduleData)
-		return 0;
-	return (void *)TheThingFactory->findTemplate(*((const AsciiString *)&moduleData->m_18));
-}
-void *Rva00452EDD::rva00452F0D()
-{
-	const Rva00452EDDData *moduleData = (const Rva00452EDDData *)m_moduleData;
-	if (!moduleData)
-		return 0;
-	return (void *)TheThingFactory->findTemplate(*((const AsciiString *)&moduleData->m_1C));
-}
 
 // 0x0044F09F (interface at +0x20, beside WeaponFireSpecialAbilityUpdate's
 // slots): whether the module data's +0x38 equals the argument.
