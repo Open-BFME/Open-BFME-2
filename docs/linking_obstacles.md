@@ -9,6 +9,12 @@ VslotSmallBodiesAG_Rva00131CF2.cpp (10 matched functions, 264 bytes) does not li
 4. `?g_rva005C4352FieldParse@@3QBUFieldParse@@B`, `?g_rva005C4553FieldParse@@3QBUFieldParse@@B`, `?g_rva005C47A8FieldParse@@3QBUFieldParse@@B`: data tables at 0x00874540, 0x00874630, 0x00874704 in `.rdata` which are unowned in `reverse/data_ledger.csv`.
 Recorded `blocked` in `reverse/re_attempts.log`.
 
+
+### Adopt canonical Vector4 storage in horde rider release (2026-11-01)
+
+The rider-release source adopts canonical Vector4. All three rows and 38 external code bodies/relocations survive; the EH graph is EXACT. Owning acceptance retires one key and the e78b61f1b2 preview retains LINKS/457. Matrix3D and wider consumer/census proof remain separate.
+[Evidence](../reverse/attempt_support/horde-transport-vector4-20261101.md).
+
 ### Thing BitFlags declaration prerequisites (2026-11-01)
 
 MobMemberSlavedUpdate uses the real BitFlags header instead of a non-template

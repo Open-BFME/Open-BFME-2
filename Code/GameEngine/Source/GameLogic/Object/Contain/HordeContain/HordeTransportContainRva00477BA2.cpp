@@ -35,11 +35,11 @@ namespace _STL { template <> _Rb_tree_iterator<pair<int const, int>, _Nonconst_t
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 
 namespace _STL { template <> pair<_Rb_tree<int, pair<const int, int>, _Select1st<pair<const int, int> >, less<int>, allocator<pair<const int, int> > >::iterator, bool> _Rb_tree<int, pair<const int, int>, _Select1st<pair<const int, int> >, less<int>, allocator<pair<const int, int> > >::insert_unique(const pair<const int, int> &); }
-struct Vector4 {float x,y,z,w; __declspec(noinline) Vector4() {} };
+#include "../../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 struct Rva00477BA2Vector;
 class Matrix3D {public:__forceinline Matrix3D(){} inline Rva00477BA2Vector Get_X_Vector() const; Vector4 rows[3];};
 struct Rva00477BA2Vector {float x,y,z; Rva00477BA2Vector(float xx,float yy,float zz):x(xx),y(yy),z(zz){} void operator*=(float n){x*=n;y*=n;z*=n;} };
-inline Rva00477BA2Vector Matrix3D::Get_X_Vector() const {return Rva00477BA2Vector(rows[0].x,rows[1].x,rows[2].x);}
+inline Rva00477BA2Vector Matrix3D::Get_X_Vector() const {return Rva00477BA2Vector(rows[0].X,rows[1].X,rows[2].X);}
 class Thing {public:void setTransformMatrix(const Matrix3D*);};
 enum DamageType{DAMAGE=8}; enum DeathType{DEATH=0};
 class Rva003909FAObj
@@ -181,7 +181,7 @@ void HordeTransportContain::rva00477BA2(OldContain*old,Object*object){
  PhysicsBehavior*physics=object->physics;
  if(physics){
   const Matrix3D*matrix3D=object->getTransformMatrix();
-  Rva00477BA2Vector direction(matrix3D->rows[0].x,matrix3D->rows[1].x,matrix3D->rows[2].x);
+  Rva00477BA2Vector direction(matrix3D->rows[0].X,matrix3D->rows[1].X,matrix3D->rows[2].X);
   direction.z=1.0f;
   float magnitude=(float)GetGameLogicRandomValue(3,8,"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Contain\\HordeContain\\HordeTransportContain.cpp",702);
   direction*=magnitude;
