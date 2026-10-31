@@ -44371,7 +44371,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0052C45E,717,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp W=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp
 0x0052C72B,119,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp,approved,C,C=0x0052C45E..0x0052C7A2,Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva0052C119CurrentEntry.cpp
 0x0052C7A2,129,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp,approved,C,C=0x0052C45E..0x0052C823,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp
-0x0052C823,68,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp,approved,C,C=0x0052C45E..0x0052C867,Code/Libraries/Source/WWVegas/WWLib/stlport_pod_noexc_deferred_copies.cpp
+0x0052C823,68,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp,approved,C,C=0x0052C45E..0x0052C867,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp
 0x0052C867,68,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp,approved,C,C=0x0052C45E..0x0052C8AB,Code/Libraries/Source/WWVegas/WWLib/Rva0052C867Copy.cpp
 0x0052C8AB,68,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp,approved,C,C=0x0052C45E..0x0052C8EF,Code/Libraries/Source/WWVegas/WWLib/Rva0052C8ABCopy.cpp
 0x0052C8EF,38,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp,approved,C,C=0x0052C45E..0x0052C915,Code/GameEngine/Source/GameClient/FXListVectorInsertOverflow.cpp
@@ -45107,7 +45107,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00541340,112,code,,,-,,Code/GameEngine/Source/Common/Rva0053F97FListenerWalks.cpp
 0x005413B0,66,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pod28_allocate_copy.cpp
 0x005413F2,66,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pod20_allocate_copy.cpp
-0x00541434,71,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_pod_noexc_deferred_copies.cpp
+0x00541434,71,code,,,-,,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp
 0x0054147B,71,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlportVectorPodCopyCtorFamily.cpp
 0x005414C2,35,code,,,-,,Code/GameEngine/Source/GameClient/CameraAnimation/LookAtCameraKeyLowerBound.cpp
 0x005414E5,37,code,,,-,,Code/GameEngine/Source/Common/Rva0053F97FListenerWalks.cpp
@@ -45126,7 +45126,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00541AB0,281,code,,,-,,Code/GameEngine/Source/GameClient/CameraAnimation/CameraAnimationTrackLookAtCamera.cpp
 0x00541BC9,11,code,,,-,,Code/GameEngine/Source/Common/GapBodiesSeat10O1.cpp
 0x00541BD4,11,code,,,-,,Code/GameEngine/Source/Common/GapBodiesSeat10O1.cpp
-0x00541BDF,125,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_pod_noexc_deferred_copies.cpp
+0x00541BDF,125,code,,,-,,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp
 0x00541C5C,125,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/Rva0054103EVectorInsertOverflow.cpp
 0x00541CD9,55,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva00541021_allocate_copy.cpp
 0x00541D10,152,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/Rva00240230VectorInsertOverflow_Rva00541d10.cpp
