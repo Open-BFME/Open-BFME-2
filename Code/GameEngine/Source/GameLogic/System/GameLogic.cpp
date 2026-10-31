@@ -1108,6 +1108,19 @@ static const volatile float IdentityDiagonal=1.0f;
 	{ \
 		return *(float *)((char *)*(void *const *)((char *)this - (BACK)) + (DISP2)); \
 	}
+#define BFME_DISP8_SAR_AVG_DWORD_GETTER(NAME, DISP1, DISP2, IMM) \
+	class NAME \
+	{ \
+	public: \
+		int get() const; \
+		char m_lead[DISP1]; \
+		int m_first; \
+	}; \
+	int NAME::get() const \
+	{ \
+		return (m_first - *(int *)((char *)this + DISP2)) >> IMM; \
+	}
+BFME_DISP8_SAR_AVG_DWORD_GETTER(Rva0023D6F0SarAvgField, 0x5C, 0x58, 2)
 
 class GameSlot;
 
@@ -2964,6 +2977,35 @@ class AnimalAIUpdate : public AnimalAIUpdateHead, public Rva0047EB78_Interface3E
 public:
 	virtual unsigned char rva0047EC5F() const;
 };
+
+class INI
+{
+public:
+	const char *rva0002DFE2(const char *seps, bool *substituted);
+};
+
+class Rva0049B6AE
+{
+public:
+	void append(const char *s, StringBase<char> *b);
+};
+
+class Rva003339CE
+{
+public:
+	bool rva003339CE(const char *token, bool *foundNormal, bool *foundAddOrSub);
+
+private:
+	unsigned int m_words[4]; // Native worker clears/accesses the 16-byte bitset.
+};
+
+class Rva003B1017 : public Rva003339CE
+{
+public:
+	void rva003B1017(INI *ini, void *extra);
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
 
@@ -5321,26 +5363,6 @@ void GameLogic::bfmePopulateGameReport(GameInfo *game, Int *localSlot)
 	m_gameReportTrailer.format("---------------------------------------------------------\n");
 }
 
-// tu-skeleton: 0x0023CAE7 69B ?friend_createObject@GameLogic@@QAEPAVObject@@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z -- matched in Code/GameEngine/Source/Common/Thing/ThingFactory_newObject.cpp (not merged yet)
-
-// tu-skeleton: 0x0023CD97 7B ?isGamePaused@GameLogic@@QAEEXZ -- matched in Code/GameEngine/Source/Common/GameEngineNetworkHelpers.cpp (not merged yet)
-
-// tu-skeleton: 0x0023CF83 8B ?enable@Rva0023CF83ByteOneSetter@@QAEXXZ -- matched in Code/GameEngine/Source/Common/DispByteOneSetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0023D6F0 10B ?get@Rva0023D6F0SarAvgField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8SarAvgDwordGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0023DAA5 39B ?clear@?$_List_base@HV?$allocator@H@_STL@@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_o1.cpp (not merged yet)
-
-// tu-skeleton: 0x0023DAE8 15B ??0Rva0023DAE8@@QAE@H@Z -- matched in Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp (not merged yet)
-
-// tu-skeleton: 0x0023DAF7 23B ?rva0023DAF7@Rva0023DAF7@@QAEXMH@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAG_Rva00131CF2.cpp (not merged yet)
-
-// tu-skeleton: 0x0023DB34 20B ??0Rva0023DB34@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp (not merged yet)
-
-// tu-skeleton: 0x0023DB48 16B ?rva0023DB48@Rva0023DB48@@QAEHXZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp (not merged yet)
-
-// tu-skeleton: 0x0023DB5F 17B ?keyAtA@Gen_000cd680@@QBEHH@Z -- matched in Code/GameEngine/Source/Common/Gen_000cd680.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Disp32FirstChaseGetters.cpp
 
 // Disp32-first chase getters (twin-free TU).
@@ -5362,6 +5384,46 @@ void GameLogic::bfmePopulateGameReport(GameInfo *game, Int *localSlot)
 // A plain lead array cannot model a negative offset, so the outer load is
 // spelled as pointer arithmetic off `(char *)this - BACK`, which folds to
 // the same disp32-neg addressing (lea-BEFORE precedent).
+
+// tu-skeleton: 0x0023CAE7 69B ?friend_createObject@GameLogic@@QAEPAVObject@@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z -- matched in Code/GameEngine/Source/Common/Thing/ThingFactory_newObject.cpp (not merged yet)
+
+// tu-skeleton: 0x0023CD97 7B ?isGamePaused@GameLogic@@QAEEXZ -- matched in Code/GameEngine/Source/Common/GameEngineNetworkHelpers.cpp (not merged yet)
+
+// tu-skeleton: 0x0023CF83 8B ?enable@Rva0023CF83ByteOneSetter@@QAEXXZ -- matched in Code/GameEngine/Source/Common/DispByteOneSetters.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Disp8SarAvgDwordGetters.cpp
+
+// Disp8 sar-avg dword getters: eight-to-ten-byte __thiscall members with one shape:
+//
+//     mov eax,[ecx+<DISP1>] / sub eax,[ecx+<DISP2>] / sar eax,<IMM8> / ret
+//
+// The difference of two dwords at fixed displacements from `this` is
+// arithmetically shifted right. MSVC 7.1 emits the disp8 loads `8B 41 XX`
+// plus `2B 41 XX`, plus `C1 F8 XX` (or `D1 F8` for shift-by-1), plus `ret`.
+// Identity is not recovered: every name is derived from its address.
+// The established /O1 /SSE /G7 settings are unchanged; /EHsc supports the
+// independently recovered BodyState INI driver below.
+
+// Native Ghidra [0x003B1017,0x003B1101), 234 bytes, RET 8. BodyState
+// list driver: both native worker calls use complete rowed 0x003339CE;
+// quoted-token reader and StringBase lifetime/tokenization ABI are the
+// same as exact KindOf driver 0x00256499, used as the C++ semantic guide.
+// The complete 47-byte append helper at 0x0049B6AE ignores the incoming
+// receiver. Reuse its existing opaque member ABI binding without a new
+// pin: native sets ECX=this before both appends. The fallback is retail's
+// actual one-byte empty string. Original driver name remains unknown.
+
+// tu-skeleton: 0x0023DAA5 39B ?clear@?$_List_base@HV?$allocator@H@_STL@@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_o1.cpp (not merged yet)
+
+// tu-skeleton: 0x0023DAE8 15B ??0Rva0023DAE8@@QAE@H@Z -- matched in Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x0023DAF7 23B ?rva0023DAF7@Rva0023DAF7@@QAEXMH@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAG_Rva00131CF2.cpp (not merged yet)
+
+// tu-skeleton: 0x0023DB34 20B ??0Rva0023DB34@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x0023DB48 16B ?rva0023DB48@Rva0023DB48@@QAEHXZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp (not merged yet)
+
+// tu-skeleton: 0x0023DB5F 17B ?keyAtA@Gen_000cd680@@QBEHH@Z -- matched in Code/GameEngine/Source/Common/Gen_000cd680.cpp (not merged yet)
 
 // tu-skeleton: 0x0023DB93 20B ?rva0023DB93@Rva0023DB93@@QBEHH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE04.cpp (not merged yet)
 
