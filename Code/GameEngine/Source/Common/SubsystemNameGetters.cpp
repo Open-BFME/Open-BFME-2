@@ -24,7 +24,6 @@
 		return TEXT; \
 	}
 
-BFME_LITERAL_NAME_GETTER(Rva006254A0Named, "PartitionManager")
 class ModuleData
 {
 public:
