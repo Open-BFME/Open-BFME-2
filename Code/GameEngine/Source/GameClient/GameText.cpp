@@ -42,6 +42,7 @@ struct NoString;
 class GameTextTable;
 #include <new>
 #include "string_base.h"
+#define BFME_STRINGBASE_PUBLIC_DTOR
 
 struct AsciiStringHeader
 {
@@ -364,6 +365,8 @@ public:
 	int m_translateMode;					// +0x40
 };
 
+// ---- from Code/GameEngine/Source/GameClient/GameText.cpp
+
 // ---- from Code/GameEngine/Source/GameClient/GameTextManager_fetch.cpp
 
 // ?fetch@GameTextManager@@UAE?AVUnicodeString@@PBDPA_N@Z 0x002E5719 35B
@@ -384,10 +387,6 @@ UnicodeString GameTextManager::fetch(const AsciiString &label, bool *exists)
 	const char *s = label.str();
 	return *fetchPtr(s, exists);
 }
-
-// tu-skeleton: 0x002E5770 33B ?fetchPtr@GameTextManager@@UAEPAVUnicodeString@@ABVAsciiString@@PA_N@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesD.cpp (not merged yet)
-
-// tu-skeleton: 0x002E5791 53B ??1Rva002E5791@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/Rva002E5791Dtor.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameClient/GameText.cpp
 
@@ -818,14 +817,6 @@ void Rva002E674B::rva002E674B(AsciiStringVec &out, const AsciiString &filter)
 	}
 }
 
-// tu-skeleton: 0x002E5B66 101B ??$__median@UStringLookUp@@URva002E5678Cmp@@@_STL@@YAABUStringLookUp@@ABU1@00URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
-
-// tu-skeleton: 0x002E5BCB 74B ??$__unguarded_partition@PAUStringLookUp@@U1@URva002E5678Cmp@@@_STL@@YAPAUStringLookUp@@PAU1@0U1@URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
-
-// tu-skeleton: 0x002E5CAD 60B ??$__unguarded_linear_insert@PAUStringLookUp@@U1@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@U1@URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
-
-// tu-skeleton: 0x002E5CE9 93B ??$__push_heap@PAUStringLookUp@@HU1@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@HHU1@URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameClient/Rva002E5791VectorDeletingDtor.cpp
 
 // ??_ERva002E5791@@QAEPAXI@Z 0x002E5E5A 75B
@@ -838,10 +829,6 @@ void Rva002E5791DeleteArray(Rva002E5791 *array)
 {
 	delete[] array;
 }
-
-// tu-skeleton: 0x002E60C2 36B ??$__unguarded_insertion_sort_aux@PAUStringLookUp@@U1@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@00URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
-
-// tu-skeleton: 0x002E60E6 114B ??$__adjust_heap@PAUStringLookUp@@HU1@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@HHU1@URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameClient/GameTextTable.cpp
 
@@ -863,26 +850,6 @@ GameTextTable::~GameTextTable()
 	m_count = 0;
 }
 
-// tu-skeleton: 0x002E621B 23B ??$__unguarded_insertion_sort@PAUStringLookUp@@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@0URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
-
-// tu-skeleton: 0x002E6232 77B ??$__linear_insert@PAUStringLookUp@@U1@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@0U1@URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
-
-// tu-skeleton: 0x002E627F 50B ??$__pop_heap@PAUStringLookUp@@U1@URva002E5678Cmp@@H@_STL@@YAXPAUStringLookUp@@00U1@URva002E5678Cmp@@PAH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
-
-// tu-skeleton: 0x002E62B1 82B ??$__make_heap@PAUStringLookUp@@URva002E5678Cmp@@U1@H@_STL@@YAXPAUStringLookUp@@0URva002E5678Cmp@@0PAH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
-
-// tu-skeleton: 0x002E6303 33B ??$__pop_heap_aux@PAUStringLookUp@@U1@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@00URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
-
-// tu-skeleton: 0x002E6324 5B ??1Rva002E6324@@QAE@XZ -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
-
-// tu-skeleton: 0x002E634A 48B ??$__insertion_sort@PAUStringLookUp@@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@0URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
-
-// tu-skeleton: 0x002E637A 25B ??$make_heap@PAUStringLookUp@@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@0URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
-
-// tu-skeleton: 0x002E6393 23B ??$pop_heap@PAUStringLookUp@@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@0URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
-
-// tu-skeleton: 0x002E640B 10B ?setTranslateMode@GameTextManager@@UAEXH@Z -- matched in Code/GameEngine/Source/Common/DispArgFieldSettersVslots.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameClient/GameTextManager_reset.cpp
 
 void GameTextManager::reset()
@@ -895,14 +862,6 @@ void GameTextManager::reset()
 		m_mapTable = 0;
 	}
 }
-
-// tu-skeleton: 0x002E6451 74B ?rva002E6451@Rva002E6451@@QAEPAXPBD@Z -- matched in Code/GameEngine/Source/GameClient/Rva002E6451Find.cpp (not merged yet)
-
-// tu-skeleton: 0x002E649B 74B ??$__final_insertion_sort@PAUStringLookUp@@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@0URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
-
-// tu-skeleton: 0x002E64E5 58B ??$sort_heap@PAUStringLookUp@@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@0URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
-
-// tu-skeleton: 0x002E651F 50B ?CreateGameTextInterface@@YAPAVGameTextInterface@@XZ -- matched in Code/GameEngine/Source/GameClient/GameTextCreate.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameClient/GameTextManager_deinit.cpp
 
@@ -937,6 +896,60 @@ void GameTextManager::deinit()
 	m_initialized = 0;
 }
 
+// tu-skeleton: 0x002E5770 33B ?fetchPtr@GameTextManager@@UAEPAVUnicodeString@@ABVAsciiString@@PA_N@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesD.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/Rva002E5791Dtor.cpp
+
+// ??1Rva002E5791@@QAE@XZ 0x002E5791 53B
+// Evidence: EH dtor calls wide releaseBuffer 0x00036E70 at +4 then narrow 0x00036410 at +0; prev Rva002E5711Dtor; unblocks 0x002E5E5A.
+// The canonical frozen StringBase replaces the private copy. The public narrow
+// teardown spelling resolves to the verified 133-byte releaseBuffer worker at
+// RVA 0x36410. Wide teardown is unchanged.
+
+Rva002E5791::~Rva002E5791()
+{
+}
+
+// tu-skeleton: 0x002E5B66 101B ??$__median@UStringLookUp@@URva002E5678Cmp@@@_STL@@YAABUStringLookUp@@ABU1@00URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
+
+// tu-skeleton: 0x002E5BCB 74B ??$__unguarded_partition@PAUStringLookUp@@U1@URva002E5678Cmp@@@_STL@@YAPAUStringLookUp@@PAU1@0U1@URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
+
+// tu-skeleton: 0x002E5CAD 60B ??$__unguarded_linear_insert@PAUStringLookUp@@U1@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@U1@URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
+
+// tu-skeleton: 0x002E5CE9 93B ??$__push_heap@PAUStringLookUp@@HU1@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@HHU1@URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
+
+// tu-skeleton: 0x002E60C2 36B ??$__unguarded_insertion_sort_aux@PAUStringLookUp@@U1@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@00URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
+
+// tu-skeleton: 0x002E60E6 114B ??$__adjust_heap@PAUStringLookUp@@HU1@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@HHU1@URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
+
+// tu-skeleton: 0x002E621B 23B ??$__unguarded_insertion_sort@PAUStringLookUp@@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@0URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
+
+// tu-skeleton: 0x002E6232 77B ??$__linear_insert@PAUStringLookUp@@U1@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@0U1@URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
+
+// tu-skeleton: 0x002E627F 50B ??$__pop_heap@PAUStringLookUp@@U1@URva002E5678Cmp@@H@_STL@@YAXPAUStringLookUp@@00U1@URva002E5678Cmp@@PAH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
+
+// tu-skeleton: 0x002E62B1 82B ??$__make_heap@PAUStringLookUp@@URva002E5678Cmp@@U1@H@_STL@@YAXPAUStringLookUp@@0URva002E5678Cmp@@0PAH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
+
+// tu-skeleton: 0x002E6303 33B ??$__pop_heap_aux@PAUStringLookUp@@U1@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@00URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
+
+// tu-skeleton: 0x002E6324 5B ??1Rva002E6324@@QAE@XZ -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
+
+// tu-skeleton: 0x002E634A 48B ??$__insertion_sort@PAUStringLookUp@@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@0URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
+
+// tu-skeleton: 0x002E637A 25B ??$make_heap@PAUStringLookUp@@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@0URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
+
+// tu-skeleton: 0x002E6393 23B ??$pop_heap@PAUStringLookUp@@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@0URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
+
+// tu-skeleton: 0x002E640B 10B ?setTranslateMode@GameTextManager@@UAEXH@Z -- matched in Code/GameEngine/Source/Common/DispArgFieldSettersVslots.cpp (not merged yet)
+
+// tu-skeleton: 0x002E6451 74B ?rva002E6451@Rva002E6451@@QAEPAXPBD@Z -- matched in Code/GameEngine/Source/GameClient/Rva002E6451Find.cpp (not merged yet)
+
+// tu-skeleton: 0x002E649B 74B ??$__final_insertion_sort@PAUStringLookUp@@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@0URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
+
+// tu-skeleton: 0x002E64E5 58B ??$sort_heap@PAUStringLookUp@@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@0URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
+
+// tu-skeleton: 0x002E651F 50B ?CreateGameTextInterface@@YAPAVGameTextInterface@@XZ -- matched in Code/GameEngine/Source/GameClient/GameTextCreate.cpp (not merged yet)
+
 // tu-skeleton: 0x002E6695 93B ??$__partial_sort@PAUStringLookUp@@U1@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@000URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
 
 // tu-skeleton: 0x002E66F2 89B ??1GameTextManager@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/GameTextManager.cpp (not merged yet)
@@ -950,10 +963,6 @@ void GameTextManager::deinit()
 // tu-skeleton: 0x002E6826 131B ??$__introsort_loop@PAUStringLookUp@@U1@HURva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@00HURva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
 
 // tu-skeleton: 0x002E68A9 67B ??$sort@PAUStringLookUp@@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@0URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
-
-// tu-skeleton: 0x00778CB5 8B Unwind@00b78cb5 -- matched in Code/GameEngine/Source/GameClient/Rva002E5791Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00778CBD 10B __ehhandler$??1Rva002E5791@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/Rva002E5791Dtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00778D11 8B uw_00778d11 -- matched in Code/gen_small/uw_gen_011.cpp (not merged yet)
 
