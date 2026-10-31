@@ -649,3 +649,10 @@ Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/Rva000C65CBBoneA
 Code/GameEngine/Source/Common/Rva00395E19.cpp|local|Rva00395E19::rva00395E19|q,059b5e981d2167803bf29ac4,drz-k9,n25d2-k9-20,w-4d4d8f8584bc,2026-10-31,74c1e637fd2f3f0f99c765ad
 Code/GameEngine/Source/Common/Rva00395E19.cpp|local|Rva00395E19::rva00395E19|s,a666d42188df3ffb63bb9e9c,drz-k9,n25d2-k9-20,w-4d4d8f8584bc,2026-10-31,23c984811b224434e27bcdbc
 Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/InGameHeroSelectDataAddHero.cpp|param|Holder00526309::Rva00525CC5|arg,ef8922526ef295342d699702,drz-k1,drz-k1-8,w-d29055ee9848,2026-10-31,1753172c40b6b2bc9c7877b2
+Code/GameEngine/Source/Common/Rva00410619Check.cpp|local|Rva0045F0A0::process|p2,5ed348db1378de1032246190,drz-k2,drz-k2-0,w-ded32b2e2c5e,2026-10-31,d2919563f01b6ab30c2bc660
+Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003BF045.cpp|local|ScriptActions::doTeamFollowSkirmishApproachPath|n,450d9e8830de1b4a3ead74f2,drz-k2,drz-k2-7,w-ded32b2e2c5e,2026-10-31,2b9e5541a91b39ad54bc3866
+Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003BF045.cpp|local|ScriptActions::doTeamFollowSkirmishApproachPath|x,d475b9bd692ea5e80d7f1931,drz-k2,drz-k2-7,w-ded32b2e2c5e,2026-10-31,b8b2d356b5588a131f735761
+Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003BF045.cpp|local|ScriptActions::doTeamFollowSkirmishApproachPath|y,4a6c00bf1a766a8f92fb90cd,drz-k2,drz-k2-7,w-ded32b2e2c5e,2026-10-31,4216321f03d2491720a1dbe4
+Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003BF045.cpp|local|ScriptActions::doTeamFollowSkirmishApproachPath|z,d1cfdbc76cff12874448c290,drz-k2,drz-k2-7,w-ded32b2e2c5e,2026-10-31,912261a86cab86e4a06dabec
+Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003BF045.cpp|local|ScriptActions::doTeamFollowSkirmishApproachPath|q,04d2cfb9aa0c8a31d11d2ecb,drz-k2,drz-k2-7,w-ded32b2e2c5e,2026-10-31,887aef3d2332939e32a2aece
+Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003BF045.cpp|local|ScriptActions::doTeamFollowSkirmishApproachPath|s,208916f7c738398d3a4a2042,drz-k2,drz-k2-7,w-ded32b2e2c5e,2026-10-31,2e6427bd3304c897a576fb6b
