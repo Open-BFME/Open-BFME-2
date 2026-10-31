@@ -1,0 +1,556 @@
+{
+  "scope": "Two existing matched shader units; no new rows, source moves or original-name claims",
+  "independent_body_proofs": [
+    {
+      "source": "Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva001506BF.cpp",
+      "native_copy": "0x0014F480",
+      "native_vtable": "0x007D3854",
+      "kind_lead": "AmbientLight",
+      "actual_native_bodies": [
+        {
+          "name": "??0Rva001506BFElement@@QAE@ABU0@@Z",
+          "rva": "0x0014F480",
+          "size": 33,
+          "exact": true,
+          "resolved_sha256": "4f088ce857590bfa1f6bdbd56418464d261775267282f86612eadff53eba3eec"
+        },
+        {
+          "name": "?allocate@?$allocator@URva001506BFElement@@@_STL@@QBEPAURva001506BFElement@@IPBX@Z",
+          "rva": "0x00523D6C",
+          "size": 28,
+          "exact": true,
+          "resolved_sha256": "c4e643fb560ecff3453c6c8e6b5ddf7c807b7996ee84dcbf13a68ef1e35730ba"
+        },
+        {
+          "name": "??$__uninitialized_fill_n@PAURva001506BFElement@@IU1@@_STL@@YAPAURva001506BFElement@@PAU1@IABU1@ABU__false_type@0@@Z",
+          "rva": "0x0014F5AB",
+          "size": 40,
+          "exact": true,
+          "resolved_sha256": "7cd558e87a9d93bf199831ed4c7dddd83afec6b2c82f38a32e675f33d0e4f7d9"
+        },
+        {
+          "name": "??$__uninitialized_copy@PAURva001506BFElement@@PAU1@@_STL@@YAPAURva001506BFElement@@PAU1@00ABU__false_type@0@@Z",
+          "rva": "0x0014F8E4",
+          "size": 41,
+          "exact": true,
+          "resolved_sha256": "ce6a1fea065e197c5d4f4553d35e43fa28ae951d78caa7b9c003ccd7ee3012d6"
+        },
+        {
+          "name": "??$uninitialized_fill_n@PAURva001506BFElement@@IU1@@_STL@@YAPAURva001506BFElement@@PAU1@IABU1@@Z",
+          "rva": "0x0014F90D",
+          "size": 27,
+          "exact": true,
+          "resolved_sha256": "5ad95cb5832b0fcfd5efc7e554060a24b629d451afbf5ddf847fd2bbb8518918"
+        },
+        {
+          "name": "??$__destroy_aux@PAURva001506BFElement@@@_STL@@YAXPAURva001506BFElement@@0ABU__false_type@0@@Z",
+          "rva": "0x0052BF33",
+          "size": 26,
+          "exact": true,
+          "resolved_sha256": "40a839fad6c26e62d6a0b6a7b7a446f5730deb765145992120e27549c4b506ac"
+        },
+        {
+          "name": "??$__copy_backward@PAURva001506BFElement@@PAU1@H@_STL@@YAPAURva001506BFElement@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z",
+          "rva": "0x0014F718",
+          "size": 46,
+          "exact": true,
+          "resolved_sha256": "90df993299c87882db179ef9dbfd5ad88b3d19d4debe94aedddb97dd2ab21cc9"
+        },
+        {
+          "name": "??$fill@PAURva001506BFElement@@U1@@_STL@@YAXPAURva001506BFElement@@0ABU1@@Z",
+          "rva": "0x0014F9B2",
+          "size": 26,
+          "exact": true,
+          "resolved_sha256": "fabf9db475857ef603e981e251ada38f2eef99ab4dbcf6190948d7cd6cfe2472"
+        },
+        {
+          "name": "??$__copy_backward_ptrs@PAURva001506BFElement@@PAU1@@_STL@@YAPAURva001506BFElement@@PAU1@00ABU__false_type@0@@Z",
+          "rva": "0x0014F995",
+          "size": 29,
+          "exact": true,
+          "resolved_sha256": "8ff7d995a3d0140a53180467eee25f69c39229ff87542e3bdcafeec1681be692"
+        },
+        {
+          "name": "??$_Destroy@PAURva001506BFElement@@@_STL@@YAXPAURva001506BFElement@@0@Z",
+          "rva": "0x005A6EDA",
+          "size": 24,
+          "exact": true,
+          "resolved_sha256": "1afbfdf30e7c30655439486c12998a36bf6ae98c258c5e180d368f7d1df96404"
+        },
+        {
+          "name": "?_M_clear@?$vector@URva001506BFElement@@V?$allocator@URva001506BFElement@@@_STL@@@_STL@@IAEXXZ",
+          "rva": "0x005659CA",
+          "size": 30,
+          "exact": true,
+          "resolved_sha256": "5c11a4a8b973ab9b4fd65cc4b25b64907b37c2477e75d0c11e890327e8cda27b"
+        },
+        {
+          "name": "?_M_insert_overflow@?$vector@URva001506BFElement@@V?$allocator@URva001506BFElement@@@_STL@@@_STL@@IAEXPAURva001506BFElement@@ABU3@ABU__false_type@2@I_N@Z",
+          "rva": "0x00150282",
+          "size": 181,
+          "exact": true,
+          "resolved_sha256": "da1e97a37316bfe0933895beacaf8dc9a77687df2caa14371828781d371b8d55"
+        },
+        {
+          "name": "?_M_fill_insert@?$vector@URva001506BFElement@@V?$allocator@URva001506BFElement@@@_STL@@@_STL@@QAEXPAURva001506BFElement@@IABU3@@Z",
+          "rva": "0x001506BF",
+          "size": 222,
+          "exact": true,
+          "resolved_sha256": "f41adde4c4221308c2a4c1a2958950ec8a87d7b9208c093bb3733b2fd9ae4d6d"
+        }
+      ]
+    },
+    {
+      "source": "Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0015087B.cpp",
+      "native_copy": "0x0014F4C2",
+      "native_vtable": "0x007D3864",
+      "kind_lead": "PointLight",
+      "actual_native_bodies": [
+        {
+          "name": "??0Rva0015087BElement@@QAE@ABU0@@Z",
+          "rva": "0x0014F4C2",
+          "size": 33,
+          "exact": true,
+          "resolved_sha256": "677e4f07e1d85aff0ba6a659dbd2ac62df6ca7b0e257bab990423a02ca6a3a5d"
+        },
+        {
+          "name": "?allocate@?$allocator@URva0015087BElement@@@_STL@@QBEPAURva0015087BElement@@IPBX@Z",
+          "rva": "0x00523D6C",
+          "size": 28,
+          "exact": true,
+          "resolved_sha256": "c4e643fb560ecff3453c6c8e6b5ddf7c807b7996ee84dcbf13a68ef1e35730ba"
+        },
+        {
+          "name": "??$__uninitialized_fill_n@PAURva0015087BElement@@IU1@@_STL@@YAPAURva0015087BElement@@PAU1@IABU1@ABU__false_type@0@@Z",
+          "rva": "0x0014F61F",
+          "size": 40,
+          "exact": true,
+          "resolved_sha256": "8260443c65dbae10a84bd0c39c84ecd0d479b31534af75917074e2422a1d8953"
+        },
+        {
+          "name": "??$__uninitialized_copy@PAURva0015087BElement@@PAU1@@_STL@@YAPAURva0015087BElement@@PAU1@00ABU__false_type@0@@Z",
+          "rva": "0x0014F96C",
+          "size": 41,
+          "exact": true,
+          "resolved_sha256": "8b848eb93649e355505e42a3d91c9cd41d95e7d7ff134328ad6fb1147c544d25"
+        },
+        {
+          "name": "??$uninitialized_fill_n@PAURva0015087BElement@@IU1@@_STL@@YAPAURva0015087BElement@@PAU1@IABU1@@Z",
+          "rva": "0x0014F9CC",
+          "size": 27,
+          "exact": true,
+          "resolved_sha256": "7ac61121106fc69cf8546890799c7a64198448a6ce0a980ab5b2a6f27896ac60"
+        },
+        {
+          "name": "??$__destroy_aux@PAURva0015087BElement@@@_STL@@YAXPAURva0015087BElement@@0ABU__false_type@0@@Z",
+          "rva": "0x0052BF33",
+          "size": 26,
+          "exact": true,
+          "resolved_sha256": "40a839fad6c26e62d6a0b6a7b7a446f5730deb765145992120e27549c4b506ac"
+        },
+        {
+          "name": "??$__copy_backward@PAURva0015087BElement@@PAU1@H@_STL@@YAPAURva0015087BElement@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z",
+          "rva": "0x0014F718",
+          "size": 46,
+          "exact": true,
+          "resolved_sha256": "90df993299c87882db179ef9dbfd5ad88b3d19d4debe94aedddb97dd2ab21cc9"
+        },
+        {
+          "name": "??$fill@PAURva0015087BElement@@U1@@_STL@@YAXPAURva0015087BElement@@0ABU1@@Z",
+          "rva": "0x0014F9B2",
+          "size": 26,
+          "exact": true,
+          "resolved_sha256": "fabf9db475857ef603e981e251ada38f2eef99ab4dbcf6190948d7cd6cfe2472"
+        },
+        {
+          "name": "??$__copy_backward_ptrs@PAURva0015087BElement@@PAU1@@_STL@@YAPAURva0015087BElement@@PAU1@00ABU__false_type@0@@Z",
+          "rva": "0x0014F995",
+          "size": 29,
+          "exact": true,
+          "resolved_sha256": "8ff7d995a3d0140a53180467eee25f69c39229ff87542e3bdcafeec1681be692"
+        },
+        {
+          "name": "??$_Destroy@PAURva0015087BElement@@@_STL@@YAXPAURva0015087BElement@@0@Z",
+          "rva": "0x005A6EDA",
+          "size": 24,
+          "exact": true,
+          "resolved_sha256": "1afbfdf30e7c30655439486c12998a36bf6ae98c258c5e180d368f7d1df96404"
+        },
+        {
+          "name": "?_M_clear@?$vector@URva0015087BElement@@V?$allocator@URva0015087BElement@@@_STL@@@_STL@@IAEXXZ",
+          "rva": "0x005659CA",
+          "size": 30,
+          "exact": true,
+          "resolved_sha256": "5c11a4a8b973ab9b4fd65cc4b25b64907b37c2477e75d0c11e890327e8cda27b"
+        },
+        {
+          "name": "?_M_insert_overflow@?$vector@URva0015087BElement@@V?$allocator@URva0015087BElement@@@_STL@@@_STL@@IAEXPAURva0015087BElement@@ABU3@ABU__false_type@2@I_N@Z",
+          "rva": "0x001503EC",
+          "size": 181,
+          "exact": true,
+          "resolved_sha256": "aca44f1c8d365b3ce7a2e554b6c79aa4cfc86091ae8875bb13319eeefd9e0732"
+        },
+        {
+          "name": "?_M_fill_insert@?$vector@URva0015087BElement@@V?$allocator@URva0015087BElement@@@_STL@@@_STL@@QAEXPAURva0015087BElement@@IABU3@@Z",
+          "rva": "0x0015087B",
+          "size": 222,
+          "exact": true,
+          "resolved_sha256": "924f7da968c116b802ce628e39b8996edb90c6856c2d8ad6accaba1e845b0634"
+        }
+      ]
+    }
+  ],
+  "receipts": [
+    {
+      "source": "Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva001506BF.cpp",
+      "source_sha256": "f0be15fca4ea22667b0f6256737d88af62e4241ca1bdb124549dc3748f1b1eab",
+      "object_sha256": "92aaf3ea80b2379af25c51dc5bc4999a95af455dd05f35501cb183cfe991a324",
+      "strict_current": true
+    },
+    {
+      "source": "Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0015087B.cpp",
+      "source_sha256": "c9bc6b34a267fdb01d7522b1816937bfd91f9d5566eac6f95c0ee7435ea05205",
+      "object_sha256": "9da8b39028b5cd9b83b1d70e9d23f5d1ba77624f1c2e3443612918d65b20799d",
+      "strict_current": true
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/Rva0014FDerivedCopies.cpp",
+      "source_sha256": "d270aa666fa9a6bd40413958446fc9ce305b3be9230f714af0de4ab01261c514",
+      "object_sha256": "ad521fc1b6c0906d2b6991a09380ffdd1d939cda8987966ffcd1884b6c50e5d6",
+      "strict_current": true
+    }
+  ],
+  "official_admissions": [
+    {
+      "source": "Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva001506BF.cpp",
+      "before": {
+        "name": "??0Rva001506BFElement@@QAE@ABU0@@Z",
+        "address": "0x0014F480",
+        "notes": ""
+      },
+      "candidate": {
+        "name": "??0Rva001506BFElement@@QAE@ABU0@@Z",
+        "address": "0x0014F480",
+        "notes": "Native polymorphic index record; complete body and relocation proof; fold-proof=Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva001506BF.cpp"
+      },
+      "fresh": false,
+      "problems": [],
+      "receipt": {
+        "output": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w^lib_^stl^sweep^w5^rva001506^b^f.obj",
+        "bindings": {
+          "??0Rva001506BFElement@@QAE@ABU0@@Z": 1373312
+        }
+      }
+    },
+    {
+      "source": "Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva001506BF.cpp",
+      "before": {
+        "name": "??$__uninitialized_copy@PAURva001506BFElement@@PAU1@@_STL@@YAPAURva001506BFElement@@PAU1@00ABU__false_type@0@@Z",
+        "address": "0x0014F8E4",
+        "notes": ""
+      },
+      "candidate": {
+        "name": "??$__uninitialized_copy@PAURva001506BFElement@@PAU1@@_STL@@YAPAURva001506BFElement@@PAU1@00ABU__false_type@0@@Z",
+        "address": "0x0014F8E4",
+        "notes": "Native polymorphic index record; complete body and relocation proof; fold-proof=Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva001506BF.cpp"
+      },
+      "fresh": false,
+      "problems": [],
+      "receipt": {
+        "output": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w^lib_^stl^sweep^w5^rva001506^b^f.obj",
+        "bindings": {
+          "??$__uninitialized_copy@PAURva001506BFElement@@PAU1@@_STL@@YAPAURva001506BFElement@@PAU1@00ABU__false_type@0@@Z": 1374436
+        }
+      }
+    },
+    {
+      "source": "Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva001506BF.cpp",
+      "before": {
+        "name": "??$__copy_backward_ptrs@PAURva001506BFElement@@PAU1@@_STL@@YAPAURva001506BFElement@@PAU1@00ABU__false_type@0@@Z",
+        "address": "0x0014F995",
+        "notes": ""
+      },
+      "candidate": {
+        "name": "??$__copy_backward_ptrs@PAURva001506BFElement@@PAU1@@_STL@@YAPAURva001506BFElement@@PAU1@00ABU__false_type@0@@Z",
+        "address": "0x0014F995",
+        "notes": "Native polymorphic index record; complete body and relocation proof; fold-proof=Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva001506BF.cpp"
+      },
+      "fresh": false,
+      "problems": [],
+      "receipt": {
+        "output": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w^lib_^stl^sweep^w5^rva001506^b^f.obj",
+        "bindings": {
+          "??$__copy_backward_ptrs@PAURva001506BFElement@@PAU1@@_STL@@YAPAURva001506BFElement@@PAU1@00ABU__false_type@0@@Z": 1374613,
+          "??$__copy_backward@PAURva001506BFElement@@PAU1@H@_STL@@YAPAURva001506BFElement@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z": 1373976
+        }
+      }
+    },
+    {
+      "source": "Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva001506BF.cpp",
+      "before": {
+        "name": "??$fill@PAURva001506BFElement@@U1@@_STL@@YAXPAURva001506BFElement@@0ABU1@@Z",
+        "address": "0x0014F9B2",
+        "notes": ""
+      },
+      "candidate": {
+        "name": "??$fill@PAURva001506BFElement@@U1@@_STL@@YAXPAURva001506BFElement@@0ABU1@@Z",
+        "address": "0x0014F9B2",
+        "notes": "Native polymorphic index record; complete body and relocation proof; fold-proof=Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva001506BF.cpp"
+      },
+      "fresh": false,
+      "problems": [],
+      "receipt": {
+        "output": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w^lib_^stl^sweep^w5^rva001506^b^f.obj",
+        "bindings": {
+          "??$fill@PAURva001506BFElement@@U1@@_STL@@YAXPAURva001506BFElement@@0ABU1@@Z": 1374642
+        }
+      }
+    },
+    {
+      "source": "Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva001506BF.cpp",
+      "before": {
+        "name": "??$uninitialized_fill_n@PAURva001506BFElement@@IU1@@_STL@@YAPAURva001506BFElement@@PAU1@IABU1@@Z",
+        "address": "0x0014F90D",
+        "notes": ""
+      },
+      "candidate": {
+        "name": "??$uninitialized_fill_n@PAURva001506BFElement@@IU1@@_STL@@YAPAURva001506BFElement@@PAU1@IABU1@@Z",
+        "address": "0x0014F90D",
+        "notes": "Native polymorphic index record; complete body and relocation proof; fold-proof=Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva001506BF.cpp"
+      },
+      "fresh": false,
+      "problems": [],
+      "receipt": {
+        "output": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w^lib_^stl^sweep^w5^rva001506^b^f.obj",
+        "bindings": {
+          "??$uninitialized_fill_n@PAURva001506BFElement@@IU1@@_STL@@YAPAURva001506BFElement@@PAU1@IABU1@@Z": 1374477,
+          "??$__uninitialized_fill_n@PAURva001506BFElement@@IU1@@_STL@@YAPAURva001506BFElement@@PAU1@IABU1@ABU__false_type@0@@Z": 1373611
+        }
+      }
+    },
+    {
+      "source": "Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva001506BF.cpp",
+      "before": {
+        "name": "?_M_insert_overflow@?$vector@URva001506BFElement@@V?$allocator@URva001506BFElement@@@_STL@@@_STL@@IAEXPAURva001506BFElement@@ABU3@ABU__false_type@2@I_N@Z",
+        "address": "0x00150282",
+        "notes": ""
+      },
+      "candidate": {
+        "name": "?_M_insert_overflow@?$vector@URva001506BFElement@@V?$allocator@URva001506BFElement@@@_STL@@@_STL@@IAEXPAURva001506BFElement@@ABU3@ABU__false_type@2@I_N@Z",
+        "address": "0x00150282",
+        "notes": "Native polymorphic index record; complete body and relocation proof; fold-proof=Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva001506BF.cpp"
+      },
+      "fresh": false,
+      "problems": [],
+      "receipt": {
+        "output": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w^lib_^stl^sweep^w5^rva001506^b^f.obj",
+        "bindings": {
+          "?_M_insert_overflow@?$vector@URva001506BFElement@@V?$allocator@URva001506BFElement@@@_STL@@@_STL@@IAEXPAURva001506BFElement@@ABU3@ABU__false_type@2@I_N@Z": 1376898,
+          "??$__uninitialized_fill_n@PAURva001506BFElement@@IU1@@_STL@@YAPAURva001506BFElement@@PAU1@IABU1@ABU__false_type@0@@Z": 1373611,
+          "?_M_clear@?$vector@URva001506BFElement@@V?$allocator@URva001506BFElement@@@_STL@@@_STL@@IAEXXZ": 5659082,
+          "??$_Destroy@PAURva001506BFElement@@@_STL@@YAXPAURva001506BFElement@@0@Z": 5926618,
+          "??$__destroy_aux@PAURva001506BFElement@@@_STL@@YAXPAURva001506BFElement@@0ABU__false_type@0@@Z": 5422899,
+          "?allocate@?$allocator@URva001506BFElement@@@_STL@@QBEPAURva001506BFElement@@IPBX@Z": 5389676
+        }
+      }
+    },
+    {
+      "source": "Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva001506BF.cpp",
+      "before": {
+        "name": "?allocate@?$allocator@URva001506BFElement@@@_STL@@QBEPAURva001506BFElement@@IPBX@Z",
+        "address": "0x00523D6C",
+        "notes": ""
+      },
+      "candidate": {
+        "name": "?allocate@?$allocator@URva001506BFElement@@@_STL@@QBEPAURva001506BFElement@@IPBX@Z",
+        "address": "0x00523D6C",
+        "notes": "Native polymorphic index record; complete body and relocation proof; fold-proof=Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva001506BF.cpp"
+      },
+      "fresh": true,
+      "problems": [],
+      "receipt": {
+        "output": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w^lib_^stl^sweep^w5^rva001506^b^f.obj",
+        "bindings": {
+          "?allocate@?$allocator@URva001506BFElement@@@_STL@@QBEPAURva001506BFElement@@IPBX@Z": 5389676
+        }
+      }
+    },
+    {
+      "source": "Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0015087B.cpp",
+      "before": {
+        "name": "??0Rva0015087BElement@@QAE@ABU0@@Z",
+        "address": "0x0014F4C2",
+        "notes": ""
+      },
+      "candidate": {
+        "name": "??0Rva0015087BElement@@QAE@ABU0@@Z",
+        "address": "0x0014F4C2",
+        "notes": "Native polymorphic index record; complete body and relocation proof; fold-proof=Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0015087B.cpp"
+      },
+      "fresh": false,
+      "problems": [],
+      "receipt": {
+        "output": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w^lib_^stl^sweep^w5^rva0015087^b.obj",
+        "bindings": {
+          "??0Rva0015087BElement@@QAE@ABU0@@Z": 1373378
+        }
+      }
+    },
+    {
+      "source": "Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0015087B.cpp",
+      "before": {
+        "name": "??$__uninitialized_copy@PAURva0015087BElement@@PAU1@@_STL@@YAPAURva0015087BElement@@PAU1@00ABU__false_type@0@@Z",
+        "address": "0x0014F96C",
+        "notes": ""
+      },
+      "candidate": {
+        "name": "??$__uninitialized_copy@PAURva0015087BElement@@PAU1@@_STL@@YAPAURva0015087BElement@@PAU1@00ABU__false_type@0@@Z",
+        "address": "0x0014F96C",
+        "notes": "Native polymorphic index record; complete body and relocation proof; fold-proof=Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0015087B.cpp"
+      },
+      "fresh": false,
+      "problems": [],
+      "receipt": {
+        "output": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w^lib_^stl^sweep^w5^rva0015087^b.obj",
+        "bindings": {
+          "??$__uninitialized_copy@PAURva0015087BElement@@PAU1@@_STL@@YAPAURva0015087BElement@@PAU1@00ABU__false_type@0@@Z": 1374572
+        }
+      }
+    },
+    {
+      "source": "Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0015087B.cpp",
+      "before": {
+        "name": "??$__copy_backward_ptrs@PAURva0015087BElement@@PAU1@@_STL@@YAPAURva0015087BElement@@PAU1@00ABU__false_type@0@@Z",
+        "address": "0x0014F995",
+        "notes": ""
+      },
+      "candidate": {
+        "name": "??$__copy_backward_ptrs@PAURva0015087BElement@@PAU1@@_STL@@YAPAURva0015087BElement@@PAU1@00ABU__false_type@0@@Z",
+        "address": "0x0014F995",
+        "notes": "Native polymorphic index record; complete body and relocation proof; fold-proof=Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0015087B.cpp"
+      },
+      "fresh": false,
+      "problems": [],
+      "receipt": {
+        "output": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w^lib_^stl^sweep^w5^rva0015087^b.obj",
+        "bindings": {
+          "??$__copy_backward_ptrs@PAURva0015087BElement@@PAU1@@_STL@@YAPAURva0015087BElement@@PAU1@00ABU__false_type@0@@Z": 1374613,
+          "??$__copy_backward@PAURva0015087BElement@@PAU1@H@_STL@@YAPAURva0015087BElement@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z": 1373976
+        }
+      }
+    },
+    {
+      "source": "Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0015087B.cpp",
+      "before": {
+        "name": "??$fill@PAURva0015087BElement@@U1@@_STL@@YAXPAURva0015087BElement@@0ABU1@@Z",
+        "address": "0x0014F9B2",
+        "notes": ""
+      },
+      "candidate": {
+        "name": "??$fill@PAURva0015087BElement@@U1@@_STL@@YAXPAURva0015087BElement@@0ABU1@@Z",
+        "address": "0x0014F9B2",
+        "notes": "Native polymorphic index record; complete body and relocation proof; fold-proof=Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0015087B.cpp"
+      },
+      "fresh": false,
+      "problems": [],
+      "receipt": {
+        "output": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w^lib_^stl^sweep^w5^rva0015087^b.obj",
+        "bindings": {
+          "??$fill@PAURva0015087BElement@@U1@@_STL@@YAXPAURva0015087BElement@@0ABU1@@Z": 1374642
+        }
+      }
+    },
+    {
+      "source": "Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0015087B.cpp",
+      "before": {
+        "name": "??$uninitialized_fill_n@PAURva0015087BElement@@IU1@@_STL@@YAPAURva0015087BElement@@PAU1@IABU1@@Z",
+        "address": "0x0014F9CC",
+        "notes": ""
+      },
+      "candidate": {
+        "name": "??$uninitialized_fill_n@PAURva0015087BElement@@IU1@@_STL@@YAPAURva0015087BElement@@PAU1@IABU1@@Z",
+        "address": "0x0014F9CC",
+        "notes": "Native polymorphic index record; complete body and relocation proof; fold-proof=Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0015087B.cpp"
+      },
+      "fresh": false,
+      "problems": [],
+      "receipt": {
+        "output": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w^lib_^stl^sweep^w5^rva0015087^b.obj",
+        "bindings": {
+          "??$uninitialized_fill_n@PAURva0015087BElement@@IU1@@_STL@@YAPAURva0015087BElement@@PAU1@IABU1@@Z": 1374668,
+          "??$__uninitialized_fill_n@PAURva0015087BElement@@IU1@@_STL@@YAPAURva0015087BElement@@PAU1@IABU1@ABU__false_type@0@@Z": 1373727
+        }
+      }
+    },
+    {
+      "source": "Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0015087B.cpp",
+      "before": {
+        "name": "?_M_insert_overflow@?$vector@URva0015087BElement@@V?$allocator@URva0015087BElement@@@_STL@@@_STL@@IAEXPAURva0015087BElement@@ABU3@ABU__false_type@2@I_N@Z",
+        "address": "0x001503EC",
+        "notes": ""
+      },
+      "candidate": {
+        "name": "?_M_insert_overflow@?$vector@URva0015087BElement@@V?$allocator@URva0015087BElement@@@_STL@@@_STL@@IAEXPAURva0015087BElement@@ABU3@ABU__false_type@2@I_N@Z",
+        "address": "0x001503EC",
+        "notes": "Native polymorphic index record; complete body and relocation proof; fold-proof=Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0015087B.cpp"
+      },
+      "fresh": false,
+      "problems": [],
+      "receipt": {
+        "output": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w^lib_^stl^sweep^w5^rva0015087^b.obj",
+        "bindings": {
+          "?_M_insert_overflow@?$vector@URva0015087BElement@@V?$allocator@URva0015087BElement@@@_STL@@@_STL@@IAEXPAURva0015087BElement@@ABU3@ABU__false_type@2@I_N@Z": 1377260,
+          "??$__uninitialized_fill_n@PAURva0015087BElement@@IU1@@_STL@@YAPAURva0015087BElement@@PAU1@IABU1@ABU__false_type@0@@Z": 1373727,
+          "?_M_clear@?$vector@URva0015087BElement@@V?$allocator@URva0015087BElement@@@_STL@@@_STL@@IAEXXZ": 5659082,
+          "??$_Destroy@PAURva0015087BElement@@@_STL@@YAXPAURva0015087BElement@@0@Z": 5926618,
+          "??$__destroy_aux@PAURva0015087BElement@@@_STL@@YAXPAURva0015087BElement@@0ABU__false_type@0@@Z": 5422899,
+          "?allocate@?$allocator@URva0015087BElement@@@_STL@@QBEPAURva0015087BElement@@IPBX@Z": 5389676
+        }
+      }
+    },
+    {
+      "source": "Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0015087B.cpp",
+      "before": {
+        "name": "?allocate@?$allocator@URva0015087BElement@@@_STL@@QBEPAURva0015087BElement@@IPBX@Z",
+        "address": "0x00523D6C",
+        "notes": ""
+      },
+      "candidate": {
+        "name": "?allocate@?$allocator@URva0015087BElement@@@_STL@@QBEPAURva0015087BElement@@IPBX@Z",
+        "address": "0x00523D6C",
+        "notes": "Native polymorphic index record; complete body and relocation proof; fold-proof=Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0015087B.cpp"
+      },
+      "fresh": true,
+      "problems": [],
+      "receipt": {
+        "output": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w^lib_^stl^sweep^w5^rva0015087^b.obj",
+        "bindings": {
+          "?allocate@?$allocator@URva0015087BElement@@@_STL@@QBEPAURva0015087BElement@@IPBX@Z": 5389676
+        }
+      }
+    }
+  ],
+  "normal_gates": {
+    "ledger_code_rows": 5,
+    "sources": 3,
+    "eh_rows": 0,
+    "shadow_identity_references": 19,
+    "wrong_bindings": 0
+  },
+  "preview": {
+    "index": "d249ce458a",
+    "clean_units": 6,
+    "before_bytes": 2651,
+    "after_bytes": 3317,
+    "total_predicted_gain": 666,
+    "already_published_directional_gain": 222,
+    "this_batch_additional_predicted_gain": 444,
+    "census_confirmation": "pending scheduled census; broader consumer closure remains unverified"
+  },
+  "hatches": {
+    "dummy_aliases_removed": 2,
+    "tool_admitted_allocator_pins_added": 2,
+    "net_count_change": 0
+  },
+  "remaining": "Global identity/consumer closure, original-name/view reconciliation and approved SAS TU consolidation remain separate"
+}

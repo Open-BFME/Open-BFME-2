@@ -1,0 +1,60 @@
+{
+  "source": "Code/GameEngine/Source/Common/Rva0014FDerivedCopies.cpp",
+  "scope": "Retain three native 33-byte copies while replacing the remaining two placeholder vtables with already-owned ambient/point symbols and removing their unused dummy aliases",
+  "variants": {
+    "before": {
+      "source_sha256": "319193f8e3e6182a87ad606543909d2dab817c993d8fea4e743b4221f9392752",
+      "rows": [
+        {
+          "name": "??0Rva0014F480@@QAE@ABV0@@Z",
+          "rva": "0x0014F480",
+          "size": "33",
+          "exact": true
+        },
+        {
+          "name": "??0Rva0014F4A1@@QAE@ABV0@@Z",
+          "rva": "0x0014F4A1",
+          "size": "33",
+          "exact": true
+        },
+        {
+          "name": "??0Rva0014F4C2@@QAE@ABV0@@Z",
+          "rva": "0x0014F4C2",
+          "size": "33",
+          "exact": true
+        }
+      ],
+      "eh": []
+    },
+    "trial": {
+      "source_sha256": "d270aa666fa9a6bd40413958446fc9ce305b3be9230f714af0de4ab01261c514",
+      "rows": [
+        {
+          "name": "??0Rva0014F480@@QAE@ABV0@@Z",
+          "rva": "0x0014F480",
+          "size": "33",
+          "exact": true
+        },
+        {
+          "name": "??0Rva0014F4A1@@QAE@ABV0@@Z",
+          "rva": "0x0014F4A1",
+          "size": "33",
+          "exact": true
+        },
+        {
+          "name": "??0Rva0014F4C2@@QAE@ABV0@@Z",
+          "rva": "0x0014F4C2",
+          "size": "33",
+          "exact": true
+        }
+      ],
+      "eh": []
+    }
+  },
+  "symbol_identity_changes": {
+    "??_7Rva0014F480@@6B@": "??_7SourceNamespace_AmbientLight@FXShaderParameterSourceNamespaceSAS@@6B@",
+    "??_7Rva0014F4C2@@6B@": "??_7SourceNamespace_PointLight@FXShaderParameterSourceNamespaceSAS@@6B@"
+  },
+  "all_external_code_and_symbolic_relocations_identical": true,
+  "all_retained_external_code_and_symbolic_relocations_identical": true
+}

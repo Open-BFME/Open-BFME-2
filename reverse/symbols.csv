@@ -7361,18 +7361,6 @@ rva009C7380WeightPairs,0x009B84E0
 ??$fill@PAURva0039C415Element@@U1@@_STL@@YAXPAURva0039C415Element@@0ABU1@@Z,0x0039BA68,
 ??$uninitialized_fill_n@PAURva0039C415Element@@IU1@@_STL@@YAPAURva0039C415Element@@PAU1@IABU1@@Z,0x0039BA85,
 ?_M_insert_overflow@?$vector@URva0039C415Element@@V?$allocator@URva0039C415Element@@@_STL@@@_STL@@IAEXPAURva0039C415Element@@ABU3@ABU__false_type@2@I_N@Z,0x0039C1C3,
-??0Rva001506BFElement@@QAE@ABU0@@Z,0x0014F480,
-??$__uninitialized_copy@PAURva001506BFElement@@PAU1@@_STL@@YAPAURva001506BFElement@@PAU1@00ABU__false_type@0@@Z,0x0014F8E4,
-??$__copy_backward_ptrs@PAURva001506BFElement@@PAU1@@_STL@@YAPAURva001506BFElement@@PAU1@00ABU__false_type@0@@Z,0x0014F995,
-??$fill@PAURva001506BFElement@@U1@@_STL@@YAXPAURva001506BFElement@@0ABU1@@Z,0x0014F9B2,
-??$uninitialized_fill_n@PAURva001506BFElement@@IU1@@_STL@@YAPAURva001506BFElement@@PAU1@IABU1@@Z,0x0014F90D,
-?_M_insert_overflow@?$vector@URva001506BFElement@@V?$allocator@URva001506BFElement@@@_STL@@@_STL@@IAEXPAURva001506BFElement@@ABU3@ABU__false_type@2@I_N@Z,0x00150282,
-??0Rva0015087BElement@@QAE@ABU0@@Z,0x0014F4C2,
-??$__uninitialized_copy@PAURva0015087BElement@@PAU1@@_STL@@YAPAURva0015087BElement@@PAU1@00ABU__false_type@0@@Z,0x0014F96C,
-??$__copy_backward_ptrs@PAURva0015087BElement@@PAU1@@_STL@@YAPAURva0015087BElement@@PAU1@00ABU__false_type@0@@Z,0x0014F995,
-??$fill@PAURva0015087BElement@@U1@@_STL@@YAXPAURva0015087BElement@@0ABU1@@Z,0x0014F9B2,
-??$uninitialized_fill_n@PAURva0015087BElement@@IU1@@_STL@@YAPAURva0015087BElement@@PAU1@IABU1@@Z,0x0014F9CC,
-?_M_insert_overflow@?$vector@URva0015087BElement@@V?$allocator@URva0015087BElement@@@_STL@@@_STL@@IAEXPAURva0015087BElement@@ABU3@ABU__false_type@2@I_N@Z,0x001503EC,
 ??$_M_allocate_and_copy@PBURva0026F4F4Element@@@?$vector@URva0026F4F4Element@@V?$allocator@URva0026F4F4Element@@@_STL@@@_STL@@IAEPAURva0026F4F4Element@@IPBU2@0@Z,0x0053BD39,
 ?get_allocator@?$_List_base@URva000BC0DBElement@@V?$allocator@URva000BC0DBElement@@@_STL@@@_STL@@QBE?AV?$allocator@URva000BC0DBElement@@@2@XZ,0x0021983A,
 ??0?$_List_base@URva000BC0DBElement@@V?$allocator@URva000BC0DBElement@@@_STL@@@_STL@@QAE@ABV?$allocator@URva000BC0DBElement@@@1@@Z,0x004EC36C,
@@ -9361,3 +9349,17 @@ _atan2f,0x000422A0,math.h x86 inline atan2f (float)atan2((double)y(double)x): 0x
 ??$fill@PAURva0015079DElement@@U1@@_STL@@YAXPAURva0015079DElement@@0ABU1@@Z,0x0014F9B2,Native polymorphic index record; complete body and relocation proof; fold-proof=Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0015079D.cpp
 ??$uninitialized_fill_n@PAURva0015079DElement@@IU1@@_STL@@YAPAURva0015079DElement@@PAU1@IABU1@@Z,0x0014F951,Native polymorphic index record; complete body and relocation proof; fold-proof=Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0015079D.cpp
 ?_M_insert_overflow@?$vector@URva0015079DElement@@V?$allocator@URva0015079DElement@@@_STL@@@_STL@@IAEXPAURva0015079DElement@@ABU3@ABU__false_type@2@I_N@Z,0x00150337,Native polymorphic index record; complete body and relocation proof; fold-proof=Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0015079D.cpp
+?allocate@?$allocator@URva001506BFElement@@@_STL@@QBEPAURva001506BFElement@@IPBX@Z,0x00523D6C,Native polymorphic index record; complete body and relocation proof; fold-proof=Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva001506BF.cpp
+?allocate@?$allocator@URva0015087BElement@@@_STL@@QBEPAURva0015087BElement@@IPBX@Z,0x00523D6C,Native polymorphic index record; complete body and relocation proof; fold-proof=Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0015087B.cpp
+??0Rva001506BFElement@@QAE@ABU0@@Z,0x0014F480,Native polymorphic index record; complete body and relocation proof; fold-proof=Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva001506BF.cpp
+??$__uninitialized_copy@PAURva001506BFElement@@PAU1@@_STL@@YAPAURva001506BFElement@@PAU1@00ABU__false_type@0@@Z,0x0014F8E4,Native polymorphic index record; complete body and relocation proof; fold-proof=Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva001506BF.cpp
+??$__copy_backward_ptrs@PAURva001506BFElement@@PAU1@@_STL@@YAPAURva001506BFElement@@PAU1@00ABU__false_type@0@@Z,0x0014F995,Native polymorphic index record; complete body and relocation proof; fold-proof=Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva001506BF.cpp
+??$fill@PAURva001506BFElement@@U1@@_STL@@YAXPAURva001506BFElement@@0ABU1@@Z,0x0014F9B2,Native polymorphic index record; complete body and relocation proof; fold-proof=Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva001506BF.cpp
+??$uninitialized_fill_n@PAURva001506BFElement@@IU1@@_STL@@YAPAURva001506BFElement@@PAU1@IABU1@@Z,0x0014F90D,Native polymorphic index record; complete body and relocation proof; fold-proof=Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva001506BF.cpp
+?_M_insert_overflow@?$vector@URva001506BFElement@@V?$allocator@URva001506BFElement@@@_STL@@@_STL@@IAEXPAURva001506BFElement@@ABU3@ABU__false_type@2@I_N@Z,0x00150282,Native polymorphic index record; complete body and relocation proof; fold-proof=Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva001506BF.cpp
+??0Rva0015087BElement@@QAE@ABU0@@Z,0x0014F4C2,Native polymorphic index record; complete body and relocation proof; fold-proof=Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0015087B.cpp
+??$__uninitialized_copy@PAURva0015087BElement@@PAU1@@_STL@@YAPAURva0015087BElement@@PAU1@00ABU__false_type@0@@Z,0x0014F96C,Native polymorphic index record; complete body and relocation proof; fold-proof=Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0015087B.cpp
+??$__copy_backward_ptrs@PAURva0015087BElement@@PAU1@@_STL@@YAPAURva0015087BElement@@PAU1@00ABU__false_type@0@@Z,0x0014F995,Native polymorphic index record; complete body and relocation proof; fold-proof=Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0015087B.cpp
+??$fill@PAURva0015087BElement@@U1@@_STL@@YAXPAURva0015087BElement@@0ABU1@@Z,0x0014F9B2,Native polymorphic index record; complete body and relocation proof; fold-proof=Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0015087B.cpp
+??$uninitialized_fill_n@PAURva0015087BElement@@IU1@@_STL@@YAPAURva0015087BElement@@PAU1@IABU1@@Z,0x0014F9CC,Native polymorphic index record; complete body and relocation proof; fold-proof=Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0015087B.cpp
+?_M_insert_overflow@?$vector@URva0015087BElement@@V?$allocator@URva0015087BElement@@@_STL@@@_STL@@IAEXPAURva0015087BElement@@ABU3@ABU__false_type@2@I_N@Z,0x001503EC,Native polymorphic index record; complete body and relocation proof; fold-proof=Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0015087B.cpp
