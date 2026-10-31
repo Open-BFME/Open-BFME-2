@@ -138,6 +138,8 @@ class Xfer;
 	{ \
 		return (m_first - *(int *)((char *)this + DISP2)) / DIVISOR; \
 	}
+#include "../../../../../../reference/shims/bfme2_ascii/ascii_string.h"
+
 BFME_DISP8_DIV_AVG_DWORD_GETTER(Rva0052BB28DivAvgField, 0x04, 0x00, 0x28)
 
 extern GameLogic *TheGameLogic;
@@ -876,6 +878,51 @@ private:
 	Rva000AD6F4Base *m_ptr;
 };
 
+struct BfmePod88
+{
+	char m_body[88];
+};
+
+struct TreeHintPayload003012F0
+{
+	char m_body[12];
+};
+
+struct TargetRef00217D4C;
+
+struct TreeHintRef00217D4C
+{
+    TargetRef00217D4C *m_ptr;
+};
+
+typedef _STL::vector<BfmePod88> ConstructPodVec;
+
+typedef _STL::pair<const int, MultiplayerColorDefinition> ConstructPairMP;
+
+typedef _STL::pair<const AsciiString, TreeHintPayload003012F0> ConstructPairHP;
+
+typedef _STL::pair<const AsciiString, TreeHintRef00217D4C> ConstructPairHR;
+
+// The placement-copy helpers call external complete copy constructors.
+// Their providers already own the target bodies; instantiating the generic
+// copies here emitted competing definitions. The mapped handle is four bytes,
+// proven by the canonical 358B43 copy's +4 pointer and pointee +4 AddRef.
+namespace _STL {
+template <> ConstructPodVec::vector(const ConstructPodVec &);
+template <> ConstructPairHP::pair(const ConstructPairHP &);
+template <> ConstructPairHR::pair(const ConstructPairHR &);
+}
+
+template void _STL::_Construct<ConstructPodVec, ConstructPodVec>(ConstructPodVec *, const ConstructPodVec &);
+
+template void _STL::_Construct<ConstructPairMP, ConstructPairMP>(ConstructPairMP *, const ConstructPairMP &);
+
+template void _STL::_Construct<ConstructPairHP, ConstructPairHP>(ConstructPairHP *, const ConstructPairHP &);
+
+template void _STL::_Construct<ConstructPairHR, ConstructPairHR>(ConstructPairHR *, const ConstructPairHR &);
+
+// ---- from Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp
@@ -1542,7 +1589,22 @@ void LivingWorldCampaign::AddPlayer(const Rva002E0A0A &arg)
 
 // tu-skeleton: 0x0052C3BF 24B ?Rva0052C3BFDestroyRange@@YAXPAURva0052BF67Elem@@0@Z -- matched in Code/GameEngine/Source/Common/System/Rva0052BF33DestroyTagged.cpp (not merged yet)
 
-// tu-skeleton: 0x0052C404 45B ?Rva0052C404Construct@@YAXPAXPBX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types2.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types2.cpp
+
+//
+// Fourth batch of STLport _Construct<T> placement-copy helpers, same-shape
+// siblings of the rowed _Construct<AsciiString> at 0x0002C485 (45 bytes; see
+// stlport_construct_asciistring.cpp). Each body is the null-guarded
+// placement-new copy over a single element: the copy delegates out-of-line
+// to T's own rowed copy ctor, and __EH_prolog resolves via its matched row.
+// Game mapped types are declared minimally (opaque payloads, matching the
+// struct/class-ness of their rowed copy ctors); no member is ever touched,
+// so the emitted code is identical apart from the callee.
+
+void Rva0052C404Construct(void *dest, const void *source)
+{
+    ::new (dest) ConstructPairHP(*static_cast<const ConstructPairHP *>(source));
+}
 
 // tu-skeleton: 0x0052C431 45B ??$_Construct@VRva0052BEF0@@V1@@_STL@@YAXPAVRva0052BEF0@@ABV1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_game_structs.cpp (not merged yet)
 

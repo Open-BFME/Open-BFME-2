@@ -83,8 +83,3 @@ void Rva004109BCConstruct(void *dest, const void *source)
 {
     ::new (dest) ConstructPairHR(*static_cast<const ConstructPairHR *>(source));
 }
-
-void Rva0052C404Construct(void *dest, const void *source)
-{
-    ::new (dest) ConstructPairHP(*static_cast<const ConstructPairHP *>(source));
-}
