@@ -11451,6 +11451,19 @@ Census confirmation: not claimed.
 
 **2026-10-30 primary-table repair (base `190db05cc6c2`):** both existing views now emit the native thirteen-slot primary contract. Removing the constructor's unused BuffManager include prevents its capitalized Snapshot context from creating two extra slots. The destructor view uses the registered ObjectModule header, both views carry the native Behavior slots 10/11 and existing Update phase slot 12, and the six-byte getter is readmitted as the Snapshot member after its own placeholder-retraction commit. The obsolete s02 alias is retired. Independent COFF proofs bind both vptr stores to 0x008497B4, verify every primary slot, and preserve all twelve raw code bodies; only an existing Update xfer twin spelling and FuncInfo label numbering change. Strict fourteen-source preparation passes 429/429 rows and seven EXACT EH graphs, including the other destructor families. All fourteen sources preview LINKS (21,445 authored bytes), with the constructor 0 -> 209 B and no cohort loss. This clears the primary-table disagreement in that current-provider preview; secondary-interface recovery and wider/census confirmation remain separate. ObjectModule queue retirement is still blocked solely by the isolated old-index preview lacking the new getter provider; the queue is retained pending a supported index refresh. No census gain claimed. [Full native proof and scope](../reverse/attempt_support/fireweapon-primary-link-20261030/readme.md).
 
+**2026-10-31 revalidation (base `fec332c7aaad`):** 436/436 direct-cohort rows,
+all twelve original bodies, both thirteen-slot primary tables and seven EH
+graphs pass. The newer census index `7300bffea9` exposes a remaining secondary
+Update contract: native 0x008496E8 has slots 0x00482BB9 / 0x004DF396 /
+0x0044DF8D, while the constructor emits one unresolved generic void update.
+Current preview is 13/14 LINKS; constructor stays 0 -> 0, superseding the old
++209 prediction. Reconcile the existing row owners/signatures rather than
+restoring that placeholder. The changed-pair batch audit is INCONCLUSIVE at
+AIBuildable.cpp; full inventory has 591 consumers and 538 missing current local
+receipts. CreateAHeroManager's receipt now passes 24/24. Keep the primary repair
+scope separate from secondary recovery and carry wider selection/loss checks
+into the scheduled census. No measured gain or full closure is claimed.
+
 ### LINK-115: BfmeConv1292DeferredWalkers needs six hash providers bound to their native owners
 Status: Blocked on one identity (0x00410C7B) plus five provider bindings. Updated: 2026-10-27; inspected revision: 65abb0c7f0.
 Evidence / affected units: `Common/BfmeConv1292DeferredWalkers.cpp` (298 B, 6 rows exact) does not link against index `bf3dd31211`. Its unresolved names, with the rowed native owners at the addresses retail calls: pointer-hash `_M_bkt_num_key` -> `Rva000427195::bucketIndex` 0x00223149 (`PlayerXferStringMaps.cpp`), `_M_delete_node` -> `Rva001FD9EF::rva001FD9EF` 0x001FD9EF, `_M_skip_to_next` -> `Rva000411084::advance` 0x003F7925 (`EvaBucketAdvance.cpp`); `Rva004FC957Delete::rva004FC957` -> `W3DFileSystem::Return_File` 0x004FC957 (an ICF fold of the delete functor, so it needs a fold-proof or the real functor identity); the value-hash `allocator<_Hashtable_node<...Rva004609B0Mapped> >::deallocate`, which this TU suppresses, has no provider and is referenced only from unrowed emitted COMDATs (`_M_delete_node`, `_STLP_alloc_proxy::deallocate`); and `dup_00410c7b`, the target of the 5-byte stub `??1Rva004110B9Tree` 0x004110B9, whose identity is already recorded as blocked (`reverse/re_attempts.log`, 0x00410C7B).

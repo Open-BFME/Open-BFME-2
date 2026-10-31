@@ -1,0 +1,2 @@
+link batch audit: INCONCLUSIVE baseline: index at 7300bffea9, outgoing base fec332c7aaad299bf2fda46e559d31559a140113; findings below are provisional since-index changes
+link batch audit: INCONCLUSIVE: affected consumer lacks current receipt: Code/GameEngine/Source/Common/AIBuildable.cpp

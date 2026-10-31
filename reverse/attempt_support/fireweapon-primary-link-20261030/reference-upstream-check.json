@@ -1,0 +1,9 @@
+{
+  "account": "Ostkannit",
+  "checked_utc": "2026-10-31T19:10:43.707221+00:00",
+  "upstream": "8a762b77f34eb082f2e7010311f9d00ce0c37afe",
+  "verified_reference": "7a8a034afa7dd3530d9a99dc48cfec711626256c",
+  "bfme2_revision": "bb96927bafb3264e33fd4b9b287322f5fd3020f5",
+  "status": "newer-upstream-not-verified",
+  "action": "Preserve the committed reference pin. No success/freshness receipt is recorded; full reference-update verification remains separate from this bounded FireWeapon repair."
+}

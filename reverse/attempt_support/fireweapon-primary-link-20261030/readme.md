@@ -72,3 +72,47 @@ and 311 -> 0 bytes; including the actual provider gives 311 -> 311. The queue
 row is retained. A supported local provider-index refresh is the next check
 before retrying retirement; no check, baseline or whitelist is relaxed. Wider
 consumer selection and scheduled census confirmation remain pending.
+
+
+## 2026-10-31 publication revalidation
+
+The maintainer approved the explicit rebase and preservation of independent
+document entries. The batch is rebased onto `fec332c7aaad`; both documents
+retain all upstream entries. The two source files and their three base headers
+are unchanged upstream; three direct consumers gained additional rows.
+The current fourteen-source preparation passes 436/436 functions, 314 literals,
+one empty-string reference and ten floating-point references. The required
+ordinary build of the changed pair passes 12/12; the independent native primary
+table and original-row proofs pass again, as do all seven EH graphs.
+
+The newly published index at `7300bffea9` changes the earlier prediction:
+**13/14 direct sources link; the constructor remains 0 -> 0**, with unresolved
+`?update@UpdateModuleInterface@@UAEXXZ`. The earlier +209-byte prediction is
+historical evidence against the older index, not a current gain. Native
+0x008496E8 has three Update interface slots: 0x00482BB9, 0x004DF396 and
+0x0044DF8D. The constructor currently emits only one slot under
+`??_7FireWeaponWhenDeadBehavior@@6BUpdateModule@@@`. The existing row owners are
+`Rva00482BB9::update` (34 bytes, currently nonvirtual int signature),
+`Rva004DF396::getDisabledTypesToProcess` (26 bytes, all-disabled mask), and
+`UpdateModule::rva0044DF8D` (18 bytes). Reconcile these actual owners and ABIs;
+do not restore the removed generic update placeholder or add a pin. This is the
+remaining secondary-contract prerequisite, separate from the verified primary
+contract. No new secondary-interface source reconstruction was landed here.
+
+The current batch audit is INCONCLUSIVE on AIBuildable.cpp's missing local
+receipt. Its prior CreateAHeroManager missing receipt was repaired through the
+supported preparation path, passing 24/24 rows. An inventory of the actual
+two-source outgoing scope identifies 591 affected consumers, 538 without current
+local receipts. This is not a complete consumer/loss verdict. Carry the changed
+provider scope and that inventory into the next scheduled census. No broad
+index refresh, census, nightly run or smoke run is started. The earlier broad
+index refresh was interrupted and has no success receipt.
+
+The official BFME-1 upstream check found `8a762b77f34e`, newer than the committed
+verified pin `7a8a034afa7d`. Keep the committed pin for this bounded repair;
+no successful freshness/update receipt is recorded for the newer unverified
+revision. Full reference-update verification remains separate.
+
+`rebased-verification.json` records real exit codes. This repair retires one
+obsolete alias and fixes the primary table, but claims zero new unique matched
+bytes and zero measured census-linked bytes. The ObjectModule queue stays open.

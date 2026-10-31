@@ -1,0 +1,15 @@
+link_check: preparing 14 explicit safe provider(s), no extra sources
+Compile: 10 of 14 TU(s) (deps-cache: 4 current)
+Source claims: OK (14 sources, scoped byte-verified)
+Compile: 0 of 14 TU(s) (deps-cache: 14 current)
+Funclet pins: 312 row(s) verified past a renumbered $L label
+    $L42385 (Code/GameEngine/Source/Common/Thing/ModuleFactoryInit.cpp): $L42385 was renumbered; verified parent EH data places $L42384 at 0x007729BE
+    $L42386 (Code/GameEngine/Source/Common/Thing/ModuleFactoryInit.cpp): $L42386 was renumbered; verified parent EH data places $L42385 at 0x007729C6
+    $L42387 (Code/GameEngine/Source/Common/Thing/ModuleFactoryInit.cpp): $L42387 was renumbered; verified parent EH data places $L42386 at 0x007729CE
+    $L42388 (Code/GameEngine/Source/Common/Thing/ModuleFactoryInit.cpp): $L42388 was renumbered; verified parent EH data places $L42387 at 0x007729D6
+    $L42389 (Code/GameEngine/Source/Common/Thing/ModuleFactoryInit.cpp): $L42389 was renumbered; verified parent EH data places $L42388 at 0x007729DE
+Functions: OK 436/436 matched across 14 source file(s)
+String-ref verify: OK (314 literals + 1 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (10 compiler literals verified)
+Import-ref verify: OK (0 named imports verified)
+link_check: 14 explicit providers byte-verified with strict reusable receipts; census/index/status unchanged, LINK closure not yet checked

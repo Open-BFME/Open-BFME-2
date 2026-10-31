@@ -1,0 +1,19 @@
+{
+  "base": "fec332c7aaad299bf2fda46e559d31559a140113",
+  "model": "GPT-6",
+  "checks": {
+    "check_csv": 0,
+    "prepare_current_14_sources_436_rows": 0,
+    "build_changed_pair_12_rows": 0,
+    "native_primary_table_proof": 0,
+    "original_row_proof": 0,
+    "eh_verify_7_exact": 0,
+    "fetch_published_index": 0,
+    "createahero_prepare_24_rows": 0,
+    "header_dependents": 0,
+    "preview_14_sources": 1,
+    "expanded_cohort_audit": 2,
+    "changed_pair_batch_audit": 2
+  },
+  "scope_note": "Preview 13/14 LINKS; constructor remains unlinked on secondary update placeholder. Batch audit is INCONCLUSIVE, with 538 of 591 affected consumers lacking current local receipts; not a loss-free closure verdict."
+}

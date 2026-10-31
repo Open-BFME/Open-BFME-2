@@ -1,0 +1,21 @@
+{
+  "native_table_rva": "0x008496E8",
+  "native_slots": [
+    "0x482bb9",
+    "0x4df396",
+    "0x44df8d"
+  ],
+  "next_word": "0x0",
+  "current_tables": {
+    "??_7FireWeaponWhenDeadBehavior@@6BUpdateModule@@@": {
+      "size": 4,
+      "relocations": [
+        [
+          0,
+          6,
+          "?update@UpdateModuleInterface@@UAEXXZ"
+        ]
+      ]
+    }
+  }
+}

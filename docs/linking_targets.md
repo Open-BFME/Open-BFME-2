@@ -1372,3 +1372,12 @@ still lacks the new getter provider in its old index; its queue row stays open.
 Secondary interfaces, the wider consumer audit and scheduled census remain
 pending; no measured linking gain is claimed.
 [Native table and row proofs](../reverse/attempt_support/fireweapon-primary-link-20261030/readme.md).
+
+2026-10-31 revalidation at `fec332c7aaad`: 436/436 rows and seven EH graphs
+pass. Against the newer `7300bffea9` census, 13/14 direct sources link; the
+constructor remains 0 -> 0 because its secondary Update table still names the
+removed generic void update. Its native three-slot contract is now inventoried
+at 0x008496E8. The earlier +209-byte prediction is superseded, not a current
+gain. The wider audit is INCONCLUSIVE: 538 of 591 affected consumers lack local
+receipts. Primary-table repair and alias retirement stand; secondary recovery
+and scheduled census confirmation remain open.
