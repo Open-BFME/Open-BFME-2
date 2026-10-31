@@ -1522,6 +1522,8 @@ public:
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp
 
+// ---- from Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp
+
 // ---- from Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031AA86.cpp
 
 int ControlBar::rva0031AA86()
@@ -2865,16 +2867,6 @@ void Rva0031BDC1Construct(void *dest, const void *source)
     ::new (dest) ConstructProbePair(*static_cast<const ConstructProbePair *>(source));
 }
 
-// tu-skeleton: 0x0031AB77 8B ?rva0031AB77SetFlag@ControlBar@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp (not merged yet)
-
-// tu-skeleton: 0x0031AB7F 80B ??4Rva0031AB7F@@QAEAAV0@ABV0@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/Rva0031AB7FCopy.cpp (not merged yet)
-
-// tu-skeleton: 0x0031ABCF 5B ?processContextSensitiveButtonClick@ControlBar@@QAE?AW4CBCommandStatus@@PAVGameWindow@@W4GadgetGameMessage@@@Z -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
-
-// tu-skeleton: 0x0031ABD4 5B ?processContextSensitiveButtonTransition@ControlBar@@QAE?AW4CBCommandStatus@@PAVGameWindow@@W4GadgetGameMessage@@@Z -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
-
-// tu-skeleton: 0x0031AC39 22B ?postProcessCommands@ControlBar@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_postProcessCommands.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateRightHUDImage.cpp
 
 // ?updateRightHUDImage@ControlBar@@QAEXPBVImage@@@Z
@@ -2892,6 +2884,16 @@ void ControlBar::setPortraitByObject(Object *obj)
 {
 }
 
+// tu-skeleton: 0x0031AB77 8B ?rva0031AB77SetFlag@ControlBar@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp (not merged yet)
+
+// tu-skeleton: 0x0031AB7F 80B ??4Rva0031AB7F@@QAEAAV0@ABV0@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/Rva0031AB7FCopy.cpp (not merged yet)
+
+// tu-skeleton: 0x0031ABCF 5B ?processContextSensitiveButtonClick@ControlBar@@QAE?AW4CBCommandStatus@@PAVGameWindow@@W4GadgetGameMessage@@@Z -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
+
+// tu-skeleton: 0x0031ABD4 5B ?processContextSensitiveButtonTransition@ControlBar@@QAE?AW4CBCommandStatus@@PAVGameWindow@@W4GadgetGameMessage@@@Z -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
+
+// tu-skeleton: 0x0031AC39 22B ?postProcessCommands@ControlBar@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_postProcessCommands.cpp (not merged yet)
+
 // tu-skeleton: 0x0031AF54 120B ?rva0031AF54@Rva0031AF54@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031AF54.cpp (not merged yet)
 
 // tu-skeleton: 0x0031B031 42B ??$__copy@PBW4ScienceType@@PAW41@H@_STL@@YAPAW4ScienceType@@PBW41@0PAW41@ABUrandom_access_iterator_tag@0@PAH@Z -- matched in Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp (not merged yet)
@@ -2904,7 +2906,23 @@ void ControlBar::setPortraitByObject(Object *obj)
 
 // tu-skeleton: 0x0031B9EB 45B ??$_M_allocate_and_copy@PBURva0031B9EBElement@@@?$vector@URva0031B9EBElement@@V?$allocator@URva0031B9EBElement@@@_STL@@@_STL@@IAEPAURva0031B9EBElement@@IPBU2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0031B9EB.cpp (not merged yet)
 
-// tu-skeleton: 0x0031BA47 57B ?setControlCommand@ControlBar@@QAEXABVAsciiString@@PAVGameWindow@@PBVCommandButton@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_setControlCommandByName.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_setControlCommandByName.cpp
+
+// ?setControlCommand@ControlBar@@QAEXABVAsciiString@@PAVGameWindow@@PBVCommandButton@@@Z
+// @0x0031BA47 57B: Zero Hour's ControlBar::setControlCommand by window name
+// (ControlBar.cpp): looks the button up under the parent through
+// TheNameKeyGenerator and TheWindowManager (slot 60) and, when found, hands
+// it to the window overload, rowed at its address 0x0031B641. The donor's
+// debug assert is gone.
+
+void ControlBar::setControlCommand(const AsciiString &buttonWindowName, GameWindow *parent, const CommandButton *commandButton)
+{
+	int winID = TheNameKeyGenerator->nameToKey(buttonWindowName);
+	GameWindow *win = TheWindowManager->winGetWindowFromId(parent, winID);
+	if (win == 0)
+		return;
+	setControlCommand(win, commandButton);
+}
 
 // tu-skeleton: 0x0031BAC3 658B ?rva0031BAC3@ControlBar@@QAEXPAVPlayer@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp (not merged yet)
 
