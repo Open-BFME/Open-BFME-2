@@ -415,15 +415,15 @@ private:
 class Rva003AFF06
 {
 public:
-	virtual void rva003AFF06(void *a, void *b);
+	virtual void rva003AFF06(void *context, void *b);
 
 private:
 	Rva003AFF06SystemPtr m_system;				///< +0x4
 };
 
 // ?rva003AFF06@Rva003AFF06@@UAEXPAX0@Z @0x003AFF06 (28B)
-void Rva003AFF06::rva003AFF06(void *a, void *b)
+void Rva003AFF06::rva003AFF06(void *context, void *b)
 {
 	if (m_system != 0)
-		reinterpret_cast<FXParticleSystem::ParticleSystem *>(m_system.operator->())->rva001F9BA4(a, (Int)b);
+		reinterpret_cast<FXParticleSystem::ParticleSystem *>(m_system.operator->())->rva001F9BA4(context, (Int)b);
 }

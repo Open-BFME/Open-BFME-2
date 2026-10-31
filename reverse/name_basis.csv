@@ -6209,3 +6209,4 @@ function,?rva0057A313@Rva0057A313Owner@@QAEXXZ,?update@Rva0057A313Owner@@QAEXXZ,
 function,?rva00035600@Rva000355E0@@QAEXXZ,?leave@Rva000355E0@@QAEXXZ,inferred,agree:nl-5a13646543e0,Code/GameEngine/Source/Common/GapBodiesGE27.cpp,0x00035600
 function,?rva006C1B50@GeneralAllocatorDebug@@QBE_KXZ,?getSequence@GeneralAllocatorDebug@@QBE_KXZ,inferred,agree:nl-9449a870f830,Code/GameEngine/Source/Common/Rva006C21C0.cpp,0x006C1B50
 function,?rva005CBA3D@Rva005CBA3D@@QAEHI@Z,?testBit@Rva005CBA3D@@QAEHI@Z,inferred,agree:nl-4b37bcbfb4ba,Code/GameEngine/Source/Common/VslotSmallBodiesG.cpp,0x005CBA3D
+param,Rva003AFF06::rva003AFF06::a,Rva003AFF06::rva003AFF06::context,inferred,agree:nl-7bb4adfdb9ea,Code/GameEngine/Source/Common/VslotSmallBodiesAD_Rva00349D02.cpp,0x003AFF06
