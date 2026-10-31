@@ -90,7 +90,6 @@ public:
     void forward();
     Rva001F4234Slot1 *held;
 };
-void Rva001F4234::forward() { if (held) held->forward(); }
 
 class Rva001F4240Slot3 {
 public:
@@ -104,9 +103,6 @@ public:
     void forward(unsigned first, unsigned second);
     Rva001F4240Slot3 *held;
 };
-void Rva001F4240::forward(unsigned first, unsigned second) {
-    if (held) held->forward(first, second);
-}
 
 class Rva001F424ESlot3 {
 public:
@@ -120,4 +116,3 @@ public:
     void forward(unsigned word);
     Rva001F424ESlot3 *held;
 };
-void Rva001F424E::forward(unsigned word) { if (held) held->forward(word); }
