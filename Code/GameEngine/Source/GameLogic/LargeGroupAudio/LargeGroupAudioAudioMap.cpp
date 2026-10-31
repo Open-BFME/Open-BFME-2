@@ -87,17 +87,20 @@ struct RGBColor;
 struct RGBAColorReal;
 struct RGBAColorInt;
 #include "../../../Include/Common/BfmeXfer.h"
-
 // The pair's id sum 0x00568991 keeps its ledger owner.
 class Rva005688D2
 {
 public:
 	int rva00568991();
 };
-
-// Base shared with the LargeGroupAudio key holder (dtor 0x001E3624): vptr,
-// +4 next override, +8 override flag, +0xC.
 #include "../../../Include/Common/Overridable.h"
+#define _CRTIMP
+#include <stdlib.h>
+#undef _CRTIMP
+#include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
+#include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
+#pragma comment(linker, "/alternatename:??1Rva0036B8E6@@UAE@XZ=??1GiantBirdAIUpdate@@MAE@XZ")
+#pragma comment(linker, "/alternatename:??1Rva003EE1BE@@UAE@XZ=??1LargeGroupAudioAudioMap@@UAE@XZ")
 
 class LargeGroupAudioAudioMap;
 
@@ -356,6 +359,85 @@ class Rva003EE058Owner
 public:
 	bool overlaps(const Rva00568C36Provider *arg);
 };
+
+struct EmitVtableTag;
+
+class Rva0036B8E6
+{
+public:
+	Rva0036B8E6(EmitVtableTag *);
+public:
+	virtual ~Rva0036B8E6();
+};
+
+class __declspec(novtable) Rva0037381CBase0
+{
+public:
+	virtual ~Rva0037381CBase0();
+private:
+	char m_unmodelled_04[0xC - 0x04];
+};
+
+// Secondary base at +0xC: the this-adjusting deleting-destructor thunk
+// (sub ecx, 0xC) in its vtable is target evidence for it.
+class __declspec(novtable) Rva0037381CBaseC
+{
+public:
+	virtual ~Rva0037381CBaseC();
+};
+
+class MineshaftPortalNetworkManager : public Rva0037381CBase0, public Rva0037381CBaseC
+{
+public:
+	MineshaftPortalNetworkManager(EmitVtableTag *);
+public:
+	virtual ~MineshaftPortalNetworkManager();
+};
+
+class ThreadClass {
+public:
+    ThreadClass(const char *name);
+    virtual ~ThreadClass();
+    virtual void Execute();
+    bool Is_Running();
+    static void Switch_Thread();
+protected:
+    virtual void Thread_Function() = 0;
+private:
+    char m_name[0x40];
+    unsigned int m_threadId;
+    void *m_handle;
+    int m_priority;
+};
+
+class PeerThreadClass : public ThreadClass
+{
+public:
+    PeerThreadClass(EmitVtableTag *);
+    virtual ~PeerThreadClass();
+    virtual void Thread_Function();
+};
+
+class Rva003ED1FC
+{
+public:
+	Rva003ED1FC(EmitVtableTag *);
+public:
+	virtual ~Rva003ED1FC();
+};
+
+class Rva003EE1BE
+{
+public:
+	Rva003EE1BE(EmitVtableTag *);
+public:
+	virtual ~Rva003EE1BE();
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioAudioMap.cpp
+
+// Base shared with the LargeGroupAudio key holder (dtor 0x001E3624): vptr,
+// +4 next override, +8 override flag, +0xC.
 
 // ---- from Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioAudioMap.cpp
 
@@ -661,8 +743,6 @@ void *Rva003EE083::rva003EE083(const AsciiString &asciiString)
 	return 0;
 }
 
-// tu-skeleton: 0x003EDD68 108B ?rva003EDD68@Rva0020DXXXElem@@QAE?AVRva003ED658@@XZ -- matched in Code/GameEngine/Source/GameLogic/System/Rva0020DXXXRva003EDD68.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva00568C36Overlap.cpp
 
 bool Rva003EE058Owner::overlaps(const Rva00568C36Provider *arg)
@@ -673,7 +753,44 @@ bool Rva003EE058Owner::overlaps(const Rva00568C36Provider *arg)
 	return false;
 }
 
-// tu-skeleton: 0x003EE3E2 28B ??_GRva003EE1BE@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB07Deferred.cpp (not merged yet)
+// tu-skeleton: 0x003EDD68 108B ?rva003EDD68@Rva0020DXXXElem@@QAE?AVRva003ED658@@XZ -- matched in Code/GameEngine/Source/GameLogic/System/Rva0020DXXXRva003EDD68.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB07Deferred.cpp
+
+// Existing B07 wrappers with unresolved or non-retail destructor providers.
+// Keep them together without excluding the independent exact B07 siblings.
+// Native wrapper/destructor/vtable relationships remain documented in B07.
+
+// Retail calls free directly (the game allocator), not through the CRT
+// import: read <stdlib.h> without dllimport.
+
+// ?<Rva0036B8E6::Rva0036B8E6> absent-from-retail
+Rva0036B8E6::Rva0036B8E6(EmitVtableTag *)
+{
+}
+
+// ?<MineshaftPortalNetworkManager::MineshaftPortalNetworkManager> absent-from-retail
+MineshaftPortalNetworkManager::MineshaftPortalNetworkManager(EmitVtableTag *)
+{
+}
+
+// ?<PeerThreadClass::PeerThreadClass> absent-from-retail
+PeerThreadClass::PeerThreadClass(EmitVtableTag *) : ThreadClass(0)
+{
+}
+
+// ?<Rva003ED1FC::Rva003ED1FC> absent-from-retail
+Rva003ED1FC::Rva003ED1FC(EmitVtableTag *)
+{
+}
+
+// ?<Rva003EE1BE::Rva003EE1BE> absent-from-retail
+Rva003EE1BE::Rva003EE1BE(EmitVtableTag *)
+{
+}
+
+// Complete destructors the deleting destructors above call, bound to the rows at their retail
+// addresses (the dtor column of the table at the top of OpaqueScalarDeletingDtorsB07.cpp).
 
 // tu-skeleton: 0x00783785 8B $L3947 -- matched in Code/GameEngine/Source/GameLogic/System/Rva0020DXXXRva003EDD68.cpp (not merged yet)
 

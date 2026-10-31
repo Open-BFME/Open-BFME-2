@@ -1883,8 +1883,6 @@ alternatename	Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB06.cpp	??1
 alternatename	Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB06.cpp	??1Rva003601C5@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB06.cpp	?Rva002D56C3@@YA?AVAsciiString@@ABURva005D2F96Base24@@@Z	1
 alternatename	Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB06.cpp	?rva00575674@Rva00575674Sub@@QAEXPAX@Z	1
-alternatename	Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB07Deferred.cpp	??1Rva0036B8E6@@UAE@XZ	1
-alternatename	Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB07Deferred.cpp	??1Rva003EE1BE@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB08.cpp	??1Rva000E14BD@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB08.cpp	??1Rva00256B94@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB09.cpp	??1Rva0060FE2@@UAE@XZ	1
@@ -2863,6 +2861,8 @@ alternatename	Code/GameEngine/Source/GameLogic/AI/DirectInputKeyboardOpen.cpp	?j
 alternatename	Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrder.cpp	?insert_unique_noresize@?$hashtable@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@W4NameKeyType@@U?$hash@W4NameKeyType@@@rts@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@U?$equal_to@W4NameKeyType@@@5@V?$allocator@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@@_STL@@QAE?AU?$pair@U?$_Ht_iterator@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@W4NameKeyType@@U?$hash@W4NameKeyType@@@rts@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@U?$equal_to@W4NameKeyType@@@6@V?$allocator@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@2@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/AI/PathfinderRemoveUnit.cpp	?removeGoal@Pathfinder@@QAEXPAVObject@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/AI/PathfinderRemoveUnit.cpp	?removePos@Pathfinder@@QAEXPAVObject@@@Z	1
+alternatename	Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioAudioMap.cpp	??1Rva0036B8E6@@UAE@XZ	1
+alternatename	Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioAudioMap.cpp	??1Rva003EE1BE@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Map/Rva0019B780Lookup_Rva0032d0b5.cpp	?Rva00194810@@YA?AURva0019B780Key@@ABVAsciiString@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Map/Rva0019B780Lookup_Rva0032d0b5.cpp	?find@Rva0019B780Tree@@QBEPAURva0019B780Node@@ABURva0019B780Key@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Map/Rva0019B850TeamRecUpdate_Rva0019BE80TeamRec_updateTeam.cpp	?find@Rva0032C07COwner@@QAEPAUTeamMapNode@@AAURva0002C4FD@@@Z	1

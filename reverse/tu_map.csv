@@ -27814,7 +27814,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0036BDF2,1039,code,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIGiantBirdSwoopState.cpp,proposed,N,N=Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIGiantBirdSwoopState.cpp W=Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIGiantBirdSwoopStateOnEnter.cpp
 0x0036C201,567,code,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIGiantBirdSwoopState.cpp,proposed,N,N=Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIGiantBirdSwoopState.cpp,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIGiantBirdSwoopStateOnEnter.cpp
 0x0036C438,603,code,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdate.cpp,approved,F,F=Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdate.cpp N=Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIGiantBirdSwoopState.cpp,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIGiantBirdSwoopStateOnEnter.cpp
-0x0036C693,28,code,,,-,,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB07Deferred.cpp
+0x0036C693,28,code,,,-,,Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioAudioMap.cpp
 0x0036C6AF,488,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva00368C7A.cpp
 0x0036C897,14,code,Code/GameEngine/Source/GameLogic/AI/AIAttackSwoopThenIdleStateMachine.cpp,proposed,K,K=Rva0036748E noncontiguous,Code/GameEngine/Source/Common/Rva0036748ESetter.cpp
 0x0036C8A5,406,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva00368C7A.cpp
@@ -31778,7 +31778,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x003ED1BE,57,code-unledgered,,,-,,
 0x003ED1F7,5,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Rva003ED1FCDtor.cpp
 0x003ED1FC,77,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Rva003ED1FCDtor.cpp
-0x003ED249,28,code,,,-,,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB07Deferred.cpp
+0x003ED249,28,code,,,-,,Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioAudioMap.cpp
 0x003ED265,62,code,Code/GameEngine/Source/GameLogic/Object/ThreatFinderManager.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/ThreatFinderManager.cpp W=Code/GameEngine/Source/GameLogic/SkirmishAI/AIInformation/ThreatFinderManager.cpp provisional,Code/GameEngine/Source/GameLogic/Object/ThreatFinderManager.cpp
 0x003ED2A3,62,code,Code/GameEngine/Source/GameLogic/Object/ThreatFinderManager.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/ThreatFinderManager.cpp W=Code/GameEngine/Source/GameLogic/SkirmishAI/AIInformation/ThreatFinderManager.cpp provisional,Code/GameEngine/Source/GameLogic/Object/ThreatFinderManager.cpp
 0x003ED2E1,64,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva003ED2E1.cpp
@@ -31827,7 +31827,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x003EE0CF,239,code,Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioAudioMap.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioAudioMap.cpp provisional,Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioAudioMap.cpp
 0x003EE1BE,126,code,Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioAudioMap.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioAudioMap.cpp provisional,Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioAudioMap.cpp
 0x003EE23C,422,code,Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioAudioMap.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioAudioMap.cpp provisional,Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioAudioMap.cpp
-0x003EE3E2,28,code,Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioAudioMap.cpp,approved,C,C=0x003EE23C..0x003EE3FE provisional,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB07Deferred.cpp
+0x003EE3E2,28,code,Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioAudioMap.cpp,approved,C,C=0x003EE23C..0x003EE3FE provisional,Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioAudioMap.cpp
 0x003EE3FE,376,code,Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioAudioMap.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioAudioMap.cpp provisional,Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioAudioMap.cpp
 0x003EE576,385,code,Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioAudioMap.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioAudioMap.cpp W=Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioAudioMap.cpp provisional,Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioAudioMap.cpp
 0x003EE6F7,6,code,,,-,,Code/GameEngine/Source/Common/ConstIntGetters5.cpp
