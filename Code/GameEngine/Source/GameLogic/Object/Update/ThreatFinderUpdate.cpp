@@ -134,6 +134,43 @@ class RGBAColorReal;
 class RGBAColorInt;
 class Snapshot;
 #include "../../../../Include/Common/BfmeXfer.h"
+#define FIELD_PROC(cls, addr, field) \
+class cls \
+{ \
+public: \
+	static void buildFieldParse(MultiIniFieldParse &parse); \
+}; \
+\
+void cls::buildFieldParse(MultiIniFieldParse &parse) \
+{ \
+	parse.add(reinterpret_cast<const FieldParse *>(addr), 0); \
+}
+#define FIELD_PROC_INLINE(cls, addr, field) \
+class cls \
+{ \
+public: \
+	static void buildFieldParse(MultiIniFieldParse &parse); \
+}; \
+\
+inline void cls::buildFieldParse(MultiIniFieldParse &parse) \
+{ \
+	parse.add(reinterpret_cast<const FieldParse *>(addr), 0); \
+}
+#define FIELD_PROC_WITH_DIE_BASE(cls, addr) \
+class cls \
+{ \
+public: \
+	static void buildFieldParse(MultiIniFieldParse &parse); \
+}; \
+\
+void cls::buildFieldParse(MultiIniFieldParse &parse) \
+{ \
+	parse.add(reinterpret_cast<const FieldParse *>(addr), 0); \
+	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE52EGet()), 8); \
+}
+#pragma inline_depth(0)
+#pragma inline_depth()
+
 struct OwnerWithName
 {
 public:
@@ -261,7 +298,162 @@ private:
 	bool m_568;
 };
 
-// tu-skeleton: 0x003ECC91 17B ?buildFieldParse@ThreatFinderUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
+//
+// Five single-field ModuleData::buildFieldParse procs (11 bytes each):
+// ?buildFieldParse@BeaconClientUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z
+// retail 0x004C9663 (field RadarPulseFrequency), plus PilotFindVehicle (announcement),
+// DynamicGeometryInfo (FX), BattlePlan (SoundUpgrade) and RepairDock (ModelCondition)
+// sibs, plus LifetimeUpdate (table (unsigned int)&g_00C1B0F0, factory 0x24E3A3 pushes its VA).
+// Each registers exactly one FieldParse table with
+// MultiIniFieldParse::add (pinned at 0x2BC6E). Provenance: the ZH
+// MAKE_STANDARD_MODULE_DATA_MACRO_ABC macro passes clsmd::buildFieldParse to
+// INI::initFromINIMultiProc, and each landed friend_newModuleData factory in
+// this directory pushes its class proc immediate (no pin needed there, none
+// needed here: the FieldParse address is a pushed absolute). Recipe: the
+// factory TUs (*FriendNew.cpp) name the owning class per stub.
+
+class MultiIniFieldParse;
+
+class INI;
+
+typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
+
+struct FieldParse
+{
+	const char *token;
+	INIFieldParseProc parse;
+	const void *userData;
+	int offset;
+};
+
+class INI
+{
+public:
+	static void parseBool(INI *ini, void *instance, void *store, const void *userData);
+	static void parseReal(INI *ini, void *instance, void *store, const void *userData);
+	static void parseAngleReal(INI *ini, void *instance, void *store, const void *userData);
+	static void parseFXList(INI *ini, void *instance, void *store, const void *userData);
+	static void parseObjectCreationList(INI *ini, void *instance, void *store, const void *userData);
+	static void parseDurationUnsignedInt(INI *ini, void *instance, void *store, const void *userData);
+	static void parseInt(INI *ini, void *instance, void *store, const void *userData);
+	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
+	static void Rva004C8F94_ParseSpawnObject(INI *ini, void *instance, void *store, const void *userData);
+};
+
+class Rva003B1017
+{
+public:
+	static void parseFromINI(INI *ini, void *instance, void *store, const void *userData);
+};
+
+void iniParseObjectFilter(INI *ini, void *instance, void *store, const void *userData);
+
+void Rva001DEE74Parse(INI *ini, void *instance, void *store, const void *userData);
+
+void parseFloodMember(INI *ini, void *instance, void *store, const void *userData);
+
+void iniParseFXListVec(INI *ini, void *instance, void *store, const void *userData);
+
+// Retail VA 0x00C35FE0: 1 field and the zero sentinel.
+extern const FieldParse BfmeThreatFinderUpdateFields[] = {
+	{ "DefaultRadius", &INI::parseReal, 0, 0x8 },
+	{ 0, 0, 0, 0 }
+};
+
+extern const int g_emptyFieldParseTable[4];
+
+class MultiIniFieldParse
+{
+public:
+	void add(const FieldParse *parse, unsigned int extraOffset);
+};
+
+int Rva004CE52EGet(void);
+
+FIELD_PROC(ThreatFinderUpdateModuleData, BfmeThreatFinderUpdateFields, DefaultRadius)
+
+class AimWeaponBehaviorModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+// Chained proc: ?buildFieldParse@GiantBirdSlowDeathBehaviorModuleData@@,
+// retail 0x00461E3D, 27 bytes. Calls the rowed SlowDeath base proc above,
+// then registers the GiantBird table (unsigned int)&g_00C42D08 (FXHitGround,
+// OCLHitGround, DelayFromGroundToFinalDeath, CrashAvoidKindOfs). The base
+// call resolves to the rowed SlowDeath proc in this same TU; factory
+// 0x24B5D1 pushes this proc VA.
+class GiantBirdSlowDeathBehaviorModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+// Chained proc: ?buildFieldParse@ClearanceTestingSlowDeathBehaviorModuleData@@,
+// retail 0x00483C1A, 27 bytes. Calls the rowed SlowDeath base proc above,
+// then registers the Clearance table (unsigned int)&g_00C49CB0 (ClearanceGeometry at +0x190
+// plus ClearanceGeometryOffset at +0x1EC plus ClearanceMaxHeight at +0x1F8).
+// The base call resolves to the rowed SlowDeath proc in this same TU; factory
+// 0x24C545 pushes this proc VA; the rowed ClearanceTestingSlowDeathBehavior
+// pool key at 0x483CF4 names the class.
+class ClearanceTestingSlowDeathBehaviorModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+// Chained proc: ?buildFieldParse@RespawnBodyModuleData@@,
+// retail 0x004C12D0, 27 bytes. Calls the ActiveBodyModuleData base proc
+// above (0x4BFDF6, in this same TU -- the base call target, not the
+// SupplyTruckAIUpdateModuleData proc a stale comment here once named), then
+// registers the Respawn table (unsigned int)&g_00C5B8BC (PermanentlyKilledByFilter at +0x64
+// plus CanRespawn at +0x68). Factory 0x251596 pushes this proc VA; the pool
+// key at 0x4C1455 names the class; two further chained procs (0x4C15A2 plus
+// 0x4C184F) call this one as their base. Identity: ModuleFactory registers
+// ctor 0x4C14DF and this proc under "RespawnBody"; formerly misnamed
+// RespawnUpdateModuleData.
+class RespawnBodyModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+// Chained proc: ?buildFieldParse@StructureBodyModuleData@@,
+// retail 0x002514AF, 27 bytes. Calls the ActiveBodyModuleData base proc
+// above (0x4BFDF6, in this same TU), then registers the Structure table
+// 0x00C6BB18. Factory pushes this proc VA; ModuleFactory registers it
+// under "StructureBody". Row supersedes the pin.
+class StructureBodyModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+// Chained proc: ?buildFieldParse@SymbioticStructuresBodyModuleData@@,
+// retail 0x00251505, 27 bytes. Calls the ActiveBodyModuleData base proc
+// above (0x4BFDF6, in this same TU), then registers the SymbioticStructures
+// table (unsigned int)&g_00BEFCD4. Factory pushes this proc VA; ModuleFactory registers it
+// under "SymbioticStructuresBody". Row supersedes the pin.
+class SymbioticStructuresBodyModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp
+
+// Callers elsewhere reach bodies in this unit through other spellings; retail's
+// call sites in their matched rows land on these addresses (same ABI). Bind them.
+
+// Callers elsewhere reach bodies in this unit through other spellings; retail's
+// call sites in their matched rows land on these addresses (same ABI). Bind them.
+
+// These functions are header inlines; their ordinary owner definitions
+// collided with select-any copies. The anchor keeps this unit's row copies;
+// it is not retail code.
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/ThreatFinderUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/ThreatFinderUpdateCtor.cpp
 
@@ -270,8 +462,6 @@ ThreatFinderUpdate::ThreatFinderUpdate(Thing *thing, const ModuleData *moduleDat
     : UpdateModule(thing, moduleData), m_heap(0)
 {
 }
-
-// tu-skeleton: 0x003ECCD0 6B ?Rva003ECCD0Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/ThreatFinderUpdate.cpp
 
@@ -422,8 +612,6 @@ void Rva003ECD60Object::xfer(Xfer *xfer)
 	*xfer == m_568;
 }
 
-// tu-skeleton: 0x003ECE33 162B ?mapLoadPostProcess@ThreatFinderUpdate@@UAEXPBVDict@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ThreatFinderUpdateMapLoadPostProcess.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/ThreatFinderUpdateXfer.cpp
 
 // ?xfer@ThreatFinderUpdate@@MAEXPAVXfer@@@Z @0x003ECED5 (143B): ThreatFinderUpdate
@@ -448,6 +636,10 @@ void ThreatFinderUpdate::xfer(Xfer *xfer)
 	if (m_heap != 0)
 		m_heap->xfer(xfer);
 }
+
+// tu-skeleton: 0x003ECCD0 6B ?Rva003ECCD0Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x003ECE33 162B ?mapLoadPostProcess@ThreatFinderUpdate@@UAEXPBVDict@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ThreatFinderUpdateMapLoadPostProcess.cpp (not merged yet)
 
 // tu-skeleton: 0x003ECF64 88B ??1ThreatFinderUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ThreatFinderUpdateDtor.cpp (not merged yet)
 

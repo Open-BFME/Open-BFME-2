@@ -205,12 +205,6 @@ extern const FieldParse BfmeStrafeAreaUpdateFields[] = {
 	{ 0, 0, 0, 0 }
 };
 
-// Retail VA 0x00C35FE0: 1 field and the zero sentinel.
-extern const FieldParse BfmeThreatFinderUpdateFields[] = {
-	{ "DefaultRadius", &INI::parseReal, 0, 0x8 },
-	{ 0, 0, 0, 0 }
-};
-
 // Retail VA 0x00C5ED98: 1 field and the zero sentinel.
 extern const FieldParse BfmeRadarMarkerClientUpdateFields[] = {
 	{ "MarkerType", &INI::parseAsciiString, 0, 0x8 },
@@ -308,7 +302,6 @@ FIELD_PROC(AIGateUpdateModuleData, BfmeAIGateUpdateFields, TriggerWidthX)
 FIELD_PROC(RainOfFireUpdateModuleData, (unsigned int)&g_00C54B00, StartRainTime)
 FIELD_PROC(SpecialEnemySenseUpdateModuleData, (unsigned int)&g_00BF1B88, SpecialEnemyFilter)
 FIELD_PROC(OneRingPenaltyUpdateModuleData, (unsigned int)&g_00C503B0, RingTable)
-FIELD_PROC(ThreatFinderUpdateModuleData, BfmeThreatFinderUpdateFields, DefaultRadius)
 FIELD_PROC(SiegeDockingBehaviorModuleData, (unsigned int)&g_00C413E4, DUMMY)
 FIELD_PROC_INLINE(AutoDepositUpdateModuleData, (unsigned int)&g_00BF1CC8, DepositTable)
 FIELD_PROC(AssistedTargetingUpdateModuleData, (unsigned int)&g_00C4AFE8, AssistedTargetingTable)
