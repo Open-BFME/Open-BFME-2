@@ -15320,3 +15320,30 @@ The existing three-copy provider retains all 99 bytes while replacing the direct
 The two remaining 222-byte light-vector insertions now use the same native polymorphic index layout and pre-copy finish reconstruction as published directional repair dae67b429b. Each has 13 independently verified whole native bodies (26 total), with its own native copy/vtable/fill/overflow facts. The common copy provider retains 99 bytes while importing the ambient/point tables and removing its last two dummy aliases. Official admission refreshes twelve helper proofs and adds two allocator folds; net hatch count is unchanged. Five ledger rows in three sources pass normal/strict/EH/literal gates; 19 shadow identity references have zero wrong bindings.
 
 Six-unit preview against d249ce458a LINKS 2,651 -> 3,317: +666 total includes the already published directional +222, so this batch adds only +444. All three providers retain their bytes. Existing placeholder names, global identity, current consumer closure and approved SAS TU consolidation remain open; no source move, new coverage or census gain is claimed. The earlier dae67b429b pre-push audit is INCONCLUSIVE on its older index/outgoing e847f7c836 and missing current Common/0CreateAHeroManager21FE49.cpp consumer; carry the consumer and provider cohort into the next scheduled census. Evidence: reverse/attempt_support/shader-vector-siblings-link-20261031/readme.md and proof.json.
+### BehaviorModuleBase donor adoption (2026-10-31, fleet qc-11)
+
+At base `1e7935bf82`, BridgeBehaviorCtor.cpp and AISpecialPowerUpdateDtor.cpp
+now include the existing ObjectModule/BehaviorModule headers instead of their
+synthetic BehaviorModuleBase/BehaviorModuleOther/BehaviorModule chain.
+Retail evidence: ObjectModule ctor RVA 0x00306AA7 stores ModuleData at +4 and
+Object at +8; BehaviorModule ctor 0x00253330 calls it and installs its secondary
+interface at +0x0C. Its primary table RVA 0x007EEA7C has 12 slots and its
+secondary table 0x007EE9C0 has 47. UpdateModule ctor 0x00253390 installs the
+third interface at +0x10 and initializes +0x14/+0x18/+0x1C; destructor
+0x0024A797 restores those same three subobjects. These are target-image facts,
+not names or layout inferred from a donor. Existing header comments preserve
+the separate donor-name evidence.
+
+Scoped builds retain all seven rows (Bridge: 3, AISpecialPower: 4), including
+the verified EH funclet renumberings. `header_adopt_lane.py accept` passes
+both sources for ObjectModule and BehaviorModule with the published census
+index at `7300bffea9`, including explicit per-unit link-preservation verdicts.
+No header, source path, pin, alias, or census figure changes. The remaining
+private UpdateModuleInterface/UpdateModule views and other merge prerequisites
+remain outside this bounded adoption. Carry these consumers into the next
+normal census; this is not a new linked-coverage measurement.
+
+The outgoing link-batch audit remains INCONCLUSIVE: after strict preparation
+of these two sources, the older index still lacks a current receipt for affected
+consumer `Code/GameEngine/Source/Common/AIGameTeam.cpp`. Broader consumer
+preservation is unverified; the passing adoption verdicts cover the two donors.

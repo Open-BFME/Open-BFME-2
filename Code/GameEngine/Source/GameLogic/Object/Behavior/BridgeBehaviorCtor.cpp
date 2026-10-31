@@ -60,25 +60,9 @@ extern "C" const void *const __identifier("??_7DamageModuleInterface@@6B@")[];  
 class Thing;
 class ModuleData;
 
-class BehaviorModuleBase
-{
-public:
-	virtual void unusedBase();
-	int m_a;
-	int m_b;
-};
-
-class BehaviorModuleOther
-{
-public:
-	virtual void unusedOther();
-};
-
-class BehaviorModule : public BehaviorModuleBase, public BehaviorModuleOther
-{
-public:
-	BehaviorModule(Thing *thing, const ModuleData *moduleData);
-};
+// Retail 0x00253330 calls ObjectModule and installs the secondary interface at +0x0C.
+#include "../../../../Include/Common/ObjectModule.h"
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 class UpdateModuleInterface
 {
