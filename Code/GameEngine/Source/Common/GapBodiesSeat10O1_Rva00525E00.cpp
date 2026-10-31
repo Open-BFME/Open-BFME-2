@@ -1002,11 +1002,6 @@ public:
 private:
 	_STL::vector<BfmeE8> m_vector;
 };
-void Rva005B1903::rva005B1903(BfmePod8 *position, unsigned int count, const BfmePod8 &value)
-{
-	((_STL::vector<BfmeE8> *)&m_vector)->_M_fill_insert(
-		(BfmeE8 *)position, count, *(const BfmeE8 *)&value);
-}
 
 // ?rva005B1908@Rva005B1908@@QAEXPAUBfmePod20@@IABU2@@Z @0x005B1908 5B: fill-insert into the vector at +0 through the rowed _M_fill_insert 0x005B1748.
 struct BfmePod20;
@@ -1017,10 +1012,6 @@ public:
 private:
 	_STL::vector<BfmePod20> m_vector;
 };
-void Rva005B1908::rva005B1908(BfmePod20 *position, unsigned int count, const BfmePod20 &value)
-{
-	m_vector._M_fill_insert(position, count, value);
-}
 
 // ?rva005EE00F@Rva005EE00F@@QAEXPAUBfmeStringRecord005ED5F3@@IABU2@@Z @0x005EE00F 5B: fill-insert into the vector at +0 through the rowed _M_fill_insert 0x005EDEF3.
 struct BfmeStringRecord005ED5F3;

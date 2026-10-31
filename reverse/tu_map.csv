@@ -49091,8 +49091,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x005B12C5,1155,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHeroCtor.cpp
 0x005B1748,232,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp,approved,C,C=0x005B12C5..0x005B1830,Code/Libraries/Source/WWVegas/WWLib/StlportVectorFillInsertRva005B1748.cpp
 0x005B1830,211,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp,approved,C,C=0x005B12C5..0x005B1903,Code/GameEngine/Source/Common/Rva005B1830MyHero.cpp
-0x005B1903,5,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp,approved,C,C=0x005B12C5..0x005B1908,Code/GameEngine/Source/Common/GapBodiesSeat10O1_Rva00525E00.cpp
-0x005B1908,5,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp,approved,C,C=0x005B12C5..0x005B190D,Code/GameEngine/Source/Common/GapBodiesSeat10O1_Rva00525E00.cpp
+0x005B1903,5,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp,approved,C,C=0x005B12C5..0x005B1908,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp
+0x005B1908,5,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp,approved,C,C=0x005B12C5..0x005B190D,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp
 0x005B190D,250,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero_Unresolved.cpp
 0x005B1A07,73,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp,approved,C,C=0x005B190D..0x005B1A50,Code/GameEngine/Source/Common/Rva005B1A07.cpp
 0x005B1A50,28,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero_Unresolved.cpp
