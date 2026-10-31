@@ -112,6 +112,47 @@ public:
 // bfme link decl-only begin
 namespace _STL { template <> void vector<ParticleSystemID,_STL::allocator<ParticleSystemID> >::push_back(ParticleSystemID const &); }
 
+// Keep stateless allocator wrappers inline and provide the real POD-vector
+// teardown used by native exception cleanup. These bodies follow the local
+// allocator shim and STLport header; reusing the allocator subobject avoids
+// introducing a temporary lifetime into retail's five-state EH graph.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+void allocator<ParticleSystemID>::deallocate(ParticleSystemID *__p, size_t __n) const
+{
+    _STLP_ASSERT((__p == 0) == (__n == 0))
+    if (__p != 0) ::free((void *)__p);
+}
+
+template <> __declspec(dllimport) __forceinline
+void _STLP_alloc_proxy<ParticleSystemID *, ParticleSystemID, allocator<ParticleSystemID> >::deallocate(ParticleSystemID *__p, size_t __n)
+{
+    __stl_alloc_rebind(static_cast<allocator<ParticleSystemID> &>(*this),
+        (ParticleSystemID *)0).deallocate(__p, __n);
+}
+
+template <> __declspec(nothrow) __forceinline
+_Vector_base<ParticleSystemID, allocator<ParticleSystemID> >::~_Vector_base()
+{
+    if (_M_start != 0)
+        _M_end_of_storage.deallocate(_M_start, _M_end_of_storage._M_data - _M_start);
+}
+
+}
+
+// Declared-only explicit specialization: keep the call external so this TU
+// emits no COMDAT copy of its own (the kept retail/first copies link).
+// throw() keeps retail's nothrow analysis (no extra EH state in the ctor).
+namespace _STL {
+template <>
+vector<ParticleSystemID, allocator<ParticleSystemID> >::iterator
+vector<ParticleSystemID, allocator<ParticleSystemID> >::erase(
+	vector<ParticleSystemID, allocator<ParticleSystemID> >::iterator first,
+	vector<ParticleSystemID, allocator<ParticleSystemID> >::iterator last) throw();
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdate.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdate.cpp
@@ -484,12 +525,6 @@ void BoneFXUpdateModuleData::parseParticleSystem(INI *ini, void *instance, void 
 	INI::parseParticleSystemTemplate(ini, instance, (void *)&info->particleSysTemplate, 0);
 }
 
-// tu-skeleton: 0x0048740D 115B ?doFXListAtBone@BoneFXUpdate@@IAEXPBVFXList@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x00487480 116B ?doOCLAtBone@BoneFXUpdate@@IAEXPBVObjectCreationList@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x004874F4 23B ??0Rva004874F4@@QAE@XZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE22.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdate_initTimes.cpp
 
 // BoneFXUpdate::initTimes — retail 0x0048750B / 297B.
@@ -595,12 +630,6 @@ void BoneFXUpdate::resolveBoneLocations()
 	m_bonesResolved[m_curBodyState] = true;
 }
 
-// tu-skeleton: 0x00487797 196B ??0BoneFXUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateModuleDataCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00487877 111B ??1BoneFXUpdateModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateModuleDataDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004878E6 307B ??0BoneFXUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateCtor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdatePoolKey.cpp
 
 // ?getModuleNameKey@BoneFXUpdate@@UBE?AW4NameKeyType@@XZ
@@ -610,10 +639,6 @@ NameKeyType BoneFXUpdate::getModuleNameKey() const
 		TheNameKeyGenerator->nameToKey("BoneFXUpdate");
 	return TheBoneFXUpdatePoolKey;
 }
-
-// tu-skeleton: 0x00487ABF 161B ??1BoneFXUpdate@@MAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00487B7D 248B ?doParticleSystemAtBone@BoneFXUpdate@@IAEXPBVParticleSystemTemplate@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateUpdate.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateXfer.cpp
 
@@ -730,31 +755,88 @@ void BoneFXUpdate::xfer( Xfer *xfer )
 
   // end xfer
 
-// tu-skeleton: 0x00487DD2 28B ??_GBoneFXUpdate@@MAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateDtor.cpp (not merged yet)
+// tu-skeleton: 0x0048740D 115B ?doFXListAtBone@BoneFXUpdate@@IAEXPBVFXList@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x00487480 116B ?doOCLAtBone@BoneFXUpdate@@IAEXPBVObjectCreationList@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x004874F4 23B ??0Rva004874F4@@QAE@XZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE22.cpp (not merged yet)
+
+// tu-skeleton: 0x00487797 196B ??0BoneFXUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateModuleDataCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00487877 111B ??1BoneFXUpdateModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateModuleDataDtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateCtor.cpp
+
+//
+// ??0BoneFXUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004878E6, 307 bytes.
+//
+// BoneFXUpdate 2-arg ctor. Donor is Zero Hour BoneFXUpdate.cpp ctor
+// (reference/open-bfme-1/.../GeneralsMD/.../BoneFXUpdate.cpp:61) verbatim:
+// UpdateModule base, vector clear, -1 frames, Coord zero, bonesResolved
+// false, active false, curBodyState pristine. BFME2 layout matches ZH
+// (UpdateModule 0x20 per UpdateModuleCtor.cpp, vector at +0x20, frames at
+// +0x2C/+0xAC/+0x12C, positions at +0x1AC/+0x32C/+0x4AC, curBodyState at
+// +0x62C, bonesResolved at +0x630, active at +0x634, size 0x638 per the
+// rowed friend_newModuleInstance factory). The compiler installs primary
+// 0xC4B170 and the secondaries 0xBEFF90/+0x0C and 0xC4B164/+0x10 through the
+// class hierarchy. Coord arrays ride ehvec 0x629512 via Coord3D's user
+// ctor/dtor (rowed Coord3D 0x47A6A9/0xB3FD0 ICF folds);
+// vector base/erases resolve via the rowed BfmeE16/ScienceType folds and
+// the rowed ParticleSystemID erase at 0x532803. /O1 for or-minus-1,
+// and-zero, push-8/pop-edi and EBP frame; /GX for the EH prologue and
+// states 0-3; /arch:SSE for xorps/movss zeros.
+
+BoneFXUpdate::BoneFXUpdate(Thing *thing, const ModuleData *moduleData)
+	: UpdateModule(thing, moduleData)
+{
+	int i, j;
+	for (i = 0; i < BODYDAMAGETYPE_COUNT; ++i) {
+		for (j = 0; j < BONE_FX_MAX_BONES; ++j) {
+			m_nextFXFrame[i][j] = -1;
+			m_nextOCLFrame[i][j] = -1;
+			m_nextParticleSystemFrame[i][j] = -1;
+			m_FXBonePositions[i][j].zero();
+			m_OCLBonePositions[i][j].zero();
+			m_PSBonePositions[i][j].zero();
+		}
+		m_bonesResolved[i] = false;
+	}
+	m_particleSystemIDs.clear();
+	m_curBodyState = BODY_PRISTINE;
+	m_active = false;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateDtor.cpp
+
+//
+// ??1BoneFXUpdate@@MAE@XZ, retail 0x00487ABF, 161 bytes.
+//
+// BoneFXUpdate virtual dtor (MAE, protected virtual, most Module/Behavior
+// precedent). Donor is ZH BoneFXUpdate.cpp dtor verbatim:
+// `~BoneFXUpdate() { killRunningParticleSystems(); }` — the three Coord
+// arrays, the ParticleSystemID vector and the UpdateModule base are
+// compiler-generated after the body, exactly as retail: vtable reinstall
+// (C4B170/BEFF90/C4B164 via three-vptr UpdateModule hierarchy,
+// Flood/StructureTopple precedent), killRunning call (rowed 0x487A64),
+// three reverse-order ??_M destroys (0x629110 helper, dtor rowed 0xB3FD0
+// Coord/validate fold, count 0x20 size 0xC), vector storage free via rowed
+// _free 0x30830, base UpdateModule dtor via pin 0x24A797 (UAE). Layout
+// matches the landed ctor TU (vector +0x20, frames +0x2C/+0xAC/+0x12C,
+// positions +0x1AC/+0x32C/+0x4AC, curBodyState +0x62C, bonesResolved +0x630,
+// active +0x634, size 0x638). /O1 for EBP frame and push-immidiates; /GX
+// for EH prologue and states 4/3/2/1/0; /arch:SSE harmless (no floats here)
+// and keeps the proven ctor flag combo.
+
+BoneFXUpdate::~BoneFXUpdate()
+{
+	killRunningParticleSystems();
+}
+
+// tu-skeleton: 0x00487B7D 248B ?doParticleSystemAtBone@BoneFXUpdate@@IAEXPBVParticleSystemTemplate@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateUpdate.cpp (not merged yet)
 
 // tu-skeleton: 0x00487DEE 332B ?update@BoneFXUpdate@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateUpdate.cpp (not merged yet)
 
 // tu-skeleton: 0x0078C1DD 8B uw_0078c1dd -- matched in Code/gen_small/uw_gen_011.cpp (not merged yet)
-
-// tu-skeleton: 0x0078C1E5 11B Unwind@00b8c1e5 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078C1F0 24B $L4397 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078C208 24B $L4398 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078C220 10B __ehhandler$??0BoneFXUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078C241 8B Unwind@00b8c241 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078C249 11B Unwind@00b8c249 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078C254 24B $L4397 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078C26C 24B $L4398 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078C284 24B $L4399 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078C29C 10B __ehhandler$??1BoneFXUpdate@@MAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0078C2A6 8B uw_0078c2a6 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateUpdate.cpp (not merged yet)
 
