@@ -141,7 +141,6 @@ public:
 private:
     Rva002E6C8DWordNode *node;
 };
-void Rva002E6C8DWordChase::clear() { node->word8 = 0; }
 
 // Whole native 405A1C..405A25 is bracketed by the predecessor's RET at
 // 405A1B and the next constructor's entry at 405A25. It loads the receiver's
