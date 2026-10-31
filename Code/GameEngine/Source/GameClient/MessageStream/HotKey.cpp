@@ -21,6 +21,9 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include <set>
 #include <stdlib.h>
 #include <algorithm>
+#include <memory>
+#include <vector>
+#include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
 // map/set<int> internals otherwise instantiate the less<int>::operator()
 // COMDAT (one byte shape per TU flags); an explicit dllimport+forceinline
@@ -925,6 +928,53 @@ static __forceinline void _Construct(_STL::pair<Rva00358DA0Element const, int> *
 
 template _STL::_Rb_tree_node<_STL::pair<Rva00358DA0Element const, int> > * _STL::_Rb_tree<Rva00358DA0Element, _STL::pair<Rva00358DA0Element const, int>, _STL::_Select1st<_STL::pair<Rva00358DA0Element const, int> >, _STL::less<Rva00358DA0Element>, _STL::allocator<_STL::pair<Rva00358DA0Element const, int> > >::_M_create_node(_STL::pair<Rva00358DA0Element const, int> const &);
 
+struct BfmePod88
+{
+	char m_body[88];
+};
+
+class MultiplayerColorDefinition
+{
+public:
+	MultiplayerColorDefinition(const MultiplayerColorDefinition &other);
+
+private:
+	char m_pad[4];
+};
+
+struct TreeHintPayload003012F0
+{
+	char m_body[12];
+};
+
+typedef _STL::vector<BfmePod88> ConstructPodVec;
+
+typedef _STL::pair<const int, MultiplayerColorDefinition> ConstructPairMP;
+
+typedef _STL::pair<const AsciiString, TreeHintPayload003012F0> ConstructPairHP;
+
+typedef _STL::pair<const AsciiString, TreeHintRef00217D4C> ConstructPairHR;
+
+// The placement-copy helpers call external complete copy constructors.
+// Their providers already own the target bodies; instantiating the generic
+// copies here emitted competing definitions. The mapped handle is four bytes,
+// proven by the canonical 358B43 copy's +4 pointer and pointee +4 AddRef.
+namespace _STL {
+template <> ConstructPodVec::vector(const ConstructPodVec &);
+template <> ConstructPairHP::pair(const ConstructPairHP &);
+template <> ConstructPairHR::pair(const ConstructPairHR &);
+}
+
+template void _STL::_Construct<ConstructPodVec, ConstructPodVec>(ConstructPodVec *, const ConstructPodVec &);
+
+template void _STL::_Construct<ConstructPairMP, ConstructPairMP>(ConstructPairMP *, const ConstructPairMP &);
+
+template void _STL::_Construct<ConstructPairHP, ConstructPairHP>(ConstructPairHP *, const ConstructPairHP &);
+
+template void _STL::_Construct<ConstructPairHR, ConstructPairHR>(ConstructPairHR *, const ConstructPairHR &);
+
+// ---- from Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp
+
 // ---- from Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp
@@ -1328,20 +1378,35 @@ GameMessageDisposition HotKeyTranslator::translateGameMessage(const GameMessage 
 	return KEEP_MESSAGE;
 }
 
-// tu-skeleton: 0x00358B43 34B ??0?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@QAE@ABU01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00218022.cpp (not merged yet)
-
-// tu-skeleton: 0x00358C7B 9B ??$_Destroy@URva0027EA49@@@_STL@@YAXPAURva0027EA49@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_rva0027EA49_erase.cpp (not merged yet)
-
-// tu-skeleton: 0x00358CA0 45B ?Rva00358CA0Construct@@YAXPAXPBX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types2.cpp (not merged yet)
-
-// tu-skeleton: 0x00358D27 59B ?erase@?$_Rb_tree@URva0027EA49@@U1@U?$_Identity@URva0027EA49@@@_STL@@U?$less@URva0027EA49@@@3@V?$allocator@URva0027EA49@@@3@@_STL@@QAEXU?$_Rb_tree_iterator@URva0027EA49@@U?$_Nonconst_traits@URva0027EA49@@@_STL@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_rva0027EA49_erase.cpp (not merged yet)
-
-// tu-skeleton: 0x00358D97 9B ??$_Destroy@VRva00358B65@@@_STL@@YAXPAVRva00358B65@@@Z -- matched in Code/GameEngine/Source/Common/DestroyInstances.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva00358DA0.cpp
 
 // STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
 // Element identity and unconstrained fields remain address-derived structural inference.
+
+// tu-skeleton: 0x00358B43 34B ??0?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@QAE@ABU01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00218022.cpp (not merged yet)
+
+// tu-skeleton: 0x00358C7B 9B ??$_Destroy@URva0027EA49@@@_STL@@YAXPAURva0027EA49@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_rva0027EA49_erase.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types2.cpp
+
+//
+// Fourth batch of STLport _Construct<T> placement-copy helpers, same-shape
+// siblings of the rowed _Construct<AsciiString> at 0x0002C485 (45 bytes; see
+// stlport_construct_asciistring.cpp). Each body is the null-guarded
+// placement-new copy over a single element: the copy delegates out-of-line
+// to T's own rowed copy ctor, and __EH_prolog resolves via its matched row.
+// Game mapped types are declared minimally (opaque payloads, matching the
+// struct/class-ness of their rowed copy ctors); no member is ever touched,
+// so the emitted code is identical apart from the callee.
+
+void Rva00358CA0Construct(void *dest, const void *source)
+{
+    ::new (dest) ConstructPairHR(*static_cast<const ConstructPairHR *>(source));
+}
+
+// tu-skeleton: 0x00358D27 59B ?erase@?$_Rb_tree@URva0027EA49@@U1@U?$_Identity@URva0027EA49@@@_STL@@U?$less@URva0027EA49@@@3@V?$allocator@URva0027EA49@@@3@@_STL@@QAEXU?$_Rb_tree_iterator@URva0027EA49@@U?$_Nonconst_traits@URva0027EA49@@@_STL@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_rva0027EA49_erase.cpp (not merged yet)
+
+// tu-skeleton: 0x00358D97 9B ??$_Destroy@VRva00358B65@@@_STL@@YAXPAVRva00358B65@@@Z -- matched in Code/GameEngine/Source/Common/DestroyInstances.cpp (not merged yet)
 
 // tu-skeleton: 0x00358E9F 148B ?_M_insert@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@3@@_STL@@AAE?AU?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@2@@2@PAU_Rb_tree_node_base@2@0ABU?$pair@$$CBVAsciiString@@VAudioEventRTS@@@2@0@Z -- matched in Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp (not merged yet)
 
@@ -1370,10 +1435,6 @@ GameMessageDisposition HotKeyTranslator::translateGameMessage(const GameMessage 
 // tu-skeleton: 0x0035973D 79B ??0Rva00359290@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/Rva00359290Dtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0035978C 28B ??_GRva00359290@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/AI/Rva00359290Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0077D864 14B $L4879 -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types2.cpp (not merged yet)
-
-// tu-skeleton: 0x0077D872 10B __ehhandler$?Rva00358CA0Construct@@YAXPAXPBX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types2.cpp (not merged yet)
 
 // tu-skeleton: 0x0077D8E1 8B Unwind@00b7d8e1 -- matched in Code/GameEngine/Source/GameClient/MessageStream/HotKeyAddHotKey.cpp (not merged yet)
 

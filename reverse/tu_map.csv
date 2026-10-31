@@ -27111,7 +27111,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00358C60,27,code,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp,approved,C,C=0x00358B9E..0x00358C7B,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp
 0x00358C7B,9,code,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp,approved,C,C=0x00358B9E..0x00358C84,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_rva0027EA49_erase.cpp
 0x00358C84,28,code,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp,approved,C,C=0x00358B9E..0x00358CA0,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp
-0x00358CA0,45,code,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp,approved,C,C=0x00358B9E..0x00358CCD,Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types2.cpp
+0x00358CA0,45,code,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp,approved,C,C=0x00358B9E..0x00358CCD,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp
 0x00358CCD,90,code,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp S=Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp N=Code/GameEngine/Source/GameClient/MessageStream/HotKeyManager.cpp,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp
 0x00358D27,59,code,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp,approved,C,C=0x00358CCD..0x00358D62,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_rva0027EA49_erase.cpp
 0x00358D62,53,code,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp,approved,C,C=0x00358CCD..0x00358D97,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp
@@ -74124,8 +74124,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0077D84A,8,code,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp,approved,P,P=0x00358B9E@FuncInfo0x00927420,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp
 0x0077D852,8,code,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp,approved,P,P=0x00358B9E@FuncInfo0x00927420,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp
 0x0077D85A,10,code,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp,approved,P,P=0x00358B9E@FuncInfo0x00927420,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp
-0x0077D864,14,code,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp,approved,P,P=0x00358CA0@FuncInfo0x00927444,Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types2.cpp
-0x0077D872,10,code,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp,approved,P,P=0x00358CA0@FuncInfo0x00927444,Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types2.cpp
+0x0077D864,14,code,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp,approved,P,P=0x00358CA0@FuncInfo0x00927444,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp
+0x0077D872,10,code,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp,approved,P,P=0x00358CA0@FuncInfo0x00927444,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp
 0x0077D87C,8,code,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp,approved,P,P=0x00358CCD@FuncInfo0x00927470,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp
 0x0077D884,25,code,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp,approved,P,P=0x00358CCD@FuncInfo0x00927470,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp
 0x0077D89D,10,code,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp,approved,P,P=0x00358CCD@FuncInfo0x00927470,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp
