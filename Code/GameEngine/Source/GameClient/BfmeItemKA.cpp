@@ -223,6 +223,159 @@ GameSubTitle::GameSubTitle(GameFont *font,
 #include <utility>
 #pragma comment(linker, "/alternatename:??1Rva002606AFDtor@@QAE@XZ=??1?$StringBase@G@@AAE@XZ")
 #pragma comment(linker, "/alternatename:??$__copy_ptrs@PBURva002606AFElem@@PAU1@@_STL@@YAPAURva002606AFElem@@PBU1@0PAU1@ABU__false_type@0@@Z=?Rva00260647Copy@@YAPAUBfmeStringRecord002602A6@@PAU1@00@Z")
+#include <memory>
+// Complete retail record copy at0x00054F57.
+struct BfmeStringRecord00054F57 {
+    AsciiString ansi; UnicodeString wide;
+    BfmeStringRecord00054F57(const BfmeStringRecord00054F57 &source);
+};
+template void _STL::_Construct<BfmeStringRecord00054F57,BfmeStringRecord00054F57>(BfmeStringRecord00054F57*,const BfmeStringRecord00054F57&);
+// Complete retail record copy at0x00204A30.
+struct BfmeStringRecord00204A30 {
+    unsigned int word0; AsciiString text0; unsigned int word1; AsciiString text1; unsigned int word2;
+    BfmeStringRecord00204A30(const BfmeStringRecord00204A30 &source);
+    BfmeStringRecord00204A30 &operator=(const BfmeStringRecord00204A30 &source);
+};
+template void _STL::_Construct<BfmeStringRecord00204A30,BfmeStringRecord00204A30>(BfmeStringRecord00204A30*,const BfmeStringRecord00204A30&);
+// Complete retail record copy at0x002199C8.
+struct BfmeStringRecord002199C8 {
+    AsciiString text0, text1, text2; unsigned int word;
+    BfmeStringRecord002199C8(const BfmeStringRecord002199C8 &source);
+    BfmeStringRecord002199C8(unsigned int w, const AsciiString &a, const AsciiString &b, const AsciiString &c);
+};
+template void _STL::_Construct<BfmeStringRecord002199C8,BfmeStringRecord002199C8>(BfmeStringRecord002199C8*,const BfmeStringRecord002199C8&);
+// Complete retail record copy at0x00219A68.
+struct BfmeStringRecord00219A68 {
+    unsigned int word0; AsciiString text0, text1; unsigned int word1, word2;
+    BfmeStringRecord00219A68(const BfmeStringRecord00219A68 &source);
+    BfmeStringRecord00219A68(unsigned int w0, const AsciiString &t0, const AsciiString &t1, unsigned int w1, unsigned int w2);
+};
+template void _STL::_Construct<BfmeStringRecord00219A68,BfmeStringRecord00219A68>(BfmeStringRecord00219A68*,const BfmeStringRecord00219A68&);
+// Complete retail record copy at0x0022074B.
+struct BfmeStringRecord0022074B {
+    AsciiString text0, text1; unsigned int word;
+    BfmeStringRecord0022074B(const BfmeStringRecord0022074B &source);
+};
+template void _STL::_Construct<BfmeStringRecord0022074B,BfmeStringRecord0022074B>(BfmeStringRecord0022074B*,const BfmeStringRecord0022074B&);
+// Native5BC576 copies six AsciiString fields and the resume byte at24.
+// WB MainMenuUtils and ZH DownloadManager.h establish QueuedDownload identity.
+// Rename the existing owner rather than adding another name at its address.
+class QueuedDownload { public: AsciiString server,userName,password,file,localFile,regKey; bool tryResume; QueuedDownload(const QueuedDownload &); ~QueuedDownload(); };
+template void _STL::_Construct<QueuedDownload,QueuedDownload>(QueuedDownload*,const QueuedDownload&);
+// Complete retail record copy at0x005D511F.
+struct BfmeStringRecord005D511F {
+    UnicodeString text0; unsigned int word0, word1; UnicodeString text1; unsigned int word2;
+    BfmeStringRecord005D511F(const BfmeStringRecord005D511F &source);
+    BfmeStringRecord005D511F(const UnicodeString &t0, unsigned int w0, unsigned int w1, const UnicodeString &t1, unsigned int w2);
+    ~BfmeStringRecord005D511F();
+};
+template void _STL::_Construct<BfmeStringRecord005D511F,BfmeStringRecord005D511F>(BfmeStringRecord005D511F*,const BfmeStringRecord005D511F&);
+// ??$_Destroy@PAUBfmeStringRecord005D511F@@@_STL@@YAXPAUBfmeStringRecord005D511F@@0@Z retail 0x005D541B 25B.
+// Range destroy over 0x14-byte record via rowed dtor 0x005D51B9 in this TU. Callers 0x005D5434 and 0x005D5473.
+template void _STL::_Destroy<BfmeStringRecord005D511F *>(BfmeStringRecord005D511F *, BfmeStringRecord005D511F *);
+#include <stdlib.h>
+// ??1BfmeRecordRange005D5473@@QAE@XZ retail 0x005D5473 30B.
+// Owning two-pointer range over BfmeStringRecord005D511F: destroy via rowed _Destroy 0x005D541B then free via 0x00030830.
+// Same frameless shape as BfmeRecordRange004B205 at 0x0004B205. Caller 0x005D5491.
+struct BfmeRecordRange005D5473 {
+    BfmeStringRecord005D511F *m_begin;
+    BfmeStringRecord005D511F *m_end;
+    ~BfmeRecordRange005D5473();
+};
+// Retail 0x00111ACF copies strings at +0 and +0x18, a word at +4,
+// then the four-float subobject at +8 through its observed x87 loop.
+struct BfmeStringRecord00111ACF {
+    AsciiString first; unsigned int word4; struct FloatStorage { float values[4]; } middle; AsciiString second;
+    BfmeStringRecord00111ACF(const BfmeStringRecord00111ACF &source) : first(source.first), word4(source.word4), second(source.second) { for (int i=0;i<4;++i) middle.values[i]=source.middle.values[i]; }
+};
+template void _STL::_Construct<BfmeStringRecord00111ACF, BfmeStringRecord00111ACF>(BfmeStringRecord00111ACF *, const BfmeStringRecord00111ACF &);
+// Complete retail record copy at0x005EC43C.
+struct BfmeStringRecord005EC43C {
+    UnicodeString text; unsigned int word0, word1, word2, word3, word4;
+    BfmeStringRecord005EC43C(const BfmeStringRecord005EC43C &source);
+};
+template void _STL::_Construct<BfmeStringRecord005EC43C,BfmeStringRecord005EC43C>(BfmeStringRecord005EC43C*,const BfmeStringRecord005EC43C&);
+#include "../Common/BfmeStringRecord005F93E3.h"
+template void _STL::_Construct<BfmeStringRecord005F93E3,BfmeStringRecord005F93E3>(BfmeStringRecord005F93E3*,const BfmeStringRecord005F93E3&);
+// Complete retail record copy at0x005ED5F3.
+struct BfmeStringRecord005ED5F3 {
+    UnicodeString text; unsigned int word0, word1, word2, word3;
+    BfmeStringRecord005ED5F3(const BfmeStringRecord005ED5F3 &source);
+    BfmeStringRecord005ED5F3 &operator=(const BfmeStringRecord005ED5F3 &source);
+};
+template void _STL::_Construct<BfmeStringRecord005ED5F3,BfmeStringRecord005ED5F3>(BfmeStringRecord005ED5F3*,const BfmeStringRecord005ED5F3&);
+// Upstream LanguageFilter.cpp identifies the former opaque record at0x387D03
+// as pair<const UnicodeString,bool>. Reuse that claim and keep only this
+// independently verified placement-copy caller at0x387E7C.
+typedef _STL::pair<const UnicodeString,bool> UnicodeFlagPair;
+template void _STL::_Construct<UnicodeFlagPair,UnicodeFlagPair>(UnicodeFlagPair*,const UnicodeFlagPair&);
+// Complete retail record copy at0x002B4DC1.
+struct BfmeStringRecord002B4DC1 {
+    UnicodeString text; unsigned int word0, word1;
+    BfmeStringRecord002B4DC1(const BfmeStringRecord002B4DC1 &source);
+};
+template void _STL::_Construct<BfmeStringRecord002B4DC1,BfmeStringRecord002B4DC1>(BfmeStringRecord002B4DC1*,const BfmeStringRecord002B4DC1&);
+// Complete retail record copy at0x005DDD40.
+struct BfmeStringRecord005DDD40 {
+    UnicodeString text; unsigned int word;
+    BfmeStringRecord005DDD40(const BfmeStringRecord005DDD40 &source);
+    BfmeStringRecord005DDD40 &operator=(const BfmeStringRecord005DDD40 &source);
+};
+template void _STL::_Construct<BfmeStringRecord005DDD40,BfmeStringRecord005DDD40>(BfmeStringRecord005DDD40*,const BfmeStringRecord005DDD40&);
+// Complete retail record copy at0x00415F34.
+struct BfmeStringRecord00415F34 {
+    unsigned int word0, word1; AsciiString text0; unsigned int word2; AsciiString text1; UnicodeString text2;
+    BfmeStringRecord00415F34();
+    BfmeStringRecord00415F34(const BfmeStringRecord00415F34 &source);
+};
+template void _STL::_Construct<BfmeStringRecord00415F34,BfmeStringRecord00415F34>(BfmeStringRecord00415F34*,const BfmeStringRecord00415F34&);
+// Complete retail record copy at0x00448113.
+struct BfmeStringRecord00448113 {
+    UnicodeString text0, text1;
+    BfmeStringRecord00448113(const BfmeStringRecord00448113 &source);
+};
+template void _STL::_Construct<BfmeStringRecord00448113,BfmeStringRecord00448113>(BfmeStringRecord00448113*,const BfmeStringRecord00448113&);
+struct Rva00468520Obj { int m_00; int m_04; };
+class Rva00468520 {
+    Rva00468520Obj *m_00; int m_04;
+public:
+    __declspec(nothrow) Rva00468520 *set(const Rva00468520 *src);
+    ~Rva00468520();
+    __declspec(nothrow) __forceinline Rva00468520(const Rva00468520 &other) { set(&other); }
+};
+struct BfmeStringRecord00222E08 {
+    AsciiString text;
+    Rva00468520 ref;
+    BfmeStringRecord00222E08(const BfmeStringRecord00222E08 &source);
+};
+template void _STL::_Construct<BfmeStringRecord00222E08,BfmeStringRecord00222E08>(BfmeStringRecord00222E08*,const BfmeStringRecord00222E08&);
+class Rva0036CA00Str { void *m_item; public: __declspec(nothrow) Rva0036CA00Str(const Rva0036CA00Str &); ~Rva0036CA00Str(); };
+class Rva002390CB {
+    void *m_00; Rva0036CA00Str m_04;
+public:
+    __declspec(nothrow) Rva002390CB(const Rva002390CB &);
+    ~Rva002390CB();
+};
+struct BfmeStringRecord002CF550 {
+    AsciiString text;
+    Rva002390CB ref;
+    BfmeStringRecord002CF550(const BfmeStringRecord002CF550 &source);
+};
+template void _STL::_Construct<BfmeStringRecord002CF550,BfmeStringRecord002CF550>(BfmeStringRecord002CF550*,const BfmeStringRecord002CF550&);
+// ??4BfmeStringRecord002602A6@@QAEAAU0@ABU0@@Z retail 0x002602A6 27B.
+// Same 8-byte layout as 005DDD40 (UnicodeString text + word) without self-check.
+// Callee StringBase<ushort>::set at 0x00037150 (pin-only); 47B __copy caller
+// at 0x002605EB uses sar 3 stride 8.
+struct BfmeStringRecord002602A6 {
+    UnicodeString text; unsigned int word;
+    BfmeStringRecord002602A6 &operator=(const BfmeStringRecord002602A6 &source);
+};
+BfmeStringRecord002602A6 &BfmeStringRecord002602A6::operator=(const BfmeStringRecord002602A6 &source)
+{
+    text.set(source.text);
+    word = source.word;
+    return *this;
+}
 
 struct SubtitleRecord { unsigned a,b; };
 
@@ -424,6 +577,90 @@ namespace _STL {
 template <class InputIter, class OutputIter>
 OutputIter __copy_ptrs(InputIter first, InputIter last, OutputIter result, const __false_type &tag);
 }
+
+// Retail __copy 0x002605EB 47B: forward copy of 8-byte BfmeStringRecord002602A6 via operator= at 0x002602A6; sar 3 stride 8; caller at 0x0026065A; same shape as 47B __copy at 0x00426A82.
+template BfmeStringRecord002602A6* _STL::__copy<BfmeStringRecord002602A6*, BfmeStringRecord002602A6*, int>(BfmeStringRecord002602A6*, BfmeStringRecord002602A6*, BfmeStringRecord002602A6*, const _STL::random_access_iterator_tag&, int*);
+
+template void _STL::fill<BfmeStringRecord005ED5F3 *, BfmeStringRecord005ED5F3>(BfmeStringRecord005ED5F3 *, BfmeStringRecord005ED5F3 *, const BfmeStringRecord005ED5F3 &);
+
+template BfmeStringRecord005ED5F3* _STL::__copy_backward<BfmeStringRecord005ED5F3*, BfmeStringRecord005ED5F3*, int>(BfmeStringRecord005ED5F3*, BfmeStringRecord005ED5F3*, BfmeStringRecord005ED5F3*, const _STL::random_access_iterator_tag&, int*);
+
+template BfmeStringRecord005ED5F3* _STL::__copy_backward_ptrs<BfmeStringRecord005ED5F3*, BfmeStringRecord005ED5F3*>(BfmeStringRecord005ED5F3*, BfmeStringRecord005ED5F3*, BfmeStringRecord005ED5F3*, const _STL::__false_type&);
+
+template BfmeStringRecord005ED5F3* _STL::__copy<BfmeStringRecord005ED5F3*, BfmeStringRecord005ED5F3*, int>(BfmeStringRecord005ED5F3*, BfmeStringRecord005ED5F3*, BfmeStringRecord005ED5F3*, const _STL::random_access_iterator_tag&, int*);
+
+// Complete retail record copy at0x00219B0B.
+struct BfmeStringRecord00219B0B {
+    unsigned int word0; AsciiString text0, text1, text2;
+    BfmeStringRecord00219B0B(const BfmeStringRecord00219B0B &source);
+    BfmeStringRecord00219B0B(unsigned int w0, const AsciiString &t0, const AsciiString &t1, const AsciiString &t2);
+    ~BfmeStringRecord00219B0B();
+};
+
+template void _STL::_Construct<BfmeStringRecord00219B0B,BfmeStringRecord00219B0B>(BfmeStringRecord00219B0B*,const BfmeStringRecord00219B0B&);
+
+// Complete retail 2-arg ctor at0x0021A940.
+struct BfmeStringRecord0021A940 {
+    unsigned int word0; BfmeStringRecord00219B0B rec;
+    BfmeStringRecord0021A940(const unsigned int *p, const BfmeStringRecord00219B0B &source);
+    BfmeStringRecord0021A940(const BfmeStringRecord0021A940 &source);
+    ~BfmeStringRecord0021A940();
+};
+
+template void _STL::_Construct<BfmeStringRecord0021A940,BfmeStringRecord0021A940>(BfmeStringRecord0021A940*,const BfmeStringRecord0021A940&);
+
+// Target strings/xrefs at 0x007E5E28 and 0x007E5E60 name AwardSystemManager
+// validation; data xrefs identify its manager at 0x00A02F74. The exact method
+// names are not established, so retain address-derived callback names.
+enum NameKeyType
+{
+	NAMEKEY_INVALID = 0
+};
+
+class INI;
+
+class Rva0014921EVector;
+
+void __cdecl rva00149002(int ini, int instance, Rva0014921EVector *store, int userData);
+
+class NameKeyGenerator
+{
+public:
+	const AsciiString &keyToName(NameKeyType key);
+};
+
+extern NameKeyGenerator *TheNameKeyGenerator;
+
+struct BfmePod40;
+
+class Rva0040BAD0
+{
+public:
+	int rva0040AAF8(int key);
+};
+
+class Rva0040AAD5 : public Rva0040BAD0
+{
+public:
+	BfmePod40 *rva0040AAD5(int key);
+};
+
+extern Rva0040AAD5 *TheAwardSystemManager;
+
+struct _s__ThrowInfo;
+
+struct INIException
+{
+	char *mFailureMessage;
+	int m_argCount;
+	INIException(int argCount, const char *format, ...);
+};
+
+extern "C" void __stdcall _CxxThrowException(void *exceptionObject, const _s__ThrowInfo *throwInfo);
+
+extern "C" const _s__ThrowInfo __identifier("_TI1?AVINIException@@");
+
+// ---- from Code/GameEngine/Source/GameClient/BfmeItemKA.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/BfmeItemKA.cpp
 
@@ -642,16 +879,6 @@ bool Rva00260557Lookup(const char *label, UnicodeString *subtitle)
 	return exists;
 }
 
-// tu-skeleton: 0x0025FC61 89B ??1GameSubTitle@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/GameSubTitle.cpp (not merged yet)
-
-// tu-skeleton: 0x0025FF73 28B ??_GGameSubTitle@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/GameSubTitle.cpp (not merged yet)
-
-// tu-skeleton: 0x002600DC 458B ?rva002600DC@GameSubTitle@@UAEXHPAXMMMM@Z -- matched in Code/GameEngine/Source/GameClient/GameSubTitleDraw.cpp (not merged yet)
-
-// tu-skeleton: 0x002602A6 27B ??4BfmeStringRecord002602A6@@QAEAAU0@ABU0@@Z -- matched in Code/GameEngine/Source/Common/StringRecordInlineCopyBFME2.cpp (not merged yet)
-
-// tu-skeleton: 0x002602C1 25B ??0Rva002602C1@@QAE@ABVUnicodeString@@H@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameClient/GUI/HeaderTemplate_Rva002604ba.cpp
 
 HeaderTemplateString bfmeHeaderTemplateRegistryLanguage( void )
@@ -663,15 +890,10 @@ HeaderTemplateString bfmeHeaderTemplateRegistryLanguage( void )
 // carries as ?GetRegistryLanguage@@YA?AVAsciiString@@XZ. Bind the donor spelling to that rowed owner so one
 // address keeps one definition and the unit links.
 
-// tu-skeleton: 0x002605EB 47B ??$__copy@PAUBfmeStringRecord002602A6@@PAU1@H@_STL@@YAPAUBfmeStringRecord002602A6@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z -- matched in Code/GameEngine/Source/Common/StringRecordInlineCopyBFME2.cpp (not merged yet)
 
-// tu-skeleton: 0x0026061A 45B ?Rva0026061AConstruct@@YAXPAUBfmeStringRecord005DDD40@@ABU1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_game_structs.cpp (not merged yet)
 
-// tu-skeleton: 0x00260647 29B ?Rva00260647Copy@@YAPAUBfmeStringRecord002602A6@@PAU1@00@Z -- matched in Code/GameEngine/Source/Common/StringRecordInlineCopyBFME2.cpp (not merged yet)
 
-// tu-skeleton: 0x00260664 38B ??$__uninitialized_copy@PBURva00260664Element@@PAU1@@_STL@@YAPAURva00260664Element@@PBU1@0PAU1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva00260664.cpp (not merged yet)
 
-// tu-skeleton: 0x0026068A 37B ??$__uninitialized_fill_n@PAURva0026068AElement@@IU1@@_STL@@YAPAURva0026068AElement@@PAU1@IABU1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW6Rva0026068A.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva002606AFErase.cpp
 
@@ -695,6 +917,39 @@ Rva002606AFElem *Rva002606AF::erase(Rva002606AFElem *position)
 //   0x005B804E reads ??1?$StringBase@G@@AAE@XZ
 
 //   0x00260647 reads ?Rva00260647Copy@@YAPAUBfmeStringRecord002602A6@@PAU1@00@Z
+
+// tu-skeleton: 0x0025FC61 89B ??1GameSubTitle@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/GameSubTitle.cpp (not merged yet)
+
+// tu-skeleton: 0x0025FF73 28B ??_GGameSubTitle@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/GameSubTitle.cpp (not merged yet)
+
+// tu-skeleton: 0x002600DC 458B ?rva002600DC@GameSubTitle@@UAEXHPAXMMMM@Z -- matched in Code/GameEngine/Source/GameClient/GameSubTitleDraw.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/StringRecordInlineCopyBFME2.cpp
+
+// stlport46
+// BFME2 record copies with verified StringBase member operations.
+// Layouts are read from the complete retail constructors and their STLport
+// placement-copy callers. Application names and scalar meanings are unknown.
+// String semantics follow BFME1 AsciiString/UnicodeString: the inline derived
+// copies call StringBase<char>0x365F0 or StringBase<unsigned short>0x37050.
+
+// Complete retail record copy at0x005F93E3.
+
+// Retail __copy_ptrs 0x00260647 29B: ptrs wrapper via rowed __copy 0x002605EB; same shape as 29B wrapper 0x00426B29; caller at 0x002606CA.
+// Manual wrapper with identical pushes: tag local plus null distance.
+BfmeStringRecord002602A6 *Rva00260647Copy(BfmeStringRecord002602A6 *first, BfmeStringRecord002602A6 *last, BfmeStringRecord002602A6 *result)
+{
+    const _STL::random_access_iterator_tag tag;
+    return _STL::__copy(first, last, result, tag, (int *)0);
+}
+
+// tu-skeleton: 0x002602C1 25B ??0Rva002602C1@@QAE@ABVUnicodeString@@H@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp (not merged yet)
+
+// tu-skeleton: 0x0026061A 45B ?Rva0026061AConstruct@@YAXPAUBfmeStringRecord005DDD40@@ABU1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_game_structs.cpp (not merged yet)
+
+// tu-skeleton: 0x00260664 38B ??$__uninitialized_copy@PBURva00260664Element@@PAU1@@_STL@@YAPAURva00260664Element@@PBU1@0PAU1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva00260664.cpp (not merged yet)
+
+// tu-skeleton: 0x0026068A 37B ??$__uninitialized_fill_n@PAURva0026068AElement@@IU1@@_STL@@YAPAURva0026068AElement@@PAU1@IABU1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW6Rva0026068A.cpp (not merged yet)
 
 // tu-skeleton: 0x00772CE6 14B $L3906 -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_game_structs.cpp (not merged yet)
 
