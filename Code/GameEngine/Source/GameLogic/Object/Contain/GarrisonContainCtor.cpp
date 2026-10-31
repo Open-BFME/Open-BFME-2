@@ -68,6 +68,7 @@ enum BodyDamageType
 };
 
 class DamageInfo;
+class Weapon;
 
 class ModuleData;
 
@@ -96,8 +97,46 @@ struct Rva00477F06GarrisonPoint : public Coord3D
 // placeholders (so an emitted table needs no placeholder definition); its
 // slots 32 and 35 take the damage-state argument healSingleObject's sibling
 // 0x0047876A passes and slot 69 is the contain count it tests. The +0x2C
-// table's slot 2 is onBodyDamageStateChange (0x0047876A).
-class B0 { public: virtual void b0(); int m_pad4; Object *m_object; };
+// table's slot 2 is onBodyDamageStateChange (0x0047876A). The +0x20 table
+// holds attemptBestFirePointPosition's position overload 0x004788CE at slot
+// 77 and its Object overload 0x00478850 at 78 (overloads go in reverse
+// declaration order); the primary table holds redeployOccupants 0x00479395
+// at slot 18 and getObjectGarrisonPointIndex 0x00479292 at 27, which
+// putObjectAtBestGarrisonPoint 0x004785A2 calls through +0x6C.
+class B0
+{
+public:
+    virtual void b0();
+    virtual void b01() = 0;
+    virtual void b02() = 0;
+    virtual void b03() = 0;
+    virtual void b04() = 0;
+    virtual void b05() = 0;
+    virtual void b06() = 0;
+    virtual void b07() = 0;
+    virtual void b08() = 0;
+    virtual void b09() = 0;
+    virtual void b10() = 0;
+    virtual void b11() = 0;
+    virtual void b12() = 0;
+    virtual void b13() = 0;
+    virtual void b14() = 0;
+    virtual void b15() = 0;
+    virtual void b16() = 0;
+    virtual void b17() = 0;
+    virtual void redeployOccupants() = 0;
+    virtual void b19() = 0;
+    virtual void b20() = 0;
+    virtual void b21() = 0;
+    virtual void b22() = 0;
+    virtual void b23() = 0;
+    virtual void b24() = 0;
+    virtual void b25() = 0;
+    virtual void b26() = 0;
+    virtual int getObjectGarrisonPointIndex(ObjectID id) = 0;
+    int m_pad4;
+    Object *m_object;
+};
 
 class B1 { public: virtual void b1(); };
 
@@ -183,6 +222,8 @@ public:
     virtual void c74() = 0;
     virtual void c75() = 0;
     virtual bool calcBestGarrisonPosition(Coord3D *, const Coord3D *);
+    virtual bool attemptBestFirePointPosition(Object *source, Weapon *weapon, Object *victim);
+    virtual bool attemptBestFirePointPosition(Object *source, Weapon *weapon, const Coord3D *targetPos);
 };
 
 class B4 { public: virtual void b4(); };
@@ -238,6 +279,9 @@ public:
     virtual NameKeyType getModuleNameKey() const;
     virtual bool calcBestGarrisonPosition(Coord3D *sourcePos, const Coord3D *targetPos);
     virtual void onBodyDamageStateChange(const DamageInfo *damageInfo, BodyDamageType oldState, BodyDamageType newState);
+    virtual bool attemptBestFirePointPosition(Object *source, Weapon *weapon, Object *victim);
+    virtual bool attemptBestFirePointPosition(Object *source, Weapon *weapon, const Coord3D *targetPos);
+    virtual int getObjectGarrisonPointIndex(ObjectID id);
 protected:
     enum { GARRISON_INDEX_INVALID = -1 };
     virtual void xfer(Xfer *xfer);
@@ -248,6 +292,8 @@ protected:
     void putObjectAtGarrisonPoint(Object *obj, ObjectID targetID, int conditionIndex, int index);
     void validateRallyPoint();
     void healSingleObject(Object *obj, float framesForFullHeal);
+    void putObjectAtBestGarrisonPoint(Object *obj, Object *target, const Coord3D *targetPos);
+    virtual void redeployOccupants();
 private:
     unsigned int m_originalTeamID; // +0xFC
     GarrisonPointData m_garrisonPointData[MAX_GARRISON_POINTS]; // +0x100
