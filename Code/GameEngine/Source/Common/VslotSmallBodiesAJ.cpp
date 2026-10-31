@@ -1315,10 +1315,6 @@ class Rva00286351 : public Rva002862C9
 public:
 	void rva00286351();
 };
-void Rva00286351::rva00286351()
-{
-	rva002862C9();
-}
 
 // Target boundary at 0x00286356 is 29 bytes: it calls the adjacent pinned
 // accessor at 0x002862C9, copies the returned object through the rowed
@@ -1339,11 +1335,6 @@ class Rva00286356 : public Rva002862C9
 public:
 	Rva003ED658 rva00286356();
 };
-
-Rva003ED658 Rva00286356::rva00286356()
-{
-	return *reinterpret_cast<Rva003ED658 const *>(rva002862C9());
-}
 
 class Rva00286CC4
 {
