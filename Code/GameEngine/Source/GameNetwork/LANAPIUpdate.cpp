@@ -203,6 +203,7 @@ class GameState
 {
 public:
 	AsciiString realMapPathToPortableMapPath( const AsciiString &in ) const;
+	AsciiString getMapLeafName( const AsciiString &in ) const;
 };
 extern GameState *TheGameState;
 
@@ -305,7 +306,7 @@ class Rva00447773 : public GameInfo
 {
 public:
 	void *getLANSlot( Int index );
- void *rva00449522(Int index);
+	void *rva00449522(Int index);
 };
 
 // getSlotNum (0x004483BC), under the ledger's class name, that of the

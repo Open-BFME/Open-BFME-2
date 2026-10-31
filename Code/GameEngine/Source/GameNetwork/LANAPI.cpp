@@ -477,12 +477,11 @@ struct SlotEntry25
 	char m_tail[0x1C8];
 };
 
-class Rva00447773
+class Rva00447773 : public GameInfo
 {
 public:
-	void *getLANSlot(int index);
-	char m_pre[0x114];
-	SlotEntry25 m_slots[8];
+	void *getLANSlot( Int index );
+	void *rva00449522(Int index);
 };
 
 class GlobalData
