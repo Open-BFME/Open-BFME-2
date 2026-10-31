@@ -32,20 +32,7 @@ public:
 template <> class Rva004B3CC2Slots<0>
 {
 };
-class BehaviorModuleInterface : public Rva004B3CC2Slots<21>
-{
-public:
-	virtual Rva004B3CC2Upgrade *rvaSlot21();
-};
-class BehaviorModule
-{
-public:
-	virtual ~BehaviorModule();
-	BehaviorModuleInterface *getInterface() { return &m_interface; }
-private:
-	unsigned char m_pad04[0x0C - 0x04];
-	BehaviorModuleInterface m_interface;	// +0x0C
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 class Object
 {
 public:
@@ -108,7 +95,7 @@ void DelayedUpgrade::upgradeImplementation()
 	getUpgradeActivationMasks(&activation, &conflicting);
 	for (BehaviorModule **module = obj->getBehaviorModules(); *module; ++module)
 	{
-		Rva004B3CC2Upgrade *upgrade = (*module)->getInterface()->rvaSlot21();
+		Rva004B3CC2Upgrade *upgrade = static_cast<Rva004B3CC2Upgrade *>(static_cast<BehaviorModuleInterface &>(**module).slot21());
 		if (upgrade && upgrade->rvaSlot0(&activation))
 			upgrade->rvaSlot1(delay);
 	}
