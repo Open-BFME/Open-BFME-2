@@ -13,12 +13,24 @@
 #include "unicode_string.h"
 #include "../../Include/Common/Rva00041004Lock.h"
 
+void __cdecl rva007B9B0A();
+
 namespace ATL
 {
 	class CAtlWinModule
 	{
 	public:
 		void Term();
+	};
+
+	class CImage
+	{
+		class CDCCache
+		{
+			void *m_ahDCs[4];
+		};
+		static CDCCache s_cache;
+		friend void ::rva007B9B0A();
 	};
 }
 
@@ -203,7 +215,6 @@ unsigned g_Va00E06724[4];	// retail RVA 0x00A06724 (.bss), defined here
 extern unsigned g_Va00E06734;
 extern unsigned g_Va00E06748;
 unsigned g_Va00E08D48;	// retail RVA 0x00A08D48 (.bss), defined here
-unsigned g_Va00E09E50;	// retail RVA 0x00A09E50 (.bss), defined here
 extern unsigned g_Va00E09E60;
 extern unsigned GeometryContactSphere;
 
@@ -532,10 +543,10 @@ void __cdecl rva007B9B00()
 	receiver->Term();
 }
 
-// ?rva007B9B0A@@YAXXZ @ 0x007B9B0A (10B): ecx=&g_Va00E09E50, tail-jump to rowed ??1CDCCache@@QAE@XZ (0x00628BC5)
+// ?rva007B9B0A@@YAXXZ @ 0x007B9B0A (10B): ecx=&ATL::CImage::s_cache, tail-jump to rowed ??1CDCCache@@QAE@XZ (0x00628BC5)
 void __cdecl rva007B9B0A()
 {
-	CDCCache *receiver = (CDCCache *)&g_Va00E09E50;
+	CDCCache *receiver = (CDCCache *)&ATL::CImage::s_cache;
 	receiver->~CDCCache();
 }
 

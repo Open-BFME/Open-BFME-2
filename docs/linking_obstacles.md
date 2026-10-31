@@ -9427,11 +9427,12 @@ No native element name or layout is recovered by removing the sweep. The
 
 ### LINK-067: an ATL cache initializer retains BFME 1 callback and storage names
 
-Status: Cleared in ordinary-preview scope; data-owner reconciliation remains. Updated: 2026-10-26; inspected revision: `896af216804e`.
+Status: Cleared in ordinary-preview scope; data-owner reconciliation landed (2026-10-31). Updated: 2026-10-31; inspected revision: `2e9347eda5e`.
 Evidence / affected unit: `Code/GameEngine/Source/Common/StaticInit/Rva00C6E31EInitializers.cpp`, 25 bytes at 0x007B556E. Native instructions zero 16 bytes at VA 0x00E09E50 and register 0x007B9B0A. `atlimage.cpp` already defines the 16-byte `ATL::CImage::s_cache`; `Rva007B6A00AtexitThunks.cpp` already defines the cleanup, which jumps to the rowed cache destructor at 0x00628BC5.
 Completed: bind the initializer to those existing names, preserving the private nested cache type and all 25 bytes. All three units LINKS; both providers retain their previous results. Raw evidence: `build/link-worker-20261026-w2/native-initializer.log`, `static-providers-before.log`, `static-cache-preview.log` and `static-cache-build.log`.
-Remaining / next check: reconcile the stale four-byte `g_Va00E09E50` data row with the actual 16-byte ATL owner. The shadow data checker exits zero but reports the real `s_cache` spelling as one new `wrong-name` finding because the four-byte data row overrides the provisional data ledger. No data register or owner definition is edited here. All required hard checks pass; see `build/link-report.md` and `final-data-Rva00C6E31EInitializers.log` in the same evidence directory.
-Clearance: cleared in ordinary-preview scope; census confirmation pending. This is no data-debt retirement or image-ownership claim.
+Remaining / next check (2026-10-26): reconcile the stale four-byte `g_Va00E09E50` data row with the actual 16-byte ATL owner. The shadow data checker exits zero but reports the real `s_cache` spelling as one new `wrong-name` finding because the four-byte data row overrides the provisional data ledger. No data register or owner definition is edited here. All required hard checks pass; see `build/link-report.md` and `final-data-Rva00C6E31EInitializers.log` in the same evidence directory.
+2026-10-31 follow-up: `reverse/data_rows.csv` at `0x00A09E50` now binds the 16-byte `?s_cache@CImage@ATL@@0VCDCCache@12@A` owner in `Code/Libraries/Source/ATL/atlimage.cpp` (with `DataRowPrivateProbe` friendship for size/type verification), `Rva007B6A00AtexitThunks.cpp` binds `rva007B9B0A` directly to `ATL::CImage::s_cache`, the redundant `g_Va00E09E50` declarations in `Rva007B6A00AtexitThunks.cpp` and `Rva007B6A00AtexitThunks_Rva007B7786.cpp` are removed (`address_global` -3), and `repair_queue.py retire data` retires `Rva00C6E31EInitializers.cpp`'s `0x00A09E50` baseline key with 0 `data_check` findings across all four sources (85/85 functions, 21/21 data rows, 4/4 `link_check` LINKS).
+Clearance: cleared in ordinary-preview and data-identity scope; full census confirmation remains pending.
 
 ### LINK-068: removing DieModule's unrowed field parser removes a live provider
 

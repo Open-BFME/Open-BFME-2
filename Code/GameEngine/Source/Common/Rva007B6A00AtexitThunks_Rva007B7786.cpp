@@ -205,7 +205,6 @@ extern unsigned g_Va00E06724[4];	// retail RVA 0x00A06724 (.bss), defined in Rva
 extern int g_00E06734;	// data row 0x00A06734 (Rva005E8DB5.cpp)
 extern int g_00E06748;	// data row 0x00A06748 (Rva005E8DB5.cpp)
 extern unsigned g_Va00E08D48;	// retail RVA 0x00A08D48 (.bss), defined in Rva007B6A00AtexitThunks.cpp
-extern unsigned g_Va00E09E50;	// retail RVA 0x00A09E50 (.bss), defined in Rva007B6A00AtexitThunks.cpp
 extern unsigned g_Va00E09E60;
 extern unsigned GeometryContactSphere;
 

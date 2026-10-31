@@ -20,3 +20,9 @@ Next investigate the data ownership and all consumers together, including the
 ATL definition and atexit thunk, and use the supported data/name tools to
 establish the real owner before retrying retirement. The link preview is not
 a consumer-wide check or census confirmation.
+
+## 2026-10-31 resolution
+
+- Updated `reverse/data_rows.csv` at `0x00A09E50` from the 4-byte placeholder `?g_Va00E09E50@@3IA` in `Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks.cpp` to the 16-byte `?s_cache@CImage@ATL@@0VCDCCache@12@A` owner in `Code/Libraries/Source/ATL/atlimage.cpp` (with `DataRowPrivateProbe` friendship for `data_rows.py` sizeof/type verification).
+- Updated `Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks.cpp` (`rva007B9B0A`) to reference `ATL::CImage::s_cache` and removed the `g_Va00E09E50` declarations from `Rva007B6A00AtexitThunks.cpp` and `Rva007B6A00AtexitThunks_Rva007B7786.cpp` (`address_global` 4056 -> 4053).
+- Verified 85/85 functions and 21/21 data rows across all four sources, 0 `data_check.py` findings, 4/4 `link_check.py` LINKS, and retired `Rva00C6E31EInitializers.cpp`'s `0x00A09E50` key via `repair_queue.py retire data`.

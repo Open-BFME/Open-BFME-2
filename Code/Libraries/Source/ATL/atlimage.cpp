@@ -375,11 +375,14 @@ public:
 #define BI_BITFIELDS 3
 #define DIB_RGB_COLORS 0
 
+template <class T> struct DataRowPrivateProbe;
+
 namespace ATL
 {
 
 class CImage
 {
+    template <class T> friend struct ::DataRowPrivateProbe;
 private:
     class CInitGDIPlus
     {
