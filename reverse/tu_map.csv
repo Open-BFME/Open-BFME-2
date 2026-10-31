@@ -48741,9 +48741,9 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x005A671D,21,code,,,-,,Code/GameEngine/Source/Common/Rva005A6709Predicate.cpp
 0x005A6732,92,code,Code/GameEngine/Source/GameNetwork/NAT.cpp,approved,S,S=Code/GameEngine/Source/GameNetwork/NAT.cpp N=Code/GameEngine/Source/GameNetwork/NAT.cpp,Code/GameEngine/Source/GameNetwork/NAT.cpp
 0x005A678E,174,code,Code/GameEngine/Source/GameNetwork/NAT.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/NAT.cpp S=Code/GameEngine/Source/GameNetwork/NAT.cpp N=Code/GameEngine/Source/GameNetwork/NAT.cpp,Code/GameEngine/Source/GameNetwork/NAT.cpp
-0x005A683C,19,code,Code/GameEngine/Source/GameNetwork/NAT.cpp,approved,C,C=0x005A678E..0x005A684F,Code/GameEngine/Source/Common/GapBodiesGE34.cpp
+0x005A683C,19,code,Code/GameEngine/Source/GameNetwork/NAT.cpp,approved,C,C=0x005A678E..0x005A684F,Code/GameEngine/Source/GameNetwork/NAT.cpp
 0x005A684F,26,code,Code/GameEngine/Source/GameNetwork/NAT.cpp,approved,S,S=Code/GameEngine/Source/GameNetwork/NAT.cpp N=Code/GameEngine/Source/GameNetwork/NAT.cpp,Code/GameEngine/Source/GameNetwork/NATUpdateBfme.cpp
-0x005A6869,22,code,Code/GameEngine/Source/GameNetwork/NAT.cpp,approved,C,C=0x005A684F..0x005A687F,Code/GameEngine/Source/Common/GapBodiesGE34.cpp
+0x005A6869,22,code,Code/GameEngine/Source/GameNetwork/NAT.cpp,approved,C,C=0x005A684F..0x005A687F,Code/GameEngine/Source/GameNetwork/NAT.cpp
 0x005A687F,13,code,Code/GameEngine/Source/GameNetwork/NAT.cpp,approved,C,C=0x005A684F..0x005A688C,Code/GameEngine/Source/GameNetwork/NAT.cpp
 0x005A688C,119,code,Code/GameEngine/Source/GameNetwork/NAT.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/NAT.cpp S=Code/GameEngine/Source/GameNetwork/NAT.cpp N=Code/GameEngine/Source/GameNetwork/NAT.cpp,Code/GameEngine/Source/GameNetwork/NAT.cpp
 0x005A6903,92,code,Code/GameEngine/Source/GameNetwork/NAT.cpp,approved,S,S=Code/GameEngine/Source/GameNetwork/NAT.cpp N=Code/GameEngine/Source/GameNetwork/NAT.cpp,Code/GameEngine/Source/GameNetwork/NAT.cpp

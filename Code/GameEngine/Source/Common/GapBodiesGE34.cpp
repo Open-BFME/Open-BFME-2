@@ -70,17 +70,6 @@ private:
 	Rva005A6869Entry *m_entries[1];							// +0x90C
 };
 
-void Rva005A683C::setSlot(unsigned short slot)
-{
-	if (slot < 8)
-		m_slot = slot;
-}
-
-void Rva005A683C::rva005A6869(short value)
-{
-	m_entries[m_index]->m_04 = value;
-}
-
 // --- 0x005AE659 (18B): whether the cursor's referenced node is the stored
 // one.
 struct Rva005AE659Node;
