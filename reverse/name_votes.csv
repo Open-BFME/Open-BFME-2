@@ -19668,3 +19668,7 @@ Code/GameEngine/Source/Common/ConstGlobalGetters.cpp|function|0x00117C30|Rva0011
 Code/GameEngine/Source/Common/ConstGlobalGetters.cpp|function|0x0011C450|Rva0011C450Get,02346ee3d6c90fbf3a435fea,drz-k2,n29b-k2,w-ded32b2e2c5e,2026-10-31
 Code/GameEngine/Source/Common/Bfme/Rva005E70DF.cpp|function|0x005E70DF|rva005E70DF,b325dbad54d98a990759e020,drz-k2,n29b-k2,w-ded32b2e2c5e,2026-10-31
 Code/GameEngine/Source/Common/Bfme/Rva005E70DF.cpp|param|Rva005E70DF::rva005E70DF|arg,8639a3272f52f7046c8382ca,drz-k2,n29b-k2,w-ded32b2e2c5e,2026-10-31
+Code/Libraries/Source/WWVegas/WWLib/Rva002BC39D.cpp|member|Header002BC39D|m_08,dcfb1129f1c9b4eee90ceba8,drz-k4,n29c-k4,w-855a0f400af4,2026-10-31
+Code/Libraries/Source/WWVegas/WWLib/Rva002BC39D.cpp|member|Header002BC39D|m_0C,4cc69c55ac7afb33c78d8f18,drz-k4,n29c-k4,w-855a0f400af4,2026-10-31
+Code/GameEngine/Source/GameLogic/Object/Update/HordeNotifyTargetsOfImminentProbableCrushingUpdateCtor.cpp|function|0x004CEB14|Rva004CEB14,51af954998fd1fa4a597ad3c,drz-k4,n29c-k4,w-855a0f400af4,2026-10-31
+Code/GameEngine/Source/GameLogic/Map/AerialPathfinder.cpp|class||Rva00375AF7Entry,9c41052dde726fd48738af6d,drz-k4,n29c-k4,w-855a0f400af4,2026-10-31
