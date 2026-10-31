@@ -69086,7 +69086,7 @@ _$E8,,0x007ACE70,12,Code/Libraries/Source/WWVegas/WW3D2/meshmdl_sidehash.cpp,mat
 ?rva00013290@Rva00013290Slots@@QAEXXZ,,0x00013290,5,Code/GameEngine/Source/Common/GapBodiesGE21.cpp,matched,virtual-slot tail-jump forwarder; unreferenced
 ?rva000184E0@Rva000184E0Slots@@QAEXXZ,,0x000184E0,5,Code/GameEngine/Source/Common/GapBodiesGE21.cpp,matched,virtual-slot tail-jump forwarder; unreferenced
 ?rva000184F0@Rva000184F0Slots@@QAEXXZ,,0x000184F0,5,Code/GameEngine/Source/Common/GapBodiesGE21.cpp,matched,virtual-slot tail-jump forwarder; unreferenced
-?rva0001C8B0@Rva0001C8B0Slots@@QAEXXZ,,0x0001C8B0,5,Code/GameEngine/Source/Common/GapBodiesGE21.cpp,matched,virtual-slot tail-jump forwarder; unreferenced
+?rva0001C8B0@Rva0001C8B0Slots@@QAEXXZ,,0x0001C8B0,5,Code/GameEngine/Source/Common/StdioStreambufBase.cpp,matched,virtual-slot tail-jump forwarder; unreferenced
 ?rva0001D170@Rva0001D170Slots@@QAEXXZ,,0x0001D170,5,Code/GameEngine/Source/Common/GapBodiesGE21.cpp,matched,virtual-slot tail-jump forwarder; unreferenced
 ?rva00035790@Rva00035790Slots@@QAEXXZ,,0x00035790,4,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp,matched,virtual-slot tail-jump forwarder; unreferenced
 ?rva000357F0@Rva000357F0Slots@@QAEXXZ,,0x000357F0,5,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp,matched,virtual-slot tail-jump forwarder; unreferenced

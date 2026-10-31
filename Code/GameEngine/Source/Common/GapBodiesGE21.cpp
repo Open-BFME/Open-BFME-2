@@ -317,11 +317,6 @@ public:
 	void rva0001C8B0();
 };
 
-void Rva0001C8B0Slots::rva0001C8B0()
-{
-	slot11();
-}
-
 // 0x0001D170: slot 3.
 class Rva0001D170Slots
 {
