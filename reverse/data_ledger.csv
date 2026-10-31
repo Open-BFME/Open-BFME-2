@@ -11703,7 +11703,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00860668,72,.rdata,global,_Rva004D7491_vftable,Code/GameEngine/Source/Common/StateCtor.cpp,owned,,1,1
 0x008606B0,144,.rdata,global,_Rva004D74AC_vftable,Code/GameEngine/Source/Common/StateCtor.cpp,owned,,1,1
 0x00860740,72,.rdata,vtable,??_7Rva004D759C@@6B@,,literal,??_7Rva004D759C@@6B@;??_7StateMachine@@6B@,0,2
-0x00860788,8,.rdata,global,_DEFAULT_TURN_RATE,Code/GameEngine/Source/GameLogic/AI/TurretAIDataCtor.cpp,owned,,1,1
+0x00860788,8,.rdata,global,_DEFAULT_TURN_RATE,Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp,owned,,1,1
 0x00860790,72,.rdata,global,_Rva004D7B70_vftable,Code/GameEngine/Source/Common/StateDerivedCtorRva004D7B70.cpp,owned,,1,1
 0x008607D8,68,.rdata,vtable,??_7TurretAIIdleState@@6B@,,literal,,0,1
 0x0086081C,20,.rdata,string,??_C@_0BC@GGNOOGPN@TurretAIIdleState?$AA@,,literal,,0,1

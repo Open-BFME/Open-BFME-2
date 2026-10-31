@@ -110,6 +110,9 @@ void XferTurretTargetType( Xfer *xfer, int *value );
 #define IS_STATE_SLEEP(r) ((r) > 0)
 #define GET_STATE_SLEEP_FRAMES(r) ((Int)(r))
 #define UPDATE_SLEEP(x) ((UpdateSleepTime)(x))
+#define LogicFramesPerSecond BfmeLogicFramesPerSecond
+#include <math.h>
+#define TWO_PI 6.28318548f
 
 // TurretAI.cpp TU view (one spelling in every file of the TU). The
 // constructor 0x004D85B6 stores the Snapshot table 0x00BBB554 and then
@@ -145,6 +148,7 @@ enum UpdateSleepTime
 
 // TurretAIData, 0x70 bytes as TurretAIData::TurretAIData (0x004D7E6C) fills it.
 class INI;
+
 class MultiIniFieldParse;
 
 class TurretAIData
@@ -674,21 +678,161 @@ public:
 	bool isWeaponSlotOnTurret(WeaponSlotType wslot) const;
 };
 
+extern int BfmeLogicFramesPerSecond;
+
+const Real DEFAULT_TURN_RATE = 0.01f;
+
+const Real DEFAULT_PITCH_RATE = 0.01f;
+
+struct FieldParse
+{
+	const char *token;
+	void (__cdecl *parse)(INI *ini, void *instance, void *store, const void *userData);
+	const void *userData;
+	int offset;
+};
+
+class MultiIniFieldParse
+{
+public:
+	void add(const FieldParse *parseTable, unsigned int extraOffset);
+};
+
+class INI
+{
+public:
+	const char *getNextToken(const char *seps = 0);
+	const char *getNextTokenOrNull(const char *seps = 0);
+	int scanIndexList(const char *token, const char *const *names);
+	static void parseReal(INI *ini, void *instance, void *store, const void *userData);
+	static void parseAngleReal(INI *ini, void *instance, void *store, const void *userData);
+	static void parseAngularVelocityReal(INI *ini, void *instance, void *store, const void *userData);
+	static void parseDurationUnsignedInt(INI *ini, void *instance, void *store, const void *userData);
+	static void parseBool(INI *ini, void *instance, void *store, const void *userData);
+};
+
+extern const FieldParse g_00C60B90[];
+
+extern const char *TheWeaponSlotTypeNames[];
+
+// The extra field parsers retail's TurretAIData table reaches on top of the ones
+// this unit already declares, each an already-rowed body:
+// INI::parseAngularVelocityReal (0x003389DD), INI::parseDurationUnsignedInt
+// (0x00338B30), INI::parseBool (0x0002E850) and the free parseTWS (0x004D7EF9).
+// Declared with the real INI* first argument so the table entries bind to those
+// rowed symbols rather than a second spelling of them.
+void parseTWS(INI *ini, void *instance, void *store, const void *userData);
+
+// Retail VA 0x00C60B90 (.rdata, file offset 0x0085FB90): TurretAIData's twenty
+// field records and the zero terminator, 336 bytes - the ledger's own bound for
+// the table. The two rates and the two natural angles occupy the 0x10-byte head,
+// the six-slot arrays at +0x10 / +0x28 are written through their slot-index
+// parsers (offset 0; they scale the parsed slot index themselves, per the layout
+// note above), and ControlledWeaponSlots lands on +0x4C immediately after those
+// two arrays, with the remaining 0x50..0x70 span the idle-scan, recenter and
+// deflection fields. Every parse target is a rowed, byte-matched body.
+// Symbol ?g_00C60B90@@3QBUFieldParse@@B, transcribed below.
+extern const FieldParse g_00C60B90[] =
+{
+	{ "TurretTurnRate",            &INI::parseAngularVelocityReal,        0, 0x00 },
+	{ "TurretPitchRate",           &INI::parseAngularVelocityReal,        0, 0x04 },
+	{ "NaturalTurretAngle",        &INI::parseAngleReal,                  0, 0x08 },
+	{ "NaturalTurretPitch",        &INI::parseAngleReal,                  0, 0x0C },
+	{ "FirePitch",                 &INI::parseAngleReal,                  0, 0x40 },
+	{ "MinPhysicalPitch",          &INI::parseAngleReal,                  0, 0x44 },
+	{ "GroundUnitPitch",           &INI::parseAngleReal,                  0, 0x48 },
+	{ "TurretFireAngleSweep",      &TurretAIData::parseTurretSweep,       0, 0x00 },
+	{ "TurretSweepSpeedModifier",  &TurretAIData::parseTurretSweepSpeed,  0, 0x00 },
+	{ "ControlledWeaponSlots",     &parseTWS,                             0, 0x4C },
+	{ "AllowsPitch",               &INI::parseBool,                       0, 0x66 },
+	{ "MinIdleScanAngle",          &INI::parseAngleReal,                  0, 0x50 },
+	{ "MaxIdleScanAngle",          &INI::parseAngleReal,                  0, 0x54 },
+	{ "MinIdleScanInterval",       &INI::parseDurationUnsignedInt,        0, 0x58 },
+	{ "MaxIdleScanInterval",       &INI::parseDurationUnsignedInt,        0, 0x5C },
+	{ "RecenterTime",              &INI::parseDurationUnsignedInt,        0, 0x60 },
+	{ "InitiallyDisabled",         &INI::parseBool,                       0, 0x64 },
+	{ "FiresWhileTurning",         &INI::parseBool,                       0, 0x65 },
+	{ "TurretMaxDeflectionCW",     &INI::parseAngleReal,                  0, 0x68 },
+	{ "TurretMaxDeflectionACW",    &INI::parseAngleReal,                  0, 0x6C },
+	{ 0, 0, 0, 0 }
+};
+
+float normalizeAngle(float angle);
+
 // tu-skeleton: 0x004D7CE6 373B ??0TurretStateMachine@@QAE@PAVTurretAI@@PAVObject@@I@Z -- matched in Code/GameEngine/Source/GameLogic/AI/TurretStateMachineCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x004D7E5B 6B ?Rva004D7E5BGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
 // tu-skeleton: 0x004D7E61 11B ??1TurretStateMachine@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva004D759CDerived.cpp (not merged yet)
 
-// tu-skeleton: 0x004D7E6C 141B ??0TurretAIData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIDataCtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/AI/TurretAIDataCtor.cpp
 
-// tu-skeleton: 0x004D7EF9 61B ?parseTWS@@YAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIDataParse.cpp (not merged yet)
+// ??0TurretAIData@@QAE@XZ @0x004D7E6C
+TurretAIData::TurretAIData()
+{
+	m_turnRate = DEFAULT_TURN_RATE;
+	m_pitchRate = DEFAULT_PITCH_RATE;
+	m_naturalTurretAngle = 0.0f;
+	m_naturalTurretPitch = 0.0f;
+	for (Int slotIndex = 0; slotIndex < WEAPONSLOT_COUNT; ++slotIndex)
+	{
+		m_turretFireAngleSweep[slotIndex] = 0.0f;
+		m_turretSweepSpeedModifier[slotIndex] = 1.0f;
+	}
+	m_firePitch = 0.0f;
+	m_minPitch = 0.0f;
+	m_minIdleScanAngle = 0.0f;
+	m_maxIdleScanAngle = 0.0f;
+	m_groundUnitPitch = 0.0f;
+	m_turretWeaponSlots = 0;
+	m_minIdleScanInterval = 9999999;
+	m_maxIdleScanInterval = 9999999;
+	m_recenterTime = LogicFramesPerSecond * 2;
+	m_initiallyDisabled = false;
+	m_firesWhileTurning = false;
+	m_isAllowsPitch = false;
+	m_maxDeflectionCW = 3.1415927f;
+	m_maxDeflectionACW = 3.1415927f;
+}
 
-// tu-skeleton: 0x004D7F36 51B ?parseTurretSweep@TurretAIData@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIDataParse.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/AI/TurretAIDataParse.cpp
 
-// tu-skeleton: 0x004D7F69 51B ?parseTurretSweepSpeed@TurretAIData@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIDataParse.cpp (not merged yet)
+// ?parseTWS@@YAXPAVINI@@PAX1PBX@Z
+void parseTWS(INI *ini, void * /*instance*/, void *store, const void * /*userData*/)
+{
+	UnsignedInt *tws = (UnsignedInt *)store;
+	const char *token = ini->getNextToken();
+	while (token != 0)
+	{
+		WeaponSlotType wslot = (WeaponSlotType)ini->scanIndexList(token, TheWeaponSlotTypeNames);
+		*tws |= (1 << wslot);
+		token = ini->getNextTokenOrNull();
+	}
+}
 
-// tu-skeleton: 0x004D7F9C 17B ?buildFieldParse@TurretAIData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIDataParse.cpp (not merged yet)
+// ?parseTurretSweep@TurretAIData@@SAXPAVINI@@PAX1PBX@Z
+void TurretAIData::parseTurretSweep(INI *ini, void *instance, void * /*store*/, const void * /*userData*/)
+{
+	TurretAIData *self = (TurretAIData *)instance;
+	WeaponSlotType wslot = (WeaponSlotType)ini->scanIndexList(ini->getNextToken(0), TheWeaponSlotTypeNames);
+	INI::parseAngleReal(ini, instance, &self->m_turretFireAngleSweep[wslot], 0);
+}
+
+// ?parseTurretSweepSpeed@TurretAIData@@SAXPAVINI@@PAX1PBX@Z
+void TurretAIData::parseTurretSweepSpeed(INI *ini, void *instance, void * /*store*/, const void * /*userData*/)
+{
+	TurretAIData *self = (TurretAIData *)instance;
+	WeaponSlotType wslot = (WeaponSlotType)ini->scanIndexList(ini->getNextToken(0), TheWeaponSlotTypeNames);
+	INI::parseReal(ini, instance, &self->m_turretSweepSpeedModifier[wslot], 0);
+}
+
+// ?buildFieldParse@TurretAIData@@SAXAAVMultiIniFieldParse@@@Z
+void TurretAIData::buildFieldParse(MultiIniFieldParse &multiIniFieldParse)
+{
+	multiIniFieldParse.add(g_00C60B90, 0);
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/AI/TurretAIMainXfer.cpp
 
@@ -1106,36 +1250,6 @@ void TurretAI::friend_checkForIdleMoodTarget()
 	}
 }
 
-// tu-skeleton: 0x004D80EE 200B ?friend_turnTowardsPitch@TurretAI@@QAE_NMM@Z -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAITurnTowardsPitch.cpp (not merged yet)
-
-// tu-skeleton: 0x004D81D2 5B ?notifyFired@TurretAI@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAICtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004D81F1 110B ?friend_getTurretTarget@TurretAI@@QBE?AW4TurretTargetType@@AAPAVObject@@AAUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp (not merged yet)
-
-// tu-skeleton: 0x004D82CA 12B ?rva004D82CA@Rva004D82CA@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE24.cpp (not merged yet)
-
-// tu-skeleton: 0x004D8310 85B ?friend_isAnyWeaponInRangeOf@TurretAI@@QBE_NPBVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAI_friendIsAnyWeaponInRangeOf.cpp (not merged yet)
-
-// tu-skeleton: 0x004D8365 24B ?friend_isSweepEnabled@TurretAI@@QBE_NXZ -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp (not merged yet)
-
-// tu-skeleton: 0x004D837D 29B ?rva004D837D@TurretAI@@QAEIXZ -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp (not merged yet)
-
-// tu-skeleton: 0x004D83D1 88B ?onEnter@TurretAIIdleState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp (not merged yet)
-
-// tu-skeleton: 0x004D8448 138B ?onEnter@TurretAIIdleScanState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp (not merged yet)
-
-// tu-skeleton: 0x004D84D2 53B ?onEnter@TurretAIHoldTurretState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp (not merged yet)
-
-// tu-skeleton: 0x004D85B6 251B ??0TurretAI@@QAE@PAVObject@@PBVTurretAIData@@W4WhichTurretType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAICtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004D86BB 6B ?name@TurretAI@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x004D86C1 86B ??1TurretAI@@MAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/TurretAIDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004D8717 8B ?rva004D8717@Rva004D8717@@QBE_NW4WeaponSlotType@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesS9B.cpp (not merged yet)
-
-// tu-skeleton: 0x004D871F 67B ?isTryingToAimAtTarget@TurretAI@@QBE_NPBVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_isWeaponSlotOnTurretAndAimingAtTarget.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/TurretAI_setTurretTargetObject.cpp
 
 //
@@ -1211,22 +1325,6 @@ void TurretAI::setTurretTargetPosition(const Coord3D* pos)
 	}
 }
 
-// tu-skeleton: 0x004D88F6 63B ?update@TurretAIIdleState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp (not merged yet)
-
-// tu-skeleton: 0x004D8935 63B ?update@TurretAIHoldTurretState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp (not merged yet)
-
-// tu-skeleton: 0x004D8974 28B ??_GTurretAI@@MAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIDeleter.cpp (not merged yet)
-
-// tu-skeleton: 0x004D8990 431B ?friend_turnTowardsAngle@TurretAI@@QAE_NMMM@Z -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAITurnTowardsPitch.cpp (not merged yet)
-
-// tu-skeleton: 0x004D8B50 211B ?startRotOrPitchSound@TurretAI@@AAEXXZ -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIStartRotOrPitchSound.cpp (not merged yet)
-
-// tu-skeleton: 0x004D8C23 258B ?SetModelAngle@TurretAIAimTurretState@@QAEXPAVObject@@M@Z -- matched in Code/GameEngine/Source/GameLogic/Object/TurretAIAimTurretState_SetModelAngle.cpp (not merged yet)
-
-// tu-skeleton: 0x004D8D25 90B ?update@TurretAIRecenterTurretState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp (not merged yet)
-
-// tu-skeleton: 0x004D8D7F 107B ?update@TurretAIIdleScanState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/AI/TurretAIUpdate.cpp
 
 // End of the TurretAI.cpp TU view.
@@ -1289,6 +1387,160 @@ UpdateSleepTime TurretAI::updateTurretAI()
 
 	return subMachineSleep;
 }
+
+// ---- from Code/GameEngine/Source/GameLogic/AI/TurretAITurnTowardsPitch.cpp
+
+//
+// TurretAI::friend_turnTowardsPitch, retail 0x004D80EE (200 bytes), and
+// friend_turnTowardsAngle, retail 0x004D8990 (431 bytes), ported from Zero
+// Hour's GameEngine/Source/GameLogic/AI/TurretAI.cpp (GeneralsMD tree vendored
+// under reference/open-bfme-1/inputs/reference); Zero Hour's bodies on
+// BFME 2's layout (target evidence): the turret data +0x08 with the turn rate
+// at +0x00, the pitch rate at +0x04, the natural angle at +0x08 and
+// allows-pitch at +0x66; m_whichTurret +0x0C, owner +0x10, m_angle +0x18,
+// m_pitch +0x1C, m_playRotSound +0x38, m_playPitchSound +0x39. fabs is the
+// CRT call (no /Oi at /O1) and normalizeAngle the rowed 0x00238954.
+// BFME 2 adds an angle limit to friend_turnTowardsAngle (target evidence):
+// when the data's +0x68 / +0x6C arc (below / above the natural angle) is
+// less than a full turn, a desired angle outside it turns the turret to its
+// natural angle instead (the final alignment test still uses the desired
+// angle). MODELCONDITION_TURRET_ROTATE is bit 58 (Object +0x10C flags, the
+// rowed notifier Object::rva0028AE6D); reactToTurretChange is 0x0028B141.
+
+//----------------------------------------------------------------------------------------------------------
+Bool TurretAI::friend_turnTowardsPitch(Real desiredPitch, Real rateModifier)
+{
+	if (!isAllowsPitch())
+		return true;
+
+	desiredPitch = normalizeAngle(desiredPitch);
+
+	// rotate turret back to zero angle
+	Real actualPitch = getTurretPitch();
+	Real pitchRate = getPitchRate() * rateModifier;
+	Real pitchDiff = normalizeAngle(desiredPitch - actualPitch);
+
+	if (fabs(pitchDiff) < pitchRate)
+	{
+		// we are centered
+		actualPitch = desiredPitch;
+	}
+	else
+	{
+		if (pitchDiff > 0)
+			actualPitch += pitchRate;
+		else
+			actualPitch -= pitchRate;
+		m_playPitchSound = true;
+	}
+
+	m_pitch = normalizeAngle(actualPitch);
+
+	return (m_pitch == desiredPitch);
+}
+
+//----------------------------------------------------------------------------------------------------------
+Bool TurretAI::friend_turnTowardsAngle(Real desiredAngle, Real rateModifier, Real relThresh)
+{
+	desiredAngle = normalizeAngle(desiredAngle);
+	Real targetAngle = desiredAngle;
+
+	// BFME 2: keep the turret inside its arc, else send it home.
+	Real minOffset = m_data->m_maxDeflectionCW;
+	Real maxOffset = m_data->m_maxDeflectionACW;
+	if (maxOffset + minOffset < TWO_PI)
+	{
+		Real natural = getNaturalTurretAngle();
+		Real lo = normalizeAngle(natural - minOffset);
+		Real hi = normalizeAngle(natural + maxOffset);
+		if (lo > hi)
+		{
+			if (lo > desiredAngle && desiredAngle > hi)
+				targetAngle = natural;
+		}
+		else
+		{
+			if (lo > desiredAngle || desiredAngle > hi)
+				targetAngle = natural;
+		}
+	}
+
+	// rotate turret back to zero angle
+	Real origAngle = getTurretAngle();
+	Real actualAngle = origAngle;
+	Real turnRate = getTurnRate() * rateModifier;
+	Real angleDiff = normalizeAngle(targetAngle - actualAngle);
+
+	// Are we close enough to the desired angle to just snap there?
+	if (fabs(angleDiff) < turnRate)
+	{
+		// we are centered
+		actualAngle = targetAngle;
+
+		getOwner()->clearModelConditionState(MODELCONDITION_TURRET_ROTATE);
+	}
+	else
+	{
+		if (angleDiff > 0)
+			actualAngle += turnRate;
+		else
+			actualAngle -= turnRate;
+
+		getOwner()->setModelConditionState(MODELCONDITION_TURRET_ROTATE);
+		m_playRotSound = true;
+	}
+
+	m_angle = normalizeAngle(actualAngle);
+
+	if( m_angle != origAngle )
+		getOwner()->reactToTurretChange( m_whichTurret, origAngle, m_pitch );
+
+	Bool aligned = fabs(m_angle - desiredAngle) <= relThresh;
+
+	return aligned;
+}
+
+// tu-skeleton: 0x004D81D2 5B ?notifyFired@TurretAI@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAICtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004D81F1 110B ?friend_getTurretTarget@TurretAI@@QBE?AW4TurretTargetType@@AAPAVObject@@AAUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp (not merged yet)
+
+// tu-skeleton: 0x004D82CA 12B ?rva004D82CA@Rva004D82CA@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE24.cpp (not merged yet)
+
+// tu-skeleton: 0x004D8310 85B ?friend_isAnyWeaponInRangeOf@TurretAI@@QBE_NPBVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAI_friendIsAnyWeaponInRangeOf.cpp (not merged yet)
+
+// tu-skeleton: 0x004D8365 24B ?friend_isSweepEnabled@TurretAI@@QBE_NXZ -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp (not merged yet)
+
+// tu-skeleton: 0x004D837D 29B ?rva004D837D@TurretAI@@QAEIXZ -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp (not merged yet)
+
+// tu-skeleton: 0x004D83D1 88B ?onEnter@TurretAIIdleState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp (not merged yet)
+
+// tu-skeleton: 0x004D8448 138B ?onEnter@TurretAIIdleScanState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp (not merged yet)
+
+// tu-skeleton: 0x004D84D2 53B ?onEnter@TurretAIHoldTurretState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp (not merged yet)
+
+// tu-skeleton: 0x004D85B6 251B ??0TurretAI@@QAE@PAVObject@@PBVTurretAIData@@W4WhichTurretType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAICtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004D86BB 6B ?name@TurretAI@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x004D86C1 86B ??1TurretAI@@MAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/TurretAIDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004D8717 8B ?rva004D8717@Rva004D8717@@QBE_NW4WeaponSlotType@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesS9B.cpp (not merged yet)
+
+// tu-skeleton: 0x004D871F 67B ?isTryingToAimAtTarget@TurretAI@@QBE_NPBVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_isWeaponSlotOnTurretAndAimingAtTarget.cpp (not merged yet)
+
+// tu-skeleton: 0x004D88F6 63B ?update@TurretAIIdleState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp (not merged yet)
+
+// tu-skeleton: 0x004D8935 63B ?update@TurretAIHoldTurretState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp (not merged yet)
+
+// tu-skeleton: 0x004D8974 28B ??_GTurretAI@@MAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIDeleter.cpp (not merged yet)
+
+// tu-skeleton: 0x004D8B50 211B ?startRotOrPitchSound@TurretAI@@AAEXXZ -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIStartRotOrPitchSound.cpp (not merged yet)
+
+// tu-skeleton: 0x004D8C23 258B ?SetModelAngle@TurretAIAimTurretState@@QAEXPAVObject@@M@Z -- matched in Code/GameEngine/Source/GameLogic/Object/TurretAIAimTurretState_SetModelAngle.cpp (not merged yet)
+
+// tu-skeleton: 0x004D8D25 90B ?update@TurretAIRecenterTurretState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp (not merged yet)
+
+// tu-skeleton: 0x004D8D7F 107B ?update@TurretAIIdleScanState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp (not merged yet)
 
 // tu-skeleton: 0x004D8EAC 1085B ?update@TurretAIAimTurretState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp (not merged yet)
 
