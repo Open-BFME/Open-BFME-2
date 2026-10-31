@@ -19135,3 +19135,8 @@ Code/GameEngine/Source/Common/Rva003FDA19Position.cpp|param|Rva003FDA19Sum|a,ad3
 Code/GameEngine/Source/Common/Rva003FDA19Position.cpp|param|Rva003FDA19Sum|b,d11ea940f7c9836ad2cadc98,drz-k8,drz-k8-17,w-87ae7cdc64ef,2026-10-30
 Code/GameEngine/Source/Common/Rva003FDA19Position.cpp|param|Rva003FDA19Sum|c,0f3f59282c9924955dcb8cd6,drz-k8,drz-k8-17,w-87ae7cdc64ef,2026-10-30
 Code/GameEngine/Source/GameNetwork/Rva008030C0FeslPoolInit.cpp|local|Rva00803080::initPool|p,0fdfd7c1d0617cfbe2b10659,drz-k8,drz-k8-21,w-87ae7cdc64ef,2026-10-30
+Code/GameEngine/Source/GameNetwork/Rva007F7030Request.cpp|class||Rva007F7030Sender,f423d79e33e384017acc07ff,drz-k10,n25g-k10-1,w-88a32c4f7da7,2026-10-30
+Code/GameEngine/Source/GameNetwork/Rva007F7030Request.cpp|class||Rva007F7030Notifier,4283ca0b34464489d621a0c4,drz-k10,n25g-k10-1,w-88a32c4f7da7,2026-10-30
+Code/GameEngine/Source/GameNetwork/Rva007F7030Request.cpp|class||Rva007F7030Listener,0add789aa6dd9a7359d7a395,drz-k10,n25g-k10-1,w-88a32c4f7da7,2026-10-30
+Code/GameEngine/Source/GameNetwork/Rva007F7030Request.cpp|function|0x00661F40|Rva007F5790Callback,4556844e06e31d84c2325177,drz-k10,n25g-k10-1,w-88a32c4f7da7,2026-10-30
+Code/GameEngine/Source/Common/Rva004FD37F.cpp|function|0x004FD37F|rva004FD37F,ee69a79103e182a49b1127b1,drz-k10,n25g-k10-11,w-88a32c4f7da7,2026-10-30
