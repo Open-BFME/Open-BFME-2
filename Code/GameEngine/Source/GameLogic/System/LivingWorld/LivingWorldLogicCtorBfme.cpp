@@ -50,7 +50,7 @@ public:
  LivingWorldLogic();virtual ~LivingWorldLogic();
  virtual void init();virtual void reset();virtual void update();
  virtual void loadPostProcess();virtual const char*GetSnapshotName() const;virtual void xfer(Xfer*);
- virtual void event1_1(int);virtual void event4_0(int,int,int);virtual void event5_0(Rva004EF2ABArg*);virtual void event5_2(int,int,int);
+ virtual void event1_1(int);virtual void OnRegionChangedOwnership(class LivingWorldRegion*,int,int);virtual void rva002BA3F2(const class Rva002E0687*);virtual void event5_2(int,int,int);
 
  _STL::vector<BfmeE16> players;
  void*localPlayer;int word9C,wordA0,wordA4,wordA8,wordAC;LivingWorldRegionManager*regions;

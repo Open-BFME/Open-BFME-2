@@ -14670,6 +14670,15 @@ confirmation is pending.
 0x002BA82B OnRegionChangedOwnership, `rva002BA3F2@LivingWorldLogic` and
 0x002B2A95. Those need the region and player observer bases reconciled with
 `LivingWorldObservers.h`. Census confirmation is pending.
+2026-10-31 (Noro420): the ctor view now declares two of the overrides under
+their rowed names: `OnRegionChangedOwnership(LivingWorldRegion*,int,int)`
+(region table 0x00BFE2B4 slot 0 = 0x002BA82B) and
+`rva002BA3F2(const Rva002E0687*)` (player table 0x00BFE2A4 slot 0). The build
+verifies 26/26 rows, and `link_check` drops from 3 unresolved names to 1. The
+last one, `event5_2`, is player table slot 2 = 0x002B2A95. That row is the
+non-virtual `Rva002B2A95Callback::rva002B2A95` in `Rva002B2A95EvaEvent.cpp`.
+`rename.py function` changes only the identifier, so the row first needs a
+code-identity class merge into `LivingWorldLogic`, then `--virtual`.
 
 ### Terrain resource CRT header cleanup (2026-10-30, codexb)
 
