@@ -9965,7 +9965,7 @@ _math_mod,,0x007485A0,65,Code/Libraries/Source/Lua/lmathlib.c,matched,vendored=l
 ??_GAttackContesterStateMachine@@UAEPAXI@Z,,0x0034381C,28,Code/GameEngine/Source/Common/Rva004D759CDerived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GAttackFireWhileChargingMachine@@UAEPAXI@Z,,0x003438AB,28,Code/GameEngine/Source/Common/Rva004D759CDerived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GRva0033FC0A@@UAEPAXI@Z,,0x00343C9E,28,Code/GameEngine/Source/Common/Rva004D759CDerived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
-?get@Rva0048E84BAddDwordField@@QBEHXZ,,0x0048E84B,7,Code/GameEngine/Source/Common/Disp8AddDwordFieldGetters.cpp,matched,disp8 add dword getter; opaque holder
+?get@Rva0048E84BAddDwordField@@QBEHXZ,,0x0048E84B,7,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DeployStyleAIUpdate.cpp,matched,disp8 add dword getter; opaque holder
 ?name@Rva00414307Named@@QBEPBDXZ,,0x00414307,6,Code/GameEngine/Source/Common/SubsystemNameGetters.cpp,matched,literal name getter returning ScoredKillEvaAnnouncer; vtable ref in .rdata; address-derived placeholder name
 _math_exp,,0x007486D0,54,Code/Libraries/Source/Lua/lmathlib.c,matched,vendored=lua-4.0.1; Lua math.exp via check_number + inline FPU + pushnumber; callees pinned
 ?GetSnapshotName@LivingWorldBuilding@@UAEPBDXZ,,0x004E0777,6,Code/GameEngine/Source/Common/SubsystemNameGetters.cpp,matched,literal name getter returning LivingWorldBuilding; vtable ref in .rdata; address-derived placeholder name

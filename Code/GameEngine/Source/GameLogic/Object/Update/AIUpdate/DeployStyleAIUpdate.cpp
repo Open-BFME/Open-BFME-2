@@ -74,6 +74,28 @@
 	{ \
 		return ((const Sub##NAME *)((const char *)this - (BACK)))->m_holder->m_value; \
 	}
+#define BFME_DISP8_ADD_BEFORE_DWORD_GETTER(NAME, BACK, IMM) \
+	class NAME \
+	{ \
+	public: \
+		int get() const; \
+	}; \
+	int NAME::get() const \
+	{ \
+		return *(const int *)((const char *)this - (BACK)) + (IMM); \
+	}
+#define BFME_DISP8_ADD_DWORD_GETTER(NAME, DISP, IMM) \
+	class NAME \
+	{ \
+	public: \
+		int get() const; \
+		char m_lead[DISP]; \
+		int m_value; \
+	}; \
+	int NAME::get() const \
+	{ \
+		return m_value + IMM; \
+	}
 
 enum AICommandType { AICMD_NO_COMMAND=-1 };
 
@@ -586,7 +608,19 @@ public:
  unsigned int *m_ptr;
 };
 
+BFME_DISP8_ADD_DWORD_GETTER(Rva0048E84BAddDwordField, 0x04, 0x70)
+
+// Native5F83ED..5F83F4 follows a complete tail JMP and ends RET:
+// read raw word4 and add12. Clean BF1 9cb tagblock.cpp supplies the source
+// expression only; original receiver, signedness and complete bounds remain
+// unresolved. Unsigned storage preserves the native32-bit wrap semantics.
+
+// ?get@Rva005F83EDFields@@QBEIXZ
+struct Rva005F83EDFields { char pad[4]; unsigned int word4; unsigned int get() const; };
+
 // tu-skeleton: 0x0048E634 15B ?Rva0048E634Reset@DeployStyleAIUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DeployStyleAIUpdateHelper.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DeployStyleAIUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DeployStyleAIUpdate.cpp
 
@@ -926,11 +960,8 @@ NameKeyType DeployStyleAIUpdate::getModuleNameKey() const
 // backward cast, which MSVC folds to `mov eax,[ecx-BACK]`; same shape and
 // reading as BFME1's ChainedFieldGetters.
 
-// tu-skeleton: 0x0048E6AB 39B ?rva0048E6AB@DeployStyleAIUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DeployStyleAIUpdateHelper.cpp (not merged yet)
 
-// tu-skeleton: 0x0048E6D2 38B ?rva0048E6D2@DeployStyleAIUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DeployStyleAIUpdateHelper.cpp (not merged yet)
 
-// tu-skeleton: 0x0048E6F8 304B ?xfer@DeployStyleAIUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DeployStyleAIUpdateXfer.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp
 
@@ -949,7 +980,29 @@ NameKeyType DeployStyleAIUpdate::getModuleNameKey() const
 // backward cast, which MSVC folds to `mov eax,[ecx-BACK]`; same shape and
 // reading as BFME1's ChainedFieldGetters.
 
-// tu-skeleton: 0x0048E84B 7B ?get@Rva0048E84BAddDwordField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8AddDwordFieldGetters.cpp (not merged yet)
+// tu-skeleton: 0x0048E6AB 39B ?rva0048E6AB@DeployStyleAIUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DeployStyleAIUpdateHelper.cpp (not merged yet)
+
+// tu-skeleton: 0x0048E6D2 38B ?rva0048E6D2@DeployStyleAIUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DeployStyleAIUpdateHelper.cpp (not merged yet)
+
+// tu-skeleton: 0x0048E6F8 304B ?xfer@DeployStyleAIUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DeployStyleAIUpdateXfer.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Disp8AddDwordFieldGetters.cpp
+
+// Disp8 add dword getters: seven-byte __thiscall members with one shape:
+//
+//     mov eax,[ecx+<DISP>] / add eax,<IMM8> / ret
+//
+// One dword is read at a fixed displacement from `this`, a small immediate
+// is added, and the result is returned. The immediate fits in a signed
+// byte, so MSVC 7.1 emits the `83 C0 XX` form (three bytes) after the disp8
+// load `8B 41 XX`, plus `ret`, for seven bytes total. This is the add
+// sibling of the sub Disp8SubDwordFieldGetters family; the opcode itself
+// is why the two families are kept in separate translation units. Identity
+// is not recovered: every name is derived from its address.
+// No // cl: line (defaults match the frameless seven-byte shape).
+// Backward variant: the field sits at a NEGATIVE displacement from `this`.
+// Spelled as an explicit backward read, which MSVC folds to
+// `mov eax,[ecx-BACK]`; same reading as the chase-family backward cast.
 
 // tu-skeleton: 0x0048E852 90B ??1DeployStyleAIUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DeployStyleAIUpdateDtor.cpp (not merged yet)
 
