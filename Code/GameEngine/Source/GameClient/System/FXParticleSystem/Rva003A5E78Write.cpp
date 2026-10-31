@@ -1,5 +1,5 @@
 // cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
-// stlport
+// stlport46
 //
 // ?rva003A5E78@WindModuleTemplate@FXParticleSystem@@QAEXPAVFile@@I@Z
 // retail 0x003A5E78..0x003A611B (675 bytes): the wind module's writeINI.
@@ -69,13 +69,6 @@ namespace _STL { template <> int basic_stringbuf<char,char_traits<char>,allocato
 // Suppress this TU's non-retail copy of ??$uninitialized_copy@PADPAD@_STL@@YAPADPAD00@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL { template <> char * uninitialized_copy<char *,char *>(char *,char *,char *); }
-// Keep _STLP_alloc_proxy<char*>::deallocate inline-only: this TU never calls it
-// out of line, and its COMDAT copy (unit flags) differs from retail's 0x006892B0 body.
-namespace _STL {
-template <> __declspec(dllimport) __forceinline
-void _STLP_alloc_proxy<char*, char, allocator<char> >::deallocate(char *__p, size_t __n)
-{ allocator<char>::deallocate(__p, __n); }
-}
 
 class File {
 public:
