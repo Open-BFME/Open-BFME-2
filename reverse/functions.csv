@@ -213,11 +213,11 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ??8Xfer@@UAEAAV0@AAM@Z,0x0000554C,0x0000554C,28,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,Open-BFME5 clean C++; Xfer 'real' transfer operator at slot 28 of the retail vtable
 ??8@YA_NABVGameClientRandomVariable@@0@Z,0x00005568,0x00005568,51,Code/GameEngine/Source/GameClient/ClientRandomValue.cpp,matched,Open-BFME5 clean C++; GameClientRandomVariable equality over type and both Real bounds
 ??9@YA_NABVGameClientRandomVariable@@0@Z,0x0000559B,0x0000559B,21,Code/GameEngine/Source/GameClient/ClientRandomValue.cpp,matched,Open-BFME5 clean C++; GameClientRandomVariable inequality forwarding to the equality body
-?zero@ICoord3D@@QAEXXZ,0x00004DCF,0x00004DCF,11,Code/Libraries/Source/WWVegas/WWMath/icoord.cpp,matched,Open-BFME5 clean C++; ICoord3D zero from EA reference
+?zero@ICoord3D@@QAEXXZ,0x00004DCF,0x00004DCF,11,Code/GameEngine/Source/Common/System/Snapshot.cpp,matched,Open-BFME5 clean C++; ICoord3D zero from EA reference
 ??4ICoord3D@@QAEAAU0@ABU0@@Z,0x0000353A,0x0000353A,18,Code/Libraries/Source/WWVegas/WWMath/icoord.cpp,matched,Open-BFME5 clean C++; ICoord3D aggregate assignment from EA reference
 ??8ICoord2D@@QBE_NABUICoord2DBase@@@Z,0x00004CAD,0x00004CAD,28,Code/Libraries/Source/WWVegas/WWMath/icoord.cpp,matched,Open-BFME5 clean C++; ICoord2D equality from EA reference
-??9ICoord2D@@QBE_NABUICoord2DBase@@@Z,0x00004CC9,0x00004CC9,28,Code/Libraries/Source/WWVegas/WWMath/icoord.cpp,matched,Open-BFME5 clean C++; ICoord2D inequality from EA reference
-?length@ICoord3D@@QBEHXZ,0x00004D95,0x00004D95,58,Code/Libraries/Source/WWVegas/WWMath/icoord.cpp,matched,Open-BFME5 clean C++; ICoord3D integer length from EA reference
+??9ICoord2D@@QBE_NABUICoord2DBase@@@Z,0x00004CC9,0x00004CC9,28,Code/GameEngine/Source/Common/System/Snapshot.cpp,matched,Open-BFME5 clean C++; ICoord2D inequality from EA reference
+?length@ICoord3D@@QBEHXZ,0x00004D95,0x00004D95,58,Code/GameEngine/Source/Common/System/Snapshot.cpp,matched,Open-BFME5 clean C++; ICoord3D integer length from EA reference
 ??6@YAAAVDebug@@AAV0@ABUICoord2DBase@@@Z,0x00005016,0x00005016,70,Code/Libraries/Source/WWVegas/WWMath/icoord.cpp,matched,Open-BFME5 clean C++; ICoord2DBase debug output from EA reference
 ??6@YAAAVDebug@@AAV0@ABUICoord3D@@@Z,0x00005121,0x00005121,91,Code/Libraries/Source/WWVegas/WWMath/icoord.cpp,matched,Open-BFME5 clean C++; ICoord3D debug output from EA reference
 ??6@YAAAVDebug@@AAV0@ABVCoord3D@@@Z,0x000050BA,0x000050BA,103,Code/Libraries/Source/WWVegas/WWMath/coord3d.cpp,matched,Open-BFME5 clean C++; Open-BFME-1 Coord3D Debug streamer; RGBColor folded alias
@@ -233,11 +233,11 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ?GetXVector@Matrix4D@@QBEAAVCoord3D@@AAV2@@Z,0x00004BBF,0x00004BBF,23,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,
 ?GetYVector@Matrix4D@@QBEAAVCoord3D@@AAV2@@Z,0x00004BD6,0x00004BD6,24,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,
 ?GetZVector@Matrix4D@@QBEAAVCoord3D@@AAV2@@Z,0x00004BEE,0x00004BEE,24,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,
-??YICoord2D@@QAEAAU0@ABUICoord2DBase@@@Z,0x00004CE5,0x00004CE5,19,Code/Libraries/Source/WWVegas/WWMath/icoord.cpp,matched,
-??ZICoord2D@@QAEAAU0@ABUICoord2DBase@@@Z,0x00004CF8,0x00004CF8,19,Code/Libraries/Source/WWVegas/WWMath/icoord.cpp,matched,
-?MoveBy@ICoord2D@@QAEAAU1@H@Z,0x00004D3D,0x00004D3D,14,Code/Libraries/Source/WWVegas/WWMath/icoord.cpp,matched,
+??YICoord2D@@QAEAAU0@ABUICoord2DBase@@@Z,0x00004CE5,0x00004CE5,19,Code/GameEngine/Source/Common/System/Snapshot.cpp,matched,
+??ZICoord2D@@QAEAAU0@ABUICoord2DBase@@@Z,0x00004CF8,0x00004CF8,19,Code/GameEngine/Source/Common/System/Snapshot.cpp,matched,
+?MoveBy@ICoord2D@@QAEAAU1@H@Z,0x00004D3D,0x00004D3D,14,Code/GameEngine/Source/Common/System/Snapshot.cpp,matched,
 ??XICoord2D@@QAEAAU0@H@Z,0x00004D0B,0x00004D0B,25,Code/Libraries/Source/WWVegas/WWMath/icoord.cpp,matched,
-??_0ICoord2D@@QAEAAU0@H@Z,0x00004D24,0x00004D24,25,Code/Libraries/Source/WWVegas/WWMath/icoord.cpp,matched,
+??_0ICoord2D@@QAEAAU0@H@Z,0x00004D24,0x00004D24,25,Code/GameEngine/Source/Common/System/Snapshot.cpp,matched,
 ?SetMinVect@Coord3D@@QAEAAV1@XZ,0x00003FA8,0x00003FA8,25,Code/Libraries/Source/WWVegas/WWMath/coord3d.cpp,matched,
 ?SetMaxVect@Coord3D@@QAEAAV1@XZ,0x00003FC1,0x00003FC1,25,Code/Libraries/Source/WWVegas/WWMath/coord3d.cpp,matched,
 ?SetZAxis@Coord3D@@QAEAAV1@XZ,0x00003F8C,0x00003F8C,28,Code/Libraries/Source/WWVegas/WWMath/coord3d.cpp,matched,

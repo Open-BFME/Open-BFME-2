@@ -71,38 +71,10 @@ inline ICoord3D::ICoord3D(int x, int y, int z)
     this->z = z;
 }
 
-ICoord2D &ICoord2D::operator+=(const ICoord2DBase &that)
-{
-    x += that.x;
-    y += that.y;
-    return *this;
-}
-
-ICoord2D &ICoord2D::operator-=(const ICoord2DBase &that)
-{
-    x -= that.x;
-    y -= that.y;
-    return *this;
-}
-
 ICoord2D &ICoord2D::operator*=(int factor)
 {
     x *= factor;
     y *= factor;
-    return *this;
-}
-
-ICoord2D &ICoord2D::operator/=(int divisor)
-{
-    x /= divisor;
-    y /= divisor;
-    return *this;
-}
-
-ICoord2D &ICoord2D::MoveBy(int delta)
-{
-    x += delta;
-    y += delta;
     return *this;
 }
 
@@ -112,11 +84,6 @@ ICoord2D &ICoord2D::MoveBy(int delta)
 inline bool ICoord2D::operator==(const ICoord2DBase &that) const
 {
     return x == that.x && y == that.y;
-}
-
-bool ICoord2D::operator!=(const ICoord2DBase &that) const
-{
-    return x != that.x || y != that.y;
 }
 
 ICoord3D &ICoord3D::operator=(const ICoord3D &that)
@@ -130,18 +97,6 @@ ICoord3D &ICoord3D::operator=(const ICoord3D &that)
 
     *(Raw *)this = *(const Raw *)&that;
     return *this;
-}
-
-int ICoord3D::length() const
-{
-    return (int)sqrt((double)(x * x + y * y + z * z));
-}
-
-void ICoord3D::zero()
-{
-    x = 0;
-    y = 0;
-    z = 0;
 }
 
 Debug &operator<<(Debug &debug, const ICoord2DBase &coord)
