@@ -60,49 +60,6 @@ public:
 	char *m_file;
 };
 
-INIStatsRecord::INIStatsRecord(const char *filename)
-{
-	reset();
-	m_file = (char *)fopen(filename, "w+");
-	GetLastError();
-	fprintf(m_file, "Thing,Class,Draw,Tag,Model,Verts,Polys,Skel,Anim,Frames,Texture,Width,Height,Depth,TexTotl,File,Line,Desc\n");
-}
-
-void INIStatsRecord::bfmeDump1191(void)
-{
-	const char *thingName = m_00.str();
-	int (__cdecl *fn)(void *dst, const char *fmt, ...) = fprintf;
-
-	fn(m_file, (char *)"%s,", thingName);
-	fn(m_file, (char *)"%s,", m_04.str());
-	fn(m_file, (char *)"%s,", m_08.str());
-	fn(m_file, (char *)"%s,", m_0C.str());
-	fn(m_file, (char *)"%s,", m_10.str());
-	fn(m_file, (char *)"%d,", m_14);
-	fn(m_file, (char *)"%d,", m_18);
-	fn(m_file, (char *)"%s,", m_1C.str());
-	fn(m_file, (char *)"%s,", m_20.str());
-	fn(m_file, (char *)"%d,", m_24);
-	fn(m_file, (char *)"%s,", m_28.str());
-	fn(m_file, (char *)"%d,", m_2C);
-	fn(m_file, (char *)"%d,", m_30);
-	fn(m_file, (char *)"%d,", m_34);
-	fn(m_file, (char *)"%d,", m_38);
-	fn(m_file, (char *)"%s,", m_3C.str());
-	fn(m_file, (char *)"%d,", m_40);
-	fn(m_file, (char *)"%s\n", m_44.str());
-}
-
-// Native50C90D..50C91D16B calls diagnostic dump50C69D then tailcalls reset50C45A
-// on the same receiver. Both complete callees already verify in their homes.
-// This establishes dump/reset behavior and the consumed existing record view;
-// the wrapper's original name is unknown. No adjacency-based type claim.
-void INIStatsRecord::rva0050C90D()
-{
-    bfmeDump1191();
-    reset();
-}
-
 // Native string copy-outs use the same shared four-byte AsciiString contract.
 class ModuleData;
 struct ModuleInfoNugget
