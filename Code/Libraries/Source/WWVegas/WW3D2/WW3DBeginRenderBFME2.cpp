@@ -43,24 +43,32 @@ public:
 
 class WW3D;
 struct IDirect3DDevice8;
+class IDirect3DSurface9;
+class LightEnvironmentClass;
 class DX8Wrapper
 {
- friend class WW3D;
- // BFME 2's body is the private ?Get_Render_Target_Resolution@DX8Wrapper@@CAXAAH00AA_N@Z
- // (0x00121860, WW3D_Get_Render_Target_Resolution.cpp); dx8wrapper.cpp's protected copy is Zero Hour's.
- private:
- static void Get_Render_Target_Resolution(int &,int &,int &,bool &);
-public:
-	static bool Reset_Device(bool force);
-	static void Set_Viewport(const _D3DVIEWPORT8 *viewport);
-	static void Clear(bool clear_color, bool clear_z_stencil,
-		bool clear_stencil, const Vector3 &color, float dest_alpha,
-		float z, UnsignedInt stencil);
-	static void Begin_Scene_Inner(void);
-
+private:
+	friend class WW3D;
 protected:
-	// dx8wrapper.cpp: ?D3DDevice@DX8Wrapper@@1PAUIDirect3DDevice8@@A.
 	static IDirect3DDevice8 *D3DDevice;
+	// dx8wrapper.cpp's protected static at VA 0x00DEDC70.
+	static Vector3 Ambient_Color;
+public:
+	static bool Reset_Device(bool reload_assets);
+	static IDirect3DSurface9 *_Get_DX8_Front_Buffer();
+	static void Shutdown();
+private:
+	static void Get_Render_Target_Resolution(int &,int &,int &,bool &);
+public:
+	static void Set_Viewport(const _D3DVIEWPORT8 *viewport);
+	static void Clear(bool clear_color, bool clear_z_stencil, bool clear_stencil, const Vector3 &color, float dest_alpha, float z, unsigned int stencil);
+	static void Begin_Scene_Inner(void);
+	static void Set_DX8_Render_State(unsigned long state, unsigned value);
+	// dllimport: inlined at every use, so no out-of-line copy competes with retail's
+	// Convert_Color (0x0006E1C0) or Set_Ambient (0x00117F50, DX8SetAmbient.cpp).
+	__declspec(dllimport) static unsigned Convert_Color(const Vector3 &color, float alpha);
+	__declspec(dllimport) static void Set_Ambient(const Vector3 &color);
+	static void Set_Light_Environment(LightEnvironmentClass *light_env);
 };
 
 class DynamicVBAccessClass

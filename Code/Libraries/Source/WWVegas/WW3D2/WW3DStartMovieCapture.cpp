@@ -11,6 +11,7 @@ extern void *g_WW3D_Hwnd;
 class FrameGrabClass
 {
 public:
+	long *GetBuffer();
 	virtual ~FrameGrabClass();
 };
 class BfmeThingTXA : public FrameGrabClass

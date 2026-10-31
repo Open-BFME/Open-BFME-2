@@ -300,12 +300,17 @@ void Rva00129690();
  
  
 
+class CameraClass;
 class DX8MeshRendererClass
 {
 public:
 	void Invalidate( bool shutdown );
-public:
 	void Flush();
+	void Set_Camera(CameraClass *camera) { m_camera = camera; }
+	void Clear_Pending_Delete_Lists(void);
+	char m_pad00[0x4];
+private:
+	CameraClass *m_camera; // +0x04
 };
 
 void *g_WW3D_Hwnd;
