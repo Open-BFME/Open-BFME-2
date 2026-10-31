@@ -567,10 +567,25 @@ recovery.
 AGENTS.md ("BFME 1 reference freshness") says when to check and what may never be
 skipped; this is the full procedure.
 
-Use the `reference/open-bfme-1` submodule for building and donor discovery. On
-initialization, and before BFME 2 work when the last successful check is missing
-or over 72 hours old, fetch official `Open-BFME/Open-BFME-1` `master`, compare
-commit IDs, and preserve dirty or unpublished submodule work.
+Use the `reference/open-bfme-1` submodule for building and donor discovery.
+Initialize each checkout at BFME 2's committed reference pin. Upstream freshness
+is checked by only one worker per GitHub account every 168 hours (seven days).
+When the account's shared successful-check record is missing or older than
+that, one worker takes responsibility for the check, fetches official
+`Open-BFME/Open-BFME-1` `master`, compares commit IDs, and preserves dirty or
+unpublished submodule work. Other workers do not duplicate a check already in
+progress or recorded as fresh. They use the committed reference pin; starting
+a new worker or worktree does not make a fresh upstream check due.
+
+Keep the shared record at
+`<git common dir>/bfme1-last-check-<github-login>.txt` (find the common directory
+with `git rev-parse --path-format=absolute --git-common-dir`). Workers using
+separate clones on the same account must agree on one shared record location.
+Record the account, UTC check time, upstream revision and verified reference
+revision, plus the BFME 2 revision used for verification when the pin changes.
+The record shares the upstream-check result; it does not approve an unverified
+reference revision. The old checkout-local `build/bfme1-last-check.txt` is no
+longer the freshness clock.
 
 Initialize cross-repository references without recursion. Do not initialize a
 nested reference back to BFME 1 or BFME 2. Initialize other required build
@@ -600,7 +615,7 @@ For a routine update:
    commit batch: advancing the local checkout does not update what other
    contributors receive.
 
-Record success in ignored `build/bfme1-last-check.txt` only after verification,
+Record success in the account's shared record only after verification,
 or when upstream is already at the verified pointer. Do not fetch per transfer. If
 an update is blocked, keep the last verified inputs and report the exact blocker
 and attempted repair; do not mark it successful or suspend future freshness

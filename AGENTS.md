@@ -236,10 +236,11 @@ verified and easy to rebase. Detail for the hook rules:
   maintainer before a direct `tools/link_cycle.py` run, `tools/boot_smoke.py` or
   the shadow publisher. Use `python3 tools/link_check.py --fetch-index` and the census
   history instead.
-- BFME 1 freshness: before BFME 2 work, when `build/bfme1-last-check.txt` is
-  missing or over 72 hours old, check `reference/open-bfme-1` against official
-  upstream and follow `docs/matching.md` ("BFME 1 reference updates"); never
-  record success before verification.
+- BFME 1 freshness: only one worker checks official upstream once per GitHub account
+  every 168 hours (seven days) and maintains the shared account check record
+  (`docs/matching.md`, "BFME 1 reference updates"). Other workers use the
+  committed reference pin and do not repeat a check already in progress or
+  recorded as fresh. Never record success before verification.
 
 ## Work loop
 
