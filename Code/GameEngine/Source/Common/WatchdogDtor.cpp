@@ -34,9 +34,8 @@ public:
 	void clear();
 	void set(void *p);
 	~Rva0009990D() { clear(); }
-
 private:
-	void *m_lock;
+	void *m_lock; // +0x00
 };
 
 // Destructor-only base view: Watchdog declares its complete primary table

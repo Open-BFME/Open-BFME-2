@@ -66,9 +66,9 @@ class Rva0009990D
 public:
 	void clear();
 	void set(void *p);
-
+	~Rva0009990D() { clear(); }
 private:
-	void *m_lock;
+	void *m_lock; // +0x00
 };
 
 class ThreadClass
