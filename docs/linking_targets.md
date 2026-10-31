@@ -1,5 +1,15 @@
 # Linking target checklist
 
+DX8 color clamp Vector4 adoption (2026-10-31): the canonical storage header
+and local component accessor preserve all three rows and five external code
+bodies/relocations. Owning acceptance retires one key. One new internal
+helper copy has only a debug incoming edge; runtime calls stay identical.
+With comparisons, two Vector4 keys are retired and bounded cohort 785 -> 785
+is retained; full consumer/census proof remains separate.
+The outgoing audit is INCONCLUSIVE on the older index and the missing
+CreateAHeroManager consumer receipt; carry this scope into the next census.
+[Evidence](../reverse/attempt_support/color-clamp-vector4-adoption-20261031.md).
+
 Matrix3D comparison Vector4 adoption (2026-10-31): existing canonical storage
 and direct pointer-based component reads preserve both 61/70-byte rows,
 the row accessor and all relocations. Owning acceptance retires one queue
