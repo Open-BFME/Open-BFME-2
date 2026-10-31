@@ -17079,9 +17079,9 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0023FD71,360,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,C,W=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp C=0x0023FB58..0x0023FED9,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
 0x0023FED9,295,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp
 0x00240000,46,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,C,C=0x0023FED9..0x0024002E,Code/Libraries/Source/WWVegas/WWLib/Rva00240000Ctor.cpp
-0x0024002E,7,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,C,C=0x0023FED9..0x00240035,Code/GameEngine/Source/Common/VslotSizedForwarders.cpp
-0x00240035,8,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,C,C=0x0023FED9..0x0024003D,Code/GameEngine/Source/Common/VslotSizedForwarders.cpp
-0x0024003D,8,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,C,C=0x0023FED9..0x00240045,Code/GameEngine/Source/Common/VslotSizedForwarders.cpp
+0x0024002E,7,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,C,C=0x0023FED9..0x00240035,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
+0x00240035,8,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,C,C=0x0023FED9..0x0024003D,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
+0x0024003D,8,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,C,C=0x0023FED9..0x00240045,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
 0x00240045,8,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,C,C=0x0023FED9..0x0024004D,Code/GameEngine/Source/Common/VslotSizedForwarders2.cpp
 0x0024004D,247,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp
 0x00240144,35,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp N=Code/GameEngine/Source/GameLogic/Object/GameLogic.cpp,Code/GameEngine/Source/GameLogic/Object/Object_setID.cpp

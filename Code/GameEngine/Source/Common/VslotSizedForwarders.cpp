@@ -299,12 +299,6 @@ public:
 	void rva0024002E();
 };
 
-// vtable 0x00BEDCB4#0: base at +0x10 ->slot0()
-void Rva0024002EForwarder::rva0024002E()
-{
-	slot0();
-}
-
 class Rva00240035Lead
 {
 public:
@@ -319,12 +313,6 @@ public:
 	void rva00240035();
 };
 
-// vtable 0x00BEDCB4#1: base at +0x10 ->slot1()
-void Rva00240035Forwarder::rva00240035()
-{
-	slot1();
-}
-
 class Rva0024003DLead
 {
 public:
@@ -338,12 +326,6 @@ class Rva0024003DForwarder : public Rva0024003DLead, public SizedForwarderSlots
 public:
 	void rva0024003D();
 };
-
-// vtable 0x00BEDCB4#2: base at +0x10 ->slot2()
-void Rva0024003DForwarder::rva0024003D()
-{
-	slot2();
-}
 
 class Rva0025C25AForwarder : public SizedForwarderSlots
 {
