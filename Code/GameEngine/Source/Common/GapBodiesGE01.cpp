@@ -321,13 +321,3 @@ private:
 	int m_00;
 	GapVectorView<Rva00426A15Element> m_04;
 };
-
-void Rva00426A15::rva00426A15()
-{
-	for (unsigned int i = 0; i < (unsigned int)m_04.size(); ++i)
-	{
-		Rva00426A15Element &e = m_04.m_begin[i];
-		e.m_05 = true;
-		e.m_06 = false;
-	}
-}
