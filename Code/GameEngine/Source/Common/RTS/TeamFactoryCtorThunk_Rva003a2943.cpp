@@ -85,9 +85,12 @@ void _STLP_CALL __node_alloc<true, 0>::deallocate(void *__p, size_t __n)
 
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/NameKeyGenerator.h
+class AsciiString;
 class NameKeyGenerator
 {
 public:
+	NameKeyType nameToKey(const AsciiString &nameString);
+	const AsciiString &keyToName(NameKeyType);
 	NameKeyType nameToKey(const char *name);
 };
 extern NameKeyGenerator *TheNameKeyGenerator;
