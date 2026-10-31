@@ -9937,7 +9937,6 @@ pin	reverse/symbols.csv	0x006BE270	1
 pin	reverse/symbols.csv	0x006BE2E0	1
 pin	reverse/symbols.csv	0x006BE370	1
 pin	reverse/symbols.csv	0x006BE840	1
-pin	reverse/symbols.csv	0x006BE8C0	1
 pin	reverse/symbols.csv	0x006BEB00	1
 pin	reverse/symbols.csv	0x006BEEC0	1
 pin	reverse/symbols.csv	0x006BEF10	1
@@ -11196,9 +11195,9 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/nullrobj.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/nullrobj.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp	"s",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp	"",on	2
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp	"gsy",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp	"s",on	1
+pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp	"",on	8
+pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp	"gsy",on	5
+pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp	"s",on	3
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp	"t",off	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/part_ldr.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/part_ldr.cpp	"gsy",on	1
@@ -11206,14 +11205,8 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/particle_buffer_render_line.
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/particle_buffer_render_line.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_build_definition.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_build_definition.cpp	"gsy",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_constructor.cpp	"",on	2
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_constructor.cpp	"gsy",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_constructor.cpp	"s",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_convert_version.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_convert_version.cpp	"gsy",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_copy.cpp	"",on	2
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_copy.cpp	"gsy",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_copy.cpp	"s",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_create_from_definition.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_create_from_definition.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_definition_destructor.cpp	"",on	1
@@ -11221,10 +11214,6 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_definition_
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_destructor.cpp	"",on	2
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_destructor.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_destructor.cpp	"s",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_frame.cpp	"",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_frame.cpp	"gsy",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_initialize.cpp	"",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_initialize.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_load.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_load.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_read_blur_keyframes.cpp	"",on	1
@@ -13086,7 +13075,7 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp	Locomoto
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp	LocomotorTemplate::getFieldParse	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp	bfmeEmitGenericObjectCreationNuggetAnimSetCopy@@YAXPAUAnimSet@GenericObjectCreationNugget@@PBU12@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp	clear@ObjectCreationList@@	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp	create@ObjectCreationNugget@@UBEXPBVObject@@PBUCoord3D@@1_NI@Z	1	allow=386f3197feeef554dde10b1da5f31e9132fa0a74
+present_unmatched	Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp	create@ObjectCreationNugget@@UBEXPBVObject@@PBUCoord3D@@1_NI@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp	createInternal@ObjectCreationList@@	2
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/ObjectRva0028B238.cpp	Object::rva0028B238	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	0CellAndObjectIntersection@@	1
@@ -14333,7 +14322,6 @@ present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/Line3DClassRender.cpp	Set_
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/MaterialRemapperClassCtor.cpp	0TextureRemapStruct@MaterialRemapperClass@@QAE@XZ	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/MaterialRemapperClassDtor.cpp	1TextureRemapStruct@MaterialRemapperClass@@QAE@XZ	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadDcg.cpp	DX8Wrapper::Convert_Color	3
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/ParticleEmitterVisibilityWrappers.cpp	bfmeEmitParticleEmitterVisibilityWrappers@@YAXPAVParticleEmitterClass@@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/PendingSurfaceStructAssignmentBFME.cpp	bfmeEmitPendingSurfaceStructAssignmentBFME@@YAXPAUPendingSurfaceStruct@Render2DSentenceClass@@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/PendingSurfaceStructResize.cpp	BfmeRendererVectorBase::BfmeRendererVectorBase	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/PendingSurfaceStructResize.cpp	DynamicVectorDummy::DynamicVectorDummy	1
@@ -14807,11 +14795,9 @@ present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp	ParticleBuffe
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp	ParticleBufferClass::On_Frame_Update	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp	ParticleBufferClass::operator=	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp	ParticleEmitterClass::Create_New_Particles	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp	ParticleEmitterClass::Get_Creation_Volume	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp	ParticleEmitterClass::Notify_Removed	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp	ParticleEmitterClass::Reset	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp	ParticleEmitterClass::Restart	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp	ParticleEmitterClass::Save	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp	ParticleEmitterClass::Set_Outwards_Velocity	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp	ParticleEmitterClass::Set_Position_Randomizer	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp	ParticleEmitterClass::Set_Velocity_Inheritance_Factor	1
@@ -14819,6 +14805,7 @@ present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp	ParticleEmitt
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp	ParticleEmitterClass::Start	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp	ParticleEmitterClass::Stop	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp	ParticleEmitterClass::operator=	1
+present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp	bfmeEmitParticleEmitterVisibilityWrappers@@YAXPAVParticleEmitterClass@@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/part_ldr.cpp	ParticleEmitterDefClass::Get_Blur_Time_Keyframes	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/part_ldr.cpp	ParticleEmitterDefClass::Get_Color_Keyframes	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/part_ldr.cpp	ParticleEmitterDefClass::Get_Frame_Keyframes	1
