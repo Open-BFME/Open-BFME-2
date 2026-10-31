@@ -36,48 +36,77 @@ extern CollisionManager *TheCollisionManager;
 #define TheThunk230 ((Rva00758230 *)TheCollisionManager)
 #define TheThunk240 ((Rva00758240 *)TheCollisionManager)
 
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
+class Thing;
 class Object;
 class ModuleData;
+class Coord3D;
+class Xfer;
 
-class BehaviorModule
+class BehaviorModuleBase
 {
 public:
-	virtual ~BehaviorModule();
-protected:
-	const ModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
+	virtual void behaviorModuleBaseAnchor();
+	const ModuleData *m_moduleData;
+	Object *m_object;
 };
-class BehaviorModuleInterface
+
+class BehaviorModuleOther
 {
 public:
-	virtual void behaviorModuleInterfaceAnchor();
+	virtual void behaviorModuleOtherAnchor();
 };
+
+class BehaviorModule : public BehaviorModuleBase, public BehaviorModuleOther
+{
+public:
+	BehaviorModule(Thing *thing, const ModuleData *moduleData);
+};
+
 enum UpdateSleepTime
 {
 	UPDATE_SLEEP_NONE = 1,
 	UPDATE_SLEEP_FOREVER = 0x3fffffff
 };
+
 class UpdateModuleInterface
 {
 public:
 	virtual UpdateSleepTime update() = 0;
 };
-class UpdateModule : public BehaviorModule, public BehaviorModuleInterface, public UpdateModuleInterface
+
+class UpdateModule : public BehaviorModule, public UpdateModuleInterface
 {
+public:
+	UpdateModule(Thing *thing, const ModuleData *moduleData);
+	virtual ~UpdateModule();
+	void xfer(Xfer *xfer);
 protected:
-	unsigned int m_14;
-	int m_18;
-	int m_1C;
+	unsigned m_nextCallFrameAndPhase;
+	int m_indexInLogic;
+	int m_bfmeReserved;
 };
-class CritterEmitterUpdateIface20
+
+class CritterEmitterUpdateIface
 {
 public:
-	virtual void iface20Anchor();
+	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal) = 0;
 };
-class CritterEmitterUpdate : public UpdateModule, public CritterEmitterUpdateIface20
+
+class CritterEmitterUpdate : public UpdateModule, public CritterEmitterUpdateIface
 {
 public:
+	CritterEmitterUpdate(Thing *thing, const ModuleData *moduleData);
+	virtual NameKeyType getModuleNameKey() const;
 	virtual UpdateSleepTime update();
+	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal);
+protected:
+	virtual ~CritterEmitterUpdate();
+	virtual void xfer(Xfer *xfer);
 private:
 	bool m_24;
 	bool m_25;

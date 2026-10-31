@@ -1,66 +1,87 @@
 // cl: /DNDEBUG /MD /EHsc
 
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
 class Thing;
 class ModuleData;
 class Object;
 class Coord3D;
+class Xfer;
 
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Module.h
-#include "../../../../Include/Common/ObjectModule.h"
-
-class CritterEmitterUpdateIface1
+class BehaviorModuleBase
 {
 public:
-    virtual ~CritterEmitterUpdateIface1();
+	virtual void behaviorModuleBaseAnchor();
+	const ModuleData *m_moduleData;
+	Object *m_object;
 };
 
-class CritterEmitterUpdateIface2
+class BehaviorModuleOther
 {
 public:
-    virtual ~CritterEmitterUpdateIface2();
+	virtual void behaviorModuleOtherAnchor();
+};
+
+class BehaviorModule : public BehaviorModuleBase, public BehaviorModuleOther
+{
+public:
+	BehaviorModule(Thing *thing, const ModuleData *moduleData);
+};
+
+enum UpdateSleepTime
+{
+	UPDATE_SLEEP_NONE = 1,
+	UPDATE_SLEEP_FOREVER = 0x3fffffff
+};
+
+class UpdateModuleInterface
+{
+public:
+	virtual UpdateSleepTime update() = 0;
 };
 
 // The base is retail's UpdateModule: its constructor (0x00253390) and
 // destructor are rowed elsewhere, so they are declared, never defined here.
-class UpdateModule : public ObjectModule,
-    public CritterEmitterUpdateIface1,
-    public CritterEmitterUpdateIface2
+class UpdateModule : public BehaviorModule, public UpdateModuleInterface
 {
 public:
-    UpdateModule(Thing *thing, const ModuleData *moduleData);
-    virtual ~UpdateModule();
-
-private:
-    unsigned int m_14;
-    int m_18;
-    int m_1c;
-};
-
-class CritterEmitterUpdateIface3
-{
-public:
-    virtual void onCollide(Object *, const Coord3D *, const Coord3D *) = 0;
-};
-
-class CritterEmitterUpdate : public UpdateModule,
-    public CritterEmitterUpdateIface3
-{
-public:
-    CritterEmitterUpdate(Thing *, const ModuleData *);
-    virtual void onCollide(Object *, const Coord3D *, const Coord3D *);
-
+	UpdateModule(Thing *thing, const ModuleData *moduleData);
+	virtual ~UpdateModule();
+	void xfer(Xfer *xfer);
 protected:
-    virtual ~CritterEmitterUpdate();
+	unsigned m_nextCallFrameAndPhase;
+	int m_indexInLogic;
+	int m_bfmeReserved;
+};
 
+class CritterEmitterUpdateIface
+{
+public:
+	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal) = 0;
+};
+
+class CritterEmitterUpdate : public UpdateModule, public CritterEmitterUpdateIface
+{
+public:
+	CritterEmitterUpdate(Thing *thing, const ModuleData *moduleData);
+	virtual NameKeyType getModuleNameKey() const;
+	virtual UpdateSleepTime update();
+	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal);
+protected:
+	virtual ~CritterEmitterUpdate();
+	virtual void xfer(Xfer *xfer);
 private:
-    unsigned char m_24;
-    unsigned char m_25;
+	bool m_24;
+	bool m_25;
 };
 
 // ??0CritterEmitterUpdate@@QAE@PAVThing@@PBVModuleData@@@Z
 CritterEmitterUpdate::CritterEmitterUpdate(Thing *thing, const ModuleData *moduleData)
     : UpdateModule(thing, moduleData)
 {
-    m_24 = 0;
-    m_25 = 1;
+    m_24 = false;
+    m_25 = true;
 }

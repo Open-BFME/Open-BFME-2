@@ -10,9 +10,16 @@
 // at 0x0024A797). Recipe: BloodthirstyUpdateDtor.cpp. BFME1 donor
 // CritterEmitterUpdateDestructor.cpp proves protected virtual MAE spelling.
 
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
 class Thing;
 class ModuleData;
 class Object;
+class Coord3D;
+class Xfer;
 
 class BehaviorModuleBase
 {
@@ -34,7 +41,11 @@ public:
 	BehaviorModule(Thing *thing, const ModuleData *moduleData);
 };
 
-enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
+enum UpdateSleepTime
+{
+	UPDATE_SLEEP_NONE = 1,
+	UPDATE_SLEEP_FOREVER = 0x3fffffff
+};
 
 class UpdateModuleInterface
 {
@@ -45,14 +56,14 @@ public:
 class UpdateModule : public BehaviorModule, public UpdateModuleInterface
 {
 public:
+	UpdateModule(Thing *thing, const ModuleData *moduleData);
 	virtual ~UpdateModule();
+	void xfer(Xfer *xfer);
 protected:
 	unsigned m_nextCallFrameAndPhase;
 	int m_indexInLogic;
 	int m_bfmeReserved;
 };
-
-class Coord3D;
 
 // The +0x20 interface's vftable 0x00C5E8C4 opens with onCollide (0x004C8E83).
 class CritterEmitterUpdateIface
@@ -64,10 +75,16 @@ public:
 class CritterEmitterUpdate : public UpdateModule, public CritterEmitterUpdateIface
 {
 public:
-	virtual UpdateSleepTime update(); // UpdateModuleInterface slot 0, the rowed override
+	CritterEmitterUpdate(Thing *thing, const ModuleData *moduleData);
+	virtual NameKeyType getModuleNameKey() const;
+	virtual UpdateSleepTime update();
 	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal);
 protected:
 	virtual ~CritterEmitterUpdate();
+	virtual void xfer(Xfer *xfer);
+private:
+	bool m_24;
+	bool m_25;
 };
 
 CritterEmitterUpdate::~CritterEmitterUpdate()

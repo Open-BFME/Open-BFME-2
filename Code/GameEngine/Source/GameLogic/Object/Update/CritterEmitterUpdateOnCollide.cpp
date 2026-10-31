@@ -50,55 +50,93 @@ private:
 	T *m_cap;
 };
 
-struct CritterEmitterUpdateModuleData
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
+class Thing;
+class Xfer;
+
+struct CritterEmitterUpdateModuleDataView
 {
 	unsigned char m_pad00[0x08];
 	PtrVector<const FXList *> m_fxLists; // +0x08
 	PtrVector<const ObjectCreationList *> m_oclLists; // +0x14
 };
 
-class BehaviorModule
+class BehaviorModuleBase
 {
 public:
-	virtual ~BehaviorModule();
-protected:
-	const ModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
+	virtual void behaviorModuleBaseAnchor();
+	const ModuleData *m_moduleData;
+	Object *m_object;
 };
 
-class BehaviorModuleInterface { public: virtual void behaviorModuleInterfaceAnchor(); };
-class UpdateModuleInterface { public: virtual void updateModuleInterfaceAnchor(); };
-
-class UpdateModule : public BehaviorModule, public BehaviorModuleInterface, public UpdateModuleInterface
+class BehaviorModuleOther
 {
-protected:
-	unsigned int m_nextCallFrameAndPhase; // +0x14
-	int m_indexInLogic; // +0x18
-	int m_updateState; // +0x1C
+public:
+	virtual void behaviorModuleOtherAnchor();
 };
 
-class CollideModuleInterface
+class BehaviorModule : public BehaviorModuleBase, public BehaviorModuleOther
+{
+public:
+	BehaviorModule(Thing *thing, const ModuleData *moduleData);
+};
+
+enum UpdateSleepTime
+{
+	UPDATE_SLEEP_NONE = 1,
+	UPDATE_SLEEP_FOREVER = 0x3fffffff
+};
+
+class UpdateModuleInterface
+{
+public:
+	virtual UpdateSleepTime update() = 0;
+};
+
+class UpdateModule : public BehaviorModule, public UpdateModuleInterface
+{
+public:
+	UpdateModule(Thing *thing, const ModuleData *moduleData);
+	virtual ~UpdateModule();
+	void xfer(Xfer *xfer);
+protected:
+	unsigned m_nextCallFrameAndPhase;
+	int m_indexInLogic;
+	int m_bfmeReserved;
+};
+
+class CritterEmitterUpdateIface
 {
 public:
 	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal) = 0;
 };
 
-class CritterEmitterUpdate : public UpdateModule, public CollideModuleInterface
+class CritterEmitterUpdate : public UpdateModule, public CritterEmitterUpdateIface
 {
 public:
+	CritterEmitterUpdate(Thing *thing, const ModuleData *moduleData);
+	virtual NameKeyType getModuleNameKey() const;
+	virtual UpdateSleepTime update();
 	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal);
+protected:
+	virtual ~CritterEmitterUpdate();
+	virtual void xfer(Xfer *xfer);
 private:
-	bool m_emitted; // +0x24
+	bool m_24;
 	bool m_25;
 };
 
 // ?onCollide@CritterEmitterUpdate@@UAEXPAVObject@@PBVCoord3D@@1@Z @0x004C8E83
 void CritterEmitterUpdate::onCollide(Object *, const Coord3D *, const Coord3D *)
 {
-	if (m_emitted)
+	if (m_24)
 		return;
 
-	const CritterEmitterUpdateModuleData *data = (const CritterEmitterUpdateModuleData *)m_moduleData;
+	const CritterEmitterUpdateModuleDataView *data = (const CritterEmitterUpdateModuleDataView *)m_moduleData;
 
 	int count = data->m_fxLists.size();
 	if (count > 0)
@@ -114,5 +152,5 @@ void CritterEmitterUpdate::onCollide(Object *, const Coord3D *, const Coord3D *)
 		ObjectCreationList::create(data->m_oclLists[which], m_object, 0);
 	}
 
-	m_emitted = true;
+	m_24 = true;
 }
