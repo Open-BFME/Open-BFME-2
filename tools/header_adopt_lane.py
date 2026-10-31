@@ -320,6 +320,54 @@ def include_sources(source, text=None, depth=2):
     return out
 
 
+def header_comment_splice(text):
+    """Find continued line comments while skipping literals and block comments."""
+    # Translation phase 2 precedes comment recognition, including when a splice
+    # forms the two slashes. Keep offsets so the diagnostic names the real line.
+    logical, offsets = [], []
+    i = 0
+    while i < len(text):
+        splice = SPLICE.match(text, i)
+        if splice:
+            i = splice.end()
+        else:
+            logical.append(text[i])
+            offsets.append(i)
+            i += 1
+    original = text
+    text = "".join(logical)
+    i, n = 0, len(text)
+    while i < n:
+        if text.startswith("//", i):
+            end = text.find("\n", i)
+            end = n if end < 0 else end
+            original_end = offsets[end] if end < n else len(original)
+            if SPLICE.search(original, offsets[i], original_end):
+                return offsets[i]
+            i = end + 1
+        elif text.startswith("/*", i):
+            end = text.find("*/", i + 2)
+            i = n if end < 0 else end + 2
+        elif (raw := RAW_STRING.match(text, i)):
+            close = ")" + raw.group(1) + '"'
+            end = text.find(close, raw.end())
+            i = n if end < 0 else end + len(close)
+        elif text[i] in "\"'":
+            quote = text[i]
+            i += 1
+            while i < n:
+                if text[i] == "\\" and i + 1 < n:
+                    i += 2
+                elif text[i] == quote:
+                    i += 1
+                    break
+                else:
+                    i += 1
+        else:
+            i += 1
+    return None
+
+
 def include_problem(source, text, depth=2, include_roots=()):
     """Refuse whenever the bounded include walk cannot account for an input."""
     start = (ROOT / source).resolve()
@@ -328,8 +376,11 @@ def include_problem(source, text, depth=2, include_roots=()):
         path, body, level = queue.pop(0)
         if body is None:
             return f"{path}: include cannot be read"
-        if re.search(r"\\\r?\n|\?\?", body):
-            return f"{path}: splice or trigraph in include input"
+        problem = re.search(r"\?\?[=/'()!<>-]", body)
+        position = problem.start() if problem else header_comment_splice(body)
+        if position is not None:
+            line = body.count("\n", 0, position) + 1
+            return f"{path}:{line}: trigraph or continued line comment in include input"
         for m in re.finditer(r'(?m)^[ \t]*#[ \t]*include[ \t]*([<"])([^>"\n]+)[>"]', masked(body, keep_literals=True)):
             angle, name = m.group(1) == "<", m.group(2)
             candidates = [(base / name).resolve() for base in (path.parent, ROOT, ROOT / "Code", *include_roots)]

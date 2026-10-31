@@ -420,6 +420,19 @@ def test_r4_trigraph_is_refused():
     assert lane.scoped_rename("int f(Object *o) { return o->m_flags; } // ??/", RENAMES)[0] is None
 
 
+def test_r4c_header_continuations(tmp_path, monkeypatch):
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    header = tmp_path / "h.h"
+    header.write_text("#define X \\\n  1\n// ??0Object is a mangled name\n")
+    assert lane.include_problem("u.cpp", '#include "h.h"\n') is None
+    header.write_text("#define X \\\n  1\n// comment\\\nint hidden;\n")
+    assert "h.h:3: trigraph or continued line comment" in lane.include_problem("u.cpp", '#include "h.h"\n')
+    assert lane.header_comment_splice('const char *s = "// text\\\nmore";\n') is None
+    assert lane.header_comment_splice('/\\\n/ comment\\\nint hidden;\n') == 0
+    header.write_text("// ??/\n")
+    assert "trigraph" in lane.include_problem("u.cpp", '#include "h.h"\n')
+
+
 def test_r4b_guard_and_unrelated_conditional_do_not_hide_hierarchy():
     header = "#ifndef GUARD\n#define GUARD\n#if 0\nint unrelated;\n#endif\nclass Object { int x; };\n#endif\n"
     assert lane.conditional_hierarchy([("h", header)], {"Object"}) is None
