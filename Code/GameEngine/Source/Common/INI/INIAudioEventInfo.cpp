@@ -58,6 +58,18 @@ template void _STL::_Construct<ConstructProbeSciVec, ConstructProbeSciVec>(Const
 template void _STL::_Construct<ConstructProbeCoordList, ConstructProbeCoordList>(ConstructProbeCoordList *, const ConstructProbeCoordList &);
 template void _STL::_Construct<ConstructProbePairC, ConstructProbePairC>(ConstructProbePairC *, const ConstructProbePairC &);
 #include "../../../Include/Common/Rva0007DF07.h"
+#define BFME_DISP32_FLOAT_SETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		void set(float newValue); \
+		char m_leadingPadding[DISP]; \
+		float m_floatValue; \
+	}; \
+	void NAME::set(float newValue) \
+	{ \
+		m_floatValue = newValue; \
+	}
 
 // STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
 // Element identity and unconstrained fields remain address-derived structural inference.
@@ -753,6 +765,33 @@ private:
     unsigned int word0;
 };
 
+BFME_DISP32_FLOAT_SETTER(Rva001D972BFloatField, 0x94)
+
+// 0x002A9E25 is a Player member: ScavengerSpecialPower::doSpecialPower
+// 0x004C4401, 0x004C4430 and the linear campaign carryover call it on
+// Object::getControllingPlayer() results and Player pointers. The field
+// purpose at +0x314 is unresolved.
+class Player
+{
+public:
+	void rva002A9E25(float newValue);
+	char m_leadingPadding[0x314];
+	float m_floatValue;
+};
+
+// Native30F2BA..30F2C7 is a complete float-argument store at ECX+0,
+// between independently bounded RET4 at30F2B7 and known getter30F2C7.
+// Found beside the BF1 9cb WaterRenderObjConstructor Boxed<float> placement;
+// adjacency does not establish its original class or field purpose.
+class Rva0030F2BAFloatField
+{
+public:
+    void set(float value);
+    float m_value;
+};
+
+// ---- from Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp
+
 // ---- from Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp
 
 // ---- from Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp
@@ -1263,7 +1302,16 @@ void Rva001D96FF::rva001D96FF(int mask)
 
 // tu-skeleton: 0x001D971F 12B ?rva001D971F@Rva001D9715@@QAEXI@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE49.cpp (not merged yet)
 
-// tu-skeleton: 0x001D972B 17B ?set@Rva001D972BFloatField@@QAEXM@Z -- matched in Code/GameEngine/Source/Common/Disp32FloatFieldSetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Disp32FloatFieldSetters.cpp
+
+// Disp32 float setters: seventeen-byte __thiscall members with one shape:
+//
+//     movss xmm0,[esp+4] / movss [ecx+<DISP>],xmm0 / ret 4
+//
+// One float argument is stored at a fixed 32-bit displacement from `this`.
+// MSVC 7.1 emits `F3 0F 10 44 24 04` plus `F3 0F 11 81 DISP32` plus
+// `C2 04 00` for seventeen bytes total with /arch:SSE. Identity is not
+// recovered: every name is derived from its address.
 
 // tu-skeleton: 0x001D9990 27B ??4FXBoneInfo@@QAEAAU0@ABU0@@Z -- matched in Code/GameEngine/Source/Common/Thing/ModuleFactory.cpp (not merged yet)
 
