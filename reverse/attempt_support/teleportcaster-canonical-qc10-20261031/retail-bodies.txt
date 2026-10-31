@@ -1,0 +1,120 @@
+RVA 004CD3A4 size49
+8cd3a4: push esi
+8cd3a5: push dword ptr [esp + 0xc]
+8cd3a9: mov esi, ecx
+8cd3ab: push dword ptr [esp + 0xc]
+8cd3af: call 0x84ef5e
+8cd3b4: mov dword ptr [esi], 0xc5fb40
+8cd3ba: mov dword ptr [esi + 0xc], 0xc4d640
+8cd3c1: mov dword ptr [esi + 0x10], 0xc4dee8
+8cd3c8: mov dword ptr [esi + 0x20], 0xc552a4
+8cd3cf: mov eax, esi
+8cd3d1: pop esi
+8cd3d2: ret 8
+
+RVA 0044EF5E size246
+84ef5e: mov eax, 0xb89c21
+84ef63: call 0xa29188
+84ef68: push ecx
+84ef69: push ebx
+84ef6a: push esi
+84ef6b: push dword ptr [ebp + 0xc]
+84ef6e: mov esi, ecx
+84ef70: push dword ptr [ebp + 8]
+84ef73: mov dword ptr [ebp - 0x10], esi
+84ef76: call 0x653390
+84ef7b: xorps xmm0, xmm0
+84ef7e: mov dword ptr [esi + 0x20], 0xc6f248
+84ef85: xor ebx, ebx
+84ef87: xor eax, eax
+84ef89: mov dword ptr [esi], 0xc3fba8
+84ef8f: mov dword ptr [esi + 0xc], 0xc4d640
+84ef96: mov dword ptr [esi + 0x10], 0xc4dee8
+84ef9d: mov dword ptr [esi + 0x20], 0xc552a4
+84efa4: mov dword ptr [esi + 0x24], ebx
+84efa7: mov dword ptr [esi + 0x28], ebx
+84efaa: mov dword ptr [esi + 0x2c], ebx
+84efad: mov dword ptr [esi + 0x30], ebx
+84efb0: inc eax
+84efb1: mov dword ptr [esi + 0x34], eax
+84efb4: mov dword ptr [esi + 0x38], eax
+84efb7: mov dword ptr [esi + 0x3c], ebx
+84efba: mov dword ptr [esi + 0x40], ebx
+84efbd: movss dword ptr [esi + 0x44], xmm0
+84efc2: movss dword ptr [esi + 0x48], xmm0
+84efc7: movss dword ptr [esi + 0x4c], xmm0
+84efcc: lea eax, [ebp + 0xf]
+84efcf: movss dword ptr [esi + 0x50], xmm0
+84efd4: movss dword ptr [esi + 0x54], xmm0
+84efd9: movss dword ptr [esi + 0x58], xmm0
+84efde: lea ecx, [esi + 0x64]
+84efe1: push eax
+84efe2: mov dword ptr [ebp - 4], ebx
+84efe5: mov dword ptr [esi + 0x5c], ebx
+84efe8: mov dword ptr [esi + 0x60], ebx
+84efeb: call 0x8ec36c
+84eff0: xorps xmm0, xmm0
+84eff3: push 0x3fffffff
+84eff8: push dword ptr [esi + 8]
+84effb: mov ecx, esi
+84effd: mov byte ptr [ebp - 4], 1
+84f001: mov dword ptr [esi + 0x68], ebx
+84f004: mov dword ptr [esi + 0x6c], ebx
+84f007: movss dword ptr [esi + 0x70], xmm0
+84f00c: mov byte ptr [esi + 0x74], bl
+84f00f: mov dword ptr [esi + 0x78], ebx
+84f012: mov byte ptr [esi + 0x7c], bl
+84f015: mov byte ptr [esi + 0x7d], bl
+84f018: mov byte ptr [esi + 0x7e], bl
+84f01b: mov byte ptr [esi + 0x7f], bl
+84f01e: mov byte ptr [esi + 0x80], bl
+84f024: mov byte ptr [esi + 0x81], 1
+84f02b: mov byte ptr [esi + 0x82], bl
+84f031: mov byte ptr [esi + 0x83], bl
+84f037: mov dword ptr [esi + 0x84], ebx
+84f03d: call 0x84df71
+84f042: mov ecx, dword ptr [ebp - 0xc]
+84f045: mov eax, esi
+84f047: pop esi
+84f048: pop ebx
+84f049: mov dword ptr fs:[0], ecx
+84f050: leave 
+84f051: ret 8
+
+RVA 00253390 size61
+653390: push esi
+653391: push dword ptr [esp + 0xc]
+653395: mov esi, ecx
+653397: push dword ptr [esp + 0xc]
+65339b: call 0x653330
+6533a0: mov dword ptr [esi + 0x10], 0xbe2b78
+6533a7: and dword ptr [esi + 0x14], 0
+6533ab: or dword ptr [esi + 0x18], 0xffffffff
+6533af: or dword ptr [esi + 0x1c], 0xffffffff
+6533b3: mov dword ptr [esi], 0xbf004c
+6533b9: mov dword ptr [esi + 0xc], 0xbeff90
+6533c0: mov dword ptr [esi + 0x10], 0xbfbce4
+6533c7: mov eax, esi
+6533c9: pop esi
+6533ca: ret 8
+
+RVA 00253057 size59
+653057: mov eax, 0xb71bc5
+65305c: call 0xa29188
+653061: push ecx
+653062: push 0x88
+653067: call 0x42fda0
+65306c: pop ecx
+65306d: mov ecx, eax
+65306f: mov dword ptr [ebp - 0x10], ecx
+653072: xor eax, eax
+653074: cmp ecx, eax
+653076: mov dword ptr [ebp - 4], eax
+653079: je 0x653086
+65307b: push dword ptr [ebp + 0xc]
+65307e: push dword ptr [ebp + 8]
+653081: call 0x8cd3a4
+653086: mov ecx, dword ptr [ebp - 0xc]
+653089: mov dword ptr fs:[0], ecx
+653090: leave 
+653091: ret 
