@@ -304,6 +304,12 @@ private:
     unsigned int value2C;
 };
 
+class Xfer;
+
+typedef char GameSlotSizeCheck[sizeof(GameSlot) == 0x1AC ? 1 : -1];
+
+// ---- from Code/GameEngine/Source/GameNetwork/GameInfo.cpp
+
 // ---- from Code/GameEngine/Source/GameNetwork/GameInfo.cpp
 
 // ---- from Code/GameEngine/Source/GameNetwork/GameInfo.cpp
@@ -828,7 +834,71 @@ void Rva00401FAF::rva00401FAF(const TreeHintOpaque0043671B *p)
 
 // tu-skeleton: 0x003FF496 62B ?isHeroDataReadyForSlot@GameInfo@@QBE_NG@Z -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
 
-// tu-skeleton: 0x003FF50C 230B ?reset@GameSlot@@UAEXXZ -- matched in Code/GameEngine/Source/GameNetwork/GameSlotCtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameNetwork/GameSlotCtor.cpp
+
+// GameSlot::GameSlot, native 0x003FFB4C..0x003FFBB4 (104B).
+// Identity: the pin names it, and the body installs the GameSlot vftable
+// 0x00BE7420, the same 0x1AC-byte layout whose copy constructor 0x002295D7
+// and destructor 0x002294FD are matched in SaveGameInfoCopyBFME2.cpp.
+// Zero Hour's GameSlot() only calls reset(); BFME2 additionally constructs
+// its owning members: the strings at +0x30/+0x34/+0x1A8, the dword/word pair
+// at +0x38/+0x3C, and the CreateAHeroData at +0x64. That member's constructor
+// 0x00409C3D takes (0, 0, 0, UnicodeString::TheEmptyString, -1, 0xFF707070,
+// -1), the same arguments CreateAHero's loader 0x0021F47E passes to a fresh
+// 0x140-byte block, so they are its default arguments. reset() is the
+// rowed 0x003FF50C. Field names past the established GameInfo view are offsets.
+
+GameSlot::GameSlot()
+{
+	reset();
+}
+
+// GameSlot::reset, native 0x003FF50C (230B), vtable slot 4 (+0x10, the
+// virtual call setState makes). Zero Hour's reset() order: state CLOSED,
+// accepted false, hasMap true, muted false, color/startPos -1, template -2
+// (BFME2: observer), team -1, then the orig* trio at -1 after one zeroed
+// dword. BFME2 then clears both strings, the connection record, the
+// +0x40..+0x60 block, reassigns a default CreateAHeroData through its
+// assignment 0x00409359, sets the +0x1A4 occupancy byte and empties +0x1A8.
+void GameSlot::reset()
+{
+	m_state = 1;
+	m_isAccepted = false;
+	m_hasMap = true;
+	m_isMuted = false;
+	m_color = -1;
+	m_startPos = -1;
+	m_bfme14 = -1;
+	m_playerTemplate = -2;
+	m_teamNumber = -1;
+	m_bfme20 = 0;
+	m_origColor = -1;
+	m_origStartPos = -1;
+	m_origPlayerTemplate = -1;
+	text30.clear();
+	text34.clear();
+	connect38 = GameSlotConnectInfo();
+	word40 = 1;
+	word44 = 0;
+	flag48 = false;
+	word4C = -1;
+	word50 = 0;
+	word54 = 0;
+	word58 = 0;
+	word5C = -1;
+	flag60 = false;
+	CreateAHeroData defaultHero;
+	hero64 = defaultHero;
+	flag1A4 = true;
+	m_name = AsciiString::TheEmptyString;
+}
+
+// GameSlot table 0x00BE7420 slot 1 (loadPostProcess, the canonical Snapshot
+// order) is the shared empty RET 0x000B3FD0, as in every GameSlot-derived
+// table (0x00C19424, 0x00C3E4FC).
+void GameSlot::loadPostProcess()
+{
+}
 
 // tu-skeleton: 0x003FF616 384B ?xfer@GameSlot@@UAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/System/XferEnumHelpers.cpp (not merged yet)
 
@@ -856,8 +926,6 @@ void Rva00401FAF::rva00401FAF(const TreeHintOpaque0043671B *p)
 
 // tu-skeleton: 0x003FFA3C 272B ?xfer@SkirmishGameInfo@@UAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameNetwork/SkirmishGameInfoXfer.cpp (not merged yet)
 
-// tu-skeleton: 0x003FFB4C 104B ??0GameSlot@@QAE@XZ -- matched in Code/GameEngine/Source/GameNetwork/GameSlotCtor.cpp (not merged yet)
-
 // tu-skeleton: 0x003FFBB4 116B ?getApparentPlayerTemplateDisplayName@GameSlot@@QBE?AVUnicodeString@@XZ -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
 
 // tu-skeleton: 0x003FFF62 45B ?isPlayer@GameSlot@@QBE_NVUnicodeString@@@Z -- matched in Code/GameEngine/Source/GameNetwork/GameSlotIsPlayer.cpp (not merged yet)
@@ -881,22 +949,6 @@ void Rva00401FAF::rva00401FAF(const TreeHintOpaque0043671B *p)
 // tu-skeleton: 0x0040116B 3595B ?ParseAsciiStringToGameInfo@@YA_NPAVGameInfo@@VAsciiString@@_N@Z -- matched in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (not merged yet)
 
 // tu-skeleton: 0x00401F76 57B ??4TreeHintOpaque0043671B@@QAEAAU0@ABU0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_treehintopaque_00436e3b.cpp (not merged yet)
-
-// tu-skeleton: 0x007847EA 11B Unwind@00b847ea -- matched in Code/GameEngine/Source/GameNetwork/GameSlotCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x007847F5 10B __ehhandler$?reset@GameSlot@@UAEXXZ -- matched in Code/GameEngine/Source/GameNetwork/GameSlotCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x007847FF 8B $L1627 -- matched in Code/GameEngine/Source/GameNetwork/GameSlotCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00784807 11B Unwind@00b84807 -- matched in Code/GameEngine/Source/GameNetwork/GameSlotCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00784812 11B Unwind@00b84812 -- matched in Code/GameEngine/Source/GameNetwork/GameSlotCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078481D 11B Unwind@00b8481d -- matched in Code/GameEngine/Source/GameNetwork/GameSlotCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00784828 14B Unwind@00b84828 -- matched in Code/GameEngine/Source/GameNetwork/GameSlotCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00784836 10B __ehhandler$??0GameSlot@@QAE@XZ -- matched in Code/GameEngine/Source/GameNetwork/GameSlotCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x007848C3 8B Unwind@00b848c3 -- matched in Code/GameEngine/Source/GameNetwork/GameInfoSetMap.cpp (not merged yet)
 

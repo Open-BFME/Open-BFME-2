@@ -32740,7 +32740,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x003FF457,63,code,Code/GameEngine/Source/GameNetwork/GameInfo.cpp,approved,S,S=Code/GameEngine/Source/GameNetwork/GameInfo.cpp N=Code/GameEngine/Source/GameNetwork/GameInfo.cpp,Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp
 0x003FF496,62,code,Code/GameEngine/Source/GameNetwork/GameInfo.cpp,approved,S,S=Code/GameEngine/Source/GameNetwork/GameInfo.cpp N=Code/GameEngine/Source/GameNetwork/GameInfo.cpp,Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp
 0x003FF4D4,56,code,Code/GameEngine/Source/GameNetwork/GameInfo.cpp,approved,C,C=0x003FF496..0x003FF50C,Code/GameEngine/Source/GameNetwork/GameInfo.cpp
-0x003FF50C,230,code,Code/GameEngine/Source/GameNetwork/GameInfo.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/GameInfo.cpp S=Code/GameEngine/Source/GameNetwork/GameInfo.cpp N=Code/GameEngine/Source/GameNetwork/GameSlot.cpp,Code/GameEngine/Source/GameNetwork/GameSlotCtor.cpp
+0x003FF50C,230,code,Code/GameEngine/Source/GameNetwork/GameInfo.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/GameInfo.cpp S=Code/GameEngine/Source/GameNetwork/GameInfo.cpp N=Code/GameEngine/Source/GameNetwork/GameSlot.cpp,Code/GameEngine/Source/GameNetwork/GameInfo.cpp
 0x003FF5F2,36,code,Code/GameEngine/Source/GameNetwork/GameInfo.cpp,approved,S,S=Code/GameEngine/Source/GameNetwork/GameInfo.cpp N=Code/GameEngine/Source/GameNetwork/GameSlot.cpp,Code/GameEngine/Source/GameNetwork/GameInfo.cpp
 0x003FF616,384,code,Code/GameEngine/Source/GameNetwork/GameInfo.cpp,approved,S,S=Code/GameEngine/Source/GameNetwork/GameInfo.cpp N=Code/GameEngine/Source/Common/System/GameSlot.cpp,Code/GameEngine/Source/Common/System/XferEnumHelpers.cpp
 0x003FF796,33,code,Code/GameEngine/Source/GameNetwork/GameInfo.cpp,approved,C,C=0x003FF616..0x003FF7B7,Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp
@@ -32755,7 +32755,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x003FF9B4,46,code,Code/GameEngine/Source/GameNetwork/GameInfo.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/GameInfo.cpp S=Code/GameEngine/Source/GameNetwork/GameInfo.cpp N=Code/GameEngine/Source/GameNetwork/GameInfo.cpp,Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp
 0x003FF9E2,90,code,Code/GameEngine/Source/GameNetwork/GameInfo.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/GameInfo.cpp S=Code/GameEngine/Source/GameNetwork/GameInfo.cpp N=Code/GameEngine/Source/GameNetwork/GameInfo.cpp,Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp
 0x003FFA3C,272,code,Code/GameEngine/Source/GameNetwork/GameInfo.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/GameInfo.cpp S=Code/GameEngine/Source/GameNetwork/GameInfo.cpp N=Code/GameEngine/Source/GameNetwork/SkirmishGameInfo.cpp,Code/GameEngine/Source/GameNetwork/SkirmishGameInfoXfer.cpp
-0x003FFB4C,104,code,Code/GameEngine/Source/GameNetwork/GameInfo.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/GameInfo.cpp S=Code/GameEngine/Source/GameNetwork/GameInfo.cpp N=Code/GameEngine/Source/GameNetwork/GameSlot.cpp,Code/GameEngine/Source/GameNetwork/GameSlotCtor.cpp
+0x003FFB4C,104,code,Code/GameEngine/Source/GameNetwork/GameInfo.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/GameInfo.cpp S=Code/GameEngine/Source/GameNetwork/GameInfo.cpp N=Code/GameEngine/Source/GameNetwork/GameSlot.cpp,Code/GameEngine/Source/GameNetwork/GameInfo.cpp
 0x003FFBB4,116,code,Code/GameEngine/Source/GameNetwork/GameInfo.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/GameInfo.cpp S=Code/GameEngine/Source/GameNetwork/GameInfo.cpp N=Code/GameEngine/Source/GameNetwork/GameSlot.cpp,Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp
 0x003FFC28,399,code,Code/GameEngine/Source/GameNetwork/GameInfo.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/GameInfo.cpp S=Code/GameEngine/Source/GameNetwork/GameInfo.cpp N=Code/GameEngine/Source/GameNetwork/GameSlot.cpp,Code/GameEngine/Source/GameNetwork/GameInfo.cpp
 0x003FFDB7,67,code,Code/GameEngine/Source/GameNetwork/GameInfo.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/GameInfo.cpp S=Code/GameEngine/Source/GameNetwork/GameInfo.cpp N=Code/GameEngine/Source/GameNetwork/GameInfo.cpp,Code/GameEngine/Source/GameNetwork/GameInfo.cpp
@@ -76936,14 +76936,14 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007847CB,13,code,,,-,,Code/GameEngine/Source/Common/Rva003FF02EPowerCap.cpp
 0x007847D8,8,code,,,-,,Code/GameEngine/Source/Common/Rva003FF02EPowerCap.cpp
 0x007847E0,10,code,,,-,,Code/GameEngine/Source/Common/Rva003FF02EPowerCap.cpp
-0x007847EA,11,code,Code/GameEngine/Source/GameNetwork/GameInfo.cpp,approved,P,P=0x003FF50C@FuncInfo0x00930BE8,Code/GameEngine/Source/GameNetwork/GameSlotCtor.cpp
-0x007847F5,10,code,Code/GameEngine/Source/GameNetwork/GameInfo.cpp,approved,P,P=0x003FF50C@FuncInfo0x00930BE8,Code/GameEngine/Source/GameNetwork/GameSlotCtor.cpp
-0x007847FF,8,code,Code/GameEngine/Source/GameNetwork/GameInfo.cpp,approved,P,P=0x003FFB4C@FuncInfo0x00930C2C,Code/GameEngine/Source/GameNetwork/GameSlotCtor.cpp
-0x00784807,11,code,Code/GameEngine/Source/GameNetwork/GameInfo.cpp,approved,P,P=0x003FFB4C@FuncInfo0x00930C2C,Code/GameEngine/Source/GameNetwork/GameSlotCtor.cpp
-0x00784812,11,code,Code/GameEngine/Source/GameNetwork/GameInfo.cpp,approved,P,P=0x003FFB4C@FuncInfo0x00930C2C,Code/GameEngine/Source/GameNetwork/GameSlotCtor.cpp
-0x0078481D,11,code,Code/GameEngine/Source/GameNetwork/GameInfo.cpp,approved,P,P=0x003FFB4C@FuncInfo0x00930C2C,Code/GameEngine/Source/GameNetwork/GameSlotCtor.cpp
-0x00784828,14,code,Code/GameEngine/Source/GameNetwork/GameInfo.cpp,approved,P,P=0x003FFB4C@FuncInfo0x00930C2C,Code/GameEngine/Source/GameNetwork/GameSlotCtor.cpp
-0x00784836,10,code,Code/GameEngine/Source/GameNetwork/GameInfo.cpp,approved,P,P=0x003FFB4C@FuncInfo0x00930C2C,Code/GameEngine/Source/GameNetwork/GameSlotCtor.cpp
+0x007847EA,11,code,Code/GameEngine/Source/GameNetwork/GameInfo.cpp,approved,P,P=0x003FF50C@FuncInfo0x00930BE8,Code/GameEngine/Source/GameNetwork/GameInfo.cpp
+0x007847F5,10,code,Code/GameEngine/Source/GameNetwork/GameInfo.cpp,approved,P,P=0x003FF50C@FuncInfo0x00930BE8,Code/GameEngine/Source/GameNetwork/GameInfo.cpp
+0x007847FF,8,code,Code/GameEngine/Source/GameNetwork/GameInfo.cpp,approved,P,P=0x003FFB4C@FuncInfo0x00930C2C,Code/GameEngine/Source/GameNetwork/GameInfo.cpp
+0x00784807,11,code,Code/GameEngine/Source/GameNetwork/GameInfo.cpp,approved,P,P=0x003FFB4C@FuncInfo0x00930C2C,Code/GameEngine/Source/GameNetwork/GameInfo.cpp
+0x00784812,11,code,Code/GameEngine/Source/GameNetwork/GameInfo.cpp,approved,P,P=0x003FFB4C@FuncInfo0x00930C2C,Code/GameEngine/Source/GameNetwork/GameInfo.cpp
+0x0078481D,11,code,Code/GameEngine/Source/GameNetwork/GameInfo.cpp,approved,P,P=0x003FFB4C@FuncInfo0x00930C2C,Code/GameEngine/Source/GameNetwork/GameInfo.cpp
+0x00784828,14,code,Code/GameEngine/Source/GameNetwork/GameInfo.cpp,approved,P,P=0x003FFB4C@FuncInfo0x00930C2C,Code/GameEngine/Source/GameNetwork/GameInfo.cpp
+0x00784836,10,code,Code/GameEngine/Source/GameNetwork/GameInfo.cpp,approved,P,P=0x003FFB4C@FuncInfo0x00930C2C,Code/GameEngine/Source/GameNetwork/GameInfo.cpp
 0x00784840,8,code,Code/GameEngine/Source/GameNetwork/GameInfo.cpp,approved,P,P=0x003FFC28@FuncInfo0x00930C80,Code/GameEngine/Source/GameNetwork/GameInfo.cpp
 0x00784848,8,code,Code/GameEngine/Source/GameNetwork/GameInfo.cpp,approved,P,P=0x003FFC28@FuncInfo0x00930C80,Code/GameEngine/Source/GameNetwork/GameInfo.cpp
 0x00784850,8,code,Code/GameEngine/Source/GameNetwork/GameInfo.cpp,approved,P,P=0x003FFC28@FuncInfo0x00930C80,Code/GameEngine/Source/GameNetwork/GameInfo.cpp
