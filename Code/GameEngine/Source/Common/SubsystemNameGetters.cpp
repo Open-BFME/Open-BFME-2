@@ -117,7 +117,6 @@ BFME_LITERAL_NAME_GETTER(Rva00226309Named, "SaveMapPreview")
 BFME_LITERAL_NAME_GETTER(Rva002296E6Named, "GameSlot")
 BFME_LITERAL_NAME_GETTER(Rva00229902Named, "LobbyGameInfo")
 BFME_LITERAL_NAME_GETTER(Rva0022CEF1Named, "SaveGameInfo")
-BFME_LITERAL_NAME_GETTER(Rva002431A9Named, "InvisibilityManager")
 class BehaviorModule
 {
 protected:

@@ -1146,6 +1146,16 @@ static const volatile float IdentityDiagonal=1.0f;
 	{ \
 		((StringBase<char> *)&m_str)->set(s); \
 	}
+#define BFME_LITERAL_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	public: \
+		const char *name() const; \
+	}; \
+	const char *NAME::name() const \
+	{ \
+		return TEXT; \
+	}
 
 BFME_DISP8_SAR_AVG_DWORD_GETTER(Rva0023D6F0SarAvgField, 0x5C, 0x58, 2)
 
@@ -3628,6 +3638,43 @@ private:
 	AsciiString m_str;
 };
 
+class Eva
+{
+public:
+	virtual const char *GetSnapshotName() const;
+};
+
+class W3DDebrisDraw
+{
+protected:
+	virtual const char *GetSnapshotName() const;
+};
+
+class FireLogicSystem
+{
+public:
+	virtual const char *GetSnapshotName() const;
+};
+
+class SequentialScript { public: virtual const char *GetSnapshotName(); };
+
+// LargeGroupAudio getter is owned by the complete subsystem unit.
+class GeometryInfo
+{
+public:
+	virtual const char *GetSnapshotName();
+};
+
+class DrawModule
+{
+protected:
+    virtual const char *GetSnapshotName() const;
+};
+
+BFME_LITERAL_NAME_GETTER(Rva002431A9Named, "InvisibilityManager")
+
+// ---- from Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
@@ -6052,6 +6099,21 @@ void Rva0023CF83ByteOneSetter::enable()
 
 Rva0023DC7FFields *Rva0023DC7FFields::clear() { word18=0; return this; }
 
+// ---- from Code/GameEngine/Source/Common/StringFieldOps.cpp
+
+//
+// String field operations: add ecx, <field>; jmp to a rowed StringBase
+// member. Five clear an AsciiString field (StringBase<char>::clear, which is
+// releaseBuffer 0x00036410), two assign one from a C string
+// (StringBase<char>::set(const char *) 0x000055F5), one assigns a
+// UnicodeString field (StringBase<unsigned short>::set 0x00037150). Receivers
+// are unknown; names are per address and no referencing site was found for
+// these in this pass.
+
+Rva0023DC86StringField::~Rva0023DC86StringField()
+{
+}
+
 // tu-skeleton: 0x0023CAE7 69B ?friend_createObject@GameLogic@@QAEPAVObject@@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z -- matched in Code/GameEngine/Source/Common/Thing/ThingFactory_newObject.cpp (not merged yet)
 
 // tu-skeleton: 0x0023CD97 7B ?isGamePaused@GameLogic@@QAEEXZ -- matched in Code/GameEngine/Source/Common/GameEngineNetworkHelpers.cpp (not merged yet)
@@ -6075,21 +6137,6 @@ Rva0023DC7FFields *Rva0023DC7FFields::clear() { word18=0; return this; }
 // tu-skeleton: 0x0023DBC3 54B ??1Rva0023DBC3@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0048C200StringOwnerDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0023DBF9 134B ??0Rva0023C641@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0023C641Write.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/StringFieldOps.cpp
-
-//
-// String field operations: add ecx, <field>; jmp to a rowed StringBase
-// member. Five clear an AsciiString field (StringBase<char>::clear, which is
-// releaseBuffer 0x00036410), two assign one from a C string
-// (StringBase<char>::set(const char *) 0x000055F5), one assigns a
-// UnicodeString field (StringBase<unsigned short>::set 0x00037150). Receivers
-// are unknown; names are per address and no referencing site was found for
-// these in this pass.
-
-Rva0023DC86StringField::~Rva0023DC86StringField()
-{
-}
 
 // tu-skeleton: 0x0023DCCE 122B ?rva0023DCCE@Rva0023DCCE@@QAEXABVAsciiString@@ABUOpaqueRefElement4@@1@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
 
@@ -6191,7 +6238,22 @@ Rva0023DC86StringField::~Rva0023DC86StringField()
 
 // tu-skeleton: 0x00243177 50B ??0Rva000D3FA0Map@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00243177.cpp (not merged yet)
 
-// tu-skeleton: 0x002431A9 6B ?name@Rva002431A9Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/SubsystemNameGetters.cpp
+
+// Subsystem literal name getters: six-byte const members with one shape:
+//
+//     mov eax,<offset string literal> / ret
+//
+// Each body returns a pointer to a NUL-terminated class-name string in
+// .rdata. The vtable at each site carries the body at slot 2 (offset 8)
+// behind a shared pair (slot 0 varies, slot 1 is 0xA9E440) and ahead of
+// class-specific tails, closed by 0x5B5384 -- the Subsystem/Snapshot family
+// pattern. Ported from Open-BFME-1
+// (Code/GameEngine/Source/Common/LiteralNameGetters_01.cpp): the
+// BFME_LITERAL_NAME_GETTER macro is verbatim; only the class names follow
+// this tree's address-derived convention (identity unrecoverable from 6
+// bytes, string carried in source where verify_string_refs re-reads it).
+// No // cl: line (defaults match the frameless 6-byte shape).
 
 // tu-skeleton: 0x002431AF 28B ??_GRva000D3FA0Map@@UAEPAXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00243177.cpp (not merged yet)
 
