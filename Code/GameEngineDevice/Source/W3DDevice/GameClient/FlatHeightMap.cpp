@@ -13,19 +13,14 @@
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"
 #include "../../../../Libraries/Include/Lib/IRegion2D.h"
 #pragma comment(linker, "/alternatename:??1Rva00112291@@UAE@XZ=??1Rva00112291TerrainOwner@@QAE@XZ")
-
 typedef int Int;
-
 typedef bool Bool;
-
 typedef float Real;
-
 class TextureClass
 {
 public:
 	void Release_Ref();	// 0x0061ED10
 };
-
 template <class T>
 class RefCountPtr
 {
@@ -47,10 +42,8 @@ public:
 private:
 	T *Referent;
 };
-
 // The texture handle's copy constructor is the out-of-line 0x000424BB.
 template <> RefCountPtr<TextureClass>::RefCountPtr(const RefCountPtr<TextureClass> &rhs);
-
 class RefCountClass
 {
 public:
@@ -61,7 +54,6 @@ public:
 protected:
 	int NumRefs;
 };
-
 namespace FXShader {
 class RenderingMethod : public RefCountClass
 {
@@ -74,11 +66,8 @@ public:
 	virtual void End(void);	// slot 6
 };
 }
-
 typedef _STL::vector<RefCountPtr<FXShader::RenderingMethod>, _STL::allocator<RefCountPtr<FXShader::RenderingMethod> > > RenderingMethodStackType;
-
 class LightEnvironmentClass;
-
 class RenderInfoClass
 {
 public:
@@ -89,17 +78,13 @@ public:
 	char _bfme_unk_00[0x28];
 	LightEnvironmentClass *light_environment;	// +0x28
 };
-
 // Callees taking the rendering-method stack as (first element, count) around
 // the passes; their identities are not established.
 // Rendering-method stack walkers (element array, count): rows Rva001688FFShift
 // 0x001688FF and Rva00168952Clear 0x00168952 (RenderingMethodLinkArray.cpp).
 class Rva001688FFElement;
-
 void Rva001688FFShift(Rva001688FFElement **items, int count);
-
 void Rva00168952Clear(Rva001688FFElement **items, int count);
-
 class StringClass
 {
 public:
@@ -109,7 +94,6 @@ private:
 	void Free_String();
 	char *m_Buffer;
 };
-
 class ShaderClass
 {
 	friend class DX8Wrapper;
@@ -121,7 +105,6 @@ protected:
 	// shader.h: protected, DX8Wrapper a friend (ShaderClassApply.cpp ?ShaderDirty@ShaderClass@@1_NA).
 	static bool ShaderDirty;
 };
-
 class VertexMaterialClass
 {
 public:
@@ -130,15 +113,12 @@ public:
 	void Release_Ref() { NumRefs--; if (NumRefs == 0) Delete_This(); }
 	int NumRefs;
 };
-
 class TextureBaseClass
 {
 public:
 	void Release_Ref();
 };
-
 struct BFME2TextureResource;
-
 struct BFME2TextureRef
 {
 	BFME2TextureRef(BFME2TextureResource *texture) : Ptr(texture) {}
@@ -149,9 +129,7 @@ struct BFME2TextureRef
 	}
 	BFME2TextureResource *Ptr;
 };
-
 void BFME2Set_Texture(unsigned stage, const BFME2TextureRef &texture);
-
 struct IDirect3DDevice8
 {
 	PAD_STDCALL10(d0) PAD_STDCALL10(d1) PAD_STDCALL10(d2) PAD_STDCALL10(d3) PAD_STDCALL10(d4)
@@ -163,9 +141,7 @@ struct IDirect3DDevice8
 	virtual void __stdcall f105() = 0; virtual void __stdcall f106() = 0;
 	virtual long __stdcall SetPixelShader(void *shader) = 0;	// slot 107
 };
-
 extern unsigned number_of_DX8_calls;
-
 class Vector4
 {
 public:
@@ -178,7 +154,6 @@ public:
 	__forceinline const Real &operator[](int i) const { return (&X)[i]; }
 	Real X, Y, Z, W;
 };
-
 class Vector3
 {
 public:
@@ -188,7 +163,6 @@ public:
 	__forceinline Vector3 &operator=(const Vector3 &vec) { X = vec.X; Y = vec.Y; Z = vec.Z; return *this; }
 	Real X, Y, Z;
 };
-
 class Matrix3D
 {
 public:
@@ -202,7 +176,6 @@ public:
 	__forceinline const Vector4 &operator[](int i) const { return Row[i]; }
 	Vector4 Row[3];
 };
-
 class Matrix4x4
 {
 public:
@@ -220,7 +193,6 @@ public:
 			Vector4(Row[0][3], Row[1][3], Row[2][3], Row[3][3]));
 	}
 };
-
 // DX8Wrapper::render_state (VA 0x00DEE5D8): shader, material (0x00DEE5DC),
 // then the world transform at +0x1EC (0x00DEE7C4).
 struct RenderStateStruct
@@ -230,7 +202,6 @@ struct RenderStateStruct
 	unsigned char m_pad08[0x1EC - 0x08];
 	Matrix4x4 world;
 };
-
 class DX8Wrapper
 {
 public:
@@ -280,7 +251,6 @@ protected:
 	static unsigned int render_state_changed;
 	static RenderStateStruct render_state;
 };
-
 // g_00DEBC60, the road/terrain shader interface (Rva000E19A3Dtor.cpp).
 class Rva000E19A3Interface
 {
@@ -290,13 +260,10 @@ public:
 	virtual void setNormalTexture(RefCountPtr<TextureClass> texture) = 0;
 	virtual void clearTextures() = 0;
 };
-
 extern Rva000E19A3Interface *g_00DEBC60;
-
 // TheTerrainRenderObject's slot 18 returns a state whose +0x14 mode 1 makes
 // the roads draw untextured.
 struct BfmeTerrainRenderState { char m_pad[0x14]; Int m_mode; };
-
 // The rowed base resource hook 0x00066808 (only its slot name is modelled).
 class BaseHeightMapRenderObjClass
 {
@@ -306,9 +273,7 @@ public:
 	void drawScorches(void);
 	void rva000685E2(void);
 };
-
 extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
-
 class BfmeTerrainRenderView
 {
 public:
@@ -348,14 +313,10 @@ public:
 	virtual void s146();
 	virtual Int getRenderingMode();	// slot 147
 };
-
 class Rva000E0EDD { public:bool rva000E0EDD(int cameraIndex); };
-
 struct TerrainTileView { char unknown00[0x64];float distance;char unknown68[0xD4-0x68]; };
-
 // Terrain-system callees of the render coordinator (all rowed).
 class RenderObjClass;
-
 template <class ObjectType> class RefMultiListIterator
 {
 public:
@@ -364,9 +325,7 @@ private:
 	void *List;
 	void *CurNode;
 };
-
 typedef RefMultiListIterator<RenderObjClass> RefRenderObjListIterator;
-
 class RTS3DScene
 {
 public:
@@ -375,35 +334,20 @@ private:
 	char m_pad000[0x114];
 	char m_dynamicLightList[0x10];	// +0x114
 };
-
 class W3DTreeBuffer { public: void setIsTerrain() { m_isTerrainPass = true; } private: char m_pad[0x44555]; Bool m_isTerrainPass; };
-
 class W3DShrubBuffer { public: void setIsTerrain() { m_isTerrainPass = true; } private: char m_pad[0x4FB6D]; Bool m_isTerrainPass; };
-
 class W3DPropBuffer { public: void drawProps(RenderInfoClass &rinfo); };
-
 class W3DBibBuffer { public: void renderBibs(void); };
-
 class W3DFloorBuffer { public: void drawFloors(RenderInfoClass &rinfo, RefCountPtr<FXShader::RenderingMethod> method); };
-
 class W3DWaypointBuffer { public: void drawWaypoints(RenderInfoClass &rinfo); };
-
 class RenderContext;
-
 class Rva000E0856 { public: void render(RenderContext *context); };
-
 class W3DRoadBuffer { public: void drawRoads(RenderInfoClass &rinfo, RefCountPtr<FXShader::RenderingMethod> method, Int minX, Int maxX, Int minY, Int maxY, RefRenderObjListIterator *pDynamicLightsIterator); };
-
 class W3DBridgeBuffer { public: void drawBridges(RenderInfoClass &rinfo, RefCountPtr<FXShader::RenderingMethod> method); };
-
 class TerrainTracksRenderObjClassSystem { public: void flush(void); };
-
 extern TerrainTracksRenderObjClassSystem *TheTerrainTracksRenderObjClassSystem;
-
 class Rva00069DB1 { public: void draw(void); };
-
 void Rva0004CB5FSet(int);
-
 class WorldHeightMap
 {
 public:
@@ -417,7 +361,6 @@ private:
 	int m_height; // +0x0C +0x0C
 	int m_borderSize; // +0x10 +0x10
 };
-
 class BFME2ScopedRenderEvent
 {
 	char Label[256];
@@ -426,7 +369,6 @@ public:
 	BFME2ScopedRenderEvent(const char *label, const char *group, unsigned color);
 	~BFME2ScopedRenderEvent();
 };
-
 class LightClass
 {
 public:
@@ -450,7 +392,6 @@ private:
 	Vector3 Specular;	// +0xEC
 	char m_padF8[0x120 - 0xF8];
 };
-
 class LightEnvironmentClass
 {
 public:
@@ -460,11 +401,8 @@ public:
 private:
 	char m_storage[0x228];
 };
-
 class GlobalData;
-
 extern GlobalData *TheWritableGlobalData;
-
 struct TerrainLightingGlobals
 {
 	char m_pad000[0x3E];
@@ -478,11 +416,8 @@ struct TerrainLightingGlobals
 	char m_pad950[0x988 - 0x950];
 	Int m_numGlobalLights;			// +0x988
 };
-
 class Rva0027070CGlobal;
-
 extern Rva0027070CGlobal *TheCloudEffectManager;
-
 class CloudDimmingView
 {
 public:
@@ -494,15 +429,10 @@ public:
 	virtual void s16(); virtual void s17();
 	virtual Vector3 getDimming();			// slot 18
 };
-
 class WW3D { public: static bool Is_Currently_Rendering_Shadow_Map() { return IsCurrentlyRenderingShadowMap; } private: static bool IsCurrentlyRenderingShadowMap; };
-
 extern bool bfmeOnlyEmissiveDraws;
-
 extern bool bfmeCameraProjectionOverride;
-
 extern unsigned char g_00DFE7A8;
-
 class FlatHeightMapRenderObjClass : public BfmeTerrainRenderView {
 public:
  void renderTerrain(RenderInfoClass&rinfo,int *minX,int *maxX,int *minY,int *maxY);
@@ -535,9 +465,7 @@ private:
  _STL::vector<void*> m_cameras;
  char unknown38C0[0x3938-0x38C0]; RefCountPtr<FXShader::RenderingMethod> m_method;
 };
-
 class WorldHeightMap;
-
 class W3DTerrainBackground
 {
 public:
@@ -547,23 +475,19 @@ public:
 	void rva00115DD2();
 	char m_pad00[0xD4];
 };
-
 struct Rva000E10C0View
 {
 	char m_pad[8];
 	int m_c;
 	int m_d;
 };
-
 class ProgressIndicator
 {
 public:
 	virtual void v0();
 	virtual void apply(int value);
 };
-
 extern ProgressIndicator *BfmeProgressIndicatorHead;
-
 class Rva009EB960
 {
 public:
@@ -583,9 +507,7 @@ public:
 	virtual void v0D();
 	virtual void slot38();
 };
-
 extern Rva009EB960 *Rva0134FAA0;
-
 class Rva000E10C0
 {
 public:
@@ -601,7 +523,6 @@ public:
 	int m_at3890;
 	int m_at3894;
 };
-
 // ?Rva000E1D51Forward@@YAPAVRva00072A94@@PAV1@00PAX@Z, RVA 0x000E1D51, 29B.
 // Forwarder via local tag to rowed copy 0x000E1860. Same 29B shape as
 // Rva00219947Forward and Rva00150265Copy: push ebp/mov ebp esp/push ecx/
@@ -611,15 +532,7 @@ public:
 // dummy tag plus 0; 5-arg overload shares identical 47B body (extra args
 // dead) as in Rva0014FA90Copy precedent. Honest address names.
 class Rva00072A94;
-
 Rva00072A94 *__cdecl Rva000E1860Copy(Rva00072A94 *first, Rva00072A94 *last, Rva00072A94 *dest, void *tag, int extra);
-
-// ??_ERva00112291@@UAEPAXI@Z @0x000E1072 78B.
-// Same shape as ??_ERva001FBF4D: flag bit 1 walks 0xD4 elements via
-// ??_M@YGXPAXIHP6EX0@Z@Z using the count before the array, then operator
-// delete[]; otherwise it calls the element destructor and operator delete.
-// Element destructor 0x00112291 is pinned, not defined.
-
 #include <new>
 
 class Rva00112291
@@ -631,7 +544,45 @@ private:
 	char m_unmodelled_04[0xD4 - 0x04];
 };
 
+class RenderInfoClass;
+
+namespace FXShader { class RenderingMethod; }
+
+struct IRegion2D;
+
+// 0x000B3FD0 is the one-byte empty body the toolchain folds many empties into.
+class Rva000B3FD0
+{
+public:
+	void rva000B3FD0();
+};
+
+class Rva000E3B41
+{
+public:
+	void rva000E1185();
+
+private:
+	unsigned char m_pad0000[0x3888];
+	W3DTerrainBackground *m_tiles;	// +0x3888
+	Int m_numTiles;	// +0x388C
+	Int m_tilesWidth;	// +0x3890
+	Int m_tilesHeight;	// +0x3894
+	unsigned char m_pad3898[0x38C0 - 0x3898];
+	Bool m_camerasMoved;	// +0x38C0
+	unsigned char m_pad38C1[0x3934 - 0x38C1];
+	Int m_updateState;	// +0x3934
+};
+
 // tu-skeleton: 0x000E0F1E 340B ?doPartialUpdate@FlatHeightMapRenderObjClass@@QAEXABUIRegion2D@@PAVWorldHeightMap@@PAVRefRenderObjListIterator@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/FlatHeightMapDoPartialUpdate.cpp (not merged yet)
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/FlatHeightMap.cpp
+
+// ??_ERva00112291@@UAEPAXI@Z @0x000E1072 78B.
+// Same shape as ??_ERva001FBF4D: flag bit 1 walks 0xD4 elements via
+// ??_M@YGXPAXIHP6EX0@Z@Z using the count before the array, then operator
+// delete[]; otherwise it calls the element destructor and operator delete.
+// Element destructor 0x00112291 is pinned, not defined.
 
 // ---- from Code/GameEngine/Source/Common/Rva000E1072.cpp
 
@@ -924,4 +875,76 @@ Rva00072A94 *__cdecl Rva000E1D51Forward(Rva00072A94 *first, Rva00072A94 *last, R
 	return Rva000E1860Copy(first, last, dest, &tag, 0);
 }
 
-// tu-skeleton: 0x000E1185 236B ?rva000E1185@Rva000E3B41@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/FlatHeightMapOnFrameUpdate.cpp (not merged yet)
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/FlatHeightMapOnFrameUpdate.cpp
+
+void Rva000E3B41::rva000E1185()
+{
+	if (g_00DFE7A8)
+		return;
+
+	((Rva000B3FD0 *)this)->rva000B3FD0();
+
+	Int numToUpdate = 0;
+	switch (m_updateState)
+	{
+	case 0:
+		return;
+	case 1:
+		m_updateState = 3;
+		return;
+	case 2:
+		numToUpdate = 1;
+		m_updateState = 3;
+		break;
+	case 3:
+		numToUpdate = 2;
+		break;
+	}
+	if (m_camerasMoved)
+		numToUpdate = 99;
+	if (numToUpdate > 0)
+	{
+		Int i, j;
+		for (i = 0; i < m_tilesWidth; i++)
+		{
+			for (j = 0; j < m_tilesHeight && numToUpdate >= 1; j++)
+			{
+				W3DTerrainBackground *tile = m_tiles + j * m_tilesWidth + i;
+				if (tile->updateTexture())
+					numToUpdate--;
+				tile->rva00115DD2();
+			}
+		}
+		if (numToUpdate >= 1)
+			m_updateState = 0;
+	}
+	m_camerasMoved = false;
+}
+
+// tu-skeleton: 0x000E24C5 281B ?Rva000E24C5ShroudTexture@@YAXPAUID3DXEffect@@PBD@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainTexturePtrGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0076312D 8B Unwind@00b6312d -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainTexturePtrGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00763135 8B $L1314 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainTexturePtrGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0076313D 8B Unwind@00b6313d -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainTexturePtrGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00763145 10B __ehhandler$?Rva000E24C5ShroudTexture@@YAXPAUID3DXEffect@@PBD@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainTexturePtrGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00763252 8B $L7258 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3B41Dtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0076325A 14B uw_0076325a -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3B41Dtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00763268 14B $L7260 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3B41Dtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00763276 14B $L7261 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3B41Dtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00763284 10B __ehhandler$??1Rva000E3B41@@UAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3B41Dtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0076328E 8B $L10518 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3BFEConstructor.cpp (not merged yet)
+
+// tu-skeleton: 0x00763296 14B uw_00763296 -- matched in Code/gen_small/uw_gen_010.cpp (not merged yet)
+
+// tu-skeleton: 0x007632A4 14B $L10520 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3BFEConstructor.cpp (not merged yet)
+
+// tu-skeleton: 0x007632B2 10B __ehhandler$??0Rva000E3B41@@QAE@_N@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3BFEConstructor.cpp (not merged yet)
