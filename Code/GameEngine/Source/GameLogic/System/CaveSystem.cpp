@@ -69,7 +69,9 @@ public:
 class CaveSystem : public SubsystemInterface, public Snapshot
 {
 public:
+	CaveSystem();
 	virtual ~CaveSystem();
+	void reset();
 	TunnelTracker *getTunnelTrackerForCaveIndex(UnsignedInt index);
 	void registerNewCave(Int theIndex);
 	void unregisterCave(Int theIndex);

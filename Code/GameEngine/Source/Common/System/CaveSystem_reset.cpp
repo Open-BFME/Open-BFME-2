@@ -3,14 +3,21 @@
 // ?reset@CaveSystem@@QAEXXZ @0x0042767F 55B.
 // Frees every owned element of the malloc-config pointer vector at +0x10 of the
 // CaveSystem object (the vector its dtor at 0x00427611 releases), then erases the
-// whole range. The element type is open: only a virtual first slot is witnessed
-// (called with 0, so the destructor runs without deleting), followed by the
+// whole range. The virtual first slot runs with flags 0, followed by the
 // scalar operator delete 0x0002FD60 on the returned pointer.
+typedef int Int;
+typedef unsigned int UnsignedInt;
+
+class TunnelTracker;
 #include <vector>
 
-// vector<void*> begin/end/clear are expanded inline here; their out-of-line copies
+// Pointer-vector begin/end/clear are expanded inline here; their out-of-line copies
 // would differ from retail's. Declared imported and force-inlined, they are not emitted.
 namespace _STL {
+template <> __declspec(dllimport) __forceinline
+TunnelTracker **vector<TunnelTracker *>::begin() { return this->_M_start; }
+template <> __declspec(dllimport) __forceinline
+TunnelTracker **vector<TunnelTracker *>::end() { return this->_M_finish; }
 template <> __declspec(dllimport) __forceinline
 void **vector<void *>::begin() { return this->_M_start; }
 template <> __declspec(dllimport) __forceinline
@@ -19,29 +26,44 @@ template <> __declspec(dllimport) __forceinline
 void vector<void *>::clear() { erase(begin(), end()); }
 }
 
-class Rva00427611Element
+class TunnelTracker
 {
 public:
-	virtual void *destroy(int flags);
+	TunnelTracker();
+	virtual ~TunnelTracker();
+	char pad[0x28 - 4];
 };
 
-class CaveSystem
+#include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"
+
+#define BFME_SNAPSHOT_CAPITALIZED_SLOTS
+#include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
+
+class CaveSystem : public SubsystemInterface, public Snapshot
 {
 public:
+	CaveSystem();
+	virtual ~CaveSystem();
 	void reset();
+	TunnelTracker *getTunnelTrackerForCaveIndex(UnsignedInt index);
+	void registerNewCave(Int theIndex);
+	void unregisterCave(Int theIndex);
+	virtual void crc(Xfer *xfer) {}
+	virtual void DoXfer(Xfer *xfer);
+	virtual void LoadPostProcess() {}
+
 private:
-	char m_pad00[0x10];
-	_STL::vector<void *> m_elements;
+	_STL::vector<TunnelTracker *> m_tunnelTrackerVector;
 };
 
 void CaveSystem::reset()
 {
-	for (void **it = m_elements.begin(); it != m_elements.end(); ++it)
+	for (_STL::vector<TunnelTracker *>::iterator it = m_tunnelTrackerVector.begin(); it != m_tunnelTrackerVector.end(); ++it)
 	{
 		if (*it)
 		{
-			::operator delete(static_cast<Rva00427611Element *>(*it)->destroy(0));
+			::delete *it;
 		}
 	}
-	m_elements.clear();
+	reinterpret_cast<_STL::vector<void *> *>(&m_tunnelTrackerVector)->clear();
 }
