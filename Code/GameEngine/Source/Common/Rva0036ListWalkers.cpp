@@ -18,6 +18,8 @@
 //
 
 #include <windows.h>
+#include "../../../Libraries/Include/Lib/Coord3D.h"
+#include "../../../Libraries/Include/Lib/Coord2D.h"
 
 typedef unsigned int UnsignedInt;
 
@@ -98,12 +100,93 @@ public:
 	virtual Rva0036D6B4Ret *slot7C();
 };
 
+enum CommandSourceType
+{
+ CMD_FROM_PLAYER = 0,
+ CMD_FROM_SCRIPT = 1,
+ CMD_FROM_AI = 2
+};
+class AIGroup;
+class Player;
+template<int N> class BitFlags;
+class AIUpdateInterface;
+class CommandButton;
+struct Coord3D;
+class Coord2D;
+class Rva00373EC6;
+class ThingTemplate;
+class SpecialPowerModuleInterface;
+class SpecialPowerTemplate;
+class AsciiString;
+class Provider250;
 class Object
 {
 public:
+	friend class AIGroup;
+	bool isMobile() const;
+	Player *getControllingPlayer(void) const;
+	bool isAnyKindOf(const BitFlags<69> &mask) const;
+	const AIUpdateInterface *getAIUpdateInterface() const
+	{
+	 return m_ai;
+	}
+	void doCommandButtonAtPosition(const CommandButton *commandButton, const Coord3D *pos, int cmdSource, int bfmeArg);
+	void rva00297000(const CommandButton *commandButton, Object *obj, int cmdSource, int bfmeArg);
+	void doCommandButtonAtPosition(const CommandButton *commandButton, const Coord3D *pos, CommandSourceType cmdSource)
+	{
+	 doCommandButtonAtPosition(commandButton, pos, cmdSource, 0);
+	}
+	void doCommandButtonAtObject(const CommandButton *commandButton, Object *obj, CommandSourceType cmdSource)
+	{
+	 rva00297000(commandButton, obj, cmdSource, 0);
+	}
+	const Coord2D *getFormationOffset() const
+	{
+	 return &m_formationOffset;
+	}
+	void teleportTo(const Coord3D *pos, bool flags);
+	__declspec(dllimport) __forceinline void rva0029660C(const Coord3D *pos, int flags)
+	{
+	 (this->*reinterpret_cast<void (Object::*)(const Coord3D *, int)>(&Object::teleportTo))(pos, flags);
+	}
+	Rva00373EC6 *rva0028F4BC();
+	const ThingTemplate *getTemplate() const
+	{
+	 return m_template;
+	}
+	const Coord3D *getPosition() const
+	{
+	 return &m_pos;
+	}
+	AIUpdateInterface *getAI() const
+	{
+	 return m_ai;
+	}
+	int isDisabledHeld() const
+	{
+	 return m_disabled1C8 & 0x08;
+	}
 	void rva0028AD32();
-	unsigned char m_pad00[0x250];
-	Rva0036D6B4Iface *m_250; // +0x250 (unproven; positional)
+	void rva0028ACEE(int pos, int layer);
+	void *rva0028BC58(int arg);
+	SpecialPowerModuleInterface *getSpecialPowerModule(const SpecialPowerTemplate *spTemplate) const;
+	const AsciiString &getCommandSetString(void) const;
+	char m_pad00[0x4];
+private:
+	const ThingTemplate *m_template; // +0x04
+	char m_pad08[0x30];
+	Coord3D m_pos; // +0x38
+	char m_pad44[0x184];
+	unsigned char m_disabled1C8; // +0x1C8
+	char m_pad1C9[0x87];
+public:
+	Provider250 *m_provider250; // +0x250 (interface identity unproven; positional) +0x250
+	char m_pad254[0x4];
+	AIUpdateInterface *m_ai; // +0x258
+	char m_pad25C[0x1B4];
+	int m_formationID; // +0x410
+private:
+	Coord2D m_formationOffset; // +0x414
 };
 
 struct RvaListNode
@@ -119,9 +202,8 @@ public:
 	void rva0036E474(Rva0036E474Ref ref);
 	void rva0036DC46(int unused);
 	void rva0036D6B4();
-
+	char m_pad00[0x4];
 private:
-	char m_pad00[4];
 	RvaListNode *m_head; // +0x04
 };
 
@@ -143,7 +225,7 @@ void Rva0036ListOwner::rva0036D6B4()
 	for (RvaListNode *node = m_head->m_next; node != m_head; node = node->m_next) {
 		Object *object = (Object *)node->m_payload;
 		object->rva0028AD32();
-		Rva0036D6B4Iface *ifc = object->m_250;
+		Rva0036D6B4Iface *ifc = (Rva0036D6B4Iface *)object->m_provider250;
 		if (ifc != NULL) {
 			Rva0036D6B4Ret *r = ifc->slot7C();
 			if (r != NULL)

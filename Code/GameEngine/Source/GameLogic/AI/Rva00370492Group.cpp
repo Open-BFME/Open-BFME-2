@@ -15,10 +15,65 @@ enum CommandSourceType
 	CMD_FROM_AI = 2
 };
 
+enum GuardMode
+{
+ GUARDMODE_NORMAL = 0,
+ GUARDMODE_DUMMY = 0
+};
+class Rva0035149F;
+class Object;
+class Team;
+struct Coord3D;
+class Waypoint;
+class Rva003427DD;
+struct AICommandParms;
+class Rva0035149F;
+class Object;
+class Team;
+struct Coord3D;
+class Waypoint;
+class Rva003427DD;
+class PolygonTrigger;
+struct AICommandParms;
 class AICommandInterface
 {
 public:
+	void aiIdle(CommandSourceType);
+	void rva0036EE16(const Rva0035149F *path, Object *ignoreObject, CommandSourceType cmdSource);
+	void aiAttackTeam(const Team *team, int maxShotsToFire, CommandSourceType cmdSource);
+	void aiHunt(CommandSourceType cmdSource);
+	void rva0036EC1D(Object*,CommandSourceType);
+	void aiAttackPosition(const Coord3D *, int, CommandSourceType);
+	void aiForceAttackObject(Object*,int,CommandSourceType);
+	void rva0026C2D9(Object*,int,CommandSourceType);
+	void rva0036EFF5(Object*,CommandSourceType);
+	void aiTightenToPosition(const Coord3D *pos, CommandSourceType cmdSource);
+	void aiFollowPathAppend(const Coord3D *pos, CommandSourceType cmdSource);
+	void aiFollowWaypointPath(const Waypoint *waypoint, CommandSourceType cmdSource);
+	void aiFollowWaypointPathExact(const Waypoint *waypoint, CommandSourceType cmdSource);
+	void aiMoveToAndEvacuate(const Coord3D *pos, CommandSourceType cmdSource);
+	void aiEvacuate(bool exposeStealthUnits, CommandSourceType cmdSource);
+	void aiMoveToAndEvacuateAndExit(const Coord3D *pos, CommandSourceType cmdSource);
+	void rva0036F19B(Object *obj, CommandSourceType cmdSource);
+	void aiResumeConstruction(Object *obj, CommandSourceType cmdSource);
+	void aiGetHealed(Object *obj, CommandSourceType cmdSource);
+	void aiGetRepaired(Object *obj, CommandSourceType cmdSource);
+	void aiDock(Object *obj, CommandSourceType cmdSource);
+	void aiHarvest(const Coord3D *pos, CommandSourceType cmdSource);
+	void aiExit(Object *objectToExit, CommandSourceType cmdSource);
+	void aiGoProne(const Rva003427DD *arg, CommandSourceType cmdSource);
+	void aiFollowWaypointPathAsTeam(const Waypoint *waypoint, CommandSourceType cmdSource);
+	void aiBfmeCommand33(const Waypoint *waypoint, CommandSourceType cmdSource);
+	void rva0026C347(Object *target, CommandSourceType source);
+	void aiGuardPosition(const Coord3D *pos, GuardMode mode, CommandSourceType cmdSource);
+	void aiGuardObject(Object *obj, int x, CommandSourceType cmdSource);
+	void rva0036F54D(const Team *team, int x, CommandSourceType cmdSource);
 	void aiGuardArea(const PolygonTrigger *trigger, int x, CommandSourceType cmdSource);
+	void aiGuardAreaFromPosition(const PolygonTrigger *trigger, int x, CommandSourceType cmdSource, const Coord3D *coord);
+	void aiAttackArea(const PolygonTrigger *area, CommandSourceType cmd);
+	void rva0036F6A7(float angle, CommandSourceType cmdSource);
+	void aiMoveToPosition(const Coord3D *pos, CommandSourceType cmdSource);
+	virtual void aiDoCommand(const struct AICommandParms *parms);
 };
 
 class AIUpdateInterface

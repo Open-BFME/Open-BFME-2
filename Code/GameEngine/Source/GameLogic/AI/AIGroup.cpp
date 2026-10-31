@@ -56,8 +56,7 @@ enum CommandSourceType
  CMD_FROM_PLAYER = 0,
  CMD_FROM_SCRIPT = 1,
  CMD_FROM_AI = 2
-}
-;
+};
 enum PathfindLayerEnum
 {
  LAYER_INVALID = 0,
@@ -65,21 +64,18 @@ enum PathfindLayerEnum
  LAYER_GROUND = 1,
  DestinationLayerGround = 1,
  DestinationLayerRamp = 16
-}
-;
+};
 enum GuardMode
 {
  GUARDMODE_NORMAL = 0,
  GUARDMODE_DUMMY = 0
-}
-;
+};
 enum IterOrderType
 {
  ITER_FASTEST = 0,
  ITER_SORTED_NEAR_TO_FAR = 1,
  ITER_SORTED_FAR_TO_NEAR = 2
-}
-;
+};
 #include <vector>
 #include <list>
 namespace _STL {template<class T,class L,class R> static __forceinline bool operator!=(const _List_iterator<T,L>&a,const _List_iterator<T,R>&b){return a._M_node!=b._M_node;}}
@@ -97,26 +93,33 @@ template _STL::_Vector_base<Coord3D,_STL::allocator<Coord3D> >::_Vector_base(con
 class Rva0035149F;
 class LocomotorSet;
 class Object;
-class Rva00373EC6 { public: void rva00374815(); };
+class Rva00373EC6ModuleData;
+class Rva00373EC6
+{
+public:
+	void rva00374815();
+	char m_pad00[0x4];
+	Rva00373EC6ModuleData *m_moduleData; // +0x04
+};
 class PathNode
 {
- public:
- PathNode *getNextOptimized() const
- {
-  return m_nextOpti;
- }
- const Coord3D *getPosition() const
- {
-  return &m_pos;
- }
- private:
- char m_pad00[0x08];
- PathNode *m_nextOpti;
-// +0x08
- Coord3D m_pos;
-// +0x0C
-}
-;
+public:
+	PathNode *getNextOptimized() const
+	{
+	 return m_nextOpti;
+	}
+	const Coord3D *getPosition() const
+	{
+	 return &m_pos;
+	}
+	// Keep traversal inline without emitting another PathNode accessor body.
+	__declspec(dllimport) __forceinline PathNode *getNext() { return m_nextOpti; }
+	char m_pad00[0x8];
+private:
+	PathNode *m_nextOpti; // +0x08
+	// +0x08
+	Coord3D m_pos; // +0x0C
+};
 class Path
 {
  public:
@@ -135,16 +138,60 @@ class Path
 // +0x04
  PathNode *m_pathTail;
 // +0x08
-}
-;
+};
+class Team;
+class Waypoint;
+class Rva003427DD;
+class PolygonTrigger;
+struct AICommandParms;
+class Rva0035149F;
+class Object;
+class Team;
+struct Coord3D;
+class Waypoint;
+class Rva003427DD;
+class PolygonTrigger;
+struct AICommandParms;
 class AICommandInterface
 {
- public:
- void aiIdle(CommandSourceType);
- void rva0036EE16(const Rva0035149F *path, Object *ignoreObject, CommandSourceType cmdSource);
-// aiFollowPath
-}
-;
+public:
+	void aiIdle(CommandSourceType);
+	void rva0036EE16(const Rva0035149F *path, Object *ignoreObject, CommandSourceType cmdSource);
+	void aiAttackTeam(const Team *team, int maxShotsToFire, CommandSourceType cmdSource);
+	void aiHunt(CommandSourceType cmdSource);
+	void rva0036EC1D(Object*,CommandSourceType);
+	void aiAttackPosition(const Coord3D *, int, CommandSourceType);
+	void aiForceAttackObject(Object*,int,CommandSourceType);
+	void rva0026C2D9(Object*,int,CommandSourceType);
+	void rva0036EFF5(Object*,CommandSourceType);
+	void aiTightenToPosition(const Coord3D *pos, CommandSourceType cmdSource);
+	void aiFollowPathAppend(const Coord3D *pos, CommandSourceType cmdSource);
+	void aiFollowWaypointPath(const Waypoint *waypoint, CommandSourceType cmdSource);
+	void aiFollowWaypointPathExact(const Waypoint *waypoint, CommandSourceType cmdSource);
+	void aiMoveToAndEvacuate(const Coord3D *pos, CommandSourceType cmdSource);
+	void aiEvacuate(bool exposeStealthUnits, CommandSourceType cmdSource);
+	void aiMoveToAndEvacuateAndExit(const Coord3D *pos, CommandSourceType cmdSource);
+	void rva0036F19B(Object *obj, CommandSourceType cmdSource);
+	void aiResumeConstruction(Object *obj, CommandSourceType cmdSource);
+	void aiGetHealed(Object *obj, CommandSourceType cmdSource);
+	void aiGetRepaired(Object *obj, CommandSourceType cmdSource);
+	void aiDock(Object *obj, CommandSourceType cmdSource);
+	void aiHarvest(const Coord3D *pos, CommandSourceType cmdSource);
+	void aiExit(Object *objectToExit, CommandSourceType cmdSource);
+	void aiGoProne(const Rva003427DD *arg, CommandSourceType cmdSource);
+	void aiFollowWaypointPathAsTeam(const Waypoint *waypoint, CommandSourceType cmdSource);
+	void aiBfmeCommand33(const Waypoint *waypoint, CommandSourceType cmdSource);
+	void rva0026C347(Object *target, CommandSourceType source);
+	void aiGuardPosition(const Coord3D *pos, GuardMode mode, CommandSourceType cmdSource);
+	void aiGuardObject(Object *obj, int x, CommandSourceType cmdSource);
+	void rva0036F54D(const Team *team, int x, CommandSourceType cmdSource);
+	void aiGuardArea(const PolygonTrigger *trigger, int x, CommandSourceType cmdSource);
+	void aiGuardAreaFromPosition(const PolygonTrigger *trigger, int x, CommandSourceType cmdSource, const Coord3D *coord);
+	void aiAttackArea(const PolygonTrigger *area, CommandSourceType cmd);
+	void rva0036F6A7(float angle, CommandSourceType cmdSource);
+	void aiMoveToPosition(const Coord3D *pos, CommandSourceType cmdSource);
+	virtual void aiDoCommand(const struct AICommandParms *parms);
+};
 #define PAD_VIRTUALS10(p) \
 	virtual void p##0(); virtual void p##1(); virtual void p##2(); virtual void p##3(); virtual void p##4(); \
 	virtual void p##5(); virtual void p##6(); virtual void p##7(); virtual void p##8(); virtual void p##9();
@@ -154,7 +201,7 @@ class AIUpdateInterface
  PAD_VIRTUALS10(a0) PAD_VIRTUALS10(a1) PAD_VIRTUALS10(a2) PAD_VIRTUALS10(a3) PAD_VIRTUALS10(a4)
  PAD_VIRTUALS10(a5) PAD_VIRTUALS10(a6) PAD_VIRTUALS10(a7) PAD_VIRTUALS10(a8) PAD_VIRTUALS10(a9)
  PAD_VIRTUALS10(b0)
- virtual void b10(); virtual void b11(); virtual void b12(); virtual Bool pred113() const; virtual void b14(); virtual void b15(); virtual void b16(); virtual void b17(); virtual void b18(); virtual void b19();
+ virtual void b10(); virtual void b11(); virtual void b12(); virtual bool pred113() const; virtual void b14(); virtual void b15(); virtual void b16(); virtual void b17(); virtual void b18(); virtual void b19();
  PAD_VIRTUALS10(b2)
  virtual void c0();
  virtual void c1();
@@ -163,17 +210,17 @@ class AIUpdateInterface
  virtual void c4();
  virtual void c5();
  virtual void c6();
- virtual Bool isDoingGroundMovement() const;
+ virtual bool isDoingGroundMovement() const;
 // slot 137
  AICommandInterface *getCommandInterface()
  {
-  return (AICommandInterface *)m_command;
+  return &m_commands;
  }
- Int getTmpValue() const
+ int getTmpValue() const
  {
   return m_tmpInt;
  }
- void setTmpValue(Int val)
+ void setTmpValue(int val)
  {
   m_tmpInt = val;
  }
@@ -183,16 +230,17 @@ class AIUpdateInterface
  }
  private:
  char m_pad004[0x20 - 0x04];
- char m_command[0x04];
+ public:
+ AICommandInterface m_commands;
+ private:
 // +0x20 AICommandInterface
  char m_pad024[0x1CC - 0x24];
  char m_locomotorSet[0x04];
 // +0x1CC
  char m_pad1D0[0x23C - 0x1D0];
- Int m_tmpInt;
+ int m_tmpInt;
 // +0x23C
-}
-;
+};
 class ThingTemplate
 {
  public:
@@ -209,8 +257,7 @@ class ThingTemplate
  char m_pad10A[3];
  unsigned char m_kindOf10D;
 // +0x10D
-}
-;
+};
 class SimpleObjectIterator
 {
  public:
@@ -224,14 +271,14 @@ class SimpleObjectIterator
  void sort(IterOrderType order);
  private:
  char m_pad04[0x3C - 0x04];
-}
-;
+};
 class Pathfinder
 {
- public:
- Bool AdjustDestination(Object *obj, const LocomotorSet &locomotorSet, Coord3D *dest, const Coord3D *groupDest);
-}
-;
+public:
+	bool AdjustDestination(Object *obj, const LocomotorSet &locomotorSet, Coord3D *dest, const Coord3D *groupDest);
+	bool IsLineBlocked(void *obj, void *surfaces, PathfindLayerEnum layer, const Coord3D *from, const Coord3D *to);
+	Path *FindGroundPath(Object *obj, const Coord3D *from, const Coord3D *to, int pathDiameter);
+};
 class AI
 {
  public:
@@ -243,8 +290,7 @@ class AI
  char m_pad00[0x10];
  Pathfinder *m_pathfinder;
 // +0x10
-}
-;
+};
 extern AI *TheAI;
 class TerrainLogic
 {
@@ -259,16 +305,14 @@ class TerrainLogic
  virtual Real getLayerHeight(Real x, Real y, PathfindLayerEnum layer, Coord3D *normal, Bool clip);
 // slot 7
  PathfindLayerEnum getLayerForDestination(Object *obj, const Coord3D *pos);
-}
-;
+};
 extern TerrainLogic *TheTerrainLogic;
 struct BfmeListNode
 {
  BfmeListNode *m_next;
  BfmeListNode *m_prev;
  Object *m_data;
-}
-;
+};
 #define PATHFIND_CELL_SIZE_F 10.0f
 #define PATH_DIAMETER_IN_CELLS 4
 #include <math.h>
@@ -383,101 +427,71 @@ class Object
 {
 public:
 	friend class AIGroup;
-public:
 	bool isMobile() const;
-public:
 	Player *getControllingPlayer(void) const;
-public:
 	bool isAnyKindOf(const BitFlags<69> &mask) const;
-public:
 	const AIUpdateInterface *getAIUpdateInterface() const
- {
-  return m_ai;
- }
-public:
+	{
+	 return m_ai;
+	}
 	void doCommandButtonAtPosition(const CommandButton *commandButton, const Coord3D *pos, int cmdSource, int bfmeArg);
-public:
 	void rva00297000(const CommandButton *commandButton, Object *obj, int cmdSource, int bfmeArg);
-public:
 	void doCommandButtonAtPosition(const CommandButton *commandButton, const Coord3D *pos, CommandSourceType cmdSource)
- {
-  doCommandButtonAtPosition(commandButton, pos, cmdSource, 0);
- }
-public:
+	{
+	 doCommandButtonAtPosition(commandButton, pos, cmdSource, 0);
+	}
 	void doCommandButtonAtObject(const CommandButton *commandButton, Object *obj, CommandSourceType cmdSource)
- {
-  rva00297000(commandButton, obj, cmdSource, 0);
- }
-public:
+	{
+	 rva00297000(commandButton, obj, cmdSource, 0);
+	}
 	const Coord2D *getFormationOffset() const
- {
-  return &m_formationOffset;
- }
-public:
+	{
+	 return &m_formationOffset;
+	}
 	void teleportTo(const Coord3D *pos, bool flags);
-public:
 	__declspec(dllimport) __forceinline void rva0029660C(const Coord3D *pos, int flags)
- {
-  (this->*reinterpret_cast<void (Object::*)(const Coord3D *, int)>(&Object::teleportTo))(pos, flags);
- }
-public:
+	{
+	 (this->*reinterpret_cast<void (Object::*)(const Coord3D *, int)>(&Object::teleportTo))(pos, flags);
+	}
 	Rva00373EC6 *rva0028F4BC();
-public:
 	const ThingTemplate *getTemplate() const
- {
-  return m_template;
- }
-public:
+	{
+	 return m_template;
+	}
 	const Coord3D *getPosition() const
- {
-  return &m_pos;
- }
-public:
+	{
+	 return &m_pos;
+	}
 	AIUpdateInterface *getAI() const
- {
-  return m_ai;
- }
-public:
-	Int isDisabledHeld() const
- {
-  return m_disabled1C8 & 0x08;
- }
-public:
+	{
+	 return m_ai;
+	}
+	int isDisabledHeld() const
+	{
+	 return m_disabled1C8 & 0x08;
+	}
 	void rva0028AD32();
-public:
-	void rva0028ACEE(int pos, Int layer);
-private:
-	char m_pad000[0x04];
-private:
-	const ThingTemplate *m_template;
-private:
-	char m_pad008[0x38 - 0x08];
-private:
-	Coord3D m_pos;
-private:
-	char m_pad044[0x1C8 - 0x44];
-private:
-	unsigned char m_disabled1C8;
-private:
-	char m_pad1C9[0x250 - 0x1C9];
-private:
-	Provider250 *m_provider250;
-private:
-	char m_pad254[0x258 - 0x254];
-private:
-	AIUpdateInterface *m_ai;
-private:
-	char m_pad25C[0x414 - 0x25C];
-private:
-	Coord2D m_formationOffset;
-public:
+	void rva0028ACEE(int pos, int layer);
 	void *rva0028BC58(int arg);
-public:
 	SpecialPowerModuleInterface *getSpecialPowerModule(const SpecialPowerTemplate *spTemplate) const;
-public:
 	const AsciiString &getCommandSetString(void) const;
-}
-;
+	char m_pad00[0x4];
+private:
+	const ThingTemplate *m_template; // +0x04
+	char m_pad08[0x30];
+	Coord3D m_pos; // +0x38
+	char m_pad44[0x184];
+	unsigned char m_disabled1C8; // +0x1C8
+	char m_pad1C9[0x87];
+public:
+	Provider250 *m_provider250; // +0x250 (interface identity unproven; positional) +0x250
+	char m_pad254[0x4];
+	AIUpdateInterface *m_ai; // +0x258
+	char m_pad25C[0x1B4];
+	int m_formationID; // +0x410
+private:
+	Coord2D m_formationOffset; // +0x414
+};
 
 extern ControlBar *TheControlBar;
 
@@ -590,14 +604,12 @@ public:
 	void cohereAttackState();
 public:
 	void rva00372C05();
-}
-;
+};
 
 class AIGroup;
 
 class CommandButton;
 
-struct Coord3D;
 
 // tu-skeleton: 0x0036CBF9 129B ?rotateOffset@AIGroup@@SAXPBUCoord3D@@0PAVCoord2D@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupMoveFormation.cpp (not merged yet)
 
