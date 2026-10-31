@@ -17323,7 +17323,7 @@ _VP60D_GetVersionNumber,,0x001B5830,6,Code/Libraries/Source/VP6/PbAccessors.cpp,
 ?get@Rva0026FDC0FloatChase32Field@@QBEMXZ,,0x0026FDC0,10,Code/GameEngine/Source/Common/Disp8FloatChaseGetters.cpp,matched,disp8 float-chase getter with disp32 inner; phase-proven no-branch-to-addr
 ?get@Rva0033F8ACFloatChase32Field@@QBEMXZ,,0x0033F8AC,10,Code/GameEngine/Source/Common/Disp8FloatChaseGetters.cpp,matched,disp8 float-chase getter with disp32 inner; phase-proven no-branch-to-addr
 ?get@Rva0033F8B6FloatChase32Field@@QBEMXZ,,0x0033F8B6,10,Code/GameEngine/Source/Common/Disp8FloatChaseGetters.cpp,matched,disp8 float-chase getter with disp32 inner; phase-proven no-branch-to-addr
-?get@Rva00460C73FloatChase32Field@@QBEMXZ,,0x00460C73,10,Code/GameEngine/Source/Common/Disp8FloatChaseGetters.cpp,matched,disp8 float-chase getter with disp32 inner; phase-proven no-branch-to-addr
+?get@Rva00460C73FloatChase32Field@@QBEMXZ,,0x00460C73,10,Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviour.cpp,matched,disp8 float-chase getter with disp32 inner; phase-proven no-branch-to-addr
 ?get@Rva004BB976FloatChase32Field@@QBEMXZ,,0x004BB976,10,Code/GameEngine/Source/Common/Disp8FloatChaseGetters.cpp,matched,disp8 float-chase getter with disp32 inner; phase-proven no-branch-to-addr
 ?get@Rva00203BDAByteField@@QBEEXZ,,0x00203BDA,7,Code/GameEngine/Source/Common/Disp32ByteGetters.cpp,matched,disp32 byte getter; phase-proven no-branch-to-addr
 ?get@Rva002259E8ByteField@@QBEEXZ,,0x002259E8,7,Code/GameEngine/Source/Common/Disp32ByteGetters.cpp,matched,disp32 byte getter; phase-proven no-branch-to-addr

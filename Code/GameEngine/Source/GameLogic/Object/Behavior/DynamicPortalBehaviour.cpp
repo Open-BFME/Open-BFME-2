@@ -108,6 +108,39 @@ template void _STL::_Construct<ConstructProbeSciVec, ConstructProbeSciVec>(Const
 template void _STL::_Construct<ConstructProbeCoordList, ConstructProbeCoordList>(ConstructProbeCoordList *, const ConstructProbeCoordList &);
 template void _STL::_Construct<ConstructProbePairC, ConstructProbePairC>(ConstructProbePairC *, const ConstructProbePairC &);
 #include "../../../../Include/Common/Rva0007DF07.h"
+#define BFME_DISP8_FLOATCHASE_GETTER(NAME, DISP1, DISP2) \
+	class NAME \
+	{ \
+	public: \
+		float get() const; \
+		char m_lead[DISP1]; \
+		void *m_ptr; \
+	}; \
+	float NAME::get() const \
+	{ \
+		return *(float *)((char *)m_ptr + DISP2); \
+	}
+#define BFME_DISP8_FLOATCHASE_BEFORE_GETTER(NAME, BACK, INNER) \
+	class Inner##NAME \
+	{ \
+	public: \
+		char m_lead[INNER]; \
+		float m_value; \
+	}; \
+	class Sub##NAME \
+	{ \
+	public: \
+		Inner##NAME *m_holder; \
+	}; \
+	class NAME \
+	{ \
+	public: \
+		float get() const; \
+	}; \
+	float NAME::get() const \
+	{ \
+		return ((const Sub##NAME *)((const char *)this - (BACK)))->m_holder->m_value; \
+	}
 
 //
 // ?xfer@DynamicPortalBehaviour@@MAEXPAVXfer@@@Z, retail 0x004609BC, 201 bytes.
@@ -201,20 +234,6 @@ public:
 class AIUpdateInterface;
 
 class Matrix3D;
-
-class Object
-{
-public:
-	void *rva0028BCF4() const;
-	AIUpdateInterface *getAI() const { return m_ai; }
-	int getMultiLogicalBonePosition(const char *,int,Coord3D *,Matrix3D *,bool,int) const;
-	const Coord3D *getPosition() const { return &position; }
-	char pad[0x38];
-	Coord3D position;	// +0x38
-private:
-	unsigned char m_pad044[0x258 - 0x44];
-	AIUpdateInterface *m_ai;	// +0x258
-};
 
 // Existing 12-byte BfmeRadarWorldPoint view owns the byte-and-relocation-twin
 // empty coordinate callbacks 0x0047A6A9/0x000B3FD0.
@@ -519,6 +538,34 @@ private:
 	ConstructProbePair m_value;
 };
 
+BFME_DISP8_FLOATCHASE_GETTER(Rva00460C73FloatChase32Field, 0x4, 0x150)
+
+class Object
+{
+public:
+	void *rva0028BCF4() const;
+public:
+	AIUpdateInterface *getAI() const { return m_ai; }
+public:
+	int getMultiLogicalBonePosition(const char *,int,Coord3D *,Matrix3D *,bool,int) const;
+public:
+	const Coord3D *getPosition() const { return &position; }
+public:
+	char pad[0x38];
+public:
+	Coord3D position;
+private:
+	unsigned char m_pad044[0x258 - 0x44];
+private:
+	AIUpdateInterface *m_ai;
+public:
+	float rva0028ED19(const Coord3D *a, const void *other, const Coord3D *b) const;
+public:
+	float rva0044E6B8(const Object *other) const;
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviour.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviour.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviour.cpp
@@ -716,25 +763,15 @@ bool DynamicPortalBehaviour::IsEndPortalAboveWall(Coord3D *out)
 // backward cast, which MSVC folds to `mov eax,[ecx-BACK]`; same shape and
 // reading as BFME1's ChainedFieldGetters.
 
-// tu-skeleton: 0x00460A85 19B ?bfmeGoEBC@BfmeThingEBC@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/BfmeConv802.cpp (not merged yet)
 
-// tu-skeleton: 0x00460A98 10B ?requiresAllActivationUpgrades@UpgradeModule@@MBE_NXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesU.cpp (not merged yet)
 
-// tu-skeleton: 0x00460AAC 39B ?getUpgradeActivationMasks@UpgradeModule@@MBEXAAUUpgradeMaskType@@0@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesU.cpp (not merged yet)
 
-// tu-skeleton: 0x00460AD3 15B ?performUpgradeFX@UpgradeModule@@MAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesU.cpp (not merged yet)
 
-// tu-skeleton: 0x00460AEC 94B ??0UpgradeModule@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/UpgradeModuleCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x00460B4A 6B ?Rva00460B4AGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
-// tu-skeleton: 0x00460B6C 97B ??0DynamicPortalBehaviour@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviourCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x00460BCD 6B ?Rva00460BCDGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
-// tu-skeleton: 0x00460C73 10B ?get@Rva00460C73FloatChase32Field@@QBEMXZ -- matched in Code/GameEngine/Source/Common/Disp8FloatChaseGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x00460CBA 288B ?rva00460CBA@DynamicPortalBehaviour@@QAEXPAUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderFootprintAttackRangeQuery.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp
 
@@ -762,6 +799,40 @@ void Rva00460F18Construct(void *dest, const void *source)
 {
     ::new (dest) ConstructProbeVec(*static_cast<const ConstructProbeVec *>(source));
 }
+
+// tu-skeleton: 0x00460A85 19B ?bfmeGoEBC@BfmeThingEBC@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/BfmeConv802.cpp (not merged yet)
+
+// tu-skeleton: 0x00460A98 10B ?requiresAllActivationUpgrades@UpgradeModule@@MBE_NXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesU.cpp (not merged yet)
+
+// tu-skeleton: 0x00460AAC 39B ?getUpgradeActivationMasks@UpgradeModule@@MBEXAAUUpgradeMaskType@@0@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesU.cpp (not merged yet)
+
+// tu-skeleton: 0x00460AD3 15B ?performUpgradeFX@UpgradeModule@@MAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesU.cpp (not merged yet)
+
+// tu-skeleton: 0x00460AEC 94B ??0UpgradeModule@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/UpgradeModuleCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00460B4A 6B ?Rva00460B4AGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x00460B6C 97B ??0DynamicPortalBehaviour@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviourCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00460BCD 6B ?Rva00460BCDGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Disp8FloatChaseGetters.cpp
+
+// Disp8 float-chase getters: seven-byte __thiscall members with one shape:
+//
+//     mov eax,[ecx+<DISP1>] / fld dword [eax+<DISP2>] / ret
+//
+// A pointer is read at a fixed displacement from `this`, then a float is read
+// at a second displacement from that pointer and returned in ST0. MSVC 7.1
+// emits the disp8 loads `8B 41 XX` + `D9 40 XX`, plus `ret`, for seven bytes.
+// Identity is not recovered: every name is derived from its address.
+// No // cl: line (defaults match the frameless seven-byte shape).
+
+// Backward variant: the holder sits at a NEGATIVE displacement from `this`.
+// Spelled as an explicit backward cast, which MSVC folds to
+// `mov eax,[ecx-BACK]`; same reading as the dword/byte chase families.
+
+// tu-skeleton: 0x00460CBA 288B ?rva00460CBA@DynamicPortalBehaviour@@QAEXPAUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderFootprintAttackRangeQuery.cpp (not merged yet)
 
 // tu-skeleton: 0x00460F6B 37B ??$__uninitialized_fill_n@PAURva00460F6BElement@@IU1@@_STL@@YAPAURva00460F6BElement@@PAU1@IABU1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva00460F6B.cpp (not merged yet)
 
