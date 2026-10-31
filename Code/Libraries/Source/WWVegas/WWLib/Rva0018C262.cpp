@@ -119,18 +119,23 @@ Rva0018C262::~Rva0018C262()
 // The algorithm follows matched Rva004D1C81::rva0046ABA6. Application
 // identity remains unknown. Returning the node/bool packet reproduces
 // retail's hidden result slot and returned slot address without a raw pin.
-struct Rva0018C4A9Result {
-	Rva0018C262Node *first;
-	bool second;
+struct Rva0018C4A9Result
+{
+public:
 	Rva0018C4A9Result(Rva0018C262Node *node, bool inserted);
+	Rva0018C262Node *first; // +0x00
+	bool second; // +0x04
+	char m_pad05[0x3];
 };
 // ?Rva0018C4A9Result::Rva0018C4A9Result present-unmatched
 inline Rva0018C4A9Result::Rva0018C4A9Result(Rva0018C262Node *node, bool inserted) : first(node), second(inserted) {}
-class Rva0018C4A9 {
-	Rva0018C262Head *m_head;
-	unsigned int m_size;
+class Rva0018C4A9
+{
 public:
 	Rva0018C4A9Result insert_unique(short *key);
+private:
+	Rva0018C262Head *m_head; // +0x00
+	unsigned int m_size; // +0x04
 };
 Rva0018C4A9Result Rva0018C4A9::insert_unique(short *key)
 {

@@ -430,14 +430,21 @@ struct Rva0018C262Node;
 
 struct Rva0018C4A9Result
 {
-	Rva0018C262Node *first;
-	bool second;
+public:
+	Rva0018C4A9Result(Rva0018C262Node *node, bool inserted);
+	Rva0018C262Node *first; // +0x00
+	bool second; // +0x04
+	char m_pad05[0x3];
 };
 
+struct Rva0018C262Head;
 class Rva0018C4A9
 {
 public:
 	Rva0018C4A9Result insert_unique(short *key);
+private:
+	Rva0018C262Head *m_head; // +0x00
+	unsigned int m_size; // +0x04
 };
 
 // ?Rva0018C2E7Copy@@YAPAFPAURva0018C2E7Node@@0PAF0H@Z @ 0x0018C2E7 39B unlock: tree-to-short copy via rowed _M_increment. Caller 0x0018C3C9 passes 5 args.
