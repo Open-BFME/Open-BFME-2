@@ -74,18 +74,6 @@ private:
 	GameClientRandomVariable m_normal;		///< +0x28
 };
 
-Coord3D CylindricalEmissionVelocityModule::getVelocity( int, int )
-{
-	float radial = m_radial.getValue();
-	char *source = "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameClient\\System\\FXParticleSystem\\fxpsemittercylindervelocitymodule.cpp";
-	float angle = GetGameClientRandomValueReal( 0.0f,
-		6.28318530717958647692f, source, 59 );
-	Coord3D components;
-	components.x = (float)cos( angle ) * radial;
-	components.y = (float)sin( angle ) * radial;
-	return Coord3D( components.x, components.y, m_normal.getValue() );
-}
-
 // ?xfer@CylindricalEmissionVelocityModule@FXParticleSystem@@MAEXPAVXfer@@@Z
 // retail 0x0055ED34, 43 bytes: slot 3 (offset 0x0C) of the class's vtable
 // 0x0081C8B8 (ICF-shared with five more slot-3 entries): Version1, then
