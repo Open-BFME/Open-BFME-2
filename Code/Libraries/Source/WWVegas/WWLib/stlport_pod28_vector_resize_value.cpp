@@ -4,6 +4,7 @@
 // Shape follows Open-BFME-1 vector_ICoord2D_resize.cpp. The retail call at
 // 0x00584A15 reaches the 38-byte erase body at 0x005842F7.
 struct BfmePod28 { int a[7]; };
+struct Rva00584405Element;
 namespace _STL {
 template <class T> class allocator {};
 template <class T, class A> class vector {
@@ -26,7 +27,9 @@ void vector<T,A>::resize(size_type newSize, T value) {
     if (newSize < size())
         erase(begin() + newSize, end());
     else
-        _M_fill_insert(end(), newSize - size(), value);
+        reinterpret_cast<vector<Rva00584405Element, allocator<Rva00584405Element> > *>(this)->_M_fill_insert(
+            reinterpret_cast<Rva00584405Element *>(end()), newSize - size(),
+            reinterpret_cast<const Rva00584405Element &>(value));
 }
 template void vector<BfmePod28,allocator<BfmePod28> >::resize(unsigned int,BfmePod28);
 }
