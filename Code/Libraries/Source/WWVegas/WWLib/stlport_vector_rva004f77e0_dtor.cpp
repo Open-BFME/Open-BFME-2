@@ -16,7 +16,17 @@ struct Rva004F77E0Element
 	~Rva004F77E0Element();
 };
 
-// Rva004F60AAInit.cpp binds this helper to the rowed TreeHintRef range destroy.
-namespace _STL { template <> void _Destroy<Rva004F77E0Element *>(Rva004F77E0Element *, Rva004F77E0Element *); }
+// Native 0x005F97BC forwards the range and an unused tag to the already
+// owned 27-byte destroy loop at 0x004F72ED. Keep the observed cdecl stack ABI.
+void __cdecl Rva004F72EDDestroy(void *, void *);
+namespace _STL {
+template <>
+inline __declspec(noinline) void _Destroy<Rva004F77E0Element *>(Rva004F77E0Element *first, Rva004F77E0Element *last)
+{
+    __false_type tag;
+    typedef void (__cdecl *NativeRangeDestroy)(void *, void *, const __false_type &);
+    reinterpret_cast<NativeRangeDestroy>(&Rva004F72EDDestroy)(first, last, tag);
+}
+}
 
 template _STL::vector<Rva004F77E0Element>::~vector();

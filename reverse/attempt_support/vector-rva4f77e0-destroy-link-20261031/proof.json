@@ -1,0 +1,61 @@
+{
+  "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva004f77e0_dtor.cpp",
+  "variants": {
+    "before": {
+      "source_sha256": "8f51effa83e3fca25f0242e9f01b875a7b08644dad38ec78df8045e764bdee96",
+      "rows": [
+        {
+          "name": "??1?$vector@URva004F77E0Element@@V?$allocator@URva004F77E0Element@@@_STL@@@_STL@@QAE@XZ",
+          "rva": "0x005EC919",
+          "size": "63",
+          "exact": true
+        }
+      ],
+      "eh": [
+        {
+          "name": "??1?$vector@URva004F77E0Element@@V?$allocator@URva004F77E0Element@@@_STL@@@_STL@@QAE@XZ",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        }
+      ]
+    },
+    "trial": {
+      "source_sha256": "b92c14908d96fd51546c2d10ae147404cb051f4d91a831f0f677c91d0fa6ea16",
+      "rows": [
+        {
+          "name": "??1?$vector@URva004F77E0Element@@V?$allocator@URva004F77E0Element@@@_STL@@@_STL@@QAE@XZ",
+          "rva": "0x005EC919",
+          "size": "63",
+          "exact": true
+        }
+      ],
+      "eh": [
+        {
+          "name": "??1?$vector@URva004F77E0Element@@V?$allocator@URva004F77E0Element@@@_STL@@@_STL@@QAE@XZ",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        }
+      ]
+    }
+  },
+  "retained_external_definitions": 7,
+  "retained_code_and_symbolic_relocations_identical": true,
+  "new_native_definition": {
+    "name": "??$_Destroy@PAURva004F77E0Element@@@_STL@@YAXPAURva004F77E0Element@@0@Z",
+    "rva": "0x005F97BC",
+    "size": 24,
+    "raw": "558bec518d45ff50ff750cff7508e80000000083c40cc9c3",
+    "relocations": [
+      [
+        15,
+        20,
+        "?Rva004F72EDDestroy@@YAXPAX0@Z"
+      ]
+    ],
+    "exact": true
+  }
+}
