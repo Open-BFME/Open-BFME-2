@@ -96,6 +96,28 @@
 	{ \
 		return m_value + IMM; \
 	}
+#define BFME_SNAPSHOT_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	protected: \
+		virtual const char *GetSnapshotName() const; \
+	}; \
+	const char *NAME::GetSnapshotName() const \
+	{ \
+		return TEXT; \
+	}
+#define BFME_LITERAL_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	public: \
+		const char *name() const; \
+	}; \
+	const char *NAME::name() const \
+	{ \
+		return TEXT; \
+	}
+#include "../../../AI/WorkOrder.h"
+#include "../../../AI/TeamInQueue.h"
 
 enum AICommandType { AICMD_NO_COMMAND=-1 };
 
@@ -618,7 +640,11 @@ BFME_DISP8_ADD_DWORD_GETTER(Rva0048E84BAddDwordField, 0x04, 0x70)
 // ?get@Rva005F83EDFields@@QBEIXZ
 struct Rva005F83EDFields { char pad[4]; unsigned int word4; unsigned int get() const; };
 
+BFME_LITERAL_NAME_GETTER(Rva0048E8F1Named, "DeployStyleAIUpdate")
+
 // tu-skeleton: 0x0048E634 15B ?Rva0048E634Reset@DeployStyleAIUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DeployStyleAIUpdateHelper.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DeployStyleAIUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DeployStyleAIUpdate.cpp
 
@@ -980,11 +1006,8 @@ NameKeyType DeployStyleAIUpdate::getModuleNameKey() const
 // backward cast, which MSVC folds to `mov eax,[ecx-BACK]`; same shape and
 // reading as BFME1's ChainedFieldGetters.
 
-// tu-skeleton: 0x0048E6AB 39B ?rva0048E6AB@DeployStyleAIUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DeployStyleAIUpdateHelper.cpp (not merged yet)
 
-// tu-skeleton: 0x0048E6D2 38B ?rva0048E6D2@DeployStyleAIUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DeployStyleAIUpdateHelper.cpp (not merged yet)
 
-// tu-skeleton: 0x0048E6F8 304B ?xfer@DeployStyleAIUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DeployStyleAIUpdateXfer.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Disp8AddDwordFieldGetters.cpp
 
@@ -1004,9 +1027,30 @@ NameKeyType DeployStyleAIUpdate::getModuleNameKey() const
 // Spelled as an explicit backward read, which MSVC folds to
 // `mov eax,[ecx-BACK]`; same reading as the chase-family backward cast.
 
+// tu-skeleton: 0x0048E6AB 39B ?rva0048E6AB@DeployStyleAIUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DeployStyleAIUpdateHelper.cpp (not merged yet)
+
+// tu-skeleton: 0x0048E6D2 38B ?rva0048E6D2@DeployStyleAIUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DeployStyleAIUpdateHelper.cpp (not merged yet)
+
+// tu-skeleton: 0x0048E6F8 304B ?xfer@DeployStyleAIUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DeployStyleAIUpdateXfer.cpp (not merged yet)
+
 // tu-skeleton: 0x0048E852 90B ??1DeployStyleAIUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DeployStyleAIUpdateDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x0048E8F1 6B ?name@Rva0048E8F1Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/ModuleNameGetters.cpp
+
+// Module literal name getters: six-byte const members with one shape:
+//
+//     mov eax,<offset string literal> / ret
+//
+// Each body returns a pointer to a NUL-terminated Behavior/Update/Contain
+// class-name string in .rdata. Each body VA carries exactly one .rdata
+// reference from its module vtable (descriptor tail closed by the shared
+// 0x004B3FD0 pair -- the same family marker as the Subsystem getters).
+// Split from Code/GameEngine/Source/Common/SubsystemNameGetters.cpp into a
+// contributor-local unit to keep concurrent landings conflict-free; the
+// BFME_LITERAL_NAME_GETTER macro is verbatim, only the class names follow
+// this tree's address-derived convention (identity unrecoverable from 6
+// bytes, string carried in source where verify_string_refs re-reads it).
+// No // cl: line (defaults match the frameless 6-byte shape).
 
 // tu-skeleton: 0x0048E9F3 28B ??_GDeployStyleAIUpdate@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DeployStyleAIUpdateDtor.cpp (not merged yet)
 
