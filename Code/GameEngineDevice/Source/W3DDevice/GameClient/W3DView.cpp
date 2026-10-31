@@ -30,6 +30,7 @@
 
 
 
+
 #endif
 #define TERRAIN_SAMPLE_SIZE 40.0f
 #define MIN_CAPPED_ZOOM (0.5f) //WST 10.19.2002. JSC integrated 5/20/03.
@@ -393,6 +394,18 @@ public:
 	void addNeed(int a);
 };
 #include "../../../../GameEngine/Include/Common/Overridable.h"
+#define BFME_DISP32_FLOAT_GETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		float get() const; \
+		char m_lead[DISP]; \
+		float m_value; \
+	}; \
+	float NAME::get() const \
+	{ \
+		return m_value; \
+	}
 
 // BFME adds View and Display virtuals that the shared Zero Hour headers omit;
 // these scoped views preserve the witnessed slots and +0x104 camera offset.
@@ -611,6 +624,7 @@ public:
 
 
 void drawDrawableExtents( Drawable *draw, void *userData );
+
 
 
 
@@ -2325,11 +2339,15 @@ public:
  ~Rva00200667();
 };
 
+BFME_DISP32_FLOAT_GETTER(Rva000879E6FloatField, 0x24F4)
+
 // tu-skeleton: 0x00085B41 380B ?getAxisAlignedViewRegion@W3DView@@AAEXAAURegion3D@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewGetAxisAlignedViewRegion.cpp (not merged yet)
 
 // tu-skeleton: 0x00085CBD 522B ?rva00085CBD@W3DView@@QAEXAAURegion3D@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewFarRegion.cpp (not merged yet)
 
 // tu-skeleton: 0x00085EC7 62B ?setFadeParameters@W3DView@@UAEXHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewSetFadeParameters.cpp (not merged yet)
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp
 
@@ -2759,6 +2777,50 @@ Rva0008B689Element Rva000897C8(CameraClass*camera){
 // reference/open-bfme-1/Code/GameEngine/Source/Common/DispFloatFieldGetters.cpp.
 // No // cl: line (defaults match the frameless 7-byte shape).
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ---- from Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp
+
+float * Rva00088D05::rva00088D05()
+{
+	return Rva000869CF::rva000869CF();
+}
+
 // tu-skeleton: 0x00085F6A 62B ?rva00085F6A@Rva00085F6A@@QAE_NH@Z -- matched in Code/GameEngine/Source/Common/Rva00085F6ASet.cpp (not merged yet)
 
 // tu-skeleton: 0x00085FA8 178B ?calcDeltaScroll@Rva00085FA8@@QAEXPAM@Z -- matched in Code/GameEngine/Source/Common/Rva00085FA8Delta.cpp (not merged yet)
@@ -2811,7 +2873,19 @@ Rva0008B689Element Rva000897C8(CameraClass*camera){
 
 // tu-skeleton: 0x000879A9 61B ?rva000879A9@Rva00085947@@QAE_NH@Z -- matched in Code/GameEngine/Source/GameClient/Rva00085947Method.cpp (not merged yet)
 
-// tu-skeleton: 0x000879E6 7B ?get@Rva000879E6FloatField@@QBEMXZ -- matched in Code/GameEngine/Source/Common/Disp32FloatGetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Disp32FloatGetters.cpp
+
+// Disp32 float getters: seven-byte __thiscall members with one shape:
+//
+//     fld dword [ecx+<DISP>] / ret
+//
+// One float is read at a fixed 32-bit displacement from `this` and returned
+// in ST0. The offset does not fit the sign-byte form, so MSVC 7.1 emits
+// `D9 81 DISP32`, plus `ret`, for seven bytes total. This is the disp32
+// sibling of the float-getter lane; the opcode itself is why it lives in
+// its own translation unit. Identity is not recovered: every name is
+// derived from its address.
+// No // cl: line (defaults match the frameless seven-byte shape).
 
 // tu-skeleton: 0x000879FB 7B ?get@Rva000879FBByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/DispByteFieldGetters.cpp (not merged yet)
 
@@ -2832,13 +2906,6 @@ Rva0008B689Element Rva000897C8(CameraClass*camera){
 // tu-skeleton: 0x00087D42 94B ?rva00087D42@Rva00085947@@QAEPAVVector3@@XZ -- matched in Code/GameEngine/Source/GameClient/Rva00085947Method.cpp (not merged yet)
 
 // tu-skeleton: 0x00087DA0 3941B ?draw@W3DView@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewDraw.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp
-
-float * Rva00088D05::rva00088D05()
-{
-	return Rva000869CF::rva000869CF();
-}
 
 // tu-skeleton: 0x00088D0A 91B ?rva00088D0A@Rva000869CF@@QAEXMHM@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewCameraModFinalZoomBfme.cpp (not merged yet)
 
