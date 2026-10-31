@@ -16,11 +16,7 @@
 bool Rva00045473Equal(const void *a, const void *b);
 
 class Drawable;
-class Thing
-{
-public:
-	Drawable *getDrawable() const;
-};
+#include "../../../Common/Thing/thing.h"
 
 struct Store84
 {

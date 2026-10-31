@@ -263,14 +263,7 @@ class StealthUpdate {
   public:
     void markAsDetected(unsigned, int, Object *, bool);
 };
-class Thing {
-  public:
-    void setPositionZ(float);
-    void setPosition(const Coord3D *);
-    void setOrientation(float);
-    const Coord3D *getUnitDirectionVector2D() const;
-    Drawable *getDrawable() const;
-};
+#include "../../../Common/Thing/thing.h"
 class Rva001E4912 {
   public:
     Rva001E4912 *rva001E4912(int, unsigned, unsigned);

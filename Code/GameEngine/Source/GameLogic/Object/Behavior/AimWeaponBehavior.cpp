@@ -160,7 +160,7 @@ enum WeaponSlotType {PRIMARY_WEAPON=0};
 
 class Drawable {public:void rva00274176(bool);};
 
-class Thing {public:Drawable*getDrawable()const;};
+#include "../../../Common/Thing/thing.h"
 
 struct AimWeaponTemplate {char pad[0x156];bool useAimConditions;};
 

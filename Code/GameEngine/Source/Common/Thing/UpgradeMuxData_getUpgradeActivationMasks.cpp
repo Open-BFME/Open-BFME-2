@@ -107,11 +107,7 @@ public:
 	Rva001DFE56 m_tester;
 };
 
-class Thing
-{
-public:
-	Drawable *getDrawable() const;
-};
+#include "thing.h"
 
 class Object : public Thing
 {

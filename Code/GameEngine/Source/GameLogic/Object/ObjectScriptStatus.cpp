@@ -105,7 +105,7 @@ public:
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../Common/GameLogicObjectLookupView.h"
 class Matrix3D;
-class Thing { public: void setTransformMatrix(const Matrix3D *); };
+#include "../../Common/Thing/thing.h"
 class Object;
 struct Rva00287C21Other;
 class FireLogicSystem { public: void RegisterObject(Rva00287C21Other *); void UnregisterObject(Rva00287C21Other *); };
@@ -190,7 +190,7 @@ struct Obj00526309;
 class Rva002D3726 { public: void rva002D3726(Obj00526309 *); };
 extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
 
-template <int N>
+template <unsigned int N>
 class BitFlags
 {
 public:
