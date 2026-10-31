@@ -138,22 +138,6 @@ private:
 	Rva004A6BE7Owner *m_18;
 };
 
-int Rva004A6BE7::rva004A6BE7()
-{
-	Rva004A6BE7Object *object = m_18->m_14;
-	if (object)
-	{
-		Rva004A6BE7Source *source = object->m_258;
-		if (source)
-		{
-			Rva004A6BE7Target *target = source->s95();
-			if (target)
-				target->s13(0);
-		}
-	}
-	return 0;
-}
-
 // --- 0x00583A07 (11B): set the +0x04 object's +0x120 flag.
 struct Rva00583A07Target
 {
