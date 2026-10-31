@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHs-c- /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii
 // stlport46
 // ??$__linear_insert@PAUVersionBlockEntry@@U1@VVersionBlockKeyCompare@@@_STL@@YAXPAUVersionBlockEntry@@0U1@VVersionBlockKeyCompare@@@Z @0x0042872D 122B
 // _STL::__linear_insert guarded insert over 0x18-byte version records.
@@ -6,45 +6,64 @@
 // As in the sibling Rva00428372AdjustHeap, the by-value pivot copy constructor
 // must stay an out-of-line call so /O1 emits `mov ecx,esp` before the EH ESP
 // save; `??0Pivot24@@QAE@ABU0@@Z` is pinned to 0x00427F75.
-struct VersionBlockEntry
+#include <string>
+#include <algorithm>
+
+struct BfmeNarrowRecord00427F75
 {
-	~VersionBlockEntry();
-	char m_data[24];
+	_STL::basic_string<char> m_key;
+	_STL::basic_string<char> m_value;
+	BfmeNarrowRecord00427F75(const BfmeNarrowRecord00427F75 &);
+	~BfmeNarrowRecord00427F75();
 };
-struct BfmeAssignRecord24
-{
-	char m_data[24];
-};
+
 class ProductionPrerequisite
 {
 public:
 	ProductionPrerequisite &operator=(const ProductionPrerequisite &other);
 };
-class VersionBlockKeyCompare
+
+struct VersionBlockEntry : public BfmeNarrowRecord00427F75
 {
-public:
-	bool lessEntries(const VersionBlockEntry *left, const VersionBlockEntry *right) const;
+	VersionBlockEntry();
+	VersionBlockEntry(const VersionBlockEntry &other);
+	~VersionBlockEntry();
 };
-struct BfmeNarrowRecord00427F75
-{
-	BfmeNarrowRecord00427F75(const BfmeNarrowRecord00427F75 &other);
-	char m_data[24];
-};
+
 struct Pivot24
 {
 	Pivot24(const Pivot24 &other);
-	~Pivot24();
-	BfmeNarrowRecord00427F75 narrow;
+	~Pivot24() {}
+	VersionBlockEntry narrow;
 };
-// ??1Pivot24@@QAE@XZ present-unmatched
-inline Pivot24::~Pivot24() { ((VersionBlockEntry *)&narrow)->~VersionBlockEntry(); }
+
+class VersionBlockKeyCompare
+{
+public:
+	bool operator()(const VersionBlockEntry &a, const VersionBlockEntry &b) const
+	{
+		return a.m_key < b.m_key;
+	}
+public:
+	bool lessEntries(const VersionBlockEntry *left, const VersionBlockEntry *right) const;
+public:
+	bool lessEntryKey(const VersionBlockEntry *entry, const char *key) const;
+public:
+	bool lessKeyEntry(const char *key, const VersionBlockEntry *entry) const;
+};
+
+struct BfmeAssignRecord24;
+
 void __cdecl Rva004281DAInsert(VersionBlockEntry *last, Pivot24 val, VersionBlockKeyCompare comp);
+
+namespace _STL { template <> BfmeAssignRecord24 * copy_backward<BfmeAssignRecord24 *,BfmeAssignRecord24 *>(BfmeAssignRecord24 *,BfmeAssignRecord24 *,BfmeAssignRecord24 *); }
+
+namespace _STL { template <> void __linear_insert<VersionBlockEntry *,VersionBlockEntry,VersionBlockKeyCompare>(VersionBlockEntry *,VersionBlockEntry *,VersionBlockEntry,VersionBlockKeyCompare); }
+
 namespace _STL
 {
-template <class _InputIter, class _OutputIter>
-_OutputIter copy_backward(_InputIter first, _InputIter last, _OutputIter result);
-template <class _RandomAccessIter, class _Tp, class _Compare>
-void __linear_insert(_RandomAccessIter first, _RandomAccessIter last, _Tp val, _Compare comp)
+template <>
+void __linear_insert<VersionBlockEntry *, VersionBlockEntry, VersionBlockKeyCompare>(VersionBlockEntry *first, VersionBlockEntry *last, VersionBlockEntry val, VersionBlockKeyCompare comp)
 {
 	if (comp.lessEntries((const VersionBlockEntry *)&val, (const VersionBlockEntry *)first))
 	{
@@ -56,5 +75,4 @@ void __linear_insert(_RandomAccessIter first, _RandomAccessIter last, _Tp val, _
 		Rva004281DAInsert(last, *(Pivot24 *)&val, comp);
 	}
 }
-template void __linear_insert<VersionBlockEntry *, VersionBlockEntry, VersionBlockKeyCompare>(VersionBlockEntry *, VersionBlockEntry *, VersionBlockEntry, VersionBlockKeyCompare);
 }
