@@ -11,7 +11,9 @@ class Rva00468520;
 // ??0Tag@@QAE@XZ present-unmatched
 struct Tag
 {
+public:
 	Tag() {}
+	char x; // +0x00 +0x00
 };
 Rva00468520 *Rva00153425Copy(Rva00468520 *first, Rva00468520 *last, Rva00468520 *result, const Tag &tag);
 namespace _STL

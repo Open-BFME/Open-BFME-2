@@ -22,13 +22,17 @@ struct TreeHintRef00217D4C
 };
 struct Rva00153252
 {
-	TreeHintRef00217D4C m_00;
-	int m_04;
+public:
+	Rva00153252 &operator=(const Rva00153252 &other);
+	TreeHintRef00217D4C m_00; // +0x00 +0x00
+	int m_04; // +0x04 +0x04
 };
 class Rva00468520;
 struct Tag
 {
+public:
 	Tag() {}
+	char x; // +0x00 +0x00
 };
 struct BfmeE8
 {

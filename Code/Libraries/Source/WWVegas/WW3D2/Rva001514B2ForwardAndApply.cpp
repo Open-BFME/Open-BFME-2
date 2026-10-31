@@ -1,5 +1,11 @@
 // cl: /O1 /G7 /EHsc /MD
-class Rva001531F2Ref { public: int invoke(int,int); void*data; };
+class Rva001531F2Op;
+class Rva001531F2Ref
+{
+public:
+	int invoke(int a, int b);
+	Rva001531F2Op *m_op; // +0x00
+};
 struct Rva0015326DItem { Rva001531F2Ref function; int payload; };
 struct Rva0015326DRange { Rva0015326DItem*start,*finish,*end; };
 struct Rva0015326DRecord { void*key; Rva0015326DRange ranges[6]; };

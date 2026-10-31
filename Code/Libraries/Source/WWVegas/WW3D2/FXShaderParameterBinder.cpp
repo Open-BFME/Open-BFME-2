@@ -113,8 +113,7 @@ class Rva001531F2Ref
 {
 public:
 	int invoke(int a, int b);
-private:
-	Rva001531F2Op *m_op;
+	Rva001531F2Op *m_op; // +0x00
 };
 
 struct TreeHintRef00217D4C
@@ -127,8 +126,8 @@ struct Rva00153252
 {
 public:
 	Rva00153252 &operator=(const Rva00153252 &other);
-	TreeHintRef00217D4C m_00; // +0x00
-	int m_04; // +0x04
+	TreeHintRef00217D4C m_00; // +0x00 +0x00
+	int m_04; // +0x04 +0x04
 };
 
 // bfme link decl-only BfmeE16
@@ -166,7 +165,7 @@ struct Tag
 {
 public:
 	Tag() {}
-	char x; // +0x00
+	char x; // +0x00 +0x00
 };
 
 template void _STL::_Destroy<Rva005F8F96 *>(Rva005F8F96 *, Rva005F8F96 *);
