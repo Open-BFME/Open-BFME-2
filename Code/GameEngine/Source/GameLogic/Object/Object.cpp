@@ -368,6 +368,16 @@ typedef unsigned short WideChar;
 	{ \
 		return m_value; \
 	}
+#define BFME_LITERAL_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	public: \
+		const char *name() const; \
+	}; \
+	const char *NAME::name() const \
+	{ \
+		return TEXT; \
+	}
 
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
 namespace _STL {
@@ -2216,11 +2226,66 @@ public:
 
 BFME_DISP32_FLOAT_GETTER(Rva0028BB86FloatField, 0x1B8)
 
+class ModuleData
+{
+public:
+	virtual const char *GetSnapshotName() const;
+};
+
+class Eva
+{
+public:
+	virtual const char *GetSnapshotName() const;
+};
+
+class W3DDebrisDraw
+{
+protected:
+	virtual const char *GetSnapshotName() const;
+};
+
+class FireLogicSystem
+{
+public:
+	virtual const char *GetSnapshotName() const;
+};
+
+class LivingWorldBuilding { public: virtual const char *GetSnapshotName(); };
+
+class SequentialScript { public: virtual const char *GetSnapshotName(); };
+
+// LargeGroupAudio getter is owned by the complete subsystem unit.
+class GeometryInfo
+{
+public:
+	virtual const char *GetSnapshotName();
+};
+
+class DrawModule
+{
+protected:
+    virtual const char *GetSnapshotName() const;
+};
+
+class BehaviorModule
+{
+protected:
+	virtual const char *GetSnapshotName() const;
+};
+
+BFME_LITERAL_NAME_GETTER(Rva0028C9D7Named, "ObjectDefectionHelper")
+
+BFME_LITERAL_NAME_GETTER(Rva0028CA92Named, "ObjectRecoveryHelper")
+
+BFME_LITERAL_NAME_GETTER(Rva0028CB23Named, "ObjectRepulsorHelper")
+
 // tu-skeleton: 0x0028A670 20B ?setWeaponBonusCondition@Object@@QAEXW4WeaponBonusConditionType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/WeaponBonusUpgradeUpgradeImplementation.cpp (not merged yet)
 
 // tu-skeleton: 0x0028A684 22B ?clearWeaponBonusCondition@Object@@QAEXW4WeaponBonusConditionType@@@Z -- matched in Code/GameEngine/Source/Common/RTS/PlayerBattlePlanBonuses.cpp (not merged yet)
 
 // tu-skeleton: 0x0028A69A 7B ?get@Rva0028A69AByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/DispByteFieldGetters.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Object.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Object.cpp
 
@@ -4445,6 +4510,20 @@ void Rva0028F8B3SetBit(unsigned int *words, unsigned int bit)
     words[bit >> 5] |= 1u << (bit & 31);
 }
 
+// ---- from Code/GameEngine/Source/Common/Disp32FloatGetters.cpp
+
+// Disp32 float getters: seven-byte __thiscall members with one shape:
+//
+//     fld dword [ecx+<DISP>] / ret
+//
+// One float is read at a fixed 32-bit displacement from `this` and returned
+// in ST0. The offset does not fit the sign-byte form, so MSVC 7.1 emits
+// `D9 81 DISP32`, plus `ret`, for seven bytes total. This is the disp32
+// sibling of the float-getter lane; the opcode itself is why it lives in
+// its own translation unit. Identity is not recovered: every name is
+// derived from its address.
+// No // cl: line (defaults match the frameless seven-byte shape).
+
 // tu-skeleton: 0x0028A6B6 17B ?rva0028A6B6@Rva0028A638@@QAEXM@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp (not merged yet)
 
 // tu-skeleton: 0x0028A6C7 32B ?dlink_isInList_TeamMemberList@Object@@QBE_NPBQAV1@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectIsInTeamMemberList.cpp (not merged yet)
@@ -4637,20 +4716,6 @@ void Rva0028F8B3SetBit(unsigned int *words, unsigned int bit)
 
 // tu-skeleton: 0x0028BB65 33B ?setShroudClearingRange@Object@@QAEXM@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectSetShroudClearingRange.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/Disp32FloatGetters.cpp
-
-// Disp32 float getters: seven-byte __thiscall members with one shape:
-//
-//     fld dword [ecx+<DISP>] / ret
-//
-// One float is read at a fixed 32-bit displacement from `this` and returned
-// in ST0. The offset does not fit the sign-byte form, so MSVC 7.1 emits
-// `D9 81 DISP32`, plus `ret`, for seven bytes total. This is the disp32
-// sibling of the float-getter lane; the opcode itself is why it lives in
-// its own translation unit. Identity is not recovered: every name is
-// derived from its address.
-// No // cl: line (defaults match the frameless seven-byte shape).
-
 // tu-skeleton: 0x0028BB8D 17B ?rva0028BB8D@Rva0028A638@@QAEXM@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp (not merged yet)
 
 // tu-skeleton: 0x0028BB9E 67B ?getSpecialPowerModule@Object@@QBEPAVSpecialPowerModuleInterface@@PBVSpecialPowerTemplate@@@Z -- matched in Code/GameEngine/Source/Common/Object_getSpecialPowerModule.cpp (not merged yet)
@@ -4781,19 +4846,30 @@ void Rva0028F8B3SetBit(unsigned int *words, unsigned int bit)
 
 // tu-skeleton: 0x0028C992 69B ?getModuleNameKey@ObjectDefectionHelper@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/ObjectDefectionHelperPoolKey.cpp (not merged yet)
 
-// tu-skeleton: 0x0028C9D7 6B ?name@Rva0028C9D7Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/SubsystemNameGetters.cpp
+
+// Subsystem literal name getters: six-byte const members with one shape:
+//
+//     mov eax,<offset string literal> / ret
+//
+// Each body returns a pointer to a NUL-terminated class-name string in
+// .rdata. The vtable at each site carries the body at slot 2 (offset 8)
+// behind a shared pair (slot 0 varies, slot 1 is 0xA9E440) and ahead of
+// class-specific tails, closed by 0x5B5384 -- the Subsystem/Snapshot family
+// pattern. Ported from Open-BFME-1
+// (Code/GameEngine/Source/Common/LiteralNameGetters_01.cpp): the
+// BFME_LITERAL_NAME_GETTER macro is verbatim; only the class names follow
+// this tree's address-derived convention (identity unrecoverable from 6
+// bytes, string carried in source where verify_string_refs re-reads it).
+// No // cl: line (defaults match the frameless 6-byte shape).
 
 // tu-skeleton: 0x0028C9DD 28B ??_GRva004DF52E@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva004DF7C2Derived.cpp (not merged yet)
-
-// tu-skeleton: 0x0028CA92 6B ?name@Rva0028CA92Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters.cpp (not merged yet)
 
 // tu-skeleton: 0x0028CA98 28B ??_GRva004DF836@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva004DF7C2Derived.cpp (not merged yet)
 
 // tu-skeleton: 0x0028CAB4 42B ??0ObjectRepulsorHelper@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Helper/ObjectRepulsorHelperCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0028CADE 69B ?getModuleNameKey@ObjectRepulsorHelper@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRepulsorHelperPoolKey.cpp (not merged yet)
-
-// tu-skeleton: 0x0028CB23 6B ?name@Rva0028CB23Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters.cpp (not merged yet)
 
 // tu-skeleton: 0x0028CB29 28B ??_GRva004DF863@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva004DF7C2Derived.cpp (not merged yet)
 

@@ -126,6 +126,3 @@ BFME_LITERAL_NAME_GETTER(SpawnedModelConditionCreate, "SpawnedModelConditionCrea
 BFME_LITERAL_NAME_GETTER(Rva00251C76Named, "SpecialPowerTimerRefreshSpecialPower")
 BFME_LITERAL_NAME_GETTER(Rva00252B84Named, "DrawableModule")
 BFME_LITERAL_NAME_GETTER(UpgradeSoundSelectorClientBehavior, "UpgradeSoundSelectorClientBehavior")
-BFME_LITERAL_NAME_GETTER(Rva0028C9D7Named, "ObjectDefectionHelper")
-BFME_LITERAL_NAME_GETTER(Rva0028CA92Named, "ObjectRecoveryHelper")
-BFME_LITERAL_NAME_GETTER(Rva0028CB23Named, "ObjectRepulsorHelper")

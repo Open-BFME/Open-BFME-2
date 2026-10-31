@@ -10093,7 +10093,7 @@ _str_rep,,0x00748CE0,114,Code/Libraries/Source/Lua/lstrlib.c,matched,vendored=lu
 ?name@Rva00252B84Named@@QBEPBDXZ,,0x00252B84,6,Code/GameEngine/Source/Common/SubsystemNameGetters.cpp,matched,literal name getter returning DrawableModule; 3 vtable refs in .rdata; address-derived placeholder name
 ?name@UpgradeSoundSelectorClientBehavior@@QBEPBDXZ,,0x00252D24,6,Code/GameEngine/Source/Common/SubsystemNameGetters.cpp,matched,literal name getter returning UpgradeSoundSelectorClientBehavior; vtable ref in .rdata; address-derived placeholder name
 ?name@TerrainResourceClientBehavior@@QBEPBDXZ,,0x00252E50,6,Code/GameEngine/Source/Common/SubsystemNameGetters2.cpp,matched,literal name getter returning TerrainResourceClientBehavior; vtable ref in .rdata; address-derived placeholder name (second getter unit to avoid shared-file contention)
-?name@Rva0028C9D7Named@@QBEPBDXZ,,0x0028C9D7,6,Code/GameEngine/Source/Common/SubsystemNameGetters.cpp,matched,literal name getter returning ObjectDefectionHelper; vtable ref in .rdata; address-derived placeholder name
+?name@Rva0028C9D7Named@@QBEPBDXZ,,0x0028C9D7,6,Code/GameEngine/Source/GameLogic/Object/Object.cpp,matched,literal name getter returning ObjectDefectionHelper; vtable ref in .rdata; address-derived placeholder name
 ?GetSnapshotName@UpdateModule@@MBEPBDXZ,,0x002533CD,6,Code/GameEngine/Source/Common/SubsystemNameGetters2.cpp,matched,literal name getter returning UpdateModule; vtable ref in .rdata; address-derived placeholder name
 ?name@Rva00268CD6Named@@QBEPBDXZ,,0x00268CD6,6,Code/GameEngine/Source/Common/SubsystemNameGetters2.cpp,matched,literal name getter returning Squad; vtable ref in .rdata; address-derived placeholder name
 ?set@Rva00078941DwordSlot@@QAEXH@Z,,0x00078941,13,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp,matched,Disp32 dword setter
@@ -10110,14 +10110,14 @@ _read_word,,0x0074A700,184,Code/Libraries/Source/Lua/liolib_bfme1.c,matched,stri
 ?set@Rva003140E4DwordSlot@@QAEXH@Z,,0x003140E4,13,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp,matched,Disp32 dword setter
 ?rva006C4E50@@YAXXZ,,0x006C4E50,61,Code/Libraries/Source/WWVegas/WWDebug/Rva006C4CD0InitDbghelp.cpp,matched,
 ?name@Rva0026E7E4Named@@QBEPBDXZ,,0x0026E7E4,6,Code/GameEngine/Source/Common/SubsystemNameGetters2.cpp,matched,literal name getter returning LuaSpyData; vtable ref in .rdata; address-derived placeholder name
-?name@Rva0028CA92Named@@QBEPBDXZ,,0x0028CA92,6,Code/GameEngine/Source/Common/SubsystemNameGetters.cpp,matched,literal name getter returning ObjectRecoveryHelper; vtable ref in .rdata; address-derived placeholder name
+?name@Rva0028CA92Named@@QBEPBDXZ,,0x0028CA92,6,Code/GameEngine/Source/GameLogic/Object/Object.cpp,matched,literal name getter returning ObjectRecoveryHelper; vtable ref in .rdata; address-derived placeholder name
 ?name@AIUpdateInterface@@QBEPBDXZ,,0x0026E982,6,Code/GameEngine/Source/Common/SubsystemNameGetters2.cpp,matched,literal name getter returning AIUpdateInterface; vtable ref in .rdata; address-derived placeholder name
 ?name@Upgrade@@QBEPBDXZ,,0x0026EDF9,6,Code/GameEngine/Source/Common/SubsystemNameGetters2.cpp,matched,literal name getter returning Upgrade; vtable ref in .rdata; address-derived placeholder name
 ?name@GhostObject@@QBEPBDXZ,,0x00305B30,6,Code/GameEngine/Source/Common/SubsystemNameGetters2.cpp,matched,literal name getter returning GhostObject; vtable ref in .rdata; address-derived placeholder name
 ?name@Rva003067C4Named@@QBEPBDXZ,,0x003067C4,6,Code/GameEngine/Source/Common/GODupBase.cpp,matched,literal name getter returning BuffLogic; vtable ref in .rdata; address-derived placeholder name
 ?set@Rva0031417CDwordSlot@@QAEXH@Z,,0x0031417C,13,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp,matched,Disp32 dword setter
 ?name@Rva00306A48Named@@QBEPBDXZ,,0x00306A48,6,Code/GameEngine/Source/Common/SubsystemNameGetters2.cpp,matched,literal name getter returning Module; vtable ref in .rdata; address-derived placeholder name
-?name@Rva0028CB23Named@@QBEPBDXZ,,0x0028CB23,6,Code/GameEngine/Source/Common/SubsystemNameGetters.cpp,matched,literal name getter returning ObjectRepulsorHelper; vtable ref in .rdata; address-derived placeholder name
+?name@Rva0028CB23Named@@QBEPBDXZ,,0x0028CB23,6,Code/GameEngine/Source/GameLogic/Object/Object.cpp,matched,literal name getter returning ObjectRepulsorHelper; vtable ref in .rdata; address-derived placeholder name
 ?name@ObjectModule@@QBEPBDXZ,,0x00306B13,6,Code/GameEngine/Source/Common/SubsystemNameGetters2.cpp,matched,literal name getter returning ObjectModule; vtable ref in .rdata; address-derived placeholder name
 ?name@Rva0031860DNamed@@QBEPBDXZ,,0x0031860D,6,Code/GameEngine/Source/Common/SubsystemNameGetters2.cpp,matched,literal name getter returning GlobalWeatherSystem; vtable ref in .rdata; address-derived placeholder name
 ?testBit@Rva0028D891Owner@@QBE_NH@Z,,0x0028D891,37,Code/GameEngine/Source/GameLogic/Object/Object.cpp,matched,Opaque bit-test twin reusing landed Object testStatus unsigned-shr shape. Plus0x370 words. Caller bits 0x12-0x1A with paired setter 0x290963. Owner unproven so address token kept
