@@ -1,0 +1,141 @@
+RVA00546C57 size40
+00546C57 push     esi
+00546C58 mov      esi, ecx
+00546C5A call     0x5488c5
+00546C5F and      dword ptr [esi + 0x18], 0
+00546C63 xorps    xmm0, xmm0
+00546C66 mov      dword ptr [esi], 0xc6a3c4
+00546C6C movss    dword ptr [esi + 0x1c], xmm0
+00546C71 movss    dword ptr [esi + 0x20], xmm0
+00546C76 movss    dword ptr [esi + 0x24], xmm0
+00546C7B mov      eax, esi
+00546C7D pop      esi
+00546C7E ret      
+RVA005488C5 size36
+005488C5 push     ecx
+005488C6 push     esi
+005488C7 mov      esi, ecx
+005488C9 lea      eax, [esp + 7]
+005488CD push     eax
+005488CE lea      ecx, [esi + 4]
+005488D1 mov      dword ptr [esi], 0xc6a520
+005488D7 call     0x211e58
+005488DC and      dword ptr [esi + 0x10], 0
+005488E0 and      dword ptr [esi + 0x14], 0
+005488E4 mov      eax, esi
+005488E6 pop      esi
+005488E7 pop      ecx
+005488E8 ret      
+RVA00548948 size60
+00548948 mov      eax, 0xb98150
+0054894D call     0x629188
+00548952 push     ecx
+00548953 push     esi
+00548954 mov      esi, ecx
+00548956 mov      dword ptr [ebp - 0x10], esi
+00548959 mov      dword ptr [esi], 0xc6a520
+0054895F mov      eax, dword ptr [esi + 4]
+00548962 and      dword ptr [ebp - 4], 0
+00548966 test     eax, eax
+00548968 je       0x548971
+0054896A push     eax
+0054896B call     0x30830
+00548970 pop      ecx
+00548971 mov      ecx, dword ptr [ebp - 0xc]
+00548974 mov      dword ptr [esi], 0xbbb554
+0054897A pop      esi
+0054897B mov      dword ptr fs:[0], ecx
+00548982 leave    
+00548983 ret      
+RVA00546D7C size41
+00546D7C push     ebx
+00546D7D mov      ebx, ecx
+00546D7F push     dword ptr [ebx + 0x18]
+00546D82 mov      ecx, dword ptr [0xdfe78c]
+00546D88 call     0x49dc5
+00546D8D test     eax, eax
+00546D8F je       0x546d9e
+00546D91 push     esi
+00546D92 push     edi
+00546D93 lea      esi, [eax + 0x38]
+00546D96 lea      edi, [ebx + 0x1c]
+00546D99 movsd    dword ptr es:[edi], dword ptr [esi]
+00546D9A movsd    dword ptr es:[edi], dword ptr [esi]
+00546D9B movsd    dword ptr es:[edi], dword ptr [esi]
+00546D9C pop      edi
+00546D9D pop      esi
+00546D9E lea      eax, [ebx + 0x1c]
+00546DA1 pop      ebx
+00546DA2 ret      4
+RVA00546DD4 size90
+00546DD4 push     ebx
+00546DD5 push     ebp
+00546DD6 push     esi
+00546DD7 mov      esi, dword ptr [0xdfe78c]
+00546DDD push     edi
+00546DDE push     dword ptr [esp + 0x14]
+00546DE2 mov      ebp, ecx
+00546DE4 mov      ecx, esi
+00546DE6 call     0x49dc5
+00546DEB mov      edi, dword ptr [ebp + 0x18]
+00546DEE push     edi
+00546DEF mov      ecx, esi
+00546DF1 mov      ebx, eax
+00546DF3 call     0x49dc5
+00546DF8 test     eax, eax
+00546DFA je       0x546e27
+00546DFC test     ebx, ebx
+00546DFE je       0x546e27
+00546E00 mov      ebx, dword ptr [ebx + 0x258]
+00546E06 test     ebx, ebx
+00546E08 je       0x546e27
+00546E0A push     edi
+00546E0B mov      ecx, esi
+00546E0D call     0x49dc5
+00546E12 test     eax, eax
+00546E14 je       0x546e23
+00546E16 push     0
+00546E18 push     eax
+00546E19 lea      ecx, [ebx + 0x20]
+00546E1C call     0x36ebb8
+00546E21 jmp      0x546e27
+00546E23 and      dword ptr [ebp + 0x18], 0
+00546E27 pop      edi
+00546E28 pop      esi
+00546E29 pop      ebp
+00546E2A pop      ebx
+00546E2B ret      4
+RVA00546D15 size65
+00546D15 push     ebp
+00546D16 mov      ebp, esp
+00546D18 push     ecx
+00546D19 push     esi
+00546D1A mov      esi, dword ptr [ebp + 8]
+00546D1D push     edi
+00546D1E push     esi
+00546D1F mov      edi, ecx
+00546D21 mov      byte ptr [ebp - 4], 1
+00546D25 mov      byte ptr [ebp - 3], 1
+00546D29 call     0x548ac2
+00546D2E mov      eax, dword ptr [esi]
+00546D30 lea      ecx, [ebp - 4]
+00546D33 push     ecx
+00546D34 mov      ecx, esi
+00546D36 call     dword ptr [eax + 0x28]
+00546D39 lea      eax, [edi + 0x18]
+00546D3C push     eax
+00546D3D push     esi
+00546D3E call     0x3060b2
+00546D43 mov      eax, dword ptr [esi]
+00546D45 pop      ecx
+00546D46 pop      ecx
+00546D47 add      edi, 0x1c
+00546D4A push     edi
+00546D4B mov      ecx, esi
+00546D4D call     dword ptr [eax + 0x60]
+00546D50 pop      edi
+00546D51 pop      esi
+00546D52 leave    
+00546D53 ret      4
+table00C6A520 ['0x548a09', '0xb3fd0', '0x3b810', '0x548ac2', '0x3b810', '0x3b810', '0x3b810', '0x47a69c', '0x3b810', '0x5cb9ff', '0x36cc7a', '0x3b810', '0x3b810', '0x3b810']
+table00C6A3C4 ['0x546cf9', '0xb3fd0', '0x546d56', '0x546d15', '0x546dd4', '0x546e2e', '0x47a69c', '0x47a69c', '0x546d7c', '0x5cb9ff', '0x36cc7a', '0x546da5', '0x546cef', '0x546cb8']
