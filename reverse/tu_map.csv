@@ -20240,8 +20240,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00298E6A,63,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,C,C=0x00298C76..0x00298EA9,Code/GameEngine/Source/Common/Rva00298E6A.cpp
 0x00298EA9,3525,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/Object.cpp S=Code/GameEngine/Source/GameLogic/Object/Object.cpp N=Code/GameEngine/Source/GameLogic/Object/Object.cpp W=Code/GameEngine/Source/GameLogic/Object/Object.cpp,Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp
 0x00299C6E,6,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Object/Object.cpp N=Code/GameEngine/Source/Common/Object.cpp,Code/GameEngine/Source/Common/ConstIntGetters4.cpp
-0x00299C74,4,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,C,C=0x00299C6E..0x00299C78,Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp
-0x00299C78,4,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,C,C=0x00299C6E..0x00299C7C,Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp
+0x00299C74,4,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,C,C=0x00299C6E..0x00299C78,Code/GameEngine/Source/GameLogic/Object/Object.cpp
+0x00299C78,4,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,C,C=0x00299C6E..0x00299C7C,Code/GameEngine/Source/GameLogic/Object/Object.cpp
 0x00299C7C,13,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,C,C=0x00299C6E..0x00299C89,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp
 0x00299C89,8,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,C,C=0x00299C6E..0x00299C91,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB05.cpp
 0x00299C91,8,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,C,C=0x00299C6E..0x00299C99,Code/GameEngine/Source/Common/GapForwardersSeat8.cpp
@@ -20250,7 +20250,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00299CA8,10,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,C,C=0x00299C99..0x00299CB2,Code/GameEngine/Source/Common/Disp8DwordFieldSetters.cpp
 0x00299CB2,8,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,C,C=0x00299C99..0x00299CBA,Code/GameEngine/Source/Common/GapForwardersSeat8.cpp
 0x00299CBA,4,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,C,C=0x00299C99..0x00299CBE,Code/GameEngine/Source/Common/Disp8DwordFieldSetters.cpp
-0x00299CBE,4,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,C,C=0x00299C99..0x00299CC2,Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp
+0x00299CBE,4,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,C,C=0x00299C99..0x00299CC2,Code/GameEngine/Source/GameLogic/Object/Object.cpp
 0x00299CC2,4,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,C,C=0x00299C99..0x00299CC6,Code/GameEngine/Source/Common/Disp8FloatFieldGetters.cpp
 0x00299CC6,8,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,C,C=0x00299C99..0x00299CCE,Code/GameEngine/Source/Common/GapForwardersSeat8.cpp
 0x00299CCE,7,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,C,C=0x00299C99..0x00299CD5,Code/GameEngine/Source/Common/GapLeavesSeat8.cpp

@@ -170,6 +170,26 @@ typedef float Real;
 #include <map>
 #define _CRTIMP
 #undef _CRTIMP
+#define BFME_DISP8_LEA_GETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		void *get() const; \
+	}; \
+	void *NAME::get() const \
+	{ \
+		return (char *)this + DISP; \
+	}
+#define BFME_DISP8_NEG_LEA_GETTER(NAME, BACK) \
+	class NAME \
+	{ \
+	public: \
+		void *get() const; \
+	}; \
+	void *NAME::get() const \
+	{ \
+		return (char *)this - BACK; \
+	}
 
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
 namespace _STL {
@@ -1497,6 +1517,29 @@ private:
 	unsigned int m_flagBits[4];
 };
 
+BFME_DISP8_NEG_LEA_GETTER(Rva00299C74LeaField, 108)
+
+BFME_DISP8_NEG_LEA_GETTER(Rva00299C78LeaField, 112)
+
+BFME_DISP8_NEG_LEA_GETTER(Rva00299CBELeaField, 52)
+
+// Callers elsewhere reach bodies in this unit through other spellings; retail's
+// call sites in their matched rows land on these addresses (same ABI). Bind them.
+
+// Callers elsewhere reach bodies in this unit through other spellings; retail's
+// call sites in their matched rows land on these addresses (same ABI). Bind them.
+
+// Clean BF1 9cbfb551fe Common/Rva00880960Accessors.cpp semantic guide.
+// Native 006C03C0..006C03CB is a complete independently bounded RET leaf.
+// Target behavior: receiver8 plus eight-byte element stride; RET4.
+// Original owner and full array bounds remain unknown; address-owned view only.
+struct Rva006C03C0Slot { unsigned char bytes[8]; };
+
+class Rva006C03C0Fields {
+public: void *at(int index);
+private: unsigned char unknown[8]; Rva006C03C0Slot entries[1];
+};
+
 // tu-skeleton: 0x0028A670 20B ?setWeaponBonusCondition@Object@@QAEXW4WeaponBonusConditionType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/WeaponBonusUpgradeUpgradeImplementation.cpp (not merged yet)
 
 // tu-skeleton: 0x0028A684 22B ?clearWeaponBonusCondition@Object@@QAEXW4WeaponBonusConditionType@@@Z -- matched in Code/GameEngine/Source/Common/RTS/PlayerBattlePlanBonuses.cpp (not merged yet)
@@ -1586,6 +1629,8 @@ private:
 // tu-skeleton: 0x0028AF2B 31B ?getAbleToUseWeaponAgainstTarget@Object@@QBE?AW4CanAttackResult@@W4AbleToAttackType@@PBV1@PBUCoord3D@@W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectGetAbleToUseWeaponAgainstTarget.cpp (not merged yet)
 
 // tu-skeleton: 0x0028AF4A 27B ?chooseBestWeaponForTarget@Object@@QAE_NPBV1@W4WeaponChoiceCriteria@@W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectGetAbleToUseWeaponAgainstTarget.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Object.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Object.cpp
 
@@ -2954,6 +2999,16 @@ void Object::restoreObjectToWorld(const Coord3D *pos)
 	((Object *)this)->teleportTo(pos, false);
 }
 
+// ---- from Code/GameEngine/Source/GameLogic/Object/RvaBitTestTwins.cpp
+
+// ?testBit@Rva0028D891Owner@@QBE_NH@Z
+// Retail 0x0028D891. Same 27B unsigned-shift shape as Object::testStatus,
+// over the flag words at +0x370.
+Bool Rva0028D891Owner::testBit(int bit) const
+{
+	return (m_flagBits[(UnsignedInt)bit >> 5] & (1 << (bit & 31))) != 0;
+}
+
 // tu-skeleton: 0x0028AF76 16B ?rva0028AF76@Object@@QBEHXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
 
 // tu-skeleton: 0x0028AF86 17B ?getLastVictimID@Object@@QBEHXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
@@ -3084,6 +3139,12 @@ void Object::restoreObjectToWorld(const Coord3D *pos)
 
 // tu-skeleton: 0x0028BBF3 18B ?rva0028BBF3@Object@@QAEXPAV1@@Z -- matched in Code/GameEngine/Source/Common/ObjectRva0028BBF3.cpp (not merged yet)
 
+// tu-skeleton: 0x0028BC05 18B ?rva0028BC05@Rva0028BC05@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/Rva0028BC05.cpp (not merged yet)
+
+// tu-skeleton: 0x0028BC29 18B ?rva0028BC29@Rva0028BC29@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp (not merged yet)
+
+// tu-skeleton: 0x0028BC3B 18B ?rva0028BC3B@Rva0028BC3B@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1A_ModuleFactoryDataAt0025464A.cpp (not merged yet)
+
 // tu-skeleton: 0x0028BC4D 11B ?rva0028BC4D@Object@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaMixedMemberForwarders.cpp (not merged yet)
 
 // tu-skeleton: 0x0028BC58 60B ?rva0028BC58@Object@@QAEPAXH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028BC58.cpp (not merged yet)
@@ -3148,11 +3209,85 @@ void Object::restoreObjectToWorld(const Coord3D *pos)
 
 // tu-skeleton: 0x0028C513 39B ?rva0028C513@Object@@QBE?AW4ObjectID@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028C513.cpp (not merged yet)
 
+// tu-skeleton: 0x0028C53A 4B ?get@Rva0028C53AConst@@SAHXZ -- matched in Code/GameEngine/Source/Common/GapLeavesSeat8.cpp (not merged yet)
+
+// tu-skeleton: 0x0028C53E 25B ?_M_do_or@?$_Base_bitset@$03@_STL@@QAEXABU12@@Z -- matched in Code/GameEngine/Source/Common/Thing/Module.cpp (not merged yet)
+
+// tu-skeleton: 0x0028C557 25B ?_M_do_or@?$_Base_bitset@$0CA@@_STL@@QAEXABU12@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_BaseBitset32DoOr.cpp (not merged yet)
+
+// tu-skeleton: 0x0028C570 27B ?rva0028C570@Rva0028C570@@QAEXABV1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_Rva0028C570.cpp (not merged yet)
+
+// tu-skeleton: 0x0028C58B 20B ?rva0028C58B@Rva0028C58B@@QAEPAV1@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0028C58B.cpp (not merged yet)
+
+// tu-skeleton: 0x0028C59F 14B ?rva0028C59F@Rva0028C59F@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp (not merged yet)
+
+// tu-skeleton: 0x0028C5AD 31B ?allocate@?$allocator@UBfmePod132@@@_STL@@QBEPAUBfmePod132@@IPBX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_large_bodies.cpp (not merged yet)
+
+// tu-skeleton: 0x0028C5CC 95B ?Rva0028C5CCGet@@YAPAVRva0028C5CC@@PAV1@PAD@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0028C5CCGet.cpp (not merged yet)
+
+// tu-skeleton: 0x0028C6D6 33B ??0Rva0028C6D6@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/V3PolyCopyCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x0028C6F7 4B ?get@Rva0028C6F7Const@@SAHXZ -- matched in Code/GameEngine/Source/Common/GapLeavesSeat8.cpp (not merged yet)
+
+// tu-skeleton: 0x0028C6FB 42B ?rva0028C6FB@Rva0028C6FB@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0028C6FB.cpp (not merged yet)
+
+// tu-skeleton: 0x0028C725 42B ?rva0028C725@Rva0028C725@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0028C725.cpp (not merged yet)
+
+// tu-skeleton: 0x0028C74F 4B ?get@Rva0028C74FConst@@SAHXZ -- matched in Code/GameEngine/Source/Common/GapLeavesSeat8.cpp (not merged yet)
+
+// tu-skeleton: 0x0028C753 42B ?rva0028C753@Rva0028C753@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0028C753.cpp (not merged yet)
+
+// tu-skeleton: 0x0028C77D 6B ?Rva0028C77DGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters5.cpp (not merged yet)
+
+// tu-skeleton: 0x0028C783 42B ?rva0028C783@Rva0028C783@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0028C6FB.cpp (not merged yet)
+
+// tu-skeleton: 0x0028C7AD 54B ?getSingleBitFromName@?$BitFlags@$0L@@@SAHPBD@Z -- matched in Code/GameEngine/Source/Common/BitFlags11DisabilityGetSingleBitFromName.cpp (not merged yet)
+
+// tu-skeleton: 0x0028C7E3 54B ?getSingleBitFromName@?$BitFlags@$0GI@@@SAHPBD@Z -- matched in Code/GameEngine/Source/Common/BitFlags104VeterancyGetSingleBitFromName.cpp (not merged yet)
+
+// tu-skeleton: 0x0028C819 54B ?getSingleBitFromName@?$BitFlags@$0GF@@@SAHPBD@Z -- matched in Code/GameEngine/Source/Common/BitFlags101BodyStateGetSingleBitFromName.cpp (not merged yet)
+
+// tu-skeleton: 0x0028C84F 54B ?getSingleBitFromName@?$BitFlags@$0JK@@@SAHPBD@Z -- matched in Code/GameEngine/Source/Common/BitFlags154SpecialPowerGetSingleBitFromName.cpp (not merged yet)
+
+// tu-skeleton: 0x0028C885 43B ??4Rva00297360Element@@QAEAAV0@ABV0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00297360ElementCopy.cpp (not merged yet)
+
+// tu-skeleton: 0x0028C8B0 13B ?get@Rva0028C8B0ShrNAnd32Field@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8ShrAndDwordGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0028C8C8 5B ?rva0028C8C8@Rva0028C8C8@@QBEPBVOverridable@@XZ -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
+
+// tu-skeleton: 0x0028C933 6B ?Rva0028C933Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x0028C939 28B ??_GRva004DF7C2@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
+
+// tu-skeleton: 0x0028C955 61B ??0ObjectDefectionHelper@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Helper/ObjectDefectionHelperCtor.cpp (not merged yet)
+
 // tu-skeleton: 0x0028C992 69B ?getModuleNameKey@ObjectDefectionHelper@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/ObjectDefectionHelperPoolKey.cpp (not merged yet)
+
+// tu-skeleton: 0x0028C9D7 6B ?name@Rva0028C9D7Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0028C9DD 28B ??_GRva004DF52E@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva004DF7C2Derived.cpp (not merged yet)
+
+// tu-skeleton: 0x0028CA92 6B ?name@Rva0028CA92Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0028CA98 28B ??_GRva004DF836@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva004DF7C2Derived.cpp (not merged yet)
+
+// tu-skeleton: 0x0028CAB4 42B ??0ObjectRepulsorHelper@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Helper/ObjectRepulsorHelperCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0028CADE 69B ?getModuleNameKey@ObjectRepulsorHelper@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRepulsorHelperPoolKey.cpp (not merged yet)
 
+// tu-skeleton: 0x0028CB23 6B ?name@Rva0028CB23Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0028CB29 28B ??_GRva004DF863@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva004DF7C2Derived.cpp (not merged yet)
+
+// tu-skeleton: 0x0028CB45 81B ??0ObjectWeaponStatusHelper@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Helper/ObjectWeaponStatusHelperCtor.cpp (not merged yet)
+
 // tu-skeleton: 0x0028CB96 69B ?getModuleNameKey@ObjectWeaponStatusHelper@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/ObjectWeaponStatusHelperPoolKey.cpp (not merged yet)
+
+// tu-skeleton: 0x0028CBDB 6B ?name@Rva0028CBDBNamed@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters2.cpp (not merged yet)
+
+// tu-skeleton: 0x0028CBE1 28B ??_GRva004DF8A9@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva004DF7C2Derived.cpp (not merged yet)
+
+// tu-skeleton: 0x0028CBFD 127B ?rva0028CBFD@Rva0028CBFD@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva0028CBFDCleanup.cpp (not merged yet)
 
 // tu-skeleton: 0x0028CC7C 61B ?rva0028CC7C@Object@@QAE_NH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Rva0028CC7CFinish.cpp (not merged yet)
 
@@ -3205,16 +3340,6 @@ void Object::restoreObjectToWorld(const Coord3D *pos)
 // tu-skeleton: 0x0028D796 103B ?rva0028D796@Rva0028D796@@QAEHXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028D796.cpp (not merged yet)
 
 // tu-skeleton: 0x0028D7FD 114B ?isSelectable@Object@@QBE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectIsSelectable.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/GameLogic/Object/RvaBitTestTwins.cpp
-
-// ?testBit@Rva0028D891Owner@@QBE_NH@Z
-// Retail 0x0028D891. Same 27B unsigned-shift shape as Object::testStatus,
-// over the flag words at +0x370.
-Bool Rva0028D891Owner::testBit(int bit) const
-{
-	return (m_flagBits[(UnsignedInt)bit >> 5] & (1 << (bit & 31))) != 0;
-}
 
 // tu-skeleton: 0x0028D8B6 53B ?releaseWeaponLock@Object@@QAEXW4WeaponLockType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectReleaseWeaponLock.cpp (not merged yet)
 
@@ -3630,6 +3755,8 @@ Bool Rva0028D891Owner::testBit(int bit) const
 
 // tu-skeleton: 0x00298517 798B ?onDie@Object@@QAEXPAVDamageInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectOnDie.cpp (not merged yet)
 
+// tu-skeleton: 0x00298835 94B ?rva00298835@Rva00298835@@QAEXPAUBfmeCopyElementA@@@Z -- matched in Code/GameEngine/Source/Common/Rva00298835.cpp (not merged yet)
+
 // tu-skeleton: 0x0029895A 31B ?rva0029895A@Object@@QAEXPAUBfmeCopyElementA@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0029895A.cpp (not merged yet)
 
 // tu-skeleton: 0x00298979 308B ?defect@Object@@QAEXPAV1@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectDefectionComplete.cpp (not merged yet)
@@ -3648,9 +3775,25 @@ Bool Rva0028D891Owner::testBit(int bit) const
 
 // tu-skeleton: 0x00299C6E 6B ?GetSnapshotName@Object@@UBEPBDXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
-// tu-skeleton: 0x00299C74 4B ?get@Rva00299C74LeaField@@QBEPAXXZ -- matched in Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp
 
-// tu-skeleton: 0x00299C78 4B ?get@Rva00299C78LeaField@@QBEPAXXZ -- matched in Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp (not merged yet)
+// Disp8 LEA getters: four-byte __thiscall members with one shape:
+//
+//     lea eax,[ecx+<DISP>] / ret
+//
+// The address of a member at a fixed displacement from `this` is returned.
+// Spelled as byte-pointer arithmetic from `this`, which MSVC 7.1 folds to
+// the same disp8 lea. The pointee type is unwitnessed (only an address is
+// produced), so the return is an untyped pointer. Members before the
+// accessed one are not spelled at all: unlike the load families, no lead
+// array is needed because nothing is read.
+// Identity is not recovered: every name is derived from its address, in the
+// same opaque-holder convention as the neighboring Disp* families.
+// No // cl: line (defaults match the frameless four-byte shape).
+
+// Negative-displacement sibling: the disp8 byte sign-extends, so a disp byte
+// above 0x7F addresses *before* `this` (e.g. 9C = -100). Spelled as a
+// negative byte offset from `this`, which folds to the same disp8 lea.
 
 // tu-skeleton: 0x00299C7C 13B ?set@Rva00299C7CDwordSlot@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp (not merged yet)
 
@@ -3667,8 +3810,6 @@ Bool Rva0028D891Owner::testBit(int bit) const
 // tu-skeleton: 0x00299CB2 8B ?rva00299CB2@Rva00299CB2@@QBEHXZ -- matched in Code/GameEngine/Source/Common/GapForwardersSeat8.cpp (not merged yet)
 
 // tu-skeleton: 0x00299CBA 4B ?get@Rva00299CA8DwordSlot@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8DwordFieldSetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00299CBE 4B ?get@Rva00299CBELeaField@@QBEPAXXZ -- matched in Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp (not merged yet)
 
 // tu-skeleton: 0x00299CC2 4B ?get@Rva00299CC2FloatField@@QBEMXZ -- matched in Code/GameEngine/Source/Common/Disp8FloatFieldGetters.cpp (not merged yet)
 

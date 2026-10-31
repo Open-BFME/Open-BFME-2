@@ -9382,10 +9382,10 @@ _string_constant,,0x00753A20,76,Code/Libraries/Source/Lua/lparser.c,matched,BFME
 ?apply@Rva004EDFFFDwordImmSetter@@QAEXXZ,,0x004EDFFF,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter; triple middle
 ?get@Rva002B2366ByteField@@QBEEXZ,,0x002B2366,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter
 ?apply@Rva004EE006DwordImmSetter@@QAEXXZ,,0x004EE006,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter; triple last
-?get@Rva00299C74LeaField@@QBEPAXXZ,,0x00299C74,4,Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp,matched,Disp8 LEA getter at negative displacement; address-derived opaque holder
+?get@Rva00299C74LeaField@@QBEPAXXZ,,0x00299C74,4,Code/GameEngine/Source/GameLogic/Object/Object.cpp,matched,Disp8 LEA getter at negative displacement; address-derived opaque holder
 ?apply@Rva0057428CDwordImmSetter@@QAEXXZ,,0x0057428C,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; pair first
 ?get@Rva00078922LeaGetter@@QBEPAXXZ,,0x00078922,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter
-?get@Rva00299C78LeaField@@QBEPAXXZ,,0x00299C78,4,Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp,matched,Disp8 LEA getter at negative displacement; address-derived opaque holder
+?get@Rva00299C78LeaField@@QBEPAXXZ,,0x00299C78,4,Code/GameEngine/Source/GameLogic/Object/Object.cpp,matched,Disp8 LEA getter at negative displacement; address-derived opaque holder
 ?get@Rva00300011ByteField@@QBEEXZ,,0x00300011,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter
 ?apply@Rva0057A235DwordImmSetter@@QAEXXZ,,0x0057A235,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter; triple first
 ?apply@Rva0057A23CDwordImmSetter@@QAEXXZ,,0x0057A23C,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; triple middle
@@ -9412,7 +9412,7 @@ _open_func,,0x00754080,87,Code/Libraries/Source/Lua/lparser.c,matched,BFME1 byte
 ?get@Rva003FF0D0ByteField@@QBEEXZ,,0x003FF0D0,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter
 ?get@Rva004543B6ByteField@@QBEEXZ,,0x004543B6,4,Code/GameEngine/Source/GameLogic/Object/Behavior/GettingBuiltBehavior.cpp,matched,Disp8 byte getter
 ?get@Rva001EAE5CLeaGetter@@QBEPAXXZ,,0x001EAE5C,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter
-?get@Rva00299CBELeaField@@QBEPAXXZ,,0x00299CBE,4,Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp,matched,Disp8 LEA getter at negative displacement; address-derived opaque holder
+?get@Rva00299CBELeaField@@QBEPAXXZ,,0x00299CBE,4,Code/GameEngine/Source/GameLogic/Object/Object.cpp,matched,Disp8 LEA getter at negative displacement; address-derived opaque holder
 ?apply@Rva0008523ADwordImmSetter@@QAEXXZ,,0x0008523A,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter
 ?get@Rva004543BEByteField@@QBEEXZ,,0x004543BE,4,Code/GameEngine/Source/GameLogic/Object/Behavior/GettingBuiltBehavior.cpp,matched,Disp8 byte getter
 ?apply@Rva000E14BDDwordImmSetter@@QAEXXZ,,0x000E14BD,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter
