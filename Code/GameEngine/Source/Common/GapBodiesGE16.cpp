@@ -146,10 +146,6 @@ struct Rva004E07A9
 	int m_10;
 };
 
-Rva004E07A9::Rva004E07A9(Rva004E07A9Block block, int a) : m_block(block), m_10(a)
-{
-}
-
 struct Rva004E07C3
 {
 	Rva004E07C3(Rva004E07A9Block block, int a, int b);
@@ -157,7 +153,3 @@ struct Rva004E07C3
 	int m_10;
 	int m_14;
 };
-
-Rva004E07C3::Rva004E07C3(Rva004E07A9Block block, int a, int b) : m_block(block), m_10(a), m_14(b)
-{
-}

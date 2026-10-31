@@ -714,6 +714,111 @@ public:
  unsigned int *m_ptr;
 };
 
+// Small GameEngine bodies from .text gaps no Ghidra function covers
+// (sixteenth batch; see GapBodiesGE01.cpp). Retail bytes establish every
+// shape; owning classes are not recovered unless named, so each keeps an
+// address-derived name and a view of only the members it touches. Callees use
+// the ledger's existing spellings.
+
+class Object;
+
+struct Coord3D;
+
+// --- 0x005F8E7D..0x005F8ECA: StrategicHUD::BattlePromptMovieClip::Impl's Apt
+// command callbacks. Its constructor 0x005FA3B1 binds them, in this order, to
+// "<level>.<name>_OnOpen", "_OnClosed", "_OnAutoResolveButtonClicked",
+// "_OnRealTimeButtonClicked" and "_OnRetreatButtonClicked"
+// (StrategicHUDBattlePromptMovieClipConstructor.cpp). A state word (+0x18)
+// gates the +0x00 listener's virtual slots (0 -> 1 with slot 1; 2 -> 3 with
+// slot 0; state 1 with slots 2, 3 and 4); the command argument is unused.
+class Rva005F8E7DListener
+{
+public:
+	virtual void s0();
+	virtual void s1();
+	virtual void s2();
+	virtual void s3();
+	virtual void s4();
+};
+
+namespace StrategicHUD
+{
+class BattlePromptMovieClip
+{
+public:
+	class Impl;
+};
+}
+
+class StrategicHUD::BattlePromptMovieClip::Impl
+{
+public:
+	void OnOpen(const char *unused);
+	void OnClosed(const char *unused);
+	void OnAutoResolveButtonClicked(const char *unused);
+	void OnRealTimeButtonClicked(const char *unused);
+	void OnRetreatButtonClicked(const char *unused);
+private:
+	Rva005F8E7DListener *m_listener;
+	char m_pad04[0x18 - 4];
+	int m_state;											// +0x18
+};
+
+// --- 0x004A9774 (43B) / 0x004A979F (52B): AIUpdateInterface dock and
+// harvest overrides that remember, for a player-free command (source 0), the
+// dock's +0x74 id (+0x4A4) or the harvest point (+0x4A8, flagged at +0x4B4).
+enum CommandSourceType { CMD_FROM_PLAYER = 0 };
+
+struct Rva004A9774Point
+{
+	float x;
+	float y;
+	float z;
+};
+
+class AIUpdateInterface
+{
+protected:
+	virtual void privateDock(Object *obj, CommandSourceType cmdSource);			// 0x0026481B
+	virtual void privateHarvest(const Coord3D *pos, CommandSourceType cmdSource);	// 0x00264853
+};
+
+class Rva004A9774AI : public AIUpdateInterface
+{
+protected:
+	virtual void privateDock(Object *obj, CommandSourceType cmdSource);
+	virtual void privateHarvest(const Coord3D *pos, CommandSourceType cmdSource);
+private:
+	char m_pad[0x4A4 - 4];
+	int m_dockID;											// +0x4A4
+	Rva004A9774Point m_harvestPos;							// +0x4A8
+	bool m_hasHarvestPos;									// +0x4B4
+};
+
+// --- 0x004E07A9 (26B) / 0x004E07C3 (33B): a by-value 16-byte block and one
+// or two words.
+struct Rva004E07A9Block
+{
+	int m_data[4];
+};
+
+struct Rva004E07A9
+{
+	Rva004E07A9(Rva004E07A9Block block, int a);
+	Rva004E07A9Block m_block;
+	int m_10;
+};
+
+struct Rva004E07C3
+{
+	Rva004E07C3(Rva004E07A9Block block, int a, int b);
+	Rva004E07A9Block m_block;
+	int m_10;
+	int m_14;
+};
+
+// ---- from Code/GameEngine/Source/Common/LivingWorldBuilding.cpp
+
 // ---- from Code/GameEngine/Source/Common/LivingWorldBuilding.cpp
 
 // ---- from Code/GameEngine/Source/Common/Rva004E060CMethod.cpp
@@ -1086,8 +1191,6 @@ void LivingWorldBuilding::updateArmySummaryEntryRepresentation(const Rva004E0790
 	m_3c.m_ptr->m_b4 = m_18;
 }
 
-// tu-skeleton: 0x004E06B8 67B ?BeginTurn@LivingWorldBuilding@@UAEXHH@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAE.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp
 
 // Disp8 pointer-chase dword getters: seven-byte __thiscall members with one shape:
@@ -1105,13 +1208,21 @@ void LivingWorldBuilding::updateArmySummaryEntryRepresentation(const Rva004E0790
 // backward cast, which MSVC folds to `mov eax,[ecx-BACK]`; same shape and
 // reading as BFME1's ChainedFieldGetters.
 
+// tu-skeleton: 0x004E06B8 67B ?BeginTurn@LivingWorldBuilding@@UAEXHH@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAE.cpp (not merged yet)
+
 // tu-skeleton: 0x004E0777 6B ?GetSnapshotName@LivingWorldBuilding@@UAEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters.cpp (not merged yet)
 
 // tu-skeleton: 0x004E077D 19B ?Rva004E077D@@YAHI@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE24.cpp (not merged yet)
 
-// tu-skeleton: 0x004E07A9 26B ??0Rva004E07A9@@QAE@URva004E07A9Block@@H@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE16.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/GapBodiesGE16.cpp
 
-// tu-skeleton: 0x004E07C3 33B ??0Rva004E07C3@@QAE@URva004E07A9Block@@HH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE16.cpp (not merged yet)
+Rva004E07A9::Rva004E07A9(Rva004E07A9Block block, int a) : m_block(block), m_10(a)
+{
+}
+
+Rva004E07C3::Rva004E07C3(Rva004E07A9Block block, int a, int b) : m_block(block), m_10(a), m_14(b)
+{
+}
 
 // tu-skeleton: 0x004E07E4 17B ?rva004E07E4@Rva004E07E4Delegate1@@QAEXPAVRva004E07E4Target@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1C.cpp (not merged yet)
 
