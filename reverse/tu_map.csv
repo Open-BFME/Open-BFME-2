@@ -13285,7 +13285,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x001EB10C,12,code,Code/GameEngine/Source/GameLogic/Object/Update/FreelistPool.cpp,approved,C,C=0x001EAEF9..0x001EB118 provisional,Code/GameEngine/Source/Common/Disp8ImulAddDwordGetters.cpp
 0x001EB118,24,code,Code/GameEngine/Source/GameLogic/Object/Update/FreelistPool.cpp,approved,C,C=0x001EAEF9..0x001EB130 provisional,Code/GameEngine/Source/Common/GapBodiesGE51.cpp
 0x001EB130,42,code,Code/GameEngine/Source/GameLogic/Object/Update/FreelistPool.cpp,approved,C,C=0x001EAEF9..0x001EB15A provisional,Code/GameEngine/Source/Common/Rva001EB130Clear.cpp
-0x001EB15A,89,code,Code/GameEngine/Source/GameLogic/Object/Update/FreelistPool.cpp,approved,C,C=0x001EAEF9..0x001EB1B3 provisional,Code/GameEngine/Source/Common/Rva001EB15ACopy.cpp
+0x001EB15A,89,code,Code/GameEngine/Source/GameLogic/Object/Update/FreelistPool.cpp,approved,C,C=0x001EAEF9..0x001EB1B3 provisional,Code/GameEngine/Source/GameLogic/Object/Update/FreelistPool.cpp
 0x001EB1B3,24,code,Code/GameEngine/Source/GameLogic/Object/Update/FreelistPool.cpp,approved,C,C=0x001EAEF9..0x001EB1CB provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_record_bodies.cpp
 0x001EB1CB,67,code,Code/GameEngine/Source/GameLogic/Object/Update/FreelistPool.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/FreelistPool.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Update/FreelistPool.cpp
 0x001EB20E,84,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/BfmeAssignRecord172Assign.cpp
@@ -66586,8 +66586,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0076A4BF,8,code,Code/GameEngine/Source/GameClient/GlobalLanguage.cpp,approved,P,P=0x001EAD69@FuncInfo0x0090F86C,Code/GameEngine/Source/GameClient/GlobalLanguage.cpp
 0x0076A4C7,8,code,Code/GameEngine/Source/GameClient/GlobalLanguage.cpp,approved,P,P=0x001EAD69@FuncInfo0x0090F86C,Code/GameEngine/Source/GameClient/GlobalLanguage.cpp
 0x0076A4CF,10,code,Code/GameEngine/Source/GameClient/GlobalLanguage.cpp,approved,P,P=0x001EAD69@FuncInfo0x0090F86C,Code/GameEngine/Source/GameClient/GlobalLanguage.cpp
-0x0076A4D9,11,code,,,-,,Code/GameEngine/Source/Common/Rva001EB15ACopy.cpp
-0x0076A4E4,10,code,,,-,,Code/GameEngine/Source/Common/Rva001EB15ACopy.cpp
+0x0076A4D9,11,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Update/FreelistPool.cpp
+0x0076A4E4,10,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Update/FreelistPool.cpp
 0x0076A4EE,8,code,,,-,,Code/GameEngine/Source/Common/Rva001EB298Setter.cpp
 0x0076A4F6,10,code,,,-,,Code/GameEngine/Source/Common/Rva001EB298Setter.cpp
 0x0076A500,8,code,,,-,,Code/GameEngine/Source/Common/Rva001EB2CCMapPath.cpp
