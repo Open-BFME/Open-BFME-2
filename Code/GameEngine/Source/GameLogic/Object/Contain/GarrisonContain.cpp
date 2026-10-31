@@ -266,6 +266,30 @@ enum
 	MAX_GARRISON_POINT_CONDITIONS = 3
 };
 
+enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
+
+enum BodyDamageType
+{
+    BODY_PRISTINE = 0,
+    BODY_DAMAGED = 1,
+    BODY_REALLYDAMAGED = 2,
+    BODY_RUBBLE = 3
+};
+
+class DamageInfo;
+
+class ModuleData;
+
+// The garrison point element: a Coord3D with an out-of-line empty ctor and
+// dtor (the constructor's __ehvec_ctor and the destructor's vector
+// destructor iterator take the ICF-folded 0x0047A6A9 and 0x000B3FD0), unlike
+// the plain Coord3D rally point.
+struct Rva00477F06GarrisonPoint : public Coord3D
+{
+	Rva00477F06GarrisonPoint();
+	~Rva00477F06GarrisonPoint();
+};
+
 // OpenContain's nine vftable-bearing bases, positional. The GarrisonContain
 // constructor 0x00477F06 (and the destructor 0x00478067, which restores the
 // same tables) stores nine vftables: +0x00 0x00C461F8 (28 slots), +0x0C
@@ -276,20 +300,111 @@ enum
 // the 12 update bytes before +0x20; B8 OpenContain's data to +0xFC. Only the
 // slots a body of this TU needs are declared. The +0x20 table's slot 76 is
 // calcBestGarrisonPosition (0x00478547), so B3 introduces it and its
-// override is entered with the +0x20 this.
+// override is entered with the +0x20 this; the +0x10 table's slot 0 is
+// update (0x00479643), so B2 introduces it. B3's unnamed slots are pure
+// placeholders (so an emitted table needs no placeholder definition); its
+// slots 32 and 35 take the damage-state argument healSingleObject's sibling
+// 0x0047876A passes and slot 69 is the contain count it tests. The +0x2C
+// table's slot 2 is onBodyDamageStateChange (0x0047876A).
 class B0 { public: virtual void b0(); int m_pad4; Object *m_object; };
 
 class B1 { public: virtual void b1(); };
 
-class B2 { public: virtual void b2(); private: unsigned char m_pad[12]; };
+class B2 { public: virtual UpdateSleepTime update() = 0; private: unsigned char m_pad[12]; };
 
-class B3 { public: virtual bool calcBestGarrisonPosition(Coord3D *, const Coord3D *); };
+class B3
+{
+public:
+    virtual void c00() = 0;
+    virtual void c01() = 0;
+    virtual void c02() = 0;
+    virtual void c03() = 0;
+    virtual void c04() = 0;
+    virtual void c05() = 0;
+    virtual void c06() = 0;
+    virtual void c07() = 0;
+    virtual void c08() = 0;
+    virtual void c09() = 0;
+    virtual void c10() = 0;
+    virtual void c11() = 0;
+    virtual void c12() = 0;
+    virtual void c13() = 0;
+    virtual void c14() = 0;
+    virtual void c15() = 0;
+    virtual void c16() = 0;
+    virtual void c17() = 0;
+    virtual void c18() = 0;
+    virtual void c19() = 0;
+    virtual void c20() = 0;
+    virtual void c21() = 0;
+    virtual void c22() = 0;
+    virtual void c23() = 0;
+    virtual void c24() = 0;
+    virtual void c25() = 0;
+    virtual void c26() = 0;
+    virtual void c27() = 0;
+    virtual void c28() = 0;
+    virtual void c29() = 0;
+    virtual void c30() = 0;
+    virtual void c31() = 0;
+    virtual void cSlot32(int) = 0;
+    virtual void c33() = 0;
+    virtual void c34() = 0;
+    virtual void cSlot35(int) = 0;
+    virtual void c36() = 0;
+    virtual void c37() = 0;
+    virtual void c38() = 0;
+    virtual void c39() = 0;
+    virtual void c40() = 0;
+    virtual void c41() = 0;
+    virtual void c42() = 0;
+    virtual void c43() = 0;
+    virtual void c44() = 0;
+    virtual void c45() = 0;
+    virtual void c46() = 0;
+    virtual void c47() = 0;
+    virtual void c48() = 0;
+    virtual void c49() = 0;
+    virtual void c50() = 0;
+    virtual void c51() = 0;
+    virtual void c52() = 0;
+    virtual void c53() = 0;
+    virtual void c54() = 0;
+    virtual void c55() = 0;
+    virtual void c56() = 0;
+    virtual void c57() = 0;
+    virtual void c58() = 0;
+    virtual void c59() = 0;
+    virtual void c60() = 0;
+    virtual void c61() = 0;
+    virtual void c62() = 0;
+    virtual void c63() = 0;
+    virtual void c64() = 0;
+    virtual void c65() = 0;
+    virtual void c66() = 0;
+    virtual void c67() = 0;
+    virtual void c68() = 0;
+    virtual unsigned int getContainCount(int unused) const = 0;
+    virtual void c70() = 0;
+    virtual void c71() = 0;
+    virtual void c72() = 0;
+    virtual void c73() = 0;
+    virtual void c74() = 0;
+    virtual void c75() = 0;
+    virtual bool calcBestGarrisonPosition(Coord3D *, const Coord3D *);
+};
 
 class B4 { public: virtual void b4(); };
 
 class B5 { public: virtual void b5(); };
 
-class B6 { public: virtual void b6(); };
+class B6
+{
+public:
+    virtual void b6();
+    virtual void d01() = 0;
+    virtual void onBodyDamageStateChange(const DamageInfo *damageInfo, BodyDamageType oldState, BodyDamageType newState);
+};
 
 class B7 { public: virtual void b7(); };
 
@@ -305,6 +420,7 @@ class OpenContain : public B0, public B1, public B2, public B3, public B4, publi
 {
     friend class Rva004697E1Contain;
 public:
+    OpenContain(Thing *thing, const ModuleData *moduleData);
     virtual ~OpenContain();
     virtual void removeAllContained(bool exposeStealthUnits);
     Object *getObject() const { return m_object; }
@@ -325,8 +441,12 @@ class GarrisonContain : public OpenContain
 {
     friend class Rva00478231;
 public:
+    GarrisonContain(Thing *thing, const ModuleData *moduleData);
+    virtual ~GarrisonContain();
+    virtual UpdateSleepTime update();
     virtual NameKeyType getModuleNameKey() const;
     virtual bool calcBestGarrisonPosition(Coord3D *sourcePos, const Coord3D *targetPos);
+    virtual void onBodyDamageStateChange(const DamageInfo *damageInfo, BodyDamageType oldState, BodyDamageType newState);
 protected:
     enum { GARRISON_INDEX_INVALID = -1 };
     virtual void xfer(Xfer *xfer);
@@ -336,11 +456,12 @@ protected:
     void removeObjectFromGarrisonPoint(Object *obj, int index);
     void putObjectAtGarrisonPoint(Object *obj, ObjectID targetID, int conditionIndex, int index);
     void validateRallyPoint();
+    void healSingleObject(Object *obj, float framesForFullHeal);
 private:
     unsigned int m_originalTeamID; // +0xFC
     GarrisonPointData m_garrisonPointData[MAX_GARRISON_POINTS]; // +0x100
     int m_garrisonPointsInUse; // +0x420
-    Coord3D m_garrisonPoint[MAX_GARRISON_POINT_CONDITIONS][MAX_GARRISON_POINTS]; // +0x424
+    Rva00477F06GarrisonPoint m_garrisonPoint[MAX_GARRISON_POINT_CONDITIONS][MAX_GARRISON_POINTS]; // +0x424
     int m_numGarrisonPoints[MAX_GARRISON_POINT_CONDITIONS]; // +0x9C4
     Coord3D m_exitRallyPoint; // +0x9D0
     bool m_garrisonPointsInitialized; // +0x9DC
@@ -512,14 +633,6 @@ struct GameLogicFrameView
 {
     char m_pad[0x40];
     unsigned int m_frame;
-};
-
-enum BodyDamageType
-{
-    BODY_PRISTINE = 0,
-    BODY_DAMAGED = 1,
-    BODY_REALLYDAMAGED = 2,
-    BODY_RUBBLE = 3
 };
 
 enum
