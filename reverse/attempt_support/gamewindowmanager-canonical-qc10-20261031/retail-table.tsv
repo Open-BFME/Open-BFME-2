@@ -1,0 +1,80 @@
+slot	va	declared surface	GameWindowManager owner
+0	0x48ff22	__vecDelDtor(uint)	
+1	0x48ff0d	slot01()	
+2	0x5b5384	slot02()	
+3	0x4b3fd0	slot03()	
+4	0x9cb9ff	slot04()	
+5	0x87a699	slot05()	
+6	0x4d43d0	slot06()	
+7	0x87a69c	slot07()	
+8	0x4b3fd0	init()	
+9	0x6c0a5c	reset()	?reset@GameWindowManager@@UAEXXZ
+10	0x6c0a74	update()	?update@GameWindowManager@@UAEXXZ
+11	0x9cb9ff	slot11()	
+12	0x4b3fd0	slot12()	
+13	0x87a69c	slot13()	
+14	0x48fcae	slot14()	
+15	0x48fc63	slot15(Rva0047EDE0CreateInfo*)	
+16	0x48fc9d	slot16()	
+17	0x6c263a	slot17()	?gogoMessageBox@GameWindowManager@@UAEPAVGameWindow@@HHHHGVUnicodeString@@0P6AXXZ111_N@Z
+18	0x6c187d	slot18()	?gogoMessageBox@GameWindowManager@@UAEPAVGameWindow@@HHHHGVUnicodeString@@0P6AXXZ111@Z
+19	0x48fce3	slot19()	
+20	0x48ffe0	slot20()	
+21	0x48fd3d	slot21()	
+22	0x48fd68	slot22()	
+23	0x48fd97	slot23()	
+24	0x48fdc6	slot24()	
+25	0x48fe14	slot25()	
+26	0x48fe84	slot26()	
+27	0x48fd0e	slot27()	
+28	0x48feaf	slot28()	
+29	0x48fede	slot29()	
+30	0x6c2edf	slot30()	?assignDefaultGadgetLook@GameWindowManager@@UAEXPAVGameWindow@@PAVGameFont@@_N@Z
+31	0x7177ec	slot31()	?winCreateFromScript@GameWindowManager@@UAEPAVGameWindow@@VAsciiString@@PAVRva0031763A@@PAV2@@Z
+32	0x7176b9	slot32()	?winCreateLayout@GameWindowManager@@UAEPAVWindowLayout@@VAsciiString@@@Z
+33	0x715acc	freeStaticStrings()	?freeStaticStrings@GameWindowManager@@UAEXXZ
+34	0x6c2533	slot34()	?winCreate@GameWindowManager@@QAEPAVGameWindow@@PAURva0047EDE0CreateInfo@@@Z
+35	0x6c1173	winDestroy(GameWindow*)	?winDestroy@GameWindowManager@@UAEHPAVGameWindow@@@Z
+36	0x6c124c	winDestroyAll()	?winDestroyAll@GameWindowManager@@UAEHXZ
+37	0x5db0a8	slot37()	
+38	0x6c0d9c	hideWindowsInRange(GameWindow*,int,int,bool)	?hideWindowsInRange@GameWindowManager@@UAEXPAVGameWindow@@HH_N@Z
+39	0x6c0dd0	enableWindowsInRange(GameWindow*,int,int,bool)	?enableWindowsInRange@GameWindowManager@@UAEXPAVGameWindow@@HH_N@Z
+40	0x6c0d3d	slot40()	?windowHiding@GameWindowManager@@UAEXPAVGameWindow@@@Z
+41	0x48ff12	slot41()	
+42	0x6c5408	slot42()	?winNextTab@GameWindowManager@@UAEXPAVGameWindow@@@Z
+43	0x6c5473	slot43()	?winPrevTab@GameWindowManager@@UAEXPAVGameWindow@@@Z
+44	0x6c55ac	slot44()	?registerTabList@GameWindowManager@@UAEXV?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@@Z
+45	0x6c5265	slot45()	
+46	0x6c1fd5	slot46()	?winProcessMouseEvent@GameWindowManager@@UAE?AW4WinInputReturnCode@@W4GameWindowMessage@@PAUICoord2D@@PAX@Z
+47	0x6c0f68	rva002C0F68(bool,bool)	?rva002C0F68@GameWindowManager@@UAEH_N0@Z
+48	0x70d377	slot48()	
+49	0x6c0ed5	slot49()	?winSetFocus@GameWindowManager@@UAEHPAVGameWindow@@@Z
+50	0x73f8ca	slot50()	
+51	0x9c4ae1	slot51()	
+52	0x6c12dc	slot52()	?winSetLoneWindow@GameWindowManager@@UAEXPAVGameWindow@@@Z
+53	0x9c4acd	slot53()	
+54	0x6c0c71	slot54()	?isEnabled@GameWindowManager@@UAE_NPAVGameWindow@@@Z
+55	0x6c0c92	slot55()	?isHidden@GameWindowManager@@UAE_NPAVGameWindow@@@Z
+56	0x6c0cb3	addWindowToParent(GameWindow*,GameWindow*)	?addWindowToParent@GameWindowManager@@UAEXPAVGameWindow@@0@Z
+57	0x6c0ced	addWindowToParentAtEnd(GameWindow*,GameWindow*)	?addWindowToParentAtEnd@GameWindowManager@@UAEXPAVGameWindow@@0@Z
+58	0x6c0e7d	winSendSystemMsg(GameWindow*,uint,uint,uint)	?winSendSystemMsg@GameWindowManager@@UAE?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z
+59	0x6c0ea9	winSendInputMsg(GameWindow*,uint,uint,uint)	?winSendInputMsg@GameWindowManager@@UAE?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z
+60	0x6c0e2d	winGetWindowFromId(GameWindow*,int)	?winGetWindowFromId@GameWindowManager@@UAEPAVGameWindow@@PAV2@H@Z
+61	0x6c0e04	slot61()	?winCapture@GameWindowManager@@UAEHPAVGameWindow@@@Z
+62	0x6c0e1b	slot62()	?winRelease@GameWindowManager@@UAEHPAVGameWindow@@@Z
+63	0x70f2c7	slot63()	
+64	0x6c182d	slot64()	?winSetModal@GameWindowManager@@UAEHPAVGameWindow@@@Z
+65	0x6c12a0	slot65()	?winUnsetModal@GameWindowManager@@UAEHPAVGameWindow@@@Z
+66	0x714ae0	slot66()	
+67	0x714b28	slot67()	
+68	0x714b75	slot68()	
+69	0x714bc9	slot69()	
+70	0x714c1d	slot70()	?winMakeColor@GameWindowManager@@UAEHEEEE@Z
+71	0x714c3e	slot71()	?winFindImage@GameWindowManager@@UAEPBVImage@@PBD@Z
+72	0x714c13	slot72()	
+73	0x714c93	slot73()	
+74	0x714c9f	slot74()	?winGetTextSize@GameWindowManager@@QAEXPAVGameFont@@VUnicodeString@@PAH2H@Z
+75	0x6c1eed	slot75()	?winTextLabelToText@GameWindowManager@@QAE?AVUnicodeString@@VAsciiString@@@Z
+76	0x714cc1	slot76(AsciiString,int,bool)	?winFindFont@GameWindowManager@@QAEPAVGameFont@@VAsciiString@@H_N@Z
+77	0x6c1629	slot77()	
+78	0x48ffc4	(next push-button table)	

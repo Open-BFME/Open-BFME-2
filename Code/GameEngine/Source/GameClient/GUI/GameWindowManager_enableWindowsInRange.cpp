@@ -26,37 +26,7 @@ public:
 	GameWindow *m_child;
 };
 
-class GameWindowManager
-{
-public:
-#define V(n) virtual void pad##n() = 0;
-	V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7)
-	V(8) V(9) V(10) V(11) V(12) V(13) V(14) V(15)
-	V(16) V(17) V(18) V(19) V(20) V(21) V(22) V(23)
-	V(24) V(25) V(26) V(27) V(28) V(29) V(30) V(31)
-	V(32) V(33) V(34) V(35) V(36) V(37)
-#undef V
-	virtual void hideWindowsInRange(GameWindow *baseWindow, Int first, Int last, Bool hideFlag);
-	virtual void enableWindowsInRange(GameWindow *baseWindow, Int first, Int last, Bool enableFlag);
-#define W(n) virtual void pad##n() = 0;
-	W(40) W(41) W(42) W(43) W(44) W(45) W(46)
-	virtual Int rva002C0F68(Bool a, Bool b);
-	W(48) W(49) W(50) W(51) W(52) W(53) W(54) W(55)
-	W(56)
-#undef W
-	virtual void addWindowToParentAtEnd(GameWindow *window, GameWindow *parent);
-#define X(n) virtual void pad##n() = 0;
-	X(58)
-	virtual Int slot59(GameWindow *win, Int arg, Int a, Int b);
-#undef X
-	virtual GameWindow *winGetWindowFromId(GameWindow *window, Int id);
-
-private:
-	unsigned char m_pad04[8];
-	GameWindow *m_windowList;
-	unsigned char m_pad10[0x20 - 0x10];
-	GameWindow *m_window20;
-};
+#include "../../../Include/GameClient/GameWindowManager.h"
 
 GameWindow *GameWindowManager::winGetWindowFromId(GameWindow *window, Int id)
 {
@@ -135,7 +105,7 @@ Int GameWindowManager::rva002C0F68(Bool a, Bool b)
 {
 	Int result = 0;
 	GameWindow *cur2;
-	GameWindow *cur = m_window20;
+	GameWindow *cur = m_keyboardFocus;
 	if (!cur)
 		goto done;
 	if (!a)
@@ -153,7 +123,7 @@ Int GameWindowManager::rva002C0F68(Bool a, Bool b)
 			goto done;
 		}
 	tryIt:
-		if (slot59(cur2, 21, ab, bb))
+		if (winSendInputMsg(cur2, 21, ab, bb))
 			goto done;
 		else
 			goto loop;

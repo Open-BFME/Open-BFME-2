@@ -12,7 +12,8 @@
 // WindowLayout (Generals GameClient/GUI/WindowLayout.cpp). The original was
 // compiled with exception handling; BFME's set(str) wrapper folds strlen of
 // the literal into the two-arg set call.
-#include "../../../../../reference/open-bfme-1/game/GameEngine/Source/GameClient/window_layout.h"
+#include "../../../Include/GameClient/GameWindowManager.h"
+#include "../../../Include/GameClient/WindowLayout.h"
 
   // end hide
 
