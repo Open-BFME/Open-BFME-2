@@ -946,6 +946,19 @@ struct RetailTeamRelationMap
 	{ \
 		m_floatValue = newValue; \
 	}
+#define BFME_ASCII_FIELD_SETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		void set(const AsciiString &s); \
+	private: \
+		char m_pad[DISP]; \
+		AsciiString m_str; \
+	}; \
+	void NAME::set(const AsciiString &s) \
+	{ \
+		return ((StringBase<char> &)m_str).set((const StringBase<char> &)s); \
+	}
 
 // ?rva0039D8BA@Team@@QAEXPAVObject@@@Z @0x0039D8BA (18B).
 // Team::rva0039D8BA(Object*): sets Team+0x5c entered flag then refreshes the
@@ -1667,7 +1680,11 @@ public:
 // owner, field meaning and bounds beyond the accessed word are unresolved.
 BFME_DISP32_FLOAT_SETTER(Rva0039D470FloatField, 0x120)
 
+BFME_ASCII_FIELD_SETTER(Rva0039D91FStringField, 0x318)
+
 // tu-skeleton: 0x0039D40F 26B ?dlink_isInList_TeamInstanceList@Team@@QBE_NPBQAV1@@Z -- matched in Code/GameEngine/Source/Common/Team_dlink_isInList_TeamInstanceList.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/RTS/Team.cpp
 
 // ---- from Code/GameEngine/Source/Common/RTS/Team.cpp
 
@@ -3671,7 +3688,15 @@ void Team::rva003A38E9(const AsciiString &keyName, unsigned char stateWord)
 
 // tu-skeleton: 0x0039D8CC 7B ?rva0039D8CC@Rva0039D8CC@@QBEHHHHH@Z -- matched in Code/GameEngine/Source/Common/GapLeavesSeat8.cpp (not merged yet)
 
-// tu-skeleton: 0x0039D91F 11B ?set@Rva0039D91FStringField@@QAEXABVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/AsciiStringFieldSetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/AsciiStringFieldSetters.cpp
+
+//
+// AsciiString field setters: one shape, add ecx, <field>; jmp
+// StringBase<char>::set (rowed 0x000366F0), i.e. assign an AsciiString member
+// at a fixed offset of the receiver. Same recipe as the rowed Rva004EC1CE.cpp
+// (+0x148). Each body sits in a gap between rowed functions; receivers and
+// field purposes are unknown, so each gets a per-address name, and no
+// referencing site was found for these in this pass.
 
 // tu-skeleton: 0x0039D92A 42B ?findTeamByID@TeamPrototype@@QAEPAVTeam@@I@Z -- matched in Code/GameEngine/Source/Common/RTS/TeamPrototypeFindAndCountInstances.cpp (not merged yet)
 
