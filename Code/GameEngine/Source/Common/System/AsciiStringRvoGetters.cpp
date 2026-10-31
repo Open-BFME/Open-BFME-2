@@ -86,12 +86,6 @@ private:
 	AsciiString m_value; // +0xAC
 };
 
-// ?get@Rva00095224AsciiField@@QBE?AVAsciiString@@XZ
-AsciiString Rva00095224AsciiField::get() const
-{
-	return m_value;
-}
-
 class Rva0046AA11AsciiField
 {
 public:

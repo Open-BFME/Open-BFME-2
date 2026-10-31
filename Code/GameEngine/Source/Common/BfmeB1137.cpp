@@ -3,6 +3,21 @@
 #define TheCloudState (*(Rva00094CEAState **)&g_get_00710fb0)
 #include <d3d9.h>
 #pragma comment(linker, "/alternatename:?ScreenTextureStageStateChanges@@3IA=?texture_stage_state_changes@DX8Wrapper@@1IA")
+// platformsdk
+//
+// Value-returning AsciiString getters with the RVO idiom proven by
+// GlobalDataRva002360DE.cpp (retail 0x002360DE, 30 bytes):
+// each returns the string member at its offset via the hidden return
+// pointer; the member copy-constructs directly into it (RVO) through
+// the StringBase copy body at 0x365F0, and the function returns the
+// hidden pointer. Class names are address-derived (identity
+// unrecoverable from 30 bytes); member names positional.
+
+typedef int Int;
+typedef unsigned short WideChar;
+#include <windows.h>
+#include "ascii_string.h"
+#include "unicode_string.h"
 
 //
 // ?rva00094CEA@Rva009519B@@UAEXXZ, retail 0x00094CEA (80 bytes): slot 44
@@ -161,11 +176,206 @@ private:
 	mutable volatile unsigned char m_clear68;
 };
 
+class Rva00274DB6AsciiField
+{
+public:
+	AsciiString get() const;
+
+private:
+	char m_pad[0x79C];
+	AsciiString m_value; // +0x79C
+};
+
+class Rva00291775AsciiField
+{
+public:
+	AsciiString get() const;
+
+private:
+	char m_pad[0x318];
+	AsciiString m_value; // +0x318
+};
+
+class Rva003821B9AsciiField
+{
+public:
+	AsciiString get() const;
+
+private:
+	char m_pad[0x1A8];
+	AsciiString m_value; // +0x1A8
+};
+
+class Rva00382216AsciiField
+{
+public:
+	AsciiString get() const;
+
+private:
+	char m_pad[0x1B8];
+	AsciiString m_value; // +0x1B8
+};
+
+class Rva00095224AsciiField
+{
+public:
+	AsciiString get() const;
+
+private:
+	char m_pad[0xAC];
+	AsciiString m_value; // +0xAC
+};
+
+class Rva0046AA11AsciiField
+{
+public:
+	AsciiString get() const;
+
+private:
+	char m_pad[0x308];
+	AsciiString m_value; // +0x308
+};
+
+class Rva004CFB6DAsciiField
+{
+public:
+	AsciiString get() const;
+	void rva004CFB8B(AsciiString value);
+
+private:
+	char m_pad[0x1D8];
+	AsciiString m_value; // +0x1D8
+};
+
+class Rva004DC902AsciiField
+{
+public:
+	AsciiString get() const;
+
+private:
+	char m_pad[0x188];
+	AsciiString m_value; // +0x188
+};
+
+class Rva004FDCE1AsciiField
+{
+public:
+	AsciiString get() const;
+	void setGameSpyName(AsciiString value);
+
+private:
+	char m_pad[0x1B0];
+	AsciiString m_value; // +0x1B0
+};
+
+class Rva004FDD36AsciiField
+{
+public:
+	void setClan(AsciiString value);
+
+private:
+	char m_pad[0x1B4];
+	AsciiString m_value; // +0x1B4
+};
+
+class Rva004FDD6DAsciiField
+{
+public:
+	AsciiString get() const;
+
+private:
+	char m_pad[0x1DC];
+	AsciiString m_value; // +0x1DC
+};
+
+class Rva0056D653AsciiField
+{
+public:
+	AsciiString get() const;
+
+private:
+	char m_pad[0x258];
+	AsciiString m_value; // +0x258
+};
+
+class Rva00581777AsciiField
+{
+public:
+	AsciiString get() const;
+	void setSerial(AsciiString value);
+
+private:
+	char m_pad[0x1C8];
+	AsciiString m_value; // +0x1C8
+};
+
+class Rva0059F322AsciiField
+{
+public:
+	AsciiString get() const;
+
+private:
+	char m_pad[0xFFC];
+	AsciiString m_value; // +0xFFC
+};
+
+class Rva0059F340AsciiField
+{
+public:
+	AsciiString get() const;
+
+private:
+	char m_pad[0xFDC];
+	AsciiString m_value; // +0xFDC
+};
+
+class Rva002D9BC1AsciiField
+{
+public:
+	AsciiString get() const;
+
+private:
+	char m_pad[0x20];
+	AsciiString m_value; // +0x20
+};
+
+class Rva004DC8E7AsciiField
+{
+public:
+	AsciiString get() const;
+
+private:
+	char m_pad[0x3c];
+	AsciiString m_value; // +0x3c
+};
+
+class Rva0029173EAsciiField
+{
+public:
+	void setName(AsciiString value);
+
+private:
+	char m_pad[0x308];
+	AsciiString m_value; // +0x308
+};
+
+class Rva004CFBC2AsciiField
+{
+public:
+	void rva004CFBC2(AsciiString value);
+
+private:
+	char m_pad[0x1DC];
+	AsciiString m_value; // +0x1DC
+};
+
 // tu-skeleton: 0x00094EBF 93B ??0BfmeB1137@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Gen006E2310Ctor.cpp (not merged yet)
 
 // tu-skeleton: 0x00094F1C 28B ??_GBfmeB1137@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/BfmeConv1137Dtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00094F38 114B ??1BfmeB1137@@UAE@XZ -- matched in Code/GameEngine/Source/Common/BfmeConv1137Dtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/BfmeB1137.cpp
 
 // ---- from Code/GameEngine/Source/Common/BfmeConv1137Uninstall.cpp
 
@@ -203,7 +413,6 @@ void BfmeB1137::UnInstall_Materials(void) const
 
 // Inline public teardown calls Free_String directly; the standalone destructor is 0x00065F5B.
 
-// tu-skeleton: 0x0009519B 113B ??1Rva009519B@@UAE@XZ -- matched in Code/GameEngine/Source/Common/SubsystemDerivedDtors.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/BfmeB1137.cpp
 
@@ -261,7 +470,15 @@ bool Rva009519B::rva0009520C()
 	return m_20 && m_mode != 0 && m_mode != 4;
 }
 
-// tu-skeleton: 0x00095224 30B ?get@Rva00095224AsciiField@@QBE?AVAsciiString@@XZ -- matched in Code/GameEngine/Source/Common/System/AsciiStringRvoGetters.cpp (not merged yet)
+// tu-skeleton: 0x0009519B 113B ??1Rva009519B@@UAE@XZ -- matched in Code/GameEngine/Source/Common/SubsystemDerivedDtors.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/System/AsciiStringRvoGetters.cpp
+
+// ?get@Rva00095224AsciiField@@QBE?AVAsciiString@@XZ
+AsciiString Rva00095224AsciiField::get() const
+{
+	return m_value;
+}
 
 // tu-skeleton: 0x00095242 28B ??_GRva009519B@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/SubsystemDerivedDtors.cpp (not merged yet)
 
