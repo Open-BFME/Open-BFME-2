@@ -24127,7 +24127,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00306BF4,20,code,,,-,,Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp
 0x00306C08,13,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,S,S=Code/GameEngine/Source/Common/System/DataChunk.cpp N=Code/GameEngine/Source/Common/System/DataChunkInput.cpp,Code/GameEngine/Source/Common/System/DataChunk.cpp
 0x00306C15,45,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,C,C=0x00306C08..0x00306C42,Code/GameEngine/Source/Common/System/DataChunk.cpp
-0x00306C42,7,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,C,C=0x00306C08..0x00306C49,Code/GameEngine/Source/Common/Disp8BinarySubGetters.cpp
+0x00306C42,7,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,C,C=0x00306C08..0x00306C49,Code/GameEngine/Source/Common/System/DataChunk.cpp
 0x00306C49,15,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,C,C=0x00306C08..0x00306C58,Code/GameEngine/Source/Common/VtableSlotBodiesR3.cpp
 0x00306C58,10,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,C,C=0x00306C08..0x00306C62,Code/GameEngine/Source/Common/VtableSlotBodiesR3.cpp
 0x00306C62,9,code,Code/GameEngine/Source/Common/System/DataChunk.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/ScriptEngine/OutputChunk.cpp,Code/GameEngine/Source/GameLogic/ScriptEngine/ConditionWriteDataChunk.cpp

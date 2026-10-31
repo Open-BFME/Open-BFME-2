@@ -8,23 +8,43 @@ typedef bool Bool;
 #include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 #include "unicode_string.h"
 #include <stddef.h>
-extern "C" __declspec(dllimport) struct _iobuf *__cdecl _wfopen(const wchar_t *, const wchar_t *);
-extern "C" __declspec(dllimport) int __cdecl fclose(struct _iobuf *);
-extern "C" __declspec(dllimport) int __cdecl fseek(struct _iobuf *, long, int);
-extern "C" __declspec(dllimport) size_t __cdecl fread(void *, size_t, size_t, struct _iobuf *);
-extern "C" __declspec(dllimport) int __cdecl _wunlink(const wchar_t *);
 #define SEEK_SET 0
+#define BFME_DISP8_BINARY_SUB_GETTER(NAME, DISP1, DISP2) \
+	class NAME \
+	{ \
+	public: \
+		int get() const; \
+	}; \
+	int NAME::get() const \
+	{ \
+		return *(const int *)((const char *)this + (DISP1)) - *(const int *)((const char *)this + (DISP2)); \
+	}
+
+extern "C" __declspec(dllimport) struct _iobuf *__cdecl _wfopen(const wchar_t *, const wchar_t *);
+
+extern "C" __declspec(dllimport) int __cdecl fclose(struct _iobuf *);
+
+extern "C" __declspec(dllimport) int __cdecl fseek(struct _iobuf *, long, int);
+
+extern "C" __declspec(dllimport) size_t __cdecl fread(void *, size_t, size_t, struct _iobuf *);
+
+extern "C" __declspec(dllimport) int __cdecl _wunlink(const wchar_t *);
+
 extern "C" __declspec(dllimport) unsigned int __cdecl fwrite(
 	const void *chunkBuffer, unsigned int elementSize, unsigned int elementCount, struct _iobuf *file);
+
 typedef unsigned short WideChar;
+
 extern "C" __declspec(dllimport) unsigned int __cdecl fwrite(
 	const void *chunkBuffer, unsigned int elementSize, unsigned int elementCount, struct _iobuf *file) throw();
+
 // Zero Hour's Common/Errors.h (ERROR_BASE 0xDEAD0001 + 4). Retail throws the enum:
 // its ThrowInfo is __TI1?AW4ErrorCode@@ (0x00CFEEE4), not int's __TI1H (0x00CFE2C8).
 enum ErrorCode
 {
 	ERROR_CORRUPT_FILE_FORMAT = 0xDEAD0005
 };
+
 //
 // DataChunkOutput::writeNameKey, retail 0x00307D29 (true 92 bytes; the 10B
 // reloc row covers only the SEH-prologue head: mov eax,cookie + call
@@ -174,19 +194,6 @@ bool (DataChunkInput::*DataChunkInputEofMethod)() = &DataChunkInput::atEndOfFile
 // siblings. The class is the one whose constructor 0x0023DB34 installs this table
 // (RvaSmallVtableCtors.cpp); the original name is unknown.
 extern "C" void *__cdecl memcpy(void *dst, const void *src, unsigned int count);
-
-class Rva0023DB34
-{
-public:
-	virtual int slot00(void *p, int n);
-	virtual int slot04();
-	virtual bool slot08(int n);
-	virtual bool slot0C();
-private:
-	char *m_base04;
-	char *m_cursor08;
-	char *m_end0C;
-};
 
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
@@ -523,6 +530,30 @@ public:
 private:
 	DictPairData *m_data; // +0x00
 };
+
+class Rva0023DB34
+{
+public:
+	virtual int slot00(void *p, int n);
+	virtual int slot04();
+	virtual bool slot08(int n);
+	virtual bool slot0C();
+private:
+	char *m_base04;
+	char *m_cursor08;
+	char *m_end0C;
+};
+
+// BF1 9cbfb551fe Common/Rva0029BC30Bump.cpp is the clean semantic donor.
+// Full native leaf 0049CB66..0049CB6E ends at its own RET boundary.
+// Target evidence: increment receiver24 dword; set receiver2C to all ones.
+// Original owner unresolved; the address-owned type is independent of nearby classes.
+class Rva0049CB66Fields {
+public: void bump();
+private: char unknown[0x24]; unsigned int value24; unsigned int unknown28; int value2C;
+};
+
+// ---- from Code/GameEngine/Source/Common/System/DataChunk.cpp
 
 // ---- from Code/GameEngine/Source/Common/System/DataChunk.cpp
 
@@ -905,38 +936,6 @@ AsciiString DataChunkTableOfContents::getName(UnsignedInt id)
 	return AsciiString::TheEmptyString;
 }
 
-// tu-skeleton: 0x00306C42 7B ?slot04@Rva0023DB34@@UAEHXZ -- matched in Code/GameEngine/Source/Common/Disp8BinarySubGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00306C49 15B ?slot08@Rva0023DB34@@UAE_NH@Z -- matched in Code/GameEngine/Source/Common/VtableSlotBodiesR3.cpp (not merged yet)
-
-// tu-skeleton: 0x00306C58 10B ?slot0C@Rva0023DB34@@UAE_NXZ -- matched in Code/GameEngine/Source/Common/VtableSlotBodiesR3.cpp (not merged yet)
-
-// tu-skeleton: 0x00306C62 9B ??0OutputChunk@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ConditionWriteDataChunk.cpp (not merged yet)
-
-// tu-skeleton: 0x00306C6B 29B ??_GOutputChunk@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ConditionWriteDataChunk.cpp (not merged yet)
-
-// tu-skeleton: 0x00306C88 119B ?closeDataChunk@DataChunkOutput@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ConditionWriteDataChunk.cpp (not merged yet)
-
-// tu-skeleton: 0x00306D2F 25B ?writeArrayOfBytes@DataChunkOutput@@QAEXPADH@Z -- matched in Code/GameEngine/Source/Common/System/DataChunk_writeArrayOfBytes_DataChunkOutput_QAEXPADH_Z.cpp (not merged yet)
-
-// tu-skeleton: 0x00306DCC 20B ?reset@DataChunkInput@@QAEXXZ -- matched in Code/GameEngine/Source/Common/System/DataChunkInput.cpp (not merged yet)
-
-// tu-skeleton: 0x00306DE0 9B ??0InputChunk@@QAE@XZ -- matched in Code/GameEngine/Source/Common/InlineDtorDeletingDtorsC01.cpp (not merged yet)
-
-// tu-skeleton: 0x00306DE9 29B ??_GInputChunk@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/InlineDtorDeletingDtorsC01.cpp (not merged yet)
-
-// tu-skeleton: 0x00306E16 12B ?getChunkDataSize@DataChunkInput@@QAEIXZ -- matched in Code/GameEngine/Source/Common/System/DataChunkInput.cpp (not merged yet)
-
-// tu-skeleton: 0x00306E2E 18B ?atEndOfChunk@DataChunkInput@@QAE_NXZ -- matched in Code/GameEngine/Source/Common/System/DataChunkInput.cpp (not merged yet)
-
-// tu-skeleton: 0x00306E40 22B ?decrementDataLeft@DataChunkInput@@IAEXH@Z -- matched in Code/GameEngine/Source/Common/System/DataChunkInput.cpp (not merged yet)
-
-// tu-skeleton: 0x00306E78 34B ?readInt@DataChunkInput@@QAEHXZ -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogic_parseWaypointData.cpp (not merged yet)
-
-// tu-skeleton: 0x00306F01 82B ??1DataChunkInput@@QAE@XZ -- matched in Code/GameEngine/Source/Common/System/DataChunkInput.cpp (not merged yet)
-
-// tu-skeleton: 0x00306F53 82B ?closeDataChunk@DataChunkInput@@IAEXXZ -- matched in Code/GameEngine/Source/Common/System/DataChunkInput.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/System/DataChunkOutputDestructor.cpp
 
 // Donor: Open-BFME-1 34f59164f6d1efd413c5fd37f4894ec834c3c0fe,
@@ -996,28 +995,6 @@ void DataChunkOutput::writeUnicodeString(UnicodeString textValue)
 	::fwrite(textValue.str(), textLength * sizeof(WideChar), 1, file);
 }
 
-// tu-skeleton: 0x00307133 28B ??_GRva0030714F@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/AsciiStringFoldDeleters.cpp (not merged yet)
-
-// tu-skeleton: 0x0030714F 14B ??1Rva0030714F@@UAE@XZ -- matched in Code/GameEngine/Source/Common/AsciiStringFoldDeleters.cpp (not merged yet)
-
-// tu-skeleton: 0x0030715D 140B ?write@DataChunkTableOfContents@@QAEXAAVOutputStream@@@Z -- matched in Code/GameEngine/Source/Common/System/DataChunkTableOfContentsRead.cpp (not merged yet)
-
-// tu-skeleton: 0x003071E9 301B ?read@DataChunkTableOfContents@@QAEXAAVChunkInputStream@@@Z -- matched in Code/GameEngine/Source/Common/System/DataChunkTableOfContentsRead.cpp (not merged yet)
-
-// tu-skeleton: 0x00307371 17B ??0UserParser@@QAE@XZ -- matched in Code/GameEngine/Source/Common/System/DataChunkInput.cpp (not merged yet)
-
-// tu-skeleton: 0x00307382 28B ??_GUserParser@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/System/DataChunkInput.cpp (not merged yet)
-
-// tu-skeleton: 0x0030739E 60B ??1UserParser@@UAE@XZ -- matched in Code/GameEngine/Source/Common/System/DataChunkInput.cpp (not merged yet)
-
-// tu-skeleton: 0x003073DA 53B ??1DataChunkInfo@@QAE@XZ -- matched in Code/GameEngine/Source/Common/System/DataChunkInput.cpp (not merged yet)
-
-// tu-skeleton: 0x0030740F 200B ?openDataChunk@DataChunkInput@@QAE?AVAsciiString@@PAG@Z -- matched in Code/GameEngine/Source/Common/System/DataChunkInput.cpp (not merged yet)
-
-// tu-skeleton: 0x00307641 63B ??0?$_Vector_base@DV?$allocator@D@_STL@@@_STL@@QAE@IABV?$allocator@D@1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp (not merged yet)
-
-// tu-skeleton: 0x00307779 103B ?registerParser@DataChunkInput@@QAEPAVUserParser@@ABVAsciiString@@0P6A_NAAV1@PAUDataChunkInfo@@PAX@Z3@Z -- matched in Code/GameEngine/Source/Common/System/DataChunkInput.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/System/DataChunkReadNameKey.cpp
 
 NameKeyType DataChunkInput::readNameKey(void)
@@ -1076,16 +1053,6 @@ Dict DataChunkInput::readDict(void)
     return d;
 }
 
-// tu-skeleton: 0x003079C1 44B ?swap@?$vector@DV?$allocator@D@_STL@@@_STL@@QAEXAAV12@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp (not merged yet)
-
-// tu-skeleton: 0x00307A53 23B ?getID@DataChunkTableOfContents@@QAEIABVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/System/DataChunk_ID_DataChunkTableOfContents_QAEIABVAsciiString_Z.cpp (not merged yet)
-
-// tu-skeleton: 0x00307AC0 387B ?parse@DataChunkInput@@QAE_NPAX@Z -- matched in Code/GameEngine/Source/Common/System/DataChunkInput.cpp (not merged yet)
-
-// tu-skeleton: 0x00307C43 51B ??0?$vector@DV?$allocator@D@_STL@@@_STL@@QAE@I@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp (not merged yet)
-
-// tu-skeleton: 0x00307C76 179B ?openDataChunk@DataChunkOutput@@QAEXPADG@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ConditionWriteDataChunk.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/DataChunkOutputWriteNameKey.cpp
 
 // ?writeNameKey@DataChunkOutput@@QAEXW4NameKeyType@@@Z
@@ -1138,6 +1105,85 @@ void DataChunkOutput::writeDict(const Dict &dict)
 		}
 	}
 }
+
+// ---- from Code/GameEngine/Source/Common/Disp8BinarySubGetters.cpp
+
+// Disp8 binary-sub getters: seven-byte __thiscall members with one shape:
+//
+//     mov eax,[ecx+<DISP1>] / sub eax,[ecx+<DISP2>] / ret
+//
+// Two dwords are read at fixed displacements from `this`, subtracted, and
+// returned. MSVC 7.1 emits the disp8 loads `8B 41 XX` + `2B 41 XX`, plus
+// `ret`, for seven bytes total.
+// Identity is not recovered: every name is derived from its address.
+// No // cl: line (defaults match the frameless seven-byte shape).
+
+int Rva0023DB34::slot04()
+{
+	return *(const int *)((const char *)this + 0x08) - *(const int *)((const char *)this + 0x04);
+}
+
+// tu-skeleton: 0x00306C49 15B ?slot08@Rva0023DB34@@UAE_NH@Z -- matched in Code/GameEngine/Source/Common/VtableSlotBodiesR3.cpp (not merged yet)
+
+// tu-skeleton: 0x00306C58 10B ?slot0C@Rva0023DB34@@UAE_NXZ -- matched in Code/GameEngine/Source/Common/VtableSlotBodiesR3.cpp (not merged yet)
+
+// tu-skeleton: 0x00306C62 9B ??0OutputChunk@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ConditionWriteDataChunk.cpp (not merged yet)
+
+// tu-skeleton: 0x00306C6B 29B ??_GOutputChunk@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ConditionWriteDataChunk.cpp (not merged yet)
+
+// tu-skeleton: 0x00306C88 119B ?closeDataChunk@DataChunkOutput@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ConditionWriteDataChunk.cpp (not merged yet)
+
+// tu-skeleton: 0x00306D2F 25B ?writeArrayOfBytes@DataChunkOutput@@QAEXPADH@Z -- matched in Code/GameEngine/Source/Common/System/DataChunk_writeArrayOfBytes_DataChunkOutput_QAEXPADH_Z.cpp (not merged yet)
+
+// tu-skeleton: 0x00306DCC 20B ?reset@DataChunkInput@@QAEXXZ -- matched in Code/GameEngine/Source/Common/System/DataChunkInput.cpp (not merged yet)
+
+// tu-skeleton: 0x00306DE0 9B ??0InputChunk@@QAE@XZ -- matched in Code/GameEngine/Source/Common/InlineDtorDeletingDtorsC01.cpp (not merged yet)
+
+// tu-skeleton: 0x00306DE9 29B ??_GInputChunk@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/InlineDtorDeletingDtorsC01.cpp (not merged yet)
+
+// tu-skeleton: 0x00306E16 12B ?getChunkDataSize@DataChunkInput@@QAEIXZ -- matched in Code/GameEngine/Source/Common/System/DataChunkInput.cpp (not merged yet)
+
+// tu-skeleton: 0x00306E2E 18B ?atEndOfChunk@DataChunkInput@@QAE_NXZ -- matched in Code/GameEngine/Source/Common/System/DataChunkInput.cpp (not merged yet)
+
+// tu-skeleton: 0x00306E40 22B ?decrementDataLeft@DataChunkInput@@IAEXH@Z -- matched in Code/GameEngine/Source/Common/System/DataChunkInput.cpp (not merged yet)
+
+// tu-skeleton: 0x00306E78 34B ?readInt@DataChunkInput@@QAEHXZ -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogic_parseWaypointData.cpp (not merged yet)
+
+// tu-skeleton: 0x00306F01 82B ??1DataChunkInput@@QAE@XZ -- matched in Code/GameEngine/Source/Common/System/DataChunkInput.cpp (not merged yet)
+
+// tu-skeleton: 0x00306F53 82B ?closeDataChunk@DataChunkInput@@IAEXXZ -- matched in Code/GameEngine/Source/Common/System/DataChunkInput.cpp (not merged yet)
+
+// tu-skeleton: 0x00307133 28B ??_GRva0030714F@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/AsciiStringFoldDeleters.cpp (not merged yet)
+
+// tu-skeleton: 0x0030714F 14B ??1Rva0030714F@@UAE@XZ -- matched in Code/GameEngine/Source/Common/AsciiStringFoldDeleters.cpp (not merged yet)
+
+// tu-skeleton: 0x0030715D 140B ?write@DataChunkTableOfContents@@QAEXAAVOutputStream@@@Z -- matched in Code/GameEngine/Source/Common/System/DataChunkTableOfContentsRead.cpp (not merged yet)
+
+// tu-skeleton: 0x003071E9 301B ?read@DataChunkTableOfContents@@QAEXAAVChunkInputStream@@@Z -- matched in Code/GameEngine/Source/Common/System/DataChunkTableOfContentsRead.cpp (not merged yet)
+
+// tu-skeleton: 0x00307371 17B ??0UserParser@@QAE@XZ -- matched in Code/GameEngine/Source/Common/System/DataChunkInput.cpp (not merged yet)
+
+// tu-skeleton: 0x00307382 28B ??_GUserParser@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/System/DataChunkInput.cpp (not merged yet)
+
+// tu-skeleton: 0x0030739E 60B ??1UserParser@@UAE@XZ -- matched in Code/GameEngine/Source/Common/System/DataChunkInput.cpp (not merged yet)
+
+// tu-skeleton: 0x003073DA 53B ??1DataChunkInfo@@QAE@XZ -- matched in Code/GameEngine/Source/Common/System/DataChunkInput.cpp (not merged yet)
+
+// tu-skeleton: 0x0030740F 200B ?openDataChunk@DataChunkInput@@QAE?AVAsciiString@@PAG@Z -- matched in Code/GameEngine/Source/Common/System/DataChunkInput.cpp (not merged yet)
+
+// tu-skeleton: 0x00307641 63B ??0?$_Vector_base@DV?$allocator@D@_STL@@@_STL@@QAE@IABV?$allocator@D@1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp (not merged yet)
+
+// tu-skeleton: 0x00307779 103B ?registerParser@DataChunkInput@@QAEPAVUserParser@@ABVAsciiString@@0P6A_NAAV1@PAUDataChunkInfo@@PAX@Z3@Z -- matched in Code/GameEngine/Source/Common/System/DataChunkInput.cpp (not merged yet)
+
+// tu-skeleton: 0x003079C1 44B ?swap@?$vector@DV?$allocator@D@_STL@@@_STL@@QAEXAAV12@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp (not merged yet)
+
+// tu-skeleton: 0x00307A53 23B ?getID@DataChunkTableOfContents@@QAEIABVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/System/DataChunk_ID_DataChunkTableOfContents_QAEIABVAsciiString_Z.cpp (not merged yet)
+
+// tu-skeleton: 0x00307AC0 387B ?parse@DataChunkInput@@QAE_NPAX@Z -- matched in Code/GameEngine/Source/Common/System/DataChunkInput.cpp (not merged yet)
+
+// tu-skeleton: 0x00307C43 51B ??0?$vector@DV?$allocator@D@_STL@@@_STL@@QAE@I@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp (not merged yet)
+
+// tu-skeleton: 0x00307C76 179B ?openDataChunk@DataChunkOutput@@QAEXPADG@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ConditionWriteDataChunk.cpp (not merged yet)
 
 // tu-skeleton: 0x00779BB8 11B Unwind@00b79bb8 -- matched in Code/GameEngine/Source/Common/System/DataChunkInput.cpp (not merged yet)
 

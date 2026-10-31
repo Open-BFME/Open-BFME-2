@@ -34,10 +34,6 @@ private:
 	void *m_08;
 	void *m_0C;
 };
-int Rva0023DB34::slot04()
-{
-	return *(const int *)((const char *)this + 0x08) - *(const int *)((const char *)this + 0x04);
-}
 BFME_DISP8_BINARY_SUB_GETTER(Rva006DAE20BinarySubField, 0x04, 0x08)
 
 // BF1 9cbfb551fe Common/Rva0029BC30Bump.cpp is the clean semantic donor.
