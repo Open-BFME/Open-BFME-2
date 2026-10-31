@@ -344,6 +344,18 @@ typedef unsigned short WideChar;
 	{ \
 		return ((NAME##Outer *)((char *)this - BACK))->m_ptr->m_b ? true : false; \
 	}
+#define BFME_DISP_DWORD_GETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		int get() const; \
+		char m_lead[DISP]; \
+		int m_value; \
+	}; \
+	int NAME::get() const \
+	{ \
+		return m_value; \
+	}
 
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
 namespace _STL {
@@ -2109,17 +2121,70 @@ public:
 	bool m_second;
 };
 
+class MilesAudioManager
+{
+public:
+    virtual int rva0005189D() const;
+    char m_lead[0x678 - sizeof(void *)];
+    int m_value;
+};
+
+BFME_DISP_DWORD_GETTER(Rva0028A6A1DwordField, 0x240)
+
+BFME_DISP_DWORD_GETTER(Rva0028A6A8DwordField, 0x24C)
+
+BFME_DISP_DWORD_GETTER(Rva0028A6AFDwordField, 0x448)
+
+BFME_DISP_DWORD_GETTER(Rva0028B7C1DwordField, 0x350)
+
+// ?rva00524F35@Rva00524F35@@QAEAAV1@H@Z @0x00524F35 37B
+class Rva00524F35
+{
+public:
+	int m_00;
+	int m_04;
+	int m_08;
+	int m_0c;
+	int m_10;
+	unsigned char m_14;
+	unsigned char m_15;
+	unsigned char m_16;
+	Rva00524F35& rva00524F35(int v);
+};
+
+// Callers elsewhere reach bodies in this unit through other spellings; retail's
+// call sites in their matched rows land on these addresses (same ABI). Bind them.
+
+// BF1 9cbfb551fe Common/Bfme/Rva001BD660_setFlags.cpp is the clean semantic guide.
+// Complete native 0023C4CE..0023C4DB RET leaf proves: OR stack dword into receiver114; RET4.
+// Original owner and complete bounds unresolved; independent address-owned view.
+class Rva0023C4CEFields {
+public: void setFlags(unsigned int value);
+private: unsigned char unknown[0x114]; unsigned int flags;
+};
+
 // tu-skeleton: 0x0028A670 20B ?setWeaponBonusCondition@Object@@QAEXW4WeaponBonusConditionType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/WeaponBonusUpgradeUpgradeImplementation.cpp (not merged yet)
 
 // tu-skeleton: 0x0028A684 22B ?clearWeaponBonusCondition@Object@@QAEXW4WeaponBonusConditionType@@@Z -- matched in Code/GameEngine/Source/Common/RTS/PlayerBattlePlanBonuses.cpp (not merged yet)
 
 // tu-skeleton: 0x0028A69A 7B ?get@Rva0028A69AByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/DispByteFieldGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x0028A6A1 7B ?get@Rva0028A6A1DwordField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp
 
-// tu-skeleton: 0x0028A6A8 7B ?get@Rva0028A6A8DwordField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0028A6AF 7B ?get@Rva0028A6AFDwordField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp (not merged yet)
+// Disp32 dword getters: seven-byte __thiscall members with one shape:
+//
+//     mov eax,[ecx+<DISP>] / ret
+//
+// One dword is read at a fixed displacement from `this` and returned. Every
+// displacement here is a multiple of four, so the accessed member is spelled
+// as an `int` right after the lead array. The bytes cannot distinguish `int`
+// from `unsigned int`, a pointer, or anything else four bytes wide moved
+// with a plain load. Members before the accessed one are spelled as a lead
+// array because their types are not witnessed here, only their total size.
+// Identity is not recovered: every name is derived from its address (BFME1
+// pioneered the same family in
+// reference/open-bfme-1/Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp).
+// No // cl: line (defaults match the frameless 7-byte shape).
 
 // tu-skeleton: 0x0028A6B6 17B ?rva0028A6B6@Rva0028A638@@QAEXM@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp (not merged yet)
 
@@ -2177,6 +2242,8 @@ public:
 
 // tu-skeleton: 0x0028ADE0 12B ?hasAnyWeapon@Object@@QBE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
 
+// ---- from Code/GameEngine/Source/GameLogic/Object/Object.cpp
+
 // ---- from Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp
 
 // Disp8 compare bool getters: frameless __thiscall members in three shapes:
@@ -2198,25 +2265,15 @@ public:
 // `this` and the inner byte is tested through it (probe-proven; a direct
 // backward cast would fold the two offsets into one read).
 
-// tu-skeleton: 0x0028ADF7 28B ?rva0028ADF7@Object@@QBEHH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x0028AE13 90B ?getLargestWeaponRange@Object@@QBEMXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectGetLargestWeaponRange.cpp (not merged yet)
 
-// tu-skeleton: 0x0028AE6D 46B ?rva0028AE6D@Object@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028AE6DNotify.cpp (not merged yet)
 
-// tu-skeleton: 0x0028AE9B 23B ?rva0028AE9B@Object@@QAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028AE9BSetter.cpp (not merged yet)
 
-// tu-skeleton: 0x0028AEB2 11B ?setSpecialModelConditionState@Object@@QAEXW4ModelConditionFlagType@@I@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectWeaponSetFlags.cpp (not merged yet)
 
-// tu-skeleton: 0x0028AEBD 45B ?getCurrentWeapon@Object@@QBEPBVWeapon@@PAW4WeaponSlotType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectGetCurrentWeapon.cpp (not merged yet)
 
-// tu-skeleton: 0x0028AEEA 11B ?findWaypointFollowingCapableWeapon@Object@@QAEPAVWeapon@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaWeaponWrappers.cpp (not merged yet)
 
-// tu-skeleton: 0x0028AEF5 54B ?getAmmoPipShowingInfo@Object@@QBE_NPAPAXPAI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaWeaponWrappers.cpp (not merged yet)
 
-// tu-skeleton: 0x0028AF2B 31B ?getAbleToUseWeaponAgainstTarget@Object@@QBE?AW4CanAttackResult@@W4AbleToAttackType@@PBV1@PBUCoord3D@@W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectGetAbleToUseWeaponAgainstTarget.cpp (not merged yet)
 
-// tu-skeleton: 0x0028AF4A 27B ?chooseBestWeaponForTarget@Object@@QAE_NPBV1@W4WeaponChoiceCriteria@@W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectGetAbleToUseWeaponAgainstTarget.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Object.cpp
 
@@ -4344,6 +4401,26 @@ void Rva0029173EAsciiField::setName(AsciiString value)
 	slot = value;
 }
 
+// tu-skeleton: 0x0028ADF7 28B ?rva0028ADF7@Object@@QBEHH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0028AE13 90B ?getLargestWeaponRange@Object@@QBEMXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectGetLargestWeaponRange.cpp (not merged yet)
+
+// tu-skeleton: 0x0028AE6D 46B ?rva0028AE6D@Object@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028AE6DNotify.cpp (not merged yet)
+
+// tu-skeleton: 0x0028AE9B 23B ?rva0028AE9B@Object@@QAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028AE9BSetter.cpp (not merged yet)
+
+// tu-skeleton: 0x0028AEB2 11B ?setSpecialModelConditionState@Object@@QAEXW4ModelConditionFlagType@@I@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectWeaponSetFlags.cpp (not merged yet)
+
+// tu-skeleton: 0x0028AEBD 45B ?getCurrentWeapon@Object@@QBEPBVWeapon@@PAW4WeaponSlotType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectGetCurrentWeapon.cpp (not merged yet)
+
+// tu-skeleton: 0x0028AEEA 11B ?findWaypointFollowingCapableWeapon@Object@@QAEPAVWeapon@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaWeaponWrappers.cpp (not merged yet)
+
+// tu-skeleton: 0x0028AEF5 54B ?getAmmoPipShowingInfo@Object@@QBE_NPAPAXPAI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaWeaponWrappers.cpp (not merged yet)
+
+// tu-skeleton: 0x0028AF2B 31B ?getAbleToUseWeaponAgainstTarget@Object@@QBE?AW4CanAttackResult@@W4AbleToAttackType@@PBV1@PBUCoord3D@@W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectGetAbleToUseWeaponAgainstTarget.cpp (not merged yet)
+
+// tu-skeleton: 0x0028AF4A 27B ?chooseBestWeaponForTarget@Object@@QAE_NPBV1@W4WeaponChoiceCriteria@@W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectGetAbleToUseWeaponAgainstTarget.cpp (not merged yet)
+
 // tu-skeleton: 0x0028AF76 16B ?rva0028AF76@Object@@QBEHXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
 
 // tu-skeleton: 0x0028AF86 17B ?getLastVictimID@Object@@QBEHXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
@@ -4425,8 +4502,6 @@ void Rva0029173EAsciiField::setName(AsciiString value)
 // tu-skeleton: 0x0028B79C 18B ?clearArmorSetFlag@Object@@QAEXW4ArmorSetType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectFindModule.cpp (not merged yet)
 
 // tu-skeleton: 0x0028B7AE 7B ?get@Rva0028B7AELeaGetter@@QBEPAXXZ -- matched in Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0028B7C1 7B ?get@Rva0028B7C1DwordField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp (not merged yet)
 
 // tu-skeleton: 0x0028B7E2 60B ?maskObject@Object@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectMaskObject.cpp (not merged yet)
 

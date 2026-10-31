@@ -19648,9 +19648,9 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0028A670,20,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/Object.cpp S=Code/GameEngine/Source/GameLogic/Object/Object.cpp N=Code/GameEngine/Source/GameLogic/Object/Upgrade/Object.cpp,Code/GameEngine/Source/GameLogic/Object/Upgrade/WeaponBonusUpgradeUpgradeImplementation.cpp
 0x0028A684,22,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/Object.cpp S=Code/GameEngine/Source/GameLogic/Object/Object.cpp N=Code/GameEngine/Source/Common/RTS/Object.cpp,Code/GameEngine/Source/Common/RTS/PlayerBattlePlanBonuses.cpp
 0x0028A69A,7,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,C,C=0x0028A684..0x0028A6A1,Code/GameEngine/Source/Common/DispByteFieldGetters.cpp
-0x0028A6A1,7,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,C,C=0x0028A684..0x0028A6A8,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp
-0x0028A6A8,7,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,C,C=0x0028A684..0x0028A6AF,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp
-0x0028A6AF,7,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,C,C=0x0028A684..0x0028A6B6,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp
+0x0028A6A1,7,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,C,C=0x0028A684..0x0028A6A8,Code/GameEngine/Source/GameLogic/Object/Object.cpp
+0x0028A6A8,7,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,C,C=0x0028A684..0x0028A6AF,Code/GameEngine/Source/GameLogic/Object/Object.cpp
+0x0028A6AF,7,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,C,C=0x0028A684..0x0028A6B6,Code/GameEngine/Source/GameLogic/Object/Object.cpp
 0x0028A6B6,17,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,C,C=0x0028A684..0x0028A6C7,Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp
 0x0028A6C7,32,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Object/Object.cpp N=Code/GameEngine/Source/GameLogic/Object/Object.cpp,Code/GameEngine/Source/GameLogic/Object/ObjectIsInTeamMemberList.cpp
 0x0028A6E7,29,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Object/Object.cpp N=Code/GameEngine/Source/GameLogic/Object/Object.cpp,Code/GameEngine/Source/GameLogic/Object/ObjectTeamMemberListLinks.cpp
@@ -19828,7 +19828,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0028B79C,18,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/Object.cpp S=Code/GameEngine/Source/GameLogic/Object/Object.cpp N=Code/GameEngine/Source/GameLogic/Object/Object.cpp,Code/GameEngine/Source/GameLogic/Object/ObjectFindModule.cpp
 0x0028B7AE,7,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,C,C=0x0028B79C..0x0028B7B5,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp
 0x0028B7B5,12,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,C,C=0x0028B79C..0x0028B7C1,Code/GameEngine/Source/GameLogic/Object/Object.cpp
-0x0028B7C1,7,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,C,C=0x0028B79C..0x0028B7C8,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp
+0x0028B7C1,7,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,C,C=0x0028B79C..0x0028B7C8,Code/GameEngine/Source/GameLogic/Object/Object.cpp
 0x0028B7C8,26,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Object/Object.cpp N=Code/GameEngine/Source/GameLogic/Object/Object.cpp,Code/GameEngine/Source/GameLogic/Object/Object.cpp
 0x0028B7E2,60,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/Object.cpp S=Code/GameEngine/Source/GameLogic/Object/Object.cpp N=Code/GameEngine/Source/GameLogic/Object/Object.cpp,Code/GameEngine/Source/GameLogic/Object/ObjectMaskObject.cpp
 0x0028B81E,36,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/Object.cpp S=Code/GameEngine/Source/GameLogic/Object/Object.cpp N=Code/GameEngine/Source/GameLogic/Object/Object.cpp,Code/GameEngine/Source/GameLogic/Object/ObjectIsUsingAirborneLocomotor.cpp

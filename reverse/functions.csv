@@ -7467,9 +7467,9 @@ _GetProcessorFlags,,0x001C4390,169,Code/Libraries/Source/VP6/GetProcessorFlags.c
 ?get@Rva0028A603DwordField@@QBEHXZ,,0x0028A603,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
 ?get@Rva0028A631DwordField@@QBEHXZ,,0x0028A631,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
 ?get@Rva0028A65EDwordField@@QBEHXZ,,0x0028A65E,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
-?get@Rva0028A6A1DwordField@@QBEHXZ,,0x0028A6A1,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
-?get@Rva0028A6A8DwordField@@QBEHXZ,,0x0028A6A8,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
-?get@Rva0028A6AFDwordField@@QBEHXZ,,0x0028A6AF,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
+?get@Rva0028A6A1DwordField@@QBEHXZ,,0x0028A6A1,7,Code/GameEngine/Source/GameLogic/Object/Object.cpp,matched,Disp32 dword getter
+?get@Rva0028A6A8DwordField@@QBEHXZ,,0x0028A6A8,7,Code/GameEngine/Source/GameLogic/Object/Object.cpp,matched,Disp32 dword getter
+?get@Rva0028A6AFDwordField@@QBEHXZ,,0x0028A6AF,7,Code/GameEngine/Source/GameLogic/Object/Object.cpp,matched,Disp32 dword getter
 ?get@Rva0028A7B0DwordField@@QBEHXZ,,0x0028A7B0,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
 ?get@Rva0028A8E9DwordField@@QBEHXZ,,0x0028A8E9,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
 ?get@Rva0028A8F0DwordField@@QBEHXZ,,0x0028A8F0,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
@@ -7512,7 +7512,7 @@ _GetProcessorFlags,,0x001C4390,169,Code/Libraries/Source/VP6/GetProcessorFlags.c
 ?get@Rva0006E01DDwordField@@QBEHXZ,,0x0006E01D,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
 ?get@Rva0008EFB7DwordField@@QBEHXZ,,0x0008EFB7,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
 ?get@Rva0020E2E4ByteField@@QBEEXZ,,0x0020E2E4,7,Code/GameEngine/Source/Common/DispByteFieldGetters.cpp,matched,Disp32 byte getter
-?get@Rva0028B7C1DwordField@@QBEHXZ,,0x0028B7C1,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
+?get@Rva0028B7C1DwordField@@QBEHXZ,,0x0028B7C1,7,Code/GameEngine/Source/GameLogic/Object/Object.cpp,matched,Disp32 dword getter
 ?get@Rva0029A9BBDwordField@@QBEHXZ,,0x0029A9BB,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
 ?get@Rva002AA0B8DwordField@@QBEHXZ,,0x002AA0B8,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
 ?get@Rva002AA21CDwordField@@QBEHXZ,,0x002AA21C,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
