@@ -16941,18 +16941,18 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0023C9F8,171,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
 0x0023CAA3,47,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
 0x0023CAD2,7,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
-0x0023CAD9,14,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogicRva0023CAD9.cpp
+0x0023CAD9,14,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
 0x0023CAE7,69,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp N=Code/GameEngine/Source/Common/Thing/GameLogic.cpp,Code/GameEngine/Source/Common/Thing/ThingFactory_newObject.cpp
 0x0023CB2C,542,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
 0x0023CD4A,29,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
 0x0023CD67,48,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
 0x0023CD97,7,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp N=Code/GameEngine/Source/Common/GameLogic.cpp,Code/GameEngine/Source/Common/GameEngineNetworkHelpers.cpp
-0x0023CD9E,327,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogicSetGamePaused.cpp
-0x0023CEE5,55,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogicSetGamePaused.cpp
+0x0023CD9E,327,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
+0x0023CEE5,55,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
 0x0023CF1C,35,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
-0x0023CF3F,68,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogicSetGamePaused.cpp
+0x0023CF3F,68,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
 0x0023CF83,8,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,C,W=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp C=0x0023CF3F..0x0023CF8B,Code/GameEngine/Source/Common/DispByteOneSetters.cpp
-0x0023CF8B,67,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogicRva0023CF8B.cpp
+0x0023CF8B,67,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
 0x0023CFCE,22,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
 0x0023CFE4,24,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
 0x0023CFFC,11,code,,,-,,Code/GameEngine/Source/Common/RvaWideAdjustFwds.cpp
@@ -16975,11 +16975,11 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0023D0B7,11,code,Code/GameEngine/Source/Common/GameLogic.cpp,proposed,N,N=Code/GameEngine/Source/Common/GameLogic.cpp noncontiguous,Code/GameEngine/Source/Common/RvaMixedMemberForwarders.cpp
 0x0023D0C2,11,code,Code/GameEngine/Source/Common/GameLogic.cpp,proposed,N,N=Code/GameEngine/Source/Common/GameLogic.cpp noncontiguous,Code/GameEngine/Source/Common/RvaWideAdjustFwds.cpp
 0x0023D0CD,22,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
-0x0023D0E3,154,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogicSetGamePaused.cpp
-0x0023D17D,40,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogicSetPlayerLeaveStatus.cpp
-0x0023D1A5,62,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogicSetPlayerLeaveStatus.cpp
-0x0023D1E3,30,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogicSetPlayerLeaveStatus.cpp
-0x0023D201,40,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogicSetPlayerLeaveStatus.cpp
+0x0023D0E3,154,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
+0x0023D17D,40,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
+0x0023D1A5,62,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
+0x0023D1E3,30,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
+0x0023D201,40,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
 0x0023D229,35,code,,,-,,Code/GameEngine/Source/Common/Rva0023D229Set.cpp
 0x0023D24C,35,code,,,-,,Code/GameEngine/Source/Common/Rva0023D229Set.cpp
 0x0023D26F,48,code,,,-,,Code/GameEngine/Source/Common/Rva0023D26FMethod.cpp
@@ -17004,17 +17004,17 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0023D607,13,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,proposed,C,C=0x0023D494..0x0023D614,Code/GameEngine/Source/Common/Rva0023D607Check.cpp
 0x0023D614,77,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,F,F=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp W=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
 0x0023D661,45,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,C,C=0x0023D614..0x0023D68E,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
-0x0023D68E,71,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogicRva0023D68EAndD6FA.cpp
+0x0023D68E,71,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
 0x0023D6D5,27,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,C,C=0x0023D68E..0x0023D6F0,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
 0x0023D6F0,10,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,C,C=0x0023D68E..0x0023D6FA,Code/GameEngine/Source/Common/Disp8SarAvgDwordGetters.cpp
-0x0023D6FA,70,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,C,C=0x0023D68E..0x0023D740,Code/GameEngine/Source/GameLogic/System/GameLogicRva0023D68EAndD6FA.cpp
+0x0023D6FA,70,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,C,C=0x0023D68E..0x0023D740,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
 0x0023D740,46,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
 0x0023D76E,37,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
 0x0023D793,241,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
 0x0023D884,144,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
-0x0023D914,309,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogicLivingWorldBattleComplete.cpp
-0x0023DA49,5,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogicLivingWorldBattleComplete.cpp
-0x0023DA4E,43,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogicLivingWorldBattleComplete.cpp
+0x0023D914,309,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
+0x0023DA49,5,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
+0x0023DA4E,43,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
 0x0023DA79,44,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,C,C=0x0023DA4E..0x0023DAA5,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
 0x0023DAA5,39,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,C,C=0x0023DA4E..0x0023DACC,Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_o1.cpp
 0x0023DACC,28,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,C,C=0x0023DA4E..0x0023DAE8,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
@@ -17104,7 +17104,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00240DF1,34,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,C,C=0x00240866..0x00240E13,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00242f5e.cpp
 0x00240E13,5,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,C,C=0x00240866..0x00240E18,Code/GameEngine/Source/GameLogic/System/GameLogicDestructor.cpp
 0x00240E18,164,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,C,C=0x00240866..0x00240EBC,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
-0x00240EBC,51,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogicDestroyAllObjectsImmediate.cpp
+0x00240EBC,51,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
 0x00240EEF,347,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,C,W=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp C=0x00240EBC..0x0024104A,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
 0x0024104A,486,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,C,W=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp C=0x00240EBC..0x00241230,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
 0x00241230,431,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp W=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp
@@ -17129,7 +17129,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x002423E3,1436,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp
 0x0024297F,323,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogicAwakenUpdate.cpp
 0x00242AC2,39,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp N=Code/GameEngine/Source/GameLogic/Object/GameLogic.cpp,Code/GameEngine/Source/GameLogic/Object/Object_setID.cpp
-0x00242AE9,203,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogicRegisterObject.cpp
+0x00242AE9,203,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
 0x00242BB4,85,code,Code/GameEngine/Source/GameLogic/Object/GameLogic.cpp,proposed,N,N=Code/GameEngine/Source/GameLogic/Object/GameLogic.cpp W=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/Object/Object_setID.cpp
 0x00242C09,125,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogicDestroyObject.cpp
 0x00242C86,151,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp W=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
@@ -17146,10 +17146,10 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00243177,50,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,C,C=0x00242C86..0x002431A9,Code/Libraries/Source/WWVegas/WWLib/Rva00243177.cpp
 0x002431A9,6,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,C,C=0x00242C86..0x002431AF,Code/GameEngine/Source/Common/SubsystemNameGetters.cpp
 0x002431AF,28,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,C,C=0x00242C86..0x002431CB,Code/Libraries/Source/WWVegas/WWLib/Rva00243177.cpp
-0x002431CB,2429,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,C,W=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp C=0x00242C86..0x00243B48,Code/GameEngine/Source/GameLogic/System/GameLogicUnitTimings.cpp
+0x002431CB,2429,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,C,W=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp C=0x00242C86..0x00243B48,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
 0x00243B48,5,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,C,C=0x00242C86..0x00243B4D,Code/GameEngine/Source/GameLogic/System/GameLogicDestructor.cpp
 0x00243B4D,5,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,C,C=0x00242C86..0x00243B52,Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp
-0x00243B52,78,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogicDestroyAllObjectsImmediate.cpp
+0x00243B52,78,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
 0x00243BA0,831,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogicDestructor.cpp
 0x00243EDF,8,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogicDestructor.cpp
 0x00243EE7,957,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp
@@ -17175,14 +17175,14 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00246422,1411,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp
 0x002469A5,1484,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp W=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp
 0x00246F71,29,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogicSetBuildableStatusOverride.cpp
-0x00246F8E,73,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogicRva00246F8E.cpp
+0x00246F8E,73,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
 0x00246FD7,31,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,C,C=0x00246F8E..0x00246FF6,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
 0x00246FF6,124,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,C,C=0x00246F8E..0x00247072,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00242f5e.cpp
 0x00247072,18,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,C,C=0x00246F8E..0x00247084,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
 0x00247084,5,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,C,C=0x00246F8E..0x00247089,Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp
 0x00247089,37,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,C,C=0x00246F8E..0x002470AE,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
 0x002470AE,714,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp
-0x00247378,1463,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogicPopulateGameReport.cpp
+0x00247378,1463,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
 0x0024792F,79,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp N=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
 0x0024797E,2195,code,Code/GameEngine/Source/GameLogic/System/GameLogicSnapshot.cpp,proposed,N,N=Code/GameEngine/Source/GameLogic/System/GameLogicSnapshot.cpp W=Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,Code/GameEngine/Source/GameLogic/System/GameLogicDoXfer.cpp
 0x00248211,26,code,,,-,,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
@@ -69213,12 +69213,12 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007713D1,10,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,P,P=0x002423E3@FuncInfo0x00917AC0,Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp
 0x007713DB,8,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,P,P=0x00243177@FuncInfo0x00917AE4,Code/Libraries/Source/WWVegas/WWLib/Rva00243177.cpp
 0x007713E3,10,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,P,P=0x00243177@FuncInfo0x00917AE4,Code/Libraries/Source/WWVegas/WWLib/Rva00243177.cpp
-0x007713ED,8,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,P,P=0x002431CB@FuncInfo0x00917B28,Code/GameEngine/Source/GameLogic/System/GameLogicUnitTimings.cpp
-0x007713F5,8,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,P,P=0x002431CB@FuncInfo0x00917B28,Code/GameEngine/Source/GameLogic/System/GameLogicUnitTimings.cpp
-0x007713FD,8,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,P,P=0x002431CB@FuncInfo0x00917B28,Code/GameEngine/Source/GameLogic/System/GameLogicUnitTimings.cpp
-0x00771405,8,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,P,P=0x002431CB@FuncInfo0x00917B28,Code/GameEngine/Source/GameLogic/System/GameLogicUnitTimings.cpp
-0x0077140D,8,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,P,P=0x002431CB@FuncInfo0x00917B28,Code/GameEngine/Source/GameLogic/System/GameLogicUnitTimings.cpp
-0x00771415,10,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,P,P=0x002431CB@FuncInfo0x00917B28,Code/GameEngine/Source/GameLogic/System/GameLogicUnitTimings.cpp
+0x007713ED,8,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,P,P=0x002431CB@FuncInfo0x00917B28,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
+0x007713F5,8,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,P,P=0x002431CB@FuncInfo0x00917B28,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
+0x007713FD,8,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,P,P=0x002431CB@FuncInfo0x00917B28,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
+0x00771405,8,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,P,P=0x002431CB@FuncInfo0x00917B28,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
+0x0077140D,8,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,P,P=0x002431CB@FuncInfo0x00917B28,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
+0x00771415,10,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,P,P=0x002431CB@FuncInfo0x00917B28,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
 0x0077141F,8,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,P,P=0x00243BA0@FuncInfo0x00917C04,Code/GameEngine/Source/GameLogic/System/GameLogicDestructor.cpp
 0x00771427,20,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,P,P=0x00243BA0@FuncInfo0x00917C04,Code/GameEngine/Source/GameLogic/System/GameLogicDestructor.cpp
 0x0077143B,11,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,P,P=0x00243BA0@FuncInfo0x00917C04,Code/GameEngine/Source/GameLogic/System/GameLogicDestructor.cpp
@@ -69323,16 +69323,16 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0077186C,14,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,P,P=0x002470AE@FuncInfo0x00917F94,Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp
 0x0077187A,24,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,P,P=0x002470AE@FuncInfo0x00917F94,Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp
 0x00771892,10,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,P,P=0x002470AE@FuncInfo0x00917F94,Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp
-0x0077189C,8,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,P,P=0x00247378@FuncInfo0x00917FF8,Code/GameEngine/Source/GameLogic/System/GameLogicPopulateGameReport.cpp
-0x007718A4,8,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,P,P=0x00247378@FuncInfo0x00917FF8,Code/GameEngine/Source/GameLogic/System/GameLogicPopulateGameReport.cpp
-0x007718AC,8,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,P,P=0x00247378@FuncInfo0x00917FF8,Code/GameEngine/Source/GameLogic/System/GameLogicPopulateGameReport.cpp
-0x007718B4,8,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,P,P=0x00247378@FuncInfo0x00917FF8,Code/GameEngine/Source/GameLogic/System/GameLogicPopulateGameReport.cpp
-0x007718BC,8,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,P,P=0x00247378@FuncInfo0x00917FF8,Code/GameEngine/Source/GameLogic/System/GameLogicPopulateGameReport.cpp
-0x007718C4,8,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,P,P=0x00247378@FuncInfo0x00917FF8,Code/GameEngine/Source/GameLogic/System/GameLogicPopulateGameReport.cpp
-0x007718CC,8,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,P,P=0x00247378@FuncInfo0x00917FF8,Code/GameEngine/Source/GameLogic/System/GameLogicPopulateGameReport.cpp
-0x007718D4,8,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,P,P=0x00247378@FuncInfo0x00917FF8,Code/GameEngine/Source/GameLogic/System/GameLogicPopulateGameReport.cpp
-0x007718DC,25,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,P,P=0x00247378@FuncInfo0x00917FF8,Code/GameEngine/Source/GameLogic/System/GameLogicPopulateGameReport.cpp
-0x007718F5,10,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,P,P=0x00247378@FuncInfo0x00917FF8,Code/GameEngine/Source/GameLogic/System/GameLogicPopulateGameReport.cpp
+0x0077189C,8,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,P,P=0x00247378@FuncInfo0x00917FF8,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
+0x007718A4,8,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,P,P=0x00247378@FuncInfo0x00917FF8,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
+0x007718AC,8,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,P,P=0x00247378@FuncInfo0x00917FF8,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
+0x007718B4,8,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,P,P=0x00247378@FuncInfo0x00917FF8,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
+0x007718BC,8,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,P,P=0x00247378@FuncInfo0x00917FF8,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
+0x007718C4,8,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,P,P=0x00247378@FuncInfo0x00917FF8,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
+0x007718CC,8,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,P,P=0x00247378@FuncInfo0x00917FF8,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
+0x007718D4,8,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,P,P=0x00247378@FuncInfo0x00917FF8,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
+0x007718DC,25,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,P,P=0x00247378@FuncInfo0x00917FF8,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
+0x007718F5,10,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,P,P=0x00247378@FuncInfo0x00917FF8,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
 0x007718FF,8,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,P,P=0x0024792F@FuncInfo0x0091801C,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
 0x00771907,10,code,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,approved,P,P=0x0024792F@FuncInfo0x0091801C,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
 0x00771911,10,code,Code/GameEngine/Source/GameLogic/System/GameLogicSnapshot.cpp,approved,P,P=0x0024797E@FuncInfo0x009180B8 p-group provisional,Code/GameEngine/Source/GameLogic/System/GameLogicDoXfer.cpp

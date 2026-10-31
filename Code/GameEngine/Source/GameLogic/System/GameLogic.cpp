@@ -475,11 +475,6 @@ static void PlaceLivingWorldObjectsForPlayer(Player *player,const PlayerTemplate
 }
 
 }
-// Reference: GeneralsMD GameLogic.cpp:548 network-start placement, via
-// Open-BFME-1 cee35b7d8ca077d7255f1c39cb69e9fd9627aa85. Donor supplies the
-// purpose and base flow; WB CFABB0 confirms the BFME additions. Native
-// 0x00241C75..0x002421F5 supplies every offset,
-// mode branch, CastleBehavior radius, ten starting offsets and polar math.
 #include "unicode_string.h"
 class GameSlot
 {
@@ -516,7 +511,6 @@ template<class T> static __forceinline T p4Operand(const T &v) { return *(const 
 #include <map>
 #include <string>
 #include <vector>
-#include "unicode_string.h"
 #include <stl/_algobase.h>
 namespace _STL {
 static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
@@ -941,7 +935,6 @@ class UpdateModuleInterface
 public:
 	virtual UpdateSleepTime update() = 0;
 };
-class ModuleData;
 #include "../../../Include/Common/Module.h"
 #include "../../../Include/Common/ObjectModule.h"
 #include "../../../Include/GameLogic/Module/BehaviorModule.h"
@@ -1019,10 +1012,60 @@ class Rva0023DC8E;
 #pragma optimize("t", on)
 #pragma optimize("", on)
 #include <algorithm>
-#pragma optimize("s", off)
-#pragma optimize("t", on)
-#pragma optimize("", on)
+#define NOMINMAX
+#define _INC_STDIO
+#include <windows.h>
+#undef _INC_STDIO
+#define NOMINMAX
+#define _INC_STDIO
+#undef _INC_STDIO
+#define g_00DFE1C8 (*(Rva00DFE1C8Host * *)&TheLivingWorldManager)
+#define NOMINMAX
+#define _INC_STDIO
+#undef _INC_STDIO
+// The native benchmark zeroes 76 bytes for this virtual model-name query.
+// Its original flag-container identity is unknown; retain a local storage view.
+struct UnitTimingModelState
+{
+	UnitTimingModelState() { memset(this, 0, sizeof(*this)); }
+	void clear() { memset(this, 0, sizeof(*this)); }
+	unsigned char m_bits[0x4C];
+};
+class ModuleData
+{
+public:
+#define V(n) virtual void v##n();
+	V(00) V(01) V(02) V(03) V(04) V(05) V(06) V(07) V(08) V(09) V(0A) V(0B) V(0C) V(0D)
+#undef V
+	virtual AsciiString getBestModelNameForWB(const UnitTimingModelState &state) const; // +0x38
+};
+// Retail loads the read-only 1.0f pool slot before zeroing the matrix.
+// A volatile read preserves that load; this local constant is a codegen
+// stand-in for the observed pool value, not an original global identity.
+static const volatile float IdentityDiagonal=1.0f;
+#include "../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
+static __forceinline void makeIdentityAndTakeScale(Matrix3D &mtx, float &scale, const float &factor)
+{
+	float one = IdentityDiagonal;
+	mtx.Row[0].Y = 0.0f;
+	mtx.Row[0].Z = 0.0f;
+	mtx.Row[0].W = 0.0f;
+	mtx.Row[1].X = 0.0f;
+	mtx.Row[1].Z = 0.0f;
+	mtx.Row[1].W = 0.0f;
+	mtx.Row[2].X = 0.0f;
+	mtx.Row[2].Y = 0.0f;
+	mtx.Row[2].W = 0.0f;
+	scale = factor;
+	mtx.Row[0].X = one;
+	mtx.Row[1].Y = one;
+	mtx.Row[2].Z = one;
+}
+#define TheGlobalData TheWritableGlobalData
+#define TheVerifyClientCRC BfmeClientCRCCheckEnabled
+
 class GameSlot;
+
 class GameInfo
 {
 public:
@@ -1275,7 +1318,6 @@ namespace _STL { template <> _Rb_tree_node<pair<TreeKey00242F5E const ,TreeOpaqu
 namespace _STL { template <> pair<_Rb_tree_iterator<pair<TreeKey00242F5E const ,TreeOpaqueMapped242F5E>,_Nonconst_traits<pair<TreeKey00242F5E const ,TreeOpaqueMapped242F5E> > >,bool> _Rb_tree<TreeKey00242F5E,pair<TreeKey00242F5E const ,TreeOpaqueMapped242F5E>,_Select1st<pair<TreeKey00242F5E const ,TreeOpaqueMapped242F5E> >,less<TreeKey00242F5E>,allocator<pair<TreeKey00242F5E const ,TreeOpaqueMapped242F5E> > >::insert_unique(pair<TreeKey00242F5E const ,TreeOpaqueMapped242F5E> const &); }
 
 bool operator<(const TreeKey00242F5E &a, const TreeKey00242F5E &b);
-
 
 struct Rva0047A6A9Row16
 {
@@ -2505,6 +2547,363 @@ namespace _STL { template <> _List_node<Rva0024076D> * list<Rva0024076D,allocato
 
 template void _STL::list<Rva0024076D>::push_back(const Rva0024076D &);
 
+class NetworkInterface;
+
+class Mouse
+{
+public:
+	virtual void s00();
+	virtual void s04();
+	virtual void s08();
+	virtual void s0c();
+	virtual void s10();
+	virtual void s14();
+	virtual void s18();
+	virtual void s1c();
+	virtual void s20();
+	virtual void s24();
+	virtual void s28();
+	virtual void s2c();
+	virtual void s30();
+	virtual void s34();
+	virtual void s38();
+	virtual void s3c();
+	virtual void s40();
+	virtual void s44();
+	virtual void s48();
+	virtual void setCursor(int cursor);
+	bool rva001EDE26() const;
+	void _bfme_setEngineVisibility(bool visible);
+};
+
+extern Mouse *TheMouse;
+
+// MessageStreamSubsystem (0x00A00950); appendMessage is vslot 18.
+class MessageStream
+{
+public:
+	virtual void m00();
+	virtual void m01();
+	virtual void m02();
+	virtual void m03();
+	virtual void m04();
+	virtual void m05();
+	virtual void m06();
+	virtual void m07();
+	virtual void m08();
+	virtual void m09();
+	virtual void m10();
+	virtual void m11();
+	virtual void m12();
+	virtual void m13();
+	virtual void m14();
+	virtual void m15();
+	virtual void m16();
+	virtual void m17();
+	virtual GameMessage *appendMessage(int type);
+};
+
+extern MessageStream *TheMessageStream;
+
+// TheLinearCampaignManager (0x009FDC8C) and its rowed 0x001EB0B1.
+class Rva001EB0B1Holder
+{
+public:
+	void rva001EB0B1();
+};
+
+class TerrainVisual;
+
+// The living-world host (0x009FEF18): a war of the ring game.
+class Rva002D3627Host;
+
+class LivingWorld;
+
+ extern LivingWorld *TheLivingWorld;
+
+class Rva0028D680
+{
+public:
+	void rva0028D680(void);
+};
+
+class Rva00DFE1C8Host
+{
+public:
+	bool rva00210DC9();
+	void rva00211FA8();
+};
+
+// g_00DFE1C8 is only an alias of the owned global TheLivingWorldManager (ledger names column); this unit reads the owner through its own view type.
+extern class LivingWorldManager *TheLivingWorldManager;
+
+class Rva002D3627Host
+{
+public:
+	bool getFlag18() const { return m_18 != 0; }
+
+private:
+	unsigned char m_pad00[0x18];
+	unsigned char m_18;
+};
+
+class Rva0023D29F
+{
+public:
+	void sendEndSessionMsg();
+};
+
+struct Rva00243B52DestroyEntry;
+
+namespace _STL { template <> void vector<const ModuleData *, allocator<const ModuleData *> >::push_back(const ModuleData *const &); }
+
+enum SleepyUpdatePhase;
+
+typedef _STL::vector<const ModuleData *> UpdateModuleVector;
+
+class Display
+{
+public:
+#define V(n) virtual void v##n();
+	V(00) V(01) V(02) V(03) V(04) V(05) V(06) V(07) V(08) V(09) V(0A) V(0B) V(0C) V(0D) V(0E) V(0F)
+	V(10) V(11) V(12) V(13) V(14) V(15) V(16) V(17) V(18) V(19) V(1A) V(1B) V(1C) V(1D) V(1E) V(1F)
+	V(20) V(21) V(22) V(23) V(24) V(25) V(26) V(27) V(28) V(29) V(2A) V(2B) V(2C) V(2D) V(2E) V(2F)
+	V(30) V(31) V(32) V(33) V(34) V(35) V(36) V(37) V(38) V(39) V(3A) V(3B) V(3C) V(3D) V(3E) V(3F)
+	V(40) V(41) V(42) V(43) V(44) V(45) V(46) V(47) V(48) V(49) V(4A) V(4B) V(4C) V(4D) V(4E) V(4F)
+	V(50) V(51) V(52) V(53) V(54) V(55) V(56) V(57) V(58) V(59) V(5A) V(5B) V(5C)
+#undef V
+	virtual int getLastFrameDrawCalls(); // +0x174
+	virtual void slot178(int *stats);    // +0x178
+};
+
+class View
+{
+public:
+#define V(n) virtual void v##n();
+	V(00) V(01) V(02) V(03) V(04) V(05) V(06)
+	virtual void slot1C(int value); // +0x1C
+	V(08) V(09) V(0A) V(0B) V(0C) V(0D) V(0E) V(0F)
+	V(10) V(11) V(12) V(13) V(14)
+	virtual void lookAt(const Coord3D *pos); // +0x54
+	V(16) V(17) V(18) V(19) V(1A) V(1B) V(1C) V(1D) V(1E) V(1F)
+	V(20) V(21) V(22) V(23) V(24) V(25) V(26) V(27) V(28) V(29) V(2A) V(2B) V(2C) V(2D) V(2E) V(2F)
+	V(30) V(31) V(32) V(33) V(34) V(35) V(36) V(37) V(38) V(39) V(3A) V(3B) V(3C) V(3D) V(3E) V(3F)
+	V(40) V(41) V(42) V(43) V(44) V(45) V(46) V(47) V(48) V(49)
+#undef V
+	virtual void slot128(float value); // +0x128
+	virtual float slot12C();           // +0x12C
+	virtual void slot130(float value); // +0x130
+};
+
+class ParticleSystemManager
+{
+public:
+#define V(n) virtual void v##n();
+	V(00) V(01) V(02) V(03) V(04) V(05) V(06) V(07) V(08)
+#undef V
+	virtual void reset(); // +0x24
+
+	unsigned char m_pad04[0x50 - 4];
+	unsigned int m_particleCount; // +0x50
+};
+
+class G00DFF080Inner
+{
+public:
+#define V(n) virtual void v##n();
+	V(00) V(01) V(02) V(03) V(04) V(05) V(06) V(07) V(08)
+#undef V
+	virtual void slot24(); // +0x24
+};
+
+class G00DFF080Obj
+{
+public:
+	unsigned char m_pad00[4];
+	G00DFF080Inner m_inner; // +0x04
+};
+
+class GameEngine
+{
+public:
+	unsigned char m_pad00[0x38];
+	int m_38; // +0x38
+};
+
+struct GameLogicObjectListView
+{
+	unsigned char m_pad00[0xAC];
+	Object *m_firstObject; // +0xAC
+};
+
+class Rva0023C641
+{
+public:
+	void rva0023C641(const char *line);
+};
+
+class Rva00382AA0
+{
+public:
+	void release();
+};
+
+void HideControlBar(bool immediate);
+
+extern GameEngine *TheGameEngine;
+
+extern Display *TheDisplay;
+
+extern View *TheTacticalView;
+
+extern ParticleSystemManager *TheParticleSystemManager;
+
+extern G00DFF080Obj *TheTerrainVisual;
+
+// Native benchmark saves/restores this view value and normalizes three display
+// counters for its CSV output. Descriptive names; original identifiers unknown.
+// Retail initial values are 100.0f at VA 0x00DBA6D0 and twelve zero bytes at
+// VA 0x00DFE948. The benchmark owns these cells; no other provider is rowed.
+float BfmeUnitTimingSavedViewValue = 100.0f;
+
+int BfmeUnitTimingDisplayStats[3] = { 0, 0, 0 };
+
+class Rva002431CB
+{
+public:
+	void rva002431CB();
+	bool isTiming() const { return m_startTiming; }
+
+private:
+	void *m_vtbl;                        // +0x00
+	AsciiString m_singleUnit;            // +0x04
+	AsciiString m_side;                  // +0x08
+	bool m_gotUnit;                      // +0x0C
+	const ThingTemplate *m_curThing;     // +0x10
+	bool m_startTiming;                  // +0x14
+	unsigned char m_pad15[0x1C - 0x15];
+	int m_settleFrames;                  // +0x1C
+	int m_timeFrames;                    // +0x20
+	int m_unitTypes;                     // +0x24
+	bool m_veryFirstTime;                // +0x28
+	unsigned char m_pad29[0x30 - 0x29];
+	LARGE_INTEGER m_startTime;                 // +0x30
+	LARGE_INTEGER m_endTime;                   // +0x38
+	LARGE_INTEGER m_freq;                      // +0x40
+	int m_drawCallTotal;                 // +0x48
+	int m_mode;                          // +0x4C
+	double m_timeAll;                    // +0x50
+	double m_timeAllNoAnim;              // +0x58
+	double m_60;                         // +0x60
+	double m_timeNoPart;                 // +0x68
+	double m_timeNoSpawn;                // +0x70
+	double m_timeLogic;                  // +0x78
+	unsigned char m_pad80[0x88 - 0x80];
+	float m_drawCallAll;                 // +0x88
+	float m_drawCallNoPart;              // +0x8C
+	float m_drawCallNoSpawn;             // +0x90
+	float m_drawCallLogic;               // +0x94
+};
+
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class LeftTraits, class RightTraits>
+static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
+                              const _Rb_tree_iterator<T, RightTraits>& b)
+{ return a._M_node != b._M_node; }
+}
+
+struct Out00524477 { int m_0; AsciiString m_4; };
+
+// Native three-word cdecl hidden-return ABI matches the recovered STLport
+// make_pair provider. Its generated linker alias retains this legacy view;
+// typed-return trials add EH data or trigger MSVC7.1 ICE in this flat-frame unit.
+int __cdecl Rva0023FC23(Out00524477 *out, int *a1, int a2);
+
+class CommandButton;
+
+namespace _STL { template <> void vector<AsciiString, allocator<AsciiString> >::push_back(const AsciiString &); }
+
+class PlayerTemplateStore
+{
+public:
+	const PlayerTemplate *getNthPlayerTemplate(Int index) const;
+};
+
+extern PlayerTemplateStore *ThePlayerTemplateStore;
+
+unsigned char Rva000308D0GetByte();
+
+extern Bool TheXObjectCRC;
+
+extern Bool TheXPartitionCRC;
+
+extern Bool TheXCollisionCRC;
+
+extern Bool TheXShroudCRC;
+
+extern Bool TheXTaintCRC;
+
+// The five flags and two intervals this unit still did not own, all now bound to
+// the objects retail's own bytes name (the rowed body below loads each of them;
+// see the references at 0x2477E0, 0x247834, 0x247887/8AE and 0x2478AE in
+// retail's image):
+//
+//   TheXTerrainLogicCRC  VA 0x00E02D82, RVA 0x00A02D82 - one of the run of -x*CRC
+//     flag bytes the report prints. Past .data's raw end (file offset
+//     0x009DCC08), so retail's image loads it zero: a tentative definition, for
+//     the same reason as g_Va00DB6218 (an explicit "= 0" would let MSVC fold
+//     this guard).
+//   TheVerifyClientCRC   VA 0x00E02D85 - the same byte native_desync_report.cpp
+//     already owns and rowed as `unsigned char BfmeClientCRCCheckEnabled`
+//     (zero-filled .bss). Spelled that way here so the report's guard reads the
+//     one object retail has, rather than a second copy of it.
+//   TheDeepCRC           VA 0x00E02D86 - the byte Rva0023E7D9Clear.cpp defines
+//     (zero-filled .bss), beside TheLiteCRC.
+//   TheDebugCRCFromFrame / UntilFrame  VA 0x00DC1164 / 0x00DC1168 - retail's own
+//     two words, both -1, inside .data's raw file bytes; the rowed body compares
+//     each against -1 and skips the argument when they match, which is the
+//     default -1/-1 (off) pair.
+extern Bool TheXPlayerCRC;
+
+extern Bool TheXAICRC;
+
+extern Bool TheXLWCRC;
+
+extern Bool TheXTerrainLogicCRC;
+
+Bool TheXTerrainLogicCRC;
+
+extern unsigned char BfmeClientCRCCheckEnabled;
+
+extern bool TheDeepCRC;
+
+extern Bool TheLiteCRC;
+
+extern Bool TheBinaryDeepCRC;
+
+Int TheDebugCRCFromFrame = -1;
+
+Int TheDebugCRCUntilFrame = -1;
+
+// Native RVA 0x009BC800: mutable four-byte interval initially 100.
+// The command-line parser writes it and replay/game-info consumers read it.
+Int NET_CRC_INTERVAL = 100;
+
+// ---- from Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
+
+// Reference: GeneralsMD GameLogic.cpp:548 network-start placement, via
+// Open-BFME-1 cee35b7d8ca077d7255f1c39cb69e9fd9627aa85. Donor supplies the
+// purpose and base flow; WB CFABB0 confirms the BFME additions. Native
+// 0x00241C75..0x002421F5 supplies every offset,
+// mode branch, CastleBehavior radius, ten starting offsets and polar math.
+
+#pragma optimize("s", off)
+
+#pragma optimize("t", on)
+
+#pragma optimize("", on)
+
 // ---- from Code/GameEngine/Source/GameLogic/System/GameLogicDeselectObject.cpp
 
 //
@@ -3549,10 +3948,6 @@ UnsignedInt GameLogic::getObjectCount()
 	return totalObjects;
 }
 
-// tu-skeleton: 0x0023CAD9 14B ?rva0023CAD9@GameLogic@@QAEHXZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicRva0023CAD9.cpp (not merged yet)
-
-// tu-skeleton: 0x0023CAE7 69B ?friend_createObject@GameLogic@@QAEPAVObject@@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z -- matched in Code/GameEngine/Source/Common/Thing/ThingFactory_newObject.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/System/GameLogicGetCRC.cpp
 
 unsigned int GameLogic::getCRC(int mode)
@@ -3629,12 +4024,6 @@ void GameLogic::sendObjectDestroyed( Object *obj )
 
 }
 
-// tu-skeleton: 0x0023CD97 7B ?isGamePaused@GameLogic@@QAEEXZ -- matched in Code/GameEngine/Source/Common/GameEngineNetworkHelpers.cpp (not merged yet)
-
-// tu-skeleton: 0x0023CD9E 327B ?rva0023CD9E@GameLogic@@QAEX_NH0@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicSetGamePaused.cpp (not merged yet)
-
-// tu-skeleton: 0x0023CEE5 55B ?rva0023CEE5@GameLogic@@QAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicSetGamePaused.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/System/GameLogicLastHeardFrom.cpp
 
 void GameLogic::lastHeardFrom(int playerId)
@@ -3643,22 +4032,6 @@ void GameLogic::lastHeardFrom(int playerId)
 		return;
 	m_progressCompleteTimeout[playerId] = timeGetTime();
 }
-
-// tu-skeleton: 0x0023CF3F 68B ?rva0023CF3F@GameLogic@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicSetGamePaused.cpp (not merged yet)
-
-// tu-skeleton: 0x0023CF83 8B ?enable@Rva0023CF83ByteOneSetter@@QAEXXZ -- matched in Code/GameEngine/Source/Common/DispByteOneSetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0023CF8B 67B ?rva0023CF8B@GameLogic@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicRva0023CF8B.cpp (not merged yet)
-
-// tu-skeleton: 0x0023D0E3 154B ?DoExitMap@GameLogic@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicSetGamePaused.cpp (not merged yet)
-
-// tu-skeleton: 0x0023D17D 40B ?rva0023D17D@GameLogic@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicSetPlayerLeaveStatus.cpp (not merged yet)
-
-// tu-skeleton: 0x0023D1A5 62B ?setPlayerLeaveStatus@GameLogic@@QAEXHABVAsciiString@@H@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicSetPlayerLeaveStatus.cpp (not merged yet)
-
-// tu-skeleton: 0x0023D1E3 30B ?getPlayerLeaveStatus@GameLogic@@QAEPAUPlayerLeaveStatus@@H@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicSetPlayerLeaveStatus.cpp (not merged yet)
-
-// tu-skeleton: 0x0023D201 40B ?rva0023D201@GameLogic@@QAEXHH@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicSetPlayerLeaveStatus.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva0023D614Film.cpp
 
@@ -3692,12 +4065,6 @@ void Rva0023D661::rva0023D661(int val)
 	}
 	return (*(BfmeAudio **)&TheAudio)->audioSlot180(val);
 }
-
-// tu-skeleton: 0x0023D68E 71B ?rva0023D68E@GameLogic@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicRva0023D68EAndD6FA.cpp (not merged yet)
-
-// tu-skeleton: 0x0023D6F0 10B ?get@Rva0023D6F0SarAvgField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8SarAvgDwordGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0023D6FA 70B ?rva0023D6FA@@YAHPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicRva0023D68EAndD6FA.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/System/GameLogic_CallPlayerGiveMoney.cpp
 
@@ -3750,38 +4117,6 @@ void GameLogic::CallPlayerGiveMoney(int fromPlayerIndex, int toPlayerIndex, int 
 	toTrack->rva0039B7CB((int)got);
 }
 
-// tu-skeleton: 0x0023D914 309B ?LivingWorldTacticalBattleComplete@GameLogic@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicLivingWorldBattleComplete.cpp (not merged yet)
-
-// tu-skeleton: 0x0023DA49 5B ?rva0023DA49@GameLogic@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicLivingWorldBattleComplete.cpp (not merged yet)
-
-// tu-skeleton: 0x0023DA4E 43B ?rva0023DA4E@GameLogic@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicLivingWorldBattleComplete.cpp (not merged yet)
-
-// tu-skeleton: 0x0023DAA5 39B ?clear@?$_List_base@HV?$allocator@H@_STL@@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_o1.cpp (not merged yet)
-
-// tu-skeleton: 0x0023DAE8 15B ??0Rva0023DAE8@@QAE@H@Z -- matched in Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp (not merged yet)
-
-// tu-skeleton: 0x0023DAF7 23B ?rva0023DAF7@Rva0023DAF7@@QAEXMH@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAG_Rva00131CF2.cpp (not merged yet)
-
-// tu-skeleton: 0x0023DB34 20B ??0Rva0023DB34@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp (not merged yet)
-
-// tu-skeleton: 0x0023DB48 16B ?rva0023DB48@Rva0023DB48@@QAEHXZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp (not merged yet)
-
-// tu-skeleton: 0x0023DB5F 17B ?keyAtA@Gen_000cd680@@QBEHH@Z -- matched in Code/GameEngine/Source/Common/Gen_000cd680.cpp (not merged yet)
-
-// tu-skeleton: 0x0023DB89 10B ?get@Rva0023DB89WordChaseField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp32FirstChaseGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0023DB93 20B ?rva0023DB93@Rva0023DB93@@QBEHH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE04.cpp (not merged yet)
-
-// tu-skeleton: 0x0023DBA7 28B ?rva0023DBA7@Rva0023DB93@@QBE_NH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE04.cpp (not merged yet)
-
-// tu-skeleton: 0x0023DBC3 54B ??1Rva0023DBC3@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0048C200StringOwnerDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0023DBF9 134B ??0Rva0023C641@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0023C641Write.cpp (not merged yet)
-
-// tu-skeleton: 0x0023DC7F 7B ?clear@Rva0023DC7FFields@@QAEPAU1@XZ -- matched in Code/GameEngine/Source/Common/R1SmallFieldInitialisersOs.cpp (not merged yet)
-
-// tu-skeleton: 0x0023DC86 8B ??1Rva0023DC86StringField@@QAE@XZ -- matched in Code/GameEngine/Source/Common/StringFieldOps.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva0023DCCESet.cpp
 
 void Rva0023DC8E::rva0023DC8E(const AsciiString &value)
@@ -3800,29 +4135,17 @@ void Rva0023DC8E::rva0023DC8E(const AsciiString &value)
 
 // ?TheWritableGlobalData@@3PAVGlobalData@@A: the global at VA 0xdfe758.
 
-// tu-skeleton: 0x0023DCCE 122B ?rva0023DCCE@Rva0023DCCE@@QAEXABVAsciiString@@ABUOpaqueRefElement4@@1@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
 
-// tu-skeleton: 0x0023DD48 796B ?getLoadScreen@GameLogic@@AAEPAVLoadScreen@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
 
-// tu-skeleton: 0x0023E064 99B ?checkForDuplicateColors@@YAXPAVGameInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
 
-// tu-skeleton: 0x0023E0C7 579B ?rva0023E0C7@GameLogic@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
 
-// tu-skeleton: 0x0023E323 171B ?rva0023E323@Rva0023E323@@QAEHMH@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
 
-// tu-skeleton: 0x0023E3CE 602B ?loadMapINI@GameLogic@@QAEXVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
 
-// tu-skeleton: 0x0023E628 396B ?rva0023E628@GameLogic@@QAEXVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
 
-// tu-skeleton: 0x0023E99A 1217B ?CreateWOTRMPPlayers@GameLogic@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
 
-// tu-skeleton: 0x0023EE5B 1685B ?CreateMPPlayers@GameLogic@@QAEX_NH@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
 
-// tu-skeleton: 0x0023F4F0 60B ??1Rva00240000@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
 
-// tu-skeleton: 0x0023F52C 864B ?rva0023F52C@GameLogic@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
 
-// tu-skeleton: 0x0023F8DA 484B ?rva0023F8DA@GameLogic@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/System/GameLogicRva0023FABE.cpp
 
@@ -3850,24 +4173,6 @@ void GameLogic::rva0023FABE(Object *obj)
 	reinterpret_cast<BfmeObjectEventDispatch *>(TheLuaScriptEngine)->rva003360D2(0xC, obj, (BfmeDelayedLuaEventList *)&events);
 }
 
-// tu-skeleton: 0x0023FB58 104B ?rva0023FB58@GameLogic@@QAEABVAsciiString@@H@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
-
-// tu-skeleton: 0x0023FBC0 27B ??0?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@QAE@ABUTreeKey00242F5E@@ABUTreeOpaqueMapped242F5E@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00242f5e.cpp (not merged yet)
-
-// tu-skeleton: 0x0023FC10 19B ??0Rva0023FC10@@QAE@URva0023FC10Arg@@@Z -- matched in Code/GameEngine/Source/Common/Bfme5NodeMakers.cpp (not merged yet)
-
-// tu-skeleton: 0x0023FC23 27B ??$make_pair@HVAsciiString@@@_STL@@YA?AU?$pair@HVAsciiString@@@0@ABHABVAsciiString@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00523DB7Ctor.cpp (not merged yet)
-
-// tu-skeleton: 0x0023FC3E 45B ?Rva0023FC3EConstruct@@YAXPAUBfmeStringRecord00239B46@@ABU1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_game_structs.cpp (not merged yet)
-
-// tu-skeleton: 0x0023FC6B 45B ?Rva0023FC6BConstruct@@YAXPAXPBX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp (not merged yet)
-
-// tu-skeleton: 0x0023FC98 59B ??0Rva0023FD06@@QAE@ABU?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp (not merged yet)
-
-// tu-skeleton: 0x0023FCEA 28B ??_GRva0023FD06@@UAEPAXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp (not merged yet)
-
-// tu-skeleton: 0x0023FD36 45B ??$_Construct@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@0@ABU10@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00242f5e.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/RvaMemberCtorHolders_Reset.cpp
 
 // Split from RvaMemberCtorHolders.cpp: these definitions reference a callee with no matched body yet,
@@ -3878,8 +4183,6 @@ void Rva0023FD63Holder::reset()
 	m_tree.clear();
 	m_dirty = true;
 }
-
-// tu-skeleton: 0x0023FED9 295B ?SetUpCampaignPlayers@GameLogic@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/Rva00240000Ctor.cpp
 
@@ -3899,20 +4202,6 @@ Rva00240000::Rva00240000()
 	m_10 = (const void *)g_00BEDAA8;
 }
 
-// tu-skeleton: 0x00240045 8B ?rva00240045@Rva00240045Forwarder@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSizedForwarders2.cpp (not merged yet)
-
-// tu-skeleton: 0x0024004D 247B ?rva0024004D@GameLogic@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
-
-// tu-skeleton: 0x00240144 35B ?removeObjectFromLookupTable@GameLogic@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Object_setID.cpp (not merged yet)
-
-// tu-skeleton: 0x00240167 89B ?findTOCEntryByName@GameLogic@@QAEPAUObjectTOCEntry@@VAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
-
-// tu-skeleton: 0x002401DD 1424B ?rva002401DD@GameLogic@@QAEXPAVBfmeThingEC@@IH@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
-
-// tu-skeleton: 0x00240C27 57B (unledgered) -- unmatched, no code, never credited
-
-// tu-skeleton: 0x00240C60 41B ?rva00240C60@Rva00439325@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00439325Erase.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/Rva00240C89Create.cpp
 
 // ?Rva00240C89Create@@YGPAURva00240C89Node@@ABUBfmeStringRecord00239B46@@@Z, retail 0x00240C89, 34 bytes.
@@ -3925,10 +4214,6 @@ struct Rva00240C89Node * __stdcall Rva00240C89Create(const struct BfmeStringReco
 	Rva0023FC3EConstruct((BfmeStringRecord00239B46 *)((char *)tmp + 8), x);
 	return tmp;
 }
-
-// tu-skeleton: 0x00240CAB 53B ?rva00240CAB@Rva00240CAB@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/RvaTreeValueEraseFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x00240CE0 47B ??M@YA_NABUTreeKey00242F5E@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00242f5e.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/createNode.cpp
 
@@ -3943,32 +4228,6 @@ struct Rva00240D0FNode * __stdcall createNode(const struct Rva00240D0FValue &x)
 	Rva0023FC6BConstruct((struct Rva00240D0FValue *)((char *)node + 4), &x);
 	return node;
 }
-
-// tu-skeleton: 0x00240D8C 73B ?rva00240D8C@Rva002419ABOwner@@QAEPAXPBVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/Rva002419AB.cpp (not merged yet)
-
-// tu-skeleton: 0x00240DF1 34B ?_M_create_node@?$_Rb_tree@UTreeKey00242F5E@@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@U?$_Select1st@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@@3@U?$less@UTreeKey00242F5E@@@3@V?$allocator@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@@3@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@@2@ABU?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00242f5e.cpp (not merged yet)
-
-// tu-skeleton: 0x00240E13 5B ??1Rva00240E13@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicDestructor.cpp (not merged yet)
-
-// tu-skeleton: 0x00240EBC 51B ?rva00240EBC@GameLogic@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicDestroyAllObjectsImmediate.cpp (not merged yet)
-
-// tu-skeleton: 0x00241230 431B ?startNewGame_Init@GameLogic@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
-
-// tu-skeleton: 0x002413DF 330B ?processDestroyList@GameLogic@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicAwakenUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x00241529 948B ?ProcessCRC@GameLogic@@QAEXIHIPAVGameMessage@@_NPAVBfmeThingEC@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
-
-// tu-skeleton: 0x002421F5 494B ?startNewGame_PlaceMPBuildings@GameLogic@@QAEX_NPAH@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
-
-// tu-skeleton: 0x002423E3 1436B ?rva002423E3@GameLogic@@QAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
-
-// tu-skeleton: 0x0024297F 323B ?friend_awakenUpdateModule@GameLogic@@QAEXPAVObject@@PAVUpdateModule@@I@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicAwakenUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x00242AC2 39B ?addObjectToLookupTable@GameLogic@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Object_setID.cpp (not merged yet)
-
-// tu-skeleton: 0x00242AE9 203B ?registerObject@GameLogic@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicRegisterObject.cpp (not merged yet)
-
-// tu-skeleton: 0x00242C09 125B ?destroyObject@GameLogic@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicDestroyObject.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/System/GameLogicObjectLoad.cpp
 
@@ -4006,20 +4265,6 @@ void GameLogic::prepareLogicForObjectLoad()
 	processDestroyList();
 }
 
-// tu-skeleton: 0x00242E71 57B (unledgered) -- unmatched, no code, never credited
-
-// tu-skeleton: 0x00242EAA 5B ?rva00242EAA@Rva00242EAA@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeValueEraseFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x00242EAF 56B ??1Rva00240CAB@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x00242EE7 26B ?push_back@?$list@PAVRva00242EE7Obj@@V?$allocator@PAVRva00242EE7Obj@@@_STL@@@_STL@@QAEXABQAVRva00242EE7Obj@@@Z -- matched in Code/GameEngine/Source/Common/Rva00242EE7ObjListPush.cpp (not merged yet)
-
-// tu-skeleton: 0x00242F01 25B ??0?$map@JVLadderPref@@U?$less@J@_STL@@V?$allocator@U?$pair@$$CBJVLadderPref@@@_STL@@@3@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_long_ladderpref.cpp (not merged yet)
-
-// tu-skeleton: 0x00242F5E 443B ?insert_unique@?$_Rb_tree@UTreeKey00242F5E@@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@U?$_Select1st@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@@3@U?$less@UTreeKey00242F5E@@@3@V?$allocator@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@@2@@2@U32@ABU?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00242f5e.cpp (not merged yet)
-
-// tu-skeleton: 0x00243119 49B ?clear@?$_List_base@VRva0024076D@@V?$allocator@VRva0024076D@@@_STL@@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_rva00243119_clear.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0024314A.cpp
 
 // STLport 4.5.3 reference instantiation. Target boundary and byte comparison prove operation shape.
@@ -4027,41 +4272,23 @@ void GameLogic::prepareLogicForObjectLoad()
 // The emitted unsigned max copy must match retail RVA 0x00013740.
 // Define it for speed, then restore this unit's flags for its own bodies.
 
-// tu-skeleton: 0x00243177 50B ??0Rva000D3FA0Map@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00243177.cpp (not merged yet)
 
-// tu-skeleton: 0x002431A9 6B ?name@Rva002431A9Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x002431AF 28B ??_GRva000D3FA0Map@@UAEPAXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00243177.cpp (not merged yet)
 
-// tu-skeleton: 0x002431CB 2429B ?rva002431CB@Rva002431CB@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicUnitTimings.cpp (not merged yet)
 
-// tu-skeleton: 0x00243B48 5B ??1Rva00243B48@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicDestructor.cpp (not merged yet)
 
-// tu-skeleton: 0x00243B4D 5B ?rva00243B4D@Rva00243B4D@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
 
-// tu-skeleton: 0x00243B52 78B ?destroyAllObjectsImmediate@GameLogic@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicDestroyAllObjectsImmediate.cpp (not merged yet)
 
-// tu-skeleton: 0x00243BA0 831B ??1GameLogic@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicDestructor.cpp (not merged yet)
 
-// tu-skeleton: 0x00243EDF 8B ??_EGameLogic@@WM@AEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicDestructor.cpp (not merged yet)
 
-// tu-skeleton: 0x00243EE7 957B ?init@GameLogic@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
 
-// tu-skeleton: 0x002442A4 538B ?reset@GameLogic@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
 
-// tu-skeleton: 0x002444BE 926B ?populateRandomSideAndColor@@YAXPAVGameInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
 
-// tu-skeleton: 0x0024485C 1108B ?populateRandomStartPosition@@YAXPAVGameInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
 
-// tu-skeleton: 0x00244CB0 166B ?startNewGame_OpenLoadScreen@GameLogic@@QAEX_NPAVGameInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
 
-// tu-skeleton: 0x00244D56 2052B ?loadAllObjects@GameLogic@@QAEXPAV?$vector@URva0024622FEntry@@V?$allocator@URva0024622FEntry@@@_STL@@@_STL@@PBW4KindOfType@@1_N@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
 
-// tu-skeleton: 0x0024555A 2437B ?update@GameLogic@@UAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
 
-// tu-skeleton: 0x00245F14 101B ?addTOCEntry@GameLogic@@QAEXVAsciiString@@G@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
 
-// tu-skeleton: 0x00245F79 330B ?xferObjectTOC@GameLogic@@QAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/VAsciiStringRva002460C3.cpp
 
@@ -4088,14 +4315,6 @@ BuildableStatus &BuildableMap::operator[](const AsciiString &name)
         : (char *)node + 8);
 }
 
-// tu-skeleton: 0x0024613C 25B ??0?$map@HUBfmePod8@@U?$less@H@_STL@@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@3@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_map_bodies.cpp (not merged yet)
-
-// tu-skeleton: 0x00246155 20B ??$find@UTreeKey00242F5E@@@?$_Rb_tree@UTreeKey00242F5E@@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@U?$_Select1st@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@@3@U?$less@UTreeKey00242F5E@@@3@V?$allocator@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@@2@@1@ABUTreeKey00242F5E@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00242f5e.cpp (not merged yet)
-
-// tu-skeleton: 0x00246169 29B ?insert@?$map@UTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@U?$less@UTreeKey00242F5E@@@_STL@@V?$allocator@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@@4@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@@2@@2@U32@ABU?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00242f5e.cpp (not merged yet)
-
-// tu-skeleton: 0x00246186 20B ?lower_bound@?$_Rb_tree@UTreeKey00242F5E@@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@U?$_Select1st@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@@3@U?$less@UTreeKey00242F5E@@@3@V?$allocator@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@@2@@2@ABUTreeKey00242F5E@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00242f5e.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva002461F1.cpp
 
 // STLport 4.5.3 reference instantiation. Target boundary and byte comparison prove operation shape.
@@ -4103,19 +4322,12 @@ BuildableStatus &BuildableMap::operator[](const AsciiString &name)
 // The emitted unsigned max copy must match retail RVA 0x00013740.
 // Define it for speed, then restore this unit's flags for its own bodies.
 
-// tu-skeleton: 0x00246213 28B ??_GGameLogic@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicDestructor.cpp (not merged yet)
 
-// tu-skeleton: 0x0024622F 499B ?rva0024622F@GameLogic@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
 
-// tu-skeleton: 0x00246422 1411B ?rva00246422@GameLogic@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
 
-// tu-skeleton: 0x002469A5 1484B ?rva002469A5@GameLogic@@QAEX_NPAH@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
 
-// tu-skeleton: 0x00246F71 29B ?setBuildableStatusOverride@GameLogic@@QAEXPBVThingTemplate@@W4BuildableStatus@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicSetBuildableStatusOverride.cpp (not merged yet)
 
-// tu-skeleton: 0x00246F8E 73B ?rva00246F8E@GameLogic@@QAE_NABVAsciiString@@HPAPBVCommandButton@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicRva00246F8E.cpp (not merged yet)
 
-// tu-skeleton: 0x00246FF6 124B ??A?$map@UTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@U?$less@UTreeKey00242F5E@@@_STL@@V?$allocator@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@@4@@_STL@@QAEAAUTreeOpaqueMapped242F5E@@ABUTreeKey00242F5E@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00242f5e.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/StlportListRva0024076DBase.cpp
 
@@ -4125,7 +4337,6 @@ BuildableStatus &BuildableMap::operator[](const AsciiString &name)
 // through 0x0023E83A. Flags as stlport_pod_list_bodies.cpp, which compiled
 // these two bodies under a BfmePod80 placeholder before.
 
-// tu-skeleton: 0x00247084 5B ?rva00247084@Rva00247084@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva00248211ObjListPush.cpp
 
@@ -4133,9 +4344,7 @@ BuildableStatus &BuildableMap::operator[](const AsciiString &name)
 // creates the node through _M_create_node 0x002461F1. 0x0024877A inserts into
 // its record list through 0x00247089.
 
-// tu-skeleton: 0x002470AE 714B ??0GameLogic@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
 
-// tu-skeleton: 0x00247378 1463B ?bfmePopulateGameReport@GameLogic@@QAEXPAVGameInfo@@PAH@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicPopulateGameReport.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/System/GameLogicStartingCamera.cpp
 
@@ -4151,6 +4360,1057 @@ void GameLogic::formatPlayerStartWaypointName(AsciiString *out)
 		return;
 	int startPos = slot->startPos;
 	out->format("Player_%d_Start", startPos + 1);
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/System/GameLogicRva0023CAD9.cpp
+
+int GameLogic::rva0023CAD9()
+{
+	return m_10c++;
+}
+
+// tu-skeleton: 0x0023CAE7 69B ?friend_createObject@GameLogic@@QAEPAVObject@@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z -- matched in Code/GameEngine/Source/Common/Thing/ThingFactory_newObject.cpp (not merged yet)
+
+// tu-skeleton: 0x0023CD97 7B ?isGamePaused@GameLogic@@QAEEXZ -- matched in Code/GameEngine/Source/Common/GameEngineNetworkHelpers.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/System/GameLogicSetGamePaused.cpp
+
+// windows.h must not declare stdio.h's sprintf: GameLogic.cpp's sprintf calls reach the import.
+
+void GameLogic::rva0023CD9E(bool paused, int pauseMode, bool affectMouse)
+{
+	if (paused == m_gamePaused)
+		return;
+	GameLogic *gameLogic = TheGameLogic;
+	if (gameLogic->isInMultiplayerGame())
+		return;
+	if (((Rva00210C66CmpBoolField *)gameLogic)->get())
+		return;
+
+	int audToAffect = (pauseMode != 1);
+	m_gamePaused = paused;
+	audToAffect += 0x1E;
+	audToAffect |= 0x20;
+
+	if (paused)
+	{
+		m_inputEnabledMemory = TheInGameUI->m_inputEnabled && TheInGameUI->m_inputAllowed;
+		m_mouseVisibleMemory = TheMouse->rva001EDE26();
+		if (affectMouse)
+		{
+			TheMouse->_bfme_setEngineVisibility(true);
+			TheMouse->setCursor(2);
+		}
+		if (m_inputEnabledMemory)
+			TheInGameUI->setEngineInputEnabled(false);
+		if (pauseMode != 2)
+		{
+			(*(BfmeAudio **)&TheAudio)->pauseAudio(audToAffect, 3, 0);
+			(*(BfmeAudio **)&TheAudio)->pauseAudio(audToAffect, 4, 1);
+		}
+	}
+	else
+	{
+		if (affectMouse)
+			TheMouse->_bfme_setEngineVisibility(m_mouseVisibleMemory);
+		if (m_inputEnabledMemory)
+			TheInGameUI->setEngineInputEnabled(true);
+		if (pauseMode != 2)
+		{
+			(*(BfmeAudio **)&TheAudio)->resumeAudio(audToAffect, 3, 0);
+			(*(BfmeAudio **)&TheAudio)->resumeAudio(audToAffect, 4, 1);
+		}
+	}
+}
+
+bool GameLogic::rva0023CEE5()
+{
+	if (!isInMultiplayerGame())
+		return true;
+	if (TheNetwork == 0)
+		return true;
+	if (m_150)
+		return true;
+	for (int i = 0; i < 8; i++)
+	{
+		if (m_heardFlags[i] == 0)
+			return false;
+	}
+	return true;
+}
+
+// Target 0x0023CF3F checks the eight timer values paired with +0x128 flags
+// before setting +0x150. The matched neighboring GameLogic gate supplies the
+// shared layout; the operation's name and higher-level purpose remain unknown.
+void GameLogic::rva0023CF3F()
+{
+	if (rva0023CEE5())
+		return;
+
+	int now = (int)timeGetTime();
+	for (int i = 0; i < 8; ++i)
+	{
+		if (m_heardFlags[i] == 0 && (int)m_progressCompleteTimeout[i] + 0x15F90 > now)
+			return;
+	}
+	m_150 = true;
+}
+
+// Target 0x0023D0E3: Zero Hour QuitMenu.cpp's exitQuitMenu tail moved
+// onto GameLogic, as the quit menu's destructor (0x0051B15E) and restart
+// path call it on TheGameLogic. A self-destruct request (0x448) in a
+// multiplayer non-skirmish non-sandbox game, then the 0x001EB0B1 reset,
+// MSG_CLEAR_GAME_DATA (0x1D, argument 2 in a war of the ring game), the
+// unpause outside multiplayer and InGameUI's client-quiet byte. Name
+// unknown; the bool's purpose is inferred from the guarded message.
+void GameLogic::DoExitMap(bool selfDestruct)
+{
+	if (selfDestruct && isInMultiplayerGame() && m_gameMode != 2 && TheGameInfo && !TheGameInfo->isSandbox())
+	{
+		GameMessage *msg = TheMessageStream->appendMessage(0x448);
+		msg->appendBooleanArgument(true);
+	}
+	((Rva001EB0B1Holder *)TheLinearCampaignManager)->rva001EB0B1();
+	GameMessage *msg = TheMessageStream->appendMessage(0x1D);
+	if (((Rva002D3627Host *)TheLivingWorld))
+		msg->appendIntegerArgument(2);
+	if (!isInMultiplayerGame())
+		rva0023CD9E(false, 0, true);
+	TheInGameUI->m_clientQuiet = true;
+}
+
+// Native global DFDC8C is registered as TheLinearCampaignManager by22F3A1.
+// Existing helper facades carry their historical names; those names do not
+// establish a terrain identity for this campaign-manager data access.
+
+// tu-skeleton: 0x0023CF83 8B ?enable@Rva0023CF83ByteOneSetter@@QAEXXZ -- matched in Code/GameEngine/Source/Common/DispByteOneSetters.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/System/GameLogicRva0023CF8B.cpp
+
+// platformsdk
+//
+// ?rva0023CF8B@GameLogic@@QAEXXZ, RVA 0x0023CF8B, 67 bytes.
+// GameLogic method filling timeout array at +0x130 with timeGetTime per
+// network peer. Evidence: sits between GameLogic rows 0x0023CF83 (m_150
+// byte setter) and 0x0023CFCE GameLogic::getObjectCount; +0x130 array of
+// 8 DWORDs ending at +0x150 matches GameLogicSetGamePaused timeouts layout;
+// TheNetwork global 0x009FEA28 with virtual at +0xB4 returning peer count;
+// timeGetTime IAT winmm call; caller 0x0043ADA5.
+// windows.h must not declare stdio.h's sprintf: GameLogic.cpp's sprintf calls reach the import.
+
+void GameLogic::rva0023CF8B()
+{
+	if (TheNetwork == 0)
+		return;
+	int i = 0;
+	int count = TheNetwork->getCount();
+	if (count <= 0)
+		return;
+	unsigned long *dst = m_progressCompleteTimeout;
+	do {
+		*dst = timeGetTime();
+		++i;
+		++dst;
+		count = TheNetwork->getCount();
+	} while (i < count);
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/System/GameLogicSetPlayerLeaveStatus.cpp
+
+// ?setPlayerLeaveStatus@GameLogic@@QAEXHABVAsciiString@@H@Z
+void GameLogic::setPlayerLeaveStatus(int slotIndex, const AsciiString &playerName, int isHuman)
+{
+	if (slotIndex < 0 || slotIndex >= 8)
+		return;
+	m_playerLeaveStatus[slotIndex].m_notPresent = false;
+	((StringBase<char> *)&m_playerLeaveStatus[slotIndex].m_playerName)->set(*(const StringBase<char> *)&playerName);
+	m_playerLeaveStatus[slotIndex].m_isHuman = isHuman;
+}
+
+// ?getPlayerLeaveStatus@GameLogic@@QAEPAUPlayerLeaveStatus@@H@Z
+PlayerLeaveStatus *GameLogic::getPlayerLeaveStatus(int playerIndex)
+{
+	if (playerIndex >= 0 && playerIndex < 8)
+		return &m_playerLeaveStatus[playerIndex];
+	return 0;
+}
+
+void GameLogic::rva0023D17D()
+{
+	for (int i = 0; i < 8; ++i) {
+		m_playerLeaveStatus[i].m_notPresent = true;
+		m_playerLeaveStatus[i].m_quitFrame = 0;
+		m_playerLeaveStatus[i].m_defeatFrame = 0;
+		m_playerLeaveStatus[i].m_victoryFrame = 0;
+		m_playerLeaveStatus[i].m_status = 0;
+		m_playerLeaveStatus[i].m_isHuman = 0xff;
+	}
+}
+
+// ?rva0023D201@GameLogic@@QAEXHH@Z @0x0023D201 40B: range-checks slot 0-7, stores arg2 to entry+0 and this+0x40 frame to entry+4 with stride 0x1C. Same PlayerLeaveStatus array at +0x1C4 as neighbours. Callers at 0x0025E22B and 0x0025E6D6.
+void GameLogic::rva0023D201(int slotIndex, int status)
+{
+	if (slotIndex < 0 || slotIndex >= 8)
+		return;
+	m_playerLeaveStatus[slotIndex].m_status = status;
+	m_playerLeaveStatus[slotIndex].m_quitFrame = m_frame;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/System/GameLogicRva0023D68EAndD6FA.cpp
+
+void GameLogic::rva0023D68E(bool value)
+{
+	Object *object = m_firstObject;
+	while (object != 0) {
+		if (value || (object->m_template->m_kindOf[0x117 - 0x108] & 1) == 0) {
+			Drawable *drawable = object->getDrawable();
+			if (drawable != 0) {
+				drawable->rva00270FAC(value);
+				((Rva0028D680 *)object)->rva0028D680();
+			}
+		}
+		object = object->m_next;
+	}
+}
+
+int rva0023D6FA(Object *object)
+{
+	if (object != 0 && (object->m_template->m_kindOf[0x10A - 0x108] & 2) != 0) {
+		Player *player = object->getControllingPlayer();
+		unsigned int playerMask = 1 << player->m_playerIndex;
+		TheGameLogic->selectObject(object, true, playerMask, object->isLocallyControlled());
+		return 0;
+	}
+	return 1;
+}
+
+// tu-skeleton: 0x0023D6F0 10B ?get@Rva0023D6F0SarAvgField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8SarAvgDwordGetters.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/System/GameLogicLivingWorldBattleComplete.cpp
+
+void GameLogic::LivingWorldTacticalBattleComplete()
+{
+	m_armySummarySystem.Save(m_firstObject);
+	LivingWorldBattle *battle = (LivingWorldBattle *)(*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->getRegionManager()->rva0020E6B7();
+	int mask = 0xFFFFF;
+	while (mask) {
+		Player *player = ThePlayerList->getEachPlayerFromMask(mask);
+		if (!player)
+			continue;
+		player->accumulateRTSBattleStatsIntoLivingWorldScoreKeeper();
+		void *block = player->getScoreKeeperBlock();
+		if (!battle || !block)
+			continue;
+		Rva002E2903Player *lwPlayer = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->find(player->getArmyID(), 0);
+		if (!lwPlayer)
+			continue;
+		int sideIndex = battle->rva003F4752(lwPlayer);
+		if (sideIndex == -1)
+			continue;
+		int playerIndex = battle->rva003F4FAA(sideIndex, lwPlayer);
+		if (playerIndex == -1)
+			continue;
+		battle->rva003F470E(sideIndex, playerIndex, block);
+	}
+	Rva003F468DParticipant *lwVictor = GetLivingWorldTacticalVictor();
+	m_livingWorldVictorIndex = lwVictor ? lwVictor->m_playerIndex : -1;
+	if (battle && lwVictor)
+		battle->SetWinningSide(battle->rva003F4752(lwVictor));
+	if (g_00DFE1C8->rva00210DC9() && !((Rva002D3627Host *)TheLivingWorld)->getFlag18()) {
+		GameLogic *logic = TheGameLogic;
+		if (((Rva00210C66CmpBoolField *)logic)->get())
+			((Rva0023D29F *)logic)->sendEndSessionMsg();
+		else
+			g_00DFE1C8->rva00211FA8();
+	} else {
+		clearGameData(true, false);
+		TransitionFromLivingWorldTacticalBattle();
+	}
+}
+
+// ?rva0023DA49@GameLogic@@QAEXXZ
+// Retail 0x0023DA49 (5 bytes), right after LivingWorldTacticalBattleComplete:
+// a tail jump into it, called on TheGameLogic from the unrowed 0x0037AB28 site.
+void GameLogic::rva0023DA49()
+{
+	LivingWorldTacticalBattleComplete();
+}
+
+// ?rva0023DA4E@GameLogic@@QAEXXZ
+// Ghidra bounds 0x0023DA4E at 43 bytes. The body gates on the rowed
+// 0x002B3669 query of g_009FEF10; success pushes 1 then 0 for the pinned GameLogic helper; failure tail-calls LivingWorldTacticalBattleComplete.
+void GameLogic::rva0023DA4E()
+{
+	if ((*(Rva002BA8F1Logic **)&TheLivingWorldLogic) && (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->rva002B3669())
+		clearGameData(false, true);
+	else
+		LivingWorldTacticalBattleComplete();
+}
+
+// tu-skeleton: 0x0023DAA5 39B ?clear@?$_List_base@HV?$allocator@H@_STL@@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_o1.cpp (not merged yet)
+
+// tu-skeleton: 0x0023DAE8 15B ??0Rva0023DAE8@@QAE@H@Z -- matched in Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x0023DAF7 23B ?rva0023DAF7@Rva0023DAF7@@QAEXMH@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAG_Rva00131CF2.cpp (not merged yet)
+
+// tu-skeleton: 0x0023DB34 20B ??0Rva0023DB34@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x0023DB48 16B ?rva0023DB48@Rva0023DB48@@QAEHXZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp (not merged yet)
+
+// tu-skeleton: 0x0023DB5F 17B ?keyAtA@Gen_000cd680@@QBEHH@Z -- matched in Code/GameEngine/Source/Common/Gen_000cd680.cpp (not merged yet)
+
+// tu-skeleton: 0x0023DB89 10B ?get@Rva0023DB89WordChaseField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp32FirstChaseGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0023DB93 20B ?rva0023DB93@Rva0023DB93@@QBEHH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE04.cpp (not merged yet)
+
+// tu-skeleton: 0x0023DBA7 28B ?rva0023DBA7@Rva0023DB93@@QBE_NH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE04.cpp (not merged yet)
+
+// tu-skeleton: 0x0023DBC3 54B ??1Rva0023DBC3@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0048C200StringOwnerDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0023DBF9 134B ??0Rva0023C641@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0023C641Write.cpp (not merged yet)
+
+// tu-skeleton: 0x0023DC7F 7B ?clear@Rva0023DC7FFields@@QAEPAU1@XZ -- matched in Code/GameEngine/Source/Common/R1SmallFieldInitialisersOs.cpp (not merged yet)
+
+// tu-skeleton: 0x0023DC86 8B ??1Rva0023DC86StringField@@QAE@XZ -- matched in Code/GameEngine/Source/Common/StringFieldOps.cpp (not merged yet)
+
+// tu-skeleton: 0x0023DCCE 122B ?rva0023DCCE@Rva0023DCCE@@QAEXABVAsciiString@@ABUOpaqueRefElement4@@1@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
+
+// tu-skeleton: 0x0023DD48 796B ?getLoadScreen@GameLogic@@AAEPAVLoadScreen@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
+
+// tu-skeleton: 0x0023E064 99B ?checkForDuplicateColors@@YAXPAVGameInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
+
+// tu-skeleton: 0x0023E0C7 579B ?rva0023E0C7@GameLogic@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
+
+// tu-skeleton: 0x0023E323 171B ?rva0023E323@Rva0023E323@@QAEHMH@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
+
+// tu-skeleton: 0x0023E3CE 602B ?loadMapINI@GameLogic@@QAEXVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
+
+// tu-skeleton: 0x0023E628 396B ?rva0023E628@GameLogic@@QAEXVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
+
+// tu-skeleton: 0x0023E99A 1217B ?CreateWOTRMPPlayers@GameLogic@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
+
+// tu-skeleton: 0x0023EE5B 1685B ?CreateMPPlayers@GameLogic@@QAEX_NH@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
+
+// tu-skeleton: 0x0023F4F0 60B ??1Rva00240000@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
+
+// tu-skeleton: 0x0023F52C 864B ?rva0023F52C@GameLogic@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
+
+// tu-skeleton: 0x0023F8DA 484B ?rva0023F8DA@GameLogic@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
+
+// tu-skeleton: 0x0023FB58 104B ?rva0023FB58@GameLogic@@QAEABVAsciiString@@H@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
+
+// tu-skeleton: 0x0023FBC0 27B ??0?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@QAE@ABUTreeKey00242F5E@@ABUTreeOpaqueMapped242F5E@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00242f5e.cpp (not merged yet)
+
+// tu-skeleton: 0x0023FC10 19B ??0Rva0023FC10@@QAE@URva0023FC10Arg@@@Z -- matched in Code/GameEngine/Source/Common/Bfme5NodeMakers.cpp (not merged yet)
+
+// tu-skeleton: 0x0023FC23 27B ??$make_pair@HVAsciiString@@@_STL@@YA?AU?$pair@HVAsciiString@@@0@ABHABVAsciiString@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00523DB7Ctor.cpp (not merged yet)
+
+// tu-skeleton: 0x0023FC3E 45B ?Rva0023FC3EConstruct@@YAXPAUBfmeStringRecord00239B46@@ABU1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_game_structs.cpp (not merged yet)
+
+// tu-skeleton: 0x0023FC6B 45B ?Rva0023FC6BConstruct@@YAXPAXPBX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp (not merged yet)
+
+// tu-skeleton: 0x0023FC98 59B ??0Rva0023FD06@@QAE@ABU?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp (not merged yet)
+
+// tu-skeleton: 0x0023FCEA 28B ??_GRva0023FD06@@UAEPAXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp (not merged yet)
+
+// tu-skeleton: 0x0023FD36 45B ??$_Construct@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@0@ABU10@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00242f5e.cpp (not merged yet)
+
+// tu-skeleton: 0x0023FED9 295B ?SetUpCampaignPlayers@GameLogic@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
+
+// tu-skeleton: 0x00240045 8B ?rva00240045@Rva00240045Forwarder@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSizedForwarders2.cpp (not merged yet)
+
+// tu-skeleton: 0x0024004D 247B ?rva0024004D@GameLogic@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
+
+// tu-skeleton: 0x00240144 35B ?removeObjectFromLookupTable@GameLogic@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Object_setID.cpp (not merged yet)
+
+// tu-skeleton: 0x00240167 89B ?findTOCEntryByName@GameLogic@@QAEPAUObjectTOCEntry@@VAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
+
+// tu-skeleton: 0x002401DD 1424B ?rva002401DD@GameLogic@@QAEXPAVBfmeThingEC@@IH@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
+
+// tu-skeleton: 0x00240C27 57B (unledgered) -- unmatched, no code, never credited
+
+// tu-skeleton: 0x00240C60 41B ?rva00240C60@Rva00439325@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00439325Erase.cpp (not merged yet)
+
+// tu-skeleton: 0x00240CAB 53B ?rva00240CAB@Rva00240CAB@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/RvaTreeValueEraseFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x00240CE0 47B ??M@YA_NABUTreeKey00242F5E@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00242f5e.cpp (not merged yet)
+
+// tu-skeleton: 0x00240D8C 73B ?rva00240D8C@Rva002419ABOwner@@QAEPAXPBVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/Rva002419AB.cpp (not merged yet)
+
+// tu-skeleton: 0x00240DF1 34B ?_M_create_node@?$_Rb_tree@UTreeKey00242F5E@@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@U?$_Select1st@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@@3@U?$less@UTreeKey00242F5E@@@3@V?$allocator@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@@3@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@@2@ABU?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00242f5e.cpp (not merged yet)
+
+// tu-skeleton: 0x00240E13 5B ??1Rva00240E13@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicDestructor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/System/GameLogicDestroyAllObjectsImmediate.cpp
+
+//
+// GameLogic::destroyAllObjectsImmediate, retail 0x00243B52 (78B), from the
+// WorldBuilder lead (name, statement order) and Zero Hour's GameLogic.cpp.
+// BFME2 first clears the pending destroy list (+0x164, erased through the
+// shared out-of-line vector erase 0x0031BD55), walks the object list (+0xAC,
+// next at Object +0x8C) destroying each object, processes the destroy list
+// (0x002413DF) and finally lets TheGameClient reset through its vtable slot
+// 0x90. The destroy-list element type is not established; it keeps an
+// address-derived name.
+
+void GameLogic::destroyAllObjectsImmediate()
+{
+	m_objectsToDestroy.clear();
+	Object *obj;
+	Object *nextObj;
+	for (obj = m_firstObject; obj; obj = nextObj) {
+		nextObj = obj->getNextObject();
+		destroyObject(obj);
+	}
+	processDestroyList();
+	if (TheGameClient)
+		TheGameClient->s36();
+}
+
+// ?rva00240EBC@GameLogic@@QAEXXZ @ 0x00240EBC (51B): retail walks the
+// pending-object vector at +0x164/+0x168 calling Object::rva00295F05(1),
+// then erases its range through the existing vector helper at 0x0031BD55.
+// The neighboring GameLogic body supports the owner and field layout; exact
+// method purpose remains address-derived.
+void GameLogic::rva00240EBC()
+{
+	for (Rva00243B52DestroyEntry **entry = m_objectsToDestroy.begin();
+		 entry != m_objectsToDestroy.end(); ++entry) {
+		reinterpret_cast<Object *>(*entry)->rva00295F05(1);
+	}
+	m_objectsToDestroy.clear();
+}
+
+// tu-skeleton: 0x00241230 431B ?startNewGame_Init@GameLogic@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
+
+// tu-skeleton: 0x002413DF 330B ?processDestroyList@GameLogic@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicAwakenUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x00241529 948B ?ProcessCRC@GameLogic@@QAEXIHIPAVGameMessage@@_NPAVBfmeThingEC@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
+
+// tu-skeleton: 0x002421F5 494B ?startNewGame_PlaceMPBuildings@GameLogic@@QAEX_NPAH@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
+
+// tu-skeleton: 0x002423E3 1436B ?rva002423E3@GameLogic@@QAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
+
+// tu-skeleton: 0x0024297F 323B ?friend_awakenUpdateModule@GameLogic@@QAEXPAVObject@@PAVUpdateModule@@I@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicAwakenUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x00242AC2 39B ?addObjectToLookupTable@GameLogic@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Object_setID.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/System/GameLogicRegisterObject.cpp
+
+// GameLogic::registerObject (retail 0x00242AE9, 203B), Zero Hour
+// GameEngine/Source/GameLogic/System/GameLogic.cpp.
+// Target facts: links the object with BFME's head/tail Object::appendToList
+// (0x0028B49B, &GameLogic+0xAC/+0xB0), then the rowed addObjectToLookupTable
+// (0x00242AC2). Each behavior module's update interface (slot 0x24) is
+// converted to its UpdateModule (-0x10); a zero next-call frame becomes
+// min(now, UPDATE_SLEEP_FOREVER), with frame 0 treated as 1 as in ZH. BFME
+// replaces ZH's pushSleepyUpdate heap: a sleeping-forever module gets phase
+// -1 and goes on the vector at +0xF8, any other on the per-phase vector
+// +0xC8 + 12 * phase (phase from UpdateModule slot 0x30); +0x18 keeps its
+// index in that vector and +0x1C its phase.
+// The vector push_back is the ICF-folded STLport body at 0x004DFCB0, rowed
+// as vector<const ModuleData*>::push_back; that spelling is the only one the
+// REL32 resolver knows for it, so the lists are viewed with that element type.
+
+// ------------------------------------------------------------------------------------------------
+/** Add an object to the world: the master list, the lookup table and the update lists */
+// ------------------------------------------------------------------------------------------------
+void GameLogic::registerObject( Object *obj )
+{
+
+	// add to the master list
+	obj->appendToList( &m_firstObject, &m_objListTail );
+
+	// add object to lookup table
+	addObjectToLookupTable( obj );
+
+	UnsignedInt now = TheGameLogic->getFrame();
+	if( now == 0 )
+		now = 1;
+
+	for( BehaviorModule **behaviorModule = obj->getBehaviorModules(); *behaviorModule; ++behaviorModule )
+	{
+		UpdateModulePtr u = static_cast<UpdateModulePtr>( (*behaviorModule)->getUpdate() );
+		const ModuleData *entry = reinterpret_cast<const ModuleData *>( u );
+		if( !u )
+			continue;
+
+		// it's important to set it to "now" so that it will update this frame
+		if( u->friend_getNextCallFrame() == 0 )
+			u->friend_setNextCallFrame( now );
+
+		UpdateModuleVector *list;
+		if( u->friend_getNextCallFrame() == UPDATE_SLEEP_FOREVER )
+		{
+			list = &m_sleepingUpdates;
+			Int index = list->size();
+			u->m_phaseInLogic = -1;
+			u->m_indexInLogic = index;
+		}
+		else
+		{
+			Int phase = u->getUpdatePhase();
+			list = &m_phaseUpdates[ phase ];
+			Int index = list->size();
+			u->m_indexInLogic = index;
+			u->m_phaseInLogic = phase;
+		}
+		list->push_back( entry );
+	}
+
+}
+
+// tu-skeleton: 0x00242C09 125B ?destroyObject@GameLogic@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicDestroyObject.cpp (not merged yet)
+
+// tu-skeleton: 0x00242E71 57B (unledgered) -- unmatched, no code, never credited
+
+// tu-skeleton: 0x00242EAA 5B ?rva00242EAA@Rva00242EAA@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeValueEraseFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x00242EAF 56B ??1Rva00240CAB@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x00242EE7 26B ?push_back@?$list@PAVRva00242EE7Obj@@V?$allocator@PAVRva00242EE7Obj@@@_STL@@@_STL@@QAEXABQAVRva00242EE7Obj@@@Z -- matched in Code/GameEngine/Source/Common/Rva00242EE7ObjListPush.cpp (not merged yet)
+
+// tu-skeleton: 0x00242F01 25B ??0?$map@JVLadderPref@@U?$less@J@_STL@@V?$allocator@U?$pair@$$CBJVLadderPref@@@_STL@@@3@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_long_ladderpref.cpp (not merged yet)
+
+// tu-skeleton: 0x00242F5E 443B ?insert_unique@?$_Rb_tree@UTreeKey00242F5E@@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@U?$_Select1st@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@@3@U?$less@UTreeKey00242F5E@@@3@V?$allocator@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@@2@@2@U32@ABU?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00242f5e.cpp (not merged yet)
+
+// tu-skeleton: 0x00243119 49B ?clear@?$_List_base@VRva0024076D@@V?$allocator@VRva0024076D@@@_STL@@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_rva00243119_clear.cpp (not merged yet)
+
+// tu-skeleton: 0x00243177 50B ??0Rva000D3FA0Map@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00243177.cpp (not merged yet)
+
+// tu-skeleton: 0x002431A9 6B ?name@Rva002431A9Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x002431AF 28B ??_GRva000D3FA0Map@@UAEPAXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00243177.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/System/GameLogicUnitTimings.cpp
+
+// platformsdk
+//
+// ?rva002431CB@Rva002431CB@@QAEXXZ  retail 0x002431CB..0x00243B48 (2429 bytes).
+// The unit-timings benchmark step GameLogic::update calls each frame (Zero
+// Hour's DO_UNIT_TIMINGS unitTimings in GameLogic.cpp, made an object whose
+// members hold Zero Hour's statics). WorldBuilder twin 0x00CEEC50
+// (GameLogic.cpp) and the Zero Hour body give the flow: settle frames then
+// QueryPerformanceCounter timing over the time frames; per mode store the
+// time and draw-call rate and switch the camera/particle/spawn setup; log a
+// comma line through 0x0023C641; destroy every object and pick the next
+// template by side, kind and name filters; create a 10x10 grid of it (trees
+// go to TerrainLogic) and look at it.
+
+// windows.h must not declare stdio.h's sprintf: GameLogic.cpp's sprintf calls reach the import.
+
+void Rva002431CB::rva002431CB()
+{
+	float frames = TheGameEngine->m_38 * 2.0f;
+
+	if (!isTiming())
+		return;
+
+	if (m_settleFrames > 0)
+	{
+		m_settleFrames--;
+		if (m_settleFrames > 0)
+			return;
+		QueryPerformanceCounter(&m_startTime);
+		QueryPerformanceFrequency(&m_freq);
+		m_drawCallTotal = 0;
+		m_timeFrames = 2;
+		return;
+	}
+
+	if (m_timeFrames > 0)
+	{
+		m_timeFrames--;
+		if (m_timeFrames > 0)
+			return;
+
+		m_drawCallTotal = TheDisplay->getLastFrameDrawCalls();
+		QueryPerformanceCounter(&m_endTime);
+		double timeToUpdate = (double)(m_endTime.QuadPart - m_startTime.QuadPart) / (double)m_freq.QuadPart;
+		Coord3D thePos;
+		thePos.x = 400.0f;
+		thePos.y = 300.0f;
+		thePos.z = 0.0f;
+		timeToUpdate = timeToUpdate * 1000000.0 / (frames * 100.0f);
+
+		if (m_mode == 0)
+		{
+			m_timeLogic = timeToUpdate;
+			m_drawCallLogic = m_drawCallTotal * 0.01f;
+			m_mode = 4;
+			m_settleFrames = 2;
+			BfmeUnitTimingSavedViewValue = TheTacticalView->slot12C();
+			TheTacticalView->lookAt(&thePos);
+			return;
+		}
+		if (m_mode == 4)
+		{
+			m_timeAll = timeToUpdate;
+			m_drawCallAll = m_drawCallTotal * 0.01f;
+			TheDisplay->slot178(BfmeUnitTimingDisplayStats);
+			BfmeUnitTimingDisplayStats[1] /= 100;
+			BfmeUnitTimingDisplayStats[2] /= 100;
+			BfmeUnitTimingDisplayStats[0] /= 100;
+			m_mode = 3;
+			m_settleFrames = 2;
+			TheTacticalView->slot1C(0);
+			TheTacticalView->slot130(700.0f);
+			TheTacticalView->slot128(2.2f);
+			return;
+		}
+		if (m_mode == 3)
+		{
+			m_timeAllNoAnim = timeToUpdate;
+			m_mode = 1;
+			m_settleFrames = 2;
+			if (TheParticleSystemManager->m_particleCount > 1)
+				TheParticleSystemManager->reset();
+			TheTacticalView->slot128(1.0f);
+			TheTacticalView->slot130(BfmeUnitTimingSavedViewValue);
+			TheTacticalView->lookAt(&thePos);
+			return;
+		}
+		if (m_mode == 1)
+		{
+			m_timeNoPart = timeToUpdate;
+			m_drawCallNoPart = m_drawCallTotal * 0.01f;
+			m_mode = 2;
+			Object *obj = ((GameLogicObjectListView *)TheGameLogic)->m_firstObject;
+			bool gotSpawn = false;
+			while (obj)
+			{
+				if (obj->getTemplate() != m_curThing && !obj->testStatus(OBJECT_STATUS_26))
+				{
+					TheGameLogic->destroyObject(obj);
+					gotSpawn = true;
+				}
+				obj = obj->getNextObject();
+			}
+			if (gotSpawn)
+			{
+				m_settleFrames = 2;
+				return;
+			}
+		}
+		if (m_mode == 2)
+		{
+			m_timeNoSpawn = timeToUpdate;
+			m_drawCallNoSpawn = m_drawCallTotal * 0.01f;
+		}
+
+		if (m_curThing == 0)
+			return;
+
+		AsciiString remark;
+		AsciiString thingName = m_curThing->getName();
+		if (m_veryFirstTime)
+			thingName = "No Object";
+
+		{
+		AsciiString type;
+		if (m_unitTypes == 0)
+			type = "Infantry";
+		else if (m_unitTypes == 1)
+			type = "Machine";
+		else if (m_unitTypes == 3)
+			type = "Monster";
+		else if (m_unitTypes == 2)
+			type = "Cavalry";
+		else if (m_unitTypes == 4)
+			type = "Structure";
+		else
+			type = "Other";
+
+		AsciiString modelName;
+		UnitTimingModelState state;
+		state.clear();
+		const ModuleInfo &mi = m_curThing->drawModules();
+		if (mi.getCount() > 0)
+		{
+			const ModuleData *mdd = mi.getNthData(0);
+			if (mdd)
+				modelName = mdd->getBestModelNameForWB(state);
+		}
+		if (m_veryFirstTime)
+		{
+			modelName = "**NO MODEL**";
+			m_veryFirstTime = false;
+		}
+
+		remark.format("%.1f,%d/%d/%d,%.1f,%.1f,%.1f,%.1f,%s,%s,%s,%s,%.1f,%.1f,%.1f\n",
+			m_timeAll, BfmeUnitTimingDisplayStats[0], BfmeUnitTimingDisplayStats[1], BfmeUnitTimingDisplayStats[2],
+			m_timeAllNoAnim, m_timeNoPart, m_timeNoSpawn, m_timeLogic,
+			thingName.str(), modelName.str(), type.str(), m_side.str(),
+			(double)m_drawCallAll, (double)m_drawCallNoPart, (double)m_drawCallNoSpawn);
+		((Rva0023C641 *)this)->rva0023C641(remark.str());
+		}
+
+		TheParticleSystemManager->reset();
+		m_gotUnit = false;
+	}
+
+	if (!((StringBase<char> *)&m_singleUnit)->isEmpty() && m_curThing && m_startTiming)
+	{
+		if (m_curThing->getName().compare(m_singleUnit) == 0)
+		{
+			((Rva00382AA0 *)this)->release();
+			return;
+		}
+		while (m_curThing->friend_getNextTemplate() && m_curThing->friend_getNextTemplate()->getName().compare(m_singleUnit) != 0)
+			m_curThing = m_curThing->friend_getNextTemplate();
+	}
+
+	Object *obj = ((GameLogicObjectListView *)TheGameLogic)->m_firstObject;
+	while (obj)
+	{
+		TheGameLogic->destroyObject(obj);
+		obj = obj->getNextObject();
+	}
+	TheTerrainVisual->m_inner.slot24();
+
+	if (m_startTiming && m_curThing && !m_gotUnit)
+	{
+		TheWritableGlobalData->m_framesPerSecondLimit = 10000;
+		TheWritableGlobalData->m_useFpsLimit = false;
+		while (!m_gotUnit)
+		{
+			if (m_veryFirstTime)
+			{
+				m_gotUnit = true;
+				break;
+			}
+			m_curThing = m_curThing->friend_getNextTemplate();
+			if (m_curThing == 0)
+			{
+				m_unitTypes++;
+				if (m_unitTypes == 6)
+				{
+					m_startTiming = false;
+					((Rva00382AA0 *)this)->release();
+					TheMessageStream->appendMessage(0x1D);
+					break;
+				}
+				m_curThing = TheThingFactory->firstTemplate();
+			}
+
+			const ThingTemplate *cur = m_curThing;
+			bool single = cur->getName().compare(m_singleUnit) == 0;
+			const ThingTemplate *btt = m_curThing;
+			if (!single && !((StringBase<char> *)&m_side)->isEmpty())
+			{
+				if (((StringBase<char> &)(btt->m_side)).compareNoCase((const StringBase<char> &)(m_side)) != 0)
+					continue;
+				if (m_unitTypes == 0)
+				{
+					if (!(btt->kindOfWord(0) & 0x100))
+						continue;
+					if (btt->kindOfWord(0) & 0x800)
+						continue;
+					if (btt->kindOfWord(0) & 0x80)
+						continue;
+				}
+				else if (m_unitTypes == 1)
+				{
+					if (!(btt->kindOfWord(0) & 0x800))
+						continue;
+					if (btt->kindOfWord(0) & 0x400)
+						continue;
+					if (btt->kindOfWord(0) & 0x80)
+						continue;
+				}
+				else if (m_unitTypes == 2)
+				{
+					if (!(btt->kindOfWord(0) & 0x200))
+						continue;
+					if (btt->kindOfWord(0) & 0xC00)
+						continue;
+					if (btt->kindOfWord(0) & 0x80)
+						continue;
+				}
+				else if (m_unitTypes == 3)
+				{
+					if (!(btt->kindOfWord(0) & 0x400))
+						continue;
+					if (btt->kindOfWord(0) & 0x80)
+						continue;
+				}
+				else if (m_unitTypes == 4)
+				{
+					if (!(btt->kindOfWord(0) & 0x80))
+						continue;
+				}
+				else
+				{
+					if (btt->kindOfWord(0) & 0xF00)
+						continue;
+					if (btt->kindOfWord(0) & 0x80)
+						continue;
+				}
+			}
+
+			if (btt->getName().startsWith("CINE"))
+				continue;
+			if (btt->getName().compare("GLAInfantryAngryMobNexus") == 0)
+				continue;
+			if (btt->getName().compare("FlockOfBirds") == 0)
+				continue;
+			if (btt->m_editorSorting == 0xD)
+				continue;
+			if (((const unsigned char *)btt)[0x120] & 1)
+				continue;
+			if (!((StringBase<char> *)&m_singleUnit)->isEmpty() && ((StringBase<char> &)(btt->getName())).compareNoCase((const StringBase<char> &)(m_singleUnit)) != 0)
+				continue;
+
+			Coord3D pos;
+			Matrix3D mtx;
+			for (int i = 0; i < 10; i++)
+			{
+				for (int j = 0; j < 10; j++)
+				{
+					pos.x = i * 20.0f + 300.0f;
+					pos.y = j * 20.0f + 300.0f;
+					pos.z = TheTerrainLogic->getGroundHeight(pos.x, pos.y);
+					if (!(((const unsigned char *)btt)[0x114] & 0x10) && !(((const unsigned char *)btt)[0x113] & 0xC0))
+					{
+						Team *team = ThePlayerList->getNthPlayer(1)->getDefaultTeam();
+						CreateMask mask;
+						memset(&mask, 0, 0x10);
+						Object *newObj = TheThingFactory->newObject(btt, team, &mask, (ObjectID)0);
+						if (newObj == 0)
+							break;
+						m_gotUnit = true;
+						newObj->setOrientation(0.0f);
+						newObj->setPosition(&pos);
+						((Rva0028CBFD *)newObj)->rva0028CBFD();
+						team->setActive();
+						TheAI->pathfinder()->AddObjectToPathfindMap(newObj);
+					}
+					else
+					{
+						float scale;
+						makeIdentityAndTakeScale(mtx, scale, btt->m_treeScale);
+						if (btt->kindOfWord(2) & 0x40000000)
+							TheTerrainLogic->addTree(btt, &pos, &mtx, scale);
+						else if (btt->kindOfWord(2) & 0x80000000)
+							TheTerrainLogic->rva00280176(btt, &pos, &mtx, scale);
+						else
+							TheTerrainLogic->rva0027D3D9(btt, &pos, &mtx, scale);
+						m_gotUnit = true;
+					}
+				}
+			}
+		}
+
+		if (m_gotUnit)
+		{
+			m_settleFrames = 4;
+			if (m_veryFirstTime)
+			{
+				HideControlBar(true);
+				m_settleFrames *= 100;
+			}
+			Coord3D lookPos;
+			lookPos.x = 800.0f;
+			lookPos.y = 800.0f;
+			lookPos.z = 0.0f;
+			TheTacticalView->lookAt(&lookPos);
+			m_mode = 0;
+		}
+	}
+}
+
+// tu-skeleton: 0x00243B48 5B ??1Rva00243B48@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicDestructor.cpp (not merged yet)
+
+// tu-skeleton: 0x00243B4D 5B ?rva00243B4D@Rva00243B4D@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x00243BA0 831B ??1GameLogic@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicDestructor.cpp (not merged yet)
+
+// tu-skeleton: 0x00243EDF 8B ??_EGameLogic@@WM@AEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicDestructor.cpp (not merged yet)
+
+// tu-skeleton: 0x00243EE7 957B ?init@GameLogic@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
+
+// tu-skeleton: 0x002442A4 538B ?reset@GameLogic@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
+
+// tu-skeleton: 0x002444BE 926B ?populateRandomSideAndColor@@YAXPAVGameInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
+
+// tu-skeleton: 0x0024485C 1108B ?populateRandomStartPosition@@YAXPAVGameInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
+
+// tu-skeleton: 0x00244CB0 166B ?startNewGame_OpenLoadScreen@GameLogic@@QAEX_NPAVGameInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
+
+// tu-skeleton: 0x00244D56 2052B ?loadAllObjects@GameLogic@@QAEXPAV?$vector@URva0024622FEntry@@V?$allocator@URva0024622FEntry@@@_STL@@@_STL@@PBW4KindOfType@@1_N@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
+
+// tu-skeleton: 0x0024555A 2437B ?update@GameLogic@@UAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
+
+// tu-skeleton: 0x00245F14 101B ?addTOCEntry@GameLogic@@QAEXVAsciiString@@G@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
+
+// tu-skeleton: 0x00245F79 330B ?xferObjectTOC@GameLogic@@QAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
+
+// tu-skeleton: 0x0024613C 25B ??0?$map@HUBfmePod8@@U?$less@H@_STL@@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@3@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_map_bodies.cpp (not merged yet)
+
+// tu-skeleton: 0x00246155 20B ??$find@UTreeKey00242F5E@@@?$_Rb_tree@UTreeKey00242F5E@@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@U?$_Select1st@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@@3@U?$less@UTreeKey00242F5E@@@3@V?$allocator@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@@2@@1@ABUTreeKey00242F5E@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00242f5e.cpp (not merged yet)
+
+// tu-skeleton: 0x00246169 29B ?insert@?$map@UTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@U?$less@UTreeKey00242F5E@@@_STL@@V?$allocator@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@@4@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@@2@@2@U32@ABU?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00242f5e.cpp (not merged yet)
+
+// tu-skeleton: 0x00246186 20B ?lower_bound@?$_Rb_tree@UTreeKey00242F5E@@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@U?$_Select1st@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@@3@U?$less@UTreeKey00242F5E@@@3@V?$allocator@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@@2@@2@ABUTreeKey00242F5E@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00242f5e.cpp (not merged yet)
+
+// tu-skeleton: 0x00246213 28B ??_GGameLogic@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicDestructor.cpp (not merged yet)
+
+// tu-skeleton: 0x0024622F 499B ?rva0024622F@GameLogic@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
+
+// tu-skeleton: 0x00246422 1411B ?rva00246422@GameLogic@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
+
+// tu-skeleton: 0x002469A5 1484B ?rva002469A5@GameLogic@@QAEX_NPAH@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
+
+// tu-skeleton: 0x00246F71 29B ?setBuildableStatusOverride@GameLogic@@QAEXPBVThingTemplate@@W4BuildableStatus@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicSetBuildableStatusOverride.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/System/GameLogicRva00246F8E.cpp
+
+// ?rva00246F8E@GameLogic@@QAE_NABVAsciiString@@HPAPBVCommandButton@@@Z @0x00246F8E 73B
+// Evidence: leaf called by CommandSet::getCommandButton 0x00409F05 with LINK BONUS 51B; pin name matches caller TU; prev GameLogic+0x10 BuildableMap and next Rva00246FD7; rowed releaseBuffer 0x36410 plus pinned Rva0023FC23 0x23FC23 plus rowed _M_find 0x241BD2; +0x24 map and node+0x18 mapped button from retail.
+
+bool GameLogic::rva00246F8E(const AsciiString &setName, int slot, const CommandButton **button)
+{
+	char buf[8];
+	Out00524477 *out = (Out00524477 *)buf;
+	int r = Rva0023FC23(out, &slot, (int)&setName);
+	_STL::map<TreeKey00242F5E, TreeOpaqueMapped242F5E, _STL::less<TreeKey00242F5E>, _STL::allocator<_STL::pair<const TreeKey00242F5E, TreeOpaqueMapped242F5E> > >::iterator it = m_controlBarOverrides.find(*(const TreeKey00242F5E *)r);
+	((AsciiString *)(buf + 4))->~AsciiString();
+	if (it != m_controlBarOverrides.end()) {
+		*button = (const CommandButton *)it->second.m_bits;
+		return true;
+	}
+	return false;
+}
+
+// tu-skeleton: 0x00246FF6 124B ??A?$map@UTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@U?$less@UTreeKey00242F5E@@@_STL@@V?$allocator@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@@4@@_STL@@QAEAAUTreeOpaqueMapped242F5E@@ABUTreeKey00242F5E@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00242f5e.cpp (not merged yet)
+
+// tu-skeleton: 0x00247084 5B ?rva00247084@Rva00247084@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
+
+// tu-skeleton: 0x002470AE 714B ??0GameLogic@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/System/GameLogicPopulateGameReport.cpp
+
+//
+// GameLogic::bfmePopulateGameReport, retail 0x00247378, 1463 bytes.
+// Derived from GameLogic.cpp, Copyright 2025 Electronic Arts Inc., GPL-3.0-or-later.
+//
+// Donor: Open-BFME-1 game/GameEngine/Source/GameLogic/System/
+// GameLogicPopulateGameReport.cpp (matched there at 0x00393880). Carried from
+// the donor: the identity, the report sections and their order.
+// Target facts read from this body, where BFME 2 differs from the donor:
+// format takes a plain format string; lines are appended with
+// concat(const AsciiString &) or concat(const char *); the game-mode line has
+// three flags (GameInfo vtable +0x48/+0x4C/+0x50) and the local slot comes from
+// +0x34; the slot name is the UnicodeString at GameSlot +0x30; leave status is
+// recorded through setPlayerLeaveStatus; there is a -xLWCRC flag. Layout:
+// report +0x54, details vector +0x58, command-line text +0x64, trailer +0x68,
+// ready flag +0x6C; GameSlot start position +0x10, template +0x18, team +0x1C.
+
+void GameLogic::bfmePopulateGameReport(GameInfo *game, Int *localSlot)
+{
+	if (game == 0 || localSlot == 0)
+		return;
+
+	m_gameReportReady = false;
+	AsciiString line;
+
+	m_gameReport.format("---------------------------------------------------------\nGAME REPORT:\n---------------------------------------------------------\n");
+
+	line.format("  BuildType: RELEASE\n");
+	m_gameReport.concat(line);
+
+	AsciiString report;
+	report.format("  Session Game #%d\n    Map Name: %s\n", m_gameReportDetails.size() + 1, game->getMap().str());
+
+	line.format("    GameMode: isSkirmish:%d, isMultiplayer:%d, isSandBox:%d\n    Player List:\n",
+		TheGameInfo->isSkirmish(), TheGameInfo->isMultiplayer(), TheGameInfo->isSandbox());
+	report.concat(line);
+
+	*localSlot = 0;
+	for (Int i = 0; i < 8; ++i)
+	{
+		GameSlot *slot = game->getSlot(i);
+		AsciiString slotName;
+		slotName.translate(slot->getName());
+
+		if (slot->isHuman() && game->getSlotNum(slotName) == game->getLocalSlotNum())
+			*localSlot = i;
+
+		AsciiString displayName;
+		if (!slot->isHuman() && !slot->isAI())
+		{
+			line.format("      Slot %d: %s\n", i, slotName.str());
+		}
+		else
+		{
+			const PlayerTemplate *playerTemplate = ThePlayerTemplateStore->getNthPlayerTemplate(slot->getPlayerTemplate());
+			if (slot->getPlayerTemplate() == -1)
+				displayName = TheGameText->fetch("GUI:Random");
+			else if (slot->getPlayerTemplate() == -2)
+				displayName = TheGameText->fetch("GUI:Observer");
+			else
+				displayName = ThePlayerTemplateStore->getNthPlayerTemplate(slot->getPlayerTemplate())->getDisplayName();
+
+			line.format("      Slot %d: %s(%s), %s %s, Team:%d, StartPos:%d\n",
+				i, slotName.str(), displayName.str(),
+				playerTemplate ? playerTemplate->getName().str() : "n/a",
+				slot->isHuman() ? "Human" : "AI",
+				slot->getTeamNumber(), slot->getStartPos());
+
+			setPlayerLeaveStatus(i, slotName, slot->isHuman() ? 0 : 1);
+		}
+		report.concat(line);
+	}
+
+	m_gameReportDetails.push_back(report);
+
+	m_commandLineArguments.format("  Important CommandLine Arguments:\n    System:");
+	if (Rva000308D0GetByte())
+		reinterpret_cast<StringBase<char> *>(&m_commandLineArguments)->concat(" zeroFillMemory:ON");
+	else
+		reinterpret_cast<StringBase<char> *>(&m_commandLineArguments)->concat(" zeroFillMemory:OFF");
+	if (!TheGlobalData->m_audioOn)
+		reinterpret_cast<StringBase<char> *>(&m_commandLineArguments)->concat(" -noAudio");
+	if (!TheGlobalData->m_musicOn)
+		reinterpret_cast<StringBase<char> *>(&m_commandLineArguments)->concat(" -noMusic");
+	reinterpret_cast<StringBase<char> *>(&m_commandLineArguments)->concat("\n    GamePlay:");
+	if (TheGlobalData->m_fastGamePlay)
+		reinterpret_cast<StringBase<char> *>(&m_commandLineArguments)->concat(" -fastGamePlay");
+	if (TheGlobalData->m_startingMoney)
+	{
+		line.format(" -startingMoney %d", TheGlobalData->m_startingMoney);
+		m_commandLineArguments.concat(line);
+	}
+
+	reinterpret_cast<StringBase<char> *>(&m_commandLineArguments)->concat("\n    Network:");
+	if (TheXObjectCRC) reinterpret_cast<StringBase<char> *>(&m_commandLineArguments)->concat(" -xObjectCRC");
+	if (TheXPartitionCRC) reinterpret_cast<StringBase<char> *>(&m_commandLineArguments)->concat(" -xPartitionCRC");
+	if (TheXCollisionCRC) reinterpret_cast<StringBase<char> *>(&m_commandLineArguments)->concat(" -xCollisionCRC");
+	if (TheXShroudCRC) reinterpret_cast<StringBase<char> *>(&m_commandLineArguments)->concat(" -xShroudCRC");
+	if (TheXTaintCRC) reinterpret_cast<StringBase<char> *>(&m_commandLineArguments)->concat(" -xTaintCRC");
+	if (TheXTerrainLogicCRC) reinterpret_cast<StringBase<char> *>(&m_commandLineArguments)->concat(" -xTerrainLogicCRC");
+	if (TheXPlayerCRC) reinterpret_cast<StringBase<char> *>(&m_commandLineArguments)->concat(" -xPlayerCRC");
+	if (TheXAICRC) reinterpret_cast<StringBase<char> *>(&m_commandLineArguments)->concat(" -xAICRC");
+	if (TheXLWCRC) reinterpret_cast<StringBase<char> *>(&m_commandLineArguments)->concat(" -xLWCRC");
+	if (TheVerifyClientCRC) reinterpret_cast<StringBase<char> *>(&m_commandLineArguments)->concat(" -verifyClientCRC");
+	if (TheDeepCRC) reinterpret_cast<StringBase<char> *>(&m_commandLineArguments)->concat(" -deepCRC");
+	if (TheLiteCRC) reinterpret_cast<StringBase<char> *>(&m_commandLineArguments)->concat(" -liteCRC");
+	if (TheBinaryDeepCRC) reinterpret_cast<StringBase<char> *>(&m_commandLineArguments)->concat(" -binaryDeepCRC");
+	if (TheDebugCRCFromFrame != -1)
+	{
+		line.format(" -debugCRCFromFrame %d", TheDebugCRCFromFrame);
+		m_commandLineArguments.concat(line);
+	}
+	if (TheDebugCRCUntilFrame != -1)
+	{
+		line.format(" -debugCRCUntilFrame %d", TheDebugCRCUntilFrame);
+		m_commandLineArguments.concat(line);
+	}
+
+	line.format("\n    NetCRCInterval: %d\n", NET_CRC_INTERVAL);
+	m_commandLineArguments.concat(line);
+
+	m_gameReportTrailer.format("---------------------------------------------------------\n");
 }
 
 // tu-skeleton: 0x00248278 736B ?rva00248278@GameLogic@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
@@ -4324,18 +5584,6 @@ void GameLogic::formatPlayerStartWaypointName(AsciiString *out)
 // tu-skeleton: 0x007713DB 8B $L5192 -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00243177.cpp (not merged yet)
 
 // tu-skeleton: 0x007713E3 10B __ehhandler$??0Rva000D3FA0Map@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00243177.cpp (not merged yet)
-
-// tu-skeleton: 0x007713ED 8B Unwind@00b713ed -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicUnitTimings.cpp (not merged yet)
-
-// tu-skeleton: 0x007713F5 8B Unwind@00b713f5 -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicUnitTimings.cpp (not merged yet)
-
-// tu-skeleton: 0x007713FD 8B Unwind@00b713fd -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicUnitTimings.cpp (not merged yet)
-
-// tu-skeleton: 0x00771405 8B Unwind@00b71405 -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicUnitTimings.cpp (not merged yet)
-
-// tu-skeleton: 0x0077140D 8B Unwind@00b7140d -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicUnitTimings.cpp (not merged yet)
-
-// tu-skeleton: 0x00771415 10B __ehhandler$?rva002431CB@Rva002431CB@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicUnitTimings.cpp (not merged yet)
 
 // tu-skeleton: 0x0077141F 8B uw_0077141f -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicDestructor.cpp (not merged yet)
 
@@ -4540,26 +5788,6 @@ void GameLogic::formatPlayerStartWaypointName(AsciiString *out)
 // tu-skeleton: 0x0077187A 24B uw_0077187a -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
 
 // tu-skeleton: 0x00771892 10B __ehhandler$??0GameLogic@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
-
-// tu-skeleton: 0x0077189C 8B Unwind@00b7189c -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicPopulateGameReport.cpp (not merged yet)
-
-// tu-skeleton: 0x007718A4 8B Unwind@00b718a4 -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicPopulateGameReport.cpp (not merged yet)
-
-// tu-skeleton: 0x007718AC 8B Unwind@00b718ac -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicPopulateGameReport.cpp (not merged yet)
-
-// tu-skeleton: 0x007718B4 8B Unwind@00b718b4 -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicPopulateGameReport.cpp (not merged yet)
-
-// tu-skeleton: 0x007718BC 8B Unwind@00b718bc -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicPopulateGameReport.cpp (not merged yet)
-
-// tu-skeleton: 0x007718C4 8B Unwind@00b718c4 -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicPopulateGameReport.cpp (not merged yet)
-
-// tu-skeleton: 0x007718CC 8B Unwind@00b718cc -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicPopulateGameReport.cpp (not merged yet)
-
-// tu-skeleton: 0x007718D4 8B Unwind@00b718d4 -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicPopulateGameReport.cpp (not merged yet)
-
-// tu-skeleton: 0x007718DC 25B uw_007718dc -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicPopulateGameReport.cpp (not merged yet)
-
-// tu-skeleton: 0x007718F5 10B __ehhandler$?bfmePopulateGameReport@GameLogic@@QAEXPAVGameInfo@@PAH@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicPopulateGameReport.cpp (not merged yet)
 
 // tu-skeleton: 0x0077199D 8B $L29264 -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
 
