@@ -356,6 +356,13 @@ class Rva0021C459:public _STL::set<AsciiString,_STL::less<AsciiString>,_STL::all
 public:~Rva0021C459();
  _STL::_Rb_tree_node_base *header()const{return *reinterpret_cast<_STL::_Rb_tree_node_base *const*>(this);}
 };
+
+// The file-list object is Rva0021DA13 (as AptSaveLoadRva0043684C.cpp spells
+// it): its destructor is the 5-byte thunk 0x0021DA13 the unwind funclet
+// jumps to; the normal path expands it into ~Rva0021C459 (0x0021D5D5).
+class Rva0021DA13 : public Rva0021C459
+{
+};
 class Rva006007DAFileSystem {};
 void __stdcall Rva006007DAOpen(void *,void *,void *,void *);
 // The whole 81B provider ignores incoming ECX and consumes four stack words.
@@ -382,7 +389,7 @@ public:
 // also removes .lws. Existing wide-pair pin's UnicodeString ABI view keeps
 // the canonical one-pointer return ownership rather than copying StringBase.
 void GameStateMap::clearScratchPadMaps() {
- Rva0021C459 files;
+ Rva0021DA13 files;
  {UnicodeString pattern(L"*");
  NativeSaveEnumerationCall enumeration={&Rva006007DAOpen};
  (reinterpret_cast<Rva006007DAFileSystem *>(TheFileSystem)->*enumeration.member)(

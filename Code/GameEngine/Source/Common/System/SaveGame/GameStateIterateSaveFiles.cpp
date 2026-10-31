@@ -60,6 +60,13 @@ public:
 	_STL::_Rb_tree_node_base *header() const { return *reinterpret_cast<_STL::_Rb_tree_node_base *const *>(this); }
 };
 
+// The file-list object is Rva0021DA13 (as AptSaveLoadRva0043684C.cpp spells
+// it): its destructor is the 5-byte thunk 0x0021DA13 the unwind funclet
+// jumps to; the normal path expands it into ~Rva0021C459 (0x0021D5D5).
+class Rva0021DA13 : public Rva0021C459
+{
+};
+
 class Rva006007DAFileSystem {};
 void __stdcall Rva006007DAOpen(void *,void *,void *,void *);
 // The whole 81B provider ignores incoming ECX and consumes four stack words.
@@ -94,7 +101,7 @@ void GameState::iterateSaveFiles(IterateSaveFileCallback callback, void *userDat
 	UnicodeString pattern(AsciiString("*"));
 	pattern += reinterpret_cast<const unsigned short *>(rva002DBC97Get(saveType));
 
-	Rva0021C459 filenameList;
+	Rva0021DA13 filenameList;
 	NativeSaveEnumerationCall enumeration={&Rva006007DAOpen};
 	(reinterpret_cast<Rva006007DAFileSystem *>(TheFileSystem)->*enumeration.member)(
 		&reinterpret_cast<const Rva002DC267 *>(this)->rva002DC267(), &pattern, &filenameList, true);

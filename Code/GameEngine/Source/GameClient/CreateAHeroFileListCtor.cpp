@@ -68,6 +68,13 @@ public:
 	~Rva0021C459();
 };
 
+// The file-list object is Rva0021DA13 (as AptSaveLoadRva0043684C.cpp spells
+// it): its destructor is the 5-byte thunk 0x0021DA13 the unwind funclet
+// jumps to; the normal path expands it into ~Rva0021C459 (0x0021D5D5).
+class Rva0021DA13 : public Rva0021C459
+{
+};
+
 class FileSystem
 {
 public:
@@ -150,7 +157,7 @@ Rva0021DB35::Rva0021DB35()
 
 	if (!g_rva005B5C02Flag)
 	{
-		Rva0021C459 filenameList;
+		Rva0021DA13 filenameList;
 		Rva006007DACall listing = {&Rva006007DAOpen};
 		(((Rva006007DAFileSystem *)TheFileSystem)->*listing.member)(byAddress(((const Rva002DC267 *)TheGameState)->rva002DC267()),
 			byAddress(UnicodeString(L"MyHero*.cah")), &filenameList, false);

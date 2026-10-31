@@ -116,6 +116,13 @@ public:
     _STL::_Rb_tree_node_base *header() const { return *reinterpret_cast<_STL::_Rb_tree_node_base *const *>(this); }
 };
 
+// The file-list object is Rva0021DA13 (as AptSaveLoadRva0043684C.cpp spells
+// it): its destructor is the 5-byte thunk 0x0021DA13 the unwind funclet
+// jumps to; the normal path expands it into ~Rva0021C459 (0x0021D5D5).
+class Rva0021DA13 : public Rva0021C459
+{
+};
+
 class Rva002DC267
 {
 public:
@@ -153,7 +160,7 @@ void Rva00437421()
     UnicodeString pattern(AsciiString("*"));
     pattern += (const unsigned short *)TheGameState->rva002DBC97Get(6);
 
-    Rva0021C459 files;
+    Rva0021DA13 files;
     NativeSaveEnumerationCall enumeration = {&Rva006007DAOpen};
     (((Rva006007DAFileSystem *)TheFileSystem)->*enumeration.member)(
         &((Rva002DC267 *)TheGameState)->rva002DC267(), &pattern, &files, true);
