@@ -172,3 +172,4 @@ rts::hash,Code/GameEngine/Source/GameLogic/AI/RtsHashView.h,shared empty-state p
 _STL::allocator,vendor/stlport/stl/_alloc.h,"pinned STLport allocator primary; replace private empty-state copies, keep library identity; qc12"
 BodyModuleInterface,Code/GameEngine/Include/GameLogic/Module/BodyModule.h,43 pure native slots at C5AB68; structural signatures from native providers and matched callers; no BodyModule root profile
 DieModuleInterface,Code/GameEngine/Include/GameLogic/Module/DieModuleInterface.h,one pure target slot at C1C780; identical declaration extracted from DieModule header without changing root profiles
+MixFileCreator,Code/Libraries/Source/WWVegas/WWLib/MixFileCreatorFileInfo.h,legacy nested record scope only; target16byte font record with AsciiString; no outer archive instance ABI claimed

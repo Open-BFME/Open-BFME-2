@@ -26,24 +26,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 #include "ascii_string.h"
 
-class MixFileCreator
-{
-public:
-	struct FileInfoStruct
-	{
-		// The copy constructor and assignment are rowed out of line
-		// (MixFileCreatorFileInfoStructAssign.cpp, 0x00217624/0x002174DF).
-		FileInfoStruct() {}
-		FileInfoStruct(const FileInfoStruct &src);
-		FileInfoStruct &operator=(const FileInfoStruct &src);
-
-		unsigned long CRC;
-		unsigned long Offset;
-		unsigned long Size;
-		AsciiString Filename;
-	};
-};
-
+#include "MixFileCreatorFileInfo.h"
 typedef MixFileCreator::FileInfoStruct FileInfoStruct;
 
 // Use the rowed push_back specialization at 0x00218DD2.
