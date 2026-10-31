@@ -144,7 +144,7 @@ template void _STL::_Construct<BfmeStringRecord005EC43C,BfmeStringRecord005EC43C
 
 // Complete retail record copy at0x005F93E3.
 #include "BfmeStringRecord005F93E3.h"
-BfmeStringRecord005F93E3::BfmeStringRecord005F93E3(const BfmeStringRecord005F93E3 &source) : word0(source.word0), word1(source.word1), text(source.text) {}
+
 template void _STL::_Construct<BfmeStringRecord005F93E3,BfmeStringRecord005F93E3>(BfmeStringRecord005F93E3*,const BfmeStringRecord005F93E3&);
 
 // Complete retail record copy at0x005ED5F3.

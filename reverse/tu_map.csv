@@ -52561,7 +52561,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x005F93CB,8,code,Code/Libraries/Source/WWVegas/WWLib/BfmeContainerRecord005FDEC7.cpp,approved,C,C=0x005F9217..0x005F93D3 provisional,Code/Libraries/Source/WWVegas/WWLib/BfmeContainerRecord005FDEC7.cpp
 0x005F93D3,8,code,Code/Libraries/Source/WWVegas/WWLib/BfmeContainerRecord005FDEC7.cpp,approved,C,C=0x005F9217..0x005F93DB provisional,Code/Libraries/Source/WWVegas/WWLib/BfmeContainerRecord005FDEC7.cpp
 0x005F93DB,8,code,Code/Libraries/Source/WWVegas/WWLib/BfmeContainerRecord005FDEC7.cpp,approved,C,C=0x005F9217..0x005F93E3 provisional,Code/Libraries/Source/WWVegas/WWLib/BfmeContainerRecord005FDEC7.cpp
-0x005F93E3,35,code,Code/Libraries/Source/WWVegas/WWLib/BfmeContainerRecord005FDEC7.cpp,approved,U,N=Code/GameEngine/Source/Common/BfmeStringRecord005F93E3.cpp provisional,Code/GameEngine/Source/Common/StringRecordInlineCopyBFME2.cpp
+0x005F93E3,35,code,Code/Libraries/Source/WWVegas/WWLib/BfmeContainerRecord005FDEC7.cpp,approved,U,N=Code/GameEngine/Source/Common/BfmeStringRecord005F93E3.cpp provisional,Code/Libraries/Source/WWVegas/WWLib/BfmeContainerRecord005FDEC7.cpp
 0x005F9406,28,code,Code/Libraries/Source/WWVegas/WWLib/BfmeContainerRecord005FDEC7.cpp,approved,N,N=Code/Libraries/Source/WWVegas/WWLib/BfmeContainerRecord005FDEC7.cpp provisional,Code/Libraries/Source/WWVegas/WWLib/Rva005FE750.cpp
 0x005F9422,12,code,,,-,,Code/GameEngine/Source/Common/GapBodiesSeat5A.cpp
 0x005F942E,28,code,,,-,,Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDBattlePromptMovieClip.cpp
