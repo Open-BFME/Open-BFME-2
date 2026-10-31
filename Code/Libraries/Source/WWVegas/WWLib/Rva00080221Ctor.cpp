@@ -39,10 +39,10 @@ private:
 
 Rva00080221::Rva00080221(const int *arg)
 {
-	Rva007C6FF4Impl *p = new Rva007C6FF4Impl(*arg);
-	m_impl = p;
-	if (p != 0)
-		++p->m_ref;
+	Rva007C6FF4Impl *impl = new Rva007C6FF4Impl(*arg);
+	m_impl = impl;
+	if (impl != 0)
+		++impl->m_ref;
 }
 
 // Seven more constructors of this 53-byte shape, each installing its own impl
@@ -72,10 +72,10 @@ private:
 
 Rva002D4594::Rva002D4594(const int *arg)
 {
-	Impl002D4594 *p = new Impl002D4594(*arg);
-	m_impl = p;
-	if (p != 0)
-		++p->m_ref;
+	Impl002D4594 *impl = new Impl002D4594(*arg);
+	m_impl = impl;
+	if (impl != 0)
+		++impl->m_ref;
 }
 
 // ??0Rva002D45C9@@QAE@PBH@Z @0x002D45C9 53B, impl vtable VA 0xc02af4
@@ -95,10 +95,10 @@ private:
 
 Rva002D45C9::Rva002D45C9(const int *arg)
 {
-	Impl002D45C9 *p = new Impl002D45C9(*arg);
-	m_impl = p;
-	if (p != 0)
-		++p->m_ref;
+	Impl002D45C9 *impl = new Impl002D45C9(*arg);
+	m_impl = impl;
+	if (impl != 0)
+		++impl->m_ref;
 }
 
 // ??0Rva002D45FE@@QAE@PBH@Z @0x002D45FE 53B, impl vtable VA 0xc02afc
@@ -118,10 +118,10 @@ private:
 
 Rva002D45FE::Rva002D45FE(const int *arg)
 {
-	Impl002D45FE *p = new Impl002D45FE(*arg);
-	m_impl = p;
-	if (p != 0)
-		++p->m_ref;
+	Impl002D45FE *impl = new Impl002D45FE(*arg);
+	m_impl = impl;
+	if (impl != 0)
+		++impl->m_ref;
 }
 
 // ??0Rva004106FA@@QAE@PBH@Z @0x004106FA 53B, impl vtable VA 0xc39634

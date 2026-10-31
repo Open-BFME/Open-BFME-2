@@ -44,15 +44,15 @@ private:
 
 int Rva003F11EC::rva003F11EC(CreateAHeroData *val)
 {
-	Rva003F11ECHolder **p = m_beginFC;
+	Rva003F11ECHolder **it = m_beginFC;
 	Rva003F11ECHolder **end = m_end100;
-	for (; p != end; ++p) {
-		Rva003F11ECHolder *h = *p;
-		if (((Rva003F0DA5 *)h)->rva003F0DA5(val))
-			return h->m_value;
+	for (; it != end; ++it) {
+		Rva003F11ECHolder *holder = *it;
+		if (((Rva003F0DA5 *)holder)->rva003F0DA5(val))
+			return holder->m_value;
 	}
-	Rva003F11ECVec8 *v = &m_vecE8;
-	return v->end - v->begin;
+	Rva003F11ECVec8 *vec = &m_vecE8;
+	return vec->end - vec->begin;
 }
 
 // ?rva003F1AB1@Rva003F1AB1Owner@@QAEHPAVCreateAHeroData@@@Z @0x003F1AB1 8B: offsets this to the Rva003F11EC embedded at +0x14 and

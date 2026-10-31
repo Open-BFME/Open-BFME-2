@@ -25,7 +25,7 @@ struct D3DXVECTOR4
 {
     float x, y, z, w;
     D3DXVECTOR4() {}
-    D3DXVECTOR4(float a, float b, float c, float d) : x(a), y(b), z(c), w(d) {}
+    D3DXVECTOR4(float xValue, float yValue, float zValue, float wValue) : x(xValue), y(yValue), z(zValue), w(wValue) {}
 };
 #include <d3d9.h>
 

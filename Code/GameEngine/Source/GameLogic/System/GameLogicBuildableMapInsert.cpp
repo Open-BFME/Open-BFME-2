@@ -105,8 +105,8 @@ private:
 
 Out0002CA72 *Rva0002CA72::rva0002CA72(Out0002CA72 *out, const Pair0002CA72 *obj)
 {
-	unsigned n = m_table._M_bkt_num_key(*(const AsciiString *)obj);
-	void *head = m_table._M_buckets[n];
+	unsigned bucketIndex = m_table._M_bkt_num_key(*(const AsciiString *)obj);
+	void *head = m_table._M_buckets[bucketIndex];
 	Node0002CA72 *cur = (Node0002CA72 *)head;
 	if (cur != 0) {
 		do {
@@ -122,7 +122,7 @@ Out0002CA72 *Rva0002CA72::rva0002CA72(Out0002CA72 *out, const Pair0002CA72 *obj)
 	}
 	Node0002CA72 *fresh = (Node0002CA72 *)((Rva00223124 *)this)->rva00223124(obj);
 	fresh->_M_next = (Node0002CA72 *)head;
-	m_table._M_buckets[n] = fresh;
+	m_table._M_buckets[bucketIndex] = fresh;
 	++m_table._M_num_elements;
 	out->m_node = fresh;
 	out->m_table = this;

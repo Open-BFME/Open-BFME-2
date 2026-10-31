@@ -71,10 +71,10 @@ LivingWorldBattle::BattleSide::BattleSide(Rva003F64B2Input *p)
 // full142B inner constructor3F5970. That provider is separately verified;
 // its ModuleData spelling is a linker identity rather than an assertion
 // about the original application payload type at this caller.
-LivingWorldBattle::BattleSide::BattleSide(Rva003F64B2Input *p,const void *payload)
- :key(p->key),elements(_STL::allocator<Rva003F64B2Element>()),words(_STL::allocator<int>()) {
+LivingWorldBattle::BattleSide::BattleSide(Rva003F64B2Input *input,const void *payload)
+ :key(input->key),elements(_STL::allocator<Rva003F64B2Element>()),words(_STL::allocator<int>()) {
  elements.reserve(6);
- elements.push_back(Rva003F64B2Element(reinterpret_cast<int>(p),payload));
+ elements.push_back(Rva003F64B2Element(reinterpret_cast<int>(input),payload));
 }
 
 #pragma comment(linker, "/alternatename:??0Rva003F64B2Element@@QAE@HPBX@Z=??0Rva003F5970@@QAE@HPBVModuleData@@@Z")

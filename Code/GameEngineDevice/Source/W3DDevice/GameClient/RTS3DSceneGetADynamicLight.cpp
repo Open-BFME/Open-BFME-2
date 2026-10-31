@@ -30,8 +30,8 @@ public:
     char m_tail145[0x174-0x145];
 };
 static __forceinline W3DDynamicLight *PeekLight(Rva0006F94ANode *node) {
-    char *p = reinterpret_cast<char *>(node->m_value);
-    return reinterpret_cast<W3DDynamicLight *>(p ? p - 8 : 0);
+    char *listBase = reinterpret_cast<char *>(node->m_value);
+    return reinterpret_cast<W3DDynamicLight *>(listBase ? listBase - 8 : 0);
 }
 class Rva0006F219
 {

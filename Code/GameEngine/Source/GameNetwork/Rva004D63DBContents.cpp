@@ -50,13 +50,13 @@ class Rva004D63DB : public NetCommandMsg
 public:
 	AsciiString getContentsAsAsciiString();
 private:
-	unsigned int m_1c;
-	unsigned int m_20;
+	unsigned int m_leavePlayer;
+	unsigned int m_reason;
 };
 
 AsciiString Rva004D63DB::getContentsAsAsciiString()
 {
 	AsciiString result;
-	result.format("%s, leavePlayer=%d, reason = %d", GetStr004D63DB(((NetCommandMsg *)this)->rva004D5B4C()), m_1c, m_20);
+	result.format("%s, leavePlayer=%d, reason = %d", GetStr004D63DB(((NetCommandMsg *)this)->rva004D5B4C()), m_leavePlayer, m_reason);
 	return result;
 }

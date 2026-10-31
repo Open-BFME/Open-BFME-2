@@ -22,8 +22,8 @@ public:
 }
 struct Rva005328B2Vec : _STL::_Vector_base<GameWindow *, _STL::allocator<GameWindow *> >
 {
-	Rva005328B2Vec(const _STL::allocator<GameWindow *> &a = _STL::allocator<GameWindow *>())
-		: _STL::_Vector_base<GameWindow *, _STL::allocator<GameWindow *> >(a) {}
+	Rva005328B2Vec(const _STL::allocator<GameWindow *> &alloc = _STL::allocator<GameWindow *>())
+		: _STL::_Vector_base<GameWindow *, _STL::allocator<GameWindow *> >(alloc) {}
 };
 class Rva00531132
 {
@@ -72,7 +72,7 @@ struct Rva005312BERect
 class PathfindZoneManager
 {
 public:
-	void rva005328E2(Rva005312BERect *r);
+	void rva005328E2(Rva005312BERect *rect);
 	char m_pad[0x1BA30];
 	unsigned char m_flag1BA30;
 	unsigned char m_flag1BA31;
@@ -83,11 +83,11 @@ public:
 	int m_inner;
 	Rva005312BERect m_rect;
 };
-void PathfindZoneManager::rva005328E2(Rva005312BERect *r)
+void PathfindZoneManager::rva005328E2(Rva005312BERect *rect)
 {
-	m_rect = *r;
-	m_outer = (r->x1 - r->x0 + 16) / 16;
-	m_inner = (r->y1 - r->y0 + 16) / 16;
+	m_rect = *rect;
+	m_outer = (rect->x1 - rect->x0 + 16) / 16;
+	m_inner = (rect->y1 - rect->y0 + 16) / 16;
 	int total = m_outer * m_inner;
 	m_pData = new Rva005312BEItem[total];
 	m_ppItems = (Rva005312BEItem **)new unsigned char[m_outer * 4];

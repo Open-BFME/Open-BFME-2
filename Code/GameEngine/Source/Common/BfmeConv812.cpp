@@ -26,9 +26,9 @@ void *bfmeGoEHAa(BfmeObjEHA *o)
 {
 	if (o)
 	{
-		BfmeSubEHA *s = o->bfmeGetEHA();
-		if (s && s->m_bfmeFlag)
-			return s->m_bfmeP;
+		BfmeSubEHA *userData = o->bfmeGetEHA();
+		if (userData && userData->m_bfmeFlag)
+			return userData->m_bfmeP;
 	}
 	return 0;
 }
@@ -37,9 +37,9 @@ void *bfmeGoEHAb(BfmeObjEHA *o)
 {
 	if (o)
 	{
-		BfmeSubEHA *s = o->bfmeGetEHA();
-		if (s && s->m_bfmeFlag)
-			return s->m_bfmeQ;
+		BfmeSubEHA *userData = o->bfmeGetEHA();
+		if (userData && userData->m_bfmeFlag)
+			return userData->m_bfmeQ;
 	}
 	return 0;
 }

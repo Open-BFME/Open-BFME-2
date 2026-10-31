@@ -94,13 +94,13 @@ void Rva000C1788::rva000C1788(void *xfer)
 	block[0] = srcf[0]; block[1] = srcf[1]; block[2] = srcf[2]; block[3] = srcf[3];
 	block[4] = srcf[4]; block[5] = srcf[5]; block[6] = srcf[6]; block[7] = srcf[7];
 	block[8] = srcf[8]; block[9] = srcf[9]; block[10] = srcf[10]; block[11] = srcf[11];
-	AsciiString s10;
+	AsciiString name;
 	float value = 0.0f;
 	if (m_104 != 0)
 	{
-		s10.set(m_104->b02());
+		name.set(m_104->b02());
 		value = m_108;
 	}
 	((XferChain *)Rva003062FEXfer((Xfer *)((XferChain *)xfer)->xferInt(&flag)->xferAsciiString(&s18), block))
-		->xferAsciiString(&s10)->xferReal(&value);
+		->xferAsciiString(&name)->xferReal(&value);
 }

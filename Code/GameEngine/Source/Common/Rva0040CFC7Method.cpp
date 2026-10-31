@@ -9,8 +9,8 @@ void Rva0040CFC7::rva0040CFC7(Rva0040CFC7Pred *p)
 {
 	int n = m_44 - m_40;
 	for (int i = 0; i < n; ++i) {
-		const Rva005FED99Arg *v = m_40[i].m_04;
-		if (!p->rva005FED99(v))
+		const Rva005FED99Arg *entry = m_40[i].m_04;
+		if (!p->rva005FED99(entry))
 			break;
 	}
 }

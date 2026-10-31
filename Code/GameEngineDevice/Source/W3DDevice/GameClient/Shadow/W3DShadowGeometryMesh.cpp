@@ -68,7 +68,7 @@ public:
 	Real X, Y, Z;
 };
 // Inline component arithmetic avoids emitting unused, conflicting Vector3 COMDAT copies.
-static __forceinline Vector3 ShadowSubtract(const Vector3 &a, const Vector3 &b) { Vector3 result; result.X=a.X-b.X; result.Y=a.Y-b.Y; result.Z=a.Z-b.Z; return result; }
+static __forceinline Vector3 ShadowSubtract(const Vector3 &lhs, const Vector3 &rhs) { Vector3 result; result.X=lhs.X-rhs.X; result.Y=lhs.Y-rhs.Y; result.Z=lhs.Z-rhs.Z; return result; }
 
 class WWMath
 {
@@ -190,20 +190,20 @@ public:
 	{
 		if (!m_polygonNormals)
 		{
-			Vector3 *tempVec;
+			Vector3 *normals;
 			if (m_skinned)
 			{
 				if (g_00DEBE24.Length() < m_numPolygons)
 					g_00DEBE24.Resize(m_numPolygons);
-				tempVec = (Vector3 *)&g_00DEBE24[0];
+				normals = (Vector3 *)&g_00DEBE24[0];
 			}
 			else
-				tempVec = NEW Vector3[m_numPolygons];
+				normals = NEW Vector3[m_numPolygons];
 			for (int i=0; i<m_numPolygons; i++)
 			{
-				buildPolygonNormal(i,&tempVec[i]);
+				buildPolygonNormal(i,&normals[i]);
 			}
-			m_polygonNormals = tempVec;
+			m_polygonNormals = normals;
 		}
 	}
 protected:

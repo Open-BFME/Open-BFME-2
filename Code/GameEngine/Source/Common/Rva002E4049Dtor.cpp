@@ -13,7 +13,7 @@
 #include "../../../Libraries/Include/Lib/Region2D.h"
 struct Rva0030B72CPoint {
  Rva0030B72CPoint() {}
- __forceinline Rva0030B72CPoint(const Rva0030B72CPoint &p):x(p.x),y(p.y) {}
+ __forceinline Rva0030B72CPoint(const Rva0030B72CPoint &other):x(other.x),y(other.y) {}
  float x,y;
 };
 
@@ -57,7 +57,7 @@ class Rva002E4049 : public Rva00330C50, public Rva002E4049Second
 public:
 	virtual ~Rva002E4049();
 private:
-	Rva002E4049 *m_next3C;		// +0x3C
+	Rva002E4049 *m_next;		// +0x3C
 	AsciiString m_name40;		// +0x40
 	unsigned char m_pad44[8];
 	AsciiString m_name4C;		// +0x4C
@@ -66,11 +66,11 @@ private:
 
 Rva002E4049::~Rva002E4049()
 {
-	Rva002E4049 *node = m_next3C;
+	Rva002E4049 *node = m_next;
 	while (node)
 	{
-		Rva002E4049 *next = node->m_next3C;
-		node->m_next3C = 0;
+		Rva002E4049 *next = node->m_next;
+		node->m_next = 0;
 		::delete node;
 		node = next;
 	}

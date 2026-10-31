@@ -49,15 +49,15 @@ private:
 	char m_pad[0x24];
 };
 
-int CreateAHeroManager::CreateAHeroSubClass::rva0021BC2C(int a1) const
+int CreateAHeroManager::CreateAHeroSubClass::rva0021BC2C(int key) const
 {
 	void *table = (char *)this + 0x24;
-	void *found = (void *)((Rva0021MapTree *)table)->_M_find(a1);
+	void *found = (void *)((Rva0021MapTree *)table)->_M_find(key);
 	// Retail falls through to the hit (mov/sub/sar) and jumps to the miss
 	// (xor), so test for hit (!=) with the compute inside.
 	if (found != *(void **)table) {
-		Rva0021BC2CVec *v = (Rva0021BC2CVec *)found;
-		return (v->m_18 - v->m_14) >> 2;
+		Rva0021BC2CVec *range = (Rva0021BC2CVec *)found;
+		return (range->m_18 - range->m_14) >> 2;
 	}
 	return 0;
 }

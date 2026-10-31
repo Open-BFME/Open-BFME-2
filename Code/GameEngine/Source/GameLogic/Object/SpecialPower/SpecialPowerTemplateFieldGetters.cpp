@@ -15,8 +15,8 @@ public:
 class SpecialPowerTemplate : public Overridable
 {
 public:
-	int rva004210EF() const;
-	int rva0044EB4B() const;
+	int getLightPointCost() const;
+	int getEvaEventToPlayOnSuccess() const;
 
 private:
 	char m_pad00[0x30];
@@ -26,13 +26,13 @@ private:
 };
 
 // 0x004210EF (9B)
-int SpecialPowerTemplate::rva004210EF() const
+int SpecialPowerTemplate::getLightPointCost() const
 {
 	return ((const SpecialPowerTemplate *)friend_getFinalOverride())->m_lightPointCost;
 }
 
 // 0x0044EB4B (9B)
-int SpecialPowerTemplate::rva0044EB4B() const
+int SpecialPowerTemplate::getEvaEventToPlayOnSuccess() const
 {
 	return ((const SpecialPowerTemplate *)friend_getFinalOverride())->m_evaEventToPlayOnSuccess;
 }

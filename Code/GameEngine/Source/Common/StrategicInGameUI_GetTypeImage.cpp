@@ -24,10 +24,10 @@ namespace StrategicInGameUI { const Image *GetTypeImage(Rva005F002CIn *in); }
 const Image *StrategicInGameUI::GetTypeImage(Rva005F002CIn *in)
 {
     int id = *(int *)((char *)in + 0x54);
-    Rva002E2903Player *p = TheRva00DFEF10->find(id, 0);
-    if (p)
+    Rva002E2903Player *player = TheRva00DFEF10->find(id, 0);
+    if (player)
     {
-        Rva005F002CHolder *h = *(Rva005F002CHolder **)((char *)p + 0x40);
+        Rva005F002CHolder *h = *(Rva005F002CHolder **)((char *)player + 0x40);
         const AsciiString &asciiString = *(const AsciiString *)((char *)h + 0x20);
         return TheMappedImageCollection->findImageByName(asciiString);
     }

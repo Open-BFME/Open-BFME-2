@@ -32,7 +32,7 @@ public:
 	unsigned rva00032A20(const void *);
 	typedef void (*TraceFunction)(const char *text, void *context);
 	void *rva00034D10(int blockTypes, bool copy, void *storage, unsigned int storageSize);
-	void rva000353F0(TraceFunction function, void *functionContext, void *context, int blockTypes);
+	void traceAllocatedMemory(TraceFunction function, void *functionContext, void *context, int blockTypes);
 };
 } }
 

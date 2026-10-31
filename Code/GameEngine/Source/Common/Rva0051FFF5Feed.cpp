@@ -61,23 +61,23 @@ public:
 	int m_C;
 	int m_10;
 	Out120051FFF5 m_outs[5];
-	virtual void Rva0051FFF5(Xfer0051FFF5 *x);
+	virtual void Rva0051FFF5(Xfer0051FFF5 *xfer);
 };
 
-void Rva0051F87B::Rva0051FFF5(Xfer0051FFF5 *x)
+void Rva0051F87B::Rva0051FFF5(Xfer0051FFF5 *xfer)
 {
-	x->slot26(&m_4);
-	x->slot31(&m_8);
-	x->slot27(&m_C);
+	xfer->slot26(&m_4);
+	xfer->slot31(&m_8);
+	xfer->slot27(&m_C);
 	int tmp = m_10;
-	x->slot31(&tmp);
+	xfer->slot31(&tmp);
 	m_10 = tmp;
-	Rva0039C4F7(x, &m_outs[0]);
-	Rva004EE9E9(x, &m_outs[1]);
-	Rva0040E269(x, &m_outs[2]);
-	Rva0040E269(x, &m_outs[3]);
+	Rva0039C4F7(xfer, &m_outs[0]);
+	Rva004EE9E9(xfer, &m_outs[1]);
+	Rva0040E269(xfer, &m_outs[2]);
+	Rva0040E269(xfer, &m_outs[3]);
 	char *tail = (char *)this + 0x44;
-	Rva0040E269(x, tail);
+	Rva0040E269(xfer, tail);
 }
 
 // Each retail call in this body reads an address the ledger already carries

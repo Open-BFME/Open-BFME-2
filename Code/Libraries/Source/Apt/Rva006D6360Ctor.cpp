@@ -44,7 +44,7 @@ class Rva006D6470Owner : public Rva006D6360
 {
     unsigned int m_bits;
 public:
-    Rva006D6470Owner(int a0, int a1);
+    Rva006D6470Owner(int type, int hashSize);
     virtual ~Rva006D6470Owner();
 public:
 	static void operator delete(void *p, unsigned int size) { g_pChainBlockAllocatorF4->freeBlock(p, size); }
@@ -62,7 +62,7 @@ public:
 inline Rva006D6360::Rva006D6360(int type, int size) : BfmeAptValue006DCD20(type), m_hash(size)
 {
 }
-inline Rva006D6470Owner::Rva006D6470Owner(int a0, int a1) : Rva006D6360(a0, a1)
+inline Rva006D6470Owner::Rva006D6470Owner(int type, int hashSize) : Rva006D6360(type, hashSize)
 {
     *(unsigned char *)&m_bits = 0;
     m_bits &= 0xFFFFFCFF;

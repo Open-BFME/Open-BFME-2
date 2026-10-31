@@ -20,13 +20,13 @@ public:
 // Callee identity and Vector2 ABI are reference-supported; the wrapper's
 // original name and the input coordinate type are unknown measured views.
 void Rva001049C7AddTriangle(Render2DClass *renderer,
-	const Coord2D *v0, const Coord2D *v1, const Coord2D *v2,
-	const Coord2D *uv0, const Coord2D *uv1, const Coord2D *uv2)
+	const Coord2D *vertex0, const Coord2D *vertex1, const Coord2D *vertex2,
+	const Coord2D *texCoord0, const Coord2D *texCoord1, const Coord2D *texCoord2)
 {
-	renderer->Add_Tri(Vector2(v0->x, v0->y),
-		Vector2(v1->x, v1->y), Vector2(v2->x, v2->y),
-		Vector2(uv0->x, uv0->y), Vector2(uv1->x, uv1->y),
-		Vector2(uv2->x, uv2->y), 0xFFFFFFFFUL);
+	renderer->Add_Tri(Vector2(vertex0->x, vertex0->y),
+		Vector2(vertex1->x, vertex1->y), Vector2(vertex2->x, vertex2->y),
+		Vector2(texCoord0->x, texCoord0->y), Vector2(texCoord1->x, texCoord1->y),
+		Vector2(texCoord2->x, texCoord2->y), 0xFFFFFFFFUL);
 }
 
 // Native 104956..1049C7, ret4 at1049C4. Vslot23 of7CF6F0 installed by
@@ -118,22 +118,22 @@ public:
 	WWINLINE void Rotate_X(float theta)
 	{
 		float tmp1, tmp2;
-		float s, c;
+		float sinTheta, c;
 
-		s = sinf(theta);
+		sinTheta = sinf(theta);
 		c = cosf(theta);
 
 		tmp1 = Row[0][1]; tmp2 = Row[0][2];
-		Row[0][1] = (float)( c*tmp1 + s*tmp2);
-		Row[0][2] = (float)(-s*tmp1 + c*tmp2);
+		Row[0][1] = (float)( c*tmp1 + sinTheta*tmp2);
+		Row[0][2] = (float)(-sinTheta*tmp1 + c*tmp2);
 
 		tmp1 = Row[1][1]; tmp2 = Row[1][2];
-		Row[1][1] = (float)( c*tmp1 + s*tmp2);
-		Row[1][2] = (float)(-s*tmp1 + c*tmp2);
+		Row[1][1] = (float)( c*tmp1 + sinTheta*tmp2);
+		Row[1][2] = (float)(-sinTheta*tmp1 + c*tmp2);
 
 		tmp1 = Row[2][1]; tmp2 = Row[2][2];
-		Row[2][1] = (float)( c*tmp1 + s*tmp2);
-		Row[2][2] = (float)(-s*tmp1 + c*tmp2);
+		Row[2][1] = (float)( c*tmp1 + sinTheta*tmp2);
+		Row[2][2] = (float)(-sinTheta*tmp1 + c*tmp2);
 	}
 	__declspec(dllimport) __forceinline void Translate_Z(float z)
 	{
@@ -203,7 +203,7 @@ bool Rva00118660Call(void *owner, void *camera);
 class Rva001040D5 : public Rva00142960Base
 {
 public:
-	void rva0010473F(int x, int y, int width, int height);
+	void rva0010473F(int viewportX, int viewportY, int width, int height);
 	virtual void rva00104956(unsigned int arg);
 private:
 	char m_pad04[0x14 - 0x04];
@@ -214,7 +214,7 @@ private:
 	ListNode m_list;
 };
 
-void Rva001040D5::rva0010473F(int x, int y, int width, int height)
+void Rva001040D5::rva0010473F(int viewportX, int viewportY, int width, int height)
 {
 	if (m_active)
 	{
@@ -225,7 +225,7 @@ void Rva001040D5::rva0010473F(int x, int y, int width, int height)
 		Vector2 scale((float)TheDisplay->getWidth(), (float)TheDisplay->getHeight());
 		Vector2 inv(1.0f / scale.X, 1.0f / scale.Y);
 		{
-			Vector2 low((float)x * inv.X, (float)y * inv.Y);
+			Vector2 low((float)viewportX * inv.X, (float)viewportY * inv.Y);
 			Vector2 high((float)width * inv.X + low.X, (float)height * inv.Y + low.Y);
 			m_camera->Set_Viewport(low, high);
 		}
@@ -242,8 +242,8 @@ void Rva001040D5::rva00104956(unsigned int arg)
 	ListNode *listNode = m_list.m_next;
 	while (listNode != &m_list)
 	{
-		void *p = listNode->m_ptrPlus8;
-		Slot12Target *slot12Target = p ? (Slot12Target *)((char *)p - 8) : 0;
+		void *nodePayload = listNode->m_ptrPlus8;
+		Slot12Target *slot12Target = nodePayload ? (Slot12Target *)((char *)nodePayload - 8) : 0;
 		slot12Target->slot12(arg);
 		listNode = listNode->m_next;
 	}

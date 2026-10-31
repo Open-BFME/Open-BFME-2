@@ -44,27 +44,27 @@ public:
 void GadgetListBoxSetColumnWidths(GameWindow *listbox, int numColumns, int *widths);
 void GadgetListBoxAddMultiSelect(GameWindow *listbox);
 
-void AptCreateAHero::Manager::InitGadgets(char *a, int unused, char *c)
+void AptCreateAHero::Manager::InitGadgets(char *name, int unused, char *gadget)
 {
-	if (c == 0)
+	if (gadget == 0)
 		return;
 	Rva005B6967Buf buf;
-	if (strcmp(a, g_rva00873640) == 0) {
+	if (strcmp(name, g_rva00873640) == 0) {
 		buf.x = 9;
 		buf.y = 0x2e;
 		buf.z = 0x2d;
-		GadgetListBoxSetColumnWidths((GameWindow *)c, 3, &buf.x);
-		m_8 = c;
+		GadgetListBoxSetColumnWidths((GameWindow *)gadget, 3, &buf.x);
+		m_8 = gadget;
 		PopulateHeroList();
 	} else {
-		if (strcmp(a, g_rva00873630) != 0)
+		if (strcmp(name, g_rva00873630) != 0)
 			return;
 		buf.y = 0x50;
 		buf.z = 0x14;
-		GadgetListBoxSetColumnWidths((GameWindow *)c, 2, &buf.y);
+		GadgetListBoxSetColumnWidths((GameWindow *)gadget, 2, &buf.y);
 
-		GadgetListBoxAddMultiSelect((GameWindow *)c);
-		m_C = c;
+		GadgetListBoxAddMultiSelect((GameWindow *)gadget);
+		m_C = gadget;
 		rva005B5F2E();
 	}
 }

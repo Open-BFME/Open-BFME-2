@@ -47,14 +47,14 @@ unsigned long Rva00835BD0Crc32Table[256] = {
 unsigned long CRC_String(char const *string)
 {
   unsigned long crc = 0;
-  char c;
-  if (string != 0 && (c = *string) != 0) {
+  char character;
+  if (string != 0 && (character = *string) != 0) {
     crc = 0xFFFFFFFF;
     do {
       ++string;
-      crc = (crc >> 8) ^ Rva00835BD0Crc32Table[(char)crc ^ c];
-      c = *string;
-    } while (c != 0);
+      crc = (crc >> 8) ^ Rva00835BD0Crc32Table[(char)crc ^ character];
+      character = *string;
+    } while (character != 0);
     crc = ~crc;
   }
   return crc;
@@ -63,16 +63,16 @@ unsigned long CRC_String(char const *string)
 unsigned long CRC_Stringi(char *string)
 {
   unsigned long crc = 0;
-  char c;
-  if (string != 0 && (c = *string) != 0) {
+  char character;
+  if (string != 0 && (character = *string) != 0) {
     crc = 0xFFFFFFFF;
     do {
       ++string;
-      if (c >= 'a' && c <= 'z')
-        c &= 0xDF;
-      crc = (crc >> 8) ^ Rva00835BD0Crc32Table[(char)crc ^ c];
-      c = *string;
-    } while (c != 0);
+      if (character >= 'a' && character <= 'z')
+        character &= 0xDF;
+      crc = (crc >> 8) ^ Rva00835BD0Crc32Table[(char)crc ^ character];
+      character = *string;
+    } while (character != 0);
     crc = ~crc;
   }
   return crc;
@@ -101,30 +101,30 @@ unsigned long Rva003ECA13Get(const AsciiString &asciiString)
   return CRC_String(asciiString.str());
 }
 
-unsigned long Rva003EC991(const char *s, int len, volatile unsigned long crc)
+unsigned long Rva003EC991(const char *buffer, int len, volatile unsigned long crc)
 {
-  if (s == 0 || len == 0)
+  if (buffer == 0 || len == 0)
     return crc;
   crc = ~crc;
   do {
-    char c = *s;
-    crc = (crc >> 8) ^ Rva00835BD0Crc32Table[(char)crc ^ c];
-    ++s;
+    char character = *buffer;
+    crc = (crc >> 8) ^ Rva00835BD0Crc32Table[(char)crc ^ character];
+    ++buffer;
   } while (--len != 0);
   crc = ~crc;
   return crc;
 }
 
-unsigned long Rva003EC9CD(const char *s, int len, volatile unsigned long crc)
+unsigned long Rva003EC9CD(const char *buffer, int len, volatile unsigned long crc)
 {
-  if (s == 0 || len == 0)
+  if (buffer == 0 || len == 0)
     return crc;
   crc = ~crc;
   do {
-    char c = *s++;
-    if (c >= 'a' && c <= 'z')
-      c &= 0xDF;
-    crc = (crc >> 8) ^ Rva00835BD0Crc32Table[(char)crc ^ c];
+    char character = *buffer++;
+    if (character >= 'a' && character <= 'z')
+      character &= 0xDF;
+    crc = (crc >> 8) ^ Rva00835BD0Crc32Table[(char)crc ^ character];
   } while (--len != 0);
   crc = ~crc;
   return crc;

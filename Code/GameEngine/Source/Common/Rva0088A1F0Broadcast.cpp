@@ -27,13 +27,13 @@ struct Rva0088A1F0Owner
 
 void Rva0088A1F0Owner::broadcast()
 {
-	for (Rva0088A1F0Node *n = m_c; n; n = n->m_next)
+	for (Rva0088A1F0Node *node = m_c; node; node = node->m_next)
 	{
-		Rva0088A1F0Iface *iface = n->m_10;
+		Rva0088A1F0Iface *iface = node->m_10;
 		if (iface)
 		{
-			n->m_10->call3(m_9cf4, m_9cf8, 0);
-			n->m_10->call4();
+			node->m_10->call3(m_9cf4, m_9cf8, 0);
+			node->m_10->call4();
 		}
 	}
 }

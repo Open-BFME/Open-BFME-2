@@ -64,14 +64,14 @@ private:
 }
 struct Elem3AE7B8
 {
-	Elem3AE7B8(const Elem3AE7B8 &o) : a(o.a), b(o.b), c(o.c) {}
+	Elem3AE7B8(const Elem3AE7B8 &other) : a(other.a), b(other.b), c(other.c) {}
 	int a;
 	int b;
 	float c;
 };
 struct Triple3AE7B8
 {
-	Triple3AE7B8(const Triple3AE7B8 &o) : x(o.x), y(o.y), z(o.z) {}
+	Triple3AE7B8(const Triple3AE7B8 &other) : x(other.x), y(other.y), z(other.z) {}
 	int x, y, z;
 };
 class Rva003ABA36 : public Rva003A97E0, public FXParticleSystem::LightningDrawModuleInfo

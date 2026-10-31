@@ -35,7 +35,7 @@ public:
 	unsigned rva00032A20(const void *);
 	typedef void (*TraceFunction)(const char *text, void *context);
 	void *rva00034D10(int blockTypes, bool copy, void *storage, unsigned int storageSize);
-	void rva000353F0(TraceFunction function, void *functionContext, void *context, int blockTypes);
+	void traceAllocatedMemory(TraceFunction function, void *functionContext, void *context, int blockTypes);
 };
 } }
 
@@ -114,7 +114,7 @@ void *Rva006C1F60::TakeSnapshot(int blockTypes, bool copy, void *storage, unsign
 void Rva006C1F60::TraceAllocatedMemory(TraceFunction function, void *functionContext, void *context, int blockTypes)
 {
 	rva006C33D0(0, 0);
-	rva000353F0(function, functionContext, context, blockTypes);
+	traceAllocatedMemory(function, functionContext, context, blockTypes);
 }
 
 // Retail 0x006C1CC0 (71 B, ret 8), next to the location formatter: allocate

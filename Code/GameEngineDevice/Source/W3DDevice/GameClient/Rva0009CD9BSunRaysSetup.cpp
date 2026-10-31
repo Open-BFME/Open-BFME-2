@@ -224,8 +224,8 @@ void Rva0009C134Host::rva0009CD9B()
             fgets(line,100,fp);
             g_Va00DE5E38[i]=(float)(atof(line)*0.017453293005625408);
             fgets(line,100,fp);
-            double d=atof(line)*m_dc;
-            g_Va00DE5E2C[i]=(float)d;
+            double dist=atof(line)*m_dc;
+            g_Va00DE5E2C[i]=(float)dist;
             if (i==2) break;
             fgets(line,100,fp); g_rva00DE5E24[i]=(float)atof(line);
             fgets(line,100,fp); g_rva00DE5E1C[i]=(float)atof(line);

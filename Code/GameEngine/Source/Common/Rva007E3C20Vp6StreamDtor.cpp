@@ -183,15 +183,15 @@ __forceinline void Rva007E3C20Vp6Stream::renderAlpha(VP6YUVConfig &frame, VP6YUV
 	alpha.uvHeight = m_at34 >> 1;
 	alpha.yWidth = m_at30;
 	unsigned int row[1024];
-	unsigned char *y0 = frame.y + (frame.yHeight - 1) * frame.yStride;
-	unsigned char *y1 = y0 - frame.yStride;
+	unsigned char *yRow0 = frame.y + (frame.yHeight - 1) * frame.yStride;
+	unsigned char *yRow1 = yRow0 - frame.yStride;
 	unsigned char *u = frame.u + (frame.uvHeight - 1) * frame.uvStride;
 	unsigned char *v = frame.v + (frame.uvHeight - 1) * frame.uvStride;
-	unsigned char *a0 = alpha.y + (alpha.yHeight - 1) * alpha.yStride;
-	unsigned char *a1 = a0 - alpha.yStride;
+	unsigned char *alphaRow0 = alpha.y + (alpha.yHeight - 1) * alpha.yStride;
+	unsigned char *alphaRow1 = alphaRow0 - alpha.yStride;
 	unsigned int *dest = (unsigned int *)bits;
 	unsigned char *next = (unsigned char *)bits + pitch;
-	unsigned int *temp = row;
+	unsigned int *rowPtr = row;
 	int ystep = -frame.yWidth - 2 * frame.yStride;
 	int uvstep = -frame.uvWidth - frame.uvStride;
 	int astep = -alpha.yWidth - 2 * alpha.yStride;
@@ -202,21 +202,21 @@ __forceinline void Rva007E3C20Vp6Stream::renderAlpha(VP6YUVConfig &frame, VP6YUV
 			int green = g_Va00DE2C98[*u] + g_Va00DE2898[*v];
 			int red = g_Va00DE2498[*v];
 			++u; ++v;
-			*dest++ = RGB_PIXEL(*y0) | g_Va00DE2098[*a0];
-			++y0; ++a0;
-			*dest++ = RGB_PIXEL(*y0) | g_Va00DE2098[*a0];
-			++y0; ++a0;
-			*temp++ = RGB_PIXEL(*y1) | g_Va00DE2098[*a1];
-			++y1; ++a1;
-			*temp++ = RGB_PIXEL(*y1) | g_Va00DE2098[*a1];
-			++y1; ++a1;
+			*dest++ = RGB_PIXEL(*yRow0) | g_Va00DE2098[*alphaRow0];
+			++yRow0; ++alphaRow0;
+			*dest++ = RGB_PIXEL(*yRow0) | g_Va00DE2098[*alphaRow0];
+			++yRow0; ++alphaRow0;
+			*rowPtr++ = RGB_PIXEL(*yRow1) | g_Va00DE2098[*alphaRow1];
+			++yRow1; ++alphaRow1;
+			*rowPtr++ = RGB_PIXEL(*yRow1) | g_Va00DE2098[*alphaRow1];
+			++yRow1; ++alphaRow1;
 		}
-		y0 += ystep; y1 += ystep;
+		yRow0 += ystep; yRow1 += ystep;
 		u += uvstep; v += uvstep;
-		a0 += astep; a1 += astep;
+		alphaRow0 += astep; alphaRow1 += astep;
 		dest = (unsigned int *)((unsigned char *)dest + dststep);
 		memcpy(next, row, m_at30 * 4);
-		temp = row;
+		rowPtr = row;
 		next += pitch * 2;
 	}
 }
@@ -227,13 +227,13 @@ __forceinline void Rva007E3C20Vp6Stream::renderOpaque(VP6YUVConfig &frame, void 
 	frame.yWidth = m_at30; frame.yHeight = m_at34;
 	frame.uvWidth = m_at30 >> 1; frame.uvHeight = m_at34 >> 1;
 	unsigned int row[1024];
-	unsigned char *y0 = frame.y + (frame.yHeight - 1) * frame.yStride;
-	unsigned char *y1 = y0 - frame.yStride;
+	unsigned char *yRow0 = frame.y + (frame.yHeight - 1) * frame.yStride;
+	unsigned char *yRow1 = yRow0 - frame.yStride;
 	unsigned char *u = frame.u + (frame.uvHeight - 1) * frame.uvStride;
 	unsigned char *v = frame.v + (frame.uvHeight - 1) * frame.uvStride;
 	unsigned int *dest = (unsigned int *)bits;
 	unsigned char *next = (unsigned char *)bits + pitch;
-	unsigned int *temp = row;
+	unsigned int *rowPtr = row;
 	int ystep = -frame.yWidth - 2 * frame.yStride;
 	int uvstep = -frame.uvWidth - frame.uvStride;
 	int dststep = (pitch - 2 * frame.yWidth) * 2;
@@ -243,16 +243,16 @@ __forceinline void Rva007E3C20Vp6Stream::renderOpaque(VP6YUVConfig &frame, void 
 			int green = g_Va00DE2C98[*u] + g_Va00DE2898[*v];
 			int red = g_Va00DE2498[*v];
 			++u; ++v;
-			*dest++ = OPAQUE_PIXEL(*y0); ++y0;
-			*dest++ = OPAQUE_PIXEL(*y0); ++y0;
-			*temp++ = OPAQUE_PIXEL(*y1); ++y1;
-			*temp++ = OPAQUE_PIXEL(*y1); ++y1;
+			*dest++ = OPAQUE_PIXEL(*yRow0); ++yRow0;
+			*dest++ = OPAQUE_PIXEL(*yRow0); ++yRow0;
+			*rowPtr++ = OPAQUE_PIXEL(*yRow1); ++yRow1;
+			*rowPtr++ = OPAQUE_PIXEL(*yRow1); ++yRow1;
 		}
-		y0 += ystep; y1 += ystep;
+		yRow0 += ystep; yRow1 += ystep;
 		u += uvstep; v += uvstep;
 		dest = (unsigned int *)((unsigned char *)dest + dststep);
 		memcpy(next, row, m_at30 * 4);
-		temp = row;
+		rowPtr = row;
 		next += pitch * 2;
 	}
 }

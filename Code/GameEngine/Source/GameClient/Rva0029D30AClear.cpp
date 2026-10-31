@@ -42,10 +42,10 @@ void Rva0029D30A::rva0029D30A()
 	while (it._M_node != m_8A0.end()._M_node) {
 		int v = *it;
 		it = m_8A0.erase(it);
-		Rva0029D30APayload *p = (Rva0029D30APayload *)v;
+		Rva0029D30APayload *payload = (Rva0029D30APayload *)v;
 		void *q;
-		if (p)
-			q = p->slot00(0);
+		if (payload)
+			q = payload->slot00(0);
 		else
 			q = 0;
 		::operator delete(q);

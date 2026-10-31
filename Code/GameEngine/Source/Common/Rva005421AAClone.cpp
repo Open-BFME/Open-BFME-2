@@ -1,5 +1,5 @@
 // cl: /EHsc /DNDEBUG /MD
-// ?rva005421AA@Rva00541F1F@@QBE?AVRva0053FC99@@XZ, retail 0x005421AA, 123 bytes (EH).
+// ?clone@Rva00541F1F@@QBE?AVRva0053FC99@@XZ, retail 0x005421AA, 123 bytes (EH).
 // Clone slot: copies the animation into a fresh 0x64-byte object and
 // hands it back in a reference-counted pointer. The raw pointer is attached
 // by the rowed 0x0053FC81 setter, copied out into the hidden result by the
@@ -22,7 +22,7 @@ class Rva0053FC81
 {
 public:
 	Rva0053FC81 *rva0053FC81(Rva0053F8E5DwordCounter *p);
-	Rva0053FC81(Rva0053F8E5DwordCounter *p) { rva0053FC81(p); }
+	Rva0053FC81(Rva0053F8E5DwordCounter *ptr) { rva0053FC81(ptr); }
 	~Rva0053FC81()
 	{
 		if (m_ptr)
@@ -54,12 +54,12 @@ class Rva00541F1F
 {
 public:
 	Rva00541F1F(const Rva00541F1F &other);	// 0x00541F1F
-	Rva0053FC99 rva005421AA() const;
+	Rva0053FC99 clone() const;
 
 private:
 	char m_data[0x64];
 };
-Rva0053FC99 Rva00541F1F::rva005421AA() const
+Rva0053FC99 Rva00541F1F::clone() const
 {
 	Rva0053F8E5DwordCounter *raw = (Rva0053F8E5DwordCounter *)new Rva00541F1F(*this);
 	{

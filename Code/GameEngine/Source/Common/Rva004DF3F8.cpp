@@ -55,6 +55,6 @@ void Rva004DF3F8::rva004DF3F8(void *p)
 {
 	if (p == 0)
 		return;
-	int tmp = ((Rva004DF3F8Arg *)p)->m_74;
-	m_24.remove(*(const BfmePod12 *)&tmp);
+	int key = ((Rva004DF3F8Arg *)p)->m_74;
+	m_24.remove(*(const BfmePod12 *)&key);
 }

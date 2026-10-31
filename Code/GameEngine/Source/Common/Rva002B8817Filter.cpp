@@ -64,10 +64,10 @@ void Rva002B8817::rva002B8817(void *a, void *b)
 	for (Rva002B8817Map::iterator it = (Node130 *)first; it != end; ++it) {
 		RegionAwardDispute *obj = (RegionAwardDispute *)(*it).second.word0;
 		int filtVal = filter->m_14;
-		Rva004DFCB0Element e;
-		e.word0 = (unsigned)obj;
+		Rva004DFCB0Element elems;
+		elems.word0 = (unsigned)obj;
 		int ret = obj->GetResolvableBy();
 		if (ret == filtVal)
-			vec->push_back(e);
+			vec->push_back(elems);
 	}
 }

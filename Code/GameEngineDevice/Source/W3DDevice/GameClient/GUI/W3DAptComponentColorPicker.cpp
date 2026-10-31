@@ -58,14 +58,14 @@ class Rva001166E0 {public:void *rva001166E0(int *,int,int,int,int);};
 class Member0C00739C70 {public:void clear();};
 struct ColorSurfaceLock {
  W3DRadarResetSurface *surface;
- __forceinline ColorSurfaceLock(W3DRadarResetSurface &w3DRadarResetSurface,int *pitch,int x0,int y0,int x1,int y1,void *&pixels):surface(&w3DRadarResetSurface) {pixels=((Rva001166E0*)&w3DRadarResetSurface)->rva001166E0(pitch,x0,y0,x1,y1);}
+ __forceinline ColorSurfaceLock(W3DRadarResetSurface &w3DRadarResetSurface,int *pitch,int left,int top,int right,int bottom,void *&pixels):surface(&w3DRadarResetSurface) {pixels=((Rva001166E0*)&w3DRadarResetSurface)->rva001166E0(pitch,left,top,right,bottom);}
  ~ColorSurfaceLock(){((Member0C00739C70*)surface)->clear();}
 };
 class Rva00222A8BTarget;extern Rva00222A8BTarget *TheRva00222A8BTarget;
 int Rva007410ECInvoke(Rva00222A8BTarget *,void *,const char *,const char *,const unsigned &);
 int Rva00525235Fire(void *,void *,const char *,const char *,int *,int *);
 int Rva00740EA1DistanceSquared(const unsigned char *,const unsigned char *);
-static __forceinline const char *colorName(const AsciiString &asciiString) {char *p=*(char * const *)&asciiString;return p?p+8:"";}
+static __forceinline const char *colorName(const AsciiString &asciiString) {char *buf=*(char * const *)&asciiString;return buf?buf+8:"";}
 
 void W3DAptComponentColorPicker::Init(const AsciiString&name,const char*params) {
  Rva004128F0GetParam(params,"_path",owner);

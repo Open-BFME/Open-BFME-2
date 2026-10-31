@@ -27,11 +27,11 @@ void Rva00625840::rva00625840()
 {
 	if (m_18)
 		return;
-	char *p = (char *)m_00 + 0x120;
-	m_18 = p;
-	void *q = *(void **)p;
-	m_1c = q;
-	if (q)
-		((void **)q)[6] = &m_1c;
+	char *head = (char *)m_00 + 0x120;
+	m_18 = head;
+	void *next = *(void **)head;
+	m_1c = next;
+	if (next)
+		((void **)next)[6] = &m_1c;
 	m_00->m_120 = this;
 }

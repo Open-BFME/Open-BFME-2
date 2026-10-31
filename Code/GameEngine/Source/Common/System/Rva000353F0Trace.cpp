@@ -1,6 +1,6 @@
 // cl: /MD
 //
-// ?rva000353F0@GeneralAllocator@Allocator@EA@@QAEXP6AXPBDPAX@Z11H@Z @0x000353F0 331B.
+// ?traceAllocatedMemory@GeneralAllocator@Allocator@EA@@QAEXP6AXPBDPAX@Z11H@Z @0x000353F0 331B.
 // Heap trace over allocated blocks (PPMalloc TraceAllocatedMemory-like):
 // under the counted lock at +0x4E4 (use count at +0x18, the RAII guard of the
 // sibling 0x00035080 with its own EH state), runs the 0x00033930 helper when
@@ -81,7 +81,7 @@ public:
 
 	void rva00033150(const void *block);	// free engine 0x00033150 (memory_pool.cpp)
 	void *rva00034D10(int blockTypes, bool copy, void *storage, unsigned int storageSize);
-	void rva000353F0(TraceFunction function, void *functionContext, void *context, int blockTypes);
+	void traceAllocatedMemory(TraceFunction function, void *functionContext, void *context, int blockTypes);
 	bool rva00035540(ReportFunction function, void *context, int blockTypes, bool copy, char *storage, unsigned int storageSize);
 	int rva00031430(const void *block, char *dst, unsigned int left);
 	const BlockInfo *rva00032F60(void *context, int blockTypes);
@@ -112,7 +112,7 @@ private:
 	void *m_pLock;				// +0x4E4
 };
 
-void GeneralAllocator::rva000353F0(TraceFunction function, void *functionContext, void *context, int blockTypes)
+void GeneralAllocator::traceAllocatedMemory(TraceFunction function, void *functionContext, void *context, int blockTypes)
 {
 	Rva000353F0Lock lock(m_pLock);
 	if (m_flags04 & 1)

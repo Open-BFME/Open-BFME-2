@@ -71,10 +71,10 @@ extern class ScriptEngine *TheScriptEngine;
 
 #include "../../../Include/GameLogic/ScriptConditions.h"
 
-bool ScriptConditions::evaluateTeamIsLedByUnit(Parameter *parameter, Parameter *p1)
+bool ScriptConditions::evaluateTeamIsLedByUnit(Parameter *parameter, Parameter *unitParameter)
 {
 	Team *team = TheScriptEngine->getTeamNamed(parameter->m_string, false);
-	Object *unit = TheScriptEngine->getUnitNamed(p1);
+	Object *unit = TheScriptEngine->getUnitNamed(unitParameter);
 	if (team == 0 || unit == 0)
 		return false;
 	for (DLINK_ITERATOR<Object> iter = team->iterate_TeamMemberList(); !iter.done(); iter.advance()) {

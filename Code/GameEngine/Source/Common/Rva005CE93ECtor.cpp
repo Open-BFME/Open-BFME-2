@@ -35,8 +35,8 @@ private:
 	void *source;
 };
 
-Rva005CE93E::Rva005CE93E(void *a, void *b, Rva005CE93EContext *c)
-	: Rva005CC698(a, b, c), source(c->source)
+Rva005CE93E::Rva005CE93E(void *a, void *b, Rva005CE93EContext *context)
+	: Rva005CC698(a, b, context), source(context->source)
 {
 }
 

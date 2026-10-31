@@ -32,13 +32,13 @@ void Rva00107E76Elem::rva00107A50(void *block)
     unsigned char *face = faces;
     Vector3 *light = static_cast<Vector3 *>(block);
     for (; count > 0; --count, ++triangle) {
-        const Vector3 &v0 = vertices[triangle->i];
-        const Vector3 &v1 = vertices[triangle->j];
-        const Vector3 &v2 = vertices[triangle->k];
-        Vector3 a = v1;
-        Vector3 b = v1;
-        a -= v2;
-        b -= v0;
+        const Vector3 &vert0 = vertices[triangle->i];
+        const Vector3 &vert1 = vertices[triangle->j];
+        const Vector3 &vert2 = vertices[triangle->k];
+        Vector3 a = vert1;
+        Vector3 b = vert1;
+        a -= vert2;
+        b -= vert0;
         float dot = (a.Y*b.Z - a.Z*b.Y)*light->X;
         dot += (a.Z*b.X - a.X*b.Z)*light->Y;
         dot += (a.X*b.Y - a.Y*b.X)*light->Z;

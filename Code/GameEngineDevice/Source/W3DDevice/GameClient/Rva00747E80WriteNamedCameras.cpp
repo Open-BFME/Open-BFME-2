@@ -34,10 +34,10 @@ public:
 	void closeDataChunk();
 };
 
-class Rva00741830NamedCamera
+class NamedCamera
 {
 public:
-	Rva00741830NamedCamera *m_next;
+	NamedCamera *m_next;
 	AsciiString m_name;
 	Real m_position[3];
 	Real m_values[6];
@@ -48,14 +48,14 @@ class Rva00747E80Filter
 {
 public:
 	virtual void destroy() = 0;
-	virtual Bool shouldWrite(Rva00741830NamedCamera *camera) = 0;
+	virtual Bool shouldWrite(NamedCamera *camera) = 0;
 };
 
 class Rva00747E80View
 {
 public:
 	char m_padding00[0x80];
-	Rva00741830NamedCamera *m_namedCameras;
+	NamedCamera *m_namedCameras;
 };
 
 class View;
@@ -70,7 +70,7 @@ void Rva00747E80(DataChunkOutput *output, Rva00747E80Filter *filter)
 	output->openDataChunk("NamedCameras", 2);
 
 	Int count = 0;
-	for (Rva00741830NamedCamera *camera = TheTacticalView->m_namedCameras;
+	for (NamedCamera *camera = TheTacticalView->m_namedCameras;
 		camera != 0; camera = camera->m_next)
 	{
 		if (filter->shouldWrite(camera))
@@ -78,7 +78,7 @@ void Rva00747E80(DataChunkOutput *output, Rva00747E80Filter *filter)
 	}
 	output->writeInt(count);
 
-	for (Rva00741830NamedCamera *camera = TheTacticalView->m_namedCameras;
+	for (NamedCamera *camera = TheTacticalView->m_namedCameras;
 		camera != 0; camera = camera->m_next)
 	{
 		if (!filter->shouldWrite(camera))

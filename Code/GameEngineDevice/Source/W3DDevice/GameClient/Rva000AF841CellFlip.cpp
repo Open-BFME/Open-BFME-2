@@ -23,7 +23,7 @@ class Rva000ABD19
 public:
 	bool rva000ABD19(int x, int y);
 	bool rva000AE37E(int x, int y);
-	bool rva000AF841(int x, int y);
+	bool rva000AF841(int cellX, int cellY);
 	char m_pad00[0x8];
 	int m_width; // +0x08 +0x08
 	char m_pad0C[0x14];
@@ -31,13 +31,13 @@ public:
 	unsigned short *m_data; // +0x24 +0x24
 };
 
-bool Rva000ABD19::rva000AF841(int x, int y)
+bool Rva000ABD19::rva000AF841(int cellX, int cellY)
 {
 	bool flip;
-	if (rva000ABD19(x, y) && ((WorldHeightMap *)this)->rva000AE37E(x, y))
+	if (rva000ABD19(cellX, cellY) && ((WorldHeightMap *)this)->rva000AE37E(cellX, cellY))
 		return flip;
 
-	int ndx = y * m_width + x;
+	int ndx = cellY * m_width + cellX;
 	if (ndx < 0 || ndx >= m_dataSize || m_data == 0 || ndx >= m_dataSize - m_width - 1)
 		return false;
 

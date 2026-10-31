@@ -78,9 +78,9 @@ void Rva005EA33D::rva005EA2B2(int i1, int i2)
 	Rva005EA33DVec *vec = &d->m_ranges[i1];
 next:
 	{
-		int n = ((char *)vec->m_end - (char *)vec->m_begin) / 0x24;
+		int count = ((char *)vec->m_end - (char *)vec->m_begin) / 0x24;
 		++j;
-		if (j < (unsigned int)n)
+		if (j < (unsigned int)count)
 			goto have;
 		j = 0;
 		if (i1 <= 0)
