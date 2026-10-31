@@ -1,5 +1,18 @@
 # Recipes proven on near misses
 
+Canonical Vector4 adoption can preserve code generation without extending a
+shared header. In `DrawableApplyPhysicsXform.cpp` (`/O1 /G7 /arch:SSE`), direct
+X/Y/Z/W fields changed the 875-byte SSE schedule; a local inline accessor with
+the old `(&X)[index]` expression restores every byte and emits no helper body.
+In `Matrix3D_Set_Matrix3_Vector3.cpp` (normal region settings), calling the
+canonical Set emits an extra shared copy, and a static inline wrapper retains
+an internal copy. Capture each row's four input floats before its stores in
+the old argument-evaluation order: both 118/10-byte functions and relocations
+stay identical and no helper remains. These are measured per-TU controls,
+not permission to change other units' FP ordering. See
+`reverse/attempt_support/physics-vector4-adoption-20261031.md` and
+`reverse/attempt_support/matrix-set-vector4-adoption-20261031.md`.
+
 Short, reusable fixes that turned near misses into byte matches. They were
 proven in the solo fork (`dylanrussellmd/bfme2-solo`, private, so its commit
 ids are not cited here); each recipe names the retail RVA where it closed a

@@ -13,22 +13,7 @@ public:
 	float Z;
 };
 
-class Vector4
-{
-public:
-	__declspec(dllimport) __forceinline void Set(float x, float y, float z, float w)
-	{
-		X = x;
-		Y = y;
-		Z = z;
-		W = w;
-	}
-
-	float X;
-	float Y;
-	float Z;
-	float W;
-};
+#include "Vector4Data.h"
 
 class Matrix3
 {
@@ -48,7 +33,35 @@ public:
 
 void Matrix3D::Set(const Matrix3 &rot, const Vector3 &pos)
 {
-	Row[0].Set(rot[0][0], rot[0][1], rot[0][2], pos[0]);
-	Row[1].Set(rot[1][0], rot[1][1], rot[1][2], pos[1]);
-	Row[2].Set(rot[2][0], rot[2][1], rot[2][2], pos[2]);
+	// Capture a row's four input values before writing, as the native inline Set does.
+	{
+		const float w = pos[0];
+		const float z = rot[0][2];
+		const float y = rot[0][1];
+		const float x = rot[0][0];
+		Row[0].X = x;
+		Row[0].Y = y;
+		Row[0].Z = z;
+		Row[0].W = w;
+	}
+	{
+		const float w = pos[1];
+		const float z = rot[1][2];
+		const float y = rot[1][1];
+		const float x = rot[1][0];
+		Row[1].X = x;
+		Row[1].Y = y;
+		Row[1].Z = z;
+		Row[1].W = w;
+	}
+	{
+		const float w = pos[2];
+		const float z = rot[2][2];
+		const float y = rot[2][1];
+		const float x = rot[2][0];
+		Row[2].X = x;
+		Row[2].Y = y;
+		Row[2].Z = z;
+		Row[2].W = w;
+	}
 }

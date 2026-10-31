@@ -1,5 +1,12 @@
 # Linking target checklist
 
+Matrix3D setter Vector4 adoption (2026-10-31): the existing canonical storage
+header and per-row captured inputs retain both 118/10-byte functions and all
+relocations, with no extra code provider. Strict preparation and owning
+acceptance retire one key. Together with physics, two keys are retired while
+three rows and the bounded 1,003-byte cohort remain unchanged.
+[Evidence](../reverse/attempt_support/matrix-set-vector4-adoption-20261031.md).
+
 Physics transformation Vector4 adoption (2026-10-31): use the canonical
 storage header with a local component accessor retaining the native SSE
 schedule. The complete 875-byte method and all relocations remain exact;
