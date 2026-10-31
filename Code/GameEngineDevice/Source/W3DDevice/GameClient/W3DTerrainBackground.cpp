@@ -108,7 +108,12 @@ public: void Release_Ref();
 
 class BfmeResetTextureRef {
 public:
+ // Keep the initialization visible without emitting another default-ctor
+ // copy under this unit's /G7 settings. The shared default ctor is owned
+ // elsewhere; this tag only selects the terrain's inline null init.
+ struct TerrainInit {};
  void clear();
+ BfmeResetTextureRef(TerrainInit) : pointer(0) {}
  ~BfmeResetTextureRef() { if (pointer) pointer->Release_Ref(); }
 private: BfmeResetResource *pointer;
 };
@@ -120,13 +125,34 @@ public:
 private: int refs;
 };
 
+struct TerrainBackgroundBounds {
+    float centerX, centerY, centerZ, extentX, extentY, extentZ;
+    TerrainBackgroundBounds() {
+        centerX = 0.0f; centerY = 0.0f; centerZ = 0.0f;
+        extentX = 0.0f; extentY = 0.0f; extentZ = 0.0f;
+    }
+};
+
 class Rva00112291TerrainOwner {
-public: ~Rva00112291TerrainOwner();
+public:
+ Rva00112291TerrainOwner();
+ ~Rva00112291TerrainOwner();
 private:
- char unknown00[0x34];
+ int cullStatus[3];
+ TerrainBackgroundBounds bounds;
+ void *m_24; int m_28; void *m_2C; int m_30;
  BfmeResetTextureRef texture34,texture38,texture3C,texture40;
- char unknown44[0x5C-0x44];
+ int m_44,m_48,m_4C,m_50,m_54,m_58;
  Rva00112291MapRef *map;
+ char m_60,m_61,m_62;
+ float m_64;
+ int m_68,m_6C,m_70,m_74,m_78,m_7C,m_80;
+ char m_84;
+ int m_88,m_8C,m_90,m_94;
+ float m_98,m_9C,m_A0,m_A4;
+ int m_A8,m_AC,m_B0,padB4,m_B8,padBC,m_C0,padC4,m_C8;
+ float m_CC;
+ int m_D0;
 };
 
 // ?rva00115DA7@Rva00115DA7@@QAEXHHHHH@Z @0x00115DA7 43B. Identity: 5-int setter storing first four at +0xA8/+0xB0/+0xB8/+0xC0 via this+8 layout; fifth unused for ret 0x14.
