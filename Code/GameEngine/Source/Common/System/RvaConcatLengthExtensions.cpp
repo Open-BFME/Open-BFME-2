@@ -27,10 +27,6 @@ int Rva0050F1DFPrefix::total() const
 {
  return reinterpret_cast<const AsciiStringPlusString *>(this)->length()+extra+1;
 }
-int Rva0059B122Prefix::total() const
-{
- return reinterpret_cast<const AsciiStringPlusText *>(this)->length()+second+first;
-}
 int Rva005D32C4Prefix::total() const
 {
  return reinterpret_cast<const AsciiStringPlusString *>(this)->length()+second+first;

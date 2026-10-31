@@ -224,11 +224,42 @@ private:
 	const char *m_str;
 };
 
+// Native complete RET0 boundaries: 50F1DF..50F1F0 (17 bytes),
+// 59B122..59B132 and 5D32C4..5D32D4 (16 bytes each).
+// Each extends an independently rowed concat-length call with measured
+// integer fields. 50F1DF adds word10 and1; 59B122 adds words18 then10;
+// 5D32C4 adds words14 then0C. The first/third call the 2198C8 fold; the
+// second calls2DBF50. Rva0059B355Write's rowed narrow materializer also
+// consumes the 2DBF50 length plus10/18 fields, and its writers establish
+// that layout. The other original receiver names and character widths
+// remain unknown. Existing fold spellings below expose only receiver calls;
+// none of these consumed-prefix views is allocated or claimed complete.
+class AsciiStringPlusString {public:int length() const;};
+
+class AsciiStringPlusText {public:int length() const;};
+
+class Rva0050F1DFPrefix {
+public: char unknown00[0x10];int extra;
+ int total() const;
+};
+
+class Rva0059B122Prefix {
+public: char unknown00[0x10];int first;char unknown14[4];int second;
+ int total() const;
+};
+
+class Rva005D32C4Prefix {
+public: char unknown00[0xC];int first;char unknown10[4];int second;
+ int total() const;
+};
+
 // tu-skeleton: 0x0059AEBC 22B ?rva0059AEBC@LivingWorldAutoResolveUnit@@QAEMXZ -- matched in Code/GameEngine/Source/Common/Rva0059ADB9.cpp (not merged yet)
 
 // tu-skeleton: 0x0059AED2 23B ?rva0059AED2@Rva0059AED2@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva0059ADB9.cpp (not merged yet)
 
 // tu-skeleton: 0x0059AEE9 22B ??0Rva0059AEE9@@QAE@H@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat5A.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/LivingWorldAutoResolveUnit.cpp
 
 // ---- from Code/GameEngine/Source/Common/Rva0059AEFF.cpp
 
@@ -243,8 +274,6 @@ int Rva0059AEFF::rva0059AEFF()
 	obj->rva0037DF8D(&sink);
 	return sink.m_04;
 }
-
-// tu-skeleton: 0x0059AF30 146B ?rva0059AF30@Rva0059AF30@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/Rva0059ADB9.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva0059AFC2Copy.cpp
 
@@ -283,8 +312,6 @@ void *__cdecl Rva0059B036Copy(void *dst, void *src, int tail)
 	return dst;
 }
 
-// tu-skeleton: 0x0059B060 18B ??0Rva0059B060@@QAE@PAX@Z -- matched in Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/LivingWorldAutoResolveUnit.cpp
 
 LivingWorldAutoResolveUnit::~LivingWorldAutoResolveUnit()
@@ -308,9 +335,18 @@ StringBase<char> *__cdecl Rva0059B0DDConcat(StringBase<char> *dst, const char *s
 // holds a rowed function; the vftable's address is proven by the vptr stores in
 // the matched destructors, so bind the placeholder to that row's name.
 
+// tu-skeleton: 0x0059AF30 146B ?rva0059AF30@Rva0059AF30@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/Rva0059ADB9.cpp (not merged yet)
+
+// tu-skeleton: 0x0059B060 18B ??0Rva0059B060@@QAE@PAX@Z -- matched in Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp (not merged yet)
+
 // tu-skeleton: 0x0059B115 13B ?rva0059B115@Rva0059B115@@QBEHXZ -- matched in Code/GameEngine/Source/Common/System/Rva00513E03Length.cpp (not merged yet)
 
-// tu-skeleton: 0x0059B122 16B ?total@Rva0059B122Prefix@@QBEHXZ -- matched in Code/GameEngine/Source/Common/System/RvaConcatLengthExtensions.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/System/RvaConcatLengthExtensions.cpp
+
+int Rva0059B122Prefix::total() const
+{
+ return reinterpret_cast<const AsciiStringPlusText *>(this)->length()+second+first;
+}
 
 // tu-skeleton: 0x0079D772 11B uw_0079d772 -- matched in Code/gen_small/uw_gen_011.cpp (not merged yet)
 
