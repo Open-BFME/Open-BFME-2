@@ -113,7 +113,7 @@ public:
 	char pad00[0xc];
 	int m_activeBattleID;
 };
-struct Rva0040F87ELivingWorldLogic { char pad00[0xb0]; LivingWorldRegionManager *m_B0; };
+struct Rva0040F87ELivingWorldLogic { char pad00[0xb0]; LivingWorldRegionManager *m_regionManager; };
 
 struct Rva0040F87ERegion { char pad00[0x1c]; };
 struct Rva0040F87EBattle { char pad00[0x18]; Rva0040F87ERegion *m_begin; Rva0040F87ERegion *m_end; };
@@ -196,7 +196,7 @@ void ArmySummarySystem::rva0040F87E()
 		reinterpret_cast<Rva0040F87EGameLogic *>(TheGameLogic)->m_98 = saved;
 	}
 
-	LivingWorldRegionManager *regions = reinterpret_cast<Rva0040F87ELivingWorldLogic *>(TheLivingWorldLogic)->m_B0;
+	LivingWorldRegionManager *regions = reinterpret_cast<Rva0040F87ELivingWorldLogic *>(TheLivingWorldLogic)->m_regionManager;
 	int battleID = regions->m_activeBattleID;
 	if (battleID == 0) {
 		for (unsigned int i = 0; i < m_summaryIDs.size(); ++i) {

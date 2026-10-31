@@ -66,14 +66,14 @@ struct Rva0046A10DListNode
     Rva0046A10DListNode *previous;
     Object *object;
 };
-struct Rva0046A10DList
+struct HordeMemberList
 {
     Rva0046A10DListNode *sentinel;
 };
 struct Rva0046247DPair
 {
     void *m00;
-    Rva0046A10DList *m04;
+    HordeMemberList *m04;
 };
 class Rva0046247D
 {
@@ -85,7 +85,7 @@ __declspec(noinline) inline void Rva0046247D::rva0046247D(Rva0046247DPair &resul
 	void *base = this;
 	char *field = (char *)base + 0x20;
 	result.m00 = base ? field : 0;
-	result.m04 = (Rva0046A10DList *)((char *)base + 0x54);
+	result.m04 = (HordeMemberList *)((char *)base + 0x54);
 }
 class TransportContain
 {

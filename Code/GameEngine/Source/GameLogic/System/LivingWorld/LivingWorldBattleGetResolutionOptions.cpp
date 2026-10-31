@@ -32,15 +32,15 @@ struct Rva003F4FD4LogicView {
 };
 struct Rva003F4FD4GameLogicView { char pad00[0x114]; int mode; };
 struct Rva003F4FD4GameInfoView { char pad00[0x7C]; int kind; };
-struct Rva003F4FD4Adjacent { char pad00[8]; int id; char pad0C[0x18 - 0xC]; };
+struct AdjacentRegion { char pad00[8]; int id; char pad0C[0x18 - 0xC]; };
 struct Rva003F4FD4Region {
     char pad00[0xA9];
     bool special;
     char padAA[0x12C - 0xAA];
     int id;
     char pad130[0x1A8 - 0x130];
-    std::vector<Rva003F4FD4Adjacent> adjacent;
-    std::vector<Rva003F4FD4Adjacent> &getAdjacent() { return adjacent; }
+    std::vector<AdjacentRegion> adjacent;
+    std::vector<AdjacentRegion> &getAdjacent() { return adjacent; }
 };
 struct Rva003F4FD4OwnedRegion { char pad00[0x13C]; int playerID; };
 struct Rva003F4E07Player { char pad00[0x14]; int id; };
@@ -94,7 +94,7 @@ int LivingWorldBattle::GetResolutionOptions()
     if (player) {
         if (!((Rva003F44A9 *)player)->rva003F44ED()) mayRetreat = false;
         else {
-            std::vector<Rva003F4FD4Adjacent> *adjacent = &region->getAdjacent();
+            std::vector<AdjacentRegion> *adjacent = &region->getAdjacent();
             for (unsigned i = 0; i < adjacent->size(); ++i) {
                 Rva0020E89C *owned = ((Rva003F4FD4LogicView *)TheLivingWorldLogic)->getManager()->rva0020EAF6((*adjacent)[i].id);
                 if (owned && (unsigned char)((Rva002E071E *)player->m_player)->rva002E0BC0(((Rva003F4FD4OwnedRegion *)owned)->playerID)) {

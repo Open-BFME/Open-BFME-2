@@ -131,7 +131,7 @@ public:
 	class PerTurnStats : public Snapshot
 	{
 	public:
-		PerTurnStats() : m_numRegions(0), m_field06(0), m_numArmies(0) {}
+		PerTurnStats() : m_numRegions(0), m_numUnits(0), m_numArmies(0) {}
 		virtual ~PerTurnStats() {}
 		// ?PerTurnStats::loadPostProcess present-unmatched
 		virtual void loadPostProcess() {}
@@ -139,7 +139,7 @@ public:
 		virtual void xfer(Xfer *xfer);
 
 		Short m_numRegions;
-		Short m_field06;
+		Short m_numUnits;
 		Short m_numArmies;
 	};
 	virtual void primarySlot();
@@ -217,7 +217,7 @@ void LivingWorldScoreKeeper::collectEndOfTurnStats(int turn)
 		for (_STL::vector<Rva004EEE38Entry *>::iterator e = entries.begin(), eEnd = entries.end(); e != eEnd; ++e)
 		{
 			if (*e != 0 && (*e)->m_army != 0)
-				stats.m_field06 += (*e)->m_army->m_entries.size();
+				stats.m_numUnits += (*e)->m_army->m_entries.size();
 		}
 
 		m_perTurnStats.push_back(reinterpret_cast<const Elem003AF8C0 &>(stats));

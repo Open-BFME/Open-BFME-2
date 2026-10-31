@@ -4417,3 +4417,4 @@ _Rva007F5790Callback,0x00661F40,"Renamed to _loginReplyCallback by tools/rename.
 ?Rva006CBA30CreateBoolean@@YAPAVAptValue@@_N@Z,0x006CBA30,"Renamed to ?createBoolean@@YAPAVAptValue@@_N@Z by tools/rename.py (inferred)"
 ?Rva006CBA40CreateArray@@YAPAVAptValue@@HPAPAVBfmeAptValue006DCD20@@@Z,0x006CBA40,"Renamed to ?createArray@@YAPAVAptValue@@HPAPAVBfmeAptValue006DCD20@@@Z by tools/rename.py (inferred)"
 __ehhandler$?Rva006CBA40CreateArray@@YAPAVAptValue@@HPAPAVBfmeAptValue006DCD20@@@Z,0x007A801F,"Renamed to __ehhandler$?createArray@@YAPAVAptValue@@HPAPAVBfmeAptValue006DCD20@@@Z by tools/rename.py (inferred)"
+?rva001D8E8B@ArmorTemplate@@QBEMABURva001D8E8BInput@@@Z,0x001D8E8B,"Renamed to ?getDamageCoefficient@ArmorTemplate@@QBEMABURva001D8E8BInput@@@Z by tools/rename.py (inferred)"

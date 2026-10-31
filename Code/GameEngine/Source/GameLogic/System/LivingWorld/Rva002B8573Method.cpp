@@ -34,10 +34,10 @@ class Rva002B8573
 public:
 	virtual bool rva002B8573(Rva003190A5 *a);
  ~Rva002B8573() {}
- Rva002B8573(_STL::vector<Object*> *out, Rva002B8573Filter *filter):m_vec04(out),m_flt08(filter) {}
+ Rva002B8573(_STL::vector<Object*> *out, Rva002B8573Filter *filter):m_vec04(out),m_filter(filter) {}
 private:
 	_STL::vector<Object *> *m_vec04;
-	Rva002B8573Filter *m_flt08;
+	Rva002B8573Filter *m_filter;
 };
 
 // bfme link decl-only begin
@@ -51,9 +51,9 @@ bool Rva002B8573::rva002B8573(Rva003190A5 *a)
 	Object *obj = a->m_78;
 	if (!a->query())
 		return true;
-	if (m_flt08 != 0)
+	if (m_filter != 0)
 	{
-		if (m_flt08->m_14 != a->m_54)
+		if (m_filter->m_14 != a->m_54)
 			return true;
 	}
 	m_vec04->push_back(obj);

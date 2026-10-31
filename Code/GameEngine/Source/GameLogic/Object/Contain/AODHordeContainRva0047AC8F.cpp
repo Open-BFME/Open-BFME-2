@@ -206,7 +206,7 @@ class HordeContainIface
  AODWave *m_wavesEnd; // +0x1F4
  char m_pad1F8[0x1FC - 0x1F8];
  ObjectID m_trackedLargeUnit; // +0x1FC
- unsigned int m_200; // +0x200
+ unsigned int m_largeUnitStartFrame; // +0x200
  Coord3D m_trackedPosition; // +0x204
  float m_largeUnitHeightFactor; // +0x210
  float m_largeUnitHeight; // +0x214
@@ -378,7 +378,7 @@ Coord3D *AODHordeContain::rva0047AC8F(Coord3D *out,Object *obj,int word)
   maxHeight = md->m_largeUnitMaxHeight;
   if (maxHeight < md->m_largeUnitMinHeight)
   maxHeight = md->m_largeUnitMinHeight;
-  unsigned int elapsed = TheGameLogic->getFrame() - m_200;
+  unsigned int elapsed = TheGameLogic->getFrame() - m_largeUnitStartFrame;
   if (elapsed >= md->m_largeUnitTimeout)
   {
    m_trackedLargeUnit = INVALID_OBJECT_ID;

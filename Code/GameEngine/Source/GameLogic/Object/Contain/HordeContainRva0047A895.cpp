@@ -264,7 +264,7 @@ struct Rva0047A895Slot				// 0x1C bytes at +0x188
 	char m_pad08[0x1C - 0x08];
 };
 
-struct Rva0047A895Rank				// 0x18 bytes at +0x6FC
+struct HordeRank				// 0x18 bytes at +0x6FC
 {
 	float m_threshold;
 	float m_angle;
@@ -313,7 +313,7 @@ private:
 	char m_pad2A4[0x338 - 0x2A4];
 	Rva0047A413Point m_points[(0x6F8 - 0x338) / 0x10];	// +0x338
 	int m_pointCount;			// +0x6F8
-	Rva0047A895Rank m_ranks[(0x8DC - 0x6FC) / 0x18];	// +0x6FC
+	HordeRank m_ranks[(0x8DC - 0x6FC) / 0x18];	// +0x6FC
 	int m_rankCount;			// +0x8DC
 };
 

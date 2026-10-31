@@ -85,7 +85,7 @@ public:
 	void clear();
 	bool rva001D8E7F() const;
 	float rva001D8E88() const;
-	float rva001D8E8B(const struct Rva001D8E8BInput &input) const;
+	float getDamageCoefficient(const struct Rva001D8E8BInput &input) const;
 
 private:
 	float m_head; // +0x00
@@ -185,7 +185,7 @@ float ArmorTemplate::rva001D8E88() const
 }
 
 // 0x001D8E8B (14B): the coefficient for the request's damage type.
-float ArmorTemplate::rva001D8E8B(const Rva001D8E8BInput &input) const
+float ArmorTemplate::getDamageCoefficient(const Rva001D8E8BInput &input) const
 {
 	return m_damageCoefficient[input.m_damageType];
 }
