@@ -837,28 +837,11 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-// Retail VA 0x00C57208: 3 fields and the zero sentinel.
-// Class identity comes from this unit's matched registration function;
-// tokens, callbacks and offsets are read from that retail table.
-// The global name below is descriptive; its original spelling is unknown.
-extern const FieldParse BfmeBaseUpgradeFields[] = {
-	{ "BuildingTemplateName", &INI::parseAsciiString, 0, 0x118 },
-	{ "PlacementPrefix", &INI::parseAsciiString, 0, 0x11C },
-	{ "PlacementIndex", &INI::parseInt, 0, 0x120 },
-	{ 0, 0, 0, 0 }
-};
-
 class BaseUpgradeModuleData
 {
 public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
-
-void BaseUpgradeModuleData::buildFieldParse(MultiIniFieldParse &parse)
-{
-	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE29DGet()), 8);
-	parse.add(BfmeBaseUpgradeFields, 0);
-}
 
 class AudioLoopUpgradeModuleData
 {
