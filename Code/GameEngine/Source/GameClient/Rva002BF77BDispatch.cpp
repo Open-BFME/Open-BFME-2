@@ -13,7 +13,13 @@ template <> void *&_STL::vector<void*>::operator[](size_t);
 namespace _STL {
 template <> size_t vector<void*>::size() const;
 template <> void **vector<void*>::begin();
-template <> void **vector<void*>::end();
+// end() and the fill insert(pos, n, x) are taken inline, as retail's
+// hashtable::_M_initialize_buckets does (59 bytes: it reads _M_finish and
+// calls the rowed _M_fill_insert); dllimport + forceinline emits no copy.
+template <> __declspec(dllimport) __forceinline void **vector<void*>::end()
+{ return _M_finish; }
+template <> __declspec(dllimport) __forceinline void vector<void*>::insert(void **pos, size_t n, void *const &x)
+{ _M_fill_insert(pos, n, x); }
 }
 #include "prerts.h"
 #include "ascii_string.h"
@@ -23,7 +29,6 @@ template <> void **vector<void*>::end();
 #undef private
 #include "game_window.h"
 #include "video_player.h"
-#include "display.h"
 // bfme link decl-only begin
 namespace _STL { template <> _STL::_Hashtable_node<_STL::pair<GameWindow const * const,WindowVideo *> > * _Hashtable_iterator<_STL::pair<GameWindow const * const,WindowVideo *>,GameWindow const *,WindowVideoManager::hashConstGameWindowPtr,_STL::_Select1st<_STL::pair<GameWindow const * const,WindowVideo *> >,_STL::equal_to<GameWindow const *>,_STL::allocator<_STL::pair<GameWindow const * const,WindowVideo *> > >::_M_skip_to_next(); }
 namespace _STL { template <> _STL::_Ht_iterator<_STL::pair<GameWindow const * const,WindowVideo *>,_STL::_Nonconst_traits<_STL::pair<GameWindow const * const,WindowVideo *> >,GameWindow const *,WindowVideoManager::hashConstGameWindowPtr,_STL::_Select1st<_STL::pair<GameWindow const * const,WindowVideo *> >,_STL::equal_to<GameWindow const *>,_STL::allocator<_STL::pair<GameWindow const * const,WindowVideo *> > > hashtable<_STL::pair<GameWindow const * const,WindowVideo *>,GameWindow const *,WindowVideoManager::hashConstGameWindowPtr,_STL::_Select1st<_STL::pair<GameWindow const * const,WindowVideo *> >,_STL::equal_to<GameWindow const *>,_STL::allocator<_STL::pair<GameWindow const * const,WindowVideo *> > >::begin(); }

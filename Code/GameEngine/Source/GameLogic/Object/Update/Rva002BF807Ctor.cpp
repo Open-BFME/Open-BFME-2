@@ -20,6 +20,7 @@ class Rva002BF807
 {
 public:
 	Rva002BF807();
+	~Rva002BF807();
 
 private:
 	int m_00;
@@ -31,6 +32,15 @@ private:
 	float m_20;
 	float m_24;
 	float m_28;
+};
+
+// LivingWorld holds this payload by value at +0x28: its constructor 0x002C0120
+// calls this row before the two tables' constructors.
+class LivingWorld
+{
+private:
+	char m_pad00[0x28];
+	Rva002BF807 m_28;
 };
 
 Rva002BF807::Rva002BF807()

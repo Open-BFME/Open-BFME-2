@@ -17,13 +17,19 @@ template <> void *&_STL::vector<void*>::operator[](size_t);
 namespace _STL {
 template <> size_t vector<void*>::size() const;
 template <> void **vector<void*>::begin();
-template <> void **vector<void*>::end();
+// end() and the fill insert(pos, n, x) are taken inline, as retail's
+// hashtable::_M_initialize_buckets does (59 bytes: it reads _M_finish and
+// calls the rowed _M_fill_insert); dllimport + forceinline emits no copy.
+template <> __declspec(dllimport) __forceinline void **vector<void*>::end()
+{ return _M_finish; }
+template <> __declspec(dllimport) __forceinline void vector<void*>::insert(void **pos, size_t n, void *const &x)
+{ _M_fill_insert(pos, n, x); }
 }
 
 class GameWindow;
-class WindowVideo
+class WindowVideo;
+struct Rva002BFDAEEntry
 {
-public:
 	char m_pad[0x0c];
 	void *m_match;
 };
@@ -47,8 +53,8 @@ class Rva000411084
 {
 public:
 	void *next();
-	void *m_current;
-	void *m_owner;
+	void *current; // +0x00
+	void *owner; // +0x04
 };
 
 class LivingWorld
@@ -57,17 +63,17 @@ public:
 	void *FindClickableObject(void *key);
 private:
 	char m_pad[0xac];
-	WindowVideoMap m_map;
+	WindowVideoMap m_AC;
 };
 
 void *LivingWorld::FindClickableObject(void *key)
 {
-	WindowVideoMap::iterator it = m_map.begin();
-	while (((Rva000411084 *)&it)->m_current != 0)
+	WindowVideoMap::iterator it = ((WindowVideoMap *)&m_AC)->begin();
+	while (((Rva000411084 *)&it)->current != 0)
 	{
-		WindowVideo *winVid = it->second;
-		if (winVid->m_match == key)
-			return winVid;
+		Rva002BFDAEEntry *entry = reinterpret_cast<Rva002BFDAEEntry *>(it->second);
+		if (entry->m_match == key)
+			return entry;
 		((Rva000411084 *)&it)->next();
 	}
 	return NULL;

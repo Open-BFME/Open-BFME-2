@@ -20,7 +20,13 @@ template <> void *&_STL::vector<void*>::operator[](size_t);
 namespace _STL {
 template <> size_t vector<void*>::size() const;
 template <> void **vector<void*>::begin();
-template <> void **vector<void*>::end();
+// end() and the fill insert(pos, n, x) are taken inline, as retail's
+// hashtable::_M_initialize_buckets does (59 bytes: it reads _M_finish and
+// calls the rowed _M_fill_insert); dllimport + forceinline emits no copy.
+template <> __declspec(dllimport) __forceinline void **vector<void*>::end()
+{ return _M_finish; }
+template <> __declspec(dllimport) __forceinline void vector<void*>::insert(void **pos, size_t n, void *const &x)
+{ _M_fill_insert(pos, n, x); }
 }
 
 enum NameKeyType
@@ -46,11 +52,18 @@ public:
 	float m_damageCoefficient[38];
 };
 
-class Rva002BF75A
+struct Rva002C00C1Element
 {
 public:
-	void rva002BF7BE();
+	bool operator<(const Rva002C00C1Element&)const;
+	bool operator==(const Rva002C00C1Element&)const;
+	char bytes[1]; // +0x00
 };
+
+typedef _STL::hash_map<int, Rva002C00C1Element, _STL::hash<int>, _STL::equal_to<int>,
+	_STL::allocator<_STL::pair<const int, Rva002C00C1Element> > > LivingWorldTable;
+
+struct Rva002BF75A { LivingWorldTable m_table; ~Rva002BF75A(); void rva002BF75A(void *p); void rva002BF7BE(); };
 
 typedef std::hash_map<
 	NameKeyType,

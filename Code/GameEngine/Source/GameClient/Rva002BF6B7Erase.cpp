@@ -25,6 +25,6 @@ private:
 
 void Rva002BF6B7::rva002BF6B7(void *obj)
 {
-	*(int *)&obj = *(int *)((char *)obj + 0x24);
-	m_map98.eraseSlot((int *)&obj);
+	int key = *(int *)((char *)obj + 0x24);
+	m_map98.eraseSlot(&key);
 }

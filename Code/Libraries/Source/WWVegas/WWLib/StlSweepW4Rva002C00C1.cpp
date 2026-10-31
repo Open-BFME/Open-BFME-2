@@ -63,13 +63,21 @@ template <> __declspec(dllimport) __forceinline void **vector<void*>::end()
 { return _M_finish; }
 template <> __declspec(dllimport) __forceinline void vector<void*>::insert(void **pos, size_t n, void *const &x)
 { _M_fill_insert(pos, n, x); }
+}
 // /Ob1 would leave __less<unsigned> out of line in _M_next_size; retail
 // expands it (48 bytes). Inline only, no external copy.
+namespace _STL {
 template <> __declspec(dllimport) __forceinline less<unsigned int> __less(unsigned int *)
 { return less<unsigned int>(); }
 }
 
-struct Rva002C00C1Element { char bytes[1]; bool operator<(const Rva002C00C1Element&)const; bool operator==(const Rva002C00C1Element&)const; };
+struct Rva002C00C1Element
+{
+public:
+	bool operator<(const Rva002C00C1Element&)const;
+	bool operator==(const Rva002C00C1Element&)const;
+	char bytes[1]; // +0x00
+};
 namespace _STL {template<> struct hash<Rva002C00C1Element> { unsigned operator()(const Rva002C00C1Element&) const; };}
 // Instantiate only the rowed constructor: a whole-class instantiation also
 // emitted members needing the element's undefined operations.
