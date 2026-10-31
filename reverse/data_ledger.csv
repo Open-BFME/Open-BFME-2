@@ -20055,8 +20055,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A03824,4,.data,global,?TheCreateCrateDiePoolKey@?1??getModuleNameKey@CreateCrateDie@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Die/CreateCrateDie.cpp,owned,,1,2
 0x00A03828,4,.data,global,?$S1@?1??getModuleNameKey@CreateCrateDie@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Die/CreateCrateDie.cpp,owned,,1,2
 0x00A0382C,4,.data,global,_s_rva007B123C,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
-0x00A03830,4,.data,global,?TheCreateObjectDiePoolKey@?1??rva0004859EA@CreateObjectDie@@SA?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDiePoolKey.cpp,owned,,1,2
-0x00A03834,4,.data,global,?$S1@?1??rva0004859EA@CreateObjectDie@@SA?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDiePoolKey.cpp,owned,,1,4
+0x00A03830,4,.data,global,?TheCreateObjectDiePoolKey@?1??rva0004859EA@CreateObjectDie@@SA?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDie.cpp,owned,,1,2
+0x00A03834,4,.data,global,?$S1@?1??rva0004859EA@CreateObjectDie@@SA?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDie.cpp,owned,,1,4
 0x00A03838,4,.data,global,?TheCreateObjectDieIfEldestKindofPoolKey@?1??getModuleNameKey@CreateObjectDieIfEldestKindof@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDie.cpp,owned,,1,2
 0x00A0383C,4,.data,global,?$S69@?1??getModuleNameKey@CreateObjectDieIfEldestKindof@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDie.cpp,owned,,1,2
 0x00A03840,4,.data,global,?TheCreateObjectDieIfEldestKindofKey@?1??onDie@CreateObjectDieIfEldestKindof@@UAEXPBVDamageInfo@@@Z@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDie.cpp,owned,,1,2
