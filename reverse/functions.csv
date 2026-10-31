@@ -17186,7 +17186,7 @@ _VP60D_GetVersionNumber,,0x001B5830,6,Code/Libraries/Source/VP6/PbAccessors.cpp,
 ?reverseAnimateWindow@ProcessAnimateWindowSlideFromRight@@UAE_NPAVAnimateWindow@@@Z,,0x005C51E5,233,Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindow.cpp,matched,BFME2 SlideFromRight reverse via O1 home-transcription shard without ZH clamp
 ?get@Rva00452DE8PtrChaseField@@QBEHXZ,,0x00452DE8,7,Code/GameEngine/Source/GameLogic/Object/Behavior/WallHubBehavior.cpp,matched,disp8 pointer-chase dword getter with negative holder; backward cast
 ?get@Rva00462745PtrChaseField@@QBEHXZ,,0x00462745,7,Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp,matched,disp8 pointer-chase dword getter with negative holder; backward cast
-?get@Rva004BDC48PtrChaseField@@QBEHXZ,,0x004BDC48,7,Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp,matched,disp8 pointer-chase dword getter with negative holder; backward cast
+?get@Rva004BDC48PtrChaseField@@QBEHXZ,,0x004BDC48,7,Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp,matched,disp8 pointer-chase dword getter with negative holder; backward cast
 ?get@Rva005C493APtrChaseField@@QBEHXZ,,0x005C493A,7,Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp,matched,disp8 pointer-chase dword getter with negative holder; backward cast
 ?get@Rva004932D5ByteChaseField@@QBEEXZ,,0x004932D5,7,Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp,matched,disp8 byte-chase getter with negative holder; backward cast
 ?get@Rva00495DCDByteChaseField@@QBEEXZ,,0x00495DCD,7,Code/GameEngine/Source/GameLogic/Object/Update/AutoPickUpUpdate.cpp,matched,disp8 byte-chase getter with negative holder; backward cast

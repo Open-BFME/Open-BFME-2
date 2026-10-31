@@ -335,11 +335,47 @@ struct BfmeCopyElementA;
 #include <stddef.h>
 #include <stdlib.h>
 #undef _CRTIMP
+#define BFME_DISP8_PTRCHASE_DWORD_GETTER(NAME, DISP1, DISP2) \
+	class NAME \
+	{ \
+	public: \
+		int get() const; \
+		char m_lead[DISP1]; \
+		void *m_ptr; \
+	}; \
+	int NAME::get() const \
+	{ \
+		return *(int *)((char *)m_ptr + DISP2); \
+	}
+#define BFME_DISP8_PTRCHASE_BEFORE_DWORD_GETTER(NAME, BACK, INNER) \
+	class Inner##NAME \
+	{ \
+	public: \
+		char m_lead[INNER]; \
+		int m_value; \
+	}; \
+	class Sub##NAME \
+	{ \
+	public: \
+		Inner##NAME *m_holder; \
+	}; \
+	class NAME \
+	{ \
+	public: \
+		int get() const; \
+	}; \
+	int NAME::get() const \
+	{ \
+		return ((const Sub##NAME *)((const char *)this - (BACK)))->m_holder->m_value; \
+	}
+
 enum AICommandType
 {
 	AICMD_53 = 0x53
 };
+
 enum CommandSourceType { CMD_FROM_PLAYER, CMD_FROM_SCRIPT, CMD_FROM_AI };
+
 //
 // ?Rva004BFD83Parse@@YAXPAVINI@@PAX1PBX@Z, retail 0x004BFD83 (115B): the
 // DamageCreationList FieldParse proc (row 0x00C5B2F8). Reads an
@@ -355,17 +391,22 @@ public:
 	int scanIndexList(const char *token, const char *const *names);
 	static void parseObjectCreationList(INI *ini, void *instance, void *store, const void *userData);
 };
+
 class ObjectCreationList;
+
 struct Rva004BFD83Entry
 {
 	const ObjectCreationList *m_ocl;
 	int m_damageType;
 	int m_deathType;
 };
+
 // The retail table at RVA 0x009CD7EC: 4 string pointers.
 extern const char *theRockNames[4] = { "NONE", "CATAPULT_ROCK", "TREBUCHET_ROCK", 0 };
+
 // The retail table at RVA 0x009CD7FC: 6 string pointers.
 extern const char *theDamageSideNames[6] = { "NONE", "FRONT_DESTROYED", "RIGHT_DESTROYED", "BACK_DESTROYED", "LEFT_DESTROYED", 0 };
+
 struct PrereqUnitRec;
 
 class BodyModuleInterface;
@@ -1415,6 +1456,94 @@ struct Rva004BFD83Owner
 	unsigned char m_unreconstructed_00[0x58];
 	_STL::vector<Rva004BFD83Entry, _STL::allocator<Rva004BFD83Entry> > m_entries;	// +0x58
 };
+
+BFME_DISP8_PTRCHASE_BEFORE_DWORD_GETTER(Rva004BDC48PtrChaseField, 0x0C, 0x38)
+
+// Address-named indexed pointer-chase getter at retail 0x005F6B12.
+class Rva005F6B12
+{
+public:
+	int rva005F6B12(int index) const;
+private:
+	char m_pad00[4];
+	int *m_values;
+};
+
+// Byte bit-7 getters: ptr-chase byte read plus shr to LSB (bool from high bit).
+// Retail 0x005FC73B is mov eax,[ecx+0x18] / mov al,[eax+0x34] / shr al,7 / ret.
+struct Rva005FC73BPtrChaseInner
+{
+	char m_pad[0x34];
+	unsigned char m_byte;
+};
+
+class Rva005FC73BPtrChaseField
+{
+public:
+	bool get() const;
+	char m_lead[0x18];
+	Rva005FC73BPtrChaseInner *m_ptr;
+};
+
+// Virtual-fallback ptr-chase getter: if bit 3 of the chased byte is set,
+// tail-jump to virtual slot 1; else return the chased pointer.
+// Retail 0x005FC745 is mov eax,[ecx+0x18] / test byte [eax+0x34],8 /
+// je ret / mov eax,[ecx] / jmp [eax+4] / ret.
+struct Rva005FC745PtrChaseInner
+{
+	char m_pad[0x34];
+	unsigned char m_flag;
+};
+
+class Rva005FC745PtrChaseField
+{
+	virtual ~Rva005FC745PtrChaseField() {}
+	virtual void *fetch() const = 0;
+	char m_lead[0x18 - 4];
+public:
+	void *get() const;
+	Rva005FC745PtrChaseInner *m_ptr;
+};
+
+// Clean BFME1 9cbfb551 donor structural leads; native instructions independently
+// establish complete RET boundaries and each raw field operation and ABI.
+// Address-owned carriers retain unknown original receiver identity and bounds.
+
+// ?clear@Rva002D2CDCFields@@QAEPAU1@XZ
+struct Rva002D2CDCFields { unsigned char byte0; Rva002D2CDCFields *clear(); };
+
+// Current BF1 9cbfb551fe20dae985f91f2319d8997287b6a705 ambiguous-min5 leads.
+// Rva00537850IndirectGet.cpp suggests the first operation; list iterator
+// dereference in Rva006CCCA0LoadSchemeVariant.cpp suggests the second.
+// Several donor names share each shape, so no donor owner/type is asserted.
+// Each native entry follows INT3 padding and ends its own RET: 1CD70..1CD76
+// and6F6830..6F6836. They read raw words through independently proved offsets.
+class Rva0001CD70Word
+{
+public:
+ unsigned int get() const;
+ char m_pad00[4];
+ unsigned int *m_ptr;
+};
+
+// 0x0001CDA0 is the same shape with the pointer at receiver offset 8 (1CDA0..1CDA5,
+// INT3 padding before, no reference in the image).
+class Rva0001CDA0Word
+{
+public:
+ unsigned int get() const;
+ char m_pad00[8];
+ unsigned int *m_ptr;
+};
+
+class Rva006F6830Word
+{
+public:
+ unsigned int get() const;
+ unsigned int *m_ptr;
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp
 
@@ -2681,53 +2810,29 @@ NameKeyType ActiveBody::getModuleNameKey() const
 // offset fits, so every offset is at least 0x80).
 // No // cl: line (defaults match the frameless 13-byte shape).
 
-// tu-skeleton: 0x004BDB85 126B ?setMaxHealth@ActiveBody@@UAEXMW4MaxHealthChangeType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Body/ActiveBodySetMaxHealth.cpp (not merged yet)
 
-// tu-skeleton: 0x004BDC1C 9B ??0Rva004BDC1C@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp (not merged yet)
 
-// tu-skeleton: 0x004BDC48 7B ?get@Rva004BDC48PtrChaseField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x004BDC6D 54B ?getSingleBitFromName@?$BitFlags@$0BF@@@SAHPBD@Z -- matched in Code/GameEngine/Source/Common/BitFlags21VeterancyLevelGetSingleBitFromName.cpp (not merged yet)
 
-// tu-skeleton: 0x004BDCA3 9B ??0Rva004BDCA3@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp (not merged yet)
 
-// tu-skeleton: 0x004BDCE2 745B ?updateBodyParticleSystems@Rva0020FE20ActiveBodyInterface@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Body/ActiveBodyParticlesRva004BDCE2.cpp (not merged yet)
 
-// tu-skeleton: 0x004BDFCB 139B ?Rva004BDFCBTest@@YAEPBVObject@@0@Z -- matched in Code/GameEngine/Source/Common/Rva004BDFCB.cpp (not merged yet)
 
-// tu-skeleton: 0x004BE0C7 42B ?rva004BE0C7@Rva004BE0C7@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0028C6FB.cpp (not merged yet)
 
-// tu-skeleton: 0x004BE0F1 47B ?setBitByName@?$BitFlags@$0BF@@@QAE_NPBD@Z -- matched in Code/GameEngine/Source/Common/BitFlags304SetBitByName.cpp (not merged yet)
 
-// tu-skeleton: 0x004BE1AE 156B ?validateArmorAndDamageFX@ActiveBody@@QBEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Body/ActiveBodyValidateArmor.cpp (not merged yet)
 
-// tu-skeleton: 0x004BF186 98B ?setIndestructible@ActiveBody@@UAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody_setIndestructible.cpp (not merged yet)
 
-// tu-skeleton: 0x004BF40F 191B ?rva004BF40F@Rva004BF40F@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/Rva004BF40FLoadPostProcess.cpp (not merged yet)
 
-// tu-skeleton: 0x004BF4CE 209B ??4?$vector@UBfmeE12@@V?$allocator@UBfmeE12@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_e12_assign.cpp (not merged yet)
 
-// tu-skeleton: 0x004BF59F 258B ??0ActiveBodyModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/SupplyTruckAIUpdateModuleDataCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x004BF6A1 423B ??0ActiveBody@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Body/ActiveBodyConstructor.cpp (not merged yet)
 
-// tu-skeleton: 0x004BF88D 6B ?name@ActiveBody@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x004BF893 4B ?get@Rva004BF893LeaField@@QBEPAXXZ -- matched in Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x004BF8AC 11B ?rva004BF8AC@Rva004BF8AC@@QAEHXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAA.cpp (not merged yet)
 
-// tu-skeleton: 0x004BF8D8 7B ?get@Rva004BF8D8ByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp32ByteGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x004BF8DF 14B ?rva004BF8DF@Rva004BF8DF@@QBEHXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp (not merged yet)
 
-// tu-skeleton: 0x004BF8ED 8B ?enable@Rva004BF8EDByteOneSetter@@QAEXXZ -- matched in Code/GameEngine/Source/Common/DispByteOneSetters.cpp (not merged yet)
 
-// tu-skeleton: 0x004BF951 100B ??1ActiveBody@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Body/BodyModuleDeletingDtors.cpp (not merged yet)
 
-// tu-skeleton: 0x004BF9D1 28B ??_GActiveBody@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Body/BodyModuleDeletingDtors.cpp (not merged yet)
 
-// tu-skeleton: 0x004BF9ED 303B ?rva004BF9ED@ActiveBody@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Body/ActiveBodySlot22.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Body/Rva004BFD27Command.cpp
 
@@ -2771,6 +2876,69 @@ void Rva004BFD83Parse(INI *ini, void *instance, void *, const void *)
 
 	((_STL::vector<PrereqUnitRec, _STL::allocator<PrereqUnitRec> > *)&((Rva004BFD83Owner *)instance)->m_entries)->push_back(*(const PrereqUnitRec *)&entry);
 }
+
+// tu-skeleton: 0x004BDB85 126B ?setMaxHealth@ActiveBody@@UAEXMW4MaxHealthChangeType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Body/ActiveBodySetMaxHealth.cpp (not merged yet)
+
+// tu-skeleton: 0x004BDC1C 9B ??0Rva004BDC1C@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp
+
+// Disp8 pointer-chase dword getters: seven-byte __thiscall members with one shape:
+//
+//     mov eax,[ecx+<DISP1>] / mov eax,[eax+<DISP2>] / ret
+//
+// A pointer is read at a fixed displacement from `this`, then a dword is read
+// at a second displacement from that pointer and returned. MSVC 7.1 emits the
+// disp8 loads `8B 41 XX` + `8B 40 XX`, plus `ret`, for seven bytes total.
+// Identity is not recovered: every name is derived from its address.
+// No // cl: line (defaults match the frameless seven-byte shape).
+
+// Backward variant: the holder sits at a NEGATIVE displacement from `this`
+// (a sub-object `this` pointing into a larger object). Spelled as an explicit
+// backward cast, which MSVC folds to `mov eax,[ecx-BACK]`; same shape and
+// reading as BFME1's ChainedFieldGetters.
+
+// tu-skeleton: 0x004BDC6D 54B ?getSingleBitFromName@?$BitFlags@$0BF@@@SAHPBD@Z -- matched in Code/GameEngine/Source/Common/BitFlags21VeterancyLevelGetSingleBitFromName.cpp (not merged yet)
+
+// tu-skeleton: 0x004BDCA3 9B ??0Rva004BDCA3@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x004BDCE2 745B ?updateBodyParticleSystems@Rva0020FE20ActiveBodyInterface@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Body/ActiveBodyParticlesRva004BDCE2.cpp (not merged yet)
+
+// tu-skeleton: 0x004BDFCB 139B ?Rva004BDFCBTest@@YAEPBVObject@@0@Z -- matched in Code/GameEngine/Source/Common/Rva004BDFCB.cpp (not merged yet)
+
+// tu-skeleton: 0x004BE0C7 42B ?rva004BE0C7@Rva004BE0C7@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0028C6FB.cpp (not merged yet)
+
+// tu-skeleton: 0x004BE0F1 47B ?setBitByName@?$BitFlags@$0BF@@@QAE_NPBD@Z -- matched in Code/GameEngine/Source/Common/BitFlags304SetBitByName.cpp (not merged yet)
+
+// tu-skeleton: 0x004BE1AE 156B ?validateArmorAndDamageFX@ActiveBody@@QBEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Body/ActiveBodyValidateArmor.cpp (not merged yet)
+
+// tu-skeleton: 0x004BF186 98B ?setIndestructible@ActiveBody@@UAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody_setIndestructible.cpp (not merged yet)
+
+// tu-skeleton: 0x004BF40F 191B ?rva004BF40F@Rva004BF40F@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/Rva004BF40FLoadPostProcess.cpp (not merged yet)
+
+// tu-skeleton: 0x004BF4CE 209B ??4?$vector@UBfmeE12@@V?$allocator@UBfmeE12@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_e12_assign.cpp (not merged yet)
+
+// tu-skeleton: 0x004BF59F 258B ??0ActiveBodyModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/SupplyTruckAIUpdateModuleDataCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004BF6A1 423B ??0ActiveBody@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Body/ActiveBodyConstructor.cpp (not merged yet)
+
+// tu-skeleton: 0x004BF88D 6B ?name@ActiveBody@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x004BF893 4B ?get@Rva004BF893LeaField@@QBEPAXXZ -- matched in Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x004BF8AC 11B ?rva004BF8AC@Rva004BF8AC@@QAEHXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAA.cpp (not merged yet)
+
+// tu-skeleton: 0x004BF8D8 7B ?get@Rva004BF8D8ByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp32ByteGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x004BF8DF 14B ?rva004BF8DF@Rva004BF8DF@@QBEHXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp (not merged yet)
+
+// tu-skeleton: 0x004BF8ED 8B ?enable@Rva004BF8EDByteOneSetter@@QAEXXZ -- matched in Code/GameEngine/Source/Common/DispByteOneSetters.cpp (not merged yet)
+
+// tu-skeleton: 0x004BF951 100B ??1ActiveBody@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Body/BodyModuleDeletingDtors.cpp (not merged yet)
+
+// tu-skeleton: 0x004BF9D1 28B ??_GActiveBody@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Body/BodyModuleDeletingDtors.cpp (not merged yet)
+
+// tu-skeleton: 0x004BF9ED 303B ?rva004BF9ED@ActiveBody@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Body/ActiveBodySlot22.cpp (not merged yet)
 
 // tu-skeleton: 0x004BFDF6 17B ?buildFieldParse@ActiveBodyModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
 
