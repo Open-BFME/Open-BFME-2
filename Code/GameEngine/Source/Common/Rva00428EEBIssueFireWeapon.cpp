@@ -122,8 +122,8 @@ public:
 
 // Target override receiver and SpecialPowerTemplate ID at +0x14, as read
 // by 0x0042994D after the existing const final-override provider.
-class Overridable { public: const Overridable* friend_getFinalOverride() const; };
-class SpecialPowerTemplate : public Overridable { public: char pad[0x14]; int id; };
+#include "../../Include/Common/Overridable.h"
+class SpecialPowerTemplate : public Overridable { public: char pad[4]; int id; };
 class CommandButton
 {
 public:
