@@ -1,4 +1,4 @@
-// cl: /MD /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /Ireference/shims/bfme2htree /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib /Ireference/shims/archivefile_directory_dtor /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/shims/zh_outofline /Ireference/shims/updatemodule_ctor
+// cl: /MD /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /Ireference/shims/bfme2_htreetu /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib /Ireference/shims/archivefile_directory_dtor /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/shims/zh_outofline /Ireference/shims/updatemodule_ctor
 // stlport
 // TU Code/Libraries/Source/WWVegas/WW3D2/htree.cpp: generated by tools/tu_skeleton.py from tu_map.csv (approved rows, retail order)
 #include <windows.h>
@@ -20,7 +20,6 @@
 #undef BFME_MOTION_CHANNEL_OUT_OF_LINE
 #include <new>
 #include <vector>
-#include "../../../../../reference/shims/bfme2htree/htree.h"
 #include <iterator>
 #include <stl/_algobase.h>
 #include <stl/_iterator_base.h>
@@ -85,11 +84,8 @@ struct Elem36Tail
 
 //
 // HTreeClass destructor, retail 0x001667E0, 26 bytes.
-// Calls Free then the C allocator on the first owned-sequence word at +0x1C.
-// Use the existing htree.h member spelling so the body composes with that TU;
-// the retail field is a pointer, stored by the current header as a 32-bit word.
-
-extern "C" void __cdecl free(void *);
+// Calls Free, then the +0x1C member's inline destructor runs the C allocator
+// on its first word.
 
 // Retail links the size-optimized WeightInfoStruct vector deleting destructor (??_E
 // 0x0004554B); it takes the optimization state of the first function that needs it,
@@ -174,20 +170,6 @@ struct BfmePod36{int Index;CapturedTransform Transform;bool WorldSpace;};
 
 template BfmePod36 *_STL::__copy<BfmePod36 *,BfmePod36 *,int>(BfmePod36 *,BfmePod36 *,BfmePod36 *,const _STL::random_access_iterator_tag &,int *);
 
-// This compact target view is independent of the older pivot.h matrix layout.
-// Scale consumes only its +24 translation and the target-proven 58-byte stride.
-struct HTreeScalePivotView
-{
-public:
-	char Name[16];
-	HTreeScalePivotView *Parent; // +0x10
-	float m_rot[4]; // +0x14
-	float m_tx; // +0x24
-	float m_ty; // +0x28
-	float m_tz; // +0x2C
-	unsigned char m_bfme30[0x58 - 0x30];
-};
-
 // This record view keeps the target-decoded 36-byte stride independently
 // of the shared HTree header. The seed stores its vector words at +1C/+20.
 struct CapturedBone {int Index;Quaternion Rotation;Vector3 Translation;bool WorldSpaceTranslation;};
@@ -226,16 +208,6 @@ _OutputIter __copy(_RandomAccessIter __first, _RandomAccessIter __last, _OutputI
 }
 
 struct BfmePod36;
-
-// The +0x1C member: start, finish, end of storage.  Clear is STLport's
-// erase(begin(), end()).
-struct BfmeRva00166110
-{
-	void Clear();
-	BfmeRva00161350Elem *Start;
-	BfmeRva00161350Elem *Finish;
-	BfmeRva00161350Elem *EndOfStorage;
-};
 
 void *operator new[](unsigned int);
 
@@ -343,29 +315,6 @@ void (Elem36Vector::*const g_elem36PushBack)(const Elem36 &) = &Elem36Vector::pu
 // Retail calls _strcmpi through the CRT import table, whatever _CRTIMP the unit builds with.
 namespace HTreeBoneLookupCrt { extern "C" __declspec(dllimport) int __cdecl _strcmpi(const char *, const char *); }
 
-struct S2CompactTransform
-{
-	Quaternion Q;
-	Vector3 Position;
-	explicit S2CompactTransform(bool init) : Q(init), Position(0.0f, 0.0f, 0.0f) {}
-};
-
-struct PivotClass;
-
-// BFME 2's 0x58-byte pivot, read through a cast because the shared htree.h
-// types HTreeClass::Pivot with Zero Hour's older pivot.h layout.
-struct HTreeCompactPivotView
-{
-	char Name[16];
-	HTreeCompactPivotView *Parent;
-	S2CompactTransform Base, Current;
-	int Index;
-	bool IsVisible;
-	float PivotFade;
-};
-
-typedef char CompactPivotSize[(sizeof(HTreeCompactPivotView) == 0x58) ? 1 : -1];
-
 class ParkingPlaceBehavior
 {
 public:
@@ -429,7 +378,7 @@ int HTreeClass::Get_Bone_Index(const char * name) const
 	int i = 0;
 	if (NumPivots > i) {
 		do {
-			if (HTreeBoneLookupCrt::_strcmpi(reinterpret_cast<HTreeCompactPivotView *>(Pivot)[i].Name, name) == 0) {
+			if (HTreeBoneLookupCrt::_strcmpi(Pivot[i].Name, name) == 0) {
 				return i;
 			}
 			++i;
@@ -443,7 +392,7 @@ const char * HTreeClass::Get_Bone_Name(int boneidx) const
 	assert(boneidx >= 0);
 	assert(boneidx < NumPivots);
 
-	return reinterpret_cast<HTreeCompactPivotView *>(Pivot)[boneidx].Name;
+	return Pivot[boneidx].Name;
 }
 
 int HTreeClass::Get_Parent_Index(int bone_indx) const
@@ -451,14 +400,14 @@ int HTreeClass::Get_Parent_Index(int bone_indx) const
 	assert(bone_indx >= 0);
 	assert(bone_indx < NumPivots);
 
-	if (reinterpret_cast<HTreeCompactPivotView *>(Pivot)[bone_indx].Parent != NULL) {
-		return reinterpret_cast<HTreeCompactPivotView *>(Pivot)[bone_indx].Parent->Index;
+	if (Pivot[bone_indx].Parent != NULL) {
+		return Pivot[bone_indx].Parent->Index;
 	} else {
 		return 0;
 	}
 }
 
-static __forceinline Matrix3D &S2PivotMatrix(const Quaternion &Q, const S2CompactTransform &transform, Matrix3D &matrix)
+static __forceinline Matrix3D &S2PivotMatrix(const Quaternion &Q, const CompactTransform &transform, Matrix3D &matrix)
 {
 	const float xx = Q.X * Q.X * 2.0f, xy = 2.0f * (Q.X * Q.Y), xz = Q.Z * Q.X * 2.0f, wx = Q.W * Q.X * 2.0f;
 	const float yy = Q.Y * Q.Y * 2.0f, yz = Q.Z * Q.Y * 2.0f, wy = Q.W * Q.Y * 2.0f;
@@ -493,7 +442,7 @@ static __forceinline void baseRotate(const Quaternion &rotation, const Vector3 &
 	out->Z = rz;
 }
 
-static __forceinline void baseCompose(const S2CompactTransform &a, const S2CompactTransform &b, S2CompactTransform &result)
+static __forceinline void baseCompose(const CompactTransform &a, const CompactTransform &b, CompactTransform &result)
 {
 	Vector3 rotatedPosition;
 	baseRotate(a.Q, b.Position, &rotatedPosition);
@@ -522,16 +471,16 @@ bool HTreeClass::Simple_Evaluate_Pivot(int pivot_index, const Matrix3D &obj_tm, 
 	if (pivot_index < 0 || pivot_index >= NumPivots) {
 		return false;
 	}
-	S2CompactTransform total(true);
+	CompactTransform total(true);
 	//
 	//	Loop over the hierarchy of pivots that this pivot is
 	// attached to and transform each.
 	//
-	for (HTreeCompactPivotView *pivot = &reinterpret_cast<HTreeCompactPivotView *>(Pivot)[pivot_index]; pivot != NULL && pivot->Parent != NULL; pivot = pivot->Parent) {
+	for (PivotClass *pivot = &Pivot[pivot_index]; pivot != NULL && pivot->Parent != NULL; pivot = pivot->Parent) {
 		//
 		//	Transform the return value by this transform
 		//
-		baseCompose(pivot->Base, total, total);
+		baseCompose(pivot->BaseTransform, total, total);
 	}
 	S2PivotMatrix(total.Q, total, *end_tm);
 	//
@@ -590,8 +539,8 @@ void HTreeClass::Scale(float factor)
 	}
 
 	for (int i = 0; i < NumPivots; i++) {
-		HTreeScalePivotView &piv = reinterpret_cast<HTreeScalePivotView *>(Pivot)[i];
-		float *trans = &piv.m_tx;
+		PivotClass &piv = Pivot[i];
+		float *trans = &piv.BaseTransform.Position.X;
 		trans[0] *= factor;
 		trans[1] *= factor;
 		trans[2] *= factor;
@@ -756,9 +705,6 @@ HTreeClass::HTreeClass(void) :
 	ScaleFactor(1.0f)
 {
 	// BFME's six extra members and an empty name.
-	OwnedSequence1C[0] = 0;
-	OwnedSequence1C[1] = 0;
-	OwnedSequence1C[2] = 0;
 	Unknown28 = 0;
 	Unknown2C = 0;
 	Unknown30 = 0;
@@ -972,23 +918,22 @@ HTreeClass * HTreeClass::Alter_Avatar_HTree( const HTreeClass *tree, Vector3 &sc
 		}
 
 		// Get the positions of the pivot and the pivot's parent in worldspace & apply the altering scale to it
-		Vector3 pivot_pos = piv.Transform.Get_Translation();
-		Vector3 pivot_parent_pos = piv.Parent->Transform.Get_Translation();
+		Vector3 pivot_pos = piv.Transform.Position;
+		Vector3 pivot_parent_pos = piv.Parent->Transform.Position;
 		pivot_pos.Scale(adjusted_scale);
 		pivot_parent_pos.Scale(adjusted_scale);
 
-		// Get the pivot's parent's inverse transform
-		Matrix3D parent_inverse_transform;
-		piv.Parent->Transform.Get_Inverse(parent_inverse_transform);
+		// Get the pivot's parent's inverse rotation
+		Quaternion parent_inverse_rotation = Inverse(piv.Parent->Transform.Q);
 
 		// Get the new desired vector in worldspace
 		Vector3 new_relative_vector = pivot_pos - pivot_parent_pos;
 
-		// Rotate the new vector by the pivot's parent's inverse transform to put it in local space 
-		new_relative_vector = parent_inverse_transform.Rotate_Vector(new_relative_vector);
+		// Rotate the new vector by the pivot's parent's inverse rotation to put it in local space 
+		new_relative_vector = parent_inverse_rotation.Rotate_Vector(new_relative_vector);
 
 		// Store the final result in the new HTree
-		new_tree->Pivot[pi].BaseTransform.Set_Translation( new_relative_vector );
+		new_tree->Pivot[pi].BaseTransform.Position = new_relative_vector;
 	}
 
 	return new_tree;
@@ -1018,12 +963,12 @@ HTreeClass * HTreeClass::Create_Morphed(	int num_morph_sources,
 
 		Vector3 pos(0.0f,0.0f,0.0f);
 		for(int nm = 0; nm < num_morph_sources; nm++) {
-			pos.X += tree_array[nm]->Pivot[pi].BaseTransform.Get_Translation().X*morph_weights[nm];
-			pos.Y += tree_array[nm]->Pivot[pi].BaseTransform.Get_Translation().Y*morph_weights[nm];
-			pos.Z += tree_array[nm]->Pivot[pi].BaseTransform.Get_Translation().Z*morph_weights[nm];
+			pos.X += tree_array[nm]->Pivot[pi].BaseTransform.Position.X*morph_weights[nm];
+			pos.Y += tree_array[nm]->Pivot[pi].BaseTransform.Position.Y*morph_weights[nm];
+			pos.Z += tree_array[nm]->Pivot[pi].BaseTransform.Position.Z*morph_weights[nm];
 		}
 
-		new_tree->Pivot[pi].BaseTransform.Set_Translation( pos );
+		new_tree->Pivot[pi].BaseTransform.Position = pos;
 	}
 
 	return new_tree;
@@ -1049,16 +994,16 @@ HTreeClass * HTreeClass::Create_Interpolated(	const HTreeClass * tree_a0_b0,
 	for (int pi = 0; pi < new_tree->NumPivots; pi++) {
 
 // ?Lerp@Vector3@@ present-unmatched
-		Vector3::Lerp( tree_a0_b0->Pivot[pi].BaseTransform.Get_Translation(),
-							  		  tree_a0_b1->Pivot[pi].BaseTransform.Get_Translation(),
+		Vector3::Lerp( tree_a0_b0->Pivot[pi].BaseTransform.Position,
+							  		  tree_a0_b1->Pivot[pi].BaseTransform.Position,
 									  lerp_b, &pos_a0 );
 // ?Lerp@Vector3@@ present-unmatched
-		Vector3::Lerp( tree_a1_b0->Pivot[pi].BaseTransform.Get_Translation(),
-									  tree_a1_b1->Pivot[pi].BaseTransform.Get_Translation(),
+		Vector3::Lerp( tree_a1_b0->Pivot[pi].BaseTransform.Position,
+									  tree_a1_b1->Pivot[pi].BaseTransform.Position,
 									  lerp_b, &pos_a1 );
 		Vector3::Lerp( pos_a0, pos_a1, lerp_a, &pos );
 
-		new_tree->Pivot[pi].BaseTransform.Set_Translation( pos );
+		new_tree->Pivot[pi].BaseTransform.Position = pos;
 	}
 
 	return new_tree;
@@ -1088,17 +1033,17 @@ HTreeClass * HTreeClass::Create_Interpolated(const HTreeClass * tree_base,
 		for (int pi = 0; pi < new_tree->NumPivots; pi++) {
 
 // ?Lerp@Vector3@@ present-unmatched
-			Vector3::Lerp( tree_base->Pivot[pi].BaseTransform.Get_Translation(),
-							  			 tree_a->Pivot[pi].BaseTransform.Get_Translation(),
+			Vector3::Lerp( tree_base->Pivot[pi].BaseTransform.Position,
+							  			 tree_a->Pivot[pi].BaseTransform.Position,
 										 a_scale, &pos_a );
 // ?Lerp@Vector3@@ present-unmatched
-			Vector3::Lerp( tree_base->Pivot[pi].BaseTransform.Get_Translation(),
-										 tree_b->Pivot[pi].BaseTransform.Get_Translation(),
+			Vector3::Lerp( tree_base->Pivot[pi].BaseTransform.Position,
+										 tree_b->Pivot[pi].BaseTransform.Position,
 										 b_scale, &pos_b );
 
 			pos   = (pos_a * a_scale_abs + pos_b * b_scale_abs ) / ( a_scale_abs + b_scale_abs );
 
-			new_tree->Pivot[pi].BaseTransform.Set_Translation( pos );
+			new_tree->Pivot[pi].BaseTransform.Position = pos;
 		}
 	}
 
@@ -1130,9 +1075,9 @@ HTreeClass * HTreeClass::Create_Interpolated(const HTreeClass * tree_base,
 // ?Is_Bone_Captured@HTreeClass@@QBE_NH@Z
 bool HTreeClass::Is_Bone_Captured(int boneindex) const
 {
-	BfmePod36 *bone = reinterpret_cast<BfmePod36 *>(OwnedSequence1C[0]);
-	while (bone != reinterpret_cast<BfmePod36 *>(OwnedSequence1C[1]) && bone->Index < boneindex) ++bone;
-	return bone != reinterpret_cast<BfmePod36 *>(OwnedSequence1C[1]) && bone->Index == boneindex;
+	BfmePod36 *bone = OwnedSequence1C.Start;
+	while (bone != OwnedSequence1C.Finish && bone->Index < boneindex) ++bone;
+	return bone != OwnedSequence1C.Finish && bone->Index == boneindex;
 }
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/htree_control.cpp
@@ -1145,9 +1090,9 @@ bool HTreeClass::Is_Bone_Captured(int boneindex) const
 
 void HTreeClass::Control_Bone(int boneindex,const Matrix3D &relative_tm,bool world_space_translation)
 {
- CapturedBone *bone=reinterpret_cast<CapturedBone *>(OwnedSequence1C[0]);
- while(bone!=reinterpret_cast<CapturedBone *>(OwnedSequence1C[1]) && bone->Index<boneindex) ++bone;
- if(bone==reinterpret_cast<CapturedBone *>(OwnedSequence1C[1]) || bone->Index!=boneindex) return;
+ CapturedBone *bone=reinterpret_cast<CapturedBone *>(OwnedSequence1C.Start);
+ while(bone!=reinterpret_cast<CapturedBone *>(OwnedSequence1C.Finish) && bone->Index<boneindex) ++bone;
+ if(bone==reinterpret_cast<CapturedBone *>(OwnedSequence1C.Finish) || bone->Index!=boneindex) return;
  bone->WorldSpaceTranslation=world_space_translation;
  bone->Rotation=Build_Quaternion(relative_tm);
  bone->Translation.X=relative_tm.Get_X_Translation();
@@ -1169,9 +1114,9 @@ void HTreeClass::Get_Bone_Control(int index,Matrix3D &out) const
  // body from emitting a second Matrix3D accessor under its own flags.
  typedef float MatrixWords[3][4];
  MatrixWords &matrix=*reinterpret_cast<MatrixWords *>(&out);
- CapturedBone *bone=reinterpret_cast<CapturedBone *>(OwnedSequence1C[0]);
- while(bone!=reinterpret_cast<CapturedBone *>(OwnedSequence1C[1]) && bone->Index<index) ++bone;
- if(bone==reinterpret_cast<CapturedBone *>(OwnedSequence1C[1]) || bone->Index!=index) {
+ CapturedBone *bone=reinterpret_cast<CapturedBone *>(OwnedSequence1C.Start);
+ while(bone!=reinterpret_cast<CapturedBone *>(OwnedSequence1C.Finish) && bone->Index<index) ++bone;
+ if(bone==reinterpret_cast<CapturedBone *>(OwnedSequence1C.Finish) || bone->Index!=index) {
   matrix[0][0]=1.0f;matrix[0][1]=0.0f;matrix[0][2]=0.0f;matrix[0][3]=0.0f;
   matrix[1][0]=0.0f;matrix[1][1]=1.0f;matrix[1][2]=0.0f;matrix[1][3]=0.0f;
   matrix[2][0]=0.0f;matrix[2][1]=0.0f;matrix[2][2]=1.0f;matrix[2][3]=0.0f;
@@ -1220,8 +1165,8 @@ void HTreeClass::Get_Bone_Control(int index,Matrix3D &out) const
 
 void HTreeClass::Release_Bone(int boneindex)
 {
-    BfmeRva00161350Elem *p = reinterpret_cast<BfmeRva00161350Elem *>(OwnedSequence1C[0]);
-    BfmeRva00161350Elem *end = reinterpret_cast<BfmeRva00161350Elem *>(OwnedSequence1C[1]);
+    BfmeRva00161350Elem *p = OwnedSequence1C.Start;
+    BfmeRva00161350Elem *end = OwnedSequence1C.Finish;
     if (p == end)
         return;
     do {
@@ -1231,13 +1176,13 @@ void HTreeClass::Release_Bone(int boneindex)
     } while (p != end);
     return;
 found:
-    BfmeRva00161350Elem *finish = *(BfmeRva00161350Elem * volatile *)&OwnedSequence1C[1];
+    BfmeRva00161350Elem *finish = *(BfmeRva00161350Elem * volatile *)&OwnedSequence1C.Finish;
     BfmeRva00161350Elem *next = p + 1;
     if (next != finish) {
         _STL::random_access_iterator_tag tag;
         _STL::__copy(next, finish, p, tag, (int *)0);
     }
-    OwnedSequence1C[1] -= sizeof(BfmeRva00161350Elem);
+    --OwnedSequence1C.Finish;
 }
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/Rva001665B0Finish.cpp
@@ -1306,7 +1251,7 @@ void HTreeClass::Free(void)
 
 	// Retail inlines the erase here; keep its separately rowed Clear provider
 	// independent so a TU carve can retain that body in the residual.
-	BfmeRva00166110 &sequence = *reinterpret_cast<BfmeRva00166110 *>(OwnedSequence1C);
+	BfmeRva00166110 &sequence = OwnedSequence1C;
 	BfmeRva00161350Elem *first = sequence.Start;
 	BfmeRva00161350Elem *last = sequence.Finish;
 	_STL::random_access_iterator_tag tag;
@@ -1374,8 +1319,6 @@ void HTreeClass::rva00160FC0(Rva00160FC0Input *next)
 HTreeClass::~HTreeClass()
 {
 	Free();
-	if (OwnedSequence1C[0])
-		free(reinterpret_cast<void *>(OwnedSequence1C[0]));
 }
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/HTreeClassCaptureBone.cpp
@@ -1401,8 +1344,7 @@ HTreeClass::~HTreeClass()
 // ?Capture_Bone@HTreeClass@@QAEXH@Z
 void HTreeClass::Capture_Bone(int boneindex)
 {
-	// The seed retains the vector as its three 32-bit storage words.
-	Elem36Vector &bones=*reinterpret_cast<Elem36Vector *>(OwnedSequence1C);
+	Elem36Vector &bones=*reinterpret_cast<Elem36Vector *>(&OwnedSequence1C);
 	Elem36 bone;
 	bone.Index = boneindex;
 	bone.WorldSpace = false;
@@ -1411,7 +1353,7 @@ void HTreeClass::Capture_Bone(int boneindex)
 	bone.Transform.Translation.X=0.0f; bone.Transform.Translation.Y=0.0f; bone.Transform.Translation.Z=0.0f;
 
 	Elem36 *it = bones.begin();
-	Elem36 *end = reinterpret_cast<Elem36 *>(OwnedSequence1C[1]);
+	Elem36 *end = reinterpret_cast<Elem36 *>(OwnedSequence1C.Finish);
  while (it != end) {
   if(it->Index == boneindex) {
    it->Index=boneindex;
@@ -1428,7 +1370,7 @@ void HTreeClass::Capture_Bone(int boneindex)
   }
   ++it;
  }
- if(it == reinterpret_cast<Elem36 *>(OwnedSequence1C[1])) bones.push_back(bone);
+ if(it == reinterpret_cast<Elem36 *>(OwnedSequence1C.Finish)) bones.push_back(bone);
 }
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00162860.cpp

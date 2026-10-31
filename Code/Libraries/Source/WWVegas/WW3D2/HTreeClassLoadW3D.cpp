@@ -1,4 +1,5 @@
-// cl: /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /MD /EHsc /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /Ireference/shims/bfme2_htreetu /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib /Ireference/shims/archivefile_directory_dtor /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/shims/zh_outofline /Ireference/shims/updatemodule_ctor
+// stlport
 //
 // ?Load_W3D@HTreeClass@@QAEHAAVChunkLoadClass@@@Z, retail 0x00166800..0x00166973
 // (371B), thiscall ret 4.
@@ -16,8 +17,6 @@
 // (0x00614F50 / 0x00615020 / 0x006151A0 / 0x00614FC0) and the rowed
 // read_pivots 0x001614F0.
 
-typedef unsigned long uint32;
-
 // The compiler-generated vector constructor iterator (??_H) takes the
 // optimization state of the first function that needs it; retail links one
 // copy, the /O1 body at 0x00001423. This unemitted anchor (as in
@@ -27,58 +26,11 @@ struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #pragma optimize("", on)
 
-class ChunkLoadClass
-{
-public:
-	bool Open_Chunk();
-	bool Close_Chunk();
-	uint32 Cur_Chunk_ID();
-	uint32 Read(void *buffer, uint32 bytes);
-};
-
-struct W3dVectorStruct
-{
-	float x, y, z;
-};
-
-struct W3dHierarchyStruct
-{
-	uint32 Version;
-	char Name[16];
-	uint32 NumPivots;
-	W3dVectorStruct Center;
-};
-
-// BFME 2's pivot is 0x58 bytes (HTreeClassInitDefault.cpp) with no destructor,
-// so new[] carries no cookie.
-class PivotClass
-{
-public:
-	PivotClass();
-
-private:
-	unsigned char m_data[0x58];
-};
-
-#include <new>
+#include <windows.h>
+#include "htree.h"
+#include "chunkio.h"
+#include "w3d_file.h"
 #include <string.h>
-
-class HTreeClass
-{
-public:
-	enum { OK, LOAD_ERROR };
-
-	int Load_W3D(ChunkLoadClass &cload);
-	void Free();
-
-private:
-	bool read_pivots(ChunkLoadClass &cload, bool pre30);
-
-	char Name[16];
-	int NumPivots;
-	PivotClass *Pivot;
-	float ScaleFactor;
-};
 
 #pragma intrinsic(memcpy)
 
