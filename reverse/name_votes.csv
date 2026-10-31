@@ -19186,3 +19186,9 @@ Code/Libraries/Source/WWVegas/WWLib/Rva00502787Clear.cpp|member|Rva00502787Heade
 Code/GameEngine/Source/GameNetwork/Rva008030C0FeslPoolInit.cpp|local|Rva00803080::initPool|p,0fdfd7c1d0617cfbe2b10659,drz-k9,n25f2-k9-20,w-4d4d8f8584bc,2026-10-31
 Code/GameEngine/Source/GameNetwork/Rva007F7030Request.cpp|class||Rva007F7030,590fc701c9e56eb5cb9b8908,drz-k3,n25g2-k3-1,w-077d7aeb666b,2026-10-31
 Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIBattleResolverRva005CF937Constructor.cpp|class||Rva005CF937Owner,ad3abd7818c58f7150ea4928,drz-k3,n25g2-k3-4,w-077d7aeb666b,2026-10-31
+Code/GameEngine/Source/GameClient/Rva00419331Insert.cpp|function|0x00419331|rva00419331,8ad4c68fb65425c6f0ae1026,drz-k9,drz-k9-1,w-4d4d8f8584bc,2026-10-31
+Code/GameEngine/Source/GameClient/Rva00419331Insert.cpp|function|0x004193AD|rva004193AD,6bcbb6b6da8a02a6720043dd,drz-k9,drz-k9-1,w-4d4d8f8584bc,2026-10-31
+Code/GameEngine/Source/GameClient/Rva001F93A3Insert.cpp|function|0x001FA45F|rva001FA45F,9c948d65fb98e2351b73cc78,drz-k9,drz-k9-2,w-4d4d8f8584bc,2026-10-31
+Code/GameEngine/Source/Common/Rva0040334BLoop.cpp|class||Rva0040334BElem,5cc8c42520d40a1285e980b9,drz-k9,drz-k9-10,w-4d4d8f8584bc,2026-10-31
+Code/GameEngine/Source/Common/CommandLineFile.cpp|function|0x003B9F56|Rva003B9F56Parse,84e83adaa8a2d5323b5558d2,drz-k9,drz-k9-15,w-4d4d8f8584bc,2026-10-31
+Code/GameEngine/Source/Common/CommandLineFile.cpp|function|0x003BA30A|Rva003BA30AParse,4508dc527e419a167c0ea3c3,drz-k9,drz-k9-15,w-4d4d8f8584bc,2026-10-31
