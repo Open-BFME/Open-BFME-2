@@ -11885,7 +11885,7 @@ $L979,,0x007A927C,11,Code/Libraries/Source/Apt/AptAnimationPoolDataCtor.cpp,matc
 ?get@Rva0049002DByteField@@QBEEXZ,,0x0049002D,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter; address-derived opaque holder
 ?get@Rva004EA03AByteField@@QBEEXZ,,0x004EA03A,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter; address-derived opaque holder
 ?get@Rva00564B06ByteField@@QBEEXZ,,0x00564B06,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter; address-derived opaque holder
-?get@Rva005C4FEBByteField@@QBEEXZ,,0x005C4FEB,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter; address-derived opaque holder
+?get@Rva005C4FEBByteField@@QBEEXZ,,0x005C4FEB,4,Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindow.cpp,matched,Disp8 byte getter; address-derived opaque holder
 ?get@Rva005CC936ByteField@@QBEEXZ,,0x005CC936,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter; address-derived opaque holder
 ?get@Rva005FD047ByteField@@QBEEXZ,,0x005FD047,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter; address-derived opaque holder
 ?get@Rva00614DA0ByteField@@QBEEXZ,,0x00614DA0,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter; address-derived opaque holder

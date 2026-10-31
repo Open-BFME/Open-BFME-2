@@ -32,24 +32,20 @@ static void bfmeVciAnchorSpiralUpdate()
 #define inline static inline
 #include <math.h>
 #undef inline
-#pragma optimize("gsy", on)
-static void bfmeVciAnchorSpiralReverse()
-{
-    struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
-    BfmeVciAnchorElem anchor[2];
-    (void)anchor;
-}
-#pragma optimize("", on)
 #define inline static inline
 #undef inline
-#pragma optimize("gsy", on)
-static void bfmeVciAnchorSlideFromRightUpdate()
-{
-    struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
-    BfmeVciAnchorElem anchor[2];
-    (void)anchor;
-}
-#pragma optimize("", on)
+#define BFME_DISP8_BYTE_GETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		unsigned char get() const; \
+		char m_lead[DISP]; \
+		unsigned char m_value; \
+	}; \
+	unsigned char NAME::get() const \
+	{ \
+		return m_value; \
+	}
 
 // BFME1 donor definitions below remain candidate source only;
 // markers are bookkeeping and do not establish BFME2 byte identity.
@@ -100,9 +96,104 @@ public:
 	virtual unsigned getWidth();
 };
 
+BFME_DISP8_BYTE_GETTER(Rva005C4FEBByteField, 0x41)
+
+class Rva001DCD05
+{
+public:
+	void *rva001DCD05();
+private:
+	char m_pad[8];
+	char m_08;
+	char m_pad2[0x14 - 0x09];
+	char m_14;
+	char m_pad3[0x20 - 0x15];
+	unsigned char m_20;
+	bool m_21;
+};
+
+// Clean BFME1 9cbfb551 donor structural leads; native instructions independently
+// establish complete RET boundaries and each raw field operation and ABI.
+// Address-owned carriers retain unknown original receiver identity and bounds.
+
+// ?setBit2@Rva0030000CFields@@QAEXXZ
+struct Rva0030000CFields { char pad[0x44]; unsigned int flags44; void setBit2(); };
+
+// Clean BFME1 9cbfb551 donor structural leads; native instructions independently
+// establish complete RET boundaries and each raw field operation and ABI.
+// Address-owned carriers retain unknown original receiver identity and bounds.
+
+// ?matches@Rva0056AB88Fields@@QBE_NI@Z
+struct Rva0056AB88Fields { char pad[0xC]; unsigned int wordC; bool matches(unsigned int value) const; };
+
+// Disp8 byte setter: mov al,[esp+4] / mov [ecx+<DISP>],al / ret 4 (10 bytes).
+// Address-derived class; the stored byte's meaning is unproven.
+class Rva0065D7C0ByteSetter
+{
+public:
+	void set(unsigned char value);
+	char m_lead[0x1D];
+	unsigned char m_value;
+};
+
+// ?rva002259F3@Rva002259F3@@QBEHXZ, retail 0x002259F3 (25B): three flag bytes at
+// +0x44 (must be set), +0xA8 and +0x9D (must be clear).
+class Rva002259F3
+{
+public:
+	int rva002259F3() const;
+private:
+	char m_pad00[0x44];
+	unsigned char m_44;
+	char m_pad45[0x9D - 0x45];
+	unsigned char m_9d;
+	char m_pad9E[0xA8 - 0x9E];
+	unsigned char m_a8;
+};
+
 // tu-skeleton: 0x005C4F88 29B ??_GProcessAnimateWindow@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindowSpiralCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x005C4FEB 4B ?get@Rva005C4FEBByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp
+
+// Disp8 byte getters: four-byte __thiscall members with one shape:
+//
+//     mov al,[ecx+<DISP>] / ret
+//
+// One BYTE is read at a fixed displacement from `this` and left in al. The
+// return type is spelled `unsigned char` because only al is written and the
+// upper bytes of eax are left holding whatever the caller had; the bytes
+// cannot distinguish it from `signed char`, `bool` or a one-byte enum.
+// This is the small-offset sibling of the disp32 family in
+// DispByteFieldGetters.cpp (MSVC 7.1 uses disp8 whenever the offset fits,
+// so every offset here fits in a signed byte). Members before the accessed
+// one are spelled as a lead array because their types are not witnessed
+// here, only their total size. Identity is not recovered: every name is
+// derived from its address.
+// No // cl: line (defaults match the frameless four-byte shape).
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindow.cpp
+
+#pragma optimize("gsy", on)
+
+static void bfmeVciAnchorSpiralReverse()
+{
+    struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
+    BfmeVciAnchorElem anchor[2];
+    (void)anchor;
+}
+
+#pragma optimize("", on)
+
+#pragma optimize("gsy", on)
+
+static void bfmeVciAnchorSlideFromRightUpdate()
+{
+    struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
+    BfmeVciAnchorElem anchor[2];
+    (void)anchor;
+}
+
+#pragma optimize("", on)
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindow.cpp
 
@@ -835,28 +926,6 @@ Bool ProcessAnimateWindowSlideFromRight::reverseAnimateWindow( AnimateWindow *an
 	return FALSE;
 }
 
-// tu-skeleton: 0x005C50A8 106B ?initReverseAnimateWindow@ProcessAnimateWindowSlideFromRight@@UAEXPAVAnimateWindow@@I@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindowRightFastInitReverse.cpp (not merged yet)
-
-// tu-skeleton: 0x005C5112 211B ?initAnimateWindow@ProcessAnimateWindowSlideFromRight@@UAEXPAVAnimateWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindowRightFastInitReverse.cpp (not merged yet)
-
-// tu-skeleton: 0x005C530D 208B ?initAnimateWindow@ProcessAnimateWindowSlideFromLeft@@UAEXPAVAnimateWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindowRightFastInitReverse.cpp (not merged yet)
-
-// tu-skeleton: 0x005C53DD 223B ?updateAnimateWindow@ProcessAnimateWindowSlideFromLeft@@UAE_NPAVAnimateWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/SlideLeftUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x005C54BC 233B ?reverseAnimateWindow@ProcessAnimateWindowSlideFromLeft@@UAE_NPAVAnimateWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/SlideLeftUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x005C55E4 208B ?initAnimateWindow@ProcessAnimateWindowSlideFromTop@@UAEXPAVAnimateWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindowRightFastInitReverse.cpp (not merged yet)
-
-// tu-skeleton: 0x005C56F3 209B ?initAnimateWindow@ProcessAnimateWindowSlideFromBottom@@UAEXPAVAnimateWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindowRightFastInitReverse.cpp (not merged yet)
-
-// tu-skeleton: 0x005C57C4 228B ?updateAnimateWindow@ProcessAnimateWindowSlideFromBottom@@UAE_NPAVAnimateWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindowRightFastInitReverse.cpp (not merged yet)
-
-// tu-skeleton: 0x005C58A8 232B ?reverseAnimateWindow@ProcessAnimateWindowSlideFromBottom@@UAE_NPAVAnimateWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindowRightFastInitReverse.cpp (not merged yet)
-
-// tu-skeleton: 0x005C59AC 140B ?initReverseAnimateWindow@ProcessAnimateWindowSlideFromBottomTimed@@UAEXPAVAnimateWindow@@I@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindowRightFastInitReverse.cpp (not merged yet)
-
-// tu-skeleton: 0x005C5A38 191B ?initAnimateWindow@ProcessAnimateWindowSlideFromBottomTimed@@UAEXPAVAnimateWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindowRightFastInitReverse.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindowSpiralInitReverse.cpp
 
 // Shard for Spiral::initReverseAnimateWindow: retail 0x005C5BE2 is a framed
@@ -889,8 +958,6 @@ void ProcessAnimateWindowSpiral::initReverseAnimateWindow( AnimateWindow *animWi
 	animWin->setVel( vel );
 
 }
-
-// tu-skeleton: 0x005C5C31 258B ?initAnimateWindow@ProcessAnimateWindowSpiral@@UAEXPAVAnimateWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindowRightFastInitReverse.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindowSpiralUpdate.cpp
 
@@ -1028,18 +1095,6 @@ Bool ProcessAnimateWindowSpiral::reverseAnimateWindow( AnimateWindow *animWin )
 	return FALSE;
 }
 
-// tu-skeleton: 0x005C5FC4 102B ?initReverseAnimateWindow@ProcessAnimateWindowSlideFromTopFast@@UAEXPAVAnimateWindow@@I@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindowRightFastInitReverse.cpp (not merged yet)
-
-// tu-skeleton: 0x005C602A 220B ?initAnimateWindow@ProcessAnimateWindowSlideFromTopFast@@UAEXPAVAnimateWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindowRightFastInitReverse.cpp (not merged yet)
-
-// tu-skeleton: 0x005C6106 232B ?updateAnimateWindow@ProcessAnimateWindowSlideFromTop@@UAE_NPAVAnimateWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/SlideTopUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x005C61EE 234B ?reverseAnimateWindow@ProcessAnimateWindowSlideFromTopFast@@UAE_NPAVAnimateWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/SlideTopUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x005C631E 175B ?initReverseAnimateWindow@ProcessAnimateWindowSlideFromRightFast@@UAEXPAVAnimateWindow@@I@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindowRightFastInitReverse.cpp (not merged yet)
-
-// tu-skeleton: 0x005C63CD 241B ?initAnimateWindow@ProcessAnimateWindowSlideFromRightFast@@UAEXPAVAnimateWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindowRightFastInitReverse.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindowSlideFromRightUpdate.cpp
 
 // Target boundary 0x005C64BE/219. Identity evidence: the matched
@@ -1111,5 +1166,41 @@ Bool ProcessAnimateWindowSlideFromRight::updateAnimateWindow( AnimateWindow *ani
 	animWin->setVel(slowedVel);
 	return FALSE;
 }
+
+// tu-skeleton: 0x005C50A8 106B ?initReverseAnimateWindow@ProcessAnimateWindowSlideFromRight@@UAEXPAVAnimateWindow@@I@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindowRightFastInitReverse.cpp (not merged yet)
+
+// tu-skeleton: 0x005C5112 211B ?initAnimateWindow@ProcessAnimateWindowSlideFromRight@@UAEXPAVAnimateWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindowRightFastInitReverse.cpp (not merged yet)
+
+// tu-skeleton: 0x005C530D 208B ?initAnimateWindow@ProcessAnimateWindowSlideFromLeft@@UAEXPAVAnimateWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindowRightFastInitReverse.cpp (not merged yet)
+
+// tu-skeleton: 0x005C53DD 223B ?updateAnimateWindow@ProcessAnimateWindowSlideFromLeft@@UAE_NPAVAnimateWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/SlideLeftUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x005C54BC 233B ?reverseAnimateWindow@ProcessAnimateWindowSlideFromLeft@@UAE_NPAVAnimateWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/SlideLeftUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x005C55E4 208B ?initAnimateWindow@ProcessAnimateWindowSlideFromTop@@UAEXPAVAnimateWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindowRightFastInitReverse.cpp (not merged yet)
+
+// tu-skeleton: 0x005C56F3 209B ?initAnimateWindow@ProcessAnimateWindowSlideFromBottom@@UAEXPAVAnimateWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindowRightFastInitReverse.cpp (not merged yet)
+
+// tu-skeleton: 0x005C57C4 228B ?updateAnimateWindow@ProcessAnimateWindowSlideFromBottom@@UAE_NPAVAnimateWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindowRightFastInitReverse.cpp (not merged yet)
+
+// tu-skeleton: 0x005C58A8 232B ?reverseAnimateWindow@ProcessAnimateWindowSlideFromBottom@@UAE_NPAVAnimateWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindowRightFastInitReverse.cpp (not merged yet)
+
+// tu-skeleton: 0x005C59AC 140B ?initReverseAnimateWindow@ProcessAnimateWindowSlideFromBottomTimed@@UAEXPAVAnimateWindow@@I@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindowRightFastInitReverse.cpp (not merged yet)
+
+// tu-skeleton: 0x005C5A38 191B ?initAnimateWindow@ProcessAnimateWindowSlideFromBottomTimed@@UAEXPAVAnimateWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindowRightFastInitReverse.cpp (not merged yet)
+
+// tu-skeleton: 0x005C5C31 258B ?initAnimateWindow@ProcessAnimateWindowSpiral@@UAEXPAVAnimateWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindowRightFastInitReverse.cpp (not merged yet)
+
+// tu-skeleton: 0x005C5FC4 102B ?initReverseAnimateWindow@ProcessAnimateWindowSlideFromTopFast@@UAEXPAVAnimateWindow@@I@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindowRightFastInitReverse.cpp (not merged yet)
+
+// tu-skeleton: 0x005C602A 220B ?initAnimateWindow@ProcessAnimateWindowSlideFromTopFast@@UAEXPAVAnimateWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindowRightFastInitReverse.cpp (not merged yet)
+
+// tu-skeleton: 0x005C6106 232B ?updateAnimateWindow@ProcessAnimateWindowSlideFromTop@@UAE_NPAVAnimateWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/SlideTopUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x005C61EE 234B ?reverseAnimateWindow@ProcessAnimateWindowSlideFromTopFast@@UAE_NPAVAnimateWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/SlideTopUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x005C631E 175B ?initReverseAnimateWindow@ProcessAnimateWindowSlideFromRightFast@@UAEXPAVAnimateWindow@@I@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindowRightFastInitReverse.cpp (not merged yet)
+
+// tu-skeleton: 0x005C63CD 241B ?initAnimateWindow@ProcessAnimateWindowSlideFromRightFast@@UAEXPAVAnimateWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindowRightFastInitReverse.cpp (not merged yet)
 
 // tu-skeleton: 0x007A0B89 8B uw_007a0b89 -- matched in Code/gen_small/uw_gen_014.cpp (not merged yet)
