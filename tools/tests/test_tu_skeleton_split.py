@@ -75,6 +75,44 @@ class NameTests(unittest.TestCase):
 
 
 class CarveTests(unittest.TestCase):
+    def test_extern_used_by_macro_from_earlier_header_is_kept(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / 'macros.h').write_text('#define GET_VALUE value\n')
+            text = '#include "macros.h"\nextern int value;\nint f() { return GET_VALUE; }\n'
+            self.assertEqual(T.prune_unused_externs(text, source='source.cpp', root=root), text)
+
+    def test_extern_used_by_source_macro_is_kept(self):
+        text = '#define GET_VALUE value\nextern int value;\nint f() { return GET_VALUE; }\n'
+        self.assertEqual(T.prune_unused_externs(text), text)
+
+    def test_macros_in_a_removed_body_still_retain_the_extern(self):
+        text = ('extern int value;\nvoid stays() {\n#define GET_VALUE value\n}\n'
+                'int moved() { return GET_VALUE; }\n')
+        cv = T.carve(text, {1}, {0, 1})
+        self.assertIn('extern int value;', cv.donor)
+
+    def test_transitive_header_macro_tokens_and_case_insensitive_code_roots(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            inc = root / 'Code/GameEngine/Include'
+            inc.mkdir(parents=True)
+            (inc / 'outer.h').write_text('#include "inner.h"\n')
+            (inc / 'inner.h').write_text('#include "outer.h"\n#define GET_VALUE value\n')
+            text = ('#include "OUTER.H"\nextern int value;\nextern int value_suffix;\n'
+                    'int f() { return GET_VALUE; }\n')
+            got = T.prune_unused_externs(text, source='Code/GameEngine/Source/source.cpp', root=root)
+            self.assertIn('extern int value;', got)
+            self.assertNotIn('extern int value_suffix;', got)
+
+    def test_unresolved_include_retains_all_externs(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / 'macros.h').write_text('#include "missing.h"\n')
+            for include in ('"missing.h"', '"macros.h"', 'UNKNOWN_HEADER', '<missing.h>'):
+                text = '#include ' + include + '\nextern int value;\nint f() { return 0; }\n'
+                self.assertEqual(T.prune_unused_externs(text, root=root), text)
+
     def test_unused_hatch_extern_is_not_copied_and_evidence_stays(self):
         text = ('// evidence remains\nextern unsigned int g_Va00DD828C;\n'
                 'int moved() { return 7; }\nint stays() { return g_Va00DD828C; }\n')

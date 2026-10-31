@@ -2356,7 +2356,48 @@ def cut(text, spans):
     return "".join(out)
 
 
-def prune_unused_externs(text):
+def extern_macro_tokens(text, source=None, root=ROOT):
+    """Tokens in any reachable macro body, or None for an unchecked include.
+
+    Follow quoted includes relative to their includer, then the explicit /I
+    paths and Code include roots. Scan every branch; no expansion or macro-use
+    inference is needed to conservatively retain a declaration.
+    """
+    pending = [(text, [posixpath.dirname(source or "")])]
+    seen, tokens = set(), set()
+    try:
+        roots = [p.relative_to(root).as_posix() for p in (root / "Code").glob("*/Include")]
+        roots = [f[2:].strip('"').replace("\\", "/") for f in flags_of(text)
+                 if f.startswith(("/I", "-I")) and len(f) > 2] + roots
+        while pending:
+            current, parents = pending.pop()
+            current = re.sub(r"\\\r?\n", "", current)
+            code = code_only(current)
+            if "##" in code:
+                return None
+            for body in re.findall(r"^\s*#\s*define\s+[A-Za-z_]\w*(.*)$", code, re.M):
+                tokens.update(re.findall(r"\b[A-Za-z_]\w*\b", body))
+            for directive in re.findall(r"^\s*#\s*(?:include|import)\b([^\n]*)", strip(current), re.M):
+                m = re.fullmatch(r'\s*(?:"([^"\n]+)"|<([^>\n]+)>)\s*', directive)
+                if not m:
+                    return None
+                header = (m.group(1) or m.group(2)).replace("\\", "/")
+                dirs = (parents if m.group(1) else []) + roots
+                resolved = next((p for d in dirs
+                                 if (p := ci_path(root, posixpath.normpath(posixpath.join(d, header))))
+                                 and (root / p).is_file()), None)
+                if resolved is None:
+                    return None
+                if resolved.lower() not in seen:
+                    seen.add(resolved.lower())
+                    pending.append(((root / resolved).read_text(encoding="utf-8-sig"),
+                                    [posixpath.dirname(resolved)] + parents))
+    except (OSError, UnicodeError):
+        return None
+    return tokens
+
+
+def prune_unused_externs(text, source=None, root=ROOT, macros=None):
     """Drop only simple, unused extern-object declarations from a carved text.
 
     Search the entire remaining output, including helpers, initializers, inline
@@ -2368,6 +2409,9 @@ def prune_unused_externs(text):
     if re.search(r"^\s*#\s*(?:if|ifdef|ifndef|elif|else|endif)\b|##|\b__asm\b", code, re.M) \
             or re.search(r"\\\r?\n|\bR\"", text):
         return text
+    macros = extern_macro_tokens(text, source, root) if macros is None else macros
+    if macros is None:
+        return text
     cuts = []
     for kind, c, at, _ in flat_chunks(text):
         if kind != "decl":
@@ -2376,7 +2420,7 @@ def prune_unused_externs(text):
         m = re.fullmatch(r'extern\s+(?:"C"\s+)?(?:[A-Za-z_]\w*\s+)+'
                          r'(?:[*&]\s*(?:const\s+)?)?([A-Za-z_]\w*)'
                          r'\s*(?:\[\s*[0-9]*\s*\]\s*)*;', norm(c))
-        if not m:
+        if not m or m.group(1) in macros:
             continue
         end = at + len(c)
         if re.search(r"^\s*#\s*(?:include|import)\b", code_only(text[end:]), re.M):
@@ -2409,7 +2453,7 @@ class Carve:
 
 
 def carve(text, take, rowed=frozenset(), data_rowed=frozenset(), own=frozenset(), keep=frozenset(),
-          altname_keep=False):
+          altname_keep=False, source=None):
     """The definitions at span indices `take` leave the file.
 
     Both texts keep every preprocessor line and comment, and declarations except
@@ -2522,8 +2566,11 @@ def carve(text, take, rowed=frozenset(), data_rowed=frozenset(), own=frozenset()
         pieces.append(text[pos:])
         donor = "".join(pieces)
     residual = cut(text, residual_cuts)
-    return Carve(prune_unused_externs(donor), prune_unused_externs(residual),
-                 sorted(copies), data_moved, externs)
+    macros = extern_macro_tokens(text, source)   # even defines in a body cut from this output
+    if macros is not None:
+        donor = prune_unused_externs(donor, source, macros=macros)
+        residual = prune_unused_externs(residual, source, macros=macros)
+    return Carve(donor, residual, sorted(copies), data_moved, externs)
 
 
 INCLUDE = re.compile(r'^([ \t]*#[ \t]*include[ \t]*)"([^"\n]+)"', re.M)
@@ -2722,7 +2769,7 @@ def split(path, tu, dry_run=False, claim=True):
         report["blocked"] = "no row would remain in the file: it is a whole donor, use --merge"
         return report
     data_rowed = data_rowed_idents(path)
-    cv = carve(text, take, rowed, data_rowed)
+    cv = carve(text, take, rowed, data_rowed, source=path)
     if cv.refused:
         report["blocked"] = cv.refused
         return report
@@ -2788,7 +2835,7 @@ def split(path, tu, dry_run=False, claim=True):
         if not keep:
             report["blocked"] = "no row would remain in the file after the flag-bound rows stayed: use --merge"
             return report
-        cv = carve(text, take, rowed, data_rowed)
+        cv = carve(text, take, rowed, data_rowed, source=path)
         if cv.refused:
             report["blocked"] = cv.refused
             return report
@@ -3012,7 +3059,7 @@ def shatter_plan(text, rows, groups, data_rowed=frozenset(), here=None):
     texts, data_moves = {}, {}
     for t in tus:
         cv = carve(text, take[t], rowed, data_rowed, frozenset(own[t]), frozenset(shared),
-                   altname_keep=t == tus[0])
+                   altname_keep=t == tus[0], source=here)
         if cv.refused:
             return ShatterPlan(f"{t}: {cv.refused}")
         texts[t] = cv.donor
