@@ -289,11 +289,6 @@ public:
 	virtual Rva0049A6C7Base3 *rva0049A6C7();
 };
 
-Rva0049A6C7Base3 *Rva0049A6C7::rva0049A6C7()
-{
-	return this;
-}
-
 // --- 0x00479CD9 (29B): from a +0x10 interface, copy the object's slot-88
 // position into the first argument; always true.
 class Rva00479CD9Base0
