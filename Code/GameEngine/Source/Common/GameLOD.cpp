@@ -21,6 +21,7 @@ extern "C" unsigned int __cdecl strlen(const char *text);
 //#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
 
 
+
 #endif
 #define PROFILE_ERROR_LIMIT	0.94f	//fraction of profiled result needed to get a match.  Allows some room for error/fluctuation.
 //
@@ -57,6 +58,18 @@ template <typename T> struct BfmeStringData
 	T text[1];
 };
 #include "ascii_string.h"
+#define BFME_DISP_BYTE_GETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		unsigned char get() const; \
+		char m_lead[DISP]; \
+		unsigned char m_value; \
+	}; \
+	unsigned char NAME::get() const \
+	{ \
+		return m_value; \
+	}
 
 //Hack to get access to a static method on the W3DDevice side. -MW
 extern Bool testMinimumRequirements(ChipsetType *videoChipType, CpuType *cpuType, Int *cpuFreq, Int *numRAM, Real *intBenchIndex, Real *floatBenchIndex, Real *memBenchIndex);
@@ -559,7 +572,31 @@ public:
 	BenchProfile* newBenchProfile();
 };
 
+class MilesAudioManager
+{
+public:
+    virtual unsigned char rva000515A4() const;
+    virtual unsigned char rva00051896() const;
+    char m_lead[0x6A3 - sizeof(void *)];
+    unsigned char m_6A3;
+    char m_pad6A4[2];
+    unsigned char m_6A6;
+};
+
+BFME_DISP_BYTE_GETTER(Rva002026C7ByteField, 0x17AA)
+
+// BF1 9cbfb551fe Common/Rva005BD470ZeroTest.cpp is the clean semantic donor.
+// Full native leaf 001F350B..001F3513 ends at its own RET boundary.
+// Target evidence: receiver0C dword equals two; result in AL.
+// Original owner unresolved; the address-owned type is independent of nearby classes.
+class Rva001F350BFields {
+public: unsigned char isTwo() const;
+private: char unknown[0x0C]; unsigned int value;
+};
+
 // tu-skeleton: 0x00201EAC 353B ??0GameLODManager@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00201DC4LODDefaults.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/GameLOD.cpp
 
 // ---- from Code/GameEngine/Source/Common/GameLODNewBenchProfile.cpp
 
@@ -572,14 +609,6 @@ BenchProfile* RetailBenchProfileAllocator::newBenchProfile()
 	}
 	return 0;
 }
-
-// tu-skeleton: 0x0020202B 45B ?newLODPreset@GameLODManager@@QAEPAULODPresetInfo@@W4StaticGameLODLevel@@@Z -- matched in Code/GameEngine/Source/Common/GameLODManager_newLODPreset.cpp (not merged yet)
-
-// tu-skeleton: 0x00202058 492B ?rva00202058@Rva00202058@@QAEXPAVOptionPreferences@@@Z -- matched in Code/GameEngine/Source/Common/Rva00202058.cpp (not merged yet)
-
-// tu-skeleton: 0x00202244 165B ?rva00202244@Rva00DFE144Globals@@QAEXHPAVOptionPreferences@@@Z -- matched in Code/GameEngine/Source/Common/GameLODManagerRva00202244.cpp (not merged yet)
-
-// tu-skeleton: 0x002022E9 707B ?rva002022E9@Rva00DFE144Globals@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/GameLODApplyPreset.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/GameLOD.cpp
 
@@ -867,11 +896,37 @@ Int GameLODManager::getAudioLODIndex(const AsciiString &name)
 	return -1;
 }
 
+// tu-skeleton: 0x0020202B 45B ?newLODPreset@GameLODManager@@QAEPAULODPresetInfo@@W4StaticGameLODLevel@@@Z -- matched in Code/GameEngine/Source/Common/GameLODManager_newLODPreset.cpp (not merged yet)
+
+// tu-skeleton: 0x00202058 492B ?rva00202058@Rva00202058@@QAEXPAVOptionPreferences@@@Z -- matched in Code/GameEngine/Source/Common/Rva00202058.cpp (not merged yet)
+
+// tu-skeleton: 0x00202244 165B ?rva00202244@Rva00DFE144Globals@@QAEXHPAVOptionPreferences@@@Z -- matched in Code/GameEngine/Source/Common/GameLODManagerRva00202244.cpp (not merged yet)
+
+// tu-skeleton: 0x002022E9 707B ?rva002022E9@Rva00DFE144Globals@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/GameLODApplyPreset.cpp (not merged yet)
+
 // tu-skeleton: 0x00202678 40B ?getAudioLODLevelName@GameLODManager@@QAEPBDH@Z -- matched in Code/GameEngine/Source/Common/Rva00202678Get.cpp (not merged yet)
 
 // tu-skeleton: 0x002026A0 20B ?findAudioLODLevel@GameLODManager@@QBEHXZ -- matched in Code/GameEngine/Source/Common/GameLODManager_findAudioLODLevel.cpp (not merged yet)
 
-// tu-skeleton: 0x002026C7 7B ?get@Rva002026C7ByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/DispByteFieldGetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/DispByteFieldGetters.cpp
+
+// Disp32 byte getters: seven-byte __thiscall members with one shape:
+//
+//     mov al,[ecx+<DISP>] / ret
+//
+// One BYTE is read at a fixed displacement from `this` and left in al. The
+// return type is spelled `unsigned char` because only al is written and the
+// upper bytes of eax are left holding whatever the caller had; the bytes
+// cannot distinguish it from `signed char`, `bool` or a one-byte enum.
+//
+// Every displacement here is a disp32 (MSVC 7.1 uses disp8 whenever the
+// offset fits, so every offset is at least 0x80), which is why this family
+// is separable from the far larger disp8 one. Members before the accessed
+// one are spelled as a lead array because their types are not witnessed
+// here, only their total size. Identity is not recovered: every name is
+// derived from its address (BFME1 pioneered the same family in
+// reference/open-bfme-1/Code/GameEngine/Source/Common/DispByteFieldGetters.cpp).
+// No // cl: line (defaults match the frameless 7-byte shape).
 
 // tu-skeleton: 0x002026CE 6B ?rva002026CE@Rva002026CE@@QAEPAHXZ -- matched in Code/GameEngine/Source/Common/GapLeavesSeat8.cpp (not merged yet)
 
