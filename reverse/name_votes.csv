@@ -19251,3 +19251,8 @@ Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva004EEE38CollectTurnStats.
 Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpellBookPowers/AISpellBookArmyBreaker.cpp|function|0x005D8619|rva005D8619,5651e7b6688499991655a54b,claude-sonnet-5-5,halilkkaya-nm-s1-6,w-3d8cf1b6b7e1,2026-10-31
 Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpellBookPowers/AISpellBookAssistBattle.cpp|function|0x005D8443|rva005D8443,704ca70c1a68fd0d0f12f6a4,claude-sonnet-5-5,halilkkaya-nm-s1-6,w-3d8cf1b6b7e1,2026-10-31
 Code/GameEngine/Source/GameLogic/Object/ArmorTemplateParse.cpp|function|0x001D8E8B|rva001D8E8B,bde41551f0ebb6a60206a714,claude-sonnet-5-5,halilkkaya-nm-s1-7,w-3d8cf1b6b7e1,2026-10-31
+Code/GameEngine/Source/Common/VslotSmallBodiesAD_Rva00349D02.cpp|local|Rva0040CFFF::rva0040E0C5|x,57ccf7d626789f5b514d57fd,drz-k7,drz-k7-0,w-4471b1f6edef,2026-10-31
+Code/GameEngine/Source/Common/VslotSmallBodiesAD_Rva00349D02.cpp|param|Rva00508925::rva00508925|b,316df3644f4c1dec4f24b913,drz-k7,drz-k7-0,w-4471b1f6edef,2026-10-31
+Code/GameEngine/Source/Common/Bfme5SixtyOne.cpp|member|BfmeSlotEH|m_bfmeKey,ee7aae08e93589e4b98617f0,drz-k7,drz-k7-5,w-4471b1f6edef,2026-10-31
+Code/GameEngine/Source/Common/Bfme5SixtyOne.cpp|member|Gen_007F7180|m_bfmeSlots,c7d3047d28c0abf619b52ef0,drz-k7,drz-k7-5,w-4471b1f6edef,2026-10-31
+Code/GameEngine/Source/Common/Bfme5SixtyOne.cpp|member|Gen_007F7180|m_bfmeCount,3c1d526eafb4e255f907a63c,drz-k7,drz-k7-5,w-4471b1f6edef,2026-10-31
