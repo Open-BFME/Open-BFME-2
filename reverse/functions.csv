@@ -11064,8 +11064,8 @@ _luaX_lex,,0x00757C90,1324,Code/Libraries/Source/Lua/llex.c,matched,BFME1 byte-i
 ?Rva00544C24Get@@YAHXZ,,0x00544C24,6,Code/GameEngine/Source/Common/ConstIntGetters4.cpp,matched,B8-6 returner ret c69cdc; prev C2-04-00 with 1 vtable ref and no callers; opaque name
 ?Rva00544C4BGet@@YAHXZ,,0x00544C4B,6,Code/GameEngine/Source/Common/ConstIntGetters4.cpp,matched,B8-6 returner ret c69d3c; prev C2-04-00 with 1 vtable ref and no callers; opaque name
 ?Rva00544ECEGet@@YAHXZ,,0x00544ECE,6,Code/GameEngine/Source/Common/ConstIntGetters4.cpp,matched,B8-6 returner ret c69e50; prev C2-04-00 with 1 vtable ref and no callers; opaque name
-?Rva005453DCGet@@YAHXZ,,0x005453DC,6,Code/GameEngine/Source/Common/ConstIntGetters4.cpp,matched,B8-6 returner ret c69f80; prev C2-04-00 with 1 vtable ref and no callers; opaque name
-?Rva00545519Get@@YAHXZ,,0x00545519,6,Code/GameEngine/Source/Common/ConstIntGetters4.cpp,matched,B8-6 returner ret c69fe4; prev C2-04-00 with 1 vtable ref and no callers; opaque name
+?Rva005453DCGet@@YAHXZ,,0x005453DC,6,Code/GameEngine/Source/GameLogic/AI/AIGuardRetaliate.cpp,matched,B8-6 returner ret c69f80; prev C2-04-00 with 1 vtable ref and no callers; opaque name
+?Rva00545519Get@@YAHXZ,,0x00545519,6,Code/GameEngine/Source/GameLogic/AI/AIGuardRetaliate.cpp,matched,B8-6 returner ret c69fe4; prev C2-04-00 with 1 vtable ref and no callers; opaque name
 ?Rva00545B6CGet@@YAHXZ,,0x00545B6C,6,Code/GameEngine/Source/Common/ConstIntGetters4.cpp,matched,B8-6 returner ret c6a07c; prev C2-04-00 with 1 vtable ref and no callers; opaque name
 ?Rva00545D78Get@@YAHXZ,,0x00545D78,6,Code/GameEngine/Source/Common/ConstIntGetters4.cpp,matched,B8-6 returner ret c6a184; prev C2-04-00 with 1 vtable ref and no callers; opaque name
 ?Rva00545DAAGet@@YAHXZ,,0x00545DAA,6,Code/GameEngine/Source/Common/ConstIntGetters4.cpp,matched,B8-6 returner ret c6a1dc; prev C2-04-00 with 1 vtable ref and no callers; opaque name

@@ -1948,22 +1948,6 @@ int Rva00544ECEGet(void)
 	return (int)"AIHarvestApproachSiteState";
 }
 
-// ?Rva005453DCGet@@YAHXZ @ 0x005453dc (6B): returns 0x00c69f80.
-// Follows a ret-4 (prev C2-04-00), carried by 1 .rdata vtable slot,
-// no direct callers, no branch sources. Opaque address-derived name.
-int Rva005453DCGet(void)
-{
-	return (int)"AIGuardRetaliateReturnState";
-}
-
-// ?Rva00545519Get@@YAHXZ @ 0x00545519 (6B): returns 0x00c69fe4.
-// Follows a ret-4 (prev C2-04-00), carried by 1 .rdata vtable slot,
-// no direct callers, no branch sources. Opaque address-derived name.
-int Rva00545519Get(void)
-{
-	return (int)"AIGuardRetaliateAttackAggressorState";
-}
-
 // ?Rva00545B6CGet@@YAHXZ @ 0x00545b6c (6B): returns 0x00c6a07c.
 // Follows a ret-4 (prev C2-04-00), carried by 1 .rdata vtable slot,
 // no direct callers, no branch sources. Opaque address-derived name.
