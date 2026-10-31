@@ -19,12 +19,13 @@ typedef unsigned char UnsignedByte;
 class RefCountClass
 {
 public:
-	RefCountClass();
+	RefCountClass() : m_refs(1) {}
+	void Release_Ref() { if (--m_refs == 0) Delete_This(); }
 	virtual void Delete_This();
 protected:
-	virtual ~RefCountClass();
+	virtual ~RefCountClass() {}
 private:
-	int m_refs;
+	int m_refs; // +0x04
 };
 
 class TileData : public RefCountClass
@@ -137,17 +138,17 @@ void Rva000AC6F9SetupAlphaTiles(void)
 class Rva00111784DwordField
 {
 public:
-	int get() const;
+	Int get() const;
 };
 
 class Rva000ADDCEWorldHeightMapView
 {
 public:
-	bool rawTile(short tile, int width, unsigned char *buffer, int bytes, int mode);
-
+	bool rawTile(short tile,Int width,UnsignedByte *buffer,Int bytes,Int mode);
+	void blendTile(TBlendTileInfo *blend,Int width,Int mode);
 private:
-	char prefix[0xB0];
-	TileData *tiles[0x1000];
+	char prefix[0xB0]; // +0x00
+	TileData *tiles[0x1000]; // +0xB0
 };
 
 // The retail pixel block saves the row counter and packs through BH and AX.

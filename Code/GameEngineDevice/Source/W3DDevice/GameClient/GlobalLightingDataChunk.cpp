@@ -18,12 +18,15 @@
 // Reusing scalar vector snapshots gives native local lifetimes and protects
 // each triplet from changes made by writeReal; no aggregate copy helper emits.
 #include "Coord3D.h"
-class DataChunkOutput {
+class AsciiString;
+class DataChunkOutput
+{
 public:
- void openDataChunk(char *,unsigned short);
- void writeInt(int);
- void writeReal(float);
- void closeDataChunk();
+	void openDataChunk(char *name, unsigned short version);
+	void writeInt(int value);
+	void writeReal(float value);
+	void writeAsciiString(const AsciiString &value);
+	void closeDataChunk();
 };
 struct LightingColor { float red,green,blue; };
 struct LightingRecord { LightingColor ambient,diffuse; Coord3D lightPos; };
@@ -125,7 +128,28 @@ void WriteGlobalLighting_Rva000AD112(DataChunkOutput &chunkWriter) {
 // The inline store is a descriptive C++ adapter, not a claimed native helper:
 // passing the boolean reproduces native branch selection before the one store.
 // Scalar vector snapshots are shared so MSVC can reuse the dead argument homes.
-class DataChunkInput { public: int readInt(); float readReal(); bool atEndOfChunk(); };
+struct DataChunkInfo;
+class Dict;
+class UserParser;
+class ChunkInputStream;
+class DataChunkInput
+{
+public:
+	typedef bool (*Parser)(DataChunkInput &file, DataChunkInfo *info, void *userData);
+	Dict readDict();
+	float readReal();
+	unsigned char readByte();
+	AsciiString readAsciiString();
+	UserParser *registerParser(const AsciiString &label, const AsciiString &parentLabel, Parser parser, void *userData);
+	bool parse(void *userData);
+	DataChunkInput(ChunkInputStream *stream);
+	~DataChunkInput();
+	int readInt();
+	void readArrayOfBytes(char *, int);
+	bool atEndOfChunk();
+private:
+	unsigned char m_data[0x28]; // +0x00 +0x00
+};
 struct DataChunkInfo { char labels[8]; unsigned short version; };
 // ?storeLightingOverbright present-unmatched
 static __forceinline void storeLightingOverbright(bool enabled) { ShaderOverbrightEnabled = enabled; }

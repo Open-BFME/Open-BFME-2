@@ -23,8 +23,8 @@ void __cdecl Rva00030830GameFree(void *);
 class RefCountClass
 {
 public:
-	void Release_Ref() { if (--m_refs == 0) Delete_This(); }
 	RefCountClass() : m_refs(1) {}
+	void Release_Ref() { if (--m_refs == 0) Delete_This(); }
 	virtual void Delete_This();
 protected:
 	virtual ~RefCountClass() {}

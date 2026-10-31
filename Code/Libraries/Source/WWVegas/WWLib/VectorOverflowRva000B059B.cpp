@@ -21,7 +21,15 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 // helper owners. The opaque element spelling stays local; no new identity
 // or layout is claimed for the record. Bind its helper calls to those owners.
 struct BfmeStringRecord00111ACF;
-class Rva000B0298 { public: void rva000B0298(); };
+struct EvaMessageInfo;
+class Rva000B0298
+{
+public:
+	void rva000B0298();
+private:
+	EvaMessageInfo *m_00; // +0x00
+	EvaMessageInfo *m_04; // +0x04
+};
 namespace _STL { template<> void _Construct<BfmeStringRecord00111ACF,BfmeStringRecord00111ACF>(BfmeStringRecord00111ACF*,const BfmeStringRecord00111ACF&); }
 
 struct Rva000B059BRecord {

@@ -28,8 +28,8 @@ class DataChunkOutput
 {
 public:
 	void openDataChunk(char *name, unsigned short version);
-	void writeInt(Int value);
-	void writeReal(Real value);
+	void writeInt(int value);
+	void writeReal(float value);
 	void writeAsciiString(const AsciiString &value);
 	void closeDataChunk();
 };

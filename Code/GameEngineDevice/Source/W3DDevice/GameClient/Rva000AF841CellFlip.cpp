@@ -23,12 +23,12 @@ class Rva000ABD19
 public:
 	bool rva000ABD19(int x, int y);
 	bool rva000AE37E(int x, int y);
-	bool rva000AF841(int cellX, int cellY);
+	bool rva000AF841(int x, int y);
 	char m_pad00[0x8];
-	int m_width; // +0x08 +0x08
+	int m_width; // +0x08 +0x08 +0x08
 	char m_pad0C[0x14];
-	int m_dataSize; // +0x20 +0x20
-	unsigned short *m_data; // +0x24 +0x24
+	int m_dataSize; // +0x20 +0x20 +0x20
+	unsigned short *m_data; // +0x24 +0x24 +0x24
 };
 
 bool Rva000ABD19::rva000AF841(int cellX, int cellY)

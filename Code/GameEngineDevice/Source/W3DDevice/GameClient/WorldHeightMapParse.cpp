@@ -49,8 +49,9 @@ public:
 	~DataChunkInput();
 	int readInt();
 	void readArrayOfBytes(char *, int);
+	bool atEndOfChunk();
 private:
-	unsigned char m_data[0x28]; // +0x00
+	unsigned char m_data[0x28]; // +0x00 +0x00
 };
 
 class Q1Forwardee0000871A

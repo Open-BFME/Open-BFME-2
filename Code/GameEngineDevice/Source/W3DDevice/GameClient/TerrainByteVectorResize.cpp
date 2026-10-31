@@ -16,8 +16,10 @@ namespace _STL {
 extern template void vector<unsigned char>::_M_fill_insert(unsigned char *,unsigned int,const unsigned char &);
 
 }
-class Rva000B0565 : public _STL::vector<unsigned char> {
-public: void rva000B0565(unsigned int,unsigned char);
+class Rva000B0565 : public _STL::vector<unsigned char>
+{
+public:
+	void rva000B0565(unsigned int,unsigned char);
 };
 void Rva000B0565::rva000B0565(unsigned int count,unsigned char value) {
     if(count<size()) erase(begin()+count,end());

@@ -18,10 +18,9 @@ class Rva000B0298
 {
 public:
 	void rva000B0298();
-
 private:
-	EvaMessageInfo *m_00;
-	EvaMessageInfo *m_04;
+	EvaMessageInfo *m_00; // +0x00
+	EvaMessageInfo *m_04; // +0x04
 };
 // ?rva000B0298@Rva000B0298@@QAEXXZ
 void Rva000B0298::rva000B0298()

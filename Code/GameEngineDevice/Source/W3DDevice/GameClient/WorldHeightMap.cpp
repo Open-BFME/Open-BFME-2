@@ -373,8 +373,11 @@ static UnsignedByte s_blendBuffer[DATA_LEN_BYTES];
 class Rva000ADDCEWorldHeightMapView
 {
 public:
-	bool rawTile(Short tile,Int width,UnsignedByte *buffer,Int bytes,Int mode);
+	bool rawTile(short tile,Int width,UnsignedByte *buffer,Int bytes,Int mode);
 	void blendTile(TBlendTileInfo *blend,Int width,Int mode);
+private:
+	char prefix[0xB0]; // +0x00
+	TileData *tiles[0x1000]; // +0xB0
 };
 
 void __cdecl Rva000AC6F9SetupAlphaTiles();

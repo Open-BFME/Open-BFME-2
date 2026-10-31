@@ -44,8 +44,8 @@ namespace _STL { template <> vector<BfmeE16, allocator<BfmeE16> >::~vector(); }
 class RefCountClass
 {
 public:
-	void Release_Ref() { if (--m_refs == 0) Delete_This(); }
 	RefCountClass() : m_refs(1) {}
+	void Release_Ref() { if (--m_refs == 0) Delete_This(); }
 	virtual void Delete_This();
 protected:
 	virtual ~RefCountClass() {}
@@ -95,8 +95,9 @@ public:
 	~DataChunkInput();
 	int readInt();
 	void readArrayOfBytes(char *, int);
+	bool atEndOfChunk();
 private:
-	unsigned char m_data[0x28]; // +0x00
+	unsigned char m_data[0x28]; // +0x00 +0x00
 };
 
 class Rva000B08F7

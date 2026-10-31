@@ -45,17 +45,20 @@ public:
 	bool rva000AE37E(int x, int y);
 	bool rva000AF841(int x, int y);
 	char m_pad00[0x8];
-	int m_width; // +0x08 +0x08
+	int m_width; // +0x08 +0x08 +0x08
 	char m_pad0C[0x14];
-	int m_dataSize; // +0x20 +0x20
-	unsigned short *m_data; // +0x24 +0x24
+	int m_dataSize; // +0x20 +0x20 +0x20
+	unsigned short *m_data; // +0x24 +0x24 +0x24
 };
 
 class Rva000ADDCEWorldHeightMapView
 {
 public:
-	bool rawTile(Short tile,Int width,UnsignedByte *buffer,Int bytes,Int mode);
+	bool rawTile(short tile,Int width,UnsignedByte *buffer,Int bytes,Int mode);
 	void blendTile(TBlendTileInfo *blend,Int width,Int mode);
+private:
+	char prefix[0xB0]; // +0x00
+	TileData *tiles[0x1000]; // +0xB0
 };
 
 class GlobalData

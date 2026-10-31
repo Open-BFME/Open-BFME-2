@@ -36,13 +36,18 @@ public:
 	~DataChunkInput();
 	int readInt();
 	void readArrayOfBytes(char *, int);
+	bool atEndOfChunk();
 private:
-	unsigned char m_data[0x28]; // +0x00
+	unsigned char m_data[0x28]; // +0x00 +0x00
 };
 struct DataChunkInfo { AsciiString label,parent; unsigned short version; };
 class GlobalData { public: char opaque[0x44]; int use3WayTerrainBlends; };
 extern GlobalData *TheWritableGlobalData;
-class Rva000B0565 : public _STL::vector<unsigned char> { public: void rva000B0565(unsigned,unsigned char); };
+class Rva000B0565 : public _STL::vector<unsigned char>
+{
+public:
+	void rva000B0565(unsigned int,unsigned char);
+};
 class Rva000AFAFB { public: short *first,*last,*limit; Rva000AFAFB(unsigned); ~Rva000AFAFB() { if(first)free(first); } };
 void rva000AF1C2(int,int,int);
 class BfmeGridWM { public: void walk(); };

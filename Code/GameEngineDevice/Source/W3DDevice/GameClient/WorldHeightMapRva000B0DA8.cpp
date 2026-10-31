@@ -31,8 +31,9 @@ public:
 	~DataChunkInput();
 	int readInt();
 	void readArrayOfBytes(char *, int);
+	bool atEndOfChunk();
 private:
-	unsigned char m_data[0x28]; // +0x00
+	unsigned char m_data[0x28]; // +0x00 +0x00
 };
 struct DataChunkInfo { AsciiString label, parent; unsigned short version; };
 struct BfmePod8 { int a[2]; };
