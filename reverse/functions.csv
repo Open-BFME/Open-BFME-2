@@ -9549,7 +9549,7 @@ _luaS_newudata,,0x00750230,148,Code/Libraries/Source/Lua/lstring.c,matched,BFME1
 ?get@Rva003673D5LeaGetter@@QBEPAXXZ,,0x003673D5,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter
 ?apply@Rva00506B28DwordImmSetter@@QAEXXZ,,0x00506B28,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter
 ?apply@Rva0052AF77DwordImmSetter@@QAEXXZ,,0x0052AF77,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter
-?get@Rva0039D7C8LeaGetter@@QBEPAXXZ,,0x0039D7C8,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter
+?get@Rva0039D7C8LeaGetter@@QBEPAXXZ,,0x0039D7C8,7,Code/GameEngine/Source/Common/RTS/Team.cpp,matched,Disp32 LEA getter
 ?get@Rva00091A44FloatField@@QBEMXZ,,0x00091A44,4,Code/GameEngine/Source/Common/Disp8FloatFieldGetters.cpp,matched,Disp8 float getter; address-derived opaque holder
 ?apply@Rva0054E796DwordImmSetter@@QAEXXZ,,0x0054E796,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter
 ?get@Rva003ABE78LeaGetter@@QBEPAXXZ,,0x003ABE78,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter

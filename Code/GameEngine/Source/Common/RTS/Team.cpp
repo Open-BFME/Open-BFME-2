@@ -983,6 +983,26 @@ struct RetailTeamRelationMap
 	{ \
 		return m_value; \
 	}
+#define BFME_DISP32_LEA_GETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		void *get() const; \
+	}; \
+	void *NAME::get() const \
+	{ \
+		return (char *)this + DISP; \
+	}
+#define BFME_DISP32_LEA_BEFORE_GETTER(NAME, BACK) \
+	class NAME \
+	{ \
+	public: \
+		void *get() const; \
+	}; \
+	void *NAME::get() const \
+	{ \
+		return (char *)this - (BACK); \
+	}
 
 // ?rva0039D8BA@Team@@QAEXPAVObject@@@Z @0x0039D8BA (18B).
 // Team::rva0039D8BA(Object*): sets Team+0x5c entered flag then refreshes the
@@ -1262,63 +1282,6 @@ struct Rva003A0CD1
 	char m_pad00[0x10];
 	AsciiString m_a10;
 	AsciiString m_b14;
-};
-
- 
- 
- 
- 
- 
-class Object
-{
-public:
-	unsigned char m_pad00[0x04];
-public:
-	ThingTemplate *m_template;
-public:
-	unsigned char m_pad08[0x38 - 0x08];
-public:
-	Coord3D m_pos;
-public:
-	unsigned char m_pad44[0x78 - 0x44];
-public:
-	ObjectID m_producerID;
-public:
-	unsigned char m_pad7C[0x94 - 0x7C];
-public:
-	unsigned char m_status94;
-public:
-	unsigned char m_pad95[0x114 - 0x95];
-public:
-	unsigned int m_status114;
-public:
-	unsigned char m_pad118[0x250 - 0x118];
-public:
-	Rva003A1C3AInner *m_inner250;
-public:
-	unsigned char m_pad254[0x258 - 0x254];
-public:
-	AIUpdateInterface *m_ai;
-public:
-	unsigned char m_pad25C[0x274 - 0x25C];
-public:
-	Object *m_containedBy;
-public:
-	unsigned char m_pad278[0x438 - 0x278];
-public:
-	unsigned char m_dead;
-public:
-	bool affectedByUpgrade(const UpgradeTemplate *upgrade) const;
-public:
-	void rva00293077(const void *arg);
-public:
-	void healCompletely();
-public:
-	void setTeam(Team *t);
-public:
-	Bool isEffectivelyDead() const { return (m_dead & 1) != 0; }
-public:
-	Bool rva002943B2(const Player *player);
 };
 
  
@@ -1708,17 +1671,6 @@ BFME_ASCII_FIELD_SETTER(Rva0039D91FStringField, 0x318)
 
 BFME_DISP32_DWORD_CLEAR(Rva0039D761DwordClearer, 0x1D8)
 
-class MilesAudioManager
-{
-public:
-    virtual unsigned char rva000515A4() const;
-    virtual unsigned char rva00051896() const;
-    char m_lead[0x6A3 - sizeof(void *)];
-    unsigned char m_6A3;
-    char m_pad6A4[2];
-    unsigned char m_6A6;
-};
-
 BFME_DISP_BYTE_GETTER(Rva0039D52CByteField, 0x5E6)
 
 // BF1 9cbfb551fe Common/Rva005BD470ZeroTest.cpp is the clean semantic donor.
@@ -1730,7 +1682,79 @@ public: unsigned char isTwo() const;
 private: char unknown[0x0C]; unsigned int value;
 };
 
+BFME_DISP32_LEA_GETTER(Rva0039D7C8LeaGetter, 0x328)
+
+class MilesAudioManager
+{
+public:
+    virtual unsigned char rva000515A4() const;
+    virtual unsigned char rva00051896() const;
+    char m_lead[0x6A3 - sizeof(void *)];
+    unsigned char m_6A3;
+    char m_pad6A4[2];
+    unsigned char m_6A6;
+};
+
+ 
+ 
+ 
+ 
+ 
+class Object
+{
+public:
+	unsigned char m_pad00[0x04];
+public:
+	ThingTemplate *m_template;
+public:
+	unsigned char m_pad08[0x38 - 0x08];
+public:
+	Coord3D m_pos;
+public:
+	unsigned char m_pad44[0x78 - 0x44];
+public:
+	ObjectID m_producerID;
+public:
+	unsigned char m_pad7C[0x94 - 0x7C];
+public:
+	unsigned char m_status94;
+public:
+	unsigned char m_pad95[0x114 - 0x95];
+public:
+	unsigned int m_status114;
+public:
+	unsigned char m_pad118[0x250 - 0x118];
+public:
+	Rva003A1C3AInner *m_inner250;
+public:
+	unsigned char m_pad254[0x258 - 0x254];
+public:
+	AIUpdateInterface *m_ai;
+public:
+	unsigned char m_pad25C[0x274 - 0x25C];
+public:
+	Object *m_containedBy;
+public:
+	unsigned char m_pad278[0x438 - 0x278];
+public:
+	unsigned char m_dead;
+public:
+	bool affectedByUpgrade(const UpgradeTemplate *upgrade) const;
+public:
+	void rva00293077(const void *arg);
+public:
+	void healCompletely();
+public:
+	void setTeam(Team *t);
+public:
+	Bool isEffectivelyDead() const { return (m_dead & 1) != 0; }
+public:
+	Bool rva002943B2(const Player *player);
+};
+
 // tu-skeleton: 0x0039D40F 26B ?dlink_isInList_TeamInstanceList@Team@@QBE_NPBQAV1@@Z -- matched in Code/GameEngine/Source/Common/Team_dlink_isInList_TeamInstanceList.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/RTS/Team.cpp
 
 // ---- from Code/GameEngine/Source/Common/RTS/Team.cpp
 
@@ -3782,7 +3806,22 @@ void Team::rva003A38E9(const AsciiString &keyName, unsigned char stateWord)
 
 // tu-skeleton: 0x0039D5C1 323B ?xfer@TeamTemplateInfo@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/RTS/TeamTemplateInfoXfer.cpp (not merged yet)
 
-// tu-skeleton: 0x0039D7C8 7B ?get@Rva0039D7C8LeaGetter@@QBEPAXXZ -- matched in Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp
+
+// Disp32 LEA getters: seven-byte __thiscall members with one shape:
+//
+//     lea eax,[ecx+<DISP>] / ret
+//
+// The address of a member at a fixed displacement from `this` is returned.
+// Spelled as byte-pointer arithmetic from `this`, which MSVC 7.1 folds to
+// the same disp32 lea. The pointee type is unwitnessed (only an address is
+// produced), so the return is an untyped pointer. Members before the
+// accessed one are not spelled at all: unlike the load families, no lead
+// array is needed because nothing is read. The disp32 mirror of the disp8
+// family in Disp8LeaFieldGetters.cpp (MSVC 7.1 uses disp8 whenever the
+// offset fits in a signed byte, so every offset here is at least 0x80).
+// Identity is not recovered: every name is derived from its address.
+// No // cl: line (defaults match the frameless seven-byte shape).
 
 // tu-skeleton: 0x0039D7CF 12B ?getControllingPlayer@Team@@QBEPAVPlayer@@XZ -- matched in Code/GameEngine/Source/Common/RTS/TeamGetControllingPlayer.cpp (not merged yet)
 
