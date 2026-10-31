@@ -137,7 +137,45 @@ private:
 #define OneAndHalf 1.5f
 #define TheMessageTarget (*(MessageTarget **)&TheCommandList)
 #define LogicFramesPerSecond BfmeLogicFramesPerSecond
+#define BFME_DISP8_BYTE_ONE_SETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		void enable(); \
+		char m_lead[DISP]; \
+		unsigned char m_enabled; \
+	}; \
+	void NAME::enable() \
+	{ \
+		m_enabled = 1; \
+	}
+#define BFME_DISP8_BYTE_ZERO_SETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		void disable(); \
+		char m_lead[DISP]; \
+		unsigned char m_enabled; \
+	}; \
+	void NAME::disable() \
+	{ \
+		m_enabled = 0; \
+	}
+#define BFME_DISP8_BYTE_TWO_SETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		void set(); \
+		char m_lead[DISP]; \
+		unsigned char m_value; \
+	}; \
+	void NAME::set() \
+	{ \
+		m_value = 2; \
+	}
+
 typedef bool Bool;
+
 class DisconnectManager
 {
 public:
@@ -147,6 +185,7 @@ private:
 public:
 	bool m_270;
 };
+
 class BFMEConnectionManager
 {
 public:
@@ -161,6 +200,7 @@ public:
 	char m_pad12028[0x34];
 	volatile int frameCeiling;
 };
+
 class ConnectionManager
 {
 public:
@@ -595,7 +635,22 @@ private:
     Int m_10;																		// +0x10
 };
 
+BFME_DISP8_BYTE_ONE_SETTER(Rva0025DD11OneSetter, 0x38)
+
+BFME_DISP8_BYTE_ZERO_SETTER(Rva0025DD16ZeroSetter, 0x38)
+
+// BF1 9cbfb551fe Common/Rva004021B0PositiveGetter.cpp is the clean semantic donor.
+// Target 53110B..531113 RET0 followsRET4; signed dword0 greaterthan0 returnedAL
+// Original owner/purpose is unproven; retain an independent address-owned type.
+class Rva0053110BFields
+{
+public: bool isPositive() const;
+private: int field00;
+};
+
 // tu-skeleton: 0x0025DB6D 65B ??0Network@@QAE@XZ -- matched in Code/GameEngine/Source/Common/NetworkInterfaceConstructor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameNetwork/Network.cpp
 
 // ---- from Code/GameEngine/Source/Common/VslotSmallBodiesBA.cpp
 
@@ -689,42 +744,6 @@ void Rva0025E4CD::rva0025E28E()
 	if (m_mgr)
 		((BFMEConnectionManager *)m_mgr)->sendFrameInfo(false);
 }
-
-// tu-skeleton: 0x0025DBCD 15B ?ParseUserList@Network@@UAEXH@Z -- matched in Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp (not merged yet)
-
-// tu-skeleton: 0x0025DBFB 13B ?InitTransport@Network@@UAEXXZ -- matched in Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp (not merged yet)
-
-// tu-skeleton: 0x0025DC08 15B ?InitTransport@Network@@UAEXH@Z -- matched in Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp (not merged yet)
-
-// tu-skeleton: 0x0025DC17 15B ?rva0025DC17@Rva0025DC17NullForwarder@@QAEHXZ -- matched in Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp (not merged yet)
-
-// tu-skeleton: 0x0025DC26 10B ?get@Rva0025DC26CmpBoolField@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0025DC30 8B ?rva0025DC30@Rva0025DC30Forwarder@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotMemberForwarders.cpp (not merged yet)
-
-// tu-skeleton: 0x0025DC38 15B ?rva0025DC38@Rva0025DC38@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesA.cpp (not merged yet)
-
-// tu-skeleton: 0x0025DC47 15B ?rva0025DC47@Rva0025DC38@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesA.cpp (not merged yet)
-
-// tu-skeleton: 0x0025DC56 8B ?rva0025DC56@Rva0025DC56Forwarder@@QAEXHHHH@Z -- matched in Code/GameEngine/Source/Common/VslotMemberForwarders.cpp (not merged yet)
-
-// tu-skeleton: 0x0025DC5E 15B ?rva0025DC5E@Rva0025DC5ENullForwarder@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp (not merged yet)
-
-// tu-skeleton: 0x0025DC6D 13B ?rva0025DC6D@Rva0025DC6DNullForwarder@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp (not merged yet)
-
-// tu-skeleton: 0x0025DCCB 23B ?isPacketRouter@NetworkInterface@@QAEHXZ -- matched in Code/GameEngine/Source/Common/NetworkInterfaceRouter.cpp (not merged yet)
-
-// tu-skeleton: 0x0025DCE2 15B ?rva0025DCE2@Rva0025DCE2NullForwarder@@QAEHXZ -- matched in Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp (not merged yet)
-
-// tu-skeleton: 0x0025DCF1 16B ?rva0025DCF1@Rva0025DCF1NullForwarder@@QAEHXZ -- matched in Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp (not merged yet)
-
-// tu-skeleton: 0x0025DD01 16B ?rva0025DD01@Rva0025DD01NullForwarder@@QAEHXZ -- matched in Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp (not merged yet)
-
-// tu-skeleton: 0x0025DD11 5B ?enable@Rva0025DD11OneSetter@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0025DD16 5B ?disable@Rva0025DD16ZeroSetter@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0025DD1B 10B ?get@Rva0025DD1BCmpBoolField@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameNetwork/Network.cpp
 
@@ -1073,6 +1092,54 @@ UnicodeString Rva0025E4CD::rva0025E406(int pid)
 {
     return m_mgr ? m_mgr->getPlayerName(pid) : UnicodeString::TheEmptyString;
 }
+
+// tu-skeleton: 0x0025DBCD 15B ?ParseUserList@Network@@UAEXH@Z -- matched in Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp (not merged yet)
+
+// tu-skeleton: 0x0025DBFB 13B ?InitTransport@Network@@UAEXXZ -- matched in Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp (not merged yet)
+
+// tu-skeleton: 0x0025DC08 15B ?InitTransport@Network@@UAEXH@Z -- matched in Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp (not merged yet)
+
+// tu-skeleton: 0x0025DC17 15B ?rva0025DC17@Rva0025DC17NullForwarder@@QAEHXZ -- matched in Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp (not merged yet)
+
+// tu-skeleton: 0x0025DC26 10B ?get@Rva0025DC26CmpBoolField@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0025DC30 8B ?rva0025DC30@Rva0025DC30Forwarder@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotMemberForwarders.cpp (not merged yet)
+
+// tu-skeleton: 0x0025DC38 15B ?rva0025DC38@Rva0025DC38@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesA.cpp (not merged yet)
+
+// tu-skeleton: 0x0025DC47 15B ?rva0025DC47@Rva0025DC38@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesA.cpp (not merged yet)
+
+// tu-skeleton: 0x0025DC56 8B ?rva0025DC56@Rva0025DC56Forwarder@@QAEXHHHH@Z -- matched in Code/GameEngine/Source/Common/VslotMemberForwarders.cpp (not merged yet)
+
+// tu-skeleton: 0x0025DC5E 15B ?rva0025DC5E@Rva0025DC5ENullForwarder@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp (not merged yet)
+
+// tu-skeleton: 0x0025DC6D 13B ?rva0025DC6D@Rva0025DC6DNullForwarder@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp (not merged yet)
+
+// tu-skeleton: 0x0025DCCB 23B ?isPacketRouter@NetworkInterface@@QAEHXZ -- matched in Code/GameEngine/Source/Common/NetworkInterfaceRouter.cpp (not merged yet)
+
+// tu-skeleton: 0x0025DCE2 15B ?rva0025DCE2@Rva0025DCE2NullForwarder@@QAEHXZ -- matched in Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp (not merged yet)
+
+// tu-skeleton: 0x0025DCF1 16B ?rva0025DCF1@Rva0025DCF1NullForwarder@@QAEHXZ -- matched in Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp (not merged yet)
+
+// tu-skeleton: 0x0025DD01 16B ?rva0025DD01@Rva0025DD01NullForwarder@@QAEHXZ -- matched in Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp
+
+// Disp8 byte flag setters: five-byte __thiscall members with one shape:
+//
+//     mov byte ptr [ecx+<DISP>],<IMM8> / ret
+//
+// One byte at a fixed displacement from `this` is set to a hardcoded
+// immediate (0 or 1 in every body found so far) and nothing is read back.
+// This is the small-offset sibling of the disp32 family in
+// DispByteOneSetters.cpp (MSVC 7.1 uses disp8 whenever the offset fits, so
+// every offset here fits in a signed byte). Members before the accessed one
+// are spelled as a lead array because their types are not witnessed here,
+// only their total size. Identity is not recovered: every name is derived
+// from its address.
+// No // cl: line (defaults match the frameless five-byte shape).
+
+// tu-skeleton: 0x0025DD1B 10B ?get@Rva0025DD1BCmpBoolField@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp (not merged yet)
 
 // tu-skeleton: 0x0025DEBB 17B ?rva0025DEBB@Rva0025DEBBNullForwarder@@QAE_NH@Z -- matched in Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp (not merged yet)
 

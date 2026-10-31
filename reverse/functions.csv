@@ -9294,8 +9294,8 @@ _forbody,,0x007544E0,165,Code/Libraries/Source/Lua/lparser.c,matched,BFME1 byte-
 ?disable@Rva0009D6F5ZeroSetter@@QAEXXZ,,0x0009D6F5,5,Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp,matched,Disp8 byte zero-setter
 ?enable@Rva00131075OneSetter@@QAEXXZ,,0x00131075,5,Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp,matched,Disp8 byte one-setter
 ?enable@Rva00238D92OneSetter@@QAEXXZ,,0x00238D92,5,Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp,matched,Disp8 byte one-setter
-?enable@Rva0025DD11OneSetter@@QAEXXZ,,0x0025DD11,5,Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp,matched,Disp8 byte one-setter
-?disable@Rva0025DD16ZeroSetter@@QAEXXZ,,0x0025DD16,5,Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp,matched,Disp8 byte zero-setter
+?enable@Rva0025DD11OneSetter@@QAEXXZ,,0x0025DD11,5,Code/GameEngine/Source/GameNetwork/Network.cpp,matched,Disp8 byte one-setter
+?disable@Rva0025DD16ZeroSetter@@QAEXXZ,,0x0025DD16,5,Code/GameEngine/Source/GameNetwork/Network.cpp,matched,Disp8 byte zero-setter
 ?disable@Rva002886A2ZeroSetter@@QAEXXZ,,0x002886A2,5,Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp,matched,Disp8 byte zero-setter
 ?enable@Rva0028A813OneSetter@@QAEXXZ,,0x0028A813,5,Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp,matched,Disp8 byte one-setter
 ?enable@Rva0028AA1COneSetter@@QAEXXZ,,0x0028AA1C,5,Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp,matched,Disp8 byte one-setter
