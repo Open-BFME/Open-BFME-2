@@ -20034,7 +20034,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0028F869,47,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,C,C=0x0028F518..0x0028F898,Code/GameEngine/Source/GameLogic/Object/Object.cpp
 0x0028F898,11,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,C,C=0x0028F518..0x0028F8A3,Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp
 0x0028F8A3,16,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Object/Object.cpp N=Code/GameEngine/Source/Common/Object.cpp,Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp
-0x0028F8B3,27,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,C,C=0x0028F8A3..0x0028F8CE,Code/GameEngine/Source/Common/Rva004076EEConditionBits.cpp
+0x0028F8B3,27,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,C,C=0x0028F8A3..0x0028F8CE,Code/GameEngine/Source/GameLogic/Object/Object.cpp
 0x0028F8CE,9,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,C,C=0x0028F8A3..0x0028F92B,Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModule.cpp
 0x0028F8D7,9,code,,displaced,-,S=Code/GameEngine/Source/Common/RTS/SpecialPower.cpp N=Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerTemplate.cpp,Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModule.cpp
 0x0028F8E0,25,code,,displaced,-,S=Code/GameEngine/Source/GameClient/Drawable.cpp N=Code/GameEngine/Source/GameClient/Drawable.cpp,Code/GameEngine/Source/GameClient/DrawableKeyedLookups.cpp

@@ -1459,210 +1459,6 @@ public:
 	void Rva00295A0FCommand(void *pos, int maxShots, int source);
 };
 
-class Object
-{
-public:
-	friend AsciiString DescribeObject(const Object *);
-public:
-	ObjectID getID() const { return m_id74; }
-public:
-	RadarObject *friend_getRadarData();
-public:
-	Bool testStatus( ObjectStatusTypes bit ) const;
-public:
-	Bool isKindOf( KindOfType kind ) const;
-public:
-	Player *getControllingPlayer() const;
-public:
-	void removeFromList(Object **head, Object **tail);
-public:
-	void setReceivingDifficultyBonus(bool receive);
-public:
-	void friend_adjustPowerForPlayer(bool incoming);
-public:
-	Object *rva002931F5(bool flag);
-public:
-	void *rva0028C197() const;
-public:
-	__declspec(noinline) void rva0028C24C();
-public:
-	bool setWeaponLock(WeaponSlotType, WeaponLockType);
-public:
-	void doSpecialPowerAtLocation(const SpecialPowerTemplate *, const Coord3D *, unsigned int, bool);
-public:
-	void doCommandButtonAtPosition(const CommandButton *, const Coord3D *, int, int);
-public:
-	void rva00297000(const CommandButton *, Object *, int, int);
-public:
-	void doCommandButton(const CommandButton *commandButton, int cmdSource, bool flags);
-public:
-	Object *adjustVictim(Object *source, bool useWeaponRange, int index);
-public:
-	void doSpecialPower(const SpecialPowerTemplate *power, unsigned int options, bool fromScript);
-public:
-	void doSpecialPowerAtObject(const SpecialPowerTemplate *, Object *, unsigned int, bool);
-public:
-	const Weapon *getCurrentWeapon(WeaponSlotType *slot) const;
-public:
-	void releaseWeaponLock(WeaponLockType lock);
-public:
-	void rva0028C20F(int value);
-public:
-	int rva00294ADD(int entry);
-public:
-	void *rva0028BC58(int index);
-public:
-	void *rva0028BD17() const;
-public:
-	bool rva00293926(KindOfType kind);
-public:
-	void rva001E42F2(const int *x);
-public:
-	void rva001E431E(const int *x);
-public:
-	void rva0028CFB2(const int *a, const int *b);
-public:
-	void rva0028CFF5(const int *a, bool b);
-public:
-	void setWeaponSetFlag(WeaponSetType wst);
-public:
-	void clearWeaponSetFlag(WeaponSetType wst);
-public:
-	void setWeaponSetFlagForHorde(WeaponSetType wst);
-public:
-	void clearWeaponSetFlagForHorde(WeaponSetType wst);
-public:
-	void clearModelConditionFlagsForHorde(const int *x);
-public:
-	void setModelConditionFlagsForHorde(const int *x);
-public:
-	void clearAndSetModelConditionFlagsForHorde(const int *a, const int *b);
-public:
-	void replaceModelConditionFlagsForHorde(const int *a, bool b);
-protected:
-	Module *findModule(NameKeyType key) const;
-private:
-	unsigned char m_pre000[4];
-private:
-	ThingTemplate *m_template004;
-private:
-	unsigned char m_pre008[0x38 - 0x08];
-private:
-	Coord3D m_pos38;
-private:
-	unsigned char m_pre044[0x74 - 0x44];
-private:
-	ObjectID m_id74;
-private:
-	unsigned char m_pad78[0x88 - 0x78];
-private:
-	AsciiString m_name88;
-private:
-	Object *m_prev8C;
-private:
-	Object *m_next90;
-private:
-	unsigned int m_statusBits[3];
-private:
-	unsigned char m_0A0[0x6C];
-private:
-	unsigned int m_kindOfBits[14];
-private:
-	unsigned char m_144[0x48];
-private:
-	BehaviorModule **m_behaviors;
-private:
-	void *m_contain;
-private:
-	BodyModuleInterface *m_body;
-private:
-	StealthUpdate *m_stealth;
-private:
-	AIUpdateInterface *m_ai;
-private:
-	void *m_1A0;
-private:
-	void *m_1A4;
-private:
-	RadarObject *m_radarData;
-private:
-	unsigned char m_pad1AC[0x1C8 - 0x1AC];
-private:
-	BitFlags<11> m_disabled1C8;
-private:
-	unsigned char m_pad1CC[0x240 - 0x1CC];
-private:
-	FiringTracker *m_firingTracker240;
-private:
-	unsigned char m_pad244[0x250 - 0x244];
-private:
-	AdjustVictimProvider *m_provider250;
-private:
-	unsigned char m_pad254[0x258 - 0x254];
-private:
-	Rva00297149AI *m_commandAI258;
-private:
-	unsigned char m_pad25C[0x274 - 0x25C];
-private:
-	Object *m_containedBy274;
-private:
-	unsigned char m_pad278[0x350 - 0x278];
-private:
-	int m_350;
-private:
-	unsigned char m_pad354[0x370 - 0x354];
-private:
-	unsigned int m_weaponSetFlags370[4];
-private:
-	unsigned char m_pad380[0x43C - 0x380];
-private:
-	bool m_receivingDifficultyBonus;
-private:
-	unsigned char m_pad43D[0x458 - 0x43D];
-private:
-	int m_deadline458;
-public:
-	Bool isCurWeaponLocked() const;
-public:
-	bool isNeutralControlled() const;
-public:
-	bool isLocallyControlled() const;
-public:
-	float rva0028AC7D() const;
-public:
-	int rva0028B7C8() const;
-public:
-	bool rva0028B35B(const Object *) const;
-public:
-	Bool rva0028C149(Int attribute, Real *value, Int arg);
-public:
-	Bool rva0028C15E(Int attribute, Real *value, Int arg, Int arg2);
-private:
-	AttributeModifierPoolUpdate *findAttributeModifierPoolUpdate() const;
-public:
-	void rva0028C4B6();
-public:
-	int rva0028F4EF();
-public:
-	bool rva0028F518();
-public:
-	void rva0028EC68(int a, void *b, int c);
-public:
-	void attemptHealing(float amount, const Object *source);
-public:
-	void healCompletely();
-public:
-	void restoreObjectToWorldInternal();
-public:
-	void rva0028D412(const Matrix3D *mtx);
-public:
-	void rva00291C84(const Matrix3D *mtx);
-public:
-	void teleportTo(const Coord3D *pos, bool flag);
-public:
-	void restoreObjectToWorld(const Coord3D *pos);
-};
-
 class Rva0028D891Owner
 {
 public:
@@ -2163,11 +1959,256 @@ public: void setFlags(unsigned int value);
 private: unsigned char unknown[0x114]; unsigned int flags;
 };
 
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
+//
+// Two methods of the placeholder class Rva004076EE (its matched getter
+// 0x004076EE returns the Object for the ObjectID at +4; same TU flags), retail
+// 0x00407BC3 and 0x00407C17 (84 bytes each), adjacent to it in retail. On that
+// Object: 0x00407BC3 sets condition bit 17*32+7 and clears 17*32+6 and 17*32+4;
+// 0x00407C17 clears all three. Callers 0x005B4D05 / 0x005B57C1 (tail jump).
+// Names by address. Condition word array at Object+0x10C with masked-word
+// accessors in free __forceinline helpers around the pinned notifier 0x0028AE6D.
+
+class Rva0010CBits
+{
+public:
+	unsigned int test(int bit) const
+	{
+		return m_words[bit >> 5] & (1U << (bit & 0x1f));
+	}
+	void set(int bit)
+	{
+		m_words[bit >> 5] |= 1U << (bit & 0x1f);
+	}
+	void clear(int bit)
+	{
+		m_words[bit >> 5] &= ~(1U << (bit & 0x1f));
+	}
+private:
+	unsigned int m_words[19];
+};
+
+class Object
+{
+public:
+	friend AsciiString DescribeObject(const Object *);
+public:
+	ObjectID getID() const { return m_id74; }
+public:
+	RadarObject *friend_getRadarData();
+public:
+	Bool testStatus( ObjectStatusTypes bit ) const;
+public:
+	Bool isKindOf( KindOfType kind ) const;
+public:
+	Player *getControllingPlayer() const;
+public:
+	void removeFromList(Object **head, Object **tail);
+public:
+	void setReceivingDifficultyBonus(bool receive);
+public:
+	void friend_adjustPowerForPlayer(bool incoming);
+public:
+	Object *rva002931F5(bool flag);
+public:
+	void *rva0028C197() const;
+public:
+	__declspec(noinline) void rva0028C24C();
+public:
+	bool setWeaponLock(WeaponSlotType, WeaponLockType);
+public:
+	void doSpecialPowerAtLocation(const SpecialPowerTemplate *, const Coord3D *, unsigned int, bool);
+public:
+	void doCommandButtonAtPosition(const CommandButton *, const Coord3D *, int, int);
+public:
+	void rva00297000(const CommandButton *, Object *, int, int);
+public:
+	void doCommandButton(const CommandButton *commandButton, int cmdSource, bool flags);
+public:
+	Object *adjustVictim(Object *source, bool useWeaponRange, int index);
+public:
+	void doSpecialPower(const SpecialPowerTemplate *power, unsigned int options, bool fromScript);
+public:
+	void doSpecialPowerAtObject(const SpecialPowerTemplate *, Object *, unsigned int, bool);
+public:
+	const Weapon *getCurrentWeapon(WeaponSlotType *slot) const;
+public:
+	void releaseWeaponLock(WeaponLockType lock);
+public:
+	void rva0028C20F(int value);
+public:
+	int rva00294ADD(int entry);
+public:
+	void *rva0028BC58(int index);
+public:
+	void *rva0028BD17() const;
+public:
+	bool rva00293926(KindOfType kind);
+public:
+	void rva001E42F2(const int *x);
+public:
+	void rva001E431E(const int *x);
+public:
+	void rva0028CFB2(const int *a, const int *b);
+public:
+	void rva0028CFF5(const int *a, bool b);
+public:
+	void setWeaponSetFlag(WeaponSetType wst);
+public:
+	void clearWeaponSetFlag(WeaponSetType wst);
+public:
+	void setWeaponSetFlagForHorde(WeaponSetType wst);
+public:
+	void clearWeaponSetFlagForHorde(WeaponSetType wst);
+public:
+	void clearModelConditionFlagsForHorde(const int *x);
+public:
+	void setModelConditionFlagsForHorde(const int *x);
+public:
+	void clearAndSetModelConditionFlagsForHorde(const int *a, const int *b);
+public:
+	void replaceModelConditionFlagsForHorde(const int *a, bool b);
+protected:
+	Module *findModule(NameKeyType key) const;
+private:
+	unsigned char m_pre000[4];
+private:
+	ThingTemplate *m_template004;
+private:
+	unsigned char m_pre008[0x38 - 0x08];
+private:
+	Coord3D m_pos38;
+private:
+	unsigned char m_pre044[0x74 - 0x44];
+private:
+	ObjectID m_id74;
+private:
+	unsigned char m_pad78[0x88 - 0x78];
+private:
+	AsciiString m_name88;
+private:
+	Object *m_prev8C;
+private:
+	Object *m_next90;
+private:
+	unsigned int m_statusBits[3];
+private:
+	unsigned char m_0A0[0x6C];
+private:
+	unsigned int m_kindOfBits[14];
+private:
+	unsigned char m_144[0x48];
+private:
+	BehaviorModule **m_behaviors;
+private:
+	void *m_contain;
+private:
+	BodyModuleInterface *m_body;
+private:
+	StealthUpdate *m_stealth;
+private:
+	AIUpdateInterface *m_ai;
+private:
+	void *m_1A0;
+private:
+	void *m_1A4;
+private:
+	RadarObject *m_radarData;
+private:
+	unsigned char m_pad1AC[0x1C8 - 0x1AC];
+private:
+	BitFlags<11> m_disabled1C8;
+private:
+	unsigned char m_pad1CC[0x240 - 0x1CC];
+private:
+	FiringTracker *m_firingTracker240;
+private:
+	unsigned char m_pad244[0x250 - 0x244];
+private:
+	AdjustVictimProvider *m_provider250;
+private:
+	unsigned char m_pad254[0x258 - 0x254];
+private:
+	Rva00297149AI *m_commandAI258;
+private:
+	unsigned char m_pad25C[0x274 - 0x25C];
+private:
+	Object *m_containedBy274;
+private:
+	unsigned char m_pad278[0x350 - 0x278];
+private:
+	int m_350;
+private:
+	unsigned char m_pad354[0x370 - 0x354];
+private:
+	unsigned int m_weaponSetFlags370[4];
+private:
+	unsigned char m_pad380[0x43C - 0x380];
+private:
+	bool m_receivingDifficultyBonus;
+private:
+	unsigned char m_pad43D[0x458 - 0x43D];
+private:
+	int m_deadline458;
+public:
+	Bool isCurWeaponLocked() const;
+public:
+	bool isNeutralControlled() const;
+public:
+	bool isLocallyControlled() const;
+public:
+	float rva0028AC7D() const;
+public:
+	int rva0028B7C8() const;
+public:
+	bool rva0028B35B(const Object *) const;
+public:
+	Bool rva0028C149(Int attribute, Real *value, Int arg);
+public:
+	Bool rva0028C15E(Int attribute, Real *value, Int arg, Int arg2);
+private:
+	AttributeModifierPoolUpdate *findAttributeModifierPoolUpdate() const;
+public:
+	void rva0028C4B6();
+public:
+	int rva0028F4EF();
+public:
+	bool rva0028F518();
+public:
+	void rva0028EC68(int a, void *b, int c);
+public:
+	void attemptHealing(float amount, const Object *source);
+public:
+	void healCompletely();
+public:
+	void restoreObjectToWorldInternal();
+public:
+	void rva0028D412(const Matrix3D *mtx);
+public:
+	void rva00291C84(const Matrix3D *mtx);
+public:
+	void teleportTo(const Coord3D *pos, bool flag);
+public:
+	void restoreObjectToWorld(const Coord3D *pos);
+public:
+	void rva0028AE6D();
+};
+
+class Rva004076EE
+{
+public:
+	Object *rva004076EE();
+	void rva00407BC3();
+	void rva00407C17();
+};
+
 // tu-skeleton: 0x0028A670 20B ?setWeaponBonusCondition@Object@@QAEXW4WeaponBonusConditionType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/WeaponBonusUpgradeUpgradeImplementation.cpp (not merged yet)
 
 // tu-skeleton: 0x0028A684 22B ?clearWeaponBonusCondition@Object@@QAEXW4WeaponBonusConditionType@@@Z -- matched in Code/GameEngine/Source/Common/RTS/PlayerBattlePlanBonuses.cpp (not merged yet)
 
 // tu-skeleton: 0x0028A69A 7B ?get@Rva0028A69AByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/DispByteFieldGetters.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Object.cpp
 
 // ---- from Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp
 
@@ -2186,61 +2227,33 @@ private: unsigned char unknown[0x114]; unsigned int flags;
 // reference/open-bfme-1/Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp).
 // No // cl: line (defaults match the frameless 7-byte shape).
 
-// tu-skeleton: 0x0028A6B6 17B ?rva0028A6B6@Rva0028A638@@QAEXM@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp (not merged yet)
 
-// tu-skeleton: 0x0028A6C7 32B ?dlink_isInList_TeamMemberList@Object@@QBE_NPBQAV1@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectIsInTeamMemberList.cpp (not merged yet)
 
-// tu-skeleton: 0x0028A6E7 29B ?dlink_prependTo_TeamMemberList@Object@@QAEXPAPAV1@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectTeamMemberListLinks.cpp (not merged yet)
 
-// tu-skeleton: 0x0028A704 75B ?dlink_removeFrom_TeamMemberList@Object@@QAEXPAPAV1@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectTeamMemberListLinks.cpp (not merged yet)
 
-// tu-skeleton: 0x0028AB4E 39B ?rva0028AB4E@Object@@QBEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028AB4E.cpp (not merged yet)
 
-// tu-skeleton: 0x0028AB75 135B ?rva0028AB75@Object@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028AB75.cpp (not merged yet)
 
-// tu-skeleton: 0x0028ABFC 56B ?setGeometryInfoZ@Object@@QAEXM@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Object_setGeometryInfoZ.cpp (not merged yet)
 
-// tu-skeleton: 0x0028AC34 26B ?friend_setUndetectedDefector@Object@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028AC34Setter.cpp (not merged yet)
 
-// tu-skeleton: 0x0028AC4E 20B ?rva0028AC4E@Object@@QBEPBURva0028AC4EEntry@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028AC4EAccessors.cpp (not merged yet)
 
-// tu-skeleton: 0x0028AC62 27B ?rva0028AC62@Object@@QBE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028AC4EAccessors.cpp (not merged yet)
 
-// tu-skeleton: 0x0028AC7D 35B ?rva0028AC7D@Object@@QBEMXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028AC4EAccessors.cpp (not merged yet)
 
-// tu-skeleton: 0x0028ACA0 42B ?rva0028ACA0@Object@@QBEPAV1@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028ACA0.cpp (not merged yet)
 
-// tu-skeleton: 0x0028ACCA 18B ?rva0028ACCA@Object@@QAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x0028ACDC 18B ?rva0028ACDC@Object@@QAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x0028ACEE 18B ?rva0028ACEE@Object@@QAEXHH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x0028AD00 34B ?rva0028AD00@Object@@QAEXHMH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x0028AD22 16B ?rva0028AD22@Object@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x0028AD32 16B ?rva0028AD32@Object@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x0028AD42 20B ?GetGoalPosition@Object@@QBE_NPAUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x0028AD56 22B ?GetGoalAngle@Object@@QBEMXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x0028AD6C 16B ?GetGoalLayer@Object@@QBEHXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x0028AD7C 16B ?rva0028AD7C@Object@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x0028AD8C 16B ?rva0028AD8C@Object@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x0028AD9C 20B ?GetPathfinderPos@Object@@QBE_NPAUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x0028ADB0 18B ?IsAtGoalPosition@Object@@QBE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x0028ADC2 19B ?reloadAllAmmo@Object@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x0028ADD5 11B ?isOutOfAmmo@Object@@QBE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x0028ADE0 12B ?hasAnyWeapon@Object@@QBE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Object.cpp
 
@@ -4401,6 +4414,62 @@ void Rva0029173EAsciiField::setName(AsciiString value)
 	slot = value;
 }
 
+// tu-skeleton: 0x0028A6B6 17B ?rva0028A6B6@Rva0028A638@@QAEXM@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp (not merged yet)
+
+// tu-skeleton: 0x0028A6C7 32B ?dlink_isInList_TeamMemberList@Object@@QBE_NPBQAV1@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectIsInTeamMemberList.cpp (not merged yet)
+
+// tu-skeleton: 0x0028A6E7 29B ?dlink_prependTo_TeamMemberList@Object@@QAEXPAPAV1@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectTeamMemberListLinks.cpp (not merged yet)
+
+// tu-skeleton: 0x0028A704 75B ?dlink_removeFrom_TeamMemberList@Object@@QAEXPAPAV1@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectTeamMemberListLinks.cpp (not merged yet)
+
+// tu-skeleton: 0x0028AB4E 39B ?rva0028AB4E@Object@@QBEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028AB4E.cpp (not merged yet)
+
+// tu-skeleton: 0x0028AB75 135B ?rva0028AB75@Object@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028AB75.cpp (not merged yet)
+
+// tu-skeleton: 0x0028ABFC 56B ?setGeometryInfoZ@Object@@QAEXM@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Object_setGeometryInfoZ.cpp (not merged yet)
+
+// tu-skeleton: 0x0028AC34 26B ?friend_setUndetectedDefector@Object@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028AC34Setter.cpp (not merged yet)
+
+// tu-skeleton: 0x0028AC4E 20B ?rva0028AC4E@Object@@QBEPBURva0028AC4EEntry@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028AC4EAccessors.cpp (not merged yet)
+
+// tu-skeleton: 0x0028AC62 27B ?rva0028AC62@Object@@QBE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028AC4EAccessors.cpp (not merged yet)
+
+// tu-skeleton: 0x0028AC7D 35B ?rva0028AC7D@Object@@QBEMXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028AC4EAccessors.cpp (not merged yet)
+
+// tu-skeleton: 0x0028ACA0 42B ?rva0028ACA0@Object@@QBEPAV1@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028ACA0.cpp (not merged yet)
+
+// tu-skeleton: 0x0028ACCA 18B ?rva0028ACCA@Object@@QAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0028ACDC 18B ?rva0028ACDC@Object@@QAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0028ACEE 18B ?rva0028ACEE@Object@@QAEXHH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0028AD00 34B ?rva0028AD00@Object@@QAEXHMH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0028AD22 16B ?rva0028AD22@Object@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0028AD32 16B ?rva0028AD32@Object@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0028AD42 20B ?GetGoalPosition@Object@@QBE_NPAUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0028AD56 22B ?GetGoalAngle@Object@@QBEMXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0028AD6C 16B ?GetGoalLayer@Object@@QBEHXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0028AD7C 16B ?rva0028AD7C@Object@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0028AD8C 16B ?rva0028AD8C@Object@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0028AD9C 20B ?GetPathfinderPos@Object@@QBE_NPAUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0028ADB0 18B ?IsAtGoalPosition@Object@@QBE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0028ADC2 19B ?reloadAllAmmo@Object@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0028ADD5 11B ?isOutOfAmmo@Object@@QBE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0028ADE0 12B ?hasAnyWeapon@Object@@QBE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
+
 // tu-skeleton: 0x0028ADF7 28B ?rva0028ADF7@Object@@QBEHH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
 
 // tu-skeleton: 0x0028AE13 90B ?getLargestWeaponRange@Object@@QBEMXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectGetLargestWeaponRange.cpp (not merged yet)
@@ -4849,7 +4918,20 @@ void Rva0029173EAsciiField::setName(AsciiString value)
 
 // tu-skeleton: 0x0028F8A3 16B ?rva0028F8A3@Object@@QBEMPBV1@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp (not merged yet)
 
-// tu-skeleton: 0x0028F8B3 27B ?Rva0028F8B3SetBit@@YAXPAII@Z -- matched in Code/GameEngine/Source/Common/Rva004076EEConditionBits.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva004076EEConditionBits.cpp
+
+// Whole BF1 f98983a7d3bb405f1a4ba94bb6a2a168062a819d WWLib/mpmath.cpp
+// and its mpmath.h XMP_Set_Bit expression supply this raw-bit source guide.
+// The donor name already belongs to a different retail body at 61B760 and
+// is not asserted here. Native28F8B3..28F8CE follows the predecessor RET4
+// and ends with RET0 before a distinct call/return wrapper. Stack words
+// supply a writable raw32 array and an unsigned bit index; the logical
+// quotient/low-five-bit shift and OR store are independently witnessed.
+// Original owner, array extent and any higher-level flag meaning are unknown.
+void Rva0028F8B3SetBit(unsigned int *words, unsigned int bit)
+{
+    words[bit >> 5] |= 1u << (bit & 31);
+}
 
 // tu-skeleton: 0x0028F8CE 9B ?rva0028F8CE@Rva0028F8CEOverrideView@@QBEPBIXZ -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModule.cpp (not merged yet)
 
