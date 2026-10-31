@@ -317,12 +317,7 @@ public:
 };
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class Overridable
-{
-public:
-	Overridable *friend_getFinalOverride();
-	const Overridable *friend_getFinalOverride() const;
-};
+#include "../../../Include/Common/Overridable.h"
 
 class LocomotorTemplate
 {

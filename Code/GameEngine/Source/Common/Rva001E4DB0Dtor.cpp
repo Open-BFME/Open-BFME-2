@@ -8,13 +8,7 @@
 // callers 0x001E67A6 0x001E6806 0x004DA4BA, neighbours Rva001E4954Destroy.
 #include "ascii_string.h"
 
-class Overridable
-{
-public:
-	virtual ~Overridable();
-private:
-	char m_pad04[0x0C];
-};
+#include "../../Include/Common/Overridable.h"
 
 class LocomotorTemplate : public Overridable
 {

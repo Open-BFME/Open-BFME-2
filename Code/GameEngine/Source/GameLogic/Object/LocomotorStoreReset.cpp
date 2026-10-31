@@ -35,11 +35,7 @@ static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
 { return a._M_node != b._M_node; }
 }
 
-class Overridable
-{
-public:
-	Overridable *deleteOverrides();
-};
+#include "../../../Include/Common/Overridable.h"
 
 #include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 

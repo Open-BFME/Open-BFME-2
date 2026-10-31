@@ -162,7 +162,7 @@ class INIException { public: INIException(int,const char*,...); INIException(con
 enum NameKeyType { NAMEKEY_INVALID=0 };
 class NameKeyGenerator { public: NameKeyType nameToKey(const char *); };
 extern NameKeyGenerator *TheNameKeyGenerator;
-class Overridable { public: Overridable *friend_getFinalOverride(); };
+#include "../../Include/Common/Overridable.h"
 class LocomotorTemplate { public: LocomotorTemplate() throw(); void validate(); char storage[0x154]; };
 class Rva001E6731 { public: unsigned rva001E71FA(const int &); };
 struct LocomotorParserView { void *vtable; Overridable *next; bool overrideFlag; char pad9[3]; int retired; AsciiString name; __forceinline void setName(const AsciiString &value) { name.setCopyInline(value); } };

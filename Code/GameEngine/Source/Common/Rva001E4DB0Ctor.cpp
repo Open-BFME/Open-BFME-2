@@ -18,14 +18,7 @@
 // matched getLegalSurfaces reads template+10 rather than native+14.
 #include "ascii_string.h"
 extern int BfmeLogicFramesPerSecond;
-class Overridable {
-public:
-    Overridable() : next(0), isOverride(false), key(-1) {}
-    virtual ~Overridable();
-    void *next;
-    bool isOverride;
-    int key;
-};
+#include "../../Include/Common/Overridable.h"
 class LocomotorTemplate : public Overridable {
 public:
     LocomotorTemplate();

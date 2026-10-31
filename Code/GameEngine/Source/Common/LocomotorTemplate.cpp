@@ -7,13 +7,7 @@
 // the sibling copy assignment LocomotorTemplate::operator= (Rva001E3955Assign.cpp).
 // Target evidence: retail body and the shared member offsets/widths read byte for byte.
 #include "ascii_string.h"
-class Overridable
-{
-public:
-	Overridable(const Overridable &rhs);
-	virtual ~Overridable();
-	char m_pad[0x0C];
-};
+#include "../../Include/Common/Overridable.h"
 class LocomotorTemplate : public Overridable
 {
 public:

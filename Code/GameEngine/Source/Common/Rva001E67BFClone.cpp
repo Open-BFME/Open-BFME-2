@@ -8,14 +8,7 @@
 // dtor. Caller 0x004DA49E. Owner proven by vtable/base/callee layout.
 #include "ascii_string.h"
 
-class Overridable
-{
-public:
-	Overridable(const Overridable &o);
-	virtual ~Overridable();
-private:
-	char m_pad04[0x0C];
-};
+#include "../../Include/Common/Overridable.h"
 
 class LocomotorTemplate : public Overridable
 {
