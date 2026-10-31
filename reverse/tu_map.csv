@@ -8093,17 +8093,17 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x001088F6,59,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp,approved,S,S=Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowRva007AEC10.cpp
 0x00108931,32,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp,approved,S,S=Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowRva007AEC10.cpp
 0x00108951,25,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp,approved,S,S=Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowRva007AEC10.cpp
-0x0010896A,22,code,,,-,,Code/GameEngine/Source/Common/Rva007AECC0Slot.cpp
-0x00108980,22,code,,,-,,Code/GameEngine/Source/Common/Rva007AECC0Slot_get_Rva007AECC0Slot_QAEHI_Z.cpp
-0x00108996,84,code,,,-,,Code/GameEngine/Source/Common/Rva007AED00UpdateOffsets.cpp
+0x0010896A,22,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp
+0x00108980,22,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp
+0x00108996,84,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp
 0x001089EA,33,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DDualProjectedShadow.cpp,proposed,N,N=Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DDualProjectedShadow.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowDecalHelpers.cpp
-0x00108A0B,110,code,,,-,,Code/GameEngine/Source/Common/Rva00108A0BCtor.cpp
+0x00108A0B,110,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp
 0x00108A79,95,code,Code/GameEngine/Source/Common/BfmeSub928F.cpp,proposed,N,N=Code/GameEngine/Source/Common/BfmeSub928F.cpp noncontiguous,Code/GameEngine/Source/Common/Rva000F1AD8Clear.cpp
 0x00108AD8,95,code,,,-,,Code/GameEngine/Source/Common/Rva00108AD8Finish.cpp
 0x00108B37,15,code,,,-,,Code/GameEngine/Source/Common/Disp8BinaryAddGetters.cpp
 0x00108B46,7,code,,,-,,Code/GameEngine/Source/Common/Disp8BinaryAddGetters.cpp
 0x00108B4D,7,code,,,-,,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp
-0x00108B54,17,code,,,-,,Code/GameEngine/Source/Common/Rva007AE3B0Copy.cpp
+0x00108B54,17,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp
 0x00108B65,46,code,,,-,,Code/Libraries/Source/WWVegas/WWMath/aabtreecull.cpp
 0x00108B93,33,code,,,-,,Code/GameEngine/Source/Main/WinMainPairUnicode.cpp
 0x00108BB4,244,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp,approved,Z,Z=Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp S=Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp N=Code/GameEngine/Source/Common/W3DShadowTexture.cpp,Code/GameEngine/Source/Common/W3DShadowTextureCtor.cpp
@@ -64488,8 +64488,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00764571,10,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp,approved,P,P=0x00108CC4@FuncInfo0x00908638,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowTextureDestructor.cpp
 0x0076457B,8,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp,approved,P,P=0x00108D33@FuncInfo0x0090865C,Code/GameEngine/Source/Common/W3DProjectedShadowManager.cpp
 0x00764583,10,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp,approved,P,P=0x00108D33@FuncInfo0x0090865C,Code/GameEngine/Source/Common/W3DProjectedShadowManager.cpp
-0x0076458D,10,code,,,-,,Code/GameEngine/Source/Common/Rva00108A0BCtor.cpp
-0x00764597,10,code,,,-,,Code/GameEngine/Source/Common/Rva00108A0BCtor.cpp
+0x0076458D,10,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp
+0x00764597,10,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp
 0x007645A1,10,code,,,-,,Code/GameEngine/Source/Common/Rva00108660ReAcquire.cpp
 0x007645AB,8,code,,,-,,Code/gen_small/uw_gen_010.cpp
 0x007645B3,10,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp
