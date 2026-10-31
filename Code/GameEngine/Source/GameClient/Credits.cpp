@@ -191,21 +191,6 @@ const FieldParse CreditsManager::m_creditsFieldParseTable[] = {
  {0,0,0,0}
 };
 
-// CreditsManager::addText, retail 0x005B7E02 (343 bytes; WB 0x01581450), the
-// Zero Hour Credits.cpp body: title/position/normal lines are queued as is, a
-// column line pairs with the previous column line when that one is still open.
-// The line's 0x28-byte constructor (0x005B72BE) and destructor (0x005B72E7)
-// are rowed under address-derived receivers, so the allocation and deletion go
-// through those views; the constructor does not throw, so the new-expression
-// keeps no unwind state.
-class Rva0040C1F0
-{
-public:
-	Rva0040C1F0() throw();
-	int m_00;
-	char m_pad[0x24];
-};
-
 // Declaration-only: retail keeps one copy of this STLport member (rowed elsewhere); this unit calls it
 // rather than emitting its own.
 namespace _STL {
@@ -383,6 +368,130 @@ namespace _STL
 // Keep the established out-of-line list<int>::push_back provider.
 template <> void list<int, allocator<int> >::push_back(const int &value);
 }
+
+// Three constant-field constructors from the R3 scalar-field family.
+//
+// BFME1 byte-identical donor (reference/open-bfme-1
+// Code/GameEngine/Source/Common/R3ScalarFieldConstructors3.cpp); trimmed to
+// the three T1 bodies the sweep places. Identity is not recovered: names are
+// addresses and offsets.
+
+class Rva0013A8B0
+{
+public:
+	Rva0013A8B0();
+	int m_00, m_04, m_08, m_0C, m_10;
+	char m_pad14[8];
+	int m_1C, m_20;
+	char m_pad24[4];
+	int m_28;
+	char m_pad2C[0x3C - 0x2C];
+	int m_3C;
+	char m_pad40[4];
+	int m_44;
+};
+
+class Rva0040C1F0
+{
+public:
+	Rva0040C1F0();
+	int m_00, m_04, m_08;
+	char m_0C, m_0D;
+	int m_10, m_14, m_18, m_1C, m_20, m_24;
+};
+
+class Rva00704980
+{
+public:
+	Rva00704980();
+	int m_00, m_04, m_08, m_0C, m_10, m_14, m_18;
+	char m_1C, m_1D, m_1E, m_1F;
+};
+
+// Lead: AssistanceRequestData's zero initializer in Open-BFME-1
+// 9cbfb551fe20dae985f91f2319d8997287b6a705 GameLogic/Object/Weapon.cpp.
+// Native 2C95CC..2C95DE is a complete thiscall leaf between two independently
+// bounded Ghidra functions, returning this after clearing +0/+4 and float+8.
+// The original class, constructor/reset purpose and first two field types
+// remain unknown; the method spelling claims only the native operation/ABI.
+class Rva002C95CCFields
+{
+public:
+    Rva002C95CCFields *initialize();
+    unsigned int m_00;
+    unsigned int m_04;
+    float m_08;
+};
+
+// Current BF1 9cbfb551fe20dae985f91f2319d8997287b6a705 WaterRenderObjConstructor.cpp
+// Boxed<float> constructor is a source guide, not proof of this target's class
+// or constructor role. Native30F2AB..30F2BA stores a single stack float at+0,
+// returns this, and RET4; aligned from known30F14C/351, whose final JMP at
+//30F2A9 stays inside its own teardown, then next independent store starts30F2BA.
+// The neutral initialize method preserves only the observed operation/ABI.
+class Rva0030F2ABFields
+{
+public:
+    Rva0030F2ABFields *initialize(float value);
+    float m_value;
+};
+
+// BF1 9cbfb551fe20dae985f91f2319d8997287b6a705 Rva000FA610GetPortrait.cpp
+// OneBlock constructor is the source lead only. Complete native2A8818..2A8823
+// is independently bounded by preceding RET2A8817 and the known tuning ctor
+// at2A8823; it writes two raw words to1 and returns this without arguments.
+// The original owner, field purposes and constructor role remain unknown.
+class Rva002A8818Fields
+{
+public:
+    Rva002A8818Fields *initialize();
+    unsigned int m_00,m_04;
+};
+
+// BF1 9cbfb551fe20dae985f91f2319d8997287b6a705 AptDisplayStringAllocation_ctor.cpp
+// Rect00787710 zero constructor is a source guide only. Native26FCF9..26FD07
+// is a complete indexed getter ending RET4; the next body26FD07..26FD20
+// independently clears four floats at0/4/8/C and returns this, before the
+// next predicate begins26FD20. Original owner and constructor role unknown.
+class Rva0026FD07Fields {
+public:
+ Rva0026FD07Fields *initialize();
+ float m_00,m_04,m_08,m_0C;
+};
+
+// BF1 f989 WindowManager_invokeCallback.cpp result-constructor lead,
+// compiled O1/SSE2/G7, is not proof of this target's owner or lifetime.
+// Complete native2223C7..2223DD follows RET and precedes a new thunk;
+// MOVSS copies the first stack word through a single-precision lane to0,
+// with donor float representation retained; raw argument8 goes to4, and
+// EAX returns the receiver with RET8. Original second-field interpretation,
+// original declared field types, full owner layout and constructor/reset
+// role remain unknown beyond these witnessed bit transfers.
+class Rva002223C7Fields
+{
+public:
+    Rva002223C7Fields *initialize(float value, unsigned int word);
+    float m_00;
+    unsigned int m_04;
+};
+
+// Whole BF1 f989 AptPalantirRva00594740.cpp's record initializer is the
+// O1/SSE2/G7 source lead, not an original target owner/constructor proof.
+// Native528B22..528B37 independently follows RET8 and precedes a new
+// pointer-loading body: rawword0=2, rawword4=0, single-precision-lane bits8
+// cleared with XORPS/MOVSS, then receiver returned in EAX with RET.
+// Field purposes, original declared types and complete owner/lifetime
+// remain unknown; donor float representation preserves the witnessed zero.
+class Rva00528B22Fields
+{
+public:
+    Rva00528B22Fields *initialize();
+    unsigned int m_00;
+    unsigned int m_04;
+    float m_08;
+};
+
+// ---- from Code/GameEngine/Source/GameClient/Credits.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/Credits.cpp
 
@@ -787,8 +896,6 @@ void BfmeSinkBOE::bfmeDoBOE(void *one, void *two)
 	}
 }
 
-// tu-skeleton: 0x005B72BE 41B ??0Rva0040C1F0@@QAE@XZ -- matched in Code/GameEngine/Source/Common/R3ScalarFieldConstructors3.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva005B72E7Dtor.cpp
 
 // ??1Rva005B72E7@@QAE@XZ @0x005B72E7 107B.
@@ -805,8 +912,6 @@ Rva005B72E7::~Rva005B72E7()
 	m_14 = 0;
 }
 
-// tu-skeleton: 0x005B7426 17B ?rva005B7426@Rva005B7426@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesG.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva005B7DC3Box.cpp
 
 void Rva005B7DC3Box::Run()
@@ -817,3 +922,22 @@ void Rva005B7DC3Box::Run()
 	p->m_00 = 4;
 	m_0C.push_back(out);
 }
+
+// ---- from Code/GameEngine/Source/Common/R3ScalarFieldConstructors3.cpp
+
+Rva0040C1F0::Rva0040C1F0()
+{
+	m_00 = 4;
+	m_04 = 0;
+	m_08 = 0;
+	m_0C = 0;
+	m_0D = 0;
+	m_10 = 0;
+	m_14 = 0;
+	m_18 = 0;
+	m_1C = 0;
+	m_20 = 0;
+	m_24 = 0;
+}
+
+// tu-skeleton: 0x005B7426 17B ?rva005B7426@Rva005B7426@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesG.cpp (not merged yet)
