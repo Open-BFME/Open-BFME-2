@@ -569,6 +569,9 @@ public:
 	void addNeed(int a);
 };
 #include "../../../../../Include/Common/Overridable.h"
+#include <stdlib.h>
+#pragma inline_depth(0)
+#pragma inline_depth()
 
 // bfme link decl-only begin
 namespace _STL { template <> _Bit_iter<_Bit_reference, _Bit_reference *> copy<_Bit_iter<_Bit_reference, _Bit_reference *>, _Bit_iter<_Bit_reference, _Bit_reference *> >(_Bit_iter<_Bit_reference, _Bit_reference *>, _Bit_iter<_Bit_reference, _Bit_reference *>, _Bit_iter<_Bit_reference, _Bit_reference *>); }
@@ -1861,6 +1864,15 @@ public:
  ~Rva00200667();
 };
 
+// Declaration-only ABI view keeps the retail out-of-line destructor call.
+class UnicodeStringCleanup
+{
+public:
+    void destroy();
+};
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatch.cpp
+
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatch.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatch.cpp
@@ -2190,22 +2202,45 @@ bool Rva005BA626::rva005BA626()
 	return true;
 }
 
-// tu-skeleton: 0x005BA3AD 19B ?rva005BA3AD@Rva005BA3AD@@QAE_NXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchReady.cpp (not merged yet)
-
-// tu-skeleton: 0x005BA3C0 53B ??1LadderPref@@QAE@XZ -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/OnlinePreferences.cpp (not merged yet)
-
-// tu-skeleton: 0x005BA3F5 75B ??0LadderPref@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/LadderPrefCopy.cpp (not merged yet)
-
-// tu-skeleton: 0x005BA587 12B ?rva005ba587@@YGXIVUnicodeString@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/UnicodeStringEmptyCleanup.cpp (not merged yet)
-
-// tu-skeleton: 0x005BA593 142B ??1OnlineQuickMatch@AptOnline@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/Rva005BA593Dtor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp
 
 void Rva005BA621::rva005BA621()
 {
 	rva005BA440();
 }
+
+// tu-skeleton: 0x005BA3AD 19B ?rva005BA3AD@Rva005BA3AD@@QAE_NXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchReady.cpp (not merged yet)
+
+// tu-skeleton: 0x005BA3C0 53B ??1LadderPref@@QAE@XZ -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/OnlinePreferences.cpp (not merged yet)
+
+// tu-skeleton: 0x005BA3F5 75B ??0LadderPref@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/LadderPrefCopy.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/UnicodeStringEmptyCleanup.cpp
+
+// Native 007B9C10..007B9C1A: the atexit callback registered by 007B6740.
+// That initializer constructs UnicodeString::TheEmptyString at VA00E0C898
+// through 00326BE6 and passes this callback to atexit. The callback calls
+// the rowed UnicodeString destructor at 005B804E with the same object.
+// Keep the address in the helper name: retail's compiler-local name is unknown.
+
+// Native 007B6740..007B6756 constructs the same object, then registers
+// its cleanup with atexit. The constructor's folded address is 00326BE6.
+// AtexitThunk.cpp defines the recovered CRT body as __atexit in COFF.
+
+// Clean BF1 f98983a7d3bb405f1a4ba94bb6a2a168062a819d
+// Common/Rva00558D90Release.cpp supplies a wide-string cleanup guide.
+// Native 5BA587..5BA593 follows RET and ends its own RET8; it takes the
+// address of stack word+8 and calls genuine StringBase<ushort>::releaseBuffer
+// at 36E70. The first stack word is unused; no receiver is accessed and no
+// original callback/owner identity or return-value contract is asserted.
+// A by-value canonical UnicodeString supplies the observed one-word wide
+// holder and its natural cleanup; do not import the donor's empty private view.
+void __stdcall rva005ba587(unsigned int word, UnicodeString text)
+{
+    (void)word;
+}
+
+// tu-skeleton: 0x005BA593 142B ??1OnlineQuickMatch@AptOnline@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/Rva005BA593Dtor.cpp (not merged yet)
 
 // tu-skeleton: 0x005BA6EE 277B ?rva005BA6EE@Rva005BA6EE@@QAE_NXZ -- matched in Code/GameEngine/Source/Common/Rva005BA6EEPopulate.cpp (not merged yet)
 
