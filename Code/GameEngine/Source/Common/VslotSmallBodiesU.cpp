@@ -254,11 +254,6 @@ public:
 	virtual void v17();
 	void rva004ADBD7();
 };
-void Rva004ADBD7::rva004ADBD7()
-{
-	if (((const Rva004ADBD7Data *)m_moduleData)->m_CC)
-		v17();
-}
 
 // 0x004DF897 (UpdateModuleInterface at +0x10, slot 0 beside the rowed
 // UpdateModule getDisabledTypesToProcess and wake slots): clears object
