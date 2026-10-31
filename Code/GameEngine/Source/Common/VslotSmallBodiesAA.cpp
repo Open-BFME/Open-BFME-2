@@ -49,10 +49,6 @@ private:
 	char m_pad00[0xF8];
 	Rva001D9083 m_armorName;
 };
-Int Rva004BF8AC::rva004BF8AC()
-{
-	return m_armorName.rva001D9083();
-}
 
 // 0x0060038E (three tables): virtual slot 4 of the +0x08 object.
 class Rva0060038ETarget

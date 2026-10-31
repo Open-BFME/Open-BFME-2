@@ -39902,7 +39902,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x004BF88D,6,code,Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp N=Code/GameEngine/Source/Common/ActiveBody.cpp,Code/GameEngine/Source/Common/ModuleNameGetters.cpp
 0x004BF893,4,code,Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp,approved,C,C=0x004BF88D..0x004BF897,Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp
 0x004BF897,21,code,Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp N=Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp,Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp
-0x004BF8AC,11,code,Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp,approved,C,C=0x004BF897..0x004BF8B7,Code/GameEngine/Source/Common/VslotSmallBodiesAA.cpp
+0x004BF8AC,11,code,Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp,approved,C,C=0x004BF897..0x004BF8B7,Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp
 0x004BF8B7,7,code,Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp N=Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp,Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp
 0x004BF8BE,13,code,Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp,approved,C,C=0x004BF8B7..0x004BF8CB,Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp
 0x004BF8CB,13,code,Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp,approved,C,C=0x004BF8B7..0x004BF8D8,Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp

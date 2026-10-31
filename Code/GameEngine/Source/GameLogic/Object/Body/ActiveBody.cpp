@@ -1543,6 +1543,85 @@ public:
  unsigned int *m_ptr;
 };
 
+// 0x001D9083: whether the armor template the store at VA 0x00DFDBC4 finds
+// under this name (the rowed 0x001D901B) has a positive +0x74; reached
+// from 0x004BF8AC, the slot that applies it to the +0xF8 name (eleven
+// module tables).
+class ArmorTemplate
+{
+public:
+	char m_pad00[0x74];
+	Int m_74;
+};
+
+class Rva001D901B
+{
+public:
+	const ArmorTemplate *rva001D901B(const AsciiString &name) const;
+};
+
+class Rva001D9083
+{
+public:
+	Int rva001D9083();
+};
+
+class Rva004BF8AC
+{
+public:
+	Int rva004BF8AC();
+private:
+	char m_pad00[0xF8];
+	Rva001D9083 m_armorName;
+};
+
+// 0x0060038E (three tables): virtual slot 4 of the +0x08 object.
+class Rva0060038ETarget
+{
+public:
+	virtual void v00();
+	virtual void v01();
+	virtual void v02();
+	virtual void v03();
+	virtual void v04();
+};
+
+class Rva0060038E
+{
+public:
+	void rva0060038E();
+private:
+	Int m_00;
+	Int m_04;
+	Rva0060038ETarget *m_08;
+};
+
+class Rva001E0C77
+{
+public:
+	ParticleSystemTemplate *rva001E0C77(Int a, Int unused);
+private:
+	char m_pad00[0x148];
+	void *m_templateName; // AsciiString
+};
+
+// Native42C0AE and42C0B5 now use the proven +4/+8 observer receivers
+// in Rva0042C5C3Dtor.cpp; both write the complete object word at+2C.
+
+// 0x0056a9ed: installed-vtable scalar store. Only the native memory
+// write and stack-word ABI are known; owner and field meaning remain unknown.
+class Rva0056A9EDScalarStore {public: void rva0056A9ED(Int unused); private: char m_prefix[0x9]; unsigned char m_value;};
+
+// 0x005cc958: installed-vtable scalar store. Only the native memory
+// write and stack-word ABI are known; owner and field meaning remain unknown.
+class Rva005CC958ByteStore {public: void rva005CC958(Int unused);void rva005CC95F(Int unused); private: char m_prefix[0x23]; unsigned char m_value;};
+
+// 0x005e39d9: installed-vtable scalar store. Only the native memory
+// write and stack-word ABI are known; owner and field meaning remain unknown.
+class Rva005E39D9ScalarStore {public: void rva005E39D9(Int unused,Int value); private: char m_prefix[0x29]; unsigned char m_value;};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp
@@ -2877,10 +2956,6 @@ void Rva004BFD83Parse(INI *ini, void *instance, void *, const void *)
 	((_STL::vector<PrereqUnitRec, _STL::allocator<PrereqUnitRec> > *)&((Rva004BFD83Owner *)instance)->m_entries)->push_back(*(const PrereqUnitRec *)&entry);
 }
 
-// tu-skeleton: 0x004BDB85 126B ?setMaxHealth@ActiveBody@@UAEXMW4MaxHealthChangeType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Body/ActiveBodySetMaxHealth.cpp (not merged yet)
-
-// tu-skeleton: 0x004BDC1C 9B ??0Rva004BDC1C@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp
 
 // Disp8 pointer-chase dword getters: seven-byte __thiscall members with one shape:
@@ -2897,6 +2972,10 @@ void Rva004BFD83Parse(INI *ini, void *instance, void *, const void *)
 // (a sub-object `this` pointing into a larger object). Spelled as an explicit
 // backward cast, which MSVC folds to `mov eax,[ecx-BACK]`; same shape and
 // reading as BFME1's ChainedFieldGetters.
+
+// tu-skeleton: 0x004BDB85 126B ?setMaxHealth@ActiveBody@@UAEXMW4MaxHealthChangeType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Body/ActiveBodySetMaxHealth.cpp (not merged yet)
+
+// tu-skeleton: 0x004BDC1C 9B ??0Rva004BDC1C@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp (not merged yet)
 
 // tu-skeleton: 0x004BDC6D 54B ?getSingleBitFromName@?$BitFlags@$0BF@@@SAHPBD@Z -- matched in Code/GameEngine/Source/Common/BitFlags21VeterancyLevelGetSingleBitFromName.cpp (not merged yet)
 
@@ -2926,7 +3005,12 @@ void Rva004BFD83Parse(INI *ini, void *instance, void *, const void *)
 
 // tu-skeleton: 0x004BF893 4B ?get@Rva004BF893LeaField@@QBEPAXXZ -- matched in Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x004BF8AC 11B ?rva004BF8AC@Rva004BF8AC@@QAEHXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAA.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/VslotSmallBodiesAA.cpp
+
+Int Rva004BF8AC::rva004BF8AC()
+{
+	return m_armorName.rva001D9083();
+}
 
 // tu-skeleton: 0x004BF8D8 7B ?get@Rva004BF8D8ByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp32ByteGetters.cpp (not merged yet)
 
