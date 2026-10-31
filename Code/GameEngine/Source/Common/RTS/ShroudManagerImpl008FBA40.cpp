@@ -652,106 +652,6 @@ void ShroudManagerImpl::notify()
 		node->playerShroudState[unknown64] = 0;
 }
 
-// Transferred from BFME 1's ShroudManagerImpl.cpp verbatim: saturating
-// adjust of one player's counter word inside the 0xA8-byte element.
-void ShroudManagerCell::adjustPlayerCounter008FC1F0(
-	int playerIndex, int counterIndex, int amount)
-{
-	unsigned short *counter =
-		&playerStates[playerIndex].counters[counterIndex];
-	amount += *counter;
-	if (amount < 0)
-		amount = 0;
-	else if (amount > 0xffff)
-		amount = 0xffff;
-	*counter = (unsigned short)amount;
-}
-
-// Transferred from BFME 1's ShroudManagerImpl.cpp verbatim: the
-// reveal-count-increment variant refreshes through the manager callback when
-// the visible status word changes.
-void ShroudManagerCell::AddLooker(
-	ShroudManagerImpl *manager, int playerIndex)
-{
-	ShroudManagerImpl008FBA40PlayerState &playerState =
-		playerStates[playerIndex];
-	int oldStatus = shroudStatusFromCount(playerState.status);
-	++playerState.status;
-	if (playerState.status == 0)
-		playerState.status = 1;
-	int newStatus = shroudStatusFromCount(playerState.status);
-	if (newStatus != oldStatus)
-	{
-		for (ShroudManagerImpl008FBA40Node *node = cellNodes;
-			node; node = node->next)
-		{
-			node->object->playerState[playerIndex] = 0;
-		}
-
-		if (playerIndex == manager->unknown64)
-		{
-			int index = this - manager->elements;
-			manager->refreshCallback(index % manager->width,
-				index / manager->width, newStatus);
-		}
-	}
-}
-
-// Transferred from BFME 1's ShroudManagerImpl.cpp verbatim: the
-// reveal-count-decrement variant refreshes through the manager callback when
-// the visible status word changes.
-void ShroudManagerCell::updatePlayerCells008FC3B0(
-	ShroudManagerImpl *manager, int playerIndex)
-{
-	ShroudManagerImpl008FBA40PlayerState &playerState =
-		playerStates[playerIndex];
-	int oldStatus = playerState.status == 0xffff
-		? 2 : playerState.status == 0;
-	--playerState.status;
-	int newStatus = playerState.status == 0xffff
-		? 2 : playerState.status == 0;
-	if (newStatus != oldStatus)
-	{
-		for (ShroudManagerImpl008FBA40Node *node = cellNodes;
-			node; node = node->next)
-		{
-			node->object->playerState[playerIndex] = 0;
-		}
-
-		if (playerIndex == manager->unknown64)
-		{
-			int index = this - manager->elements;
-			manager->refreshCallback(index % manager->width,
-				index / manager->width, newStatus);
-		}
-	}
-}
-
-// Transferred from BFME 1's ShroudManagerImpl.cpp verbatim: the
-// full-shroud variant sets the status word and reports constant status 2.
-void ShroudManagerCell::ShroudIfFogged(
-	ShroudManagerImpl *manager, int playerIndex)
-{
-	ShroudManagerImpl008FBA40PlayerState &playerState =
-		playerStates[playerIndex];
-	if (playerState.status == 0)
-	{
-		playerState.status = 0xffff;
-		for (ShroudManagerImpl008FBA40Node *node = cellNodes;
-			node; node = node->next)
-		{
-			node->object->playerState[playerIndex] = 0;
-		}
-
-		if (playerIndex == manager->unknown64)
-		{
-			int index = this - manager->elements;
-			manager->refreshCallback(index % manager->width,
-				index / manager->width, 2);
-		}
-	}
-}
-
 // Retail 0x0073A1D0 outlines the float-coordinate variant of shroudElementAt:
 // floor the world-space point into cell indices and bounds-check them. BFME 1
 // only inlines the integer form, so this lands under a descriptive
@@ -769,16 +669,6 @@ ShroudManagerImpl::elementAtByCoord_Rva0073A1D0(Real x, Real y) const
 		return 0;
 	return reinterpret_cast<ShroudManagerImpl008FBA40ElementLayout *>(
 		elements + width * cellY + cellX);
-}
-
-// Retail 0x0073EA50 is this TU's adjustPlayerCounter008FC1F0; the 12B reader
-// at 0x0073EA40 loads the same element's status word for one player. No BFME 1
-// donor names it (its only caller is 0x0073B890), so it lands under a
-// descriptive Rva-qualified name.
-__declspec(noinline) int ShroudManagerCell::getPlayerStatus_Rva0073EA40(
-	int playerIndex)
-{
-	return playerStates[playerIndex].status;
 }
 
 // Retail 0x0073D810 is ShroudManager::undoRevealMapForPlayerPermanently,
