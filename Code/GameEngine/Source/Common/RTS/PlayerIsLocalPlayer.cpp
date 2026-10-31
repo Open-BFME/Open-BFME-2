@@ -9,14 +9,13 @@
 
 class Player;
 
-class PlayerList
-{
-public:
-	Player *getLocalPlayer() const { return m_localPlayer; }
+class PlayerList;
 
-private:
-	unsigned char m_pad00[ 0x10 ];
-	Player *m_localPlayer;
+// BFME 2's local-player pointer is at +0x10, independently of the donor header.
+struct PlayerListLocalPlayerView
+{
+    unsigned char m_pad00[0x10];
+    Player *m_localPlayer;
 };
 
 extern PlayerList *ThePlayerList;
@@ -29,5 +28,5 @@ public:
 
 bool Player::isLocalPlayer() const
 {
-	return this == ThePlayerList->getLocalPlayer();
+	return this == ((const PlayerListLocalPlayerView *)ThePlayerList)->m_localPlayer;
 }

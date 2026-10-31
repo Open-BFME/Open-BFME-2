@@ -1,0 +1,1250 @@
+{
+  "schema": 1,
+  "generated_utc": "2026-10-31T18:36:11.764557+00:00",
+  "symbol": "?getLocalPlayer@PlayerList@@QBEPAVPlayer@@XZ",
+  "index": "build/link_census/link_index.pkl",
+  "index_sha256": "c8a88e6d00686d8960018d5ee8230be39d0d56da46458132e36c9b682c2d5ead",
+  "index_metadata": {
+    "date": "2026-10-31 18:11",
+    "commit": "d249ce458a",
+    "clean_tree": true,
+    "census_date": "2026-10-31 16:54",
+    "census_commit": "85e8af1a53"
+  },
+  "index_referenced": false,
+  "index_incoming_edges": [],
+  "selection_owner": null,
+  "selection_exception": null,
+  "summary": {
+    "touching_objects": 26,
+    "comdat_copies": 26,
+    "strong_copies": 0,
+    "copy_digests": [
+      "0ebf5f24c0ac"
+    ],
+    "raw_runtime_incoming_count": 0,
+    "fully_current_retained_providers": [
+      "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBufferUpdate.cpp",
+      "Code/GameEngine/Source/GameClient/EvaEventFXNuggetDoFXObj.cpp",
+      "Code/GameEngine/Source/GameClient/FXListDoFXPos.cpp",
+      "Code/GameEngine/Source/GameClient/System/FXParticleSystem/FXPSStorageModuleRva003B0869.cpp",
+      "Code/GameEngine/Source/GameClient/DrawableShroud.cpp",
+      "Code/GameEngine/Source/GameClient/DrawableHealthBarGate.cpp",
+      "Code/GameEngine/Source/GameClient/InGameUICreateMouseoverHint.cpp",
+      "Code/GameEngine/Source/GameClient/RadiusDecal.cpp",
+      "Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdateLogic.cpp",
+      "Code/GameEngine/Source/GameLogic/Object/Update/InvisibilityManagerRva004389DB.cpp",
+      "Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp",
+      "Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateTriggerRevival.cpp",
+      "Code/GameEngine/Source/GameLogic/Object/Upgrade/ReplaceSelfUpgradeDtor.cpp",
+      "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarCommandProcessing.cpp"
+    ],
+    "selected_provider": "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+    "selected_fully_current": true,
+    "selected_body_hex": "8b4110c3",
+    "unknown_touching_objects": [],
+    "index_stable_during_read": true,
+    "cohort_changed_during_read": []
+  },
+  "objects": [
+    {
+      "position": 902,
+      "object": "build/match/^code_^game^engine_^source_^game^client_^game^client^drawable^t^o^c.obj",
+      "source": "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+      "source_exists": true,
+      "source_sha256": "49cb57c07ed51351cfa57c9544f817a34a56293d0c03d88288889a33095ed660",
+      "source_recorded_md5": "9f8da8aa00ef0a521fea22f3306817bd",
+      "source_actual_md5": "9f8da8aa00ef0a521fea22f3306817bd",
+      "source_current": true,
+      "object_sha256": "b5237c1848b3e64ee6f890fbfd7db27c8bd38aff5befc1b0b37bdf04c9fc3840",
+      "index_object_sha256": "911f5fcf7bc2ce46f84a2d0e2c27df4a036db956ab8d90342576f821ad125792",
+      "index_object_current": false,
+      "object_recorded_md5": "b39e7dbb23f055e7ada76188bd1c4ccd",
+      "object_actual_md5": "b39e7dbb23f055e7ada76188bd1c4ccd",
+      "object_current": true,
+      "dependency_count": 119,
+      "dependencies_current": true,
+      "dependency_mismatches": [],
+      "command_fingerprint": "ac9b2034ebd7319f1d9adbff80c58ce9",
+      "body_hex": "8b4110c3",
+      "body_relocations": [],
+      "raw_incoming": [
+        {
+          "section": ".debug$F",
+          "offset": 0,
+          "relocation_type": 7,
+          "executable": false,
+          "owner": null,
+          "debug": true
+        }
+      ],
+      "runtime_incoming": [],
+      "stable_object_during_read": true,
+      "fully_current_receipt": true,
+      "selected_first": true
+    },
+    {
+      "position": 947,
+      "object": "build/match/^code_^game^engine_^source_^game^logic_^object_^object.obj",
+      "source": "Code/GameEngine/Source/GameLogic/Object/Object.cpp",
+      "source_exists": true,
+      "source_sha256": "5a51f7a789339c8d1030cb6f0f14575e25f9008b5d556c46f0ba85dccab1d1a0",
+      "source_recorded_md5": "7ad3c828a8835e7c7a7dbdbfd620c1ff",
+      "source_actual_md5": "9c181fb5c9c2328b58a1d763bb65144a",
+      "source_current": false,
+      "object_sha256": "fd1dee5dcf4f9e26f853403ca88b0885a18386dfa207e2f3a47a49f270462be3",
+      "index_object_sha256": "fd019be3d43a32ee1479ff9356eafc817fb495b15b0830c930f5fab57f0a2653",
+      "index_object_current": false,
+      "object_recorded_md5": "6c3ba571c1095c6f74fb3c6ec3520f38",
+      "object_actual_md5": "6c3ba571c1095c6f74fb3c6ec3520f38",
+      "object_current": true,
+      "dependency_count": 79,
+      "dependencies_current": true,
+      "dependency_mismatches": [],
+      "command_fingerprint": "b84ece9e3126e7aca4d2571c8f8195f8",
+      "body_hex": "8b4110c3",
+      "body_relocations": [],
+      "raw_incoming": [
+        {
+          "section": ".debug$F",
+          "offset": 0,
+          "relocation_type": 7,
+          "executable": false,
+          "owner": null,
+          "debug": true
+        }
+      ],
+      "runtime_incoming": [],
+      "stable_object_during_read": true,
+      "fully_current_receipt": false,
+      "selected_first": false
+    },
+    {
+      "position": 1393,
+      "object": "build/match/^code_^game^engine_^source_^game^logic_^system_^game^logic^init.obj",
+      "source": "Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp",
+      "source_exists": true,
+      "source_sha256": "7ed9de03accdde06dd77dd0fef734a9c6f6d279592d6fc5f6d8740ec135643ee",
+      "source_recorded_md5": "1b376d2fcd46d95bcf3a2481f37ef6a6",
+      "source_actual_md5": "860d985684c07ee7ab956f9baeb0ad74",
+      "source_current": false,
+      "object_sha256": "a52c51091cfe9bfbf1e5754511f68eebb2127e4ab9128f61322f7307f34ee7da",
+      "index_object_sha256": "56f0eceb3752f494a14585ee4ed9a886c35604ea86a786e2605405bf1bc1a45e",
+      "index_object_current": false,
+      "object_recorded_md5": "cde8b1b3429ffe61953bdef846104552",
+      "object_actual_md5": "cde8b1b3429ffe61953bdef846104552",
+      "object_current": true,
+      "dependency_count": 108,
+      "dependencies_current": true,
+      "dependency_mismatches": [],
+      "command_fingerprint": "516a115bdcacf32349e334693384bc7c",
+      "body_hex": "8b4110c3",
+      "body_relocations": [],
+      "raw_incoming": [
+        {
+          "section": ".debug$F",
+          "offset": 0,
+          "relocation_type": 7,
+          "executable": false,
+          "owner": null,
+          "debug": true
+        }
+      ],
+      "runtime_incoming": [],
+      "stable_object_during_read": true,
+      "fully_current_receipt": false,
+      "selected_first": false
+    },
+    {
+      "position": 2670,
+      "object": "build/match/^code_^game^engine^device_^source_^w3^d^device_^game^client_^w3^d^tree^buffer.obj",
+      "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBuffer.cpp",
+      "source_exists": true,
+      "source_sha256": "619beb89d3b5fe3ace1df9cdf3b1a7802123fe185acab90225612d644ef82981",
+      "source_recorded_md5": "18f9411220ff59ad3871fdd17a8bb23f",
+      "source_actual_md5": "3fcaf60b1eb259485aa5fd7b6176f856",
+      "source_current": false,
+      "object_sha256": "866a9f65f4d15c7ac4802cfe31dd65b3ea9f9d75e0caccd27426a8affc92e91e",
+      "index_object_sha256": "cff1c7362f7bc1c292f0bbda471e8edefa9a3425364ca650ce4d9259577335f3",
+      "index_object_current": false,
+      "object_recorded_md5": "4dd2c23cac7de842867256e3f10d158b",
+      "object_actual_md5": "4dd2c23cac7de842867256e3f10d158b",
+      "object_current": true,
+      "dependency_count": 19,
+      "dependencies_current": false,
+      "dependency_mismatches": [
+        {
+          "path": "Code\\Libraries\\Include\\Lib\\Coord2D.h",
+          "recorded_md5": "5917367a4bf91b44e2eb1b0ee4161de9",
+          "actual_md5": "e9028ab5ff4755dc39375edb5fb4d478"
+        }
+      ],
+      "command_fingerprint": "852a088201bb4a874e88dd500397234e",
+      "body_hex": null,
+      "body_relocations": null,
+      "raw_incoming": [],
+      "runtime_incoming": [],
+      "stable_object_during_read": true,
+      "fully_current_receipt": false,
+      "selected_first": false
+    },
+    {
+      "position": 2676,
+      "object": "build/match/^code_^game^engine^device_^source_^w3^d^device_^game^client_^w3^d^tree^buffer^update.obj",
+      "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBufferUpdate.cpp",
+      "source_exists": true,
+      "source_sha256": "3de92d8dac139350c6b2cd6a1947403d2d47f4e37d09da5b80afe2d68f55f5b2",
+      "source_recorded_md5": "6c4b73078ce9743f3beabb19d57f7660",
+      "source_actual_md5": "6c4b73078ce9743f3beabb19d57f7660",
+      "source_current": true,
+      "object_sha256": "930078db5012f6b0a65cd030c956f0f0e4604891a789bfde76fea1f8cf2c5b27",
+      "index_object_sha256": "550a3ea3ff452a49a67ce7f44f78d4923b22c3415b035ac0fce6d14d5b8f5cae",
+      "index_object_current": false,
+      "object_recorded_md5": "62b4c06be806ad5be312a047892ee216",
+      "object_actual_md5": "62b4c06be806ad5be312a047892ee216",
+      "object_current": true,
+      "dependency_count": 3,
+      "dependencies_current": true,
+      "dependency_mismatches": [],
+      "command_fingerprint": "04e869cc4a01024944058a9a489b26ba",
+      "body_hex": "8b4110c3",
+      "body_relocations": [],
+      "raw_incoming": [
+        {
+          "section": ".debug$F",
+          "offset": 0,
+          "relocation_type": 7,
+          "executable": false,
+          "owner": null,
+          "debug": true
+        }
+      ],
+      "runtime_incoming": [],
+      "stable_object_during_read": true,
+      "fully_current_receipt": true,
+      "selected_first": false
+    },
+    {
+      "position": 4256,
+      "object": "build/match/^code_^game^engine_^source_^game^client_^eva^event^f^x^nugget^do^f^x^obj.obj",
+      "source": "Code/GameEngine/Source/GameClient/EvaEventFXNuggetDoFXObj.cpp",
+      "source_exists": true,
+      "source_sha256": "39ac117ba155ad867c838c4aff2de88dd95f9190e7ab3ad0e0873ff2ddc9832c",
+      "source_recorded_md5": "7d7d44eae7344a6827c8bb4b2cf4523b",
+      "source_actual_md5": "7d7d44eae7344a6827c8bb4b2cf4523b",
+      "source_current": true,
+      "object_sha256": "39dfa99aeba725a36b7205f05271ca1b436894f36a396c8bb87e52754892f8e0",
+      "index_object_sha256": "8e982122479ab2b70c4d3fa2de3e2bbbd6d44575b697934a53fea81df51a310b",
+      "index_object_current": false,
+      "object_recorded_md5": "bdf8b3601f4ca6dfa055efca164ef0ff",
+      "object_actual_md5": "bdf8b3601f4ca6dfa055efca164ef0ff",
+      "object_current": true,
+      "dependency_count": 1,
+      "dependencies_current": true,
+      "dependency_mismatches": [],
+      "command_fingerprint": "16902f342d18abd7925159931c6842cc",
+      "body_hex": "8b4110c3",
+      "body_relocations": [],
+      "raw_incoming": [
+        {
+          "section": ".debug$F",
+          "offset": 0,
+          "relocation_type": 7,
+          "executable": false,
+          "owner": null,
+          "debug": true
+        }
+      ],
+      "runtime_incoming": [],
+      "stable_object_during_read": true,
+      "fully_current_receipt": true,
+      "selected_first": false
+    },
+    {
+      "position": 4300,
+      "object": "build/match/^code_^game^engine_^source_^game^client_^f^x^list^do^f^x^pos.obj",
+      "source": "Code/GameEngine/Source/GameClient/FXListDoFXPos.cpp",
+      "source_exists": true,
+      "source_sha256": "c8f29446ea1bc9c0817151ffac7cf9eb2d8d1907ffd58751e999b82e4abe62cd",
+      "source_recorded_md5": "09f05b3b691e4c8e1a0e65f0d925b6c4",
+      "source_actual_md5": "09f05b3b691e4c8e1a0e65f0d925b6c4",
+      "source_current": true,
+      "object_sha256": "87a4f2e307aff63248aa9d3eacd7d82af737569ffc7823c67566684224ec9e6f",
+      "index_object_sha256": "670cc05a98001c0c2fda599b3b301a93fc00d8bd33b384eb7662456e653385c3",
+      "index_object_current": false,
+      "object_recorded_md5": "dcfa334bf560c6de1cc092fdcba0ca43",
+      "object_actual_md5": "dcfa334bf560c6de1cc092fdcba0ca43",
+      "object_current": true,
+      "dependency_count": 7,
+      "dependencies_current": true,
+      "dependency_mismatches": [],
+      "command_fingerprint": "4d6eed839febd6aa1658367c8a8dc8c8",
+      "body_hex": "8b4110c3",
+      "body_relocations": [],
+      "raw_incoming": [
+        {
+          "section": ".debug$F",
+          "offset": 0,
+          "relocation_type": 7,
+          "executable": false,
+          "owner": null,
+          "debug": true
+        }
+      ],
+      "runtime_incoming": [],
+      "stable_object_during_read": true,
+      "fully_current_receipt": true,
+      "selected_first": false
+    },
+    {
+      "position": 4530,
+      "object": "build/match/^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^f^x^p^s^storage^module^rva003^b0869.obj",
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/FXPSStorageModuleRva003B0869.cpp",
+      "source_exists": true,
+      "source_sha256": "362875ef903ab43eff5eabe5b094691df659dcef41e0c63f5459bbe1c79883e4",
+      "source_recorded_md5": "a202d60b005c935671d4bc5730f9d1a3",
+      "source_actual_md5": "a202d60b005c935671d4bc5730f9d1a3",
+      "source_current": true,
+      "object_sha256": "929a506f0a7018c3a396caaa18bb465f7fb0c2fb29900b1b9d10ca699396cb29",
+      "index_object_sha256": "f6226002ea85e877bfc68bee9b5670f1ea58d64936a61957cf5be717d5048b66",
+      "index_object_current": false,
+      "object_recorded_md5": "09cffda06f46bca4909f3e8a6b6c953a",
+      "object_actual_md5": "09cffda06f46bca4909f3e8a6b6c953a",
+      "object_current": true,
+      "dependency_count": 2,
+      "dependencies_current": true,
+      "dependency_mismatches": [],
+      "command_fingerprint": "e0890c81f3dc66ab1a20cbe1c52134c8",
+      "body_hex": "8b4110c3",
+      "body_relocations": [],
+      "raw_incoming": [
+        {
+          "section": ".debug$F",
+          "offset": 0,
+          "relocation_type": 7,
+          "executable": false,
+          "owner": null,
+          "debug": true
+        }
+      ],
+      "runtime_incoming": [],
+      "stable_object_during_read": true,
+      "fully_current_receipt": true,
+      "selected_first": false
+    },
+    {
+      "position": 6533,
+      "object": "build/match/^code_^game^engine_^source_^game^client_^drawable^shroud.obj",
+      "source": "Code/GameEngine/Source/GameClient/DrawableShroud.cpp",
+      "source_exists": true,
+      "source_sha256": "a1615602ab2e71113a1e17196d8223cd47387a7cee1975156ca788d8985455ea",
+      "source_recorded_md5": "a504eeed5cbb1c8a8849a52153659cc6",
+      "source_actual_md5": "a504eeed5cbb1c8a8849a52153659cc6",
+      "source_current": true,
+      "object_sha256": "86be45b7a669d376399cbd91f550f9b77a58b7f925c7ddab605077f043c33514",
+      "index_object_sha256": "4b7a532a6a80eab6920e30fad4836d2f2756768a7c6f2c65a4e5bdee214dcfbc",
+      "index_object_current": false,
+      "object_recorded_md5": "3bc9fffff3be32430cfb01ea293d5e8f",
+      "object_actual_md5": "3bc9fffff3be32430cfb01ea293d5e8f",
+      "object_current": true,
+      "dependency_count": 118,
+      "dependencies_current": true,
+      "dependency_mismatches": [],
+      "command_fingerprint": "4e52a0e51449c6105efda9b9148307d9",
+      "body_hex": "8b4110c3",
+      "body_relocations": [],
+      "raw_incoming": [
+        {
+          "section": ".debug$F",
+          "offset": 0,
+          "relocation_type": 7,
+          "executable": false,
+          "owner": null,
+          "debug": true
+        }
+      ],
+      "runtime_incoming": [],
+      "stable_object_during_read": true,
+      "fully_current_receipt": true,
+      "selected_first": false
+    },
+    {
+      "position": 6553,
+      "object": "build/match/^code_^game^engine_^source_^game^client_^drawable_rva00273755.obj",
+      "source": "Code/GameEngine/Source/GameClient/Drawable_rva00273755.cpp",
+      "source_exists": true,
+      "source_sha256": "40bd5ad0db45104aef1aa231551388e87543f7734181feba7e8178277b589e2b",
+      "source_recorded_md5": "96dff62e14122ddd693c43ef7b7cdb2a",
+      "source_actual_md5": "96dff62e14122ddd693c43ef7b7cdb2a",
+      "source_current": true,
+      "object_sha256": "18d11e79af1e6f7ad10f667313c90102b822dbe1a3c32247c8315ec0a828ca50",
+      "index_object_sha256": "aaaa002b87d94a9e02a804b5737b1c8c96fcd531576fab633e40d03d71bff494",
+      "index_object_current": false,
+      "object_recorded_md5": "469d66c903a0e9ebafd1a46ed4ff7156",
+      "object_actual_md5": "469d66c903a0e9ebafd1a46ed4ff7156",
+      "object_current": true,
+      "dependency_count": 5,
+      "dependencies_current": false,
+      "dependency_mismatches": [
+        {
+          "path": "Code\\Libraries\\Include\\Lib\\Coord2D.h",
+          "recorded_md5": "5917367a4bf91b44e2eb1b0ee4161de9",
+          "actual_md5": "e9028ab5ff4755dc39375edb5fb4d478"
+        }
+      ],
+      "command_fingerprint": "739b089468ed72d494700e704cfcb43c",
+      "body_hex": "8b4110c3",
+      "body_relocations": [],
+      "raw_incoming": [
+        {
+          "section": ".debug$F",
+          "offset": 0,
+          "relocation_type": 7,
+          "executable": false,
+          "owner": null,
+          "debug": true
+        }
+      ],
+      "runtime_incoming": [],
+      "stable_object_during_read": true,
+      "fully_current_receipt": false,
+      "selected_first": false
+    },
+    {
+      "position": 6567,
+      "object": "build/match/^code_^game^engine_^source_^game^client_^drawable^health^bar^gate.obj",
+      "source": "Code/GameEngine/Source/GameClient/DrawableHealthBarGate.cpp",
+      "source_exists": true,
+      "source_sha256": "7171e4e7f4ae7799a5e579fab5476632201509db904381754142718db36edd86",
+      "source_recorded_md5": "5f9268c970c87f50e92095ff6ae72683",
+      "source_actual_md5": "5f9268c970c87f50e92095ff6ae72683",
+      "source_current": true,
+      "object_sha256": "bbf84505f6abce483bb84858ccd8463a606ef68b9f9d7dac8e7bf0ae960a553a",
+      "index_object_sha256": "7c09e035fb85b0b14214904d1732a84887fad1965f51017d4a248ac2132c4a7d",
+      "index_object_current": false,
+      "object_recorded_md5": "8baaa71fe1b48c7b76538459ff22c06d",
+      "object_actual_md5": "8baaa71fe1b48c7b76538459ff22c06d",
+      "object_current": true,
+      "dependency_count": 4,
+      "dependencies_current": true,
+      "dependency_mismatches": [],
+      "command_fingerprint": "b7be9e5f4e4824891d016160fc652f8b",
+      "body_hex": "8b4110c3",
+      "body_relocations": [],
+      "raw_incoming": [
+        {
+          "section": ".debug$F",
+          "offset": 0,
+          "relocation_type": 7,
+          "executable": false,
+          "owner": null,
+          "debug": true
+        }
+      ],
+      "runtime_incoming": [],
+      "stable_object_during_read": true,
+      "fully_current_receipt": true,
+      "selected_first": false
+    },
+    {
+      "position": 7060,
+      "object": "build/match/^code_^game^engine_^source_^game^client_^in^game^u^i^create^mouseover^hint.obj",
+      "source": "Code/GameEngine/Source/GameClient/InGameUICreateMouseoverHint.cpp",
+      "source_exists": true,
+      "source_sha256": "5309c8d570304e2413f2029dbb953ddc5162d152c9d863dde346142f053ade5a",
+      "source_recorded_md5": "8da4e840495f8a2983573e6761393988",
+      "source_actual_md5": "8da4e840495f8a2983573e6761393988",
+      "source_current": true,
+      "object_sha256": "269743fb1932cc44f5d3f667d50d029a99fcb6482d2250cc30ce7e4ad94f92bd",
+      "index_object_sha256": "1acd5e2c90b17e39344ffe81666760247d64a720818a0b9819553e65d315388e",
+      "index_object_current": false,
+      "object_recorded_md5": "1ec1bf6a2276a343bb0fed6d5e1a715b",
+      "object_actual_md5": "1ec1bf6a2276a343bb0fed6d5e1a715b",
+      "object_current": true,
+      "dependency_count": 10,
+      "dependencies_current": true,
+      "dependency_mismatches": [],
+      "command_fingerprint": "9f8d0010a5d5e499b1800c80074a6f66",
+      "body_hex": "8b4110c3",
+      "body_relocations": [],
+      "raw_incoming": [
+        {
+          "section": ".debug$F",
+          "offset": 0,
+          "relocation_type": 7,
+          "executable": false,
+          "owner": null,
+          "debug": true
+        }
+      ],
+      "runtime_incoming": [],
+      "stable_object_during_read": true,
+      "fully_current_receipt": true,
+      "selected_first": false
+    },
+    {
+      "position": 7198,
+      "object": "build/match/^code_^game^engine_^source_^common_^r^t^s_^player^is^local^player.obj",
+      "source": "Code/GameEngine/Source/Common/RTS/PlayerIsLocalPlayer.cpp",
+      "source_exists": true,
+      "source_sha256": "39019d85c1848076205c75ceb466d715dfe319dedcfc4d2773b94054c689f668",
+      "source_recorded_md5": "fffb0998fa248e6a10317fe0f451762b",
+      "source_actual_md5": "fffb0998fa248e6a10317fe0f451762b",
+      "source_current": true,
+      "object_sha256": "a7e2f84ba880170c1910e4b38d8a5ad7b0dec7b3312c4c61ca95f2ae726066c9",
+      "index_object_sha256": "8149861563436e6880ddcb6d8ad62b7c88c334e14d53d1979b8af287ec6ddbc4",
+      "index_object_current": false,
+      "object_recorded_md5": "c3a15e258e825283fc7f1011c1513c32",
+      "object_actual_md5": "c3a15e258e825283fc7f1011c1513c32",
+      "object_current": true,
+      "dependency_count": 0,
+      "dependencies_current": true,
+      "dependency_mismatches": [],
+      "command_fingerprint": "c3f06078337aa71a1c09947ac909d635",
+      "body_hex": null,
+      "body_relocations": null,
+      "raw_incoming": [],
+      "runtime_incoming": [],
+      "stable_object_during_read": true,
+      "fully_current_receipt": true,
+      "selected_first": false
+    },
+    {
+      "position": 8457,
+      "object": "build/match/^code_^game^engine_^source_^game^client_^selection^info^context^command.obj",
+      "source": "Code/GameEngine/Source/GameClient/SelectionInfoContextCommand.cpp",
+      "source_exists": true,
+      "source_sha256": "c735eac0675af351a9fb3aaece406c40dafad2fe3695cb9c4b0f3295b538ae31",
+      "source_recorded_md5": "257ca5daabebc88f1fc6c9db35619970",
+      "source_actual_md5": "b68e72e80f37f7d547a8eb24a1b4957b",
+      "source_current": false,
+      "object_sha256": "8c862126c36ee9c0a02ba41e402ffc99922bec9fd302c64498066b6cf88d56a9",
+      "index_object_sha256": "3708a92064a11d6a81c527b0aa998e16991303289286cdfcc5985163544ca45c",
+      "index_object_current": false,
+      "object_recorded_md5": "0e05c6be06bc4bda8ac150ecb11b80e6",
+      "object_actual_md5": "0e05c6be06bc4bda8ac150ecb11b80e6",
+      "object_current": true,
+      "dependency_count": 57,
+      "dependencies_current": true,
+      "dependency_mismatches": [],
+      "command_fingerprint": "ff21ba1c9c102fd37eb88f300e40f406",
+      "body_hex": "8b4110c3",
+      "body_relocations": [],
+      "raw_incoming": [
+        {
+          "section": ".debug$F",
+          "offset": 0,
+          "relocation_type": 7,
+          "executable": false,
+          "owner": null,
+          "debug": true
+        }
+      ],
+      "runtime_incoming": [],
+      "stable_object_during_read": true,
+      "fully_current_receipt": false,
+      "selected_first": false
+    },
+    {
+      "position": 8816,
+      "object": "build/match/^code_^game^engine_^source_^game^client_^radius^decal.obj",
+      "source": "Code/GameEngine/Source/GameClient/RadiusDecal.cpp",
+      "source_exists": true,
+      "source_sha256": "92389ef5b96275045831a82fac9e6f8ddb99f5e4dc2ae50992c96fd52dd9fcb7",
+      "source_recorded_md5": "d8efd8ae36611ecd4ccf0fce600c70a7",
+      "source_actual_md5": "d8efd8ae36611ecd4ccf0fce600c70a7",
+      "source_current": true,
+      "object_sha256": "b42a38d09ebd049760ad7e374d6006e03309df2a8c4a0490f157b78236320f09",
+      "index_object_sha256": "591ad71772a1b7b8a141919dc1019dc9ffcb9dd7f060f8a6d914e56272bee795",
+      "index_object_current": false,
+      "object_recorded_md5": "cd09c72836479ddf658362bae9cf7889",
+      "object_actual_md5": "cd09c72836479ddf658362bae9cf7889",
+      "object_current": true,
+      "dependency_count": 7,
+      "dependencies_current": true,
+      "dependency_mismatches": [],
+      "command_fingerprint": "18d75157574fa001378f184ec8733c0b",
+      "body_hex": "8b4110c3",
+      "body_relocations": [],
+      "raw_incoming": [
+        {
+          "section": ".debug$F",
+          "offset": 0,
+          "relocation_type": 7,
+          "executable": false,
+          "owner": null,
+          "debug": true
+        }
+      ],
+      "runtime_incoming": [],
+      "stable_object_during_read": true,
+      "fully_current_receipt": true,
+      "selected_first": false
+    },
+    {
+      "position": 9564,
+      "object": "build/match/^code_^game^engine_^source_^game^logic_^object_^update_^stealth^update^logic.obj",
+      "source": "Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdateLogic.cpp",
+      "source_exists": true,
+      "source_sha256": "1d9e4db7479ef00b691f36b2ebf95e00c40c26fc196ce324fe5c079cbe66b3cc",
+      "source_recorded_md5": "4efec677977cc2a8add65d1715ba54ed",
+      "source_actual_md5": "4efec677977cc2a8add65d1715ba54ed",
+      "source_current": true,
+      "object_sha256": "9908d236ea6a96593193bc8a11fe9d5478385e9d6697caf01b37c4d2cea38dce",
+      "index_object_sha256": "1958750fe8fe3d193c32acba18f9aa78f60b3725bb9e283dab2b4a7e443493b3",
+      "index_object_current": false,
+      "object_recorded_md5": "daad99933333e7184b90a2695904322b",
+      "object_actual_md5": "daad99933333e7184b90a2695904322b",
+      "object_current": true,
+      "dependency_count": 84,
+      "dependencies_current": true,
+      "dependency_mismatches": [],
+      "command_fingerprint": "c651157c9cad414fc428538ba4c71d9a",
+      "body_hex": "8b4110c3",
+      "body_relocations": [],
+      "raw_incoming": [
+        {
+          "section": ".debug$F",
+          "offset": 0,
+          "relocation_type": 7,
+          "executable": false,
+          "owner": null,
+          "debug": true
+        }
+      ],
+      "runtime_incoming": [],
+      "stable_object_during_read": true,
+      "fully_current_receipt": true,
+      "selected_first": false
+    },
+    {
+      "position": 9844,
+      "object": "build/match/^code_^game^engine_^source_^game^logic_^system_^castle^behavior^packing^eva.obj",
+      "source": "Code/GameEngine/Source/GameLogic/System/CastleBehaviorPackingEva.cpp",
+      "source_exists": true,
+      "source_sha256": "c79bbf075fdfda19fe6228776c4e2085427a723841cad0d23d11c84b8e36a553",
+      "source_recorded_md5": "f63e113eaec34d46509a543a75c78720",
+      "source_actual_md5": "3774fb3e6be6e2b943bda27554e42550",
+      "source_current": false,
+      "object_sha256": "03bcc765168a9e9cb78da1bc712d26a09542259ce260da6ddda4d5fb59475177",
+      "index_object_sha256": "3640682f67400b81bc08550d15447b26eb6af5b3e3a869e4768e11ca8f77d222",
+      "index_object_current": false,
+      "object_recorded_md5": "6b68d05254de633bc8f780dde3c5194a",
+      "object_actual_md5": "6b68d05254de633bc8f780dde3c5194a",
+      "object_current": true,
+      "dependency_count": 64,
+      "dependencies_current": true,
+      "dependency_mismatches": [],
+      "command_fingerprint": "27b4fc27f3a1857ffd5e8c02a5977897",
+      "body_hex": "8b4110c3",
+      "body_relocations": [],
+      "raw_incoming": [
+        {
+          "section": ".debug$F",
+          "offset": 0,
+          "relocation_type": 7,
+          "executable": false,
+          "owner": null,
+          "debug": true
+        }
+      ],
+      "runtime_incoming": [],
+      "stable_object_during_read": true,
+      "fully_current_receipt": false,
+      "selected_first": false
+    },
+    {
+      "position": 11185,
+      "object": "build/match/^code_^game^engine_^source_^game^client_^g^u^i_^g^u^i^callbacks_^old^school^help^box^content^source.obj",
+      "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/OldSchoolHelpBoxContentSource.cpp",
+      "source_exists": true,
+      "source_sha256": "5475705cc4aa91ded0ccc5040f183c33aeb7e3f637aa4eb65de8861ccdb8b95a",
+      "source_recorded_md5": "32b7a04da87b7fd745c53177d56b0b04",
+      "source_actual_md5": "7f5c3efd9f1ee43b3859c7eb2ecacee1",
+      "source_current": false,
+      "object_sha256": "b0d224f0c01768de8b6f99ba348b4269a83ddd6f194e61da3c77dbf35141468c",
+      "index_object_sha256": "aad3a3df1fd441658a51840e75a9d33c88972dd7e7a0f83d0b6535cdeb1f6b74",
+      "index_object_current": false,
+      "object_recorded_md5": "9d6a2596714cd704bebd906abf6313f7",
+      "object_actual_md5": "9d6a2596714cd704bebd906abf6313f7",
+      "object_current": true,
+      "dependency_count": 63,
+      "dependencies_current": true,
+      "dependency_mismatches": [],
+      "command_fingerprint": "20066b260cace9b6ba225fd827303f70",
+      "body_hex": "8b4110c3",
+      "body_relocations": [],
+      "raw_incoming": [
+        {
+          "section": ".debug$F",
+          "offset": 0,
+          "relocation_type": 7,
+          "executable": false,
+          "owner": null,
+          "debug": true
+        }
+      ],
+      "runtime_incoming": [],
+      "stable_object_during_read": true,
+      "fully_current_receipt": false,
+      "selected_first": false
+    },
+    {
+      "position": 11921,
+      "object": "build/match/^code_^game^engine_^source_^game^logic_^object_^update_^invisibility^manager^rva004389^d^b.obj",
+      "source": "Code/GameEngine/Source/GameLogic/Object/Update/InvisibilityManagerRva004389DB.cpp",
+      "source_exists": true,
+      "source_sha256": "cb6b2d91aae33ce175682cf90cc049e329657dfc72f518e1241adcdd98fff62e",
+      "source_recorded_md5": "896e6495dd187aca4b753a5b19362745",
+      "source_actual_md5": "896e6495dd187aca4b753a5b19362745",
+      "source_current": true,
+      "object_sha256": "33f76965d410a2af97f82698e0787bfdf06dd0588dcd327e23fa381b52422f90",
+      "index_object_sha256": "c2dd2d20b55fb48156d528d4eca92394439d3c31bc826cf51ad5e84ce4b49527",
+      "index_object_current": false,
+      "object_recorded_md5": "6807b561e0b0e3eefba226db8517877e",
+      "object_actual_md5": "6807b561e0b0e3eefba226db8517877e",
+      "object_current": true,
+      "dependency_count": 64,
+      "dependencies_current": true,
+      "dependency_mismatches": [],
+      "command_fingerprint": "5ebedab696114a45177e8116222e6fc1",
+      "body_hex": "8b4110c3",
+      "body_relocations": [],
+      "raw_incoming": [
+        {
+          "section": ".debug$F",
+          "offset": 0,
+          "relocation_type": 7,
+          "executable": false,
+          "owner": null,
+          "debug": true
+        }
+      ],
+      "runtime_incoming": [],
+      "stable_object_during_read": true,
+      "fully_current_receipt": true,
+      "selected_first": false
+    },
+    {
+      "position": 12174,
+      "object": "build/match/^code_^game^engine_^source_^game^logic_^object_^update_^foundation^a^i^update.obj",
+      "source": "Code/GameEngine/Source/GameLogic/Object/Update/FoundationAIUpdate.cpp",
+      "source_exists": true,
+      "source_sha256": "fd63da28aba6b00567b91953b7544e1f6dca039f5a224da04b952d992f2e1385",
+      "source_recorded_md5": "4aabe1a06ad257c1b8db9694ed9da4e2",
+      "source_actual_md5": "5d522855ff4530360ec52bc496d7f590",
+      "source_current": false,
+      "object_sha256": "c8028344ce3a8a6f85a1960f2953baf6156938e2d9ce0d38754c6aca54b0500f",
+      "index_object_sha256": "555dfc23d66ab5233e350e32d571c80f26668473e191f58a10a609c8439f7334",
+      "index_object_current": false,
+      "object_recorded_md5": "ace25738e765901a6beffaca50ea3acf",
+      "object_actual_md5": "ace25738e765901a6beffaca50ea3acf",
+      "object_current": true,
+      "dependency_count": 14,
+      "dependencies_current": true,
+      "dependency_mismatches": [],
+      "command_fingerprint": "10729c679c204af06efdece63b5d5f52",
+      "body_hex": "8b4110c3",
+      "body_relocations": [],
+      "raw_incoming": [
+        {
+          "section": ".debug$F",
+          "offset": 0,
+          "relocation_type": 7,
+          "executable": false,
+          "owner": null,
+          "debug": true
+        }
+      ],
+      "runtime_incoming": [],
+      "stable_object_during_read": true,
+      "fully_current_receipt": false,
+      "selected_first": false
+    },
+    {
+      "position": 12407,
+      "object": "build/match/^code_^game^engine_^source_^game^logic_^object_^contain_^cave^contain.obj",
+      "source": "Code/GameEngine/Source/GameLogic/Object/Contain/CaveContain.cpp",
+      "source_exists": true,
+      "source_sha256": "290d7c1dcb6ce6c5d168880dd88df71689099833dbff146d8b5158dafa04b959",
+      "source_recorded_md5": "19435065cdfa0b1d96f2308ce2e848b8",
+      "source_actual_md5": "7b70615b786cd17660d5a83cdab70e15",
+      "source_current": false,
+      "object_sha256": "a336202c0761db6c6d1d3720f30e6861378007951d6c24f581e4647d63052267",
+      "index_object_sha256": "eee0626ad07ee7033cbc2a088d9ec17e5d6235ddfae387251a99c5fa4c6499ec",
+      "index_object_current": false,
+      "object_recorded_md5": "f47b32e9126699eb2b3f9b530e9c0f3a",
+      "object_actual_md5": "f47b32e9126699eb2b3f9b530e9c0f3a",
+      "object_current": true,
+      "dependency_count": 54,
+      "dependencies_current": true,
+      "dependency_mismatches": [],
+      "command_fingerprint": "502ff276163035e39ffb3ba2ed355c02",
+      "body_hex": null,
+      "body_relocations": null,
+      "raw_incoming": [],
+      "runtime_incoming": [],
+      "stable_object_during_read": true,
+      "fully_current_receipt": false,
+      "selected_first": false
+    },
+    {
+      "position": 12431,
+      "object": "build/match/^code_^game^engine_^source_^game^logic_^object_^contain_^horde^contain^iface11^c^slots.obj",
+      "source": "Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp",
+      "source_exists": true,
+      "source_sha256": "d37a296ebab08291423c0e97c4051edd8710139163d7f504b02ea8df84d1b21b",
+      "source_recorded_md5": "3e625ff54794ba617f928cd2d7cba7ef",
+      "source_actual_md5": "3e625ff54794ba617f928cd2d7cba7ef",
+      "source_current": true,
+      "object_sha256": "dcc05d19a7fcc6bac6bb495d69c07e203126abe53255f6cbc19885045151de88",
+      "index_object_sha256": "029e114734731e88aaad6fa34eff51fe3e0a3423711149b49235603a438b3162",
+      "index_object_current": false,
+      "object_recorded_md5": "f613c9552c2ca6665cac47a61dc79a68",
+      "object_actual_md5": "f613c9552c2ca6665cac47a61dc79a68",
+      "object_current": true,
+      "dependency_count": 87,
+      "dependencies_current": false,
+      "dependency_mismatches": [
+        {
+          "path": "Code\\Libraries\\Include\\Lib\\Coord2D.h",
+          "recorded_md5": "5917367a4bf91b44e2eb1b0ee4161de9",
+          "actual_md5": "e9028ab5ff4755dc39375edb5fb4d478"
+        }
+      ],
+      "command_fingerprint": "485392d68c61a03afb0f8f19e0bab3f8",
+      "body_hex": "8b4110c3",
+      "body_relocations": [],
+      "raw_incoming": [
+        {
+          "section": ".debug$F",
+          "offset": 0,
+          "relocation_type": 7,
+          "executable": false,
+          "owner": null,
+          "debug": true
+        }
+      ],
+      "runtime_incoming": [],
+      "stable_object_during_read": true,
+      "fully_current_receipt": false,
+      "selected_first": false
+    },
+    {
+      "position": 13251,
+      "object": "build/match/^code_^game^engine_^source_^game^logic_^object_^update_^respawn^update.obj",
+      "source": "Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp",
+      "source_exists": true,
+      "source_sha256": "81c4470868eaa1f1b8b3c767df1231830b1ccdfad52dc47db4c37b6041a87a19",
+      "source_recorded_md5": "da22d934adb421d860968272a58b10c6",
+      "source_actual_md5": "da22d934adb421d860968272a58b10c6",
+      "source_current": true,
+      "object_sha256": "c9dcd40c7516661952e7e4db1b28cb314832741d3ab36b12e62c5327f48c87f3",
+      "index_object_sha256": "ff440be1fccdea051e2446d468a5b2f1239cb4de29859d50bc1d0fe50df6b88e",
+      "index_object_current": false,
+      "object_recorded_md5": "c4f00bb2b05c6b59a0d1ac34f91462e9",
+      "object_actual_md5": "c4f00bb2b05c6b59a0d1ac34f91462e9",
+      "object_current": true,
+      "dependency_count": 6,
+      "dependencies_current": true,
+      "dependency_mismatches": [],
+      "command_fingerprint": "a946bc078c26073768a91efb133465fa",
+      "body_hex": "8b4110c3",
+      "body_relocations": [],
+      "raw_incoming": [
+        {
+          "section": ".debug$F",
+          "offset": 0,
+          "relocation_type": 7,
+          "executable": false,
+          "owner": null,
+          "debug": true
+        }
+      ],
+      "runtime_incoming": [],
+      "stable_object_during_read": true,
+      "fully_current_receipt": true,
+      "selected_first": false
+    },
+    {
+      "position": 13258,
+      "object": "build/match/^code_^game^engine_^source_^game^logic_^object_^update_^respawn^update^trigger^revival.obj",
+      "source": "Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateTriggerRevival.cpp",
+      "source_exists": true,
+      "source_sha256": "cc7e159fe7202a9d7f246de1f51797b8ffa551d13a12e7b54c784e90fac5c208",
+      "source_recorded_md5": "d7adedba2896168ed299ebf9f3726c3a",
+      "source_actual_md5": "d7adedba2896168ed299ebf9f3726c3a",
+      "source_current": true,
+      "object_sha256": "38505a7a637d837aac99f984eca229e6c1a6e52d336fcf272689fe08e2dff6c9",
+      "index_object_sha256": "2de93e8a20fb9c5b50758b2e3f1c2c2f85f7037637c09d808cb21bcf0f0b76d2",
+      "index_object_current": false,
+      "object_recorded_md5": "a4c65e6ce99e79220af697ca9120ba37",
+      "object_actual_md5": "a4c65e6ce99e79220af697ca9120ba37",
+      "object_current": true,
+      "dependency_count": 1,
+      "dependencies_current": true,
+      "dependency_mismatches": [],
+      "command_fingerprint": "6593b6cee66332c2f6f256198da30245",
+      "body_hex": "8b4110c3",
+      "body_relocations": [],
+      "raw_incoming": [
+        {
+          "section": ".debug$F",
+          "offset": 0,
+          "relocation_type": 7,
+          "executable": false,
+          "owner": null,
+          "debug": true
+        }
+      ],
+      "runtime_incoming": [],
+      "stable_object_during_read": true,
+      "fully_current_receipt": true,
+      "selected_first": false
+    },
+    {
+      "position": 13370,
+      "object": "build/match/^code_^game^engine_^source_^game^logic_^object_^upgrade_^replace^self^upgrade^dtor.obj",
+      "source": "Code/GameEngine/Source/GameLogic/Object/Upgrade/ReplaceSelfUpgradeDtor.cpp",
+      "source_exists": true,
+      "source_sha256": "223835a43b5f4a94ada874a7bdb0f92ce12bce79be274983495b6ad6897ef5b5",
+      "source_recorded_md5": "2f775789352e461859d8fdc087fbcc3f",
+      "source_actual_md5": "2f775789352e461859d8fdc087fbcc3f",
+      "source_current": true,
+      "object_sha256": "fbb68a33bfaa771fa0a9b525448894f550b12e34a947157f5e6b25e5deb5c9bf",
+      "index_object_sha256": "c56b4f99de99dc980f1db523ba54894119f18e7a88bb55e3e00374e444910b53",
+      "index_object_current": false,
+      "object_recorded_md5": "7f12dfca0fef31def07bf89de6a4c67a",
+      "object_actual_md5": "7f12dfca0fef31def07bf89de6a4c67a",
+      "object_current": true,
+      "dependency_count": 0,
+      "dependencies_current": true,
+      "dependency_mismatches": [],
+      "command_fingerprint": "b1f73b3c9969bafacd629a21f772a7ba",
+      "body_hex": "8b4110c3",
+      "body_relocations": [],
+      "raw_incoming": [
+        {
+          "section": ".debug$F",
+          "offset": 0,
+          "relocation_type": 7,
+          "executable": false,
+          "owner": null,
+          "debug": true
+        }
+      ],
+      "runtime_incoming": [],
+      "stable_object_during_read": true,
+      "fully_current_receipt": true,
+      "selected_first": false
+    },
+    {
+      "position": 14992,
+      "object": "build/match/^code_^game^engine_^source_^game^client_^g^u^i_^control^bar_^control^bar^command^processing.obj",
+      "source": "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarCommandProcessing.cpp",
+      "source_exists": true,
+      "source_sha256": "432e3ecc78657de237f6d06f51ef9ff95a6a06481cb8133a1aad369b35f74a00",
+      "source_recorded_md5": "b7045204b97a32fbac10f9a7f484cfaa",
+      "source_actual_md5": "b7045204b97a32fbac10f9a7f484cfaa",
+      "source_current": true,
+      "object_sha256": "67f01e037483064981d7d01e2ce4bce24e95af1fd308dadceb57edace9e47d5b",
+      "index_object_sha256": "84ba89ae4a551d1aa6fd5ff4fe4ae393bbb19f72f988634dd0a26384a17f7808",
+      "index_object_current": false,
+      "object_recorded_md5": "0f81a771e71ccbed39ce0c05662b687e",
+      "object_actual_md5": "0f81a771e71ccbed39ce0c05662b687e",
+      "object_current": true,
+      "dependency_count": 68,
+      "dependencies_current": true,
+      "dependency_mismatches": [],
+      "command_fingerprint": "0d084480e61f142eb54c9647d287ba64",
+      "body_hex": "8b4110c3",
+      "body_relocations": [],
+      "raw_incoming": [
+        {
+          "section": ".debug$F",
+          "offset": 0,
+          "relocation_type": 7,
+          "executable": false,
+          "owner": null,
+          "debug": true
+        }
+      ],
+      "runtime_incoming": [],
+      "stable_object_during_read": true,
+      "fully_current_receipt": true,
+      "selected_first": false
+    }
+  ],
+  "source_resolution": "rg --files Code paths matched exactly with build.obj_path basenames; historical fallback retained for deleted sources",
+  "cohort_snapshot_before": {
+    "^code_^game^engine_^source_^game^client_^game^client^drawable^t^o^c.obj": {
+      "object": "b5237c1848b3e64ee6f890fbfd7db27c8bd38aff5befc1b0b37bdf04c9fc3840",
+      "sidecar": "83720e0eeb1fdb521548c1dd6ff774417e4e2c8aa62fbeeae8f306f553058865",
+      "source": "49cb57c07ed51351cfa57c9544f817a34a56293d0c03d88288889a33095ed660"
+    },
+    "^code_^game^engine_^source_^game^logic_^object_^object.obj": {
+      "object": "fd1dee5dcf4f9e26f853403ca88b0885a18386dfa207e2f3a47a49f270462be3",
+      "sidecar": "277d3377cea5f46ac234850e18517dbe3df0944e6f05c580a0d2f5c1fd23ab4b",
+      "source": "5a51f7a789339c8d1030cb6f0f14575e25f9008b5d556c46f0ba85dccab1d1a0"
+    },
+    "^code_^game^engine_^source_^game^logic_^system_^game^logic^init.obj": {
+      "object": "a52c51091cfe9bfbf1e5754511f68eebb2127e4ab9128f61322f7307f34ee7da",
+      "sidecar": "a6d671173518f06abcf05c98930592af0cb740df9b4a5032707adf09a3273714",
+      "source": "7ed9de03accdde06dd77dd0fef734a9c6f6d279592d6fc5f6d8740ec135643ee"
+    },
+    "^code_^game^engine^device_^source_^w3^d^device_^game^client_^w3^d^tree^buffer.obj": {
+      "object": "866a9f65f4d15c7ac4802cfe31dd65b3ea9f9d75e0caccd27426a8affc92e91e",
+      "sidecar": "1e2d00197e8c04b64c3a203563f1e4343460d6009a4ead0371b0a3ceadacd0c5",
+      "source": "619beb89d3b5fe3ace1df9cdf3b1a7802123fe185acab90225612d644ef82981"
+    },
+    "^code_^game^engine^device_^source_^w3^d^device_^game^client_^w3^d^tree^buffer^update.obj": {
+      "object": "930078db5012f6b0a65cd030c956f0f0e4604891a789bfde76fea1f8cf2c5b27",
+      "sidecar": "e26157671165341f1d1172ae7d2d2a2b6856e3a03f3cb79d6c48284d7bfc52e3",
+      "source": "3de92d8dac139350c6b2cd6a1947403d2d47f4e37d09da5b80afe2d68f55f5b2"
+    },
+    "^code_^game^engine_^source_^game^client_^eva^event^f^x^nugget^do^f^x^obj.obj": {
+      "object": "39dfa99aeba725a36b7205f05271ca1b436894f36a396c8bb87e52754892f8e0",
+      "sidecar": "ba3dd19665155309e9d4e8bfb2be1917c42db9ae67109905113bc9d220f5b3ad",
+      "source": "39ac117ba155ad867c838c4aff2de88dd95f9190e7ab3ad0e0873ff2ddc9832c"
+    },
+    "^code_^game^engine_^source_^game^client_^f^x^list^do^f^x^pos.obj": {
+      "object": "87a4f2e307aff63248aa9d3eacd7d82af737569ffc7823c67566684224ec9e6f",
+      "sidecar": "320142a90e6fde87285a291dc9ebbb89c8abd1be9bf8cafbca8bda866e01dc4e",
+      "source": "c8f29446ea1bc9c0817151ffac7cf9eb2d8d1907ffd58751e999b82e4abe62cd"
+    },
+    "^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^f^x^p^s^storage^module^rva003^b0869.obj": {
+      "object": "929a506f0a7018c3a396caaa18bb465f7fb0c2fb29900b1b9d10ca699396cb29",
+      "sidecar": "6531335af587ed81865c8c518165e712c24bc7f847fcbb9d6aecb00459ab530e",
+      "source": "362875ef903ab43eff5eabe5b094691df659dcef41e0c63f5459bbe1c79883e4"
+    },
+    "^code_^game^engine_^source_^game^client_^drawable^shroud.obj": {
+      "object": "86be45b7a669d376399cbd91f550f9b77a58b7f925c7ddab605077f043c33514",
+      "sidecar": "1e37b0f8a2f8c517e3655a4055e46c3a1d0b777f21f34754ff06da7fa8b68529",
+      "source": "a1615602ab2e71113a1e17196d8223cd47387a7cee1975156ca788d8985455ea"
+    },
+    "^code_^game^engine_^source_^game^client_^drawable_rva00273755.obj": {
+      "object": "18d11e79af1e6f7ad10f667313c90102b822dbe1a3c32247c8315ec0a828ca50",
+      "sidecar": "0616a40982e0ab5e2e776d60b94379036a2e21cd638fc13be0286a8823d5e4e7",
+      "source": "40bd5ad0db45104aef1aa231551388e87543f7734181feba7e8178277b589e2b"
+    },
+    "^code_^game^engine_^source_^game^client_^drawable^health^bar^gate.obj": {
+      "object": "bbf84505f6abce483bb84858ccd8463a606ef68b9f9d7dac8e7bf0ae960a553a",
+      "sidecar": "0878409cb65424f3cea5ad84766b9992c440bbd3f7e78da7181e8f1dc58dfdba",
+      "source": "7171e4e7f4ae7799a5e579fab5476632201509db904381754142718db36edd86"
+    },
+    "^code_^game^engine_^source_^game^client_^in^game^u^i^create^mouseover^hint.obj": {
+      "object": "269743fb1932cc44f5d3f667d50d029a99fcb6482d2250cc30ce7e4ad94f92bd",
+      "sidecar": "9856ee22524f7c547b9b43b08887b169e0440853c22c9758870a15963bdef91e",
+      "source": "5309c8d570304e2413f2029dbb953ddc5162d152c9d863dde346142f053ade5a"
+    },
+    "^code_^game^engine_^source_^common_^r^t^s_^player^is^local^player.obj": {
+      "object": "a7e2f84ba880170c1910e4b38d8a5ad7b0dec7b3312c4c61ca95f2ae726066c9",
+      "sidecar": "2f0afa7808b83e710aeac79bbfb76be09d85ca7e7c3b0024f0a70fddabd67878",
+      "source": "39019d85c1848076205c75ceb466d715dfe319dedcfc4d2773b94054c689f668"
+    },
+    "^code_^game^engine_^source_^game^client_^selection^info^context^command.obj": {
+      "object": "8c862126c36ee9c0a02ba41e402ffc99922bec9fd302c64498066b6cf88d56a9",
+      "sidecar": "70251dfb3b97390c097a4535b3ab9a1ac316e2a62dfa6bb0df85a87f1f109238",
+      "source": "c735eac0675af351a9fb3aaece406c40dafad2fe3695cb9c4b0f3295b538ae31"
+    },
+    "^code_^game^engine_^source_^game^client_^radius^decal.obj": {
+      "object": "b42a38d09ebd049760ad7e374d6006e03309df2a8c4a0490f157b78236320f09",
+      "sidecar": "6b51e07add3a988e1811b5fcd4e60316e52f30d51b3a3f6baf0bf2f0c10db1b0",
+      "source": "92389ef5b96275045831a82fac9e6f8ddb99f5e4dc2ae50992c96fd52dd9fcb7"
+    },
+    "^code_^game^engine_^source_^game^logic_^object_^update_^stealth^update^logic.obj": {
+      "object": "9908d236ea6a96593193bc8a11fe9d5478385e9d6697caf01b37c4d2cea38dce",
+      "sidecar": "ce64c2d542ba7e1085b0f0dedb24b121ccc88a23c21cd9194ef066cdf2ea80da",
+      "source": "1d9e4db7479ef00b691f36b2ebf95e00c40c26fc196ce324fe5c079cbe66b3cc"
+    },
+    "^code_^game^engine_^source_^game^logic_^system_^castle^behavior^packing^eva.obj": {
+      "object": "03bcc765168a9e9cb78da1bc712d26a09542259ce260da6ddda4d5fb59475177",
+      "sidecar": "0c7c32c9a1d54308c3d2f71d9497205757385b8c36157a1acc5793dace1e94c4",
+      "source": "c79bbf075fdfda19fe6228776c4e2085427a723841cad0d23d11c84b8e36a553"
+    },
+    "^code_^game^engine_^source_^game^client_^g^u^i_^g^u^i^callbacks_^old^school^help^box^content^source.obj": {
+      "object": "b0d224f0c01768de8b6f99ba348b4269a83ddd6f194e61da3c77dbf35141468c",
+      "sidecar": "dffb9c0e1165b6d6d76c519c77a375d41f4896f486835a6543f6c6dc7023bb83",
+      "source": "5475705cc4aa91ded0ccc5040f183c33aeb7e3f637aa4eb65de8861ccdb8b95a"
+    },
+    "^code_^game^engine_^source_^game^logic_^object_^update_^invisibility^manager^rva004389^d^b.obj": {
+      "object": "33f76965d410a2af97f82698e0787bfdf06dd0588dcd327e23fa381b52422f90",
+      "sidecar": "b67bf326b80e3ae132d5e722bd969c72f6ab046bf1e797b3ffd7b3936ba82962",
+      "source": "cb6b2d91aae33ce175682cf90cc049e329657dfc72f518e1241adcdd98fff62e"
+    },
+    "^code_^game^engine_^source_^game^logic_^object_^update_^foundation^a^i^update.obj": {
+      "object": "c8028344ce3a8a6f85a1960f2953baf6156938e2d9ce0d38754c6aca54b0500f",
+      "sidecar": "81a64f00d95a55a7ff83a603e31de0a2055f68f3894e39ed71d37a7b9e959838",
+      "source": "fd63da28aba6b00567b91953b7544e1f6dca039f5a224da04b952d992f2e1385"
+    },
+    "^code_^game^engine_^source_^game^logic_^object_^contain_^cave^contain.obj": {
+      "object": "a336202c0761db6c6d1d3720f30e6861378007951d6c24f581e4647d63052267",
+      "sidecar": "388bf7cedf74bbc033ea7264d6514b61a1c45458fed7df5df224faff1f1f447c",
+      "source": "290d7c1dcb6ce6c5d168880dd88df71689099833dbff146d8b5158dafa04b959"
+    },
+    "^code_^game^engine_^source_^game^logic_^object_^contain_^horde^contain^iface11^c^slots.obj": {
+      "object": "dcc05d19a7fcc6bac6bb495d69c07e203126abe53255f6cbc19885045151de88",
+      "sidecar": "7217bf00798c59b787c83c3ffc2b528f07e96fb9fc0448ff8a535dea1f69a561",
+      "source": "d37a296ebab08291423c0e97c4051edd8710139163d7f504b02ea8df84d1b21b"
+    },
+    "^code_^game^engine_^source_^game^logic_^object_^update_^respawn^update.obj": {
+      "object": "c9dcd40c7516661952e7e4db1b28cb314832741d3ab36b12e62c5327f48c87f3",
+      "sidecar": "907c827e732bc115714e2456bdd6dd31c3393a7e3ef5535e82c598923e3c0443",
+      "source": "81c4470868eaa1f1b8b3c767df1231830b1ccdfad52dc47db4c37b6041a87a19"
+    },
+    "^code_^game^engine_^source_^game^logic_^object_^update_^respawn^update^trigger^revival.obj": {
+      "object": "38505a7a637d837aac99f984eca229e6c1a6e52d336fcf272689fe08e2dff6c9",
+      "sidecar": "228b25c8a9d30d1abc468a39ee4179fe6d47e336b505ee34904c6a798d98f3da",
+      "source": "cc7e159fe7202a9d7f246de1f51797b8ffa551d13a12e7b54c784e90fac5c208"
+    },
+    "^code_^game^engine_^source_^game^logic_^object_^upgrade_^replace^self^upgrade^dtor.obj": {
+      "object": "fbb68a33bfaa771fa0a9b525448894f550b12e34a947157f5e6b25e5deb5c9bf",
+      "sidecar": "75224bf317ab24458d8e540c4372fb95cd3059d4cd3629f34886c89c5890b85a",
+      "source": "223835a43b5f4a94ada874a7bdb0f92ce12bce79be274983495b6ad6897ef5b5"
+    },
+    "^code_^game^engine_^source_^game^client_^g^u^i_^control^bar_^control^bar^command^processing.obj": {
+      "object": "67f01e037483064981d7d01e2ce4bce24e95af1fd308dadceb57edace9e47d5b",
+      "sidecar": "73a254c4829610f8118633496b125f32261dca54d4700fd94b81118a4b57d998",
+      "source": "432e3ecc78657de237f6d06f51ef9ff95a6a06481cb8133a1aad369b35f74a00"
+    }
+  },
+  "cohort_snapshot_after": {
+    "^code_^game^engine_^source_^game^client_^game^client^drawable^t^o^c.obj": {
+      "object": "b5237c1848b3e64ee6f890fbfd7db27c8bd38aff5befc1b0b37bdf04c9fc3840",
+      "sidecar": "83720e0eeb1fdb521548c1dd6ff774417e4e2c8aa62fbeeae8f306f553058865",
+      "source": "49cb57c07ed51351cfa57c9544f817a34a56293d0c03d88288889a33095ed660"
+    },
+    "^code_^game^engine_^source_^game^logic_^object_^object.obj": {
+      "object": "fd1dee5dcf4f9e26f853403ca88b0885a18386dfa207e2f3a47a49f270462be3",
+      "sidecar": "277d3377cea5f46ac234850e18517dbe3df0944e6f05c580a0d2f5c1fd23ab4b",
+      "source": "5a51f7a789339c8d1030cb6f0f14575e25f9008b5d556c46f0ba85dccab1d1a0"
+    },
+    "^code_^game^engine_^source_^game^logic_^system_^game^logic^init.obj": {
+      "object": "a52c51091cfe9bfbf1e5754511f68eebb2127e4ab9128f61322f7307f34ee7da",
+      "sidecar": "a6d671173518f06abcf05c98930592af0cb740df9b4a5032707adf09a3273714",
+      "source": "7ed9de03accdde06dd77dd0fef734a9c6f6d279592d6fc5f6d8740ec135643ee"
+    },
+    "^code_^game^engine^device_^source_^w3^d^device_^game^client_^w3^d^tree^buffer.obj": {
+      "object": "866a9f65f4d15c7ac4802cfe31dd65b3ea9f9d75e0caccd27426a8affc92e91e",
+      "sidecar": "1e2d00197e8c04b64c3a203563f1e4343460d6009a4ead0371b0a3ceadacd0c5",
+      "source": "619beb89d3b5fe3ace1df9cdf3b1a7802123fe185acab90225612d644ef82981"
+    },
+    "^code_^game^engine^device_^source_^w3^d^device_^game^client_^w3^d^tree^buffer^update.obj": {
+      "object": "930078db5012f6b0a65cd030c956f0f0e4604891a789bfde76fea1f8cf2c5b27",
+      "sidecar": "e26157671165341f1d1172ae7d2d2a2b6856e3a03f3cb79d6c48284d7bfc52e3",
+      "source": "3de92d8dac139350c6b2cd6a1947403d2d47f4e37d09da5b80afe2d68f55f5b2"
+    },
+    "^code_^game^engine_^source_^game^client_^eva^event^f^x^nugget^do^f^x^obj.obj": {
+      "object": "39dfa99aeba725a36b7205f05271ca1b436894f36a396c8bb87e52754892f8e0",
+      "sidecar": "ba3dd19665155309e9d4e8bfb2be1917c42db9ae67109905113bc9d220f5b3ad",
+      "source": "39ac117ba155ad867c838c4aff2de88dd95f9190e7ab3ad0e0873ff2ddc9832c"
+    },
+    "^code_^game^engine_^source_^game^client_^f^x^list^do^f^x^pos.obj": {
+      "object": "87a4f2e307aff63248aa9d3eacd7d82af737569ffc7823c67566684224ec9e6f",
+      "sidecar": "320142a90e6fde87285a291dc9ebbb89c8abd1be9bf8cafbca8bda866e01dc4e",
+      "source": "c8f29446ea1bc9c0817151ffac7cf9eb2d8d1907ffd58751e999b82e4abe62cd"
+    },
+    "^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^f^x^p^s^storage^module^rva003^b0869.obj": {
+      "object": "929a506f0a7018c3a396caaa18bb465f7fb0c2fb29900b1b9d10ca699396cb29",
+      "sidecar": "6531335af587ed81865c8c518165e712c24bc7f847fcbb9d6aecb00459ab530e",
+      "source": "362875ef903ab43eff5eabe5b094691df659dcef41e0c63f5459bbe1c79883e4"
+    },
+    "^code_^game^engine_^source_^game^client_^drawable^shroud.obj": {
+      "object": "86be45b7a669d376399cbd91f550f9b77a58b7f925c7ddab605077f043c33514",
+      "sidecar": "1e37b0f8a2f8c517e3655a4055e46c3a1d0b777f21f34754ff06da7fa8b68529",
+      "source": "a1615602ab2e71113a1e17196d8223cd47387a7cee1975156ca788d8985455ea"
+    },
+    "^code_^game^engine_^source_^game^client_^drawable_rva00273755.obj": {
+      "object": "18d11e79af1e6f7ad10f667313c90102b822dbe1a3c32247c8315ec0a828ca50",
+      "sidecar": "0616a40982e0ab5e2e776d60b94379036a2e21cd638fc13be0286a8823d5e4e7",
+      "source": "40bd5ad0db45104aef1aa231551388e87543f7734181feba7e8178277b589e2b"
+    },
+    "^code_^game^engine_^source_^game^client_^drawable^health^bar^gate.obj": {
+      "object": "bbf84505f6abce483bb84858ccd8463a606ef68b9f9d7dac8e7bf0ae960a553a",
+      "sidecar": "0878409cb65424f3cea5ad84766b9992c440bbd3f7e78da7181e8f1dc58dfdba",
+      "source": "7171e4e7f4ae7799a5e579fab5476632201509db904381754142718db36edd86"
+    },
+    "^code_^game^engine_^source_^game^client_^in^game^u^i^create^mouseover^hint.obj": {
+      "object": "269743fb1932cc44f5d3f667d50d029a99fcb6482d2250cc30ce7e4ad94f92bd",
+      "sidecar": "9856ee22524f7c547b9b43b08887b169e0440853c22c9758870a15963bdef91e",
+      "source": "5309c8d570304e2413f2029dbb953ddc5162d152c9d863dde346142f053ade5a"
+    },
+    "^code_^game^engine_^source_^common_^r^t^s_^player^is^local^player.obj": {
+      "object": "a7e2f84ba880170c1910e4b38d8a5ad7b0dec7b3312c4c61ca95f2ae726066c9",
+      "sidecar": "2f0afa7808b83e710aeac79bbfb76be09d85ca7e7c3b0024f0a70fddabd67878",
+      "source": "39019d85c1848076205c75ceb466d715dfe319dedcfc4d2773b94054c689f668"
+    },
+    "^code_^game^engine_^source_^game^client_^selection^info^context^command.obj": {
+      "object": "8c862126c36ee9c0a02ba41e402ffc99922bec9fd302c64498066b6cf88d56a9",
+      "sidecar": "70251dfb3b97390c097a4535b3ab9a1ac316e2a62dfa6bb0df85a87f1f109238",
+      "source": "c735eac0675af351a9fb3aaece406c40dafad2fe3695cb9c4b0f3295b538ae31"
+    },
+    "^code_^game^engine_^source_^game^client_^radius^decal.obj": {
+      "object": "b42a38d09ebd049760ad7e374d6006e03309df2a8c4a0490f157b78236320f09",
+      "sidecar": "6b51e07add3a988e1811b5fcd4e60316e52f30d51b3a3f6baf0bf2f0c10db1b0",
+      "source": "92389ef5b96275045831a82fac9e6f8ddb99f5e4dc2ae50992c96fd52dd9fcb7"
+    },
+    "^code_^game^engine_^source_^game^logic_^object_^update_^stealth^update^logic.obj": {
+      "object": "9908d236ea6a96593193bc8a11fe9d5478385e9d6697caf01b37c4d2cea38dce",
+      "sidecar": "ce64c2d542ba7e1085b0f0dedb24b121ccc88a23c21cd9194ef066cdf2ea80da",
+      "source": "1d9e4db7479ef00b691f36b2ebf95e00c40c26fc196ce324fe5c079cbe66b3cc"
+    },
+    "^code_^game^engine_^source_^game^logic_^system_^castle^behavior^packing^eva.obj": {
+      "object": "03bcc765168a9e9cb78da1bc712d26a09542259ce260da6ddda4d5fb59475177",
+      "sidecar": "0c7c32c9a1d54308c3d2f71d9497205757385b8c36157a1acc5793dace1e94c4",
+      "source": "c79bbf075fdfda19fe6228776c4e2085427a723841cad0d23d11c84b8e36a553"
+    },
+    "^code_^game^engine_^source_^game^client_^g^u^i_^g^u^i^callbacks_^old^school^help^box^content^source.obj": {
+      "object": "b0d224f0c01768de8b6f99ba348b4269a83ddd6f194e61da3c77dbf35141468c",
+      "sidecar": "dffb9c0e1165b6d6d76c519c77a375d41f4896f486835a6543f6c6dc7023bb83",
+      "source": "5475705cc4aa91ded0ccc5040f183c33aeb7e3f637aa4eb65de8861ccdb8b95a"
+    },
+    "^code_^game^engine_^source_^game^logic_^object_^update_^invisibility^manager^rva004389^d^b.obj": {
+      "object": "33f76965d410a2af97f82698e0787bfdf06dd0588dcd327e23fa381b52422f90",
+      "sidecar": "b67bf326b80e3ae132d5e722bd969c72f6ab046bf1e797b3ffd7b3936ba82962",
+      "source": "cb6b2d91aae33ce175682cf90cc049e329657dfc72f518e1241adcdd98fff62e"
+    },
+    "^code_^game^engine_^source_^game^logic_^object_^update_^foundation^a^i^update.obj": {
+      "object": "c8028344ce3a8a6f85a1960f2953baf6156938e2d9ce0d38754c6aca54b0500f",
+      "sidecar": "81a64f00d95a55a7ff83a603e31de0a2055f68f3894e39ed71d37a7b9e959838",
+      "source": "fd63da28aba6b00567b91953b7544e1f6dca039f5a224da04b952d992f2e1385"
+    },
+    "^code_^game^engine_^source_^game^logic_^object_^contain_^cave^contain.obj": {
+      "object": "a336202c0761db6c6d1d3720f30e6861378007951d6c24f581e4647d63052267",
+      "sidecar": "388bf7cedf74bbc033ea7264d6514b61a1c45458fed7df5df224faff1f1f447c",
+      "source": "290d7c1dcb6ce6c5d168880dd88df71689099833dbff146d8b5158dafa04b959"
+    },
+    "^code_^game^engine_^source_^game^logic_^object_^contain_^horde^contain^iface11^c^slots.obj": {
+      "object": "dcc05d19a7fcc6bac6bb495d69c07e203126abe53255f6cbc19885045151de88",
+      "sidecar": "7217bf00798c59b787c83c3ffc2b528f07e96fb9fc0448ff8a535dea1f69a561",
+      "source": "d37a296ebab08291423c0e97c4051edd8710139163d7f504b02ea8df84d1b21b"
+    },
+    "^code_^game^engine_^source_^game^logic_^object_^update_^respawn^update.obj": {
+      "object": "c9dcd40c7516661952e7e4db1b28cb314832741d3ab36b12e62c5327f48c87f3",
+      "sidecar": "907c827e732bc115714e2456bdd6dd31c3393a7e3ef5535e82c598923e3c0443",
+      "source": "81c4470868eaa1f1b8b3c767df1231830b1ccdfad52dc47db4c37b6041a87a19"
+    },
+    "^code_^game^engine_^source_^game^logic_^object_^update_^respawn^update^trigger^revival.obj": {
+      "object": "38505a7a637d837aac99f984eca229e6c1a6e52d336fcf272689fe08e2dff6c9",
+      "sidecar": "228b25c8a9d30d1abc468a39ee4179fe6d47e336b505ee34904c6a798d98f3da",
+      "source": "cc7e159fe7202a9d7f246de1f51797b8ffa551d13a12e7b54c784e90fac5c208"
+    },
+    "^code_^game^engine_^source_^game^logic_^object_^upgrade_^replace^self^upgrade^dtor.obj": {
+      "object": "fbb68a33bfaa771fa0a9b525448894f550b12e34a947157f5e6b25e5deb5c9bf",
+      "sidecar": "75224bf317ab24458d8e540c4372fb95cd3059d4cd3629f34886c89c5890b85a",
+      "source": "223835a43b5f4a94ada874a7bdb0f92ce12bce79be274983495b6ad6897ef5b5"
+    },
+    "^code_^game^engine_^source_^game^client_^g^u^i_^control^bar_^control^bar^command^processing.obj": {
+      "object": "67f01e037483064981d7d01e2ce4bce24e95af1fd308dadceb57edace9e47d5b",
+      "sidecar": "73a254c4829610f8118633496b125f32261dca54d4700fd94b81118a4b57d998",
+      "source": "432e3ecc78657de237f6d06f51ef9ff95a6a06481cb8133a1aad369b35f74a00"
+    }
+  },
+  "limitations": [
+    "No compilation; this audits the published index's bounded cached-object cohort.",
+    "Stale/missing source or object receipts are reported and excluded from current-provider proof.",
+    "The unrowed 4-byte getter has no independent retail address claim; +0x10 is corroborated by the rowed caller.",
+    "No post-index whole-tree consumer search is represented by this report."
+  ]
+}

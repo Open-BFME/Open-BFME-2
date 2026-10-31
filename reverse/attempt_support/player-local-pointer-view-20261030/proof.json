@@ -1,0 +1,97 @@
+{
+  "source": "Code/GameEngine/Source/Common/RTS/PlayerIsLocalPlayer.cpp",
+  "scope": "One 15-byte Player::isLocalPlayer row; preserve its code/relocation while replacing the conflicting PlayerList private class with an observed +0x10 storage projection. Inspect separate emitted getter provider before applying.",
+  "variants": {
+    "before": {
+      "source_sha256": "126f52becd978850ed29441e5d9d67a2a5ec855dc075a0e3876ae6ec712e9f63",
+      "rows": [
+        {
+          "name": "?isLocalPlayer@Player@@QBE_NXZ",
+          "rva": "0x002A9D89",
+          "size": "15",
+          "exact": true
+        }
+      ],
+      "eh": []
+    },
+    "trial": {
+      "source_sha256": "39019d85c1848076205c75ceb466d715dfe319dedcfc4d2773b94054c689f668",
+      "rows": [
+        {
+          "name": "?isLocalPlayer@Player@@QBE_NXZ",
+          "rva": "0x002A9D89",
+          "size": "15",
+          "exact": true
+        }
+      ],
+      "eh": []
+    }
+  },
+  "removed_debug_only_definitions": [
+    {
+      "name": "?getLocalPlayer@PlayerList@@QBEPAVPlayer@@XZ",
+      "raw": "8b4110c3",
+      "relocations": [],
+      "incoming_refs": [
+        {
+          "section": ".debug$F",
+          "offset": 0,
+          "kind": 7
+        }
+      ]
+    }
+  ],
+  "all_external_code_and_symbolic_relocations_identical": false,
+  "all_retained_external_code_and_symbolic_relocations_identical": true,
+  "actual": {
+    "source_sha256": "39019d85c1848076205c75ceb466d715dfe319dedcfc4d2773b94054c689f668",
+    "object_sha256": "a7e2f84ba880170c1910e4b38d8a5ad7b0dec7b3312c4c61ca95f2ae726066c9",
+    "strict_current": true,
+    "external_code_definitions_and_relocations_identical": 1
+  },
+  "external_definition_sha256": {
+    "?isLocalPlayer@Player@@QBE_NXZ": "1d97c07863f03bdea72a739463c6673d1aa1ccb6be773038a28e20eea6e01b32"
+  },
+  "native_helpers": [
+    {
+      "rva": "0x2a9d89",
+      "size": 15,
+      "raw": "8b15e8eedf0033c03b4a100f94c0c3",
+      "instructions": [
+        {
+          "rva": "0x2a9d89",
+          "mnemonic": "mov",
+          "operands": "edx, dword ptr [0xdfeee8]"
+        },
+        {
+          "rva": "0x2a9d8f",
+          "mnemonic": "xor",
+          "operands": "eax, eax"
+        },
+        {
+          "rva": "0x2a9d91",
+          "mnemonic": "cmp",
+          "operands": "ecx, dword ptr [edx + 0x10]"
+        },
+        {
+          "rva": "0x2a9d94",
+          "mnemonic": "sete",
+          "operands": "al"
+        },
+        {
+          "rva": "0x2a9d97",
+          "mnemonic": "ret",
+          "operands": ""
+        }
+      ]
+    }
+  ],
+  "native_caller_access": [
+    {
+      "rva": "0x2a9d91",
+      "raw": "3b4a10",
+      "mnemonic": "cmp",
+      "operands": "ecx, dword ptr [edx + 0x10]"
+    }
+  ]
+}

@@ -15231,3 +15231,10 @@ name; that tu is deleting-dtor family-wide, so it waits for the merge lane's
 consolidation pass. The DamageFilteredCreateObjectDieCtor header row stays
 census-gated on the next nightly index absorbing the landed DFCOD dtor
 digests (name-held-solely-by-another-object refusals, resolved by refresh).
+
+
+### Player local-player projection prerequisite (2026-10-30, codex root)
+
+PlayerIsLocalPlayer.cpp no longer privately redefines PlayerList: it retains the real global and reads the native +0x10 pointer through an observed-storage view. The older header used by Player.cpp has a different donor layout (+0x0C), so its getter is not substituted. The 15-byte matched body and global relocation are unchanged; the discarded unrowed four-byte getter has only debug incoming references, with identical current selected-first providers retained. Normal byte gates, a strict receipt and the ordinary provider cohort preview support only this source-level consolidation prerequisite. The supported merge still decides placement and combination; Player's broader header/ABI, compiler, mixed-file and provider obstacles remain open. No census gain is claimed. [Evidence](../reverse/attempt_support/player-local-pointer-view-20261030/readme.md).
+
+Current verification at5d43d4fe40: strict donor receipt and actual-byte proof pass; the donor plus GameClientDrawableTOC and GameLogicInit retain3/3LINKS and36,832 preview bytes against d249ce458a. Fifteen current same-body getter providers remain, with no raw runtime incoming references. The selected whole-object SHA differs from the index and ten peers are stale, so complete post-index consumer closure is unverified; carry the cohort into the next scheduled census. No headline gain is claimed.
