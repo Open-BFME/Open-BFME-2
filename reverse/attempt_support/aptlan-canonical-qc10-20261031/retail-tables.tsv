@@ -1,0 +1,41 @@
+table	slot	va	AptLanLobby target owner
+0xc3e098	0	0x844691	
+0xc3e098	1	0x8441b0	
+0xc3e098	2	0x844279	?saveRulesRva00444279@AptLanLobby@@QAEXXZ
+0xc3e098	3	0x844240	
+0xc3e098	4	0x8454a1	?MpOwnerSelectColor@AptLanLobby@@QAE_NPAVGameSlot@@H@Z
+0xc3e098	5	0x844ac3	?MpOwnerSelectHandicap@AptLanLobby@@QAE_NPAVGameSlot@@H@Z
+0xc3e098	6	0x8456b8	?MpOwnerSelectHero@AptLanLobby@@QAE_NPAVGameSlot@@@Z
+0xc3e098	7	0x844f9c	?bfmeMapChanged@AptLanLobby@@QAE_NPBVAsciiString@@@Z
+0xc3e098	8	0x84440c	?setScenarioRva0044440C@AptLanLobby@@QAE_NH@Z
+0xc3e098	9	0x844b90	?MpOwnerSelectPlayer@AptLanLobby@@QAE_NPAVGameSlot@@W4SlotState@@H@Z
+0xc3e098	10	0x8455b2	?MpOwnerSelectPlayerTemplate@AptLanLobby@@QAE_NPAVGameSlot@@H@Z
+0xc3e098	11	0x844ca4	?MpOwnerSelectStartPosition@AptLanLobby@@QAE_NPAVGameSlot@@H@Z
+0xc3e098	12	0x8449fd	?MpOwnerSelectTeam@AptLanLobby@@QAE_NPAVGameSlot@@H@Z
+0xc3e098	13	0x90bd7c	
+0xc3e098	14	0x844d7b	?MpOwnerGetLocalPlayerName@AptLanLobby@@QAEXAAVUnicodeString@@@Z
+0xc3e098	15	0x84421c	?rva0044421C@AptLanLobby@@QAEXXZ
+0xc3e098	16	0x844dc3	?rva00444DC3@AptLanLobby@@QAEX_N@Z
+0xc3e098	17	0x8448e5	?MpOwnerPrintMessage@AptLanLobby@@QAEXABVUnicodeString@@H@Z
+0xc3e098	18	0x8441c5	?rva004441C5@AptLanLobby@@QAEX_NH@Z
+0xc3e098	19	0x87a69c	?OnInitialized@AptLanLobby@@QAEXPBD@Z
+0xc3e098	20	0x8444eb	
+0xc3e098	21	0x84467c	
+0xc3e098	22	0x90b5c6	
+0xc3e098	23	0x844686	
+0xc3e0f8	0	0x845211	
+0xc3e0f8	1	0x84522d	?rva0044522D@AptLanLobby@@UAEHHEH@Z
+0xc3e0f8	2	0x844826	?rva00444826@AptLanLobby@@UAEHHII@Z
+0xc3e0f8	3	0x4a12f8	
+0xc3e0f8	4	0x844680	
+0xc3e0f8	5	0x846443	?OnUpdateData@AptLanLobby@@UAEHXZ
+0xc3e0f8	6	0x713913	
+0xc3e0f8	7	0x84643d	
+0xc3e0f8	8	0x71393a	
+0xc3e0f8	9	0x48ff78	
+0xc3e0f8	10	0x90b5c6	
+0xc3e0f8	11	0x90b5c6	
+0xc3e0f8	12	0x8442db	?rva004442DB@AptLanLobby@@UAEXXZ
+0xc3e0f8	13	0x846772	?rva00446772@AptLanLobby@@UAEXXZ
+0xc3e0f8	14	0x844208	?MPOwnerValidatGameInfo@AptLanLobby@@UAEEH@Z
+0xc3e0f8	15	0x6d616554	

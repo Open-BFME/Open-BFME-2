@@ -1,0 +1,7 @@
+AptLanLobby: class (bytes), sizeof 1732 (retail-new), bases ['_bfme_AptGameWindow', 'Rva004444D2'] (retail-ctor); 18 views, 0 uncompiled, zh -
+  +0x000 4 void*        __vfptr          bytes/majority  views=4 retail={} witness=None
+  slot 2: rva00444826(int,uint,uint) (bytes)
+  QUEUE inherited@0xc: {'1:S:Rva0043DB47DoubleSetter': 1} 
+  QUEUE inherited@0x88: {'4:i4': 1} 
+  QUEUE slot0: {'rva00446772()': 1, '__vecDelDtor(uint)': 1, 'rva0044522D(int,uchar,int)': 1, 'MPOwnerValidatGameInfo(int)': 1} 
+  QUEUE slot1: {'OnUpdateData()': 1, 'rva004442DB()': 1} 
