@@ -10335,6 +10335,11 @@ rows require verified parent repoints; the previously recorded 0x007A3734
 repoint still has an unmasked byte mismatch. No row was moved and no census
 gain is claimed. Recheck parent evidence or its callee before retrying.
 
+**2026-10-31 funclet repoint:** `uw_00772bc4` (0x00772BC4, 8B) in `uw_gen_008.cpp`
+repointed to its exact parent `?rva0025DA8D@Display@@UAE_NVAsciiString@@H@Z` in
+`Code/GameEngine/Source/GameClient/Display.cpp` as compiler label `$L57343` (`Unwind@00b72bc4`),
+matching retail byte-for-byte with exact relocation to `??1AsciiString@@QAE@XZ` (0x0048BA39).
+
 **Canonical Snapshot follow-up (2026-10-28, inspected `73c0328c5d`):**
 [The bounded parent-ownership repair](../reverse/attempt_support/uw013-snapshot-parent-repoints-20261028-codex.md)
 repoints four eight-byte uw_gen_013 cleanups (0x0075B560, 0x0075E4FF,
