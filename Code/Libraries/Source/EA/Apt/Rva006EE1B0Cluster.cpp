@@ -43,7 +43,7 @@ public:
 
 class AptValue; extern AptValue *gpUndefinedValue;
 
-AptValue *rva006ee1b0(BfmeAptValue006DCD20 *entry)
+AptValue *stop(BfmeAptValue006DCD20 *entry)
 {
 	if (((const Rva006CFCD0 *)entry->rva006DCF60(false))->isSpriteInstBase())
 	{
@@ -100,14 +100,14 @@ static __forceinline Rva006EE1B0Inner *spriteInst(BfmeAptValue006DCD20 *value)
 	return value->m_inner;
 }
 
-AptValue *rva006ee270(BfmeAptValue006DCD20 *entry)
+AptValue *nextFrame(BfmeAptValue006DCD20 *entry)
 {
 	((AptCIH *)entry->rva006DCF60(false))->jumpToFrame(spriteInst(entry->rva006DCF60(false))->m_frame + 1);
 	spriteInst(entry->rva006DCF60(false))->m_flags &= 0xFDFFFFFF;
 	return gpUndefinedValue;
 }
 
-AptValue *rva006ee310(BfmeAptValue006DCD20 *entry)
+AptValue *PrevFrame(BfmeAptValue006DCD20 *entry)
 {
 	((AptCIH *)entry->rva006DCF60(false))->jumpToFrame(spriteInst(entry->rva006DCF60(false))->m_frame - 1);
 	spriteInst(entry->rva006DCF60(false))->m_flags &= 0xFDFFFFFF;

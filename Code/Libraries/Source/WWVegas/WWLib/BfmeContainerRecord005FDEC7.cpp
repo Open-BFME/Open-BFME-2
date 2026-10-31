@@ -35,7 +35,7 @@ struct Rva005F9330Holder
 class Rva005F9330
 {
 public:
-    void rva005F9330();
+    void FadeOut();
 private:
     char m_pad00[4];
     void *m_level04;
@@ -105,7 +105,7 @@ void StrategicHUD::BattlePromptMovieClip::Impl::SetAutoResolveButtonEnabled(bool
 
 // ---- from Code/GameEngine/Source/Common/Rva005F9330FadeOut.cpp
 
-void Rva005F9330::rva005F9330()
+void Rva005F9330::FadeOut()
 {
     const char *team = m_team08 ? (const char *)m_team08 + 8 : "";
     Rva00524EF4AptCall((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), m_level04, team, "FadeOut");

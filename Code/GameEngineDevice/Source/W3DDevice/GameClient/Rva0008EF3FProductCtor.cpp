@@ -193,7 +193,7 @@ class W3DDisplay
 {
 public:
 	static RTS3DScene *m_3DScene;
-	void rva0008EE9E(float x1, float y1, float x2, float y2, float width, int color1, int color2);	// line
+	void drawLine(float x1, float y1, float x2, float y2, float width, int color1, int color2);	// line
 	void rva0008EEF0(float x, float y, float w, float h, float width, int color);	// open rect
 };
 class Drawable { public: const Matrix3D *getTransformMatrix(void) const; };
@@ -307,7 +307,7 @@ void Rva0008EF3FProduct::drawSelectionRegion(void)
 				toX = pos.x;
 				toY = pos.y;
 			}
-			reinterpret_cast<W3DDisplay *>(TheDisplay)->rva0008EE9E( from.x, from.y, toX, toY,
+			reinterpret_cast<W3DDisplay *>(TheDisplay)->drawLine( from.x, from.y, toX, toY,
 				width, color, color );
 		}
 	}

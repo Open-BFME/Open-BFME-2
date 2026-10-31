@@ -176,10 +176,10 @@ AptValue *__cdecl Rva006ED810CreateTextField(AptValue *,int);
 AptValue *__cdecl Rva006EDBD0SwapDepths(AptValue *,int);
 AptValue *Rva006EDF20SwapDepths(AptValue *self,int count);
 AptValue *__cdecl Rva006EDFF0CreateEmptyMovieClip(AptValue *,int);
-AptValue *rva006ee1b0(BfmeAptValue006DCD20 *entry);
+AptValue *stop(BfmeAptValue006DCD20 *entry);
 AptValue *rva006ee210(BfmeAptValue006DCD20 *entry);
-AptValue *rva006ee270(BfmeAptValue006DCD20 *entry);
-AptValue *rva006ee310(BfmeAptValue006DCD20 *entry);
+AptValue *nextFrame(BfmeAptValue006DCD20 *entry);
+AptValue *PrevFrame(BfmeAptValue006DCD20 *entry);
 AptValue *__cdecl rva006ee3b0(AptValue *value);
 AptValue *__cdecl rva006ee540(AptValue *value);
 AptValue *__cdecl Rva006EF570ApplyTextFormat(AptValue *,int);
@@ -444,21 +444,21 @@ g_Va00E181E0=(Acac0Releaseable*)new Rva006D6500((int)&rva006ee210);
 return (AptValue*)g_Va00E181E0;
 
  case 110:if(!g_Va00E181DC){
-g_Va00E181DC=(Acac0Releaseable*)new Rva006D6500((int)&rva006ee1b0);
+g_Va00E181DC=(Acac0Releaseable*)new Rva006D6500((int)&stop);
 ((Rva006D6500*)g_Va00E181DC)->setGCRootCount(1);
 ((Rva006D6500*)g_Va00E181DC)->AddRef();
 }
 return (AptValue*)g_Va00E181DC;
 
  case 108:if(!g_Va00E181E8){
-g_Va00E181E8=(Acac0Releaseable*)new Rva006D6500((int)&rva006ee310);
+g_Va00E181E8=(Acac0Releaseable*)new Rva006D6500((int)&PrevFrame);
 ((Rva006D6500*)g_Va00E181E8)->setGCRootCount(1);
 ((Rva006D6500*)g_Va00E181E8)->AddRef();
 }
 return (AptValue*)g_Va00E181E8;
 
  case 113:if(!g_Va00E181E4){
-g_Va00E181E4=(Acac0Releaseable*)new Rva006D6500((int)&rva006ee270);
+g_Va00E181E4=(Acac0Releaseable*)new Rva006D6500((int)&nextFrame);
 ((Rva006D6500*)g_Va00E181E4)->setGCRootCount(1);
 ((Rva006D6500*)g_Va00E181E4)->AddRef();
 }

@@ -120,7 +120,7 @@ extern float g_00DE5E08,g_00DE5E04,g_00DE5E00;
 extern float g_00DE5E44,g_00DB4AA8,BfmeCameraPanRotationLimit,BfmeCameraPanRotationRate;
 class Rva0009D55BProduct {
 public:
-    void rva0009C18A();
+    void computeCameraBounds();
     void rva0009B28C(const Coord2D *);
 };
 class Rva0009C134Host
@@ -158,7 +158,7 @@ void Rva0009C134Host::rva0009CD9B()
     m_188=Create_Render_Obj("LM_SunRays");
     if (m_d4) {
         m_c4->ReleaseChild(m_d4);
-        ((Rva0009D55BProduct *)this)->rva0009C18A();
+        ((Rva0009D55BProduct *)this)->computeCameraBounds();
         Rva0009C0EB *binder=(Rva0009C0EB *)this;
         binder->rva0009C0EB(&m_18c,(const AsciiString *)(src+0x180));
         binder->rva0009C0EB(&m_190,(const AsciiString *)(src+0x184));

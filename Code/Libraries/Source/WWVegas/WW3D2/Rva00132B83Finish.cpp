@@ -12,7 +12,7 @@ struct TextureSurfaceInfo {
 	int m_dim2C;
 	int m_dim30;
 	int m_pad34[4];
-	int m_mip44;
+	int m_mipLevelCount;
 	int m_pad48;
 	int m_format4C;
 };
@@ -34,7 +34,7 @@ public:
 			* m_surface->m_dim30 * m_surface->m_dim2C * m_surface->m_dim28 >> 3;
 		if (m_surface->m_type0C == 2)
 			mem *= 6;
-		if (surface->m_mip44 != 1)
+		if (surface->m_mipLevelCount != 1)
 			mem = mem * 4 / 3;
 		return mem;
 	}

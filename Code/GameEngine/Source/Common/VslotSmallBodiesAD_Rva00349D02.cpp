@@ -184,11 +184,11 @@ public:
 };
 bool Rva0040CFFF::rva0040E0C5(Rva0040E0C5Arg *arg)
 {
-	Rva0040DF77 *x = arg->m_78;
-	if (x && x->m_2C == 4)
+	Rva0040DF77 *armySummary = arg->m_78;
+	if (armySummary && armySummary->m_2C == 4)
 	{
-		reinterpret_cast<ArmySummary *>(x)->rva0040DF77();
-		x->rva0040E02B();
+		reinterpret_cast<ArmySummary *>(armySummary)->rva0040DF77();
+		armySummary->rva0040E02B();
 	}
 	return true;
 }
@@ -327,11 +327,11 @@ public:
 class Rva00508925
 {
 public:
-	bool rva00508925(Int a, Int b);
+	bool rva00508925(Int a, Int target);
 };
-bool Rva00508925::rva00508925(Int a, Int b)
+bool Rva00508925::rva00508925(Int a, Int target)
 {
-	return (bool)reinterpret_cast<Rva00507823 *>(this)->rva005075D6((const void *)a, (Object *)b);
+	return (bool)reinterpret_cast<Rva00507823 *>(this)->rva005075D6((const void *)a, (Object *)target);
 }
 
 class Rva00508F1E : public Rva00507823

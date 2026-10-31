@@ -19,7 +19,7 @@ class BfmeSlotEH
 {
 public:
 	int m_bfmeHead[2];					// +0x00
-	void *m_bfmeKey;					// +0x08
+	void *m_key;					// +0x08
 	int m_bfmeTail[13];					// +0x0C
 };
 
@@ -30,19 +30,19 @@ public:
 
 private:
 	int m_bfmeHead[18];					// +0x00
-	BfmeSlotEH *m_bfmeSlots;				// +0x48
+	BfmeSlotEH *m_slots;				// +0x48
 	int m_bfmeCount;					// +0x4C
 };
 
 // ?bfmeFind@Gen_007F7180@@QBEPAVBfmeSlotEH@@PAX@Z
 BfmeSlotEH *Gen_007F7180::bfmeFind(void *key) const
 {
-	BfmeSlotEH *first = m_bfmeSlots;
-	BfmeSlotEH *last = m_bfmeSlots + m_bfmeCount;
+	BfmeSlotEH *first = m_slots;
+	BfmeSlotEH *last = m_slots + m_bfmeCount;
 
 	while (first < last)
 	{
-		if (first->m_bfmeKey == key)
+		if (first->m_key == key)
 			return first;
 
 		++first;

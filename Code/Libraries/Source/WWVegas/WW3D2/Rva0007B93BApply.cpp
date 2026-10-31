@@ -33,7 +33,7 @@ public:
  virtual void slot18(); virtual void slot1C(); virtual void slot20();
  virtual Rva0007B9EE *holder();
  bool rva0007B93B(int,int);
-private: int m_pad04; Rva0007B93BStep *m_step08; void *m_previous0C;
+private: int m_pad04; Rva0007B93BStep *m_step; void *m_previousState;
 };
 bool Rva0007B93B::rva0007B93B(int a, int b)
 {
@@ -41,8 +41,8 @@ bool Rva0007B93B::rva0007B93B(int a, int b)
  if(!h || h->rva0007B9EE().IsNull()) return false;
  void *result = h->rva0007B9EE().View()->rva001514D0(0);
  if(!result) return false;
- m_previous0C = h->m_state20;
+ m_previousState = h->m_state20;
  h->m_state20 = result;
- if(!m_step08) return false;
- return m_step08->Apply(a,b);
+ if(!m_step) return false;
+ return m_step->Apply(a,b);
 }

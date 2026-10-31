@@ -6163,3 +6163,22 @@ local,Rva003F80E6::rva003F80E6::p,Rva003F80E6::rva003F80E6::iter,inferred,agree:
 local,Rva003F812C::rva003F812C::p,Rva003F812C::rva003F812C::iter,inferred,agree:nl-d9372f3fc600,Code/GameEngine/Source/Common/Rva003F81B0Chain.cpp,0x003F812C
 local,Rva003F81FDProxy::rva003F816E::p,Rva003F81FDProxy::rva003F816E::iter,inferred,agree:nl-1998fb9c388a,Code/GameEngine/Source/Common/Rva003F81B0Chain.cpp,0x003F816E
 param,Rva006680C0::rva006680C0::arg,Rva006680C0::rva006680C0::source,inferred,agree:nl-41c2feebdfa3-m0a06ae5e7fe94271c5fedc5e,Code/GameEngine/Source/Common/VslotSmallBodiesAN.cpp,0x006680C0
+member,BfmeSlotEH::m_bfmeKey,BfmeSlotEH::m_key,inferred,agree:nl-3a32c9473ebc,Code/GameEngine/Source/Common/Bfme5SixtyOne.cpp,
+member,Gen_007F7180::m_bfmeSlots,Gen_007F7180::m_slots,inferred,agree:nl-961821162d97,Code/GameEngine/Source/Common/Bfme5SixtyOne.cpp,
+member,Rva0007B93B::m_previous0C,Rva0007B93B::m_previousState,inferred,agree:nl-ac13c9c46b41,Code/Libraries/Source/WWVegas/WW3D2/Rva0007B93BApply.cpp,
+member,Rva0007B93B::m_step08,Rva0007B93B::m_step,inferred,agree:nl-624469b14c73,Code/Libraries/Source/WWVegas/WW3D2/Rva0007B93BApply.cpp,
+member,TextureSurfaceInfo::m_mip44,TextureSurfaceInfo::m_mipLevelCount,inferred,agree:nl-33fef2602b9a,Code/Libraries/Source/WWVegas/WW3D2/Rva00132B83Finish.cpp,
+local,Rva0040CFFF::rva0040E0C5::x,Rva0040CFFF::rva0040E0C5::armySummary,inferred,agree:nl-be8392c844f1,Code/GameEngine/Source/Common/VslotSmallBodiesAD_Rva00349D02.cpp,0x0040E0C5
+param,Rva00508925::rva00508925::b,Rva00508925::rva00508925::target,inferred,agree:nl-316df3644f4c,Code/GameEngine/Source/Common/VslotSmallBodiesAD_Rva00349D02.cpp,0x00508925
+function,?rva0009C18A@Rva0009D55BProduct@@QAEXXZ,?computeCameraBounds@Rva0009D55BProduct@@QAEXXZ,inferred,agree:nl-f61331a2d64c,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0009C18ACameraBounds.cpp,0x0009C18A
+function,?rva0008EE9E@W3DDisplay@@QAEXMMMMMHH@Z,?drawLine@W3DDisplay@@QAEXMMMMMHH@Z,inferred,agree:nl-8445c65fb0c9,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayDrawImageMode.cpp,0x0008EE9E
+carry,W3DDisplay::rva0008EE9E::startX,W3DDisplay::drawLine::startX,inferred,scope renamed by Rename rva0008EE9E to drawLine (inferred),Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayDrawImageMode.cpp,0x0008EE9E
+carry,W3DDisplay::rva0008EE9E::startY,W3DDisplay::drawLine::startY,inferred,scope renamed by Rename rva0008EE9E to drawLine (inferred),Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayDrawImageMode.cpp,0x0008EE9E
+carry,W3DDisplay::rva0008EE9E::endX,W3DDisplay::drawLine::endX,inferred,scope renamed by Rename rva0008EE9E to drawLine (inferred),Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayDrawImageMode.cpp,0x0008EE9E
+carry,W3DDisplay::rva0008EE9E::endY,W3DDisplay::drawLine::endY,inferred,scope renamed by Rename rva0008EE9E to drawLine (inferred),Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayDrawImageMode.cpp,0x0008EE9E
+carry,W3DDisplay::rva0008EE9E::lineWidth,W3DDisplay::drawLine::lineWidth,inferred,scope renamed by Rename rva0008EE9E to drawLine (inferred),Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayDrawImageMode.cpp,0x0008EE9E
+function,?rva006ee1b0@@YAPAVAptValue@@PAVBfmeAptValue006DCD20@@@Z,?stop@@YAPAVAptValue@@PAVBfmeAptValue006DCD20@@@Z,inferred,agree:nl-5c9720719ccf,Code/Libraries/Source/EA/Apt/Rva006EE1B0Cluster.cpp,0x006EE1B0
+function,?rva006ee270@@YAPAVAptValue@@PAVBfmeAptValue006DCD20@@@Z,?nextFrame@@YAPAVAptValue@@PAVBfmeAptValue006DCD20@@@Z,inferred,agree:nl-964e3aef027c,Code/Libraries/Source/EA/Apt/Rva006EE1B0Cluster.cpp,0x006EE270
+function,?rva006ee310@@YAPAVAptValue@@PAVBfmeAptValue006DCD20@@@Z,?PrevFrame@@YAPAVAptValue@@PAVBfmeAptValue006DCD20@@@Z,inferred,agree:nl-08a3884cbd26,Code/Libraries/Source/EA/Apt/Rva006EE1B0Cluster.cpp,0x006EE310
+function,?rva0073F092@AsyncServiceQueue@@QAE?AVRva0036CA00Str@@K@Z,?dequeue@AsyncServiceQueue@@QAE?AVRva0036CA00Str@@K@Z,inferred,agree:nl-fb1ef55eae4b,Code/Libraries/Source/WWVegas/WWLib/AsyncServiceQueueRemoval.cpp,0x0073F092
+function,?rva005F9330@Rva005F9330@@QAEXXZ,?FadeOut@Rva005F9330@@QAEXXZ,inferred,agree:nl-8032df572c72,Code/Libraries/Source/WWVegas/WWLib/BfmeContainerRecord005FDEC7.cpp,0x005F9330

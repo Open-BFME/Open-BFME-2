@@ -809,13 +809,13 @@ AptValue *aptHelper008AE3A0(void *entry, int count, int flag)
 
 // tu-skeleton: 0x006EDFF0 434B ?Rva006EDFF0CreateEmptyMovieClip@@YAPAVAptValue@@PAV1@H@Z -- matched in Code/Libraries/Source/Apt/Rva006EDFF0CreateEmptyMovieClip.cpp (not merged yet)
 
-// tu-skeleton: 0x006EE1B0 95B ?rva006ee1b0@@YAPAVAptValue@@PAVBfmeAptValue006DCD20@@@Z -- matched in Code/Libraries/Source/EA/Apt/Rva006EE1B0Cluster.cpp (not merged yet)
+// tu-skeleton: 0x006EE1B0 95B ?stop@@YAPAVAptValue@@PAVBfmeAptValue006DCD20@@@Z -- matched in Code/Libraries/Source/EA/Apt/Rva006EE1B0Cluster.cpp (not merged yet)
 
 // tu-skeleton: 0x006EE210 95B ?rva006ee210@@YAPAVAptValue@@PAVBfmeAptValue006DCD20@@@Z -- matched in Code/Libraries/Source/EA/Apt/Rva006EE1B0Cluster.cpp (not merged yet)
 
-// tu-skeleton: 0x006EE270 154B ?rva006ee270@@YAPAVAptValue@@PAVBfmeAptValue006DCD20@@@Z -- matched in Code/Libraries/Source/EA/Apt/Rva006EE1B0Cluster.cpp (not merged yet)
+// tu-skeleton: 0x006EE270 154B ?nextFrame@@YAPAVAptValue@@PAVBfmeAptValue006DCD20@@@Z -- matched in Code/Libraries/Source/EA/Apt/Rva006EE1B0Cluster.cpp (not merged yet)
 
-// tu-skeleton: 0x006EE310 154B ?rva006ee310@@YAPAVAptValue@@PAVBfmeAptValue006DCD20@@@Z -- matched in Code/Libraries/Source/EA/Apt/Rva006EE1B0Cluster.cpp (not merged yet)
+// tu-skeleton: 0x006EE310 154B ?PrevFrame@@YAPAVAptValue@@PAVBfmeAptValue006DCD20@@@Z -- matched in Code/Libraries/Source/EA/Apt/Rva006EE1B0Cluster.cpp (not merged yet)
 
 // tu-skeleton: 0x006EE3B0 393B ?rva006ee3b0@@YAPAVAptValue@@PAV1@@Z -- matched in Code/Libraries/Source/Apt/AptCharacterByteCounts.cpp (not merged yet)
 

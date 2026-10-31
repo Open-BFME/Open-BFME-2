@@ -1,5 +1,5 @@
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
-// ?rva0009C18A@Rva0009D55BProduct@@QAEXXZ retail 0x0009C18A (664 bytes; called
+// ?computeCameraBounds@Rva0009D55BProduct@@QAEXXZ retail 0x0009C18A (664 bytes; called
 // only from the pinned 0x0009CD9B): takes the +0xD4 object's extent (slot 66)
 // into +0x170 with TheLivingWorldManager's 2D bounds (+0x1C..+0x28) over its
 // x/y, seeds +0x104 and +0xF8 from the low corner at ground level, drops the
@@ -61,7 +61,7 @@ class Rva0009D55BProduct
 {
 public:
 	void rva0009BAA4();
-	void rva0009C18A();
+	void computeCameraBounds();
 
 	char m_pad00[0xD4];
 	Rva0009C18ARenderObj *m_D4;
@@ -86,7 +86,7 @@ public:
 
 // The tangent goes through math.h's float tan overload; the distance selection
 // keeps X unless Y is greater, including unordered inputs.
-void Rva0009D55BProduct::rva0009C18A()
+void Rva0009D55BProduct::computeCameraBounds()
 {
 	m_170.Region3D::Region3D(*m_D4->getExtent());
 	Rva0009C18AMapView &manager = ((Rva0009C18AManagerView *)TheLivingWorldManager)->m_map;
