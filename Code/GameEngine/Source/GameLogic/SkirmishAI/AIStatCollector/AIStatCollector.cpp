@@ -46,6 +46,9 @@ template <> void _STLP_alloc_proxy<int*, int, allocator<int> >::deallocate(int*,
 #include <math.h>
 #include <stl/_algobase.h>
 #include "ascii_string.h"
+#include "../../../../../Libraries/Include/Lib/BfmeE16.h"
+#define _STLP_BFME_LOWER_BOUND_EXTERN  // call retail's one __lower_bound<const size_t*> (vendor/stlport/stl/_hashtable.c)
+#define _STLP_BFME_LOWER_BOUND_EXTERN  // call retail's one __lower_bound<const size_t*> (vendor/stlport/stl/_hashtable.c)
 
 // bfme link decl-only begin
 namespace _STL { template <> _STLP_alloc_proxy<void **, void *, allocator<void *> >::~_STLP_alloc_proxy(); }
@@ -96,6 +99,7 @@ template <> bool less<unsigned>::operator()(const unsigned &a, const unsigned &b
 // shape per TU flags); explicit dllimport+forceinline specializations take
 // those calls inline so this TU emits no external copies.
 namespace _STL { template <> __declspec(dllimport) __forceinline void **vector<void*>::end() { return _M_finish; } }
+
 namespace _STL {
 template <> __declspec(dllimport) __forceinline
 void **vector<void*>::begin()
@@ -134,10 +138,6 @@ private:
 };
 
 class Rva00283081;
-
-// This file's own build sees no constructor body, so it sizes the class and declares throw().
-// Rva00283081Ctor.cpp holds the members and the body.
-class Rva00283081 { public: Rva00283081(float,int) throw(); private: char bytes[0x24]; };
 
 class Rva002A8F24;
 
@@ -372,8 +372,6 @@ class Rva005965A5;
 
 class AIEconomyStats;
 
-class Rva00283081;
-
 namespace _STL {
 template <> __declspec(dllimport) __forceinline
 bool vector<void*>::empty() const { return this->_M_start == this->_M_finish; }
@@ -384,8 +382,6 @@ void vector<void*>::clear() { erase(begin(), end()); }
 class Rva00281A06 { public: ~Rva00281A06(); };
 
 class Rva00281A76;
-
-class CreateAHeroData;
 
 class Rva004E02D7Owner
 {
@@ -398,6 +394,273 @@ private:
 	_STL::vector<void *> records;
 	_STL::vector<void *> holders;
 };
+
+// The C++-linkage game free at 0x00030830: retail's unwind state stays live across each call.
+void __cdecl Rva00030830GameFree(void *);
+
+struct Rva004DFC20Node {Rva004DFC20Node *next;};
+
+struct Rva004DFC20Buckets {
+ Rva004DFC20Node **begin,**end,**storage;
+ __forceinline ~Rva004DFC20Buckets(){if(begin)Rva00030830GameFree(begin);}
+};
+
+class Rva004DFC20 {
+ unsigned unknown00; Rva004DFC20Buckets buckets; unsigned count;
+public:
+ ~Rva004DFC20();
+ void clear();
+};
+
+class Rva004E013BResource {public:virtual ~Rva004E013BResource();};
+
+struct Rva004DFED8Entry4;
+
+struct Rva004DFED8Entry10;
+
+class Rva004DFED8
+{
+public:
+	virtual ~Rva004DFED8();
+private:
+	_STL::vector<Rva004DFED8Entry4 *, _STL::allocator<Rva004DFED8Entry4 *> > m_vec4;
+	_STL::vector<Rva004DFED8Entry10 *, _STL::allocator<Rva004DFED8Entry10 *> > m_vec10;
+};
+
+class Rva004DFCE1 : public Rva004DFC20 {
+public: __forceinline ~Rva004DFCE1() {}
+};
+
+struct Rva004E013BBuffer {void *buffer,*finish,*storage;__forceinline ~Rva004E013BBuffer(){if(buffer)Rva00030830GameFree(buffer);}};
+
+class Rva004E013B {
+ Rva004E013BResource *p0,*p4,*p8,*pC;
+ Rva004DFED8 *p10;
+ Rva004DFCE1 table;
+ unsigned unknown28;
+ Rva004E013BBuffer buffer;
+public:
+    ~Rva004E013B();
+};
+
+// bfme link decl-only BfmeE16
+namespace _STL { template <> vector<BfmeE16, allocator<BfmeE16> >::~vector(); }
+
+class Rva00283081
+{
+public:
+	Rva00283081(float f, int i);
+	virtual ~Rva00283081();
+private:
+	_STL::vector<BfmeE16> m_vec4;
+	_STL::vector<BfmeE16> m_vec10;
+	float m_f1c;
+	int m_i20;
+};
+
+namespace _STL { template <> inline void allocator<Rva004DFED8Entry4 *>::deallocate(Rva004DFED8Entry4 **__p, size_t) const { if (__p != 0) Rva00030830GameFree(__p); } }
+
+namespace _STL { template <> inline void allocator<Rva004DFED8Entry10 *>::deallocate(Rva004DFED8Entry10 **__p, size_t) const { if (__p != 0) Rva00030830GameFree(__p); } }
+
+class Rva002827F3
+{
+public:
+	void rva002827F3();
+};
+
+// bfme link decl-only begin
+namespace _STL { template <> void swap<_STLP_alloc_proxy<void **, void *, allocator<void *> > >(_STLP_alloc_proxy<void **, void *, allocator<void *> > &, _STLP_alloc_proxy<void **, void *, allocator<void *> > &); }
+
+namespace _STL { template <> _Vector_base<void *, allocator<void *> >::_Vector_base(unsigned int, allocator<void *> const &); }
+
+namespace _STL { template <> vector<void *, allocator<void *> >::vector(unsigned int, void *const &, allocator<void *> const &); }
+
+namespace _STL { template <> allocator<void *> vector<void *, allocator<void *> >::get_allocator() const; }
+
+namespace _STL { template <> void vector<void *, allocator<void *> >::swap(vector<void *, allocator<void *> > &); }
+
+// bfme link decl-only end
+// Suppress this TU's non-retail copy of ??A?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBEABQAXI@Z:
+// the kept copy serves the link. Plain declaration-only form (no __imp_).
+namespace _STL { template <> void *const &vector<void *>::operator[](size_t) const; }
+
+// Suppress this TU's non-retail vector<void*> operator[] copy (family2-LK3 row 25):
+// the retail copy serves the link. Plain declaration-only form (no __imp_).
+namespace _STL {
+template <> void *&_STL::vector<void*>::operator[](size_t);
+}
+
+// Suppress this TU's non-retail const-begin copy (row 47 family2-LK3): the
+// /Od retail copy in stlport_vector_voidptr.cpp serves the link instead.
+namespace _STL {
+template <> vector<void *>::const_iterator _STL::vector<void *>::begin() const;
+}
+
+// The fill insert(pos, n, x) is taken inline, as retail's hashtable::_M_initialize_buckets
+// does (59 bytes: it calls the rowed _M_fill_insert); dllimport + forceinline emits no copy.
+namespace _STL { template <> __declspec(dllimport) __forceinline void vector<void*>::insert(void **pos, size_t n, void *const &x) { _M_fill_insert(pos, n, x); } }
+
+// Suppress this TU's non-retail vector<void*> size copy (family2-LK3 row 17):
+// the retail copy serves the link. Plain declaration-only form (no __imp_).
+namespace _STL {
+template <> size_t vector<void*>::size() const;
+template <> void **vector<void*>::begin();
+}
+
+struct Rva004E007AElement {Rva004E007AElement();Rva004E007AElement(const Rva004E007AElement&);Rva004E007AElement&operator=(const Rva004E007AElement&);~Rva004E007AElement(){}char bytes[8]; bool operator==(const Rva004E007AElement&)const;};
+
+// Only the recovered bucket-table constructor is owned here. Instantiating
+// the whole hash_map also emits unused element operations with no providers.
+typedef _STL::pair<const int,Rva004E007AElement> Rva004E007APair;
+
+template _STL::hashtable<Rva004E007APair,int,_STL::hash<int>,
+    _STL::_Select1st<Rva004E007APair>,_STL::equal_to<int>,
+    _STL::allocator<Rva004E007APair> >::hashtable(unsigned int,
+    const _STL::hash<int>&,const _STL::equal_to<int>&,
+    const _STL::allocator<Rva004E007APair>&);
+
+class Rva004E00BAOwner
+{
+public:
+	void addObject(Object *object);
+
+private:
+	unsigned int m_opaquePrefix;
+	_STL::vector<Object *> m_objects;
+};
+
+class Rva0025C061
+{
+public:
+	bool rva00596472(void *holder);
+	bool rva005960C1(void *holder);
+};
+
+class AIUnitStats
+{
+public:
+	bool Register(void *holder);
+	bool UnRegister(void *holder);
+};
+
+class ObjectLookupMap
+{
+public:
+	Object **findSlot(int *key);
+};
+
+enum NameKeyType
+{
+	NAMEKEY_INVALID = 0,
+	NAMEKEY_MAX = 1 << 23,
+	FORCE_NAMEKEYTYPE_LONG = 0x7fffffff
+};
+
+class AIStatBase;
+
+class ArmorTemplate
+{
+public:
+	float m_damageCoefficient[38];
+};
+
+namespace rts
+{
+template <class T> struct hash
+{
+};
+template <> struct hash<NameKeyType>
+{
+	unsigned int operator()(const NameKeyType &key) const;
+};
+template <class T> struct equal_to
+{
+};
+}
+
+class AIStatCollector;
+
+typedef _STL::pair<const NameKeyType, ArmorTemplate> ArmorHashtablePair;
+
+// This unit reaches one member of the Armor hashtable: the rowed _M_find 0x002888D4, out of line.
+namespace _STL
+{
+template <> class hashtable<ArmorHashtablePair, NameKeyType, rts::hash<NameKeyType>, _Select1st<ArmorHashtablePair>, rts::equal_to<NameKeyType>, allocator<ArmorHashtablePair> >
+{
+	friend class ::AIStatCollector;
+	typedef _Hashtable_node<ArmorHashtablePair> _Node;
+private:
+	template <class KT> _Node *_M_find(const KT &) const;
+};
+}
+
+typedef _STL::hashtable<ArmorHashtablePair, NameKeyType, rts::hash<NameKeyType>, _STL::_Select1st<ArmorHashtablePair>, rts::equal_to<NameKeyType>, _STL::allocator<ArmorHashtablePair> > ArmorHashtable;
+
+class AIStatBase
+{
+public:
+	bool UnRegister(void *holder);
+	bool rva005960E0(void *holder);
+};
+
+class AIStructureStats
+{
+public:
+	bool Register(Object *holder);
+	bool UnRegister(void *holder);
+};
+
+class FilterElem;
+
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const AsciiString &nameString);
+};
+
+extern NameKeyGenerator *TheNameKeyGenerator;
+
+// Suppress this TU's non-retail copy of ??1?$hashtable@U?$pair@$$CBHH@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$:
+// the kept copy serves the link. Plain declaration-only form (no __imp_).
+namespace _STL { template <> hashtable<pair<const int, int>, int, hash<int>, _Select1st<pair<const int, int> >, equal_to<int>, allocator<pair<const int, int> > >::~hashtable(); }
+
+// Suppress this TU's non-retail copy of ?_M_initialize_buckets@?$hashtable@U?$pair@$$CBHH@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair:
+// the kept copy serves the link. Plain declaration-only form (no __imp_).
+
+
+namespace _STL { template <> void hashtable<pair<const int, int>, int, hash<int>, _Select1st<pair<const int, int> >, equal_to<int>, allocator<pair<const int, int> > >::_M_initialize_buckets(size_t); }
+
+// Suppress this TU's non-retail copy of ?clear@?$hashtable@U?$pair@$$CBHH@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2:
+// the kept copy serves the link. Plain declaration-only form (no __imp_).
+
+namespace _STL { template <> void hashtable<pair<const int, int>, int, hash<int>, _Select1st<pair<const int, int> >, equal_to<int>, allocator<pair<const int, int> > >::clear(); }
+
+// Suppress this TU's non-retail vector<void*> size copy (family2-LK3 row 17):
+// the retail copy serves the link. Plain declaration-only form (no __imp_).
+namespace _STL {
+template <> size_t vector<void*>::size() const;
+template <> void **vector<void*>::begin();
+// /Ob1 would leave __less<unsigned> out of line in _M_next_size; retail
+// expands it (48 bytes). Inline only, no external copy.
+template <> __declspec(dllimport) __forceinline less<unsigned int> __less(unsigned int *)
+{ return less<unsigned int>(); }
+}
+
+typedef _STL::pair<const int, Rva004E007AElement> Rva004E007AElementPair;
+
+template _STL::hash_map<int, Rva004E007AElement, _STL::hash<int>, _STL::equal_to<int>, _STL::allocator<Rva004E007AElementPair> >::hash_map();
+
+// AIStatCollector::Register increments the mapped four-byte count at node+8;
+// its constructor's empty count-map call uses this same retail body. Keep
+// the original opaque owner while proving the actual int-count instantiation
+// against its whole body and all callee relocations through pin_admission.
+template _STL::hash_map<int,int>::hash_map();
+
+// Retail calls the rowed erase 0x001FF51F out of line.
+// bfme link decl-only begin
+namespace _STL { template <> void **vector<void *, allocator<void *> >::erase(void **); }
+
+// ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AIStatCollector/AIStatCollector.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AIStatCollector/AIStatCollector.cpp
 
@@ -615,8 +878,6 @@ void Rva004DFF2C::rva004DFF2C(void *key)
  }
 }
 
-// tu-skeleton: 0x004DF9B9 43B ?rva004DF9B9@AIStatCollector@@QAEXPAXH@Z -- matched in Code/GameEngine/Source/Common/Rva004DF9B9Loop.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva004DFA0EChain.cpp
 
 void Rva004DFA0E::rva004DFA0E(void *holder, void *ptr)
@@ -651,28 +912,6 @@ bool AIStatCollector::rva004DFB7E(Object *object)
  return false;
 }
 
-// tu-skeleton: 0x004DFBED 51B ?rva004DFBED@Rva004DFBED@@QAEHABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilderRva00598D7A.cpp (not merged yet)
-
-// tu-skeleton: 0x004DFC20 57B ??1Rva004DFC20@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva004E013BOwnedResources.cpp (not merged yet)
-
-// tu-skeleton: 0x004DFC59 59B ??0Rva00283081@@QAE@MH@Z -- matched in Code/GameEngine/Source/Common/Rva00283081Ctor.cpp (not merged yet)
-
-// tu-skeleton: 0x004DFC94 28B ??_GRva00281A06@@QAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/Rva002827F3Clear.cpp (not merged yet)
-
-// tu-skeleton: 0x004DFCB0 49B ?push_back@?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@QAEXABQBVModuleData@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_moduledatavector_push.cpp (not merged yet)
-
-// tu-skeleton: 0x004DFCE1 5B ??1Rva004DFCE1@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva004E013BOwnedResources.cpp (not merged yet)
-
-// tu-skeleton: 0x004DFE4F 121B ?rva004DFE4F@Rva004DFE4F@@QAEHPAX@Z -- matched in Code/GameEngine/Source/Common/Rva00282B26.cpp (not merged yet)
-
-// tu-skeleton: 0x004DFED8 84B ??1Rva004DFED8@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva004DFED8Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004E005E 28B ??_GRva004DFED8@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva004DFED8Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004E007A 64B ??0?$hashtable@U?$pair@$$CBHURva004E007AElement@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHURva004E007AElement@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHURva004E007AElement@@@_STL@@@2@@_STL@@QAE@IABU?$hash@H@1@ABU?$equal_to@H@1@ABV?$allocator@U?$pair@$$CBHURva004E007AElement@@@_STL@@@1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva004E007A.cpp (not merged yet)
-
-// tu-skeleton: 0x004E00BA 31B ?addObject@Rva004E00BAOwner@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Rva004E00BA.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Rva004E00D9.cpp
 
 //
@@ -696,26 +935,231 @@ void Rva004E02D7Owner::rva004E00D9()
 	}
 }
 
-// tu-skeleton: 0x004E013B 168B ??1Rva004E013B@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva004E013BOwnedResources.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva004DF9B9Loop.cpp
 
-// tu-skeleton: 0x004E01E3 213B ?Register@AIStatCollector@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/Common/AIStatCollector.cpp (not merged yet)
+// ?rva004DF9B9@AIStatCollector@@QAEXPAXH@Z RVA 0x004DF9B9 size 43
+// Sibling of 0x004DF9E4: iterates +0x2c..+0x30 calling vtable+0 when [elem+4] & mask with (arg 1).
+// Evidence: callers in 0x004E01E3; neighbours use /O1 /MD; same layout as 0x004DF9E4.
 
-// tu-skeleton: 0x004E02B8 31B ??0?$hash_map@HURva004E007AElement@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHURva004E007AElement@@@_STL@@@3@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva004E02B8.cpp (not merged yet)
+void AIStatCollector::rva004DF9B9(void *a, int mask)
+{
+	FilterElem **beg = (FilterElem **)listeners.begin();
+	FilterElem **end = (FilterElem **)listeners.end();
+	for (; beg != end; ++beg)
+	{
+		FilterElem *filterElem = *beg;
+		if (filterElem->m_flags & mask)
+			filterElem->v0(a, 1);
+	}
+}
 
-// tu-skeleton: 0x004E02D7 52B ?rva004E02D7@Rva004E02D7Owner@@QAEXPAVCreateAHeroData@@@Z -- matched in Code/GameEngine/Source/Common/Rva004E02D7Find.cpp (not merged yet)
+// tu-skeleton: 0x004DFBED 51B ?rva004DFBED@Rva004DFBED@@QAEHABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilderRva00598D7A.cpp (not merged yet)
 
-// tu-skeleton: 0x004E0425 180B ?UnRegister@AIStatCollector@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/AIStatCollector.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva004E013BOwnedResources.cpp
+
+// Target facts: complete57B4DFC20..4DFC59 destructor and complete168B
+// 4E013B..4E01E3 holder destructor. Native member cleanup receiver+14 calls
+// 4DFC20; its EH state protects bucket storage at+4 while clear1DBCDC runs.
+// The clear is STLport4.5.3 hashtable::clear's semantic/structural lead,
+// independently measured as bucket pointers+4/+8 and count+10, linked
+// next pointer+0, with no payload destructor. Payload type is unknown;
+// the prior ArmorTemplate object-symbol alias established only byte equality.
+// Holder resources0/4/8/C use global-qualified virtual deletion; concrete
+// child+10 invokes the owned4DFED8 destructor directly before global delete.
+// Hash-prefix20B at14 has a wrapper destructor4DFCE1 witnessed by EH;
+// opaque word28 precedes a12B pointer header2C whose EH cleanup calls7FAB3.
+// Word28 ownership and the original wrapper relationship remain uncertain.
+// Original holder, table, resource and buffer class identities are unresolved.
+
+void Rva004DFC20::clear() {
+ for(unsigned i=0;i<(unsigned)(buckets.end-buckets.begin);++i){
+  Rva004DFC20Node *n=buckets.begin[i];
+  while(n){Rva004DFC20Node *next=n->next;Rva00030830GameFree(n);n=next;}
+  buckets.begin[i]=0;
+ }
+ count=0;
+}
+
+Rva004DFC20::~Rva004DFC20(){clear();}
+
+Rva004E013B::~Rva004E013B(){
+    if (p0) ::delete p0;
+    if (p4) ::delete p4;
+    if (p8) ::delete p8;
+    if (pC) ::delete pC;
+    Rva004DFED8 *child = p10;
+    if (child) {
+        child->Rva004DFED8::~Rva004DFED8();
+        ::operator delete(child);
+    }
+}
+
+// Native 0x00791841 is the complete 11-byte table-member cleanup at +0x14.
+// The exact 168-byte parent and EH graph select the rowed five-byte wrapper
+// and complete 57-byte bucket-table destructor; original type identities stay unknown.
+
+// ---- from Code/GameEngine/Source/Common/Rva00283081Ctor.cpp
+
+// ??0Rva00283081@@QAE@MH@Z, RVA 0x004DFC59, 59 bytes.
+// Ctor twin of dtor 0x00283081/0x004DFED8: vstore vtable RVA 0x008615D4,
+// constructs two vectors at +0x4 and +0x10 via rowed Vector_base<BfmeE16>
+// 0x00211E58, stores float arg at +0x1c and dword arg at +0x20.
+// Evidence: same vtable and vector layout as Rva00283081Dtor/Rva004DFED8Dtor;
+// callees all rowed; callers 0x0028415C 0x004E0407.
+
+Rva00283081::Rva00283081(float f, int i) : m_f1c(f), m_i20(i)
+{
+}
+
+// tu-skeleton: 0x004DFC94 28B ??_GRva00281A06@@QAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/Rva002827F3Clear.cpp (not merged yet)
+
+// tu-skeleton: 0x004DFCB0 49B ?push_back@?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@QAEXABQBVModuleData@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_moduledatavector_push.cpp (not merged yet)
+
+// tu-skeleton: 0x004DFE4F 121B ?rva004DFE4F@Rva004DFE4F@@QAEHPAX@Z -- matched in Code/GameEngine/Source/Common/Rva00282B26.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva004DFED8Dtor.cpp
+
+// ??1Rva004DFED8@@UAE@XZ, RVA 0x004DFED8, 84 bytes.
+// Dtor: vstore 0x008615D4, calls rowed clear 0x002827F3, frees vec buffers
+// at +0x10 and +0x4 via rowed free 0x00030830.
+// Evidence: deleting dtor 0x004E005E calls it; callers 0x004E0061 0x004E01AB;
+// callees all rowed; twin 0x00283081 shares vtable and clear.
+
+Rva004DFED8::~Rva004DFED8()
+{
+	((Rva002827F3 *)this)->rva002827F3();
+}
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva004E007A.cpp
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Rva004E00BA.cpp
+
+// ?addObject@Rva004E00BAOwner@@QAEXPAVObject@@@Z @ 0x004E00BA (31B).
+// Ghidra boundary 0x004E00BA..0x004E00D6 ends in ret 4; the next body starts
+// at 0x004E00D9. The bytes push the Object* into a vector at this+4 via the
+// pinned STLport vector<Object*>::push_back at 0x001F211B, then call 0x004DFF2C
+// with the same receiver and Object*. The callee's identity and the owner's
+// class identity are unresolved; these address-derived names preserve that.
+
+void Rva004E00BAOwner::addObject(Object *object)
+{
+	m_objects.push_back(object);
+	reinterpret_cast<Rva004DFF2C *>(this)->rva004DFF2C(object);
+}
+
+// ---- from Code/GameEngine/Source/Common/AIStatCollector.cpp
+
+//
+// ?UnRegister@AIStatCollector@@QAEXPAX@Z @0x004E0425 180B.
+// Five-pointer dispatch plus name-keyed release. Retail 0x004E0425..0x004E04D9.
+// thiscall (void* holder), ret 4. Member evidence from the call sequence:
+//   resources(+0C)->UnRegister(holder) true  -> loop(holder,2), any++, done=1
+//   structures(+08)->UnRegister(holder) true  -> loop(holder,1), any=1, done=any
+//   any != 0                        -> positions(+10)->rva004E02D7(holder)
+//   units(+00)->UnRegister(holder) || otherUnits(+04)->rva005960E0(holder) -> loop(holder,4), done=1
+//   done != 0 -> key = TheNameKeyGenerator->nameToKey(*(AsciiString*)(*(void**)(holder+4)+0x64));
+//                node = counts(+14)._M_find(key); if (node) --*(int*)(node+8)
+// Members +0C/+04 are called as AIStatBase (rowed 0x596491/0x5960E0), +08 as
+// AIStructureStats (rowed 0x596548). +00 (0x59614B, 139B) and +10 (0x4E02D7,
+// 52B) are unrowed: pinned here as honest address-derived candidates.
+// counts is called through the rowed Armor NameKeyType _M_find spelling at
+// 0x2888D4 (body never reads the mapped type; the decl [node+8] release says
+// this instantiation holds a refcount, not an ArmorTemplate -- private view,
+// identity unresolved). loop is the rowed 0x4DF9E4 (array at +0x2C).
+
+// Native 004E01E3..004E02B8 (213 bytes); WB names the callgraph twin
+// AIStatCollector::Register. Receiver slots and the template name at
+// holder->+4 then +64 agree with the rowed UnRegister below. The +14 map
+// stores counts: its rowed find-or-insert body is reached via the existing
+// ObjectLookupMap spelling, but its returned four-byte slot holds an int.
+void AIStatCollector::Register(Object *holder)
+{
+	bool done = false;
+	unsigned char any = 0;
+	if (((Rva0025C061 *)resources)->rva00596472(holder))
+	{
+		rva004DF9B9(holder, 2);
+		++any;
+		done = true;
+	}
+	if (((AIStructureStats *)structures)->Register(holder))
+	{
+		rva004DF9B9(holder, 1);
+		any = 1;
+		done = (any != 0);
+	}
+	if (any != 0 && !rva004DFB7E((Object *)holder))
+		((Rva004E00BAOwner *)positions)->addObject(holder);
+	if (((AIUnitStats *)units)->Register(holder) || ((Rva0025C061 *)otherUnits)->rva005960C1(holder))
+	{
+		rva004DF9B9(holder, 4);
+		done = true;
+	}
+	if (done)
+	{
+		void *inner = *(void **)((char *)holder + 4);
+		NameKeyType key = TheNameKeyGenerator->nameToKey(*(const AsciiString *)((char *)inner + 0x64));
+		_STL::_Hashtable_node<ArmorHashtablePair> *node =
+			((ArmorHashtable *)&counts)->_M_find(key);
+		if (node != 0)
+			++*(int *)((char *)node + 8);
+		else
+			*(int *)((ObjectLookupMap *)&counts)->findSlot((int *)&key) = 1;
+	}
+}
+
+// ?UnRegister@AIStatCollector@@QAEXPAX@Z
+void AIStatCollector::UnRegister(void *holder)
+{
+	bool done = false;
+	unsigned char any = 0;
+	if (((AIStatBase *)resources)->UnRegister(holder))
+	{
+		((Rva004DF9E4 *)this)->rva004DF9E4(holder, 2);
+		++any;
+		done = true;
+	}
+	if (((AIStructureStats *)structures)->UnRegister(holder))
+	{
+		((Rva004DF9E4 *)this)->rva004DF9E4(holder, 1);
+		any = 1;
+		done = (any != 0);
+	}
+	if (any != 0)
+		((Rva004E02D7Owner *)positions)->rva004E02D7((CreateAHeroData *)holder);
+	if (((AIUnitStats *)units)->UnRegister(holder) || ((AIStatBase *)otherUnits)->rva005960E0(holder))
+	{
+		((Rva004DF9E4 *)this)->rva004DF9E4(holder, 4);
+		done = true;
+	}
+	if (done)
+	{
+		void *inner = *(void **)((char *)holder + 4);
+		NameKeyType key = TheNameKeyGenerator->nameToKey(*(const AsciiString *)((char *)inner + 0x64));
+		_STL::_Hashtable_node<ArmorHashtablePair> *node =
+			((ArmorHashtable *)&counts)->_M_find(key);
+		if (node != 0)
+			--*(int *)((char *)node + 8);
+	}
+}
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva004E02B8.cpp
+
+// ---- from Code/GameEngine/Source/Common/Rva004E02D7Find.cpp
+
+void Rva004E02D7Owner::rva004E02D7(CreateAHeroData *value)
+{
+	CreateAHeroData **end = (CreateAHeroData **)records.end();
+	// Retail pushes the start pointer straight from the member ([edi]); begin() would load it first.
+	CreateAHeroData **found = _STL::find(*(CreateAHeroData ***)&records, end, value);
+	if (found != end) {
+		records.erase((void **)found);
+		rva004E00D9();
+	}
+}
 
 // tu-skeleton: 0x007917F8 11B uw_007917f8 -- matched in Code/gen_small/uw_gen_011.cpp (not merged yet)
 
 // tu-skeleton: 0x00791803 11B uw_00791803 -- matched in Code/gen_small/uw_gen_010.cpp (not merged yet)
-
-// tu-skeleton: 0x0079180E 10B __ehhandler$??1Rva004DFED8@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva004DFED8Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00791841 11B $L483 -- matched in Code/GameEngine/Source/Common/Rva004E013BOwnedResources.cpp (not merged yet)
-
-// tu-skeleton: 0x0079184C 11B $L484 -- matched in Code/GameEngine/Source/Common/Rva004E013BOwnedResources.cpp (not merged yet)
-
-// tu-skeleton: 0x00791857 10B __ehhandler$??1Rva004E013B@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva004E013BOwnedResources.cpp (not merged yet)
 
 // tu-skeleton: 0x00791861 11B uw_00791861 -- matched in Code/gen_small/uw_gen_013.cpp (not merged yet)
