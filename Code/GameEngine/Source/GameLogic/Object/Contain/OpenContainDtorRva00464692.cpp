@@ -126,12 +126,7 @@ private:
 	unsigned char m_pad[0x4C];
 };
 
-class Object
-{
-public:
-	unsigned char m_pad274[0x274];
-	Object *m_containedBy;
-};
+#include "../object.h"
 
 #include "../../../Common/GameLogicObjectLookupView.h"
 
