@@ -39862,9 +39862,9 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x004BDC03,25,code,Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp,approved,C,C=0x004BDB85..0x004BDC1C,Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp
 0x004BDC1C,9,code,Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp,approved,C,C=0x004BDB85..0x004BDC25,Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp
 0x004BDC25,28,code,Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp,approved,C,C=0x004BDB85..0x004BDC41,Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp
-0x004BDC41,7,code,Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp,approved,C,C=0x004BDB85..0x004BDC48,Code/GameEngine/Source/Common/Disp8FloatChaseGetters.cpp
+0x004BDC41,7,code,Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp,approved,C,C=0x004BDB85..0x004BDC48,Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp
 0x004BDC48,7,code,Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp,approved,C,C=0x004BDB85..0x004BDC4F,Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp
-0x004BDC4F,7,code,Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp,approved,C,C=0x004BDB85..0x004BDC56,Code/GameEngine/Source/Common/Disp8FloatChaseGetters.cpp
+0x004BDC4F,7,code,Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp,approved,C,C=0x004BDB85..0x004BDC56,Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp
 0x004BDC56,23,code,Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp N=Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp,Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp
 0x004BDC6D,54,code,Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp,approved,C,C=0x004BDC56..0x004BDCA3,Code/GameEngine/Source/Common/BitFlags21VeterancyLevelGetSingleBitFromName.cpp
 0x004BDCA3,9,code,Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp,approved,C,C=0x004BDC56..0x004BDCAC,Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp
