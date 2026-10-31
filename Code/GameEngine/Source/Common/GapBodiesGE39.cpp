@@ -59,14 +59,6 @@ private:
 	GapCounted *m_object;									// +0x2AB4
 };
 
-GapCounted *Rva00111772::rva00111772()
-{
-	GapCounted *&object = m_object;
-	if (object)
-		++object->m_refs;
-	return object;
-}
-
 // --- 0x0012CA31 / 0x0012CA39 / 0x0012CA41 (8B each): clear the texture,
 // shader and model asset-builder run flags.
 extern bool AssetInitRunTextureBuilder;

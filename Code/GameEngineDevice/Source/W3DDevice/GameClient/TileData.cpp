@@ -117,6 +117,46 @@ public: void setFlags(unsigned int value);
 private: unsigned char unknown[0x114]; unsigned int flags;
 };
 
+// Small bodies from .text gaps no Ghidra function covers (thirty-ninth
+// batch; see GapBodiesGE01.cpp). Each begins after its neighbour's padding or
+// ret and ends in its own ret. Retail bytes establish every shape; owning
+// classes are not recovered, so each keeps an address-derived name and a view
+// of only the members it touches. Callees and globals use the ledger's
+// existing spellings.
+
+// --- 0x0010EE29 (38B): a Miles stream callback trampoline: user-data slot 0
+// holds a __stdcall callback, slot 1 its argument.
+extern "C" __declspec(dllimport) int __stdcall AIL_stream_user_data(void *stream, unsigned int index);
+
+typedef void (__stdcall *GapStreamCallback)(int value);
+
+// --- 0x001100D6 (18B): leading words differ.
+class Rva001100D6
+{
+public:
+	bool rva001100D6(const Rva001100D6 &other) const;
+private:
+	int m_00;
+};
+
+// --- 0x00111772 (18B): the +0x2AB4 counted object with one more reference.
+struct GapCounted
+{
+	int m_00;
+	int m_refs;												// +0x04
+};
+
+class Rva00111772
+{
+public:
+	GapCounted *rva00111772();
+private:
+	char m_pad00[0x2AB4];
+	GapCounted *m_object;									// +0x2AB4
+};
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/TileData.cpp
+
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/TileData.cpp
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/TileData.cpp
@@ -226,8 +266,6 @@ void TileData::rva0011178B(TileData *value)
     slot=incoming;
 }
 
-// tu-skeleton: 0x00111772 18B ?rva00111772@Rva00111772@@QAEPAUGapCounted@@XZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE39.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp
 
 // Disp32 dword getters: seven-byte __thiscall members with one shape:
@@ -244,6 +282,19 @@ void TileData::rva0011178B(TileData *value)
 // pioneered the same family in
 // reference/open-bfme-1/Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp).
 // No // cl: line (defaults match the frameless 7-byte shape).
+
+// ---- from Code/GameEngine/Source/Common/GapBodiesGE39.cpp
+
+GapCounted *Rva00111772::rva00111772()
+{
+	GapCounted *&object = m_object;
+	if (object)
+		++object->m_refs;
+	return object;
+}
+
+// --- 0x0012CA31 / 0x0012CA39 / 0x0012CA41 (8B each): clear the texture,
+// shader and model asset-builder run flags.
 
 // tu-skeleton: 0x00111850 23B ??0TileData@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/TileDataGetRGBDataForWidth.cpp (not merged yet)
 
