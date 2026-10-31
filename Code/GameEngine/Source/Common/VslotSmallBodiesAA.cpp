@@ -89,10 +89,6 @@ public:
 	ParticleSystemTemplate *findTemplate(const AsciiString &name) const;
 	__declspec(noinline) ParticleSystemTemplate *rva001F9343(const AsciiString &name, Int unused) const;
 };
-ParticleSystemTemplate *ParticleSystemManager::rva001F9343(const AsciiString &name, Int) const
-{
-	return findTemplate(name);
-}
 extern class ParticleSystemManager *TheParticleSystemManager;
 class Rva001E0C77
 {

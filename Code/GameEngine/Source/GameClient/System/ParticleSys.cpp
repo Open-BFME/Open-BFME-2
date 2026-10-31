@@ -1104,14 +1104,6 @@ public:
 	void *m_next;
 };
 
-class ParticleSystemManager
-{
-public:
-	void destroyParticleSystemByID(ParticleSystemID id);
-private:
-	BfmeParticleSystemHandle findParticleSystemByID(ParticleSystemID id);
-};
-
 //
 // ?rva001F5C39@Rva001F5C39@@QAEXPAXPAUHolder001F5C39@@@Z, retail 0x001F5C39, 39 bytes.
 // Null-checked fetch at holder+0x1AC, virtual slot0 of object at +0x14,
@@ -2123,11 +2115,117 @@ public:
 	void rva001F8958(int x);
 };
 
+//
+// Small bodies with no ledger owner, batch AA: vtable slots together with
+// the unrowed callees they need (Ghidra-listed, never rowed). As in
+// VslotSmallBodiesA-Z, each class and method is address-derived unless the
+// ledger already names it, and models only what its body touches. Meanings
+// are not recovered.
+
+typedef int Int;
+
+// 0x001D9083: whether the armor template the store at VA 0x00DFDBC4 finds
+// under this name (the rowed 0x001D901B) has a positive +0x74; reached
+// from 0x004BF8AC, the slot that applies it to the +0xF8 name (eleven
+// module tables).
+class ArmorTemplate
+{
+public:
+	char m_pad00[0x74];
+	Int m_74;
+};
+
+class Rva001D901B
+{
+public:
+	const ArmorTemplate *rva001D901B(const AsciiString &name) const;
+};
+
+class Rva001D9083
+{
+public:
+	Int rva001D9083();
+};
+
+class Rva004BF8AC
+{
+public:
+	Int rva004BF8AC();
+private:
+	char m_pad00[0xF8];
+	Rva001D9083 m_armorName;
+};
+
+// 0x0060038E (three tables): virtual slot 4 of the +0x08 object.
+class Rva0060038ETarget
+{
+public:
+	virtual void v00();
+	virtual void v01();
+	virtual void v02();
+	virtual void v03();
+	virtual void v04();
+};
+
+class Rva0060038E
+{
+public:
+	void rva0060038E();
+private:
+	Int m_00;
+	Int m_04;
+	Rva0060038ETarget *m_08;
+};
+
+// 0x001F9343 (three callers): the pinned
+// ParticleSystemManager::findTemplate for the name (the second argument is
+// unused); 0x001E0C77 is a slot that asks the manager at VA 0x00DFDD04 for
+// its +0x148 name with its first argument.
+class ParticleSystemTemplate;
+
+class ParticleSystemManager
+{
+public:
+	void destroyParticleSystemByID(ParticleSystemID id);
+private:
+	BfmeParticleSystemHandle findParticleSystemByID(ParticleSystemID id);
+public:
+	ParticleSystemTemplate *findTemplate(const AsciiString &name) const;
+public:
+	__declspec(noinline) ParticleSystemTemplate *rva001F9343(const AsciiString &name, Int unused) const;
+};
+
+class Rva001E0C77
+{
+public:
+	ParticleSystemTemplate *rva001E0C77(Int a, Int unused);
+private:
+	char m_pad00[0x148];
+	void *m_templateName; // AsciiString
+};
+
+// Native42C0AE and42C0B5 now use the proven +4/+8 observer receivers
+// in Rva0042C5C3Dtor.cpp; both write the complete object word at+2C.
+
+// 0x0056a9ed: installed-vtable scalar store. Only the native memory
+// write and stack-word ABI are known; owner and field meaning remain unknown.
+class Rva0056A9EDScalarStore {public: void rva0056A9ED(Int unused); private: char m_prefix[0x9]; unsigned char m_value;};
+
+// 0x005cc958: installed-vtable scalar store. Only the native memory
+// write and stack-word ABI are known; owner and field meaning remain unknown.
+class Rva005CC958ByteStore {public: void rva005CC958(Int unused);void rva005CC95F(Int unused); private: char m_prefix[0x23]; unsigned char m_value;};
+
+// 0x005e39d9: installed-vtable scalar store. Only the native memory
+// write and stack-word ABI are known; owner and field meaning remain unknown.
+class Rva005E39D9ScalarStore {public: void rva005E39D9(Int unused,Int value); private: char m_prefix[0x29]; unsigned char m_value;};
+
 // tu-skeleton: 0x001F392E 247B ?rotateLocalTransformX@ParticleSystem@@QAEXM@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemRotateLocalTransform.cpp (not merged yet)
 
 // tu-skeleton: 0x001F3A25 247B ?rotateLocalTransformY@ParticleSystem@@QAEXM@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemRotateLocalTransform.cpp (not merged yet)
 
 // tu-skeleton: 0x001F3B1C 247B ?rotateLocalTransformZ@ParticleSystem@@QAEXM@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemRotateLocalTransform.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/System/ParticleSys.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/System/ParticleSys.cpp
 
@@ -3177,6 +3275,68 @@ void Rva001F424E::forward(unsigned word) { if (held) held->forward(word); }
 // offset fits, so every offset is at least 0x80).
 // No // cl: line (defaults match the frameless 13-byte shape).
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ---- from Code/GameEngine/Source/Common/Rva001F5D4F.cpp
+
+void Rva001F5D4F::rva001F5D4F(int x)
+{
+    Helper001F5D4F* p = m_ptr;
+    if (p)
+        p->slot3(x);
+    m_next.call(x);
+}
+
 // tu-skeleton: 0x001F3C6B 47B ?rva001F3C6B@ParticleSystem@@QAEIXZ -- matched in Code/GameEngine/Source/GameClient/System/FXParticleSystem/FXPSStorageModuleRva003B0869.cpp (not merged yet)
 
 // tu-skeleton: 0x001F3D2E 674B ?parse@ParticleSystemTemplate@FXParticleSystem@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameClient/ParticleSystemTemplate.cpp (not merged yet)
@@ -3281,16 +3441,6 @@ void Rva001F424E::forward(unsigned word) { if (held) held->forward(word); }
 
 // tu-skeleton: 0x001F5C87 34B ?_M_create_node@?$list@VRvaSmartPtr12@@V?$allocator@VRvaSmartPtr12@@@_STL@@@_STL@@IAEPAU?$_List_node@VRvaSmartPtr12@@@2@ABVRvaSmartPtr12@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_create_nodes.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/Rva001F5D4F.cpp
-
-void Rva001F5D4F::rva001F5D4F(int x)
-{
-    Helper001F5D4F* p = m_ptr;
-    if (p)
-        p->slot3(x);
-    m_next.call(x);
-}
-
 // tu-skeleton: 0x001F5E38 25B ??0sentry@?$basic_ostream@DV?$char_traits@D@_STL@@@_STL@@QAE@AAV12@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_ostream_put_num.cpp (not merged yet)
 
 // tu-skeleton: 0x001F5E51 276B ?_M_put_char@?$basic_ostream@DV?$char_traits@D@_STL@@@_STL@@QAEXD@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_ostream_put_num.cpp (not merged yet)
@@ -3311,7 +3461,12 @@ void Rva001F5D4F::rva001F5D4F(int x)
 
 // tu-skeleton: 0x001F933E 5B ??1?$map@VAsciiString@@UTreeHintPayload001F8ACB@@U?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@_STL@@@4@@_STL@@QAE@XZ -- matched in Code/GameEngine/Source/Common/System/SaveGame/CreateAHeroDataCopy.cpp (not merged yet)
 
-// tu-skeleton: 0x001F9343 12B ?rva001F9343@ParticleSystemManager@@QBEPAVParticleSystemTemplate@@ABVAsciiString@@H@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAA.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/VslotSmallBodiesAA.cpp
+
+ParticleSystemTemplate *ParticleSystemManager::rva001F9343(const AsciiString &name, Int) const
+{
+	return findTemplate(name);
+}
 
 // tu-skeleton: 0x001F934F 20B ?insert@?$map@VAsciiString@@HU?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@H@_STL@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@H@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@H@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBVAsciiString@@H@2@@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemDebugDisplay.cpp (not merged yet)
 
