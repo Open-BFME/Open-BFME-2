@@ -24,28 +24,50 @@ private:
 	int m_extra;
 };
 
+// The members are map<unsigned char, short> and map<unsigned char, float>.
+// Their tree destructors are the rowed 0x0038323E/0x00383276 (the views
+// above); each map's own destructor is the 5-byte thunk 0x0038356C/0x00383571
+// that the eh vector destructor receives for the two arrays.
+namespace _STL
+{
+	template <class T> struct less {};
+	template <class T> class allocator {};
+	template <class T1, class T2> struct pair {};
+	template <class K, class V, class C, class A> class map;
+	template <> class map<unsigned char, short, less<unsigned char>, allocator<pair<const unsigned char, short> > >
+	{
+		Rva0038201D m_tree;
+	};
+	template <> class map<unsigned char, float, less<unsigned char>, allocator<pair<const unsigned char, float> > >
+	{
+		Rva0038204A m_tree;
+	};
+}
+typedef _STL::map<unsigned char, short, _STL::less<unsigned char>, _STL::allocator<_STL::pair<const unsigned char, short> > > Rva0038356CMap;
+typedef _STL::map<unsigned char, float, _STL::less<unsigned char>, _STL::allocator<_STL::pair<const unsigned char, float> > > Rva00383571Map;
+
 class Rva00383D71
 {
 public:
 	~Rva00383D71();
 private:
 	int m_00;
-	Rva0038201D m_04;
-	Rva0038201D m_10;
-	Rva0038201D m_1c;
-	Rva0038201D m_28;
-	Rva0038201D m_34;
-	Rva0038201D m_40;
-	Rva0038201D m_4c[6];
-	Rva0038201D m_94[6];
-	Rva0038204A m_dc;
-	Rva0038204A m_e8;
-	Rva0038204A m_f4;
-	Rva0038204A m_100;
-	Rva0038204A m_10c;
-	Rva0038204A m_118;
-	Rva0038204A m_124;
-	Rva0038204A m_130;
+	Rva0038356CMap m_04;
+	Rva0038356CMap m_10;
+	Rva0038356CMap m_1c;
+	Rva0038356CMap m_28;
+	Rva0038356CMap m_34;
+	Rva0038356CMap m_40;
+	Rva0038356CMap m_4c[6];
+	Rva0038356CMap m_94[6];
+	Rva00383571Map m_dc;
+	Rva00383571Map m_e8;
+	Rva00383571Map m_f4;
+	Rva00383571Map m_100;
+	Rva00383571Map m_10c;
+	Rva00383571Map m_118;
+	Rva00383571Map m_124;
+	Rva00383571Map m_130;
 	char m_pad[24];
 };
 
