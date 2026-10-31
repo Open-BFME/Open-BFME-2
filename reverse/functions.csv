@@ -7349,7 +7349,7 @@ _GetProcessorFlags,,0x001C4390,169,Code/Libraries/Source/VP6/GetProcessorFlags.c
 ?get@Rva0040C34AByteField@@QBEEXZ,,0x0040C34A,7,Code/GameEngine/Source/Common/DispByteFieldGetters.cpp,matched,Disp32 byte getter
 ?get@Rva004201CEByteField@@QBEEXZ,,0x004201CE,7,Code/GameEngine/Source/Common/DispByteFieldGetters.cpp,matched,Disp32 byte getter
 ?get@Rva0043C783ByteField@@QBEEXZ,,0x0043C783,7,Code/GameEngine/Source/Common/DispByteFieldGetters.cpp,matched,Disp32 byte getter
-?get@Rva004571F4ByteField@@QBEEXZ,,0x004571F4,7,Code/GameEngine/Source/Common/DispByteFieldGetters.cpp,matched,Disp32 byte getter
+?get@Rva004571F4ByteField@@QBEEXZ,,0x004571F4,7,Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp,matched,Disp32 byte getter
 ?get@Rva0045A203ByteField@@QBEEXZ,,0x0045A203,7,Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityQueryEntry.cpp,matched,Disp32 byte getter
 ?get@Rva0045A211ByteField@@QBEEXZ,,0x0045A211,7,Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityQueryEntry.cpp,matched,Disp32 byte getter
 ?get@Rva0045B123ByteField@@QBEEXZ,,0x0045B123,7,Code/GameEngine/Source/Common/DispByteFieldGetters.cpp,matched,Disp32 byte getter

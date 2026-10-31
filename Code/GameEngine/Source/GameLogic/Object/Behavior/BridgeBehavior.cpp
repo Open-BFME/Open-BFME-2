@@ -101,6 +101,18 @@ namespace _STL { template <> void __malloc_alloc<0>::deallocate(void *, size_t);
 #undef REAL_TO_INT_CEIL
 #define REAL_TO_INT_CEIL(x) WWMath::Float_To_Long((Real)BridgeCrtImport::ceil(x))
 #include "../../../Common/GameLogicObjectLookupView.h"
+#define BFME_DISP_BYTE_GETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		unsigned char get() const; \
+		char m_lead[DISP]; \
+		unsigned char m_value; \
+	}; \
+	unsigned char NAME::get() const \
+	{ \
+		return m_value; \
+	}
 
 // Suppress this TU's non-retail copy of ??1?$_List_base@W4ObjectID@@V?$allocator@W4ObjectID@@@_STL@@@_STL@@QAE@XZ:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
@@ -377,6 +389,30 @@ public:
 private:
 	unsigned int m_data[2];
 };
+
+class MilesAudioManager
+{
+public:
+    virtual unsigned char rva000515A4() const;
+    virtual unsigned char rva00051896() const;
+    char m_lead[0x6A3 - sizeof(void *)];
+    unsigned char m_6A3;
+    char m_pad6A4[2];
+    unsigned char m_6A6;
+};
+
+BFME_DISP_BYTE_GETTER(Rva004571F4ByteField, 0xDD)
+
+// BF1 9cbfb551fe Common/Rva005BD470ZeroTest.cpp is the clean semantic donor.
+// Full native leaf 001F350B..001F3513 ends at its own RET boundary.
+// Target evidence: receiver0C dword equals two; result in AL.
+// Original owner unresolved; the address-owned type is independent of nearby classes.
+class Rva001F350BFields {
+public: unsigned char isTwo() const;
+private: char unknown[0x0C]; unsigned int value;
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorGetInterfaceFromObject.cpp
 
@@ -1585,7 +1621,25 @@ void Rva004581FD::onDie(const DamageInfo *)
 
 // tu-skeleton: 0x004571EE 6B ?GetSnapshotName@BridgeBehavior@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x004571F4 7B ?get@Rva004571F4ByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/DispByteFieldGetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/DispByteFieldGetters.cpp
+
+// Disp32 byte getters: seven-byte __thiscall members with one shape:
+//
+//     mov al,[ecx+<DISP>] / ret
+//
+// One BYTE is read at a fixed displacement from `this` and left in al. The
+// return type is spelled `unsigned char` because only al is written and the
+// upper bytes of eax are left holding whatever the caller had; the bytes
+// cannot distinguish it from `signed char`, `bool` or a one-byte enum.
+//
+// Every displacement here is a disp32 (MSVC 7.1 uses disp8 whenever the
+// offset fits, so every offset is at least 0x80), which is why this family
+// is separable from the far larger disp8 one. Members before the accessed
+// one are spelled as a lead array because their types are not witnessed
+// here, only their total size. Identity is not recovered: every name is
+// derived from its address (BFME1 pioneered the same family in
+// reference/open-bfme-1/Code/GameEngine/Source/Common/DispByteFieldGetters.cpp).
+// No // cl: line (defaults match the frameless 7-byte shape).
 
 // tu-skeleton: 0x00457472 196B ??0BridgeBehavior@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorCtor.cpp (not merged yet)
 
