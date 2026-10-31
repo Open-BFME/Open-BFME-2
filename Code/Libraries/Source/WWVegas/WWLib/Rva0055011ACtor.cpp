@@ -16,22 +16,14 @@
 #include <map>
 #include <string>
 
-class MutexClass
-{
-public:
-	MutexClass(const char *name);
-	~MutexClass();
-private:
-	void *m_handle;
-	bool m_locked;
-	char m_pad[3];
-};
+#include "mutex.h"
 
 // Existing opaque lifetime view from the complete156B owner destructor.
 struct Rva00660470Deque
 {
-    ~Rva00660470Deque();
-    char m_body[0x28];
+public:
+	~Rva00660470Deque();
+	char m_body[ 0x28 ]; // +0x00
 };
 
 class Rva00550083

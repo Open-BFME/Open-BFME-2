@@ -144,9 +144,10 @@ class PingThreadClass;
 class Rva0009990D
 {
 public:
-	void set(void *object);		// 0x000998EA
+	void set(void *object); // 0x000998EA
+	void clear();
 private:
-	void *m_object;
+	void *m_object; // +0x00
 };
 
 extern PingerInterface *ThePinger;
@@ -370,8 +371,9 @@ private:
 
 struct Rva00660470Deque
 {
+public:
 	~Rva00660470Deque();
-	char m_body[ 0x28 ];
+	char m_body[ 0x28 ]; // +0x00
 };
 
 struct Rva00660610Deque

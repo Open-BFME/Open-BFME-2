@@ -72,11 +72,20 @@ namespace _STL { template <> _String_base<char, allocator<char> >::~_String_base
 
 //-------------------------------------------------------------------------
 
-static const Int NumWorkerThreads = 10;
+static const int NumWorkerThreads = 10;
 
 typedef std::queue<PingRequest> RequestQueue;
 typedef std::queue<PingResponse> ResponseQueue;
 class PingThreadClass;
+
+class Rva0009990D
+{
+public:
+	void set(void *object); // 0x000998EA
+	void clear();
+private:
+	void *m_object; // +0x00
+};
 
 class Pinger : public PingerInterface
 {
@@ -110,23 +119,14 @@ private:
 
 	std::map<std::string, Int> m_pingMap;
 
-	PingThreadClass *m_workerThreads[NumWorkerThreads];
+	ThreadClass *m_workerThreads[NumWorkerThreads];
+	MutexClass m_threadMutex;		// +0xA8
+	Rva0009990D m_threadLock;		// +0xB0
 };
 extern PingerInterface *ThePinger;
 
 //-------------------------------------------------------------------------
 
-class PingThreadClass : public ThreadClass
-{
-
-public:
-	PingThreadClass() : ThreadClass() {}
-
-	void Thread_Function();
-
-private:
-	Int doPing( UnsignedInt IP, Int timeout );
-};
 
 //-------------------------------------------------------------------------
 

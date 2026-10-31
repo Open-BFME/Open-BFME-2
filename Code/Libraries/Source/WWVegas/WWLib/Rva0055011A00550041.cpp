@@ -22,28 +22,7 @@ namespace _STL {
 template <> void _STLP_alloc_proxy<char*, char, allocator<char> >::deallocate(char*, size_t);
 }
 
-class MutexClass
-{
-	void *handle;
-	unsigned locked;
-	bool Lock(int time);
-	void Unlock();
-public:
-	MutexClass(const char *name = 0);
-	~MutexClass();
-	enum { WAIT_INFINITE = -1 };
-	class LockClass
-	{
-		MutexClass &mutex;
-		bool failed;
-	public:
-		LockClass(MutexClass &m, int time = WAIT_INFINITE);
-		~LockClass();
-	private:
-		LockClass &operator=(const LockClass &) { return *this; }
-	};
-	friend class LockClass;
-};
+#include "mutex.h"
 
 typedef _STL::map<_STL::basic_string<char>, int, _STL::less<_STL::basic_string<char> > > WordMapH;
 
