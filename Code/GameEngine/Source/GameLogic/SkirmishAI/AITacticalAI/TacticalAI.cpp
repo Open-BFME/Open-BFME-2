@@ -39,6 +39,30 @@ class Snapshot;
 #include "../../../../Include/Common/BfmeXfer.h"
 #include "../../../../../Libraries/Include/Lib/BfmeE16.h"
 #pragma comment(linker, "/alternatename:?v1@Rva00506B1B@@UAEXXZ=__purecall")
+#define BFME_DISP8_NULL_ADJUST_GETTER(NAME, DISP, ADJ) \
+	class NAME \
+	{ \
+	public: \
+		int get() const; \
+		char m_lead[DISP]; \
+		int m_ptr; \
+	}; \
+	int NAME::get() const \
+	{ \
+		return m_ptr ? m_ptr + ADJ : 0; \
+	}
+#define BFME_DISP8_NULL_ADJUST_GLOBAL_GETTER(NAME, DISP, ADJ, GLOBAL) \
+	class NAME \
+	{ \
+	public: \
+		int get() const; \
+		char m_lead[DISP]; \
+		int m_ptr; \
+	}; \
+	int NAME::get() const \
+	{ \
+		return m_ptr ? m_ptr + ADJ : (int)&GLOBAL; \
+	}
 
 class Xfer::Version
 {
@@ -267,6 +291,62 @@ private:
 	_STL::vector<BfmeE16, _STL::allocator<BfmeE16> > m_vec;
 };
 
+struct BfmeNullAdjustDefault;
+
+extern BfmeNullAdjustDefault g_bfmeNullAdjustBBAC1C;
+
+extern BfmeNullAdjustDefault g_bfmeNullAdjustDE0878;
+
+BFME_DISP8_NULL_ADJUST_GETTER(Rva002C5FCBNullAdjustField, 0x0C, 8)
+
+// ?g_bfmeNullAdjustDE0878@@3UBfmeNullAdjustDefault@@A: the global at VA 0xde0878 is ?TheEmptyString@AsciiString@@2V1@B.
+// ?g_bfmeNullAdjustBBAC1C@@3UBfmeNullAdjustDefault@@A: the global at VA 0xbbac1c is ?g_Rva0107301CEmptyString@@3QBDB (data_ledger.csv).
+
+
+// Native 68DC6..68DD6 is a complete RET0 body immediately after RET4.
+// It reads receiver+4, then that node's +0x0C pointer, and returns either
+// pointer-8 or null. These prefix views record only those observed accesses.
+// The original iterator, object type and inheritance remain unidentified.
+// Clean BF1 f98983a7d3bb405f1a4ba94bb6a2a168062a819d lookuptable.cpp,
+// using multilist.h's Current_Object and nullable downcast in Peek_Obj,
+// emits the same whole 16 bytes with no relocations under /O1 /G7 /arch:SSE2.
+// That is a source guide, not proof of a LookupTableClass or RenderObjClass
+// identity in BF2. This unit's established /O1 /G6 emits the same body.
+struct Rva00068DC6NodePrefix
+{
+    char m_unknown[0x0C];
+    void *m_object;
+};
+
+class Rva00068DC6CurrentObject
+{
+public:
+    void *get() const;
+    void *m_unknown;
+    Rva00068DC6NodePrefix *m_current;
+};
+
+// Clean BF1 f98983a7 hanimmgr.cpp Get_Current_Anim and the fresh O1/SSE2/G6
+// donor trial supply this nullable interior-pointer adjustment expression.
+// Native F0BD7..F0BE4 is complete after RET4 at F0BD4 and before an indexed
+// getter at F0BE4. It reads only receiver+C, returns that pointer minus 8
+// when nonnull, and otherwise returns null; RET0, no calls/relocations.
+// Original HAnim/hash iterator identity, pointee type and inheritance are
+// donor leads, not asserted target facts. The prefix states only the access.
+// Retail is the branchless neg/sbb/and form (13 bytes): the pointer read as
+// an unsigned value reproduces it, where the pointer-conditional spelling
+// keeps the 14-byte branch.
+class Rva000F0BD7NullAdjustField
+{
+public:
+	void *get() const;
+private:
+	unsigned char m_unknown[0x0C];
+	void *m_pointer;
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/TacticalAI.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/TacticalAI.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/TacticalAI.cpp
@@ -409,12 +489,6 @@ void *Rva002C5FBA::rva002C5FBA(int index)
 	return 0;
 }
 
-// tu-skeleton: 0x002C5FCB 14B ?get@Rva002C5FCBNullAdjustField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8NullAdjustGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x002C5FE8 34B ?rva002C5FE8@Rva002C5FE8@@QAEPAXH@Z -- matched in Code/GameEngine/Source/Common/Rva002C5FE8Search.cpp (not merged yet)
-
-// tu-skeleton: 0x002C60A9 59B ?rva002C60A9@Rva002C5FE8@@QAEXI@Z -- matched in Code/GameEngine/Source/Common/Rva002C5FE8Search.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva002C60E4Ctor_Rva002C60E4.cpp
 
 // Split from Rva002C60E4Ctor.cpp: these definitions reference a callee with no matched body yet,
@@ -469,6 +543,24 @@ void Rva002C60E4::rva002C61AF()
 		((_STL::vector<void *, _STL::allocator<void *> > *)vec)->erase(vec[0], vec[1]);
 	}
 }
+
+// ---- from Code/GameEngine/Source/Common/Disp8NullAdjustGetters.cpp
+
+// Disp8 null-adjust getters: __thiscall members with one shape:
+//
+//     mov eax,[ecx+<DISP>] / test eax,eax / je <ELSE> / add eax,<IMM> / ret
+//     <ELSE>: xor eax,eax / ret  OR  mov eax,<GLOBAL> / ret
+//
+// A dword at a fixed displacement from `this` is null-tested; when nonzero
+// it is adjusted by a small immediate, otherwise a default (null or a shared
+// global address) is returned. The xor-else form is fourteen bytes, the
+// mov-global-else form seventeen. Identity is not recovered: every name is
+// derived from its address.
+// The donor-supported /G6 also preserves every pre-existing body in this unit.
+
+// tu-skeleton: 0x002C5FE8 34B ?rva002C5FE8@Rva002C5FE8@@QAEPAXH@Z -- matched in Code/GameEngine/Source/Common/Rva002C5FE8Search.cpp (not merged yet)
+
+// tu-skeleton: 0x002C60A9 59B ?rva002C60A9@Rva002C5FE8@@QAEXI@Z -- matched in Code/GameEngine/Source/Common/Rva002C5FE8Search.cpp (not merged yet)
 
 // tu-skeleton: 0x002C6234 288B ??0Rva002C5EF0@@QAE@ABUCoord3DBase@@MPAVPlayer@@@Z -- matched in Code/GameEngine/Source/Common/Rva002C5EF0Xfer.cpp (not merged yet)
 
