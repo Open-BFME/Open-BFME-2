@@ -41,21 +41,6 @@ public:
 	void rva005E3E41();
 };
 
-void Rva005E3E41::rva005E3E41()
-{
-	// Cannot directly express negative-offset this in portable C++; use
-	// raw pointer arithmetic that MSVC 7.1 lowers to the same lea/movs.
-	unsigned char *th = (unsigned char *)this;
-	Rva005E3E41Inner **ppOuter = (Rva005E3E41Inner **)(th - 0x14);
-	Rva005E3E41Inner *pOuter = *ppOuter;
-	int inner4 = pOuter->m_4;
-	Rva005F3F6B *pFirst = (Rva005F3F6B *)(inner4 + (int)th - 0x14);
-	pFirst->rva005F3F6B();
-	int arg = *(int *)(th - 0x0C);
-	Rva005E39AE *pSecond = *(Rva005E39AE **)(th - 0x10);
-	pSecond->rva005E3AAA(arg);
-}
-
 class Rva005E4389
 {
 public:

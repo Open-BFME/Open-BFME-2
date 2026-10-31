@@ -43622,7 +43622,7 @@ _$E9,,0x007B7230,35,Code/Libraries/Source/WWVegas/WW3D2/meshmdl_sidehash.cpp,mat
 ??0Rva005D32D4@@QAE@HABVAsciiString@@@Z,,0x005D3628,66,Code/GameEngine/Source/Common/Rva005D3628Wrapper.cpp,matched,New-wrapper ctor news 0x6C Inner 0x005D3506 ab then stores at +0; address-derived
 ?rva005E0D9C@Rva005E0D9C@@QAEXXZ,,0x005E0D9C,36,Code/GameEngine/Source/Common/Rva005E0D9CFwd.cpp,matched,Checks +0x10 then rowed getter 0x005CB265 via +0x0C then tail-jmps to rowed 0x005CB260; address-derived
 ?rva005E49FD@@YAPAHPAH0VRva005E4300Cmp@@H@Z,,0x005E49FD,30,Code/GameEngine/Source/Common/Rva005E49FDFwd.cpp,matched,Native5E4E55 consumes returned iterator; typed four-byte comparator and unused bool scratch passed last to owned75B partition
-?rva005E3E41@Rva005E3E41@@QAEXXZ,,0x005E3E41,31,Code/GameEngine/Source/Common/Rva005E3E41Twins.cpp,matched,Twin lea-call-push-call via rowed 0x005F3F6B and pinned 0x005E3AAA; address-derived
+?rva005E3E41@Rva005E3E41@@QAEXXZ,,0x005E3E41,31,Code/Libraries/Source/WWVegas/WWLib/SBServer.cpp,matched,Twin lea-call-push-call via rowed 0x005F3F6B and pinned 0x005E3AAA; address-derived
 ?rva005E4389@Rva005E4389@@QAEXXZ,,0x005E4389,31,Code/GameEngine/Source/Common/Rva005E3E41Twins.cpp,matched,Twin lea-call-push-call via rowed 0x005F3FF4 and pinned 0x005E4087; address-derived
 ?rva005E58ED@Rva005E58ED@@QAEXXZ,,0x005E58ED,34,Code/GameEngine/Source/Common/Rva005E58EDWrap.cpp,matched,If +8->+0x18 getter 0x00318C32 nonzero calls pinned 0x005E6836 with reload; address-derived
 ?rva005E21C2@Rva005E21C2@@QAEXXZ,,0x005E21C2,41,Code/GameEngine/Source/Common/Rva005E21C2Wrap.cpp,matched,Empty plus +0x28 vs +0x10 getter then tail to 0x005CB260; same shape as 0x005E0D9C; address-derived

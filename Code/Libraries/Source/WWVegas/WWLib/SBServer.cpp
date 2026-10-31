@@ -295,6 +295,48 @@ struct Rva005E3D8CFields
     bool isZero() const;
 };
 
+// Twins 2x31B: 0x005E3E41 and 0x005E4389.
+// Each: lea this2 = (inner+this-0x14) then call rowed 8B forwarder
+// (0x005F3F6B / 0x005F3FF4) then call pinned second (0x005E3AAA / 0x005E4087)
+// with (this2member-0x10 as this, [this-0x0C] as int). Ret void, this only.
+// Address-derived.
+class Rva005F3F6B
+{
+public:
+	void rva005F3F6B();
+};
+
+class Rva005F3FF4
+{
+public:
+	void rva005F3FF4();
+};
+
+class Rva005E39AE
+{
+public:
+	void rva005E3AAA(int a);
+};
+
+class Rva005E3E41Inner
+{
+public:
+	int m_pad0;
+	int m_4;
+};
+
+class Rva005E3E41
+{
+public:
+	void rva005E3E41();
+};
+
+class Rva005E4389
+{
+public:
+	void rva005E4389();
+};
+
 // tu-skeleton: 0x005E3B2D 29B ??0SBServer@@QAE@ABU0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_sbserver.cpp (not merged yet)
 
 // tu-skeleton: 0x005E3B4A 57B ??4SBServer@@QAEAAU0@ABU0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_sbserver.cpp (not merged yet)
@@ -316,6 +358,8 @@ struct Rva005E3D8CFields
 // tu-skeleton: 0x005E3C7A 11B ?rva005F4254@ArmyHeroIcon@StrategicInGameUI@@$4PPPPPPPM@BA@AE?AUTreeHintRef00217D4C@@XZ -- matched in Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/ArmyHeroIconCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x005E3C85 11B ?DoUpdate@ArmyHeroIcon@StrategicInGameUI@@$4PPPPPPPM@BA@AEXXZ -- matched in Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/ArmyHeroIconCtor.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/SBServer.cpp
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/SBServer.cpp
 
@@ -358,6 +402,13 @@ UnicodeString Rva005E3DE8::rva005E3E1D()
 
 Rva005E3AE1::Rva005E3AE1() {}
 
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva005E3D8CIsZero.cpp
+
+bool Rva005E3D8CFields::isZero() const
+{
+    return value == 0;
+}
+
 // tu-skeleton: 0x005E3D22 8B ??_ERva005E426F@@$4PPPPPPPM@A@AEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva005F422CDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x005E3D2A 11B ?CreateMovieClip@ArmyUnitIcon@StrategicInGameUI@@$4PPPPPPPM@BA@AE?AUTreeHintRef00217D4C@@PAVAptMovieClipFrame@@@Z -- matched in Code/GameEngine/Source/Common/Rva005F422CDtor.cpp (not merged yet)
@@ -372,16 +423,24 @@ Rva005E3AE1::Rva005E3AE1() {}
 
 // tu-skeleton: 0x005E3D84 8B ?rva005E3D84@Rva005E3D84@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapForwardersSeat8.cpp (not merged yet)
 
-// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva005E3D8CIsZero.cpp
-
-bool Rva005E3D8CFields::isZero() const
-{
-    return value == 0;
-}
-
 // tu-skeleton: 0x005E3D95 83B ??0Rva005E3DE8@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva005E3DE8Ctor.cpp (not merged yet)
 
-// tu-skeleton: 0x005E3E41 31B ?rva005E3E41@Rva005E3E41@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva005E3E41Twins.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva005E3E41Twins.cpp
+
+void Rva005E3E41::rva005E3E41()
+{
+	// Cannot directly express negative-offset this in portable C++; use
+	// raw pointer arithmetic that MSVC 7.1 lowers to the same lea/movs.
+	unsigned char *th = (unsigned char *)this;
+	Rva005E3E41Inner **ppOuter = (Rva005E3E41Inner **)(th - 0x14);
+	Rva005E3E41Inner *pOuter = *ppOuter;
+	int inner4 = pOuter->m_4;
+	Rva005F3F6B *pFirst = (Rva005F3F6B *)(inner4 + (int)th - 0x14);
+	pFirst->rva005F3F6B();
+	int arg = *(int *)(th - 0x0C);
+	Rva005E39AE *pSecond = *(Rva005E39AE **)(th - 0x10);
+	pSecond->rva005E3AAA(arg);
+}
 
 // tu-skeleton: 0x005E3E8A 38B ?Rva005E3E8A@SBServer@@QAEXPAX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_sbserver.cpp (not merged yet)
 
