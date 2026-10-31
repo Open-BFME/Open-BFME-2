@@ -111,7 +111,13 @@ public:
 
 class Rva00573E7C;
 
-class Rva005DCE08
+class BuildPhase
+{
+public:
+	void update();
+};
+
+class Rva005DCE08 : public BuildPhase
 {
 public:
 	~Rva005DCE08();
@@ -232,12 +238,17 @@ public:
 	bool canBuild(const ThingTemplate *tmpl) const;
 };
 
+struct Rva005AD9E6Node
+{
+	Rva005AD9E6Node *m_next;
+};
+
 class Rva005AD9E6
 {
 public:
-	unsigned int rva005AD9E6();
+	int rva005AD9E6();
 private:
-	void *m_head;
+	Rva005AD9E6Node *m_head;
 };
 
 struct Rva002A8AB1Target
@@ -321,8 +332,6 @@ class Rva0022BD9ASubsystem
 {
 public:
 	bool rva0041E912(const AsciiString &side, _STL::vector<Rva0041E912Template *> &out);
-	Rva0041E912Template *rva0041E764(NameKeyType key);
-	NameKeyType rva0041E971(Rva0041E912Template *tmpl);
 };
 extern Rva0022BD9ASubsystem *TheBaseTemplateLibrary;
 
@@ -340,13 +349,13 @@ public:
 	void parseTemplateIntoPhases(const Coord3D *point, float angle, Rva0041E912Template *baseTemplate);
 	void loadBestFitTemplate(Coord3D *point, float angle, int notFirst);
 private:
-	_STL::vector<Rva005DCE08 *> m_items;	// +0x00
-	int m_index;				// +0x0C
-	Rva0041E912Template *m_10;		// +0x10
-	void *m_owner;				// +0x14
-	Coord3D m_point;			// +0x18
-	float m_angle;				// +0x24
-	Rva00573E7C *m_owned;			// +0x28
+	_STL::vector<Rva005DCE08 *> m_items; // +0x00
+	int m_index; // +0x0C
+	Rva0041E912Template *m_10; // +0x10
+	void *m_owner; // +0x14
+	Coord3D m_point; // +0x18
+	float m_angle; // +0x24
+	Rva00573E7C *m_owned; // +0x28
 };
 
 AIBase::AIBase(unsigned int index, void *owner)
