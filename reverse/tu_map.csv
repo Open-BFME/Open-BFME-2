@@ -15049,9 +15049,9 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00213EEF,355,code,,,-,,Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerCtor.cpp
 0x00214052,6,code,,,-,,Code/GameEngine/Source/Common/SubsystemNameGetters2.cpp
 0x00214058,8,code,,,-,,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB04.cpp
-0x00214060,123,code,Code/GameEngine/Source/GameClient/LivingWorldManager.cpp,approved,N,N=Code/GameEngine/Source/GameClient/LivingWorldManager.cpp provisional,Code/GameEngine/Source/GameClient/Rva00213925Insert.cpp
-0x002140DB,123,code,Code/GameEngine/Source/GameClient/LivingWorldManager.cpp,approved,N,N=Code/GameEngine/Source/GameClient/LivingWorldManager.cpp provisional,Code/GameEngine/Source/GameClient/Rva00213925Insert.cpp
-0x00214156,123,code,Code/GameEngine/Source/GameClient/LivingWorldManager.cpp,approved,N,N=Code/GameEngine/Source/GameClient/LivingWorldManager.cpp provisional,Code/GameEngine/Source/GameClient/Rva00213925Insert.cpp
+0x00214060,123,code,Code/GameEngine/Source/GameClient/LivingWorldManager.cpp,approved,N,N=Code/GameEngine/Source/GameClient/LivingWorldManager.cpp provisional,Code/GameEngine/Source/GameClient/LivingWorldManager.cpp
+0x002140DB,123,code,Code/GameEngine/Source/GameClient/LivingWorldManager.cpp,approved,N,N=Code/GameEngine/Source/GameClient/LivingWorldManager.cpp provisional,Code/GameEngine/Source/GameClient/LivingWorldManager.cpp
+0x00214156,123,code,Code/GameEngine/Source/GameClient/LivingWorldManager.cpp,approved,N,N=Code/GameEngine/Source/GameClient/LivingWorldManager.cpp provisional,Code/GameEngine/Source/GameClient/LivingWorldManager.cpp
 0x002141D1,114,code,Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManager.cpp,proposed,K,K=Rva002141D1,Code/GameEngine/Source/GameClient/System/Rva00211494Loops.cpp
 0x00214243,55,code,Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManager.cpp,proposed,C,C=0x002141D1..0x0021427A,Code/GameEngine/Source/Common/Rva00213E3BOverflow.cpp
 0x0021427A,112,code,Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManager.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManager.cpp,Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerCleanup.cpp
@@ -67941,9 +67941,9 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0076DF16,14,code,,,-,,Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerCtor.cpp
 0x0076DF24,14,code,,,-,,Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerCtor.cpp
 0x0076DF32,10,code,,,-,,Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerCtor.cpp
-0x0076DF3C,10,code,,,-,,Code/GameEngine/Source/GameClient/Rva00213925Insert.cpp
+0x0076DF3C,10,code,,,-,,Code/GameEngine/Source/GameClient/LivingWorldManager.cpp
 0x0076DF46,8,code,,,-,,Code/gen_small/uw_gen_003.cpp
-0x0076DF4E,10,code,,,-,,Code/GameEngine/Source/GameClient/Rva00213925Insert.cpp
+0x0076DF4E,10,code,,,-,,Code/GameEngine/Source/GameClient/LivingWorldManager.cpp
 0x0076DF58,8,code,Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManager.cpp,approved,P,P=0x002142EA@FuncInfo0x00913A5C p-group provisional,Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerCleanup.cpp
 0x0076DF60,8,code,Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManager.cpp,approved,P,P=0x002142EA@FuncInfo0x00913A5C p-group provisional,Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerCleanup.cpp
 0x0076DF68,10,code,Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManager.cpp,approved,P,P=0x002142EA@FuncInfo0x00913A5C p-group provisional,Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerCleanup.cpp

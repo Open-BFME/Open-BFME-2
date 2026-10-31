@@ -101,24 +101,3 @@ private:
     Rva000427195 m_buildingIcons;
     Rva000427195 m_buildPlotIcons;
 };
-
-Rva003F9FA9 *LivingWorldManager::rva00214060(const AsciiString &name)
-{
-    Rva003F9FA9 *icon = new Rva003F9FA9(name);
-    m_armyIcons.rva00213925(&static_cast<const LivingWorldIconPair<Rva003F9FA9> &>(LivingWorldIconPair<Rva003F9FA9>(name, icon)));
-    return icon;
-}
-
-Rva00402BE3 *LivingWorldManager::rva002140DB(const AsciiString &name)
-{
-    Rva00402BE3 *icon = new Rva00402BE3(name);
-    m_buildingIcons.rva00213925(&static_cast<const LivingWorldIconPair<Rva00402BE3> &>(LivingWorldIconPair<Rva00402BE3>(name, icon)));
-    return icon;
-}
-
-Rva00402EFA *LivingWorldManager::rva00214156(const AsciiString &name)
-{
-    Rva00402EFA *icon = new Rva00402EFA(name);
-    m_buildPlotIcons.rva00213925(&static_cast<const LivingWorldIconPair<Rva00402EFA> &>(LivingWorldIconPair<Rva00402EFA>(name, icon)));
-    return icon;
-}
