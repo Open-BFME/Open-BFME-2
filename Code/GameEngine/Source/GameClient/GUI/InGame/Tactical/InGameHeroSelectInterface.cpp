@@ -11,8 +11,6 @@
 // template's name is at ThingTemplate+0x64.
 #undef _CRTIMP
 #define _CRTIMP __declspec(dllimport)
-// Keep math.h's inline floorf local: retail's object exposes no _floorf.
-extern "C" { static float __cdecl floorf(float); }
 #include "ascii_string.h"
 #include "unicode_string.h"
 #include <stdlib.h>
