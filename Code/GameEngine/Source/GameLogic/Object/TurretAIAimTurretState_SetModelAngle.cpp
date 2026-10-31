@@ -26,9 +26,9 @@ public:
 	}
 	void set(unsigned int bit)
 	{
-		m_words[bit >> 5] |= 1U << (bit & 0x1f);
+		m_words[bit >> 5] |= (1U << (bit & 0x1f));
 	}
-	void reset(unsigned int bit)
+	void clear(unsigned int bit)
 	{
 		m_words[bit >> 5] &= ~(1U << (bit & 0x1f));
 	}
@@ -57,7 +57,7 @@ static __forceinline void clearModelCondition(Object *object, Int bit)
 {
 	if (object->m_modelConditionFlags.test(bit))
 	{
-		object->m_modelConditionFlags.reset(bit);
+		object->m_modelConditionFlags.clear(bit);
 		object->rva0028AE6D();
 	}
 }

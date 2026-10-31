@@ -1,6 +1,14 @@
-// cl: -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHsc -Ireference/open-bfme-1/inputs/reference/shims/turretai -Ireference/open-bfme-1/inputs/reference/shims/sweep -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Os -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/AI
+// cl: -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHsc /Os
 // stlport
-#include "PreRTS.h"
+typedef bool Bool;
+typedef int Int;
+
+// The TU's six-slot WeaponSlotType.
+enum WeaponSlotType
+{
+	WEAPONSLOT_PRIMARY = 0,
+	WEAPONSLOT_COUNT = 6
+};
 
 // BFME1 donor: TurretAI::friend_isAnyWeaponInRangeOf, TurretAI.cpp:1014.
 // Retail's 0x4D8310 body confirms the loop and the BFME2 deltas: six slots
@@ -37,12 +45,12 @@ Bool TurretAI::friend_isAnyWeaponInRangeOf(const Object* object) const
 	for (Int i = 0; i < 6; ++i)
 	{
 		const Weapon* weapon = ((WeaponSet*)((char*)getOwner() + 0x330))->getWeaponInWeaponSlot((WeaponSlotType)i);
-		if (weapon == NULL || !isWeaponSlotOnTurret((WeaponSlotType)i))
+		if (weapon == 0 || !isWeaponSlotOnTurret((WeaponSlotType)i))
 			continue;
 
-		if (weapon->isWithinAttackRange(getOwner(), object, 0.0f, TRUE))
-			return TRUE;
+		if (weapon->isWithinAttackRange(getOwner(), object, 0.0f, 1))
+			return true;
 	}
 
-	return FALSE;
+	return false;
 }
