@@ -12,6 +12,32 @@
 #include <stdlib.h>
 #include <string.h>
 #include <list>
+// ?erase@?$list@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@V?$allocator@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@@_STL@@QAE?AU?$_List_iterator@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@U?$_Nonconst_traits@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@@2@U32@@Z
+// retail 0x00424363, 42 bytes. list<basic_string<char>>::erase single-iterator
+// via rowed basic_string dtor 0x0007FAB3 plus _free 0x00030830. Evidence:
+// unlock lane; caller 0x004246E7 in 0x004246D7; unblocks 0x004246D7.
+// ?pop_back@?$list@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@V?$allocator@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@@_STL@@QAEXXZ
+// retail 0x004246D7, 23 bytes. list<basic_string<char>>::pop_back via rowed
+// erase 0x00424363. Evidence: chain lane (calls 0x00424363 just landed);
+// caller 0x00424982 in 0x0042481E; unblocks 0x0042481E.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+// codegen otherwise instantiates the min<int> COMDAT (one byte shape
+// per TU flags); a file-static overload takes those calls instead so this
+namespace _STL {
+static inline const int &min(const int &a, const int &b)
+{
+    return b < a ? b : a;
+}
+}
+#include <stl/_algobase.h>
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class LeftTraits, class RightTraits>
+static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
+                              const _List_iterator<T, RightTraits>& b)
+{ return a._M_node != b._M_node; }
+}
 
 namespace _STL {
 template <> __declspec(dllimport) __forceinline void **vector<void *>::begin() { return this->_M_start; }
@@ -279,6 +305,7 @@ namespace _STL {
 template <> __declspec(dllimport) __forceinline void **vector<void *>::end() { return this->_M_finish; }
 template <> __declspec(dllimport) __forceinline void vector<void *, allocator<void *> >::insert(void **pos, unsigned int n, void *const &x) { _M_fill_insert(pos, n, x); }
 }
+
 // Suppress this TU's non-retail copy of ??A?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBEABQAXI@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL { template <> void *const &vector<void *>::operator[](size_t) const; }
@@ -442,6 +469,57 @@ struct Rva0060D031Member
     __declspec(noinline) ~Rva0060D031Member();
 };
 
+// bfme link decl-only begin
+namespace _STL { template <> bool operator==<char, char_traits<char>, allocator<char> >(basic_string<char, char_traits<char>, allocator<char> > const &, basic_string<char, char_traits<char>, allocator<char> > const &); }
+
+namespace _STL { template <> _String_base<char, allocator<char> >::_String_base(allocator<char> const &); }
+
+namespace _STL { template <> basic_string<char, char_traits<char>, allocator<char> >::basic_string(basic_string<char, char_traits<char>, allocator<char> > const &); }
+
+namespace _STL { template <> basic_string<char, char_traits<char>, allocator<char> >::basic_string(); }
+
+namespace _STL { template <> _String_base<char, allocator<char> >::~_String_base(); }
+
+namespace _STL { template <> basic_string<char, char_traits<char>, allocator<char> >::~basic_string(); }
+
+namespace _STL { template <> basic_string<char, char_traits<char>, allocator<char> > & basic_string<char, char_traits<char>, allocator<char> >::operator=(basic_string<char, char_traits<char>, allocator<char> > const &); }
+
+namespace _STL { template <> char * basic_string<char, char_traits<char>, allocator<char> >::erase(char *, char *); }
+
+namespace _STL { template <> char * __char_traits_base<char, int>::move(char *, char const *, unsigned int); }
+
+// less<string>::operator() is the rowed body 0x00389117; _S_merge calls it.
+namespace _STL { template <> bool less<basic_string<char, char_traits<char>, allocator<char> > >::operator()(basic_string<char, char_traits<char>, allocator<char> > const &, basic_string<char, char_traits<char>, allocator<char> > const &) const; }
+
+// bfme link decl-only end
+// Suppress this TU's non-retail proxy<char> deallocate copy (family2-LK3 row 28):
+// the kept copy serves the link. Plain declaration-only form (no __imp_).
+namespace _STL {
+template <> void _STLP_alloc_proxy<char*, char, allocator<char> >::deallocate(char*, size_t);
+}
+
+// Suppress this TU's non-retail proxy<char> allocate copy (family2-LK3 row 30):
+// the kept copy serves the link. Plain declaration-only form (no __imp_).
+namespace _STL {
+template <> char *_STLP_alloc_proxy<char*, char, allocator<char> >::allocate(size_t);
+}
+
+namespace _STL {
+typedef _List_node<basic_string<char> > StringListNode;
+template <> __declspec(dllimport) __forceinline void _STLP_alloc_proxy<StringListNode *, StringListNode, allocator<StringListNode> >::deallocate(StringListNode *p, size_t n)
+{ allocator<StringListNode>::deallocate(p, n); }
+}
+
+// The list constructor, destructor and splice, _S_sort, _S_merge, _S_unique, the
+// node proxy swap, the _List_base constructor and destructor and _M_create_node
+// have no retail row; this unit emits them for its explicit instantiation rather
+// than leaning on w3d_dep.cpp's unrowed copies.
+template class _STL::list<_STL::basic_string<char> >;
+
+template bool _STL::equal_to<_STL::basic_string<char> >::operator()(const _STL::basic_string<char> &, const _STL::basic_string<char> &) const;
+
+// ---- from Code/GameEngine/Source/Common/System/XferSave.cpp
+
 // ---- from Code/Libraries/Source/xfer/xfer_save.cpp
 
 __declspec(noinline) inline Rva0060CB2BNode *Rva0060CB2B::rva0060CB2B(const char * const &key) const
@@ -587,18 +665,6 @@ Xfer &XferSave::rva0060CE41(Rva0060CE41Argument &str)
 	return *(Xfer *)this;
 }
 
-// tu-skeleton: 0x0060C9A7 23B ?_M_bkt_num_key@?$hashtable@U?$pair@PBDURva009D7350Mapped@@@_STL@@PBDU?$hash@PBD@2@U?$_Select1st@U?$pair@PBDURva009D7350Mapped@@@_STL@@@2@U?$equal_to@PBD@2@V?$allocator@U?$pair@PBDURva009D7350Mapped@@@_STL@@@2@@_STL@@ABEIABQBDI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva009D7350BktNumKey_Rva0060c9a7.cpp (not merged yet)
-
-// tu-skeleton: 0x0060C9BE 5B ?_M_bkt_num@?$hashtable@U?$pair@PBDURva009D7350Mapped@@@_STL@@PBDU?$hash@PBD@2@U?$_Select1st@U?$pair@PBDURva009D7350Mapped@@@_STL@@@2@U?$equal_to@PBD@2@V?$allocator@U?$pair@PBDURva009D7350Mapped@@@_STL@@@2@@_STL@@ABEIABU?$pair@PBDURva009D7350Mapped@@@2@I@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva009D7350BktNumKey_Rva0060c9a7.cpp (not merged yet)
-
-// tu-skeleton: 0x0060C9C3 22B ?_M_bkt_num_key@?$hashtable@U?$pair@PBDURva009D7350Mapped@@@_STL@@PBDU?$hash@PBD@2@U?$_Select1st@U?$pair@PBDURva009D7350Mapped@@@_STL@@@2@U?$equal_to@PBD@2@V?$allocator@U?$pair@PBDURva009D7350Mapped@@@_STL@@@2@@_STL@@ABEIABQBD@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva009D7350BktNumKey_Rva0060c9a7.cpp (not merged yet)
-
-// tu-skeleton: 0x0060C9D9 23B ??$_Construct@U?$pair@$$CBHH@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHH@0@ABU10@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva002EF239CreateNode.cpp (not merged yet)
-
-// tu-skeleton: 0x0060CA14 18B ??R?$equal_to@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@_STL@@QBE_NABV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@1@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_string_erase_00424363.cpp (not merged yet)
-
-// tu-skeleton: 0x0060CADD 13B ??R?$hash@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@_STL@@QBEIABV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_string_uint_resize.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_string_find_0060CAEA.cpp
 
 //
@@ -632,14 +698,6 @@ __declspec(noinline) inline Rva0060CAEAIterator Rva0060CAEA::rva0060CB61(const _
 // ?bfmeAnchorRva0060CB61 absent-from-retail
 Rva0060CAEAIterator bfmeAnchorRva0060CB61(Rva0060CAEA *p, const _STL::string *k) { return p->rva0060CB61(*k); }
 
-// tu-skeleton: 0x0060CB97 21B ?_M_bkt_num_key@?$hashtable@U?$pair@$$CBV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@H@_STL@@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@U?$hash@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@U?$_Select1st@U?$pair@$$CBV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@H@_STL@@@2@U?$equal_to@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@V?$allocator@U?$pair@$$CBV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@H@_STL@@@2@@_STL@@QBEIABV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@I@Z -- matched in Code/GameEngine/Source/Common/System/XferBlockWriter_rva009D86E0_Rva0060CB97.cpp (not merged yet)
-
-// tu-skeleton: 0x0060CBAC 197B ?resize@?$hashtable@U?$pair@PBDH@_STL@@PBDU?$hash@PBD@2@U?$_Select1st@U?$pair@PBDH@_STL@@@2@U?$equal_to@PBD@2@V?$allocator@U?$pair@PBDH@_STL@@@2@@_STL@@QAEXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva0060CBAC.cpp (not merged yet)
-
-// tu-skeleton: 0x0060CC71 20B ?rva0060CC71@Rva0060CC71@@QAE?AURva0060CAEAIterator@@ABV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat10O1.cpp (not merged yet)
-
-// tu-skeleton: 0x0060CC99 57B ??1?$hashtable@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@W4NameKeyType@@U?$hash@W4NameKeyType@@@rts@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@U?$equal_to@W4NameKeyType@@@5@V?$allocator@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@@_STL@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Armor.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_string_bktnum.cpp
 
 //
@@ -655,19 +713,9 @@ unsigned int Rva0060CD16::rva0060CD16(const _STL::string &__key) const
 	return __h % __count;
 }
 
-// tu-skeleton: 0x0060CD36 194B ?resize@?$hashtable@U?$pair@$$CBV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@I@_STL@@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@U?$hash@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@U?$_Select1st@U?$pair@$$CBV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@I@_STL@@@2@U?$equal_to@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@V?$allocator@U?$pair@$$CBV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@I@_STL@@@2@@_STL@@QAEXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_string_uint_resize.cpp (not merged yet)
-
-// tu-skeleton: 0x0060CDF8 5B ??1?$hash_map@W4NameKeyType@@VArmorTemplate@@U?$hash@W4NameKeyType@@@rts@@U?$equal_to@W4NameKeyType@@@4@V?$allocator@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@_STL@@@_STL@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Armor.cpp (not merged yet)
-
-// tu-skeleton: 0x0060CE3C 5B ?_M_bkt_num@?$hashtable@U?$pair@$$CBV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@I@_STL@@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@U?$hash@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@U?$_Select1st@U?$pair@$$CBV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@I@_STL@@@2@U?$equal_to@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@V?$allocator@U?$pair@$$CBV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@I@_STL@@@2@@_STL@@ABEIABU?$pair@$$CBV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@I@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_string_uint_resize.cpp (not merged yet)
-
-// tu-skeleton: 0x0060CF5A 28B ?_M_delete_node@?$hashtable@U?$pair@$$CBW4NameKeyType@@VFXList@@@_STL@@W4NameKeyType@@U?$hash@W4NameKeyType@@@rts@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@VFXList@@@_STL@@@2@U?$equal_to@W4NameKeyType@@@5@V?$allocator@U?$pair@$$CBW4NameKeyType@@VFXList@@@_STL@@@2@@_STL@@AAEXPAU?$_Hashtable_node@U?$pair@$$CBW4NameKeyType@@VFXList@@@_STL@@@2@@Z -- matched in Code/GameEngine/Source/GameClient/FXList.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0060CF76.cpp
 
-// tu-skeleton: 0x0060CFB6 73B ?clear@?$hashtable@U?$pair@$$CBW4NameKeyType@@VFXList@@@_STL@@W4NameKeyType@@U?$hash@W4NameKeyType@@@rts@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@VFXList@@@_STL@@@2@U?$equal_to@W4NameKeyType@@@5@V?$allocator@U?$pair@$$CBW4NameKeyType@@VFXList@@@_STL@@@2@@_STL@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/FXList.cpp (not merged yet)
 
-// tu-skeleton: 0x0060CFFF 45B ?StringUnsignedPairCopyAtRva0060CFFF@@YAXPAXPBX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_deque_string.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/xfer/XferSaveMemberDestructor.cpp
 
@@ -681,6 +729,38 @@ Rva0060D031Member::~Rva0060D031Member()
 {
     ((Rva0060D031Map *)this)->clear();
 }
+
+// tu-skeleton: 0x0060C9A7 23B ?_M_bkt_num_key@?$hashtable@U?$pair@PBDH@_STL@@PBDU?$hash@PBD@2@U?$_Select1st@U?$pair@PBDH@_STL@@@2@U?$equal_to@PBD@2@V?$allocator@U?$pair@PBDH@_STL@@@2@@_STL@@ABEIABQBDI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva0060CBAC.cpp (not merged yet)
+
+// tu-skeleton: 0x0060C9BE 5B ?_M_bkt_num@?$hashtable@U?$pair@PBDURva009D7350Mapped@@@_STL@@PBDU?$hash@PBD@2@U?$_Select1st@U?$pair@PBDURva009D7350Mapped@@@_STL@@@2@U?$equal_to@PBD@2@V?$allocator@U?$pair@PBDURva009D7350Mapped@@@_STL@@@2@@_STL@@ABEIABU?$pair@PBDURva009D7350Mapped@@@2@I@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva009D7350BktNumKey_Rva0060c9a7.cpp (not merged yet)
+
+// tu-skeleton: 0x0060C9C3 22B ?_M_bkt_num_key@?$hashtable@U?$pair@PBDURva009D7350Mapped@@@_STL@@PBDU?$hash@PBD@2@U?$_Select1st@U?$pair@PBDURva009D7350Mapped@@@_STL@@@2@U?$equal_to@PBD@2@V?$allocator@U?$pair@PBDURva009D7350Mapped@@@_STL@@@2@@_STL@@ABEIABQBD@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva009D7350BktNumKey_Rva0060c9a7.cpp (not merged yet)
+
+// tu-skeleton: 0x0060C9D9 23B ??$_Construct@U?$pair@$$CBHH@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHH@0@ABU10@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva002EF239CreateNode.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_list_string_erase_00424363.cpp
+
+// tu-skeleton: 0x0060CADD 13B ??R?$hash@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@_STL@@QBEIABV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_string_uint_resize.cpp (not merged yet)
+
+// tu-skeleton: 0x0060CB97 21B ?_M_bkt_num_key@?$hashtable@U?$pair@$$CBV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@H@_STL@@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@U?$hash@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@U?$_Select1st@U?$pair@$$CBV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@H@_STL@@@2@U?$equal_to@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@V?$allocator@U?$pair@$$CBV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@H@_STL@@@2@@_STL@@QBEIABV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@I@Z -- matched in Code/GameEngine/Source/Common/System/XferBlockWriter_rva009D86E0_Rva0060CB97.cpp (not merged yet)
+
+// tu-skeleton: 0x0060CBAC 197B ?resize@?$hashtable@U?$pair@PBDH@_STL@@PBDU?$hash@PBD@2@U?$_Select1st@U?$pair@PBDH@_STL@@@2@U?$equal_to@PBD@2@V?$allocator@U?$pair@PBDH@_STL@@@2@@_STL@@QAEXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva0060CBAC.cpp (not merged yet)
+
+// tu-skeleton: 0x0060CC71 20B ?rva0060CC71@Rva0060CC71@@QAE?AURva0060CAEAIterator@@ABV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat10O1.cpp (not merged yet)
+
+// tu-skeleton: 0x0060CC99 57B ??1?$hashtable@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@W4NameKeyType@@U?$hash@W4NameKeyType@@@rts@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@U?$equal_to@W4NameKeyType@@@5@V?$allocator@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@@_STL@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Armor.cpp (not merged yet)
+
+// tu-skeleton: 0x0060CD36 194B ?resize@?$hashtable@U?$pair@$$CBV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@I@_STL@@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@U?$hash@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@U?$_Select1st@U?$pair@$$CBV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@I@_STL@@@2@U?$equal_to@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@V?$allocator@U?$pair@$$CBV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@I@_STL@@@2@@_STL@@QAEXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_string_uint_resize.cpp (not merged yet)
+
+// tu-skeleton: 0x0060CDF8 5B ??1?$hash_map@W4NameKeyType@@VArmorTemplate@@U?$hash@W4NameKeyType@@@rts@@U?$equal_to@W4NameKeyType@@@4@V?$allocator@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@_STL@@@_STL@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Armor.cpp (not merged yet)
+
+// tu-skeleton: 0x0060CE3C 5B ?_M_bkt_num@?$hashtable@U?$pair@$$CBV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@I@_STL@@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@U?$hash@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@U?$_Select1st@U?$pair@$$CBV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@I@_STL@@@2@U?$equal_to@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@V?$allocator@U?$pair@$$CBV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@I@_STL@@@2@@_STL@@ABEIABU?$pair@$$CBV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@I@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_string_uint_resize.cpp (not merged yet)
+
+// tu-skeleton: 0x0060CF5A 28B ?_M_delete_node@?$hashtable@U?$pair@$$CBW4NameKeyType@@VFXList@@@_STL@@W4NameKeyType@@U?$hash@W4NameKeyType@@@rts@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@VFXList@@@_STL@@@2@U?$equal_to@W4NameKeyType@@@5@V?$allocator@U?$pair@$$CBW4NameKeyType@@VFXList@@@_STL@@@2@@_STL@@AAEXPAU?$_Hashtable_node@U?$pair@$$CBW4NameKeyType@@VFXList@@@_STL@@@2@@Z -- matched in Code/GameEngine/Source/GameClient/FXList.cpp (not merged yet)
+
+// tu-skeleton: 0x0060CFB6 73B ?clear@?$hashtable@U?$pair@$$CBW4NameKeyType@@VFXList@@@_STL@@W4NameKeyType@@U?$hash@W4NameKeyType@@@rts@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@VFXList@@@_STL@@@2@U?$equal_to@W4NameKeyType@@@5@V?$allocator@U?$pair@$$CBW4NameKeyType@@VFXList@@@_STL@@@2@@_STL@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/FXList.cpp (not merged yet)
+
+// tu-skeleton: 0x0060CFFF 45B ?StringUnsignedPairCopyAtRva0060CFFF@@YAXPAXPBX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_deque_string.cpp (not merged yet)
 
 // tu-skeleton: 0x0060D06A 31B ??0?$hash_map@HUGen_t_009d80b0_p12cd@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHUGen_t_009d80b0_p12cd@@@_STL@@@3@@_STL@@QAE@XZ -- matched in Code/GameEngine/Source/Common/BfmeConv881O1.cpp (not merged yet)
 
@@ -701,3 +781,31 @@ Rva0060D031Member::~Rva0060D031Member()
 // tu-skeleton: 0x0060D2E9 331B ?rva0060D2E9@XferSave@@QAEXPBD@Z -- matched in Code/GameEngine/Source/Common/System/rva0060D2E9Rva0060D2E9Farm.cpp (not merged yet)
 
 // tu-skeleton: 0x0060D435 148B ?rva0060D435@XferSave@@QAEHPBD@Z -- matched in Code/Libraries/Source/xfer/XferSaveBlocks.cpp (not merged yet)
+
+// tu-skeleton: 0x007A6CC0 14B $L8331 -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_deque_string.cpp (not merged yet)
+
+// tu-skeleton: 0x007A6CCE 10B __ehhandler$?StringUnsignedPairCopyAtRva0060CFFF@@YAXPAXPBX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_deque_string.cpp (not merged yet)
+
+// tu-skeleton: 0x007A6CED 8B $L389 -- matched in Code/Libraries/Source/xfer/XferSaveDeletingDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x007A6CF5 11B $L390 -- matched in Code/Libraries/Source/xfer/XferSaveDeletingDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x007A6D00 11B uw_007a6d00 -- matched in Code/Libraries/Source/xfer/XferSaveDeletingDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x007A6D0B 10B __ehhandler$??1XferSave@@UAE@XZ -- matched in Code/Libraries/Source/xfer/XferSaveDeletingDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x007A6D15 8B uw_007a6d15 -- matched in Code/gen_small/uw_gen_009.cpp (not merged yet)
+
+// tu-skeleton: 0x007A6D1D 11B $L7999 -- matched in Code/GameEngine/Source/Common/BfmeConv881O1.cpp (not merged yet)
+
+// tu-skeleton: 0x007A6D28 11B uw_007a6d28 -- matched in Code/gen_small/uw_gen_014.cpp (not merged yet)
+
+// tu-skeleton: 0x007A6D33 10B __ehhandler$??0XferSave@@QAE@XZ -- matched in Code/GameEngine/Source/Common/BfmeConv881O1.cpp (not merged yet)
+
+// tu-skeleton: 0x007A6D3D 25B ?rva007A6D3D@@YAXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0060D269.cpp (not merged yet)
+
+// tu-skeleton: 0x007A6D56 10B __ehhandler$?rva0060D269@Rva0060D269@@QAEAAIABV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0060D269.cpp (not merged yet)
+
+// tu-skeleton: 0x007A6D60 8B Unwind@00ba6d60 -- matched in Code/GameEngine/Source/Common/System/rva0060D2E9Rva0060D2E9Farm.cpp (not merged yet)
+
+// tu-skeleton: 0x007A6D68 10B __ehhandler$?rva0060D2E9@XferSave@@QAEXPBD@Z -- matched in Code/GameEngine/Source/Common/System/rva0060D2E9Rva0060D2E9Farm.cpp (not merged yet)

@@ -14433,7 +14433,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00204094,83,code,,,-,,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_setFrame.cpp
 0x002040E7,79,code,,,-,,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_setFrame.cpp
 0x00204136,45,code,,,-,,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_nodeFree.cpp
-0x00204163,13,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_list_string_erase_00424363.cpp
+0x00204163,13,code,,,-,,Code/GameEngine/Source/Common/System/XferSave.cpp
 0x00204170,50,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_stringrecord_00204a30_allocate_copy.cpp
 0x002041A2,10,code,,,-,,Code/GameEngine/Source/Common/GapLeavesSeat8.cpp
 0x002041AC,53,code,,displaced,-,S=Code/GameEngine/Source/GameLogic/Object/ObjectTypes.cpp N=Code/GameEngine/Source/GameLogic/ScriptEngine/ObjectTypes.cpp,Code/GameEngine/Source/GameLogic/ScriptEngine/ObjectTypes_getNthInList.cpp
@@ -34294,7 +34294,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00424185,386,code,,,-,,Code/GameEngine/Source/Common/INI/FormationSelectionCriteriaRva00424185.cpp
 0x00424307,55,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp
 0x0042433E,37,code,,,-,,Code/GameEngine/Source/Common/Rva004246BDObjListPush.cpp
-0x00424363,42,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_list_string_erase_00424363.cpp
+0x00424363,42,code,,,-,,Code/GameEngine/Source/Common/System/XferSave.cpp
 0x0042438D,49,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0042438D.cpp
 0x004243BE,22,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_list_gamewindow_assign_004243BE.cpp
 0x004243D4,68,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_int_sort_rva00422ca8.cpp
@@ -34308,7 +34308,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0042464E,63,code,,,-,,Code/GameEngine/Source/Common/RvaVectorDtorFamily.cpp
 0x0042468D,48,code,,displaced,-,N=Code/Libraries/Source/WWVegas/WWLib/BfmeE16Vector.cpp,Code/Libraries/Source/WWVegas/WWLib/stlport_e16_rva0042468d_0042468d.cpp
 0x004246BD,26,code,,,-,,Code/GameEngine/Source/Common/Rva004246BDObjListPush.cpp
-0x004246D7,23,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_list_string_erase_00424363.cpp
+0x004246D7,23,code,,,-,,Code/GameEngine/Source/Common/System/XferSave.cpp
 0x004246EE,27,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/Rva00423A4AFillN.cpp
 0x00424709,41,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva00424709.cpp
 0x00424732,58,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_e12_sort.cpp
@@ -53458,7 +53458,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0060C9C3,22,code,Code/GameEngine/Source/Common/System/XferSave.cpp,approved,C,C=0x0060C935..0x0060C9D9,Code/Libraries/Source/WWVegas/WWLib/Rva009D7350BktNumKey_Rva0060c9a7.cpp
 0x0060C9D9,23,code,Code/GameEngine/Source/Common/System/XferSave.cpp,approved,C,C=0x0060C935..0x0060CA14,Code/Libraries/Source/WWVegas/WWLib/Rva002EF239CreateNode.cpp
 0x0060C9F0,36,code,,displaced,-,N=Code/Libraries/Source/WWVegas/WWLib/_STL.cpp,Code/Libraries/Source/WWVegas/WWLib/stlport_string_hash.cpp
-0x0060CA14,18,code,Code/GameEngine/Source/Common/System/XferSave.cpp,approved,C,C=0x0060C935..0x0060CA26,Code/Libraries/Source/WWVegas/WWLib/stlport_list_string_erase_00424363.cpp
+0x0060CA14,18,code,Code/GameEngine/Source/Common/System/XferSave.cpp,approved,C,C=0x0060C935..0x0060CA26,Code/GameEngine/Source/Common/System/XferSave.cpp
 0x0060CA26,178,code,Code/GameEngine/Source/Common/System/XferSave.cpp,approved,Z,Z=Code/GameEngine/Source/Common/System/XferSave.cpp S=Code/GameEngine/Source/Common/System/XferSave.cpp N=Code/GameEngine/Source/Common/System/XferSave.cpp,Code/GameEngine/Source/Common/System/XferSave.cpp
 0x0060CAD8,5,code,Code/GameEngine/Source/Common/System/XferSave.cpp,approved,C,C=0x0060CA26..0x0060CADD,Code/GameEngine/Source/Common/System/XferSave.cpp
 0x0060CADD,13,code,Code/GameEngine/Source/Common/System/XferSave.cpp,approved,C,C=0x0060CA26..0x0060CAEA,Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_string_uint_resize.cpp
