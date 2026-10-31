@@ -19140,3 +19140,6 @@ Code/GameEngine/Source/GameNetwork/Rva007F7030Request.cpp|class||Rva007F7030Noti
 Code/GameEngine/Source/GameNetwork/Rva007F7030Request.cpp|class||Rva007F7030Listener,0add789aa6dd9a7359d7a395,drz-k10,n25g-k10-1,w-88a32c4f7da7,2026-10-30
 Code/GameEngine/Source/GameNetwork/Rva007F7030Request.cpp|function|0x00661F40|Rva007F5790Callback,4556844e06e31d84c2325177,drz-k10,n25g-k10-1,w-88a32c4f7da7,2026-10-30
 Code/GameEngine/Source/Common/Rva004FD37F.cpp|function|0x004FD37F|rva004FD37F,ee69a79103e182a49b1127b1,drz-k10,n25g-k10-11,w-88a32c4f7da7,2026-10-30
+Code/GameEngine/Source/GameClient/Rva00419331Insert.cpp|function|0x00419331|rva00419331,8ad4c68fb65425c6f0ae1026,drz-k11,n25h-k11-1,w-09889333d128,2026-10-30
+Code/GameEngine/Source/GameClient/Rva00419331Insert.cpp|function|0x004193AD|rva004193AD,6bcbb6b6da8a02a6720043dd,drz-k11,n25h-k11-1,w-09889333d128,2026-10-30
+Code/GameEngine/Source/Common/Rva0040334BLoop.cpp|member|Rva0040334BElem|m_08,d59786d5bb708bffd290e494,drz-k11,n25h-k11-5,w-09889333d128,2026-10-30
