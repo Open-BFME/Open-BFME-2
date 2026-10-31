@@ -4,20 +4,7 @@
 // Evidence: caller Q3 insertion_sort at 0x002183BD with 0x1c cleanup; callees rowed FileInfo copy_backward 0x00217B93 assign 0x002174DF copy ctor 0x00217624 Insert 0x002176F1; cmp-first-dword plus copy_backward shift plus temp plus Insert matches S4 and Q3 donors.
 #include "ascii_string.h"
 
-class MixFileCreator
-{
-public:
-	struct FileInfoStruct
-	{
-		FileInfoStruct(const FileInfoStruct &src);
-		FileInfoStruct &operator=(const FileInfoStruct &src);
-		unsigned long CRC;
-		unsigned long Offset;
-		unsigned long Size;
-		AsciiString Filename;
-	};
-};
-
+#include "../../../Libraries/Source/WWVegas/WWLib/MixFileCreatorFileInfo.h"
 struct Q3SortElem16
 {
 	int m_a;
