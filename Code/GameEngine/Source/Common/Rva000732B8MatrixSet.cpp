@@ -59,25 +59,6 @@ private:
 	Rva000732B8Set m_differences;	// +0x4C
 };
 
-void Rva000732B8::rva000732B8()
-{
-	((Rva00072FE6 *)(void *)&m_differences)->rva00072FE6();
-	unsigned char *right = m_right;
-	unsigned char *left = m_left;
-	int key;
-	int outer;
-	outer = 0;
-	key = 0;
-	for (; outer < m_outerCount; ++outer) {
-		int inner = 0;
-		for (; inner < m_innerCount; ++inner, ++right, ++left, ++key) {
-			if (*right != *left)
-				m_differences.insert(key);
-		}
-	}
-	m_complete = 1;
-}
-
 // Native 0x000740CE..0x00074136 is a complete 104-byte no-argument
 // method. It repeats the measured nested byte-array comparison, but the
 // completion flag is at +0x40 and the set at +0x44. Both calls independently
