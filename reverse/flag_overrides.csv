@@ -26,7 +26,6 @@ Code/GameEngine/Source/Common/BfmeConv1324.cpp,,4,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeConv1325TWC.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeConv1338.cpp,,3,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeConv1341.cpp,,2,1,region default loses rows
-Code/GameEngine/Source/Common/BfmeConv1343.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeConv1351.cpp,,3,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeConv1384.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeConv1395.cpp,,1,1,region default loses rows
@@ -538,7 +537,7 @@ Code/Libraries/Source/Fesl/ariesudp.cpp,-O2,3,2,region default loses rows
 Code/Libraries/Source/Fesl/blobservice.cpp,,1,1,region default loses rows
 Code/Libraries/Source/Fesl/gamebrowser/gamebrowser.cpp,,8,6,region default loses rows
 Code/Libraries/Source/Fesl/gamebrowser/gamebrowserdemangler.cpp,,7,7,region default loses rows
-Code/Libraries/Source/Fesl/gamebrowser/gamebrowserpinger.cpp,,2,2,region default loses rows
+Code/Libraries/Source/Fesl/gamebrowser/gamebrowserpinger.cpp,,3,3,region default loses rows
 Code/Libraries/Source/Fesl/gamebrowser/lantheateremulator.cpp,-O2,5,5,region default loses rows
 Code/Libraries/Source/Fesl/servicehub.cpp,-O2,3,3,region default loses rows
 Code/Libraries/Source/Fesl/transactor.cpp,,1,1,region default loses rows

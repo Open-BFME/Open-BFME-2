@@ -1604,7 +1604,6 @@ alternatename	Code/GameEngine/Source/Common/BfmeConv1339_GoUPB.cpp	?bfmeFillURC@
 alternatename	Code/GameEngine/Source/Common/BfmeConv1339_GoUPB.cpp	?bfmeGetStrVHC@BfmeMsgVHC@@QAEDPAXPADH@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv1339_GoUPB.cpp	?bfmeGetStrVJI@BfmeMsgVJI@@QAEDPBDPADH@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv1339_GoUPB.cpp	?bfmeGetStrVJT@BfmeMsgVJT@@QAEDPBDPADH@Z	1
-alternatename	Code/GameEngine/Source/Common/BfmeConv1343.cpp	??1Gen008030A0@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv1347.cpp	?bfmeGetAUZA@BfmeSubAUZA@@QBE?AUBfmeHandleUZA@@HH@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv1349.cpp	?bfmeAppendVCB@BfmeBufVCB@@QAEXPBD@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv1349.cpp	?bfmeFreeVCC@@YAXPAXH@Z	1
@@ -3825,6 +3824,7 @@ alternatename	Code/Libraries/Source/Fesl/gamebrowser/gamebrowserdemangler.cpp	?b
 alternatename	Code/Libraries/Source/Fesl/gamebrowser/gamebrowserdemangler.cpp	?onConnectReply@Rva00800E50Owner@@QAEXPAVRva007E8810Message@@@Z	1
 alternatename	Code/Libraries/Source/Fesl/gamebrowser/gamebrowserdemangler.cpp	_bfmeVft1045A	2
 alternatename	Code/Libraries/Source/Fesl/gamebrowser/gamebrowserdemangler.cpp	_bfmeVft1045B	2
+alternatename	Code/Libraries/Source/Fesl/gamebrowser/gamebrowserpinger.cpp	??1Gen008030A0@@UAE@XZ	1
 alternatename	Code/Libraries/Source/Fesl/gamebrowser/gamebrowserpinger.cpp	??3Rva00803080Request@@SAXPAXI@Z	1
 alternatename	Code/Libraries/Source/Fesl/gamebrowser/lantheateremulator.cpp	?bfmeUseSB@BfmeSinkSB@@QAEXPAX0@Z	1
 alternatename	Code/Libraries/Source/Fesl/servicehub.cpp	?bfmeAddVMO@BfmeListVMO@@QAEXPAVBfmeSvcVMO@@@Z	1

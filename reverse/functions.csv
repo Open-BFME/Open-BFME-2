@@ -8170,7 +8170,7 @@ _CopyBlockMMX,,0x001D7630,110,Code/Libraries/Source/VP6/CopyBlockMmx.cpp,matched
 ??A?$CSimpleArray@PAXV?$CSimpleArrayEqualHelper@PAX@ATL@@@ATL@@QAEAAPAXH@Z,,0x00628C6E,39,Code/GameEngine/Source/Common/AtlSimpleArrayHInstanceAdd.cpp,matched,BFME1 byte-identical donor; b1 0x009F6921
 ?RemoveAt@?$CSimpleArray@PAXV?$CSimpleArrayEqualHelper@PAX@ATL@@@ATL@@QAEHH@Z,,0x00628BE2,67,Code/GameEngine/Source/Common/AtlSimpleArrayHInstanceAdd.cpp,matched,BFME1 byte-identical donor; b1 0x009F6883
 ?rva007F76F0@Rva00802240Host@@QAEHPAURva007F76F0Vector@@PBD@Z,,0x00663DE0,105,Code/GameEngine/Source/GameNetwork/BfmeThingZI.cpp,matched,BFME1 byte-identical donor; b1 0x007F76F0
-?bfmeGoUUA@GameBrowserPinger@@QAEXXZ,,0x0066EFC0,104,Code/GameEngine/Source/Common/BfmeConv1343.cpp,matched,BFME1 byte-identical donor; b1 0x00802F50; 6 DIR32 string literal(s) agree
+?bfmeGoUUA@GameBrowserPinger@@QAEXXZ,,0x0066EFC0,104,Code/Libraries/Source/Fesl/gamebrowser/gamebrowserpinger.cpp,matched,BFME1 byte-identical donor; b1 0x00802F50; 6 DIR32 string literal(s) agree
 ?bfmeReportBT@BfmeHostBT@@QAEXHH@Z,,0x00664280,103,Code/GameEngine/Source/GameNetwork/BfmeHostBT_bfmeReportBT.cpp,matched,BFME1 byte-identical donor; b1 0x007F7C00
 ?bfmeReset@Gen_00808B80@@QAEXXZ,,0x00674AD0,101,Code/GameEngine/Source/Common/BfmeOneHundredEleven.cpp,matched,BFME1 byte-identical donor; b1 0x00808B80
 ?bfmeSetSizeVLR@BfmeBufVLR@@QAEXH@Z,,0x00658730,98,Code/GameEngine/Source/Common/BfmeConv1417.cpp,matched,BFME1 byte-identical donor; b1 0x007EB7A0
