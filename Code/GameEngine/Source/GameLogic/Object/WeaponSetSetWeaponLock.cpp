@@ -16,12 +16,14 @@
 // masked-word test/or tails). The false path is laid out last, which needs the
 // early-out tests folded into one guarding if.
 
+#include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
+
 class WeaponTemplateSet;
 class ThingTemplate;
 #include "../../Common/GameLogicObjectLookupView.h"
 enum WeaponSlotType
 {
-	PRIMARY_WEAPON = 0
+	PRIMARY_WEAPON = 0, WEAPONSLOT_COUNT = 6
 };
 enum WeaponLockType
 {
@@ -194,31 +196,49 @@ enum WeaponChoiceCriteria
  PREFER_MOST_DAMAGE=0, PREFER_LONGEST_RANGE=1, PREFER_SPECIAL=2,
  PREFER_SMALLEST_RANGE_ERROR=3, PREFER_RANDOM=4, PREFER_TEMPLATE_DEFAULT=5
 };
-class WeaponSet
+class Xfer;
+struct EmitVtableTag;
+class WeaponSet : public Snapshot
 {
 public:
+	WeaponSet();
+protected:
+	virtual void crc(Xfer *xfer);
+	virtual void xfer(Xfer *xfer);
+	virtual void loadPostProcess(void);
+public:
+	bool isOutOfAmmo() const;
+	void reloadAllAmmo(const Object *obj, bool now);
+private:
+	bool isAnyWithinTargetPitch(const Object *obj, const Object *victim) const;
+public:
+	const Weapon *findAmmoPipShowingWeapon() const;
+	Weapon *findWaypointFollowingCapableWeapon();
+	WeaponSet(EmitVtableTag *);
+	bool rva002C75D1(int slot, int cmdSource) const;
 	bool setWeaponLock(WeaponSlotType weaponSlot, WeaponLockType lockType);
- void updateWeaponSet(const Object *);
- void releaseWeaponLock(WeaponLockType);
- bool chooseBestWeaponForTarget(const Object *, const Object *, WeaponChoiceCriteria, CommandSourceType);
- bool rva002C75D1(int, int) const;
+	void updateWeaponSet(const Object *);
+	void releaseWeaponLock(WeaponLockType);
+	bool chooseBestWeaponForTarget(const Object *, const Object *, WeaponChoiceCriteria, CommandSourceType);
 	CanAttackResult getAbleToUseWeaponAgainstTarget(AbleToAttackType, const Object *, const Object *, const Coord3D *, CommandSourceType) const;
 	CanAttackResult getAbleToAttackSpecificObject(AbleToAttackType, const Object *, const Object *, CommandSourceType) const;
+	virtual ~WeaponSet();
 private:
-	bool isAnyWithinTargetPitch(const Object *, const Object *) const;
-	unsigned char m_pad00[4];
- const WeaponTemplateSet *m_set; // +0x04
- Weapon *m_weapons[6]; // +0x08 through +0x1C
-	WeaponSlotType m_curWeapon; // +0x20
-	WeaponLockType m_curWeaponLockedStatus; // +0x24
-	unsigned m_filled,m_anti,m_damage; // +28/+2C/+30
- bool m_pitch,m_hasDamage; // +34/+35
- unsigned char m_pad36[6];
-	ObjectID m_ownerID; // +0x3C
+	const WeaponTemplateSet *m_set; // +0x04
+	Weapon *m_weapons[6]; // +0x08
+	int m_curWeapon; // +0x20
+	int m_curWeaponLockedStatus; // +0x24
+	int m_filled; // +0x28
+	int m_anti; // +0x2C
+	int m_damage; // +0x30
+	unsigned char m_pitch; // +0x34
+	unsigned char m_hasDamage; // +0x35
+	unsigned char m_slotFlags[6]; // +0x36
+	int m_ownerID; // +0x3C
 };
 bool WeaponSet::setWeaponLock(WeaponSlotType weaponSlot, WeaponLockType lockType)
 {
-	Object *owner = TheGameLogic->findObjectByID(m_ownerID);
+	Object *owner = TheGameLogic->findObjectByID((ObjectID)m_ownerID);
 	if (lockType != NOT_LOCKED && m_weapons[weaponSlot] != 0)
 	{
 		if (lockType == LOCKED_PERMANENTLY)
@@ -314,10 +334,30 @@ class WeaponStore { friend class WeaponSet; protected:
 }; extern WeaponStore *TheWeaponStore;
 class Rva000CF0D6 { public: bool test(const Rva000CF0D6 *) const; };
 class ModelConditionFlags { public: bool rva000B3EB3() const; private: unsigned m_bits[19]; };
-class WeaponTemplateSet { public:
- char pad0[0x14]; const WeaponTemplate *m_weapons[6]; char pad2C[0x44-0x2c];
- BitFlags<218> m_kindOf44[6],m_victimKindOf[6]; ModelConditionFlags m_conditions194[6];
- bool m_sharedReload,m_sharedLock; char pad35E[2]; WeaponChoiceCriteria m_defaultCriteria; bool m_364;
+class INI;
+class WeaponTemplateSet
+{
+private:
+	static void parseWeapon(INI *ini, void *instance, void *store, const void *userData);
+	static void parseAutoChoose(INI *ini, void *instance, void *store, const void *userData);
+	static void parsePreferredAgainst(INI *ini, void *instance, void *store, const void *userData);
+public:
+	static void rva002C8C47(INI *ini, void *instance, void *store, const void *userData);
+	static void rva002C883E(INI *ini, void *instance, void *store, const void *userData);
+private:
+	unsigned char m_unreconstructed_00[0x14]; // +0x00
+public:
+	const WeaponTemplate *m_weapons[WEAPONSLOT_COUNT]; // +0x14 +0x14
+	unsigned int m_autoChooseMask[WEAPONSLOT_COUNT]; // +0x2C +0x2C
+	BitFlags<218> m_preferredAgainst[WEAPONSLOT_COUNT]; // +0x44 +0x44
+	BitFlags<218> m_onlyAgainst[WEAPONSLOT_COUNT]; // +0xEC +0xEC
+	ModelConditionFlags m_onlyInCondition[WEAPONSLOT_COUNT]; // +0x194 +0x194
+	bool m_sharedReload; // +0x35C
+	bool m_sharedLock; // +0x35D
+	char m_pad35E[0x2];
+	WeaponChoiceCriteria m_defaultCriteria; // +0x360
+	bool m_364; // +0x364
+	char m_pad365[0x3];
 };
 void WeaponSet::updateWeaponSet(const Object *obj)
 {
@@ -367,7 +407,7 @@ static __forceinline void clearSlotConditions(Object *owner)
 }
 void WeaponSet::releaseWeaponLock(WeaponLockType lockType)
 {
-	Object *owner = TheGameLogic->findObjectByID(m_ownerID);
+	Object *owner = TheGameLogic->findObjectByID((ObjectID)m_ownerID);
 	if (m_curWeaponLockedStatus != NOT_LOCKED)
 	{
 		if (lockType == LOCKED_PERMANENTLY)
@@ -625,7 +665,7 @@ CanAttackResult WeaponSet::getAbleToUseWeaponAgainstTarget(AbleToAttackType atta
 		Weapon *weapon = m_weapons[i];
 		if (weapon && weapon->rva002CCED3(source, victim))
 		{
-			const BitFlags<218> &mask = m_set->m_victimKindOf[i];
+			const BitFlags<218> &mask = m_set->m_onlyAgainst[i];
 			if (!mask.any() || ((const Thing *)victim)->isAnyKindOf(*(const BitFlags<69> *)&mask))
 				return okResult;
 		}
@@ -986,7 +1026,7 @@ bool WeaponSet::chooseBestWeaponForTarget(const Object *obj, const Object *victi
 			weaponIsReady = false;
 
 		const WeaponTemplateSet *set = m_set;
-		const BitFlags<218> &victimKindOf = set->m_victimKindOf[i];
+		const BitFlags<218> &victimKindOf = set->m_onlyAgainst[i];
 		if (victimKindOf.any())
 		{
 			if (((const Thing *)victim)->isAnyKindOf(*(const BitFlags<69> *)&victimKindOf))
@@ -1007,7 +1047,7 @@ bool WeaponSet::chooseBestWeaponForTarget(const Object *obj, const Object *victi
 			}
 		}
 
-		const BitFlags<218> &kindOf44 = m_set->m_kindOf44[i];
+		const BitFlags<218> &kindOf44 = m_set->m_preferredAgainst[i];
 		if (kindOf44.any() && ((const Thing *)victim)->isAnyKindOf(*(const BitFlags<69> *)&kindOf44))
 		{
 			damage = 1.0e10f;
@@ -1017,7 +1057,7 @@ bool WeaponSet::chooseBestWeaponForTarget(const Object *obj, const Object *victi
 			weaponIsReady = weapon->getStatus() != OUT_OF_AMMO && distance >= minRange;
 		}
 
-		const ModelConditionFlags &conditions = m_set->m_conditions194[i];
+		const ModelConditionFlags &conditions = m_set->m_onlyInCondition[i];
 		if (conditions.rva000B3EB3())
 		{
 			if (((const Rva000CF0D6 *)&obj->m_conditionBits)->test((const Rva000CF0D6 *)&conditions))

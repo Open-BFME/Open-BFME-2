@@ -4,7 +4,7 @@
 // WeaponTemplateSet FieldParse procs (retail WeaponSet.cpp run 0x002C726C..
 // 0x002C8C7A), split from the Zero Hour port in WeaponSet.cpp because the BFME 2
 // layout differs: six weapon slots, so the per-slot arrays sit at
-//   +0x14 const WeaponTemplate *m_template[6]
+//   +0x14 const WeaponTemplate *m_weapons[6]
 //   +0x2C UnsignedInt m_autoChooseMask[6]
 //   +0x44 KindOfMaskType m_preferredAgainst[6]   (0x1C each)
 //   +0xEC KindOfMaskType [6]                      ("OnlyAgainst")
@@ -49,6 +49,13 @@ public:
 	UnsignedInt m_bits[19];
 };
 
+// The matched attack/selection bodies use these same 28-byte KindOf and
+// 76-byte model-condition masks at +0x44/+0xEC and +0x194. The parser's
+// address-owned call views describe the existing callees, not member types.
+template<int N> class BitFlags;
+template<> class BitFlags<218> { public: bool any() const; private: unsigned m_bits[7]; };
+class ModelConditionFlags { public: bool rva000B3EB3() const; private: unsigned m_bits[19]; };
+
 class WeaponTemplate;
 
 enum WeaponSlotType
@@ -70,6 +77,11 @@ const char *TheCommandSourceMaskNames[] =
 	NULL
 };
 
+enum WeaponChoiceCriteria
+{
+ PREFER_MOST_DAMAGE=0, PREFER_LONGEST_RANGE=1, PREFER_SPECIAL=2,
+ PREFER_SMALLEST_RANGE_ERROR=3, PREFER_RANDOM=4, PREFER_TEMPLATE_DEFAULT=5
+};
 class WeaponTemplateSet
 {
 private:
@@ -79,14 +91,20 @@ private:
 public:
 	static void rva002C8C47(INI *ini, void *instance, void *store, const void *userData);
 	static void rva002C883E(INI *ini, void *instance, void *store, const void *userData);
-
 private:
-	unsigned char m_unreconstructed_00[0x14];
-	const WeaponTemplate *m_template[WEAPONSLOT_COUNT];		// +0x14
-	UnsignedInt m_autoChooseMask[WEAPONSLOT_COUNT];			// +0x2C
-	Rva00256499 m_preferredAgainst[WEAPONSLOT_COUNT];		// +0x44
-	Rva00256499 m_onlyAgainst[WEAPONSLOT_COUNT];			// +0xEC
-	Rva000B937E m_onlyInCondition[WEAPONSLOT_COUNT];		// +0x194
+	unsigned char m_unreconstructed_00[0x14]; // +0x00
+public:
+	const WeaponTemplate *m_weapons[WEAPONSLOT_COUNT]; // +0x14 +0x14
+	unsigned int m_autoChooseMask[WEAPONSLOT_COUNT]; // +0x2C +0x2C
+	BitFlags<218> m_preferredAgainst[WEAPONSLOT_COUNT]; // +0x44 +0x44
+	BitFlags<218> m_onlyAgainst[WEAPONSLOT_COUNT]; // +0xEC +0xEC
+	ModelConditionFlags m_onlyInCondition[WEAPONSLOT_COUNT]; // +0x194 +0x194
+	bool m_sharedReload; // +0x35C
+	bool m_sharedLock; // +0x35D
+	char m_pad35E[0x2];
+	WeaponChoiceCriteria m_defaultCriteria; // +0x360
+	bool m_364; // +0x364
+	char m_pad365[0x3];
 };
 
 // ?parseWeapon@WeaponTemplateSet@@CAXPAVINI@@PAX1PBX@Z
@@ -94,7 +112,7 @@ void WeaponTemplateSet::parseWeapon(INI *ini, void *instance, void * /*store*/, 
 {
 	WeaponTemplateSet *self = (WeaponTemplateSet *)instance;
 	WeaponSlotType wslot = (WeaponSlotType)ini->scanIndexList(ini->getNextToken(NULL), TheWeaponSlotTypeNames);
-	INI::parseWeaponTemplate(ini, instance, &self->m_template[wslot], NULL);
+	INI::parseWeaponTemplate(ini, instance, &self->m_weapons[wslot], NULL);
 }
 
 // ?parseAutoChoose@WeaponTemplateSet@@CAXPAVINI@@PAX1PBX@Z
@@ -110,7 +128,7 @@ void WeaponTemplateSet::parsePreferredAgainst(INI *ini, void *instance, void * /
 {
 	WeaponTemplateSet *self = (WeaponTemplateSet *)instance;
 	WeaponSlotType wslot = (WeaponSlotType)ini->scanIndexList(ini->getNextToken(NULL), TheWeaponSlotTypeNames);
-	self->m_preferredAgainst[wslot].rva00256499(ini, NULL);
+	((Rva00256499 *)&self->m_preferredAgainst[wslot])->rva00256499(ini, NULL);
 }
 
 // ?rva002C8C47@WeaponTemplateSet@@SAXPAVINI@@PAX1PBX@Z
@@ -118,7 +136,7 @@ void WeaponTemplateSet::rva002C8C47(INI *ini, void *instance, void * /*store*/, 
 {
 	WeaponTemplateSet *self = (WeaponTemplateSet *)instance;
 	WeaponSlotType wslot = (WeaponSlotType)ini->scanIndexList(ini->getNextToken(NULL), TheWeaponSlotTypeNames);
-	self->m_onlyAgainst[wslot].rva00256499(ini, NULL);
+	((Rva00256499 *)&self->m_onlyAgainst[wslot])->rva00256499(ini, NULL);
 }
 
 // ?rva002C883E@WeaponTemplateSet@@SAXPAVINI@@PAX1PBX@Z
@@ -126,5 +144,5 @@ void WeaponTemplateSet::rva002C883E(INI *ini, void *instance, void * /*store*/, 
 {
 	WeaponTemplateSet *self = (WeaponTemplateSet *)instance;
 	WeaponSlotType wslot = (WeaponSlotType)ini->scanIndexList(ini->getNextToken(NULL), TheWeaponSlotTypeNames);
-	self->m_onlyInCondition[wslot].rva000B937E(ini, NULL);
+	((Rva000B937E *)&self->m_onlyInCondition[wslot])->rva000B937E(ini, NULL);
 }

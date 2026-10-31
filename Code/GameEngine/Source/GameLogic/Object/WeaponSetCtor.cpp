@@ -10,42 +10,101 @@
 // ZH donor WeaponSet::WeaponSet zeroes the same fields.
 // ?isAnyWithinTargetPitch@WeaponSet@@ABE_NPBVObject@@0@Z is rowed.
 
-class WeaponSet
+#include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
+
+// The destructor and scalar deleter use the same Snapshot base. Retail's
+// first store installs WeaponSet's table; it is the compiler-owned vfptr,
+// not a second data member occupying the base at +0.
+class Weapon;
+class WeaponTemplateSet;
+
+enum WeaponSlotType
+{
+	PRIMARY_WEAPON = 0, WEAPONSLOT_COUNT = 6
+};
+enum WeaponLockType
+{
+	NOT_LOCKED = 0,
+	LOCKED_TEMPORARILY = 1,
+	LOCKED_PERMANENTLY = 2
+};
+enum WeaponChoiceCriteria
+{
+ PREFER_MOST_DAMAGE=0, PREFER_LONGEST_RANGE=1, PREFER_SPECIAL=2,
+ PREFER_SMALLEST_RANGE_ERROR=3, PREFER_RANDOM=4, PREFER_TEMPLATE_DEFAULT=5
+};
+enum CommandSourceType
+{
+	CMD_FROM_PLAYER = 0,
+	CMD_FROM_AI = 2
+};
+enum CanAttackResult
+{
+	ATTACKRESULT_NOT_POSSIBLE = 0,
+	ATTACKRESULT_INVALID_SHOT = 1,
+	ATTACKRESULT_POSSIBLE_AFTER_MOVING = 2,
+	ATTACKRESULT_POSSIBLE = 3
+};
+enum AbleToAttackType
+{
+	ATTACK_NEW_TARGET = 0,
+	ATTACK_TUNNEL_NETWORK_GUARD = 4
+};
+class Object;
+struct EmitVtableTag;
+struct Coord3D;
+class WeaponSet : public Snapshot
 {
 public:
 	WeaponSet();
-
+protected:
+	virtual void crc(Xfer *xfer);
+	virtual void xfer(Xfer *xfer);
+	virtual void loadPostProcess(void);
+public:
+	bool isOutOfAmmo() const;
+	void reloadAllAmmo(const Object *obj, bool now);
 private:
-	const void *m_vptr;
-	const void *m_templateSet;
-	void *m_weapons[6];
-	int m_20;
-	int m_24;
-	int m_28;
-	int m_2C;
-	int m_30;
-	unsigned char m_34;
-	unsigned char m_35;
-	unsigned char m_36[6];
-	int m_3C;
+	bool isAnyWithinTargetPitch(const Object *obj, const Object *victim) const;
+public:
+	const Weapon *findAmmoPipShowingWeapon() const;
+	Weapon *findWaypointFollowingCapableWeapon();
+	WeaponSet(EmitVtableTag *);
+	bool rva002C75D1(int slot, int cmdSource) const;
+	bool setWeaponLock(WeaponSlotType weaponSlot, WeaponLockType lockType);
+	void updateWeaponSet(const Object *);
+	void releaseWeaponLock(WeaponLockType);
+	bool chooseBestWeaponForTarget(const Object *, const Object *, WeaponChoiceCriteria, CommandSourceType);
+	CanAttackResult getAbleToUseWeaponAgainstTarget(AbleToAttackType, const Object *, const Object *, const Coord3D *, CommandSourceType) const;
+	CanAttackResult getAbleToAttackSpecificObject(AbleToAttackType, const Object *, const Object *, CommandSourceType) const;
+	virtual ~WeaponSet();
+private:
+	const WeaponTemplateSet *m_set; // +0x04
+	Weapon *m_weapons[6]; // +0x08
+	int m_curWeapon; // +0x20
+	int m_curWeaponLockedStatus; // +0x24
+	int m_filled; // +0x28
+	int m_anti; // +0x2C
+	int m_damage; // +0x30
+	unsigned char m_pitch; // +0x34
+	unsigned char m_hasDamage; // +0x35
+	unsigned char m_slotFlags[6]; // +0x36
+	int m_ownerID; // +0x3C
 };
-
-extern "C" const void *const __identifier("??_7WeaponSet@@6B@")[];
 
 WeaponSet::WeaponSet()
 {
-	m_vptr = __identifier("??_7WeaponSet@@6B@");
-	m_20 = 0;
-	m_24 = 0;
-	m_templateSet = 0;
-	m_28 = 0;
-	m_2C = 0;
-	m_30 = 0;
-	m_34 = 0;
-	m_35 = 0;
+	m_curWeapon = 0;
+	m_curWeaponLockedStatus = 0;
+	m_set = 0;
+	m_filled = 0;
+	m_anti = 0;
+	m_damage = 0;
+	m_pitch = 0;
+	m_hasDamage = 0;
 	for (int i = 0; i < 6; ++i) {
 		m_weapons[i] = 0;
-		m_36[i] = 0;
+		m_slotFlags[i] = 0;
 	}
-	m_3C = 0;
+	m_ownerID = 0;
 }
