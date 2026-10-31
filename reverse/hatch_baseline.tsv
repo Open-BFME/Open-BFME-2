@@ -2890,6 +2890,7 @@ alternatename	Code/GameEngine/Source/GameLogic/Map/Rva0019B780Lookup_Rva0032d0b5
 alternatename	Code/GameEngine/Source/GameLogic/Map/Rva0019B780Lookup_Rva0032d0b5.cpp	?find@Rva0019B780Tree@@QBEPAURva0019B780Node@@ABURva0019B780Key@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Map/Rva0019B850TeamRecUpdate_Rva0019BE80TeamRec_updateTeam.cpp	?find@Rva0032C07COwner@@QAEPAUTeamMapNode@@AAURva0002C4FD@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Map/SidesList.cpp	??1Rva00329EE9StringValue@@QAE@XZ	1
+alternatename	Code/GameEngine/Source/GameLogic/Map/SidesList.cpp	??1Rva0032B4B2Element@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Map/SidesList.cpp	?getAsciiString@Rva00329EE9Dict@@QBE?AVRva00329EE9StringValue@@HPA_N@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Map/SidesList.cpp	?isEmpty@Rva00329EE9StringValue@@QBE_NXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Map/SidesListTeamsInfoRecClear.cpp	??0?$vector@VBfmeThingUBB@@V?$allocator@VBfmeThingUBB@@@_STL@@@_STL@@QAE@I@Z	1
@@ -4106,7 +4107,6 @@ alternatename	Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva000BBC89.cpp	?_M_
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0021C21B.cpp	?bfmeCopyOneCDF@BfmePartCDF@@QAEXPAU1@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva002CFBAE.cpp	??1Rva002CFBAEElement@@QAE@XZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva002D0B9A.cpp	?_M_create_node@?$_Rb_tree@URva002D0B9AElement@@U?$pair@$$CBURva002D0B9AElement@@H@_STL@@U?$_Select1st@U?$pair@$$CBURva002D0B9AElement@@H@_STL@@@3@U?$less@URva002D0B9AElement@@@3@V?$allocator@U?$pair@$$CBURva002D0B9AElement@@H@_STL@@@3@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBURva002D0B9AElement@@H@_STL@@@2@ABU?$pair@$$CBURva002D0B9AElement@@H@2@@Z	1
-alternatename	Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0032B4B2.cpp	??1Rva0032B4B2Element@@UAE@XZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva003F421D.cpp	??4Rva003F421DElement@@QAEAAU0@ABU0@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva004390F7.cpp	?insert@?$list@URva004390F7Element@@V?$allocator@URva004390F7Element@@@_STL@@@_STL@@QAE?AU?$_List_iterator@URva004390F7Element@@U?$_Nonconst_traits@URva004390F7Element@@@_STL@@@2@U32@ABURva004390F7Element@@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva005FE0A6.cpp	??4Rva005FE0A6Element@@QAEAAU0@ABU0@@Z	1
@@ -10663,9 +10663,9 @@ pragma_optimize	Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrder.cpp	"t",on	
 pragma_optimize	Code/GameEngine/Source/GameLogic/AI/ai.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/AI/ai.cpp	"s",off	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/AI/ai.cpp	"t",on	1
-pragma_optimize	Code/GameEngine/Source/GameLogic/Map/SidesList.cpp	"",on	2
-pragma_optimize	Code/GameEngine/Source/GameLogic/Map/SidesList.cpp	"s",off	1
-pragma_optimize	Code/GameEngine/Source/GameLogic/Map/SidesList.cpp	"t",on	2
+pragma_optimize	Code/GameEngine/Source/GameLogic/Map/SidesList.cpp	"",on	3
+pragma_optimize	Code/GameEngine/Source/GameLogic/Map/SidesList.cpp	"s",off	2
+pragma_optimize	Code/GameEngine/Source/GameLogic/Map/SidesList.cpp	"t",on	3
 pragma_optimize	Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp	"s",off	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp	"t",on	1
@@ -11426,9 +11426,6 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlHelperRva002AE5CF.cpp	"t"
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlHelperRva002B3049.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlHelperRva002B3049.cpp	"s",off	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlHelperRva002B3049.cpp	"t",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlHelperRva0032CD3B.cpp	"",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlHelperRva0032CD3B.cpp	"s",off	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlHelperRva0032CD3B.cpp	"t",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlHelperRva00470398.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlHelperRva00470398.cpp	"s",off	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlHelperRva00470398.cpp	"t",on	1
