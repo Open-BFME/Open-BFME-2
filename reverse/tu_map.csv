@@ -31869,7 +31869,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x003EEF13,37,code,Code/GameEngine/Source/Common/LivingWorldRegionEffectsManager.cpp,approved,C,C=0x003EEAFB..0x003EEF38 provisional,Code/GameEngine/Source/Common/Rva003EE900Forward.cpp
 0x003EEF38,104,code,Code/GameEngine/Source/Common/LivingWorldRegionEffectsManager.cpp,approved,C,C=0x003EEAFB..0x003EEFA0 provisional,Code/GameEngine/Source/Common/Rva003EE900Forward.cpp
 0x003EEFA0,59,code,Code/GameEngine/Source/Common/LivingWorldRegionEffectsManager.cpp,approved,C,C=0x003EEAFB..0x003EEFDB provisional,Code/GameEngine/Source/Common/Rva003EE900Forward.cpp
-0x003EEFDB,45,code,Code/GameEngine/Source/Common/LivingWorldRegionEffectsManager.cpp,approved,C,C=0x003EEAFB..0x003EF008 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp
+0x003EEFDB,45,code,Code/GameEngine/Source/Common/LivingWorldRegionEffectsManager.cpp,approved,C,C=0x003EEAFB..0x003EF008 provisional,Code/GameEngine/Source/Common/LivingWorldRegionEffectsManager.cpp
 0x003EF008,57,code,Code/GameEngine/Source/Common/LivingWorldRegionEffectsManager.cpp,approved,C,C=0x003EEAFB..0x003EF041 provisional,Code/GameEngine/Source/Common/Rva00210F96Body.cpp
 0x003EF041,37,code,Code/GameEngine/Source/Common/LivingWorldRegionEffectsManager.cpp,approved,C,C=0x003EEAFB..0x003EF066 provisional,Code/GameEngine/Source/Common/Rva003EE900Forward.cpp
 0x003EF066,37,code,Code/GameEngine/Source/Common/LivingWorldRegionEffectsManager.cpp,approved,C,C=0x003EEAFB..0x003EF08B provisional,Code/GameEngine/Source/Common/LivingWorldRegionEffectsManager.cpp
@@ -76564,8 +76564,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0078387A,10,code,Code/GameEngine/Source/Common/LivingWorldRegionEffectsManager.cpp,approved,P,P=0x003EEAFB@FuncInfo0x0092F850 provisional,Code/GameEngine/Source/Common/Rva003EE746ColorProvider.cpp
 0x00783884,8,code,Code/GameEngine/Source/Common/LivingWorldRegionEffectsManager.cpp,approved,P,P=0x003EEC63@FuncInfo0x0092F874 provisional,Code/GameEngine/Source/Common/LivingWorldRegionEffectsManager.cpp
 0x0078388C,10,code,Code/GameEngine/Source/Common/LivingWorldRegionEffectsManager.cpp,approved,P,P=0x003EEC63@FuncInfo0x0092F874 provisional,Code/GameEngine/Source/Common/LivingWorldRegionEffectsManager.cpp
-0x00783896,14,code,Code/GameEngine/Source/Common/LivingWorldRegionEffectsManager.cpp,approved,P,P=0x003EEFDB@FuncInfo0x0092F898 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp
-0x007838A4,10,code,Code/GameEngine/Source/Common/LivingWorldRegionEffectsManager.cpp,approved,P,P=0x003EEFDB@FuncInfo0x0092F898 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp
+0x00783896,14,code,Code/GameEngine/Source/Common/LivingWorldRegionEffectsManager.cpp,approved,P,P=0x003EEFDB@FuncInfo0x0092F898 provisional,Code/GameEngine/Source/Common/LivingWorldRegionEffectsManager.cpp
+0x007838A4,10,code,Code/GameEngine/Source/Common/LivingWorldRegionEffectsManager.cpp,approved,P,P=0x003EEFDB@FuncInfo0x0092F898 provisional,Code/GameEngine/Source/Common/LivingWorldRegionEffectsManager.cpp
 0x007838AE,8,code,Code/GameEngine/Source/Common/LivingWorldRegionEffectsManager.cpp,approved,P,P=0x003EF14A@FuncInfo0x0092F8DC provisional,Code/GameEngine/Source/Common/System/Rva003EF14ADtor.cpp
 0x007838B6,11,code,Code/GameEngine/Source/Common/LivingWorldRegionEffectsManager.cpp,approved,P,P=0x003EF14A@FuncInfo0x0092F8DC provisional,Code/GameEngine/Source/Common/System/Rva003EF14ADtor.cpp
 0x007838C1,11,code,Code/GameEngine/Source/Common/LivingWorldRegionEffectsManager.cpp,approved,P,P=0x003EF14A@FuncInfo0x0092F8DC provisional,Code/GameEngine/Source/Common/System/Rva003EF14ADtor.cpp
