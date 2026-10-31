@@ -69600,7 +69600,7 @@ __ehhandler$?init@W3DView@@UAEXXZ,,0x0075FD33,10,Code/GameEngineDevice/Source/W3
 ?rva004EC06A@Rva004EC062@@QAEXPAX@Z,,0x004EC06A,8,Code/GameEngine/Source/Common/GapBodiesS9B.cpp,matched,member forward +0x38 to rowed 0x00598149; twin of 0x0022D920
 ?get@Rva0047B9A6@@QBEMXZ,,0x0047B9A6,7,Code/GameEngine/Source/Common/GapBodiesS9A.cpp,matched,float getter +0x354 (x87 return)
 ?isBelow@Rva004F032A@@QBE_NXZ,,0x004F032A,10,Code/GameEngine/Source/Common/GapBodiesS9A.cpp,matched,signed compare +0x10 < +0x14 bare setl
-?invertWord@@YAXPAI@Z,,0x00481BAB,7,Code/GameEngine/Source/Common/GapBodiesS9A.cpp,matched,cdecl not of the pointed word
+?invertWord@@YAXPAI@Z,,0x00481BAB,7,Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehavior.cpp,matched,cdecl not of the pointed word
 ?rva004D973E@Rva004D973EOverridable@@QBEPBHXZ,,0x004D973E,9,Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerTemplateFieldGetters.cpp,matched,final-override member address +0x3C via 0x00288609
 ?rva004D9747@Rva004D973EOverridable@@QBEPBHXZ,,0x004D9747,9,Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerTemplateFieldGetters.cpp,matched,final-override member address +0x40 via 0x00288609
 ?get@Rva003FDD25@@QBEMXZ,,0x003FDD25,4,Code/GameEngine/Source/Common/GapBodiesS9A.cpp,matched,float getter +0x5C (no caller reference; address-named view)

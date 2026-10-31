@@ -88,12 +88,6 @@ bool Rva004F032A::isBelow() const
 	return m_10 < m_14 ? true : false;
 }
 
-// --- 0x00481BAB (7B): invert the word the argument points at.
-void invertWord(unsigned int *value)
-{
-	*value = ~*value;
-}
-
 // --- 0x003FDD25: return the float at +0x5C.
 class Rva003FDD25
 {

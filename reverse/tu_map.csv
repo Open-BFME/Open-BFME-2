@@ -37214,7 +37214,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00481A6E,48,code,Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehavior.cpp,approved,C,C=0x00481A54..0x00481A9E,Code/GameEngine/Source/Common/GapBodiesS3C.cpp
 0x00481A9E,225,code,Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehavior.cpp,approved,C,C=0x00481A54..0x00481B7F,Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehavior.cpp
 0x00481B7F,44,code,Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehavior.cpp,approved,C,C=0x00481A54..0x00481BAB,Code/GameEngine/Source/Common/System/BitFlags11DisabilityCtors.cpp
-0x00481BAB,7,code,Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehavior.cpp,approved,C,C=0x00481A54..0x00481BB2,Code/GameEngine/Source/Common/GapBodiesS9A.cpp
+0x00481BAB,7,code,Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehavior.cpp,approved,C,C=0x00481A54..0x00481BB2,Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehavior.cpp
 0x00481BB2,28,code,Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehavior.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehavior.cpp,Code/GameEngine/Source/GameLogic/Object/Behavior/BehaviorModuleDeletingDtors.cpp
 0x00481BCE,48,code,Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehavior.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehavior.cpp,Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehavior.cpp
 0x00481BFE,14,code,Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehavior.cpp,approved,C,C=0x00481BCE..0x00481C0C,Code/GameEngine/Source/Common/GapBodiesGE22.cpp

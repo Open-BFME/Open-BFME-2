@@ -320,7 +320,9 @@ enum UpdateSleepTime
 	UPDATE_SLEEP_FOREVER = 0x3fffffff
 };
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
+
 class Rva0028ADECmpBoolField;
+
 class BodyModule;
 
 enum SleepyUpdatePhase { PHASE_NORMAL = 2 };
@@ -406,6 +408,158 @@ public:
 };
 
 void XferObjectID(Xfer *xfer, ObjectID *objectID);
+
+// Small GameEngine bodies with no caller and no table reference (out-of-line
+// copies of inline members), found by their instruction skeletons matching
+// rowed bodies. Owners are not recovered: each keeps an address-derived
+// name and a view of only the members it touches.
+
+// --- 0x0042665E (9B): raise the byte at +5 and clear the one at +6; the
+// shape of GameInfo::endGame 0x003FF296.
+class Rva0042665E
+{
+public:
+	void rva0042665E();
+
+private:
+	char m_pad00[5];
+	bool m_05;
+	bool m_06;
+};
+
+// --- 0x004F5FCF (9B): zero the float at +0xC; the shape of
+// Rva00094BA0Float::zero 0x00094BA0 (SSE zero store).
+class Rva004F5FCF
+{
+public:
+	void zero();
+
+private:
+	char m_pad00[0xC];
+	float m_0C;
+};
+
+// --- 0x003BA655 (10B): store the bool argument at +0x4A (ret 4); the shape
+// of DockUpdate::setDockCrippled 0x00589661.
+class Rva003BA655
+{
+public:
+	void set(bool value);
+
+private:
+	char m_pad00[0x4A];
+	bool m_4A;
+};
+
+// --- 0x0047B9A6 (7B): return the float at +0x354 (x87 return, fld).
+class Rva0047B9A6
+{
+public:
+	float get() const;
+private:
+	char m_pad00[0x354];
+	float m_354;
+};
+
+// --- 0x004F032A (10B): whether the int at +0x10 is below the one at +0x14.
+class Rva004F032A
+{
+public:
+	bool isBelow() const;
+private:
+	char m_pad00[0x10];
+	int m_10;
+	int m_14;
+};
+
+// --- 0x003FDD25: return the float at +0x5C.
+class Rva003FDD25
+{
+public:
+	float get() const;
+private:
+	char m_pad00[0x5C];
+	float m_5C;
+};
+
+// --- 0x0041F27F: return the float at +0x170.
+class Rva0041F27F
+{
+public:
+	float get() const;
+private:
+	char m_pad00[0x170];
+	float m_170;
+};
+
+// --- 0x00403129: return the flag byte at +0xD2.
+class Rva00403129
+{
+public:
+	bool get() const;
+private:
+	char m_pad00[0xD2];
+	bool m_D2;
+};
+
+// --- 0x0042CAE4: return the flag byte at +0x8C4.
+class Rva0042CAE4
+{
+public:
+	bool get() const;
+private:
+	char m_pad00[0x8C4];
+	bool m_8C4;
+};
+
+// --- 0x0040FB36 (7B): the address of the member at +0x270.
+class Rva0040FB36
+{
+public:
+	void *get();
+private:
+	char m_pad00[0x270];
+	int m_270;
+};
+
+// --- 0x0036CB70 (7B): pre-increment the counter at +0x1C and return it.
+class Rva0036CB70
+{
+public:
+	int next();
+private:
+	char m_pad00[0x1C];
+	int m_1C;
+};
+
+// --- 0x00355138 (9B): follow +4, then +0, and return the word at +8.
+struct Rva00355138Inner { char m_pad00[8]; int m_08; };
+
+struct Rva00355138Mid { Rva00355138Inner *m_00; };
+
+class Rva00355138
+{
+public:
+	int get() const;
+private:
+	int m_00;
+	Rva00355138Mid *m_04;
+};
+
+// --- 0x00388C98 / 0x00388CA0 (8B each): the address of the argument's
+// +0xC / +0x10 member (cdecl).
+struct Rva00388C98Record { char m_pad00[0xC]; int m_0C; int m_10; };
+
+// --- 0x00419CAF (3B): invert the word at +0.
+class Rva00419CAF
+{
+public:
+	void invert();
+private:
+	unsigned int m_00;
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehavior.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehavior.cpp
 
@@ -627,24 +781,6 @@ void PropagandaTowerBehavior::doScan()
 	m_insideList = newInsideList;
 }
 
-// tu-skeleton: 0x0048195F 29B ??_GRva0048195F@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/InlineDtorDeletingDtors1.cpp (not merged yet)
-
-// tu-skeleton: 0x0048197C 66B ??0PropagandaTowerBehaviorModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehaviorModuleDataCtor2.cpp (not merged yet)
-
-// tu-skeleton: 0x004819CF 105B ??0PropagandaTowerBehavior@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehaviorConstructor.cpp (not merged yet)
-
-// tu-skeleton: 0x00481A38 28B ??_GRva0048180C@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp (not merged yet)
-
-// tu-skeleton: 0x00481A6E 48B ?rva00481A6E@Rva00481A6E@@UAEXHPAX@Z -- matched in Code/GameEngine/Source/Common/GapBodiesS3C.cpp (not merged yet)
-
-// tu-skeleton: 0x00481B7F 44B ??0?$BitFlags@$0L@@@QAE@W4BogusInitType@0@H@Z -- matched in Code/GameEngine/Source/Common/System/BitFlags11DisabilityCtors.cpp (not merged yet)
-
-// tu-skeleton: 0x00481BAB 7B ?invertWord@@YAXPAI@Z -- matched in Code/GameEngine/Source/Common/GapBodiesS9A.cpp (not merged yet)
-
-// tu-skeleton: 0x00481BB2 28B ??_GPropagandaTowerBehaviorModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BehaviorModuleDeletingDtors.cpp (not merged yet)
-
-// tu-skeleton: 0x00481BFE 14B ?Rva00481BFE@@YA_NPBXABV?$BitFlags@$0L@@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE22.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehaviorUpdate.cpp
 
 // ?update@PropagandaTowerBehavior@@UAE?AW4UpdateSleepTime@@XZ
@@ -705,6 +841,30 @@ UpdateSleepTime PropagandaTowerBehavior::update()
 	}
 	return UPDATE_SLEEP_NONE;
 }
+
+// tu-skeleton: 0x0048195F 29B ??_GRva0048195F@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/InlineDtorDeletingDtors1.cpp (not merged yet)
+
+// tu-skeleton: 0x0048197C 66B ??0PropagandaTowerBehaviorModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehaviorModuleDataCtor2.cpp (not merged yet)
+
+// tu-skeleton: 0x004819CF 105B ??0PropagandaTowerBehavior@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehaviorConstructor.cpp (not merged yet)
+
+// tu-skeleton: 0x00481A38 28B ??_GRva0048180C@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp (not merged yet)
+
+// tu-skeleton: 0x00481A6E 48B ?rva00481A6E@Rva00481A6E@@UAEXHPAX@Z -- matched in Code/GameEngine/Source/Common/GapBodiesS3C.cpp (not merged yet)
+
+// tu-skeleton: 0x00481B7F 44B ??0?$BitFlags@$0L@@@QAE@W4BogusInitType@0@H@Z -- matched in Code/GameEngine/Source/Common/System/BitFlags11DisabilityCtors.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/GapBodiesS9A.cpp
+
+// --- 0x00481BAB (7B): invert the word the argument points at.
+void invertWord(unsigned int *value)
+{
+	*value = ~*value;
+}
+
+// tu-skeleton: 0x00481BB2 28B ??_GPropagandaTowerBehaviorModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BehaviorModuleDeletingDtors.cpp (not merged yet)
+
+// tu-skeleton: 0x00481BFE 14B ?Rva00481BFE@@YA_NPBXABV?$BitFlags@$0L@@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE22.cpp (not merged yet)
 
 // tu-skeleton: 0x0078BB08 8B Unwind@00b8bb08 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehaviorConstructor.cpp (not merged yet)
 
