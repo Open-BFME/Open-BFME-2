@@ -40961,7 +40961,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x004D4A8E,50,code,Code/GameEngine/Source/GameNetwork/Transport.cpp,approved,C,C=0x004D4A59..0x004D4AC0,Code/GameEngine/Source/GameNetwork/Transport.cpp
 0x004D4AC0,50,code,Code/GameEngine/Source/GameNetwork/Transport.cpp,approved,C,C=0x004D4A59..0x004D4AF2,Code/GameEngine/Source/GameNetwork/Transport.cpp
 0x004D4AF2,153,code,Code/GameEngine/Source/GameNetwork/Transport.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/Transport.cpp S=Code/GameEngine/Source/GameNetwork/Transport.cpp N=Code/GameEngine/Source/GameNetwork/Transport.cpp,Code/GameEngine/Source/GameNetwork/Transport.cpp
-0x004D4B8B,28,code,,displaced,-,N=Code/GameEngine/Source/Common/UDP.cpp,Code/GameEngine/Source/Common/Rva0059510DClear.cpp
+0x004D4B8B,28,code,,displaced,-,N=Code/GameEngine/Source/Common/UDP.cpp,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
 0x004D4BA7,353,code,Code/GameEngine/Source/GameNetwork/Transport.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/Transport.cpp S=Code/GameEngine/Source/GameNetwork/Transport.cpp N=Code/GameEngine/Source/GameNetwork/Transport.cpp W=Code/GameEngine/Source/GameNetwork/Transport.cpp,Code/GameEngine/Source/GameNetwork/Transport.cpp
 0x004D4D08,446,code,Code/GameEngine/Source/GameNetwork/Transport.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/Transport.cpp S=Code/GameEngine/Source/GameNetwork/Transport.cpp N=Code/GameEngine/Source/GameNetwork/Transport.cpp W=Code/GameEngine/Source/GameNetwork/Transport.cpp,Code/GameEngine/Source/GameNetwork/Transport.cpp
 0x004D4EC6,180,code,Code/GameEngine/Source/GameNetwork/Transport.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/Transport.cpp S=Code/GameEngine/Source/GameNetwork/Transport.cpp N=Code/GameEngine/Source/GameNetwork/Transport.cpp,Code/GameEngine/Source/GameNetwork/Transport.cpp
@@ -48261,44 +48261,44 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00594B56,188,code,Code/GameEngine/Source/GameNetwork/udp.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/udp.cpp N=Code/GameEngine/Source/GameNetwork/UDP.cpp,Code/GameEngine/Source/GameNetwork/udp.cpp
 0x00594C12,109,code,Code/GameEngine/Source/GameNetwork/udp.cpp,approved,C,W=Code/GameEngine/Source/GameNetwork/udp.cpp C=0x00594B56..0x00594C7F,Code/GameEngine/Source/GameNetwork/udp.cpp
 0x00594C7F,94,code,Code/GameEngine/Source/GameNetwork/udp.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/udp.cpp N=Code/GameEngine/Source/GameNetwork/UDP.cpp,Code/GameEngine/Source/GameNetwork/udp.cpp
-0x00594CDD,154,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp S=Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp N=Code/GameEngine/Source/Common/FirewallHelperClass.cpp,Code/GameEngine/Source/Common/Rva00594CDDPermuted.cpp
+0x00594CDD,154,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp S=Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp N=Code/GameEngine/Source/Common/FirewallHelperClass.cpp,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
 0x00594D77,37,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp S=Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp N=Code/GameEngine/Source/GameNetwork/FirewallHelperClass.cpp,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
 0x00594D9C,36,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp S=Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp N=Code/GameEngine/Source/GameNetwork/FirewallHelperClass.cpp,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
-0x00594DC0,71,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,C,C=0x00594D9C..0x00594E07,Code/GameEngine/Source/GameNetwork/Rva00594DC0Convert.cpp
-0x00594E07,232,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,C,C=0x00594D9C..0x00594EEF,Code/GameEngine/Source/GameNetwork/Rva00594E07.cpp
+0x00594DC0,71,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,C,C=0x00594D9C..0x00594E07,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
+0x00594E07,232,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,C,C=0x00594D9C..0x00594EEF,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
 0x00594EEF,13,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,S,S=Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp N=Code/GameEngine/Source/GameNetwork/FirewallHelperClass.cpp,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
-0x00594EFC,11,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,C,C=0x00594EEF..0x00594F07,Code/GameEngine/Source/GameNetwork/Rva00594EFCGet.cpp
+0x00594EFC,11,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,C,C=0x00594EEF..0x00594F07,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
 0x00594F07,5,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,C,C=0x00594EEF..0x00594F0C,Code/GameEngine/Source/Common/Disp8WordFieldGetters.cpp
 0x00594F0C,13,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,S,S=Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp N=Code/GameEngine/Source/GameNetwork/FirewallHelperClass.cpp,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
 0x00594F19,263,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,C,W=Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp C=0x00594F0C..0x00595020,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
 0x00595020,59,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,C,C=0x00594F0C..0x0059505B,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
 0x0059505B,46,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,C,C=0x00594F0C..0x00595089,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
-0x00595089,132,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp S=Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp N=Code/GameEngine/Source/GameNetwork/FirewallHelperClass.cpp,Code/GameEngine/Source/GameNetwork/FirewallHelper_FirewallHelperClass_openSpareSocket.cpp
-0x0059510D,54,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,C,C=0x00595089..0x00595143,Code/GameEngine/Source/Common/Rva0059510DClear.cpp
-0x00595143,25,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,C,C=0x00595089..0x0059515C,Code/GameEngine/Source/Common/Rva00595143Firewall.cpp
-0x0059515C,35,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,C,C=0x00595089..0x0059517F,Code/GameEngine/Source/Common/Rva0059515CClear.cpp
-0x0059517F,148,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,C,W=Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp C=0x00595089..0x00595213,Code/GameEngine/Source/Common/Rva0059517FSend.cpp
-0x00595213,177,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,C,C=0x00595089..0x005952C4,Code/GameEngine/Source/Common/Rva0059517FSend.cpp
-0x005952C4,134,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,C,C=0x00595089..0x0059534A,Code/GameEngine/Source/Common/Rva005952C4Recv.cpp
-0x0059534A,70,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,C,C=0x00595089..0x00595390,Code/GameEngine/Source/Common/Rva0059534ACleanup.cpp
-0x00595390,11,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp S=Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp N=Code/GameEngine/Source/Common/FirewallHelperClass.cpp,Code/GameEngine/Source/Common/FirewallHelperClass.cpp
-0x0059539B,89,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp S=Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp N=Code/GameEngine/Source/GameNetwork/FirewallHelperClass.cpp,Code/GameEngine/Source/GameNetwork/FirewallHelperDetection.cpp
-0x005953F4,94,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp S=Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp N=Code/GameEngine/Source/GameNetwork/FirewallHelperClass.cpp,Code/GameEngine/Source/GameNetwork/FirewallHelperDetectionBeginUpdate.cpp
-0x00595452,563,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp S=Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp N=Code/GameEngine/Source/GameNetwork/FirewallHelperClass.cpp,Code/GameEngine/Source/GameNetwork/FirewallHelperDetectionBeginUpdate.cpp
-0x00595685,183,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,C,C=0x00595452..0x0059573C,Code/GameEngine/Source/Common/Rva00595A9F.cpp
-0x0059573C,153,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,C,C=0x00595452..0x005957D5,Code/GameEngine/Source/Common/Rva00595A9F.cpp
-0x005957D5,215,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp S=Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp N=Code/GameEngine/Source/GameNetwork/FirewallHelperClass.cpp,Code/GameEngine/Source/GameNetwork/FirewallHelperDetection.cpp
-0x005958AC,499,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp S=Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp N=Code/GameEngine/Source/GameNetwork/FirewallHelperClass.cpp,Code/GameEngine/Source/GameNetwork/FirewallHelperDetection.cpp
-0x00595A9F,248,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,C,C=0x005958AC..0x00595B97,Code/GameEngine/Source/Common/Rva00595A9F.cpp
-0x00595B97,109,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,C,C=0x005958AC..0x00595C04,Code/GameEngine/Source/Common/Rva00595A9F.cpp
-0x00595C04,117,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,C,C=0x005958AC..0x00595C79,Code/GameEngine/Source/Common/Rva00595C79Permuted.cpp
-0x00595C79,34,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,C,C=0x005958AC..0x00595C9B,Code/GameEngine/Source/Common/Rva00595C79Permuted.cpp
-0x00595C9B,112,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,C,C=0x005958AC..0x00595D2D,Code/GameEngine/Source/Common/Rva00595C79Permuted.cpp
-0x00595D0B,34,code,,displaced,-,N=Code/GameEngine/Source/Common/FirewallHelperClass.cpp,Code/GameEngine/Source/Common/FirewallHelperClass.cpp
-0x00595D2D,104,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp S=Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp N=Code/GameEngine/Source/GameNetwork/FirewallHelperClass.cpp,Code/GameEngine/Source/GameNetwork/FirewallHelperDetection.cpp
-0x00595D95,177,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,C,C=0x00595D2D..0x00595E46,Code/GameEngine/Source/Common/Rva00595D95Firewall.cpp
-0x00595E46,314,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,C,C=0x00595D2D..0x00595F80,Code/GameEngine/Source/Common/Rva00595E46Firewall.cpp
-0x00595F80,215,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp S=Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp N=Code/GameEngine/Source/Common/FirewallHelperClass.cpp,Code/GameEngine/Source/Common/Rva00595F80Firewall.cpp
+0x00595089,132,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp S=Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp N=Code/GameEngine/Source/GameNetwork/FirewallHelperClass.cpp,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
+0x0059510D,54,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,C,C=0x00595089..0x00595143,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
+0x00595143,25,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,C,C=0x00595089..0x0059515C,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
+0x0059515C,35,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,C,C=0x00595089..0x0059517F,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
+0x0059517F,148,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,C,W=Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp C=0x00595089..0x00595213,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
+0x00595213,177,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,C,C=0x00595089..0x005952C4,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
+0x005952C4,134,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,C,C=0x00595089..0x0059534A,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
+0x0059534A,70,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,C,C=0x00595089..0x00595390,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
+0x00595390,11,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp S=Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp N=Code/GameEngine/Source/Common/FirewallHelperClass.cpp,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
+0x0059539B,89,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp S=Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp N=Code/GameEngine/Source/GameNetwork/FirewallHelperClass.cpp,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
+0x005953F4,94,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp S=Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp N=Code/GameEngine/Source/GameNetwork/FirewallHelperClass.cpp,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
+0x00595452,563,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp S=Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp N=Code/GameEngine/Source/GameNetwork/FirewallHelperClass.cpp,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
+0x00595685,183,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,C,C=0x00595452..0x0059573C,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
+0x0059573C,153,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,C,C=0x00595452..0x005957D5,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
+0x005957D5,215,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp S=Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp N=Code/GameEngine/Source/GameNetwork/FirewallHelperClass.cpp,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
+0x005958AC,499,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp S=Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp N=Code/GameEngine/Source/GameNetwork/FirewallHelperClass.cpp,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
+0x00595A9F,248,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,C,C=0x005958AC..0x00595B97,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
+0x00595B97,109,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,C,C=0x005958AC..0x00595C04,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
+0x00595C04,117,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,C,C=0x005958AC..0x00595C79,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
+0x00595C79,34,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,C,C=0x005958AC..0x00595C9B,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
+0x00595C9B,112,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,C,C=0x005958AC..0x00595D2D,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
+0x00595D0B,34,code,,displaced,-,N=Code/GameEngine/Source/Common/FirewallHelperClass.cpp,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
+0x00595D2D,104,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp S=Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp N=Code/GameEngine/Source/GameNetwork/FirewallHelperClass.cpp,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
+0x00595D95,177,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,C,C=0x00595D2D..0x00595E46,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
+0x00595E46,314,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,C,C=0x00595D2D..0x00595F80,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
+0x00595F80,215,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp S=Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp N=Code/GameEngine/Source/Common/FirewallHelperClass.cpp,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
 0x00596057,18,code,,,-,,Code/GameEngine/Source/Common/Rva0025BFE3Derived.cpp
 0x00596069,11,code,,,-,,Code/GameEngine/Source/Common/Rva0025BFE3Derived.cpp
 0x00596074,5,code,,,-,,Code/GameEngine/Source/Common/TailJumpWrappers5B.cpp
@@ -87040,27 +87040,27 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0079D1B2,10,code,Code/GameEngine/Source/GameNetwork/NetPacket.cpp,approved,P,P=0x005946E1@FuncInfo0x00952F84,Code/GameEngine/Source/GameNetwork/NetPacket.cpp
 0x0079D1BC,10,code,Code/GameEngine/Source/GameNetwork/NetPacket.cpp,approved,P,P=0x005946E1@FuncInfo0x00952F84,Code/GameEngine/Source/GameNetwork/NetPacket.cpp
 0x0079D1C6,10,code,Code/GameEngine/Source/GameNetwork/NetPacket.cpp,approved,P,P=0x005946E1@FuncInfo0x00952F84,Code/GameEngine/Source/GameNetwork/NetPacket.cpp
-0x0079D1D0,10,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,P,P=0x00595089@FuncInfo0x00952FA8,Code/GameEngine/Source/GameNetwork/FirewallHelper_FirewallHelperClass_openSpareSocket.cpp
-0x0079D1DA,10,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,P,P=0x00595089@FuncInfo0x00952FA8,Code/GameEngine/Source/GameNetwork/FirewallHelper_FirewallHelperClass_openSpareSocket.cpp
-0x0079D1E4,8,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,P,P=0x005953F4@FuncInfo0x00952FCC,Code/GameEngine/Source/GameNetwork/FirewallHelperDetectionBeginUpdate.cpp
-0x0079D1EC,10,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,P,P=0x005953F4@FuncInfo0x00952FCC,Code/GameEngine/Source/GameNetwork/FirewallHelperDetectionBeginUpdate.cpp
-0x0079D1F6,8,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,P,P=0x00595452@FuncInfo0x00952FF0,Code/GameEngine/Source/GameNetwork/FirewallHelperDetectionBeginUpdate.cpp
-0x0079D1FE,10,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,P,P=0x00595452@FuncInfo0x00952FF0,Code/GameEngine/Source/GameNetwork/FirewallHelperDetectionBeginUpdate.cpp
-0x0079D208,8,code,,,-,,Code/GameEngine/Source/Common/Rva00595C79Permuted.cpp
-0x0079D210,25,code,,,-,,Code/GameEngine/Source/Common/Rva00595C79Permuted.cpp
-0x0079D229,10,code,,,-,,Code/GameEngine/Source/Common/Rva00595C79Permuted.cpp
-0x0079D233,8,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,P,P=0x00595D95@FuncInfo0x00953040,Code/GameEngine/Source/Common/Rva00595D95Firewall.cpp
-0x0079D23B,10,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,P,P=0x00595D95@FuncInfo0x00953040,Code/GameEngine/Source/Common/Rva00595D95Firewall.cpp
-0x0079D245,8,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,P,P=0x00595E46@FuncInfo0x0095307C,Code/GameEngine/Source/Common/Rva00595E46Firewall.cpp
-0x0079D24D,8,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,P,P=0x00595E46@FuncInfo0x0095307C,Code/GameEngine/Source/Common/Rva00595E46Firewall.cpp
-0x0079D255,8,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,P,P=0x00595E46@FuncInfo0x0095307C,Code/GameEngine/Source/Common/Rva00595E46Firewall.cpp
-0x0079D25D,8,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,P,P=0x00595E46@FuncInfo0x0095307C,Code/GameEngine/Source/Common/Rva00595E46Firewall.cpp
-0x0079D265,10,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,P,P=0x00595E46@FuncInfo0x0095307C,Code/GameEngine/Source/Common/Rva00595E46Firewall.cpp
-0x0079D26F,8,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,P,P=0x00595F80@FuncInfo0x009530B8,Code/GameEngine/Source/Common/Rva00595F80Firewall.cpp
-0x0079D277,25,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,P,P=0x00595F80@FuncInfo0x009530B8,Code/GameEngine/Source/Common/Rva00595F80Firewall.cpp
-0x0079D290,25,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,P,P=0x00595F80@FuncInfo0x009530B8,Code/GameEngine/Source/Common/Rva00595F80Firewall.cpp
-0x0079D2A9,8,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,P,P=0x00595F80@FuncInfo0x009530B8,Code/GameEngine/Source/Common/Rva00595F80Firewall.cpp
-0x0079D2B1,10,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,P,P=0x00595F80@FuncInfo0x009530B8,Code/GameEngine/Source/Common/Rva00595F80Firewall.cpp
+0x0079D1D0,10,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,P,P=0x00595089@FuncInfo0x00952FA8,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
+0x0079D1DA,10,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,P,P=0x00595089@FuncInfo0x00952FA8,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
+0x0079D1E4,8,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,P,P=0x005953F4@FuncInfo0x00952FCC,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
+0x0079D1EC,10,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,P,P=0x005953F4@FuncInfo0x00952FCC,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
+0x0079D1F6,8,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,P,P=0x00595452@FuncInfo0x00952FF0,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
+0x0079D1FE,10,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,P,P=0x00595452@FuncInfo0x00952FF0,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
+0x0079D208,8,code,,,-,,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
+0x0079D210,25,code,,,-,,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
+0x0079D229,10,code,,,-,,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
+0x0079D233,8,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,P,P=0x00595D95@FuncInfo0x00953040,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
+0x0079D23B,10,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,P,P=0x00595D95@FuncInfo0x00953040,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
+0x0079D245,8,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,P,P=0x00595E46@FuncInfo0x0095307C,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
+0x0079D24D,8,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,P,P=0x00595E46@FuncInfo0x0095307C,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
+0x0079D255,8,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,P,P=0x00595E46@FuncInfo0x0095307C,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
+0x0079D25D,8,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,P,P=0x00595E46@FuncInfo0x0095307C,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
+0x0079D265,10,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,P,P=0x00595E46@FuncInfo0x0095307C,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
+0x0079D26F,8,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,P,P=0x00595F80@FuncInfo0x009530B8,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
+0x0079D277,25,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,P,P=0x00595F80@FuncInfo0x009530B8,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
+0x0079D290,25,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,P,P=0x00595F80@FuncInfo0x009530B8,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
+0x0079D2A9,8,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,P,P=0x00595F80@FuncInfo0x009530B8,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
+0x0079D2B1,10,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,P,P=0x00595F80@FuncInfo0x009530B8,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp
 0x0079D2BB,8,code,Code/GameEngine/Source/Common/AIStatBase.cpp,approved,P,P=0x005961D6@FuncInfo0x009530DC provisional,Code/GameEngine/Source/Common/AIStatBase.cpp
 0x0079D2C3,10,code,Code/GameEngine/Source/Common/AIStatBase.cpp,approved,P,P=0x005961D6@FuncInfo0x009530DC provisional,Code/GameEngine/Source/Common/AIStatBase.cpp
 0x0079D2CD,8,code,Code/GameEngine/Source/Common/AIStatBase.cpp,approved,P,P=0x00596225@FuncInfo0x00953100 provisional,Code/GameEngine/Source/Common/Rva005961D6Dtor.cpp

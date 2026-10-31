@@ -17520,7 +17520,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009D2DB8,4,.data,global,?FRAME_DATA_LENGTH@@3HA,Code/GameEngine/Source/Common/FrameDataManagerCounts.cpp,owned,,1,18
 0x009D2DBC,684,.data,global,?FRAMES_TO_KEEP@@3HA,Code/GameEngine/Source/GameNetwork/ConnectionManagerFrameList.cpp,owned,,1,2
 0x009D3068,396,.data,global,?g_00DD3068@@3PAPBDA,Code/GameEngine/Source/Common/INI/INIAsciiIndexParse.cpp,owned,,1,2
-0x009D31F4,964,.data,global,?m_sourcePortPool@FirewallHelperClass@@0HA,Code/GameEngine/Source/GameNetwork/FirewallHelperDetection.cpp,provisional,?g_00DD31F4@@3IA;?m_sourcePortPool@FirewallHelperClass@@0HA,1,4
+0x009D31F4,964,.data,global,?m_sourcePortPool@FirewallHelperClass@@0HA,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,provisional,?g_00DD31F4@@3IA;?m_sourcePortPool@FirewallHelperClass@@0HA,1,4
 0x009D35B8,4,.data,global,?s_probeRetryInterval@NAT@@2IA,Code/GameEngine/Source/GameNetwork/NATSendNegotiationRequests.cpp,owned,,1,2
 0x009D35BC,4,.data,global,?g_00DD35BC@@3KA,,unowned,,0,2
 0x009D35C0,4,.data,global,?s_manglerMaxRetryCount@NAT@@2HA,Code/GameEngine/Source/GameNetwork/NATUpdateBfme.cpp,owned,,1,1

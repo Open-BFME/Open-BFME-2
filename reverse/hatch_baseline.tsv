@@ -2319,8 +2319,6 @@ alternatename	Code/GameEngine/Source/Common/Rva0058A0F4Derived.cpp	?f1@Rva0058A0
 alternatename	Code/GameEngine/Source/Common/Rva0058A0F4Derived.cpp	?f2@Rva0058A0F4_B2@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva0058A0F4Derived.cpp	?fe@Rva0058A0F4_E1@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva0058A0F4Dtor.cpp	?f20@Rva0058A0F4_B20@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/Common/Rva00595E46Firewall.cpp	??1OptionPreferences@@UAE@XZ	1
-alternatename	Code/GameEngine/Source/Common/Rva00595F80Firewall.cpp	??1OptionPreferences@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/Rva0059B7CBCtor.cpp	?slot00@Rva0059B7CB@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva005BA2CBDtor.cpp	??1Rva005A0009@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/Rva005BA2CBDtor.cpp	?s60@Rva005BA23ABase60@@UAEXXZ	1
@@ -3341,6 +3339,7 @@ alternatename	Code/GameEngine/Source/GameNetwork/FeslEchoNotifier.cpp	??1FeslEch
 alternatename	Code/GameEngine/Source/GameNetwork/FeslEchoNotifier.cpp	?addInt@FeslEchoMessage@@QAEXPBDH@Z	1
 alternatename	Code/GameEngine/Source/GameNetwork/FeslEchoNotifier.cpp	?addString@FeslEchoMessage@@QAEXPBD0@Z	1
 alternatename	Code/GameEngine/Source/GameNetwork/FeslMessage_addInt64_rva007E8E90.cpp	?bfmeSet2VJF@BfmeMsgVJF@@QAEXPBDPAX1@Z	1
+alternatename	Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp	??1OptionPreferences@@UAE@XZ	2
 alternatename	Code/GameEngine/Source/GameNetwork/GameSpy/LoadSavedIgnoreListRva00385B78.cpp	??1Rva00385B78SavedMap@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameNetwork/GameSpy/LoadSavedIgnoreListRva00385B78.cpp	??4Rva00385B78SavedMap@@QAEAAV0@ABV0@@Z	1
 alternatename	Code/GameEngine/Source/GameNetwork/GameSpy/LoadSavedIgnoreListRva00385B78.cpp	?clear@Rva00385B78SavedMap@@QAEXXZ	1
@@ -12294,7 +12293,6 @@ present_unmatched	Code/GameEngine/Source/Common/Rva00578AC1.cpp	text)	1
 present_unmatched	Code/GameEngine/Source/Common/Rva005794EDDtor.cpp	1Rva005794EDBase@@UAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/Rva005794EDDtor.cpp	text)	1
 present_unmatched	Code/GameEngine/Source/Common/Rva00579AB7Dtor.cpp	text)	1
-present_unmatched	Code/GameEngine/Source/Common/Rva00594CDDPermuted.cpp	1FirewallHelperClass@@UAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/Rva0059E2ABFind.cpp	isEmpty@?$StringBase@D@@QBE_NXZ	1
 present_unmatched	Code/GameEngine/Source/Common/Rva0059E2ABFind.cpp	rva002104B6@Rva002104B6@@QAEPAXPAX@Z	1
 present_unmatched	Code/GameEngine/Source/Common/Rva005C3A37ElemDtor.cpp	AptRef::AptRef	1
@@ -13816,6 +13814,7 @@ present_unmatched	Code/GameEngine/Source/GameNetwork/ConnectionManager.cpp	zeroF
 present_unmatched	Code/GameEngine/Source/GameNetwork/DownloadManager.cpp	OnQueryResume@DownloadManager@@	1
 present_unmatched	Code/GameEngine/Source/GameNetwork/DownloadManager.cpp	init@DownloadManager@@	1
 present_unmatched	Code/GameEngine/Source/GameNetwork/DownloadManager.cpp	reset@DownloadManager@@	1
+present_unmatched	Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp	1FirewallHelperClass@@UAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameNetwork/FrameData.cpp	BfmeTableYL::bfmeFindYL	1
 present_unmatched	Code/GameEngine/Source/GameNetwork/GameInfo.cpp	callGrabHexInt3	1
 present_unmatched	Code/GameEngine/Source/GameNetwork/GameSpy/Chat.cpp	registerTextWindow@GameSpyInfo@@	1
