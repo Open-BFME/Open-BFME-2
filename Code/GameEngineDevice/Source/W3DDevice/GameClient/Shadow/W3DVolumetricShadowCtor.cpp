@@ -34,13 +34,7 @@ public:
 	Real X, Y, Z;
 };
 
-class Vector4
-{
-public:
-	Vector4(void) {}
-	void Set(Real x, Real y, Real z, Real w) { X = x; Y = y; Z = z; W = w; }
-	Real X, Y, Z, W;
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 
 // The vector-constructor callback is retail 0x0007671F, already owned under
 // this address-derived name. Preserve the donor matrix view without assigning

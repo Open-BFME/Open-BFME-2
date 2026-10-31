@@ -56,12 +56,7 @@ public:
 	int I, J, K;
 };
 
-class Vector4
-{
-public:
-	void Set(Real x, Real y, Real z, Real w) { X = x; Y = y; Z = z; W = w; }
-	Real X, Y, Z, W;
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 
 class Matrix4
 {

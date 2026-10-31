@@ -126,12 +126,7 @@ public:
  __forceinline Vector3 &operator*=(float k){X*=k;Y*=k;Z*=k;return *this;}
 };
 __forceinline Vector3 operator-(const Vector3 &a){return Vector3(-a.X,-a.Y,-a.Z);}
-class Vector4 {
-public:
- float X,Y,Z,W;
- __forceinline Vector4(){}
- __forceinline void Set(float x,float y,float z,float w){X=x;Y=y;Z=z;W=w;}
-};
+#include "../../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 __forceinline float submul(const Vector4 &row,float tmp1,float tmp2,float tmp3){return row.X*tmp1+row.Y*tmp2+row.Z*tmp3;}
 class Matrix3D {
 public:
