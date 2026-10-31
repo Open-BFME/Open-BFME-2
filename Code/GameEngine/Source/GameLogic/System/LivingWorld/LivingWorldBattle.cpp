@@ -362,7 +362,12 @@ class Rva00380200 {public:Rva00380200();virtual ~Rva00380200();};
 class Rva002B2508:public Rva00380200 {public:Rva002B2508();virtual ~Rva002B2508();char opaque04[0x2C-4];};
 class Rva002B2EA0 {public:void rva002B2EA0();};
 struct RetreatSlots {Rva002B2508 *first;RetreatSlots(Rva002B2508 *p):first(p){}~RetreatSlots(){reinterpret_cast<Rva002B2EA0 *>(this)->rva002B2EA0();}};
-struct PlayerStorage;
+// The retreat result list is a PlayerStorage (the auto-resolve battle's
+// input): its destructor is the 5-byte thunk 0x002BBD4D the unwind funclet
+// jumps to; the normal path expands it into the vector destructor.
+struct PlayerStorage : public _STL::vector<Rva002BBB96Element>
+{
+};
 // The 0x80-byte object: ctor 0x004FA3C9 is LivingWorldAutoResolveBattle's
 // row, dtor 0x004FA2E2 is rowed as Rva004FA2E2 (LivingWorldAIArmyMover.cpp's
 // view). A wrapper constructor would emit a non-retail copy at 0x004FA3C9.
@@ -380,7 +385,7 @@ void LivingWorldBattle::RetreatArmiesForPlayer(void *player) {
  if(!side)return;
  BattlePlayer *entry=reinterpret_cast<BattlePlayer *>(reinterpret_cast<Rva003F4CC0 *>(side)->rva003F4CC0((int)player));
  if(!entry)return;
- _STL::vector<Rva002BBB96Element> players;
+ PlayerStorage players;
  RetreatSlots slots(new Rva002B2508[rva003F459A()]);
  reinterpret_cast<LivingWorldLogic *>(TheLivingWorldLogic)->rva002BCCFB(this,(int)&players,(int)&slots);
  for(unsigned i=0;i<players.size();++i) {
@@ -388,7 +393,7 @@ void LivingWorldBattle::RetreatArmiesForPlayer(void *player) {
   Rva002BBB96Element &record=players[i];
   if(record.player30==id)record.strength18=0.0f;
  }
- LivingWorldAutoResolveBattle battle(*(const PlayerStorage*)&players);
+ LivingWorldAutoResolveBattle battle(players);
  // Refresh the settings pointer each round, as retail does. Keeping this
  // pointer live gives VC7 the retail EDI induction variable.
  RetreatSettings *settings=reinterpret_cast<LivingWorldLogic *>(TheLivingWorldLogic)->campaignB0->settings08;
