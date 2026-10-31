@@ -86,7 +86,7 @@ private:
 	Int m_00;
 	Int m_04;
 	Rva00525E55 *m_08;
-	Int m_0C;
+	Int m_stance;
 };
 bool Rva00526342::rva00526342(Int)
 {
@@ -102,7 +102,7 @@ bool Rva00526342::rva00527111(Int nearestOnly)
 }
 bool Rva00526342::rva00567D96(Int)
 {
-	m_08->SetStance(m_0C);
+	m_08->SetStance(m_stance);
 	return true;
 }
 

@@ -53,10 +53,10 @@ void Rva0045F0A0::process(Rva0045F0A0Input *input)
 		len = asciiHeader->length;
 	else
 		len = 0;
-	AsciiHeader *p2 = *(AsciiHeader * volatile *)&m_name;
+	AsciiHeader *prefixHeader = *(AsciiHeader * volatile *)&m_name;
 	const char *prefix;
-	if (p2 != 0)
-		prefix = p2->data;
+	if (prefixHeader != 0)
+		prefix = prefixHeader->data;
 	else
 		prefix = (char *)"";
 	const char *text = input->m_10.str();

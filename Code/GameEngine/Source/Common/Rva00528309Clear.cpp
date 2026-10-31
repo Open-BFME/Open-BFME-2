@@ -1,5 +1,5 @@
 // cl: /MD
-// ?rva00528309@Rva00528309@@QAEXXZ retail 0x00528309 64B
+// ?clearElements@Rva00528309@@QAEXXZ retail 0x00528309 64B
 // Evidence: loop dec count at +0xD8; elem (count+3)*12 + this; clear +0 via 0xAD6F4 plus +4 via 0x2BED91; or +8 -1; caller 0x005283E6
 struct Rva000AD6F4
 {
@@ -23,8 +23,8 @@ struct Rva00528309Elem
 class Rva00528309
 {
 public:
-	void rva00528309();
-	void rva005283E3();
+	void clearElements();
+	void reset();
 private:
 	char m_pad00[0x14];
 	int m_14;
@@ -35,7 +35,7 @@ private:
 	int m_count;
 };
 
-void Rva00528309::rva00528309()
+void Rva00528309::clearElements()
 {
 	while (m_count > 0)
 	{
@@ -47,9 +47,9 @@ void Rva00528309::rva00528309()
 	}
 }
 
-void Rva00528309::rva005283E3()
+void Rva00528309::reset()
 {
-	rva00528309();
+	clearElements();
 	m_14 = 0;
 	m_1C = 0;
 	m_20 = 0;
@@ -65,7 +65,7 @@ private:
 
 void Rva00528545::rva00528545()
 {
-	m_ptr->rva005283E3();
+	m_ptr->reset();
 }
 
 class Rva00528264

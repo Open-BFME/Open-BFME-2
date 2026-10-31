@@ -50,7 +50,7 @@ public:
 struct Rva0009C0EBRef
 {
 	virtual void vslot000();
-	int m_4;
+	int m_refCount;
 };
 
 class Rva0009C0EB
@@ -73,7 +73,7 @@ void Rva0009C0EB::rva0009C0EB(Rva0009C0EBRef **out, const AsciiString *in)
 	{
 		rva0010E4F6(*out, 0);
 		Rva0009C0EBRef *ref = *out;
-		if (--ref->m_4 == 0)
+		if (--ref->m_refCount == 0)
 			ref->vslot000();
 	}
 }

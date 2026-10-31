@@ -240,7 +240,7 @@ private:
 
 int Rva00309E65Get(void);
 
-extern float g_Va00DB457C;
+extern float frameRateDivisor;
 
 // The filter settings record returned by 0x309E7F (VA 0x00DBD918).
 struct Rva007DB820Settings
@@ -331,7 +331,7 @@ Bool Rva007DB820::postRender(FilterModes mode, Coord2D &scrollDelta, Bool &doExt
 	m_scrollX -= filterSettings()->m_4C * 0.0225f;
 	m_spread += filterSettings()->m_50 * 0.005;
 
-	float scale = g_Va00DB457C * 0.0125f;
+	float scale = frameRateDivisor * 0.0125f;
 	if (scale > 6.0f) scale = 6.0f;
 	if (scale < 0.6f) scale = 0.6f;
 	float amplitude = filterSettings()->m_54 * scale;
@@ -465,7 +465,7 @@ void Rva007DB820::rva000F83FA(DynamicIBAccessClass *ib, int a, DynamicVBAccessCl
 	float left, float top, float width, float height, Coord2D *dims)
 {
 	++columns; ++rows;
-	float scale = g_Va00DB457C * 0.0125f;
+	float scale = frameRateDivisor * 0.0125f;
 	if (scale > 6.0f) scale = 6.0f;
 	if (scale < 0.6f) scale = 0.6f;
 	float amplitude = scale * filterSettings()->m_54;

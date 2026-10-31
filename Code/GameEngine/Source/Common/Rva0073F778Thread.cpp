@@ -11,7 +11,7 @@ class Rva0073F778 {
     void *m_handle;
 public:
     bool createThread(unsigned (__stdcall *start)(void *), void *arglist, int resume, unsigned stackSize, int priority, void *security);
-    bool rva0073F83F(int resume, unsigned stackSize, int priority, void *security);
+    bool startThread(int resume, unsigned stackSize, int priority, void *security);
     int resume();
     bool suspend();
 };
@@ -39,10 +39,10 @@ bool Rva0073F778::createThread(unsigned (__stdcall *start)(void *), void *arglis
     return false;
 }
 
-// ?rva0073F83F@Rva0073F778@@QAE_NHIHPAX@Z @0x0073F83F 30B.
+// ?startThread@Rva0073F778@@QAE_NHIHPAX@Z @0x0073F83F 30B.
 // Forwards to the spawner above with a fixed start routine and this as arg.
 // Evidence: chain lane packet; same this; ret 0x10.
-bool Rva0073F778::rva0073F83F(int resume, unsigned stackSize, int priority, void *security)
+bool Rva0073F778::startThread(int resume, unsigned stackSize, int priority, void *security)
 {
     return createThread((unsigned (__stdcall *)(void *))Rva0073F833Cb, this, resume, stackSize, priority, security);
 }

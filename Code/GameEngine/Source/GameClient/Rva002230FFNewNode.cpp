@@ -1,6 +1,6 @@
 // cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
-// ?rva002230FF@Rva002230FF@@QAEPAXPBX@Z @0x002230FF 37B
+// ?newNode@Rva002230FF@@QAEPAXPBX@Z @0x002230FF 37B
 // Eva hashtable _M_new_node-style allocator for 12-byte node (4 next + 8 pair).
 // Evidence: callers at 0x002234E5 and 0x002E023D pass this in ecx plus one
 // AsciiString-keyed arg; allocate 0x000307F0 with (0xc, 0) then dup
@@ -31,10 +31,10 @@ struct Rva002230FFNode
 class Rva002230FF
 {
 public:
-	void *rva002230FF(const void *obj);
+	void *newNode(const void *obj);
 };
 
-void *Rva002230FF::rva002230FF(const void *obj)
+void *Rva002230FF::newNode(const void *obj)
 {
 	Rva002230FFNode *node = (Rva002230FFNode *)_STL::allocator<char>().allocate(12, 0);
 	node->_M_next = 0;

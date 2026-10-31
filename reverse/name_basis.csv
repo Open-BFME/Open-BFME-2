@@ -6127,3 +6127,30 @@ function,?rva004583AF@View@@QAEXM@Z,?setPitch@View@@QAEXM@Z,inferred,agree:nl-54
 function,?rva006CBD60@AptMath@@SA_NXZ,?ClipStackIsEmpty@AptMath@@SA_NXZ,inferred,agree:nl-c28c3dc746af,Code/Libraries/Source/Apt/AptMathClipStack.cpp,0x006CBD60
 function,?rva006DFE50@AptMath@@SAPAUClipTransform_t@1@XZ,?ClipStackTop@AptMath@@SAPAUClipTransform_t@1@XZ,inferred,agree:nl-731221c5bedc,Code/Libraries/Source/Apt/AptMathClipStack.cpp,0x006DFE50
 class,Rva00541F72,LookAtCameraAnimation,inferred,agree:nl-10a5ab8b9555,Code/GameEngine/Source/GameClient/CameraAnimation/CameraAnimationTrackLookAtCamera.cpp,
+member,Rva0009C0EBRef::m_4,Rva0009C0EBRef::m_refCount,inferred,agree:nl-b8200f7ba91d,Code/GameEngine/Source/Common/Rva0009C0EBAcquire.cpp,
+member,Rva00319A12Helper::m_40,Rva00319A12Helper::m_begin,inferred,agree:nl-8c2b583b0ba8,Code/GameEngine/Source/Common/Rva00319A12Loop.cpp,
+member,Rva00319A12Helper::m_44,Rva00319A12Helper::m_end,inferred,agree:nl-ca17178c0e9b,Code/GameEngine/Source/Common/Rva00319A12Loop.cpp,
+member,Rva00526342::m_0C,Rva00526342::m_stance,inferred,agree:nl-5da794845320,Code/GameEngine/Source/Common/VslotSmallBodiesAL.cpp,
+member,Rva00156540Param::field2c,Rva00156540Param::m_charHeight,inferred,agree:nl-f1bc2eebeaa7,Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceClassRva00156540.cpp,
+member,AsyncQueueWorkerOwner::mutex20,AsyncQueueWorkerOwner::m_secondaryMutex,inferred,agree:nl-b4c2e198464b,Code/Libraries/Source/WWVegas/WWLib/AsyncServiceQueueWorker.cpp,
+local,BuddyInviteGameInfo::LocationFromString::s,BuddyInviteGameInfo::LocationFromString::locationText,inferred,agree:nl-24b50474a6ae-m77184211eda3c7bcae1cfa30,Code/GameEngine/Source/Common/BuddyInviteGameInfo_LocationFromString.cpp,0x00416143
+local,Rva0045F0A0::process::p2,Rva0045F0A0::process::prefixHeader,inferred,agree:nl-8755d5ac7a2f-md2919563f01b6ab30c2bc660,Code/GameEngine/Source/Common/Rva00410619Check.cpp,0x00410619
+param,Rva00410AABFree::p,Rva00410AABFree::memoryBlock,inferred,agree:nl-731f1a28f5a4-ma321819fc52aa9dd10830e04,Code/GameEngine/Source/Common/Rva00410AABFree.cpp,0x00410AAB
+param,Rva00410AABHelper::rva00410AAB::p,Rva00410AABHelper::rva00410AAB::memoryBlock,inferred,agree:nl-cf7594d07b21-md63d8ca163c850cbbb0747af,Code/GameEngine/Source/Common/Rva00410AABFree.cpp,0x00410AAB
+local,canPlayersTransferMoneyYet::b,canPlayersTransferMoneyYet::gameLogic,inferred,agree:nl-07cbeecdebb4-m8e8a27be06ecc3eeb159d75b,Code/GameEngine/Source/Common/canPlayersTransferMoneyYet.cpp,0x0023D339
+param,Holder00526309::Rva00525CC5::arg,Holder00526309::Rva00525CC5::heroObject,inferred,agree:nl-f1514207e21a-m1753172c40b6b2bc9c7877b2,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/InGameHeroSelectDataAddHero.cpp,0x00525CC5
+local,ScriptActions::doTeamFollowSkirmishApproachPath::n,ScriptActions::doTeamFollowSkirmishApproachPath::memberCount,inferred,agree:nl-f33768933a30-m2b9e5541a91b39ad54bc3866,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003BF045.cpp,0x003BF045
+local,ScriptActions::doTeamFollowSkirmishApproachPath::q,ScriptActions::doTeamFollowSkirmishApproachPath::prefixHeader,inferred,agree:nl-f61416badb16-m887aef3d2332939e32a2aece,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003BF045.cpp,0x003BF045
+global,?g_Va00DB457C@@3MA,?frameRateDivisor@@3MA,inferred,agree:nl-2f1981d87048,Code/GameEngineDevice/Source/W3DDevice/GameClient/ScreenFilterRva007DCA80PostRender.cpp,0x009B457C
+function,?rva000AE490@Rva000AE490@@QAE_NHFQAM0_N@Z,?getUVForTileIndex@Rva000AE490@@QAE_NHFQAM0_N@Z,inferred,agree:nl-757f46e13fba,Code/GameEngine/Source/Common/Rva000AE490GridUV.cpp,0x000AE490
+carry,Rva000AE490::rva000AE490::uCoords,Rva000AE490::getUVForTileIndex::uCoords,inferred,scope renamed by Rename rva000AE490 to getUVForTileIndex (inferred),Code/GameEngine/Source/Common/Rva000AE490GridUV.cpp,0x000AE490
+carry,Rva000AE490::rva000AE490::vCoords,Rva000AE490::getUVForTileIndex::vCoords,inferred,scope renamed by Rename rva000AE490 to getUVForTileIndex (inferred),Code/GameEngine/Source/Common/Rva000AE490GridUV.cpp,0x000AE490
+function,?rva00528309@Rva00528309@@QAEXXZ,?clearElements@Rva00528309@@QAEXXZ,inferred,agree:nl-b7c5eadd5d97,Code/GameEngine/Source/Common/Rva00528309Clear.cpp,0x00528309
+carry,Rva00528309::rva00528309::element,Rva00528309::clearElements::element,inferred,scope renamed by Rename rva00528309 to clearElements (inferred),Code/GameEngine/Source/Common/Rva00528309Clear.cpp,0x00528309
+function,?rva005283E3@Rva00528309@@QAEXXZ,?reset@Rva00528309@@QAEXXZ,inferred,agree:nl-4b6b951c71a7,Code/GameEngine/Source/Common/Rva00528309Clear.cpp,0x005283E3
+function,?rva0073F83F@Rva0073F778@@QAE_NHIHPAX@Z,?startThread@Rva0073F778@@QAE_NHIHPAX@Z,inferred,agree:nl-adb2af371c17,Code/GameEngine/Source/Common/Rva0073F778Thread.cpp,0x0073F83F
+function,?rva002230FF@Rva002230FF@@QAEPAXPBX@Z,?newNode@Rva002230FF@@QAEPAXPBX@Z,inferred,agree:nl-9d4cdd5bc576,Code/GameEngine/Source/GameClient/Rva002230FFNewNode.cpp,0x002230FF
+carry,Rva002230FF::rva002230FF::node,Rva002230FF::newNode::node,inferred,scope renamed by Rename rva002230FF to newNode (inferred),Code/GameEngine/Source/GameClient/Rva002230FFNewNode.cpp,0x002230FF
+function,?Rva0073F6FCCb@@YGIPAX@Z,?workerThreadProc@@YGIPAX@Z,inferred,agree:nl-19290342c485,Code/Libraries/Source/WWVegas/WWLib/AsyncServiceQueueWorker.cpp,0x0073F6FC
+carry,Rva0073F6FCCb::worker,workerThreadProc::worker,inferred,scope renamed by Rename Rva0073F6FCCb to workerThreadProc (inferred),Code/Libraries/Source/WWVegas/WWLib/AsyncServiceQueueWorker.cpp,0x0073F6FC
+function,?rva003F3744@Rva003F3744@@QAEXPAURva003F3277Record@@IABU2@@Z,?fillInsert@Rva003F3744@@QAEXPAURva003F3277Record@@IABU2@@Z,inferred,agree:nl-9d21c7fd1524,Code/Libraries/Source/WWVegas/WWLib/Rva003F35E3VectorFillInsert.cpp,0x003F3744

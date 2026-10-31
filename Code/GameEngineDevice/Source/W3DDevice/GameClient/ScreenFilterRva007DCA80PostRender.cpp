@@ -145,7 +145,7 @@ struct Rva000F9F82GlobalData
 // Frame-rate divisor and the glow pulse phase of this filter.
 // Native scalar accesses prove these extents; initial values are retail data.
 // The camera-transform builder also reads the shared frame scale.
-float g_Va00DB457C = 1.0f;
+float frameRateDivisor = 1.0f;
 float g_Va00DEC0DC = 0.0f;
 bool g_Va00DB5B08 = true;
 
@@ -212,7 +212,7 @@ bool Rva007DCA80::postRender(FilterModes mode, Coord2D &scrollDelta, bool &doExt
 		return false;
 
 	int steps[13] = { 15, 16, 15, 17, 18, 17, 20, 21, 19, 20, 17, 18, 16 };
-	float frameScale = 80.0f / g_Va00DB457C;
+	float frameScale = 80.0f / frameRateDivisor;
 
 	g_Va00DEC0DC += 0.6f;
 	if (g_Va00DEC0DC >= 13.0f)

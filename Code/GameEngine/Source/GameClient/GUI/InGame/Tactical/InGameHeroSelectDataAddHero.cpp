@@ -47,9 +47,9 @@ public:
  HeroInfoList heroes;char builders[12];
 };
 
-void Holder00526309::Rva00525CC5(Obj00526309 *arg)
+void Holder00526309::Rva00525CC5(Obj00526309 *heroObject)
 {
-	Object *obj = reinterpret_cast<Object *>(arg);
+	Object *obj = reinterpret_cast<Object *>(heroObject);
 	ThingTemplate *templ = obj->templ;
 	if (!getButtonImage(templ, obj))
 		return;

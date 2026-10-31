@@ -35,7 +35,7 @@ typedef bool Bool;
 struct CameraRealTriplet:Coord3D {CameraRealTriplet&operator=(const Coord3D&p){x=p.x;y=p.y;z=p.z;return *this;}};
 class Matrix3D;
 // Native reads VA DB457C and DE2020 as float; semantic names unknown.
-extern Real g_Va00DB457C;
+extern Real frameRateDivisor;
 Real g_Va00DE2020;	// retail RVA 0x009E2020 (.bss), defined here
 
 // Opaque ABI views of the two narrow StringBase<char> handles. The existing
@@ -282,7 +282,7 @@ void W3DView::buildCameraTransform(Matrix3D *transform)
 
 	Rva0010274F context;
 	context.m_bfme00 = transform;
-	context.m_bfme04 = g_Va00DB457C;
+	context.m_bfme04 = frameRateDivisor;
 	context.m_group08 = *reinterpret_cast<const Coord3D*>(&m_field2410);
 	context.m_group14 = *reinterpret_cast<const Coord3D*>(&m_field241c);
 	context.m_group20 = *reinterpret_cast<const Coord3D*>(&m_field12c);

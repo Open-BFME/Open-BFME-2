@@ -101,7 +101,7 @@ void ScriptActions::doTeamFollowSkirmishApproachPath(const AsciiString &teamName
 	if (group == 0)
 		return;
 	team->getTeamAsAIGroup(group);
-	int n = 0;
+	int memberCount = 0;
 	Coord3D sum;
 	sum.z = 0.0f;
 	sum.y = 0.0f;
@@ -116,14 +116,14 @@ void ScriptActions::doTeamFollowSkirmishApproachPath(const AsciiString &teamName
 		sum.x += x;
 		sum.y += y;
 		sum.z += z;
-		++n;
+		++memberCount;
 		if (first == 0)
 			first = object;
 		it.advance();
 	}
-	if (n == 0)
+	if (memberCount == 0)
 		return;
-	float inv = g_Va00BBB8D8 / (float)n;
+	float inv = g_Va00BBB8D8 / (float)memberCount;
 	sum.x *= inv;
 	sum.y *= inv;
 	sum.z *= inv;
@@ -133,8 +133,8 @@ void ScriptActions::doTeamFollowSkirmishApproachPath(const AsciiString &teamName
 	int base = enemy->m_2E0;
 	int num = base + 1;
 	AsciiString waypointName;
-	const void *q = *(const void * const *)&prefix;
-	const char *s = q ? (const char *)q + 8 : "";
+	const void *prefixHeader = *(const void * const *)&prefix;
+	const char *s = prefixHeader ? (const char *)prefixHeader + 8 : "";
 	waypointName.format("%s%d", s, num);
 	Waypoint *wp = TheTerrainLogic->v36(&sum, &waypointName);
 	if (wp == 0)

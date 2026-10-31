@@ -19317,3 +19317,15 @@ Code/GameEngine/Source/Common/BigObfFallbacks.cpp|param|Rva00226156Mask|p,ef8b97
 Code/GameEngine/Source/Common/Rva00150B8DFamily.cpp|function|0x00150C74|rva00150C74,56aa34a76f7b9bffb4859c47,drz-k8,drz-k8-15,w-87ae7cdc64ef,2026-10-31
 Code/GameEngine/Source/Common/GapBodiesGE27.cpp|function|0x00035600|rva00035600,5a13646543e05d4d1dbc831d,drz-k8,drz-k8-16,w-87ae7cdc64ef,2026-10-31
 Code/GameEngine/Source/Common/VslotSmallBodiesG.cpp|function|0x005CBA3D|rva005CBA3D,a1855e7ba31a0d277e3d069e,drz-k8,drz-k8-17,w-87ae7cdc64ef,2026-10-31
+Code/GameEngine/Source/Common/VslotSmallBodiesAE.cpp|member|Rva00041B85|m_4FA4,7807e2f7a00bb0244a66d8d0,claude-sonnet-5-5,halilkkaya-nm-s1-10,w-3d8cf1b6b7e1,2026-10-31
+Code/GameEngine/Source/Common/VslotSmallBodiesAL.cpp|member|Rva00526342|m_0C,e10c463e2bbc3cd351a17e2d,claude-sonnet-5-5,halilkkaya-nm-s1-10,w-3d8cf1b6b7e1,2026-10-31
+Code/GameEngine/Source/Common/Rva000AE490GridUV.cpp|function|0x000AE490|rva000AE490,e4971062908ea751a10237b7,claude-sonnet-5-5,halilkkaya-nm-s1-10,w-3d8cf1b6b7e1,2026-10-31
+Code/GameEngine/Source/Common/Rva000AE490GridUV.cpp|function|0x000AE6AD|rva000AE6AD,f322cae2c45bac87df81f4a1,claude-sonnet-5-5,halilkkaya-nm-s1-10,w-3d8cf1b6b7e1,2026-10-31
+Code/GameEngine/Source/Common/Rva00319A12Loop.cpp|member|Rva00319A12Helper|m_40,656b83090c18981b3ba54dad,claude-sonnet-5-5,halilkkaya-nm-s1-11,w-3d8cf1b6b7e1,2026-10-31
+Code/GameEngine/Source/Common/Rva00319A12Loop.cpp|member|Rva00319A12Helper|m_44,96feccbcebda677654848088,claude-sonnet-5-5,halilkkaya-nm-s1-11,w-3d8cf1b6b7e1,2026-10-31
+Code/GameEngine/Source/Common/Rva0073F778Thread.cpp|function|0x0073F83F|rva0073F83F,764fce431df2f0651a89744a,claude-sonnet-5-5,halilkkaya-nm-s1-11,w-3d8cf1b6b7e1,2026-10-31
+Code/GameEngine/Source/Common/Rva004DF3B0.cpp|member|Rva004DF3B0Arg|m_74,f01e27441abde16f049f804d,claude-sonnet-5-5,halilkkaya-nm-s1-12,w-3d8cf1b6b7e1,2026-10-31
+Code/GameEngine/Source/Common/Rva00528309Clear.cpp|function|0x00528309|rva00528309,3472a37cf56b96e5c3f28d5a,claude-sonnet-5-5,halilkkaya-nm-s1-12,w-3d8cf1b6b7e1,2026-10-31
+Code/GameEngine/Source/Common/Rva00528309Clear.cpp|function|0x005283E3|rva005283E3,4b6b951c71a75ad46c5f6f06,claude-sonnet-5-5,halilkkaya-nm-s1-12,w-3d8cf1b6b7e1,2026-10-31
+Code/GameEngine/Source/Common/Rva000AD9ABFinish.cpp|function|0x000ADCE3|rva000ADCE3,1f5402f42076d37661286a97,claude-sonnet-5-5,halilkkaya-nm-s1-14,w-3d8cf1b6b7e1,2026-10-31
+Code/GameEngine/Source/Common/SingletonForwarders.cpp|function|0x003BA938|rva003BA938,cf48c714e53cccc324eb3fdd,claude-sonnet-5-5,halilkkaya-nm-s1-15,w-3d8cf1b6b7e1,2026-10-31

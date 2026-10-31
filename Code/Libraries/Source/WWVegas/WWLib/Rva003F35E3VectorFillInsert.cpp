@@ -122,10 +122,10 @@ template <> void _Construct<Rva003F3277Record, Rva003F3277Record>(
 class Rva003F3744 : public _STL::vector<Rva003F3277Record, _STL::allocator<Rva003F3277Record> >
 {
 public:
-	void rva003F3744(Rva003F3277Record *position, unsigned int count, const Rva003F3277Record &value);
+	void fillInsert(Rva003F3277Record *position, unsigned int count, const Rva003F3277Record &value);
 };
 
-void Rva003F3744::rva003F3744(Rva003F3277Record *position, unsigned int count, const Rva003F3277Record &value)
+void Rva003F3744::fillInsert(Rva003F3277Record *position, unsigned int count, const Rva003F3277Record &value)
 {
 	_M_fill_insert(position, count, value);
 }

@@ -11,11 +11,11 @@
 // 0x000AE490, else returns false. Honest address-derived names; boundary
 // verified (frame at 0xAFA92, xor/pop/ret at end).
 
-// The forward target is the rowed ?rva000AE490@Rva000AE490@@QAE_NHFQAM0_N@Z (same object).
+// The forward target is the rowed ?getUVForTileIndex@Rva000AE490@@QAE_NHFQAM0_N@Z (same object).
 class Rva000AE490
 {
 public:
-	bool rva000AE490(int idx, short w, float *const c, float *const d, bool e);
+	bool getUVForTileIndex(int idx, short w, float *const c, float *const d, bool e);
 };
 
 class Rva000AFA92
@@ -44,7 +44,7 @@ bool Rva000AFA92::rva000AFA92(int a, int b, int c, int d, int e)
 		if (t)
 		{
 			unsigned short w = t[idx];
-			return ((Rva000AE490 *)this)->rva000AE490(idx, (short)w, (float *)c, (float *)d, *(bool *)&e);
+			return ((Rva000AE490 *)this)->getUVForTileIndex(idx, (short)w, (float *)c, (float *)d, *(bool *)&e);
 		}
 	}
 	return false;

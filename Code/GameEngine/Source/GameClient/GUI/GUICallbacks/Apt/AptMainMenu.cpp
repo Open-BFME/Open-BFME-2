@@ -323,7 +323,7 @@ class Rva0073F778 {
     void *m_handle;
 public:
     bool createThread(unsigned (__stdcall *start)(void *), void *arglist, int resume, unsigned stackSize, int priority, void *security);
-    bool rva0073F83F(int resume, unsigned stackSize, int priority, void *security);
+    bool startThread(int resume, unsigned stackSize, int priority, void *security);
 };
 
   
@@ -621,7 +621,7 @@ void AptMainMenu::rva00514E20()
     }
     g_bfmeThreadAtE048E0 = nw;
     if (nw) {
-        ((Rva0073F778 *)nw)->rva0073F83F(1, 0, 4, 0);
+        ((Rva0073F778 *)nw)->startThread(1, 0, 4, 0);
     }
 }
 

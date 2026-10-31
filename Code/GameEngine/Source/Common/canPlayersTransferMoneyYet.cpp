@@ -20,7 +20,7 @@ bool canPlayersTransferMoneyYet()
 {
 	unsigned int threshold = (*(Rva0023D339A **)&TheWritableGlobalData)->m_122C;
 	threshold *= (*(unsigned int *)&BfmeLogicFramesPerSecond);
-	Rva0023D339B *b = (*(Rva0023D339B **)&TheGameLogic);
+	Rva0023D339B *gameLogic = (*(Rva0023D339B **)&TheGameLogic);
 	threshold *= 60;
-	return b->m_40 >= threshold;
+	return gameLogic->m_40 >= threshold;
 }

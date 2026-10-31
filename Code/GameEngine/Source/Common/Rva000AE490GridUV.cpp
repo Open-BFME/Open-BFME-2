@@ -72,7 +72,7 @@ extern GlobalData *TheWritableGlobalData;
 class Rva000AE490
 {
 public:
-	bool rva000AE490(int ndx, short tileNdx, float uCoords[4], float vCoords[4],
+	bool getUVForTileIndex(int ndx, short tileNdx, float uCoords[4], float vCoords[4],
 		bool fullTile);
 	bool rva000AE6AD(int xIndex, int yIndex, float uCoords[4], float vCoords[4],
 		unsigned char alpha[4], bool *needFlip, bool *cliff);
@@ -98,7 +98,7 @@ private:
 	int m_terrainTexHeight;
 };
 
-bool Rva000AE490::rva000AE490(int ndx, short tileNdx, float uCoords[4],
+bool Rva000AE490::getUVForTileIndex(int ndx, short tileNdx, float uCoords[4],
 	float vCoords[4], bool fullTile)
 {
 	float nU, nV, xU, xV;
@@ -192,7 +192,7 @@ bool Rva000AE490::rva000AE6AD(int xIndex, int yIndex, float uCoords[4],
 		{
 			const unsigned int blendBaseForCall =
 				(unsigned int)m_blendedTiles;
-			*cliff = rva000AE490(ndx,
+			*cliff = getUVForTileIndex(ndx,
 				*(short *)((blendNdx << 4) + blendBaseForCall),
 				uCoords, vCoords, zero);
 			alpha[0] = alpha[1] = alpha[2] = alpha[3] = zero;

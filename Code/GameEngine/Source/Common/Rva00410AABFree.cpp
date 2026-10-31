@@ -39,25 +39,25 @@ struct Holder00410AAB
 
 void __stdcall Rva00410AABFree(void *p);
 
-void __stdcall Rva00410AABFree(void *p)
+void __stdcall Rva00410AABFree(void *memoryBlock)
 {
-	((Holder00410AAB *)p)->m_04.~Rva00410688();
-	if (p != 0)
-		free(p);
+	((Holder00410AAB *)memoryBlock)->m_04.~Rva00410688();
+	if (memoryBlock != 0)
+		free(memoryBlock);
 }
 
 class Rva00410AABHelper
 {
 public:
-	void rva00410AAB(void *p);
+	void rva00410AAB(void *memoryBlock);
 };
 
 // ICF-folded twin of Rva00410AABFree above (same 28 bytes at 0x00410AAB):
 // the member spelling ignores its receiver, so its stack frame matches the
 // stdcall spelling exactly, including the callee-cleaned return.
-void Rva00410AABHelper::rva00410AAB(void *p)
+void Rva00410AABHelper::rva00410AAB(void *memoryBlock)
 {
-	((Holder00410AAB *)p)->m_04.~Rva00410688();
-	if (p != 0)
-		free(p);
+	((Holder00410AAB *)memoryBlock)->m_04.~Rva00410688();
+	if (memoryBlock != 0)
+		free(memoryBlock);
 }

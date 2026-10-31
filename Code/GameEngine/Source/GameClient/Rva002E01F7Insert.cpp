@@ -4,7 +4,7 @@
 // (next+pair) shared with rowed NewNode 0x002230FF and rowed bucketIndex
 // 0x00223149. Buckets at +4/+8, count at +0x10 (inc shape). Walks the bucket
 // chain with rowed StringBase compare 0x000069D6; on miss allocates via rowed
-// ?rva002230FF@Rva002230FF@@QAEPAXPBX@Z (same 12B node) and links it; fills
+// ?newNode@Rva002230FF@@QAEPAXPBX@Z (same 12B node) and links it; fills
 // the 9-byte pair<iterator,bool> out-param (node+table+found) and returns it
 // in eax. Caller at 0x002E0372. Same 124B shape as rva00212A5A rva001F8F2A
 // rva0041539F. Evidence: ret-8 thiscall with hidden return at +8 and key at
@@ -26,7 +26,7 @@ struct InsertRet002E01F7
 class Rva002230FF
 {
 public:
-	void *rva002230FF(const void *src);
+	void *newNode(const void *src);
 };
 
 class Rva000427195
@@ -58,7 +58,7 @@ InsertRet002E01F7 Rva000427195::rva002E01F7(const void *key)
 			cur = *(void **)cur;
 		} while (cur != 0);
 	}
-	void *node = ((Rva002230FF *)this)->rva002230FF(key);
+	void *node = ((Rva002230FF *)this)->newNode(key);
 	*(void **)node = head;
 	m_beginBuckets[bucket] = node;
 	++m_numElements;

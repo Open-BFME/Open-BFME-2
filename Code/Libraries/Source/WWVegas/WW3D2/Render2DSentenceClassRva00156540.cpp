@@ -30,7 +30,7 @@ public:
 struct Rva00156540Param
 {
 	int pad[11];
-	int field2c;
+	int m_charHeight;
 };
 
 struct TextureStatisticsStructWide;
@@ -107,7 +107,7 @@ void Render2DSentenceClass::rva00156540(Rva00156540Param const *param)
 	int width = m_textureOffset.X - m_textureStartX;
 	if (0 >= width)
 		return;
-	float charHeight = (float)param->field2c;
+	float charHeight = (float)param->m_charHeight;
 	RenderSentenceGeometryView chunk;
 	SurfaceClass *surface = m_curSurface;
 	if (surface != 0)

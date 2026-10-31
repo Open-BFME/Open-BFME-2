@@ -30,7 +30,7 @@ template<> __declspec(noinline) void WorkList::splice(iterator position,list&,it
 class MilesMutexGuard {public:MilesMutexGuard(void*,int);~MilesMutexGuard();void *mutex;bool held;};
 class Rva0040F9D {public:bool set();bool reset();char pad[4];HANDLE handle;};
 class WorkOperation {public:virtual void slot0();virtual void run();};
-struct AsyncQueueWorkerOwner {int active,count;WorkList queued;char mutexC[8];Rva0040F9D available;WorkList secondary;char mutex20[8];Rva0040F9D drained;};
+struct AsyncQueueWorkerOwner {int active,count;WorkList queued;char mutexC[8];Rva0040F9D available;WorkList secondary;char m_secondaryMutex[8];Rva0040F9D drained;};
 class Rva0073F708 {
 public:AsyncQueueWorkerOwner *owner;char pad4[8];HANDLE stopHandle;unsigned run();
 };
@@ -50,7 +50,7 @@ unsigned Rva0073F708::run(){
   Rva0073EEE0ListValue &item=pending.front();
   try {((WorkOperation*)item.helperManagedPointer.m_item)->run();}catch(...){}
   {
-   MilesMutexGuard lock(owner->mutex20,0);
+   MilesMutexGuard lock(owner->m_secondaryMutex,0);
    if(owner->active==1){
     bool wasEmpty=owner->secondary.empty();
     owner->secondary.splice(owner->secondary.end(),pending,pending.begin());
@@ -64,4 +64,4 @@ unsigned Rva0073F708::run(){
 }
 
 // Actual unsigned stdcall thread callback passed by matched constructor73F708.
-unsigned __stdcall Rva0073F6FCCb(void* worker) {return static_cast<Rva0073F708*>(worker)->run();}
+unsigned __stdcall workerThreadProc(void* worker) {return static_cast<Rva0073F708*>(worker)->run();}

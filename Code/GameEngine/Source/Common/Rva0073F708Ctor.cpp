@@ -42,7 +42,7 @@ private:
 	void *m_handle;
 };
 
-unsigned __stdcall Rva0073F6FCCb(void *arg);
+unsigned __stdcall workerThreadProc(void *arg);
 
 class Rva0073F708
 {
@@ -57,7 +57,7 @@ private:
 Rva0073F708::Rva0073F708(void *owner, int priority)
 	: m_a1(owner), m_thread(new Rva0073F778), m_event(1, 0, 0, 0)
 {
-	m_thread.get()->createThread(Rva0073F6FCCb, this, 1, 0, priority, 0);
+	m_thread.get()->createThread(workerThreadProc, this, 1, 0, priority, 0);
 }
 
 // ??0Rva000A8893Worker@@QAE@PAXH@Z @0x000A8893 112B: byte-identical to Rva0073F708's constructor
@@ -76,5 +76,5 @@ private:
 Rva000A8893Worker::Rva000A8893Worker(void *owner, int priority)
 	: m_a1(owner), m_thread(new Rva0073F778), m_event(1, 0, 0, 0)
 {
-	m_thread.get()->createThread(Rva0073F6FCCb, this, 1, 0, priority, 0);
+	m_thread.get()->createThread(workerThreadProc, this, 1, 0, priority, 0);
 }

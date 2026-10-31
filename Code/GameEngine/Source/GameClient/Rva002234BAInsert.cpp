@@ -25,7 +25,7 @@ template <class T1, class T2> struct pair
 class Rva002230FF
 {
 public:
-	void *rva002230FF(const void *obj);
+	void *newNode(const void *obj);
 };
 
 class Rva000427195
@@ -47,7 +47,7 @@ _STL::pair<const AsciiString, NoCaseTreeValue4> *Rva000427195::rva002234BA(const
 	rva00212858(m_numElements + 1);
 	int bucket = bucketIndex(&entry->first);
 	void *old = m_beginBuckets[bucket];
-	void *node = ((Rva002230FF *)this)->rva002230FF(entry);
+	void *node = ((Rva002230FF *)this)->newNode(entry);
 	*(void **)node = old;
 	m_beginBuckets[bucket] = node;
 	++m_numElements;

@@ -754,7 +754,7 @@ Rva000AD71D::~Rva000AD71D()
 
 // tu-skeleton: 0x000AE44B 69B ?rva000AE44B@WorldHeightMap@@QAEXHHPAX@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapGridBlendQueries.cpp (not merged yet)
 
-// tu-skeleton: 0x000AE490 541B ?rva000AE490@Rva000AE490@@QAE_NHFQAM0_N@Z -- matched in Code/GameEngine/Source/Common/Rva000AE490GridUV.cpp (not merged yet)
+// tu-skeleton: 0x000AE490 541B ?getUVForTileIndex@Rva000AE490@@QAE_NHFQAM0_N@Z -- matched in Code/GameEngine/Source/Common/Rva000AE490GridUV.cpp (not merged yet)
 
 // tu-skeleton: 0x000AE6AD 413B ?rva000AE6AD@Rva000AE490@@QAE_NHHQAM0QAEPA_N2@Z -- matched in Code/GameEngine/Source/Common/Rva000AE490GridUV.cpp (not merged yet)
 

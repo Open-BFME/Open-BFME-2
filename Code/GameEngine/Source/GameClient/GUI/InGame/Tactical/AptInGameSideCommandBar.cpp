@@ -23,7 +23,7 @@ public:
  void *get() const { return m_ptr; }
  void *m_ptr;
 };
-class Rva00528309 { public: void rva005283E3(); };
+class Rva00528309 { public: void reset(); };
 class Object;
 class Rva00575674 {
 public:
@@ -196,7 +196,7 @@ void AptInGameSideCommandBar::Impl::OnLoaded(const char *params)
 // Entire eight-byte body calls the already rowed 5283E3 cleanup then ret4.
 void AptInGameSideCommandBar::Impl::OnUnloaded(const char *)
 {
- ((Rva00528309 *)this)->rva005283E3();
+ ((Rva00528309 *)this)->reset();
 }
 
 // WB013C6FC0 names this Impl constructor and its levelIndex assertions.
