@@ -3408,7 +3408,6 @@ alternatename	Code/GameEngine/Source/GameNetwork/Rva007F1DE0DerivedCtors.cpp	?se
 alternatename	Code/GameEngine/Source/GameNetwork/Rva007F1DE0DerivedCtors.cpp	?secondary@Rva007FAE20Object@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameNetwork/Rva007F1DE0DerivedCtors.cpp	?secondary@Rva007FC150Object@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameNetwork/Rva007F61E0HostedGameRequest.cpp	?BfmeGameBrowserVJPCallback@@YGXXZ	1
-alternatename	Code/GameEngine/Source/GameNetwork/Rva007F65E0GameReply.cpp	?bfmeDoBDB@BfmeSubBDB@@QAEXPAXH@Z	1
 alternatename	Code/GameEngine/Source/GameNetwork/Rva007F99B0Busy.cpp	?onBusy@Rva007FA2C0@@QAEXPAX@Z	1
 alternatename	Code/GameEngine/Source/GameNetwork/Rva007F9C50Dtor.cpp	??1Gen007FA290@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/GameNetwork/Rva007F9C50Dtor.cpp	?v0@Rva007F9C50@@UAEXXZ	1
@@ -3457,8 +3456,6 @@ alternatename	Code/GameEngine/Source/GameNetwork/V2FeslArrayBlocks.cpp	?bfmeUse1
 alternatename	Code/GameEngine/Source/GameNetwork/V2FeslArrayBlocks.cpp	?set@Rva00802040Buf@@QAEXPAX@Z	1
 alternatename	Code/GameEngine/Source/GameNetwork/V2FeslArrayBlocks.cpp	?slot@Rva00802D00Element@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameNetwork/V2FeslArrayBlocks.cpp	?slot@Rva00802E70Element@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameNetwork/V2FeslBrowserEvents.cpp	?BfmeGameBrowserVJQCallback@@YGXXZ	1
-alternatename	Code/GameEngine/Source/GameNetwork/V2FeslBrowserEvents.cpp	?BfmeGameBrowserVJRCallback@@YGXXZ	1
 alternatename	Code/GameEngine/Source/GameNetwork/V2FeslResultCursors.cpp	?bfmeSendVIR@BfmeThingVIR@@QAEXPAVBfmeMsgVIR@@PBUBfmeOwnerVIR@@PBQBDHHH@Z	1
 alternatename	Code/GameEngine/Source/GameNetwork/V2FeslResultCursors.cpp	?bfmeSendVIS@BfmeThingVIS@@QAEXPAVBfmeMsgVIR@@PBUBfmeOwnerVIR@@PBQBDHHH@Z	1
 alternatename	Code/GameEngine/Source/GameNetwork/Y2FeslBufferAndChain.cpp	??1Gen_dtor_007f6d20@@UAE@XZ	1
@@ -3808,7 +3805,10 @@ alternatename	Code/Libraries/Source/DirtySock/commudp.cpp	_Rva00819300Op	1
 alternatename	Code/Libraries/Source/EA/Apt/AptString/EAStringCRefCount.cpp	??1S4Mem005864A0@@QAE@XZ	1
 alternatename	Code/Libraries/Source/EA/Apt/AptString/EAStringCRefCount.cpp	??1S4Mem005879C0@@QAE@XZ	1
 alternatename	Code/Libraries/Source/EA/Apt/StringPoolInitialize.cpp	?rva006CD4A0@EAStringC@@QBE_NXZ	1
+alternatename	Code/Libraries/Source/Fesl/gamebrowser/gamebrowser.cpp	?BfmeGameBrowserVJQCallback@@YGXXZ	1
+alternatename	Code/Libraries/Source/Fesl/gamebrowser/gamebrowser.cpp	?BfmeGameBrowserVJRCallback@@YGXXZ	1
 alternatename	Code/Libraries/Source/Fesl/gamebrowser/gamebrowser.cpp	?bfmeCbVJM@@YGXXZ	1
+alternatename	Code/Libraries/Source/Fesl/gamebrowser/gamebrowser.cpp	?bfmeDoBDB@BfmeSubBDB@@QAEXPAXH@Z	1
 alternatename	Code/Libraries/Source/Fesl/gamebrowser/gamebrowser.cpp	?m@Gen_007e88b0@@QAEHXZ	1
 alternatename	Code/Libraries/Source/Fesl/gamebrowser/gamebrowser.cpp	?resetHpState@Rva007F5D10HostLookup@@QAEXPAVRva008022A0Owner@@@Z	1
 alternatename	Code/Libraries/Source/Fesl/gamebrowser/gamebrowserdemangler.cpp	?bfmeDo1052@Rva00800E50Owner@@QAEXHPAURva00800E50Stamp@@H@Z	1
