@@ -132,11 +132,6 @@ PooledString &PooledString::operator=(const AsciiString &that)
     return *this;
 }
 
-void PooledString::clear()
-{
-    m_entry = &ThePooledStringEmptyEntry;
-}
-
 int PooledString::compare(const char *str, int len) const
 {
     const CharCompare tag = CharCompare();
@@ -200,21 +195,6 @@ PooledString &PooledString::operator=(const char *text)
     setString(text);
 
     return *this;
-}
-
-int PooledString::getLength() const
-{
-    return (int)strlen(m_entry->m_text);
-}
-
-bool PooledString::isEmpty() const
-{
-    return m_entry == &ThePooledStringEmptyEntry;
-}
-
-bool PooledString::isNotEmpty() const
-{
-    return m_entry != &ThePooledStringEmptyEntry;
 }
 
 Debug &operator<<(Debug &debug, const PooledString &str)

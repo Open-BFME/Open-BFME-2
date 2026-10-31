@@ -516,9 +516,9 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemory.cpp,matched
 ??4?$StringBase@G@@QAEAAV0@ABV0@@Z,0x00037900,0x00037900,19,Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp,matched,Open-BFME5 clean C++; StringBase copy assignment
 ??0PooledString@@QAE@XZ,0x0060B7C4,0x0060B7C4,9,Code/GameEngine/Source/Common/System/PooledString.cpp,matched,Open-BFME5 clean C++; PooledString accessor
 ??0PooledString@@QAE@PBD@Z,0x0060B7CD,0x0060B7CD,21,Code/GameEngine/Source/Common/System/PooledString.cpp,matched,Open-BFME5 clean C++; PooledString accessor
-?getLength@PooledString@@QBEHXZ,0x0060B7E2,0x0060B7E2,13,Code/GameEngine/Source/Common/System/PooledString.cpp,matched,Open-BFME5 clean C++; PooledString accessor
-?isEmpty@PooledString@@QBE_NXZ,0x0060B7EF,0x0060B7EF,12,Code/GameEngine/Source/Common/System/PooledString.cpp,matched,Open-BFME5 clean C++; PooledString accessor
-?isNotEmpty@PooledString@@QBE_NXZ,0x0060B7FB,0x0060B7FB,12,Code/GameEngine/Source/Common/System/PooledString.cpp,matched,Open-BFME5 clean C++; PooledString accessor
+?getLength@PooledString@@QBEHXZ,0x0060B7E2,0x0060B7E2,13,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,Open-BFME5 clean C++; PooledString accessor
+?isEmpty@PooledString@@QBE_NXZ,0x0060B7EF,0x0060B7EF,12,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,Open-BFME5 clean C++; PooledString accessor
+?isNotEmpty@PooledString@@QBE_NXZ,0x0060B7FB,0x0060B7FB,12,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,Open-BFME5 clean C++; PooledString accessor
 ??4PooledString@@QAEAAV0@PBD@Z,0x0060B80E,0x0060B80E,18,Code/GameEngine/Source/Common/System/PooledString.cpp,matched,Open-BFME5 clean C++; PooledString accessor
 ??6@YAAAVDebug@@AAV0@ABVPooledString@@@Z,0x0060B84F,0x0060B84F,26,Code/GameEngine/Source/Common/System/PooledString.cpp,matched,Open-BFME5 clean C++; PooledString accessor
 ??0AsciiString@@QAE@ABV0@@Z,0x001D8F56,0x001D8F56,18,Code/Libraries/Source/WWVegas/WWLib/ascii_string.cpp,matched,Open-BFME5 clean C++; AsciiString copy constructor
@@ -539,7 +539,7 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemory.cpp,matched
 ?translate@AsciiString@@QAEXABVUnicodeString@@@Z,0x00038220,0x00038220,36,Code/Libraries/Source/WWVegas/WWLib/string_inline.cpp,matched,Open-BFME5 clean C++; string formatting and translation from the speed-built unit
 ?translate@UnicodeString@@QAEXABVAsciiString@@@Z,0x006CB6A0,0x006CB6A0,36,Code/Libraries/Source/WWVegas/WWLib/string_inline.cpp,matched,Open-BFME5 clean C++; string formatting and translation from the speed-built unit
 ?format@AsciiString@@QAAXPBDZZ,0x00038150,0x00038150,20,Code/Libraries/Source/WWVegas/WWLib/string_inline.cpp,matched,Open-BFME5 clean C++; varargs format forwarder
-?clear@PooledString@@QAEXXZ,0x0060B807,0x0060B807,7,Code/GameEngine/Source/Common/System/PooledString.cpp,matched,Open-BFME5 clean C++; PooledString comparison and conversion
+?clear@PooledString@@QAEXXZ,0x0060B807,0x0060B807,7,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,Open-BFME5 clean C++; PooledString comparison and conversion
 ??4PooledString@@QAEAAV0@ABVAsciiString@@@Z,0x0060BE7F,0x0060BE7F,37,Code/GameEngine/Source/Common/System/PooledString.cpp,matched,Open-BFME5 clean C++; PooledString comparison and conversion
 ?format@UnicodeString@@QAAXPBGZZ,0x006CB5D0,0x006CB5D0,20,Code/Libraries/Source/WWVegas/WWLib/string_inline.cpp,matched,Open-BFME5 clean C++; varargs format forwarder
 ??1?$CTempBuffer@D$0IA@VCCRTAllocator@ATL@@@ATL@@QAE@XZ,,0x000066DE,13,Code/Libraries/Source/ATL/cstringt.cpp,matched,ATL 7.1 CTempBuffer<char 128 CCRTAllocator> destructor: if (m_p != m_abFixedBuffer) FreeHeap() as a tail jump to the ATL_NOINLINE FreeHeap 0x000056C7. Retail GetEnvironmentVariableWFake 0x00006B09 (cstringt.cpp row): its CW2A local (ebp-0x114 / buffer -0x110) is freed inline (cmp/je/push [m_psz]/call [free]) and its unwind funclet 0x0075B5D1 jumps to 0x00001D9A (ATL 7.1 ~CW2AEX = AtlConvFreeMemory inlined; ICF-shared with ~CA2WEX<128>); its CTempBuffer<char> local (ebp-0x90 / fixed buffer -0x8C) calls FreeHeap 0x000056C7 on the main path and its funclet 0x0075B5C6 jumps to 0x000066DE. Formerly mis-rowed as ??1?$CW2AEX@$0IA@@ATL@@QAE@XZ via an invented noinline CW2AEX::deallocate in atlconv.cpp (renamed by linkfix33)

@@ -64,24 +64,45 @@ public:
 #pragma comment(linker, "/alternatename:?Is_Procedural@?$RefCountPtr@VTextureClass@@@@QBE_NXZ=?IsCRC@Xfer@@UBE_NXZ")
 #pragma comment(linker, "/alternatename:?bfmeReset@Gen009D6E10@@QAEXPAVBfmePeer@@@Z=??8Xfer@@UAEAAV0@AAVSnapshot@@@Z")
 #include <vector>
+#define _DLL
+#include <string.h>
+
 struct Coord3DBase;
+
 struct ICoord3D;
+
 struct Region3D;
+
 struct IRegion3D;
+
 struct Coord2D;
+
 struct ICoord2D;
+
 struct Region2D;
+
 struct IRegion2D;
+
 struct RealRange;
+
 struct RGBColor;
+
 struct RGBAColorReal;
+
 struct RGBAColorInt;
+
 class Snapshot;
+
 struct XferUnknown11;
+
 class Coord3DBase;
+
 class Coord2D;
+
 class RealRange;
+
 class RGBAColorReal;
+
 class RGBAColorInt;
 
 // Two version bytes, stored back to back: the retail Version1 body writes 1 to
@@ -113,16 +134,6 @@ struct PooledStringEntry
     void *m_unknown0;
     PooledStringEntry *m_noCase;
     char m_text[1];
-};
-
-class PooledString
-{
-public:
-    unsigned int getIdNoCase() const;
-    bool isEqualNoCase(const PooledString &that) const;
-
-private:
-    PooledStringEntry *m_entry;
 };
 
 template bool _STL::vector<bool, _STL::allocator<bool> >::empty() const;
@@ -286,19 +297,109 @@ private:
 	int m_currentBlock;
 };
 
-// tu-skeleton: 0x0060B7C4 9B ??0PooledString@@QAE@XZ -- matched in Code/GameEngine/Source/Common/System/PooledString.cpp (not merged yet)
+class Debug
+{
+public:
+    virtual void v0();
+    virtual void v1();
+    virtual void v2();
+    virtual void v3();
+    virtual void v4();
+    virtual void v5();
+    virtual void v6();
+    virtual void v7();
+    virtual Debug &operator<<(const char *value);
+    virtual Debug &operator<<(int value);
+    virtual Debug &operator<<(unsigned int value);
+    virtual Debug &operator<<(unsigned char value);
+    virtual Debug &operator<<(short value);
+    virtual Debug &operator<<(unsigned short value);
+    virtual void v9();
+    virtual void v10();
+    virtual void v11();
+    virtual void v12();
+    virtual void v13();
+    virtual Debug &operator<<(float value);
+};
 
-// tu-skeleton: 0x0060B7CD 21B ??0PooledString@@QAE@PBD@Z -- matched in Code/GameEngine/Source/Common/System/PooledString.cpp (not merged yet)
+extern PooledStringEntry ThePooledStringEmptyEntry;
 
-// tu-skeleton: 0x0060B7E2 13B ?getLength@PooledString@@QBEHXZ -- matched in Code/GameEngine/Source/Common/System/PooledString.cpp (not merged yet)
+// The same one-byte trait object and shared workers string_base.cpp uses; the
+// pooled comparisons hand them the pooled text and its strlen.
+struct CharCompare
+{
+    char m_unused;
+};
 
-// tu-skeleton: 0x0060B7EF 12B ?isEmpty@PooledString@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/System/PooledString.cpp (not merged yet)
+int compareRange(const char *a, int alen, const char *b, int blen, CharCompare tag);
 
-// tu-skeleton: 0x0060B7FB 12B ?isNotEmpty@PooledString@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/System/PooledString.cpp (not merged yet)
+int compareRangeNoCase(const char *a, int alen, const char *b, int blen, CharCompare tag);
 
-// tu-skeleton: 0x0060B807 7B ?clear@PooledString@@QAEXXZ -- matched in Code/GameEngine/Source/Common/System/PooledString.cpp (not merged yet)
+class PooledString
+{
+public:
+	unsigned int getIdNoCase() const;
+public:
+	bool isEqualNoCase(const PooledString &that) const;
+private:
+	PooledStringEntry *m_entry;
+public:
+	PooledString(const AsciiString &that);
+public:
+	PooledString &operator=(const char *text);
+public:
+	void clear();
+public:
+	int compare(const char *str, int len) const;
+public:
+	int compareNoCase(const char *str, int len) const;
+public:
+	int getLength() const;
+public:
+	bool isEmpty() const;
+public:
+	bool isNotEmpty() const;
+public:
+	friend Debug &operator<<(Debug &debug, const PooledString &str);
+private:
+	void setString(const char *text);
+};
 
-// tu-skeleton: 0x0060B80E 18B ??4PooledString@@QAEAAV0@PBD@Z -- matched in Code/GameEngine/Source/Common/System/PooledString.cpp (not merged yet)
+// AsciiString is only ever read through its buffer pointer here, so this unit
+// models the header block rather than pulling the class in.
+struct AsciiStringHeader
+{
+    int ref_count;
+    unsigned short length;
+    unsigned short capacity;
+    char data[1];
+};
+
+// ---- from Code/GameEngine/Source/Common/System/PooledString.cpp
+
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
+
+void PooledString::clear()
+{
+    m_entry = &ThePooledStringEmptyEntry;
+}
+
+int PooledString::getLength() const
+{
+    return (int)strlen(m_entry->m_text);
+}
+
+bool PooledString::isEmpty() const
+{
+    return m_entry == &ThePooledStringEmptyEntry;
+}
+
+bool PooledString::isNotEmpty() const
+{
+    return m_entry != &ThePooledStringEmptyEntry;
+}
+
+// ---- from Code/GameEngine/Source/Common/System/Xfer.cpp
 
 // ---- from Code/GameEngine/Source/Common/System/pooled_string_nocase.cpp
 
@@ -311,8 +412,6 @@ bool PooledString::isEqualNoCase(const PooledString &that) const
 {
     return getIdNoCase() == that.getIdNoCase();
 }
-
-// tu-skeleton: 0x0060B84F 26B ??6@YAAAVDebug@@AAV0@ABVPooledString@@@Z -- matched in Code/GameEngine/Source/Common/System/PooledString.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_vector_bool_empty.cpp
 
@@ -679,7 +778,6 @@ Xfer &Xfer::operator==(UnicodeString &us)
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 
-// tu-skeleton: 0x0060B8D9 152B ??8Xfer@@UAEAAV0@AAVVersion@0@@Z -- matched in Code/GameEngine/Source/Common/System/XferVersionTransfer.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/System/Rva0060BC53.cpp
 
@@ -706,30 +804,6 @@ Xfer *__cdecl Rva0060BD31Xfer(Xfer *xfer)
 	return Rva0060BC53Xfer3(xfer, tmp);
 }
 
-// tu-skeleton: 0x0060BCAB 55B ?compare@PooledString@@QBEHPBDH@Z -- matched in Code/GameEngine/Source/Common/System/PooledString.cpp (not merged yet)
-
-// tu-skeleton: 0x0060BCE2 55B ?compareNoCase@PooledString@@QBEHPBDH@Z -- matched in Code/GameEngine/Source/Common/System/PooledString.cpp (not merged yet)
-
-// tu-skeleton: 0x0060BD19 24B ??YAsciiString@@QAEAAV0@ABVPooledString@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/ascii_string.cpp (not merged yet)
-
-// tu-skeleton: 0x0060BD47 37B ?compare@PooledString@@QBEHPBD@Z -- matched in Code/GameEngine/Source/Common/System/PooledString.cpp (not merged yet)
-
-// tu-skeleton: 0x0060BD6C 34B ?compare@PooledString@@QBEHABV1@@Z -- matched in Code/GameEngine/Source/Common/System/PooledString.cpp (not merged yet)
-
-// tu-skeleton: 0x0060BD8E 37B ?compareNoCase@PooledString@@QBEHPBD@Z -- matched in Code/GameEngine/Source/Common/System/PooledString.cpp (not merged yet)
-
-// tu-skeleton: 0x0060BDB3 34B ?compareNoCase@PooledString@@QBEHABV1@@Z -- matched in Code/GameEngine/Source/Common/System/PooledString.cpp (not merged yet)
-
-// tu-skeleton: 0x0060BE03 40B ??0PooledString@@QAE@ABVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/System/PooledString.cpp (not merged yet)
-
-// tu-skeleton: 0x0060BE2B 42B ?compare@PooledString@@QBEHABVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/System/PooledString.cpp (not merged yet)
-
-// tu-skeleton: 0x0060BE55 42B ?compareNoCase@PooledString@@QBEHABVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/System/PooledString.cpp (not merged yet)
-
-// tu-skeleton: 0x0060C469 129B ?endBlock@Xfer@@UAEXXZ -- matched in Code/Libraries/Source/xfer/xfer_load.cpp (not merged yet)
-
-// tu-skeleton: 0x0060C4EA 95B ?skipBadBlock@BlockStreamReader@@QAEXPAXH@Z -- matched in Code/Libraries/Source/xfer/xfer_load.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Gen009D8BD0.cpp
 
 Gen009D8BD0 *Gen009D8BD0::bfmeAttach(BfmePeer *peer)
@@ -745,8 +819,6 @@ Gen009D8BD0 *Gen009D8BD0::bfmeAttach(BfmePeer *peer)
 	return this;
 }
 
-// tu-skeleton: 0x0060C59D 93B ?bfmeSkipPrefixed@Gen009D8C30@@QAEXXZ -- matched in Code/Libraries/Source/xfer/xfer_load.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/xfer/Rva0060C5FACtor.cpp
 
 Rva0060C5FA::Rva0060C5FA(void *a1, void *a2, void *a3)
@@ -760,6 +832,16 @@ Rva0060C5FA::Rva0060C5FA(void *a1, void *a2, void *a3)
 	m_stream = 0;
 	m_blockCount = 0;
 }
+
+// tu-skeleton: 0x0060B8D9 152B ??8Xfer@@UAEAAV0@AAVVersion@0@@Z -- matched in Code/GameEngine/Source/Common/System/XferVersionTransfer.cpp (not merged yet)
+
+// tu-skeleton: 0x0060BD19 24B ??YAsciiString@@QAEAAV0@ABVPooledString@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/ascii_string.cpp (not merged yet)
+
+// tu-skeleton: 0x0060C469 129B ?endBlock@Xfer@@UAEXXZ -- matched in Code/Libraries/Source/xfer/xfer_load.cpp (not merged yet)
+
+// tu-skeleton: 0x0060C4EA 95B ?skipBadBlock@BlockStreamReader@@QAEXPAXH@Z -- matched in Code/Libraries/Source/xfer/xfer_load.cpp (not merged yet)
+
+// tu-skeleton: 0x0060C59D 93B ?bfmeSkipPrefixed@Gen009D8C30@@QAEXXZ -- matched in Code/Libraries/Source/xfer/xfer_load.cpp (not merged yet)
 
 // tu-skeleton: 0x0060C629 205B ?beginBlock@Xfer@@UAEHPBD@Z -- matched in Code/Libraries/Source/xfer/xfer_load.cpp (not merged yet)
 
