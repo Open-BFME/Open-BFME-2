@@ -11,6 +11,18 @@
 	{ \
 		return m_value; \
 	}
+#define BFME_DISP_FLOAT_GETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		float get() const; \
+		char m_lead[DISP]; \
+		float m_value; \
+	}; \
+	float NAME::get() const \
+	{ \
+		return m_value; \
+	}
 
 //
 // ?init@AutoAbilityQueryEntry@@QAEPAV1@XZ,
@@ -63,6 +75,61 @@ public: unsigned char isTwo() const;
 private: char unknown[0x0C]; unsigned int value;
 };
 
+BFME_DISP_FLOAT_GETTER(Rva0045A20AFloatField, 0x134)
+
+// Two getters that read a GameClientRandomVariable field through its rowed
+// getValue (0x002341A1): add ecx, <field>; tail jump. They bracket the 0x80
+// float getter above: 0x00094AEE (8B, field +0x74) ends where it begins and
+// 0x00094AFD (11B, field +0x84) starts where it ends. Receiver classes are
+// unknown; names follow this file's per-address convention.
+class GameClientRandomVariable
+{
+public:
+	float getValue() const;
+private:
+	int m_type;
+	float m_low;
+	float m_high;
+};
+
+class Rva00094AEERandomField
+{
+public:
+	float get() const;
+private:
+	char m_pad00[0x74];
+	GameClientRandomVariable m_value;
+};
+
+class Rva00094AFDRandomField
+{
+public:
+	float get() const;
+private:
+	char m_pad00[0x84];
+	GameClientRandomVariable m_value;
+};
+
+class Rva00098540RandomField
+{
+public:
+	int get() const;
+private:
+	char m_pad00[0x30];
+	GameClientRandomVariable m_value;
+};
+
+class Rva0009854DRandomField
+{
+public:
+	float get() const;
+private:
+	char m_pad00[0x3C];
+	GameClientRandomVariable m_value;
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityQueryEntry.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityQueryEntry.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityQueryEntryInit.cpp
@@ -74,10 +141,6 @@ AutoAbilityQueryEntry *AutoAbilityQueryEntry::init()
 	m_filter.construct();
 	return this;
 }
-
-// tu-skeleton: 0x0045A1EB 12B ?hasLowFlags@Rva0045A1EB@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE22.cpp (not merged yet)
-
-// tu-skeleton: 0x0045A1F7 12B ?isBit3Clear@Rva0045A1EB@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE22.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/DispByteFieldGetters.cpp
 
@@ -99,7 +162,20 @@ AutoAbilityQueryEntry *AutoAbilityQueryEntry::init()
 // reference/open-bfme-1/Code/GameEngine/Source/Common/DispByteFieldGetters.cpp).
 // No // cl: line (defaults match the frameless 7-byte shape).
 
-// tu-skeleton: 0x0045A20A 7B ?get@Rva0045A20AFloatField@@QBEMXZ -- matched in Code/GameEngine/Source/Common/DispFloatFieldGetters.cpp (not merged yet)
+// tu-skeleton: 0x0045A1EB 12B ?hasLowFlags@Rva0045A1EB@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE22.cpp (not merged yet)
+
+// tu-skeleton: 0x0045A1F7 12B ?isBit3Clear@Rva0045A1EB@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE22.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/DispFloatFieldGetters.cpp
+
+// Disp32 float getters: seven-byte __thiscall members with one shape:
+//
+//     fld dword ptr [ecx+<DISP>] / ret
+//
+// One dword is loaded onto the x87 stack and left there, which is the return
+// convention for `float`. BFME1 pioneered the same family in
+// reference/open-bfme-1/Code/GameEngine/Source/Common/DispFloatFieldGetters.cpp.
+// No // cl: line (defaults match the frameless 7-byte shape).
 
 // tu-skeleton: 0x0045A21F 7B ?get@Rva0045A21FLeaGetter@@QBEPAXXZ -- matched in Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp (not merged yet)
 
