@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/open-bfme-1/inputs/reference/shims/firewall /Ireference/open-bfme-1/inputs/reference/shims/ini /Ireference/open-bfme-1/inputs/reference/shims/sweep /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/shims/bfme2_firewallhelper /Ireference/shims/bfme2_ascii /Ireference/shims/bfme2_ascii_common /Ireference/open-bfme-1/inputs/reference/shims/firewall /Ireference/open-bfme-1/inputs/reference/shims/ini /Ireference/open-bfme-1/inputs/reference/shims/sweep /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad
 //
 // FirewallHelperClass's mangler-response reader and NAT detection state
 // updates, ported from Zero Hour's GameEngine/Source/GameNetwork/
@@ -79,7 +79,7 @@ static const UnsignedShort BFME_MANGLER_PORT = 4321;
 static const UnsignedInt BFME_FIREWALL_TYPE_DESTINATION_PORT_DELTA = 128;
 
 #define closeSpareSocket(port) (((Rva0059534A *)this)->rva0059534A(port))
-#define sendToManglerFromPort(address, port, packetID, destPort) \
+#define sendToManglerFrom(address, port, packetID, destPort) \
 	(((Rva0059517F *)this)->sendToManglerFromPort((address), (port), (packetID), (destPort), FALSE))
 #define byteAdjust(data) (((Rva00594DC0 *)this)->rva00594DC0((Rva00594DC0Msg *)(data)))
 
@@ -204,7 +204,7 @@ Bool FirewallHelperClass::detectionTest1Update() {
 	m_timeoutStart = timeGetTime();
 	m_timeoutLength = 6000;
 	m_mangledPorts[1] = 0;
-	sendToManglerFromPort(m_manglers[1], m_sparePorts[0], m_packetID+1, BFME_MANGLER_PORT);
+	sendToManglerFrom(m_manglers[1], m_sparePorts[0], m_packetID+1, BFME_MANGLER_PORT);
 
 	m_currentState = DETECTIONSTATE_TEST2;
 	return FALSE;
@@ -291,7 +291,7 @@ Bool FirewallHelperClass::detectionTest3Update() {
 
 		for (i=0 ; i<NUM_TEST_PORTS ; i++) {
 			if (m_mangledPorts[i] == 0) {
-				sendToManglerFromPort(m_manglers[0], m_sparePorts[i], m_packetID+i, BFME_MANGLER_PORT);
+				sendToManglerFrom(m_manglers[0], m_sparePorts[i], m_packetID+i, BFME_MANGLER_PORT);
 			}
 		}
 
@@ -427,7 +427,7 @@ Bool FirewallHelperClass::detectionTest3WaitForResponsesUpdate() {
 			/*
 			** Wait for a response.
 			*/
-			sendToManglerFromPort(m_manglers[0], m_sparePorts[0], m_packetID, BFME_MANGLER_PORT);
+			sendToManglerFrom(m_manglers[0], m_sparePorts[0], m_packetID, BFME_MANGLER_PORT);
 
 			m_currentState = DETECTIONSTATE_TEST4_1;
 			return FALSE;
@@ -465,15 +465,15 @@ Bool FirewallHelperClass::detectionTest4Stage1Update() {
 	*/
 	UnsignedInt addr = m_manglers[0];
 	UnsignedShort port1 = BFME_MANGLER_PORT + 1;
-	sendToManglerFromPort(addr, m_sparePorts[0], m_packetID, port1);
-	sendToManglerFromPort(addr, m_sparePorts[0], m_packetID, port1);
-	sendToManglerFromPort(addr, m_sparePorts[0], m_packetID, port1);
+	sendToManglerFrom(addr, m_sparePorts[0], m_packetID, port1);
+	sendToManglerFrom(addr, m_sparePorts[0], m_packetID, port1);
+	sendToManglerFrom(addr, m_sparePorts[0], m_packetID, port1);
 
 	m_packetID++;
 	m_timeoutStart = timeGetTime();
 	m_timeoutLength = 4000;
 
-	sendToManglerFromPort(m_manglers[0], m_sparePorts[1], m_packetID, BFME_MANGLER_PORT);
+	sendToManglerFrom(m_manglers[0], m_sparePorts[1], m_packetID, BFME_MANGLER_PORT);
 
 	m_currentState = DETECTIONSTATE_TEST4_2;
 	return FALSE;

@@ -1,7 +1,17 @@
-// cl: /EHsc /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/shims/bfme2_firewallhelper /Ireference/shims/bfme2_ascii /Ireference/shims/bfme2_ascii_common /Ireference/open-bfme-1/inputs/reference/shims/firewall /Ireference/open-bfme-1/inputs/reference/shims/ini /Ireference/open-bfme-1/inputs/reference/shims/sweep /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad
 // ?rva00595D95@Rva00595D95@@QAE_NXZ @0x00595D95 177B evidence: FirewallNeedToRefresh TRUE strings plus TheWritableGlobalData firewallBehavior+0xA4C via OptionPreferences find; callers 0x005182DE 0x00519C83 0x00572506; nonthrowing compare preserves the temporary cleanup state
-#include <map>
+// stlport
+#define Matrix4x4 Matrix4  // BFME renamed it
+
+#include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
+
+#include "Common/crc.h"
+#include "Common/UserPreferences.h"
+#include "GameNetwork/FirewallHelper.h"
+#include "GameNetwork/NAT.h"
+#include "GameNetwork/udp.h"
+#include "GameNetwork/NetworkDefs.h"
+#include "GameNetwork/GameSpy/GSConfig.h"
 
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
 namespace _STL {
@@ -10,71 +20,22 @@ static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
                               const _Rb_tree_iterator<T, RightTraits>& b)
 { return a._M_node != b._M_node; }
 }
-#include <stdlib.h>
-
-typedef bool Bool;
-typedef int Int;
-
-#include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
-#include "../../../../reference/shims/bfme2_ascii/unicode_string.h"
 
 // Retail compares the temporary TRUE value without another EH state.
 template <> int StringBase<char>::compareNoCase(const char *) const throw();
 
-bool operator<(const AsciiString &left, const AsciiString &right) throw();
-
-namespace _STL
+// BFME 2's GlobalData firewall fields (target evidence: +0xA4C to +0xA58 read
+// and written through TheWritableGlobalData); the ZH header's offsets differ.
+struct BfmeGlobalDataFirewall
 {
-template <> struct less<AsciiString>
-{
-	bool operator()(const AsciiString &left, const AsciiString &right) const throw()
-	{
-		return left < right;
-	}
-};
-}
-
-typedef _STL::map<AsciiString, AsciiString> PreferenceMap;
-
-class UserPreferences : public PreferenceMap
-{
-public:
-	UserPreferences();
-	virtual ~UserPreferences();
-	virtual Bool load(const AsciiString &fname);
-	virtual Bool load(const UnicodeString &fname);
-	virtual Bool write(void);
-	virtual Bool getBool(const AsciiString &key, Bool defaultValue) const;
-	virtual float getReal(const AsciiString &key, float defaultValue) const;
-	virtual Int getInt(const AsciiString &key, Int defaultValue) const;
-protected:
-	UnicodeString m_filename;
-};
-
-class Rva002E4272 : public UserPreferences
-{
-public:
-	virtual ~Rva002E4272();
-};
-
-class OptionPreferences : public Rva002E4272
-{
-public:
-	OptionPreferences();
-	virtual ~OptionPreferences();
-};
-
-class GlobalData
-{
-public:
-	char m_pad00[0xA4C];
-	int m_firewallBehavior; // +0xA4C
-	char m_padA50[0x8];
-	short m_firewallPortAllocationDelta; // +0xA58
+	char m_pad000[0xA4C];
+	Int m_firewallBehavior;			// +0xA4C
+	Bool m_firewallSendDelay;		// +0xA50
+	char m_padA51[3];
+	UnsignedInt m_firewallPortOverride;	// +0xA54
+	Short m_firewallPortAllocationDelta;	// +0xA58
 	char m_padA5A[0x2];
 };
-
-extern GlobalData *TheWritableGlobalData;
 
 class Rva00595D95
 {
@@ -94,9 +55,9 @@ bool Rva00595D95::rva00595D95()
 	if (it != prefs.end()) {
 		AsciiString val = it->second;
 		if (val.compareNoCase("TRUE") == 0)
-			TheWritableGlobalData->m_firewallBehavior = false;
+			((BfmeGlobalDataFirewall *)TheWritableGlobalData)->m_firewallBehavior = false;
 	}
-	if (TheWritableGlobalData->m_firewallBehavior == 0) {
+	if (((BfmeGlobalDataFirewall *)TheWritableGlobalData)->m_firewallBehavior == 0) {
 		m_04 = 1;
 		m_17C = 1;
 		return false;

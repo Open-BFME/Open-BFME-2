@@ -1,5 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD
-// platformsdk
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/shims/bfme2_firewallhelper /Ireference/shims/bfme2_ascii /Ireference/shims/bfme2_ascii_common /Ireference/open-bfme-1/inputs/reference/shims/firewall /Ireference/open-bfme-1/inputs/reference/shims/ini /Ireference/open-bfme-1/inputs/reference/shims/sweep /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad
 // ?sendToManglerFromPort@Rva0059517F@@QAE_NKGGG_N@Z @0x0059517F 148B: GameNetwork packet send via Rva00594DC0 convert plus CRC plus FirewallHelper search plus Rva00594C12 write. Evidence: rowed Convert 0x00594DC0 with ecx plus Msg arg; CRC over Msg+4 len 0x10 seed 0 then htonl into m_00; rowed Search 0x00594D77 by port; Write 0x00594C12 with buf len 0x14; ret 0x14 with 5 stack args and bool result.
 // ?rva00595213@Rva0059517F@@QAE_NPAVUDP@@KGG_N@Z @0x00595213 177B: BFME 2's
 // UDP-socket variant of the same mangler request (no ZH counterpart). Target
@@ -7,8 +6,18 @@
 // pinned UDP::getLocalAddr whose port becomes the packet's original port,
 // the same memset/convert/CRC/htonl sequence, the rowed UDP write 0x00594C12
 // to (address, port), the packet ID stored at +0x88, ret 0x14.
-#include <WinSock2.h>
-#include <string.h>
+// stlport
+#define Matrix4x4 Matrix4  // BFME renamed it
+
+#include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
+
+#include "Common/crc.h"
+#include "Common/UserPreferences.h"
+#include "GameNetwork/FirewallHelper.h"
+#include "GameNetwork/NAT.h"
+#include "GameNetwork/udp.h"
+#include "GameNetwork/NetworkDefs.h"
+#include "GameNetwork/GameSpy/GSConfig.h"
 
 unsigned int __cdecl ComputeCRC(const unsigned char *data, unsigned int len, unsigned int seed);
 
@@ -18,7 +27,7 @@ struct Rva00594DC0Msg
 	unsigned short m_04;
 	unsigned short m_06;
 	unsigned short m_08;
-	unsigned short m_0A;
+	unsigned short m_0a;
 };
 
 class Rva00594DC0
@@ -29,12 +38,6 @@ public:
 	char m_pad00[0x88];
 private:
 	unsigned short m_88; // +0x88
-};
-
-class FirewallHelperClass
-{
-public:
-	void *findSpareSocketByPort(unsigned short port);
 };
 
 class Rva00594C12
@@ -56,17 +59,6 @@ struct Rva0059517FPacket
 	unsigned char m_12[2];
 	int _len;
 	char _pad[8];
-};
-
-struct sockaddr_in;
-class UDP
-{
-public:
-	enum sockStat { NOTSOCK = -11 };
-	~UDP();
-	int Read(unsigned char *a, unsigned int b, struct sockaddr_in *c);
-	sockStat GetStatus(void);
-	int getLocalAddr(unsigned int &ip, unsigned short &port);
 };
 
 class Rva0059517F

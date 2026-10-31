@@ -1,69 +1,22 @@
-// cl: /Ireference/shims/bfme2_ascii /EHsc /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/shims/bfme2_firewallhelper /Ireference/shims/bfme2_ascii /Ireference/shims/bfme2_ascii_common /Ireference/open-bfme-1/inputs/reference/shims/firewall /Ireference/open-bfme-1/inputs/reference/shims/ini /Ireference/open-bfme-1/inputs/reference/shims/sweep /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad
 // ?flagNeedToRefresh@FirewallHelperClass@@QAEX_N@Z @0x00595F80 215B evidence: ZH FirewallHelper.cpp plus BFME1 same with TRUE FALSE FirewallNeedToRefresh strings via OptionPreferences write; callers 0x005700E0 0x005A899B pass this plus bool; donor void flagNeedToRefresh(Bool)
-#include <map>
-#include <stdlib.h>
+// stlport
+#define Matrix4x4 Matrix4  // BFME renamed it
 
-typedef bool Bool;
-typedef int Int;
-typedef short Short;
+#include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
 
-#include "ascii_string.h"
-#include "unicode_string.h"
-
-bool operator<(const AsciiString &left, const AsciiString &right);
-
-namespace _STL
-{
-template <> struct less<AsciiString>
-{
-	bool operator()(const AsciiString &left, const AsciiString &right) const
-	{
-		return left < right;
-	}
-};
-}
-
-typedef _STL::map<AsciiString, AsciiString> PreferenceMap;
+#include "Common/crc.h"
+#include "Common/UserPreferences.h"
+#include "GameNetwork/FirewallHelper.h"
+#include "GameNetwork/NAT.h"
+#include "GameNetwork/udp.h"
+#include "GameNetwork/NetworkDefs.h"
+#include "GameNetwork/GameSpy/GSConfig.h"
 
 namespace _STL
 {
 template <> AsciiString &map<AsciiString, AsciiString, less<AsciiString>, allocator<pair<const AsciiString, AsciiString> > >::operator[](const AsciiString &key);
 }
-
-class UserPreferences : public PreferenceMap
-{
-public:
-	UserPreferences();
-	virtual ~UserPreferences();
-	virtual Bool load(const AsciiString &fname);
-	virtual Bool load(const UnicodeString &fname);
-	virtual Bool write(void);
-	virtual Bool getBool(const AsciiString &key, Bool defaultValue) const;
-	virtual float getReal(const AsciiString &key, float defaultValue) const;
-	virtual Int getInt(const AsciiString &key, Int defaultValue) const;
-protected:
-	UnicodeString m_filename;
-};
-
-class Rva002E4272 : public UserPreferences
-{
-public:
-	virtual ~Rva002E4272();
-};
-
-class OptionPreferences : public Rva002E4272
-{
-public:
-	OptionPreferences();
-	virtual ~OptionPreferences();
-};
-
-class FirewallHelperClass
-{
-public:
-	void flagNeedToRefresh(Bool flag);
-};
 
 void FirewallHelperClass::flagNeedToRefresh(Bool flag)
 {

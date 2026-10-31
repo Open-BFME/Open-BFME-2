@@ -1,15 +1,30 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD
-// platformsdk
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/shims/bfme2_firewallhelper /Ireference/shims/bfme2_ascii /Ireference/shims/bfme2_ascii_common /Ireference/open-bfme-1/inputs/reference/shims/firewall /Ireference/open-bfme-1/inputs/reference/shims/ini /Ireference/open-bfme-1/inputs/reference/shims/sweep /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad
 // ?rva00595A9F@Rva00595A9F@@QAE_NXZ @0x00595A9F 248B evidence: calls rowed 0x00594E07 0x0059534A 0x0059517F plus IAT timeGetTime; offsets 0x54 0x68 0x6a 0x78 0x88 0x17c 0x180 0x184 match Rva00594E07 layout; caller 0x00595D2D
 
-#include <windows.h>
+// stlport
+#define Matrix4x4 Matrix4  // BFME renamed it
+
+#include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
+
+#include "Common/crc.h"
+#include "Common/UserPreferences.h"
+#include "GameNetwork/FirewallHelper.h"
+#include "GameNetwork/NAT.h"
+#include "GameNetwork/udp.h"
+#include "GameNetwork/NetworkDefs.h"
+#include "GameNetwork/GameSpy/GSConfig.h"
+
 class Rva00594E07
 {
 public:
-    unsigned short rva00594E07(unsigned short a, int b);
+	unsigned short rva00594E07(unsigned short packetID, int time);
+private:
+	char m_pad0[0x14];
+	SpareSocketStruct m_spare[8];
+	char m_pad1[0x8A - 0x14 - 8 * 8];
+	ManglerMessage m_msgs[8];
 };
 
-class UDP;
 class Rva0059534A
 {
 private:

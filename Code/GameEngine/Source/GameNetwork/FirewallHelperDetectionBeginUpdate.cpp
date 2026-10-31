@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/open-bfme-1/inputs/reference/shims/firewall /Ireference/open-bfme-1/inputs/reference/shims/ini /Ireference/open-bfme-1/inputs/reference/shims/sweep /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/shims/bfme2_firewallhelper /Ireference/shims/bfme2_ascii /Ireference/shims/bfme2_ascii_common /Ireference/open-bfme-1/inputs/reference/shims/firewall /Ireference/open-bfme-1/inputs/reference/shims/ini /Ireference/open-bfme-1/inputs/reference/shims/sweep /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad
 //
 // FirewallHelperClass::getManglerName and detectionBeginUpdate, ported from Zero Hour's GameEngine/Source/GameNetwork/
 // FirewallHelper.cpp (GeneralsMD tree vendored under reference/open-bfme-1/
@@ -26,10 +26,8 @@
 #include "GameNetwork/NetworkDefs.h"
 #include "GameNetwork/GameSpy/GSConfig.h"
 
-// Its own unit, as in the Open-BFME-1 reconstruction: retail inlines the
-// mangler-address memset (four DWORD stores) while the other detection
-// updates call memset, so memset is an intrinsic here only. The empty
-// string, strlen, strcpy, memcmp and memcpy stay calls, as in retail.
+// Retail zeroes the mangler addresses with four DWORD stores (an empty aggregate initializer, where the
+// other detection updates call memset); the empty string, strlen, strcpy, memcmp and memcpy stay calls.
 
 class UDP;
 class Rva0059517F
@@ -62,20 +60,25 @@ public:
 	virtual Bool getManglerLocation(Int index, AsciiString& host, UnsignedShort& port) = 0;
 };
 
+// BFME 2's GlobalData firewall fields (target evidence: +0xA4C to +0xA58 read
+// and written through TheWritableGlobalData); the ZH header's offsets differ.
 // BFME 2's GlobalData firewall fields (target evidence: +0xA50 / +0xA54
 // read through TheWritableGlobalData); the ZH header's offsets differ.
 struct BfmeGlobalDataFirewall
 {
-	char m_pad000[0xA50];
+	char m_pad000[0xA4C];
+	Int m_firewallBehavior;			// +0xA4C
 	Bool m_firewallSendDelay;		// +0xA50
 	char m_padA51[3];
 	UnsignedInt m_firewallPortOverride;	// +0xA54
+	Short m_firewallPortAllocationDelta;	// +0xA58
+	char m_padA5A[0x2];
 };
 #define BfmeFirewallGlobals ((const BfmeGlobalDataFirewall *)TheWritableGlobalData)
 
 static const UnsignedShort BFME_MANGLER_PORT = 4321;
 
-#define sendToManglerFromPort(address, port, packetID, destPort) \
+#define sendToManglerFrom(address, port, packetID, destPort) \
 	(((Rva0059517F *)this)->sendToManglerFromPort((address), (port), (packetID), (destPort), FALSE))
 
 /* static */ void FirewallHelperClass::getManglerName(Int manglerIndex, Char *nameBuf)
@@ -86,15 +89,13 @@ static const UnsignedShort BFME_MANGLER_PORT = 4321;
 	strcpy(nameBuf, host.str());
 }
 
-#pragma intrinsic(memset)
 Bool FirewallHelperClass::detectionBeginUpdate() {
 	m_packetID = 0x7f00;
 
 	/*
 	** Find the mangler servers.
 	*/
-	UnsignedByte mangler_addresses[4][4];
-	memset(mangler_addresses, 0, sizeof mangler_addresses);
+	UnsignedByte mangler_addresses[4][4] = {};
 
 	/*
 	** If there is a port override then we don't need to detect anything.
@@ -188,7 +189,7 @@ Bool FirewallHelperClass::detectionBeginUpdate() {
 	m_timeoutStart = timeGetTime();
 	m_timeoutLength = 6000;
 
-	sendToManglerFromPort(m_manglers[0], m_sparePorts[0], m_packetID, BFME_MANGLER_PORT);
+	sendToManglerFrom(m_manglers[0], m_sparePorts[0], m_packetID, BFME_MANGLER_PORT);
 	m_currentState = DETECTIONSTATE_TEST1;
 	return FALSE;
 }

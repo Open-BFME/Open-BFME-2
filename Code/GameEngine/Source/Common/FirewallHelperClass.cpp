@@ -1,4 +1,4 @@
-// cl: /MD
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/shims/bfme2_firewallhelper /Ireference/shims/bfme2_ascii /Ireference/shims/bfme2_ascii_common /Ireference/open-bfme-1/inputs/reference/shims/firewall /Ireference/open-bfme-1/inputs/reference/shims/ini /Ireference/open-bfme-1/inputs/reference/shims/sweep /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad
 //
 // FirewallHelperClass's virtual destructor and the scalar deleting destructor
 // that fills the only slot of its one-slot vftable 0x00C70A2C (VA; installed
@@ -18,19 +18,49 @@
 // the ZH order), zeroes the state at +0x17C and clears the eight message
 // lengths (stride 0x1E from +0x9E), which is ZH reset() on this layout.
 
-class Rva0059515C
+// The unit holding the out-of-line destructor: Rva00594CDDPermuted.cpp's inline
+// copy of it, which that unit's own ??_G needs, stands aside here.
+#define FIREWALLHELPER_DESTRUCTOR_OUT_OF_LINE
+// stlport
+#define Matrix4x4 Matrix4  // BFME renamed it
+
+#include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
+
+#include "Common/crc.h"
+#include "Common/UserPreferences.h"
+#include "GameNetwork/FirewallHelper.h"
+#include "GameNetwork/NAT.h"
+#include "GameNetwork/udp.h"
+#include "GameNetwork/NetworkDefs.h"
+#include "GameNetwork/GameSpy/GSConfig.h"
+
+struct Rva0059510DEntry
+{
+	UDP *ptr;
+	unsigned short flag;
+	char _pad[2];
+};
+
+class Rva0059510D
+{
+public:
+	void rva0059510D();
+private:
+	char m_lead[0x14];
+	Rva0059510DEntry m_entries[8];
+};
+
+class Rva0059515C : public Rva0059510D
 {
 public:
 	void rva0059515C();
+private:
+	char m_pad54[0x36];
+	ManglerMessage m_messages[8];
+	FirewallDetectionState m_currentState;
 };
 
-class FirewallHelperClass
-{
-public:
-	virtual ~FirewallHelperClass();
-};
-
-FirewallHelperClass::~FirewallHelperClass()
+FirewallHelperClass::~FirewallHelperClass(void)
 {
 	// FirewallHelperClass::reset(), rowed under its address name.
 	((Rva0059515C *)this)->rva0059515C();
