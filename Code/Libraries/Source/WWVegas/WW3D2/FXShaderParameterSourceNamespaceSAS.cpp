@@ -16,35 +16,62 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva0014F90DFillN@@YAPAVRva0014F480@@PAV1@IABV1@@Z retail 0x0014F90D 27B, ?Rva0014F951FillN@@YAPAVRva0014F4A1@@PAV1@IABV1@@Z retail 0x0014F951 27B, ?Rva0014F9CCFillN@@YAPAVRva0014F4C2@@PAV1@IABV1@@Z retail 0x0014F9CC 27B: uninitialized_fill_n dispatchers creating Tag at [ebp-1] and tail-calling fill_n helpers 0x0014F5AB 0x0014F5E5 0x0014F61F. Callers 0x00150749 0x00150827 0x0015090D insert paths.
 
-class Rva0014F401
+extern "C" const unsigned char __identifier("??_7Base@@6B@")[];
+
+class __declspec(novtable) Rva00BC6F24Base
 {
 public:
-	virtual void dummy();
+	Rva00BC6F24Base() { *(const void **)this = __identifier("??_7Base@@6B@"); }
+	virtual ~Rva00BC6F24Base();
+};
+
+// ??1Rva00BC6F24Base@@UAE@XZ present-unmatched
+inline Rva00BC6F24Base::~Rva00BC6F24Base()
+{
+	*(const void **)this = __identifier("??_7Base@@6B@");
+}
+
+extern "C" const void* const __identifier("??_7Rva0007E04D@@6B@")[];
+
+class __declspec(novtable) Rva0014F401 : public Rva00BC6F24Base
+{
+public:
+	Rva0014F401() { *(const void**)this=__identifier("??_7Rva0007E04D@@6B@"); }
 	Rva0014F401(const Rva0014F401 &other);
+	virtual ~Rva0014F401() {}
 };
 
-class Rva0014F480 : public Rva0014F401
+extern "C" const void* const __identifier("??_7SourceNamespace_AmbientLight@FXShaderParameterSourceNamespaceSAS@@6B@")[];
+
+class __declspec(novtable) Rva0014F480 : public Rva0014F401
 {
 public:
+	Rva0014F480() { *(const void**)this=__identifier("??_7SourceNamespace_AmbientLight@FXShaderParameterSourceNamespaceSAS@@6B@"); }
 	Rva0014F480(const Rva0014F480 &other);
-	virtual void dummy();
-	int m_04;
+	virtual ~Rva0014F480() {}
+	int index;
 };
 
-class Rva0014F4A1 : public Rva0014F401
+extern "C" const void* const __identifier("??_7SourceNamespace_DirectionalLight@FXShaderParameterSourceNamespaceSAS@@6B@")[];
+
+class __declspec(novtable) Rva0014F4A1 : public Rva0014F401
 {
 public:
+	Rva0014F4A1() { *(const void**)this=__identifier("??_7SourceNamespace_DirectionalLight@FXShaderParameterSourceNamespaceSAS@@6B@"); }
 	Rva0014F4A1(const Rva0014F4A1 &other);
-	virtual void dummy();
-	int m_04;
+	virtual ~Rva0014F4A1() {}
+	int index;
 };
 
-class Rva0014F4C2 : public Rva0014F401
+extern "C" const void* const __identifier("??_7SourceNamespace_PointLight@FXShaderParameterSourceNamespaceSAS@@6B@")[];
+
+class __declspec(novtable) Rva0014F4C2 : public Rva0014F401
 {
 public:
+	Rva0014F4C2() { *(const void**)this=__identifier("??_7SourceNamespace_PointLight@FXShaderParameterSourceNamespaceSAS@@6B@"); }
 	Rva0014F4C2(const Rva0014F4C2 &other);
-	virtual void dummy();
-	int m_04;
+	virtual ~Rva0014F4C2() {}
+	int index;
 };
 
 struct Tag
@@ -98,9 +125,29 @@ private:
 	T *Referent;
 };
 
-class Rva0014F699
+// Retail 00150990 calls the established Shadow copy owner at 0014F4E3 and
+// 0x00150C74 the Shadow default constructor at 0x0014DB9F. The temporary
+// remains an opaque 76-byte view with its rowed destructor.
+namespace FXShaderParameterSourceNamespaceSAS {
+struct SourceNamespace_Shadow { SourceNamespace_Shadow(); SourceNamespace_Shadow(const SourceNamespace_Shadow&); };
+}
+
+class __declspec(novtable) Rva0014F699
 {
-	int m_00;
+public:
+	__declspec(dllimport) __forceinline Rva0014F699()
+	{
+		typedef FXShaderParameterSourceNamespaceSAS::SourceNamespace_Shadow T;
+		((T*)this)->T::SourceNamespace_Shadow();
+	}
+	__declspec(dllimport) __forceinline Rva0014F699(const Rva0014F699 &other)
+	{
+		typedef FXShaderParameterSourceNamespaceSAS::SourceNamespace_Shadow T;
+		((T*)this)->T::SourceNamespace_Shadow(*(const T*)&other);
+	}
+	virtual ~Rva0014F699();
+	Rva0014F699 &operator=(const Rva0014F699 &other);
+private:
 	int m_04;
 	int m_08;
 	int m_0c;
@@ -119,19 +166,33 @@ class Rva0014F699
 	int m_40;
 	int m_44;
 	RefCountPtr<TextureClass> m_48;
-public:
-	Rva0014F699 &operator=(const Rva0014F699 &other);
 };
 
 Rva0014F699 *__cdecl Rva0014F746CopyBackward(Rva0014F699 *first, Rva0014F699 *last, Rva0014F699 *dest, void *tag, int extra);
 
 // Retail 0x0014FA47 forwards to the uninitialized fill worker owned by
 // VectorOverflowRva001504A1.cpp at 0x0014F674. The 76-byte payload remains
-// address-derived; this declaration shares the retained worker identity.
-struct Rva001504A1Record;
-
-extern template Rva001504A1Record *_STL::__uninitialized_fill_n<Rva001504A1Record *, unsigned int, Rva001504A1Record>(
-    Rva001504A1Record *, unsigned int, const Rva001504A1Record &, const _STL::__false_type &);
+// address-derived.
+struct Rva001504A1Record
+{
+public:
+	Rva001504A1Record();
+	Rva001504A1Record(const Rva001504A1Record&);
+	~Rva001504A1Record();
+	Rva001504A1Record&operator=(const Rva001504A1Record&);
+	char bytes[76]; // +0x00
+};
+// Native calls at 0x001504F7 and 0x0015053A already name these rowed
+// placement-copy and vector cleanup providers. Retain their opaque views.
+struct Rva0014F647Element;
+class Rva0014F8C6 { public: void rva0014F8C6(); };
+namespace _STL {
+template<> void _Construct<Rva0014F647Element,Rva0014F647Element>(Rva0014F647Element*,const Rva0014F647Element&);
+template<> __declspec(dllimport) __forceinline void _Construct<Rva001504A1Record,Rva001504A1Record>(Rva001504A1Record*p,const Rva001504A1Record&v)
+{ _Construct(reinterpret_cast<Rva0014F647Element*>(p),reinterpret_cast<const Rva0014F647Element&>(v)); }
+template<> __declspec(dllimport) __forceinline void vector<Rva001504A1Record>::_M_clear()
+{ ((Rva0014F8C6*)this)->rva0014F8C6(); }
+}
 
 Rva0014F718 *__cdecl Rva0014FA62Copy(Rva0014F718 *first, Rva0014F718 *last, Rva0014F718 *dest, void *tag, int extra);
 
@@ -141,13 +202,6 @@ Rva0014F699 *__cdecl Rva0014FA90Copy(Rva0014F699 *first, Rva0014F699 *last, Rva0
 // Retail: mov eax handler / call __EH_prolog / mov edi vtable / lea ecx [esi+4] / mov [esi+0x10] edi / call ??1Rva001501CA / mov [esi] edi / EH epilog.
 // Not established: owning class identity; address-derived name.
 
-extern "C" const unsigned char __identifier("??_7Base@@6B@")[];
-
-class Rva00BC6F24Base
-{
-public:
-	virtual ~Rva00BC6F24Base();
-};
 
 class Rva0052BF33Elem;
 
@@ -159,10 +213,15 @@ struct Rva001501CA
 	~Rva001501CA();
 };
 
-class __declspec(novtable) Rva00150558 : public Rva00BC6F24Base
+struct EmitVtableTag;
+struct EmitDestructorTag;
+
+// The destructor is implicit: retail's ??1 stores no vptr of its own, only the base's.
+class Rva00150558 : public Rva00BC6F24Base
 {
 public:
-	virtual ~Rva00150558();
+	Rva00150558(EmitVtableTag *);
+	Rva00150558(EmitDestructorTag *);
 private:
 	Rva001501CA m_04;
 	Rva00BC6F24Base m_10;
@@ -229,7 +288,7 @@ typedef _STL::vector<Rva00150D42Entry> Rva00150D42Vector;
 
 namespace _STL { template<> void vector<Rva00150D42Entry>::resize(unsigned int); }
 
-class Rva00150D42 { unsigned int vptr; Rva00150D42Vector values; public: void grow(int count); };
+class Rva00150D42 : public Rva00BC6F24Base { Rva00150D42Vector values; public: void grow(int count); void rva00150D42(int count); };
 
 // Target: Ghidra extent and native ret4 boundary; vector member +4;
 // signed growth loop writes each new element index at +4. Storage stride
@@ -298,7 +357,7 @@ Rva0014F4A1 *__cdecl Rva0014F928Copy(Rva0014F4A1 *first, Rva0014F4A1 *last, Rva0
 void __cdecl Rva0014F9B2Fill(Rva0014F4A1 *first, Rva0014F4A1 *last, const Rva0014F4A1 &value)
 {
 	for (; first != last; ++first)
-		first->m_04 = value.m_04;
+		first->index = value.index;
 }
 
 // ---- from Code/GameEngine/Source/Common/Rva0014F995CopyBackward.cpp
@@ -382,15 +441,8 @@ void __cdecl Rva00150265Copy(Rva0014F699 *first, Rva0014F699 *last, Rva0014F699 
 
 // ---- from Code/GameEngine/Source/Common/Rva00150558Dtor.cpp
 
-// ??1Rva00BC6F24Base@@UAE@XZ present-unmatched
-inline Rva00BC6F24Base::~Rva00BC6F24Base()
-{
-	*(const void **)this = __identifier("??_7Base@@6B@");
-}
-
-Rva00150558::~Rva00150558()
-{
-}
+// ?<Rva00150558::Rva00150558> absent-from-retail
+Rva00150558::Rva00150558(EmitDestructorTag *) {}
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/Rva00150A77VectorInsert.cpp
 

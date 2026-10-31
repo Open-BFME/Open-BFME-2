@@ -1,4 +1,4 @@
-// cl: /Oy- /EHsc /MD
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ?rva00150959@Rva00150959@@QAEXPAURva001504A1Record@@IABVRva0014F699@@@Z @0x00150959 258B
 // vector fill-insert 76B elements with EH and x_copy dtor via rowed callees.
@@ -12,10 +12,6 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 }
 #include <vector>
-// Suppress this TU's non-retail copy of ??$__uninitialized_copy@PAURva001504A1Record@@PAU1@@_STL@@YAPAURva001504A1Record@@PAU1@00A:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct Rva001504A1Record;
-namespace _STL { template <> Rva001504A1Record * __uninitialized_copy<Rva001504A1Record *,Rva001504A1Record *>(Rva001504A1Record *,Rva001504A1Record *,Rva001504A1Record *,__false_type const &); }
 // Retail range cleanup is the rowed virtual-destruction dispatcher.
 struct Rva001504A1Record;
 class Rva0014F3E7;
@@ -38,23 +34,67 @@ public:
 	Rva001504A1Record&operator=(const Rva001504A1Record&);
 	char bytes[76]; // +0x00
 };
-// Retail 00150990 calls the established Shadow copy owner at 0014F4E3.
-// The temporary remains an opaque 76-byte view with its rowed destructor.
+class TextureBaseClass
+{
+public:
+	void Add_Ref();
+	void Release_Ref();
+};
+
+class TextureClass : public TextureBaseClass
+{
+};
+
+template<class T>
+class RefCountPtr
+{
+public:
+	RefCountPtr const &operator=(RefCountPtr const &other);
+private:
+	T *Referent;
+};
+
+// Retail 00150990 calls the established Shadow copy owner at 0014F4E3 and
+// 0x00150C74 the Shadow default constructor at 0x0014DB9F. The temporary
+// remains an opaque 76-byte view with its rowed destructor.
 namespace FXShaderParameterSourceNamespaceSAS {
-struct SourceNamespace_Shadow { SourceNamespace_Shadow(const SourceNamespace_Shadow&); };
+struct SourceNamespace_Shadow { SourceNamespace_Shadow(); SourceNamespace_Shadow(const SourceNamespace_Shadow&); };
 }
+
 class __declspec(novtable) Rva0014F699
 {
 public:
-    __declspec(dllimport) __forceinline Rva0014F699(const Rva0014F699 &other)
-    {
-        typedef FXShaderParameterSourceNamespaceSAS::SourceNamespace_Shadow T;
-        ((T*)this)->T::SourceNamespace_Shadow(*(const T*)&other);
-    }
-    virtual ~Rva0014F699();
-    Rva0014F699 &operator=(const Rva0014F699 &other);
+	__declspec(dllimport) __forceinline Rva0014F699()
+	{
+		typedef FXShaderParameterSourceNamespaceSAS::SourceNamespace_Shadow T;
+		((T*)this)->T::SourceNamespace_Shadow();
+	}
+	__declspec(dllimport) __forceinline Rva0014F699(const Rva0014F699 &other)
+	{
+		typedef FXShaderParameterSourceNamespaceSAS::SourceNamespace_Shadow T;
+		((T*)this)->T::SourceNamespace_Shadow(*(const T*)&other);
+	}
+	virtual ~Rva0014F699();
+	Rva0014F699 &operator=(const Rva0014F699 &other);
 private:
-    char bytes[72];
+	int m_04;
+	int m_08;
+	int m_0c;
+	int m_10;
+	int m_14;
+	int m_18;
+	int m_1c;
+	int m_20;
+	int m_24;
+	int m_28;
+	int m_2c;
+	int m_30;
+	int m_34;
+	int m_38;
+	int m_3c;
+	int m_40;
+	int m_44;
+	RefCountPtr<TextureClass> m_48;
 };
 // Bind shared vector operations to their native rowed providers.
 struct Rva0014F647Element;
@@ -65,7 +105,6 @@ template<> __declspec(dllimport) __forceinline void _Construct<Rva001504A1Record
 { _Construct(reinterpret_cast<Rva0014F647Element*>(p),reinterpret_cast<const Rva0014F647Element&>(v)); }
 template<> __declspec(dllimport) __forceinline void vector<Rva001504A1Record>::_M_clear()
 { ((Rva0014F8C6*)this)->rva0014F8C6(); }
-template<> void vector<Rva001504A1Record>::_M_insert_overflow(Rva001504A1Record*,const Rva001504A1Record&,const __false_type&,unsigned int,bool);
 }
 void __cdecl Rva0014FA0DCopyBackward(Rva0014F699 *first, Rva0014F699 *last, Rva0014F699 *result);
 typedef void (__cdecl *CopyBackward4Fn)(Rva0014F699 *first, Rva0014F699 *last, Rva0014F699 *result, const _STL::__false_type &tag);

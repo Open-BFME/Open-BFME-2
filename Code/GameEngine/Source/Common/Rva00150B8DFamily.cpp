@@ -1,5 +1,5 @@
-#include <new>
-// cl: /EHsc /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// stlport
 //
 // Dump-lane range 5: contiguous 0x150B8D-0x150F19 container family plus the
 // 0x150A8B growers they forward to. One subsystem: vector-like holders with a
@@ -25,161 +25,118 @@
 //   live in neighbouring TUs (Rva0015068CFinish.cpp, Rva00150959Insert.cpp,
 //   StlportVectorEraseRangeFamily.cpp).
 
-namespace _STL
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
 {
-template <class T> class allocator
+    return a < b ? b : a;
+}
+}
+#include <vector>
+
+extern "C" const unsigned char __identifier("??_7Base@@6B@")[];
+
+class __declspec(novtable) Rva00BC6F24Base
 {
 public:
-	allocator() {}
+	Rva00BC6F24Base() { *(const void **)this = __identifier("??_7Base@@6B@"); }
+	virtual ~Rva00BC6F24Base();
 };
-template <class T, class Alloc> class _Vector_base
+
+inline Rva00BC6F24Base::~Rva00BC6F24Base()
 {
-public:
-	_Vector_base(const Alloc &a);
-	T *_M_start;
-	T *_M_finish;
-	T *_M_end_of_storage;
-};
+	*(const void **)this = __identifier("??_7Base@@6B@");
 }
 
-extern "C" const void *const __identifier("??_7Rva0014F480@@6B@")[];
-extern "C" const void *const __identifier("??_7Rva0014F4A1@@6B@")[];
-extern "C" const void *const __identifier("??_7Rva0014F4C2@@6B@")[];
-extern const void *const g_00BD3A3C[];
-extern const void *const g_00BD3A44[];
-extern const void *const g_00BD3A4C[];
+extern "C" const void* const __identifier("??_7Rva0007E04D@@6B@")[];
 
-struct Rva00150C97Elem
-{
-	int m_00;
-	int m_index;
-};
-struct Rva00150D42Elem
-{
-	char m_pad[4];
-	int m_index;
-};
-
-// 41B grow wrappers (0x150BF9/0x150C22/0x150C4B): pinned until their bodies
-// land below. thiscall (int), ret 4.
-struct Rva00150A8BArg;
-class Rva00150BF9
+class __declspec(novtable) Rva0014F401 : public Rva00BC6F24Base
 {
 public:
-	Rva00150BF9()
-	{
-	}
-	Rva00150BF9(const _STL::allocator<int> &alloc)
-	{
-		((_STL::_Vector_base<int, _STL::allocator<int> > *)this)->_STL::_Vector_base<int, _STL::allocator<int> >::_Vector_base(alloc);
-	}
-	void rva00150BF9(int n);
-	void rva00150A8B(int n, Rva00150A8BArg t);
-	~Rva00150BF9();
-	int size() const { return (m_last - m_first) >> 3; }
-	int m_first;
-	int m_last;
-};
-class Rva00150C22
-{
-public:
-	void rva00150C22(int n);
-	void rva00150AE1(int n, int s1, int s2);
-	~Rva00150C22();
-	int size() const { return (m_last - m_first) >> 3; }
-	int m_first;
-	int m_last;
-};
-class Rva00150C4B
-{
-public:
-	void rva00150C4B(int n);
-	void rva00150B37(int n, int s1, int s2);
-	~Rva00150C4B();
-	int size() const { return (m_last - m_first) >> 3; }
-	int m_first;
-	int m_last;
+	Rva0014F401() { *(const void**)this=__identifier("??_7Rva0007E04D@@6B@"); }
+	Rva0014F401(const Rva0014F401 &other);
+	virtual ~Rva0014F401() {}
 };
 
-// 0x150C97 family owner: +0 untouched here (subclass ctors install 0xBD3Axx
-// vtables), +4 is the {first,last} pair the resize walks.
-class Rva00150C97
+extern "C" const void* const __identifier("??_7SourceNamespace_AmbientLight@FXShaderParameterSourceNamespaceSAS@@6B@")[];
+
+class __declspec(novtable) Rva0014F480 : public Rva0014F401
 {
 public:
-	Rva00150C97(int n);
-	void rva00150C97(int count);
-	volatile const void *m_vtable;
-	Rva00150BF9 m_vec;
-	int m_pad0C;
-	const void *m_10;
-	int m_14;
+	Rva0014F480() { *(const void**)this=__identifier("??_7SourceNamespace_AmbientLight@FXShaderParameterSourceNamespaceSAS@@6B@"); }
+	Rva0014F480(const Rva0014F480 &other);
+	virtual ~Rva0014F480() {}
+	int index;
 };
-class Rva00150CD0
+
+struct __declspec(novtable) Rva00150C97Entry : public Rva0014F480
+{
+	Rva00150C97Entry() {}
+	virtual ~Rva00150C97Entry() {}
+};
+class Rva00150BF9Vector {
+ Rva00150C97Entry *start,*finish,*end;
+public: void resize(unsigned, Rva00150C97Entry);
+};
+typedef _STL::vector<Rva00150C97Entry> Rva00150C97Vector;
+namespace _STL { template<> void vector<Rva00150C97Entry>::resize(unsigned int); }
+class Rva00150C97 : public Rva00BC6F24Base { Rva00150C97Vector values; const void *m_10; int m_14; public: void grow(int count); void rva00150C97(int count); };
+
+extern "C" const void* const __identifier("??_7SourceNamespace_DirectionalLight@FXShaderParameterSourceNamespaceSAS@@6B@")[];
+
+class __declspec(novtable) Rva0014F4A1 : public Rva0014F401
 {
 public:
-	Rva00150CD0(int n);
-	void rva00150CD0(int count);
-	volatile const void *m_vtable;
-	Rva00150C22 m_vec;
-	int m_pad0C;
-	const void *m_10;
-	int m_14;
+	Rva0014F4A1() { *(const void**)this=__identifier("??_7SourceNamespace_DirectionalLight@FXShaderParameterSourceNamespaceSAS@@6B@"); }
+	Rva0014F4A1(const Rva0014F4A1 &other);
+	virtual ~Rva0014F4A1() {}
+	int index;
 };
-class Rva00150D09
+
+struct __declspec(novtable) Rva00150CD0Entry : public Rva0014F4A1
+{
+	Rva00150CD0Entry() {}
+	virtual ~Rva00150CD0Entry() {}
+};
+class Rva00150C22Vector {
+ Rva00150CD0Entry *start,*finish,*end;
+public: void resize(unsigned, Rva00150CD0Entry);
+};
+typedef _STL::vector<Rva00150CD0Entry> Rva00150CD0Vector;
+namespace _STL { template<> void vector<Rva00150CD0Entry>::resize(unsigned int); }
+class Rva00150CD0 : public Rva00BC6F24Base { Rva00150CD0Vector values; const void *m_10; int m_14; public: void grow(int count); void rva00150CD0(int count); };
+
+extern "C" const void* const __identifier("??_7SourceNamespace_PointLight@FXShaderParameterSourceNamespaceSAS@@6B@")[];
+
+class __declspec(novtable) Rva0014F4C2 : public Rva0014F401
 {
 public:
-	Rva00150D09(int n);
-	void rva00150D09(int count);
-	volatile const void *m_vtable;
-	Rva00150C4B m_vec;
-	int m_pad0C;
-	const void *m_10;
-	int m_14;
+	Rva0014F4C2() { *(const void**)this=__identifier("??_7SourceNamespace_PointLight@FXShaderParameterSourceNamespaceSAS@@6B@"); }
+	Rva0014F4C2(const Rva0014F4C2 &other);
+	virtual ~Rva0014F4C2() {}
+	int index;
 };
 
-// ?rva00150C97@Rva00150C97@@QAEXH@Z
-// 87B subclass ctors (0x150D8A/0x150DFD/0x150F19): each installs its own
-// vtable, placement-constructs the {first,last} member through the pinned
-// 0x211E58 _Vector_base ctor (empty-allocator temporary, address only),
-// stamps the +0x10/0x14 pair, and grows when n > 0.
-
-// ?rva00150C97@Rva00150C97@@QAEXH@Z
-void Rva00150C97::rva00150C97(int count)
+struct __declspec(novtable) Rva00150D09Entry : public Rva0014F4C2
 {
-	if ((unsigned int)count < (unsigned int)m_vec.size())
-		return;
-	int *pair = (int *)&m_vec;
-	int oldCount = (pair[1] - pair[0]) >> 3;
-	m_vec.rva00150BF9(count);
-	for (; oldCount < count; ++oldCount)
-		((Rva00150C97Elem *)m_vec.m_first)[oldCount].m_index = oldCount;
-}
+	Rva00150D09Entry() {}
+	virtual ~Rva00150D09Entry() {}
+};
+class Rva00150C4BVector {
+ Rva00150D09Entry *start,*finish,*end;
+public: void resize(unsigned, Rva00150D09Entry);
+};
+typedef _STL::vector<Rva00150D09Entry> Rva00150D09Vector;
+namespace _STL { template<> void vector<Rva00150D09Entry>::resize(unsigned int); }
+class Rva00150D09 : public Rva00BC6F24Base { Rva00150D09Vector values; const void *m_10; int m_14; public: void grow(int count); void rva00150D09(int count); };
 
-// ?rva00150CD0@Rva00150CD0@@QAEXH@Z
-// ?rva00150C97@Rva00150C97@@QAEXH@Z
-void Rva00150CD0::rva00150CD0(int count)
-{
-	if ((unsigned int)count < (unsigned int)m_vec.size())
-		return;
-	int *pair = (int *)&m_vec;
-	int oldCount = (pair[1] - pair[0]) >> 3;
-	m_vec.rva00150C22(count);
-	for (; oldCount < count; ++oldCount)
-		((Rva00150C97Elem *)m_vec.m_first)[oldCount].m_index = oldCount;
-}
+struct Rva00150D42Entry { Rva00150D42Entry(); Rva00150D42Entry(const Rva00150D42Entry&); ~Rva00150D42Entry(); unsigned int vptr; int index; char tail[68]; };
 
-// ?rva00150D09@Rva00150D09@@QAEXH@Z
-// ?rva00150C97@Rva00150C97@@QAEXH@Z
-void Rva00150D09::rva00150D09(int count)
-{
-	if ((unsigned int)count < (unsigned int)m_vec.size())
-		return;
-	int *pair = (int *)&m_vec;
-	int oldCount = (pair[1] - pair[0]) >> 3;
-	m_vec.rva00150C4B(count);
-	for (; oldCount < count; ++oldCount)
-		((Rva00150C97Elem *)m_vec.m_first)[oldCount].m_index = oldCount;
-}
+typedef _STL::vector<Rva00150D42Entry> Rva00150D42Vector;
+
+namespace _STL { template<> void vector<Rva00150D42Entry>::resize(unsigned int); }
+
+class Rva00150D42 : public Rva00BC6F24Base { Rva00150D42Vector values; public: void grow(int count); void rva00150D42(int count); };
+
 
 // 0x150C74 adapter and 0x150B8D grower share one {first,last} object: the
 // adapter builds a 76-byte scratch element through 0x14DB9F, then forwards
@@ -205,20 +162,39 @@ class Rva00150B8D
 public:
 	void rva00150B8D(int n, Rva0014DB9F fill);
 	void rva00150C74(int count);
-	int size() const { return (m_last - m_first) / 76; }
-	int m_first;
-	int m_last;
 };
 
-// 0x150D42 owner: +0 untouched here, +4 is the grower object above.
-class Rva00150D42
-{
-public:
-	void rva00150D42(int count);
-private:
-	int m_00;
-	Rva00150B8D m_grow;
-};
+// 87B subclass ctors (0x150D8A/0x150DFD/0x150F19): each installs its own
+// vtable, placement-constructs the {first,last} member through the pinned
+// 0x211E58 _Vector_base ctor (empty-allocator temporary, address only),
+// stamps the +0x10/0x14 pair, and grows when n > 0.
+
+// ?rva00150C97@Rva00150C97@@QAEXH@Z
+void Rva00150C97::rva00150C97(int count) {
+ if ((unsigned)count >= values.size()) {
+  int old=values.size();
+  values.resize(count);
+  for (;old<count;++old) values[old].index=old;
+ }
+}
+
+// ?rva00150CD0@Rva00150CD0@@QAEXH@Z
+void Rva00150CD0::rva00150CD0(int count) {
+ if ((unsigned)count >= values.size()) {
+  int old=values.size();
+  values.resize(count);
+  for (;old<count;++old) values[old].index=old;
+ }
+}
+
+// ?rva00150D09@Rva00150D09@@QAEXH@Z
+void Rva00150D09::rva00150D09(int count) {
+ if ((unsigned)count >= values.size()) {
+  int old=values.size();
+  values.resize(count);
+  for (;old<count;++old) values[old].index=old;
+ }
+}
 
 // ?rva00150C74@Rva00150B8D@@QAEXH@Z
 void Rva00150B8D::rva00150C74(int count)
@@ -227,61 +203,21 @@ void Rva00150B8D::rva00150C74(int count)
 }
 
 // ?rva00150D42@Rva00150D42@@QAEXH@Z
-void Rva00150D42::rva00150D42(int count)
-{
-	if ((unsigned int)count < (unsigned int)m_grow.size())
-		return;
-	int *pair = (int *)&m_grow;
-	int oldCount = (pair[1] - pair[0]) / 76;
-	m_grow.rva00150C74(count);
-	if (oldCount >= count)
-		return;
-	int off = oldCount * 76;
-	do {
-		((Rva00150D42Elem *)((char *)m_grow.m_first + off))->m_index = oldCount;
-		++oldCount;
-		off += 76;
-	} while (oldCount < count);
+void Rva00150D42::rva00150D42(int count) {
+ if ((unsigned)count >= values.size()) {
+  int old=values.size();
+  values.resize(count);
+  for (;old<count;++old) values[old].index=old;
+ }
 }
 
 // 86B growers (0x150A8B/0x150AE1/0x150B37): resize core over the 8-byte
 // elements. Shrink goes through the rowed 0x150659 vector range erase;
 // grow recomputes size and forwards (end, n-size, &scratch) to 0x1506BF.
-// The extra int params are the 41B wrapper's scratch slots (address-used).
-
-struct Rva00150659Element;
-namespace _STL
-{
-template <class T, class A> class vector
-{
-public:
-	T *erase(T *first, T *last);
-};
-}
-class Rva001506BF
-{
-public:
-	void rva001506BF(void *pos, int n, void *scratch);
-};
-
-struct Rva00150A8BArg
-{
-	int m_a;
-	int m_b;
-	~Rva00150A8BArg()
-	{
-	}
-};
 
 // Each retail call in this body reads an address the ledger already carries
 // under the rowed name below. Bind the donor spelling to that owner so one
 // address keeps one definition and the unit links.
-//   0x00150BF9 reads ?resize@?$vector@URva00150C97Entry@@V?$allocator@URva00150C97Entry@@@_STL@@@_STL@@QAEXI@Z
-#pragma comment(linker, "/alternatename:?rva00150BF9@Rva00150BF9@@QAEXH@Z=?resize@?$vector@URva00150C97Entry@@V?$allocator@URva00150C97Entry@@@_STL@@@_STL@@QAEXI@Z")
-//   0x00150C22 reads ?resize@?$vector@URva00150CD0Entry@@V?$allocator@URva00150CD0Entry@@@_STL@@@_STL@@QAEXI@Z
-#pragma comment(linker, "/alternatename:?rva00150C22@Rva00150C22@@QAEXH@Z=?resize@?$vector@URva00150CD0Entry@@V?$allocator@URva00150CD0Entry@@@_STL@@@_STL@@QAEXI@Z")
-//   0x00150C4B reads ?resize@?$vector@URva00150D09Entry@@V?$allocator@URva00150D09Entry@@@_STL@@@_STL@@QAEXI@Z
-#pragma comment(linker, "/alternatename:?rva00150C4B@Rva00150C4B@@QAEXH@Z=?resize@?$vector@URva00150D09Entry@@V?$allocator@URva00150D09Entry@@@_STL@@@_STL@@QAEXI@Z")
 //   0x00150B8D reads ?resize@Rva00150C74Vector@@QAEXIURva00150D42Entry@@@Z
 #pragma comment(linker, "/alternatename:?rva00150B8D@Rva00150B8D@@QAEXHVRva0014DB9F@@@Z=?resize@Rva00150C74Vector@@QAEXIURva00150D42Entry@@@Z")
 //   0x0014DB9F reads ??0SourceNamespace_Shadow@FXShaderParameterSourceNamespaceSAS@@QAE@XZ

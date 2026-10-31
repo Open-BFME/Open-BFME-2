@@ -2,29 +2,44 @@
 // stlport
 #include <vector>
 extern "C" const unsigned char __identifier("??_7Base@@6B@")[];
+
+class __declspec(novtable) Rva00BC6F24Base
+{
+public:
+	Rva00BC6F24Base() { *(const void **)this = __identifier("??_7Base@@6B@"); }
+	virtual ~Rva00BC6F24Base();
+};
+
+inline Rva00BC6F24Base::~Rva00BC6F24Base()
+{
+	*(const void **)this = __identifier("??_7Base@@6B@");
+}
+
 extern "C" const void* const __identifier("??_7Rva0007E04D@@6B@")[];
-extern "C" const void* const __identifier("??_7Rva0014F4C2@@6B@")[];
-class __declspec(novtable) Rva00BC6F24Base {
+
+class __declspec(novtable) Rva0014F401 : public Rva00BC6F24Base
+{
 public:
- // ?Rva00BC6F24Base::Rva00BC6F24Base present-unmatched
- Rva00BC6F24Base() { *(const void**)this=__identifier("??_7Base@@6B@"); }
- // ?Rva00BC6F24Base::~Rva00BC6F24Base present-unmatched
- virtual ~Rva00BC6F24Base() { *(const void**)this=__identifier("??_7Base@@6B@"); }
+	Rva0014F401() { *(const void**)this=__identifier("??_7Rva0007E04D@@6B@"); }
+	Rva0014F401(const Rva0014F401 &other);
+	virtual ~Rva0014F401() {}
 };
-class __declspec(novtable) Rva00BC6F2CBase:public Rva00BC6F24Base {
+
+extern "C" const void* const __identifier("??_7SourceNamespace_PointLight@FXShaderParameterSourceNamespaceSAS@@6B@")[];
+
+class __declspec(novtable) Rva0014F4C2 : public Rva0014F401
+{
 public:
- // ?Rva00BC6F2CBase::Rva00BC6F2CBase present-unmatched
- Rva00BC6F2CBase() { *(const void**)this=__identifier("??_7Rva0007E04D@@6B@"); }
- // ?Rva00BC6F2CBase::~Rva00BC6F2CBase present-unmatched
- virtual ~Rva00BC6F2CBase() { *(const void**)this=__identifier("??_7Rva0007E04D@@6B@"); }
- int index;
+	Rva0014F4C2() { *(const void**)this=__identifier("??_7SourceNamespace_PointLight@FXShaderParameterSourceNamespaceSAS@@6B@"); }
+	Rva0014F4C2(const Rva0014F4C2 &other);
+	virtual ~Rva0014F4C2() {}
+	int index;
 };
-struct __declspec(novtable) Rva00150D09Entry:public Rva00BC6F2CBase {
-public:
- // ?Rva00150D09Entry::Rva00150D09Entry present-unmatched
- Rva00150D09Entry() { *(const void**)this=__identifier("??_7Rva0014F4C2@@6B@"); }
- // ?Rva00150D09Entry::~Rva00150D09Entry present-unmatched
- virtual ~Rva00150D09Entry() { *(const void**)this=__identifier("??_7Rva0014F4C2@@6B@"); }
+
+struct __declspec(novtable) Rva00150D09Entry : public Rva0014F4C2
+{
+	Rva00150D09Entry() {}
+	virtual ~Rva00150D09Entry() {}
 };
 class Rva00150C4BVector {
  Rva00150D09Entry *start,*finish,*end;
@@ -32,7 +47,7 @@ public: void resize(unsigned, Rva00150D09Entry);
 };
 typedef _STL::vector<Rva00150D09Entry> Rva00150D09Vector;
 namespace _STL { template<> void vector<Rva00150D09Entry>::resize(unsigned int); }
-class Rva00150D09 { unsigned int vptr; Rva00150D09Vector values; public: void grow(int count); };
+class Rva00150D09 : public Rva00BC6F24Base { Rva00150D09Vector values; const void *m_10; int m_14; public: void grow(int count); void rva00150D09(int count); };
 void Rva00150D09::grow(int count) {
  if ((unsigned)count >= values.size()) {
   int old=values.size();
