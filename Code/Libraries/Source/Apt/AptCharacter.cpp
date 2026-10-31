@@ -5,28 +5,101 @@
 // helper (aptHelper008AE3A0, now defined below), which retail links from this TU (tu_map approved, by
 // address contiguity inside the AptCharacter span), folded from two split
 // units with these exact flags.
-class AptValue;
+class AptCIH;
+class EAStringC;
+class AptValue
+{
+public:
+	AptCIH *c_cih(bool bUndefinedOK);
+	bool isCIH(bool bUndefinedOK) const;
+	bool isUndefined() const;
+	bool getIsDefined() const;
+	float toFloat() const;
+	int toInteger() const;
+	void toString(EAStringC &) const;
+	virtual void AddRef();
+	virtual void Release();
+};
 
 AptValue *aptHelper008AE3A0(void *entry, int count, int flag);
 
-class BfmeAptValue006DCD20 {
+class BfmeAptValue006DCD20 : public AptValue
+{
 public:
- BfmeAptValue006DCD20 *rva006DCF60(bool undefOK);
- int rva006E03A0() const;
- int isString() const;
- BfmeAptValue006DCD20 *checkedString();
- int toInteger() const;
+	BfmeAptValue006DCD20(int);
+	BfmeAptValue006DCD20 *rva006DCF60(bool undefOK);
+	BfmeAptValue006DCD20 *checkedString();
+	bool isCIH(bool bUndefinedOK) const;
+	bool isUndefined() const;
+	int isCharacterInst() const;
+	int isInteger() const;
+	int isString() const;
+	int rva006E02B0() const;
+	int rva006E03A0() const;
+	void *rva006E0F40() const;
+	int toInteger() const;
+	virtual ~BfmeAptValue006DCD20();
+	unsigned int m_flags; // +0x04
 };
 
-class AptBasePtrStack { public: BfmeAptValue006DCD20 *At(int); private: char bytes[12]; };
+class AptBasePtrStack
+{
+public:
+	BfmeAptValue006DCD20 *At(int);
+private:
+	char bytes[12]; // +0x00
+};
 
-struct AptActionInterpreter { AptBasePtrStack stack; };
+struct AptActionInterpreter
+{
+private:
+	friend BfmeAptValue006DCD20 *rva006ec670(BfmeAptValue006DCD20 *pValue, int nParams);
+public:
+	bool setVariable(AptValue*,AptValue*,const EAStringC*,AptValue*,int,int,int);
+	AptValue *getVariable(AptValue*,AptValue*,const EAStringC*,int,int,int);
+	void loadVariables(AptValue *,AptValue *,const EAStringC *);
+private:
+	void rva007092F0(AptCIH *context, AptValue *with, AptValue *source, AptValue *target, int depth, AptValue *init);
+public:
+	AptBasePtrStack stack; // +0x00
+};
 
 extern AptActionInterpreter g_aptDateInterpreter;
 
  extern AptValue *gpUndefinedValue;
 
-class AptCIH { public: void *rva006CFF40() const; void jumpToFrame(int); };
+class AptNativeHash;
+struct SwapSprite;
+class AptCIH
+{
+public:
+    virtual void slot0();
+    virtual void changed();
+    virtual void slot2();
+    virtual AptNativeHash *slot3();
+    char unknown04[8];
+    float matrix[6];
+    char unknown24[0x44-0x24];
+    float *properties;
+    AptCIH *parent;
+    SwapSprite *instance;
+    char unknown50[8];
+    signed int depth:17;
+    unsigned int unknownDepth17:15;
+    int unknown5c;
+    void *rva006CFF40() const;
+    void jumpToFrame(int);
+    bool rva006CFCD0() const;
+    bool IsSpriteInst(bool) const;
+    bool IsAnimationInst(bool) const;
+    void factorySetProperty(int,float,bool);
+    void factoryEnsureProperties();
+    void rva006E1DD0(void *);
+    void *rva006E1170() const;
+    void SetEventHandler(int);
+    void RemoveEventHandler(int);
+    int rva006E1F90(int);
+};
 
 class BfmeF1034 { public: int bfmeGo1034F(int stringAddress); private: char prefix[8]; void *table; };
 
@@ -48,12 +121,31 @@ struct FrameSprite {
 class EAStringC
 {
 public:
-    EAStringC();
-    ~EAStringC();
-    EAStringC &clear();
+	class StringDataC { public: unsigned short m_uRefCount; unsigned short m_uSize; unsigned short m_uMaxSize; unsigned short m_uHash; };
+	EAStringC();
+	EAStringC(const char *);
+	EAStringC(const EAStringC &);
+	static void FreeData(StringDataC *);
+	EAStringC &clear();
+	EAStringC &operator=(const EAStringC&);
+	~EAStringC();
+	int GetAt(int) const;
+	bool IsEmpty() const;
+	unsigned int rva006D3750() const;
+	bool IsEqualTo(const EAStringC*) const;
+	bool rva006D30D0(const EAStringC*) const;
+	bool rva006D3510(const char*) const;
+	EAStringC &MakeLower();
+	EAStringC &Rva006D4F00Append(const EAStringC &other);
+	const char *rva00620090() const;
+	int rva006D54B0(int,int);
 private:
-    void *m_pData;
+	StringDataC *data; // +0x00
 };
+// Native callers invoke the 16-byte default constructor at 0x006D2F90, folded with
+// clear; it roots the string at the empty singleton (RVA 0x009DC020 / VA
+// 0x00DDC020) and takes one reference. Its body stays out of this unit: a visible
+// body reads as no-throw and removes the EH frame retail's 0x006ED1E0 has.
 
 class Rva0070A840
 {
@@ -310,12 +402,6 @@ public:
 	void *allocBlock(int);
 };
 
-class AptValue {
-public:
-  virtual void AddRef();
-  virtual void Release();
-};
-
 class AptNativeHash {
 public:
   int count;
@@ -324,12 +410,9 @@ public:
   unsigned events;
   AptNativeHash(int);
   ~AptNativeHash();
-  static void *operator new(unsigned n) {
-    return ((Rva006DB160 *)g_pChainBlockAllocator)->allocBlock(n);
-  }
-  static void operator delete(void *p, unsigned n) {
-    g_pChainBlockAllocator->freeBlock(p, n);
-  }
+  void Set(const EAStringC *const,AptValue *const);
+  static void *operator new(unsigned n);
+  static void operator delete(void *p, unsigned n);
   void Set__Proto__(AptValue *value) {
     if (value)
       value->AddRef();
@@ -338,6 +421,14 @@ public:
     proto = value;
   }
 };
+
+inline void *AptNativeHash::operator new(unsigned n) {
+  return ((Rva006DB160 *)g_pChainBlockAllocator)->allocBlock(n);
+}
+
+inline void AptNativeHash::operator delete(void *p, unsigned n) {
+  g_pChainBlockAllocator->freeBlock(p, n);
+}
 
 class AptDisplayList
 {

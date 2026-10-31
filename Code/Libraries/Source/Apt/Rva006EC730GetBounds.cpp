@@ -18,25 +18,110 @@ class EAStringC;
 class AptValue
 {
 public:
-    virtual void AddRef();
-    virtual void Release();
-    AptCIH *c_cih(bool bUndefinedOK);
-    bool isUndefined() const;
+	AptCIH *c_cih(bool bUndefinedOK);
+	bool isCIH(bool bUndefinedOK) const;
+	bool isUndefined() const;
+	bool getIsDefined() const;
+	float toFloat() const;
+	int toInteger() const;
+	void toString(EAStringC &) const;
+	virtual void AddRef();
+	virtual void Release();
 };
+class AptNativeHash;
+struct SwapSprite;
 class AptCIH
 {
 public:
+    virtual void slot0();
+    virtual void changed();
+    virtual void slot2();
+    virtual AptNativeHash *slot3();
+    char unknown04[8];
+    float matrix[6];
+    char unknown24[0x44-0x24];
+    float *properties;
+    AptCIH *parent;
+    SwapSprite *instance;
+    char unknown50[8];
+    signed int depth:17;
+    unsigned int unknownDepth17:15;
+    int unknown5c;
+    void *rva006CFF40() const;
+    void jumpToFrame(int);
+    bool rva006CFCD0() const;
+    bool IsSpriteInst(bool) const;
+    bool IsAnimationInst(bool) const;
+    void factorySetProperty(int,float,bool);
+    void factoryEnsureProperties();
     void rva006E1DD0(void *);
+    void *rva006E1170() const;
+    void SetEventHandler(int);
+    void RemoveEventHandler(int);
+    int rva006E1F90(int);
 };
-class AptBasePtrStack {public:AptValue *At(int);};
-struct AptActionInterpreter {AptBasePtrStack stack;};
+// Retail vtable 0x008EA228 starts with the rowed AptValue::AddRef (0x006DCAC0) and Release.
+class BfmeAptValue006DCD20 : public AptValue
+{
+public:
+	BfmeAptValue006DCD20(int);
+	BfmeAptValue006DCD20 *rva006DCF60(bool undefOK);
+	BfmeAptValue006DCD20 *checkedString();
+	bool isCIH(bool bUndefinedOK) const;
+	bool isUndefined() const;
+	int isCharacterInst() const;
+	int isInteger() const;
+	int isString() const;
+	int rva006E02B0() const;
+	int rva006E03A0() const;
+	void *rva006E0F40() const;
+	int toInteger() const;
+	virtual ~BfmeAptValue006DCD20();
+	unsigned int m_flags; // +0x04
+};
+class AptBasePtrStack
+{
+public:
+	BfmeAptValue006DCD20 *At(int);
+private:
+	char bytes[12]; // +0x00
+};
+struct AptActionInterpreter
+{
+private:
+	friend BfmeAptValue006DCD20 *rva006ec670(BfmeAptValue006DCD20 *pValue, int nParams);
+public:
+	bool setVariable(AptValue*,AptValue*,const EAStringC*,AptValue*,int,int,int);
+	AptValue *getVariable(AptValue*,AptValue*,const EAStringC*,int,int,int);
+	void loadVariables(AptValue *,AptValue *,const EAStringC *);
+private:
+	void rva007092F0(AptCIH *context, AptValue *with, AptValue *source, AptValue *target, int depth, AptValue *init);
+public:
+	AptBasePtrStack stack; // +0x00
+};
 extern AptActionInterpreter g_aptDateInterpreter;
 extern AptValue *gpUndefinedValue;
 struct Rect {float left,top,right,bottom;};
 AptValue *Rva008A4EA0MakeFloat(float);
-class AptNativeHash {public:AptNativeHash(int);void Set(const EAStringC *const,AptValue *const);int m_size;void *m_data;AptValue *m_proto,*m_prototype;unsigned int m_events;};
-// Retail vtable 0x008EA228 starts with the rowed AptValue::AddRef (0x006DCAC0) and Release.
-class BfmeAptValue006DCD20 : public AptValue {public:BfmeAptValue006DCD20(int);virtual ~BfmeAptValue006DCD20();unsigned int m_flags;};
+class AptNativeHash {
+public:
+  int count;
+  void *items;
+  AptValue *proto, *prototype;
+  unsigned events;
+  AptNativeHash(int);
+  ~AptNativeHash();
+  void Set(const EAStringC *const,AptValue *const);
+  static void *operator new(unsigned n);
+  static void operator delete(void *p, unsigned n);
+  void Set__Proto__(AptValue *value) {
+    if (value)
+      value->AddRef();
+    if (proto)
+      proto->Release();
+    proto = value;
+  }
+};
 class Rva006D2A60 {public:void *allocBlock(int);void freeBlock(void *,int);};
 extern Rva006D2A60 *g_pChainBlockAllocatorF4;
 void Rva006F12F0Free(void *,int);

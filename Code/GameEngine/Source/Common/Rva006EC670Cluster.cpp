@@ -8,22 +8,60 @@
 // cast 0x006DCF60 and At 0x006FE580 are rowed; 0x007092F0 is the rowed
 // duplicate-movie-clip helper AptActionInterpreter::rva007092F0 (private,
 // so this handler is its friend here). Identity of the handler is not proven.
-class BfmeAptValue006DCD20;
 class AptCIH;
-class AptValue;
+class EAStringC;
+class AptValue
+{
+public:
+	AptCIH *c_cih(bool bUndefinedOK);
+	bool isCIH(bool bUndefinedOK) const;
+	bool isUndefined() const;
+	bool getIsDefined() const;
+	float toFloat() const;
+	int toInteger() const;
+	void toString(EAStringC &) const;
+	virtual void AddRef();
+	virtual void Release();
+};
+class BfmeAptValue006DCD20 : public AptValue
+{
+public:
+	BfmeAptValue006DCD20(int);
+	BfmeAptValue006DCD20 *rva006DCF60(bool undefOK);
+	BfmeAptValue006DCD20 *checkedString();
+	bool isCIH(bool bUndefinedOK) const;
+	bool isUndefined() const;
+	int isCharacterInst() const;
+	int isInteger() const;
+	int isString() const;
+	int rva006E02B0() const;
+	int rva006E03A0() const;
+	void *rva006E0F40() const;
+	int toInteger() const;
+	virtual ~BfmeAptValue006DCD20();
+	unsigned int m_flags; // +0x04
+};
 
 class AptBasePtrStack
 {
 public:
-	BfmeAptValue006DCD20 *At(int nPos);
+	BfmeAptValue006DCD20 *At(int);
+private:
+	char bytes[12]; // +0x00
 };
 
 struct AptActionInterpreter
 {
-	AptBasePtrStack stack;
 private:
 	friend BfmeAptValue006DCD20 *rva006ec670(BfmeAptValue006DCD20 *pValue, int nParams);
+public:
+	bool setVariable(AptValue*,AptValue*,const EAStringC*,AptValue*,int,int,int);
+	AptValue *getVariable(AptValue*,AptValue*,const EAStringC*,int,int,int);
+	void loadVariables(AptValue *,AptValue *,const EAStringC *);
+private:
 	void rva007092F0(AptCIH *context, AptValue *with, AptValue *source, AptValue *target, int depth, AptValue *init);
+public:
+	AptBasePtrStack stack; // +0x00
 };
 
 // g_aptDateInterpreter: interpreter global at VA 0x00E182E0; the stack
@@ -31,13 +69,6 @@ private:
 extern AptActionInterpreter g_aptDateInterpreter;
 // g_aptUndefinedAtE18078: the undefined-value singleton at VA 0x00E18078.
 extern AptValue *gpUndefinedValue;
-
-class BfmeAptValue006DCD20
-{
-public:
-	int toInteger() const;
-	BfmeAptValue006DCD20 *rva006DCF60(bool bUndefOK);
-};
 
 BfmeAptValue006DCD20 *rva006ec670(BfmeAptValue006DCD20 *pValue, int nParams)
 {

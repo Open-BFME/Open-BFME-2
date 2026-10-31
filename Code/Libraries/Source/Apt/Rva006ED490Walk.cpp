@@ -15,13 +15,58 @@ class Rva006ED490Obj;
 class EAStringC
 {
 public:
-	bool rva006D3510(const char *value) const;
+	class StringDataC { public: unsigned short m_uRefCount; unsigned short m_uSize; unsigned short m_uMaxSize; unsigned short m_uHash; };
+	EAStringC();
+	EAStringC(const char *);
+	EAStringC(const EAStringC &);
+	static void FreeData(StringDataC *);
+	EAStringC &clear();
+	EAStringC &operator=(const EAStringC&);
+	~EAStringC();
+	int GetAt(int) const;
+	bool IsEmpty() const;
+	unsigned int rva006D3750() const;
+	bool IsEqualTo(const EAStringC*) const;
+	bool rva006D30D0(const EAStringC*) const;
+	bool rva006D3510(const char*) const;
+	EAStringC &MakeLower();
+	EAStringC &Rva006D4F00Append(const EAStringC &other);
+	const char *rva00620090() const;
+	int rva006D54B0(int,int);
+private:
+	StringDataC *data; // +0x00
 };
-class BfmeAptValue006DCD20
+class AptCIH;
+class AptValue
 {
 public:
-	int isCharacterInst(void) const;
-	BfmeAptValue006DCD20 *rva006DCF60(bool flag);
+	AptCIH *c_cih(bool bUndefinedOK);
+	bool isCIH(bool bUndefinedOK) const;
+	bool isUndefined() const;
+	bool getIsDefined() const;
+	float toFloat() const;
+	int toInteger() const;
+	void toString(EAStringC &) const;
+	virtual void AddRef();
+	virtual void Release();
+};
+class BfmeAptValue006DCD20 : public AptValue
+{
+public:
+	BfmeAptValue006DCD20(int);
+	BfmeAptValue006DCD20 *rva006DCF60(bool undefOK);
+	BfmeAptValue006DCD20 *checkedString();
+	bool isCIH(bool bUndefinedOK) const;
+	bool isUndefined() const;
+	int isCharacterInst() const;
+	int isInteger() const;
+	int isString() const;
+	int rva006E02B0() const;
+	int rva006E03A0() const;
+	void *rva006E0F40() const;
+	int toInteger() const;
+	virtual ~BfmeAptValue006DCD20();
+	unsigned int m_flags; // +0x04
 };
 class Rva006ED490Elem8
 {

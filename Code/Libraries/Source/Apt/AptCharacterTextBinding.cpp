@@ -11,34 +11,30 @@
 // trap remains inline int3, matching adjacent Apt runtime assertion paths.
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char*,const char*,int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
-class EAStringC {
-public:
- class StringDataC {
- public:
-  unsigned short m_uRefCount;
-  unsigned short m_uSize;
-  unsigned short m_uMaxSize;
-  unsigned short m_uHash;
- };
- StringDataC *data;
- EAStringC();
- EAStringC(const char*);
- ~EAStringC();
- EAStringC &clear();
- EAStringC &operator=(const EAStringC&);
- bool IsEmpty()const;
- const char*rva00620090()const;
- bool rva006D30D0(const EAStringC*)const;
-};
-extern EAStringC::StringDataC g_eaEmptyStringData;
-// Native callers invoke this 16-byte constructor at 0x006D2F90, folded with
-// clear; it roots the string at the empty singleton (RVA 0x009DC020 / VA
-// 0x00DDC020) and takes one reference. Keep the native call boundary.
-__declspec(noinline) inline EAStringC::EAStringC()
+class EAStringC
 {
- data = &g_eaEmptyStringData;
- ++data->m_uRefCount;
-}
+public:
+	class StringDataC { public: unsigned short m_uRefCount; unsigned short m_uSize; unsigned short m_uMaxSize; unsigned short m_uHash; };
+	EAStringC();
+	EAStringC(const char *);
+	EAStringC(const EAStringC &);
+	static void FreeData(StringDataC *);
+	EAStringC &clear();
+	EAStringC &operator=(const EAStringC&);
+	~EAStringC();
+	int GetAt(int) const;
+	bool IsEmpty() const;
+	unsigned int rva006D3750() const;
+	bool IsEqualTo(const EAStringC*) const;
+	bool rva006D30D0(const EAStringC*) const;
+	bool rva006D3510(const char*) const;
+	EAStringC &MakeLower();
+	EAStringC &Rva006D4F00Append(const EAStringC &other);
+	const char *rva00620090() const;
+	int rva006D54B0(int,int);
+private:
+	StringDataC *data; // +0x00
+};
 // AptValue::getVtblIndex (donor identity, pinned at 0x006DBB30) is rowed as
 // Rva006DBB30SarDwordField::get; the loops below call it by the ledger's name.
 class Rva006DBB30SarDwordField
@@ -47,36 +43,119 @@ public:
 	int get() const;
 };
 
-class AptValue {
+class AptCIH;
+class AptValue
+{
 public:
- bool isUndefined()const;
- void toString(EAStringC&)const;
- char unknown00[0x48];
- AptValue *parent;
+	AptCIH *c_cih(bool bUndefinedOK);
+	bool isCIH(bool bUndefinedOK) const;
+	bool isUndefined() const;
+	bool getIsDefined() const;
+	float toFloat() const;
+	int toInteger() const;
+	void toString(EAStringC &) const;
+	virtual void AddRef();
+	virtual void Release();
 };
-struct AptActionInterpreter {
- bool setVariable(AptValue*,AptValue*,const EAStringC*,AptValue*,int,int,int);
- AptValue *getVariable(AptValue*,AptValue*,const EAStringC*,int,int,int);
+class AptNativeHash;
+struct SwapSprite;
+class AptCIH
+{
+public:
+    virtual void slot0();
+    virtual void changed();
+    virtual void slot2();
+    virtual AptNativeHash *slot3();
+    char unknown04[8];
+    float matrix[6];
+    char unknown24[0x44-0x24];
+    float *properties;
+    AptCIH *parent;
+    SwapSprite *instance;
+    char unknown50[8];
+    signed int depth:17;
+    unsigned int unknownDepth17:15;
+    int unknown5c;
+    void *rva006CFF40() const;
+    void jumpToFrame(int);
+    bool rva006CFCD0() const;
+    bool IsSpriteInst(bool) const;
+    bool IsAnimationInst(bool) const;
+    void factorySetProperty(int,float,bool);
+    void factoryEnsureProperties();
+    void rva006E1DD0(void *);
+    void *rva006E1170() const;
+    void SetEventHandler(int);
+    void RemoveEventHandler(int);
+    int rva006E1F90(int);
+};
+class BfmeAptValue006DCD20 : public AptValue
+{
+public:
+	BfmeAptValue006DCD20(int);
+	BfmeAptValue006DCD20 *rva006DCF60(bool undefOK);
+	BfmeAptValue006DCD20 *checkedString();
+	bool isCIH(bool bUndefinedOK) const;
+	bool isUndefined() const;
+	int isCharacterInst() const;
+	int isInteger() const;
+	int isString() const;
+	int rva006E02B0() const;
+	int rva006E03A0() const;
+	void *rva006E0F40() const;
+	int toInteger() const;
+	virtual ~BfmeAptValue006DCD20();
+	unsigned int m_flags; // +0x04
+};
+class AptBasePtrStack
+{
+public:
+	BfmeAptValue006DCD20 *At(int);
+private:
+	char bytes[12]; // +0x00
+};
+struct AptActionInterpreter
+{
+private:
+	friend BfmeAptValue006DCD20 *rva006ec670(BfmeAptValue006DCD20 *pValue, int nParams);
+public:
+	bool setVariable(AptValue*,AptValue*,const EAStringC*,AptValue*,int,int,int);
+	AptValue *getVariable(AptValue*,AptValue*,const EAStringC*,int,int,int);
+	void loadVariables(AptValue *,AptValue *,const EAStringC *);
+private:
+	void rva007092F0(AptCIH *context, AptValue *with, AptValue *source, AptValue *target, int depth, AptValue *init);
+public:
+	AptBasePtrStack stack; // +0x00
 };
 extern AptActionInterpreter g_aptDateInterpreter;
 struct BindingDefinition {char unknown00[0x34]; const char *defaultText;};
-class Rva006EBFF0 {
+class Rva006EBFF0
+{
 public:
- void rva006EBFF0(AptValue*parent);
- void rva006EBE60(AptValue*parent);
- char unknown00[0xC]; BindingDefinition *definition;
- char unknown10[8]; EAStringC text; EAStringC variable;
- char unknown20[0x6C-0x20]; unsigned int flags;
+    void rva006EBFF0(AptValue*parent);
+    void rva006EBE60(AptValue*parent);
+    char unknown00[0xC];
+    BindingDefinition *definition;
+    char unknown10[8];
+    EAStringC text;
+    EAStringC variable;
+    char unknown20[0x6C-0x20];
+    unsigned int flags;
 };
-class AptString:public AptValue {
-public: static AptString *Create();
- EAStringC &value(){return *(EAStringC*)((char*)this+8);}
+class AptString:public AptValue
+{
+public:
+    static AptString *Create();
+    __forceinline EAStringC &value()
+    {
+        return *(EAStringC*)((char*)this+8);
+    }
 };
 void Rva006EBFF0::rva006EBE60(AptValue *parent)
 {
  if(variable.IsEmpty())return;
  if(variable.rva00620090()[0]=='$'){text=variable;return;}
- while(parent && !(!parent->isUndefined() && (((const Rva006DBB30SarDwordField *)parent)->get()==13||((const Rva006DBB30SarDwordField *)parent)->get()==18)) && parent->parent){parent=parent->parent;}
+ while(parent && !(!parent->isUndefined() && (((const Rva006DBB30SarDwordField *)parent)->get()==13||((const Rva006DBB30SarDwordField *)parent)->get()==18)) && ((AptCIH *)parent)->parent){parent=(AptValue *)((AptCIH *)parent)->parent;}
  AptValue *value=g_aptDateInterpreter.getVariable(parent,0,&variable,1,1,0);
  if(value->isUndefined()){
   AptString *created=AptString::Create();
@@ -90,7 +169,7 @@ void Rva006EBFF0::rva006EBFF0(AptValue *parent)
 {
  if(variable.IsEmpty()||variable.rva00620090()[0]=='$')return;
  EAStringC result;
- while(parent && !(!parent->isUndefined() && (((const Rva006DBB30SarDwordField *)parent)->get()==13||((const Rva006DBB30SarDwordField *)parent)->get()==18)) && parent->parent){parent=parent->parent;}
+ while(parent && !(!parent->isUndefined() && (((const Rva006DBB30SarDwordField *)parent)->get()==13||((const Rva006DBB30SarDwordField *)parent)->get()==18)) && ((AptCIH *)parent)->parent){parent=(AptValue *)((AptCIH *)parent)->parent;}
  AptValue *value=g_aptDateInterpreter.getVariable(parent,0,&variable,1,1,0);
  if(!value){g_bfmeAptAssertAtE17734("pValue != NULL","C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptCharacter.cpp",351);if(g_bfmeAptBreakOnAssertAtDDC01C){__asm int 3}}
  if(value->isUndefined()){

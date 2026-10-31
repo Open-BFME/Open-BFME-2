@@ -17,23 +17,58 @@ void __debugbreak();
 class AptCIH;
 class EAStringC
 {
-	void *data;
 public:
+	class StringDataC { public: unsigned short m_uRefCount; unsigned short m_uSize; unsigned short m_uMaxSize; unsigned short m_uHash; };
 	EAStringC();
+	EAStringC(const char *);
+	EAStringC(const EAStringC &);
+	static void FreeData(StringDataC *);
+	EAStringC &clear();
+	EAStringC &operator=(const EAStringC&);
 	~EAStringC();
+	int GetAt(int) const;
+	bool IsEmpty() const;
+	unsigned int rva006D3750() const;
+	bool IsEqualTo(const EAStringC*) const;
+	bool rva006D30D0(const EAStringC*) const;
+	bool rva006D3510(const char*) const;
+	EAStringC &MakeLower();
+	EAStringC &Rva006D4F00Append(const EAStringC &other);
+	const char *rva00620090() const;
+	int rva006D54B0(int,int);
+private:
+	StringDataC *data; // +0x00
 };
 class AptValue
 {
 public:
 	AptCIH *c_cih(bool bUndefinedOK);
+	bool isCIH(bool bUndefinedOK) const;
+	bool isUndefined() const;
+	bool getIsDefined() const;
+	float toFloat() const;
 	int toInteger() const;
 	void toString(EAStringC &) const;
+	virtual void AddRef();
+	virtual void Release();
 };
-class BfmeAptValue006DCD20
+class BfmeAptValue006DCD20 : public AptValue
 {
 public:
-	int isCharacterInst() const;
+	BfmeAptValue006DCD20(int);
+	BfmeAptValue006DCD20 *rva006DCF60(bool undefOK);
+	BfmeAptValue006DCD20 *checkedString();
 	bool isCIH(bool bUndefinedOK) const;
+	bool isUndefined() const;
+	int isCharacterInst() const;
+	int isInteger() const;
+	int isString() const;
+	int rva006E02B0() const;
+	int rva006E03A0() const;
+	void *rva006E0F40() const;
+	int toInteger() const;
+	virtual ~BfmeAptValue006DCD20();
+	unsigned int m_flags; // +0x04
 };
 class Rva006CFCD0
 {
@@ -41,8 +76,26 @@ public:
 	bool isSpriteInstBase() const;
 };
 class Rva006E3C80 {public:int rva006E3C80();};
-class AptBasePtrStack {public:AptValue *At(int);};
-struct AptActionInterpreter {AptBasePtrStack stack;};
+class AptBasePtrStack
+{
+public:
+	BfmeAptValue006DCD20 *At(int);
+private:
+	char bytes[12]; // +0x00
+};
+struct AptActionInterpreter
+{
+private:
+	friend BfmeAptValue006DCD20 *rva006ec670(BfmeAptValue006DCD20 *pValue, int nParams);
+public:
+	bool setVariable(AptValue*,AptValue*,const EAStringC*,AptValue*,int,int,int);
+	AptValue *getVariable(AptValue*,AptValue*,const EAStringC*,int,int,int);
+	void loadVariables(AptValue *,AptValue *,const EAStringC *);
+private:
+	void rva007092F0(AptCIH *context, AptValue *with, AptValue *source, AptValue *target, int depth, AptValue *init);
+public:
+	AptBasePtrStack stack; // +0x00
+};
 extern AptActionInterpreter g_aptDateInterpreter;
 extern AptValue *gpUndefinedValue;
 class Rva006DB160
