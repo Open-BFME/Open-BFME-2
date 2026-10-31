@@ -1,6 +1,4 @@
-// cl: /O2 /G7 /arch:SSE /DNDEBUG /MD
-// dxsdk
-// platformsdk
+// cl: /DBFME_WWSTRING_NATIVE_CSTR_ASSIGN /FIbfme_wwstring_teardown.h /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/shims/bfme2_ww3d /Ireference/shims/wwstring_teardown/zhmd /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression
 // ?Execute@Rva007ACBC0CmdInterface@@..., retail 0x00117DC0 (330 B, RET 0x14): the "ww3d"
 // debug command group's Execute (class table 0x00BCFBF0, registered by Rva007ACBC0Ww3dCmdGroup.cpp;
 // WB 0x009C02D0 by its strings). "help" lists or explains sceneanalyst and pixmarker through
@@ -12,9 +10,14 @@
 // WW3D::Prepare_Render_New_Frame, retail 0x001172B0 (317 B; WB 0x009BDFD0, ww3d.cpp): device
 // lost/not-reset handling, Begin_Statistics, then the scene analyst countdown that switches
 // the debug log groups through theDebug's command slot 0x8C.
+	// dx8wrapper.cpp's protected static at VA 0x00DEDC70.
+	// dllimport: inlined at every use, so no out-of-line copy competes with retail's
+	// Convert_Color (0x0006E1C0) or Set_Ambient (0x00117F50, DX8SetAmbient.cpp).
+#include "rendobj.h"	// the bfmerendobj shim has to win the include guard
+#include "ww3d.h"	// the bfme2_ww3d shims must win both include guards, ww3d.h first
+#include "dx8wrapper.h"	// the bfme2_ww3d shim (BFME 2 DX8Wrapper spellings) has to win the include guard
 #include <string.h>
 #include <stdlib.h>
-#include <d3d9.h>
 class Debug;
 
 class DebugCmdInterface
@@ -141,38 +144,6 @@ bool Rva007ACBC0CmdInterface::Execute( Debug &dbg, const char *cmd, CommandMode 
 
 // The device keeps its D3D8 type name but is a Direct3D 9 device
 // (TestCooperativeLevel, vtable slot 3).
-struct IDirect3DDevice8;
-
-class IDirect3DSurface9;
-struct _D3DVIEWPORT8;
-class Vector3;
-class LightEnvironmentClass;
-class DX8Wrapper
-{
-private:
-	friend class WW3D;
-protected:
-	static IDirect3DDevice8 *D3DDevice;
-	// dx8wrapper.cpp's protected static at VA 0x00DEDC70.
-	static Vector3 Ambient_Color;
-public:
-	static bool Reset_Device(bool reload_assets);
-	static IDirect3DSurface9 *_Get_DX8_Front_Buffer();
-	static void Shutdown();
-private:
-	static void Get_Render_Target_Resolution(int &,int &,int &,bool &);
-public:
-	static void Set_Viewport(const _D3DVIEWPORT8 *viewport);
-	static void Clear(bool clear_color, bool clear_z_stencil, bool clear_stencil, const Vector3 &color, float dest_alpha, float z, unsigned int stencil);
-	static void Begin_Scene_Inner(void);
-	static void Set_DX8_Render_State(unsigned long state, unsigned value);
-	// dllimport: inlined at every use, so no out-of-line copy competes with retail's
-	// Convert_Color (0x0006E1C0) or Set_Ambient (0x00117F50, DX8SetAmbient.cpp).
-	__declspec(dllimport) static unsigned Convert_Color(const Vector3 &color, float alpha);
-	__declspec(dllimport) static void Set_Ambient(const Vector3 &color);
-	static void Set_Light_Environment(LightEnvironmentClass *light_env);
-};
-
 namespace Debug_Statistics
 {
 	void Begin_Statistics();
@@ -180,17 +151,11 @@ namespace Debug_Statistics
 
 extern Debug *theDebug;
 
-class WW3D
-{
-public:
-	static bool Prepare_Render_New_Frame();
-};
-
 bool WW3D::Prepare_Render_New_Frame()
 {
 	if (DX8Wrapper::D3DDevice)
 	{
-		HRESULT hr = reinterpret_cast<IDirect3DDevice9 *>(DX8Wrapper::D3DDevice)->TestCooperativeLevel();
+		HRESULT hr = DX8Wrapper::D3DDevice->TestCooperativeLevel();
 		if (hr != D3D_OK)
 		{
 			if (hr != D3DERR_DEVICELOST && hr == D3DERR_DEVICENOTRESET)

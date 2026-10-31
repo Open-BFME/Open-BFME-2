@@ -82,6 +82,8 @@ class 	StaticSortListClass;
 class WW3D
 {
 	template<class T> friend struct DataRowPrivateProbe;	// data-row size probe of the private statics
+	friend bool Rva00118660Call(void *owner, void *camera);	// BFME 2: reads IsInitted (row 0x00118660)
+	friend bool Rva001182A0(void *owner, RenderInfoClass &rinfo);	// BFME 2: reads the private statics (row 0x001182A0)
 public:
 
 	enum PrelitModeEnum {
@@ -156,13 +158,14 @@ public:
 	** entire scene rendering overhead.
 	*/
 	static bool					Begin_Render(bool clear = false,bool clearz = true,const Vector3 & color = Vector3(0,0,0), float dest_alpha=0.0f);	// BFME 2: bool, no network callback
-	static WW3DErrorType		Render(const LayerListClass & layerlist);
-	static WW3DErrorType		Render(const LayerClass & layer);
+	static bool					Render(const LayerListClass & layerlist);	// BFME 2: bool
+	static bool					Render(const LayerClass & layer);	// BFME 2: bool
 	static WW3DErrorType		Render(SceneClass * scene,CameraClass * cam,bool clear = false,bool clearz = false,const Vector3 & color = Vector3(0,0,0));
-	static WW3DErrorType		Render(RenderObjClass & obj,RenderInfoClass & rinfo);
+	static bool					Render(RenderObjClass & obj,RenderInfoClass & rinfo);	// BFME 2: bool
 	static void					Flush(RenderInfoClass & rinfo);	// NOTE: "normal" usage should *NEVER* require the user to call this function
 
 	static bool					End_Render(bool flip_frame = true);	// BFME 2: bool
+	static bool					Prepare_Render_New_Frame(void);	// BFME 2: row 0x001172B0
 
 	static bool					Is_Rendering( void ) { return( IsRendering ); }
 
@@ -211,7 +214,8 @@ public:
 	** all textures to be half their normal resolution.  Passing in 3 causes them to
 	** be cut in half twice, etc
 	*/
-	static void					Set_Texture_Reduction( int value, int min_dim=1 );
+	static void					Set_Texture_Reduction( int value );	// BFME 2: no min_dim (row 0x00117BB0)
+	static void					Set_Texture_Reduction( int value, int min_dim );	// Zero Hour's, which units still call
 	static int					Get_Texture_Reduction( void );
 	static int					Get_Texture_Min_Dimension(void);
 	static void					Enable_Large_Texture_Extra_Reduction(bool onoff);

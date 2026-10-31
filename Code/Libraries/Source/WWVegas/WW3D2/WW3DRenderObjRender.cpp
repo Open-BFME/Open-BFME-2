@@ -61,9 +61,9 @@ public:
 class RenderInfoClass
 {
 public:
-	CameraClass *Camera;
+	CameraClass &Camera;
 	char m_padding04[0x24];
-	void *light_environment;
+	LightEnvironmentClass *light_environment;
 };
 
 class WW3D;
@@ -149,14 +149,13 @@ bool WW3D::Render(RenderObjClass &obj, RenderInfoClass &rinfo)
 	if (!IsInitted)
 		return true;
 
-	rinfo.Camera->On_Frame_Update();
-	rinfo.Camera->Apply();
+	rinfo.Camera.On_Frame_Update();
+	rinfo.Camera.Apply();
 	DX8Wrapper::Set_DX8_Render_State(8, 3);
 	if (rinfo.light_environment != 0)
-		DX8Wrapper::Set_Light_Environment(
-			reinterpret_cast<LightEnvironmentClass *>(rinfo.light_environment));
+		DX8Wrapper::Set_Light_Environment(rinfo.light_environment);
 
-	TheDX8MeshRenderer->Set_Camera(rinfo.Camera);
+	TheDX8MeshRenderer->Set_Camera(&rinfo.Camera);
 	obj.Render(rinfo);
 	TheDX8MeshRenderer->Flush();
 	TheMeshGapFillerContext->rva174ba6();

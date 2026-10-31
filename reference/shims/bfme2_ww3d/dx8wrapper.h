@@ -1,7 +1,7 @@
-// Zero Hour's WW3D2/dx8wrapper.h for ww3d.cpp, verbatim but for BFME 2's two
-// spellings ww3d.cpp calls: _Get_DX8_Front_Buffer returns IDirect3DSurface9 *
+// Zero Hour's WW3D2/dx8wrapper.h for ww3d.cpp, verbatim but for BFME 2's spellings
+// (marked "BFME 2:"), among them _Get_DX8_Front_Buffer returning IDirect3DSurface9 *
 // (retail call 0x00117624 -> row 0x0011DFE0) and Get_Render_Target_Resolution
-// is private (retail jmp 0x00116FF0 -> row 0x00121860). Copied from
+// being private (retail jmp 0x00116FF0 -> row 0x00121860). Copied from
 // reference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.h
 /*
 **	Command & Conquer Generals Zero Hour(tm)
@@ -283,12 +283,13 @@ public:
 	** Rendering
 	*/
 	static void Begin_Scene(void);
+	static void Begin_Scene_Inner(void);	// BFME 2: row 0x0011D2B0
 	static void End_Scene(bool flip_frame = true);
 
 	// Flip until the primary buffer is visible.
 	static void Flip_To_Primary(void);
 
-	static void Clear(bool clear_color, bool clear_z_stencil, const Vector3 &color, float dest_alpha=0.0f, float z=1.0f, unsigned int stencil=0);
+	static void Clear(bool clear_color, bool clear_z_stencil, bool clear_stencil, const Vector3 &color, float dest_alpha=0.0f, float z=1.0f, unsigned int stencil=0);	// BFME 2: separate clear_stencil (row 0x0011D330)
 
 	static void	Set_Viewport(CONST D3DVIEWPORT8* pViewport);
 
@@ -326,7 +327,7 @@ public:
 	static void _Get_DX8_Transform(D3DTRANSFORMSTATETYPE transform, Matrix4x4& m);
 
 	static void Set_DX8_Light(int index,D3DLIGHT8* light);
-	static void Set_DX8_Render_State(D3DRENDERSTATETYPE state, unsigned value);
+	static void Set_DX8_Render_State(unsigned long state, unsigned value);	// BFME 2: out of line, unsigned long (row 0x0006615F)
 	static void Set_DX8_Clip_Plane(DWORD Index, CONST float* pPlane);
 	static void Set_DX8_Texture_Stage_State(unsigned stage, D3DTEXTURESTAGESTATETYPE state, unsigned value);
 	static void Set_DX8_Texture(unsigned int stage, IDirect3DBaseTexture8* texture);
@@ -880,26 +881,6 @@ WWINLINE void DX8Wrapper::Set_DX8_Light(int index, D3DLIGHT8* light)
 	}
 }
 
-WWINLINE void DX8Wrapper::Set_DX8_Render_State(D3DRENDERSTATETYPE state, unsigned value)
-{
-	// Can't monitor state changes because setShader call to GERD may change the states!
-	if (RenderStates[state]==value) return;
-
-#ifdef MESH_RENDER_SNAPSHOT_ENABLED
-	if (WW3D::Is_Snapshot_Activated()) {
-		StringClass value_name(0,true);
-		Get_DX8_Render_State_Value_Name(value_name,state,value);
-		SNAPSHOT_SAY(("DX8 - SetRenderState(state: %s, value: %s)\n",
-			Get_DX8_Render_State_Name(state),
-			value_name));
-	}
-#endif
-
-	RenderStates[state]=value;
-	DX8CALL(SetRenderState( state, value ));
-	DX8_RECORD_RENDER_STATE_CHANGE();
-}
-
 WWINLINE void DX8Wrapper::Set_DX8_Clip_Plane(DWORD Index, CONST float* pPlane)
 {
 	DX8CALL(SetClipPlane( Index, pPlane ));
@@ -1014,7 +995,7 @@ WWINLINE unsigned int DX8Wrapper::Convert_Color(const Vector4& color)
 WWINLINE unsigned int DX8Wrapper::Convert_Color(const Vector3& color,float alpha)
 {
 	const float scale = 255.0;
-	unsigned int col;
+	unsigned int col = 0;	// BFME 2: zeroed first (row 0x001182A0)
 
 	// Multiply r, g, b and a components (0.0,...,1.0) by 255 and convert to integer. Or the integer values togerher
 	// such that 32 bit ingeger has AAAAAAAARRRRRRRRGGGGGGGGBBBBBBBB.
