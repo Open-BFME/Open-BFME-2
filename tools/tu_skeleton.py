@@ -102,6 +102,7 @@ import posixpath
 import re
 import subprocess
 import sys
+import time
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -120,6 +121,24 @@ FUNCLET = re.compile(r"^__(?:ehhandler|unwindfunclet|catch|catchsym|tryblocktabl
 PARENT_NOTE = re.compile(r"parent=([^;\s]+)")          # gen-funclet;parent=X (`$L5782`, `Unwind@00b636b8`)
 DELETING = re.compile(r"^\?\?_[GE]((?:\?\$)?[A-Za-z_]\w*@)")   # ??_G / ??_E: the deleting destructors of ??1
 
+
+
+def _unlink_resilient(path):
+    """Delete a scratch file Windows may still hold a handle to.
+
+    cl.exe (or the scanner behind it) can keep the just-compiled .cpp open for
+    a moment after the process exits; POSIX unlink-while-open semantics do not
+    exist on Win32, so a plain unlink races WinError 32. Retry briefly, then
+    give up leaving the scratch behind rather than failing the merge trial.
+    """
+    for _ in range(10):
+        try:
+            path.unlink()
+            return
+        except PermissionError:
+            time.sleep(0.2)
+        except FileNotFoundError:
+            return
 
 def parent_of(row, dtors=None):
     """The symbol a companion row is emitted with (EH funclet by name, generated
@@ -941,10 +960,13 @@ class Verifier:
                 with contextlib.redirect_stdout(io.StringIO()), self.fd.forced_mode("current"):
                     ok, msg, code = self.B.try_compile_source(src, obj, timeout=self.timeout)
             finally:
-                src.unlink()
+                _unlink_resilient(src)
                 for d in reversed(made):
-                    if not any(d.iterdir()):
-                        d.rmdir()
+                    try:
+                        if not any(d.iterdir()):
+                            d.rmdir()
+                    except OSError:
+                        pass
             if ok:
                 errors = []
             elif code == getattr(self.B, "TIMEOUT_STATUS", 124):
