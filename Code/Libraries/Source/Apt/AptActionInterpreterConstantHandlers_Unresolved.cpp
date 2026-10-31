@@ -72,7 +72,6 @@ public:
     bool isUndefined() const;
     bool isInteger() const;
     bool isFloat() const;
-    bool isString() const;
     void SetString(const char *);
     float toFloat() const;
     bool toBool() const;
@@ -80,7 +79,38 @@ public:
     void toString(EAStringC &) const;
 };
 struct AptCharacterInst;
-class EAStringC { void *mpData; public: bool rva006D3510(const char *) const; EAStringC &TrimRight(const char *); EAStringC &Rva006D4F00Append(const EAStringC &); EAStringC &Rva006D50A0Append(const char *); EAStringC(unsigned int,unsigned int); EAStringC rva006D5ED0(int) const; EAStringC rva006d5f30(int,int) const; void rva006D3470(); int Find(char,int=0); EAStringC &Append(const char *const,unsigned int); bool IsEmpty() const; bool IsEqualTo(const EAStringC *) const; bool rva006D3560(const EAStringC *) const; const char *rva00620090() const; int rva006d6070(const char *,int=0); EAStringC(); unsigned int rva006D3750() const; EAStringC(const char *); EAStringC(const EAStringC &); int GetAt(int) const; int rva006D54B0(int,int); ~EAStringC(); EAStringC &operator=(const EAStringC &); };
+class EAStringC
+{
+public:
+	class StringDataC { public: unsigned short m_uRefCount; unsigned short m_uSize; unsigned short m_uMaxSize; unsigned short m_uHash; };
+	EAStringC();
+	EAStringC(const char *value);
+	~EAStringC();
+	EAStringC &operator=(const EAStringC &);
+	bool IsEmpty() const;
+	bool rva006D3510(const char *) const;
+	const char *rva00620090() const; // 0x00620090
+	EAStringC(const EAStringC &);
+	EAStringC &Rva006D4F00Append(const EAStringC &);
+	EAStringC &Rva006D50A0Append(const char *);
+	void __cdecl rva006D62C0(const char *, ...);
+	EAStringC &clear();
+	unsigned int rva006D3750() const;
+	void rva006D3470();
+	EAStringC &TrimRight(const char *);
+	EAStringC(unsigned int,unsigned int);
+	EAStringC rva006D5ED0(int) const;
+	EAStringC rva006d5f30(int,int) const;
+	int Find(char,int=0);
+	EAStringC &Append(const char *const,unsigned int);
+	bool IsEqualTo(const EAStringC *) const;
+	bool rva006D3560(const EAStringC *) const;
+	int rva006d6070(const char *,int=0);
+	int GetAt(int) const;
+	int rva006D54B0(int,int);
+private:
+	StringDataC *mpData; // +0x00
+};
 class Rva006D2A60 { public: void *allocBlock(int); void freeBlock(void *,int); };
 extern Rva006D2A60 *g_pChainBlockAllocatorF4;
 // Native InitArray allocates44B; ctor6D91B0 builds type0x16, hash+8,
@@ -122,7 +152,7 @@ struct AptConstantPool { int nItems; AptValue **apItems; };
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
 
-class BfmeAptValue006DCD20;
+class BfmeAptValue006DCD20 { public: int isString() const; };
 class AptBasePtrStack
 {
 public:
@@ -480,7 +510,6 @@ typedef char ConstantPoolSize[sizeof(AptConstantPool)==8 ? 1 : -1];
 
 
 
-#pragma comment(linker, "/alternatename:?isString@AptValue@@QBE_NXZ=?isString@BfmeAptValue006DCD20@@QBEHXZ")
 
 
 
@@ -583,13 +612,13 @@ class Rva8D0D80Value;
 class Rva8D0D80Table { public: void add(Rva8D0D80String *,Rva8D0D80Value *); };
 void AptActionInterpreter::_FunctionAptActionInitObject(AptActionInterpreter *const aptActionInterpreter, LocalContextT *const localContextT)
 {
-    int n=aptActionInterpreter->stack.At(0)->toInteger();
+    int n=static_cast<const AptBasePtrStack &>(aptActionInterpreter->stack).At(0)->toInteger();
     aptActionInterpreter->stack.Pop();
     AptValue *object=(AptValue *)aptActionInterpreter->_createObject((AptValue *)localContextT->pCurrentContext,localContextT->pCurWith,Rva0070B4F0GetString(0x64),0,true);
     if(object) {
         for(int i=0,reg=0;i<n;++i,reg+=2) {
-            AptValue *value=aptActionInterpreter->stack.At(reg);
-            AptValue *name=aptActionInterpreter->stack.At(reg+1);
+            AptValue *value=static_cast<const AptBasePtrStack &>(aptActionInterpreter->stack).At(reg);
+            AptValue *name=static_cast<const AptBasePtrStack &>(aptActionInterpreter->stack).At(reg+1);
             EAStringC text;name->toString(text);
             ((Rva8D0D80Table *)((char *)object+8))->add((Rva8D0D80String *)&text,(Rva8D0D80Value *)value);
         }
@@ -605,9 +634,9 @@ static AptString *_concatAsStrings(AptValue *aptValue,AptValue *b)
 {
     AptString *result=AptString::Create();
     EAStringC *str;
-    if(b->isString()) {str=result->GetInternalString(); *str=*b->c_string()->GetInternalString();}
+    if((unsigned char)((BfmeAptValue006DCD20 *)b)->isString()) {str=result->GetInternalString(); *str=*b->c_string()->GetInternalString();}
     else {str=result->GetInternalString(); b->toString(*str); }
-    if(aptValue->isString()) str->Rva006D4F00Append(*aptValue->c_string()->GetInternalString());
+    if((unsigned char)((BfmeAptValue006DCD20 *)aptValue)->isString()) str->Rva006D4F00Append(*aptValue->c_string()->GetInternalString());
     else {EAStringC text;aptValue->toString(text);str->Rva006D4F00Append(text);}
     return result;
 }
@@ -616,8 +645,8 @@ static AptString *_concatAsStrings(AptValue *aptValue,AptValue *b)
 
 void AptActionInterpreter::_FunctionAptActionNewObject(AptActionInterpreter *const aptActionInterpreter,LocalContextT *const localContextT)
 {
-    AptValue *name=aptActionInterpreter->stack.At(0);
-    AptValue *params=aptActionInterpreter->stack.At(1);
+    AptValue *name=static_cast<const AptBasePtrStack &>(aptActionInterpreter->stack).At(0);
+    AptValue *params=static_cast<const AptBasePtrStack &>(aptActionInterpreter->stack).At(1);
     EAStringC objectName;
     name->toString(objectName);
     int nParams=params->toInteger();
@@ -629,9 +658,9 @@ void AptActionInterpreter::_FunctionAptActionNewObject(AptActionInterpreter *con
 
 void AptActionInterpreter::_FunctionAptActionNewMethod(AptActionInterpreter *const aptActionInterpreter,LocalContextT *const localContextT)
 {
-    AptValue *name=aptActionInterpreter->stack.At(0);
-    AptValue *context=aptActionInterpreter->stack.At(1);
-    AptValue *params=aptActionInterpreter->stack.At(2);
+    AptValue *name=static_cast<const AptBasePtrStack &>(aptActionInterpreter->stack).At(0);
+    AptValue *context=static_cast<const AptBasePtrStack &>(aptActionInterpreter->stack).At(1);
+    AptValue *params=static_cast<const AptBasePtrStack &>(aptActionInterpreter->stack).At(2);
     EAStringC objectName;
     name->toString(objectName);
     int nParams=params->toInteger();

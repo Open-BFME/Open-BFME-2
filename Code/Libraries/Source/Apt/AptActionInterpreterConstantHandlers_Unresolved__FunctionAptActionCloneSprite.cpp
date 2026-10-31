@@ -74,7 +74,6 @@ public:
     bool isUndefined() const;
     bool isInteger() const;
     bool isFloat() const;
-    bool isString() const;
     void SetString(const char *);
     float toFloat() const;
     bool toBool() const;
@@ -82,7 +81,38 @@ public:
     void toString(EAStringC &) const;
 };
 struct AptCharacterInst;
-class EAStringC { void *mpData; public: bool rva006D3510(const char *) const; EAStringC &TrimRight(const char *); EAStringC &Rva006D4F00Append(const EAStringC &); EAStringC &Rva006D50A0Append(const char *); EAStringC(unsigned int,unsigned int); EAStringC rva006D5ED0(int) const; EAStringC rva006d5f30(int,int) const; void rva006D3470(); int Find(char,int=0); EAStringC &Append(const char *const,unsigned int); bool IsEmpty() const; bool IsEqualTo(const EAStringC *) const; bool rva006D3560(const EAStringC *) const; const char *rva00620090() const; int rva006d6070(const char *,int=0); EAStringC(); unsigned int rva006D3750() const; EAStringC(const char *); EAStringC(const EAStringC &); int GetAt(int) const; int rva006D54B0(int,int); ~EAStringC(); EAStringC &operator=(const EAStringC &); };
+class EAStringC
+{
+public:
+	class StringDataC { public: unsigned short m_uRefCount; unsigned short m_uSize; unsigned short m_uMaxSize; unsigned short m_uHash; };
+	EAStringC();
+	EAStringC(const char *value);
+	~EAStringC();
+	EAStringC &operator=(const EAStringC &);
+	bool IsEmpty() const;
+	bool rva006D3510(const char *) const;
+	const char *rva00620090() const; // 0x00620090
+	EAStringC(const EAStringC &);
+	EAStringC &Rva006D4F00Append(const EAStringC &);
+	EAStringC &Rva006D50A0Append(const char *);
+	void __cdecl rva006D62C0(const char *, ...);
+	EAStringC &clear();
+	unsigned int rva006D3750() const;
+	void rva006D3470();
+	EAStringC &TrimRight(const char *);
+	EAStringC(unsigned int,unsigned int);
+	EAStringC rva006D5ED0(int) const;
+	EAStringC rva006d5f30(int,int) const;
+	int Find(char,int=0);
+	EAStringC &Append(const char *const,unsigned int);
+	bool IsEqualTo(const EAStringC *) const;
+	bool rva006D3560(const EAStringC *) const;
+	int rva006d6070(const char *,int=0);
+	int GetAt(int) const;
+	int rva006D54B0(int,int);
+private:
+	StringDataC *mpData; // +0x00
+};
 class Rva006D2A60 { public: void *allocBlock(int); void freeBlock(void *,int); };
 extern Rva006D2A60 *g_pChainBlockAllocatorF4;
 // Native InitArray allocates44B; ctor6D91B0 builds type0x16, hash+8,
@@ -124,7 +154,7 @@ struct AptConstantPool { int nItems; AptValue **apItems; };
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
 
-class BfmeAptValue006DCD20;
+class BfmeAptValue006DCD20 { public: int isString() const; };
 class AptBasePtrStack
 {
 public:
@@ -481,7 +511,6 @@ typedef char ConstantPoolSize[sizeof(AptConstantPool)==8 ? 1 : -1];
 
 
 
-#pragma comment(linker, "/alternatename:?isString@AptValue@@QBE_NXZ=?isString@BfmeAptValue006DCD20@@QBEHXZ")
 
 
 
@@ -506,7 +535,7 @@ extern int g_rva00891FA0Value;
 // handler source agree. Native assertions retain original spelling and lines.
 class BfmeAptValue006DCD20;
 void rva007065e0(int,int,BfmeAptValue006DCD20 *,BfmeAptValue006DCD20 **);
-__forceinline AptValue *convertWith(AptCIH *c,AptValue *v) { AptValue *out; rva007065e0((int)c,0,(BfmeAptValue006DCD20 *)v,(BfmeAptValue006DCD20 **)&out); return out; }
+__forceinline AptValue *convertWith(AptCIH *aptCIH,AptValue *aptValue) { AptValue *out; rva007065e0((int)aptCIH,0,(BfmeAptValue006DCD20 *)aptValue,(BfmeAptValue006DCD20 **)&out); return out; }
 
 
 
@@ -591,9 +620,9 @@ AptValue *Rva00709EC0Get(int);
 
 void AptActionInterpreter::_FunctionAptActionCloneSprite(AptActionInterpreter *const p, LocalContextT *const c)
 {
-    AptValue *depth=p->stack.At(0);
-    AptValue *target=p->stack.At(1);
-    AptValue *source=p->stack.At(2);
+    AptValue *depth=static_cast<const AptBasePtrStack &>(p->stack).At(0);
+    AptValue *target=static_cast<const AptBasePtrStack &>(p->stack).At(1);
+    AptValue *source=static_cast<const AptBasePtrStack &>(p->stack).At(2);
     int n=depth->toInteger();
     p->rva007092F0(c->pCurrentContext,c->pCurWith,source,target,n,0);
     p->stack.Pop(3);
@@ -610,14 +639,14 @@ class Rva8D0D80Table { public: void add(Rva8D0D80String *,Rva8D0D80Value *); };
 // Native static helper uses pB in EBX and pA on the stack. MSVC chooses
 // that internal ABI from real C++; branch-local destination binding retains
 // the native predicate/member-address ordering (objects seat scheduling fix).
-static AptString *_concatAsStrings(AptValue *a,AptValue *b)
+static AptString *_concatAsStrings(AptValue *aptValue,AptValue *b)
 {
     AptString *result=AptString::Create();
     EAStringC *str;
-    if(b->isString()) {str=result->GetInternalString(); *str=*b->c_string()->GetInternalString();}
+    if((unsigned char)((BfmeAptValue006DCD20 *)b)->isString()) {str=result->GetInternalString(); *str=*b->c_string()->GetInternalString();}
     else {str=result->GetInternalString(); b->toString(*str); }
-    if(a->isString()) str->Rva006D4F00Append(*a->c_string()->GetInternalString());
-    else {EAStringC text;a->toString(text);str->Rva006D4F00Append(text);}
+    if((unsigned char)((BfmeAptValue006DCD20 *)aptValue)->isString()) str->Rva006D4F00Append(*aptValue->c_string()->GetInternalString());
+    else {EAStringC text;aptValue->toString(text);str->Rva006D4F00Append(text);}
     return result;
 }
 
@@ -703,7 +732,7 @@ void AptActionInterpreter::_FunctionAptActionGetUrl(AptActionInterpreter *const 
 // later donor fixed this suffix bug. loadVariables706370 remains unrowed.
 void AptActionInterpreter::_FunctionAptActionGetUrl2(AptActionInterpreter *const p,LocalContextT *const c)
 {
-    AptValue *a=p->stack.At(0),*b=p->stack.At(1);
+    AptValue *a=static_cast<const AptBasePtrStack &>(p->stack).At(0),*b=static_cast<const AptBasePtrStack &>(p->stack).At(1);
     EAStringC sa,sb;
     b->toString(sb);
     if(bfmeIsFSCommand(sb.rva00620090())) { a->toString(sa);p->doFSCommand(sb.rva00620090(),sa.rva00620090()); }
@@ -716,7 +745,7 @@ void AptActionInterpreter::_FunctionAptActionGetUrl2(AptActionInterpreter *const
             if(v->isCIH()) getName(v->c_cih(),sa);
             p->stack.Pop(2);g_bfmeAptLinkerAtE176F8->Load(buf,sa);return;
         } else {
-            if(a->isString()) context=p->getVariable((AptValue *)c->pCurrentContext,c->pCurWith,a->c_string()->GetInternalString(),1);
+            if((unsigned char)((BfmeAptValue006DCD20 *)a)->isString()) context=p->getVariable((AptValue *)c->pCurrentContext,c->pCurWith,a->c_string()->GetInternalString(),1);
             else context=a;
             p->loadVariables(context,c->pCurWith,&sb);
         }

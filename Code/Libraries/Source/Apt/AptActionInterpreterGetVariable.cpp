@@ -32,13 +32,35 @@ void __debugbreak();
 
 class EAStringC
 {
-    void *mpData;
 public:
-    EAStringC();
-    ~EAStringC();
-    EAStringC &operator=(const EAStringC &);
-    bool IsEmpty() const;
-    const char *rva00620090() const; // 0x00620090
+	class StringDataC { public: unsigned short m_uRefCount; unsigned short m_uSize; unsigned short m_uMaxSize; unsigned short m_uHash; };
+	EAStringC();
+	EAStringC(const char *value);
+	~EAStringC();
+	EAStringC &operator=(const EAStringC &);
+	bool IsEmpty() const;
+	bool rva006D3510(const char *) const;
+	const char *rva00620090() const; // 0x00620090
+	EAStringC(const EAStringC &);
+	EAStringC &Rva006D4F00Append(const EAStringC &);
+	EAStringC &Rva006D50A0Append(const char *);
+	void __cdecl rva006D62C0(const char *, ...);
+	EAStringC &clear();
+	unsigned int rva006D3750() const;
+	void rva006D3470();
+	EAStringC &TrimRight(const char *);
+	EAStringC(unsigned int,unsigned int);
+	EAStringC rva006D5ED0(int) const;
+	EAStringC rva006d5f30(int,int) const;
+	int Find(char,int=0);
+	EAStringC &Append(const char *const,unsigned int);
+	bool IsEqualTo(const EAStringC *) const;
+	bool rva006D3560(const EAStringC *) const;
+	int rva006d6070(const char *,int=0);
+	int GetAt(int) const;
+	int rva006D54B0(int,int);
+private:
+	StringDataC *mpData; // +0x00
 };
 
 class AptCIH;
@@ -79,7 +101,30 @@ public:
 class BfmeAptValue006DCD20
 {
 public:
-    int rva006E02B0() const; // rowed provider at 0x006E02B0; callers test AL
+	int rva006E02B0() const; // rowed provider at 0x006E02B0; callers test AL
+	int isNativeFunction() const;
+	bool rva006DCA60() const;
+	int isObject() const;
+	int isInteger() const;
+	int isFloat() const;
+	int isString() const;
+	int toInteger() const;
+	float rva006DD460();
+	BfmeAptValue006DCD20 *rva006DCF60(bool);
+	BfmeAptValue006DCD20 *checkedString();
+	int isScriptFunction() const;
+	bool isUndefined() const;
+	int rva006E03A0() const;
+	BfmeAptValue006DCD20 *rva006DCF20();
+	BfmeAptValue006DCD20 *rva006DCEE0();
+	void rva006DD6C0(EAStringC *out);
+	// These call-site views follow the retail test-al instruction at 0x6FED89
+	// and 0x6FEF02; the matched predicate declarations keep their own names.
+	int rva006E0260() const;
+	int rva006DCC60(bool) const;
+	void *rva006E04A0() const;
+	virtual void AddRef();
+	virtual void Release();
 };
 struct AptNativeHash
 {
@@ -105,7 +150,7 @@ void (__cdecl *g_aptUndefinedVariableCallback)(const char *);
 struct AptActionInterpreter
 {
     char pad0[0x30];
-    Rva006FBE80 *mpCurrentFunction; // +0x30
+    class AptScriptFunctionBase *mpCurrentFunction; // +0x30
     AptValue *getVariable(AptValue *, AptValue *, const EAStringC *, int = 1, int = 1, int = 0);
 private:
     static bool getContext(AptValue *, AptValue *, const EAStringC *, AptValue **, EAStringC &);
@@ -147,7 +192,7 @@ AptValue *AptActionInterpreter::getVariable(AptValue *pCurrentContext, AptValue 
             return pResult;
     }
     if (bLocals && mpCurrentFunction) {
-        pResult = (AptValue *)mpCurrentFunction->find2((int)&name);
+        pResult = (AptValue *)((Rva006FBE80 *)mpCurrentFunction)->find2((int)&name);
         if (pResult)
             return pResult;
     }
@@ -165,7 +210,7 @@ AptValue *AptActionInterpreter::getVariable(AptValue *pCurrentContext, AptValue 
     if (pCurWith)
         return getVariable(pCurrentContext, 0, pName, bWith, 1, 0);
     if (!pContext->isCIH() && mpCurrentFunction && !bNoContext) {
-        AptNativeHash *pHash = mpCurrentFunction->mpParentAnim->GetNativeHashVirtual();
+        AptNativeHash *pHash = ((Rva006FBE80 *)mpCurrentFunction)->mpParentAnim->GetNativeHashVirtual();
         if (pHash) {
             pResult = pHash->Lookup(&name);
             if (pResult)

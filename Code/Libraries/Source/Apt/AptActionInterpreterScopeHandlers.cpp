@@ -7,7 +7,38 @@
 #include "AptObject/AptScriptFunction.h"
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *,const char *,int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
-class EAStringC { void *mpData; };
+class EAStringC
+{
+public:
+	class StringDataC { public: unsigned short m_uRefCount; unsigned short m_uSize; unsigned short m_uMaxSize; unsigned short m_uHash; };
+	EAStringC();
+	EAStringC(const char *value);
+	~EAStringC();
+	EAStringC &operator=(const EAStringC &);
+	bool IsEmpty() const;
+	bool rva006D3510(const char *) const;
+	const char *rva00620090() const; // 0x00620090
+	EAStringC(const EAStringC &);
+	EAStringC &Rva006D4F00Append(const EAStringC &);
+	EAStringC &Rva006D50A0Append(const char *);
+	void __cdecl rva006D62C0(const char *, ...);
+	EAStringC &clear();
+	unsigned int rva006D3750() const;
+	void rva006D3470();
+	EAStringC &TrimRight(const char *);
+	EAStringC(unsigned int,unsigned int);
+	EAStringC rva006D5ED0(int) const;
+	EAStringC rva006d5f30(int,int) const;
+	int Find(char,int=0);
+	EAStringC &Append(const char *const,unsigned int);
+	bool IsEqualTo(const EAStringC *) const;
+	bool rva006D3560(const EAStringC *) const;
+	int rva006d6070(const char *,int=0);
+	int GetAt(int) const;
+	int rva006D54B0(int,int);
+private:
+	StringDataC *mpData; // +0x00
+};
 class AptString : public AptValue { public: EAStringC str; __forceinline EAStringC *GetInternalString() { return &str; } };
 extern AptValue *gpUndefinedValue;
 class Rva8D0D80String;
@@ -63,8 +94,8 @@ private:
 };
 void AptActionInterpreter::_FunctionAptActionDefineLocal(AptActionInterpreter *const p,LocalContextT *const c)
 {
-    AptValue *value=p->stack.At(0);
-    AptValue *name=p->stack.At(1);
+    AptValue *value=static_cast<const AptBasePtrStack &>(p->stack).At(0);
+    AptValue *name=static_cast<const AptBasePtrStack &>(p->stack).At(1);
     if(p->mpCurrentFunction) {
         AptString *text=name->c_string();
         if(!AptScriptFunctionBase::spFrameStack) p->mpCurrentFunction->rva006FBED0();
@@ -74,7 +105,7 @@ void AptActionInterpreter::_FunctionAptActionDefineLocal(AptActionInterpreter *c
 }
 void AptActionInterpreter::_FunctionAptActionDefineLocal2(AptActionInterpreter *const p,LocalContextT *const c)
 {
-    EAStringC *name=p->stack.At(0)->c_string()->GetInternalString();
+    EAStringC *name=static_cast<const AptBasePtrStack &>(p->stack).At(0)->c_string()->GetInternalString();
     AptScriptFunctionBase *fn=p->mpCurrentFunction;
     if(fn) {
         bool exists;

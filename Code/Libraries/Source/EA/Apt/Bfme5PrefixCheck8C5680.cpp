@@ -3,7 +3,9 @@
 // then tests for equality. Its imported CRT thunk is pinned to the existing
 // BFME2 strncmp import at 0x0062995E. The descriptive donor name remains
 // provisional because the target has no named direct callers.
-#include <string.h>
+extern "C" int __cdecl strncmp(const char *, const char *, unsigned int);
+extern "C" unsigned int __cdecl strlen(const char *);
+#pragma intrinsic(strlen)
 
 // The retail cell at VA 0x00DDC920 (pointing to "FSCommand:") is defined in
 // AptActionInterpreterConstantHandlers.cpp.

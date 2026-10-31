@@ -14,10 +14,42 @@ extern int g_bfmeAptBreakOnAssertAtDDC01C;
 void __debugbreak();
 #pragma intrinsic(__debugbreak)
 
-class EAStringC { void *data; public: EAStringC(); ~EAStringC(); EAStringC &operator=(const EAStringC &); EAStringC &Rva006D4F00Append(const EAStringC &); };
+class EAStringC
+{
+public:
+	class StringDataC { public: unsigned short m_uRefCount; unsigned short m_uSize; unsigned short m_uMaxSize; unsigned short m_uHash; };
+	EAStringC();
+	EAStringC(const char *value);
+	~EAStringC();
+	EAStringC &operator=(const EAStringC &);
+	bool IsEmpty() const;
+	bool rva006D3510(const char *) const;
+	const char *rva00620090() const; // 0x00620090
+	EAStringC(const EAStringC &);
+	EAStringC &Rva006D4F00Append(const EAStringC &);
+	EAStringC &Rva006D50A0Append(const char *);
+	void __cdecl rva006D62C0(const char *, ...);
+	EAStringC &clear();
+	unsigned int rva006D3750() const;
+	void rva006D3470();
+	EAStringC &TrimRight(const char *);
+	EAStringC(unsigned int,unsigned int);
+	EAStringC rva006D5ED0(int) const;
+	EAStringC rva006d5f30(int,int) const;
+	int Find(char,int=0);
+	EAStringC &Append(const char *const,unsigned int);
+	bool IsEqualTo(const EAStringC *) const;
+	bool rva006D3560(const EAStringC *) const;
+	int rva006d6070(const char *,int=0);
+	int GetAt(int) const;
+	int rva006D54B0(int,int);
+private:
+	StringDataC *mpData; // +0x00
+};
 void rva006FD4C0(EAStringC *);
-class AptValue { public: bool isString() const; void toString(EAStringC &) const; };
-class AptString { public: virtual void v0(); int flags; EAStringC string; static AptString *Create(); };
+class AptValue { public: void toString(EAStringC &) const; };
+class BfmeAptValue006DCD20 { public: int isString() const; };
+class AptString { public: virtual void v0(); int flags; EAStringC str; static AptString *Create(); };
 void rva006FD630(EAStringC *);
 class AptBoolean
 {
@@ -73,11 +105,11 @@ AptValue *callback006FF660(AptValue *, int nParams)
     }
     AptString *result = AptString::Create();
     AptValue *value = g_aptDateInterpreter.stack.At(0);
-    if (value->isString()) {
+    if ((unsigned char)((BfmeAptValue006DCD20 *)value)->isString()) {
         EAStringC temp;
         value->toString(temp);
         rva006FD630(&temp);
-        result->string = temp;
+        result->str = temp;
     }
     return (AptValue *)result;
 }
@@ -100,11 +132,11 @@ AptValue *callback006FF750(AptValue *, int nParams)
     if (!nParams)
         return (AptValue *)result;
     AptValue *value = g_aptDateInterpreter.stack.At(0);
-    if (value->isString()) {
+    if ((unsigned char)((BfmeAptValue006DCD20 *)value)->isString()) {
         EAStringC temp;
         value->toString(temp);
         rva006FD4C0(&temp);
-        result->string.Rva006D4F00Append(temp);
+        result->str.Rva006D4F00Append(temp);
     }
     return (AptValue *)result;
 }

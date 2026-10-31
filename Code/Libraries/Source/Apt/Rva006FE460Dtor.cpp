@@ -5,9 +5,11 @@
 // around SEH registration. Evidence: unlock lane; deleting-dtor caller
 // 0x006FE430 calls this then operator delete; offset +0x20 shared with
 // Rva006FE400Chain neighbour; base row in LadderPreferencesDtor.cpp.
-struct Rva006D6470Owner
+class Rva006D6470Owner
 {
+public:
 	virtual ~Rva006D6470Owner();
+	char m_storage[0x1C];
 };
 
 struct Member006FE460
@@ -18,7 +20,6 @@ struct Member006FE460
 
 struct Rva006FE460 : public Rva006D6470Owner
 {
-	char m_pad[0x1C];
 	Member006FE460 *m_20;
 
 	virtual ~Rva006FE460();
