@@ -19222,7 +19222,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0027D08D,11,code,Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp,approved,C,C=0x0027CEBC..0x0027D098,Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp
 0x0027D098,62,code,Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp,approved,C,C=0x0027CEBC..0x0027D0D6,Code/GameEngine/Source/Common/Rva0027DF9DGridQueries.cpp
 0x0027D0D6,206,code,Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp N=Code/GameEngine/Source/Common/TerrainLogic.cpp,Code/GameEngine/Source/Common/TerrainLogic_getPartitionBucket.cpp
-0x0027D1A4,34,code,Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp N=Code/GameEngine/Source/Common/TerrainLogic.cpp,Code/GameEngine/Source/Common/Rva0027D1A4Forward.cpp
+0x0027D1A4,34,code,Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp N=Code/GameEngine/Source/Common/TerrainLogic.cpp,Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp
 0x0027D1C6,41,code,Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp,approved,C,C=0x0027D1A4..0x0027D1EF,Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp
 0x0027D1EF,85,code,Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp,approved,C,C=0x0027D1A4..0x0027D244,Code/GameEngine/Source/Common/Rva0027DF9DGridQueries.cpp
 0x0027D244,50,code,Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp,approved,C,C=0x0027D1A4..0x0027D276,Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp
@@ -19262,15 +19262,15 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0027EDBC,241,code,Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp S=Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp N=Code/GameEngine/Source/GameLogic/Map/Bridge.cpp W=Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp,Code/GameEngine/Source/GameLogic/Map/BridgeObjectCtor.cpp
 0x0027EEAD,348,code,Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp S=Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp N=Code/GameEngine/Source/GameLogic/Map/Bridge.cpp,Code/GameEngine/Source/GameLogic/Map/BridgePickBridge.cpp
 0x0027F009,150,code,Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp S=Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp N=Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp,Code/GameEngine/Source/GameLogic/Map/TerrainLogic_parseWaypointData.cpp
-0x0027F09F,52,code,,,-,,Code/GameEngine/Source/Common/Rva0027F09FSearch.cpp
+0x0027F09F,52,code,,,-,,Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp
 0x0027F0D3,53,code,Code/GameEngine/Source/Common/BfmeThingCME.cpp,proposed,N,N=Code/GameEngine/Source/Common/BfmeThingCME.cpp noncontiguous,Code/GameEngine/Source/Common/BfmeConv624.cpp
 0x0027F108,52,code,Code/GameEngine/Source/Common/BfmeThingCME.cpp,proposed,N,N=Code/GameEngine/Source/Common/BfmeThingCME.cpp noncontiguous,Code/GameEngine/Source/Common/BfmeConv624.cpp
 0x0027F13C,53,code,Code/GameEngine/Source/Common/BfmeThingCME.cpp,proposed,C,C=0x0027F108..0x0027F171 noncontiguous,Code/GameEngine/Source/Common/Rva0027F13C.cpp
 0x0027F171,108,code,Code/GameEngine/Source/Common/BfmeThingCME.cpp,proposed,N,N=Code/GameEngine/Source/Common/BfmeThingCME.cpp noncontiguous,Code/GameEngine/Source/Common/BfmeConv624.cpp
 0x0027F1DD,177,code,Code/GameEngine/Source/Common/BfmeThingCME.cpp,proposed,N,N=Code/GameEngine/Source/Common/BfmeThingCME.cpp noncontiguous,Code/GameEngine/Source/Common/Rva0027F1DDRetire.cpp
-0x0027F28E,36,code,Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp N=Code/GameEngine/Source/Common/TerrainLogic.cpp,Code/GameEngine/Source/Common/Rva0027F28E.cpp
+0x0027F28E,36,code,Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp N=Code/GameEngine/Source/Common/TerrainLogic.cpp,Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp
 0x0027F2B2,36,code,Code/GameEngine/Source/Common/BfmeThingCME.cpp,proposed,N,N=Code/GameEngine/Source/Common/BfmeThingCME.cpp noncontiguous,Code/GameEngine/Source/Common/BfmeConv624.cpp
-0x0027F2D6,52,code,,,-,,Code/GameEngine/Source/Common/Rva0027F2D6Search.cpp
+0x0027F2D6,52,code,,,-,,Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp
 0x0027F30A,45,code,Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp S=Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp N=Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp,Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp
 0x0027F337,76,code,Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp S=Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp N=Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp,Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp
 0x0027F383,294,code,Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp,approved,C,C=0x0027F337..0x0027F4A9,Code/GameEngine/Source/GameLogic/Map/TerrainLogicBeaconPathPoint.cpp
@@ -19314,7 +19314,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x002813EA,261,code,Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp N=Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp,Code/GameEngine/Source/GameLogic/Map/TerrainLogicWaypointLookups.cpp
 0x002814EF,543,code,Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp N=Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp,Code/GameEngine/Source/GameLogic/Map/TerrainLogicRva002814EF.cpp
 0x0028170E,228,code,Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp,approved,C,C=0x002814EF..0x002817F2,Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp
-0x002817F2,443,code,Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp N=Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp W=Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp,Code/GameEngine/Source/GameLogic/Map/TerrainLogicLoadAmbientLightmap.cpp
+0x002817F2,443,code,Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp N=Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp W=Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp,Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp
 0x002819AD,28,code,Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp,approved,C,C=0x002817F2..0x002819C9,Code/GameEngine/Source/GameLogic/Map/TerrainLogicBuildBeacons.cpp
 0x002819C9,5,code,Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp,approved,C,C=0x002817F2..0x002819CE,Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp
 0x002819CE,56,code,Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp,approved,C,C=0x002817F2..0x00281A06,Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp
@@ -19374,8 +19374,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x002833A3,34,code,Code/GameEngine/Source/Common/TerrainLogicListenerA.cpp,proposed,N,N=Code/GameEngine/Source/Common/TerrainLogicListenerA.cpp,Code/GameEngine/Source/Common/Rva002833A3C5.cpp
 0x002833C5,34,code,Code/GameEngine/Source/Common/TerrainLogicListenerB.cpp,proposed,N,N=Code/GameEngine/Source/Common/TerrainLogicListenerB.cpp,Code/GameEngine/Source/Common/Rva002833A3C5.cpp
 0x002833E7,26,code,,,-,,Code/GameEngine/Source/GameClient/Rva002827F3Clear.cpp
-0x00283401,37,code,,,-,,Code/GameEngine/Source/Common/Rva00283401Insert.cpp
-0x00283426,23,code,,,-,,Code/GameEngine/Source/Common/Rva00283401Insert.cpp
+0x00283401,37,code,,,-,,Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp
+0x00283426,23,code,,,-,,Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp
 0x0028343D,135,code,Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp,approved,E,"E=0x00773BD0..0x00773BF4@0x00283262,0x00283845",Code/GameEngine/Source/GameLogic/Map/AreaSetInsert.cpp
 0x002834C4,34,code,Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp,proposed,K,K=Rva002834C4,Code/GameEngine/Source/Common/Rva002834C4Ctor.cpp
 0x002834E6,31,code,Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp,proposed,C,C=0x002834C4..0x00283505,Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp
@@ -19386,8 +19386,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00283845,970,code,Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp S=Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp N=Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp,Code/GameEngine/Source/GameLogic/Map/TerrainLogicXfer.cpp
 0x00283C0F,49,code,Code/GameEngine/Source/GameLogic/Map/TerrainLogicListenerA.cpp,proposed,N,N=Code/GameEngine/Source/GameLogic/Map/TerrainLogicListenerA.cpp,Code/GameEngine/Source/GameLogic/Map/Rva00283C0FWaterSlots.cpp
 0x00283C40,54,code,Code/GameEngine/Source/GameLogic/Map/TerrainLogicListenerB.cpp,proposed,N,N=Code/GameEngine/Source/GameLogic/Map/TerrainLogicListenerB.cpp,Code/GameEngine/Source/GameLogic/Map/Rva00283C0FWaterSlots.cpp
-0x00283C76,28,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00283C76.cpp
-0x00283C92,5,code,,,-,,Code/GameEngine/Source/Common/Rva00283401Insert.cpp
+0x00283C76,28,code,,,-,,Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp
+0x00283C92,5,code,,,-,,Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp
 0x00283C97,28,code,Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp,proposed,K,K=Rva0028279F,Code/GameEngine/Source/GameClient/Rva002827F3Clear.cpp
 0x00283CB3,52,code,Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp,proposed,C,C=0x00283C97..0x00283CE7,Code/GameEngine/Source/GameLogic/Map/TerrainLogicRva00283CE7.cpp
 0x00283CE7,137,code,Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp N=Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp,Code/GameEngine/Source/GameLogic/Map/TerrainLogicRva00283CE7.cpp
@@ -19400,7 +19400,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0028418A,262,code,Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp S=Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp N=Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp,Code/GameEngine/Source/GameLogic/Map/TerrainLogicDeleter.cpp
 0x00284290,61,code,Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp S=Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp N=Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp,Code/GameEngine/Source/GameLogic/Map/TerrainLogicNewMap.cpp
 0x002842CD,434,code,Code/GameEngine/Source/Common/BfmeT1035.cpp,proposed,N,N=Code/GameEngine/Source/Common/BfmeT1035.cpp,Code/GameEngine/Source/Common/BfmeT1035.cpp
-0x0028447F,32,code,,,-,,Code/GameEngine/Source/Common/BfmeConv1035.cpp
+0x0028447F,32,code,,,-,,Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp
 0x0028449F,240,code,Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp N=Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp,Code/GameEngine/Source/GameLogic/Map/TerrainLogicRva0028449F.cpp
 0x0028458F,1335,code,Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp S=Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp N=Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp,Code/GameEngine/Source/GameLogic/Map/TerrainLogicRva0028449F.cpp
 0x00284AC6,780,code,Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp,approved,C,C=0x0028458F..0x00284DD2,Code/GameEngine/Source/GameLogic/Map/TerrainLogicTryPosition.cpp

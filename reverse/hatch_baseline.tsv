@@ -10666,6 +10666,9 @@ pragma_optimize	Code/GameEngine/Source/GameLogic/AI/ai.cpp	"t",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/Map/SidesList.cpp	"",on	2
 pragma_optimize	Code/GameEngine/Source/GameLogic/Map/SidesList.cpp	"s",off	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/Map/SidesList.cpp	"t",on	2
+pragma_optimize	Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp	"",on	1
+pragma_optimize	Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp	"s",off	1
+pragma_optimize	Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp	"t",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp	"",on	3
 pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp	"gsy",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp	"s",on	2
@@ -11498,9 +11501,6 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0024314A.cpp	"t
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva002461F1.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva002461F1.cpp	"s",off	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva002461F1.cpp	"t",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00283C76.cpp	"",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00283C76.cpp	"s",off	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00283C76.cpp	"t",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00285A26.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00285A26.cpp	"s",off	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00285A26.cpp	"t",on	1
