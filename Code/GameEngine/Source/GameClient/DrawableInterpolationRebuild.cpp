@@ -15,25 +15,21 @@
 // WWMath's three Vector4 rows preserve the verified matrix-copy shape.
 // Concrete object/interface source names and complete layouts remain unknown.
 #include "../../../Libraries/Include/Lib/Coord3D.h"
-class Vector4
+#include "../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
+
+static __forceinline void copyVector4(Vector4 &row, const Vector4 &other)
 {
-public:
-    float X, Y, Z, W;
-    __forceinline Vector4 &operator=(const Vector4 &v)
-    {
-        X=v.X; Y=v.Y; Z=v.Z; W=v.W;
-        return *this;
-    }
-};
+    row.X=other.X; row.Y=other.Y; row.Z=other.Z; row.W=other.W;
+}
 class Matrix3D
 {
 public:
     Vector4 Row[3];
     __forceinline Matrix3D &operator=(const Matrix3D &other)
     {
-        Row[0]=other.Row[0];
-        Row[1]=other.Row[1];
-        Row[2]=other.Row[2];
+        copyVector4(Row[0], other.Row[0]);
+        copyVector4(Row[1], other.Row[1]);
+        copyVector4(Row[2], other.Row[2]);
         return *this;
     }
     static void Lerp(const Matrix3D &, const Matrix3D &, float, Matrix3D &);
