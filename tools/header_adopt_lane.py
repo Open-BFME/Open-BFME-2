@@ -424,8 +424,8 @@ def include_sources(source, text=None, include_roots=()):
     return include_walk(source, text, include_roots)[0][1:]
 
 
-def conditional_hierarchy(texts, classes):
-    """Conditional declarations in hierarchy bodies are not represented by layouts."""
+def conditional_hierarchy(texts, classes, names):
+    """Refuse conditional hierarchy declarations mentioning a rename name."""
     for path, text in texts:
         code = masked(text)
         directives = list(re.finditer(r"(?m)^[ \t]*#[ \t]*(if|ifdef|ifndef|endif|else|elif|define)\b([^\n]*)", code))
@@ -444,7 +444,8 @@ def conditional_hierarchy(texts, classes):
             macro = first.group(2).strip()
             if (first.group(1) == "ifndef" and re.fullmatch(r"[A-Za-z_]\w*", macro)
                     and define.group(1) == "define" and define.group(2).strip() == macro
-                    and last.group(1) == "endif" and not code[:first.start()].strip()
+                    and last.group(1) == "endif"
+                    and not re.sub(r"(?m)^[ \t]*#[ \t]*pragma[ \t]+once\b[^\n]*", "", code[:first.start()]).strip()
                     and not code[last.end():].strip()
                     and any(a is first and b is last for a, b in regions)):
                 guard = first
@@ -453,8 +454,14 @@ def conditional_hierarchy(texts, classes):
         for opening, closing in regions:
             if opening is guard:
                 continue
-            if any(opening.start() < end and closing.end() > start for start, end in spans):
-                return f"{path}: conditional declaration in class hierarchy"
+            for start, end in spans:
+                a, b = max(start, opening.end()), min(end, closing.start())
+                if a >= b:
+                    continue
+                region = re.sub(r"(?m)^[ \t]*#.*$", "", code[a:b])
+                for name in names:
+                    if re.search(r"\b" + re.escape(name) + r"\b", region):
+                        return f"{path}: conditional declaration involving {name} in class hierarchy"
 
     return None
 
@@ -688,7 +695,8 @@ def field_renames(source, text, strip, include, compile=None, header=None):
             if why:
                 return None, why
             family = {cls for name in mappings for cls in hierarchy(name, laid)}
-            why = conditional_hierarchy(canonical, family)
+            rename_names = {token for mapping in mappings.values() for pair in mapping.items() for token in pair}
+            why = conditional_hierarchy(canonical, family, rename_names)
             if why:
                 return None, why
         why = include_problem(source, text, include_roots=include_roots)

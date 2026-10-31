@@ -392,7 +392,7 @@ def test_s7_a_raw_string_is_not_code():
 
 
 def test_r4_conditional_header_is_refused():
-    assert lane.conditional_hierarchy([("h", "#if 0\nclass Object { static int m_status; };\n#endif")], {"Object"})
+    assert lane.conditional_hierarchy([("h", "#if 0\nclass Object { static int m_status; };\n#endif")], {"Object"}, {"m_status"})
 
 
 def test_r4_comma_declarator_receiver_is_refused():
@@ -449,9 +449,16 @@ def test_r4c_header_continuations(tmp_path, monkeypatch):
 
 def test_r4b_guard_and_unrelated_conditional_do_not_hide_hierarchy():
     header = "#ifndef GUARD\n#define GUARD\n#if 0\nint unrelated;\n#endif\nclass Object { int x; };\n#endif\n"
-    assert lane.conditional_hierarchy([("h", header)], {"Object"}) is None
+    assert lane.conditional_hierarchy([("h", header)], {"Object"}, {"m_status"}) is None
+    assert lane.conditional_hierarchy([("h", "#pragma once\n" + header)], {"Object"}, {"x"}) is None
     inside = header.replace("int x;", "\n#if 0\nstatic int m_status;\n#endif\nint x;")
-    assert lane.conditional_hierarchy([("h", inside)], {"Object"})
+    assert lane.conditional_hierarchy([("h", inside)], {"Object"}, {"m_status"})
+
+
+def test_r4e_conditional_members_only_refuse_rename_names():
+    text = "class Object {\n#if 0\nvirtual void unrelated();\n#else\nint other;\n#endif\n};\n"
+    assert lane.conditional_hierarchy([("h", text)], {"Object"}, {"m_flags", "m_status"}) is None
+    assert lane.conditional_hierarchy([("h", text.replace("other", "m_status"))], {"Object"}, {"m_flags", "m_status"})
 
 
 def test_r4b_system_angles_are_allowed_but_code_include_root_is_refused(tmp_path, monkeypatch):
