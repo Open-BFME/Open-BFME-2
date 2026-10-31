@@ -1,4 +1,13 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+#include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
+#include "../../Common/GameLogicObjectLookupView.h"
+class ThingTemplate;
+class Player;
+class Drawable;
+class SpecialPowerModuleInterface;
+enum SpecialPowerType { SPECIAL_POWER_TYPE_UNKNOWN = 0 };
+enum DrawableID { INVALID_DRAWABLE_ID = 0 };
 // ?ObjectCreateAndFireTempWeapon@@YAHPAUlua_State@@@Z, retail 0x0033541C 186B.
 // Lua binding: fire temp weapon from named template at object pos.
 // Evidence: pinned name, rowed lua_gettop 0x00746F30, rowed Rva00990030Lookup
@@ -26,11 +35,50 @@ class AudioManager;
 extern AudioManager *TheAudio;
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
+class UpgradeTemplate;
 class Object
 {
 public:
-	char m_pad00[0x38];
-	Coord3D m_pos38;
+	bool rva0028C149(int,float*,int);
+ void rva00293077(const void *a);
+ void removeUpgrade(const UpgradeTemplate *u);
+ void rva0028EBDA(bool flag);
+ void rva00291080(bool flag);
+ float rva002C97E8(const Coord3D *a, const Coord3D *b) const;
+ float GetRelativeAngle(const Coord3D *pos) const;
+ Drawable *getDrawable() const;
+public:
+	__forceinline unsigned char testStatus(int bit) const
+	{
+		return (m_status[(unsigned int)bit >> 5] & (1u << (bit & 31))) != 0;
+	}
+public:
+	char m_pad00[0x04];
+public:
+	ThingTemplate *m_template;
+public:
+	char m_pad08[0x38 - 0x08];
+ Coord3D m_position; // +0x38
+ char m_pad44[0x74 - 0x44];
+ ObjectID m_id; // +0x74
+ char m_pad78[0x94 - 0x78];
+public:
+	unsigned int m_status[2];
+public:
+	char m_pad9C[0x258 - 0x9C];
+public:
+	void *m_ai258;
+public:
+	char m_pad25C[0x38C - 0x25C];
+ Coord3D m_targetPos; // +0x38C
+public:
+	int m_currentTargetID;
+public:
+	void rva0028EC68(int index, void *source, int delay);
+public:
+	SpecialPowerModuleInterface *findSpecialPowerModuleInterface(SpecialPowerType type) const;
+public:
+	Player *getControllingPlayer() const;
 };
 
 class WeaponTemplate
@@ -61,7 +109,7 @@ int ObjectCreateAndFireTempWeapon(lua_State *L)
 			tpl = TheWeaponStore->findWeaponTemplate(tmp);
 		}
 		if (tpl != 0) {
-			TheWeaponStore->createAndFireTempWeapon(tpl, obj, &obj->m_pos38);
+			TheWeaponStore->createAndFireTempWeapon(tpl, obj, &obj->m_position);
 			return 1;
 		}
 	}

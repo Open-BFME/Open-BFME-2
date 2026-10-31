@@ -6,9 +6,9 @@ class Rva00333B02
 {
 public:
 	void rva00333B02(AsciiString s);
+	char m_pad00[0x10];
 private:
-	char m_pad[0x10];
-	AsciiString m_10;
+	AsciiString m_10; // +0x10
 };
 
 void Rva00333B02::rva00333B02(AsciiString s)

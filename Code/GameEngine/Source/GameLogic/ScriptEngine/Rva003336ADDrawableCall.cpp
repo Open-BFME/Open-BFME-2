@@ -1,4 +1,13 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /Oy- /DNDEBUG /MD /EHsc
+#include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
+#include "../../Common/GameLogicObjectLookupView.h"
+class ThingTemplate;
+class Player;
+class Drawable;
+class SpecialPowerModuleInterface;
+enum SpecialPowerType { SPECIAL_POWER_TYPE_UNKNOWN = 0 };
+enum DrawableID { INVALID_DRAWABLE_ID = 0 };
 //
 // ?Rva003336ADGet@@YA_N_NPBD@Z @0x003336AD (117B): cdecl bool(bool, const char *).
 // Reads the drawable link at +0x9C of the Lua state global (VA 0x00E01DBC, see
@@ -14,7 +23,20 @@
 class Drawable
 {
 public:
+	DrawableID getID() const;
 	bool rva00278689(const AsciiString &name, bool a, bool b);
+	void rva002724FD(const AsciiString &name, int show, int permanent, float c, float d);
+ void rva002724FD(const AsciiString &name, unsigned char show, int permanent, float c, float d);
+
+	__forceinline unsigned char testModelCondition(int bit) const
+	{
+		return (m_conditionState[(unsigned int)bit >> 5] & (1u << (bit & 31))) != 0;
+	}
+
+	char m_pad000[0xFC];
+	Object *m_object;	// +0xFC
+	char m_pad100[0x258 - 0x100];
+	unsigned int m_conditionState[10];	// +0x258, tested with BitFlags<304> bits
 };
 
 struct LuaDrawableLink3336AD

@@ -1,4 +1,13 @@
 // cl: /Ireference/shims/bfme2_ascii /MD /GX
+#include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
+#include "../../Common/GameLogicObjectLookupView.h"
+class ThingTemplate;
+class Player;
+class Drawable;
+class SpecialPowerModuleInterface;
+enum SpecialPowerType { SPECIAL_POWER_TYPE_UNKNOWN = 0 };
+enum DrawableID { INVALID_DRAWABLE_ID = 0 };
 //
 // CurDrawableSetTransitionAnimState (0x003331DB, 64B): the Lua callback the
 // registration at 0x00335F40 pushes with lua_pushcclosure (nargs 0) and the
@@ -26,12 +35,16 @@ extern "C" const char *lua_tostring(lua_State *state, int index);
 
 struct LuaTargetOwner;
 
+// +0x04 (retail add ecx,4)
+// +0x0C (matches donor; untouched here)
 struct LuaDrawableLink
 {
-	char m_pad00[0x04];
-	AsciiString m_transitionAnimState; // +0x04 (retail add ecx,4)
-	char m_pad08[0x04];
-	LuaTargetOwner *m_owner; // +0x0C (matches donor; untouched here)
+	AsciiString m_previousAnimationState;	// +0x00
+	AsciiString m_transitionAnimState;	// +0x04
+	AsciiString m_previousAnimation;	// +0x08
+	Drawable *m_drawable;	// +0x0C
+	float m_prevAnimFraction;	// +0x10
+	unsigned char m_allowToContinue;	// +0x14
 };
 
 struct LuaDrawableState

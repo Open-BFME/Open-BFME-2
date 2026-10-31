@@ -1,4 +1,13 @@
 // cl: /MD /GX
+#include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
+#include "../../Common/GameLogicObjectLookupView.h"
+class ThingTemplate;
+class Player;
+class Drawable;
+class SpecialPowerModuleInterface;
+enum SpecialPowerType { SPECIAL_POWER_TYPE_UNKNOWN = 0 };
+enum DrawableID { INVALID_DRAWABLE_ID = 0 };
 //
 // CurDrawablePrevAnimFraction (0x00332DDC, 61B): the Lua callback the
 // registration at 0x00335F26 pushes with lua_pushcclosure (nargs 0) and the
@@ -11,10 +20,15 @@
 struct lua_State;
 extern "C" void lua_pushnumber(lua_State *state, double value);
 
+// +0x10 retail-measured; semantic (prev anim fraction) inferred from Lua name only
 struct LuaDrawableLink
 {
-	char m_pad000[0x10];
-	float m_prevAnimFraction;	// +0x10 retail-measured; semantic (prev anim fraction) inferred from Lua name only
+	AsciiString m_previousAnimationState;	// +0x00
+	AsciiString m_transitionAnimState;	// +0x04
+	AsciiString m_previousAnimation;	// +0x08
+	Drawable *m_drawable;	// +0x0C
+	float m_prevAnimFraction;	// +0x10
+	unsigned char m_allowToContinue;	// +0x14
 };
 
 struct LuaDrawableState

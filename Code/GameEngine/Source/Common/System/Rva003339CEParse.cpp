@@ -22,9 +22,8 @@ class Rva003339CE
 public:
 	void rva00334506(AsciiString text);
 	bool rva003339CE(const char *token, bool *foundNormal, bool *foundAddOrSub);
-
 private:
-	unsigned m_words[4];
+	unsigned m_words[4]; // +0x00
 };
 class Rva000B664E
 {
@@ -32,7 +31,7 @@ public:
 	void rva0033394D(AsciiString text);
 	bool rva000B664E(const char *token, bool *foundNormal, bool *foundAddOrSub);
 private:
-	unsigned m_words[19];
+	unsigned m_words[19]; // +0x00
 };
 
 void Rva003339CE::rva00334506(AsciiString text)
