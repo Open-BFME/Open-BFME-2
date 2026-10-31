@@ -59,12 +59,6 @@ struct Rva000FB85D
 	void *m_18;
 };
 
-Rva000FB85D::~Rva000FB85D()
-{
-	if (m_18)
-		free(m_18);
-}
-
 // --- 0x000D167A (13B): ORs the argument into the flag word at +0x118.
 class Rva000D167A
 {
