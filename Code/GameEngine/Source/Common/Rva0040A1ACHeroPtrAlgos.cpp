@@ -89,13 +89,13 @@ void Rva0040A59B::rva0040A59B()
 class Rva0040A3F9
 {
 public:
-	CreateAHeroData *rva0040A3B1(int key);
+	CreateAHeroData *findHeroData(int key);
 private:
 	CreateAHeroData **m_begin;	// +0x00
 	CreateAHeroData **m_end;	// +0x04
 };
 
-CreateAHeroData *Rva0040A3F9::rva0040A3B1(int key)
+CreateAHeroData *Rva0040A3F9::findHeroData(int key)
 {
 	CreateAHeroData **end = m_end;
 	CreateAHeroData **found = _STL::find_if(m_begin, end, Rva0040A16E(key));

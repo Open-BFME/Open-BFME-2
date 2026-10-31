@@ -37,7 +37,7 @@ struct ImplBase {
 };
 
 struct Impl : ImplBase {
-	virtual void rva005b4c73(const char *argument);
+	virtual void invoke(const char *argument);
 	void *m_object;
 	void *m_method;
 	Impl(const DelegateDesc &delegateDesc) : m_object(delegateDesc.m_object), m_method(delegateDesc.m_method) {}

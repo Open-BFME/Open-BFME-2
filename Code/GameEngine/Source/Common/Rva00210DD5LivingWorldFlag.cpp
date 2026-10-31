@@ -54,7 +54,7 @@ class Rva00210DD5
 {
 public:
 	void rva00210DD5();
-	void rva00210DEE();
+	void updateCursorVisibility();
 	bool rva00210E32();
 private:
 	char m_pad00[0x2C0];
@@ -67,7 +67,7 @@ void Rva00210DD5::rva00210DD5()
 	((Rva00210DD5World *)TheLivingWorld)->slot31(0.0f);
 }
 
-void Rva00210DD5::rva00210DEE()
+void Rva00210DD5::updateCursorVisibility()
 {
 	if (((Rva00210DD5World *)TheLivingWorld)->m_mode != 2)
 		m_2C0 = false;

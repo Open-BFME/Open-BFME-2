@@ -30,7 +30,7 @@ struct ImplBase {
 };
 
 struct Impl : ImplBase {
-    virtual void rva005b4c73(const char *text);
+    virtual void invoke(const char *text);
     void *m_object;
     void *m_method;
     Impl(const DelegateDesc &delegateDesc) : m_object(delegateDesc.m_object), m_method(delegateDesc.m_method) {}
@@ -156,7 +156,7 @@ Rva0052A7C1 &Rva0052A7C1::rva0052A7C1(const DelegateDesc *delegateDesc)
 class __single_inheritance Rva005B4C73Target;
 typedef void (Rva005B4C73Target::*Rva005B4C73Method)(const char *);
 
-void Impl::rva005b4c73(const char *text)
+void Impl::invoke(const char *text)
 {
     union
     {

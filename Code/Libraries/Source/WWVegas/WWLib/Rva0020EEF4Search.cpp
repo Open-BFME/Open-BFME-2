@@ -39,9 +39,9 @@ int Rva0020EEF4Outer::rva0020EEF4(int v)
 			Rva0020EEF4Elem *element = (Rva0020EEF4Elem *)inner->m_begin[i];
 			if (element->m_13C == -1)
 				continue;
-			int r = ((Rva003F08D7 *)element)->rva003F08D7(v);
-			if (r)
-				return r;
+			int elementResult = ((Rva003F08D7 *)element)->rva003F08D7(v);
+			if (elementResult)
+				return elementResult;
 		}
 	}
 	return 0;

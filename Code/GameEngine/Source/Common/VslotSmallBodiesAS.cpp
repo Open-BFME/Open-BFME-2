@@ -49,6 +49,6 @@ class Rva005D10D6 { public: __declspec(dllimport) __forceinline ~Rva005D10D6() {
 
 #include <new>
 
-void Rva0044BE85_DeleteAnchor(Rva0044BE85 *p) { delete p; }
-void Rva003B241AOwner_DeleteAnchor(Rva003B241AOwner *p) { delete p; }
-void Rva005D10D6_DeleteAnchor(Rva005D10D6 *p) { delete p; }
+void Rva0044BE85_DeleteAnchor(Rva0044BE85 *m_objectToDelete) { delete m_objectToDelete; }
+void Rva003B241AOwner_DeleteAnchor(Rva003B241AOwner *m_objectToDelete) { delete m_objectToDelete; }
+void Rva005D10D6_DeleteAnchor(Rva005D10D6 *m_objectToDelete) { delete m_objectToDelete; }

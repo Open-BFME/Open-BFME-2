@@ -38,7 +38,7 @@ public:
 	virtual void v18(unsigned char a, unsigned char b, int c);
 
 	unsigned char rva005C4B26();
-	void rva005C4180(unsigned char v);
+	void rva005C4180(unsigned char enabled);
 
 private:
 	char m_pad04[0xA8];
@@ -66,12 +66,12 @@ unsigned char Rva005C41C9::v17()
 	return 0;
 }
 
-void Rva005C41C9::rva005C4180(unsigned char v)
+void Rva005C41C9::rva005C4180(unsigned char enabled)
 {
-	unsigned char a = v17();
-	m_c4 = v;
-	v = v17();
+	unsigned char previousState = v17();
+	m_c4 = enabled;
+	enabled = v17();
 	Inner005C41C9 *inner = m_ac;
-	int c = v ? inner->m_58 : inner->m_5C;
-	v18(a, v, c);
+	int c = enabled ? inner->m_58 : inner->m_5C;
+	v18(previousState, enabled, c);
 }

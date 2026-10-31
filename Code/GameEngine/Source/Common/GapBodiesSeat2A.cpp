@@ -69,13 +69,13 @@ Rva000FB85D::~Rva000FB85D()
 class Rva000D167A
 {
 public:
-	void rva000D167A(unsigned int flags);
+	void addFlags(unsigned int flags);
 private:
 	unsigned char m_pad00[0x118];
 	unsigned int m_118;
 };
 
-void Rva000D167A::rva000D167A(unsigned int flags)
+void Rva000D167A::addFlags(unsigned int flags)
 {
 	m_118 |= flags;
 }

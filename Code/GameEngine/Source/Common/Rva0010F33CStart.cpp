@@ -1,6 +1,6 @@
 // cl: /MD
 #include "../../Include/Common/Rva00041004Lock.h"
-// ?rva0010F33C@Rva0010F33C@@QAEXXZ @0x0010F33C 78B.
+// ?startStream@Rva0010F33C@@QAEXXZ @0x0010F33C 78B.
 // Guarded AIL_start_stream on the +0x08 inner stream: derives the guard
 // target as +0x38 of the +0x0C outer (null-checked pair), locks via rowed
 // 0x0010F24F, starts the stream when non-null, unlocks via rowed 0x0010F26E
@@ -40,7 +40,7 @@ struct Rva0010F33CInner
 class Rva0010F33C
 {
 public:
-    void rva0010F33C();
+    void startStream();
 private:
     char m_pad0[8]; // +0..+7
     Rva0010F33CInner *m_inner; // +8
@@ -52,7 +52,7 @@ struct Rva0010F33CGuard
     unsigned char m_locked; // +4
 };
 
-void Rva0010F33C::rva0010F33C()
+void Rva0010F33C::startStream()
 {
     Rva00041004 *p;
     Rva0010F33CInner *inner = m_inner;

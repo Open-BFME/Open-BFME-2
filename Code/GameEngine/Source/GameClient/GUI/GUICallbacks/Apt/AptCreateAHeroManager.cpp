@@ -173,7 +173,7 @@ struct DelegateDesc {void *m_object;void *m_method;DelegateDesc(void *o,void *m)
 static __forceinline DelegateDesc MakeDelegate(void *object,void *method){return DelegateDesc(object,method);}
 
 struct ImplBase {virtual ~ImplBase(){} int m_ref;ImplBase():m_ref(0){}};
-struct Impl:ImplBase {virtual void rva005b4c73(const char*);void *m_object,*m_method;Impl(const DelegateDesc&d):m_object(d.m_object),m_method(d.m_method){}};
+struct Impl:ImplBase {virtual void invoke(const char*);void *m_object,*m_method;Impl(const DelegateDesc&d):m_object(d.m_object),m_method(d.m_method){}};
 class Rva00579E47 {public:Rva00579E47(const DelegateDesc &);private:void *m_ptr;};
 
 __declspec(noinline) inline Rva00579E47::Rva00579E47(const DelegateDesc &d){Impl *p=new Impl(d);m_ptr=p;if(p)p->m_ref++;}

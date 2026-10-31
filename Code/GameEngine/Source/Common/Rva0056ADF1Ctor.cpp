@@ -66,12 +66,12 @@ struct Rva0056ADF1Glob
 class Rva0056ADF1
 {
 public:
-	Rva0056ADF1(void *arg1, int arg2);
+	Rva0056ADF1(void *owner, int arg2);
 };
 
-Rva0056ADF1::Rva0056ADF1(void *arg1, int arg2)
+Rva0056ADF1::Rva0056ADF1(void *owner, int arg2)
 {
-	((Rva0056AC26 *)this)->Rva0056AC26::Rva0056AC26((Rva0056AC26Owner *)arg1);
+	((Rva0056AC26 *)this)->Rva0056AC26::Rva0056AC26((Rva0056AC26Owner *)owner);
 	*(int *)((char *)this + 0x14) = 0;
 	*(unsigned int *)this = ((unsigned int)vtbl_00C6D23C);
 	*(unsigned int *)((char *)this + 8) = ((unsigned int)vtbl_00C6D200);

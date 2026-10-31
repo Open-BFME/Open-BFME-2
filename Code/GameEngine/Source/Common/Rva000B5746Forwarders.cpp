@@ -31,25 +31,25 @@ public:
 	void *rva000B575E(const void *entry);
 private:
 	void *m_00;
-	void *m_04;	// the condition-state table
+	void *m_conditionStates;	// the condition-state table
 };
 
 void *Rva000B5746::rva000B5746(const ModelConditionFlags &query)
 {
-	return ((Rva000B4B23 *)m_04)->rva000B4B23(query);
+	return ((Rva000B4B23 *)m_conditionStates)->rva000B4B23(query);
 }
 
 void *Rva000B5746::rva000B574E(const void *query)
 {
-	return ((Rva000B4BED *)m_04)->rva000B4BED(query);
+	return ((Rva000B4BED *)m_conditionStates)->rva000B4BED(query);
 }
 
 void *Rva000B5746::rva000B5756(const void *entry)
 {
-	return ((Rva000B4BED *)m_04)->rva000B4C9D(entry);
+	return ((Rva000B4BED *)m_conditionStates)->rva000B4C9D(entry);
 }
 
 void *Rva000B5746::rva000B575E(const void *entry)
 {
-	return ((Rva000B4BED *)m_04)->rva000B4CBE(entry);
+	return ((Rva000B4BED *)m_conditionStates)->rva000B4CBE(entry);
 }

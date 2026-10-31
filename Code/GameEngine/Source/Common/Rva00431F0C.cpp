@@ -59,8 +59,8 @@ int Rva00431F0C::rva00431F0C(GameMessage *msg)
 			{
 				h = 0;
 			}
-			Rva00575674 *q = (Rva00575674 *)((char *)m_04 + 8);
-			q->rva00575674((Object *)h);
+			Rva00575674 *dispatcher = (Rva00575674 *)((char *)m_04 + 8);
+			dispatcher->rva00575674((Object *)h);
 			return 1;
 		}
 	}

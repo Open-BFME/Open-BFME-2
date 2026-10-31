@@ -48,10 +48,10 @@ public:
 };
 Rva002E0D93 *Rva002E17A0Copy(Rva002E0D93 *src, Rva002E0D93 *srcEnd, Rva002E0D93 *dst)
 {
-	int n = (int)(srcEnd - src);
-	if (n <= 0)
+	int count = (int)(srcEnd - src);
+	if (count <= 0)
 		return dst;
-	int i = n;
+	int i = count;
 	do {
 		*dst = *src;
 		++src;

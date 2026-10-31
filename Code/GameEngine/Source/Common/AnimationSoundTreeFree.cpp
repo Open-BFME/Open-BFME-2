@@ -95,7 +95,7 @@ public:
 	void rva004CA167(void *node);
 	void rva004CA26A();
 	AnimationSoundTree *rva004CA018(void const *dummy);
-	AnimationSoundTree *rva004CA13D(void const *d1, void const *d2);
+	AnimationSoundTree *initHeader(void const *d1, void const *d2);
 	AnimationSoundTreeNode *rva004C9FE0(void const *key);
 	void *rva004CA19C(void const *v);
 	void rva004CA293(
@@ -197,12 +197,12 @@ AnimationSoundTree *AnimationSoundTree::rva004CA018(void const *dummy)
 	return this;
 }
 
-// ?rva004CA13D@AnimationSoundTree@@QAEPAV1@PBX0@Z, retail 0x004CA13D, 42 bytes.
+// ?initHeader@AnimationSoundTree@@QAEPAV1@PBX0@Z, retail 0x004CA13D, 42 bytes.
 // Header init: runs the rowed rva004CA018 alloc with the second dummy, then
 // zeroes count at +4 and repairs the 0xB8 header sentinel (zero at +0/+4,
 // self at +8/+0xC), returning this. Called once from the pinned ctor 0x004CA6DA.
 // Evidence: callee rowed 0x004CA018; caller at 0x004CA6E9; prev/next same // cl:.
-AnimationSoundTree *AnimationSoundTree::rva004CA13D(void const *d1, void const *d2)
+AnimationSoundTree *AnimationSoundTree::initHeader(void const *d1, void const *d2)
 {
 	(void)d1;
 	rva004CA018(d2);

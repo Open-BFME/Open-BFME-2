@@ -132,16 +132,16 @@ StateReturnType AIRampageState::onEnter()
 	TheGameLogic->deselectObject(owner, 0xFFFFF, true);
 	owner->setStatus(OBJECT_STATUS_3, true);
 	owner->setStatus(OBJECT_STATUS_BFME_39, true);
-	int v = ai->rva00264F3D();
-	m_24 = TheGameLogic->getFrame() + v;
-	int c = ai->m_04->m_48;
-	if (!c)
+	int m_delayFrames = ai->rva00264F3D();
+	m_24 = TheGameLogic->getFrame() + m_delayFrames;
+	int durationFrames = ai->m_04->m_48;
+	if (!durationFrames)
 	{
 		m_28 = -1;
 		return STATE_CONTINUE;
 	}
-	if (v)
-		m_28 = TheGameLogic->getFrame() + c;
+	if (m_delayFrames)
+		m_28 = TheGameLogic->getFrame() + durationFrames;
 	else
 		m_28 = TheGameLogic->getFrame();
 	return STATE_CONTINUE;

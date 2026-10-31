@@ -14,7 +14,7 @@
 struct Rva002A7588Mid
 {
 	char m_pad[0x108];
-	int m_flags108; // +0x108
+	int m_flags; // +0x108
 	char m_pad10C[9]; // 0x10C..0x114
 	unsigned char m_b115; // +0x115
 	char m_pad116[0x618 - 0x116];
@@ -38,9 +38,9 @@ int Rva002A7588::rva002A7588(Rva002A7588In *input)
 	if (input == 0)
 		return 0;
 	Rva002A7588Mid *q = input->m_p4;
-	if ((q->m_flags108 & 2) == 0)
+	if ((q->m_flags & 2) == 0)
 		return 0;
-	if ((q->m_flags108 & 0x80) != 0)
+	if ((q->m_flags & 0x80) != 0)
 		return 0;
 	if ((q->m_b115 & 0x20) != 0)
 		return 0;

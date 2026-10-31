@@ -46,7 +46,7 @@ public:
 private:
     char m_pad0[8]; // +0..+7
     Rva0010F49AInner *m_inner; // +8
-    float m_volume0C; // +0x0C
+    float m_volume; // +0x0C
 };
 
 // The unlock call is duplicated into both arms of the stream test rather than
@@ -71,7 +71,7 @@ void Rva0010F49A::rva0010F49A()
     guard.m_locked = 0;
     ((Rva0010F24F *)&guard)->rva0010F24F();
     if (m_inner->m_stream != 0) {
-        AIL_set_stream_volume_pan(m_inner->m_stream, m_volume0C, 0.5f);
+        AIL_set_stream_volume_pan(m_inner->m_stream, m_volume, 0.5f);
         if (guard.m_locked != 0)
             ((Rva0010F26E *)&guard)->rva0010F26E();
     } else if (guard.m_locked != 0)

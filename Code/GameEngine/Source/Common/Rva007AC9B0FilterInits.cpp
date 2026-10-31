@@ -53,18 +53,18 @@ void __cdecl rva007B6F27()
 
 struct Rva007AC9B0FilterInits
 {
-	static void __cdecl rva007AC9B0();
-	static void __cdecl rva007AC9C6();
+	static void __cdecl initBaseFilter();
+	static void __cdecl initDot3Filter();
 	static void __cdecl rva007AC9F6();
 };
 
-void __cdecl Rva007AC9B0FilterInits::rva007AC9B0()
+void __cdecl Rva007AC9B0FilterInits::initBaseFilter()
 {
 	( (Rva000FC63DFilter *)&g_Va00DEC1CC )->Rva000FC63DFilter::Rva000FC63DFilter();
 	atexit( rva007B6F08 );
 }
 
-void __cdecl Rva007AC9B0FilterInits::rva007AC9C6()
+void __cdecl Rva007AC9B0FilterInits::initDot3Filter()
 {
 	( (Rva000FCF54Filter *)&g_Va00DEC1DC )->Rva000FCF54Filter::Rva000FCF54Filter();
 	atexit( rva007B6F12 );

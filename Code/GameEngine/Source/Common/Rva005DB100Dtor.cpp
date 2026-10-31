@@ -111,10 +111,10 @@ void Rva005DB145::rva005DB145(const struct Rva0039B2E6Input &input, int)
 			_ReadWriteBarrier();
 			Db145Elem **pp = (Db145Elem **)in->m_begin4C;
 			do {
-				Db145Elem *e = *pp;
-				if (e != 0) {
-					unsigned int v = e->m_val38;
-					bits.m_w[v >> 5] |= (1u << (v & 31));
+				Db145Elem *element = *pp;
+				if (element != 0) {
+					unsigned int id = element->m_val38;
+					bits.m_w[id >> 5] |= (1u << (id & 31));
 				}
 				_ReadWriteBarrier();
 				++i;

@@ -95,13 +95,13 @@ Rva0055B52E::Rva0055B52E(unsigned int a, const Rva0055B52ESrc *src)
 	*(void **)((char *)this + 8) = (void *)&s_slot3E4first;
 	unsigned int *zDst = &m_member.m_keys[0].m_frame;
 	const unsigned int *aSrc = &src->m_elems[0].m_frame;
-	unsigned int n = 8;
+	unsigned int count = 8;
 	do {
 		*(float *)(zDst - 1) = ((const GameClientRandomVariable *)(aSrc - 3))->getValue();
 		*zDst = *aSrc;
 		aSrc += 4;
 		zDst += 2;
-	} while (--n != 0);
+	} while (--count != 0);
 	m_time = m_member.m_keys[0].m_value;
 	m_index = 1;
 	((Rva0055B39C *)this)->computeAlphaRate();

@@ -109,10 +109,10 @@ StateReturnType Rva00342FCD::onEnter()
 		flag = 0;
 	m_2C = flag;
 	Object *goal = ((TurretStateMachine *)m_machine)->getGoalObject();
-	int v = m_28;
-	if (v != 0 && goal == 0)
+	int mode = m_28;
+	if (mode != 0 && goal == 0)
 		return (StateReturnType)-2;
-	if (v == 2)
+	if (mode == 2)
 		return Rva0033FE65::onEnter();
 	return STATE_CONTINUE;
 }

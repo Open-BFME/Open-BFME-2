@@ -80,7 +80,7 @@ private:
 	bool m_56;
 	bool m_57;
 	int m_58;
-	Snapshot *m_ptr5C;
+	Snapshot *m_snapshot;
 	float m_60;
 	bool m_64;
 };
@@ -99,8 +99,8 @@ void Rva00340D70::xfer(Xfer *xfer)
 	if (version.m_minimum > 1) {
 		*xfer == m_50;
 		XferCommandSourceType(xfer, &m_58);
-		if (m_ptr5C != 0)
-			*xfer == *m_ptr5C;
+		if (m_snapshot != 0)
+			*xfer == *m_snapshot;
 		*xfer == m_60;
 		*xfer == m_64;
 	}

@@ -3,7 +3,7 @@
 // doFXPos parameter as int; the rowed helper 0x00094C29 is mangled
 // ...PBVMatrix3D@@M1@Z, whose 1 back-reference is const Coord3D* (ZH
 // secondary position), and a null pointer pushes the same 0.
-// ?rva00563F34@Rva00563F34@@QAEXXZ 0x00563F34 84B. Fires one FX position per
+// ?rva00563F34@FXGate@@QAEXXZ 0x00563F34 84B. Fires one FX position per
 // armed gate once the frame clock has advanced past the object's stamp by the
 // gate's window; the pulse reads +0x58 on the object and sets +0x54 when the
 // second flag is set. Helper is FXList::doFXPos (matched).
@@ -38,7 +38,7 @@ struct Rva00563F34Stamp
 	Coord3D *m_pos; // +0x1C (address taken)
 };
 
-class Rva00563F34
+class FXGate
 {
 public:
 	void rva00563F34();
@@ -53,7 +53,7 @@ private:
 	unsigned char m_armed; // +0x1C
 };
 
-void Rva00563F34::rva00563F34()
+void FXGate::rva00563F34()
 {
 	if (m_armed && m_fx)
 	{

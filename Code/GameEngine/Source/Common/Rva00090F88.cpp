@@ -1,6 +1,6 @@
 // cl: /O1 /G7 /arch:SSE /Oy- /DNDEBUG /MD
 //
-// ?rva00090F88@Rva00090F88@@QAE_NPAVRva00090F88Item@@@Z, retail 0x00090F88, 88 bytes.
+// ?offerItem@Rva00090F88@@QAE_NPAVRva00090F88Item@@@Z, retail 0x00090F88, 88 bytes.
 // Offers an item to its owner: the item's virtual slot 2 is asked to accept the owner's
 // slot 12 and slot 11 results (slot 11 takes whether the item's type at +0x24 is 5). On
 // acceptance the item is stored at +0x2C and true returned; otherwise the item is released
@@ -35,13 +35,13 @@ public:
 	virtual void v10();
 	virtual int slot11(bool flag);
 	virtual int slot12();
-	bool rva00090F88(Rva00090F88Item *item);
+	bool offerItem(Rva00090F88Item *item);
 private:
 	char m_pad[0x2C - 4];
 	Rva00090F88Item *m_item2C;
 };
 
-bool Rva00090F88::rva00090F88(Rva00090F88Item *item)
+bool Rva00090F88::offerItem(Rva00090F88Item *item)
 {
 	bool flag = false;
 	if (item->m_type24 == 5)

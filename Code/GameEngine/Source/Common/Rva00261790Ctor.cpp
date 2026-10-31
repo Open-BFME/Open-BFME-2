@@ -65,8 +65,8 @@ Rva00261790::Rva00261790(Drawable *drawable, bool flag) : m_04(0)
 	m_18 = flag;
 	float base = drawable->m_B8;
 	m_14 = base;
-	float g = *(float *)((char *)TheGlobalData758 + 0xD4);
-	m_14 = g * TheConst7F8FFC + base;
+	float scale = *(float *)((char *)TheGlobalData758 + 0xD4);
+	m_14 = scale * TheConst7F8FFC + base;
 }
 // ?dummy@Rva00261790@@UAEXXZ present-unmatched
 void Rva00261790::dummy() {}

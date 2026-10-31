@@ -54,12 +54,12 @@ public:
 	void Set_Texture(RefCountPtr<TextureClass> const *arg);
 };
 
-void Rva000456C9::Set_Texture(RefCountPtr<TextureClass> const *arg)
+void Rva000456C9::Set_Texture(RefCountPtr<TextureClass> const *newTexture)
 {
 	RefCountPtr<TextureClass> *t = &m_tex40;
-	if (*arg != *t)
+	if (*newTexture != *t)
 	{
-		*t = *arg;
+		*t = *newTexture;
 		TextureClass *texture = t->peek();
 		m_44 = (texture != 0) ? -1 : 0;
 	}

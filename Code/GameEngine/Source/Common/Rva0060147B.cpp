@@ -72,7 +72,7 @@ struct Rva0060126D {
  NativeNestedTree &rva0060147B(const char *name);
  __forceinline Rva006013B7Pair insert(const Rva00600F9CElement &element) { return rva006013B7(element); }
 };
-__forceinline const Rva00600F9CElement &KeepPair(const Rva00600F9CElement &v) { return v; }
+__forceinline const Rva00600F9CElement &KeepPair(const Rva00600F9CElement &element) { return element; }
 __forceinline const NativeNestedTree &HeaderView(const _STL::set<AsciiString,_STL::less<AsciiString>,_STL::allocator<AsciiString> > &v) { return reinterpret_cast<const NativeNestedTree &>(v); }
 NativeNestedTree &Rva0060126D::rva0060147B(const char *name) {
  void *node=reinterpret_cast<const FindTree *>(this)->_M_find<const char *>(name);

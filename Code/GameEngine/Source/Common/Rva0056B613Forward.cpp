@@ -17,7 +17,7 @@ public:
 class Rva003F9FE6
 {
 public:
-	unsigned char rva0056B7A0(int arg);
+	unsigned char rva0056B7A0(int id);
 private:
 	char m_pad55[0x55];
 	unsigned char m_55;	// +0x55, gates the +0x14 id check
@@ -57,12 +57,12 @@ void Rva0056B613::rva0056B613(int arg)
 // predicate tests its low byte). One shared xor-0/mov-1 epilogue serves all five exits, so the body
 // is written single-exit (goto True) rather than with early returns, which
 // keep their own 60B epilogues. Caller at 0x0056B613.
-unsigned char Rva003F9FE6::rva0056B7A0(int arg)
+unsigned char Rva003F9FE6::rva0056B7A0(int id)
 {
-	if (arg != -1) {
+	if (id != -1) {
 		void *obj = *(void **)((char *)TheLivingWorldLogic + 0x98);
-		if (obj != 0 && (m_55 == 0 || *(int *)((char *)obj + 0x14) == arg)
-			&& (m_56 == 0 || (unsigned char)((Rva002E071E *)obj)->rva002E0BC0(arg) != 0))
+		if (obj != 0 && (m_55 == 0 || *(int *)((char *)obj + 0x14) == id)
+			&& (m_56 == 0 || (unsigned char)((Rva002E071E *)obj)->rva002E0BC0(id) != 0))
 			goto True;
 		return 0;
 	}

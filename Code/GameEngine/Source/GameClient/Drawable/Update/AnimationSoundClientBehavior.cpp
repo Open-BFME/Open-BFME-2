@@ -73,7 +73,7 @@ class AnimationSoundTree {
 public:
 	AnimationSoundTree();
 	~AnimationSoundTree();
-	AnimationSoundTree *rva004CA13D(const void*,const void*);
+	AnimationSoundTree *initHeader(const void*,const void*);
 	AnimationSoundTreeNode *rva004C9FE0(const void*);
 public:
 	AnimationSoundTreeNode*header;
@@ -676,7 +676,7 @@ AnimationSoundTree::AnimationSoundTree()
 	}
 	{
 		char secondDummy;
-		rva004CA13D(first, &secondDummy);
+		initHeader(first, &secondDummy);
 	}
 }
 
@@ -700,7 +700,7 @@ AnimationSoundTree::AnimationSoundTree()
 
 // tu-skeleton: 0x004CA05A 203B ??0AnimationSoundClientBehavior@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/Common/AnimationSoundClientBehaviorCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x004CA13D 42B ?rva004CA13D@AnimationSoundTree@@QAEPAV1@PBX0@Z -- matched in Code/GameEngine/Source/Common/AnimationSoundTreeFree.cpp (not merged yet)
+// tu-skeleton: 0x004CA13D 42B ?initHeader@AnimationSoundTree@@QAEPAV1@PBX0@Z -- matched in Code/GameEngine/Source/Common/AnimationSoundTreeFree.cpp (not merged yet)
 
 // tu-skeleton: 0x004CA167 53B ?rva004CA167@AnimationSoundTree@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/AnimationSoundTreeFree.cpp (not merged yet)
 

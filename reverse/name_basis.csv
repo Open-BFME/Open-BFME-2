@@ -6264,3 +6264,57 @@ function,?rva007B6C84@@YAXXZ,?destroyCursorTextures@@YAXXZ,inferred,agree:nl-156
 function,?rva007B7DD1@@YAXXZ,?destroyChatHistoryVectors@@YAXXZ,inferred,agree:nl-30758270ed65,Code/GameEngine/Source/Common/Rva007AEA2CArrayInits.cpp,0x007B7DD1
 function,?Rva003C3B2CPopHeap@@YAXPAPAURva003BD485Keyed@@0HH@Z,?popHeapAux@@YAXPAPAURva003BD485Keyed@@0HH@Z,inferred,agree:nl-ed2c483871ae,Code/GameEngine/Source/GameLogic/Object/Rva003BD485Median.cpp,0x003C3B2C
 function,?Rva003C4B67MakeHeap@@YAXPAPAURva003BD485Keyed@@0H@Z,?makeHeapAux@@YAXPAPAURva003BD485Keyed@@0H@Z,inferred,agree:nl-fcc4116fa342,Code/GameEngine/Source/GameLogic/Object/Rva003BD485Median.cpp,0x003C4B67
+member,Rva000B5746::m_04,Rva000B5746::m_conditionStates,inferred,agree:nl-1c34bc887edf,Code/GameEngine/Source/Common/Rva000B5746Forwarders.cpp,
+member,Rva0010F49A::m_volume0C,Rva0010F49A::m_volume,inferred,agree:nl-47145471d1d1,Code/GameEngine/Source/Common/Rva0010F49AFinish.cpp,
+member,Rva00340D70::m_ptr5C,Rva00340D70::m_snapshot,inferred,agree:nl-09373b617b41,Code/GameEngine/Source/Common/Rva00340D70Xfer.cpp,
+member,Rva002A7588Mid::m_flags108,Rva002A7588Mid::m_flags,inferred,agree:nl-2ae3a168a4ff,Code/GameEngine/Source/GameLogic/Object/Rva002A7588Query.cpp,
+param,famgenDelete#10::p,famgenDelete#10::m_objectToDelete,inferred,agree:nl-54f52249a7e7,Code/GameEngine/Source/Common/FamilyDeletingDtors12.cpp,
+param,famgenDelete#11::p,famgenDelete#11::m_objectToDelete,inferred,agree:nl-865aeeb26b98,Code/GameEngine/Source/Common/FamilyDeletingDtors12.cpp,
+param,famgenDelete#12::p,famgenDelete#12::m_objectToDelete,inferred,agree:nl-1c7ee7cefb1e,Code/GameEngine/Source/Common/FamilyDeletingDtors12.cpp,
+param,famgenDelete#13::p,famgenDelete#13::m_objectToDelete,inferred,agree:nl-c9c688cf04b5,Code/GameEngine/Source/Common/FamilyDeletingDtors12.cpp,
+param,famgenDelete#14::p,famgenDelete#14::m_objectToDelete,inferred,agree:nl-88fa53ffa3b1,Code/GameEngine/Source/Common/FamilyDeletingDtors12.cpp,
+param,famgenDelete#2::p,famgenDelete#2::m_objectToDelete,inferred,agree:nl-9c4ee28bdb0e,Code/GameEngine/Source/Common/FamilyDeletingDtors12.cpp,
+param,famgenDelete#3::p,famgenDelete#3::m_objectToDelete,inferred,agree:nl-70881f2d87e5,Code/GameEngine/Source/Common/FamilyDeletingDtors12.cpp,
+param,famgenDelete#4::p,famgenDelete#4::m_objectToDelete,inferred,agree:nl-603e594a2ab0,Code/GameEngine/Source/Common/FamilyDeletingDtors12.cpp,
+param,famgenDelete#5::p,famgenDelete#5::m_objectToDelete,inferred,agree:nl-6c05802fe351,Code/GameEngine/Source/Common/FamilyDeletingDtors12.cpp,
+param,famgenDelete#6::p,famgenDelete#6::m_objectToDelete,inferred,agree:nl-85967ab96b60,Code/GameEngine/Source/Common/FamilyDeletingDtors12.cpp,
+param,famgenDelete#7::p,famgenDelete#7::m_objectToDelete,inferred,agree:nl-255ee1b166bb,Code/GameEngine/Source/Common/FamilyDeletingDtors12.cpp,
+param,famgenDelete#8::p,famgenDelete#8::m_objectToDelete,inferred,agree:nl-cdb89735dbfc,Code/GameEngine/Source/Common/FamilyDeletingDtors12.cpp,
+param,famgenDelete#9::p,famgenDelete#9::m_objectToDelete,inferred,agree:nl-1babd20b9f2a,Code/GameEngine/Source/Common/FamilyDeletingDtors12.cpp,
+local,Rva00261790::Rva00261790#2::g,Rva00261790::Rva00261790#2::scale,inferred,agree:nl-8505d1966632,Code/GameEngine/Source/Common/Rva00261790Ctor.cpp,
+local,Rva002E17A0Copy::n,Rva002E17A0Copy::count,inferred,agree:nl-5b52ec13a57e,Code/GameEngine/Source/Common/Rva002E15E6Method.cpp,0x002E17A0
+local,Rva00342FCD::onEnter::v,Rva00342FCD::onEnter::mode,inferred,agree:nl-a077916f0543,Code/GameEngine/Source/Common/Rva00342FCDOnEnter.cpp,0x0034BCBD
+local,Rva00431AEC::rva00431AEC::q,Rva00431AEC::rva00431AEC::dispatcher,inferred,agree:nl-d40bd0dac69d,Code/GameEngine/Source/Common/Rva00431AEC.cpp,0x00431AEC
+local,Rva00431E95::HandleButtonUp::q,Rva00431E95::HandleButtonUp::dispatcher,inferred,agree:nl-d4e6db54a740,Code/GameEngine/Source/Common/Rva00431E95.cpp,0x00431E95
+local,Rva00431F0C::rva00431F0C::q,Rva00431F0C::rva00431F0C::dispatcher,inferred,agree:nl-ccd5d4d8dc53,Code/GameEngine/Source/Common/Rva00431F0C.cpp,0x00431F0C
+local,Rva0055B52E::Rva0055B52E::n,Rva0055B52E::Rva0055B52E::count,inferred,agree:nl-2261fceabe81-m634375e0eaa10419962905e4,Code/GameEngine/Source/Common/Rva0055B52EPermuted.cpp,0x0055B52E
+param,Rva0056ADF1::Rva0056ADF1::arg1,Rva0056ADF1::Rva0056ADF1::owner,inferred,agree:nl-1d4e8f3e4368,Code/GameEngine/Source/Common/Rva0056ADF1Ctor.cpp,0x0056ADF1
+param,Rva003F9FE6::rva0056B7A0::arg,Rva003F9FE6::rva0056B7A0::id,inferred,agree:nl-08d14c81bc06,Code/GameEngine/Source/Common/Rva0056B613Forward.cpp,0x0056B7A0
+local,Rva005C41C9::rva005C4180::a,Rva005C41C9::rva005C4180::previousState,inferred,agree:nl-83a1eb791b8e,Code/GameEngine/Source/Common/Rva005C4180Refresh.cpp,0x005C4180
+param,Rva005C41C9::rva005C4180::v,Rva005C41C9::rva005C4180::enabled,inferred,agree:nl-8d895cf25384,Code/GameEngine/Source/Common/Rva005C4180Refresh.cpp,0x005C4180
+local,Rva005DB145::rva005DB145::e,Rva005DB145::rva005DB145::element,inferred,agree:nl-84c0b7711fe2,Code/GameEngine/Source/Common/Rva005DB100Dtor.cpp,0x005DB145
+local,Rva005DB145::rva005DB145::v,Rva005DB145::rva005DB145::id,inferred,agree:nl-9e58df5aa34a,Code/GameEngine/Source/Common/Rva005DB100Dtor.cpp,0x005DB145
+param,KeepPair::v,KeepPair::element,inferred,agree:nl-dd02e949e837,Code/GameEngine/Source/Common/Rva0060147B.cpp,
+param,Rva003B241AOwner_DeleteAnchor::p,Rva003B241AOwner_DeleteAnchor::m_objectToDelete,inferred,agree:nl-1f2009415d62,Code/GameEngine/Source/Common/VslotSmallBodiesAS.cpp,
+param,Rva0044BE85_DeleteAnchor::p,Rva0044BE85_DeleteAnchor::m_objectToDelete,inferred,agree:nl-ae03af394d57,Code/GameEngine/Source/Common/VslotSmallBodiesAS.cpp,
+param,Rva005D10D6_DeleteAnchor::p,Rva005D10D6_DeleteAnchor::m_objectToDelete,inferred,agree:nl-8fddb81054e3,Code/GameEngine/Source/Common/VslotSmallBodiesAS.cpp,
+local,AIRampageState::onEnter::c,AIRampageState::onEnter::durationFrames,inferred,agree:nl-260380ea87f8-m2a72562dca9263ba8d2044de,Code/GameEngine/Source/GameLogic/AI/AIRampageStateOnEnter.cpp,0x0034BD1B
+local,AIRampageState::onEnter::v,AIRampageState::onEnter::m_delayFrames,inferred,agree:nl-cac10b5f25aa-m7523bcc26e79c0a08541ded9,Code/GameEngine/Source/GameLogic/AI/AIRampageStateOnEnter.cpp,0x0034BD1B
+param,Rva000456C9::Set_Texture::arg,Rva000456C9::Set_Texture::newTexture,inferred,agree:nl-0dcdd3c4d163,Code/Libraries/Source/WWVegas/WW3D2/Rva000456C9.cpp,0x000456C9
+local,Rva0020EEF4Outer::rva0020EEF4::r,Rva0020EEF4Outer::rva0020EEF4::elementResult,inferred,agree:nl-3268e9d348c9,Code/Libraries/Source/WWVegas/WWLib/Rva0020EEF4Search.cpp,0x0020EEF4
+function,?rva004CA13D@AnimationSoundTree@@QAEPAV1@PBX0@Z,?initHeader@AnimationSoundTree@@QAEPAV1@PBX0@Z,inferred,agree:nl-9fa02e7b330d,Code/GameEngine/Source/Common/AnimationSoundTreeFree.cpp,0x004CA13D
+function,?rva000D167A@Rva000D167A@@QAEXI@Z,?addFlags@Rva000D167A@@QAEXI@Z,inferred,agree:nl-ef1c0ee5a5ea,Code/GameEngine/Source/Common/GapBodiesSeat2A.cpp,0x000D167A
+function,?rva00090F88@Rva00090F88@@QAE_NPAVRva00090F88Item@@@Z,?offerItem@Rva00090F88@@QAE_NPAVRva00090F88Item@@@Z,inferred,agree:nl-44ea1badcadc,Code/GameEngine/Source/Common/Rva00090F88.cpp,0x00090F88
+function,?rva0010F33C@Rva0010F33C@@QAEXXZ,?startStream@Rva0010F33C@@QAEXXZ,inferred,agree:nl-17cd869523c1,Code/GameEngine/Source/Common/Rva0010F33CStart.cpp,0x0010F33C
+carry,Rva0010F33C::rva0010F33C::guard,Rva0010F33C::startStream::guard,inferred,scope renamed by Rename rva0010F33C to startStream (inferred),Code/GameEngine/Source/Common/Rva0010F33CStart.cpp,0x0010F33C
+carry,Rva0010F33C::rva0010F33C::outer,Rva0010F33C::startStream::outer,inferred,scope renamed by Rename rva0010F33C to startStream (inferred),Code/GameEngine/Source/Common/Rva0010F33CStart.cpp,0x0010F33C
+carry,Rva0010F33C::rva0010F33C::stream,Rva0010F33C::startStream::stream,inferred,scope renamed by Rename rva0010F33C to startStream (inferred),Code/GameEngine/Source/Common/Rva0010F33CStart.cpp,0x0010F33C
+function,?rva00210DEE@Rva00210DD5@@QAEXXZ,?updateCursorVisibility@Rva00210DD5@@QAEXXZ,inferred,agree:nl-5236dcfb21a2,Code/GameEngine/Source/Common/Rva00210DD5LivingWorldFlag.cpp,0x00210DEE
+function,?rva0040A3B1@Rva0040A3F9@@QAEPAVCreateAHeroData@@H@Z,?findHeroData@Rva0040A3F9@@QAEPAVCreateAHeroData@@H@Z,inferred,agree:nl-1d1601ef6e94,Code/GameEngine/Source/Common/Rva0040A1ACHeroPtrAlgos.cpp,0x0040A3B1
+function,?rva005b4c73@Impl@@UAEXPBD@Z,?invoke@Impl@@UAEXPBD@Z,inferred,agree:nl-49654d74b1f5,Code/GameEngine/Source/Common/Rva00579E47Delegate.cpp,0x005B4C73
+carry,Impl::rva005b4c73::text,Impl::invoke::text,inferred,scope renamed by Rename rva005b4c73 to invoke (inferred),Code/GameEngine/Source/Common/Rva00579E47Delegate.cpp,0x005B4C73
+function,?rva005D3287@Rva005D3287@@QAEX_N@Z,?setVisibility@Rva005D3287@@QAEX_N@Z,inferred,agree:nl-38f2f69378f0,Code/GameEngine/Source/Common/Rva005D3287Thunk.cpp,0x005D3287
+function,?rva007AC9B0@Rva007AC9B0FilterInits@@SAXXZ,?initBaseFilter@Rva007AC9B0FilterInits@@SAXXZ,inferred,agree:nl-40460dca6f34,Code/GameEngine/Source/Common/Rva007AC9B0FilterInits.cpp,0x007AC9B0
+function,?rva007AC9C6@Rva007AC9B0FilterInits@@SAXXZ,?initDot3Filter@Rva007AC9B0FilterInits@@SAXXZ,inferred,agree:nl-03bde175c5e2,Code/GameEngine/Source/Common/Rva007AC9B0FilterInits.cpp,0x007AC9C6
+function,?rva00082D2A@Rva00082C98Host@@QAEXI@Z,?resize@Rva00082C98Host@@QAEXI@Z,inferred,agree:nl-d384b657d3bc,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/Rva00082D6AInit.cpp,0x00082D2A
+class,Rva00563F34,FXGate,inferred,agree:nl-537c2b7e436e,Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva00563F34FXGate.cpp,

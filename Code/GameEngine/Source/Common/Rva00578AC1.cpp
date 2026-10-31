@@ -96,7 +96,7 @@ typedef char Rva005D3C2BSizeCheck[(sizeof(Rva005D3C2B) == 0x34) ? 1 : -1];
 
 // Verified visibility providers, called by the primary interface slot11.
 class Rva005D37F1 { public: void rva005D37F1(bool); };
-class Rva005D3287 { public: void rva005D3287(bool); };
+class Rva005D3287 { public: void setVisibility(bool); };
 
 // The owning pointers at +0x44..+0x50, viewed through their rowed resets
 // and clears.
@@ -708,7 +708,7 @@ void PalantirObjectivesButtonReceiver::setEnabled(bool value) {
 void StrategicHUD::Palantir::rva0057864E(bool visible)
 {
  ((Rva005D37F1 *)m_regionUI.m_ptr)->rva005D37F1(visible);
- ((Rva005D3287 *)m_regionStatsTray.m_ptr)->rva005D3287(visible);
+ ((Rva005D3287 *)m_regionStatsTray.m_ptr)->setVisibility(visible);
 }
 
 // Retail 0x00578C43..0x00578D10 (205 B), not virtual: no vtable of the
