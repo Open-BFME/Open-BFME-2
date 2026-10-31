@@ -43,18 +43,6 @@ namespace _STL { template <> void vector<const ModuleData *, allocator<const Mod
 // The retail push_back body is rowed at 0x004DFCB0.
 namespace _STL { template <> void vector<const ModuleData *, allocator<const ModuleData *> >::push_back(const ModuleData *const &); }
 
-// vector<void*> begin/end otherwise instantiate per-TU COMDATs (one byte
-// shape per TU flags); explicit dllimport+forceinline specializations take
-// those calls inline so this TU emits no external copies.
-namespace _STL {
-template <> __declspec(dllimport) __forceinline
-void **vector<void*>::begin()
-{ return _M_start; }
-template <> __declspec(dllimport) __forceinline
-void **vector<void*>::end()
-{ return _M_finish; }
-}
-
 class ModuleData {};
 class UpgradeTemplate : public ModuleData {};
 class UpgradeCenter
